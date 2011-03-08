@@ -21,6 +21,7 @@ import java.io.File;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -44,7 +45,6 @@ import com.google.bitcoin.core.WalletEventListener;
 public class WalletActivity extends Activity implements WalletEventListener
 {
 	private static final String WALLET_FILENAME = "wallet";
-	private static final String PEER_ADDRESS = "darkly";
 	private static final NetworkParameters NETWORK_PARAMS = NetworkParameters.prodNet();
 
 	private Wallet wallet;
@@ -69,11 +69,14 @@ public class WalletActivity extends Activity implements WalletEventListener
 
 		try
 		{
-			final NetworkConnection conn = new NetworkConnection(InetAddress.getByName(PEER_ADDRESS), NETWORK_PARAMS);
+			final InetAddress inetAddress = inetAddressFromUnsignedInt(Constants.SEED_NODES[0]);
+			final NetworkConnection conn = new NetworkConnection(inetAddress, NETWORK_PARAMS);
 			final BlockChain chain = new BlockChain(NETWORK_PARAMS, wallet);
 			peer = new Peer(NETWORK_PARAMS, conn, chain);
 			peer.start();
 			// peer.startBlockChainDownload();
+
+			((TextView) findViewById(R.id.peer_host)).setText(inetAddress.getHostAddress());
 
 			wallet.addEventListener(this);
 		}
@@ -152,6 +155,20 @@ public class WalletActivity extends Activity implements WalletEventListener
 			wallet.saveToFile(walletFile);
 		}
 		catch (IOException x)
+		{
+			throw new RuntimeException(x);
+		}
+	}
+
+	private static InetAddress inetAddressFromUnsignedInt(final long l)
+	{
+		final byte[] bytes = { (byte) (l & 0x000000ff), (byte) ((l & 0x0000ff00) >> 8), (byte) ((l & 0x00ff0000) >> 16),
+				(byte) ((l & 0xff000000) >> 24) };
+		try
+		{
+			return InetAddress.getByAddress(bytes);
+		}
+		catch (final UnknownHostException x)
 		{
 			throw new RuntimeException(x);
 		}
