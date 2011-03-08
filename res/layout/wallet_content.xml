@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="fill_parent"
+	android:layout_height="fill_parent" android:orientation="vertical">
+
+	<LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+		<TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Address:" />
+		<TextView android:id="@+id/bitcoin_address" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+	</LinearLayout>
+
+	<LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+		<TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Balance:" />
+		<TextView android:id="@+id/wallet_balance" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+	</LinearLayout>
+
+	<TextView android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_weight="100"
+		android:gravity="bottom"
+		android:text="WARNING: This is entirely experimental. You *will* loose your BitCoins associated with this wallet! Use at your own risk!" />
+
+</LinearLayout>
