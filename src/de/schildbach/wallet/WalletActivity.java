@@ -232,10 +232,11 @@ public class WalletActivity extends Activity implements WalletEventListener
 		if (lines < 2)
 			return str;
 
-		final int len = (int) Math.ceil(str.length() / lines);
-		final StringBuilder splitStr = new StringBuilder(str);
+		final int len = (int) Math.ceil((float) str.length() / lines);
+		final StringBuilder builder = new StringBuilder(str);
 		for (int i = 0; i < lines - 1; i++)
-			splitStr.insert(len + i * (len + 1), '\n');
-		return splitStr.toString();
+			builder.insert(len + i * (len + 1), '\n');
+
+		return builder.toString();
 	}
 }
