@@ -1,9 +1,15 @@
 package de.schildbach.wallet;
 
+import com.google.bitcoin.core.NetworkParameters;
+
 public class Constants
 {
+	public static final boolean TEST = true;
+
+	public static final NetworkParameters NETWORK_PARAMS = TEST ? NetworkParameters.testNet() : NetworkParameters.prodNet();
+
 	// taken from official client: https://github.com/bitcoin/bitcoin/blob/master/net.cpp
-	public final static long[] SEED_NODES = { 0x1ddb1032, 0x6242ce40, 0x52d6a445, 0x2dd7a445, 0x8a53cd47, 0x73263750, 0xda23c257, 0xecd4ed57,
+	public static final long[] SEED_NODES = { 0x1ddb1032, 0x6242ce40, 0x52d6a445, 0x2dd7a445, 0x8a53cd47, 0x73263750, 0xda23c257, 0xecd4ed57,
 			0x0a40ec59, 0x75dce160, 0x7df76791, 0x89370bad, 0xa4f214ad, 0x767700ae, 0x638b0418, 0x868a1018, 0xcd9f332e, 0x0129653e, 0xcc92dc3e,
 			0x96671640, 0x56487e40, 0x5b66f440, 0xb1d01f41, 0xf1dc6041, 0xc1d12b42, 0x86ba1243, 0x6be4df43, 0x6d4cef43, 0xd18e0644, 0x1ab0b344,
 			0x6584a345, 0xe7c1a445, 0x58cea445, 0xc5daa445, 0x21dda445, 0x3d3b5346, 0x13e55347, 0x1080d24a, 0x8e611e4b, 0x81518e4b, 0x6c839e4b,
@@ -33,4 +39,6 @@ public class Constants
 			0x839a3ab8, 0x40a0016c, 0x6d27c257, 0x977fffad, 0x7baa5d5d, 0x1213be43, 0xb167e5a9, 0x640fe8ca, 0xbc9ea655, 0x0f820a4c, 0x0f097059,
 			0x69ac957c, 0x366d8453, 0xb1ba2844, 0x8857f081, 0x70b5be63, 0xc545454b, 0xaf36ded1, 0xb5a4b052, 0x21f062d1, 0x72ab89b2, 0x74a45318,
 			0x8312e6bc, 0xb916965f, 0x8aa7c858, 0xfe7effad };
+
+	public static final String TEST_SEED_NODE = "your_node";
 }

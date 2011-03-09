@@ -24,6 +24,7 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.widget.TextView;
 
@@ -31,7 +32,6 @@ import com.google.bitcoin.core.Address;
 import com.google.bitcoin.core.BlockChain;
 import com.google.bitcoin.core.ECKey;
 import com.google.bitcoin.core.NetworkConnection;
-import com.google.bitcoin.core.NetworkParameters;
 import com.google.bitcoin.core.Peer;
 import com.google.bitcoin.core.Transaction;
 import com.google.bitcoin.core.TransactionInput;
@@ -44,8 +44,7 @@ import com.google.bitcoin.core.WalletEventListener;
  */
 public class WalletActivity extends Activity implements WalletEventListener
 {
-	private static final String WALLET_FILENAME = "wallet";
-	private static final NetworkParameters NETWORK_PARAMS = NetworkParameters.prodNet();
+	private static final String WALLET_FILENAME = Constants.TEST ? "wallet-test" : "wallet";
 
 	private Wallet wallet;
 	private Peer peer;
@@ -57,22 +56,25 @@ public class WalletActivity extends Activity implements WalletEventListener
 
 		setContentView(R.layout.wallet_content);
 
+		((TextView) findViewById(R.id.bitcoin_network)).setText(Constants.TEST ? "testnet" : "prodnet");
+
 		loadWallet();
 
 		updateGUI();
 
 		final ECKey key = wallet.keychain.get(0);
-		final Address address = new Address(NETWORK_PARAMS, key.getPubKey());
+		final Address address = new Address(Constants.NETWORK_PARAMS, key.getPubKey());
 
-		System.out.println("my bitcoin address: " + address.toString());
+		System.out.println("my bitcoin address: " + address.toString() + (Constants.TEST ? " (testnet!)" : ""));
 		((TextView) findViewById(R.id.bitcoin_address)).setText(address.toString());
 
 		try
 		{
-			final InetAddress inetAddress = inetAddressFromUnsignedInt(Constants.SEED_NODES[0]);
-			final NetworkConnection conn = new NetworkConnection(inetAddress, NETWORK_PARAMS);
-			final BlockChain chain = new BlockChain(NETWORK_PARAMS, wallet);
-			peer = new Peer(NETWORK_PARAMS, conn, chain);
+			final InetAddress inetAddress = Constants.TEST ? InetAddress.getByName(Constants.TEST_SEED_NODE)
+					: inetAddressFromUnsignedInt(Constants.SEED_NODES[0]);
+			final NetworkConnection conn = new NetworkConnection(inetAddress, Constants.NETWORK_PARAMS);
+			final BlockChain chain = new BlockChain(Constants.NETWORK_PARAMS, wallet);
+			peer = new Peer(Constants.NETWORK_PARAMS, conn, chain);
 			peer.start();
 			// peer.startBlockChainDownload();
 
@@ -133,31 +135,37 @@ public class WalletActivity extends Activity implements WalletEventListener
 
 	private void loadWallet()
 	{
-		final File walletFile = new File(getFilesDir(), WALLET_FILENAME);
-
 		try
 		{
-			wallet = Wallet.loadFromFile(walletFile);
+			final File file = walletFile();
+			wallet = Wallet.loadFromFile(file);
+			System.out.println("wallet loaded from: " + file);
 		}
 		catch (IOException x)
 		{
-			wallet = new Wallet(NETWORK_PARAMS);
+			wallet = new Wallet(Constants.NETWORK_PARAMS);
 			wallet.keychain.add(new ECKey());
 		}
 	}
 
 	private void saveWallet()
 	{
-		final File walletFile = new File(getFilesDir(), WALLET_FILENAME);
-
 		try
 		{
-			wallet.saveToFile(walletFile);
+			final File file = walletFile();
+			wallet.saveToFile(file);
+			System.out.println("wallet saved to: " + file);
 		}
 		catch (IOException x)
 		{
 			throw new RuntimeException(x);
 		}
+	}
+
+	private File walletFile()
+	{
+		return new File(Constants.TEST ? getDir("testnet", Context.MODE_WORLD_READABLE | Context.MODE_WORLD_WRITEABLE) : getFilesDir(),
+				WALLET_FILENAME);
 	}
 
 	private static InetAddress inetAddressFromUnsignedInt(final long l)
