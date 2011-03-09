@@ -33,6 +33,9 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.HandlerThread;
+import android.os.Process;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -58,10 +61,18 @@ public class WalletActivity extends Activity implements WalletEventListener
 	private Wallet wallet;
 	private Peer peer;
 
+	private HandlerThread backgroundThread;
+	private Handler backgroundHandler;
+
 	@Override
 	protected void onCreate(final Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
+
+		// background thread
+		backgroundThread = new HandlerThread("backgroundThread", Process.THREAD_PRIORITY_BACKGROUND);
+		backgroundThread.start();
+		backgroundHandler = new Handler(backgroundThread.getLooper());
 
 		final Uri intentUri = getIntent().getData();
 		if (intentUri != null && "bitcoin".equals(intentUri.getScheme()))
@@ -81,7 +92,6 @@ public class WalletActivity extends Activity implements WalletEventListener
 		final String addressStr = address.toString();
 		System.out.println("my bitcoin address: " + addressStr + (Constants.TEST ? " (testnet!)" : ""));
 		((TextView) findViewById(R.id.bitcoin_address)).setText(splitIntoLines(addressStr, 3));
-		((ImageView) findViewById(R.id.bitcoin_address_qr)).setImageBitmap(getQRCodeBitmap("bitcoin:" + addressStr));
 
 		try
 		{
@@ -101,6 +111,23 @@ public class WalletActivity extends Activity implements WalletEventListener
 		{
 			throw new RuntimeException(x);
 		}
+
+		// populate qrcode representation of bitcoin address
+		backgroundHandler.post(new Runnable()
+		{
+			public void run()
+			{
+				final Bitmap qrCodeBitmap = getQRCodeBitmap("bitcoin:" + addressStr);
+
+				runOnUiThread(new Runnable()
+				{
+					public void run()
+					{
+						((ImageView) findViewById(R.id.bitcoin_address_qr)).setImageBitmap(qrCodeBitmap);
+					}
+				});
+			}
+		});
 	}
 
 	public void onCoinsReceived(final Wallet w, final Transaction tx, final BigInteger prevBalance, final BigInteger newBalance)
@@ -139,6 +166,9 @@ public class WalletActivity extends Activity implements WalletEventListener
 		}
 
 		saveWallet();
+
+		// cancel background thread
+		backgroundThread.getLooper().quit();
 
 		super.onDestroy();
 	}
