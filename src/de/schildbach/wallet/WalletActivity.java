@@ -150,9 +150,10 @@ public class WalletActivity extends Activity implements WalletEventListener
 
 	private void loadWallet()
 	{
+		final File file = walletFile();
+
 		try
 		{
-			final File file = walletFile();
 			wallet = Wallet.loadFromFile(file);
 			System.out.println("wallet loaded from: " + file);
 		}
@@ -160,6 +161,16 @@ public class WalletActivity extends Activity implements WalletEventListener
 		{
 			wallet = new Wallet(Constants.NETWORK_PARAMS);
 			wallet.keychain.add(new ECKey());
+
+			try
+			{
+				wallet.saveToFile(file);
+				System.out.println("wallet created: " + file);
+			}
+			catch (final IOException x2)
+			{
+				throw new Error("wallet cannot be created", x2);
+			}
 		}
 	}
 
