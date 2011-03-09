@@ -83,6 +83,7 @@ public class WalletActivity extends Activity implements WalletEventListener
 		((TextView) findViewById(R.id.bitcoin_network)).setText(Constants.TEST ? "testnet" : "prodnet");
 
 		loadWallet();
+		wallet.addEventListener(this);
 
 		updateGUI();
 
@@ -93,24 +94,35 @@ public class WalletActivity extends Activity implements WalletEventListener
 		System.out.println("my bitcoin address: " + addressStr + (Constants.TEST ? " (testnet!)" : ""));
 		((TextView) findViewById(R.id.bitcoin_address)).setText(splitIntoLines(addressStr, 3));
 
-		try
+		backgroundHandler.post(new Runnable()
 		{
-			final InetAddress inetAddress = Constants.TEST ? InetAddress.getByName(Constants.TEST_SEED_NODE)
-					: inetAddressFromUnsignedInt(Constants.SEED_NODES[0]);
-			final NetworkConnection conn = new NetworkConnection(inetAddress, Constants.NETWORK_PARAMS);
-			final BlockChain chain = new BlockChain(Constants.NETWORK_PARAMS, wallet);
-			peer = new Peer(Constants.NETWORK_PARAMS, conn, chain);
-			peer.start();
-			// peer.startBlockChainDownload();
+			public void run()
+			{
+				try
+				{
+					final InetAddress inetAddress = Constants.TEST ? InetAddress.getByName(Constants.TEST_SEED_NODE)
+							: inetAddressFromUnsignedInt(Constants.SEED_NODES[0]);
+					final NetworkConnection connection = new NetworkConnection(inetAddress, Constants.NETWORK_PARAMS);
 
-			((TextView) findViewById(R.id.peer_host)).setText(inetAddress.getHostAddress());
+					runOnUiThread(new Runnable()
+					{
+						public void run()
+						{
+							final BlockChain chain = new BlockChain(Constants.NETWORK_PARAMS, wallet);
+							peer = new Peer(Constants.NETWORK_PARAMS, connection, chain);
+							peer.start();
+							// peer.startBlockChainDownload();
 
-			wallet.addEventListener(this);
-		}
-		catch (Exception x)
-		{
-			throw new RuntimeException(x);
-		}
+							((TextView) findViewById(R.id.peer_host)).setText(inetAddress.getHostAddress());
+						}
+					});
+				}
+				catch (Exception x)
+				{
+					throw new RuntimeException(x);
+				}
+			}
+		});
 
 		// populate qrcode representation of bitcoin address
 		backgroundHandler.post(new Runnable()
