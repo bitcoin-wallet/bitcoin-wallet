@@ -17,15 +17,22 @@
 
 package de.schildbach.wallet;
 
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.net.InetAddress;
+import java.net.URL;
+import java.net.URLConnection;
+import java.net.URLEncoder;
 import java.net.UnknownHostException;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.bitcoin.core.Address;
@@ -65,8 +72,10 @@ public class WalletActivity extends Activity implements WalletEventListener
 		final ECKey key = wallet.keychain.get(0);
 		final Address address = new Address(Constants.NETWORK_PARAMS, key.getPubKey());
 
-		System.out.println("my bitcoin address: " + address.toString() + (Constants.TEST ? " (testnet!)" : ""));
-		((TextView) findViewById(R.id.bitcoin_address)).setText(address.toString());
+		final String addressStr = address.toString();
+		System.out.println("my bitcoin address: " + addressStr + (Constants.TEST ? " (testnet!)" : ""));
+		((TextView) findViewById(R.id.bitcoin_address)).setText(addressStr);
+		((ImageView) findViewById(R.id.bitcoin_address_qr)).setImageBitmap(getQRCodeBitmap("bitcoin:" + addressStr));
 
 		try
 		{
@@ -179,6 +188,25 @@ public class WalletActivity extends Activity implements WalletEventListener
 		catch (final UnknownHostException x)
 		{
 			throw new RuntimeException(x);
+		}
+	}
+
+	private Bitmap getQRCodeBitmap(final String url)
+	{
+		try
+		{
+			final URLConnection connection = new URL("http://chart.apis.google.com/chart?cht=qr&chs=250x250&chl="
+					+ URLEncoder.encode(url, "ISO-8859-1")).openConnection();
+			connection.connect();
+			final BufferedInputStream is = new BufferedInputStream(connection.getInputStream());
+			final Bitmap bm = BitmapFactory.decodeStream(is);
+			is.close();
+			return bm;
+		}
+		catch (final IOException x)
+		{
+			x.printStackTrace();
+			return null;
 		}
 	}
 }

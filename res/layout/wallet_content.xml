@@ -20,6 +20,8 @@
 		<TextView android:id="@+id/wallet_balance" android:layout_width="wrap_content" android:layout_height="wrap_content" />
 	</LinearLayout>
 
+	<ImageView android:id="@+id/bitcoin_address_qr" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+
 	<TextView android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_weight="100"
 		android:gravity="bottom"
 		android:text="WARNING: This is entirely experimental. You *will* loose your BitCoins associated with this wallet! Use at your own risk!" />
