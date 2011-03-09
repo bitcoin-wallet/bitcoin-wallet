@@ -29,7 +29,8 @@
 	</LinearLayout>
 
 	<TextView android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_weight="100"
-		android:gravity="bottom"
-		android:text="WARNING: This is entirely experimental. You *will* loose your BitCoins associated with this wallet! Use at your own risk!" />
+		android:layout_gravity="center_horizontal" android:gravity="bottom|center_horizontal"
+		android:text="WARNING: This is entirely experimental. You *will* loose your Bitcoins associated with this wallet! Use at your own risk, and use only with small amounts of Bitcoins!"
+		android:textSize="12sp" />
 
 </LinearLayout>
