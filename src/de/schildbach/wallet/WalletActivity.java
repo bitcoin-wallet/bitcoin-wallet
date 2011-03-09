@@ -31,9 +31,11 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.bitcoin.core.Address;
 import com.google.bitcoin.core.BlockChain;
@@ -60,6 +62,10 @@ public class WalletActivity extends Activity implements WalletEventListener
 	protected void onCreate(final Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
+
+		final Uri intentUri = getIntent().getData();
+		if (intentUri != null && "bitcoin".equals(intentUri.getScheme()))
+			Toast.makeText(this, "sending coins to " + intentUri.getSchemeSpecificPart() + " not yet implemented", Toast.LENGTH_LONG).show();
 
 		setContentView(R.layout.wallet_content);
 
