@@ -3,12 +3,20 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="fill_parent"
 	android:layout_height="fill_parent" android:orientation="vertical">
 
-	<TextView android:id="@+id/bitcoin_network" android:layout_width="wrap_content" android:layout_height="wrap_content" />
-
-	<LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:orientation="horizontal">
-		<TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Address:" />
-		<TextView android:id="@+id/bitcoin_address" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+	<LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
+		android:layout_margin="16dp" android:orientation="horizontal">
+		<LinearLayout android:layout_width="wrap_content" android:layout_height="fill_parent"
+			android:orientation="vertical">
+			<TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Your Bitcoin Address:" />
+			<TextView android:id="@+id/bitcoin_address" android:layout_width="wrap_content" android:layout_height="wrap_content"
+				android:layout_weight="100" android:layout_gravity="bottom" android:gravity="bottom" android:typeface="monospace"
+				android:textSize="18sp" />
+		</LinearLayout>
+		<ImageView android:id="@+id/bitcoin_address_qr" android:layout_width="wrap_content" android:layout_height="wrap_content"
+			android:layout_marginLeft="16dp" android:layout_weight="100" android:layout_gravity="right" />
 	</LinearLayout>
+
+	<TextView android:id="@+id/bitcoin_network" android:layout_width="wrap_content" android:layout_height="wrap_content" />
 
 	<LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:orientation="horizontal">
 		<TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Peer:" />
@@ -19,8 +27,6 @@
 		<TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Balance:" />
 		<TextView android:id="@+id/wallet_balance" android:layout_width="wrap_content" android:layout_height="wrap_content" />
 	</LinearLayout>
-
-	<ImageView android:id="@+id/bitcoin_address_qr" android:layout_width="wrap_content" android:layout_height="wrap_content" />
 
 	<TextView android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_weight="100"
 		android:gravity="bottom"

@@ -80,7 +80,7 @@ public class WalletActivity extends Activity implements WalletEventListener
 
 		final String addressStr = address.toString();
 		System.out.println("my bitcoin address: " + addressStr + (Constants.TEST ? " (testnet!)" : ""));
-		((TextView) findViewById(R.id.bitcoin_address)).setText(addressStr);
+		((TextView) findViewById(R.id.bitcoin_address)).setText(splitIntoLines(addressStr, 3));
 		((ImageView) findViewById(R.id.bitcoin_address_qr)).setImageBitmap(getQRCodeBitmap("bitcoin:" + addressStr));
 
 		try
@@ -212,7 +212,7 @@ public class WalletActivity extends Activity implements WalletEventListener
 	{
 		try
 		{
-			final URLConnection connection = new URL("http://chart.apis.google.com/chart?cht=qr&chs=250x250&chl="
+			final URLConnection connection = new URL("http://chart.apis.google.com/chart?cht=qr&chs=160x160&chld=H|0&chl="
 					+ URLEncoder.encode(url, "ISO-8859-1")).openConnection();
 			connection.connect();
 			final BufferedInputStream is = new BufferedInputStream(connection.getInputStream());
@@ -225,5 +225,17 @@ public class WalletActivity extends Activity implements WalletEventListener
 			x.printStackTrace();
 			return null;
 		}
+	}
+
+	private static String splitIntoLines(final String str, final int lines)
+	{
+		if (lines < 2)
+			return str;
+
+		final int len = (int) Math.ceil(str.length() / lines);
+		final StringBuilder splitStr = new StringBuilder(str);
+		for (int i = 0; i < lines - 1; i++)
+			splitStr.insert(len + i * (len + 1), '\n');
+		return splitStr.toString();
 	}
 }
