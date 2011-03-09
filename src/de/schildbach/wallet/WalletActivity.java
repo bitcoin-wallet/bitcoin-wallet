@@ -76,7 +76,7 @@ public class WalletActivity extends Activity implements WalletEventListener
 		updateGUI();
 
 		final ECKey key = wallet.keychain.get(0);
-		final Address address = new Address(Constants.NETWORK_PARAMS, key.getPubKey());
+		final Address address = key.toAddress(Constants.NETWORK_PARAMS);
 
 		final String addressStr = address.toString();
 		System.out.println("my bitcoin address: " + addressStr + (Constants.TEST ? " (testnet!)" : ""));
