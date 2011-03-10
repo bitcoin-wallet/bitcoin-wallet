@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="fill_parent"
+	android:layout_height="wrap_content" android:orientation="vertical">
+
+	<TextView android:id="@+id/send_coins_receiving_address" android:layout_width="wrap_content"
+		android:layout_height="wrap_content" android:layout_gravity="center" android:typeface="monospace" android:textSize="18sp" />
+
+	<LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+		android:layout_gravity="center" android:gravity="center" android:orientation="horizontal">
+		<EditText android:id="@+id/send_coins_amount" android:layout_width="wrap_content" android:layout_height="wrap_content"
+			android:minEms="4" android:textSize="42sp" android:textStyle="bold" android:inputType="numberDecimal" />
+		<TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="4sp"
+			android:text="BTC" android:textColor="@android:color/darker_gray" android:textSize="42sp" />
+	</LinearLayout>
+
+	<LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
+		android:layout_weight="100" android:layout_gravity="bottom" android:gravity="bottom" android:orientation="horizontal">
+		<Button android:id="@+id/send_coins_cancel" android:layout_width="wrap_content" android:layout_height="wrap_content"
+			android:text="Cancel" />
+		<View android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="100" />
+		<Button android:id="@+id/send_coins_go" android:layout_width="wrap_content" android:layout_height="wrap_content"
+			android:text="Send" />
+	</LinearLayout>
+
+</LinearLayout>

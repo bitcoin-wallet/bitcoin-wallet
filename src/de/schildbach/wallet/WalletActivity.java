@@ -28,6 +28,7 @@ import java.net.URLEncoder;
 import java.net.UnknownHostException;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -36,6 +37,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Process;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -73,10 +76,6 @@ public class WalletActivity extends Activity implements WalletEventListener
 		backgroundThread = new HandlerThread("backgroundThread", Process.THREAD_PRIORITY_BACKGROUND);
 		backgroundThread.start();
 		backgroundHandler = new Handler(backgroundThread.getLooper());
-
-		final Uri intentUri = getIntent().getData();
-		if (intentUri != null && "bitcoin".equals(intentUri.getScheme()))
-			Toast.makeText(this, "sending coins to " + intentUri.getSchemeSpecificPart() + " not yet implemented", Toast.LENGTH_LONG).show();
 
 		setContentView(R.layout.wallet_content);
 
@@ -140,6 +139,84 @@ public class WalletActivity extends Activity implements WalletEventListener
 				});
 			}
 		});
+
+		final Uri intentUri = getIntent().getData();
+		if (intentUri != null && "bitcoin".equals(intentUri.getScheme()))
+		{
+			final String receivingAddressStr = intentUri.getSchemeSpecificPart();
+
+			final Dialog dialog = new Dialog(this);
+			dialog.setContentView(R.layout.send_coins_content);
+			((TextView) dialog.findViewById(R.id.send_coins_receiving_address)).setText(splitIntoLines(receivingAddressStr, 3));
+			dialog.show();
+
+			dialog.findViewById(R.id.send_coins_go).setOnClickListener(new OnClickListener()
+			{
+				public void onClick(final View v)
+				{
+					backgroundHandler.post(new Runnable()
+					{
+						public void run()
+						{
+							try
+							{
+								final Address receivingAddress = new Address(Constants.NETWORK_PARAMS, receivingAddressStr);
+								System.out.println("receivingAddress: " + receivingAddressStr);
+								final float amountFloat = Float.parseFloat(((TextView) dialog.findViewById(R.id.send_coins_amount)).getText()
+										.toString());
+								final BigInteger amount = Utils.toNanoCoins((int) amountFloat, (int) ((amountFloat % 1) * 100));
+								System.out.println("amount: " + amount + " (BTC " + Utils.bitcoinValueToFriendlyString(amount) + ")");
+
+								final Transaction tx = wallet.sendCoins(peer, receivingAddress, amount);
+
+								if (tx != null)
+								{
+									runOnUiThread(new Runnable()
+									{
+										public void run()
+										{
+											saveWallet();
+
+											updateGUI();
+
+											dialog.dismiss();
+
+											Toast.makeText(WalletActivity.this, Utils.bitcoinValueToFriendlyString(amount) + " BTC sent!",
+													Toast.LENGTH_LONG).show();
+										}
+									});
+								}
+								else
+								{
+									runOnUiThread(new Runnable()
+									{
+										public void run()
+										{
+											Toast.makeText(WalletActivity.this, "problem sending coins!", Toast.LENGTH_LONG).show();
+											dialog.dismiss();
+										}
+									});
+								}
+							}
+							catch (final Exception x)
+							{
+								x.printStackTrace();
+
+								runOnUiThread(new Runnable()
+								{
+									public void run()
+									{
+										Toast.makeText(WalletActivity.this, "problem sending coins: " + x.getMessage(), Toast.LENGTH_LONG).show();
+										dialog.dismiss();
+									}
+								});
+							}
+						}
+					});
+				}
+			});
+		}
+
 	}
 
 	public void onCoinsReceived(final Wallet w, final Transaction tx, final BigInteger prevBalance, final BigInteger newBalance)
@@ -177,7 +254,7 @@ public class WalletActivity extends Activity implements WalletEventListener
 			peer = null;
 		}
 
-		saveWallet();
+		saveWallet(); // TODO is this still needed?
 
 		// cancel background thread
 		backgroundThread.getLooper().quit();
