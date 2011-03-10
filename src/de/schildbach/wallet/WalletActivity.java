@@ -106,21 +106,20 @@ public class WalletActivity extends Activity implements WalletEventListener
 					final InetAddress inetAddress = Constants.TEST ? InetAddress.getByName(Constants.TEST_SEED_NODE)
 							: inetAddressFromUnsignedInt(Constants.SEED_NODES[0]);
 					final NetworkConnection connection = new NetworkConnection(inetAddress, Constants.NETWORK_PARAMS);
+					final BlockChain chain = new BlockChain(Constants.NETWORK_PARAMS, wallet);
+					peer = new Peer(Constants.NETWORK_PARAMS, connection, chain);
+					peer.start();
+					peer.startBlockChainDownload();
 
 					runOnUiThread(new Runnable()
 					{
 						public void run()
 						{
-							final BlockChain chain = new BlockChain(Constants.NETWORK_PARAMS, wallet);
-							peer = new Peer(Constants.NETWORK_PARAMS, connection, chain);
-							peer.start();
-							// peer.startBlockChainDownload();
-
 							((TextView) findViewById(R.id.peer_host)).setText(inetAddress.getHostAddress());
 						}
 					});
 				}
-				catch (Exception x)
+				catch (final Exception x)
 				{
 					throw new RuntimeException(x);
 				}
