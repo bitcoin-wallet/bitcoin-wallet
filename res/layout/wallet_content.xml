@@ -3,29 +3,29 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="fill_parent"
 	android:layout_height="fill_parent" android:orientation="vertical">
 
-	<LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
-		android:layout_margin="16dp" android:orientation="horizontal">
-		<LinearLayout android:layout_width="wrap_content" android:layout_height="fill_parent"
-			android:orientation="vertical">
-			<TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Your Bitcoin Address:" />
-			<TextView android:id="@+id/bitcoin_address" android:layout_width="wrap_content" android:layout_height="wrap_content"
-				android:layout_weight="100" android:layout_gravity="bottom" android:gravity="bottom" android:typeface="monospace"
-				android:textSize="18sp" />
-		</LinearLayout>
-		<ImageView android:id="@+id/bitcoin_address_qr" android:layout_width="wrap_content" android:layout_height="wrap_content"
-			android:layout_marginLeft="16dp" android:layout_weight="100" android:layout_gravity="right" android:minWidth="96dp"
-			android:minHeight="96dp" android:maxWidth="96dp" android:maxHeight="96dp" />
-	</LinearLayout>
+	<RelativeLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
+		android:layout_margin="16dp">
+		<ImageView android:id="@+id/bitcoin_address_qr" android:layout_width="96dp" android:layout_height="96dp"
+			android:layout_alignParentTop="true" android:layout_alignParentRight="true" android:layout_marginLeft="16dp"
+			android:scaleType="centerInside" />
+		<TextView android:id="@+id/bitcoin_address_label" android:layout_width="wrap_content" android:layout_height="wrap_content"
+			android:layout_alignTop="@id/bitcoin_address_qr" android:layout_alignParentLeft="true" android:layout_toLeftOf="@id/bitcoin_address_qr"
+			android:text="Your Bitcoin Address:" />
+		<TextView android:id="@+id/bitcoin_address" android:layout_width="wrap_content" android:layout_height="wrap_content"
+			android:layout_alignBottom="@id/bitcoin_address_qr" android:layout_alignParentLeft="true" android:layout_toLeftOf="@id/bitcoin_address_qr"
+			android:typeface="monospace" android:textSize="18sp" />
+	</RelativeLayout>
 
-	<LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
-		android:layout_weight="50" android:layout_gravity="center" android:gravity="center" android:orientation="horizontal">
+	<LinearLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+		android:layout_weight="50" android:layout_margin="16dp" android:layout_gravity="center" android:gravity="center"
+		android:orientation="horizontal">
 		<TextView android:id="@+id/wallet_balance" android:layout_width="wrap_content" android:layout_height="wrap_content"
 			android:textSize="42sp" android:textStyle="bold" />
 		<TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="4sp"
 			android:text="BTC" android:textColor="@android:color/darker_gray" android:textSize="42sp" />
 	</LinearLayout>
 
-	<LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
+	<LinearLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
 		android:layout_weight="50" android:layout_gravity="center" android:gravity="center" android:orientation="vertical">
 		<TextView android:id="@+id/bitcoin_network" android:layout_width="wrap_content" android:layout_height="wrap_content" />
 		<LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
@@ -35,8 +35,7 @@
 		</LinearLayout>
 	</LinearLayout>
 
-	<TextView android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_gravity="center_horizontal"
-		android:gravity="bottom|center_horizontal"
+	<TextView android:layout_width="fill_parent" android:layout_height="wrap_content" android:gravity="center_horizontal"
 		android:text="WARNING: This is entirely experimental. You *will* loose your Bitcoins associated with this wallet! Use at your own risk, and use only with small amounts of Bitcoins!"
 		android:textSize="12sp" />
 
