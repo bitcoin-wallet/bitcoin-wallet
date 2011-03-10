@@ -30,6 +30,7 @@ import java.net.UnknownHostException;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -206,6 +207,10 @@ public class WalletActivity extends Activity implements WalletEventListener
 		{
 			case R.id.wallet_options_send_coins:
 				openSendCoinsDialog(null);
+				return true;
+
+			case R.id.wallet_options_preferences:
+				startActivity(new Intent(this, PreferencesActivity.class));
 				return true;
 		}
 

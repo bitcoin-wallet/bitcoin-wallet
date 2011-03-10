@@ -15,6 +15,7 @@
 				<category android:name="android.intent.category.DEFAULT" />
 			</intent-filter>
 		</activity>
+		<activity android:name=".PreferencesActivity" />
 	</application>
 
 	<uses-sdk android:minSdkVersion="4" />

@@ -41,4 +41,12 @@ public class Constants
 			0x8312e6bc, 0xb916965f, 0x8aa7c858, 0xfe7effad };
 
 	public static final String TEST_SEED_NODE = "your_node";
+
+	public static final String LICENSE_URL = "http://www.gnu.org/licenses/gpl-3.0.txt";
+	public static final String SOURCE_URL = "http://code.google.com/p/bitcoin-wallet/";
+	public static final String CREDITS_BITCOINJ_URL = "http://code.google.com/p/bitcoinj/";
+	public static final String CREDITS_ICON_URL = "http://en.wikipedia.org/wiki/File:Bitcoin.png";
+	public static final String TWITTER_URL = "http://twitter.com/schildbach";
+	public static final String MARKET_APP_URL = "market://details?id=%s";
+	public static final String MARKET_PUBLISHER_URL = "market://search?q=pub:\"Andreas Schildbach\"";
 }
