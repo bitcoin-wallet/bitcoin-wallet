@@ -18,7 +18,6 @@
 package de.schildbach.wallet;
 
 import java.io.BufferedInputStream;
-import java.io.File;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.net.InetAddress;
@@ -29,7 +28,6 @@ import java.net.UnknownHostException;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -64,9 +62,7 @@ import com.google.bitcoin.core.WalletEventListener;
  */
 public class WalletActivity extends Activity implements WalletEventListener
 {
-	private static final String WALLET_FILENAME = Constants.TEST ? "wallet-test" : "wallet";
-
-	private Wallet wallet;
+	private Application application;
 	private Peer peer;
 
 	private HandlerThread backgroundThread;
@@ -77,21 +73,25 @@ public class WalletActivity extends Activity implements WalletEventListener
 	{
 		super.onCreate(savedInstanceState);
 
+		application = (Application) getApplication();
+
 		// background thread
 		backgroundThread = new HandlerThread("backgroundThread", Process.THREAD_PRIORITY_BACKGROUND);
 		backgroundThread.start();
 		backgroundHandler = new Handler(backgroundThread.getLooper());
+
+		final Wallet wallet = application.getWallet();
 
 		setContentView(R.layout.wallet_content);
 		final ImageView bitcoinAddressQrView = (ImageView) findViewById(R.id.bitcoin_address_qr);
 
 		((TextView) findViewById(R.id.bitcoin_network)).setText(Constants.TEST ? "testnet" : "prodnet");
 
-		loadWallet();
 		wallet.addEventListener(this);
 
 		updateGUI();
 
+		System.out.println(wallet.keychain.size() + " key(s) in keychain");
 		final ECKey key = wallet.keychain.get(0);
 		final Address address = key.toAddress(Constants.NETWORK_PARAMS);
 
@@ -185,7 +185,7 @@ public class WalletActivity extends Activity implements WalletEventListener
 			{
 				public void run()
 				{
-					saveWallet();
+					application.saveWallet();
 
 					updateGUI();
 				}
@@ -205,8 +205,6 @@ public class WalletActivity extends Activity implements WalletEventListener
 			peer.disconnect();
 			peer = null;
 		}
-
-		saveWallet(); // TODO is this still needed?
 
 		// cancel background thread
 		backgroundThread.getLooper().quit();
@@ -241,7 +239,7 @@ public class WalletActivity extends Activity implements WalletEventListener
 
 	private void updateGUI()
 	{
-		((TextView) findViewById(R.id.wallet_balance)).setText(Utils.bitcoinValueToFriendlyString(wallet.getBalance()));
+		((TextView) findViewById(R.id.wallet_balance)).setText(Utils.bitcoinValueToFriendlyString(application.getWallet().getBalance()));
 	}
 
 	private void openSendCoinsDialog(final String receivingAddressStr)
@@ -269,7 +267,7 @@ public class WalletActivity extends Activity implements WalletEventListener
 						{
 							try
 							{
-								final Transaction tx = wallet.sendCoins(peer, receivingAddress, amount);
+								final Transaction tx = application.getWallet().sendCoins(peer, receivingAddress, amount);
 
 								if (tx != null)
 								{
@@ -277,7 +275,7 @@ public class WalletActivity extends Activity implements WalletEventListener
 									{
 										public void run()
 										{
-											saveWallet();
+											application.saveWallet();
 
 											updateGUI();
 
@@ -330,52 +328,6 @@ public class WalletActivity extends Activity implements WalletEventListener
 				dialog.dismiss();
 			}
 		});
-	}
-
-	private void loadWallet()
-	{
-		final File file = walletFile();
-
-		try
-		{
-			wallet = Wallet.loadFromFile(file);
-			System.out.println("wallet loaded from: " + file);
-		}
-		catch (IOException x)
-		{
-			wallet = new Wallet(Constants.NETWORK_PARAMS);
-			wallet.keychain.add(new ECKey());
-
-			try
-			{
-				wallet.saveToFile(file);
-				System.out.println("wallet created: " + file);
-			}
-			catch (final IOException x2)
-			{
-				throw new Error("wallet cannot be created", x2);
-			}
-		}
-	}
-
-	private void saveWallet()
-	{
-		try
-		{
-			final File file = walletFile();
-			wallet.saveToFile(file);
-			System.out.println("wallet saved to: " + file);
-		}
-		catch (IOException x)
-		{
-			throw new RuntimeException(x);
-		}
-	}
-
-	private File walletFile()
-	{
-		return new File(Constants.TEST ? getDir("testnet", Context.MODE_WORLD_READABLE | Context.MODE_WORLD_WRITEABLE) : getFilesDir(),
-				WALLET_FILENAME);
 	}
 
 	private static InetAddress inetAddressFromUnsignedInt(final long l)

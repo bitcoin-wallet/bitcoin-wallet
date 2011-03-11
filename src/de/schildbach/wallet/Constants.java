@@ -26,6 +26,8 @@ public class Constants
 {
 	public static final boolean TEST = true;
 
+	public static final String WALLET_FILENAME = Constants.TEST ? "wallet-test" : "wallet";
+
 	public static final NetworkParameters NETWORK_PARAMS = TEST ? NetworkParameters.testNet() : NetworkParameters.prodNet();
 
 	// taken from official client: https://github.com/bitcoin/bitcoin/blob/master/net.cpp
