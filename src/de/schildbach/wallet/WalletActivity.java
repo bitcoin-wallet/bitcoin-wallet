@@ -42,6 +42,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -82,6 +83,7 @@ public class WalletActivity extends Activity implements WalletEventListener
 		backgroundHandler = new Handler(backgroundThread.getLooper());
 
 		setContentView(R.layout.wallet_content);
+		final ImageView bitcoinAddressQrView = (ImageView) findViewById(R.id.bitcoin_address_qr);
 
 		((TextView) findViewById(R.id.bitcoin_network)).setText(Constants.TEST ? "testnet" : "prodnet");
 
@@ -137,7 +139,28 @@ public class WalletActivity extends Activity implements WalletEventListener
 				{
 					public void run()
 					{
-						((ImageView) findViewById(R.id.bitcoin_address_qr)).setImageBitmap(qrCodeBitmap);
+						bitcoinAddressQrView.setImageBitmap(qrCodeBitmap);
+					}
+				});
+			}
+		});
+
+		bitcoinAddressQrView.setOnClickListener(new OnClickListener()
+		{
+			public void onClick(final View v)
+			{
+				final Dialog dialog = new Dialog(WalletActivity.this);
+				dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+				dialog.setContentView(R.layout.bitcoin_address_qr_dialog);
+				final ImageView imageView = (ImageView) dialog.findViewById(R.id.bitcoin_address_qr);
+				imageView.setImageBitmap(getQRCodeBitmap("bitcoin:" + addressStr));
+				dialog.setCanceledOnTouchOutside(true);
+				dialog.show();
+				imageView.setOnClickListener(new OnClickListener()
+				{
+					public void onClick(final View v)
+					{
+						dialog.dismiss();
 					}
 				});
 			}
@@ -373,7 +396,7 @@ public class WalletActivity extends Activity implements WalletEventListener
 	{
 		try
 		{
-			final URLConnection connection = new URL("http://chart.apis.google.com/chart?cht=qr&chs=160x160&chld=H|0&chl="
+			final URLConnection connection = new URL("http://chart.apis.google.com/chart?cht=qr&chs=256x256&chld=H|0&chl="
 					+ URLEncoder.encode(url, "ISO-8859-1")).openConnection();
 			connection.connect();
 			final BufferedInputStream is = new BufferedInputStream(connection.getInputStream());
