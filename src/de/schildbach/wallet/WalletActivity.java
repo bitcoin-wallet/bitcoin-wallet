@@ -36,6 +36,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Process;
+import android.text.ClipboardManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -83,6 +84,7 @@ public class WalletActivity extends Activity implements WalletEventListener
 		final Wallet wallet = application.getWallet();
 
 		setContentView(R.layout.wallet_content);
+		final TextView bitcoinAddressView = (TextView) findViewById(R.id.bitcoin_address);
 		final ImageView bitcoinAddressQrView = (ImageView) findViewById(R.id.bitcoin_address_qr);
 
 		((TextView) findViewById(R.id.bitcoin_network)).setText(Constants.TEST ? "testnet" : "prodnet");
@@ -97,7 +99,7 @@ public class WalletActivity extends Activity implements WalletEventListener
 
 		final String addressStr = address.toString();
 		System.out.println("my bitcoin address: " + addressStr + (Constants.TEST ? " (testnet!)" : ""));
-		((TextView) findViewById(R.id.bitcoin_address)).setText(splitIntoLines(addressStr, 3));
+		bitcoinAddressView.setText(splitIntoLines(addressStr, 3));
 
 		backgroundHandler.post(new Runnable()
 		{
@@ -142,6 +144,16 @@ public class WalletActivity extends Activity implements WalletEventListener
 						bitcoinAddressQrView.setImageBitmap(qrCodeBitmap);
 					}
 				});
+			}
+		});
+
+		bitcoinAddressView.setOnClickListener(new OnClickListener()
+		{
+			public void onClick(final View v)
+			{
+				ClipboardManager clipboardManager = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+				clipboardManager.setText(addressStr);
+				Toast.makeText(WalletActivity.this, "bitcoin address pasted to clipboard", Toast.LENGTH_SHORT).show();
 			}
 		});
 
