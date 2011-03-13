@@ -42,6 +42,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
+import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -244,9 +245,27 @@ public class WalletActivity extends Activity implements WalletEventListener
 			case R.id.wallet_options_preferences:
 				startActivity(new Intent(this, PreferencesActivity.class));
 				return true;
+
+			case R.id.wallet_options_help:
+				showDialog(0);
+				return true;
 		}
 
 		return false;
+	}
+
+	@Override
+	protected Dialog onCreateDialog(final int id)
+	{
+		final WebView webView = new WebView(this);
+		webView.loadUrl("file:///android_asset/help.html");
+
+		final Dialog dialog = new Dialog(WalletActivity.this);
+		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		dialog.setContentView(webView);
+		dialog.setCanceledOnTouchOutside(true);
+
+		return dialog;
 	}
 
 	private void updateGUI()
