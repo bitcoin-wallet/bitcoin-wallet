@@ -41,6 +41,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnLongClickListener;
 import android.view.Window;
 import android.webkit.WebView;
 import android.widget.ImageView;
@@ -155,6 +156,17 @@ public class WalletActivity extends Activity implements WalletEventListener
 				ClipboardManager clipboardManager = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
 				clipboardManager.setText(addressStr);
 				Toast.makeText(WalletActivity.this, "bitcoin address pasted to clipboard", Toast.LENGTH_SHORT).show();
+			}
+		});
+
+		bitcoinAddressView.setOnLongClickListener(new OnLongClickListener()
+		{
+			public boolean onLongClick(final View v)
+			{
+				startActivity(Intent.createChooser(
+						new Intent(Intent.ACTION_SEND).putExtra(Intent.EXTRA_TEXT, "bitcoin:" + addressStr).setType("text/plain"),
+						"Share your bitcoin address..."));
+				return false;
 			}
 		});
 
