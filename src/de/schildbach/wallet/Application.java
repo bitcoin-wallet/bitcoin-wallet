@@ -18,6 +18,7 @@
 package de.schildbach.wallet;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import android.content.Context;
@@ -54,7 +55,7 @@ public class Application extends android.app.Application
 			wallet = Wallet.loadFromFile(file);
 			System.out.println("wallet loaded from: " + file);
 		}
-		catch (IOException x)
+		catch (final FileNotFoundException x)
 		{
 			wallet = new Wallet(Constants.NETWORK_PARAMS);
 			wallet.keychain.add(new ECKey());
@@ -68,6 +69,10 @@ public class Application extends android.app.Application
 			{
 				throw new Error("wallet cannot be created", x2);
 			}
+		}
+		catch (final IOException x)
+		{
+			throw new Error("cannot load wallet", x);
 		}
 	}
 
