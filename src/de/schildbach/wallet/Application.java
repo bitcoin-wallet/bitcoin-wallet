@@ -22,6 +22,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import android.content.Context;
+import android.os.Debug;
 
 import com.google.bitcoin.core.ECKey;
 import com.google.bitcoin.core.Wallet;
@@ -37,6 +38,8 @@ public class Application extends android.app.Application
 	public void onCreate()
 	{
 		super.onCreate();
+
+		System.out.println("Heap size: " + (Debug.getNativeHeapSize() / 1024) + " kB");
 
 		loadWallet();
 	}
