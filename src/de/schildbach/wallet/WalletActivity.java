@@ -90,8 +90,20 @@ public class WalletActivity extends Activity implements WalletEventListener
 		final Wallet wallet = application.getWallet();
 
 		setContentView(R.layout.wallet_content);
+		final ActionBar actionBar = (ActionBar) findViewById(R.id.action_bar);
 		final TextView bitcoinAddressView = (TextView) findViewById(R.id.bitcoin_address);
 		final ImageView bitcoinAddressQrView = (ImageView) findViewById(R.id.bitcoin_address_qr);
+
+		actionBar.setIcon(R.drawable.app_icon);
+		actionBar.setPrimaryTitle(R.string.app_name);
+		actionBar.getButton().setImageResource(R.drawable.ic_menu_send);
+		actionBar.getButton().setOnClickListener(new OnClickListener()
+		{
+			public void onClick(final View v)
+			{
+				openSendCoinsDialog(null);
+			}
+		});
 
 		((TextView) findViewById(R.id.bitcoin_network)).setText(Constants.TEST ? "testnet" : "prodnet");
 

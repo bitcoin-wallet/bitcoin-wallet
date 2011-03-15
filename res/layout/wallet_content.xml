@@ -3,6 +3,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="fill_parent"
 	android:layout_height="fill_parent" android:orientation="vertical">
 
+	<de.schildbach.wallet.ActionBar android:id="@+id/action_bar" android:layout_width="fill_parent"
+		android:layout_height="44dp" android:background="@drawable/action_bar_background" />
+
 	<RelativeLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
 		android:layout_margin="16dp">
 		<ImageView android:id="@+id/bitcoin_address_qr" android:layout_width="96dp" android:layout_height="96dp"

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+
+	<ImageView android:id="@+id/action_bar_icon" android:layout_width="40dp" android:layout_height="40dp"
+		android:layout_weight="0" />
+
+	<LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
+		android:layout_gravity="center_vertical" android:layout_marginLeft="8dp" android:layout_weight="100"
+		android:orientation="vertical">
+		<TextView android:id="@+id/action_bar_primary_title" android:layout_height="wrap_content"
+			android:layout_width="wrap_content" android:textColor="@android:color/white" android:shadowColor="@android:color/black"
+			android:shadowRadius="1" android:textStyle="bold" android:singleLine="true" />
+		<TextView android:id="@+id/action_bar_secondary_title" android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:textColor="@android:color/white" android:shadowColor="@android:color/black"
+			android:shadowRadius="1" android:singleLine="true" android:visibility="gone" />
+	</LinearLayout>
+
+	<View android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_weight="100" />
+
+	<ImageView android:layout_width="1px" android:layout_height="fill_parent" android:background="#40ffffff" />
+
+	<ImageButton android:id="@+id/action_bar_button" android:layout_width="44dp" android:layout_height="fill_parent"
+		android:background="@drawable/action_bar_background" />
+
+</merge>
