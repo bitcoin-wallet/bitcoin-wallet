@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-	<item android:id="@+id/wallet_options_send_coins" android:title="Send coins" />
-	<item android:id="@+id/wallet_options_preferences" android:title="About" />
-	<item android:id="@+id/wallet_options_help" android:title="Help" />
+	<item android:id="@+id/wallet_options_send_coins" android:icon="@drawable/ic_menu_send" android:title="Send coins" />
+	<item android:id="@+id/wallet_options_preferences" android:icon="@drawable/ic_menu_info_details" android:title="About" />
+	<item android:id="@+id/wallet_options_help" android:icon="@drawable/ic_menu_help" android:title="Help" />
 </menu>
