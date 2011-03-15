@@ -9,6 +9,7 @@
 		<Preference android:key="about_license" android:title="License" />
 		<Preference android:key="about_source" android:title="Source Code" />
 		<Preference android:key="about_credits_bitcoinj" android:title="This app is using 'bitcoinj'" />
+		<Preference android:key="about_credits_zxing" android:title="This app is using 'zxing'" />
 		<Preference android:key="about_credits_icon" android:title="This app is using an icon by 'bitboy'" />
 		<Preference android:key="about_twitter" android:title="Author Twitter" android:summary="\@schildbach" />
 		<Preference android:key="about_market_app" android:title="Android Market App Page" />

@@ -17,20 +17,17 @@
 
 package de.schildbach.wallet;
 
-import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.net.InetAddress;
-import java.net.URL;
-import java.net.URLConnection;
-import java.net.URLEncoder;
 import java.net.UnknownHostException;
+import java.util.Hashtable;
 
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -59,6 +56,12 @@ import com.google.bitcoin.core.TransactionInput;
 import com.google.bitcoin.core.Utils;
 import com.google.bitcoin.core.Wallet;
 import com.google.bitcoin.core.WalletEventListener;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.EncodeHintType;
+import com.google.zxing.WriterException;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.QRCodeWriter;
+import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 
 /**
  * @author Andreas Schildbach
@@ -67,6 +70,7 @@ public class WalletActivity extends Activity implements WalletEventListener
 {
 	private Application application;
 	private Peer peer;
+	private Bitmap qrCodeBitmap;
 
 	private HandlerThread backgroundThread;
 	private Handler backgroundHandler;
@@ -133,21 +137,8 @@ public class WalletActivity extends Activity implements WalletEventListener
 		});
 
 		// populate qrcode representation of bitcoin address
-		backgroundHandler.post(new Runnable()
-		{
-			public void run()
-			{
-				final Bitmap qrCodeBitmap = getQRCodeBitmap("bitcoin:" + addressStr);
-
-				runOnUiThread(new Runnable()
-				{
-					public void run()
-					{
-						bitcoinAddressQrView.setImageBitmap(qrCodeBitmap);
-					}
-				});
-			}
-		});
+		qrCodeBitmap = getQRCodeBitmap("bitcoin:" + addressStr);
+		bitcoinAddressQrView.setImageBitmap(qrCodeBitmap);
 
 		bitcoinAddressView.setOnClickListener(new OnClickListener()
 		{
@@ -178,7 +169,7 @@ public class WalletActivity extends Activity implements WalletEventListener
 				dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 				dialog.setContentView(R.layout.bitcoin_address_qr_dialog);
 				final ImageView imageView = (ImageView) dialog.findViewById(R.id.bitcoin_address_qr);
-				imageView.setImageBitmap(getQRCodeBitmap("bitcoin:" + addressStr));
+				imageView.setImageBitmap(qrCodeBitmap);
 				dialog.setCanceledOnTouchOutside(true);
 				dialog.show();
 				imageView.setOnClickListener(new OnClickListener()
@@ -225,6 +216,12 @@ public class WalletActivity extends Activity implements WalletEventListener
 	@Override
 	protected void onDestroy()
 	{
+		if (qrCodeBitmap != null)
+		{
+			qrCodeBitmap.recycle();
+			qrCodeBitmap = null;
+		}
+
 		if (peer != null)
 		{
 			peer.disconnect();
@@ -387,19 +384,36 @@ public class WalletActivity extends Activity implements WalletEventListener
 		}
 	}
 
-	private Bitmap getQRCodeBitmap(final String url)
+	public final static QRCodeWriter QR_CODE_WRITER = new QRCodeWriter();
+
+	private static Bitmap getQRCodeBitmap(final String url)
 	{
+		final int SIZE = 256;
+
 		try
 		{
-			final URLConnection connection = new URL("http://chart.apis.google.com/chart?cht=qr&chs=256x256&chld=H|0&chl="
-					+ URLEncoder.encode(url, "ISO-8859-1")).openConnection();
-			connection.connect();
-			final BufferedInputStream is = new BufferedInputStream(connection.getInputStream());
-			final Bitmap bm = BitmapFactory.decodeStream(is);
-			is.close();
-			return bm;
+			final Hashtable<EncodeHintType, Object> hints = new Hashtable<EncodeHintType, Object>();
+			hints.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.H);
+			final BitMatrix result = QR_CODE_WRITER.encode(url, BarcodeFormat.QR_CODE, SIZE, SIZE, hints);
+
+			final int width = result.getWidth();
+			final int height = result.getHeight();
+			final int[] pixels = new int[width * height];
+
+			for (int y = 0; y < height; y++)
+			{
+				final int offset = y * width;
+				for (int x = 0; x < width; x++)
+				{
+					pixels[offset + x] = result.get(x, y) ? Color.BLACK : Color.WHITE;
+				}
+			}
+
+			final Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+			bitmap.setPixels(pixels, 0, width, 0, 0, width, height);
+			return bitmap;
 		}
-		catch (final IOException x)
+		catch (final WriterException x)
 		{
 			x.printStackTrace();
 			return null;

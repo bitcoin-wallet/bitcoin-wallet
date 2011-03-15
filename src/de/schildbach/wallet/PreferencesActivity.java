@@ -34,6 +34,7 @@ public class PreferencesActivity extends PreferenceActivity
 	private static final String KEY_ABOUT_LICENSE = "about_license";
 	private static final String KEY_ABOUT_SOURCE = "about_source";
 	private static final String KEY_ABOUT_CREDITS_BITCOINJ = "about_credits_bitcoinj";
+	private static final String KEY_ABOUT_CREDITS_ZXING = "about_credits_zxing";
 	private static final String KEY_ABOUT_CREDITS_ICON = "about_credits_icon";
 	private static final String KEY_ABOUT_TWITTER = "about_twitter";
 	private static final String KEY_ABOUT_MARKET_APP = "about_market_app";
@@ -50,6 +51,7 @@ public class PreferencesActivity extends PreferenceActivity
 		findPreference(KEY_ABOUT_LICENSE).setSummary(Constants.LICENSE_URL);
 		findPreference(KEY_ABOUT_SOURCE).setSummary(Constants.SOURCE_URL);
 		findPreference(KEY_ABOUT_CREDITS_BITCOINJ).setSummary(Constants.CREDITS_BITCOINJ_URL);
+		findPreference(KEY_ABOUT_CREDITS_ZXING).setSummary(Constants.CREDITS_ZXING_URL);
 		findPreference(KEY_ABOUT_CREDITS_ICON).setSummary(Constants.CREDITS_ICON_URL);
 		findPreference(KEY_ABOUT_MARKET_APP).setSummary(String.format(Constants.MARKET_APP_URL, getPackageName()));
 		findPreference(KEY_ABOUT_MARKET_PUBLISHER).setSummary(Constants.MARKET_PUBLISHER_URL);
@@ -84,6 +86,11 @@ public class PreferencesActivity extends PreferenceActivity
 		else if (KEY_ABOUT_CREDITS_BITCOINJ.equals(key))
 		{
 			startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.CREDITS_BITCOINJ_URL)));
+			finish();
+		}
+		else if (KEY_ABOUT_CREDITS_ZXING.equals(key))
+		{
+			startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.CREDITS_ZXING_URL)));
 			finish();
 		}
 		else if (KEY_ABOUT_CREDITS_ICON.equals(key))
