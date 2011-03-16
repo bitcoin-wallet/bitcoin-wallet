@@ -16,11 +16,21 @@
 			android:shadowRadius="1" android:singleLine="true" android:visibility="gone" />
 	</LinearLayout>
 
-	<View android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_weight="100" />
-
-	<ImageView android:layout_width="1px" android:layout_height="fill_parent" android:background="#40ffffff" />
+	<ImageView android:layout_width="1px" android:layout_height="fill_parent" android:layout_weight="0"
+		android:background="#40ffffff" />
 
 	<ImageButton android:id="@+id/action_bar_button" android:layout_width="44dp" android:layout_height="fill_parent"
-		android:background="@drawable/action_bar_background" />
+		android:layout_weight="0" android:background="@drawable/action_bar_background" />
+
+	<ImageView android:layout_width="1px" android:layout_height="fill_parent" android:layout_weight="0"
+		android:background="#40ffffff" />
+
+	<FrameLayout android:layout_width="44dp" android:layout_height="fill_parent" android:layout_weight="0">
+		<ImageButton android:id="@+id/action_bar_progress_button" android:layout_width="fill_parent"
+			android:layout_height="fill_parent" android:background="@drawable/action_bar_background" />
+		<ImageButton android:id="@+id/action_bar_progress_image" android:layout_width="fill_parent"
+			android:layout_height="fill_parent" android:src="@drawable/ic_menu_refresh" android:background="@null"
+			android:clickable="false" />
+	</FrameLayout>
 
 </merge>

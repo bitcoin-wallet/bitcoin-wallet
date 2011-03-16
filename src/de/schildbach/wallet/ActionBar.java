@@ -21,6 +21,8 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -34,6 +36,10 @@ public class ActionBar extends LinearLayout
 	private final ImageView iconView;
 	private final TextView primaryTitleView;
 	private final TextView secondaryTitleView;
+	private final ImageView progressView;
+
+	private int progressCount = 0;
+	private Animation progressAnimation;
 
 	public ActionBar(final Context context, final AttributeSet attributes)
 	{
@@ -45,6 +51,9 @@ public class ActionBar extends LinearLayout
 		iconView = (ImageView) findViewById(R.id.action_bar_icon);
 		primaryTitleView = (TextView) findViewById(R.id.action_bar_primary_title);
 		secondaryTitleView = (TextView) findViewById(R.id.action_bar_secondary_title);
+		progressView = (ImageView) findViewById(R.id.action_bar_progress_image);
+
+		progressAnimation = AnimationUtils.loadAnimation(context, R.anim.rotate);
 	}
 
 	public void setIcon(final int iconRes)
@@ -66,5 +75,31 @@ public class ActionBar extends LinearLayout
 	public ImageButton getButton()
 	{
 		return (ImageButton) findViewById(R.id.action_bar_button);
+	}
+
+	public View getProgressButton()
+	{
+		return (ImageButton) findViewById(R.id.action_bar_progress_button);
+	}
+
+	public void startProgress()
+	{
+		if (progressCount == 0)
+			progressView.startAnimation(progressAnimation);
+
+		progressCount++;
+	}
+
+	public void stopProgress()
+	{
+		progressCount--;
+
+		if (progressCount <= 0)
+			progressView.clearAnimation();
+	}
+
+	public int getProgressCount()
+	{
+		return progressCount;
 	}
 }

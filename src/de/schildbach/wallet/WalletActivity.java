@@ -22,6 +22,7 @@ import java.math.BigInteger;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Hashtable;
+import java.util.concurrent.CountDownLatch;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -104,6 +105,49 @@ public class WalletActivity extends Activity implements WalletEventListener
 				openSendCoinsDialog(null);
 			}
 		});
+		actionBar.getProgressButton().setOnClickListener(new OnClickListener()
+		{
+			public void onClick(final View v)
+			{
+				if (actionBar.getProgressCount() == 0)
+				{
+					try
+					{
+						final CountDownLatch latch = peer.startBlockChainDownload();
+
+						new Thread()
+						{
+							@Override
+							public void run()
+							{
+								try
+								{
+									latch.await();
+
+									runOnUiThread(new Runnable()
+									{
+										public void run()
+										{
+											actionBar.stopProgress();
+										}
+									});
+								}
+								catch (final Exception x)
+								{
+									x.printStackTrace();
+								}
+							}
+						}.start();
+
+						actionBar.startProgress();
+					}
+					catch (final Exception x)
+					{
+						throw new RuntimeException(x);
+					}
+				}
+			}
+		});
 
 		((TextView) findViewById(R.id.bitcoin_network)).setText(Constants.TEST ? "testnet" : "prodnet");
 
@@ -131,7 +175,6 @@ public class WalletActivity extends Activity implements WalletEventListener
 					final BlockChain chain = new BlockChain(Constants.NETWORK_PARAMS, wallet);
 					peer = new Peer(Constants.NETWORK_PARAMS, connection, chain);
 					peer.start();
-					peer.startBlockChainDownload();
 
 					runOnUiThread(new Runnable()
 					{
