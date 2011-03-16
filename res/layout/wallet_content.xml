@@ -6,39 +6,48 @@
 	<de.schildbach.wallet.ActionBar android:id="@+id/action_bar" android:layout_width="fill_parent"
 		android:layout_height="44dp" android:background="@drawable/action_bar_background" />
 
-	<RelativeLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
-		android:layout_margin="16dp">
-		<ImageView android:id="@+id/bitcoin_address_qr" android:layout_width="96dp" android:layout_height="96dp"
-			android:layout_alignParentTop="true" android:layout_alignParentRight="true" android:layout_marginLeft="16dp"
-			android:scaleType="centerInside" />
-		<TextView android:id="@+id/bitcoin_address_label" android:layout_width="wrap_content" android:layout_height="wrap_content"
-			android:layout_alignTop="@id/bitcoin_address_qr" android:layout_alignParentLeft="true" android:layout_toLeftOf="@id/bitcoin_address_qr"
-			android:text="Your Bitcoin Address:" />
-		<TextView android:id="@+id/bitcoin_address" android:layout_width="wrap_content" android:layout_height="wrap_content"
-			android:layout_alignBottom="@id/bitcoin_address_qr" android:layout_alignParentLeft="true" android:layout_toLeftOf="@id/bitcoin_address_qr"
-			android:typeface="monospace" android:textSize="18sp" />
-	</RelativeLayout>
+	<FrameLayout android:layout_width="fill_parent" android:layout_height="fill_parent" android:foreground="@drawable/title_bar_shadow"
+		android:foregroundGravity="top|fill_horizontal">
 
-	<LinearLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
-		android:layout_weight="50" android:layout_gravity="center" android:gravity="center" android:orientation="horizontal">
-		<TextView android:id="@+id/wallet_balance" android:layout_width="wrap_content" android:layout_height="wrap_content"
-			android:textSize="42sp" android:textStyle="bold" />
-		<TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="4sp"
-			android:text="BTC" android:textColor="@android:color/darker_gray" android:textSize="42sp" />
-	</LinearLayout>
+		<LinearLayout android:layout_width="fill_parent" android:layout_height="fill_parent" android:orientation="vertical">
 
-	<LinearLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
-		android:layout_weight="50" android:layout_gravity="center" android:gravity="center" android:orientation="vertical">
-		<TextView android:id="@+id/bitcoin_network" android:layout_width="wrap_content" android:layout_height="wrap_content" />
-		<LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
-			android:orientation="horizontal">
-			<TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Peer:" />
-			<TextView android:id="@+id/peer_host" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+			<RelativeLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
+				android:layout_margin="16dp">
+				<ImageView android:id="@+id/bitcoin_address_qr" android:layout_width="96dp" android:layout_height="96dp"
+					android:layout_alignParentTop="true" android:layout_alignParentRight="true" android:layout_marginLeft="16dp"
+					android:scaleType="centerInside" />
+				<TextView android:id="@+id/bitcoin_address_label" android:layout_width="wrap_content"
+					android:layout_height="wrap_content" android:layout_alignTop="@id/bitcoin_address_qr"
+					android:layout_alignParentLeft="true" android:layout_toLeftOf="@id/bitcoin_address_qr" android:text="Your Bitcoin Address:" />
+				<TextView android:id="@+id/bitcoin_address" android:layout_width="wrap_content" android:layout_height="wrap_content"
+					android:layout_alignBottom="@id/bitcoin_address_qr" android:layout_alignParentLeft="true" android:layout_toLeftOf="@id/bitcoin_address_qr"
+					android:typeface="monospace" android:textSize="18sp" />
+			</RelativeLayout>
+
+			<LinearLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+				android:layout_weight="50" android:layout_gravity="center" android:gravity="center" android:orientation="horizontal">
+				<TextView android:id="@+id/wallet_balance" android:layout_width="wrap_content" android:layout_height="wrap_content"
+					android:textSize="42sp" android:textStyle="bold" />
+				<TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+					android:layout_marginLeft="4sp" android:text="BTC" android:textColor="@android:color/darker_gray" android:textSize="42sp" />
+			</LinearLayout>
+
+			<LinearLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+				android:layout_weight="50" android:layout_gravity="center" android:gravity="center" android:orientation="vertical">
+				<TextView android:id="@+id/bitcoin_network" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+				<LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+					android:orientation="horizontal">
+					<TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Peer:" />
+					<TextView android:id="@+id/peer_host" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+				</LinearLayout>
+			</LinearLayout>
+
+			<TextView android:layout_width="fill_parent" android:layout_height="wrap_content" android:gravity="center_horizontal"
+				android:text="WARNING: This is entirely experimental. You *will* loose your Bitcoins associated with this wallet! Use at your own risk, and use only with small amounts of Bitcoins!"
+				android:textSize="12sp" />
+
 		</LinearLayout>
-	</LinearLayout>
 
-	<TextView android:layout_width="fill_parent" android:layout_height="wrap_content" android:gravity="center_horizontal"
-		android:text="WARNING: This is entirely experimental. You *will* loose your Bitcoins associated with this wallet! Use at your own risk, and use only with small amounts of Bitcoins!"
-		android:textSize="12sp" />
+	</FrameLayout>
 
 </LinearLayout>
