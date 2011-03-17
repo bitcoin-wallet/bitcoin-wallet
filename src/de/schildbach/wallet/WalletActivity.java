@@ -372,11 +372,15 @@ public class WalletActivity extends Activity implements WalletEventListener
 		final BigInteger balance = application.getWallet().getBalance();
 		((TextView) findViewById(R.id.wallet_balance)).setText(Utils.bitcoinValueToFriendlyString(balance));
 
-		if (exchangeRate != null)
+		final TextView walletBalanceInDollarsView = (TextView) findViewById(R.id.wallet_balance_in_dollars);
+		if (balance.equals(BigInteger.ZERO))
+		{
+			walletBalanceInDollarsView.setText(null);
+		}
+		else if (exchangeRate != null)
 		{
 			final double dollars = Utils.bitcoinValueToDouble(balance) * exchangeRate;
-			((TextView) findViewById(R.id.wallet_balance_in_dollars)).setText(String.format("worth about US$ %.2f"
-					+ (Constants.TEST ? "\nif it were real bitcoins" : ""), dollars));
+			walletBalanceInDollarsView.setText(String.format("worth about US$ %.2f" + (Constants.TEST ? "\nif it were real bitcoins" : ""), dollars));
 		}
 	}
 
