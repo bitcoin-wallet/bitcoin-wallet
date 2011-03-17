@@ -17,12 +17,19 @@
 
 package de.schildbach.wallet;
 
+import java.io.BufferedInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.math.BigInteger;
 import java.net.InetAddress;
+import java.net.URL;
+import java.net.URLConnection;
 import java.net.UnknownHostException;
 import java.util.Hashtable;
 import java.util.concurrent.CountDownLatch;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -72,6 +79,7 @@ public class WalletActivity extends Activity implements WalletEventListener
 	private Application application;
 	private Peer peer;
 	private Bitmap qrCodeBitmap;
+	private Float exchangeRate;
 
 	private HandlerThread backgroundThread;
 	private Handler backgroundHandler;
@@ -183,6 +191,33 @@ public class WalletActivity extends Activity implements WalletEventListener
 							((TextView) findViewById(R.id.peer_host)).setText(inetAddress.getHostAddress());
 						}
 					});
+				}
+				catch (final Exception x)
+				{
+					throw new RuntimeException(x);
+				}
+			}
+		});
+
+		backgroundHandler.post(new Runnable()
+		{
+			public void run()
+			{
+				try
+				{
+					final Float newExchangeRate = getExchangeRate();
+
+					if (newExchangeRate != null)
+					{
+						runOnUiThread(new Runnable()
+						{
+							public void run()
+							{
+								exchangeRate = newExchangeRate;
+								updateGUI();
+							}
+						});
+					}
 				}
 				catch (final Exception x)
 				{
@@ -334,7 +369,15 @@ public class WalletActivity extends Activity implements WalletEventListener
 
 	private void updateGUI()
 	{
-		((TextView) findViewById(R.id.wallet_balance)).setText(Utils.bitcoinValueToFriendlyString(application.getWallet().getBalance()));
+		final BigInteger balance = application.getWallet().getBalance();
+		((TextView) findViewById(R.id.wallet_balance)).setText(Utils.bitcoinValueToFriendlyString(balance));
+
+		if (exchangeRate != null)
+		{
+			final double dollars = Utils.bitcoinValueToDouble(balance) * exchangeRate;
+			((TextView) findViewById(R.id.wallet_balance_in_dollars)).setText(String.format("worth about US$ %.2f"
+					+ (Constants.TEST ? "\nif it were real bitcoins" : ""), dollars));
+		}
 	}
 
 	private void openSendCoinsDialog(final String receivingAddressStr)
@@ -486,5 +529,43 @@ public class WalletActivity extends Activity implements WalletEventListener
 			builder.insert(len + i * (len + 1), '\n');
 
 		return builder.toString();
+	}
+
+	private static final Pattern P_EXCHANGE_RATE = Pattern.compile("\"last\":(\\d*\\.\\d*)[^\\d]");
+
+	private static Float getExchangeRate()
+	{
+		try
+		{
+			final URLConnection connection = new URL("http://mtgox.com/code/data/ticker.php").openConnection();
+			connection.connect();
+			final Reader is = new InputStreamReader(new BufferedInputStream(connection.getInputStream()));
+			final StringBuilder content = new StringBuilder();
+			copy(is, content);
+			is.close();
+
+			final Matcher m = P_EXCHANGE_RATE.matcher(content);
+			if (m.find())
+				return Float.parseFloat(m.group(1));
+		}
+		catch (final IOException x)
+		{
+			x.printStackTrace();
+		}
+
+		return null;
+	}
+
+	private static final long copy(final Reader reader, final StringBuilder builder) throws IOException
+	{
+		final char[] buffer = new char[256];
+		long count = 0;
+		int n = 0;
+		while (-1 != (n = reader.read(buffer)))
+		{
+			builder.append(buffer, 0, n);
+			count += n;
+		}
+		return count;
 	}
 }
