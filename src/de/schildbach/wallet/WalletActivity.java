@@ -211,9 +211,7 @@ public class WalletActivity extends Activity
 		final ECKey key = wallet.keychain.get(0);
 		final Address address = key.toAddress(Constants.NETWORK_PARAMS);
 
-		final String addressStr = address.toString();
-		System.out.println("my bitcoin address: " + addressStr + (Constants.TEST ? " (testnet!)" : ""));
-		bitcoinAddressView.setText(splitIntoLines(addressStr, 3));
+		bitcoinAddressView.setText(splitIntoLines(address.toString(), 3));
 
 		backgroundHandler.post(new Runnable()
 		{
@@ -271,7 +269,7 @@ public class WalletActivity extends Activity
 		});
 
 		// populate qrcode representation of bitcoin address
-		qrCodeBitmap = getQRCodeBitmap("bitcoin:" + addressStr);
+		qrCodeBitmap = getQRCodeBitmap("bitcoin:" + address.toString());
 		bitcoinAddressQrView.setImageBitmap(qrCodeBitmap);
 
 		bitcoinAddressView.setOnClickListener(new OnClickListener()
@@ -279,8 +277,10 @@ public class WalletActivity extends Activity
 			public void onClick(final View v)
 			{
 				ClipboardManager clipboardManager = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
-				clipboardManager.setText(addressStr);
+				clipboardManager.setText(address.toString());
 				Toast.makeText(WalletActivity.this, "bitcoin address pasted to clipboard", Toast.LENGTH_SHORT).show();
+
+				System.out.println("my bitcoin address: " + address + (Constants.TEST ? " (testnet!)" : ""));
 			}
 		});
 
@@ -289,7 +289,7 @@ public class WalletActivity extends Activity
 			public boolean onLongClick(final View v)
 			{
 				startActivity(Intent.createChooser(
-						new Intent(Intent.ACTION_SEND).putExtra(Intent.EXTRA_TEXT, "bitcoin:" + addressStr).setType("text/plain"),
+						new Intent(Intent.ACTION_SEND).putExtra(Intent.EXTRA_TEXT, "bitcoin:" + address).setType("text/plain"),
 						"Share your bitcoin address..."));
 				return false;
 			}
