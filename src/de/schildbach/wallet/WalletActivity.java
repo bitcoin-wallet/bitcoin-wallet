@@ -222,7 +222,7 @@ public class WalletActivity extends Activity
 					final InetAddress inetAddress = Constants.TEST ? InetAddress.getByName(Constants.TEST_SEED_NODE)
 							: inetAddressFromUnsignedInt(Constants.SEED_NODES[0]);
 					final NetworkConnection connection = new NetworkConnection(inetAddress, Constants.NETWORK_PARAMS);
-					final BlockChain chain = new BlockChain(Constants.NETWORK_PARAMS, wallet);
+					final BlockChain chain = new BlockChain(Constants.NETWORK_PARAMS, wallet, application.getBlockStore());
 					peer = new Peer(Constants.NETWORK_PARAMS, connection, chain);
 					peer.start();
 

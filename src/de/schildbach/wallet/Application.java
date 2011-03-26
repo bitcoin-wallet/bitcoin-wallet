@@ -24,6 +24,7 @@ import java.io.IOException;
 import android.content.Context;
 import android.os.Debug;
 
+import com.google.bitcoin.core.BlockStore;
 import com.google.bitcoin.core.ECKey;
 import com.google.bitcoin.core.Wallet;
 
@@ -33,6 +34,7 @@ import com.google.bitcoin.core.Wallet;
 public class Application extends android.app.Application
 {
 	private Wallet wallet;
+	private BlockStore blockStore;
 
 	@Override
 	public void onCreate()
@@ -42,11 +44,18 @@ public class Application extends android.app.Application
 		System.out.println("Heap size: " + (Debug.getNativeHeapSize() / 1024) + " kB");
 
 		loadWallet();
+
+		blockStore = new FilesBlockStore(getDir("blockstore", Context.MODE_WORLD_READABLE | Context.MODE_WORLD_WRITEABLE));
 	}
 
 	public Wallet getWallet()
 	{
 		return wallet;
+	}
+
+	public BlockStore getBlockStore()
+	{
+		return blockStore;
 	}
 
 	private void loadWallet()
