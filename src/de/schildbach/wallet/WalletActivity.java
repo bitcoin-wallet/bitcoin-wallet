@@ -74,7 +74,7 @@ import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 /**
  * @author Andreas Schildbach
  */
-public class WalletActivity extends Activity implements WalletEventListener
+public class WalletActivity extends Activity
 {
 	private Application application;
 	private Peer peer;
@@ -159,7 +159,51 @@ public class WalletActivity extends Activity implements WalletEventListener
 
 		((TextView) findViewById(R.id.bitcoin_network)).setText(Constants.TEST ? "testnet" : "prodnet");
 
-		wallet.addEventListener(this);
+		wallet.addEventListener(new WalletEventListener()
+		{
+			@Override
+			public void onCoinsReceived(final Wallet w, final Transaction tx, final BigInteger prevBalance, final BigInteger newBalance)
+			{
+				try
+				{
+					final TransactionInput input = tx.getInputs().get(0);
+					final Address from = input.getFromAddress();
+					final BigInteger value = tx.getValueSentToMe(w);
+
+					System.out.println("!!!!!!!!!!!!! got bitcoins: " + from + " " + value + " " + Thread.currentThread().getName());
+
+					runOnUiThread(new Runnable()
+					{
+						public void run()
+						{
+							application.saveWallet();
+
+							updateGUI();
+						}
+					});
+				}
+				catch (Exception x)
+				{
+					throw new RuntimeException(x);
+				}
+			}
+
+			@Override
+			public void onReorganize()
+			{
+				System.out.println("!!!! reorganize");
+
+				runOnUiThread(new Runnable()
+				{
+					public void run()
+					{
+						application.saveWallet();
+
+						updateGUI();
+					}
+				});
+			}
+		});
 
 		updateGUI();
 
@@ -275,32 +319,6 @@ public class WalletActivity extends Activity implements WalletEventListener
 		final Uri intentUri = getIntent().getData();
 		if (intentUri != null && "bitcoin".equals(intentUri.getScheme()))
 			openSendCoinsDialog(intentUri.getSchemeSpecificPart());
-	}
-
-	public void onCoinsReceived(final Wallet w, final Transaction tx, final BigInteger prevBalance, final BigInteger newBalance)
-	{
-		try
-		{
-			final TransactionInput input = tx.getInputs().get(0);
-			final Address from = input.getFromAddress();
-			final BigInteger value = tx.getValueSentToMe(w);
-
-			System.out.println("!!!!!!!!!!!!! got bitcoins: " + from + " " + value + " " + Thread.currentThread().getName());
-
-			runOnUiThread(new Runnable()
-			{
-				public void run()
-				{
-					application.saveWallet();
-
-					updateGUI();
-				}
-			});
-		}
-		catch (Exception x)
-		{
-			throw new RuntimeException(x);
-		}
 	}
 
 	@Override
