@@ -23,6 +23,7 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.math.BigInteger;
 import java.net.InetAddress;
+import java.net.InetSocketAddress;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.UnknownHostException;
@@ -56,9 +57,12 @@ import android.widget.Toast;
 import com.google.bitcoin.core.Address;
 import com.google.bitcoin.core.AddressFormatException;
 import com.google.bitcoin.core.BlockChain;
+import com.google.bitcoin.core.BlockStore;
 import com.google.bitcoin.core.ECKey;
+import com.google.bitcoin.core.IrcDiscovery;
 import com.google.bitcoin.core.NetworkConnection;
 import com.google.bitcoin.core.Peer;
+import com.google.bitcoin.core.PeerDiscovery;
 import com.google.bitcoin.core.Transaction;
 import com.google.bitcoin.core.TransactionInput;
 import com.google.bitcoin.core.Utils;
@@ -219,18 +223,32 @@ public class WalletActivity extends Activity
 			{
 				try
 				{
-					final InetAddress inetAddress = Constants.TEST ? InetAddress.getByName(Constants.TEST_SEED_NODE)
-							: inetAddressFromUnsignedInt(Constants.SEED_NODES[0]);
-					final NetworkConnection connection = new NetworkConnection(inetAddress, Constants.NETWORK_PARAMS);
-					final BlockChain chain = new BlockChain(Constants.NETWORK_PARAMS, wallet, application.getBlockStore());
+					final BlockStore blockStore = application.getBlockStore();
+					final PeerDiscovery peerDiscovery = new IrcDiscovery(Constants.PEER_DISCOVERY_IRC_CHANNEL);
+					NetworkConnection connection = null;
+					for (final InetSocketAddress inetSocketAddress : peerDiscovery.getPeers())
+					{
+						try
+						{
+							connection = new NetworkConnection(inetSocketAddress.getAddress(), Constants.NETWORK_PARAMS, blockStore.getChainHead()
+									.getHeight(), 5000);
+							break;
+						}
+						catch (final IOException x)
+						{
+							System.out.println(x);
+						}
+					}
+					final BlockChain chain = new BlockChain(Constants.NETWORK_PARAMS, wallet, blockStore);
 					peer = new Peer(Constants.NETWORK_PARAMS, connection, chain);
 					peer.start();
 
+					final String peerHostText = connection.getRemoteIp().getHostAddress();
 					runOnUiThread(new Runnable()
 					{
 						public void run()
 						{
-							((TextView) findViewById(R.id.peer_host)).setText(inetAddress.getHostAddress());
+							((TextView) findViewById(R.id.peer_host)).setText(peerHostText);
 						}
 					});
 				}
@@ -418,7 +436,7 @@ public class WalletActivity extends Activity
 				try
 				{
 					final Address receivingAddress = new Address(Constants.NETWORK_PARAMS, receivingAddressView.getText().toString());
-					final BigInteger amount = Utils.toNanoCoins(((TextView) dialog.findViewById(R.id.send_coins_amount)).getText());
+					final BigInteger amount = Utils.toNanoCoins(((TextView) dialog.findViewById(R.id.send_coins_amount)).getText().toString());
 					System.out.println("about to send " + amount + " (BTC " + Utils.bitcoinValueToFriendlyString(amount) + ") to " + receivingAddress);
 
 					backgroundHandler.post(new Runnable()
