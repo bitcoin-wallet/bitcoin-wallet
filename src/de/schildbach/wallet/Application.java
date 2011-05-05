@@ -25,6 +25,8 @@ import android.content.Context;
 import android.os.Debug;
 
 import com.google.bitcoin.core.BlockStore;
+import com.google.bitcoin.core.BlockStoreException;
+import com.google.bitcoin.core.DiskBlockStore;
 import com.google.bitcoin.core.ECKey;
 import com.google.bitcoin.core.Wallet;
 
@@ -45,7 +47,15 @@ public class Application extends android.app.Application
 
 		loadWallet();
 
-		blockStore = new FilesBlockStore(getDir("blockstore", Context.MODE_WORLD_READABLE | Context.MODE_WORLD_WRITEABLE));
+		try
+		{
+			blockStore = new DiskBlockStore(Constants.NETWORK_PARAMS, new File(getDir("blockstore", Context.MODE_WORLD_READABLE
+					| Context.MODE_WORLD_WRITEABLE), "blockchain"));
+		}
+		catch (final BlockStoreException x)
+		{
+			throw new Error("blockstore cannot be created", x);
+		}
 	}
 
 	public Wallet getWallet()
