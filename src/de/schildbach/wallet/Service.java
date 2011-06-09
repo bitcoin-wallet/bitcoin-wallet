@@ -166,7 +166,7 @@ public class Service extends android.app.Service
 				{
 					latch.await();
 
-					nm.cancel(1);
+					nm.cancel(NOTIFICATION_ID_SYNCING);
 
 					// runOnUiThread(new Runnable()
 					// {
