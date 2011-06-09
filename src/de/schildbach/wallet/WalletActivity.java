@@ -23,24 +23,26 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.math.BigInteger;
 import java.net.InetAddress;
-import java.net.InetSocketAddress;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.UnknownHostException;
 import java.util.Hashtable;
-import java.util.concurrent.CountDownLatch;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
+import android.os.IBinder;
 import android.os.Process;
 import android.text.ClipboardManager;
 import android.view.Menu;
@@ -56,13 +58,7 @@ import android.widget.Toast;
 
 import com.google.bitcoin.core.Address;
 import com.google.bitcoin.core.AddressFormatException;
-import com.google.bitcoin.core.BlockChain;
-import com.google.bitcoin.core.BlockStore;
 import com.google.bitcoin.core.ECKey;
-import com.google.bitcoin.core.IrcDiscovery;
-import com.google.bitcoin.core.NetworkConnection;
-import com.google.bitcoin.core.Peer;
-import com.google.bitcoin.core.PeerDiscovery;
 import com.google.bitcoin.core.Transaction;
 import com.google.bitcoin.core.TransactionInput;
 import com.google.bitcoin.core.Utils;
@@ -81,12 +77,28 @@ import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 public class WalletActivity extends Activity
 {
 	private Application application;
-	private Peer peer;
+	private Service service;
+
 	private Bitmap qrCodeBitmap;
 	private Float exchangeRate;
 
 	private HandlerThread backgroundThread;
 	private Handler backgroundHandler;
+
+	private ServiceConnection serviceConnection = new ServiceConnection()
+	{
+		public void onServiceConnected(final ComponentName name, final IBinder binder)
+		{
+			service = ((Service.LocalBinder) binder).getService();
+			onServiceBound();
+		}
+
+		public void onServiceDisconnected(final ComponentName name)
+		{
+			service = null;
+			onServiceUnbound();
+		}
+	};
 
 	@Override
 	protected void onCreate(final Bundle savedInstanceState)
@@ -94,6 +106,8 @@ public class WalletActivity extends Activity
 		super.onCreate(savedInstanceState);
 
 		application = (Application) getApplication();
+
+		bindService(new Intent(this, Service.class), serviceConnection, Context.BIND_AUTO_CREATE);
 
 		// background thread
 		backgroundThread = new HandlerThread("backgroundThread", Process.THREAD_PRIORITY_BACKGROUND);
@@ -125,31 +139,7 @@ public class WalletActivity extends Activity
 				{
 					try
 					{
-						final CountDownLatch latch = peer.startBlockChainDownload();
-
-						new Thread()
-						{
-							@Override
-							public void run()
-							{
-								try
-								{
-									latch.await();
-
-									runOnUiThread(new Runnable()
-									{
-										public void run()
-										{
-											actionBar.stopProgress();
-										}
-									});
-								}
-								catch (final Exception x)
-								{
-									x.printStackTrace();
-								}
-							}
-						}.start();
+						service.sync();
 
 						actionBar.startProgress();
 					}
@@ -216,48 +206,6 @@ public class WalletActivity extends Activity
 		final Address address = key.toAddress(Constants.NETWORK_PARAMS);
 
 		bitcoinAddressView.setText(splitIntoLines(address.toString(), 3));
-
-		backgroundHandler.post(new Runnable()
-		{
-			public void run()
-			{
-				try
-				{
-					final BlockStore blockStore = application.getBlockStore();
-					final PeerDiscovery peerDiscovery = new IrcDiscovery(Constants.PEER_DISCOVERY_IRC_CHANNEL);
-					NetworkConnection connection = null;
-					for (final InetSocketAddress inetSocketAddress : peerDiscovery.getPeers())
-					{
-						try
-						{
-							connection = new NetworkConnection(inetSocketAddress.getAddress(), Constants.NETWORK_PARAMS, blockStore.getChainHead()
-									.getHeight(), 5000);
-							break;
-						}
-						catch (final IOException x)
-						{
-							System.out.println(x);
-						}
-					}
-					final BlockChain chain = new BlockChain(Constants.NETWORK_PARAMS, wallet, blockStore);
-					peer = new Peer(Constants.NETWORK_PARAMS, connection, chain);
-					peer.start();
-
-					final String peerHostText = connection.getRemoteIp().getHostAddress();
-					runOnUiThread(new Runnable()
-					{
-						public void run()
-						{
-							((TextView) findViewById(R.id.peer_host)).setText(peerHostText);
-						}
-					});
-				}
-				catch (final Exception x)
-				{
-					throw new RuntimeException(x);
-				}
-			}
-		});
 
 		backgroundHandler.post(new Runnable()
 		{
@@ -339,6 +287,16 @@ public class WalletActivity extends Activity
 			openSendCoinsDialog(intentUri.getSchemeSpecificPart());
 	}
 
+	protected void onServiceBound()
+	{
+		System.out.println("service bound");
+	}
+
+	protected void onServiceUnbound()
+	{
+		System.out.println("service unbound");
+	}
+
 	@Override
 	protected void onDestroy()
 	{
@@ -348,14 +306,10 @@ public class WalletActivity extends Activity
 			qrCodeBitmap = null;
 		}
 
-		if (peer != null)
-		{
-			peer.disconnect();
-			peer = null;
-		}
-
 		// cancel background thread
 		backgroundThread.getLooper().quit();
+
+		unbindService(serviceConnection);
 
 		super.onDestroy();
 	}
@@ -437,7 +391,6 @@ public class WalletActivity extends Activity
 				{
 					final Address receivingAddress = new Address(Constants.NETWORK_PARAMS, receivingAddressView.getText().toString());
 					final BigInteger amount = Utils.toNanoCoins(((TextView) dialog.findViewById(R.id.send_coins_amount)).getText().toString());
-					System.out.println("about to send " + amount + " (BTC " + Utils.bitcoinValueToFriendlyString(amount) + ") to " + receivingAddress);
 
 					backgroundHandler.post(new Runnable()
 					{
@@ -445,7 +398,7 @@ public class WalletActivity extends Activity
 						{
 							try
 							{
-								final Transaction tx = application.getWallet().sendCoins(peer, receivingAddress, amount);
+								final Transaction tx = service.sendCoins(receivingAddress, amount);
 
 								if (tx != null)
 								{
