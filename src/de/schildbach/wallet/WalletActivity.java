@@ -123,6 +123,7 @@ public class WalletActivity extends Activity
 
 		actionBar.setIcon(R.drawable.app_icon);
 		actionBar.setPrimaryTitle(R.string.app_name);
+		actionBar.setSecondaryTitle(Constants.TEST ? "[testnet!]" : null);
 		actionBar.getButton().setImageResource(R.drawable.ic_menu_send);
 		actionBar.getButton().setOnClickListener(new OnClickListener()
 		{
@@ -150,8 +151,6 @@ public class WalletActivity extends Activity
 				}
 			}
 		});
-
-		((TextView) findViewById(R.id.bitcoin_network)).setText(Constants.TEST ? "testnet" : "prodnet");
 
 		wallet.addEventListener(new WalletEventListener()
 		{

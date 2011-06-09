@@ -69,7 +69,7 @@ public class ActionBar extends LinearLayout
 	public void setSecondaryTitle(final CharSequence title)
 	{
 		secondaryTitleView.setText(title);
-		secondaryTitleView.setVisibility(View.VISIBLE);
+		secondaryTitleView.setVisibility(title != null ? View.VISIBLE : View.GONE);
 	}
 
 	public ImageButton getButton()
