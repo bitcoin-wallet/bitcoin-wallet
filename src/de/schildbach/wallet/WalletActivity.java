@@ -21,6 +21,7 @@ import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.net.InetAddress;
 import java.net.URL;
@@ -368,8 +369,9 @@ public class WalletActivity extends Activity
 		}
 		else if (exchangeRate != null)
 		{
-			final double dollars = Utils.bitcoinValueToDouble(balance) * exchangeRate;
-			walletBalanceInDollarsView.setText(String.format("worth about US$ %.2f" + (Constants.TEST ? "\nif it were real bitcoins" : ""), dollars));
+			final BigInteger dollars = new BigDecimal(balance).multiply(new BigDecimal(exchangeRate)).toBigInteger();
+			walletBalanceInDollarsView.setText(String.format("worth about US$ %s" + (Constants.TEST ? "\nif it were real bitcoins" : ""),
+					Utils.bitcoinValueToFriendlyString(dollars)));
 		}
 	}
 
