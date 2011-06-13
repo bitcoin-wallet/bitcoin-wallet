@@ -61,7 +61,6 @@ import com.google.bitcoin.core.Address;
 import com.google.bitcoin.core.AddressFormatException;
 import com.google.bitcoin.core.ECKey;
 import com.google.bitcoin.core.Transaction;
-import com.google.bitcoin.core.TransactionInput;
 import com.google.bitcoin.core.Utils;
 import com.google.bitcoin.core.Wallet;
 import com.google.bitcoin.core.WalletEventListener;
@@ -86,7 +85,7 @@ public class WalletActivity extends Activity
 	private HandlerThread backgroundThread;
 	private Handler backgroundHandler;
 
-	private ServiceConnection serviceConnection = new ServiceConnection()
+	private final ServiceConnection serviceConnection = new ServiceConnection()
 	{
 		public void onServiceConnected(final ComponentName name, final IBinder binder)
 		{
@@ -98,6 +97,33 @@ public class WalletActivity extends Activity
 		{
 			service = null;
 			onServiceUnbound();
+		}
+	};
+
+	private final WalletEventListener walletEventListener = new WalletEventListener()
+	{
+		@Override
+		public void onCoinsReceived(final Wallet w, final Transaction tx, final BigInteger prevBalance, final BigInteger newBalance)
+		{
+			runOnUiThread(new Runnable()
+			{
+				public void run()
+				{
+					updateGUI();
+				}
+			});
+		}
+
+		@Override
+		public void onReorganize()
+		{
+			runOnUiThread(new Runnable()
+			{
+				public void run()
+				{
+					updateGUI();
+				}
+			});
 		}
 	};
 
@@ -153,51 +179,7 @@ public class WalletActivity extends Activity
 			}
 		});
 
-		wallet.addEventListener(new WalletEventListener()
-		{
-			@Override
-			public void onCoinsReceived(final Wallet w, final Transaction tx, final BigInteger prevBalance, final BigInteger newBalance)
-			{
-				try
-				{
-					final TransactionInput input = tx.getInputs().get(0);
-					final Address from = input.getFromAddress();
-					final BigInteger value = tx.getValueSentToMe(w);
-
-					System.out.println("!!!!!!!!!!!!! got bitcoins: " + from + " " + value + " " + Thread.currentThread().getName());
-
-					runOnUiThread(new Runnable()
-					{
-						public void run()
-						{
-							application.saveWallet();
-
-							updateGUI();
-						}
-					});
-				}
-				catch (Exception x)
-				{
-					throw new RuntimeException(x);
-				}
-			}
-
-			@Override
-			public void onReorganize()
-			{
-				System.out.println("!!!! reorganize");
-
-				runOnUiThread(new Runnable()
-				{
-					public void run()
-					{
-						application.saveWallet();
-
-						updateGUI();
-					}
-				});
-			}
-		});
+		wallet.addEventListener(walletEventListener);
 
 		updateGUI();
 
@@ -308,6 +290,8 @@ public class WalletActivity extends Activity
 
 		// cancel background thread
 		backgroundThread.getLooper().quit();
+
+		application.getWallet().removeEventListener(walletEventListener);
 
 		unbindService(serviceConnection);
 

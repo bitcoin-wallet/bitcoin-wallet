@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -20,7 +21,6 @@ import android.os.IBinder;
 import android.os.Process;
 
 import com.google.bitcoin.core.Address;
-import com.google.bitcoin.core.BlockChain;
 import com.google.bitcoin.core.BlockStoreException;
 import com.google.bitcoin.core.IrcDiscovery;
 import com.google.bitcoin.core.NetworkConnection;
@@ -28,8 +28,12 @@ import com.google.bitcoin.core.Peer;
 import com.google.bitcoin.core.PeerDiscovery;
 import com.google.bitcoin.core.PeerDiscoveryException;
 import com.google.bitcoin.core.ProtocolException;
+import com.google.bitcoin.core.ScriptException;
 import com.google.bitcoin.core.Transaction;
+import com.google.bitcoin.core.TransactionInput;
 import com.google.bitcoin.core.Utils;
+import com.google.bitcoin.core.Wallet;
+import com.google.bitcoin.core.WalletEventListener;
 
 public class Service extends android.app.Service
 {
@@ -39,10 +43,46 @@ public class Service extends android.app.Service
 
 	private HandlerThread backgroundThread;
 	private Handler backgroundHandler;
+	private final Handler handler = new Handler();
 
 	private NotificationManager nm;
 	private static final int NOTIFICATION_ID_CONNECTED = 0;
 	private static final int NOTIFICATION_ID_SYNCING = 1;
+	private static final AtomicInteger notificationIdCount = new AtomicInteger(10);
+
+	private final WalletEventListener walletEventListener = new WalletEventListener()
+	{
+		@Override
+		public void onCoinsReceived(final Wallet w, final Transaction tx, final BigInteger prevBalance, final BigInteger newBalance)
+		{
+			try
+			{
+				final TransactionInput input = tx.getInputs().get(0);
+				final Address from = input.getFromAddress();
+				final BigInteger value = tx.getValueSentToMe(w);
+
+				System.out.println("!!!!!!!!!!!!! got bitcoins: " + from + " " + value + " " + Thread.currentThread().getName());
+
+				handler.post(new Runnable()
+				{
+					public void run()
+					{
+						final String msg = "Received " + Utils.bitcoinValueToFriendlyString(value) + " BTC from " + from;
+						final Notification notification = new Notification(R.drawable.stat_notify_received, msg, System.currentTimeMillis());
+						notification.flags |= Notification.FLAG_AUTO_CANCEL;
+						notification.defaults |= Notification.DEFAULT_SOUND;
+						notification.setLatestEventInfo(Service.this, "Bitcoin Wallet", msg,
+								PendingIntent.getActivity(Service.this, 0, new Intent(Service.this, WalletActivity.class), 0));
+						nm.notify(notificationIdCount.getAndIncrement(), notification);
+					}
+				});
+			}
+			catch (final ScriptException x)
+			{
+				throw new RuntimeException(x);
+			}
+		}
+	};
 
 	public class LocalBinder extends Binder
 	{
@@ -107,12 +147,22 @@ public class Service extends android.app.Service
 
 					if (connection != null)
 					{
-						final String msg = "Peer " + connection.getRemoteIp().getHostAddress() + " connected";
-						final Notification notification = new Notification(android.R.drawable.stat_notify_error, msg, System.currentTimeMillis());
-						notification.flags |= Notification.FLAG_ONGOING_EVENT;
-						notification.setLatestEventInfo(Service.this, "Bitcoin Wallet", msg,
-								PendingIntent.getActivity(Service.this, 0, new Intent(Service.this, WalletActivity.class), 0));
-						nm.notify(NOTIFICATION_ID_CONNECTED, notification);
+						handler.post(new Runnable()
+						{
+							public void run()
+							{
+								peer = new Peer(Constants.NETWORK_PARAMS, connection, application.getBlockChain());
+								peer.start();
+
+								final String msg = "Peer " + connection.getRemoteIp().getHostAddress() + " connected";
+								final Notification notification = new Notification(android.R.drawable.stat_notify_error, msg, System
+										.currentTimeMillis());
+								notification.flags |= Notification.FLAG_ONGOING_EVENT;
+								notification.setLatestEventInfo(Service.this, "Bitcoin Wallet", msg,
+										PendingIntent.getActivity(Service.this, 0, new Intent(Service.this, WalletActivity.class), 0));
+								nm.notify(NOTIFICATION_ID_CONNECTED, notification);
+							}
+						});
 					}
 				}
 				catch (final PeerDiscoveryException x)
@@ -125,6 +175,8 @@ public class Service extends android.app.Service
 				}
 			}
 		});
+
+		application.getWallet().addEventListener(walletEventListener);
 	}
 
 	@Override
@@ -134,6 +186,8 @@ public class Service extends android.app.Service
 
 		nm.cancel(NOTIFICATION_ID_CONNECTED);
 		nm.cancel(NOTIFICATION_ID_SYNCING);
+
+		application.getWallet().removeEventListener(walletEventListener);
 
 		if (peer != null)
 		{
@@ -156,10 +210,6 @@ public class Service extends android.app.Service
 		notification.setLatestEventInfo(this, "Bitcoin Wallet", "Blockchain sync running",
 				PendingIntent.getActivity(this, 0, new Intent(this, WalletActivity.class), 0));
 		nm.notify(NOTIFICATION_ID_SYNCING, notification);
-
-		final BlockChain chain = new BlockChain(Constants.NETWORK_PARAMS, application.getWallet(), application.getBlockStore());
-		peer = new Peer(Constants.NETWORK_PARAMS, connection, chain);
-		peer.start();
 
 		final CountDownLatch latch = peer.startBlockChainDownload();
 

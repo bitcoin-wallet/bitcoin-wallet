@@ -20,15 +20,20 @@ package de.schildbach.wallet;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.math.BigInteger;
 
 import android.content.Context;
 import android.os.Debug;
+import android.os.Handler;
 
+import com.google.bitcoin.core.BlockChain;
 import com.google.bitcoin.core.BlockStore;
 import com.google.bitcoin.core.BlockStoreException;
 import com.google.bitcoin.core.BoundedOverheadBlockStore;
 import com.google.bitcoin.core.ECKey;
+import com.google.bitcoin.core.Transaction;
 import com.google.bitcoin.core.Wallet;
+import com.google.bitcoin.core.WalletEventListener;
 
 /**
  * @author Andreas Schildbach
@@ -37,6 +42,36 @@ public class Application extends android.app.Application
 {
 	private Wallet wallet;
 	private BlockStore blockStore;
+	private BlockChain blockChain;
+
+	private final Handler handler = new Handler();
+
+	final private WalletEventListener walletEventListener = new WalletEventListener()
+	{
+		@Override
+		public void onCoinsReceived(final Wallet w, final Transaction tx, final BigInteger prevBalance, final BigInteger newBalance)
+		{
+			handler.post(new Runnable()
+			{
+				public void run()
+				{
+					saveWallet();
+				}
+			});
+		}
+
+		@Override
+		public void onReorganize()
+		{
+			handler.post(new Runnable()
+			{
+				public void run()
+				{
+					saveWallet();
+				}
+			});
+		}
+	};
 
 	@Override
 	public void onCreate()
@@ -47,10 +82,14 @@ public class Application extends android.app.Application
 
 		loadWallet();
 
+		wallet.addEventListener(walletEventListener);
+
 		try
 		{
 			blockStore = new BoundedOverheadBlockStore(Constants.NETWORK_PARAMS, new File(getDir("blockstore", Context.MODE_WORLD_READABLE
 					| Context.MODE_WORLD_WRITEABLE), "blockchain"));
+
+			blockChain = new BlockChain(Constants.NETWORK_PARAMS, wallet, blockStore);
 		}
 		catch (final BlockStoreException x)
 		{
@@ -66,6 +105,11 @@ public class Application extends android.app.Application
 	public BlockStore getBlockStore()
 	{
 		return blockStore;
+	}
+
+	public BlockChain getBlockChain()
+	{
+		return blockChain;
 	}
 
 	private void loadWallet()
