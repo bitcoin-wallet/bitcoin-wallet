@@ -161,6 +161,8 @@ public class Service extends android.app.Service
 								notification.setLatestEventInfo(Service.this, "Bitcoin Wallet", msg,
 										PendingIntent.getActivity(Service.this, 0, new Intent(Service.this, WalletActivity.class), 0));
 								nm.notify(NOTIFICATION_ID_CONNECTED, notification);
+
+								sync();
 							}
 						});
 					}
@@ -201,7 +203,7 @@ public class Service extends android.app.Service
 		super.onDestroy();
 	}
 
-	public void sync() throws IOException
+	public void sync()
 	{
 		System.out.println("sync");
 
@@ -211,33 +213,32 @@ public class Service extends android.app.Service
 				PendingIntent.getActivity(this, 0, new Intent(this, WalletActivity.class), 0));
 		nm.notify(NOTIFICATION_ID_SYNCING, notification);
 
-		final CountDownLatch latch = peer.startBlockChainDownload();
-
-		new Thread()
+		try
 		{
-			@Override
-			public void run()
+			final CountDownLatch latch = peer.startBlockChainDownload();
+
+			new Thread()
 			{
-				try
+				@Override
+				public void run()
 				{
-					latch.await();
+					try
+					{
+						latch.await();
 
-					nm.cancel(NOTIFICATION_ID_SYNCING);
-
-					// runOnUiThread(new Runnable()
-					// {
-					// public void run()
-					// {
-					// actionBar.stopProgress();
-					// }
-					// });
+						nm.cancel(NOTIFICATION_ID_SYNCING);
+					}
+					catch (final Exception x)
+					{
+						x.printStackTrace();
+					}
 				}
-				catch (final Exception x)
-				{
-					x.printStackTrace();
-				}
-			}
-		}.start();
+			}.start(); // FIXME no graceful shutdown possible
+		}
+		catch (final IOException x)
+		{
+			throw new RuntimeException(x);
+		}
 	}
 
 	public Transaction sendCoins(final Address receivingAddress, final BigInteger amount) throws IOException

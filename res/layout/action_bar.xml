@@ -24,17 +24,4 @@
 	<ImageButton android:id="@+id/action_bar_button" android:layout_width="44dp" android:layout_height="fill_parent"
 		android:layout_weight="0" android:background="@drawable/action_bar_background" />
 
-	<ImageView android:layout_width="1dp" android:layout_height="fill_parent" android:layout_weight="0"
-		android:background="#4000" />
-	<ImageView android:layout_width="1dp" android:layout_height="fill_parent" android:layout_weight="0"
-		android:background="#4fff" />
-
-	<FrameLayout android:layout_width="44dp" android:layout_height="fill_parent" android:layout_weight="0">
-		<ImageButton android:id="@+id/action_bar_progress_button" android:layout_width="fill_parent"
-			android:layout_height="fill_parent" android:background="@drawable/action_bar_background" />
-		<ImageButton android:id="@+id/action_bar_progress_image" android:layout_width="fill_parent"
-			android:layout_height="fill_parent" android:src="@drawable/ic_menu_refresh" android:background="@null"
-			android:clickable="false" />
-	</FrameLayout>
-
 </merge>

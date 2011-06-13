@@ -159,25 +159,6 @@ public class WalletActivity extends Activity
 				openSendCoinsDialog(null);
 			}
 		});
-		actionBar.getProgressButton().setOnClickListener(new OnClickListener()
-		{
-			public void onClick(final View v)
-			{
-				if (actionBar.getProgressCount() == 0)
-				{
-					try
-					{
-						service.sync();
-
-						actionBar.startProgress();
-					}
-					catch (final Exception x)
-					{
-						throw new RuntimeException(x);
-					}
-				}
-			}
-		});
 
 		wallet.addEventListener(walletEventListener);
 
