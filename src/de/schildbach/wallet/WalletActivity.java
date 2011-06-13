@@ -531,7 +531,7 @@ public class WalletActivity extends Activity
 	{
 		try
 		{
-			final URLConnection connection = new URL("https://mtgox.com/code/data/ticker.php").openConnection();
+			final URLConnection connection = new URL("https://mtgox.com/code/data/ticker.php").openConnection(); // https://bitmarket.eu/api/ticker
 			connection.connect();
 			final Reader is = new InputStreamReader(new BufferedInputStream(connection.getInputStream()));
 			final StringBuilder content = new StringBuilder();
