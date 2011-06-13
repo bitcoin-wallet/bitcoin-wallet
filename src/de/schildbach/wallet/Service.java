@@ -67,11 +67,11 @@ public class Service extends android.app.Service
 				{
 					public void run()
 					{
-						final String msg = "Received " + Utils.bitcoinValueToFriendlyString(value) + " BTC from " + from;
+						final String msg = "Received " + Utils.bitcoinValueToFriendlyString(value) + " BTC";
 						final Notification notification = new Notification(R.drawable.stat_notify_received, msg, System.currentTimeMillis());
 						notification.flags |= Notification.FLAG_AUTO_CANCEL;
 						notification.defaults |= Notification.DEFAULT_SOUND;
-						notification.setLatestEventInfo(Service.this, "Bitcoin Wallet", msg,
+						notification.setLatestEventInfo(Service.this, msg, "From " + from,
 								PendingIntent.getActivity(Service.this, 0, new Intent(Service.this, WalletActivity.class), 0));
 						nm.notify(notificationIdCount.getAndIncrement(), notification);
 					}
