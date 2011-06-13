@@ -3,6 +3,9 @@ package de.schildbach.wallet;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.net.InetSocketAddress;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
 import android.app.Notification;
@@ -81,7 +84,10 @@ public class Service extends android.app.Service
 				{
 					final PeerDiscovery peerDiscovery = new IrcDiscovery(Constants.PEER_DISCOVERY_IRC_CHANNEL);
 
-					for (final InetSocketAddress inetSocketAddress : peerDiscovery.getPeers())
+					final List<InetSocketAddress> peers = Arrays.asList(peerDiscovery.getPeers());
+					Collections.shuffle(peers);
+
+					for (final InetSocketAddress inetSocketAddress : peers)
 					{
 						try
 						{
