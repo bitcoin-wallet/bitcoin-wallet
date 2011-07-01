@@ -63,6 +63,7 @@ import com.google.bitcoin.core.ECKey;
 import com.google.bitcoin.core.Transaction;
 import com.google.bitcoin.core.Utils;
 import com.google.bitcoin.core.Wallet;
+import com.google.bitcoin.core.Wallet.BalanceType;
 import com.google.bitcoin.core.WalletEventListener;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
@@ -324,7 +325,7 @@ public class WalletActivity extends Activity
 
 	private void updateGUI()
 	{
-		final BigInteger balance = application.getWallet().getBalance();
+		final BigInteger balance = application.getWallet().getBalance(BalanceType.ESTIMATED);
 		((TextView) findViewById(R.id.wallet_balance)).setText(Utils.bitcoinValueToFriendlyString(balance));
 
 		final TextView walletBalanceInDollarsView = (TextView) findViewById(R.id.wallet_balance_in_dollars);
