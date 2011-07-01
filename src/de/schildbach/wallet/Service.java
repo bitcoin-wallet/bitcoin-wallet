@@ -21,12 +21,8 @@ import android.os.IBinder;
 import android.os.Process;
 
 import com.google.bitcoin.core.Address;
-import com.google.bitcoin.core.BlockStoreException;
-import com.google.bitcoin.core.IrcDiscovery;
 import com.google.bitcoin.core.NetworkConnection;
 import com.google.bitcoin.core.Peer;
-import com.google.bitcoin.core.PeerDiscovery;
-import com.google.bitcoin.core.PeerDiscoveryException;
 import com.google.bitcoin.core.ProtocolException;
 import com.google.bitcoin.core.ScriptException;
 import com.google.bitcoin.core.Transaction;
@@ -34,6 +30,10 @@ import com.google.bitcoin.core.TransactionInput;
 import com.google.bitcoin.core.Utils;
 import com.google.bitcoin.core.Wallet;
 import com.google.bitcoin.core.WalletEventListener;
+import com.google.bitcoin.discovery.IrcDiscovery;
+import com.google.bitcoin.discovery.PeerDiscovery;
+import com.google.bitcoin.discovery.PeerDiscoveryException;
+import com.google.bitcoin.store.BlockStoreException;
 
 public class Service extends android.app.Service
 {

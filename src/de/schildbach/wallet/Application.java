@@ -27,13 +27,13 @@ import android.os.Debug;
 import android.os.Handler;
 
 import com.google.bitcoin.core.BlockChain;
-import com.google.bitcoin.core.BlockStore;
-import com.google.bitcoin.core.BlockStoreException;
-import com.google.bitcoin.core.BoundedOverheadBlockStore;
 import com.google.bitcoin.core.ECKey;
 import com.google.bitcoin.core.Transaction;
 import com.google.bitcoin.core.Wallet;
 import com.google.bitcoin.core.WalletEventListener;
+import com.google.bitcoin.store.BlockStore;
+import com.google.bitcoin.store.BlockStoreException;
+import com.google.bitcoin.store.BoundedOverheadBlockStore;
 
 /**
  * @author Andreas Schildbach
