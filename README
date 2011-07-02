@@ -1,0 +1,38 @@
+KNOWN ISSUES
+
+If app repeatedly force closes upon start after updating to new version, make sure to clear app
+data in application manager. This is caused by incompatible class changes in BitCoinJ. Your
+wallet will be lost!
+
+When run for the first time, the block chain needs to be downloaded. For testnet, this currently
+takes around 5-10 minutes on a WLAN. When the sync icon in the status disappears, the download is
+finished and the wallet is on the top of the block chain.
+
+When a peer is connected, an exclamation mark icon is shown in the status bar. Should be a better
+icon, but I had none.
+
+When sending money, you need to make sure that a peer is connected the moment you press 'Send'.
+Otherwise, for now the app will force close and the transaction is lost.
+
+No NFC support, because I still have no NFC-capable phone. If you can spare one (e.g. a Nexus S),
+send it over and I'll send it back once NFC is implemented.
+
+
+FILES
+
+/data/data/de.schildbach.wallet/files/wallet (MODE_PRIVATE)
+	Wallet for prodnet
+
+/data/data/de.schildbach.wallet/files/wallet-testnet (MODE_WORLD_READABLE | MODE_WORLD_WRITEABLE)
+	Wallet for testnet
+
+
+DEBUGGING
+
+Wallet file for testnet can be pulled from (even unrooted) device using
+
+	adb pull /data/data/de.schildbach.wallet/files/wallet-testnet
+
+Log messages can be viewed by
+
+	adb logcat
