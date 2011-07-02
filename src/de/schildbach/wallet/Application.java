@@ -114,12 +114,10 @@ public class Application extends android.app.Application
 
 	private void loadWallet()
 	{
-		final String filename = walletFilename();
-
 		try
 		{
-			wallet = Wallet.loadFromFileStream(openFileInput(filename));
-			System.out.println("wallet loaded from: " + getFilesDir() + "/" + filename);
+			wallet = Wallet.loadFromFileStream(openFileInput(Constants.WALLET_FILENAME));
+			System.out.println("wallet loaded from: " + getFilesDir() + "/" + Constants.WALLET_FILENAME);
 		}
 		catch (final FileNotFoundException x)
 		{
@@ -128,8 +126,8 @@ public class Application extends android.app.Application
 
 			try
 			{
-				wallet.saveToFileStream(openFileOutput(filename, walletMode()));
-				System.out.println("wallet created: " + getFilesDir() + "/" + filename);
+				wallet.saveToFileStream(openFileOutput(Constants.WALLET_FILENAME, Constants.WALLET_MODE));
+				System.out.println("wallet created: " + getFilesDir() + "/" + Constants.WALLET_FILENAME);
 			}
 			catch (final IOException x2)
 			{
@@ -146,23 +144,12 @@ public class Application extends android.app.Application
 	{
 		try
 		{
-			final String filename = walletFilename();
-			wallet.saveToFileStream(openFileOutput(filename, walletMode()));
-			System.out.println("wallet saved to: " + getFilesDir() + "/" + filename);
+			wallet.saveToFileStream(openFileOutput(Constants.WALLET_FILENAME, Constants.WALLET_MODE));
+			System.out.println("wallet saved to: " + getFilesDir() + "/" + Constants.WALLET_FILENAME);
 		}
 		catch (IOException x)
 		{
 			throw new RuntimeException(x);
 		}
-	}
-
-	private static String walletFilename()
-	{
-		return "wallet" + (Constants.TEST ? "-testnet" : "");
-	}
-
-	private static int walletMode()
-	{
-		return (Constants.TEST ? Context.MODE_WORLD_READABLE | Context.MODE_WORLD_WRITEABLE : Context.MODE_PRIVATE);
 	}
 }

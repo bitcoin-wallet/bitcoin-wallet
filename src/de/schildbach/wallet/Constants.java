@@ -17,6 +17,8 @@
 
 package de.schildbach.wallet;
 
+import android.content.Context;
+
 import com.google.bitcoin.core.NetworkParameters;
 
 /**
@@ -26,7 +28,8 @@ public class Constants
 {
 	public static final boolean TEST = true;
 
-	public static final String WALLET_FILENAME = Constants.TEST ? "wallet-test" : "wallet";
+	public static final String WALLET_FILENAME = Constants.TEST ? "wallet-testnet" : "wallet";
+	public static final int WALLET_MODE = Constants.TEST ? Context.MODE_WORLD_READABLE | Context.MODE_WORLD_WRITEABLE : Context.MODE_PRIVATE;
 
 	public static final NetworkParameters NETWORK_PARAMS = TEST ? NetworkParameters.testNet() : NetworkParameters.prodNet();
 	public static final String PEER_DISCOVERY_IRC_CHANNEL = TEST ? "#bitcoinTEST" : "#bitcoin";
