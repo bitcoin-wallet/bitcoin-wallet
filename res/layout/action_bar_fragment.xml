@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<merge xmlns:android="http://schemas.android.com/apk/res/android">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:background="@drawable/action_bar_background">
 
 	<ImageView android:id="@+id/action_bar_icon" android:layout_width="40dp" android:layout_height="40dp"
 		android:layout_gravity="center_vertical" android:layout_margin="2dp" android:layout_weight="0" />
@@ -24,4 +24,4 @@
 	<ImageButton android:id="@+id/action_bar_button" android:layout_width="44dp" android:layout_height="fill_parent"
 		android:layout_weight="0" android:background="@drawable/action_bar_background" />
 
-</merge>
+</LinearLayout>

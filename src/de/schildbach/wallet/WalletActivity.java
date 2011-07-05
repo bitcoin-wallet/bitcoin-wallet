@@ -17,71 +17,42 @@
 
 package de.schildbach.wallet;
 
-import java.io.BufferedInputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.net.InetAddress;
-import java.net.URL;
-import java.net.URLConnection;
-import java.net.UnknownHostException;
-import java.util.Hashtable;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
-import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.IBinder;
 import android.os.Process;
-import android.text.ClipboardManager;
+import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnLongClickListener;
 import android.view.Window;
 import android.webkit.WebView;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.bitcoin.core.Address;
 import com.google.bitcoin.core.AddressFormatException;
-import com.google.bitcoin.core.ECKey;
 import com.google.bitcoin.core.Transaction;
 import com.google.bitcoin.core.Utils;
-import com.google.bitcoin.core.Wallet;
-import com.google.bitcoin.core.Wallet.BalanceType;
-import com.google.bitcoin.core.WalletEventListener;
-import com.google.zxing.BarcodeFormat;
-import com.google.zxing.EncodeHintType;
-import com.google.zxing.WriterException;
-import com.google.zxing.common.BitMatrix;
-import com.google.zxing.qrcode.QRCodeWriter;
-import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 
 /**
  * @author Andreas Schildbach
  */
-public class WalletActivity extends Activity
+public class WalletActivity extends FragmentActivity
 {
 	private Application application;
 	private Service service;
-
-	private Bitmap qrCodeBitmap;
-	private Float exchangeRate;
 
 	private HandlerThread backgroundThread;
 	private Handler backgroundHandler;
@@ -101,33 +72,6 @@ public class WalletActivity extends Activity
 		}
 	};
 
-	private final WalletEventListener walletEventListener = new WalletEventListener()
-	{
-		@Override
-		public void onCoinsReceived(final Wallet w, final Transaction tx, final BigInteger prevBalance, final BigInteger newBalance)
-		{
-			runOnUiThread(new Runnable()
-			{
-				public void run()
-				{
-					updateGUI();
-				}
-			});
-		}
-
-		@Override
-		public void onReorganize()
-		{
-			runOnUiThread(new Runnable()
-			{
-				public void run()
-				{
-					updateGUI();
-				}
-			});
-		}
-	};
-
 	@Override
 	protected void onCreate(final Bundle savedInstanceState)
 	{
@@ -142,12 +86,8 @@ public class WalletActivity extends Activity
 		backgroundThread.start();
 		backgroundHandler = new Handler(backgroundThread.getLooper());
 
-		final Wallet wallet = application.getWallet();
-
 		setContentView(R.layout.wallet_content);
-		final ActionBar actionBar = (ActionBar) findViewById(R.id.action_bar);
-		final TextView bitcoinAddressView = (TextView) findViewById(R.id.bitcoin_address);
-		final ImageView bitcoinAddressQrView = (ImageView) findViewById(R.id.bitcoin_address_qr);
+		final ActionBarFragment actionBar = (ActionBarFragment) getSupportFragmentManager().findFragmentById(R.id.action_bar_fragment);
 
 		actionBar.setIcon(R.drawable.app_icon);
 		actionBar.setPrimaryTitle(R.string.app_name);
@@ -158,91 +98,6 @@ public class WalletActivity extends Activity
 			public void onClick(final View v)
 			{
 				openSendCoinsDialog(null);
-			}
-		});
-
-		wallet.addEventListener(walletEventListener);
-
-		updateGUI();
-
-		System.out.println(wallet.keychain.size() + " key(s) in keychain");
-		final ECKey key = wallet.keychain.get(0);
-		final Address address = key.toAddress(Constants.NETWORK_PARAMS);
-
-		bitcoinAddressView.setText(splitIntoLines(address.toString(), 3));
-
-		backgroundHandler.post(new Runnable()
-		{
-			public void run()
-			{
-				try
-				{
-					final Float newExchangeRate = getExchangeRate();
-
-					if (newExchangeRate != null)
-					{
-						runOnUiThread(new Runnable()
-						{
-							public void run()
-							{
-								exchangeRate = newExchangeRate;
-								updateGUI();
-							}
-						});
-					}
-				}
-				catch (final Exception x)
-				{
-					throw new RuntimeException(x);
-				}
-			}
-		});
-
-		// populate qrcode representation of bitcoin address
-		qrCodeBitmap = getQRCodeBitmap("bitcoin:" + address.toString());
-		bitcoinAddressQrView.setImageBitmap(qrCodeBitmap);
-
-		bitcoinAddressView.setOnClickListener(new OnClickListener()
-		{
-			public void onClick(final View v)
-			{
-				ClipboardManager clipboardManager = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
-				clipboardManager.setText(address.toString());
-				Toast.makeText(WalletActivity.this, "bitcoin address pasted to clipboard", Toast.LENGTH_SHORT).show();
-
-				System.out.println("my bitcoin address: " + address + (Constants.TEST ? " (testnet!)" : ""));
-			}
-		});
-
-		bitcoinAddressView.setOnLongClickListener(new OnLongClickListener()
-		{
-			public boolean onLongClick(final View v)
-			{
-				startActivity(Intent.createChooser(
-						new Intent(Intent.ACTION_SEND).putExtra(Intent.EXTRA_TEXT, "bitcoin:" + address).setType("text/plain"),
-						"Share your bitcoin address..."));
-				return false;
-			}
-		});
-
-		bitcoinAddressQrView.setOnClickListener(new OnClickListener()
-		{
-			public void onClick(final View v)
-			{
-				final Dialog dialog = new Dialog(WalletActivity.this);
-				dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-				dialog.setContentView(R.layout.bitcoin_address_qr_dialog);
-				final ImageView imageView = (ImageView) dialog.findViewById(R.id.bitcoin_address_qr);
-				imageView.setImageBitmap(qrCodeBitmap);
-				dialog.setCanceledOnTouchOutside(true);
-				dialog.show();
-				imageView.setOnClickListener(new OnClickListener()
-				{
-					public void onClick(final View v)
-					{
-						dialog.dismiss();
-					}
-				});
 			}
 		});
 
@@ -264,16 +119,8 @@ public class WalletActivity extends Activity
 	@Override
 	protected void onDestroy()
 	{
-		if (qrCodeBitmap != null)
-		{
-			qrCodeBitmap.recycle();
-			qrCodeBitmap = null;
-		}
-
 		// cancel background thread
 		backgroundThread.getLooper().quit();
-
-		application.getWallet().removeEventListener(walletEventListener);
 
 		unbindService(serviceConnection);
 
@@ -323,24 +170,6 @@ public class WalletActivity extends Activity
 		return dialog;
 	}
 
-	private void updateGUI()
-	{
-		final BigInteger balance = application.getWallet().getBalance(BalanceType.ESTIMATED);
-		((TextView) findViewById(R.id.wallet_balance)).setText(Utils.bitcoinValueToFriendlyString(balance));
-
-		final TextView walletBalanceInDollarsView = (TextView) findViewById(R.id.wallet_balance_in_dollars);
-		if (balance.equals(BigInteger.ZERO))
-		{
-			walletBalanceInDollarsView.setText(null);
-		}
-		else if (exchangeRate != null)
-		{
-			final BigInteger dollars = new BigDecimal(balance).multiply(new BigDecimal(exchangeRate)).toBigInteger();
-			walletBalanceInDollarsView.setText(String.format("worth about US$ %s" + (Constants.TEST ? "\nif it were real bitcoins" : ""),
-					Utils.bitcoinValueToFriendlyString(dollars)));
-		}
-	}
-
 	private void openSendCoinsDialog(final String receivingAddressStr)
 	{
 		final Dialog dialog = new Dialog(this, android.R.style.Theme_Light);
@@ -375,7 +204,8 @@ public class WalletActivity extends Activity
 										{
 											application.saveWallet();
 
-											updateGUI();
+											((WalletBalanceFragment) getSupportFragmentManager().findFragmentById(R.id.wallet_balance_fragment))
+													.updateView();
 
 											dialog.dismiss();
 
@@ -426,106 +256,5 @@ public class WalletActivity extends Activity
 				dialog.dismiss();
 			}
 		});
-	}
-
-	private static InetAddress inetAddressFromUnsignedInt(final long l)
-	{
-		final byte[] bytes = { (byte) (l & 0x000000ff), (byte) ((l & 0x0000ff00) >> 8), (byte) ((l & 0x00ff0000) >> 16),
-				(byte) ((l & 0xff000000) >> 24) };
-		try
-		{
-			return InetAddress.getByAddress(bytes);
-		}
-		catch (final UnknownHostException x)
-		{
-			throw new RuntimeException(x);
-		}
-	}
-
-	public final static QRCodeWriter QR_CODE_WRITER = new QRCodeWriter();
-
-	private static Bitmap getQRCodeBitmap(final String url)
-	{
-		final int SIZE = 256;
-
-		try
-		{
-			final Hashtable<EncodeHintType, Object> hints = new Hashtable<EncodeHintType, Object>();
-			hints.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.H);
-			final BitMatrix result = QR_CODE_WRITER.encode(url, BarcodeFormat.QR_CODE, SIZE, SIZE, hints);
-
-			final int width = result.getWidth();
-			final int height = result.getHeight();
-			final int[] pixels = new int[width * height];
-
-			for (int y = 0; y < height; y++)
-			{
-				final int offset = y * width;
-				for (int x = 0; x < width; x++)
-				{
-					pixels[offset + x] = result.get(x, y) ? Color.BLACK : Color.WHITE;
-				}
-			}
-
-			final Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
-			bitmap.setPixels(pixels, 0, width, 0, 0, width, height);
-			return bitmap;
-		}
-		catch (final WriterException x)
-		{
-			x.printStackTrace();
-			return null;
-		}
-	}
-
-	private static String splitIntoLines(final String str, final int lines)
-	{
-		if (lines < 2)
-			return str;
-
-		final int len = (int) Math.ceil((float) str.length() / lines);
-		final StringBuilder builder = new StringBuilder(str);
-		for (int i = 0; i < lines - 1; i++)
-			builder.insert(len + i * (len + 1), '\n');
-
-		return builder.toString();
-	}
-
-	private static final Pattern P_EXCHANGE_RATE = Pattern.compile("\"last\":(\\d*\\.\\d*)[^\\d]");
-
-	private static Float getExchangeRate()
-	{
-		try
-		{
-			final URLConnection connection = new URL("https://mtgox.com/code/data/ticker.php").openConnection(); // https://bitmarket.eu/api/ticker
-			connection.connect();
-			final Reader is = new InputStreamReader(new BufferedInputStream(connection.getInputStream()));
-			final StringBuilder content = new StringBuilder();
-			copy(is, content);
-			is.close();
-
-			final Matcher m = P_EXCHANGE_RATE.matcher(content);
-			if (m.find())
-				return Float.parseFloat(m.group(1));
-		}
-		catch (final IOException x)
-		{
-			x.printStackTrace();
-		}
-
-		return null;
-	}
-
-	private static final long copy(final Reader reader, final StringBuilder builder) throws IOException
-	{
-		final char[] buffer = new char[256];
-		long count = 0;
-		int n = 0;
-		while (-1 != (n = reader.read(buffer)))
-		{
-			builder.append(buffer, 0, n);
-			count += n;
-		}
-		return count;
 	}
 }

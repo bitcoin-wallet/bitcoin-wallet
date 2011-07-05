@@ -17,34 +17,36 @@
 
 package de.schildbach.wallet;
 
-import android.content.Context;
-import android.util.AttributeSet;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 /**
  * @author Andreas Schildbach
  */
-public class ActionBar extends LinearLayout
+public class ActionBarFragment extends Fragment
 {
-	private final ImageView iconView;
-	private final TextView primaryTitleView;
-	private final TextView secondaryTitleView;
+	private ImageView iconView;
+	private TextView primaryTitleView;
+	private TextView secondaryTitleView;
+	private ImageButton button;
 
-	public ActionBar(final Context context, final AttributeSet attributes)
+	@Override
+	public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState)
 	{
-		super(context, attributes);
+		final View view = inflater.inflate(R.layout.action_bar_fragment, container);
 
-		final LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		inflater.inflate(R.layout.action_bar, this, true);
+		iconView = (ImageView) view.findViewById(R.id.action_bar_icon);
+		primaryTitleView = (TextView) view.findViewById(R.id.action_bar_primary_title);
+		secondaryTitleView = (TextView) view.findViewById(R.id.action_bar_secondary_title);
+		button = (ImageButton) view.findViewById(R.id.action_bar_button);
 
-		iconView = (ImageView) findViewById(R.id.action_bar_icon);
-		primaryTitleView = (TextView) findViewById(R.id.action_bar_primary_title);
-		secondaryTitleView = (TextView) findViewById(R.id.action_bar_secondary_title);
+		return view;
 	}
 
 	public void setIcon(final int iconRes)
@@ -65,6 +67,6 @@ public class ActionBar extends LinearLayout
 
 	public ImageButton getButton()
 	{
-		return (ImageButton) findViewById(R.id.action_bar_button);
+		return button;
 	}
 }

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android">
+
+	<ImageView android:id="@+id/bitcoin_address_qr" android:layout_width="96dp" android:layout_height="96dp"
+		android:layout_alignParentTop="true" android:layout_alignParentRight="true" android:layout_marginLeft="16dp"
+		android:scaleType="centerInside" />
+
+	<TextView android:id="@+id/bitcoin_address_label" android:layout_width="wrap_content" android:layout_height="wrap_content"
+		android:layout_alignTop="@id/bitcoin_address_qr" android:layout_alignParentLeft="true" android:layout_toLeftOf="@id/bitcoin_address_qr"
+		android:text="Your Bitcoin Address:" />
+
+	<TextView android:id="@+id/bitcoin_address" android:layout_width="wrap_content" android:layout_height="wrap_content"
+		android:layout_alignBottom="@id/bitcoin_address_qr" android:layout_alignParentLeft="true" android:layout_toLeftOf="@id/bitcoin_address_qr"
+		android:typeface="monospace" android:textSize="18sp" />
+
+</RelativeLayout>
