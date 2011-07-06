@@ -93,18 +93,26 @@ public class Application extends android.app.Application
 			if (!file.exists())
 			{
 				// copy snapshot
-				System.out.println("copying blockchain snapshot");
-				final long t = System.currentTimeMillis();
+				try
+				{
+					final long t = System.currentTimeMillis();
 
-				final InputStream is = new BufferedInputStream(getAssets().open(Constants.BLOCKCHAIN_SNAPSHOT_FILENAME));
-				final OutputStream os = new FileOutputStream(file);
-				final byte[] buf = new byte[8192];
-				int read;
-				while (-1 != (read = is.read(buf)))
-					os.write(buf, 0, read);
-				os.close();
-				is.close();
-				System.out.println("finished copying, took " + (System.currentTimeMillis() - t) + " ms");
+					final InputStream is = new BufferedInputStream(getAssets().open(Constants.BLOCKCHAIN_SNAPSHOT_FILENAME));
+					final OutputStream os = new FileOutputStream(file);
+
+					System.out.println("copying blockchain snapshot");
+					final byte[] buf = new byte[8192];
+					int read;
+					while (-1 != (read = is.read(buf)))
+						os.write(buf, 0, read);
+					os.close();
+					is.close();
+					System.out.println("finished copying, took " + (System.currentTimeMillis() - t) + " ms");
+				}
+				catch (final IOException x)
+				{
+					file.delete();
+				}
 			}
 
 			blockStore = new BoundedOverheadBlockStore(Constants.NETWORK_PARAMS, file);
@@ -112,10 +120,6 @@ public class Application extends android.app.Application
 			blockChain = new BlockChain(Constants.NETWORK_PARAMS, wallet, blockStore);
 		}
 		catch (final BlockStoreException x)
-		{
-			throw new Error("blockstore cannot be created", x);
-		}
-		catch (final IOException x)
 		{
 			throw new Error("blockstore cannot be created", x);
 		}
