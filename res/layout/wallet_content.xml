@@ -23,7 +23,7 @@
 
 			<TextView android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_weight="0"
 				android:gravity="center_horizontal"
-				android:text="WARNING: This is entirely experimental. You *will* loose your Bitcoins associated with this wallet! Use at your own risk, and use only with small amounts of Bitcoins!"
+				android:text="WARNING: This is entirely experimental. You *will* lose your Bitcoins associated with this wallet! Use at your own risk, and use only with small amounts of Bitcoins!"
 				android:textSize="12sp" />
 
 		</LinearLayout>
