@@ -127,7 +127,8 @@ public class WalletBalanceFragment extends Fragment
 				}
 				catch (final Exception x)
 				{
-					throw new RuntimeException(x);
+					// if something happens here, don't care. it's not important.
+					x.printStackTrace();
 				}
 			}
 		});
