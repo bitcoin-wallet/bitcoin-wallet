@@ -10,6 +10,9 @@
 				<action android:name="android.intent.action.MAIN" />
 				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
+		</activity>
+		<activity android:name=".SendCoinsActivity" android:theme="@android:style/Theme.Light.NoTitleBar"
+			android:configChanges="orientation|keyboard|keyboardHidden">
 			<intent-filter>
 				<action android:name="android.intent.action.VIEW" />
 				<data android:scheme="bitcoin" />

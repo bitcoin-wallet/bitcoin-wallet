@@ -54,6 +54,11 @@ public class ActionBarFragment extends Fragment
 		iconView.setImageResource(iconRes);
 	}
 
+	public void setPrimaryTitle(final CharSequence title)
+	{
+		primaryTitleView.setText(title);
+	}
+
 	public void setPrimaryTitle(final int titleRes)
 	{
 		primaryTitleView.setText(titleRes);
