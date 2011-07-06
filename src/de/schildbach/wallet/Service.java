@@ -30,6 +30,7 @@ import com.google.bitcoin.core.TransactionInput;
 import com.google.bitcoin.core.Utils;
 import com.google.bitcoin.core.Wallet;
 import com.google.bitcoin.core.WalletEventListener;
+import com.google.bitcoin.discovery.DnsDiscovery;
 import com.google.bitcoin.discovery.IrcDiscovery;
 import com.google.bitcoin.discovery.PeerDiscovery;
 import com.google.bitcoin.discovery.PeerDiscoveryException;
@@ -122,12 +123,17 @@ public class Service extends android.app.Service
 			{
 				try
 				{
-					final PeerDiscovery peerDiscovery = new IrcDiscovery(Constants.PEER_DISCOVERY_IRC_CHANNEL);
+					System.out.println("discovering peers");
+					final long t = System.currentTimeMillis();
 
-					final List<InetSocketAddress> peers = Arrays.asList(peerDiscovery.getPeers());
-					Collections.shuffle(peers);
+					final PeerDiscovery peerDiscovery = Constants.TEST ? new IrcDiscovery(Constants.PEER_DISCOVERY_IRC_CHANNEL) : new DnsDiscovery(
+							Constants.NETWORK_PARAMS);
 
-					for (final InetSocketAddress inetSocketAddress : peers)
+					final List<InetSocketAddress> peerAddresses = Arrays.asList(peerDiscovery.getPeers());
+					Collections.shuffle(peerAddresses);
+					System.out.println(peerAddresses.size() + " peers discovered, took " + (System.currentTimeMillis() - t) + " ms");
+
+					for (final InetSocketAddress inetSocketAddress : peerAddresses)
 					{
 						try
 						{
