@@ -67,7 +67,7 @@ public class WalletAddressFragment extends Fragment
 		final Address address = key.toAddress(Constants.NETWORK_PARAMS);
 
 		final TextView bitcoinAddressView = (TextView) view.findViewById(R.id.bitcoin_address);
-		bitcoinAddressView.setText(splitIntoLines(address.toString(), 3));
+		bitcoinAddressView.setText(WalletUtils.splitIntoLines(address.toString(), 3));
 
 		final ImageView bitcoinAddressQrView = (ImageView) view.findViewById(R.id.bitcoin_address_qr);
 
@@ -168,18 +168,5 @@ public class WalletAddressFragment extends Fragment
 			x.printStackTrace();
 			return null;
 		}
-	}
-
-	private static String splitIntoLines(final String str, final int lines)
-	{
-		if (lines < 2)
-			return str;
-
-		final int len = (int) Math.ceil((float) str.length() / lines);
-		final StringBuilder builder = new StringBuilder(str);
-		for (int i = 0; i < lines - 1; i++)
-			builder.insert(len + i * (len + 1), '\n');
-
-		return builder.toString();
 	}
 }
