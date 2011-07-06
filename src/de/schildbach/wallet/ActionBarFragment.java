@@ -17,13 +17,19 @@
 
 package de.schildbach.wallet;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ImageView.ScaleType;
+import android.widget.LinearLayout;
+import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
 
 /**
@@ -31,20 +37,18 @@ import android.widget.TextView;
  */
 public class ActionBarFragment extends Fragment
 {
+	private ViewGroup view;
 	private ImageView iconView;
 	private TextView primaryTitleView;
 	private TextView secondaryTitleView;
-	private ImageButton button;
 
 	@Override
 	public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState)
 	{
-		final View view = inflater.inflate(R.layout.action_bar_fragment, container);
-
+		view = (ViewGroup) inflater.inflate(R.layout.action_bar_fragment, container);
 		iconView = (ImageView) view.findViewById(R.id.action_bar_icon);
 		primaryTitleView = (TextView) view.findViewById(R.id.action_bar_primary_title);
 		secondaryTitleView = (TextView) view.findViewById(R.id.action_bar_secondary_title);
-		button = (ImageButton) view.findViewById(R.id.action_bar_button);
 
 		return view;
 	}
@@ -70,8 +74,30 @@ public class ActionBarFragment extends Fragment
 		secondaryTitleView.setVisibility(title != null ? View.VISIBLE : View.GONE);
 	}
 
-	public ImageButton getButton()
+	public ImageButton addButton(final int drawableRes)
 	{
+		final float density = getResources().getDisplayMetrics().density;
+
+		final LinearLayout.LayoutParams buttonParams = new LinearLayout.LayoutParams(Math.round(44 * density), LayoutParams.FILL_PARENT, 0f);
+		buttonParams.gravity = Gravity.CENTER_VERTICAL;
+
+		final ImageButton button = new ImageButton(getActivity());
+		button.setImageResource(drawableRes);
+		button.setScaleType(ScaleType.CENTER);
+		button.setBackgroundResource(R.drawable.action_bar_background);
+		button.setPadding(0, 0, 0, 0);
+		view.addView(button, 2, buttonParams);
+
+		final LinearLayout.LayoutParams sepParams = new LinearLayout.LayoutParams(Math.round(1 * density), LayoutParams.FILL_PARENT, 0f);
+
+		final ImageView sep1 = new ImageView(getActivity());
+		sep1.setImageDrawable(new ColorDrawable(Color.parseColor("#44ffffff")));
+		view.addView(sep1, 2, sepParams);
+
+		final ImageView sep2 = new ImageView(getActivity());
+		sep2.setImageDrawable(new ColorDrawable(Color.parseColor("#44000000")));
+		view.addView(sep2, 2, sepParams);
+
 		return button;
 	}
 }

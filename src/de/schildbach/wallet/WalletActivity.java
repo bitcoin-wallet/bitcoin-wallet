@@ -61,12 +61,18 @@ public class WalletActivity extends FragmentActivity
 		actionBar.setIcon(R.drawable.app_icon);
 		actionBar.setPrimaryTitle(R.string.app_name);
 		actionBar.setSecondaryTitle(Constants.TEST ? "[testnet!]" : null);
-		actionBar.getButton().setImageResource(R.drawable.ic_menu_send);
-		actionBar.getButton().setOnClickListener(new OnClickListener()
+		actionBar.addButton(R.drawable.ic_menu_send).setOnClickListener(new OnClickListener()
 		{
 			public void onClick(final View v)
 			{
 				startActivity(new Intent(WalletActivity.this, SendCoinsActivity.class));
+			}
+		});
+		actionBar.addButton(R.drawable.ic_menu_request).setOnClickListener(new OnClickListener()
+		{
+			public void onClick(final View v)
+			{
+				startActivity(new Intent(WalletActivity.this, RequestCoinsActivity.class));
 			}
 		});
 	}
@@ -94,6 +100,10 @@ public class WalletActivity extends FragmentActivity
 		{
 			case R.id.wallet_options_send_coins:
 				startActivity(new Intent(this, SendCoinsActivity.class));
+				return true;
+
+			case R.id.wallet_options_request_coins:
+				startActivity(new Intent(WalletActivity.this, RequestCoinsActivity.class));
 				return true;
 
 			case R.id.wallet_options_preferences:

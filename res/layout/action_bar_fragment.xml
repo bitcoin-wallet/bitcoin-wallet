@@ -16,12 +16,4 @@
 			android:shadowRadius="1" android:singleLine="true" android:visibility="gone" />
 	</LinearLayout>
 
-	<ImageView android:layout_width="1dp" android:layout_height="fill_parent" android:layout_weight="0"
-		android:background="#4000" />
-	<ImageView android:layout_width="1dp" android:layout_height="fill_parent" android:layout_weight="0"
-		android:background="#4fff" />
-
-	<ImageButton android:id="@+id/action_bar_button" android:layout_width="44dp" android:layout_height="fill_parent"
-		android:layout_weight="0" android:background="@drawable/action_bar_background" />
-
 </LinearLayout>

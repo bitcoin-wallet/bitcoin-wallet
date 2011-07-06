@@ -72,7 +72,7 @@ public class WalletAddressFragment extends Fragment
 		final ImageView bitcoinAddressQrView = (ImageView) view.findViewById(R.id.bitcoin_address_qr);
 
 		// populate qrcode representation of bitcoin address
-		qrCodeBitmap = getQRCodeBitmap("bitcoin:" + address.toString());
+		qrCodeBitmap = WalletUtils.getQRCodeBitmap("bitcoin:" + address.toString());
 		bitcoinAddressQrView.setImageBitmap(qrCodeBitmap);
 
 		bitcoinAddressView.setOnClickListener(new OnClickListener()
@@ -132,41 +132,5 @@ public class WalletAddressFragment extends Fragment
 		}
 
 		super.onDestroyView();
-	}
-
-	public final static QRCodeWriter QR_CODE_WRITER = new QRCodeWriter();
-
-	private static Bitmap getQRCodeBitmap(final String url)
-	{
-		final int SIZE = 256;
-
-		try
-		{
-			final Hashtable<EncodeHintType, Object> hints = new Hashtable<EncodeHintType, Object>();
-			hints.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.H);
-			final BitMatrix result = QR_CODE_WRITER.encode(url, BarcodeFormat.QR_CODE, SIZE, SIZE, hints);
-
-			final int width = result.getWidth();
-			final int height = result.getHeight();
-			final int[] pixels = new int[width * height];
-
-			for (int y = 0; y < height; y++)
-			{
-				final int offset = y * width;
-				for (int x = 0; x < width; x++)
-				{
-					pixels[offset + x] = result.get(x, y) ? Color.BLACK : Color.WHITE;
-				}
-			}
-
-			final Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
-			bitmap.setPixels(pixels, 0, width, 0, 0, width, height);
-			return bitmap;
-		}
-		catch (final WriterException x)
-		{
-			x.printStackTrace();
-			return null;
-		}
 	}
 }

@@ -19,6 +19,8 @@
 				<category android:name="android.intent.category.DEFAULT" />
 			</intent-filter>
 		</activity>
+		<activity android:name=".RequestCoinsActivity" android:theme="@android:style/Theme.Light.NoTitleBar"
+			android:configChanges="orientation|keyboard|keyboardHidden" />
 		<activity android:name=".PreferencesActivity" />
 		<service android:name=".Service" />
 	</application>

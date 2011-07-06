@@ -17,6 +17,18 @@
 
 package de.schildbach.wallet;
 
+import java.util.Hashtable;
+
+import android.graphics.Bitmap;
+import android.graphics.Color;
+
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.EncodeHintType;
+import com.google.zxing.WriterException;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.QRCodeWriter;
+import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
+
 /**
  * @author Andreas Schildbach
  */
@@ -33,5 +45,41 @@ public class WalletUtils
 			builder.insert(len + i * (len + 1), '\n');
 
 		return builder.toString();
+	}
+
+	public final static QRCodeWriter QR_CODE_WRITER = new QRCodeWriter();
+
+	public static Bitmap getQRCodeBitmap(final String url)
+	{
+		final int SIZE = 256;
+
+		try
+		{
+			final Hashtable<EncodeHintType, Object> hints = new Hashtable<EncodeHintType, Object>();
+			hints.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.H);
+			final BitMatrix result = QR_CODE_WRITER.encode(url, BarcodeFormat.QR_CODE, SIZE, SIZE, hints);
+
+			final int width = result.getWidth();
+			final int height = result.getHeight();
+			final int[] pixels = new int[width * height];
+
+			for (int y = 0; y < height; y++)
+			{
+				final int offset = y * width;
+				for (int x = 0; x < width; x++)
+				{
+					pixels[offset + x] = result.get(x, y) ? Color.BLACK : Color.WHITE;
+				}
+			}
+
+			final Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+			bitmap.setPixels(pixels, 0, width, 0, 0, width, height);
+			return bitmap;
+		}
+		catch (final WriterException x)
+		{
+			x.printStackTrace();
+			return null;
+		}
 	}
 }
