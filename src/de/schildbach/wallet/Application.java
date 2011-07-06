@@ -17,13 +17,16 @@
 
 package de.schildbach.wallet;
 
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.math.BigInteger;
 
 import android.content.Context;
-import android.os.Debug;
 import android.os.Handler;
 
 import com.google.bitcoin.core.BlockChain;
@@ -78,20 +81,41 @@ public class Application extends android.app.Application
 	{
 		super.onCreate();
 
-		System.out.println("Heap size: " + (Debug.getNativeHeapSize() / 1024) + " kB");
-
 		loadWallet();
 
 		wallet.addEventListener(walletEventListener);
 
 		try
 		{
-			blockStore = new BoundedOverheadBlockStore(Constants.NETWORK_PARAMS, new File(getDir("blockstore", Context.MODE_WORLD_READABLE
-					| Context.MODE_WORLD_WRITEABLE), "blockchain"));
+			final File file = new File(getDir("blockstore", Context.MODE_WORLD_READABLE | Context.MODE_WORLD_WRITEABLE),
+					Constants.BLOCKCHAIN_FILENAME);
+
+			if (!file.exists())
+			{
+				// copy snapshot
+				System.out.println("copying blockchain snapshot");
+				final long t = System.currentTimeMillis();
+
+				final InputStream is = new BufferedInputStream(getAssets().open(Constants.BLOCKCHAIN_SNAPSHOT_FILENAME));
+				final OutputStream os = new FileOutputStream(file);
+				final byte[] buf = new byte[8192];
+				int read;
+				while (-1 != (read = is.read(buf)))
+					os.write(buf, 0, read);
+				os.close();
+				is.close();
+				System.out.println("finished copying, took " + (System.currentTimeMillis() - t) + " ms");
+			}
+
+			blockStore = new BoundedOverheadBlockStore(Constants.NETWORK_PARAMS, file);
 
 			blockChain = new BlockChain(Constants.NETWORK_PARAMS, wallet, blockStore);
 		}
 		catch (final BlockStoreException x)
+		{
+			throw new Error("blockstore cannot be created", x);
+		}
+		catch (final IOException x)
 		{
 			throw new Error("blockstore cannot be created", x);
 		}

@@ -30,6 +30,8 @@ public class Constants
 
 	public static final String WALLET_FILENAME = TEST ? "wallet-testnet" : "wallet";
 	public static final int WALLET_MODE = TEST ? Context.MODE_WORLD_READABLE | Context.MODE_WORLD_WRITEABLE : Context.MODE_PRIVATE;
+	public static final String BLOCKCHAIN_SNAPSHOT_FILENAME = TEST ? "blockchain-snapshot-testnet" : "blockchain-snapshot";
+	public static final String BLOCKCHAIN_FILENAME = TEST ? "blockchain-testnet" : "blockchain";
 
 	public static final NetworkParameters NETWORK_PARAMS = TEST ? NetworkParameters.testNet() : NetworkParameters.prodNet();
 	public static final String PEER_DISCOVERY_IRC_CHANNEL = TEST ? "#bitcoinTEST" : "#bitcoin";
