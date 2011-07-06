@@ -16,7 +16,9 @@
  */
 package de.schildbach.wallet;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.ClipboardManager;
@@ -59,9 +61,9 @@ public class RequestCoinsFragment extends Fragment
 				final ClipboardManager clipboardManager = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
 				final String addressStr = determineAddressStr();
 				clipboardManager.setText(addressStr);
-				Toast.makeText(getActivity(), "bitcoin address pasted to clipboard", Toast.LENGTH_SHORT).show();
+				Toast.makeText(getActivity(), "bitcoin request uri pasted to clipboard", Toast.LENGTH_SHORT).show();
 
-				System.out.println("my bitcoin address: " + addressStr + (Constants.TEST ? " (testnet!)" : ""));
+				System.out.println("bitcoin request uri: " + addressStr + (Constants.TEST ? " (testnet!)" : ""));
 			}
 		});
 
@@ -87,14 +89,26 @@ public class RequestCoinsFragment extends Fragment
 		return view;
 	}
 
+	@Override
+	public void onAttach(final Activity activity)
+	{
+		super.onAttach(activity);
+
+		final ActionBarFragment actionBar = (ActionBarFragment) getFragmentManager().findFragmentById(R.id.action_bar_fragment);
+		actionBar.addButton(R.drawable.ic_menu_share).setOnClickListener(new OnClickListener()
+		{
+			public void onClick(final View v)
+			{
+				startActivity(Intent.createChooser(
+						new Intent(Intent.ACTION_SEND).putExtra(Intent.EXTRA_TEXT, determineAddressStr()).setType("text/plain"),
+						"Share your bitcoin address..."));
+			}
+		});
+	}
+
 	private void updateView()
 	{
-		final StringBuilder builder = new StringBuilder("bitcoin:");
-		builder.append(determineAddressStr());
-		if (amountView.getText().length() > 0)
-			builder.append("?amount=").append(amountView.getText());
-
-		qrView.setImageBitmap(WalletUtils.getQRCodeBitmap(builder.toString()));
+		qrView.setImageBitmap(WalletUtils.getQRCodeBitmap(determineAddressStr()));
 	}
 
 	private String determineAddressStr()
@@ -103,6 +117,11 @@ public class RequestCoinsFragment extends Fragment
 		final ECKey key = wallet.keychain.get(0);
 		final Address address = key.toAddress(Constants.NETWORK_PARAMS);
 
-		return address.toString();
+		final StringBuilder builder = new StringBuilder("bitcoin:");
+		builder.append(address.toString());
+		if (amountView.getText().length() > 0)
+			builder.append("?amount=").append(amountView.getText());
+
+		return builder.toString();
 	}
 }
