@@ -18,6 +18,8 @@ package de.schildbach.wallet;
 
 import java.io.IOException;
 import java.math.BigInteger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import android.content.ComponentName;
 import android.content.Context;
@@ -47,12 +49,12 @@ import com.google.bitcoin.core.Utils;
  */
 public class SendCoinsFragment extends Fragment
 {
-	private String initialReceivingAddress;
-
 	private HandlerThread backgroundThread;
 	private Handler backgroundHandler;
 
 	private Service service;
+
+	private Pattern P_BITCOIN_URI = Pattern.compile("([a-zA-Z0-9]*)(?:\\?amount=(.*))?");
 
 	private final ServiceConnection serviceConnection = new ServiceConnection()
 	{
@@ -75,10 +77,6 @@ public class SendCoinsFragment extends Fragment
 		super.onCreate(savedInstanceState);
 
 		getActivity().bindService(new Intent(getActivity(), Service.class), serviceConnection, Context.BIND_AUTO_CREATE);
-
-		final Uri intentUri = getActivity().getIntent().getData();
-		if (intentUri != null && "bitcoin".equals(intentUri.getScheme()))
-			initialReceivingAddress = intentUri.getSchemeSpecificPart();
 	}
 
 	@Override
@@ -90,10 +88,20 @@ public class SendCoinsFragment extends Fragment
 		backgroundHandler = new Handler(backgroundThread.getLooper());
 
 		final View view = inflater.inflate(R.layout.send_coins_fragment, container);
-
 		final TextView receivingAddressView = (TextView) view.findViewById(R.id.send_coins_receiving_address);
-		if (initialReceivingAddress != null)
-			receivingAddressView.setText(initialReceivingAddress);
+		final TextView amountView = (TextView) view.findViewById(R.id.send_coins_amount);
+
+		final Uri intentUri = getActivity().getIntent().getData();
+		if (intentUri != null && "bitcoin".equals(intentUri.getScheme()))
+		{
+			final Matcher m = P_BITCOIN_URI.matcher(intentUri.getSchemeSpecificPart());
+			if (m.matches())
+			{
+				receivingAddressView.setText(m.group(1));
+				if (m.group(2) != null)
+					amountView.setText(m.group(2));
+			}
+		}
 
 		view.findViewById(R.id.send_coins_go).setOnClickListener(new OnClickListener()
 		{
@@ -102,7 +110,7 @@ public class SendCoinsFragment extends Fragment
 				try
 				{
 					final Address receivingAddress = new Address(Constants.NETWORK_PARAMS, receivingAddressView.getText().toString());
-					final BigInteger amount = Utils.toNanoCoins(((TextView) view.findViewById(R.id.send_coins_amount)).getText().toString());
+					final BigInteger amount = Utils.toNanoCoins(amountView.getText().toString());
 
 					backgroundHandler.post(new Runnable()
 					{
