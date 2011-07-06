@@ -97,11 +97,16 @@ public class WalletTransactionsFragment extends Fragment
 					final Transaction tx = transactions.get(position);
 					final boolean sent = tx.sent(wallet);
 					final boolean pending = wallet.isPending(tx);
-					final int textColor = pending ? Color.GRAY : Color.BLACK;
+					final int textColor = pending ? Color.LTGRAY : Color.BLACK;
 					final Address address = sent ? tx.outputs.get(0).getScriptPubKey().getToAddress() : tx.getInputs().get(0).getFromAddress();
 
-					row.findViewById(R.id.transaction_to).setVisibility(sent ? View.VISIBLE : View.INVISIBLE);
-					row.findViewById(R.id.transaction_from).setVisibility(sent ? View.INVISIBLE : View.VISIBLE);
+					final TextView rowTo = (TextView) row.findViewById(R.id.transaction_to);
+					rowTo.setVisibility(sent ? View.VISIBLE : View.INVISIBLE);
+					rowTo.setTextColor(textColor);
+
+					final TextView rowFrom = (TextView) row.findViewById(R.id.transaction_from);
+					rowFrom.setVisibility(sent ? View.INVISIBLE : View.VISIBLE);
+					rowFrom.setTextColor(textColor);
 
 					final TextView rowLabel = (TextView) row.findViewById(R.id.transaction_address);
 					rowLabel.setTextColor(textColor);
