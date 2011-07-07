@@ -127,7 +127,6 @@ public class AddressBookProvider extends ContentProvider
 		else if ("q".equals(selection))
 		{
 			final String query = '%' + selectionArgs[0].trim() + '%';
-			System.out.println("query: " + query);
 			selection = KEY_ADDRESS + " LIKE ? OR " + KEY_LABEL + " LIKE ?";
 			selectionArgs = new String[] { query, query };
 		}
