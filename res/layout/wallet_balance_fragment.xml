@@ -8,10 +8,10 @@
 		<TextView android:id="@+id/wallet_balance" android:layout_width="wrap_content" android:layout_height="wrap_content"
 			android:textSize="42sp" android:textStyle="bold" />
 		<TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="4sp"
-			android:text="BTC" android:textColor="@android:color/darker_gray" android:textSize="42sp" />
+			android:text="BTC" android:textColor="#666" android:textSize="42sp" />
 	</LinearLayout>
 
 	<TextView android:id="@+id/wallet_balance_in_dollars" android:layout_width="wrap_content"
-		android:layout_height="wrap_content" android:gravity="center" android:textColor="#aaa" />
+		android:layout_height="wrap_content" android:layout_marginBottom="12dp" android:gravity="center" android:textColor="#888" />
 
 </LinearLayout>

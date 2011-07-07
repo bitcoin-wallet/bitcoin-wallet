@@ -4,7 +4,7 @@
 	android:layout_height="fill_parent" android:orientation="horizontal">
 
 	<FrameLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
-		android:layout_weight="0" android:layout_marginRight="8dp">
+		android:layout_weight="0" android:layout_marginLeft="8dp" android:layout_marginRight="8dp">
 		<TextView android:id="@+id/transaction_to" android:layout_width="wrap_content" android:layout_height="wrap_content"
 			android:text="Sent" android:textSize="18sp" />
 		<TextView android:id="@+id/transaction_from" android:layout_width="wrap_content" android:layout_height="wrap_content"
@@ -16,7 +16,7 @@
 		android:singleLine="true" android:textSize="18sp" />
 
 	<TextView android:id="@+id/transaction_value" android:layout_width="wrap_content" android:layout_height="wrap_content"
-		android:layout_weight="0" android:layout_marginLeft="8dp" android:layout_gravity="right" android:gravity="right"
-		android:textSize="18sp" android:textStyle="bold" />
+		android:layout_weight="0" android:layout_marginLeft="8dp" android:layout_marginRight="8dp" android:layout_gravity="right"
+		android:gravity="right" android:textSize="18sp" android:textStyle="bold" />
 
 </LinearLayout>

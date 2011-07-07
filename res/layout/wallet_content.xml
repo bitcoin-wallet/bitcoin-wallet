@@ -7,7 +7,7 @@
 		android:layout_width="fill_parent" android:layout_height="44dp" />
 
 	<FrameLayout android:layout_width="fill_parent" android:layout_height="fill_parent" android:foreground="@drawable/title_bar_shadow"
-		android:foregroundGravity="top|fill_horizontal">
+		android:foregroundGravity="top|fill_horizontal" android:background="#ddd">
 
 		<LinearLayout android:layout_width="fill_parent" android:layout_height="fill_parent" android:orientation="vertical">
 
@@ -19,12 +19,13 @@
 				android:layout_gravity="center" />
 
 			<fragment android:name="de.schildbach.wallet.WalletTransactionsFragment" android:layout_width="fill_parent"
-				android:layout_height="fill_parent" android:layout_weight="100" android:layout_margin="8dp" android:layout_gravity="bottom|center_horizontal" />
+				android:layout_height="fill_parent" android:layout_weight="100" android:layout_gravity="bottom|center_horizontal" />
 
 			<TextView android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_weight="0"
 				android:gravity="center_horizontal"
 				android:text="WARNING: This is entirely experimental. You *will* lose your Bitcoins associated with this wallet! Use at your own risk, and use only with small amounts of Bitcoins!"
-				android:textSize="12sp" />
+				android:textSize="12sp" android:textColor="#fff" android:shadowColor="#000" android:shadowRadius="1"
+				android:background="@drawable/action_bar_background" />
 
 		</LinearLayout>
 
