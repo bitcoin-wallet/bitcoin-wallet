@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:orientation="vertical">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:orientation="vertical"
+	android:background="#ddd">
 
 	<TextView android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp"
-		android:layout_marginLeft="12dp" android:text="Pay to" android:textSize="16sp" android:textStyle="bold"
-		android:textColor="#000" />
+		android:layout_marginLeft="20dp" android:layout_marginRight="20dp" android:text="Pay to" android:textSize="16sp"
+		android:textStyle="bold" android:textColor="#000" />
 
 	<AutoCompleteTextView android:id="@+id/send_coins_receiving_address" android:layout_width="fill_parent"
-		android:layout_height="wrap_content" android:textSize="16sp" android:textColor="#000" android:hint="type address or name"
-		android:completionThreshold="1" />
+		android:layout_height="wrap_content" android:layout_marginLeft="12dp" android:layout_marginRight="12dp"
+		android:textSize="16sp" android:textColor="#000" android:hint="type address or name" android:completionThreshold="1" />
 
 	<TextView android:id="@+id/send_coins_receiving_address_error" android:layout_width="fill_parent"
 		android:layout_height="wrap_content" android:layout_marginBottom="8dp" android:layout_marginLeft="12dp"
@@ -16,25 +17,32 @@
 		android:visibility="gone" />
 
 	<TextView android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp"
-		android:layout_marginLeft="12dp" android:text="Amount" android:textSize="16sp" android:textStyle="bold" />
+		android:layout_marginLeft="20dp" android:layout_marginRight="20dp" android:text="Amount" android:textSize="16sp"
+		android:textStyle="bold" />
 
-	<LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+	<LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
+		android:layout_marginLeft="12dp" android:layout_marginRight="12dp" android:orientation="horizontal">
 		<TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-			android:layout_marginRight="4sp" android:text="BTC" android:textColor="@android:color/darker_gray" android:textSize="24sp" />
+			android:layout_marginRight="4sp" android:text="BTC" android:textColor="#666" android:textSize="24sp" />
 		<EditText android:id="@+id/send_coins_amount" android:layout_width="fill_parent" android:layout_height="wrap_content"
 			android:minEms="4" android:textSize="28sp" android:textStyle="bold" android:inputType="numberDecimal" android:hint="0.00" />
 	</LinearLayout>
 
-	<TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_margin="12dp"
+	<TextView android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_margin="20dp"
 		android:text="You can also click Bitcoin-URIs in your mobile browser or scan QR codes using Goggles or a QR-code scanner, so you don't have to type the receiving address." />
 
-	<LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
-		android:layout_weight="100" android:layout_gravity="bottom" android:gravity="bottom" android:orientation="horizontal">
-		<Button android:id="@+id/send_coins_go" android:layout_width="wrap_content" android:layout_height="wrap_content"
-			android:text="Send" />
-		<View android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="100" />
-		<Button android:id="@+id/send_coins_cancel" android:layout_width="wrap_content" android:layout_height="wrap_content"
-			android:text="Cancel" />
-	</LinearLayout>
+	<!-- stretch dummy -->
+	<ImageView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="100" />
+
+	<TableLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:paddingTop="6dp"
+		android:paddingBottom="4dp" android:paddingLeft="4dp" android:paddingRight="4dp" android:orientation="horizontal"
+		android:background="@drawable/button_bar_background" android:stretchColumns="0,1">
+		<TableRow>
+			<Button android:id="@+id/send_coins_go" android:paddingLeft="12dp" android:paddingRight="12dp" android:text="Send"
+				android:textStyle="bold" />
+			<Button android:id="@+id/send_coins_cancel" android:paddingLeft="12dp" android:paddingRight="12dp"
+				android:text="Cancel" />
+		</TableRow>
+	</TableLayout>
 
 </LinearLayout>
