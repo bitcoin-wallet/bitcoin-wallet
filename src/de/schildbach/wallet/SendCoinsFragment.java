@@ -24,6 +24,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -33,7 +34,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.CursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -83,7 +86,7 @@ public class SendCoinsFragment extends Fragment
 	public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState)
 	{
 		final View view = inflater.inflate(R.layout.send_coins_fragment, container);
-		final TextView receivingAddressView = (TextView) view.findViewById(R.id.send_coins_receiving_address);
+		final AutoCompleteTextView receivingAddressView = (AutoCompleteTextView) view.findViewById(R.id.send_coins_receiving_address);
 		final TextView amountView = (TextView) view.findViewById(R.id.send_coins_amount);
 
 		final Uri intentUri = getActivity().getIntent().getData();
@@ -154,6 +157,8 @@ public class SendCoinsFragment extends Fragment
 			}
 		});
 
+		receivingAddressView.setAdapter(new AutoCompleteAdapter(getActivity(), null));
+
 		return view;
 	}
 
@@ -173,5 +178,45 @@ public class SendCoinsFragment extends Fragment
 		getActivity().unbindService(serviceConnection);
 
 		super.onDestroy();
+	}
+
+	public class AutoCompleteAdapter extends CursorAdapter
+	{
+		public AutoCompleteAdapter(final Context context, final Cursor c)
+		{
+			super(context, c);
+		}
+
+		@Override
+		public View newView(final Context context, final Cursor cursor, final ViewGroup parent)
+		{
+			final LayoutInflater inflater = LayoutInflater.from(context);
+			return inflater.inflate(R.layout.simple_dropdown_item_2line, parent, false);
+		}
+
+		@Override
+		public void bindView(final View view, final Context context, final Cursor cursor)
+		{
+			final ViewGroup viewGroup = (ViewGroup) view;
+			((TextView) viewGroup.findViewById(android.R.id.text1)).setText(cursor.getString(cursor
+					.getColumnIndexOrThrow(AddressBookProvider.KEY_LABEL)));
+			((TextView) viewGroup.findViewById(android.R.id.text2)).setText(cursor.getString(cursor
+					.getColumnIndexOrThrow(AddressBookProvider.KEY_ADDRESS)));
+		}
+
+		@Override
+		public CharSequence convertToString(final Cursor cursor)
+		{
+			return cursor.getString(cursor.getColumnIndexOrThrow(AddressBookProvider.KEY_ADDRESS));
+		}
+
+		@Override
+		public Cursor runQueryOnBackgroundThread(final CharSequence constraint)
+		{
+			System.out.println("runQuery: " + constraint);
+			final Cursor cursor = getActivity()
+					.managedQuery(AddressBookProvider.CONTENT_URI, null, "q", new String[] { constraint.toString() }, null);
+			return cursor;
+		}
 	}
 }

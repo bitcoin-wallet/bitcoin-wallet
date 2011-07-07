@@ -108,21 +108,28 @@ public class AddressBookProvider extends ContentProvider
 	}
 
 	@Override
-	public Cursor query(final Uri uri, final String[] projection, final String selection, final String[] selectionArgs, final String sortOrder)
+	public Cursor query(final Uri uri, final String[] projection, String selection, String[] selectionArgs, final String sortOrder)
 	{
 		final SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
 		qb.setTables(DATABASE_TABLE);
 
 		final List<String> pathSegments = uri.getPathSegments();
-		if (pathSegments.size() < 1)
+		if (pathSegments.size() > 1)
 			throw new IllegalArgumentException(uri.toString());
 
-		if (pathSegments.size() >= 1)
+		if (pathSegments.size() == 1)
 		{
 			final String address = uri.getLastPathSegment();
 
 			qb.appendWhere(KEY_ADDRESS + "=");
 			qb.appendWhereEscapeString(address);
+		}
+		else if ("q".equals(selection))
+		{
+			final String query = '%' + selectionArgs[0].trim() + '%';
+			System.out.println("query: " + query);
+			selection = KEY_ADDRESS + " LIKE ? OR " + KEY_LABEL + " LIKE ?";
+			selectionArgs = new String[] { query, query };
 		}
 
 		final Cursor cursor = qb.query(helper.getReadableDatabase(), projection, selection, selectionArgs, null, null, sortOrder);

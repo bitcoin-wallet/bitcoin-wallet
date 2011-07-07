@@ -3,28 +3,34 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="fill_parent"
 	android:layout_height="wrap_content" android:orientation="vertical">
 
-	<EditText android:id="@+id/send_coins_receiving_address" android:layout_width="wrap_content"
-		android:layout_height="wrap_content" android:layout_gravity="center" android:typeface="monospace" android:textSize="14sp"
-		android:hint="receiving address" />
+	<TextView android:text="Pay to" android:layout_width="fill_parent" android:layout_height="wrap_content"
+		android:layout_marginTop="8dp" android:layout_marginLeft="12dp" android:textSize="16sp" android:textStyle="bold"
+		android:textColor="#000" />
 
-	<LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
-		android:layout_gravity="center" android:gravity="center" android:orientation="horizontal">
-		<EditText android:id="@+id/send_coins_amount" android:layout_width="wrap_content" android:layout_height="wrap_content"
-			android:minEms="4" android:textSize="42sp" android:textStyle="bold" android:inputType="numberDecimal" android:hint="0.00" />
-		<TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="4sp"
-			android:text="BTC" android:textColor="@android:color/darker_gray" android:textSize="42sp" />
+	<AutoCompleteTextView android:id="@+id/send_coins_receiving_address" android:layout_width="fill_parent"
+		android:layout_height="wrap_content" android:textSize="16sp" android:textColor="#000" android:hint="type address or name"
+		android:completionThreshold="1" />
+
+	<TextView android:text="Amount" android:layout_width="fill_parent" android:layout_height="wrap_content"
+		android:layout_marginTop="8dp" android:layout_marginLeft="12dp" android:textSize="16sp" android:textStyle="bold" />
+
+	<LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+		<TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+			android:layout_marginRight="4sp" android:text="BTC" android:textColor="@android:color/darker_gray" android:textSize="24sp" />
+		<EditText android:id="@+id/send_coins_amount" android:layout_width="fill_parent" android:layout_height="wrap_content"
+			android:minEms="4" android:textSize="28sp" android:textStyle="bold" android:inputType="numberDecimal" android:hint="0.00" />
 	</LinearLayout>
 
-	<TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-		android:text="You can also click or scan Bitcoin-URIs, so you don't have to type the receiving address." />
+	<TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_margin="12dp"
+		android:text="You can also click Bitcoin-URIs in your mobile browser or scan QR codes using Goggles or a QR-code scanner, so you don't have to type the receiving address." />
 
 	<LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
 		android:layout_weight="100" android:layout_gravity="bottom" android:gravity="bottom" android:orientation="horizontal">
-		<Button android:id="@+id/send_coins_cancel" android:layout_width="wrap_content" android:layout_height="wrap_content"
-			android:text="Cancel" />
-		<View android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="100" />
 		<Button android:id="@+id/send_coins_go" android:layout_width="wrap_content" android:layout_height="wrap_content"
 			android:text="Send" />
+		<View android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="100" />
+		<Button android:id="@+id/send_coins_cancel" android:layout_width="wrap_content" android:layout_height="wrap_content"
+			android:text="Cancel" />
 	</LinearLayout>
 
 </LinearLayout>
