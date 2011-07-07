@@ -27,6 +27,9 @@
 
 		<activity android:name=".PreferencesActivity" />
 
+		<provider android:name=".AddressBookProvider" android:authorities="de.schildbach.wallet.address_book"
+			android:exported="false" />
+
 		<service android:name=".Service" />
 
 	</application>

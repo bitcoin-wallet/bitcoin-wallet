@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="fill_parent"
+	android:layout_height="wrap_content" android:layout_margin="8dp" android:orientation="vertical" android:background="#fff">
+
+	<TextView android:text="Address" android:layout_width="fill_parent" android:layout_height="wrap_content"
+		android:layout_marginTop="8dp" android:layout_marginLeft="12dp" android:textSize="16sp" android:textStyle="bold" />
+
+	<EditText android:id="@+id/edit_address_book_entry_address" android:layout_width="fill_parent"
+		android:layout_height="wrap_content" android:layout_margin="8dp" android:textSize="16sp" android:enabled="false"
+		android:focusable="false" />
+
+	<TextView android:text="Name" android:layout_width="fill_parent" android:layout_height="wrap_content"
+		android:layout_marginTop="8dp" android:layout_marginLeft="12dp" android:textSize="16sp" android:textStyle="bold" />
+
+	<EditText android:id="@+id/edit_address_book_entry_label" android:layout_width="fill_parent"
+		android:layout_height="wrap_content" android:layout_margin="8dp" android:textSize="16sp" android:hint="label" />
+
+</LinearLayout>

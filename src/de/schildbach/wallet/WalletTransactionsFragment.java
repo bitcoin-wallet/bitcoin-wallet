@@ -20,12 +20,19 @@ package de.schildbach.wallet;
 import java.math.BigInteger;
 import java.util.List;
 
+import android.database.ContentObserver;
+import android.database.Cursor;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -47,6 +54,8 @@ public class WalletTransactionsFragment extends Fragment
 	private ListView transactionsList;
 	private ArrayAdapter<Transaction> transactionsListAdapter;
 	private List<Transaction> transactions;
+
+	private final Handler handler = new Handler();
 
 	private final WalletEventListener walletEventListener = new WalletEventListener()
 	{
@@ -98,7 +107,17 @@ public class WalletTransactionsFragment extends Fragment
 					final boolean sent = tx.sent(wallet);
 					final boolean pending = wallet.isPending(tx);
 					final int textColor = pending ? Color.LTGRAY : Color.BLACK;
-					final Address address = sent ? tx.outputs.get(0).getScriptPubKey().getToAddress() : tx.getInputs().get(0).getFromAddress();
+					final String address = (sent ? tx.outputs.get(0).getScriptPubKey().getToAddress() : tx.getInputs().get(0).getFromAddress())
+							.toString();
+
+					final Uri uri = AddressBookProvider.CONTENT_URI.buildUpon().appendPath(address).build();
+
+					final String label;
+					final Cursor cursor = getActivity().managedQuery(uri, null, null, null, null);
+					if (cursor.moveToFirst())
+						label = cursor.getString(cursor.getColumnIndexOrThrow(AddressBookProvider.KEY_LABEL));
+					else
+						label = null;
 
 					final TextView rowTo = (TextView) row.findViewById(R.id.transaction_to);
 					rowTo.setVisibility(sent ? View.VISIBLE : View.INVISIBLE);
@@ -110,8 +129,8 @@ public class WalletTransactionsFragment extends Fragment
 
 					final TextView rowLabel = (TextView) row.findViewById(R.id.transaction_address);
 					rowLabel.setTextColor(textColor);
-					// rowLabel.setText(WalletUtils.splitIntoLines(address.toString(), 1));
-					rowLabel.setText(address.toString());
+					// rowLabel.setText(WalletUtils.splitIntoLines(address, 1));
+					rowLabel.setText(label != null ? label + " (" + address + ")" : address);
 
 					final TextView rowValue = (TextView) row.findViewById(R.id.transaction_value);
 					rowValue.setTextColor(textColor);
@@ -127,9 +146,45 @@ public class WalletTransactionsFragment extends Fragment
 		};
 		transactionsList.setAdapter(transactionsListAdapter);
 
+		transactionsList.setOnItemClickListener(new OnItemClickListener()
+		{
+			public void onItemClick(final AdapterView<?> parent, final View view, final int position, final long id)
+			{
+				try
+				{
+					final Transaction tx = transactionsListAdapter.getItem(position);
+					final boolean sent = tx.sent(wallet);
+					final Address address = sent ? tx.outputs.get(0).getScriptPubKey().getToAddress() : tx.getInputs().get(0).getFromAddress();
+
+					final FragmentTransaction ft = getFragmentManager().beginTransaction();
+					final Fragment prev = getFragmentManager().findFragmentByTag(EditAddressBookEntryFragment.FRAGMENT_TAG);
+					if (prev != null)
+						ft.remove(prev);
+					ft.addToBackStack(null);
+
+					// Create and show the dialog.
+					final EditAddressBookEntryFragment newFragment = new EditAddressBookEntryFragment(getLayoutInflater(null), address.toString());
+					newFragment.show(ft, EditAddressBookEntryFragment.FRAGMENT_TAG);
+				}
+				catch (final ScriptException x)
+				{
+					throw new RuntimeException(x);
+				}
+			}
+		});
+
 		wallet.addEventListener(walletEventListener);
 
 		updateView();
+
+		getActivity().getContentResolver().registerContentObserver(AddressBookProvider.CONTENT_URI, true, new ContentObserver(handler)
+		{
+			@Override
+			public void onChange(final boolean selfChange)
+			{
+				transactionsListAdapter.notifyDataSetChanged();
+			}
+		});
 
 		return view;
 	}
