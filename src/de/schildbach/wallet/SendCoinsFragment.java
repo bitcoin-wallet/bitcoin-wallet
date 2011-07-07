@@ -30,6 +30,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -86,7 +88,37 @@ public class SendCoinsFragment extends Fragment
 	public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState)
 	{
 		final View view = inflater.inflate(R.layout.send_coins_fragment, container);
+
+		final View receivingAddressErrorView = view.findViewById(R.id.send_coins_receiving_address_error);
+
 		final AutoCompleteTextView receivingAddressView = (AutoCompleteTextView) view.findViewById(R.id.send_coins_receiving_address);
+		receivingAddressView.setAdapter(new AutoCompleteAdapter(getActivity(), null));
+		receivingAddressView.addTextChangedListener(new TextWatcher()
+		{
+			public void afterTextChanged(final Editable s)
+			{
+				try
+				{
+					final String address = s.toString().trim();
+					if (address.length() > 0)
+						new Address(Constants.NETWORK_PARAMS, address);
+					receivingAddressErrorView.setVisibility(View.GONE);
+				}
+				catch (AddressFormatException e)
+				{
+					receivingAddressErrorView.setVisibility(View.VISIBLE);
+				}
+			}
+
+			public void beforeTextChanged(final CharSequence s, final int start, final int count, final int after)
+			{
+			}
+
+			public void onTextChanged(final CharSequence s, final int start, final int before, final int count)
+			{
+			}
+		});
+
 		final TextView amountView = (TextView) view.findViewById(R.id.send_coins_amount);
 
 		final Uri intentUri = getActivity().getIntent().getData();
@@ -108,7 +140,7 @@ public class SendCoinsFragment extends Fragment
 			{
 				try
 				{
-					final Address receivingAddress = new Address(Constants.NETWORK_PARAMS, receivingAddressView.getText().toString());
+					final Address receivingAddress = new Address(Constants.NETWORK_PARAMS, receivingAddressView.getText().toString().trim());
 					final BigInteger amount = Utils.toNanoCoins(amountView.getText().toString());
 
 					System.out.println("about to send " + amount + " (BTC " + Utils.bitcoinValueToFriendlyString(amount) + ") to " + receivingAddress);
@@ -156,8 +188,6 @@ public class SendCoinsFragment extends Fragment
 				getActivity().finish();
 			}
 		});
-
-		receivingAddressView.setAdapter(new AutoCompleteAdapter(getActivity(), null));
 
 		return view;
 	}

@@ -3,16 +3,21 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="fill_parent"
 	android:layout_height="wrap_content" android:orientation="vertical">
 
-	<TextView android:text="Pay to" android:layout_width="fill_parent" android:layout_height="wrap_content"
-		android:layout_marginTop="8dp" android:layout_marginLeft="12dp" android:textSize="16sp" android:textStyle="bold"
+	<TextView android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp"
+		android:layout_marginLeft="12dp" android:text="Pay to" android:textSize="16sp" android:textStyle="bold"
 		android:textColor="#000" />
 
 	<AutoCompleteTextView android:id="@+id/send_coins_receiving_address" android:layout_width="fill_parent"
 		android:layout_height="wrap_content" android:textSize="16sp" android:textColor="#000" android:hint="type address or name"
 		android:completionThreshold="1" />
 
-	<TextView android:text="Amount" android:layout_width="fill_parent" android:layout_height="wrap_content"
-		android:layout_marginTop="8dp" android:layout_marginLeft="12dp" android:textSize="16sp" android:textStyle="bold" />
+	<TextView android:id="@+id/send_coins_receiving_address_error" android:layout_width="fill_parent"
+		android:layout_height="wrap_content" android:layout_marginBottom="8dp" android:layout_marginLeft="12dp"
+		android:text="Invalid Bitcoin Address!" android:textColor="#f88" android:textSize="16sp" android:textStyle="bold"
+		android:visibility="gone" />
+
+	<TextView android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp"
+		android:layout_marginLeft="12dp" android:text="Amount" android:textSize="16sp" android:textStyle="bold" />
 
 	<LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:orientation="horizontal">
 		<TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
