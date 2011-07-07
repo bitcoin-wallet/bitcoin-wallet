@@ -16,7 +16,6 @@
  */
 package de.schildbach.wallet;
 
-import java.io.IOException;
 import java.math.BigInteger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -28,14 +27,13 @@ import android.content.ServiceConnection;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.HandlerThread;
 import android.os.IBinder;
-import android.os.Process;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -49,10 +47,10 @@ import com.google.bitcoin.core.Utils;
  */
 public class SendCoinsFragment extends Fragment
 {
-	private HandlerThread backgroundThread;
-	private Handler backgroundHandler;
+	private Application application;
 
 	private Service service;
+	private final Handler handler = new Handler();
 
 	private Pattern P_BITCOIN_URI = Pattern.compile("([a-zA-Z0-9]*)(?:\\?amount=(.*))?");
 
@@ -76,17 +74,14 @@ public class SendCoinsFragment extends Fragment
 	{
 		super.onCreate(savedInstanceState);
 
+		application = (Application) getActivity().getApplication();
+
 		getActivity().bindService(new Intent(getActivity(), Service.class), serviceConnection, Context.BIND_AUTO_CREATE);
 	}
 
 	@Override
 	public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState)
 	{
-		// background thread
-		backgroundThread = new HandlerThread("backgroundThread", Process.THREAD_PRIORITY_BACKGROUND);
-		backgroundThread.start();
-		backgroundHandler = new Handler(backgroundThread.getLooper());
-
 		final View view = inflater.inflate(R.layout.send_coins_fragment, container);
 		final TextView receivingAddressView = (TextView) view.findViewById(R.id.send_coins_receiving_address);
 		final TextView amountView = (TextView) view.findViewById(R.id.send_coins_amount);
@@ -103,7 +98,8 @@ public class SendCoinsFragment extends Fragment
 			}
 		}
 
-		view.findViewById(R.id.send_coins_go).setOnClickListener(new OnClickListener()
+		final Button viewGo = (Button) view.findViewById(R.id.send_coins_go);
+		viewGo.setOnClickListener(new OnClickListener()
 		{
 			public void onClick(final View v)
 			{
@@ -112,62 +108,36 @@ public class SendCoinsFragment extends Fragment
 					final Address receivingAddress = new Address(Constants.NETWORK_PARAMS, receivingAddressView.getText().toString());
 					final BigInteger amount = Utils.toNanoCoins(amountView.getText().toString());
 
-					backgroundHandler.post(new Runnable()
+					System.out.println("about to send " + amount + " (BTC " + Utils.bitcoinValueToFriendlyString(amount) + ") to " + receivingAddress);
+
+					final Transaction transaction = application.getWallet().createSend(receivingAddress, amount);
+
+					if (transaction != null)
 					{
-						public void run()
+						service.sendTransaction(transaction);
+
+						final WalletBalanceFragment balanceFragment = (WalletBalanceFragment) getActivity().getSupportFragmentManager()
+								.findFragmentById(R.id.wallet_balance_fragment);
+						if (balanceFragment != null)
+							balanceFragment.updateView();
+
+						viewGo.setEnabled(false);
+						viewGo.setText("Sending...");
+						handler.postDelayed(new Runnable()
 						{
-							try
+							public void run()
 							{
-								final Transaction tx = service.sendCoins(receivingAddress, amount);
-
-								if (tx != null)
-								{
-									getActivity().runOnUiThread(new Runnable()
-									{
-										public void run()
-										{
-											final Application application = (Application) getActivity().getApplication();
-											application.saveWallet();
-
-											final WalletBalanceFragment balanceFragment = (WalletBalanceFragment) getActivity()
-													.getSupportFragmentManager().findFragmentById(R.id.wallet_balance_fragment);
-											if (balanceFragment != null)
-												balanceFragment.updateView();
-
-											getActivity().finish();
-
-											Toast.makeText(getActivity(), Utils.bitcoinValueToFriendlyString(amount) + " BTC sent!",
-													Toast.LENGTH_LONG).show();
-										}
-									});
-								}
-								else
-								{
-									getActivity().runOnUiThread(new Runnable()
-									{
-										public void run()
-										{
-											Toast.makeText(getActivity(), "problem sending coins!", Toast.LENGTH_LONG).show();
-											getActivity().finish();
-										}
-									});
-								}
+								getActivity().finish();
 							}
-							catch (final IOException x)
-							{
-								x.printStackTrace();
+						}, 5000);
 
-								getActivity().runOnUiThread(new Runnable()
-								{
-									public void run()
-									{
-										Toast.makeText(getActivity(), "problem sending coins: " + x.getMessage(), Toast.LENGTH_LONG).show();
-										getActivity().finish();
-									}
-								});
-							}
-						}
-					});
+						Toast.makeText(getActivity(), Utils.bitcoinValueToFriendlyString(amount) + " BTC sent!", Toast.LENGTH_LONG).show();
+					}
+					else
+					{
+						Toast.makeText(getActivity(), "problem sending coins!", Toast.LENGTH_LONG).show();
+						getActivity().finish();
+					}
 				}
 				catch (final AddressFormatException x)
 				{
@@ -195,15 +165,6 @@ public class SendCoinsFragment extends Fragment
 	protected void onServiceUnbound()
 	{
 		System.out.println("service unbound");
-	}
-
-	@Override
-	public void onDestroyView()
-	{
-		// cancel background thread
-		backgroundThread.getLooper().quit();
-
-		super.onDestroyView();
 	}
 
 	@Override
