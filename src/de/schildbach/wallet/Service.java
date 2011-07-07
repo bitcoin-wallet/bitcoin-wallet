@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -215,10 +216,7 @@ public class Service extends android.app.Service
 					System.out.println("discovering peers");
 					final long t = System.currentTimeMillis();
 
-					final PeerDiscovery peerDiscovery = Constants.TEST ? new IrcDiscovery(Constants.PEER_DISCOVERY_IRC_CHANNEL) : new DnsDiscovery(
-							Constants.NETWORK_PARAMS);
-
-					final List<InetSocketAddress> peerAddresses = Arrays.asList(peerDiscovery.getPeers());
+					final List<InetSocketAddress> peerAddresses = discoverPeers();
 					Collections.shuffle(peerAddresses);
 					System.out.println(peerAddresses.size() + " peers discovered, took " + (System.currentTimeMillis() - t) + " ms");
 
@@ -289,13 +287,25 @@ public class Service extends android.app.Service
 						}
 					});
 				}
-				catch (final PeerDiscoveryException x)
-				{
-					throw new RuntimeException(x);
-				}
 				catch (final BlockStoreException x)
 				{
 					throw new RuntimeException(x);
+				}
+			}
+
+			private List<InetSocketAddress> discoverPeers()
+			{
+				try
+				{
+					final PeerDiscovery peerDiscovery = Constants.TEST ? new IrcDiscovery(Constants.PEER_DISCOVERY_IRC_CHANNEL) : new DnsDiscovery(
+							Constants.NETWORK_PARAMS);
+
+					return Arrays.asList(peerDiscovery.getPeers());
+				}
+				catch (final PeerDiscoveryException x)
+				{
+					x.printStackTrace();
+					return new LinkedList<InetSocketAddress>();
 				}
 			}
 		});
