@@ -120,6 +120,8 @@ public class SendCoinsFragment extends Fragment
 		});
 
 		final TextView amountView = (TextView) view.findViewById(R.id.send_coins_amount);
+		final float density = getResources().getDisplayMetrics().density;
+		amountView.setCompoundDrawablesWithIntrinsicBounds(new BtcDrawable(24f * density, 10.5f * density), null, null, null);
 
 		final Uri intentUri = getActivity().getIntent().getData();
 		if (intentUri != null && "bitcoin".equals(intentUri.getScheme()))

@@ -7,13 +7,9 @@
 		android:layout_marginTop="8dp" android:layout_marginLeft="20dp" android:layout_marginRight="20dp" android:textSize="16sp"
 		android:textStyle="bold" />
 
-	<LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
-		android:layout_marginLeft="12dp" android:layout_marginRight="12dp" android:orientation="horizontal">
-		<TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-			android:layout_marginRight="4sp" android:text="BTC" android:textColor="@android:color/darker_gray" android:textSize="24sp" />
-		<EditText android:id="@+id/request_coins_amount" android:layout_width="fill_parent" android:layout_height="wrap_content"
-			android:inputType="numberDecimal" android:textSize="28sp" android:textStyle="bold" android:hint="0.00" />
-	</LinearLayout>
+	<EditText android:id="@+id/request_coins_amount" android:layout_width="fill_parent" android:layout_height="wrap_content"
+		android:layout_marginLeft="12dp" android:layout_marginRight="12dp" android:inputType="numberDecimal" android:textSize="28sp"
+		android:textStyle="bold" android:hint="0.00" android:drawablePadding="4dp" />
 
 	<TextView android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp"
 		android:layout_marginLeft="20dp" android:layout_marginRight="20dp" android:text="Have this QR-code scanned by the sender:"

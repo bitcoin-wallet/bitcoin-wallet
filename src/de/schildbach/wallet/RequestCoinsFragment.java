@@ -68,6 +68,8 @@ public class RequestCoinsFragment extends Fragment
 		});
 
 		amountView = (EditText) view.findViewById(R.id.request_coins_amount);
+		final float density = getResources().getDisplayMetrics().density;
+		amountView.setCompoundDrawablesWithIntrinsicBounds(new BtcDrawable(24f * density, 10.5f * density), null, null, null);
 		amountView.addTextChangedListener(new TextWatcher()
 		{
 			public void afterTextChanged(final Editable s)

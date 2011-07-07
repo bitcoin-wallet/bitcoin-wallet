@@ -20,13 +20,9 @@
 		android:layout_marginLeft="20dp" android:layout_marginRight="20dp" android:text="Amount" android:textSize="16sp"
 		android:textStyle="bold" />
 
-	<LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
-		android:layout_marginLeft="12dp" android:layout_marginRight="12dp" android:orientation="horizontal">
-		<TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-			android:layout_marginRight="4sp" android:text="BTC" android:textColor="#666" android:textSize="24sp" />
-		<EditText android:id="@+id/send_coins_amount" android:layout_width="fill_parent" android:layout_height="wrap_content"
-			android:minEms="4" android:textSize="28sp" android:textStyle="bold" android:inputType="numberDecimal" android:hint="0.00" />
-	</LinearLayout>
+	<EditText android:id="@+id/send_coins_amount" android:layout_width="fill_parent" android:layout_height="wrap_content"
+		android:layout_marginLeft="12dp" android:layout_marginRight="12dp" android:textSize="28sp" android:textStyle="bold"
+		android:inputType="numberDecimal" android:hint="0.00" android:drawablePadding="4dp" />
 
 	<TextView android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_margin="20dp"
 		android:text="You can also click Bitcoin-URIs in your mobile browser or scan QR codes using Goggles or a QR-code scanner, so you don't have to type the receiving address." />
