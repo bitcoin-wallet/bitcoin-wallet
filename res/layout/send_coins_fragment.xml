@@ -25,7 +25,7 @@
 		android:inputType="numberDecimal" android:hint="0.00" android:drawablePadding="4dp" />
 
 	<TextView android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_margin="20dp"
-		android:text="You can also click Bitcoin-URIs in your mobile browser or scan QR codes using Goggles or a QR-code scanner, so you don't have to type the receiving address." />
+		android:text="You can also click Bitcoin-URIs in your mobile browser or scan QR-codes using the QR button above." />
 
 	<!-- stretch dummy -->
 	<ImageView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="100" />

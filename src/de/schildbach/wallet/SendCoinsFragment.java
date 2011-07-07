@@ -14,18 +14,16 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 package de.schildbach.wallet;
 
 import java.math.BigInteger;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
@@ -57,7 +55,8 @@ public class SendCoinsFragment extends Fragment
 	private Service service;
 	private final Handler handler = new Handler();
 
-	private Pattern P_BITCOIN_URI = Pattern.compile("([a-zA-Z0-9]*)(?:\\?amount=(.*))?");
+	private AutoCompleteTextView receivingAddressView;
+	private TextView amountView;
 
 	private final ServiceConnection serviceConnection = new ServiceConnection()
 	{
@@ -91,7 +90,7 @@ public class SendCoinsFragment extends Fragment
 
 		final View receivingAddressErrorView = view.findViewById(R.id.send_coins_receiving_address_error);
 
-		final AutoCompleteTextView receivingAddressView = (AutoCompleteTextView) view.findViewById(R.id.send_coins_receiving_address);
+		receivingAddressView = (AutoCompleteTextView) view.findViewById(R.id.send_coins_receiving_address);
 		receivingAddressView.setAdapter(new AutoCompleteAdapter(getActivity(), null));
 		receivingAddressView.addTextChangedListener(new TextWatcher()
 		{
@@ -119,21 +118,9 @@ public class SendCoinsFragment extends Fragment
 			}
 		});
 
-		final TextView amountView = (TextView) view.findViewById(R.id.send_coins_amount);
+		amountView = (TextView) view.findViewById(R.id.send_coins_amount);
 		final float density = getResources().getDisplayMetrics().density;
 		amountView.setCompoundDrawablesWithIntrinsicBounds(new BtcDrawable(24f * density, 10.5f * density), null, null, null);
-
-		final Uri intentUri = getActivity().getIntent().getData();
-		if (intentUri != null && "bitcoin".equals(intentUri.getScheme()))
-		{
-			final Matcher m = P_BITCOIN_URI.matcher(intentUri.getSchemeSpecificPart());
-			if (m.matches())
-			{
-				receivingAddressView.setText(m.group(1));
-				if (m.group(2) != null)
-					amountView.setText(m.group(2));
-			}
-		}
 
 		final Button viewGo = (Button) view.findViewById(R.id.send_coins_go);
 		viewGo.setOnClickListener(new OnClickListener()
@@ -249,5 +236,11 @@ public class SendCoinsFragment extends Fragment
 					.managedQuery(AddressBookProvider.CONTENT_URI, null, "q", new String[] { constraint.toString() }, null);
 			return cursor;
 		}
+	}
+
+	public void update(final String receivingAddress, final String amount)
+	{
+		receivingAddressView.setText(receivingAddress);
+		amountView.setText(amount);
 	}
 }
