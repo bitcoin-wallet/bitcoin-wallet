@@ -79,7 +79,7 @@ public class EditAddressBookEntryFragment extends DialogFragment
 		{
 			public void onClick(final DialogInterface dialog, final int whichButton)
 			{
-				final String newLabel = viewLabel.getText().toString();
+				final String newLabel = viewLabel.getText().toString().trim();
 
 				if (newLabel.length() > 0)
 				{
