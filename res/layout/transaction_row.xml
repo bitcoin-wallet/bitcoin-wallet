@@ -12,8 +12,8 @@
 	</FrameLayout>
 
 	<TextView android:id="@+id/transaction_address" android:layout_width="wrap_content" android:layout_height="wrap_content"
-		android:layout_weight="100" android:layout_gravity="center_horizontal" android:gravity="center_horizontal"
-		android:singleLine="true" android:textSize="18sp" />
+		android:layout_weight="100" android:layout_gravity="left" android:gravity="left" android:singleLine="true"
+		android:textSize="18sp" />
 
 	<TextView android:id="@+id/transaction_value" android:layout_width="wrap_content" android:layout_height="wrap_content"
 		android:layout_weight="0" android:layout_marginLeft="8dp" android:layout_marginRight="8dp" android:layout_gravity="right"
