@@ -32,6 +32,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -386,12 +387,6 @@ public class Service extends android.app.Service
 	{
 		System.out.println("sync");
 
-		final Notification notification = new Notification(android.R.drawable.stat_notify_sync, "Blockchain sync started", System.currentTimeMillis());
-		notification.flags |= Notification.FLAG_ONGOING_EVENT;
-		notification.setLatestEventInfo(this, "Bitcoin Wallet", "Blockchain sync running",
-				PendingIntent.getActivity(this, 0, new Intent(this, WalletActivity.class), 0));
-		nm.notify(NOTIFICATION_ID_SYNCING, notification);
-
 		try
 		{
 			final CountDownLatch latch = peer.startBlockChainDownload();
@@ -403,9 +398,45 @@ public class Service extends android.app.Service
 				{
 					try
 					{
-						latch.await();
+						final long maxCount = latch.getCount();
 
-						nm.cancel(NOTIFICATION_ID_SYNCING);
+						while (true)
+						{
+							latch.await(1, TimeUnit.SECONDS);
+
+							final long count = latch.getCount();
+							if (count == 0)
+							{
+								handler.post(new Runnable()
+								{
+									public void run()
+									{
+										System.out.println("sync finished");
+										nm.cancel(NOTIFICATION_ID_SYNCING);
+									}
+								});
+								return;
+							}
+							else
+							{
+								final float percent = 100f - (100f * (count / (float) maxCount));
+
+								handler.post(new Runnable()
+								{
+									public void run()
+									{
+										final Notification notification = new Notification(R.drawable.stat_notify_sync,
+												"Bitcoin Blockchain Sync started", System.currentTimeMillis());
+										notification.flags |= Notification.FLAG_ONGOING_EVENT;
+										notification.iconLevel = (int) (count % 2l);
+										notification.setLatestEventInfo(Service.this, "Bitcoin Blockchain Sync",
+												String.format("%.1f%% finished", percent),
+												PendingIntent.getActivity(Service.this, 0, new Intent(Service.this, WalletActivity.class), 0));
+										nm.notify(NOTIFICATION_ID_SYNCING, notification);
+									}
+								});
+							}
+						}
 					}
 					catch (final Exception x)
 					{
