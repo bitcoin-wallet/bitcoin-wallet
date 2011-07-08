@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<level-list xmlns:android="http://schemas.android.com/apk/res/android">
+	<item android:maxLevel="0" android:drawable="@drawable/stat_sys_peers_0" />
+	<item android:maxLevel="1" android:drawable="@drawable/stat_sys_peers_1" />
+	<item android:maxLevel="2" android:drawable="@drawable/stat_sys_peers_2" />
+	<item android:maxLevel="3" android:drawable="@drawable/stat_sys_peers_3" />
+	<item android:maxLevel="4" android:drawable="@drawable/stat_sys_peers_4" />
+</level-list>

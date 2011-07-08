@@ -250,9 +250,10 @@ public class Service extends android.app.Service
 										final String msg = peers.size() + " peers connected";
 										System.out.println("Peer " + connection.getRemoteIp().getHostAddress() + " connected, " + msg);
 
-										final Notification notification = new Notification(android.R.drawable.stat_notify_error, msg, System
+										final Notification notification = new Notification(R.drawable.stat_sys_peers, null, System
 												.currentTimeMillis());
 										notification.flags |= Notification.FLAG_ONGOING_EVENT;
+										notification.iconLevel = peers.size() > 4 ? 4 : peers.size();
 										notification.setLatestEventInfo(Service.this, "Bitcoin Wallet", msg,
 												PendingIntent.getActivity(Service.this, 0, new Intent(Service.this, WalletActivity.class), 0));
 										nm.notify(NOTIFICATION_ID_CONNECTED, notification);
