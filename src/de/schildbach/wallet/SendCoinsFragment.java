@@ -100,7 +100,7 @@ public class SendCoinsFragment extends Fragment
 				{
 					final String address = s.toString().trim();
 					if (address.length() > 0)
-						new Address(Constants.NETWORK_PARAMS, address);
+						new Address(application.getNetworkParameters(), address);
 					receivingAddressErrorView.setVisibility(View.GONE);
 				}
 				catch (AddressFormatException e)
@@ -129,7 +129,7 @@ public class SendCoinsFragment extends Fragment
 			{
 				try
 				{
-					final Address receivingAddress = new Address(Constants.NETWORK_PARAMS, receivingAddressView.getText().toString().trim());
+					final Address receivingAddress = new Address(application.getNetworkParameters(), receivingAddressView.getText().toString().trim());
 					final BigInteger amount = Utils.toNanoCoins(amountView.getText().toString());
 
 					System.out.println("about to send " + amount + " (BTC " + Utils.bitcoinValueToFriendlyString(amount) + ") to " + receivingAddress);

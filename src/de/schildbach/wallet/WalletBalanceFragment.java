@@ -159,7 +159,7 @@ public class WalletBalanceFragment extends Fragment
 		else if (exchangeRate != null)
 		{
 			final BigInteger dollars = new BigDecimal(balance).multiply(new BigDecimal(exchangeRate)).toBigInteger();
-			viewBalanceInDollars.setText(String.format("worth about US$ %s" + (Constants.TEST ? "\nif it were real bitcoins" : ""),
+			viewBalanceInDollars.setText(String.format("worth about US$ %s" + (application.isTest() ? "\nif it were real bitcoins" : ""),
 					Utils.bitcoinValueToFriendlyString(dollars)));
 		}
 	}

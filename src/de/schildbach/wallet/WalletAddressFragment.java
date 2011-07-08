@@ -55,7 +55,7 @@ public class WalletAddressFragment extends Fragment
 
 		System.out.println(wallet.keychain.size() + " key(s) in keychain");
 		final ECKey key = wallet.keychain.get(0);
-		final Address address = key.toAddress(Constants.NETWORK_PARAMS);
+		final Address address = key.toAddress(application.getNetworkParameters());
 
 		final TextView bitcoinAddressView = (TextView) view.findViewById(R.id.bitcoin_address);
 		bitcoinAddressView.setText(WalletUtils.splitIntoLines(address.toString(), 3));
@@ -74,7 +74,7 @@ public class WalletAddressFragment extends Fragment
 				clipboardManager.setText(address.toString());
 				Toast.makeText(getActivity(), "bitcoin address pasted to clipboard", Toast.LENGTH_SHORT).show();
 
-				System.out.println("my bitcoin address: " + address + (Constants.TEST ? " (testnet!)" : ""));
+				System.out.println("my bitcoin address: " + address + (application.isTest() ? " (testnet!)" : ""));
 			}
 		});
 

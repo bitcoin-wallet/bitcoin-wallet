@@ -14,6 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 package de.schildbach.wallet;
 
 import android.app.Activity;
@@ -63,7 +64,7 @@ public class RequestCoinsFragment extends Fragment
 				clipboardManager.setText(addressStr);
 				Toast.makeText(getActivity(), "bitcoin request uri pasted to clipboard", Toast.LENGTH_SHORT).show();
 
-				System.out.println("bitcoin request uri: " + addressStr + (Constants.TEST ? " (testnet!)" : ""));
+				System.out.println("bitcoin request uri: " + addressStr + (application.isTest() ? " (testnet!)" : ""));
 			}
 		});
 
@@ -117,7 +118,7 @@ public class RequestCoinsFragment extends Fragment
 	{
 		final Wallet wallet = application.getWallet();
 		final ECKey key = wallet.keychain.get(0);
-		final Address address = key.toAddress(Constants.NETWORK_PARAMS);
+		final Address address = key.toAddress(application.getNetworkParameters());
 
 		final StringBuilder builder = new StringBuilder("bitcoin:");
 		builder.append(address.toString());

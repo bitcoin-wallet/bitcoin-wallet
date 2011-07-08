@@ -37,6 +37,7 @@ import android.webkit.WebView;
  */
 public class WalletActivity extends FragmentActivity
 {
+	private Application application;
 	private final ServiceConnection serviceConnection = new ServiceConnection()
 	{
 		public void onServiceConnected(final ComponentName name, final IBinder binder)
@@ -55,6 +56,8 @@ public class WalletActivity extends FragmentActivity
 
 		ErrorReporter.getInstance().check(this);
 
+		application = (Application) getApplication();
+
 		bindService(new Intent(this, Service.class), serviceConnection, Context.BIND_AUTO_CREATE);
 
 		setContentView(R.layout.wallet_content);
@@ -62,7 +65,7 @@ public class WalletActivity extends FragmentActivity
 		final ActionBarFragment actionBar = (ActionBarFragment) getSupportFragmentManager().findFragmentById(R.id.action_bar_fragment);
 		actionBar.setIcon(R.drawable.app_icon);
 		actionBar.setPrimaryTitle(R.string.app_name);
-		actionBar.setSecondaryTitle(Constants.TEST ? "[testnet!]" : null);
+		actionBar.setSecondaryTitle(application.isTest() ? "[testnet!]" : null);
 		actionBar.addButton(R.drawable.ic_menu_send).setOnClickListener(new OnClickListener()
 		{
 			public void onClick(final View v)
@@ -88,7 +91,7 @@ public class WalletActivity extends FragmentActivity
 	}
 
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu)
+	public boolean onCreateOptionsMenu(final Menu menu)
 	{
 		super.onCreateOptionsMenu(menu);
 		getMenuInflater().inflate(R.menu.wallet_options, menu);
@@ -96,7 +99,7 @@ public class WalletActivity extends FragmentActivity
 	}
 
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item)
+	public boolean onOptionsItemSelected(final MenuItem item)
 	{
 		switch (item.getItemId())
 		{

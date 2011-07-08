@@ -44,11 +44,14 @@ public class SendCoinsActivity extends FragmentActivity
 	{
 		super.onCreate(savedInstanceState);
 
+		final Application application = (Application) getApplication();
+
 		setContentView(R.layout.send_coins_content);
 
 		final ActionBarFragment actionBar = (ActionBarFragment) getSupportFragmentManager().findFragmentById(R.id.action_bar_fragment);
 		actionBar.setIcon(R.drawable.app_icon);
 		actionBar.setPrimaryTitle("Send Bitcoins");
+		actionBar.setSecondaryTitle(application.isTest() ? "[testnet!]" : null);
 
 		actionBar.addButton(R.drawable.ic_menu_qr).setOnClickListener(new OnClickListener()
 		{

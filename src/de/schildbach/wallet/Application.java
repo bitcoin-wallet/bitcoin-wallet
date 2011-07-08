@@ -21,9 +21,11 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.math.BigInteger;
 
+import android.content.Context;
 import android.os.Handler;
 
 import com.google.bitcoin.core.ECKey;
+import com.google.bitcoin.core.NetworkParameters;
 import com.google.bitcoin.core.Transaction;
 import com.google.bitcoin.core.Wallet;
 import com.google.bitcoin.core.WalletEventListener;
@@ -33,6 +35,7 @@ import com.google.bitcoin.core.WalletEventListener;
  */
 public class Application extends android.app.Application
 {
+	private NetworkParameters networkParameters;
 	private Wallet wallet;
 
 	private final Handler handler = new Handler();
@@ -69,11 +72,24 @@ public class Application extends android.app.Application
 	{
 		super.onCreate();
 
-		ErrorReporter.getInstance().init(this);
+		ErrorReporter.getInstance().init(this, isTest());
+
+		networkParameters = isTest() ? NetworkParameters.testNet() : NetworkParameters.prodNet();
 
 		loadWallet();
 
 		wallet.addEventListener(walletEventListener);
+	}
+
+	public boolean isTest()
+	{
+		return getApplicationContext().getSharedPreferences(Constants.PREFS_NAME, Context.MODE_PRIVATE).getBoolean(Constants.PREFS_KEY_TEST,
+				Constants.TEST);
+	}
+
+	public NetworkParameters getNetworkParameters()
+	{
+		return networkParameters;
 	}
 
 	public Wallet getWallet()
@@ -83,20 +99,23 @@ public class Application extends android.app.Application
 
 	private void loadWallet()
 	{
+		final String filename = isTest() ? Constants.WALLET_FILENAME_TEST : Constants.WALLET_FILENAME_PROD;
+		final int mode = isTest() ? Constants.WALLET_MODE_TEST : Constants.WALLET_MODE_PROD;
+
 		try
 		{
-			wallet = Wallet.loadFromFileStream(openFileInput(Constants.WALLET_FILENAME));
-			System.out.println("wallet loaded from: " + getFilesDir() + "/" + Constants.WALLET_FILENAME);
+			wallet = Wallet.loadFromFileStream(openFileInput(filename));
+			System.out.println("wallet loaded from: " + getFilesDir() + "/" + filename);
 		}
 		catch (final FileNotFoundException x)
 		{
-			wallet = new Wallet(Constants.NETWORK_PARAMS);
+			wallet = new Wallet(networkParameters);
 			wallet.keychain.add(new ECKey());
 
 			try
 			{
-				wallet.saveToFileStream(openFileOutput(Constants.WALLET_FILENAME, Constants.WALLET_MODE));
-				System.out.println("wallet created: " + getFilesDir() + "/" + Constants.WALLET_FILENAME);
+				wallet.saveToFileStream(openFileOutput(filename, mode));
+				System.out.println("wallet created: " + getFilesDir() + "/" + filename);
 			}
 			catch (final IOException x2)
 			{
@@ -111,10 +130,13 @@ public class Application extends android.app.Application
 
 	public void saveWallet()
 	{
+		final String filename = isTest() ? Constants.WALLET_FILENAME_TEST : Constants.WALLET_FILENAME_PROD;
+		final int mode = isTest() ? Constants.WALLET_MODE_TEST : Constants.WALLET_MODE_PROD;
+
 		try
 		{
-			wallet.saveToFileStream(openFileOutput(Constants.WALLET_FILENAME, Constants.WALLET_MODE));
-			System.out.println("wallet saved to: " + getFilesDir() + "/" + Constants.WALLET_FILENAME);
+			wallet.saveToFileStream(openFileOutput(filename, mode));
+			System.out.println("wallet saved to: " + getFilesDir() + "/" + filename);
 		}
 		catch (IOException x)
 		{

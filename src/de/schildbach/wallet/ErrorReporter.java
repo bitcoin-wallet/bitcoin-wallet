@@ -69,7 +69,7 @@ public class ErrorReporter implements Thread.UncaughtExceptionHandler
 		return instance;
 	}
 
-	public void init(final Context context)
+	public void init(final Context context, final boolean isTest)
 	{
 		previousHandler = Thread.getDefaultUncaughtExceptionHandler();
 		Thread.setDefaultUncaughtExceptionHandler(this);
@@ -80,7 +80,7 @@ public class ErrorReporter implements Thread.UncaughtExceptionHandler
 		stackTraceFile = new File(cacheDir, STACKTRACE_FILENAME);
 
 		report.append("=== collected at launch time ===\n\n");
-		report.append("Test: " + Constants.TEST + "\n\n");
+		report.append("Test: " + isTest + "\n\n");
 		appendReport(report, context);
 	}
 
@@ -149,7 +149,6 @@ public class ErrorReporter implements Thread.UncaughtExceptionHandler
 	{
 		report.append("=== collected at exception time ===\n\n");
 
-		report.append("Test: " + Constants.TEST + "\n\n");
 		report.append("Total Internal memory: " + getTotalInternalMemorySize() + "\n");
 		report.append("Available Internal memory: " + getAvailableInternalMemorySize() + "\n");
 		report.append("\n");

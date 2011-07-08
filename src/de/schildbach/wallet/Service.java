@@ -1,3 +1,20 @@
+/*
+ * Copyright 2010 the original author or authors.
+ * 
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package de.schildbach.wallet;
 
 import java.io.BufferedInputStream;
@@ -48,6 +65,9 @@ import com.google.bitcoin.store.BlockStore;
 import com.google.bitcoin.store.BlockStoreException;
 import com.google.bitcoin.store.BoundedOverheadBlockStore;
 
+/**
+ * @author Andreas Schildbach
+ */
 public class Service extends android.app.Service
 {
 	private Application application;
@@ -132,8 +152,8 @@ public class Service extends android.app.Service
 
 		try
 		{
-			final File file = new File(getDir("blockstore", Context.MODE_WORLD_READABLE | Context.MODE_WORLD_WRITEABLE),
-					Constants.BLOCKCHAIN_FILENAME);
+			final String blockchainFilename = application.isTest() ? Constants.BLOCKCHAIN_FILENAME_TEST : Constants.BLOCKCHAIN_FILENAME_PROD;
+			final File file = new File(getDir("blockstore", Context.MODE_WORLD_READABLE | Context.MODE_WORLD_WRITEABLE), blockchainFilename);
 
 			if (!file.exists())
 			{
@@ -142,7 +162,9 @@ public class Service extends android.app.Service
 				{
 					final long t = System.currentTimeMillis();
 
-					final InputStream is = new BufferedInputStream(getAssets().open(Constants.BLOCKCHAIN_SNAPSHOT_FILENAME));
+					final String blockchainSnapshotFilename = application.isTest() ? Constants.BLOCKCHAIN_SNAPSHOT_FILENAME_TEST
+							: Constants.BLOCKCHAIN_SNAPSHOT_FILENAME_PROD;
+					final InputStream is = new BufferedInputStream(getAssets().open(blockchainSnapshotFilename));
 					final OutputStream os = new FileOutputStream(file);
 
 					System.out.println("copying blockchain snapshot");
@@ -160,9 +182,9 @@ public class Service extends android.app.Service
 				}
 			}
 
-			blockStore = new BoundedOverheadBlockStore(Constants.NETWORK_PARAMS, file);
+			blockStore = new BoundedOverheadBlockStore(application.getNetworkParameters(), file);
 
-			blockChain = new BlockChain(Constants.NETWORK_PARAMS, application.getWallet(), blockStore);
+			blockChain = new BlockChain(application.getNetworkParameters(), application.getWallet(), blockStore);
 		}
 		catch (final BlockStoreException x)
 		{
@@ -275,8 +297,8 @@ public class Service extends android.app.Service
 
 						try
 						{
-							final NetworkConnection connection = new NetworkConnection(peerAddress.getAddress(), Constants.NETWORK_PARAMS, blockStore
-									.getChainHead().getHeight(), 5000);
+							final NetworkConnection connection = new NetworkConnection(peerAddress.getAddress(), application.getNetworkParameters(),
+									blockStore.getChainHead().getHeight(), 5000);
 
 							if (connection != null)
 							{
@@ -284,7 +306,7 @@ public class Service extends android.app.Service
 								{
 									public void run()
 									{
-										final Peer peer = new Peer(Constants.NETWORK_PARAMS, connection, blockChain);
+										final Peer peer = new Peer(application.getNetworkParameters(), connection, blockChain);
 										peer.start();
 
 										if (peers.isEmpty())
@@ -346,8 +368,8 @@ public class Service extends android.app.Service
 			{
 				try
 				{
-					final PeerDiscovery peerDiscovery = Constants.TEST ? new IrcDiscovery(Constants.PEER_DISCOVERY_IRC_CHANNEL) : new DnsDiscovery(
-							Constants.NETWORK_PARAMS);
+					final PeerDiscovery peerDiscovery = application.isTest() ? new IrcDiscovery(Constants.PEER_DISCOVERY_IRC_CHANNEL_TEST)
+							: new DnsDiscovery(application.getNetworkParameters());
 
 					return Arrays.asList(peerDiscovery.getPeers());
 				}
