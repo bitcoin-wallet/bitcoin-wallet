@@ -239,9 +239,6 @@ public class Service extends android.app.Service
 										final Peer peer = new Peer(Constants.NETWORK_PARAMS, connection, application.getBlockChain());
 										peer.start();
 
-										final String msg = "Peer " + connection.getRemoteIp().getHostAddress() + " connected";
-										System.out.println(msg + ", " + peers.size() + " connected");
-
 										if (peers.isEmpty())
 										{
 											// client was unconnected for a while
@@ -249,6 +246,9 @@ public class Service extends android.app.Service
 										}
 
 										peers.add(peer);
+
+										final String msg = peers.size() + " peers connected";
+										System.out.println("Peer " + connection.getRemoteIp().getHostAddress() + " connected, " + msg);
 
 										final Notification notification = new Notification(android.R.drawable.stat_notify_error, msg, System
 												.currentTimeMillis());
