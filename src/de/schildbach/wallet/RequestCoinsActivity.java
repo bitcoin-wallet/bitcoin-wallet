@@ -18,25 +18,22 @@
 package de.schildbach.wallet;
 
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 
 /**
  * @author Andreas Schildbach
  */
-public class RequestCoinsActivity extends FragmentActivity
+public class RequestCoinsActivity extends AbstractWalletActivity
 {
 	@Override
 	protected void onCreate(final Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 
-		final Application application = (Application) getApplication();
-
 		setContentView(R.layout.request_coins_content);
 
 		final ActionBarFragment actionBar = (ActionBarFragment) getSupportFragmentManager().findFragmentById(R.id.action_bar_fragment);
 		actionBar.setIcon(R.drawable.app_icon);
 		actionBar.setPrimaryTitle("Request Bitcoins");
-		actionBar.setSecondaryTitle(application.isTest() ? "[testnet!]" : null);
+		actionBar.setSecondaryTitle(getWalletApplication().isTest() ? "[testnet!]" : null);
 	}
 }

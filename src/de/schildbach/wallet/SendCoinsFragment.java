@@ -38,7 +38,6 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CursorAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.bitcoin.core.Address;
 import com.google.bitcoin.core.AddressFormatException;
@@ -155,11 +154,11 @@ public class SendCoinsFragment extends Fragment
 							}
 						}, 5000);
 
-						Toast.makeText(getActivity(), Utils.bitcoinValueToFriendlyString(amount) + " BTC sent!", Toast.LENGTH_LONG).show();
+						((AbstractWalletActivity) getActivity()).longToast(Utils.bitcoinValueToFriendlyString(amount) + " BTC sent!");
 					}
 					else
 					{
-						Toast.makeText(getActivity(), "problem sending coins!", Toast.LENGTH_LONG).show();
+						((AbstractWalletActivity) getActivity()).longToast("problem sending coins!");
 						getActivity().finish();
 					}
 				}

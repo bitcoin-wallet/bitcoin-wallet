@@ -31,7 +31,6 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.google.bitcoin.core.Address;
 import com.google.bitcoin.core.ECKey;
@@ -62,7 +61,7 @@ public class RequestCoinsFragment extends Fragment
 				final ClipboardManager clipboardManager = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
 				final String addressStr = determineAddressStr();
 				clipboardManager.setText(addressStr);
-				Toast.makeText(getActivity(), "bitcoin request uri pasted to clipboard", Toast.LENGTH_SHORT).show();
+				((AbstractWalletActivity) getActivity()).toast("bitcoin request uri pasted to clipboard");
 
 				System.out.println("bitcoin request uri: " + addressStr + (application.isTest() ? " (testnet!)" : ""));
 			}

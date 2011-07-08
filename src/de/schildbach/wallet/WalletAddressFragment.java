@@ -32,7 +32,6 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.bitcoin.core.Address;
 import com.google.bitcoin.core.ECKey;
@@ -72,7 +71,7 @@ public class WalletAddressFragment extends Fragment
 			{
 				ClipboardManager clipboardManager = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
 				clipboardManager.setText(address.toString());
-				Toast.makeText(getActivity(), "bitcoin address pasted to clipboard", Toast.LENGTH_SHORT).show();
+				((AbstractWalletActivity) getActivity()).toast("bitcoin address pasted to clipboard");
 
 				System.out.println("my bitcoin address: " + address + (application.isTest() ? " (testnet!)" : ""));
 			}

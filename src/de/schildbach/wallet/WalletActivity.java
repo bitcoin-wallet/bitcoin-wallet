@@ -24,21 +24,18 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.webkit.WebView;
-import android.widget.Toast;
 
 /**
  * @author Andreas Schildbach
  */
-public class WalletActivity extends FragmentActivity
+public class WalletActivity extends AbstractWalletActivity
 {
-	private Application application;
 	private final ServiceConnection serviceConnection = new ServiceConnection()
 	{
 		public void onServiceConnected(final ComponentName name, final IBinder binder)
@@ -57,8 +54,6 @@ public class WalletActivity extends FragmentActivity
 
 		ErrorReporter.getInstance().check(this);
 
-		application = (Application) getApplication();
-
 		bindService(new Intent(this, Service.class), serviceConnection, Context.BIND_AUTO_CREATE);
 
 		setContentView(R.layout.wallet_content);
@@ -66,7 +61,7 @@ public class WalletActivity extends FragmentActivity
 		final ActionBarFragment actionBar = (ActionBarFragment) getSupportFragmentManager().findFragmentById(R.id.action_bar_fragment);
 		actionBar.setIcon(R.drawable.app_icon);
 		actionBar.setPrimaryTitle(R.string.app_name);
-		actionBar.setSecondaryTitle(application.isTest() ? "[testnet!]" : null);
+		actionBar.setSecondaryTitle(getWalletApplication().isTest() ? "[testnet!]" : null);
 		actionBar.addButton(R.drawable.ic_menu_send).setOnClickListener(new OnClickListener()
 		{
 			public void onClick(final View v)
@@ -96,7 +91,7 @@ public class WalletActivity extends FragmentActivity
 	{
 		super.onCreateOptionsMenu(menu);
 		getMenuInflater().inflate(R.menu.wallet_options, menu);
-		menu.findItem(R.id.wallet_options_switch_network).setTitle("→ " + (application.isTest() ? "prodnet" : "testnet"));
+		menu.findItem(R.id.wallet_options_switch_network).setTitle("→ " + (getWalletApplication().isTest() ? "prodnet" : "testnet"));
 		return true;
 	}
 
@@ -118,7 +113,7 @@ public class WalletActivity extends FragmentActivity
 				return true;
 
 			case R.id.wallet_options_switch_network:
-				Toast.makeText(this, "coming soon", Toast.LENGTH_SHORT).show();
+				toast("coming soon");
 				return true;
 
 			case R.id.wallet_options_help:
