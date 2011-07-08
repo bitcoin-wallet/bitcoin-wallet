@@ -31,6 +31,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.webkit.WebView;
+import android.widget.Toast;
 
 /**
  * @author Andreas Schildbach
@@ -95,6 +96,7 @@ public class WalletActivity extends FragmentActivity
 	{
 		super.onCreateOptionsMenu(menu);
 		getMenuInflater().inflate(R.menu.wallet_options, menu);
+		menu.findItem(R.id.wallet_options_switch_network).setTitle("→ " + (application.isTest() ? "prodnet" : "testnet"));
 		return true;
 	}
 
@@ -113,6 +115,10 @@ public class WalletActivity extends FragmentActivity
 
 			case R.id.wallet_options_preferences:
 				startActivity(new Intent(this, PreferencesActivity.class));
+				return true;
+
+			case R.id.wallet_options_switch_network:
+				Toast.makeText(this, "coming soon", Toast.LENGTH_SHORT).show();
 				return true;
 
 			case R.id.wallet_options_help:
