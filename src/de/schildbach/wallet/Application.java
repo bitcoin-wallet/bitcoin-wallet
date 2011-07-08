@@ -43,19 +43,36 @@ public class Application extends android.app.Application
 	final private WalletEventListener walletEventListener = new WalletEventListener()
 	{
 		@Override
+		public void onPendingCoinsReceived(final Wallet wallet, final Transaction tx)
+		{
+			onEverything();
+		}
+
+		@Override
 		public void onCoinsReceived(final Wallet w, final Transaction tx, final BigInteger prevBalance, final BigInteger newBalance)
 		{
-			handler.post(new Runnable()
-			{
-				public void run()
-				{
-					saveWallet();
-				}
-			});
+			onEverything();
+		}
+
+		@Override
+		public void onCoinsSent(final Wallet wallet, final Transaction tx, final BigInteger prevBalance, final BigInteger newBalance)
+		{
+			onEverything();
 		}
 
 		@Override
 		public void onReorganize()
+		{
+			onEverything();
+		}
+
+		@Override
+		public void onDeadTransaction(final Transaction deadTx, final Transaction replacementTx)
+		{
+			onEverything();
+		}
+
+		private void onEverything()
 		{
 			handler.post(new Runnable()
 			{

@@ -88,13 +88,30 @@ public class Service extends android.app.Service
 	private final WalletEventListener walletEventListener = new WalletEventListener()
 	{
 		@Override
-		public void onCoinsReceived(final Wallet w, final Transaction tx, final BigInteger prevBalance, final BigInteger newBalance)
+		public void onPendingCoinsReceived(final Wallet wallet, final Transaction tx)
 		{
 			try
 			{
 				final TransactionInput input = tx.getInputs().get(0);
 				final Address from = input.getFromAddress();
-				final BigInteger value = tx.getValueSentToMe(w);
+				final BigInteger value = tx.getValueSentToMe(wallet);
+
+				System.out.println("!!!!!!!!!!!!! got pending bitcoins: " + from + " " + value + " " + Thread.currentThread().getName());
+			}
+			catch (final ScriptException x)
+			{
+				throw new RuntimeException(x);
+			}
+		}
+
+		@Override
+		public void onCoinsReceived(final Wallet wallet, final Transaction tx, final BigInteger prevBalance, final BigInteger newBalance)
+		{
+			try
+			{
+				final TransactionInput input = tx.getInputs().get(0);
+				final Address from = input.getFromAddress();
+				final BigInteger value = tx.getValueSentToMe(wallet);
 
 				System.out.println("!!!!!!!!!!!!! got bitcoins: " + from + " " + value + " " + Thread.currentThread().getName());
 
@@ -307,7 +324,8 @@ public class Service extends android.app.Service
 								{
 									public void run()
 									{
-										final Peer peer = new Peer(application.getNetworkParameters(), connection, blockChain);
+										final Peer peer = new Peer(application.getNetworkParameters(), connection, blockChain, application
+												.getWallet());
 										peer.start();
 
 										if (peers.isEmpty())
