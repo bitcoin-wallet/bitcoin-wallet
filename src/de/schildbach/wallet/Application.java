@@ -81,6 +81,8 @@ public class Application extends android.app.Application
 	{
 		super.onCreate();
 
+		ErrorReporter.getInstance().init(this);
+
 		loadWallet();
 
 		wallet.addEventListener(walletEventListener);

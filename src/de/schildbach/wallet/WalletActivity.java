@@ -53,6 +53,8 @@ public class WalletActivity extends FragmentActivity
 	{
 		super.onCreate(savedInstanceState);
 
+		ErrorReporter.getInstance().check(this);
+
 		bindService(new Intent(this, Service.class), serviceConnection, Context.BIND_AUTO_CREATE);
 
 		setContentView(R.layout.wallet_content);
