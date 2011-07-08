@@ -17,26 +17,16 @@
 
 package de.schildbach.wallet;
 
-import java.io.BufferedInputStream;
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.math.BigInteger;
 
-import android.content.Context;
 import android.os.Handler;
 
-import com.google.bitcoin.core.BlockChain;
 import com.google.bitcoin.core.ECKey;
 import com.google.bitcoin.core.Transaction;
 import com.google.bitcoin.core.Wallet;
 import com.google.bitcoin.core.WalletEventListener;
-import com.google.bitcoin.store.BlockStore;
-import com.google.bitcoin.store.BlockStoreException;
-import com.google.bitcoin.store.BoundedOverheadBlockStore;
 
 /**
  * @author Andreas Schildbach
@@ -44,8 +34,6 @@ import com.google.bitcoin.store.BoundedOverheadBlockStore;
 public class Application extends android.app.Application
 {
 	private Wallet wallet;
-	private BlockStore blockStore;
-	private BlockChain blockChain;
 
 	private final Handler handler = new Handler();
 
@@ -86,60 +74,11 @@ public class Application extends android.app.Application
 		loadWallet();
 
 		wallet.addEventListener(walletEventListener);
-
-		try
-		{
-			final File file = new File(getDir("blockstore", Context.MODE_WORLD_READABLE | Context.MODE_WORLD_WRITEABLE),
-					Constants.BLOCKCHAIN_FILENAME);
-
-			if (!file.exists())
-			{
-				// copy snapshot
-				try
-				{
-					final long t = System.currentTimeMillis();
-
-					final InputStream is = new BufferedInputStream(getAssets().open(Constants.BLOCKCHAIN_SNAPSHOT_FILENAME));
-					final OutputStream os = new FileOutputStream(file);
-
-					System.out.println("copying blockchain snapshot");
-					final byte[] buf = new byte[8192];
-					int read;
-					while (-1 != (read = is.read(buf)))
-						os.write(buf, 0, read);
-					os.close();
-					is.close();
-					System.out.println("finished copying, took " + (System.currentTimeMillis() - t) + " ms");
-				}
-				catch (final IOException x)
-				{
-					file.delete();
-				}
-			}
-
-			blockStore = new BoundedOverheadBlockStore(Constants.NETWORK_PARAMS, file);
-
-			blockChain = new BlockChain(Constants.NETWORK_PARAMS, wallet, blockStore);
-		}
-		catch (final BlockStoreException x)
-		{
-			throw new Error("blockstore cannot be created", x);
-		}
 	}
 
 	public Wallet getWallet()
 	{
 		return wallet;
-	}
-
-	public BlockStore getBlockStore()
-	{
-		return blockStore;
-	}
-
-	public BlockChain getBlockChain()
-	{
-		return blockChain;
 	}
 
 	private void loadWallet()

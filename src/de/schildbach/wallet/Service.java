@@ -1,6 +1,11 @@
 package de.schildbach.wallet;
 
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.math.BigInteger;
 import java.net.InetSocketAddress;
 import java.util.ArrayList;
@@ -25,6 +30,7 @@ import android.os.IBinder;
 import android.os.Process;
 
 import com.google.bitcoin.core.Address;
+import com.google.bitcoin.core.BlockChain;
 import com.google.bitcoin.core.NetworkConnection;
 import com.google.bitcoin.core.Peer;
 import com.google.bitcoin.core.ProtocolException;
@@ -38,13 +44,16 @@ import com.google.bitcoin.discovery.DnsDiscovery;
 import com.google.bitcoin.discovery.IrcDiscovery;
 import com.google.bitcoin.discovery.PeerDiscovery;
 import com.google.bitcoin.discovery.PeerDiscoveryException;
+import com.google.bitcoin.store.BlockStore;
 import com.google.bitcoin.store.BlockStoreException;
+import com.google.bitcoin.store.BoundedOverheadBlockStore;
 
 public class Service extends android.app.Service
 {
 	private Application application;
 	private final List<Peer> peers = new ArrayList<Peer>(Constants.MAX_CONNECTED_PEERS);
-	private NetworkConnection connection;
+	private BlockStore blockStore;
+	private BlockChain blockChain;
 
 	private HandlerThread backgroundThread;
 	private Handler backgroundHandler;
@@ -120,6 +129,45 @@ public class Service extends android.app.Service
 		backgroundThread = new HandlerThread("backgroundThread", Process.THREAD_PRIORITY_BACKGROUND);
 		backgroundThread.start();
 		backgroundHandler = new Handler(backgroundThread.getLooper());
+
+		try
+		{
+			final File file = new File(getDir("blockstore", Context.MODE_WORLD_READABLE | Context.MODE_WORLD_WRITEABLE),
+					Constants.BLOCKCHAIN_FILENAME);
+
+			if (!file.exists())
+			{
+				// copy snapshot
+				try
+				{
+					final long t = System.currentTimeMillis();
+
+					final InputStream is = new BufferedInputStream(getAssets().open(Constants.BLOCKCHAIN_SNAPSHOT_FILENAME));
+					final OutputStream os = new FileOutputStream(file);
+
+					System.out.println("copying blockchain snapshot");
+					final byte[] buf = new byte[8192];
+					int read;
+					while (-1 != (read = is.read(buf)))
+						os.write(buf, 0, read);
+					os.close();
+					is.close();
+					System.out.println("finished copying, took " + (System.currentTimeMillis() - t) + " ms");
+				}
+				catch (final IOException x)
+				{
+					file.delete();
+				}
+			}
+
+			blockStore = new BoundedOverheadBlockStore(Constants.NETWORK_PARAMS, file);
+
+			blockChain = new BlockChain(Constants.NETWORK_PARAMS, application.getWallet(), blockStore);
+		}
+		catch (final BlockStoreException x)
+		{
+			throw new Error("blockstore cannot be created", x);
+		}
 
 		checkPeers();
 
@@ -227,7 +275,7 @@ public class Service extends android.app.Service
 
 						try
 						{
-							connection = new NetworkConnection(peerAddress.getAddress(), Constants.NETWORK_PARAMS, application.getBlockStore()
+							final NetworkConnection connection = new NetworkConnection(peerAddress.getAddress(), Constants.NETWORK_PARAMS, blockStore
 									.getChainHead().getHeight(), 5000);
 
 							if (connection != null)
@@ -236,7 +284,7 @@ public class Service extends android.app.Service
 								{
 									public void run()
 									{
-										final Peer peer = new Peer(Constants.NETWORK_PARAMS, connection, application.getBlockChain());
+										final Peer peer = new Peer(Constants.NETWORK_PARAMS, connection, blockChain);
 										peer.start();
 
 										if (peers.isEmpty())
