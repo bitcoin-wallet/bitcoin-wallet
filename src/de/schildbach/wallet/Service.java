@@ -403,65 +403,68 @@ public class Service extends android.app.Service
 
 	private void blockChainDownload(final Peer peer)
 	{
-		System.out.println("sync");
-
 		try
 		{
 			final CountDownLatch latch = peer.startBlockChainDownload();
 
-			new Thread()
+			if (latch != null)
 			{
-				@Override
-				public void run()
+				System.out.println("sync");
+
+				new Thread()
 				{
-					try
+					@Override
+					public void run()
 					{
-						final long maxCount = latch.getCount();
-
-						while (true)
+						try
 						{
-							latch.await(1, TimeUnit.SECONDS);
+							final long maxCount = latch.getCount();
 
-							final long count = latch.getCount();
-							if (count == 0)
+							while (true)
 							{
-								handler.post(new Runnable()
-								{
-									public void run()
-									{
-										System.out.println("sync finished");
-										nm.cancel(NOTIFICATION_ID_SYNCING);
-									}
-								});
-								return;
-							}
-							else
-							{
-								final float percent = 100f - (100f * (count / (float) maxCount));
+								latch.await(1, TimeUnit.SECONDS);
 
-								handler.post(new Runnable()
+								final long count = latch.getCount();
+								if (count == 0)
 								{
-									public void run()
+									handler.post(new Runnable()
 									{
-										final Notification notification = new Notification(R.drawable.stat_notify_sync,
-												"Bitcoin Blockchain Sync started", System.currentTimeMillis());
-										notification.flags |= Notification.FLAG_ONGOING_EVENT;
-										notification.iconLevel = (int) (count % 2l);
-										notification.setLatestEventInfo(Service.this, "Bitcoin Blockchain Sync",
-												String.format("%.1f%% finished", percent),
-												PendingIntent.getActivity(Service.this, 0, new Intent(Service.this, WalletActivity.class), 0));
-										nm.notify(NOTIFICATION_ID_SYNCING, notification);
-									}
-								});
+										public void run()
+										{
+											System.out.println("sync finished");
+											nm.cancel(NOTIFICATION_ID_SYNCING);
+										}
+									});
+									return;
+								}
+								else
+								{
+									final float percent = 100f - (100f * (count / (float) maxCount));
+
+									handler.post(new Runnable()
+									{
+										public void run()
+										{
+											final Notification notification = new Notification(R.drawable.stat_notify_sync,
+													"Bitcoin Blockchain Sync started", System.currentTimeMillis());
+											notification.flags |= Notification.FLAG_ONGOING_EVENT;
+											notification.iconLevel = (int) (count % 2l);
+											notification.setLatestEventInfo(Service.this, "Bitcoin Blockchain Sync",
+													String.format("%.1f%% finished", percent),
+													PendingIntent.getActivity(Service.this, 0, new Intent(Service.this, WalletActivity.class), 0));
+											nm.notify(NOTIFICATION_ID_SYNCING, notification);
+										}
+									});
+								}
 							}
 						}
+						catch (final Exception x)
+						{
+							x.printStackTrace();
+						}
 					}
-					catch (final Exception x)
-					{
-						x.printStackTrace();
-					}
-				}
-			}.start(); // FIXME no graceful shutdown possible
+				}.start(); // FIXME no graceful shutdown possible
+			}
 		}
 		catch (final IOException x)
 		{
