@@ -127,6 +127,10 @@ public class WalletActivity extends AbstractWalletActivity
 				toast("coming soon");
 				return true;
 
+			case R.id.wallet_options_safety:
+				showDialog(1);
+				return true;
+
 			case R.id.wallet_options_help:
 				showDialog(0);
 				return true;
@@ -139,7 +143,7 @@ public class WalletActivity extends AbstractWalletActivity
 	protected Dialog onCreateDialog(final int id)
 	{
 		final WebView webView = new WebView(this);
-		webView.loadUrl("file:///android_asset/help.html");
+		webView.loadUrl("file:///android_asset/" + (id == 0 ? "help.html" : "safety.html"));
 
 		final Dialog dialog = new Dialog(WalletActivity.this);
 		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
