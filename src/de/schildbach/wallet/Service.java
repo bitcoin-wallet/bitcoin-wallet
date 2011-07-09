@@ -41,6 +41,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Binder;
 import android.os.Handler;
 import android.os.HandlerThread;
@@ -122,7 +123,7 @@ public class Service extends android.app.Service
 						final String msg = "Received " + Utils.bitcoinValueToFriendlyString(value) + " BTC";
 						final Notification notification = new Notification(R.drawable.stat_notify_received, msg, System.currentTimeMillis());
 						notification.flags |= Notification.FLAG_AUTO_CANCEL;
-						notification.defaults |= Notification.DEFAULT_SOUND;
+						notification.sound = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.coins_received);
 						notification.setLatestEventInfo(Service.this, msg, "From " + from,
 								PendingIntent.getActivity(Service.this, 0, new Intent(Service.this, WalletActivity.class), 0));
 						nm.notify(notificationIdCount.getAndIncrement(), notification);
