@@ -4,7 +4,7 @@
 
 	<ImageView android:id="@+id/bitcoin_address_qr" android:layout_width="96dp" android:layout_height="96dp"
 		android:layout_alignParentTop="true" android:layout_alignParentRight="true" android:layout_marginLeft="16dp"
-		android:scaleType="centerInside" />
+		android:scaleType="centerInside" android:background="@drawable/qrcode_frame" />
 
 	<TextView android:id="@+id/bitcoin_address_label" android:layout_width="wrap_content" android:layout_height="wrap_content"
 		android:layout_alignTop="@id/bitcoin_address_qr" android:layout_alignParentLeft="true" android:layout_toLeftOf="@id/bitcoin_address_qr"

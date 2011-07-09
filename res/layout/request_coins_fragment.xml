@@ -16,6 +16,6 @@
 		android:textSize="16sp" android:textStyle="bold" />
 
 	<ImageView android:id="@+id/request_coins_qr" android:layout_width="fill_parent" android:layout_height="wrap_content"
-		android:layout_weight="100" android:layout_margin="16dp" android:scaleType="centerInside" />
+		android:layout_weight="100" android:layout_margin="16dp" android:scaleType="centerInside" android:background="@drawable/qrcode_frame" />
 
 </LinearLayout>

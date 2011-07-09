@@ -110,7 +110,8 @@ public class RequestCoinsFragment extends Fragment
 
 	private void updateView()
 	{
-		qrView.setImageBitmap(WalletUtils.getQRCodeBitmap(determineAddressStr()));
+		final int size = (int) (256 * getResources().getDisplayMetrics().density);
+		qrView.setImageBitmap(WalletUtils.getQRCodeBitmap(determineAddressStr(), size));
 	}
 
 	private String determineAddressStr()

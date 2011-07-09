@@ -49,15 +49,13 @@ public class WalletUtils
 
 	public final static QRCodeWriter QR_CODE_WRITER = new QRCodeWriter();
 
-	public static Bitmap getQRCodeBitmap(final String url)
+	public static Bitmap getQRCodeBitmap(final String url, final int size)
 	{
-		final int SIZE = 256;
-
 		try
 		{
 			final Hashtable<EncodeHintType, Object> hints = new Hashtable<EncodeHintType, Object>();
 			hints.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.H);
-			final BitMatrix result = QR_CODE_WRITER.encode(url, BarcodeFormat.QR_CODE, SIZE, SIZE, hints);
+			final BitMatrix result = QR_CODE_WRITER.encode(url, BarcodeFormat.QR_CODE, size, size, hints);
 
 			final int width = result.getWidth();
 			final int height = result.getHeight();

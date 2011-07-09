@@ -62,7 +62,7 @@ public class WalletAddressFragment extends Fragment
 		final ImageView bitcoinAddressQrView = (ImageView) view.findViewById(R.id.bitcoin_address_qr);
 
 		// populate qrcode representation of bitcoin address
-		qrCodeBitmap = WalletUtils.getQRCodeBitmap("bitcoin:" + address.toString());
+		qrCodeBitmap = WalletUtils.getQRCodeBitmap("bitcoin:" + address.toString(), 256);
 		bitcoinAddressQrView.setImageBitmap(qrCodeBitmap);
 
 		bitcoinAddressView.setOnClickListener(new OnClickListener()
