@@ -192,8 +192,6 @@ public class WalletTransactionsFragment extends Fragment
 
 		wallet.addEventListener(walletEventListener);
 
-		updateView();
-
 		getActivity().getContentResolver().registerContentObserver(AddressBookProvider.CONTENT_URI, true, new ContentObserver(handler)
 		{
 			@Override
@@ -204,6 +202,14 @@ public class WalletTransactionsFragment extends Fragment
 		});
 
 		return view;
+	}
+
+	@Override
+	public void onResume()
+	{
+		super.onResume();
+
+		updateView();
 	}
 
 	@Override

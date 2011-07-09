@@ -124,8 +124,6 @@ public class WalletBalanceFragment extends Fragment
 
 		wallet.addEventListener(walletEventListener);
 
-		updateView();
-
 		backgroundHandler.post(new Runnable()
 		{
 			public void run()
@@ -155,6 +153,14 @@ public class WalletBalanceFragment extends Fragment
 		});
 
 		return view;
+	}
+
+	@Override
+	public void onResume()
+	{
+		super.onResume();
+
+		updateView();
 	}
 
 	@Override
