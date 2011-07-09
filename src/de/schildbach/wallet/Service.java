@@ -54,6 +54,7 @@ import com.google.bitcoin.core.NetworkConnection;
 import com.google.bitcoin.core.Peer;
 import com.google.bitcoin.core.ProtocolException;
 import com.google.bitcoin.core.ScriptException;
+import com.google.bitcoin.core.Sha256Hash;
 import com.google.bitcoin.core.Transaction;
 import com.google.bitcoin.core.TransactionInput;
 import com.google.bitcoin.core.Utils;
@@ -76,6 +77,7 @@ public class Service extends android.app.Service
 	private final List<Peer> peers = new ArrayList<Peer>(Constants.MAX_CONNECTED_PEERS);
 	private BlockStore blockStore;
 	private BlockChain blockChain;
+	private List<Sha256Hash> transactionsSeen = new ArrayList<Sha256Hash>();
 
 	private HandlerThread backgroundThread;
 	private Handler backgroundHandler;
@@ -97,7 +99,15 @@ public class Service extends android.app.Service
 				final Address from = input.getFromAddress();
 				final BigInteger value = tx.getValueSentToMe(wallet);
 
-				System.out.println("!!!!!!!!!!!!! got pending bitcoins: " + from + " " + value + " " + Thread.currentThread().getName());
+				handler.post(new Runnable()
+				{
+					public void run()
+					{
+						System.out.println("!!! got pending bitcoins: " + from + " " + value);
+
+						notifyTransaction(tx.getHash(), from, value);
+					}
+				});
 			}
 			catch (final ScriptException x)
 			{
@@ -114,25 +124,35 @@ public class Service extends android.app.Service
 				final Address from = input.getFromAddress();
 				final BigInteger value = tx.getValueSentToMe(wallet);
 
-				System.out.println("!!!!!!!!!!!!! got bitcoins: " + from + " " + value + " " + Thread.currentThread().getName());
-
 				handler.post(new Runnable()
 				{
 					public void run()
 					{
-						final String msg = "Received " + Utils.bitcoinValueToFriendlyString(value) + " BTC";
-						final Notification notification = new Notification(R.drawable.stat_notify_received, msg, System.currentTimeMillis());
-						notification.flags |= Notification.FLAG_AUTO_CANCEL;
-						notification.sound = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.coins_received);
-						notification.setLatestEventInfo(Service.this, msg, "From " + from,
-								PendingIntent.getActivity(Service.this, 0, new Intent(Service.this, WalletActivity.class), 0));
-						nm.notify(notificationIdCount.getAndIncrement(), notification);
+						System.out.println("!!! got confirmed bitcoins: " + from + " " + value);
+
+						notifyTransaction(tx.getHash(), from, value);
 					}
 				});
 			}
 			catch (final ScriptException x)
 			{
 				throw new RuntimeException(x);
+			}
+		}
+
+		private void notifyTransaction(final Sha256Hash txHash, final Address from, final BigInteger value)
+		{
+			if (!transactionsSeen.contains(txHash))
+			{
+				transactionsSeen.add(txHash);
+
+				final String msg = "Received " + Utils.bitcoinValueToFriendlyString(value) + " BTC";
+				final Notification notification = new Notification(R.drawable.stat_notify_received, msg, System.currentTimeMillis());
+				notification.flags |= Notification.FLAG_AUTO_CANCEL;
+				notification.sound = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.coins_received);
+				notification.setLatestEventInfo(Service.this, msg, "From " + from,
+						PendingIntent.getActivity(Service.this, 0, new Intent(Service.this, WalletActivity.class), 0));
+				nm.notify(notificationIdCount.getAndIncrement(), notification);
 			}
 		}
 	};
