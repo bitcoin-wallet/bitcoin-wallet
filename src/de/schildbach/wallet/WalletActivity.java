@@ -26,6 +26,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.v4.app.FragmentManager;
@@ -134,7 +135,7 @@ public class WalletActivity extends AbstractWalletActivity
 				return true;
 
 			case R.id.wallet_options_switch_network:
-				toast("coming soon");
+				switchNetwork(!Constants.TEST);
 				return true;
 
 			case R.id.wallet_options_safety:
@@ -186,10 +187,22 @@ public class WalletActivity extends AbstractWalletActivity
 			{
 				public void onClick(final DialogInterface dialog, final int id)
 				{
-					toast("coming soon");
+					switchNetwork(true);
 				}
 			});
 			builder.show();
 		}
+	}
+
+	private void switchNetwork(final boolean test)
+	{
+		final String packageName = test ? "de.schildbach.wallet_test" : "de.schildbach.wallet";
+		final String className = getClass().getName();
+		final Intent intent = new Intent().setClassName(packageName, className);
+		if (getPackageManager().resolveActivity(intent, 0) != null)
+			startActivity(intent);
+		else
+			startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(String.format(Constants.MARKET_APP_URL, packageName))));
+		finish();
 	}
 }
