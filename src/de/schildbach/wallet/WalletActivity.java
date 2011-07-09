@@ -17,9 +17,13 @@
 
 package de.schildbach.wallet;
 
+import java.io.File;
+
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
@@ -37,6 +41,9 @@ import android.webkit.WebView;
  */
 public class WalletActivity extends AbstractWalletActivity
 {
+	private static final int DIALOG_SAFETY = 1;
+	private static final int DIALOG_HELP = 0;
+
 	private final ServiceConnection serviceConnection = new ServiceConnection()
 	{
 		public void onServiceConnected(final ComponentName name, final IBinder binder)
@@ -81,12 +88,14 @@ public class WalletActivity extends AbstractWalletActivity
 		{
 			public void onClick(final View v)
 			{
-				showDialog(0);
+				showDialog(DIALOG_HELP);
 			}
 		});
 
 		final FragmentManager fm = getSupportFragmentManager();
 		fm.beginTransaction().hide(fm.findFragmentById(R.id.exchange_rates_fragment)).commit();
+
+		checkTestnetProdnetMigrationAlert();
 	}
 
 	@Override
@@ -128,11 +137,11 @@ public class WalletActivity extends AbstractWalletActivity
 				return true;
 
 			case R.id.wallet_options_safety:
-				showDialog(1);
+				showDialog(DIALOG_SAFETY);
 				return true;
 
 			case R.id.wallet_options_help:
-				showDialog(0);
+				showDialog(DIALOG_HELP);
 				return true;
 		}
 
@@ -143,7 +152,7 @@ public class WalletActivity extends AbstractWalletActivity
 	protected Dialog onCreateDialog(final int id)
 	{
 		final WebView webView = new WebView(this);
-		webView.loadUrl("file:///android_asset/" + (id == 0 ? "help.html" : "safety.html"));
+		webView.loadUrl("file:///android_asset/" + (id == DIALOG_HELP ? "help.html" : "safety.html"));
 
 		final Dialog dialog = new Dialog(WalletActivity.this);
 		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -151,5 +160,35 @@ public class WalletActivity extends AbstractWalletActivity
 		dialog.setCanceledOnTouchOutside(true);
 
 		return dialog;
+	}
+
+	private void checkTestnetProdnetMigrationAlert()
+	{
+		final File testBlockchain = new File(getDir("blockstore", Context.MODE_WORLD_READABLE | Context.MODE_WORLD_WRITEABLE),
+				Constants.BLOCKCHAIN_FILENAME_TEST);
+		if (!getWalletApplication().isTest() && testBlockchain.exists())
+		{
+			final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+			builder.setIcon(android.R.drawable.ic_dialog_alert);
+			builder.setTitle("Important notice!");
+			builder.setMessage("Bitcoin Wallet has been switched from Testnet to Prodnet. This means that you can now pay for real! Please read the safety hints.\n\nIf you don't want to take the risk and stay on Testnet, please install Bitcoin Wallet for Testnet.");
+			builder.setPositiveButton("Read Safety Hints", new DialogInterface.OnClickListener()
+			{
+				public void onClick(final DialogInterface dialog, final int id)
+				{
+					testBlockchain.delete();
+
+					showDialog(DIALOG_SAFETY);
+				}
+			});
+			builder.setNegativeButton("Install Testnet", new DialogInterface.OnClickListener()
+			{
+				public void onClick(final DialogInterface dialog, final int id)
+				{
+					toast("coming soon");
+				}
+			});
+			builder.show();
+		}
 	}
 }
