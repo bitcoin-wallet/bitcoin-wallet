@@ -32,7 +32,7 @@ public class RequestCoinsActivity extends AbstractWalletActivity
 		setContentView(R.layout.request_coins_content);
 
 		final ActionBarFragment actionBar = (ActionBarFragment) getSupportFragmentManager().findFragmentById(R.id.action_bar_fragment);
-		actionBar.setIcon(R.drawable.app_icon);
+		actionBar.setIcon(getWalletApplication().isTest() ? R.drawable.app_icon_test : R.drawable.app_icon);
 		actionBar.setPrimaryTitle("Request Bitcoins");
 		actionBar.setSecondaryTitle(getWalletApplication().isTest() ? "[testnet!]" : null);
 	}
