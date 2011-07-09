@@ -25,8 +25,12 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -57,7 +61,7 @@ public class WalletBalanceFragment extends Fragment
 	private TextView viewBalance;
 	private TextView viewBalanceInDollars;
 
-	private Float exchangeRate;
+	private Map<String, Double> exchangeRates;
 
 	private final WalletEventListener walletEventListener = new WalletEventListener()
 	{
@@ -128,15 +132,15 @@ public class WalletBalanceFragment extends Fragment
 			{
 				try
 				{
-					final Float newExchangeRate = getExchangeRate();
+					final Map<String, Double> newExchangeRates = getExchangeRates();
 
-					if (newExchangeRate != null)
+					if (newExchangeRates != null)
 					{
 						getActivity().runOnUiThread(new Runnable()
 						{
 							public void run()
 							{
-								exchangeRate = newExchangeRate;
+								exchangeRates = newExchangeRates;
 								updateView();
 							}
 						});
@@ -173,32 +177,54 @@ public class WalletBalanceFragment extends Fragment
 		{
 			viewBalanceInDollars.setText(null);
 		}
-		else if (exchangeRate != null)
+		else if (exchangeRates != null)
 		{
-			final BigInteger dollars = new BigDecimal(balance).multiply(new BigDecimal(exchangeRate)).toBigInteger();
+			final BigInteger dollars = new BigDecimal(balance).multiply(new BigDecimal(exchangeRates.get("USD"))).toBigInteger();
 			viewBalanceInDollars.setText(String.format("worth about US$ %s" + (application.isTest() ? "\nif it were real bitcoins" : ""),
 					Utils.bitcoinValueToFriendlyString(dollars)));
 		}
 	}
 
-	private static final Pattern P_EXCHANGE_RATE = Pattern.compile("\"last\":(\\d*\\.\\d*)[^\\d]");
-
-	private static Float getExchangeRate()
+	private static Map<String, Double> getExchangeRates()
 	{
 		try
 		{
-			final URLConnection connection = new URL("https://mtgox.com/code/data/ticker.php").openConnection(); // https://bitmarket.eu/api/ticker
+			final URLConnection connection = new URL("http://bitcoincharts.com/t/weighted_prices.json").openConnection();
+			// https://mtgox.com/code/data/ticker.php
+			// https://bitmarket.eu/api/ticker
+			// http://bitcoincharts.com/t/weighted_prices.json
+
 			connection.connect();
 			final Reader is = new InputStreamReader(new BufferedInputStream(connection.getInputStream()));
 			final StringBuilder content = new StringBuilder();
 			copy(is, content);
 			is.close();
 
-			final Matcher m = P_EXCHANGE_RATE.matcher(content);
-			if (m.find())
-				return Float.parseFloat(m.group(1));
+			final Map<String, Double> rates = new HashMap<String, Double>();
+
+			final JSONObject head = new JSONObject(content.toString());
+			for (final Iterator<String> i = head.keys(); i.hasNext();)
+			{
+				final String currencyCode = i.next();
+
+				final JSONObject o = head.getJSONObject(currencyCode);
+				double rate = o.optDouble("24h", 0);
+				if (rate == 0)
+					rate = o.optDouble("7d", 0);
+				if (rate == 0)
+					rate = o.optDouble("30d", 0);
+
+				if (rate != 0)
+					rates.put(currencyCode, rate);
+			}
+
+			return rates;
 		}
 		catch (final IOException x)
+		{
+			x.printStackTrace();
+		}
+		catch (final JSONException x)
 		{
 			x.printStackTrace();
 		}
