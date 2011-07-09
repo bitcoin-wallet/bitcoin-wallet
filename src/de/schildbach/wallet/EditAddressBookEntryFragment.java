@@ -30,6 +30,7 @@ import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
+import de.schildbach.wallet_test.R;
 
 /**
  * @author Andreas Schildbach

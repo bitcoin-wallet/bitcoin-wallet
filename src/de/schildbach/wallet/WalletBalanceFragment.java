@@ -44,6 +44,8 @@ import com.google.bitcoin.core.Wallet;
 import com.google.bitcoin.core.Wallet.BalanceType;
 import com.google.bitcoin.core.WalletEventListener;
 
+import de.schildbach.wallet_test.R;
+
 /**
  * @author Andreas Schildbach
  */

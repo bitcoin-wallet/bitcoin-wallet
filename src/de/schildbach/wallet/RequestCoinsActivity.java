@@ -18,6 +18,7 @@
 package de.schildbach.wallet;
 
 import android.os.Bundle;
+import de.schildbach.wallet_test.R;
 
 /**
  * @author Andreas Schildbach

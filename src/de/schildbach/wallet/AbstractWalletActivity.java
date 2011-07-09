@@ -22,6 +22,7 @@ import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+import de.schildbach.wallet_test.R;
 
 /**
  * @author Andreas Schildbach

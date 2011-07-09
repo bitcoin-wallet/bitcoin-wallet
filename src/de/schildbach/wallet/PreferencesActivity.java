@@ -24,6 +24,7 @@ import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceScreen;
+import de.schildbach.wallet_test.R;
 
 /**
  * @author Andreas Schildbach

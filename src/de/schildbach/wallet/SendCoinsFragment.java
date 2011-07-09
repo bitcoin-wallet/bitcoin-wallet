@@ -44,6 +44,8 @@ import com.google.bitcoin.core.AddressFormatException;
 import com.google.bitcoin.core.Transaction;
 import com.google.bitcoin.core.Utils;
 
+import de.schildbach.wallet_test.R;
+
 /**
  * @author Andreas Schildbach
  */
