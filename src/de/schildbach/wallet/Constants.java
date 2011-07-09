@@ -48,7 +48,5 @@ public class Constants
 	public static final String MARKET_APP_URL = "market://details?id=%s";
 	public static final String MARKET_PUBLISHER_URL = "market://search?q=pub:\"Andreas Schildbach\"";
 
-	public static final String PREFS_NAME = "app";
-	public static final String PREFS_KEY_TEST = "test";
 	public static final String PREFS_KEY_EXCHANGE_CURRENCY = "exchange_currency";
 }

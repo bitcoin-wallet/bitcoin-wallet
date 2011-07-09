@@ -32,7 +32,6 @@ import java.util.Map;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.content.Context;
 import android.os.Handler;
 
 import com.google.bitcoin.core.ECKey;
@@ -111,8 +110,7 @@ public class Application extends android.app.Application
 
 	public boolean isTest()
 	{
-		return getApplicationContext().getSharedPreferences(Constants.PREFS_NAME, Context.MODE_PRIVATE).getBoolean(Constants.PREFS_KEY_TEST,
-				Constants.TEST);
+		return Constants.TEST;
 	}
 
 	public NetworkParameters getNetworkParameters()
