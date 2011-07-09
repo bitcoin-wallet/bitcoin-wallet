@@ -77,6 +77,13 @@ public class WalletActivity extends AbstractWalletActivity
 				startActivity(new Intent(WalletActivity.this, RequestCoinsActivity.class));
 			}
 		});
+		actionBar.addButton(R.drawable.ic_menu_help).setOnClickListener(new OnClickListener()
+		{
+			public void onClick(final View v)
+			{
+				showDialog(0);
+			}
+		});
 
 		final FragmentManager fm = getSupportFragmentManager();
 		fm.beginTransaction().hide(fm.findFragmentById(R.id.exchange_rates_fragment)).commit();
