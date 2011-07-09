@@ -196,11 +196,15 @@ public class WalletBalanceFragment extends Fragment
 		else if (exchangeRates != null)
 		{
 			final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
-			final String exchangeCurrency = prefs.getString(Constants.PREFS_KEY_EXCHANGE_CURRENCY, "EUR");
-			final BigInteger dollars = new BigDecimal(balance).multiply(new BigDecimal(exchangeRates.get(exchangeCurrency))).toBigInteger();
-			viewBalanceLocal.setText(String.format("worth about %s %s", exchangeCurrency, Utils.bitcoinValueToFriendlyString(dollars)));
-			if (application.isTest())
-				viewBalanceLocal.setPaintFlags(viewBalanceLocal.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+			final String exchangeCurrency = prefs.getString(Constants.PREFS_KEY_EXCHANGE_CURRENCY, "USD");
+			final Double exchangeRate = exchangeRates.get(exchangeCurrency);
+			if (exchangeRate != null)
+			{
+				final BigInteger valueLocal = new BigDecimal(balance).multiply(new BigDecimal(exchangeRate)).toBigInteger();
+				viewBalanceLocal.setText(String.format("worth about %s %s", exchangeCurrency, Utils.bitcoinValueToFriendlyString(valueLocal)));
+				if (application.isTest())
+					viewBalanceLocal.setPaintFlags(viewBalanceLocal.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+			}
 		}
 	}
 }
