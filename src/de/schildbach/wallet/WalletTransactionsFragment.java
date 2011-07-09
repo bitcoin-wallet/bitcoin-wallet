@@ -26,6 +26,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
@@ -178,9 +179,7 @@ public class WalletTransactionsFragment extends Fragment
 					if (prev != null)
 						ft.remove(prev);
 					ft.addToBackStack(null);
-
-					// Create and show the dialog.
-					final EditAddressBookEntryFragment newFragment = new EditAddressBookEntryFragment(getLayoutInflater(null), address.toString());
+					final DialogFragment newFragment = new EditAddressBookEntryFragment(getLayoutInflater(null), address.toString());
 					newFragment.show(ft, EditAddressBookEntryFragment.FRAGMENT_TAG);
 				}
 				catch (final ScriptException x)

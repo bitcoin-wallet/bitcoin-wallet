@@ -50,4 +50,5 @@ public class Constants
 
 	public static final String PREFS_NAME = "app";
 	public static final String PREFS_KEY_TEST = "test";
+	public static final String PREFS_KEY_EXCHANGE_CURRENCY = "exchange_currency";
 }

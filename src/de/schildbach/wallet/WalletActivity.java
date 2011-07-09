@@ -24,6 +24,7 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.support.v4.app.FragmentManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -76,6 +77,9 @@ public class WalletActivity extends AbstractWalletActivity
 				startActivity(new Intent(WalletActivity.this, RequestCoinsActivity.class));
 			}
 		});
+
+		final FragmentManager fm = getSupportFragmentManager();
+		fm.beginTransaction().hide(fm.findFragmentById(R.id.exchange_rates_fragment)).commit();
 	}
 
 	@Override
