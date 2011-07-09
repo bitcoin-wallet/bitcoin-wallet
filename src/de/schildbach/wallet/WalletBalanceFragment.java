@@ -22,6 +22,7 @@ import java.math.BigInteger;
 import java.util.Map;
 
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.Handler;
@@ -52,6 +53,7 @@ public class WalletBalanceFragment extends Fragment
 
 	private HandlerThread backgroundThread;
 	private Handler backgroundHandler;
+	private final Handler handler = new Handler();
 
 	private TextView viewBalance;
 	private TextView viewBalanceLocal;
@@ -206,5 +208,20 @@ public class WalletBalanceFragment extends Fragment
 					viewBalanceLocal.setPaintFlags(viewBalanceLocal.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 			}
 		}
+	}
+
+	private Runnable resetColorRunnable = new Runnable()
+	{
+		public void run()
+		{
+			viewBalanceLocal.setTextColor(Color.parseColor("#888888"));
+		}
+	};
+
+	public void flashLocal()
+	{
+		viewBalanceLocal.setTextColor(Color.parseColor("#cc5500"));
+		handler.removeCallbacks(resetColorRunnable);
+		handler.postDelayed(resetColorRunnable, 500);
 	}
 }

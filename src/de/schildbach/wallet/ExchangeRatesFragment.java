@@ -148,7 +148,13 @@ public class ExchangeRatesFragment extends ListFragment
 										final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
 										prefs.edit().putString(Constants.PREFS_KEY_EXCHANGE_CURRENCY, currencyCode).commit();
 
-										((WalletBalanceFragment) getFragmentManager().findFragmentById(R.id.wallet_balance_fragment)).updateView();
+										final WalletBalanceFragment walletBalanceFragment = (WalletBalanceFragment) getFragmentManager()
+												.findFragmentById(R.id.wallet_balance_fragment);
+										if (walletBalanceFragment != null)
+										{
+											walletBalanceFragment.updateView();
+											walletBalanceFragment.flashLocal();
+										}
 									}
 								});
 							}
