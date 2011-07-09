@@ -69,7 +69,7 @@ public class ErrorReporter implements Thread.UncaughtExceptionHandler
 		return instance;
 	}
 
-	public void init(final Context context, final boolean isTest)
+	public void init(final Context context)
 	{
 		previousHandler = Thread.getDefaultUncaughtExceptionHandler();
 		Thread.setDefaultUncaughtExceptionHandler(this);
@@ -80,7 +80,7 @@ public class ErrorReporter implements Thread.UncaughtExceptionHandler
 		stackTraceFile = new File(cacheDir, STACKTRACE_FILENAME);
 
 		report.append("=== collected at launch time ===\n\n");
-		report.append("Test: " + isTest + "\n\n");
+		report.append("Test: " + Constants.TEST + "\n\n");
 		appendReport(report, context);
 	}
 

@@ -99,18 +99,13 @@ public class Application extends android.app.Application
 	{
 		super.onCreate();
 
-		ErrorReporter.getInstance().init(this, isTest());
+		ErrorReporter.getInstance().init(this);
 
-		networkParameters = isTest() ? NetworkParameters.testNet() : NetworkParameters.prodNet();
+		networkParameters = Constants.TEST ? NetworkParameters.testNet() : NetworkParameters.prodNet();
 
 		loadWallet();
 
 		wallet.addEventListener(walletEventListener);
-	}
-
-	public boolean isTest()
-	{
-		return Constants.TEST;
 	}
 
 	public NetworkParameters getNetworkParameters()
@@ -125,8 +120,8 @@ public class Application extends android.app.Application
 
 	private void loadWallet()
 	{
-		final String filename = isTest() ? Constants.WALLET_FILENAME_TEST : Constants.WALLET_FILENAME_PROD;
-		final int mode = isTest() ? Constants.WALLET_MODE_TEST : Constants.WALLET_MODE_PROD;
+		final String filename = Constants.TEST ? Constants.WALLET_FILENAME_TEST : Constants.WALLET_FILENAME_PROD;
+		final int mode = Constants.TEST ? Constants.WALLET_MODE_TEST : Constants.WALLET_MODE_PROD;
 
 		try
 		{
@@ -156,8 +151,8 @@ public class Application extends android.app.Application
 
 	public void saveWallet()
 	{
-		final String filename = isTest() ? Constants.WALLET_FILENAME_TEST : Constants.WALLET_FILENAME_PROD;
-		final int mode = isTest() ? Constants.WALLET_MODE_TEST : Constants.WALLET_MODE_PROD;
+		final String filename = Constants.TEST ? Constants.WALLET_FILENAME_TEST : Constants.WALLET_FILENAME_PROD;
+		final int mode = Constants.TEST ? Constants.WALLET_MODE_TEST : Constants.WALLET_MODE_PROD;
 
 		try
 		{

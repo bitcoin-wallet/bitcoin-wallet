@@ -191,7 +191,7 @@ public class Service extends android.app.Service
 
 		try
 		{
-			final String blockchainFilename = application.isTest() ? Constants.BLOCKCHAIN_FILENAME_TEST : Constants.BLOCKCHAIN_FILENAME_PROD;
+			final String blockchainFilename = Constants.TEST ? Constants.BLOCKCHAIN_FILENAME_TEST : Constants.BLOCKCHAIN_FILENAME_PROD;
 			final File file = new File(getDir("blockstore", Context.MODE_WORLD_READABLE | Context.MODE_WORLD_WRITEABLE), blockchainFilename);
 
 			if (!file.exists())
@@ -201,7 +201,7 @@ public class Service extends android.app.Service
 				{
 					final long t = System.currentTimeMillis();
 
-					final String blockchainSnapshotFilename = application.isTest() ? Constants.BLOCKCHAIN_SNAPSHOT_FILENAME_TEST
+					final String blockchainSnapshotFilename = Constants.TEST ? Constants.BLOCKCHAIN_SNAPSHOT_FILENAME_TEST
 							: Constants.BLOCKCHAIN_SNAPSHOT_FILENAME_PROD;
 					final InputStream is = new BufferedInputStream(getAssets().open(blockchainSnapshotFilename));
 					final OutputStream os = new FileOutputStream(file);
@@ -408,7 +408,7 @@ public class Service extends android.app.Service
 			{
 				try
 				{
-					final PeerDiscovery peerDiscovery = application.isTest() ? new IrcDiscovery(Constants.PEER_DISCOVERY_IRC_CHANNEL_TEST)
+					final PeerDiscovery peerDiscovery = Constants.TEST ? new IrcDiscovery(Constants.PEER_DISCOVERY_IRC_CHANNEL_TEST)
 							: new DnsDiscovery(application.getNetworkParameters());
 
 					return Arrays.asList(peerDiscovery.getPeers());

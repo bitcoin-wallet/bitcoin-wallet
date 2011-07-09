@@ -67,9 +67,9 @@ public class WalletActivity extends AbstractWalletActivity
 		setContentView(R.layout.wallet_content);
 
 		final ActionBarFragment actionBar = (ActionBarFragment) getSupportFragmentManager().findFragmentById(R.id.action_bar_fragment);
-		actionBar.setIcon(getWalletApplication().isTest() ? R.drawable.app_icon_test : R.drawable.app_icon);
+		actionBar.setIcon(Constants.APP_ICON_RESID);
 		actionBar.setPrimaryTitle(R.string.app_name);
-		actionBar.setSecondaryTitle(getWalletApplication().isTest() ? "[testnet!]" : null);
+		actionBar.setSecondaryTitle(Constants.TEST ? "[testnet!]" : null);
 		actionBar.addButton(R.drawable.ic_menu_send).setOnClickListener(new OnClickListener()
 		{
 			public void onClick(final View v)
@@ -111,7 +111,7 @@ public class WalletActivity extends AbstractWalletActivity
 	{
 		super.onCreateOptionsMenu(menu);
 		getMenuInflater().inflate(R.menu.wallet_options, menu);
-		menu.findItem(R.id.wallet_options_switch_network).setTitle("→ " + (getWalletApplication().isTest() ? "prodnet" : "testnet"));
+		menu.findItem(R.id.wallet_options_switch_network).setTitle("→ " + (Constants.TEST ? "prodnet" : "testnet"));
 		return true;
 	}
 
@@ -166,7 +166,7 @@ public class WalletActivity extends AbstractWalletActivity
 	{
 		final File testBlockchain = new File(getDir("blockstore", Context.MODE_WORLD_READABLE | Context.MODE_WORLD_WRITEABLE),
 				Constants.BLOCKCHAIN_FILENAME_TEST);
-		if (!getWalletApplication().isTest() && testBlockchain.exists())
+		if (!Constants.TEST && testBlockchain.exists())
 		{
 			final AlertDialog.Builder builder = new AlertDialog.Builder(this);
 			builder.setIcon(android.R.drawable.ic_dialog_alert);

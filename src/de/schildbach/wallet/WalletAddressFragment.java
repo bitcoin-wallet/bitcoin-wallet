@@ -73,7 +73,7 @@ public class WalletAddressFragment extends Fragment
 				clipboardManager.setText(address.toString());
 				((AbstractWalletActivity) getActivity()).toast("Bitcoin address pasted to clipboard");
 
-				System.out.println("my bitcoin address: " + address + (application.isTest() ? " (testnet!)" : ""));
+				System.out.println("my bitcoin address: " + address + (Constants.TEST ? " (testnet!)" : ""));
 			}
 		});
 
