@@ -196,7 +196,7 @@ public class Service extends android.app.Service
 			final String blockchainFilename = Constants.TEST ? Constants.BLOCKCHAIN_FILENAME_TEST : Constants.BLOCKCHAIN_FILENAME_PROD;
 			final File file = new File(getDir("blockstore", Context.MODE_WORLD_READABLE | Context.MODE_WORLD_WRITEABLE), blockchainFilename);
 
-			if (!file.exists() || file.length() < 2000000)
+			if (!file.exists() || file.length() < Constants.BLOCKCHAIN_SNAPSHOT_COPY_THRESHOLD)
 			{
 				// copy snapshot
 				try
@@ -219,7 +219,7 @@ public class Service extends android.app.Service
 				}
 				catch (final IOException x)
 				{
-					System.out.println("failed copying, starting from fresh");
+					System.out.println("failed copying, starting from genesis");
 					file.delete();
 				}
 			}
