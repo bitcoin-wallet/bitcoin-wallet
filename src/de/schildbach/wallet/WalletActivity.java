@@ -173,7 +173,7 @@ public class WalletActivity extends AbstractWalletActivity
 			final AlertDialog.Builder builder = new AlertDialog.Builder(this);
 			builder.setIcon(android.R.drawable.ic_dialog_alert);
 			builder.setTitle("Important notice!");
-			builder.setMessage("Bitcoin Wallet has been switched from Testnet to Prodnet. This means that you can now pay for real! Please read the safety hints.\n\nIf you don't want to take the risk and stay on Testnet, please install Bitcoin Wallet for Testnet.");
+			builder.setMessage("Due to popular demand, Bitcoin Wallet has switched from Testnet to Prodnet. This means that you can now pay for real! Please read the safety hints.\n\nIf you don't want to take the risk and stay on Testnet, please install Bitcoin Wallet for Testnet.");
 			builder.setPositiveButton("Read Safety Hints", new DialogInterface.OnClickListener()
 			{
 				public void onClick(final DialogInterface dialog, final int id)
