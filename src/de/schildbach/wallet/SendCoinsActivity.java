@@ -20,12 +20,15 @@ package de.schildbach.wallet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.Window;
+import android.webkit.WebView;
 import de.schildbach.wallet_test.R;
 
 /**
@@ -33,6 +36,8 @@ import de.schildbach.wallet_test.R;
  */
 public class SendCoinsActivity extends AbstractWalletActivity
 {
+	private static final int DIALOG_HELP = 0;
+
 	private static final Intent zxingIntent = new Intent().setClassName("com.google.zxing.client.android",
 			"com.google.zxing.client.android.CaptureActivity");
 	private static final Intent gogglesIntent = new Intent().setClassName("com.google.android.apps.unveil",
@@ -63,6 +68,13 @@ public class SendCoinsActivity extends AbstractWalletActivity
 					longToast("Please install ZXing QR-code scanner or Goggles!");
 			}
 		});
+		actionBar.addButton(R.drawable.ic_menu_help).setOnClickListener(new OnClickListener()
+		{
+			public void onClick(final View v)
+			{
+				showDialog(DIALOG_HELP);
+			}
+		});
 
 		handleIntent(getIntent());
 	}
@@ -71,6 +83,20 @@ public class SendCoinsActivity extends AbstractWalletActivity
 	protected void onNewIntent(final Intent intent)
 	{
 		handleIntent(intent);
+	}
+
+	@Override
+	protected Dialog onCreateDialog(final int id)
+	{
+		final WebView webView = new WebView(this);
+		webView.loadUrl("file:///android_asset/help_send_coins.html");
+
+		final Dialog dialog = new Dialog(this);
+		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		dialog.setContentView(webView);
+		dialog.setCanceledOnTouchOutside(true);
+
+		return dialog;
 	}
 
 	private Pattern P_BITCOIN_URI = Pattern.compile("([a-zA-Z0-9]*)(?:\\?amount=(.*))?");
