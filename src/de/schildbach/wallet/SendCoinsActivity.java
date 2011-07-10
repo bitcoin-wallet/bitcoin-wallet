@@ -60,7 +60,7 @@ public class SendCoinsActivity extends AbstractWalletActivity
 				else if (pm.resolveActivity(gogglesIntent, 0) != null)
 					startActivity(gogglesIntent);
 				else
-					longToast("Please install Goggles or Zxing QR-code scanner!");
+					longToast("Please install ZXing QR-code scanner or Goggles!");
 			}
 		});
 
