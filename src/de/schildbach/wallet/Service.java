@@ -151,7 +151,7 @@ public class Service extends android.app.Service
 				final Notification notification = new Notification(R.drawable.stat_notify_received, msg, System.currentTimeMillis());
 				notification.flags |= Notification.FLAG_AUTO_CANCEL;
 				notification.sound = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.coins_received);
-				notification.setLatestEventInfo(Service.this, msg, "From " + from,
+				notification.setLatestEventInfo(Service.this, msg, "From " + from + (Constants.TEST ? " [testnet]" : ""),
 						PendingIntent.getActivity(Service.this, 0, new Intent(Service.this, WalletActivity.class), 0));
 				nm.notify(notificationIdCount.getAndIncrement(), notification);
 			}
@@ -375,7 +375,7 @@ public class Service extends android.app.Service
 												.currentTimeMillis());
 										notification.flags |= Notification.FLAG_ONGOING_EVENT;
 										notification.iconLevel = peers.size() > 4 ? 4 : peers.size();
-										notification.setLatestEventInfo(Service.this, "Bitcoin Wallet", msg,
+										notification.setLatestEventInfo(Service.this, "Bitcoin Wallet" + (Constants.TEST ? " [testnet]" : ""), msg,
 												PendingIntent.getActivity(Service.this, 0, new Intent(Service.this, WalletActivity.class), 0));
 										nm.notify(NOTIFICATION_ID_CONNECTED, notification);
 									}
@@ -481,8 +481,8 @@ public class Service extends android.app.Service
 													"Bitcoin Blockchain Sync started", System.currentTimeMillis());
 											notification.flags |= Notification.FLAG_ONGOING_EVENT;
 											notification.iconLevel = (int) (count % 2l);
-											notification.setLatestEventInfo(Service.this, "Bitcoin Blockchain Sync",
-													String.format("%.1f%% finished", percent),
+											notification.setLatestEventInfo(Service.this, "Bitcoin Blockchain Sync"
+													+ (Constants.TEST ? " [testnet]" : ""), String.format("%.1f%% finished", percent),
 													PendingIntent.getActivity(Service.this, 0, new Intent(Service.this, WalletActivity.class), 0));
 											nm.notify(NOTIFICATION_ID_SYNCING, notification);
 										}
