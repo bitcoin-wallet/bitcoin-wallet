@@ -25,6 +25,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.net.Uri;
 import android.os.Bundle;
@@ -98,6 +99,14 @@ public class WalletActivity extends AbstractWalletActivity
 		fm.beginTransaction().hide(fm.findFragmentById(R.id.exchange_rates_fragment)).commit();
 
 		checkTestnetProdnetMigrationAlert();
+	}
+
+	@Override
+	protected void onResume()
+	{
+		super.onResume();
+
+		checkLowStorageAlert();
 	}
 
 	@Override
@@ -204,5 +213,27 @@ public class WalletActivity extends AbstractWalletActivity
 		else
 			startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(String.format(Constants.MARKET_APP_URL, packageName))));
 		finish();
+	}
+
+	private void checkLowStorageAlert()
+	{
+		final Intent stickyIntent = registerReceiver(null, new IntentFilter(Intent.ACTION_DEVICE_STORAGE_LOW));
+		if (stickyIntent != null)
+		{
+			final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+			builder.setIcon(android.R.drawable.ic_dialog_alert);
+			builder.setTitle("Internal Device Storage Space Low!");
+			builder.setMessage("Bitcoin Wallet uses internal storage for remembering transactions and blocks. If it runs out of space, it will stop working and your Bitcoins are at risk!\n\nDo you want to open the Application Manager in order to uninstall unneeded apps?");
+			builder.setPositiveButton("Manage Apps", new DialogInterface.OnClickListener()
+			{
+				public void onClick(final DialogInterface dialog, final int id)
+				{
+					startActivity(new Intent(android.provider.Settings.ACTION_MANAGE_APPLICATIONS_SETTINGS));
+					finish();
+				}
+			});
+			builder.setNegativeButton("Dismiss", null);
+			builder.show();
+		}
 	}
 }
