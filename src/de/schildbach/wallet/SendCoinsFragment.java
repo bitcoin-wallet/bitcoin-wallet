@@ -318,8 +318,9 @@ public class SendCoinsFragment extends Fragment
 			final String amount = amountView.getText().toString().trim();
 			if (amount.length() > 0)
 			{
-				Utils.toNanoCoins(amount);
-				validAmount = true;
+				final BigInteger nanoCoins = Utils.toNanoCoins(amount);
+				if (nanoCoins.signum() > 0)
+					validAmount = true;
 			}
 			amountErrorView.setVisibility(View.GONE);
 		}
