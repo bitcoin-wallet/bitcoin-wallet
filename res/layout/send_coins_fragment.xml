@@ -17,7 +17,18 @@
 		android:visibility="gone" />
 
 	<TextView android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp"
-		android:layout_marginLeft="20dp" android:layout_marginRight="20dp" android:text="Amount" android:textSize="16sp"
+		android:layout_marginLeft="20dp" android:layout_marginRight="20dp" android:text="Available for spending"
+		android:textSize="16sp" android:textStyle="bold" />
+
+	<EditText android:id="@+id/send_coins_available" android:layout_width="fill_parent" android:layout_height="wrap_content"
+		android:layout_marginLeft="12dp" android:layout_marginRight="12dp" android:textSize="28sp" android:drawablePadding="4dp"
+		android:enabled="false" android:focusable="false" />
+
+	<TextView android:id="@+id/send_coins_pending" android:layout_width="fill_parent" android:layout_height="wrap_content"
+		android:layout_marginBottom="8dp" android:layout_marginLeft="20dp" android:textSize="16sp" android:visibility="gone" />
+
+	<TextView android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp"
+		android:layout_marginLeft="20dp" android:layout_marginRight="20dp" android:text="Amount to pay" android:textSize="16sp"
 		android:textStyle="bold" />
 
 	<EditText android:id="@+id/send_coins_amount" android:layout_width="fill_parent" android:layout_height="wrap_content"

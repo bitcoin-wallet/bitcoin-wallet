@@ -48,6 +48,7 @@ import com.google.bitcoin.core.Address;
 import com.google.bitcoin.core.AddressFormatException;
 import com.google.bitcoin.core.Transaction;
 import com.google.bitcoin.core.Utils;
+import com.google.bitcoin.core.Wallet.BalanceType;
 
 import de.schildbach.wallet_test.R;
 
@@ -114,11 +115,24 @@ public class SendCoinsFragment extends Fragment
 		final View view = inflater.inflate(R.layout.send_coins_fragment, container);
 		final float density = getResources().getDisplayMetrics().density;
 
+		final BigInteger estimated = application.getWallet().getBalance(BalanceType.ESTIMATED);
+		final BigInteger available = application.getWallet().getBalance(BalanceType.AVAILABLE);
+		final BigInteger pending = estimated.subtract(available);
+		// TODO subscribe to wallet changes
+
 		receivingAddressView = (AutoCompleteTextView) view.findViewById(R.id.send_coins_receiving_address);
 		receivingAddressView.setAdapter(new AutoCompleteAdapter(getActivity(), null));
 		receivingAddressView.addTextChangedListener(textWatcher);
 
 		receivingAddressErrorView = view.findViewById(R.id.send_coins_receiving_address_error);
+
+		final TextView availableView = (TextView) view.findViewById(R.id.send_coins_available);
+		availableView.setCompoundDrawablesWithIntrinsicBounds(new BtcDrawable(24f * density, 10.5f * density), null, null, null);
+		availableView.setText(Utils.bitcoinValueToFriendlyString(available));
+
+		final TextView pendingView = (TextView) view.findViewById(R.id.send_coins_pending);
+		pendingView.setVisibility(pending.signum() > 0 ? View.VISIBLE : View.GONE);
+		pendingView.setText("(BTC " + Utils.bitcoinValueToFriendlyString(pending) + " waiting for confirmation)");
 
 		amountView = (TextView) view.findViewById(R.id.send_coins_amount);
 		amountView.setCompoundDrawablesWithIntrinsicBounds(new BtcDrawable(24f * density, 10.5f * density), null, null, null);
