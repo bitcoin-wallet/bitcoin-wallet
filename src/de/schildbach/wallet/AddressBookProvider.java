@@ -35,7 +35,8 @@ public class AddressBookProvider extends ContentProvider
 {
 	private static final String DATABASE_TABLE = "address_book";
 
-	public static final Uri CONTENT_URI = Uri.parse("content://de.schildbach.wallet" + (Constants.TEST ? "_test" : "") + '.' + DATABASE_TABLE);
+	public static final Uri CONTENT_URI = Uri.parse("content://" + (Constants.TEST ? Constants.PACKAGE_NAME_TEST : Constants.PACKAGE_NAME_PROD) + '.'
+			+ DATABASE_TABLE);
 
 	public static final String KEY_ROWID = "_id";
 	public static final String KEY_ADDRESS = "address";

@@ -37,6 +37,8 @@ public class Constants
 	public static final String BLOCKCHAIN_FILENAME_TEST = "blockchain-testnet";
 	public static final String PEER_DISCOVERY_IRC_CHANNEL_PROD = "#bitcoin";
 	public static final String PEER_DISCOVERY_IRC_CHANNEL_TEST = "#bitcoinTEST";
+	public static final String PACKAGE_NAME_PROD = "de.schildbach.wallet";
+	public static final String PACKAGE_NAME_TEST = "de.schildbach.wallet" + '_' + "test"; // protected against replace
 	public static final int APP_ICON_RESID = Constants.TEST ? R.drawable.app_icon_test : R.drawable.app_icon;
 
 	public static final int MAX_CONNECTED_PEERS = 6;

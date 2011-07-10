@@ -196,7 +196,7 @@ public class WalletActivity extends AbstractWalletActivity
 
 	private void switchNetwork(final boolean test)
 	{
-		final String packageName = test ? "de.schildbach.wallet_test" : "de.schildbach.wallet";
+		final String packageName = test ? Constants.PACKAGE_NAME_TEST : Constants.PACKAGE_NAME_PROD;
 		final String className = getClass().getName();
 		final Intent intent = new Intent().setClassName(packageName, className);
 		if (getPackageManager().resolveActivity(intent, 0) != null)
