@@ -46,6 +46,7 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.IBinder;
 import android.os.Process;
+import android.os.SystemClock;
 
 import com.google.bitcoin.core.Address;
 import com.google.bitcoin.core.BlockChain;
@@ -452,6 +453,8 @@ public class Service extends android.app.Service
 						try
 						{
 							final long maxCount = latch.getCount();
+							long lastCount = Long.MAX_VALUE;
+							long lastCountAt = SystemClock.uptimeMillis();
 
 							while (true)
 							{
@@ -468,10 +471,15 @@ public class Service extends android.app.Service
 											nm.cancel(NOTIFICATION_ID_SYNCING);
 										}
 									});
+
+									// we made it!
 									return;
 								}
-								else
+								else if (count < lastCount)
 								{
+									lastCount = count;
+									lastCountAt = SystemClock.uptimeMillis();
+
 									final float percent = 100f - (100f * (count / (float) maxCount));
 
 									handler.post(new Runnable()
@@ -488,6 +496,27 @@ public class Service extends android.app.Service
 											nm.notify(NOTIFICATION_ID_SYNCING, notification);
 										}
 									});
+								}
+								else
+								{
+									final long duration = SystemClock.uptimeMillis() - lastCountAt;
+									System.out.println("no progress for " + duration + " ms");
+
+									if (duration > 15000)
+									{
+										peer.disconnect();
+
+										handler.post(new Runnable()
+										{
+											public void run()
+											{
+												System.out.println("giving up!");
+												nm.cancel(NOTIFICATION_ID_SYNCING);
+											}
+										});
+
+										return;
+									}
 								}
 							}
 						}
