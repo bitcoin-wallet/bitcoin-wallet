@@ -218,6 +218,7 @@ public class Service extends android.app.Service
 				}
 				catch (final IOException x)
 				{
+					System.out.println("failed copying, starting from fresh");
 					file.delete();
 				}
 			}
