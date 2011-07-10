@@ -104,7 +104,7 @@ public class SendCoinsFragment extends Fragment
 						new Address(application.getNetworkParameters(), address);
 					receivingAddressErrorView.setVisibility(View.GONE);
 				}
-				catch (AddressFormatException e)
+				catch (final AddressFormatException e)
 				{
 					receivingAddressErrorView.setVisibility(View.VISIBLE);
 				}
@@ -119,9 +119,36 @@ public class SendCoinsFragment extends Fragment
 			}
 		});
 
+		final View amountErrorView = view.findViewById(R.id.send_coins_amount_error);
+
 		amountView = (TextView) view.findViewById(R.id.send_coins_amount);
 		final float density = getResources().getDisplayMetrics().density;
 		amountView.setCompoundDrawablesWithIntrinsicBounds(new BtcDrawable(24f * density, 10.5f * density), null, null, null);
+		amountView.addTextChangedListener(new TextWatcher()
+		{
+			public void afterTextChanged(final Editable s)
+			{
+				try
+				{
+					final String amount = s.toString().trim();
+					if (amount.length() > 0)
+						Utils.toNanoCoins(amountView.getText().toString().trim());
+					amountErrorView.setVisibility(View.GONE);
+				}
+				catch (final Exception x)
+				{
+					amountErrorView.setVisibility(View.VISIBLE);
+				}
+			}
+
+			public void beforeTextChanged(final CharSequence s, final int start, final int count, final int after)
+			{
+			}
+
+			public void onTextChanged(final CharSequence s, final int start, final int before, final int count)
+			{
+			}
+		});
 
 		final Button viewGo = (Button) view.findViewById(R.id.send_coins_go);
 		viewGo.setOnClickListener(new OnClickListener()
@@ -131,7 +158,7 @@ public class SendCoinsFragment extends Fragment
 				try
 				{
 					final Address receivingAddress = new Address(application.getNetworkParameters(), receivingAddressView.getText().toString().trim());
-					final BigInteger amount = Utils.toNanoCoins(amountView.getText().toString());
+					final BigInteger amount = Utils.toNanoCoins(amountView.getText().toString().trim());
 
 					System.out.println("about to send " + amount + " (BTC " + Utils.bitcoinValueToFriendlyString(amount) + ") to " + receivingAddress);
 

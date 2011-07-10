@@ -24,6 +24,10 @@
 		android:layout_marginLeft="12dp" android:layout_marginRight="12dp" android:textSize="28sp" android:textStyle="bold"
 		android:inputType="numberDecimal" android:hint="0.00" android:drawablePadding="4dp" />
 
+	<TextView android:id="@+id/send_coins_amount_error" android:layout_width="fill_parent" android:layout_height="wrap_content"
+		android:layout_marginBottom="8dp" android:layout_marginLeft="12dp" android:text="Invalid Amount!" android:textColor="#f88"
+		android:textSize="16sp" android:textStyle="bold" android:visibility="gone" />
+
 	<TextView android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_margin="20dp"
 		android:text="You can also click Bitcoin-URIs in your mobile browser or scan QR-codes using the QR button above." />
 
