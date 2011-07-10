@@ -242,16 +242,26 @@ public class Service extends android.app.Service
 	{
 		System.out.println("service onDestroy()");
 
-		nm.cancel(NOTIFICATION_ID_CONNECTED);
-		nm.cancel(NOTIFICATION_ID_SYNCING);
-
 		application.getWallet().removeEventListener(walletEventListener);
 
-		for (final Peer peer : peers)
+		for (final Iterator<Peer> i = peers.iterator(); i.hasNext();)
+		{
+			final Peer peer = i.next();
 			peer.disconnect();
+			i.remove();
+		}
 
 		// cancel background thread
 		backgroundThread.getLooper().quit();
+
+		handler.postDelayed(new Runnable()
+		{
+			public void run()
+			{
+				nm.cancel(NOTIFICATION_ID_CONNECTED);
+				nm.cancel(NOTIFICATION_ID_SYNCING);
+			}
+		}, 5000);
 
 		super.onDestroy();
 	}
