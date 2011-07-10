@@ -25,7 +25,7 @@ import de.schildbach.wallet_test.R;
  */
 public class Constants
 {
-	public static final boolean TEST = true;
+	public static final boolean TEST = R.class.getPackage().getName().contains("_test");
 
 	public static final String WALLET_FILENAME_PROD = "wallet";
 	public static final String WALLET_FILENAME_TEST = "wallet-testnet";
