@@ -113,7 +113,7 @@ public class WalletActivity extends AbstractWalletActivity
 	{
 		super.onCreateOptionsMenu(menu);
 		getMenuInflater().inflate(R.menu.wallet_options, menu);
-		menu.findItem(R.id.wallet_options_switch_network).setTitle("→ " + (Constants.TEST ? "prodnet" : "testnet"));
+		menu.findItem(R.id.wallet_options_switch_network).setTitle("→ " + (Constants.TEST ? "Prodnet" : "Testnet"));
 		return true;
 	}
 
