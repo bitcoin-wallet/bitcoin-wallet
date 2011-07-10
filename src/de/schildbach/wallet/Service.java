@@ -17,7 +17,6 @@
 
 package de.schildbach.wallet;
 
-import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -205,7 +204,7 @@ public class Service extends android.app.Service
 
 					final String blockchainSnapshotFilename = Constants.TEST ? Constants.BLOCKCHAIN_SNAPSHOT_FILENAME_TEST
 							: Constants.BLOCKCHAIN_SNAPSHOT_FILENAME_PROD;
-					final InputStream is = new BufferedInputStream(getAssets().open(blockchainSnapshotFilename));
+					final InputStream is = getAssets().open(blockchainSnapshotFilename);
 					final OutputStream os = new FileOutputStream(file);
 
 					System.out.println("copying blockchain snapshot");
