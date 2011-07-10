@@ -17,7 +17,7 @@ FILES
 /data/data/de.schildbach.wallet/files/wallet (MODE_PRIVATE)
 	Wallet for prodnet
 
-/data/data/de.schildbach.wallet/files/wallet-testnet (MODE_WORLD_READABLE | MODE_WORLD_WRITEABLE)
+/data/data/de.schildbach.wallet_test/files/wallet-testnet (MODE_WORLD_READABLE | MODE_WORLD_WRITEABLE)
 	Wallet for testnet
 
 
@@ -25,7 +25,7 @@ DEBUGGING
 
 Wallet file for testnet can be pulled from (even unrooted) device using
 
-	adb pull /data/data/de.schildbach.wallet/files/wallet-testnet
+	adb pull /data/data/de.schildbach.wallet_test/files/wallet-testnet
 
 Log messages can be viewed by
 
