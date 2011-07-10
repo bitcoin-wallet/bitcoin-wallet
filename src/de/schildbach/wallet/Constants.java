@@ -31,8 +31,8 @@ public class Constants
 	public static final String WALLET_FILENAME_TEST = "wallet-testnet";
 	public static final int WALLET_MODE_PROD = Context.MODE_PRIVATE;
 	public static final int WALLET_MODE_TEST = Context.MODE_WORLD_READABLE | Context.MODE_WORLD_WRITEABLE;
-	public static final String BLOCKCHAIN_SNAPSHOT_FILENAME_PROD = "blockchain-snapshot";
-	public static final String BLOCKCHAIN_SNAPSHOT_FILENAME_TEST = "blockchain-snapshot-testnet";
+	public static final String BLOCKCHAIN_SNAPSHOT_FILENAME_PROD = "blockchain-snapshot.jpg";
+	public static final String BLOCKCHAIN_SNAPSHOT_FILENAME_TEST = "blockchain-snapshot-testnet.jpg";
 	public static final String BLOCKCHAIN_FILENAME_PROD = "blockchain";
 	public static final String BLOCKCHAIN_FILENAME_TEST = "blockchain-testnet";
 	public static final String PEER_DISCOVERY_IRC_CHANNEL_PROD = "#bitcoin";
