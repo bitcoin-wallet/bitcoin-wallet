@@ -19,15 +19,20 @@ package de.schildbach.wallet;
 
 import java.math.BigInteger;
 
+import android.app.AlertDialog;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -146,11 +151,53 @@ public class SendCoinsFragment extends Fragment
 
 						viewGo.setEnabled(false);
 						viewGo.setText("Sending...");
+
 						handler.postDelayed(new Runnable()
 						{
 							public void run()
 							{
-								getActivity().finish();
+								final Uri uri = AddressBookProvider.CONTENT_URI.buildUpon().appendPath(receivingAddress.toString()).build();
+								final Cursor cursor = getActivity().managedQuery(uri, null, null, null, null);
+								if (cursor.getCount() == 0)
+								{
+									final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+									builder.setMessage("The receiving address you just used is not contained in your address book.\n\nDo you want to add the address?");
+									builder.setPositiveButton("Add address", new DialogInterface.OnClickListener()
+									{
+										public void onClick(final DialogInterface dialog, final int id)
+										{
+											final FragmentTransaction ft = getFragmentManager().beginTransaction();
+											final Fragment prev = getFragmentManager().findFragmentByTag(EditAddressBookEntryFragment.FRAGMENT_TAG);
+											if (prev != null)
+												ft.remove(prev);
+											ft.addToBackStack(null);
+											final DialogFragment newFragment = new EditAddressBookEntryFragment(getLayoutInflater(null),
+													receivingAddress.toString())
+											{
+												@Override
+												public void onDestroyView()
+												{
+													super.onDestroyView();
+
+													getActivity().finish();
+												}
+											};
+											newFragment.show(ft, EditAddressBookEntryFragment.FRAGMENT_TAG);
+										}
+									});
+									builder.setNegativeButton("Dismiss", new DialogInterface.OnClickListener()
+									{
+										public void onClick(final DialogInterface dialog, final int id)
+										{
+											getActivity().finish();
+										}
+									});
+									builder.show();
+								}
+								else
+								{
+									getActivity().finish();
+								}
 							}
 						}, 5000);
 
