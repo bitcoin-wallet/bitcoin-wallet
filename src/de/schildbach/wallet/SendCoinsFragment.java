@@ -57,7 +57,10 @@ public class SendCoinsFragment extends Fragment
 	private final Handler handler = new Handler();
 
 	private AutoCompleteTextView receivingAddressView;
+	private View receivingAddressErrorView;
 	private TextView amountView;
+	private View amountErrorView;
+	private Button viewGo;
 
 	private final ServiceConnection serviceConnection = new ServiceConnection()
 	{
@@ -71,6 +74,22 @@ public class SendCoinsFragment extends Fragment
 		{
 			service = null;
 			onServiceUnbound();
+		}
+	};
+
+	private final TextWatcher textWatcher = new TextWatcher()
+	{
+		public void afterTextChanged(final Editable s)
+		{
+			updateView();
+		}
+
+		public void beforeTextChanged(final CharSequence s, final int start, final int count, final int after)
+		{
+		}
+
+		public void onTextChanged(final CharSequence s, final int start, final int before, final int count)
+		{
 		}
 	};
 
@@ -88,69 +107,21 @@ public class SendCoinsFragment extends Fragment
 	public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState)
 	{
 		final View view = inflater.inflate(R.layout.send_coins_fragment, container);
-
-		final View receivingAddressErrorView = view.findViewById(R.id.send_coins_receiving_address_error);
+		final float density = getResources().getDisplayMetrics().density;
 
 		receivingAddressView = (AutoCompleteTextView) view.findViewById(R.id.send_coins_receiving_address);
 		receivingAddressView.setAdapter(new AutoCompleteAdapter(getActivity(), null));
-		receivingAddressView.addTextChangedListener(new TextWatcher()
-		{
-			public void afterTextChanged(final Editable s)
-			{
-				try
-				{
-					final String address = s.toString().trim();
-					if (address.length() > 0)
-						new Address(application.getNetworkParameters(), address);
-					receivingAddressErrorView.setVisibility(View.GONE);
-				}
-				catch (final AddressFormatException e)
-				{
-					receivingAddressErrorView.setVisibility(View.VISIBLE);
-				}
-			}
+		receivingAddressView.addTextChangedListener(textWatcher);
 
-			public void beforeTextChanged(final CharSequence s, final int start, final int count, final int after)
-			{
-			}
-
-			public void onTextChanged(final CharSequence s, final int start, final int before, final int count)
-			{
-			}
-		});
-
-		final View amountErrorView = view.findViewById(R.id.send_coins_amount_error);
+		receivingAddressErrorView = view.findViewById(R.id.send_coins_receiving_address_error);
 
 		amountView = (TextView) view.findViewById(R.id.send_coins_amount);
-		final float density = getResources().getDisplayMetrics().density;
 		amountView.setCompoundDrawablesWithIntrinsicBounds(new BtcDrawable(24f * density, 10.5f * density), null, null, null);
-		amountView.addTextChangedListener(new TextWatcher()
-		{
-			public void afterTextChanged(final Editable s)
-			{
-				try
-				{
-					final String amount = s.toString().trim();
-					if (amount.length() > 0)
-						Utils.toNanoCoins(amountView.getText().toString().trim());
-					amountErrorView.setVisibility(View.GONE);
-				}
-				catch (final Exception x)
-				{
-					amountErrorView.setVisibility(View.VISIBLE);
-				}
-			}
+		amountView.addTextChangedListener(textWatcher);
 
-			public void beforeTextChanged(final CharSequence s, final int start, final int count, final int after)
-			{
-			}
+		amountErrorView = view.findViewById(R.id.send_coins_amount_error);
 
-			public void onTextChanged(final CharSequence s, final int start, final int before, final int count)
-			{
-			}
-		});
-
-		final Button viewGo = (Button) view.findViewById(R.id.send_coins_go);
+		viewGo = (Button) view.findViewById(R.id.send_coins_go);
 		viewGo.setOnClickListener(new OnClickListener()
 		{
 			public void onClick(final View v)
@@ -205,6 +176,8 @@ public class SendCoinsFragment extends Fragment
 				getActivity().finish();
 			}
 		});
+
+		updateView();
 
 		return view;
 	}
@@ -270,5 +243,44 @@ public class SendCoinsFragment extends Fragment
 	{
 		receivingAddressView.setText(receivingAddress);
 		amountView.setText(amount);
+
+		updateView();
+	}
+
+	private void updateView()
+	{
+		boolean validAddress = false;
+		try
+		{
+			final String address = receivingAddressView.getText().toString().trim();
+			if (address.length() > 0)
+			{
+				new Address(application.getNetworkParameters(), address);
+				validAddress = true;
+			}
+			receivingAddressErrorView.setVisibility(View.GONE);
+		}
+		catch (final Exception x)
+		{
+			receivingAddressErrorView.setVisibility(View.VISIBLE);
+		}
+
+		boolean validAmount = false;
+		try
+		{
+			final String amount = amountView.getText().toString().trim();
+			if (amount.length() > 0)
+			{
+				Utils.toNanoCoins(amount);
+				validAmount = true;
+			}
+			amountErrorView.setVisibility(View.GONE);
+		}
+		catch (final Exception x)
+		{
+			amountErrorView.setVisibility(View.VISIBLE);
+		}
+
+		viewGo.setEnabled(validAddress && validAmount);
 	}
 }
