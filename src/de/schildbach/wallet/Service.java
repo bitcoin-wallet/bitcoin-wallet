@@ -28,7 +28,6 @@ import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -51,6 +50,7 @@ import android.os.HandlerThread;
 import android.os.IBinder;
 import android.os.Process;
 import android.os.SystemClock;
+import android.text.format.DateUtils;
 
 import com.google.bitcoin.core.Address;
 import com.google.bitcoin.core.BlockChain;
@@ -443,6 +443,7 @@ public class Service extends android.app.Service
 	private void blockChainDownload(final Peer peer)
 	{
 		final DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(this);
+		final DateFormat timeFormat = android.text.format.DateFormat.getTimeFormat(this);
 
 		try
 		{
@@ -493,9 +494,11 @@ public class Service extends android.app.Service
 									{
 										public void run()
 										{
+											final long t = blockChain.getChainHead().getHeader().getTime() * 1000;
+
 											final String eventTitle = "Bitcoin blockchain sync" + (Constants.TEST ? " [testnet]" : "");
-											final String eventText = String.format("%.1f%% finished, head is at %s", percent,
-													dateFormat.format(new Date(blockChain.getChainHead().getHeader().getTime() * 1000)));
+											final String eventText = String.format("%.1f%% finished, last block at %s", percent,
+													DateUtils.isToday(t) ? timeFormat.format(t) : dateFormat.format(t));
 
 											final Notification notification = new Notification(R.drawable.stat_notify_sync,
 													"Bitcoin blockchain sync started", 0);
