@@ -9,7 +9,8 @@
 
 	<AutoCompleteTextView android:id="@+id/send_coins_receiving_address" android:layout_width="fill_parent"
 		android:layout_height="wrap_content" android:layout_marginLeft="12dp" android:layout_marginRight="12dp"
-		android:textSize="16sp" android:textColor="#000" android:hint="type address or name" android:completionThreshold="1" />
+		android:textSize="16sp" android:textColor="#000" android:singleLine="true" android:hint="type address or name"
+		android:completionThreshold="1" />
 
 	<TextView android:id="@+id/send_coins_receiving_address_error" android:layout_width="fill_parent"
 		android:layout_height="wrap_content" android:layout_marginBottom="8dp" android:layout_marginLeft="12dp"
