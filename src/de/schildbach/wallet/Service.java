@@ -38,6 +38,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.appwidget.AppWidgetManager;
+import android.appwidget.AppWidgetProviderInfo;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -108,6 +110,7 @@ public class Service extends android.app.Service
 						System.out.println("!!! got pending bitcoins: " + from + " " + value);
 
 						notifyTransaction(tx.getHash(), from, value);
+						notifyWidgets();
 					}
 				});
 			}
@@ -133,6 +136,7 @@ public class Service extends android.app.Service
 						System.out.println("!!! got confirmed bitcoins: " + from + " " + value);
 
 						notifyTransaction(tx.getHash(), from, value);
+						notifyWidgets();
 					}
 				});
 			}
@@ -531,6 +535,24 @@ public class Service extends android.app.Service
 		catch (final IOException x)
 		{
 			throw new RuntimeException(x);
+		}
+	}
+
+	public void notifyWidgets()
+	{
+		final Context context = getApplicationContext();
+
+		// notify widgets
+		final AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+		for (final AppWidgetProviderInfo providerInfo : appWidgetManager.getInstalledProviders())
+		{
+			// limit to own widgets
+			if (providerInfo.provider.getPackageName().equals(context.getPackageName()))
+			{
+				final Intent intent = new Intent(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+				intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, appWidgetManager.getAppWidgetIds(providerInfo.provider));
+				context.sendBroadcast(intent);
+			}
 		}
 	}
 }
