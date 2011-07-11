@@ -24,9 +24,11 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.math.BigInteger;
 import java.net.InetSocketAddress;
+import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -441,6 +443,8 @@ public class Service extends android.app.Service
 
 	private void blockChainDownload(final Peer peer)
 	{
+		final DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(this);
+
 		try
 		{
 			final CountDownLatch latch = peer.startBlockChainDownload();
@@ -490,12 +494,15 @@ public class Service extends android.app.Service
 									{
 										public void run()
 										{
+											final String eventTitle = "Bitcoin blockchain sync" + (Constants.TEST ? " [testnet]" : "");
+											final String eventText = String.format("%.1f%% finished, head is at %s", percent,
+													dateFormat.format(new Date(blockChain.getChainHead().getHeader().getTime() * 1000)));
+
 											final Notification notification = new Notification(R.drawable.stat_notify_sync,
-													"Bitcoin Blockchain Sync started", System.currentTimeMillis());
+													"Bitcoin blockchain sync started", System.currentTimeMillis());
 											notification.flags |= Notification.FLAG_ONGOING_EVENT;
 											notification.iconLevel = (int) (count % 2l);
-											notification.setLatestEventInfo(Service.this, "Bitcoin Blockchain Sync"
-													+ (Constants.TEST ? " [testnet]" : ""), String.format("%.1f%% finished", percent),
+											notification.setLatestEventInfo(Service.this, eventTitle, eventText,
 													PendingIntent.getActivity(Service.this, 0, new Intent(Service.this, WalletActivity.class), 0));
 											nm.notify(NOTIFICATION_ID_SYNCING, notification);
 										}
