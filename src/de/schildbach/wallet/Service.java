@@ -379,8 +379,7 @@ public class Service extends android.app.Service
 										final String msg = peers.size() + " peers connected";
 										System.out.println("Peer " + connection.getRemoteIp().getHostAddress() + " connected, " + msg);
 
-										final Notification notification = new Notification(R.drawable.stat_sys_peers, null, System
-												.currentTimeMillis());
+										final Notification notification = new Notification(R.drawable.stat_sys_peers, null, 0);
 										notification.flags |= Notification.FLAG_ONGOING_EVENT;
 										notification.iconLevel = peers.size() > 4 ? 4 : peers.size();
 										notification.setLatestEventInfo(Service.this, "Bitcoin Wallet" + (Constants.TEST ? " [testnet]" : ""), msg,
@@ -499,7 +498,7 @@ public class Service extends android.app.Service
 													dateFormat.format(new Date(blockChain.getChainHead().getHeader().getTime() * 1000)));
 
 											final Notification notification = new Notification(R.drawable.stat_notify_sync,
-													"Bitcoin blockchain sync started", System.currentTimeMillis());
+													"Bitcoin blockchain sync started", 0);
 											notification.flags |= Notification.FLAG_ONGOING_EVENT;
 											notification.iconLevel = (int) (count % 2l);
 											notification.setLatestEventInfo(Service.this, eventTitle, eventText,
