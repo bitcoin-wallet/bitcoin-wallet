@@ -29,17 +29,29 @@ public class Constants
 
 	public static final String WALLET_FILENAME_PROD = "wallet";
 	public static final String WALLET_FILENAME_TEST = "wallet-testnet";
+
+	private static final String WALLET_KEY_BACKUP_PROD = "key-backup";
+	private static final String WALLET_KEY_BACKUP_TEST = "key-backup-testnet";
+	public static final String WALLET_KEY_BACKUP = Constants.TEST ? WALLET_KEY_BACKUP_TEST : WALLET_KEY_BACKUP_PROD;
+
 	public static final int WALLET_MODE_PROD = Context.MODE_PRIVATE;
 	public static final int WALLET_MODE_TEST = Context.MODE_WORLD_READABLE | Context.MODE_WORLD_WRITEABLE;
+	public static final int WALLET_MODE = Constants.TEST ? WALLET_MODE_TEST : WALLET_MODE_PROD;
+
 	public static final String BLOCKCHAIN_SNAPSHOT_FILENAME_PROD = "blockchain-snapshot.jpg";
 	public static final String BLOCKCHAIN_SNAPSHOT_FILENAME_TEST = "blockchain-snapshot-testnet.jpg";
+
 	public static final long BLOCKCHAIN_SNAPSHOT_COPY_THRESHOLD = Constants.TEST ? 3000000 : 10000000;
+
 	public static final String BLOCKCHAIN_FILENAME_PROD = "blockchain";
 	public static final String BLOCKCHAIN_FILENAME_TEST = "blockchain-testnet";
+
 	public static final String PEER_DISCOVERY_IRC_CHANNEL_PROD = "#bitcoin";
 	public static final String PEER_DISCOVERY_IRC_CHANNEL_TEST = "#bitcoinTEST";
+
 	public static final String PACKAGE_NAME_PROD = "de.schildbach.wallet";
 	public static final String PACKAGE_NAME_TEST = "de.schildbach.wallet" + '_' + "test"; // protected against replace
+
 	public static final int APP_ICON_RESID = Constants.TEST ? R.drawable.app_icon_test : R.drawable.app_icon;
 
 	public static final int MAX_CONNECTED_PEERS = 6;

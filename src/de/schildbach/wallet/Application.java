@@ -21,6 +21,7 @@ import java.io.BufferedInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.Reader;
 import java.math.BigInteger;
 import java.net.URL;
@@ -105,6 +106,8 @@ public class Application extends android.app.Application
 
 		loadWallet();
 
+		backupKey();
+
 		wallet.addEventListener(walletEventListener);
 	}
 
@@ -162,6 +165,27 @@ public class Application extends android.app.Application
 		catch (IOException x)
 		{
 			throw new RuntimeException(x);
+		}
+	}
+
+	private void backupKey()
+	{
+		final ECKey key = wallet.keychain.get(0);
+
+		if (key != null)
+		{
+			final byte[] asn1 = key.toASN1();
+
+			try
+			{
+				final OutputStream os = openFileOutput(Constants.WALLET_KEY_BACKUP, Constants.WALLET_MODE);
+				os.write(asn1);
+				os.close();
+			}
+			catch (final IOException x)
+			{
+				x.printStackTrace();
+			}
 		}
 	}
 
