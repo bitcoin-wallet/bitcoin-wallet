@@ -17,7 +17,12 @@
 
 package de.schildbach.wallet;
 
+import android.app.Dialog;
 import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.Window;
+import android.webkit.WebView;
 import de.schildbach.wallet_test.R;
 
 /**
@@ -25,6 +30,8 @@ import de.schildbach.wallet_test.R;
  */
 public class RequestCoinsActivity extends AbstractWalletActivity
 {
+	private static final int DIALOG_HELP = 0;
+
 	@Override
 	protected void onCreate(final Bundle savedInstanceState)
 	{
@@ -36,5 +43,27 @@ public class RequestCoinsActivity extends AbstractWalletActivity
 		actionBar.setIcon(Constants.APP_ICON_RESID);
 		actionBar.setPrimaryTitle("Request Bitcoins");
 		actionBar.setSecondaryTitle(Constants.TEST ? "[testnet!]" : null);
+
+		actionBar.addButton(R.drawable.ic_menu_help).setOnClickListener(new OnClickListener()
+		{
+			public void onClick(final View v)
+			{
+				showDialog(DIALOG_HELP);
+			}
+		});
+	}
+
+	@Override
+	protected Dialog onCreateDialog(final int id)
+	{
+		final WebView webView = new WebView(this);
+		webView.loadUrl("file:///android_asset/help_request_coins.html");
+
+		final Dialog dialog = new Dialog(this);
+		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		dialog.setContentView(webView);
+		dialog.setCanceledOnTouchOutside(true);
+
+		return dialog;
 	}
 }
