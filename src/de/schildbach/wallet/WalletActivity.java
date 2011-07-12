@@ -87,6 +87,13 @@ public class WalletActivity extends AbstractWalletActivity
 				startActivity(new Intent(WalletActivity.this, RequestCoinsActivity.class));
 			}
 		});
+		actionBar.addButton(R.drawable.ic_menu_address_book).setOnClickListener(new OnClickListener()
+		{
+			public void onClick(final View v)
+			{
+				startActivity(new Intent(WalletActivity.this, AddressBookActivity.class));
+			}
+		});
 		actionBar.addButton(R.drawable.ic_menu_help).setOnClickListener(new OnClickListener()
 		{
 			public void onClick(final View v)

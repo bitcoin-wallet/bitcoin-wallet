@@ -26,6 +26,9 @@
 		<activity android:name="de.schildbach.wallet.RequestCoinsActivity" android:theme="@android:style/Theme.Light.NoTitleBar"
 			android:screenOrientation="portrait" android:configChanges="orientation|keyboard|keyboardHidden" />
 
+		<activity android:name="de.schildbach.wallet.AddressBookActivity" android:theme="@android:style/Theme.Light.NoTitleBar"
+			android:screenOrientation="portrait" android:configChanges="orientation|keyboard|keyboardHidden" />
+
 		<activity android:name="de.schildbach.wallet.PreferencesActivity" />
 
 		<provider android:name="de.schildbach.wallet.AddressBookProvider" android:authorities="de.schildbach.wallet_test.address_book"

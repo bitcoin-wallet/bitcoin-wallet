@@ -36,6 +36,8 @@ import de.schildbach.wallet_test.R;
  */
 public class SendCoinsActivity extends AbstractWalletActivity
 {
+	public static final String INTENT_EXTRA_ADDRESS = "address";
+
 	private static final int DIALOG_HELP = 0;
 
 	private static final Intent zxingIntent = new Intent().setClassName("com.google.zxing.client.android",
@@ -103,14 +105,21 @@ public class SendCoinsActivity extends AbstractWalletActivity
 
 	private void handleIntent(final Intent intent)
 	{
+		final SendCoinsFragment sendCoinsFragment = (SendCoinsFragment) getSupportFragmentManager().findFragmentById(R.id.send_coins_fragment);
+
 		final Uri intentUri = intent.getData();
 		if (intentUri != null && "bitcoin".equals(intentUri.getScheme()))
 		{
 			final Matcher m = P_BITCOIN_URI.matcher(intentUri.getSchemeSpecificPart());
 			if (m.matches())
 			{
-				((SendCoinsFragment) getSupportFragmentManager().findFragmentById(R.id.send_coins_fragment)).update(m.group(1), m.group(2));
+				sendCoinsFragment.update(m.group(1), m.group(2));
 			}
+		}
+		else if (intent.hasExtra(INTENT_EXTRA_ADDRESS))
+		{
+			final String address = intent.getExtras().getString(INTENT_EXTRA_ADDRESS);
+			sendCoinsFragment.update(address, null);
 		}
 	}
 }
