@@ -150,7 +150,7 @@ public class WalletTransactionsFragment extends Fragment
 					final TextView rowLabel = (TextView) row.findViewById(R.id.transaction_address);
 					rowLabel.setTextColor(textColor);
 					// rowLabel.setText(WalletUtils.splitIntoLines(address, 1));
-					rowLabel.setText(label != null ? label + " (" + address + ")" : address);
+					rowLabel.setText(label != null ? label : address);
 
 					final TextView rowValue = (TextView) row.findViewById(R.id.transaction_value);
 					rowValue.setTextColor(textColor);
