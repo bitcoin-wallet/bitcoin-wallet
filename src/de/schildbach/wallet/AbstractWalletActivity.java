@@ -27,7 +27,7 @@ import de.schildbach.wallet_test.R;
 /**
  * @author Andreas Schildbach
  */
-public class AbstractWalletActivity extends FragmentActivity
+public abstract class AbstractWalletActivity extends FragmentActivity
 {
 	private Application application;
 
