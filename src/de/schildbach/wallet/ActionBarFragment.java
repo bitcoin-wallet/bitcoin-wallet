@@ -73,6 +73,7 @@ public class ActionBarFragment extends Fragment
 	{
 		secondaryTitleView.setText(title);
 		secondaryTitleView.setVisibility(title != null ? View.VISIBLE : View.GONE);
+		primaryTitleView.setSingleLine(title != null);
 	}
 
 	public ImageButton addButton(final int drawableRes)
