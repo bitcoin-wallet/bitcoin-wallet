@@ -305,6 +305,9 @@ public class SendCoinsFragment extends Fragment
 		receivingAddressView.setText(receivingAddress);
 		amountView.setText(amount);
 
+		if (receivingAddress != null && amount == null)
+			amountView.requestFocus();
+
 		updateView();
 	}
 
