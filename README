@@ -20,12 +20,22 @@ FILES
 /data/data/de.schildbach.wallet_test/files/wallet-testnet (MODE_WORLD_READABLE | MODE_WORLD_WRITEABLE)
 	Wallet for testnet
 
+/data/data/de.schildbach.wallet/files/key-backup (MODE_PRIVATE)
+	Backup of private key for prodnet
+
+/data/data/de.schildbach.wallet_test/files/key-backup-testnet (MODE_WORLD_READABLE | MODE_WORLD_WRITEABLE)
+	Backup of private key for testnet
+
 
 DEBUGGING
 
 Wallet file for testnet can be pulled from (even unrooted) device using
 
 	adb pull /data/data/de.schildbach.wallet_test/files/wallet-testnet
+
+Backup key file for testnet can be pulled from device using
+
+	adb pull /data/data/de.schildbach.wallet_test/files/key-backup-testnet
 
 Log messages can be viewed by
 
