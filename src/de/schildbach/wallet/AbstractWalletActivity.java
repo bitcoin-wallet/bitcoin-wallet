@@ -17,6 +17,8 @@
 
 package de.schildbach.wallet;
 
+import java.util.Locale;
+
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
@@ -88,5 +90,14 @@ public abstract class AbstractWalletActivity extends FragmentActivity
 		toast.setView(view);
 		toast.setDuration(duration);
 		toast.show();
+	}
+
+	protected final static String languagePrefix()
+	{
+		final String language = Locale.getDefault().getLanguage();
+		if ("de".equals(language))
+			return "_de";
+		else
+			return "";
 	}
 }

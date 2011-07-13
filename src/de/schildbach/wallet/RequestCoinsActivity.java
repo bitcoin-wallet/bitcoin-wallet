@@ -57,7 +57,7 @@ public class RequestCoinsActivity extends AbstractWalletActivity
 	protected Dialog onCreateDialog(final int id)
 	{
 		final WebView webView = new WebView(this);
-		webView.loadUrl("file:///android_asset/help_request_coins.html");
+		webView.loadUrl("file:///android_asset/help_request_coins" + languagePrefix() + ".html");
 
 		final Dialog dialog = new Dialog(this);
 		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);

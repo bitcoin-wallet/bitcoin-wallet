@@ -170,7 +170,10 @@ public class WalletActivity extends AbstractWalletActivity
 	protected Dialog onCreateDialog(final int id)
 	{
 		final WebView webView = new WebView(this);
-		webView.loadUrl("file:///android_asset/" + (id == DIALOG_HELP ? "help.html" : "safety.html"));
+		if (id == DIALOG_HELP)
+			webView.loadUrl("file:///android_asset/help" + languagePrefix() + ".html");
+		else
+			webView.loadUrl("file:///android_asset/safety" + languagePrefix() + ".html");
 
 		final Dialog dialog = new Dialog(WalletActivity.this);
 		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
