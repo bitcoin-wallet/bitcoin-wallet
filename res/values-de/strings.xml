@@ -63,9 +63,9 @@
 	<string name="edit_address_book_entry_dialog_button_cancel">Abbrechen</string>
 
 	<string name="preferences_license_title">Lizenz</string>
-	<string name="preferences_credits_bitcoinj_title">"Diese app nutzt 'bitcoinj'"</string>
-	<string name="preferences_credits_zxing_title">"Diese app nutzt 'zxing'"</string>
-	<string name="preferences_credits_icon_title">"Diese app nutzt ein Icon von 'bitboy'"</string>
+	<string name="preferences_credits_bitcoinj_title">"Diese App nutzt 'bitcoinj'"</string>
+	<string name="preferences_credits_zxing_title">"Diese App nutzt 'zxing'"</string>
+	<string name="preferences_credits_icon_title">"Diese App nutzt ein Icon von 'bitboy'"</string>
 	<string name="preferences_twitter_title">Autor Twitter</string>
 	<string name="preferences_credits_market_app_title">Android Market App-Eintrag</string>
 	<string name="preferences_credits_market_publisher_title">Andere Apps des Autors</string>
