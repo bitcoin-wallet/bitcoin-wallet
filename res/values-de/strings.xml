@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+
+	<string name="app_name">Bitcoin Wallet</string>
+
+	<string name="wallet_content_disclaimer">Dies ist eine experimentelle App. Benutzung auf eigene Gefahr. Bitte lies die Sicherheitshinweise.
+	</string>
+	<string name="wallet_address_fragment_your">Deine Bitcoin-Adresse:</string>
+	<string name="wallet_address_fragment_clipboard_msg">Bitcoin-Adress ins Clipboard kopiert</string>
+	<string name="wallet_address_fragment_share_dialog_title">Bitcoin-Adresse veröffentlichen...</string>
+	<string name="wallet_balance_fragment_local_value">etwa %1$s %2$s wert</string>
+	<string name="transaction_row_sent_to">Gesendet</string>
+	<string name="transaction_row_received_from">Empfangen</string>
+	<string name="exchange_rates_fragment_empty_text">Kann Wechselkurse in laden</string>
+	<string name="wallet_options_request_coins">BTC anfordern</string>
+	<string name="wallet_options_send_coins">BTC senden</string>
+	<string name="wallet_options_about">Über</string>
+	<string name="wallet_options_safety">Sicherheit</string>
+	<string name="wallet_options_help">Hilfe</string>
+	<string name="wallet_low_storage_dialog_title">Interner Speicher wird knapp!</string>
+	<string name="wallet_low_storage_dialog_msg">Bitcoin Wallet nutzt internen Speicher um sich Transaktionen und Blöcke zu merken. Wenn der
+		Speicher vollläuft, wird es nicht mehr funktionieren und Deine Bitcoins sind in Gefahr!\n\nMöchtest Du die
+		App-Verwaltung öffnen, um ungenutzte Apps zu deinstallieren?</string>
+	<string name="wallet_low_storage_dialog_button_apps">App-Verwaltung</string>
+	<string name="wallet_low_storage_dialog_button_dismiss">Schließen</string>
+
+	<string name="send_coins_activity_title">Bitcoins senden</string>
+	<string name="send_coins_install_qr_scanner_msg">Bitte installiere den ZXing QR-Code-Scanner oder Goggles!</string>
+	<string name="send_coins_fragment_receiving_address_label">Empfänger</string>
+	<string name="send_coins_fragment_receiving_address_hint">Adresse oder Namen</string>
+	<string name="send_coins_fragment_receiving_address_error">Ungültige Bitcoin-Adresse!</string>
+	<string name="send_coins_fragment_available_label">Verfügbar</string>
+	<string name="send_coins_fragment_pending">(BTC %s warten auf Bestätigung)</string>
+	<string name="send_coins_fragment_amount_label">Betrag</string>
+	<string name="send_coins_fragment_amount_error">Ungültiger Betrag!</string>
+	<string name="send_coins_fragment_button_send">Senden</string>
+	<string name="send_coins_fragment_button_cancel">Abbrechen</string>
+	<string name="send_coins_sending_msg">Sending...</string>
+	<string name="send_coins_add_address_dialog_title">Die Empfänger-Adresse ist noch nicht in Deinem Adressbuch.\n\nMöchtest Du sie jetzt hizufügen?
+	</string>
+	<string name="send_coins_add_address_dialog_button_add">Adresse hinzufügen</string>
+	<string name="send_coins_add_address_dialog_button_dismiss">Schließen</string>
+	<string name="send_coins_error_msg">Problem beim Versenden der Bitcoins!</string>
+	<string name="send_coins_success_msg">%s BTC versendet!</string>
+
+	<string name="request_coins_activity_title">Bitcoins anfordern</string>
+	<string name="request_coins_fragment_amount_label">Angeforderter Betrag (optional)</string>
+	<string name="request_coins_fragment_qr_label">Laß diesen QR-Code vom Sender scannen:</string>
+	<string name="request_coins_clipboard_msg">Anforderung aufs Clipboard kopiert</string>
+	<string name="request_coins_share_dialog_title">Anforderung veröffentlichen...</string>
+
+	<string name="address_book_activity_title">Adressbuch</string>
+	<string name="address_book_empty_text">Keine Einträge im Adressbuch</string>
+
+	<string name="edit_address_book_entry_dialog_title_add">Adresse hinzufügen</string>
+	<string name="edit_address_book_entry_dialog_title_edit">Adresse ändern</string>
+	<string name="edit_address_book_entry_dialog_address_label">Adresse</string>
+	<string name="edit_address_book_entry_dialog_label_label">Name</string>
+	<string name="edit_address_book_entry_dialog_button_add">Hinzufügen</string>
+	<string name="edit_address_book_entry_dialog_button_edit">Speichern</string>
+	<string name="edit_address_book_entry_dialog_button_delete">Löschen</string>
+	<string name="edit_address_book_entry_dialog_button_cancel">Abbrechen</string>
+
+	<string name="preferences_license_title">Lizenz</string>
+	<string name="preferences_credits_bitcoinj_title">"Diese app nutzt 'bitcoinj'"</string>
+	<string name="preferences_credits_zxing_title">"Diese app nutzt 'zxing'"</string>
+	<string name="preferences_credits_icon_title">"Diese app nutzt ein Icon von 'bitboy'"</string>
+	<string name="preferences_twitter_title">Autor Twitter</string>
+	<string name="preferences_credits_market_app_title">Android Market App-Eintrag</string>
+	<string name="preferences_credits_market_publisher_title">Andere Apps des Autors</string>
+
+	<string name="notification_coins_received_msg">%s BTC empfangen!</string>
+	<string name="notification_peers_connected_msg">%d Peers verbunden</string>
+	<string name="notification_blockchain_sync_started_msg">Bitcoin Blockchain Synchronisierung</string>
+	<string name="notification_blockchain_sync_progress_msg">%1$.1f%% fertig, letzter Block %2$s</string>
+
+</resources>
