@@ -20,10 +20,12 @@ FILES
 /data/data/de.schildbach.wallet_test/files/wallet-testnet (MODE_WORLD_READABLE | MODE_WORLD_WRITEABLE)
 	Wallet for testnet
 
-/data/data/de.schildbach.wallet/files/key-backup (MODE_PRIVATE)
-	Backup of private key for prodnet
+/data/data/de.schildbach.wallet/files/key-backup-asn1 (MODE_PRIVATE)
+/data/data/de.schildbach.wallet/files/key-backup-base58 (MODE_PRIVATE)
+	Backups of private key for prodnet
 
-/data/data/de.schildbach.wallet_test/files/key-backup-testnet (MODE_WORLD_READABLE | MODE_WORLD_WRITEABLE)
+/data/data/de.schildbach.wallet_test/files/key-backup-asn1-testnet (MODE_WORLD_READABLE | MODE_WORLD_WRITEABLE)
+/data/data/de.schildbach.wallet_test/files/key-backup-base58-testnet (MODE_WORLD_READABLE | MODE_WORLD_WRITEABLE)
 	Backup of private key for testnet
 
 
@@ -33,9 +35,10 @@ Wallet file for testnet can be pulled from (even unrooted) device using
 
 	adb pull /data/data/de.schildbach.wallet_test/files/wallet-testnet
 
-Backup key file for testnet can be pulled from device using
+Backups of key for testnet can be pulled from device using
 
-	adb pull /data/data/de.schildbach.wallet_test/files/key-backup-testnet
+	adb pull /data/data/de.schildbach.wallet_test/files/key-backup-asn1-testnet
+	adb pull /data/data/de.schildbach.wallet_test/files/key-backup-base58-testnet
 
 Log messages can be viewed by
 

@@ -174,12 +174,26 @@ public class Application extends android.app.Application
 
 		if (key != null)
 		{
-			final byte[] asn1 = key.toASN1();
+			try
+			{
+				final byte[] asn1 = key.toASN1();
+
+				final OutputStream os = openFileOutput(Constants.WALLET_KEY_BACKUP_ASN1, Constants.WALLET_MODE);
+				os.write(asn1);
+				os.close();
+			}
+			catch (final IOException x)
+			{
+				x.printStackTrace();
+			}
 
 			try
 			{
-				final OutputStream os = openFileOutput(Constants.WALLET_KEY_BACKUP, Constants.WALLET_MODE);
-				os.write(asn1);
+				final String base58 = key.toBase58();
+				final byte[] base58bytes = base58.getBytes("UTF-8");
+
+				final OutputStream os = openFileOutput(Constants.WALLET_KEY_BACKUP_BASE58, Constants.WALLET_MODE);
+				os.write(base58bytes);
 				os.close();
 			}
 			catch (final IOException x)
