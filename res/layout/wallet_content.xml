@@ -31,9 +31,8 @@
 			</FrameLayout>
 
 			<TextView android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_weight="0"
-				android:gravity="center_horizontal" android:text="This is entirely experimental. Use at your own risk! Read the safety notes."
-				android:textSize="13sp" android:textColor="#fff" android:shadowColor="#000" android:shadowRadius="1"
-				android:background="@drawable/action_bar_background" />
+				android:gravity="center_horizontal" android:text="@string/wallet_content_disclaimer" android:textSize="13sp"
+				android:textColor="#fff" android:shadowColor="#000" android:shadowRadius="1" android:background="@drawable/action_bar_background" />
 
 		</LinearLayout>
 

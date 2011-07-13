@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-	<item android:id="@+id/wallet_options_request_coins" android:icon="@drawable/ic_menu_request" android:title="Request coins" />
-	<item android:id="@+id/wallet_options_send_coins" android:icon="@drawable/ic_menu_send" android:title="Send coins" />
-	<item android:id="@+id/wallet_options_preferences" android:icon="@drawable/ic_menu_info_details" android:title="About" />
+	<item android:id="@+id/wallet_options_request_coins" android:icon="@drawable/ic_menu_request" android:title="@string/wallet_options_request_coins" />
+	<item android:id="@+id/wallet_options_send_coins" android:icon="@drawable/ic_menu_send" android:title="@string/wallet_options_send_coins" />
+	<item android:id="@+id/wallet_options_preferences" android:icon="@drawable/ic_menu_info_details" android:title="@string/wallet_options_about" />
 	<item android:id="@+id/wallet_options_switch_network" android:icon="@drawable/ic_menu_switch_network" />
-	<item android:id="@+id/wallet_options_safety" android:icon="@drawable/ic_menu_safety" android:title="Safety notes" />
-	<item android:id="@+id/wallet_options_help" android:icon="@drawable/ic_menu_help" android:title="Help" />
+	<item android:id="@+id/wallet_options_safety" android:icon="@drawable/ic_menu_safety" android:title="@string/wallet_options_safety" />
+	<item android:id="@+id/wallet_options_help" android:icon="@drawable/ic_menu_help" android:title="@string/wallet_options_help" />
 </menu>

@@ -188,9 +188,9 @@ public class WalletActivity extends AbstractWalletActivity
 		{
 			final AlertDialog.Builder builder = new AlertDialog.Builder(this);
 			builder.setIcon(android.R.drawable.ic_dialog_alert);
-			builder.setTitle("Important notice!");
-			builder.setMessage("Due to popular demand, Bitcoin Wallet has switched from Testnet to Prodnet. This means that you can now pay for real! Please read the safety hints.\n\nIf you don't want to take the risk and stay on Testnet, please install Bitcoin Wallet for Testnet.");
-			builder.setPositiveButton("Read Safety Hints", new DialogInterface.OnClickListener()
+			builder.setTitle(R.string.wallet_migration_dialog_title);
+			builder.setMessage(R.string.wallet_migration_dialog_msg);
+			builder.setPositiveButton(R.string.wallet_migration_dialog_button_safety, new DialogInterface.OnClickListener()
 			{
 				public void onClick(final DialogInterface dialog, final int id)
 				{
@@ -199,7 +199,7 @@ public class WalletActivity extends AbstractWalletActivity
 					showDialog(DIALOG_SAFETY);
 				}
 			});
-			builder.setNegativeButton("Install Testnet", new DialogInterface.OnClickListener()
+			builder.setNegativeButton(R.string.wallet_migration_dialog_button_testnet, new DialogInterface.OnClickListener()
 			{
 				public void onClick(final DialogInterface dialog, final int id)
 				{
@@ -229,9 +229,9 @@ public class WalletActivity extends AbstractWalletActivity
 		{
 			final AlertDialog.Builder builder = new AlertDialog.Builder(this);
 			builder.setIcon(android.R.drawable.ic_dialog_alert);
-			builder.setTitle("Internal Device Storage Space Low!");
-			builder.setMessage("Bitcoin Wallet uses internal storage for remembering transactions and blocks. If it runs out of space, it will stop working and your Bitcoins are at risk!\n\nDo you want to open the Application Manager in order to uninstall unneeded apps?");
-			builder.setPositiveButton("Manage Apps", new DialogInterface.OnClickListener()
+			builder.setTitle(R.string.wallet_low_storage_dialog_title);
+			builder.setMessage(R.string.wallet_low_storage_dialog_msg);
+			builder.setPositiveButton(R.string.wallet_low_storage_dialog_button_apps, new DialogInterface.OnClickListener()
 			{
 				public void onClick(final DialogInterface dialog, final int id)
 				{
@@ -239,7 +239,7 @@ public class WalletActivity extends AbstractWalletActivity
 					finish();
 				}
 			});
-			builder.setNegativeButton("Dismiss", null);
+			builder.setNegativeButton(R.string.wallet_low_storage_dialog_button_dismiss, null);
 			builder.show();
 		}
 	}

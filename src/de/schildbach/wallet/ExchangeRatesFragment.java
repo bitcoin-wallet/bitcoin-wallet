@@ -177,7 +177,7 @@ public class ExchangeRatesFragment extends ListFragment
 	{
 		super.onActivityCreated(savedInstanceState);
 
-		setEmptyText("Could not load exchange rates");
+		setEmptyText(getString(R.string.exchange_rates_fragment_empty_text));
 	}
 
 	@Override

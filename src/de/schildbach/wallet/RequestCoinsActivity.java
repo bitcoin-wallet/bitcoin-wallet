@@ -41,7 +41,7 @@ public class RequestCoinsActivity extends AbstractWalletActivity
 
 		final ActionBarFragment actionBar = (ActionBarFragment) getSupportFragmentManager().findFragmentById(R.id.action_bar_fragment);
 		actionBar.setIcon(Constants.APP_ICON_RESID);
-		actionBar.setPrimaryTitle("Request Bitcoins");
+		actionBar.setPrimaryTitle(R.string.request_coins_activity_title);
 		actionBar.setSecondaryTitle(Constants.TEST ? "[testnet!]" : null);
 
 		actionBar.addButton(R.drawable.ic_menu_help).setOnClickListener(new OnClickListener()

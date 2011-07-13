@@ -73,7 +73,7 @@ public class WalletAddressFragment extends Fragment
 			{
 				ClipboardManager clipboardManager = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
 				clipboardManager.setText(address.toString());
-				((AbstractWalletActivity) getActivity()).toast("Bitcoin address pasted to clipboard");
+				((AbstractWalletActivity) getActivity()).toast(R.string.wallet_address_fragment_clipboard_msg);
 
 				System.out.println("my bitcoin address: " + address + (Constants.TEST ? " (testnet!)" : ""));
 			}
@@ -85,7 +85,7 @@ public class WalletAddressFragment extends Fragment
 			{
 				startActivity(Intent.createChooser(
 						new Intent(Intent.ACTION_SEND).putExtra(Intent.EXTRA_TEXT, "bitcoin:" + address).setType("text/plain"),
-						"Share your bitcoin address..."));
+						getString(R.string.wallet_address_fragment_share_dialog_title)));
 				return false;
 			}
 		});

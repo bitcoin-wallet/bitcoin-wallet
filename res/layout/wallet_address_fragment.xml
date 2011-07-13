@@ -8,7 +8,7 @@
 
 	<TextView android:id="@+id/bitcoin_address_label" android:layout_width="wrap_content" android:layout_height="wrap_content"
 		android:layout_alignTop="@id/bitcoin_address_qr" android:layout_alignParentLeft="true" android:layout_toLeftOf="@id/bitcoin_address_qr"
-		android:text="Your Bitcoin Address:" />
+		android:text="@string/wallet_address_fragment_your" />
 
 	<TextView android:id="@+id/bitcoin_address" android:layout_width="wrap_content" android:layout_height="wrap_content"
 		android:layout_alignBottom="@id/bitcoin_address_qr" android:layout_alignParentLeft="true" android:layout_toLeftOf="@id/bitcoin_address_qr"

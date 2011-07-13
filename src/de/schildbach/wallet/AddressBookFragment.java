@@ -27,6 +27,7 @@ import android.support.v4.content.Loader;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.view.View;
 import android.widget.ListView;
+import de.schildbach.wallet_test.R;
 
 /**
  * @author Andreas Schildbach
@@ -40,7 +41,7 @@ public class AddressBookFragment extends ListFragment implements LoaderManager.L
 	{
 		super.onActivityCreated(savedInstanceState);
 
-		setEmptyText("No entries in address book");
+		setEmptyText(getString(R.string.address_book_empty_text));
 
 		adapter = new SimpleCursorAdapter(getActivity(), android.R.layout.simple_list_item_2, null, new String[] { AddressBookProvider.KEY_LABEL,
 				AddressBookProvider.KEY_ADDRESS }, new int[] { android.R.id.text1, android.R.id.text2 }, 0);

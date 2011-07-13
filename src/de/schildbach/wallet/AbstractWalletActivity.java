@@ -66,4 +66,27 @@ public abstract class AbstractWalletActivity extends FragmentActivity
 		toast.setDuration(duration);
 		toast.show();
 	}
+
+	protected final void toast(final int textResId, final Object... formatArgs)
+	{
+		toast(textResId, 0, Toast.LENGTH_SHORT, formatArgs);
+	}
+
+	protected final void longToast(final int textResId, final Object... formatArgs)
+	{
+		toast(textResId, 0, Toast.LENGTH_LONG, formatArgs);
+	}
+
+	protected final void toast(final int textResId, final int imageResId, final int duration, final Object... formatArgs)
+	{
+		final View view = getLayoutInflater().inflate(R.layout.transient_notification, null);
+		TextView tv = (TextView) view.findViewById(R.id.transient_notification_text);
+		tv.setText(textResId);
+		tv.setCompoundDrawablesWithIntrinsicBounds(imageResId, 0, 0, 0);
+
+		final Toast toast = new Toast(this);
+		toast.setView(view);
+		toast.setDuration(duration);
+		toast.show();
+	}
 }

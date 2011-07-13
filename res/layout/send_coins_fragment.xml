@@ -4,21 +4,21 @@
 	android:background="#ddd">
 
 	<TextView android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp"
-		android:layout_marginLeft="20dp" android:layout_marginRight="20dp" android:text="Pay to" android:textSize="16sp"
-		android:textStyle="bold" android:textColor="#000" />
+		android:layout_marginLeft="20dp" android:layout_marginRight="20dp" android:text="@string/send_coins_fragment_receiving_address_label"
+		android:textSize="16sp" android:textStyle="bold" android:textColor="#000" />
 
 	<AutoCompleteTextView android:id="@+id/send_coins_receiving_address" android:layout_width="fill_parent"
 		android:layout_height="wrap_content" android:layout_marginLeft="12dp" android:layout_marginRight="12dp"
 		android:background="@drawable/edit_text" android:textSize="16sp" android:textColor="#000" android:singleLine="true"
-		android:hint="type address or name" android:completionThreshold="1" />
+		android:hint="@string/send_coins_fragment_receiving_address_hint" android:completionThreshold="1" />
 
 	<TextView android:id="@+id/send_coins_receiving_address_error" android:layout_width="fill_parent"
 		android:layout_height="wrap_content" android:layout_marginBottom="8dp" android:layout_marginLeft="12dp"
-		android:text="Invalid Bitcoin Address!" android:textColor="#f88" android:textSize="16sp" android:textStyle="bold"
-		android:visibility="gone" />
+		android:text="@string/send_coins_fragment_receiving_address_error" android:textColor="#f88" android:textSize="16sp"
+		android:textStyle="bold" android:visibility="gone" />
 
 	<TextView android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp"
-		android:layout_marginLeft="20dp" android:layout_marginRight="20dp" android:text="Available for spending"
+		android:layout_marginLeft="20dp" android:layout_marginRight="20dp" android:text="@string/send_coins_fragment_available_label"
 		android:textSize="16sp" android:textStyle="bold" />
 
 	<EditText android:id="@+id/send_coins_available" android:layout_width="fill_parent" android:layout_height="wrap_content"
@@ -29,8 +29,8 @@
 		android:layout_marginBottom="8dp" android:layout_marginLeft="20dp" android:textSize="16sp" android:visibility="gone" />
 
 	<TextView android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp"
-		android:layout_marginLeft="20dp" android:layout_marginRight="20dp" android:text="Amount to pay" android:textSize="16sp"
-		android:textStyle="bold" />
+		android:layout_marginLeft="20dp" android:layout_marginRight="20dp" android:text="@string/send_coins_fragment_amount_label"
+		android:textSize="16sp" android:textStyle="bold" />
 
 	<EditText android:id="@+id/send_coins_amount" android:layout_width="fill_parent" android:layout_height="wrap_content"
 		android:layout_marginLeft="12dp" android:layout_marginRight="12dp" android:background="@drawable/edit_text"
@@ -38,8 +38,8 @@
 		android:drawablePadding="4dp" />
 
 	<TextView android:id="@+id/send_coins_amount_error" android:layout_width="fill_parent" android:layout_height="wrap_content"
-		android:layout_marginBottom="8dp" android:layout_marginLeft="12dp" android:text="Invalid Amount!" android:textColor="#f88"
-		android:textSize="16sp" android:textStyle="bold" android:visibility="gone" />
+		android:layout_marginBottom="8dp" android:layout_marginLeft="12dp" android:text="@string/send_coins_fragment_amount_error"
+		android:textColor="#f88" android:textSize="16sp" android:textStyle="bold" android:visibility="gone" />
 
 	<!-- stretch dummy -->
 	<ImageView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="100" />
@@ -49,9 +49,9 @@
 		android:background="@drawable/button_bar_background" android:stretchColumns="0,1">
 		<TableRow>
 			<Button android:id="@+id/send_coins_go" android:background="@drawable/btn_default" android:paddingLeft="12dp"
-				android:paddingRight="12dp" android:text="Send" android:textStyle="bold" />
+				android:paddingRight="12dp" android:text="@string/send_coins_fragment_button_send" android:textStyle="bold" />
 			<Button android:id="@+id/send_coins_cancel" android:background="@drawable/btn_default" android:paddingLeft="12dp"
-				android:paddingRight="12dp" android:text="Cancel" />
+				android:paddingRight="12dp" android:text="@string/send_coins_fragment_button_cancel" />
 		</TableRow>
 	</TableLayout>
 

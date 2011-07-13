@@ -205,7 +205,8 @@ public class WalletBalanceFragment extends Fragment
 			if (exchangeRate != null)
 			{
 				final BigInteger valueLocal = new BigDecimal(balance).multiply(new BigDecimal(exchangeRate)).toBigInteger();
-				viewBalanceLocal.setText(String.format("worth about %s %s", exchangeCurrency, Utils.bitcoinValueToFriendlyString(valueLocal)));
+				viewBalanceLocal.setText(getString(R.string.wallet_balance_fragment_local_value, exchangeCurrency,
+						Utils.bitcoinValueToFriendlyString(valueLocal)));
 				if (Constants.TEST)
 					viewBalanceLocal.setPaintFlags(viewBalanceLocal.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 			}

@@ -154,7 +154,7 @@ public class Service extends android.app.Service
 			{
 				transactionsSeen.add(txHash);
 
-				final String msg = "Received " + Utils.bitcoinValueToFriendlyString(value) + " BTC";
+				final String msg = getString(R.string.notification_coins_received_msg, Utils.bitcoinValueToFriendlyString(value));
 				final Notification notification = new Notification(R.drawable.stat_notify_received, msg, System.currentTimeMillis());
 				notification.flags |= Notification.FLAG_AUTO_CANCEL;
 				notification.sound = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.coins_received);
@@ -282,6 +282,8 @@ public class Service extends android.app.Service
 
 	private void broadcastTransaction(final Transaction tx)
 	{
+		System.out.println("broadcasting transaction: " + tx);
+
 		final AtomicBoolean alreadyConfirmed = new AtomicBoolean(false);
 
 		for (final Iterator<Peer> i = peers.iterator(); i.hasNext();)
@@ -376,13 +378,14 @@ public class Service extends android.app.Service
 
 										peers.add(peer);
 
-										final String msg = peers.size() + " peers connected";
+										final String msg = getString(R.string.notification_peers_connected_msg, peers.size());
 										System.out.println("Peer " + connection.getRemoteIp().getHostAddress() + " connected, " + msg);
 
 										final Notification notification = new Notification(R.drawable.stat_sys_peers, null, 0);
 										notification.flags |= Notification.FLAG_ONGOING_EVENT;
 										notification.iconLevel = peers.size() > 4 ? 4 : peers.size();
-										notification.setLatestEventInfo(Service.this, "Bitcoin Wallet" + (Constants.TEST ? " [testnet]" : ""), msg,
+										notification.setLatestEventInfo(Service.this, getString(R.string.app_name)
+												+ (Constants.TEST ? " [testnet]" : ""), msg,
 												PendingIntent.getActivity(Service.this, 0, new Intent(Service.this, WalletActivity.class), 0));
 										nm.notify(NOTIFICATION_ID_CONNECTED, notification);
 									}
@@ -496,8 +499,9 @@ public class Service extends android.app.Service
 										{
 											final long t = blockChain.getChainHead().getHeader().getTime() * 1000;
 
-											final String eventTitle = "Bitcoin blockchain sync" + (Constants.TEST ? " [testnet]" : "");
-											final String eventText = String.format("%.1f%% finished, last block at %s", percent,
+											final String eventTitle = getString(R.string.notification_blockchain_sync_started_msg)
+													+ (Constants.TEST ? " [testnet]" : "");
+											final String eventText = getString(R.string.notification_blockchain_sync_progress_msg, percent,
 													DateUtils.isToday(t) ? timeFormat.format(t) : dateFormat.format(t));
 
 											final Notification notification = new Notification(R.drawable.stat_notify_sync,

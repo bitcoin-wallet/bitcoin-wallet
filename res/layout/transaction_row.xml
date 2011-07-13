@@ -6,9 +6,9 @@
 	<FrameLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
 		android:layout_weight="0" android:layout_marginRight="8dp">
 		<TextView android:id="@+id/transaction_to" android:layout_width="wrap_content" android:layout_height="wrap_content"
-			android:text="Sent to" android:textSize="18sp" />
+			android:text="@string/transaction_row_sent_to" android:textSize="18sp" />
 		<TextView android:id="@+id/transaction_from" android:layout_width="wrap_content" android:layout_height="wrap_content"
-			android:text="Rcvd from" android:textSize="18sp" />
+			android:text="@string/transaction_row_received_from" android:textSize="18sp" />
 	</FrameLayout>
 
 	<TextView android:id="@+id/transaction_address" android:layout_width="wrap_content" android:layout_height="wrap_content"

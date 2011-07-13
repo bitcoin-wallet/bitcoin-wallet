@@ -132,7 +132,7 @@ public class SendCoinsFragment extends Fragment
 
 		final TextView pendingView = (TextView) view.findViewById(R.id.send_coins_pending);
 		pendingView.setVisibility(pending.signum() > 0 ? View.VISIBLE : View.GONE);
-		pendingView.setText("(BTC " + Utils.bitcoinValueToFriendlyString(pending) + " waiting for confirmation)");
+		pendingView.setText(getString(R.string.send_coins_fragment_pending, Utils.bitcoinValueToFriendlyString(pending)));
 
 		amountView = (TextView) view.findViewById(R.id.send_coins_amount);
 		amountView.setCompoundDrawablesWithIntrinsicBounds(new BtcDrawable(24f * density, 10.5f * density), null, null, null);
@@ -164,7 +164,7 @@ public class SendCoinsFragment extends Fragment
 							balanceFragment.updateView();
 
 						viewGo.setEnabled(false);
-						viewGo.setText("Sending...");
+						viewGo.setText(R.string.send_coins_sending_msg);
 
 						handler.postDelayed(new Runnable()
 						{
@@ -175,37 +175,40 @@ public class SendCoinsFragment extends Fragment
 								if (cursor.getCount() == 0)
 								{
 									final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-									builder.setMessage("The receiving address you just used is not contained in your address book.\n\nDo you want to add the address?");
-									builder.setPositiveButton("Add address", new DialogInterface.OnClickListener()
-									{
-										public void onClick(final DialogInterface dialog, final int id)
-										{
-											final FragmentTransaction ft = getFragmentManager().beginTransaction();
-											final Fragment prev = getFragmentManager().findFragmentByTag(EditAddressBookEntryFragment.FRAGMENT_TAG);
-											if (prev != null)
-												ft.remove(prev);
-											ft.addToBackStack(null);
-											final DialogFragment newFragment = new EditAddressBookEntryFragment(getLayoutInflater(null),
-													receivingAddress.toString())
+									builder.setMessage(R.string.send_coins_add_address_dialog_title);
+									builder.setPositiveButton(R.string.send_coins_add_address_dialog_button_add,
+											new DialogInterface.OnClickListener()
 											{
-												@Override
-												public void onDestroyView()
+												public void onClick(final DialogInterface dialog, final int id)
 												{
-													super.onDestroyView();
+													final FragmentTransaction ft = getFragmentManager().beginTransaction();
+													final Fragment prev = getFragmentManager().findFragmentByTag(
+															EditAddressBookEntryFragment.FRAGMENT_TAG);
+													if (prev != null)
+														ft.remove(prev);
+													ft.addToBackStack(null);
+													final DialogFragment newFragment = new EditAddressBookEntryFragment(getLayoutInflater(null),
+															receivingAddress.toString())
+													{
+														@Override
+														public void onDestroyView()
+														{
+															super.onDestroyView();
 
+															getActivity().finish();
+														}
+													};
+													newFragment.show(ft, EditAddressBookEntryFragment.FRAGMENT_TAG);
+												}
+											});
+									builder.setNegativeButton(R.string.send_coins_add_address_dialog_button_dismiss,
+											new DialogInterface.OnClickListener()
+											{
+												public void onClick(final DialogInterface dialog, final int id)
+												{
 													getActivity().finish();
 												}
-											};
-											newFragment.show(ft, EditAddressBookEntryFragment.FRAGMENT_TAG);
-										}
-									});
-									builder.setNegativeButton("Dismiss", new DialogInterface.OnClickListener()
-									{
-										public void onClick(final DialogInterface dialog, final int id)
-										{
-											getActivity().finish();
-										}
-									});
+											});
 									builder.show();
 								}
 								else
@@ -215,11 +218,12 @@ public class SendCoinsFragment extends Fragment
 							}
 						}, 5000);
 
-						((AbstractWalletActivity) getActivity()).longToast(Utils.bitcoinValueToFriendlyString(amount) + " BTC sent!");
+						((AbstractWalletActivity) getActivity()).longToast(R.string.send_coins_success_msg,
+								Utils.bitcoinValueToFriendlyString(amount));
 					}
 					else
 					{
-						((AbstractWalletActivity) getActivity()).longToast("problem sending coins!");
+						((AbstractWalletActivity) getActivity()).longToast(R.string.send_coins_error_msg);
 						getActivity().finish();
 					}
 				}

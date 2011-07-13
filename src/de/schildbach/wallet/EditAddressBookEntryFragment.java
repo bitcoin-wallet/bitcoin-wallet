@@ -64,7 +64,8 @@ public class EditAddressBookEntryFragment extends DialogFragment
 
 		final boolean isAdd = label == null;
 
-		final Builder dialog = new AlertDialog.Builder(getActivity()).setTitle(isAdd ? "Add address" : "Edit address");
+		final Builder dialog = new AlertDialog.Builder(getActivity()).setTitle(isAdd ? R.string.edit_address_book_entry_dialog_title_add
+				: R.string.edit_address_book_entry_dialog_title_edit);
 
 		final View view = inflater.inflate(R.layout.edit_address_book_entry_dialog, null);
 
@@ -76,29 +77,30 @@ public class EditAddressBookEntryFragment extends DialogFragment
 
 		dialog.setView(view);
 
-		dialog.setPositiveButton(isAdd ? "Add" : "Save", new DialogInterface.OnClickListener()
-		{
-			public void onClick(final DialogInterface dialog, final int whichButton)
-			{
-				final String newLabel = viewLabel.getText().toString().trim();
-
-				if (newLabel.length() > 0)
+		dialog.setPositiveButton(isAdd ? R.string.edit_address_book_entry_dialog_button_add : R.string.edit_address_book_entry_dialog_button_edit,
+				new DialogInterface.OnClickListener()
 				{
-					final ContentValues values = new ContentValues();
-					values.put(AddressBookProvider.KEY_LABEL, newLabel);
+					public void onClick(final DialogInterface dialog, final int whichButton)
+					{
+						final String newLabel = viewLabel.getText().toString().trim();
 
-					if (isAdd)
-						contentResolver.insert(uri, values);
-					else
-						contentResolver.update(uri, values, null, null);
-				}
+						if (newLabel.length() > 0)
+						{
+							final ContentValues values = new ContentValues();
+							values.put(AddressBookProvider.KEY_LABEL, newLabel);
 
-				dismiss();
-			}
-		});
+							if (isAdd)
+								contentResolver.insert(uri, values);
+							else
+								contentResolver.update(uri, values, null, null);
+						}
+
+						dismiss();
+					}
+				});
 		if (!isAdd)
 		{
-			dialog.setNeutralButton("Delete", new DialogInterface.OnClickListener()
+			dialog.setNeutralButton(R.string.edit_address_book_entry_dialog_button_delete, new DialogInterface.OnClickListener()
 			{
 				public void onClick(final DialogInterface dialog, final int whichButton)
 				{
@@ -107,7 +109,7 @@ public class EditAddressBookEntryFragment extends DialogFragment
 				}
 			});
 		}
-		dialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener()
+		dialog.setNegativeButton(R.string.edit_address_book_entry_dialog_button_cancel, new DialogInterface.OnClickListener()
 		{
 			public void onClick(final DialogInterface dialog, final int whichButton)
 			{

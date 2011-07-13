@@ -63,7 +63,7 @@ public class RequestCoinsFragment extends Fragment
 				final ClipboardManager clipboardManager = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
 				final String addressStr = determineAddressStr();
 				clipboardManager.setText(addressStr);
-				((AbstractWalletActivity) getActivity()).toast("Bitcoin request pasted to clipboard");
+				((AbstractWalletActivity) getActivity()).toast(R.string.request_coins_clipboard_msg);
 
 				System.out.println("bitcoin request uri: " + addressStr + (Constants.TEST ? " (testnet!)" : ""));
 			}
@@ -104,8 +104,8 @@ public class RequestCoinsFragment extends Fragment
 			public void onClick(final View v)
 			{
 				startActivity(Intent.createChooser(
-						new Intent(Intent.ACTION_SEND).putExtra(Intent.EXTRA_TEXT, determineAddressStr()).setType("text/plain"),
-						"Share request for Bitcoins..."));
+						new Intent(Intent.ACTION_SEND).putExtra(Intent.EXTRA_TEXT, determineAddressStr()).setType("text/plain"), getActivity()
+								.getString(R.string.request_coins_share_dialog_title)));
 			}
 		});
 	}

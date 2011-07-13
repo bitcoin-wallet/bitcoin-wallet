@@ -54,7 +54,7 @@ public class SendCoinsActivity extends AbstractWalletActivity
 
 		final ActionBarFragment actionBar = (ActionBarFragment) getSupportFragmentManager().findFragmentById(R.id.action_bar_fragment);
 		actionBar.setIcon(Constants.APP_ICON_RESID);
-		actionBar.setPrimaryTitle("Send Bitcoins");
+		actionBar.setPrimaryTitle(R.string.send_coins_activity_title);
 		actionBar.setSecondaryTitle(Constants.TEST ? "[testnet!]" : null);
 
 		actionBar.addButton(R.drawable.ic_menu_qr).setOnClickListener(new OnClickListener()
@@ -67,7 +67,7 @@ public class SendCoinsActivity extends AbstractWalletActivity
 				else if (pm.resolveActivity(gogglesIntent, 0) != null)
 					startActivity(gogglesIntent);
 				else
-					longToast("Please install ZXing QR-code scanner or Goggles!");
+					longToast(R.string.send_coins_install_qr_scanner_msg);
 			}
 		});
 		actionBar.addButton(R.drawable.ic_menu_help).setOnClickListener(new OnClickListener()
