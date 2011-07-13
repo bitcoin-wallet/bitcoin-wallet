@@ -61,7 +61,8 @@ public class Constants
 	public static final String CREDITS_BITCOINJ_URL = "http://code.google.com/p/bitcoinj/";
 	public static final String CREDITS_ZXING_URL = "http://code.google.com/p/zxing/";
 	public static final String CREDITS_ICON_URL = "http://www.bitcoin.org/smf/index.php?action=profile;u=2062";
-	public static final String TWITTER_URL = "http://twitter.com/android_bitcoin";
+	public static final String AUTHOR_TWITTER_URL = "http://twitter.com/android_bitcoin";
+	public static final String AUTHOR_GOOGLEPLUS_URL = "https://profiles.google.com/andreas.schildbach";
 	public static final String MARKET_APP_URL = "market://details?id=%s";
 	public static final String MARKET_PUBLISHER_URL = "market://search?q=pub:\"Andreas Schildbach\"";
 

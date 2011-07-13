@@ -37,7 +37,8 @@ public class PreferencesActivity extends PreferenceActivity
 	private static final String KEY_ABOUT_CREDITS_BITCOINJ = "about_credits_bitcoinj";
 	private static final String KEY_ABOUT_CREDITS_ZXING = "about_credits_zxing";
 	private static final String KEY_ABOUT_CREDITS_ICON = "about_credits_icon";
-	private static final String KEY_ABOUT_TWITTER = "about_twitter";
+	private static final String KEY_ABOUT_AUTHOR_TWITTER = "about_author_twitter";
+	private static final String KEY_ABOUT_AUTHOR_GOOGLEPLUS = "about_author_googleplus";
 	private static final String KEY_ABOUT_MARKET_APP = "about_market_app";
 	private static final String KEY_ABOUT_MARKET_PUBLISHER = "about_market_publisher";
 
@@ -99,9 +100,14 @@ public class PreferencesActivity extends PreferenceActivity
 			startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.CREDITS_ICON_URL)));
 			finish();
 		}
-		else if (KEY_ABOUT_TWITTER.equals(key))
+		else if (KEY_ABOUT_AUTHOR_TWITTER.equals(key))
 		{
-			startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.TWITTER_URL)));
+			startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.AUTHOR_TWITTER_URL)));
+			finish();
+		}
+		else if (KEY_ABOUT_AUTHOR_GOOGLEPLUS.equals(key))
+		{
+			startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.AUTHOR_GOOGLEPLUS_URL)));
 			finish();
 		}
 		else if (KEY_ABOUT_MARKET_APP.equals(key))
