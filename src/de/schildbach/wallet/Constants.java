@@ -25,7 +25,7 @@ import de.schildbach.wallet_test.R;
  */
 public class Constants
 {
-	public static final boolean TEST = R.class.getPackage().getName().contains("_test");
+	public static final boolean TEST = R.class.getPackage().getName().contains('_' + "test"); // replace protected
 
 	public static final String WALLET_FILENAME_PROD = "wallet";
 	public static final String WALLET_FILENAME_TEST = "wallet-testnet";
@@ -54,7 +54,7 @@ public class Constants
 	public static final String PEER_DISCOVERY_IRC_CHANNEL_TEST = "#bitcoinTEST";
 
 	public static final String PACKAGE_NAME_PROD = "de.schildbach.wallet";
-	public static final String PACKAGE_NAME_TEST = "de.schildbach.wallet" + '_' + "test"; // protected against replace
+	public static final String PACKAGE_NAME_TEST = "de.schildbach.wallet" + '_' + "test"; // replace protected
 
 	public static final int APP_ICON_RESID = Constants.TEST ? R.drawable.app_icon_test : R.drawable.app_icon;
 
