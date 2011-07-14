@@ -189,7 +189,7 @@ public class Application extends android.app.Application
 
 			try
 			{
-				final String base58 = key.toBase58();
+				final String base58 = key.toOwnBase58();
 				final byte[] base58bytes = base58.getBytes("UTF-8");
 
 				final OutputStream os = openFileOutput(Constants.WALLET_KEY_BACKUP_BASE58, Constants.WALLET_MODE);
