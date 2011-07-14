@@ -379,7 +379,7 @@ public class Service extends android.app.Service
 										peers.add(peer);
 
 										final String msg = getString(R.string.notification_peers_connected_msg, peers.size());
-										System.out.println("Peer " + connection.getRemoteIp().getHostAddress() + " connected, " + msg);
+										System.out.println("Peer connected, " + msg);
 
 										final Notification notification = new Notification(R.drawable.stat_sys_peers, null, 0);
 										notification.flags |= Notification.FLAG_ONGOING_EVENT;

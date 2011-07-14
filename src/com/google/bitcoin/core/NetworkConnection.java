@@ -38,10 +38,6 @@ import java.util.Date;
 public class NetworkConnection {
 	private static final Logger log = LoggerFactory.getLogger(NetworkConnection.class);
 	
-	    public InetAddress getRemoteIp() {
-		return remoteIp;
-	    }
-
     private final Socket socket;
     private final OutputStream out;
     private final InputStream in;
