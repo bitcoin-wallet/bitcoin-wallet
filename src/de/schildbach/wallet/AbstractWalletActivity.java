@@ -60,7 +60,7 @@ public abstract class AbstractWalletActivity extends FragmentActivity
 	{
 		final View view = getLayoutInflater().inflate(R.layout.transient_notification, null);
 		TextView tv = (TextView) view.findViewById(R.id.transient_notification_text);
-		tv.setText(text);
+		tv.setText(String.format(text, formatArgs));
 		tv.setCompoundDrawablesWithIntrinsicBounds(imageResId, 0, 0, 0);
 
 		final Toast toast = new Toast(this);
@@ -83,7 +83,7 @@ public abstract class AbstractWalletActivity extends FragmentActivity
 	{
 		final View view = getLayoutInflater().inflate(R.layout.transient_notification, null);
 		TextView tv = (TextView) view.findViewById(R.id.transient_notification_text);
-		tv.setText(textResId);
+		tv.setText(getString(textResId, formatArgs));
 		tv.setCompoundDrawablesWithIntrinsicBounds(imageResId, 0, 0, 0);
 
 		final Toast toast = new Toast(this);
