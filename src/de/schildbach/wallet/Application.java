@@ -33,6 +33,7 @@ import java.util.Map;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Handler;
 
 import com.google.bitcoin.core.ECKey;
@@ -261,5 +262,17 @@ public class Application extends android.app.Application
 			count += n;
 		}
 		return count;
+	}
+	
+	public final int versionCode()
+	{
+		try
+		{
+			return getPackageManager().getPackageInfo(getPackageName(), 0).versionCode;
+		}
+		catch (NameNotFoundException x)
+		{
+			return 0;
+		}
 	}
 }

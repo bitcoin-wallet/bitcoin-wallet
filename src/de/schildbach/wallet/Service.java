@@ -43,6 +43,7 @@ import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProviderInfo;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Binder;
 import android.os.Handler;
@@ -50,6 +51,7 @@ import android.os.HandlerThread;
 import android.os.IBinder;
 import android.os.Process;
 import android.os.SystemClock;
+import android.preference.PreferenceManager;
 import android.text.format.DateUtils;
 
 import com.google.bitcoin.core.Address;
@@ -197,12 +199,21 @@ public class Service extends android.app.Service
 		backgroundThread.start();
 		backgroundHandler = new Handler(backgroundThread.getLooper());
 
+		final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+
+		final int versionCode = application.versionCode();
+		final int lastVersionCode = prefs.getInt(Constants.PREFS_KEY_LAST_VERSION, 0);
+		final boolean blockchainNeedsRescan = lastVersionCode <= 23 && versionCode > 23;
+
+		prefs.edit().putInt(Constants.PREFS_KEY_LAST_VERSION, versionCode).commit();
+
 		try
 		{
 			final String blockchainFilename = Constants.TEST ? Constants.BLOCKCHAIN_FILENAME_TEST : Constants.BLOCKCHAIN_FILENAME_PROD;
 			final File file = new File(getDir("blockstore", Context.MODE_WORLD_READABLE | Context.MODE_WORLD_WRITEABLE), blockchainFilename);
+			final boolean blockchainDoesNotExist = !file.exists() || file.length() < Constants.BLOCKCHAIN_SNAPSHOT_COPY_THRESHOLD;
 
-			if (!file.exists() || file.length() < Constants.BLOCKCHAIN_SNAPSHOT_COPY_THRESHOLD)
+			if (blockchainNeedsRescan || blockchainDoesNotExist)
 			{
 				// copy snapshot
 				try
