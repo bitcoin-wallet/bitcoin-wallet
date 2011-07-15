@@ -33,6 +33,7 @@ import android.widget.ImageButton;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 
+import com.google.bitcoin.core.Address;
 import com.google.bitcoin.core.ECKey;
 import com.google.bitcoin.core.Wallet;
 
@@ -139,11 +140,13 @@ public class WalletAddressesFragment extends ListFragment
 		public View getView(final int position, View row, final ViewGroup parent)
 		{
 			final ECKey key = (ECKey) getItem(position);
+			final Address address = key.toAddress(application.getNetworkParameters());
 
 			if (row == null)
-				row = getLayoutInflater(null).inflate(android.R.layout.simple_list_item_1, null);
+				row = getLayoutInflater(null).inflate(R.layout.address_row, null);
 
-			((TextView) row.findViewById(android.R.id.text1)).setText(key.toAddress(application.getNetworkParameters()).toString());
+			final TextView addressView = (TextView) row.findViewById(R.id.address_row_address);
+			addressView.setText(WalletUtils.splitIntoLines(address.toString(), 2));
 
 			return row;
 		}
