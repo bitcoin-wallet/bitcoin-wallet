@@ -21,8 +21,10 @@ import java.util.List;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,6 +33,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.bitcoin.core.Address;
@@ -92,6 +95,24 @@ public class WalletAddressesFragment extends ListFragment
 		else
 		{
 			actionBar.removeButton(addButton);
+		}
+	}
+	
+	@Override
+	public void onListItemClick(final ListView l, final View v, final int position, final long id)
+	{
+		final ECKey key = keys.get(position);
+		final Address address = key.toAddress(application.getNetworkParameters());
+		
+		final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+		prefs.edit().putString(Constants.PREFS_KEY_SELECTED_ADDRESS, address.toString()).commit();
+
+		final WalletAddressFragment walletAddressFragment = (WalletAddressFragment) getFragmentManager()
+				.findFragmentById(R.id.wallet_address_fragment);
+		if (walletAddressFragment != null)
+		{
+			walletAddressFragment.updateView();
+			walletAddressFragment.flashAddress();
 		}
 	}
 
