@@ -38,6 +38,9 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.google.bitcoin.core.Address;
+
 import de.schildbach.wallet_test.R;
 
 /**
@@ -74,7 +77,7 @@ public class WalletAddressFragment extends Fragment
 		{
 			public boolean onLongClick(final View v)
 			{
-				final String address = application.determineSelectedAddress();
+				final Address address = application.determineSelectedAddress();
 
 				System.out.println("selected bitcoin address: " + address + (Constants.TEST ? " (testnet!)" : ""));
 
@@ -87,9 +90,9 @@ public class WalletAddressFragment extends Fragment
 						else if (which == 1)
 							showQRCode();
 						else if (which == 2)
-							pasteToClipboard(address);
+							pasteToClipboard(address.toString());
 						else if (which == 3)
-							share(address);
+							share(address.toString());
 					}
 				}).show();
 
@@ -144,9 +147,9 @@ public class WalletAddressFragment extends Fragment
 
 	public void updateView()
 	{
-		final String selectedAddress = application.determineSelectedAddress();
+		final Address selectedAddress = application.determineSelectedAddress();
 
-		bitcoinAddressView.setText(WalletUtils.splitIntoLines(selectedAddress, 3));
+		bitcoinAddressView.setText(WalletUtils.splitIntoLines(selectedAddress.toString(), 3));
 
 		// populate qrcode representation of bitcoin address
 		qrCodeBitmap = WalletUtils.getQRCodeBitmap("bitcoin:" + selectedAddress, 256);

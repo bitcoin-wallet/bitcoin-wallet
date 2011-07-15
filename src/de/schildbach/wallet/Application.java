@@ -41,6 +41,7 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 
+import com.google.bitcoin.core.Address;
 import com.google.bitcoin.core.ECKey;
 import com.google.bitcoin.core.NetworkParameters;
 import com.google.bitcoin.core.Transaction;
@@ -221,7 +222,7 @@ public class Application extends android.app.Application
 		}
 	}
 
-	public String determineSelectedAddress()
+	public Address determineSelectedAddress()
 	{
 		final ArrayList<ECKey> keychain = wallet.keychain;
 
@@ -231,8 +232,11 @@ public class Application extends android.app.Application
 
 		// sanity check
 		for (final ECKey key : keychain)
-			if (key.toAddress(networkParameters).toString().equals(selectedAddress))
-				return selectedAddress;
+		{
+			final Address address = key.toAddress(networkParameters);
+			if (address.toString().equals(selectedAddress))
+				return address;
+		}
 
 		throw new IllegalStateException("address not in keychain: " + selectedAddress);
 	}

@@ -31,6 +31,9 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+
+import com.google.bitcoin.core.Address;
+
 import de.schildbach.wallet_test.R;
 
 /**
@@ -113,10 +116,10 @@ public class RequestCoinsFragment extends Fragment
 
 	private String determineAddressStr()
 	{
-		final String address = application.determineSelectedAddress();
+		final Address address = application.determineSelectedAddress();
 
 		final StringBuilder builder = new StringBuilder("bitcoin:");
-		builder.append(address);
+		builder.append(address.toString());
 		if (amountView.getText().length() > 0)
 			builder.append("?amount=").append(amountView.getText());
 
