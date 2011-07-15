@@ -17,19 +17,15 @@
 
 package de.schildbach.wallet;
 
-import java.util.ArrayList;
-
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
-import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -42,9 +38,6 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.google.bitcoin.core.ECKey;
-
 import de.schildbach.wallet_test.R;
 
 /**
@@ -81,7 +74,7 @@ public class WalletAddressFragment extends Fragment
 		{
 			public boolean onLongClick(final View v)
 			{
-				final String address = determineSelectedAddress();
+				final String address = application.determineSelectedAddress();
 
 				System.out.println("selected bitcoin address: " + address + (Constants.TEST ? " (testnet!)" : ""));
 
@@ -149,25 +142,9 @@ public class WalletAddressFragment extends Fragment
 		super.onDestroyView();
 	}
 
-	private String determineSelectedAddress()
-	{
-		final ArrayList<ECKey> keychain = application.getWallet().keychain;
-
-		final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
-		final String defaultAddress = keychain.get(0).toAddress(application.getNetworkParameters()).toString();
-		final String selectedAddress = prefs.getString(Constants.PREFS_KEY_SELECTED_ADDRESS, defaultAddress);
-
-		// sanity check
-		for (final ECKey key : keychain)
-			if (key.toAddress(application.getNetworkParameters()).toString().equals(selectedAddress))
-				return selectedAddress;
-
-		throw new IllegalStateException("address not in keychain: " + selectedAddress);
-	}
-
 	public void updateView()
 	{
-		final String selectedAddress = determineSelectedAddress();
+		final String selectedAddress = application.determineSelectedAddress();
 
 		bitcoinAddressView.setText(WalletUtils.splitIntoLines(selectedAddress, 3));
 

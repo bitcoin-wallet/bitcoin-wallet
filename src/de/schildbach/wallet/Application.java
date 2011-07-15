@@ -28,6 +28,7 @@ import java.io.Writer;
 import java.math.BigInteger;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -35,8 +36,10 @@ import java.util.Map;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 
 import com.google.bitcoin.core.ECKey;
 import com.google.bitcoin.core.NetworkParameters;
@@ -216,6 +219,22 @@ public class Application extends android.app.Application
 		{
 			x.printStackTrace();
 		}
+	}
+
+	public String determineSelectedAddress()
+	{
+		final ArrayList<ECKey> keychain = wallet.keychain;
+
+		final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+		final String defaultAddress = keychain.get(0).toAddress(networkParameters).toString();
+		final String selectedAddress = prefs.getString(Constants.PREFS_KEY_SELECTED_ADDRESS, defaultAddress);
+
+		// sanity check
+		for (final ECKey key : keychain)
+			if (key.toAddress(networkParameters).toString().equals(selectedAddress))
+				return selectedAddress;
+
+		throw new IllegalStateException("address not in keychain: " + selectedAddress);
 	}
 
 	public Map<String, Double> getExchangeRates()
