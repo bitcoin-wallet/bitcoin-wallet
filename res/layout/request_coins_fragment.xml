@@ -10,7 +10,7 @@
 	<EditText android:id="@+id/request_coins_amount" android:layout_width="fill_parent" android:layout_height="wrap_content"
 		android:layout_marginLeft="12dp" android:layout_marginRight="12dp" android:background="@drawable/edit_text"
 		android:inputType="numberDecimal" android:textSize="28sp" android:textStyle="bold" android:hint="0.00"
-		android:drawablePadding="4dp" />
+		android:textColorHint="#ccc" android:drawablePadding="4dp" />
 
 	<TextView android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp"
 		android:layout_marginLeft="20dp" android:layout_marginRight="20dp" android:text="@string/request_coins_fragment_qr_label"
