@@ -22,7 +22,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.io.Reader;
+import java.io.Writer;
 import java.math.BigInteger;
 import java.net.URL;
 import java.net.URLConnection;
@@ -107,7 +109,7 @@ public class Application extends android.app.Application
 
 		loadWallet();
 
-		backupKey();
+		backupKeys();
 
 		wallet.addEventListener(walletEventListener);
 	}
@@ -169,15 +171,15 @@ public class Application extends android.app.Application
 		}
 	}
 
-	private void backupKey()
+	private void backupKeys()
 	{
-		final ECKey key = wallet.keychain.get(0);
+		final ECKey firstKey = wallet.keychain.get(0);
 
-		if (key != null)
+		if (firstKey != null)
 		{
 			try
 			{
-				final byte[] asn1 = key.toASN1();
+				final byte[] asn1 = firstKey.toASN1();
 
 				final OutputStream os = openFileOutput(Constants.WALLET_KEY_BACKUP_ASN1, Constants.WALLET_MODE);
 				os.write(asn1);
@@ -187,20 +189,23 @@ public class Application extends android.app.Application
 			{
 				x.printStackTrace();
 			}
+		}
 
-			try
-			{
-				final String base58 = key.toOwnBase58();
-				final byte[] base58bytes = base58.getBytes("UTF-8");
+		try
+		{
+			final Writer out = new OutputStreamWriter(openFileOutput(Constants.WALLET_KEY_BACKUP_BASE58, Constants.WALLET_MODE), "UTF-8");
 
-				final OutputStream os = openFileOutput(Constants.WALLET_KEY_BACKUP_BASE58, Constants.WALLET_MODE);
-				os.write(base58bytes);
-				os.close();
-			}
-			catch (final IOException x)
+			for (final ECKey key : wallet.keychain)
 			{
-				x.printStackTrace();
+				out.write(key.toOwnBase58());
+				out.write('\n');
 			}
+
+			out.close();
+		}
+		catch (final IOException x)
+		{
+			x.printStackTrace();
 		}
 	}
 
@@ -263,7 +268,7 @@ public class Application extends android.app.Application
 		}
 		return count;
 	}
-	
+
 	public final int versionCode()
 	{
 		try
