@@ -155,6 +155,15 @@ public class Application extends android.app.Application
 		}
 	}
 
+	public void addNewKeyToWallet()
+	{
+		wallet.keychain.add(new ECKey());
+
+		saveWallet();
+
+		backupKeys();
+	}
+
 	public void saveWallet()
 	{
 		final String filename = Constants.TEST ? Constants.WALLET_FILENAME_TEST : Constants.WALLET_FILENAME_PROD;

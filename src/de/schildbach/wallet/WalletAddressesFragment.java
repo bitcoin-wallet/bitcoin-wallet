@@ -19,18 +19,24 @@ package de.schildbach.wallet;
 
 import java.util.List;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageButton;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import com.google.bitcoin.core.ECKey;
 import com.google.bitcoin.core.Wallet;
+
+import de.schildbach.wallet_test.R;
 
 /**
  * @author Andreas Schildbach
@@ -39,6 +45,8 @@ public class WalletAddressesFragment extends ListFragment
 {
 	private Application application;
 	private List<ECKey> keys;
+
+	private ImageButton addButton;
 
 	@Override
 	public void onCreate(final Bundle savedInstanceState)
@@ -70,12 +78,46 @@ public class WalletAddressesFragment extends ListFragment
 		updateView();
 	}
 
+	@Override
+	public void onHiddenChanged(boolean hidden)
+	{
+		final ActionBarFragment actionBar = (ActionBarFragment) getFragmentManager().findFragmentById(R.id.action_bar_fragment);
+
+		if (!hidden)
+		{
+			addButton = actionBar.addButton(R.drawable.ic_menu_btn_add);
+			addButton.setOnClickListener(addButtonClickListener);
+		}
+		else
+		{
+			actionBar.removeButton(addButton);
+		}
+	}
+
 	private void updateView()
 	{
 		final ListAdapter adapter = getListAdapter();
 		if (adapter != null)
 			((BaseAdapter) adapter).notifyDataSetChanged();
 	}
+
+	final OnClickListener addButtonClickListener = new OnClickListener()
+	{
+		public void onClick(final View v)
+		{
+			new AlertDialog.Builder(getActivity()).setTitle(R.string.wallet_addresses_fragment_add_dialog_title)
+					.setMessage(R.string.wallet_addresses_fragment_add_dialog_message)
+					.setPositiveButton(R.string.wallet_addresses_fragment_add_dialog_positive, new DialogInterface.OnClickListener()
+					{
+						public void onClick(final DialogInterface dialog, final int which)
+						{
+							application.addNewKeyToWallet();
+
+							updateView();
+						}
+					}).setNegativeButton(R.string.wallet_addresses_fragment_add_dialog_negative, null).show();
+		}
+	};
 
 	private class Adapter extends BaseAdapter
 	{

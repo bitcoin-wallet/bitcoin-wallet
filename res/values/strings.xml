@@ -14,6 +14,10 @@
 		<item>Paste to clipboard</item>
 		<item>Share</item>
 	</string-array>
+	<string name="wallet_addresses_fragment_add_dialog_title">Add Bitcoin address</string>
+	<string name="wallet_addresses_fragment_add_dialog_message">Bitcoin addresses cannot be deleted. Do you want to add a new address to your wallet?</string>
+	<string name="wallet_addresses_fragment_add_dialog_positive">Add address</string>
+	<string name="wallet_addresses_fragment_add_dialog_negative">Dismiss</string>
 	<string name="wallet_balance_fragment_local_value">worth about %1$s %2$s</string>
 	<string name="transaction_row_sent_to">Sent to</string>
 	<string name="transaction_row_received_from">Rcvd from</string>

@@ -15,6 +15,10 @@
 		<item>Ins Clipboard kopieren</item>
 		<item>Veröffentlichen</item>
 	</string-array>
+	<string name="wallet_addresses_fragment_add_dialog_title">Bitcoin-Adresse hinzufügen</string>
+	<string name="wallet_addresses_fragment_add_dialog_message">Bitcoin-Adressen können nicht gelöscht werden. Möchtest Du eine neue Adresse zu Deinem Wallet hinzufügen?</string>
+	<string name="wallet_addresses_fragment_add_dialog_positive">Adresse hinzufügen</string>
+	<string name="wallet_addresses_fragment_add_dialog_negative">Schließen</string>
 	<string name="wallet_balance_fragment_local_value">etwa %1$s %2$s wert</string>
 	<string name="transaction_row_sent_to">Gesendet</string>
 	<string name="transaction_row_received_from">Empfangen</string>

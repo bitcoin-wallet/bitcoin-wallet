@@ -102,4 +102,14 @@ public class ActionBarFragment extends Fragment
 
 		return button;
 	}
+
+	public boolean removeButton(final ImageButton button)
+	{
+		final int index = view.indexOfChild(button);
+		if (index == -1)
+			return false;
+
+		view.removeViews(index - 2, 3);
+		return true;
+	}
 }
