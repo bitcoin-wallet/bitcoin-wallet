@@ -530,7 +530,7 @@ public class Service extends android.app.Service
 									final long duration = SystemClock.uptimeMillis() - lastCountAt;
 									System.out.println("no progress for " + duration + " ms");
 
-									if (duration > 15000)
+									if (duration > Constants.BLOCKCHAIN_PROGRESS_TIMEOUT)
 									{
 										peer.disconnect();
 
