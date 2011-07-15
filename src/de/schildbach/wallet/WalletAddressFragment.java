@@ -17,12 +17,16 @@
 
 package de.schildbach.wallet;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.text.ClipboardManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -71,11 +75,7 @@ public class WalletAddressFragment extends Fragment
 		{
 			public void onClick(final View v)
 			{
-				ClipboardManager clipboardManager = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
-				clipboardManager.setText(address.toString());
-				((AbstractWalletActivity) getActivity()).toast(R.string.wallet_address_fragment_clipboard_msg);
-
-				System.out.println("my bitcoin address: " + address + (Constants.TEST ? " (testnet!)" : ""));
+				showAllAddresses();
 			}
 		});
 
@@ -83,10 +83,38 @@ public class WalletAddressFragment extends Fragment
 		{
 			public boolean onLongClick(final View v)
 			{
+				System.out.println("first bitcoin address: " + address + (Constants.TEST ? " (testnet!)" : ""));
+
+				new AlertDialog.Builder(getActivity()).setItems(R.array.wallet_address_fragment_context, new DialogInterface.OnClickListener()
+				{
+					public void onClick(final DialogInterface dialog, final int which)
+					{
+						if (which == 0)
+							showAllAddresses();
+						else if (which == 1)
+							showQRCode();
+						else if (which == 2)
+							pasteToClipboard();
+						else if (which == 3)
+							share();
+					}
+				}).show();
+
+				return true;
+			}
+
+			private void pasteToClipboard()
+			{
+				ClipboardManager clipboardManager = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
+				clipboardManager.setText(address.toString());
+				((AbstractWalletActivity) getActivity()).toast(R.string.wallet_address_fragment_clipboard_msg);
+			}
+
+			private void share()
+			{
 				startActivity(Intent.createChooser(
 						new Intent(Intent.ACTION_SEND).putExtra(Intent.EXTRA_TEXT, "bitcoin:" + address).setType("text/plain"),
 						getString(R.string.wallet_address_fragment_share_dialog_title)));
-				return false;
 			}
 		});
 
@@ -94,20 +122,7 @@ public class WalletAddressFragment extends Fragment
 		{
 			public void onClick(final View v)
 			{
-				final Dialog dialog = new Dialog(getActivity());
-				dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-				dialog.setContentView(R.layout.bitcoin_address_qr_dialog);
-				final ImageView imageView = (ImageView) dialog.findViewById(R.id.bitcoin_address_qr);
-				imageView.setImageBitmap(qrCodeBitmap);
-				dialog.setCanceledOnTouchOutside(true);
-				dialog.show();
-				imageView.setOnClickListener(new OnClickListener()
-				{
-					public void onClick(final View v)
-					{
-						dialog.dismiss();
-					}
-				});
+				showQRCode();
 			}
 		});
 
@@ -124,5 +139,35 @@ public class WalletAddressFragment extends Fragment
 		}
 
 		super.onDestroyView();
+	}
+
+	private void showAllAddresses()
+	{
+		final FragmentManager fm = getFragmentManager();
+		final FragmentTransaction ft = fm.beginTransaction();
+		ft.hide(fm.findFragmentById(R.id.wallet_balance_fragment));
+		ft.hide(fm.findFragmentById(R.id.wallet_transactions_fragment));
+		ft.show(fm.findFragmentById(R.id.wallet_addresses_fragment));
+		ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+		ft.addToBackStack(null);
+		ft.commit();
+	}
+
+	private void showQRCode()
+	{
+		final Dialog dialog = new Dialog(getActivity());
+		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		dialog.setContentView(R.layout.bitcoin_address_qr_dialog);
+		final ImageView imageView = (ImageView) dialog.findViewById(R.id.bitcoin_address_qr);
+		imageView.setImageBitmap(qrCodeBitmap);
+		dialog.setCanceledOnTouchOutside(true);
+		dialog.show();
+		imageView.setOnClickListener(new OnClickListener()
+		{
+			public void onClick(final View v)
+			{
+				dialog.dismiss();
+			}
+		});
 	}
 }

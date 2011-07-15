@@ -7,8 +7,14 @@
 	<string name="wallet_content_disclaimer">Dies ist eine experimentelle App. Benutzung auf eigene Gefahr. Bitte lies die Sicherheitshinweise.
 	</string>
 	<string name="wallet_address_fragment_your">Deine Bitcoin-Adresse:</string>
-	<string name="wallet_address_fragment_clipboard_msg">Bitcoin-Adress ins Clipboard kopiert</string>
+	<string name="wallet_address_fragment_clipboard_msg">Bitcoin-Adresse ins Clipboard kopiert</string>
 	<string name="wallet_address_fragment_share_dialog_title">Bitcoin-Adresse veröffentlichen...</string>
+	<string-array name="wallet_address_fragment_context">
+		<item>Alle anzeigen</item>
+		<item>QR-Code zeigen</item>
+		<item>Ins Clipboard kopieren</item>
+		<item>Veröffentlichen</item>
+	</string-array>
 	<string name="wallet_balance_fragment_local_value">etwa %1$s %2$s wert</string>
 	<string name="transaction_row_sent_to">Gesendet</string>
 	<string name="transaction_row_received_from">Empfangen</string>

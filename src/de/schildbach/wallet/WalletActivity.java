@@ -111,7 +111,8 @@ public class WalletActivity extends AbstractWalletActivity
 		});
 
 		final FragmentManager fm = getSupportFragmentManager();
-		fm.beginTransaction().hide(fm.findFragmentById(R.id.exchange_rates_fragment)).commit();
+		fm.beginTransaction().hide(fm.findFragmentById(R.id.wallet_addresses_fragment)).hide(fm.findFragmentById(R.id.exchange_rates_fragment))
+				.commit();
 
 		checkTestnetProdnetMigrationAlert();
 	}
