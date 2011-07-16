@@ -62,6 +62,8 @@ public class Constants
 	public static final int MAX_CONNECTED_PEERS = 6;
 	public static final int BLOCKCHAIN_PROGRESS_TIMEOUT = 30 * 1000;
 
+	public static final String DONATION_ADDRESS = "1PZmMahjbfsTy6DsaRyfStzoWTPppWwDnZ";
+
 	public static final String LICENSE_URL = "http://www.gnu.org/licenses/gpl-3.0.txt";
 	public static final String SOURCE_URL = "http://code.google.com/p/bitcoin-wallet/";
 	public static final String CREDITS_BITCOINJ_URL = "http://code.google.com/p/bitcoinj/";

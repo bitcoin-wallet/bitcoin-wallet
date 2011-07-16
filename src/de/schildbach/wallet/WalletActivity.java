@@ -139,6 +139,8 @@ public class WalletActivity extends AbstractWalletActivity
 		super.onCreateOptionsMenu(menu);
 		getMenuInflater().inflate(R.menu.wallet_options, menu);
 		menu.findItem(R.id.wallet_options_switch_network).setTitle("→ " + (Constants.TEST ? "Prodnet" : "Testnet"));
+		menu.findItem(R.id.wallet_options_donate).setVisible(!Constants.TEST);
+		menu.findItem(R.id.wallet_options_help).setVisible(Constants.TEST);
 		return true;
 	}
 
@@ -165,6 +167,12 @@ public class WalletActivity extends AbstractWalletActivity
 
 			case R.id.wallet_options_safety:
 				showDialog(DIALOG_SAFETY);
+				return true;
+
+			case R.id.wallet_options_donate:
+				final Intent intent = new Intent(this, SendCoinsActivity.class);
+				intent.putExtra(SendCoinsActivity.INTENT_EXTRA_ADDRESS, Constants.DONATION_ADDRESS);
+				startActivity(intent);
 				return true;
 
 			case R.id.wallet_options_help:

@@ -6,5 +6,6 @@
 	<item android:id="@+id/wallet_options_preferences" android:icon="@drawable/ic_menu_info_details" android:title="@string/wallet_options_about" />
 	<item android:id="@+id/wallet_options_switch_network" android:icon="@drawable/ic_menu_switch_network" />
 	<item android:id="@+id/wallet_options_safety" android:icon="@drawable/ic_menu_safety" android:title="@string/wallet_options_safety" />
+	<item android:id="@+id/wallet_options_donate" android:icon="@drawable/ic_menu_donate" android:title="@string/wallet_options_donate" />
 	<item android:id="@+id/wallet_options_help" android:icon="@drawable/ic_menu_help" android:title="@string/wallet_options_help" />
 </menu>
