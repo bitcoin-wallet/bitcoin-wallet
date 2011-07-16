@@ -201,6 +201,42 @@ public class Application extends android.app.Application
 
 	private void backupKeys()
 	{
+		try
+		{
+			final Writer out = new OutputStreamWriter(openFileOutput(Constants.WALLET_KEY_BACKUP_BASE58, Constants.WALLET_MODE), "UTF-8");
+
+			for (final ECKey key : wallet.keychain)
+			{
+				out.write(key.toOwnBase58());
+				out.write('\n');
+			}
+
+			out.close();
+		}
+		catch (final IOException x)
+		{
+			x.printStackTrace();
+		}
+
+		try
+		{
+			final long MS_PER_DAY = 24 * 60 * 60 * 1000;
+			final String filename = String.format("%s.%02d", Constants.WALLET_KEY_BACKUP_BASE58, System.currentTimeMillis() / MS_PER_DAY);
+			final Writer out = new OutputStreamWriter(openFileOutput(filename, Constants.WALLET_MODE), "UTF-8");
+
+			for (final ECKey key : wallet.keychain)
+			{
+				out.write(key.toOwnBase58());
+				out.write('\n');
+			}
+
+			out.close();
+		}
+		catch (final IOException x)
+		{
+			x.printStackTrace();
+		}
+
 		final ECKey firstKey = wallet.keychain.get(0);
 
 		if (firstKey != null)
@@ -217,23 +253,6 @@ public class Application extends android.app.Application
 			{
 				x.printStackTrace();
 			}
-		}
-
-		try
-		{
-			final Writer out = new OutputStreamWriter(openFileOutput(Constants.WALLET_KEY_BACKUP_BASE58, Constants.WALLET_MODE), "UTF-8");
-
-			for (final ECKey key : wallet.keychain)
-			{
-				out.write(key.toOwnBase58());
-				out.write('\n');
-			}
-
-			out.close();
-		}
-		catch (final IOException x)
-		{
-			x.printStackTrace();
 		}
 	}
 
