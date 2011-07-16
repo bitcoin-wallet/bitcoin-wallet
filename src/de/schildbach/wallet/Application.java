@@ -43,6 +43,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.widget.Toast;
 
 import com.google.bitcoin.core.Address;
 import com.google.bitcoin.core.ECKey;
@@ -50,6 +51,8 @@ import com.google.bitcoin.core.NetworkParameters;
 import com.google.bitcoin.core.Transaction;
 import com.google.bitcoin.core.Wallet;
 import com.google.bitcoin.core.WalletEventListener;
+
+import de.schildbach.wallet_test.R;
 
 /**
  * @author Andreas Schildbach
@@ -158,8 +161,12 @@ public class Application extends android.app.Application
 		}
 		catch (final StackOverflowError x)
 		{
+			x.printStackTrace();
+
 			wallet = restoreWallet();
 			saveWallet();
+
+			Toast.makeText(this, R.string.toast_wallet_reset, Toast.LENGTH_LONG).show();
 		}
 		catch (final IOException x)
 		{

@@ -3,6 +3,7 @@
 <resources>
 
 	<string name="app_name">Bitcoin Wallet</string>
+	<string name="toast_wallet_reset">Wallet was reset,\nwill take some time to recover</string>
 
 	<string name="wallet_content_disclaimer">This is entirely experimental. Use at your own risk! Read the safety notes.</string>
 	<string name="wallet_address_fragment_your">Your Bitcoin Address:</string>
