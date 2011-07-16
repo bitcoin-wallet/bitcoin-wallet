@@ -50,9 +50,10 @@
 
 	</application>
 
-	<uses-sdk android:minSdkVersion="5" android:targetSdkVersion="8" />
+	<uses-sdk android:minSdkVersion="5" android:targetSdkVersion="10" />
 
 	<uses-permission android:name="android.permission.INTERNET" />
+	<uses-permission android:name="android.permission.NFC" />
 
 	<supports-screens android:largeScreens="true" android:normalScreens="true" android:smallScreens="true"
 		android:anyDensity="true" />

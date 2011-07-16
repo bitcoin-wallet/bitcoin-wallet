@@ -42,6 +42,7 @@ import de.schildbach.wallet_test.R;
 public class RequestCoinsFragment extends Fragment
 {
 	private Application application;
+	private Object nfcManager;
 
 	private ImageView qrView;
 	private EditText amountView;
@@ -49,6 +50,8 @@ public class RequestCoinsFragment extends Fragment
 	@Override
 	public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState)
 	{
+		nfcManager = getActivity().getSystemService(Context.NFC_SERVICE);
+
 		application = (Application) getActivity().getApplication();
 
 		final View view = inflater.inflate(R.layout.request_coins_fragment, container);
@@ -86,8 +89,6 @@ public class RequestCoinsFragment extends Fragment
 			}
 		});
 
-		updateView();
-
 		return view;
 	}
 
@@ -108,10 +109,23 @@ public class RequestCoinsFragment extends Fragment
 		});
 	}
 
+	@Override
+	public void onResume()
+	{
+		super.onResume();
+
+		updateView();
+	}
+
 	private void updateView()
 	{
+		final String addressStr = determineAddressStr();
+
 		final int size = (int) (256 * getResources().getDisplayMetrics().density);
-		qrView.setImageBitmap(WalletUtils.getQRCodeBitmap(determineAddressStr(), size));
+		qrView.setImageBitmap(WalletUtils.getQRCodeBitmap(addressStr, size));
+
+		if (nfcManager != null)
+			NfcTools.publishUri(nfcManager, getActivity(), addressStr);
 	}
 
 	private String determineAddressStr()
