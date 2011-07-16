@@ -47,8 +47,9 @@ public class Constants
 
 	public static final long BLOCKCHAIN_SNAPSHOT_COPY_THRESHOLD = Constants.TEST ? 3000000 : 10000000;
 
-	public static final String BLOCKCHAIN_FILENAME_PROD = "blockchain";
+	private static final String BLOCKCHAIN_FILENAME_PROD = "blockchain";
 	public static final String BLOCKCHAIN_FILENAME_TEST = "blockchain-testnet";
+	public static final String BLOCKCHAIN_FILENAME = TEST ? BLOCKCHAIN_FILENAME_TEST : BLOCKCHAIN_FILENAME_PROD;
 
 	public static final String PEER_DISCOVERY_IRC_CHANNEL_PROD = "#bitcoin";
 	public static final String PEER_DISCOVERY_IRC_CHANNEL_TEST = "#bitcoinTEST";

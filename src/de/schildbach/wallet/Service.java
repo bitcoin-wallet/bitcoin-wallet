@@ -209,8 +209,8 @@ public class Service extends android.app.Service
 
 		try
 		{
-			final String blockchainFilename = Constants.TEST ? Constants.BLOCKCHAIN_FILENAME_TEST : Constants.BLOCKCHAIN_FILENAME_PROD;
-			final File file = new File(getDir("blockstore", Context.MODE_WORLD_READABLE | Context.MODE_WORLD_WRITEABLE), blockchainFilename);
+			final File file = new File(getDir("blockstore", Context.MODE_WORLD_READABLE | Context.MODE_WORLD_WRITEABLE),
+					Constants.BLOCKCHAIN_FILENAME);
 			final boolean blockchainDoesNotExist = !file.exists() || file.length() < Constants.BLOCKCHAIN_SNAPSHOT_COPY_THRESHOLD;
 
 			if (blockchainNeedsRescan || blockchainDoesNotExist)

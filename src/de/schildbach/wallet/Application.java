@@ -18,6 +18,8 @@
 package de.schildbach.wallet;
 
 import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -36,6 +38,7 @@ import java.util.Map;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Handler;
@@ -153,6 +156,11 @@ public class Application extends android.app.Application
 				throw new Error("wallet cannot be created", x2);
 			}
 		}
+		catch (final StackOverflowError x)
+		{
+			wallet = restoreWallet();
+			saveWallet();
+		}
 		catch (final IOException x)
 		{
 			throw new Error("cannot load wallet", x);
@@ -219,6 +227,37 @@ public class Application extends android.app.Application
 		catch (final IOException x)
 		{
 			x.printStackTrace();
+		}
+	}
+
+	private Wallet restoreWallet()
+	{
+		try
+		{
+			final Wallet wallet = new Wallet(networkParameters);
+			final BufferedReader in = new BufferedReader(new InputStreamReader(openFileInput(Constants.WALLET_KEY_BACKUP_BASE58), "UTF-8"));
+
+			while (true)
+			{
+				final String line = in.readLine();
+				if (line == null)
+					break;
+
+				final ECKey key = ECKey.fromOwnBase58(line);
+				wallet.keychain.add(key);
+			}
+
+			in.close();
+
+			final File file = new File(getDir("blockstore", Context.MODE_WORLD_READABLE | Context.MODE_WORLD_WRITEABLE),
+					Constants.BLOCKCHAIN_FILENAME);
+			file.delete();
+
+			return wallet;
+		}
+		catch (final IOException x)
+		{
+			throw new RuntimeException(x);
 		}
 	}
 
