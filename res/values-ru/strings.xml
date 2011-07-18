@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+
+	<string name="app_name">Bitcoin Кошелёк</string>
+	<string name="toast_wallet_reset">Кошелёк был сброшен,\nна восстановление требуется какое-то время</string>
+
+	<string name="wallet_content_disclaimer">Это совершенно экспериментально. Используйте на свой риск! Ознакомьтесь с заметками по безопасности.</string>
+	<string name="wallet_address_fragment_your">Ваш Bitcoin-адрес:</string>
+	<string name="wallet_address_fragment_clipboard_msg">Bitcoin-адрес был скопирован в буфер обмена</string>
+	<string name="wallet_address_fragment_share_dialog_title">Распространить Bitcoin-адрес...</string>
+	<string-array name="wallet_address_fragment_context">
+		<item>Показать все</item>
+		<item>Показать QR-код</item>
+		<item>Скопировать</item>
+		<item>Поделиться</item>
+	</string-array>
+	<string name="wallet_addresses_fragment_add_dialog_title">Добавить Bitcoin-адрес</string>
+	<string name="wallet_addresses_fragment_add_dialog_message">Bitcoin-адреса не могут быть удалены. Хотите добавить новый адрес в Ваш кошелёк?</string>
+	<string name="wallet_addresses_fragment_add_dialog_positive">Добавить адрес</string>
+	<string name="wallet_addresses_fragment_add_dialog_negative">Отмена</string>
+	<string name="wallet_balance_fragment_local_value">стоимостью примерно %1$s %2$s</string>
+	<string name="transaction_row_sent_to">Отправлено</string>
+	<string name="transaction_row_received_from">Получено</string>
+	<string name="exchange_rates_fragment_empty_text">Не удалось загрузить обменный курс</string>
+	<string name="wallet_options_request_coins">Запросить монеты</string>
+	<string name="wallet_options_send_coins">Отправить монеты</string>
+	<string name="wallet_options_about">О программе</string>
+	<string name="wallet_options_safety">Заметки по безопасности</string>
+	<string name="wallet_options_donate">Пожертвовать</string>
+	<string name="wallet_options_help">Помощь</string>
+	<string name="wallet_migration_dialog_title">Важное замечание!</string>
+	<string name="wallet_migration_dialog_msg">"Ввиду роста популярности, Bitcoin Кошелёк был переведён с тестовой сети (Testnet) на действительную (Prodnet). Это значит, что Вы
+		отныне можете совершать реальные платежи! Пожалуйста, ознакомьтесь с советами по безопасности.\n\nЕсли вы не хотите рисковать и остаться в тестовой сети, пожалуйста,
+		установите Bitcoin Кошелёк для Testnet."</string>
+	<string name="wallet_migration_dialog_button_safety">Советы по безопасности</string>
+	<string name="wallet_migration_dialog_button_testnet">Установить Testnet</string>
+	<string name="wallet_low_storage_dialog_title">Мало внутренней памяти на устройстве!</string>
+	<string name="wallet_low_storage_dialog_msg">Bitcoin Кошелёк использует внутреннюю память для запоминания транзакций и блоков. Если память закончится,
+		приложение перестанет работать, что поставит под угрозу содержимое Bitcoin-кошелька!\n\nЖелаете ли перейти к Управлению Приложениями, дабы
+		удалить ненужные программы?</string>
+	<string name="wallet_low_storage_dialog_button_apps">Управление приложениями</string>
+	<string name="wallet_low_storage_dialog_button_dismiss">Отмена</string>
+
+	<string name="send_coins_activity_title">Отправка Bitcoin</string>
+	<string name="send_coins_install_qr_scanner_msg">Пожалуйста, установите сканер QR-кодов ZXing или Goggles!</string>
+	<string name="send_coins_fragment_receiving_address_label">Оплата</string>
+	<string name="send_coins_fragment_receiving_address_hint">введите адрес или имя</string>
+	<string name="send_coins_fragment_receiving_address_error">Некорректный Bitcoin-адрес!</string>
+	<string name="send_coins_fragment_available_label">Доступно для отправки</string>
+	<string name="send_coins_fragment_pending">(BTC %s ожидают подтверждения)</string>
+	<string name="send_coins_fragment_amount_label">Сумма оплаты</string>
+	<string name="send_coins_fragment_amount_error">Некорректная Сумма!</string>
+	<string name="send_coins_fragment_button_send">Отправить</string>
+	<string name="send_coins_fragment_button_cancel">Отмена</string>
+	<string name="send_coins_sending_msg">Отправка...</string>
+	<string name="send_coins_add_address_dialog_title">Получатель ещё не добавлен в адресную книгу.\n\nЖелаете ли добавить адрес?
+	</string>
+	<string name="send_coins_add_address_dialog_button_add">Добавить адрес</string>
+	<string name="send_coins_add_address_dialog_button_dismiss">Отмена</string>
+	<string name="send_coins_error_msg">Проблема с отправкой монет!</string>
+	<string name="send_coins_success_msg">%s BTC отправлено!</string>
+
+	<string name="request_coins_activity_title">Запросить Bitcoin-монеты</string>
+	<string name="request_coins_fragment_amount_label">Запрашиваемая сумма (опционально)</string>
+	<string name="request_coins_fragment_qr_label">Пусть отправитель сканирует этот QR-код:</string>
+	<string name="request_coins_clipboard_msg">Запрос получения Bitcoin-монет скопирован</string>
+	<string name="request_coins_share_dialog_title">Распространить запрос Bitcoin-монет...</string>
+
+	<string name="address_book_activity_title">Адресная книга</string>
+	<string name="address_book_empty_text">Адресная книга пуста</string>
+
+	<string name="edit_address_book_entry_dialog_title_add">Добавить адрес</string>
+	<string name="edit_address_book_entry_dialog_title_edit">Изменить адрес</string>
+	<string name="edit_address_book_entry_dialog_address_label">Адрес</string>
+	<string name="edit_address_book_entry_dialog_label_label">Имя</string>
+	<string name="edit_address_book_entry_dialog_button_add">Добавить</string>
+	<string name="edit_address_book_entry_dialog_button_edit">Сохранить</string>
+	<string name="edit_address_book_entry_dialog_button_delete">Удалить</string>
+	<string name="edit_address_book_entry_dialog_button_cancel">Отмена</string>
+
+	<string name="preferences_license_title">Лицензия</string>
+	<string name="preferences_credits_bitcoinj_title">"Это приложение использует 'bitcoinj'"</string>
+	<string name="preferences_credits_zxing_title">"Это приложение использует 'zxing'"</string>
+	<string name="preferences_credits_icon_title">"Это приложение использует иконку от 'bitboy'"</string>
+	<string name="preferences_author_twitter_title">Автор в Twitter</string>
+	<string name="preferences_author_googleplus_title">Автор в Google+</string>
+	<string name="preferences_credits_market_app_title">Страница на Android Market</string>
+	<string name="preferences_credits_market_publisher_title">Другие Приложения Автора</string>
+
+	<string name="notification_coins_received_msg">Получено %s BTC!</string>
+	<string name="notification_peers_connected_msg">подключено %d пиров</string>
+	<string name="notification_blockchain_sync_started_msg">Синхронизация цепочки блоков</string>
+	<string name="notification_blockchain_sync_progress_msg">%1$.1f%% завершено, последний блок от %2$s</string>
+
+</resources>

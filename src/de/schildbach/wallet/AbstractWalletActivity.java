@@ -97,6 +97,8 @@ public abstract class AbstractWalletActivity extends FragmentActivity
 		final String language = Locale.getDefault().getLanguage();
 		if ("de".equals(language))
 			return "_de";
+		else if ("ru".equals(language))
+			return "_ru";
 		else
 			return "";
 	}
