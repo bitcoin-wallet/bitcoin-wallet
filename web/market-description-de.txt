@@ -1,0 +1,36 @@
+Dies ist ein eigenständiges Bitcoin Wallet für Dein Android-Gerät. Bitcoin ist eine Internet-Währung.
+
+Sie können Bitcoins zwischen Telefonen senden, nur durch Scannen des QR-Code, der durch die App angezeigt wird. Oder per NFC (Near Field Communication).
+
+Dies ist die Version für (reale) Prodnet-Bitcoins. Wenn Du lieber nur mit wertlosen Testnet-Bitcoins probieren willst, empfehle ich die separate Anwendung (siehe "Mehr vom Entwickler").
+
+FEATURES:
+
+• Anzeige des Wallet-Guthabens in Bitcoin und verschiedenen lokalen Währungen
+• Senden und Empfangen von Bitcoin via NFC, QR-Codes oder Bitcoin URLs
+• Unterstützung für millibitcent und kleineren Werten (0.0001) 
+• Adressbuch für regelmäßig genutzte Empfänger
+• Offline-Unterstützung, Transaktionen werden dann ausgeführt, wenn das Gerät wieder online ist
+• System-Benachrichtigungen für Bitcoin-Konnektivität und Empfang von Zahlungen
+• App-Widget zeigt Bitcoin-Guthaben an (Voraussetzung: App ist nicht auf SD-Karte verschoben)
+
+BEKANNTE PROBLEME, BITTE LESEN:
+
+• Wenn die App zum ersten Mal ausgeführt wird, kann es passieren, daß für einige Sekunden nur ein weißes Display angezeigt wird. Das ist normal.
+• Gebühren sind noch nicht implementiert. Transaktionen können daher sehr viel länger dauern als erwartet.
+
+Du kannst erste Bitcoins von
+https://freebitcoins.appspot.com/
+erhalten.
+
+Weitere Informationen zu Bitcoin findest Du unter
+http://bitcoin.org
+
+Wenn Du zu Bitcoin Wallet beitragen willst, das project befindet sich auf
+https://code.google.com/p/bitcoin-wallet/
+
+Lizenz: GPLv3
+Nutzung auf eigene Gefahr!
+
+-
+BTC Bitcoin Wallet bitcoinandroid androidbitcoin
