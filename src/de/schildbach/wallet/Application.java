@@ -19,7 +19,9 @@ package de.schildbach.wallet;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.EOFException;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -59,6 +61,8 @@ import de.schildbach.wallet_test.R;
  */
 public class Application extends android.app.Application
 {
+	private static final int STACK_SIZE = 64 * 1024;
+
 	private NetworkParameters networkParameters;
 	private Wallet wallet;
 
@@ -141,7 +145,45 @@ public class Application extends android.app.Application
 
 		try
 		{
-			wallet = Wallet.loadFromFileStream(openFileInput(filename));
+			final FileInputStream is = openFileInput(filename);
+			runWithStackSize(new Runnable()
+			{
+				public void run()
+				{
+					try
+					{
+						wallet = Wallet.loadFromFileStream(is);
+					}
+					catch (final EOFException x)
+					{
+						handleException(x);
+					}
+					catch (final StackOverflowError x)
+					{
+						handleException(x);
+					}
+					catch (final IOException x)
+					{
+						throw new Error("cannot load wallet", x);
+					}
+				}
+
+				private void handleException(final Throwable x)
+				{
+					x.printStackTrace();
+
+					wallet = restoreWallet();
+
+					handler.post(new Runnable()
+					{
+						public void run()
+						{
+							Toast.makeText(Application.this, R.string.toast_wallet_reset, Toast.LENGTH_LONG).show();
+						}
+					});
+				}
+			}, STACK_SIZE);
+
 			System.out.println("wallet loaded from: " + getFilesDir() + "/" + filename);
 		}
 		catch (final FileNotFoundException x)
@@ -159,19 +201,6 @@ public class Application extends android.app.Application
 				throw new Error("wallet cannot be created", x2);
 			}
 		}
-		catch (final StackOverflowError x)
-		{
-			x.printStackTrace();
-
-			wallet = restoreWallet();
-			saveWallet();
-
-			Toast.makeText(this, R.string.toast_wallet_reset, Toast.LENGTH_LONG).show();
-		}
-		catch (final IOException x)
-		{
-			throw new Error("cannot load wallet", x);
-		}
 	}
 
 	public void addNewKeyToWallet()
@@ -188,15 +217,21 @@ public class Application extends android.app.Application
 		final String filename = Constants.TEST ? Constants.WALLET_FILENAME_TEST : Constants.WALLET_FILENAME_PROD;
 		final int mode = Constants.TEST ? Constants.WALLET_MODE_TEST : Constants.WALLET_MODE_PROD;
 
-		try
+		runWithStackSize(new Runnable()
 		{
-			wallet.saveToFileStream(openFileOutput(filename, mode));
-			System.out.println("wallet saved to: " + getFilesDir() + "/" + filename);
-		}
-		catch (IOException x)
-		{
-			throw new RuntimeException(x);
-		}
+			public void run()
+			{
+				try
+				{
+					wallet.saveToFileStream(openFileOutput(filename, mode));
+					System.out.println("wallet saved to: " + getFilesDir() + "/" + filename);
+				}
+				catch (IOException x)
+				{
+					throw new RuntimeException(x);
+				}
+			}
+		}, STACK_SIZE);
 	}
 
 	private void backupKeys()
@@ -375,6 +410,20 @@ public class Application extends android.app.Application
 		catch (NameNotFoundException x)
 		{
 			return 0;
+		}
+	}
+
+	private static void runWithStackSize(final Runnable runnable, final long stackSize)
+	{
+		final Thread thread = new Thread(null, runnable, "stackSizeBooster", stackSize);
+		thread.start();
+		try
+		{
+			thread.join();
+		}
+		catch (final InterruptedException x)
+		{
+			throw new RuntimeException(x);
 		}
 	}
 }
