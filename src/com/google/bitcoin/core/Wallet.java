@@ -906,7 +906,7 @@ public class Wallet implements Serializable {
         return Collections.unmodifiableCollection(pending.values());
     }
 
-    public ArrayList<Transaction> getAllTransactions(){
+    public synchronized ArrayList<Transaction> getAllTransactions(){
         // generate list of transactions to show
         ArrayList<Transaction> transactions = new ArrayList<Transaction>();
         transactions.addAll(pending.values());
