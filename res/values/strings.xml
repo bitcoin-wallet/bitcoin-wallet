@@ -79,6 +79,10 @@
 	<string name="edit_address_book_entry_dialog_button_delete">Delete</string>
 	<string name="edit_address_book_entry_dialog_button_cancel">Cancel</string>
 
+	<string name="preferences_prefs_title">Preferences (advanced)</string>
+	<string name="preferences_trusted_peer_title">Trusted peer</string>
+	<string name="preferences_trusted_peer_summary">Hostname of single peer to connect to. Regular peer discovery will be skipped. Need to restart app to take effect.</string>
+
 	<string name="preferences_about_title">About</string>
 	<string name="preferences_license_title">License</string>
 	<string name="preferences_credits_bitcoinj_title">"This app is using 'bitcoinj'"</string>

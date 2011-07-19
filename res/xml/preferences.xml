@@ -20,4 +20,9 @@
 
 	</PreferenceCategory>
 
+	<PreferenceCategory android:title="@string/preferences_prefs_title">
+		<EditTextPreference android:key="trusted_peer" android:title="@string/preferences_trusted_peer_title"
+			android:summary="@string/preferences_trusted_peer_summary" />
+	</PreferenceCategory>
+
 </PreferenceScreen>

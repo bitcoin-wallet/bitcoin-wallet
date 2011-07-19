@@ -57,6 +57,7 @@ import android.text.format.DateUtils;
 import com.google.bitcoin.core.Address;
 import com.google.bitcoin.core.BlockChain;
 import com.google.bitcoin.core.NetworkConnection;
+import com.google.bitcoin.core.NetworkParameters;
 import com.google.bitcoin.core.Peer;
 import com.google.bitcoin.core.ProtocolException;
 import com.google.bitcoin.core.ScriptException;
@@ -82,6 +83,8 @@ import de.schildbach.wallet_test.R;
 public class Service extends android.app.Service
 {
 	private Application application;
+	private SharedPreferences prefs;
+
 	private final List<Peer> peers = new ArrayList<Peer>(Constants.MAX_CONNECTED_PEERS);
 	private BlockStore blockStore;
 	private BlockChain blockChain;
@@ -193,13 +196,12 @@ public class Service extends android.app.Service
 		nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
 		application = (Application) getApplication();
+		prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
 		// background thread
 		backgroundThread = new HandlerThread("backgroundThread", Process.THREAD_PRIORITY_BACKGROUND);
 		backgroundThread.start();
 		backgroundHandler = new Handler(backgroundThread.getLooper());
-
-		final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
 		final int versionCode = application.versionCode();
 		final int lastVersionCode = prefs.getInt(Constants.PREFS_KEY_LAST_VERSION, 0);
@@ -438,18 +440,30 @@ public class Service extends android.app.Service
 
 			private List<InetSocketAddress> discoverPeers()
 			{
-				try
-				{
-					final PeerDiscovery peerDiscovery = Constants.TEST ? new IrcDiscovery(Constants.PEER_DISCOVERY_IRC_CHANNEL_TEST)
-							: new DnsDiscovery(application.getNetworkParameters());
+				final NetworkParameters networkParameters = application.getNetworkParameters();
+				final List<InetSocketAddress> peers = new LinkedList<InetSocketAddress>();
 
-					return Arrays.asList(peerDiscovery.getPeers());
-				}
-				catch (final PeerDiscoveryException x)
+				final String trustedPeerHost = prefs.getString(Constants.PREFS_KEY_TRUSTED_PEER, "").trim();
+				if (trustedPeerHost.length() == 0)
 				{
-					x.printStackTrace();
-					return new LinkedList<InetSocketAddress>();
+					try
+					{
+						final PeerDiscovery peerDiscovery = Constants.TEST ? new IrcDiscovery(Constants.PEER_DISCOVERY_IRC_CHANNEL_TEST)
+								: new DnsDiscovery(networkParameters);
+
+						peers.addAll(Arrays.asList(peerDiscovery.getPeers()));
+					}
+					catch (final PeerDiscoveryException x)
+					{
+						x.printStackTrace();
+					}
 				}
+				else
+				{
+					peers.add(new InetSocketAddress(trustedPeerHost, networkParameters.port));
+				}
+
+				return peers;
 			}
 		});
 	}
