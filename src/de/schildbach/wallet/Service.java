@@ -206,8 +206,9 @@ public class Service extends android.app.Service
 		final int versionCode = application.versionCode();
 		final int lastVersionCode = prefs.getInt(Constants.PREFS_KEY_LAST_VERSION, 0);
 		final boolean blockchainNeedsRescan = lastVersionCode <= 23 && versionCode > 23;
+		final boolean blockchainResetInitiated = prefs.getBoolean(Constants.PREFS_KEY_RESET_BLOCKCHAIN, false);
 
-		prefs.edit().putInt(Constants.PREFS_KEY_LAST_VERSION, versionCode).commit();
+		prefs.edit().putInt(Constants.PREFS_KEY_LAST_VERSION, versionCode).remove(Constants.PREFS_KEY_RESET_BLOCKCHAIN).commit();
 
 		try
 		{
@@ -215,7 +216,7 @@ public class Service extends android.app.Service
 					Constants.BLOCKCHAIN_FILENAME);
 			final boolean blockchainDoesNotExist = !file.exists() || file.length() < Constants.BLOCKCHAIN_SNAPSHOT_COPY_THRESHOLD;
 
-			if (blockchainNeedsRescan || blockchainDoesNotExist)
+			if (blockchainResetInitiated || blockchainNeedsRescan || blockchainDoesNotExist)
 			{
 				// copy snapshot
 				try

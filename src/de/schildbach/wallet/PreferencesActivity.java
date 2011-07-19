@@ -23,7 +23,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
+import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
+import android.widget.Toast;
 import de.schildbach.wallet_test.R;
 
 /**
@@ -118,6 +120,12 @@ public class PreferencesActivity extends PreferenceActivity
 		else if (KEY_ABOUT_MARKET_PUBLISHER.equals(key))
 		{
 			startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.MARKET_PUBLISHER_URL)));
+			finish();
+		}
+		else if (Constants.PREFS_KEY_RESET_BLOCKCHAIN.equals(key))
+		{
+			PreferenceManager.getDefaultSharedPreferences(this).edit().putBoolean(Constants.PREFS_KEY_RESET_BLOCKCHAIN, true).commit();
+			Toast.makeText(this, "Blockchain reset initiated,\nremember to reload app!", Toast.LENGTH_LONG).show();
 			finish();
 		}
 

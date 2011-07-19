@@ -78,4 +78,5 @@ public class Constants
 	public static final String PREFS_KEY_SELECTED_ADDRESS = "selected_address";
 	public static final String PREFS_KEY_EXCHANGE_CURRENCY = "exchange_currency";
 	public static final String PREFS_KEY_TRUSTED_PEER = "trusted_peer";
+	public static final String PREFS_KEY_RESET_BLOCKCHAIN = "reset_blockchain";
 }

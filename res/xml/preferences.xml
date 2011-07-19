@@ -23,6 +23,8 @@
 	<PreferenceCategory android:title="@string/preferences_prefs_title">
 		<EditTextPreference android:key="trusted_peer" android:title="@string/preferences_trusted_peer_title"
 			android:summary="@string/preferences_trusted_peer_summary" />
+		<Preference android:key="reset_blockchain" android:title="@string/preferences_reset_blockchain_title"
+			android:summary="@string/preferences_reset_blockchain_summary" />
 	</PreferenceCategory>
 
 </PreferenceScreen>
