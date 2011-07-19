@@ -42,7 +42,7 @@ public class NfcTools
 		try
 		{
 			final byte[] data = uri.getBytes("UTF-8");
-			final NdefRecord record = new NdefRecord(NdefRecord.TNF_WELL_KNOWN, NdefRecord.RTD_URI, new byte[0], data);
+			final NdefRecord record = new NdefRecord(NdefRecord.TNF_ABSOLUTE_URI, NdefRecord.RTD_URI, new byte[0], data);
 			return new NdefMessage(new NdefRecord[] { record });
 		}
 		catch (final UnsupportedEncodingException x)
