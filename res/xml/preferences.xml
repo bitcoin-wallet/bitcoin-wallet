@@ -2,7 +2,7 @@
 
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-	<PreferenceCategory android:title="About">
+	<PreferenceCategory android:title="@string/preferences_about_title">
 
 		<Preference android:key="about_version" android:title="Version" />
 		<Preference android:title="Copyright" android:summary="© 2011, Andreas Schildbach" />
@@ -11,8 +11,10 @@
 		<Preference android:key="about_credits_bitcoinj" android:title="@string/preferences_credits_bitcoinj_title" />
 		<Preference android:key="about_credits_zxing" android:title="@string/preferences_credits_zxing_title" />
 		<Preference android:key="about_credits_icon" android:title="@string/preferences_credits_icon_title" />
-		<Preference android:key="about_author_twitter" android:title="@string/preferences_author_twitter_title" android:summary="\@android_bitcoin" />
-		<Preference android:key="about_author_googleplus" android:title="@string/preferences_author_googleplus_title" android:summary="+Andreas Schildbach" />
+		<Preference android:key="about_author_twitter" android:title="@string/preferences_author_twitter_title"
+			android:summary="\@android_bitcoin" />
+		<Preference android:key="about_author_googleplus" android:title="@string/preferences_author_googleplus_title"
+			android:summary="+Andreas Schildbach" />
 		<Preference android:key="about_market_app" android:title="@string/preferences_credits_market_app_title" />
 		<Preference android:key="about_market_publisher" android:title="@string/preferences_credits_market_publisher_title" />
 

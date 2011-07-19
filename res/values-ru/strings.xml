@@ -79,6 +79,7 @@
 	<string name="edit_address_book_entry_dialog_button_delete">Удалить</string>
 	<string name="edit_address_book_entry_dialog_button_cancel">Отмена</string>
 
+	<string name="preferences_about_title">О программе</string>
 	<string name="preferences_license_title">Лицензия</string>
 	<string name="preferences_credits_bitcoinj_title">"Это приложение использует 'bitcoinj'"</string>
 	<string name="preferences_credits_zxing_title">"Это приложение использует 'zxing'"</string>
