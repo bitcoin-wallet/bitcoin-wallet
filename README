@@ -42,6 +42,34 @@ Log messages can be viewed by
 	adb logcat
 
 
+SETTING UP FOR DEVELOPMENT
+
+Make sure you've got Eclipse 3.6 (Helios) with ADT 12 installed.
+
+I also have Subclipse (http://subclipse.tigris.org/) installed, but you can probably use
+Subversive as well. 
+
+Use File -> Import -> Checkout Projects from SVN
+
+Repository location: http://bitcoin-wallet.googlecode.com/svn
+
+Select 'trunk' to check out.
+
+Checkout can take some minutes, because it contains some quite large binary files. Look at the
+SVN Console to see the progress.
+
+I had to Project -> Clean afterwards.
+
+If you see loads of "should be tagged with @Override" errors, set
+
+    Project -> Properties -> Java Compiler -> Errors/Warnings -> Annotations ->
+    Missing @Override annotation to 'Warning'
+
+If you are going to deploy to a device, I suggest to delete either blockchain-snapshot.jpg or
+blockchain-snapshot-testnet.jpg from the assets directory (depending on if you want to deploy
+testnet or prodnet).
+
+
 NFC (Near field communication)
 
 Bitcoin Wallet supports reading Bitcoin requests via NFC, either from a passive NFC tag or from
