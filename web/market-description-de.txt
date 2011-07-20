@@ -26,7 +26,7 @@ erhalten.
 Weitere Informationen zu Bitcoin findest Du unter
 http://bitcoin.org
 
-Wenn Du zu Bitcoin Wallet beitragen willst, das project befindet sich auf
+Wenn Du zu Bitcoin Wallet beitragen willst, das Projekt befindet sich auf
 https://code.google.com/p/bitcoin-wallet/
 
 Lizenz: GPLv3
