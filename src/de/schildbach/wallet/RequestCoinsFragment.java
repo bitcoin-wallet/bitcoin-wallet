@@ -46,6 +46,7 @@ public class RequestCoinsFragment extends Fragment
 
 	private ImageView qrView;
 	private EditText amountView;
+	private View nfcEnabledView;
 
 	@Override
 	public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState)
@@ -89,6 +90,8 @@ public class RequestCoinsFragment extends Fragment
 			}
 		});
 
+		nfcEnabledView = view.findViewById(R.id.request_coins_fragment_nfc_enabled);
+
 		return view;
 	}
 
@@ -125,7 +128,11 @@ public class RequestCoinsFragment extends Fragment
 		qrView.setImageBitmap(WalletUtils.getQRCodeBitmap(addressStr, size));
 
 		if (nfcManager != null)
-			NfcTools.publishUri(nfcManager, getActivity(), addressStr);
+		{
+			final boolean success = NfcTools.publishUri(nfcManager, getActivity(), addressStr);
+			if (success)
+				nfcEnabledView.setVisibility(View.VISIBLE);
+		}
 	}
 
 	private String determineAddressStr()

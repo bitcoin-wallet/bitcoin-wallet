@@ -66,6 +66,7 @@
 	<string name="request_coins_activity_title">Request Bitcoins</string>
 	<string name="request_coins_fragment_amount_label">Requested amount (optional)</string>
 	<string name="request_coins_fragment_qr_label">Have this QR-code scanned by the sender:</string>
+	<string name="request_coins_fragment_nfc_enabled">Or touch with NFC enabled device.</string>
 	<string name="request_coins_clipboard_msg">Bitcoin request pasted to clipboard</string>
 	<string name="request_coins_share_dialog_title">Share request for Bitcoins...</string>
 

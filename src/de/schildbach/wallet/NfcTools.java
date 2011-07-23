@@ -30,11 +30,14 @@ import android.nfc.NfcManager;
  */
 public class NfcTools
 {
-	public static void publishUri(final Object nfcManager, final Activity activity, final String uri)
+	public static boolean publishUri(final Object nfcManager, final Activity activity, final String uri)
 	{
 		final NfcAdapter adapter = ((NfcManager) nfcManager).getDefaultAdapter();
-		if (adapter != null)
-			adapter.enableForegroundNdefPush(activity, ndefMessage(uri));
+		if (adapter == null)
+			return false;
+
+		adapter.enableForegroundNdefPush(activity, ndefMessage(uri));
+		return true;
 	}
 
 	private static NdefMessage ndefMessage(final String uri)
