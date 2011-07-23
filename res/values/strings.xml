@@ -50,7 +50,9 @@
 	<string name="send_coins_fragment_available_label">Available for spending</string>
 	<string name="send_coins_fragment_pending">(BTC %s waiting for confirmation)</string>
 	<string name="send_coins_fragment_amount_label">Amount to pay</string>
-	<string name="send_coins_fragment_amount_error">Invalid Amount!</string>
+	<string name="send_coins_fragment_amount_error">Invalid amount!</string>
+	<string name="send_coins_fragment_fee_label">Fee (optional)</string>
+	<string name="send_coins_fragment_fee_error">Invalid fee!</string>
 	<string name="send_coins_fragment_button_send">Send</string>
 	<string name="send_coins_fragment_button_cancel">Cancel</string>
 	<string name="send_coins_sending_msg">Sending...</string>

@@ -46,6 +46,8 @@
 	<string name="send_coins_fragment_pending">(BTC %s warten auf Bestätigung)</string>
 	<string name="send_coins_fragment_amount_label">Betrag</string>
 	<string name="send_coins_fragment_amount_error">Ungültiger Betrag!</string>
+	<string name="send_coins_fragment_fee_label">Gebühr (optional)</string>
+	<string name="send_coins_fragment_fee_error">Ungültige Gebühr!</string>
 	<string name="send_coins_fragment_button_send">Senden</string>
 	<string name="send_coins_fragment_button_cancel">Abbrechen</string>
 	<string name="send_coins_sending_msg">Sending...</string>
