@@ -9,8 +9,13 @@
 	<FrameLayout android:layout_width="fill_parent" android:layout_height="fill_parent" android:foreground="@drawable/title_bar_shadow"
 		android:foregroundGravity="top|fill_horizontal">
 
-		<fragment android:id="@+id/send_coins_fragment" android:name="de.schildbach.wallet.SendCoinsFragment"
-			android:layout_width="fill_parent" android:layout_height="fill_parent" />
+		<ScrollView android:layout_width="fill_parent" android:layout_height="fill_parent" android:fillViewport="true"
+			android:scrollbars="none">
+
+			<fragment android:id="@+id/send_coins_fragment" android:name="de.schildbach.wallet.SendCoinsFragment"
+				android:layout_width="fill_parent" android:layout_height="fill_parent" />
+
+		</ScrollView>
 
 	</FrameLayout>
 
