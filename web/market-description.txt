@@ -17,7 +17,7 @@ FEATURES:
 KNOWN ISSUES, PLEASE READ:
 
 • When run for the first time, it can happen that the app shows only a white display for some seconds. This is normal.
-• Sometimes you will get system notifications about the same incoming Bitcoins multiple times. You still get the coins only once. 
+• Sometimes you will get system notifications about the same incoming Bitcoins multiple times. You still get the coins only once.
 
 You can get your first Bitcoins to play with from
 https://freebitcoins.appspot.com/
