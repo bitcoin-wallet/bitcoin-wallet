@@ -318,7 +318,8 @@ public class SendCoinsFragment extends Fragment
 	public void update(final String receivingAddress, final String amount)
 	{
 		receivingAddressView.setText(receivingAddress);
-		amountView.setAmount(Utils.toNanoCoins(amount));
+		if (amount != null)
+			amountView.setAmount(Utils.toNanoCoins(amount));
 
 		if (receivingAddress != null && amount == null)
 			amountView.requestFocus();
