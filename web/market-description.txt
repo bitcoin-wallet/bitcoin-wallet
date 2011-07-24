@@ -15,8 +15,9 @@ FEATURES:
 • App widget for Bitcoin balance (requirement: app moved to phone)
 
 KNOWN ISSUES, PLEASE READ:
+
 • When run for the first time, it can happen that the app shows only a white display for some seconds. This is normal.
-• No fees implemented yet. Transactions can take much longer than expected.
+• Sometimes you will get system notifications about the same incoming Bitcoins multiple times. You still get the coins only once. 
 
 You can get your first Bitcoins to play with from
 https://freebitcoins.appspot.com/

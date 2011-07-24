@@ -17,7 +17,7 @@ FEATURES:
 BEKANNTE PROBLEME, BITTE LESEN:
 
 • Wenn die App zum ersten Mal ausgeführt wird, kann es passieren, daß für einige Sekunden nur ein weißes Display angezeigt wird. Das ist normal.
-• Gebühren sind noch nicht implementiert. Transaktionen können daher sehr viel länger dauern als erwartet.
+• Manchmal erscheint eine Systembenachrichtung über eingehende Bitcoins mehrfach. Die Bitcoins werden trotzdem nur einmal verrechnet. 
 
 Du kannst erste Bitcoins von
 https://freebitcoins.appspot.com/
