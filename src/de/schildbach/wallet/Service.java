@@ -26,14 +26,8 @@ import java.math.BigInteger;
 import java.net.InetSocketAddress;
 import java.text.DateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.LinkedList;
+import java.util.Date;
 import java.util.List;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import android.app.Notification;
@@ -50,16 +44,16 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.IBinder;
 import android.os.Process;
-import android.os.SystemClock;
 import android.preference.PreferenceManager;
 import android.text.format.DateUtils;
 
 import com.google.bitcoin.core.Address;
 import com.google.bitcoin.core.BlockChain;
-import com.google.bitcoin.core.NetworkConnection;
+import com.google.bitcoin.core.DownloadListener;
 import com.google.bitcoin.core.NetworkParameters;
-import com.google.bitcoin.core.Peer;
-import com.google.bitcoin.core.ProtocolException;
+import com.google.bitcoin.core.PeerAddress;
+import com.google.bitcoin.core.PeerGroup;
+import com.google.bitcoin.core.PeerGroup.PeerConnectionListener;
 import com.google.bitcoin.core.ScriptException;
 import com.google.bitcoin.core.Sha256Hash;
 import com.google.bitcoin.core.Transaction;
@@ -69,8 +63,6 @@ import com.google.bitcoin.core.Wallet;
 import com.google.bitcoin.core.WalletEventListener;
 import com.google.bitcoin.discovery.DnsDiscovery;
 import com.google.bitcoin.discovery.IrcDiscovery;
-import com.google.bitcoin.discovery.PeerDiscovery;
-import com.google.bitcoin.discovery.PeerDiscoveryException;
 import com.google.bitcoin.store.BlockStore;
 import com.google.bitcoin.store.BlockStoreException;
 import com.google.bitcoin.store.BoundedOverheadBlockStore;
@@ -85,9 +77,7 @@ public class Service extends android.app.Service
 	private Application application;
 	private SharedPreferences prefs;
 
-	private final List<Peer> peers = new ArrayList<Peer>(Constants.MAX_CONNECTED_PEERS);
-	private BlockStore blockStore;
-	private BlockChain blockChain;
+	private PeerGroup peerGroup;
 	private List<Sha256Hash> transactionsSeen = new ArrayList<Sha256Hash>();
 
 	private HandlerThread backgroundThread;
@@ -170,6 +160,46 @@ public class Service extends android.app.Service
 		}
 	};
 
+	private final PeerConnectionListener peerConnectionListener = new PeerConnectionListener()
+	{
+		public void changed(final int numPeers)
+		{
+			handler.post(new Runnable()
+			{
+				public void run()
+				{
+					if (numPeers == 0)
+					{
+						nm.cancel(NOTIFICATION_ID_CONNECTED);
+					}
+					else
+					{
+						final String msg = getString(R.string.notification_peers_connected_msg, numPeers);
+						System.out.println("Peer connected, " + msg);
+
+						final Notification notification = new Notification(R.drawable.stat_sys_peers, null, 0);
+						notification.flags |= Notification.FLAG_ONGOING_EVENT;
+						notification.iconLevel = numPeers > 4 ? 4 : numPeers;
+						notification.setLatestEventInfo(Service.this, getString(R.string.app_name) + (Constants.TEST ? " [testnet]" : ""), msg,
+								PendingIntent.getActivity(Service.this, 0, new Intent(Service.this, WalletActivity.class), 0));
+						nm.notify(NOTIFICATION_ID_CONNECTED, notification);
+					}
+
+					// send pending transactions, TODO find better time
+					if (numPeers >= Constants.MAX_CONNECTED_PEERS)
+					{
+						final Wallet wallet = application.getWallet();
+						for (final Transaction transaction : wallet.pending.values())
+						{
+							if (transaction.sent(wallet))
+								broadcastTransaction(transaction);
+						}
+					}
+				}
+			});
+		}
+	};
+
 	public class LocalBinder extends Binder
 	{
 		public Service getService()
@@ -197,6 +227,8 @@ public class Service extends android.app.Service
 
 		application = (Application) getApplication();
 		prefs = PreferenceManager.getDefaultSharedPreferences(this);
+		final Wallet wallet = application.getWallet();
+		final NetworkParameters networkParameters = application.getNetworkParameters();
 
 		// background thread
 		backgroundThread = new HandlerThread("backgroundThread", Process.THREAD_PRIORITY_BACKGROUND);
@@ -244,18 +276,81 @@ public class Service extends android.app.Service
 				}
 			}
 
-			blockStore = new BoundedOverheadBlockStore(application.getNetworkParameters(), file);
+			final BlockStore blockStore = new BoundedOverheadBlockStore(networkParameters, file);
 
-			blockChain = new BlockChain(application.getNetworkParameters(), application.getWallet(), blockStore);
+			final BlockChain blockChain = new BlockChain(networkParameters, wallet, blockStore);
+
+			peerGroup = new PeerGroup(blockStore, networkParameters, blockChain, wallet, peerConnectionListener);
+
+			final String trustedPeerHost = prefs.getString(Constants.PREFS_KEY_TRUSTED_PEER, "").trim();
+			if (trustedPeerHost.length() == 0)
+			{
+				// work around http://code.google.com/p/bitcoinj/issues/detail?id=52
+				backgroundHandler.post(new Runnable()
+				{
+					public void run()
+					{
+						peerGroup.addPeerDiscovery(Constants.TEST ? new IrcDiscovery(Constants.PEER_DISCOVERY_IRC_CHANNEL_TEST) : new DnsDiscovery(
+								networkParameters));
+					}
+				});
+			}
+			else
+			{
+				peerGroup.addAddress(new PeerAddress(new InetSocketAddress(trustedPeerHost, networkParameters.port)));
+			}
+			peerGroup.setMaxConnections(Constants.MAX_CONNECTED_PEERS);
+			peerGroup.start();
+
+			peerGroup.startBlockChainDownload(new DownloadListener()
+			{
+				@Override
+				protected void progress(final double percent, final Date date)
+				{
+					final DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(Service.this);
+					final DateFormat timeFormat = android.text.format.DateFormat.getTimeFormat(Service.this);
+					final long t = date.getTime();
+
+					handler.post(new Runnable()
+					{
+						public void run()
+						{
+							final String eventTitle = getString(R.string.notification_blockchain_sync_started_msg)
+									+ (Constants.TEST ? " [testnet]" : "");
+							final String eventText = getString(R.string.notification_blockchain_sync_progress_msg, percent,
+									DateUtils.isToday(t) ? timeFormat.format(t) : dateFormat.format(t));
+
+							final Notification notification = new Notification(R.drawable.stat_notify_sync, "Bitcoin blockchain sync started", 0);
+							notification.flags |= Notification.FLAG_ONGOING_EVENT;
+							// notification.iconLevel = blocksLeft % 2;
+							notification.setLatestEventInfo(Service.this, eventTitle, eventText,
+									PendingIntent.getActivity(Service.this, 0, new Intent(Service.this, WalletActivity.class), 0));
+							nm.notify(NOTIFICATION_ID_SYNCING, notification);
+						}
+					});
+				}
+
+				@Override
+				protected void doneDownload()
+				{
+					handler.post(new Runnable()
+					{
+						public void run()
+						{
+							nm.cancel(NOTIFICATION_ID_SYNCING);
+
+							System.out.println("sync finished");
+						}
+					});
+				}
+			});
+
+			application.getWallet().addEventListener(walletEventListener);
 		}
 		catch (final BlockStoreException x)
 		{
 			throw new Error("blockstore cannot be created", x);
 		}
-
-		checkPeers();
-
-		application.getWallet().addEventListener(walletEventListener);
 	}
 
 	@Override
@@ -265,12 +360,7 @@ public class Service extends android.app.Service
 
 		application.getWallet().removeEventListener(walletEventListener);
 
-		for (final Iterator<Peer> i = peers.iterator(); i.hasNext();)
-		{
-			final Peer peer = i.next();
-			peer.disconnect();
-			i.remove();
-		}
+		peerGroup.stop();
 
 		// cancel background thread
 		backgroundThread.getLooper().quit();
@@ -289,8 +379,6 @@ public class Service extends android.app.Service
 
 	public void sendTransaction(final Transaction transaction)
 	{
-		checkPeers();
-
 		broadcastTransaction(transaction);
 	}
 
@@ -298,283 +386,18 @@ public class Service extends android.app.Service
 	{
 		System.out.println("broadcasting transaction: " + tx);
 
-		final AtomicBoolean alreadyConfirmed = new AtomicBoolean(false);
-
-		for (final Iterator<Peer> i = peers.iterator(); i.hasNext();)
-		{
-			final Peer peer = i.next();
-
-			backgroundHandler.post(new Runnable()
-			{
-				public void run()
-				{
-					try
-					{
-						System.out.println("broadcasting to " + peer);
-						peer.broadcastTransaction(tx);
-
-						handler.post(new Runnable()
-						{
-							public void run()
-							{
-								if (!alreadyConfirmed.getAndSet(true))
-								{
-									application.getWallet().confirmSend(tx);
-									application.saveWallet();
-								}
-							}
-						});
-					}
-					catch (final IOException x)
-					{
-						x.printStackTrace();
-						peer.disconnect();
-					}
-				}
-			});
-		}
-	}
-
-	private void checkPeers()
-	{
-		// remove dead peers
-		for (final Iterator<Peer> i = peers.iterator(); i.hasNext();)
-		{
-			final Peer peer = i.next();
-			if (!peer.isRunning())
-			{
-				System.out.println("removing " + peer);
-				i.remove();
-			}
-		}
-
-		if (peers.isEmpty())
-			nm.cancel(NOTIFICATION_ID_CONNECTED);
-
 		backgroundHandler.post(new Runnable()
 		{
 			public void run()
 			{
-				try
+				final boolean success = peerGroup.broadcastTransaction(tx);
+				if (success)
 				{
-					System.out.println("discovering peers");
-					final long t = System.currentTimeMillis();
-
-					final List<InetSocketAddress> peerAddresses = discoverPeers();
-					Collections.shuffle(peerAddresses);
-					System.out.println(peerAddresses.size() + " peers discovered, took " + (System.currentTimeMillis() - t) + " ms");
-
-					for (final InetSocketAddress peerAddress : peerAddresses)
-					{
-						if (peers.size() >= Constants.MAX_CONNECTED_PEERS)
-							break;
-
-						try
-						{
-							final NetworkConnection connection = new NetworkConnection(peerAddress.getAddress(), application.getNetworkParameters(),
-									blockStore.getChainHead().getHeight(), 5000);
-
-							if (connection != null)
-							{
-								handler.post(new Runnable()
-								{
-									public void run()
-									{
-										final Peer peer = new Peer(application.getNetworkParameters(), connection, blockChain, application
-												.getWallet());
-										peer.start();
-
-										if (peers.isEmpty())
-										{
-											// client was unconnected for a while
-											blockChainDownload(peer);
-										}
-
-										peers.add(peer);
-
-										final String msg = getString(R.string.notification_peers_connected_msg, peers.size());
-										System.out.println("Peer connected, " + msg);
-
-										final Notification notification = new Notification(R.drawable.stat_sys_peers, null, 0);
-										notification.flags |= Notification.FLAG_ONGOING_EVENT;
-										notification.iconLevel = peers.size() > 4 ? 4 : peers.size();
-										notification.setLatestEventInfo(Service.this, getString(R.string.app_name)
-												+ (Constants.TEST ? " [testnet]" : ""), msg,
-												PendingIntent.getActivity(Service.this, 0, new Intent(Service.this, WalletActivity.class), 0));
-										nm.notify(NOTIFICATION_ID_CONNECTED, notification);
-									}
-								});
-							}
-						}
-						catch (final IOException x)
-						{
-							System.out.println(x);
-						}
-						catch (final ProtocolException x)
-						{
-							System.out.println(x);
-						}
-					}
-
-					// send pending transactions
-					handler.post(new Runnable()
-					{
-						public void run()
-						{
-							if (!peers.isEmpty())
-							{
-								final Wallet wallet = application.getWallet();
-								for (final Transaction transaction : wallet.pending.values())
-								{
-									if (transaction.sent(wallet))
-										broadcastTransaction(transaction);
-								}
-							}
-						}
-					});
+					application.getWallet().confirmSend(tx);
+					application.saveWallet();
 				}
-				catch (final BlockStoreException x)
-				{
-					throw new RuntimeException(x);
-				}
-			}
-
-			private List<InetSocketAddress> discoverPeers()
-			{
-				final NetworkParameters networkParameters = application.getNetworkParameters();
-				final List<InetSocketAddress> peers = new LinkedList<InetSocketAddress>();
-
-				final String trustedPeerHost = prefs.getString(Constants.PREFS_KEY_TRUSTED_PEER, "").trim();
-				if (trustedPeerHost.length() == 0)
-				{
-					try
-					{
-						final PeerDiscovery peerDiscovery = Constants.TEST ? new IrcDiscovery(Constants.PEER_DISCOVERY_IRC_CHANNEL_TEST)
-								: new DnsDiscovery(networkParameters);
-
-						peers.addAll(Arrays.asList(peerDiscovery.getPeers()));
-					}
-					catch (final PeerDiscoveryException x)
-					{
-						x.printStackTrace();
-					}
-				}
-				else
-				{
-					peers.add(new InetSocketAddress(trustedPeerHost, networkParameters.port));
-				}
-
-				return peers;
 			}
 		});
-	}
-
-	private void blockChainDownload(final Peer peer)
-	{
-		final DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(this);
-		final DateFormat timeFormat = android.text.format.DateFormat.getTimeFormat(this);
-
-		try
-		{
-			final CountDownLatch latch = peer.startBlockChainDownload();
-
-			if (latch != null)
-			{
-				System.out.println("sync");
-
-				new Thread()
-				{
-					@Override
-					public void run()
-					{
-						try
-						{
-							final long maxCount = latch.getCount();
-							long lastCount = Long.MAX_VALUE;
-							long lastCountAt = SystemClock.uptimeMillis();
-
-							while (true)
-							{
-								latch.await(1, TimeUnit.SECONDS);
-
-								final long count = latch.getCount();
-								if (count == 0)
-								{
-									handler.post(new Runnable()
-									{
-										public void run()
-										{
-											System.out.println("sync finished");
-											nm.cancel(NOTIFICATION_ID_SYNCING);
-										}
-									});
-
-									// we made it!
-									return;
-								}
-								else if (count < lastCount)
-								{
-									lastCount = count;
-									lastCountAt = SystemClock.uptimeMillis();
-
-									final float percent = 100f - (100f * (count / (float) maxCount));
-
-									handler.post(new Runnable()
-									{
-										public void run()
-										{
-											final long t = blockChain.getChainHead().getHeader().getTime() * 1000;
-
-											final String eventTitle = getString(R.string.notification_blockchain_sync_started_msg)
-													+ (Constants.TEST ? " [testnet]" : "");
-											final String eventText = getString(R.string.notification_blockchain_sync_progress_msg, percent,
-													DateUtils.isToday(t) ? timeFormat.format(t) : dateFormat.format(t));
-
-											final Notification notification = new Notification(R.drawable.stat_notify_sync,
-													"Bitcoin blockchain sync started", 0);
-											notification.flags |= Notification.FLAG_ONGOING_EVENT;
-											notification.iconLevel = (int) (count % 2l);
-											notification.setLatestEventInfo(Service.this, eventTitle, eventText,
-													PendingIntent.getActivity(Service.this, 0, new Intent(Service.this, WalletActivity.class), 0));
-											nm.notify(NOTIFICATION_ID_SYNCING, notification);
-										}
-									});
-								}
-								else
-								{
-									final long duration = SystemClock.uptimeMillis() - lastCountAt;
-									System.out.println("no progress for " + duration + " ms");
-
-									if (duration > Constants.BLOCKCHAIN_PROGRESS_TIMEOUT)
-									{
-										peer.disconnect();
-
-										handler.post(new Runnable()
-										{
-											public void run()
-											{
-												System.out.println("giving up!");
-												nm.cancel(NOTIFICATION_ID_SYNCING);
-											}
-										});
-
-										return;
-									}
-								}
-							}
-						}
-						catch (final Exception x)
-						{
-							x.printStackTrace();
-						}
-					}
-				}.start(); // FIXME no graceful shutdown possible
-			}
-		}
-		catch (final IOException x)
-		{
-			throw new RuntimeException(x);
-		}
 	}
 
 	public void notifyWidgets()

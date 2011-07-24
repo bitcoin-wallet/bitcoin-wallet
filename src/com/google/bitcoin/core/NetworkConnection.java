@@ -53,20 +53,22 @@ public class NetworkConnection {
      * Connect to the given IP address using the port specified as part of the network parameters. Once construction
      * is complete a functioning network channel is set up and running.
      *
-     * @param remoteIp IP address to connect to. IPv6 is not currently supported by BitCoin.
+     * @param peerAddress address to connect to. IPv6 is not currently supported by BitCoin.  If
+     * port is not positive the default port from params is used.
      * @param params Defines which network to connect to and details of the protocol.
      * @param bestHeight How many blocks are in our best chain
      * @param connectTimeout Timeout in milliseconds when initially connecting to peer
      * @throws IOException if there is a network related failure.
      * @throws ProtocolException if the version negotiation failed.
      */
-    public NetworkConnection(InetAddress remoteIp, NetworkParameters params, int bestHeight, int connectTimeout)
+    public NetworkConnection(PeerAddress peerAddress, NetworkParameters params, int bestHeight, int connectTimeout)
             throws IOException, ProtocolException {
         this.params = params;
-        this.remoteIp = remoteIp;
+        this.remoteIp = peerAddress.addr;
 
+        int port = (peerAddress.port > 0) ? peerAddress.port : params.port;
 
-        InetSocketAddress address = new InetSocketAddress(remoteIp, params.port);
+        InetSocketAddress address = new InetSocketAddress(remoteIp, port);
         socket = new Socket();
         socket.connect(address, connectTimeout);
         
@@ -98,11 +100,23 @@ public class NetworkConnection {
         });
         // BitCoinJ is a client mode implementation. That means there's not much point in us talking to other client
         // mode nodes because we can't download the data from them we need to find/verify transactions.
-        if (!versionMessage.hasBlockChain())
+        if (!versionMessage.hasBlockChain()) {
+            // Shut down the socket
+            try {
+                shutdown();
+            } catch (IOException ex) {
+                // ignore exceptions while aborting
+            }
             throw new ProtocolException("Peer does not have a copy of the block chain.");
+        }
         // newer clients use checksumming
         serializer.useChecksumming(peerVersion >= 209);
         // Handshake is done!
+    }
+
+    public NetworkConnection(InetAddress inetAddress, NetworkParameters params, int bestHeight, int connectTimeout)
+            throws IOException, ProtocolException {
+        this(new PeerAddress(inetAddress), params, bestHeight, connectTimeout);
     }
 
     /**

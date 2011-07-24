@@ -456,7 +456,32 @@ public class Wallet implements Serializable {
     }
 
     /**
-     * Sends coins to the given address, via the given {@link Peer}. Change is returned to the first key in the wallet.
+     * Sends coins to the given address, via the given {@link PeerGroup}.
+     * Change is returned to the first key in the wallet.
+     * 
+     * @param to Which address to send coins to.
+     * @param nanocoins How many nanocoins to send. You can use Utils.toNanoCoins() to calculate this.
+     * @param fee How much fee to offer, in nanocoins.
+     * @return The {@link Transaction} that was created or null if there was insufficient balance to send the coins.
+     * @throws IOException if there was a problem broadcasting the transaction
+     */
+    public synchronized Transaction sendCoins(PeerGroup peerGroup, Address to, BigInteger nanocoins, final BigInteger fee) throws IOException {
+        Transaction tx = createSend(to, nanocoins, fee);
+        if (tx == null)   // Not enough money! :-(
+            return null;
+        if (!peerGroup.broadcastTransaction(tx)) {
+            throw new IOException("Failed to broadcast tx to all connected peers");
+        }
+
+        // TODO - retry logic
+        confirmSend(tx);
+        return tx;
+    }
+
+    /**
+     * Sends coins to the given address, via the given {@link Peer}.
+     * Change is returned to the first key in the wallet.
+     * 
      * @param to Which address to send coins to.
      * @param nanocoins How many nanocoins to send. You can use Utils.toNanoCoins() to calculate this.
      * @param fee How much fee to offer, in nanocoins.
@@ -469,6 +494,7 @@ public class Wallet implements Serializable {
             return null;
         peer.broadcastTransaction(tx);
         confirmSend(tx);
+
         return tx;
     }
 
