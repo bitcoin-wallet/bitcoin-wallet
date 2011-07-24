@@ -50,6 +50,7 @@ import com.google.bitcoin.core.Transaction;
 import com.google.bitcoin.core.Utils;
 import com.google.bitcoin.core.Wallet.BalanceType;
 
+import de.schildbach.wallet.BtcAmountView.Listener;
 import de.schildbach.wallet_test.R;
 
 /**
@@ -64,10 +65,8 @@ public class SendCoinsFragment extends Fragment
 
 	private AutoCompleteTextView receivingAddressView;
 	private View receivingAddressErrorView;
-	private TextView amountView;
-	private View amountErrorView;
-	private TextView feeView;
-	private View feeErrorView;
+	private BtcAmountView amountView;
+	private BtcAmountView feeView;
 	private Button viewGo;
 
 	private final ServiceConnection serviceConnection = new ServiceConnection()
@@ -98,6 +97,14 @@ public class SendCoinsFragment extends Fragment
 
 		public void onTextChanged(final CharSequence s, final int start, final int before, final int count)
 		{
+		}
+	};
+
+	private final Listener listener = new Listener()
+	{
+		public void changed()
+		{
+			updateView();
 		}
 	};
 
@@ -136,18 +143,12 @@ public class SendCoinsFragment extends Fragment
 		pendingView.setVisibility(pending.signum() > 0 ? View.VISIBLE : View.GONE);
 		pendingView.setText(getString(R.string.send_coins_fragment_pending, Utils.bitcoinValueToFriendlyString(pending)));
 
-		amountView = (TextView) view.findViewById(R.id.send_coins_amount);
-		amountView.setCompoundDrawablesWithIntrinsicBounds(new BtcDrawable(24f * density, 10.5f * density), null, null, null);
-		amountView.addTextChangedListener(textWatcher);
+		amountView = (BtcAmountView) view.findViewById(R.id.send_coins_amount);
+		amountView.setListener(listener);
 
-		amountErrorView = view.findViewById(R.id.send_coins_amount_error);
-
-		feeView = (TextView) view.findViewById(R.id.send_coins_fee);
-		feeView.setCompoundDrawablesWithIntrinsicBounds(new BtcDrawable(24f * density, 10.5f * density), null, null, null);
-		feeView.setText(Utils.bitcoinValueToFriendlyString(Constants.DEFAULT_TX_FEE));
-		feeView.addTextChangedListener(textWatcher);
-
-		feeErrorView = view.findViewById(R.id.send_coins_fee_error);
+		feeView = (BtcAmountView) view.findViewById(R.id.send_coins_fee);
+		feeView.setAmount(Constants.DEFAULT_TX_FEE);
+		feeView.setListener(listener);
 
 		viewGo = (Button) view.findViewById(R.id.send_coins_go);
 		viewGo.setOnClickListener(new OnClickListener()
@@ -157,8 +158,8 @@ public class SendCoinsFragment extends Fragment
 				try
 				{
 					final Address receivingAddress = new Address(application.getNetworkParameters(), receivingAddressView.getText().toString().trim());
-					final BigInteger amount = Utils.toNanoCoins(amountView.getText().toString().trim());
-					final BigInteger fee = Utils.toNanoCoins(feeView.getText().toString().trim());
+					final BigInteger amount = amountView.getAmount();
+					final BigInteger fee = feeView.getAmount();
 
 					System.out.println("about to send " + amount + " (BTC " + Utils.bitcoinValueToFriendlyString(amount) + ") to " + receivingAddress);
 
@@ -317,7 +318,7 @@ public class SendCoinsFragment extends Fragment
 	public void update(final String receivingAddress, final String amount)
 	{
 		receivingAddressView.setText(receivingAddress);
-		amountView.setText(amount);
+		amountView.setAmount(Utils.toNanoCoins(amount));
 
 		if (receivingAddress != null && amount == null)
 			amountView.requestFocus();
@@ -343,39 +344,11 @@ public class SendCoinsFragment extends Fragment
 			receivingAddressErrorView.setVisibility(View.VISIBLE);
 		}
 
-		boolean validAmount = false;
-		try
-		{
-			final String amount = amountView.getText().toString().trim();
-			if (amount.length() > 0)
-			{
-				final BigInteger nanoCoins = Utils.toNanoCoins(amount);
-				if (nanoCoins.signum() > 0)
-					validAmount = true;
-			}
-			amountErrorView.setVisibility(View.GONE);
-		}
-		catch (final Exception x)
-		{
-			amountErrorView.setVisibility(View.VISIBLE);
-		}
+		final BigInteger amount = amountView.getAmount();
+		boolean validAmount = amount != null && amount.signum() > 0;
 
-		boolean validFee = false;
-		try
-		{
-			final String fee = feeView.getText().toString().trim();
-			if (fee.length() > 0)
-			{
-				final BigInteger nanoCoins = Utils.toNanoCoins(fee);
-				if (nanoCoins.signum() > 0)
-					validFee = true;
-			}
-			feeErrorView.setVisibility(View.GONE);
-		}
-		catch (final Exception x)
-		{
-			feeErrorView.setVisibility(View.VISIBLE);
-		}
+		final BigInteger fee = feeView.getAmount();
+		boolean validFee = fee != null && fee.signum() >= 0;
 
 		viewGo.setEnabled(validAddress && validAmount && validFee);
 	}
