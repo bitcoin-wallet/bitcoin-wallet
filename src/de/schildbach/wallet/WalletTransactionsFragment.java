@@ -18,6 +18,8 @@
 package de.schildbach.wallet;
 
 import java.math.BigInteger;
+import java.text.DateFormat;
+import java.util.Date;
 import java.util.List;
 
 import android.database.ContentObserver;
@@ -29,6 +31,7 @@ import android.os.Handler;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -115,6 +118,9 @@ public class WalletTransactionsFragment extends Fragment
 
 		transactionsListAdapter = new ArrayAdapter<Transaction>(getActivity(), 0)
 		{
+			final DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(getActivity());
+			final DateFormat timeFormat = android.text.format.DateFormat.getTimeFormat(getActivity());
+
 			@Override
 			public View getView(final int position, View row, final ViewGroup parent)
 			{
@@ -138,6 +144,11 @@ public class WalletTransactionsFragment extends Fragment
 						label = cursor.getString(cursor.getColumnIndexOrThrow(AddressBookProvider.KEY_LABEL));
 					else
 						label = null;
+
+					final TextView rowTime = (TextView) row.findViewById(R.id.transaction_time);
+					final Date time = tx.updatedAt;
+					rowTime.setText(time != null ? DateUtils.isToday(time.getTime()) ? timeFormat.format(time) : dateFormat.format(time) : null);
+					rowTime.setTextColor(textColor);
 
 					final TextView rowTo = (TextView) row.findViewById(R.id.transaction_to);
 					rowTo.setVisibility(sent ? View.VISIBLE : View.INVISIBLE);

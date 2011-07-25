@@ -20,8 +20,6 @@
 	<string name="wallet_addresses_fragment_add_dialog_positive">Добавить адрес</string>
 	<string name="wallet_addresses_fragment_add_dialog_negative">Отмена</string>
 	<string name="wallet_balance_fragment_local_value">стоимостью примерно %1$s %2$s</string>
-	<string name="transaction_row_sent_to">Отправлено</string>
-	<string name="transaction_row_received_from">Получено</string>
 	<string name="exchange_rates_fragment_empty_text">Не удалось загрузить обменный курс</string>
 	<string name="wallet_options_request_coins">Запросить монеты</string>
 	<string name="wallet_options_send_coins">Отправить монеты</string>

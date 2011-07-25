@@ -20,8 +20,8 @@
 	<string name="wallet_addresses_fragment_add_dialog_positive">Add address</string>
 	<string name="wallet_addresses_fragment_add_dialog_negative">Dismiss</string>
 	<string name="wallet_balance_fragment_local_value">worth about %1$s %2$s</string>
-	<string name="transaction_row_sent_to">Sent to</string>
-	<string name="transaction_row_received_from">Rcvd from</string>
+	<string name="transaction_row_sent_to">→</string>
+	<string name="transaction_row_received_from">←</string>
 	<string name="exchange_rates_fragment_empty_text">Could not load exchange rates</string>
 	<string name="wallet_options_request_coins">Request coins</string>
 	<string name="wallet_options_send_coins">Send coins</string>

@@ -21,8 +21,6 @@
 	<string name="wallet_addresses_fragment_add_dialog_positive">Adresse hinzufügen</string>
 	<string name="wallet_addresses_fragment_add_dialog_negative">Schließen</string>
 	<string name="wallet_balance_fragment_local_value">etwa %1$s %2$s wert</string>
-	<string name="transaction_row_sent_to">Gesendet</string>
-	<string name="transaction_row_received_from">Empfangen</string>
 	<string name="exchange_rates_fragment_empty_text">Kann Wechselkurse in laden</string>
 	<string name="wallet_options_request_coins">BTC anfordern</string>
 	<string name="wallet_options_send_coins">BTC senden</string>
