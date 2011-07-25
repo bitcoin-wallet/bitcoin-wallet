@@ -186,7 +186,7 @@ public class Service extends android.app.Service
 					}
 
 					// send pending transactions, TODO find better time
-					if (numPeers >= Constants.MAX_CONNECTED_PEERS)
+					if (numPeers >= peerGroup.getMaxConnections())
 					{
 						final Wallet wallet = application.getWallet();
 						for (final Transaction transaction : wallet.pending.values())
@@ -285,6 +285,8 @@ public class Service extends android.app.Service
 			final String trustedPeerHost = prefs.getString(Constants.PREFS_KEY_TRUSTED_PEER, "").trim();
 			if (trustedPeerHost.length() == 0)
 			{
+				peerGroup.setMaxConnections(Constants.MAX_CONNECTED_PEERS);
+
 				// work around http://code.google.com/p/bitcoinj/issues/detail?id=52
 				backgroundHandler.post(new Runnable()
 				{
@@ -297,9 +299,9 @@ public class Service extends android.app.Service
 			}
 			else
 			{
+				peerGroup.setMaxConnections(1);
 				peerGroup.addAddress(new PeerAddress(new InetSocketAddress(trustedPeerHost, networkParameters.port)));
 			}
-			peerGroup.setMaxConnections(Constants.MAX_CONNECTED_PEERS);
 			peerGroup.start();
 
 			peerGroup.startBlockChainDownload(new DownloadListener()
