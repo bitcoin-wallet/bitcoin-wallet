@@ -188,6 +188,8 @@ public class WalletTransactionsFragment extends Fragment
 					final boolean sent = tx.sent(wallet);
 					final Address address = sent ? tx.outputs.get(0).getScriptPubKey().getToAddress() : tx.getInputs().get(0).getFromAddress();
 
+					System.out.println("clicked on tx " + tx.getHash());
+
 					final FragmentTransaction ft = getFragmentManager().beginTransaction();
 					final Fragment prev = getFragmentManager().findFragmentByTag(EditAddressBookEntryFragment.FRAGMENT_TAG);
 					if (prev != null)
