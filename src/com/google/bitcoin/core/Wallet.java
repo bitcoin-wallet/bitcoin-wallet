@@ -232,7 +232,7 @@ public class Wallet implements Serializable {
         BigInteger valueSentToMe = tx.getValueSentToMe(this);
         BigInteger valueDifference = valueSentToMe.subtract(valueSentFromMe);
         
-        tx.updatedAt = new Date();
+		tx.updatedAt = new Date(block.getHeader().getTime() * 1000);
 
         if (!reorg) {
             log.info("Received tx{} for {} BTC: {}", new Object[] { sideChain ? " on a side chain" : "",
