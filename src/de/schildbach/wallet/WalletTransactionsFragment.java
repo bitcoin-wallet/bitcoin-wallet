@@ -160,12 +160,11 @@ public class WalletTransactionsFragment extends Fragment
 
 					final TextView rowLabel = (TextView) row.findViewById(R.id.transaction_address);
 					rowLabel.setTextColor(textColor);
-					// rowLabel.setText(WalletUtils.splitIntoLines(address, 1));
 					rowLabel.setText(label != null ? label : address);
 
 					final TextView rowValue = (TextView) row.findViewById(R.id.transaction_value);
 					rowValue.setTextColor(textColor);
-					rowValue.setText((sent ? "-" : "+") + Utils.bitcoinValueToFriendlyString(tx.amount(wallet)));
+					rowValue.setText((sent ? "-" : "+") + "\u2009" /* thin space */+ Utils.bitcoinValueToFriendlyString(tx.amount(wallet)));
 				}
 				catch (final ScriptException x)
 				{
