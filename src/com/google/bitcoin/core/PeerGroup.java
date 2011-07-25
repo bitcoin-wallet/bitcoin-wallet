@@ -55,12 +55,6 @@ import java.util.concurrent.atomic.AtomicInteger;
  *
  */
 public class PeerGroup {
-
-	public static interface PeerConnectionListener
-	{
-		void changed(int numPeers);
-	}
-
     private static final int DEFAULT_CONNECTIONS = 4;
 
     private static final Logger log = LoggerFactory.getLogger(PeerGroup.class);
@@ -84,7 +78,8 @@ public class PeerGroup {
     // Callback for events related to chain download
     private PeerEventListener downloadListener;
     
-    final private PeerConnectionListener peerConnectionListener;
+    // Callbacks for events related to peer connection/disconnection
+    private Set<PeerEventListener> peerEventListeners;
     
     private NetworkParameters params;
     private BlockStore blockStore;
@@ -94,22 +89,36 @@ public class PeerGroup {
     /**
      * Create a PeerGroup
      */
-    public PeerGroup(BlockStore blockStore, NetworkParameters params, BlockChain chain, Wallet wallet, final PeerConnectionListener peerConnectionListener) {
+    public PeerGroup(BlockStore blockStore, NetworkParameters params, BlockChain chain, Wallet wallet) {
         this.blockStore = blockStore;
         this.params = params;
         this.chain = chain;
         this.wallet = wallet;
-        this.peerConnectionListener = peerConnectionListener;
         
         inactives = new LinkedBlockingQueue<PeerAddress>();
         
         peers = Collections.synchronizedSet(new HashSet<Peer>());
+
+        peerEventListeners = Collections.synchronizedSet(new HashSet<PeerEventListener>());
+
         peerPool = new ThreadPoolExecutor(CORE_THREADS, DEFAULT_CONNECTIONS,
                 THREAD_KEEP_ALIVE_SECONDS, TimeUnit.SECONDS,
                 new LinkedBlockingQueue<Runnable>(1),
                 new PeerGroupThreadFactory());
     }
 
+    /**
+     * Callbacks to the listener are performed in the connection thread.  The callback
+     * should not perform time consuming tasks.
+     */
+    public void addEventListener(PeerEventListener listener) {
+        peerEventListeners.add(listener);
+    }
+    
+    public boolean removeEventListener(PeerEventListener listener) {
+        return peerEventListeners.remove(listener);
+    }
+    
     /**
      * Depending on the environment, this should normally be between 1 and 10, default is 4.
      * 
@@ -233,19 +242,23 @@ public class PeerGroup {
                                 peer.connect();
                                 peers.add(peer);
                                 handleNewPeer(peer);
-                                synchronized(peerConnectionListener) { peerConnectionListener.changed(peers.size()); }
                                 log.info("running " + peer);
                                 peer.run();
                             } catch (RuntimeException ex) {
                                 // do not propagate RuntimeException - log and try next peer
                                 log.error("error while talking to peer", ex);
                             } finally {
-                                // In all cases, put the address back on the queue.
+                                // In all cases, disconnect and put the address back on the queue.
                                 // We will retry this peer after all other peers have been tried.
+                                try {
+                                    peer.disconnect();
+                                } catch (RuntimeException ex) {
+                                    // ignore
+                                }
+
                                 inactives.add(address);
                                 if (peers.remove(peer))
                                     handlePeerDeath(peer);
-                                synchronized(peerConnectionListener) { peerConnectionListener.changed(peers.size()); }
                             }
                         }
                     };
@@ -312,6 +325,13 @@ public class PeerGroup {
     protected synchronized void handleNewPeer(Peer peer) {
         if (downloadListener != null && downloadPeer == null)
             startBlockChainDownloadFromPeer(peer);
+        synchronized (peerEventListeners) {
+            for (PeerEventListener listener : peerEventListeners) {
+                synchronized (listener) {
+                    listener.onPeerConnected(peer, peers.size());
+                }
+            }
+        }
     }
     
     protected synchronized void handlePeerDeath(Peer peer) {
@@ -320,6 +340,14 @@ public class PeerGroup {
             synchronized (peers) {
                 if (downloadListener != null && !peers.isEmpty()) {
                     startBlockChainDownloadFromPeer(peers.iterator().next());
+                }
+            }
+        }
+
+        synchronized (peerEventListeners) {
+            for (PeerEventListener listener : peerEventListeners) {
+                synchronized (listener) {
+                    listener.onPeerDisconnected(peer, peers.size());
                 }
             }
         }

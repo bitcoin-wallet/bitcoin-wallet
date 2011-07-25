@@ -47,13 +47,15 @@ import android.os.Process;
 import android.preference.PreferenceManager;
 import android.text.format.DateUtils;
 
+import com.google.bitcoin.core.AbstractPeerEventListener;
 import com.google.bitcoin.core.Address;
 import com.google.bitcoin.core.BlockChain;
 import com.google.bitcoin.core.DownloadListener;
 import com.google.bitcoin.core.NetworkParameters;
+import com.google.bitcoin.core.Peer;
 import com.google.bitcoin.core.PeerAddress;
+import com.google.bitcoin.core.PeerEventListener;
 import com.google.bitcoin.core.PeerGroup;
-import com.google.bitcoin.core.PeerGroup.PeerConnectionListener;
 import com.google.bitcoin.core.ScriptException;
 import com.google.bitcoin.core.Sha256Hash;
 import com.google.bitcoin.core.Transaction;
@@ -160,9 +162,21 @@ public class Service extends android.app.Service
 		}
 	};
 
-	private final PeerConnectionListener peerConnectionListener = new PeerConnectionListener()
+	private final PeerEventListener peerEventListener = new AbstractPeerEventListener()
 	{
-		public void changed(final int numPeers)
+		@Override
+		public void onPeerConnected(final Peer peer, final int peerCount)
+		{
+			changed(peerCount);
+		}
+
+		@Override
+		public void onPeerDisconnected(final Peer peer, final int peerCount)
+		{
+			changed(peerCount);
+		}
+
+		private void changed(final int numPeers)
 		{
 			handler.post(new Runnable()
 			{
@@ -280,7 +294,8 @@ public class Service extends android.app.Service
 
 			final BlockChain blockChain = new BlockChain(networkParameters, wallet, blockStore);
 
-			peerGroup = new PeerGroup(blockStore, networkParameters, blockChain, wallet, peerConnectionListener);
+			peerGroup = new PeerGroup(blockStore, networkParameters, blockChain, wallet);
+			peerGroup.addEventListener(peerEventListener);
 
 			final String trustedPeerHost = prefs.getString(Constants.PREFS_KEY_TRUSTED_PEER, "").trim();
 			if (trustedPeerHost.length() == 0)
