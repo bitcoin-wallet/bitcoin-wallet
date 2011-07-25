@@ -68,6 +68,7 @@ public class SendCoinsFragment extends Fragment
 	private BtcAmountView amountView;
 	private BtcAmountView feeView;
 	private Button viewGo;
+	private Button viewCancel;
 
 	private final ServiceConnection serviceConnection = new ServiceConnection()
 	{
@@ -167,15 +168,16 @@ public class SendCoinsFragment extends Fragment
 
 					if (transaction != null)
 					{
+						viewGo.setEnabled(false);
+						viewGo.setText(R.string.send_coins_sending_msg);
+						viewCancel.setEnabled(false);
+
 						service.sendTransaction(transaction);
 
 						final WalletBalanceFragment balanceFragment = (WalletBalanceFragment) getActivity().getSupportFragmentManager()
 								.findFragmentById(R.id.wallet_balance_fragment);
 						if (balanceFragment != null)
 							balanceFragment.updateView();
-
-						viewGo.setEnabled(false);
-						viewGo.setText(R.string.send_coins_sending_msg);
 
 						handler.postDelayed(new Runnable()
 						{
@@ -245,7 +247,8 @@ public class SendCoinsFragment extends Fragment
 			}
 		});
 
-		view.findViewById(R.id.send_coins_cancel).setOnClickListener(new OnClickListener()
+		viewCancel = (Button) view.findViewById(R.id.send_coins_cancel);
+		viewCancel.setOnClickListener(new OnClickListener()
 		{
 			public void onClick(final View v)
 			{
