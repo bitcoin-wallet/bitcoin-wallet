@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" version="1.1">
-	<g transform="scale(8)">
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" transform="scale(512)" version="1.1">
+	<g transform="scale(0.015625)">
 		<path
 			d="m 63.0359,39.741 c -4.274,17.143 -21.637,27.576 -38.782,23.301 -17.138,-4.274 -27.571,-21.638 -23.295,-38.78 4.272,-17.145 21.635,-27.579 38.775,-23.305 17.144,4.274 27.576,21.64 23.302,38.784 z"
 			style="fill:#f7931a" />
