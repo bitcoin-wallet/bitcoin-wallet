@@ -19,6 +19,8 @@ package de.schildbach.wallet;
 
 import java.math.BigInteger;
 import java.text.DateFormat;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -233,7 +235,28 @@ public class WalletTransactionsFragment extends Fragment
 
 	public void updateView()
 	{
-		transactions = application.getWallet().getAllTransactions();
+		final Wallet wallet = application.getWallet();
+		transactions = wallet.getAllTransactions();
+
+		Collections.sort(transactions, new Comparator<Transaction>()
+		{
+			public int compare(final Transaction tx1, final Transaction tx2)
+			{
+				final boolean pending1 = wallet.isPending(tx1);
+				final boolean pending2 = wallet.isPending(tx2);
+
+				if (pending1 != pending2)
+					return pending1 ? -1 : 1;
+
+				final long time1 = tx1.updatedAt != null ? tx1.updatedAt.getTime() : 0;
+				final long time2 = tx2.updatedAt != null ? tx2.updatedAt.getTime() : 0;
+
+				if (time1 != time2)
+					return time1 > time2 ? -1 : 1;
+
+				return 0;
+			}
+		});
 
 		transactionsListAdapter.clear();
 		for (final Transaction tx : transactions)
