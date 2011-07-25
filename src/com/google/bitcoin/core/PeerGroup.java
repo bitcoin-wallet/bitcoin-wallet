@@ -69,8 +69,6 @@ public class PeerGroup {
     private static final int CORE_THREADS = 1;
     private static final int THREAD_KEEP_ALIVE_SECONDS = 1;
 
-    // Maximum number of connections this peerGroup will make
-    private int maxConnections;
     // Addresses to try to connect to, excluding active peers
     private BlockingQueue<PeerAddress> inactives;
     // Connection initiation thread
@@ -80,7 +78,7 @@ public class PeerGroup {
     // A pool of threads for peers, of size maxConnection
     private ThreadPoolExecutor peerPool;
     // Currently active peers
-    final private Set<Peer> peers;
+    private Set<Peer> peers;
     // The peer we are currently downloading the chain from
     private Peer downloadPeer;
     // Callback for events related to chain download
@@ -97,7 +95,6 @@ public class PeerGroup {
      * Create a PeerGroup
      */
     public PeerGroup(BlockStore blockStore, NetworkParameters params, BlockChain chain, Wallet wallet, final PeerConnectionListener peerConnectionListener) {
-        this.maxConnections = DEFAULT_CONNECTIONS;
         this.blockStore = blockStore;
         this.params = params;
         this.chain = chain;
@@ -107,7 +104,7 @@ public class PeerGroup {
         inactives = new LinkedBlockingQueue<PeerAddress>();
         
         peers = Collections.synchronizedSet(new HashSet<Peer>());
-        peerPool = new ThreadPoolExecutor(CORE_THREADS, this.maxConnections,
+        peerPool = new ThreadPoolExecutor(CORE_THREADS, DEFAULT_CONNECTIONS,
                 THREAD_KEEP_ALIVE_SECONDS, TimeUnit.SECONDS,
                 new LinkedBlockingQueue<Runnable>(1),
                 new PeerGroupThreadFactory());
@@ -119,12 +116,11 @@ public class PeerGroup {
      * @param maxConnections the maximum number of peer connections that this group will try to make.
      */
     public void setMaxConnections(int maxConnections) {
-        this.maxConnections = maxConnections;
         peerPool.setMaximumPoolSize(maxConnections);
     }
     
     public int getMaxConnections() {
-        return maxConnections;
+        return peerPool.getMaximumPoolSize();
     }
     
     /** Add an address to the list of potential peers to connect to */
@@ -175,15 +171,15 @@ public class PeerGroup {
      */
     public boolean broadcastTransaction(Transaction tx) {
         boolean success = false;
-        synchronized(peers) {
-	        for (Peer peer : peers) {
-	            try {
-	                peer.broadcastTransaction(tx);
-	                success = true;
-	            } catch (IOException e) {
-	                log.error("failed to broadcast to " + peer, e);
-	            }
-	        }
+        synchronized (peers) {
+            for (Peer peer : peers) {
+                try {
+                    peer.broadcastTransaction(tx);
+                    success = true;
+                } catch (IOException e) {
+                    log.error("failed to broadcast to " + peer, e);
+                }
+            }
         }
         return success;
     }
@@ -213,8 +209,8 @@ public class PeerGroup {
 
             peerPool.shutdownNow();
 
-            synchronized(peers) {
-            	for (Peer peer : peers) {
+            synchronized (peers) {
+                for (Peer peer : peers) {
                     peer.disconnect();
                 }
             }
@@ -289,10 +285,11 @@ public class PeerGroup {
         // TODO be more nuanced about which peer to download from.  We can also try
         // downloading from multiple peers and handle the case when a new peer comes along
         // with a longer chain after we thought we were done.
-        if (!peers.isEmpty()) {
-        	synchronized(peers) {
+        synchronized (peers) {
+            if (!peers.isEmpty())
+            {
                 startBlockChainDownloadFromPeer(peers.iterator().next());
-        	}
+            }
         }
     }
     
@@ -320,10 +317,10 @@ public class PeerGroup {
     protected synchronized void handlePeerDeath(Peer peer) {
         if (peer == downloadPeer) {
             downloadPeer = null;
-            if (downloadListener != null && !peers.isEmpty()) {
-            	synchronized(peers) {
+            synchronized (peers) {
+                if (downloadListener != null && !peers.isEmpty()) {
                     startBlockChainDownloadFromPeer(peers.iterator().next());
-            	}
+                }
             }
         }
     }
