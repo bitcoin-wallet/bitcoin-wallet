@@ -193,18 +193,17 @@ public class WalletBalanceFragment extends Fragment
 		final BigInteger balance = application.getWallet().getBalance(BalanceType.ESTIMATED);
 		viewBalance.setText(Utils.bitcoinValueToFriendlyString(balance));
 
-		if (balance.equals(BigInteger.ZERO))
-		{
-			viewBalanceLocal.setText(null);
-		}
-		else if (exchangeRates != null)
+		viewBalanceLocal.setVisibility(View.GONE);
+		if (balance.signum() > 0 && exchangeRates != null)
 		{
 			final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
 			final String exchangeCurrency = prefs.getString(Constants.PREFS_KEY_EXCHANGE_CURRENCY, "USD");
 			final Double exchangeRate = exchangeRates.get(exchangeCurrency);
+
 			if (exchangeRate != null)
 			{
 				final BigInteger valueLocal = new BigDecimal(balance).multiply(new BigDecimal(exchangeRate)).toBigInteger();
+				viewBalanceLocal.setVisibility(View.VISIBLE);
 				viewBalanceLocal.setText(getString(R.string.wallet_balance_fragment_local_value, exchangeCurrency,
 						Utils.bitcoinValueToFriendlyString(valueLocal)));
 				if (Constants.TEST)
