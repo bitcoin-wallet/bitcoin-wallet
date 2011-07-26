@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-
-<ListView xmlns:android="http://schemas.android.com/apk/res/android" android:id="@+id/transactions_list"
-	android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_gravity="bottom|center_horizontal"
-	android:background="#fff" />

@@ -45,7 +45,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.bitcoin.core.Address;
@@ -114,11 +113,10 @@ public class WalletTransactionsFragment extends Fragment
 		}
 	}
 
-	private static class ListFragment extends Fragment
+	private static class ListFragment extends android.support.v4.app.ListFragment
 	{
 		private Application application;
 
-		private ListView transactionsList;
 		private ArrayAdapter<Transaction> transactionsListAdapter;
 		private final int mode;
 
@@ -182,11 +180,37 @@ public class WalletTransactionsFragment extends Fragment
 			}
 		};
 
-		@Override
-		public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState)
+		private final OnItemClickListener itemClickListener = new OnItemClickListener()
 		{
-			final View view = inflater.inflate(R.layout.wallet_transactions_page_fragment, container, false);
-			transactionsList = (ListView) view.findViewById(R.id.transactions_list);
+			public void onItemClick(final AdapterView<?> parent, final View view, final int position, final long id)
+			{
+				try
+				{
+					final Transaction tx = transactionsListAdapter.getItem(position);
+					final boolean sent = tx.sent(application.getWallet());
+					final Address address = sent ? tx.outputs.get(0).getScriptPubKey().getToAddress() : tx.getInputs().get(0).getFromAddress();
+
+					System.out.println("clicked on tx " + tx.getHash());
+
+					final FragmentTransaction ft = getFragmentManager().beginTransaction();
+					final Fragment prev = getFragmentManager().findFragmentByTag(EditAddressBookEntryFragment.FRAGMENT_TAG);
+					if (prev != null)
+						ft.remove(prev);
+					ft.addToBackStack(null);
+					final DialogFragment newFragment = new EditAddressBookEntryFragment(getLayoutInflater(null), address.toString());
+					newFragment.show(ft, EditAddressBookEntryFragment.FRAGMENT_TAG);
+				}
+				catch (final ScriptException x)
+				{
+					throw new RuntimeException(x);
+				}
+			}
+		};
+
+		@Override
+		public void onCreate(final Bundle savedInstanceState)
+		{
+			super.onCreate(savedInstanceState);
 
 			application = (Application) getActivity().getApplication();
 			final Wallet wallet = application.getWallet();
@@ -249,40 +273,28 @@ public class WalletTransactionsFragment extends Fragment
 					return row;
 				}
 			};
-			transactionsList.setAdapter(transactionsListAdapter);
-
-			transactionsList.setOnItemClickListener(new OnItemClickListener()
-			{
-				public void onItemClick(final AdapterView<?> parent, final View view, final int position, final long id)
-				{
-					try
-					{
-						final Transaction tx = transactionsListAdapter.getItem(position);
-						final boolean sent = tx.sent(wallet);
-						final Address address = sent ? tx.outputs.get(0).getScriptPubKey().getToAddress() : tx.getInputs().get(0).getFromAddress();
-
-						System.out.println("clicked on tx " + tx.getHash());
-
-						final FragmentTransaction ft = getFragmentManager().beginTransaction();
-						final Fragment prev = getFragmentManager().findFragmentByTag(EditAddressBookEntryFragment.FRAGMENT_TAG);
-						if (prev != null)
-							ft.remove(prev);
-						ft.addToBackStack(null);
-						final DialogFragment newFragment = new EditAddressBookEntryFragment(getLayoutInflater(null), address.toString());
-						newFragment.show(ft, EditAddressBookEntryFragment.FRAGMENT_TAG);
-					}
-					catch (final ScriptException x)
-					{
-						throw new RuntimeException(x);
-					}
-				}
-			});
+			setListAdapter(transactionsListAdapter);
 
 			wallet.addEventListener(walletEventListener);
 
 			getActivity().getContentResolver().registerContentObserver(AddressBookProvider.CONTENT_URI, true, contentObserver);
+		}
 
-			return view;
+		@Override
+		public void onActivityCreated(final Bundle savedInstanceState)
+		{
+			super.onActivityCreated(savedInstanceState);
+
+			setEmptyText(getString(mode == 2 ? R.string.wallet_transactions_fragment_empty_text_sent
+					: R.string.wallet_transactions_fragment_empty_text_received));
+		}
+
+		@Override
+		public void onViewCreated(final View view, final Bundle savedInstanceState)
+		{
+			super.onViewCreated(view, savedInstanceState);
+
+			getListView().setOnItemClickListener(itemClickListener);
 		}
 
 		@Override
@@ -294,13 +306,13 @@ public class WalletTransactionsFragment extends Fragment
 		}
 
 		@Override
-		public void onDestroyView()
+		public void onDestroy()
 		{
 			getActivity().getContentResolver().unregisterContentObserver(contentObserver);
 
 			application.getWallet().removeEventListener(walletEventListener);
 
-			super.onDestroyView();
+			super.onDestroy();
 		}
 
 		public void updateView()
