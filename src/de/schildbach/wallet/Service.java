@@ -252,9 +252,23 @@ public class Service extends android.app.Service
 		final int versionCode = application.versionCode();
 		final int lastVersionCode = prefs.getInt(Constants.PREFS_KEY_LAST_VERSION, 0);
 		final boolean blockchainNeedsRescan = lastVersionCode <= 23 && versionCode > 23;
-		final boolean blockchainResetInitiated = prefs.getBoolean(Constants.PREFS_KEY_RESET_BLOCKCHAIN, false);
 
-		prefs.edit().putInt(Constants.PREFS_KEY_LAST_VERSION, versionCode).remove(Constants.PREFS_KEY_RESET_BLOCKCHAIN).commit();
+		final String initiateReset = prefs.getString(Constants.PREFS_KEY_INITIATE_RESET, null);
+		final boolean blockchainResetInitiated;
+		if ("transactions".equals(initiateReset))
+		{
+			blockchainResetInitiated = true;
+			wallet.removeAllTransactions();
+		}
+		else if ("blockchain".equals(initiateReset))
+		{
+			blockchainResetInitiated = true;
+		}
+		else
+		{
+			blockchainResetInitiated = false;
+		}
+		prefs.edit().putInt(Constants.PREFS_KEY_LAST_VERSION, versionCode).remove(Constants.PREFS_KEY_INITIATE_RESET).commit();
 
 		try
 		{

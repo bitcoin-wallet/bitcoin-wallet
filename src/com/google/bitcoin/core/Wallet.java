@@ -949,4 +949,13 @@ public class Wallet implements Serializable {
         transactions = new ArrayList<Transaction>(new HashSet<Transaction>(transactions));
         return transactions;
     }
+
+    public void removeAllTransactions()
+    {
+    	pending.clear();
+    	unspent.clear();
+    	spent.clear();
+    	inactive.clear();
+    	dead.clear();
+    }
 }
