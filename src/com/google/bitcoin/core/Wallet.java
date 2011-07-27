@@ -34,13 +34,6 @@ import static com.google.bitcoin.core.Utils.bitcoinValueToFriendlyString;
  * serialization library.<p>
  */
 public class Wallet implements Serializable {
-	
-	   public boolean isPending(Transaction tx)
-	   {
-	       return pending.containsKey(tx.getHash());
-	   }
-	
-	
     private static final Logger log = LoggerFactory.getLogger(Wallet.class);
     private static final long serialVersionUID = 2L;
 
@@ -938,16 +931,27 @@ public class Wallet implements Serializable {
         return Collections.unmodifiableCollection(pending.values());
     }
 
-    public synchronized ArrayList<Transaction> getAllTransactions(){
-        // generate list of transactions to show
-        ArrayList<Transaction> transactions = new ArrayList<Transaction>();
+    public boolean isPending(Transaction tx)
+    {
+        return pending.containsKey(tx.getHash());
+    }	
+
+    public boolean isDead(Transaction tx)
+    {
+        return dead.containsKey(tx.getHash());
+    }	
+
+    public synchronized ArrayList<Transaction> getAllTransactions()
+    {
+    	// generate list of transactions to show
+        final Set<Transaction> transactions = new HashSet<Transaction>();
         transactions.addAll(pending.values());
         transactions.addAll(unspent.values());
         transactions.addAll(spent.values());
+        transactions.addAll(dead.values());
 
         // make sure list is unique 
-        transactions = new ArrayList<Transaction>(new HashSet<Transaction>(transactions));
-        return transactions;
+        return new ArrayList<Transaction>(transactions);
     }
 
     public void removeAllTransactions()

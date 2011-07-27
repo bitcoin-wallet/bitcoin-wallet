@@ -231,7 +231,14 @@ public class WalletTransactionsFragment extends Fragment
 						final Transaction tx = getItem(position);
 						final boolean sent = tx.sent(wallet);
 						final boolean pending = wallet.isPending(tx);
-						final int textColor = pending ? Color.LTGRAY : Color.BLACK;
+						final boolean dead = wallet.isDead(tx);
+						final int textColor;
+						if (dead)
+							textColor = Color.RED;
+						else if (pending)
+							textColor = Color.LTGRAY;
+						else
+							textColor = Color.BLACK;
 						final String address = (sent ? tx.outputs.get(0).getScriptPubKey().getToAddress() : tx.getInputs().get(0).getFromAddress())
 								.toString();
 
