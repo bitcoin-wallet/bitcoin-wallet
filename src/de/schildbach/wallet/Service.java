@@ -35,9 +35,12 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProviderInfo;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Binder;
 import android.os.Handler;
@@ -79,6 +82,8 @@ public class Service extends android.app.Service
 	private Application application;
 	private SharedPreferences prefs;
 
+	private BlockStore blockStore;
+	private BlockChain blockChain;
 	private PeerGroup peerGroup;
 	private List<Sha256Hash> transactionsSeen = new ArrayList<Sha256Hash>();
 
@@ -200,7 +205,7 @@ public class Service extends android.app.Service
 					}
 
 					// send pending transactions, TODO find better time
-					if (numPeers >= peerGroup.getMaxConnections())
+					if (peerGroup != null && numPeers >= peerGroup.getMaxConnections())
 					{
 						final Wallet wallet = application.getWallet();
 						for (final Transaction transaction : wallet.pending.values())
@@ -211,6 +216,103 @@ public class Service extends android.app.Service
 					}
 				}
 			});
+		}
+	};
+
+	private final DownloadListener blockchainDownloadListener = new DownloadListener()
+	{
+		@Override
+		protected void progress(final double percent, final Date date)
+		{
+			final DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(Service.this);
+			final DateFormat timeFormat = android.text.format.DateFormat.getTimeFormat(Service.this);
+			final long t = date.getTime();
+
+			handler.post(new Runnable()
+			{
+				public void run()
+				{
+					final String eventTitle = getString(R.string.notification_blockchain_sync_started_msg) + (Constants.TEST ? " [testnet]" : "");
+					final String eventText = getString(R.string.notification_blockchain_sync_progress_msg, percent,
+							DateUtils.isToday(t) ? timeFormat.format(t) : dateFormat.format(t));
+
+					final Notification notification = new Notification(R.drawable.stat_notify_sync, "Bitcoin blockchain sync started", 0);
+					notification.flags |= Notification.FLAG_ONGOING_EVENT;
+					// notification.iconLevel = blocksLeft % 2;
+					notification.setLatestEventInfo(Service.this, eventTitle, eventText,
+							PendingIntent.getActivity(Service.this, 0, new Intent(Service.this, WalletActivity.class), 0));
+					nm.notify(NOTIFICATION_ID_SYNCING, notification);
+				}
+			});
+		}
+
+		@Override
+		protected void doneDownload()
+		{
+			handler.post(new Runnable()
+			{
+				public void run()
+				{
+					nm.cancel(NOTIFICATION_ID_SYNCING);
+
+					System.out.println("sync finished");
+				}
+			});
+		}
+	};
+
+	private final BroadcastReceiver connectivityReceiver = new BroadcastReceiver()
+	{
+		@Override
+		public void onReceive(final Context context, final Intent intent)
+		{
+			final boolean noConnectivity = intent.getBooleanExtra(ConnectivityManager.EXTRA_NO_CONNECTIVITY, false);
+			final String reason = intent.getStringExtra(ConnectivityManager.EXTRA_REASON);
+			// final boolean isFailover = intent.getBooleanExtra(ConnectivityManager.EXTRA_IS_FAILOVER, false);
+			System.out.println("network has gone " + (noConnectivity ? "down" : "up") + (reason != null ? ": " + reason : ""));
+
+			if (!noConnectivity && peerGroup == null)
+			{
+				final Wallet wallet = application.getWallet();
+				final NetworkParameters networkParameters = application.getNetworkParameters();
+
+				peerGroup = new PeerGroup(blockStore, networkParameters, blockChain, wallet);
+				peerGroup.addEventListener(peerEventListener);
+
+				final String trustedPeerHost = prefs.getString(Constants.PREFS_KEY_TRUSTED_PEER, "").trim();
+				if (trustedPeerHost.length() == 0)
+				{
+					peerGroup.setMaxConnections(Constants.MAX_CONNECTED_PEERS);
+
+					// work around http://code.google.com/p/bitcoinj/issues/detail?id=52
+					backgroundHandler.post(new Runnable()
+					{
+						public void run()
+						{
+							peerGroup.addPeerDiscovery(Constants.TEST ? new IrcDiscovery(Constants.PEER_DISCOVERY_IRC_CHANNEL_TEST)
+									: new DnsDiscovery(networkParameters));
+						}
+					});
+				}
+				else
+				{
+					peerGroup.setMaxConnections(1);
+					peerGroup.addAddress(new PeerAddress(new InetSocketAddress(trustedPeerHost, networkParameters.port)));
+				}
+				peerGroup.start();
+
+				peerGroup.startBlockChainDownload(blockchainDownloadListener);
+			}
+			else if (noConnectivity && peerGroup != null)
+			{
+				peerGroup.removeEventListener(peerEventListener);
+				peerGroup.stop();
+				peerGroup = null;
+			}
+			else
+			{
+				System.out.println("ignored event");
+			}
 		}
 	};
 
@@ -248,6 +350,8 @@ public class Service extends android.app.Service
 		backgroundThread = new HandlerThread("backgroundThread", Process.THREAD_PRIORITY_BACKGROUND);
 		backgroundThread.start();
 		backgroundHandler = new Handler(backgroundThread.getLooper());
+
+		registerReceiver(connectivityReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
 
 		final int versionCode = application.versionCode();
 		final int lastVersionCode = prefs.getInt(Constants.PREFS_KEY_LAST_VERSION, 0);
@@ -304,77 +408,9 @@ public class Service extends android.app.Service
 				}
 			}
 
-			final BlockStore blockStore = new BoundedOverheadBlockStore(networkParameters, file);
+			blockStore = new BoundedOverheadBlockStore(networkParameters, file);
 
-			final BlockChain blockChain = new BlockChain(networkParameters, wallet, blockStore);
-
-			peerGroup = new PeerGroup(blockStore, networkParameters, blockChain, wallet);
-			peerGroup.addEventListener(peerEventListener);
-
-			final String trustedPeerHost = prefs.getString(Constants.PREFS_KEY_TRUSTED_PEER, "").trim();
-			if (trustedPeerHost.length() == 0)
-			{
-				peerGroup.setMaxConnections(Constants.MAX_CONNECTED_PEERS);
-
-				// work around http://code.google.com/p/bitcoinj/issues/detail?id=52
-				backgroundHandler.post(new Runnable()
-				{
-					public void run()
-					{
-						peerGroup.addPeerDiscovery(Constants.TEST ? new IrcDiscovery(Constants.PEER_DISCOVERY_IRC_CHANNEL_TEST) : new DnsDiscovery(
-								networkParameters));
-					}
-				});
-			}
-			else
-			{
-				peerGroup.setMaxConnections(1);
-				peerGroup.addAddress(new PeerAddress(new InetSocketAddress(trustedPeerHost, networkParameters.port)));
-			}
-			peerGroup.start();
-
-			peerGroup.startBlockChainDownload(new DownloadListener()
-			{
-				@Override
-				protected void progress(final double percent, final Date date)
-				{
-					final DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(Service.this);
-					final DateFormat timeFormat = android.text.format.DateFormat.getTimeFormat(Service.this);
-					final long t = date.getTime();
-
-					handler.post(new Runnable()
-					{
-						public void run()
-						{
-							final String eventTitle = getString(R.string.notification_blockchain_sync_started_msg)
-									+ (Constants.TEST ? " [testnet]" : "");
-							final String eventText = getString(R.string.notification_blockchain_sync_progress_msg, percent,
-									DateUtils.isToday(t) ? timeFormat.format(t) : dateFormat.format(t));
-
-							final Notification notification = new Notification(R.drawable.stat_notify_sync, "Bitcoin blockchain sync started", 0);
-							notification.flags |= Notification.FLAG_ONGOING_EVENT;
-							// notification.iconLevel = blocksLeft % 2;
-							notification.setLatestEventInfo(Service.this, eventTitle, eventText,
-									PendingIntent.getActivity(Service.this, 0, new Intent(Service.this, WalletActivity.class), 0));
-							nm.notify(NOTIFICATION_ID_SYNCING, notification);
-						}
-					});
-				}
-
-				@Override
-				protected void doneDownload()
-				{
-					handler.post(new Runnable()
-					{
-						public void run()
-						{
-							nm.cancel(NOTIFICATION_ID_SYNCING);
-
-							System.out.println("sync finished");
-						}
-					});
-				}
-			});
+			blockChain = new BlockChain(networkParameters, wallet, blockStore);
 
 			application.getWallet().addEventListener(walletEventListener);
 		}
@@ -391,9 +427,14 @@ public class Service extends android.app.Service
 
 		application.getWallet().removeEventListener(walletEventListener);
 
-		peerGroup.stop();
+		if (peerGroup != null)
+		{
+			peerGroup.removeEventListener(peerEventListener);
+			peerGroup.stop();
+		}
 
-		// cancel background thread
+		unregisterReceiver(connectivityReceiver);
+
 		backgroundThread.getLooper().quit();
 
 		handler.postDelayed(new Runnable()
@@ -421,11 +462,14 @@ public class Service extends android.app.Service
 		{
 			public void run()
 			{
-				final boolean success = peerGroup.broadcastTransaction(tx);
-				if (success)
+				if (peerGroup != null)
 				{
-					application.getWallet().confirmSend(tx);
-					application.saveWallet();
+					final boolean success = peerGroup.broadcastTransaction(tx);
+					if (success)
+					{
+						application.getWallet().confirmSend(tx);
+						application.saveWallet();
+					}
 				}
 			}
 		});
