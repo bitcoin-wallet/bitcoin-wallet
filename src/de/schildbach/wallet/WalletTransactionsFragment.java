@@ -109,7 +109,7 @@ public class WalletTransactionsFragment extends Fragment
 		@Override
 		public Fragment getItem(final int position)
 		{
-			return new ListFragment(position);
+			return ListFragment.instance(position);
 		}
 	}
 
@@ -118,13 +118,21 @@ public class WalletTransactionsFragment extends Fragment
 		private Application application;
 
 		private ArrayAdapter<Transaction> transactionsListAdapter;
-		private final int mode;
+		private int mode;
 
 		private final Handler handler = new Handler();
 
-		public ListFragment(final int mode)
+		private final static String KEY_MODE = "mode";
+
+		public static ListFragment instance(final int mode)
 		{
-			this.mode = mode;
+			final ListFragment fragment = new ListFragment();
+
+			final Bundle args = new Bundle();
+			args.putInt(KEY_MODE, mode);
+			fragment.setArguments(args);
+
+			return fragment;
 		}
 
 		private final WalletEventListener walletEventListener = new WalletEventListener()
@@ -211,6 +219,8 @@ public class WalletTransactionsFragment extends Fragment
 		public void onCreate(final Bundle savedInstanceState)
 		{
 			super.onCreate(savedInstanceState);
+
+			this.mode = getArguments().getInt(KEY_MODE);
 
 			application = (Application) getActivity().getApplication();
 			final Wallet wallet = application.getWallet();
