@@ -236,9 +236,17 @@ public class WalletActivity extends AbstractWalletActivity
 		final String className = getClass().getName();
 		final Intent intent = new Intent().setClassName(packageName, className);
 		if (getPackageManager().resolveActivity(intent, 0) != null)
+		{
 			startActivity(intent);
+		}
 		else
-			startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(String.format(Constants.MARKET_APP_URL, packageName))));
+		{
+			final Intent marketIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(String.format(Constants.MARKET_APP_URL, packageName)));
+			if (getPackageManager().resolveActivity(marketIntent, 0) != null)
+				startActivity(marketIntent);
+			else
+				startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(String.format(Constants.WEBMARKET_APP_URL, packageName))));
+		}
 		finish();
 	}
 

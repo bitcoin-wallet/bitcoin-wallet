@@ -77,6 +77,7 @@ public class Constants
 	public static final String AUTHOR_TWITTER_URL = "http://twitter.com/android_bitcoin";
 	public static final String AUTHOR_GOOGLEPLUS_URL = "https://profiles.google.com/andreas.schildbach";
 	public static final String MARKET_APP_URL = "market://details?id=%s";
+	public static final String WEBMARKET_APP_URL = "https://market.android.com/details?id=%s";
 	public static final String MARKET_PUBLISHER_URL = "market://search?q=pub:\"Andreas Schildbach\"";
 
 	public static final String PREFS_KEY_LAST_VERSION = "last_version";
