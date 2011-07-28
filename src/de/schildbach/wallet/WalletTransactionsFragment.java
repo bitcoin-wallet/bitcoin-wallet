@@ -113,7 +113,7 @@ public class WalletTransactionsFragment extends Fragment
 		}
 	}
 
-	private static class ListFragment extends android.support.v4.app.ListFragment
+	public static class ListFragment extends android.support.v4.app.ListFragment
 	{
 		private Application application;
 
