@@ -63,7 +63,6 @@ public class Application extends android.app.Application
 {
 	private static final int STACK_SIZE = 64 * 1024;
 
-	private NetworkParameters networkParameters;
 	private Wallet wallet;
 
 	private final Handler handler = new Handler();
@@ -119,8 +118,6 @@ public class Application extends android.app.Application
 
 		ErrorReporter.getInstance().init(this);
 
-		networkParameters = Constants.TEST ? NetworkParameters.testNet() : NetworkParameters.prodNet();
-
 		loadWallet();
 
 		backupKeys();
@@ -130,7 +127,7 @@ public class Application extends android.app.Application
 
 	public NetworkParameters getNetworkParameters()
 	{
-		return networkParameters;
+		return Constants.NETWORK_PARAMETERS;
 	}
 
 	public Wallet getWallet()
@@ -188,7 +185,7 @@ public class Application extends android.app.Application
 		}
 		catch (final FileNotFoundException x)
 		{
-			wallet = new Wallet(networkParameters);
+			wallet = new Wallet(Constants.NETWORK_PARAMETERS);
 			wallet.keychain.add(new ECKey());
 
 			try
@@ -295,7 +292,7 @@ public class Application extends android.app.Application
 	{
 		try
 		{
-			final Wallet wallet = new Wallet(networkParameters);
+			final Wallet wallet = new Wallet(Constants.NETWORK_PARAMETERS);
 			final BufferedReader in = new BufferedReader(new InputStreamReader(openFileInput(Constants.WALLET_KEY_BACKUP_BASE58), "UTF-8"));
 
 			while (true)
@@ -327,13 +324,13 @@ public class Application extends android.app.Application
 		final ArrayList<ECKey> keychain = wallet.keychain;
 
 		final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-		final String defaultAddress = keychain.get(0).toAddress(networkParameters).toString();
+		final String defaultAddress = keychain.get(0).toAddress(Constants.NETWORK_PARAMETERS).toString();
 		final String selectedAddress = prefs.getString(Constants.PREFS_KEY_SELECTED_ADDRESS, defaultAddress);
 
 		// sanity check
 		for (final ECKey key : keychain)
 		{
-			final Address address = key.toAddress(networkParameters);
+			final Address address = key.toAddress(Constants.NETWORK_PARAMETERS);
 			if (address.toString().equals(selectedAddress))
 				return address;
 		}

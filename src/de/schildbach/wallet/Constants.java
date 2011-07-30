@@ -21,6 +21,7 @@ import java.math.BigInteger;
 
 import android.content.Context;
 
+import com.google.bitcoin.core.NetworkParameters;
 import com.google.bitcoin.core.Utils;
 
 import de.schildbach.wallet_test.R;
@@ -31,6 +32,8 @@ import de.schildbach.wallet_test.R;
 public class Constants
 {
 	public static final boolean TEST = R.class.getPackage().getName().contains('_' + "test"); // replace protected
+
+	public static final NetworkParameters NETWORK_PARAMETERS = TEST ? NetworkParameters.testNet() : NetworkParameters.prodNet();
 
 	public static final String WALLET_FILENAME_PROD = "wallet";
 	public static final String WALLET_FILENAME_TEST = "wallet-testnet";

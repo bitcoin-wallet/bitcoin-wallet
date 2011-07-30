@@ -17,9 +17,6 @@
 
 package de.schildbach.wallet;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -101,8 +98,6 @@ public class SendCoinsActivity extends AbstractWalletActivity
 		return dialog;
 	}
 
-	private Pattern P_BITCOIN_URI = Pattern.compile("([a-zA-Z0-9]*)(?:\\?amount=(.*))?");
-
 	private void handleIntent(final Intent intent)
 	{
 		final SendCoinsFragment sendCoinsFragment = (SendCoinsFragment) getSupportFragmentManager().findFragmentById(R.id.send_coins_fragment);
@@ -110,11 +105,8 @@ public class SendCoinsActivity extends AbstractWalletActivity
 		final Uri intentUri = intent.getData();
 		if (intentUri != null && "bitcoin".equals(intentUri.getScheme()))
 		{
-			final Matcher m = P_BITCOIN_URI.matcher(intentUri.getSchemeSpecificPart());
-			if (m.matches())
-			{
-				sendCoinsFragment.update(m.group(1), m.group(2));
-			}
+			final BitcoinURI bitcoinUri = new BitcoinURI(intentUri);
+			sendCoinsFragment.update(bitcoinUri.getAddress().toString(), bitcoinUri.getAmount());
 		}
 		else if (intent.hasExtra(INTENT_EXTRA_ADDRESS))
 		{
