@@ -17,6 +17,8 @@
 
 package de.schildbach.wallet;
 
+import com.google.bitcoin.core.Address;
+
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -106,7 +108,8 @@ public class SendCoinsActivity extends AbstractWalletActivity
 		if (intentUri != null && "bitcoin".equals(intentUri.getScheme()))
 		{
 			final BitcoinURI bitcoinUri = new BitcoinURI(intentUri);
-			sendCoinsFragment.update(bitcoinUri.getAddress().toString(), bitcoinUri.getAmount());
+			final Address address = bitcoinUri.getAddress();
+			sendCoinsFragment.update(address != null ? address.toString() : null, bitcoinUri.getAmount());
 		}
 		else if (intent.hasExtra(INTENT_EXTRA_ADDRESS))
 		{
