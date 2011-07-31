@@ -49,8 +49,33 @@ public class BtcAmountView extends FrameLayout
 
 	private EditText textView;
 	private View chooseView;
-	private TextWatcher textChangedListener;
 	private Listener listener;
+
+	private final TextWatcher textChangedListener = new TextWatcher()
+	{
+		public void afterTextChanged(final Editable s)
+		{
+			// workaround for German keyboards
+			final String original = s.toString();
+			final String replaced = original.replace(',', '.');
+			if (!replaced.equals(original))
+			{
+				s.clear();
+				s.append(replaced);
+			}
+		}
+
+		public void beforeTextChanged(final CharSequence s, final int start, final int count, final int after)
+		{
+		}
+
+		public void onTextChanged(final CharSequence s, final int start, final int before, final int count)
+		{
+			updateAppearance();
+			if (listener != null)
+				listener.changed();
+		}
+	};
 
 	public BtcAmountView(final Context context)
 	{
@@ -72,23 +97,6 @@ public class BtcAmountView extends FrameLayout
 		textView = (EditText) getChildAt(0);
 		textView.setHint("0.00");
 		textView.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
-		textChangedListener = new TextWatcher()
-		{
-			public void afterTextChanged(final Editable s)
-			{
-			}
-
-			public void beforeTextChanged(final CharSequence s, final int start, final int count, final int after)
-			{
-			}
-
-			public void onTextChanged(final CharSequence s, final int start, final int before, final int count)
-			{
-				updateAppearance();
-				if (listener != null)
-					listener.changed();
-			}
-		};
 		textView.addTextChangedListener(textChangedListener);
 
 		chooseView = new View(context)
