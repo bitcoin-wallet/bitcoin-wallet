@@ -61,7 +61,7 @@
 	<string name="send_coins_add_address_dialog_button_add">Add address</string>
 	<string name="send_coins_add_address_dialog_button_dismiss">Dismiss</string>
 	<string name="send_coins_error_msg">Problem sending coins!</string>
-	<string name="send_coins_success_msg">%s BTC sent!</string>
+	<string name="send_coins_success_msg">BTC %s sent!</string>
 
 	<string name="request_coins_activity_title">Request Bitcoins</string>
 	<string name="request_coins_fragment_amount_label">Requested amount (optional)</string>
@@ -109,7 +109,7 @@
 	<string name="preferences_credits_market_app_title">Android Market App Page</string>
 	<string name="preferences_credits_market_publisher_title">Other Apps of Author</string>
 
-	<string name="notification_coins_received_msg">Received %s BTC!</string>
+	<string name="notification_coins_received_msg">Received BTC %s</string>
 	<string name="notification_peers_connected_msg">%d peers connected</string>
 	<string name="notification_blockchain_sync_started_msg">Bitcoin blockchain sync</string>
 	<string name="notification_blockchain_sync_progress_msg">%1$.1f%% finished, last block at %2$s</string>

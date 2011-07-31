@@ -57,7 +57,7 @@
 	<string name="send_coins_add_address_dialog_button_add">Добавить адрес</string>
 	<string name="send_coins_add_address_dialog_button_dismiss">Отмена</string>
 	<string name="send_coins_error_msg">Проблема с отправкой монет!</string>
-	<string name="send_coins_success_msg">%s BTC отправлено!</string>
+	<string name="send_coins_success_msg">BTC %s отправлено!</string>
 
 	<string name="request_coins_activity_title">Запросить Bitcoin-монеты</string>
 	<string name="request_coins_fragment_amount_label">Запрашиваемая сумма (опционально)</string>
@@ -87,7 +87,7 @@
 	<string name="preferences_credits_market_app_title">Страница на Android Market</string>
 	<string name="preferences_credits_market_publisher_title">Другие Приложения Автора</string>
 
-	<string name="notification_coins_received_msg">Получено %s BTC!</string>
+	<string name="notification_coins_received_msg">Получено BTC %s</string>
 	<string name="notification_peers_connected_msg">подключено %d пиров</string>
 	<string name="notification_blockchain_sync_started_msg">Синхронизация цепочки блоков</string>
 	<string name="notification_blockchain_sync_progress_msg">%1$.1f%% завершено, последний блок от %2$s</string>
