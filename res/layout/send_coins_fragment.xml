@@ -9,7 +9,7 @@
 	<AutoCompleteTextView android:id="@+id/send_coins_receiving_address" android:layout_width="fill_parent"
 		android:layout_height="wrap_content" android:layout_marginLeft="12dp" android:layout_marginRight="12dp"
 		android:background="@drawable/edit_text" android:textSize="16sp" android:textColor="#000" android:singleLine="true"
-		android:hint="@string/send_coins_fragment_receiving_address_hint" android:completionThreshold="1" />
+		android:hint="@string/send_coins_fragment_receiving_address_hint" android:completionThreshold="1" android:imeOptions="actionNext" />
 
 	<TextView android:id="@+id/send_coins_receiving_address_error" android:layout_width="fill_parent"
 		android:layout_height="wrap_content" android:layout_marginBottom="8dp" android:layout_marginLeft="12dp"
@@ -35,7 +35,8 @@
 		android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="12dp"
 		android:layout_marginRight="12dp">
 		<EditText android:layout_width="fill_parent" android:layout_height="wrap_content" android:background="@drawable/edit_text"
-			android:textSize="28sp" android:textStyle="bold" android:textColorHint="#ccc" android:drawablePadding="4dp" />
+			android:textSize="28sp" android:textStyle="bold" android:textColorHint="#ccc" android:drawablePadding="4dp"
+			android:imeOptions="actionNext" />
 	</de.schildbach.wallet.BtcAmountView>
 
 	<TextView android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp"
@@ -46,7 +47,8 @@
 		android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="12dp"
 		android:layout_marginRight="12dp">
 		<EditText android:layout_width="fill_parent" android:layout_height="wrap_content" android:background="@drawable/edit_text"
-			android:textSize="28sp" android:textStyle="bold" android:textColorHint="#ccc" android:drawablePadding="4dp" />
+			android:textSize="28sp" android:textStyle="bold" android:textColorHint="#ccc" android:drawablePadding="4dp"
+			android:imeOptions="actionDone" />
 	</de.schildbach.wallet.BtcAmountView>
 
 	<!-- stretch dummy -->
