@@ -120,6 +120,30 @@ public class ExchangeRatesFragment extends ListFragment
 		backgroundHandler = new Handler(backgroundThread.getLooper());
 
 		wallet.addEventListener(walletEventListener);
+	}
+
+	@Override
+	public void onActivityCreated(final Bundle savedInstanceState)
+	{
+		super.onActivityCreated(savedInstanceState);
+
+		setEmptyText(getString(R.string.exchange_rates_fragment_empty_text));
+	}
+
+	@Override
+	public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState)
+	{
+		final View view = super.onCreateView(inflater, container, savedInstanceState);
+
+		view.setBackgroundColor(Color.WHITE);
+
+		return view;
+	}
+
+	@Override
+	public void onViewCreated(final View view, final Bundle savedInstanceState)
+	{
+		super.onViewCreated(view, savedInstanceState);
 
 		backgroundHandler.post(new Runnable()
 		{
@@ -170,24 +194,6 @@ public class ExchangeRatesFragment extends ListFragment
 				}
 			}
 		});
-	}
-
-	@Override
-	public void onActivityCreated(final Bundle savedInstanceState)
-	{
-		super.onActivityCreated(savedInstanceState);
-
-		setEmptyText(getString(R.string.exchange_rates_fragment_empty_text));
-	}
-
-	@Override
-	public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState)
-	{
-		final View view = super.onCreateView(inflater, container, savedInstanceState);
-
-		view.setBackgroundColor(Color.WHITE);
-
-		return view;
 	}
 
 	@Override
