@@ -16,7 +16,6 @@
 	</LinearLayout>
 
 	<android.support.v4.view.ViewPager android:id="@+id/transactions_pager"
-		android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_gravity="bottom|center_horizontal"
-		android:background="#fff" />
+		android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_gravity="bottom|center_horizontal" />
 
 </LinearLayout>

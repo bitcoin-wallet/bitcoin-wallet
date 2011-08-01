@@ -25,14 +25,12 @@ import java.util.List;
 import java.util.Map;
 
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Process;
 import android.preference.PreferenceManager;
 import android.support.v4.app.ListFragment;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -128,16 +126,6 @@ public class ExchangeRatesFragment extends ListFragment
 		super.onActivityCreated(savedInstanceState);
 
 		setEmptyText(getString(R.string.exchange_rates_fragment_empty_text));
-	}
-
-	@Override
-	public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState)
-	{
-		final View view = super.onCreateView(inflater, container, savedInstanceState);
-
-		view.setBackgroundColor(Color.WHITE);
-
-		return view;
 	}
 
 	@Override
