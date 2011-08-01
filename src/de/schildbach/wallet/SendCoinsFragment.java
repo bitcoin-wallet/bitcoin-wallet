@@ -122,6 +122,8 @@ public class SendCoinsFragment extends Fragment
 	@Override
 	public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState)
 	{
+		final AbstractWalletActivity activity = (AbstractWalletActivity) getActivity();
+
 		final View view = inflater.inflate(R.layout.send_coins_fragment, container);
 		final float density = getResources().getDisplayMetrics().density;
 
@@ -131,7 +133,7 @@ public class SendCoinsFragment extends Fragment
 		// TODO subscribe to wallet changes
 
 		receivingAddressView = (AutoCompleteTextView) view.findViewById(R.id.send_coins_receiving_address);
-		receivingAddressView.setAdapter(new AutoCompleteAdapter(getActivity(), null));
+		receivingAddressView.setAdapter(new AutoCompleteAdapter(activity, null));
 		receivingAddressView.addTextChangedListener(textWatcher);
 
 		receivingAddressErrorView = view.findViewById(R.id.send_coins_receiving_address_error);
@@ -174,8 +176,8 @@ public class SendCoinsFragment extends Fragment
 
 						service.sendTransaction(transaction);
 
-						final WalletBalanceFragment balanceFragment = (WalletBalanceFragment) getActivity().getSupportFragmentManager()
-								.findFragmentById(R.id.wallet_balance_fragment);
+						final WalletBalanceFragment balanceFragment = (WalletBalanceFragment) activity.getSupportFragmentManager().findFragmentById(
+								R.id.wallet_balance_fragment);
 						if (balanceFragment != null)
 							balanceFragment.updateView();
 
@@ -184,10 +186,10 @@ public class SendCoinsFragment extends Fragment
 							public void run()
 							{
 								final Uri uri = AddressBookProvider.CONTENT_URI.buildUpon().appendPath(receivingAddress.toString()).build();
-								final Cursor cursor = getActivity().managedQuery(uri, null, null, null, null);
+								final Cursor cursor = activity.managedQuery(uri, null, null, null, null);
 								if (cursor.getCount() == 0)
 								{
-									final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+									final AlertDialog.Builder builder = new AlertDialog.Builder(activity);
 									builder.setMessage(R.string.send_coins_add_address_dialog_title);
 									builder.setPositiveButton(R.string.send_coins_add_address_dialog_button_add,
 											new DialogInterface.OnClickListener()
@@ -208,7 +210,7 @@ public class SendCoinsFragment extends Fragment
 														{
 															super.onDestroyView();
 
-															getActivity().finish();
+															activity.finish();
 														}
 													};
 													newFragment.show(ft, EditAddressBookEntryFragment.FRAGMENT_TAG);
@@ -219,25 +221,24 @@ public class SendCoinsFragment extends Fragment
 											{
 												public void onClick(final DialogInterface dialog, final int id)
 												{
-													getActivity().finish();
+													activity.finish();
 												}
 											});
 									builder.show();
 								}
 								else
 								{
-									getActivity().finish();
+									activity.finish();
 								}
 							}
 						}, 5000);
 
-						((AbstractWalletActivity) getActivity()).longToast(R.string.send_coins_success_msg,
-								Utils.bitcoinValueToFriendlyString(amount));
+						activity.longToast(R.string.send_coins_success_msg, Utils.bitcoinValueToFriendlyString(amount));
 					}
 					else
 					{
-						((AbstractWalletActivity) getActivity()).longToast(R.string.send_coins_error_msg);
-						getActivity().finish();
+						activity.longToast(R.string.send_coins_error_msg);
+						activity.finish();
 					}
 				}
 				catch (final AddressFormatException x)
@@ -252,7 +253,7 @@ public class SendCoinsFragment extends Fragment
 		{
 			public void onClick(final View v)
 			{
-				getActivity().finish();
+				activity.finish();
 			}
 		});
 
