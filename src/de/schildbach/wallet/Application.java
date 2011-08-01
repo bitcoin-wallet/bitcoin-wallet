@@ -114,6 +114,15 @@ public class Application extends android.app.Application
 	@Override
 	public void onCreate()
 	{
+		try
+		{
+			StrictModeWrapper.init();
+		}
+		catch (final Error x)
+		{
+			System.out.println("StrictMode not available");
+		}
+
 		super.onCreate();
 
 		ErrorReporter.getInstance().init(this);
