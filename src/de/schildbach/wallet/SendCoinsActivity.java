@@ -66,11 +66,18 @@ public class SendCoinsActivity extends AbstractWalletActivity
 			{
 				final PackageManager pm = getPackageManager();
 				if (pm.resolveActivity(zxingIntent, 0) != null)
+				{
 					startActivityForResult(zxingIntent, REQUEST_CODE_SCAN);
+				}
 				else if (pm.resolveActivity(gogglesIntent, 0) != null)
+				{
 					startActivity(gogglesIntent);
+				}
 				else
+				{
+					showMarketPage(Constants.PACKAGE_NAME_ZXING);
 					longToast(R.string.send_coins_install_qr_scanner_msg);
+				}
 			}
 		});
 		actionBar.addButton(R.drawable.ic_menu_help).setOnClickListener(new OnClickListener()

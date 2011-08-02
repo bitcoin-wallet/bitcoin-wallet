@@ -19,6 +19,8 @@ package de.schildbach.wallet;
 
 import java.util.Locale;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
@@ -101,5 +103,14 @@ public abstract class AbstractWalletActivity extends FragmentActivity
 			return "_ru";
 		else
 			return "";
+	}
+
+	protected void showMarketPage(final String packageName)
+	{
+		final Intent marketIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(String.format(Constants.MARKET_APP_URL, packageName)));
+		if (getPackageManager().resolveActivity(marketIntent, 0) != null)
+			startActivity(marketIntent);
+		else
+			startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(String.format(Constants.WEBMARKET_APP_URL, packageName))));
 	}
 }
