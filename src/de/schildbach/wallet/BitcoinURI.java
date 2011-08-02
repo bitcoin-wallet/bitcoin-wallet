@@ -37,6 +37,11 @@ public class BitcoinURI
 
 	private static final Pattern P_AMOUNT = Pattern.compile("([\\d.]+)(?:X(\\d+))?");
 
+	public BitcoinURI(final String uri)
+	{
+		this(Uri.parse(uri));
+	}
+
 	public BitcoinURI(final Uri uri)
 	{
 		if ("bitcoin".equals(uri.getScheme()))

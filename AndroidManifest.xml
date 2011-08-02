@@ -15,7 +15,7 @@
 		</activity>
 
 		<activity android:name="de.schildbach.wallet.SendCoinsActivity" android:theme="@android:style/Theme.Light.NoTitleBar"
-			android:screenOrientation="portrait" android:configChanges="orientation|keyboard|keyboardHidden" android:launchMode="singleInstance">
+			android:screenOrientation="portrait" android:configChanges="orientation|keyboard|keyboardHidden" android:launchMode="singleTask">
 			<intent-filter>
 				<action android:name="android.intent.action.VIEW" />
 				<data android:scheme="bitcoin" />
