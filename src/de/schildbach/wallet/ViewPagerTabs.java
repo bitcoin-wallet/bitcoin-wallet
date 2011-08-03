@@ -52,6 +52,7 @@ public class ViewPagerTabs extends View implements OnPageChangeListener
 		paint.setTextSize(12f * density);
 		paint.setColor(Color.BLACK);
 		paint.setAntiAlias(true);
+		paint.setShadowLayer(2, 0, 0, Color.WHITE);
 	}
 
 	public void addTabLabels(final int... labelResId)
