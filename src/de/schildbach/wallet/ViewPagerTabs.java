@@ -78,16 +78,17 @@ public class ViewPagerTabs extends View implements OnPageChangeListener
 	{
 		super.onDraw(canvas);
 
-		final int halfWidth = getWidth() / 2;
-		final int bottom = getHeight();
+		final int viewWidth = getWidth();
+		final int viewHalfWidth = viewWidth / 2;
+		final int viewBottom = getHeight();
 
 		final float density = getResources().getDisplayMetrics().density;
-		final float spacing = 8 * density;
+		final float spacing = 32 * density;
 
 		final Path path = new Path();
-		path.moveTo(halfWidth, bottom - 5 * density);
-		path.lineTo(halfWidth + 5 * density, bottom);
-		path.lineTo(halfWidth - 5 * density, bottom);
+		path.moveTo(viewHalfWidth, viewBottom - 5 * density);
+		path.lineTo(viewHalfWidth + 5 * density, viewBottom);
+		path.lineTo(viewHalfWidth - 5 * density, viewBottom);
 		path.close();
 
 		paint.setColor(Color.WHITE);
@@ -103,8 +104,21 @@ public class ViewPagerTabs extends View implements OnPageChangeListener
 			paint.setTypeface(i == pagePosition ? Typeface.DEFAULT_BOLD : Typeface.DEFAULT);
 			paint.setColor(i == pagePosition ? Color.BLACK : Color.DKGRAY);
 
-			final float x = halfWidth + (maxWidth + spacing) * (i - pageOffset);
-			canvas.drawText(label, x - paint.measureText(label) / 2, y, paint);
+			final float x = viewHalfWidth + (maxWidth + spacing) * (i - pageOffset);
+			final float labelWidth = paint.measureText(label);
+			final float labelHalfWidth = labelWidth / 2;
+
+			final float labelLeft = x - labelHalfWidth;
+			final float labelVisibleLeft = labelLeft >= 0 ? 1f : 1f - (-labelLeft / labelWidth);
+
+			final float labelRight = x + labelHalfWidth;
+			final float labelVisibleRight = labelRight < viewWidth ? 1f : 1f - ((labelRight - viewWidth) / labelWidth);
+
+			final float labelVisible = Math.min(labelVisibleLeft, labelVisibleRight);
+
+			paint.setAlpha((int) (labelVisible * 255));
+
+			canvas.drawText(label, labelLeft, y, paint);
 		}
 	}
 
