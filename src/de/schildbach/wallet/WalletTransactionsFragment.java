@@ -27,7 +27,6 @@ import java.util.List;
 import android.database.ContentObserver;
 import android.database.Cursor;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -37,7 +36,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
-import android.support.v4.view.ViewPager.SimpleOnPageChangeListener;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -66,29 +64,17 @@ public class WalletTransactionsFragment extends Fragment
 	{
 		final View view = inflater.inflate(R.layout.wallet_transactions_fragment, container, false);
 
-		final TextView tabReceived = (TextView) view.findViewById(R.id.transactions_tab_received);
-		final TextView tabBoth = (TextView) view.findViewById(R.id.transactions_tab_both);
-		final TextView tabSent = (TextView) view.findViewById(R.id.transactions_tab_sent);
+		final ViewPagerTabs pagerTabs = (ViewPagerTabs) view.findViewById(R.id.transactions_pager_tabs);
+		pagerTabs.addTabLabels(R.string.wallet_transactions_fragment_tab_received, R.string.wallet_transactions_fragment_tab_all,
+				R.string.wallet_transactions_fragment_tab_sent);
 
 		final PagerAdapter pagerAdapter = new PagerAdapter(getFragmentManager());
 
 		final ViewPager pager = (ViewPager) view.findViewById(R.id.transactions_pager);
 		pager.setAdapter(pagerAdapter);
-		pager.setOnPageChangeListener(new SimpleOnPageChangeListener()
-		{
-			@Override
-			public void onPageSelected(final int position)
-			{
-				tabReceived.setTextColor(position == 0 ? Color.BLACK : Color.DKGRAY);
-				tabBoth.setTextColor(position == 1 ? Color.BLACK : Color.DKGRAY);
-				tabSent.setTextColor(position == 2 ? Color.BLACK : Color.DKGRAY);
-
-				tabReceived.setTypeface(position == 0 ? Typeface.DEFAULT_BOLD : Typeface.DEFAULT);
-				tabBoth.setTypeface(position == 1 ? Typeface.DEFAULT_BOLD : Typeface.DEFAULT);
-				tabSent.setTypeface(position == 2 ? Typeface.DEFAULT_BOLD : Typeface.DEFAULT);
-			}
-		});
+		pager.setOnPageChangeListener(pagerTabs);
 		pager.setCurrentItem(1);
+		pagerTabs.onPageScrolled(1, 0, 0); // should not be needed
 
 		return view;
 	}
