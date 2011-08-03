@@ -93,6 +93,7 @@ public class ViewPagerTabs extends View implements OnPageChangeListener
 		paint.setColor(Color.WHITE);
 		canvas.drawPath(path, paint);
 
+		paint.setTypeface(Typeface.DEFAULT_BOLD);
 		final float y = getPaddingTop() + -paint.getFontMetrics().top;
 
 		for (int i = 0; i < labels.size(); i++)
@@ -138,6 +139,7 @@ public class ViewPagerTabs extends View implements OnPageChangeListener
 	@Override
 	protected int getSuggestedMinimumHeight()
 	{
+		paint.setTypeface(Typeface.DEFAULT_BOLD);
 		return (int) (-paint.getFontMetrics().top + paint.getFontMetrics().bottom) + getPaddingTop() + getPaddingBottom();
 	}
 
