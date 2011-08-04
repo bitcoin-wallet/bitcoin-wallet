@@ -75,6 +75,9 @@
 
 	<string name="address_book_activity_title">Address Book</string>
 	<string name="address_book_empty_text">No entries in address book</string>
+	<string name="address_book_context_send_title">Send Bitcoins to address</string>
+	<string name="address_book_context_edit_title">Edit address</string>
+	<string name="address_book_context_remove_title">Remove address</string>
 
 	<string name="edit_address_book_entry_dialog_title_add">Add address</string>
 	<string name="edit_address_book_entry_dialog_title_edit">Edit address</string>

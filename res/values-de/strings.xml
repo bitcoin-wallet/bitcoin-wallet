@@ -68,6 +68,9 @@
 
 	<string name="address_book_activity_title">Adressbuch</string>
 	<string name="address_book_empty_text">Keine Einträge im Adressbuch</string>
+	<string name="address_book_context_send_title">Bitcoins an Adresse senden</string>
+	<string name="address_book_context_edit_title">Adresse ändern</string>
+	<string name="address_book_context_remove_title">Adresse entfernen</string>
 
 	<string name="edit_address_book_entry_dialog_title_add">Adresse hinzufügen</string>
 	<string name="edit_address_book_entry_dialog_title_edit">Adresse ändern</string>
