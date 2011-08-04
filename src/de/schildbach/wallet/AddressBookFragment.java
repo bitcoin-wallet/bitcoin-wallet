@@ -25,8 +25,10 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v4.widget.SimpleCursorAdapter;
+import android.support.v4.widget.SimpleCursorAdapter.ViewBinder;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.TextView;
 import de.schildbach.wallet_test.R;
 
 /**
@@ -43,8 +45,20 @@ public class AddressBookFragment extends ListFragment implements LoaderManager.L
 
 		setEmptyText(getString(R.string.address_book_empty_text));
 
-		adapter = new SimpleCursorAdapter(getActivity(), android.R.layout.simple_list_item_2, null, new String[] { AddressBookProvider.KEY_LABEL,
-				AddressBookProvider.KEY_ADDRESS }, new int[] { android.R.id.text1, android.R.id.text2 }, 0);
+		adapter = new SimpleCursorAdapter(getActivity(), R.layout.address_book_row, null, new String[] { AddressBookProvider.KEY_LABEL,
+				AddressBookProvider.KEY_ADDRESS }, new int[] { R.id.address_book_row_label, R.id.address_book_row_address }, 0);
+		adapter.setViewBinder(new ViewBinder()
+		{
+			public boolean setViewValue(final View view, final Cursor cursor, final int columnIndex)
+			{
+				if (!AddressBookProvider.KEY_ADDRESS.equals(cursor.getColumnName(columnIndex)))
+					return false;
+
+				((TextView) view).setText(WalletUtils.splitIntoLines(cursor.getString(columnIndex), 3));
+
+				return true;
+			}
+		});
 		setListAdapter(adapter);
 
 		getLoaderManager().initLoader(0, null, this);
