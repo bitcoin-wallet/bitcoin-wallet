@@ -26,6 +26,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -319,18 +320,6 @@ public class SendCoinsFragment extends Fragment
 		}
 	}
 
-	public void update(final String receivingAddress, final BigInteger amount)
-	{
-		receivingAddressView.setText(receivingAddress);
-		if (amount != null)
-			amountView.setAmount(amount);
-
-		if (receivingAddress != null && amount == null)
-			amountView.requestFocus();
-
-		updateView();
-	}
-
 	private void updateView()
 	{
 		boolean validAddress = false;
@@ -356,5 +345,34 @@ public class SendCoinsFragment extends Fragment
 		boolean validFee = fee != null && fee.signum() >= 0;
 
 		viewGo.setEnabled(validAddress && validAmount && validFee);
+	}
+
+	public void update(final String receivingAddress, final BigInteger amount)
+	{
+		receivingAddressView.setText(receivingAddress);
+		flashReceivingAddress();
+
+		if (amount != null)
+			amountView.setAmount(amount);
+
+		if (receivingAddress != null && amount == null)
+			amountView.requestFocus();
+
+		updateView();
+	}
+
+	private Runnable resetColorRunnable = new Runnable()
+	{
+		public void run()
+		{
+			receivingAddressView.setTextColor(Color.parseColor("#888888"));
+		}
+	};
+
+	public void flashReceivingAddress()
+	{
+		receivingAddressView.setTextColor(Color.parseColor("#cc5500"));
+		handler.removeCallbacks(resetColorRunnable);
+		handler.postDelayed(resetColorRunnable, 500);
 	}
 }
