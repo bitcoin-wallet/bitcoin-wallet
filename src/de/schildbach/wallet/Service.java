@@ -297,7 +297,15 @@ public class Service extends android.app.Service
 				else
 				{
 					peerGroup.setMaxConnections(1);
-					peerGroup.addAddress(new PeerAddress(new InetSocketAddress(trustedPeerHost, networkParameters.port)));
+
+					// work around similar issue as http://code.google.com/p/bitcoinj/issues/detail?id=52
+					backgroundHandler.post(new Runnable()
+					{
+						public void run()
+						{
+							peerGroup.addAddress(new PeerAddress(new InetSocketAddress(trustedPeerHost, networkParameters.port)));
+						}
+					});
 				}
 				peerGroup.start();
 
