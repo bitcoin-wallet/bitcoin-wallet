@@ -109,7 +109,6 @@ public class Transaction extends Message implements Serializable {
     }
 
     public boolean sent(Wallet wallet) {
-        boolean sent = false;
         for (TransactionInput in : inputs) {
             if (in.isMine(wallet)) {
                 return true;
@@ -117,11 +116,7 @@ public class Transaction extends Message implements Serializable {
         }
         return false;
     }
-    
-    public boolean received(Wallet wallet) {
-        return !sent(wallet);
-    }
-    
+
     public BigInteger amount(Wallet wallet) throws ScriptException {
         if (sent(wallet)) {
             return getValueSentFromMe(wallet).subtract(getValueSentToMe(wallet));
@@ -129,7 +124,6 @@ public class Transaction extends Message implements Serializable {
             return getValueSentToMe(wallet);
         }
     }
-        
 
     /**
      * Calculates the sum of the outputs that are sending coins to a key in the wallet. The flag controls whether to
