@@ -271,7 +271,6 @@ public class Transaction extends Message implements Serializable {
                 }
             }
 
-
             for (TransactionInput input : this.inputs) {
                 if (input.getScriptSig().isSentToIP()) continue;
                 // This is not thread safe as a key could be removed between the call to isPubKeyMine and receive.
@@ -281,10 +280,9 @@ public class Transaction extends Message implements Serializable {
             }
             return false;
         } catch (ScriptException e) {
-            return false;
+            throw new RuntimeException(e);
         }
     }
-
 
     /**
      * A coinbase transaction is one that creates a new coin. They are the first transaction in each block and their
