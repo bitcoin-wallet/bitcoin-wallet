@@ -26,6 +26,6 @@ public class StrictModeWrapper
 {
 	public static void init()
 	{
-		StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().detectNetwork().penaltyDeath().build());
+		StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().detectNetwork().penaltyLog().build());
 	}
 }
