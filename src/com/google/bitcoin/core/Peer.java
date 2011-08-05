@@ -161,7 +161,7 @@ public class Peer {
 
     // process an unverified pending transaction, add it to pending in our wallet and call onPendingCoinsReceived
     private void processPendingTransaction(Transaction tx) {
-        if (tx.isMine(wallet)) {
+        if (tx.isMine(wallet) && !tx.sent(wallet)) {
             wallet.receivePendingTransaction(tx);
         }
     }
