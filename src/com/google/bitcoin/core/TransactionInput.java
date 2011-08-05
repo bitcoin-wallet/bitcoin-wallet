@@ -36,14 +36,14 @@ public class TransactionInput extends Message implements Serializable {
     /** Mostly copied from transaction output */
     public boolean isMine(Wallet wallet) {
         try {
-            byte[] pubkeyHash = getScriptSig().getPubKeyHash();
-			return wallet.isPubKeyHashMine(pubkeyHash);
+            byte[] pubkey = getScriptSig().getPubKey();
+			return wallet.isPubKeyMine(pubkey);
         } catch (ScriptException e) {
             log.error("Could not parse tx output script: {}", e.toString());
             return false;
         }
     }
-    
+
     private static final long serialVersionUID = 2;
     public static final byte[] EMPTY_ARRAY = new byte[0];
 
