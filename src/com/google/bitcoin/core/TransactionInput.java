@@ -21,6 +21,9 @@ import java.io.OutputStream;
 import java.io.Serializable;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * A transfer of coins from one address to another creates a transaction in which the outputs
  * can be claimed by the recipient in the input of another transaction. You can imagine a
@@ -28,16 +31,17 @@ import java.util.Map;
  * to the outputs of another. The exceptions are coinbase transactions, which create new coins.
  */
 public class TransactionInput extends Message implements Serializable {
+	private static final Logger log = LoggerFactory.getLogger(TransactionInput.class);
 
     /** Mostly copied from transaction output */
     public boolean isMine(Wallet wallet) {
-    try {
-    return wallet.isPubKeyMine(getScriptSig().getPubKey());
-    } catch (ScriptException e) {
-    System.out.println("Could not parse tx output script: {}"
-    + e.toString());
-    return false;
-    }
+        try {
+            byte[] pubkeyHash = getScriptSig().getPubKeyHash();
+			return wallet.isPubKeyHashMine(pubkeyHash);
+        } catch (ScriptException e) {
+            log.error("Could not parse tx output script: {}", e.toString());
+            return false;
+        }
     }
     
     private static final long serialVersionUID = 2;
