@@ -354,10 +354,13 @@ public class Wallet implements Serializable {
                 //   A  -> spent by B [pending]
                 //     \-> spent by C [chain]
                 Transaction doubleSpent = input.outpoint.fromTx;   // == A
+                assert doubleSpent != null;
                 int index = (int) input.outpoint.index;
                 TransactionOutput output = doubleSpent.outputs.get(index);
                 TransactionInput spentBy = output.getSpentBy();
+                assert spentBy != null;
                 Transaction connected = spentBy.parentTransaction;
+                assert connected != null;
                 if (pending.containsKey(connected.getHash())) {
                     log.info("Saw double spend from chain override pending tx {}", connected.getHashAsString());
                     log.info("  <-pending ->dead");
@@ -420,18 +423,7 @@ public class Wallet implements Serializable {
             TransactionOutput connectedOutput = input.outpoint.getConnectedOutput();
             connectedOutput.markAsSpent(input);
         }
-        // Some of the outputs probably send coins back to us, eg for change or because this transaction is just
-        // consolidating the wallet. Mark any output that is NOT back to us as spent. Then add this TX to the
-        // pending pool.
-
-// testing fix for http://code.google.com/p/bitcoinj/issues/detail?id=64
-//        for (TransactionOutput output : tx.outputs) {
-//            if (!output.isMine(this)) {
-//                // This output didn't go to us, so by definition it is now spent.
-//                output.markAsSpent(null);
-//            }
-//        }
-
+        // Add to the pending pool. It'll be moved out once we receive this transaction on the best chain.
         pending.put(tx.getHash(), tx);
     }
 
