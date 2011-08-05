@@ -25,7 +25,6 @@ import com.google.bitcoin.store.BlockStoreException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOError;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.util.Collections;
@@ -272,7 +271,7 @@ public class PeerGroup {
                     // Fatal error
                     log.error("Block store corrupt?", e);
                     running = false;
-                    throw new IOError(e);
+                    throw new RuntimeException(e);
                 }
                 
                 // If we got here, we should retry this address because an error unrelated
@@ -378,6 +377,10 @@ public class PeerGroup {
             Thread t = new Thread(group, r,
                                   namePrefix + threadNumber.getAndIncrement(),
                                   0);
+			// Lower the priority of the peer threads. This is to avoid competing with UI threads created by the API
+            // user when doing lots of work, like downloading the block chain. We select a priority level one lower
+            // than the parent thread, or the minimum.
+            t.setPriority(Math.max(Thread.MIN_PRIORITY, Thread.currentThread().getPriority() - 1));
             t.setDaemon(true);
             return t;
         }

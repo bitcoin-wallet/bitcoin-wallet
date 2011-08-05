@@ -59,7 +59,7 @@ public class DownloadListener extends AbstractPeerEventListener {
 
         double pct = 100.0 - (100.0 * (blocksLeft / (double) originalBlocksLeft));
         if ((int)pct != lastPercent) {
-            progress(pct, new Date(block.getTime() * 1000));
+            progress(pct, new Date(block.getTimeSeconds() * 1000));
             lastPercent = (int)pct;
         }
     }
@@ -72,7 +72,7 @@ public class DownloadListener extends AbstractPeerEventListener {
      */
     protected void progress(double pct, Date date) {
         System.out.println(String.format("Chain download %d%% done, block date %s", (int) pct,
-                DateFormat.getDateInstance().format(date)));
+                DateFormat.getDateTimeInstance().format(date)));
     }
 
     /**

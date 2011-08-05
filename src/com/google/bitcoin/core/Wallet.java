@@ -225,7 +225,7 @@ public class Wallet implements Serializable {
         BigInteger valueSentToMe = tx.getValueSentToMe(this);
         BigInteger valueDifference = valueSentToMe.subtract(valueSentFromMe);
         
-		tx.updatedAt = new Date(block.getHeader().getTime() * 1000);
+		tx.updatedAt = new Date(block.getHeader().getTimeSeconds() * 1000);
 
         if (!reorg) {
             log.info("Received tx{} for {} BTC: {}", new Object[] { sideChain ? " on a side chain" : "",
@@ -460,7 +460,7 @@ public class Wallet implements Serializable {
         if (!peerGroup.broadcastTransaction(tx)) {
             throw new IOException("Failed to broadcast tx to all connected peers");
         }
-
+        
         // TODO - retry logic
         confirmSend(tx);
         return tx;
@@ -482,7 +482,6 @@ public class Wallet implements Serializable {
             return null;
         peer.broadcastTransaction(tx);
         confirmSend(tx);
-
         return tx;
     }
 
