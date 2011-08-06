@@ -389,32 +389,7 @@ public class Service extends android.app.Service
 			final boolean blockchainDoesNotExist = !file.exists() || file.length() < Constants.BLOCKCHAIN_SNAPSHOT_COPY_THRESHOLD;
 
 			if (blockchainResetInitiated || blockchainNeedsRescan || blockchainDoesNotExist)
-			{
-				// copy snapshot
-				try
-				{
-					final long t = System.currentTimeMillis();
-
-					final String blockchainSnapshotFilename = Constants.TEST ? Constants.BLOCKCHAIN_SNAPSHOT_FILENAME_TEST
-							: Constants.BLOCKCHAIN_SNAPSHOT_FILENAME_PROD;
-					final InputStream is = getAssets().open(blockchainSnapshotFilename);
-					final OutputStream os = new FileOutputStream(file);
-
-					System.out.println("copying blockchain snapshot");
-					final byte[] buf = new byte[8192];
-					int read;
-					while (-1 != (read = is.read(buf)))
-						os.write(buf, 0, read);
-					os.close();
-					is.close();
-					System.out.println("finished copying, took " + (System.currentTimeMillis() - t) + " ms");
-				}
-				catch (final IOException x)
-				{
-					System.out.println("failed copying, starting from genesis");
-					file.delete();
-				}
-			}
+				copyBlockchainSnapshot(file);
 
 			blockStore = new BoundedOverheadBlockStore(networkParameters, file);
 
@@ -425,6 +400,33 @@ public class Service extends android.app.Service
 		catch (final BlockStoreException x)
 		{
 			throw new Error("blockstore cannot be created", x);
+		}
+	}
+
+	private void copyBlockchainSnapshot(final File file)
+	{
+		try
+		{
+			final long t = System.currentTimeMillis();
+
+			final String blockchainSnapshotFilename = Constants.TEST ? Constants.BLOCKCHAIN_SNAPSHOT_FILENAME_TEST
+					: Constants.BLOCKCHAIN_SNAPSHOT_FILENAME_PROD;
+			final InputStream is = getAssets().open(blockchainSnapshotFilename);
+			final OutputStream os = new FileOutputStream(file);
+
+			System.out.println("copying blockchain snapshot");
+			final byte[] buf = new byte[8192];
+			int read;
+			while (-1 != (read = is.read(buf)))
+				os.write(buf, 0, read);
+			os.close();
+			is.close();
+			System.out.println("finished copying, took " + (System.currentTimeMillis() - t) + " ms");
+		}
+		catch (final IOException x)
+		{
+			System.out.println("failed copying, starting from genesis");
+			file.delete();
 		}
 	}
 
