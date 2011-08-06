@@ -86,23 +86,6 @@
 	<string name="edit_address_book_entry_dialog_button_delete">Delete</string>
 	<string name="edit_address_book_entry_dialog_button_cancel">Cancel</string>
 
-	<string name="preferences_prefs_title">Preferences (advanced)</string>
-	<string name="preferences_trusted_peer_title">Trusted peer</string>
-	<string name="preferences_trusted_peer_summary">Hostname of single peer to connect to. Regular peer discovery will be skipped. Need to restart app to take effect.</string>
-	<string name="preferences_initiate_reset_title">Reset Blockchain/Transactions</string>
-	<string name="preferences_initiate_reset_summary">Initiate resetting blockchain or blockchain &amp; transactions. Use only when being instructed. Need to restart app to take effect.</string>
-	<string name="preferences_initiate_reset_dialog_title">Initiate reset</string>
-	<string-array name="preferences_initiate_reset_entries">
-		<item>No reset</item>
-		<item>Reset blockchain</item>
-		<item>Reset transactions and blockchain</item>
-	</string-array>
-	<string-array name="preferences_initiate_reset_values">
-		<item>nop</item>
-		<item>blockchain</item>
-		<item>transactions</item>
-	</string-array>
-
 	<string name="preferences_about_title">About</string>
 	<string name="preferences_license_title">License</string>
 	<string name="preferences_credits_bitcoinj_title">"This app is using 'bitcoinj'"</string>
