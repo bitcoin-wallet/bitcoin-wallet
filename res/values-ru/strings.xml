@@ -21,6 +21,11 @@
 	<string name="wallet_addresses_fragment_add_dialog_negative">Отмена</string>
 	<string name="wallet_balance_fragment_local_value">стоимостью примерно %1$s %2$s</string>
 	<string name="exchange_rates_fragment_empty_text">Не удалось загрузить обменный курс</string>
+	<string name="wallet_transactions_fragment_tab_received">Получено</string>
+	<string name="wallet_transactions_fragment_tab_all">Все</string>
+	<string name="wallet_transactions_fragment_tab_sent">Отправлено</string>
+	<string name="wallet_transactions_fragment_empty_text_received">Ещё не получено Bitcoin-монет</string>
+	<string name="wallet_transactions_fragment_empty_text_sent">Ещё не отправлено Bitcoin-монет</string>
 	<string name="wallet_options_request_coins">Запросить монеты</string>
 	<string name="wallet_options_send_coins">Отправить монеты</string>
 	<string name="wallet_options_about">О программе</string>
@@ -62,6 +67,7 @@
 	<string name="request_coins_activity_title">Запросить Bitcoin-монеты</string>
 	<string name="request_coins_fragment_amount_label">Запрашиваемая сумма (опционально)</string>
 	<string name="request_coins_fragment_qr_label">Пусть отправитель сканирует этот QR-код:</string>
+	<string name="request_coins_fragment_nfc_enabled">Или коснитесь устройством другого с поддержкой NFC.</string>
 	<string name="request_coins_clipboard_msg">Запрос получения Bitcoin-монет скопирован</string>
 	<string name="request_coins_share_dialog_title">Распространить запрос Bitcoin-монет...</string>
 
