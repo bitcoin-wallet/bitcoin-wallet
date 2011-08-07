@@ -32,9 +32,6 @@ public class AddressBookActivity extends AbstractWalletActivity
 
 		setContentView(R.layout.address_book_content);
 
-		final ActionBarFragment actionBar = (ActionBarFragment) getSupportFragmentManager().findFragmentById(R.id.action_bar_fragment);
-		actionBar.setIcon(Constants.APP_ICON_RESID);
-		actionBar.setPrimaryTitle(R.string.address_book_activity_title);
-		actionBar.setSecondaryTitle(Constants.TEST ? "[testnet!]" : null);
+		getActionBar().setPrimaryTitle(R.string.address_book_activity_title);
 	}
 }

@@ -68,10 +68,9 @@ public class WalletActivity extends AbstractWalletActivity
 
 		setContentView(R.layout.wallet_content);
 
-		final ActionBarFragment actionBar = (ActionBarFragment) getSupportFragmentManager().findFragmentById(R.id.action_bar_fragment);
-		actionBar.setIcon(Constants.APP_ICON_RESID);
+		final ActionBarFragment actionBar = getActionBar();
 		actionBar.setPrimaryTitle(R.string.app_name);
-		actionBar.setSecondaryTitle(Constants.TEST ? "[testnet!]" : null);
+
 		actionBar.addButton(R.drawable.ic_menu_send).setOnClickListener(new OnClickListener()
 		{
 			public void onClick(final View v)

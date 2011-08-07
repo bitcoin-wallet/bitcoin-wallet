@@ -71,9 +71,9 @@ public class WalletAddressesFragment extends ListFragment
 	}
 
 	@Override
-	public void onHiddenChanged(boolean hidden)
+	public void onHiddenChanged(final boolean hidden)
 	{
-		final ActionBarFragment actionBar = (ActionBarFragment) getFragmentManager().findFragmentById(R.id.action_bar_fragment);
+		final ActionBarFragment actionBar = ((AbstractWalletActivity) getActivity()).getActionBar();
 
 		if (!hidden)
 		{

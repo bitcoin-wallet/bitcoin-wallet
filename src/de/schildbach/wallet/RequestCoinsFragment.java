@@ -91,7 +91,7 @@ public class RequestCoinsFragment extends Fragment
 	{
 		super.onAttach(activity);
 
-		final ActionBarFragment actionBar = (ActionBarFragment) getFragmentManager().findFragmentById(R.id.action_bar_fragment);
+		final ActionBarFragment actionBar = ((AbstractWalletActivity) activity).getActionBar();
 		actionBar.addButton(R.drawable.ic_menu_share).setOnClickListener(new OnClickListener()
 		{
 			public void onClick(final View v)
