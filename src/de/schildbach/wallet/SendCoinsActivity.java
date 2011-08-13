@@ -131,7 +131,9 @@ public class SendCoinsActivity extends AbstractWalletActivity
 	private void handleIntent(final Intent intent)
 	{
 		final Uri intentUri = intent.getData();
-		if (intentUri != null && "bitcoin".equals(intentUri.getScheme()))
+		final String scheme = intentUri != null ? intentUri.getScheme() : null;
+
+		if (intentUri != null && ("bitcoin".equals(scheme) || "https".equals(scheme)))
 		{
 			final BitcoinURI bitcoinUri = new BitcoinURI(intentUri);
 			final Address address = bitcoinUri.getAddress();

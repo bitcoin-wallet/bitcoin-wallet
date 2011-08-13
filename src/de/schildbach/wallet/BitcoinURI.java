@@ -44,11 +44,13 @@ public class BitcoinURI
 
 	public BitcoinURI(final Uri uri)
 	{
-		if ("bitcoin".equals(uri.getScheme()))
+		final String scheme = uri.getScheme();
+
+		if ("bitcoin".equals(scheme) || "https".equals(scheme))
 		{
 			final Uri u = Uri.parse("bitcoin://" + uri.getSchemeSpecificPart());
 
-			final String addressStr = u.getHost();
+			final String addressStr = "bitcoin".equals(scheme) ? u.getHost() : u.getLastPathSegment();
 			try
 			{
 				address = new Address(Constants.NETWORK_PARAMETERS, addressStr);
@@ -69,6 +71,10 @@ public class BitcoinURI
 						amount.multiply(BigInteger.valueOf(10).pow(Integer.parseInt(m.group(2)) - 8));
 				}
 			}
+		}
+		else
+		{
+			throw new IllegalArgumentException("unknown scheme: " + scheme);
 		}
 	}
 
