@@ -253,7 +253,9 @@ public class Service extends android.app.Service
 			{
 				public void run()
 				{
-					nm.cancel(NOTIFICATION_ID_SYNCING);
+					final boolean clearNotification = prefs.getBoolean(Constants.PREFS_KEY_CLEAR_SYNC_NOTIFICATION, true);
+					if (clearNotification)
+						nm.cancel(NOTIFICATION_ID_SYNCING);
 
 					System.out.println("sync finished");
 				}

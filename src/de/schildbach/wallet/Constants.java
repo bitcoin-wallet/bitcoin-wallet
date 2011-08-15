@@ -88,6 +88,7 @@ public class Constants
 	public static final String PREFS_KEY_LAST_VERSION = "last_version";
 	public static final String PREFS_KEY_SELECTED_ADDRESS = "selected_address";
 	public static final String PREFS_KEY_EXCHANGE_CURRENCY = "exchange_currency";
+	public static final String PREFS_KEY_CLEAR_SYNC_NOTIFICATION = "clear_sync_notification";
 	public static final String PREFS_KEY_TRUSTED_PEER = "trusted_peer";
 	public static final String PREFS_KEY_INITIATE_RESET = "initiate_reset";
 
