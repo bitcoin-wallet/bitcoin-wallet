@@ -24,6 +24,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
@@ -135,6 +136,8 @@ public class ExchangeRatesFragment extends ListFragment
 
 		backgroundHandler.post(new Runnable()
 		{
+			final Activity activity = getActivity();
+
 			public void run()
 			{
 				try
@@ -143,7 +146,7 @@ public class ExchangeRatesFragment extends ListFragment
 
 					if (newExchangeRates != null)
 					{
-						getActivity().runOnUiThread(new Runnable()
+						activity.runOnUiThread(new Runnable()
 						{
 							public void run()
 							{
@@ -159,7 +162,7 @@ public class ExchangeRatesFragment extends ListFragment
 									{
 										final String currencyCode = currencyCodes.get(position);
 
-										final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+										final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(activity);
 										prefs.edit().putString(Constants.PREFS_KEY_EXCHANGE_CURRENCY, currencyCode).commit();
 
 										final WalletBalanceFragment walletBalanceFragment = (WalletBalanceFragment) getFragmentManager()

@@ -21,6 +21,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Map;
 
+import android.app.Activity;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -125,6 +126,8 @@ public class WalletBalanceFragment extends Fragment
 
 		backgroundHandler.post(new Runnable()
 		{
+			final Activity activity = getActivity();
+
 			public void run()
 			{
 				try
@@ -133,7 +136,7 @@ public class WalletBalanceFragment extends Fragment
 
 					if (newExchangeRates != null)
 					{
-						getActivity().runOnUiThread(new Runnable()
+						activity.runOnUiThread(new Runnable()
 						{
 							public void run()
 							{
