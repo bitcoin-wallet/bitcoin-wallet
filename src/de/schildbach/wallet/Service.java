@@ -491,6 +491,8 @@ public class Service extends android.app.Service
 					{
 						application.getWallet().confirmSend(tx);
 						application.saveWallet();
+
+						notifyWidgets();
 					}
 				}
 			}
