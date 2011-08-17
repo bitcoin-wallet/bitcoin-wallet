@@ -122,6 +122,8 @@ public abstract class AbstractWalletActivity extends FragmentActivity
 			return "_ru";
 		else if ("es".equals(language))
 			return "_es";
+		else if ("it".equals(language))
+			return "_it";
 		else
 			return "";
 	}

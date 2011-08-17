@@ -1,0 +1,35 @@
+Questa applicazione è in grado di gestire autonomamente un portafoglio Bitcoin. Bitcoin è una moneta elettronica usata su Internet.
+
+Puoi inviare Bitcoin tra due terminali semplicemente acquisendo i codici QR visualizzati da questa applicazione oppure utilizzando l'NFC (Near Field Communication).
+
+Questa versione usa la vera rete Bitcoin (Prodnet). Se vuoi invece utilizzare la rete di test (con Bitcoins senza valore) è consigliato l'uso di un'altra applicazione disponibile dallo stesso autore.
+
+CARATTERISTICHE:
+
+• Visualizzazione del saldo in Bitcoin ed altre valute
+• Invio e ricezione di Bitcoin Bitcoin utilizzando NFC, codici QR o Bitcoin URLs
+• Supporto all'utilizzo di importi decimali oltre il millibitcent (0.0001 BTC)
+• Rubrica per la memorizzazione degli indirizzi Bitcoin usati regolarmente
+• Possibilità di impostare transazioni anche offline, eseguite alla prima occasione online
+• Notifiche di sistema per connettività Bitcoin e la ricezione di Bitcoins
+• Widget per il saldo Bitcoin (è necessario che l'applicazione sia memorizzata sul dispositivo)
+
+PROBLEMI NOTI, SI PREGA DI FARE ATTENZIONE:
+
+• Durante la prima esecuzione dell'applicazione è possibile che si visualizzi uno schermo bianco per alcuni secondi. E' normale.
+• E' possibile ricevere più volte la notifica di sistema che riguarda una transazione di Bitcoin in ingresso. Ma vengono conteggiati correttamente una sola volta.
+
+E' possibile ottenere un minimo importo di Bitcoin con cui sperimentare all'indirizzo:
+https://freebitcoins.appspot.com/
+
+Puoi trovare maggiori informazioni su Bitcoin qui:
+http://bitcoin.org
+
+Se vuoi contribuire a Bitcoin Wallet, l'indirizzo del progetto è
+https://code.google.com/p/bitcoin-wallet/
+
+Licenza: GPLv3
+Usalo a tuo rischio e pericolo!
+
+--
+BTC bitcoin wallet bitcoinandroid androidbitcoin Geldbörse Кошелёк
