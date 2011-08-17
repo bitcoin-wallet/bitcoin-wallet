@@ -10,9 +10,9 @@
 	<string name="wallet_address_fragment_clipboard_msg">Dirección Bitcoin copiada al portapapeles</string>
 	<string name="wallet_address_fragment_share_dialog_title">Comparte tu dirección Bitcoin...</string>
 	<string-array name="wallet_address_fragment_context">
-		<item>Listar todo</item>
+		<item>Listar todas</item>
 		<item>Mostrar código QR</item>
-		<item>Pegar al portapapeles</item>
+		<item>Copiar al portapapeles</item>
 		<item>Compartir</item>
 	</string-array>
 	<string name="wallet_addresses_fragment_add_dialog_title">Añadir dirección Bitcoin</string>
@@ -22,7 +22,7 @@
 	<string name="wallet_balance_fragment_local_value">Vale alrededor de %1$s %2$s</string>
 	<string name="exchange_rates_fragment_empty_text">No se pueden cargar los tipos de cambio</string>
 	<string name="wallet_transactions_fragment_tab_received">Recibidos</string>
-	<string name="wallet_transactions_fragment_tab_all">Ambos</string>
+	<string name="wallet_transactions_fragment_tab_all">Total</string>
 	<string name="wallet_transactions_fragment_tab_sent">Enviados</string>
 	<string name="wallet_transactions_fragment_empty_text_received">Aún no se han recibido bitcoins</string>
 	<string name="wallet_transactions_fragment_empty_text_sent">Aún no se han enviado bitcoins</string>
@@ -52,7 +52,7 @@
 	<string name="send_coins_fragment_receiving_address_error">¡Dirección Bitcoin inválida!</string>
 	<string name="send_coins_fragment_available_label">Disponible para gastar</string>
 	<string name="send_coins_fragment_pending">(BTC %s esperando confirmación)</string>
-	<string name="send_coins_fragment_amount_label">Suma para pagar</string>
+	<string name="send_coins_fragment_amount_label">Cantidad a pagar</string>
 	<string name="send_coins_fragment_fee_label">Comisión (opcional)</string>
 	<string name="send_coins_fragment_button_send">Enviar</string>
 	<string name="send_coins_fragment_button_cancel">Cancelar</string>
@@ -64,7 +64,7 @@
 	<string name="send_coins_success_msg">¡BTC %s enviados!</string>
 
 	<string name="request_coins_activity_title">Solicitar bitcoins</string>
-	<string name="request_coins_fragment_amount_label">Suma solicitada (opcional)</string>
+	<string name="request_coins_fragment_amount_label">Cantidad solicitada (opcional)</string>
 	<string name="request_coins_fragment_qr_label">Utilizar este código QR para enviar:</string>
 	<string name="request_coins_fragment_nfc_enabled">O tocar con un dispositivo dotado de NFC.</string>
 	<string name="request_coins_clipboard_msg">Solicitud de bitcoins pegada al portapapeles</string>
