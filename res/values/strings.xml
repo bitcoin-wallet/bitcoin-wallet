@@ -7,12 +7,12 @@
 
 	<string name="wallet_content_disclaimer">This is entirely experimental. Use at your own risk! Read the safety notes.</string>
 	<string name="wallet_address_fragment_your">Your Bitcoin Address:</string>
-	<string name="wallet_address_fragment_clipboard_msg">Bitcoin address pasted to clipboard</string>
+	<string name="wallet_address_fragment_clipboard_msg">Bitcoin address copied to clipboard</string>
 	<string name="wallet_address_fragment_share_dialog_title">Share your bitcoin address...</string>
 	<string-array name="wallet_address_fragment_context">
 		<item>List all</item>
 		<item>Show QR code</item>
-		<item>Paste to clipboard</item>
+		<item>Copy to clipboard</item>
 		<item>Share</item>
 	</string-array>
 	<string name="wallet_addresses_fragment_add_dialog_title">Add Bitcoin address</string>
@@ -67,7 +67,7 @@
 	<string name="request_coins_fragment_amount_label">Requested amount (optional)</string>
 	<string name="request_coins_fragment_qr_label">Have this QR-code scanned by the sender:</string>
 	<string name="request_coins_fragment_nfc_enabled">Or touch with NFC enabled device.</string>
-	<string name="request_coins_clipboard_msg">Bitcoin request pasted to clipboard</string>
+	<string name="request_coins_clipboard_msg">Bitcoin request copied to clipboard</string>
 	<string name="request_coins_share_dialog_title">Share request for Bitcoins...</string>
 
 	<string name="address_book_activity_title">Address Book</string>
