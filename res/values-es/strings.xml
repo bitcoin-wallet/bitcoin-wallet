@@ -57,8 +57,7 @@
 	<string name="send_coins_fragment_button_send">Enviar</string>
 	<string name="send_coins_fragment_button_cancel">Cancelar</string>
 	<string name="send_coins_sending_msg">Enviando...</string>
-	<string name="send_coins_add_address_dialog_title">El receptor no está en tu libreta de direcciones.\n\n¿Quieres añadir la dirección?
-	</string>
+	<string name="send_coins_add_address_dialog_title">El receptor no está en tu libreta de direcciones.\n\n¿Quieres añadir la dirección?</string>
 	<string name="send_coins_add_address_dialog_button_add">Añadir dirección</string>
 	<string name="send_coins_add_address_dialog_button_dismiss">Rechazar</string>
 	<string name="send_coins_error_msg">¡Problema enviando bitcoins!</string>
