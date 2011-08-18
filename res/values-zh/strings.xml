@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+
+	<string name="app_name">比特币钱包</string>
+	<string name="toast_wallet_reset">钱包已重置，\n需要一些时间才能恢复</string>
+
+	<string name="wallet_content_disclaimer">程序处于测试阶段，请阅读安全及风险提示以了解潜在使用风险。</string>
+	<string name="wallet_address_fragment_your">你的比特币地址：</string>
+	<string name="wallet_address_fragment_clipboard_msg">比特币地址已复制到剪贴板</string>
+	<string name="wallet_address_fragment_share_dialog_title">分享你的比特币地址...</string>
+	<string-array name="wallet_address_fragment_context">
+		<item>显示所有</item>
+		<item>显示二维码</item>
+		<item>复制到剪贴板</item>
+		<item>分享</item>
+	</string-array>
+	<string name="wallet_addresses_fragment_add_dialog_title">添加比特币地址</string>
+	<string name="wallet_addresses_fragment_add_dialog_message">不能删除比特币地址，或许你想要一个新地址？</string>
+	<string name="wallet_addresses_fragment_add_dialog_positive">添加</string>
+	<string name="wallet_addresses_fragment_add_dialog_negative">取消</string>
+	<string name="wallet_balance_fragment_local_value">总价值约为%1$s %2$s</string>
+	<string name="exchange_rates_fragment_empty_text">无法加载汇率</string>
+	<string name="wallet_transactions_fragment_tab_received">接收</string>
+	<string name="wallet_transactions_fragment_tab_all">全部</string>
+	<string name="wallet_transactions_fragment_tab_sent">发送</string>
+	<string name="wallet_transactions_fragment_empty_text_received">还没有收到比特币哦！</string>
+	<string name="wallet_transactions_fragment_empty_text_sent">还没有给人发送比特币</string>
+	<string name="wallet_options_request_coins">向他人索取比特币</string>
+	<string name="wallet_options_send_coins">发送比特币</string>
+	<string name="wallet_options_about">关于</string>
+	<string name="wallet_options_safety">安全及风险提示</string>
+	<string name="wallet_options_donate">捐赠</string>
+	<string name="wallet_options_help">帮助</string>
+	<string name="wallet_migration_dialog_title">重要提示！</string>
+	<string name="wallet_migration_dialog_msg">根据人民群众需要，比特币钱包软件已从测试网络切换到正式网络，这意味着你		发出去的钱就是泼出去的水，覆水难收啊！所以请你务必要阅读安全提示。\n\n如果不想冒这个风险，那么请安装比特币钱包测试版</string>
+	<string name="wallet_migration_dialog_button_safety">阅读安全及风险提示</string>
+	<string name="wallet_migration_dialog_button_testnet">安装测试版</string>
+	<string name="wallet_low_storage_dialog_title">内部存储空间不足！！</string>
+	<string name="wallet_low_storage_dialog_msg">比特币钱包使用内部空间来存储交易记录了货币包，如果空间用完，那么它就会罢工，然后你的 比特币 就会有危险哦！\n\n我们觉得你应该想删除一些不需要的程序？</string>
+	<string name="wallet_low_storage_dialog_button_apps">管理应用程序</string>
+	<string name="wallet_low_storage_dialog_button_dismiss">取消</string>
+
+	<string name="send_coins_activity_title">发送比特币</string>
+	<string name="send_coins_install_qr_scanner_msg">请安装ZXing二维码扫描器或Goggles！</string>
+	<string name="send_coins_fragment_receiving_address_label">发送给</string>
+	<string name="send_coins_fragment_receiving_address_hint">输入地址或姓名</string>
+	<string name="send_coins_fragment_receiving_address_error">地址错误！</string>
+	<string name="send_coins_fragment_available_label">可用余额</string>
+	<string name="send_coins_fragment_pending">（%s比特币等待网络确认）</string>
+	<string name="send_coins_fragment_amount_label">总量</string>
+	<string name="send_coins_fragment_fee_label">手续费（可选）</string>
+	<string name="send_coins_fragment_button_send">发送</string>
+	<string name="send_coins_fragment_button_cancel">取消</string>
+	<string name="send_coins_sending_msg">发送中...</string>
+	<string name="send_coins_add_address_dialog_title">收件人不在你的地址簿中哦！\n\n你确信是支付给这个地址？</string>
+	<string name="send_coins_add_address_dialog_button_add">添加地址</string>
+	<string name="send_coins_add_address_dialog_button_dismiss">取消</string>
+	<string name="send_coins_error_msg">支付时遇到了问题！</string>
+	<string name="send_coins_success_msg">%s比特币已发送！</string>
+
+	<string name="request_coins_activity_title">接收比特币</string>
+	<string name="request_coins_fragment_amount_label">接收数量（可选）</string>
+	<string name="request_coins_fragment_qr_label">请付款者扫描此二维码：</string>
+	<string name="request_coins_fragment_nfc_enabled">或使用具备近场支付功能的设备。</string>
+	<string name="request_coins_clipboard_msg">索取比特币的请求已复制到剪贴板</string>
+	<string name="request_coins_share_dialog_title">使用其它方式分享该申请...</string>
+
+	<string name="address_book_activity_title">地址薄</string>
+	<string name="address_book_empty_text">地址薄尚无记录</string>
+	<string name="address_book_context_send_title">支付给本地址</string>
+	<string name="address_book_context_edit_title">编辑地址</string>
+	<string name="address_book_context_remove_title">删除地址</string>
+
+	<string name="edit_address_book_entry_dialog_title_add">添加地址</string>
+	<string name="edit_address_book_entry_dialog_title_edit">编辑地址</string>
+	<string name="edit_address_book_entry_dialog_address_label">地址</string>
+	<string name="edit_address_book_entry_dialog_label_label">姓名</string>
+	<string name="edit_address_book_entry_dialog_button_add">添加</string>
+	<string name="edit_address_book_entry_dialog_button_edit">保存</string>
+	<string name="edit_address_book_entry_dialog_button_delete">删除</string>
+	<string name="edit_address_book_entry_dialog_button_cancel">取消</string>
+
+	<string name="preferences_about_title">关于</string>
+	<string name="preferences_license_title">授权</string>
+	<string name="preferences_credits_比特币j_title">"本程序使用 '比特币j'"</string>
+	<string name="preferences_credits_zxing_title">"本程序使用 'zxing'"</string>
+	<string name="preferences_credits_icon_title">"本程序使用 'bitboy' 制作的图标"</string>
+	<string name="preferences_author_twitter_title">作者Twitter</string>
+	<string name="preferences_author_googleplus_title">作者Google+</string>
+	<string name="preferences_credits_market_app_title">Android 市场程序页</string>
+	<string name="preferences_credits_market_publisher_title">作者其它程序</string>
+
+	<string name="notification_coins_received_msg">已收到%s比特币</string>
+	<string name="notification_peers_connected_msg">%d连接已建立</string>
+	<string name="notification_blockchain_sync_started_msg">比特币 货币包同步</string>
+	<string name="notification_blockchain_sync_progress_msg">已完成%1$.1f%%，最后一块是%2$s</string>
+
+</resources>
