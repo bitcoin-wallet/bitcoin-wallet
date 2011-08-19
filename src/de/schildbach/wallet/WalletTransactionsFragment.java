@@ -219,53 +219,63 @@ public class WalletTransactionsFragment extends Fragment
 				@Override
 				public View getView(final int position, View row, final ViewGroup parent)
 				{
+					if (row == null)
+						row = getLayoutInflater(null).inflate(R.layout.transaction_row, null);
+
+					final Transaction tx = getItem(position);
+					final boolean sent = tx.sent(wallet);
+					final boolean pending = wallet.isPending(tx);
+					final boolean dead = wallet.isDead(tx);
+					final int textColor;
+					if (dead)
+						textColor = Color.RED;
+					else if (pending)
+						textColor = Color.LTGRAY;
+					else
+						textColor = Color.BLACK;
+
+					String address = null;
+					String label = null;
 					try
 					{
-						if (row == null)
-							row = getLayoutInflater(null).inflate(R.layout.transaction_row, null);
-
-						final Transaction tx = getItem(position);
-						final boolean sent = tx.sent(wallet);
-						final boolean pending = wallet.isPending(tx);
-						final boolean dead = wallet.isDead(tx);
-						final int textColor;
-						if (dead)
-							textColor = Color.RED;
-						else if (pending)
-							textColor = Color.LTGRAY;
+						if (sent)
+							address = tx.outputs.get(0).getScriptPubKey().getToAddress().toString();
 						else
-							textColor = Color.BLACK;
-						final String address = (sent ? tx.outputs.get(0).getScriptPubKey().getToAddress() : tx.getInputs().get(0).getFromAddress())
-								.toString();
+							address = tx.getInputs().get(0).getFromAddress().toString();
 
 						final Uri uri = AddressBookProvider.CONTENT_URI.buildUpon().appendPath(address).build();
 
-						final String label;
 						final Cursor cursor = getActivity().managedQuery(uri, null, null, null, null);
 						if (cursor.moveToFirst())
 							label = cursor.getString(cursor.getColumnIndexOrThrow(AddressBookProvider.KEY_LABEL));
-						else
-							label = null;
+					}
+					catch (final ScriptException x)
+					{
+						x.printStackTrace();
+					}
 
-						final TextView rowTime = (TextView) row.findViewById(R.id.transaction_time);
-						final Date time = tx.updatedAt;
-						rowTime.setText(time != null ? DateUtils.isToday(time.getTime()) ? timeFormat.format(time) : dateFormat.format(time) : null);
-						rowTime.setTextColor(textColor);
+					final TextView rowTime = (TextView) row.findViewById(R.id.transaction_time);
+					final Date time = tx.updatedAt;
+					rowTime.setText(time != null ? DateUtils.isToday(time.getTime()) ? timeFormat.format(time) : dateFormat.format(time) : null);
+					rowTime.setTextColor(textColor);
 
-						final TextView rowTo = (TextView) row.findViewById(R.id.transaction_to);
-						rowTo.setVisibility(sent ? View.VISIBLE : View.INVISIBLE);
-						rowTo.setTextColor(textColor);
+					final TextView rowTo = (TextView) row.findViewById(R.id.transaction_to);
+					rowTo.setVisibility(sent ? View.VISIBLE : View.INVISIBLE);
+					rowTo.setTextColor(textColor);
 
-						final TextView rowFrom = (TextView) row.findViewById(R.id.transaction_from);
-						rowFrom.setVisibility(sent ? View.INVISIBLE : View.VISIBLE);
-						rowFrom.setTextColor(textColor);
+					final TextView rowFrom = (TextView) row.findViewById(R.id.transaction_from);
+					rowFrom.setVisibility(sent ? View.INVISIBLE : View.VISIBLE);
+					rowFrom.setTextColor(textColor);
 
-						final TextView rowLabel = (TextView) row.findViewById(R.id.transaction_address);
-						rowLabel.setTextColor(textColor);
-						rowLabel.setText(label != null ? label : address);
+					final TextView rowLabel = (TextView) row.findViewById(R.id.transaction_address);
+					rowLabel.setTextColor(textColor);
+					rowLabel.setText(label != null ? label : address);
 
-						final TextView rowValue = (TextView) row.findViewById(R.id.transaction_value);
-						rowValue.setTextColor(textColor);
+					final TextView rowValue = (TextView) row.findViewById(R.id.transaction_value);
+					rowValue.setTextColor(textColor);
+
+					try
+					{
 						rowValue.setText((sent ? "-" : "+") + "\u2009" /* thin space */+ Utils.bitcoinValueToFriendlyString(tx.amount(wallet)));
 					}
 					catch (final ScriptException x)
