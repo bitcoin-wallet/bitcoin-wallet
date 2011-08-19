@@ -38,6 +38,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.bitcoin.core.Transaction;
@@ -137,6 +138,7 @@ public class ExchangeRatesFragment extends ListFragment
 		backgroundHandler.post(new Runnable()
 		{
 			final Activity activity = getActivity();
+			final ListView listView = getListView();
 
 			public void run()
 			{
@@ -156,7 +158,7 @@ public class ExchangeRatesFragment extends ListFragment
 
 								setListAdapter(new Adapter());
 
-								getListView().setOnItemClickListener(new OnItemClickListener()
+								listView.setOnItemClickListener(new OnItemClickListener()
 								{
 									public void onItemClick(final AdapterView<?> parent, final View view, final int position, final long id)
 									{
