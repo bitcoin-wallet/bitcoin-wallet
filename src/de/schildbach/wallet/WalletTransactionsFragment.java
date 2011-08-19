@@ -178,13 +178,14 @@ public class WalletTransactionsFragment extends Fragment
 		{
 			public void onItemClick(final AdapterView<?> parent, final View view, final int position, final long id)
 			{
+				final Transaction tx = transactionsListAdapter.getItem(position);
+				System.out.println("clicked on tx " + tx);
+
+				final boolean sent = tx.sent(application.getWallet());
+
 				try
 				{
-					final Transaction tx = transactionsListAdapter.getItem(position);
-					final boolean sent = tx.sent(application.getWallet());
 					final Address address = sent ? tx.outputs.get(0).getScriptPubKey().getToAddress() : tx.getInputs().get(0).getFromAddress();
-
-					System.out.println("clicked on tx " + tx);
 
 					final FragmentTransaction ft = getFragmentManager().beginTransaction();
 					final Fragment prev = getFragmentManager().findFragmentByTag(EditAddressBookEntryFragment.FRAGMENT_TAG);
@@ -196,7 +197,8 @@ public class WalletTransactionsFragment extends Fragment
 				}
 				catch (final ScriptException x)
 				{
-					throw new RuntimeException(x);
+					// ignore click
+					x.printStackTrace();
 				}
 			}
 		};
