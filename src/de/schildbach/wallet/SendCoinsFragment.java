@@ -19,6 +19,7 @@ package de.schildbach.wallet;
 
 import java.math.BigInteger;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ComponentName;
 import android.content.Context;
@@ -235,6 +236,8 @@ public class SendCoinsFragment extends Fragment
 						}, 5000);
 
 						activity.longToast(R.string.send_coins_success_msg, Utils.bitcoinValueToFriendlyString(amount));
+
+						activity.setResult(Activity.RESULT_OK);
 					}
 					else
 					{
@@ -254,6 +257,8 @@ public class SendCoinsFragment extends Fragment
 		{
 			public void onClick(final View v)
 			{
+				activity.setResult(Activity.RESULT_CANCELED);
+
 				activity.finish();
 			}
 		});
