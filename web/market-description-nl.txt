@@ -1,0 +1,35 @@
+Dit is een standalone Bitcoin Wallet voor uw Android apparaat. Bitcoin is een internet valuta.
+
+U kan direct Bitcoins versturen tussen telefoons door simpelweg de QR-code te scannen die de app weergeeft of via NFC (Near Field Communication).
+
+Deze versie is voor echte Bitcoins (Prodnet). Als u gewoon wilt testen met waardeloze Testnet Bitcoins is het aan te raden om de losse app hier voor te gebruiken (zie "meer van deze auteur").
+
+FUNCTIES:
+
+• Weergeven van het wallet saldo in Bitcoin en verschillende andere valuta
+• Verzenden en ontvangen van Bitcoin via NFC, QR-codes of Bitcoin URLs
+• Ondersteuning voor millibitcent en kleinere waarden (0.0001)
+• Adresboek voor veelgebruikte Bitcoin adressen
+• Transacties ingeven tijdens het offline zijn, deze zullen worden uitgevoerd wanneer u online komt.
+• Systeem melding over Bitcoin connectiviteit en ontvangen bitcoins
+• Widget voor Bitcoin saldo (vereiste: app verplaatst naar telefoon)
+
+BEKENDE PROBLEMEN, SVP LEZEN:
+
+• Wanneer de app de eerste keer start kan het zijn dat deze slechts een wit beeld geeft voor een korte tijd. Dit is normaal.
+• Soms komt het voor dat u systeem meldingen over ontvangen bitcoins vaker krijgt. U krijgt de Bitcoins slechts eenmalig.
+
+U kunt uw eerste Bitcoins hier verkrijgen
+https://freebitcoins.appspot.com/
+
+Voor meer informatie over Bitcoin kunt u terecht op
+http://bitcoin.org
+
+Als u een bijdrage wil leveren aan Bitcoin Wallet, het project is te vinden op 
+https://code.google.com/p/bitcoin-wallet/
+
+Licentie: GPLv3
+Gebruik op eigen risico!
+
+--
+BTC bitcoin wallet bitcoinandroid androidbitcoin Geldbörse Кошелёк

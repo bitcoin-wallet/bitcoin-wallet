@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+
+	<string name="app_name">Bitcoin Wallet</string>
+	<string name="toast_wallet_reset">Wallet is gereset,\nherstel zal enige tijd duren</string>
+
+	<string name="wallet_content_disclaimer">Deze software is volledig expirimenteel. Gebruik op eigen risico! Lees de veiligheids voorschriften.</string>
+	<string name="wallet_address_fragment_your">Uw Bitcoin Adres:</string>
+	<string name="wallet_address_fragment_clipboard_msg">Bitcoin adres gekopieërd naar klembord</string>
+	<string name="wallet_address_fragment_share_dialog_title">Deel uw bitcoin adres...</string>
+	<string-array name="wallet_address_fragment_context">
+		<item>Lijst van alle</item>
+		<item>Geef QR code weer</item>
+		<item>Kopieer naar klembord</item>
+		<item>Delen</item>
+	</string-array>
+	<string name="wallet_addresses_fragment_add_dialog_title">Voeg Bitcoin Adres toe</string>
+	<string name="wallet_addresses_fragment_add_dialog_message">Bitcoin adres kan niet verwijderd worden. Wilt u een nieuw adres toevoeggen aan uw wallet?</string>
+	<string name="wallet_addresses_fragment_add_dialog_positive">Adres toevoegen</string>
+	<string name="wallet_addresses_fragment_add_dialog_negative">Annuleren</string>
+	<string name="wallet_balance_fragment_local_value">waard ongeveer %1$s %2$s</string>
+	<string name="exchange_rates_fragment_empty_text">Kan geen wisselkoersen laden</string>
+	<string name="wallet_transactions_fragment_tab_received">Ontvangen</string>
+	<string name="wallet_transactions_fragment_tab_all">Beide</string>
+	<string name="wallet_transactions_fragment_tab_sent">Verzonden</string>
+	<string name="wallet_transactions_fragment_empty_text_received">Nog geen Bitcoins ontvangen</string>
+	<string name="wallet_transactions_fragment_empty_text_sent">Not geen Bitcoins verzonden</string>
+	<string name="wallet_options_request_coins">Verzoek Bitcoins</string>
+	<string name="wallet_options_send_coins">Verzend Bitcoins</string>
+	<string name="wallet_options_about">Over</string>
+	<string name="wallet_options_safety">Veiligheids voorschriften</string>
+	<string name="wallet_options_donate">Doneren</string>
+	<string name="wallet_options_help">Help</string>
+	<string name="wallet_migration_dialog_title">Belangrijke melding!</string>
+	<string name="wallet_migration_dialog_msg">"Op veler verzoek is Bitcoin Wallet overgestapt van Testnet naar Prodnet. Dit betekent dat u nu echte betalingen kan doen! Leest u van tevoren de veiligheids tips.\n\nAls u geen risico wil nemen, installeer dan Bitcoin Wallet for Testnet."</string>
+	<string name="wallet_migration_dialog_button_safety">Lees veiligheids tips</string>
+	<string name="wallet_migration_dialog_button_testnet">Installeer Testnet</string>
+	<string name="wallet_low_storage_dialog_title">Interne opslagruimte van het apparaat is laag!</string>
+	<string name="wallet_low_storage_dialog_msg">Bitcoin Wallet gebruikt interne opslag voor het bewaren van transacties en blokken. Als er onvoldoende opslag ruimte is zal het programma niet juist meer werken en zijn uw Bitcoins in gevaar!\n\nWilt u Applicatie beheer openen om overbodige applicaties te verwijderen?</string>
+	<string name="wallet_low_storage_dialog_button_apps">Applicatie beheer</string>
+	<string name="wallet_low_storage_dialog_button_dismiss">Annuleren</string>
+
+	<string name="send_coins_activity_title">Verzend Bitcoins</string>
+	<string name="send_coins_install_qr_scanner_msg">Installeer svp ZXing QR-code scanner of Goggles!</string>
+	<string name="send_coins_fragment_receiving_address_label">Betalen naar</string>
+	<string name="send_coins_fragment_receiving_address_hint">typ adres of naam</string>
+	<string name="send_coins_fragment_receiving_address_error">Ongeldig Bitcoin Adres!</string>
+	<string name="send_coins_fragment_available_label">Beschikbaar voor besteding</string>
+	<string name="send_coins_fragment_pending">(BTC %s wachtend op bevestiging)</string>
+	<string name="send_coins_fragment_amount_label">Bedrag te betalen</string>
+	<string name="send_coins_fragment_fee_label">Transactiekosten (optional)</string>
+	<string name="send_coins_fragment_button_send">Verzenden</string>
+	<string name="send_coins_fragment_button_cancel">Annuleren</string>
+	<string name="send_coins_sending_msg">Bezig met verzenden...</string>
+	<string name="send_coins_add_address_dialog_title">De ontvanger is nog niet aanwezig in uw adresboek.\n\nWilt u deze nu toevoegen?</string>
+	<string name="send_coins_add_address_dialog_button_add">Adres toevoegen</string>
+	<string name="send_coins_add_address_dialog_button_dismiss">Annuleren</string>
+	<string name="send_coins_error_msg">Probleem bij het versturen van Bitcoins!</string>
+	<string name="send_coins_success_msg">BTC %s verzonden!</string>
+
+	<string name="request_coins_activity_title">Verzoek Bitcoins</string>
+	<string name="request_coins_fragment_amount_label">Verzocht bedrag (optioneel)</string>
+	<string name="request_coins_fragment_qr_label">Laat deze QR-code scannen door de zender:</string>
+	<string name="request_coins_fragment_nfc_enabled">of raak aan met een NFC gereed apparaat.</string>
+	<string name="request_coins_clipboard_msg">Bitcoin verzoek gekopieërd naar klembord</string>
+	<string name="request_coins_share_dialog_title">Deel verzoek voor Bitcoins...</string>
+
+	<string name="address_book_activity_title">Adresboek</string>
+	<string name="address_book_empty_text">Geen vermeldingen in het adresboek</string>
+	<string name="address_book_context_send_title">Verzend Bitcoins naar adres</string>
+	<string name="address_book_context_edit_title">Bewerk adres</string>
+	<string name="address_book_context_remove_title">Verwijder adres</string>
+
+	<string name="edit_address_book_entry_dialog_title_add">Adres toevoegen</string>
+	<string name="edit_address_book_entry_dialog_title_edit">Adres bewerken</string>
+	<string name="edit_address_book_entry_dialog_address_label">Adres</string>
+	<string name="edit_address_book_entry_dialog_label_label">Naam</string>
+	<string name="edit_address_book_entry_dialog_button_add">Toevoegen</string>
+	<string name="edit_address_book_entry_dialog_button_edit">Opslaan</string>
+	<string name="edit_address_book_entry_dialog_button_delete">Verwijderen</string>
+	<string name="edit_address_book_entry_dialog_button_cancel">Annuleren</string>
+
+	<string name="preferences_about_title">Over</string>
+	<string name="preferences_license_title">Licentie</string>
+	<string name="preferences_credits_bitcoinj_title">"Deze app gebruikt 'bitcoinj'"</string>
+	<string name="preferences_credits_zxing_title">"Deze app gebruikt 'zxing'"</string>
+	<string name="preferences_credits_icon_title">"Deze app gebruikt een icoon door 'bitboy'"</string>
+	<string name="preferences_author_twitter_title">Auteur op Twitter</string>
+	<string name="preferences_author_googleplus_title">Auteur op Google+</string>
+	<string name="preferences_credits_market_app_title">Android Markt App Pagina</string>
+	<string name="preferences_credits_market_publisher_title">Andere Apps van Author</string>
+
+	<string name="notification_coins_received_msg">Ontvangen BTC %s</string>
+	<string name="notification_peers_connected_msg">%d verbindingen</string>
+	<string name="notification_blockchain_sync_started_msg">Bitcoin blockchain sync</string>
+	<string name="notification_blockchain_sync_progress_msg">%1$.1f%% voltooid, laatste blok op %2$s</string>
+
+</resources>
