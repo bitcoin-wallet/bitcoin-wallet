@@ -22,7 +22,7 @@
 	<string name="wallet_balance_fragment_local_value">Vale alrededor de %1$s %2$s</string>
 	<string name="exchange_rates_fragment_empty_text">No se pueden cargar los tipos de cambio</string>
 	<string name="wallet_transactions_fragment_tab_received">Recibidos</string>
-	<string name="wallet_transactions_fragment_tab_all">Total</string>
+	<string name="wallet_transactions_fragment_tab_all">Todos</string>
 	<string name="wallet_transactions_fragment_tab_sent">Enviados</string>
 	<string name="wallet_transactions_fragment_empty_text_received">Aún no se han recibido bitcoins</string>
 	<string name="wallet_transactions_fragment_empty_text_sent">Aún no se han enviado bitcoins</string>
@@ -67,7 +67,7 @@
 	<string name="request_coins_fragment_amount_label">Cantidad solicitada (opcional)</string>
 	<string name="request_coins_fragment_qr_label">Utilizar este código QR para enviar:</string>
 	<string name="request_coins_fragment_nfc_enabled">O tocar con un dispositivo dotado de NFC.</string>
-	<string name="request_coins_clipboard_msg">Solicitud de bitcoins pegada al portapapeles</string>
+	<string name="request_coins_clipboard_msg">Solicitud de bitcoins copiada al portapapeles</string>
 	<string name="request_coins_share_dialog_title">Compartir solicitud de bitcoins...</string>
 
 	<string name="address_book_activity_title">Libreta de direcciones</string>
@@ -97,7 +97,7 @@
 
 	<string name="notification_coins_received_msg">BTC %s recibidos</string>
 	<string name="notification_peers_connected_msg">%d pares conectados</string>
-	<string name="notification_blockchain_sync_started_msg">Sincronización de la cadena de bloques Bitcoin</string>
-	<string name="notification_blockchain_sync_progress_msg">%1$.1f%% completo, último bloque en %2$s</string>
+	<string name="notification_blockchain_sync_started_msg">Sincronizando cadena de bloques Bitcoin</string>
+	<string name="notification_blockchain_sync_progress_msg">%1$.1f%% completo, último bloque: %2$s</string>
 
 </resources>
