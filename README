@@ -16,6 +16,8 @@ FILES
 /data/data/de.schildbach.wallet_test/files/wallet-testnet (MODE_WORLD_READABLE | MODE_WORLD_WRITEABLE)
 	Wallet for testnet
 
+The wallet file format is not compatible to wallet.dat (Satoshi client).
+
 /data/data/de.schildbach.wallet/files/key-backup-asn1 (MODE_PRIVATE)
 /data/data/de.schildbach.wallet/files/key-backup-base58 (MODE_PRIVATE)
 	Backups of private keys for prodnet
