@@ -53,6 +53,7 @@ import de.schildbach.wallet_test.R;
 public class WalletBalanceFragment extends Fragment
 {
 	private Application application;
+	private SharedPreferences prefs;
 
 	private HandlerThread backgroundThread;
 	private Handler backgroundHandler;
@@ -114,7 +115,10 @@ public class WalletBalanceFragment extends Fragment
 		viewBalance = (TextView) view.findViewById(R.id.wallet_balance);
 		viewBalanceLocal = (TextView) view.findViewById(R.id.wallet_balance_local);
 
-		application = (Application) getActivity().getApplication();
+		final Activity activity = getActivity();
+		application = (Application) activity.getApplication();
+		prefs = PreferenceManager.getDefaultSharedPreferences(activity);
+
 		final Wallet wallet = application.getWallet();
 
 		// background thread
@@ -126,8 +130,6 @@ public class WalletBalanceFragment extends Fragment
 
 		backgroundHandler.post(new Runnable()
 		{
-			final Activity activity = getActivity();
-
 			public void run()
 			{
 				try
@@ -199,7 +201,6 @@ public class WalletBalanceFragment extends Fragment
 		viewBalanceLocal.setVisibility(View.GONE);
 		if (balance.signum() > 0 && exchangeRates != null)
 		{
-			final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
 			final String exchangeCurrency = prefs.getString(Constants.PREFS_KEY_EXCHANGE_CURRENCY, "USD");
 			final Double exchangeRate = exchangeRates.get(exchangeCurrency);
 
