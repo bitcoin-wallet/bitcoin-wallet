@@ -30,7 +30,7 @@ import java.util.Arrays;
 public abstract class Message implements Serializable {
     private static final long serialVersionUID = -3561053461717079135L;
 
-    public static final int MAX_SIZE = 0x02000000;
+    public static final int MAX_SIZE = 0x100000; // 1 MB
 
     // Useful to ensure serialize/deserialize are consistent with each other.
     private static final boolean SELF_CHECK = false;
