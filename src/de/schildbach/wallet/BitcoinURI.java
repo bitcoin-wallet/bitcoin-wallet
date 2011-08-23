@@ -46,14 +46,13 @@ public class BitcoinURI
 	{
 		final String scheme = uri.getScheme();
 
-		if ("bitcoin".equals(scheme) || "https".equals(scheme))
+		if ("bitcoin".equals(scheme))
 		{
 			final Uri u = Uri.parse("bitcoin://" + uri.getSchemeSpecificPart());
 
-			final String addressStr = "bitcoin".equals(scheme) ? u.getHost() : u.getLastPathSegment();
 			try
 			{
-				address = new Address(Constants.NETWORK_PARAMETERS, addressStr);
+				address = new Address(Constants.NETWORK_PARAMETERS, u.getHost());
 			}
 			catch (final AddressFormatException x)
 			{

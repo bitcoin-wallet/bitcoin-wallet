@@ -26,16 +26,6 @@
 				<data android:scheme="bitcoin" />
 				<category android:name="android.intent.category.DEFAULT" />
 			</intent-filter>
-			<intent-filter>
-				<action android:name="android.intent.action.VIEW" />
-				<data android:scheme="https" android:host="btc.io" android:pathPrefix="/pay" />
-				<category android:name="android.intent.category.DEFAULT" />
-			</intent-filter>
-			<intent-filter>
-				<action android:name="android.nfc.action.NDEF_DISCOVERED" />
-				<data android:scheme="https" android:host="btc.io" android:pathPrefix="/pay" />
-				<category android:name="android.intent.category.DEFAULT" />
-			</intent-filter>
 		</activity>
 
 		<activity android:name="de.schildbach.wallet.RequestCoinsActivity" android:theme="@android:style/Theme.Light.NoTitleBar"
