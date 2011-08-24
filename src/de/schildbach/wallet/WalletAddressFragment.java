@@ -41,6 +41,7 @@ import android.widget.TextView;
 
 import com.google.bitcoin.core.Address;
 
+import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
 
 /**

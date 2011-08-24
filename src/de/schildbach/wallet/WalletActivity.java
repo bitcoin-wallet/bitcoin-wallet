@@ -36,6 +36,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.webkit.WebView;
+import de.schildbach.wallet.util.ActionBarFragment;
+import de.schildbach.wallet.util.ErrorReporter;
 import de.schildbach.wallet_test.R;
 
 /**

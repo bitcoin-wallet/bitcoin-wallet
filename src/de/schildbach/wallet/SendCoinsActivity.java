@@ -31,6 +31,7 @@ import android.webkit.WebView;
 
 import com.google.bitcoin.core.Address;
 
+import de.schildbach.wallet.util.ActionBarFragment;
 import de.schildbach.wallet_test.R;
 
 /**

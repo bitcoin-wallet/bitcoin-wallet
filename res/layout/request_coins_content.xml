@@ -3,7 +3,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="fill_parent"
 	android:layout_height="fill_parent" android:orientation="vertical">
 
-	<fragment android:id="@+id/action_bar_fragment" android:name="de.schildbach.wallet.ActionBarFragment"
+	<fragment android:id="@+id/action_bar_fragment" android:name="de.schildbach.wallet.util.ActionBarFragment"
 		android:layout_width="fill_parent" android:layout_height="44dp" />
 
 	<FrameLayout android:layout_width="fill_parent" android:layout_height="fill_parent" android:foreground="@drawable/title_bar_shadow"

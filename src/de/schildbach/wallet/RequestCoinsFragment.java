@@ -35,6 +35,9 @@ import com.google.bitcoin.core.Address;
 import com.google.bitcoin.core.Utils;
 
 import de.schildbach.wallet.BtcAmountView.Listener;
+import de.schildbach.wallet.util.ActionBarFragment;
+import de.schildbach.wallet.util.NfcTools;
+import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
 
 /**

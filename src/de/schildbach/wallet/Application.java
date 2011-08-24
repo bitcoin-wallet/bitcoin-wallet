@@ -54,6 +54,8 @@ import com.google.bitcoin.core.Transaction;
 import com.google.bitcoin.core.Wallet;
 import com.google.bitcoin.core.WalletEventListener;
 
+import de.schildbach.wallet.util.ErrorReporter;
+import de.schildbach.wallet.util.StrictModeWrapper;
 import de.schildbach.wallet_test.R;
 
 /**

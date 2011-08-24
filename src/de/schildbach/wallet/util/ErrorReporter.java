@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.schildbach.wallet;
+package de.schildbach.wallet.util;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -29,6 +29,8 @@ import java.util.Date;
 import java.util.Formatter;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import de.schildbach.wallet.Constants;
 
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;

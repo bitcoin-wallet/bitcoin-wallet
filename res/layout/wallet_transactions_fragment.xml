@@ -3,7 +3,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="fill_parent"
 	android:layout_height="wrap_content" android:orientation="vertical">
 
-	<de.schildbach.wallet.ViewPagerTabs android:id="@+id/transactions_pager_tabs"
+	<de.schildbach.wallet.util.ViewPagerTabs android:id="@+id/transactions_pager_tabs"
 		android:layout_width="fill_parent" android:layout_height="wrap_content" android:paddingTop="4dp"
 		android:paddingBottom="4dp" android:background="#e8e8e8" />
 
