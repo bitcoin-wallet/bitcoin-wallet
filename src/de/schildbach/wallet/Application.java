@@ -48,6 +48,8 @@ import android.preference.PreferenceManager;
 import android.widget.Toast;
 
 import com.google.bitcoin.core.Address;
+import com.google.bitcoin.core.AddressFormatException;
+import com.google.bitcoin.core.DumpedPrivateKey;
 import com.google.bitcoin.core.ECKey;
 import com.google.bitcoin.core.NetworkParameters;
 import com.google.bitcoin.core.Transaction;
@@ -250,7 +252,7 @@ public class Application extends android.app.Application
 
 			for (final ECKey key : wallet.keychain)
 			{
-				out.write(key.toOwnBase58());
+				out.write(key.getPrivateKeyEncoded(Constants.NETWORK_PARAMETERS).toString());
 				out.write('\n');
 			}
 
@@ -269,7 +271,7 @@ public class Application extends android.app.Application
 
 			for (final ECKey key : wallet.keychain)
 			{
-				out.write(key.toOwnBase58());
+				out.write(key.getPrivateKeyEncoded(Constants.NETWORK_PARAMETERS).toString());
 				out.write('\n');
 			}
 
@@ -312,7 +314,7 @@ public class Application extends android.app.Application
 				if (line == null)
 					break;
 
-				final ECKey key = ECKey.fromOwnBase58(line);
+				final ECKey key = new DumpedPrivateKey(Constants.NETWORK_PARAMETERS, line).getKey();
 				wallet.keychain.add(key);
 			}
 
@@ -325,6 +327,10 @@ public class Application extends android.app.Application
 			return wallet;
 		}
 		catch (final IOException x)
+		{
+			throw new RuntimeException(x);
+		}
+		catch (final AddressFormatException x)
 		{
 			throw new RuntimeException(x);
 		}
