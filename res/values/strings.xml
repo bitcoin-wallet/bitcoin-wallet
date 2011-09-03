@@ -30,7 +30,7 @@
 	<string name="wallet_options_send_coins">Send coins</string>
 	<string name="wallet_options_about">About</string>
 	<string name="wallet_options_safety">Safety notes</string>
-	<string name="wallet_options_donate">Donate</string>
+	<string name="wallet_options_donate">Tip / Donate</string>
 	<string name="wallet_options_help">Help</string>
 	<string name="wallet_migration_dialog_title">Important notice!</string>
 	<string name="wallet_migration_dialog_msg">"Due to popular demand, Bitcoin Wallet has switched from Testnet to Prodnet. This means that you
