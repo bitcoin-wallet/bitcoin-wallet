@@ -65,7 +65,7 @@ import de.schildbach.wallet_test.R;
  */
 public class Application extends android.app.Application
 {
-	private static final int STACK_SIZE = 64 * 1024;
+	private static final int STACK_SIZE = 96 * 1024;
 
 	private Wallet wallet;
 
