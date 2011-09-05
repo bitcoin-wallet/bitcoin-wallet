@@ -91,6 +91,14 @@ public class PeerGroup {
     /**
      * Creates a PeerGroup with the given parameters and a default 5 second connection timeout.
      */
+    public PeerGroup(BlockStore blockStore, NetworkParameters params, BlockChain chain, Wallet wallet) {
+        this(blockStore, params, chain, wallet, DEFAULT_CONNECTION_DELAY_MILLIS);
+    }
+
+    /**
+     * Creates a PeerGroup with the given parameters. The connectionDelayMillis parameter controls how long the
+     * PeerGroup will wait between attempts to connect to nodes or read from any added peer discovery sources.
+     */
     public PeerGroup(BlockStore blockStore, NetworkParameters params, BlockChain chain, Wallet wallet, int connectionDelayMillis) {
         this.blockStore = blockStore;
         this.params = params;
