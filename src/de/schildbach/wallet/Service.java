@@ -278,7 +278,7 @@ public class Service extends android.app.Service
 				final Wallet wallet = application.getWallet();
 				final NetworkParameters networkParameters = application.getNetworkParameters();
 
-				peerGroup = new PeerGroup(blockStore, networkParameters, blockChain, wallet);
+				peerGroup = new PeerGroup(blockStore, networkParameters, blockChain, wallet, 1000);
 				peerGroup.addEventListener(peerEventListener);
 
 				final String trustedPeerHost = prefs.getString(Constants.PREFS_KEY_TRUSTED_PEER, "").trim();

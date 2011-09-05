@@ -226,6 +226,17 @@ public class Transaction extends Message implements Serializable {
     }
 
     /**
+     * @return true if every output is marked as spent.
+     */
+    public boolean isEveryOutputSpent() {
+        for (TransactionOutput output : outputs) {
+            if (output.isAvailableForSpending())
+                return false;
+        }
+        return true;
+    }
+
+    /**
      * These constants are a part of a scriptSig signature on the inputs. They define the details of how a
      * transaction can be redeemed, specifically, they control how the hash of the transaction is calculated.
      * 
@@ -451,34 +462,6 @@ public class Transaction extends Message implements Serializable {
         } catch (IOException e) {
             throw new RuntimeException(e);  // Cannot happen.
         }
-    }
-
-    /**
-     * Given a named input and the transaction output it connects to, runs the script formed from the
-     * concatenation of the input and output scripts, returning true if the link is valid. In
-     * this way, we prove that the creator of this transaction is allowed to redeem the output
-     * of the connectedTx and thus spend the money.<p>
-     *
-     * <b>WARNING: NOT FINISHED</b><p>
-     * 
-     * @param inputIndex Which input to verify.
-     * @param connectedTx The Transaction that the input is connected to.
-     */
-    @SuppressWarnings("unused")
-    public boolean verifyInput(int inputIndex, Transaction connectedTx) throws ScriptException {
-        TransactionInput input = inputs.get(inputIndex);
-        //int outputIndex = (int) input.outpoint.index;
-        //assert outputIndex >= 0 && outputIndex < connectedTx.outputs.size();
-        //Script outScript = connectedTx.outputs.get(outputIndex).getScriptPubKey();
-        Script inScript = input.getScriptSig();
-        //Script script = Script.join(inScript, outScript);
-        //if (script.run(this)) {
-        //  LOG("Transaction input successfully verified!");
-        //  return true;
-        //}
-        byte[] pubkey = inScript.getPubKey();
-
-        return false;
     }
     
     @Override
