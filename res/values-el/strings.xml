@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+
+	<string name="app_name">Bitcoin πορτοφόλι</string>
+	<string name="toast_wallet_reset">Το πορτοφόλι έχει αποκατασταθεί,\nθα πάρει κάποιο χρόνο για την ανάκτηση</string>
+
+	<string name="wallet_content_disclaimer">Αυτό είναι εντελώς πειραματικό. Χρησιμοποιήστε με δική σας ευθύνη! Διαβάστε τις οδηγίες ασφαλείας</string>
+	<string name="wallet_address_fragment_your">H Bitcoin διεύθυνή σας:</string>
+	<string name="wallet_address_fragment_clipboard_msg">H Bitcoin διεύθυνή αντιγράφικε στο clipboard</string>
+	<string name="wallet_address_fragment_share_dialog_title">Μοιραστείτε τη διεύθυνση bitcoin σας...</string>
+	<string-array name="wallet_address_fragment_context">
+		<item>Λίστα όλων</item>
+		<item>Εμφάνιση κώδικα QR</item>
+		<item>Αντιγραφή στο clipboard</item>
+		<item>Μοιραστείτε</item>
+	</string-array>
+	<string name="wallet_addresses_fragment_add_dialog_title">Προσθήκη διεύθυνσης Bitcoin</string>
+	<string name="wallet_addresses_fragment_add_dialog_message">Οι Bitcoin διευθύνσεις δεν μπορούν να διαγραφούν. Θέλετε να προσθέσετε μια νέα διεύθυνση στο πορτοφόλι σας;</string>
+	<string name="wallet_addresses_fragment_add_dialog_positive">Προσθήκη διεύθυνσης</string>
+	<string name="wallet_addresses_fragment_add_dialog_negative">Παράβλεψη</string>
+	<string name="wallet_balance_fragment_local_value">αξίζει περίπου %1$s %2$s</string>
+	<string name="exchange_rates_fragment_empty_text">Δεν ήταν δυνατή η φόρτωση των συναλλαγματικών ισοτιμιών</string>
+	<string name="wallet_transactions_fragment_tab_received">Ελήφθη</string>
+	<string name="wallet_transactions_fragment_tab_all">Και τα δύο</string>
+	<string name="wallet_transactions_fragment_tab_sent">Εστάλη</string>
+	<string name="wallet_transactions_fragment_empty_text_received">Δεν έχει ληφθεί κάποιο Bitcoin μέχρι στιγμής</string>
+	<string name="wallet_transactions_fragment_empty_text_sent">Δεν έχει ληφθεί σταλεί Bitcoin μέχρι στιγμής</string>
+	<string name="wallet_options_request_coins">Ζητήστε νομίσματα</string>
+	<string name="wallet_options_send_coins">Αποστολή νομισμάτων</string>
+	<string name="wallet_options_about">Σχετικά</string>
+	<string name="wallet_options_safety">Οδηγίες ασφαλείας</string>
+	<string name="wallet_options_donate">Δωρίστε</string>
+	<string name="wallet_options_help">Βοήθεια</string>
+	<string name="wallet_migration_dialog_title">Σημαντική σημείωση!</string>
+	<string name="wallet_migration_dialog_msg">"Λόγω της μεγάλης ζήτησης, το Bitcoin Πορτοφόλι έχει αλλάξει από: Testnet στο Prodnet. Αυτό σημαίνει ότι μπορείτε
+πλέον να κάνετε πραγματικές πληρωμές ! Παρακαλώ διαβάστε τις οδηγείες ασφαλείας. \n\nΑν δεν θέλετε να πάρετε το ρίσκο και να παραμείνετε στο Testnet, παρακαλώ
+εγκαταστήσετε το Bitcoin Wallet for Testnet."</string>
+	<string name="wallet_migration_dialog_button_safety">Διαβάστε τις οδηγείες ασφαλείας</string>
+	<string name="wallet_migration_dialog_button_testnet">Εγκαταστήστε το Testnet</string>
+	<string name="wallet_low_storage_dialog_title">Η εσωτερική μνήμη της συσκευής είναι χαμηλή!</string>
+	<string name="wallet_low_storage_dialog_msg">Το πορτοφόλι Bitcoin χρησιμοποιεί την εσωτερική μνήμη για να θυμάται τις συναλλαγές και τα μπλοκ. Αν ξεμείνει από
+χώρο, θα σταματήσει να λειτουργεί και τα Bitcoins σας θα είναι σε κίνδυνο! \n\nΘέλετε να ανοίξετε τη Διαχείριση εφαρμογών, προκειμένου να
+απεγκατάσταση αχρείαστες εφαρμογές;</string>
+	<string name="wallet_low_storage_dialog_button_apps">Διαχείριση των Εφαρμογών</string>
+	<string name="wallet_low_storage_dialog_button_dismiss">Ματαίωση</string>
+
+	<string name="send_coins_activity_title">Αποστολή Bitcoins</string>
+	<string name="send_coins_install_qr_scanner_msg">Παρακαλείσθε να εγκαταστήσετε ένα QR-κώδικα σαρωτή, όπως τα: ZXing ή Goggles!</string>
+	<string name="send_coins_fragment_receiving_address_label">Πληρωμή σε</string>
+	<string name="send_coins_fragment_receiving_address_hint">πληκτρολογήστε τη διεύθυνση ή το όνομα</string>
+	<string name="send_coins_fragment_receiving_address_error">Άκυρα Διεύθυνση Bitcoin!</string>
+	<string name="send_coins_fragment_available_label">Διαθέσιμο για τις ξόδεμα</string>
+	<string name="send_coins_fragment_pending">(BTC %s αναμονή για την επιβεβαίωση)</string>
+	<string name="send_coins_fragment_amount_label">Ποσό να πληρωθεί</string>
+	<string name="send_coins_fragment_fee_label">Τέλος (προαιρετικό)</string>
+	<string name="send_coins_fragment_button_send">Αποστολή</string>
+	<string name="send_coins_fragment_button_cancel">Ακύρωση</string>
+	<string name="send_coins_sending_msg">Αποστολή...</string>
+	<string name="send_coins_add_address_dialog_title">Ο παραλήπτης δεν βρίσκεται στο βιβλίο διευθύνσεών σας. \n\n Θέλετε να προσθέσετε τη διεύθυνση?</string>
+	<string name="send_coins_add_address_dialog_button_add">Προσθήκη διεύθυνσης</string>
+	<string name="send_coins_add_address_dialog_button_dismiss">Ματαίωση</string>
+	<string name="send_coins_error_msg">Πρόβλημα στην αποστολή κερμάτων!</string>
+	<string name="send_coins_success_msg">BTC %s αποστάλθηκαν!</string>
+
+	<string name="request_coins_activity_title">Αίτηση για Bitcoins</string>
+	<string name="request_coins_fragment_amount_label">Ζητούμενο ποσό (προαιρετικό)</string>
+	<string name="request_coins_fragment_qr_label">Δώστε αυτό το QR-κώδικα στον αποστολέα, για να το σαρώσει:</string>
+	<string name="request_coins_fragment_nfc_enabled">Ή φερετε σε επαφή αν έχετε συσκευή με NFC.</string>
+	<string name="request_coins_clipboard_msg">η αίτηση για Bitcoin αντιγράφηκε στο clipboard</string>
+	<string name="request_coins_share_dialog_title">request for sharing Bitcoins...</string>
+
+	<string name="address_book_activity_title">Κατάλαγος διευθύνσεων</string>
+	<string name="address_book_empty_text">δεν υπάρχουν καταχωρήσεις στον kατάλαγο διευθύνσεων</string>
+	<string name="address_book_context_send_title">Αποστολή Bitcoins στη διεύθυνση</string>
+	<string name="address_book_context_edit_title">Επεξεργασία διεύθυνσης</string>
+	<string name="address_book_context_remove_title">Αφαιρέστε τη διεύθυνση</string>
+
+	<string name="edit_address_book_entry_dialog_title_add">Προσθήκη διεύθυνσης</string>
+	<string name="edit_address_book_entry_dialog_title_edit">Επεξεργασία διεύθυνσης</string>
+	<string name="edit_address_book_entry_dialog_address_label">Διεύθυνση</string>
+	<string name="edit_address_book_entry_dialog_label_label">Όνομσ</string>
+	<string name="edit_address_book_entry_dialog_button_add">Προσθήκη</string>
+	<string name="edit_address_book_entry_dialog_button_edit">Αποθήκευση</string>
+	<string name="edit_address_book_entry_dialog_button_delete">Διαγραφή</string>
+	<string name="edit_address_book_entry_dialog_button_cancel">Ακύρωση</string>
+
+	<string name="preferences_about_title">Πληροφορίες</string>
+	<string name="preferences_license_title">Άδεια</string>
+	<string name="preferences_credits_bitcoinj_title">"Αυτή η εφαρμογή χρησιμοποιεί 'bitcoinj'"</string>
+	<string name="preferences_credits_zxing_title">"Αυτή η εφαρμογή χρησιμοποιεί'zxing'"</string>
+	<string name="preferences_credits_icon_title">"Η εφαρμογή αυτή χρησιμοποιεί ένα εικονίδιο από τη 'bitboy'"</string>
+	<string name="preferences_author_twitter_title">Δημιουργός στο Twitter</string>
+	<string name="preferences_author_googleplus_title">Δημιουργός στο Google+</string>
+	<string name="preferences_credits_market_app_title">Σελίδα Εφαρμογών του Android Market</string>
+	<string name="preferences_credits_market_publisher_title">Άλλες εφαρμογές του δημιουργού</string>
+
+	<string name="notification_coins_received_msg">Ελήφθη BTC %s</string>
+	<string name="notification_peers_connected_msg">%d χρήστες συνδεμένοι</string>
+	<string name="notification_blockchain_sync_started_msg">συγχρονισμός Bitcoin blockchain</string>
+	<string name="notification_blockchain_sync_progress_msg">%1$.1f%% τελείωσε, το τελευταίο μπλοκ βρίσκεται στο %2$s</string>
+
+</resources>
