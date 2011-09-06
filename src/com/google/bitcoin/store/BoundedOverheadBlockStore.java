@@ -140,7 +140,6 @@ public class BoundedOverheadBlockStore implements BlockStore {
 
     public BoundedOverheadBlockStore(NetworkParameters params, File file) throws BlockStoreException {
         this.params = params;
-
         try {
             load(file);
         } catch (Exception e) {
