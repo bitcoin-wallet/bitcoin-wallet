@@ -215,10 +215,12 @@ public class Utils {
         final int cents = value.remainder(COIN).intValue();
         if (cents % 1000000 == 0)
             return String.format("%s%d.%02d", negative ? "-" : "", coins, cents / 1000000);
-        else
+        else if (cents % 10000 == 0)
             return String.format("%s%d.%04d", negative ? "-" : "", coins, cents / 10000);
+        else
+            return String.format("%s%d.%08d", negative ? "-" : "", coins, cents);
     }
-    
+
     /**
      * MPI encoded numbers are produced by the OpenSSL BN_bn2mpi function. They consist of
      * a 4 byte big endian length field, followed by the stated number of bytes representing
