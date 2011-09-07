@@ -21,7 +21,6 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.security.SecureRandom;
-import java.util.Arrays;
 
 import com.google.bitcoin.bouncycastle.asn1.ASN1InputStream;
 import com.google.bitcoin.bouncycastle.asn1.ASN1OutputStream;
