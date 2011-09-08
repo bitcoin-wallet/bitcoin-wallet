@@ -52,7 +52,7 @@
 	<string name="send_coins_fragment_receiving_address_error">Ogiltig Bitcoin adress!</string>
 	<string name="send_coins_fragment_available_label">Tillgängliga att skicka</string>
 	<string name="send_coins_fragment_pending">(%s BTC väntar på att bekräftas)</string>
-	<string name="send_coins_fragment_amount_label">Belopp att betala</string>
+	<string name="send_coins_fragment_amount_label">Belopp att skicka</string>
 	<string name="send_coins_fragment_fee_label">Avgift (frivillig)</string>
 	<string name="send_coins_fragment_button_send">Skicka</string>
 	<string name="send_coins_fragment_button_cancel">Avbryt</string>
@@ -89,11 +89,11 @@
 	<string name="preferences_license_title">Licens</string>
 	<string name="preferences_credits_bitcoinj_title">"Denna app använder 'bitcoinj'"</string>
 	<string name="preferences_credits_zxing_title">"Denna app använder 'zxing'"</string>
-	<string name="preferences_credits_icon_title">"Denna app använder en ikon av 'bitboy'"</string>
+	<string name="preferences_credits_icon_title">"Appen använder en ikon av 'bitboy'"</string>
 	<string name="preferences_author_twitter_title">Utvecklaren på Twitter</string>
 	<string name="preferences_author_googleplus_title">Utvecklaren på Google+</string>
 	<string name="preferences_credits_market_app_title">Android Market app sida</string>
-	<string name="preferences_credits_market_publisher_title">Andra appar från denna utvecklare</string>
+	<string name="preferences_credits_market_publisher_title">Andra appar från utvecklaren</string>
 
 	<string name="notification_coins_received_msg">Tagit emot %s BTC</string>
 	<string name="notification_peers_connected_msg">Ansluten till %d noder</string>
