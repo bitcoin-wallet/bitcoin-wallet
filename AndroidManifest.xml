@@ -39,6 +39,9 @@
 		<provider android:name="de.schildbach.wallet.AddressBookProvider" android:authorities="de.schildbach.wallet_test.address_book"
 			android:exported="false" />
 
+		<provider android:name="de.schildbach.wallet.ExchangeRatesProvider" android:authorities="de.schildbach.wallet_test.exchange_rates"
+			android:exported="false" />
+
 		<receiver android:name="de.schildbach.wallet.WalletBalanceWidgetProvider" android:label="Bitcoin Wallet Balance">
 			<intent-filter>
 				<action android:name="android.appwidget.action.APPWIDGET_UPDATE" />

@@ -355,66 +355,6 @@ public class Application extends android.app.Application
 		throw new IllegalStateException("address not in keychain: " + selectedAddress);
 	}
 
-	public Map<String, Double> getExchangeRates()
-	{
-		try
-		{
-			final URLConnection connection = new URL("http://bitcoincharts.com/t/weighted_prices.json").openConnection();
-			// https://mtgox.com/code/data/ticker.php
-			// https://bitmarket.eu/api/ticker
-			// http://bitcoincharts.com/t/weighted_prices.json
-
-			connection.connect();
-			final Reader is = new InputStreamReader(new BufferedInputStream(connection.getInputStream()));
-			final StringBuilder content = new StringBuilder();
-			copy(is, content);
-			is.close();
-
-			final Map<String, Double> rates = new HashMap<String, Double>();
-
-			final JSONObject head = new JSONObject(content.toString());
-			for (final Iterator<String> i = head.keys(); i.hasNext();)
-			{
-				final String currencyCode = i.next();
-
-				final JSONObject o = head.getJSONObject(currencyCode);
-				double rate = o.optDouble("24h", 0);
-				if (rate == 0)
-					rate = o.optDouble("7d", 0);
-				if (rate == 0)
-					rate = o.optDouble("30d", 0);
-
-				if (rate != 0)
-					rates.put(currencyCode, rate);
-			}
-
-			return rates;
-		}
-		catch (final IOException x)
-		{
-			x.printStackTrace();
-		}
-		catch (final JSONException x)
-		{
-			x.printStackTrace();
-		}
-
-		return null;
-	}
-
-	private static final long copy(final Reader reader, final StringBuilder builder) throws IOException
-	{
-		final char[] buffer = new char[256];
-		long count = 0;
-		int n = 0;
-		while (-1 != (n = reader.read(buffer)))
-		{
-			builder.append(buffer, 0, n);
-			count += n;
-		}
-		return count;
-	}
-
 	public final int versionCode()
 	{
 		try
