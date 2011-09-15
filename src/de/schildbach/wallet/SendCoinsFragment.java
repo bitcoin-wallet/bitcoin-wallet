@@ -141,7 +141,7 @@ public class SendCoinsFragment extends Fragment
 		receivingAddressErrorView = view.findViewById(R.id.send_coins_receiving_address_error);
 
 		final TextView availableView = (TextView) view.findViewById(R.id.send_coins_available);
-		availableView.setCompoundDrawablesWithIntrinsicBounds(new BtcDrawable(24f * density, 10.5f * density), null, null, null);
+		availableView.setCompoundDrawablesWithIntrinsicBounds(new CurrencyCodeDrawable("BTC", 24f * density, 10.5f * density), null, null, null);
 		availableView.setText(Utils.bitcoinValueToFriendlyString(available));
 
 		final TextView pendingView = (TextView) view.findViewById(R.id.send_coins_pending);

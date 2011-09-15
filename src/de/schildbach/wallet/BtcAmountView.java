@@ -160,7 +160,7 @@ public class BtcAmountView extends FrameLayout
 
 		final String amount = textView.getText().toString().trim();
 
-		final Drawable leftDrawable = new BtcDrawable(24f * density, 10.5f * density);
+		final Drawable leftDrawable = new CurrencyCodeDrawable("BTC", 24f * density, 10.5f * density);
 
 		final Drawable rightDrawable = amount.length() > 0 ? resources.getDrawable(R.drawable.ic_input_delete) : null;
 

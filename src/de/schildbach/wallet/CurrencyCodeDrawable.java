@@ -26,33 +26,33 @@ import android.graphics.drawable.Drawable;
 /**
  * @author Andreas Schildbach
  */
-public class BtcDrawable extends Drawable
+public class CurrencyCodeDrawable extends Drawable
 {
-	private static final String TEXT = "BTC";
-
 	private final Paint paint;
+	private final String currencyCode;
 	private final float y;
 
-	public BtcDrawable(final float textSize, final float y)
+	public CurrencyCodeDrawable(final String currencyCode, final float textSize, final float y)
 	{
 		paint = new Paint();
 		paint.setColor(Color.parseColor("#666666"));
 		paint.setAntiAlias(true);
 		paint.setTextSize(textSize);
 
+		this.currencyCode = currencyCode;
 		this.y = y;
 	}
 
 	@Override
 	public void draw(final Canvas canvas)
 	{
-		canvas.drawText(TEXT, 0, y, paint);
+		canvas.drawText(currencyCode, 0, y, paint);
 	}
 
 	@Override
 	public int getIntrinsicWidth()
 	{
-		return (int) paint.measureText(TEXT);
+		return (int) paint.measureText(currencyCode);
 	}
 
 	@Override
