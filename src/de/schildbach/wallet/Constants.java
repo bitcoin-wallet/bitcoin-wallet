@@ -69,6 +69,7 @@ public class Constants
 
 	public static final int MAX_CONNECTED_PEERS = 6;
 	public static final int BLOCKCHAIN_PROGRESS_TIMEOUT = 120 * 1000;
+	public static final String DEFAULT_EXCHANGE_CURRENCY = "USD";
 
 	public static final String DONATION_ADDRESS = "1PZmMahjbfsTy6DsaRyfStzoWTPppWwDnZ";
 

@@ -52,7 +52,7 @@ import com.google.bitcoin.core.Transaction;
 import com.google.bitcoin.core.Utils;
 import com.google.bitcoin.core.Wallet.BalanceType;
 
-import de.schildbach.wallet.BtcAmountView.Listener;
+import de.schildbach.wallet.CurrencyAmountView.Listener;
 import de.schildbach.wallet_test.R;
 
 /**
@@ -67,8 +67,8 @@ public class SendCoinsFragment extends Fragment
 
 	private AutoCompleteTextView receivingAddressView;
 	private View receivingAddressErrorView;
-	private BtcAmountView amountView;
-	private BtcAmountView feeView;
+	private CurrencyAmountView amountView;
+	private CurrencyAmountView feeView;
 	private Button viewGo;
 	private Button viewCancel;
 
@@ -109,6 +109,10 @@ public class SendCoinsFragment extends Fragment
 		{
 			updateView();
 		}
+
+		public void done()
+		{
+		}
 	};
 
 	@Override
@@ -148,10 +152,29 @@ public class SendCoinsFragment extends Fragment
 		pendingView.setVisibility(pending.signum() > 0 ? View.VISIBLE : View.GONE);
 		pendingView.setText(getString(R.string.send_coins_fragment_pending, Utils.bitcoinValueToFriendlyString(pending)));
 
-		amountView = (BtcAmountView) view.findViewById(R.id.send_coins_amount);
+		amountView = (CurrencyAmountView) view.findViewById(R.id.send_coins_amount);
 		amountView.setListener(listener);
+		amountView.setContextButton(R.drawable.ic_input_calculator, new OnClickListener()
+		{
+			public void onClick(final View v)
+			{
+				final FragmentTransaction ft = getFragmentManager().beginTransaction();
+				final Fragment prev = getFragmentManager().findFragmentByTag(AmountCalculatorFragment.FRAGMENT_TAG);
+				if (prev != null)
+					ft.remove(prev);
+				ft.addToBackStack(null);
+				final DialogFragment newFragment = new AmountCalculatorFragment(new AmountCalculatorFragment.Listener()
+				{
+					public void use(final BigInteger amount)
+					{
+						amountView.setAmount(amount);
+					}
+				});
+				newFragment.show(ft, AmountCalculatorFragment.FRAGMENT_TAG);
+			}
+		});
 
-		feeView = (BtcAmountView) view.findViewById(R.id.send_coins_fee);
+		feeView = (CurrencyAmountView) view.findViewById(R.id.send_coins_fee);
 		feeView.setAmount(Constants.DEFAULT_TX_FEE);
 		feeView.setListener(listener);
 

@@ -85,6 +85,10 @@
 	<string name="edit_address_book_entry_dialog_button_delete">Delete</string>
 	<string name="edit_address_book_entry_dialog_button_cancel">Cancel</string>
 
+	<string name="amount_calculator_dialog_title">Currency calculator</string>
+	<string name="amount_calculator_dialog_button_use">Use</string>
+	<string name="amount_calculator_dialog_button_cancel">Cancel</string>
+
 	<string name="preferences_about_title">About</string>
 	<string name="preferences_license_title">License</string>
 	<string name="preferences_credits_bitcoinj_title">"This app is using 'bitcoinj'"</string>

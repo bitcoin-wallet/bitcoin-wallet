@@ -61,8 +61,6 @@ public class WalletBalanceFragment extends Fragment implements LoaderManager.Loa
 	private TextView viewBalance;
 	private TextView viewBalanceLocal;
 
-	private static final String DEFAULT_EXCHANGE_CURRENCY = "USD";
-
 	private final WalletEventListener walletEventListener = new WalletEventListener()
 	{
 		@Override
@@ -193,7 +191,7 @@ public class WalletBalanceFragment extends Fragment implements LoaderManager.Loa
 
 	public Loader<Cursor> onCreateLoader(final int id, final Bundle args)
 	{
-		final String exchangeCurrency = prefs.getString(Constants.PREFS_KEY_EXCHANGE_CURRENCY, DEFAULT_EXCHANGE_CURRENCY);
+		final String exchangeCurrency = prefs.getString(Constants.PREFS_KEY_EXCHANGE_CURRENCY, Constants.DEFAULT_EXCHANGE_CURRENCY);
 		return new CursorLoader(getActivity(), ExchangeRatesProvider.CONTENT_URI, null, ExchangeRatesProvider.KEY_CURRENCY_CODE,
 				new String[] { exchangeCurrency }, null);
 	}
@@ -208,7 +206,7 @@ public class WalletBalanceFragment extends Fragment implements LoaderManager.Loa
 			viewBalanceLocal.setVisibility(View.GONE);
 			if (application.getWallet().getBalance(BalanceType.ESTIMATED).signum() > 0 && exchangeRate != null)
 			{
-				final String exchangeCurrency = prefs.getString(Constants.PREFS_KEY_EXCHANGE_CURRENCY, DEFAULT_EXCHANGE_CURRENCY);
+				final String exchangeCurrency = prefs.getString(Constants.PREFS_KEY_EXCHANGE_CURRENCY, Constants.DEFAULT_EXCHANGE_CURRENCY);
 				final BigInteger balance = wallet.getBalance(BalanceType.ESTIMATED);
 				final BigInteger valueLocal = new BigDecimal(balance).multiply(new BigDecimal(exchangeRate)).toBigInteger();
 				viewBalanceLocal.setVisibility(View.VISIBLE);

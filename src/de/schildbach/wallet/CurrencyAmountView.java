@@ -28,10 +28,14 @@ import android.text.InputType;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.TextView;
+import android.widget.TextView.OnEditorActionListener;
 
 import com.google.bitcoin.core.Utils;
 
@@ -40,16 +44,21 @@ import de.schildbach.wallet_test.R;
 /**
  * @author Andreas Schildbach
  */
-public class BtcAmountView extends FrameLayout
+public class CurrencyAmountView extends FrameLayout
 {
 	public static interface Listener
 	{
 		void changed();
+
+		void done();
 	}
 
 	private EditText textView;
 	private View chooseView;
 	private Listener listener;
+	private String currencyCode = "BTC";
+	private int contextButtonResId = 0;
+	private OnClickListener contextButtonClickListener;
 
 	private final TextWatcher textChangedListener = new TextWatcher()
 	{
@@ -77,12 +86,27 @@ public class BtcAmountView extends FrameLayout
 		}
 	};
 
-	public BtcAmountView(final Context context)
+	private final OnEditorActionListener editorActionListener = new OnEditorActionListener()
+	{
+		public boolean onEditorAction(final TextView v, final int actionId, final KeyEvent event)
+		{
+			if (actionId == EditorInfo.IME_ACTION_DONE)
+			{
+				if (listener != null)
+					listener.done();
+				return true;
+			}
+
+			return false;
+		}
+	};
+
+	public CurrencyAmountView(final Context context)
 	{
 		super(context);
 	}
 
-	public BtcAmountView(final Context context, final AttributeSet attrs)
+	public CurrencyAmountView(final Context context, final AttributeSet attrs)
 	{
 		super(context, attrs);
 	}
@@ -95,9 +119,10 @@ public class BtcAmountView extends FrameLayout
 		final Context context = getContext();
 
 		textView = (EditText) getChildAt(0);
-		textView.setHint("0.00");
 		textView.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
 		textView.addTextChangedListener(textChangedListener);
+		textView.setOnEditorActionListener(editorActionListener);
+		setHint(null);
 
 		chooseView = new View(context)
 		{
@@ -111,6 +136,21 @@ public class BtcAmountView extends FrameLayout
 		chooseViewParams.gravity = Gravity.RIGHT;
 		chooseView.setLayoutParams(chooseViewParams);
 		this.addView(chooseView);
+
+		updateAppearance();
+	}
+
+	public void setCurrencyCode(final String currencyCode)
+	{
+		this.currencyCode = currencyCode;
+
+		updateAppearance();
+	}
+
+	public void setContextButton(final int contextButtonResId, final OnClickListener contextButtonClickListener)
+	{
+		this.contextButtonResId = contextButtonResId;
+		this.contextButtonClickListener = contextButtonClickListener;
 
 		updateAppearance();
 	}
@@ -130,7 +170,18 @@ public class BtcAmountView extends FrameLayout
 
 	public void setAmount(final BigInteger amount)
 	{
-		textView.setText(Utils.bitcoinValueToFriendlyString(amount));
+		if (amount != null)
+			textView.setText(Utils.bitcoinValueToFriendlyString(amount));
+		else
+			textView.setText(null);
+	}
+
+	public void setHint(final BigInteger amount)
+	{
+		if (amount != null)
+			textView.setHint(Utils.bitcoinValueToFriendlyString(amount));
+		else
+			textView.setHint("0.00");
 	}
 
 	private boolean isValidAmount()
@@ -153,6 +204,14 @@ public class BtcAmountView extends FrameLayout
 		return false;
 	}
 
+	private final OnClickListener deleteClickListener = new OnClickListener()
+	{
+		public void onClick(final View v)
+		{
+			textView.setText(null);
+		}
+	};
+
 	private void updateAppearance()
 	{
 		final Resources resources = getResources();
@@ -160,18 +219,24 @@ public class BtcAmountView extends FrameLayout
 
 		final String amount = textView.getText().toString().trim();
 
-		final Drawable leftDrawable = new CurrencyCodeDrawable("BTC", 24f * density, 10.5f * density);
+		final Drawable leftDrawable = new CurrencyCodeDrawable(currencyCode, textView.getTextSize() * 20f / 24f, 10.5f * density);
 
-		final Drawable rightDrawable = amount.length() > 0 ? resources.getDrawable(R.drawable.ic_input_delete) : null;
-
-		textView.setCompoundDrawablesWithIntrinsicBounds(leftDrawable, null, rightDrawable, null);
-		chooseView.setOnClickListener(rightDrawable != null ? new OnClickListener()
+		if (amount.length() > 0)
 		{
-			public void onClick(View v)
-			{
-				textView.setText(null);
-			}
-		} : null);
+			textView.setCompoundDrawablesWithIntrinsicBounds(leftDrawable, null, resources.getDrawable(R.drawable.ic_input_delete), null);
+			chooseView.setOnClickListener(deleteClickListener);
+		}
+		else if (contextButtonResId != 0)
+		{
+			textView.setCompoundDrawablesWithIntrinsicBounds(leftDrawable, null, resources.getDrawable(contextButtonResId), null);
+			chooseView.setOnClickListener(contextButtonClickListener);
+		}
+		else
+		{
+			textView.setCompoundDrawablesWithIntrinsicBounds(leftDrawable, null, null, null);
+			chooseView.setOnClickListener(null);
+		}
+
 		chooseView.requestLayout();
 
 		textView.setTextColor(isValidAmount() ? Color.BLACK : Color.RED);

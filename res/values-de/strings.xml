@@ -79,6 +79,10 @@
 	<string name="edit_address_book_entry_dialog_button_delete">Löschen</string>
 	<string name="edit_address_book_entry_dialog_button_cancel">Abbrechen</string>
 
+	<string name="amount_calculator_dialog_title">Währungs-Umrechner</string>
+	<string name="amount_calculator_dialog_button_use">Übernehmen</string>
+	<string name="amount_calculator_dialog_button_cancel">Abbrechen</string>
+
 	<string name="preferences_about_title">Über</string>
 	<string name="preferences_license_title">Lizenz</string>
 	<string name="preferences_credits_bitcoinj_title">"Diese App nutzt 'bitcoinj'"</string>

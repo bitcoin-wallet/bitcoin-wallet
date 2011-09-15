@@ -23,7 +23,9 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.text.ClipboardManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,7 +36,7 @@ import android.widget.ImageView;
 import com.google.bitcoin.core.Address;
 import com.google.bitcoin.core.Utils;
 
-import de.schildbach.wallet.BtcAmountView.Listener;
+import de.schildbach.wallet.CurrencyAmountView.Listener;
 import de.schildbach.wallet.util.ActionBarFragment;
 import de.schildbach.wallet.util.NfcTools;
 import de.schildbach.wallet.util.WalletUtils;
@@ -49,7 +51,7 @@ public class RequestCoinsFragment extends Fragment
 	private Object nfcManager;
 
 	private ImageView qrView;
-	private BtcAmountView amountView;
+	private CurrencyAmountView amountView;
 	private View nfcEnabledView;
 
 	@Override
@@ -75,12 +77,35 @@ public class RequestCoinsFragment extends Fragment
 			}
 		});
 
-		amountView = (BtcAmountView) view.findViewById(R.id.request_coins_amount);
+		amountView = (CurrencyAmountView) view.findViewById(R.id.request_coins_amount);
 		amountView.setListener(new Listener()
 		{
 			public void changed()
 			{
 				updateView();
+			}
+			
+			public void done()
+			{
+			}
+		});
+		amountView.setContextButton(R.drawable.ic_input_calculator, new OnClickListener()
+		{
+			public void onClick(final View v)
+			{
+				final FragmentTransaction ft = getFragmentManager().beginTransaction();
+				final Fragment prev = getFragmentManager().findFragmentByTag(AmountCalculatorFragment.FRAGMENT_TAG);
+				if (prev != null)
+					ft.remove(prev);
+				ft.addToBackStack(null);
+				final DialogFragment newFragment = new AmountCalculatorFragment(new AmountCalculatorFragment.Listener()
+				{
+					public void use(final BigInteger amount)
+					{
+						amountView.setAmount(amount);
+					}
+				});
+				newFragment.show(ft, AmountCalculatorFragment.FRAGMENT_TAG);
 			}
 		});
 
