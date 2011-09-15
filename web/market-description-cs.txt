@@ -1,0 +1,35 @@
+Tato aplikace je peněženka s Bitcoiny pro systém Android. Bitcoin je internetová měna.
+
+Můžete posílat Bitcoiny mezi telefony prostým naskenováním QR kódu, který je zobrazen aplikací, nebo pomocí NFC (Near Field Communication).
+
+Tato verze je pro reálné (Prodnet) Bitcoiny. Pokud chcete pouze experimentovat s bezcennými Testnet Bitcoiny, doporučuji separátní aplikaci (mrkněte na "více od vývojáře").
+
+VLASTNOSTI:
+
+• Zobrazení zůstatku peněženky v Bitcoinech a několika jiných měnách
+• Odesílání a přijímání Bitcoinů pomocí NFC, QR-kódů, nebo Bitcoin adres
+• Podpora milibitcentů a menších hodnot (0.0001)
+• Adresář pro často používané adresy
+• Možnost zadávání transakcí v offline režimu, k jejich zpracování dojde po připojení
+• Oznamování v liště při synchronizaci a při přijetí Bitcoinů
+• Widget s celkovým zůstatkem (vyžaduje aplikaci přesunutou na kartě)
+
+ZNÁMÉ PROBLÉMY:
+
+• Při prvním spůštění může aplikace na několik sekund zobrazit pouze bílou obrazovku - je to normální.
+• Někdy můžete dostat oznámení o příchodu těch stejných Bitcoinů několikrát za sebou. Samozřejmě jsou Bitcoiny připsány pouze jednou.
+
+První Bitcoiny na hraní je možné získat na adrese
+https://freebitcoins.appspot.com/
+
+Více informací o Bitcoinech
+http://bitcoin.org
+
+Pokud chcete přispět do projektu Bitcoin Wallet, naleznete jej na adrese
+https://code.google.com/p/bitcoin-wallet/
+
+License: GPLv3
+Použití pouze na vlastní riziko!
+
+--
+BTC bitcoin wallet bitcoinandroid androidbitcoin Geldbörse Кошелёк
