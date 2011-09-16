@@ -20,9 +20,12 @@
 		android:layout_marginLeft="20dp" android:layout_marginRight="20dp" android:text="@string/send_coins_fragment_available_label"
 		android:textSize="16sp" android:textStyle="bold" />
 
-	<EditText android:id="@+id/send_coins_available" android:layout_width="fill_parent" android:layout_height="wrap_content"
-		android:layout_marginLeft="12dp" android:layout_marginRight="12dp" android:background="@drawable/edit_text"
-		android:textSize="28sp" android:drawablePadding="4dp" android:enabled="false" android:focusable="false" />
+	<de.schildbach.wallet.CurrencyAmountView android:id="@+id/send_coins_available"
+		android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="12dp"
+		android:layout_marginRight="12dp">
+		<TextView android:layout_width="fill_parent" android:layout_height="wrap_content" android:background="@drawable/edit_text"
+			android:textSize="28sp" android:drawablePadding="4dp" android:enabled="false" />
+	</de.schildbach.wallet.CurrencyAmountView>
 
 	<TextView android:id="@+id/send_coins_pending" android:layout_width="fill_parent" android:layout_height="wrap_content"
 		android:layout_marginBottom="8dp" android:layout_marginLeft="20dp" android:textSize="16sp" android:visibility="gone" />

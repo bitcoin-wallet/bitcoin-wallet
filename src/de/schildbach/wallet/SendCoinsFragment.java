@@ -131,7 +131,6 @@ public class SendCoinsFragment extends Fragment
 		final AbstractWalletActivity activity = (AbstractWalletActivity) getActivity();
 
 		final View view = inflater.inflate(R.layout.send_coins_fragment, container);
-		final float density = getResources().getDisplayMetrics().density;
 
 		final BigInteger estimated = application.getWallet().getBalance(BalanceType.ESTIMATED);
 		final BigInteger available = application.getWallet().getBalance(BalanceType.AVAILABLE);
@@ -144,9 +143,8 @@ public class SendCoinsFragment extends Fragment
 
 		receivingAddressErrorView = view.findViewById(R.id.send_coins_receiving_address_error);
 
-		final TextView availableView = (TextView) view.findViewById(R.id.send_coins_available);
-		availableView.setCompoundDrawablesWithIntrinsicBounds(new CurrencyCodeDrawable("BTC", 24f * density, 10.5f * density), null, null, null);
-		availableView.setText(Utils.bitcoinValueToFriendlyString(available));
+		final CurrencyAmountView availableView = (CurrencyAmountView) view.findViewById(R.id.send_coins_available);
+		availableView.setAmount(available);
 
 		final TextView pendingView = (TextView) view.findViewById(R.id.send_coins_pending);
 		pendingView.setVisibility(pending.signum() > 0 ? View.VISIBLE : View.GONE);

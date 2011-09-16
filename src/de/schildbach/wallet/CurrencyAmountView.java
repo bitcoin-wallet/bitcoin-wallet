@@ -37,7 +37,6 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
-import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
@@ -58,7 +57,7 @@ public class CurrencyAmountView extends FrameLayout
 		void done();
 	}
 
-	private EditText textView;
+	private TextView textView;
 	private View chooseView;
 	private Listener listener;
 	private String currencyCode = "BTC";
@@ -125,7 +124,7 @@ public class CurrencyAmountView extends FrameLayout
 
 		final Context context = getContext();
 
-		textView = (EditText) getChildAt(0);
+		textView = (TextView) getChildAt(0);
 		textView.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
 		textView.addTextChangedListener(textChangedListener);
 		textView.setOnEditorActionListener(editorActionListener);
@@ -243,7 +242,7 @@ public class CurrencyAmountView extends FrameLayout
 
 		final Drawable leftDrawable = new CurrencyCodeDrawable(currencyCode, textView.getTextSize() * 20f / 24f, 10.5f * density);
 
-		if (amount.length() > 0)
+		if (textView.isEnabled() && amount.length() > 0)
 		{
 			textView.setCompoundDrawablesWithIntrinsicBounds(leftDrawable, null, resources.getDrawable(R.drawable.ic_input_delete), null);
 			chooseView.setOnClickListener(deleteClickListener);
