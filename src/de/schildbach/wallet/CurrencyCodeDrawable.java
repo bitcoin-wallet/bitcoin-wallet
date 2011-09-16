@@ -18,7 +18,6 @@
 package de.schildbach.wallet;
 
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.ColorFilter;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
@@ -28,14 +27,13 @@ import android.graphics.drawable.Drawable;
  */
 public class CurrencyCodeDrawable extends Drawable
 {
-	private final Paint paint;
+	private final Paint paint = new Paint();
 	private final String currencyCode;
 	private final float y;
 
-	public CurrencyCodeDrawable(final String currencyCode, final float textSize, final float y)
+	public CurrencyCodeDrawable(final String currencyCode, final float textSize, final int color, final float y)
 	{
-		paint = new Paint();
-		paint.setColor(Color.parseColor("#666666"));
+		paint.setColor(color);
 		paint.setAntiAlias(true);
 		paint.setTextSize(textSize);
 
@@ -62,12 +60,12 @@ public class CurrencyCodeDrawable extends Drawable
 	}
 
 	@Override
-	public void setAlpha(int alpha)
+	public void setAlpha(final int alpha)
 	{
 	}
 
 	@Override
-	public void setColorFilter(ColorFilter cf)
+	public void setColorFilter(final ColorFilter cf)
 	{
 	}
 }

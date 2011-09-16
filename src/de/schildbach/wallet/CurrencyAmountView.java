@@ -23,8 +23,8 @@ import java.util.regex.Pattern;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.SpannableStringBuilder;
@@ -57,11 +57,13 @@ public class CurrencyAmountView extends FrameLayout
 		void done();
 	}
 
+	private int significantColor, lessSignificantColor, errorColor;
+	private Drawable deleteButtonDrawable, contextButtonDrawable;
+	private CurrencyCodeDrawable currencyCodeDrawable;
+
 	private TextView textView;
 	private View chooseView;
 	private Listener listener;
-	private CurrencyCodeDrawable currencyCodeDrawable;
-	private int contextButtonResId = 0;
 	private OnClickListener contextButtonClickListener;
 
 	private final TextWatcher textChangedListener = new TextWatcher()
@@ -110,11 +112,22 @@ public class CurrencyAmountView extends FrameLayout
 	public CurrencyAmountView(final Context context)
 	{
 		super(context);
+		init(context);
 	}
 
 	public CurrencyAmountView(final Context context, final AttributeSet attrs)
 	{
 		super(context, attrs);
+		init(context);
+	}
+
+	private void init(final Context context)
+	{
+		final Resources resources = context.getResources();
+		significantColor = resources.getColor(R.color.significant);
+		lessSignificantColor = resources.getColor(R.color.less_significant);
+		errorColor = resources.getColor(R.color.error);
+		deleteButtonDrawable = resources.getDrawable(R.drawable.ic_input_delete);
 	}
 
 	@Override
@@ -128,7 +141,7 @@ public class CurrencyAmountView extends FrameLayout
 		textView.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
 		textView.addTextChangedListener(textChangedListener);
 		textView.setOnEditorActionListener(editorActionListener);
-		textView.setHintTextColor(Color.parseColor("#666666"));
+		textView.setHintTextColor(lessSignificantColor);
 		setHint(null);
 
 		chooseView = new View(context)
@@ -154,7 +167,7 @@ public class CurrencyAmountView extends FrameLayout
 		if (currencyCode != null)
 		{
 			final float textSize = textView.getTextSize();
-			currencyCodeDrawable = new CurrencyCodeDrawable(currencyCode, textSize * 20f / 24f, textSize * 0.37f);
+			currencyCodeDrawable = new CurrencyCodeDrawable(currencyCode, textSize * 20f / 24f, lessSignificantColor, textSize * 0.37f);
 		}
 		else
 		{
@@ -166,7 +179,7 @@ public class CurrencyAmountView extends FrameLayout
 
 	public void setContextButton(final int contextButtonResId, final OnClickListener contextButtonClickListener)
 	{
-		this.contextButtonResId = contextButtonResId;
+		this.contextButtonDrawable = getContext().getResources().getDrawable(contextButtonResId);
 		this.contextButtonClickListener = contextButtonClickListener;
 
 		updateAppearance();
@@ -253,18 +266,16 @@ public class CurrencyAmountView extends FrameLayout
 
 	private void updateAppearance()
 	{
-		final Resources resources = getResources();
-
 		final String amount = textView.getText().toString().trim();
 
 		if (textView.isEnabled() && amount.length() > 0)
 		{
-			textView.setCompoundDrawablesWithIntrinsicBounds(currencyCodeDrawable, null, resources.getDrawable(R.drawable.ic_input_delete), null);
+			textView.setCompoundDrawablesWithIntrinsicBounds(currencyCodeDrawable, null, deleteButtonDrawable, null);
 			chooseView.setOnClickListener(deleteClickListener);
 		}
-		else if (contextButtonResId != 0)
+		else if (contextButtonDrawable != null)
 		{
-			textView.setCompoundDrawablesWithIntrinsicBounds(currencyCodeDrawable, null, resources.getDrawable(contextButtonResId), null);
+			textView.setCompoundDrawablesWithIntrinsicBounds(currencyCodeDrawable, null, contextButtonDrawable, null);
 			chooseView.setOnClickListener(contextButtonClickListener);
 		}
 		else
@@ -275,6 +286,6 @@ public class CurrencyAmountView extends FrameLayout
 
 		chooseView.requestLayout();
 
-		textView.setTextColor(isValidAmount() ? Color.BLACK : Color.RED);
+		textView.setTextColor(isValidAmount() ? significantColor : errorColor);
 	}
 }
