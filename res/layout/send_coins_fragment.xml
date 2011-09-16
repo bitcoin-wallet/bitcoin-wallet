@@ -38,7 +38,7 @@
 		android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="12dp"
 		android:layout_marginRight="12dp">
 		<EditText android:layout_width="fill_parent" android:layout_height="wrap_content" android:background="@drawable/edit_text"
-			android:textSize="28sp" android:drawablePadding="4dp" android:imeOptions="actionNext" />
+			android:textSize="28sp" android:drawablePadding="4dp" />
 	</de.schildbach.wallet.CurrencyAmountView>
 
 	<TextView android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp"
@@ -49,7 +49,7 @@
 		android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="12dp"
 		android:layout_marginRight="12dp">
 		<EditText android:layout_width="fill_parent" android:layout_height="wrap_content" android:background="@drawable/edit_text"
-			android:textSize="28sp" android:drawablePadding="4dp" android:imeOptions="actionDone" />
+			android:textSize="28sp" android:drawablePadding="4dp" />
 	</de.schildbach.wallet.CurrencyAmountView>
 
 	<!-- stretch dummy -->
@@ -60,7 +60,8 @@
 		android:background="@drawable/button_bar_background" android:stretchColumns="0,1">
 		<TableRow>
 			<Button android:id="@+id/send_coins_go" android:background="@drawable/btn_default" android:paddingLeft="12dp"
-				android:paddingRight="12dp" android:text="@string/send_coins_fragment_button_send" android:textStyle="bold" />
+				android:paddingRight="12dp" android:text="@string/send_coins_fragment_button_send" android:textStyle="bold"
+				android:focusableInTouchMode="true" />
 			<Button android:id="@+id/send_coins_cancel" android:background="@drawable/btn_default" android:paddingLeft="12dp"
 				android:paddingRight="12dp" android:text="@string/send_coins_fragment_button_cancel" />
 		</TableRow>
