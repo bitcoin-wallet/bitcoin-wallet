@@ -29,6 +29,7 @@ import android.text.Editable;
 import android.text.InputType;
 import android.text.SpannableStringBuilder;
 import android.text.TextWatcher;
+import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
 import android.util.AttributeSet;
 import android.view.Gravity;
@@ -205,13 +206,20 @@ public class CurrencyAmountView extends FrameLayout
 
 	private static final Pattern P_SIGNIFICANT = Pattern.compile("^\\d*(\\.\\d{0,2})?");
 	private static Object SIGNIFICANT_SPAN = new StyleSpan(Typeface.BOLD);
+	private static Object UNSIGNIFICANT_SPAN = new RelativeSizeSpan(0.85f);
 
 	private static void spanSignificant(final Editable s)
 	{
 		s.removeSpan(SIGNIFICANT_SPAN);
+		s.removeSpan(UNSIGNIFICANT_SPAN);
 		final Matcher m = P_SIGNIFICANT.matcher(s);
 		if (m.find())
-			s.setSpan(SIGNIFICANT_SPAN, 0, m.group().length(), 0);
+		{
+			final int pivot = m.group().length();
+			s.setSpan(SIGNIFICANT_SPAN, 0, pivot, 0);
+			if (s.length() > pivot)
+				s.setSpan(UNSIGNIFICANT_SPAN, pivot, s.length(), 0);
+		}
 	}
 
 	private boolean isValidAmount()
