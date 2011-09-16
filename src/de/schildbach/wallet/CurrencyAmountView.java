@@ -128,6 +128,7 @@ public class CurrencyAmountView extends FrameLayout
 		textView.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
 		textView.addTextChangedListener(textChangedListener);
 		textView.setOnEditorActionListener(editorActionListener);
+		textView.setHintTextColor(Color.parseColor("#666666"));
 		setHint(null);
 
 		chooseView = new View(context)

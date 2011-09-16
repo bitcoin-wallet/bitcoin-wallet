@@ -7,14 +7,14 @@
 		android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="12dp"
 		android:layout_marginRight="12dp" android:layout_marginTop="8dp">
 		<EditText android:layout_width="fill_parent" android:layout_height="wrap_content" android:background="@drawable/edit_text"
-			android:textSize="28sp" android:textColorHint="#ccc" android:drawablePadding="4dp" android:imeOptions="actionDone" />
+			android:textSize="28sp" android:drawablePadding="4dp" android:imeOptions="actionDone" />
 	</de.schildbach.wallet.CurrencyAmountView>
 
 	<de.schildbach.wallet.CurrencyAmountView android:id="@+id/amount_calculator_row_local"
 		android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="12dp"
 		android:layout_marginRight="12dp" android:layout_marginBottom="4dp">
 		<EditText android:layout_width="fill_parent" android:layout_height="wrap_content" android:background="@drawable/edit_text"
-			android:textSize="28sp" android:textColorHint="#ccc" android:drawablePadding="4dp" android:imeOptions="actionDone" />
+			android:textSize="28sp" android:drawablePadding="4dp" android:imeOptions="actionDone" />
 	</de.schildbach.wallet.CurrencyAmountView>
 
 </LinearLayout>
