@@ -34,10 +34,8 @@ import android.view.View;
 import android.widget.BaseAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.google.bitcoin.core.Transaction;
-import com.google.bitcoin.core.Utils;
 import com.google.bitcoin.core.Wallet;
 import com.google.bitcoin.core.Wallet.BalanceType;
 import com.google.bitcoin.core.WalletEventListener;
@@ -128,7 +126,9 @@ public class ExchangeRatesFragment extends ListFragment implements LoaderManager
 
 				final BigInteger value = new BigDecimal(application.getWallet().getBalance(BalanceType.ESTIMATED)).multiply(
 						new BigDecimal(cursor.getDouble(columnIndex))).toBigInteger();
-				((TextView) view).setText(Utils.bitcoinValueToFriendlyString(value));
+				final CurrencyAmountView valueView = (CurrencyAmountView) view;
+				valueView.setCurrencyCode(null);
+				valueView.setAmount(value);
 
 				return true;
 			}

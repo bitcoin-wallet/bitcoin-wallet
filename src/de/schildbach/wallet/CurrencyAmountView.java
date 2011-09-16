@@ -149,8 +149,15 @@ public class CurrencyAmountView extends FrameLayout
 
 	public void setCurrencyCode(final String currencyCode)
 	{
-		final float textSize = textView.getTextSize();
-		currencyCodeDrawable = new CurrencyCodeDrawable(currencyCode, textSize * 20f / 24f, textSize * 0.37f);
+		if (currencyCode != null)
+		{
+			final float textSize = textView.getTextSize();
+			currencyCodeDrawable = new CurrencyCodeDrawable(currencyCode, textSize * 20f / 24f, textSize * 0.37f);
+		}
+		else
+		{
+			currencyCodeDrawable = null;
+		}
 
 		updateAppearance();
 	}
