@@ -225,8 +225,7 @@ public class SendCoinsFragment extends Fragment
 													if (prev != null)
 														ft.remove(prev);
 													ft.addToBackStack(null);
-													final DialogFragment newFragment = new EditAddressBookEntryFragment(getLayoutInflater(null),
-															receivingAddress.toString())
+													final DialogFragment newFragment = new EditAddressBookEntryFragment(receivingAddress.toString())
 													{
 														@Override
 														public void onDestroyView()

@@ -193,7 +193,7 @@ public class WalletTransactionsFragment extends Fragment
 					if (prev != null)
 						ft.remove(prev);
 					ft.addToBackStack(null);
-					final DialogFragment newFragment = new EditAddressBookEntryFragment(getLayoutInflater(null), address.toString());
+					final DialogFragment newFragment = new EditAddressBookEntryFragment(address.toString());
 					newFragment.show(ft, EditAddressBookEntryFragment.FRAGMENT_TAG);
 				}
 				catch (final ScriptException x)

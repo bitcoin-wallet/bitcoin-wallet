@@ -27,6 +27,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -40,18 +41,19 @@ public class EditAddressBookEntryFragment extends DialogFragment
 	public static final String FRAGMENT_TAG = EditAddressBookEntryFragment.class.getName();
 
 	private String address;
-	private LayoutInflater inflater;
 
-	public EditAddressBookEntryFragment(final LayoutInflater inflater, final String address)
+	public EditAddressBookEntryFragment(final String address)
 	{
-		this.inflater = inflater;
 		this.address = address;
 	}
 
 	@Override
 	public Dialog onCreateDialog(final Bundle savedInstanceState)
 	{
-		final ContentResolver contentResolver = getActivity().getContentResolver();
+		final FragmentActivity activity = getActivity();
+		final LayoutInflater inflater = LayoutInflater.from(activity);
+
+		final ContentResolver contentResolver = activity.getContentResolver();
 		final Uri uri = AddressBookProvider.CONTENT_URI.buildUpon().appendPath(address).build();
 
 		final String label;
@@ -64,7 +66,7 @@ public class EditAddressBookEntryFragment extends DialogFragment
 
 		final boolean isAdd = label == null;
 
-		final Builder dialog = new AlertDialog.Builder(getActivity()).setTitle(isAdd ? R.string.edit_address_book_entry_dialog_title_add
+		final Builder dialog = new AlertDialog.Builder(activity).setTitle(isAdd ? R.string.edit_address_book_entry_dialog_title_add
 				: R.string.edit_address_book_entry_dialog_title_edit);
 
 		final View view = inflater.inflate(R.layout.edit_address_book_entry_dialog, null);
