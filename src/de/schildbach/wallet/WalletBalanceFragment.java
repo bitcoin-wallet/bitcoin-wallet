@@ -58,7 +58,7 @@ public class WalletBalanceFragment extends Fragment implements LoaderManager.Loa
 	private SharedPreferences prefs;
 	private final Handler handler = new Handler();
 
-	private TextView viewBalance;
+	private CurrencyAmountView viewBalance;
 	private TextView viewBalanceLocal;
 
 	private final WalletEventListener walletEventListener = new WalletEventListener()
@@ -130,7 +130,7 @@ public class WalletBalanceFragment extends Fragment implements LoaderManager.Loa
 	public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState)
 	{
 		final View view = inflater.inflate(R.layout.wallet_balance_fragment, container, false);
-		viewBalance = (TextView) view.findViewById(R.id.wallet_balance);
+		viewBalance = (CurrencyAmountView) view.findViewById(R.id.wallet_balance);
 		viewBalanceLocal = (TextView) view.findViewById(R.id.wallet_balance_local);
 
 		view.setOnClickListener(new OnClickListener()
@@ -169,7 +169,7 @@ public class WalletBalanceFragment extends Fragment implements LoaderManager.Loa
 
 	public void updateView()
 	{
-		viewBalance.setText(Utils.bitcoinValueToFriendlyString(wallet.getBalance(BalanceType.ESTIMATED)));
+		viewBalance.setAmount(wallet.getBalance(BalanceType.ESTIMATED));
 
 		getLoaderManager().restartLoader(0, null, this);
 	}

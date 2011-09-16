@@ -25,7 +25,6 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.SpannableStringBuilder;
@@ -60,7 +59,7 @@ public class CurrencyAmountView extends FrameLayout
 	private TextView textView;
 	private View chooseView;
 	private Listener listener;
-	private String currencyCode = "BTC";
+	private CurrencyCodeDrawable currencyCodeDrawable;
 	private int contextButtonResId = 0;
 	private OnClickListener contextButtonClickListener;
 
@@ -143,12 +142,15 @@ public class CurrencyAmountView extends FrameLayout
 		chooseView.setLayoutParams(chooseViewParams);
 		this.addView(chooseView);
 
+		setCurrencyCode("BTC");
+
 		updateAppearance();
 	}
 
 	public void setCurrencyCode(final String currencyCode)
 	{
-		this.currencyCode = currencyCode;
+		final float textSize = textView.getTextSize();
+		currencyCodeDrawable = new CurrencyCodeDrawable(currencyCode, textSize * 20f / 24f, textSize * 0.37f);
 
 		updateAppearance();
 	}
@@ -236,25 +238,22 @@ public class CurrencyAmountView extends FrameLayout
 	private void updateAppearance()
 	{
 		final Resources resources = getResources();
-		final float density = resources.getDisplayMetrics().density;
 
 		final String amount = textView.getText().toString().trim();
 
-		final Drawable leftDrawable = new CurrencyCodeDrawable(currencyCode, textView.getTextSize() * 20f / 24f, 10.5f * density);
-
 		if (textView.isEnabled() && amount.length() > 0)
 		{
-			textView.setCompoundDrawablesWithIntrinsicBounds(leftDrawable, null, resources.getDrawable(R.drawable.ic_input_delete), null);
+			textView.setCompoundDrawablesWithIntrinsicBounds(currencyCodeDrawable, null, resources.getDrawable(R.drawable.ic_input_delete), null);
 			chooseView.setOnClickListener(deleteClickListener);
 		}
 		else if (contextButtonResId != 0)
 		{
-			textView.setCompoundDrawablesWithIntrinsicBounds(leftDrawable, null, resources.getDrawable(contextButtonResId), null);
+			textView.setCompoundDrawablesWithIntrinsicBounds(currencyCodeDrawable, null, resources.getDrawable(contextButtonResId), null);
 			chooseView.setOnClickListener(contextButtonClickListener);
 		}
 		else
 		{
-			textView.setCompoundDrawablesWithIntrinsicBounds(leftDrawable, null, null, null);
+			textView.setCompoundDrawablesWithIntrinsicBounds(currencyCodeDrawable, null, null, null);
 			chooseView.setOnClickListener(null);
 		}
 
