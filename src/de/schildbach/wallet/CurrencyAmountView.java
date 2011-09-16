@@ -18,14 +18,19 @@
 package de.schildbach.wallet;
 
 import java.math.BigInteger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.text.Editable;
 import android.text.InputType;
+import android.text.SpannableStringBuilder;
 import android.text.TextWatcher;
+import android.text.style.StyleSpan;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -72,6 +77,8 @@ public class CurrencyAmountView extends FrameLayout
 				s.clear();
 				s.append(replaced);
 			}
+
+			spanSignificant(s);
 		}
 
 		public void beforeTextChanged(final CharSequence s, final int start, final int count, final int after)
@@ -178,10 +185,25 @@ public class CurrencyAmountView extends FrameLayout
 
 	public void setHint(final BigInteger amount)
 	{
+		final SpannableStringBuilder hint;
 		if (amount != null)
-			textView.setHint(Utils.bitcoinValueToFriendlyString(amount));
+			hint = new SpannableStringBuilder(Utils.bitcoinValueToFriendlyString(amount));
 		else
-			textView.setHint("0.00");
+			hint = new SpannableStringBuilder("0.00");
+
+		spanSignificant(hint);
+		textView.setHint(hint);
+	}
+
+	private static final Pattern P_SIGNIFICANT = Pattern.compile("^\\d*(\\.\\d{0,2})?");
+	private static Object SIGNIFICANT_SPAN = new StyleSpan(Typeface.BOLD);
+
+	private static void spanSignificant(final Editable s)
+	{
+		s.removeSpan(SIGNIFICANT_SPAN);
+		final Matcher m = P_SIGNIFICANT.matcher(s);
+		if (m.find())
+			s.setSpan(SIGNIFICANT_SPAN, 0, m.group().length(), 0);
 	}
 
 	private boolean isValidAmount()
