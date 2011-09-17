@@ -42,6 +42,7 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.Uri;
+import android.os.BatteryManager;
 import android.os.Binder;
 import android.os.Handler;
 import android.os.HandlerThread;
@@ -263,21 +264,48 @@ public class Service extends android.app.Service
 		}
 	};
 
-	private final BroadcastReceiver connectivityReceiver = new BroadcastReceiver()
+	private final BroadcastReceiver broadcastReceiver = new BroadcastReceiver()
 	{
+		private boolean hasConnectivity;
+		private boolean hasPower;
+
 		@Override
 		public void onReceive(final Context context, final Intent intent)
 		{
-			final boolean noConnectivity = intent.getBooleanExtra(ConnectivityManager.EXTRA_NO_CONNECTIVITY, false);
-			final String reason = intent.getStringExtra(ConnectivityManager.EXTRA_REASON);
-			// final boolean isFailover = intent.getBooleanExtra(ConnectivityManager.EXTRA_IS_FAILOVER, false);
-			System.out.println("network has gone " + (noConnectivity ? "down" : "up") + (reason != null ? ": " + reason : ""));
+			final String action = intent.getAction();
 
-			if (!noConnectivity && peerGroup == null)
+			if (ConnectivityManager.CONNECTIVITY_ACTION.equals(action))
+			{
+				hasConnectivity = !intent.getBooleanExtra(ConnectivityManager.EXTRA_NO_CONNECTIVITY, false);
+				final String reason = intent.getStringExtra(ConnectivityManager.EXTRA_REASON);
+				// final boolean isFailover = intent.getBooleanExtra(ConnectivityManager.EXTRA_IS_FAILOVER, false);
+				System.out.println("network is " + (hasConnectivity ? "up" : "down") + (reason != null ? ": " + reason : ""));
+
+				check();
+
+			}
+			else if (Intent.ACTION_BATTERY_CHANGED.equals(action))
+			{
+				final int level = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
+				final int scale = intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
+				final int plugged = intent.getIntExtra(BatteryManager.EXTRA_PLUGGED, 0);
+				System.out.println("battery changed: level=" + level + "/" + scale + " plugged=" + plugged);
+				hasPower = plugged != 0 || level > scale / 10;
+
+				check();
+			}
+		}
+
+		private void check()
+		{
+			final boolean hasEverything = hasConnectivity && hasPower;
+
+			if (hasEverything && peerGroup == null)
 			{
 				final Wallet wallet = application.getWallet();
 				final NetworkParameters networkParameters = application.getNetworkParameters();
 
+				System.out.println("starting peergroup");
 				peerGroup = new PeerGroup(blockStore, networkParameters, blockChain, wallet, 1000);
 				peerGroup.addEventListener(peerEventListener);
 
@@ -313,15 +341,12 @@ public class Service extends android.app.Service
 
 				peerGroup.startBlockChainDownload(blockchainDownloadListener);
 			}
-			else if (noConnectivity && peerGroup != null)
+			else if (!hasEverything && peerGroup != null)
 			{
+				System.out.println("stopping peergroup");
 				peerGroup.removeEventListener(peerEventListener);
 				peerGroup.stop();
 				peerGroup = null;
-			}
-			else
-			{
-				System.out.println("ignored event");
 			}
 		}
 	};
@@ -361,7 +386,10 @@ public class Service extends android.app.Service
 		backgroundThread.start();
 		backgroundHandler = new Handler(backgroundThread.getLooper());
 
-		registerReceiver(connectivityReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+		final IntentFilter intentFilter = new IntentFilter();
+		intentFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
+		intentFilter.addAction(Intent.ACTION_BATTERY_CHANGED);
+		registerReceiver(broadcastReceiver, intentFilter);
 
 		final int versionCode = application.versionCode();
 		final int lastVersionCode = prefs.getInt(Constants.PREFS_KEY_LAST_VERSION, 0);
@@ -455,7 +483,7 @@ public class Service extends android.app.Service
 			peerGroup.stop();
 		}
 
-		unregisterReceiver(connectivityReceiver);
+		unregisterReceiver(broadcastReceiver);
 
 		backgroundThread.getLooper().quit();
 
