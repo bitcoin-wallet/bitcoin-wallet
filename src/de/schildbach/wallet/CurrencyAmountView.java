@@ -66,7 +66,7 @@ public class CurrencyAmountView extends FrameLayout
 	private Listener listener;
 	private OnClickListener contextButtonClickListener;
 
-	private final TextWatcher textChangedListener = new TextWatcher()
+	private final class TextViewListener implements TextWatcher, OnFocusChangeListener, OnEditorActionListener
 	{
 		public void afterTextChanged(final Editable s)
 		{
@@ -92,10 +92,17 @@ public class CurrencyAmountView extends FrameLayout
 			if (listener != null)
 				listener.changed();
 		}
-	};
 
-	private final OnEditorActionListener editorActionListener = new OnEditorActionListener()
-	{
+		public void onFocusChange(final View v, final boolean hasFocus)
+		{
+			if (!hasFocus)
+			{
+				final BigInteger amount = getAmount();
+				if (amount != null)
+					setAmount(amount);
+			}
+		}
+
 		public boolean onEditorAction(final TextView v, final int actionId, final KeyEvent event)
 		{
 			if (actionId == EditorInfo.IME_ACTION_DONE)
@@ -107,7 +114,7 @@ public class CurrencyAmountView extends FrameLayout
 
 			return false;
 		}
-	};
+	}
 
 	public CurrencyAmountView(final Context context)
 	{
@@ -137,10 +144,13 @@ public class CurrencyAmountView extends FrameLayout
 
 		final Context context = getContext();
 
+		final TextViewListener textViewListener = new TextViewListener();
+
 		textView = (TextView) getChildAt(0);
 		textView.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
-		textView.addTextChangedListener(textChangedListener);
-		textView.setOnEditorActionListener(editorActionListener);
+		textView.addTextChangedListener(textViewListener);
+		textView.setOnFocusChangeListener(textViewListener);
+		textView.setOnEditorActionListener(textViewListener);
 		textView.setHintTextColor(lessSignificantColor);
 		setHint(null);
 
