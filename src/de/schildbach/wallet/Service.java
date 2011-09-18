@@ -268,6 +268,7 @@ public class Service extends android.app.Service
 	{
 		private boolean hasConnectivity;
 		private boolean hasPower;
+		private boolean hasStorage = true;
 
 		@Override
 		public void onReceive(final Context context, final Intent intent)
@@ -289,8 +290,22 @@ public class Service extends android.app.Service
 				final int level = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
 				final int scale = intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
 				final int plugged = intent.getIntExtra(BatteryManager.EXTRA_PLUGGED, 0);
-				System.out.println("battery changed: level=" + level + "/" + scale + " plugged=" + plugged);
 				hasPower = plugged != 0 || level > scale / 10;
+				System.out.println("battery changed: level=" + level + "/" + scale + " plugged=" + plugged);
+
+				check();
+			}
+			else if (Intent.ACTION_DEVICE_STORAGE_LOW.equals(action))
+			{
+				hasStorage = false;
+				System.out.println("device storage low");
+
+				check();
+			}
+			else if (Intent.ACTION_DEVICE_STORAGE_OK.equals(action))
+			{
+				hasStorage = true;
+				System.out.println("device storage ok");
 
 				check();
 			}
@@ -298,7 +313,7 @@ public class Service extends android.app.Service
 
 		private void check()
 		{
-			final boolean hasEverything = hasConnectivity && hasPower;
+			final boolean hasEverything = hasConnectivity && hasPower && hasStorage;
 
 			if (hasEverything && peerGroup == null)
 			{
@@ -389,6 +404,8 @@ public class Service extends android.app.Service
 		final IntentFilter intentFilter = new IntentFilter();
 		intentFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
 		intentFilter.addAction(Intent.ACTION_BATTERY_CHANGED);
+		intentFilter.addAction(Intent.ACTION_DEVICE_STORAGE_LOW);
+		intentFilter.addAction(Intent.ACTION_DEVICE_STORAGE_OK);
 		registerReceiver(broadcastReceiver, intentFilter);
 
 		final int versionCode = application.versionCode();
