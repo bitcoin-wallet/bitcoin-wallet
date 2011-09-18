@@ -18,6 +18,7 @@
 package de.schildbach.wallet;
 
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -305,9 +306,8 @@ public class WalletTransactionsFragment extends Fragment
 		public void updateView()
 		{
 			final Wallet wallet = application.getWallet();
-			final List<Transaction> transactions = wallet.getAllTransactions();
+			final List<Transaction> transactions = new ArrayList<Transaction>(wallet.getTransactions(true, false));
 
-			// FIXME transactions are sorted two times
 			Collections.sort(transactions, new Comparator<Transaction>()
 			{
 				public int compare(final Transaction tx1, final Transaction tx2)
