@@ -40,7 +40,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.google.bitcoin.core.Transaction;
+import com.google.bitcoin.core.AbstractWalletEventListener;
 import com.google.bitcoin.core.Utils;
 import com.google.bitcoin.core.Wallet;
 import com.google.bitcoin.core.Wallet.BalanceType;
@@ -61,39 +61,10 @@ public class WalletBalanceFragment extends Fragment implements LoaderManager.Loa
 	private CurrencyAmountView viewBalance;
 	private TextView viewBalanceLocal;
 
-	private final WalletEventListener walletEventListener = new WalletEventListener()
+	private final WalletEventListener walletEventListener = new AbstractWalletEventListener()
 	{
 		@Override
-		public void onPendingCoinsReceived(final Wallet wallet, final Transaction tx)
-		{
-			onEverything();
-		}
-
-		@Override
-		public void onCoinsReceived(final Wallet w, final Transaction tx, final BigInteger prevBalance, final BigInteger newBalance)
-		{
-			onEverything();
-		}
-
-		@Override
-		public void onCoinsSent(final Wallet wallet, final Transaction tx, final BigInteger prevBalance, final BigInteger newBalance)
-		{
-			onEverything();
-		}
-
-		@Override
-		public void onReorganize()
-		{
-			onEverything();
-		}
-
-		@Override
-		public void onDeadTransaction(final Transaction deadTx, final Transaction replacementTx)
-		{
-			onEverything();
-		}
-
-		private void onEverything()
+		public void onChange()
 		{
 			getActivity().runOnUiThread(new Runnable()
 			{

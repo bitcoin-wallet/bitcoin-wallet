@@ -52,6 +52,7 @@ import android.preference.PreferenceManager;
 import android.text.format.DateUtils;
 
 import com.google.bitcoin.core.AbstractPeerEventListener;
+import com.google.bitcoin.core.AbstractWalletEventListener;
 import com.google.bitcoin.core.Address;
 import com.google.bitcoin.core.BlockChain;
 import com.google.bitcoin.core.DownloadListener;
@@ -97,7 +98,7 @@ public class Service extends android.app.Service
 	private static final int NOTIFICATION_ID_SYNCING = 1;
 	private static final AtomicInteger notificationIdCount = new AtomicInteger(10);
 
-	private final WalletEventListener walletEventListener = new WalletEventListener()
+	private final WalletEventListener walletEventListener = new AbstractWalletEventListener()
 	{
 		@Override
 		public void onPendingCoinsReceived(final Wallet wallet, final Transaction tx)

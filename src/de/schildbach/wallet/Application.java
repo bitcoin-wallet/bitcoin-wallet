@@ -17,7 +17,6 @@
 
 package de.schildbach.wallet;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.EOFException;
 import java.io.File;
@@ -27,18 +26,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
-import java.io.Reader;
 import java.io.Writer;
-import java.math.BigInteger;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -47,12 +36,12 @@ import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.widget.Toast;
 
+import com.google.bitcoin.core.AbstractWalletEventListener;
 import com.google.bitcoin.core.Address;
 import com.google.bitcoin.core.AddressFormatException;
 import com.google.bitcoin.core.DumpedPrivateKey;
 import com.google.bitcoin.core.ECKey;
 import com.google.bitcoin.core.NetworkParameters;
-import com.google.bitcoin.core.Transaction;
 import com.google.bitcoin.core.Wallet;
 import com.google.bitcoin.core.WalletEventListener;
 
@@ -71,39 +60,10 @@ public class Application extends android.app.Application
 
 	private final Handler handler = new Handler();
 
-	final private WalletEventListener walletEventListener = new WalletEventListener()
+	final private WalletEventListener walletEventListener = new AbstractWalletEventListener()
 	{
 		@Override
-		public void onPendingCoinsReceived(final Wallet wallet, final Transaction tx)
-		{
-			onEverything();
-		}
-
-		@Override
-		public void onCoinsReceived(final Wallet w, final Transaction tx, final BigInteger prevBalance, final BigInteger newBalance)
-		{
-			onEverything();
-		}
-
-		@Override
-		public void onCoinsSent(final Wallet wallet, final Transaction tx, final BigInteger prevBalance, final BigInteger newBalance)
-		{
-			onEverything();
-		}
-
-		@Override
-		public void onReorganize()
-		{
-			onEverything();
-		}
-
-		@Override
-		public void onDeadTransaction(final Transaction deadTx, final Transaction replacementTx)
-		{
-			onEverything();
-		}
-
-		private void onEverything()
+		public void onChange()
 		{
 			handler.post(new Runnable()
 			{

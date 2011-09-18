@@ -19,12 +19,11 @@ package com.google.bitcoin.core;
 import java.math.BigInteger;
 
 /**
- * Implementing WalletEventListener allows you to learn when the contents of the wallet changes due to
+ * Implementing a subclass WalletEventListener allows you to learn when the contents of the wallet changes due to
  * receiving money or a block chain re-organize. Methods are called with the event listener object locked so your
- * implementation does not have to be thread safe. It may be convenient to derive from
- * {@link AbstractWalletEventListener} instead.
+ * implementation does not have to be thread safe. The default method implementations simply call onChange().
  */
-public interface WalletEventListener {
+public abstract class AbstractWalletEventListener implements WalletEventListener {
     /**
      * This is called on a Peer thread when a block is received that sends some coins to you. Note that this will
      * also be called when downloading the block chain as the wallet balance catches up so if you don't want that
@@ -36,8 +35,10 @@ public interface WalletEventListener {
      * @param prevBalance Balance before the coins were received.
      * @param newBalance Current balance of the wallet.
      */
-    void onCoinsReceived(Wallet wallet, Transaction tx, BigInteger prevBalance, BigInteger newBalance);
-    
+    public void onCoinsReceived(Wallet wallet, Transaction tx, BigInteger prevBalance, BigInteger newBalance) {
+        onChange();
+    }
+
     /**
      * This is called when a transaction you sent is confirmed in the blockchain.  Useful if you want to 
      * update the "pending" status to "confirmed" in your view.
@@ -45,7 +46,8 @@ public interface WalletEventListener {
      * @param wallet The wallet object that received the coins/
      * @param tx The sent transaction
      */
-    void onCoinsSent(Wallet wallet, Transaction tx, BigInteger prevBalance, BigInteger newBalance);
+    public void onCoinsSent(Wallet wallet, Transaction tx, BigInteger prevBalance, BigInteger newBalance) {
+    }
 
     /**
      * This is called when an unverified transaction is received that sends some coins to you.
@@ -55,7 +57,8 @@ public interface WalletEventListener {
      * @param wallet The wallet object that received the coins/
      * @param tx The pending transaction
      */
-    void onPendingCoinsReceived(Wallet wallet, Transaction tx);
+    public void onPendingCoinsReceived(Wallet wallet, Transaction tx) {
+    }
 
     /**
      * This is called on a Peer thread when a block is received that triggers a block chain re-organization.<p>
@@ -69,7 +72,10 @@ public interface WalletEventListener {
      *
      * TODO: Finish this interface.
      */
-    void onReorganize(Wallet wallet);
+    public void onReorganize(Wallet wallet) {
+        onChange();
+    }
+
 
     /**
      * This is called on a Peer thread when a transaction becomes <i>dead</i>. A dead transaction is one that has
@@ -83,5 +89,13 @@ public interface WalletEventListener {
      * @param deadTx The transaction that is newly dead.
      * @param replacementTx The transaction that killed it.
      */
-    void onDeadTransaction(Wallet wallet, Transaction deadTx, Transaction replacementTx);
+    public void onDeadTransaction(Wallet wallet, Transaction deadTx, Transaction replacementTx) {
+        onChange();
+    }
+
+    /**
+     * Called by the other default method implementations when something (anything) changes in the wallet.
+     */
+    public void onChange() {
+    }
 }

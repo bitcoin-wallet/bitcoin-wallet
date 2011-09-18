@@ -386,7 +386,7 @@ public class Wallet implements Serializable {
                     // Inform the event listeners of the newly dead tx.
                     for (WalletEventListener listener : eventListeners) {
                         synchronized (listener) {
-                            listener.onDeadTransaction(connected, tx);
+                            listener.onDeadTransaction(this, connected, tx);
                         }
                     }
                 }
@@ -949,7 +949,7 @@ public class Wallet implements Serializable {
             // Synchronize on the event listener as well. This allows a single listener to handle events from
             // multiple wallets without needing to worry about being thread safe.
             synchronized (l) {
-                l.onReorganize();
+                l.onReorganize(this);
             }
         }
     }
@@ -983,7 +983,7 @@ public class Wallet implements Serializable {
                 // Inform the event listeners of the newly dead tx.
                 for (WalletEventListener listener : eventListeners) {
                     synchronized (listener) {
-                        listener.onDeadTransaction(tx, replacement);
+                        listener.onDeadTransaction(this, tx, replacement);
                     }
                 }
                 break;

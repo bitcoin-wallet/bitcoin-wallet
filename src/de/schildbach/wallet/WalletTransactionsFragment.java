@@ -17,7 +17,6 @@
 
 package de.schildbach.wallet;
 
-import java.math.BigInteger;
 import java.text.DateFormat;
 import java.util.Collections;
 import java.util.Comparator;
@@ -45,6 +44,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.google.bitcoin.core.AbstractWalletEventListener;
 import com.google.bitcoin.core.Address;
 import com.google.bitcoin.core.ScriptException;
 import com.google.bitcoin.core.Transaction;
@@ -122,39 +122,10 @@ public class WalletTransactionsFragment extends Fragment
 			return fragment;
 		}
 
-		private final WalletEventListener walletEventListener = new WalletEventListener()
+		private final WalletEventListener walletEventListener = new AbstractWalletEventListener()
 		{
 			@Override
-			public void onPendingCoinsReceived(final Wallet wallet, final Transaction tx)
-			{
-				onEverything();
-			}
-
-			@Override
-			public void onCoinsReceived(final Wallet w, final Transaction tx, final BigInteger prevBalance, final BigInteger newBalance)
-			{
-				onEverything();
-			}
-
-			@Override
-			public void onCoinsSent(final Wallet wallet, final Transaction tx, final BigInteger prevBalance, final BigInteger newBalance)
-			{
-				onEverything();
-			}
-
-			@Override
-			public void onReorganize()
-			{
-				onEverything();
-			}
-
-			@Override
-			public void onDeadTransaction(final Transaction deadTx, final Transaction replacementTx)
-			{
-				onEverything();
-			}
-
-			private void onEverything()
+			public void onChange()
 			{
 				getActivity().runOnUiThread(new Runnable()
 				{
