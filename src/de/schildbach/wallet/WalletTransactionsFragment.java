@@ -258,7 +258,7 @@ public class WalletTransactionsFragment extends Fragment
 					}
 
 					final TextView rowTime = (TextView) row.findViewById(R.id.transaction_time);
-					final Date time = tx.updatedAt;
+					final Date time = tx.getUpdateTime();
 					rowTime.setText(time != null ? DateUtils.isToday(time.getTime()) ? timeFormat.format(time) : dateFormat.format(time) : null);
 					rowTime.setTextColor(textColor);
 
@@ -336,6 +336,7 @@ public class WalletTransactionsFragment extends Fragment
 			final Wallet wallet = application.getWallet();
 			final List<Transaction> transactions = wallet.getAllTransactions();
 
+			// FIXME transactions are sorted two times
 			Collections.sort(transactions, new Comparator<Transaction>()
 			{
 				public int compare(final Transaction tx1, final Transaction tx2)
@@ -346,8 +347,8 @@ public class WalletTransactionsFragment extends Fragment
 					if (pending1 != pending2)
 						return pending1 ? -1 : 1;
 
-					final long time1 = tx1.updatedAt != null ? tx1.updatedAt.getTime() : 0;
-					final long time2 = tx2.updatedAt != null ? tx2.updatedAt.getTime() : 0;
+					final long time1 = tx1.getUpdateTime() != null ? tx1.getUpdateTime().getTime() : 0;
+					final long time2 = tx2.getUpdateTime() != null ? tx2.getUpdateTime().getTime() : 0;
 
 					if (time1 != time2)
 						return time1 > time2 ? -1 : 1;
