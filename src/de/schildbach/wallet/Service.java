@@ -210,7 +210,7 @@ public class Service extends android.app.Service
 					}
 
 					// send broadcast
-					sendBroadcastNumberOfPeers(numPeers);
+					sendBroadcastPeerState(numPeers);
 
 					// send pending transactions, TODO find better time
 					if (peerGroup != null && numPeers >= peerGroup.getMaxConnections())
@@ -408,7 +408,7 @@ public class Service extends android.app.Service
 		backgroundThread.start();
 		backgroundHandler = new Handler(backgroundThread.getLooper());
 
-		sendBroadcastNumberOfPeers(0);
+		sendBroadcastPeerState(0);
 
 		final IntentFilter intentFilter = new IntentFilter();
 		intentFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
@@ -511,7 +511,7 @@ public class Service extends android.app.Service
 
 		unregisterReceiver(broadcastReceiver);
 
-		removeBroadcastNumberOfPeers();
+		removeBroadcastPeerState();
 
 		backgroundThread.getLooper().quit();
 
@@ -555,14 +555,14 @@ public class Service extends android.app.Service
 		});
 	}
 
-	private void sendBroadcastNumberOfPeers(final int numPeers)
+	private void sendBroadcastPeerState(final int numPeers)
 	{
 		final Intent broadcast = new Intent(ACTION_PEER_STATE);
 		broadcast.putExtra(ACTION_PEER_STATE_NUM_PEERS, numPeers);
 		sendStickyBroadcast(broadcast);
 	}
 
-	private void removeBroadcastNumberOfPeers()
+	private void removeBroadcastPeerState()
 	{
 		removeStickyBroadcast(new Intent(ACTION_PEER_STATE));
 	}
