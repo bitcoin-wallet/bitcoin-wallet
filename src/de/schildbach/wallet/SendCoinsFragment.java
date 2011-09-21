@@ -21,10 +21,12 @@ import java.math.BigInteger;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.database.Cursor;
 import android.graphics.Color;
@@ -72,6 +74,8 @@ public class SendCoinsFragment extends Fragment
 	private Button viewGo;
 	private Button viewCancel;
 
+	private int numPeers;
+
 	private final ServiceConnection serviceConnection = new ServiceConnection()
 	{
 		public void onServiceConnected(final ComponentName name, final IBinder binder)
@@ -115,14 +119,28 @@ public class SendCoinsFragment extends Fragment
 		}
 	};
 
+	private final BroadcastReceiver broadcastReceiver = new BroadcastReceiver()
+	{
+		@Override
+		public void onReceive(final Context context, final Intent intent)
+		{
+			numPeers = intent.getIntExtra(Service.ACTION_PEER_STATE_NUM_PEERS, 0);
+			updateView();
+		}
+	};
+
 	@Override
 	public void onCreate(final Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 
-		application = (Application) getActivity().getApplication();
+		final Activity activity = getActivity();
 
-		getActivity().bindService(new Intent(getActivity(), Service.class), serviceConnection, Context.BIND_AUTO_CREATE);
+		application = (Application) activity.getApplication();
+
+		activity.bindService(new Intent(activity, Service.class), serviceConnection, Context.BIND_AUTO_CREATE);
+
+		activity.registerReceiver(broadcastReceiver, new IntentFilter(Service.ACTION_PEER_STATE));
 	}
 
 	@Override
@@ -301,7 +319,11 @@ public class SendCoinsFragment extends Fragment
 	@Override
 	public void onDestroy()
 	{
-		getActivity().unbindService(serviceConnection);
+		final Activity activity = getActivity();
+
+		activity.unregisterReceiver(broadcastReceiver);
+
+		activity.unbindService(serviceConnection);
 
 		super.onDestroy();
 	}
@@ -364,12 +386,14 @@ public class SendCoinsFragment extends Fragment
 		}
 
 		final BigInteger amount = amountView.getAmount();
-		boolean validAmount = amount != null && amount.signum() > 0;
+		final boolean validAmount = amount != null && amount.signum() > 0;
 
 		final BigInteger fee = feeView.getAmount();
-		boolean validFee = fee != null && fee.signum() >= 0;
+		final boolean validFee = fee != null && fee.signum() >= 0;
 
-		viewGo.setEnabled(validAddress && validAmount && validFee);
+		final boolean hasPeers = numPeers > 0;
+
+		viewGo.setEnabled(validAddress && validAmount && validFee && hasPeers);
 	}
 
 	public void update(final String receivingAddress, final BigInteger amount)

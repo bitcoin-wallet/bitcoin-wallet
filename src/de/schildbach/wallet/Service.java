@@ -81,6 +81,9 @@ import de.schildbach.wallet_test.R;
  */
 public class Service extends android.app.Service
 {
+	public static final String ACTION_PEER_STATE = Service.class.getName() + ".peer_state";
+	public static final String ACTION_PEER_STATE_NUM_PEERS = "num_peers";
+
 	private Application application;
 	private SharedPreferences prefs;
 
@@ -205,6 +208,9 @@ public class Service extends android.app.Service
 								PendingIntent.getActivity(Service.this, 0, new Intent(Service.this, WalletActivity.class), 0));
 						nm.notify(NOTIFICATION_ID_CONNECTED, notification);
 					}
+
+					// send broadcast
+					sendBroadcastNumberOfPeers(numPeers);
 
 					// send pending transactions, TODO find better time
 					if (peerGroup != null && numPeers >= peerGroup.getMaxConnections())
@@ -402,6 +408,8 @@ public class Service extends android.app.Service
 		backgroundThread.start();
 		backgroundHandler = new Handler(backgroundThread.getLooper());
 
+		sendBroadcastNumberOfPeers(0);
+
 		final IntentFilter intentFilter = new IntentFilter();
 		intentFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
 		intentFilter.addAction(Intent.ACTION_BATTERY_CHANGED);
@@ -503,6 +511,8 @@ public class Service extends android.app.Service
 
 		unregisterReceiver(broadcastReceiver);
 
+		removeBroadcastNumberOfPeers();
+
 		backgroundThread.getLooper().quit();
 
 		handler.postDelayed(new Runnable()
@@ -543,6 +553,18 @@ public class Service extends android.app.Service
 				}
 			}
 		});
+	}
+
+	private void sendBroadcastNumberOfPeers(final int numPeers)
+	{
+		final Intent broadcast = new Intent(ACTION_PEER_STATE);
+		broadcast.putExtra(ACTION_PEER_STATE_NUM_PEERS, numPeers);
+		sendStickyBroadcast(broadcast);
+	}
+
+	private void removeBroadcastNumberOfPeers()
+	{
+		removeStickyBroadcast(new Intent(ACTION_PEER_STATE));
 	}
 
 	public void notifyWidgets()
