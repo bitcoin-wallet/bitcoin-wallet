@@ -6,6 +6,9 @@
 	<string name="toast_wallet_reset">Wallet wurde zurückgesetzt,\nwird einige Zeit benötigen</string>
 
 	<string name="wallet_content_disclaimer">Dies ist eine experimentelle App. Benutzung auf eigene Gefahr. Bitte lies die Sicherheitshinweise.</string>
+	<string name="wallet_message_blockchain_hours">Die Blockchain hinkt %d Stunden hinterher</string>
+	<string name="wallet_message_blockchain_days">Die Blockchain hinkt %d Tage hinterher</string>
+	<string name="wallet_message_blockchain_weeks">Die Blockchain hinkt %d Wochen hinterher</string>
 	<string name="wallet_address_fragment_your">Deine Bitcoin-Adresse:</string>
 	<string name="wallet_address_fragment_clipboard_msg">Bitcoin-Adresse ins Clipboard kopiert</string>
 	<string name="wallet_address_fragment_share_dialog_title">Bitcoin-Adresse veröffentlichen...</string>

@@ -6,6 +6,9 @@
 	<string name="toast_wallet_reset">Wallet was reset,\nwill take some time to recover</string>
 
 	<string name="wallet_content_disclaimer">This is entirely experimental. Use at your own risk! Read the safety notes.</string>
+	<string name="wallet_message_blockchain_hours">Blockchain is %d hours behind</string>
+	<string name="wallet_message_blockchain_days">Blockchain is %d days behind</string>
+	<string name="wallet_message_blockchain_weeks">Blockchain is %d weeks behind</string>
 	<string name="wallet_address_fragment_your">Your Bitcoin Address:</string>
 	<string name="wallet_address_fragment_clipboard_msg">Bitcoin address copied to clipboard</string>
 	<string name="wallet_address_fragment_share_dialog_title">Share your bitcoin address...</string>

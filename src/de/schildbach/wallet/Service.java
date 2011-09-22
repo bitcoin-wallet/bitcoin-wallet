@@ -84,6 +84,9 @@ public class Service extends android.app.Service
 	public static final String ACTION_PEER_STATE = Service.class.getName() + ".peer_state";
 	public static final String ACTION_PEER_STATE_NUM_PEERS = "num_peers";
 
+	public static final String ACTION_BLOCKCHAIN_STATE = Service.class.getName() + ".blockchain_state";
+	public static final String ACTION_BLOCKCHAIN_STATE_CHAINHEAD_DATE = "chainhead_date";
+
 	private Application application;
 	private SharedPreferences prefs;
 
@@ -250,6 +253,8 @@ public class Service extends android.app.Service
 					notification.setLatestEventInfo(Service.this, eventTitle, eventText,
 							PendingIntent.getActivity(Service.this, 0, new Intent(Service.this, WalletActivity.class), 0));
 					nm.notify(NOTIFICATION_ID_SYNCING, notification);
+
+					sendBroadcastBlockchainState(date);
 				}
 			});
 		}
@@ -290,7 +295,6 @@ public class Service extends android.app.Service
 				System.out.println("network is " + (hasConnectivity ? "up" : "down") + (reason != null ? ": " + reason : ""));
 
 				check();
-
 			}
 			else if (Intent.ACTION_BATTERY_CHANGED.equals(action))
 			{
@@ -461,6 +465,8 @@ public class Service extends android.app.Service
 
 			blockChain = new BlockChain(networkParameters, wallet, blockStore);
 
+			sendBroadcastBlockchainState(new Date(blockChain.getChainHead().getHeader().getTimeSeconds() * 1000));
+
 			application.getWallet().addEventListener(walletEventListener);
 		}
 		catch (final BlockStoreException x)
@@ -512,6 +518,7 @@ public class Service extends android.app.Service
 		unregisterReceiver(broadcastReceiver);
 
 		removeBroadcastPeerState();
+		removeBroadcastBlockchainState();
 
 		backgroundThread.getLooper().quit();
 
@@ -565,6 +572,18 @@ public class Service extends android.app.Service
 	private void removeBroadcastPeerState()
 	{
 		removeStickyBroadcast(new Intent(ACTION_PEER_STATE));
+	}
+
+	private void sendBroadcastBlockchainState(final Date chainheadDate)
+	{
+		final Intent broadcast = new Intent(ACTION_BLOCKCHAIN_STATE);
+		broadcast.putExtra(ACTION_BLOCKCHAIN_STATE_CHAINHEAD_DATE, chainheadDate);
+		sendStickyBroadcast(broadcast);
+	}
+
+	private void removeBroadcastBlockchainState()
+	{
+		removeStickyBroadcast(new Intent(ACTION_BLOCKCHAIN_STATE));
 	}
 
 	public void notifyWidgets()
