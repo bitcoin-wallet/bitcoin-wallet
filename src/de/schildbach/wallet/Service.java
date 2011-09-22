@@ -86,6 +86,11 @@ public class Service extends android.app.Service
 
 	public static final String ACTION_BLOCKCHAIN_STATE = Service.class.getName() + ".blockchain_state";
 	public static final String ACTION_BLOCKCHAIN_STATE_CHAINHEAD_DATE = "chainhead_date";
+	public static final String ACTION_BLOCKCHAIN_STATE_DOWNLOAD = "download";
+	public static final int ACTION_BLOCKCHAIN_STATE_DOWNLOAD_OK = 0;
+	public static final int ACTION_BLOCKCHAIN_STATE_DOWNLOAD_STORAGE_PROBLEM = 1;
+	public static final int ACTION_BLOCKCHAIN_STATE_DOWNLOAD_POWER_PROBLEM = 2;
+	public static final int ACTION_BLOCKCHAIN_STATE_DOWNLOAD_NETWORK_PROBLEM = 4;
 
 	private Application application;
 	private SharedPreferences prefs;
@@ -254,7 +259,7 @@ public class Service extends android.app.Service
 							PendingIntent.getActivity(Service.this, 0, new Intent(Service.this, WalletActivity.class), 0));
 					nm.notify(NOTIFICATION_ID_SYNCING, notification);
 
-					sendBroadcastBlockchainState(date);
+					sendBroadcastBlockchainState(date, ACTION_BLOCKCHAIN_STATE_DOWNLOAD_OK);
 				}
 			});
 		}
@@ -374,6 +379,12 @@ public class Service extends android.app.Service
 				peerGroup.stop();
 				peerGroup = null;
 			}
+
+			final Date chainheadDate = new Date(blockChain.getChainHead().getHeader().getTimeSeconds() * 1000);
+			final int download = (hasConnectivity ? 0 : ACTION_BLOCKCHAIN_STATE_DOWNLOAD_NETWORK_PROBLEM)
+					| (hasPower ? 0 : ACTION_BLOCKCHAIN_STATE_DOWNLOAD_POWER_PROBLEM)
+					| (hasStorage ? 0 : ACTION_BLOCKCHAIN_STATE_DOWNLOAD_STORAGE_PROBLEM);
+			sendBroadcastBlockchainState(chainheadDate, download);
 		}
 	};
 
@@ -464,8 +475,6 @@ public class Service extends android.app.Service
 			}
 
 			blockChain = new BlockChain(networkParameters, wallet, blockStore);
-
-			sendBroadcastBlockchainState(new Date(blockChain.getChainHead().getHeader().getTimeSeconds() * 1000));
 
 			application.getWallet().addEventListener(walletEventListener);
 		}
@@ -574,10 +583,11 @@ public class Service extends android.app.Service
 		removeStickyBroadcast(new Intent(ACTION_PEER_STATE));
 	}
 
-	private void sendBroadcastBlockchainState(final Date chainheadDate)
+	private void sendBroadcastBlockchainState(final Date chainheadDate, final int download)
 	{
 		final Intent broadcast = new Intent(ACTION_BLOCKCHAIN_STATE);
 		broadcast.putExtra(ACTION_BLOCKCHAIN_STATE_CHAINHEAD_DATE, chainheadDate);
+		broadcast.putExtra(ACTION_BLOCKCHAIN_STATE_DOWNLOAD, download);
 		sendStickyBroadcast(broadcast);
 	}
 

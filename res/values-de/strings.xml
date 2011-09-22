@@ -9,6 +9,9 @@
 	<string name="wallet_message_blockchain_hours">Die Blockchain hinkt %d Stunden hinterher</string>
 	<string name="wallet_message_blockchain_days">Die Blockchain hinkt %d Tage hinterher</string>
 	<string name="wallet_message_blockchain_weeks">Die Blockchain hinkt %d Wochen hinterher</string>
+	<string name="wallet_message_blockchain_problem_storage">Blockchain lädt nicht: Speicherplatz-Problem</string>
+	<string name="wallet_message_blockchain_problem_power">Blockchain lädt nicht: Stromversorgungs-Problem</string>
+	<string name="wallet_message_blockchain_problem_network">Blockchain lädt nicht: Netzwerk-Problem</string>
 	<string name="wallet_address_fragment_your">Deine Bitcoin-Adresse:</string>
 	<string name="wallet_address_fragment_clipboard_msg">Bitcoin-Adresse ins Clipboard kopiert</string>
 	<string name="wallet_address_fragment_share_dialog_title">Bitcoin-Adresse veröffentlichen...</string>

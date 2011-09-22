@@ -35,8 +35,8 @@ import android.support.v4.app.FragmentManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.webkit.WebView;
 import android.widget.TextView;
 import de.schildbach.wallet.util.ActionBarFragment;
@@ -51,6 +51,7 @@ public class WalletActivity extends AbstractWalletActivity
 	private static final int DIALOG_SAFETY = 1;
 	private static final int DIALOG_HELP = 0;
 
+	private int download;
 	private Date chainheadDate;
 
 	private final ServiceConnection serviceConnection = new ServiceConnection()
@@ -69,6 +70,7 @@ public class WalletActivity extends AbstractWalletActivity
 		@Override
 		public void onReceive(final Context context, final Intent intent)
 		{
+			download = intent.getIntExtra(Service.ACTION_BLOCKCHAIN_STATE_DOWNLOAD, Service.ACTION_BLOCKCHAIN_STATE_DOWNLOAD_OK);
 			chainheadDate = (Date) intent.getSerializableExtra(Service.ACTION_BLOCKCHAIN_STATE_CHAINHEAD_DATE);
 
 			updateView();
@@ -230,12 +232,24 @@ public class WalletActivity extends AbstractWalletActivity
 
 	private void updateView()
 	{
-		if (chainheadDate != null)
+		final TextView messageView = (TextView) findViewById(R.id.wallet_message);
+		final TextView disclaimerView = (TextView) findViewById(R.id.wallet_disclaimer);
+
+		if (download != Service.ACTION_BLOCKCHAIN_STATE_DOWNLOAD_OK)
+		{
+			messageView.setVisibility(View.VISIBLE);
+			disclaimerView.setVisibility(View.INVISIBLE);
+
+			if ((download & Service.ACTION_BLOCKCHAIN_STATE_DOWNLOAD_STORAGE_PROBLEM) != 0)
+				messageView.setText(R.string.wallet_message_blockchain_problem_storage);
+			else if ((download & Service.ACTION_BLOCKCHAIN_STATE_DOWNLOAD_POWER_PROBLEM) != 0)
+				messageView.setText(R.string.wallet_message_blockchain_problem_power);
+			else if ((download & Service.ACTION_BLOCKCHAIN_STATE_DOWNLOAD_NETWORK_PROBLEM) != 0)
+				messageView.setText(R.string.wallet_message_blockchain_problem_network);
+		}
+		else if (chainheadDate != null)
 		{
 			final long spanHours = (System.currentTimeMillis() - chainheadDate.getTime()) / 1000 / 60 / 60;
-
-			final TextView messageView = (TextView) findViewById(R.id.wallet_message);
-			final TextView disclaimerView = (TextView) findViewById(R.id.wallet_disclaimer);
 
 			messageView.setVisibility(spanHours < 2 ? View.INVISIBLE : View.VISIBLE);
 			disclaimerView.setVisibility(spanHours < 2 ? View.VISIBLE : View.INVISIBLE);
@@ -246,6 +260,11 @@ public class WalletActivity extends AbstractWalletActivity
 				messageView.setText(getString(R.string.wallet_message_blockchain_days, spanHours / 24));
 			else
 				messageView.setText(getString(R.string.wallet_message_blockchain_weeks, spanHours / 24 / 7));
+		}
+		else
+		{
+			messageView.setVisibility(View.INVISIBLE);
+			disclaimerView.setVisibility(View.VISIBLE);
 		}
 	}
 

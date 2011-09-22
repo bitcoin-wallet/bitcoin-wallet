@@ -9,6 +9,9 @@
 	<string name="wallet_message_blockchain_hours">Blockchain is %d hours behind</string>
 	<string name="wallet_message_blockchain_days">Blockchain is %d days behind</string>
 	<string name="wallet_message_blockchain_weeks">Blockchain is %d weeks behind</string>
+	<string name="wallet_message_blockchain_problem_storage">Blockchain not downloading: Storage problem</string>
+	<string name="wallet_message_blockchain_problem_power">Blockchain not downloading: Power problem</string>
+	<string name="wallet_message_blockchain_problem_network">Blockchain not downloading: Network problem</string>
 	<string name="wallet_address_fragment_your">Your Bitcoin Address:</string>
 	<string name="wallet_address_fragment_clipboard_msg">Bitcoin address copied to clipboard</string>
 	<string name="wallet_address_fragment_share_dialog_title">Share your bitcoin address...</string>
