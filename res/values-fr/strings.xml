@@ -93,7 +93,5 @@
 
 	<string name="notification_coins_received_msg">Reçu BTC %s</string>
 	<string name="notification_peers_connected_msg">%d connections</string>
-	<string name="notification_blockchain_sync_started_msg">Synchronisation de la chaîne de blocs Bitcoin</string>
-	<string name="notification_blockchain_sync_progress_msg">%1$.1f%% achevé, dernier bloc à %2$s</string>
 
 </resources>

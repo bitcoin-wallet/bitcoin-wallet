@@ -97,7 +97,5 @@
 
 	<string name="notification_coins_received_msg">Получено BTC %s</string>
 	<string name="notification_peers_connected_msg">подключено %d пиров</string>
-	<string name="notification_blockchain_sync_started_msg">Синхронизация цепочки блоков</string>
-	<string name="notification_blockchain_sync_progress_msg">%1$.1f%% завершено, последний блок от %2$s</string>
 
 </resources>

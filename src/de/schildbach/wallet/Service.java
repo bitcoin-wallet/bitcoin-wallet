@@ -24,7 +24,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.math.BigInteger;
 import java.net.InetSocketAddress;
-import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -49,13 +48,12 @@ import android.os.HandlerThread;
 import android.os.IBinder;
 import android.os.Process;
 import android.preference.PreferenceManager;
-import android.text.format.DateUtils;
 
 import com.google.bitcoin.core.AbstractPeerEventListener;
 import com.google.bitcoin.core.AbstractWalletEventListener;
 import com.google.bitcoin.core.Address;
+import com.google.bitcoin.core.Block;
 import com.google.bitcoin.core.BlockChain;
-import com.google.bitcoin.core.DownloadListener;
 import com.google.bitcoin.core.NetworkParameters;
 import com.google.bitcoin.core.Peer;
 import com.google.bitcoin.core.PeerAddress;
@@ -106,7 +104,6 @@ public class Service extends android.app.Service
 
 	private NotificationManager nm;
 	private static final int NOTIFICATION_ID_CONNECTED = 0;
-	private static final int NOTIFICATION_ID_SYNCING = 1;
 	private static final AtomicInteger notificationIdCount = new AtomicInteger(10);
 
 	private final WalletEventListener walletEventListener = new AbstractWalletEventListener()
@@ -235,47 +232,18 @@ public class Service extends android.app.Service
 		}
 	};
 
-	private final DownloadListener blockchainDownloadListener = new DownloadListener()
+	private final PeerEventListener blockchainDownloadListener = new AbstractPeerEventListener()
 	{
 		@Override
-		protected void progress(final double percent, final Date date)
+		public void onBlocksDownloaded(final Peer peer, final Block block, final int blocksLeft)
 		{
-			final DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(Service.this);
-			final DateFormat timeFormat = android.text.format.DateFormat.getTimeFormat(Service.this);
-			final long t = date.getTime();
+			final Date blockDate = new Date(block.getTimeSeconds() * 1000);
 
 			handler.post(new Runnable()
 			{
 				public void run()
 				{
-					final String eventTitle = getString(R.string.notification_blockchain_sync_started_msg) + (Constants.TEST ? " [testnet]" : "");
-					final String eventText = getString(R.string.notification_blockchain_sync_progress_msg, percent,
-							DateUtils.isToday(t) ? timeFormat.format(t) : dateFormat.format(t));
-
-					final Notification notification = new Notification(R.drawable.stat_notify_sync, "Bitcoin blockchain sync started", 0);
-					notification.flags |= Notification.FLAG_ONGOING_EVENT;
-					// notification.iconLevel = blocksLeft % 2;
-					notification.setLatestEventInfo(Service.this, eventTitle, eventText,
-							PendingIntent.getActivity(Service.this, 0, new Intent(Service.this, WalletActivity.class), 0));
-					nm.notify(NOTIFICATION_ID_SYNCING, notification);
-
-					sendBroadcastBlockchainState(date, ACTION_BLOCKCHAIN_STATE_DOWNLOAD_OK);
-				}
-			});
-		}
-
-		@Override
-		protected void doneDownload()
-		{
-			handler.post(new Runnable()
-			{
-				public void run()
-				{
-					final boolean clearNotification = prefs.getBoolean(Constants.PREFS_KEY_CLEAR_SYNC_NOTIFICATION, true);
-					if (clearNotification)
-						nm.cancel(NOTIFICATION_ID_SYNCING);
-
-					System.out.println("sync finished");
+					sendBroadcastBlockchainState(blockDate, ACTION_BLOCKCHAIN_STATE_DOWNLOAD_OK);
 				}
 			});
 		}
@@ -536,7 +504,6 @@ public class Service extends android.app.Service
 			public void run()
 			{
 				nm.cancel(NOTIFICATION_ID_CONNECTED);
-				nm.cancel(NOTIFICATION_ID_SYNCING);
 			}
 		}, 5000);
 

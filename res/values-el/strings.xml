@@ -97,7 +97,5 @@
 
 	<string name="notification_coins_received_msg">Ελήφθη BTC %s</string>
 	<string name="notification_peers_connected_msg">%d χρήστες συνδεμένοι</string>
-	<string name="notification_blockchain_sync_started_msg">συγχρονισμός Bitcoin blockchain</string>
-	<string name="notification_blockchain_sync_progress_msg">%1$.1f%% τελείωσε, το τελευταίο μπλοκ βρίσκεται στο %2$s</string>
 
 </resources>

@@ -3,8 +3,6 @@
 <resources>
 
 	<string name="preferences_prefs_title">Preferences (advanced)</string>
-	<string name="preferences_clear_sync_notification_title">Clear sync notification</string>
-	<string name="preferences_clear_sync_notification_summary">When blockchain sync is finished, remove the sync system notification icon.</string>
 	<string name="preferences_trusted_peer_title">Trusted peer</string>
 	<string name="preferences_trusted_peer_summary">Hostname of single peer to connect to. Regular peer discovery will be skipped. Need to restart app
 		to take effect.</string>

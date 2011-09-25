@@ -96,7 +96,5 @@
 
 	<string name="notification_coins_received_msg">Obdrženo BTC %s</string>
 	<string name="notification_peers_connected_msg">%d peerů připojeno</string>
-	<string name="notification_blockchain_sync_started_msg">Bitcoin blockchain sync</string>
-	<string name="notification_blockchain_sync_progress_msg">%1$.1f%% dokončeno, poslední blok v %2$s</string>
 
 </resources>

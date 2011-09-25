@@ -93,7 +93,5 @@
 
 	<string name="notification_coins_received_msg">Ontvangen BTC %s</string>
 	<string name="notification_peers_connected_msg">%d verbindingen</string>
-	<string name="notification_blockchain_sync_started_msg">Bitcoin blockchain sync</string>
-	<string name="notification_blockchain_sync_progress_msg">%1$.1f%% voltooid, laatste blok op %2$s</string>
 
 </resources>

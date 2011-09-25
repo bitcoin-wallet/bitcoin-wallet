@@ -93,7 +93,5 @@
 
 	<string name="notification_coins_received_msg">已收到%s比特币</string>
 	<string name="notification_peers_connected_msg">%d连接已建立</string>
-	<string name="notification_blockchain_sync_started_msg">比特币 货币包同步</string>
-	<string name="notification_blockchain_sync_progress_msg">已完成%1$.1f%%，最后一块是%2$s</string>
 
 </resources>

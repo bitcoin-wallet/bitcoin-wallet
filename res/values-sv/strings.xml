@@ -97,7 +97,5 @@
 
 	<string name="notification_coins_received_msg">Tagit emot %s BTC</string>
 	<string name="notification_peers_connected_msg">Ansluten till %d noder</string>
-	<string name="notification_blockchain_sync_started_msg">Bitcoin blockchain sync</string>
-	<string name="notification_blockchain_sync_progress_msg">%1$.1f%% färdig, senaste blocket från %2$s</string>
 
 </resources>
