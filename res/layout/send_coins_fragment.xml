@@ -56,8 +56,8 @@
 	<ImageView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="100" />
 
 	<TableLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:paddingTop="6dp"
-		android:paddingBottom="4dp" android:paddingLeft="4dp" android:paddingRight="4dp" android:orientation="horizontal"
-		android:background="@drawable/button_bar_background" android:stretchColumns="0,1">
+		android:paddingBottom="4dp" android:paddingLeft="4dp" android:paddingRight="4dp" android:background="@drawable/button_bar_background"
+		android:stretchColumns="0,1">
 		<TableRow>
 			<Button android:id="@+id/send_coins_go" android:background="@drawable/btn_default" android:paddingLeft="12dp"
 				android:paddingRight="12dp" android:text="@string/send_coins_fragment_button_send" android:textStyle="bold"
