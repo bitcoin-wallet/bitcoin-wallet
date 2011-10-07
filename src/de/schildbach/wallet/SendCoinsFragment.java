@@ -251,7 +251,7 @@ public class SendCoinsFragment extends Fragment
 													if (prev != null)
 														ft.remove(prev);
 													ft.addToBackStack(null);
-													final DialogFragment newFragment = new EditAddressBookEntryFragment(receivingAddress.toString());
+													final DialogFragment newFragment = EditAddressBookEntryFragment.instance(receivingAddress.toString());
 													newFragment.show(ft, EditAddressBookEntryFragment.FRAGMENT_TAG);
 												}
 											});

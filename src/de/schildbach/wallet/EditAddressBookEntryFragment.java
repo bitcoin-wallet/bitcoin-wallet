@@ -42,14 +42,24 @@ public class EditAddressBookEntryFragment extends DialogFragment
 
 	private String address;
 
-	public EditAddressBookEntryFragment(final String address)
+	private final static String KEY_ADDRESS = "address";
+
+	public static EditAddressBookEntryFragment instance(final String address)
 	{
-		this.address = address;
+		final EditAddressBookEntryFragment fragment = new EditAddressBookEntryFragment();
+
+		final Bundle args = new Bundle();
+		args.putString(KEY_ADDRESS, address);
+		fragment.setArguments(args);
+
+		return fragment;
 	}
 
 	@Override
 	public Dialog onCreateDialog(final Bundle savedInstanceState)
 	{
+		this.address = getArguments().getString(KEY_ADDRESS);
+
 		final FragmentActivity activity = getActivity();
 		final LayoutInflater inflater = LayoutInflater.from(activity);
 

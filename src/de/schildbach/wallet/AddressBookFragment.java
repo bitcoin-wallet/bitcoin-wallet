@@ -135,7 +135,7 @@ public class AddressBookFragment extends ListFragment implements LoaderManager.L
 		if (prev != null)
 			ft.remove(prev);
 		ft.addToBackStack(null);
-		final DialogFragment newFragment = new EditAddressBookEntryFragment(address);
+		final DialogFragment newFragment = EditAddressBookEntryFragment.instance(address);
 		newFragment.show(ft, EditAddressBookEntryFragment.FRAGMENT_TAG);
 	}
 
