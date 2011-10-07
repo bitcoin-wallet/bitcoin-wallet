@@ -66,6 +66,7 @@ public class SendCoinsFragment extends Fragment
 
 	private Service service;
 	private final Handler handler = new Handler();
+	private Runnable sentRunnable;
 
 	private AutoCompleteTextView receivingAddressView;
 	private View receivingAddressErrorView;
@@ -227,7 +228,7 @@ public class SendCoinsFragment extends Fragment
 						if (balanceFragment != null)
 							balanceFragment.updateView();
 
-						handler.postDelayed(new Runnable()
+						sentRunnable = new Runnable()
 						{
 							public void run()
 							{
@@ -239,7 +240,8 @@ public class SendCoinsFragment extends Fragment
 								if (cursor.getCount() == 0)
 									showAddAddressDialog(receivingAddress.toString());
 							}
-						}, 5000);
+						};
+						handler.postDelayed(sentRunnable, 5000);
 
 						activity.longToast(R.string.send_coins_success_msg, Utils.bitcoinValueToFriendlyString(amount));
 
@@ -281,6 +283,14 @@ public class SendCoinsFragment extends Fragment
 	protected void onServiceUnbound()
 	{
 		System.out.println("service unbound");
+	}
+
+	@Override
+	public void onDestroyView()
+	{
+		handler.removeCallbacks(sentRunnable);
+
+		super.onDestroyView();
 	}
 
 	@Override
