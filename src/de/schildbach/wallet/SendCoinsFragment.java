@@ -237,27 +237,7 @@ public class SendCoinsFragment extends Fragment
 								final Uri uri = AddressBookProvider.CONTENT_URI.buildUpon().appendPath(receivingAddress.toString()).build();
 								final Cursor cursor = activity.managedQuery(uri, null, null, null, null);
 								if (cursor.getCount() == 0)
-								{
-									final AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-									builder.setMessage(R.string.send_coins_add_address_dialog_title);
-									builder.setPositiveButton(R.string.send_coins_add_address_dialog_button_add,
-											new DialogInterface.OnClickListener()
-											{
-												public void onClick(final DialogInterface dialog, final int id)
-												{
-													final FragmentTransaction ft = getFragmentManager().beginTransaction();
-													final Fragment prev = getFragmentManager().findFragmentByTag(
-															EditAddressBookEntryFragment.FRAGMENT_TAG);
-													if (prev != null)
-														ft.remove(prev);
-													ft.addToBackStack(null);
-													final DialogFragment newFragment = EditAddressBookEntryFragment.instance(receivingAddress.toString());
-													newFragment.show(ft, EditAddressBookEntryFragment.FRAGMENT_TAG);
-												}
-											});
-									builder.setNegativeButton(R.string.send_coins_add_address_dialog_button_dismiss, null);
-									builder.show();
-								}
+									showAddAddressDialog(receivingAddress.toString());
 							}
 						}, 5000);
 
@@ -410,6 +390,28 @@ public class SendCoinsFragment extends Fragment
 			amountView.requestFocus();
 
 		updateView();
+	}
+
+	private void showAddAddressDialog(final String address)
+	{
+		final Activity activity = getActivity();
+		final AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+		builder.setMessage(R.string.send_coins_add_address_dialog_title);
+		builder.setPositiveButton(R.string.send_coins_add_address_dialog_button_add, new DialogInterface.OnClickListener()
+		{
+			public void onClick(final DialogInterface dialog, final int id)
+			{
+				final FragmentTransaction ft = getFragmentManager().beginTransaction();
+				final Fragment prev = getFragmentManager().findFragmentByTag(EditAddressBookEntryFragment.FRAGMENT_TAG);
+				if (prev != null)
+					ft.remove(prev);
+				ft.addToBackStack(null);
+				final DialogFragment newFragment = EditAddressBookEntryFragment.instance(address.toString());
+				newFragment.show(ft, EditAddressBookEntryFragment.FRAGMENT_TAG);
+			}
+		});
+		builder.setNegativeButton(R.string.send_coins_add_address_dialog_button_dismiss, null);
+		builder.show();
 	}
 
 	private Runnable resetColorRunnable = new Runnable()
