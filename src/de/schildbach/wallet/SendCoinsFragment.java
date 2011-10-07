@@ -74,7 +74,13 @@ public class SendCoinsFragment extends Fragment
 	private Button viewGo;
 	private Button viewCancel;
 
+	private State state = State.INPUT;
 	private int numPeers;
+
+	private enum State
+	{
+		INPUT, SENDING, SENT
+	}
 
 	private final ServiceConnection serviceConnection = new ServiceConnection()
 	{
@@ -211,9 +217,8 @@ public class SendCoinsFragment extends Fragment
 
 					if (transaction != null)
 					{
-						viewGo.setEnabled(false);
-						viewGo.setText(R.string.send_coins_sending_msg);
-						viewCancel.setEnabled(false);
+						state = State.SENDING;
+						updateView();
 
 						service.sendTransaction(transaction);
 
@@ -226,6 +231,9 @@ public class SendCoinsFragment extends Fragment
 						{
 							public void run()
 							{
+								state = State.SENT;
+								updateView();
+
 								final Uri uri = AddressBookProvider.CONTENT_URI.buildUpon().appendPath(receivingAddress.toString()).build();
 								final Cursor cursor = activity.managedQuery(uri, null, null, null, null);
 								if (cursor.getCount() == 0)
@@ -243,32 +251,12 @@ public class SendCoinsFragment extends Fragment
 													if (prev != null)
 														ft.remove(prev);
 													ft.addToBackStack(null);
-													final DialogFragment newFragment = new EditAddressBookEntryFragment(receivingAddress.toString())
-													{
-														@Override
-														public void onDestroyView()
-														{
-															super.onDestroyView();
-
-															activity.finish();
-														}
-													};
+													final DialogFragment newFragment = new EditAddressBookEntryFragment(receivingAddress.toString());
 													newFragment.show(ft, EditAddressBookEntryFragment.FRAGMENT_TAG);
 												}
 											});
-									builder.setNegativeButton(R.string.send_coins_add_address_dialog_button_dismiss,
-											new DialogInterface.OnClickListener()
-											{
-												public void onClick(final DialogInterface dialog, final int id)
-												{
-													activity.finish();
-												}
-											});
+									builder.setNegativeButton(R.string.send_coins_add_address_dialog_button_dismiss, null);
 									builder.show();
-								}
-								else
-								{
-									activity.finish();
 								}
 							}
 						}, 5000);
@@ -280,7 +268,6 @@ public class SendCoinsFragment extends Fragment
 					else
 					{
 						activity.longToast(R.string.send_coins_error_msg);
-						activity.finish();
 					}
 				}
 				catch (final AddressFormatException x)
@@ -393,7 +380,22 @@ public class SendCoinsFragment extends Fragment
 
 		final boolean hasPeers = numPeers > 0;
 
-		viewGo.setEnabled(validAddress && validAmount && validFee && hasPeers);
+		receivingAddressView.setEnabled(state == State.INPUT);
+
+		amountView.setEnabled(state == State.INPUT);
+
+		feeView.setEnabled(state == State.INPUT);
+
+		viewGo.setEnabled(state == State.INPUT && validAddress && validAmount && validFee && hasPeers);
+		if (state == State.INPUT)
+			viewGo.setText(R.string.send_coins_fragment_button_send);
+		else if (state == State.SENDING)
+			viewGo.setText(R.string.send_coins_sending_msg);
+		else if (state == State.SENT)
+			viewGo.setText(R.string.send_coins_sent_msg);
+
+		viewCancel.setEnabled(state != State.SENDING);
+		viewCancel.setText(state != State.SENT ? R.string.send_coins_fragment_button_cancel : R.string.send_coins_fragment_button_back);
 	}
 
 	public void update(final String receivingAddress, final BigInteger amount)

@@ -56,7 +56,9 @@
 	<string name="send_coins_fragment_fee_label">Gebühr (optional)</string>
 	<string name="send_coins_fragment_button_send">Senden</string>
 	<string name="send_coins_fragment_button_cancel">Abbrechen</string>
-	<string name="send_coins_sending_msg">Sending...</string>
+	<string name="send_coins_fragment_button_back">Zurück</string>
+	<string name="send_coins_sending_msg">Versenden...</string>
+	<string name="send_coins_sent_msg">Versendet!</string>
 	<string name="send_coins_add_address_dialog_title">Der Empfänger ist noch nicht in Deinem Adressbuch gespeichert.\n\nMöchtest Du ihn jetzt hinzufügen?</string>
 	<string name="send_coins_add_address_dialog_button_add">Adresse hinzufügen</string>
 	<string name="send_coins_add_address_dialog_button_dismiss">Schließen</string>

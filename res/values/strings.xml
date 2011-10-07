@@ -62,7 +62,9 @@
 	<string name="send_coins_fragment_fee_label">Fee (optional)</string>
 	<string name="send_coins_fragment_button_send">Send</string>
 	<string name="send_coins_fragment_button_cancel">Cancel</string>
+	<string name="send_coins_fragment_button_back">Back</string>
 	<string name="send_coins_sending_msg">Sending...</string>
+	<string name="send_coins_sent_msg">Sent!</string>
 	<string name="send_coins_add_address_dialog_title">The recipient is not yet contained in your address book.\n\nDo you want to add the address?</string>
 	<string name="send_coins_add_address_dialog_button_add">Add address</string>
 	<string name="send_coins_add_address_dialog_button_dismiss">Dismiss</string>
