@@ -228,6 +228,14 @@ public class CurrencyAmountView extends FrameLayout
 		textView.setHint(hint);
 	}
 
+	@Override
+	public void setEnabled(final boolean enabled)
+	{
+		super.setEnabled(enabled);
+
+		textView.setEnabled(enabled);
+	}
+
 	private static final Pattern P_SIGNIFICANT = Pattern.compile("^\\d*(\\.\\d{0,2})?");
 	private static Object SIGNIFICANT_SPAN = new StyleSpan(Typeface.BOLD);
 	private static Object UNSIGNIFICANT_SPAN = new RelativeSizeSpan(0.85f);
