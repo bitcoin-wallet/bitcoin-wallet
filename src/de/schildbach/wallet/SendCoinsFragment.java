@@ -123,6 +123,7 @@ public class SendCoinsFragment extends Fragment
 
 		public void done()
 		{
+			viewGo.requestFocusFromTouch();
 		}
 	};
 

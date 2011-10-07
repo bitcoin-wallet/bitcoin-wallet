@@ -60,7 +60,7 @@
 		android:stretchColumns="0,1">
 		<TableRow>
 			<Button android:id="@+id/send_coins_go" android:background="@drawable/btn_default" android:paddingLeft="12dp"
-				android:paddingRight="12dp" android:textStyle="bold" android:focusableInTouchMode="true" />
+				android:paddingRight="12dp" android:textStyle="bold" />
 			<Button android:id="@+id/send_coins_cancel" android:background="@drawable/btn_default" android:paddingLeft="12dp"
 				android:paddingRight="12dp" />
 		</TableRow>
