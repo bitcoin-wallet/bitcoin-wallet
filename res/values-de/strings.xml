@@ -44,6 +44,11 @@
 		App-Verwaltung öffnen, um ungenutzte Apps zu deinstallieren?</string>
 	<string name="wallet_low_storage_dialog_button_apps">App-Verwaltung</string>
 	<string name="wallet_low_storage_dialog_button_dismiss">Schließen</string>
+	<string name="wallet_timeskew_dialog_title">Überprüfe Deine Zeit-Einstellungen!</string>
+	<string name="wallet_timeskew_dialog_msg">Deine Gerätezeit geht %d Minuten falsch. Deswegen kannst Du möglicherweise keine Bitcoins senden
+		oder empfangen.\n\nDu solltest Deine Zeit- und Zeitzoneneinstellungen überprüfen und korrigieren.</string>
+	<string name="wallet_timeskew_dialog_button_settings">Einstellungen</string>
+	<string name="wallet_timeskew_dialog_button_dismiss">Schließen</string>
 
 	<string name="send_coins_activity_title">Bitcoins senden</string>
 	<string name="send_coins_install_qr_scanner_msg">Bitte installiere den ZXing QR-Code-Scanner oder Goggles!</string>

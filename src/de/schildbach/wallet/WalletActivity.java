@@ -17,7 +17,12 @@
 
 package de.schildbach.wallet;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.Date;
 
 import android.app.AlertDialog;
@@ -133,6 +138,8 @@ public class WalletActivity extends AbstractWalletActivity
 				.commit();
 
 		checkTestnetProdnetMigrationAlert();
+
+		checkVersionAndTimeskewAlert();
 	}
 
 	@Override
@@ -330,5 +337,65 @@ public class WalletActivity extends AbstractWalletActivity
 			builder.setNegativeButton(R.string.wallet_low_storage_dialog_button_dismiss, null);
 			builder.show();
 		}
+	}
+
+	private void checkVersionAndTimeskewAlert()
+	{
+		new Thread()
+		{
+			@Override
+			public void run()
+			{
+				try
+				{
+					final int versionCode = ((de.schildbach.wallet.Application) getApplication()).versionCode();
+					final URLConnection connection = new URL(Constants.VERSION_URL + "?current=" + versionCode).openConnection();
+					connection.connect();
+					final long serverTime = connection.getHeaderFieldDate("Date", 0);
+					final BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+					// final String version = reader.readLine();
+					reader.close();
+
+					if (serverTime > 0)
+					{
+						final long diffMinutes = Math.abs((System.currentTimeMillis() - serverTime) / 1000 / 60);
+
+						if (diffMinutes >= 60)
+						{
+							runOnUiThread(new Runnable()
+							{
+								public void run()
+								{
+									if (!isFinishing())
+										timeskewAlert(diffMinutes);
+								}
+							});
+						}
+					}
+				}
+				catch (final IOException x)
+				{
+					x.printStackTrace();
+				}
+			}
+		}.start();
+	}
+
+	private void timeskewAlert(final long diffMinutes)
+	{
+		final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setIcon(android.R.drawable.ic_dialog_alert);
+		builder.setTitle(R.string.wallet_timeskew_dialog_title);
+		builder.setMessage(getString(R.string.wallet_timeskew_dialog_msg, diffMinutes));
+		builder.setPositiveButton(R.string.wallet_timeskew_dialog_button_settings, new DialogInterface.OnClickListener()
+		{
+			public void onClick(final DialogInterface dialog, final int id)
+			{
+				startActivity(new Intent(android.provider.Settings.ACTION_DATE_SETTINGS));
+				finish();
+			}
+		});
+		builder.setNegativeButton(R.string.wallet_timeskew_dialog_button_dismiss, null);
+		builder.show();
 	}
 }

@@ -50,6 +50,11 @@
 		uninstall unneeded apps?</string>
 	<string name="wallet_low_storage_dialog_button_apps">Manage Apps</string>
 	<string name="wallet_low_storage_dialog_button_dismiss">Dismiss</string>
+	<string name="wallet_timeskew_dialog_title">Check your time settings!</string>
+	<string name="wallet_timeskew_dialog_msg">Your device time is off by %d minutes. You probably cannot send or receive Bitcoins due to this
+		problem.\n\nYou should check and correct your time and timezone settings.</string>
+	<string name="wallet_timeskew_dialog_button_settings">Settings</string>
+	<string name="wallet_timeskew_dialog_button_dismiss">Dismiss</string>
 
 	<string name="send_coins_activity_title">Send Bitcoins</string>
 	<string name="send_coins_install_qr_scanner_msg">Please install ZXing QR-code scanner or Goggles!</string>
