@@ -219,7 +219,7 @@ public class BlockChain {
                 StoredBlock splitPoint = findSplit(newStoredBlock, chainHead);
                 String splitPointHash =
                         splitPoint != null ? splitPoint.getHeader().getHashAsString() : "?";
-                log.debug("Block forks the chain at {}, but it did not cause a reorganize:\n{}",
+                log.info("Block forks the chain at {}, but it did not cause a reorganize:\n{}",
                           splitPointHash, newStoredBlock);
             }
 
