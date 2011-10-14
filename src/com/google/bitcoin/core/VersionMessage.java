@@ -29,28 +29,48 @@ public class VersionMessage extends Message {
      */
     public static final int NODE_NETWORK = 1;
 
-    /** The version number of the protocol spoken. */
+    /**
+     * The version number of the protocol spoken.
+     */
     public int clientVersion;
-    /** Flags defining what is supported. Right now {@link #NODE_NETWORK} is the only flag defined. */
+    /**
+     * Flags defining what is supported. Right now {@link #NODE_NETWORK} is the only flag defined.
+     */
     public long localServices;
-    /** What the other side believes the current time to be, in seconds. */
+    /**
+     * What the other side believes the current time to be, in seconds.
+     */
     public long time;
-    /** What the other side believes the address of this program is. Not used. */
+    /**
+     * What the other side believes the address of this program is. Not used.
+     */
     public PeerAddress myAddr;
-    /** What the other side believes their own address is. Not used. */
+    /**
+     * What the other side believes their own address is. Not used.
+     */
     public PeerAddress theirAddr;
     /**
      * An additional string that today the official client sets to the empty string. We treat it as something like an
      * HTTP User-Agent header.
      */
     public String subVer;
-    /** How many blocks are in the chain, according to the other side. */
+    /**
+     * How many blocks are in the chain, according to the other side.
+     */
     public long bestHeight;
 
     public VersionMessage(NetworkParameters params, byte[] msg) throws ProtocolException {
         super(params, msg, 0);
     }
 
+    /**
+     * It doesn't really make sense to ever lazily parse a version message or to retain the backing bytes.
+     * If you're receiving this on the wire you need to check the protocol version and it will never need to be sent
+     * back down the wire.
+     */
+//    public VersionMessage(NetworkParameters params, byte[] msg, boolean parseLazy, boolean parseRetain) throws ProtocolException {
+//        super(params, msg, 0, parseLazy, parseRetain);
+//    }
     public VersionMessage(NetworkParameters params, int newBestHeight) {
         super(params);
         clientVersion = NetworkParameters.PROTOCOL_VERSION;
@@ -66,10 +86,24 @@ public class VersionMessage extends Message {
         }
         subVer = "BitCoinJ 0.3-SNAPSHOT";
         bestHeight = newBestHeight;
+
+        length = 84;
+        if (protocolVersion > 31402)
+            length += 8;
+        length += subVer == null ? 1 : VarInt.sizeOf(subVer.length()) + subVer.length();
     }
-    
+
+    @Override
+    protected void parseLite() throws ProtocolException {
+        //NOP.  VersionMessage is never lazy parsed.
+    }
+
     @Override
     public void parse() throws ProtocolException {
+        if (parsed)
+            return;
+        parsed = true;
+
         clientVersion = (int) readUint32();
         localServices = readUint64().longValue();
         time = readUint64().longValue();
@@ -85,8 +119,9 @@ public class VersionMessage extends Message {
         subVer = readStr();
         //   int bestHeight (size of known block chain).
         bestHeight = readUint32();
+        length = cursor - offset;
     }
-    
+
     @Override
     public void bitcoinSerializeToStream(OutputStream buf) throws IOException {
         Utils.uint32ToByteStreamLE(clientVersion, buf);
@@ -96,9 +131,9 @@ public class VersionMessage extends Message {
         Utils.uint32ToByteStreamLE(time >> 32, buf);
         try {
             // My address.
-            myAddr.bitcoinSerializeToStream(buf);
+            myAddr.bitcoinSerialize(buf);
             // Their address.
-            theirAddr.bitcoinSerializeToStream(buf);
+            theirAddr.bitcoinSerialize(buf);
         } catch (UnknownHostException e) {
             throw new RuntimeException(e);  // Can't happen.
         } catch (IOException e) {
@@ -130,17 +165,47 @@ public class VersionMessage extends Message {
         if (!(o instanceof VersionMessage)) return false;
         VersionMessage other = (VersionMessage) o;
         return other.bestHeight == bestHeight &&
-               other.clientVersion == clientVersion &&
-               other.localServices == localServices &&
-               other.time == time &&
-               other.subVer.equals(subVer) &&
-               other.myAddr.equals(myAddr) &&
-               other.theirAddr.equals(theirAddr);
+                other.clientVersion == clientVersion &&
+                other.localServices == localServices &&
+                other.time == time &&
+                other.subVer.equals(subVer) &&
+                other.myAddr.equals(myAddr) &&
+                other.theirAddr.equals(theirAddr);
+    }
+
+    /**
+     * VersionMessage does not handle cached byte array so should not have a cached checksum.
+     */
+    @Override
+    byte[] getChecksum() {
+        return null;
+    }
+
+    /**
+     * VersionMessage does not handle cached byte array so should not have a cached checksum.
+     */
+    @Override
+    void setChecksum(byte[] checksum) {
+
     }
 
     @Override
     public int hashCode() {
-        return (int)bestHeight ^ clientVersion ^ (int)localServices ^ (int)time ^ subVer.hashCode() ^ myAddr.hashCode()
+        return (int) bestHeight ^ clientVersion ^ (int) localServices ^ (int) time ^ subVer.hashCode() ^ myAddr.hashCode()
                 ^ theirAddr.hashCode();
     }
+
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("\n");
+        sb.append("client version: ").append(clientVersion).append("\n");
+        sb.append("local services: ").append(localServices).append("\n");
+        sb.append("time:           ").append(time).append("\n");
+        sb.append("my addr:        ").append(myAddr).append("\n");
+        sb.append("their addr:     ").append(theirAddr).append("\n");
+        sb.append("sub version:    ").append(subVer).append("\n");
+        sb.append("best height:    ").append(bestHeight).append("\n");
+        return sb.toString();
+    }
+
 }

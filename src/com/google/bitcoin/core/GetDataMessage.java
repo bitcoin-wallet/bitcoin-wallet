@@ -23,6 +23,11 @@ public class GetDataMessage extends ListMessage {
         super(params, payloadBytes);
     }
 
+    public GetDataMessage(NetworkParameters params, byte[] msg, boolean parseLazy, boolean parseRetain, int length)
+            throws ProtocolException {
+        super(params, msg, parseLazy, parseRetain, length);
+    }
+
     public GetDataMessage(NetworkParameters params) {
         super(params);
     }

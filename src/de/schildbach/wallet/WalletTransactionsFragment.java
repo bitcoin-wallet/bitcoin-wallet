@@ -158,7 +158,7 @@ public class WalletTransactionsFragment extends Fragment
 
 				try
 				{
-					final Address address = sent ? tx.outputs.get(0).getScriptPubKey().getToAddress() : tx.getInputs().get(0).getFromAddress();
+					final Address address = sent ? tx.getOutputs().get(0).getScriptPubKey().getToAddress() : tx.getInputs().get(0).getFromAddress();
 
 					final FragmentTransaction ft = getFragmentManager().beginTransaction();
 					final Fragment prev = getFragmentManager().findFragmentByTag(EditAddressBookEntryFragment.FRAGMENT_TAG);
@@ -214,7 +214,7 @@ public class WalletTransactionsFragment extends Fragment
 					try
 					{
 						if (sent)
-							address = tx.outputs.get(0).getScriptPubKey().getToAddress().toString();
+							address = tx.getOutputs().get(0).getScriptPubKey().getToAddress().toString();
 						else
 							address = tx.getInputs().get(0).getFromAddress().toString();
 

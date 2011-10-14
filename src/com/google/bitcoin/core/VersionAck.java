@@ -14,17 +14,14 @@
  * limitations under the License.
  */
 
-
 package com.google.bitcoin.core;
 
 /**
- * The verack message, sent by a client accepting the version message they received from their peer.
+ * The verack message, sent by a client accepting the version message they
+ * received from their peer.
  */
-public class VersionAck
-    extends Message
-{
-    public VersionAck()
-    {
+public class VersionAck extends EmptyMessage {
+    public VersionAck() {
 
     }
 
@@ -34,8 +31,8 @@ public class VersionAck
     }
 
     @Override
-    void parse() throws ProtocolException
-    {
+    void parse() throws ProtocolException {
         // nothing to parse for now
     }
+
 }

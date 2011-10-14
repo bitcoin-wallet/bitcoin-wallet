@@ -16,13 +16,15 @@
 
 package com.google.bitcoin.core;
 
-public class GetAddrMessage extends Message {
-	public GetAddrMessage(NetworkParameters params) {
-		super(params);
-	}
+public class GetAddrMessage extends EmptyMessage {
 
-	@Override
-	void parse() throws ProtocolException {
-    // TODO: Implement this.
-	}
+    public GetAddrMessage(NetworkParameters params) {
+        super(params);
+    }
+
+    @Override
+    void parse() throws ProtocolException {
+        // TODO: Implement this.
+    }
+
 }

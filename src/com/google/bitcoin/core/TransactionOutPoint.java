@@ -17,6 +17,7 @@
 package com.google.bitcoin.core;
 
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
 
@@ -25,13 +26,15 @@ import java.io.Serializable;
 /**
  * This message is a reference or pointer to an output of a different transaction.
  */
-public class TransactionOutPoint extends Message implements Serializable {
+public class TransactionOutPoint extends ChildMessage implements Serializable {
     private static final long serialVersionUID = -6320880638344662579L;
 
+    static final int MESSAGE_LENGTH = 36;
+
     /** Hash of the transaction to which we refer. */
-    Sha256Hash hash;
+    private Sha256Hash hash;
     /** Which output of that transaction we are talking about. */
-    long index;
+    private long index;
 
     // This is not part of Bitcoin serialization. It's included in Java serialization.
     // It points to the connected transaction.
@@ -47,21 +50,43 @@ public class TransactionOutPoint extends Message implements Serializable {
             // This happens when constructing the genesis block.
             hash = Sha256Hash.ZERO_HASH;
         }
+        length = MESSAGE_LENGTH;
     }
 
-    /** Deserializes the message. This is usually part of a transaction message. */
+    /**
+     * Deserializes the message. This is usually part of a transaction message.
+     */
     public TransactionOutPoint(NetworkParameters params, byte[] payload, int offset) throws ProtocolException {
         super(params, payload, offset);
     }
-    
+
+    /**
+     * Deserializes the message. This is usually part of a transaction message.
+     */
+    public TransactionOutPoint(NetworkParameters params, byte[] payload, int offset, Message parent, boolean parseLazy, boolean parseRetain) throws ProtocolException {
+        super(params, payload, offset, parent, parseLazy, parseRetain, MESSAGE_LENGTH);
+    }
+
+    protected void parseLite() throws ProtocolException {
+        length = MESSAGE_LENGTH;
+    }
+
     @Override
     void parse() throws ProtocolException {
         hash = readHash();
         index = readUint32();
     }
 
+    /* (non-Javadoc)
+      * @see com.google.bitcoin.core.Message#getMessageSize()
+      */
     @Override
-    public void bitcoinSerializeToStream(OutputStream stream) throws IOException {
+    int getMessageSize() {
+        return MESSAGE_LENGTH;
+    }
+
+    @Override
+    protected void bitcoinSerializeToStream(OutputStream stream) throws IOException {
         stream.write(Utils.reverseBytes(hash.getBytes()));
         Utils.uint32ToByteStreamLE(index, stream);
     }
@@ -72,7 +97,7 @@ public class TransactionOutPoint extends Message implements Serializable {
      */
     TransactionOutput getConnectedOutput() {
         if (fromTx == null) return null;
-        return fromTx.outputs.get((int)index);
+        return fromTx.getOutputs().get((int) index);
     }
 
     /**
@@ -95,5 +120,47 @@ public class TransactionOutPoint extends Message implements Serializable {
     @Override
     public String toString() {
         return "outpoint " + index + ":" + hash.toString();
+    }
+
+
+    /**
+     * @return the hash
+     */
+    public Sha256Hash getHash() {
+        checkParse();
+        return hash;
+    }
+
+    /**
+     * @param hash the hash to set
+     */
+    void setHash(Sha256Hash hash) {
+        this.hash = hash;
+    }
+
+    /**
+     * @return the index
+     */
+    public long getIndex() {
+        checkParse();
+        return index;
+    }
+
+//	/**
+//	 * @param index the index to set
+//	 */
+//	public void setIndex(long index) {
+//		unCache();
+//		this.index = index;
+//	}
+
+    /**
+     * Ensure object is fully parsed before invoking java serialization.  The backing byte array
+     * is transient so if the object has parseLazy = true and hasn't invoked checkParse yet
+     * then data will be lost during serialization.
+     */
+    private void writeObject(ObjectOutputStream out) throws IOException {
+        checkParse();
+        out.defaultWriteObject();
     }
 }

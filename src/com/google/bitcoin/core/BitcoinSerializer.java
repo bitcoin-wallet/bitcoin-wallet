@@ -24,6 +24,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -36,9 +37,9 @@ import static com.google.bitcoin.core.Utils.*;
  *
  * To be able to serialize and deserialize new Message subclasses the following criteria needs to be met.
  * <ul>
- *     <li>The proper Class instance needs to be mapped to it's message name in the names variable below</li>
- *     <li>There needs to be a constructor matching: NetworkParameters params, byte[] payload</li>
- *     <li>Message.bitcoinSerializeToStream() needs to be properly subclassed</li>
+ * <li>The proper Class instance needs to be mapped to it's message name in the names variable below</li>
+ * <li>There needs to be a constructor matching: NetworkParameters params, byte[] payload</li>
+ * <li>Message.bitcoinSerializeToStream() needs to be properly subclassed</li>
  * </ul><p>
  *
  * BitcoinSerializers can be given a map which will be locked during reading/deserialization. This is used to
@@ -51,8 +52,10 @@ public class BitcoinSerializer {
 
     private NetworkParameters params;
     private boolean usesChecksumming;
+    private boolean parseLazy = false;
+    private boolean parseRetain = false;
 
-    private static Map<Class<? extends Message>, String> names = new HashMap<Class<? extends Message>,String>();
+    private static Map<Class<? extends Message>, String> names = new HashMap<Class<? extends Message>, String>();
 
     static {
         names.put(VersionMessage.class, "version");
@@ -91,14 +94,30 @@ public class BitcoinSerializer {
     /**
      * Constructs a BitcoinSerializer with the given behavior.
      *
-     * @param params networkParams used to create Messages instances and termining packetMagic
+     * @param params           networkParams used to create Messages instances and termining packetMagic
      * @param usesChecksumming set to true if checkums should be included and expected in headers
      */
     public BitcoinSerializer(NetworkParameters params, boolean usesChecksumming,
                              LinkedHashMap<Sha256Hash, Integer> dedupeList) {
+        this(params, usesChecksumming, false, false, dedupeList);
+    }
+
+    /**
+     * Constructs a BitcoinSerializer with the given behavior.
+     *
+     * @param params           networkParams used to create Messages instances and termining packetMagic
+     * @param usesChecksumming set to true if checkums should be included and expected in headers
+     * @param parseLazy        deserialize messages in lazy mode.
+     * @param parseRetain      retain the backing byte array of a message for fast reserialization.
+     * @param dedupeList       possibly shared list of previously received messages used to avoid parsing duplicates.
+     */
+    public BitcoinSerializer(NetworkParameters params, boolean usesChecksumming, boolean parseLazy, boolean parseRetain,
+                             LinkedHashMap<Sha256Hash, Integer> dedupeList) {
         this.params = params;
         this.usesChecksumming = usesChecksumming;
         this.dedupeList = dedupeList;
+        this.parseLazy = parseLazy;
+        this.parseRetain = parseRetain;
     }
 
     public void setUseChecksumming(boolean usesChecksumming) {
@@ -123,7 +142,7 @@ public class BitcoinSerializer {
     public void serialize(Message message, OutputStream out) throws IOException {
         String name = names.get(message.getClass());
         if (name == null) {
-            throw new Error("BitcoinSerializer doesn't currently know how to serialize "+ message.getClass());
+            throw new Error("BitcoinSerializer doesn't currently know how to serialize " + message.getClass());
         }
 
         byte[] header = new byte[4 + COMMAND_LEN + 4 + (usesChecksumming ? 4 : 0)];
@@ -141,8 +160,31 @@ public class BitcoinSerializer {
         Utils.uint32ToByteArrayLE(payload.length, header, 4 + COMMAND_LEN);
 
         if (usesChecksumming) {
-            byte[] hash = doubleDigest(payload);
-            System.arraycopy(hash, 0, header, 4 + COMMAND_LEN + 4, 4);
+            byte[] checksum = message.getChecksum();
+            if (checksum == null) {
+                Sha256Hash msgHash = message.getHash();
+                if (msgHash != null && message instanceof Transaction) {
+                    // if the message happens to have a precalculated hash use
+                    // it.
+                    // reverse copying 4 bytes is about 1600 times faster than
+                    // calculating a new hash
+                    // this is only possible for transactions as block hashes
+                    // are hashes of the header only
+                    byte[] hash = msgHash.getBytes();
+                    int start = 4 + COMMAND_LEN + 4;
+                    for (int i = start; i < start + 4; i++)
+                        header[i] = hash[31 - i + start];
+
+                } else {
+                    byte[] hash = doubleDigest(payload);
+                    System.arraycopy(hash, 0, header, 4 + COMMAND_LEN + 4, 4);
+                }
+            } else {
+                assert Arrays.equals(checksum, Arrays.copyOf(doubleDigest(payload), 4))
+                        : "Checksum match failure on serialization.  Cached: " + Arrays.toString(checksum)
+                        + " Calculated: " + Arrays.toString(Arrays.copyOf(doubleDigest(payload), 4));
+                System.arraycopy(checksum, 0, header, 4 + COMMAND_LEN + 4, 4);
+            }
         }
 
         out.write(header);
@@ -210,6 +252,11 @@ public class BitcoinSerializer {
 
         // Check for duplicates. This is to avoid the cost (cpu and memory) of parsing the message twice, which can
         // be an issue on constrained devices.
+
+        //save this for reuse later.  Hashing is expensive so checksumming starting with a single hash
+        //is a significant saving.
+        Sha256Hash singleHash = null;
+
         if (dedupeList != null && canDedupeMessageType(header.command)) {
             // We use a secure hash here rather than the faster and simpler array hashes because otherwise a malicious
             // node on the network could broadcast a message designed to mask a different message. They would not
@@ -217,22 +264,27 @@ public class BitcoinSerializer {
             synchronized (dedupeList) {
                 // Calculate hash inside the lock to avoid unnecessary battery power spent on hashing messages arriving
                 // on different threads simultaneously.
-                Sha256Hash hash = Sha256Hash.create(payloadBytes);
-                Integer count = dedupeList.get(hash);
+                singleHash = Sha256Hash.create(payloadBytes);
+                Integer count = dedupeList.get(singleHash);
                 if (count != null) {
                     int newCount = count + 1;
                     log.info("Received duplicate {} message, now seen {} times", header.command, newCount);
-                    dedupeList.put(hash, newCount);
+                    dedupeList.put(singleHash, newCount);
                     return null;
                 } else {
-                    dedupeList.put(hash, 1);
+                    dedupeList.put(singleHash, 1);
                 }
             }
         }
 
         // Verify the checksum.
+        byte[] hash = null;
         if (usesChecksumming) {
-            byte[] hash = doubleDigest(payloadBytes);
+            if (singleHash != null) {
+                hash = singleDigest(singleHash.getBytes(), 0, 32);
+            } else {
+                hash = doubleDigest(payloadBytes);
+            }
             if (header.checksum[0] != hash[0] || header.checksum[1] != hash[1] ||
                     header.checksum[2] != hash[2] || header.checksum[3] != hash[3]) {
                 throw new ProtocolException("Checksum failed to verify, actual " +
@@ -250,26 +302,30 @@ public class BitcoinSerializer {
         }
 
         try {
-            return makeMessage(header.command, payloadBytes);
+            return makeMessage(header.command, header.size, payloadBytes, hash, header.checksum);
         } catch (Exception e) {
             throw new ProtocolException("Error deserializing message " + Utils.bytesToHexString(payloadBytes) + "\n", e);
         }
     }
 
-    private Message makeMessage(String command, byte[] payloadBytes) throws ProtocolException {
+    private Message makeMessage(String command, int length, byte[] payloadBytes, byte[] hash, byte[] checksum) throws ProtocolException {
         // We use an if ladder rather than reflection because reflection is very slow on Android.
+        Message message;
         if (command.equals("version")) {
             return new VersionMessage(params, payloadBytes);
         } else if (command.equals("inv")) {
-            return new InventoryMessage(params, payloadBytes);
+            message = new InventoryMessage(params, payloadBytes, parseLazy, parseRetain, length);
         } else if (command.equals("block")) {
-            return new Block(params, payloadBytes);
+            message = new Block(params, payloadBytes, parseLazy, parseRetain, length);
         } else if (command.equals("getdata")) {
-            return new GetDataMessage(params, payloadBytes);
+            message = new GetDataMessage(params, payloadBytes, parseLazy, parseRetain, length);
         } else if (command.equals("tx")) {
-            return new Transaction(params, payloadBytes);
+            Transaction tx = new Transaction(params, payloadBytes, null, parseLazy, parseRetain, length);
+            if (hash != null)
+                tx.setHash(new Sha256Hash(Utils.reverseBytes(hash)));
+            message = tx;
         } else if (command.equals("addr")) {
-            return new AddressMessage(params, payloadBytes);
+            message = new AddressMessage(params, payloadBytes, parseLazy, parseRetain, length);
         } else if (command.equals("ping")) {
             return new Ping();
         } else if (command.equals("verack")) {
@@ -277,6 +333,9 @@ public class BitcoinSerializer {
         } else {
             throw new ProtocolException("No support for deserializing message with name " + command);
         }
+        if (checksum != null)
+            message.setChecksum(checksum);
+        return message;
     }
 
     public void seekPastMagicBytes(InputStream in) throws IOException {
@@ -289,7 +348,7 @@ public class BitcoinSerializer {
             }
             // We're looking for a run of bytes that is the same as the packet magic but we want to ignore partial
             // magics that aren't complete. So we keep track of where we're up to with magicCursor.
-            int expectedByte = 0xFF & (int)(params.packetMagic >>> (magicCursor * 8));
+            int expectedByte = 0xFF & (int) (params.packetMagic >>> (magicCursor * 8));
             if (b == expectedByte) {
                 magicCursor--;
                 if (magicCursor < 0) {
@@ -303,6 +362,21 @@ public class BitcoinSerializer {
             }
         }
     }
+
+    /**
+     * Whether the serializer will produce lazy parse mode Messages
+     */
+    public boolean isParseLazyMode() {
+        return parseLazy;
+    }
+
+    /**
+     * Whether the serializer will produce cached mode Messages
+     */
+    public boolean isParseRetainMode() {
+        return parseRetain;
+    }
+
 
     public class BitcoinPacketHeader {
         final byte[] header;
@@ -327,7 +401,7 @@ public class BitcoinSerializer {
             // The command is a NULL terminated string, unless the command fills all twelve bytes
             // in which case the termination is implicit.
             int mark = cursor;
-            for (; header[cursor] != 0 && cursor - mark < COMMAND_LEN; cursor++);
+            for (; header[cursor] != 0 && cursor - mark < COMMAND_LEN; cursor++) ;
             byte[] commandBytes = new byte[cursor - mark];
             System.arraycopy(header, mark, commandBytes, 0, cursor - mark);
             try {

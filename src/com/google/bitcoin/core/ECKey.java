@@ -171,7 +171,7 @@ public class ECKey implements Serializable {
         // components into a structure.
         try {
             //usually 70-72 bytes.
-            ByteArrayOutputStream bos = new ByteArrayOutputStream(72);
+            ByteArrayOutputStream bos = new UnsafeByteArrayOutputStream(72);
             DERSequenceGenerator seq = new DERSequenceGenerator(bos);
             seq.addObject(new DERInteger(sigs[0]));
             seq.addObject(new DERInteger(sigs[1]));

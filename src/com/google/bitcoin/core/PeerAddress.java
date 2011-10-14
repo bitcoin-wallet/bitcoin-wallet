@@ -22,7 +22,6 @@ import java.math.BigInteger;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.UnknownHostException;
-import java.util.Date;
 
 import static com.google.bitcoin.core.Utils.uint32ToByteStreamLE;
 import static com.google.bitcoin.core.Utils.uint64ToByteStreamLE;
@@ -31,13 +30,14 @@ import static com.google.bitcoin.core.Utils.uint64ToByteStreamLE;
  * A PeerAddress holds an IP address and port number representing the network location of
  * a peer in the BitCoin P2P network. It exists primarily for serialization purposes.
  */
-public class PeerAddress extends Message {
+public class PeerAddress extends ChildMessage {
     private static final long serialVersionUID = 7501293709324197411L;
+    static final int MESSAGE_SIZE = 30;
 
-    InetAddress addr;
-    int port;
-    BigInteger services;
-    long time;
+    private InetAddress addr;
+    private int port;
+    private BigInteger services;
+    private long time;
 
     /**
      * Construct a peer address from a serialized payload.
@@ -45,7 +45,19 @@ public class PeerAddress extends Message {
     public PeerAddress(NetworkParameters params, byte[] payload, int offset, int protocolVersion) throws ProtocolException {
         super(params, payload, offset, protocolVersion);
     }
-    
+
+
+    /**
+     * Construct a peer address from a serialized payload.
+     */
+    public PeerAddress(NetworkParameters params, byte[] msg, int offset, int protocolVersion, Message parent, boolean parseLazy,
+                       boolean parseRetain) throws ProtocolException {
+        super(params, msg, offset, protocolVersion, parent, parseLazy, parseRetain, UNKNOWN_LENGTH);
+        //Message length is calculated in parseLite which is guaranteed to be called before it is ever read.
+        //Safer to leave it there as it will be set regardless of which constructor was used.
+    }
+
+
     /**
      * Construct a peer address from a memorized or hardcoded address.
      */
@@ -54,24 +66,28 @@ public class PeerAddress extends Message {
         this.port = port;
         this.protocolVersion = protocolVersion;
         this.services = BigInteger.ZERO;
+        length = protocolVersion > 31402 ? MESSAGE_SIZE : MESSAGE_SIZE - 4;
     }
-    
+
     public PeerAddress(InetAddress addr, int port) {
         this(addr, port, NetworkParameters.PROTOCOL_VERSION);
     }
-    
+
     public PeerAddress(InetAddress addr) {
         this(addr, 0);
     }
-    
+
     public PeerAddress(InetSocketAddress addr) {
         this(addr.getAddress(), addr.getPort());
     }
 
     @Override
-    public void bitcoinSerializeToStream(OutputStream stream) throws IOException {
+    protected void bitcoinSerializeToStream(OutputStream stream) throws IOException {
         if (protocolVersion >= 31402) {
-            int secs = (int)(Utils.now().getTime() / 1000);
+            //TODO this appears to be dynamic because the client only ever sends out it's own address
+            //so assumes itself to be up.  For a fuller implementation this needs to be dynamic only if
+            //the address refers to this clinet.
+            int secs = (int) (Utils.now().getTime() / 1000);
             uint32ToByteStreamLE(secs, stream);
         }
         uint64ToByteStreamLE(services, stream);  // nServices.
@@ -88,6 +104,10 @@ public class PeerAddress extends Message {
         // And write out the port. Unlike the rest of the protocol, address and port is in big endian byte order.
         stream.write((byte) (0xFF & port >> 8));
         stream.write((byte) (0xFF & port));
+    }
+
+    protected void parseLite() {
+        length = protocolVersion > 31402 ? MESSAGE_SIZE : MESSAGE_SIZE - 4;
     }
 
     @Override
@@ -111,6 +131,87 @@ public class PeerAddress extends Message {
         port = ((0xFF & bytes[cursor++]) << 8) | (0xFF & bytes[cursor++]);
     }
 
+    /* (non-Javadoc)
+      * @see com.google.bitcoin.core.Message#getMessageSize()
+      */
+    @Override
+    int getMessageSize() {
+        length = protocolVersion > 31402 ? MESSAGE_SIZE : MESSAGE_SIZE - 4;
+        return length;
+    }
+
+    /**
+     * @return the addr
+     */
+    public InetAddress getAddr() {
+        checkParse();
+        return addr;
+    }
+
+
+    /**
+     * @param addr the addr to set
+     */
+    public void setAddr(InetAddress addr) {
+        unCache();
+        this.addr = addr;
+    }
+
+
+    /**
+     * @return the port
+     */
+    public int getPort() {
+        checkParse();
+        return port;
+    }
+
+
+    /**
+     * @param port the port to set
+     */
+    public void setPort(int port) {
+        unCache();
+        this.port = port;
+    }
+
+
+    /**
+     * @return the services
+     */
+    public BigInteger getServices() {
+        checkParse();
+        return services;
+    }
+
+
+    /**
+     * @param services the services to set
+     */
+    public void setServices(BigInteger services) {
+        unCache();
+        this.services = services;
+    }
+
+
+    /**
+     * @return the time
+     */
+    public long getTime() {
+        checkParse();
+        return time;
+    }
+
+
+    /**
+     * @param time the time to set
+     */
+    public void setTime(long time) {
+        unCache();
+        this.time = time;
+    }
+
+
     @Override
     public String toString() {
         return "[" + addr.getHostAddress() + "]:" + port;
@@ -121,13 +222,13 @@ public class PeerAddress extends Message {
         if (!(o instanceof PeerAddress)) return false;
         PeerAddress other = (PeerAddress) o;
         return other.addr.equals(addr) &&
-               other.port == port &&
-               other.services.equals(services) &&
-               other.time == time;
+                other.port == port &&
+                other.services.equals(services) &&
+                other.time == time;
     }
 
     @Override
     public int hashCode() {
-        return addr.hashCode() ^ port ^ (int)time ^ services.hashCode();
+        return addr.hashCode() ^ port ^ (int) time ^ services.hashCode();
     }
 }

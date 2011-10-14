@@ -20,6 +20,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
 import java.math.BigInteger;
@@ -28,7 +29,7 @@ import java.math.BigInteger;
  * A TransactionOutput message contains a scriptPubKey that controls who is able to spend its value. It is a sub-part
  * of the Transaction message.
  */
-public class TransactionOutput extends Message implements Serializable {
+public class TransactionOutput extends ChildMessage implements Serializable {
     private static final Logger log = LoggerFactory.getLogger(TransactionOutput.class);
     private static final long serialVersionUID = -590332479859256824L;
 
@@ -49,11 +50,24 @@ public class TransactionOutput extends Message implements Serializable {
 
     // A reference to the transaction which holds this output.
     Transaction parentTransaction;
-    
-    /** Deserializes a transaction output message. This is usually part of a transaction message. */
+    private transient int scriptLen;
+
+    /**
+     * Deserializes a transaction output message. This is usually part of a transaction message.
+     */
     public TransactionOutput(NetworkParameters params, Transaction parent, byte[] payload,
                              int offset) throws ProtocolException {
         super(params, payload, offset);
+        parentTransaction = parent;
+        availableForSpending = true;
+    }
+
+    /**
+     * Deserializes a transaction output message. This is usually part of a transaction message.
+     */
+    public TransactionOutput(NetworkParameters params, Transaction parent, byte[] msg, int offset, boolean parseLazy, boolean parseRetain)
+            throws ProtocolException {
+        super(params, msg, offset, parent, parseLazy, parseRetain, UNKNOWN_LENGTH);
         parentTransaction = parent;
         availableForSpending = true;
     }
@@ -64,9 +78,12 @@ public class TransactionOutput extends Message implements Serializable {
         this.scriptBytes = Script.createOutputScript(to);
         parentTransaction = parent;
         availableForSpending = true;
+        length = 8 + VarInt.sizeOf(scriptBytes.length) + scriptBytes.length;
     }
 
-    /** Used only in creation of the genesis blocks and in unit tests. */
+    /**
+     * Used only in creation of the genesis blocks and in unit tests.
+     */
     TransactionOutput(NetworkParameters params, Transaction parent, byte[] scriptBytes) {
         super(params);
         this.scriptBytes = scriptBytes;
@@ -76,19 +93,25 @@ public class TransactionOutput extends Message implements Serializable {
     }
 
     public Script getScriptPubKey() throws ScriptException {
-        if (scriptPubKey == null)
+        if (scriptPubKey == null) {
+            checkParse();
             scriptPubKey = new Script(params, scriptBytes, 0, scriptBytes.length);
+        }
         return scriptPubKey;
     }
-    
-    void parse() throws ProtocolException {
+
+    protected void parseLite() {
         value = readUint64();
-        int scriptLen = (int) readVarInt();
+        scriptLen = (int) readVarInt();
+        length = cursor - offset + scriptLen;
+    }
+
+    void parse() throws ProtocolException {
         scriptBytes = readBytes(scriptLen);
     }
-    
+
     @Override
-    public void bitcoinSerializeToStream( OutputStream stream) throws IOException {
+    protected void bitcoinSerializeToStream(OutputStream stream) throws IOException {
         assert scriptBytes != null;
         Utils.uint64ToByteStreamLE(getValue(), stream);
         // TODO: Move script serialization into the Script class, where it belongs.
@@ -101,13 +124,14 @@ public class TransactionOutput extends Message implements Serializable {
      * receives.
      */
     public BigInteger getValue() {
+        checkParse();
         return value;
     }
 
     int getIndex() {
         assert parentTransaction != null;
-        for (int i = 0; i < parentTransaction.outputs.size(); i++) {
-            if (parentTransaction.outputs.get(i) == this)
+        for (int i = 0; i < parentTransaction.getOutputs().size(); i++) {
+            if (parentTransaction.getOutputs().get(i) == this)
                 return i;
         }
         // Should never happen.
@@ -134,10 +158,13 @@ public class TransactionOutput extends Message implements Serializable {
     }
 
     public byte[] getScriptBytes() {
+        checkParse();
         return scriptBytes;
     }
 
-    /** Returns true if this output is to an address we have the keys for in the wallet. */
+    /**
+     * Returns true if this output is to an address we have the keys for in the wallet.
+     */
     public boolean isMine(Wallet wallet) {
         try {
             byte[] pubkeyHash = getScriptPubKey().getPubKeyHash();
@@ -148,7 +175,9 @@ public class TransactionOutput extends Message implements Serializable {
         }
     }
 
-    /** Returns a human readable debug string. */
+    /**
+     * Returns a human readable debug string.
+     */
     public String toString() {
         try {
             return "TxOut of " + Utils.bitcoinValueToFriendlyString(value) + " to " + getScriptPubKey().getToAddress()
@@ -158,8 +187,20 @@ public class TransactionOutput extends Message implements Serializable {
         }
     }
 
-    /** Returns the connected input. */
+    /**
+     * Returns the connected input.
+     */
     TransactionInput getSpentBy() {
         return spentBy;
+    }
+
+    /**
+     * Ensure object is fully parsed before invoking java serialization.  The backing byte array
+     * is transient so if the object has parseLazy = true and hasn't invoked checkParse yet
+     * then data will be lost during serialization.
+     */
+    private void writeObject(ObjectOutputStream out) throws IOException {
+        checkParse();
+        out.defaultWriteObject();
     }
 }
