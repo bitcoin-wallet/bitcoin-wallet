@@ -3,7 +3,6 @@ package com.google.bitcoin.core;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.Arrays;
 
 /**
  * An unsynchronized implementation of ByteArrayOutputStream that will return the backing byte array if its length == size().
@@ -33,7 +32,7 @@ public class UnsafeByteArrayOutputStream extends ByteArrayOutputStream {
     public void write(int b) {
         int newcount = count + 1;
         if (newcount > buf.length) {
-            buf = Arrays.copyOf(buf, Math.max(buf.length << 1, newcount));
+            buf = copyOf(buf, Math.max(buf.length << 1, newcount));
         }
         buf[count] = (byte) b;
         count = newcount;
@@ -56,7 +55,7 @@ public class UnsafeByteArrayOutputStream extends ByteArrayOutputStream {
         }
         int newcount = count + len;
         if (newcount > buf.length) {
-            buf = Arrays.copyOf(buf, Math.max(buf.length << 1, newcount));
+            buf = copyOf(buf, Math.max(buf.length << 1, newcount));
         }
         System.arraycopy(b, off, buf, count, len);
         count = newcount;
@@ -95,7 +94,7 @@ public class UnsafeByteArrayOutputStream extends ByteArrayOutputStream {
      * @see java.io.ByteArrayOutputStream#size()
      */
     public byte toByteArray()[] {
-        return count == buf.length ? buf : Arrays.copyOf(buf, count);
+        return count == buf.length ? buf : copyOf(buf, count);
     }
 
     /**
@@ -109,4 +108,10 @@ public class UnsafeByteArrayOutputStream extends ByteArrayOutputStream {
         return count;
     }
 
+    public static byte[] copyOf(byte[] original, int newLength) {
+        byte[] copy = new byte[newLength];
+        System.arraycopy(original, 0, copy, 0,
+                         Math.min(original.length, newLength));
+        return copy;
+    }
 }
