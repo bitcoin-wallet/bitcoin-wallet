@@ -132,6 +132,10 @@ public class Application extends android.app.Application
 					{
 						handleException(x);
 					}
+					// catch (final InvalidClassException x)
+					// {
+					// handleException(x);
+					// }
 					catch (final IOException x)
 					{
 						throw new Error("cannot load wallet", x);
