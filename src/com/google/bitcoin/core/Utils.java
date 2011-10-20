@@ -24,13 +24,13 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
 import java.util.Date;
 
 /**
  * A collection of various utility methods that are helpful for working with the BitCoin protocol.
  * To enable debug logging from the library, run with -Dbitcoinj.logging=true on your command line.
  */
-@SuppressWarnings({"SameParameterValue"})
 public class Utils {
     // TODO: Replace this nanocoins business with something better.
 
@@ -177,7 +177,6 @@ public class Utils {
         }
         return buf.toString();
     }
-    
 
 
     /**
@@ -290,5 +289,12 @@ public class Utils {
             return mockTime;
         else
             return new Date();
+    }
+    
+    public static byte[] copyOf(byte[] in, int length) {
+        byte[] out = new byte[length];
+        System.arraycopy(in, 0, out, 0, Math.min(length, in.length));
+        Arrays.copyOf(in, 6);
+        return out;
     }
 }
