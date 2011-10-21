@@ -40,26 +40,27 @@ public class Peer {
     private boolean running;
     private final BlockChain blockChain;
     private final Wallet wallet;
-
-    // When we want to download a block or transaction from a peer, the InventoryItem is put here whilst waiting for
-    // the response. Synchronized on itself.
+    // When an API user explicitly requests a block or transaction from a peer, the InventoryItem is put here
+    // whilst waiting for the response. Synchronized on itself. Is not used for downloads Peer generates itself.
     private final List<GetDataFuture<Block>> pendingGetBlockFutures;
-
+    // Height of the chain advertised in the peers version message.
     private int bestHeight;
-
     private PeerAddress address;
-
     private List<PeerEventListener> eventListeners;
+    // Whether to try and download blocks and transactions from this peer. Set to false by PeerGroup if not the
+    // primary peer. This is to avoid redundant work and concurrency problems with downloading the same chain
+    // in parallel.
+    private boolean downloadData = true;
 
     /**
      * If true, we do some things that may only make sense on constrained devices like Android phones. Currently this
      * only controls message deduplication.
      */
-    public static boolean MOBILE_OPTIMIZED = true;
+    public static boolean MOBILE_OPTIMIZED = false;
 
     /**
-     * Construct a peer that handles the given network connection and reads/writes from the given block chain. Note that
-     * communication won't occur until you call connect().
+     * Construct a peer that reads/writes from the given block chain. Note that communication won't occur until
+     * you call connect(), which will set up a new NetworkConnection.
      *
      * @param bestHeight our current best chain height, to facilitate downloading
      */
@@ -74,13 +75,21 @@ public class Peer {
     }
 
     /**
-     * Construct a peer that handles the given network connection and reads/writes from the given block chain. Note that
-     * communication won't occur until you call connect().
+     * Construct a peer that reads/writes from the given block chain. Note that communication won't occur until
+     * you call connect(), which will set up a new NetworkConnection.
      */
     public Peer(NetworkParameters params, PeerAddress address, BlockChain blockChain, Wallet wallet) {
         this(params, address, 0, blockChain, wallet);
     }
 
+    /**
+     * Construct a peer that uses the given, already connected network connection object.
+     */
+    public Peer(NetworkParameters params, BlockChain blockChain, NetworkConnection connection, Wallet wallet) {
+        this(params, null, 0, blockChain, wallet);
+        this.conn = connection;
+    }
+    
     public synchronized void addEventListener(PeerEventListener listener) {
         eventListeners.add(listener);
     }
@@ -91,7 +100,12 @@ public class Peer {
 
     @Override
     public String toString() {
-        return "Peer(" + address.getAddr() + ":" + address.getPort() + ")";
+        if (address == null) {
+            // User-provided NetworkConnection object.
+            return "Peer(NetworkConnection:" + conn + ")";
+        } else {
+            return "Peer(" + address.getAddr() + ":" + address.getPort() + ")";
+        }
     }
 
     /**
@@ -101,7 +115,7 @@ public class Peer {
      */
     public synchronized void connect() throws PeerException {
         try {
-            conn = new NetworkConnection(address, params, bestHeight, 60000, MOBILE_OPTIMIZED);
+            conn = new TCPNetworkConnection(address, params, bestHeight, 60000, MOBILE_OPTIMIZED);
         } catch (IOException ex) {
             throw new PeerException(ex);
         } catch (ProtocolException ex) {
@@ -218,17 +232,18 @@ public class Peer {
     }
 
     private void processInv(InventoryMessage inv) throws IOException {
-        // This should be called in the network loop thread for this peer
+        // This should be called in the network loop thread for this peer.
+
+        // If this peer isn't responsible for downloading stuff, ignore inv messages.
+        // TODO: In future, we should not ignore but count them. This allows a guesstimate of trustworthyness.
+        if (!downloadData)
+            return;
 
         // The peer told us about some blocks or transactions they have. For now we only care about blocks.
-        // Note that as we don't actually want to store the entire block chain or even the headers of the block
-        // chain, we may end up requesting blocks we already requested before. This shouldn't (in theory) happen
-        // enough to be a problem.
         Block topBlock = blockChain.getUnconnectedBlock();
         Sha256Hash topHash = (topBlock != null ? topBlock.getHash() : null);
         List<InventoryItem> items = inv.getItems();
-        if (items.size() == 1 && items.get(0).type == InventoryItem.Type.Block && topHash != null &&
-                items.get(0).hash.equals(topHash)) {
+        if (isNewBlockTickle(topHash, items)) {
             // An inv with a single hash containing our most recent unconnected block is a special inv,
             // it's kind of like a tickle from the peer telling us that it's time to download more blocks to catch up to
             // the block chain. We could just ignore this and treat it as a regular inv but then we'd download the head
@@ -250,6 +265,14 @@ public class Peer {
             return;
         // This will cause us to receive a bunch of block messages.
         conn.writeMessage(getdata);
+    }
+
+    /** A new block tickle is an inv with a hash containing the topmost block. */
+    private boolean isNewBlockTickle(Sha256Hash topHash, List<InventoryItem> items) {
+        return items.size() == 1 &&
+               items.get(0).type == InventoryItem.Type.Block &&
+               topHash != null &&
+               items.get(0).hash.equals(topHash);
     }
 
     /**
@@ -370,12 +393,25 @@ public class Peer {
 
         // TODO: Block locators should be abstracted out rather than special cased here.
         List<Sha256Hash> blockLocator = new LinkedList<Sha256Hash>();
-        // We don't do the exponential thinning here, so if we get onto a fork of the chain we will end up
-        // redownloading the whole thing again.
+        // For now we don't do the exponential thinning as suggested here: 
+        //  https://en.bitcoin.it/wiki/Protocol_specification#getblocks
+        // However, this should be taken seriously going forward. The old implementation only added the hash of the 
+        // genesis block and the current chain head, which randomly led us to halt block fetching when ending on a
+        // chain that turned out not to be the longest. This happened roughly once a week. 
+        // Now we add three hashes to the locator:
+        // 1. Hash of genesis block
+        // 2. Hash of the block previous to the chain head
+        // 3. Hash of the chain head
+        // This allows our peer to see that we are on the wrong track if we ended up on the wrong side of a chain fork
+        // if the fork is only one block deep.
         blockLocator.add(params.genesisBlock.getHash());
         Block topBlock = blockChain.getChainHead().getHeader();
-        if (!topBlock.equals(params.genesisBlock))
+        if (!topBlock.equals(params.genesisBlock)) {
+            if (!topBlock.getPrevBlockHash().equals(params.genesisBlock)){
+                blockLocator.add(0, topBlock.getPrevBlockHash());
+            }
             blockLocator.add(0, topBlock.getHash());
+        }
         GetBlocksMessage message = new GetBlocksMessage(params, blockLocator, toHash);
         conn.writeMessage(message);
     }
@@ -385,6 +421,7 @@ public class Peer {
      * downloaded the same number of blocks that the peer advertised having in its version handshake message.
      */
     public void startBlockChainDownload() throws IOException {
+        setDownloadData(true);
         // TODO: peer might still have blocks that we don't have, and even have a heavier
         // chain even if the chain block count is lower.
         if (getPeerBlocksToGet() > 0) {
@@ -426,5 +463,21 @@ public class Peer {
         } catch (IOException e) {
             // Don't care about this.
         }
+    }
+
+    /**
+     * Returns true if this peer will try and download things it is sent in "inv" messages. Normally you only need
+     * one peer to be downloading data. Defaults to true.
+     */
+    public boolean getDownloadData() {
+        return downloadData;
+    }
+
+    /**
+     * If set to false, the peer won't try and fetch blocks and transactions it hears about. Normally, only one
+     * peer should download missing blocks. Defaults to true.
+     */
+    public void setDownloadData(boolean downloadData) {
+        this.downloadData = downloadData;
     }
 }
