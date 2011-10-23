@@ -1,35 +1,35 @@
-To jest samodzielny Bitcoin Wallet dla twojego urządzenia Android. Bitcoin są internetową walutą.
+Samodzielny portfel Bitcoin dla Twojego urządzenia Android. Bitcoin są internetową walutą.
 
-Możesz wysyłać Bitcoin pomiędzy telefonami skanując kod QR, ktȯry jest wyświetlany przez aplikacje, lub przez NFC (Near Field Communication).
+Możesz wysyłać Bitcoin pomiędzy telefonami skanując kod QR, który jest wyświetlany przez aplikacje, lub przez NFC (Near Field Communication).
 
-To jest versia dla prawdziwych (Prodnet) Bitcoin. Jeżeli chcesz tylko prȯbować z bezwartościowymi Testnet Bitcoin, zalecam oddzielną aplikacje (zobacz „wiecej od twȯrcy“).
+Wersja dla prawdziwej sieci Bitcoin (Prodnet). Jeżeli chcesz jedynie próbować z bezwartościowymi Testnet Bitcoin, zalecam oddzielną aplikacje (zobacz „więcej od twórcy“).
 
 FUNKCJE:
 
 • Wyświetlanie stanu konta portfela w Bitcoin i rożnych innych walutach
 • Wysyłanie i odbieranie Bitcoin przez NFC, kod QR albo Bitcoin URL
-• Support dla Millibitcentȯw i mniejszych wartości (0.0001)
-• Książka adresowa dla regularnie używanych adresȯw Bitcoin
-• Wpisanie transakcji byjąc offline, wykonanie jej jak się jest online
-• Notyfikacje systemowe o połączalności Bitcoin i otrzymanych monetach
+• Support dla millibitcentów oraz mniejszych wartości (0.0001)
+• Książka adresowa dla regularnie używanych adresów Bitcoin
+• Możliwość dodania transakcji offline, wykonywanych po połączeniu z siecią
+• Notyfikacje systemowe o połączeniu z siecią Bitcoin i otrzymanych monetach
 • Widget na stan konta Bitcoin (wymaga: aplikacja na telefonie)
 
-ZNANE ZAGADNIENIA, PROSZĘ PRZECZYTAJ:
+ZNANE PROBLEMY (PROSZĘ PRZECZYTAJ):
 
-• Jak używana po raz pierwszy, może być że aplikacja wyświetla tylko biały ekran przez parę sekund. To jest normalnę.
-• Nieraz dostaniesz notyfikacje systemową o tych samych wpływających Bitcoin parę razy. Dostajesz je tylko raz.
+• Przy pierwszym uruchomieniu, aplikacja może wyświetlać przez jakiś czas jedynie biały ekran. To normalne.
+• Możliwe są wielokrotne powiadomienia o tych samych transakcjach przychodzących. Bitcoiny są naliczane tylko raz.
 
-Możesz dostać twoją pierwszą Bitcoin do zabawy od
+Możesz dostać kilka pierwszych Bitcoinów za darmo:
 https://freebitcoins.appspot.com/
 
-Możesz znaleźć więcej o Bitcoin na
+Więcej o Bitcoin dowiesz się pod adresem:
 http://bitcoin.org
 
-Jeżeli chcesz wesprzeć Bitcoin Wallet, projekt znajduje się na
+Jeżeli chcesz wesprzeć Bitcoin Wallet, kody źródłowe projektu znajdują się pod adresem:
 https://code.google.com/p/bitcoin-wallet/
 
 Licencja: GPLv3
-Używanie na własne ryzyko!
+Używanie jedynie na własne ryzyko!
 
 --
 BTC bitcoin wallet bitcoinandroid androidbitcoin Geldbörse Кошелёк
