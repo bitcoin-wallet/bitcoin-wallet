@@ -12,7 +12,7 @@
 		<TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
 			android:layout_marginRight="6sp" android:text="BTC" android:textColor="#bbb" android:textSize="32sp" />
 		<TextView android:id="@+id/widget_wallet_balance" android:layout_width="wrap_content" android:layout_height="wrap_content"
-			android:textColor="#eee" android:textSize="38sp" />
+			android:textColor="#eee" android:textSize="38sp" android:singleLine="true" />
 	</LinearLayout>
 
 </LinearLayout>
