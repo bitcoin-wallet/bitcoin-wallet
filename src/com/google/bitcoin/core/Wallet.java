@@ -314,11 +314,13 @@ public class Wallet implements Serializable {
     }
 
     public synchronized void receivePendingTransaction(Transaction tx) {
-        tx.updatedAt = new Date();
-        pending.put(tx.getHash(), tx);
-        for (WalletEventListener l : eventListeners) {
-            synchronized (l) {
-                l.onPendingCoinsReceived(this, tx);
+        if (tx.isMine(this) && !tx.sent(this)) {
+            tx.updatedAt = new Date();
+            pending.put(tx.getHash(), tx);
+            for (WalletEventListener l : eventListeners) {
+                synchronized (l) {
+                    l.onPendingCoinsReceived(this, tx);
+                }
             }
         }
     }
