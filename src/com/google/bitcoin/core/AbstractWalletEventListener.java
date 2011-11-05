@@ -47,6 +47,7 @@ public abstract class AbstractWalletEventListener implements WalletEventListener
      * @param tx The sent transaction
      */
     public void onCoinsSent(Wallet wallet, Transaction tx, BigInteger prevBalance, BigInteger newBalance) {
+        onChange();
     }
 
     /**
@@ -58,6 +59,7 @@ public abstract class AbstractWalletEventListener implements WalletEventListener
      * @param tx The pending transaction
      */
     public void onPendingCoinsReceived(Wallet wallet, Transaction tx) {
+        onChange();
     }
 
     /**
