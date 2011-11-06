@@ -221,7 +221,7 @@ public class WalletTransactionsFragment extends Fragment
 						final Uri uri = AddressBookProvider.CONTENT_URI.buildUpon().appendPath(address).build();
 
 						final Cursor cursor = getActivity().managedQuery(uri, null, null, null, null);
-						if (cursor.moveToFirst())
+						if (cursor != null && cursor.moveToFirst())
 							label = cursor.getString(cursor.getColumnIndexOrThrow(AddressBookProvider.KEY_LABEL));
 					}
 					catch (final ScriptException x)
