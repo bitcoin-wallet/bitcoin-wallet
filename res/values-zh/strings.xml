@@ -32,10 +32,6 @@
 	<string name="wallet_options_safety">安全及风险提示</string>
 	<string name="wallet_options_donate">捐赠</string>
 	<string name="wallet_options_help">帮助</string>
-	<string name="wallet_migration_dialog_title">重要提示！</string>
-	<string name="wallet_migration_dialog_msg">根据人民群众需要，比特币钱包软件已从测试网络切换到正式网络，这意味着你		发出去的钱就是泼出去的水，覆水难收啊！所以请你务必要阅读安全提示。\n\n如果不想冒这个风险，那么请安装比特币钱包测试版</string>
-	<string name="wallet_migration_dialog_button_safety">阅读安全及风险提示</string>
-	<string name="wallet_migration_dialog_button_testnet">安装测试版</string>
 	<string name="wallet_low_storage_dialog_title">内部存储空间不足！！</string>
 	<string name="wallet_low_storage_dialog_msg">比特币钱包使用内部空间来存储交易记录了货币包，如果空间用完，那么它就会罢工，然后你的 比特币 就会有危险哦！\n\n我们觉得你应该想删除一些不需要的程序？</string>
 	<string name="wallet_low_storage_dialog_button_apps">管理应用程序</string>

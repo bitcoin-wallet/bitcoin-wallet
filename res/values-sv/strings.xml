@@ -32,12 +32,6 @@
 	<string name="wallet_options_safety">Säkerhetsinfo</string>
 	<string name="wallet_options_donate">Donera</string>
 	<string name="wallet_options_help">Hjälp</string>
-	<string name="wallet_migration_dialog_title">Viktigt meddelande!</string>
-	<string name="wallet_migration_dialog_msg">"På allmän begäran har Bitcoin Wallet bytt från Testnet till Prodnet. Detta betyder att du
-		nu kan betala på riktigt! Vänligen läs säkerhetsbeskrivningen.\n\nOm du inte vill ta några risker utan stanna på Testnet, var vänlig
-		installera Bitcoin Wallet för Testnet."</string>
-	<string name="wallet_migration_dialog_button_safety">Läs säkerhetsbeskrivningen</string>
-	<string name="wallet_migration_dialog_button_testnet">Installera Testnet</string>
 	<string name="wallet_low_storage_dialog_title">Interna utrymmet på telefonen börjar ta slut!</string>
 	<string name="wallet_low_storage_dialog_msg">Bitcoin Wallet använder internt utrymme för att spara transaktioner och block. Om den får slut på
 		utrymme så kommer den att sluta fungera, och dina Bitcoins kan försvinna!\n\nVill du öppna Applikationshanteraren för att

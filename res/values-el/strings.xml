@@ -32,12 +32,6 @@
 	<string name="wallet_options_safety">Οδηγίες ασφαλείας</string>
 	<string name="wallet_options_donate">Δωρίστε</string>
 	<string name="wallet_options_help">Βοήθεια</string>
-	<string name="wallet_migration_dialog_title">Σημαντική σημείωση!</string>
-	<string name="wallet_migration_dialog_msg">"Λόγω της μεγάλης ζήτησης, το Bitcoin Πορτοφόλι έχει αλλάξει από: Testnet στο Prodnet. Αυτό σημαίνει ότι μπορείτε
-πλέον να κάνετε πραγματικές πληρωμές ! Παρακαλώ διαβάστε τις οδηγείες ασφαλείας. \n\nΑν δεν θέλετε να πάρετε το ρίσκο και να παραμείνετε στο Testnet, παρακαλώ
-εγκαταστήσετε το Bitcoin Wallet for Testnet."</string>
-	<string name="wallet_migration_dialog_button_safety">Διαβάστε τις οδηγείες ασφαλείας</string>
-	<string name="wallet_migration_dialog_button_testnet">Εγκαταστήστε το Testnet</string>
 	<string name="wallet_low_storage_dialog_title">Η εσωτερική μνήμη της συσκευής είναι χαμηλή!</string>
 	<string name="wallet_low_storage_dialog_msg">Το πορτοφόλι Bitcoin χρησιμοποιεί την εσωτερική μνήμη για να θυμάται τις συναλλαγές και τα μπλοκ. Αν ξεμείνει από
 χώρο, θα σταματήσει να λειτουργεί και τα Bitcoins σας θα είναι σε κίνδυνο! \n\nΘέλετε να ανοίξετε τη Διαχείριση εφαρμογών, προκειμένου να

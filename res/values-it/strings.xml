@@ -32,12 +32,6 @@
 	<string name="wallet_options_safety">Note di sicurezza</string>
 	<string name="wallet_options_donate">Donazioni</string>
 	<string name="wallet_options_help">Aiuto</string>
-	<string name="wallet_migration_dialog_title">Nota importante!</string>
-	<string name="wallet_migration_dialog_msg">"A grande richiesta, Bitcoin Wallet ha cominciato ad usare la rete Bitcoin
-		invece che quella di test. Questo implica che ogni transazione viene effettuata realmente!
-		Per evitare rischi ti consigliamo di utilizzare la rete di test (Testnet) installando Bitcoin Wallet for Testnet."</string>
-	<string name="wallet_migration_dialog_button_safety">Leggi i suggerimenti per la sicurezza</string>
-	<string name="wallet_migration_dialog_button_testnet">Installa Testnet</string>
 	<string name="wallet_low_storage_dialog_title">Spazio di memorizzazione interno quasi esaurito!</string>
 	<string name="wallet_low_storage_dialog_msg">Bitcoin Wallet usa la memoria interna al dispositivo per memorizzare transazioni e blocchi.
 		Se lo spazio si esaurisce smetterà di funzionerà ed i tuoi Bitcoins potrebbero essere a rischio!\n\n

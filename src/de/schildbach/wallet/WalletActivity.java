@@ -18,7 +18,6 @@
 package de.schildbach.wallet;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
@@ -136,8 +135,6 @@ public class WalletActivity extends AbstractWalletActivity
 		final FragmentManager fm = getSupportFragmentManager();
 		fm.beginTransaction().hide(fm.findFragmentById(R.id.wallet_addresses_fragment)).hide(fm.findFragmentById(R.id.exchange_rates_fragment))
 				.commit();
-
-		checkTestnetProdnetMigrationAlert();
 
 		checkVersionAndTimeskewAlert();
 	}
@@ -272,36 +269,6 @@ public class WalletActivity extends AbstractWalletActivity
 		{
 			messageView.setVisibility(View.INVISIBLE);
 			disclaimerView.setVisibility(View.VISIBLE);
-		}
-	}
-
-	private void checkTestnetProdnetMigrationAlert()
-	{
-		final File testBlockchain = new File(getDir("blockstore", Context.MODE_WORLD_READABLE | Context.MODE_WORLD_WRITEABLE),
-				Constants.BLOCKCHAIN_FILENAME_TEST);
-		if (!Constants.TEST && testBlockchain.exists())
-		{
-			final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-			builder.setIcon(android.R.drawable.ic_dialog_alert);
-			builder.setTitle(R.string.wallet_migration_dialog_title);
-			builder.setMessage(R.string.wallet_migration_dialog_msg);
-			builder.setPositiveButton(R.string.wallet_migration_dialog_button_safety, new DialogInterface.OnClickListener()
-			{
-				public void onClick(final DialogInterface dialog, final int id)
-				{
-					testBlockchain.delete();
-
-					showDialog(DIALOG_SAFETY);
-				}
-			});
-			builder.setNegativeButton(R.string.wallet_migration_dialog_button_testnet, new DialogInterface.OnClickListener()
-			{
-				public void onClick(final DialogInterface dialog, final int id)
-				{
-					switchNetwork(true);
-				}
-			});
-			builder.show();
 		}
 	}
 

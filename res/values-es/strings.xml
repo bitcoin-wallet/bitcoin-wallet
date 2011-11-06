@@ -32,12 +32,6 @@
 	<string name="wallet_options_safety">Notas de seguridad</string>
 	<string name="wallet_options_donate">Donaciones</string>
 	<string name="wallet_options_help">Ayuda</string>
-	<string name="wallet_migration_dialog_title">¡Aviso importante!</string>
-	<string name="wallet_migration_dialog_msg">"Por petición popular, Bitcoin Wallet se ha trasladado de Testnet a Prodnet. Esto quiere decir que ¡se
-		pueden hacer pagos verdaderos! Por favor lee las advertencias de seguridad.\n\nSi prefieres evitar el riesgo y permanecer en Testnet, por favor
-		instala Bitcoin Wallet para Testnet."</string>
-	<string name="wallet_migration_dialog_button_safety">Leer las advertencias de seguridad</string>
-	<string name="wallet_migration_dialog_button_testnet">Instalar Testnet</string>
 	<string name="wallet_low_storage_dialog_title">¡Espacio de almacenamiento interno del dispositivo bajo!</string>
 	<string name="wallet_low_storage_dialog_msg">Bitcoin Wallet utiliza el almacenamiento interno para recordar transacciones y bloques. Si se queda sin
 		espacio, dejará de funcionar ¡y tus bitcoins estarán en peligro!\n\n¿Quieres abrir el Gestor de Aplicaciones para

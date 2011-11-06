@@ -32,10 +32,6 @@
 	<string name="wallet_options_safety">Veiligheids voorschriften</string>
 	<string name="wallet_options_donate">Doneren</string>
 	<string name="wallet_options_help">Help</string>
-	<string name="wallet_migration_dialog_title">Belangrijke melding!</string>
-	<string name="wallet_migration_dialog_msg">"Op veler verzoek is Bitcoin Wallet overgestapt van Testnet naar Prodnet. Dit betekent dat u nu echte betalingen kan doen! Leest u van tevoren de veiligheids tips.\n\nAls u geen risico wil nemen, installeer dan Bitcoin Wallet for Testnet."</string>
-	<string name="wallet_migration_dialog_button_safety">Lees veiligheids tips</string>
-	<string name="wallet_migration_dialog_button_testnet">Installeer Testnet</string>
 	<string name="wallet_low_storage_dialog_title">Interne opslagruimte van het apparaat is laag!</string>
 	<string name="wallet_low_storage_dialog_msg">Bitcoin Wallet gebruikt interne opslag voor het bewaren van transacties en blokken. Als er onvoldoende opslag ruimte is zal het programma niet juist meer werken en zijn uw Bitcoins in gevaar!\n\nWilt u Applicatie beheer openen om overbodige applicaties te verwijderen?</string>
 	<string name="wallet_low_storage_dialog_button_apps">Applicatie beheer</string>

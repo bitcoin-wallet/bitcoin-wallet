@@ -32,12 +32,6 @@
 	<string name="wallet_options_safety">Bezpečnost</string>
 	<string name="wallet_options_donate">Přispět</string>
 	<string name="wallet_options_help">Nápověda</string>
-	<string name="wallet_migration_dialog_title">Důležité upozornění!</string>
-	<string name="wallet_migration_dialog_msg">"Díky popularitě aplikace Bitcoin Wallet přešla z prostředí Testnet do Prodnet. To znamená,
-		že je možné opravdu platit! Prosím, přečtěte si bezpečnostní tipy.\n\nPokud si netroufáte riskovat a chcete zustat na Testnetu, nainstalujte
-		si aplikaci Bitcoin Wallet for Testnet."</string>
-	<string name="wallet_migration_dialog_button_safety">Bezpečnostní tipy</string>
-	<string name="wallet_migration_dialog_button_testnet">Instalovat Testnet</string>
 	<string name="wallet_low_storage_dialog_title">Málo vnitřní paměti!</string>
 	<string name="wallet_low_storage_dialog_msg">Bitcoin Wallet používá vnitřní paměť zařízení pro ukládání transakcí a bloků. Pokud paměť dojde, aplikace
 		může přestat fungovat a můžete pozbýt Vaše Bitcoiny!\n\nChcete otevřít správce aplikací pro odinstalací nepotřebných aplikací?</string>
