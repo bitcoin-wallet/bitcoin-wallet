@@ -199,18 +199,62 @@ public class Application extends android.app.Application
 		}
 		catch (final FileNotFoundException x)
 		{
-			wallet = new Wallet(Constants.NETWORK_PARAMETERS);
-			wallet.keychain.add(new ECKey());
-
 			try
 			{
-				wallet.saveToFileStream(openFileOutput(filename, mode));
-				System.out.println("wallet created: " + getFilesDir() + "/" + filename);
+				wallet = restoreWalletFromSnapshot();
 			}
-			catch (final IOException x2)
+			catch (final FileNotFoundException x2)
 			{
-				throw new Error("wallet cannot be created", x2);
+				wallet = new Wallet(Constants.NETWORK_PARAMETERS);
+				wallet.keychain.add(new ECKey());
+
+				try
+				{
+					wallet.saveToFileStream(openFileOutput(filename, mode));
+					System.out.println("wallet created: " + getFilesDir() + "/" + filename);
+				}
+				catch (final IOException x3)
+				{
+					throw new Error("wallet cannot be created", x3);
+				}
 			}
+		}
+	}
+
+	private Wallet restoreWalletFromSnapshot() throws FileNotFoundException
+	{
+		try
+		{
+			final Wallet wallet = new Wallet(Constants.NETWORK_PARAMETERS);
+			final BufferedReader in = new BufferedReader(new InputStreamReader(getAssets().open(Constants.WALLET_KEY_BACKUP_SNAPSHOT), "UTF-8"));
+
+			while (true)
+			{
+				final String line = in.readLine();
+				if (line == null)
+					break;
+
+				final ECKey key = new DumpedPrivateKey(Constants.NETWORK_PARAMETERS, line).getKey();
+				wallet.keychain.add(key);
+			}
+
+			in.close();
+
+			System.out.println("wallet restored from snapshot");
+
+			return wallet;
+		}
+		catch (final FileNotFoundException x)
+		{
+			throw x;
+		}
+		catch (final IOException x)
+		{
+			throw new RuntimeException(x);
+		}
+		catch (final AddressFormatException x)
+		{
+			throw new RuntimeException(x);
 		}
 	}
 

@@ -50,6 +50,10 @@ public class Constants
 	public static final int WALLET_MODE_TEST = Context.MODE_WORLD_READABLE | Context.MODE_WORLD_WRITEABLE;
 	public static final int WALLET_MODE = Constants.TEST ? WALLET_MODE_TEST : WALLET_MODE_PROD;
 
+	private static final String WALLET_KEY_BACKUP_SNAPSHOT_PROD = "key-backup-snapshot";
+	private static final String WALLET_KEY_BACKUP_SNAPSHOT_TEST = "key-backup-snapshot-testnet";
+	public static final String WALLET_KEY_BACKUP_SNAPSHOT = Constants.TEST ? WALLET_KEY_BACKUP_SNAPSHOT_TEST : WALLET_KEY_BACKUP_SNAPSHOT_PROD;
+
 	public static final String BLOCKCHAIN_SNAPSHOT_FILENAME_PROD = "blockchain-snapshot.jpg";
 	public static final String BLOCKCHAIN_SNAPSHOT_FILENAME_TEST = "blockchain-snapshot-testnet.jpg";
 
