@@ -156,6 +156,43 @@ public class Application extends android.app.Application
 						}
 					});
 				}
+
+				private Wallet restoreWallet()
+				{
+					try
+					{
+						final Wallet wallet = new Wallet(Constants.NETWORK_PARAMETERS);
+						final BufferedReader in = new BufferedReader(
+								new InputStreamReader(openFileInput(Constants.WALLET_KEY_BACKUP_BASE58), "UTF-8"));
+
+						while (true)
+						{
+							final String line = in.readLine();
+							if (line == null)
+								break;
+
+							final ECKey key = new DumpedPrivateKey(Constants.NETWORK_PARAMETERS, line).getKey();
+							wallet.keychain.add(key);
+						}
+
+						in.close();
+
+						final File file = new File(getDir("blockstore", Context.MODE_WORLD_READABLE | Context.MODE_WORLD_WRITEABLE),
+								Constants.BLOCKCHAIN_FILENAME);
+						file.delete();
+
+						return wallet;
+					}
+					catch (final IOException x)
+					{
+						throw new RuntimeException(x);
+					}
+					catch (final AddressFormatException x)
+					{
+						throw new RuntimeException(x);
+					}
+				}
+
 			}, STACK_SIZE);
 
 			System.out.println("wallet loaded from: " + getFilesDir() + "/" + filename);
@@ -262,41 +299,6 @@ public class Application extends android.app.Application
 			{
 				x.printStackTrace();
 			}
-		}
-	}
-
-	private Wallet restoreWallet()
-	{
-		try
-		{
-			final Wallet wallet = new Wallet(Constants.NETWORK_PARAMETERS);
-			final BufferedReader in = new BufferedReader(new InputStreamReader(openFileInput(Constants.WALLET_KEY_BACKUP_BASE58), "UTF-8"));
-
-			while (true)
-			{
-				final String line = in.readLine();
-				if (line == null)
-					break;
-
-				final ECKey key = new DumpedPrivateKey(Constants.NETWORK_PARAMETERS, line).getKey();
-				wallet.keychain.add(key);
-			}
-
-			in.close();
-
-			final File file = new File(getDir("blockstore", Context.MODE_WORLD_READABLE | Context.MODE_WORLD_WRITEABLE),
-					Constants.BLOCKCHAIN_FILENAME);
-			file.delete();
-
-			return wallet;
-		}
-		catch (final IOException x)
-		{
-			throw new RuntimeException(x);
-		}
-		catch (final AddressFormatException x)
-		{
-			throw new RuntimeException(x);
 		}
 	}
 
