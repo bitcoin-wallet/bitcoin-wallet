@@ -54,8 +54,6 @@ import de.schildbach.wallet_test.R;
  */
 public class Application extends android.app.Application
 {
-	private static final int STACK_SIZE = 128 * 1024;
-
 	private Wallet wallet;
 
 	private final Handler handler = new Handler();
@@ -193,7 +191,7 @@ public class Application extends android.app.Application
 					}
 				}
 
-			}, STACK_SIZE);
+			}, Constants.WALLET_OPERATION_STACK_SIZE);
 
 			System.out.println("wallet loaded from: " + getFilesDir() + "/" + filename);
 		}
@@ -286,7 +284,7 @@ public class Application extends android.app.Application
 					throw new RuntimeException(x);
 				}
 			}
-		}, STACK_SIZE);
+		}, Constants.WALLET_OPERATION_STACK_SIZE);
 	}
 
 	private void backupKeys()
