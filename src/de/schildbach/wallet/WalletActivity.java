@@ -172,7 +172,6 @@ public class WalletActivity extends AbstractWalletActivity
 	{
 		super.onCreateOptionsMenu(menu);
 		getMenuInflater().inflate(R.menu.wallet_options, menu);
-		menu.findItem(R.id.wallet_options_switch_network).setTitle("→ " + (Constants.TEST ? "Prodnet" : "Testnet"));
 		menu.findItem(R.id.wallet_options_donate).setVisible(!Constants.TEST);
 		menu.findItem(R.id.wallet_options_help).setVisible(Constants.TEST);
 		return true;
@@ -193,10 +192,6 @@ public class WalletActivity extends AbstractWalletActivity
 
 			case R.id.wallet_options_preferences:
 				startActivity(new Intent(this, PreferencesActivity.class));
-				return true;
-
-			case R.id.wallet_options_switch_network:
-				switchNetwork(!Constants.TEST);
 				return true;
 
 			case R.id.wallet_options_safety:
@@ -270,18 +265,6 @@ public class WalletActivity extends AbstractWalletActivity
 			messageView.setVisibility(View.INVISIBLE);
 			disclaimerView.setVisibility(View.VISIBLE);
 		}
-	}
-
-	private void switchNetwork(final boolean test)
-	{
-		final String packageName = test ? Constants.PACKAGE_NAME_TEST : Constants.PACKAGE_NAME_PROD;
-		final String className = getClass().getName();
-		final Intent intent = new Intent().setClassName(packageName, className);
-		if (getPackageManager().resolveActivity(intent, 0) != null)
-			startActivity(intent);
-		else
-			showMarketPage(packageName);
-		finish();
 	}
 
 	private void checkLowStorageAlert()
