@@ -264,6 +264,19 @@ public abstract class Message implements Serializable {
     }
 
     /**
+     * Returns a copy of the array returned by {@link Message#unsafeBitcoinSerialize()}, which is safe to mutate.
+     * If you need extra performance and can guarantee you won't write to the array, you can use the unsafe version.
+     *
+     * @return a freshly allocated serialized byte array
+     */
+    public byte[] bitcoinSerialize() {
+        byte[] bytes = unsafeBitcoinSerialize();
+        byte[] copy = new byte[bytes.length];
+        System.arraycopy(bytes, 0, copy, 0, bytes.length);
+        return copy;
+    }
+
+    /**
      * Serialize this message to a byte array that conforms to the bitcoin wire protocol.
      * <br/>
      * This method may return the original byte array used to construct this message if the
@@ -280,9 +293,8 @@ public abstract class Message implements Serializable {
      *
      * @return a byte array owned by this object, do NOT mutate it.
      */
-    public byte[] bitcoinSerialize() {
-
-        //1st attempt to use a cached array
+    public byte[] unsafeBitcoinSerialize() {
+        // 1st attempt to use a cached array.
         if (bytes != null) {
             if (offset == 0 && length == bytes.length) {
                 // Cached byte array is the entire message with no extras so we can return as is and avoid an array
