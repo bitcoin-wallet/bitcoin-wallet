@@ -43,17 +43,14 @@
 		space, it will stop working and your Bitcoins are at risk!\n\nDo you want to open the Application Manager in order to
 		uninstall unneeded apps?</string>
 	<string name="wallet_low_storage_dialog_button_apps">Manage Apps</string>
-	<string name="wallet_low_storage_dialog_button_dismiss">Dismiss</string>
 	<string name="wallet_timeskew_dialog_title">Check your time settings!</string>
 	<string name="wallet_timeskew_dialog_msg">Your device time is off by %d minutes. You probably cannot send or receive Bitcoins due to this
 		problem.\n\nYou should check and correct your time and timezone settings.</string>
 	<string name="wallet_timeskew_dialog_button_settings">Settings</string>
-	<string name="wallet_timeskew_dialog_button_dismiss">Dismiss</string>
 
 	<string name="send_coins_activity_title">Send Bitcoins</string>
 	<string name="send_coins_install_qr_scanner_msg">Please install ZXing QR-code scanner or Goggles!</string>
 	<string name="send_coins_uri_parse_error_title">Invalid Bitcoin URI</string>
-	<string name="send_coins_uri_parse_error_dismiss">Dismiss</string>
 	<string name="send_coins_fragment_receiving_address_label">Pay to</string>
 	<string name="send_coins_fragment_receiving_address_hint">type address or name</string>
 	<string name="send_coins_fragment_receiving_address_error">Invalid Bitcoin Address!</string>
@@ -68,7 +65,6 @@
 	<string name="send_coins_sent_msg">Sent!</string>
 	<string name="send_coins_add_address_dialog_title">The recipient is not yet contained in your address book.\n\nDo you want to add the address?</string>
 	<string name="send_coins_add_address_dialog_button_add">Add address</string>
-	<string name="send_coins_add_address_dialog_button_dismiss">Dismiss</string>
 	<string name="send_coins_error_msg">Problem sending coins!</string>
 	<string name="send_coins_success_msg">BTC %s sent!</string>
 
@@ -110,5 +106,8 @@
 
 	<string name="notification_coins_received_msg">Received BTC %s</string>
 	<string name="notification_peers_connected_msg">%d peers connected</string>
+
+	<!-- generic buttons -->
+	<string name="button_dismiss">Dismiss</string>
 
 </resources>

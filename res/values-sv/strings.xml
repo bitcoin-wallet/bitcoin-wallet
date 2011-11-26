@@ -37,7 +37,6 @@
 		utrymme så kommer den att sluta fungera, och dina Bitcoins kan försvinna!\n\nVill du öppna Applikationshanteraren för att
 		avinstallera onödiga appar?</string>
 	<string name="wallet_low_storage_dialog_button_apps">Hantera appar</string>
-	<string name="wallet_low_storage_dialog_button_dismiss">Avbryt</string>
 
 	<string name="send_coins_activity_title">Skicka Bitcoins</string>
 	<string name="send_coins_install_qr_scanner_msg">Vänligen installera ZXing eller Goggles för att scanna QR-koder!</string>
@@ -53,7 +52,6 @@
 	<string name="send_coins_sending_msg">Skickar...</string>
 	<string name="send_coins_add_address_dialog_title">Mottagaradressen finns inte i din adressbok.\n\nVill du lägga till denna adress?</string>
 	<string name="send_coins_add_address_dialog_button_add">Lägg till adress</string>
-	<string name="send_coins_add_address_dialog_button_dismiss">Avsluta</string>
 	<string name="send_coins_error_msg">Problem att skicka Bitcoins!</string>
 	<string name="send_coins_success_msg">Skickat %s BTC!</string>
 
@@ -91,5 +89,8 @@
 
 	<string name="notification_coins_received_msg">Tagit emot %s BTC</string>
 	<string name="notification_peers_connected_msg">Ansluten till %d noder</string>
+
+	<!-- generic buttons -->
+	<string name="button_dismiss">Avsluta</string>
 
 </resources>

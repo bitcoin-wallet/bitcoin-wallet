@@ -37,7 +37,6 @@
 		espacio, dejará de funcionar ¡y tus bitcoins estarán en peligro!\n\n¿Quieres abrir el Gestor de Aplicaciones para
 		desinstalar aplicaciones innecesarias?</string>
 	<string name="wallet_low_storage_dialog_button_apps">Gestionar Aplicaciones</string>
-	<string name="wallet_low_storage_dialog_button_dismiss">Rechazar</string>
 
 	<string name="send_coins_activity_title">Enviar bitcoins</string>
 	<string name="send_coins_install_qr_scanner_msg">Por favor, ¡instala un explorador de códigos QR como ZXing o Goggles!</string>
@@ -53,7 +52,6 @@
 	<string name="send_coins_sending_msg">Enviando...</string>
 	<string name="send_coins_add_address_dialog_title">El receptor no está en tu libreta de direcciones.\n\n¿Quieres añadir la dirección?</string>
 	<string name="send_coins_add_address_dialog_button_add">Añadir dirección</string>
-	<string name="send_coins_add_address_dialog_button_dismiss">Rechazar</string>
 	<string name="send_coins_error_msg">¡Problema enviando bitcoins!</string>
 	<string name="send_coins_success_msg">¡BTC %s enviados!</string>
 
@@ -91,5 +89,8 @@
 
 	<string name="notification_coins_received_msg">BTC %s recibidos</string>
 	<string name="notification_peers_connected_msg">%d pares conectados</string>
+
+	<!-- generic buttons -->
+	<string name="button_dismiss">Rechazar</string>
 
 </resources>

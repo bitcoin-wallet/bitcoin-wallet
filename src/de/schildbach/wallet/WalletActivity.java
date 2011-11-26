@@ -284,7 +284,7 @@ public class WalletActivity extends AbstractWalletActivity
 					finish();
 				}
 			});
-			builder.setNegativeButton(R.string.wallet_low_storage_dialog_button_dismiss, null);
+			builder.setNegativeButton(R.string.button_dismiss, null);
 			builder.show();
 		}
 	}
@@ -345,7 +345,7 @@ public class WalletActivity extends AbstractWalletActivity
 				finish();
 			}
 		});
-		builder.setNegativeButton(R.string.wallet_timeskew_dialog_button_dismiss, null);
+		builder.setNegativeButton(R.string.button_dismiss, null);
 		builder.show();
 	}
 }

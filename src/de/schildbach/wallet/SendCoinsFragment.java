@@ -421,7 +421,7 @@ public class SendCoinsFragment extends Fragment
 				newFragment.show(ft, EditAddressBookEntryFragment.FRAGMENT_TAG);
 			}
 		});
-		builder.setNegativeButton(R.string.send_coins_add_address_dialog_button_dismiss, null);
+		builder.setNegativeButton(R.string.button_dismiss, null);
 		builder.show();
 	}
 

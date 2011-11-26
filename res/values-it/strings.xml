@@ -38,7 +38,6 @@
 		Vuoi aprire il gestore applicazioni per disinstallare applicazioni di cui potresti non aver bisogno?
 	</string>
 	<string name="wallet_low_storage_dialog_button_apps">Gestisci applicazioni</string>
-	<string name="wallet_low_storage_dialog_button_dismiss">Chiudi</string>
 
 	<string name="send_coins_activity_title">Invia Bitcoins</string>
 	<string name="send_coins_install_qr_scanner_msg">Installa ZXing QR-code scanner o Goggles!</string>
@@ -54,7 +53,6 @@
 	<string name="send_coins_sending_msg">Invio in corso...</string>
 	<string name="send_coins_add_address_dialog_title">Il destinatario non è ancora presente in rubrica.\n\nVuoi aggiungerlo?</string>
 	<string name="send_coins_add_address_dialog_button_add">Aggiungi indirizzo</string>
-	<string name="send_coins_add_address_dialog_button_dismiss">Chiudi</string>
 	<string name="send_coins_error_msg">"Problemi durante l'invio dei Bitcoins!"</string>
 	<string name="send_coins_success_msg">%s BTC inviati!</string>
 
@@ -92,5 +90,8 @@
 
 	<string name="notification_coins_received_msg">Ricevuti %s BTC</string>
 	<string name="notification_peers_connected_msg">Connesso a %d peers</string>
+
+	<!-- generic buttons -->
+	<string name="button_dismiss">Chiudi</string>
 
 </resources>

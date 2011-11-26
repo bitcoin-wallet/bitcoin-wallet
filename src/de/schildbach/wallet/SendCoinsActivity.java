@@ -175,7 +175,7 @@ public class SendCoinsActivity extends AbstractWalletActivity
 		final Builder dialog = new AlertDialog.Builder(this);
 		dialog.setTitle(R.string.send_coins_uri_parse_error_title);
 		dialog.setMessage(uri);
-		dialog.setNeutralButton(R.string.send_coins_uri_parse_error_dismiss, null);
+		dialog.setNeutralButton(R.string.button_dismiss, null);
 		dialog.show();
 	}
 }

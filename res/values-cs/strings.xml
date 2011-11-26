@@ -36,7 +36,6 @@
 	<string name="wallet_low_storage_dialog_msg">Bitcoin Wallet používá vnitřní paměť zařízení pro ukládání transakcí a bloků. Pokud paměť dojde, aplikace
 		může přestat fungovat a můžete pozbýt Vaše Bitcoiny!\n\nChcete otevřít správce aplikací pro odinstalací nepotřebných aplikací?</string>
 	<string name="wallet_low_storage_dialog_button_apps">Spravovat aplikace</string>
-	<string name="wallet_low_storage_dialog_button_dismiss">Odmítnout</string>
 
 	<string name="send_coins_activity_title">Zaslat Bitcoiny</string>
 	<string name="send_coins_install_qr_scanner_msg">Nainstalujte si ZXing QR-code scanner nebo Goggles!</string>
@@ -52,7 +51,6 @@
 	<string name="send_coins_sending_msg">Posílám...</string>
 	<string name="send_coins_add_address_dialog_title">Příjemce není ve Vašem adresáři.\n\nChcete jej přidat do adresáře?</string>
 	<string name="send_coins_add_address_dialog_button_add">Přidat</string>
-	<string name="send_coins_add_address_dialog_button_dismiss">Zrušit</string>
 	<string name="send_coins_error_msg">Problém při zasílání!</string>
 	<string name="send_coins_success_msg">BTC %s odesláno!</string>
 
@@ -90,5 +88,8 @@
 
 	<string name="notification_coins_received_msg">Obdrženo BTC %s</string>
 	<string name="notification_peers_connected_msg">%d peerů připojeno</string>
+
+	<!-- generic buttons -->
+	<string name="button_dismiss">Zrušit</string>
 
 </resources>

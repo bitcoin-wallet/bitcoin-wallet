@@ -37,7 +37,6 @@
 		приложение перестанет работать, что поставит под угрозу содержимое Bitcoin-кошелька!\n\nЖелаете ли перейти к Управлению Приложениями, дабы
 		удалить ненужные программы?</string>
 	<string name="wallet_low_storage_dialog_button_apps">Управление приложениями</string>
-	<string name="wallet_low_storage_dialog_button_dismiss">Отмена</string>
 
 	<string name="send_coins_activity_title">Отправка Bitcoin</string>
 	<string name="send_coins_install_qr_scanner_msg">Пожалуйста, установите сканер QR-кодов ZXing или Goggles!</string>
@@ -53,7 +52,6 @@
 	<string name="send_coins_sending_msg">Отправка...</string>
 	<string name="send_coins_add_address_dialog_title">Получатель ещё не добавлен в адресную книгу.\n\nЖелаете ли добавить адрес?</string>
 	<string name="send_coins_add_address_dialog_button_add">Добавить адрес</string>
-	<string name="send_coins_add_address_dialog_button_dismiss">Отмена</string>
 	<string name="send_coins_error_msg">Проблема с отправкой монет!</string>
 	<string name="send_coins_success_msg">BTC %s отправлено!</string>
 
@@ -91,5 +89,8 @@
 
 	<string name="notification_coins_received_msg">Получено BTC %s</string>
 	<string name="notification_peers_connected_msg">подключено %d пиров</string>
+
+	<!-- generic buttons -->
+	<string name="button_dismiss">Отмена</string>
 
 </resources>

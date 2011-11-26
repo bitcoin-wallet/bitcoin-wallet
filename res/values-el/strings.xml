@@ -37,7 +37,6 @@
 χώρο, θα σταματήσει να λειτουργεί και τα Bitcoins σας θα είναι σε κίνδυνο! \n\nΘέλετε να ανοίξετε τη Διαχείριση εφαρμογών, προκειμένου να
 απεγκατάσταση αχρείαστες εφαρμογές;</string>
 	<string name="wallet_low_storage_dialog_button_apps">Διαχείριση των Εφαρμογών</string>
-	<string name="wallet_low_storage_dialog_button_dismiss">Ματαίωση</string>
 
 	<string name="send_coins_activity_title">Αποστολή Bitcoins</string>
 	<string name="send_coins_install_qr_scanner_msg">Παρακαλείσθε να εγκαταστήσετε ένα QR-κώδικα σαρωτή, όπως τα: ZXing ή Goggles!</string>
@@ -53,7 +52,6 @@
 	<string name="send_coins_sending_msg">Αποστολή...</string>
 	<string name="send_coins_add_address_dialog_title">Ο παραλήπτης δεν βρίσκεται στο βιβλίο διευθύνσεών σας. \n\n Θέλετε να προσθέσετε τη διεύθυνση?</string>
 	<string name="send_coins_add_address_dialog_button_add">Προσθήκη διεύθυνσης</string>
-	<string name="send_coins_add_address_dialog_button_dismiss">Ματαίωση</string>
 	<string name="send_coins_error_msg">Πρόβλημα στην αποστολή κερμάτων!</string>
 	<string name="send_coins_success_msg">BTC %s αποστάλθηκαν!</string>
 
@@ -91,5 +89,8 @@
 
 	<string name="notification_coins_received_msg">Ελήφθη BTC %s</string>
 	<string name="notification_peers_connected_msg">%d χρήστες συνδεμένοι</string>
+
+	<!-- generic buttons -->
+	<string name="button_dismiss">Ματαίωση</string>
 
 </resources>
