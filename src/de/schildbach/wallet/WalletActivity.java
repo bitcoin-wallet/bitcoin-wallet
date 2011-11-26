@@ -18,7 +18,7 @@
 package de.schildbach.wallet;
 
 import java.io.BufferedReader;
-import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
@@ -302,7 +302,8 @@ public class WalletActivity extends AbstractWalletActivity
 					final URLConnection connection = new URL(Constants.VERSION_URL + "?current=" + versionCode).openConnection();
 					connection.connect();
 					final long serverTime = connection.getHeaderFieldDate("Date", 0);
-					final BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+					final InputStream is = connection.getInputStream();
+					final BufferedReader reader = new BufferedReader(new InputStreamReader(is));
 					// final String version = reader.readLine();
 					reader.close();
 
@@ -323,7 +324,7 @@ public class WalletActivity extends AbstractWalletActivity
 						}
 					}
 				}
-				catch (final IOException x)
+				catch (final Exception x)
 				{
 					x.printStackTrace();
 				}
