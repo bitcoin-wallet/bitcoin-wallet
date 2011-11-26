@@ -18,7 +18,6 @@
 	<string name="wallet_addresses_fragment_add_dialog_title">添加比特币地址</string>
 	<string name="wallet_addresses_fragment_add_dialog_message">不能删除比特币地址，或许你想要一个新地址？</string>
 	<string name="wallet_addresses_fragment_add_dialog_positive">添加</string>
-	<string name="wallet_addresses_fragment_add_dialog_negative">取消</string>
 	<string name="wallet_balance_fragment_local_value">总价值约为%1$s %2$s</string>
 	<string name="exchange_rates_fragment_empty_text">无法加载汇率</string>
 	<string name="wallet_transactions_fragment_tab_received">接收</string>

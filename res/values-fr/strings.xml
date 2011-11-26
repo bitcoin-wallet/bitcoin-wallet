@@ -18,7 +18,6 @@
 	<string name="wallet_addresses_fragment_add_dialog_title">"Ajouter l'adresse Bitcoin"</string>
 	<string name="wallet_addresses_fragment_add_dialog_message">Les adresses Bitcoin ne peuvent pas être effacées. Voulez vous ajouter une nouvelle adresse à votre wallet?</string>
 	<string name="wallet_addresses_fragment_add_dialog_positive">"Ajouter l'adresse"</string>
-	<string name="wallet_addresses_fragment_add_dialog_negative">Refuser</string>
 	<string name="wallet_balance_fragment_local_value">vaut environ %1$s %2$s</string>
 	<string name="exchange_rates_fragment_empty_text">Impossible de charger les taux de changes</string>
 	<string name="wallet_transactions_fragment_tab_received">Reçu</string>

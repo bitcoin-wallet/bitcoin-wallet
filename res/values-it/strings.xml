@@ -18,7 +18,6 @@
 	<string name="wallet_addresses_fragment_add_dialog_title">Aggiungi un indirizzo Bitcoin</string>
 	<string name="wallet_addresses_fragment_add_dialog_message">Gli indirizzi Bitcoin non possono essere cancellati. Ne vuoi aggiungere uno nuovo?</string>
 	<string name="wallet_addresses_fragment_add_dialog_positive">Aggiungi indirizzo</string>
-	<string name="wallet_addresses_fragment_add_dialog_negative">Annulla</string>
 	<string name="wallet_balance_fragment_local_value">del valore di circa %1$s %2$s</string>
 	<string name="exchange_rates_fragment_empty_text">Impossibile acquisire quotazioni di cambio</string>
 	<string name="wallet_transactions_fragment_tab_received">Ricevuto</string>

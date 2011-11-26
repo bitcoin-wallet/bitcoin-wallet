@@ -18,7 +18,6 @@
 	<string name="wallet_addresses_fragment_add_dialog_title">Přidat Bitcoin adresu</string>
 	<string name="wallet_addresses_fragment_add_dialog_message">Bitcoin adresa se nedá smazat. Chcete přidat do peněženky novou adresu?</string>
 	<string name="wallet_addresses_fragment_add_dialog_positive">Přidat adresu</string>
-	<string name="wallet_addresses_fragment_add_dialog_negative">Zrušit</string>
 	<string name="wallet_balance_fragment_local_value">hodnota okolo %1$s %2$s</string>
 	<string name="exchange_rates_fragment_empty_text">Nemohu zjistit směnný kurz</string>
 	<string name="wallet_transactions_fragment_tab_received">Obdrženo</string>

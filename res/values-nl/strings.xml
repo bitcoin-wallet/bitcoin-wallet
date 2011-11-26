@@ -18,7 +18,6 @@
 	<string name="wallet_addresses_fragment_add_dialog_title">Voeg Bitcoin Adres toe</string>
 	<string name="wallet_addresses_fragment_add_dialog_message">Bitcoin adres kan niet verwijderd worden. Wilt u een nieuw adres toevoeggen aan uw wallet?</string>
 	<string name="wallet_addresses_fragment_add_dialog_positive">Adres toevoegen</string>
-	<string name="wallet_addresses_fragment_add_dialog_negative">Annuleren</string>
 	<string name="wallet_balance_fragment_local_value">waard ongeveer %1$s %2$s</string>
 	<string name="exchange_rates_fragment_empty_text">Kan geen wisselkoersen laden</string>
 	<string name="wallet_transactions_fragment_tab_received">Ontvangen</string>

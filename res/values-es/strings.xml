@@ -18,7 +18,6 @@
 	<string name="wallet_addresses_fragment_add_dialog_title">Añadir dirección Bitcoin</string>
 	<string name="wallet_addresses_fragment_add_dialog_message">Las direcciones Bitcoin no pueden eliminarse. ¿Quieres añadir una nueva dirección a tu cartera?</string>
 	<string name="wallet_addresses_fragment_add_dialog_positive">Añadir dirección</string>
-	<string name="wallet_addresses_fragment_add_dialog_negative">Rechazar</string>
 	<string name="wallet_balance_fragment_local_value">Vale alrededor de %1$s %2$s</string>
 	<string name="exchange_rates_fragment_empty_text">No se pueden cargar los tipos de cambio</string>
 	<string name="wallet_transactions_fragment_tab_received">Recibidos</string>
