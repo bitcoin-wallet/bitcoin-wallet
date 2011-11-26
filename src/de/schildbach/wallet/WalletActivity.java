@@ -22,19 +22,13 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.Date;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.BroadcastReceiver;
-import android.content.ComponentName;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.ServiceConnection;
 import android.os.Bundle;
-import android.os.IBinder;
 import android.support.v4.app.FragmentManager;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -42,7 +36,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.webkit.WebView;
-import android.widget.TextView;
 import de.schildbach.wallet.util.ActionBarFragment;
 import de.schildbach.wallet.util.ErrorReporter;
 import de.schildbach.wallet_test.R;
@@ -52,34 +45,8 @@ import de.schildbach.wallet_test.R;
  */
 public class WalletActivity extends AbstractWalletActivity
 {
-	private static final int DIALOG_SAFETY = 1;
+	public static final int DIALOG_SAFETY = 1;
 	private static final int DIALOG_HELP = 0;
-
-	private int download;
-	private Date chainheadDate;
-
-	private final ServiceConnection serviceConnection = new ServiceConnection()
-	{
-		public void onServiceConnected(final ComponentName name, final IBinder binder)
-		{
-		}
-
-		public void onServiceDisconnected(final ComponentName name)
-		{
-		}
-	};
-
-	private final BroadcastReceiver broadcastReceiver = new BroadcastReceiver()
-	{
-		@Override
-		public void onReceive(final Context context, final Intent intent)
-		{
-			download = intent.getIntExtra(Service.ACTION_BLOCKCHAIN_STATE_DOWNLOAD, Service.ACTION_BLOCKCHAIN_STATE_DOWNLOAD_OK);
-			chainheadDate = (Date) intent.getSerializableExtra(Service.ACTION_BLOCKCHAIN_STATE_CHAINHEAD_DATE);
-
-			updateView();
-		}
-	};
 
 	@Override
 	protected void onCreate(final Bundle savedInstanceState)
@@ -87,8 +54,6 @@ public class WalletActivity extends AbstractWalletActivity
 		super.onCreate(savedInstanceState);
 
 		ErrorReporter.getInstance().check(this);
-
-		bindService(new Intent(this, Service.class), serviceConnection, Context.BIND_AUTO_CREATE);
 
 		setContentView(R.layout.wallet_content);
 
@@ -124,14 +89,6 @@ public class WalletActivity extends AbstractWalletActivity
 			}
 		});
 
-		findViewById(R.id.wallet_disclaimer).setOnClickListener(new OnClickListener()
-		{
-			public void onClick(final View v)
-			{
-				showDialog(DIALOG_SAFETY);
-			}
-		});
-
 		final FragmentManager fm = getSupportFragmentManager();
 		fm.beginTransaction().hide(fm.findFragmentById(R.id.wallet_addresses_fragment)).hide(fm.findFragmentById(R.id.exchange_rates_fragment))
 				.commit();
@@ -144,27 +101,7 @@ public class WalletActivity extends AbstractWalletActivity
 	{
 		super.onResume();
 
-		registerReceiver(broadcastReceiver, new IntentFilter(Service.ACTION_BLOCKCHAIN_STATE));
-
-		updateView();
-
 		checkLowStorageAlert();
-	}
-
-	@Override
-	protected void onPause()
-	{
-		unregisterReceiver(broadcastReceiver);
-
-		super.onPause();
-	}
-
-	@Override
-	protected void onDestroy()
-	{
-		unbindService(serviceConnection);
-
-		super.onDestroy();
 	}
 
 	@Override
@@ -227,44 +164,6 @@ public class WalletActivity extends AbstractWalletActivity
 		dialog.setCanceledOnTouchOutside(true);
 
 		return dialog;
-	}
-
-	private void updateView()
-	{
-		final TextView messageView = (TextView) findViewById(R.id.wallet_message);
-		final TextView disclaimerView = (TextView) findViewById(R.id.wallet_disclaimer);
-
-		if (download != Service.ACTION_BLOCKCHAIN_STATE_DOWNLOAD_OK)
-		{
-			messageView.setVisibility(View.VISIBLE);
-			disclaimerView.setVisibility(View.INVISIBLE);
-
-			if ((download & Service.ACTION_BLOCKCHAIN_STATE_DOWNLOAD_STORAGE_PROBLEM) != 0)
-				messageView.setText(R.string.wallet_message_blockchain_problem_storage);
-			else if ((download & Service.ACTION_BLOCKCHAIN_STATE_DOWNLOAD_POWER_PROBLEM) != 0)
-				messageView.setText(R.string.wallet_message_blockchain_problem_power);
-			else if ((download & Service.ACTION_BLOCKCHAIN_STATE_DOWNLOAD_NETWORK_PROBLEM) != 0)
-				messageView.setText(R.string.wallet_message_blockchain_problem_network);
-		}
-		else if (chainheadDate != null)
-		{
-			final long spanHours = (System.currentTimeMillis() - chainheadDate.getTime()) / 1000 / 60 / 60;
-
-			messageView.setVisibility(spanHours < 2 ? View.INVISIBLE : View.VISIBLE);
-			disclaimerView.setVisibility(spanHours < 2 ? View.VISIBLE : View.INVISIBLE);
-
-			if (spanHours < 48)
-				messageView.setText(getString(R.string.wallet_message_blockchain_hours, spanHours));
-			else if (spanHours < 24 * 14)
-				messageView.setText(getString(R.string.wallet_message_blockchain_days, spanHours / 24));
-			else
-				messageView.setText(getString(R.string.wallet_message_blockchain_weeks, spanHours / 24 / 7));
-		}
-		else
-		{
-			messageView.setVisibility(View.INVISIBLE);
-			disclaimerView.setVisibility(View.VISIBLE);
-		}
 	}
 
 	private void checkLowStorageAlert()
