@@ -45,7 +45,6 @@
 	<string name="send_coins_fragment_amount_label">Kwota do zapłacenia</string>
 	<string name="send_coins_fragment_fee_label">Opłata (opcjonalna)</string>
 	<string name="send_coins_fragment_button_send">Wyślij</string>
-	<string name="send_coins_fragment_button_cancel">Anuluj</string>
 	<string name="send_coins_sending_msg">Wysyłanie...</string>
 	<string name="send_coins_add_address_dialog_title">Odbiorca jeszce nie jest w twojej książce adresowej.\n\nChcesz go dodać?</string>
 	<string name="send_coins_add_address_dialog_button_add">Dodaj adres</string>
@@ -72,7 +71,6 @@
 	<string name="edit_address_book_entry_dialog_button_add">Dodaj</string>
 	<string name="edit_address_book_entry_dialog_button_edit">Zapamiętaj</string>
 	<string name="edit_address_book_entry_dialog_button_delete">Zmaż</string>
-	<string name="edit_address_book_entry_dialog_button_cancel">Anuluj</string>
 
 	<string name="preferences_about_title">Wokół</string>
 	<string name="preferences_license_title">Licencja</string>
@@ -89,5 +87,6 @@
 
 	<!-- generic buttons -->
 	<string name="button_dismiss">Zamknij</string>
+	<string name="button_cancel">Anuluj</string>
 
 </resources>

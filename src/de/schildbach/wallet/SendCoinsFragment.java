@@ -386,7 +386,7 @@ public class SendCoinsFragment extends Fragment
 			viewGo.setText(R.string.send_coins_sent_msg);
 
 		viewCancel.setEnabled(state != State.SENDING);
-		viewCancel.setText(state != State.SENT ? R.string.send_coins_fragment_button_cancel : R.string.send_coins_fragment_button_back);
+		viewCancel.setText(state != State.SENT ? R.string.button_cancel : R.string.send_coins_fragment_button_back);
 	}
 
 	public void update(final String receivingAddress, final BigInteger amount)

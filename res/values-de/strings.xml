@@ -58,7 +58,6 @@
 	<string name="send_coins_fragment_amount_label">Betrag</string>
 	<string name="send_coins_fragment_fee_label">Gebühr (optional)</string>
 	<string name="send_coins_fragment_button_send">Senden</string>
-	<string name="send_coins_fragment_button_cancel">Abbrechen</string>
 	<string name="send_coins_fragment_button_back">Zurück</string>
 	<string name="send_coins_sending_msg">Versenden...</string>
 	<string name="send_coins_sent_msg">Versendet!</string>
@@ -87,11 +86,9 @@
 	<string name="edit_address_book_entry_dialog_button_add">Hinzufügen</string>
 	<string name="edit_address_book_entry_dialog_button_edit">Speichern</string>
 	<string name="edit_address_book_entry_dialog_button_delete">Löschen</string>
-	<string name="edit_address_book_entry_dialog_button_cancel">Abbrechen</string>
 
 	<string name="amount_calculator_dialog_title">Währungs-Umrechner</string>
 	<string name="amount_calculator_dialog_button_use">Übernehmen</string>
-	<string name="amount_calculator_dialog_button_cancel">Abbrechen</string>
 
 	<string name="preferences_about_title">Über</string>
 	<string name="preferences_license_title">Lizenz</string>
@@ -108,5 +105,6 @@
 
 	<!-- generic buttons -->
 	<string name="button_dismiss">Schließen</string>
+	<string name="button_cancel">Abbrechen</string>
 
 </resources>

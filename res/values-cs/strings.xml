@@ -46,7 +46,6 @@
 	<string name="send_coins_fragment_amount_label">Částka k zaplacení</string>
 	<string name="send_coins_fragment_fee_label">Poplatek (volitelný)</string>
 	<string name="send_coins_fragment_button_send">Poslat</string>
-	<string name="send_coins_fragment_button_cancel">Zrušit</string>
 	<string name="send_coins_sending_msg">Posílám...</string>
 	<string name="send_coins_add_address_dialog_title">Příjemce není ve Vašem adresáři.\n\nChcete jej přidat do adresáře?</string>
 	<string name="send_coins_add_address_dialog_button_add">Přidat</string>
@@ -73,7 +72,6 @@
 	<string name="edit_address_book_entry_dialog_button_add">Přidat</string>
 	<string name="edit_address_book_entry_dialog_button_edit">Uložit</string>
 	<string name="edit_address_book_entry_dialog_button_delete">Smazat</string>
-	<string name="edit_address_book_entry_dialog_button_cancel">Zrušit</string>
 
 	<string name="preferences_about_title">O aplikaci</string>
 	<string name="preferences_license_title">Licence</string>
@@ -90,5 +88,6 @@
 
 	<!-- generic buttons -->
 	<string name="button_dismiss">Zrušit</string>
+	<string name="button_cancel">Zrušit</string>
 
 </resources>

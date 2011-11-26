@@ -45,7 +45,6 @@
 	<string name="send_coins_fragment_amount_label">Bedrag te betalen</string>
 	<string name="send_coins_fragment_fee_label">Transactiekosten (optional)</string>
 	<string name="send_coins_fragment_button_send">Verzenden</string>
-	<string name="send_coins_fragment_button_cancel">Annuleren</string>
 	<string name="send_coins_sending_msg">Bezig met verzenden...</string>
 	<string name="send_coins_add_address_dialog_title">De ontvanger is nog niet aanwezig in uw adresboek.\n\nWilt u deze nu toevoegen?</string>
 	<string name="send_coins_add_address_dialog_button_add">Adres toevoegen</string>
@@ -72,7 +71,6 @@
 	<string name="edit_address_book_entry_dialog_button_add">Toevoegen</string>
 	<string name="edit_address_book_entry_dialog_button_edit">Opslaan</string>
 	<string name="edit_address_book_entry_dialog_button_delete">Verwijderen</string>
-	<string name="edit_address_book_entry_dialog_button_cancel">Annuleren</string>
 
 	<string name="preferences_about_title">Over</string>
 	<string name="preferences_license_title">Licentie</string>
@@ -89,5 +87,6 @@
 
 	<!-- generic buttons -->
 	<string name="button_dismiss">Annuleren</string>
+	<string name="button_cancel">Annuleren</string>
 
 </resources>

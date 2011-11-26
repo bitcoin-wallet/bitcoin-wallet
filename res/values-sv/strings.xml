@@ -47,7 +47,6 @@
 	<string name="send_coins_fragment_amount_label">Belopp att skicka</string>
 	<string name="send_coins_fragment_fee_label">Avgift (frivillig)</string>
 	<string name="send_coins_fragment_button_send">Skicka</string>
-	<string name="send_coins_fragment_button_cancel">Avbryt</string>
 	<string name="send_coins_sending_msg">Skickar...</string>
 	<string name="send_coins_add_address_dialog_title">Mottagaradressen finns inte i din adressbok.\n\nVill du lägga till denna adress?</string>
 	<string name="send_coins_add_address_dialog_button_add">Lägg till adress</string>
@@ -74,7 +73,6 @@
 	<string name="edit_address_book_entry_dialog_button_add">Lägg till</string>
 	<string name="edit_address_book_entry_dialog_button_edit">Spara</string>
 	<string name="edit_address_book_entry_dialog_button_delete">Ta bort</string>
-	<string name="edit_address_book_entry_dialog_button_cancel">Avsluta</string>
 
 	<string name="preferences_about_title">Om</string>
 	<string name="preferences_license_title">Licens</string>
@@ -91,5 +89,6 @@
 
 	<!-- generic buttons -->
 	<string name="button_dismiss">Avsluta</string>
+	<string name="button_cancel">Avbryt</string>
 
 </resources>

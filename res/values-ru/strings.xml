@@ -47,7 +47,6 @@
 	<string name="send_coins_fragment_amount_label">Сумма оплаты</string>
 	<string name="send_coins_fragment_fee_label">Комиссия (опционально)</string>
 	<string name="send_coins_fragment_button_send">Отправить</string>
-	<string name="send_coins_fragment_button_cancel">Отмена</string>
 	<string name="send_coins_sending_msg">Отправка...</string>
 	<string name="send_coins_add_address_dialog_title">Получатель ещё не добавлен в адресную книгу.\n\nЖелаете ли добавить адрес?</string>
 	<string name="send_coins_add_address_dialog_button_add">Добавить адрес</string>
@@ -74,7 +73,6 @@
 	<string name="edit_address_book_entry_dialog_button_add">Добавить</string>
 	<string name="edit_address_book_entry_dialog_button_edit">Сохранить</string>
 	<string name="edit_address_book_entry_dialog_button_delete">Удалить</string>
-	<string name="edit_address_book_entry_dialog_button_cancel">Отмена</string>
 
 	<string name="preferences_about_title">О программе</string>
 	<string name="preferences_license_title">Лицензия</string>
@@ -91,5 +89,6 @@
 
 	<!-- generic buttons -->
 	<string name="button_dismiss">Отмена</string>
+	<string name="button_cancel">Отмена</string>
 
 </resources>

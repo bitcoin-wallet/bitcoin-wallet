@@ -48,7 +48,6 @@
 	<string name="send_coins_fragment_amount_label">Importo da pagare</string>
 	<string name="send_coins_fragment_fee_label">Commissione (opzionale)</string>
 	<string name="send_coins_fragment_button_send">Invia</string>
-	<string name="send_coins_fragment_button_cancel">Annulla</string>
 	<string name="send_coins_sending_msg">Invio in corso...</string>
 	<string name="send_coins_add_address_dialog_title">Il destinatario non è ancora presente in rubrica.\n\nVuoi aggiungerlo?</string>
 	<string name="send_coins_add_address_dialog_button_add">Aggiungi indirizzo</string>
@@ -75,7 +74,6 @@
 	<string name="edit_address_book_entry_dialog_button_add">Aggiungi</string>
 	<string name="edit_address_book_entry_dialog_button_edit">Salva</string>
 	<string name="edit_address_book_entry_dialog_button_delete">Cancella</string>
-	<string name="edit_address_book_entry_dialog_button_cancel">Annulla</string>
 
 	<string name="preferences_about_title">Informazioni</string>
 	<string name="preferences_license_title">Licenza</string>
@@ -92,5 +90,6 @@
 
 	<!-- generic buttons -->
 	<string name="button_dismiss">Chiudi</string>
-
+	<string name="button_cancel">Annulla</string>
+		
 </resources>

@@ -47,7 +47,6 @@
 	<string name="send_coins_fragment_amount_label">Ποσό να πληρωθεί</string>
 	<string name="send_coins_fragment_fee_label">Τέλος (προαιρετικό)</string>
 	<string name="send_coins_fragment_button_send">Αποστολή</string>
-	<string name="send_coins_fragment_button_cancel">Ακύρωση</string>
 	<string name="send_coins_sending_msg">Αποστολή...</string>
 	<string name="send_coins_add_address_dialog_title">Ο παραλήπτης δεν βρίσκεται στο βιβλίο διευθύνσεών σας. \n\n Θέλετε να προσθέσετε τη διεύθυνση?</string>
 	<string name="send_coins_add_address_dialog_button_add">Προσθήκη διεύθυνσης</string>
@@ -74,7 +73,6 @@
 	<string name="edit_address_book_entry_dialog_button_add">Προσθήκη</string>
 	<string name="edit_address_book_entry_dialog_button_edit">Αποθήκευση</string>
 	<string name="edit_address_book_entry_dialog_button_delete">Διαγραφή</string>
-	<string name="edit_address_book_entry_dialog_button_cancel">Ακύρωση</string>
 
 	<string name="preferences_about_title">Πληροφορίες</string>
 	<string name="preferences_license_title">Άδεια</string>
@@ -91,5 +89,6 @@
 
 	<!-- generic buttons -->
 	<string name="button_dismiss">Ματαίωση</string>
+	<string name="button_cancel">Ακύρωση</string>
 
 </resources>

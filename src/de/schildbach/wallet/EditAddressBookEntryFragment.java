@@ -121,7 +121,7 @@ public class EditAddressBookEntryFragment extends DialogFragment
 				}
 			});
 		}
-		dialog.setNegativeButton(R.string.edit_address_book_entry_dialog_button_cancel, new DialogInterface.OnClickListener()
+		dialog.setNegativeButton(R.string.button_cancel, new DialogInterface.OnClickListener()
 		{
 			public void onClick(final DialogInterface dialog, final int whichButton)
 			{

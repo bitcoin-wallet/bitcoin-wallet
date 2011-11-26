@@ -130,7 +130,7 @@ public class AmountCalculatorFragment extends DialogFragment implements LoaderMa
 				done();
 			}
 		});
-		dialog.setNegativeButton(R.string.amount_calculator_dialog_button_cancel, new DialogInterface.OnClickListener()
+		dialog.setNegativeButton(R.string.button_cancel, new DialogInterface.OnClickListener()
 		{
 			public void onClick(final DialogInterface dialog, final int whichButton)
 			{
