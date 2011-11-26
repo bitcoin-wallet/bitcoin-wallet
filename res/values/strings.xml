@@ -52,6 +52,8 @@
 
 	<string name="send_coins_activity_title">Send Bitcoins</string>
 	<string name="send_coins_install_qr_scanner_msg">Please install ZXing QR-code scanner or Goggles!</string>
+	<string name="send_coins_uri_parse_error_title">Invalid Bitcoin URI</string>
+	<string name="send_coins_uri_parse_error_dismiss">Dismiss</string>
 	<string name="send_coins_fragment_receiving_address_label">Pay to</string>
 	<string name="send_coins_fragment_receiving_address_hint">type address or name</string>
 	<string name="send_coins_fragment_receiving_address_error">Invalid Bitcoin Address!</string>

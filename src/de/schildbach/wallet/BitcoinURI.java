@@ -32,17 +32,29 @@ import com.google.bitcoin.core.Utils;
  */
 public class BitcoinURI
 {
+	public static class ParseException extends Exception
+	{
+		final String uri;
+
+		public ParseException(final String message, final String uri)
+		{
+			super(message + ": '" + uri + "'");
+
+			this.uri = uri;
+		}
+	}
+
 	private Address address;
 	private BigInteger amount;
 
 	private static final Pattern P_AMOUNT = Pattern.compile("([\\d.]+)(?:X(\\d+))?");
 
-	public BitcoinURI(final String uri)
+	public BitcoinURI(final String uri) throws ParseException
 	{
 		this(Uri.parse(uri));
 	}
 
-	public BitcoinURI(final Uri uri)
+	public BitcoinURI(final Uri uri) throws ParseException
 	{
 		final String scheme = uri.getScheme();
 
@@ -73,7 +85,7 @@ public class BitcoinURI
 		}
 		else
 		{
-			throw new IllegalArgumentException("unknown scheme: " + scheme);
+			throw new ParseException("unknown scheme", uri.toString());
 		}
 	}
 

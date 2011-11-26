@@ -19,6 +19,8 @@ package de.schildbach.wallet;
 
 import java.math.BigInteger;
 
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -122,9 +124,16 @@ public class SendCoinsActivity extends AbstractWalletActivity
 			}
 			else
 			{
-				final BitcoinURI bitcoinUri = new BitcoinURI(contents);
-				final Address address = bitcoinUri.getAddress();
-				updateSendCoinsFragment(address != null ? address.toString() : null, bitcoinUri.getAmount());
+				try
+				{
+					final BitcoinURI bitcoinUri = new BitcoinURI(contents);
+					final Address address = bitcoinUri.getAddress();
+					updateSendCoinsFragment(address != null ? address.toString() : null, bitcoinUri.getAmount());
+				}
+				catch (final BitcoinURI.ParseException x)
+				{
+					parseErrorDialog(contents);
+				}
 			}
 		}
 	}
@@ -136,9 +145,16 @@ public class SendCoinsActivity extends AbstractWalletActivity
 
 		if (intentUri != null && "bitcoin".equals(scheme))
 		{
-			final BitcoinURI bitcoinUri = new BitcoinURI(intentUri);
-			final Address address = bitcoinUri.getAddress();
-			updateSendCoinsFragment(address != null ? address.toString() : null, bitcoinUri.getAmount());
+			try
+			{
+				final BitcoinURI bitcoinUri = new BitcoinURI(intentUri);
+				final Address address = bitcoinUri.getAddress();
+				updateSendCoinsFragment(address != null ? address.toString() : null, bitcoinUri.getAmount());
+			}
+			catch (final BitcoinURI.ParseException x)
+			{
+				parseErrorDialog(intentUri.toString());
+			}
 		}
 		else if (intent.hasExtra(INTENT_EXTRA_ADDRESS))
 		{
@@ -152,5 +168,14 @@ public class SendCoinsActivity extends AbstractWalletActivity
 		final SendCoinsFragment sendCoinsFragment = (SendCoinsFragment) getSupportFragmentManager().findFragmentById(R.id.send_coins_fragment);
 
 		sendCoinsFragment.update(address, amount);
+	}
+
+	private void parseErrorDialog(final String uri)
+	{
+		final Builder dialog = new AlertDialog.Builder(this);
+		dialog.setTitle(R.string.send_coins_uri_parse_error_title);
+		dialog.setMessage(uri);
+		dialog.setNeutralButton(R.string.send_coins_uri_parse_error_dismiss, null);
+		dialog.show();
 	}
 }
