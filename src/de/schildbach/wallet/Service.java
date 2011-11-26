@@ -56,7 +56,6 @@ import com.google.bitcoin.core.Block;
 import com.google.bitcoin.core.BlockChain;
 import com.google.bitcoin.core.NetworkParameters;
 import com.google.bitcoin.core.Peer;
-import com.google.bitcoin.core.PeerAddress;
 import com.google.bitcoin.core.PeerEventListener;
 import com.google.bitcoin.core.PeerGroup;
 import com.google.bitcoin.core.ScriptException;
@@ -68,6 +67,8 @@ import com.google.bitcoin.core.Wallet;
 import com.google.bitcoin.core.WalletEventListener;
 import com.google.bitcoin.discovery.DnsDiscovery;
 import com.google.bitcoin.discovery.IrcDiscovery;
+import com.google.bitcoin.discovery.PeerDiscovery;
+import com.google.bitcoin.discovery.PeerDiscoveryException;
 import com.google.bitcoin.store.BlockStore;
 import com.google.bitcoin.store.BlockStoreException;
 import com.google.bitcoin.store.BoundedOverheadBlockStore;
@@ -312,27 +313,17 @@ public class Service extends android.app.Service
 				if (trustedPeerHost.length() == 0)
 				{
 					peerGroup.setMaxConnections(Constants.MAX_CONNECTED_PEERS);
-
-					// work around http://code.google.com/p/bitcoinj/issues/detail?id=52
-					backgroundHandler.post(new Runnable()
-					{
-						public void run()
-						{
-							peerGroup.addPeerDiscovery(Constants.TEST ? new IrcDiscovery(Constants.PEER_DISCOVERY_IRC_CHANNEL_TEST)
-									: new DnsDiscovery(networkParameters));
-						}
-					});
+					peerGroup.addPeerDiscovery(Constants.TEST ? new IrcDiscovery(Constants.PEER_DISCOVERY_IRC_CHANNEL_TEST) : new DnsDiscovery(
+							networkParameters));
 				}
 				else
 				{
 					peerGroup.setMaxConnections(1);
-
-					// work around similar issue as http://code.google.com/p/bitcoinj/issues/detail?id=52
-					backgroundHandler.post(new Runnable()
+					peerGroup.addPeerDiscovery(new PeerDiscovery()
 					{
-						public void run()
+						public InetSocketAddress[] getPeers() throws PeerDiscoveryException
 						{
-							peerGroup.addAddress(new PeerAddress(new InetSocketAddress(trustedPeerHost, networkParameters.port)));
+							return new InetSocketAddress[] { new InetSocketAddress(trustedPeerHost, networkParameters.port) };
 						}
 					});
 				}
