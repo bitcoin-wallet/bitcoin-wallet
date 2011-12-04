@@ -50,6 +50,7 @@
 	<string name="send_coins_activity_title">Bitcoins senden</string>
 	<string name="send_coins_install_qr_scanner_msg">Bitte installiere den ZXing QR-Code-Scanner oder Goggles!</string>
 	<string name="send_coins_uri_parse_error_title">Ungültige Bitcoin-URI</string>
+	<string name="send_coins_parse_address_error_msg">Ungültige Bitcoin-Adresse gelesen!\n(Versuchst Du Testnet/Prodnet zu mischen?)</string>
 	<string name="send_coins_fragment_receiving_address_label">Empfänger</string>
 	<string name="send_coins_fragment_receiving_address_hint">Adresse oder Namen</string>
 	<string name="send_coins_fragment_receiving_address_error">Ungültige Bitcoin-Adresse!</string>

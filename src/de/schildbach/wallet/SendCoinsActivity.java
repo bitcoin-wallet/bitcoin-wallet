@@ -150,6 +150,9 @@ public class SendCoinsActivity extends AbstractWalletActivity
 				final BitcoinURI bitcoinUri = new BitcoinURI(intentUri);
 				final Address address = bitcoinUri.getAddress();
 				updateSendCoinsFragment(address != null ? address.toString() : null, bitcoinUri.getAmount());
+
+				if (address == null)
+					longToast(R.string.send_coins_parse_address_error_msg);
 			}
 			catch (final BitcoinURI.ParseException x)
 			{
