@@ -64,7 +64,8 @@ public class BitcoinURI
 
 			try
 			{
-				address = new Address(Constants.NETWORK_PARAMETERS, u.getHost());
+				if (u.getHost().length() > 0)
+					address = new Address(Constants.NETWORK_PARAMETERS, u.getHost());
 			}
 			catch (final AddressFormatException x)
 			{
