@@ -74,7 +74,7 @@
 
 	<string name="preferences_about_title">关于</string>
 	<string name="preferences_license_title">授权</string>
-	<string name="preferences_credits_比特币j_title">"本程序使用 '比特币j'"</string>
+	<string name="preferences_credits_bitcoinj_title">"本程序使用 '比特币j'"</string>
 	<string name="preferences_credits_zxing_title">"本程序使用 'zxing'"</string>
 	<string name="preferences_credits_icon_title">"本程序使用 'bitboy' 制作的图标"</string>
 	<string name="preferences_author_twitter_title">作者Twitter</string>
