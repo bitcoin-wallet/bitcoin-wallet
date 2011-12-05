@@ -31,6 +31,8 @@
 	<string name="wallet_transactions_fragment_tab_sent">Sent</string>
 	<string name="wallet_transactions_fragment_empty_text_received">No Bitcoins received so far</string>
 	<string name="wallet_transactions_fragment_empty_text_sent">No Bitcoins sent so far</string>
+	<string name="wallet_transactions_context_edit_address_title">Add/edit address</string>
+	<string name="wallet_transactions_context_show_transaction_title">Transaction details</string>
 	<string name="wallet_options_request_coins">Request coins</string>
 	<string name="wallet_options_send_coins">Send coins</string>
 	<string name="wallet_options_about">About</string>
@@ -87,6 +89,18 @@
 	<string name="edit_address_book_entry_dialog_button_add">Add</string>
 	<string name="edit_address_book_entry_dialog_button_edit">Save</string>
 	<string name="edit_address_book_entry_dialog_button_delete">Delete</string>
+
+	<string name="transaction_fragment_time_label">Date</string>
+	<string name="transaction_fragment_time_today">today</string>
+	<string name="transaction_fragment_amount_label_received">Received</string>
+	<string name="transaction_fragment_amount_label_sent">Sent</string>
+	<string name="transaction_fragment_from_label">Sender</string>
+	<string name="transaction_fragment_to_label">Receiver</string>
+	<string name="transaction_fragment_status_label">Status</string>
+	<string name="transaction_fragment_status_pending">waiting for confirmation</string>
+	<string name="transaction_fragment_status_confirmed">confirmed</string>
+	<string name="transaction_fragment_status_dead">dead</string>
+	<string name="transaction_fragment_hash_label">Hash</string>
 
 	<string name="amount_calculator_dialog_title">Currency calculator</string>
 	<string name="amount_calculator_dialog_button_use">Use</string>

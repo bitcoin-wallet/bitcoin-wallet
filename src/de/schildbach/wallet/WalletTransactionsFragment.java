@@ -37,12 +37,17 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.text.format.DateUtils;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.bitcoin.core.AbstractWalletEventListener;
@@ -105,7 +110,6 @@ public class WalletTransactionsFragment extends Fragment
 	{
 		private Application application;
 
-		private ArrayAdapter<Transaction> transactionsListAdapter;
 		private int mode;
 
 		private final Handler handler = new Handler();
@@ -143,36 +147,7 @@ public class WalletTransactionsFragment extends Fragment
 			@Override
 			public void onChange(final boolean selfChange)
 			{
-				transactionsListAdapter.notifyDataSetChanged();
-			}
-		};
-
-		private final OnItemClickListener itemClickListener = new OnItemClickListener()
-		{
-			public void onItemClick(final AdapterView<?> parent, final View view, final int position, final long id)
-			{
-				final Transaction tx = transactionsListAdapter.getItem(position);
-				System.out.println("clicked on tx " + tx);
-
-				final boolean sent = tx.sent(application.getWallet());
-
-				try
-				{
-					final Address address = sent ? tx.getOutputs().get(0).getScriptPubKey().getToAddress() : tx.getInputs().get(0).getFromAddress();
-
-					final FragmentTransaction ft = getFragmentManager().beginTransaction();
-					final Fragment prev = getFragmentManager().findFragmentByTag(EditAddressBookEntryFragment.FRAGMENT_TAG);
-					if (prev != null)
-						ft.remove(prev);
-					ft.addToBackStack(null);
-					final DialogFragment newFragment = EditAddressBookEntryFragment.instance(address.toString());
-					newFragment.show(ft, EditAddressBookEntryFragment.FRAGMENT_TAG);
-				}
-				catch (final ScriptException x)
-				{
-					// ignore click
-					x.printStackTrace();
-				}
+				((BaseAdapter) getListAdapter()).notifyDataSetChanged();
 			}
 		};
 
@@ -186,7 +161,7 @@ public class WalletTransactionsFragment extends Fragment
 			application = (Application) getActivity().getApplication();
 			final Wallet wallet = application.getWallet();
 
-			transactionsListAdapter = new ArrayAdapter<Transaction>(getActivity(), 0)
+			final ListAdapter adapter = new ArrayAdapter<Transaction>(getActivity(), 0)
 			{
 				final DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(getActivity());
 				final DateFormat timeFormat = android.text.format.DateFormat.getTimeFormat(getActivity());
@@ -231,7 +206,7 @@ public class WalletTransactionsFragment extends Fragment
 
 					final TextView rowTime = (TextView) row.findViewById(R.id.transaction_time);
 					final Date time = tx.getUpdateTime();
-					rowTime.setText(time != null ? DateUtils.isToday(time.getTime()) ? timeFormat.format(time) : dateFormat.format(time) : null);
+					rowTime.setText(time != null ? (DateUtils.isToday(time.getTime()) ? timeFormat.format(time) : dateFormat.format(time)) : null);
 					rowTime.setTextColor(textColor);
 
 					final TextView rowTo = (TextView) row.findViewById(R.id.transaction_to);
@@ -261,7 +236,7 @@ public class WalletTransactionsFragment extends Fragment
 					return row;
 				}
 			};
-			setListAdapter(transactionsListAdapter);
+			setListAdapter(adapter);
 
 			wallet.addEventListener(walletEventListener);
 
@@ -282,7 +257,7 @@ public class WalletTransactionsFragment extends Fragment
 		{
 			super.onViewCreated(view, savedInstanceState);
 
-			getListView().setOnItemClickListener(itemClickListener);
+			registerForContextMenu(getListView());
 		}
 
 		@Override
@@ -303,10 +278,45 @@ public class WalletTransactionsFragment extends Fragment
 			super.onDestroy();
 		}
 
+		@Override
+		public void onListItemClick(final ListView l, final View v, final int position, final long id)
+		{
+			final Transaction tx = (Transaction) getListAdapter().getItem(position);
+			editAddress(tx);
+		}
+
+		@Override
+		public void onCreateContextMenu(final ContextMenu menu, final View v, final ContextMenuInfo menuInfo)
+		{
+			getActivity().getMenuInflater().inflate(R.menu.wallet_transactions_context, menu);
+		}
+
+		@Override
+		public boolean onContextItemSelected(final MenuItem item)
+		{
+			final AdapterContextMenuInfo menuInfo = (AdapterContextMenuInfo) item.getMenuInfo();
+			final Transaction tx = (Transaction) getListAdapter().getItem(menuInfo.position);
+
+			switch (item.getItemId())
+			{
+				case R.id.wallet_transactions_context_edit_address:
+					editAddress(tx);
+					return true;
+
+				case R.id.wallet_transactions_context_show_transaction:
+					showTransaction(tx);
+					return true;
+
+				default:
+					return false;
+			}
+		}
+
 		public void updateView()
 		{
 			final Wallet wallet = application.getWallet();
 			final List<Transaction> transactions = new ArrayList<Transaction>(wallet.getTransactions(true, false));
+			final ArrayAdapter<Transaction> adapter = (ArrayAdapter<Transaction>) getListAdapter();
 
 			Collections.sort(transactions, new Comparator<Transaction>()
 			{
@@ -328,13 +338,47 @@ public class WalletTransactionsFragment extends Fragment
 				}
 			});
 
-			transactionsListAdapter.clear();
+			adapter.clear();
 			for (final Transaction tx : transactions)
 			{
 				final boolean sent = tx.sent(wallet);
 				if ((mode == 0 && !sent) || mode == 1 || (mode == 2 && sent))
-					transactionsListAdapter.add(tx);
+					adapter.add(tx);
 			}
+		}
+
+		private void editAddress(final Transaction tx)
+		{
+			final boolean sent = tx.sent(application.getWallet());
+
+			try
+			{
+				final Address address = sent ? tx.getOutputs().get(0).getScriptPubKey().getToAddress() : tx.getInputs().get(0).getFromAddress();
+
+				final FragmentTransaction ft = getFragmentManager().beginTransaction();
+				final Fragment prev = getFragmentManager().findFragmentByTag(EditAddressBookEntryFragment.FRAGMENT_TAG);
+				if (prev != null)
+					ft.remove(prev);
+				ft.addToBackStack(null);
+				final DialogFragment newFragment = EditAddressBookEntryFragment.instance(address.toString());
+				newFragment.show(ft, EditAddressBookEntryFragment.FRAGMENT_TAG);
+			}
+			catch (final ScriptException x)
+			{
+				// ignore click
+				x.printStackTrace();
+			}
+		}
+
+		private void showTransaction(final Transaction tx)
+		{
+			final FragmentTransaction ft = getFragmentManager().beginTransaction();
+			final Fragment prev = getFragmentManager().findFragmentByTag(TransactionFragment.FRAGMENT_TAG);
+			if (prev != null)
+				ft.remove(prev);
+			ft.addToBackStack(null);
+			final DialogFragment newFragment = TransactionFragment.instance(tx);
+			newFragment.show(ft, TransactionFragment.FRAGMENT_TAG);
 		}
 	}
 }

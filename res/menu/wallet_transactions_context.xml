@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+	<item android:id="@+id/wallet_transactions_context_edit_address" android:title="@string/wallet_transactions_context_edit_address_title" />
+	<item android:id="@+id/wallet_transactions_context_show_transaction" android:title="@string/wallet_transactions_context_show_transaction_title" />
+</menu>

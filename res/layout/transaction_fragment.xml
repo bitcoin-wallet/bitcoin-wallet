@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="fill_parent"
+	android:layout_height="wrap_content" android:paddingLeft="12dp" android:paddingRight="12dp">
+
+	<TableRow>
+		<TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/transaction_fragment_time_label"
+			android:textColor="@android:color/white" android:textSize="20sp" android:textStyle="bold" android:paddingRight="16dp" />
+		<TextView android:id="@+id/transaction_fragment_time" android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:textColor="@android:color/white" android:textSize="20sp" />
+	</TableRow>
+
+	<TableRow>
+		<TextView android:id="@+id/transaction_fragment_amount_label" android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:textColor="@android:color/white" android:textSize="20sp"
+			android:textStyle="bold" android:paddingRight="16dp" />
+		<TextView android:id="@+id/transaction_fragment_amount" android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:textColor="@android:color/white" android:textSize="20sp" />
+	</TableRow>
+
+	<TableRow>
+		<TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/transaction_fragment_from_label"
+			android:textColor="@android:color/white" android:textSize="20sp" android:textStyle="bold" android:paddingRight="16dp" />
+		<TextView android:id="@+id/transaction_fragment_from" android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:textColor="@android:color/white" android:textSize="20sp"
+			android:typeface="monospace" />
+	</TableRow>
+
+	<TableRow>
+		<TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/transaction_fragment_to_label"
+			android:textColor="@android:color/white" android:textSize="20sp" android:textStyle="bold" android:paddingRight="16dp" />
+		<TextView android:id="@+id/transaction_fragment_to" android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:textColor="@android:color/white" android:textSize="20sp"
+			android:typeface="monospace" />
+	</TableRow>
+
+	<TableRow android:paddingTop="16dp">
+		<TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+			android:text="@string/transaction_fragment_status_label" android:textColor="@android:color/white" android:textSize="20sp"
+			android:textStyle="bold" android:paddingRight="16dp" />
+		<TextView android:id="@+id/transaction_fragment_status" android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:textColor="@android:color/white" android:textSize="20sp" />
+	</TableRow>
+
+	<TableRow>
+		<TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/transaction_fragment_hash_label"
+			android:textColor="@android:color/white" android:textSize="20sp" android:textStyle="bold" android:paddingRight="16dp" />
+		<TextView android:id="@+id/transaction_fragment_hash" android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:textColor="@android:color/white" android:textSize="20sp"
+			android:typeface="monospace" />
+	</TableRow>
+
+</TableLayout>
