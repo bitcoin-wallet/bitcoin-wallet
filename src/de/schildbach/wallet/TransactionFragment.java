@@ -24,6 +24,8 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.app.Dialog;
+import android.content.ContentResolver;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
@@ -108,6 +110,7 @@ public class TransactionFragment extends DialogFragment
 		final boolean pending = wallet.isPending(tx);
 		final boolean dead = wallet.isDead(tx);
 
+		final ContentResolver contentResolver = activity.getContentResolver();
 		final LayoutInflater inflater = LayoutInflater.from(activity);
 
 		final Builder dialog = new AlertDialog.Builder(activity);
@@ -119,8 +122,6 @@ public class TransactionFragment extends DialogFragment
 		if (time != null)
 			viewDate.setText((DateUtils.isToday(time.getTime()) ? getString(R.string.transaction_fragment_time_today) : dateFormat.format(time))
 					+ ", " + timeFormat.format(time));
-		else
-			viewDate.setText(null);
 
 		final TextView viewAmountLabel = (TextView) view.findViewById(R.id.transaction_fragment_amount_label);
 		viewAmountLabel.setText(getString(sent ? R.string.transaction_fragment_amount_label_sent
@@ -137,10 +138,34 @@ public class TransactionFragment extends DialogFragment
 		}
 
 		final TextView viewFrom = (TextView) view.findViewById(R.id.transaction_fragment_from);
-		viewFrom.setText(from != null ? from.toString() : null);
+		if (from != null)
+		{
+			final String label = AddressBookProvider.resolveLabel(contentResolver, from.toString());
+			if (label != null)
+			{
+				viewFrom.setText(label);
+			}
+			else
+			{
+				viewFrom.setText(from.toString());
+				viewFrom.setTypeface(Typeface.MONOSPACE);
+			}
+		}
 
 		final TextView viewTo = (TextView) view.findViewById(R.id.transaction_fragment_to);
-		viewTo.setText(to != null ? to.toString() : null);
+		if (to != null)
+		{
+			final String label = AddressBookProvider.resolveLabel(contentResolver, to.toString());
+			if (label != null)
+			{
+				viewTo.setText(label);
+			}
+			else
+			{
+				viewTo.setText(to.toString());
+				viewTo.setTypeface(Typeface.MONOSPACE);
+			}
+		}
 
 		final TextView viewStatus = (TextView) view.findViewById(R.id.transaction_fragment_status);
 		if (dead)
@@ -150,8 +175,8 @@ public class TransactionFragment extends DialogFragment
 		else
 			viewStatus.setText(R.string.transaction_fragment_status_confirmed);
 
-		final TextView viewId = (TextView) view.findViewById(R.id.transaction_fragment_hash);
-		viewId.setText(tx.getHash().toString());
+		final TextView viewHash = (TextView) view.findViewById(R.id.transaction_fragment_hash);
+		viewHash.setText(tx.getHash().toString());
 
 		dialog.setView(view);
 

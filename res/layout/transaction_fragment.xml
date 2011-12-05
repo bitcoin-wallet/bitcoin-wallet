@@ -22,16 +22,14 @@
 		<TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/transaction_fragment_from_label"
 			android:textColor="@android:color/white" android:textSize="20sp" android:textStyle="bold" android:paddingRight="16dp" />
 		<TextView android:id="@+id/transaction_fragment_from" android:layout_width="wrap_content"
-			android:layout_height="wrap_content" android:textColor="@android:color/white" android:textSize="20sp"
-			android:typeface="monospace" />
+			android:layout_height="wrap_content" android:textColor="@android:color/white" android:textSize="20sp" />
 	</TableRow>
 
 	<TableRow>
 		<TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/transaction_fragment_to_label"
 			android:textColor="@android:color/white" android:textSize="20sp" android:textStyle="bold" android:paddingRight="16dp" />
 		<TextView android:id="@+id/transaction_fragment_to" android:layout_width="wrap_content"
-			android:layout_height="wrap_content" android:textColor="@android:color/white" android:textSize="20sp"
-			android:typeface="monospace" />
+			android:layout_height="wrap_content" android:textColor="@android:color/white" android:textSize="20sp" />
 	</TableRow>
 
 	<TableRow android:paddingTop="16dp">

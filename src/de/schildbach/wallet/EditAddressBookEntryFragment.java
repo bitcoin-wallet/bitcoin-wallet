@@ -23,7 +23,6 @@ import android.app.Dialog;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.DialogInterface;
-import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
@@ -66,13 +65,7 @@ public class EditAddressBookEntryFragment extends DialogFragment
 		final ContentResolver contentResolver = activity.getContentResolver();
 		final Uri uri = AddressBookProvider.CONTENT_URI.buildUpon().appendPath(address).build();
 
-		final String label;
-		final Cursor cursor = contentResolver.query(uri, null, null, null, null);
-		if (cursor.moveToFirst())
-			label = cursor.getString(cursor.getColumnIndexOrThrow(AddressBookProvider.KEY_LABEL));
-		else
-			label = null;
-		cursor.close();
+		final String label = AddressBookProvider.resolveLabel(contentResolver, address);
 
 		final boolean isAdd = label == null;
 

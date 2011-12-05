@@ -25,9 +25,7 @@ import java.util.Date;
 import java.util.List;
 
 import android.database.ContentObserver;
-import android.database.Cursor;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.DialogFragment;
@@ -193,11 +191,7 @@ public class WalletTransactionsFragment extends Fragment
 						else
 							address = tx.getInputs().get(0).getFromAddress().toString();
 
-						final Uri uri = AddressBookProvider.CONTENT_URI.buildUpon().appendPath(address).build();
-
-						final Cursor cursor = getActivity().managedQuery(uri, null, null, null, null);
-						if (cursor != null && cursor.moveToFirst())
-							label = cursor.getString(cursor.getColumnIndexOrThrow(AddressBookProvider.KEY_LABEL));
+						label = AddressBookProvider.resolveLabel(getActivity().getContentResolver(), address);
 					}
 					catch (final ScriptException x)
 					{

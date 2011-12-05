@@ -20,6 +20,7 @@ package de.schildbach.wallet;
 import java.util.List;
 
 import android.content.ContentProvider;
+import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -41,6 +42,24 @@ public class AddressBookProvider extends ContentProvider
 	public static final String KEY_ROWID = "_id";
 	public static final String KEY_ADDRESS = "address";
 	public static final String KEY_LABEL = "label";
+
+	public static String resolveLabel(final ContentResolver contentResolver, final String address)
+	{
+		String label = null;
+
+		final Uri uri = AddressBookProvider.CONTENT_URI.buildUpon().appendPath(address).build();
+		final Cursor cursor = contentResolver.query(uri, null, null, null, null);
+
+		if (cursor != null)
+		{
+			if (cursor.moveToFirst())
+				label = cursor.getString(cursor.getColumnIndexOrThrow(AddressBookProvider.KEY_LABEL));
+
+			cursor.close();
+		}
+
+		return label;
+	}
 
 	private Helper helper;
 
