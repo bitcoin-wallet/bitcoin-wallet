@@ -132,7 +132,7 @@ public class WalletTransactionsFragment extends Fragment
 			@Override
 			public void onChange()
 			{
-				getActivity().runOnUiThread(new Runnable()
+				activity.runOnUiThread(new Runnable()
 				{
 					public void run()
 					{
