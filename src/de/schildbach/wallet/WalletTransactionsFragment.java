@@ -24,6 +24,7 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
+import android.app.Activity;
 import android.database.ContentObserver;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -107,6 +108,7 @@ public class WalletTransactionsFragment extends Fragment
 	public static class ListFragment extends android.support.v4.app.ListFragment
 	{
 		private Application application;
+		private Activity activity;
 
 		private int mode;
 
@@ -150,19 +152,27 @@ public class WalletTransactionsFragment extends Fragment
 		};
 
 		@Override
+		public void onAttach(final Activity activity)
+		{
+			super.onAttach(activity);
+
+			this.activity = activity;
+			application = (Application) activity.getApplication();
+		}
+
+		@Override
 		public void onCreate(final Bundle savedInstanceState)
 		{
 			super.onCreate(savedInstanceState);
 
 			this.mode = getArguments().getInt(KEY_MODE);
 
-			application = (Application) getActivity().getApplication();
 			final Wallet wallet = application.getWallet();
 
-			final ListAdapter adapter = new ArrayAdapter<Transaction>(getActivity(), 0)
+			final ListAdapter adapter = new ArrayAdapter<Transaction>(activity, 0)
 			{
-				final DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(getActivity());
-				final DateFormat timeFormat = android.text.format.DateFormat.getTimeFormat(getActivity());
+				final DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(activity);
+				final DateFormat timeFormat = android.text.format.DateFormat.getTimeFormat(activity);
 
 				@Override
 				public View getView(final int position, View row, final ViewGroup parent)
@@ -191,7 +201,7 @@ public class WalletTransactionsFragment extends Fragment
 						else
 							address = tx.getInputs().get(0).getFromAddress().toString();
 
-						label = AddressBookProvider.resolveLabel(getActivity().getContentResolver(), address);
+						label = AddressBookProvider.resolveLabel(activity.getContentResolver(), address);
 					}
 					catch (final ScriptException x)
 					{
@@ -234,7 +244,7 @@ public class WalletTransactionsFragment extends Fragment
 
 			wallet.addEventListener(walletEventListener);
 
-			getActivity().getContentResolver().registerContentObserver(AddressBookProvider.CONTENT_URI, true, contentObserver);
+			activity.getContentResolver().registerContentObserver(AddressBookProvider.CONTENT_URI, true, contentObserver);
 		}
 
 		@Override
@@ -265,7 +275,7 @@ public class WalletTransactionsFragment extends Fragment
 		@Override
 		public void onDestroy()
 		{
-			getActivity().getContentResolver().unregisterContentObserver(contentObserver);
+			activity.getContentResolver().unregisterContentObserver(contentObserver);
 
 			application.getWallet().removeEventListener(walletEventListener);
 
@@ -282,7 +292,7 @@ public class WalletTransactionsFragment extends Fragment
 		@Override
 		public void onCreateContextMenu(final ContextMenu menu, final View v, final ContextMenuInfo menuInfo)
 		{
-			getActivity().getMenuInflater().inflate(R.menu.wallet_transactions_context, menu);
+			activity.getMenuInflater().inflate(R.menu.wallet_transactions_context, menu);
 		}
 
 		@Override
