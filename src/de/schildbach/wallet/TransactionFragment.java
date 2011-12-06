@@ -91,6 +91,7 @@ public class TransactionFragment extends DialogFragment
 		final Wallet wallet = ((Application) activity.getApplication()).getWallet();
 
 		tx = (Transaction) getArguments().getSerializable(KEY_TRANSACTION);
+		final byte[] serializedTx = tx.unsafeBitcoinSerialize();
 
 		Address from = null;
 		try
@@ -186,8 +187,10 @@ public class TransactionFragment extends DialogFragment
 		final TextView viewHash = (TextView) view.findViewById(R.id.transaction_fragment_hash);
 		viewHash.setText(tx.getHash().toString());
 
+		final TextView viewLength = (TextView) view.findViewById(R.id.transaction_fragment_length);
+		viewLength.setText(Integer.toString(serializedTx.length));
+
 		final ImageView viewQr = (ImageView) view.findViewById(R.id.transaction_fragment_qr);
-		final byte[] serializedTx = tx.unsafeBitcoinSerialize();
 		final String txStr = "btctx:" + Base64.encodeToString(serializedTx, Base64.NO_WRAP | Base64.NO_PADDING);
 		final Bitmap qrCodeBitmap = WalletUtils.getQRCodeBitmap(txStr, 512);
 		viewQr.setImageBitmap(qrCodeBitmap);

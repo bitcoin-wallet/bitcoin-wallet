@@ -48,6 +48,14 @@
 			android:typeface="monospace" />
 	</TableRow>
 
+	<TableRow>
+		<TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+			android:text="@string/transaction_fragment_length_label" android:textColor="@android:color/white" android:textSize="20sp"
+			android:textStyle="bold" android:paddingRight="16dp" />
+		<TextView android:id="@+id/transaction_fragment_length" android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:textColor="@android:color/white" android:textSize="20sp" />
+	</TableRow>
+
 	<ImageView android:id="@+id/transaction_fragment_qr" android:layout_width="wrap_content"
 		android:layout_height="wrap_content" android:layout_gravity="center" android:padding="16dp" android:scaleType="centerInside"
 		android:background="@drawable/qrcode_frame" />

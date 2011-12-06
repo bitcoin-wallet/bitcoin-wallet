@@ -101,6 +101,7 @@
 	<string name="transaction_fragment_status_confirmed">bestätigt</string>
 	<string name="transaction_fragment_status_dead">tot</string>
 	<string name="transaction_fragment_hash_label">Hash</string>
+	<string name="transaction_fragment_length_label">Länge</string>
 
 	<string name="amount_calculator_dialog_title">Währungs-Umrechner</string>
 	<string name="amount_calculator_dialog_button_use">Übernehmen</string>
