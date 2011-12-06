@@ -128,6 +128,8 @@ public class TransactionFragment extends DialogFragment
 		if (time != null)
 			viewDate.setText((DateUtils.isToday(time.getTime()) ? getString(R.string.transaction_fragment_time_today) : dateFormat.format(time))
 					+ ", " + timeFormat.format(time));
+		else
+			view.findViewById(R.id.transaction_fragment_time_row).setVisibility(View.GONE);
 
 		final TextView viewAmountLabel = (TextView) view.findViewById(R.id.transaction_fragment_amount_label);
 		viewAmountLabel.setText(getString(sent ? R.string.transaction_fragment_amount_label_sent

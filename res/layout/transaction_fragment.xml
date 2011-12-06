@@ -3,7 +3,7 @@
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="fill_parent"
 	android:layout_height="wrap_content" android:paddingLeft="12dp" android:paddingRight="12dp">
 
-	<TableRow>
+	<TableRow android:id="@+id/transaction_fragment_time_row">
 		<TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/transaction_fragment_time_label"
 			android:textColor="@android:color/white" android:textSize="20sp" android:textStyle="bold" android:paddingRight="16dp" />
 		<TextView android:id="@+id/transaction_fragment_time" android:layout_width="wrap_content"
