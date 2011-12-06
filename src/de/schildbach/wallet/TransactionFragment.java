@@ -97,7 +97,7 @@ public class TransactionFragment extends DialogFragment
 		boolean fromMine = false;
 		try
 		{
-			from = tx.getOutputs().get(0).getScriptPubKey().getToAddress();
+			from = tx.getInputs().get(0).getFromAddress();
 			fromMine = wallet.isPubKeyHashMine(from.getHash160());
 		}
 		catch (final ScriptException x)
@@ -109,7 +109,7 @@ public class TransactionFragment extends DialogFragment
 		boolean toMine = false;
 		try
 		{
-			to = tx.getInputs().get(0).getFromAddress();
+			to = tx.getOutputs().get(0).getScriptPubKey().getToAddress();
 			toMine = wallet.isPubKeyHashMine(to.getHash160());
 		}
 		catch (final ScriptException x)
