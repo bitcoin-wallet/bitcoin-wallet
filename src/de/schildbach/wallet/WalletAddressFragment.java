@@ -18,7 +18,6 @@
 package de.schildbach.wallet;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -35,12 +34,12 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.bitcoin.core.Address;
 
+import de.schildbach.wallet.util.QrDialog;
 import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
 
@@ -186,19 +185,6 @@ public class WalletAddressFragment extends Fragment
 
 	private void showQRCode()
 	{
-		final Dialog dialog = new Dialog(getActivity());
-		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-		dialog.setContentView(R.layout.bitcoin_address_qr_dialog);
-		final ImageView imageView = (ImageView) dialog.findViewById(R.id.bitcoin_address_qr);
-		imageView.setImageBitmap(qrCodeBitmap);
-		dialog.setCanceledOnTouchOutside(true);
-		dialog.show();
-		imageView.setOnClickListener(new OnClickListener()
-		{
-			public void onClick(final View v)
-			{
-				dialog.dismiss();
-			}
-		});
+		new QrDialog(getActivity(), qrCodeBitmap).show();
 	}
 }
