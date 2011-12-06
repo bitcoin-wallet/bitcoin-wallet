@@ -28,14 +28,23 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.webkit.WebView;
+
+import com.google.bitcoin.bouncycastle.util.encoders.Base64;
+import com.google.bitcoin.core.ProtocolException;
+import com.google.bitcoin.core.Transaction;
+
 import de.schildbach.wallet.util.ActionBarFragment;
 import de.schildbach.wallet.util.ErrorReporter;
 import de.schildbach.wallet_test.R;
@@ -94,6 +103,14 @@ public class WalletActivity extends AbstractWalletActivity
 				.commit();
 
 		checkVersionAndTimeskewAlert();
+
+		handleIntent(getIntent());
+	}
+
+	@Override
+	protected void onNewIntent(final Intent intent)
+	{
+		handleIntent(intent);
 	}
 
 	@Override
@@ -102,6 +119,32 @@ public class WalletActivity extends AbstractWalletActivity
 		super.onResume();
 
 		checkLowStorageAlert();
+	}
+
+	private void handleIntent(final Intent intent)
+	{
+		final Uri intentUri = intent.getData();
+		final String scheme = intentUri != null ? intentUri.getScheme() : null;
+
+		if (intentUri != null && "btctx".equals(scheme))
+		{
+			try
+			{
+				final Transaction tx = new Transaction(Constants.NETWORK_PARAMETERS, Base64.decode(intentUri.getSchemeSpecificPart()));
+
+				final FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+				final Fragment prev = getSupportFragmentManager().findFragmentByTag(TransactionFragment.FRAGMENT_TAG);
+				if (prev != null)
+					ft.remove(prev);
+				ft.addToBackStack(null);
+				final DialogFragment newFragment = TransactionFragment.instance(tx);
+				newFragment.show(ft, TransactionFragment.FRAGMENT_TAG);
+			}
+			catch (final ProtocolException x)
+			{
+				throw new RuntimeException(x);
+			}
+		}
 	}
 
 	@Override

@@ -25,6 +25,7 @@ import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.app.Dialog;
 import android.content.ContentResolver;
+import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
@@ -32,6 +33,8 @@ import android.support.v4.app.FragmentActivity;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.bitcoin.core.Address;
@@ -40,6 +43,9 @@ import com.google.bitcoin.core.Transaction;
 import com.google.bitcoin.core.Utils;
 import com.google.bitcoin.core.Wallet;
 
+import de.schildbach.wallet.util.Base64;
+import de.schildbach.wallet.util.QrDialog;
+import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
 
 /**
@@ -177,6 +183,19 @@ public class TransactionFragment extends DialogFragment
 
 		final TextView viewHash = (TextView) view.findViewById(R.id.transaction_fragment_hash);
 		viewHash.setText(tx.getHash().toString());
+
+		final ImageView viewQr = (ImageView) view.findViewById(R.id.transaction_fragment_qr);
+		final byte[] serializedTx = tx.unsafeBitcoinSerialize();
+		final String txStr = "btctx:" + Base64.encodeToString(serializedTx, Base64.NO_WRAP | Base64.NO_PADDING);
+		final Bitmap qrCodeBitmap = WalletUtils.getQRCodeBitmap(txStr, 512);
+		viewQr.setImageBitmap(qrCodeBitmap);
+		viewQr.setOnClickListener(new OnClickListener()
+		{
+			public void onClick(final View v)
+			{
+				new QrDialog(activity, qrCodeBitmap).show();
+			}
+		});
 
 		dialog.setView(view);
 

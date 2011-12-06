@@ -48,4 +48,8 @@
 			android:typeface="monospace" />
 	</TableRow>
 
+	<ImageView android:id="@+id/transaction_fragment_qr" android:layout_width="wrap_content"
+		android:layout_height="wrap_content" android:layout_gravity="center" android:padding="16dp" android:scaleType="centerInside"
+		android:background="@drawable/qrcode_frame" />
+
 </TableLayout>
