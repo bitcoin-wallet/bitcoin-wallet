@@ -96,6 +96,7 @@
 	<string name="transaction_fragment_amount_label_sent">Gesendet</string>
 	<string name="transaction_fragment_from_label">Sender</string>
 	<string name="transaction_fragment_to_label">Empfänger</string>
+	<string name="transaction_fragment_you">Du</string>
 	<string name="transaction_fragment_status_label">Status</string>
 	<string name="transaction_fragment_status_pending">wartet auf Bestätigung</string>
 	<string name="transaction_fragment_status_confirmed">bestätigt</string>

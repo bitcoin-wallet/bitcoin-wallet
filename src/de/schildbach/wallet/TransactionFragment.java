@@ -94,9 +94,11 @@ public class TransactionFragment extends DialogFragment
 		final byte[] serializedTx = tx.unsafeBitcoinSerialize();
 
 		Address from = null;
+		boolean fromMine = false;
 		try
 		{
 			from = tx.getOutputs().get(0).getScriptPubKey().getToAddress();
+			fromMine = wallet.isPubKeyHashMine(from.getHash160());
 		}
 		catch (final ScriptException x)
 		{
@@ -104,9 +106,11 @@ public class TransactionFragment extends DialogFragment
 		}
 
 		Address to = null;
+		boolean toMine = false;
 		try
 		{
 			to = tx.getInputs().get(0).getFromAddress();
+			toMine = wallet.isPubKeyHashMine(to.getHash160());
 		}
 		catch (final ScriptException x)
 		{
@@ -150,30 +154,44 @@ public class TransactionFragment extends DialogFragment
 		if (from != null)
 		{
 			final String label = AddressBookProvider.resolveLabel(contentResolver, from.toString());
+			final StringBuilder builder = new StringBuilder();
+
+			if (fromMine)
+				builder.append(getString(R.string.transaction_fragment_you)).append(", ");
+
 			if (label != null)
 			{
-				viewFrom.setText(label);
+				builder.append(label);
 			}
 			else
 			{
-				viewFrom.setText(from.toString());
+				builder.append(from.toString());
 				viewFrom.setTypeface(Typeface.MONOSPACE);
 			}
+
+			viewFrom.setText(builder.toString());
 		}
 
 		final TextView viewTo = (TextView) view.findViewById(R.id.transaction_fragment_to);
 		if (to != null)
 		{
 			final String label = AddressBookProvider.resolveLabel(contentResolver, to.toString());
+			final StringBuilder builder = new StringBuilder();
+
+			if (toMine)
+				builder.append(getString(R.string.transaction_fragment_you)).append(", ");
+
 			if (label != null)
 			{
-				viewTo.setText(label);
+				builder.append(label);
 			}
 			else
 			{
-				viewTo.setText(to.toString());
+				builder.append(to.toString());
 				viewTo.setTypeface(Typeface.MONOSPACE);
 			}
+
+			viewTo.setText(builder.toString());
 		}
 
 		final TextView viewStatus = (TextView) view.findViewById(R.id.transaction_fragment_status);
