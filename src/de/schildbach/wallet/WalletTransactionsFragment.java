@@ -289,17 +289,23 @@ public class WalletTransactionsFragment extends Fragment
 			editAddress(tx);
 		}
 
+		// workaround http://code.google.com/p/android/issues/detail?id=20065
+		private static View lastContextMenuView;
+
 		@Override
 		public void onCreateContextMenu(final ContextMenu menu, final View v, final ContextMenuInfo menuInfo)
 		{
 			activity.getMenuInflater().inflate(R.menu.wallet_transactions_context, menu);
+
+			lastContextMenuView = v;
 		}
 
 		@Override
 		public boolean onContextItemSelected(final MenuItem item)
 		{
 			final AdapterContextMenuInfo menuInfo = (AdapterContextMenuInfo) item.getMenuInfo();
-			final Transaction tx = (Transaction) getListAdapter().getItem(menuInfo.position);
+			final ListAdapter adapter = ((ListView) lastContextMenuView).getAdapter();
+			final Transaction tx = (Transaction) adapter.getItem(menuInfo.position);
 
 			switch (item.getItemId())
 			{
