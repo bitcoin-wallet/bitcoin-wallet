@@ -10,11 +10,19 @@
 			android:layout_height="wrap_content" android:textColor="@android:color/white" android:textSize="20sp" />
 	</TableRow>
 
-	<TableRow>
-		<TextView android:id="@+id/transaction_fragment_amount_label" android:layout_width="wrap_content"
-			android:layout_height="wrap_content" android:textColor="@android:color/white" android:textSize="20sp"
-			android:textStyle="bold" android:paddingRight="16dp" />
-		<TextView android:id="@+id/transaction_fragment_amount" android:layout_width="wrap_content"
+	<TableRow android:id="@+id/transaction_fragment_amount_sent_row">
+		<TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+			android:text="@string/transaction_fragment_amount_sent_label" android:textColor="@android:color/white"
+			android:textSize="20sp" android:textStyle="bold" android:paddingRight="16dp" />
+		<TextView android:id="@+id/transaction_fragment_amount_sent" android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:textColor="@android:color/white" android:textSize="20sp" />
+	</TableRow>
+
+	<TableRow android:id="@+id/transaction_fragment_amount_received_row">
+		<TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+			android:text="@string/transaction_fragment_amount_received_label" android:textColor="@android:color/white"
+			android:textSize="20sp" android:textStyle="bold" android:paddingRight="16dp" />
+		<TextView android:id="@+id/transaction_fragment_amount_received" android:layout_width="wrap_content"
 			android:layout_height="wrap_content" android:textColor="@android:color/white" android:textSize="20sp" />
 	</TableRow>
 

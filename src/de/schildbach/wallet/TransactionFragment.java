@@ -17,6 +17,7 @@
 
 package de.schildbach.wallet;
 
+import java.math.BigInteger;
 import java.text.DateFormat;
 import java.util.Date;
 
@@ -117,7 +118,6 @@ public class TransactionFragment extends DialogFragment
 			x.printStackTrace();
 		}
 
-		final boolean sent = tx.sent(wallet);
 		final boolean pending = wallet.isPending(tx);
 		final boolean dead = wallet.isDead(tx);
 
@@ -128,26 +128,45 @@ public class TransactionFragment extends DialogFragment
 
 		final View view = inflater.inflate(R.layout.transaction_fragment, null);
 
-		final TextView viewDate = (TextView) view.findViewById(R.id.transaction_fragment_time);
 		final Date time = tx.getUpdateTime();
 		if (time != null)
+		{
+			final TextView viewDate = (TextView) view.findViewById(R.id.transaction_fragment_time);
 			viewDate.setText((DateUtils.isToday(time.getTime()) ? getString(R.string.transaction_fragment_time_today) : dateFormat.format(time))
 					+ ", " + timeFormat.format(time));
+		}
 		else
+		{
 			view.findViewById(R.id.transaction_fragment_time_row).setVisibility(View.GONE);
+		}
 
-		final TextView viewAmountLabel = (TextView) view.findViewById(R.id.transaction_fragment_amount_label);
-		viewAmountLabel.setText(getString(sent ? R.string.transaction_fragment_amount_label_sent
-				: R.string.transaction_fragment_amount_label_received));
-
-		final TextView viewAmount = (TextView) view.findViewById(R.id.transaction_fragment_amount);
 		try
 		{
-			viewAmount.setText((sent ? "-" : "+") + "\u2009" /* thin space */+ Utils.bitcoinValueToFriendlyString(tx.amount(wallet)));
+			final BigInteger amountSent = tx.getValueSentFromMe(wallet);
+			if (!amountSent.equals(BigInteger.ZERO))
+			{
+				final TextView viewAmountSent = (TextView) view.findViewById(R.id.transaction_fragment_amount_sent);
+				viewAmountSent.setText("-\u2009" /* thin space */+ Utils.bitcoinValueToFriendlyString(amountSent));
+			}
+			else
+			{
+				view.findViewById(R.id.transaction_fragment_amount_sent_row).setVisibility(View.GONE);
+			}
 		}
 		catch (final ScriptException x)
 		{
-			throw new RuntimeException(x);
+			x.printStackTrace();
+		}
+
+		final BigInteger amountReceived = tx.getValueSentToMe(wallet);
+		if (!amountReceived.equals(BigInteger.ZERO))
+		{
+			final TextView viewAmountReceived = (TextView) view.findViewById(R.id.transaction_fragment_amount_received);
+			viewAmountReceived.setText("+\u2009" /* thin space */+ Utils.bitcoinValueToFriendlyString(amountReceived));
+		}
+		else
+		{
+			view.findViewById(R.id.transaction_fragment_amount_received_row).setVisibility(View.GONE);
 		}
 
 		final TextView viewFrom = (TextView) view.findViewById(R.id.transaction_fragment_from);

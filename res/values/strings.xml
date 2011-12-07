@@ -92,8 +92,8 @@
 
 	<string name="transaction_fragment_time_label">Date</string>
 	<string name="transaction_fragment_time_today">today</string>
-	<string name="transaction_fragment_amount_label_received">Received</string>
-	<string name="transaction_fragment_amount_label_sent">Sent</string>
+	<string name="transaction_fragment_amount_sent_label">Sent</string>
+	<string name="transaction_fragment_amount_received_label">Received</string>
 	<string name="transaction_fragment_from_label">Sender</string>
 	<string name="transaction_fragment_to_label">Receiver</string>
 	<string name="transaction_fragment_you">you</string>
