@@ -134,16 +134,22 @@ public class WalletActivity extends AbstractWalletActivity
 		{
 			try
 			{
-				final byte[] bytes = Base43.decode(intentUri.getSchemeSpecificPart());
-				final GZIPInputStream gzis = new GZIPInputStream(new ByteArrayInputStream(bytes));
+				// decode transaction URI
+				final String part = intentUri.getSchemeSpecificPart();
+				final boolean useCompression = part.charAt(0) == 'Z';
+				final byte[] bytes = Base43.decode(part.substring(1));
+
+				InputStream is = new ByteArrayInputStream(bytes);
+				if (useCompression)
+					is = new GZIPInputStream(is);
 				final ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
 				final byte[] buf = new byte[4096];
 				int read;
-				while (-1 != (read = gzis.read(buf)))
+				while (-1 != (read = is.read(buf)))
 					baos.write(buf, 0, read);
 				baos.close();
-				gzis.close();
+				is.close();
 
 				final Transaction tx = new Transaction(Constants.NETWORK_PARAMETERS, baos.toByteArray());
 

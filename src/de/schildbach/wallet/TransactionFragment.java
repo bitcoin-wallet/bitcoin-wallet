@@ -234,15 +234,20 @@ public class TransactionFragment extends DialogFragment
 
 		try
 		{
+			// encode transaction URI
 			final ByteArrayOutputStream bos = new ByteArrayOutputStream(serializedTx.length);
 			final GZIPOutputStream gos = new GZIPOutputStream(bos);
 			gos.write(serializedTx);
 			gos.close();
 
 			final byte[] gzippedSerializedTx = bos.toByteArray();
+			final boolean useCompressioon = gzippedSerializedTx.length < serializedTx.length;
 
-			final String txStr = ("btctx:" + Base43.encode(gzippedSerializedTx)).toUpperCase();
-			final Bitmap qrCodeBitmap = WalletUtils.getQRCodeBitmap(txStr, 512);
+			final StringBuilder txStr = new StringBuilder("btctx:");
+			txStr.append(useCompressioon ? 'Z' : '-');
+			txStr.append(Base43.encode(useCompressioon ? gzippedSerializedTx : serializedTx));
+
+			final Bitmap qrCodeBitmap = WalletUtils.getQRCodeBitmap(txStr.toString().toUpperCase(), 512);
 			viewQr.setImageBitmap(qrCodeBitmap);
 			viewQr.setOnClickListener(new OnClickListener()
 			{
