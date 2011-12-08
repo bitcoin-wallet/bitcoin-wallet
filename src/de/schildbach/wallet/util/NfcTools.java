@@ -53,12 +53,21 @@ public class NfcTools
 
 	private static NdefMessage ndefMessage(final String uri)
 	{
-		final NdefRecord uriRecord = absoluteUriRecord(uri);
+		final NdefRecord uriRecord = wellKnownUriRecord(uri);
 		return new NdefMessage(new NdefRecord[] { uriRecord });
 	}
 
 	private static NdefRecord absoluteUriRecord(final String uri)
 	{
 		return new NdefRecord(NdefRecord.TNF_ABSOLUTE_URI, NdefRecord.RTD_URI, new byte[0], uri.getBytes(UTF_8));
+	}
+
+	private static NdefRecord wellKnownUriRecord(final String uri)
+	{
+		byte[] uriBytes = uri.getBytes(UTF_8);
+		byte[] recordBytes = new byte[uriBytes.length + 1];
+		recordBytes[0] = (byte) 0x0; // prefix, alway 0 for bitcoin scheme
+		System.arraycopy(uriBytes, 0, recordBytes, 1, uriBytes.length);
+		return new NdefRecord(NdefRecord.TNF_WELL_KNOWN, NdefRecord.RTD_URI, new byte[0], recordBytes);
 	}
 }
