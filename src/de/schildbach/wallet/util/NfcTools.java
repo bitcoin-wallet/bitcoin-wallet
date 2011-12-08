@@ -17,7 +17,7 @@
 
 package de.schildbach.wallet.util;
 
-import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
 
 import android.app.Activity;
 import android.nfc.NdefMessage;
@@ -30,6 +30,8 @@ import android.nfc.NfcManager;
  */
 public class NfcTools
 {
+	private static final Charset UTF_8 = Charset.forName("UTF-8");
+
 	public static boolean publishUri(final Object nfcManager, final Activity activity, final String uri)
 	{
 		final NfcAdapter adapter = ((NfcManager) nfcManager).getDefaultAdapter();
@@ -51,15 +53,8 @@ public class NfcTools
 
 	private static NdefMessage ndefMessage(final String uri)
 	{
-		try
-		{
-			final byte[] data = uri.getBytes("UTF-8");
-			final NdefRecord record = new NdefRecord(NdefRecord.TNF_ABSOLUTE_URI, NdefRecord.RTD_URI, new byte[0], data);
-			return new NdefMessage(new NdefRecord[] { record });
-		}
-		catch (final UnsupportedEncodingException x)
-		{
-			throw new RuntimeException(x);
-		}
+		final byte[] data = uri.getBytes(UTF_8);
+		final NdefRecord record = new NdefRecord(NdefRecord.TNF_ABSOLUTE_URI, NdefRecord.RTD_URI, new byte[0], data);
+		return new NdefMessage(new NdefRecord[] { record });
 	}
 }
