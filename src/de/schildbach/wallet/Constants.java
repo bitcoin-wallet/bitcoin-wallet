@@ -68,6 +68,7 @@ public class Constants
 
 	public static final String PACKAGE_NAME_PROD = "de.schildbach.wallet";
 	public static final String PACKAGE_NAME_TEST = "de.schildbach.wallet" + '_' + "test"; // replace protected
+	public static final String PACKAGE_NAME = TEST ? PACKAGE_NAME_TEST : PACKAGE_NAME_PROD;
 
 	public static final int APP_ICON_RESID = Constants.TEST ? R.drawable.app_icon_test : R.drawable.app_icon;
 

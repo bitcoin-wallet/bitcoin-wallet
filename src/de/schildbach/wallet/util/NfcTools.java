@@ -24,6 +24,7 @@ import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
 import android.nfc.NfcManager;
+import de.schildbach.wallet.Constants;
 
 /**
  * @author Andreas Schildbach
@@ -31,6 +32,8 @@ import android.nfc.NfcManager;
 public class NfcTools
 {
 	private static final Charset UTF_8 = Charset.forName("UTF-8");
+	private static final Charset US_ASCII = Charset.forName("US-ASCII");
+	private static final byte[] RTD_ANDROID_APP = "android.com:pkg".getBytes(US_ASCII);
 
 	public static boolean publishUri(final Object nfcManager, final Activity activity, final String uri)
 	{
@@ -54,7 +57,8 @@ public class NfcTools
 	private static NdefMessage ndefMessage(final String uri)
 	{
 		final NdefRecord uriRecord = wellKnownUriRecord(uri);
-		return new NdefMessage(new NdefRecord[] { uriRecord });
+		final NdefRecord appRecord = androidApplicationRecord(Constants.PACKAGE_NAME);
+		return new NdefMessage(new NdefRecord[] { uriRecord, appRecord });
 	}
 
 	private static NdefRecord absoluteUriRecord(final String uri)
@@ -69,5 +73,10 @@ public class NfcTools
 		recordBytes[0] = (byte) 0x0; // prefix, alway 0 for bitcoin scheme
 		System.arraycopy(uriBytes, 0, recordBytes, 1, uriBytes.length);
 		return new NdefRecord(NdefRecord.TNF_WELL_KNOWN, NdefRecord.RTD_URI, new byte[0], recordBytes);
+	}
+
+	private static NdefRecord androidApplicationRecord(final String packageName)
+	{
+		return new NdefRecord(NdefRecord.TNF_EXTERNAL_TYPE, RTD_ANDROID_APP, new byte[0], packageName.getBytes(US_ASCII));
 	}
 }
