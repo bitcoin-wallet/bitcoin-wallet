@@ -42,8 +42,7 @@ import android.provider.BaseColumns;
  */
 public class ExchangeRatesProvider extends ContentProvider
 {
-	public static final Uri CONTENT_URI = Uri.parse("content://" + (Constants.TEST ? Constants.PACKAGE_NAME_TEST : Constants.PACKAGE_NAME_PROD) + '.'
-			+ "exchange_rates");
+	public static final Uri CONTENT_URI = Uri.parse("content://" + Constants.PACKAGE_NAME + '.' + "exchange_rates");
 
 	public static final String KEY_CURRENCY_CODE = "currency_code";
 	public static final String KEY_EXCHANGE_RATE = "exchange_rate";
