@@ -40,6 +40,15 @@ public class NfcTools
 		return true;
 	}
 
+	public static void unpublish(final Object nfcManager, final Activity activity)
+	{
+		final NfcAdapter adapter = ((NfcManager) nfcManager).getDefaultAdapter();
+		if (adapter == null)
+			return;
+
+		adapter.disableForegroundNdefPush(activity);
+	}
+
 	private static NdefMessage ndefMessage(final String uri)
 	{
 		try

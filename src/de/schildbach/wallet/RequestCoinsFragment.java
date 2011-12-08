@@ -84,7 +84,7 @@ public class RequestCoinsFragment extends Fragment
 			{
 				updateView();
 			}
-			
+
 			public void done()
 			{
 			}
@@ -137,6 +137,15 @@ public class RequestCoinsFragment extends Fragment
 		super.onResume();
 
 		updateView();
+	}
+
+	@Override
+	public void onPause()
+	{
+		super.onPause();
+
+		if (nfcManager != null)
+			NfcTools.unpublish(nfcManager, getActivity());
 	}
 
 	private void updateView()
