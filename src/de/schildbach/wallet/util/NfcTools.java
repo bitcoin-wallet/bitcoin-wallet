@@ -53,8 +53,12 @@ public class NfcTools
 
 	private static NdefMessage ndefMessage(final String uri)
 	{
-		final byte[] data = uri.getBytes(UTF_8);
-		final NdefRecord record = new NdefRecord(NdefRecord.TNF_ABSOLUTE_URI, NdefRecord.RTD_URI, new byte[0], data);
-		return new NdefMessage(new NdefRecord[] { record });
+		final NdefRecord uriRecord = absoluteUriRecord(uri);
+		return new NdefMessage(new NdefRecord[] { uriRecord });
+	}
+
+	private static NdefRecord absoluteUriRecord(final String uri)
+	{
+		return new NdefRecord(NdefRecord.TNF_ABSOLUTE_URI, NdefRecord.RTD_URI, new byte[0], uri.getBytes(UTF_8));
 	}
 }
