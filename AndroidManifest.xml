@@ -67,6 +67,7 @@
 	<uses-permission android:name="android.permission.BROADCAST_STICKY" />
 
 	<uses-feature android:name="android.hardware.touchscreen" android:required="false" />
+	<uses-feature android:name="android.hardware.nfc" android:required="false" />
 
 	<supports-screens android:largeScreens="true" android:normalScreens="true" android:smallScreens="true"
 		android:anyDensity="true" />
