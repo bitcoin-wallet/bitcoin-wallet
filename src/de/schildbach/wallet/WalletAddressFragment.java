@@ -39,6 +39,7 @@ import android.widget.TextView;
 
 import com.google.bitcoin.core.Address;
 
+import de.schildbach.wallet.util.NfcTools;
 import de.schildbach.wallet.util.QrDialog;
 import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
@@ -49,6 +50,8 @@ import de.schildbach.wallet_test.R;
 public class WalletAddressFragment extends Fragment
 {
 	private Application application;
+	private Object nfcManager;
+
 	private final Handler handler = new Handler();
 
 	private TextView bitcoinAddressView;
@@ -59,11 +62,13 @@ public class WalletAddressFragment extends Fragment
 	@Override
 	public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState)
 	{
+		nfcManager = getActivity().getSystemService(Context.NFC_SERVICE);
+
+		application = (Application) getActivity().getApplication();
+
 		final View view = inflater.inflate(R.layout.wallet_address_fragment, container, false);
 		bitcoinAddressView = (TextView) view.findViewById(R.id.bitcoin_address);
 		bitcoinAddressQrView = (ImageView) view.findViewById(R.id.bitcoin_address_qr);
-
-		application = (Application) getActivity().getApplication();
 
 		bitcoinAddressView.setOnClickListener(new OnClickListener()
 		{
@@ -134,6 +139,15 @@ public class WalletAddressFragment extends Fragment
 	}
 
 	@Override
+	public void onPause()
+	{
+		super.onPause();
+
+		if (nfcManager != null)
+			NfcTools.unpublish(nfcManager, getActivity());
+	}
+
+	@Override
 	public void onDestroyView()
 	{
 		if (qrCodeBitmap != null)
@@ -151,9 +165,13 @@ public class WalletAddressFragment extends Fragment
 
 		bitcoinAddressView.setText(WalletUtils.splitIntoLines(selectedAddress.toString(), 3));
 
-		// populate qrcode representation of bitcoin address
-		qrCodeBitmap = WalletUtils.getQRCodeBitmap("bitcoin:" + selectedAddress, 256);
+		final String addressStr = "bitcoin:" + selectedAddress;
+
+		qrCodeBitmap = WalletUtils.getQRCodeBitmap(addressStr, 256);
 		bitcoinAddressQrView.setImageBitmap(qrCodeBitmap);
+
+		if (nfcManager != null)
+			NfcTools.publishUri(nfcManager, getActivity(), addressStr);
 	}
 
 	private Runnable resetColorRunnable = new Runnable()
