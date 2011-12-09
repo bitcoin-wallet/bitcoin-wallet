@@ -16,10 +16,12 @@
 		android:orientation="vertical">
 		<TextView android:id="@+id/action_bar_primary_title" android:layout_height="wrap_content"
 			android:layout_width="wrap_content" android:textColor="@android:color/white" android:shadowColor="@android:color/black"
-			android:shadowRadius="1" android:textStyle="bold" />
+			android:shadowRadius="1" android:textStyle="bold" android:textSize="@dimen/font_size_normal"
+			android:includeFontPadding="false" />
 		<TextView android:id="@+id/action_bar_secondary_title" android:layout_width="wrap_content"
 			android:layout_height="wrap_content" android:textColor="@android:color/white" android:shadowColor="@android:color/black"
-			android:shadowRadius="1" android:singleLine="true" android:visibility="gone" />
+			android:shadowRadius="1" android:textStyle="normal" android:textSize="@dimen/font_size_small" android:singleLine="true"
+			android:visibility="gone" />
 	</LinearLayout>
 
 </LinearLayout>

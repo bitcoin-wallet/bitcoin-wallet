@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+	<dimen name="font_size_tiny">14sp</dimen>
+	<dimen name="font_size_small">18sp</dimen>
+	<dimen name="font_size_normal">22sp</dimen>
+
 	<dimen name="action_bar_height">56dp</dimen>
 	<dimen name="action_bar_button_width">56dp</dimen>
 

@@ -28,8 +28,8 @@ import android.graphics.Path;
 import android.graphics.Typeface;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.AttributeSet;
-import android.util.DisplayMetrics;
 import android.view.View;
+import de.schildbach.wallet_test.R;
 
 /**
  * @author Andreas Schildbach
@@ -46,10 +46,7 @@ public class ViewPagerTabs extends View implements OnPageChangeListener
 	{
 		super(context, attrs);
 
-		final DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
-		final float density = displayMetrics.scaledDensity;
-
-		paint.setTextSize(12f * density);
+		paint.setTextSize(getResources().getDimension(R.dimen.font_size_tiny));
 		paint.setColor(Color.BLACK);
 		paint.setAntiAlias(true);
 		paint.setShadowLayer(2, 0, 0, Color.WHITE);

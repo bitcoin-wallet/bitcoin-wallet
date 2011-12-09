@@ -4,10 +4,11 @@
 
 	<TextView android:id="@+id/wallet_disclaimer" android:layout_width="fill_parent" android:layout_height="wrap_content"
 		android:layout_gravity="center" android:gravity="center" android:text="@string/wallet_content_disclaimer"
-		android:textSize="13sp" android:textColor="#fff" android:shadowColor="#000" android:shadowRadius="1" />
+		android:textSize="@dimen/font_size_small" android:textColor="#fff" android:shadowColor="#000" android:shadowRadius="1"
+		android:minLines="2" />
 
 	<TextView android:id="@+id/wallet_message" android:layout_width="fill_parent" android:layout_height="wrap_content"
-		android:layout_gravity="center" android:gravity="center" android:textSize="15sp" android:textColor="#fff"
+		android:layout_gravity="center" android:gravity="center" android:textSize="@dimen/font_size_small" android:textColor="#fff"
 		android:shadowColor="#000" android:shadowRadius="1" android:singleLine="true" android:visibility="gone" />
 
 </FrameLayout>
