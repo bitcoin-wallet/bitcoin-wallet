@@ -7,8 +7,8 @@
 		<ImageView android:id="@+id/action_bar_back" android:layout_width="wrap_content" android:layout_height="wrap_content"
 			android:layout_gravity="center_vertical|left" android:layout_marginRight="-6dp" android:scaleType="center"
 			android:src="@drawable/ic_ab_back_holo_dark" android:visibility="gone" />
-		<ImageView android:id="@+id/action_bar_icon" android:layout_width="40dp" android:layout_height="40dp"
-			android:layout_gravity="center" android:layout_margin="2dp" android:scaleType="fitCenter" />
+		<ImageView android:id="@+id/action_bar_icon" android:layout_width="@dimen/action_bar_button_width"
+			android:layout_height="40dp" android:layout_gravity="center" android:scaleType="fitCenter" />
 	</LinearLayout>
 
 	<LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"

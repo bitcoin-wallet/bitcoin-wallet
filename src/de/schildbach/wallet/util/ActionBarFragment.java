@@ -91,7 +91,8 @@ public class ActionBarFragment extends Fragment
 	{
 		final float density = getResources().getDisplayMetrics().density;
 
-		final LinearLayout.LayoutParams buttonParams = new LinearLayout.LayoutParams(Math.round(44 * density), LayoutParams.FILL_PARENT, 0f);
+		final LinearLayout.LayoutParams buttonParams = new LinearLayout.LayoutParams(getResources().getDimensionPixelSize(
+				R.dimen.action_bar_button_width), LayoutParams.FILL_PARENT, 0f);
 		buttonParams.gravity = Gravity.CENTER_VERTICAL;
 
 		final ImageButton button = new ImageButton(getActivity());
