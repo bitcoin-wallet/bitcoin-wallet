@@ -18,6 +18,9 @@
 package de.schildbach.wallet;
 
 import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import de.schildbach.wallet.util.ActionBarFragment;
 import de.schildbach.wallet_test.R;
 
 /**
@@ -32,6 +35,16 @@ public class AddressBookActivity extends AbstractWalletActivity
 
 		setContentView(R.layout.address_book_content);
 
-		getActionBar().setPrimaryTitle(R.string.address_book_activity_title);
+		final ActionBarFragment actionBar = getActionBar();
+
+		actionBar.setPrimaryTitle(R.string.address_book_activity_title);
+
+		actionBar.setBack(new OnClickListener()
+		{
+			public void onClick(final View v)
+			{
+				finish();
+			}
+		});
 	}
 }

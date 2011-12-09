@@ -41,7 +41,16 @@ public class RequestCoinsActivity extends AbstractWalletActivity
 		setContentView(R.layout.request_coins_content);
 
 		final ActionBarFragment actionBar = getActionBar();
+
 		actionBar.setPrimaryTitle(R.string.request_coins_activity_title);
+
+		actionBar.setBack(new OnClickListener()
+		{
+			public void onClick(final View v)
+			{
+				finish();
+			}
+		});
 
 		actionBar.addButton(R.drawable.ic_menu_help).setOnClickListener(new OnClickListener()
 		{

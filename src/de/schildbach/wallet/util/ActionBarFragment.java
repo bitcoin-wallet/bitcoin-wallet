@@ -24,6 +24,7 @@ import android.support.v4.app.Fragment;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -39,6 +40,8 @@ import de.schildbach.wallet_test.R;
 public class ActionBarFragment extends Fragment
 {
 	private ViewGroup view;
+	private View backButtonView;
+	private View backView;
 	private ImageView iconView;
 	private TextView primaryTitleView;
 	private TextView secondaryTitleView;
@@ -47,6 +50,8 @@ public class ActionBarFragment extends Fragment
 	public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState)
 	{
 		view = (ViewGroup) inflater.inflate(R.layout.action_bar_fragment, container);
+		backButtonView = view.findViewById(R.id.action_bar_back_button);
+		backView = view.findViewById(R.id.action_bar_back);
 		iconView = (ImageView) view.findViewById(R.id.action_bar_icon);
 		primaryTitleView = (TextView) view.findViewById(R.id.action_bar_primary_title);
 		secondaryTitleView = (TextView) view.findViewById(R.id.action_bar_secondary_title);
@@ -57,6 +62,12 @@ public class ActionBarFragment extends Fragment
 	public void setIcon(final int iconRes)
 	{
 		iconView.setImageResource(iconRes);
+	}
+
+	public void setBack(final OnClickListener onClickListener)
+	{
+		backButtonView.setOnClickListener(onClickListener);
+		backView.setVisibility(View.VISIBLE);
 	}
 
 	public void setPrimaryTitle(final CharSequence title)
