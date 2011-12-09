@@ -33,11 +33,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -51,6 +49,7 @@ import com.google.bitcoin.core.Transaction;
 import de.schildbach.wallet.util.ActionBarFragment;
 import de.schildbach.wallet.util.Base43;
 import de.schildbach.wallet.util.ErrorReporter;
+import de.schildbach.wallet.util.NfcTools;
 import de.schildbach.wallet_test.R;
 
 /**
@@ -60,6 +59,9 @@ public class WalletActivity extends AbstractWalletActivity
 {
 	public static final int DIALOG_SAFETY = 1;
 	private static final int DIALOG_HELP = 0;
+
+	private static final int GINGERBREAD_MR1 = 10; // from API level 10
+	private static final String EXTRA_NDEF_MESSAGES = "android.nfc.extra.NDEF_MESSAGES"; // from API level 10
 
 	@Override
 	protected void onCreate(final Bundle savedInstanceState)
@@ -153,17 +155,27 @@ public class WalletActivity extends AbstractWalletActivity
 
 				final Transaction tx = new Transaction(Constants.NETWORK_PARAMETERS, baos.toByteArray());
 
-				final FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-				final Fragment prev = getSupportFragmentManager().findFragmentByTag(TransactionFragment.FRAGMENT_TAG);
-				if (prev != null)
-					ft.remove(prev);
-				ft.addToBackStack(null);
-				final DialogFragment newFragment = TransactionFragment.instance(tx);
-				newFragment.show(ft, TransactionFragment.FRAGMENT_TAG);
+				TransactionFragment.show(getSupportFragmentManager(), tx);
 			}
 			catch (final IOException x)
 			{
 				throw new RuntimeException(x);
+			}
+			catch (final ProtocolException x)
+			{
+				throw new RuntimeException(x);
+			}
+		}
+		else if (Build.VERSION.SDK_INT >= GINGERBREAD_MR1 && Constants.MIMETYPE_TRANSACTION.equals(intent.getType()))
+		{
+			final Object ndefMessage = intent.getParcelableArrayExtra(EXTRA_NDEF_MESSAGES)[0];
+			final byte[] payload = NfcTools.extractMimePayload(Constants.MIMETYPE_TRANSACTION, ndefMessage);
+
+			try
+			{
+				final Transaction tx = new Transaction(Constants.NETWORK_PARAMETERS, payload);
+
+				TransactionFragment.show(getSupportFragmentManager(), tx);
 			}
 			catch (final ProtocolException x)
 			{

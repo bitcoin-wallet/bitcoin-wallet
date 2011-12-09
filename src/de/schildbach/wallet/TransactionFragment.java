@@ -33,7 +33,10 @@ import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -66,6 +69,17 @@ public class TransactionFragment extends DialogFragment
 	private DateFormat timeFormat;
 
 	private final static String KEY_TRANSACTION = "transaction";
+
+	public static void show(final FragmentManager fm, final Transaction tx)
+	{
+		final FragmentTransaction ft = fm.beginTransaction();
+		final Fragment prev = fm.findFragmentByTag(FRAGMENT_TAG);
+		if (prev != null)
+			ft.remove(prev);
+		ft.addToBackStack(null);
+		final DialogFragment newFragment = TransactionFragment.instance(tx);
+		newFragment.show(ft, FRAGMENT_TAG);
+	}
 
 	public static TransactionFragment instance(final Transaction tx)
 	{

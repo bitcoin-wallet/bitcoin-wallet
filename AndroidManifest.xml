@@ -18,6 +18,11 @@
 				<category android:name="android.intent.category.DEFAULT" />
 				<category android:name="android.intent.category.BROWSABLE" />
 			</intent-filter>
+			<intent-filter>
+				<action android:name="android.nfc.action.NDEF_DISCOVERED" />
+				<data android:mimeType="application/x-btctx" />
+				<category android:name="android.intent.category.DEFAULT" />
+			</intent-filter>
 		</activity>
 
 		<activity android:name="de.schildbach.wallet.SendCoinsActivity" android:theme="@android:style/Theme.Light.NoTitleBar"
