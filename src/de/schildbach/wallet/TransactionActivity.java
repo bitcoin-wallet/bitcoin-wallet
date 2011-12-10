@@ -49,6 +49,9 @@ public class TransactionActivity extends AbstractWalletActivity
 	private static final int GINGERBREAD_MR1 = 10; // API level 10
 	private static final String EXTRA_NDEF_MESSAGES = "android.nfc.extra.NDEF_MESSAGES"; // API level 10
 
+	private Object nfcManager;
+	private Transaction tx;
+
 	public static void show(final Context context, final Transaction tx)
 	{
 		final Intent intent = new Intent(context, TransactionActivity.class);
@@ -60,6 +63,8 @@ public class TransactionActivity extends AbstractWalletActivity
 	protected void onCreate(final Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
+
+		nfcManager = getSystemService(Context.NFC_SERVICE);
 
 		setContentView(R.layout.transaction_content);
 
@@ -78,12 +83,27 @@ public class TransactionActivity extends AbstractWalletActivity
 		handleIntent(getIntent());
 	}
 
+	@Override
+	protected void onResume()
+	{
+		super.onResume();
+
+		updateView();
+	}
+
+	@Override
+	public void onPause()
+	{
+		if (nfcManager != null)
+			NfcTools.unpublish(nfcManager, this);
+
+		super.onPause();
+	}
+
 	private void handleIntent(final Intent intent)
 	{
 		final Uri intentUri = intent.getData();
 		final String scheme = intentUri != null ? intentUri.getScheme() : null;
-
-		Transaction tx = null;
 
 		if (intent.hasExtra(INTENT_EXTRA_TRANSACTION))
 		{
@@ -136,15 +156,17 @@ public class TransactionActivity extends AbstractWalletActivity
 			}
 		}
 
-		if (tx != null)
-		{
-			final TransactionFragment transactionFragment = (TransactionFragment) getSupportFragmentManager().findFragmentById(
-					R.id.transaction_fragment);
-			transactionFragment.update(tx);
-		}
-		else
-		{
+		if (tx == null)
 			throw new IllegalArgumentException("no tx");
-		}
+	}
+
+	private void updateView()
+	{
+		final TransactionFragment transactionFragment = (TransactionFragment) getSupportFragmentManager().findFragmentById(R.id.transaction_fragment);
+
+		transactionFragment.update(tx);
+
+		if (nfcManager != null)
+			NfcTools.publishMimeObject(nfcManager, this, Constants.MIMETYPE_TRANSACTION, tx.unsafeBitcoinSerialize(), false);
 	}
 }

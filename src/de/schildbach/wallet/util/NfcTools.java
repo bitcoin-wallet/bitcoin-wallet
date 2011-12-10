@@ -42,7 +42,22 @@ public class NfcTools
 		if (adapter == null)
 			return false;
 
-		adapter.enableForegroundNdefPush(activity, ndefMessage(uri));
+		final NdefRecord uriRecord = wellKnownUriRecord(uri);
+		adapter.enableForegroundNdefPush(activity, ndefMessage(uriRecord, true));
+
+		return true;
+	}
+
+	public static boolean publishMimeObject(final Object nfcManager, final Activity activity, final String mimeType, final byte[] payload,
+			final boolean includeApplicationRecord)
+	{
+		final NfcAdapter adapter = ((NfcManager) nfcManager).getDefaultAdapter();
+		if (adapter == null)
+			return false;
+
+		final NdefRecord mimeRecord = mimeRecord(mimeType, payload);
+		adapter.enableForegroundNdefPush(activity, ndefMessage(mimeRecord, includeApplicationRecord));
+
 		return true;
 	}
 
@@ -55,11 +70,17 @@ public class NfcTools
 		adapter.disableForegroundNdefPush(activity);
 	}
 
-	private static NdefMessage ndefMessage(final String uri)
+	private static NdefMessage ndefMessage(final NdefRecord record, final boolean includeApplicationRecord)
 	{
-		final NdefRecord uriRecord = wellKnownUriRecord(uri);
-		final NdefRecord appRecord = androidApplicationRecord(Constants.PACKAGE_NAME);
-		return new NdefMessage(new NdefRecord[] { uriRecord, appRecord });
+		if (includeApplicationRecord)
+		{
+			final NdefRecord appRecord = androidApplicationRecord(Constants.PACKAGE_NAME);
+			return new NdefMessage(new NdefRecord[] { record, appRecord });
+		}
+		else
+		{
+			return new NdefMessage(new NdefRecord[] { record });
+		}
 	}
 
 	private static NdefRecord absoluteUriRecord(final String uri)
