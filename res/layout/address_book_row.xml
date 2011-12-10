@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="fill_parent"
-	android:layout_height="fill_parent" android:paddingTop="8dp" android:paddingBottom="8dp" android:paddingLeft="16dp"
-	android:paddingRight="16dp" android:minHeight="?android:attr/listPreferredItemHeight" android:orientation="horizontal">
+	android:layout_height="fill_parent" android:paddingLeft="@dimen/list_entry_padding_horizontal" android:paddingRight="@dimen/list_entry_padding_horizontal"
+	android:paddingTop="8dp" android:paddingBottom="8dp" android:minHeight="?android:attr/listPreferredItemHeight"
+	android:orientation="horizontal">
 
 	<TextView android:id="@+id/address_book_row_label" android:layout_width="fill_parent" android:layout_height="wrap_content"
 		android:layout_weight="100" android:textAppearance="?android:attr/textAppearanceLarge" />

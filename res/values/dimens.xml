@@ -5,7 +5,9 @@
 	<dimen name="font_size_small">15sp</dimen>
 	<dimen name="font_size_normal">18sp</dimen>
 
+	<dimen name="list_entry_padding_horizontal">8dp</dimen>
+
 	<dimen name="action_bar_height">48dp</dimen>
 	<dimen name="action_bar_button_width">44dp</dimen>
-	
+
 </resources>
