@@ -7,20 +7,20 @@
 		android:layout_weight="1" android:layout_gravity="left|center_vertical" android:orientation="vertical">
 
 		<TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="1"
-			android:layout_gravity="top" android:text="@string/wallet_address_fragment_your" />
+			android:layout_gravity="top" android:text="@string/wallet_address_fragment_your" android:textSize="@dimen/font_size_small" />
 
 		<FrameLayout android:id="@+id/bitcoin_address_button" android:layout_width="wrap_content"
 			android:layout_height="wrap_content" android:layout_gravity="bottom" android:foreground="@drawable/dropdown_ic_arrow"
 			android:foregroundGravity="bottom|right" android:background="@android:drawable/list_selector_background"
 			android:focusable="true">
 			<TextView android:id="@+id/bitcoin_address_label" android:layout_width="wrap_content" android:layout_height="wrap_content"
-				android:typeface="monospace" android:textSize="18sp" />
+				android:typeface="monospace" android:textSize="@dimen/font_size_normal" />
 		</FrameLayout>
 
 	</LinearLayout>
 
-	<ImageView android:id="@+id/bitcoin_address_qr" android:layout_width="96dp" android:layout_height="96dp"
-		android:layout_gravity="center" android:layout_marginLeft="16dp" android:scaleType="centerInside" android:background="@drawable/qrcode_frame"
-		android:focusable="true" />
+	<ImageView android:id="@+id/bitcoin_address_qr" android:layout_width="@dimen/wallet_address_qr_size"
+		android:layout_height="@dimen/wallet_address_qr_size" android:layout_gravity="center" android:layout_marginLeft="16dp"
+		android:scaleType="centerInside" android:background="@drawable/qrcode_frame" android:focusable="true" />
 
 </LinearLayout>
