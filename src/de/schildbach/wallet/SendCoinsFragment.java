@@ -30,7 +30,6 @@ import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.database.Cursor;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
@@ -215,14 +214,14 @@ public class SendCoinsFragment extends Fragment
 
 					System.out.println("about to send " + amount + " (BTC " + Utils.bitcoinValueToFriendlyString(amount) + ") to " + receivingAddress);
 
-					final Transaction transaction = application.getWallet().createSend(receivingAddress, amount, fee);
+					final Transaction tx = application.getWallet().createSend(receivingAddress, amount, fee);
 
-					if (transaction != null)
+					if (tx != null)
 					{
 						state = State.SENDING;
 						updateView();
 
-						service.sendTransaction(transaction);
+						service.sendTransaction(tx);
 
 						final WalletBalanceFragment balanceFragment = (WalletBalanceFragment) activity.getSupportFragmentManager().findFragmentById(
 								R.id.wallet_balance_fragment);
@@ -239,6 +238,8 @@ public class SendCoinsFragment extends Fragment
 								final String label = AddressBookProvider.resolveLabel(activity.getContentResolver(), receivingAddress.toString());
 								if (label == null)
 									showAddAddressDialog(receivingAddress.toString());
+
+								TransactionActivity.show(activity, tx);
 							}
 						};
 						handler.postDelayed(sentRunnable, 5000);
