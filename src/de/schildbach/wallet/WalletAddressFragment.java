@@ -55,7 +55,8 @@ public class WalletAddressFragment extends Fragment
 
 	private final Handler handler = new Handler();
 
-	private TextView bitcoinAddressView;
+	private View bitcoinAddressButton;
+	private TextView bitcoinAddressLabel;
 	private ImageView bitcoinAddressQrView;
 
 	private Bitmap qrCodeBitmap;
@@ -68,10 +69,11 @@ public class WalletAddressFragment extends Fragment
 		application = (Application) getActivity().getApplication();
 
 		final View view = inflater.inflate(R.layout.wallet_address_fragment, container, false);
-		bitcoinAddressView = (TextView) view.findViewById(R.id.bitcoin_address);
+		bitcoinAddressButton = view.findViewById(R.id.bitcoin_address_button);
+		bitcoinAddressLabel = (TextView) view.findViewById(R.id.bitcoin_address_label);
 		bitcoinAddressQrView = (ImageView) view.findViewById(R.id.bitcoin_address_qr);
 
-		bitcoinAddressView.setOnClickListener(new OnClickListener()
+		bitcoinAddressButton.setOnClickListener(new OnClickListener()
 		{
 			public void onClick(final View v)
 			{
@@ -79,7 +81,7 @@ public class WalletAddressFragment extends Fragment
 			}
 		});
 
-		bitcoinAddressView.setOnLongClickListener(new OnLongClickListener()
+		bitcoinAddressButton.setOnLongClickListener(new OnLongClickListener()
 		{
 			public boolean onLongClick(final View v)
 			{
@@ -164,7 +166,7 @@ public class WalletAddressFragment extends Fragment
 	{
 		final Address selectedAddress = application.determineSelectedAddress();
 
-		bitcoinAddressView.setText(WalletUtils.splitIntoLines(selectedAddress.toString(), 3));
+		bitcoinAddressLabel.setText(WalletUtils.splitIntoLines(selectedAddress.toString(), 3));
 
 		final String addressStr = "bitcoin:" + selectedAddress;
 
@@ -179,13 +181,13 @@ public class WalletAddressFragment extends Fragment
 	{
 		public void run()
 		{
-			bitcoinAddressView.setTextColor(Color.BLACK);
+			bitcoinAddressLabel.setTextColor(Color.BLACK);
 		}
 	};
 
 	public void flashAddress()
 	{
-		bitcoinAddressView.setTextColor(Color.parseColor("#cc5500"));
+		bitcoinAddressLabel.setTextColor(Color.parseColor("#cc5500"));
 		handler.removeCallbacks(resetColorRunnable);
 		handler.postDelayed(resetColorRunnable, 500);
 	}

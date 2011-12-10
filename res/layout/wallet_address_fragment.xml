@@ -6,12 +6,16 @@
 	<LinearLayout android:layout_width="wrap_content" android:layout_height="fill_parent"
 		android:layout_weight="1" android:layout_gravity="left|center_vertical" android:orientation="vertical">
 
-		<TextView android:id="@+id/bitcoin_address_label" android:layout_width="wrap_content" android:layout_height="wrap_content"
-			android:layout_weight="1" android:layout_gravity="top" android:text="@string/wallet_address_fragment_your" />
+		<TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="1"
+			android:layout_gravity="top" android:text="@string/wallet_address_fragment_your" />
 
-		<TextView android:id="@+id/bitcoin_address" android:layout_width="wrap_content" android:layout_height="wrap_content"
-			android:layout_gravity="bottom" android:typeface="monospace" android:textSize="18sp" android:focusable="true"
-			android:background="@android:drawable/list_selector_background" />
+		<FrameLayout android:id="@+id/bitcoin_address_button" android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:layout_gravity="bottom" android:foreground="@drawable/dropdown_ic_arrow"
+			android:foregroundGravity="bottom|right" android:background="@android:drawable/list_selector_background"
+			android:focusable="true">
+			<TextView android:id="@+id/bitcoin_address_label" android:layout_width="wrap_content" android:layout_height="wrap_content"
+				android:typeface="monospace" android:textSize="18sp" />
+		</FrameLayout>
 
 	</LinearLayout>
 
