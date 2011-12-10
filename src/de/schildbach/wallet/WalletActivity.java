@@ -63,6 +63,7 @@ public class WalletActivity extends AbstractWalletActivity
 	private static final int DIALOG_HELP = 0;
 
 	private static final int GINGERBREAD_MR1 = 10; // API level 10
+	private static final int HONEYCOMB = 11; // API level 11
 	private static final String EXTRA_NDEF_MESSAGES = "android.nfc.extra.NDEF_MESSAGES"; // API level 10
 
 	@Override
@@ -77,6 +78,17 @@ public class WalletActivity extends AbstractWalletActivity
 		final ActionBarFragment actionBar = getActionBar();
 		actionBar.setPrimaryTitle(R.string.app_name);
 
+		if (Build.VERSION.SDK_INT >= HONEYCOMB)
+		{
+			actionBar.addButton(R.drawable.ic_menu_moreoverflow).setOnClickListener(new OnClickListener()
+			{
+				public void onClick(final View v)
+				{
+					openOptionsMenu();
+				}
+			});
+		}
+
 		actionBar.addButton(R.drawable.ic_menu_send).setOnClickListener(new OnClickListener()
 		{
 			public void onClick(final View v)
@@ -84,6 +96,7 @@ public class WalletActivity extends AbstractWalletActivity
 				startActivity(new Intent(WalletActivity.this, SendCoinsActivity.class));
 			}
 		});
+
 		actionBar.addButton(R.drawable.ic_menu_request).setOnClickListener(new OnClickListener()
 		{
 			public void onClick(final View v)
@@ -91,20 +104,17 @@ public class WalletActivity extends AbstractWalletActivity
 				startActivity(new Intent(WalletActivity.this, RequestCoinsActivity.class));
 			}
 		});
-		actionBar.addButton(R.drawable.ic_menu_address_book).setOnClickListener(new OnClickListener()
+
+		if ((getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) >= Configuration.SCREENLAYOUT_SIZE_LARGE)
 		{
-			public void onClick(final View v)
+			actionBar.addButton(R.drawable.ic_menu_address_book).setOnClickListener(new OnClickListener()
 			{
-				startActivity(new Intent(WalletActivity.this, AddressBookActivity.class));
-			}
-		});
-		actionBar.addButton(R.drawable.ic_menu_help).setOnClickListener(new OnClickListener()
-		{
-			public void onClick(final View v)
-			{
-				showDialog(DIALOG_HELP);
-			}
-		});
+				public void onClick(final View v)
+				{
+					startActivity(new Intent(WalletActivity.this, AddressBookActivity.class));
+				}
+			});
+		}
 
 		final FragmentManager fm = getSupportFragmentManager();
 		final FragmentTransaction ft = fm.beginTransaction();
@@ -204,12 +214,8 @@ public class WalletActivity extends AbstractWalletActivity
 	{
 		switch (item.getItemId())
 		{
-			case R.id.wallet_options_send_coins:
-				startActivity(new Intent(this, SendCoinsActivity.class));
-				return true;
-
-			case R.id.wallet_options_request_coins:
-				startActivity(new Intent(WalletActivity.this, RequestCoinsActivity.class));
+			case R.id.wallet_options_address_book:
+				startActivity(new Intent(WalletActivity.this, AddressBookActivity.class));
 				return true;
 
 			case R.id.wallet_options_preferences:
