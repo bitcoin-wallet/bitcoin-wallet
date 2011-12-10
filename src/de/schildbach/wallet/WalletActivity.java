@@ -18,14 +18,10 @@
 package de.schildbach.wallet;
 
 import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.zip.GZIPInputStream;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -33,7 +29,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -44,14 +39,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.webkit.WebView;
-
-import com.google.bitcoin.core.ProtocolException;
-import com.google.bitcoin.core.Transaction;
-
 import de.schildbach.wallet.util.ActionBarFragment;
-import de.schildbach.wallet.util.Base43;
 import de.schildbach.wallet.util.ErrorReporter;
-import de.schildbach.wallet.util.NfcTools;
 import de.schildbach.wallet_test.R;
 
 /**
@@ -62,9 +51,7 @@ public class WalletActivity extends AbstractWalletActivity
 	public static final int DIALOG_SAFETY = 1;
 	private static final int DIALOG_HELP = 0;
 
-	private static final int GINGERBREAD_MR1 = 10; // API level 10
 	private static final int HONEYCOMB = 11; // API level 11
-	private static final String EXTRA_NDEF_MESSAGES = "android.nfc.extra.NDEF_MESSAGES"; // API level 10
 
 	@Override
 	protected void onCreate(final Bundle savedInstanceState)
@@ -76,6 +63,7 @@ public class WalletActivity extends AbstractWalletActivity
 		setContentView(R.layout.wallet_content);
 
 		final ActionBarFragment actionBar = getActionBar();
+
 		actionBar.setPrimaryTitle(R.string.app_name);
 
 		if (Build.VERSION.SDK_INT >= HONEYCOMB)
@@ -124,14 +112,6 @@ public class WalletActivity extends AbstractWalletActivity
 		ft.commit();
 
 		checkVersionAndTimeskewAlert();
-
-		handleIntent(getIntent());
-	}
-
-	@Override
-	protected void onNewIntent(final Intent intent)
-	{
-		handleIntent(intent);
 	}
 
 	@Override
@@ -140,63 +120,6 @@ public class WalletActivity extends AbstractWalletActivity
 		super.onResume();
 
 		checkLowStorageAlert();
-	}
-
-	private void handleIntent(final Intent intent)
-	{
-		final Uri intentUri = intent.getData();
-		final String scheme = intentUri != null ? intentUri.getScheme() : null;
-
-		if (intentUri != null && "btctx".equals(scheme))
-		{
-			try
-			{
-				// decode transaction URI
-				final String part = intentUri.getSchemeSpecificPart();
-				final boolean useCompression = part.charAt(0) == 'Z';
-				final byte[] bytes = Base43.decode(part.substring(1));
-
-				InputStream is = new ByteArrayInputStream(bytes);
-				if (useCompression)
-					is = new GZIPInputStream(is);
-				final ByteArrayOutputStream baos = new ByteArrayOutputStream();
-
-				final byte[] buf = new byte[4096];
-				int read;
-				while (-1 != (read = is.read(buf)))
-					baos.write(buf, 0, read);
-				baos.close();
-				is.close();
-
-				final Transaction tx = new Transaction(Constants.NETWORK_PARAMETERS, baos.toByteArray());
-
-				TransactionFragment.show(getSupportFragmentManager(), tx);
-			}
-			catch (final IOException x)
-			{
-				throw new RuntimeException(x);
-			}
-			catch (final ProtocolException x)
-			{
-				throw new RuntimeException(x);
-			}
-		}
-		else if (Build.VERSION.SDK_INT >= GINGERBREAD_MR1 && Constants.MIMETYPE_TRANSACTION.equals(intent.getType()))
-		{
-			final Object ndefMessage = intent.getParcelableArrayExtra(EXTRA_NDEF_MESSAGES)[0];
-			final byte[] payload = NfcTools.extractMimePayload(Constants.MIMETYPE_TRANSACTION, ndefMessage);
-
-			try
-			{
-				final Transaction tx = new Transaction(Constants.NETWORK_PARAMETERS, payload);
-
-				TransactionFragment.show(getSupportFragmentManager(), tx);
-			}
-			catch (final ProtocolException x)
-			{
-				throw new RuntimeException(x);
-			}
-		}
 	}
 
 	@Override

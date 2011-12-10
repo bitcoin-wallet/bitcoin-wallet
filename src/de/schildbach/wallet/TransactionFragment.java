@@ -25,22 +25,17 @@ import java.util.Date;
 import java.util.zip.GZIPOutputStream;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.AlertDialog.Builder;
-import android.app.Dialog;
 import android.content.ContentResolver;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -58,39 +53,14 @@ import de.schildbach.wallet_test.R;
 /**
  * @author Andreas Schildbach
  */
-public class TransactionFragment extends DialogFragment
+public class TransactionFragment extends Fragment
 {
 	public static final String FRAGMENT_TAG = TransactionFragment.class.getName();
 
 	private FragmentActivity activity;
-	private Transaction tx;
 
 	private DateFormat dateFormat;
 	private DateFormat timeFormat;
-
-	private final static String KEY_TRANSACTION = "transaction";
-
-	public static void show(final FragmentManager fm, final Transaction tx)
-	{
-		final FragmentTransaction ft = fm.beginTransaction();
-		final Fragment prev = fm.findFragmentByTag(FRAGMENT_TAG);
-		if (prev != null)
-			ft.remove(prev);
-		ft.addToBackStack(null);
-		final DialogFragment newFragment = TransactionFragment.instance(tx);
-		newFragment.show(ft, FRAGMENT_TAG);
-	}
-
-	public static TransactionFragment instance(final Transaction tx)
-	{
-		final TransactionFragment fragment = new TransactionFragment();
-
-		final Bundle args = new Bundle();
-		args.putSerializable(KEY_TRANSACTION, tx);
-		fragment.setArguments(args);
-
-		return fragment;
-	}
 
 	@Override
 	public void onAttach(final Activity activity)
@@ -104,11 +74,15 @@ public class TransactionFragment extends DialogFragment
 	}
 
 	@Override
-	public Dialog onCreateDialog(final Bundle savedInstanceState)
+	public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState)
+	{
+		return inflater.inflate(R.layout.transaction_fragment, null);
+	}
+
+	public void update(final Transaction tx)
 	{
 		final Wallet wallet = ((Application) activity.getApplication()).getWallet();
 
-		tx = (Transaction) getArguments().getSerializable(KEY_TRANSACTION);
 		final byte[] serializedTx = tx.unsafeBitcoinSerialize();
 
 		Address from = null;
@@ -139,35 +113,26 @@ public class TransactionFragment extends DialogFragment
 		final boolean dead = wallet.isDead(tx);
 
 		final ContentResolver contentResolver = activity.getContentResolver();
-		final LayoutInflater inflater = LayoutInflater.from(activity);
 
-		final Builder dialog = new AlertDialog.Builder(activity);
-
-		final View view = inflater.inflate(R.layout.transaction_fragment, null);
+		final View view = getView();
 
 		final Date time = tx.getUpdateTime();
+		view.findViewById(R.id.transaction_fragment_time_row).setVisibility(time != null ? View.VISIBLE : View.GONE);
 		if (time != null)
 		{
 			final TextView viewDate = (TextView) view.findViewById(R.id.transaction_fragment_time);
 			viewDate.setText((DateUtils.isToday(time.getTime()) ? getString(R.string.transaction_fragment_time_today) : dateFormat.format(time))
 					+ ", " + timeFormat.format(time));
 		}
-		else
-		{
-			view.findViewById(R.id.transaction_fragment_time_row).setVisibility(View.GONE);
-		}
 
 		try
 		{
 			final BigInteger amountSent = tx.getValueSentFromMe(wallet);
-			if (!amountSent.equals(BigInteger.ZERO))
+			view.findViewById(R.id.transaction_fragment_amount_sent_row).setVisibility(amountSent.signum() != 0 ? View.VISIBLE : View.GONE);
+			if (amountSent.signum() != 0)
 			{
 				final TextView viewAmountSent = (TextView) view.findViewById(R.id.transaction_fragment_amount_sent);
 				viewAmountSent.setText("-\u2009" /* thin space */+ Utils.bitcoinValueToFriendlyString(amountSent));
-			}
-			else
-			{
-				view.findViewById(R.id.transaction_fragment_amount_sent_row).setVisibility(View.GONE);
 			}
 		}
 		catch (final ScriptException x)
@@ -176,14 +141,11 @@ public class TransactionFragment extends DialogFragment
 		}
 
 		final BigInteger amountReceived = tx.getValueSentToMe(wallet);
-		if (!amountReceived.equals(BigInteger.ZERO))
+		view.findViewById(R.id.transaction_fragment_amount_received_row).setVisibility(amountReceived.signum() != 0 ? View.VISIBLE : View.GONE);
+		if (amountReceived.signum() != 0)
 		{
 			final TextView viewAmountReceived = (TextView) view.findViewById(R.id.transaction_fragment_amount_received);
 			viewAmountReceived.setText("+\u2009" /* thin space */+ Utils.bitcoinValueToFriendlyString(amountReceived));
-		}
-		else
-		{
-			view.findViewById(R.id.transaction_fragment_amount_received_row).setVisibility(View.GONE);
 		}
 
 		final TextView viewFrom = (TextView) view.findViewById(R.id.transaction_fragment_from);
@@ -207,6 +169,10 @@ public class TransactionFragment extends DialogFragment
 
 			viewFrom.setText(builder.toString());
 		}
+		else
+		{
+			viewFrom.setText(null);
+		}
 
 		final TextView viewTo = (TextView) view.findViewById(R.id.transaction_fragment_to);
 		if (to != null)
@@ -228,6 +194,10 @@ public class TransactionFragment extends DialogFragment
 			}
 
 			viewTo.setText(builder.toString());
+		}
+		else
+		{
+			viewTo.setText(null);
 		}
 
 		final TextView viewStatus = (TextView) view.findViewById(R.id.transaction_fragment_status);
@@ -275,9 +245,5 @@ public class TransactionFragment extends DialogFragment
 		{
 			throw new RuntimeException(x);
 		}
-
-		dialog.setView(view);
-
-		return dialog.create();
 	}
 }

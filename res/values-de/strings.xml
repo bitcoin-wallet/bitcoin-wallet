@@ -90,6 +90,8 @@
 	<string name="edit_address_book_entry_dialog_button_edit">Speichern</string>
 	<string name="edit_address_book_entry_dialog_button_delete">Löschen</string>
 
+	<string name="transaction_activity_title">Transaktion</string>
+
 	<string name="transaction_fragment_time_label">Datum</string>
 	<string name="transaction_fragment_time_today">heute</string>
 	<string name="transaction_fragment_amount_sent_label">Gesendet</string>

@@ -12,17 +12,6 @@
 				<action android:name="android.intent.action.MAIN" />
 				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
-			<intent-filter>
-				<action android:name="android.intent.action.VIEW" />
-				<data android:scheme="btctx" />
-				<category android:name="android.intent.category.DEFAULT" />
-				<category android:name="android.intent.category.BROWSABLE" />
-			</intent-filter>
-			<intent-filter>
-				<action android:name="android.nfc.action.NDEF_DISCOVERED" />
-				<data android:mimeType="application/x-btctx" />
-				<category android:name="android.intent.category.DEFAULT" />
-			</intent-filter>
 		</activity>
 
 		<activity android:name="de.schildbach.wallet.SendCoinsActivity" android:theme="@android:style/Theme.Light.NoTitleBar"
@@ -42,6 +31,21 @@
 
 		<activity android:name="de.schildbach.wallet.RequestCoinsActivity" android:theme="@android:style/Theme.Light.NoTitleBar"
 			android:screenOrientation="behind" android:configChanges="orientation|keyboard|keyboardHidden" />
+
+		<activity android:name="de.schildbach.wallet.TransactionActivity" android:theme="@android:style/Theme.Light.NoTitleBar"
+			android:screenOrientation="behind" android:configChanges="orientation|keyboard|keyboardHidden">
+			<intent-filter>
+				<action android:name="android.intent.action.VIEW" />
+				<data android:scheme="btctx" />
+				<category android:name="android.intent.category.DEFAULT" />
+				<category android:name="android.intent.category.BROWSABLE" />
+			</intent-filter>
+			<intent-filter>
+				<action android:name="android.nfc.action.NDEF_DISCOVERED" />
+				<data android:mimeType="application/x-btctx" />
+				<category android:name="android.intent.category.DEFAULT" />
+			</intent-filter>
+		</activity>
 
 		<activity android:name="de.schildbach.wallet.AddressBookActivity" android:theme="@android:style/Theme.Light.NoTitleBar"
 			android:screenOrientation="behind" android:configChanges="orientation|keyboard|keyboardHidden" />

@@ -1,0 +1,150 @@
+/*
+ * Copyright 2010 the original author or authors.
+ * 
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+package de.schildbach.wallet;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.zip.GZIPInputStream;
+
+import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Build;
+import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+
+import com.google.bitcoin.core.ProtocolException;
+import com.google.bitcoin.core.Transaction;
+
+import de.schildbach.wallet.util.ActionBarFragment;
+import de.schildbach.wallet.util.Base43;
+import de.schildbach.wallet.util.NfcTools;
+import de.schildbach.wallet_test.R;
+
+/**
+ * @author Andreas Schildbach
+ */
+public class TransactionActivity extends AbstractWalletActivity
+{
+	public static final String INTENT_EXTRA_TRANSACTION = "transaction";
+
+	private static final int GINGERBREAD_MR1 = 10; // API level 10
+	private static final String EXTRA_NDEF_MESSAGES = "android.nfc.extra.NDEF_MESSAGES"; // API level 10
+
+	public static void show(final Context context, final Transaction tx)
+	{
+		final Intent intent = new Intent(context, TransactionActivity.class);
+		intent.putExtra(TransactionActivity.INTENT_EXTRA_TRANSACTION, tx);
+		context.startActivity(intent);
+	}
+
+	@Override
+	protected void onCreate(final Bundle savedInstanceState)
+	{
+		super.onCreate(savedInstanceState);
+
+		setContentView(R.layout.transaction_content);
+
+		final ActionBarFragment actionBar = getActionBar();
+
+		actionBar.setPrimaryTitle(R.string.transaction_activity_title);
+
+		actionBar.setBack(new OnClickListener()
+		{
+			public void onClick(final View v)
+			{
+				finish();
+			}
+		});
+
+		handleIntent(getIntent());
+	}
+
+	private void handleIntent(final Intent intent)
+	{
+		final Uri intentUri = intent.getData();
+		final String scheme = intentUri != null ? intentUri.getScheme() : null;
+
+		Transaction tx = null;
+
+		if (intent.hasExtra(INTENT_EXTRA_TRANSACTION))
+		{
+			tx = (Transaction) getIntent().getSerializableExtra(INTENT_EXTRA_TRANSACTION);
+		}
+		else if (intentUri != null && "btctx".equals(scheme))
+		{
+			try
+			{
+				// decode transaction URI
+				final String part = intentUri.getSchemeSpecificPart();
+				final boolean useCompression = part.charAt(0) == 'Z';
+				final byte[] bytes = Base43.decode(part.substring(1));
+
+				InputStream is = new ByteArrayInputStream(bytes);
+				if (useCompression)
+					is = new GZIPInputStream(is);
+				final ByteArrayOutputStream baos = new ByteArrayOutputStream();
+
+				final byte[] buf = new byte[4096];
+				int read;
+				while (-1 != (read = is.read(buf)))
+					baos.write(buf, 0, read);
+				baos.close();
+				is.close();
+
+				tx = new Transaction(Constants.NETWORK_PARAMETERS, baos.toByteArray());
+			}
+			catch (final IOException x)
+			{
+				throw new RuntimeException(x);
+			}
+			catch (final ProtocolException x)
+			{
+				throw new RuntimeException(x);
+			}
+		}
+		else if (Build.VERSION.SDK_INT >= GINGERBREAD_MR1 && Constants.MIMETYPE_TRANSACTION.equals(intent.getType()))
+		{
+			final Object ndefMessage = intent.getParcelableArrayExtra(EXTRA_NDEF_MESSAGES)[0];
+			final byte[] payload = NfcTools.extractMimePayload(Constants.MIMETYPE_TRANSACTION, ndefMessage);
+
+			try
+			{
+				tx = new Transaction(Constants.NETWORK_PARAMETERS, payload);
+			}
+			catch (final ProtocolException x)
+			{
+				throw new RuntimeException(x);
+			}
+		}
+
+		if (tx != null)
+		{
+			final TransactionFragment transactionFragment = (TransactionFragment) getSupportFragmentManager().findFragmentById(
+					R.id.transaction_fragment);
+			transactionFragment.update(tx);
+		}
+		else
+		{
+			throw new IllegalArgumentException("no tx");
+		}
+	}
+}

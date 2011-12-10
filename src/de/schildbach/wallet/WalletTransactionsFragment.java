@@ -314,7 +314,7 @@ public class WalletTransactionsFragment extends Fragment
 					return true;
 
 				case R.id.wallet_transactions_context_show_transaction:
-					showTransaction(tx);
+					TransactionActivity.show(activity, tx);
 					return true;
 
 				default:
@@ -378,17 +378,6 @@ public class WalletTransactionsFragment extends Fragment
 				// ignore click
 				x.printStackTrace();
 			}
-		}
-
-		private void showTransaction(final Transaction tx)
-		{
-			final FragmentTransaction ft = getFragmentManager().beginTransaction();
-			final Fragment prev = getFragmentManager().findFragmentByTag(TransactionFragment.FRAGMENT_TAG);
-			if (prev != null)
-				ft.remove(prev);
-			ft.addToBackStack(null);
-			final DialogFragment newFragment = TransactionFragment.instance(tx);
-			newFragment.show(ft, TransactionFragment.FRAGMENT_TAG);
 		}
 	}
 }
