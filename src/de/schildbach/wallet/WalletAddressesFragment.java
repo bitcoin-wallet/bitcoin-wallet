@@ -127,7 +127,7 @@ public class WalletAddressesFragment extends ListFragment
 
 							updateView();
 						}
-					}).setNegativeButton(R.string.button_dismiss, null).show();
+					}).setNegativeButton(R.string.button_cancel, null).show();
 		}
 	};
 
