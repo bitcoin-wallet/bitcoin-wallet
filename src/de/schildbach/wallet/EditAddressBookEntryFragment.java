@@ -26,7 +26,10 @@ import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -37,13 +40,24 @@ import de.schildbach.wallet_test.R;
  */
 public class EditAddressBookEntryFragment extends DialogFragment
 {
-	public static final String FRAGMENT_TAG = EditAddressBookEntryFragment.class.getName();
+	private static final String FRAGMENT_TAG = EditAddressBookEntryFragment.class.getName();
+
+	private static final String KEY_ADDRESS = "address";
 
 	private String address;
 
-	private final static String KEY_ADDRESS = "address";
+	public static void edit(final FragmentManager fm, final String address)
+	{
+		final FragmentTransaction ft = fm.beginTransaction();
+		final Fragment prev = fm.findFragmentByTag(EditAddressBookEntryFragment.FRAGMENT_TAG);
+		if (prev != null)
+			ft.remove(prev);
+		ft.addToBackStack(null);
+		final DialogFragment newFragment = EditAddressBookEntryFragment.instance(address.toString());
+		newFragment.show(ft, EditAddressBookEntryFragment.FRAGMENT_TAG);
+	}
 
-	public static EditAddressBookEntryFragment instance(final String address)
+	private static EditAddressBookEntryFragment instance(final String address)
 	{
 		final EditAddressBookEntryFragment fragment = new EditAddressBookEntryFragment();
 

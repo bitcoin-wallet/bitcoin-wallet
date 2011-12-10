@@ -29,15 +29,25 @@
 	<TableRow>
 		<TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/transaction_fragment_from_label"
 			android:textColor="@android:color/white" android:textSize="20sp" android:textStyle="bold" android:paddingRight="16dp" />
-		<TextView android:id="@+id/transaction_fragment_from" android:layout_width="wrap_content"
-			android:layout_height="wrap_content" android:textColor="@android:color/white" android:textSize="20sp" />
+		<FrameLayout android:id="@+id/transaction_fragment_from_button" android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:layout_gravity="bottom" android:foreground="@drawable/dropdown_ic_arrow"
+			android:foregroundGravity="bottom|right" android:background="@android:drawable/list_selector_background"
+			android:focusable="true">
+			<TextView android:id="@+id/transaction_fragment_from_label" android:layout_width="wrap_content"
+				android:layout_height="wrap_content" android:textColor="@android:color/white" android:textSize="20sp" />
+		</FrameLayout>
 	</TableRow>
 
 	<TableRow>
 		<TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/transaction_fragment_to_label"
 			android:textColor="@android:color/white" android:textSize="20sp" android:textStyle="bold" android:paddingRight="16dp" />
-		<TextView android:id="@+id/transaction_fragment_to" android:layout_width="wrap_content"
-			android:layout_height="wrap_content" android:textColor="@android:color/white" android:textSize="20sp" />
+		<FrameLayout android:id="@+id/transaction_fragment_to_button" android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:layout_gravity="bottom" android:foreground="@drawable/dropdown_ic_arrow"
+			android:foregroundGravity="bottom|right" android:background="@android:drawable/list_selector_background"
+			android:focusable="true">
+			<TextView android:id="@+id/transaction_fragment_to_label" android:layout_width="wrap_content"
+				android:layout_height="wrap_content" android:textColor="@android:color/white" android:textSize="20sp" />
+		</FrameLayout>
 	</TableRow>
 
 	<TableRow android:paddingTop="16dp">

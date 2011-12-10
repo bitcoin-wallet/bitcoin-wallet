@@ -29,11 +29,9 @@ import android.database.ContentObserver;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.text.format.DateUtils;
 import android.view.ContextMenu;
@@ -365,13 +363,7 @@ public class WalletTransactionsFragment extends Fragment
 			{
 				final Address address = sent ? tx.getOutputs().get(0).getScriptPubKey().getToAddress() : tx.getInputs().get(0).getFromAddress();
 
-				final FragmentTransaction ft = getFragmentManager().beginTransaction();
-				final Fragment prev = getFragmentManager().findFragmentByTag(EditAddressBookEntryFragment.FRAGMENT_TAG);
-				if (prev != null)
-					ft.remove(prev);
-				ft.addToBackStack(null);
-				final DialogFragment newFragment = EditAddressBookEntryFragment.instance(address.toString());
-				newFragment.show(ft, EditAddressBookEntryFragment.FRAGMENT_TAG);
+				EditAddressBookEntryFragment.edit(getFragmentManager(), address.toString());
 			}
 			catch (final ScriptException x)
 			{

@@ -21,9 +21,6 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ListFragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
@@ -109,7 +106,7 @@ public class AddressBookFragment extends ListFragment implements LoaderManager.L
 				return true;
 
 			case R.id.address_book_context_edit:
-				handleEdit(address);
+				EditAddressBookEntryFragment.edit(getFragmentManager(), address);
 				return true;
 
 			case R.id.address_book_context_remove:
@@ -126,17 +123,6 @@ public class AddressBookFragment extends ListFragment implements LoaderManager.L
 		final Intent intent = new Intent(getActivity(), SendCoinsActivity.class);
 		intent.putExtra(SendCoinsActivity.INTENT_EXTRA_ADDRESS, address);
 		startActivity(intent);
-	}
-
-	private void handleEdit(final String address)
-	{
-		final FragmentTransaction ft = getFragmentManager().beginTransaction();
-		final Fragment prev = getFragmentManager().findFragmentByTag(EditAddressBookEntryFragment.FRAGMENT_TAG);
-		if (prev != null)
-			ft.remove(prev);
-		ft.addToBackStack(null);
-		final DialogFragment newFragment = EditAddressBookEntryFragment.instance(address);
-		newFragment.show(ft, EditAddressBookEntryFragment.FRAGMENT_TAG);
 	}
 
 	private void handleRemove(final String address)

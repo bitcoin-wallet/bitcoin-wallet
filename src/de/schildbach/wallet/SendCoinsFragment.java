@@ -412,13 +412,7 @@ public class SendCoinsFragment extends Fragment
 		{
 			public void onClick(final DialogInterface dialog, final int id)
 			{
-				final FragmentTransaction ft = getFragmentManager().beginTransaction();
-				final Fragment prev = getFragmentManager().findFragmentByTag(EditAddressBookEntryFragment.FRAGMENT_TAG);
-				if (prev != null)
-					ft.remove(prev);
-				ft.addToBackStack(null);
-				final DialogFragment newFragment = EditAddressBookEntryFragment.instance(address.toString());
-				newFragment.show(ft, EditAddressBookEntryFragment.FRAGMENT_TAG);
+				EditAddressBookEntryFragment.edit(getFragmentManager(), address.toString());
 			}
 		});
 		builder.setNegativeButton(R.string.button_dismiss, null);

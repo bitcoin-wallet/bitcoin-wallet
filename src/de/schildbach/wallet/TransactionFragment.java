@@ -148,7 +148,8 @@ public class TransactionFragment extends Fragment
 			viewAmountReceived.setText("+\u2009" /* thin space */+ Utils.bitcoinValueToFriendlyString(amountReceived));
 		}
 
-		final TextView viewFrom = (TextView) view.findViewById(R.id.transaction_fragment_from);
+		final View viewFromButton = view.findViewById(R.id.transaction_fragment_from_button);
+		final TextView viewFromLabel = (TextView) view.findViewById(R.id.transaction_fragment_from_label);
 		if (from != null)
 		{
 			final String label = AddressBookProvider.resolveLabel(contentResolver, from.toString());
@@ -164,17 +165,27 @@ public class TransactionFragment extends Fragment
 			else
 			{
 				builder.append(from.toString());
-				viewFrom.setTypeface(Typeface.MONOSPACE);
+				viewFromLabel.setTypeface(Typeface.MONOSPACE);
 			}
 
-			viewFrom.setText(builder.toString());
+			viewFromLabel.setText(builder.toString());
+
+			final String addressStr = from.toString();
+			viewFromButton.setOnClickListener(new OnClickListener()
+			{
+				public void onClick(final View v)
+				{
+					EditAddressBookEntryFragment.edit(getFragmentManager(), addressStr);
+				}
+			});
 		}
 		else
 		{
-			viewFrom.setText(null);
+			viewFromLabel.setText(null);
 		}
 
-		final TextView viewTo = (TextView) view.findViewById(R.id.transaction_fragment_to);
+		final View viewToButton = view.findViewById(R.id.transaction_fragment_to_button);
+		final TextView viewToLabel = (TextView) view.findViewById(R.id.transaction_fragment_to_label);
 		if (to != null)
 		{
 			final String label = AddressBookProvider.resolveLabel(contentResolver, to.toString());
@@ -190,14 +201,23 @@ public class TransactionFragment extends Fragment
 			else
 			{
 				builder.append(to.toString());
-				viewTo.setTypeface(Typeface.MONOSPACE);
+				viewToLabel.setTypeface(Typeface.MONOSPACE);
 			}
 
-			viewTo.setText(builder.toString());
+			viewToLabel.setText(builder.toString());
+
+			final String addressStr = to.toString();
+			viewToButton.setOnClickListener(new OnClickListener()
+			{
+				public void onClick(final View v)
+				{
+					EditAddressBookEntryFragment.edit(getFragmentManager(), addressStr);
+				}
+			});
 		}
 		else
 		{
-			viewTo.setText(null);
+			viewToLabel.setText(null);
 		}
 
 		final TextView viewStatus = (TextView) view.findViewById(R.id.transaction_fragment_status);
