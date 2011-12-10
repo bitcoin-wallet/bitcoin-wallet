@@ -32,10 +32,12 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -60,8 +62,8 @@ public class WalletActivity extends AbstractWalletActivity
 	public static final int DIALOG_SAFETY = 1;
 	private static final int DIALOG_HELP = 0;
 
-	private static final int GINGERBREAD_MR1 = 10; // from API level 10
-	private static final String EXTRA_NDEF_MESSAGES = "android.nfc.extra.NDEF_MESSAGES"; // from API level 10
+	private static final int GINGERBREAD_MR1 = 10; // API level 10
+	private static final String EXTRA_NDEF_MESSAGES = "android.nfc.extra.NDEF_MESSAGES"; // API level 10
 
 	@Override
 	protected void onCreate(final Bundle savedInstanceState)
@@ -105,8 +107,11 @@ public class WalletActivity extends AbstractWalletActivity
 		});
 
 		final FragmentManager fm = getSupportFragmentManager();
-		fm.beginTransaction().hide(fm.findFragmentById(R.id.wallet_addresses_fragment)).hide(fm.findFragmentById(R.id.exchange_rates_fragment))
-				.commit();
+		final FragmentTransaction ft = fm.beginTransaction();
+		ft.hide(fm.findFragmentById(R.id.wallet_addresses_fragment));
+		if ((getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) < Configuration.SCREENLAYOUT_SIZE_LARGE)
+			ft.hide(fm.findFragmentById(R.id.exchange_rates_fragment));
+		ft.commit();
 
 		checkVersionAndTimeskewAlert();
 

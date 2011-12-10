@@ -22,6 +22,7 @@ import java.math.BigInteger;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -104,20 +105,23 @@ public class WalletBalanceFragment extends Fragment implements LoaderManager.Loa
 		viewBalance = (CurrencyAmountView) view.findViewById(R.id.wallet_balance);
 		viewBalanceLocal = (TextView) view.findViewById(R.id.wallet_balance_local);
 
-		view.setOnClickListener(new OnClickListener()
+		if ((getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) < Configuration.SCREENLAYOUT_SIZE_LARGE)
 		{
-			public void onClick(final View v)
+			view.setOnClickListener(new OnClickListener()
 			{
-				final FragmentManager fm = getFragmentManager();
-				final FragmentTransaction ft = fm.beginTransaction();
-				ft.hide(fm.findFragmentById(R.id.wallet_address_fragment));
-				ft.hide(fm.findFragmentById(R.id.wallet_transactions_fragment));
-				ft.show(fm.findFragmentById(R.id.exchange_rates_fragment));
-				ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-				ft.addToBackStack(null);
-				ft.commit();
-			}
-		});
+				public void onClick(final View v)
+				{
+					final FragmentManager fm = getFragmentManager();
+					final FragmentTransaction ft = fm.beginTransaction();
+					ft.hide(fm.findFragmentById(R.id.wallet_address_fragment));
+					ft.hide(fm.findFragmentById(R.id.wallet_transactions_fragment));
+					ft.show(fm.findFragmentById(R.id.exchange_rates_fragment));
+					ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+					ft.addToBackStack(null);
+					ft.commit();
+				}
+			});
+		}
 
 		return view;
 	}

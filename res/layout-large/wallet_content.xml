@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="fill_parent"
+	android:layout_height="fill_parent" android:orientation="vertical">
+
+	<fragment android:id="@+id/action_bar_fragment" android:name="de.schildbach.wallet.util.ActionBarFragment"
+		android:layout_width="fill_parent" android:layout_height="@dimen/action_bar_height" />
+
+	<FrameLayout android:layout_width="fill_parent" android:layout_height="fill_parent" layout_weight="1"
+		android:foreground="@drawable/title_bar_shadow" android:foregroundGravity="top|fill_horizontal" android:background="#d8d8e0">
+
+		<TableLayout android:layout_width="fill_parent" android:layout_height="wrap_content">
+
+			<TableRow>
+
+				<fragment android:id="@+id/wallet_balance_fragment" android:name="de.schildbach.wallet.WalletBalanceFragment"
+					android:layout_weight="1" android:layout_gravity="center_vertical" />
+
+				<fragment android:id="@+id/blockchain_state_fragment" android:name="de.schildbach.wallet.BlockchainStateFragment"
+					android:layout_weight="2" android:layout_gravity="center_vertical" />
+
+				<fragment android:id="@+id/wallet_address_fragment" android:name="de.schildbach.wallet.WalletAddressFragment"
+					android:layout_weight="2" android:layout_gravity="center_vertical" android:layout_margin="16dp" />
+
+			</TableRow>
+
+			<TableRow>
+
+				<FrameLayout android:layout_weight="1" android:background="#efefef" android:foreground="@drawable/title_bar_shadow_light"
+					android:foregroundGravity="top|fill_horizontal">
+					<fragment android:id="@+id/exchange_rates_fragment" android:name="de.schildbach.wallet.ExchangeRatesFragment"
+						android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_gravity="bottom|center_horizontal" />
+				</FrameLayout>
+
+				<FrameLayout android:layout_weight="4" android:layout_span="2" android:background="@android:color/white"
+					android:foreground="@drawable/title_bar_shadow_light" android:foregroundGravity="top|fill_horizontal">
+					<fragment android:id="@+id/wallet_transactions_fragment" android:name="de.schildbach.wallet.WalletTransactionsFragment"
+						android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_gravity="bottom|center_horizontal" />
+					<fragment android:id="@+id/wallet_addresses_fragment" android:name="de.schildbach.wallet.WalletAddressesFragment"
+						android:layout_width="fill_parent" android:layout_height="wrap_content" />
+				</FrameLayout>
+
+			</TableRow>
+
+		</TableLayout>
+
+	</FrameLayout>
+
+</LinearLayout>

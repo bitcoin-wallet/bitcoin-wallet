@@ -21,6 +21,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -193,7 +194,8 @@ public class WalletAddressFragment extends Fragment
 	{
 		final FragmentManager fm = getFragmentManager();
 		final FragmentTransaction ft = fm.beginTransaction();
-		ft.hide(fm.findFragmentById(R.id.wallet_balance_fragment));
+		if ((getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) < Configuration.SCREENLAYOUT_SIZE_LARGE)
+			ft.hide(fm.findFragmentById(R.id.wallet_balance_fragment));
 		ft.hide(fm.findFragmentById(R.id.wallet_transactions_fragment));
 		ft.show(fm.findFragmentById(R.id.wallet_addresses_fragment));
 		ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
