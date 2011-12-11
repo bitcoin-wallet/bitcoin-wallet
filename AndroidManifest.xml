@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" package="de.schildbach.wallet_test"
-	android:versionCode="60" android:versionName="1.44_test" android:installLocation="preferExternal">
+	android:versionCode="61" android:versionName="1.45_test" android:installLocation="preferExternal">
 
 	<application android:name="de.schildbach.wallet.Application" android:icon="@drawable/app_icon_test"
 		android:label="@string/app_name">
