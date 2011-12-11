@@ -4,6 +4,7 @@
 	<dimen name="font_size_tiny">14sp</dimen>
 	<dimen name="font_size_small">18sp</dimen>
 	<dimen name="font_size_normal">22sp</dimen>
+	<dimen name="font_size_xlarge">34sp</dimen>
 
 	<dimen name="list_entry_padding_horizontal">16dp</dimen>
 

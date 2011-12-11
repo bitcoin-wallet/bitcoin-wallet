@@ -3,29 +3,30 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:orientation="vertical">
 
 	<TextView android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp"
-		android:layout_marginLeft="20dp" android:layout_marginRight="20dp" android:text="@string/request_coins_fragment_amount_label"
-		android:textSize="16sp" android:textStyle="bold" />
+		android:layout_marginBottom="4dp" android:layout_marginLeft="20dp" android:layout_marginRight="20dp"
+		android:text="@string/request_coins_fragment_amount_label" android:textSize="@dimen/font_size_normal"
+		android:textStyle="bold" />
 
 	<de.schildbach.wallet.CurrencyAmountView android:id="@+id/request_coins_amount"
 		android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="12dp"
 		android:layout_marginRight="12dp">
 		<EditText android:layout_width="fill_parent" android:layout_height="wrap_content" android:background="@drawable/edit_text"
-			android:textSize="28sp" android:drawablePadding="4dp" />
+			android:textSize="@dimen/font_size_xlarge" android:drawablePadding="4dp" />
 	</de.schildbach.wallet.CurrencyAmountView>
 
 	<TextView android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp"
 		android:layout_marginLeft="20dp" android:layout_marginRight="20dp" android:text="@string/request_coins_fragment_qr_label"
-		android:textSize="16sp" android:textStyle="bold" />
+		android:textSize="@dimen/font_size_normal" android:textStyle="bold" />
 
 	<FrameLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
-		android:layout_gravity="center" android:layout_weight="100">
+		android:layout_gravity="center" android:layout_weight="1">
 		<ImageView android:id="@+id/request_coins_qr" android:layout_width="wrap_content" android:layout_height="wrap_content"
 			android:layout_gravity="center" android:padding="16dp" android:scaleType="centerInside" android:background="@drawable/qrcode_frame" />
 	</FrameLayout>
 
 	<TextView android:id="@+id/request_coins_fragment_nfc_enabled" android:layout_width="wrap_content"
 		android:layout_height="wrap_content" android:layout_marginBottom="8dp" android:layout_gravity="center_horizontal"
-		android:text="@string/request_coins_fragment_nfc_enabled" android:textSize="16sp" android:textStyle="bold"
-		android:visibility="gone" />
+		android:text="@string/request_coins_fragment_nfc_enabled" android:textSize="@dimen/font_size_normal"
+		android:textStyle="bold" android:visibility="gone" />
 
 </LinearLayout>
