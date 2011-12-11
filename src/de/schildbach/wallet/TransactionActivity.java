@@ -140,6 +140,8 @@ public class TransactionActivity extends AbstractWalletActivity
 				is.close();
 
 				tx = new Transaction(Constants.NETWORK_PARAMETERS, baos.toByteArray());
+
+				processPendingTransaction(tx);
 			}
 			catch (final IOException x)
 			{
@@ -158,6 +160,8 @@ public class TransactionActivity extends AbstractWalletActivity
 			try
 			{
 				tx = new Transaction(Constants.NETWORK_PARAMETERS, payload);
+
+				processPendingTransaction(tx);
 			}
 			catch (final ProtocolException x)
 			{
@@ -177,5 +181,13 @@ public class TransactionActivity extends AbstractWalletActivity
 
 		if (nfcManager != null)
 			NfcTools.publishMimeObject(nfcManager, this, Constants.MIMETYPE_TRANSACTION, tx.unsafeBitcoinSerialize(), false);
+	}
+
+	private void processPendingTransaction(final Transaction tx)
+	{
+		final Wallet wallet = ((Application) getApplication()).getWallet();
+
+		if (tx.isMine(wallet) && !tx.sent(wallet))
+			wallet.receivePendingTransaction(tx);
 	}
 }
