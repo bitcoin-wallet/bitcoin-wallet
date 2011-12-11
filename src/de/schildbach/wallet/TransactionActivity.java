@@ -33,6 +33,7 @@ import android.view.View.OnClickListener;
 
 import com.google.bitcoin.core.ProtocolException;
 import com.google.bitcoin.core.Transaction;
+import com.google.bitcoin.core.Wallet;
 
 import de.schildbach.wallet.util.ActionBarFragment;
 import de.schildbach.wallet.util.Base43;
@@ -55,7 +56,8 @@ public class TransactionActivity extends AbstractWalletActivity
 	public static void show(final Context context, final Transaction tx)
 	{
 		final Intent intent = new Intent(context, TransactionActivity.class);
-		intent.putExtra(TransactionActivity.INTENT_EXTRA_TRANSACTION, tx);
+		// use Bitcoin serialization, because Java serialization runs out of stack on some transactions
+		intent.putExtra(TransactionActivity.INTENT_EXTRA_TRANSACTION, tx.unsafeBitcoinSerialize());
 		context.startActivity(intent);
 	}
 
@@ -107,7 +109,14 @@ public class TransactionActivity extends AbstractWalletActivity
 
 		if (intent.hasExtra(INTENT_EXTRA_TRANSACTION))
 		{
-			tx = (Transaction) getIntent().getSerializableExtra(INTENT_EXTRA_TRANSACTION);
+			try
+			{
+				tx = new Transaction(Constants.NETWORK_PARAMETERS, getIntent().getByteArrayExtra(INTENT_EXTRA_TRANSACTION));
+			}
+			catch (final ProtocolException x)
+			{
+				throw new RuntimeException(x);
+			}
 		}
 		else if (intentUri != null && "btctx".equals(scheme))
 		{
