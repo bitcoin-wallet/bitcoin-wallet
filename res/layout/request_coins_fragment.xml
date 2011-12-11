@@ -23,9 +23,9 @@
 			android:layout_gravity="center" android:padding="16dp" android:scaleType="centerInside" android:background="@drawable/qrcode_frame" />
 	</FrameLayout>
 
-	<TextView android:id="@+id/request_coins_fragment_nfc_enabled" android:layout_width="fill_parent"
-		android:layout_height="wrap_content" android:layout_marginBottom="8dp" android:layout_marginLeft="20dp"
-		android:layout_marginRight="20dp" android:text="@string/request_coins_fragment_nfc_enabled" android:textSize="16sp"
+	<TextView android:id="@+id/request_coins_fragment_nfc_enabled" android:layout_width="wrap_content"
+		android:layout_height="wrap_content" android:layout_marginBottom="8dp" android:layout_gravity="center_horizontal"
+		android:text="@string/request_coins_fragment_nfc_enabled" android:textSize="16sp" android:textStyle="bold"
 		android:visibility="gone" />
 
 </LinearLayout>
