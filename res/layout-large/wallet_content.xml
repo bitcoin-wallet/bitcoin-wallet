@@ -6,7 +6,7 @@
 	<fragment android:id="@+id/action_bar_fragment" android:name="de.schildbach.wallet.util.ActionBarFragment"
 		android:layout_width="fill_parent" android:layout_height="@dimen/action_bar_height" />
 
-	<FrameLayout android:layout_width="fill_parent" android:layout_height="fill_parent" layout_weight="1"
+	<FrameLayout android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_weight="1"
 		android:foreground="@drawable/title_bar_shadow" android:foregroundGravity="top|fill_horizontal" android:background="#d8d8e0">
 
 		<TableLayout android:layout_width="fill_parent" android:layout_height="wrap_content">
