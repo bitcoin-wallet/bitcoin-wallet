@@ -8,7 +8,7 @@
 	<string name="wallet_content_disclaimer">Detta är helt experimentellt. Använd på egen risk! Läs säkerhetsbeskrivningen.</string>
 	<string name="wallet_address_fragment_your">Din Bitcoin adress:</string>
 	<string name="wallet_address_fragment_clipboard_msg">Bitcoin adressen kopierad till klippbordet</string>
-	<string name="wallet_address_fragment_share_dialog_title">Dela din Bitcoin adress...</string>
+	<string name="wallet_address_fragment_share_dialog_title">Dela din Bitcoin adress…</string>
 	<string-array name="wallet_address_fragment_context">
 		<item>Visa alla</item>
 		<item>Visa QR kod</item>
@@ -47,7 +47,7 @@
 	<string name="send_coins_fragment_amount_label">Belopp att skicka</string>
 	<string name="send_coins_fragment_fee_label">Avgift (frivillig)</string>
 	<string name="send_coins_fragment_button_send">Skicka</string>
-	<string name="send_coins_sending_msg">Skickar...</string>
+	<string name="send_coins_sending_msg">Skickar…</string>
 	<string name="send_coins_add_address_dialog_title">Mottagaradressen finns inte i din adressbok.\n\nVill du lägga till denna adress?</string>
 	<string name="send_coins_add_address_dialog_button_add">Lägg till adress</string>
 	<string name="send_coins_error_msg">Problem att skicka Bitcoins!</string>
@@ -58,7 +58,7 @@
 	<string name="request_coins_fragment_qr_label">Den som skickar dig Bitcoins ska scanna denna QR kod:</string>
 	<string name="request_coins_fragment_nfc_enabled">Eller skicka med en telefon som har NFC.</string>
 	<string name="request_coins_clipboard_msg">Förfrågan om Bitcoin kopierades till klippbordet</string>
-	<string name="request_coins_share_dialog_title">Dela en förfrågan om Bitcoins...</string>
+	<string name="request_coins_share_dialog_title">Dela en förfrågan om Bitcoins…</string>
 
 	<string name="address_book_activity_title">Adressbok</string>
 	<string name="address_book_empty_text">Din adressbok är tom</string>

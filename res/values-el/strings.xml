@@ -8,7 +8,7 @@
 	<string name="wallet_content_disclaimer">Αυτό είναι εντελώς πειραματικό. Χρησιμοποιήστε με δική σας ευθύνη! Διαβάστε τις οδηγίες ασφαλείας</string>
 	<string name="wallet_address_fragment_your">H Bitcoin διεύθυνή σας:</string>
 	<string name="wallet_address_fragment_clipboard_msg">H Bitcoin διεύθυνή αντιγράφικε στο clipboard</string>
-	<string name="wallet_address_fragment_share_dialog_title">Μοιραστείτε τη διεύθυνση bitcoin σας...</string>
+	<string name="wallet_address_fragment_share_dialog_title">Μοιραστείτε τη διεύθυνση bitcoin σας…</string>
 	<string-array name="wallet_address_fragment_context">
 		<item>Λίστα όλων</item>
 		<item>Εμφάνιση κώδικα QR</item>
@@ -47,7 +47,7 @@
 	<string name="send_coins_fragment_amount_label">Ποσό να πληρωθεί</string>
 	<string name="send_coins_fragment_fee_label">Τέλος (προαιρετικό)</string>
 	<string name="send_coins_fragment_button_send">Αποστολή</string>
-	<string name="send_coins_sending_msg">Αποστολή...</string>
+	<string name="send_coins_sending_msg">Αποστολή…</string>
 	<string name="send_coins_add_address_dialog_title">Ο παραλήπτης δεν βρίσκεται στο βιβλίο διευθύνσεών σας. \n\n Θέλετε να προσθέσετε τη διεύθυνση?</string>
 	<string name="send_coins_add_address_dialog_button_add">Προσθήκη διεύθυνσης</string>
 	<string name="send_coins_error_msg">Πρόβλημα στην αποστολή κερμάτων!</string>
@@ -58,7 +58,7 @@
 	<string name="request_coins_fragment_qr_label">Δώστε αυτό το QR-κώδικα στον αποστολέα, για να το σαρώσει:</string>
 	<string name="request_coins_fragment_nfc_enabled">Ή φερετε σε επαφή αν έχετε συσκευή με NFC.</string>
 	<string name="request_coins_clipboard_msg">η αίτηση για Bitcoin αντιγράφηκε στο clipboard</string>
-	<string name="request_coins_share_dialog_title">request for sharing Bitcoins...</string>
+	<string name="request_coins_share_dialog_title">request for sharing Bitcoins…</string>
 
 	<string name="address_book_activity_title">Κατάλαγος διευθύνσεων</string>
 	<string name="address_book_empty_text">δεν υπάρχουν καταχωρήσεις στον kατάλαγο διευθύνσεων</string>

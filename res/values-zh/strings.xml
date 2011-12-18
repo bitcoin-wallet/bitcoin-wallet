@@ -8,7 +8,7 @@
 	<string name="wallet_content_disclaimer">程序处于测试阶段，请阅读安全及风险提示以了解潜在使用风险。</string>
 	<string name="wallet_address_fragment_your">你的比特币地址：</string>
 	<string name="wallet_address_fragment_clipboard_msg">比特币地址已复制到剪贴板</string>
-	<string name="wallet_address_fragment_share_dialog_title">分享你的比特币地址...</string>
+	<string name="wallet_address_fragment_share_dialog_title">分享你的比特币地址…</string>
 	<string-array name="wallet_address_fragment_context">
 		<item>显示所有</item>
 		<item>显示二维码</item>
@@ -45,7 +45,7 @@
 	<string name="send_coins_fragment_amount_label">总量</string>
 	<string name="send_coins_fragment_fee_label">手续费（可选）</string>
 	<string name="send_coins_fragment_button_send">发送</string>
-	<string name="send_coins_sending_msg">发送中...</string>
+	<string name="send_coins_sending_msg">发送中…</string>
 	<string name="send_coins_add_address_dialog_title">收件人不在你的地址簿中哦！\n\n你确信是支付给这个地址？</string>
 	<string name="send_coins_add_address_dialog_button_add">添加地址</string>
 	<string name="send_coins_error_msg">支付时遇到了问题！</string>
@@ -56,7 +56,7 @@
 	<string name="request_coins_fragment_qr_label">请付款者扫描此二维码：</string>
 	<string name="request_coins_fragment_nfc_enabled">或使用具备近场支付功能的设备。</string>
 	<string name="request_coins_clipboard_msg">索取比特币的请求已复制到剪贴板</string>
-	<string name="request_coins_share_dialog_title">使用其它方式分享该申请...</string>
+	<string name="request_coins_share_dialog_title">使用其它方式分享该申请…</string>
 
 	<string name="address_book_activity_title">地址薄</string>
 	<string name="address_book_empty_text">地址薄尚无记录</string>

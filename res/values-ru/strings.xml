@@ -8,7 +8,7 @@
 	<string name="wallet_content_disclaimer">Это совершенно экспериментально. Используйте на свой риск! Ознакомьтесь с заметками по безопасности.</string>
 	<string name="wallet_address_fragment_your">Ваш Bitcoin-адрес:</string>
 	<string name="wallet_address_fragment_clipboard_msg">Bitcoin-адрес был скопирован в буфер обмена</string>
-	<string name="wallet_address_fragment_share_dialog_title">Распространить Bitcoin-адрес...</string>
+	<string name="wallet_address_fragment_share_dialog_title">Распространить Bitcoin-адрес…</string>
 	<string-array name="wallet_address_fragment_context">
 		<item>Показать все</item>
 		<item>Показать QR-код</item>
@@ -47,7 +47,7 @@
 	<string name="send_coins_fragment_amount_label">Сумма оплаты</string>
 	<string name="send_coins_fragment_fee_label">Комиссия (опционально)</string>
 	<string name="send_coins_fragment_button_send">Отправить</string>
-	<string name="send_coins_sending_msg">Отправка...</string>
+	<string name="send_coins_sending_msg">Отправка…</string>
 	<string name="send_coins_add_address_dialog_title">Получатель ещё не добавлен в адресную книгу.\n\nЖелаете ли добавить адрес?</string>
 	<string name="send_coins_add_address_dialog_button_add">Добавить адрес</string>
 	<string name="send_coins_error_msg">Проблема с отправкой монет!</string>
@@ -58,7 +58,7 @@
 	<string name="request_coins_fragment_qr_label">Пусть отправитель сканирует этот QR-код:</string>
 	<string name="request_coins_fragment_nfc_enabled">Или коснитесь устройством другого с поддержкой NFC.</string>
 	<string name="request_coins_clipboard_msg">Запрос получения Bitcoin-монет скопирован</string>
-	<string name="request_coins_share_dialog_title">Распространить запрос Bitcoin-монет...</string>
+	<string name="request_coins_share_dialog_title">Распространить запрос Bitcoin-монет…</string>
 
 	<string name="address_book_activity_title">Адресная книга</string>
 	<string name="address_book_empty_text">Адресная книга пуста</string>

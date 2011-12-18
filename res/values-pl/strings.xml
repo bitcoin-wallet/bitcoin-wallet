@@ -45,7 +45,7 @@
 	<string name="send_coins_fragment_amount_label">Kwota do zapłacenia</string>
 	<string name="send_coins_fragment_fee_label">Opłata (opcjonalna)</string>
 	<string name="send_coins_fragment_button_send">Wyślij</string>
-	<string name="send_coins_sending_msg">Wysyłanie...</string>
+	<string name="send_coins_sending_msg">Wysyłanie…</string>
 	<string name="send_coins_add_address_dialog_title">Odbiorca jeszce nie jest w twojej książce adresowej.\n\nChcesz go dodać?</string>
 	<string name="send_coins_add_address_dialog_button_add">Dodaj adres</string>
 	<string name="send_coins_error_msg">Problem z wysłaniem monet!</string>
@@ -56,7 +56,7 @@
 	<string name="request_coins_fragment_qr_label">Niech ten kod QR zostanie zeskanowany przez wysyłającego:</string>
 	<string name="request_coins_fragment_nfc_enabled">Albo dotknij kod z NFC zdolnym aparatem.</string>
 	<string name="request_coins_clipboard_msg">Zapytanie o Bitcoin zostało wklejone do schowka</string>
-	<string name="request_coins_share_dialog_title">Opublikuj zapytanie na Bitcoin...</string>
+	<string name="request_coins_share_dialog_title">Opublikuj zapytanie na Bitcoin…</string>
 
 	<string name="address_book_activity_title">Książka adresowa</string>
 	<string name="address_book_empty_text">Żadnych wpisów w książce adresowej</string>

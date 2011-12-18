@@ -8,7 +8,7 @@
 	<string name="wallet_content_disclaimer">Esto es totalmente experimental. ¡Lo estás usando bajo tu propio riesgo! Lee las notas de seguridad.</string>
 	<string name="wallet_address_fragment_your">Tu dirección Bitcoin:</string>
 	<string name="wallet_address_fragment_clipboard_msg">Dirección Bitcoin copiada al portapapeles</string>
-	<string name="wallet_address_fragment_share_dialog_title">Comparte tu dirección Bitcoin...</string>
+	<string name="wallet_address_fragment_share_dialog_title">Comparte tu dirección Bitcoin…</string>
 	<string-array name="wallet_address_fragment_context">
 		<item>Listar todas</item>
 		<item>Mostrar código QR</item>
@@ -47,7 +47,7 @@
 	<string name="send_coins_fragment_amount_label">Cantidad a pagar</string>
 	<string name="send_coins_fragment_fee_label">Comisión (opcional)</string>
 	<string name="send_coins_fragment_button_send">Enviar</string>
-	<string name="send_coins_sending_msg">Enviando...</string>
+	<string name="send_coins_sending_msg">Enviando…</string>
 	<string name="send_coins_add_address_dialog_title">El receptor no está en tu libreta de direcciones.\n\n¿Quieres añadir la dirección?</string>
 	<string name="send_coins_add_address_dialog_button_add">Añadir dirección</string>
 	<string name="send_coins_error_msg">¡Problema enviando bitcoins!</string>
@@ -58,7 +58,7 @@
 	<string name="request_coins_fragment_qr_label">Utilizar este código QR para enviar:</string>
 	<string name="request_coins_fragment_nfc_enabled">O tocar con un dispositivo dotado de NFC.</string>
 	<string name="request_coins_clipboard_msg">Solicitud de bitcoins copiada al portapapeles</string>
-	<string name="request_coins_share_dialog_title">Compartir solicitud de bitcoins...</string>
+	<string name="request_coins_share_dialog_title">Compartir solicitud de bitcoins…</string>
 
 	<string name="address_book_activity_title">Libreta de direcciones</string>
 	<string name="address_book_empty_text">No hay entradas en la libreta de direcciones</string>

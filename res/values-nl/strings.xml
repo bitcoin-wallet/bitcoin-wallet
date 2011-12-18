@@ -8,7 +8,7 @@
 	<string name="wallet_content_disclaimer">Deze software is volledig expirimenteel. Gebruik op eigen risico! Lees de veiligheids voorschriften.</string>
 	<string name="wallet_address_fragment_your">Uw Bitcoin Adres:</string>
 	<string name="wallet_address_fragment_clipboard_msg">Bitcoin adres gekopieërd naar klembord</string>
-	<string name="wallet_address_fragment_share_dialog_title">Deel uw bitcoin adres...</string>
+	<string name="wallet_address_fragment_share_dialog_title">Deel uw bitcoin adres…</string>
 	<string-array name="wallet_address_fragment_context">
 		<item>Lijst van alle</item>
 		<item>Geef QR code weer</item>
@@ -45,7 +45,7 @@
 	<string name="send_coins_fragment_amount_label">Bedrag te betalen</string>
 	<string name="send_coins_fragment_fee_label">Transactiekosten (optional)</string>
 	<string name="send_coins_fragment_button_send">Verzenden</string>
-	<string name="send_coins_sending_msg">Bezig met verzenden...</string>
+	<string name="send_coins_sending_msg">Bezig met verzenden…</string>
 	<string name="send_coins_add_address_dialog_title">De ontvanger is nog niet aanwezig in uw adresboek.\n\nWilt u deze nu toevoegen?</string>
 	<string name="send_coins_add_address_dialog_button_add">Adres toevoegen</string>
 	<string name="send_coins_error_msg">Probleem bij het versturen van Bitcoins!</string>
@@ -56,7 +56,7 @@
 	<string name="request_coins_fragment_qr_label">Laat deze QR-code scannen door de zender:</string>
 	<string name="request_coins_fragment_nfc_enabled">of raak aan met een NFC gereed apparaat.</string>
 	<string name="request_coins_clipboard_msg">Bitcoin verzoek gekopieërd naar klembord</string>
-	<string name="request_coins_share_dialog_title">Deel verzoek voor Bitcoins...</string>
+	<string name="request_coins_share_dialog_title">Deel verzoek voor Bitcoins…</string>
 
 	<string name="address_book_activity_title">Adresboek</string>
 	<string name="address_book_empty_text">Geen vermeldingen in het adresboek</string>

@@ -14,7 +14,7 @@
 	<string name="wallet_message_blockchain_problem_network">Blockchain lädt nicht: Netzwerk-Problem</string>
 	<string name="wallet_address_fragment_your">Deine Bitcoin-Adresse:</string>
 	<string name="wallet_address_fragment_clipboard_msg">Bitcoin-Adresse ins Clipboard kopiert</string>
-	<string name="wallet_address_fragment_share_dialog_title">Bitcoin-Adresse veröffentlichen...</string>
+	<string name="wallet_address_fragment_share_dialog_title">Bitcoin-Adresse veröffentlichen…</string>
 	<string-array name="wallet_address_fragment_context">
 		<item>Alle anzeigen</item>
 		<item>QR-Code zeigen</item>
@@ -62,7 +62,7 @@
 	<string name="send_coins_fragment_fee_label">Gebühr (optional)</string>
 	<string name="send_coins_fragment_button_send">Senden</string>
 	<string name="send_coins_fragment_button_back">Zurück</string>
-	<string name="send_coins_sending_msg">Versenden...</string>
+	<string name="send_coins_sending_msg">Versenden…</string>
 	<string name="send_coins_sent_msg">Versendet!</string>
 	<string name="send_coins_add_address_dialog_title">Der Empfänger ist noch nicht in Deinem Adressbuch gespeichert.\n\nMöchtest Du ihn jetzt hinzufügen?</string>
 	<string name="send_coins_add_address_dialog_button_add">Adresse hinzufügen</string>
@@ -74,7 +74,7 @@
 	<string name="request_coins_fragment_qr_label">Laß diesen QR-Code vom Sender scannen:</string>
 	<string name="request_coins_fragment_nfc_enabled">Oder berühr\'s mit einem NFC-fähigen Gerät.</string>
 	<string name="request_coins_clipboard_msg">Anforderung aufs Clipboard kopiert</string>
-	<string name="request_coins_share_dialog_title">Anforderung veröffentlichen...</string>
+	<string name="request_coins_share_dialog_title">Anforderung veröffentlichen…</string>
 
 	<string name="address_book_activity_title">Adressbuch</string>
 	<string name="address_book_empty_text">Keine Einträge im Adressbuch</string>

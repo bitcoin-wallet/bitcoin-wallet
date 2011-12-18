@@ -8,7 +8,7 @@
 	<string name="wallet_content_disclaimer">Aplikace je v experimentálním stadiu, použití na vlastní riziko. Více v nápovědě.</string>
 	<string name="wallet_address_fragment_your">Vaše Bitcoin Adresa:</string>
 	<string name="wallet_address_fragment_clipboard_msg">Adresa zkopírována do schránky</string>
-	<string name="wallet_address_fragment_share_dialog_title">Nasdílejte Vaši adresu...</string>
+	<string name="wallet_address_fragment_share_dialog_title">Nasdílejte Vaši adresu…</string>
 	<string-array name="wallet_address_fragment_context">
 		<item>Zobrazit vše</item>
 		<item>Zobrazit QR kód</item>
@@ -46,7 +46,7 @@
 	<string name="send_coins_fragment_amount_label">Částka k zaplacení</string>
 	<string name="send_coins_fragment_fee_label">Poplatek (volitelný)</string>
 	<string name="send_coins_fragment_button_send">Poslat</string>
-	<string name="send_coins_sending_msg">Posílám...</string>
+	<string name="send_coins_sending_msg">Posílám…</string>
 	<string name="send_coins_add_address_dialog_title">Příjemce není ve Vašem adresáři.\n\nChcete jej přidat do adresáře?</string>
 	<string name="send_coins_add_address_dialog_button_add">Přidat</string>
 	<string name="send_coins_error_msg">Problém při zasílání!</string>
@@ -57,7 +57,7 @@
 	<string name="request_coins_fragment_qr_label">Dejte odesilateli oskenovat tento kód:</string>
 	<string name="request_coins_fragment_nfc_enabled">Nebo klepněte, pokud Vaše zařízení podporuje NFC.</string>
 	<string name="request_coins_clipboard_msg">Požadavek na platbu zkopírován do schránky</string>
-	<string name="request_coins_share_dialog_title">Sdílet požadavek na Bitcoiny...</string>
+	<string name="request_coins_share_dialog_title">Sdílet požadavek na Bitcoiny…</string>
 
 	<string name="address_book_activity_title">Adresář</string>
 	<string name="address_book_empty_text">Žádný záznam v adresáři</string>
