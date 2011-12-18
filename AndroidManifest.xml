@@ -16,13 +16,13 @@
 
 		<activity android:name="de.schildbach.wallet.SendCoinsActivity" android:theme="@android:style/Theme.Light.NoTitleBar"
 			android:screenOrientation="nosensor" android:configChanges="orientation|keyboard|keyboardHidden" android:launchMode="singleTask">
-			<intent-filter>
+			<intent-filter android:label="@string/send_coins_activity_title">
 				<action android:name="android.intent.action.VIEW" />
 				<data android:scheme="bitcoin" />
 				<category android:name="android.intent.category.DEFAULT" />
 				<category android:name="android.intent.category.BROWSABLE" />
 			</intent-filter>
-			<intent-filter>
+			<intent-filter android:label="@string/send_coins_activity_title">
 				<action android:name="android.nfc.action.NDEF_DISCOVERED" />
 				<data android:scheme="bitcoin" />
 				<category android:name="android.intent.category.DEFAULT" />
