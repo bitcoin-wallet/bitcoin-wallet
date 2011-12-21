@@ -127,16 +127,18 @@ public class ExchangeRatesProvider extends ContentProvider
 			for (final Iterator<String> i = head.keys(); i.hasNext();)
 			{
 				final String currencyCode = i.next();
+				if (!"timestamp".equals(currencyCode))
+				{
+					final JSONObject o = head.getJSONObject(currencyCode);
+					double rate = o.optDouble("24h", 0);
+					if (rate == 0)
+						rate = o.optDouble("7d", 0);
+					if (rate == 0)
+						rate = o.optDouble("30d", 0);
 
-				final JSONObject o = head.getJSONObject(currencyCode);
-				double rate = o.optDouble("24h", 0);
-				if (rate == 0)
-					rate = o.optDouble("7d", 0);
-				if (rate == 0)
-					rate = o.optDouble("30d", 0);
-
-				if (rate != 0)
-					rates.put(currencyCode, rate);
+					if (rate != 0)
+						rates.put(currencyCode, rate);
+				}
 			}
 
 			return rates;
