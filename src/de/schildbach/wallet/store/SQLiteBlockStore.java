@@ -18,6 +18,8 @@
 package de.schildbach.wallet.store;
 
 import java.math.BigInteger;
+import java.util.HashMap;
+import java.util.Map;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -92,8 +94,10 @@ public class SQLiteBlockStore implements BlockStore
 
 	private final SQLiteOpenHelper helper;
 	private final NetworkParameters networkParameters;
+
+	private static final int WRITE_AHEAD_CACHE_CAPACITY = 32;
+	private Map<Sha256Hash, StoredBlock> writeAheadCache = new HashMap<Sha256Hash, StoredBlock>(WRITE_AHEAD_CACHE_CAPACITY);
 	private StoredBlock chainHeadBlock;
-	private Sha256Hash chainHeadHash;
 
 	public SQLiteBlockStore(final Context context, final NetworkParameters networkParameters, final String databaseName) throws BlockStoreException
 	{
@@ -110,7 +114,6 @@ public class SQLiteBlockStore implements BlockStore
 			chainHeadBlock = get(hash);
 			if (chainHeadBlock == null)
 				throw new BlockStoreException("could not find block for chain head");
-			chainHeadHash = hash;
 		}
 		else
 		{
@@ -130,30 +133,48 @@ public class SQLiteBlockStore implements BlockStore
 		}
 	}
 
-	public void close()
+	public synchronized void close()
 	{
-		// nothing to do for now
+		flushCache();
 	}
 
-	public void put(final StoredBlock block) throws BlockStoreException
+	public synchronized void put(final StoredBlock block) throws BlockStoreException
 	{
-		final ContentValues values = new ContentValues();
-		values.put(COLUMN_BLOCKS_HASH, block.getHeader().getHash().getBytes());
-		values.put(COLUMN_BLOCKS_CHAINWORK, block.getChainWork().toByteArray());
-		values.put(COLUMN_BLOCKS_HEIGHT, block.getHeight());
-		values.put(COLUMN_BLOCKS_HEADER, block.getHeader().unsafeBitcoinSerialize());
+		writeAheadCache.put(block.getHeader().getHash(), block);
 
+		if (writeAheadCache.size() >= WRITE_AHEAD_CACHE_CAPACITY)
+			flushCache();
+	}
+
+	private void flushCache() throws SQLException
+	{
 		final SQLiteDatabase db = helper.getWritableDatabase();
 
 		try
 		{
 			db.beginTransaction();
-			db.replaceOrThrow(TABLE_BLOCKS, null, values);
+
+			// write blocks
+			final ContentValues blockValues = new ContentValues();
+			for (final StoredBlock block : writeAheadCache.values())
+			{
+				blockValues.put(COLUMN_BLOCKS_HASH, block.getHeader().getHash().getBytes());
+				blockValues.put(COLUMN_BLOCKS_CHAINWORK, block.getChainWork().toByteArray());
+				blockValues.put(COLUMN_BLOCKS_HEIGHT, block.getHeight());
+				blockValues.put(COLUMN_BLOCKS_HEADER, block.getHeader().unsafeBitcoinSerialize());
+				db.replaceOrThrow(TABLE_BLOCKS, null, blockValues);
+			}
+
+			// write chain head
+			final ContentValues settingValues = new ContentValues();
+			settingValues.put(COLUMN_SETTINGS_NAME, SETTING_CHAINHEAD);
+			settingValues.put(COLUMN_SETTINGS_VALUE, chainHeadBlock.getHeader().getHash().getBytes());
+			db.replaceOrThrow(TABLE_SETTINGS, null, settingValues);
+
 			db.setTransactionSuccessful();
-		}
-		catch (final SQLException x)
-		{
-			throw new BlockStoreException(x);
+
+			// clear cache
+			writeAheadCache.clear();
 		}
 		finally
 		{
@@ -162,11 +183,11 @@ public class SQLiteBlockStore implements BlockStore
 
 	}
 
-	public StoredBlock get(final Sha256Hash hash) throws BlockStoreException
+	public synchronized StoredBlock get(final Sha256Hash hash) throws BlockStoreException
 	{
-		// optimize for chain head
-		if (chainHeadHash != null && chainHeadHash.equals(hash))
-			return chainHeadBlock;
+		final StoredBlock storedBlock = writeAheadCache.get(hash);
+		if (storedBlock != null)
+			return storedBlock;
 
 		// ugly workaround for binding a blob value
 		final CursorFactory cursorFactory = new CursorFactory()
@@ -210,35 +231,12 @@ public class SQLiteBlockStore implements BlockStore
 		}
 	}
 
-	public void setChainHead(final StoredBlock chainHead) throws BlockStoreException
+	public synchronized void setChainHead(final StoredBlock chainHead) throws BlockStoreException
 	{
-		final Sha256Hash hash = chainHead.getHeader().getHash();
-		chainHeadHash = hash;
 		chainHeadBlock = chainHead;
-
-		final ContentValues values = new ContentValues();
-		values.put(COLUMN_SETTINGS_NAME, SETTING_CHAINHEAD);
-		values.put(COLUMN_SETTINGS_VALUE, hash.getBytes());
-
-		final SQLiteDatabase db = helper.getWritableDatabase();
-
-		try
-		{
-			db.beginTransaction();
-			db.replaceOrThrow(TABLE_SETTINGS, null, values);
-			db.setTransactionSuccessful();
-		}
-		catch (final SQLException x)
-		{
-			throw new BlockStoreException(x);
-		}
-		finally
-		{
-			db.endTransaction();
-		}
 	}
 
-	public StoredBlock getChainHead() throws BlockStoreException
+	public synchronized StoredBlock getChainHead() throws BlockStoreException
 	{
 		return chainHeadBlock;
 	}
