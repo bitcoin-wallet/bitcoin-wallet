@@ -239,7 +239,7 @@ public class SendCoinsFragment extends Fragment
 								if (label == null)
 									showAddAddressDialog(receivingAddress.toString());
 
-								TransactionActivity.show(activity, tx);
+								// TransactionActivity.show(activity, tx);
 							}
 						};
 						handler.postDelayed(sentRunnable, 5000);
