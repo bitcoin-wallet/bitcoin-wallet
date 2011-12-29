@@ -45,30 +45,53 @@ Log messages can be viewed by
 
 SETTING UP FOR DEVELOPMENT
 
-Make sure you've got Eclipse 3.6 (Helios) with ADT 12 installed.
+Make sure you've got Eclipse 3.7 (Indigo) with ADT 16 installed.
 
-I also have Subclipse (http://subclipse.tigris.org/) installed, but you can probably use
-Subversive as well. 
+Use https://github.com/mosabua/maven-android-sdk-deployer to deploy all Android components to
+your local Maven repository.
 
-Use File -> Import -> Checkout Projects from SVN
+Use Subversion to check out the project to your workspace:
 
-Repository location: http://bitcoin-wallet.googlecode.com/svn
+  svn co http://bitcoin-wallet.googlecode.com/svn/trunk bitcoin-wallet
 
-Select 'trunk' to check out.
+Change to that directory.
 
-Checkout can take some minutes, because it contains some quite large binary files. Look at the
-SVN Console to see the progress.
+Use the maven-eclipse-plugin to create Eclipse project files:
 
-I had to Project -> Clean afterwards.
+  mvn eclipse:eclipse
 
-If you see loads of "should be tagged with @Override" errors, set
+Optional: In the generated .classpath, remove the org.eclipse.jdt.launching.JRE_CONTAINER
+classpath entry. It does not belong there, but cannot be excluded from being generated currently.
 
-    Project -> Properties -> Java Compiler -> Errors/Warnings -> Annotations ->
-    Missing @Override annotation to 'Warning'
+In Eclipse, use File -> Import -> General -> Existing Project into Workspace to import project.
 
-If you are going to deploy to a device, I suggest to delete either blockchain-snapshot.jpg or
-blockchain-snapshot-testnet.jpg from the assets directory (depending on if you want to deploy
-testnet or prodnet).
+
+# [old stuff]
+#
+# Make sure you've got Eclipse 3.6 (Helios) with ADT 12 installed.
+#
+# I also have Subclipse (http://subclipse.tigris.org/) installed, but you can probably use
+# Subversive as well. 
+#
+# Use File -> Import -> Checkout Projects from SVN
+#
+# Repository location: http://bitcoin-wallet.googlecode.com/svn
+#
+# Select 'trunk' to check out.
+#
+# Checkout can take some minutes, because it contains some quite large binary files. Look at the
+# SVN Console to see the progress.
+#
+# I had to Project -> Clean afterwards.
+#
+# If you see loads of "should be tagged with @Override" errors, set
+#
+#    Project -> Properties -> Java Compiler -> Errors/Warnings -> Annotations ->
+#    Missing @Override annotation to 'Warning'
+#
+# If you are going to deploy to a device, I suggest to delete either blockchain-snapshot.jpg or
+# blockchain-snapshot-testnet.jpg from the assets directory (depending on if you want to deploy
+# testnet or prodnet).
 
 
 NFC (Near field communication)
