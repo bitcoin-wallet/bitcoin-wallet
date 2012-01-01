@@ -108,28 +108,35 @@ public class SQLiteBlockStore implements BlockStore
 		final SQLiteDatabase db = helper.getReadableDatabase();
 		final Cursor query = db.query(TABLE_SETTINGS, new String[] { COLUMN_SETTINGS_VALUE }, COLUMN_SETTINGS_NAME + "=?",
 				new String[] { SETTING_CHAINHEAD }, null, null, null);
-		if (query.moveToFirst())
+		try
 		{
-			final Sha256Hash hash = new Sha256Hash(query.getBlob(query.getColumnIndexOrThrow(COLUMN_SETTINGS_VALUE)));
-			chainHeadBlock = get(hash);
-			if (chainHeadBlock == null)
-				throw new BlockStoreException("could not find block for chain head");
-		}
-		else
-		{
-			try
+			if (query.moveToFirst())
 			{
-				// set up the genesis block
-				final Block genesis = networkParameters.genesisBlock.cloneAsHeader();
-				final StoredBlock storedGenesis = new StoredBlock(genesis, genesis.getWork(), 0);
+				final Sha256Hash hash = new Sha256Hash(query.getBlob(query.getColumnIndexOrThrow(COLUMN_SETTINGS_VALUE)));
+				chainHeadBlock = get(hash);
+				if (chainHeadBlock == null)
+					throw new BlockStoreException("could not find block for chain head");
+			}
+			else
+			{
+				try
+				{
+					// set up the genesis block
+					final Block genesis = networkParameters.genesisBlock.cloneAsHeader();
+					final StoredBlock storedGenesis = new StoredBlock(genesis, genesis.getWork(), 0);
 
-				put(storedGenesis);
-				setChainHead(storedGenesis);
+					put(storedGenesis);
+					setChainHead(storedGenesis);
+				}
+				catch (final VerificationException x)
+				{
+					throw new BlockStoreException(x);
+				}
 			}
-			catch (final VerificationException x)
-			{
-				throw new BlockStoreException(x);
-			}
+		}
+		finally
+		{
+			query.close();
 		}
 	}
 
@@ -198,36 +205,42 @@ public class SQLiteBlockStore implements BlockStore
 				return new SQLiteCursor(db, masterQuery, editTable, query);
 			}
 		};
-		final Cursor query = helper.getReadableDatabase().queryWithFactory(cursorFactory, false, TABLE_BLOCKS,
-				new String[] { COLUMN_BLOCKS_CHAINWORK, COLUMN_BLOCKS_HEIGHT, COLUMN_BLOCKS_HEADER }, COLUMN_BLOCKS_HASH + "=?", null, null, null,
-				null, null);
-
-		if (query.moveToFirst())
+		final SQLiteDatabase db = helper.getReadableDatabase();
+		final Cursor query = db.queryWithFactory(cursorFactory, false, TABLE_BLOCKS, new String[] { COLUMN_BLOCKS_CHAINWORK, COLUMN_BLOCKS_HEIGHT,
+				COLUMN_BLOCKS_HEADER }, COLUMN_BLOCKS_HASH + "=?", null, null, null, null, null);
+		try
 		{
-			try
+			if (query.moveToFirst())
 			{
-				final BigInteger chainWork = new BigInteger(query.getBlob(query.getColumnIndexOrThrow(COLUMN_BLOCKS_CHAINWORK)));
-				final int height = query.getInt(query.getColumnIndexOrThrow(COLUMN_BLOCKS_HEIGHT));
-				final Block block = new Block(networkParameters, query.getBlob(query.getColumnIndexOrThrow(COLUMN_BLOCKS_HEADER)));
+				try
+				{
+					final BigInteger chainWork = new BigInteger(query.getBlob(query.getColumnIndexOrThrow(COLUMN_BLOCKS_CHAINWORK)));
+					final int height = query.getInt(query.getColumnIndexOrThrow(COLUMN_BLOCKS_HEIGHT));
+					final Block block = new Block(networkParameters, query.getBlob(query.getColumnIndexOrThrow(COLUMN_BLOCKS_HEADER)));
 
-				block.verifyHeader();
+					block.verifyHeader();
 
-				return new StoredBlock(block, chainWork, height);
+					return new StoredBlock(block, chainWork, height);
+				}
+				catch (final ProtocolException x)
+				{
+					// corrupted database
+					throw new BlockStoreException(x);
+				}
+				catch (final VerificationException x)
+				{
+					// should not be able to happen unless the database contains bad blocks
+					throw new BlockStoreException(x);
+				}
 			}
-			catch (final ProtocolException x)
+			else
 			{
-				// corrupted database
-				throw new BlockStoreException(x);
-			}
-			catch (final VerificationException x)
-			{
-				// should not be able to happen unless the database contains bad blocks
-				throw new BlockStoreException(x);
+				return null;
 			}
 		}
-		else
+		finally
 		{
-			return null;
+			query.close();
 		}
 	}
 
