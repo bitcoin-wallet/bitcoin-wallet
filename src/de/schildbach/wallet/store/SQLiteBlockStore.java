@@ -175,6 +175,7 @@ public class SQLiteBlockStore implements BlockStore
 				if (result == -1)
 					throw new RuntimeException("insert not successful");
 			}
+			insert.close();
 
 			// write chain head
 			final ContentValues settingValues = new ContentValues();
