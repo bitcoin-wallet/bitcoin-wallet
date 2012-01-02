@@ -31,6 +31,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteQuery;
+import android.database.sqlite.SQLiteStatement;
 
 import com.google.bitcoin.core.Block;
 import com.google.bitcoin.core.NetworkParameters;
@@ -162,14 +163,17 @@ public class SQLiteBlockStore implements BlockStore
 			db.beginTransaction();
 
 			// write blocks
-			final ContentValues blockValues = new ContentValues();
+			final SQLiteStatement insert = db.compileStatement("INSERT OR REPLACE INTO " + TABLE_BLOCKS + " (" + COLUMN_BLOCKS_HASH + ","
+					+ COLUMN_BLOCKS_CHAINWORK + "," + COLUMN_BLOCKS_HEIGHT + "," + COLUMN_BLOCKS_HEADER + ") VALUES (?, ?, ?, ?)");
 			for (final StoredBlock block : writeAheadCache.values())
 			{
-				blockValues.put(COLUMN_BLOCKS_HASH, block.getHeader().getHash().getBytes());
-				blockValues.put(COLUMN_BLOCKS_CHAINWORK, block.getChainWork().toByteArray());
-				blockValues.put(COLUMN_BLOCKS_HEIGHT, block.getHeight());
-				blockValues.put(COLUMN_BLOCKS_HEADER, block.getHeader().unsafeBitcoinSerialize());
-				db.replaceOrThrow(TABLE_BLOCKS, null, blockValues);
+				insert.bindBlob(1, block.getHeader().getHash().getBytes());
+				insert.bindBlob(2, block.getChainWork().toByteArray());
+				insert.bindLong(3, block.getHeight());
+				insert.bindBlob(4, block.getHeader().unsafeBitcoinSerialize());
+				final long result = insert.executeInsert();
+				if (result == -1)
+					throw new RuntimeException("insert not successful");
 			}
 
 			// write chain head
