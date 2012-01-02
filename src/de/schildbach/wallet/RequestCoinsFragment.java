@@ -73,7 +73,7 @@ public class RequestCoinsFragment extends Fragment
 				clipboardManager.setText(addressStr);
 				((AbstractWalletActivity) getActivity()).toast(R.string.request_coins_clipboard_msg);
 
-				System.out.println("bitcoin request uri: " + addressStr + (Constants.TEST ? " (testnet!)" : ""));
+				System.out.println("bitcoin request uri: " + addressStr + (Constants.TEST ? " [testnet]" : ""));
 			}
 		});
 

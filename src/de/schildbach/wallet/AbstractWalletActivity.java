@@ -52,7 +52,7 @@ public abstract class AbstractWalletActivity extends FragmentActivity
 
 		getActionBar(); // make sure action bar is initialized
 		actionBar.setIcon(Constants.APP_ICON_RESID);
-		actionBar.setSecondaryTitle(Constants.TEST ? "[testnet!]" : null);
+		actionBar.setSecondaryTitle(Constants.TEST ? "[testnet]" : null);
 	}
 
 	protected Application getWalletApplication()

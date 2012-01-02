@@ -87,7 +87,7 @@ public class WalletAddressFragment extends Fragment
 			{
 				final Address address = application.determineSelectedAddress();
 
-				System.out.println("selected bitcoin address: " + address + (Constants.TEST ? " (testnet!)" : ""));
+				System.out.println("selected bitcoin address: " + address + (Constants.TEST ? " [testnet]" : ""));
 
 				new AlertDialog.Builder(getActivity()).setItems(R.array.wallet_address_fragment_context, new DialogInterface.OnClickListener()
 				{
