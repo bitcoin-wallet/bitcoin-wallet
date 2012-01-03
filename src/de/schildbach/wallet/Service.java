@@ -112,53 +112,38 @@ public class Service extends android.app.Service
 		@Override
 		public void onPendingCoinsReceived(final Wallet wallet, final Transaction tx)
 		{
-			try
-			{
-				final TransactionInput input = tx.getInputs().get(0);
-				final Address from = input.getFromAddress();
-				final BigInteger value = tx.getValueSentToMe(wallet);
-
-				handler.post(new Runnable()
-				{
-					public void run()
-					{
-						System.out.println("!!! got pending bitcoins: " + from + " " + value);
-
-						notifyTransaction(tx.getHash(), from, value);
-						notifyWidgets();
-					}
-				});
-			}
-			catch (final ScriptException x)
-			{
-				throw new RuntimeException(x);
-			}
+			onReceived(wallet, tx);
 		}
 
 		@Override
 		public void onCoinsReceived(final Wallet wallet, final Transaction tx, final BigInteger prevBalance, final BigInteger newBalance)
 		{
+			onReceived(wallet, tx);
+		}
+
+		private void onReceived(final Wallet wallet, final Transaction tx)
+		{
+			Address from = null;
 			try
 			{
 				final TransactionInput input = tx.getInputs().get(0);
-				final Address from = input.getFromAddress();
-				final BigInteger value = tx.getValueSentToMe(wallet);
-
-				handler.post(new Runnable()
-				{
-					public void run()
-					{
-						System.out.println("!!! got confirmed bitcoins: " + from + " " + value);
-
-						notifyTransaction(tx.getHash(), from, value);
-						notifyWidgets();
-					}
-				});
+				from = input.getFromAddress();
 			}
 			catch (final ScriptException x)
 			{
 				throw new RuntimeException(x);
 			}
+			final Address finalFrom = from;
+			final BigInteger value = tx.getValueSentToMe(wallet);
+
+			handler.post(new Runnable()
+			{
+				public void run()
+				{
+					notifyTransaction(tx.getHash(), finalFrom, value);
+					notifyWidgets();
+				}
+			});
 		}
 
 		private void notifyTransaction(final Sha256Hash txHash, final Address from, final BigInteger value)
@@ -171,7 +156,8 @@ public class Service extends android.app.Service
 				final Notification notification = new Notification(R.drawable.stat_notify_received, msg, System.currentTimeMillis());
 				notification.flags |= Notification.FLAG_AUTO_CANCEL;
 				notification.sound = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.coins_received);
-				notification.setLatestEventInfo(Service.this, msg, "From " + from + (Constants.TEST ? " [testnet]" : ""),
+				notification.setLatestEventInfo(Service.this, msg,
+						"From " + (from != null ? from : "unknown") + (Constants.TEST ? " [testnet]" : ""),
 						PendingIntent.getActivity(Service.this, 0, new Intent(Service.this, WalletActivity.class), 0));
 				nm.notify(notificationIdCount.getAndIncrement(), notification);
 			}
