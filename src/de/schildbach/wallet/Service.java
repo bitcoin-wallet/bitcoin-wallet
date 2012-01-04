@@ -383,14 +383,10 @@ public class Service extends android.app.Service
 
 		final String initiateReset = prefs.getString(Constants.PREFS_KEY_INITIATE_RESET, null);
 		final boolean blockchainResetInitiated;
-		if ("transactions".equals(initiateReset))
+		if ("blockchain".equals(initiateReset))
 		{
 			blockchainResetInitiated = true;
 			wallet.removeAllTransactions();
-		}
-		else if ("blockchain".equals(initiateReset))
-		{
-			blockchainResetInitiated = true;
 		}
 		else
 		{
