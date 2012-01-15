@@ -203,17 +203,6 @@ public class Service extends android.app.Service
 
 					// send broadcast
 					sendBroadcastPeerState(numPeers);
-
-					// send pending transactions, TODO find better time
-					if (peerGroup != null && numPeers >= peerGroup.getMaxConnections())
-					{
-						final Wallet wallet = application.getWallet();
-						for (final Transaction transaction : wallet.pending.values())
-						{
-							if (transaction.sent(wallet))
-								broadcastTransaction(transaction);
-						}
-					}
 				}
 			});
 		}
