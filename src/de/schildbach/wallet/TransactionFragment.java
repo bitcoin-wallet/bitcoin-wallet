@@ -42,6 +42,8 @@ import android.widget.TextView;
 import com.google.bitcoin.core.Address;
 import com.google.bitcoin.core.ScriptException;
 import com.google.bitcoin.core.Transaction;
+import com.google.bitcoin.core.TransactionConfidence;
+import com.google.bitcoin.core.TransactionConfidence.ConfidenceType;
 import com.google.bitcoin.core.Utils;
 import com.google.bitcoin.core.Wallet;
 
@@ -109,8 +111,9 @@ public class TransactionFragment extends Fragment
 			x.printStackTrace();
 		}
 
-		final boolean pending = wallet.isPending(tx);
-		final boolean dead = wallet.isDead(tx);
+		final TransactionConfidence confidence = tx.getConfidence();
+		final boolean pending = confidence.getConfidenceType() == ConfidenceType.NOT_SEEN_IN_CHAIN;
+		final boolean dead = confidence.getConfidenceType() == ConfidenceType.OVERRIDDEN_BY_DOUBLE_SPEND;
 
 		final ContentResolver contentResolver = activity.getContentResolver();
 

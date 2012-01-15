@@ -51,9 +51,11 @@ import com.google.bitcoin.core.AbstractWalletEventListener;
 import com.google.bitcoin.core.Address;
 import com.google.bitcoin.core.ScriptException;
 import com.google.bitcoin.core.Transaction;
+import com.google.bitcoin.core.TransactionConfidence;
 import com.google.bitcoin.core.Utils;
 import com.google.bitcoin.core.Wallet;
 import com.google.bitcoin.core.WalletEventListener;
+import com.google.bitcoin.core.TransactionConfidence.ConfidenceType;
 
 import de.schildbach.wallet.util.ViewPagerTabs;
 import de.schildbach.wallet_test.R;
@@ -179,9 +181,10 @@ public class WalletTransactionsFragment extends Fragment
 						row = getLayoutInflater(null).inflate(R.layout.transaction_row, null);
 
 					final Transaction tx = getItem(position);
+					final TransactionConfidence confidence = tx.getConfidence();
 					final boolean sent = tx.sent(wallet);
-					final boolean pending = wallet.isPending(tx);
-					final boolean dead = wallet.isDead(tx);
+					final boolean pending = confidence.getConfidenceType() == ConfidenceType.NOT_SEEN_IN_CHAIN;
+					final boolean dead = confidence.getConfidenceType() == ConfidenceType.OVERRIDDEN_BY_DOUBLE_SPEND;
 					final int textColor;
 					if (dead)
 						textColor = Color.RED;
@@ -330,8 +333,8 @@ public class WalletTransactionsFragment extends Fragment
 			{
 				public int compare(final Transaction tx1, final Transaction tx2)
 				{
-					final boolean pending1 = wallet.isPending(tx1);
-					final boolean pending2 = wallet.isPending(tx2);
+					final boolean pending1 = tx1.getConfidence().getConfidenceType() == ConfidenceType.NOT_SEEN_IN_CHAIN;
+					final boolean pending2 = tx2.getConfidence().getConfidenceType() == ConfidenceType.NOT_SEEN_IN_CHAIN;
 
 					if (pending1 != pending2)
 						return pending1 ? -1 : 1;
