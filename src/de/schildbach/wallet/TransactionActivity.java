@@ -32,7 +32,9 @@ import android.view.View;
 import android.view.View.OnClickListener;
 
 import com.google.bitcoin.core.ProtocolException;
+import com.google.bitcoin.core.ScriptException;
 import com.google.bitcoin.core.Transaction;
+import com.google.bitcoin.core.VerificationException;
 import com.google.bitcoin.core.Wallet;
 
 import de.schildbach.wallet.util.ActionBarFragment;
@@ -188,6 +190,19 @@ public class TransactionActivity extends AbstractWalletActivity
 		final Wallet wallet = ((Application) getApplication()).getWallet();
 
 		if (tx.isMine(wallet) && !tx.sent(wallet))
-			wallet.receivePendingTransaction(tx);
+		{
+			try
+			{
+				wallet.receivePending(tx);
+			}
+			catch (final VerificationException x)
+			{
+				throw new RuntimeException(x);
+			}
+			catch (final ScriptException x)
+			{
+				throw new RuntimeException(x);
+			}
+		}
 	}
 }
