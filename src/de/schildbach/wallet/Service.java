@@ -386,7 +386,7 @@ public class Service extends android.app.Service
 		if ("blockchain".equals(initiateReset))
 		{
 			blockchainResetInitiated = true;
-			wallet.removeAllTransactions();
+			wallet.clearTransactions(0);
 		}
 		else
 		{
