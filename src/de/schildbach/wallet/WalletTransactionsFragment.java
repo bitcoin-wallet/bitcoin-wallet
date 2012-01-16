@@ -51,11 +51,10 @@ import com.google.bitcoin.core.AbstractWalletEventListener;
 import com.google.bitcoin.core.Address;
 import com.google.bitcoin.core.ScriptException;
 import com.google.bitcoin.core.Transaction;
-import com.google.bitcoin.core.TransactionConfidence;
+import com.google.bitcoin.core.TransactionConfidence.ConfidenceType;
 import com.google.bitcoin.core.Utils;
 import com.google.bitcoin.core.Wallet;
 import com.google.bitcoin.core.WalletEventListener;
-import com.google.bitcoin.core.TransactionConfidence.ConfidenceType;
 
 import de.schildbach.wallet.util.ViewPagerTabs;
 import de.schildbach.wallet_test.R;
@@ -181,10 +180,11 @@ public class WalletTransactionsFragment extends Fragment
 						row = getLayoutInflater(null).inflate(R.layout.transaction_row, null);
 
 					final Transaction tx = getItem(position);
-					final TransactionConfidence confidence = tx.getConfidence();
 					final boolean sent = tx.sent(wallet);
-					final boolean pending = confidence.getConfidenceType() == ConfidenceType.NOT_SEEN_IN_CHAIN;
-					final boolean dead = confidence.getConfidenceType() == ConfidenceType.OVERRIDDEN_BY_DOUBLE_SPEND;
+					final ConfidenceType confidenceType = tx.getConfidence().getConfidenceType();
+					final boolean pending = confidenceType == ConfidenceType.NOT_SEEN_IN_CHAIN || confidenceType == ConfidenceType.UNKNOWN;
+					final boolean dead = confidenceType == ConfidenceType.OVERRIDDEN_BY_DOUBLE_SPEND
+							|| confidenceType == ConfidenceType.NOT_IN_BEST_CHAIN;
 					final int textColor;
 					if (dead)
 						textColor = Color.RED;

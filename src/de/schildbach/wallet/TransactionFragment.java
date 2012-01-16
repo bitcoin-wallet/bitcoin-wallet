@@ -111,9 +111,9 @@ public class TransactionFragment extends Fragment
 			x.printStackTrace();
 		}
 
-		final TransactionConfidence confidence = tx.getConfidence();
-		final boolean pending = confidence.getConfidenceType() == ConfidenceType.NOT_SEEN_IN_CHAIN;
-		final boolean dead = confidence.getConfidenceType() == ConfidenceType.OVERRIDDEN_BY_DOUBLE_SPEND;
+		final ConfidenceType confidenceType = tx.getConfidence().getConfidenceType();
+		final boolean pending = confidenceType == ConfidenceType.NOT_SEEN_IN_CHAIN || confidenceType == ConfidenceType.UNKNOWN;
+		final boolean dead = confidenceType == ConfidenceType.OVERRIDDEN_BY_DOUBLE_SPEND || confidenceType == ConfidenceType.NOT_IN_BEST_CHAIN;
 
 		final ContentResolver contentResolver = activity.getContentResolver();
 
