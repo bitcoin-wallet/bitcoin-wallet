@@ -214,14 +214,12 @@ public class SendCoinsFragment extends Fragment
 
 					System.out.println("about to send " + amount + " (BTC " + Utils.bitcoinValueToFriendlyString(amount) + ") to " + receivingAddress);
 
-					final Transaction tx = application.getWallet().createSend(receivingAddress, amount, fee);
+					final Transaction tx = service.sendCoins(receivingAddress, amount, fee);
 
 					if (tx != null)
 					{
 						state = State.SENDING;
 						updateView();
-
-						service.sendTransaction(tx);
 
 						final WalletBalanceFragment balanceFragment = (WalletBalanceFragment) activity.getSupportFragmentManager().findFragmentById(
 								R.id.wallet_balance_fragment);

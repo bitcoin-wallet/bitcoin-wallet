@@ -44,9 +44,7 @@ import android.net.Uri;
 import android.os.BatteryManager;
 import android.os.Binder;
 import android.os.Handler;
-import android.os.HandlerThread;
 import android.os.IBinder;
-import android.os.Process;
 import android.preference.PreferenceManager;
 
 import com.google.bitcoin.core.AbstractPeerEventListener;
@@ -99,8 +97,6 @@ public class Service extends android.app.Service
 	private PeerGroup peerGroup;
 	private List<Sha256Hash> transactionsSeen = new ArrayList<Sha256Hash>();
 
-	private HandlerThread backgroundThread;
-	private Handler backgroundHandler;
 	private final Handler handler = new Handler();
 
 	private NotificationManager nm;
@@ -345,11 +341,6 @@ public class Service extends android.app.Service
 		final Wallet wallet = application.getWallet();
 		final NetworkParameters networkParameters = application.getNetworkParameters();
 
-		// background thread
-		backgroundThread = new HandlerThread("backgroundThread", Process.THREAD_PRIORITY_BACKGROUND);
-		backgroundThread.start();
-		backgroundHandler = new Handler(backgroundThread.getLooper());
-
 		sendBroadcastPeerState(0);
 
 		final IntentFilter intentFilter = new IntentFilter();
@@ -452,8 +443,6 @@ public class Service extends android.app.Service
 		removeBroadcastPeerState();
 		removeBroadcastBlockchainState();
 
-		backgroundThread.getLooper().quit();
-
 		handler.postDelayed(new Runnable()
 		{
 			public void run()
@@ -465,32 +454,20 @@ public class Service extends android.app.Service
 		super.onDestroy();
 	}
 
-	public void sendTransaction(final Transaction transaction)
+	public Transaction sendCoins(final Address to, final BigInteger amount, final BigInteger fee)
 	{
-		broadcastTransaction(transaction);
-	}
-
-	private void broadcastTransaction(final Transaction tx)
-	{
-		System.out.println("broadcasting transaction: " + tx);
-
-		backgroundHandler.post(new Runnable()
+		final Wallet wallet = application.getWallet();
+		try
 		{
-			public void run()
-			{
-				if (peerGroup != null)
-				{
-					final boolean success = peerGroup.broadcastTransaction(tx);
-					if (success)
-					{
-						application.getWallet().confirmSend(tx);
-						application.saveWallet();
-
-						notifyWidgets();
-					}
-				}
-			}
-		});
+			final Transaction tx = wallet.sendCoinsAsync(peerGroup, to, amount, fee);
+			application.saveWallet();
+			return tx;
+		}
+		catch (final IOException x)
+		{
+			x.printStackTrace();
+			return null;
+		}
 	}
 
 	private void sendBroadcastPeerState(final int numPeers)
