@@ -110,12 +110,6 @@ public class Service extends android.app.Service
 	private final WalletEventListener walletEventListener = new AbstractWalletEventListener()
 	{
 		@Override
-		public void onPendingCoinsReceived(final Wallet wallet, final Transaction tx)
-		{
-			onReceived(wallet, tx);
-		}
-
-		@Override
 		public void onCoinsReceived(final Wallet wallet, final Transaction tx, final BigInteger prevBalance, final BigInteger newBalance)
 		{
 			onReceived(wallet, tx);
@@ -277,11 +271,10 @@ public class Service extends android.app.Service
 
 			if (hasEverything && peerGroup == null)
 			{
-				final Wallet wallet = application.getWallet();
 				final NetworkParameters networkParameters = application.getNetworkParameters();
 
 				System.out.println("starting peergroup");
-				peerGroup = new PeerGroup(blockStore, networkParameters, blockChain, wallet, 1000);
+				peerGroup = new PeerGroup(networkParameters, blockChain, 1000);
 				peerGroup.addEventListener(peerEventListener);
 
 				final String trustedPeerHost = prefs.getString(Constants.PREFS_KEY_TRUSTED_PEER, "").trim();
