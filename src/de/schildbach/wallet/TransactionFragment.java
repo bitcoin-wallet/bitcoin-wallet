@@ -42,7 +42,6 @@ import android.widget.TextView;
 import com.google.bitcoin.core.Address;
 import com.google.bitcoin.core.ScriptException;
 import com.google.bitcoin.core.Transaction;
-import com.google.bitcoin.core.TransactionConfidence;
 import com.google.bitcoin.core.TransactionConfidence.ConfidenceType;
 import com.google.bitcoin.core.Utils;
 import com.google.bitcoin.core.Wallet;
@@ -110,10 +109,6 @@ public class TransactionFragment extends Fragment
 		{
 			x.printStackTrace();
 		}
-
-		final ConfidenceType confidenceType = tx.getConfidence().getConfidenceType();
-		final boolean pending = confidenceType == ConfidenceType.NOT_SEEN_IN_CHAIN || confidenceType == ConfidenceType.UNKNOWN;
-		final boolean dead = confidenceType == ConfidenceType.OVERRIDDEN_BY_DOUBLE_SPEND || confidenceType == ConfidenceType.NOT_IN_BEST_CHAIN;
 
 		final ContentResolver contentResolver = activity.getContentResolver();
 
@@ -224,12 +219,15 @@ public class TransactionFragment extends Fragment
 		}
 
 		final TextView viewStatus = (TextView) view.findViewById(R.id.transaction_fragment_status);
-		if (dead)
+		final ConfidenceType confidenceType = tx.getConfidence().getConfidenceType();
+		if (confidenceType == ConfidenceType.OVERRIDDEN_BY_DOUBLE_SPEND || confidenceType == ConfidenceType.NOT_IN_BEST_CHAIN)
 			viewStatus.setText(R.string.transaction_fragment_status_dead);
-		else if (pending)
+		else if (confidenceType == ConfidenceType.NOT_SEEN_IN_CHAIN)
 			viewStatus.setText(R.string.transaction_fragment_status_pending);
-		else
+		else if (confidenceType == ConfidenceType.BUILDING)
 			viewStatus.setText(R.string.transaction_fragment_status_confirmed);
+		else
+			viewStatus.setText(R.string.transaction_fragment_status_unknown);
 
 		final TextView viewHash = (TextView) view.findViewById(R.id.transaction_fragment_hash);
 		viewHash.setText(tx.getHash().toString());

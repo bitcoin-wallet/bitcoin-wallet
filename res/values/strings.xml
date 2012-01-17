@@ -100,6 +100,7 @@
 	<string name="transaction_fragment_to_label">Receiver</string>
 	<string name="transaction_fragment_you">you</string>
 	<string name="transaction_fragment_status_label">Status</string>
+	<string name="transaction_fragment_status_unknown">unknown</string>
 	<string name="transaction_fragment_status_pending">waiting for confirmation</string>
 	<string name="transaction_fragment_status_confirmed">confirmed</string>
 	<string name="transaction_fragment_status_dead">dead</string>
