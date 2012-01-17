@@ -24,6 +24,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.ObjectStreamException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
@@ -127,6 +128,10 @@ public class Application extends android.app.Application
 						handleException(x);
 					}
 					catch (final StackOverflowError x)
+					{
+						handleException(x);
+					}
+					catch (final ObjectStreamException x)
 					{
 						handleException(x);
 					}
