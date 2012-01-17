@@ -17,8 +17,11 @@
 
 package de.schildbach.wallet;
 
+import java.text.DateFormat;
+import java.util.Date;
 import java.util.List;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
@@ -48,6 +51,7 @@ import de.schildbach.wallet_test.R;
 public class WalletAddressesFragment extends ListFragment
 {
 	private Application application;
+	private Activity activity;
 	private List<ECKey> keys;
 
 	private ImageButton addButton;
@@ -57,7 +61,8 @@ public class WalletAddressesFragment extends ListFragment
 	{
 		super.onCreate(savedInstanceState);
 
-		application = (Application) getActivity().getApplication();
+		activity = getActivity();
+		application = (Application) activity.getApplication();
 		final Wallet wallet = application.getWallet();
 		keys = wallet.keychain;
 
@@ -75,7 +80,7 @@ public class WalletAddressesFragment extends ListFragment
 	@Override
 	public void onHiddenChanged(final boolean hidden)
 	{
-		final ActionBarFragment actionBar = ((AbstractWalletActivity) getActivity()).getActionBar();
+		final ActionBarFragment actionBar = ((AbstractWalletActivity) activity).getActionBar();
 
 		if (!hidden)
 		{
@@ -94,7 +99,7 @@ public class WalletAddressesFragment extends ListFragment
 		final ECKey key = keys.get(position);
 		final Address address = key.toAddress(application.getNetworkParameters());
 
-		final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+		final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(activity);
 		prefs.edit().putString(Constants.PREFS_KEY_SELECTED_ADDRESS, address.toString()).commit();
 
 		final WalletAddressFragment walletAddressFragment = (WalletAddressFragment) getFragmentManager().findFragmentById(
@@ -117,7 +122,7 @@ public class WalletAddressesFragment extends ListFragment
 	{
 		public void onClick(final View v)
 		{
-			new AlertDialog.Builder(getActivity()).setTitle(R.string.wallet_addresses_fragment_add_dialog_title)
+			new AlertDialog.Builder(activity).setTitle(R.string.wallet_addresses_fragment_add_dialog_title)
 					.setMessage(R.string.wallet_addresses_fragment_add_dialog_message)
 					.setPositiveButton(R.string.wallet_addresses_fragment_add_dialog_positive, new DialogInterface.OnClickListener()
 					{
@@ -133,6 +138,8 @@ public class WalletAddressesFragment extends ListFragment
 
 	private class Adapter extends BaseAdapter
 	{
+		final DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(activity);
+
 		public int getCount()
 		{
 			return keys.size();
@@ -158,6 +165,10 @@ public class WalletAddressesFragment extends ListFragment
 
 			final TextView addressView = (TextView) row.findViewById(R.id.address_row_address);
 			addressView.setText(WalletUtils.splitIntoLines(address.toString(), 2));
+
+			final TextView createdView = (TextView) row.findViewById(R.id.address_row_created);
+			final long created = key.getCreationTimeSeconds();
+			createdView.setText(created != 0 ? dateFormat.format(new Date(created * 1000)) : null);
 
 			return row;
 		}
