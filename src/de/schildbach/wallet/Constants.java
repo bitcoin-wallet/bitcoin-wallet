@@ -38,10 +38,6 @@ public class Constants
 	public static final String WALLET_FILENAME_PROD = "wallet";
 	public static final String WALLET_FILENAME_TEST = "wallet-testnet";
 
-	private static final String WALLET_KEY_BACKUP_ASN1_PROD = "key-backup-asn1";
-	private static final String WALLET_KEY_BACKUP_ASN1_TEST = "key-backup-asn1-testnet";
-	public static final String WALLET_KEY_BACKUP_ASN1 = Constants.TEST ? WALLET_KEY_BACKUP_ASN1_TEST : WALLET_KEY_BACKUP_ASN1_PROD;
-
 	private static final String WALLET_KEY_BACKUP_BASE58_PROD = "key-backup-base58";
 	private static final String WALLET_KEY_BACKUP_BASE58_TEST = "key-backup-base58-testnet";
 	public static final String WALLET_KEY_BACKUP_BASE58 = Constants.TEST ? WALLET_KEY_BACKUP_BASE58_TEST : WALLET_KEY_BACKUP_BASE58_PROD;

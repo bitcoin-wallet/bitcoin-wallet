@@ -135,10 +135,6 @@ public class Application extends android.app.Application
 					{
 						handleException(x);
 					}
-					// catch (final InvalidClassException x)
-					// {
-					// handleException(x);
-					// }
 					catch (final IOException x)
 					{
 						throw new Error("cannot load wallet", x);
@@ -325,24 +321,6 @@ public class Application extends android.app.Application
 		catch (final IOException x)
 		{
 			x.printStackTrace();
-		}
-
-		final ECKey firstKey = wallet.keychain.get(0);
-
-		if (firstKey != null)
-		{
-			try
-			{
-				final byte[] asn1 = firstKey.toASN1();
-
-				final OutputStream os = openFileOutput(Constants.WALLET_KEY_BACKUP_ASN1, Constants.WALLET_MODE);
-				os.write(asn1);
-				os.close();
-			}
-			catch (final IOException x)
-			{
-				x.printStackTrace();
-			}
 		}
 	}
 
