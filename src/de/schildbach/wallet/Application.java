@@ -28,7 +28,10 @@ import java.io.ObjectStreamException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -47,6 +50,7 @@ import com.google.bitcoin.core.Wallet;
 import com.google.bitcoin.core.WalletEventListener;
 
 import de.schildbach.wallet.util.ErrorReporter;
+import de.schildbach.wallet.util.Iso8601Format;
 import de.schildbach.wallet.util.StrictModeWrapper;
 import de.schildbach.wallet_test.R;
 
@@ -170,7 +174,11 @@ public class Application extends android.app.Application
 							if (line == null)
 								break;
 
-							final ECKey key = new DumpedPrivateKey(Constants.NETWORK_PARAMETERS, line).getKey();
+							final String[] parts = line.split(" ");
+
+							final ECKey key = new DumpedPrivateKey(Constants.NETWORK_PARAMETERS, parts[0]).getKey();
+							key.setCreationTimeSeconds(parts.length >= 2 ? Iso8601Format.parseDateTimeT(parts[1]).getTime() / 1000 : 0);
+
 							wallet.keychain.add(key);
 						}
 
@@ -187,6 +195,10 @@ public class Application extends android.app.Application
 						throw new RuntimeException(x);
 					}
 					catch (final AddressFormatException x)
+					{
+						throw new RuntimeException(x);
+					}
+					catch (final ParseException x)
 					{
 						throw new RuntimeException(x);
 					}
@@ -233,7 +245,11 @@ public class Application extends android.app.Application
 				if (line == null)
 					break;
 
-				final ECKey key = new DumpedPrivateKey(Constants.NETWORK_PARAMETERS, line).getKey();
+				final String[] parts = line.split(" ");
+
+				final ECKey key = new DumpedPrivateKey(Constants.NETWORK_PARAMETERS, parts[0]).getKey();
+				key.setCreationTimeSeconds(parts.length >= 2 ? Iso8601Format.parseDateTimeT(parts[1]).getTime() / 1000 : 0);
+
 				wallet.keychain.add(key);
 			}
 
@@ -252,6 +268,10 @@ public class Application extends android.app.Application
 			throw new RuntimeException(x);
 		}
 		catch (final AddressFormatException x)
+		{
+			throw new RuntimeException(x);
+		}
+		catch (final ParseException x)
 		{
 			throw new RuntimeException(x);
 		}
@@ -290,11 +310,17 @@ public class Application extends android.app.Application
 
 	private void writeKeys(final OutputStream os) throws IOException
 	{
+		final DateFormat format = Iso8601Format.newDateTimeFormatT();
 		final Writer out = new OutputStreamWriter(os, "UTF-8");
 
 		for (final ECKey key : wallet.keychain)
 		{
 			out.write(key.getPrivateKeyEncoded(Constants.NETWORK_PARAMETERS).toString());
+			if (key.getCreationTimeSeconds() != 0)
+			{
+				out.write(' ');
+				out.write(format.format(new Date(key.getCreationTimeSeconds() * 1000)));
+			}
 			out.write('\n');
 		}
 

@@ -24,12 +24,12 @@ import java.io.Reader;
 import java.net.URL;
 import java.net.URLConnection;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import de.schildbach.wallet.util.IOUtils;
+import de.schildbach.wallet.util.Iso8601Format;
 
 /**
  * @author Andreas Schildbach
@@ -61,7 +61,7 @@ public class DetermineFirstSeenThread extends Thread
 			final Matcher m = P_FIRST_SEEN.matcher(content);
 			if (m.find())
 			{
-				succeed(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(m.group(1)));
+				succeed(Iso8601Format.parseDateTime(m.group(1)));
 			}
 			else
 			{
