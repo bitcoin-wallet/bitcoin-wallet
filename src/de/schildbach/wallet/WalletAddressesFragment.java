@@ -166,6 +166,7 @@ public class WalletAddressesFragment extends ListFragment
 					{
 						key.setCreationTimeSeconds(firstSeen.getTime() / 1000);
 						updateView();
+						application.saveWallet();
 					}
 				});
 			}
