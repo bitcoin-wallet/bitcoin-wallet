@@ -66,6 +66,10 @@ public class Constants
 	public static final String PEER_DISCOVERY_IRC_CHANNEL_PROD = "#bitcoin";
 	public static final String PEER_DISCOVERY_IRC_CHANNEL_TEST = "#bitcoinTEST";
 
+	private static final String BLOCKEXPLORER_BASE_URL_PROD = "https://blockexplorer.com/";
+	private static final String BLOCKEXPLORER_BASE_URL_TEST = "https://blockexplorer.com/testnet/";
+	public static final String BLOCKEXPLORER_BASE_URL = TEST ? BLOCKEXPLORER_BASE_URL_TEST : BLOCKEXPLORER_BASE_URL_PROD;
+
 	private static final String PACKAGE_NAME_PROD = "de.schildbach.wallet";
 	private static final String PACKAGE_NAME_TEST = "de.schildbach.wallet" + '_' + "test"; // replace protected
 	public static final String PACKAGE_NAME = TEST ? PACKAGE_NAME_TEST : PACKAGE_NAME_PROD;

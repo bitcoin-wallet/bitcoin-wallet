@@ -28,9 +28,13 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.ListFragment;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.ListAdapter;
@@ -67,6 +71,14 @@ public class WalletAddressesFragment extends ListFragment
 		keys = wallet.keychain;
 
 		setListAdapter(new Adapter());
+	}
+
+	@Override
+	public void onViewCreated(final View view, final Bundle savedInstanceState)
+	{
+		super.onViewCreated(view, savedInstanceState);
+
+		registerForContextMenu(getListView());
 	}
 
 	@Override
@@ -109,6 +121,55 @@ public class WalletAddressesFragment extends ListFragment
 			walletAddressFragment.updateView();
 			walletAddressFragment.flashAddress();
 		}
+	}
+
+	@Override
+	public void onCreateContextMenu(final ContextMenu menu, final View v, final ContextMenuInfo info)
+	{
+		final AdapterContextMenuInfo menuInfo = (AdapterContextMenuInfo) info;
+		final ECKey key = (ECKey) getListAdapter().getItem(menuInfo.position);
+		final boolean enabled = key.getCreationTimeSeconds() == 0;
+
+		activity.getMenuInflater().inflate(R.menu.wallet_addresses_context, menu);
+		final MenuItem item = menu.findItem(R.id.wallet_addresses_context_determine_creation_time);
+		item.setEnabled(enabled);
+		item.setVisible(enabled);
+	}
+
+	@Override
+	public boolean onContextItemSelected(final MenuItem item)
+	{
+		final AdapterContextMenuInfo menuInfo = (AdapterContextMenuInfo) item.getMenuInfo();
+		final ECKey key = (ECKey) getListAdapter().getItem(menuInfo.position);
+
+		switch (item.getItemId())
+		{
+			case R.id.wallet_addresses_context_determine_creation_time:
+				determineCreationTime(key);
+				return true;
+
+			default:
+				return false;
+		}
+	}
+
+	private void determineCreationTime(final ECKey key)
+	{
+		new DetermineFirstSeenThread(key.toAddress(Constants.NETWORK_PARAMETERS).toString())
+		{
+			@Override
+			protected void succeed(final Date firstSeen)
+			{
+				activity.runOnUiThread(new Runnable()
+				{
+					public void run()
+					{
+						key.setCreationTimeSeconds(firstSeen.getTime() / 1000);
+						updateView();
+					}
+				});
+			}
+		};
 	}
 
 	private void updateView()

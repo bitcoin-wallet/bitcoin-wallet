@@ -36,6 +36,7 @@ import android.database.Cursor;
 import android.database.MatrixCursor;
 import android.net.Uri;
 import android.provider.BaseColumns;
+import de.schildbach.wallet.util.IOUtils;
 
 /**
  * @author Andreas Schildbach
@@ -118,7 +119,7 @@ public class ExchangeRatesProvider extends ContentProvider
 			connection.connect();
 			final Reader is = new InputStreamReader(new BufferedInputStream(connection.getInputStream()));
 			final StringBuilder content = new StringBuilder();
-			copy(is, content);
+			IOUtils.copy(is, content);
 			is.close();
 
 			final Map<String, Double> rates = new TreeMap<String, Double>();
@@ -153,18 +154,5 @@ public class ExchangeRatesProvider extends ContentProvider
 		}
 
 		return null;
-	}
-
-	private static final long copy(final Reader reader, final StringBuilder builder) throws IOException
-	{
-		final char[] buffer = new char[256];
-		long count = 0;
-		int n = 0;
-		while (-1 != (n = reader.read(buffer)))
-		{
-			builder.append(buffer, 0, n);
-			count += n;
-		}
-		return count;
 	}
 }
