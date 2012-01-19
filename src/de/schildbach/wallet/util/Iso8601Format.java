@@ -59,7 +59,7 @@ public class Iso8601Format extends SimpleDateFormat
 
 	public static DateFormat newDateTimeFormatT()
 	{
-		return new Iso8601Format("yyyy-MM-dd'T'HH:mm:ss");
+		return new Iso8601Format("yyyy-MM-dd'T'HH:mm:ss'Z'");
 	}
 
 	public static String formatDateTimeT(final Date date)
