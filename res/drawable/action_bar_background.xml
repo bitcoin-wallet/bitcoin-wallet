@@ -8,7 +8,7 @@
 	</item>
 	<item android:state_pressed="true">
 		<shape>
-			<gradient android:angle="90" android:startColor="#666" android:endColor="#444" />
+			<gradient android:angle="90" android:startColor="#444" android:endColor="#333" />
 		</shape>
 	</item>
 	<item android:state_focused="true">
@@ -18,7 +18,7 @@
 	</item>
 	<item>
 		<shape>
-			<gradient android:angle="90" android:startColor="#444" android:endColor="#666" />
+			<gradient android:angle="90" android:startColor="#333" android:endColor="#444" />
 		</shape>
 	</item>
 </selector>
