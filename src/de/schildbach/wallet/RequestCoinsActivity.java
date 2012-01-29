@@ -52,7 +52,7 @@ public class RequestCoinsActivity extends AbstractWalletActivity
 			}
 		});
 
-		actionBar.addButton(R.drawable.ic_menu_help).setOnClickListener(new OnClickListener()
+		actionBar.addButton(R.drawable.ic_action_help).setOnClickListener(new OnClickListener()
 		{
 			public void onClick(final View v)
 			{

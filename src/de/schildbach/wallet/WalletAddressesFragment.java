@@ -96,7 +96,7 @@ public class WalletAddressesFragment extends ListFragment
 
 		if (!hidden)
 		{
-			addButton = actionBar.addButton(R.drawable.ic_menu_btn_add);
+			addButton = actionBar.addButton(R.drawable.ic_action_add);
 			addButton.setOnClickListener(addButtonClickListener);
 		}
 		else

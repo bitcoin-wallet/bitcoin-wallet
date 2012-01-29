@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-	<item android:id="@+id/wallet_options_address_book" android:icon="@drawable/ic_menu_address_book" android:title="@string/address_book_activity_title" />
-	<item android:id="@+id/wallet_options_preferences" android:icon="@drawable/ic_menu_info_details" android:title="@string/wallet_options_about" />
-	<item android:id="@+id/wallet_options_safety" android:icon="@drawable/ic_menu_safety" android:title="@string/wallet_options_safety" />
-	<item android:id="@+id/wallet_options_donate" android:icon="@drawable/ic_menu_donate" android:title="@string/wallet_options_donate" />
-	<item android:id="@+id/wallet_options_help" android:icon="@drawable/ic_menu_help" android:title="@string/wallet_options_help" />
+	<item android:id="@+id/wallet_options_address_book" android:icon="@drawable/ic_action_address_book" android:title="@string/address_book_activity_title" />
+	<item android:id="@+id/wallet_options_preferences" android:icon="@drawable/ic_action_info" android:title="@string/wallet_options_about" />
+	<item android:id="@+id/wallet_options_safety" android:icon="@drawable/ic_action_warning" android:title="@string/wallet_options_safety" />
+	<item android:id="@+id/wallet_options_donate" android:icon="@drawable/ic_action_donate" android:title="@string/wallet_options_donate" />
+	<item android:id="@+id/wallet_options_help" android:icon="@drawable/ic_action_help" android:title="@string/wallet_options_help" />
 </menu>

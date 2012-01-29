@@ -68,7 +68,7 @@ public class WalletActivity extends AbstractWalletActivity
 
 		if (Build.VERSION.SDK_INT >= HONEYCOMB)
 		{
-			actionBar.addButton(R.drawable.ic_menu_moreoverflow).setOnClickListener(new OnClickListener()
+			actionBar.addButton(R.drawable.ic_action_overflow).setOnClickListener(new OnClickListener()
 			{
 				public void onClick(final View v)
 				{
@@ -77,7 +77,7 @@ public class WalletActivity extends AbstractWalletActivity
 			});
 		}
 
-		actionBar.addButton(R.drawable.ic_menu_send).setOnClickListener(new OnClickListener()
+		actionBar.addButton(R.drawable.ic_action_send).setOnClickListener(new OnClickListener()
 		{
 			public void onClick(final View v)
 			{
@@ -85,7 +85,7 @@ public class WalletActivity extends AbstractWalletActivity
 			}
 		});
 
-		actionBar.addButton(R.drawable.ic_menu_request).setOnClickListener(new OnClickListener()
+		actionBar.addButton(R.drawable.ic_action_receive).setOnClickListener(new OnClickListener()
 		{
 			public void onClick(final View v)
 			{
@@ -95,7 +95,7 @@ public class WalletActivity extends AbstractWalletActivity
 
 		if ((getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) >= Configuration.SCREENLAYOUT_SIZE_LARGE)
 		{
-			actionBar.addButton(R.drawable.ic_menu_address_book).setOnClickListener(new OnClickListener()
+			actionBar.addButton(R.drawable.ic_action_address_book).setOnClickListener(new OnClickListener()
 			{
 				public void onClick(final View v)
 				{

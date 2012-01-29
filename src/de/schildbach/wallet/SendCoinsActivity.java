@@ -70,7 +70,7 @@ public class SendCoinsActivity extends AbstractWalletActivity
 			}
 		});
 
-		actionBar.addButton(R.drawable.ic_menu_qr).setOnClickListener(new OnClickListener()
+		actionBar.addButton(R.drawable.ic_action_qr).setOnClickListener(new OnClickListener()
 		{
 			public void onClick(final View v)
 			{
@@ -90,7 +90,7 @@ public class SendCoinsActivity extends AbstractWalletActivity
 				}
 			}
 		});
-		actionBar.addButton(R.drawable.ic_menu_help).setOnClickListener(new OnClickListener()
+		actionBar.addButton(R.drawable.ic_action_help).setOnClickListener(new OnClickListener()
 		{
 			public void onClick(final View v)
 			{
