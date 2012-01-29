@@ -17,6 +17,8 @@
 
 package de.schildbach.wallet.util;
 
+import android.app.Activity;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -46,6 +48,8 @@ public class ActionBarFragment extends Fragment
 	private TextView primaryTitleView;
 	private TextView secondaryTitleView;
 
+	private LinearLayout.LayoutParams separatorParams;
+
 	@Override
 	public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState)
 	{
@@ -57,6 +61,19 @@ public class ActionBarFragment extends Fragment
 		secondaryTitleView = (TextView) view.findViewById(R.id.action_bar_secondary_title);
 
 		return view;
+	}
+
+	@Override
+	public void onAttach(final Activity activity)
+	{
+		final Resources res = getResources();
+		final int separatorWidth = res.getDimensionPixelSize(R.dimen.action_bar_button_separator_width);
+		final int separatorMargin = res.getDimensionPixelSize(R.dimen.action_bar_button_separator_margin);
+
+		separatorParams = new LinearLayout.LayoutParams(separatorWidth, LayoutParams.FILL_PARENT, 0f);
+		separatorParams.setMargins(0, separatorMargin, 0, separatorMargin);
+
+		super.onAttach(activity);
 	}
 
 	public void setIcon(final int iconRes)
@@ -89,8 +106,6 @@ public class ActionBarFragment extends Fragment
 
 	public ImageButton addButton(final int drawableRes)
 	{
-		final float density = getResources().getDisplayMetrics().density;
-
 		final LinearLayout.LayoutParams buttonParams = new LinearLayout.LayoutParams(getResources().getDimensionPixelSize(
 				R.dimen.action_bar_button_width), LayoutParams.FILL_PARENT, 0f);
 		buttonParams.gravity = Gravity.CENTER_VERTICAL;
@@ -102,15 +117,13 @@ public class ActionBarFragment extends Fragment
 		button.setPadding(0, 0, 0, 0);
 		view.addView(button, 2, buttonParams);
 
-		final LinearLayout.LayoutParams sepParams = new LinearLayout.LayoutParams(Math.round(1 * density), LayoutParams.FILL_PARENT, 0f);
+		final ImageView separator1 = new ImageView(getActivity());
+		separator1.setImageDrawable(new ColorDrawable(Color.parseColor("#44ffffff")));
+		view.addView(separator1, 2, separatorParams);
 
-		final ImageView sep1 = new ImageView(getActivity());
-		sep1.setImageDrawable(new ColorDrawable(Color.parseColor("#44ffffff")));
-		view.addView(sep1, 2, sepParams);
-
-		final ImageView sep2 = new ImageView(getActivity());
-		sep2.setImageDrawable(new ColorDrawable(Color.parseColor("#44000000")));
-		view.addView(sep2, 2, sepParams);
+		final ImageView separator2 = new ImageView(getActivity());
+		separator2.setImageDrawable(new ColorDrawable(Color.parseColor("#44000000")));
+		view.addView(separator2, 2, separatorParams);
 
 		return button;
 	}

@@ -10,6 +10,8 @@
 
 	<dimen name="action_bar_height">48dp</dimen>
 	<dimen name="action_bar_button_width">48dp</dimen>
+	<dimen name="action_bar_button_separator_width">1dp</dimen>
+	<dimen name="action_bar_button_separator_margin">8dp</dimen>
 
 	<dimen name="wallet_address_qr_size">96dp</dimen>
 
