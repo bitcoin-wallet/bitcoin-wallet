@@ -394,4 +394,16 @@ public class Application extends android.app.Application
 			throw new RuntimeException(x);
 		}
 	}
+
+	public final String applicationVersion()
+	{
+		try
+		{
+			return getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
+		}
+		catch (NameNotFoundException x)
+		{
+			return "unknown";
+		}
+	}
 }

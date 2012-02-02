@@ -18,7 +18,6 @@
 package de.schildbach.wallet;
 
 import android.content.Intent;
-import android.content.pm.PackageManager.NameNotFoundException;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.Preference;
@@ -49,7 +48,7 @@ public class PreferencesActivity extends PreferenceActivity
 
 		addPreferencesFromResource(R.xml.preferences);
 
-		findPreference(KEY_ABOUT_VERSION).setSummary(applicationVersion());
+		findPreference(KEY_ABOUT_VERSION).setSummary(((Application) getApplication()).applicationVersion());
 		findPreference(KEY_ABOUT_LICENSE).setSummary(Constants.LICENSE_URL);
 		findPreference(KEY_ABOUT_SOURCE).setSummary(Constants.SOURCE_URL);
 		findPreference(KEY_ABOUT_CREDITS_BITCOINJ).setSummary(Constants.CREDITS_BITCOINJ_URL);
@@ -57,18 +56,6 @@ public class PreferencesActivity extends PreferenceActivity
 		findPreference(KEY_ABOUT_CREDITS_ICON).setSummary(Constants.CREDITS_ICON_URL);
 		findPreference(KEY_ABOUT_MARKET_APP).setSummary(String.format(Constants.MARKET_APP_URL, getPackageName()));
 		findPreference(KEY_ABOUT_MARKET_PUBLISHER).setSummary(Constants.MARKET_PUBLISHER_URL);
-	}
-
-	private final String applicationVersion()
-	{
-		try
-		{
-			return getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
-		}
-		catch (NameNotFoundException x)
-		{
-			return "unknown";
-		}
 	}
 
 	@Override
