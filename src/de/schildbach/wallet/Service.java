@@ -271,6 +271,7 @@ public class Service extends android.app.Service
 
 				System.out.println("starting peergroup");
 				peerGroup = new PeerGroup(networkParameters, blockChain, 1000);
+				peerGroup.setFastCatchupTimeSecs(application.getWallet().getEarliestKeyCreationTime());
 				peerGroup.addEventListener(peerEventListener);
 
 				final String trustedPeerHost = prefs.getString(Constants.PREFS_KEY_TRUSTED_PEER, "").trim();
