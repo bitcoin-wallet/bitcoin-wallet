@@ -263,6 +263,7 @@ public class Service extends android.app.Service
 
 		private void check()
 		{
+			final Wallet wallet = application.getWallet();
 			final boolean hasEverything = hasConnectivity && hasPower && hasStorage;
 
 			if (hasEverything && peerGroup == null)
@@ -271,8 +272,9 @@ public class Service extends android.app.Service
 
 				System.out.println("starting peergroup");
 				peerGroup = new PeerGroup(networkParameters, blockChain, 1000);
+				peerGroup.addWallet(wallet);
 				peerGroup.setUserAgent(Constants.USER_AGENT, application.applicationVersion());
-				peerGroup.setFastCatchupTimeSecs(application.getWallet().getEarliestKeyCreationTime());
+				peerGroup.setFastCatchupTimeSecs(wallet.getEarliestKeyCreationTime());
 				peerGroup.addEventListener(peerEventListener);
 
 				final String trustedPeerHost = prefs.getString(Constants.PREFS_KEY_TRUSTED_PEER, "").trim();
@@ -301,6 +303,7 @@ public class Service extends android.app.Service
 			{
 				System.out.println("stopping peergroup");
 				peerGroup.removeEventListener(peerEventListener);
+				peerGroup.removeWallet(wallet);
 				peerGroup.stop();
 				peerGroup = null;
 			}
