@@ -25,6 +25,10 @@ import java.util.Date;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.database.ContentObserver;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -51,11 +55,13 @@ import com.google.bitcoin.core.AbstractWalletEventListener;
 import com.google.bitcoin.core.Address;
 import com.google.bitcoin.core.ScriptException;
 import com.google.bitcoin.core.Transaction;
+import com.google.bitcoin.core.TransactionConfidence;
 import com.google.bitcoin.core.TransactionConfidence.ConfidenceType;
 import com.google.bitcoin.core.Utils;
 import com.google.bitcoin.core.Wallet;
 import com.google.bitcoin.core.WalletEventListener;
 
+import de.schildbach.wallet.util.CircularProgressView;
 import de.schildbach.wallet.util.ViewPagerTabs;
 import de.schildbach.wallet_test.R;
 
@@ -111,6 +117,8 @@ public class WalletTransactionsFragment extends Fragment
 
 		private int mode;
 
+		private int bestChainHeight;
+
 		private final Handler handler = new Handler();
 
 		private final static String KEY_MODE = "mode";
@@ -150,6 +158,17 @@ public class WalletTransactionsFragment extends Fragment
 			}
 		};
 
+		private final BroadcastReceiver broadcastReceiver = new BroadcastReceiver()
+		{
+			@Override
+			public void onReceive(final Context context, final Intent intent)
+			{
+				bestChainHeight = intent.getIntExtra(Service.ACTION_BLOCKCHAIN_STATE_BEST_CHAIN_HEIGHT, 0);
+
+				updateView();
+			}
+		};
+
 		@Override
 		public void onAttach(final Activity activity)
 		{
@@ -180,8 +199,10 @@ public class WalletTransactionsFragment extends Fragment
 						row = getLayoutInflater(null).inflate(R.layout.transaction_row, null);
 
 					final Transaction tx = getItem(position);
+					final TransactionConfidence confidence = tx.getConfidence();
+					final ConfidenceType confidenceType = confidence.getConfidenceType();
+
 					final boolean sent = tx.sent(wallet);
-					final ConfidenceType confidenceType = tx.getConfidence().getConfidenceType();
 					final boolean pending = confidenceType == ConfidenceType.NOT_SEEN_IN_CHAIN || confidenceType == ConfidenceType.UNKNOWN;
 					final boolean dead = confidenceType == ConfidenceType.OVERRIDDEN_BY_DOUBLE_SPEND
 							|| confidenceType == ConfidenceType.NOT_IN_BEST_CHAIN;
@@ -207,6 +228,17 @@ public class WalletTransactionsFragment extends Fragment
 					catch (final ScriptException x)
 					{
 						x.printStackTrace();
+					}
+
+					final CircularProgressView rowConfidence = (CircularProgressView) row.findViewById(R.id.transaction_confidence);
+					if (bestChainHeight > 0 && confidenceType == ConfidenceType.BUILDING)
+					{
+						final int depth = bestChainHeight - confidence.getAppearedAtChainHeight() + 1;
+						rowConfidence.setProgress(depth);
+					}
+					else
+					{
+						rowConfidence.setProgress(0);
 					}
 
 					final TextView rowTime = (TextView) row.findViewById(R.id.transaction_time);
@@ -270,7 +302,17 @@ public class WalletTransactionsFragment extends Fragment
 		{
 			super.onResume();
 
+			activity.registerReceiver(broadcastReceiver, new IntentFilter(Service.ACTION_BLOCKCHAIN_STATE));
+
 			updateView();
+		}
+
+		@Override
+		public void onPause()
+		{
+			activity.unregisterReceiver(broadcastReceiver);
+
+			super.onPause();
 		}
 
 		@Override

@@ -45,7 +45,7 @@ public class BlockchainStateFragment extends Fragment
 	private TextView disclaimerView;
 
 	private int download;
-	private Date chainheadDate;
+	private Date bestChainDate;
 
 	private final ServiceConnection serviceConnection = new ServiceConnection()
 	{
@@ -64,7 +64,7 @@ public class BlockchainStateFragment extends Fragment
 		public void onReceive(final Context context, final Intent intent)
 		{
 			download = intent.getIntExtra(Service.ACTION_BLOCKCHAIN_STATE_DOWNLOAD, Service.ACTION_BLOCKCHAIN_STATE_DOWNLOAD_OK);
-			chainheadDate = (Date) intent.getSerializableExtra(Service.ACTION_BLOCKCHAIN_STATE_CHAINHEAD_DATE);
+			bestChainDate = (Date) intent.getSerializableExtra(Service.ACTION_BLOCKCHAIN_STATE_BEST_CHAIN_DATE);
 
 			updateView();
 		}
@@ -147,9 +147,9 @@ public class BlockchainStateFragment extends Fragment
 			else if ((download & Service.ACTION_BLOCKCHAIN_STATE_DOWNLOAD_NETWORK_PROBLEM) != 0)
 				messageView.setText(R.string.wallet_message_blockchain_problem_network);
 		}
-		else if (chainheadDate != null)
+		else if (bestChainDate != null)
 		{
-			final long spanHours = (System.currentTimeMillis() - chainheadDate.getTime()) / 1000 / 60 / 60;
+			final long spanHours = (System.currentTimeMillis() - bestChainDate.getTime()) / 1000 / 60 / 60;
 
 			messageView.setVisibility(spanHours < 2 ? View.INVISIBLE : View.VISIBLE);
 			disclaimerView.setVisibility(spanHours < 2 ? View.VISIBLE : View.INVISIBLE);

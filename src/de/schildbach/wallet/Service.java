@@ -82,7 +82,8 @@ public class Service extends android.app.Service
 	public static final String ACTION_PEER_STATE_NUM_PEERS = "num_peers";
 
 	public static final String ACTION_BLOCKCHAIN_STATE = Service.class.getName() + ".blockchain_state";
-	public static final String ACTION_BLOCKCHAIN_STATE_CHAINHEAD_DATE = "chainhead_date";
+	public static final String ACTION_BLOCKCHAIN_STATE_BEST_CHAIN_DATE = "best_chain_date";
+	public static final String ACTION_BLOCKCHAIN_STATE_BEST_CHAIN_HEIGHT = "best_chain_height";
 	public static final String ACTION_BLOCKCHAIN_STATE_DOWNLOAD = "download";
 	public static final int ACTION_BLOCKCHAIN_STATE_DOWNLOAD_OK = 0;
 	public static final int ACTION_BLOCKCHAIN_STATE_DOWNLOAD_STORAGE_PROBLEM = 1;
@@ -209,7 +210,10 @@ public class Service extends android.app.Service
 			{
 				public void run()
 				{
-					sendBroadcastBlockchainState(blockDate, ACTION_BLOCKCHAIN_STATE_DOWNLOAD_OK);
+					final Date bestChainDate = new Date(blockChain.getChainHead().getHeader().getTimeSeconds() * 1000);
+					final int bestChainHeight = blockChain.getBestChainHeight();
+
+					sendBroadcastBlockchainState(bestChainDate, bestChainHeight, ACTION_BLOCKCHAIN_STATE_DOWNLOAD_OK);
 				}
 			});
 		}
@@ -308,11 +312,13 @@ public class Service extends android.app.Service
 				peerGroup = null;
 			}
 
-			final Date chainheadDate = new Date(blockChain.getChainHead().getHeader().getTimeSeconds() * 1000);
+			final Date bestChainDate = new Date(blockChain.getChainHead().getHeader().getTimeSeconds() * 1000);
+			final int bestChainHeight = blockChain.getBestChainHeight();
 			final int download = (hasConnectivity ? 0 : ACTION_BLOCKCHAIN_STATE_DOWNLOAD_NETWORK_PROBLEM)
 					| (hasPower ? 0 : ACTION_BLOCKCHAIN_STATE_DOWNLOAD_POWER_PROBLEM)
 					| (hasStorage ? 0 : ACTION_BLOCKCHAIN_STATE_DOWNLOAD_STORAGE_PROBLEM);
-			sendBroadcastBlockchainState(chainheadDate, download);
+
+			sendBroadcastBlockchainState(bestChainDate, bestChainHeight, download);
 		}
 	};
 
@@ -487,11 +493,13 @@ public class Service extends android.app.Service
 		removeStickyBroadcast(new Intent(ACTION_PEER_STATE));
 	}
 
-	private void sendBroadcastBlockchainState(final Date chainheadDate, final int download)
+	private void sendBroadcastBlockchainState(final Date chainheadDate, final int chainheadHeight, final int download)
 	{
 		final Intent broadcast = new Intent(ACTION_BLOCKCHAIN_STATE);
-		broadcast.putExtra(ACTION_BLOCKCHAIN_STATE_CHAINHEAD_DATE, chainheadDate);
+		broadcast.putExtra(ACTION_BLOCKCHAIN_STATE_BEST_CHAIN_DATE, chainheadDate);
+		broadcast.putExtra(ACTION_BLOCKCHAIN_STATE_BEST_CHAIN_HEIGHT, chainheadHeight);
 		broadcast.putExtra(ACTION_BLOCKCHAIN_STATE_DOWNLOAD, download);
+
 		sendStickyBroadcast(broadcast);
 	}
 

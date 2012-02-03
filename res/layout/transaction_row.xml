@@ -4,6 +4,10 @@
 	android:layout_height="fill_parent" android:paddingLeft="@dimen/list_entry_padding_horizontal" android:paddingRight="@dimen/list_entry_padding_horizontal"
 	android:paddingTop="8dp" android:paddingBottom="8dp" android:orientation="horizontal">
 
+	<de.schildbach.wallet.util.CircularProgressView android:id="@+id/transaction_confidence"
+		android:layout_width="@dimen/symbol_size_normal" android:layout_height="@dimen/symbol_size_normal"
+		android:layout_marginRight="8dp" />
+
 	<TextView android:id="@+id/transaction_time" android:layout_width="wrap_content" android:layout_height="wrap_content"
 		android:layout_weight="0" android:layout_marginRight="8dp" android:textSize="@dimen/font_size_normal"
 		android:textStyle="bold" />
