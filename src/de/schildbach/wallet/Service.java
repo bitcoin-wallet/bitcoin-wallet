@@ -204,8 +204,6 @@ public class Service extends android.app.Service
 		@Override
 		public void onBlocksDownloaded(final Peer peer, final Block block, final int blocksLeft)
 		{
-			final Date blockDate = new Date(block.getTimeSeconds() * 1000);
-
 			handler.post(new Runnable()
 			{
 				public void run()
