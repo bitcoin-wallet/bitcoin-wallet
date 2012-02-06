@@ -297,8 +297,10 @@ public class Application extends android.app.Application
 			{
 				try
 				{
+					final long start = System.currentTimeMillis();
 					wallet.saveToFileStream(openFileOutput(filename, mode));
-					System.out.println("wallet saved to: " + getFilesDir() + "/" + filename);
+					System.out.println("wallet saved to: '" + getFilesDir() + "/" + filename + "', took " + (System.currentTimeMillis() - start)
+							+ "ms");
 				}
 				catch (IOException x)
 				{
