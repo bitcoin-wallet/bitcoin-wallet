@@ -64,18 +64,6 @@ public class RequestCoinsFragment extends Fragment
 		final View view = inflater.inflate(R.layout.request_coins_fragment, container);
 
 		qrView = (ImageView) view.findViewById(R.id.request_coins_qr);
-		qrView.setOnClickListener(new OnClickListener()
-		{
-			public void onClick(final View v)
-			{
-				final ClipboardManager clipboardManager = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
-				final String addressStr = determineAddressStr();
-				clipboardManager.setText(addressStr);
-				((AbstractWalletActivity) getActivity()).toast(R.string.request_coins_clipboard_msg);
-
-				System.out.println("bitcoin request uri: " + addressStr + (Constants.TEST ? " [testnet]" : ""));
-			}
-		});
 
 		amountView = (CurrencyAmountView) view.findViewById(R.id.request_coins_amount);
 		amountView.setListener(new Listener()
@@ -120,6 +108,7 @@ public class RequestCoinsFragment extends Fragment
 		super.onAttach(activity);
 
 		final ActionBarFragment actionBar = ((AbstractWalletActivity) activity).getActionBar();
+
 		actionBar.addButton(R.drawable.ic_action_share).setOnClickListener(new OnClickListener()
 		{
 			public void onClick(final View v)
@@ -127,6 +116,19 @@ public class RequestCoinsFragment extends Fragment
 				startActivity(Intent.createChooser(
 						new Intent(Intent.ACTION_SEND).putExtra(Intent.EXTRA_TEXT, determineAddressStr()).setType("text/plain"), getActivity()
 								.getString(R.string.request_coins_share_dialog_title)));
+			}
+		});
+
+		actionBar.addButton(R.drawable.ic_action_copy).setOnClickListener(new OnClickListener()
+		{
+			public void onClick(final View v)
+			{
+				final ClipboardManager clipboardManager = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
+				final String addressStr = determineAddressStr();
+				clipboardManager.setText(addressStr);
+				((AbstractWalletActivity) getActivity()).toast(R.string.request_coins_clipboard_msg);
+
+				System.out.println("bitcoin request uri: " + addressStr + (Constants.TEST ? " [testnet]" : ""));
 			}
 		});
 	}
