@@ -22,6 +22,7 @@ import java.math.BigInteger;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
@@ -39,6 +40,7 @@ import com.google.bitcoin.core.Utils;
 import de.schildbach.wallet.CurrencyAmountView.Listener;
 import de.schildbach.wallet.util.ActionBarFragment;
 import de.schildbach.wallet.util.NfcTools;
+import de.schildbach.wallet.util.QrDialog;
 import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
 
@@ -51,6 +53,7 @@ public class RequestCoinsFragment extends Fragment
 	private Object nfcManager;
 
 	private ImageView qrView;
+	private Bitmap qrCodeBitmap;
 	private CurrencyAmountView amountView;
 	private View nfcEnabledView;
 
@@ -64,6 +67,13 @@ public class RequestCoinsFragment extends Fragment
 		final View view = inflater.inflate(R.layout.request_coins_fragment, container);
 
 		qrView = (ImageView) view.findViewById(R.id.request_coins_qr);
+		qrView.setOnClickListener(new OnClickListener()
+		{
+			public void onClick(final View v)
+			{
+				new QrDialog(getActivity(), qrCodeBitmap).show();
+			}
+		});
 
 		amountView = (CurrencyAmountView) view.findViewById(R.id.request_coins_amount);
 		amountView.setListener(new Listener()
@@ -154,8 +164,12 @@ public class RequestCoinsFragment extends Fragment
 	{
 		final String addressStr = determineAddressStr();
 
+		if (qrCodeBitmap != null)
+			qrCodeBitmap.recycle();
+
 		final int size = (int) (256 * getResources().getDisplayMetrics().density);
-		qrView.setImageBitmap(WalletUtils.getQRCodeBitmap(addressStr, size));
+		qrCodeBitmap = WalletUtils.getQRCodeBitmap(addressStr, size);
+		qrView.setImageBitmap(qrCodeBitmap);
 
 		if (nfcManager != null)
 		{
