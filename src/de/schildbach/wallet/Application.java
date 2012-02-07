@@ -48,6 +48,7 @@ import com.google.bitcoin.core.ECKey;
 import com.google.bitcoin.core.NetworkParameters;
 import com.google.bitcoin.core.Wallet;
 import com.google.bitcoin.core.WalletEventListener;
+import com.google.bitcoin.store.WalletProtobufSerializer;
 
 import de.schildbach.wallet.util.ErrorReporter;
 import de.schildbach.wallet.util.Iso8601Format;
@@ -113,12 +114,10 @@ public class Application extends android.app.Application
 
 	private void loadWallet()
 	{
-		final String filename = Constants.TEST ? Constants.WALLET_FILENAME_TEST : Constants.WALLET_FILENAME_PROD;
-		final int mode = Constants.TEST ? Constants.WALLET_MODE_TEST : Constants.WALLET_MODE_PROD;
-
 		try
 		{
-			final FileInputStream is = openFileInput(filename);
+			final long start = System.currentTimeMillis();
+			final FileInputStream is = openFileInput(Constants.WALLET_FILENAME);
 			runWithStackSize(new Runnable()
 			{
 				public void run()
@@ -206,7 +205,8 @@ public class Application extends android.app.Application
 
 			}, Constants.WALLET_OPERATION_STACK_SIZE);
 
-			System.out.println("wallet loaded from: " + getFilesDir() + "/" + filename);
+			System.out.println("wallet loaded from: '" + getFilesDir() + "/" + Constants.WALLET_FILENAME + "', took "
+					+ (System.currentTimeMillis() - start) + "ms");
 		}
 		catch (final FileNotFoundException x)
 		{
@@ -221,8 +221,8 @@ public class Application extends android.app.Application
 
 				try
 				{
-					wallet.saveToFileStream(openFileOutput(filename, mode));
-					System.out.println("wallet created: " + getFilesDir() + "/" + filename);
+					wallet.saveToFileStream(openFileOutput(Constants.WALLET_FILENAME, Constants.WALLET_MODE));
+					System.out.println("wallet created: '" + getFilesDir() + "/" + Constants.WALLET_FILENAME + "'");
 				}
 				catch (final IOException x3)
 				{
@@ -288,9 +288,12 @@ public class Application extends android.app.Application
 
 	public void saveWallet()
 	{
-		final String filename = Constants.TEST ? Constants.WALLET_FILENAME_TEST : Constants.WALLET_FILENAME_PROD;
-		final int mode = Constants.TEST ? Constants.WALLET_MODE_TEST : Constants.WALLET_MODE_PROD;
+		javaSerializeWallet(this, wallet);
+		// protobufSerializeWallet(this, wallet);
+	}
 
+	private static void javaSerializeWallet(final Context context, final Wallet wallet)
+	{
 		runWithStackSize(new Runnable()
 		{
 			public void run()
@@ -298,16 +301,31 @@ public class Application extends android.app.Application
 				try
 				{
 					final long start = System.currentTimeMillis();
-					wallet.saveToFileStream(openFileOutput(filename, mode));
-					System.out.println("wallet saved to: '" + getFilesDir() + "/" + filename + "', took " + (System.currentTimeMillis() - start)
-							+ "ms");
+					wallet.saveToFileStream(context.openFileOutput(Constants.WALLET_FILENAME, Constants.WALLET_MODE));
+					System.out.println("wallet saved to: '" + context.getFilesDir() + "/" + Constants.WALLET_FILENAME + "', took "
+							+ (System.currentTimeMillis() - start) + "ms");
 				}
-				catch (IOException x)
+				catch (final IOException x)
 				{
 					throw new RuntimeException(x);
 				}
 			}
 		}, Constants.WALLET_OPERATION_STACK_SIZE);
+	}
+
+	private static void protobufSerializeWallet(final Context context, final Wallet wallet)
+	{
+		try
+		{
+			final long start = System.currentTimeMillis();
+			WalletProtobufSerializer.writeWallet(wallet, context.openFileOutput(Constants.WALLET_FILENAME_PROTOBUF, Constants.WALLET_MODE));
+			System.out.println("wallet saved to: '" + context.getFilesDir() + "/" + Constants.WALLET_FILENAME_PROTOBUF + "', took "
+					+ (System.currentTimeMillis() - start) + "ms");
+		}
+		catch (final IOException x)
+		{
+			throw new RuntimeException(x);
+		}
 	}
 
 	private void writeKeys(final OutputStream os) throws IOException

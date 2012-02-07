@@ -35,15 +35,20 @@ public class Constants
 
 	public static final NetworkParameters NETWORK_PARAMETERS = TEST ? NetworkParameters.testNet() : NetworkParameters.prodNet();
 
-	public static final String WALLET_FILENAME_PROD = "wallet";
-	public static final String WALLET_FILENAME_TEST = "wallet-testnet";
+	private static final String WALLET_FILENAME_PROD = "wallet";
+	private static final String WALLET_FILENAME_TEST = "wallet-testnet";
+	public static final String WALLET_FILENAME = Constants.TEST ? WALLET_FILENAME_TEST : WALLET_FILENAME_PROD;
+
+	private static final String WALLET_FILENAME_PROTOBUF_PROD = "wallet-protobuf";
+	private static final String WALLET_FILENAME_PROTOBUF_TEST = "wallet-protobuf-testnet";
+	public static final String WALLET_FILENAME_PROTOBUF = Constants.TEST ? WALLET_FILENAME_PROTOBUF_TEST : WALLET_FILENAME_PROTOBUF_PROD;
 
 	private static final String WALLET_KEY_BACKUP_BASE58_PROD = "key-backup-base58";
 	private static final String WALLET_KEY_BACKUP_BASE58_TEST = "key-backup-base58-testnet";
 	public static final String WALLET_KEY_BACKUP_BASE58 = Constants.TEST ? WALLET_KEY_BACKUP_BASE58_TEST : WALLET_KEY_BACKUP_BASE58_PROD;
 
-	public static final int WALLET_MODE_PROD = Context.MODE_PRIVATE;
-	public static final int WALLET_MODE_TEST = Context.MODE_WORLD_READABLE | Context.MODE_WORLD_WRITEABLE;
+	private static final int WALLET_MODE_PROD = Context.MODE_PRIVATE;
+	private static final int WALLET_MODE_TEST = Context.MODE_WORLD_READABLE | Context.MODE_WORLD_WRITEABLE;
 	public static final int WALLET_MODE = Constants.TEST ? WALLET_MODE_TEST : WALLET_MODE_PROD;
 
 	private static final String WALLET_KEY_BACKUP_SNAPSHOT_PROD = "key-backup-snapshot";
