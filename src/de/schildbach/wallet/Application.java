@@ -383,18 +383,6 @@ public class Application extends android.app.Application
 		throw new IllegalStateException("address not in keychain: " + selectedAddress);
 	}
 
-	public final int versionCode()
-	{
-		try
-		{
-			return getPackageManager().getPackageInfo(getPackageName(), 0).versionCode;
-		}
-		catch (NameNotFoundException x)
-		{
-			return 0;
-		}
-	}
-
 	private static void runWithStackSize(final Runnable runnable, final long stackSize)
 	{
 		final Thread thread = new Thread(null, runnable, "stackSizeBooster", stackSize);
@@ -409,7 +397,19 @@ public class Application extends android.app.Application
 		}
 	}
 
-	public final String applicationVersion()
+	public final int applicationVersionCode()
+	{
+		try
+		{
+			return getPackageManager().getPackageInfo(getPackageName(), 0).versionCode;
+		}
+		catch (NameNotFoundException x)
+		{
+			return 0;
+		}
+	}
+
+	public final String applicationVersionName()
 	{
 		try
 		{

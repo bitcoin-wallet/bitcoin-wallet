@@ -211,7 +211,7 @@ public class WalletActivity extends AbstractWalletActivity
 			{
 				try
 				{
-					final int versionCode = ((de.schildbach.wallet.Application) getApplication()).versionCode();
+					final int versionCode = getWalletApplication().applicationVersionCode();
 					final URLConnection connection = new URL(Constants.VERSION_URL + "?current=" + versionCode).openConnection();
 					connection.connect();
 					final long serverTime = connection.getHeaderFieldDate("Date", 0);

@@ -48,7 +48,7 @@ public class PreferencesActivity extends PreferenceActivity
 
 		addPreferencesFromResource(R.xml.preferences);
 
-		findPreference(KEY_ABOUT_VERSION).setSummary(((Application) getApplication()).applicationVersion());
+		findPreference(KEY_ABOUT_VERSION).setSummary(((Application) getApplication()).applicationVersionName());
 		findPreference(KEY_ABOUT_LICENSE).setSummary(Constants.LICENSE_URL);
 		findPreference(KEY_ABOUT_SOURCE).setSummary(Constants.SOURCE_URL);
 		findPreference(KEY_ABOUT_CREDITS_BITCOINJ).setSummary(Constants.CREDITS_BITCOINJ_URL);

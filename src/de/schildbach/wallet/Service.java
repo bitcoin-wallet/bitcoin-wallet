@@ -272,7 +272,7 @@ public class Service extends android.app.Service
 				System.out.println("starting peergroup");
 				peerGroup = new PeerGroup(Constants.NETWORK_PARAMETERS, blockChain, 1000);
 				peerGroup.addWallet(wallet);
-				peerGroup.setUserAgent(Constants.USER_AGENT, application.applicationVersion());
+				peerGroup.setUserAgent(Constants.USER_AGENT, application.applicationVersionName());
 				peerGroup.setFastCatchupTimeSecs(wallet.getEarliestKeyCreationTime());
 				peerGroup.addEventListener(peerEventListener);
 
@@ -355,7 +355,7 @@ public class Service extends android.app.Service
 		intentFilter.addAction(Intent.ACTION_DEVICE_STORAGE_OK);
 		registerReceiver(broadcastReceiver, intentFilter);
 
-		final int versionCode = application.versionCode();
+		final int versionCode = application.applicationVersionCode();
 		final int lastVersionCode = prefs.getInt(Constants.PREFS_KEY_LAST_VERSION, 0);
 		final boolean blockchainNeedsRescan = lastVersionCode <= 23 && versionCode > 23;
 
