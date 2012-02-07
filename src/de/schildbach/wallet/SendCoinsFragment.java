@@ -208,7 +208,7 @@ public class SendCoinsFragment extends Fragment
 			{
 				try
 				{
-					final Address receivingAddress = new Address(application.getNetworkParameters(), receivingAddressView.getText().toString().trim());
+					final Address receivingAddress = new Address(Constants.NETWORK_PARAMETERS, receivingAddressView.getText().toString().trim());
 					final BigInteger amount = amountView.getAmount();
 					final BigInteger fee = feeView.getAmount();
 
@@ -351,7 +351,7 @@ public class SendCoinsFragment extends Fragment
 			final String address = receivingAddressView.getText().toString().trim();
 			if (address.length() > 0)
 			{
-				new Address(application.getNetworkParameters(), address);
+				new Address(Constants.NETWORK_PARAMETERS, address);
 				validAddress = true;
 			}
 			receivingAddressErrorView.setVisibility(View.GONE);

@@ -45,7 +45,6 @@ import com.google.bitcoin.core.Address;
 import com.google.bitcoin.core.AddressFormatException;
 import com.google.bitcoin.core.DumpedPrivateKey;
 import com.google.bitcoin.core.ECKey;
-import com.google.bitcoin.core.NetworkParameters;
 import com.google.bitcoin.core.Wallet;
 import com.google.bitcoin.core.WalletEventListener;
 import com.google.bitcoin.store.WalletProtobufSerializer;
@@ -100,11 +99,6 @@ public class Application extends android.app.Application
 		backupKeys();
 
 		wallet.addEventListener(walletEventListener);
-	}
-
-	public NetworkParameters getNetworkParameters()
-	{
-		return Constants.NETWORK_PARAMETERS;
 	}
 
 	public Wallet getWallet()

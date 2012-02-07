@@ -52,7 +52,6 @@ import com.google.bitcoin.core.AbstractWalletEventListener;
 import com.google.bitcoin.core.Address;
 import com.google.bitcoin.core.Block;
 import com.google.bitcoin.core.BlockChain;
-import com.google.bitcoin.core.NetworkParameters;
 import com.google.bitcoin.core.Peer;
 import com.google.bitcoin.core.PeerEventListener;
 import com.google.bitcoin.core.PeerGroup;
@@ -270,10 +269,8 @@ public class Service extends android.app.Service
 
 			if (hasEverything && peerGroup == null)
 			{
-				final NetworkParameters networkParameters = application.getNetworkParameters();
-
 				System.out.println("starting peergroup");
-				peerGroup = new PeerGroup(networkParameters, blockChain, 1000);
+				peerGroup = new PeerGroup(Constants.NETWORK_PARAMETERS, blockChain, 1000);
 				peerGroup.addWallet(wallet);
 				peerGroup.setUserAgent(Constants.USER_AGENT, application.applicationVersion());
 				peerGroup.setFastCatchupTimeSecs(wallet.getEarliestKeyCreationTime());
@@ -284,7 +281,7 @@ public class Service extends android.app.Service
 				{
 					peerGroup.setMaxConnections(Constants.MAX_CONNECTED_PEERS);
 					peerGroup.addPeerDiscovery(Constants.TEST ? new IrcDiscovery(Constants.PEER_DISCOVERY_IRC_CHANNEL_TEST) : new DnsDiscovery(
-							networkParameters));
+							Constants.NETWORK_PARAMETERS));
 				}
 				else
 				{
@@ -293,7 +290,7 @@ public class Service extends android.app.Service
 					{
 						public InetSocketAddress[] getPeers() throws PeerDiscoveryException
 						{
-							return new InetSocketAddress[] { new InetSocketAddress(trustedPeerHost, networkParameters.port) };
+							return new InetSocketAddress[] { new InetSocketAddress(trustedPeerHost, Constants.NETWORK_PARAMETERS.port) };
 						}
 					});
 				}
@@ -348,7 +345,6 @@ public class Service extends android.app.Service
 		application = (Application) getApplication();
 		prefs = PreferenceManager.getDefaultSharedPreferences(this);
 		final Wallet wallet = application.getWallet();
-		final NetworkParameters networkParameters = application.getNetworkParameters();
 
 		sendBroadcastPeerState(0);
 
@@ -386,7 +382,7 @@ public class Service extends android.app.Service
 		{
 			try
 			{
-				blockStore = new BoundedOverheadBlockStore(networkParameters, file);
+				blockStore = new BoundedOverheadBlockStore(Constants.NETWORK_PARAMETERS, file);
 				blockStore.getChainHead(); // detect corruptions as early as possible
 			}
 			catch (final BlockStoreException x)
@@ -394,10 +390,10 @@ public class Service extends android.app.Service
 				x.printStackTrace();
 
 				copyBlockchainSnapshot(file);
-				blockStore = new BoundedOverheadBlockStore(networkParameters, file);
+				blockStore = new BoundedOverheadBlockStore(Constants.NETWORK_PARAMETERS, file);
 			}
 
-			blockChain = new BlockChain(networkParameters, wallet, blockStore);
+			blockChain = new BlockChain(Constants.NETWORK_PARAMETERS, wallet, blockStore);
 
 			application.getWallet().addEventListener(walletEventListener);
 		}

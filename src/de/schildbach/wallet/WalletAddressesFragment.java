@@ -109,7 +109,7 @@ public class WalletAddressesFragment extends ListFragment
 	public void onListItemClick(final ListView l, final View v, final int position, final long id)
 	{
 		final ECKey key = keys.get(position);
-		final Address address = key.toAddress(application.getNetworkParameters());
+		final Address address = key.toAddress(Constants.NETWORK_PARAMETERS);
 
 		final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(activity);
 		prefs.edit().putString(Constants.PREFS_KEY_SELECTED_ADDRESS, address.toString()).commit();
@@ -220,7 +220,7 @@ public class WalletAddressesFragment extends ListFragment
 		public View getView(final int position, View row, final ViewGroup parent)
 		{
 			final ECKey key = (ECKey) getItem(position);
-			final Address address = key.toAddress(application.getNetworkParameters());
+			final Address address = key.toAddress(Constants.NETWORK_PARAMETERS);
 
 			if (row == null)
 				row = getLayoutInflater(null).inflate(R.layout.address_row, null);
