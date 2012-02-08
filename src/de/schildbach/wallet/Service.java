@@ -365,6 +365,7 @@ public class Service extends android.app.Service
 		{
 			blockchainResetInitiated = true;
 			wallet.clearTransactions(0);
+			application.saveWallet();
 		}
 		else
 		{
