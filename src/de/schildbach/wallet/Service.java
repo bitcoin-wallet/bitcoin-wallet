@@ -410,8 +410,7 @@ public class Service extends android.app.Service
 		{
 			final long t = System.currentTimeMillis();
 
-			final String blockchainSnapshotFilename = Constants.TEST ? Constants.BLOCKCHAIN_SNAPSHOT_FILENAME_TEST
-					: Constants.BLOCKCHAIN_SNAPSHOT_FILENAME_PROD;
+			final String blockchainSnapshotFilename = Constants.BLOCKCHAIN_SNAPSHOT_FILENAME;
 			final InputStream is = getAssets().open(blockchainSnapshotFilename);
 			final OutputStream os = new FileOutputStream(file);
 

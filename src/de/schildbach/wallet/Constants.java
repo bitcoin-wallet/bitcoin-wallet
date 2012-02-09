@@ -55,13 +55,14 @@ public class Constants
 	private static final String WALLET_KEY_BACKUP_SNAPSHOT_TEST = "key-backup-snapshot-testnet";
 	public static final String WALLET_KEY_BACKUP_SNAPSHOT = Constants.TEST ? WALLET_KEY_BACKUP_SNAPSHOT_TEST : WALLET_KEY_BACKUP_SNAPSHOT_PROD;
 
-	public static final String BLOCKCHAIN_SNAPSHOT_FILENAME_PROD = "blockchain-snapshot.jpg";
-	public static final String BLOCKCHAIN_SNAPSHOT_FILENAME_TEST = "blockchain-snapshot-testnet.jpg";
+	private static final String BLOCKCHAIN_SNAPSHOT_FILENAME_PROD = "blockchain-snapshot.jpg";
+	private static final String BLOCKCHAIN_SNAPSHOT_FILENAME_TEST = "blockchain-snapshot-testnet.jpg";
+	public static final String BLOCKCHAIN_SNAPSHOT_FILENAME = Constants.TEST ? BLOCKCHAIN_SNAPSHOT_FILENAME_TEST : BLOCKCHAIN_SNAPSHOT_FILENAME_PROD;
 
 	public static final long BLOCKCHAIN_SNAPSHOT_COPY_THRESHOLD = Constants.TEST ? 3000000 : 10000000;
 
 	private static final String BLOCKCHAIN_FILENAME_PROD = "blockchain";
-	public static final String BLOCKCHAIN_FILENAME_TEST = "blockchain-testnet";
+	private static final String BLOCKCHAIN_FILENAME_TEST = "blockchain-testnet";
 	public static final String BLOCKCHAIN_FILENAME = TEST ? BLOCKCHAIN_FILENAME_TEST : BLOCKCHAIN_FILENAME_PROD;
 
 	public static final String PEER_DISCOVERY_IRC_CHANNEL_PROD = "#bitcoin";
