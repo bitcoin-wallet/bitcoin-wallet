@@ -292,6 +292,10 @@ public class Service extends android.app.Service
 						{
 							return new InetSocketAddress[] { new InetSocketAddress(trustedPeerHost, Constants.NETWORK_PARAMETERS.port) };
 						}
+
+						public void shutdown()
+						{
+						}
 					});
 				}
 				peerGroup.start();
@@ -454,7 +458,7 @@ public class Service extends android.app.Service
 			{
 				nm.cancel(NOTIFICATION_ID_CONNECTED);
 			}
-		}, 3000);
+		}, 2000);
 
 		super.onDestroy();
 	}
