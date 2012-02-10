@@ -170,7 +170,8 @@ public class WalletAddressFragment extends Fragment
 
 		final String addressStr = "bitcoin:" + selectedAddress;
 
-		qrCodeBitmap = WalletUtils.getQRCodeBitmap(addressStr, 256);
+		final int size = (int) (256 * getResources().getDisplayMetrics().density);
+		qrCodeBitmap = WalletUtils.getQRCodeBitmap(addressStr, size);
 		bitcoinAddressQrView.setImageBitmap(qrCodeBitmap);
 
 		if (nfcManager != null)
