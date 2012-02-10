@@ -95,6 +95,14 @@ public class BitcoinURI
 		return address;
 	}
 
+	public String getAddressAsString()
+	{
+		if (address != null)
+			return address.toString();
+		else
+			return null;
+	}
+
 	public BigInteger getAmount()
 	{
 		return amount;

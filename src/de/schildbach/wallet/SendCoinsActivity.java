@@ -25,6 +25,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.nfc.NfcAdapter;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -42,6 +43,7 @@ import de.schildbach.wallet_test.R;
 public class SendCoinsActivity extends AbstractWalletActivity
 {
 	public static final String INTENT_EXTRA_ADDRESS = "address";
+	private static final String INTENT_EXTRA_QUERY = "query";
 
 	private static final int DIALOG_HELP = 0;
 
@@ -149,30 +151,55 @@ public class SendCoinsActivity extends AbstractWalletActivity
 
 	private void handleIntent(final Intent intent)
 	{
+		final String action = intent.getAction();
 		final Uri intentUri = intent.getData();
 		final String scheme = intentUri != null ? intentUri.getScheme() : null;
 
-		if (intentUri != null && "bitcoin".equals(scheme))
+		final String address;
+		final BigInteger amount;
+
+		if ((Intent.ACTION_VIEW.equals(action) || NfcAdapter.ACTION_NDEF_DISCOVERED.equals(action)) && intentUri != null && "bitcoin".equals(scheme))
 		{
 			try
 			{
 				final BitcoinURI bitcoinUri = new BitcoinURI(intentUri);
-				final Address address = bitcoinUri.getAddress();
-				updateSendCoinsFragment(address != null ? address.toString() : null, bitcoinUri.getAmount());
-
-				if (address == null)
-					longToast(R.string.send_coins_parse_address_error_msg);
+				address = bitcoinUri.getAddressAsString();
+				amount = bitcoinUri.getAmount();
 			}
 			catch (final BitcoinURI.ParseException x)
 			{
 				parseErrorDialog(intentUri.toString());
+				return;
+			}
+		}
+		else if (Intent.ACTION_WEB_SEARCH.equals(action) && intent.hasExtra(INTENT_EXTRA_QUERY))
+		{
+			try
+			{
+				final BitcoinURI bitcoinUri = new BitcoinURI(intent.getStringExtra(INTENT_EXTRA_QUERY));
+				address = bitcoinUri.getAddressAsString();
+				amount = bitcoinUri.getAmount();
+			}
+			catch (final BitcoinURI.ParseException x)
+			{
+				parseErrorDialog(intentUri.toString());
+				return;
 			}
 		}
 		else if (intent.hasExtra(INTENT_EXTRA_ADDRESS))
 		{
-			final String address = intent.getExtras().getString(INTENT_EXTRA_ADDRESS);
-			updateSendCoinsFragment(address, null);
+			address = intent.getStringExtra(INTENT_EXTRA_ADDRESS);
+			amount = null;
 		}
+		else
+		{
+			return;
+		}
+
+		if (address != null || amount != null)
+			updateSendCoinsFragment(address, amount);
+		else
+			longToast(R.string.send_coins_parse_address_error_msg);
 	}
 
 	private void updateSendCoinsFragment(final String address, final BigInteger amount)
