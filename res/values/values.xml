@@ -2,7 +2,9 @@
 <resources>
 
 	<string name="preferences_prefs_title">Preferences (advanced)</string>
-	<string name="preferences_trusted_peer_title">Trusted peer</string>
+	<string name="preferences_autosync_title">Sync on Power</string>
+	<string name="preferences_autosync_summary">Stay synchronized to blockchain in background while connected to power.</string>
+	<string name="preferences_trusted_peer_title">Trusted Peer</string>
 	<string name="preferences_trusted_peer_summary">Hostname of single peer to connect to. Regular peer discovery will be skipped.
 		Need to restart app to take effect.</string>
 	<string name="preferences_initiate_reset_title">Reset Blockchain</string>

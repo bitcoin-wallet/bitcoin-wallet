@@ -21,6 +21,8 @@
 	</PreferenceCategory>
 
 	<PreferenceCategory android:title="@string/preferences_prefs_title">
+		<CheckBoxPreference android:key="autosync" android:title="@string/preferences_autosync_title"
+			android:summary="@string/preferences_autosync_summary" />
 		<EditTextPreference android:key="trusted_peer" android:title="@string/preferences_trusted_peer_title"
 			android:summary="@string/preferences_trusted_peer_summary" />
 		<ListPreference android:key="initiate_reset" android:title="@string/preferences_initiate_reset_title"

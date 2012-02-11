@@ -106,6 +106,7 @@ public class Constants
 	public static final String PACKAGE_NAME_ZXING = "com.google.zxing.client.android";
 
 	public static final String PREFS_KEY_LAST_VERSION = "last_version";
+	public static final String PREFS_KEY_AUTOSYNC = "autosync";
 	public static final String PREFS_KEY_SELECTED_ADDRESS = "selected_address";
 	public static final String PREFS_KEY_EXCHANGE_CURRENCY = "exchange_currency";
 	public static final String PREFS_KEY_TRUSTED_PEER = "trusted_peer";
