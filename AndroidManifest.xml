@@ -17,7 +17,7 @@
 
 	<application android:name="de.schildbach.wallet.Application" android:icon="@drawable/app_icon_test"
 		android:label="@string/app_name" android:debuggable="true">
-		
+
 		<activity android:name="de.schildbach.wallet.ui.WalletActivity" android:theme="@android:style/Theme.Light.NoTitleBar"
 			android:screenOrientation="nosensor" android:configChanges="orientation|keyboard|keyboardHidden" android:launchMode="singleInstance" />
 
@@ -83,7 +83,7 @@
 			<meta-data android:name="android.appwidget.provider" android:resource="@xml/wallet_balance_widget" />
 		</receiver>
 
-		<service android:name="de.schildbach.wallet.Service" />
+		<service android:name="de.schildbach.wallet.service.Service" />
 
 	</application>
 

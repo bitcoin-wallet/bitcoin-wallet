@@ -34,7 +34,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import de.schildbach.wallet.Service;
+import de.schildbach.wallet.service.Service;
 import de.schildbach.wallet_test.R;
 
 /**
