@@ -25,12 +25,16 @@ import java.net.URLConnection;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.ServiceConnection;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.Menu;
@@ -52,6 +56,22 @@ public class WalletActivity extends AbstractWalletActivity
 	private static final int DIALOG_HELP = 0;
 
 	private static final int HONEYCOMB = 11; // API level 11
+
+	private Service service;
+
+	private final ServiceConnection serviceConnection = new ServiceConnection()
+	{
+		public void onServiceConnected(final ComponentName name, final IBinder binder)
+		{
+			service = ((Service.LocalBinder) binder).getService();
+
+			service.cancelCoinsReceived();
+		}
+
+		public void onServiceDisconnected(final ComponentName name)
+		{
+		}
+	};
 
 	@Override
 	protected void onCreate(final Bundle savedInstanceState)
@@ -119,7 +139,17 @@ public class WalletActivity extends AbstractWalletActivity
 	{
 		super.onResume();
 
+		bindService(new Intent(this, Service.class), serviceConnection, Context.BIND_AUTO_CREATE);
+
 		checkLowStorageAlert();
+	}
+
+	@Override
+	protected void onPause()
+	{
+		unbindService(serviceConnection);
+
+		super.onPause();
 	}
 
 	@Override

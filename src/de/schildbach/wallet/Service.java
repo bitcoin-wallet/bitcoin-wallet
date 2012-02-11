@@ -25,7 +25,8 @@ import java.io.OutputStream;
 import java.math.BigInteger;
 import java.net.InetSocketAddress;
 import java.util.Date;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.LinkedList;
+import java.util.List;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -54,7 +55,6 @@ import com.google.bitcoin.core.Peer;
 import com.google.bitcoin.core.PeerEventListener;
 import com.google.bitcoin.core.PeerGroup;
 import com.google.bitcoin.core.ScriptException;
-import com.google.bitcoin.core.Sha256Hash;
 import com.google.bitcoin.core.Transaction;
 import com.google.bitcoin.core.TransactionInput;
 import com.google.bitcoin.core.Utils;
@@ -98,7 +98,11 @@ public class Service extends android.app.Service
 
 	private NotificationManager nm;
 	private static final int NOTIFICATION_ID_CONNECTED = 0;
-	private static final AtomicInteger notificationIdCount = new AtomicInteger(10);
+	private static final int NOTIFICATION_ID_COINS_RECEIVED = 1;
+
+	private int notificationCount = 0;
+	private BigInteger notificationAccumulatedAmount;
+	private final List<Address> notificationAddresses = new LinkedList<Address>();
 
 	private final WalletEventListener walletEventListener = new AbstractWalletEventListener()
 	{
@@ -110,40 +114,68 @@ public class Service extends android.app.Service
 
 		private void onReceived(final Wallet wallet, final Transaction tx)
 		{
-			Address from = null;
 			try
 			{
 				final TransactionInput input = tx.getInputs().get(0);
-				from = input.getFromAddress();
+				final Address from = input.getFromAddress();
+				final BigInteger amount = tx.amount(wallet);
+
+				handler.post(new Runnable()
+				{
+					public void run()
+					{
+						notifyCoinsReceived(from, amount);
+						notifyWidgets();
+					}
+				});
 			}
 			catch (final ScriptException x)
 			{
 				throw new RuntimeException(x);
 			}
-			final Address finalFrom = from;
-			final BigInteger value = tx.getValueSentToMe(wallet);
-
-			handler.post(new Runnable()
-			{
-				public void run()
-				{
-					notifyTransaction(tx.getHash(), finalFrom, value);
-					notifyWidgets();
-				}
-			});
-		}
-
-		private void notifyTransaction(final Sha256Hash txHash, final Address from, final BigInteger value)
-		{
-			final String msg = getString(R.string.notification_coins_received_msg, Utils.bitcoinValueToFriendlyString(value));
-			final Notification notification = new Notification(R.drawable.stat_notify_received, msg, System.currentTimeMillis());
-			notification.flags |= Notification.FLAG_AUTO_CANCEL;
-			notification.sound = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.coins_received);
-			notification.setLatestEventInfo(Service.this, msg, "From " + (from != null ? from : "unknown") + (Constants.TEST ? " [testnet]" : ""),
-					PendingIntent.getActivity(Service.this, 0, new Intent(Service.this, WalletActivity.class), 0));
-			nm.notify(notificationIdCount.getAndIncrement(), notification);
 		}
 	};
+
+	private void notifyCoinsReceived(final Address from, final BigInteger amount)
+	{
+		notificationCount++;
+		notificationAccumulatedAmount = notificationAccumulatedAmount.add(amount);
+		if (from != null && !notificationAddresses.contains(from))
+			notificationAddresses.add(from);
+
+		final String msg = getString(R.string.notification_coins_received_msg, Utils.bitcoinValueToFriendlyString(notificationAccumulatedAmount))
+				+ (Constants.TEST ? " [testnet]" : "");
+
+		final StringBuilder text = new StringBuilder();
+		for (final Address address : notificationAddresses)
+		{
+			if (text.length() > 0)
+				text.append(", ");
+			text.append(address.toString());
+		}
+
+		if (text.length() == 0)
+			text.append("unknown");
+
+		text.insert(0, "From ");
+
+		final Notification notification = new Notification(R.drawable.stat_notify_received, msg, System.currentTimeMillis());
+		notification.sound = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.coins_received);
+		notification.setLatestEventInfo(Service.this, msg, text,
+				PendingIntent.getActivity(Service.this, 0, new Intent(Service.this, WalletActivity.class), 0));
+		notification.number = notificationCount;
+
+		nm.notify(NOTIFICATION_ID_COINS_RECEIVED, notification);
+	}
+
+	public void cancelCoinsReceived()
+	{
+		notificationCount = 0;
+		notificationAccumulatedAmount = BigInteger.ZERO;
+		notificationAddresses.clear();
+
+		nm.cancel(NOTIFICATION_ID_COINS_RECEIVED);
+	}
 
 	private final PeerEventListener peerEventListener = new AbstractPeerEventListener()
 	{
