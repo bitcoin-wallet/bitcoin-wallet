@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.schildbach.wallet;
+package de.schildbach.wallet.ui;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -36,6 +36,8 @@ import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
+import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.ExchangeRatesProvider;
 import de.schildbach.wallet_test.R;
 
 /**

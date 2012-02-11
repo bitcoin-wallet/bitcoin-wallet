@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.schildbach.wallet;
+package de.schildbach.wallet.ui;
 
 import java.util.Date;
 
@@ -34,6 +34,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import de.schildbach.wallet.Service;
 import de.schildbach.wallet_test.R;
 
 /**

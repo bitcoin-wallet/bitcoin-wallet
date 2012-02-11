@@ -30,6 +30,7 @@ import com.google.bitcoin.core.Utils;
 import com.google.bitcoin.core.Wallet;
 import com.google.bitcoin.core.Wallet.BalanceType;
 
+import de.schildbach.wallet.ui.WalletActivity;
 import de.schildbach.wallet_test.R;
 
 /**

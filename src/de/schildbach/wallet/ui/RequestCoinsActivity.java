@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.schildbach.wallet;
+package de.schildbach.wallet.ui;
 
 import android.app.Dialog;
 import android.os.Bundle;

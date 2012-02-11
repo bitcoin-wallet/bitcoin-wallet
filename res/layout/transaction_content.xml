@@ -9,7 +9,7 @@
 	<FrameLayout android:layout_width="fill_parent" android:layout_height="fill_parent" android:foreground="@drawable/title_bar_shadow"
 		android:foregroundGravity="top|fill_horizontal" android:background="@android:color/black">
 
-		<fragment android:id="@+id/transaction_fragment" android:name="de.schildbach.wallet.TransactionFragment"
+		<fragment android:id="@+id/transaction_fragment" android:name="de.schildbach.wallet.ui.TransactionFragment"
 			android:layout_width="fill_parent" android:layout_height="fill_parent" />
 
 	</FrameLayout>

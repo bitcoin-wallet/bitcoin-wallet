@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.schildbach.wallet;
+package de.schildbach.wallet.ui;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -40,6 +40,8 @@ import android.widget.TextView;
 
 import com.google.bitcoin.core.Address;
 
+import de.schildbach.wallet.Application;
+import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.util.NfcTools;
 import de.schildbach.wallet.util.QrDialog;
 import de.schildbach.wallet.util.WalletUtils;

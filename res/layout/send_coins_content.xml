@@ -12,7 +12,7 @@
 		<ScrollView android:layout_width="fill_parent" android:layout_height="fill_parent" android:fillViewport="true"
 			android:scrollbars="none">
 
-			<fragment android:id="@+id/send_coins_fragment" android:name="de.schildbach.wallet.SendCoinsFragment"
+			<fragment android:id="@+id/send_coins_fragment" android:name="de.schildbach.wallet.ui.SendCoinsFragment"
 				android:layout_width="fill_parent" android:layout_height="fill_parent" />
 
 		</ScrollView>

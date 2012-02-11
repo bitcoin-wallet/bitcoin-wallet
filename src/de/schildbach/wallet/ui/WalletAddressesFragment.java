@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.schildbach.wallet;
+package de.schildbach.wallet.ui;
 
 import java.text.DateFormat;
 import java.util.Date;
@@ -45,6 +45,9 @@ import com.google.bitcoin.core.Address;
 import com.google.bitcoin.core.ECKey;
 import com.google.bitcoin.core.Wallet;
 
+import de.schildbach.wallet.Application;
+import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.DetermineFirstSeenThread;
 import de.schildbach.wallet.util.ActionBarFragment;
 import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;

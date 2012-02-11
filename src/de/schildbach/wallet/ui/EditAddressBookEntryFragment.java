@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.schildbach.wallet;
+package de.schildbach.wallet.ui;
 
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
@@ -33,6 +33,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
+import de.schildbach.wallet.AddressBookProvider;
 import de.schildbach.wallet_test.R;
 
 /**

@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.schildbach.wallet;
+package de.schildbach.wallet.ui;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -37,6 +37,8 @@ import com.google.bitcoin.core.Transaction;
 import com.google.bitcoin.core.VerificationException;
 import com.google.bitcoin.core.Wallet;
 
+import de.schildbach.wallet.Application;
+import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.util.ActionBarFragment;
 import de.schildbach.wallet.util.Base43;
 import de.schildbach.wallet.util.NfcTools;

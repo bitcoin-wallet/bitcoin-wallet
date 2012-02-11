@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.schildbach.wallet;
+package de.schildbach.wallet.ui;
 
 import java.math.BigInteger;
 
@@ -53,7 +53,12 @@ import com.google.bitcoin.core.Transaction;
 import com.google.bitcoin.core.Utils;
 import com.google.bitcoin.core.Wallet.BalanceType;
 
-import de.schildbach.wallet.CurrencyAmountView.Listener;
+import de.schildbach.wallet.AddressBookProvider;
+import de.schildbach.wallet.Application;
+import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.Service;
+import de.schildbach.wallet.Service.LocalBinder;
+import de.schildbach.wallet.ui.CurrencyAmountView.Listener;
 import de.schildbach.wallet_test.R;
 
 /**

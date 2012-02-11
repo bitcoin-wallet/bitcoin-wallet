@@ -20,12 +20,12 @@
 		android:layout_marginLeft="20dp" android:layout_marginRight="20dp" android:text="@string/send_coins_fragment_available_label"
 		android:textSize="16sp" android:textStyle="bold" />
 
-	<de.schildbach.wallet.CurrencyAmountView android:id="@+id/send_coins_available"
+	<de.schildbach.wallet.ui.CurrencyAmountView android:id="@+id/send_coins_available"
 		android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="12dp"
 		android:layout_marginRight="12dp">
 		<TextView android:layout_width="fill_parent" android:layout_height="wrap_content" android:background="@drawable/edit_text"
 			android:textSize="28sp" android:drawablePadding="4dp" android:enabled="false" />
-	</de.schildbach.wallet.CurrencyAmountView>
+	</de.schildbach.wallet.ui.CurrencyAmountView>
 
 	<TextView android:id="@+id/send_coins_pending" android:layout_width="fill_parent" android:layout_height="wrap_content"
 		android:layout_marginBottom="8dp" android:layout_marginLeft="20dp" android:textSize="16sp" android:visibility="gone" />
@@ -34,23 +34,23 @@
 		android:layout_marginLeft="20dp" android:layout_marginRight="20dp" android:text="@string/send_coins_fragment_amount_label"
 		android:textSize="16sp" android:textStyle="bold" />
 
-	<de.schildbach.wallet.CurrencyAmountView android:id="@+id/send_coins_amount"
+	<de.schildbach.wallet.ui.CurrencyAmountView android:id="@+id/send_coins_amount"
 		android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="12dp"
 		android:layout_marginRight="12dp">
 		<EditText android:layout_width="fill_parent" android:layout_height="wrap_content" android:background="@drawable/edit_text"
 			android:textSize="28sp" android:drawablePadding="4dp" />
-	</de.schildbach.wallet.CurrencyAmountView>
+	</de.schildbach.wallet.ui.CurrencyAmountView>
 
 	<TextView android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp"
 		android:layout_marginLeft="20dp" android:layout_marginRight="20dp" android:text="@string/send_coins_fragment_fee_label"
 		android:textSize="16sp" android:textStyle="bold" />
 
-	<de.schildbach.wallet.CurrencyAmountView android:id="@+id/send_coins_fee"
+	<de.schildbach.wallet.ui.CurrencyAmountView android:id="@+id/send_coins_fee"
 		android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="12dp"
 		android:layout_marginRight="12dp">
 		<EditText android:layout_width="fill_parent" android:layout_height="wrap_content" android:background="@drawable/edit_text"
 			android:textSize="28sp" android:drawablePadding="4dp" />
-	</de.schildbach.wallet.CurrencyAmountView>
+	</de.schildbach.wallet.ui.CurrencyAmountView>
 
 	<!-- stretch dummy -->
 	<ImageView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="100" />

@@ -9,7 +9,7 @@
 	<FrameLayout android:layout_width="fill_parent" android:layout_height="fill_parent" android:foreground="@drawable/title_bar_shadow"
 		android:foregroundGravity="top|fill_horizontal">
 
-		<fragment android:name="de.schildbach.wallet.AddressBookFragment" android:layout_width="fill_parent"
+		<fragment android:name="de.schildbach.wallet.ui.AddressBookFragment" android:layout_width="fill_parent"
 			android:layout_height="fill_parent" />
 
 	</FrameLayout>

@@ -10,11 +10,11 @@
 	<!-- stretch dummy -->
 	<ImageView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="100" />
 
-	<de.schildbach.wallet.CurrencyAmountView android:id="@+id/exchange_rate_value"
+	<de.schildbach.wallet.ui.CurrencyAmountView android:id="@+id/exchange_rate_value"
 		android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="right"
 		android:layout_marginLeft="8dp" android:layout_weight="0">
 		<TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:textSize="18sp"
 			android:enabled="false" />
-	</de.schildbach.wallet.CurrencyAmountView>
+	</de.schildbach.wallet.ui.CurrencyAmountView>
 
 </LinearLayout>

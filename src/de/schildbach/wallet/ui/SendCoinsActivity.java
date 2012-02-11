@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.schildbach.wallet;
+package de.schildbach.wallet.ui;
 
 import java.math.BigInteger;
 
@@ -34,6 +34,9 @@ import android.webkit.WebView;
 
 import com.google.bitcoin.core.Address;
 
+import de.schildbach.wallet.BitcoinURI;
+import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.BitcoinURI.ParseException;
 import de.schildbach.wallet.util.ActionBarFragment;
 import de.schildbach.wallet_test.R;
 

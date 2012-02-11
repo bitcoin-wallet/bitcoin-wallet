@@ -9,7 +9,7 @@
 	<FrameLayout android:layout_width="fill_parent" android:layout_height="fill_parent" android:foreground="@drawable/title_bar_shadow"
 		android:foregroundGravity="top|fill_horizontal" android:background="#d8d8e0">
 
-		<fragment android:name="de.schildbach.wallet.RequestCoinsFragment" android:layout_width="fill_parent"
+		<fragment android:name="de.schildbach.wallet.ui.RequestCoinsFragment" android:layout_width="fill_parent"
 			android:layout_height="fill_parent" />
 
 	</FrameLayout>

@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.schildbach.wallet;
+package de.schildbach.wallet.ui;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -23,6 +23,8 @@ import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceScreen;
+import de.schildbach.wallet.Application;
+import de.schildbach.wallet.Constants;
 import de.schildbach.wallet_test.R;
 
 /**

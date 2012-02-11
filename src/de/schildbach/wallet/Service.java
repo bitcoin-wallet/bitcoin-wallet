@@ -68,6 +68,7 @@ import com.google.bitcoin.store.BlockStore;
 import com.google.bitcoin.store.BlockStoreException;
 import com.google.bitcoin.store.BoundedOverheadBlockStore;
 
+import de.schildbach.wallet.ui.WalletActivity;
 import de.schildbach.wallet_test.R;
 
 /**
