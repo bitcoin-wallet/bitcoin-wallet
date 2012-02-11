@@ -24,9 +24,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.math.BigInteger;
 import java.net.InetSocketAddress;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import android.app.Notification;
@@ -95,7 +93,6 @@ public class Service extends android.app.Service
 	private BlockStore blockStore;
 	private BlockChain blockChain;
 	private PeerGroup peerGroup;
-	private List<Sha256Hash> transactionsSeen = new ArrayList<Sha256Hash>();
 
 	private final Handler handler = new Handler();
 
@@ -138,19 +135,13 @@ public class Service extends android.app.Service
 
 		private void notifyTransaction(final Sha256Hash txHash, final Address from, final BigInteger value)
 		{
-			if (!transactionsSeen.contains(txHash))
-			{
-				transactionsSeen.add(txHash);
-
-				final String msg = getString(R.string.notification_coins_received_msg, Utils.bitcoinValueToFriendlyString(value));
-				final Notification notification = new Notification(R.drawable.stat_notify_received, msg, System.currentTimeMillis());
-				notification.flags |= Notification.FLAG_AUTO_CANCEL;
-				notification.sound = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.coins_received);
-				notification.setLatestEventInfo(Service.this, msg,
-						"From " + (from != null ? from : "unknown") + (Constants.TEST ? " [testnet]" : ""),
-						PendingIntent.getActivity(Service.this, 0, new Intent(Service.this, WalletActivity.class), 0));
-				nm.notify(notificationIdCount.getAndIncrement(), notification);
-			}
+			final String msg = getString(R.string.notification_coins_received_msg, Utils.bitcoinValueToFriendlyString(value));
+			final Notification notification = new Notification(R.drawable.stat_notify_received, msg, System.currentTimeMillis());
+			notification.flags |= Notification.FLAG_AUTO_CANCEL;
+			notification.sound = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.coins_received);
+			notification.setLatestEventInfo(Service.this, msg, "From " + (from != null ? from : "unknown") + (Constants.TEST ? " [testnet]" : ""),
+					PendingIntent.getActivity(Service.this, 0, new Intent(Service.this, WalletActivity.class), 0));
+			nm.notify(notificationIdCount.getAndIncrement(), notification);
 		}
 	};
 
