@@ -141,6 +141,9 @@ public class Service extends android.app.Service
 
 	private void notifyCoinsReceived(final Address from, final BigInteger amount)
 	{
+		if (notificationCount == 1)
+			nm.cancel(NOTIFICATION_ID_COINS_RECEIVED);
+
 		notificationCount++;
 		notificationAccumulatedAmount = notificationAccumulatedAmount.add(amount);
 		if (from != null && !notificationAddresses.contains(from))
@@ -166,7 +169,7 @@ public class Service extends android.app.Service
 		notification.sound = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.coins_received);
 		notification.setLatestEventInfo(Service.this, msg, text,
 				PendingIntent.getActivity(Service.this, 0, new Intent(Service.this, WalletActivity.class), 0));
-		notification.number = notificationCount;
+		notification.number = notificationCount == 1 ? 0 : notificationCount;
 
 		nm.notify(NOTIFICATION_ID_COINS_RECEIVED, notification);
 	}
