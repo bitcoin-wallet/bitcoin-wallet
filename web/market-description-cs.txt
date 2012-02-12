@@ -17,7 +17,6 @@ VLASTNOSTI:
 ZNÁMÉ PROBLÉMY:
 
 • Při prvním spůštění může aplikace na několik sekund zobrazit pouze bílou obrazovku - je to normální.
-• Někdy můžete dostat oznámení o příchodu těch stejných Bitcoinů několikrát za sebou. Samozřejmě jsou Bitcoiny připsány pouze jednou.
 
 První Bitcoiny na hraní je možné získat na adrese
 https://freebitcoins.appspot.com/

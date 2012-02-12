@@ -17,7 +17,6 @@ CARACTERÍSTICAS:
 INCIDENCIAS CONOCIDAS. LÉASE POR FAVOR:
 
 • Durante la primera ejecución, puede ocurrir que la aplicación muestre solo una pantalla blanca durante varios segundos. Esto es normal.
-• A veces aparecen notificaciones de sistema repetidas sobre una misma recepción de bitcoins. En cualquier caso, los bitcoins se reciben una sola vez.
 
 Puedes obtener tus primeros bitcoins con los que jugar en
 https://freebitcoins.appspot.com/

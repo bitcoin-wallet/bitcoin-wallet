@@ -17,7 +17,6 @@ FONCTIONS:
 PROBLEMES CONNUS, LIRE SVP:
 
 • Au premier lancement de l'application, il peut arriver que l'app affiche seulement un écran blanc pour quelques secondes. C'est normal.
-• Parfois vous pourrez recevoir des notifications système multiples concernant les mêmes Bitcoins à recevoir, mais vous obtiendrez les Bitcoins seulement une fois.
 
 Pour obtenir vos premiers Bitcoins:
 https://freebitcoins.appspot.com/

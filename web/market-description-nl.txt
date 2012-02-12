@@ -17,7 +17,6 @@ FUNCTIES:
 BEKENDE PROBLEMEN, SVP LEZEN:
 
 • Wanneer de app de eerste keer start kan het zijn dat deze slechts een wit beeld geeft voor een korte tijd. Dit is normaal.
-• Soms komt het voor dat u systeem meldingen over ontvangen bitcoins vaker krijgt. U krijgt de Bitcoins slechts eenmalig.
 
 U kunt uw eerste Bitcoins hier verkrijgen
 https://freebitcoins.appspot.com/

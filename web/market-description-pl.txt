@@ -17,7 +17,6 @@ FUNKCJE:
 ZNANE PROBLEMY (PROSZĘ PRZECZYTAJ):
 
 • Przy pierwszym uruchomieniu, aplikacja może wyświetlać przez jakiś czas jedynie biały ekran. To normalne.
-• Możliwe są wielokrotne powiadomienia o tych samych transakcjach przychodzących. Bitcoiny są naliczane tylko raz.
 
 Możesz dostać kilka pierwszych Bitcoinów za darmo:
 https://freebitcoins.appspot.com/

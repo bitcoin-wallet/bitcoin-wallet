@@ -17,7 +17,6 @@ CARATTERISTICHE:
 PROBLEMI NOTI, SI PREGA DI FARE ATTENZIONE:
 
 • Durante la prima esecuzione dell'applicazione è possibile che si visualizzi uno schermo bianco per alcuni secondi. E' normale.
-• E' possibile ricevere più volte la notifica di sistema che riguarda una transazione di Bitcoin in ingresso. Ma vengono conteggiati correttamente una sola volta.
 
 E' possibile ottenere un minimo importo di Bitcoin con cui sperimentare all'indirizzo:
 https://freebitcoins.appspot.com/
