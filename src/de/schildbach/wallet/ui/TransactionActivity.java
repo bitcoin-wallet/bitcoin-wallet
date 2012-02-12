@@ -191,20 +191,17 @@ public class TransactionActivity extends AbstractWalletActivity
 	{
 		final Wallet wallet = ((Application) getApplication()).getWallet();
 
-		if (tx.isMine(wallet) && !tx.sent(wallet))
+		try
 		{
-			try
-			{
-				wallet.receivePending(tx);
-			}
-			catch (final VerificationException x)
-			{
-				throw new RuntimeException(x);
-			}
-			catch (final ScriptException x)
-			{
-				throw new RuntimeException(x);
-			}
+			wallet.receivePending(tx);
+		}
+		catch (final VerificationException x)
+		{
+			throw new RuntimeException(x);
+		}
+		catch (final ScriptException x)
+		{
+			throw new RuntimeException(x);
 		}
 	}
 }
