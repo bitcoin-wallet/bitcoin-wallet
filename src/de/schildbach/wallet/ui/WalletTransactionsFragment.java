@@ -195,6 +195,8 @@ public class WalletTransactionsFragment extends Fragment
 			{
 				final DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(activity);
 				final DateFormat timeFormat = android.text.format.DateFormat.getTimeFormat(activity);
+				final int colorSignificant = getResources().getColor(R.color.significant);
+				final int colorInsignificant = getResources().getColor(R.color.insignificant);
 
 				@Override
 				public View getView(final int position, View row, final ViewGroup parent)
@@ -210,16 +212,49 @@ public class WalletTransactionsFragment extends Fragment
 					{
 						final BigInteger amount = tx.amount(wallet);
 						final boolean sent = amount.signum() < 0;
-						final boolean pending = confidenceType == ConfidenceType.NOT_SEEN_IN_CHAIN || confidenceType == ConfidenceType.UNKNOWN;
-						final boolean dead = confidenceType == ConfidenceType.OVERRIDDEN_BY_DOUBLE_SPEND
-								|| confidenceType == ConfidenceType.NOT_IN_BEST_CHAIN;
+
+						final CircularProgressView rowConfidence = (CircularProgressView) row.findViewById(R.id.transaction_confidence);
+						final View rowConfidenceUnknown = row.findViewById(R.id.transaction_confidence_unknown);
+
 						final int textColor;
-						if (dead)
+						if (confidenceType == ConfidenceType.NOT_SEEN_IN_CHAIN)
+						{
+							rowConfidence.setVisibility(View.VISIBLE);
+							rowConfidenceUnknown.setVisibility(View.GONE);
+							textColor = colorInsignificant;
+
+							rowConfidence.setProgress(0);
+						}
+						else if (confidenceType == ConfidenceType.BUILDING)
+						{
+							rowConfidence.setVisibility(View.VISIBLE);
+							rowConfidenceUnknown.setVisibility(View.GONE);
+							textColor = colorSignificant;
+
+							if (bestChainHeight > 0)
+							{
+								final int depth = bestChainHeight - confidence.getAppearedAtChainHeight() + 1;
+								rowConfidence.setProgress(depth > 0 ? depth : 0);
+							}
+							else
+							{
+								rowConfidence.setProgress(0);
+							}
+						}
+						else if (confidenceType == ConfidenceType.OVERRIDDEN_BY_DOUBLE_SPEND || confidenceType == ConfidenceType.NOT_IN_BEST_CHAIN)
+						{
+							rowConfidence.setVisibility(View.VISIBLE);
+							rowConfidenceUnknown.setVisibility(View.GONE);
 							textColor = Color.RED;
-						else if (pending)
-							textColor = Color.LTGRAY;
+
+							rowConfidence.setProgress(0);
+						}
 						else
-							textColor = Color.BLACK;
+						{
+							rowConfidence.setVisibility(View.GONE);
+							rowConfidenceUnknown.setVisibility(View.VISIBLE);
+							textColor = colorInsignificant;
+						}
 
 						final String address;
 						if (sent)
@@ -228,17 +263,6 @@ public class WalletTransactionsFragment extends Fragment
 							address = tx.getInputs().get(0).getFromAddress().toString();
 
 						final String label = AddressBookProvider.resolveLabel(activity.getContentResolver(), address);
-
-						final CircularProgressView rowConfidence = (CircularProgressView) row.findViewById(R.id.transaction_confidence);
-						if (bestChainHeight > 0 && confidenceType == ConfidenceType.BUILDING)
-						{
-							final int depth = bestChainHeight - confidence.getAppearedAtChainHeight() + 1;
-							rowConfidence.setProgress(depth);
-						}
-						else
-						{
-							rowConfidence.setProgress(0);
-						}
 
 						final TextView rowTime = (TextView) row.findViewById(R.id.transaction_time);
 						final Date time = tx.getUpdateTime();
