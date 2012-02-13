@@ -407,7 +407,7 @@ public class Service extends android.app.Service
 		prefs.edit().putInt(Constants.PREFS_KEY_LAST_VERSION, versionCode).remove(Constants.PREFS_KEY_INITIATE_RESET).commit();
 
 		final File file = new File(getDir("blockstore", Context.MODE_WORLD_READABLE | Context.MODE_WORLD_WRITEABLE), Constants.BLOCKCHAIN_FILENAME);
-		final boolean blockchainDoesNotExist = !file.exists() || file.length() < Constants.BLOCKCHAIN_SNAPSHOT_COPY_THRESHOLD;
+		final boolean blockchainDoesNotExist = !file.exists();
 
 		if (blockchainResetInitiated || blockchainNeedsRescan || blockchainDoesNotExist)
 			copyBlockchainSnapshot(file);
