@@ -17,6 +17,7 @@
 
 package de.schildbach.wallet.ui;
 
+import java.math.BigInteger;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -205,75 +206,68 @@ public class WalletTransactionsFragment extends Fragment
 					final TransactionConfidence confidence = tx.getConfidence();
 					final ConfidenceType confidenceType = confidence.getConfidenceType();
 
-					final boolean sent = tx.sent(wallet);
-					final boolean pending = confidenceType == ConfidenceType.NOT_SEEN_IN_CHAIN || confidenceType == ConfidenceType.UNKNOWN;
-					final boolean dead = confidenceType == ConfidenceType.OVERRIDDEN_BY_DOUBLE_SPEND
-							|| confidenceType == ConfidenceType.NOT_IN_BEST_CHAIN;
-					final int textColor;
-					if (dead)
-						textColor = Color.RED;
-					else if (pending)
-						textColor = Color.LTGRAY;
-					else
-						textColor = Color.BLACK;
-
-					String address = null;
-					String label = null;
 					try
 					{
+						final BigInteger amount = tx.amount(wallet);
+						final boolean sent = amount.signum() < 0;
+						final boolean pending = confidenceType == ConfidenceType.NOT_SEEN_IN_CHAIN || confidenceType == ConfidenceType.UNKNOWN;
+						final boolean dead = confidenceType == ConfidenceType.OVERRIDDEN_BY_DOUBLE_SPEND
+								|| confidenceType == ConfidenceType.NOT_IN_BEST_CHAIN;
+						final int textColor;
+						if (dead)
+							textColor = Color.RED;
+						else if (pending)
+							textColor = Color.LTGRAY;
+						else
+							textColor = Color.BLACK;
+
+						final String address;
 						if (sent)
 							address = tx.getOutputs().get(0).getScriptPubKey().getToAddress().toString();
 						else
 							address = tx.getInputs().get(0).getFromAddress().toString();
 
-						label = AddressBookProvider.resolveLabel(activity.getContentResolver(), address);
-					}
-					catch (final ScriptException x)
-					{
-						x.printStackTrace();
-					}
+						final String label = AddressBookProvider.resolveLabel(activity.getContentResolver(), address);
 
-					final CircularProgressView rowConfidence = (CircularProgressView) row.findViewById(R.id.transaction_confidence);
-					if (bestChainHeight > 0 && confidenceType == ConfidenceType.BUILDING)
-					{
-						final int depth = bestChainHeight - confidence.getAppearedAtChainHeight() + 1;
-						rowConfidence.setProgress(depth);
-					}
-					else
-					{
-						rowConfidence.setProgress(0);
-					}
+						final CircularProgressView rowConfidence = (CircularProgressView) row.findViewById(R.id.transaction_confidence);
+						if (bestChainHeight > 0 && confidenceType == ConfidenceType.BUILDING)
+						{
+							final int depth = bestChainHeight - confidence.getAppearedAtChainHeight() + 1;
+							rowConfidence.setProgress(depth);
+						}
+						else
+						{
+							rowConfidence.setProgress(0);
+						}
 
-					final TextView rowTime = (TextView) row.findViewById(R.id.transaction_time);
-					final Date time = tx.getUpdateTime();
-					rowTime.setText(time != null ? (DateUtils.isToday(time.getTime()) ? timeFormat.format(time) : dateFormat.format(time)) : null);
-					rowTime.setTextColor(textColor);
+						final TextView rowTime = (TextView) row.findViewById(R.id.transaction_time);
+						final Date time = tx.getUpdateTime();
+						rowTime.setText(time != null ? (DateUtils.isToday(time.getTime()) ? timeFormat.format(time) : dateFormat.format(time)) : null);
+						rowTime.setTextColor(textColor);
 
-					final TextView rowTo = (TextView) row.findViewById(R.id.transaction_to);
-					rowTo.setVisibility(sent ? View.VISIBLE : View.INVISIBLE);
-					rowTo.setTextColor(textColor);
+						final TextView rowTo = (TextView) row.findViewById(R.id.transaction_to);
+						rowTo.setVisibility(sent ? View.VISIBLE : View.INVISIBLE);
+						rowTo.setTextColor(textColor);
 
-					final TextView rowFrom = (TextView) row.findViewById(R.id.transaction_from);
-					rowFrom.setVisibility(sent ? View.INVISIBLE : View.VISIBLE);
-					rowFrom.setTextColor(textColor);
+						final TextView rowFrom = (TextView) row.findViewById(R.id.transaction_from);
+						rowFrom.setVisibility(sent ? View.INVISIBLE : View.VISIBLE);
+						rowFrom.setTextColor(textColor);
 
-					final TextView rowLabel = (TextView) row.findViewById(R.id.transaction_address);
-					rowLabel.setTextColor(textColor);
-					rowLabel.setText(label != null ? label : address);
+						final TextView rowLabel = (TextView) row.findViewById(R.id.transaction_address);
+						rowLabel.setTextColor(textColor);
+						rowLabel.setText(label != null ? label : address);
 
-					final TextView rowValue = (TextView) row.findViewById(R.id.transaction_value);
-					rowValue.setTextColor(textColor);
+						final TextView rowValue = (TextView) row.findViewById(R.id.transaction_value);
+						rowValue.setTextColor(textColor);
+						rowValue.setText((amount.signum() < 0 ? "-" : "+") + "\u2009" /* thin space */
+								+ Utils.bitcoinValueToFriendlyString(amount.abs()));
 
-					try
-					{
-						rowValue.setText((sent ? "-" : "+") + "\u2009" /* thin space */+ Utils.bitcoinValueToFriendlyString(tx.amount(wallet)));
+						return row;
 					}
 					catch (final ScriptException x)
 					{
 						throw new RuntimeException(x);
 					}
-
-					return row;
 				}
 			};
 			setListAdapter(adapter);
@@ -395,20 +389,28 @@ public class WalletTransactionsFragment extends Fragment
 			});
 
 			adapter.clear();
-			for (final Transaction tx : transactions)
+			try
 			{
-				final boolean sent = tx.sent(wallet);
-				if ((mode == 0 && !sent) || mode == 1 || (mode == 2 && sent))
-					adapter.add(tx);
+				for (final Transaction tx : transactions)
+				{
+					final boolean sent = tx.amount(wallet).signum() < 0;
+					if ((mode == 0 && !sent) || mode == 1 || (mode == 2 && sent))
+						adapter.add(tx);
+				}
+			}
+			catch (final ScriptException x)
+			{
+				throw new RuntimeException(x);
 			}
 		}
 
 		private void editAddress(final Transaction tx)
 		{
-			final boolean sent = tx.sent(application.getWallet());
+			final Wallet wallet = application.getWallet();
 
 			try
 			{
+				final boolean sent = tx.amount(wallet).signum() < 0;
 				final Address address = sent ? tx.getOutputs().get(0).getScriptPubKey().getToAddress() : tx.getInputs().get(0).getFromAddress();
 
 				EditAddressBookEntryFragment.edit(getFragmentManager(), address.toString());
