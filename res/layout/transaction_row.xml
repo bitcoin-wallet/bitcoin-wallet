@@ -4,14 +4,13 @@
 	android:layout_height="fill_parent" android:paddingLeft="@dimen/list_entry_padding_horizontal" android:paddingRight="@dimen/list_entry_padding_horizontal"
 	android:paddingTop="8dp" android:paddingBottom="8dp" android:orientation="horizontal">
 
-	<de.schildbach.wallet.util.CircularProgressView android:id="@+id/transaction_confidence"
+	<de.schildbach.wallet.util.CircularProgressView android:id="@+id/transaction_confidence_circular"
 		android:layout_width="@dimen/symbol_size_normal" android:layout_height="@dimen/symbol_size_normal"
 		android:layout_weight="0" android:layout_marginRight="8dp" />
 
-	<TextView android:id="@+id/transaction_confidence_unknown" android:layout_width="@dimen/symbol_size_normal"
+	<TextView android:id="@+id/transaction_confidence_textual" android:layout_width="@dimen/symbol_size_normal"
 		android:layout_height="wrap_content" android:layout_weight="0" android:layout_marginRight="8dp"
-		android:text="\?" android:textSize="@dimen/font_size_normal" android:textColor="@color/insignificant"
-		android:textStyle="bold" android:gravity="center_horizontal" />
+		android:textSize="@dimen/font_size_normal" android:textStyle="bold" android:gravity="center_horizontal" />
 
 	<TextView android:id="@+id/transaction_time" android:layout_width="wrap_content" android:layout_height="wrap_content"
 		android:layout_weight="0" android:layout_marginRight="8dp" android:textSize="@dimen/font_size_normal"

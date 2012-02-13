@@ -213,47 +213,61 @@ public class WalletTransactionsFragment extends Fragment
 						final BigInteger amount = tx.amount(wallet);
 						final boolean sent = amount.signum() < 0;
 
-						final CircularProgressView rowConfidence = (CircularProgressView) row.findViewById(R.id.transaction_confidence);
-						final View rowConfidenceUnknown = row.findViewById(R.id.transaction_confidence_unknown);
+						final CircularProgressView rowConfidenceCircular = (CircularProgressView) row
+								.findViewById(R.id.transaction_confidence_circular);
+						final TextView rowConfidenceTextual = (TextView) row.findViewById(R.id.transaction_confidence_textual);
 
 						final int textColor;
 						if (confidenceType == ConfidenceType.NOT_SEEN_IN_CHAIN)
 						{
-							rowConfidence.setVisibility(View.VISIBLE);
-							rowConfidenceUnknown.setVisibility(View.GONE);
+							rowConfidenceCircular.setVisibility(View.VISIBLE);
+							rowConfidenceTextual.setVisibility(View.GONE);
 							textColor = colorInsignificant;
 
-							rowConfidence.setProgress(0);
+							rowConfidenceCircular.setProgress(0);
 						}
 						else if (confidenceType == ConfidenceType.BUILDING)
 						{
-							rowConfidence.setVisibility(View.VISIBLE);
-							rowConfidenceUnknown.setVisibility(View.GONE);
+							rowConfidenceCircular.setVisibility(View.VISIBLE);
+							rowConfidenceTextual.setVisibility(View.GONE);
 							textColor = colorSignificant;
 
 							if (bestChainHeight > 0)
 							{
 								final int depth = bestChainHeight - confidence.getAppearedAtChainHeight() + 1;
-								rowConfidence.setProgress(depth > 0 ? depth : 0);
+								rowConfidenceCircular.setProgress(depth > 0 ? depth : 0);
 							}
 							else
 							{
-								rowConfidence.setProgress(0);
+								rowConfidenceCircular.setProgress(0);
 							}
 						}
-						else if (confidenceType == ConfidenceType.OVERRIDDEN_BY_DOUBLE_SPEND || confidenceType == ConfidenceType.NOT_IN_BEST_CHAIN)
+						else if (confidenceType == ConfidenceType.NOT_IN_BEST_CHAIN)
 						{
-							rowConfidence.setVisibility(View.VISIBLE);
-							rowConfidenceUnknown.setVisibility(View.GONE);
+							rowConfidenceCircular.setVisibility(View.GONE);
+							rowConfidenceTextual.setVisibility(View.VISIBLE);
+							textColor = colorSignificant;
+
+							rowConfidenceTextual.setText("!");
+							rowConfidenceTextual.setTextColor(Color.RED);
+						}
+						else if (confidenceType == ConfidenceType.OVERRIDDEN_BY_DOUBLE_SPEND)
+						{
+							rowConfidenceCircular.setVisibility(View.GONE);
+							rowConfidenceTextual.setVisibility(View.VISIBLE);
 							textColor = Color.RED;
 
-							rowConfidence.setProgress(0);
+							rowConfidenceTextual.setText("\u271D"); // latin cross
+							rowConfidenceTextual.setTextColor(Color.RED);
 						}
 						else
 						{
-							rowConfidence.setVisibility(View.GONE);
-							rowConfidenceUnknown.setVisibility(View.VISIBLE);
+							rowConfidenceCircular.setVisibility(View.GONE);
+							rowConfidenceTextual.setVisibility(View.VISIBLE);
 							textColor = colorInsignificant;
+
+							rowConfidenceTextual.setText("?");
+							rowConfidenceTextual.setTextColor(colorInsignificant);
 						}
 
 						final String address;
