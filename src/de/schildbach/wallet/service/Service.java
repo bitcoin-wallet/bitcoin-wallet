@@ -112,11 +112,6 @@ public class Service extends android.app.Service
 		@Override
 		public void onCoinsReceived(final Wallet wallet, final Transaction tx, final BigInteger prevBalance, final BigInteger newBalance)
 		{
-			onReceived(wallet, tx);
-		}
-
-		private void onReceived(final Wallet wallet, final Transaction tx)
-		{
 			try
 			{
 				final TransactionInput input = tx.getInputs().get(0);
