@@ -104,7 +104,7 @@ public class Service extends android.app.Service
 	private static final int NOTIFICATION_ID_COINS_RECEIVED = 1;
 
 	private int notificationCount = 0;
-	private BigInteger notificationAccumulatedAmount;
+	private BigInteger notificationAccumulatedAmount = BigInteger.ZERO;
 	private final List<Address> notificationAddresses = new LinkedList<Address>();
 
 	private final WalletEventListener walletEventListener = new AbstractWalletEventListener()
