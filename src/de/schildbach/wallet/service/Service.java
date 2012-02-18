@@ -144,6 +144,9 @@ public class Service extends android.app.Service
 		if (from != null && !notificationAddresses.contains(from))
 			notificationAddresses.add(from);
 
+		final String tickerMsg = getString(R.string.notification_coins_received_msg, Utils.bitcoinValueToFriendlyString(amount))
+				+ (Constants.TEST ? " [testnet]" : "");
+
 		final String msg = getString(R.string.notification_coins_received_msg, Utils.bitcoinValueToFriendlyString(notificationAccumulatedAmount))
 				+ (Constants.TEST ? " [testnet]" : "");
 
@@ -160,11 +163,12 @@ public class Service extends android.app.Service
 
 		text.insert(0, "From ");
 
-		final Notification notification = new Notification(R.drawable.stat_notify_received, msg, System.currentTimeMillis());
-		notification.sound = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.coins_received);
+		final Notification notification = new Notification(R.drawable.stat_notify_received, tickerMsg, System.currentTimeMillis());
 		notification.setLatestEventInfo(Service.this, msg, text,
 				PendingIntent.getActivity(Service.this, 0, new Intent(Service.this, WalletActivity.class), 0));
+
 		notification.number = notificationCount == 1 ? 0 : notificationCount;
+		notification.sound = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.coins_received);
 
 		nm.notify(NOTIFICATION_ID_COINS_RECEIVED, notification);
 	}
