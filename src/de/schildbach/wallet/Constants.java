@@ -83,6 +83,7 @@ public class Constants
 	public static final String DEFAULT_EXCHANGE_CURRENCY = "USD";
 	public static final int WALLET_OPERATION_STACK_SIZE = 256 * 1024;
 	public static final int BLOCKCHAIN_DOWNLOAD_THRESHOLD_MS = 5000;
+	public static final int SHUTDOWN_REMOVE_NOTIFICATION_DELAY = 2000;
 
 	public static final String DONATION_ADDRESS = "1PZmMahjbfsTy6DsaRyfStzoWTPppWwDnZ";
 

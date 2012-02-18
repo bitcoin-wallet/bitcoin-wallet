@@ -486,7 +486,7 @@ public class Service extends android.app.Service
 			{
 				nm.cancel(NOTIFICATION_ID_CONNECTED);
 			}
-		}, 2000);
+		}, Constants.SHUTDOWN_REMOVE_NOTIFICATION_DELAY);
 
 		super.onDestroy();
 	}
