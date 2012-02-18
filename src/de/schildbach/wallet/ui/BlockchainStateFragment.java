@@ -27,6 +27,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.IBinder;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -34,6 +35,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.service.Service;
 import de.schildbach.wallet_test.R;
 
@@ -47,6 +49,8 @@ public class BlockchainStateFragment extends Fragment
 
 	private int download;
 	private Date bestChainDate;
+
+	private final Handler delayMessageHandler = new Handler();
 
 	private final ServiceConnection serviceConnection = new ServiceConnection()
 	{
@@ -129,6 +133,8 @@ public class BlockchainStateFragment extends Fragment
 	{
 		final Activity activity = getActivity();
 
+		delayMessageHandler.removeCallbacksAndMessages(null);
+
 		activity.unbindService(serviceConnection);
 
 		super.onDestroy();
@@ -155,12 +161,34 @@ public class BlockchainStateFragment extends Fragment
 			messageView.setVisibility(spanHours < 2 ? View.INVISIBLE : View.VISIBLE);
 			disclaimerView.setVisibility(spanHours < 2 ? View.VISIBLE : View.INVISIBLE);
 
+			final String downloading = getString(R.string.wallet_message_blockchain_downloading);
+			final String stalled = getString(R.string.wallet_message_blockchain_stalled);
+
+			final String stalledText;
 			if (spanHours < 48)
-				messageView.setText(getString(R.string.wallet_message_blockchain_hours, spanHours));
+			{
+				messageView.setText(getString(R.string.wallet_message_blockchain_hours, downloading, spanHours));
+				stalledText = getString(R.string.wallet_message_blockchain_hours, stalled, spanHours);
+			}
 			else if (spanHours < 24 * 14)
-				messageView.setText(getString(R.string.wallet_message_blockchain_days, spanHours / 24));
+			{
+				messageView.setText(getString(R.string.wallet_message_blockchain_days, downloading, spanHours / 24));
+				stalledText = getString(R.string.wallet_message_blockchain_days, stalled, spanHours / 24);
+			}
 			else
-				messageView.setText(getString(R.string.wallet_message_blockchain_weeks, spanHours / 24 / 7));
+			{
+				messageView.setText(getString(R.string.wallet_message_blockchain_weeks, downloading, spanHours / 24 / 7));
+				stalledText = getString(R.string.wallet_message_blockchain_weeks, stalled, spanHours / 24 / 7);
+			}
+
+			delayMessageHandler.removeCallbacksAndMessages(null);
+			delayMessageHandler.postDelayed(new Runnable()
+			{
+				public void run()
+				{
+					messageView.setText(stalledText);
+				}
+			}, Constants.BLOCKCHAIN_DOWNLOAD_THRESHOLD_MS);
 		}
 		else
 		{

@@ -6,9 +6,11 @@
 	<string name="toast_wallet_reset">Wallet wurde zurückgesetzt,\nwird einige Zeit benötigen</string>
 
 	<string name="wallet_content_disclaimer">Dies ist eine experimentelle App. Benutzung auf eigene Gefahr. Bitte lies die Sicherheitshinweise.</string>
-	<string name="wallet_message_blockchain_hours">Die Blockchain hinkt %d Stunden hinterher</string>
-	<string name="wallet_message_blockchain_days">Die Blockchain hinkt %d Tage hinterher</string>
-	<string name="wallet_message_blockchain_weeks">Die Blockchain hinkt %d Wochen hinterher</string>
+	<string name="wallet_message_blockchain_hours">Blockchain %1$s, hinkt %2$d Stunden hinterher</string>
+	<string name="wallet_message_blockchain_days">Blockchain %1$s, hinkt %2$d Tage hinterher</string>
+	<string name="wallet_message_blockchain_weeks">Blockchain %1$s, hinkt %2$d Wochen hinterher</string>
+	<string name="wallet_message_blockchain_downloading">lädt</string>
+	<string name="wallet_message_blockchain_stalled">blockiert</string>
 	<string name="wallet_message_blockchain_problem_storage">Blockchain lädt nicht: Speicherplatz-Problem</string>
 	<string name="wallet_message_blockchain_problem_power">Blockchain lädt nicht: Stromversorgungs-Problem</string>
 	<string name="wallet_message_blockchain_problem_network">Blockchain lädt nicht: Netzwerk-Problem</string>
