@@ -122,7 +122,9 @@ public class Service extends android.app.Service
 				{
 					public void run()
 					{
-						notifyCoinsReceived(from, amount);
+						if (amount.signum() > 0)
+							notifyCoinsReceived(from, amount);
+
 						notifyWidgets();
 					}
 				});
