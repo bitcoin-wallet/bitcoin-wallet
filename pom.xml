@@ -7,7 +7,7 @@
 	<groupId>de.schildbach.wallet</groupId>
 	<artifactId>wallet_test</artifactId>
 	<packaging>apk</packaging>
-	<version>1.48</version>
+	<version>1.52</version>
 	<name>Bitcoin Wallet</name>
 
 	<dependencies>
