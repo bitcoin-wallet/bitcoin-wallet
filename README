@@ -126,10 +126,6 @@ http://code.google.com/p/bitcoinj/
 
 Delta to upstream BitCoinJ:
 
-- Support of incoming pending transactions
-
 - Basic support for transaction fees
-
-- Support for re-broadcasting of transactions that have already been broadcasted
 
 - Bouncycastle library is still embedded (re-packaged), rather than just declared as a required dependency
