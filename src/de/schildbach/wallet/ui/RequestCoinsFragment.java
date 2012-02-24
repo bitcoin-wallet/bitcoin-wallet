@@ -35,7 +35,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.google.bitcoin.core.Address;
-import com.google.bitcoin.core.Utils;
+import com.google.bitcoin.uri.BitcoinURI;
 
 import de.schildbach.wallet.Application;
 import de.schildbach.wallet.Constants;
@@ -186,11 +186,6 @@ public class RequestCoinsFragment extends Fragment
 		final Address address = application.determineSelectedAddress();
 		final BigInteger amount = amountView.getAmount();
 
-		final StringBuilder builder = new StringBuilder("bitcoin:");
-		builder.append(address.toString());
-		if (amount != null && amount.signum() > 0)
-			builder.append("?amount=").append(Utils.bitcoinValueToFriendlyString(amount));
-
-		return builder.toString();
+		return BitcoinURI.convertToBitcoinURI(address, amount, null, null).toString();
 	}
 }

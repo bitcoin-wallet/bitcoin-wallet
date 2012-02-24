@@ -33,10 +33,10 @@ import android.view.Window;
 import android.webkit.WebView;
 
 import com.google.bitcoin.core.Address;
+import com.google.bitcoin.uri.BitcoinURI;
+import com.google.bitcoin.uri.BitcoinURIParseException;
 
-import de.schildbach.wallet.BitcoinURI;
 import de.schildbach.wallet.Constants;
-import de.schildbach.wallet.BitcoinURI.ParseException;
 import de.schildbach.wallet.util.ActionBarFragment;
 import de.schildbach.wallet_test.R;
 
@@ -140,11 +140,11 @@ public class SendCoinsActivity extends AbstractWalletActivity
 			{
 				try
 				{
-					final BitcoinURI bitcoinUri = new BitcoinURI(contents);
+					final BitcoinURI bitcoinUri = new BitcoinURI(Constants.NETWORK_PARAMETERS, contents);
 					final Address address = bitcoinUri.getAddress();
 					updateSendCoinsFragment(address != null ? address.toString() : null, bitcoinUri.getAmount());
 				}
-				catch (final BitcoinURI.ParseException x)
+				catch (final BitcoinURIParseException x)
 				{
 					parseErrorDialog(contents);
 				}
@@ -165,11 +165,11 @@ public class SendCoinsActivity extends AbstractWalletActivity
 		{
 			try
 			{
-				final BitcoinURI bitcoinUri = new BitcoinURI(intentUri);
-				address = bitcoinUri.getAddressAsString();
+				final BitcoinURI bitcoinUri = new BitcoinURI(Constants.NETWORK_PARAMETERS, intentUri.toString());
+				address = bitcoinUri.getAddress().toString();
 				amount = bitcoinUri.getAmount();
 			}
-			catch (final BitcoinURI.ParseException x)
+			catch (final BitcoinURIParseException x)
 			{
 				parseErrorDialog(intentUri.toString());
 				return;
@@ -179,11 +179,11 @@ public class SendCoinsActivity extends AbstractWalletActivity
 		{
 			try
 			{
-				final BitcoinURI bitcoinUri = new BitcoinURI(intent.getStringExtra(INTENT_EXTRA_QUERY));
-				address = bitcoinUri.getAddressAsString();
+				final BitcoinURI bitcoinUri = new BitcoinURI(Constants.NETWORK_PARAMETERS, intent.getStringExtra(INTENT_EXTRA_QUERY));
+				address = bitcoinUri.getAddress().toString();
 				amount = bitcoinUri.getAmount();
 			}
-			catch (final BitcoinURI.ParseException x)
+			catch (final BitcoinURIParseException x)
 			{
 				parseErrorDialog(intentUri.toString());
 				return;

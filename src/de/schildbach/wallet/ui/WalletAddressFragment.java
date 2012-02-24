@@ -39,6 +39,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.bitcoin.core.Address;
+import com.google.bitcoin.core.AddressFormatException;
+import com.google.bitcoin.uri.BitcoinURI;
 
 import de.schildbach.wallet.Application;
 import de.schildbach.wallet.Constants;
@@ -116,11 +118,20 @@ public class WalletAddressFragment extends Fragment
 				((AbstractWalletActivity) getActivity()).toast(R.string.wallet_address_fragment_clipboard_msg);
 			}
 
-			private void share(final String address)
+			private void share(final String addressStr)
 			{
-				startActivity(Intent.createChooser(
-						new Intent(Intent.ACTION_SEND).putExtra(Intent.EXTRA_TEXT, "bitcoin:" + address).setType("text/plain"),
-						getString(R.string.wallet_address_fragment_share_dialog_title)));
+				try
+				{
+					final Address address = new Address(Constants.NETWORK_PARAMETERS, addressStr);
+					final Intent intent = new Intent(Intent.ACTION_SEND);
+					intent.putExtra(Intent.EXTRA_TEXT, BitcoinURI.convertToBitcoinURI(address, null, null, null));
+					intent.setType("text/plain");
+					startActivity(Intent.createChooser(intent, getString(R.string.wallet_address_fragment_share_dialog_title)));
+				}
+				catch (final AddressFormatException x)
+				{
+					throw new RuntimeException(x);
+				}
 			}
 		});
 
@@ -170,7 +181,7 @@ public class WalletAddressFragment extends Fragment
 
 		bitcoinAddressLabel.setText(WalletUtils.splitIntoLines(selectedAddress.toString(), 3));
 
-		final String addressStr = "bitcoin:" + selectedAddress;
+		final String addressStr = BitcoinURI.convertToBitcoinURI(selectedAddress, null, null, null);
 
 		final int size = (int) (256 * getResources().getDisplayMetrics().density);
 		qrCodeBitmap = WalletUtils.getQRCodeBitmap(addressStr, size);
