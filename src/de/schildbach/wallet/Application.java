@@ -94,7 +94,9 @@ public class Application extends android.app.Application
 
 		ErrorReporter.getInstance().init(this);
 
-		loadWallet();
+		migrateWalletToProtobuf();
+
+		loadWalletFromProtobuf();
 
 		backupKeys();
 
@@ -106,19 +108,27 @@ public class Application extends android.app.Application
 		return wallet;
 	}
 
-	private void loadWallet()
+	private void migrateWalletToProtobuf()
 	{
 		try
 		{
 			final long start = System.currentTimeMillis();
 			final FileInputStream is = openFileInput(Constants.WALLET_FILENAME);
+
 			runWithStackSize(new Runnable()
 			{
 				public void run()
 				{
 					try
 					{
-						wallet = Wallet.loadFromFileStream(is);
+						// read
+						final Wallet walletToMigrate = Wallet.loadFromFileStream(is);
+
+						// write
+						protobufSerializeWallet(walletToMigrate);
+
+						// delete
+						new File(getFilesDir(), Constants.WALLET_FILENAME).delete();
 					}
 					catch (final EOFException x)
 					{
@@ -134,7 +144,7 @@ public class Application extends android.app.Application
 					}
 					catch (final IOException x)
 					{
-						throw new Error("cannot load wallet", x);
+						throw new Error("cannot migrate wallet", x);
 					}
 				}
 
@@ -142,64 +152,69 @@ public class Application extends android.app.Application
 				{
 					x.printStackTrace();
 
-					wallet = restoreWallet();
-
-					handler.post(new Runnable()
-					{
-						public void run()
-						{
-							Toast.makeText(Application.this, R.string.toast_wallet_reset, Toast.LENGTH_LONG).show();
-						}
-					});
-				}
-
-				private Wallet restoreWallet()
-				{
 					try
 					{
-						final Wallet wallet = new Wallet(Constants.NETWORK_PARAMETERS);
-						final BufferedReader in = new BufferedReader(
-								new InputStreamReader(openFileInput(Constants.WALLET_KEY_BACKUP_BASE58), "UTF-8"));
+						// read
+						final Wallet walletToMigrate = restoreWalletFromBackup();
 
-						while (true)
+						// write
+						protobufSerializeWallet(walletToMigrate);
+
+						// delete
+						new File(getFilesDir(), Constants.WALLET_FILENAME).delete();
+
+						handler.post(new Runnable()
 						{
-							final String line = in.readLine();
-							if (line == null)
-								break;
-
-							final String[] parts = line.split(" ");
-
-							final ECKey key = new DumpedPrivateKey(Constants.NETWORK_PARAMETERS, parts[0]).getKey();
-							key.setCreationTimeSeconds(parts.length >= 2 ? Iso8601Format.parseDateTimeT(parts[1]).getTime() / 1000 : 0);
-
-							wallet.keychain.add(key);
-						}
-
-						in.close();
-
-						final File file = new File(getDir("blockstore", Context.MODE_WORLD_READABLE | Context.MODE_WORLD_WRITEABLE),
-								Constants.BLOCKCHAIN_FILENAME);
-						file.delete();
-
-						return wallet;
+							public void run()
+							{
+								Toast.makeText(Application.this, R.string.toast_wallet_reset, Toast.LENGTH_LONG).show();
+							}
+						});
 					}
-					catch (final IOException x)
+					catch (final IOException x2)
 					{
-						throw new RuntimeException(x);
-					}
-					catch (final AddressFormatException x)
-					{
-						throw new RuntimeException(x);
-					}
-					catch (final ParseException x)
-					{
-						throw new RuntimeException(x);
+						throw new RuntimeException(x2);
 					}
 				}
-
 			}, Constants.WALLET_OPERATION_STACK_SIZE);
 
-			System.out.println("wallet loaded from: '" + getFilesDir() + "/" + Constants.WALLET_FILENAME + "', took "
+			System.out.println("wallet migrated: '" + getFilesDir() + "/" + Constants.WALLET_FILENAME + "', took "
+					+ (System.currentTimeMillis() - start) + "ms");
+		}
+		catch (final FileNotFoundException x)
+		{
+			System.out.println("no wallet to migrate");
+			return; // nothing to migrate
+		}
+	}
+
+	private void loadWalletFromProtobuf()
+	{
+		try
+		{
+			final long start = System.currentTimeMillis();
+			final FileInputStream is = openFileInput(Constants.WALLET_FILENAME_PROTOBUF);
+
+			try
+			{
+				wallet = WalletProtobufSerializer.readWallet(is, Constants.NETWORK_PARAMETERS);
+			}
+			catch (final IOException x)
+			{
+				x.printStackTrace();
+
+				wallet = restoreWalletFromBackup();
+
+				handler.post(new Runnable()
+				{
+					public void run()
+					{
+						Toast.makeText(Application.this, R.string.toast_wallet_reset, Toast.LENGTH_LONG).show();
+					}
+				});
+			}
+
+			System.out.println("wallet loaded from: '" + getFilesDir() + "/" + Constants.WALLET_FILENAME_PROTOBUF + "', took "
 					+ (System.currentTimeMillis() - start) + "ms");
 		}
 		catch (final FileNotFoundException x)
@@ -215,14 +230,57 @@ public class Application extends android.app.Application
 
 				try
 				{
-					wallet.saveToFileStream(openFileOutput(Constants.WALLET_FILENAME, Constants.WALLET_MODE));
-					System.out.println("wallet created: '" + getFilesDir() + "/" + Constants.WALLET_FILENAME + "'");
+					protobufSerializeWallet(wallet);
+					System.out.println("wallet created: '" + getFilesDir() + "/" + Constants.WALLET_FILENAME_PROTOBUF + "'");
 				}
 				catch (final IOException x3)
 				{
 					throw new Error("wallet cannot be created", x3);
 				}
 			}
+		}
+	}
+
+	private Wallet restoreWalletFromBackup()
+	{
+		try
+		{
+			final Wallet wallet = new Wallet(Constants.NETWORK_PARAMETERS);
+			final BufferedReader in = new BufferedReader(new InputStreamReader(openFileInput(Constants.WALLET_KEY_BACKUP_BASE58), "UTF-8"));
+
+			while (true)
+			{
+				final String line = in.readLine();
+				if (line == null)
+					break;
+
+				final String[] parts = line.split(" ");
+
+				final ECKey key = new DumpedPrivateKey(Constants.NETWORK_PARAMETERS, parts[0]).getKey();
+				key.setCreationTimeSeconds(parts.length >= 2 ? Iso8601Format.parseDateTimeT(parts[1]).getTime() / 1000 : 0);
+
+				wallet.keychain.add(key);
+			}
+
+			in.close();
+
+			final File file = new File(getDir("blockstore", Context.MODE_WORLD_READABLE | Context.MODE_WORLD_WRITEABLE),
+					Constants.BLOCKCHAIN_FILENAME);
+			file.delete();
+
+			return wallet;
+		}
+		catch (final IOException x)
+		{
+			throw new RuntimeException(x);
+		}
+		catch (final AddressFormatException x)
+		{
+			throw new RuntimeException(x);
+		}
+		catch (final ParseException x)
+		{
+			throw new RuntimeException(x);
 		}
 	}
 
@@ -282,44 +340,22 @@ public class Application extends android.app.Application
 
 	public void saveWallet()
 	{
-		javaSerializeWallet(this, wallet);
-		// protobufSerializeWallet(this, wallet);
-	}
-
-	private static void javaSerializeWallet(final Context context, final Wallet wallet)
-	{
-		runWithStackSize(new Runnable()
-		{
-			public void run()
-			{
-				try
-				{
-					final long start = System.currentTimeMillis();
-					wallet.saveToFileStream(context.openFileOutput(Constants.WALLET_FILENAME, Constants.WALLET_MODE));
-					System.out.println("wallet saved to: '" + context.getFilesDir() + "/" + Constants.WALLET_FILENAME + "', took "
-							+ (System.currentTimeMillis() - start) + "ms");
-				}
-				catch (final IOException x)
-				{
-					throw new RuntimeException(x);
-				}
-			}
-		}, Constants.WALLET_OPERATION_STACK_SIZE);
-	}
-
-	private static void protobufSerializeWallet(final Context context, final Wallet wallet)
-	{
 		try
 		{
-			final long start = System.currentTimeMillis();
-			WalletProtobufSerializer.writeWallet(wallet, context.openFileOutput(Constants.WALLET_FILENAME_PROTOBUF, Constants.WALLET_MODE));
-			System.out.println("wallet saved to: '" + context.getFilesDir() + "/" + Constants.WALLET_FILENAME_PROTOBUF + "', took "
-					+ (System.currentTimeMillis() - start) + "ms");
+			protobufSerializeWallet(wallet);
 		}
 		catch (final IOException x)
 		{
 			throw new RuntimeException(x);
 		}
+	}
+
+	private void protobufSerializeWallet(final Wallet wallet) throws IOException
+	{
+		final long start = System.currentTimeMillis();
+		WalletProtobufSerializer.writeWallet(wallet, openFileOutput(Constants.WALLET_FILENAME_PROTOBUF, Constants.WALLET_MODE));
+		System.out.println("wallet saved to: '" + getFilesDir() + "/" + Constants.WALLET_FILENAME_PROTOBUF + "', took "
+				+ (System.currentTimeMillis() - start) + "ms");
 	}
 
 	private void writeKeys(final OutputStream os) throws IOException
