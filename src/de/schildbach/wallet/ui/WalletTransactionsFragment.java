@@ -210,7 +210,7 @@ public class WalletTransactionsFragment extends Fragment
 
 					try
 					{
-						final BigInteger amount = tx.amount(wallet);
+						final BigInteger amount = tx.getValue(wallet);
 						final boolean sent = amount.signum() < 0;
 
 						final CircularProgressView rowConfidenceCircular = (CircularProgressView) row
@@ -431,7 +431,7 @@ public class WalletTransactionsFragment extends Fragment
 			{
 				for (final Transaction tx : transactions)
 				{
-					final boolean sent = tx.amount(wallet).signum() < 0;
+					final boolean sent = tx.getValue(wallet).signum() < 0;
 					if ((mode == 0 && !sent) || mode == 1 || (mode == 2 && sent))
 						adapter.add(tx);
 				}
@@ -448,7 +448,7 @@ public class WalletTransactionsFragment extends Fragment
 
 			try
 			{
-				final boolean sent = tx.amount(wallet).signum() < 0;
+				final boolean sent = tx.getValue(wallet).signum() < 0;
 				final Address address = sent ? tx.getOutputs().get(0).getScriptPubKey().getToAddress() : tx.getInputs().get(0).getFromAddress();
 
 				EditAddressBookEntryFragment.edit(getFragmentManager(), address.toString());

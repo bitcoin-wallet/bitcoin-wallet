@@ -116,7 +116,7 @@ public class Service extends android.app.Service
 			{
 				final TransactionInput input = tx.getInputs().get(0);
 				final Address from = input.getFromAddress();
-				final BigInteger amount = tx.amount(wallet);
+				final BigInteger amount = tx.getValue(wallet);
 
 				handler.post(new Runnable()
 				{
