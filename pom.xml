@@ -32,6 +32,10 @@
 					<groupId>org.bouncycastle</groupId>
 					<artifactId>bcprov-jdk15</artifactId>
 				</exclusion>
+				<exclusion>
+					<groupId>net.sf.jopt-simple</groupId>
+					<artifactId>jopt-simple</artifactId>
+				</exclusion>
 			</exclusions>
 		</dependency>
 		<dependency>
