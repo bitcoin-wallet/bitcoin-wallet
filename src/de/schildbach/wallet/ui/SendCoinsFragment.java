@@ -21,12 +21,10 @@ import java.math.BigInteger;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.database.Cursor;
 import android.graphics.Color;
@@ -79,7 +77,6 @@ public class SendCoinsFragment extends Fragment
 	private Button viewCancel;
 
 	private State state = State.INPUT;
-	private int numPeers;
 
 	private enum State
 	{
@@ -130,16 +127,6 @@ public class SendCoinsFragment extends Fragment
 		}
 	};
 
-	private final BroadcastReceiver broadcastReceiver = new BroadcastReceiver()
-	{
-		@Override
-		public void onReceive(final Context context, final Intent intent)
-		{
-			numPeers = intent.getIntExtra(Service.ACTION_PEER_STATE_NUM_PEERS, 0);
-			updateView();
-		}
-	};
-
 	@Override
 	public void onCreate(final Bundle savedInstanceState)
 	{
@@ -150,8 +137,6 @@ public class SendCoinsFragment extends Fragment
 		application = (Application) activity.getApplication();
 
 		activity.bindService(new Intent(activity, Service.class), serviceConnection, Context.BIND_AUTO_CREATE);
-
-		activity.registerReceiver(broadcastReceiver, new IntentFilter(Service.ACTION_PEER_STATE));
 	}
 
 	@Override
@@ -301,8 +286,6 @@ public class SendCoinsFragment extends Fragment
 	{
 		final Activity activity = getActivity();
 
-		activity.unregisterReceiver(broadcastReceiver);
-
 		activity.unbindService(serviceConnection);
 
 		super.onDestroy();
@@ -371,15 +354,13 @@ public class SendCoinsFragment extends Fragment
 		final BigInteger fee = feeView.getAmount();
 		final boolean validFee = fee != null && fee.signum() >= 0;
 
-		final boolean hasPeers = numPeers > 0;
-
 		receivingAddressView.setEnabled(state == State.INPUT);
 
 		amountView.setEnabled(state == State.INPUT);
 
 		feeView.setEnabled(state == State.INPUT);
 
-		viewGo.setEnabled(state == State.INPUT && validAddress && validAmount && validFee && hasPeers);
+		viewGo.setEnabled(state == State.INPUT && validAddress && validAmount && validFee);
 		if (state == State.INPUT)
 			viewGo.setText(R.string.send_coins_fragment_button_send);
 		else if (state == State.SENDING)
