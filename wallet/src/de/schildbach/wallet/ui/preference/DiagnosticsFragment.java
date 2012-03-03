@@ -36,7 +36,7 @@ import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.ui.DialogBuilder;
 import de.schildbach.wallet.ui.ReportIssueDialogBuilder;
 import de.schildbach.wallet.util.CrashReporter;
-import de.schildbach.wallet_test.R;
+import de.schildbach.wallet.R;
 
 /**
  * @author Andreas Schildbach
