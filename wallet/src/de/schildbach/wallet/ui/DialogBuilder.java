@@ -19,7 +19,7 @@ package de.schildbach.wallet.ui;
 
 import javax.annotation.Nullable;
 
-import de.schildbach.wallet_test.R;
+import de.schildbach.wallet.R;
 
 import android.app.AlertDialog;
 import android.content.Context;
