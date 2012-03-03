@@ -24,7 +24,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import de.schildbach.wallet.ui.AbstractBindServiceActivity;
-import de.schildbach.wallet_test.R;
+import de.schildbach.wallet.R;
 
 /**
  * @author Andreas Schildbach
