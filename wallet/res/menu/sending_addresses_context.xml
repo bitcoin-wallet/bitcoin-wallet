@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+	<item android:id="@+id/sending_addresses_context_send" android:title="@string/address_book_context_send_title" />
+	<item android:id="@+id/sending_addresses_context_edit" android:title="@string/address_book_context_edit_title" />
+	<item android:id="@+id/sending_addresses_context_remove" android:title="@string/address_book_context_remove_title" />
+</menu>

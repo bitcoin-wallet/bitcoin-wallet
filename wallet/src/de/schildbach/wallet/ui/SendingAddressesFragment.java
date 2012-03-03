@@ -17,6 +17,8 @@
 
 package de.schildbach.wallet.ui;
 
+import java.util.ArrayList;
+
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -34,6 +36,9 @@ import android.view.View;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.google.bitcoin.core.Address;
+
 import de.schildbach.wallet.AddressBookProvider;
 import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
@@ -41,9 +46,10 @@ import de.schildbach.wallet_test.R;
 /**
  * @author Andreas Schildbach
  */
-public class AddressBookFragment extends ListFragment implements LoaderManager.LoaderCallbacks<Cursor>
+public class SendingAddressesFragment extends ListFragment implements LoaderManager.LoaderCallbacks<Cursor>
 {
 	private SimpleCursorAdapter adapter;
+	private String walletAddressesSelection;
 
 	@Override
 	public void onActivityCreated(final Bundle savedInstanceState)
@@ -90,29 +96,39 @@ public class AddressBookFragment extends ListFragment implements LoaderManager.L
 	@Override
 	public void onCreateContextMenu(final ContextMenu menu, final View v, final ContextMenuInfo menuInfo)
 	{
-		getActivity().getMenuInflater().inflate(R.menu.address_book_context, menu);
+		getActivity().getMenuInflater().inflate(R.menu.sending_addresses_context, menu);
 	}
 
 	@Override
 	public boolean onContextItemSelected(final MenuItem item)
 	{
 		final AdapterContextMenuInfo menuInfo = (AdapterContextMenuInfo) item.getMenuInfo();
-		final Cursor cursor = (Cursor) adapter.getItem(menuInfo.position);
-		final String address = cursor.getString(cursor.getColumnIndexOrThrow(AddressBookProvider.KEY_ADDRESS));
 
 		switch (item.getItemId())
 		{
-			case R.id.address_book_context_send:
+			case R.id.sending_addresses_context_send:
+			{
+				final Cursor cursor = (Cursor) adapter.getItem(menuInfo.position);
+				final String address = cursor.getString(cursor.getColumnIndexOrThrow(AddressBookProvider.KEY_ADDRESS));
 				handleSend(address);
 				return true;
+			}
 
-			case R.id.address_book_context_edit:
+			case R.id.sending_addresses_context_edit:
+			{
+				final Cursor cursor = (Cursor) adapter.getItem(menuInfo.position);
+				final String address = cursor.getString(cursor.getColumnIndexOrThrow(AddressBookProvider.KEY_ADDRESS));
 				EditAddressBookEntryFragment.edit(getFragmentManager(), address);
 				return true;
+			}
 
-			case R.id.address_book_context_remove:
+			case R.id.sending_addresses_context_remove:
+			{
+				final Cursor cursor = (Cursor) adapter.getItem(menuInfo.position);
+				final String address = cursor.getString(cursor.getColumnIndexOrThrow(AddressBookProvider.KEY_ADDRESS));
 				handleRemove(address);
 				return true;
+			}
 
 			default:
 				return false;
@@ -134,7 +150,8 @@ public class AddressBookFragment extends ListFragment implements LoaderManager.L
 
 	public Loader<Cursor> onCreateLoader(final int id, final Bundle args)
 	{
-		return new CursorLoader(getActivity(), AddressBookProvider.CONTENT_URI, null, null, null, AddressBookProvider.KEY_LABEL
+		final Uri uri = AddressBookProvider.CONTENT_URI;
+		return new CursorLoader(getActivity(), uri, null, "notin", new String[] { walletAddressesSelection }, AddressBookProvider.KEY_LABEL
 				+ " COLLATE LOCALIZED ASC");
 	}
 
@@ -146,5 +163,16 @@ public class AddressBookFragment extends ListFragment implements LoaderManager.L
 	public void onLoaderReset(final Loader<Cursor> loader)
 	{
 		adapter.swapCursor(null);
+	}
+
+	public void setWalletAddresses(final ArrayList<Address> addresses)
+	{
+		final StringBuilder builder = new StringBuilder();
+		for (final Address address : addresses)
+			builder.append(address.toString()).append(",");
+		if (addresses.size() > 0)
+			builder.setLength(builder.length() - 1);
+
+		walletAddressesSelection = builder.toString();
 	}
 }

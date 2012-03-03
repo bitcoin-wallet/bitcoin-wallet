@@ -143,6 +143,22 @@ public class AddressBookProvider extends ContentProvider
 			qb.appendWhere(KEY_ADDRESS + "=");
 			qb.appendWhereEscapeString(address);
 		}
+		else if ("in".equals(selection))
+		{
+			final String[] addresses = selectionArgs[0].trim().split(",");
+
+			qb.appendWhere(KEY_ADDRESS + " IN (");
+			appendAddresses(qb, addresses);
+			qb.appendWhere(")");
+		}
+		else if ("notin".equals(selection))
+		{
+			final String[] addresses = selectionArgs[0].trim().split(",");
+
+			qb.appendWhere(KEY_ADDRESS + " NOT IN (");
+			appendAddresses(qb, addresses);
+			qb.appendWhere(")");
+		}
 		else if ("q".equals(selection))
 		{
 			final String query = '%' + selectionArgs[0].trim() + '%';
@@ -150,11 +166,21 @@ public class AddressBookProvider extends ContentProvider
 			selectionArgs = new String[] { query, query };
 		}
 
-		final Cursor cursor = qb.query(helper.getReadableDatabase(), projection, selection, selectionArgs, null, null, sortOrder);
+		final Cursor cursor = qb.query(helper.getReadableDatabase(), projection, null, null, null, null, sortOrder);
 
 		cursor.setNotificationUri(getContext().getContentResolver(), uri);
 
 		return cursor;
+	}
+
+	private static void appendAddresses(final SQLiteQueryBuilder qb, final String[] addresses)
+	{
+		for (final String address : addresses)
+		{
+			qb.appendWhereEscapeString(address.trim());
+			if (!address.equals(addresses[addresses.length - 1]))
+				qb.appendWhere(",");
+		}
 	}
 
 	private static class Helper extends SQLiteOpenHelper

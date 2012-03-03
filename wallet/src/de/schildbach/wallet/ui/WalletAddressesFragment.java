@@ -22,9 +22,8 @@ import java.util.Date;
 import java.util.List;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.ListFragment;
@@ -32,11 +31,9 @@ import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.BaseAdapter;
-import android.widget.ImageButton;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -45,10 +42,10 @@ import com.google.bitcoin.core.Address;
 import com.google.bitcoin.core.ECKey;
 import com.google.bitcoin.core.Wallet;
 
+import de.schildbach.wallet.AddressBookProvider;
 import de.schildbach.wallet.Application;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.DetermineFirstSeenThread;
-import de.schildbach.wallet.util.ActionBarFragment;
 import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
 
@@ -60,8 +57,6 @@ public class WalletAddressesFragment extends ListFragment
 	private Application application;
 	private Activity activity;
 	private List<ECKey> keys;
-
-	private ImageButton addButton;
 
 	@Override
 	public void onCreate(final Bundle savedInstanceState)
@@ -93,37 +88,12 @@ public class WalletAddressesFragment extends ListFragment
 	}
 
 	@Override
-	public void onHiddenChanged(final boolean hidden)
-	{
-		final ActionBarFragment actionBar = ((AbstractWalletActivity) activity).getActionBar();
-
-		if (!hidden)
-		{
-			addButton = actionBar.addButton(R.drawable.ic_action_add);
-			addButton.setOnClickListener(addButtonClickListener);
-		}
-		else
-		{
-			actionBar.removeButton(addButton);
-		}
-	}
-
-	@Override
 	public void onListItemClick(final ListView l, final View v, final int position, final long id)
 	{
 		final ECKey key = keys.get(position);
 		final Address address = key.toAddress(Constants.NETWORK_PARAMETERS);
 
-		final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(activity);
-		prefs.edit().putString(Constants.PREFS_KEY_SELECTED_ADDRESS, address.toString()).commit();
-
-		final WalletAddressFragment walletAddressFragment = (WalletAddressFragment) getFragmentManager().findFragmentById(
-				R.id.wallet_address_fragment);
-		if (walletAddressFragment != null)
-		{
-			walletAddressFragment.updateView();
-			walletAddressFragment.flashAddress();
-		}
+		handleDefault(address);
 	}
 
 	@Override
@@ -143,20 +113,52 @@ public class WalletAddressesFragment extends ListFragment
 	public boolean onContextItemSelected(final MenuItem item)
 	{
 		final AdapterContextMenuInfo menuInfo = (AdapterContextMenuInfo) item.getMenuInfo();
-		final ECKey key = (ECKey) getListAdapter().getItem(menuInfo.position);
 
 		switch (item.getItemId())
 		{
-			case R.id.wallet_addresses_context_determine_creation_time:
-				determineCreationTime(key);
+			case R.id.wallet_addresses_context_default:
+			{
+				final ECKey key = (ECKey) getListAdapter().getItem(menuInfo.position);
+				final Address address = key.toAddress(Constants.NETWORK_PARAMETERS);
+				handleDefault(address);
 				return true;
+			}
+
+			case R.id.wallet_addresses_context_determine_creation_time:
+			{
+				final ECKey key = (ECKey) getListAdapter().getItem(menuInfo.position);
+				handleDetermineCreationTime(key);
+				return true;
+			}
+
+			case R.id.wallet_addresses_context_edit:
+			{
+				final ECKey key = (ECKey) getListAdapter().getItem(menuInfo.position);
+				final Address address = key.toAddress(Constants.NETWORK_PARAMETERS);
+				EditAddressBookEntryFragment.edit(getFragmentManager(), address.toString());
+				return true;
+			}
 
 			default:
 				return false;
 		}
 	}
 
-	private void determineCreationTime(final ECKey key)
+	private void handleDefault(final Address address)
+	{
+		final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(activity);
+		prefs.edit().putString(Constants.PREFS_KEY_SELECTED_ADDRESS, address.toString()).commit();
+
+		final WalletAddressFragment walletAddressFragment = (WalletAddressFragment) getFragmentManager().findFragmentById(
+				R.id.wallet_address_fragment);
+		if (walletAddressFragment != null)
+		{
+			walletAddressFragment.updateView();
+			walletAddressFragment.flashAddress();
+		}
+	}
+
+	private void handleDetermineCreationTime(final ECKey key)
 	{
 		new DetermineFirstSeenThread(key.toAddress(Constants.NETWORK_PARAMETERS).toString())
 		{
@@ -183,27 +185,10 @@ public class WalletAddressesFragment extends ListFragment
 			((BaseAdapter) adapter).notifyDataSetChanged();
 	}
 
-	final OnClickListener addButtonClickListener = new OnClickListener()
-	{
-		public void onClick(final View v)
-		{
-			new AlertDialog.Builder(activity).setTitle(R.string.wallet_addresses_fragment_add_dialog_title)
-					.setMessage(R.string.wallet_addresses_fragment_add_dialog_message)
-					.setPositiveButton(R.string.wallet_addresses_fragment_add_dialog_positive, new DialogInterface.OnClickListener()
-					{
-						public void onClick(final DialogInterface dialog, final int which)
-						{
-							application.addNewKeyToWallet();
-
-							updateView();
-						}
-					}).setNegativeButton(R.string.button_cancel, null).show();
-		}
-	};
-
 	private class Adapter extends BaseAdapter
 	{
 		final DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(activity);
+		final Resources res = getResources();
 
 		public int getCount()
 		{
@@ -226,14 +211,35 @@ public class WalletAddressesFragment extends ListFragment
 			final Address address = key.toAddress(Constants.NETWORK_PARAMETERS);
 
 			if (row == null)
-				row = getLayoutInflater(null).inflate(R.layout.address_row, null);
+				row = getLayoutInflater(null).inflate(R.layout.address_book_row, null);
 
-			final TextView addressView = (TextView) row.findViewById(R.id.address_row_address);
-			addressView.setText(WalletUtils.splitIntoLines(address.toString(), 2));
+			final TextView addressView = (TextView) row.findViewById(R.id.address_book_row_address);
+			addressView.setText(WalletUtils.splitIntoLines(address.toString(), 3));
 
-			final TextView createdView = (TextView) row.findViewById(R.id.address_row_created);
+			final TextView labelView = (TextView) row.findViewById(R.id.address_book_row_label);
+			final String label = AddressBookProvider.resolveLabel(activity.getContentResolver(), address.toString());
+			if (label != null)
+			{
+				labelView.setText(label);
+				labelView.setTextColor(res.getColor(R.color.less_significant));
+			}
+			else
+			{
+				labelView.setText(R.string.wallet_addresses_fragment_unlabeled);
+				labelView.setTextColor(res.getColor(R.color.insignificant));
+			}
+
+			final TextView createdView = (TextView) row.findViewById(R.id.address_book_row_created);
 			final long created = key.getCreationTimeSeconds();
-			createdView.setText(created != 0 ? dateFormat.format(new Date(created * 1000)) : null);
+			if (created != 0)
+			{
+				createdView.setText(dateFormat.format(new Date(created * 1000)));
+				createdView.setVisibility(View.VISIBLE);
+			}
+			else
+			{
+				createdView.setVisibility(View.GONE);
+			}
 
 			return row;
 		}

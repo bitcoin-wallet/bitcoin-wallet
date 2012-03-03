@@ -23,10 +23,10 @@
 		<item>Ins Clipboard kopieren</item>
 		<item>Veröffentlichen</item>
 	</string-array>
+	<string name="wallet_addresses_fragment_unlabeled">(unbenannt)</string>
 	<string name="wallet_addresses_fragment_add_dialog_title">Bitcoin-Adresse hinzufügen</string>
 	<string name="wallet_addresses_fragment_add_dialog_message">Bitcoin-Adressen können nicht gelöscht werden. Möchtest Du eine neue Adresse zu Deinem Wallet hinzufügen?</string>
 	<string name="wallet_addresses_fragment_add_dialog_positive">Adresse hinzufügen</string>
-	<string name="wallet_addresses_context_determine_creation_time">Erstellungszeit ermitteln</string>
 	<string name="wallet_balance_fragment_local_value">etwa %1$s %2$s wert</string>
 	<string name="exchange_rates_fragment_empty_text">Kann Wechselkurse nicht laden</string>
 	<string name="wallet_transactions_fragment_tab_received">Empfangen</string>
@@ -80,10 +80,14 @@
 	<string name="request_coins_share_dialog_title">Anforderung veröffentlichen…</string>
 
 	<string name="address_book_activity_title">Adressbuch</string>
+	<string name="address_book_list_receiving_title">Empfangsadressen</string>
+	<string name="address_book_list_sending_title">Sendeadresssen</string>
 	<string name="address_book_empty_text">Keine Einträge im Adressbuch</string>
 	<string name="address_book_context_send_title">Bitcoins an Adresse senden</string>
 	<string name="address_book_context_edit_title">Adresse ändern</string>
 	<string name="address_book_context_remove_title">Adresse entfernen</string>
+	<string name="address_book_context_default_title">Als Standardadresse setzen</string>
+	<string name="address_book_context_determine_creation_time_title">Erstellungszeit ermitteln</string>
 
 	<string name="edit_address_book_entry_dialog_title_add">Adresse hinzufügen</string>
 	<string name="edit_address_book_entry_dialog_title_edit">Adresse ändern</string>

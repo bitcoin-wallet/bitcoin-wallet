@@ -9,6 +9,7 @@
 	<dimen name="symbol_size_normal">14sp</dimen>
 
 	<dimen name="list_entry_padding_horizontal">8dp</dimen>
+	<dimen name="list_entry_padding_vertical">6dp</dimen>
 
 	<dimen name="action_bar_height">48dp</dimen>
 	<dimen name="action_bar_button_width">48dp</dimen>

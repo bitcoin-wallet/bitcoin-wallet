@@ -21,14 +21,12 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.FragmentActivity;
 import android.text.ClipboardManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -68,9 +66,11 @@ public class WalletAddressFragment extends Fragment
 	@Override
 	public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState)
 	{
-		nfcManager = getActivity().getSystemService(Context.NFC_SERVICE);
+		final FragmentActivity activity = getActivity();
 
-		application = (Application) getActivity().getApplication();
+		nfcManager = activity.getSystemService(Context.NFC_SERVICE);
+
+		application = (Application) activity.getApplication();
 
 		final View view = inflater.inflate(R.layout.wallet_address_fragment, container, false);
 		bitcoinAddressButton = view.findViewById(R.id.bitcoin_address_button);
@@ -81,7 +81,7 @@ public class WalletAddressFragment extends Fragment
 		{
 			public void onClick(final View v)
 			{
-				showAllAddresses();
+				AddressBookActivity.start(activity, false);
 			}
 		});
 
@@ -93,12 +93,12 @@ public class WalletAddressFragment extends Fragment
 
 				System.out.println("selected bitcoin address: " + address + (Constants.TEST ? " [testnet]" : ""));
 
-				new AlertDialog.Builder(getActivity()).setItems(R.array.wallet_address_fragment_context, new DialogInterface.OnClickListener()
+				new AlertDialog.Builder(activity).setItems(R.array.wallet_address_fragment_context, new DialogInterface.OnClickListener()
 				{
 					public void onClick(final DialogInterface dialog, final int which)
 					{
 						if (which == 0)
-							showAllAddresses();
+							AddressBookActivity.start(activity, false);
 						else if (which == 1)
 							showQRCode();
 						else if (which == 2)
@@ -113,9 +113,9 @@ public class WalletAddressFragment extends Fragment
 
 			private void copyToClipboard(final String address)
 			{
-				ClipboardManager clipboardManager = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
+				ClipboardManager clipboardManager = (ClipboardManager) activity.getSystemService(Context.CLIPBOARD_SERVICE);
 				clipboardManager.setText(address);
-				((AbstractWalletActivity) getActivity()).toast(R.string.wallet_address_fragment_clipboard_msg);
+				((AbstractWalletActivity) activity).toast(R.string.wallet_address_fragment_clipboard_msg);
 			}
 
 			private void share(final String addressStr)
@@ -204,19 +204,6 @@ public class WalletAddressFragment extends Fragment
 		bitcoinAddressLabel.setTextColor(Color.parseColor("#cc5500"));
 		handler.removeCallbacks(resetColorRunnable);
 		handler.postDelayed(resetColorRunnable, 500);
-	}
-
-	private void showAllAddresses()
-	{
-		final FragmentManager fm = getFragmentManager();
-		final FragmentTransaction ft = fm.beginTransaction();
-		if ((getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) < Configuration.SCREENLAYOUT_SIZE_LARGE)
-			ft.hide(fm.findFragmentById(R.id.wallet_balance_fragment));
-		ft.hide(fm.findFragmentById(R.id.wallet_transactions_fragment));
-		ft.show(fm.findFragmentById(R.id.wallet_addresses_fragment));
-		ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-		ft.addToBackStack(null);
-		ft.commit();
 	}
 
 	private void showQRCode()
