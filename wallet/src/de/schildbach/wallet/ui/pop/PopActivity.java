@@ -36,7 +36,7 @@ import de.schildbach.wallet.ui.DialogBuilder;
 import de.schildbach.wallet.ui.HelpDialogFragment;
 import de.schildbach.wallet.ui.TransactionsAdapter;
 import de.schildbach.wallet.util.Toast;
-import de.schildbach.wallet_test.R;
+import de.schildbach.wallet.R;
 import org.bitcoinj.core.Coin;
 import org.bitcoinj.core.Transaction;
 import org.bitcoinj.core.Wallet;
