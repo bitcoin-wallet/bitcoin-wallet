@@ -26,7 +26,7 @@ import de.schildbach.wallet.data.PaymentIntent;
 import de.schildbach.wallet.service.BlockchainService;
 import de.schildbach.wallet.ui.AbstractBindServiceActivity;
 import de.schildbach.wallet.ui.HelpDialogFragment;
-import de.schildbach.wallet_test.R;
+import de.schildbach.wallet.R;
 
 import android.content.Context;
 import android.content.Intent;
