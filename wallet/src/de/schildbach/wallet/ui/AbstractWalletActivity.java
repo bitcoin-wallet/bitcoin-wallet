@@ -21,7 +21,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import de.schildbach.wallet.WalletApplication;
-import de.schildbach.wallet_test.R;
+import de.schildbach.wallet.R;
 
 import android.app.Activity;
 import android.app.ActivityManager.TaskDescription;

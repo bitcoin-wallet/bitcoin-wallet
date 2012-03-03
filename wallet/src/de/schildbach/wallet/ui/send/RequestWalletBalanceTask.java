@@ -55,7 +55,7 @@ import com.squareup.moshi.JsonDataException;
 import com.squareup.moshi.Moshi;
 
 import de.schildbach.wallet.Constants;
-import de.schildbach.wallet_test.R;
+import de.schildbach.wallet.R;
 
 import android.content.res.AssetManager;
 import android.os.Handler;
