@@ -54,7 +54,7 @@ import de.schildbach.wallet.ui.ScanActivity;
 import de.schildbach.wallet.ui.TransactionsListAdapter;
 import de.schildbach.wallet.util.GenericUtils;
 import de.schildbach.wallet.util.WalletUtils;
-import de.schildbach.wallet_test.R;
+import de.schildbach.wallet.R;
 
 /**
  * @author Maximilian Keller

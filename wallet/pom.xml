@@ -6,7 +6,7 @@
 
 	<artifactId>wallet</artifactId>
 	<packaging>apk</packaging>
-	<version>3.60-v3-nokia-test</version>
+	<version>3.60-v3-nokia</version>
 	<name>Bitcoin Wallet</name>
 
 	<parent>
