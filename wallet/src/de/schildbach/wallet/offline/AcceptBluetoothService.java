@@ -31,7 +31,7 @@ import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.service.BlockchainService;
 import de.schildbach.wallet.util.CrashReporter;
 import de.schildbach.wallet.util.Toast;
-import de.schildbach.wallet_test.R;
+import de.schildbach.wallet.R;
 
 import android.app.Service;
 import android.bluetooth.BluetoothAdapter;

@@ -17,7 +17,7 @@
 
 package de.schildbach.wallet.ui;
 
-import de.schildbach.wallet_test.R;
+import de.schildbach.wallet.R;
 
 import android.os.Bundle;
 import android.view.Menu;
