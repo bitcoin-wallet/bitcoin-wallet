@@ -30,7 +30,7 @@ import org.slf4j.LoggerFactory;
 
 import com.google.common.io.BaseEncoding;
 
-import de.schildbach.wallet_test.R;
+import de.schildbach.wallet.R;
 
 import android.os.Build;
 import android.os.Environment;
