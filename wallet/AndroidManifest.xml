@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="de.schildbach.wallet_test"
+    package="de.schildbach.wallet"
     android:installLocation="internalOnly"
     android:versionCode="321"
     android:versionName="5.41" >
@@ -185,15 +185,15 @@
 
         <provider
             android:name="de.schildbach.wallet.data.AddressBookProvider"
-            android:authorities="de.schildbach.wallet_test.address_book"
+            android:authorities="de.schildbach.wallet.address_book"
             android:exported="false" />
         <provider
             android:name="de.schildbach.wallet.data.ExchangeRatesProvider"
-            android:authorities="de.schildbach.wallet_test.exchange_rates"
+            android:authorities="de.schildbach.wallet.exchange_rates"
             android:exported="false" />
         <provider
             android:name="android.support.v4.content.FileProvider"
-            android:authorities="de.schildbach.wallet_test.file_attachment"
+            android:authorities="de.schildbach.wallet.file_attachment"
             android:exported="false"
             android:grantUriPermissions="true" >
             <meta-data

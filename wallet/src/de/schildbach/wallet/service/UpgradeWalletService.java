@@ -23,7 +23,7 @@ import org.slf4j.LoggerFactory;
 
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
-import de.schildbach.wallet_test.R;
+import de.schildbach.wallet.R;
 
 import android.app.IntentService;
 import android.content.Context;
