@@ -34,7 +34,7 @@ import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.service.BlockchainService;
-import de.schildbach.wallet_test.R;
+import de.schildbach.wallet.R;
 
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
