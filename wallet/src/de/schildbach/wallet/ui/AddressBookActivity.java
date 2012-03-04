@@ -304,7 +304,7 @@ public class AddressBookActivity extends AbstractWalletActivity
 		}
 		else
 		{
-			toast(R.string.send_coins_parse_address_error_msg);
+			toast(R.string.address_book_msg_clipboard_empty);
 		}
 	}
 

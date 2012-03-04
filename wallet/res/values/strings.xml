@@ -90,6 +90,7 @@
 	<string name="address_book_context_copy_to_clipboard_title">Copy to clipboard</string>
 	<string name="address_book_context_default_title">Set as default address</string>
 	<string name="address_book_context_determine_creation_time_title">Determine creation time</string>
+	<string name="address_book_msg_clipboard_empty">Clipboard is empty</string>
 
 	<string name="edit_address_book_entry_dialog_title_add">Add address</string>
 	<string name="edit_address_book_entry_dialog_title_edit">Edit address</string>
