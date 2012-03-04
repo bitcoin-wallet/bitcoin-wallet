@@ -63,6 +63,7 @@
 	<string name="address_book_context_send_title">支付给本地址</string>
 	<string name="address_book_context_edit_title">编辑地址</string>
 	<string name="address_book_context_remove_title">删除地址</string>
+	<string name="address_book_context_show_qr_title">显示二维码</string>
 	<string name="address_book_context_copy_to_clipboard_title">复制到剪贴板</string>
 
 	<string name="edit_address_book_entry_dialog_title_add">添加地址</string>

@@ -41,8 +41,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.bitcoin.core.Address;
+import com.google.bitcoin.uri.BitcoinURI;
 
 import de.schildbach.wallet.AddressBookProvider;
+import de.schildbach.wallet.util.QrDialog;
 import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
 
@@ -133,6 +135,16 @@ public class SendingAddressesFragment extends ListFragment implements LoaderMana
 				final Cursor cursor = (Cursor) adapter.getItem(menuInfo.position);
 				final String address = cursor.getString(cursor.getColumnIndexOrThrow(AddressBookProvider.KEY_ADDRESS));
 				handleRemove(address);
+				return true;
+			}
+
+			case R.id.sending_addresses_context_show_qr:
+			{
+				final Cursor cursor = (Cursor) adapter.getItem(menuInfo.position);
+				final String address = cursor.getString(cursor.getColumnIndexOrThrow(AddressBookProvider.KEY_ADDRESS));
+				final String uri = BitcoinURI.convertToBitcoinURI(address, null, null, null);
+				final int size = (int) (256 * getResources().getDisplayMetrics().density);
+				new QrDialog(activity, WalletUtils.getQRCodeBitmap(uri, size)).show();
 				return true;
 			}
 

@@ -19,6 +19,8 @@ package de.schildbach.wallet.ui;
 
 import java.util.Locale;
 
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -114,6 +116,15 @@ public abstract class AbstractWalletActivity extends FragmentActivity
 		toast.setView(view);
 		toast.setDuration(duration);
 		toast.show();
+	}
+
+	protected void parseErrorDialog(final String uri)
+	{
+		final Builder dialog = new AlertDialog.Builder(this);
+		dialog.setTitle(R.string.send_coins_uri_parse_error_title);
+		dialog.setMessage(uri);
+		dialog.setNeutralButton(R.string.button_dismiss, null);
+		dialog.show();
 	}
 
 	protected final static String languagePrefix()

@@ -65,6 +65,7 @@
 	<string name="address_book_context_send_title">Отправить монеты по адресу</string>
 	<string name="address_book_context_edit_title">Изменить адрес</string>
 	<string name="address_book_context_remove_title">Удалить адрес</string>
+	<string name="address_book_context_show_qr_title">Показать QR-код</string>
 	<string name="address_book_context_copy_to_clipboard_title">Скопировать</string>
 
 	<string name="edit_address_book_entry_dialog_title_add">Добавить адрес</string>

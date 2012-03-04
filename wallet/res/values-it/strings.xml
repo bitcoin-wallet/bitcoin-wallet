@@ -66,6 +66,7 @@
 	<string name="address_book_context_send_title">"Invia Bitcoins all'indirizzo"</string>
 	<string name="address_book_context_edit_title">Modifica indirizzo</string>
 	<string name="address_book_context_remove_title">Rimuovi indirizzo</string>
+	<string name="address_book_context_show_qr_title">Mostra codice QR</string>
 	<string name="address_book_context_copy_to_clipboard_title">Copia negli appunti</string>
 
 	<string name="edit_address_book_entry_dialog_title_add">Aggiungi indirizzo</string>

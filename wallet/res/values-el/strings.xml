@@ -65,6 +65,7 @@
 	<string name="address_book_context_send_title">Αποστολή Bitcoins στη διεύθυνση</string>
 	<string name="address_book_context_edit_title">Επεξεργασία διεύθυνσης</string>
 	<string name="address_book_context_remove_title">Αφαιρέστε τη διεύθυνση</string>
+	<string name="address_book_context_show_qr_title">Εμφάνιση κώδικα QR</string>
 	<string name="address_book_context_copy_to_clipboard_title">Αντιγραφή στο clipboard</string>
 
 	<string name="edit_address_book_entry_dialog_title_add">Προσθήκη διεύθυνσης</string>

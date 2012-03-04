@@ -63,6 +63,7 @@
 	<string name="address_book_context_send_title">"Envoyer les Bitcoins à l'adresse"</string>
 	<string name="address_book_context_edit_title">"Modifier l'adresse"</string>
 	<string name="address_book_context_remove_title">"Effacer l'adresse"</string>
+	<string name="address_book_context_show_qr_title">Afficher le QR code</string>
 	<string name="address_book_context_copy_to_clipboard_title">Coller dans le presse-papier</string>
 
 	<string name="edit_address_book_entry_dialog_title_add">"Ajouter l'adresse"</string>

@@ -20,6 +20,7 @@ package de.schildbach.wallet;
 import java.math.BigInteger;
 
 import android.content.Context;
+import android.content.Intent;
 
 import com.google.bitcoin.core.NetworkParameters;
 import com.google.bitcoin.core.Utils;
@@ -102,6 +103,7 @@ public class Constants
 	private static final String VERSION_URL_TEST = VERSION_URL_PROD + '_' + "test"; // replace protected
 	public static final String VERSION_URL = TEST ? VERSION_URL_TEST : VERSION_URL_PROD;
 
+	public static final Intent INTENT_QR_SCANNER = new Intent("com.google.zxing.client.android.SCAN").putExtra("SCAN_MODE", "QR_CODE_MODE");
 	public static final String PACKAGE_NAME_ZXING = "com.google.zxing.client.android";
 
 	public static final String PREFS_KEY_LAST_VERSION = "last_version";

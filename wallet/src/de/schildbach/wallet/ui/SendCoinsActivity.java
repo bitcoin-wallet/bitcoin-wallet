@@ -19,8 +19,6 @@ package de.schildbach.wallet.ui;
 
 import java.math.BigInteger;
 
-import android.app.AlertDialog;
-import android.app.AlertDialog.Builder;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -210,14 +208,5 @@ public class SendCoinsActivity extends AbstractWalletActivity
 		final SendCoinsFragment sendCoinsFragment = (SendCoinsFragment) getSupportFragmentManager().findFragmentById(R.id.send_coins_fragment);
 
 		sendCoinsFragment.update(address, amount);
-	}
-
-	private void parseErrorDialog(final String uri)
-	{
-		final Builder dialog = new AlertDialog.Builder(this);
-		dialog.setTitle(R.string.send_coins_uri_parse_error_title);
-		dialog.setMessage(uri);
-		dialog.setNeutralButton(R.string.button_dismiss, null);
-		dialog.show();
 	}
 }

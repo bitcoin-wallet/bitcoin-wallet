@@ -24,6 +24,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -37,6 +38,8 @@ import android.widget.ImageButton;
 import com.google.bitcoin.core.Address;
 import com.google.bitcoin.core.AddressFormatException;
 import com.google.bitcoin.core.ECKey;
+import com.google.bitcoin.uri.BitcoinURI;
+import com.google.bitcoin.uri.BitcoinURIParseException;
 
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.util.ActionBarFragment;
@@ -48,8 +51,6 @@ import de.schildbach.wallet_test.R;
  */
 public class AddressBookActivity extends AbstractWalletActivity
 {
-	private static final String EXTRA_SENDING = "sending";
-
 	public static void start(final Context context, final boolean sending)
 	{
 		final Intent intent = new Intent(context, AddressBookActivity.class);
@@ -57,10 +58,17 @@ public class AddressBookActivity extends AbstractWalletActivity
 		context.startActivity(intent);
 	}
 
+	private static final String EXTRA_SENDING = "sending";
+
+	private static final int REQUEST_CODE_SCAN = 0;
+
 	private WalletAddressesFragment walletAddressesFragment;
 	private SendingAddressesFragment sendingAddressesFragment;
 	private ImageButton addButton;
 	private ImageButton pasteButton;
+	private ImageButton scanButton;
+
+	private final Handler handler = new Handler();
 
 	@Override
 	protected void onCreate(final Bundle savedInstanceState)
@@ -94,6 +102,12 @@ public class AddressBookActivity extends AbstractWalletActivity
 				{
 					if (position == 0)
 					{
+						if (scanButton != null)
+						{
+							actionBar.removeButton(scanButton);
+							scanButton = null;
+						}
+
 						if (pasteButton != null)
 						{
 							actionBar.removeButton(pasteButton);
@@ -112,6 +126,12 @@ public class AddressBookActivity extends AbstractWalletActivity
 						{
 							actionBar.removeButton(addButton);
 							addButton = null;
+						}
+
+						if (scanButton == null)
+						{
+							scanButton = actionBar.addButton(R.drawable.ic_action_qr);
+							scanButton.setOnClickListener(scanClickListener);
 						}
 
 						if (pasteButton == null)
@@ -142,6 +162,9 @@ public class AddressBookActivity extends AbstractWalletActivity
 		}
 		else
 		{
+			scanButton = actionBar.addButton(R.drawable.ic_action_qr);
+			scanButton.setOnClickListener(scanClickListener);
+
 			pasteButton = actionBar.addButton(R.drawable.ic_action_paste);
 			pasteButton.setOnClickListener(pasteClipboardClickListener);
 
@@ -153,6 +176,46 @@ public class AddressBookActivity extends AbstractWalletActivity
 		}
 
 		updateFragments();
+	}
+
+	@Override
+	public void onActivityResult(final int requestCode, final int resultCode, final Intent intent)
+	{
+		if (requestCode == REQUEST_CODE_SCAN && resultCode == RESULT_OK && "QR_CODE".equals(intent.getStringExtra("SCAN_RESULT_FORMAT")))
+		{
+			final String contents = intent.getStringExtra("SCAN_RESULT");
+
+			try
+			{
+				final Address address;
+
+				if (contents.matches("[a-zA-Z0-9]*"))
+				{
+					address = new Address(Constants.NETWORK_PARAMETERS, contents);
+				}
+				else
+				{
+					final BitcoinURI bitcoinUri = new BitcoinURI(Constants.NETWORK_PARAMETERS, contents);
+					address = bitcoinUri.getAddress();
+				}
+
+				handler.postDelayed(new Runnable()
+				{
+					public void run()
+					{
+						EditAddressBookEntryFragment.edit(getSupportFragmentManager(), address.toString());
+					}
+				}, 500);
+			}
+			catch (final AddressFormatException x)
+			{
+				parseErrorDialog(contents);
+			}
+			catch (final BitcoinURIParseException x)
+			{
+				parseErrorDialog(contents);
+			}
+		}
 	}
 
 	private void updateFragments()
@@ -189,6 +252,27 @@ public class AddressBookActivity extends AbstractWalletActivity
 				return walletAddressesFragment;
 			else
 				return sendingAddressesFragment;
+		}
+	}
+
+	private final OnClickListener scanClickListener = new OnClickListener()
+	{
+		public void onClick(final View v)
+		{
+			handleScan();
+		}
+	};
+
+	private void handleScan()
+	{
+		if (getPackageManager().resolveActivity(Constants.INTENT_QR_SCANNER, 0) != null)
+		{
+			startActivityForResult(Constants.INTENT_QR_SCANNER, REQUEST_CODE_SCAN);
+		}
+		else
+		{
+			showMarketPage(Constants.PACKAGE_NAME_ZXING);
+			longToast(R.string.send_coins_install_qr_scanner_msg);
 		}
 	}
 

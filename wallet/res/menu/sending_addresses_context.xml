@@ -11,6 +11,9 @@
 		android:id="@+id/sending_addresses_context_remove"
 		android:title="@string/address_book_context_remove_title"/>
 	<item
+		android:id="@+id/sending_addresses_context_show_qr"
+		android:title="@string/address_book_context_show_qr_title"/>
+	<item
 		android:id="@+id/sending_addresses_context_copy_to_clipboard"
 		android:title="@string/address_book_context_copy_to_clipboard_title"/>
 

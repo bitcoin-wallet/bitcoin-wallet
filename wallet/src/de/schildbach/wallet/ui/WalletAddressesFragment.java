@@ -43,11 +43,13 @@ import android.widget.TextView;
 import com.google.bitcoin.core.Address;
 import com.google.bitcoin.core.ECKey;
 import com.google.bitcoin.core.Wallet;
+import com.google.bitcoin.uri.BitcoinURI;
 
 import de.schildbach.wallet.AddressBookProvider;
 import de.schildbach.wallet.Application;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.DetermineFirstSeenThread;
+import de.schildbach.wallet.util.QrDialog;
 import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
 
@@ -138,6 +140,16 @@ public class WalletAddressesFragment extends ListFragment
 				final ECKey key = (ECKey) getListAdapter().getItem(menuInfo.position);
 				final Address address = key.toAddress(Constants.NETWORK_PARAMETERS);
 				EditAddressBookEntryFragment.edit(getFragmentManager(), address.toString());
+				return true;
+			}
+
+			case R.id.wallet_addresses_context_show_qr:
+			{
+				final ECKey key = (ECKey) getListAdapter().getItem(menuInfo.position);
+				final Address address = key.toAddress(Constants.NETWORK_PARAMETERS);
+				final String uri = BitcoinURI.convertToBitcoinURI(address, null, null, null);
+				final int size = (int) (256 * getResources().getDisplayMetrics().density);
+				new QrDialog(activity, WalletUtils.getQRCodeBitmap(uri, size)).show();
 				return true;
 			}
 
