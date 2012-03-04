@@ -105,12 +105,8 @@ public class CurrencyAmountView extends FrameLayout
 
 		public boolean onEditorAction(final TextView v, final int actionId, final KeyEvent event)
 		{
-			if (actionId == EditorInfo.IME_ACTION_DONE)
-			{
-				if (listener != null)
-					listener.done();
-				return true;
-			}
+			if (actionId == EditorInfo.IME_ACTION_DONE && listener != null)
+				listener.done();
 
 			return false;
 		}
