@@ -81,7 +81,7 @@
 
 	<string name="address_book_activity_title">Adressbuch</string>
 	<string name="address_book_list_receiving_title">Empfangsadressen</string>
-	<string name="address_book_list_sending_title">Sendeadresssen</string>
+	<string name="address_book_list_sending_title">Sendeadressen</string>
 	<string name="address_book_empty_text">Keine Einträge im Adressbuch</string>
 	<string name="address_book_context_send_title">Bitcoins an Adresse senden</string>
 	<string name="address_book_context_edit_title">Adresse ändern</string>
