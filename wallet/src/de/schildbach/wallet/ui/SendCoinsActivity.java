@@ -21,7 +21,6 @@ import java.math.BigInteger;
 
 import android.app.Dialog;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.nfc.NfcAdapter;
 import android.os.Bundle;
@@ -48,10 +47,6 @@ public class SendCoinsActivity extends AbstractWalletActivity
 
 	private static final int DIALOG_HELP = 0;
 
-	private static final Intent zxingIntent = new Intent("com.google.zxing.client.android.SCAN").putExtra("SCAN_MODE", "QR_CODE_MODE");
-	private static final Intent gogglesIntent = new Intent().setClassName("com.google.android.apps.unveil",
-			"com.google.android.apps.unveil.CaptureActivity");
-
 	private static final int REQUEST_CODE_SCAN = 0;
 
 	@Override
@@ -77,14 +72,9 @@ public class SendCoinsActivity extends AbstractWalletActivity
 		{
 			public void onClick(final View v)
 			{
-				final PackageManager pm = getPackageManager();
-				if (pm.resolveActivity(zxingIntent, 0) != null)
+				if (getPackageManager().resolveActivity(Constants.INTENT_QR_SCANNER, 0) != null)
 				{
-					startActivityForResult(zxingIntent, REQUEST_CODE_SCAN);
-				}
-				else if (pm.resolveActivity(gogglesIntent, 0) != null)
-				{
-					startActivity(gogglesIntent);
+					startActivityForResult(Constants.INTENT_QR_SCANNER, REQUEST_CODE_SCAN);
 				}
 				else
 				{
