@@ -91,7 +91,7 @@ public class Base43
 	/**
 	 * Uses the checksum in the last 4 bytes of the decoded data to verify the rest are correct. The checksum is removed
 	 * from the returned data.
-	 * 
+	 *
 	 * @throws IllegalArgumentException
 	 *             if the input is not base 43 or the checksum does not validate.
 	 */
