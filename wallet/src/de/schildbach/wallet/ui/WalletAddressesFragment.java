@@ -22,11 +22,13 @@ import java.util.Date;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.ListFragment;
+import android.text.ClipboardManager;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.MenuItem;
@@ -139,6 +141,14 @@ public class WalletAddressesFragment extends ListFragment
 				return true;
 			}
 
+			case R.id.wallet_addresses_context_copy_to_clipboard:
+			{
+				final ECKey key = (ECKey) getListAdapter().getItem(menuInfo.position);
+				final Address address = key.toAddress(Constants.NETWORK_PARAMETERS);
+				handleCopyToClipboard(address.toString());
+				return true;
+			}
+
 			default:
 				return false;
 		}
@@ -156,6 +166,13 @@ public class WalletAddressesFragment extends ListFragment
 			walletAddressFragment.updateView();
 			walletAddressFragment.flashAddress();
 		}
+	}
+
+	private void handleCopyToClipboard(final String address)
+	{
+		final ClipboardManager clipboardManager = (ClipboardManager) activity.getSystemService(Context.CLIPBOARD_SERVICE);
+		clipboardManager.setText(address);
+		((AbstractWalletActivity) activity).toast(R.string.wallet_address_fragment_clipboard_msg);
 	}
 
 	private void handleDetermineCreationTime(final ECKey key)

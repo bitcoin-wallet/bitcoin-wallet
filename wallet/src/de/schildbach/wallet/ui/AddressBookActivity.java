@@ -29,11 +29,13 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.text.ClipboardManager;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageButton;
 
 import com.google.bitcoin.core.Address;
+import com.google.bitcoin.core.AddressFormatException;
 import com.google.bitcoin.core.ECKey;
 
 import de.schildbach.wallet.Constants;
@@ -58,6 +60,7 @@ public class AddressBookActivity extends AbstractWalletActivity
 	private WalletAddressesFragment walletAddressesFragment;
 	private SendingAddressesFragment sendingAddressesFragment;
 	private ImageButton addButton;
+	private ImageButton pasteButton;
 
 	@Override
 	protected void onCreate(final Bundle savedInstanceState)
@@ -89,15 +92,33 @@ public class AddressBookActivity extends AbstractWalletActivity
 				@Override
 				public void onPageSelected(final int position)
 				{
-					if (position == 0 && addButton == null)
+					if (position == 0)
 					{
-						addButton = actionBar.addButton(R.drawable.ic_action_add);
-						addButton.setOnClickListener(addAddressClickListener);
+						if (pasteButton != null)
+						{
+							actionBar.removeButton(pasteButton);
+							pasteButton = null;
+						}
+
+						if (addButton == null)
+						{
+							addButton = actionBar.addButton(R.drawable.ic_action_add);
+							addButton.setOnClickListener(addAddressClickListener);
+						}
 					}
-					else if (position == 1 && addButton != null)
+					else if (position == 1)
 					{
-						actionBar.removeButton(addButton);
-						addButton = null;
+						if (addButton != null)
+						{
+							actionBar.removeButton(addButton);
+							addButton = null;
+						}
+
+						if (pasteButton == null)
+						{
+							pasteButton = actionBar.addButton(R.drawable.ic_action_paste);
+							pasteButton.setOnClickListener(pasteClipboardClickListener);
+						}
 					}
 
 					super.onPageSelected(position);
@@ -121,6 +142,9 @@ public class AddressBookActivity extends AbstractWalletActivity
 		}
 		else
 		{
+			pasteButton = actionBar.addButton(R.drawable.ic_action_paste);
+			pasteButton.setOnClickListener(pasteClipboardClickListener);
+
 			addButton = actionBar.addButton(R.drawable.ic_action_add);
 			addButton.setOnClickListener(addAddressClickListener);
 
@@ -165,6 +189,38 @@ public class AddressBookActivity extends AbstractWalletActivity
 				return walletAddressesFragment;
 			else
 				return sendingAddressesFragment;
+		}
+	}
+
+	private final OnClickListener pasteClipboardClickListener = new OnClickListener()
+	{
+		public void onClick(final View v)
+		{
+			handlePasteClipboard();
+		}
+	};
+
+	private void handlePasteClipboard()
+	{
+		final ClipboardManager clipboardManager = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+
+		if (clipboardManager.hasText())
+		{
+			final String text = clipboardManager.getText().toString().trim();
+
+			try
+			{
+				final Address address = new Address(Constants.NETWORK_PARAMETERS, text);
+				EditAddressBookEntryFragment.edit(getSupportFragmentManager(), address.toString());
+			}
+			catch (final AddressFormatException x)
+			{
+				toast(R.string.send_coins_parse_address_error_msg);
+			}
+		}
+		else
+		{
+			toast(R.string.send_coins_parse_address_error_msg);
 		}
 	}
 

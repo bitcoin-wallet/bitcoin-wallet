@@ -86,6 +86,7 @@
 	<string name="address_book_context_send_title">Send Bitcoins to address</string>
 	<string name="address_book_context_edit_title">Edit address</string>
 	<string name="address_book_context_remove_title">Remove address</string>
+	<string name="address_book_context_copy_to_clipboard_title">Copy to clipboard</string>
 	<string name="address_book_context_default_title">Set as default address</string>
 	<string name="address_book_context_determine_creation_time_title">Determine creation time</string>
 

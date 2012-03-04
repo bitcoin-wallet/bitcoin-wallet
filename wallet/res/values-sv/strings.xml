@@ -65,6 +65,7 @@
 	<string name="address_book_context_send_title">Skicka Bitcoins till adressen</string>
 	<string name="address_book_context_edit_title">Ändra adressen</string>
 	<string name="address_book_context_remove_title">Ta bort adressen</string>
+	<string name="address_book_context_copy_to_clipboard_title">Kopiera till klippbordet</string>
 
 	<string name="edit_address_book_entry_dialog_title_add">Lägg till adress</string>
 	<string name="edit_address_book_entry_dialog_title_edit">Ändra adress</string>

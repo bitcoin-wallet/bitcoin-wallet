@@ -19,6 +19,8 @@ package de.schildbach.wallet.ui;
 
 import java.util.ArrayList;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -29,6 +31,7 @@ import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v4.widget.SimpleCursorAdapter.ViewBinder;
+import android.text.ClipboardManager;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.MenuItem;
@@ -48,6 +51,7 @@ import de.schildbach.wallet_test.R;
  */
 public class SendingAddressesFragment extends ListFragment implements LoaderManager.LoaderCallbacks<Cursor>
 {
+	private Activity activity;
 	private SimpleCursorAdapter adapter;
 	private String walletAddressesSelection;
 
@@ -56,9 +60,11 @@ public class SendingAddressesFragment extends ListFragment implements LoaderMana
 	{
 		super.onActivityCreated(savedInstanceState);
 
+		activity = getActivity();
+
 		setEmptyText(getString(R.string.address_book_empty_text));
 
-		adapter = new SimpleCursorAdapter(getActivity(), R.layout.address_book_row, null, new String[] { AddressBookProvider.KEY_LABEL,
+		adapter = new SimpleCursorAdapter(activity, R.layout.address_book_row, null, new String[] { AddressBookProvider.KEY_LABEL,
 				AddressBookProvider.KEY_ADDRESS }, new int[] { R.id.address_book_row_label, R.id.address_book_row_address }, 0);
 		adapter.setViewBinder(new ViewBinder()
 		{
@@ -96,7 +102,7 @@ public class SendingAddressesFragment extends ListFragment implements LoaderMana
 	@Override
 	public void onCreateContextMenu(final ContextMenu menu, final View v, final ContextMenuInfo menuInfo)
 	{
-		getActivity().getMenuInflater().inflate(R.menu.sending_addresses_context, menu);
+		activity.getMenuInflater().inflate(R.menu.sending_addresses_context, menu);
 	}
 
 	@Override
@@ -130,6 +136,14 @@ public class SendingAddressesFragment extends ListFragment implements LoaderMana
 				return true;
 			}
 
+			case R.id.sending_addresses_context_copy_to_clipboard:
+			{
+				final Cursor cursor = (Cursor) adapter.getItem(menuInfo.position);
+				final String address = cursor.getString(cursor.getColumnIndexOrThrow(AddressBookProvider.KEY_ADDRESS));
+				handleCopyToClipboard(address);
+				return true;
+			}
+
 			default:
 				return false;
 		}
@@ -137,7 +151,7 @@ public class SendingAddressesFragment extends ListFragment implements LoaderMana
 
 	private void handleSend(final String address)
 	{
-		final Intent intent = new Intent(getActivity(), SendCoinsActivity.class);
+		final Intent intent = new Intent(activity, SendCoinsActivity.class);
 		intent.putExtra(SendCoinsActivity.INTENT_EXTRA_ADDRESS, address);
 		startActivity(intent);
 	}
@@ -145,13 +159,20 @@ public class SendingAddressesFragment extends ListFragment implements LoaderMana
 	private void handleRemove(final String address)
 	{
 		final Uri uri = AddressBookProvider.CONTENT_URI.buildUpon().appendPath(address).build();
-		getActivity().getContentResolver().delete(uri, null, null);
+		activity.getContentResolver().delete(uri, null, null);
+	}
+
+	private void handleCopyToClipboard(final String address)
+	{
+		ClipboardManager clipboardManager = (ClipboardManager) activity.getSystemService(Context.CLIPBOARD_SERVICE);
+		clipboardManager.setText(address);
+		((AbstractWalletActivity) activity).toast(R.string.wallet_address_fragment_clipboard_msg);
 	}
 
 	public Loader<Cursor> onCreateLoader(final int id, final Bundle args)
 	{
 		final Uri uri = AddressBookProvider.CONTENT_URI;
-		return new CursorLoader(getActivity(), uri, null, "notin", new String[] { walletAddressesSelection }, AddressBookProvider.KEY_LABEL
+		return new CursorLoader(activity, uri, null, "notin", new String[] { walletAddressesSelection }, AddressBookProvider.KEY_LABEL
 				+ " COLLATE LOCALIZED ASC");
 	}
 
