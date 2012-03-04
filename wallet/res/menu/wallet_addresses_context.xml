@@ -2,9 +2,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
 	<item
-		android:id="@+id/wallet_addresses_context_default"
-		android:title="@string/address_book_context_default_title"/>
-	<item
 		android:id="@+id/wallet_addresses_context_edit"
 		android:title="@string/address_book_context_edit_title"/>
 	<item
@@ -13,6 +10,9 @@
 	<item
 		android:id="@+id/wallet_addresses_context_copy_to_clipboard"
 		android:title="@string/address_book_context_copy_to_clipboard_title"/>
+	<item
+		android:id="@+id/wallet_addresses_context_default"
+		android:title="@string/address_book_context_default_title"/>
 	<item
 		android:id="@+id/wallet_addresses_context_determine_creation_time"
 		android:title="@string/address_book_context_determine_creation_time_title"/>

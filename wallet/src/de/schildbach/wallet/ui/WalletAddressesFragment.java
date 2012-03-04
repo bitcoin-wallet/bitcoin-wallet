@@ -97,7 +97,7 @@ public class WalletAddressesFragment extends ListFragment
 		final ECKey key = keys.get(position);
 		final Address address = key.toAddress(Constants.NETWORK_PARAMETERS);
 
-		handleDefault(address);
+		EditAddressBookEntryFragment.edit(getFragmentManager(), address.toString());
 	}
 
 	@Override
@@ -120,21 +120,6 @@ public class WalletAddressesFragment extends ListFragment
 
 		switch (item.getItemId())
 		{
-			case R.id.wallet_addresses_context_default:
-			{
-				final ECKey key = (ECKey) getListAdapter().getItem(menuInfo.position);
-				final Address address = key.toAddress(Constants.NETWORK_PARAMETERS);
-				handleDefault(address);
-				return true;
-			}
-
-			case R.id.wallet_addresses_context_determine_creation_time:
-			{
-				final ECKey key = (ECKey) getListAdapter().getItem(menuInfo.position);
-				handleDetermineCreationTime(key);
-				return true;
-			}
-
 			case R.id.wallet_addresses_context_edit:
 			{
 				final ECKey key = (ECKey) getListAdapter().getItem(menuInfo.position);
@@ -158,6 +143,21 @@ public class WalletAddressesFragment extends ListFragment
 				final ECKey key = (ECKey) getListAdapter().getItem(menuInfo.position);
 				final Address address = key.toAddress(Constants.NETWORK_PARAMETERS);
 				handleCopyToClipboard(address.toString());
+				return true;
+			}
+
+			case R.id.wallet_addresses_context_default:
+			{
+				final ECKey key = (ECKey) getListAdapter().getItem(menuInfo.position);
+				final Address address = key.toAddress(Constants.NETWORK_PARAMETERS);
+				handleDefault(address);
+				return true;
+			}
+
+			case R.id.wallet_addresses_context_determine_creation_time:
+			{
+				final ECKey key = (ECKey) getListAdapter().getItem(menuInfo.position);
+				handleDetermineCreationTime(key);
 				return true;
 			}
 
