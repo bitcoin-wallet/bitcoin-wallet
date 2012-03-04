@@ -48,9 +48,9 @@ Make sure you've got Eclipse 3.7 (Indigo) with ADT 16 installed.
 Use https://github.com/mosabua/maven-android-sdk-deployer to deploy all Android components to
 your local Maven repository.
 
-Use Subversion to check out the project to your workspace:
+Use Git to check out the project to your workspace:
 
-  svn co http://bitcoin-wallet.googlecode.com/svn/trunk bitcoin-wallet
+  git clone https://code.google.com/p/bitcoin-wallet/ bitcoin-wallet
 
 Change to that directory.
 
@@ -63,33 +63,10 @@ classpath entry. It does not belong there, but cannot be excluded from being gen
 
 In Eclipse, use File -> Import -> General -> Existing Project into Workspace to import project.
 
+If you see loads of "should be tagged with @Override" errors, set
 
-# [old stuff]
-#
-# Make sure you've got Eclipse 3.6 (Helios) with ADT 12 installed.
-#
-# I also have Subclipse (http://subclipse.tigris.org/) installed, but you can probably use
-# Subversive as well. 
-#
-# Use File -> Import -> Checkout Projects from SVN
-#
-# Repository location: http://bitcoin-wallet.googlecode.com/svn
-#
-# Select 'trunk' to check out.
-#
-# Checkout can take some minutes, because it contains some quite large binary files. Look at the
-# SVN Console to see the progress.
-#
-# I had to Project -> Clean afterwards.
-#
-# If you see loads of "should be tagged with @Override" errors, set
-#
-#    Project -> Properties -> Java Compiler -> Errors/Warnings -> Annotations ->
-#    Missing @Override annotation to 'Warning'
-#
-# If you are going to deploy to a device, I suggest to delete either blockchain-snapshot.jpg or
-# blockchain-snapshot-testnet.jpg from the assets directory (depending on if you want to deploy
-# testnet or prodnet).
+  Project -> Properties -> Java Compiler -> Errors/Warnings -> Annotations ->
+  Missing @Override annotation to 'Warning'
 
 
 NFC (Near field communication)
