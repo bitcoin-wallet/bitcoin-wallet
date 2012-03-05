@@ -1,0 +1,34 @@
+Android cihazınız için bağımsız bir Bitcoin cüzdanı. Bitcoin bir İnternet para birimidir.
+
+Telefondan telefonda uygulama tarafından görüntülenen QR kodu tarayarak ya da NFC vasıtasıyla NFC (Near Field Communication) Bitcoin gönderebilirsiniz.
+
+Bu gerçek Bitcoinler (Prodnet) için yayınlanan sürümdür. Değersiz Testnet Bitcoinleri ile deneme yapmak istiyorsanız başka bir uygulama tavsiye ederim ("Geliştiriciden diğer ürünlere" bakınız).
+
+ÖZELLİKLERİ:
+
+• Cüzdan bakiyesini Bitcoin olarak ve çeşitli döviz olarak gösterir
+• QR Code, Bitcoin bağlantıları ve NFC vasıtasıyla Bitcoin alım ve gönderimi
+• millibitcent (0.0001) ve daha küçük değerleri destekler
+• Düzenli kullanılan Bitcoin adresleri için adres defteri
+• Çevrimdışında girilen muameleler çevrimiçine girilince işlenir
+• Alınan Bitcoinler ve Bitcoin bağlantısı için sistem bildirimleri
+• Bitcoin bakiyesi için uygulama widget'i (uygulamanın telefona taşınmasını gerektirir)
+
+BİLİNEN SORUNLAR, LÜTFEN OKUYUNUZ:
+
+• İlk defa başlatıldığında uygulama birkaç saniye boyunca beyaz bir ekran görüntüleyebilir. Bu normaldir.
+
+İlk Bitcoinlerinizi şu siteden edinebilirsiniz:
+https://freebitcoins.appspot.com/
+
+Bitcoin hakkında daha fazla bilgi için şu siteyi ziyaret edebilirsiniz:
+http://bitcoin.org
+
+Bitcoin Wallet uygulamasına katkıda bulunmak istiyorsanız proje sayfasını ziyaret ediniz:
+https://code.google.com/p/bitcoin-wallet/
+
+Lisans: GPLv3
+Tüm riski siz üstlenirsiniz!
+
+--
+BTC bitcoin wallet bitcoinandroid androidbitcoin Geldbörse Кошелёк
