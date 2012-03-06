@@ -127,7 +127,8 @@ public class AddressBookProvider extends ContentProvider
 	}
 
 	@Override
-	public Cursor query(final Uri uri, final String[] projection, String selection, String[] selectionArgs, final String sortOrder)
+	public Cursor query(final Uri uri, final String[] projection, final String originalSelection, final String[] originalSelectionArgs,
+			final String sortOrder)
 	{
 		final SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
 		qb.setTables(DATABASE_TABLE);
@@ -136,6 +137,9 @@ public class AddressBookProvider extends ContentProvider
 		if (pathSegments.size() > 1)
 			throw new IllegalArgumentException(uri.toString());
 
+		String selection = null;
+		String[] selectionArgs = null;
+
 		if (pathSegments.size() == 1)
 		{
 			final String address = uri.getLastPathSegment();
@@ -143,30 +147,30 @@ public class AddressBookProvider extends ContentProvider
 			qb.appendWhere(KEY_ADDRESS + "=");
 			qb.appendWhereEscapeString(address);
 		}
-		else if ("in".equals(selection))
+		else if ("in".equals(originalSelection))
 		{
-			final String[] addresses = selectionArgs[0].trim().split(",");
+			final String[] addresses = originalSelectionArgs[0].trim().split(",");
 
 			qb.appendWhere(KEY_ADDRESS + " IN (");
 			appendAddresses(qb, addresses);
 			qb.appendWhere(")");
 		}
-		else if ("notin".equals(selection))
+		else if ("notin".equals(originalSelection))
 		{
-			final String[] addresses = selectionArgs[0].trim().split(",");
+			final String[] addresses = originalSelectionArgs[0].trim().split(",");
 
 			qb.appendWhere(KEY_ADDRESS + " NOT IN (");
 			appendAddresses(qb, addresses);
 			qb.appendWhere(")");
 		}
-		else if ("q".equals(selection))
+		else if ("q".equals(originalSelection))
 		{
-			final String query = '%' + selectionArgs[0].trim() + '%';
+			final String query = '%' + originalSelectionArgs[0].trim() + '%';
 			selection = KEY_ADDRESS + " LIKE ? OR " + KEY_LABEL + " LIKE ?";
 			selectionArgs = new String[] { query, query };
 		}
 
-		final Cursor cursor = qb.query(helper.getReadableDatabase(), projection, null, null, null, null, sortOrder);
+		final Cursor cursor = qb.query(helper.getReadableDatabase(), projection, selection, selectionArgs, null, null, sortOrder);
 
 		cursor.setNotificationUri(getContext().getContentResolver(), uri);
 
