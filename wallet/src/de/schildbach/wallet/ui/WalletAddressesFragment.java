@@ -194,15 +194,18 @@ public class WalletAddressesFragment extends ListFragment
 			@Override
 			protected void succeed(final Date firstSeen)
 			{
-				activity.runOnUiThread(new Runnable()
+				if (firstSeen != null)
 				{
-					public void run()
+					activity.runOnUiThread(new Runnable()
 					{
-						key.setCreationTimeSeconds(firstSeen.getTime() / 1000);
-						updateView();
-						application.saveWallet();
-					}
-				});
+						public void run()
+						{
+							key.setCreationTimeSeconds(firstSeen.getTime() / 1000);
+							updateView();
+							application.saveWallet();
+						}
+					});
+				}
 			}
 		};
 	}
