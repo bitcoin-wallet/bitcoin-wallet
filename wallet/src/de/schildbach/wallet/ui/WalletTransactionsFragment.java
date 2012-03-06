@@ -37,6 +37,9 @@ import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.app.LoaderManager.LoaderCallbacks;
+import android.support.v4.content.AsyncTaskLoader;
+import android.support.v4.content.Loader;
 import android.support.v4.view.ViewPager;
 import android.text.format.DateUtils;
 import android.view.ContextMenu;
@@ -47,7 +50,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -114,10 +116,82 @@ public class WalletTransactionsFragment extends Fragment
 		}
 	}
 
-	public static class ListFragment extends android.support.v4.app.ListFragment
+	private static class TransactionsLoader extends AsyncTaskLoader<List<Transaction>>
+	{
+		private final Wallet wallet;
+
+		private TransactionsLoader(final Context context, final Wallet wallet)
+		{
+			super(context);
+
+			this.wallet = wallet;
+		}
+
+		@Override
+		protected void onStartLoading()
+		{
+			super.onStartLoading();
+
+			wallet.addEventListener(walletEventListener);
+
+			forceLoad();
+		}
+
+		@Override
+		protected void onStopLoading()
+		{
+			wallet.removeEventListener(walletEventListener);
+
+			super.onStopLoading();
+		}
+
+		@Override
+		public List<Transaction> loadInBackground()
+		{
+			final List<Transaction> transactions = new ArrayList<Transaction>(wallet.getTransactions(true, false));
+
+			Collections.sort(transactions, TRANSACTION_COMPARATOR);
+
+			return transactions;
+		}
+
+		private final WalletEventListener walletEventListener = new AbstractWalletEventListener()
+		{
+			@Override
+			public void onChange()
+			{
+				forceLoad();
+			}
+		};
+
+		private static final Comparator<Transaction> TRANSACTION_COMPARATOR = new Comparator<Transaction>()
+		{
+			public int compare(final Transaction tx1, final Transaction tx2)
+			{
+				final boolean pending1 = tx1.getConfidence().getConfidenceType() == ConfidenceType.NOT_SEEN_IN_CHAIN;
+				final boolean pending2 = tx2.getConfidence().getConfidenceType() == ConfidenceType.NOT_SEEN_IN_CHAIN;
+
+				if (pending1 != pending2)
+					return pending1 ? -1 : 1;
+
+				final long time1 = tx1.getUpdateTime() != null ? tx1.getUpdateTime().getTime() : 0;
+				final long time2 = tx2.getUpdateTime() != null ? tx2.getUpdateTime().getTime() : 0;
+
+				if (time1 != time2)
+					return time1 > time2 ? -1 : 1;
+
+				return 0;
+			}
+		};
+	}
+
+	public static class ListFragment extends android.support.v4.app.ListFragment implements LoaderCallbacks<List<Transaction>>
 	{
 		private Application application;
+		private Wallet wallet;
 		private Activity activity;
+		private Loader<List<Transaction>> loader;
+		private ArrayAdapter<Transaction> adapter;
 
 		private int mode;
 
@@ -138,27 +212,12 @@ public class WalletTransactionsFragment extends Fragment
 			return fragment;
 		}
 
-		private final WalletEventListener walletEventListener = new AbstractWalletEventListener()
-		{
-			@Override
-			public void onChange()
-			{
-				activity.runOnUiThread(new Runnable()
-				{
-					public void run()
-					{
-						updateView();
-					}
-				});
-			}
-		};
-
 		private final ContentObserver contentObserver = new ContentObserver(handler)
 		{
 			@Override
 			public void onChange(final boolean selfChange)
 			{
-				((BaseAdapter) getListAdapter()).notifyDataSetChanged();
+				adapter.notifyDataSetChanged();
 			}
 		};
 
@@ -169,7 +228,7 @@ public class WalletTransactionsFragment extends Fragment
 			{
 				bestChainHeight = intent.getIntExtra(Service.ACTION_BLOCKCHAIN_STATE_BEST_CHAIN_HEIGHT, 0);
 
-				updateView();
+				adapter.notifyDataSetChanged();
 			}
 		};
 
@@ -180,6 +239,7 @@ public class WalletTransactionsFragment extends Fragment
 
 			this.activity = activity;
 			application = (Application) activity.getApplication();
+			wallet = application.getWallet();
 		}
 
 		@Override
@@ -189,9 +249,7 @@ public class WalletTransactionsFragment extends Fragment
 
 			this.mode = getArguments().getInt(KEY_MODE);
 
-			final Wallet wallet = application.getWallet();
-
-			final ListAdapter adapter = new ArrayAdapter<Transaction>(activity, 0)
+			adapter = new ArrayAdapter<Transaction>(activity, 0)
 			{
 				final DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(activity);
 				final DateFormat timeFormat = android.text.format.DateFormat.getTimeFormat(activity);
@@ -310,8 +368,6 @@ public class WalletTransactionsFragment extends Fragment
 			};
 			setListAdapter(adapter);
 
-			wallet.addEventListener(walletEventListener);
-
 			activity.getContentResolver().registerContentObserver(AddressBookProvider.CONTENT_URI, true, contentObserver);
 		}
 
@@ -320,14 +376,16 @@ public class WalletTransactionsFragment extends Fragment
 		{
 			super.onActivityCreated(savedInstanceState);
 
-			setEmptyText(getString(mode == 2 ? R.string.wallet_transactions_fragment_empty_text_sent
-					: R.string.wallet_transactions_fragment_empty_text_received));
+			loader = getLoaderManager().initLoader(0, null, this);
 		}
 
 		@Override
 		public void onViewCreated(final View view, final Bundle savedInstanceState)
 		{
 			super.onViewCreated(view, savedInstanceState);
+
+			setEmptyText(getString(mode == 2 ? R.string.wallet_transactions_fragment_empty_text_sent
+					: R.string.wallet_transactions_fragment_empty_text_received));
 
 			registerForContextMenu(getListView());
 		}
@@ -339,12 +397,14 @@ public class WalletTransactionsFragment extends Fragment
 
 			activity.registerReceiver(broadcastReceiver, new IntentFilter(Service.ACTION_BLOCKCHAIN_STATE));
 
-			updateView();
+			loader.startLoading();
 		}
 
 		@Override
 		public void onPause()
 		{
+			loader.stopLoading();
+
 			activity.unregisterReceiver(broadcastReceiver);
 
 			super.onPause();
@@ -355,7 +415,7 @@ public class WalletTransactionsFragment extends Fragment
 		{
 			activity.getContentResolver().unregisterContentObserver(contentObserver);
 
-			application.getWallet().removeEventListener(walletEventListener);
+			getLoaderManager().destroyLoader(0);
 
 			super.onDestroy();
 		}
@@ -363,7 +423,7 @@ public class WalletTransactionsFragment extends Fragment
 		@Override
 		public void onListItemClick(final ListView l, final View v, final int position, final long id)
 		{
-			final Transaction tx = (Transaction) getListAdapter().getItem(position);
+			final Transaction tx = (Transaction) adapter.getItem(position);
 			editAddress(tx);
 		}
 
@@ -400,33 +460,31 @@ public class WalletTransactionsFragment extends Fragment
 			}
 		}
 
-		public void updateView()
+		private void editAddress(final Transaction tx)
 		{
-			final Wallet wallet = application.getWallet();
-			final List<Transaction> transactions = new ArrayList<Transaction>(wallet.getTransactions(true, false));
-			final ArrayAdapter<Transaction> adapter = (ArrayAdapter<Transaction>) getListAdapter();
-
-			Collections.sort(transactions, new Comparator<Transaction>()
+			try
 			{
-				public int compare(final Transaction tx1, final Transaction tx2)
-				{
-					final boolean pending1 = tx1.getConfidence().getConfidenceType() == ConfidenceType.NOT_SEEN_IN_CHAIN;
-					final boolean pending2 = tx2.getConfidence().getConfidenceType() == ConfidenceType.NOT_SEEN_IN_CHAIN;
+				final boolean sent = tx.getValue(wallet).signum() < 0;
+				final Address address = sent ? tx.getOutputs().get(0).getScriptPubKey().getToAddress() : tx.getInputs().get(0).getFromAddress();
 
-					if (pending1 != pending2)
-						return pending1 ? -1 : 1;
+				EditAddressBookEntryFragment.edit(getFragmentManager(), address.toString());
+			}
+			catch (final ScriptException x)
+			{
+				// ignore click
+				x.printStackTrace();
+			}
+		}
 
-					final long time1 = tx1.getUpdateTime() != null ? tx1.getUpdateTime().getTime() : 0;
-					final long time2 = tx2.getUpdateTime() != null ? tx2.getUpdateTime().getTime() : 0;
+		public Loader<List<Transaction>> onCreateLoader(final int id, final Bundle args)
+		{
+			return new TransactionsLoader(activity, wallet);
+		}
 
-					if (time1 != time2)
-						return time1 > time2 ? -1 : 1;
-
-					return 0;
-				}
-			});
-
+		public void onLoadFinished(final Loader<List<Transaction>> loader, final List<Transaction> transactions)
+		{
 			adapter.clear();
+
 			try
 			{
 				for (final Transaction tx : transactions)
@@ -442,22 +500,9 @@ public class WalletTransactionsFragment extends Fragment
 			}
 		}
 
-		private void editAddress(final Transaction tx)
+		public void onLoaderReset(final Loader<List<Transaction>> loader)
 		{
-			final Wallet wallet = application.getWallet();
-
-			try
-			{
-				final boolean sent = tx.getValue(wallet).signum() < 0;
-				final Address address = sent ? tx.getOutputs().get(0).getScriptPubKey().getToAddress() : tx.getInputs().get(0).getFromAddress();
-
-				EditAddressBookEntryFragment.edit(getFragmentManager(), address.toString());
-			}
-			catch (final ScriptException x)
-			{
-				// ignore click
-				x.printStackTrace();
-			}
+			adapter.clear();
 		}
 	}
 }
