@@ -5,7 +5,7 @@
 	<string name="app_name">Bitcoin Кошелёк</string>
 	<string name="toast_wallet_reset">Кошелёк был сброшен,\nна восстановление требуется какое-то время</string>
 
-	<string name="wallet_content_disclaimer">Это совершенно экспериментально. Используйте на свой риск! Ознакомьтесь с заметками по безопасности.</string>
+	<string name="wallet_content_disclaimer">Используйте на свой риск. Ознакомьтесь с заметками по безопасности.</string>
 	<string name="wallet_address_fragment_your">Ваш Bitcoin-адрес:</string>
 	<string name="wallet_address_fragment_clipboard_msg">Bitcoin-адрес был скопирован в буфер обмена</string>
 	<string name="wallet_address_fragment_share_dialog_title">Распространить Bitcoin-адрес…</string>

@@ -5,7 +5,7 @@
 	<string name="app_name">Bitcoin Wallet</string>
 	<string name="toast_wallet_reset">Le Wallet a été redémarré \net prend un peu de temps pour récupérer</string>
 
-	<string name="wallet_content_disclaimer">"Cette application est expérimentale et ne promet aucune garantie! Lisez l'avertissement avant de l'utiliser à vos propres risques."</string>
+	<string name="wallet_content_disclaimer">"Cette application ne promet aucune garantie. Lisez l'avertissement avant de l'utiliser à vos propres risques."</string>
 	<string name="wallet_address_fragment_your">Votre adresse Bitcoin:</string>
 	<string name="wallet_address_fragment_clipboard_msg">Adresse Bitcoin dans le presse-papier</string>
 	<string name="wallet_address_fragment_share_dialog_title">Publiez votre adresse Bitcoin…</string>

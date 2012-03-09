@@ -5,7 +5,7 @@
 	<string name="app_name">Bitcoin Wallet</string>
 	<string name="toast_wallet_reset">Plånboken nollställdes,\ndet kan ta ett tag innan den återställts</string>
 
-	<string name="wallet_content_disclaimer">Detta är helt experimentellt. Använd på egen risk! Läs säkerhetsbeskrivningen.</string>
+	<string name="wallet_content_disclaimer">Använd på egen risk. Läs säkerhetsbeskrivningen.</string>
 	<string name="wallet_address_fragment_your">Din Bitcoin adress:</string>
 	<string name="wallet_address_fragment_clipboard_msg">Bitcoin adressen kopierad till klippbordet</string>
 	<string name="wallet_address_fragment_share_dialog_title">Dela din Bitcoin adress…</string>

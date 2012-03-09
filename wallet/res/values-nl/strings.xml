@@ -5,7 +5,7 @@
 	<string name="app_name">Bitcoin Wallet</string>
 	<string name="toast_wallet_reset">Wallet is gereset,\nherstel zal enige tijd duren</string>
 
-	<string name="wallet_content_disclaimer">Deze software is volledig expirimenteel. Gebruik op eigen risico! Lees de veiligheids voorschriften.</string>
+	<string name="wallet_content_disclaimer">Gebruik op eigen risico. Lees de veiligheids voorschriften.</string>
 	<string name="wallet_address_fragment_your">Uw Bitcoin Adres:</string>
 	<string name="wallet_address_fragment_clipboard_msg">Bitcoin adres gekopieërd naar klembord</string>
 	<string name="wallet_address_fragment_share_dialog_title">Deel uw bitcoin adres…</string>
