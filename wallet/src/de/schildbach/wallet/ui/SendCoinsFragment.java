@@ -229,7 +229,7 @@ public class SendCoinsFragment extends Fragment
 								// TransactionActivity.show(activity, tx);
 							}
 						};
-						handler.postDelayed(sentRunnable, 5000);
+						handler.postDelayed(sentRunnable, 3000);
 
 						activity.longToast(R.string.send_coins_success_msg, Utils.bitcoinValueToFriendlyString(amount));
 
