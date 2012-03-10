@@ -80,7 +80,7 @@
 	<string name="request_coins_share_dialog_title">Share request for Bitcoins…</string>
 
 	<string name="address_book_activity_title">Address Book</string>
-	<string name="address_book_list_receiving_title">Receiving addresses</string>
+	<string name="address_book_list_receiving_title">Your addresses</string>
 	<string name="address_book_list_sending_title">Sending addresses</string>
 	<string name="address_book_empty_text">No entries in address book</string>
 	<string name="address_book_context_send_title">Send Bitcoins to address</string>
