@@ -1,18 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/widget_frame"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:background="@drawable/appwidget_dark_bg_clickable"
+	android:focusable="true"
+	android:orientation="horizontal" >
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:id="@+id/widget_frame"
-	android:layout_width="fill_parent" android:layout_height="fill_parent" android:orientation="horizontal"
-	android:background="@drawable/appwidget_dark_bg_clickable" android:focusable="true">
+	<ImageView
+		android:id="@+id/widget_app_icon"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_gravity="center"
+		android:layout_margin="12dp" />
 
-	<ImageView android:id="@+id/widget_app_icon" android:layout_width="wrap_content" android:layout_height="wrap_content"
-		android:layout_gravity="center" android:layout_margin="12dp" />
+	<LinearLayout
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_gravity="center"
+		android:layout_weight="100"
+		android:gravity="center_horizontal" >
 
-	<LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
-		android:layout_weight="100" android:layout_gravity="center" android:gravity="center_horizontal">
-		<TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-			android:layout_marginRight="6sp" android:text="BTC" android:textColor="#bbb" android:textSize="32sp" />
-		<TextView android:id="@+id/widget_wallet_balance" android:layout_width="wrap_content" android:layout_height="wrap_content"
-			android:textColor="#eee" android:textSize="38sp" android:singleLine="true" />
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginRight="6sp"
+			android:text="BTC"
+			android:textColor="#bbb"
+			android:textSize="32sp" />
+
+		<TextView
+			android:id="@+id/widget_wallet_balance"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:singleLine="true"
+			android:textColor="#eee"
+			android:textSize="38sp" />
 	</LinearLayout>
 
 </LinearLayout>

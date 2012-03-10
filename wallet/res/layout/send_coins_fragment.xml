@@ -1,67 +1,159 @@
 <?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical" >
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:orientation="vertical">
+	<TextView
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginLeft="20dp"
+		android:layout_marginRight="20dp"
+		android:layout_marginTop="8dp"
+		android:text="@string/send_coins_fragment_receiving_address_label"
+		android:textColor="#000"
+		android:textSize="16sp"
+		android:textStyle="bold" />
 
-	<TextView android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp"
-		android:layout_marginLeft="20dp" android:layout_marginRight="20dp" android:text="@string/send_coins_fragment_receiving_address_label"
-		android:textSize="16sp" android:textStyle="bold" android:textColor="#000" />
+	<AutoCompleteTextView
+		android:id="@+id/send_coins_receiving_address"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginLeft="12dp"
+		android:layout_marginRight="12dp"
+		android:background="@drawable/edit_text"
+		android:completionThreshold="1"
+		android:hint="@string/send_coins_fragment_receiving_address_hint"
+		android:imeOptions="actionNext"
+		android:singleLine="true"
+		android:textColor="#000"
+		android:textSize="16sp" />
 
-	<AutoCompleteTextView android:id="@+id/send_coins_receiving_address" android:layout_width="fill_parent"
-		android:layout_height="wrap_content" android:layout_marginLeft="12dp" android:layout_marginRight="12dp"
-		android:background="@drawable/edit_text" android:textSize="16sp" android:textColor="#000" android:singleLine="true"
-		android:hint="@string/send_coins_fragment_receiving_address_hint" android:completionThreshold="1" android:imeOptions="actionNext" />
+	<TextView
+		android:id="@+id/send_coins_receiving_address_error"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginBottom="8dp"
+		android:layout_marginLeft="12dp"
+		android:text="@string/send_coins_fragment_receiving_address_error"
+		android:textColor="#f88"
+		android:textSize="16sp"
+		android:textStyle="bold"
+		android:visibility="gone" />
 
-	<TextView android:id="@+id/send_coins_receiving_address_error" android:layout_width="fill_parent"
-		android:layout_height="wrap_content" android:layout_marginBottom="8dp" android:layout_marginLeft="12dp"
-		android:text="@string/send_coins_fragment_receiving_address_error" android:textColor="#f88" android:textSize="16sp"
-		android:textStyle="bold" android:visibility="gone" />
+	<TextView
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginLeft="20dp"
+		android:layout_marginRight="20dp"
+		android:layout_marginTop="8dp"
+		android:text="@string/send_coins_fragment_available_label"
+		android:textSize="16sp"
+		android:textStyle="bold" />
 
-	<TextView android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp"
-		android:layout_marginLeft="20dp" android:layout_marginRight="20dp" android:text="@string/send_coins_fragment_available_label"
-		android:textSize="16sp" android:textStyle="bold" />
+	<de.schildbach.wallet.ui.CurrencyAmountView
+		android:id="@+id/send_coins_available"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginLeft="12dp"
+		android:layout_marginRight="12dp" >
 
-	<de.schildbach.wallet.ui.CurrencyAmountView android:id="@+id/send_coins_available"
-		android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="12dp"
-		android:layout_marginRight="12dp">
-		<TextView android:layout_width="fill_parent" android:layout_height="wrap_content" android:background="@drawable/edit_text"
-			android:textSize="28sp" android:drawablePadding="4dp" android:enabled="false" />
+		<TextView
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:background="@drawable/edit_text"
+			android:drawablePadding="4dp"
+			android:enabled="false"
+			android:textSize="28sp" />
 	</de.schildbach.wallet.ui.CurrencyAmountView>
 
-	<TextView android:id="@+id/send_coins_pending" android:layout_width="fill_parent" android:layout_height="wrap_content"
-		android:layout_marginBottom="8dp" android:layout_marginLeft="20dp" android:textSize="16sp" android:visibility="gone" />
+	<TextView
+		android:id="@+id/send_coins_pending"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginBottom="8dp"
+		android:layout_marginLeft="20dp"
+		android:textSize="16sp"
+		android:visibility="gone" />
 
-	<TextView android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp"
-		android:layout_marginLeft="20dp" android:layout_marginRight="20dp" android:text="@string/send_coins_fragment_amount_label"
-		android:textSize="16sp" android:textStyle="bold" />
+	<TextView
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginLeft="20dp"
+		android:layout_marginRight="20dp"
+		android:layout_marginTop="8dp"
+		android:text="@string/send_coins_fragment_amount_label"
+		android:textSize="16sp"
+		android:textStyle="bold" />
 
-	<de.schildbach.wallet.ui.CurrencyAmountView android:id="@+id/send_coins_amount"
-		android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="12dp"
-		android:layout_marginRight="12dp">
-		<EditText android:layout_width="fill_parent" android:layout_height="wrap_content" android:background="@drawable/edit_text"
-			android:textSize="28sp" android:drawablePadding="4dp" />
+	<de.schildbach.wallet.ui.CurrencyAmountView
+		android:id="@+id/send_coins_amount"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginLeft="12dp"
+		android:layout_marginRight="12dp" >
+
+		<EditText
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:background="@drawable/edit_text"
+			android:drawablePadding="4dp"
+			android:textSize="28sp" />
 	</de.schildbach.wallet.ui.CurrencyAmountView>
 
-	<TextView android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp"
-		android:layout_marginLeft="20dp" android:layout_marginRight="20dp" android:text="@string/send_coins_fragment_fee_label"
-		android:textSize="16sp" android:textStyle="bold" />
+	<TextView
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginLeft="20dp"
+		android:layout_marginRight="20dp"
+		android:layout_marginTop="8dp"
+		android:text="@string/send_coins_fragment_fee_label"
+		android:textSize="16sp"
+		android:textStyle="bold" />
 
-	<de.schildbach.wallet.ui.CurrencyAmountView android:id="@+id/send_coins_fee"
-		android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="12dp"
-		android:layout_marginRight="12dp">
-		<EditText android:layout_width="fill_parent" android:layout_height="wrap_content" android:background="@drawable/edit_text"
-			android:textSize="28sp" android:drawablePadding="4dp" />
+	<de.schildbach.wallet.ui.CurrencyAmountView
+		android:id="@+id/send_coins_fee"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginLeft="12dp"
+		android:layout_marginRight="12dp" >
+
+		<EditText
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:background="@drawable/edit_text"
+			android:drawablePadding="4dp"
+			android:textSize="28sp" />
 	</de.schildbach.wallet.ui.CurrencyAmountView>
 
 	<!-- stretch dummy -->
-	<ImageView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="100" />
 
-	<TableLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:paddingTop="6dp"
-		android:paddingBottom="4dp" android:paddingLeft="4dp" android:paddingRight="4dp" android:background="@drawable/button_bar_background"
-		android:stretchColumns="0,1">
+	<ImageView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_weight="100" />
+
+	<TableLayout
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:background="@drawable/button_bar_background"
+		android:paddingBottom="4dp"
+		android:paddingLeft="4dp"
+		android:paddingRight="4dp"
+		android:paddingTop="6dp"
+		android:stretchColumns="0,1" >
+
 		<TableRow>
-			<Button android:id="@+id/send_coins_go" android:background="@drawable/btn_default" android:paddingLeft="12dp"
-				android:paddingRight="12dp" android:textStyle="bold" />
-			<Button android:id="@+id/send_coins_cancel" android:background="@drawable/btn_default" android:paddingLeft="12dp"
+
+			<Button
+				android:id="@+id/send_coins_go"
+				android:background="@drawable/btn_default"
+				android:paddingLeft="12dp"
+				android:paddingRight="12dp"
+				android:textStyle="bold" />
+
+			<Button
+				android:id="@+id/send_coins_cancel"
+				android:background="@drawable/btn_default"
+				android:paddingLeft="12dp"
 				android:paddingRight="12dp" />
 		</TableRow>
 	</TableLayout>

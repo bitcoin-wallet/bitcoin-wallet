@@ -1,17 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:orientation="vertical" >
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="fill_parent"
-	android:layout_height="fill_parent" android:orientation="vertical">
+	<fragment
+		android:id="@+id/action_bar_fragment"
+		android:name="de.schildbach.wallet.util.ActionBarFragment"
+		android:layout_width="fill_parent"
+		android:layout_height="@dimen/action_bar_height" />
 
-	<fragment android:id="@+id/action_bar_fragment" android:name="de.schildbach.wallet.util.ActionBarFragment"
-		android:layout_width="fill_parent" android:layout_height="@dimen/action_bar_height" />
+	<FrameLayout
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent"
+		android:background="#d8d8e0"
+		android:foreground="@drawable/title_bar_shadow"
+		android:foregroundGravity="top|fill_horizontal" >
 
-	<FrameLayout android:layout_width="fill_parent" android:layout_height="fill_parent" android:foreground="@drawable/title_bar_shadow"
-		android:foregroundGravity="top|fill_horizontal" android:background="#d8d8e0">
-
-		<fragment android:name="de.schildbach.wallet.ui.RequestCoinsFragment" android:layout_width="fill_parent"
+		<fragment
+			android:name="de.schildbach.wallet.ui.RequestCoinsFragment"
+			android:layout_width="fill_parent"
 			android:layout_height="fill_parent" />
-
 	</FrameLayout>
 
 </LinearLayout>

@@ -1,24 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="fill_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
 	android:layout_height="fill_parent"
-	android:paddingLeft="@dimen/list_entry_padding_horizontal" android:paddingRight="@dimen/list_entry_padding_horizontal"
-	android:paddingTop="@dimen/list_entry_padding_vertical" android:paddingBottom="@dimen/list_entry_padding_vertical"
-	android:minHeight="?android:attr/listPreferredItemHeight" android:orientation="horizontal">
+	android:minHeight="?android:attr/listPreferredItemHeight"
+	android:orientation="horizontal"
+	android:paddingBottom="@dimen/list_entry_padding_vertical"
+	android:paddingLeft="@dimen/list_entry_padding_horizontal"
+	android:paddingRight="@dimen/list_entry_padding_horizontal"
+	android:paddingTop="@dimen/list_entry_padding_vertical" >
 
-	<LinearLayout android:layout_width="0px" android:layout_height="fill_parent" android:layout_weight="1" android:orientation="vertical">
+	<LinearLayout
+		android:layout_width="0px"
+		android:layout_height="fill_parent"
+		android:layout_weight="1"
+		android:orientation="vertical" >
 
-		<TextView android:id="@+id/address_book_row_label" android:layout_width="wrap_content" android:layout_height="0px"
-			android:layout_weight="1" android:textSize="@dimen/font_size_normal" android:textStyle="bold" />
+		<TextView
+			android:id="@+id/address_book_row_label"
+			android:layout_width="wrap_content"
+			android:layout_height="0px"
+			android:layout_weight="1"
+			android:textSize="@dimen/font_size_normal"
+			android:textStyle="bold" />
 
-		<TextView android:id="@+id/address_book_row_created" android:layout_width="wrap_content" android:layout_height="wrap_content"
-			android:layout_gravity="bottom" android:gravity="bottom" android:textSize="@dimen/font_size_small"
-			android:textColor="@android:color/darker_gray" android:visibility="gone" />
-
+		<TextView
+			android:id="@+id/address_book_row_created"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="bottom"
+			android:gravity="bottom"
+			android:textColor="@android:color/darker_gray"
+			android:textSize="@dimen/font_size_small"
+			android:visibility="gone" />
 	</LinearLayout>
 
-	<TextView android:id="@+id/address_book_row_address" android:layout_width="wrap_content"
-		android:layout_height="wrap_content" android:layout_gravity="right" android:layout_marginLeft="6dip"
-		android:typeface="monospace" android:textSize="@dimen/font_size_normal" />
+	<TextView
+		android:id="@+id/address_book_row_address"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_gravity="right"
+		android:layout_marginLeft="6dip"
+		android:textSize="@dimen/font_size_normal"
+		android:typeface="monospace" />
 
 </LinearLayout>

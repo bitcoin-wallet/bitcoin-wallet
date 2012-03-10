@@ -1,34 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
 
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-
-	<PreferenceCategory android:title="@string/preferences_about_title">
-
-		<Preference android:key="about_version" android:title="Version" />
-		<Preference android:title="Copyright" android:summary="© 2011-2012, Andreas Schildbach" />
-		<Preference android:key="about_license" android:title="@string/preferences_license_title" />
-		<Preference android:key="about_source" android:title="Source Code" />
-		<Preference android:key="about_credits_bitcoinj" android:title="@string/preferences_credits_bitcoinj_title" />
-		<Preference android:key="about_credits_zxing" android:title="@string/preferences_credits_zxing_title" />
-		<Preference android:key="about_credits_icon" android:title="@string/preferences_credits_icon_title" />
-		<Preference android:key="about_author_twitter" android:title="@string/preferences_author_twitter_title"
-			android:summary="\@android_bitcoin" />
-		<Preference android:key="about_author_googleplus" android:title="@string/preferences_author_googleplus_title"
-			android:summary="+Andreas Schildbach" />
-		<Preference android:key="about_market_app" android:title="@string/preferences_credits_market_app_title" />
-		<Preference android:key="about_market_publisher" android:title="@string/preferences_credits_market_publisher_title" />
-
+	<PreferenceCategory android:title="@string/preferences_about_title" >
+		<Preference
+			android:key="about_version"
+			android:title="Version" />
+		<Preference
+			android:summary="© 2011-2012, Andreas Schildbach"
+			android:title="Copyright" />
+		<Preference
+			android:key="about_license"
+			android:title="@string/preferences_license_title" />
+		<Preference
+			android:key="about_source"
+			android:title="Source Code" />
+		<Preference
+			android:key="about_credits_bitcoinj"
+			android:title="@string/preferences_credits_bitcoinj_title" />
+		<Preference
+			android:key="about_credits_zxing"
+			android:title="@string/preferences_credits_zxing_title" />
+		<Preference
+			android:key="about_credits_icon"
+			android:title="@string/preferences_credits_icon_title" />
+		<Preference
+			android:key="about_author_twitter"
+			android:summary="\@android_bitcoin"
+			android:title="@string/preferences_author_twitter_title" />
+		<Preference
+			android:key="about_author_googleplus"
+			android:summary="+Andreas Schildbach"
+			android:title="@string/preferences_author_googleplus_title" />
+		<Preference
+			android:key="about_market_app"
+			android:title="@string/preferences_credits_market_app_title" />
+		<Preference
+			android:key="about_market_publisher"
+			android:title="@string/preferences_credits_market_publisher_title" />
 	</PreferenceCategory>
+	<PreferenceCategory android:title="@string/preferences_prefs_title" >
+		<CheckBoxPreference
+			android:key="autosync"
+			android:summary="@string/preferences_autosync_summary"
+			android:title="@string/preferences_autosync_title" />
 
-	<PreferenceCategory android:title="@string/preferences_prefs_title">
-		<CheckBoxPreference android:key="autosync" android:title="@string/preferences_autosync_title"
-			android:summary="@string/preferences_autosync_summary" />
-		<EditTextPreference android:key="trusted_peer" android:title="@string/preferences_trusted_peer_title"
-			android:summary="@string/preferences_trusted_peer_summary" />
-		<ListPreference android:key="initiate_reset" android:title="@string/preferences_initiate_reset_title"
-			android:summary="@string/preferences_initiate_reset_summary" android:entries="@array/preferences_initiate_reset_entries"
-			android:entryValues="@array/preferences_initiate_reset_values" android:dialogTitle="@string/preferences_initiate_reset_dialog_title"
-			android:defaultValue="nop" />
+		<EditTextPreference
+			android:key="trusted_peer"
+			android:summary="@string/preferences_trusted_peer_summary"
+			android:title="@string/preferences_trusted_peer_title" />
+
+		<ListPreference
+			android:defaultValue="nop"
+			android:dialogTitle="@string/preferences_initiate_reset_dialog_title"
+			android:entries="@array/preferences_initiate_reset_entries"
+			android:entryValues="@array/preferences_initiate_reset_values"
+			android:key="initiate_reset"
+			android:summary="@string/preferences_initiate_reset_summary"
+			android:title="@string/preferences_initiate_reset_title" />
 	</PreferenceCategory>
 
 </PreferenceScreen>

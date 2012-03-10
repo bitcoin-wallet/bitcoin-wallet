@@ -1,56 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:orientation="vertical" >
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="fill_parent"
-	android:layout_height="fill_parent" android:orientation="vertical">
+	<fragment
+		android:id="@+id/action_bar_fragment"
+		android:name="de.schildbach.wallet.util.ActionBarFragment"
+		android:layout_width="fill_parent"
+		android:layout_height="@dimen/action_bar_height" />
 
-	<fragment android:id="@+id/action_bar_fragment" android:name="de.schildbach.wallet.util.ActionBarFragment"
-		android:layout_width="fill_parent" android:layout_height="@dimen/action_bar_height" />
+	<FrameLayout
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent"
+		android:foreground="@drawable/title_bar_shadow"
+		android:foregroundGravity="top|fill_horizontal" >
 
-	<FrameLayout android:layout_width="fill_parent" android:layout_height="fill_parent" android:foreground="@drawable/title_bar_shadow"
-		android:foregroundGravity="top|fill_horizontal">
+		<LinearLayout
+			android:layout_width="fill_parent"
+			android:layout_height="fill_parent"
+			android:orientation="horizontal" >
 
-		<LinearLayout android:layout_width="fill_parent" android:layout_height="fill_parent" android:orientation="horizontal">
+			<LinearLayout
+				android:layout_width="0px"
+				android:layout_height="fill_parent"
+				android:layout_weight="1"
+				android:background="@color/background_less_bright"
+				android:orientation="vertical" >
 
-			<LinearLayout android:layout_width="0px" android:layout_height="fill_parent" android:layout_weight="1" android:orientation="vertical"
-				android:background="@color/background_less_bright">
+				<TextView
+					android:layout_width="fill_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginBottom="@dimen/list_entry_padding_vertical"
+					android:layout_marginLeft="@dimen/list_entry_padding_horizontal"
+					android:layout_marginRight="@dimen/list_entry_padding_horizontal"
+					android:layout_marginTop="@dimen/list_entry_padding_vertical"
+					android:shadowColor="@color/background_bright"
+					android:shadowRadius="1"
+					android:text="@string/address_book_list_receiving_title"
+					android:textSize="@dimen/font_size_normal"
+					android:textStyle="bold" />
 
-				<TextView android:layout_width="fill_parent" android:layout_height="wrap_content"
-					android:layout_marginLeft="@dimen/list_entry_padding_horizontal" android:layout_marginRight="@dimen/list_entry_padding_horizontal"
-					android:layout_marginTop="@dimen/list_entry_padding_vertical" android:layout_marginBottom="@dimen/list_entry_padding_vertical"
-					android:text="@string/address_book_list_receiving_title" android:textSize="@dimen/font_size_normal" android:textStyle="bold"
-					android:shadowColor="@color/background_bright" android:shadowRadius="1" />
+				<FrameLayout
+					android:layout_width="fill_parent"
+					android:layout_height="0px"
+					android:layout_weight="1"
+					android:background="@color/background_bright"
+					android:foreground="@drawable/title_bar_shadow_light"
+					android:foregroundGravity="top|fill_horizontal" >
 
-				<FrameLayout android:layout_width="fill_parent" android:layout_height="0px" android:layout_weight="1"
-					android:background="@color/background_bright" android:foreground="@drawable/title_bar_shadow_light"
-					android:foregroundGravity="top|fill_horizontal">
-					<fragment android:id="@+id/wallet_addresses_fragment" android:name="de.schildbach.wallet.ui.WalletAddressesFragment"
-						android:layout_width="fill_parent" android:layout_height="fill_parent" />
+					<fragment
+						android:id="@+id/wallet_addresses_fragment"
+						android:name="de.schildbach.wallet.ui.WalletAddressesFragment"
+						android:layout_width="fill_parent"
+						android:layout_height="fill_parent" />
 				</FrameLayout>
-
 			</LinearLayout>
 
-			<View android:layout_width="1dp" android:layout_height="fill_parent" android:background="@color/background_less_bright" />
+			<View
+				android:layout_width="1dp"
+				android:layout_height="fill_parent"
+				android:background="@color/background_less_bright" />
 
-			<LinearLayout android:layout_width="0px" android:layout_height="fill_parent" android:layout_weight="1" android:orientation="vertical"
-				android:background="@color/background_less_bright">
+			<LinearLayout
+				android:layout_width="0px"
+				android:layout_height="fill_parent"
+				android:layout_weight="1"
+				android:background="@color/background_less_bright"
+				android:orientation="vertical" >
 
-				<TextView android:layout_width="fill_parent" android:layout_height="wrap_content"
-					android:layout_marginLeft="@dimen/list_entry_padding_horizontal" android:layout_marginRight="@dimen/list_entry_padding_horizontal"
-					android:layout_marginTop="@dimen/list_entry_padding_vertical" android:layout_marginBottom="@dimen/list_entry_padding_vertical"
-					android:text="@string/address_book_list_sending_title" android:textSize="@dimen/font_size_normal" android:textStyle="bold"
-					android:shadowColor="@color/background_bright" android:shadowRadius="1" />
+				<TextView
+					android:layout_width="fill_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginBottom="@dimen/list_entry_padding_vertical"
+					android:layout_marginLeft="@dimen/list_entry_padding_horizontal"
+					android:layout_marginRight="@dimen/list_entry_padding_horizontal"
+					android:layout_marginTop="@dimen/list_entry_padding_vertical"
+					android:shadowColor="@color/background_bright"
+					android:shadowRadius="1"
+					android:text="@string/address_book_list_sending_title"
+					android:textSize="@dimen/font_size_normal"
+					android:textStyle="bold" />
 
-				<FrameLayout android:layout_width="fill_parent" android:layout_height="0px" android:layout_weight="1"
-					android:background="@color/background_bright" android:foreground="@drawable/title_bar_shadow_light"
-					android:foregroundGravity="top|fill_horizontal">
-					<fragment android:id="@+id/sending_addresses_fragment" android:name="de.schildbach.wallet.ui.SendingAddressesFragment"
-						android:layout_width="fill_parent" android:layout_height="fill_parent" />
+				<FrameLayout
+					android:layout_width="fill_parent"
+					android:layout_height="0px"
+					android:layout_weight="1"
+					android:background="@color/background_bright"
+					android:foreground="@drawable/title_bar_shadow_light"
+					android:foregroundGravity="top|fill_horizontal" >
+
+					<fragment
+						android:id="@+id/sending_addresses_fragment"
+						android:name="de.schildbach.wallet.ui.SendingAddressesFragment"
+						android:layout_width="fill_parent"
+						android:layout_height="fill_parent" />
 				</FrameLayout>
-
 			</LinearLayout>
-
 		</LinearLayout>
-
 	</FrameLayout>
 
 </LinearLayout>
