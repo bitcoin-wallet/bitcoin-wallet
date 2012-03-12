@@ -5,7 +5,7 @@
 	<string name="app_name">Bitcoin πορτοφόλι</string>
 	<string name="toast_wallet_reset">Το πορτοφόλι έχει αποκατασταθεί,\nθα πάρει κάποιο χρόνο για την ανάκτηση</string>
 
-	<string name="wallet_content_disclaimer">Χρησιμοποιήστε με δική σας ευθύνη. Διαβάστε τις οδηγίες ασφαλείας</string>
+	<string name="blockchain_state_disclaimer">Χρησιμοποιήστε με δική σας ευθύνη. Διαβάστε τις οδηγίες ασφαλείας</string>
 	<string name="wallet_address_fragment_your">H Bitcoin διεύθυνή σας:</string>
 	<string name="wallet_address_fragment_clipboard_msg">H Bitcoin διεύθυνή αντιγράφικε στο clipboard</string>
 	<string name="wallet_address_fragment_share_dialog_title">Μοιραστείτε τη διεύθυνση bitcoin σας…</string>

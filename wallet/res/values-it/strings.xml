@@ -5,7 +5,7 @@
 	<string name="app_name">Bitcoin Wallet</string>
 	<string name="toast_wallet_reset">Il portafoglio è stato reinizializzato,\noccorrerà del tempo per ripristinarlo</string>
 
-	<string name="wallet_content_disclaimer">Usatela a vostro rischio e pericolo. Leggete i dettagli nelle note di sicurezza.</string>
+	<string name="blockchain_state_disclaimer">Usatela a vostro rischio e pericolo. Leggete i dettagli nelle note di sicurezza.</string>
 	<string name="wallet_address_fragment_your">Il tuo indirizzo Bitcoin:</string>
 	<string name="wallet_address_fragment_clipboard_msg">Indirizzo Bitcoin copiato nella clipboard</string>
 	<string name="wallet_address_fragment_share_dialog_title">Condividi il tuo indirizzo Bitcoin…</string>

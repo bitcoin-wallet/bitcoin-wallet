@@ -3,29 +3,30 @@
 	android:background="@drawable/action_bar_background" >
 
 	<TextView
-		android:id="@+id/wallet_disclaimer"
+		android:id="@+id/blockchain_state_disclaimer"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
 		android:layout_gravity="center"
 		android:gravity="center"
-		android:minLines="2"
 		android:shadowColor="#000"
 		android:shadowRadius="1"
-		android:text="@string/wallet_content_disclaimer"
+		android:text="@string/blockchain_state_disclaimer"
 		android:textColor="#fff"
 		android:textSize="@dimen/font_size_small" />
 
 	<TextView
-		android:id="@+id/wallet_message"
+		android:id="@+id/blockchain_state_message"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
 		android:layout_gravity="center"
 		android:gravity="center"
+		android:paddingBottom="@dimen/list_entry_padding_vertical"
+		android:paddingTop="@dimen/list_entry_padding_vertical"
 		android:shadowColor="#000"
 		android:shadowRadius="1"
 		android:singleLine="true"
 		android:textColor="#fff"
 		android:textSize="@dimen/font_size_small"
-		android:visibility="gone" />
+		android:visibility="invisible" />
 
 </FrameLayout>

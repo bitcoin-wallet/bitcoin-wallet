@@ -90,8 +90,8 @@ public class BlockchainStateFragment extends Fragment
 	{
 		final View view = inflater.inflate(R.layout.blockchain_state_fragment, container);
 
-		messageView = (TextView) view.findViewById(R.id.wallet_message);
-		disclaimerView = (TextView) view.findViewById(R.id.wallet_disclaimer);
+		messageView = (TextView) view.findViewById(R.id.blockchain_state_message);
+		disclaimerView = (TextView) view.findViewById(R.id.blockchain_state_disclaimer);
 
 		disclaimerView.setOnClickListener(new OnClickListener()
 		{
@@ -148,11 +148,11 @@ public class BlockchainStateFragment extends Fragment
 			disclaimerView.setVisibility(View.INVISIBLE);
 
 			if ((download & Service.ACTION_BLOCKCHAIN_STATE_DOWNLOAD_STORAGE_PROBLEM) != 0)
-				messageView.setText(R.string.wallet_message_blockchain_problem_storage);
+				messageView.setText(R.string.blockchain_state_message_problem_storage);
 			else if ((download & Service.ACTION_BLOCKCHAIN_STATE_DOWNLOAD_POWER_PROBLEM) != 0)
-				messageView.setText(R.string.wallet_message_blockchain_problem_power);
+				messageView.setText(R.string.blockchain_state_message_problem_power);
 			else if ((download & Service.ACTION_BLOCKCHAIN_STATE_DOWNLOAD_NETWORK_PROBLEM) != 0)
-				messageView.setText(R.string.wallet_message_blockchain_problem_network);
+				messageView.setText(R.string.blockchain_state_message_problem_network);
 		}
 		else if (bestChainDate != null)
 		{
@@ -161,24 +161,24 @@ public class BlockchainStateFragment extends Fragment
 			messageView.setVisibility(spanHours < 2 ? View.INVISIBLE : View.VISIBLE);
 			disclaimerView.setVisibility(spanHours < 2 ? View.VISIBLE : View.INVISIBLE);
 
-			final String downloading = getString(R.string.wallet_message_blockchain_downloading);
-			final String stalled = getString(R.string.wallet_message_blockchain_stalled);
+			final String downloading = getString(R.string.blockchain_state_message_downloading);
+			final String stalled = getString(R.string.blockchain_state_message_stalled);
 
 			final String stalledText;
 			if (spanHours < 48)
 			{
-				messageView.setText(getString(R.string.wallet_message_blockchain_hours, downloading, spanHours));
-				stalledText = getString(R.string.wallet_message_blockchain_hours, stalled, spanHours);
+				messageView.setText(getString(R.string.blockchain_state_message_hours, downloading, spanHours));
+				stalledText = getString(R.string.blockchain_state_message_hours, stalled, spanHours);
 			}
 			else if (spanHours < 24 * 14)
 			{
-				messageView.setText(getString(R.string.wallet_message_blockchain_days, downloading, spanHours / 24));
-				stalledText = getString(R.string.wallet_message_blockchain_days, stalled, spanHours / 24);
+				messageView.setText(getString(R.string.blockchain_state_message_days, downloading, spanHours / 24));
+				stalledText = getString(R.string.blockchain_state_message_days, stalled, spanHours / 24);
 			}
 			else
 			{
-				messageView.setText(getString(R.string.wallet_message_blockchain_weeks, downloading, spanHours / 24 / 7));
-				stalledText = getString(R.string.wallet_message_blockchain_weeks, stalled, spanHours / 24 / 7);
+				messageView.setText(getString(R.string.blockchain_state_message_weeks, downloading, spanHours / 24 / 7));
+				stalledText = getString(R.string.blockchain_state_message_weeks, stalled, spanHours / 24 / 7);
 			}
 
 			delayMessageHandler.removeCallbacksAndMessages(null);

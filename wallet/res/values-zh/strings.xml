@@ -5,7 +5,7 @@
 	<string name="app_name">比特币钱包</string>
 	<string name="toast_wallet_reset">钱包已重置，\n需要一些时间才能恢复</string>
 
-	<string name="wallet_content_disclaimer">请阅读安全及风险提示以了解潜在使用风险。</string>
+	<string name="blockchain_state_disclaimer">请阅读安全及风险提示以了解潜在使用风险。</string>
 	<string name="wallet_address_fragment_your">你的比特币地址：</string>
 	<string name="wallet_address_fragment_clipboard_msg">比特币地址已复制到剪贴板</string>
 	<string name="wallet_address_fragment_share_dialog_title">分享你的比特币地址…</string>

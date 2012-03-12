@@ -5,15 +5,15 @@
 	<string name="app_name">Bitcoin Cüzdanı</string>
 	<string name="toast_wallet_reset">Cüzdan sıfırlanmış,\ntamamlanması belli bir süre alacaktır.</string>
 
-	<string name="wallet_content_disclaimer">Tüm riski siz üstlenmiş olursunuz. Güvenlik notlarını okuyunuz.</string>
-	<string name="wallet_message_blockchain_hours">Blok zinciri %1$s, %2$d saat geride</string>
-	<string name="wallet_message_blockchain_days">Blok zinciri %1$s, %2$d gün geride</string>
-	<string name="wallet_message_blockchain_weeks">Blok zinciri %1$s, %2$d hafta geride</string>
-	<string name="wallet_message_blockchain_downloading">indirme sürüyor</string>
-	<string name="wallet_message_blockchain_stalled">durdu</string>
-	<string name="wallet_message_blockchain_problem_storage">Blok zinciri indirilmiyor: Kayıt problemi</string>
-	<string name="wallet_message_blockchain_problem_power">Blok zinciri indirilmiyor: Şarj problemi</string>
-	<string name="wallet_message_blockchain_problem_network">Blok zinciri indirilmiyor: Şebeke problemi</string>
+	<string name="blockchain_state_disclaimer">Tüm riski siz üstlenmiş olursunuz. Güvenlik notlarını okuyunuz.</string>
+	<string name="blockchain_state_message_hours">Blok zinciri %1$s, %2$d saat geride</string>
+	<string name="blockchain_state_message_days">Blok zinciri %1$s, %2$d gün geride</string>
+	<string name="blockchain_state_message_weeks">Blok zinciri %1$s, %2$d hafta geride</string>
+	<string name="blockchain_state_message_downloading">indirme sürüyor</string>
+	<string name="blockchain_state_message_stalled">durdu</string>
+	<string name="blockchain_state_message_problem_storage">Blok zinciri indirilmiyor: Kayıt problemi</string>
+	<string name="blockchain_state_message_problem_power">Blok zinciri indirilmiyor: Şarj problemi</string>
+	<string name="blockchain_state_message_problem_network">Blok zinciri indirilmiyor: Şebeke problemi</string>
 	<string name="wallet_address_fragment_your">Bitcoin adresiniz:</string>
 	<string name="wallet_address_fragment_clipboard_msg">Bitcoin adresi panoya kopyalandı</string>
 	<string name="wallet_address_fragment_share_dialog_title">Bitcoin adresinizi paylaşın…</string>
