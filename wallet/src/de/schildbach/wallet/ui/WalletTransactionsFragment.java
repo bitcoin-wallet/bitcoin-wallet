@@ -66,6 +66,7 @@ import com.google.bitcoin.core.WalletEventListener;
 
 import de.schildbach.wallet.AddressBookProvider;
 import de.schildbach.wallet.Application;
+import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.service.Service;
 import de.schildbach.wallet.util.CircularProgressView;
 import de.schildbach.wallet.util.ViewPagerTabs;
@@ -356,7 +357,7 @@ public final class WalletTransactionsFragment extends Fragment
 
 						final TextView rowValue = (TextView) row.findViewById(R.id.transaction_value);
 						rowValue.setTextColor(textColor);
-						rowValue.setText((amount.signum() < 0 ? "-" : "+") + "\u2009" /* thin space */
+						rowValue.setText((amount.signum() < 0 ? Constants.CURRENCY_MINUS_SIGN : Constants.CURRENCY_PLUS_SIGN)
 								+ WalletUtils.formatValue(amount.abs()));
 
 						return row;

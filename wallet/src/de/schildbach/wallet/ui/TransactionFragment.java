@@ -47,6 +47,7 @@ import com.google.bitcoin.core.Wallet;
 
 import de.schildbach.wallet.AddressBookProvider;
 import de.schildbach.wallet.Application;
+import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.util.Base43;
 import de.schildbach.wallet.util.QrDialog;
 import de.schildbach.wallet.util.WalletUtils;
@@ -131,7 +132,7 @@ public final class TransactionFragment extends Fragment
 			if (amountSent.signum() != 0)
 			{
 				final TextView viewAmountSent = (TextView) view.findViewById(R.id.transaction_fragment_amount_sent);
-				viewAmountSent.setText("-\u2009" /* thin space */+ WalletUtils.formatValue(amountSent));
+				viewAmountSent.setText(Constants.CURRENCY_MINUS_SIGN + WalletUtils.formatValue(amountSent));
 			}
 		}
 		catch (final ScriptException x)
@@ -144,7 +145,7 @@ public final class TransactionFragment extends Fragment
 		if (amountReceived.signum() != 0)
 		{
 			final TextView viewAmountReceived = (TextView) view.findViewById(R.id.transaction_fragment_amount_received);
-			viewAmountReceived.setText("+\u2009" /* thin space */+ WalletUtils.formatValue(amountReceived));
+			viewAmountReceived.setText(Constants.CURRENCY_PLUS_SIGN + WalletUtils.formatValue(amountReceived));
 		}
 
 		final View viewFromButton = view.findViewById(R.id.transaction_fragment_from_button);

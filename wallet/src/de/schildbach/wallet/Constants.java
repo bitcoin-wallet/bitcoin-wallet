@@ -89,6 +89,9 @@ public class Constants
 	public static final int SHUTDOWN_REMOVE_NOTIFICATION_DELAY = 2000;
 
 	public static final String CURRENCY_CODE_BITCOIN = "BTC";
+	private static final String THIN_SPACE = "\u2009";
+	public static final String CURRENCY_PLUS_SIGN = "+" + THIN_SPACE;
+	public static final String CURRENCY_MINUS_SIGN = "-" + THIN_SPACE;
 
 	public static final String DONATION_ADDRESS = "1PZmMahjbfsTy6DsaRyfStzoWTPppWwDnZ";
 
