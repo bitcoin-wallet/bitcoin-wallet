@@ -17,11 +17,13 @@
 
 package de.schildbach.wallet.util;
 
+import java.math.BigInteger;
 import java.util.Hashtable;
 
 import android.graphics.Bitmap;
 import android.graphics.Color;
 
+import com.google.bitcoin.core.Utils;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
 import com.google.zxing.WriterException;
@@ -79,5 +81,23 @@ public class WalletUtils
 			x.printStackTrace();
 			return null;
 		}
+	}
+
+	public static String formatValue(final BigInteger value)
+	{
+		final boolean negative = value.compareTo(BigInteger.ZERO) < 0;
+		final BigInteger absValue = value.abs();
+
+		final String sign = negative ? "-" : "";
+
+		final int coins = absValue.divide(Utils.COIN).intValue();
+		final int cents = absValue.remainder(Utils.COIN).intValue();
+
+		if (cents % 1000000 == 0)
+			return String.format("%s%d.%02d", sign, coins, cents / 1000000);
+		else if (cents % 10000 == 0)
+			return String.format("%s%d.%04d", sign, coins, cents / 10000);
+		else
+			return String.format("%s%d.%08d", sign, coins, cents);
 	}
 }

@@ -61,7 +61,6 @@ import com.google.bitcoin.core.ScriptException;
 import com.google.bitcoin.core.Transaction;
 import com.google.bitcoin.core.TransactionConfidence;
 import com.google.bitcoin.core.TransactionConfidence.ConfidenceType;
-import com.google.bitcoin.core.Utils;
 import com.google.bitcoin.core.Wallet;
 import com.google.bitcoin.core.WalletEventListener;
 
@@ -70,6 +69,7 @@ import de.schildbach.wallet.Application;
 import de.schildbach.wallet.service.Service;
 import de.schildbach.wallet.util.CircularProgressView;
 import de.schildbach.wallet.util.ViewPagerTabs;
+import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
 
 /**
@@ -357,7 +357,7 @@ public final class WalletTransactionsFragment extends Fragment
 						final TextView rowValue = (TextView) row.findViewById(R.id.transaction_value);
 						rowValue.setTextColor(textColor);
 						rowValue.setText((amount.signum() < 0 ? "-" : "+") + "\u2009" /* thin space */
-								+ Utils.bitcoinValueToFriendlyString(amount.abs()));
+								+ WalletUtils.formatValue(amount.abs()));
 
 						return row;
 					}

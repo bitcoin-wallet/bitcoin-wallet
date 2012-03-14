@@ -42,7 +42,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.google.bitcoin.core.AbstractWalletEventListener;
-import com.google.bitcoin.core.Utils;
 import com.google.bitcoin.core.Wallet;
 import com.google.bitcoin.core.Wallet.BalanceType;
 import com.google.bitcoin.core.WalletEventListener;
@@ -50,6 +49,7 @@ import com.google.bitcoin.core.WalletEventListener;
 import de.schildbach.wallet.Application;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.ExchangeRatesProvider;
+import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
 
 /**
@@ -189,7 +189,7 @@ public final class WalletBalanceFragment extends Fragment implements LoaderManag
 				final BigInteger valueLocal = new BigDecimal(balance).multiply(new BigDecimal(exchangeRate)).toBigInteger();
 				viewBalanceLocal.setVisibility(View.VISIBLE);
 				viewBalanceLocal.setText(getString(R.string.wallet_balance_fragment_local_value, exchangeCurrency,
-						Utils.bitcoinValueToFriendlyString(valueLocal)));
+						WalletUtils.formatValue(valueLocal)));
 				if (Constants.TEST)
 					viewBalanceLocal.setPaintFlags(viewBalanceLocal.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 			}

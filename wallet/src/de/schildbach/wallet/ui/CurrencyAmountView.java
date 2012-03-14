@@ -43,6 +43,7 @@ import android.widget.TextView.OnEditorActionListener;
 
 import com.google.bitcoin.core.Utils;
 
+import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
 
 /**
@@ -207,7 +208,7 @@ public final class CurrencyAmountView extends FrameLayout
 	public void setAmount(final BigInteger amount)
 	{
 		if (amount != null)
-			textView.setText(Utils.bitcoinValueToFriendlyString(amount));
+			textView.setText(WalletUtils.formatValue(amount));
 		else
 			textView.setText(null);
 	}
@@ -216,7 +217,7 @@ public final class CurrencyAmountView extends FrameLayout
 	{
 		final SpannableStringBuilder hint;
 		if (amount != null)
-			hint = new SpannableStringBuilder(Utils.bitcoinValueToFriendlyString(amount));
+			hint = new SpannableStringBuilder(WalletUtils.formatValue(amount));
 		else
 			hint = new SpannableStringBuilder("0.00");
 

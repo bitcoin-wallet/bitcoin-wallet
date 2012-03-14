@@ -43,7 +43,6 @@ import com.google.bitcoin.core.Address;
 import com.google.bitcoin.core.ScriptException;
 import com.google.bitcoin.core.Transaction;
 import com.google.bitcoin.core.TransactionConfidence.ConfidenceType;
-import com.google.bitcoin.core.Utils;
 import com.google.bitcoin.core.Wallet;
 
 import de.schildbach.wallet.AddressBookProvider;
@@ -132,7 +131,7 @@ public final class TransactionFragment extends Fragment
 			if (amountSent.signum() != 0)
 			{
 				final TextView viewAmountSent = (TextView) view.findViewById(R.id.transaction_fragment_amount_sent);
-				viewAmountSent.setText("-\u2009" /* thin space */+ Utils.bitcoinValueToFriendlyString(amountSent));
+				viewAmountSent.setText("-\u2009" /* thin space */+ WalletUtils.formatValue(amountSent));
 			}
 		}
 		catch (final ScriptException x)
@@ -145,7 +144,7 @@ public final class TransactionFragment extends Fragment
 		if (amountReceived.signum() != 0)
 		{
 			final TextView viewAmountReceived = (TextView) view.findViewById(R.id.transaction_fragment_amount_received);
-			viewAmountReceived.setText("+\u2009" /* thin space */+ Utils.bitcoinValueToFriendlyString(amountReceived));
+			viewAmountReceived.setText("+\u2009" /* thin space */+ WalletUtils.formatValue(amountReceived));
 		}
 
 		final View viewFromButton = view.findViewById(R.id.transaction_fragment_from_button);

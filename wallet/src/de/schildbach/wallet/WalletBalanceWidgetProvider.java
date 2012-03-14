@@ -26,11 +26,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.widget.RemoteViews;
 
-import com.google.bitcoin.core.Utils;
 import com.google.bitcoin.core.Wallet;
 import com.google.bitcoin.core.Wallet.BalanceType;
 
 import de.schildbach.wallet.ui.WalletActivity;
+import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
 
 /**
@@ -44,7 +44,7 @@ public class WalletBalanceWidgetProvider extends AppWidgetProvider
 		final Application application = (Application) context.getApplicationContext();
 		final Wallet wallet = application.getWallet();
 		final BigInteger balance = wallet.getBalance(BalanceType.ESTIMATED);
-		final String balanceStr = Utils.bitcoinValueToFriendlyString(balance);
+		final String balanceStr = WalletUtils.formatValue(balance);
 
 		for (int i = 0; i < appWidgetIds.length; i++)
 		{

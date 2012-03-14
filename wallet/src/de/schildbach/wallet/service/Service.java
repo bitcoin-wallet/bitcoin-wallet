@@ -58,7 +58,6 @@ import com.google.bitcoin.core.PeerGroup;
 import com.google.bitcoin.core.ScriptException;
 import com.google.bitcoin.core.Transaction;
 import com.google.bitcoin.core.TransactionInput;
-import com.google.bitcoin.core.Utils;
 import com.google.bitcoin.core.Wallet;
 import com.google.bitcoin.core.WalletEventListener;
 import com.google.bitcoin.discovery.DnsDiscovery;
@@ -72,6 +71,7 @@ import com.google.bitcoin.store.BoundedOverheadBlockStore;
 import de.schildbach.wallet.Application;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.ui.WalletActivity;
+import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
 
 /**
@@ -148,10 +148,10 @@ public class Service extends android.app.Service
 		if (from != null && !notificationAddresses.contains(from))
 			notificationAddresses.add(from);
 
-		final String tickerMsg = getString(R.string.notification_coins_received_msg, Utils.bitcoinValueToFriendlyString(amount))
+		final String tickerMsg = getString(R.string.notification_coins_received_msg, WalletUtils.formatValue(amount))
 				+ (Constants.TEST ? " [testnet]" : "");
 
-		final String msg = getString(R.string.notification_coins_received_msg, Utils.bitcoinValueToFriendlyString(notificationAccumulatedAmount))
+		final String msg = getString(R.string.notification_coins_received_msg, WalletUtils.formatValue(notificationAccumulatedAmount))
 				+ (Constants.TEST ? " [testnet]" : "");
 
 		final StringBuilder text = new StringBuilder();

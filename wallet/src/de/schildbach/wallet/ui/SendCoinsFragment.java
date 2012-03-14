@@ -48,7 +48,6 @@ import android.widget.TextView;
 import com.google.bitcoin.core.Address;
 import com.google.bitcoin.core.AddressFormatException;
 import com.google.bitcoin.core.Transaction;
-import com.google.bitcoin.core.Utils;
 import com.google.bitcoin.core.Wallet.BalanceType;
 
 import de.schildbach.wallet.AddressBookProvider;
@@ -56,6 +55,7 @@ import de.schildbach.wallet.Application;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.service.Service;
 import de.schildbach.wallet.ui.CurrencyAmountView.Listener;
+import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
 
 /**
@@ -162,7 +162,7 @@ public final class SendCoinsFragment extends Fragment
 
 		final TextView pendingView = (TextView) view.findViewById(R.id.send_coins_pending);
 		pendingView.setVisibility(pending.signum() > 0 ? View.VISIBLE : View.GONE);
-		pendingView.setText(getString(R.string.send_coins_fragment_pending, Utils.bitcoinValueToFriendlyString(pending)));
+		pendingView.setText(getString(R.string.send_coins_fragment_pending, WalletUtils.formatValue(pending)));
 
 		amountView = (CurrencyAmountView) view.findViewById(R.id.send_coins_amount);
 		amountView.setListener(listener);
@@ -201,7 +201,7 @@ public final class SendCoinsFragment extends Fragment
 					final BigInteger amount = amountView.getAmount();
 					final BigInteger fee = feeView.getAmount();
 
-					System.out.println("about to send " + amount + " (BTC " + Utils.bitcoinValueToFriendlyString(amount) + ") to " + receivingAddress);
+					System.out.println("about to send " + amount + " (BTC " + WalletUtils.formatValue(amount) + ") to " + receivingAddress);
 
 					final Transaction tx = service.sendCoins(receivingAddress, amount, fee);
 
@@ -231,7 +231,7 @@ public final class SendCoinsFragment extends Fragment
 						};
 						handler.postDelayed(sentRunnable, 3000);
 
-						activity.longToast(R.string.send_coins_success_msg, Utils.bitcoinValueToFriendlyString(amount));
+						activity.longToast(R.string.send_coins_success_msg, WalletUtils.formatValue(amount));
 
 						activity.setResult(Activity.RESULT_OK);
 					}
