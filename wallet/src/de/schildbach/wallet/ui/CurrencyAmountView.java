@@ -37,6 +37,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
@@ -62,6 +63,8 @@ public final class CurrencyAmountView extends FrameLayout
 	private int significantColor, lessSignificantColor, errorColor;
 	private Drawable deleteButtonDrawable, contextButtonDrawable;
 	private CurrencyCodeDrawable currencyCodeDrawable;
+	private boolean amountSigned = false;
+	private boolean validateAmount = true;
 
 	private TextView textView;
 	private View chooseView;
@@ -81,7 +84,7 @@ public final class CurrencyAmountView extends FrameLayout
 				s.append(replaced);
 			}
 
-			spanSignificant(s);
+			updateSpans(s);
 		}
 
 		public void beforeTextChanged(final CharSequence s, final int start, final int count, final int after)
@@ -151,6 +154,7 @@ public final class CurrencyAmountView extends FrameLayout
 		textView.setOnEditorActionListener(textViewListener);
 		textView.setHintTextColor(lessSignificantColor);
 		setHint(null);
+		setValidateAmount(textView instanceof EditText);
 
 		chooseView = new View(context)
 		{
@@ -185,6 +189,16 @@ public final class CurrencyAmountView extends FrameLayout
 		updateAppearance();
 	}
 
+	public void setAmountSigned(final boolean amountSigned)
+	{
+		this.amountSigned = amountSigned;
+	}
+
+	public void setValidateAmount(final boolean validateAmount)
+	{
+		this.validateAmount = validateAmount;
+	}
+
 	public void setContextButton(final int contextButtonResId, final OnClickListener contextButtonClickListener)
 	{
 		this.contextButtonDrawable = getContext().getResources().getDrawable(contextButtonResId);
@@ -209,7 +223,8 @@ public final class CurrencyAmountView extends FrameLayout
 	public void setAmount(final BigInteger amount)
 	{
 		if (amount != null)
-			textView.setText(WalletUtils.formatValue(amount));
+			textView.setText(amountSigned ? WalletUtils.formatValue(amount, Constants.CURRENCY_PLUS_SIGN, Constants.CURRENCY_MINUS_SIGN)
+					: WalletUtils.formatValue(amount));
 		else
 			textView.setText(null);
 	}
@@ -222,7 +237,7 @@ public final class CurrencyAmountView extends FrameLayout
 		else
 			hint = new SpannableStringBuilder("0.00");
 
-		spanSignificant(hint);
+		updateSpans(hint);
 		textView.setHint(hint);
 	}
 
@@ -234,14 +249,22 @@ public final class CurrencyAmountView extends FrameLayout
 		textView.setEnabled(enabled);
 	}
 
-	private static final Pattern P_SIGNIFICANT = Pattern.compile("^\\d*(\\.\\d{0,2})?");
+	public void setTextColor(final int color)
+	{
+		significantColor = color;
+
+		updateAppearance();
+	}
+
+	private static final Pattern P_SIGNIFICANT = Pattern.compile("^([-+]" + Constants.THIN_SPACE + ")?\\d*(\\.\\d{0,2})?");
 	private static Object SIGNIFICANT_SPAN = new StyleSpan(Typeface.BOLD);
 	private static Object UNSIGNIFICANT_SPAN = new RelativeSizeSpan(0.85f);
 
-	private static void spanSignificant(final Editable s)
+	private static void updateSpans(final Editable s)
 	{
 		s.removeSpan(SIGNIFICANT_SPAN);
 		s.removeSpan(UNSIGNIFICANT_SPAN);
+
 		final Matcher m = P_SIGNIFICANT.matcher(s);
 		if (m.find())
 		{
@@ -302,6 +325,6 @@ public final class CurrencyAmountView extends FrameLayout
 
 		chooseView.requestLayout();
 
-		textView.setTextColor(isValidAmount() ? significantColor : errorColor);
+		textView.setTextColor(!validateAmount || isValidAmount() ? significantColor : errorColor);
 	}
 }

@@ -66,11 +66,9 @@ import com.google.bitcoin.core.WalletEventListener;
 
 import de.schildbach.wallet.AddressBookProvider;
 import de.schildbach.wallet.Application;
-import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.service.Service;
 import de.schildbach.wallet.util.CircularProgressView;
 import de.schildbach.wallet.util.ViewPagerTabs;
-import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
 
 /**
@@ -269,8 +267,8 @@ public final class WalletTransactionsFragment extends Fragment
 
 					try
 					{
-						final BigInteger amount = tx.getValue(wallet);
-						final boolean sent = amount.signum() < 0;
+						final BigInteger value = tx.getValue(wallet);
+						final boolean sent = value.signum() < 0;
 
 						final CircularProgressView rowConfidenceCircular = (CircularProgressView) row
 								.findViewById(R.id.transaction_confidence_circular);
@@ -355,10 +353,11 @@ public final class WalletTransactionsFragment extends Fragment
 						rowLabel.setText(label != null ? label : address);
 						rowLabel.setTypeface(label != null ? Typeface.DEFAULT : Typeface.MONOSPACE);
 
-						final TextView rowValue = (TextView) row.findViewById(R.id.transaction_value);
+						final CurrencyAmountView rowValue = (CurrencyAmountView) row.findViewById(R.id.transaction_value);
+						rowValue.setCurrencyCode(null);
+						rowValue.setAmountSigned(true);
 						rowValue.setTextColor(textColor);
-						rowValue.setText((amount.signum() < 0 ? Constants.CURRENCY_MINUS_SIGN : Constants.CURRENCY_PLUS_SIGN)
-								+ WalletUtils.formatValue(amount.abs()));
+						rowValue.setAmount(value);
 
 						return row;
 					}

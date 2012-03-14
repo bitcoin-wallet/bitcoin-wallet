@@ -65,15 +65,20 @@
 		android:singleLine="true"
 		android:textSize="@dimen/font_size_normal" />
 
-	<TextView
+	<de.schildbach.wallet.ui.CurrencyAmountView
 		android:id="@+id/transaction_value"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_gravity="right"
 		android:layout_marginLeft="8dp"
-		android:layout_weight="0"
-		android:gravity="right"
-		android:textSize="@dimen/font_size_normal"
-		android:textStyle="bold" />
+		android:layout_weight="0" >
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:drawablePadding="4dp"
+			android:enabled="false"
+			android:textSize="@dimen/font_size_normal" />
+	</de.schildbach.wallet.ui.CurrencyAmountView>
 
 </LinearLayout>

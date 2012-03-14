@@ -85,10 +85,15 @@ public class WalletUtils
 
 	public static String formatValue(final BigInteger value)
 	{
+		return formatValue(value, "", "-");
+	}
+
+	public static String formatValue(final BigInteger value, final String plusSign, final String minusSign)
+	{
 		final boolean negative = value.compareTo(BigInteger.ZERO) < 0;
 		final BigInteger absValue = value.abs();
 
-		final String sign = negative ? "-" : "";
+		final String sign = negative ? minusSign : plusSign;
 
 		final int coins = absValue.divide(Utils.COIN).intValue();
 		final int cents = absValue.remainder(Utils.COIN).intValue();
