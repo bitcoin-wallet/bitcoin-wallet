@@ -32,6 +32,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.ContentObserver;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -351,6 +352,7 @@ public final class WalletTransactionsFragment extends Fragment
 						final TextView rowLabel = (TextView) row.findViewById(R.id.transaction_address);
 						rowLabel.setTextColor(textColor);
 						rowLabel.setText(label != null ? label : address);
+						rowLabel.setTypeface(label != null ? Typeface.DEFAULT : Typeface.MONOSPACE);
 
 						final TextView rowValue = (TextView) row.findViewById(R.id.transaction_value);
 						rowValue.setTextColor(textColor);
