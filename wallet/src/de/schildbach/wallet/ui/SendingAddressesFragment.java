@@ -184,8 +184,9 @@ public class SendingAddressesFragment extends ListFragment implements LoaderMana
 	public Loader<Cursor> onCreateLoader(final int id, final Bundle args)
 	{
 		final Uri uri = AddressBookProvider.CONTENT_URI;
-		return new CursorLoader(activity, uri, null, AddressBookProvider.SELECTION_NOTIN, new String[] { walletAddressesSelection },
-				AddressBookProvider.KEY_LABEL + " COLLATE LOCALIZED ASC");
+		return new CursorLoader(activity, uri, null, AddressBookProvider.SELECTION_NOTIN,
+				new String[] { walletAddressesSelection != null ? walletAddressesSelection : "" }, AddressBookProvider.KEY_LABEL
+						+ " COLLATE LOCALIZED ASC");
 	}
 
 	public void onLoadFinished(final Loader<Cursor> loader, final Cursor data)
