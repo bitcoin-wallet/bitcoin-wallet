@@ -160,7 +160,6 @@ public final class WalletActivity extends AbstractWalletActivity
 		super.onCreateOptionsMenu(menu);
 		getMenuInflater().inflate(R.menu.wallet_options, menu);
 		menu.findItem(R.id.wallet_options_donate).setVisible(!Constants.TEST);
-		menu.findItem(R.id.wallet_options_help).setVisible(Constants.TEST);
 		return true;
 	}
 
