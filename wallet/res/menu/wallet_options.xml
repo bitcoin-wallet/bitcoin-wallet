@@ -3,8 +3,12 @@
 
 	<item
 		android:id="@+id/wallet_options_address_book"
-		android:icon="@drawable/ic_action_address_book"
+		android:icon="@drawable/ic_action_labels"
 		android:title="@string/address_book_activity_title"/>
+	<item
+		android:id="@+id/wallet_options_peer_monitor"
+		android:icon="@drawable/ic_action_peers"
+		android:title="@string/peer_monitor_activity_title"/>
 	<item
 		android:id="@+id/wallet_options_preferences"
 		android:icon="@drawable/ic_action_info"

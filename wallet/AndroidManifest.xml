@@ -68,6 +68,9 @@
 		<activity android:name="de.schildbach.wallet.ui.AddressBookActivity" android:theme="@android:style/Theme.Light.NoTitleBar"
 			android:screenOrientation="behind" android:configChanges="orientation|keyboard|keyboardHidden" />
 
+		<activity android:name="de.schildbach.wallet.ui.PeerMonitorActivity" android:theme="@android:style/Theme.Light.NoTitleBar"
+			android:screenOrientation="behind" android:configChanges="orientation|keyboard|keyboardHidden" />
+
 		<activity android:name="de.schildbach.wallet.ui.PreferencesActivity" android:screenOrientation="behind" />
 
 		<provider android:name="de.schildbach.wallet.AddressBookProvider" android:authorities="de.schildbach.wallet_test.address_book"

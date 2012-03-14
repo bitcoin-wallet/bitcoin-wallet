@@ -546,6 +546,11 @@ public class BlockchainService extends android.app.Service
 		}
 	}
 
+	public List<Peer> getConnectedPeers()
+	{
+		return peerGroup.getConnectedPeers();
+	}
+
 	private void sendBroadcastPeerState(final int numPeers)
 	{
 		final Intent broadcast = new Intent(ACTION_PEER_STATE);

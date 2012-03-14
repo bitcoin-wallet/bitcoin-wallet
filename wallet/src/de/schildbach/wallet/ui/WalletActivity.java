@@ -118,7 +118,7 @@ public final class WalletActivity extends AbstractWalletActivity
 
 		if ((getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) >= Configuration.SCREENLAYOUT_SIZE_LARGE)
 		{
-			actionBar.addButton(R.drawable.ic_action_address_book).setOnClickListener(new OnClickListener()
+			actionBar.addButton(R.drawable.ic_action_labels).setOnClickListener(new OnClickListener()
 			{
 				public void onClick(final View v)
 				{
@@ -171,7 +171,11 @@ public final class WalletActivity extends AbstractWalletActivity
 		switch (item.getItemId())
 		{
 			case R.id.wallet_options_address_book:
-				AddressBookActivity.start(WalletActivity.this, true);
+				AddressBookActivity.start(this, true);
+				return true;
+
+			case R.id.wallet_options_peer_monitor:
+				startActivity(new Intent(this, PeerMonitorActivity.class));
 				return true;
 
 			case R.id.wallet_options_preferences:
