@@ -156,29 +156,30 @@ public final class BlockchainStateFragment extends Fragment
 		}
 		else if (bestChainDate != null)
 		{
-			final long spanHours = (System.currentTimeMillis() - bestChainDate.getTime()) / 1000 / 60 / 60;
+			final long blockchainLagHours = (System.currentTimeMillis() - bestChainDate.getTime()) / 1000 / 60 / 60;
+			final boolean blockchainUptodate = blockchainLagHours < Constants.BLOCKCHAIN_UPTODATE_THRESHOLD_HOURS;
 
-			messageView.setVisibility(spanHours < 2 ? View.INVISIBLE : View.VISIBLE);
-			disclaimerView.setVisibility(spanHours < 2 ? View.VISIBLE : View.INVISIBLE);
+			messageView.setVisibility(blockchainUptodate ? View.INVISIBLE : View.VISIBLE);
+			disclaimerView.setVisibility(blockchainUptodate ? View.VISIBLE : View.INVISIBLE);
 
 			final String downloading = getString(R.string.blockchain_state_message_downloading);
 			final String stalled = getString(R.string.blockchain_state_message_stalled);
 
 			final String stalledText;
-			if (spanHours < 48)
+			if (blockchainLagHours < 48)
 			{
-				messageView.setText(getString(R.string.blockchain_state_message_hours, downloading, spanHours));
-				stalledText = getString(R.string.blockchain_state_message_hours, stalled, spanHours);
+				messageView.setText(getString(R.string.blockchain_state_message_hours, downloading, blockchainLagHours));
+				stalledText = getString(R.string.blockchain_state_message_hours, stalled, blockchainLagHours);
 			}
-			else if (spanHours < 24 * 14)
+			else if (blockchainLagHours < 24 * 14)
 			{
-				messageView.setText(getString(R.string.blockchain_state_message_days, downloading, spanHours / 24));
-				stalledText = getString(R.string.blockchain_state_message_days, stalled, spanHours / 24);
+				messageView.setText(getString(R.string.blockchain_state_message_days, downloading, blockchainLagHours / 24));
+				stalledText = getString(R.string.blockchain_state_message_days, stalled, blockchainLagHours / 24);
 			}
 			else
 			{
-				messageView.setText(getString(R.string.blockchain_state_message_weeks, downloading, spanHours / 24 / 7));
-				stalledText = getString(R.string.blockchain_state_message_weeks, stalled, spanHours / 24 / 7);
+				messageView.setText(getString(R.string.blockchain_state_message_weeks, downloading, blockchainLagHours / 24 / 7));
+				stalledText = getString(R.string.blockchain_state_message_weeks, stalled, blockchainLagHours / 24 / 7);
 			}
 
 			delayMessageHandler.removeCallbacksAndMessages(null);

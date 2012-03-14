@@ -85,6 +85,7 @@ public class Constants
 	public static final int WALLET_OPERATION_STACK_SIZE = 256 * 1024;
 	public static final int BLOCKCHAIN_DOWNLOAD_THRESHOLD_MS = 5000;
 	public static final int BLOCKCHAIN_STATE_BROADCAST_THROTTLE_MS = 1000;
+	public static final int BLOCKCHAIN_UPTODATE_THRESHOLD_HOURS = 1;
 	public static final int SHUTDOWN_REMOVE_NOTIFICATION_DELAY = 2000;
 
 	public static final String DONATION_ADDRESS = "1PZmMahjbfsTy6DsaRyfStzoWTPppWwDnZ";
