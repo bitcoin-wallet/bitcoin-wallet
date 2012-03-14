@@ -42,6 +42,10 @@ public class AddressBookProvider extends ContentProvider
 	public static final String KEY_ADDRESS = "address";
 	public static final String KEY_LABEL = "label";
 
+	public static final String SELECTION_QUERY = "q";
+	public static final String SELECTION_IN = "in";
+	public static final String SELECTION_NOTIN = "notin";
+
 	public static String resolveLabel(final ContentResolver contentResolver, final String address)
 	{
 		String label = null;
@@ -147,7 +151,7 @@ public class AddressBookProvider extends ContentProvider
 			qb.appendWhere(KEY_ADDRESS + "=");
 			qb.appendWhereEscapeString(address);
 		}
-		else if ("in".equals(originalSelection))
+		else if (SELECTION_IN.equals(originalSelection))
 		{
 			final String[] addresses = originalSelectionArgs[0].trim().split(",");
 
@@ -155,7 +159,7 @@ public class AddressBookProvider extends ContentProvider
 			appendAddresses(qb, addresses);
 			qb.appendWhere(")");
 		}
-		else if ("notin".equals(originalSelection))
+		else if (SELECTION_NOTIN.equals(originalSelection))
 		{
 			final String[] addresses = originalSelectionArgs[0].trim().split(",");
 
@@ -163,7 +167,7 @@ public class AddressBookProvider extends ContentProvider
 			appendAddresses(qb, addresses);
 			qb.appendWhere(")");
 		}
-		else if ("q".equals(originalSelection))
+		else if (SELECTION_QUERY.equals(originalSelection))
 		{
 			final String query = '%' + originalSelectionArgs[0].trim() + '%';
 			selection = KEY_ADDRESS + " LIKE ? OR " + KEY_LABEL + " LIKE ?";

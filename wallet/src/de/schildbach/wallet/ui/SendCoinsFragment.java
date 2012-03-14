@@ -324,8 +324,8 @@ public class SendCoinsFragment extends Fragment
 		@Override
 		public Cursor runQueryOnBackgroundThread(final CharSequence constraint)
 		{
-			final Cursor cursor = getActivity()
-					.managedQuery(AddressBookProvider.CONTENT_URI, null, "q", new String[] { constraint.toString() }, null);
+			final Cursor cursor = getActivity().managedQuery(AddressBookProvider.CONTENT_URI, null, AddressBookProvider.SELECTION_QUERY,
+					new String[] { constraint.toString() }, null);
 			return cursor;
 		}
 	}
