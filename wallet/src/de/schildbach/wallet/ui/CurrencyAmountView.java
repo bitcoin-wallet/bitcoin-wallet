@@ -43,6 +43,7 @@ import android.widget.TextView.OnEditorActionListener;
 
 import com.google.bitcoin.core.Utils;
 
+import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
 
@@ -164,7 +165,7 @@ public final class CurrencyAmountView extends FrameLayout
 		chooseView.setLayoutParams(chooseViewParams);
 		this.addView(chooseView);
 
-		setCurrencyCode("BTC");
+		setCurrencyCode(Constants.CURRENCY_CODE_BITCOIN);
 
 		updateAppearance();
 	}

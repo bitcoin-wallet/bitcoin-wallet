@@ -201,7 +201,8 @@ public final class SendCoinsFragment extends Fragment
 					final BigInteger amount = amountView.getAmount();
 					final BigInteger fee = feeView.getAmount();
 
-					System.out.println("about to send " + amount + " (BTC " + WalletUtils.formatValue(amount) + ") to " + receivingAddress);
+					System.out.println("about to send " + amount + " (" + Constants.CURRENCY_CODE_BITCOIN + " " + WalletUtils.formatValue(amount)
+							+ ") to " + receivingAddress);
 
 					final Transaction tx = service.sendCoins(receivingAddress, amount, fee);
 
