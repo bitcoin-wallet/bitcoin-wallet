@@ -43,7 +43,7 @@ import de.schildbach.wallet_test.R;
 /**
  * @author Andreas Schildbach
  */
-public class AmountCalculatorFragment extends DialogFragment implements LoaderManager.LoaderCallbacks<Cursor>
+public final class AmountCalculatorFragment extends DialogFragment implements LoaderManager.LoaderCallbacks<Cursor>
 {
 	public static interface Listener
 	{

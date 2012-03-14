@@ -49,7 +49,7 @@ import de.schildbach.wallet_test.R;
 /**
  * @author Andreas Schildbach
  */
-public class AddressBookActivity extends AbstractWalletActivity
+public final class AddressBookActivity extends AbstractWalletActivity
 {
 	public static void start(final Context context, final boolean sending)
 	{

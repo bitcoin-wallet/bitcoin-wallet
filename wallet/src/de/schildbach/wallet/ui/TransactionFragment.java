@@ -56,7 +56,7 @@ import de.schildbach.wallet_test.R;
 /**
  * @author Andreas Schildbach
  */
-public class TransactionFragment extends Fragment
+public final class TransactionFragment extends Fragment
 {
 	public static final String FRAGMENT_TAG = TransactionFragment.class.getName();
 

@@ -55,7 +55,7 @@ import de.schildbach.wallet_test.R;
 /**
  * @author Andreas Schildbach
  */
-public class WalletBalanceFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>
+public final class WalletBalanceFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>
 {
 	private Application application;
 	private Wallet wallet;

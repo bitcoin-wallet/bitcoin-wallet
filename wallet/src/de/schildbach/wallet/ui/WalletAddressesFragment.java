@@ -56,7 +56,7 @@ import de.schildbach.wallet_test.R;
 /**
  * @author Andreas Schildbach
  */
-public class WalletAddressesFragment extends ListFragment
+public final class WalletAddressesFragment extends ListFragment
 {
 	private Application application;
 	private Activity activity;

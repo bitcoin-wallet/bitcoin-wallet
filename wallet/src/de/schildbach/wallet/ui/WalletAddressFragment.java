@@ -50,7 +50,7 @@ import de.schildbach.wallet_test.R;
 /**
  * @author Andreas Schildbach
  */
-public class WalletAddressFragment extends Fragment
+public final class WalletAddressFragment extends Fragment
 {
 	private Application application;
 	private Object nfcManager;

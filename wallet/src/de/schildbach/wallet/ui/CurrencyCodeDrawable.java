@@ -25,7 +25,7 @@ import android.graphics.drawable.Drawable;
 /**
  * @author Andreas Schildbach
  */
-public class CurrencyCodeDrawable extends Drawable
+public final class CurrencyCodeDrawable extends Drawable
 {
 	private final Paint paint = new Paint();
 	private final String currencyCode;

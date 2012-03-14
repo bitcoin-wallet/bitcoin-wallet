@@ -30,7 +30,7 @@ import de.schildbach.wallet_test.R;
 /**
  * @author Andreas Schildbach
  */
-public class PreferencesActivity extends PreferenceActivity
+public final class PreferencesActivity extends PreferenceActivity
 {
 	private static final String KEY_ABOUT_VERSION = "about_version";
 	private static final String KEY_ABOUT_LICENSE = "about_license";

@@ -39,7 +39,7 @@ import de.schildbach.wallet_test.R;
 /**
  * @author Andreas Schildbach
  */
-public class ActionBarFragment extends Fragment
+public final class ActionBarFragment extends Fragment
 {
 	private ViewGroup view;
 	private View backButtonView;

@@ -48,7 +48,7 @@ import de.schildbach.wallet_test.R;
 /**
  * @author Andreas Schildbach
  */
-public class ExchangeRatesFragment extends ListFragment implements LoaderManager.LoaderCallbacks<Cursor>
+public final class ExchangeRatesFragment extends ListFragment implements LoaderManager.LoaderCallbacks<Cursor>
 {
 	private Application application;
 	private SharedPreferences prefs;

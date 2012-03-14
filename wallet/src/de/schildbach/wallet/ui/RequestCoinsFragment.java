@@ -49,7 +49,7 @@ import de.schildbach.wallet_test.R;
 /**
  * @author Andreas Schildbach
  */
-public class RequestCoinsFragment extends Fragment
+public final class RequestCoinsFragment extends Fragment
 {
 	private Application application;
 	private Object nfcManager;

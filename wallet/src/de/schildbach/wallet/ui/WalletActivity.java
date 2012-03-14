@@ -52,7 +52,7 @@ import de.schildbach.wallet_test.R;
 /**
  * @author Andreas Schildbach
  */
-public class WalletActivity extends AbstractWalletActivity
+public final class WalletActivity extends AbstractWalletActivity
 {
 	public static final int DIALOG_SAFETY = 1;
 	private static final int DIALOG_HELP = 0;

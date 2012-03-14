@@ -48,7 +48,7 @@ import de.schildbach.wallet_test.R;
 /**
  * @author Andreas Schildbach
  */
-public class CurrencyAmountView extends FrameLayout
+public final class CurrencyAmountView extends FrameLayout
 {
 	public static interface Listener
 	{

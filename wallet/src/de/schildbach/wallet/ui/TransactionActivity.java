@@ -47,7 +47,7 @@ import de.schildbach.wallet_test.R;
 /**
  * @author Andreas Schildbach
  */
-public class TransactionActivity extends AbstractWalletActivity
+public final class TransactionActivity extends AbstractWalletActivity
 {
 	public static final String INTENT_EXTRA_TRANSACTION = "transaction";
 

@@ -42,7 +42,7 @@ import de.schildbach.wallet_test.R;
 /**
  * @author Andreas Schildbach
  */
-public class BlockchainStateFragment extends Fragment
+public final class BlockchainStateFragment extends Fragment
 {
 	private TextView messageView;
 	private TextView disclaimerView;

@@ -61,7 +61,7 @@ import de.schildbach.wallet_test.R;
 /**
  * @author Andreas Schildbach
  */
-public class SendCoinsFragment extends Fragment
+public final class SendCoinsFragment extends Fragment
 {
 	private Application application;
 

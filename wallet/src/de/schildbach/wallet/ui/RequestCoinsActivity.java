@@ -29,7 +29,7 @@ import de.schildbach.wallet_test.R;
 /**
  * @author Andreas Schildbach
  */
-public class RequestCoinsActivity extends AbstractWalletActivity
+public final class RequestCoinsActivity extends AbstractWalletActivity
 {
 	private static final int DIALOG_HELP = 0;
 

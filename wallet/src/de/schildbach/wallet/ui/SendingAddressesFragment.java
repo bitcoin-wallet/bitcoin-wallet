@@ -51,7 +51,7 @@ import de.schildbach.wallet_test.R;
 /**
  * @author Andreas Schildbach
  */
-public class SendingAddressesFragment extends ListFragment implements LoaderManager.LoaderCallbacks<Cursor>
+public final class SendingAddressesFragment extends ListFragment implements LoaderManager.LoaderCallbacks<Cursor>
 {
 	private Activity activity;
 	private SimpleCursorAdapter adapter;

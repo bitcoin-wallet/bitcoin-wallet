@@ -39,7 +39,7 @@ import de.schildbach.wallet_test.R;
 /**
  * @author Andreas Schildbach
  */
-public class EditAddressBookEntryFragment extends DialogFragment
+public final class EditAddressBookEntryFragment extends DialogFragment
 {
 	private static final String FRAGMENT_TAG = EditAddressBookEntryFragment.class.getName();
 

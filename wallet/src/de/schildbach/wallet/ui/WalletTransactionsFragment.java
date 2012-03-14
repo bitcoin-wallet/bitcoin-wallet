@@ -74,7 +74,7 @@ import de.schildbach.wallet_test.R;
 /**
  * @author Andreas Schildbach
  */
-public class WalletTransactionsFragment extends Fragment
+public final class WalletTransactionsFragment extends Fragment
 {
 	@Override
 	public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState)
