@@ -10,7 +10,7 @@
 		android:layout_marginTop="8dp"
 		android:text="@string/send_coins_fragment_receiving_address_label"
 		android:textColor="#000"
-		android:textSize="16sp"
+		android:textSize="@dimen/font_size_small"
 		android:textStyle="bold" />
 
 	<AutoCompleteTextView
@@ -25,7 +25,8 @@
 		android:imeOptions="actionNext"
 		android:singleLine="true"
 		android:textColor="#000"
-		android:textSize="16sp" />
+		android:textScaleX="@dimen/address_scalex"
+		android:textSize="@dimen/font_size_normal" />
 
 	<TextView
 		android:id="@+id/send_coins_receiving_address_error"
@@ -35,7 +36,7 @@
 		android:layout_marginLeft="12dp"
 		android:text="@string/send_coins_fragment_receiving_address_error"
 		android:textColor="#f88"
-		android:textSize="16sp"
+		android:textSize="@dimen/font_size_small"
 		android:textStyle="bold"
 		android:visibility="gone" />
 
@@ -46,7 +47,7 @@
 		android:layout_marginRight="20dp"
 		android:layout_marginTop="8dp"
 		android:text="@string/send_coins_fragment_available_label"
-		android:textSize="16sp"
+		android:textSize="@dimen/font_size_small"
 		android:textStyle="bold" />
 
 	<de.schildbach.wallet.ui.CurrencyAmountView
@@ -62,7 +63,7 @@
 			android:background="@drawable/edit_text"
 			android:drawablePadding="4dp"
 			android:enabled="false"
-			android:textSize="28sp" />
+			android:textSize="@dimen/font_size_xlarge" />
 	</de.schildbach.wallet.ui.CurrencyAmountView>
 
 	<TextView
@@ -71,7 +72,7 @@
 		android:layout_height="wrap_content"
 		android:layout_marginBottom="8dp"
 		android:layout_marginLeft="20dp"
-		android:textSize="16sp"
+		android:textSize="@dimen/font_size_small"
 		android:visibility="gone" />
 
 	<TextView
@@ -81,7 +82,7 @@
 		android:layout_marginRight="20dp"
 		android:layout_marginTop="8dp"
 		android:text="@string/send_coins_fragment_amount_label"
-		android:textSize="16sp"
+		android:textSize="@dimen/font_size_small"
 		android:textStyle="bold" />
 
 	<de.schildbach.wallet.ui.CurrencyAmountView
@@ -96,7 +97,7 @@
 			android:layout_height="wrap_content"
 			android:background="@drawable/edit_text"
 			android:drawablePadding="4dp"
-			android:textSize="28sp" />
+			android:textSize="@dimen/font_size_xlarge" />
 	</de.schildbach.wallet.ui.CurrencyAmountView>
 
 	<TextView
@@ -106,7 +107,7 @@
 		android:layout_marginRight="20dp"
 		android:layout_marginTop="8dp"
 		android:text="@string/send_coins_fragment_fee_label"
-		android:textSize="16sp"
+		android:textSize="@dimen/font_size_small"
 		android:textStyle="bold" />
 
 	<de.schildbach.wallet.ui.CurrencyAmountView
@@ -121,7 +122,7 @@
 			android:layout_height="wrap_content"
 			android:background="@drawable/edit_text"
 			android:drawablePadding="4dp"
-			android:textSize="28sp" />
+			android:textSize="@dimen/font_size_xlarge" />
 	</de.schildbach.wallet.ui.CurrencyAmountView>
 
 	<!-- stretch dummy -->
@@ -148,13 +149,15 @@
 				android:background="@drawable/btn_default"
 				android:paddingLeft="12dp"
 				android:paddingRight="12dp"
+				android:textSize="@dimen/font_size_small"
 				android:textStyle="bold" />
 
 			<Button
 				android:id="@+id/send_coins_cancel"
 				android:background="@drawable/btn_default"
 				android:paddingLeft="12dp"
-				android:paddingRight="12dp" />
+				android:paddingRight="12dp"
+				android:textSize="@dimen/font_size_small" />
 		</TableRow>
 	</TableLayout>
 
