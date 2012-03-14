@@ -190,7 +190,6 @@ public final class WalletTransactionsFragment extends Fragment
 		private Application application;
 		private Wallet wallet;
 		private Activity activity;
-		private Loader<List<Transaction>> loader;
 		private ArrayAdapter<Transaction> adapter;
 
 		private int mode;
@@ -376,7 +375,7 @@ public final class WalletTransactionsFragment extends Fragment
 		{
 			super.onActivityCreated(savedInstanceState);
 
-			loader = getLoaderManager().initLoader(0, null, this);
+			getLoaderManager().initLoader(0, null, this);
 		}
 
 		@Override
@@ -396,15 +395,11 @@ public final class WalletTransactionsFragment extends Fragment
 			super.onResume();
 
 			activity.registerReceiver(broadcastReceiver, new IntentFilter(Service.ACTION_BLOCKCHAIN_STATE));
-
-			loader.startLoading();
 		}
 
 		@Override
 		public void onPause()
 		{
-			loader.stopLoading();
-
 			activity.unregisterReceiver(broadcastReceiver);
 
 			super.onPause();
