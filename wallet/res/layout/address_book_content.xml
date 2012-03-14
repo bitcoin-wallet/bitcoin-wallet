@@ -5,7 +5,7 @@
 	android:orientation="vertical" >
 
 	<fragment
-		android:id="@+id/action_bar_fragment"
+		android:id="@id/action_bar_fragment"
 		android:name="de.schildbach.wallet.util.ActionBarFragment"
 		android:layout_width="fill_parent"
 		android:layout_height="@dimen/action_bar_height" />
