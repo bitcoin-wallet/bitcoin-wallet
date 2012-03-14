@@ -27,6 +27,7 @@ import java.net.InetSocketAddress;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicLong;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -98,6 +99,7 @@ public class Service extends android.app.Service
 	private PeerGroup peerGroup;
 
 	private final Handler handler = new Handler();
+	private final Handler delayHandler = new Handler();
 
 	private NotificationManager nm;
 	private static final int NOTIFICATION_ID_CONNECTED = 0;
@@ -230,20 +232,33 @@ public class Service extends android.app.Service
 
 	private final PeerEventListener blockchainDownloadListener = new AbstractPeerEventListener()
 	{
+		private final AtomicLong lastMessageTime = new AtomicLong(0);
+
 		@Override
 		public void onBlocksDownloaded(final Peer peer, final Block block, final int blocksLeft)
 		{
-			handler.post(new Runnable()
-			{
-				public void run()
-				{
-					final Date bestChainDate = new Date(blockChain.getChainHead().getHeader().getTimeSeconds() * 1000);
-					final int bestChainHeight = blockChain.getBestChainHeight();
+			delayHandler.removeCallbacksAndMessages(null);
 
-					sendBroadcastBlockchainState(bestChainDate, bestChainHeight, ACTION_BLOCKCHAIN_STATE_DOWNLOAD_OK);
-				}
-			});
+			final long now = System.currentTimeMillis();
+
+			if (now - lastMessageTime.get() > Constants.BLOCKCHAIN_STATE_BROADCAST_THROTTLE_MS)
+				delayHandler.post(runnable);
+			else
+				delayHandler.postDelayed(runnable, Constants.BLOCKCHAIN_STATE_BROADCAST_THROTTLE_MS);
 		}
+
+		private final Runnable runnable = new Runnable()
+		{
+			public void run()
+			{
+				lastMessageTime.set(System.currentTimeMillis());
+
+				final Date bestChainDate = new Date(blockChain.getChainHead().getHeader().getTimeSeconds() * 1000);
+				final int bestChainHeight = blockChain.getBestChainHeight();
+
+				sendBroadcastBlockchainState(bestChainDate, bestChainHeight, ACTION_BLOCKCHAIN_STATE_DOWNLOAD_OK);
+			}
+		};
 	};
 
 	private final BroadcastReceiver broadcastReceiver = new BroadcastReceiver()
@@ -481,6 +496,8 @@ public class Service extends android.app.Service
 
 		removeBroadcastPeerState();
 		removeBroadcastBlockchainState();
+
+		delayHandler.removeCallbacksAndMessages(null);
 
 		handler.postDelayed(new Runnable()
 		{
