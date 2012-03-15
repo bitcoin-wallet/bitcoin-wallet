@@ -17,14 +17,16 @@
 
 package de.schildbach.wallet.ui;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.text.ClipboardManager;
@@ -52,25 +54,33 @@ import de.schildbach.wallet_test.R;
  */
 public final class WalletAddressFragment extends Fragment
 {
+	private FragmentActivity activity;
 	private Application application;
+	private SharedPreferences prefs;
 	private Object nfcManager;
-
-	private final Handler handler = new Handler();
 
 	private View bitcoinAddressButton;
 	private TextView bitcoinAddressLabel;
 	private ImageView bitcoinAddressQrView;
 
+	private Address lastSelectedAddress;
+
 	private Bitmap qrCodeBitmap;
+
+	@Override
+	public void onAttach(final Activity activity)
+	{
+		super.onAttach(activity);
+
+		this.activity = (FragmentActivity) activity;
+		prefs = PreferenceManager.getDefaultSharedPreferences(activity);
+		application = (Application) activity.getApplication();
+	}
 
 	@Override
 	public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState)
 	{
-		final FragmentActivity activity = getActivity();
-
 		nfcManager = activity.getSystemService(Context.NFC_SERVICE);
-
-		application = (Application) activity.getApplication();
 
 		final View view = inflater.inflate(R.layout.wallet_address_fragment, container, false);
 		bitcoinAddressButton = view.findViewById(R.id.bitcoin_address_button);
@@ -151,63 +161,73 @@ public final class WalletAddressFragment extends Fragment
 	{
 		super.onResume();
 
+		prefs.registerOnSharedPreferenceChangeListener(prefsListener);
+
 		updateView();
 	}
 
 	@Override
 	public void onPause()
 	{
-		super.onPause();
+		prefs.unregisterOnSharedPreferenceChangeListener(prefsListener);
 
 		if (nfcManager != null)
 			NfcTools.unpublish(nfcManager, getActivity());
+
+		super.onPause();
 	}
 
 	@Override
 	public void onDestroyView()
+	{
+		recycleBitmap();
+
+		super.onDestroyView();
+	}
+
+	private void recycleBitmap()
 	{
 		if (qrCodeBitmap != null)
 		{
 			qrCodeBitmap.recycle();
 			qrCodeBitmap = null;
 		}
-
-		super.onDestroyView();
 	}
 
-	public void updateView()
+	private void updateView()
 	{
 		final Address selectedAddress = application.determineSelectedAddress();
 
-		bitcoinAddressLabel.setText(WalletUtils.splitIntoLines(selectedAddress.toString(), 3));
-
-		final String addressStr = BitcoinURI.convertToBitcoinURI(selectedAddress, null, null, null);
-
-		final int size = (int) (256 * getResources().getDisplayMetrics().density);
-		qrCodeBitmap = WalletUtils.getQRCodeBitmap(addressStr, size);
-		bitcoinAddressQrView.setImageBitmap(qrCodeBitmap);
-
-		if (nfcManager != null)
-			NfcTools.publishUri(nfcManager, getActivity(), addressStr);
-	}
-
-	private Runnable resetColorRunnable = new Runnable()
-	{
-		public void run()
+		if (!selectedAddress.equals(lastSelectedAddress))
 		{
-			bitcoinAddressLabel.setTextColor(Color.BLACK);
-		}
-	};
+			lastSelectedAddress = selectedAddress;
 
-	public void flashAddress()
-	{
-		bitcoinAddressLabel.setTextColor(Color.parseColor("#cc5500"));
-		handler.removeCallbacks(resetColorRunnable);
-		handler.postDelayed(resetColorRunnable, 500);
+			bitcoinAddressLabel.setText(WalletUtils.splitIntoLines(selectedAddress.toString(), 3));
+
+			final String addressStr = BitcoinURI.convertToBitcoinURI(selectedAddress, null, null, null);
+
+			recycleBitmap();
+
+			final int size = (int) (256 * getResources().getDisplayMetrics().density);
+			qrCodeBitmap = WalletUtils.getQRCodeBitmap(addressStr, size);
+			bitcoinAddressQrView.setImageBitmap(qrCodeBitmap);
+
+			if (nfcManager != null)
+				NfcTools.publishUri(nfcManager, getActivity(), addressStr);
+		}
 	}
 
 	private void showQRCode()
 	{
 		new QrDialog(getActivity(), qrCodeBitmap).show();
 	}
+
+	private final OnSharedPreferenceChangeListener prefsListener = new OnSharedPreferenceChangeListener()
+	{
+		public void onSharedPreferenceChanged(final SharedPreferences sharedPreferences, final String key)
+		{
+			if (Constants.PREFS_KEY_SELECTED_ADDRESS.equals(key))
+				updateView();
+		}
+	};
 }

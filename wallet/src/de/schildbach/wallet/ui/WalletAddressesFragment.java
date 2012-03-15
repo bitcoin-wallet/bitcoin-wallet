@@ -170,14 +170,6 @@ public final class WalletAddressesFragment extends ListFragment
 	{
 		final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(activity);
 		prefs.edit().putString(Constants.PREFS_KEY_SELECTED_ADDRESS, address.toString()).commit();
-
-		final WalletAddressFragment walletAddressFragment = (WalletAddressFragment) getFragmentManager().findFragmentById(
-				R.id.wallet_address_fragment);
-		if (walletAddressFragment != null)
-		{
-			walletAddressFragment.updateView();
-			walletAddressFragment.flashAddress();
-		}
 	}
 
 	private void handleCopyToClipboard(final String address)
