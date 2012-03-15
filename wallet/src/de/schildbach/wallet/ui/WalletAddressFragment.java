@@ -42,8 +42,8 @@ import com.google.bitcoin.core.Address;
 import com.google.bitcoin.core.AddressFormatException;
 import com.google.bitcoin.uri.BitcoinURI;
 
-import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.util.NfcTools;
 import de.schildbach.wallet.util.QrDialog;
 import de.schildbach.wallet.util.WalletUtils;
@@ -202,7 +202,8 @@ public final class WalletAddressFragment extends Fragment
 		{
 			lastSelectedAddress = selectedAddress;
 
-			bitcoinAddressLabel.setText(WalletUtils.splitIntoLines(selectedAddress.toString(), 3));
+			bitcoinAddressLabel.setText(WalletUtils.formatAddress(selectedAddress, Constants.ADDRESS_FORMAT_GROUP_SIZE,
+					Constants.ADDRESS_FORMAT_LINE_SIZE));
 
 			final String addressStr = BitcoinURI.convertToBitcoinURI(selectedAddress, null, null, null);
 

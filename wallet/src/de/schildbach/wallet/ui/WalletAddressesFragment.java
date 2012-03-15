@@ -238,7 +238,7 @@ public final class WalletAddressesFragment extends ListFragment
 				row = getLayoutInflater(null).inflate(R.layout.address_book_row, null);
 
 			final TextView addressView = (TextView) row.findViewById(R.id.address_book_row_address);
-			addressView.setText(WalletUtils.splitIntoLines(address.toString(), 3));
+			addressView.setText(WalletUtils.formatAddress(address, Constants.ADDRESS_FORMAT_GROUP_SIZE, Constants.ADDRESS_FORMAT_LINE_SIZE));
 
 			final TextView labelView = (TextView) row.findViewById(R.id.address_book_row_label);
 			final String label = AddressBookProvider.resolveLabel(activity.getContentResolver(), address.toString());

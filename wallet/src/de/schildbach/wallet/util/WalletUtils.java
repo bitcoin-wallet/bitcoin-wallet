@@ -22,7 +22,12 @@ import java.util.Hashtable;
 
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.text.Editable;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.style.TypefaceSpan;
 
+import com.google.bitcoin.core.Address;
 import com.google.bitcoin.core.Utils;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
@@ -31,24 +36,13 @@ import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 
+import de.schildbach.wallet.Constants;
+
 /**
  * @author Andreas Schildbach
  */
 public class WalletUtils
 {
-	public static String splitIntoLines(final String str, final int lines)
-	{
-		if (lines < 2)
-			return str;
-
-		final int len = (int) Math.ceil((float) str.length() / lines);
-		final StringBuilder builder = new StringBuilder(str);
-		for (int i = 0; i < lines - 1; i++)
-			builder.insert(len + i * (len + 1), '\n');
-
-		return builder.toString();
-	}
-
 	public final static QRCodeWriter QR_CODE_WRITER = new QRCodeWriter();
 
 	public static Bitmap getQRCodeBitmap(final String url, final int size)
@@ -81,6 +75,33 @@ public class WalletUtils
 			x.printStackTrace();
 			return null;
 		}
+	}
+
+	public static Editable formatAddress(final Address address, final int groupSize, final int lineSize)
+	{
+		return formatAddress(address.toString(), groupSize, lineSize);
+	}
+
+	public static Editable formatAddress(final String address, final int groupSize, final int lineSize)
+	{
+		final SpannableStringBuilder builder = new SpannableStringBuilder();
+
+		final int len = address.length();
+		for (int i = 0; i < len; i += groupSize)
+		{
+			final int end = i + groupSize;
+			final String part = address.substring(i, end < len ? end : len);
+
+			builder.append(part);
+			builder.setSpan(new TypefaceSpan("monospace"), builder.length() - part.length(), builder.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+			if (end < len)
+			{
+				final boolean endOfLine = end % lineSize == 0;
+				builder.append(endOfLine ? "\n" : Constants.THIN_SPACE);
+			}
+		}
+
+		return builder;
 	}
 
 	public static String formatValue(final BigInteger value)

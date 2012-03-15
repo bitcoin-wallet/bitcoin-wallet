@@ -40,7 +40,6 @@
 		android:layout_height="wrap_content"
 		android:layout_gravity="right"
 		android:layout_marginLeft="6dip"
-		android:textSize="@dimen/font_size_normal"
-		android:typeface="monospace" />
+		android:textSize="@dimen/font_size_normal" />
 
 </LinearLayout>

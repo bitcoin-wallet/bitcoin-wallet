@@ -44,6 +44,7 @@ import com.google.bitcoin.core.Address;
 import com.google.bitcoin.uri.BitcoinURI;
 
 import de.schildbach.wallet.AddressBookProvider;
+import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.util.QrDialog;
 import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
@@ -75,7 +76,8 @@ public final class SendingAddressesFragment extends ListFragment implements Load
 				if (!AddressBookProvider.KEY_ADDRESS.equals(cursor.getColumnName(columnIndex)))
 					return false;
 
-				((TextView) view).setText(WalletUtils.splitIntoLines(cursor.getString(columnIndex), 3));
+				((TextView) view).setText(WalletUtils.formatAddress(cursor.getString(columnIndex), Constants.ADDRESS_FORMAT_GROUP_SIZE,
+						Constants.ADDRESS_FORMAT_LINE_SIZE));
 
 				return true;
 			}
