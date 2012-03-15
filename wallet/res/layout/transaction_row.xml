@@ -9,14 +9,14 @@
 	android:paddingTop="8dp" >
 
 	<de.schildbach.wallet.util.CircularProgressView
-		android:id="@+id/transaction_confidence_circular"
+		android:id="@+id/transaction_row_confidence_circular"
 		android:layout_width="@dimen/symbol_size_normal"
 		android:layout_height="@dimen/symbol_size_normal"
 		android:layout_marginRight="8dp"
 		android:layout_weight="0" />
 
 	<TextView
-		android:id="@+id/transaction_confidence_textual"
+		android:id="@+id/transaction_row_confidence_textual"
 		android:layout_width="@dimen/symbol_size_normal"
 		android:layout_height="wrap_content"
 		android:layout_marginRight="8dp"
@@ -26,7 +26,7 @@
 		android:textStyle="bold" />
 
 	<TextView
-		android:id="@+id/transaction_time"
+		android:id="@+id/transaction_row_time"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_marginRight="8dp"
@@ -41,14 +41,14 @@
 		android:layout_weight="0" >
 
 		<TextView
-			android:id="@+id/transaction_to"
+			android:id="@+id/transaction_row_to"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:text="→"
 			android:textSize="@dimen/font_size_normal" />
 
 		<TextView
-			android:id="@+id/transaction_from"
+			android:id="@+id/transaction_row_from"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:text="←"
@@ -56,7 +56,7 @@
 	</FrameLayout>
 
 	<TextView
-		android:id="@+id/transaction_address"
+		android:id="@+id/transaction_row_address"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_gravity="left"
@@ -66,7 +66,7 @@
 		android:textSize="@dimen/font_size_normal" />
 
 	<de.schildbach.wallet.ui.CurrencyAmountView
-		android:id="@+id/transaction_value"
+		android:id="@+id/transaction_row_value"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_gravity="right"

@@ -273,8 +273,8 @@ public final class WalletTransactionsFragment extends Fragment
 						final boolean sent = value.signum() < 0;
 
 						final CircularProgressView rowConfidenceCircular = (CircularProgressView) row
-								.findViewById(R.id.transaction_confidence_circular);
-						final TextView rowConfidenceTextual = (TextView) row.findViewById(R.id.transaction_confidence_textual);
+								.findViewById(R.id.transaction_row_confidence_circular);
+						final TextView rowConfidenceTextual = (TextView) row.findViewById(R.id.transaction_row_confidence_textual);
 
 						final int textColor;
 						if (confidenceType == ConfidenceType.NOT_SEEN_IN_CHAIN)
@@ -337,25 +337,25 @@ public final class WalletTransactionsFragment extends Fragment
 
 						final String label = AddressBookProvider.resolveLabel(activity.getContentResolver(), address);
 
-						final TextView rowTime = (TextView) row.findViewById(R.id.transaction_time);
+						final TextView rowTime = (TextView) row.findViewById(R.id.transaction_row_time);
 						final Date time = tx.getUpdateTime();
 						rowTime.setText(time != null ? (DateUtils.isToday(time.getTime()) ? timeFormat.format(time) : dateFormat.format(time)) : null);
 						rowTime.setTextColor(textColor);
 
-						final TextView rowTo = (TextView) row.findViewById(R.id.transaction_to);
+						final TextView rowTo = (TextView) row.findViewById(R.id.transaction_row_to);
 						rowTo.setVisibility(sent ? View.VISIBLE : View.INVISIBLE);
 						rowTo.setTextColor(textColor);
 
-						final TextView rowFrom = (TextView) row.findViewById(R.id.transaction_from);
+						final TextView rowFrom = (TextView) row.findViewById(R.id.transaction_row_from);
 						rowFrom.setVisibility(sent ? View.INVISIBLE : View.VISIBLE);
 						rowFrom.setTextColor(textColor);
 
-						final TextView rowLabel = (TextView) row.findViewById(R.id.transaction_address);
+						final TextView rowLabel = (TextView) row.findViewById(R.id.transaction_row_address);
 						rowLabel.setTextColor(textColor);
 						rowLabel.setText(label != null ? label : address);
 						rowLabel.setTypeface(label != null ? Typeface.DEFAULT : Typeface.MONOSPACE);
 
-						final CurrencyAmountView rowValue = (CurrencyAmountView) row.findViewById(R.id.transaction_value);
+						final CurrencyAmountView rowValue = (CurrencyAmountView) row.findViewById(R.id.transaction_row_value);
 						rowValue.setCurrencyCode(null);
 						rowValue.setAmountSigned(true);
 						rowValue.setTextColor(textColor);
