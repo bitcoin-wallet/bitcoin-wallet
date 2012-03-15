@@ -25,7 +25,9 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.database.ContentObserver;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v4.app.ListFragment;
 import android.text.ClipboardManager;
@@ -46,9 +48,9 @@ import com.google.bitcoin.core.Wallet;
 import com.google.bitcoin.uri.BitcoinURI;
 
 import de.schildbach.wallet.AddressBookProvider;
-import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.DetermineFirstSeenThread;
+import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.util.QrDialog;
 import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
@@ -88,7 +90,17 @@ public final class WalletAddressesFragment extends ListFragment
 	{
 		super.onResume();
 
+		activity.getContentResolver().registerContentObserver(AddressBookProvider.CONTENT_URI, true, contentObserver);
+
 		updateView();
+	}
+
+	@Override
+	public void onPause()
+	{
+		activity.getContentResolver().unregisterContentObserver(contentObserver);
+
+		super.onPause();
 	}
 
 	@Override
@@ -268,4 +280,15 @@ public final class WalletAddressesFragment extends ListFragment
 			return row;
 		}
 	}
+
+	private final Handler handler = new Handler();
+
+	private final ContentObserver contentObserver = new ContentObserver(handler)
+	{
+		@Override
+		public void onChange(final boolean selfChange)
+		{
+			updateView();
+		}
+	};
 }
