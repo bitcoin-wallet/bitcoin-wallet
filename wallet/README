@@ -80,7 +80,7 @@ the "Request coins" dialog open). The "Send coins" dialog will open with fields 
 Instructions for preparing an NFC tag with your address:
 
 - We have successfully tested this NFC tag writer:
-  https://market.android.com/details?id=com.nxp.nfc.tagwriter
+  https://play.google.com/store/apps/details?id=com.nxp.nfc.tagwriter
   Other writers should work as well, let us know if you succeed.
 
 - Some tags have less than 50 bytes capacity, those won't work. 1 KB tags recommended.
