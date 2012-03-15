@@ -12,7 +12,7 @@
 		android:layout_marginLeft="12dp"
 		android:layout_marginTop="8dp"
 		android:text="@string/edit_address_book_entry_dialog_address_label"
-		android:textSize="16sp"
+		android:textSize="@dimen/font_size_small"
 		android:textStyle="bold" />
 
 	<EditText
@@ -23,7 +23,7 @@
 		android:background="@drawable/edit_text"
 		android:enabled="false"
 		android:focusable="false"
-		android:textSize="16sp" />
+		android:textSize="@dimen/font_size_normal" />
 
 	<TextView
 		android:layout_width="fill_parent"
@@ -31,7 +31,7 @@
 		android:layout_marginLeft="12dp"
 		android:layout_marginTop="8dp"
 		android:text="@string/edit_address_book_entry_dialog_label_label"
-		android:textSize="16sp"
+		android:textSize="@dimen/font_size_small"
 		android:textStyle="bold" />
 
 	<EditText
@@ -41,6 +41,6 @@
 		android:layout_margin="8dp"
 		android:background="@drawable/edit_text"
 		android:singleLine="true"
-		android:textSize="16sp" />
+		android:textSize="@dimen/font_size_normal" />
 
 </LinearLayout>
