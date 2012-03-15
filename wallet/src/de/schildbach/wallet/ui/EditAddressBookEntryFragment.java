@@ -116,6 +116,10 @@ public final class EditAddressBookEntryFragment extends DialogFragment
 							else
 								contentResolver.update(uri, values, null, null);
 						}
+						else if (!isAdd)
+						{
+							contentResolver.delete(uri, null, null);
+						}
 
 						dismiss();
 					}
