@@ -83,7 +83,7 @@
 			<meta-data android:name="android.appwidget.provider" android:resource="@xml/wallet_balance_widget" />
 		</receiver>
 
-		<service android:name="de.schildbach.wallet.service.Service" />
+		<service android:name="de.schildbach.wallet.service.BlockchainService" />
 
 		<receiver android:name="de.schildbach.wallet.service.AutosyncReceiver" >
 			<intent-filter>

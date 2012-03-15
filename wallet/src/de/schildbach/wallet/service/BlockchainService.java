@@ -77,12 +77,12 @@ import de.schildbach.wallet_test.R;
 /**
  * @author Andreas Schildbach
  */
-public class Service extends android.app.Service
+public class BlockchainService extends android.app.Service
 {
-	public static final String ACTION_PEER_STATE = Service.class.getName() + ".peer_state";
+	public static final String ACTION_PEER_STATE = BlockchainService.class.getName() + ".peer_state";
 	public static final String ACTION_PEER_STATE_NUM_PEERS = "num_peers";
 
-	public static final String ACTION_BLOCKCHAIN_STATE = Service.class.getName() + ".blockchain_state";
+	public static final String ACTION_BLOCKCHAIN_STATE = BlockchainService.class.getName() + ".blockchain_state";
 	public static final String ACTION_BLOCKCHAIN_STATE_BEST_CHAIN_DATE = "best_chain_date";
 	public static final String ACTION_BLOCKCHAIN_STATE_BEST_CHAIN_HEIGHT = "best_chain_height";
 	public static final String ACTION_BLOCKCHAIN_STATE_DOWNLOAD = "download";
@@ -168,8 +168,8 @@ public class Service extends android.app.Service
 		text.insert(0, "From ");
 
 		final Notification notification = new Notification(R.drawable.stat_notify_received, tickerMsg, System.currentTimeMillis());
-		notification.setLatestEventInfo(Service.this, msg, text,
-				PendingIntent.getActivity(Service.this, 0, new Intent(Service.this, WalletActivity.class), 0));
+		notification.setLatestEventInfo(BlockchainService.this, msg, text,
+				PendingIntent.getActivity(BlockchainService.this, 0, new Intent(BlockchainService.this, WalletActivity.class), 0));
 
 		notification.number = notificationCount == 1 ? 0 : notificationCount;
 		notification.sound = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.coins_received);
@@ -218,8 +218,9 @@ public class Service extends android.app.Service
 						final Notification notification = new Notification(R.drawable.stat_sys_peers, null, 0);
 						notification.flags |= Notification.FLAG_ONGOING_EVENT;
 						notification.iconLevel = numPeers > 4 ? 4 : numPeers;
-						notification.setLatestEventInfo(Service.this, getString(R.string.app_name) + (Constants.TEST ? " [testnet]" : ""), msg,
-								PendingIntent.getActivity(Service.this, 0, new Intent(Service.this, WalletActivity.class), 0));
+						notification.setLatestEventInfo(BlockchainService.this, getString(R.string.app_name) + (Constants.TEST ? " [testnet]" : ""),
+								msg,
+								PendingIntent.getActivity(BlockchainService.this, 0, new Intent(BlockchainService.this, WalletActivity.class), 0));
 						nm.notify(NOTIFICATION_ID_CONNECTED, notification);
 					}
 
@@ -368,9 +369,9 @@ public class Service extends android.app.Service
 
 	public class LocalBinder extends Binder
 	{
-		public Service getService()
+		public BlockchainService getService()
 		{
-			return Service.this;
+			return BlockchainService.this;
 		}
 	}
 

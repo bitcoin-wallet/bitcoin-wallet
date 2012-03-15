@@ -53,7 +53,7 @@ import com.google.bitcoin.core.Wallet.BalanceType;
 import de.schildbach.wallet.AddressBookProvider;
 import de.schildbach.wallet.Application;
 import de.schildbach.wallet.Constants;
-import de.schildbach.wallet.service.Service;
+import de.schildbach.wallet.service.BlockchainService;
 import de.schildbach.wallet.ui.CurrencyAmountView.Listener;
 import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
@@ -65,7 +65,7 @@ public final class SendCoinsFragment extends Fragment
 {
 	private Application application;
 
-	private Service service;
+	private BlockchainService service;
 	private final Handler handler = new Handler();
 	private Runnable sentRunnable;
 
@@ -87,7 +87,7 @@ public final class SendCoinsFragment extends Fragment
 	{
 		public void onServiceConnected(final ComponentName name, final IBinder binder)
 		{
-			service = ((Service.LocalBinder) binder).getService();
+			service = ((BlockchainService.LocalBinder) binder).getService();
 			onServiceBound();
 		}
 
@@ -136,7 +136,7 @@ public final class SendCoinsFragment extends Fragment
 
 		application = (Application) activity.getApplication();
 
-		activity.bindService(new Intent(activity, Service.class), serviceConnection, Context.BIND_AUTO_CREATE);
+		activity.bindService(new Intent(activity, BlockchainService.class), serviceConnection, Context.BIND_AUTO_CREATE);
 	}
 
 	@Override

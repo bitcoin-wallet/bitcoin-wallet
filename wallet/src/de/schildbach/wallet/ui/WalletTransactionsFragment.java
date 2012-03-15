@@ -66,7 +66,7 @@ import com.google.bitcoin.core.WalletEventListener;
 
 import de.schildbach.wallet.AddressBookProvider;
 import de.schildbach.wallet.Application;
-import de.schildbach.wallet.service.Service;
+import de.schildbach.wallet.service.BlockchainService;
 import de.schildbach.wallet.util.CircularProgressView;
 import de.schildbach.wallet.util.ViewPagerTabs;
 import de.schildbach.wallet_test.R;
@@ -225,7 +225,7 @@ public final class WalletTransactionsFragment extends Fragment
 			@Override
 			public void onReceive(final Context context, final Intent intent)
 			{
-				bestChainHeight = intent.getIntExtra(Service.ACTION_BLOCKCHAIN_STATE_BEST_CHAIN_HEIGHT, 0);
+				bestChainHeight = intent.getIntExtra(BlockchainService.ACTION_BLOCKCHAIN_STATE_BEST_CHAIN_HEIGHT, 0);
 
 				adapter.notifyDataSetChanged();
 			}
@@ -396,7 +396,7 @@ public final class WalletTransactionsFragment extends Fragment
 		{
 			super.onResume();
 
-			activity.registerReceiver(broadcastReceiver, new IntentFilter(Service.ACTION_BLOCKCHAIN_STATE));
+			activity.registerReceiver(broadcastReceiver, new IntentFilter(BlockchainService.ACTION_BLOCKCHAIN_STATE));
 		}
 
 		@Override

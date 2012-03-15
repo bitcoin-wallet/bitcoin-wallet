@@ -36,7 +36,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import de.schildbach.wallet.Constants;
-import de.schildbach.wallet.service.Service;
+import de.schildbach.wallet.service.BlockchainService;
 import de.schildbach.wallet_test.R;
 
 /**
@@ -68,8 +68,8 @@ public final class BlockchainStateFragment extends Fragment
 		@Override
 		public void onReceive(final Context context, final Intent intent)
 		{
-			download = intent.getIntExtra(Service.ACTION_BLOCKCHAIN_STATE_DOWNLOAD, Service.ACTION_BLOCKCHAIN_STATE_DOWNLOAD_OK);
-			bestChainDate = (Date) intent.getSerializableExtra(Service.ACTION_BLOCKCHAIN_STATE_BEST_CHAIN_DATE);
+			download = intent.getIntExtra(BlockchainService.ACTION_BLOCKCHAIN_STATE_DOWNLOAD, BlockchainService.ACTION_BLOCKCHAIN_STATE_DOWNLOAD_OK);
+			bestChainDate = (Date) intent.getSerializableExtra(BlockchainService.ACTION_BLOCKCHAIN_STATE_BEST_CHAIN_DATE);
 
 			updateView();
 		}
@@ -82,7 +82,7 @@ public final class BlockchainStateFragment extends Fragment
 
 		final Activity activity = getActivity();
 
-		activity.bindService(new Intent(activity, Service.class), serviceConnection, Context.BIND_AUTO_CREATE);
+		activity.bindService(new Intent(activity, BlockchainService.class), serviceConnection, Context.BIND_AUTO_CREATE);
 	}
 
 	@Override
@@ -113,7 +113,7 @@ public final class BlockchainStateFragment extends Fragment
 
 		final Activity activity = getActivity();
 
-		activity.registerReceiver(broadcastReceiver, new IntentFilter(Service.ACTION_BLOCKCHAIN_STATE));
+		activity.registerReceiver(broadcastReceiver, new IntentFilter(BlockchainService.ACTION_BLOCKCHAIN_STATE));
 
 		updateView();
 	}
@@ -142,16 +142,16 @@ public final class BlockchainStateFragment extends Fragment
 
 	private void updateView()
 	{
-		if (download != Service.ACTION_BLOCKCHAIN_STATE_DOWNLOAD_OK)
+		if (download != BlockchainService.ACTION_BLOCKCHAIN_STATE_DOWNLOAD_OK)
 		{
 			messageView.setVisibility(View.VISIBLE);
 			disclaimerView.setVisibility(View.INVISIBLE);
 
-			if ((download & Service.ACTION_BLOCKCHAIN_STATE_DOWNLOAD_STORAGE_PROBLEM) != 0)
+			if ((download & BlockchainService.ACTION_BLOCKCHAIN_STATE_DOWNLOAD_STORAGE_PROBLEM) != 0)
 				messageView.setText(R.string.blockchain_state_message_problem_storage);
-			else if ((download & Service.ACTION_BLOCKCHAIN_STATE_DOWNLOAD_POWER_PROBLEM) != 0)
+			else if ((download & BlockchainService.ACTION_BLOCKCHAIN_STATE_DOWNLOAD_POWER_PROBLEM) != 0)
 				messageView.setText(R.string.blockchain_state_message_problem_power);
-			else if ((download & Service.ACTION_BLOCKCHAIN_STATE_DOWNLOAD_NETWORK_PROBLEM) != 0)
+			else if ((download & BlockchainService.ACTION_BLOCKCHAIN_STATE_DOWNLOAD_NETWORK_PROBLEM) != 0)
 				messageView.setText(R.string.blockchain_state_message_problem_network);
 		}
 		else if (bestChainDate != null)

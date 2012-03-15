@@ -44,7 +44,7 @@ import android.view.View.OnClickListener;
 import android.view.Window;
 import android.webkit.WebView;
 import de.schildbach.wallet.Constants;
-import de.schildbach.wallet.service.Service;
+import de.schildbach.wallet.service.BlockchainService;
 import de.schildbach.wallet.util.ActionBarFragment;
 import de.schildbach.wallet.util.ErrorReporter;
 import de.schildbach.wallet_test.R;
@@ -59,13 +59,13 @@ public final class WalletActivity extends AbstractWalletActivity
 
 	private static final int HONEYCOMB = 11; // API level 11
 
-	private Service service;
+	private BlockchainService service;
 
 	private final ServiceConnection serviceConnection = new ServiceConnection()
 	{
 		public void onServiceConnected(final ComponentName name, final IBinder binder)
 		{
-			service = ((Service.LocalBinder) binder).getService();
+			service = ((BlockchainService.LocalBinder) binder).getService();
 
 			service.cancelCoinsReceived();
 		}
@@ -142,7 +142,7 @@ public final class WalletActivity extends AbstractWalletActivity
 	{
 		super.onResume();
 
-		bindService(new Intent(this, Service.class), serviceConnection, Context.BIND_AUTO_CREATE);
+		bindService(new Intent(this, BlockchainService.class), serviceConnection, Context.BIND_AUTO_CREATE);
 
 		checkLowStorageAlert();
 	}
