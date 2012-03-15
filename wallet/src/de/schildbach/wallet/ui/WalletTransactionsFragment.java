@@ -91,6 +91,8 @@ public final class WalletTransactionsFragment extends Fragment
 		pager.setAdapter(pagerAdapter);
 		pager.setOnPageChangeListener(pagerTabs);
 		pager.setCurrentItem(1);
+		pager.setPageMargin(2);
+		pager.setPageMarginDrawable(R.color.background_less_bright);
 		pagerTabs.onPageScrolled(1, 0, 0); // should not be needed
 
 		return view;
