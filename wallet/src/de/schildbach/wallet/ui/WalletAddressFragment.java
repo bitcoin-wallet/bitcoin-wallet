@@ -42,7 +42,7 @@ import com.google.bitcoin.core.Address;
 import com.google.bitcoin.core.AddressFormatException;
 import com.google.bitcoin.uri.BitcoinURI;
 
-import de.schildbach.wallet.Application;
+import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.util.NfcTools;
 import de.schildbach.wallet.util.QrDialog;
@@ -55,7 +55,7 @@ import de.schildbach.wallet_test.R;
 public final class WalletAddressFragment extends Fragment
 {
 	private FragmentActivity activity;
-	private Application application;
+	private WalletApplication application;
 	private SharedPreferences prefs;
 	private Object nfcManager;
 
@@ -74,7 +74,7 @@ public final class WalletAddressFragment extends Fragment
 
 		this.activity = (FragmentActivity) activity;
 		prefs = PreferenceManager.getDefaultSharedPreferences(activity);
-		application = (Application) activity.getApplication();
+		application = (WalletApplication) activity.getApplication();
 	}
 
 	@Override

@@ -33,6 +33,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 
+import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager.NameNotFoundException;
@@ -57,7 +58,7 @@ import de.schildbach.wallet_test.R;
 /**
  * @author Andreas Schildbach
  */
-public class Application extends android.app.Application
+public class WalletApplication extends Application
 {
 	private Wallet wallet;
 
@@ -167,7 +168,7 @@ public class Application extends android.app.Application
 						{
 							public void run()
 							{
-								Toast.makeText(Application.this, R.string.toast_wallet_reset, Toast.LENGTH_LONG).show();
+								Toast.makeText(WalletApplication.this, R.string.toast_wallet_reset, Toast.LENGTH_LONG).show();
 							}
 						});
 					}
@@ -209,7 +210,7 @@ public class Application extends android.app.Application
 				{
 					public void run()
 					{
-						Toast.makeText(Application.this, R.string.toast_wallet_reset, Toast.LENGTH_LONG).show();
+						Toast.makeText(WalletApplication.this, R.string.toast_wallet_reset, Toast.LENGTH_LONG).show();
 					}
 				});
 			}

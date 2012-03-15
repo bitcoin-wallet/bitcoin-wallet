@@ -28,7 +28,7 @@ import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
-import de.schildbach.wallet.Application;
+import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.util.ActionBarFragment;
 import de.schildbach.wallet_test.R;
@@ -38,7 +38,7 @@ import de.schildbach.wallet_test.R;
  */
 public abstract class AbstractWalletActivity extends FragmentActivity
 {
-	private Application application;
+	private WalletApplication application;
 	private ActionBarFragment actionBar;
 
 	@Override
@@ -46,7 +46,7 @@ public abstract class AbstractWalletActivity extends FragmentActivity
 	{
 		super.onCreate(savedInstanceState);
 
-		application = (Application) getApplication();
+		application = (WalletApplication) getApplication();
 	}
 
 	@Override
@@ -59,7 +59,7 @@ public abstract class AbstractWalletActivity extends FragmentActivity
 		actionBar.setSecondaryTitle(Constants.TEST ? "[testnet]" : null);
 	}
 
-	protected Application getWalletApplication()
+	protected WalletApplication getWalletApplication()
 	{
 		return application;
 	}

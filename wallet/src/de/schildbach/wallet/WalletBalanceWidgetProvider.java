@@ -41,7 +41,7 @@ public class WalletBalanceWidgetProvider extends AppWidgetProvider
 	@Override
 	public void onUpdate(final Context context, final AppWidgetManager appWidgetManager, final int[] appWidgetIds)
 	{
-		final Application application = (Application) context.getApplicationContext();
+		final WalletApplication application = (WalletApplication) context.getApplicationContext();
 		final Wallet wallet = application.getWallet();
 		final BigInteger balance = wallet.getBalance(BalanceType.ESTIMATED);
 		final String balanceStr = WalletUtils.formatValue(balance);

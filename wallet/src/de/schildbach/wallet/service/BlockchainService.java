@@ -68,7 +68,7 @@ import com.google.bitcoin.store.BlockStore;
 import com.google.bitcoin.store.BlockStoreException;
 import com.google.bitcoin.store.BoundedOverheadBlockStore;
 
-import de.schildbach.wallet.Application;
+import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.ui.WalletActivity;
 import de.schildbach.wallet.util.WalletUtils;
@@ -91,7 +91,7 @@ public class BlockchainService extends android.app.Service
 	public static final int ACTION_BLOCKCHAIN_STATE_DOWNLOAD_POWER_PROBLEM = 2;
 	public static final int ACTION_BLOCKCHAIN_STATE_DOWNLOAD_NETWORK_PROBLEM = 4;
 
-	private Application application;
+	private WalletApplication application;
 	private SharedPreferences prefs;
 
 	private BlockStore blockStore;
@@ -392,7 +392,7 @@ public class BlockchainService extends android.app.Service
 
 		nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
-		application = (Application) getApplication();
+		application = (WalletApplication) getApplication();
 		prefs = PreferenceManager.getDefaultSharedPreferences(this);
 		final Wallet wallet = application.getWallet();
 

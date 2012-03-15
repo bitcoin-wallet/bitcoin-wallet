@@ -46,7 +46,7 @@ import com.google.bitcoin.core.Wallet;
 import com.google.bitcoin.uri.BitcoinURI;
 
 import de.schildbach.wallet.AddressBookProvider;
-import de.schildbach.wallet.Application;
+import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.DetermineFirstSeenThread;
 import de.schildbach.wallet.util.QrDialog;
@@ -58,7 +58,7 @@ import de.schildbach.wallet_test.R;
  */
 public final class WalletAddressesFragment extends ListFragment
 {
-	private Application application;
+	private WalletApplication application;
 	private Activity activity;
 	private List<ECKey> keys;
 
@@ -68,7 +68,7 @@ public final class WalletAddressesFragment extends ListFragment
 		super.onCreate(savedInstanceState);
 
 		activity = getActivity();
-		application = (Application) activity.getApplication();
+		application = (WalletApplication) activity.getApplication();
 		final Wallet wallet = application.getWallet();
 		keys = wallet.keychain;
 

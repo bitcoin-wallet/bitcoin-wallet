@@ -46,7 +46,7 @@ import com.google.bitcoin.core.TransactionConfidence.ConfidenceType;
 import com.google.bitcoin.core.Wallet;
 
 import de.schildbach.wallet.AddressBookProvider;
-import de.schildbach.wallet.Application;
+import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.util.Base43;
 import de.schildbach.wallet.util.QrDialog;
@@ -84,7 +84,7 @@ public final class TransactionFragment extends Fragment
 
 	public void update(final Transaction tx)
 	{
-		final Wallet wallet = ((Application) activity.getApplication()).getWallet();
+		final Wallet wallet = ((WalletApplication) activity.getApplication()).getWallet();
 
 		final byte[] serializedTx = tx.unsafeBitcoinSerialize();
 

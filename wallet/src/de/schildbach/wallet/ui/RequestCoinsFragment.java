@@ -37,7 +37,7 @@ import android.widget.ImageView;
 import com.google.bitcoin.core.Address;
 import com.google.bitcoin.uri.BitcoinURI;
 
-import de.schildbach.wallet.Application;
+import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.ui.CurrencyAmountView.Listener;
 import de.schildbach.wallet.util.ActionBarFragment;
@@ -51,7 +51,7 @@ import de.schildbach.wallet_test.R;
  */
 public final class RequestCoinsFragment extends Fragment
 {
-	private Application application;
+	private WalletApplication application;
 	private Object nfcManager;
 
 	private ImageView qrView;
@@ -64,7 +64,7 @@ public final class RequestCoinsFragment extends Fragment
 	{
 		nfcManager = getActivity().getSystemService(Context.NFC_SERVICE);
 
-		application = (Application) getActivity().getApplication();
+		application = (WalletApplication) getActivity().getApplication();
 
 		final View view = inflater.inflate(R.layout.request_coins_fragment, container);
 

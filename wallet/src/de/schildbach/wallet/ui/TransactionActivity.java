@@ -37,7 +37,7 @@ import com.google.bitcoin.core.Transaction;
 import com.google.bitcoin.core.VerificationException;
 import com.google.bitcoin.core.Wallet;
 
-import de.schildbach.wallet.Application;
+import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.util.ActionBarFragment;
 import de.schildbach.wallet.util.Base43;
@@ -189,7 +189,7 @@ public final class TransactionActivity extends AbstractWalletActivity
 
 	private void processPendingTransaction(final Transaction tx)
 	{
-		final Wallet wallet = ((Application) getApplication()).getWallet();
+		final Wallet wallet = ((WalletApplication) getApplication()).getWallet();
 
 		try
 		{

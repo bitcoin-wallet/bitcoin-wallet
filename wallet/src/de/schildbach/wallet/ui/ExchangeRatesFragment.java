@@ -40,7 +40,7 @@ import com.google.bitcoin.core.Wallet;
 import com.google.bitcoin.core.Wallet.BalanceType;
 import com.google.bitcoin.core.WalletEventListener;
 
-import de.schildbach.wallet.Application;
+import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.ExchangeRatesProvider;
 import de.schildbach.wallet_test.R;
@@ -50,7 +50,7 @@ import de.schildbach.wallet_test.R;
  */
 public final class ExchangeRatesFragment extends ListFragment implements LoaderManager.LoaderCallbacks<Cursor>
 {
-	private Application application;
+	private WalletApplication application;
 	private SharedPreferences prefs;
 	private SimpleCursorAdapter adapter;
 
@@ -74,7 +74,7 @@ public final class ExchangeRatesFragment extends ListFragment implements LoaderM
 	{
 		super.onCreate(savedInstanceState);
 
-		application = (Application) getActivity().getApplication();
+		application = (WalletApplication) getActivity().getApplication();
 		final Wallet wallet = application.getWallet();
 
 		wallet.addEventListener(walletEventListener);

@@ -65,7 +65,7 @@ import com.google.bitcoin.core.Wallet;
 import com.google.bitcoin.core.WalletEventListener;
 
 import de.schildbach.wallet.AddressBookProvider;
-import de.schildbach.wallet.Application;
+import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.service.BlockchainService;
 import de.schildbach.wallet.util.CircularProgressView;
 import de.schildbach.wallet.util.ViewPagerTabs;
@@ -187,7 +187,7 @@ public final class WalletTransactionsFragment extends Fragment
 
 	public static class ListFragment extends android.support.v4.app.ListFragment implements LoaderCallbacks<List<Transaction>>
 	{
-		private Application application;
+		private WalletApplication application;
 		private Wallet wallet;
 		private Activity activity;
 		private ArrayAdapter<Transaction> adapter;
@@ -237,7 +237,7 @@ public final class WalletTransactionsFragment extends Fragment
 			super.onAttach(activity);
 
 			this.activity = activity;
-			application = (Application) activity.getApplication();
+			application = (WalletApplication) activity.getApplication();
 			wallet = application.getWallet();
 		}
 

@@ -46,7 +46,7 @@ import com.google.bitcoin.core.Wallet;
 import com.google.bitcoin.core.Wallet.BalanceType;
 import com.google.bitcoin.core.WalletEventListener;
 
-import de.schildbach.wallet.Application;
+import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.ExchangeRatesProvider;
 import de.schildbach.wallet.util.WalletUtils;
@@ -57,7 +57,7 @@ import de.schildbach.wallet_test.R;
  */
 public final class WalletBalanceFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>
 {
-	private Application application;
+	private WalletApplication application;
 	private Wallet wallet;
 	private SharedPreferences prefs;
 	private final Handler handler = new Handler();
@@ -86,7 +86,7 @@ public final class WalletBalanceFragment extends Fragment implements LoaderManag
 		super.onCreate(savedInstanceState);
 
 		final Activity activity = getActivity();
-		application = (Application) activity.getApplication();
+		application = (WalletApplication) activity.getApplication();
 		prefs = PreferenceManager.getDefaultSharedPreferences(activity);
 
 		wallet = application.getWallet();
