@@ -126,12 +126,13 @@ public final class WalletActivity extends AbstractWalletActivity
 			});
 		}
 
-		final FragmentManager fm = getSupportFragmentManager();
-		final FragmentTransaction ft = fm.beginTransaction();
-		ft.hide(fm.findFragmentById(R.id.wallet_addresses_fragment));
 		if ((getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) < Configuration.SCREENLAYOUT_SIZE_LARGE)
+		{
+			final FragmentManager fm = getSupportFragmentManager();
+			final FragmentTransaction ft = fm.beginTransaction();
 			ft.hide(fm.findFragmentById(R.id.exchange_rates_fragment));
-		ft.commit();
+			ft.commit();
+		}
 
 		checkVersionAndTimeskewAlert();
 	}

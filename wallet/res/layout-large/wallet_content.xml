@@ -67,12 +67,6 @@
 						android:layout_width="fill_parent"
 						android:layout_height="wrap_content"
 						android:layout_gravity="bottom|center_horizontal" />
-
-					<fragment
-						android:id="@+id/wallet_addresses_fragment"
-						android:name="de.schildbach.wallet.ui.WalletAddressesFragment"
-						android:layout_width="fill_parent"
-						android:layout_height="wrap_content" />
 				</FrameLayout>
 			</TableRow>
 		</TableLayout>
