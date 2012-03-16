@@ -26,15 +26,11 @@
 			<groupId>de.schildbach.wallet</groupId>
 			<artifactId>bitcoinj</artifactId>
 			<classifier>android</classifier>
-			<version>0.4.1</version>
+			<version>0.5-SNAPSHOT</version>
 			<exclusions>
 				<exclusion>
 					<groupId>org.bouncycastle</groupId>
 					<artifactId>bcprov-jdk15</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>net.sf.jopt-simple</groupId>
-					<artifactId>jopt-simple</artifactId>
 				</exclusion>
 			</exclusions>
 		</dependency>
