@@ -32,6 +32,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.content.res.Configuration;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
@@ -249,7 +250,7 @@ public final class WalletActivity extends AbstractWalletActivity
 					final long serverTime = connection.getHeaderFieldDate("Date", 0);
 					final InputStream is = connection.getInputStream();
 					final BufferedReader reader = new BufferedReader(new InputStreamReader(is));
-					// final String version = reader.readLine();
+					final int serverVersionCode = Integer.parseInt(reader.readLine().trim().split("\\s+")[0]);
 					reader.close();
 
 					if (serverTime > 0)
@@ -266,7 +267,23 @@ public final class WalletActivity extends AbstractWalletActivity
 										timeskewAlert(diffMinutes);
 								}
 							});
+
+							return;
 						}
+					}
+
+					if (serverVersionCode > versionCode)
+					{
+						runOnUiThread(new Runnable()
+						{
+							public void run()
+							{
+								if (!isFinishing())
+									versionAlert(serverVersionCode);
+							}
+						});
+
+						return;
 					}
 				}
 				catch (final Exception x)
@@ -288,6 +305,24 @@ public final class WalletActivity extends AbstractWalletActivity
 			public void onClick(final DialogInterface dialog, final int id)
 			{
 				startActivity(new Intent(android.provider.Settings.ACTION_DATE_SETTINGS));
+				finish();
+			}
+		});
+		builder.setNegativeButton(R.string.button_dismiss, null);
+		builder.show();
+	}
+
+	private void versionAlert(final int serverVersionCode)
+	{
+		final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setIcon(android.R.drawable.ic_dialog_alert);
+		builder.setTitle(R.string.wallet_version_dialog_title);
+		builder.setMessage(getString(R.string.wallet_version_dialog_msg));
+		builder.setPositiveButton(R.string.wallet_version_dialog_button_market, new DialogInterface.OnClickListener()
+		{
+			public void onClick(final DialogInterface dialog, final int id)
+			{
+				startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(String.format(Constants.MARKET_APP_URL, getPackageName()))));
 				finish();
 			}
 		});
