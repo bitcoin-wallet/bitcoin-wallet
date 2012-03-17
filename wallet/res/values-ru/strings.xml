@@ -83,7 +83,7 @@
 	<string name="preferences_credits_icon_title">"Это приложение использует иконку от 'bitboy'"</string>
 	<string name="preferences_author_twitter_title">Автор в Twitter</string>
 	<string name="preferences_author_googleplus_title">Автор в Google+</string>
-	<string name="preferences_credits_market_app_title">Страница на Android Market</string>
+	<string name="preferences_credits_market_app_title">Страница на Google Play</string>
 	<string name="preferences_credits_market_publisher_title">Другие Приложения Автора</string>
 
 	<string name="notification_coins_received_msg">Получено BTC %s</string>

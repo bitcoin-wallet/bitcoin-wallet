@@ -125,7 +125,7 @@
 	<string name="preferences_credits_icon_title">"Bu uygulama 'bitboy' tarafından oluşturulan bir ikon kullanır"</string>
 	<string name="preferences_author_twitter_title">Geliştiricinin Twitter sayfası</string>
 	<string name="preferences_author_googleplus_title">Geliştiricinin Google+ sayfası</string>
-	<string name="preferences_credits_market_app_title">Android Market uygulama sayfası</string>
+	<string name="preferences_credits_market_app_title">Google Play uygulama sayfası</string>
 	<string name="preferences_credits_market_publisher_title">Geliştiricinin diğer uygulamaları</string>
 
 	<string name="notification_coins_received_msg">%s BTC alındı</string>

@@ -82,7 +82,7 @@
 	<string name="preferences_credits_icon_title">"Aplikace používá ikonu od 'bitboy'"</string>
 	<string name="preferences_author_twitter_title">Autor na Twitteru</string>
 	<string name="preferences_author_googleplus_title">Autor na Google+</string>
-	<string name="preferences_credits_market_app_title">Aplikace na Android Marketu</string>
+	<string name="preferences_credits_market_app_title">Aplikace na Google Play</string>
 	<string name="preferences_credits_market_publisher_title">Ostatní autorovy aplikace</string>
 
 	<string name="notification_coins_received_msg">Obdrženo BTC %s</string>

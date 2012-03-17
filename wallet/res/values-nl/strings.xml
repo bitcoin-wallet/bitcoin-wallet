@@ -81,7 +81,7 @@
 	<string name="preferences_credits_icon_title">"Deze app gebruikt een icoon door 'bitboy'"</string>
 	<string name="preferences_author_twitter_title">Auteur op Twitter</string>
 	<string name="preferences_author_googleplus_title">Auteur op Google+</string>
-	<string name="preferences_credits_market_app_title">Android Markt App Pagina</string>
+	<string name="preferences_credits_market_app_title">Google Play App Pagina</string>
 	<string name="preferences_credits_market_publisher_title">Andere Apps van Author</string>
 
 	<string name="notification_coins_received_msg">Ontvangen BTC %s</string>

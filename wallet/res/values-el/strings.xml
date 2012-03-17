@@ -83,7 +83,7 @@
 	<string name="preferences_credits_icon_title">"Η εφαρμογή αυτή χρησιμοποιεί ένα εικονίδιο από τη 'bitboy'"</string>
 	<string name="preferences_author_twitter_title">Δημιουργός στο Twitter</string>
 	<string name="preferences_author_googleplus_title">Δημιουργός στο Google+</string>
-	<string name="preferences_credits_market_app_title">Σελίδα Εφαρμογών του Android Market</string>
+	<string name="preferences_credits_market_app_title">Σελίδα Εφαρμογών του Google Play</string>
 	<string name="preferences_credits_market_publisher_title">Άλλες εφαρμογές του δημιουργού</string>
 
 	<string name="notification_coins_received_msg">Ελήφθη BTC %s</string>

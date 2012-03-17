@@ -81,7 +81,7 @@
 	<string name="preferences_credits_icon_title">"本程序使用 'bitboy' 制作的图标"</string>
 	<string name="preferences_author_twitter_title">作者Twitter</string>
 	<string name="preferences_author_googleplus_title">作者Google+</string>
-	<string name="preferences_credits_market_app_title">Android 市场程序页</string>
+	<string name="preferences_credits_market_app_title">Google Play 市场程序页</string>
 	<string name="preferences_credits_market_publisher_title">作者其它程序</string>
 
 	<string name="notification_coins_received_msg">已收到%s比特币</string>

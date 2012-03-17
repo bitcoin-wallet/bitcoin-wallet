@@ -127,7 +127,7 @@
 	<string name="preferences_credits_icon_title">"This app is using an icon by 'bitboy'"</string>
 	<string name="preferences_author_twitter_title">Author at Twitter</string>
 	<string name="preferences_author_googleplus_title">Author at Google+</string>
-	<string name="preferences_credits_market_app_title">Android Market App Page</string>
+	<string name="preferences_credits_market_app_title">Google Play App Page</string>
 	<string name="preferences_credits_market_publisher_title">Other Apps of Author</string>
 
 	<string name="notification_coins_received_msg">Received BTC %s</string>
