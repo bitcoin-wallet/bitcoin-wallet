@@ -82,7 +82,12 @@ public final class WalletAddressesFragment extends ListFragment
 	{
 		super.onViewCreated(view, savedInstanceState);
 
-		registerForContextMenu(getListView());
+		final ListView listView = getListView();
+
+		// workaround for flashing background in ViewPager on Android 2.x
+		listView.setBackgroundColor(getResources().getColor(R.color.background_bright));
+
+		registerForContextMenu(listView);
 	}
 
 	@Override

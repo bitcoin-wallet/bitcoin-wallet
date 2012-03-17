@@ -387,10 +387,15 @@ public final class WalletTransactionsFragment extends Fragment
 		{
 			super.onViewCreated(view, savedInstanceState);
 
+			final ListView listView = getListView();
+
+			// workaround for flashing background in ViewPager on Android 2.x
+			listView.setBackgroundColor(getResources().getColor(R.color.background_bright));
+
 			setEmptyText(getString(mode == 2 ? R.string.wallet_transactions_fragment_empty_text_sent
 					: R.string.wallet_transactions_fragment_empty_text_received));
 
-			registerForContextMenu(getListView());
+			registerForContextMenu(listView);
 		}
 
 		@Override
