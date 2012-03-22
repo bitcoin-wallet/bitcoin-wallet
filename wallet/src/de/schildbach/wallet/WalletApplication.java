@@ -91,6 +91,8 @@ public class WalletApplication extends Application
 			System.out.println("StrictMode not available");
 		}
 
+		System.out.println(getClass().getName() + ".onCreate()");
+
 		super.onCreate();
 
 		ErrorReporter.getInstance().init(this);

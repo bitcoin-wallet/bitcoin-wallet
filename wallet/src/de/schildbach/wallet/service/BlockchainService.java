@@ -386,7 +386,7 @@ public class BlockchainService extends android.app.Service
 	@Override
 	public void onCreate()
 	{
-		System.out.println("service onCreate()");
+		System.out.println(getClass().getName() + ".onCreate()");
 
 		super.onCreate();
 
@@ -483,7 +483,7 @@ public class BlockchainService extends android.app.Service
 	@Override
 	public void onDestroy()
 	{
-		System.out.println("service onDestroy()");
+		System.out.println(getClass().getName() + ".onDestroy()");
 
 		application.getWallet().removeEventListener(walletEventListener);
 
