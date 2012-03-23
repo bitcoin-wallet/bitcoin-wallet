@@ -510,6 +510,15 @@ public class BlockchainService extends android.app.Service
 
 		delayHandler.removeCallbacksAndMessages(null);
 
+		try
+		{
+			blockStore.close();
+		}
+		catch (final BlockStoreException x)
+		{
+			throw new RuntimeException(x);
+		}
+
 		handler.postDelayed(new Runnable()
 		{
 			public void run()
