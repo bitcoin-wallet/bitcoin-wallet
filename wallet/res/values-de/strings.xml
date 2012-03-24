@@ -34,6 +34,7 @@
 	<string name="wallet_transactions_fragment_tab_sent">Gesendet</string>
 	<string name="wallet_transactions_fragment_empty_text_received">Noch keine Bitcoins empfangen</string>
 	<string name="wallet_transactions_fragment_empty_text_sent">Noch keine Bitcoins gesendet</string>
+	<string name="wallet_transactions_fragment_coinbase">geschürft</string>
 	<string name="wallet_transactions_context_edit_address_title">Adresse hinzufügen/ändern)</string>
 	<string name="wallet_transactions_context_show_transaction_title">Transaktionsdetails</string>
 	<string name="wallet_options_request_coins">BTC anfordern</string>

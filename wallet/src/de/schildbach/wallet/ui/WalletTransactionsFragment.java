@@ -61,6 +61,8 @@ import com.google.bitcoin.core.ScriptException;
 import com.google.bitcoin.core.Transaction;
 import com.google.bitcoin.core.TransactionConfidence;
 import com.google.bitcoin.core.TransactionConfidence.ConfidenceType;
+import com.google.bitcoin.core.TransactionInput;
+import com.google.bitcoin.core.TransactionOutput;
 import com.google.bitcoin.core.Wallet;
 import com.google.bitcoin.core.WalletEventListener;
 
@@ -329,31 +331,28 @@ public final class WalletTransactionsFragment extends Fragment
 							rowConfidenceTextual.setTextColor(colorInsignificant);
 						}
 
-						final String address;
-						if (sent)
-							address = tx.getOutputs().get(0).getScriptPubKey().getToAddress().toString();
-						else
-							address = tx.getInputs().get(0).getFromAddress().toString();
-
-						final String label = AddressBookProvider.resolveLabel(activity.getContentResolver(), address);
-
 						final TextView rowTime = (TextView) row.findViewById(R.id.transaction_row_time);
 						final Date time = tx.getUpdateTime();
 						rowTime.setText(time != null ? (DateUtils.isToday(time.getTime()) ? timeFormat.format(time) : dateFormat.format(time)) : null);
 						rowTime.setTextColor(textColor);
 
 						final TextView rowTo = (TextView) row.findViewById(R.id.transaction_row_to);
-						rowTo.setVisibility(sent ? View.VISIBLE : View.INVISIBLE);
-						rowTo.setTextColor(textColor);
-
 						final TextView rowFrom = (TextView) row.findViewById(R.id.transaction_row_from);
+						rowTo.setVisibility(sent ? View.VISIBLE : View.INVISIBLE);
 						rowFrom.setVisibility(sent ? View.INVISIBLE : View.VISIBLE);
+						rowTo.setTextColor(textColor);
 						rowFrom.setTextColor(textColor);
 
-						final TextView rowLabel = (TextView) row.findViewById(R.id.transaction_row_address);
-						rowLabel.setTextColor(textColor);
-						rowLabel.setText(label != null ? label : address);
-						rowLabel.setTypeface(label != null ? Typeface.DEFAULT : Typeface.MONOSPACE);
+						final TextView rowAddress = (TextView) row.findViewById(R.id.transaction_row_address);
+						final Address address = sent ? getToAddress(tx) : getFromAddress(tx);
+						final String label;
+						if (address != null)
+							label = AddressBookProvider.resolveLabel(activity.getContentResolver(), address.toString());
+						else
+							label = sent ? "?" : getString(R.string.wallet_transactions_fragment_coinbase);
+						rowAddress.setTextColor(textColor);
+						rowAddress.setText(label != null ? label : address.toString());
+						rowAddress.setTypeface(label != null ? Typeface.DEFAULT : Typeface.MONOSPACE);
 
 						final CurrencyAmountView rowValue = (CurrencyAmountView) row.findViewById(R.id.transaction_row_value);
 						rowValue.setCurrencyCode(null);
@@ -367,6 +366,29 @@ public final class WalletTransactionsFragment extends Fragment
 					{
 						throw new RuntimeException(x);
 					}
+				}
+
+				private Address getFromAddress(final Transaction tx) throws ScriptException
+				{
+					for (final TransactionInput input : tx.getInputs())
+					{
+						if (input.isCoinBase())
+							return null;
+
+						return input.getFromAddress();
+					}
+
+					throw new IllegalStateException();
+				}
+
+				private Address getToAddress(final Transaction tx) throws ScriptException
+				{
+					for (final TransactionOutput output : tx.getOutputs())
+					{
+						return output.getScriptPubKey().getToAddress();
+					}
+
+					throw new IllegalStateException();
 				}
 			};
 			setListAdapter(adapter);
