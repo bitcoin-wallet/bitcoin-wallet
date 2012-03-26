@@ -178,13 +178,17 @@ public final class WalletTransactionsFragment extends Fragment
 				if (pending1 != pending2)
 					return pending1 ? -1 : 1;
 
-				final long time1 = tx1.getUpdateTime() != null ? tx1.getUpdateTime().getTime() : 0;
-				final long time2 = tx2.getUpdateTime() != null ? tx2.getUpdateTime().getTime() : 0;
+				final Date updateTime1 = tx1.getUpdateTime();
+				final long time1 = updateTime1 != null ? updateTime1.getTime() : 0;
+				final Date updateTime2 = tx2.getUpdateTime();
+				final long time2 = updateTime2 != null ? updateTime2.getTime() : 0;
 
-				if (time1 != time2)
-					return time1 > time2 ? -1 : 1;
-
-				return 0;
+				if (time1 > time2)
+					return -1;
+				else if (time1 < time2)
+					return 1;
+				else
+					return 0;
 			}
 		};
 	}
