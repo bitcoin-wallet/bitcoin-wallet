@@ -68,8 +68,8 @@ import com.google.bitcoin.store.BlockStore;
 import com.google.bitcoin.store.BlockStoreException;
 import com.google.bitcoin.store.BoundedOverheadBlockStore;
 
-import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.ui.WalletActivity;
 import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
@@ -380,7 +380,17 @@ public class BlockchainService extends android.app.Service
 	@Override
 	public IBinder onBind(final Intent intent)
 	{
+		System.out.println(getClass().getName() + ".onBind()");
+
 		return mBinder;
+	}
+
+	@Override
+	public boolean onUnbind(final Intent intent)
+	{
+		System.out.println(getClass().getName() + ".onUnbind()");
+
+		return super.onUnbind(intent);
 	}
 
 	@Override
