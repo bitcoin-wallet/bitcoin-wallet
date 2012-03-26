@@ -11,6 +11,7 @@ FEATURES:
 • Unterstützung für millibitcent und kleineren Werten (0.0001) 
 • Adressbuch für regelmäßig genutzte Empfänger
 • Offline-Unterstützung, Transaktionen werden dann ausgeführt, wenn das Gerät wieder online ist
+• Verwaltet die Blockchain auf Deinem Gerät (für mehr Sicherheit)
 • System-Benachrichtigungen für Bitcoin-Konnektivität und Empfang von Zahlungen
 • App-Widget zeigt Bitcoin-Guthaben an (Voraussetzung: App ist nicht auf SD-Karte verschoben)
 
@@ -32,4 +33,4 @@ Lizenz: GPLv3
 Nutzung auf eigene Gefahr!
 
 --
-BTC Bitcoin Wallet bitcoinandroid androidbitcoin Geldbörse Кошелёк
+BTC Bitcoin Wallet blockchain bitcoinandroid androidbitcoin Geldbörse Кошелёк

@@ -31,4 +31,4 @@ Licencja: GPLv3
 Używanie jedynie na własne ryzyko!
 
 --
-BTC bitcoin wallet bitcoinandroid androidbitcoin Geldbörse Кошелёк
+BTC bitcoin wallet blockchain bitcoinandroid androidbitcoin Geldbörse Кошелёк

@@ -11,6 +11,7 @@ FEATURES:
 • Support for millibitcent and smaller values (0.0001)
 • Address book for regularly used Bitcoin addresses
 • Enter transactions while offline, will be executed when online
+• Manages blockchain on your device (for enhanced security)
 • System notifications for Bitcoin connectivity and received coins
 • App widget for Bitcoin balance (requirement: app moved to phone)
 
@@ -31,4 +32,4 @@ License: GPLv3
 Use at your own risk!
 
 --
-BTC bitcoin wallet bitcoinandroid androidbitcoin Geldbörse Кошелёк
+BTC bitcoin wallet blockchain bitcoinandroid androidbitcoin Geldbörse Кошелёк
