@@ -391,7 +391,6 @@ public final class WalletTransactionsFragment extends Fragment
 					throw new IllegalStateException();
 				}
 			};
-			setListAdapter(adapter);
 
 			activity.getContentResolver().registerContentObserver(AddressBookProvider.CONTENT_URI, true, contentObserver);
 		}
@@ -416,6 +415,8 @@ public final class WalletTransactionsFragment extends Fragment
 
 			setEmptyText(getString(mode == 2 ? R.string.wallet_transactions_fragment_empty_text_sent
 					: R.string.wallet_transactions_fragment_empty_text_received));
+
+			setListAdapter(adapter);
 
 			registerForContextMenu(listView);
 		}
