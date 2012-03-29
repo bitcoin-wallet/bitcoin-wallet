@@ -10,10 +10,10 @@ still get the coins only once.
 
 FILES
 
-/data/data/de.schildbach.wallet/files/wallet (MODE_PRIVATE)
+/data/data/de.schildbach.wallet/files/wallet-protobuf (MODE_PRIVATE)
 	Wallet for prodnet
 
-/data/data/de.schildbach.wallet_test/files/wallet-testnet (MODE_WORLD_READABLE | MODE_WORLD_WRITEABLE)
+/data/data/de.schildbach.wallet_test/files/wallet-protobuf-testnet (MODE_WORLD_READABLE | MODE_WORLD_WRITEABLE)
 	Wallet for testnet
 
 The wallet file format is not compatible to wallet.dat (Satoshi client).
@@ -29,7 +29,7 @@ DEBUGGING
 
 Wallet file for testnet can be pulled from (even unrooted) device using
 
-	adb pull /data/data/de.schildbach.wallet_test/files/wallet-testnet
+	adb pull /data/data/de.schildbach.wallet_test/files/wallet-protobuf-testnet
 
 Backups of key for testnet can be pulled from device using
 
