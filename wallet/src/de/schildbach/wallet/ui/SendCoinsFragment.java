@@ -61,6 +61,7 @@ import com.google.bitcoin.core.Wallet.BalanceType;
 import de.schildbach.wallet.AddressBookProvider;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
+import de.schildbach.wallet.integration.android.BitcoinIntegration;
 import de.schildbach.wallet.service.BlockchainService;
 import de.schildbach.wallet.service.BlockchainServiceImpl;
 import de.schildbach.wallet.util.WalletUtils;
@@ -583,7 +584,9 @@ public final class SendCoinsFragment extends SherlockFragment implements AmountC
 
 			activity.longToast(R.string.send_coins_success_msg, WalletUtils.formatValue(amount));
 
-			activity.setResult(Activity.RESULT_OK);
+			final Intent result = new Intent();
+			BitcoinIntegration.transactionHashToResult(result, tx.getHashAsString());
+			activity.setResult(Activity.RESULT_OK, result);
 		}
 		else
 		{

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Button xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/sample_donate_button"
+	style="@android:style/TextAppearance.Large"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:layout_gravity="center"
+	android:text="Donate" />

@@ -51,7 +51,6 @@
 		<activity
 			android:name="de.schildbach.wallet.ui.SendCoinsActivity"
 			android:configChanges="keyboard|keyboardHidden"
-			android:launchMode="singleTask"
 			android:screenOrientation="behind"
 			android:windowSoftInputMode="adjustResize" >
 			<intent-filter android:label="@string/send_coins_activity_title" >
