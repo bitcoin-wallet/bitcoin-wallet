@@ -195,6 +195,7 @@ public final class AddressBookActivity extends AbstractWalletActivity
 				}
 				else
 				{
+					// TODO nicer cross-network handling
 					final BitcoinURI bitcoinUri = new BitcoinURI(Constants.NETWORK_PARAMETERS, contents);
 					address = bitcoinUri.getAddress();
 				}

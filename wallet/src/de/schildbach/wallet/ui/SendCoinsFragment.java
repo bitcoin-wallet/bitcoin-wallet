@@ -47,12 +47,13 @@ import android.widget.TextView;
 
 import com.google.bitcoin.core.Address;
 import com.google.bitcoin.core.AddressFormatException;
+import com.google.bitcoin.core.NetworkParameters;
 import com.google.bitcoin.core.Transaction;
 import com.google.bitcoin.core.Wallet.BalanceType;
 
 import de.schildbach.wallet.AddressBookProvider;
-import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.service.BlockchainService;
 import de.schildbach.wallet.ui.CurrencyAmountView.Listener;
 import de.schildbach.wallet.util.WalletUtils;
@@ -70,7 +71,7 @@ public final class SendCoinsFragment extends Fragment
 	private Runnable sentRunnable;
 
 	private AutoCompleteTextView receivingAddressView;
-	private View receivingAddressErrorView;
+	private TextView receivingAddressErrorView;
 	private CurrencyAmountView amountView;
 	private CurrencyAmountView feeView;
 	private Button viewGo;
@@ -155,7 +156,7 @@ public final class SendCoinsFragment extends Fragment
 		receivingAddressView.setAdapter(new AutoCompleteAdapter(activity, null));
 		receivingAddressView.addTextChangedListener(textWatcher);
 
-		receivingAddressErrorView = view.findViewById(R.id.send_coins_receiving_address_error);
+		receivingAddressErrorView = (TextView) view.findViewById(R.id.send_coins_receiving_address_error);
 
 		final CurrencyAmountView availableView = (CurrencyAmountView) view.findViewById(R.id.send_coins_available);
 		availableView.setAmount(available);
@@ -339,14 +340,39 @@ public final class SendCoinsFragment extends Fragment
 			final String address = receivingAddressView.getText().toString().trim();
 			if (address.length() > 0)
 			{
-				new Address(Constants.NETWORK_PARAMETERS, address);
-				validAddress = true;
+				final NetworkParameters addressParams = Address.getParametersFromAddress(address);
+				if (addressParams != null && addressParams.getId().equals(Constants.NETWORK_PARAMETERS.getId()))
+				{
+					// address is valid
+					new Address(Constants.NETWORK_PARAMETERS, address);
+					validAddress = true;
+					receivingAddressErrorView.setVisibility(View.GONE);
+				}
+				else if (addressParams != null)
+				{
+					// address is valid, but from different known network
+					receivingAddressErrorView.setVisibility(View.VISIBLE);
+					receivingAddressErrorView.setText(getString(R.string.send_coins_fragment_receiving_address_error_cross_network,
+							addressParams.getId()));
+				}
+				else
+				{
+					// address is valid, but from different unknown network
+					receivingAddressErrorView.setVisibility(View.VISIBLE);
+					receivingAddressErrorView.setText(getString(R.string.send_coins_fragment_receiving_address_error_cross_network_unknown));
+				}
 			}
-			receivingAddressErrorView.setVisibility(View.GONE);
+			else
+			{
+				// empty field should not raise error message
+				receivingAddressErrorView.setVisibility(View.GONE);
+			}
 		}
-		catch (final Exception x)
+		catch (final AddressFormatException x)
 		{
+			// could not decode address at all
 			receivingAddressErrorView.setVisibility(View.VISIBLE);
+			receivingAddressErrorView.setText(R.string.send_coins_fragment_receiving_address_error);
 		}
 
 		final BigInteger amount = amountView.getAmount();

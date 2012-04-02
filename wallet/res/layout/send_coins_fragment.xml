@@ -34,7 +34,6 @@
 		android:layout_height="wrap_content"
 		android:layout_marginBottom="8dp"
 		android:layout_marginLeft="12dp"
-		android:text="@string/send_coins_fragment_receiving_address_error"
 		android:textColor="#f88"
 		android:textSize="@dimen/font_size_small"
 		android:textStyle="bold"

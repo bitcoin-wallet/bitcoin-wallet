@@ -63,6 +63,8 @@
 	<string name="send_coins_fragment_receiving_address_label">Pay to</string>
 	<string name="send_coins_fragment_receiving_address_hint">type address or name</string>
 	<string name="send_coins_fragment_receiving_address_error">Invalid Bitcoin Address!</string>
+	<string name="send_coins_fragment_receiving_address_error_cross_network">Cannot use %s address with this wallet!</string>
+	<string name="send_coins_fragment_receiving_address_error_cross_network_unknown">Cannot use address of unknown network with this wallet!</string>
 	<string name="send_coins_fragment_available_label">Available for spending</string>
 	<string name="send_coins_fragment_pending">(BTC %s waiting for confirmation)</string>
 	<string name="send_coins_fragment_amount_label">Amount to pay</string>

@@ -128,7 +128,7 @@ public final class SendCoinsActivity extends AbstractWalletActivity
 			{
 				try
 				{
-					final BitcoinURI bitcoinUri = new BitcoinURI(Constants.NETWORK_PARAMETERS, contents);
+					final BitcoinURI bitcoinUri = new BitcoinURI(null, contents);
 					final Address address = bitcoinUri.getAddress();
 					updateSendCoinsFragment(address != null ? address.toString() : null, bitcoinUri.getAmount());
 				}
@@ -153,7 +153,7 @@ public final class SendCoinsActivity extends AbstractWalletActivity
 		{
 			try
 			{
-				final BitcoinURI bitcoinUri = new BitcoinURI(Constants.NETWORK_PARAMETERS, intentUri.toString());
+				final BitcoinURI bitcoinUri = new BitcoinURI(null, intentUri.toString());
 				address = bitcoinUri.getAddress().toString();
 				amount = bitcoinUri.getAmount();
 			}
@@ -167,7 +167,7 @@ public final class SendCoinsActivity extends AbstractWalletActivity
 		{
 			try
 			{
-				final BitcoinURI bitcoinUri = new BitcoinURI(Constants.NETWORK_PARAMETERS, intent.getStringExtra(INTENT_EXTRA_QUERY));
+				final BitcoinURI bitcoinUri = new BitcoinURI(null, intent.getStringExtra(INTENT_EXTRA_QUERY));
 				address = bitcoinUri.getAddress().toString();
 				amount = bitcoinUri.getAmount();
 			}
