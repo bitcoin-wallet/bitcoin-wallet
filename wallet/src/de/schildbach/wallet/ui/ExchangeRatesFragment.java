@@ -40,9 +40,9 @@ import com.google.bitcoin.core.Wallet;
 import com.google.bitcoin.core.Wallet.BalanceType;
 import com.google.bitcoin.core.WalletEventListener;
 
-import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.ExchangeRatesProvider;
+import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet_test.R;
 
 /**
@@ -53,6 +53,7 @@ public final class ExchangeRatesFragment extends ListFragment implements LoaderM
 	private WalletApplication application;
 	private SharedPreferences prefs;
 	private SimpleCursorAdapter adapter;
+	private BigInteger balance;
 
 	private final WalletEventListener walletEventListener = new AbstractWalletEventListener()
 	{
@@ -98,8 +99,9 @@ public final class ExchangeRatesFragment extends ListFragment implements LoaderM
 				if (!ExchangeRatesProvider.KEY_EXCHANGE_RATE.equals(cursor.getColumnName(columnIndex)))
 					return false;
 
-				final BigInteger value = new BigDecimal(application.getWallet().getBalance(BalanceType.ESTIMATED)).multiply(
-						new BigDecimal(cursor.getDouble(columnIndex))).toBigInteger();
+				final BigDecimal rate = new BigDecimal(cursor.getDouble(columnIndex));
+				final BigInteger value = new BigDecimal(balance).multiply(rate).toBigInteger();
+
 				final CurrencyAmountView valueView = (CurrencyAmountView) view;
 				valueView.setCurrencyCode(null);
 				valueView.setAmount(value);
@@ -147,6 +149,8 @@ public final class ExchangeRatesFragment extends ListFragment implements LoaderM
 
 	private void updateView()
 	{
+		balance = application.getWallet().getBalance(BalanceType.ESTIMATED);
+
 		final ListAdapter adapter = getListAdapter();
 		if (adapter != null)
 			((BaseAdapter) adapter).notifyDataSetChanged();
