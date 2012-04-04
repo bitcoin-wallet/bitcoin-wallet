@@ -13,7 +13,7 @@
 	<FrameLayout
 		android:layout_width="fill_parent"
 		android:layout_height="fill_parent"
-		android:foreground="@drawable/title_bar_shadow"
+		android:foreground="@drawable/fragment_shadow_horizontal"
 		android:foregroundGravity="top|fill_horizontal" >
 
 		<LinearLayout
@@ -46,7 +46,7 @@
 					android:layout_height="0px"
 					android:layout_weight="1"
 					android:background="@color/background_bright"
-					android:foreground="@drawable/title_bar_shadow_light"
+					android:foreground="@drawable/fragment_shadow_horizontal_light"
 					android:foregroundGravity="top|fill_horizontal" >
 
 					<fragment
@@ -87,7 +87,7 @@
 					android:layout_height="0px"
 					android:layout_weight="1"
 					android:background="@color/background_bright"
-					android:foreground="@drawable/title_bar_shadow_light"
+					android:foreground="@drawable/fragment_shadow_horizontal_light"
 					android:foregroundGravity="top|fill_horizontal" >
 
 					<fragment

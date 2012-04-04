@@ -15,7 +15,7 @@
 		android:layout_height="fill_parent"
 		android:layout_weight="1"
 		android:background="#d8d8e0"
-		android:foreground="@drawable/title_bar_shadow"
+		android:foreground="@drawable/fragment_shadow_horizontal"
 		android:foregroundGravity="top|fill_horizontal" >
 
 		<TableLayout
@@ -43,7 +43,7 @@
 				<FrameLayout
 					android:layout_weight="1"
 					android:background="#efefef"
-					android:foreground="@drawable/title_bar_shadow_light"
+					android:foreground="@drawable/fragment_shadow_horizontal_light"
 					android:foregroundGravity="top|fill_horizontal" >
 
 					<fragment
@@ -58,7 +58,7 @@
 					android:layout_span="2"
 					android:layout_weight="4"
 					android:background="@android:color/white"
-					android:foreground="@drawable/title_bar_shadow_light"
+					android:foreground="@drawable/fragment_shadow_horizontal_light"
 					android:foregroundGravity="top|fill_horizontal" >
 
 					<fragment

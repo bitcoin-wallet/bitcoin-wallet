@@ -13,7 +13,7 @@
 	<FrameLayout
 		android:layout_width="fill_parent"
 		android:layout_height="fill_parent"
-		android:foreground="@drawable/title_bar_shadow"
+		android:foreground="@drawable/fragment_shadow_horizontal"
 		android:foregroundGravity="top|fill_horizontal" >
 
 		<fragment
