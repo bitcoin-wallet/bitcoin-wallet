@@ -341,7 +341,7 @@ public final class SendCoinsFragment extends Fragment
 			if (address.length() > 0)
 			{
 				final NetworkParameters addressParams = Address.getParametersFromAddress(address);
-				if (addressParams != null && addressParams.getId().equals(Constants.NETWORK_PARAMETERS.getId()))
+				if (Constants.NETWORK_PARAMETERS.equals(addressParams))
 				{
 					// address is valid
 					new Address(Constants.NETWORK_PARAMETERS, address);
