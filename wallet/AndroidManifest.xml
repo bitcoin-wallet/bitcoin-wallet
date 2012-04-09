@@ -29,7 +29,8 @@
 		</activity-alias>
 
 		<activity android:name="de.schildbach.wallet.ui.SendCoinsActivity" android:theme="@android:style/Theme.Light.NoTitleBar"
-			android:screenOrientation="nosensor" android:configChanges="orientation|keyboard|keyboardHidden" android:launchMode="singleTask">
+			android:screenOrientation="nosensor" android:configChanges="orientation|keyboard|keyboardHidden" android:launchMode="singleTask"
+			android:windowSoftInputMode="adjustResize">
 			<intent-filter android:label="@string/send_coins_activity_title">
 				<action android:name="android.intent.action.VIEW" />
 				<data android:scheme="bitcoin" />
