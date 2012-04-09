@@ -200,7 +200,9 @@ public class WalletApplication extends Application
 
 			try
 			{
-				wallet = WalletProtobufSerializer.readWallet(is, Constants.NETWORK_PARAMETERS);
+				wallet = WalletProtobufSerializer.readWallet(is);
+				if (!wallet.getParams().equals(Constants.NETWORK_PARAMETERS))
+					throw new IllegalStateException("bad wallet network parameters: " + wallet.getParams().getId());
 			}
 			catch (final IOException x)
 			{
