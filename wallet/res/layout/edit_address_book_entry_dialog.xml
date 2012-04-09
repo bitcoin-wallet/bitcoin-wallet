@@ -23,6 +23,7 @@
 		android:background="@drawable/edit_text"
 		android:enabled="false"
 		android:focusable="false"
+		android:imeOptions="flagNoExtractUi"
 		android:textSize="@dimen/font_size_normal" />
 
 	<TextView
@@ -40,6 +41,7 @@
 		android:layout_height="wrap_content"
 		android:layout_margin="8dp"
 		android:background="@drawable/edit_text"
+		android:imeOptions="flagNoExtractUi"
 		android:singleLine="true"
 		android:textSize="@dimen/font_size_normal" />
 

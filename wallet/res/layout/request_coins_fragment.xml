@@ -25,6 +25,7 @@
 			android:layout_height="wrap_content"
 			android:background="@drawable/edit_text"
 			android:drawablePadding="4dp"
+			android:imeOptions="flagNoExtractUi"
 			android:textSize="@dimen/font_size_xlarge" />
 	</de.schildbach.wallet.ui.CurrencyAmountView>
 

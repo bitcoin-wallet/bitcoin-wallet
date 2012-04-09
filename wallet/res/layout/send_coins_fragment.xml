@@ -22,7 +22,7 @@
 		android:background="@drawable/edit_text"
 		android:completionThreshold="1"
 		android:hint="@string/send_coins_fragment_receiving_address_hint"
-		android:imeOptions="actionNext"
+		android:imeOptions="actionNext|flagNoExtractUi"
 		android:singleLine="true"
 		android:textColor="#000"
 		android:textScaleX="@dimen/address_scalex"
@@ -96,6 +96,7 @@
 			android:layout_height="wrap_content"
 			android:background="@drawable/edit_text"
 			android:drawablePadding="4dp"
+			android:imeOptions="flagNoExtractUi"
 			android:textSize="@dimen/font_size_xlarge" />
 	</de.schildbach.wallet.ui.CurrencyAmountView>
 
@@ -121,6 +122,7 @@
 			android:layout_height="wrap_content"
 			android:background="@drawable/edit_text"
 			android:drawablePadding="4dp"
+			android:imeOptions="flagNoExtractUi"
 			android:textSize="@dimen/font_size_xlarge" />
 	</de.schildbach.wallet.ui.CurrencyAmountView>
 
