@@ -63,7 +63,6 @@ public final class WalletAddressesFragment extends ListFragment
 {
 	private WalletApplication application;
 	private Activity activity;
-	private List<ECKey> keys;
 
 	@Override
 	public void onCreate(final Bundle savedInstanceState)
@@ -73,9 +72,8 @@ public final class WalletAddressesFragment extends ListFragment
 		activity = getActivity();
 		application = (WalletApplication) activity.getApplication();
 		final Wallet wallet = application.getWallet();
-		keys = wallet.keychain;
 
-		setListAdapter(new Adapter());
+		setListAdapter(new Adapter(wallet.keychain));
 	}
 
 	@Override
@@ -112,7 +110,7 @@ public final class WalletAddressesFragment extends ListFragment
 	@Override
 	public void onListItemClick(final ListView l, final View v, final int position, final long id)
 	{
-		final ECKey key = keys.get(position);
+		final ECKey key = (ECKey) getListAdapter().getItem(position);
 		final Address address = key.toAddress(Constants.NETWORK_PARAMETERS);
 
 		EditAddressBookEntryFragment.edit(getFragmentManager(), address.toString());
@@ -234,6 +232,13 @@ public final class WalletAddressesFragment extends ListFragment
 		private final int colorLessSignificant = getResources().getColor(R.color.less_significant);
 		private final LayoutInflater inflater = getLayoutInflater(null);
 		private final ContentResolver resolver = activity.getContentResolver();
+
+		private List<ECKey> keys;
+
+		public Adapter(final List<ECKey> keys)
+		{
+			this.keys = keys;
+		}
 
 		public int getCount()
 		{
