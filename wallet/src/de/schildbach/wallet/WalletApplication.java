@@ -201,8 +201,6 @@ public class WalletApplication extends Application
 			try
 			{
 				wallet = WalletProtobufSerializer.readWallet(is);
-				if (!wallet.getParams().equals(Constants.NETWORK_PARAMETERS))
-					throw new IllegalStateException("bad wallet network parameters: " + wallet.getParams().getId());
 			}
 			catch (final IOException x)
 			{
@@ -210,14 +208,21 @@ public class WalletApplication extends Application
 
 				wallet = restoreWalletFromBackup();
 
-				handler.post(new Runnable()
-				{
-					public void run()
-					{
-						Toast.makeText(WalletApplication.this, R.string.toast_wallet_reset, Toast.LENGTH_LONG).show();
-					}
-				});
+				Toast.makeText(WalletApplication.this, x.getClass().getName() + "\n" + getString(R.string.toast_wallet_reset), Toast.LENGTH_LONG)
+						.show();
 			}
+			catch (final IllegalStateException x)
+			{
+				x.printStackTrace();
+
+				wallet = restoreWalletFromBackup();
+
+				Toast.makeText(WalletApplication.this, x.getClass().getName() + "\n" + getString(R.string.toast_wallet_reset), Toast.LENGTH_LONG)
+						.show();
+			}
+
+			if (!wallet.getParams().equals(Constants.NETWORK_PARAMETERS))
+				throw new IllegalStateException("bad wallet network parameters: " + wallet.getParams().getId());
 
 			System.out.println("wallet loaded from: '" + getFilesDir() + "/" + Constants.WALLET_FILENAME_PROTOBUF + "', took "
 					+ (System.currentTimeMillis() - start) + "ms");
