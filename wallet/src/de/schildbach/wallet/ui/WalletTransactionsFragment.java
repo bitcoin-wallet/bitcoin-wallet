@@ -23,7 +23,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;
@@ -199,6 +201,7 @@ public final class WalletTransactionsFragment extends Fragment
 		private WalletApplication application;
 		private Wallet wallet;
 		private Activity activity;
+		private ContentResolver resolver;
 		private ArrayAdapter<Transaction> adapter;
 
 		private int mode;
@@ -206,6 +209,9 @@ public final class WalletTransactionsFragment extends Fragment
 		private int bestChainHeight;
 
 		private final Handler handler = new Handler();
+
+		private final Map<String, String> labelCache = new HashMap<String, String>();
+		private final static String NULL_MARKER = "";
 
 		private final static String KEY_MODE = "mode";
 
@@ -220,11 +226,13 @@ public final class WalletTransactionsFragment extends Fragment
 			return fragment;
 		}
 
-		private final ContentObserver contentObserver = new ContentObserver(handler)
+		private final ContentObserver addressBookObserver = new ContentObserver(handler)
 		{
 			@Override
 			public void onChange(final boolean selfChange)
 			{
+				labelCache.clear();
+
 				adapter.notifyDataSetChanged();
 			}
 		};
@@ -246,6 +254,7 @@ public final class WalletTransactionsFragment extends Fragment
 			super.onAttach(activity);
 
 			this.activity = activity;
+			resolver = activity.getContentResolver();
 			application = (WalletApplication) activity.getApplication();
 			wallet = application.getWallet();
 		}
@@ -264,7 +273,6 @@ public final class WalletTransactionsFragment extends Fragment
 				private final int colorSignificant = getResources().getColor(R.color.significant);
 				private final int colorInsignificant = getResources().getColor(R.color.insignificant);
 				private final LayoutInflater inflater = getLayoutInflater(null);
-				private final ContentResolver resolver = activity.getContentResolver();
 
 				private static final String CONFIDENCE_SYMBOL_NOT_IN_BEST_CHAIN = "!";
 				private static final String CONFIDENCE_SYMBOL_OVERRIDDEN_BY_DOUBLE_SPEND = "\u271D"; // latin cross
@@ -358,7 +366,7 @@ public final class WalletTransactionsFragment extends Fragment
 						final Address address = sent ? getToAddress(tx) : getFromAddress(tx);
 						final String label;
 						if (address != null)
-							label = AddressBookProvider.resolveLabel(resolver, address.toString());
+							label = resolveLabel(address.toString());
 						else
 							label = sent ? "?" : getString(R.string.wallet_transactions_fragment_coinbase);
 						rowAddress.setTextColor(textColor);
@@ -403,7 +411,7 @@ public final class WalletTransactionsFragment extends Fragment
 				}
 			};
 
-			activity.getContentResolver().registerContentObserver(AddressBookProvider.CONTENT_URI, true, contentObserver);
+			activity.getContentResolver().registerContentObserver(AddressBookProvider.CONTENT_URI, true, addressBookObserver);
 		}
 
 		@Override
@@ -449,9 +457,17 @@ public final class WalletTransactionsFragment extends Fragment
 		}
 
 		@Override
+		public void onDestroyView()
+		{
+			labelCache.clear();
+
+			super.onDestroyView();
+		}
+
+		@Override
 		public void onDestroy()
 		{
-			activity.getContentResolver().unregisterContentObserver(contentObserver);
+			activity.getContentResolver().unregisterContentObserver(addressBookObserver);
 
 			getLoaderManager().destroyLoader(0);
 
@@ -495,6 +511,24 @@ public final class WalletTransactionsFragment extends Fragment
 
 				default:
 					return false;
+			}
+		}
+
+		private String resolveLabel(final String address)
+		{
+			final String cachedLabel = labelCache.get(address);
+			if (cachedLabel == null)
+			{
+				final String label = AddressBookProvider.resolveLabel(resolver, address);
+				if (label != null)
+					labelCache.put(address, label);
+				else
+					labelCache.put(address, NULL_MARKER);
+				return label;
+			}
+			else
+			{
+				return cachedLabel != NULL_MARKER ? cachedLabel : null;
 			}
 		}
 
