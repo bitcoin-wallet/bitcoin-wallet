@@ -22,9 +22,9 @@ import java.util.Date;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.database.ContentObserver;
 import android.os.Bundle;
 import android.os.Handler;
@@ -33,6 +33,7 @@ import android.support.v4.app.ListFragment;
 import android.text.ClipboardManager;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -228,8 +229,11 @@ public final class WalletAddressesFragment extends ListFragment
 
 	private class Adapter extends BaseAdapter
 	{
-		final DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(activity);
-		final Resources res = getResources();
+		private final DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(activity);
+		private final int colorInsignificant = getResources().getColor(R.color.insignificant);
+		private final int colorLessSignificant = getResources().getColor(R.color.less_significant);
+		private final LayoutInflater inflater = getLayoutInflater(null);
+		private final ContentResolver resolver = activity.getContentResolver();
 
 		public int getCount()
 		{
@@ -252,22 +256,22 @@ public final class WalletAddressesFragment extends ListFragment
 			final Address address = key.toAddress(Constants.NETWORK_PARAMETERS);
 
 			if (row == null)
-				row = getLayoutInflater(null).inflate(R.layout.address_book_row, null);
+				row = inflater.inflate(R.layout.address_book_row, null);
 
 			final TextView addressView = (TextView) row.findViewById(R.id.address_book_row_address);
 			addressView.setText(WalletUtils.formatAddress(address, Constants.ADDRESS_FORMAT_GROUP_SIZE, Constants.ADDRESS_FORMAT_LINE_SIZE));
 
 			final TextView labelView = (TextView) row.findViewById(R.id.address_book_row_label);
-			final String label = AddressBookProvider.resolveLabel(activity.getContentResolver(), address.toString());
+			final String label = AddressBookProvider.resolveLabel(resolver, address.toString());
 			if (label != null)
 			{
 				labelView.setText(label);
-				labelView.setTextColor(res.getColor(R.color.less_significant));
+				labelView.setTextColor(colorLessSignificant);
 			}
 			else
 			{
 				labelView.setText(R.string.wallet_addresses_fragment_unlabeled);
-				labelView.setTextColor(res.getColor(R.color.insignificant));
+				labelView.setTextColor(colorInsignificant);
 			}
 
 			final TextView createdView = (TextView) row.findViewById(R.id.address_book_row_created);

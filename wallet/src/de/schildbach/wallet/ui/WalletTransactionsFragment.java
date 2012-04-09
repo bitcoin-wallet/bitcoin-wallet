@@ -27,6 +27,7 @@ import java.util.List;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -258,16 +259,22 @@ public final class WalletTransactionsFragment extends Fragment
 
 			adapter = new ArrayAdapter<Transaction>(activity, 0)
 			{
-				final DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(activity);
-				final DateFormat timeFormat = android.text.format.DateFormat.getTimeFormat(activity);
-				final int colorSignificant = getResources().getColor(R.color.significant);
-				final int colorInsignificant = getResources().getColor(R.color.insignificant);
+				private final DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(activity);
+				private final DateFormat timeFormat = android.text.format.DateFormat.getTimeFormat(activity);
+				private final int colorSignificant = getResources().getColor(R.color.significant);
+				private final int colorInsignificant = getResources().getColor(R.color.insignificant);
+				private final LayoutInflater inflater = getLayoutInflater(null);
+				private final ContentResolver resolver = activity.getContentResolver();
+
+				private static final String CONFIDENCE_SYMBOL_NOT_IN_BEST_CHAIN = "!";
+				private static final String CONFIDENCE_SYMBOL_OVERRIDDEN_BY_DOUBLE_SPEND = "\u271D"; // latin cross
+				private static final String CONFIDENCE_SYMBOL_UNKNOWN = "?";
 
 				@Override
 				public View getView(final int position, View row, final ViewGroup parent)
 				{
 					if (row == null)
-						row = getLayoutInflater(null).inflate(R.layout.transaction_row, null);
+						row = inflater.inflate(R.layout.transaction_row, null);
 
 					final Transaction tx = getItem(position);
 					final TransactionConfidence confidence = tx.getConfidence();
@@ -313,7 +320,7 @@ public final class WalletTransactionsFragment extends Fragment
 							rowConfidenceTextual.setVisibility(View.VISIBLE);
 							textColor = colorSignificant;
 
-							rowConfidenceTextual.setText("!");
+							rowConfidenceTextual.setText(CONFIDENCE_SYMBOL_NOT_IN_BEST_CHAIN);
 							rowConfidenceTextual.setTextColor(Color.RED);
 						}
 						else if (confidenceType == ConfidenceType.OVERRIDDEN_BY_DOUBLE_SPEND)
@@ -322,7 +329,7 @@ public final class WalletTransactionsFragment extends Fragment
 							rowConfidenceTextual.setVisibility(View.VISIBLE);
 							textColor = Color.RED;
 
-							rowConfidenceTextual.setText("\u271D"); // latin cross
+							rowConfidenceTextual.setText(CONFIDENCE_SYMBOL_OVERRIDDEN_BY_DOUBLE_SPEND);
 							rowConfidenceTextual.setTextColor(Color.RED);
 						}
 						else
@@ -331,7 +338,7 @@ public final class WalletTransactionsFragment extends Fragment
 							rowConfidenceTextual.setVisibility(View.VISIBLE);
 							textColor = colorInsignificant;
 
-							rowConfidenceTextual.setText("?");
+							rowConfidenceTextual.setText(CONFIDENCE_SYMBOL_UNKNOWN);
 							rowConfidenceTextual.setTextColor(colorInsignificant);
 						}
 
@@ -351,7 +358,7 @@ public final class WalletTransactionsFragment extends Fragment
 						final Address address = sent ? getToAddress(tx) : getFromAddress(tx);
 						final String label;
 						if (address != null)
-							label = AddressBookProvider.resolveLabel(activity.getContentResolver(), address.toString());
+							label = AddressBookProvider.resolveLabel(resolver, address.toString());
 						else
 							label = sent ? "?" : getString(R.string.wallet_transactions_fragment_coinbase);
 						rowAddress.setTextColor(textColor);
