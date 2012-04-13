@@ -102,7 +102,7 @@ public class Constants
 	public static final String CREDITS_BITCOINJ_URL = "http://code.google.com/p/bitcoinj/";
 	public static final String CREDITS_ZXING_URL = "http://code.google.com/p/zxing/";
 	public static final String CREDITS_ICON_URL = "https://bitcointalk.org/index.php?action=profile;u=2062";
-	public static final String AUTHOR_TWITTER_URL = "http://twitter.com/android_bitcoin";
+	public static final String AUTHOR_TWITTER_URL = "https://twitter.com/#!/bitcoin_wallet";
 	public static final String AUTHOR_GOOGLEPLUS_URL = "https://profiles.google.com/andreas.schildbach";
 	public static final String MARKET_APP_URL = "market://details?id=%s";
 	public static final String WEBMARKET_APP_URL = "https://play.google.com/store/apps/details?id=%s";

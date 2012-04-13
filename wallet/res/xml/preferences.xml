@@ -25,7 +25,7 @@
 			android:title="@string/preferences_credits_icon_title" />
 		<Preference
 			android:key="about_author_twitter"
-			android:summary="\@android_bitcoin"
+			android:summary="\@bitcoin_wallet"
 			android:title="@string/preferences_author_twitter_title" />
 		<Preference
 			android:key="about_author_googleplus"
