@@ -29,7 +29,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
-import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
@@ -46,6 +45,7 @@ import android.os.Binder;
 import android.os.Handler;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
+import android.support.v4.app.NotificationCompat;
 
 import com.google.bitcoin.core.AbstractPeerEventListener;
 import com.google.bitcoin.core.AbstractWalletEventListener;
@@ -167,14 +167,17 @@ public class BlockchainService extends android.app.Service
 
 		text.insert(0, "From ");
 
-		final Notification notification = new Notification(R.drawable.stat_notify_received, tickerMsg, System.currentTimeMillis());
-		notification.setLatestEventInfo(BlockchainService.this, msg, text,
-				PendingIntent.getActivity(BlockchainService.this, 0, new Intent(BlockchainService.this, WalletActivity.class), 0));
-
-		notification.number = notificationCount == 1 ? 0 : notificationCount;
-		notification.sound = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.coins_received);
-
-		nm.notify(NOTIFICATION_ID_COINS_RECEIVED, notification);
+		final NotificationCompat.Builder notification = new NotificationCompat.Builder(BlockchainService.this);
+		notification.setSmallIcon(R.drawable.stat_notify_received);
+		notification.setTicker(tickerMsg);
+		notification.setContentTitle(msg);
+		notification.setContentText(text);
+		notification.setContentIntent(PendingIntent.getActivity(BlockchainService.this, 0, new Intent(BlockchainService.this, WalletActivity.class),
+				0));
+		notification.setNumber(notificationCount == 1 ? 0 : notificationCount);
+		notification.setWhen(System.currentTimeMillis());
+		notification.setSound(Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.coins_received));
+		nm.notify(NOTIFICATION_ID_COINS_RECEIVED, notification.getNotification());
 	}
 
 	public void cancelCoinsReceived()
@@ -215,13 +218,15 @@ public class BlockchainService extends android.app.Service
 						final String msg = getString(R.string.notification_peers_connected_msg, numPeers);
 						System.out.println("Peer connected, " + msg);
 
-						final Notification notification = new Notification(R.drawable.stat_sys_peers, null, 0);
-						notification.flags |= Notification.FLAG_ONGOING_EVENT;
-						notification.iconLevel = numPeers > 4 ? 4 : numPeers;
-						notification.setLatestEventInfo(BlockchainService.this, getString(R.string.app_name) + (Constants.TEST ? " [testnet]" : ""),
-								msg,
-								PendingIntent.getActivity(BlockchainService.this, 0, new Intent(BlockchainService.this, WalletActivity.class), 0));
-						nm.notify(NOTIFICATION_ID_CONNECTED, notification);
+						final NotificationCompat.Builder notification = new NotificationCompat.Builder(BlockchainService.this);
+						notification.setSmallIcon(R.drawable.stat_sys_peers, numPeers > 4 ? 4 : numPeers);
+						notification.setContentTitle(getString(R.string.app_name) + (Constants.TEST ? " [testnet]" : ""));
+						notification.setContentText(msg);
+						notification.setContentIntent(PendingIntent.getActivity(BlockchainService.this, 0, new Intent(BlockchainService.this,
+								WalletActivity.class), 0));
+						notification.setWhen(System.currentTimeMillis());
+						notification.setOngoing(true);
+						nm.notify(NOTIFICATION_ID_CONNECTED, notification.getNotification());
 					}
 
 					// send broadcast
