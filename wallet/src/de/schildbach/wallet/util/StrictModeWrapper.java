@@ -17,13 +17,11 @@
 
 package de.schildbach.wallet.util;
 
-import android.annotation.TargetApi;
 import android.os.StrictMode;
 
 /**
  * @author Andreas Schildbach
  */
-@TargetApi(9)
 public class StrictModeWrapper
 {
 	public static void init()

@@ -20,7 +20,6 @@ package de.schildbach.wallet.util;
 import java.nio.charset.Charset;
 import java.util.Arrays;
 
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
@@ -31,7 +30,6 @@ import de.schildbach.wallet.Constants;
 /**
  * @author Andreas Schildbach
  */
-@TargetApi(10)
 public class NfcTools
 {
 	private static final Charset UTF_8 = Charset.forName("UTF-8");
