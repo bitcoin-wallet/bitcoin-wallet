@@ -43,7 +43,6 @@ import de.schildbach.wallet_test.R;
 public final class SendCoinsActivity extends AbstractWalletActivity
 {
 	public static final String INTENT_EXTRA_ADDRESS = "address";
-	private static final String INTENT_EXTRA_QUERY = "query";
 
 	private static final int DIALOG_HELP = 0;
 
@@ -154,20 +153,6 @@ public final class SendCoinsActivity extends AbstractWalletActivity
 			try
 			{
 				final BitcoinURI bitcoinUri = new BitcoinURI(null, intentUri.toString());
-				address = bitcoinUri.getAddress().toString();
-				amount = bitcoinUri.getAmount();
-			}
-			catch (final BitcoinURIParseException x)
-			{
-				parseErrorDialog(intentUri.toString());
-				return;
-			}
-		}
-		else if (Intent.ACTION_WEB_SEARCH.equals(action) && intent.hasExtra(INTENT_EXTRA_QUERY))
-		{
-			try
-			{
-				final BitcoinURI bitcoinUri = new BitcoinURI(null, intent.getStringExtra(INTENT_EXTRA_QUERY));
 				address = bitcoinUri.getAddress().toString();
 				amount = bitcoinUri.getAmount();
 			}
