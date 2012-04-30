@@ -41,7 +41,6 @@
 	<string name="wallet_options_about">Hakkında</string>
 	<string name="wallet_options_safety">Güvenlik notları</string>
 	<string name="wallet_options_donate">Bağış</string>
-	<string name="wallet_options_help">Yardım</string>
 	<string name="wallet_low_storage_dialog_title">Düşük dahili cihaz depolama alanı!</string>
 	<string name="wallet_low_storage_dialog_msg">Bitcoin cüzdanı muameleleri ve blokları hatırlamak için dahili depolama alanını kullanır. Bu alan yetersiz kalırsa
 		cüzdan çalışmayı durduracak ve Bitcoinleriniz risk altında kalacaktır!\n\nKullanılmayan uygulamaları kaldırmak için Uygulama Yöneticisini başlatmak ister misiniz?</string>
@@ -134,5 +133,6 @@
 	<!-- generic buttons -->
 	<string name="button_dismiss">Reddet</string>
 	<string name="button_cancel">İptal et</string>
+	<string name="button_help">Yardım</string>
 
 </resources>

@@ -30,7 +30,6 @@
 	<string name="wallet_options_about">O aplikaci</string>
 	<string name="wallet_options_safety">Bezpečnost</string>
 	<string name="wallet_options_donate">Přispět</string>
-	<string name="wallet_options_help">Nápověda</string>
 	<string name="wallet_low_storage_dialog_title">Málo vnitřní paměti!</string>
 	<string name="wallet_low_storage_dialog_msg">Bitcoin Wallet používá vnitřní paměť zařízení pro ukládání transakcí a bloků. Pokud paměť dojde, aplikace
 		může přestat fungovat a můžete pozbýt Vaše Bitcoiny!\n\nChcete otevřít správce aplikací pro odinstalací nepotřebných aplikací?</string>
@@ -91,5 +90,6 @@
 	<!-- generic buttons -->
 	<string name="button_dismiss">Zrušit</string>
 	<string name="button_cancel">Zrušit</string>
+	<string name="button_help">Nápověda</string>
 
 </resources>

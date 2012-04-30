@@ -30,7 +30,6 @@
 	<string name="wallet_options_about">Over</string>
 	<string name="wallet_options_safety">Veiligheids voorschriften</string>
 	<string name="wallet_options_donate">Doneren</string>
-	<string name="wallet_options_help">Help</string>
 	<string name="wallet_low_storage_dialog_title">Interne opslagruimte van het apparaat is laag!</string>
 	<string name="wallet_low_storage_dialog_msg">Bitcoin Wallet gebruikt interne opslag voor het bewaren van transacties en blokken. Als er onvoldoende opslag ruimte is zal het programma niet juist meer werken en zijn uw Bitcoins in gevaar!\n\nWilt u Applicatie beheer openen om overbodige applicaties te verwijderen?</string>
 	<string name="wallet_low_storage_dialog_button_apps">Applicatie beheer</string>
@@ -90,5 +89,6 @@
 	<!-- generic buttons -->
 	<string name="button_dismiss">Annuleren</string>
 	<string name="button_cancel">Annuleren</string>
+	<string name="button_help">Help</string>
 
 </resources>

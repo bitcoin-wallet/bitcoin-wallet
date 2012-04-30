@@ -30,7 +30,6 @@
 	<string name="wallet_options_about">A propos de</string>
 	<string name="wallet_options_safety">Avertissement</string>
 	<string name="wallet_options_donate">Dons</string>
-	<string name="wallet_options_help">Aide</string>
 	<string name="wallet_low_storage_dialog_title">Espace de stockage interne presque saturé!</string>
 	<string name="wallet_low_storage_dialog_msg">"Bitcoin Wallet utilise un espace de stockage interne pour mémoriser les transactions et les  blocs. Si cet espace est saturé, l'application s'arrête de fonctionner et vos Bitcoins sont en danger!\n\nVoulez vous ouvrir Application Manager pour désinstaller des applications inutilisées?"</string>
 	<string name="wallet_low_storage_dialog_button_apps">Gérer les applications</string>
@@ -90,5 +89,6 @@
 	<!-- generic buttons -->
 	<string name="button_dismiss">Refuser</string>
 	<string name="button_cancel">Annuler</string>
+	<string name="button_help">Aide</string>
 
 </resources>

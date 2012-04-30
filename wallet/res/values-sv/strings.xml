@@ -30,7 +30,6 @@
 	<string name="wallet_options_about">Om</string>
 	<string name="wallet_options_safety">Säkerhetsinfo</string>
 	<string name="wallet_options_donate">Donera</string>
-	<string name="wallet_options_help">Hjälp</string>
 	<string name="wallet_low_storage_dialog_title">Interna utrymmet på telefonen börjar ta slut!</string>
 	<string name="wallet_low_storage_dialog_msg">Bitcoin Wallet använder internt utrymme för att spara transaktioner och block. Om den får slut på
 		utrymme så kommer den att sluta fungera, och dina Bitcoins kan försvinna!\n\nVill du öppna Applikationshanteraren för att
@@ -92,5 +91,6 @@
 	<!-- generic buttons -->
 	<string name="button_dismiss">Avsluta</string>
 	<string name="button_cancel">Avbryt</string>
+	<string name="button_help">Hjälp</string>
 
 </resources>

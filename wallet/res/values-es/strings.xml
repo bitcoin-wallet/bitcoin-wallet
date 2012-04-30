@@ -30,7 +30,6 @@
 	<string name="wallet_options_about">Acerca de</string>
 	<string name="wallet_options_safety">Notas de seguridad</string>
 	<string name="wallet_options_donate">Donaciones</string>
-	<string name="wallet_options_help">Ayuda</string>
 	<string name="wallet_low_storage_dialog_title">¡Espacio de almacenamiento interno del dispositivo bajo!</string>
 	<string name="wallet_low_storage_dialog_msg">Bitcoin Wallet utiliza el almacenamiento interno para recordar transacciones y bloques. Si se queda sin
 		espacio, dejará de funcionar ¡y tus bitcoins estarán en peligro!\n\n¿Quieres abrir el Gestor de Aplicaciones para
@@ -92,5 +91,6 @@
 	<!-- generic buttons -->
 	<string name="button_dismiss">Rechazar</string>
 	<string name="button_cancel">Cancelar</string>
+	<string name="button_help">Ayuda</string>
 
 </resources>
