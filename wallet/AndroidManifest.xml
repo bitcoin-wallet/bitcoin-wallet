@@ -16,7 +16,7 @@
 		android:anyDensity="true" />
 
 	<application android:name="de.schildbach.wallet.WalletApplication" android:theme="@style/My.Theme" android:icon="@drawable/app_icon_test"
-		android:label="@string/app_name" android:debuggable="true">
+		android:label="@string/app_name" android:hardwareAccelerated="true" android:debuggable="true">
 
 		<activity android:name="de.schildbach.wallet.ui.WalletActivity"
 			android:screenOrientation="nosensor" android:configChanges="orientation|keyboard|keyboardHidden" android:launchMode="singleInstance" />
