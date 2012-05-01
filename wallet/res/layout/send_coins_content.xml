@@ -1,34 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="fill_parent"
 	android:layout_height="fill_parent"
-	android:orientation="vertical" >
+	android:background="#d8d8e0"
+	android:fillViewport="true"
+	android:scrollbars="none" >
 
 	<fragment
-		android:id="@id/action_bar_fragment"
-		android:name="de.schildbach.wallet.util.ActionBarFragment"
+		android:id="@+id/send_coins_fragment"
+		android:name="de.schildbach.wallet.ui.SendCoinsFragment"
 		android:layout_width="fill_parent"
-		android:layout_height="@dimen/action_bar_height" />
+		android:layout_height="fill_parent" />
 
-	<FrameLayout
-		android:layout_width="fill_parent"
-		android:layout_height="fill_parent"
-		android:background="#d8d8e0"
-		android:foreground="@drawable/fragment_shadow_horizontal"
-		android:foregroundGravity="top|fill_horizontal" >
-
-		<ScrollView
-			android:layout_width="fill_parent"
-			android:layout_height="fill_parent"
-			android:fillViewport="true"
-			android:scrollbars="none" >
-
-			<fragment
-				android:id="@+id/send_coins_fragment"
-				android:name="de.schildbach.wallet.ui.SendCoinsFragment"
-				android:layout_width="fill_parent"
-				android:layout_height="fill_parent" />
-		</ScrollView>
-	</FrameLayout>
-
-</LinearLayout>
+</ScrollView>

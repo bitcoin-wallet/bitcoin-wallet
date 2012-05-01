@@ -2,8 +2,21 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
 	<item
+		android:id="@+id/wallet_options_request"
+		android:icon="@drawable/ic_action_receive"
+		android:showAsAction="always|withText"
+		android:title="@string/request_coins_activity_title"
+		android:titleCondensed="@string/wallet_options_request_coins"/>
+	<item
+		android:id="@+id/wallet_options_send"
+		android:icon="@drawable/ic_action_send"
+		android:showAsAction="always|withText"
+		android:title="@string/send_coins_activity_title"
+		android:titleCondensed="@string/wallet_options_send_coins"/>
+	<item
 		android:id="@+id/wallet_options_address_book"
 		android:icon="@drawable/ic_action_labels"
+		android:showAsAction="ifRoom|withText"
 		android:title="@string/address_book_activity_title"/>
 	<item
 		android:id="@+id/wallet_options_peer_monitor"

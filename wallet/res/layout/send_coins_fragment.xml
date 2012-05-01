@@ -151,6 +151,7 @@
 				android:background="@drawable/btn_default"
 				android:paddingLeft="12dp"
 				android:paddingRight="12dp"
+				android:textColor="@color/significant"
 				android:textSize="@dimen/font_size_small"
 				android:textStyle="bold" />
 
@@ -159,6 +160,7 @@
 				android:background="@drawable/btn_default"
 				android:paddingLeft="12dp"
 				android:paddingRight="12dp"
+				android:textColor="@color/significant"
 				android:textSize="@dimen/font_size_small" />
 		</TableRow>
 	</TableLayout>

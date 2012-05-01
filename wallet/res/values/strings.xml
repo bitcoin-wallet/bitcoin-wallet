@@ -76,6 +76,7 @@
 	<string name="send_coins_add_address_dialog_button_add">Add address</string>
 	<string name="send_coins_error_msg">Problem sending coins!</string>
 	<string name="send_coins_success_msg">BTC %s sent!</string>
+	<string name="send_coins_options_scan_title">Scan</string>
 
 	<string name="request_coins_activity_title">Request Bitcoins</string>
 	<string name="request_coins_fragment_amount_label">Requested amount (optional)</string>
@@ -95,7 +96,9 @@
 	<string name="address_book_context_copy_to_clipboard_title">Copy to clipboard</string>
 	<string name="address_book_context_default_title">Set as default address</string>
 	<string name="address_book_context_determine_creation_time_title">Determine creation time</string>
-	<string name="address_book_msg_clipboard_empty">Clipboard is empty</string>
+	<string name="address_book_options_paste_from_clipboard_title">Paste from clipboard</string>
+	<string name="address_book_options_copy_from_clipboard_msg_empty">Clipboard is empty</string>
+	<string name="address_book_options_scan_title">Scan address</string>
 
 	<string name="edit_address_book_entry_dialog_title_add">Add address</string>
 	<string name="edit_address_book_entry_dialog_title_edit">Edit address</string>
@@ -146,5 +149,9 @@
 	<string name="button_dismiss">Dismiss</string>
 	<string name="button_cancel">Cancel</string>
 	<string name="button_help">Help</string>
+
+	<string name="label_copy">Copy</string>
+	<string name="label_paste">Paste</string>
+	<string name="label_share">Share</string>
 
 </resources>

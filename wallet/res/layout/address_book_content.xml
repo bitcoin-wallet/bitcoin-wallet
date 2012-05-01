@@ -4,37 +4,18 @@
 	android:layout_height="fill_parent"
 	android:orientation="vertical" >
 
-	<fragment
-		android:id="@id/action_bar_fragment"
-		android:name="de.schildbach.wallet.util.ActionBarFragment"
+	<de.schildbach.wallet.util.ViewPagerTabs
+		android:id="@+id/address_book_pager_tabs"
 		android:layout_width="fill_parent"
-		android:layout_height="@dimen/action_bar_height" />
+		android:layout_height="wrap_content"
+		android:background="@color/background_less_bright"
+		android:paddingBottom="4dp"
+		android:paddingTop="4dp" />
 
-	<FrameLayout
+	<android.support.v4.view.ViewPager
+		android:id="@+id/address_book_pager"
 		android:layout_width="fill_parent"
-		android:layout_height="fill_parent"
-		android:foreground="@drawable/fragment_shadow_horizontal"
-		android:foregroundGravity="top|fill_horizontal" >
-
-		<LinearLayout
-			android:layout_width="fill_parent"
-			android:layout_height="wrap_content"
-			android:orientation="vertical" >
-
-			<de.schildbach.wallet.util.ViewPagerTabs
-				android:id="@+id/address_book_pager_tabs"
-				android:layout_width="fill_parent"
-				android:layout_height="wrap_content"
-				android:background="@color/background_less_bright"
-				android:paddingBottom="4dp"
-				android:paddingTop="4dp" />
-
-			<android.support.v4.view.ViewPager
-				android:id="@+id/address_book_pager"
-				android:layout_width="fill_parent"
-				android:layout_height="wrap_content"
-				android:layout_gravity="bottom|center_horizontal" />
-		</LinearLayout>
-	</FrameLayout>
+		android:layout_height="wrap_content"
+		android:layout_gravity="bottom|center_horizontal" />
 
 </LinearLayout>

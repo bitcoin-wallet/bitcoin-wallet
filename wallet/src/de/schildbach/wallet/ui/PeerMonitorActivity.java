@@ -18,9 +18,10 @@
 package de.schildbach.wallet.ui;
 
 import android.os.Bundle;
-import android.view.View;
-import android.view.View.OnClickListener;
-import de.schildbach.wallet.util.ActionBarFragment;
+
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.view.MenuItem;
+
 import de.schildbach.wallet_test.R;
 
 /**
@@ -35,16 +36,20 @@ public final class PeerMonitorActivity extends AbstractWalletActivity
 
 		setContentView(R.layout.peer_monitor_content);
 
-		final ActionBarFragment actionBar = getActionBar();
+		final ActionBar actionBar = getSupportActionBar();
+		actionBar.setTitle(R.string.peer_monitor_activity_title);
+		actionBar.setDisplayHomeAsUpEnabled(true);
+	}
 
-		actionBar.setPrimaryTitle(R.string.peer_monitor_activity_title);
-
-		actionBar.setBack(new OnClickListener()
+	@Override
+	public boolean onOptionsItemSelected(final MenuItem item)
+	{
+		if (item.getItemId() == android.R.id.home)
 		{
-			public void onClick(final View v)
-			{
-				finish();
-			}
-		});
+			finish();
+			return true;
+		}
+
+		return super.onOptionsItemSelected(item);
 	}
 }

@@ -33,20 +33,19 @@ import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.content.res.Configuration;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.Window;
 import android.webkit.WebView;
+
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
+
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.service.BlockchainService;
-import de.schildbach.wallet.util.ActionBarFragment;
 import de.schildbach.wallet.util.ErrorReporter;
 import de.schildbach.wallet_test.R;
 
@@ -57,8 +56,6 @@ public final class WalletActivity extends AbstractWalletActivity
 {
 	public static final int DIALOG_SAFETY = 1;
 	private static final int DIALOG_HELP = 0;
-
-	private static final int HONEYCOMB = 11; // API level 11
 
 	private BlockchainService service;
 
@@ -85,47 +82,8 @@ public final class WalletActivity extends AbstractWalletActivity
 
 		setContentView(R.layout.wallet_content);
 
-		final ActionBarFragment actionBar = getActionBar();
-
-		actionBar.setPrimaryTitle(R.string.app_name);
-
-		if (Build.VERSION.SDK_INT >= HONEYCOMB)
-		{
-			actionBar.addButton(R.drawable.ic_action_overflow).setOnClickListener(new OnClickListener()
-			{
-				public void onClick(final View v)
-				{
-					openOptionsMenu();
-				}
-			});
-		}
-
-		actionBar.addButton(R.drawable.ic_action_send).setOnClickListener(new OnClickListener()
-		{
-			public void onClick(final View v)
-			{
-				startActivity(new Intent(WalletActivity.this, SendCoinsActivity.class));
-			}
-		});
-
-		actionBar.addButton(R.drawable.ic_action_receive).setOnClickListener(new OnClickListener()
-		{
-			public void onClick(final View v)
-			{
-				startActivity(new Intent(WalletActivity.this, RequestCoinsActivity.class));
-			}
-		});
-
-		if ((getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) >= Configuration.SCREENLAYOUT_SIZE_LARGE)
-		{
-			actionBar.addButton(R.drawable.ic_action_labels).setOnClickListener(new OnClickListener()
-			{
-				public void onClick(final View v)
-				{
-					AddressBookActivity.start(WalletActivity.this, true);
-				}
-			});
-		}
+		final ActionBar actionBar = getSupportActionBar();
+		actionBar.setTitle(R.string.app_name);
 
 		if ((getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) < Configuration.SCREENLAYOUT_SIZE_LARGE)
 		{
@@ -160,7 +118,7 @@ public final class WalletActivity extends AbstractWalletActivity
 	public boolean onCreateOptionsMenu(final Menu menu)
 	{
 		super.onCreateOptionsMenu(menu);
-		getMenuInflater().inflate(R.menu.wallet_options, menu);
+		getSupportMenuInflater().inflate(R.menu.wallet_options, menu);
 		menu.findItem(R.id.wallet_options_donate).setVisible(!Constants.TEST);
 		return true;
 	}
@@ -170,6 +128,14 @@ public final class WalletActivity extends AbstractWalletActivity
 	{
 		switch (item.getItemId())
 		{
+			case R.id.wallet_options_request:
+				startActivity(new Intent(this, RequestCoinsActivity.class));
+				return true;
+
+			case R.id.wallet_options_send:
+				startActivity(new Intent(this, SendCoinsActivity.class));
+				return true;
+
 			case R.id.wallet_options_address_book:
 				AddressBookActivity.start(this, true);
 				return true;
@@ -197,7 +163,7 @@ public final class WalletActivity extends AbstractWalletActivity
 				return true;
 		}
 
-		return false;
+		return super.onOptionsItemSelected(item);
 	}
 
 	@Override

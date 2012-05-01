@@ -19,11 +19,13 @@ package de.schildbach.wallet.ui;
 
 import android.app.Dialog;
 import android.os.Bundle;
-import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.Window;
 import android.webkit.WebView;
-import de.schildbach.wallet.util.ActionBarFragment;
+
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
+
 import de.schildbach.wallet_test.R;
 
 /**
@@ -40,25 +42,34 @@ public final class RequestCoinsActivity extends AbstractWalletActivity
 
 		setContentView(R.layout.request_coins_content);
 
-		final ActionBarFragment actionBar = getActionBar();
+		final ActionBar actionBar = getSupportActionBar();
+		actionBar.setTitle(R.string.request_coins_activity_title);
+		actionBar.setDisplayHomeAsUpEnabled(true);
+	}
 
-		actionBar.setPrimaryTitle(R.string.request_coins_activity_title);
+	@Override
+	public boolean onCreateOptionsMenu(final Menu menu)
+	{
+		getSupportMenuInflater().inflate(R.menu.request_coins_activity_options, menu);
 
-		actionBar.setBack(new OnClickListener()
+		return super.onCreateOptionsMenu(menu);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(final MenuItem item)
+	{
+		switch (item.getItemId())
 		{
-			public void onClick(final View v)
-			{
+			case android.R.id.home:
 				finish();
-			}
-		});
+				return true;
 
-		actionBar.addButton(R.drawable.ic_action_help).setOnClickListener(new OnClickListener()
-		{
-			public void onClick(final View v)
-			{
+			case R.id.request_coins_options_help:
 				showDialog(DIALOG_HELP);
-			}
-		});
+				return true;
+		}
+
+		return super.onOptionsItemSelected(item);
 	}
 
 	@Override

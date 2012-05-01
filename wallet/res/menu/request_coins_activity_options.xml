@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+	<item
+		android:id="@+id/request_coins_options_help"
+		android:icon="@drawable/ic_action_help"
+		android:showAsAction="never"
+		android:title="@string/button_help"/>
+
+</menu>

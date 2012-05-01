@@ -24,22 +24,23 @@ import android.app.AlertDialog.Builder;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
-import de.schildbach.wallet.WalletApplication;
+
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.SherlockFragmentActivity;
+
 import de.schildbach.wallet.Constants;
-import de.schildbach.wallet.util.ActionBarFragment;
+import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet_test.R;
 
 /**
  * @author Andreas Schildbach
  */
-public abstract class AbstractWalletActivity extends FragmentActivity
+public abstract class AbstractWalletActivity extends SherlockFragmentActivity
 {
 	private WalletApplication application;
-	private ActionBarFragment actionBar;
 
 	@Override
 	protected void onCreate(final Bundle savedInstanceState)
@@ -54,22 +55,14 @@ public abstract class AbstractWalletActivity extends FragmentActivity
 	{
 		super.onStart();
 
-		getActionBar(); // make sure action bar is initialized
+		final ActionBar actionBar = getSupportActionBar();
 		actionBar.setIcon(Constants.APP_ICON_RESID);
-		actionBar.setSecondaryTitle(Constants.TEST ? "[testnet]" : null);
+		actionBar.setSubtitle(Constants.TEST ? "[testnet]" : null);
 	}
 
 	protected WalletApplication getWalletApplication()
 	{
 		return application;
-	}
-
-	protected ActionBarFragment getActionBar()
-	{
-		if (actionBar == null)
-			actionBar = (ActionBarFragment) getSupportFragmentManager().findFragmentById(R.id.action_bar_fragment);
-
-		return actionBar;
 	}
 
 	protected final void toast(final String text, final Object... formatArgs)

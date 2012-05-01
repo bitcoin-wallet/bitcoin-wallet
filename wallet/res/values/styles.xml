@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+	<style name="Theme.Styled" parent="Theme.Sherlock.Light.DarkActionBar">
+		<item name="actionBarStyle">@style/Widget.Styled.ActionBar</item>
+		<item name="android:actionBarStyle">@style/Widget.Styled.ActionBar</item>
+	</style>
+
+	<style name="Widget.Styled.ActionBar" parent="Widget.Sherlock.Light.ActionBar.Solid.Inverse">
+		<item name="background">@drawable/action_bar_background</item>
+		<item name="android:background">@drawable/action_bar_background</item>
+		<item name="titleTextStyle">@style/Theme.ActionBar.TitleTextStyle</item>
+		<item name="android:titleTextStyle">@style/Theme.ActionBar.TitleTextStyle</item>
+		<item name="subtitleTextStyle">@style/Theme.ActionBar.SubtitleTextStyle</item>
+		<item name="android:subtitleTextStyle">@style/Theme.ActionBar.SubtitleTextStyle</item>
+	</style>
+
+	<style name="Theme.ActionBar.TitleTextStyle" parent="android:style/TextAppearance.Holo.Widget.ActionBar.Title">
+		<item name="android:textColor">@android:color/white</item>
+		<item name="android:textStyle">bold</item>
+		<item name="android:shadowColor">@android:color/black</item>
+		<item name="android:shadowRadius">1</item>
+	</style>
+
+	<style name="Theme.ActionBar.SubtitleTextStyle" parent="Theme.ActionBar.TitleTextStyle">
+		<item name="android:textStyle">normal</item>
+		<item name="android:textSize">@dimen/font_size_tiny</item>
+	</style>
+
+</resources>

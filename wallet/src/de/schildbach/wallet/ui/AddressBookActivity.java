@@ -19,9 +19,7 @@ package de.schildbach.wallet.ui;
 
 import java.util.ArrayList;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -29,12 +27,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v4.view.ViewPager.OnPageChangeListener;
-import android.text.ClipboardManager;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.ImageButton;
 
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.view.MenuItem;
 import com.google.bitcoin.core.Address;
 import com.google.bitcoin.core.AddressFormatException;
 import com.google.bitcoin.core.ECKey;
@@ -42,7 +37,6 @@ import com.google.bitcoin.uri.BitcoinURI;
 import com.google.bitcoin.uri.BitcoinURIParseException;
 
 import de.schildbach.wallet.Constants;
-import de.schildbach.wallet.util.ActionBarFragment;
 import de.schildbach.wallet.util.ViewPagerTabs;
 import de.schildbach.wallet_test.R;
 
@@ -64,9 +58,6 @@ public final class AddressBookActivity extends AbstractWalletActivity
 
 	private WalletAddressesFragment walletAddressesFragment;
 	private SendingAddressesFragment sendingAddressesFragment;
-	private ImageButton addButton;
-	private ImageButton pasteButton;
-	private ImageButton scanButton;
 
 	private final Handler handler = new Handler();
 
@@ -77,101 +68,37 @@ public final class AddressBookActivity extends AbstractWalletActivity
 
 		setContentView(R.layout.address_book_content);
 
-		final ActionBarFragment actionBar = getActionBar();
-
-		actionBar.setPrimaryTitle(R.string.address_book_activity_title);
-
-		actionBar.setBack(new OnClickListener()
-		{
-			public void onClick(final View v)
-			{
-				finish();
-			}
-		});
+		final ActionBar actionBar = getSupportActionBar();
+		actionBar.setTitle(R.string.address_book_activity_title);
+		actionBar.setDisplayHomeAsUpEnabled(true);
 
 		final ViewPager pager = (ViewPager) findViewById(R.id.address_book_pager);
+
+		final FragmentManager fm = getSupportFragmentManager();
 
 		if (pager != null)
 		{
 			final ViewPagerTabs pagerTabs = (ViewPagerTabs) findViewById(R.id.address_book_pager_tabs);
 			pagerTabs.addTabLabels(R.string.address_book_list_receiving_title, R.string.address_book_list_sending_title);
-			final ProxyOnPageChangeListener pagerListener = new ProxyOnPageChangeListener(pagerTabs)
-			{
-				@Override
-				public void onPageSelected(final int position)
-				{
-					if (position == 0)
-					{
-						if (scanButton != null)
-						{
-							actionBar.removeButton(scanButton);
-							scanButton = null;
-						}
 
-						if (pasteButton != null)
-						{
-							actionBar.removeButton(pasteButton);
-							pasteButton = null;
-						}
-
-						if (addButton == null)
-						{
-							addButton = actionBar.addButton(R.drawable.ic_action_add);
-							addButton.setOnClickListener(addAddressClickListener);
-						}
-					}
-					else if (position == 1)
-					{
-						if (addButton != null)
-						{
-							actionBar.removeButton(addButton);
-							addButton = null;
-						}
-
-						if (scanButton == null)
-						{
-							scanButton = actionBar.addButton(R.drawable.ic_action_qr);
-							scanButton.setOnClickListener(scanClickListener);
-						}
-
-						if (pasteButton == null)
-						{
-							pasteButton = actionBar.addButton(R.drawable.ic_action_paste);
-							pasteButton.setOnClickListener(pasteClipboardClickListener);
-						}
-					}
-
-					super.onPageSelected(position);
-				}
-			};
-
-			final PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager());
+			final PagerAdapter pagerAdapter = new PagerAdapter(fm);
 
 			pager.setAdapter(pagerAdapter);
-			pager.setOnPageChangeListener(pagerListener);
+			pager.setOnPageChangeListener(pagerTabs);
 			final int position = getIntent().getBooleanExtra(EXTRA_SENDING, true) == true ? 1 : 0;
 			pager.setCurrentItem(position);
 			pager.setPageMargin(2);
 			pager.setPageMarginDrawable(R.color.background_less_bright);
 
-			pagerListener.onPageSelected(position);
-			pagerListener.onPageScrolled(position, 0, 0);
+			pagerTabs.onPageSelected(position);
+			pagerTabs.onPageScrolled(position, 0, 0);
 
 			walletAddressesFragment = new WalletAddressesFragment();
 			sendingAddressesFragment = new SendingAddressesFragment();
 		}
 		else
 		{
-			scanButton = actionBar.addButton(R.drawable.ic_action_qr);
-			scanButton.setOnClickListener(scanClickListener);
-
-			pasteButton = actionBar.addButton(R.drawable.ic_action_paste);
-			pasteButton.setOnClickListener(pasteClipboardClickListener);
-
-			addButton = actionBar.addButton(R.drawable.ic_action_add);
-			addButton.setOnClickListener(addAddressClickListener);
-
-			walletAddressesFragment = (WalletAddressesFragment) getSupportFragmentManager().findFragmentById(R.id.wallet_addresses_fragment);
+			walletAddressesFragment = (WalletAddressesFragment) fm.findFragmentById(R.id.wallet_addresses_fragment);
 			sendingAddressesFragment = (SendingAddressesFragment) getSupportFragmentManager().findFragmentById(R.id.sending_addresses_fragment);
 		}
 
@@ -219,7 +146,37 @@ public final class AddressBookActivity extends AbstractWalletActivity
 		}
 	}
 
-	private void updateFragments()
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item)
+	{
+		switch (item.getItemId())
+		{
+			case android.R.id.home:
+				finish();
+				return true;
+
+			case R.id.sending_addresses_options_scan:
+				handleScan();
+				return true;
+		}
+
+		return super.onOptionsItemSelected(item);
+	}
+
+	private void handleScan()
+	{
+		if (getPackageManager().resolveActivity(Constants.INTENT_QR_SCANNER, 0) != null)
+		{
+			startActivityForResult(Constants.INTENT_QR_SCANNER, REQUEST_CODE_SCAN);
+		}
+		else
+		{
+			showMarketPage(Constants.PACKAGE_NAME_ZXING);
+			longToast(R.string.send_coins_install_qr_scanner_msg);
+		}
+	}
+
+	/* private */void updateFragments()
 	{
 		final ArrayList<ECKey> keychain = getWalletApplication().getWallet().keychain;
 		final ArrayList<Address> addresses = new ArrayList<Address>(keychain.size());
@@ -253,107 +210,6 @@ public final class AddressBookActivity extends AbstractWalletActivity
 				return walletAddressesFragment;
 			else
 				return sendingAddressesFragment;
-		}
-	}
-
-	private final OnClickListener scanClickListener = new OnClickListener()
-	{
-		public void onClick(final View v)
-		{
-			handleScan();
-		}
-	};
-
-	private void handleScan()
-	{
-		if (getPackageManager().resolveActivity(Constants.INTENT_QR_SCANNER, 0) != null)
-		{
-			startActivityForResult(Constants.INTENT_QR_SCANNER, REQUEST_CODE_SCAN);
-		}
-		else
-		{
-			showMarketPage(Constants.PACKAGE_NAME_ZXING);
-			longToast(R.string.send_coins_install_qr_scanner_msg);
-		}
-	}
-
-	private final OnClickListener pasteClipboardClickListener = new OnClickListener()
-	{
-		public void onClick(final View v)
-		{
-			handlePasteClipboard();
-		}
-	};
-
-	private void handlePasteClipboard()
-	{
-		final ClipboardManager clipboardManager = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-
-		if (clipboardManager.hasText())
-		{
-			final String text = clipboardManager.getText().toString().trim();
-
-			try
-			{
-				final Address address = new Address(Constants.NETWORK_PARAMETERS, text);
-				EditAddressBookEntryFragment.edit(getSupportFragmentManager(), address.toString());
-			}
-			catch (final AddressFormatException x)
-			{
-				toast(R.string.send_coins_parse_address_error_msg);
-			}
-		}
-		else
-		{
-			toast(R.string.address_book_msg_clipboard_empty);
-		}
-	}
-
-	private final OnClickListener addAddressClickListener = new OnClickListener()
-	{
-		public void onClick(final View v)
-		{
-			handleAddAddress();
-		}
-	};
-
-	private void handleAddAddress()
-	{
-		new AlertDialog.Builder(AddressBookActivity.this).setTitle(R.string.wallet_addresses_fragment_add_dialog_title)
-				.setMessage(R.string.wallet_addresses_fragment_add_dialog_message)
-				.setPositiveButton(R.string.wallet_addresses_fragment_add_dialog_positive, new DialogInterface.OnClickListener()
-				{
-					public void onClick(final DialogInterface dialog, final int which)
-					{
-						getWalletApplication().addNewKeyToWallet();
-
-						updateFragments();
-					}
-				}).setNegativeButton(R.string.button_cancel, null).show();
-	}
-
-	private class ProxyOnPageChangeListener implements OnPageChangeListener
-	{
-		private final OnPageChangeListener onPageChangeListener;
-
-		public ProxyOnPageChangeListener(final OnPageChangeListener onPageChangeListener)
-		{
-			this.onPageChangeListener = onPageChangeListener;
-		}
-
-		public void onPageScrolled(final int position, final float positionOffset, final int positionOffsetPixels)
-		{
-			onPageChangeListener.onPageScrolled(position, positionOffset, positionOffsetPixels);
-		}
-
-		public void onPageSelected(final int position)
-		{
-			onPageChangeListener.onPageSelected(position);
-		}
-
-		public void onPageScrollStateChanged(final int state)
-		{
-			onPageChangeListener.onPageScrollStateChanged(state);
 		}
 	}
 }

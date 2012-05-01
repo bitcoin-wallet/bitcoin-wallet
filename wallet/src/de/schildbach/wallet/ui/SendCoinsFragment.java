@@ -45,6 +45,7 @@ import android.widget.Button;
 import android.widget.CursorAdapter;
 import android.widget.TextView;
 
+import com.actionbarsherlock.app.SherlockFragment;
 import com.google.bitcoin.core.Address;
 import com.google.bitcoin.core.AddressFormatException;
 import com.google.bitcoin.core.NetworkParameters;
@@ -62,7 +63,7 @@ import de.schildbach.wallet_test.R;
 /**
  * @author Andreas Schildbach
  */
-public final class SendCoinsFragment extends Fragment
+public final class SendCoinsFragment extends SherlockFragment
 {
 	private WalletApplication application;
 

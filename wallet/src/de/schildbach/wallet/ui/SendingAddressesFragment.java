@@ -25,7 +25,6 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.ListFragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
@@ -34,13 +33,17 @@ import android.support.v4.widget.SimpleCursorAdapter.ViewBinder;
 import android.text.ClipboardManager;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.actionbarsherlock.app.SherlockListFragment;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
 import com.google.bitcoin.core.Address;
+import com.google.bitcoin.core.AddressFormatException;
 import com.google.bitcoin.uri.BitcoinURI;
 
 import de.schildbach.wallet.AddressBookProvider;
@@ -52,18 +55,35 @@ import de.schildbach.wallet_test.R;
 /**
  * @author Andreas Schildbach
  */
-public final class SendingAddressesFragment extends ListFragment implements LoaderManager.LoaderCallbacks<Cursor>
+public final class SendingAddressesFragment extends SherlockListFragment implements LoaderManager.LoaderCallbacks<Cursor>
 {
-	private Activity activity;
+	private AbstractWalletActivity activity;
+	private ClipboardManager clipboardManager;
 	private SimpleCursorAdapter adapter;
 	private String walletAddressesSelection;
+
+	@Override
+	public void onAttach(final Activity activity)
+	{
+		super.onAttach(activity);
+
+		this.activity = (AbstractWalletActivity) activity;
+
+		clipboardManager = (ClipboardManager) activity.getSystemService(Context.CLIPBOARD_SERVICE);
+	}
+
+	@Override
+	public void onCreate(final Bundle savedInstanceState)
+	{
+		super.onCreate(savedInstanceState);
+
+		setHasOptionsMenu(true);
+	}
 
 	@Override
 	public void onActivityCreated(final Bundle savedInstanceState)
 	{
 		super.onActivityCreated(savedInstanceState);
-
-		activity = getActivity();
 
 		setEmptyText(getString(R.string.address_book_empty_text));
 
@@ -101,6 +121,49 @@ public final class SendingAddressesFragment extends ListFragment implements Load
 	}
 
 	@Override
+	public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater)
+	{
+		inflater.inflate(R.menu.sending_addresses_fragment_options, menu);
+
+		super.onCreateOptionsMenu(menu, inflater);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(final MenuItem item)
+	{
+		switch (item.getItemId())
+		{
+			case R.id.sending_addresses_options_paste:
+				handlePasteClipboard();
+				return true;
+		}
+
+		return super.onOptionsItemSelected(item);
+	}
+
+	private void handlePasteClipboard()
+	{
+		if (clipboardManager.hasText())
+		{
+			final String text = clipboardManager.getText().toString().trim();
+
+			try
+			{
+				final Address address = new Address(Constants.NETWORK_PARAMETERS, text);
+				EditAddressBookEntryFragment.edit(getFragmentManager(), address.toString());
+			}
+			catch (final AddressFormatException x)
+			{
+				activity.toast(R.string.send_coins_parse_address_error_msg);
+			}
+		}
+		else
+		{
+			activity.toast(R.string.address_book_options_copy_from_clipboard_msg_empty);
+		}
+	}
+
+	@Override
 	public void onListItemClick(final ListView l, final View v, final int position, final long id)
 	{
 		final Cursor cursor = (Cursor) adapter.getItem(position);
@@ -115,7 +178,7 @@ public final class SendingAddressesFragment extends ListFragment implements Load
 	}
 
 	@Override
-	public boolean onContextItemSelected(final MenuItem item)
+	public boolean onContextItemSelected(final android.view.MenuItem item)
 	{
 		final AdapterContextMenuInfo menuInfo = (AdapterContextMenuInfo) item.getMenuInfo();
 

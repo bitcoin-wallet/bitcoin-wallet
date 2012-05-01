@@ -24,17 +24,17 @@ import android.content.Intent;
 import android.net.Uri;
 import android.nfc.NfcAdapter;
 import android.os.Bundle;
-import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.Window;
 import android.webkit.WebView;
 
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
 import com.google.bitcoin.core.Address;
 import com.google.bitcoin.uri.BitcoinURI;
 import com.google.bitcoin.uri.BitcoinURIParseException;
 
 import de.schildbach.wallet.Constants;
-import de.schildbach.wallet.util.ActionBarFragment;
 import de.schildbach.wallet_test.R;
 
 /**
@@ -55,40 +55,9 @@ public final class SendCoinsActivity extends AbstractWalletActivity
 
 		setContentView(R.layout.send_coins_content);
 
-		final ActionBarFragment actionBar = getActionBar();
-
-		actionBar.setPrimaryTitle(R.string.send_coins_activity_title);
-
-		actionBar.setBack(new OnClickListener()
-		{
-			public void onClick(final View v)
-			{
-				finish();
-			}
-		});
-
-		actionBar.addButton(R.drawable.ic_action_qr).setOnClickListener(new OnClickListener()
-		{
-			public void onClick(final View v)
-			{
-				if (getPackageManager().resolveActivity(Constants.INTENT_QR_SCANNER, 0) != null)
-				{
-					startActivityForResult(Constants.INTENT_QR_SCANNER, REQUEST_CODE_SCAN);
-				}
-				else
-				{
-					showMarketPage(Constants.PACKAGE_NAME_ZXING);
-					longToast(R.string.send_coins_install_qr_scanner_msg);
-				}
-			}
-		});
-		actionBar.addButton(R.drawable.ic_action_help).setOnClickListener(new OnClickListener()
-		{
-			public void onClick(final View v)
-			{
-				showDialog(DIALOG_HELP);
-			}
-		});
+		final ActionBar actionBar = getSupportActionBar();
+		actionBar.setTitle(R.string.send_coins_activity_title);
+		actionBar.setDisplayHomeAsUpEnabled(true);
 
 		handleIntent(getIntent());
 	}
@@ -137,6 +106,44 @@ public final class SendCoinsActivity extends AbstractWalletActivity
 				}
 			}
 		}
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(final Menu menu)
+	{
+		getSupportMenuInflater().inflate(R.menu.send_coins_activity_options, menu);
+
+		return super.onCreateOptionsMenu(menu);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(final MenuItem item)
+	{
+		switch (item.getItemId())
+		{
+			case android.R.id.home:
+				finish();
+				return true;
+
+			case R.id.send_coins_options_help:
+				showDialog(DIALOG_HELP);
+				return true;
+
+			case R.id.send_coins_options_scan:
+				if (getPackageManager().resolveActivity(Constants.INTENT_QR_SCANNER, 0) != null)
+				{
+					startActivityForResult(Constants.INTENT_QR_SCANNER, REQUEST_CODE_SCAN);
+				}
+				else
+				{
+					showMarketPage(Constants.PACKAGE_NAME_ZXING);
+					longToast(R.string.send_coins_install_qr_scanner_msg);
+				}
+
+				return true;
+		}
+
+		return super.onOptionsItemSelected(item);
 	}
 
 	private void handleIntent(final Intent intent)

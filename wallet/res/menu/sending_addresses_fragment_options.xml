@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+	<item
+		android:id="@+id/sending_addresses_options_paste"
+		android:icon="@drawable/ic_action_paste"
+		android:showAsAction="always|withText"
+		android:title="@string/address_book_options_paste_from_clipboard_title"
+		android:titleCondensed="@string/label_paste"/>
+	<item
+		android:id="@+id/sending_addresses_options_scan"
+		android:icon="@drawable/ic_action_qr"
+		android:showAsAction="always|withText"
+		android:title="@string/address_book_options_scan_title"/>
+
+</menu>

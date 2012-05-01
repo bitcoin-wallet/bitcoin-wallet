@@ -76,7 +76,8 @@
 	<string name="send_coins_add_address_dialog_button_add">Adresse hinzufügen</string>
 	<string name="send_coins_error_msg">Problem beim Versenden der Bitcoins!</string>
 	<string name="send_coins_success_msg">BTC %s versendet!</string>
-
+	<string name="send_coins_options_scan_title">Scannen</string>
+	
 	<string name="request_coins_activity_title">Bitcoins anfordern</string>
 	<string name="request_coins_fragment_amount_label">Angeforderter Betrag (optional)</string>
 	<string name="request_coins_fragment_qr_label">Laß diesen QR-Code vom Sender scannen:</string>
@@ -95,7 +96,9 @@
 	<string name="address_book_context_show_qr_title">QR-Code zeigen</string>
 	<string name="address_book_context_copy_to_clipboard_title">Ins Clipboard kopieren</string>
 	<string name="address_book_context_determine_creation_time_title">Erstellungszeit ermitteln</string>
-	<string name="address_book_msg_clipboard_empty">Clipboard ist leer</string>
+	<string name="address_book_options_paste_from_clipboard_title">Aus dem Clipboard einfügen</string>
+	<string name="address_book_options_copy_from_clipboard_msg_empty">Clipboard ist leer</string>
+	<string name="address_book_options_scan_title">Adresse scannen</string>
 
 	<string name="edit_address_book_entry_dialog_title_add">Adresse hinzufügen</string>
 	<string name="edit_address_book_entry_dialog_title_edit">Adresse ändern</string>
@@ -146,5 +149,9 @@
 	<string name="button_dismiss">Schließen</string>
 	<string name="button_cancel">Abbrechen</string>
 	<string name="button_help">Hilfe</string>
+
+	<string name="label_copy">Kopieren</string>
+	<string name="label_paste">Einfügen</string>
+	<string name="label_share">Teilen</string>
 
 </resources>

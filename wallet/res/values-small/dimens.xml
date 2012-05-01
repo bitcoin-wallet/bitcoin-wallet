@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-	<dimen name="action_bar_height">44dp</dimen>
-	<dimen name="action_bar_button_width">44dp</dimen>
-
 	<item name="address_scalex" type="dimen">0.76</item>
 
 </resources>

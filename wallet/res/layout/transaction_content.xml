@@ -1,27 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<fragment xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/transaction_fragment"
+	android:name="de.schildbach.wallet.ui.TransactionFragment"
 	android:layout_width="fill_parent"
-	android:layout_height="fill_parent"
-	android:orientation="vertical" >
-
-	<fragment
-		android:id="@id/action_bar_fragment"
-		android:name="de.schildbach.wallet.util.ActionBarFragment"
-		android:layout_width="fill_parent"
-		android:layout_height="@dimen/action_bar_height" />
-
-	<FrameLayout
-		android:layout_width="fill_parent"
-		android:layout_height="fill_parent"
-		android:background="@android:color/black"
-		android:foreground="@drawable/fragment_shadow_horizontal"
-		android:foregroundGravity="top|fill_horizontal" >
-
-		<fragment
-			android:id="@+id/transaction_fragment"
-			android:name="de.schildbach.wallet.ui.TransactionFragment"
-			android:layout_width="fill_parent"
-			android:layout_height="fill_parent" />
-	</FrameLayout>
-
-</LinearLayout>
+	android:layout_height="fill_parent" />

@@ -34,13 +34,16 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.actionbarsherlock.app.SherlockFragment;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
 import com.google.bitcoin.core.Address;
 import com.google.bitcoin.uri.BitcoinURI;
 
-import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.ui.CurrencyAmountView.Listener;
-import de.schildbach.wallet.util.ActionBarFragment;
 import de.schildbach.wallet.util.NfcTools;
 import de.schildbach.wallet.util.QrDialog;
 import de.schildbach.wallet.util.WalletUtils;
@@ -49,10 +52,12 @@ import de.schildbach.wallet_test.R;
 /**
  * @author Andreas Schildbach
  */
-public final class RequestCoinsFragment extends Fragment
+public final class RequestCoinsFragment extends SherlockFragment
 {
+	private AbstractWalletActivity activity;
 	private WalletApplication application;
 	private Object nfcManager;
+	private ClipboardManager clipboardManager;
 
 	private ImageView qrView;
 	private Bitmap qrCodeBitmap;
@@ -60,12 +65,27 @@ public final class RequestCoinsFragment extends Fragment
 	private View nfcEnabledView;
 
 	@Override
+	public void onAttach(final Activity activity)
+	{
+		super.onAttach(activity);
+		this.activity = (AbstractWalletActivity) activity;
+		application = (WalletApplication) activity.getApplication();
+
+		nfcManager = activity.getSystemService(Context.NFC_SERVICE);
+		clipboardManager = (ClipboardManager) activity.getSystemService(Context.CLIPBOARD_SERVICE);
+	}
+
+	@Override
+	public void onCreate(final Bundle savedInstanceState)
+	{
+		super.onCreate(savedInstanceState);
+
+		setHasOptionsMenu(true);
+	}
+
+	@Override
 	public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState)
 	{
-		nfcManager = getActivity().getSystemService(Context.NFC_SERVICE);
-
-		application = (WalletApplication) getActivity().getApplication();
-
 		final View view = inflater.inflate(R.layout.request_coins_fragment, container);
 
 		qrView = (ImageView) view.findViewById(R.id.request_coins_qr);
@@ -73,7 +93,7 @@ public final class RequestCoinsFragment extends Fragment
 		{
 			public void onClick(final View v)
 			{
-				new QrDialog(getActivity(), qrCodeBitmap).show();
+				new QrDialog(activity, qrCodeBitmap).show();
 			}
 		});
 
@@ -115,37 +135,6 @@ public final class RequestCoinsFragment extends Fragment
 	}
 
 	@Override
-	public void onAttach(final Activity activity)
-	{
-		super.onAttach(activity);
-
-		final ActionBarFragment actionBar = ((AbstractWalletActivity) activity).getActionBar();
-
-		actionBar.addButton(R.drawable.ic_action_share).setOnClickListener(new OnClickListener()
-		{
-			public void onClick(final View v)
-			{
-				startActivity(Intent.createChooser(
-						new Intent(Intent.ACTION_SEND).putExtra(Intent.EXTRA_TEXT, determineAddressStr()).setType("text/plain"), getActivity()
-								.getString(R.string.request_coins_share_dialog_title)));
-			}
-		});
-
-		actionBar.addButton(R.drawable.ic_action_copy).setOnClickListener(new OnClickListener()
-		{
-			public void onClick(final View v)
-			{
-				final ClipboardManager clipboardManager = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
-				final String addressStr = determineAddressStr();
-				clipboardManager.setText(addressStr);
-				((AbstractWalletActivity) getActivity()).toast(R.string.request_coins_clipboard_msg);
-
-				System.out.println("bitcoin request uri: " + addressStr + (Constants.TEST ? " [testnet]" : ""));
-			}
-		});
-	}
-
-	@Override
 	public void onResume()
 	{
 		super.onResume();
@@ -159,7 +148,47 @@ public final class RequestCoinsFragment extends Fragment
 		super.onPause();
 
 		if (nfcManager != null)
-			NfcTools.unpublish(nfcManager, getActivity());
+			NfcTools.unpublish(nfcManager, activity);
+	}
+
+	@Override
+	public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater)
+	{
+		inflater.inflate(R.menu.request_coins_fragment_options, menu);
+
+		super.onCreateOptionsMenu(menu, inflater);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(final MenuItem item)
+	{
+		switch (item.getItemId())
+		{
+			case R.id.request_coins_options_share:
+				handleShare();
+				return true;
+
+			case R.id.request_coins_options_copy:
+				handleCopy();
+				return true;
+		}
+
+		return super.onOptionsItemSelected(item);
+	}
+
+	private void handleShare()
+	{
+		startActivity(Intent.createChooser(new Intent(Intent.ACTION_SEND).putExtra(Intent.EXTRA_TEXT, determineAddressStr()).setType("text/plain"),
+				getActivity().getString(R.string.request_coins_share_dialog_title)));
+	}
+
+	private void handleCopy()
+	{
+		final String addressStr = determineAddressStr();
+		clipboardManager.setText(addressStr);
+		activity.toast(R.string.request_coins_clipboard_msg);
+
+		System.out.println("bitcoin request uri: " + addressStr + (Constants.TEST ? " [testnet]" : ""));
 	}
 
 	private void updateView()

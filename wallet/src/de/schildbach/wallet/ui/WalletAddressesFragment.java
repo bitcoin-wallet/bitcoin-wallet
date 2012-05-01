@@ -22,19 +22,19 @@ import java.util.Date;
 import java.util.List;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.database.ContentObserver;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
-import android.support.v4.app.ListFragment;
 import android.text.ClipboardManager;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView.AdapterContextMenuInfo;
@@ -43,6 +43,10 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.actionbarsherlock.app.SherlockListFragment;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
 import com.google.bitcoin.core.Address;
 import com.google.bitcoin.core.ECKey;
 import com.google.bitcoin.core.Wallet;
@@ -59,18 +63,27 @@ import de.schildbach.wallet_test.R;
 /**
  * @author Andreas Schildbach
  */
-public final class WalletAddressesFragment extends ListFragment
+public final class WalletAddressesFragment extends SherlockListFragment
 {
 	private WalletApplication application;
-	private Activity activity;
+	private AddressBookActivity activity;
+
+	@Override
+	public void onAttach(final Activity activity)
+	{
+		super.onAttach(activity);
+
+		this.activity = (AddressBookActivity) activity;
+		application = (WalletApplication) activity.getApplication();
+	}
 
 	@Override
 	public void onCreate(final Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 
-		activity = getActivity();
-		application = (WalletApplication) activity.getApplication();
+		setHasOptionsMenu(true);
+
 		final Wallet wallet = application.getWallet();
 
 		setListAdapter(new Adapter(wallet.keychain));
@@ -108,6 +121,42 @@ public final class WalletAddressesFragment extends ListFragment
 	}
 
 	@Override
+	public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater)
+	{
+		inflater.inflate(R.menu.wallet_addresses_fragment_options, menu);
+
+		super.onCreateOptionsMenu(menu, inflater);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(final MenuItem item)
+	{
+		switch (item.getItemId())
+		{
+			case R.id.wallet_addresses_options_add:
+				handleAddAddress();
+				return true;
+		}
+
+		return super.onOptionsItemSelected(item);
+	}
+
+	private void handleAddAddress()
+	{
+		new AlertDialog.Builder(activity).setTitle(R.string.wallet_addresses_fragment_add_dialog_title)
+				.setMessage(R.string.wallet_addresses_fragment_add_dialog_message)
+				.setPositiveButton(R.string.wallet_addresses_fragment_add_dialog_positive, new DialogInterface.OnClickListener()
+				{
+					public void onClick(final DialogInterface dialog, final int which)
+					{
+						application.addNewKeyToWallet();
+
+						activity.updateFragments(); // TODO use listener
+					}
+				}).setNegativeButton(R.string.button_cancel, null).show();
+	}
+
+	@Override
 	public void onListItemClick(final ListView l, final View v, final int position, final long id)
 	{
 		final ECKey key = (ECKey) getListAdapter().getItem(position);
@@ -124,13 +173,13 @@ public final class WalletAddressesFragment extends ListFragment
 		final boolean enabled = key.getCreationTimeSeconds() == 0;
 
 		activity.getMenuInflater().inflate(R.menu.wallet_addresses_context, menu);
-		final MenuItem item = menu.findItem(R.id.wallet_addresses_context_determine_creation_time);
+		final android.view.MenuItem item = menu.findItem(R.id.wallet_addresses_context_determine_creation_time);
 		item.setEnabled(enabled);
 		item.setVisible(enabled);
 	}
 
 	@Override
-	public boolean onContextItemSelected(final MenuItem item)
+	public boolean onContextItemSelected(final android.view.MenuItem item)
 	{
 		final AdapterContextMenuInfo menuInfo = (AdapterContextMenuInfo) item.getMenuInfo();
 

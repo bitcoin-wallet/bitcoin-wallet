@@ -1,17 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
+<shape xmlns:android="http://schemas.android.com/apk/res/android" >
 
-	<item android:state_focused="true" android:state_pressed="true"><shape>
-			<gradient android:angle="90" android:endColor="#630" android:startColor="#a50" />
-		</shape></item>
-	<item android:state_pressed="true"><shape>
-			<gradient android:angle="90" android:endColor="#333" android:startColor="#444" />
-		</shape></item>
-	<item android:state_focused="true"><shape>
-			<gradient android:angle="90" android:endColor="#c60" android:startColor="#840" />
-		</shape></item>
-	<item><shape>
-			<gradient android:angle="90" android:endColor="#444" android:startColor="#333" />
-		</shape></item>
+	<gradient
+		android:angle="90"
+		android:endColor="#222"
+		android:startColor="#111" />
 
-</selector>
+</shape>
