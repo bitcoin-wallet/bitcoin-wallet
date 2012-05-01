@@ -8,7 +8,7 @@
 		android:layout_width="fill_parent"
 		android:layout_height="0px"
 		android:layout_weight="1"
-		android:background="#d8d8e0"
+		android:background="@color/background_panel"
 		android:orientation="vertical" >
 
 		<fragment
