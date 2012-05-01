@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+	<style name="My.Widget.EditText" parent="@android:style/Widget.Holo.Light.EditText" />
+
+	<style name="My.Widget.AutoCompleteTextView" parent="@android:style/Widget.Holo.Light.AutoCompleteTextView" />
+
+</resources>
