@@ -17,7 +17,7 @@
 		<item name="android:subtitleTextStyle">@style/Theme.ActionBar.SubtitleTextStyle</item>
 	</style>
 
-	<style name="Theme.ActionBar.TitleTextStyle" parent="android:style/TextAppearance.Holo.Widget.ActionBar.Title">
+	<style name="Theme.ActionBar.TitleTextStyle" parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Title">
 		<item name="android:textColor">@android:color/white</item>
 		<item name="android:textStyle">bold</item>
 		<item name="android:shadowColor">@android:color/black</item>
