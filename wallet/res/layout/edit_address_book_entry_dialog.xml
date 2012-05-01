@@ -24,6 +24,7 @@
 		android:enabled="false"
 		android:focusable="false"
 		android:imeOptions="flagNoExtractUi"
+		android:textColor="@color/less_significant"
 		android:textSize="@dimen/font_size_normal" />
 
 	<TextView
