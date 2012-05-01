@@ -24,8 +24,6 @@
 	<string name="wallet_transactions_fragment_tab_sent">Skickade</string>
 	<string name="wallet_transactions_fragment_empty_text_received">Inga Bitcoins har hittills mottagits</string>
 	<string name="wallet_transactions_fragment_empty_text_sent">Inga Bitcoins har hittills skickats</string>
-	<string name="wallet_options_request_coins">Ta emot Bitcoins</string>
-	<string name="wallet_options_send_coins">Skicka Bitcoins</string>
 	<string name="wallet_options_about">Om</string>
 	<string name="wallet_options_safety">Säkerhetsinfo</string>
 	<string name="wallet_options_donate">Donera</string>
@@ -91,5 +89,7 @@
 	<string name="button_help">Hjälp</string>
 	<string name="button_add">Lägg till</string>
 	<string name="button_delete">Ta bort</string>
+	<string name="button_request_coins">Ta emot Bitcoins</string>
+	<string name="button_send_coins">Skicka Bitcoins</string>
 
 </resources>

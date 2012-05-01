@@ -24,8 +24,6 @@
 	<string name="wallet_transactions_fragment_tab_sent">Отправлено</string>
 	<string name="wallet_transactions_fragment_empty_text_received">Ещё не получено Bitcoin-монет</string>
 	<string name="wallet_transactions_fragment_empty_text_sent">Ещё не отправлено Bitcoin-монет</string>
-	<string name="wallet_options_request_coins">Запросить монеты</string>
-	<string name="wallet_options_send_coins">Отправить монеты</string>
 	<string name="wallet_options_about">О программе</string>
 	<string name="wallet_options_safety">Заметки по безопасности</string>
 	<string name="wallet_options_donate">Пожертвовать</string>
@@ -91,5 +89,7 @@
 	<string name="button_help">Помощь</string>
 	<string name="button_add">Добавить</string>
 	<string name="button_delete">Удалить</string>
+	<string name="button_request_coins">Запросить монеты</string>
+	<string name="button_send_coins">Отправить монеты</string>
 
 </resources>

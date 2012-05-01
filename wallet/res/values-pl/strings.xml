@@ -24,8 +24,6 @@
 	<string name="wallet_transactions_fragment_tab_sent">Wysłane</string>
 	<string name="wallet_transactions_fragment_empty_text_received">Jeszcze żadne Bitcoiny nie zostały otrzymane</string>
 	<string name="wallet_transactions_fragment_empty_text_sent">Jeszcze żadne Bitcoiny nie zostały wysłane</string>
-	<string name="wallet_options_request_coins">Zapytaj o monety</string>
-	<string name="wallet_options_send_coins">Wyslij monety</string>
 	<string name="wallet_options_about">Wokół</string>
 	<string name="wallet_options_safety">Wskazówki bezpieczeństwa</string>
 	<string name="wallet_options_donate">Podaruj</string>
@@ -89,5 +87,7 @@
 	<string name="button_help">Pomoc</string>
 	<string name="button_add">Dodaj</string>
 	<string name="button_delete">Zmaż</string>
+	<string name="button_request_coins">Zapytaj o monety</string>
+	<string name="button_send_coins">Wyslij monety</string>
 
 </resources>

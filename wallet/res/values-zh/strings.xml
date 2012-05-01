@@ -24,8 +24,6 @@
 	<string name="wallet_transactions_fragment_tab_sent">发送</string>
 	<string name="wallet_transactions_fragment_empty_text_received">还没有收到比特币哦！</string>
 	<string name="wallet_transactions_fragment_empty_text_sent">还没有给人发送比特币</string>
-	<string name="wallet_options_request_coins">向他人索取比特币</string>
-	<string name="wallet_options_send_coins">发送比特币</string>
 	<string name="wallet_options_about">关于</string>
 	<string name="wallet_options_safety">安全及风险提示</string>
 	<string name="wallet_options_donate">捐赠</string>
@@ -89,5 +87,7 @@
 	<string name="button_help">帮助</string>
 	<string name="button_add">添加</string>
 	<string name="button_delete">删除</string>
+	<string name="button_request_coins">向他人索取比特币</string>
+	<string name="button_send_coins">发送比特币</string>
 
 </resources>

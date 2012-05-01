@@ -24,8 +24,6 @@
 	<string name="wallet_transactions_fragment_tab_sent">Εστάλη</string>
 	<string name="wallet_transactions_fragment_empty_text_received">Δεν έχει ληφθεί κάποιο Bitcoin μέχρι στιγμής</string>
 	<string name="wallet_transactions_fragment_empty_text_sent">Δεν έχει ληφθεί σταλεί Bitcoin μέχρι στιγμής</string>
-	<string name="wallet_options_request_coins">Ζητήστε νομίσματα</string>
-	<string name="wallet_options_send_coins">Αποστολή νομισμάτων</string>
 	<string name="wallet_options_about">Σχετικά</string>
 	<string name="wallet_options_safety">Οδηγίες ασφαλείας</string>
 	<string name="wallet_options_donate">Δωρίστε</string>
@@ -91,5 +89,7 @@
 	<string name="button_help">Βοήθεια</string>
 	<string name="button_add">Προσθήκη</string>
 	<string name="button_delete">Διαγραφή</string>
+	<string name="button_request_coins">Ζητήστε νομίσματα</string>
+	<string name="button_send_coins">Αποστολή νομισμάτων</string>
 
 </resources>

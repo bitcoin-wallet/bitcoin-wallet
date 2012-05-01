@@ -35,8 +35,6 @@
 	<string name="wallet_transactions_fragment_empty_text_sent">Şimdiye kadar hiçbir Bitcoin gönderilmedi</string>
 	<string name="wallet_transactions_context_edit_address_title">Adres ilâve et/düzenle</string>
 	<string name="wallet_transactions_context_show_transaction_title">Muamele detayları</string>
-	<string name="wallet_options_request_coins">Bitcoin talep et</string>
-	<string name="wallet_options_send_coins">Bitcoin gönder</string>
 	<string name="wallet_options_about">Hakkında</string>
 	<string name="wallet_options_safety">Güvenlik notları</string>
 	<string name="wallet_options_donate">Bağış</string>
@@ -133,5 +131,7 @@
 	<string name="button_help">Yardım</string>
 	<string name="button_add">Ekle</string>
 	<string name="button_delete">Sil</string>
+	<string name="button_request_coins">Bitcoin talep et</string>
+	<string name="button_send_coins">Bitcoin gönder</string>
 
 </resources>

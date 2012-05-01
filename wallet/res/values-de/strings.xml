@@ -36,8 +36,6 @@
 	<string name="wallet_transactions_fragment_coinbase">geschürft</string>
 	<string name="wallet_transactions_context_edit_address_title">Adresse hinzufügen/ändern)</string>
 	<string name="wallet_transactions_context_show_transaction_title">Transaktionsdetails</string>
-	<string name="wallet_options_request_coins">BTC anfordern</string>
-	<string name="wallet_options_send_coins">BTC senden</string>
 	<string name="wallet_options_about">Über</string>
 	<string name="wallet_options_safety">Sicherheit</string>
 	<string name="wallet_options_donate">Spenden</string>
@@ -151,5 +149,7 @@
 	<string name="button_copy">Kopieren</string>
 	<string name="button_paste">Einfügen</string>
 	<string name="button_share">Teilen</string>
+	<string name="button_request_coins">BTC anfordern</string>
+	<string name="button_send_coins">BTC senden</string>
 
 </resources>

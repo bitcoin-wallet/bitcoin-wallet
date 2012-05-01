@@ -24,8 +24,6 @@
 	<string name="wallet_transactions_fragment_tab_sent">Zasláno</string>
 	<string name="wallet_transactions_fragment_empty_text_received">Zatím žádné bitcoiny neobdrženy</string>
 	<string name="wallet_transactions_fragment_empty_text_sent">Zatím žádné bitcoiny neodeslány</string>
-	<string name="wallet_options_request_coins">Vyžádat Bitcoiny</string>
-	<string name="wallet_options_send_coins">Zaslat Bitcoiny</string>
 	<string name="wallet_options_about">O aplikaci</string>
 	<string name="wallet_options_safety">Bezpečnost</string>
 	<string name="wallet_options_donate">Přispět</string>
@@ -90,5 +88,7 @@
 	<string name="button_help">Nápověda</string>
 	<string name="button_add">Přidat</string>
 	<string name="button_delete">Smazat</string>
+	<string name="button_request_coins">Vyžádat Bitcoiny</string>
+	<string name="button_send_coins">Zaslat Bitcoiny</string>
 
 </resources>

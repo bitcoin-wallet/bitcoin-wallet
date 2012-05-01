@@ -24,8 +24,6 @@
 	<string name="wallet_transactions_fragment_tab_sent">Verzonden</string>
 	<string name="wallet_transactions_fragment_empty_text_received">Nog geen Bitcoins ontvangen</string>
 	<string name="wallet_transactions_fragment_empty_text_sent">Not geen Bitcoins verzonden</string>
-	<string name="wallet_options_request_coins">Verzoek Bitcoins</string>
-	<string name="wallet_options_send_coins">Verzend Bitcoins</string>
 	<string name="wallet_options_about">Over</string>
 	<string name="wallet_options_safety">Veiligheids voorschriften</string>
 	<string name="wallet_options_donate">Doneren</string>
@@ -89,5 +87,7 @@
 	<string name="button_help">Help</string>
 	<string name="button_add">Toevoegen</string>
 	<string name="button_delete">Verwijderen</string>
+	<string name="button_request_coins">Verzoek Bitcoins</string>
+	<string name="button_send_coins">Verzend Bitcoins</string>
 
 </resources>

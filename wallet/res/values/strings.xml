@@ -36,8 +36,6 @@
 	<string name="wallet_transactions_fragment_coinbase">mined</string>
 	<string name="wallet_transactions_context_edit_address_title">Add/edit address</string>
 	<string name="wallet_transactions_context_show_transaction_title">Transaction details</string>
-	<string name="wallet_options_request_coins">Request coins</string>
-	<string name="wallet_options_send_coins">Send coins</string>
 	<string name="wallet_options_about">About</string>
 	<string name="wallet_options_safety">Safety notes</string>
 	<string name="wallet_options_donate">Tip / Donate</string>
@@ -151,5 +149,7 @@
 	<string name="button_copy">Copy</string>
 	<string name="button_paste">Paste</string>
 	<string name="button_share">Share</string>
+	<string name="button_request_coins">Request coins</string>
+	<string name="button_send_coins">Send coins</string>
 
 </resources>
