@@ -117,7 +117,7 @@ public class ExchangeRatesProvider extends ContentProvider
 			// http://bitcoincharts.com/t/weighted_prices.json
 
 			connection.connect();
-			final Reader is = new InputStreamReader(new BufferedInputStream(connection.getInputStream()));
+			final Reader is = new InputStreamReader(new BufferedInputStream(connection.getInputStream(), 1024));
 			final StringBuilder content = new StringBuilder();
 			IOUtils.copy(is, content);
 			is.close();
