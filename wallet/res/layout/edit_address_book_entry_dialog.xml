@@ -23,6 +23,7 @@
 		android:enabled="false"
 		android:focusable="false"
 		android:imeOptions="flagNoExtractUi"
+		android:inputType="none"
 		android:textColor="@color/less_significant"
 		android:textSize="@dimen/font_size_normal" />
 
@@ -42,6 +43,7 @@
 		android:layout_margin="8dp"
 		android:background="@drawable/edit_text"
 		android:imeOptions="flagNoExtractUi"
+		android:inputType="textPersonName"
 		android:singleLine="true"
 		android:textSize="@dimen/font_size_normal" />
 
