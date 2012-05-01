@@ -6,7 +6,7 @@
 		android:icon="@drawable/ic_action_paste"
 		android:showAsAction="always|withText"
 		android:title="@string/address_book_options_paste_from_clipboard_title"
-		android:titleCondensed="@string/label_paste"/>
+		android:titleCondensed="@string/button_paste"/>
 	<item
 		android:id="@+id/sending_addresses_options_scan"
 		android:icon="@drawable/ic_action_qr"

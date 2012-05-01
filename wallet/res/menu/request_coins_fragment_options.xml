@@ -5,11 +5,11 @@
 		android:id="@+id/request_coins_options_copy"
 		android:icon="@drawable/ic_action_copy"
 		android:showAsAction="always|withText"
-		android:title="@string/label_copy"/>
+		android:title="@string/button_copy"/>
 	<item
 		android:id="@+id/request_coins_options_share"
 		android:icon="@drawable/ic_action_share"
 		android:showAsAction="always|withText"
-		android:title="@string/label_share"/>
+		android:title="@string/button_share"/>
 
 </menu>

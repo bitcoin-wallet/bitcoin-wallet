@@ -148,9 +148,8 @@
 	<string name="button_help">Hilfe</string>
 	<string name="button_add">Hinzufügen</string>
 	<string name="button_delete">Löschen</string>
-
-	<string name="label_copy">Kopieren</string>
-	<string name="label_paste">Einfügen</string>
-	<string name="label_share">Teilen</string>
+	<string name="button_copy">Kopieren</string>
+	<string name="button_paste">Einfügen</string>
+	<string name="button_share">Teilen</string>
 
 </resources>
