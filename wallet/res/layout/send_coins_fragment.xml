@@ -19,7 +19,6 @@
 		android:layout_height="wrap_content"
 		android:layout_marginLeft="12dp"
 		android:layout_marginRight="12dp"
-		android:background="@drawable/edit_text"
 		android:completionThreshold="1"
 		android:hint="@string/send_coins_fragment_receiving_address_hint"
 		android:imeOptions="actionNext|flagNoExtractUi"
@@ -56,12 +55,12 @@
 		android:layout_marginLeft="12dp"
 		android:layout_marginRight="12dp" >
 
-		<TextView
+		<EditText
 			android:layout_width="fill_parent"
 			android:layout_height="wrap_content"
-			android:background="@drawable/edit_text"
 			android:drawablePadding="4dp"
 			android:enabled="false"
+			android:inputType="none"
 			android:textSize="@dimen/font_size_xlarge" />
 	</de.schildbach.wallet.ui.CurrencyAmountView>
 
@@ -94,7 +93,6 @@
 		<EditText
 			android:layout_width="fill_parent"
 			android:layout_height="wrap_content"
-			android:background="@drawable/edit_text"
 			android:drawablePadding="4dp"
 			android:imeOptions="flagNoExtractUi"
 			android:textSize="@dimen/font_size_xlarge" />
@@ -120,7 +118,6 @@
 		<EditText
 			android:layout_width="fill_parent"
 			android:layout_height="wrap_content"
-			android:background="@drawable/edit_text"
 			android:drawablePadding="4dp"
 			android:imeOptions="flagNoExtractUi"
 			android:textSize="@dimen/font_size_xlarge" />
