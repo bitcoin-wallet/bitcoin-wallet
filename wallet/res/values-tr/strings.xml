@@ -26,7 +26,6 @@
 	<string name="wallet_addresses_fragment_unlabeled">(etiketsiz)</string>
 	<string name="wallet_addresses_fragment_add_dialog_title">Bitcoin adresi ekle</string>
 	<string name="wallet_addresses_fragment_add_dialog_message">Bitcoin adresleri silinemez. Cüzdanınıza yeni bir adres eklemek istediğinizden emin misiniz?</string>
-	<string name="wallet_addresses_fragment_add_dialog_positive">Adres ekle</string>
 	<string name="wallet_balance_fragment_local_value">değeri yaklaşık %1$s %2$s</string>
 	<string name="exchange_rates_fragment_empty_text">Döviz kurları yüklenemedi</string>
 	<string name="wallet_transactions_fragment_tab_received">Alınan</string>
@@ -93,7 +92,6 @@
 	<string name="edit_address_book_entry_dialog_title_edit">Adres düzenle</string>
 	<string name="edit_address_book_entry_dialog_address_label">Adres</string>
 	<string name="edit_address_book_entry_dialog_label_label">İsim</string>
-	<string name="edit_address_book_entry_dialog_button_add">Ekle</string>
 	<string name="edit_address_book_entry_dialog_button_edit">Kaydet</string>
 	<string name="edit_address_book_entry_dialog_button_delete">Sil</string>
 
@@ -134,5 +132,6 @@
 	<string name="button_dismiss">Reddet</string>
 	<string name="button_cancel">İptal et</string>
 	<string name="button_help">Yardım</string>
+	<string name="button_add">Ekle</string>
 
 </resources>

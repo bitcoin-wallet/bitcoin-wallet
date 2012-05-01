@@ -145,7 +145,7 @@ public final class WalletAddressesFragment extends SherlockListFragment
 	{
 		new AlertDialog.Builder(activity).setTitle(R.string.wallet_addresses_fragment_add_dialog_title)
 				.setMessage(R.string.wallet_addresses_fragment_add_dialog_message)
-				.setPositiveButton(R.string.wallet_addresses_fragment_add_dialog_positive, new DialogInterface.OnClickListener()
+				.setPositiveButton(R.string.button_add, new DialogInterface.OnClickListener()
 				{
 					public void onClick(final DialogInterface dialog, final int which)
 					{

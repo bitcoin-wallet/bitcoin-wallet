@@ -26,7 +26,6 @@
 	<string name="wallet_addresses_fragment_unlabeled">(unbenannt)</string>
 	<string name="wallet_addresses_fragment_add_dialog_title">Bitcoin-Adresse hinzufügen</string>
 	<string name="wallet_addresses_fragment_add_dialog_message">Bitcoin-Adressen können nicht gelöscht werden. Möchtest Du eine neue Adresse zu Deinem Wallet hinzufügen?</string>
-	<string name="wallet_addresses_fragment_add_dialog_positive">Adresse hinzufügen</string>
 	<string name="wallet_balance_fragment_local_value">etwa %1$s %2$s wert</string>
 	<string name="exchange_rates_fragment_empty_text">Kann Wechselkurse nicht laden</string>
 	<string name="wallet_transactions_fragment_tab_received">Empfangen</string>
@@ -104,7 +103,6 @@
 	<string name="edit_address_book_entry_dialog_title_edit">Adresse ändern</string>
 	<string name="edit_address_book_entry_dialog_address_label">Adresse</string>
 	<string name="edit_address_book_entry_dialog_label_label">Name</string>
-	<string name="edit_address_book_entry_dialog_button_add">Hinzufügen</string>
 	<string name="edit_address_book_entry_dialog_button_edit">Speichern</string>
 	<string name="edit_address_book_entry_dialog_button_delete">Löschen</string>
 
@@ -149,6 +147,7 @@
 	<string name="button_dismiss">Schließen</string>
 	<string name="button_cancel">Abbrechen</string>
 	<string name="button_help">Hilfe</string>
+	<string name="button_add">Hinzufügen</string>
 
 	<string name="label_copy">Kopieren</string>
 	<string name="label_paste">Einfügen</string>

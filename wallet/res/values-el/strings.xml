@@ -17,7 +17,6 @@
 	</string-array>
 	<string name="wallet_addresses_fragment_add_dialog_title">Προσθήκη διεύθυνσης Bitcoin</string>
 	<string name="wallet_addresses_fragment_add_dialog_message">Οι Bitcoin διευθύνσεις δεν μπορούν να διαγραφούν. Θέλετε να προσθέσετε μια νέα διεύθυνση στο πορτοφόλι σας;</string>
-	<string name="wallet_addresses_fragment_add_dialog_positive">Προσθήκη διεύθυνσης</string>
 	<string name="wallet_balance_fragment_local_value">αξίζει περίπου %1$s %2$s</string>
 	<string name="exchange_rates_fragment_empty_text">Δεν ήταν δυνατή η φόρτωση των συναλλαγματικών ισοτιμιών</string>
 	<string name="wallet_transactions_fragment_tab_received">Ελήφθη</string>
@@ -71,7 +70,6 @@
 	<string name="edit_address_book_entry_dialog_title_edit">Επεξεργασία διεύθυνσης</string>
 	<string name="edit_address_book_entry_dialog_address_label">Διεύθυνση</string>
 	<string name="edit_address_book_entry_dialog_label_label">Όνομσ</string>
-	<string name="edit_address_book_entry_dialog_button_add">Προσθήκη</string>
 	<string name="edit_address_book_entry_dialog_button_edit">Αποθήκευση</string>
 	<string name="edit_address_book_entry_dialog_button_delete">Διαγραφή</string>
 
@@ -92,5 +90,6 @@
 	<string name="button_dismiss">Ματαίωση</string>
 	<string name="button_cancel">Ακύρωση</string>
 	<string name="button_help">Βοήθεια</string>
+	<string name="button_add">Προσθήκη</string>
 
 </resources>

@@ -17,7 +17,6 @@
 	</string-array>
 	<string name="wallet_addresses_fragment_add_dialog_title">Lägg till Bitcoin adress</string>
 	<string name="wallet_addresses_fragment_add_dialog_message">Bitcoin adresser kan inte tas bort. Vill du lägga till en ny adress till din plånbok?</string>
-	<string name="wallet_addresses_fragment_add_dialog_positive">Lägg till adress</string>
 	<string name="wallet_balance_fragment_local_value">värda ungefär %1$s %2$s</string>
 	<string name="exchange_rates_fragment_empty_text">Kunde inte ladda ner växlingskurser</string>
 	<string name="wallet_transactions_fragment_tab_received">Mottagna</string>
@@ -71,7 +70,6 @@
 	<string name="edit_address_book_entry_dialog_title_edit">Ändra adress</string>
 	<string name="edit_address_book_entry_dialog_address_label">Adress</string>
 	<string name="edit_address_book_entry_dialog_label_label">Namn</string>
-	<string name="edit_address_book_entry_dialog_button_add">Lägg till</string>
 	<string name="edit_address_book_entry_dialog_button_edit">Spara</string>
 	<string name="edit_address_book_entry_dialog_button_delete">Ta bort</string>
 
@@ -92,5 +90,6 @@
 	<string name="button_dismiss">Avsluta</string>
 	<string name="button_cancel">Avbryt</string>
 	<string name="button_help">Hjälp</string>
+	<string name="button_add">Lägg till</string>
 
 </resources>

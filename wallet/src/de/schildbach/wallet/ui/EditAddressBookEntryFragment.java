@@ -99,7 +99,7 @@ public final class EditAddressBookEntryFragment extends DialogFragment
 
 		dialog.setView(view);
 
-		dialog.setPositiveButton(isAdd ? R.string.edit_address_book_entry_dialog_button_add : R.string.edit_address_book_entry_dialog_button_edit,
+		dialog.setPositiveButton(isAdd ? R.string.button_add : R.string.edit_address_book_entry_dialog_button_edit,
 				new DialogInterface.OnClickListener()
 				{
 					public void onClick(final DialogInterface dialog, final int whichButton)
