@@ -12,6 +12,4 @@
 	<dimen name="action_bar_button_separator_margin">8dp</dimen>
 	<dimen name="wallet_address_qr_size">96dp</dimen>
 
-	<item name="address_scalex" type="dimen">1.0</item>
-
 </resources>

@@ -24,7 +24,6 @@
 		android:imeOptions="actionNext|flagNoExtractUi"
 		android:singleLine="true"
 		android:textColor="#000"
-		android:textScaleX="@dimen/address_scalex"
 		android:textSize="@dimen/font_size_normal" />
 
 	<TextView
