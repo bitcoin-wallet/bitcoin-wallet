@@ -15,7 +15,7 @@
 	<supports-screens android:largeScreens="true" android:normalScreens="true" android:smallScreens="true"
 		android:anyDensity="true" />
 
-	<application android:name="de.schildbach.wallet.WalletApplication" android:theme="@style/Theme.Styled" android:icon="@drawable/app_icon_test"
+	<application android:name="de.schildbach.wallet.WalletApplication" android:theme="@style/My.Theme" android:icon="@drawable/app_icon_test"
 		android:label="@string/app_name" android:debuggable="true">
 
 		<activity android:name="de.schildbach.wallet.ui.WalletActivity"

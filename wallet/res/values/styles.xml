@@ -1,39 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-	<style name="Theme.Styled" parent="Theme.Sherlock.Light.DarkActionBar">
-		<item name="actionBarStyle">@style/Widget.Styled.ActionBar</item>
-		<item name="android:actionBarStyle">@style/Widget.Styled.ActionBar</item>
-		<item name="android:editTextStyle">@style/Widget.Styled.EditText</item>
-		<item name="android:autoCompleteTextViewStyle">@style/Widget.Styled.AutoCompleteTextView</item>
+	<style name="My.Theme" parent="Theme.Sherlock.Light.DarkActionBar">
+		<item name="actionBarStyle">@style/My.Widget.ActionBar</item>
+		<item name="android:actionBarStyle">@style/My.Widget.ActionBar</item>
+		<item name="android:editTextStyle">@style/My.Widget.EditText</item>
+		<item name="android:autoCompleteTextViewStyle">@style/My.Widget.AutoCompleteTextView</item>
 	</style>
 
-	<style name="Widget.Styled.ActionBar" parent="Widget.Sherlock.Light.ActionBar.Solid.Inverse">
+	<style name="My.Widget.ActionBar" parent="Widget.Sherlock.Light.ActionBar.Solid.Inverse">
 		<item name="background">@drawable/action_bar_background</item>
 		<item name="android:background">@drawable/action_bar_background</item>
-		<item name="titleTextStyle">@style/Theme.ActionBar.TitleTextStyle</item>
-		<item name="android:titleTextStyle">@style/Theme.ActionBar.TitleTextStyle</item>
-		<item name="subtitleTextStyle">@style/Theme.ActionBar.SubtitleTextStyle</item>
-		<item name="android:subtitleTextStyle">@style/Theme.ActionBar.SubtitleTextStyle</item>
+		<item name="titleTextStyle">@style/My.Theme.ActionBar.TitleTextStyle</item>
+		<item name="android:titleTextStyle">@style/My.Theme.ActionBar.TitleTextStyle</item>
+		<item name="subtitleTextStyle">@style/My.Theme.ActionBar.SubtitleTextStyle</item>
+		<item name="android:subtitleTextStyle">@style/My.Theme.ActionBar.SubtitleTextStyle</item>
 	</style>
 
-	<style name="Theme.ActionBar.TitleTextStyle" parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Title">
+	<style name="My.Theme.ActionBar.TitleTextStyle" parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Title">
 		<item name="android:textColor">@android:color/white</item>
 		<item name="android:textStyle">bold</item>
 		<item name="android:shadowColor">@android:color/black</item>
 		<item name="android:shadowRadius">1</item>
 	</style>
 
-	<style name="Theme.ActionBar.SubtitleTextStyle" parent="Theme.ActionBar.TitleTextStyle">
+	<style name="My.Theme.ActionBar.SubtitleTextStyle" parent="My.Theme.ActionBar.TitleTextStyle">
 		<item name="android:textStyle">normal</item>
 		<item name="android:textSize">@dimen/font_size_tiny</item>
 	</style>
 
-	<style name="Widget.Styled.EditText" parent="@android:style/Widget.EditText">
+	<style name="My.Widget.EditText" parent="@android:style/Widget.EditText">
 		<item name="android:background">@drawable/edit_text</item>
 	</style>
 
-	<style name="Widget.Styled.AutoCompleteTextView" parent="@android:style/Widget.AutoCompleteTextView">
+	<style name="My.Widget.AutoCompleteTextView" parent="@android:style/Widget.AutoCompleteTextView">
 		<item name="android:background">@drawable/edit_text</item>
 	</style>
 
