@@ -22,7 +22,6 @@ import java.math.BigInteger;
 import java.math.RoundingMode;
 
 import android.app.AlertDialog;
-import android.app.AlertDialog.Builder;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
@@ -72,7 +71,9 @@ public final class AmountCalculatorFragment extends DialogFragment implements Lo
 		final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(activity);
 		exchangeCurrency = prefs.getString(Constants.PREFS_KEY_EXCHANGE_CURRENCY, Constants.DEFAULT_EXCHANGE_CURRENCY);
 
-		final Builder dialog = new AlertDialog.Builder(activity).setTitle(R.string.amount_calculator_dialog_title);
+		final AlertDialog.Builder dialog = new AlertDialog.Builder(activity);
+		dialog.setInverseBackgroundForced(true);
+		dialog.setTitle(R.string.amount_calculator_dialog_title);
 
 		final View view = inflater.inflate(R.layout.amount_calculator_dialog, null);
 

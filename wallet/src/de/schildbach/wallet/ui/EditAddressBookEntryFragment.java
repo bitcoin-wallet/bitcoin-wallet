@@ -18,7 +18,6 @@
 package de.schildbach.wallet.ui;
 
 import android.app.AlertDialog;
-import android.app.AlertDialog.Builder;
 import android.app.Dialog;
 import android.content.ContentResolver;
 import android.content.ContentValues;
@@ -86,8 +85,9 @@ public final class EditAddressBookEntryFragment extends DialogFragment
 
 		final boolean isAdd = label == null;
 
-		final Builder dialog = new AlertDialog.Builder(activity).setTitle(isAdd ? R.string.edit_address_book_entry_dialog_title_add
-				: R.string.edit_address_book_entry_dialog_title_edit);
+		final AlertDialog.Builder dialog = new AlertDialog.Builder(activity);
+		dialog.setInverseBackgroundForced(true);
+		dialog.setTitle(isAdd ? R.string.edit_address_book_entry_dialog_title_add : R.string.edit_address_book_entry_dialog_title_edit);
 
 		final View view = inflater.inflate(R.layout.edit_address_book_entry_dialog, null);
 
