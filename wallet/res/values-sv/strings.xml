@@ -71,7 +71,6 @@
 	<string name="edit_address_book_entry_dialog_address_label">Adress</string>
 	<string name="edit_address_book_entry_dialog_label_label">Namn</string>
 	<string name="edit_address_book_entry_dialog_button_edit">Spara</string>
-	<string name="edit_address_book_entry_dialog_button_delete">Ta bort</string>
 
 	<string name="preferences_about_title">Om</string>
 	<string name="preferences_license_title">Licens</string>
@@ -91,5 +90,6 @@
 	<string name="button_cancel">Avbryt</string>
 	<string name="button_help">Hjälp</string>
 	<string name="button_add">Lägg till</string>
+	<string name="button_delete">Ta bort</string>
 
 </resources>

@@ -104,7 +104,6 @@
 	<string name="edit_address_book_entry_dialog_address_label">Adresse</string>
 	<string name="edit_address_book_entry_dialog_label_label">Name</string>
 	<string name="edit_address_book_entry_dialog_button_edit">Speichern</string>
-	<string name="edit_address_book_entry_dialog_button_delete">Löschen</string>
 
 	<string name="transaction_activity_title">Transaktion</string>
 
@@ -148,6 +147,7 @@
 	<string name="button_cancel">Abbrechen</string>
 	<string name="button_help">Hilfe</string>
 	<string name="button_add">Hinzufügen</string>
+	<string name="button_delete">Löschen</string>
 
 	<string name="label_copy">Kopieren</string>
 	<string name="label_paste">Einfügen</string>

@@ -69,7 +69,6 @@
 	<string name="edit_address_book_entry_dialog_address_label">地址</string>
 	<string name="edit_address_book_entry_dialog_label_label">姓名</string>
 	<string name="edit_address_book_entry_dialog_button_edit">保存</string>
-	<string name="edit_address_book_entry_dialog_button_delete">删除</string>
 
 	<string name="preferences_about_title">关于</string>
 	<string name="preferences_license_title">授权</string>
@@ -89,5 +88,6 @@
 	<string name="button_cancel">取消</string>
 	<string name="button_help">帮助</string>
 	<string name="button_add">添加</string>
+	<string name="button_delete">删除</string>
 
 </resources>

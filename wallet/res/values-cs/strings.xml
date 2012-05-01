@@ -70,7 +70,6 @@
 	<string name="edit_address_book_entry_dialog_address_label">Adresa</string>
 	<string name="edit_address_book_entry_dialog_label_label">Jméno</string>
 	<string name="edit_address_book_entry_dialog_button_edit">Uložit</string>
-	<string name="edit_address_book_entry_dialog_button_delete">Smazat</string>
 
 	<string name="preferences_about_title">O aplikaci</string>
 	<string name="preferences_license_title">Licence</string>
@@ -90,5 +89,6 @@
 	<string name="button_cancel">Zrušit</string>
 	<string name="button_help">Nápověda</string>
 	<string name="button_add">Přidat</string>
+	<string name="button_delete">Smazat</string>
 
 </resources>

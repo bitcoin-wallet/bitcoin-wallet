@@ -126,7 +126,7 @@ public final class EditAddressBookEntryFragment extends DialogFragment
 				});
 		if (!isAdd)
 		{
-			dialog.setNeutralButton(R.string.edit_address_book_entry_dialog_button_delete, new DialogInterface.OnClickListener()
+			dialog.setNeutralButton(R.string.button_delete, new DialogInterface.OnClickListener()
 			{
 				public void onClick(final DialogInterface dialog, final int whichButton)
 				{

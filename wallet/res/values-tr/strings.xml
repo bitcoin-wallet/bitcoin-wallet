@@ -93,7 +93,6 @@
 	<string name="edit_address_book_entry_dialog_address_label">Adres</string>
 	<string name="edit_address_book_entry_dialog_label_label">İsim</string>
 	<string name="edit_address_book_entry_dialog_button_edit">Kaydet</string>
-	<string name="edit_address_book_entry_dialog_button_delete">Sil</string>
 
 	<string name="transaction_activity_title">Muamele</string>
 
@@ -133,5 +132,6 @@
 	<string name="button_cancel">İptal et</string>
 	<string name="button_help">Yardım</string>
 	<string name="button_add">Ekle</string>
+	<string name="button_delete">Sil</string>
 
 </resources>

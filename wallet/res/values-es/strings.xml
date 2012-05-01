@@ -71,7 +71,6 @@
 	<string name="edit_address_book_entry_dialog_address_label">Dirección</string>
 	<string name="edit_address_book_entry_dialog_label_label">Nombre</string>
 	<string name="edit_address_book_entry_dialog_button_edit">Guardar</string>
-	<string name="edit_address_book_entry_dialog_button_delete">Eliminar</string>
 
 	<string name="preferences_about_title">Acerca de</string>
 	<string name="preferences_license_title">Licencia</string>
@@ -91,5 +90,6 @@
 	<string name="button_cancel">Cancelar</string>
 	<string name="button_help">Ayuda</string>
 	<string name="button_add">Añadir</string>
+	<string name="button_delete">Eliminar</string>
 
 </resources>

@@ -71,7 +71,6 @@
 	<string name="edit_address_book_entry_dialog_address_label">Адрес</string>
 	<string name="edit_address_book_entry_dialog_label_label">Имя</string>
 	<string name="edit_address_book_entry_dialog_button_edit">Сохранить</string>
-	<string name="edit_address_book_entry_dialog_button_delete">Удалить</string>
 
 	<string name="preferences_about_title">О программе</string>
 	<string name="preferences_license_title">Лицензия</string>
@@ -91,5 +90,6 @@
 	<string name="button_cancel">Отмена</string>
 	<string name="button_help">Помощь</string>
 	<string name="button_add">Добавить</string>
+	<string name="button_delete">Удалить</string>
 
 </resources>

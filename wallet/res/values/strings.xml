@@ -104,7 +104,6 @@
 	<string name="edit_address_book_entry_dialog_address_label">Address</string>
 	<string name="edit_address_book_entry_dialog_label_label">Name</string>
 	<string name="edit_address_book_entry_dialog_button_edit">Save</string>
-	<string name="edit_address_book_entry_dialog_button_delete">Delete</string>
 
 	<string name="transaction_activity_title">Transaction</string>
 
@@ -148,6 +147,7 @@
 	<string name="button_cancel">Cancel</string>
 	<string name="button_help">Help</string>
 	<string name="button_add">Add</string>
+	<string name="button_delete">Delete</string>
 
 	<string name="label_copy">Copy</string>
 	<string name="label_paste">Paste</string>
