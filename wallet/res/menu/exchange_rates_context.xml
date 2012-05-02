@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+	<item
+		android:id="@+id/exchange_rates_context_set_as_default"
+		android:icon="@drawable/ic_action_set_as_default"
+		android:showAsAction="always|withText"
+		android:title="@string/exchange_rates_context_set_as_default_title"
+		android:titleCondensed="@string/button_set_as_default"/>
+
+</menu>

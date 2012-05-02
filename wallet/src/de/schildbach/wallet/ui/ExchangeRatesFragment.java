@@ -20,6 +20,7 @@ package de.schildbach.wallet.ui;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
+import android.app.Activity;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -35,6 +36,10 @@ import android.widget.BaseAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
+import com.actionbarsherlock.view.ActionMode;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
 import com.google.bitcoin.core.AbstractWalletEventListener;
 import com.google.bitcoin.core.Wallet;
 import com.google.bitcoin.core.Wallet.BalanceType;
@@ -50,6 +55,7 @@ import de.schildbach.wallet_test.R;
  */
 public final class ExchangeRatesFragment extends ListFragment implements LoaderManager.LoaderCallbacks<Cursor>
 {
+	private AbstractWalletActivity activity;
 	private WalletApplication application;
 	private SharedPreferences prefs;
 	private SimpleCursorAdapter adapter;
@@ -71,13 +77,20 @@ public final class ExchangeRatesFragment extends ListFragment implements LoaderM
 	};
 
 	@Override
+	public void onAttach(final Activity activity)
+	{
+		super.onAttach(activity);
+
+		this.activity = (AbstractWalletActivity) activity;
+		application = (WalletApplication) activity.getApplication();
+	}
+
+	@Override
 	public void onCreate(final Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 
-		application = (WalletApplication) getActivity().getApplication();
 		final Wallet wallet = application.getWallet();
-
 		wallet.addEventListener(walletEventListener);
 	}
 
@@ -136,15 +149,54 @@ public final class ExchangeRatesFragment extends ListFragment implements LoaderM
 		final Cursor cursor = (Cursor) adapter.getItem(position);
 		final String currencyCode = cursor.getString(cursor.getColumnIndexOrThrow(ExchangeRatesProvider.KEY_CURRENCY_CODE));
 
-		prefs.edit().putString(Constants.PREFS_KEY_EXCHANGE_CURRENCY, currencyCode).commit();
-
-		final WalletBalanceFragment walletBalanceFragment = (WalletBalanceFragment) getFragmentManager().findFragmentById(
-				R.id.wallet_balance_fragment);
-		if (walletBalanceFragment != null)
+		activity.startActionMode(new ActionMode.Callback()
 		{
-			walletBalanceFragment.updateView();
-			walletBalanceFragment.flashLocal();
-		}
+			public boolean onCreateActionMode(final ActionMode mode, final Menu menu)
+			{
+				final MenuInflater inflater = mode.getMenuInflater();
+				inflater.inflate(R.menu.exchange_rates_context, menu);
+
+				return true;
+			}
+
+			public boolean onPrepareActionMode(final ActionMode mode, final Menu menu)
+			{
+				mode.setTitle(currencyCode);
+
+				return true;
+			}
+
+			public boolean onActionItemClicked(final ActionMode mode, final MenuItem item)
+			{
+				switch (item.getItemId())
+				{
+					case R.id.exchange_rates_context_set_as_default:
+						handleSetAsDefault(currencyCode);
+
+						mode.finish();
+						return true;
+				}
+
+				return false;
+			}
+
+			public void onDestroyActionMode(final ActionMode mode)
+			{
+			}
+
+			private void handleSetAsDefault(final String currencyCode)
+			{
+				prefs.edit().putString(Constants.PREFS_KEY_EXCHANGE_CURRENCY, currencyCode).commit();
+
+				final WalletBalanceFragment walletBalanceFragment = (WalletBalanceFragment) getFragmentManager().findFragmentById(
+						R.id.wallet_balance_fragment);
+				if (walletBalanceFragment != null)
+				{
+					walletBalanceFragment.updateView();
+					walletBalanceFragment.flashLocal();
+				}
+			}
+		});
 	}
 
 	private void updateView()
