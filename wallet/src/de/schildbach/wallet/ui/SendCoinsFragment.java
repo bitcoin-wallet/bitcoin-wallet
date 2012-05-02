@@ -65,6 +65,7 @@ import de.schildbach.wallet_test.R;
  */
 public final class SendCoinsFragment extends SherlockFragment
 {
+	private AbstractWalletActivity activity;
 	private WalletApplication application;
 
 	private BlockchainService service;
@@ -130,13 +131,18 @@ public final class SendCoinsFragment extends SherlockFragment
 	};
 
 	@Override
+	public void onAttach(final Activity activity)
+	{
+		super.onAttach(activity);
+
+		this.activity = (AbstractWalletActivity) activity;
+		application = (WalletApplication) activity.getApplication();
+	}
+
+	@Override
 	public void onCreate(final Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-
-		final Activity activity = getActivity();
-
-		application = (WalletApplication) activity.getApplication();
 
 		activity.bindService(new Intent(activity, BlockchainService.class), serviceConnection, Context.BIND_AUTO_CREATE);
 	}
@@ -144,8 +150,6 @@ public final class SendCoinsFragment extends SherlockFragment
 	@Override
 	public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState)
 	{
-		final AbstractWalletActivity activity = (AbstractWalletActivity) getActivity();
-
 		final View view = inflater.inflate(R.layout.send_coins_fragment, container);
 
 		final BigInteger estimated = application.getWallet().getBalance(BalanceType.ESTIMATED);
@@ -287,8 +291,6 @@ public final class SendCoinsFragment extends SherlockFragment
 	@Override
 	public void onDestroy()
 	{
-		final Activity activity = getActivity();
-
 		activity.unbindService(serviceConnection);
 
 		super.onDestroy();
@@ -330,7 +332,7 @@ public final class SendCoinsFragment extends SherlockFragment
 		@Override
 		public Cursor runQueryOnBackgroundThread(final CharSequence constraint)
 		{
-			final Cursor cursor = getActivity().managedQuery(AddressBookProvider.CONTENT_URI, null, AddressBookProvider.SELECTION_QUERY,
+			final Cursor cursor = activity.managedQuery(AddressBookProvider.CONTENT_URI, null, AddressBookProvider.SELECTION_QUERY,
 					new String[] { constraint.toString() }, null);
 			return cursor;
 		}
@@ -419,7 +421,6 @@ public final class SendCoinsFragment extends SherlockFragment
 
 	private void showAddAddressDialog(final String address)
 	{
-		final Activity activity = getActivity();
 		final AlertDialog.Builder builder = new AlertDialog.Builder(activity);
 		builder.setMessage(R.string.send_coins_add_address_dialog_title);
 		builder.setPositiveButton(R.string.send_coins_add_address_dialog_button_add, new DialogInterface.OnClickListener()
