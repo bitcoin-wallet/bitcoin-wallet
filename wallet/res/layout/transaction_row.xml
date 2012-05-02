@@ -34,26 +34,13 @@
 		android:textSize="@dimen/font_size_normal"
 		android:textStyle="bold" />
 
-	<FrameLayout
+	<TextView
+		android:id="@+id/transaction_row_fromto"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_marginRight="8dp"
-		android:layout_weight="0" >
-
-		<TextView
-			android:id="@+id/transaction_row_to"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="→"
-			android:textSize="@dimen/font_size_normal" />
-
-		<TextView
-			android:id="@+id/transaction_row_from"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="←"
-			android:textSize="@dimen/font_size_normal" />
-	</FrameLayout>
+		android:layout_weight="0"
+		android:textSize="@dimen/font_size_normal" />
 
 	<TextView
 		android:id="@+id/transaction_row_address"

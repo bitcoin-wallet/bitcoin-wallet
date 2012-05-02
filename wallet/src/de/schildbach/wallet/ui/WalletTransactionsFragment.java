@@ -355,12 +355,9 @@ public final class WalletTransactionsFragment extends Fragment
 						rowTime.setText(time != null ? (DateUtils.isToday(time.getTime()) ? timeFormat.format(time) : dateFormat.format(time)) : null);
 						rowTime.setTextColor(textColor);
 
-						final TextView rowTo = (TextView) row.findViewById(R.id.transaction_row_to);
-						final TextView rowFrom = (TextView) row.findViewById(R.id.transaction_row_from);
-						rowTo.setVisibility(sent ? View.VISIBLE : View.INVISIBLE);
-						rowFrom.setVisibility(sent ? View.INVISIBLE : View.VISIBLE);
-						rowTo.setTextColor(textColor);
-						rowFrom.setTextColor(textColor);
+						final TextView rowFromTo = (TextView) row.findViewById(R.id.transaction_row_fromto);
+						rowFromTo.setText(sent ? R.string.symbol_to : R.string.symbol_from);
+						rowFromTo.setTextColor(textColor);
 
 						final TextView rowAddress = (TextView) row.findViewById(R.id.transaction_row_address);
 						final Address address = sent ? getToAddress(tx) : getFromAddress(tx);

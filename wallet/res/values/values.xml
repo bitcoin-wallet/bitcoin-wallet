@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+	<string name="symbol_to">→</string>
+	<string name="symbol_from">←</string>
+
 	<string name="preferences_prefs_title">Preferences (advanced)</string>
 	<string name="preferences_autosync_title">Sync on Power</string>
 	<string name="preferences_autosync_summary">Stay synchronized to blockchain in background while connected to power.</string>
