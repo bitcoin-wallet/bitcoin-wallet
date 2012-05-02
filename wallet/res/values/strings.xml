@@ -146,9 +146,11 @@
 	<string name="button_help">Help</string>
 	<string name="button_add">Add</string>
 	<string name="button_delete">Delete</string>
+	<string name="button_edit">Edit</string>
 	<string name="button_copy">Copy</string>
 	<string name="button_paste">Paste</string>
 	<string name="button_share">Share</string>
+	<string name="button_set_as_default">Set as default</string>
 	<string name="button_request_coins">Request coins</string>
 	<string name="button_send_coins">Send coins</string>
 

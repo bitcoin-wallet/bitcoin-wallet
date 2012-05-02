@@ -3,18 +3,32 @@
 
 	<item
 		android:id="@+id/sending_addresses_context_send"
-		android:title="@string/address_book_context_send_title"/>
+		android:icon="@drawable/ic_action_send"
+		android:showAsAction="ifRoom|withText"
+		android:title="@string/address_book_context_send_title"
+		android:titleCondensed="@string/button_send_coins"/>
 	<item
 		android:id="@+id/sending_addresses_context_edit"
-		android:title="@string/address_book_context_edit_title"/>
+		android:icon="@drawable/ic_action_edit"
+		android:showAsAction="ifRoom|withText"
+		android:title="@string/address_book_context_edit_title"
+		android:titleCondensed="@string/button_edit"/>
 	<item
 		android:id="@+id/sending_addresses_context_remove"
-		android:title="@string/address_book_context_remove_title"/>
+		android:icon="@drawable/ic_action_delete"
+		android:showAsAction="ifRoom|withText"
+		android:title="@string/address_book_context_remove_title"
+		android:titleCondensed="@string/button_delete"/>
 	<item
 		android:id="@+id/sending_addresses_context_show_qr"
+		android:icon="@drawable/ic_action_qr"
+		android:showAsAction="ifRoom|withText"
 		android:title="@string/address_book_context_show_qr_title"/>
 	<item
 		android:id="@+id/sending_addresses_context_copy_to_clipboard"
-		android:title="@string/address_book_context_copy_to_clipboard_title"/>
+		android:icon="@drawable/ic_action_copy"
+		android:showAsAction="ifRoom|withText"
+		android:title="@string/address_book_context_copy_to_clipboard_title"
+		android:titleCondensed="@string/button_copy"/>
 
 </menu>

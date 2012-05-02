@@ -32,18 +32,16 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.text.ClipboardManager;
-import android.view.ContextMenu;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.BaseAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockListFragment;
+import com.actionbarsherlock.view.ActionMode;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
@@ -65,8 +63,9 @@ import de.schildbach.wallet_test.R;
  */
 public final class WalletAddressesFragment extends SherlockListFragment
 {
-	private WalletApplication application;
 	private AddressBookActivity activity;
+	private WalletApplication application;
+	private ContentResolver contentResolver;
 
 	@Override
 	public void onAttach(final Activity activity)
@@ -75,6 +74,7 @@ public final class WalletAddressesFragment extends SherlockListFragment
 
 		this.activity = (AddressBookActivity) activity;
 		application = (WalletApplication) activity.getApplication();
+		contentResolver = activity.getContentResolver();
 	}
 
 	@Override
@@ -98,8 +98,6 @@ public final class WalletAddressesFragment extends SherlockListFragment
 
 		// workaround for flashing background in ViewPager on Android 2.x
 		listView.setBackgroundColor(getResources().getColor(R.color.background_bright));
-
-		registerForContextMenu(listView);
 	}
 
 	@Override
@@ -107,7 +105,7 @@ public final class WalletAddressesFragment extends SherlockListFragment
 	{
 		super.onResume();
 
-		activity.getContentResolver().registerContentObserver(AddressBookProvider.CONTENT_URI, true, contentObserver);
+		contentResolver.registerContentObserver(AddressBookProvider.CONTENT_URI, true, contentObserver);
 
 		updateView();
 	}
@@ -115,7 +113,7 @@ public final class WalletAddressesFragment extends SherlockListFragment
 	@Override
 	public void onPause()
 	{
-		activity.getContentResolver().unregisterContentObserver(contentObserver);
+		contentResolver.unregisterContentObserver(contentObserver);
 
 		super.onPause();
 	}
@@ -159,89 +157,110 @@ public final class WalletAddressesFragment extends SherlockListFragment
 	@Override
 	public void onListItemClick(final ListView l, final View v, final int position, final long id)
 	{
-		final ECKey key = (ECKey) getListAdapter().getItem(position);
-		final Address address = key.toAddress(Constants.NETWORK_PARAMETERS);
-
-		EditAddressBookEntryFragment.edit(getFragmentManager(), address.toString());
-	}
-
-	@Override
-	public void onCreateContextMenu(final ContextMenu menu, final View v, final ContextMenuInfo info)
-	{
-		final AdapterContextMenuInfo menuInfo = (AdapterContextMenuInfo) info;
-		final ECKey key = (ECKey) getListAdapter().getItem(menuInfo.position);
-		final boolean enabled = key.getCreationTimeSeconds() == 0;
-
-		activity.getMenuInflater().inflate(R.menu.wallet_addresses_context, menu);
-		final android.view.MenuItem item = menu.findItem(R.id.wallet_addresses_context_determine_creation_time);
-		item.setEnabled(enabled);
-		item.setVisible(enabled);
-	}
-
-	@Override
-	public boolean onContextItemSelected(final android.view.MenuItem item)
-	{
-		final AdapterContextMenuInfo menuInfo = (AdapterContextMenuInfo) item.getMenuInfo();
-
-		switch (item.getItemId())
+		activity.startActionMode(new ActionMode.Callback()
 		{
-			case R.id.wallet_addresses_context_edit:
+			public boolean onCreateActionMode(final ActionMode mode, final Menu menu)
 			{
-				final ECKey key = (ECKey) getListAdapter().getItem(menuInfo.position);
-				final Address address = key.toAddress(Constants.NETWORK_PARAMETERS);
-				EditAddressBookEntryFragment.edit(getFragmentManager(), address.toString());
+				final MenuInflater inflater = mode.getMenuInflater();
+				inflater.inflate(R.menu.wallet_addresses_context, menu);
+
 				return true;
 			}
 
-			case R.id.wallet_addresses_context_show_qr:
+			public boolean onPrepareActionMode(final ActionMode mode, final Menu menu)
 			{
-				final ECKey key = (ECKey) getListAdapter().getItem(menuInfo.position);
-				final Address address = key.toAddress(Constants.NETWORK_PARAMETERS);
+				final ECKey key = getKey(position);
+				final boolean enabled = key.getCreationTimeSeconds() == 0;
+
+				final MenuItem item = menu.findItem(R.id.wallet_addresses_context_determine_creation_time);
+				item.setEnabled(enabled);
+				item.setVisible(enabled);
+
+				final String address = key.toAddress(Constants.NETWORK_PARAMETERS).toString();
+				final String label = AddressBookProvider.resolveLabel(contentResolver, address);
+				mode.setTitle(label != null ? label : WalletUtils.formatAddress(address, Constants.ADDRESS_FORMAT_GROUP_SIZE, 0));
+
+				return true;
+			}
+
+			public boolean onActionItemClicked(final ActionMode mode, final MenuItem item)
+			{
+				switch (item.getItemId())
+				{
+					case R.id.wallet_addresses_context_edit:
+						handleEdit(getAddress(position));
+
+						mode.finish();
+						return true;
+
+					case R.id.wallet_addresses_context_show_qr:
+						handleShowQr(getAddress(position));
+
+						mode.finish();
+						return true;
+
+					case R.id.wallet_addresses_context_copy_to_clipboard:
+						handleCopyToClipboard(getAddress(position));
+
+						mode.finish();
+						return true;
+
+					case R.id.wallet_addresses_context_default:
+						handleDefault(getAddress(position));
+
+						mode.finish();
+						return true;
+
+					case R.id.wallet_addresses_context_determine_creation_time:
+						final ECKey key = getKey(position);
+						handleDetermineCreationTime(key);
+
+						mode.finish();
+						return true;
+				}
+
+				return false;
+			}
+
+			public void onDestroyActionMode(final ActionMode mode)
+			{
+			}
+
+			private ECKey getKey(final int position)
+			{
+				return (ECKey) getListAdapter().getItem(position);
+			}
+
+			private Address getAddress(final int position)
+			{
+				return getKey(position).toAddress(Constants.NETWORK_PARAMETERS);
+			}
+
+			private void handleEdit(final Address address)
+			{
+				EditAddressBookEntryFragment.edit(getFragmentManager(), address.toString());
+			}
+
+			private void handleShowQr(final Address address)
+			{
 				final String uri = BitcoinURI.convertToBitcoinURI(address, null, null, null);
 				final int size = (int) (256 * getResources().getDisplayMetrics().density);
 				new QrDialog(activity, WalletUtils.getQRCodeBitmap(uri, size)).show();
-				return true;
 			}
 
-			case R.id.wallet_addresses_context_copy_to_clipboard:
+			private void handleCopyToClipboard(final Address address)
 			{
-				final ECKey key = (ECKey) getListAdapter().getItem(menuInfo.position);
-				final Address address = key.toAddress(Constants.NETWORK_PARAMETERS);
-				handleCopyToClipboard(address.toString());
-				return true;
+				final ClipboardManager clipboardManager = (ClipboardManager) activity.getSystemService(Context.CLIPBOARD_SERVICE);
+				clipboardManager.setText(address.toString());
+				((AbstractWalletActivity) activity).toast(R.string.wallet_address_fragment_clipboard_msg);
 			}
 
-			case R.id.wallet_addresses_context_default:
+			private void handleDefault(final Address address)
 			{
-				final ECKey key = (ECKey) getListAdapter().getItem(menuInfo.position);
-				final Address address = key.toAddress(Constants.NETWORK_PARAMETERS);
-				handleDefault(address);
-				return true;
+				final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(activity);
+				prefs.edit().putString(Constants.PREFS_KEY_SELECTED_ADDRESS, address.toString()).commit();
 			}
-
-			case R.id.wallet_addresses_context_determine_creation_time:
-			{
-				final ECKey key = (ECKey) getListAdapter().getItem(menuInfo.position);
-				handleDetermineCreationTime(key);
-				return true;
-			}
-
-			default:
-				return false;
-		}
-	}
-
-	private void handleDefault(final Address address)
-	{
-		final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(activity);
-		prefs.edit().putString(Constants.PREFS_KEY_SELECTED_ADDRESS, address.toString()).commit();
-	}
-
-	private void handleCopyToClipboard(final String address)
-	{
-		final ClipboardManager clipboardManager = (ClipboardManager) activity.getSystemService(Context.CLIPBOARD_SERVICE);
-		clipboardManager.setText(address);
-		((AbstractWalletActivity) activity).toast(R.string.wallet_address_fragment_clipboard_msg);
+		});
 	}
 
 	private void handleDetermineCreationTime(final ECKey key)

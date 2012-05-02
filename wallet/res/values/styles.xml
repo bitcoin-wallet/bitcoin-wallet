@@ -4,6 +4,8 @@
 	<style name="My.Theme" parent="Theme.Sherlock.Light.DarkActionBar">
 		<item name="actionBarStyle">@style/My.Widget.ActionBar</item>
 		<item name="android:actionBarStyle">@style/My.Widget.ActionBar</item>
+		<item name="actionModeStyle">@style/My.Widget.ActionMode</item>
+		<item name="android:actionModeStyle">@style/My.Widget.ActionMode</item>
 		<item name="android:editTextStyle">@style/My.Widget.EditText</item>
 		<item name="android:autoCompleteTextViewStyle">@style/My.Widget.AutoCompleteTextView</item>
 	</style>
@@ -27,6 +29,18 @@
 	<style name="My.Theme.ActionBar.SubtitleTextStyle" parent="My.Theme.ActionBar.TitleTextStyle">
 		<item name="android:textStyle">normal</item>
 		<item name="android:textSize">@dimen/font_size_tiny</item>
+	</style>
+
+	<style name="My.Widget.ActionMode" parent="Widget.Sherlock.Light.ActionMode.Inverse">
+		<item name="titleTextStyle">@style/My.Theme.ActionMode.TitleTextStyle</item>
+		<item name="android:titleTextStyle">@style/My.Theme.ActionMode.TitleTextStyle</item>
+	</style>
+
+	<style name="My.Theme.ActionMode.TitleTextStyle" parent="android:style/TextAppearance.Holo.Widget.ActionMode.Title">
+		<item name="android:textColor">@android:color/white</item>
+		<item name="android:textStyle">bold</item>
+		<item name="android:shadowColor">@android:color/black</item>
+		<item name="android:shadowRadius">1</item>
 	</style>
 
 	<style name="My.Widget.EditText" parent="@android:style/Widget.EditText">

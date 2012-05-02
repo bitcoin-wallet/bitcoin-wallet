@@ -31,14 +31,12 @@ import android.support.v4.content.Loader;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v4.widget.SimpleCursorAdapter.ViewBinder;
 import android.text.ClipboardManager;
-import android.view.ContextMenu;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View;
-import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockListFragment;
+import com.actionbarsherlock.view.ActionMode;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
@@ -116,8 +114,6 @@ public final class SendingAddressesFragment extends SherlockListFragment impleme
 
 		// workaround for flashing background in ViewPager on Android 2.x
 		listView.setBackgroundColor(getResources().getColor(R.color.background_bright));
-
-		registerForContextMenu(listView);
 	}
 
 	@Override
@@ -166,69 +162,78 @@ public final class SendingAddressesFragment extends SherlockListFragment impleme
 	@Override
 	public void onListItemClick(final ListView l, final View v, final int position, final long id)
 	{
-		final Cursor cursor = (Cursor) adapter.getItem(position);
-		final String address = cursor.getString(cursor.getColumnIndexOrThrow(AddressBookProvider.KEY_ADDRESS));
-		handleSend(address);
-	}
-
-	@Override
-	public void onCreateContextMenu(final ContextMenu menu, final View v, final ContextMenuInfo menuInfo)
-	{
-		activity.getMenuInflater().inflate(R.menu.sending_addresses_context, menu);
-	}
-
-	@Override
-	public boolean onContextItemSelected(final android.view.MenuItem item)
-	{
-		final AdapterContextMenuInfo menuInfo = (AdapterContextMenuInfo) item.getMenuInfo();
-
-		switch (item.getItemId())
+		activity.startActionMode(new ActionMode.Callback()
 		{
-			case R.id.sending_addresses_context_send:
+			public boolean onCreateActionMode(final ActionMode mode, final Menu menu)
 			{
-				final Cursor cursor = (Cursor) adapter.getItem(menuInfo.position);
-				final String address = cursor.getString(cursor.getColumnIndexOrThrow(AddressBookProvider.KEY_ADDRESS));
-				handleSend(address);
+				final MenuInflater inflater = mode.getMenuInflater();
+				inflater.inflate(R.menu.sending_addresses_context, menu);
+
 				return true;
 			}
 
-			case R.id.sending_addresses_context_edit:
+			public boolean onPrepareActionMode(final ActionMode mode, final Menu menu)
 			{
-				final Cursor cursor = (Cursor) adapter.getItem(menuInfo.position);
-				final String address = cursor.getString(cursor.getColumnIndexOrThrow(AddressBookProvider.KEY_ADDRESS));
-				EditAddressBookEntryFragment.edit(getFragmentManager(), address);
+				final String label = getLabel(position);
+				mode.setTitle(label);
+
 				return true;
 			}
 
-			case R.id.sending_addresses_context_remove:
+			public boolean onActionItemClicked(final ActionMode mode, final MenuItem item)
 			{
-				final Cursor cursor = (Cursor) adapter.getItem(menuInfo.position);
-				final String address = cursor.getString(cursor.getColumnIndexOrThrow(AddressBookProvider.KEY_ADDRESS));
-				handleRemove(address);
-				return true;
-			}
+				switch (item.getItemId())
+				{
+					case R.id.sending_addresses_context_send:
+						handleSend(getAddress(position));
 
-			case R.id.sending_addresses_context_show_qr:
-			{
-				final Cursor cursor = (Cursor) adapter.getItem(menuInfo.position);
-				final String address = cursor.getString(cursor.getColumnIndexOrThrow(AddressBookProvider.KEY_ADDRESS));
-				final String uri = BitcoinURI.convertToBitcoinURI(address, null, null, null);
-				final int size = (int) (256 * getResources().getDisplayMetrics().density);
-				new QrDialog(activity, WalletUtils.getQRCodeBitmap(uri, size)).show();
-				return true;
-			}
+						mode.finish();
+						return true;
 
-			case R.id.sending_addresses_context_copy_to_clipboard:
-			{
-				final Cursor cursor = (Cursor) adapter.getItem(menuInfo.position);
-				final String address = cursor.getString(cursor.getColumnIndexOrThrow(AddressBookProvider.KEY_ADDRESS));
-				handleCopyToClipboard(address);
-				return true;
-			}
+					case R.id.sending_addresses_context_edit:
+						EditAddressBookEntryFragment.edit(getFragmentManager(), getAddress(position));
 
-			default:
+						mode.finish();
+						return true;
+
+					case R.id.sending_addresses_context_remove:
+						handleRemove(getAddress(position));
+
+						mode.finish();
+						return true;
+
+					case R.id.sending_addresses_context_show_qr:
+						handleShowQr(getAddress(position));
+
+						mode.finish();
+						return true;
+
+					case R.id.sending_addresses_context_copy_to_clipboard:
+						handleCopyToClipboard(getAddress(position));
+
+						mode.finish();
+						return true;
+				}
+
 				return false;
-		}
+			}
+
+			public void onDestroyActionMode(final ActionMode mode)
+			{
+			}
+
+			private String getAddress(final int position)
+			{
+				final Cursor cursor = (Cursor) adapter.getItem(position);
+				return cursor.getString(cursor.getColumnIndexOrThrow(AddressBookProvider.KEY_ADDRESS));
+			}
+
+			private String getLabel(final int position)
+			{
+				final Cursor cursor = (Cursor) adapter.getItem(position);
+				return cursor.getString(cursor.getColumnIndexOrThrow(AddressBookProvider.KEY_LABEL));
+			}
+		});
 	}
 
 	private void handleSend(final String address)
@@ -242,6 +247,13 @@ public final class SendingAddressesFragment extends SherlockListFragment impleme
 	{
 		final Uri uri = AddressBookProvider.CONTENT_URI.buildUpon().appendPath(address).build();
 		activity.getContentResolver().delete(uri, null, null);
+	}
+
+	private void handleShowQr(final String address)
+	{
+		final String uri = BitcoinURI.convertToBitcoinURI(address, null, null, null);
+		final int size = (int) (256 * getResources().getDisplayMetrics().density);
+		new QrDialog(activity, WalletUtils.getQRCodeBitmap(uri, size)).show();
 	}
 
 	private void handleCopyToClipboard(final String address)
