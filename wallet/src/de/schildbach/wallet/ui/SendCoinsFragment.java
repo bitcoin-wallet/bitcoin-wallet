@@ -154,7 +154,7 @@ public final class SendCoinsFragment extends SherlockFragment
 		// TODO subscribe to wallet changes
 
 		receivingAddressView = (AutoCompleteTextView) view.findViewById(R.id.send_coins_receiving_address);
-		receivingAddressView.setAdapter(new AutoCompleteAdapter(activity, null));
+		receivingAddressView.setAdapter(new AutoCompleteAddressAdapter(activity, null));
 		receivingAddressView.addTextChangedListener(textWatcher);
 
 		receivingAddressErrorView = (TextView) view.findViewById(R.id.send_coins_receiving_address_error);
@@ -294,9 +294,9 @@ public final class SendCoinsFragment extends SherlockFragment
 		super.onDestroy();
 	}
 
-	public class AutoCompleteAdapter extends CursorAdapter
+	public class AutoCompleteAddressAdapter extends CursorAdapter
 	{
-		public AutoCompleteAdapter(final Context context, final Cursor c)
+		public AutoCompleteAddressAdapter(final Context context, final Cursor c)
 		{
 			super(context, c);
 		}
@@ -305,17 +305,20 @@ public final class SendCoinsFragment extends SherlockFragment
 		public View newView(final Context context, final Cursor cursor, final ViewGroup parent)
 		{
 			final LayoutInflater inflater = LayoutInflater.from(context);
-			return inflater.inflate(R.layout.simple_dropdown_item_2line, parent, false);
+			return inflater.inflate(R.layout.address_book_row, parent, false);
 		}
 
 		@Override
 		public void bindView(final View view, final Context context, final Cursor cursor)
 		{
+			final String label = cursor.getString(cursor.getColumnIndexOrThrow(AddressBookProvider.KEY_LABEL));
+			final String address = cursor.getString(cursor.getColumnIndexOrThrow(AddressBookProvider.KEY_ADDRESS));
+
 			final ViewGroup viewGroup = (ViewGroup) view;
-			((TextView) viewGroup.findViewById(android.R.id.text1)).setText(cursor.getString(cursor
-					.getColumnIndexOrThrow(AddressBookProvider.KEY_LABEL)));
-			((TextView) viewGroup.findViewById(android.R.id.text2)).setText(cursor.getString(cursor
-					.getColumnIndexOrThrow(AddressBookProvider.KEY_ADDRESS)));
+			final TextView labelView = (TextView) viewGroup.findViewById(R.id.address_book_row_label);
+			labelView.setText(label);
+			final TextView addressView = (TextView) viewGroup.findViewById(R.id.address_book_row_address);
+			addressView.setText(WalletUtils.formatAddress(address, Constants.ADDRESS_FORMAT_GROUP_SIZE, Constants.ADDRESS_FORMAT_LINE_SIZE));
 		}
 
 		@Override
