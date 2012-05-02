@@ -82,9 +82,19 @@ public class WalletUtils
 		return formatAddress(address.toString(), groupSize, lineSize);
 	}
 
+	public static Editable formatAddress(final String prefix, final Address address, final int groupSize, final int lineSize)
+	{
+		return formatAddress(prefix, address.toString(), groupSize, lineSize);
+	}
+
 	public static Editable formatAddress(final String address, final int groupSize, final int lineSize)
 	{
-		final SpannableStringBuilder builder = new SpannableStringBuilder();
+		return formatAddress(null, address, groupSize, lineSize);
+	}
+
+	public static Editable formatAddress(final String prefix, final String address, final int groupSize, final int lineSize)
+	{
+		final SpannableStringBuilder builder = prefix != null ? new SpannableStringBuilder(prefix) : new SpannableStringBuilder();
 
 		final int len = address.length();
 		for (int i = 0; i < len; i += groupSize)

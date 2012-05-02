@@ -95,7 +95,6 @@
 	<string name="transaction_activity_title">Muamele</string>
 
 	<string name="transaction_fragment_time_label">Tarih</string>
-	<string name="transaction_fragment_time_today">bugün</string>
 	<string name="transaction_fragment_amount_sent_label">Gönderilen</string>
 	<string name="transaction_fragment_amount_received_label">Alınan</string>
 	<string name="transaction_fragment_from_label">Gönderici</string>
@@ -133,5 +132,7 @@
 	<string name="button_delete">Sil</string>
 	<string name="button_request_coins">Bitcoin talep et</string>
 	<string name="button_send_coins">Bitcoin gönder</string>
+
+	<string name="time_today">bugün</string>
 
 </resources>

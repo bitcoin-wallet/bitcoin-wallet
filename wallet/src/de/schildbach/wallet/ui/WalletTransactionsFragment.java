@@ -46,18 +46,18 @@ import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
 import android.support.v4.view.ViewPager;
 import android.text.format.DateUtils;
-import android.view.ContextMenu;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.actionbarsherlock.app.SherlockListFragment;
+import com.actionbarsherlock.view.ActionMode;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
 import com.google.bitcoin.core.AbstractWalletEventListener;
 import com.google.bitcoin.core.Address;
 import com.google.bitcoin.core.ScriptException;
@@ -70,10 +70,12 @@ import com.google.bitcoin.core.Wallet;
 import com.google.bitcoin.core.WalletEventListener;
 
 import de.schildbach.wallet.AddressBookProvider;
+import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.service.BlockchainService;
 import de.schildbach.wallet.util.CircularProgressView;
 import de.schildbach.wallet.util.ViewPagerTabs;
+import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
 
 /**
@@ -196,11 +198,11 @@ public final class WalletTransactionsFragment extends Fragment
 		};
 	}
 
-	public static class ListFragment extends android.support.v4.app.ListFragment implements LoaderCallbacks<List<Transaction>>
+	public static class ListFragment extends SherlockListFragment implements LoaderCallbacks<List<Transaction>>
 	{
+		private AbstractWalletActivity activity;
 		private WalletApplication application;
 		private Wallet wallet;
-		private Activity activity;
 		private ContentResolver resolver;
 		private ArrayAdapter<Transaction> adapter;
 
@@ -253,7 +255,7 @@ public final class WalletTransactionsFragment extends Fragment
 		{
 			super.onAttach(activity);
 
-			this.activity = activity;
+			this.activity = (AbstractWalletActivity) activity;
 			resolver = activity.getContentResolver();
 			application = (WalletApplication) activity.getApplication();
 			wallet = application.getWallet();
@@ -383,29 +385,6 @@ public final class WalletTransactionsFragment extends Fragment
 						throw new RuntimeException(x);
 					}
 				}
-
-				private Address getFromAddress(final Transaction tx) throws ScriptException
-				{
-					for (final TransactionInput input : tx.getInputs())
-					{
-						if (input.isCoinBase())
-							return null;
-
-						return input.getFromAddress();
-					}
-
-					throw new IllegalStateException();
-				}
-
-				private Address getToAddress(final Transaction tx) throws ScriptException
-				{
-					for (final TransactionOutput output : tx.getOutputs())
-					{
-						return output.getScriptPubKey().getToAddress();
-					}
-
-					throw new IllegalStateException();
-				}
 			};
 
 			activity.getContentResolver().registerContentObserver(AddressBookProvider.CONTENT_URI, true, addressBookObserver);
@@ -433,8 +412,6 @@ public final class WalletTransactionsFragment extends Fragment
 					: R.string.wallet_transactions_fragment_empty_text_received));
 
 			setListAdapter(adapter);
-
-			registerForContextMenu(listView);
 		}
 
 		@Override
@@ -475,40 +452,114 @@ public final class WalletTransactionsFragment extends Fragment
 		public void onListItemClick(final ListView l, final View v, final int position, final long id)
 		{
 			final Transaction tx = (Transaction) adapter.getItem(position);
-			editAddress(tx);
-		}
 
-		// workaround http://code.google.com/p/android/issues/detail?id=20065
-		private static View lastContextMenuView;
-
-		@Override
-		public void onCreateContextMenu(final ContextMenu menu, final View v, final ContextMenuInfo menuInfo)
-		{
-			activity.getMenuInflater().inflate(R.menu.wallet_transactions_context, menu);
-
-			lastContextMenuView = v;
-		}
-
-		@Override
-		public boolean onContextItemSelected(final MenuItem item)
-		{
-			final AdapterContextMenuInfo menuInfo = (AdapterContextMenuInfo) item.getMenuInfo();
-			final ListAdapter adapter = ((ListView) lastContextMenuView).getAdapter();
-			final Transaction tx = (Transaction) adapter.getItem(menuInfo.position);
-
-			switch (item.getItemId())
+			activity.startActionMode(new ActionMode.Callback()
 			{
-				case R.id.wallet_transactions_context_edit_address:
-					editAddress(tx);
-					return true;
+				public boolean onCreateActionMode(final ActionMode mode, final Menu menu)
+				{
+					final MenuInflater inflater = mode.getMenuInflater();
+					inflater.inflate(R.menu.wallet_transactions_context, menu);
 
-				case R.id.wallet_transactions_context_show_transaction:
-					TransactionActivity.show(activity, tx);
 					return true;
+				}
 
-				default:
+				public boolean onPrepareActionMode(final ActionMode mode, final Menu menu)
+				{
+					try
+					{
+						final Date time = tx.getUpdateTime();
+						final DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(activity);
+						final DateFormat timeFormat = android.text.format.DateFormat.getTimeFormat(activity);
+
+						mode.setTitle(time != null ? (DateUtils.isToday(time.getTime()) ? getString(R.string.time_today) : dateFormat.format(time))
+								+ ", " + timeFormat.format(time) : null);
+
+						final BigInteger value = tx.getValue(wallet);
+						final boolean sent = value.signum() < 0;
+
+						final Address address = sent ? getToAddress(tx) : getFromAddress(tx);
+						final String label;
+						if (address != null)
+							label = resolveLabel(address.toString());
+						else
+							label = sent ? "?" : getString(R.string.wallet_transactions_fragment_coinbase);
+
+						final String prefix = getString(sent ? R.string.symbol_to : R.string.symbol_from) + " ";
+
+						mode.setSubtitle(label != null ? prefix + label : WalletUtils.formatAddress(prefix, address,
+								Constants.ADDRESS_FORMAT_GROUP_SIZE, Constants.ADDRESS_FORMAT_LINE_SIZE));
+
+						return true;
+					}
+					catch (final ScriptException x)
+					{
+						return false;
+					}
+				}
+
+				public boolean onActionItemClicked(final ActionMode mode, final MenuItem item)
+				{
+					switch (item.getItemId())
+					{
+						case R.id.wallet_transactions_context_edit_address:
+							handleEditAddress(tx);
+
+							mode.finish();
+							return true;
+
+						case R.id.wallet_transactions_context_show_transaction:
+							TransactionActivity.show(activity, tx);
+
+							mode.finish();
+							return true;
+					}
 					return false;
+				}
+
+				public void onDestroyActionMode(final ActionMode mode)
+				{
+				}
+
+				private void handleEditAddress(final Transaction tx)
+				{
+					try
+					{
+						final boolean sent = tx.getValue(wallet).signum() < 0;
+						final Address address = sent ? tx.getOutputs().get(0).getScriptPubKey().getToAddress() : tx.getInputs().get(0)
+								.getFromAddress();
+
+						EditAddressBookEntryFragment.edit(getFragmentManager(), address.toString());
+					}
+					catch (final ScriptException x)
+					{
+						// ignore click
+						x.printStackTrace();
+					}
+				}
+			});
+		}
+
+		private Address getFromAddress(final Transaction tx) throws ScriptException
+		{
+			for (final TransactionInput input : tx.getInputs())
+			{
+				if (input.isCoinBase())
+					return null;
+
+				return input.getFromAddress();
 			}
+
+			throw new IllegalStateException();
+		}
+
+		private Address getToAddress(final Transaction tx) throws ScriptException
+		{
+			for (final TransactionOutput output : tx.getOutputs())
+			{
+				return output.getScriptPubKey().getToAddress();
+			}
+
+			throw new IllegalStateException();
 		}
 
 		private String resolveLabel(final String address)
@@ -526,22 +577,6 @@ public final class WalletTransactionsFragment extends Fragment
 			else
 			{
 				return cachedLabel != NULL_MARKER ? cachedLabel : null;
-			}
-		}
-
-		private void editAddress(final Transaction tx)
-		{
-			try
-			{
-				final boolean sent = tx.getValue(wallet).signum() < 0;
-				final Address address = sent ? tx.getOutputs().get(0).getScriptPubKey().getToAddress() : tx.getInputs().get(0).getFromAddress();
-
-				EditAddressBookEntryFragment.edit(getFragmentManager(), address.toString());
-			}
-			catch (final ScriptException x)
-			{
-				// ignore click
-				x.printStackTrace();
 			}
 		}
 

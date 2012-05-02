@@ -121,8 +121,8 @@ public final class TransactionFragment extends SherlockFragment
 		if (time != null)
 		{
 			final TextView viewDate = (TextView) view.findViewById(R.id.transaction_fragment_time);
-			viewDate.setText((DateUtils.isToday(time.getTime()) ? getString(R.string.transaction_fragment_time_today) : dateFormat.format(time))
-					+ ", " + timeFormat.format(time));
+			viewDate.setText((DateUtils.isToday(time.getTime()) ? getString(R.string.time_today) : dateFormat.format(time)) + ", "
+					+ timeFormat.format(time));
 		}
 
 		try

@@ -107,7 +107,6 @@
 	<string name="transaction_activity_title">Transaktion</string>
 
 	<string name="transaction_fragment_time_label">Datum</string>
-	<string name="transaction_fragment_time_today">heute</string>
 	<string name="transaction_fragment_amount_sent_label">Gesendet</string>
 	<string name="transaction_fragment_amount_received_label">Empfangen</string>
 	<string name="transaction_fragment_from_label">Sender</string>
@@ -154,5 +153,7 @@
 	<string name="button_set_as_default">Als Standard setzen</string>
 	<string name="button_request_coins">BTC anfordern</string>
 	<string name="button_send_coins">BTC senden</string>
+
+	<string name="time_today">heute</string>
 
 </resources>

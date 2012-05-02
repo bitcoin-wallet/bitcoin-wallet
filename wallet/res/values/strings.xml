@@ -107,7 +107,6 @@
 	<string name="transaction_activity_title">Transaction</string>
 
 	<string name="transaction_fragment_time_label">Date</string>
-	<string name="transaction_fragment_time_today">today</string>
 	<string name="transaction_fragment_amount_sent_label">Sent</string>
 	<string name="transaction_fragment_amount_received_label">Received</string>
 	<string name="transaction_fragment_from_label">Sender</string>
@@ -154,5 +153,7 @@
 	<string name="button_set_as_default">Set as default</string>
 	<string name="button_request_coins">Request coins</string>
 	<string name="button_send_coins">Send coins</string>
+
+	<string name="time_today">today</string>
 
 </resources>
