@@ -221,8 +221,11 @@ public class WalletApplication extends Application
 						.show();
 			}
 
+			if (!wallet.isConsistent())
+				throw new Error("wallet is inconsistent: " + Constants.WALLET_FILENAME_PROTOBUF);
+
 			if (!wallet.getParams().equals(Constants.NETWORK_PARAMETERS))
-				throw new IllegalStateException("bad wallet network parameters: " + wallet.getParams().getId());
+				throw new Error("bad wallet network parameters: " + wallet.getParams().getId());
 
 			System.out.println("wallet loaded from: '" + getFilesDir() + "/" + Constants.WALLET_FILENAME_PROTOBUF + "', took "
 					+ (System.currentTimeMillis() - start) + "ms");
