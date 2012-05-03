@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+	android:layout_marginTop="8dp"
+	android:background="@drawable/button_bar_background"
+	android:paddingBottom="4dp"
+	android:paddingLeft="4dp"
+	android:paddingRight="4dp"
+	android:paddingTop="6dp"
+	android:stretchColumns="0,1" >
+
+	<TableRow>
+
+		<Button
+			android:id="@+id/send_coins_go"
+			android:background="@drawable/btn_default"
+			android:paddingLeft="12dp"
+			android:paddingRight="12dp"
+			android:textColor="@color/significant"
+			android:textSize="@dimen/font_size_small"
+			android:textStyle="bold" />
+
+		<Button
+			android:id="@+id/send_coins_cancel"
+			android:background="@drawable/btn_default"
+			android:paddingLeft="12dp"
+			android:paddingRight="12dp"
+			android:textColor="@color/significant"
+			android:textSize="@dimen/font_size_small" />
+	</TableRow>
+
+</TableLayout>
