@@ -7,4 +7,6 @@
 
 	<style name="My.Widget.Spinner" parent="@android:style/Widget.Holo.Light.Spinner" />
 
+	<style name="My.Widget.CompoundButton.CheckBox" parent="@android:style/Widget.Holo.Light.CompoundButton.CheckBox" />
+
 </resources>

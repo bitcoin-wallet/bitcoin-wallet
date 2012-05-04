@@ -47,6 +47,15 @@
 		android:layout_marginLeft="12dp"
 		android:layout_marginRight="12dp" />
 
+	<CheckBox
+		android:id="@+id/request_coins_fragment_include_label"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginLeft="12dp"
+		android:layout_marginRight="12dp"
+		android:text="@string/request_coins_fragment_include_address_label"
+		android:textSize="@dimen/font_size_normal" />
+
 	<TextView
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"

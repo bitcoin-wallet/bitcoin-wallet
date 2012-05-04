@@ -21,6 +21,7 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 
 import android.app.Activity;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -35,6 +36,9 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageView;
 import android.widget.Spinner;
 
@@ -46,6 +50,7 @@ import com.google.bitcoin.core.Address;
 import com.google.bitcoin.core.ECKey;
 import com.google.bitcoin.uri.BitcoinURI;
 
+import de.schildbach.wallet.AddressBookProvider;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.ui.CurrencyAmountView.Listener;
@@ -61,6 +66,7 @@ public final class RequestCoinsFragment extends SherlockFragment
 {
 	private AbstractWalletActivity activity;
 	private WalletApplication application;
+	private ContentResolver contentResolver;
 	private Object nfcManager;
 	private ClipboardManager clipboardManager;
 
@@ -68,6 +74,7 @@ public final class RequestCoinsFragment extends SherlockFragment
 	private Bitmap qrCodeBitmap;
 	private CurrencyAmountView amountView;
 	private Spinner addressView;
+	private CheckBox includeLabelView;
 	private View nfcEnabledView;
 
 	@Override
@@ -76,6 +83,7 @@ public final class RequestCoinsFragment extends SherlockFragment
 		super.onAttach(activity);
 		this.activity = (AbstractWalletActivity) activity;
 		application = (WalletApplication) activity.getApplication();
+		contentResolver = activity.getContentResolver();
 
 		nfcManager = activity.getSystemService(Context.NFC_SERVICE);
 		clipboardManager = (ClipboardManager) activity.getSystemService(Context.CLIPBOARD_SERVICE);
@@ -162,6 +170,15 @@ public final class RequestCoinsFragment extends SherlockFragment
 			}
 		}
 
+		includeLabelView = (CheckBox) view.findViewById(R.id.request_coins_fragment_include_label);
+		includeLabelView.setOnCheckedChangeListener(new OnCheckedChangeListener()
+		{
+			public void onCheckedChanged(final CompoundButton buttonView, final boolean isChecked)
+			{
+				updateView();
+			}
+		});
+
 		nfcEnabledView = view.findViewById(R.id.request_coins_fragment_nfc_enabled);
 
 		return view;
@@ -245,10 +262,13 @@ public final class RequestCoinsFragment extends SherlockFragment
 
 	private String determineRequestStr()
 	{
+		final boolean includeLabel = includeLabelView.isChecked();
+
 		final ECKey key = application.getWallet().keychain.get(addressView.getSelectedItemPosition());
 		final Address address = key.toAddress(Constants.NETWORK_PARAMETERS);
+		final String label = includeLabel ? AddressBookProvider.resolveLabel(contentResolver, address.toString()) : null;
 		final BigInteger amount = amountView.getAmount();
 
-		return BitcoinURI.convertToBitcoinURI(address, amount, null, null).toString();
+		return BitcoinURI.convertToBitcoinURI(address, amount, label, null).toString();
 	}
 }

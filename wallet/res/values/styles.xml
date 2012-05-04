@@ -9,6 +9,7 @@
 		<item name="android:editTextStyle">@style/My.Widget.EditText</item>
 		<item name="android:autoCompleteTextViewStyle">@style/My.Widget.AutoCompleteTextView</item>
 		<item name="android:spinnerStyle">@style/My.Widget.Spinner</item>
+		<item name="android:checkboxStyle">@style/My.Widget.CompoundButton.CheckBox</item>
 	</style>
 
 	<style name="My.Widget.ActionBar" parent="Widget.Sherlock.Light.ActionBar.Solid.Inverse">
@@ -54,6 +55,11 @@
 
 	<style name="My.Widget.Spinner" parent="@android:style/Widget.Spinner">
 		<item name="android:background">@drawable/edit_text</item>
+	</style>
+
+	<style name="My.Widget.CompoundButton.CheckBox" parent="@android:style/Widget.CompoundButton.CheckBox">
+		<item name="android:button">@drawable/btn_check</item>
+		<item name="android:paddingLeft">42dp</item>
 	</style>
 
 </resources>
