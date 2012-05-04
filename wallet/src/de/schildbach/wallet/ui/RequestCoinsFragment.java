@@ -162,7 +162,6 @@ public final class RequestCoinsFragment extends SherlockFragment
 		for (int i = 0; i < keys.size(); i++)
 		{
 			final Address address = keys.get(i).toAddress(Constants.NETWORK_PARAMETERS);
-			System.out.println(i + " = " + address);
 			if (address.equals(selectedAddress))
 			{
 				addressView.setSelection(i);

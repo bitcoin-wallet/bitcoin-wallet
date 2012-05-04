@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+	<item
+		android:id="@+id/send_coins_address_context_clear"
+		android:icon="@drawable/ic_action_clear"
+		android:showAsAction="always|withText"
+		android:title="@string/send_coins_address_context_clear_title"/>
+
+</menu>

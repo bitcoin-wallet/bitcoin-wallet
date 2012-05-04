@@ -98,7 +98,7 @@ public class WalletAddressesAdapter extends BaseAdapter
 		}
 		else
 		{
-			labelView.setText(R.string.wallet_addresses_fragment_unlabeled);
+			labelView.setText(R.string.address_unlabeled);
 			labelView.setTextColor(colorInsignificant);
 		}
 

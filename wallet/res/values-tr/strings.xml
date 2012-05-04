@@ -23,7 +23,6 @@
 		<item>Panoya kopyala</item>
 		<item>Paylaş</item>
 	</string-array>
-	<string name="wallet_addresses_fragment_unlabeled">(etiketsiz)</string>
 	<string name="wallet_addresses_fragment_add_dialog_title">Bitcoin adresi ekle</string>
 	<string name="wallet_addresses_fragment_add_dialog_message">Bitcoin adresleri silinemez. Cüzdanınıza yeni bir adres eklemek istediğinizden emin misiniz?</string>
 	<string name="wallet_balance_fragment_local_value">değeri yaklaşık %1$s %2$s</string>
@@ -134,5 +133,6 @@
 	<string name="button_send_coins">Bitcoin gönder</string>
 
 	<string name="time_today">bugün</string>
+	<string name="address_unlabeled">(etiketsiz)</string>
 
 </resources>

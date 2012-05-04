@@ -23,7 +23,6 @@
 		<item>Ins Clipboard kopieren</item>
 		<item>Veröffentlichen</item>
 	</string-array>
-	<string name="wallet_addresses_fragment_unlabeled">(unbenannt)</string>
 	<string name="wallet_addresses_fragment_add_dialog_title">Bitcoin-Adresse hinzufügen</string>
 	<string name="wallet_addresses_fragment_add_dialog_message">Bitcoin-Adressen können nicht gelöscht werden. Möchtest Du eine neue Adresse zu Deinem Wallet hinzufügen?</string>
 	<string name="wallet_balance_fragment_local_value">etwa %1$s %2$s wert</string>
@@ -75,7 +74,8 @@
 	<string name="send_coins_error_msg">Problem beim Versenden der Bitcoins!</string>
 	<string name="send_coins_success_msg">BTC %s versendet!</string>
 	<string name="send_coins_options_scan_title">Scannen</string>
-	
+	<string name="send_coins_address_context_clear_title">Adresse neu eingeben</string>
+
 	<string name="request_coins_activity_title">Bitcoins anfordern</string>
 	<string name="request_coins_fragment_amount_label">Angeforderter Betrag (optional)</string>
 	<string name="request_coins_fragment_address_label">Anfordernde Adresse</string>
@@ -157,5 +157,6 @@
 	<string name="button_send_coins">BTC senden</string>
 
 	<string name="time_today">heute</string>
+	<string name="address_unlabeled">(unbenannt)</string>
 
 </resources>
