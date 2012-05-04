@@ -50,6 +50,7 @@
 	<TextView
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
+		android:layout_marginBottom="4dp"
 		android:layout_marginLeft="20dp"
 		android:layout_marginRight="20dp"
 		android:layout_marginTop="8dp"
@@ -59,17 +60,17 @@
 
 	<FrameLayout
 		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
+		android:layout_height="0px"
 		android:layout_gravity="center"
 		android:layout_weight="1" >
 
 		<ImageView
 			android:id="@+id/request_coins_qr"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
+			android:layout_width="128dp"
+			android:layout_height="128dp"
 			android:layout_gravity="center"
 			android:background="@drawable/qrcode_frame"
-			android:padding="16dp"
+			android:padding="8dp"
 			android:scaleType="centerInside" />
 	</FrameLayout>
 
@@ -79,6 +80,7 @@
 		android:layout_height="wrap_content"
 		android:layout_gravity="center_horizontal"
 		android:layout_marginBottom="8dp"
+		android:layout_marginTop="4dp"
 		android:text="@string/request_coins_fragment_nfc_enabled"
 		android:textSize="@dimen/font_size_normal"
 		android:textStyle="bold"

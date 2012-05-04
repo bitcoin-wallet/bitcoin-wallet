@@ -45,7 +45,8 @@
 		</activity>
 
 		<activity android:name="de.schildbach.wallet.ui.RequestCoinsActivity"
-			android:screenOrientation="behind" android:configChanges="orientation|keyboard|keyboardHidden" />
+			android:screenOrientation="behind" android:configChanges="orientation|keyboard|keyboardHidden"
+			android:windowSoftInputMode="adjustResize" />
 
 		<activity android:name="de.schildbach.wallet.ui.TransactionActivity"
 			android:screenOrientation="behind" android:configChanges="orientation|keyboard|keyboardHidden">
