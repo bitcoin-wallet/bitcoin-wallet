@@ -18,6 +18,7 @@
 package de.schildbach.wallet.ui;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
 
 import android.app.Activity;
 import android.content.Context;
@@ -32,13 +33,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ImageView;
+import android.widget.Spinner;
 
 import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.google.bitcoin.core.Address;
+import com.google.bitcoin.core.ECKey;
 import com.google.bitcoin.uri.BitcoinURI;
 
 import de.schildbach.wallet.Constants;
@@ -62,6 +67,7 @@ public final class RequestCoinsFragment extends SherlockFragment
 	private ImageView qrView;
 	private Bitmap qrCodeBitmap;
 	private CurrencyAmountView amountView;
+	private Spinner addressView;
 	private View nfcEnabledView;
 
 	@Override
@@ -129,6 +135,33 @@ public final class RequestCoinsFragment extends SherlockFragment
 			}
 		});
 
+		addressView = (Spinner) view.findViewById(R.id.request_coins_fragment_address);
+		final ArrayList<ECKey> keys = application.getWallet().keychain;
+		final WalletAddressesAdapter adapter = new WalletAddressesAdapter(activity, keys, false);
+		addressView.setAdapter(adapter);
+		addressView.setOnItemSelectedListener(new OnItemSelectedListener()
+		{
+			public void onItemSelected(final AdapterView<?> parent, final View view, final int position, final long id)
+			{
+				updateView();
+			}
+
+			public void onNothingSelected(final AdapterView<?> parent)
+			{
+			}
+		});
+		final Address selectedAddress = application.determineSelectedAddress();
+		for (int i = 0; i < keys.size(); i++)
+		{
+			final Address address = keys.get(i).toAddress(Constants.NETWORK_PARAMETERS);
+			System.out.println(i + " = " + address);
+			if (address.equals(selectedAddress))
+			{
+				addressView.setSelection(i);
+				break;
+			}
+		}
+
 		nfcEnabledView = view.findViewById(R.id.request_coins_fragment_nfc_enabled);
 
 		return view;
@@ -178,41 +211,42 @@ public final class RequestCoinsFragment extends SherlockFragment
 
 	private void handleShare()
 	{
-		startActivity(Intent.createChooser(new Intent(Intent.ACTION_SEND).putExtra(Intent.EXTRA_TEXT, determineAddressStr()).setType("text/plain"),
+		startActivity(Intent.createChooser(new Intent(Intent.ACTION_SEND).putExtra(Intent.EXTRA_TEXT, determineRequestStr()).setType("text/plain"),
 				getActivity().getString(R.string.request_coins_share_dialog_title)));
 	}
 
 	private void handleCopy()
 	{
-		final String addressStr = determineAddressStr();
-		clipboardManager.setText(addressStr);
+		final String request = determineRequestStr();
+		clipboardManager.setText(request);
 		activity.toast(R.string.request_coins_clipboard_msg);
 
-		System.out.println("bitcoin request uri: " + addressStr + (Constants.TEST ? " [testnet]" : ""));
+		System.out.println("bitcoin request uri: " + request + (Constants.TEST ? " [testnet]" : ""));
 	}
 
 	private void updateView()
 	{
-		final String addressStr = determineAddressStr();
+		final String request = determineRequestStr();
 
 		if (qrCodeBitmap != null)
 			qrCodeBitmap.recycle();
 
 		final int size = (int) (256 * getResources().getDisplayMetrics().density);
-		qrCodeBitmap = WalletUtils.getQRCodeBitmap(addressStr, size);
+		qrCodeBitmap = WalletUtils.getQRCodeBitmap(request, size);
 		qrView.setImageBitmap(qrCodeBitmap);
 
 		if (nfcManager != null)
 		{
-			final boolean success = NfcTools.publishUri(nfcManager, getActivity(), addressStr);
+			final boolean success = NfcTools.publishUri(nfcManager, getActivity(), request);
 			if (success)
 				nfcEnabledView.setVisibility(View.VISIBLE);
 		}
 	}
 
-	private String determineAddressStr()
+	private String determineRequestStr()
 	{
-		final Address address = application.determineSelectedAddress();
+		final ECKey key = application.getWallet().keychain.get(addressView.getSelectedItemPosition());
+		final Address address = key.toAddress(Constants.NETWORK_PARAMETERS);
 		final BigInteger amount = amountView.getAmount();
 
 		return BitcoinURI.convertToBitcoinURI(address, amount, null, null).toString();

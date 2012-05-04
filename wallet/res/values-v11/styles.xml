@@ -5,4 +5,6 @@
 
 	<style name="My.Widget.AutoCompleteTextView" parent="@android:style/Widget.Holo.Light.AutoCompleteTextView" />
 
+	<style name="My.Widget.Spinner" parent="@android:style/Widget.Holo.Light.Spinner" />
+
 </resources>

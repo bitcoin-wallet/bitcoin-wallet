@@ -8,6 +8,7 @@
 		<item name="android:actionModeStyle">@style/My.Widget.ActionMode</item>
 		<item name="android:editTextStyle">@style/My.Widget.EditText</item>
 		<item name="android:autoCompleteTextViewStyle">@style/My.Widget.AutoCompleteTextView</item>
+		<item name="android:spinnerStyle">@style/My.Widget.Spinner</item>
 	</style>
 
 	<style name="My.Widget.ActionBar" parent="Widget.Sherlock.Light.ActionBar.Solid.Inverse">
@@ -48,6 +49,10 @@
 	</style>
 
 	<style name="My.Widget.AutoCompleteTextView" parent="@android:style/Widget.AutoCompleteTextView">
+		<item name="android:background">@drawable/edit_text</item>
+	</style>
+
+	<style name="My.Widget.Spinner" parent="@android:style/Widget.Spinner">
 		<item name="android:background">@drawable/edit_text</item>
 	</style>
 

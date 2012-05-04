@@ -17,9 +17,7 @@
 
 package de.schildbach.wallet.ui;
 
-import java.text.DateFormat;
 import java.util.Date;
-import java.util.List;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -32,13 +30,10 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.text.ClipboardManager;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockListFragment;
 import com.actionbarsherlock.view.ActionMode;
@@ -47,7 +42,6 @@ import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.google.bitcoin.core.Address;
 import com.google.bitcoin.core.ECKey;
-import com.google.bitcoin.core.Wallet;
 import com.google.bitcoin.uri.BitcoinURI;
 
 import de.schildbach.wallet.AddressBookProvider;
@@ -84,9 +78,7 @@ public final class WalletAddressesFragment extends SherlockListFragment
 
 		setHasOptionsMenu(true);
 
-		final Wallet wallet = application.getWallet();
-
-		setListAdapter(new Adapter(wallet.keychain));
+		setListAdapter(new WalletAddressesAdapter(activity, application.getWallet().keychain, true));
 	}
 
 	@Override
@@ -291,76 +283,6 @@ public final class WalletAddressesFragment extends SherlockListFragment
 		final ListAdapter adapter = getListAdapter();
 		if (adapter != null)
 			((BaseAdapter) adapter).notifyDataSetChanged();
-	}
-
-	private class Adapter extends BaseAdapter
-	{
-		private final DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(activity);
-		private final int colorInsignificant = getResources().getColor(R.color.insignificant);
-		private final int colorLessSignificant = getResources().getColor(R.color.less_significant);
-		private final LayoutInflater inflater = getLayoutInflater(null);
-		private final ContentResolver resolver = activity.getContentResolver();
-
-		private List<ECKey> keys;
-
-		public Adapter(final List<ECKey> keys)
-		{
-			this.keys = keys;
-		}
-
-		public int getCount()
-		{
-			return keys.size();
-		}
-
-		public Object getItem(final int position)
-		{
-			return keys.get(position);
-		}
-
-		public long getItemId(final int position)
-		{
-			return keys.get(position).hashCode();
-		}
-
-		public View getView(final int position, View row, final ViewGroup parent)
-		{
-			final ECKey key = (ECKey) getItem(position);
-			final Address address = key.toAddress(Constants.NETWORK_PARAMETERS);
-
-			if (row == null)
-				row = inflater.inflate(R.layout.address_book_row, null);
-
-			final TextView addressView = (TextView) row.findViewById(R.id.address_book_row_address);
-			addressView.setText(WalletUtils.formatAddress(address, Constants.ADDRESS_FORMAT_GROUP_SIZE, Constants.ADDRESS_FORMAT_LINE_SIZE));
-
-			final TextView labelView = (TextView) row.findViewById(R.id.address_book_row_label);
-			final String label = AddressBookProvider.resolveLabel(resolver, address.toString());
-			if (label != null)
-			{
-				labelView.setText(label);
-				labelView.setTextColor(colorLessSignificant);
-			}
-			else
-			{
-				labelView.setText(R.string.wallet_addresses_fragment_unlabeled);
-				labelView.setTextColor(colorInsignificant);
-			}
-
-			final TextView createdView = (TextView) row.findViewById(R.id.address_book_row_created);
-			final long created = key.getCreationTimeSeconds();
-			if (created != 0)
-			{
-				createdView.setText(dateFormat.format(new Date(created * 1000)));
-				createdView.setVisibility(View.VISIBLE);
-			}
-			else
-			{
-				createdView.setVisibility(View.GONE);
-			}
-
-			return row;
-		}
 	}
 
 	private final Handler handler = new Handler();

@@ -32,6 +32,24 @@
 	<TextView
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
+		android:layout_marginBottom="4dp"
+		android:layout_marginLeft="20dp"
+		android:layout_marginRight="20dp"
+		android:layout_marginTop="8dp"
+		android:text="@string/request_coins_fragment_address_label"
+		android:textSize="@dimen/font_size_normal"
+		android:textStyle="bold" />
+
+	<Spinner
+		android:id="@+id/request_coins_fragment_address"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginLeft="12dp"
+		android:layout_marginRight="12dp" />
+
+	<TextView
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
 		android:layout_marginLeft="20dp"
 		android:layout_marginRight="20dp"
 		android:layout_marginTop="8dp"
