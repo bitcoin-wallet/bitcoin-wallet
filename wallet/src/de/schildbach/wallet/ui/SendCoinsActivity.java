@@ -90,7 +90,7 @@ public final class SendCoinsActivity extends AbstractWalletActivity
 			final String contents = intent.getStringExtra("SCAN_RESULT");
 			if (contents.matches("[a-zA-Z0-9]*"))
 			{
-				updateSendCoinsFragment(contents, null);
+				updateSendCoinsFragment(contents, null, null);
 			}
 			else
 			{
@@ -98,7 +98,8 @@ public final class SendCoinsActivity extends AbstractWalletActivity
 				{
 					final BitcoinURI bitcoinUri = new BitcoinURI(null, contents);
 					final Address address = bitcoinUri.getAddress();
-					updateSendCoinsFragment(address != null ? address.toString() : null, bitcoinUri.getAmount());
+					final String addressLabel = bitcoinUri.getLabel();
+					updateSendCoinsFragment(address != null ? address.toString() : null, addressLabel, bitcoinUri.getAmount());
 				}
 				catch (final BitcoinURIParseException x)
 				{
@@ -153,6 +154,7 @@ public final class SendCoinsActivity extends AbstractWalletActivity
 		final String scheme = intentUri != null ? intentUri.getScheme() : null;
 
 		final String address;
+		final String addressLabel;
 		final BigInteger amount;
 
 		if ((Intent.ACTION_VIEW.equals(action) || NfcAdapter.ACTION_NDEF_DISCOVERED.equals(action)) && intentUri != null && "bitcoin".equals(scheme))
@@ -161,6 +163,7 @@ public final class SendCoinsActivity extends AbstractWalletActivity
 			{
 				final BitcoinURI bitcoinUri = new BitcoinURI(null, intentUri.toString());
 				address = bitcoinUri.getAddress().toString();
+				addressLabel = bitcoinUri.getLabel();
 				amount = bitcoinUri.getAmount();
 			}
 			catch (final BitcoinURIParseException x)
@@ -172,6 +175,7 @@ public final class SendCoinsActivity extends AbstractWalletActivity
 		else if (intent.hasExtra(INTENT_EXTRA_ADDRESS))
 		{
 			address = intent.getStringExtra(INTENT_EXTRA_ADDRESS);
+			addressLabel = null; // TODO
 			amount = null;
 		}
 		else
@@ -180,15 +184,15 @@ public final class SendCoinsActivity extends AbstractWalletActivity
 		}
 
 		if (address != null || amount != null)
-			updateSendCoinsFragment(address, amount);
+			updateSendCoinsFragment(address, addressLabel, amount);
 		else
 			longToast(R.string.send_coins_parse_address_error_msg);
 	}
 
-	private void updateSendCoinsFragment(final String address, final BigInteger amount)
+	private void updateSendCoinsFragment(final String receivingAddress, final String receivingLabel, final BigInteger amount)
 	{
 		final SendCoinsFragment sendCoinsFragment = (SendCoinsFragment) getSupportFragmentManager().findFragmentById(R.id.send_coins_fragment);
 
-		sendCoinsFragment.update(address, amount);
+		sendCoinsFragment.update(receivingAddress, receivingLabel, amount);
 	}
 }

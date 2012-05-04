@@ -90,6 +90,7 @@ public final class SendCoinsFragment extends SherlockFragment
 	private Button viewCancel;
 
 	private Address validatedAddress;
+	private String receivingLabel;
 
 	private State state = State.INPUT;
 
@@ -120,6 +121,7 @@ public final class SendCoinsFragment extends SherlockFragment
 			try
 			{
 				validatedAddress = new Address(Constants.NETWORK_PARAMETERS, s.toString().trim());
+				receivingLabel = null;
 			}
 			catch (final Exception x)
 			{
@@ -227,6 +229,7 @@ public final class SendCoinsFragment extends SherlockFragment
 
 									// switch from static to input
 									validatedAddress = null;
+									receivingLabel = null;
 									receivingAddressView.setText(null);
 									receivingStaticAddressView.setText(null);
 
@@ -320,7 +323,7 @@ public final class SendCoinsFragment extends SherlockFragment
 
 							final String label = AddressBookProvider.resolveLabel(contentResolver, validatedAddress.toString());
 							if (label == null)
-								showAddAddressDialog(validatedAddress.toString());
+								showAddAddressDialog(validatedAddress.toString(), receivingLabel);
 
 							// TransactionActivity.show(activity, tx);
 						}
@@ -449,7 +452,8 @@ public final class SendCoinsFragment extends SherlockFragment
 			receivingStaticAddressView.setText(WalletUtils.formatAddress(validatedAddress, Constants.ADDRESS_FORMAT_GROUP_SIZE,
 					Constants.ADDRESS_FORMAT_LINE_SIZE));
 			final String label = AddressBookProvider.resolveLabel(contentResolver, validatedAddress.toString());
-			receivingStaticLabelView.setText(label != null ? label : getString(R.string.address_unlabeled));
+			receivingStaticLabelView.setText(label != null ? label
+					: (receivingLabel != null ? receivingLabel : getString(R.string.address_unlabeled)));
 			receivingStaticLabelView.setTextColor(label != null ? R.color.significant : R.color.insignificant);
 		}
 		else
@@ -517,11 +521,12 @@ public final class SendCoinsFragment extends SherlockFragment
 		viewCancel.setText(state != State.SENT ? R.string.button_cancel : R.string.send_coins_fragment_button_back);
 	}
 
-	public void update(final String receivingAddress, final BigInteger amount)
+	public void update(final String receivingAddress, final String receivingLabel, final BigInteger amount)
 	{
 		try
 		{
 			validatedAddress = new Address(Constants.NETWORK_PARAMETERS, receivingAddress);
+			this.receivingLabel = receivingLabel;
 		}
 		catch (final Exception x)
 		{
@@ -532,13 +537,16 @@ public final class SendCoinsFragment extends SherlockFragment
 		if (amount != null)
 			amountView.setAmount(amount);
 
+		// focus
 		if (receivingAddress != null && amount == null)
 			amountView.requestFocus();
+		else if (receivingAddress != null && amount != null)
+			feeView.requestFocus();
 
 		updateView();
 	}
 
-	private void showAddAddressDialog(final String address)
+	private void showAddAddressDialog(final String address, final String suggestedAddressLabel)
 	{
 		final AlertDialog.Builder builder = new AlertDialog.Builder(activity);
 		builder.setMessage(R.string.send_coins_add_address_dialog_title);
@@ -546,7 +554,7 @@ public final class SendCoinsFragment extends SherlockFragment
 		{
 			public void onClick(final DialogInterface dialog, final int id)
 			{
-				EditAddressBookEntryFragment.edit(getFragmentManager(), address.toString());
+				EditAddressBookEntryFragment.edit(getFragmentManager(), address, suggestedAddressLabel);
 			}
 		});
 		builder.setNegativeButton(R.string.button_dismiss, null);

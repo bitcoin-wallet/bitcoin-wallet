@@ -45,26 +45,31 @@ public final class EditAddressBookEntryFragment extends DialogFragment
 	private static final String FRAGMENT_TAG = EditAddressBookEntryFragment.class.getName();
 
 	private static final String KEY_ADDRESS = "address";
-
-	private String address;
+	private static final String KEY_SUGGESTED_ADDRESS_LABEL = "suggested_address_label";
 
 	public static void edit(final FragmentManager fm, final String address)
+	{
+		edit(fm, address, null);
+	}
+
+	public static void edit(final FragmentManager fm, final String address, final String suggestedAddressLabel)
 	{
 		final FragmentTransaction ft = fm.beginTransaction();
 		final Fragment prev = fm.findFragmentByTag(EditAddressBookEntryFragment.FRAGMENT_TAG);
 		if (prev != null)
 			ft.remove(prev);
 		ft.addToBackStack(null);
-		final DialogFragment newFragment = EditAddressBookEntryFragment.instance(address.toString());
+		final DialogFragment newFragment = EditAddressBookEntryFragment.instance(address, suggestedAddressLabel);
 		newFragment.show(ft, EditAddressBookEntryFragment.FRAGMENT_TAG);
 	}
 
-	private static EditAddressBookEntryFragment instance(final String address)
+	private static EditAddressBookEntryFragment instance(final String address, final String suggestedAddressLabel)
 	{
 		final EditAddressBookEntryFragment fragment = new EditAddressBookEntryFragment();
 
 		final Bundle args = new Bundle();
 		args.putString(KEY_ADDRESS, address);
+		args.putString(KEY_SUGGESTED_ADDRESS_LABEL, suggestedAddressLabel);
 		fragment.setArguments(args);
 
 		return fragment;
@@ -73,7 +78,9 @@ public final class EditAddressBookEntryFragment extends DialogFragment
 	@Override
 	public Dialog onCreateDialog(final Bundle savedInstanceState)
 	{
-		this.address = getArguments().getString(KEY_ADDRESS);
+		final Bundle args = getArguments();
+		final String address = args.getString(KEY_ADDRESS);
+		final String suggestedAddressLabel = args.getString(KEY_SUGGESTED_ADDRESS_LABEL);
 
 		final FragmentActivity activity = getActivity();
 		final LayoutInflater inflater = LayoutInflater.from(activity);
@@ -95,7 +102,7 @@ public final class EditAddressBookEntryFragment extends DialogFragment
 		viewAddress.setText(WalletUtils.formatAddress(address, Constants.ADDRESS_FORMAT_GROUP_SIZE, Constants.ADDRESS_FORMAT_LINE_SIZE));
 
 		final TextView viewLabel = (TextView) view.findViewById(R.id.edit_address_book_entry_label);
-		viewLabel.setText(label);
+		viewLabel.setText(label != null ? label : suggestedAddressLabel);
 
 		dialog.setView(view);
 
