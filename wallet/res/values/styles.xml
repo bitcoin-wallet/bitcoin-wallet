@@ -54,7 +54,7 @@
 	</style>
 
 	<style name="My.Widget.Spinner" parent="@android:style/Widget.Spinner">
-		<item name="android:background">@drawable/edit_text</item>
+		<item name="android:background">@drawable/spinner_background</item>
 	</style>
 
 	<style name="My.Widget.CompoundButton.CheckBox" parent="@android:style/Widget.CompoundButton.CheckBox">
