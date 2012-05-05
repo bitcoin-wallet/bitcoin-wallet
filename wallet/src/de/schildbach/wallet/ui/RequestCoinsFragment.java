@@ -23,12 +23,12 @@ import java.util.ArrayList;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.ShareCompat.IntentBuilder;
 import android.text.ClipboardManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,6 +46,7 @@ import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
+import com.actionbarsherlock.widget.ShareActionProvider;
 import com.google.bitcoin.core.Address;
 import com.google.bitcoin.core.ECKey;
 import com.google.bitcoin.uri.BitcoinURI;
@@ -69,6 +70,7 @@ public final class RequestCoinsFragment extends SherlockFragment
 	private ContentResolver contentResolver;
 	private Object nfcManager;
 	private ClipboardManager clipboardManager;
+	private ShareActionProvider shareActionProvider;
 
 	private ImageView qrView;
 	private Bitmap qrCodeBitmap;
@@ -205,6 +207,9 @@ public final class RequestCoinsFragment extends SherlockFragment
 	{
 		inflater.inflate(R.menu.request_coins_fragment_options, menu);
 
+		final MenuItem shareItem = menu.findItem(R.id.request_coins_options_share);
+		shareActionProvider = (ShareActionProvider) shareItem.getActionProvider();
+
 		super.onCreateOptionsMenu(menu, inflater);
 	}
 
@@ -213,22 +218,12 @@ public final class RequestCoinsFragment extends SherlockFragment
 	{
 		switch (item.getItemId())
 		{
-			case R.id.request_coins_options_share:
-				handleShare();
-				return true;
-
 			case R.id.request_coins_options_copy:
 				handleCopy();
 				return true;
 		}
 
 		return super.onOptionsItemSelected(item);
-	}
-
-	private void handleShare()
-	{
-		startActivity(Intent.createChooser(new Intent(Intent.ACTION_SEND).putExtra(Intent.EXTRA_TEXT, determineRequestStr()).setType("text/plain"),
-				getActivity().getString(R.string.request_coins_share_dialog_title)));
 	}
 
 	private void handleCopy()
@@ -247,10 +242,19 @@ public final class RequestCoinsFragment extends SherlockFragment
 		if (qrCodeBitmap != null)
 			qrCodeBitmap.recycle();
 
+		// update qr code
 		final int size = (int) (256 * getResources().getDisplayMetrics().density);
 		qrCodeBitmap = WalletUtils.getQRCodeBitmap(request, size);
 		qrView.setImageBitmap(qrCodeBitmap);
 
+		// update share intent
+		final IntentBuilder builder = IntentBuilder.from(activity);
+		builder.setText(determineRequestStr());
+		builder.setType("text/plain");
+		builder.setChooserTitle(R.string.request_coins_share_dialog_title);
+		shareActionProvider.setShareIntent(builder.getIntent());
+
+		// update ndef message
 		if (nfcManager != null)
 		{
 			final boolean success = NfcTools.publishUri(nfcManager, getActivity(), request);
