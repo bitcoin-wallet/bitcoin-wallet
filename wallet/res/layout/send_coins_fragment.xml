@@ -17,8 +17,8 @@
 		android:id="@+id/send_coins_receiving_address"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
-		android:layout_marginLeft="12dp"
-		android:layout_marginRight="12dp"
+		android:layout_marginLeft="@dimen/list_entry_padding_horizontal"
+		android:layout_marginRight="@dimen/list_entry_padding_horizontal"
 		android:completionThreshold="1"
 		android:hint="@string/send_coins_fragment_receiving_address_hint"
 		android:imeOptions="actionNext|flagNoExtractUi"
@@ -58,8 +58,8 @@
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
 		android:layout_marginBottom="8dp"
-		android:layout_marginLeft="12dp"
-		android:layout_marginRight="12dp"
+		android:layout_marginLeft="@dimen/list_entry_padding_horizontal"
+		android:layout_marginRight="@dimen/list_entry_padding_horizontal"
 		android:textColor="#f88"
 		android:textSize="@dimen/font_size_small"
 		android:textStyle="bold"
@@ -79,8 +79,8 @@
 		android:id="@+id/send_coins_available"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
-		android:layout_marginLeft="12dp"
-		android:layout_marginRight="12dp" >
+		android:layout_marginLeft="@dimen/list_entry_padding_horizontal"
+		android:layout_marginRight="@dimen/list_entry_padding_horizontal" >
 
 		<TextView
 			style="@style/My.Widget.EditText"
@@ -115,8 +115,8 @@
 		android:id="@+id/send_coins_amount"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
-		android:layout_marginLeft="12dp"
-		android:layout_marginRight="12dp" >
+		android:layout_marginLeft="@dimen/list_entry_padding_horizontal"
+		android:layout_marginRight="@dimen/list_entry_padding_horizontal" >
 
 		<EditText
 			android:layout_width="fill_parent"
@@ -140,8 +140,8 @@
 		android:id="@+id/send_coins_fee"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
-		android:layout_marginLeft="12dp"
-		android:layout_marginRight="12dp" >
+		android:layout_marginLeft="@dimen/list_entry_padding_horizontal"
+		android:layout_marginRight="@dimen/list_entry_padding_horizontal" >
 
 		<EditText
 			android:layout_width="fill_parent"
