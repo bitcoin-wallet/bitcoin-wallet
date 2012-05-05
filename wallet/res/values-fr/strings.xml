@@ -13,7 +13,6 @@
 		<item>Liste complète</item>
 		<item>Afficher le QR code</item>
 		<item>Coller dans le presse-papier</item>
-		<item>Publier</item>
 	</string-array>
 	<string name="wallet_addresses_fragment_add_dialog_title">"Ajouter l'adresse Bitcoin"</string>
 	<string name="wallet_addresses_fragment_add_dialog_message">Les adresses Bitcoin ne peuvent pas être effacées. Voulez vous ajouter une nouvelle adresse à votre wallet?</string>
@@ -87,6 +86,7 @@
 	<string name="button_help">Aide</string>
 	<string name="button_add">Ajouter</string>
 	<string name="button_delete">Effacer</string>
+	<string name="button_share">Publier</string>
 	<string name="button_request_coins">Demande de bitcoins</string>
 	<string name="button_send_coins">Envoi de bitcoins</string>
 

@@ -21,7 +21,6 @@
 		<item>List all</item>
 		<item>Show QR code</item>
 		<item>Copy to clipboard</item>
-		<item>Share</item>
 	</string-array>
 	<string name="wallet_addresses_fragment_add_dialog_title">Add Bitcoin address</string>
 	<string name="wallet_addresses_fragment_add_dialog_message">Bitcoin addresses cannot be deleted. Do you want to add a new address to your wallet?</string>

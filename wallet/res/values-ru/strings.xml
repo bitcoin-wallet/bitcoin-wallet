@@ -13,7 +13,6 @@
 		<item>Показать все</item>
 		<item>Показать QR-код</item>
 		<item>Скопировать</item>
-		<item>Поделиться</item>
 	</string-array>
 	<string name="wallet_addresses_fragment_add_dialog_title">Добавить Bitcoin-адрес</string>
 	<string name="wallet_addresses_fragment_add_dialog_message">Bitcoin-адреса не могут быть удалены. Хотите добавить новый адрес в Ваш кошелёк?</string>
@@ -89,6 +88,7 @@
 	<string name="button_help">Помощь</string>
 	<string name="button_add">Добавить</string>
 	<string name="button_delete">Удалить</string>
+	<string name="button_share">Поделиться</string>
 	<string name="button_request_coins">Запросить монеты</string>
 	<string name="button_send_coins">Отправить монеты</string>
 

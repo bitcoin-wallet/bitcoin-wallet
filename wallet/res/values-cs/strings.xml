@@ -13,7 +13,6 @@
 		<item>Zobrazit vše</item>
 		<item>Zobrazit QR kód</item>
 		<item>Zkopírovat do schránky</item>
-		<item>Sdílet</item>
 	</string-array>
 	<string name="wallet_addresses_fragment_add_dialog_title">Přidat Bitcoin adresu</string>
 	<string name="wallet_addresses_fragment_add_dialog_message">Bitcoin adresa se nedá smazat. Chcete přidat do peněženky novou adresu?</string>
@@ -88,6 +87,7 @@
 	<string name="button_help">Nápověda</string>
 	<string name="button_add">Přidat</string>
 	<string name="button_delete">Smazat</string>
+	<string name="button_share">Sdílet</string>
 	<string name="button_request_coins">Vyžádat Bitcoiny</string>
 	<string name="button_send_coins">Zaslat Bitcoiny</string>
 

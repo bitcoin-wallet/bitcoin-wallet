@@ -13,7 +13,6 @@
 		<item>Lijst van alle</item>
 		<item>Geef QR code weer</item>
 		<item>Kopieer naar klembord</item>
-		<item>Delen</item>
 	</string-array>
 	<string name="wallet_addresses_fragment_add_dialog_title">Voeg Bitcoin Adres toe</string>
 	<string name="wallet_addresses_fragment_add_dialog_message">Bitcoin adres kan niet verwijderd worden. Wilt u een nieuw adres toevoeggen aan uw wallet?</string>
@@ -87,6 +86,7 @@
 	<string name="button_help">Help</string>
 	<string name="button_add">Toevoegen</string>
 	<string name="button_delete">Verwijderen</string>
+	<string name="button_share">Delen</string>
 	<string name="button_request_coins">Verzoek Bitcoins</string>
 	<string name="button_send_coins">Verzend Bitcoins</string>
 

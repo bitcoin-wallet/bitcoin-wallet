@@ -21,7 +21,6 @@
 		<item>Tümünü listele</item>
 		<item>QR kodu göster</item>
 		<item>Panoya kopyala</item>
-		<item>Paylaş</item>
 	</string-array>
 	<string name="wallet_addresses_fragment_add_dialog_title">Bitcoin adresi ekle</string>
 	<string name="wallet_addresses_fragment_add_dialog_message">Bitcoin adresleri silinemez. Cüzdanınıza yeni bir adres eklemek istediğinizden emin misiniz?</string>
@@ -129,6 +128,7 @@
 	<string name="button_help">Yardım</string>
 	<string name="button_add">Ekle</string>
 	<string name="button_delete">Sil</string>
+	<string name="button_share">Paylaş</string>
 	<string name="button_request_coins">Bitcoin talep et</string>
 	<string name="button_send_coins">Bitcoin gönder</string>
 

@@ -13,7 +13,6 @@
 		<item>显示所有</item>
 		<item>显示二维码</item>
 		<item>复制到剪贴板</item>
-		<item>分享</item>
 	</string-array>
 	<string name="wallet_addresses_fragment_add_dialog_title">添加比特币地址</string>
 	<string name="wallet_addresses_fragment_add_dialog_message">不能删除比特币地址，或许你想要一个新地址？</string>
@@ -87,6 +86,7 @@
 	<string name="button_help">帮助</string>
 	<string name="button_add">添加</string>
 	<string name="button_delete">删除</string>
+	<string name="button_share">分享</string>
 	<string name="button_request_coins">向他人索取比特币</string>
 	<string name="button_send_coins">发送比特币</string>
 

@@ -13,7 +13,6 @@
 		<item>Pokaż wszystkie</item>
 		<item>Pokaż kod QR</item>
 		<item>Kopiuj do schowka</item>
-		<item>Opublikuj</item>
 	</string-array>
 	<string name="wallet_addresses_fragment_add_dialog_title">Dodaj adres Bitcoin</string>
 	<string name="wallet_addresses_fragment_add_dialog_message">Adres Bitcoin nie może być skasowany. Chcesz dodać nowy adres do Twojego portfela?</string>
@@ -87,6 +86,7 @@
 	<string name="button_help">Pomoc</string>
 	<string name="button_add">Dodaj</string>
 	<string name="button_delete">Zmaż</string>
+	<string name="button_share">Opublikuj</string>
 	<string name="button_request_coins">Zapytaj o monety</string>
 	<string name="button_send_coins">Wyslij monety</string>
 

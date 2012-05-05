@@ -13,7 +13,6 @@
 		<item>Visa alla</item>
 		<item>Visa QR kod</item>
 		<item>Kopiera till klippbordet</item>
-		<item>Dela</item>
 	</string-array>
 	<string name="wallet_addresses_fragment_add_dialog_title">Lägg till Bitcoin adress</string>
 	<string name="wallet_addresses_fragment_add_dialog_message">Bitcoin adresser kan inte tas bort. Vill du lägga till en ny adress till din plånbok?</string>
@@ -89,6 +88,7 @@
 	<string name="button_help">Hjälp</string>
 	<string name="button_add">Lägg till</string>
 	<string name="button_delete">Ta bort</string>
+	<string name="button_share">Dela</string>
 	<string name="button_request_coins">Ta emot Bitcoins</string>
 	<string name="button_send_coins">Skicka Bitcoins</string>
 

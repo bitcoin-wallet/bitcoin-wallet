@@ -21,7 +21,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.graphics.Bitmap;
@@ -39,7 +38,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.bitcoin.core.Address;
-import com.google.bitcoin.core.AddressFormatException;
 import com.google.bitcoin.uri.BitcoinURI;
 
 import de.schildbach.wallet.Constants;
@@ -113,8 +111,6 @@ public final class WalletAddressFragment extends Fragment
 							showQRCode();
 						else if (which == 2)
 							copyToClipboard(address.toString());
-						else if (which == 3)
-							share(address.toString());
 					}
 				}).show();
 
@@ -126,22 +122,6 @@ public final class WalletAddressFragment extends Fragment
 				ClipboardManager clipboardManager = (ClipboardManager) activity.getSystemService(Context.CLIPBOARD_SERVICE);
 				clipboardManager.setText(address);
 				((AbstractWalletActivity) activity).toast(R.string.wallet_address_fragment_clipboard_msg);
-			}
-
-			private void share(final String addressStr)
-			{
-				try
-				{
-					final Address address = new Address(Constants.NETWORK_PARAMETERS, addressStr);
-					final Intent intent = new Intent(Intent.ACTION_SEND);
-					intent.putExtra(Intent.EXTRA_TEXT, BitcoinURI.convertToBitcoinURI(address, null, null, null));
-					intent.setType("text/plain");
-					startActivity(Intent.createChooser(intent, getString(R.string.wallet_address_fragment_share_dialog_title)));
-				}
-				catch (final AddressFormatException x)
-				{
-					throw new RuntimeException(x);
-				}
 			}
 		});
 

@@ -13,7 +13,6 @@
 		<item>Listar todas</item>
 		<item>Mostrar código QR</item>
 		<item>Copiar al portapapeles</item>
-		<item>Compartir</item>
 	</string-array>
 	<string name="wallet_addresses_fragment_add_dialog_title">Añadir dirección Bitcoin</string>
 	<string name="wallet_addresses_fragment_add_dialog_message">Las direcciones Bitcoin no pueden eliminarse. ¿Quieres añadir una nueva dirección a tu cartera?</string>
@@ -89,6 +88,7 @@
 	<string name="button_help">Ayuda</string>
 	<string name="button_add">Añadir</string>
 	<string name="button_delete">Eliminar</string>
+	<string name="button_share">Compartir</string>
 	<string name="button_request_coins">Solicitar bitcoins</string>
 	<string name="button_send_coins">Enviar bitcoins</string>
 
