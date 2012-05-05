@@ -17,11 +17,6 @@
 	<string name="wallet_address_fragment_your">Your Bitcoin Address:</string>
 	<string name="wallet_address_fragment_clipboard_msg">Bitcoin address copied to clipboard</string>
 	<string name="wallet_address_fragment_share_dialog_title">Share your bitcoin address…</string>
-	<string-array name="wallet_address_fragment_context">
-		<item>List all</item>
-		<item>Show QR code</item>
-		<item>Copy to clipboard</item>
-	</string-array>
 	<string name="wallet_addresses_fragment_add_dialog_title">Add Bitcoin address</string>
 	<string name="wallet_addresses_fragment_add_dialog_message">Bitcoin addresses cannot be deleted. Do you want to add a new address to your wallet?</string>
 	<string name="wallet_balance_fragment_local_value">worth about %1$s %2$s</string>

@@ -18,9 +18,7 @@
 package de.schildbach.wallet.ui;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.graphics.Bitmap;
@@ -28,11 +26,9 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.text.ClipboardManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -93,43 +89,11 @@ public final class WalletAddressFragment extends Fragment
 			}
 		});
 
-		bitcoinAddressButton.setOnLongClickListener(new OnLongClickListener()
-		{
-			public boolean onLongClick(final View v)
-			{
-				final Address address = application.determineSelectedAddress();
-
-				System.out.println("selected bitcoin address: " + address + (Constants.TEST ? " [testnet]" : ""));
-
-				new AlertDialog.Builder(activity).setItems(R.array.wallet_address_fragment_context, new DialogInterface.OnClickListener()
-				{
-					public void onClick(final DialogInterface dialog, final int which)
-					{
-						if (which == 0)
-							AddressBookActivity.start(activity, false);
-						else if (which == 1)
-							showQRCode();
-						else if (which == 2)
-							copyToClipboard(address.toString());
-					}
-				}).show();
-
-				return true;
-			}
-
-			private void copyToClipboard(final String address)
-			{
-				ClipboardManager clipboardManager = (ClipboardManager) activity.getSystemService(Context.CLIPBOARD_SERVICE);
-				clipboardManager.setText(address);
-				((AbstractWalletActivity) activity).toast(R.string.wallet_address_fragment_clipboard_msg);
-			}
-		});
-
 		bitcoinAddressQrView.setOnClickListener(new OnClickListener()
 		{
 			public void onClick(final View v)
 			{
-				showQRCode();
+				handleShowQRCode();
 			}
 		});
 
@@ -198,7 +162,7 @@ public final class WalletAddressFragment extends Fragment
 		}
 	}
 
-	private void showQRCode()
+	private void handleShowQRCode()
 	{
 		new QrDialog(getActivity(), qrCodeBitmap).show();
 	}

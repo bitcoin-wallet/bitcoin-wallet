@@ -9,11 +9,6 @@
 	<string name="wallet_address_fragment_your">Twój adres Bitcoin:</string>
 	<string name="wallet_address_fragment_clipboard_msg">Kopiuj adres Bitcoin do schowka</string>
 	<string name="wallet_address_fragment_share_dialog_title">Opublikuj Twój adres Bitcoin</string>
-	<string-array name="wallet_address_fragment_context">
-		<item>Pokaż wszystkie</item>
-		<item>Pokaż kod QR</item>
-		<item>Kopiuj do schowka</item>
-	</string-array>
 	<string name="wallet_addresses_fragment_add_dialog_title">Dodaj adres Bitcoin</string>
 	<string name="wallet_addresses_fragment_add_dialog_message">Adres Bitcoin nie może być skasowany. Chcesz dodać nowy adres do Twojego portfela?</string>
 	<string name="wallet_balance_fragment_local_value">wart około %1$s %2$s</string>

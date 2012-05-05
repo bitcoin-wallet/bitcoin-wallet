@@ -9,11 +9,6 @@
 	<string name="wallet_address_fragment_your">Ваш Bitcoin-адрес:</string>
 	<string name="wallet_address_fragment_clipboard_msg">Bitcoin-адрес был скопирован в буфер обмена</string>
 	<string name="wallet_address_fragment_share_dialog_title">Распространить Bitcoin-адрес…</string>
-	<string-array name="wallet_address_fragment_context">
-		<item>Показать все</item>
-		<item>Показать QR-код</item>
-		<item>Скопировать</item>
-	</string-array>
 	<string name="wallet_addresses_fragment_add_dialog_title">Добавить Bitcoin-адрес</string>
 	<string name="wallet_addresses_fragment_add_dialog_message">Bitcoin-адреса не могут быть удалены. Хотите добавить новый адрес в Ваш кошелёк?</string>
 	<string name="wallet_balance_fragment_local_value">стоимостью примерно %1$s %2$s</string>

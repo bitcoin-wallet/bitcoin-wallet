@@ -9,11 +9,6 @@
 	<string name="wallet_address_fragment_your">Uw Bitcoin Adres:</string>
 	<string name="wallet_address_fragment_clipboard_msg">Bitcoin adres gekopieërd naar klembord</string>
 	<string name="wallet_address_fragment_share_dialog_title">Deel uw bitcoin adres…</string>
-	<string-array name="wallet_address_fragment_context">
-		<item>Lijst van alle</item>
-		<item>Geef QR code weer</item>
-		<item>Kopieer naar klembord</item>
-	</string-array>
 	<string name="wallet_addresses_fragment_add_dialog_title">Voeg Bitcoin Adres toe</string>
 	<string name="wallet_addresses_fragment_add_dialog_message">Bitcoin adres kan niet verwijderd worden. Wilt u een nieuw adres toevoeggen aan uw wallet?</string>
 	<string name="wallet_balance_fragment_local_value">waard ongeveer %1$s %2$s</string>
