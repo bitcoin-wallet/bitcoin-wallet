@@ -56,6 +56,7 @@ import com.google.bitcoin.core.Address;
 import com.google.bitcoin.core.AddressFormatException;
 import com.google.bitcoin.core.NetworkParameters;
 import com.google.bitcoin.core.Transaction;
+import com.google.bitcoin.core.Wallet;
 import com.google.bitcoin.core.Wallet.BalanceType;
 
 import de.schildbach.wallet.AddressBookProvider;
@@ -86,6 +87,10 @@ public final class SendCoinsFragment extends SherlockFragment
 	private TextView receivingAddressErrorView;
 	private CurrencyAmountView amountView;
 	private CurrencyAmountView feeView;
+	private View availableView;
+	private CurrencyAmountView availableAmountView;
+	private TextView availablePendingAmountView;
+
 	private Button viewGo;
 	private Button viewCancel;
 
@@ -184,11 +189,6 @@ public final class SendCoinsFragment extends SherlockFragment
 	{
 		final View view = inflater.inflate(R.layout.send_coins_fragment, container);
 
-		final BigInteger estimated = application.getWallet().getBalance(BalanceType.ESTIMATED);
-		final BigInteger available = application.getWallet().getBalance(BalanceType.AVAILABLE);
-		final BigInteger pending = estimated.subtract(available);
-		// TODO subscribe to wallet changes
-
 		receivingAddressView = (AutoCompleteTextView) view.findViewById(R.id.send_coins_receiving_address);
 		receivingAddressView.setAdapter(new AutoCompleteAddressAdapter(activity, null));
 		receivingAddressView.addTextChangedListener(textWatcher);
@@ -258,13 +258,6 @@ public final class SendCoinsFragment extends SherlockFragment
 			}
 		});
 
-		final CurrencyAmountView availableView = (CurrencyAmountView) view.findViewById(R.id.send_coins_available);
-		availableView.setAmount(available);
-
-		final TextView pendingView = (TextView) view.findViewById(R.id.send_coins_pending);
-		pendingView.setVisibility(pending.signum() > 0 ? View.VISIBLE : View.GONE);
-		pendingView.setText(getString(R.string.send_coins_fragment_pending, WalletUtils.formatValue(pending)));
-
 		amountView = (CurrencyAmountView) view.findViewById(R.id.send_coins_amount);
 		amountView.setListener(listener);
 		amountView.setContextButton(R.drawable.ic_input_calculator, new OnClickListener()
@@ -290,6 +283,12 @@ public final class SendCoinsFragment extends SherlockFragment
 		feeView = (CurrencyAmountView) view.findViewById(R.id.send_coins_fee);
 		feeView.setAmount(Constants.DEFAULT_TX_FEE);
 		feeView.setListener(listener);
+
+		availableView = view.findViewById(R.id.send_coins_available);
+
+		availableAmountView = (CurrencyAmountView) view.findViewById(R.id.send_coins_available_amount);
+
+		availablePendingAmountView = (TextView) view.findViewById(R.id.send_coins_available_pending_amount);
 
 		viewGo = (Button) view.findViewById(R.id.send_coins_go);
 		viewGo.setOnClickListener(new OnClickListener()
@@ -501,6 +500,19 @@ public final class SendCoinsFragment extends SherlockFragment
 		final BigInteger fee = feeView.getAmount();
 		final boolean validFee = fee != null && fee.signum() >= 0;
 
+		final Wallet wallet = application.getWallet();
+		final BigInteger estimated = wallet.getBalance(BalanceType.ESTIMATED);
+		final BigInteger available = wallet.getBalance(BalanceType.AVAILABLE);
+		final BigInteger pending = estimated.subtract(available);
+		// TODO subscribe to wallet changes
+
+		final boolean enoughFunds = available.subtract(validAmount ? amount : BigInteger.ZERO).subtract(validFee ? fee : BigInteger.ZERO).signum() >= 0;
+
+		availableView.setVisibility(enoughFunds ? View.GONE : View.VISIBLE);
+		availableAmountView.setAmount(available);
+		availablePendingAmountView.setVisibility(pending.signum() > 0 ? View.VISIBLE : View.GONE);
+		availablePendingAmountView.setText(getString(R.string.send_coins_fragment_pending, WalletUtils.formatValue(pending)));
+
 		receivingAddressView.setEnabled(state == State.INPUT);
 
 		receivingStaticView.setEnabled(state == State.INPUT);
@@ -509,7 +521,7 @@ public final class SendCoinsFragment extends SherlockFragment
 
 		feeView.setEnabled(state == State.INPUT);
 
-		viewGo.setEnabled(state == State.INPUT && validatedAddress != null && validAmount && validFee);
+		viewGo.setEnabled(state == State.INPUT && validatedAddress != null && validAmount && validFee && enoughFunds);
 		if (state == State.INPUT)
 			viewGo.setText(R.string.send_coins_fragment_button_send);
 		else if (state == State.SENDING)

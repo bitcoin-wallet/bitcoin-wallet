@@ -7,6 +7,7 @@
 	<dimen name="font_size_xlarge">34sp</dimen>
 	<dimen name="symbol_size_normal">17sp</dimen>
 	<dimen name="list_entry_padding_horizontal">16dp</dimen>
+	<dimen name="list_entry_padding_horizontal_lax">32dp</dimen>
 	<dimen name="list_entry_padding_vertical">12dp</dimen>
 	<dimen name="wallet_address_qr_size">128dp</dimen>
 

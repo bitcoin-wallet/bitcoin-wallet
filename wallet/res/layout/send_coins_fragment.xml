@@ -58,47 +58,12 @@
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
 		android:layout_marginBottom="8dp"
-		android:layout_marginLeft="@dimen/list_entry_padding_horizontal"
-		android:layout_marginRight="@dimen/list_entry_padding_horizontal"
-		android:textColor="#f88"
+		android:layout_marginLeft="@dimen/list_entry_padding_horizontal_lax"
+		android:layout_marginRight="@dimen/list_entry_padding_horizontal_lax"
+		android:layout_marginTop="8dp"
+		android:background="@drawable/warning_background"
 		android:textSize="@dimen/font_size_small"
 		android:textStyle="bold"
-		android:visibility="gone" />
-
-	<TextView
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		android:layout_marginLeft="20dp"
-		android:layout_marginRight="20dp"
-		android:layout_marginTop="8dp"
-		android:text="@string/send_coins_fragment_available_label"
-		android:textSize="@dimen/font_size_small"
-		android:textStyle="bold" />
-
-	<de.schildbach.wallet.ui.CurrencyAmountView
-		android:id="@+id/send_coins_available"
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		android:layout_marginLeft="@dimen/list_entry_padding_horizontal"
-		android:layout_marginRight="@dimen/list_entry_padding_horizontal" >
-
-		<TextView
-			style="@style/My.Widget.EditText"
-			android:layout_width="fill_parent"
-			android:layout_height="wrap_content"
-			android:drawablePadding="4dp"
-			android:enabled="false"
-			android:focusable="false"
-			android:textSize="@dimen/font_size_xlarge" />
-	</de.schildbach.wallet.ui.CurrencyAmountView>
-
-	<TextView
-		android:id="@+id/send_coins_pending"
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		android:layout_marginBottom="8dp"
-		android:layout_marginLeft="20dp"
-		android:textSize="@dimen/font_size_small"
 		android:visibility="gone" />
 
 	<TextView
@@ -155,8 +120,52 @@
 
 	<ImageView
 		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
+		android:layout_height="0px"
 		android:layout_weight="100" />
+
+	<LinearLayout
+		android:id="@+id/send_coins_available"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginBottom="8dp"
+		android:layout_marginLeft="@dimen/list_entry_padding_horizontal_lax"
+		android:layout_marginRight="@dimen/list_entry_padding_horizontal_lax"
+		android:layout_marginTop="8dp"
+		android:background="@drawable/warning_background"
+		android:orientation="vertical" >
+
+		<TextView
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="4dp"
+			android:text="@string/send_coins_fragment_available_label"
+			android:textSize="@dimen/font_size_small"
+			android:textStyle="bold" />
+
+		<de.schildbach.wallet.ui.CurrencyAmountView
+			android:id="@+id/send_coins_available_amount"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content" >
+
+			<TextView
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:drawablePadding="4dp"
+				android:enabled="false"
+				android:focusable="false"
+				android:textSize="@dimen/font_size_xlarge" />
+		</de.schildbach.wallet.ui.CurrencyAmountView>
+
+		<TextView
+			android:id="@+id/send_coins_available_pending_amount"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:layout_gravity="left"
+			android:layout_marginBottom="4dp"
+			android:layout_marginTop="4dp"
+			android:textSize="@dimen/font_size_small"
+			android:visibility="gone" />
+	</LinearLayout>
 
 	<include layout="@layout/send_coins_fragment_buttons" />
 
