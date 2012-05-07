@@ -71,6 +71,8 @@
 
 		<activity android:name="de.schildbach.wallet.ui.PreferencesActivity" android:screenOrientation="behind" />
 
+		<activity android:name="de.schildbach.wallet.ui.AboutActivity" android:screenOrientation="behind" />
+
 		<provider android:name="de.schildbach.wallet.AddressBookProvider" android:authorities="de.schildbach.wallet_test.address_book"
 			android:exported="false" />
 

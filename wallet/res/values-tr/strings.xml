@@ -28,7 +28,6 @@
 	<string name="wallet_transactions_fragment_empty_text_sent">Şimdiye kadar hiçbir Bitcoin gönderilmedi</string>
 	<string name="wallet_transactions_context_edit_address_title">Adres ilâve et/düzenle</string>
 	<string name="wallet_transactions_context_show_transaction_title">Muamele detayları</string>
-	<string name="wallet_options_about">Hakkında</string>
 	<string name="wallet_options_safety">Güvenlik notları</string>
 	<string name="wallet_options_donate">Bağış</string>
 	<string name="wallet_low_storage_dialog_title">Düşük dahili cihaz depolama alanı!</string>
@@ -104,15 +103,15 @@
 	<string name="amount_calculator_dialog_title">Döviz hesaplayıcı</string>
 	<string name="amount_calculator_dialog_button_use">Kullan</string>
 
-	<string name="preferences_about_title">Hakkında</string>
-	<string name="preferences_license_title">Lisans</string>
-	<string name="preferences_credits_bitcoinj_title">"Bu uygulama 'bitcoinj' kullanmaktadır"</string>
-	<string name="preferences_credits_zxing_title">"Bu uygulama 'zxing' kullanmaktadır"</string>
-	<string name="preferences_credits_icon_title">"Bu uygulama 'bitboy' tarafından oluşturulan bir ikon kullanır"</string>
-	<string name="preferences_author_twitter_title">Geliştiricinin Twitter sayfası</string>
-	<string name="preferences_author_googleplus_title">Geliştiricinin Google+ sayfası</string>
-	<string name="preferences_credits_market_app_title">Google Play uygulama sayfası</string>
-	<string name="preferences_credits_market_publisher_title">Geliştiricinin diğer uygulamaları</string>
+	<string name="about_title">Hakkında</string>
+	<string name="about_license_title">Lisans</string>
+	<string name="about_credits_bitcoinj_title">"Bu uygulama 'bitcoinj' kullanmaktadır"</string>
+	<string name="about_credits_zxing_title">"Bu uygulama 'zxing' kullanmaktadır"</string>
+	<string name="about_credits_icon_title">"Bu uygulama 'bitboy' tarafından oluşturulan bir ikon kullanır"</string>
+	<string name="about_author_twitter_title">Geliştiricinin Twitter sayfası</string>
+	<string name="about_author_googleplus_title">Geliştiricinin Google+ sayfası</string>
+	<string name="about_credits_market_app_title">Google Play uygulama sayfası</string>
+	<string name="about_credits_market_publisher_title">Geliştiricinin diğer uygulamaları</string>
 
 	<string name="notification_coins_received_msg">%s BTC alındı</string>
 	<string name="notification_peers_connected_msg">%d eş bağlı</string>

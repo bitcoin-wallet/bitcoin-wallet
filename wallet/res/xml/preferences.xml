@@ -1,44 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
 
-	<PreferenceCategory android:title="@string/preferences_about_title" >
-		<Preference
-			android:key="about_version"
-			android:title="Version" />
-		<Preference
-			android:summary="© 2011-2012, Andreas Schildbach"
-			android:title="Copyright" />
-		<Preference
-			android:key="about_license"
-			android:title="@string/preferences_license_title" />
-		<Preference
-			android:key="about_source"
-			android:title="Source Code" />
-		<Preference
-			android:key="about_credits_bitcoinj"
-			android:title="@string/preferences_credits_bitcoinj_title" />
-		<Preference
-			android:key="about_credits_zxing"
-			android:title="@string/preferences_credits_zxing_title" />
-		<Preference
-			android:key="about_credits_icon"
-			android:title="@string/preferences_credits_icon_title" />
-		<Preference
-			android:key="about_author_twitter"
-			android:summary="\@bitcoin_wallet"
-			android:title="@string/preferences_author_twitter_title" />
-		<Preference
-			android:key="about_author_googleplus"
-			android:summary="+Andreas Schildbach"
-			android:title="@string/preferences_author_googleplus_title" />
-		<Preference
-			android:key="about_market_app"
-			android:title="@string/preferences_credits_market_app_title" />
-		<Preference
-			android:key="about_market_publisher"
-			android:title="@string/preferences_credits_market_publisher_title" />
-	</PreferenceCategory>
-	<PreferenceCategory android:title="@string/preferences_prefs_title" >
+	<PreferenceCategory android:title="@string/preferences_title" >
 		<CheckBoxPreference
 			android:key="autosync"
 			android:summary="@string/preferences_autosync_summary"

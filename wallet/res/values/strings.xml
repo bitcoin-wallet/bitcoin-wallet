@@ -30,7 +30,6 @@
 	<string name="wallet_transactions_fragment_coinbase">mined</string>
 	<string name="wallet_transactions_context_edit_address_title">Add/edit address</string>
 	<string name="wallet_transactions_context_show_transaction_title">Transaction details</string>
-	<string name="wallet_options_about">About</string>
 	<string name="wallet_options_safety">Safety notes</string>
 	<string name="wallet_options_donate">Tip / Donate</string>
 	<string name="wallet_low_storage_dialog_title">Internal Device Storage Space Low!</string>
@@ -123,15 +122,15 @@
 
 	<string name="peer_list_fragment_empty">No peers connected</string>
 
-	<string name="preferences_about_title">About</string>
-	<string name="preferences_license_title">License</string>
-	<string name="preferences_credits_bitcoinj_title">"This app is using 'bitcoinj'"</string>
-	<string name="preferences_credits_zxing_title">"This app is using 'zxing'"</string>
-	<string name="preferences_credits_icon_title">"This app is using an icon by 'bitboy'"</string>
-	<string name="preferences_author_twitter_title">Author at Twitter</string>
-	<string name="preferences_author_googleplus_title">Author at Google+</string>
-	<string name="preferences_credits_market_app_title">Google Play App Page</string>
-	<string name="preferences_credits_market_publisher_title">Other Apps of Author</string>
+	<string name="about_title">About</string>
+	<string name="about_license_title">License</string>
+	<string name="about_credits_bitcoinj_title">"This app is using 'bitcoinj'"</string>
+	<string name="about_credits_zxing_title">"This app is using 'zxing'"</string>
+	<string name="about_credits_icon_title">"This app is using an icon by 'bitboy'"</string>
+	<string name="about_author_twitter_title">Author at Twitter</string>
+	<string name="about_author_googleplus_title">Author at Google+</string>
+	<string name="about_credits_market_app_title">Google Play App Page</string>
+	<string name="about_credits_market_publisher_title">Other Apps of Author</string>
 
 	<string name="notification_coins_received_msg">Received BTC %s</string>
 	<string name="notification_peers_connected_msg">%d peers connected</string>

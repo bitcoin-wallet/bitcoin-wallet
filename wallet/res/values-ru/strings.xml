@@ -18,7 +18,6 @@
 	<string name="wallet_transactions_fragment_tab_sent">Отправлено</string>
 	<string name="wallet_transactions_fragment_empty_text_received">Ещё не получено Bitcoin-монет</string>
 	<string name="wallet_transactions_fragment_empty_text_sent">Ещё не отправлено Bitcoin-монет</string>
-	<string name="wallet_options_about">О программе</string>
 	<string name="wallet_options_safety">Заметки по безопасности</string>
 	<string name="wallet_options_donate">Пожертвовать</string>
 	<string name="wallet_low_storage_dialog_title">Мало внутренней памяти на устройстве!</string>
@@ -64,15 +63,15 @@
 	<string name="edit_address_book_entry_dialog_label_label">Имя</string>
 	<string name="edit_address_book_entry_dialog_button_edit">Сохранить</string>
 
-	<string name="preferences_about_title">О программе</string>
-	<string name="preferences_license_title">Лицензия</string>
-	<string name="preferences_credits_bitcoinj_title">"Это приложение использует 'bitcoinj'"</string>
-	<string name="preferences_credits_zxing_title">"Это приложение использует 'zxing'"</string>
-	<string name="preferences_credits_icon_title">"Это приложение использует иконку от 'bitboy'"</string>
-	<string name="preferences_author_twitter_title">Автор в Twitter</string>
-	<string name="preferences_author_googleplus_title">Автор в Google+</string>
-	<string name="preferences_credits_market_app_title">Страница на Google Play</string>
-	<string name="preferences_credits_market_publisher_title">Другие Приложения Автора</string>
+	<string name="about_title">О программе</string>
+	<string name="about_license_title">Лицензия</string>
+	<string name="about_credits_bitcoinj_title">"Это приложение использует 'bitcoinj'"</string>
+	<string name="about_credits_zxing_title">"Это приложение использует 'zxing'"</string>
+	<string name="about_credits_icon_title">"Это приложение использует иконку от 'bitboy'"</string>
+	<string name="about_author_twitter_title">Автор в Twitter</string>
+	<string name="about_author_googleplus_title">Автор в Google+</string>
+	<string name="about_credits_market_app_title">Страница на Google Play</string>
+	<string name="about_credits_market_publisher_title">Другие Приложения Автора</string>
 
 	<string name="notification_coins_received_msg">Получено BTC %s</string>
 	<string name="notification_peers_connected_msg">подключено %d пиров</string>

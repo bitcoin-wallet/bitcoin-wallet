@@ -18,7 +18,6 @@
 	<string name="wallet_transactions_fragment_tab_sent">Wysłane</string>
 	<string name="wallet_transactions_fragment_empty_text_received">Jeszcze żadne Bitcoiny nie zostały otrzymane</string>
 	<string name="wallet_transactions_fragment_empty_text_sent">Jeszcze żadne Bitcoiny nie zostały wysłane</string>
-	<string name="wallet_options_about">Wokół</string>
 	<string name="wallet_options_safety">Wskazówki bezpieczeństwa</string>
 	<string name="wallet_options_donate">Podaruj</string>
 	<string name="wallet_low_storage_dialog_title">Pamięć wewnętrzna jest niska!</string>
@@ -62,15 +61,15 @@
 	<string name="edit_address_book_entry_dialog_label_label">Imie</string>
 	<string name="edit_address_book_entry_dialog_button_edit">Zapamiętaj</string>
 
-	<string name="preferences_about_title">Wokół</string>
-	<string name="preferences_license_title">Licencja</string>
-	<string name="preferences_credits_bitcoinj_title">"Ta aplikacja używa 'bitcoinj'"</string>
-	<string name="preferences_credits_zxing_title">"Ta aplikacja używa 'zxing'"</string>
-	<string name="preferences_credits_icon_title">"Ta aplikacja używa icon od 'bitboy'"</string>
-	<string name="preferences_author_twitter_title">Autor na Twitter</string>
-	<string name="preferences_author_googleplus_title">Autor na Google+</string>
-	<string name="preferences_credits_market_app_title">strona Google Play App</string>
-	<string name="preferences_credits_market_publisher_title">Inne aplikacje autora</string>
+	<string name="about_title">Wokół</string>
+	<string name="about_license_title">Licencja</string>
+	<string name="about_credits_bitcoinj_title">"Ta aplikacja używa 'bitcoinj'"</string>
+	<string name="about_credits_zxing_title">"Ta aplikacja używa 'zxing'"</string>
+	<string name="about_credits_icon_title">"Ta aplikacja używa icon od 'bitboy'"</string>
+	<string name="about_author_twitter_title">Autor na Twitter</string>
+	<string name="about_author_googleplus_title">Autor na Google+</string>
+	<string name="about_credits_market_app_title">strona Google Play App</string>
+	<string name="about_credits_market_publisher_title">Inne aplikacje autora</string>
 
 	<string name="notification_coins_received_msg">Otrzymane BTC %s</string>
 	<string name="notification_peers_connected_msg">%d peer połączony</string>

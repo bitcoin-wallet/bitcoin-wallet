@@ -148,6 +148,10 @@ public final class WalletActivity extends AbstractWalletActivity
 				startActivity(new Intent(this, PreferencesActivity.class));
 				return true;
 
+			case R.id.wallet_options_about:
+				startActivity(new Intent(this, AboutActivity.class));
+				return true;
+
 			case R.id.wallet_options_safety:
 				showDialog(DIALOG_SAFETY);
 				return true;
