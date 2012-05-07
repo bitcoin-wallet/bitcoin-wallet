@@ -37,6 +37,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.service.BlockchainService;
+import de.schildbach.wallet.service.BlockchainServiceImpl;
 import de.schildbach.wallet_test.R;
 
 /**
@@ -82,7 +83,7 @@ public final class BlockchainStateFragment extends Fragment
 
 		final Activity activity = getActivity();
 
-		activity.bindService(new Intent(activity, BlockchainService.class), serviceConnection, Context.BIND_AUTO_CREATE);
+		activity.bindService(new Intent(activity, BlockchainServiceImpl.class), serviceConnection, Context.BIND_AUTO_CREATE);
 	}
 
 	@Override

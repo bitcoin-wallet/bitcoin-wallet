@@ -40,6 +40,7 @@ import android.widget.TextView;
 import com.google.bitcoin.core.Peer;
 
 import de.schildbach.wallet.service.BlockchainService;
+import de.schildbach.wallet.service.BlockchainServiceImpl;
 import de.schildbach.wallet_test.R;
 
 /**
@@ -144,7 +145,7 @@ public final class PeerListFragment extends ListFragment implements LoaderCallba
 		{
 			super.onStartLoading();
 
-			context.bindService(new Intent(context, BlockchainService.class), serviceConnection, Context.BIND_AUTO_CREATE);
+			context.bindService(new Intent(context, BlockchainServiceImpl.class), serviceConnection, Context.BIND_AUTO_CREATE);
 
 			context.registerReceiver(broadcastReceiver, new IntentFilter(BlockchainService.ACTION_PEER_STATE));
 
@@ -171,7 +172,7 @@ public final class PeerListFragment extends ListFragment implements LoaderCallba
 		{
 			public void onServiceConnected(final ComponentName name, final IBinder binder)
 			{
-				service = ((BlockchainService.LocalBinder) binder).getService();
+				service = ((BlockchainServiceImpl.LocalBinder) binder).getService();
 
 				forceLoad();
 			}

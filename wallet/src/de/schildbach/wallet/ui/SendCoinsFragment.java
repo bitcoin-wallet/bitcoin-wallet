@@ -63,6 +63,7 @@ import de.schildbach.wallet.AddressBookProvider;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.service.BlockchainService;
+import de.schildbach.wallet.service.BlockchainServiceImpl;
 import de.schildbach.wallet.ui.CurrencyAmountView.Listener;
 import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
@@ -108,7 +109,7 @@ public final class SendCoinsFragment extends SherlockFragment
 	{
 		public void onServiceConnected(final ComponentName name, final IBinder binder)
 		{
-			service = ((BlockchainService.LocalBinder) binder).getService();
+			service = ((BlockchainServiceImpl.LocalBinder) binder).getService();
 			onServiceBound();
 		}
 
@@ -181,7 +182,7 @@ public final class SendCoinsFragment extends SherlockFragment
 	{
 		super.onCreate(savedInstanceState);
 
-		activity.bindService(new Intent(activity, BlockchainService.class), serviceConnection, Context.BIND_AUTO_CREATE);
+		activity.bindService(new Intent(activity, BlockchainServiceImpl.class), serviceConnection, Context.BIND_AUTO_CREATE);
 	}
 
 	@Override

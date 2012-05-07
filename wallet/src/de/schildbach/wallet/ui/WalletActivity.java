@@ -45,6 +45,7 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 
 import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.service.BlockchainServiceImpl;
 import de.schildbach.wallet.service.BlockchainService;
 import de.schildbach.wallet.util.ErrorReporter;
 import de.schildbach.wallet_test.R;
@@ -63,7 +64,7 @@ public final class WalletActivity extends AbstractWalletActivity
 	{
 		public void onServiceConnected(final ComponentName name, final IBinder binder)
 		{
-			service = ((BlockchainService.LocalBinder) binder).getService();
+			service = ((BlockchainServiceImpl.LocalBinder) binder).getService();
 
 			service.cancelCoinsReceived();
 		}
@@ -101,7 +102,7 @@ public final class WalletActivity extends AbstractWalletActivity
 	{
 		super.onResume();
 
-		bindService(new Intent(this, BlockchainService.class), serviceConnection, Context.BIND_AUTO_CREATE);
+		bindService(new Intent(this, BlockchainServiceImpl.class), serviceConnection, Context.BIND_AUTO_CREATE);
 
 		checkLowStorageAlert();
 	}

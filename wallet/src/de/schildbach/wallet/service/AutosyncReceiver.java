@@ -40,11 +40,11 @@ public class AutosyncReceiver extends BroadcastReceiver
 			final boolean autosync = prefs.getBoolean(Constants.PREFS_KEY_AUTOSYNC, false);
 
 			if (autosync)
-				context.startService(new Intent(context, BlockchainService.class));
+				context.startService(new Intent(context, BlockchainServiceImpl.class));
 		}
 		else if (Intent.ACTION_POWER_DISCONNECTED.equals(action))
 		{
-			context.stopService(new Intent(context, BlockchainService.class));
+			context.stopService(new Intent(context, BlockchainServiceImpl.class));
 		}
 	}
 }
