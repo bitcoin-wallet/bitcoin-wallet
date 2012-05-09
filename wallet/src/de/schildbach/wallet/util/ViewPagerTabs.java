@@ -26,6 +26,8 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Typeface;
+import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.AttributeSet;
 import android.view.View;
@@ -39,12 +41,16 @@ public class ViewPagerTabs extends View implements OnPageChangeListener
 	private final List<String> labels = new ArrayList<String>();
 	private final Paint paint = new Paint();
 	private int maxWidth = 0;
+
+	// instance state
 	private int pagePosition = 0;
 	private float pageOffset = 0;
 
 	public ViewPagerTabs(final Context context, final AttributeSet attrs)
 	{
 		super(context, attrs);
+
+		setSaveEnabled(true);
 
 		paint.setTextSize(getResources().getDimension(R.dimen.font_size_tiny));
 		paint.setColor(Color.BLACK);
@@ -169,5 +175,30 @@ public class ViewPagerTabs extends View implements OnPageChangeListener
 
 	public void onPageScrollStateChanged(final int state)
 	{
+	}
+
+	@Override
+	public Parcelable onSaveInstanceState()
+	{
+		final Bundle state = new Bundle();
+		state.putParcelable("super_state", super.onSaveInstanceState());
+		state.putInt("page_position", pagePosition);
+		state.putFloat("page_offset", pageOffset);
+		return state;
+	}
+
+	@Override
+	public void onRestoreInstanceState(final Parcelable state)
+	{
+		if (state instanceof Bundle)
+		{
+			Bundle bundle = (Bundle) state;
+			pagePosition = bundle.getInt("page_position");
+			pageOffset = bundle.getFloat("page_offset");
+			super.onRestoreInstanceState(bundle.getParcelable("super_state"));
+			return;
+		}
+
+		super.onRestoreInstanceState(state);
 	}
 }
