@@ -83,6 +83,8 @@ import de.schildbach.wallet_test.R;
  */
 public final class WalletTransactionsFragment extends Fragment
 {
+	private static final int INITIAL_PAGE = 1;
+
 	@Override
 	public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState)
 	{
@@ -97,10 +99,10 @@ public final class WalletTransactionsFragment extends Fragment
 		final ViewPager pager = (ViewPager) view.findViewById(R.id.transactions_pager);
 		pager.setAdapter(pagerAdapter);
 		pager.setOnPageChangeListener(pagerTabs);
-		pager.setCurrentItem(1);
+		pager.setCurrentItem(INITIAL_PAGE);
 		pager.setPageMargin(2);
 		pager.setPageMarginDrawable(R.color.background_less_bright);
-		pagerTabs.onPageScrolled(1, 0, 0); // should not be needed
+		pagerTabs.onPageScrolled(INITIAL_PAGE, 0, 0); // should not be needed
 
 		return view;
 	}
