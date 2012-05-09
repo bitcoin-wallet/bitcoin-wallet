@@ -7,6 +7,7 @@
 	android:scrollbars="none" >
 
 	<fragment
+		android:id="@+id/request_coins_fragment"
 		android:name="de.schildbach.wallet.ui.RequestCoinsFragment"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content" />
