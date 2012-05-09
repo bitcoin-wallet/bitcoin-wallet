@@ -121,23 +121,6 @@ public final class WalletAddressFragment extends Fragment
 		super.onPause();
 	}
 
-	@Override
-	public void onDestroyView()
-	{
-		recycleBitmap();
-
-		super.onDestroyView();
-	}
-
-	private void recycleBitmap()
-	{
-		if (qrCodeBitmap != null)
-		{
-			qrCodeBitmap.recycle();
-			qrCodeBitmap = null;
-		}
-	}
-
 	private void updateView()
 	{
 		final Address selectedAddress = application.determineSelectedAddress();
@@ -150,8 +133,6 @@ public final class WalletAddressFragment extends Fragment
 					Constants.ADDRESS_FORMAT_LINE_SIZE));
 
 			final String addressStr = BitcoinURI.convertToBitcoinURI(selectedAddress, null, null, null);
-
-			recycleBitmap();
 
 			final int size = (int) (256 * getResources().getDisplayMetrics().density);
 			qrCodeBitmap = WalletUtils.getQRCodeBitmap(addressStr, size);

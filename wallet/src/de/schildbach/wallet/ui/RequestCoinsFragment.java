@@ -239,9 +239,6 @@ public final class RequestCoinsFragment extends SherlockFragment
 	{
 		final String request = determineRequestStr();
 
-		if (qrCodeBitmap != null)
-			qrCodeBitmap.recycle();
-
 		// update qr code
 		final int size = (int) (256 * getResources().getDisplayMetrics().density);
 		qrCodeBitmap = WalletUtils.getQRCodeBitmap(request, size);
