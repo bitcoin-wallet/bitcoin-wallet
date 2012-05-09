@@ -63,10 +63,6 @@ public class BitmapFragment extends DialogFragment
 
 	private Activity activity;
 
-	public BitmapFragment()
-	{
-	}
-
 	@Override
 	public void onAttach(final Activity activity)
 	{
