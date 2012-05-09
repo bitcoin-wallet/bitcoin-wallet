@@ -102,7 +102,7 @@ public final class RequestCoinsFragment extends SherlockFragment
 	@Override
 	public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState)
 	{
-		final View view = inflater.inflate(R.layout.request_coins_fragment, container);
+		final View view = inflater.inflate(R.layout.request_coins_fragment, container, false);
 
 		qrView = (ImageView) view.findViewById(R.id.request_coins_qr);
 		qrView.setOnClickListener(new OnClickListener()

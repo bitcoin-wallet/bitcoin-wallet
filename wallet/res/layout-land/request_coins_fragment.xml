@@ -1,65 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:orientation="vertical" >
+	android:orientation="horizontal" >
 
 	<include
-		android:layout_width="fill_parent"
-		android:layout_height="0px"
+		android:layout_width="0px"
+		android:layout_height="fill_parent"
 		android:layout_weight="1"
 		layout="@layout/request_coins_fragment_form" />
 
-	<LinearLayout
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
+	<FrameLayout
+		android:layout_width="wrap_content"
+		android:layout_height="fill_parent"
 		android:background="@color/background_panel"
-		android:orientation="horizontal"
 		android:paddingBottom="@dimen/list_entry_padding_vertical"
 		android:paddingLeft="@dimen/list_entry_padding_horizontal"
 		android:paddingRight="@dimen/list_entry_padding_horizontal"
 		android:paddingTop="@dimen/list_entry_padding_vertical" >
 
 		<LinearLayout
-			android:layout_width="0px"
+			android:layout_width="@dimen/wallet_address_qr_size_large"
 			android:layout_height="fill_parent"
-			android:layout_gravity="left"
-			android:layout_weight="1"
 			android:orientation="vertical" >
 
 			<TextView
 				android:layout_width="fill_parent"
-				android:layout_height="0px"
-				android:layout_gravity="top"
-				android:layout_weight="1"
+				android:layout_height="wrap_content"
 				android:text="@string/request_coins_fragment_qr_label"
 				android:textSize="@dimen/font_size_normal"
 				android:textStyle="bold" />
 
+			<FrameLayout
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_gravity="center_horizontal"
+				android:layout_marginBottom="@dimen/list_entry_padding_vertical"
+				android:layout_marginTop="@dimen/list_entry_padding_vertical" >
+
+				<ImageView
+					android:id="@+id/request_coins_qr"
+					android:layout_width="@dimen/wallet_address_qr_size_large"
+					android:layout_height="@dimen/wallet_address_qr_size_large"
+					android:background="@drawable/qrcode_frame"
+					android:padding="8dp"
+					android:scaleType="centerInside" />
+			</FrameLayout>
+
 			<TextView
 				android:id="@+id/request_coins_fragment_nfc_enabled"
 				android:layout_width="fill_parent"
-				android:layout_height="wrap_content"
-				android:layout_gravity="bottom"
+				android:layout_height="0px"
+				android:layout_weight="1"
+				android:gravity="bottom"
 				android:text="@string/request_coins_fragment_nfc_enabled"
 				android:textSize="@dimen/font_size_normal"
 				android:textStyle="bold"
 				android:visibility="gone" />
 		</LinearLayout>
-
-		<FrameLayout
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_gravity="center"
-			android:layout_marginLeft="@dimen/list_entry_padding_horizontal" >
-
-			<ImageView
-				android:id="@+id/request_coins_qr"
-				android:layout_width="@dimen/wallet_address_qr_size_large"
-				android:layout_height="@dimen/wallet_address_qr_size_large"
-				android:layout_gravity="center"
-				android:background="@drawable/qrcode_frame"
-				android:padding="8dp"
-				android:scaleType="centerInside" />
-		</FrameLayout>
-	</LinearLayout>
+	</FrameLayout>
 
 </LinearLayout>
