@@ -21,10 +21,10 @@
 
 		<FrameLayout
 			android:id="@+id/bitcoin_address_button"
+			style="@style/My.Widget.Button.Borderless"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_gravity="bottom"
-			android:background="@android:drawable/list_selector_background"
 			android:focusable="true"
 			android:foreground="@drawable/dropdown_ic_arrow"
 			android:foregroundGravity="bottom|right" >

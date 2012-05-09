@@ -76,10 +76,10 @@
 
 		<FrameLayout
 			android:id="@+id/transaction_fragment_from_button"
+			style="@style/My.Widget.Button.Borderless"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_gravity="bottom"
-			android:background="@android:drawable/list_selector_background"
 			android:focusable="true"
 			android:foreground="@drawable/dropdown_ic_arrow"
 			android:foregroundGravity="bottom|right" >
@@ -106,10 +106,10 @@
 
 		<FrameLayout
 			android:id="@+id/transaction_fragment_to_button"
+			style="@style/My.Widget.Button.Borderless"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_gravity="bottom"
-			android:background="@android:drawable/list_selector_background"
 			android:focusable="true"
 			android:foreground="@drawable/dropdown_ic_arrow"
 			android:foregroundGravity="bottom|right" >

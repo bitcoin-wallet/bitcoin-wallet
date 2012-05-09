@@ -62,4 +62,10 @@
 		<item name="android:paddingLeft">42dp</item>
 	</style>
 
+	<style name="My.Widget.Button.Borderless" parent="@android:style/Widget">
+		<item name="android:background">@android:drawable/list_selector_background</item>
+		<item name="android:paddingLeft">4dp</item>
+		<item name="android:paddingRight">4dp</item>
+	</style>
+
 </resources>

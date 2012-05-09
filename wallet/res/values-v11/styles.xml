@@ -9,4 +9,6 @@
 
 	<style name="My.Widget.CompoundButton.CheckBox" parent="@android:style/Widget.Holo.Light.CompoundButton.CheckBox" />
 
+	<style name="My.Widget.Button.Borderless" parent="@android:style/Widget.Holo.Button.Borderless" />
+
 </resources>
