@@ -17,6 +17,7 @@
 
 package de.schildbach.wallet.ui;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.ContentResolver;
@@ -26,7 +27,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
@@ -75,6 +75,16 @@ public final class EditAddressBookEntryFragment extends DialogFragment
 		return fragment;
 	}
 
+	private Activity activity;
+
+	@Override
+	public void onAttach(final Activity activity)
+	{
+		super.onAttach(activity);
+
+		this.activity = activity;
+	}
+
 	@Override
 	public Dialog onCreateDialog(final Bundle savedInstanceState)
 	{
@@ -82,7 +92,6 @@ public final class EditAddressBookEntryFragment extends DialogFragment
 		final String address = args.getString(KEY_ADDRESS);
 		final String suggestedAddressLabel = args.getString(KEY_SUGGESTED_ADDRESS_LABEL);
 
-		final FragmentActivity activity = getActivity();
 		final LayoutInflater inflater = LayoutInflater.from(activity);
 
 		final ContentResolver contentResolver = activity.getContentResolver();
@@ -106,49 +115,42 @@ public final class EditAddressBookEntryFragment extends DialogFragment
 
 		dialog.setView(view);
 
-		dialog.setPositiveButton(isAdd ? R.string.button_add : R.string.edit_address_book_entry_dialog_button_edit,
-				new DialogInterface.OnClickListener()
-				{
-					public void onClick(final DialogInterface dialog, final int whichButton)
-					{
-						final String newLabel = viewLabel.getText().toString().trim();
-
-						if (newLabel.length() > 0)
-						{
-							final ContentValues values = new ContentValues();
-							values.put(AddressBookProvider.KEY_LABEL, newLabel);
-
-							if (isAdd)
-								contentResolver.insert(uri, values);
-							else
-								contentResolver.update(uri, values, null, null);
-						}
-						else if (!isAdd)
-						{
-							contentResolver.delete(uri, null, null);
-						}
-
-						dismiss();
-					}
-				});
-		if (!isAdd)
+		final DialogInterface.OnClickListener onClickListener = new DialogInterface.OnClickListener()
 		{
-			dialog.setNeutralButton(R.string.button_delete, new DialogInterface.OnClickListener()
+			public void onClick(final DialogInterface dialog, final int which)
 			{
-				public void onClick(final DialogInterface dialog, final int whichButton)
+				if (which == DialogInterface.BUTTON_POSITIVE)
+				{
+					final String newLabel = viewLabel.getText().toString().trim();
+
+					if (newLabel.length() > 0)
+					{
+						final ContentValues values = new ContentValues();
+						values.put(AddressBookProvider.KEY_LABEL, newLabel);
+
+						if (isAdd)
+							contentResolver.insert(uri, values);
+						else
+							contentResolver.update(uri, values, null, null);
+					}
+					else if (!isAdd)
+					{
+						contentResolver.delete(uri, null, null);
+					}
+				}
+				else if (which == DialogInterface.BUTTON_NEUTRAL)
 				{
 					contentResolver.delete(uri, null, null);
-					dismiss();
 				}
-			});
-		}
-		dialog.setNegativeButton(R.string.button_cancel, new DialogInterface.OnClickListener()
-		{
-			public void onClick(final DialogInterface dialog, final int whichButton)
-			{
+
 				dismiss();
 			}
-		});
+		};
+
+		dialog.setPositiveButton(isAdd ? R.string.button_add : R.string.edit_address_book_entry_dialog_button_edit, onClickListener);
+		if (!isAdd)
+			dialog.setNeutralButton(R.string.button_delete, onClickListener);
+		dialog.setNegativeButton(R.string.button_cancel, onClickListener);
 
 		return dialog.create();
 	}
