@@ -86,6 +86,14 @@ public final class WalletTransactionsFragment extends Fragment
 	private static final int INITIAL_PAGE = 1;
 
 	@Override
+	public void onCreate(final Bundle savedInstanceState)
+	{
+		super.onCreate(savedInstanceState);
+
+		setRetainInstance(true);
+	}
+
+	@Override
 	public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState)
 	{
 		final View view = inflater.inflate(R.layout.wallet_transactions_fragment, container, false);
@@ -268,6 +276,8 @@ public final class WalletTransactionsFragment extends Fragment
 		{
 			super.onCreate(savedInstanceState);
 
+			setRetainInstance(true);
+
 			this.mode = getArguments().getInt(KEY_MODE);
 
 			adapter = new ArrayAdapter<Transaction>(activity, 0)
@@ -388,14 +398,9 @@ public final class WalletTransactionsFragment extends Fragment
 					}
 				}
 			};
+			setListAdapter(adapter);
 
 			activity.getContentResolver().registerContentObserver(AddressBookProvider.CONTENT_URI, true, addressBookObserver);
-		}
-
-		@Override
-		public void onActivityCreated(final Bundle savedInstanceState)
-		{
-			super.onActivityCreated(savedInstanceState);
 
 			getLoaderManager().initLoader(0, null, this);
 		}
@@ -412,8 +417,6 @@ public final class WalletTransactionsFragment extends Fragment
 
 			setEmptyText(getString(mode == 2 ? R.string.wallet_transactions_fragment_empty_text_sent
 					: R.string.wallet_transactions_fragment_empty_text_received));
-
-			setListAdapter(adapter);
 		}
 
 		@Override
