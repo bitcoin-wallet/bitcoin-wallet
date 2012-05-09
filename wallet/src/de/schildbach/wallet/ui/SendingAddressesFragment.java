@@ -46,7 +46,7 @@ import com.google.bitcoin.uri.BitcoinURI;
 
 import de.schildbach.wallet.AddressBookProvider;
 import de.schildbach.wallet.Constants;
-import de.schildbach.wallet.util.QrDialog;
+import de.schildbach.wallet.util.BitmapFragment;
 import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
 
@@ -253,7 +253,7 @@ public final class SendingAddressesFragment extends SherlockListFragment impleme
 	{
 		final String uri = BitcoinURI.convertToBitcoinURI(address, null, null, null);
 		final int size = (int) (256 * getResources().getDisplayMetrics().density);
-		new QrDialog(activity, WalletUtils.getQRCodeBitmap(uri, size)).show();
+		BitmapFragment.show(getFragmentManager(), WalletUtils.getQRCodeBitmap(uri, size));
 	}
 
 	private void handleCopyToClipboard(final String address)

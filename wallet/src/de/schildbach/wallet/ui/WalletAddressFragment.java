@@ -38,8 +38,8 @@ import com.google.bitcoin.uri.BitcoinURI;
 
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
+import de.schildbach.wallet.util.BitmapFragment;
 import de.schildbach.wallet.util.NfcTools;
-import de.schildbach.wallet.util.QrDialog;
 import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
 
@@ -164,7 +164,7 @@ public final class WalletAddressFragment extends Fragment
 
 	private void handleShowQRCode()
 	{
-		new QrDialog(getActivity(), qrCodeBitmap).show();
+		BitmapFragment.show(getFragmentManager(), qrCodeBitmap);
 	}
 
 	private final OnSharedPreferenceChangeListener prefsListener = new OnSharedPreferenceChangeListener()

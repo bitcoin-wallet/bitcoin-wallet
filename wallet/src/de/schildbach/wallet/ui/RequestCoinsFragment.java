@@ -55,8 +55,8 @@ import de.schildbach.wallet.AddressBookProvider;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.ui.CurrencyAmountView.Listener;
+import de.schildbach.wallet.util.BitmapFragment;
 import de.schildbach.wallet.util.NfcTools;
-import de.schildbach.wallet.util.QrDialog;
 import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
 
@@ -109,7 +109,7 @@ public final class RequestCoinsFragment extends SherlockFragment
 		{
 			public void onClick(final View v)
 			{
-				new QrDialog(activity, qrCodeBitmap).show();
+				BitmapFragment.show(getFragmentManager(), qrCodeBitmap);
 			}
 		});
 
