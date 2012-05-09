@@ -246,7 +246,7 @@ public class ErrorReporter implements Thread.UncaughtExceptionHandler
 		{
 			final StringBuilder errorText = new StringBuilder();
 
-			final BufferedReader input = new BufferedReader(new FileReader(stackTraceFile));
+			final BufferedReader input = new BufferedReader(new FileReader(stackTraceFile), 1024);
 			String line;
 			while ((line = input.readLine()) != null)
 				errorText.append(line + "\n");

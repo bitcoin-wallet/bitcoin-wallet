@@ -224,7 +224,7 @@ public final class WalletActivity extends AbstractWalletActivity
 					connection.connect();
 					final long serverTime = connection.getHeaderFieldDate("Date", 0);
 					final InputStream is = connection.getInputStream();
-					final BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+					final BufferedReader reader = new BufferedReader(new InputStreamReader(is), 64);
 					final int serverVersionCode = Integer.parseInt(reader.readLine().trim().split("\\s+")[0]);
 					reader.close();
 
