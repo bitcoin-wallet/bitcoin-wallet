@@ -31,7 +31,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
-import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
@@ -45,8 +44,8 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 
 import de.schildbach.wallet.Constants;
-import de.schildbach.wallet.service.BlockchainServiceImpl;
 import de.schildbach.wallet.service.BlockchainService;
+import de.schildbach.wallet.service.BlockchainServiceImpl;
 import de.schildbach.wallet.util.ErrorReporter;
 import de.schildbach.wallet_test.R;
 
@@ -86,7 +85,8 @@ public final class WalletActivity extends AbstractWalletActivity
 		final ActionBar actionBar = getSupportActionBar();
 		actionBar.setTitle(R.string.app_name);
 
-		if ((getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) < Configuration.SCREENLAYOUT_SIZE_LARGE)
+		final boolean twoPanes = findViewById(R.id.wallet_main_twopanes) != null;
+		if (!twoPanes)
 		{
 			final FragmentManager fm = getSupportFragmentManager();
 			final FragmentTransaction ft = fm.beginTransaction();
