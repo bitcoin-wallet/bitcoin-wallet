@@ -57,22 +57,6 @@ public final class WalletActivity extends AbstractWalletActivity
 	public static final int DIALOG_SAFETY = 1;
 	private static final int DIALOG_HELP = 0;
 
-	private BlockchainService service;
-
-	private final ServiceConnection serviceConnection = new ServiceConnection()
-	{
-		public void onServiceConnected(final ComponentName name, final IBinder binder)
-		{
-			service = ((BlockchainServiceImpl.LocalBinder) binder).getService();
-
-			service.cancelCoinsReceived();
-		}
-
-		public void onServiceDisconnected(final ComponentName name)
-		{
-		}
-	};
-
 	@Override
 	protected void onCreate(final Bundle savedInstanceState)
 	{
@@ -104,17 +88,23 @@ public final class WalletActivity extends AbstractWalletActivity
 
 		startService(new Intent(this, BlockchainServiceImpl.class));
 
-		bindService(new Intent(this, BlockchainServiceImpl.class), serviceConnection, Context.BIND_AUTO_CREATE);
+		bindService(new Intent(this, BlockchainServiceImpl.class), new ServiceConnection()
+		{
+			public void onServiceConnected(final ComponentName name, final IBinder binder)
+			{
+				final BlockchainService service = ((BlockchainServiceImpl.LocalBinder) binder).getService();
+
+				service.cancelCoinsReceived();
+
+				unbindService(this);
+			}
+
+			public void onServiceDisconnected(final ComponentName name)
+			{
+			}
+		}, Context.BIND_AUTO_CREATE);
 
 		checkLowStorageAlert();
-	}
-
-	@Override
-	protected void onPause()
-	{
-		unbindService(serviceConnection);
-
-		super.onPause();
 	}
 
 	@Override
@@ -147,6 +137,10 @@ public final class WalletActivity extends AbstractWalletActivity
 				startActivity(new Intent(this, PeerMonitorActivity.class));
 				return true;
 
+			case R.id.wallet_options_disconnect:
+				handleDisconnect();
+				return true;
+
 			case R.id.wallet_options_preferences:
 				startActivity(new Intent(this, PreferencesActivity.class));
 				return true;
@@ -171,6 +165,12 @@ public final class WalletActivity extends AbstractWalletActivity
 		}
 
 		return super.onOptionsItemSelected(item);
+	}
+
+	private void handleDisconnect()
+	{
+		stopService(new Intent(this, BlockchainServiceImpl.class));
+		finish();
 	}
 
 	@Override
