@@ -21,14 +21,11 @@ import java.util.Date;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.IBinder;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,7 +34,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.service.BlockchainService;
-import de.schildbach.wallet.service.BlockchainServiceImpl;
 import de.schildbach.wallet_test.R;
 
 /**
@@ -45,6 +41,8 @@ import de.schildbach.wallet_test.R;
  */
 public final class BlockchainStateFragment extends Fragment
 {
+	private Activity activity;
+
 	private TextView messageView;
 	private TextView disclaimerView;
 
@@ -52,17 +50,6 @@ public final class BlockchainStateFragment extends Fragment
 	private Date bestChainDate;
 
 	private final Handler delayMessageHandler = new Handler();
-
-	private final ServiceConnection serviceConnection = new ServiceConnection()
-	{
-		public void onServiceConnected(final ComponentName name, final IBinder binder)
-		{
-		}
-
-		public void onServiceDisconnected(final ComponentName name)
-		{
-		}
-	};
 
 	private final BroadcastReceiver broadcastReceiver = new BroadcastReceiver()
 	{
@@ -77,13 +64,11 @@ public final class BlockchainStateFragment extends Fragment
 	};
 
 	@Override
-	public void onCreate(final Bundle savedInstanceState)
+	public void onAttach(final Activity activity)
 	{
-		super.onCreate(savedInstanceState);
+		super.onAttach(activity);
 
-		final Activity activity = getActivity();
-
-		activity.bindService(new Intent(activity, BlockchainServiceImpl.class), serviceConnection, Context.BIND_AUTO_CREATE);
+		this.activity = activity;
 	}
 
 	@Override
@@ -98,8 +83,6 @@ public final class BlockchainStateFragment extends Fragment
 		{
 			public void onClick(final View v)
 			{
-				final Activity activity = getActivity();
-
 				activity.showDialog(WalletActivity.DIALOG_SAFETY);
 			}
 		});
@@ -112,8 +95,6 @@ public final class BlockchainStateFragment extends Fragment
 	{
 		super.onResume();
 
-		final Activity activity = getActivity();
-
 		activity.registerReceiver(broadcastReceiver, new IntentFilter(BlockchainService.ACTION_BLOCKCHAIN_STATE));
 
 		updateView();
@@ -122,8 +103,6 @@ public final class BlockchainStateFragment extends Fragment
 	@Override
 	public void onPause()
 	{
-		final Activity activity = getActivity();
-
 		activity.unregisterReceiver(broadcastReceiver);
 
 		super.onPause();
@@ -132,11 +111,7 @@ public final class BlockchainStateFragment extends Fragment
 	@Override
 	public void onDestroy()
 	{
-		final Activity activity = getActivity();
-
 		delayMessageHandler.removeCallbacksAndMessages(null);
-
-		activity.unbindService(serviceConnection);
 
 		super.onDestroy();
 	}
