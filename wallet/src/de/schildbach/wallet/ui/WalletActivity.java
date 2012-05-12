@@ -102,6 +102,8 @@ public final class WalletActivity extends AbstractWalletActivity
 	{
 		super.onResume();
 
+		startService(new Intent(this, BlockchainServiceImpl.class));
+
 		bindService(new Intent(this, BlockchainServiceImpl.class), serviceConnection, Context.BIND_AUTO_CREATE);
 
 		checkLowStorageAlert();

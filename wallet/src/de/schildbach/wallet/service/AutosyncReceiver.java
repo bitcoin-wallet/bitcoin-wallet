@@ -44,7 +44,7 @@ public class AutosyncReceiver extends BroadcastReceiver
 		}
 		else if (Intent.ACTION_POWER_DISCONNECTED.equals(action))
 		{
-			context.stopService(new Intent(context, BlockchainServiceImpl.class));
+			// service will stop when blockchain download idle
 		}
 	}
 }

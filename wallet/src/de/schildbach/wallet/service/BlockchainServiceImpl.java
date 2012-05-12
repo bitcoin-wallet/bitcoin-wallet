@@ -96,6 +96,9 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 	private int notificationCount = 0;
 	private BigInteger notificationAccumulatedAmount = BigInteger.ZERO;
 	private final List<Address> notificationAddresses = new LinkedList<Address>();
+	private int lastChainHeight = 0;
+	private final List<Integer> lastDownloadedHistory = new LinkedList<Integer>();
+	private static final int MAX_LAST_CHAIN_HEIGHTS = 10;
 
 	private final WalletEventListener walletEventListener = new AbstractWalletEventListener()
 	{
@@ -254,7 +257,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 		};
 	};
 
-	private final BroadcastReceiver broadcastReceiver = new BroadcastReceiver()
+	private final BroadcastReceiver connectivityReceiver = new BroadcastReceiver()
 	{
 		private boolean hasConnectivity;
 		private boolean hasPower;
@@ -359,6 +362,64 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 		}
 	};
 
+	private final BroadcastReceiver tickReceiver = new BroadcastReceiver()
+	{
+		@Override
+		public void onReceive(final Context context, final Intent intent)
+		{
+			try
+			{
+				final int chainHeight = blockStore.getChainHead().getHeight();
+
+				if (lastChainHeight > 0)
+				{
+					final int downloaded = chainHeight - lastChainHeight;
+
+					// push number of downloaded blocks
+					lastDownloadedHistory.add(0, downloaded);
+
+					// trim
+					while (lastDownloadedHistory.size() > MAX_LAST_CHAIN_HEIGHTS)
+						lastDownloadedHistory.remove(lastDownloadedHistory.size() - 1);
+
+					// print
+					final StringBuilder builder = new StringBuilder();
+					for (final int lastDownloaded : lastDownloadedHistory)
+					{
+						if (builder.length() > 0)
+							builder.append(',');
+						builder.append(lastDownloaded);
+					}
+					System.out.println("Number of blocks downloaded: " + builder);
+
+					final boolean isIdle = lastDownloadedHistory.size() >= 1 && lastDownloadedHistory.get(0) == 0;
+
+					if (isIdle)
+					{
+						final boolean autosync = prefs.getBoolean(Constants.PREFS_KEY_AUTOSYNC, false);
+
+						final Intent batteryIntent = registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+						final boolean plugged = batteryIntent.getIntExtra(BatteryManager.EXTRA_PLUGGED, 0) > 0;
+
+						final boolean stayConnected = autosync && plugged;
+
+						if (!stayConnected)
+						{
+							stopSelf();
+							System.out.println("End of block download detected");
+						}
+					}
+				}
+
+				lastChainHeight = chainHeight;
+			}
+			catch (final BlockStoreException x)
+			{
+				x.printStackTrace();
+			}
+		}
+	};
+
 	public class LocalBinder extends Binder
 	{
 		public BlockchainService getService()
@@ -405,7 +466,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 		intentFilter.addAction(Intent.ACTION_BATTERY_CHANGED);
 		intentFilter.addAction(Intent.ACTION_DEVICE_STORAGE_LOW);
 		intentFilter.addAction(Intent.ACTION_DEVICE_STORAGE_OK);
-		registerReceiver(broadcastReceiver, intentFilter);
+		registerReceiver(connectivityReceiver, intentFilter);
 
 		final int versionCode = application.applicationVersionCode();
 		final int lastVersionCode = prefs.getInt(Constants.PREFS_KEY_LAST_VERSION, 0);
@@ -454,6 +515,8 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 		{
 			throw new Error("blockstore cannot be created", x);
 		}
+
+		registerReceiver(tickReceiver, new IntentFilter(Intent.ACTION_TIME_TICK));
 	}
 
 	private void copyBlockchainSnapshot(final File file)
@@ -487,6 +550,8 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 	{
 		System.out.println(getClass().getName() + ".onDestroy()");
 
+		unregisterReceiver(tickReceiver);
+
 		application.getWallet().removeEventListener(walletEventListener);
 
 		if (peerGroup != null)
@@ -495,7 +560,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 			peerGroup.stop();
 		}
 
-		unregisterReceiver(broadcastReceiver);
+		unregisterReceiver(connectivityReceiver);
 
 		removeBroadcastPeerState();
 		removeBroadcastBlockchainState();
