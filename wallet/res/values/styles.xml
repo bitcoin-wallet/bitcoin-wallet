@@ -34,15 +34,22 @@
 	</style>
 
 	<style name="My.Widget.ActionMode" parent="Widget.Sherlock.Light.ActionMode.Inverse">
-		<item name="titleTextStyle">@style/My.Theme.ActionMode.TitleTextStyle</item>
-		<item name="android:titleTextStyle">@style/My.Theme.ActionMode.TitleTextStyle</item>
+		<item name="titleTextStyle">@style/My.TextAppearance.Widget.ActionMode.Title</item>
+		<item name="android:titleTextStyle">@style/My.TextAppearance.Widget.ActionMode.Title</item>
+		<item name="subtitleTextStyle">@style/My.TextAppearance.Widget.ActionMode.Subtitle</item>
+		<item name="android:subtitleTextStyle">@style/My.TextAppearance.Widget.ActionMode.Subtitle</item>
 	</style>
 
-	<style name="My.Theme.ActionMode.TitleTextStyle" parent="android:style/TextAppearance.Holo.Widget.ActionMode.Title">
+	<style name="My.TextAppearance.Widget.ActionMode.Title" parent="android:style/TextAppearance.Holo.Widget.ActionMode.Title">
 		<item name="android:textColor">@android:color/white</item>
 		<item name="android:textStyle">bold</item>
 		<item name="android:shadowColor">@android:color/black</item>
 		<item name="android:shadowRadius">1</item>
+	</style>
+
+	<style name="My.TextAppearance.Widget.ActionMode.Subtitle" parent="android:style/TextAppearance.Holo.Widget.ActionMode.Subtitle">
+		<item name="android:textColor">@android:color/white</item>
+		<item name="android:textStyle">normal</item>
 	</style>
 
 	<style name="My.Widget.EditText" parent="@android:style/Widget.EditText">
