@@ -19,7 +19,8 @@
 		android:label="@string/app_name" android:hardwareAccelerated="true" android:debuggable="true">
 
 		<activity android:name="de.schildbach.wallet.ui.WalletActivity"
-			android:screenOrientation="nosensor" android:configChanges="orientation|keyboard|keyboardHidden" android:launchMode="singleInstance" />
+			android:configChanges="keyboard|keyboardHidden"
+			android:launchMode="singleInstance" />
 
 		<activity-alias android:name="de.schildbach.wallet.WalletActivity" android:targetActivity="de.schildbach.wallet.ui.WalletActivity">
 			<intent-filter>
@@ -29,7 +30,9 @@
 		</activity-alias>
 
 		<activity android:name="de.schildbach.wallet.ui.SendCoinsActivity"
-			android:screenOrientation="nosensor" android:configChanges="orientation|keyboard|keyboardHidden" android:launchMode="singleTask"
+			android:screenOrientation="behind"
+			android:configChanges="keyboard|keyboardHidden"
+			android:launchMode="singleTask"
 			android:windowSoftInputMode="adjustResize">
 			<intent-filter android:label="@string/send_coins_activity_title">
 				<action android:name="android.intent.action.VIEW" />
@@ -45,11 +48,13 @@
 		</activity>
 
 		<activity android:name="de.schildbach.wallet.ui.RequestCoinsActivity"
-			android:screenOrientation="behind" android:configChanges="orientation|keyboard|keyboardHidden"
+			android:screenOrientation="behind"
+			android:configChanges="keyboard|keyboardHidden"
 			android:windowSoftInputMode="adjustResize" />
 
 		<activity android:name="de.schildbach.wallet.ui.TransactionActivity"
-			android:screenOrientation="behind" android:configChanges="orientation|keyboard|keyboardHidden">
+			android:screenOrientation="behind"
+			android:configChanges="keyboard|keyboardHidden">
 			<intent-filter>
 				<action android:name="android.intent.action.VIEW" />
 				<data android:scheme="btctx" />
@@ -64,14 +69,18 @@
 		</activity>
 
 		<activity android:name="de.schildbach.wallet.ui.AddressBookActivity"
-			android:screenOrientation="behind" android:configChanges="orientation|keyboard|keyboardHidden" />
+			android:screenOrientation="behind"
+			android:configChanges="keyboard|keyboardHidden" />
 
 		<activity android:name="de.schildbach.wallet.ui.PeerMonitorActivity"
-			android:screenOrientation="behind" android:configChanges="orientation|keyboard|keyboardHidden" />
+			android:screenOrientation="behind"
+			android:configChanges="keyboard|keyboardHidden" />
 
-		<activity android:name="de.schildbach.wallet.ui.PreferencesActivity" android:screenOrientation="behind" />
+		<activity android:name="de.schildbach.wallet.ui.PreferencesActivity"
+			android:screenOrientation="behind" />
 
-		<activity android:name="de.schildbach.wallet.ui.AboutActivity" android:screenOrientation="behind" />
+		<activity android:name="de.schildbach.wallet.ui.AboutActivity"
+			android:screenOrientation="behind" />
 
 		<provider android:name="de.schildbach.wallet.AddressBookProvider" android:authorities="de.schildbach.wallet_test.address_book"
 			android:exported="false" />
