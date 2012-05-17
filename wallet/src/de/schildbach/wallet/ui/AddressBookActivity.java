@@ -59,6 +59,7 @@ public final class AddressBookActivity extends AbstractWalletActivity
 	private WalletAddressesFragment walletAddressesFragment;
 	private SendingAddressesFragment sendingAddressesFragment;
 
+	private FragmentManager fm;
 	private final Handler handler = new Handler();
 
 	@Override
@@ -74,7 +75,7 @@ public final class AddressBookActivity extends AbstractWalletActivity
 
 		final ViewPager pager = (ViewPager) findViewById(R.id.address_book_pager);
 
-		final FragmentManager fm = getSupportFragmentManager();
+		fm = getSupportFragmentManager();
 
 		if (pager != null)
 		{
@@ -99,7 +100,7 @@ public final class AddressBookActivity extends AbstractWalletActivity
 		else
 		{
 			walletAddressesFragment = (WalletAddressesFragment) fm.findFragmentById(R.id.wallet_addresses_fragment);
-			sendingAddressesFragment = (SendingAddressesFragment) getSupportFragmentManager().findFragmentById(R.id.sending_addresses_fragment);
+			sendingAddressesFragment = (SendingAddressesFragment) fm.findFragmentById(R.id.sending_addresses_fragment);
 		}
 
 		updateFragments();
@@ -131,7 +132,7 @@ public final class AddressBookActivity extends AbstractWalletActivity
 				{
 					public void run()
 					{
-						EditAddressBookEntryFragment.edit(getSupportFragmentManager(), address.toString());
+						EditAddressBookEntryFragment.edit(fm, address.toString());
 					}
 				}, 500);
 			}
