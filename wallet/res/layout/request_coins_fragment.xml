@@ -2,11 +2,18 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:orientation="vertical" >
 
-	<include
+	<FrameLayout
 		android:layout_width="fill_parent"
 		android:layout_height="0px"
 		android:layout_weight="1"
-		layout="@layout/request_coins_fragment_form" />
+		android:foreground="@drawable/fragment_shadow_horizontal_flip"
+		android:foregroundGravity="bottom|fill_horizontal" >
+
+		<include
+			android:layout_width="fill_parent"
+			android:layout_height="fill_parent"
+			layout="@layout/request_coins_fragment_form" />
+	</FrameLayout>
 
 	<LinearLayout
 		android:layout_width="fill_parent"
