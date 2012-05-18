@@ -22,6 +22,7 @@ import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.ObjectStreamException;
@@ -48,7 +49,6 @@ import com.google.bitcoin.core.DumpedPrivateKey;
 import com.google.bitcoin.core.ECKey;
 import com.google.bitcoin.core.Wallet;
 import com.google.bitcoin.core.WalletEventListener;
-import com.google.bitcoin.store.WalletProtobufSerializer;
 
 import de.schildbach.wallet.util.ErrorReporter;
 import de.schildbach.wallet.util.Iso8601Format;
@@ -200,7 +200,7 @@ public class WalletApplication extends Application
 
 			try
 			{
-				wallet = WalletProtobufSerializer.readWallet(is);
+				wallet = Wallet.loadFromFileStream(is);
 			}
 			catch (final IOException x)
 			{
@@ -366,7 +366,10 @@ public class WalletApplication extends Application
 	private void protobufSerializeWallet(final Wallet wallet) throws IOException
 	{
 		final long start = System.currentTimeMillis();
-		WalletProtobufSerializer.writeWallet(wallet, openFileOutput(Constants.WALLET_FILENAME_PROTOBUF, Constants.WALLET_MODE));
+
+		final FileOutputStream os = openFileOutput(Constants.WALLET_FILENAME_PROTOBUF, Constants.WALLET_MODE);
+		wallet.saveToFileStream(os);
+
 		System.out.println("wallet saved to: '" + getFilesDir() + "/" + Constants.WALLET_FILENAME_PROTOBUF + "', took "
 				+ (System.currentTimeMillis() - start) + "ms");
 	}
