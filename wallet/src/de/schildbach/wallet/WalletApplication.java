@@ -29,6 +29,7 @@ import java.io.ObjectStreamException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.nio.charset.Charset;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -64,7 +65,9 @@ public class WalletApplication extends Application
 
 	private final Handler handler = new Handler();
 
-	final private WalletEventListener walletEventListener = new AbstractWalletEventListener()
+	private static final Charset UTF_8 = Charset.forName("UTF-8");
+
+	private final WalletEventListener walletEventListener = new AbstractWalletEventListener()
 	{
 		@Override
 		public void onChange()
@@ -259,7 +262,7 @@ public class WalletApplication extends Application
 		try
 		{
 			final Wallet wallet = new Wallet(Constants.NETWORK_PARAMETERS);
-			final BufferedReader in = new BufferedReader(new InputStreamReader(openFileInput(Constants.WALLET_KEY_BACKUP_BASE58), "UTF-8"));
+			final BufferedReader in = new BufferedReader(new InputStreamReader(openFileInput(Constants.WALLET_KEY_BACKUP_BASE58), UTF_8));
 
 			while (true)
 			{
@@ -302,7 +305,7 @@ public class WalletApplication extends Application
 		try
 		{
 			final Wallet wallet = new Wallet(Constants.NETWORK_PARAMETERS);
-			final BufferedReader in = new BufferedReader(new InputStreamReader(getAssets().open(Constants.WALLET_KEY_BACKUP_SNAPSHOT), "UTF-8"));
+			final BufferedReader in = new BufferedReader(new InputStreamReader(getAssets().open(Constants.WALLET_KEY_BACKUP_SNAPSHOT), UTF_8));
 
 			while (true)
 			{
@@ -377,7 +380,7 @@ public class WalletApplication extends Application
 	private void writeKeys(final OutputStream os) throws IOException
 	{
 		final DateFormat format = Iso8601Format.newDateTimeFormatT();
-		final Writer out = new OutputStreamWriter(os, "UTF-8");
+		final Writer out = new OutputStreamWriter(os, UTF_8);
 
 		for (final ECKey key : wallet.keychain)
 		{
