@@ -61,6 +61,8 @@ public final class WalletAddressesFragment extends SherlockListFragment
 	private WalletApplication application;
 	private ContentResolver contentResolver;
 
+	private BaseAdapter adapter;
+
 	@Override
 	public void onAttach(final Activity activity)
 	{
@@ -78,7 +80,9 @@ public final class WalletAddressesFragment extends SherlockListFragment
 
 		setHasOptionsMenu(true);
 
-		setListAdapter(new WalletAddressesAdapter(activity, application.getWallet().keychain, true));
+		adapter = new WalletAddressesAdapter(activity, application.getWallet().keychain, true);
+
+		setListAdapter(adapter);
 	}
 
 	@Override
@@ -140,8 +144,9 @@ public final class WalletAddressesFragment extends SherlockListFragment
 					public void onClick(final DialogInterface dialog, final int which)
 					{
 						application.addNewKeyToWallet();
+						adapter.notifyDataSetChanged();
 
-						activity.updateFragments(); // TODO use listener
+						activity.updateFragments();
 					}
 				}).setNegativeButton(R.string.button_cancel, null).show();
 	}
