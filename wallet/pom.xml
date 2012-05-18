@@ -31,14 +31,7 @@
 		<dependency>
 			<groupId>de.schildbach.wallet</groupId>
 			<artifactId>bitcoinj</artifactId>
-			<classifier>android</classifier>
 			<version>0.5-SNAPSHOT</version>
-			<exclusions>
-				<exclusion>
-					<groupId>org.bouncycastle</groupId>
-					<artifactId>bcprov-jdk15</artifactId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
