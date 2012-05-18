@@ -28,7 +28,7 @@ import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.support.v4.app.ListFragment;
+import android.support.v4.app.LoaderManager;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
@@ -37,6 +37,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.actionbarsherlock.app.SherlockListFragment;
 import com.google.bitcoin.core.Peer;
 
 import de.schildbach.wallet.service.BlockchainService;
@@ -46,9 +47,11 @@ import de.schildbach.wallet_test.R;
 /**
  * @author Andreas Schildbach
  */
-public final class PeerListFragment extends ListFragment implements LoaderCallbacks<List<Peer>>
+public final class PeerListFragment extends SherlockListFragment implements LoaderCallbacks<List<Peer>>
 {
-	private Activity activity;
+	private AbstractWalletActivity activity;
+	private BlockchainService service;
+	private LoaderManager lm;
 	private ArrayAdapter<Peer> adapter;
 
 	@Override
@@ -56,7 +59,7 @@ public final class PeerListFragment extends ListFragment implements LoaderCallba
 	{
 		super.onAttach(activity);
 
-		this.activity = activity;
+		this.activity = (AbstractWalletActivity) activity;
 	}
 
 	@Override
@@ -64,7 +67,7 @@ public final class PeerListFragment extends ListFragment implements LoaderCallba
 	{
 		super.onActivityCreated(savedInstanceState);
 
-		getLoaderManager().initLoader(0, null, this);
+		activity.bindService(new Intent(activity, BlockchainServiceImpl.class), serviceConnection, Context.BIND_AUTO_CREATE);
 	}
 
 	@Override
@@ -105,14 +108,14 @@ public final class PeerListFragment extends ListFragment implements LoaderCallba
 	@Override
 	public void onDestroy()
 	{
-		getLoaderManager().destroyLoader(0);
+		activity.unbindService(serviceConnection);
 
 		super.onDestroy();
 	}
 
 	public Loader<List<Peer>> onCreateLoader(final int id, final Bundle args)
 	{
-		return new PeerLoader(activity);
+		return new PeerLoader(activity, service);
 	}
 
 	public void onLoadFinished(final Loader<List<Peer>> loader, final List<Peer> peers)
@@ -128,16 +131,34 @@ public final class PeerListFragment extends ListFragment implements LoaderCallba
 		adapter.clear();
 	}
 
+	private final ServiceConnection serviceConnection = new ServiceConnection()
+	{
+		public void onServiceConnected(final ComponentName name, final IBinder binder)
+		{
+			service = ((BlockchainServiceImpl.LocalBinder) binder).getService();
+
+			getLoaderManager().initLoader(0, null, PeerListFragment.this);
+		}
+
+		public void onServiceDisconnected(final ComponentName name)
+		{
+			getLoaderManager().destroyLoader(0);
+
+			service = null;
+		}
+	};
+
 	private static class PeerLoader extends AsyncTaskLoader<List<Peer>>
 	{
 		private Context context;
 		private BlockchainService service;
 
-		private PeerLoader(final Context context)
+		private PeerLoader(final Context context, final BlockchainService service)
 		{
 			super(context);
 
 			this.context = context;
+			this.service = service;
 		}
 
 		@Override
@@ -145,11 +166,7 @@ public final class PeerListFragment extends ListFragment implements LoaderCallba
 		{
 			super.onStartLoading();
 
-			context.bindService(new Intent(context, BlockchainServiceImpl.class), serviceConnection, Context.BIND_AUTO_CREATE);
-
 			context.registerReceiver(broadcastReceiver, new IntentFilter(BlockchainService.ACTION_PEER_STATE));
-
-			forceLoad();
 		}
 
 		@Override
@@ -157,33 +174,14 @@ public final class PeerListFragment extends ListFragment implements LoaderCallba
 		{
 			context.unregisterReceiver(broadcastReceiver);
 
-			context.unbindService(serviceConnection);
-
 			super.onStopLoading();
 		}
 
 		@Override
 		public List<Peer> loadInBackground()
 		{
-			return service != null ? service.getConnectedPeers() : null;
+			return service.getConnectedPeers();
 		}
-
-		private final ServiceConnection serviceConnection = new ServiceConnection()
-		{
-			public void onServiceConnected(final ComponentName name, final IBinder binder)
-			{
-				service = ((BlockchainServiceImpl.LocalBinder) binder).getService();
-
-				forceLoad();
-			}
-
-			public void onServiceDisconnected(final ComponentName name)
-			{
-				service = null;
-
-				forceLoad();
-			}
-		};
 
 		private final BroadcastReceiver broadcastReceiver = new BroadcastReceiver()
 		{
