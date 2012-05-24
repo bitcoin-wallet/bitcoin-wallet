@@ -209,23 +209,25 @@ public class WalletApplication extends Application
 			{
 				x.printStackTrace();
 
-				wallet = restoreWalletFromBackup();
+				Toast.makeText(WalletApplication.this, x.getClass().getName(), Toast.LENGTH_LONG).show();
 
-				Toast.makeText(WalletApplication.this, x.getClass().getName() + "\n" + getString(R.string.toast_wallet_reset), Toast.LENGTH_LONG)
-						.show();
+				wallet = restoreWalletFromBackup();
 			}
 			catch (final IllegalStateException x)
 			{
 				x.printStackTrace();
 
-				wallet = restoreWalletFromBackup();
+				Toast.makeText(WalletApplication.this, x.getClass().getName(), Toast.LENGTH_LONG).show();
 
-				Toast.makeText(WalletApplication.this, x.getClass().getName() + "\n" + getString(R.string.toast_wallet_reset), Toast.LENGTH_LONG)
-						.show();
+				wallet = restoreWalletFromBackup();
 			}
 
 			if (!wallet.isConsistent())
-				throw new Error("wallet is inconsistent: " + Constants.WALLET_FILENAME_PROTOBUF);
+			{
+				Toast.makeText(this, "inconsistent wallet: " + Constants.WALLET_FILENAME_PROTOBUF, Toast.LENGTH_LONG).show();
+
+				wallet = restoreWalletFromBackup();
+			}
 
 			if (!wallet.getParams().equals(Constants.NETWORK_PARAMETERS))
 				throw new Error("bad wallet network parameters: " + wallet.getParams().getId());
@@ -283,6 +285,8 @@ public class WalletApplication extends Application
 			final File file = new File(getDir("blockstore", Context.MODE_WORLD_READABLE | Context.MODE_WORLD_WRITEABLE),
 					Constants.BLOCKCHAIN_FILENAME);
 			file.delete();
+
+			Toast.makeText(this, R.string.toast_wallet_reset, Toast.LENGTH_LONG).show();
 
 			return wallet;
 		}
