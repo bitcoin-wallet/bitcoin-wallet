@@ -96,8 +96,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 	private int notificationCount = 0;
 	private BigInteger notificationAccumulatedAmount = BigInteger.ZERO;
 	private final List<Address> notificationAddresses = new LinkedList<Address>();
-	private int lastChainHeight = 0;
-	private final List<Integer> lastDownloadedHistory = new LinkedList<Integer>();
+
 	private static final int MAX_LAST_CHAIN_HEIGHTS = 10;
 
 	private final WalletEventListener walletEventListener = new AbstractWalletEventListener()
@@ -373,6 +372,9 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 
 	private final BroadcastReceiver tickReceiver = new BroadcastReceiver()
 	{
+		private int lastChainHeight = 0;
+		private final List<Integer> lastDownloadedHistory = new LinkedList<Integer>();
+
 		@Override
 		public void onReceive(final Context context, final Intent intent)
 		{
