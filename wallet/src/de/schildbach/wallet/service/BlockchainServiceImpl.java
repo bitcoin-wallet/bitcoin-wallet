@@ -107,8 +107,17 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 		{
 			try
 			{
-				final TransactionInput input = tx.getInputs().get(0);
-				final Address from = input.getFromAddress();
+				final Address from;
+				if (!tx.isCoinBase())
+				{
+					final TransactionInput input = tx.getInputs().get(0);
+					from = input.getFromAddress();
+				}
+				else
+				{
+					from = null;
+				}
+
 				final BigInteger amount = tx.getValue(wallet);
 
 				handler.post(new Runnable()
