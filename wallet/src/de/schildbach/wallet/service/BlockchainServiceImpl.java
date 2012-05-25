@@ -378,56 +378,49 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 		@Override
 		public void onReceive(final Context context, final Intent intent)
 		{
-			try
+			final int chainHeight = blockChain.getBestChainHeight();
+
+			if (lastChainHeight > 0)
 			{
-				final int chainHeight = blockStore.getChainHead().getHeight();
+				final int downloaded = chainHeight - lastChainHeight;
 
-				if (lastChainHeight > 0)
+				// push number of downloaded blocks
+				lastDownloadedHistory.add(0, downloaded);
+
+				// trim
+				while (lastDownloadedHistory.size() > MAX_LAST_CHAIN_HEIGHTS)
+					lastDownloadedHistory.remove(lastDownloadedHistory.size() - 1);
+
+				// print
+				final StringBuilder builder = new StringBuilder();
+				for (final int lastDownloaded : lastDownloadedHistory)
 				{
-					final int downloaded = chainHeight - lastChainHeight;
+					if (builder.length() > 0)
+						builder.append(',');
+					builder.append(lastDownloaded);
+				}
+				System.out.println("Number of blocks downloaded: " + builder);
 
-					// push number of downloaded blocks
-					lastDownloadedHistory.add(0, downloaded);
+				final boolean isIdle = lastDownloadedHistory.size() >= 1 && lastDownloadedHistory.get(0) == 0;
 
-					// trim
-					while (lastDownloadedHistory.size() > MAX_LAST_CHAIN_HEIGHTS)
-						lastDownloadedHistory.remove(lastDownloadedHistory.size() - 1);
+				if (isIdle)
+				{
+					final boolean autosync = prefs.getBoolean(Constants.PREFS_KEY_AUTOSYNC, false);
 
-					// print
-					final StringBuilder builder = new StringBuilder();
-					for (final int lastDownloaded : lastDownloadedHistory)
+					final Intent batteryIntent = registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+					final boolean plugged = batteryIntent.getIntExtra(BatteryManager.EXTRA_PLUGGED, 0) > 0;
+
+					final boolean stayConnected = autosync && plugged;
+
+					if (!stayConnected)
 					{
-						if (builder.length() > 0)
-							builder.append(',');
-						builder.append(lastDownloaded);
-					}
-					System.out.println("Number of blocks downloaded: " + builder);
-
-					final boolean isIdle = lastDownloadedHistory.size() >= 1 && lastDownloadedHistory.get(0) == 0;
-
-					if (isIdle)
-					{
-						final boolean autosync = prefs.getBoolean(Constants.PREFS_KEY_AUTOSYNC, false);
-
-						final Intent batteryIntent = registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
-						final boolean plugged = batteryIntent.getIntExtra(BatteryManager.EXTRA_PLUGGED, 0) > 0;
-
-						final boolean stayConnected = autosync && plugged;
-
-						if (!stayConnected)
-						{
-							stopSelf();
-							System.out.println("End of block download detected");
-						}
+						stopSelf();
+						System.out.println("End of block download detected");
 					}
 				}
+			}
 
-				lastChainHeight = chainHeight;
-			}
-			catch (final BlockStoreException x)
-			{
-				x.printStackTrace();
-			}
+			lastChainHeight = chainHeight;
 		}
 	};
 
