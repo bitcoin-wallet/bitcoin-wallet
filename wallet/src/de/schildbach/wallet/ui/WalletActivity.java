@@ -25,15 +25,11 @@ import java.net.URLConnection;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.ComponentName;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.ServiceConnection;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.IBinder;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.Window;
@@ -86,23 +82,7 @@ public final class WalletActivity extends AbstractWalletActivity
 	{
 		super.onResume();
 
-		startService(new Intent(this, BlockchainServiceImpl.class));
-
-		bindService(new Intent(this, BlockchainServiceImpl.class), new ServiceConnection()
-		{
-			public void onServiceConnected(final ComponentName name, final IBinder binder)
-			{
-				final BlockchainService service = ((BlockchainServiceImpl.LocalBinder) binder).getService();
-
-				service.cancelCoinsReceived();
-
-				unbindService(this);
-			}
-
-			public void onServiceDisconnected(final ComponentName name)
-			{
-			}
-		}, Context.BIND_AUTO_CREATE);
+		startService(new Intent(BlockchainService.ACTION_CANCEL_COINS_RECEIVED, null, this, BlockchainServiceImpl.class));
 
 		checkLowStorageAlert();
 	}

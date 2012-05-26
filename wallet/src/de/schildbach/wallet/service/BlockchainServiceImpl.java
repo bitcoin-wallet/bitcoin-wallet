@@ -178,15 +178,6 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 		nm.notify(NOTIFICATION_ID_COINS_RECEIVED, notification.getNotification());
 	}
 
-	public void cancelCoinsReceived()
-	{
-		notificationCount = 0;
-		notificationAccumulatedAmount = BigInteger.ZERO;
-		notificationAddresses.clear();
-
-		nm.cancel(NOTIFICATION_ID_COINS_RECEIVED);
-	}
-
 	private final PeerEventListener peerEventListener = new AbstractPeerEventListener()
 	{
 		@Override
@@ -521,6 +512,21 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 		}
 
 		registerReceiver(tickReceiver, new IntentFilter(Intent.ACTION_TIME_TICK));
+	}
+
+	@Override
+	public int onStartCommand(final Intent intent, final int flags, final int startId)
+	{
+		if (BlockchainService.ACTION_CANCEL_COINS_RECEIVED.equals(intent.getAction()))
+		{
+			notificationCount = 0;
+			notificationAccumulatedAmount = BigInteger.ZERO;
+			notificationAddresses.clear();
+
+			nm.cancel(NOTIFICATION_ID_COINS_RECEIVED);
+		}
+
+		return START_NOT_STICKY;
 	}
 
 	private void copyBlockchainSnapshot(final File file)

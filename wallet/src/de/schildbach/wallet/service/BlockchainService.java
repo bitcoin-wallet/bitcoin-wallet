@@ -41,7 +41,7 @@ public interface BlockchainService
 	public static final int ACTION_BLOCKCHAIN_STATE_DOWNLOAD_POWER_PROBLEM = 2;
 	public static final int ACTION_BLOCKCHAIN_STATE_DOWNLOAD_NETWORK_PROBLEM = 4;
 
-	void cancelCoinsReceived();
+	public static final String ACTION_CANCEL_COINS_RECEIVED = BlockchainService.class.getName() + ".cancel_coins_received";
 
 	Transaction sendCoins(Address to, BigInteger amount, BigInteger fee);
 
