@@ -111,17 +111,6 @@ public final class RequestCoinsFragment extends SherlockFragment implements Amou
 		});
 
 		amountView = (CurrencyAmountView) view.findViewById(R.id.request_coins_amount);
-		amountView.setListener(new Listener()
-		{
-			public void changed()
-			{
-				updateView();
-			}
-
-			public void done()
-			{
-			}
-		});
 		amountView.setContextButton(R.drawable.ic_input_calculator, new OnClickListener()
 		{
 			public void onClick(final View v)
@@ -134,17 +123,6 @@ public final class RequestCoinsFragment extends SherlockFragment implements Amou
 		final ArrayList<ECKey> keys = application.getWallet().keychain;
 		final WalletAddressesAdapter adapter = new WalletAddressesAdapter(activity, keys, false);
 		addressView.setAdapter(adapter);
-		addressView.setOnItemSelectedListener(new OnItemSelectedListener()
-		{
-			public void onItemSelected(final AdapterView<?> parent, final View view, final int position, final long id)
-			{
-				updateView();
-			}
-
-			public void onNothingSelected(final AdapterView<?> parent)
-			{
-			}
-		});
 		final Address selectedAddress = application.determineSelectedAddress();
 		for (int i = 0; i < keys.size(); i++)
 		{
@@ -157,13 +135,6 @@ public final class RequestCoinsFragment extends SherlockFragment implements Amou
 		}
 
 		includeLabelView = (CheckBox) view.findViewById(R.id.request_coins_fragment_include_label);
-		includeLabelView.setOnCheckedChangeListener(new OnCheckedChangeListener()
-		{
-			public void onCheckedChanged(final CompoundButton buttonView, final boolean isChecked)
-			{
-				updateView();
-			}
-		});
 
 		nfcEnabledView = view.findViewById(R.id.request_coins_fragment_nfc_enabled);
 
@@ -175,16 +146,54 @@ public final class RequestCoinsFragment extends SherlockFragment implements Amou
 	{
 		super.onResume();
 
+		amountView.setListener(new Listener()
+		{
+			public void changed()
+			{
+				updateView();
+			}
+
+			public void done()
+			{
+			}
+		});
+
+		addressView.setOnItemSelectedListener(new OnItemSelectedListener()
+		{
+			public void onItemSelected(final AdapterView<?> parent, final View view, final int position, final long id)
+			{
+				updateView();
+			}
+
+			public void onNothingSelected(final AdapterView<?> parent)
+			{
+			}
+		});
+
+		includeLabelView.setOnCheckedChangeListener(new OnCheckedChangeListener()
+		{
+			public void onCheckedChanged(final CompoundButton buttonView, final boolean isChecked)
+			{
+				updateView();
+			}
+		});
+
 		updateView();
 	}
 
 	@Override
 	public void onPause()
 	{
-		super.onPause();
-
 		if (nfcManager != null)
 			NfcTools.unpublish(nfcManager, activity);
+
+		amountView.setListener(null);
+
+		addressView.setOnItemSelectedListener(null);
+
+		includeLabelView.setOnCheckedChangeListener(null);
+
+		super.onPause();
 	}
 
 	@Override

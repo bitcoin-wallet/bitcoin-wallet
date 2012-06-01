@@ -25,6 +25,8 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.os.Bundle;
+import android.os.Parcelable;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.SpannableStringBuilder;
@@ -71,52 +73,6 @@ public final class CurrencyAmountView extends FrameLayout
 	private Listener listener;
 	private OnClickListener contextButtonClickListener;
 
-	private final class TextViewListener implements TextWatcher, OnFocusChangeListener, OnEditorActionListener
-	{
-		public void afterTextChanged(final Editable s)
-		{
-			// workaround for German keyboards
-			final String original = s.toString();
-			final String replaced = original.replace(',', '.');
-			if (!replaced.equals(original))
-			{
-				s.clear();
-				s.append(replaced);
-			}
-
-			updateSpans(s);
-		}
-
-		public void beforeTextChanged(final CharSequence s, final int start, final int count, final int after)
-		{
-		}
-
-		public void onTextChanged(final CharSequence s, final int start, final int before, final int count)
-		{
-			updateAppearance();
-			if (listener != null)
-				listener.changed();
-		}
-
-		public void onFocusChange(final View v, final boolean hasFocus)
-		{
-			if (!hasFocus)
-			{
-				final BigInteger amount = getAmount();
-				if (amount != null)
-					setAmount(amount);
-			}
-		}
-
-		public boolean onEditorAction(final TextView v, final int actionId, final KeyEvent event)
-		{
-			if (actionId == EditorInfo.IME_ACTION_DONE && listener != null)
-				listener.done();
-
-			return false;
-		}
-	}
-
 	public CurrencyAmountView(final Context context)
 	{
 		super(context);
@@ -145,16 +101,15 @@ public final class CurrencyAmountView extends FrameLayout
 
 		final Context context = getContext();
 
-		final TextViewListener textViewListener = new TextViewListener();
-
 		textView = (TextView) getChildAt(0);
 		textView.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
-		textView.addTextChangedListener(textViewListener);
-		textView.setOnFocusChangeListener(textViewListener);
-		textView.setOnEditorActionListener(textViewListener);
 		textView.setHintTextColor(lessSignificantColor);
 		setHint(null);
 		setValidateAmount(textView instanceof EditText);
+		final TextViewListener textViewListener = new TextViewListener();
+		textView.addTextChangedListener(textViewListener);
+		textView.setOnFocusChangeListener(textViewListener);
+		textView.setOnEditorActionListener(textViewListener);
 
 		chooseView = new View(context)
 		{
@@ -327,5 +282,75 @@ public final class CurrencyAmountView extends FrameLayout
 		chooseView.requestLayout();
 
 		textView.setTextColor(!validateAmount || isValidAmount() ? significantColor : errorColor);
+	}
+
+	@Override
+	protected Parcelable onSaveInstanceState()
+	{
+		final Bundle state = new Bundle();
+		state.putParcelable("super_state", super.onSaveInstanceState());
+		state.putSerializable("amount", getAmount());
+		return state;
+	}
+
+	@Override
+	protected void onRestoreInstanceState(final Parcelable state)
+	{
+		if (state instanceof Bundle)
+		{
+			final Bundle bundle = (Bundle) state;
+			super.onRestoreInstanceState(bundle.getParcelable("super_state"));
+			setAmount((BigInteger) bundle.getSerializable("amount"));
+		}
+		else
+		{
+			super.onRestoreInstanceState(state);
+		}
+	}
+
+	private final class TextViewListener implements TextWatcher, OnFocusChangeListener, OnEditorActionListener
+	{
+		public void afterTextChanged(final Editable s)
+		{
+			// workaround for German keyboards
+			final String original = s.toString();
+			final String replaced = original.replace(',', '.');
+			if (!replaced.equals(original))
+			{
+				s.clear();
+				s.append(replaced);
+			}
+
+			updateSpans(s);
+		}
+
+		public void beforeTextChanged(final CharSequence s, final int start, final int count, final int after)
+		{
+		}
+
+		public void onTextChanged(final CharSequence s, final int start, final int before, final int count)
+		{
+			updateAppearance();
+			if (listener != null)
+				listener.changed();
+		}
+
+		public void onFocusChange(final View v, final boolean hasFocus)
+		{
+			if (!hasFocus)
+			{
+				final BigInteger amount = getAmount();
+				if (amount != null)
+					setAmount(amount);
+			}
+		}
+
+		public boolean onEditorAction(final TextView v, final int actionId, final KeyEvent event)
+		{
+			if (actionId == EditorInfo.IME_ACTION_DONE && listener != null)
+				listener.done();
+
+			return false;
+		}
 	}
 }

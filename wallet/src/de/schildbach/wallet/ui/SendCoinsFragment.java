@@ -257,7 +257,6 @@ public final class SendCoinsFragment extends SherlockFragment implements AmountC
 		});
 
 		amountView = (CurrencyAmountView) view.findViewById(R.id.send_coins_amount);
-		amountView.setListener(listener);
 		amountView.setContextButton(R.drawable.ic_input_calculator, new OnClickListener()
 		{
 			public void onClick(final View v)
@@ -268,7 +267,6 @@ public final class SendCoinsFragment extends SherlockFragment implements AmountC
 
 		feeView = (CurrencyAmountView) view.findViewById(R.id.send_coins_fee);
 		feeView.setAmount(Constants.DEFAULT_TX_FEE);
-		feeView.setListener(listener);
 
 		availableView = view.findViewById(R.id.send_coins_available);
 
@@ -347,6 +345,10 @@ public final class SendCoinsFragment extends SherlockFragment implements AmountC
 
 		contentResolver.registerContentObserver(AddressBookProvider.CONTENT_URI, true, contentObserver);
 
+		amountView.setListener(listener);
+
+		feeView.setListener(listener);
+
 		updateView();
 	}
 
@@ -364,6 +366,10 @@ public final class SendCoinsFragment extends SherlockFragment implements AmountC
 	public void onPause()
 	{
 		contentResolver.unregisterContentObserver(contentObserver);
+
+		amountView.setListener(null);
+
+		feeView.setListener(null);
 
 		super.onPause();
 	}
