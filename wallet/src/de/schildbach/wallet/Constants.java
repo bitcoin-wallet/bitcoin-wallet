@@ -75,8 +75,6 @@ public class Constants
 	private static final String PACKAGE_NAME_TEST = "de.schildbach.wallet" + '_' + "test"; // replace protected
 	public static final String PACKAGE_NAME = TEST ? PACKAGE_NAME_TEST : PACKAGE_NAME_PROD;
 
-	public static final int APP_ICON_RESID = Constants.TEST ? R.drawable.app_icon_test : R.drawable.app_icon;
-
 	public static final String MIMETYPE_TRANSACTION = "application/x-btctx";
 
 	public static final int MAX_CONNECTED_PEERS = 6;
