@@ -98,6 +98,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 	private final List<Address> notificationAddresses = new LinkedList<Address>();
 
 	private static final int MAX_LAST_CHAIN_HEIGHTS = 10;
+	private static final int IDLE_TIMEOUT_MIN = 1;
 
 	private final WalletEventListener walletEventListener = new AbstractWalletEventListener()
 	{
@@ -392,8 +393,22 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 				}
 				System.out.println("Number of blocks downloaded: " + builder);
 
-				final boolean isIdle = lastDownloadedHistory.size() >= 1 && lastDownloadedHistory.get(0) == 0;
+				// determine if download is idling
+				boolean isIdle = false;
+				if (lastDownloadedHistory.size() >= IDLE_TIMEOUT_MIN)
+				{
+					isIdle = true;
+					for (int i = 0; i < IDLE_TIMEOUT_MIN; i++)
+					{
+						if (lastDownloadedHistory.get(i) > 0)
+						{
+							isIdle = false;
+							break;
+						}
+					}
+				}
 
+				// if idling, shutdown service
 				if (isIdle)
 				{
 					final boolean autosync = prefs.getBoolean(Constants.PREFS_KEY_AUTOSYNC, false);
