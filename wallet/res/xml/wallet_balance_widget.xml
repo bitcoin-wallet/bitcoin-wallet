@@ -3,4 +3,5 @@
 	android:initialLayout="@layout/wallet_balance_widget_content"
 	android:minHeight="72dp"
 	android:minWidth="294dp"
+	android:previewImage="@drawable/widget_preview"
 	android:updatePeriodMillis="1800000" />
