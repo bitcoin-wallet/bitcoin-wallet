@@ -21,6 +21,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.RoundingMode;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -29,7 +30,9 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
@@ -46,28 +49,43 @@ public final class AmountCalculatorFragment extends DialogFragment implements Lo
 {
 	public static interface Listener
 	{
-		void use(final BigInteger amount);
+		void useCalculatedAmount(final BigInteger amount);
 	}
 
-	public static final String FRAGMENT_TAG = AmountCalculatorFragment.class.getName();
+	private static final String FRAGMENT_TAG = AmountCalculatorFragment.class.getName();
 
+	public static void calculate(final FragmentManager fm, final Listener listener)
+	{
+		final FragmentTransaction ft = fm.beginTransaction();
+		final Fragment prev = fm.findFragmentByTag(FRAGMENT_TAG);
+		if (prev != null)
+			ft.remove(prev);
+		ft.addToBackStack(null);
+		final DialogFragment newFragment = new AmountCalculatorFragment();
+		newFragment.setTargetFragment((Fragment) listener, 0);
+		newFragment.show(ft, FRAGMENT_TAG);
+	}
+
+	private AbstractWalletActivity activity;
 	private LayoutInflater inflater;
+
 	private String exchangeCurrency;
 	private Double exchangeRate;
 	private boolean exchangeDirection = true;
 	private CurrencyAmountView btcAmountView, localAmountView;
-	private Listener listener;
 
-	public AmountCalculatorFragment(final Listener listener)
+	@Override
+	public void onAttach(final Activity activity)
 	{
-		this.listener = listener;
+		super.onAttach(activity);
+
+		this.activity = (AbstractWalletActivity) activity;
+		inflater = LayoutInflater.from(activity);
 	}
 
 	@Override
 	public Dialog onCreateDialog(final Bundle savedInstanceState)
 	{
-		final FragmentActivity activity = getActivity();
-		inflater = LayoutInflater.from(activity);
 		final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(activity);
 		exchangeCurrency = prefs.getString(Constants.PREFS_KEY_EXCHANGE_CURRENCY, Constants.DEFAULT_EXCHANGE_CURRENCY);
 
@@ -188,14 +206,14 @@ public final class AmountCalculatorFragment extends DialogFragment implements Lo
 		final BigInteger amount = exchangeDirection ? btcAmountView.getAmount() : new BigDecimal(localAmountView.getAmount()).divide(
 				new BigDecimal(exchangeRate), RoundingMode.HALF_UP).toBigInteger();
 
-		listener.use(amount);
+		((Listener) getTargetFragment()).useCalculatedAmount(amount);
 
 		dismiss();
 	}
 
 	public Loader<Cursor> onCreateLoader(final int id, final Bundle args)
 	{
-		return new CursorLoader(getActivity(), ExchangeRatesProvider.CONTENT_URI, null, ExchangeRatesProvider.KEY_CURRENCY_CODE,
+		return new CursorLoader(activity, ExchangeRatesProvider.CONTENT_URI, null, ExchangeRatesProvider.KEY_CURRENCY_CODE,
 				new String[] { exchangeCurrency }, null);
 	}
 

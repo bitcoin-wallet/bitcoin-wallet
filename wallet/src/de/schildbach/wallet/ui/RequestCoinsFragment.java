@@ -25,9 +25,6 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ShareCompat.IntentBuilder;
 import android.text.ClipboardManager;
 import android.view.LayoutInflater;
@@ -63,7 +60,7 @@ import de.schildbach.wallet_test.R;
 /**
  * @author Andreas Schildbach
  */
-public final class RequestCoinsFragment extends SherlockFragment
+public final class RequestCoinsFragment extends SherlockFragment implements AmountCalculatorFragment.Listener
 {
 	private AbstractWalletActivity activity;
 	private WalletApplication application;
@@ -129,19 +126,7 @@ public final class RequestCoinsFragment extends SherlockFragment
 		{
 			public void onClick(final View v)
 			{
-				final FragmentTransaction ft = getFragmentManager().beginTransaction();
-				final Fragment prev = getFragmentManager().findFragmentByTag(AmountCalculatorFragment.FRAGMENT_TAG);
-				if (prev != null)
-					ft.remove(prev);
-				ft.addToBackStack(null);
-				final DialogFragment newFragment = new AmountCalculatorFragment(new AmountCalculatorFragment.Listener()
-				{
-					public void use(final BigInteger amount)
-					{
-						amountView.setAmount(amount);
-					}
-				});
-				newFragment.show(ft, AmountCalculatorFragment.FRAGMENT_TAG);
+				AmountCalculatorFragment.calculate(getFragmentManager(), RequestCoinsFragment.this);
 			}
 		});
 
@@ -270,5 +255,10 @@ public final class RequestCoinsFragment extends SherlockFragment
 		final BigInteger amount = amountView.getAmount();
 
 		return BitcoinURI.convertToBitcoinURI(address, amount, label, null).toString();
+	}
+
+	public void useCalculatedAmount(final BigInteger amount)
+	{
+		amountView.setAmount(amount);
 	}
 }

@@ -32,9 +32,6 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
-import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -71,7 +68,7 @@ import de.schildbach.wallet_test.R;
 /**
  * @author Andreas Schildbach
  */
-public final class SendCoinsFragment extends SherlockFragment
+public final class SendCoinsFragment extends SherlockFragment implements AmountCalculatorFragment.Listener
 {
 	private AbstractWalletActivity activity;
 	private WalletApplication application;
@@ -265,19 +262,7 @@ public final class SendCoinsFragment extends SherlockFragment
 		{
 			public void onClick(final View v)
 			{
-				final FragmentTransaction ft = getFragmentManager().beginTransaction();
-				final Fragment prev = getFragmentManager().findFragmentByTag(AmountCalculatorFragment.FRAGMENT_TAG);
-				if (prev != null)
-					ft.remove(prev);
-				ft.addToBackStack(null);
-				final DialogFragment newFragment = new AmountCalculatorFragment(new AmountCalculatorFragment.Listener()
-				{
-					public void use(final BigInteger amount)
-					{
-						amountView.setAmount(amount);
-					}
-				});
-				newFragment.show(ft, AmountCalculatorFragment.FRAGMENT_TAG);
+				AmountCalculatorFragment.calculate(getFragmentManager(), SendCoinsFragment.this);
 			}
 		});
 
@@ -572,5 +557,10 @@ public final class SendCoinsFragment extends SherlockFragment
 		});
 		builder.setNegativeButton(R.string.button_dismiss, null);
 		builder.show();
+	}
+
+	public void useCalculatedAmount(final BigInteger amount)
+	{
+		amountView.setAmount(amount);
 	}
 }
