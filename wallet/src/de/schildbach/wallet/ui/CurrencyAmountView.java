@@ -300,6 +300,7 @@ public final class CurrencyAmountView extends FrameLayout
 		public void onClick(final View v)
 		{
 			textView.setText(null);
+			textView.requestFocus();
 		}
 	};
 
