@@ -20,6 +20,8 @@ package de.schildbach.wallet.service;
 import java.math.BigInteger;
 import java.util.List;
 
+import android.R;
+
 import com.google.bitcoin.core.Address;
 import com.google.bitcoin.core.Peer;
 import com.google.bitcoin.core.Transaction;
@@ -29,10 +31,10 @@ import com.google.bitcoin.core.Transaction;
  */
 public interface BlockchainService
 {
-	public static final String ACTION_PEER_STATE = BlockchainService.class.getName() + ".peer_state";
+	public static final String ACTION_PEER_STATE = R.class.getPackage().getName() + ".peer_state";
 	public static final String ACTION_PEER_STATE_NUM_PEERS = "num_peers";
 
-	public static final String ACTION_BLOCKCHAIN_STATE = BlockchainService.class.getName() + ".blockchain_state";
+	public static final String ACTION_BLOCKCHAIN_STATE = R.class.getPackage().getName() + ".blockchain_state";
 	public static final String ACTION_BLOCKCHAIN_STATE_BEST_CHAIN_DATE = "best_chain_date";
 	public static final String ACTION_BLOCKCHAIN_STATE_BEST_CHAIN_HEIGHT = "best_chain_height";
 	public static final String ACTION_BLOCKCHAIN_STATE_DOWNLOAD = "download";
@@ -41,7 +43,7 @@ public interface BlockchainService
 	public static final int ACTION_BLOCKCHAIN_STATE_DOWNLOAD_POWER_PROBLEM = 2;
 	public static final int ACTION_BLOCKCHAIN_STATE_DOWNLOAD_NETWORK_PROBLEM = 4;
 
-	public static final String ACTION_CANCEL_COINS_RECEIVED = BlockchainService.class.getName() + ".cancel_coins_received";
+	public static final String ACTION_CANCEL_COINS_RECEIVED = R.class.getPackage().getName() + ".cancel_coins_received";
 
 	Transaction sendCoins(Address to, BigInteger amount, BigInteger fee);
 
