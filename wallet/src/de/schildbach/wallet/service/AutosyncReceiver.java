@@ -17,6 +17,8 @@
 
 package de.schildbach.wallet.service;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -29,10 +31,15 @@ import de.schildbach.wallet.Constants;
  */
 public class AutosyncReceiver extends BroadcastReceiver
 {
+	private static final long AUTOSYNC_INTERVAL = AlarmManager.INTERVAL_HOUR;
+
+	private PendingIntent alarmIntent;
+
 	@Override
 	public void onReceive(final Context context, final Intent intent)
 	{
 		final String action = intent.getAction();
+		final AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
 		if (Intent.ACTION_POWER_CONNECTED.equals(action))
 		{
@@ -40,11 +47,31 @@ public class AutosyncReceiver extends BroadcastReceiver
 			final boolean autosync = prefs.getBoolean(Constants.PREFS_KEY_AUTOSYNC, false);
 
 			if (autosync)
-				context.startService(new Intent(context, BlockchainServiceImpl.class));
+			{
+				final Intent serviceIntent = new Intent(context, BlockchainServiceImpl.class);
+
+				context.startService(serviceIntent);
+
+				alarmIntent = PendingIntent.getService(context, 0, serviceIntent, 0);
+				am.setInexactRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), AUTOSYNC_INTERVAL, alarmIntent);
+			}
+			else
+			{
+				cancelAlarm(am);
+			}
 		}
 		else if (Intent.ACTION_POWER_DISCONNECTED.equals(action))
 		{
-			// service will stop when blockchain download idle
+			cancelAlarm(am);
+		}
+	}
+
+	private void cancelAlarm(final AlarmManager am)
+	{
+		if (alarmIntent != null)
+		{
+			am.cancel(alarmIntent);
+			alarmIntent = null;
 		}
 	}
 }

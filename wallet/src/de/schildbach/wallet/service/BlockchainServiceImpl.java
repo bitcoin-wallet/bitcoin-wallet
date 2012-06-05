@@ -420,18 +420,8 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 				// if idling, shutdown service
 				if (isIdle)
 				{
-					final boolean autosync = prefs.getBoolean(Constants.PREFS_KEY_AUTOSYNC, false);
-
-					final Intent batteryIntent = registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
-					final boolean plugged = batteryIntent.getIntExtra(BatteryManager.EXTRA_PLUGGED, 0) > 0;
-
-					final boolean stayConnected = autosync && plugged;
-
-					if (!stayConnected)
-					{
-						stopSelf();
-						System.out.println("End of block download detected");
-					}
+					System.out.println("end of block download detected, stopping service");
+					stopSelf();
 				}
 			}
 
