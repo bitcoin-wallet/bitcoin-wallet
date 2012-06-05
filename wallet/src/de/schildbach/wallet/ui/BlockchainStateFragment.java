@@ -18,6 +18,7 @@
 package de.schildbach.wallet.ui;
 
 import java.util.Date;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;
@@ -51,17 +52,22 @@ public final class BlockchainStateFragment extends Fragment
 
 	private final Handler delayMessageHandler = new Handler();
 
-	private final BroadcastReceiver broadcastReceiver = new BroadcastReceiver()
+	private final class BlockchainBroadcastReceiver extends BroadcastReceiver
 	{
+		public AtomicBoolean active = new AtomicBoolean(false);
+
 		@Override
 		public void onReceive(final Context context, final Intent intent)
 		{
 			download = intent.getIntExtra(BlockchainService.ACTION_BLOCKCHAIN_STATE_DOWNLOAD, BlockchainService.ACTION_BLOCKCHAIN_STATE_DOWNLOAD_OK);
 			bestChainDate = (Date) intent.getSerializableExtra(BlockchainService.ACTION_BLOCKCHAIN_STATE_BEST_CHAIN_DATE);
 
-			updateView();
+			if (active.get())
+				updateView();
 		}
-	};
+	}
+
+	private final BlockchainBroadcastReceiver broadcastReceiver = new BlockchainBroadcastReceiver();
 
 	@Override
 	public void onAttach(final Activity activity)
@@ -96,6 +102,7 @@ public final class BlockchainStateFragment extends Fragment
 		super.onResume();
 
 		activity.registerReceiver(broadcastReceiver, new IntentFilter(BlockchainService.ACTION_BLOCKCHAIN_STATE));
+		broadcastReceiver.active.set(true);
 
 		updateView();
 	}
@@ -103,6 +110,7 @@ public final class BlockchainStateFragment extends Fragment
 	@Override
 	public void onPause()
 	{
+		broadcastReceiver.active.set(false);
 		activity.unregisterReceiver(broadcastReceiver);
 
 		super.onPause();
