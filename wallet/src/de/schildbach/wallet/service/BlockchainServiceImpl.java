@@ -44,6 +44,8 @@ import android.os.BatteryManager;
 import android.os.Binder;
 import android.os.Handler;
 import android.os.IBinder;
+import android.os.PowerManager;
+import android.os.PowerManager.WakeLock;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 
@@ -88,6 +90,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 
 	private final Handler handler = new Handler();
 	private final Handler delayHandler = new Handler();
+	private WakeLock wakeLock;
 
 	private NotificationManager nm;
 	private static final int NOTIFICATION_ID_CONNECTED = 0;
@@ -310,6 +313,9 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 
 			if (hasEverything && peerGroup == null)
 			{
+				System.out.println("acquiring wakelock");
+				wakeLock.acquire();
+
 				System.out.println("starting peergroup");
 				peerGroup = new PeerGroup(Constants.NETWORK_PARAMETERS, blockChain, 1000);
 				peerGroup.addWallet(wallet);
@@ -350,6 +356,9 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 				peerGroup.removeWallet(wallet);
 				peerGroup.stop();
 				peerGroup = null;
+
+				System.out.println("releasing wakelock");
+				wakeLock.release();
 			}
 
 			final Date bestChainDate = new Date(blockChain.getChainHead().getHeader().getTimeSeconds() * 1000);
@@ -464,6 +473,9 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 		super.onCreate();
 
 		nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+		final PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
+		wakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, Constants.PACKAGE_NAME + " blockchain sync");
 
 		application = (WalletApplication) getApplication();
 		prefs = PreferenceManager.getDefaultSharedPreferences(this);
@@ -608,6 +620,12 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 				nm.cancel(NOTIFICATION_ID_CONNECTED);
 			}
 		}, Constants.SHUTDOWN_REMOVE_NOTIFICATION_DELAY);
+
+		if (wakeLock.isHeld())
+		{
+			System.out.println("wakelock still held, releasing");
+			wakeLock.release();
+		}
 
 		super.onDestroy();
 	}
