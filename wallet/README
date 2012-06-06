@@ -1,11 +1,7 @@
 KNOWN ISSUES
 
-When run for the first time, the block chain needs to be downloaded. For testnet, this currently
-takes around 5-10 minutes on a WLAN. When the sync icon in the status disappears, the download is
-finished and the wallet is on the top of the block chain.
-
-Sometimes you will get system notifications about the same incoming Bitcoins multiple times. You
-still get the coins only once. 
+When run for the first time, the block chain needs to be downloaded. For prodnet, this currently
+takes around 1-2 hours on a decent WLAN.
 
 
 FILES
