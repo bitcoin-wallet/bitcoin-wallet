@@ -12,7 +12,8 @@ FILES
 /data/data/de.schildbach.wallet_test/files/wallet-protobuf-testnet (MODE_WORLD_READABLE | MODE_WORLD_WRITEABLE)
 	Wallet for testnet
 
-The wallet file format is not compatible to wallet.dat (Satoshi client).
+The wallet file format is not compatible to wallet.dat (Satoshi client). Rather, it uses a custom protobuf format
+which should be compatible between clients using BitCoinJ.
 
 /data/data/de.schildbach.wallet/files/key-backup-base58 (MODE_PRIVATE)
 	Backups of private keys for prodnet
