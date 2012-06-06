@@ -283,6 +283,14 @@ public final class WalletActivity extends AbstractWalletActivity
 				finish();
 			}
 		});
+		builder.setNeutralButton(R.string.wallet_version_dialog_button_binary, new DialogInterface.OnClickListener()
+		{
+			public void onClick(final DialogInterface dialog, final int id)
+			{
+				startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.BINARY_URL)));
+				finish();
+			}
+		});
 		builder.setNegativeButton(R.string.button_dismiss, null);
 		builder.show();
 	}

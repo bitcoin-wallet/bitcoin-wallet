@@ -45,6 +45,7 @@
 	<string name="wallet_version_dialog_title">Eine neue Version ist verfügbar!</string>
 	<string name="wallet_version_dialog_msg">Diese Version behebt wichtige Fehler. Die Einzelheiten stehen in der Liste der Änderungen auf Google Play.</string>
 	<string name="wallet_version_dialog_button_market">Google Play</string>
+	<string name="wallet_version_dialog_button_binary">Herunterladen</string>
 
 	<string name="send_coins_activity_title">Bitcoins senden</string>
 	<string name="send_coins_install_qr_scanner_msg">Bitte installiere den ZXing QR-Code-Scanner oder Goggles!</string>
