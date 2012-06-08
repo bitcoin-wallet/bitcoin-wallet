@@ -179,6 +179,17 @@ public final class SendCoinsFragment extends SherlockFragment implements AmountC
 	{
 		super.onCreate(savedInstanceState);
 
+		if (savedInstanceState != null)
+		{
+			state = (State) savedInstanceState.getSerializable("state");
+			if (savedInstanceState.containsKey("validated_address_bytes"))
+				validatedAddress = new Address((NetworkParameters) savedInstanceState.getSerializable("validated_address_params"),
+						savedInstanceState.getByteArray("validated_address_bytes"));
+			else
+				validatedAddress = null;
+			receivingLabel = savedInstanceState.getString("receiving_label");
+		}
+
 		activity.bindService(new Intent(activity, BlockchainServiceImpl.class), serviceConnection, Context.BIND_AUTO_CREATE);
 	}
 
@@ -380,6 +391,20 @@ public final class SendCoinsFragment extends SherlockFragment implements AmountC
 		handler.removeCallbacks(sentRunnable);
 
 		super.onDestroyView();
+	}
+
+	@Override
+	public void onSaveInstanceState(final Bundle outState)
+	{
+		super.onSaveInstanceState(outState);
+
+		outState.putSerializable("state", state);
+		if (validatedAddress != null)
+		{
+			outState.putSerializable("validated_address_params", validatedAddress.getParameters());
+			outState.putByteArray("validated_address_bytes", validatedAddress.getHash160());
+		}
+		outState.putString("receiving_label", receivingLabel);
 	}
 
 	@Override
