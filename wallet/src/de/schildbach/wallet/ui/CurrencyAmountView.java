@@ -60,6 +60,8 @@ public final class CurrencyAmountView extends FrameLayout
 		void changed();
 
 		void done();
+
+		void focusChanged(final boolean hasFocus);
 	}
 
 	private int significantColor, lessSignificantColor, errorColor;
@@ -343,6 +345,9 @@ public final class CurrencyAmountView extends FrameLayout
 				if (amount != null)
 					setAmount(amount);
 			}
+
+			if (listener != null)
+				listener.focusChanged(hasFocus);
 		}
 
 		public boolean onEditorAction(final TextView v, final int actionId, final KeyEvent event)

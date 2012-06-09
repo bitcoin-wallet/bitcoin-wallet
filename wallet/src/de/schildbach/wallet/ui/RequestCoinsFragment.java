@@ -51,7 +51,6 @@ import com.google.bitcoin.uri.BitcoinURI;
 import de.schildbach.wallet.AddressBookProvider;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
-import de.schildbach.wallet.ui.CurrencyAmountView.Listener;
 import de.schildbach.wallet.util.BitmapFragment;
 import de.schildbach.wallet.util.NfcTools;
 import de.schildbach.wallet.util.WalletUtils;
@@ -146,7 +145,7 @@ public final class RequestCoinsFragment extends SherlockFragment implements Amou
 	{
 		super.onResume();
 
-		amountView.setListener(new Listener()
+		amountView.setListener(new CurrencyAmountView.Listener()
 		{
 			public void changed()
 			{
@@ -154,6 +153,10 @@ public final class RequestCoinsFragment extends SherlockFragment implements Amou
 			}
 
 			public void done()
+			{
+			}
+
+			public void focusChanged(final boolean hasFocus)
 			{
 			}
 		});

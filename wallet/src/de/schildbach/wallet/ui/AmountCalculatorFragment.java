@@ -116,6 +116,10 @@ public final class AmountCalculatorFragment extends DialogFragment implements Lo
 			{
 				AmountCalculatorFragment.this.done();
 			}
+
+			public void focusChanged(final boolean hasFocus)
+			{
+			}
 		});
 
 		localAmountView = (CurrencyAmountView) view.findViewById(R.id.amount_calculator_row_local);
@@ -139,6 +143,10 @@ public final class AmountCalculatorFragment extends DialogFragment implements Lo
 			public void done()
 			{
 				AmountCalculatorFragment.this.done();
+			}
+
+			public void focusChanged(final boolean hasFocus)
+			{
 			}
 		});
 
