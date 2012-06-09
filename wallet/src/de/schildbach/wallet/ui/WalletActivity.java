@@ -28,6 +28,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -253,44 +254,65 @@ public final class WalletActivity extends AbstractWalletActivity
 
 	private void timeskewAlert(final long diffMinutes)
 	{
+		final PackageManager pm = getPackageManager();
+		final Intent settingsIntent = new Intent(android.provider.Settings.ACTION_DATE_SETTINGS);
+
 		final AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setIcon(android.R.drawable.ic_dialog_alert);
 		builder.setTitle(R.string.wallet_timeskew_dialog_title);
 		builder.setMessage(getString(R.string.wallet_timeskew_dialog_msg, diffMinutes));
-		builder.setPositiveButton(R.string.wallet_timeskew_dialog_button_settings, new DialogInterface.OnClickListener()
+
+		if (pm.resolveActivity(settingsIntent, 0) != null)
 		{
-			public void onClick(final DialogInterface dialog, final int id)
+			builder.setPositiveButton(R.string.wallet_timeskew_dialog_button_settings, new DialogInterface.OnClickListener()
 			{
-				startActivity(new Intent(android.provider.Settings.ACTION_DATE_SETTINGS));
-				finish();
-			}
-		});
+				public void onClick(final DialogInterface dialog, final int id)
+				{
+					startActivity(settingsIntent);
+					finish();
+				}
+			});
+		}
+
 		builder.setNegativeButton(R.string.button_dismiss, null);
 		builder.show();
 	}
 
 	private void versionAlert(final int serverVersionCode)
 	{
+		final PackageManager pm = getPackageManager();
+		final Intent marketIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(String.format(Constants.MARKET_APP_URL, getPackageName())));
+		final Intent binaryIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.BINARY_URL));
+
 		final AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setIcon(android.R.drawable.ic_dialog_alert);
 		builder.setTitle(R.string.wallet_version_dialog_title);
 		builder.setMessage(getString(R.string.wallet_version_dialog_msg));
-		builder.setPositiveButton(R.string.wallet_version_dialog_button_market, new DialogInterface.OnClickListener()
+
+		if (pm.resolveActivity(marketIntent, 0) != null)
 		{
-			public void onClick(final DialogInterface dialog, final int id)
+			builder.setPositiveButton(R.string.wallet_version_dialog_button_market, new DialogInterface.OnClickListener()
 			{
-				startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(String.format(Constants.MARKET_APP_URL, getPackageName()))));
-				finish();
-			}
-		});
-		builder.setNeutralButton(R.string.wallet_version_dialog_button_binary, new DialogInterface.OnClickListener()
+				public void onClick(final DialogInterface dialog, final int id)
+				{
+					startActivity(marketIntent);
+					finish();
+				}
+			});
+		}
+
+		if (pm.resolveActivity(binaryIntent, 0) != null)
 		{
-			public void onClick(final DialogInterface dialog, final int id)
+			builder.setNeutralButton(R.string.wallet_version_dialog_button_binary, new DialogInterface.OnClickListener()
 			{
-				startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.BINARY_URL)));
-				finish();
-			}
-		});
+				public void onClick(final DialogInterface dialog, final int id)
+				{
+					startActivity(binaryIntent);
+					finish();
+				}
+			});
+		}
+
 		builder.setNegativeButton(R.string.button_dismiss, null);
 		builder.show();
 	}
