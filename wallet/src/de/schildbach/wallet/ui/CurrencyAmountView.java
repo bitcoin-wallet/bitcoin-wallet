@@ -71,7 +71,7 @@ public final class CurrencyAmountView extends FrameLayout
 	private boolean validateAmount = true;
 
 	private TextView textView;
-	private View chooseView;
+	private View contextButton;
 	private Listener listener;
 	private OnClickListener contextButtonClickListener;
 
@@ -113,7 +113,7 @@ public final class CurrencyAmountView extends FrameLayout
 		textView.setOnFocusChangeListener(textViewListener);
 		textView.setOnEditorActionListener(textViewListener);
 
-		chooseView = new View(context)
+		contextButton = new View(context)
 		{
 			@Override
 			protected void onMeasure(final int wMeasureSpec, final int hMeasureSpec)
@@ -123,8 +123,8 @@ public final class CurrencyAmountView extends FrameLayout
 		};
 		final LayoutParams chooseViewParams = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 		chooseViewParams.gravity = Gravity.RIGHT;
-		chooseView.setLayoutParams(chooseViewParams);
-		this.addView(chooseView);
+		contextButton.setLayoutParams(chooseViewParams);
+		this.addView(contextButton);
 
 		setCurrencyCode(Constants.CURRENCY_CODE_BITCOIN);
 
@@ -204,6 +204,8 @@ public final class CurrencyAmountView extends FrameLayout
 		super.setEnabled(enabled);
 
 		textView.setEnabled(enabled);
+
+		updateAppearance();
 	}
 
 	public void setTextColor(final int color)
@@ -263,25 +265,29 @@ public final class CurrencyAmountView extends FrameLayout
 
 	private void updateAppearance()
 	{
+		final boolean enabled = textView.isEnabled();
+
+		contextButton.setEnabled(enabled);
+
 		final String amount = textView.getText().toString().trim();
 
-		if (textView.isEnabled() && amount.length() > 0)
+		if (enabled && amount.length() > 0)
 		{
 			textView.setCompoundDrawablesWithIntrinsicBounds(currencyCodeDrawable, null, deleteButtonDrawable, null);
-			chooseView.setOnClickListener(deleteClickListener);
+			contextButton.setOnClickListener(deleteClickListener);
 		}
-		else if (contextButtonDrawable != null)
+		else if (enabled && contextButtonDrawable != null)
 		{
 			textView.setCompoundDrawablesWithIntrinsicBounds(currencyCodeDrawable, null, contextButtonDrawable, null);
-			chooseView.setOnClickListener(contextButtonClickListener);
+			contextButton.setOnClickListener(contextButtonClickListener);
 		}
 		else
 		{
 			textView.setCompoundDrawablesWithIntrinsicBounds(currencyCodeDrawable, null, null, null);
-			chooseView.setOnClickListener(null);
+			contextButton.setOnClickListener(null);
 		}
 
-		chooseView.requestLayout();
+		contextButton.requestLayout();
 
 		textView.setTextColor(!validateAmount || isValidAmount() ? significantColor : errorColor);
 	}
