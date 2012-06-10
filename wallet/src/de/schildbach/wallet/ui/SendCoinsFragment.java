@@ -315,7 +315,8 @@ public final class SendCoinsFragment extends SherlockFragment implements AmountC
 		{
 			public void onClick(final View v)
 			{
-				activity.setResult(Activity.RESULT_CANCELED);
+				if (state == State.INPUT)
+					activity.setResult(Activity.RESULT_CANCELED);
 
 				activity.finish();
 			}
