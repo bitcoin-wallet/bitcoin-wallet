@@ -705,6 +705,14 @@ public final class SendCoinsFragment extends SherlockFragment implements AmountC
 			feeView.requestFocus();
 
 		updateView();
+
+		handler.postDelayed(new Runnable()
+		{
+			public void run()
+			{
+				validateReceivingAddress(true);
+			}
+		}, 500);
 	}
 
 	private void showAddAddressDialog(final String address, final String suggestedAddressLabel)
