@@ -71,6 +71,9 @@
 						<platform>14</platform>
 					</sdk>
 					<genDirectory>${basedir}/gen</genDirectory>
+					<sign>
+						<debug>both</debug>
+					</sign>
 				</configuration>
 				<extensions>true</extensions>
 			</plugin>
