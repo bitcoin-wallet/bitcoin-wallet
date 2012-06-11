@@ -120,6 +120,7 @@ public class Constants
 	public static final String PREFS_KEY_EXCHANGE_CURRENCY = "exchange_currency";
 	public static final String PREFS_KEY_TRUSTED_PEER = "trusted_peer";
 	public static final String PREFS_KEY_INITIATE_RESET = "initiate_reset";
+	public static final String PREFS_KEY_LABS_TRANSACTION_DETAILS = "labs_transactions_details";
 
 	public static final BigInteger DEFAULT_TX_FEE = Utils.CENT.divide(BigInteger.valueOf(20));
 }

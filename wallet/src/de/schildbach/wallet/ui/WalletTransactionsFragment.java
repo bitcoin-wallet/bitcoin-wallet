@@ -33,11 +33,13 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.database.ContentObserver;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -211,9 +213,11 @@ public final class WalletTransactionsFragment extends Fragment
 	public static class ListFragment extends SherlockListFragment implements LoaderCallbacks<List<Transaction>>
 	{
 		private AbstractWalletActivity activity;
+		private ContentResolver resolver;
+		private SharedPreferences prefs;
+
 		private WalletApplication application;
 		private Wallet wallet;
-		private ContentResolver resolver;
 		private ArrayAdapter<Transaction> adapter;
 
 		private int mode;
@@ -267,6 +271,7 @@ public final class WalletTransactionsFragment extends Fragment
 
 			this.activity = (AbstractWalletActivity) activity;
 			resolver = activity.getContentResolver();
+			prefs = PreferenceManager.getDefaultSharedPreferences(activity);
 			application = (WalletApplication) activity.getApplication();
 			wallet = application.getWallet();
 		}
@@ -464,6 +469,8 @@ public final class WalletTransactionsFragment extends Fragment
 				{
 					final MenuInflater inflater = mode.getMenuInflater();
 					inflater.inflate(R.menu.wallet_transactions_context, menu);
+					menu.findItem(R.id.wallet_transactions_context_show_transaction).setVisible(
+							prefs.getBoolean(Constants.PREFS_KEY_LABS_TRANSACTION_DETAILS, false));
 
 					return true;
 				}
