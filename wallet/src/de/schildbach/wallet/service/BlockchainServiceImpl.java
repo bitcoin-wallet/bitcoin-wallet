@@ -465,7 +465,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 		nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
 		final PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
-		wakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, Constants.PACKAGE_NAME + " blockchain sync");
+		wakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, Constants.LOCK_NAME);
 
 		application = (WalletApplication) getApplication();
 		prefs = PreferenceManager.getDefaultSharedPreferences(this);

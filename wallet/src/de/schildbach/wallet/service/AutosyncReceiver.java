@@ -23,6 +23,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.wifi.WifiManager;
+import android.net.wifi.WifiManager.WifiLock;
 import android.preference.PreferenceManager;
 import de.schildbach.wallet.Constants;
 
@@ -33,13 +35,33 @@ public class AutosyncReceiver extends BroadcastReceiver
 {
 	private static final long AUTOSYNC_INTERVAL = AlarmManager.INTERVAL_HOUR;
 
+	private AlarmManager alarmManager;
+	private WifiManager wifiManager;
+
 	private PendingIntent alarmIntent;
+	private WifiLock wifiLock;
+
+	private void init(final Context context)
+	{
+		if (alarmManager == null)
+			alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+
+		if (wifiManager == null)
+			wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+
+		if (wifiLock == null)
+		{
+			wifiLock = wifiManager.createWifiLock(WifiManager.WIFI_MODE_FULL, Constants.LOCK_NAME);
+			wifiLock.setReferenceCounted(false);
+		}
+	}
 
 	@Override
 	public void onReceive(final Context context, final Intent intent)
 	{
+		init(context);
+
 		final String action = intent.getAction();
-		final AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
 		if (Intent.ACTION_POWER_CONNECTED.equals(action))
 		{
@@ -48,29 +70,38 @@ public class AutosyncReceiver extends BroadcastReceiver
 
 			if (autosync)
 			{
+				System.out.println("acquiring wifilock");
+				wifiLock.acquire();
+
 				final Intent serviceIntent = new Intent(context, BlockchainServiceImpl.class);
 
 				context.startService(serviceIntent);
 
 				alarmIntent = PendingIntent.getService(context, 0, serviceIntent, 0);
-				am.setInexactRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), AUTOSYNC_INTERVAL, alarmIntent);
+				alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), AUTOSYNC_INTERVAL, alarmIntent);
 			}
 			else
 			{
-				cancelAlarm(am);
+				cancelAlarm();
+
+				System.out.println("releasing wifilock");
+				wifiLock.release();
 			}
 		}
 		else if (Intent.ACTION_POWER_DISCONNECTED.equals(action))
 		{
-			cancelAlarm(am);
+			cancelAlarm();
+
+			System.out.println("releasing wifilock");
+			wifiLock.release();
 		}
 	}
 
-	private void cancelAlarm(final AlarmManager am)
+	private void cancelAlarm()
 	{
 		if (alarmIntent != null)
 		{
-			am.cancel(alarmIntent);
+			alarmManager.cancel(alarmIntent);
 			alarmIntent = null;
 		}
 	}
