@@ -136,6 +136,11 @@
 				<action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
 			</intent-filter>
 		</receiver>
+
+		<service
+			android:name="de.schildbach.wallet.service.AutosyncService"
+			android:exported="false" />
+
 	</application>
 
 </manifest>
