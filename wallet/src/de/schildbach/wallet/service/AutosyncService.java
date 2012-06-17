@@ -22,9 +22,12 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.net.wifi.WifiManager;
 import android.net.wifi.WifiManager.WifiLock;
+import android.os.BatteryManager;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
 import de.schildbach.wallet.Constants;
@@ -32,7 +35,7 @@ import de.schildbach.wallet.Constants;
 /**
  * @author Andreas Schildbach
  */
-public class AutosyncService extends Service
+public class AutosyncService extends Service implements OnSharedPreferenceChangeListener
 {
 	private static final long AUTOSYNC_INTERVAL = AlarmManager.INTERVAL_HOUR;
 
@@ -44,6 +47,8 @@ public class AutosyncService extends Service
 	private PendingIntent alarmIntent;
 	private WifiLock wifiLock;
 
+	private boolean isRunning;
+
 	@Override
 	public void onCreate()
 	{
@@ -52,6 +57,7 @@ public class AutosyncService extends Service
 		context = getApplicationContext();
 
 		prefs = PreferenceManager.getDefaultSharedPreferences(context);
+		prefs.registerOnSharedPreferenceChangeListener(this);
 
 		alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
@@ -74,39 +80,48 @@ public class AutosyncService extends Service
 
 		wifiLock.release();
 
+		prefs.unregisterOnSharedPreferenceChangeListener(this);
+
 		super.onDestroy();
 	}
 
 	@Override
 	public int onStartCommand(final Intent intent, final int flags, final int startId)
 	{
-		final String action = intent.getAction();
+		check();
 
-		if (Intent.ACTION_POWER_CONNECTED.equals(action))
+		return Service.START_STICKY;
+	}
+
+	public void onSharedPreferenceChanged(final SharedPreferences prefs, final String key)
+	{
+		if (Constants.PREFS_KEY_AUTOSYNC.equals(key))
+			check();
+	}
+
+	private void check()
+	{
+		final Intent batteryStatus = context.registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+		final int status = batteryStatus.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
+		final boolean isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING || status == BatteryManager.BATTERY_STATUS_FULL;
+
+		final boolean prefsAutosync = prefs.getBoolean(Constants.PREFS_KEY_AUTOSYNC, false);
+
+		final boolean shouldRunning = prefsAutosync && isCharging;
+
+		if (shouldRunning && !isRunning)
 		{
-			final boolean autosync = prefs.getBoolean(Constants.PREFS_KEY_AUTOSYNC, false);
+			System.out.println("acquiring wifilock");
+			wifiLock.acquire();
 
-			if (autosync)
-			{
-				System.out.println("acquiring wifilock");
-				wifiLock.acquire();
+			final Intent serviceIntent = new Intent(context, BlockchainServiceImpl.class);
 
-				final Intent serviceIntent = new Intent(context, BlockchainServiceImpl.class);
+			context.startService(serviceIntent);
 
-				context.startService(serviceIntent);
-
-				alarmIntent = PendingIntent.getService(context, 0, serviceIntent, 0);
-				alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), AUTOSYNC_INTERVAL, alarmIntent);
-			}
-			else
-			{
-				cancelAlarm();
-
-				System.out.println("releasing wifilock");
-				wifiLock.release();
-			}
+			alarmIntent = PendingIntent.getService(context, 0, serviceIntent, 0);
+			alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), AUTOSYNC_INTERVAL, alarmIntent);
 		}
-		else if (Intent.ACTION_POWER_DISCONNECTED.equals(action))
+		else if (!shouldRunning && isRunning)
 		{
 			cancelAlarm();
 
@@ -114,7 +129,7 @@ public class AutosyncService extends Service
 			wifiLock.release();
 		}
 
-		return Service.START_STICKY;
+		isRunning = shouldRunning;
 	}
 
 	private void cancelAlarm()
