@@ -101,7 +101,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 	private final List<Address> notificationAddresses = new LinkedList<Address>();
 
 	private static final int MAX_LAST_CHAIN_HEIGHTS = 10;
-	private static final int IDLE_TIMEOUT_MIN = 1;
+	private static final int IDLE_TIMEOUT_MIN = 2;
 
 	private final WalletEventListener walletEventListener = new AbstractWalletEventListener()
 	{
