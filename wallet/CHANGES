@@ -1,3 +1,7 @@
+2.14
+
+* tries to stay on WIFI while autosyncing, but no guarantees (yet)
+
 2.13
 
 * bugfixes
