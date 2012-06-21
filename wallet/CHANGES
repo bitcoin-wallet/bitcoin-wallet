@@ -1,0 +1,27 @@
+2.13
+
+* bugfixes
+* based on BitCoinJ 0.5.1
+
+2.1
+
+* based on BitCoinJ 0.5.0
+* lots of UI work
+* changes how long the P2P network stays connected
+
+2.01
+
+* bugfixes
+
+2.0
+
+* Turkish translation
+
+1.55
+
+* unified address book for sending and receiving addresses
+
+1.54
+
+* migrates wallets to protobuf format
+* should be more stable, faster and future proof
