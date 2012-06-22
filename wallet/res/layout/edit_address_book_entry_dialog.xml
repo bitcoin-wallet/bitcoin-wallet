@@ -43,6 +43,9 @@
 		android:imeOptions="flagNoExtractUi"
 		android:inputType="textPersonName"
 		android:singleLine="true"
-		android:textSize="@dimen/font_size_normal" />
+		android:textSize="@dimen/font_size_normal" >
+
+		<requestFocus />
+	</EditText>
 
 </LinearLayout>
