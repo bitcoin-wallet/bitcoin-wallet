@@ -19,9 +19,13 @@ package de.schildbach.wallet.integration.sample;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.style.TypefaceSpan;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 import de.schildbach.wallet.integration.android.BitcoinIntegration;
 
@@ -35,6 +39,7 @@ public class SampleActivity extends Activity
 	private static final int REQUEST_CODE = 0;
 
 	private Button donateButton;
+	private TextView donateMessage;
 
 	@Override
 	protected void onCreate(final Bundle savedInstanceState)
@@ -52,6 +57,8 @@ public class SampleActivity extends Activity
 				BitcoinIntegration.requestForResult(SampleActivity.this, REQUEST_CODE, DONATION_ADDRESS);
 			}
 		});
+
+		donateMessage = (TextView) findViewById(R.id.sample_donate_message);
 	}
 
 	@Override
@@ -63,20 +70,28 @@ public class SampleActivity extends Activity
 			{
 				final String txHash = BitcoinIntegration.transactionHashFromResult(data);
 				if (txHash != null)
-					Toast.makeText(this, "User sent transaction: " + txHash, Toast.LENGTH_SHORT).show();
-				else
-					Toast.makeText(this, "User sent transaction.", Toast.LENGTH_SHORT).show();
+				{
+					final SpannableStringBuilder messageBuilder = new SpannableStringBuilder("Transaction hash:\n");
+					messageBuilder.append(txHash);
+					messageBuilder.setSpan(new TypefaceSpan("monospace"), messageBuilder.length() - txHash.length(), messageBuilder.length(),
+							Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+					donateMessage.setText(messageBuilder);
+					donateMessage.setVisibility(View.VISIBLE);
+				}
 
 				donateButton.setEnabled(false);
 				donateButton.setText("Already donated");
+
+				Toast.makeText(this, "Thank you!", Toast.LENGTH_LONG).show();
 			}
 			else if (resultCode == Activity.RESULT_CANCELED)
 			{
-				Toast.makeText(this, "User cancelled.", Toast.LENGTH_SHORT).show();
+				Toast.makeText(this, "Cancelled.", Toast.LENGTH_LONG).show();
 			}
 			else
 			{
-				Toast.makeText(this, "Unknown result.", Toast.LENGTH_SHORT).show();
+				Toast.makeText(this, "Unknown result.", Toast.LENGTH_LONG).show();
 			}
 		}
 	}
