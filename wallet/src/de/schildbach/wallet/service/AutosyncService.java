@@ -47,6 +47,7 @@ public class AutosyncService extends Service implements OnSharedPreferenceChange
 	private PendingIntent alarmIntent;
 	private WifiLock wifiLock;
 
+	private boolean isPowerConnected;
 	private boolean isRunning;
 
 	@Override
@@ -65,6 +66,11 @@ public class AutosyncService extends Service implements OnSharedPreferenceChange
 
 		wifiLock = wifiManager.createWifiLock(WifiManager.WIFI_MODE_FULL, Constants.LOCK_NAME);
 		wifiLock.setReferenceCounted(false);
+
+		// determine initial power connected state
+		final Intent batteryChanged = context.registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+		final int batteryStatus = batteryChanged.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
+		isPowerConnected = batteryStatus == BatteryManager.BATTERY_STATUS_CHARGING || batteryStatus == BatteryManager.BATTERY_STATUS_FULL;
 	}
 
 	@Override
@@ -88,6 +94,12 @@ public class AutosyncService extends Service implements OnSharedPreferenceChange
 	@Override
 	public int onStartCommand(final Intent intent, final int flags, final int startId)
 	{
+		final String action = intent.getAction();
+		if (Intent.ACTION_POWER_CONNECTED.equals(action))
+			isPowerConnected = true;
+		else if (Intent.ACTION_POWER_DISCONNECTED.equals(action))
+			isPowerConnected = false;
+
 		check();
 
 		return Service.START_STICKY;
@@ -101,13 +113,9 @@ public class AutosyncService extends Service implements OnSharedPreferenceChange
 
 	private void check()
 	{
-		final Intent batteryStatus = context.registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
-		final int status = batteryStatus.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
-		final boolean isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING || status == BatteryManager.BATTERY_STATUS_FULL;
-
 		final boolean prefsAutosync = prefs.getBoolean(Constants.PREFS_KEY_AUTOSYNC, false);
 
-		final boolean shouldRunning = prefsAutosync && isCharging;
+		final boolean shouldRunning = prefsAutosync && isPowerConnected;
 
 		if (shouldRunning && !isRunning)
 		{
