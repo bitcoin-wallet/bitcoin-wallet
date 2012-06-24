@@ -1,11 +1,17 @@
-<?xml version="1.0" encoding="utf-8"?>
-
+<?xml version='1.0' encoding='UTF-8'?>
 <resources>
 
 	<string name="app_name">Bitcoin Wallet</string>
 	<string name="toast_wallet_reset">Plånboken nollställdes,\ndet kan ta ett tag innan den återställts</string>
-
-	<string name="blockchain_state_disclaimer">Använd på egen risk. Läs säkerhetsbeskrivningen.</string>
+	<string name="blockchain_state_disclaimer">Använd på egen risk. Läs säkerhetsråden.</string>
+	<string name="blockchain_state_message_hours">Blockkedjan är %d timmar efter</string>
+	<string name="blockchain_state_message_days">Blockkedjan är %d dagar efter</string>
+	<string name="blockchain_state_message_weeks">Blockkedjan är %d veckor efter</string>
+	<string name="blockchain_state_message_downloading">laddar ner</string>
+	<string name="blockchain_state_message_stalled">förhindrad</string>
+	<string name="blockchain_state_message_problem_storage">Blockkedjan laddas inte ner: lagringsproblem</string>
+	<string name="blockchain_state_message_problem_power">Blockkedjan laddas inte ner: Problem med strömmen</string>
+	<string name="blockchain_state_message_problem_network">Blockkedjan laddas inte ner: Nätverksproblem</string>
 	<string name="wallet_address_fragment_your">Din Bitcoin adress:</string>
 	<string name="wallet_address_fragment_clipboard_msg">Bitcoin adressen kopierad till klippbordet</string>
 	<string name="wallet_address_fragment_share_dialog_title">Dela din Bitcoin adress…</string>
@@ -13,66 +19,106 @@
 	<string name="wallet_addresses_fragment_add_dialog_message">Bitcoin adresser kan inte tas bort. Vill du lägga till en ny adress till din plånbok?</string>
 	<string name="wallet_balance_fragment_local_value">värda ungefär %1$s %2$s</string>
 	<string name="exchange_rates_fragment_empty_text">Kunde inte ladda ner växlingskurser</string>
+	<string name="exchange_rates_context_set_as_default_title">Ange som standard utländsk valuta</string>
 	<string name="wallet_transactions_fragment_tab_received">Mottagna</string>
 	<string name="wallet_transactions_fragment_tab_all">Båda</string>
 	<string name="wallet_transactions_fragment_tab_sent">Skickade</string>
 	<string name="wallet_transactions_fragment_empty_text_received">Inga Bitcoins har hittills mottagits</string>
 	<string name="wallet_transactions_fragment_empty_text_sent">Inga Bitcoins har hittills skickats</string>
+	<string name="wallet_transactions_fragment_coinbase">genererade</string>
+	<string name="wallet_transactions_context_edit_address_title">Lägg till/ändra etikett</string>
+	<string name="wallet_transactions_context_show_transaction_title">Transaktionsdetaljer</string>
+	<string name="wallet_options_disconnect">Koppla från</string>
 	<string name="wallet_options_safety">Säkerhetsinfo</string>
 	<string name="wallet_options_donate">Donera</string>
 	<string name="wallet_low_storage_dialog_title">Interna utrymmet på telefonen börjar ta slut!</string>
-	<string name="wallet_low_storage_dialog_msg">Bitcoin Wallet använder internt utrymme för att spara transaktioner och block. Om den får slut på
-		utrymme så kommer den att sluta fungera, och dina Bitcoins kan försvinna!\n\nVill du öppna Applikationshanteraren för att
-		avinstallera onödiga appar?</string>
+	<string name="wallet_low_storage_dialog_msg">Bitcoin Wallet använder internt utrymme för att spara transaktioner och block. Om den får slut på utrymme så kommer den att sluta fungera, och dina Bitcoins kan försvinna!\n\nVill du öppna Applikationshanteraren för att avinstallera onödiga appar?</string>
 	<string name="wallet_low_storage_dialog_button_apps">Hantera appar</string>
-
+	<string name="wallet_timeskew_dialog_title">Kontrollera dina tidsinställningar!</string>
+	<string name="wallet_timeskew_dialog_msg">Enhetens tid är fel med %d minuter. Du kan förmodligen inte skicka eller ta emot Bitcoins på grund av detta problemet.\n\nDu bör kontrollera och korrigera tiden och tidszonen.</string>
+	<string name="wallet_timeskew_dialog_button_settings">Inställningar</string>
+	<string name="wallet_version_dialog_title">En ny version är tillgänglig!</string>
+	<string name="wallet_version_dialog_msg">Denna version löser viktiga buggar. För mer information, se ändringsloggen på Google Play</string>
+	<string name="wallet_version_dialog_button_market">Google Play</string>
+	<string name="wallet_version_dialog_button_binary">Ladda ner</string>
 	<string name="send_coins_activity_title">Skicka Bitcoins</string>
 	<string name="send_coins_install_qr_scanner_msg">Vänligen installera ZXing eller Goggles för att scanna QR-koder!</string>
+	<string name="send_coins_uri_parse_error_title">Ogiltig Bitcoinadress</string>
+	<string name="send_coins_parse_address_error_msg">Fick ogiltig bitcoinadress!\n(Blandar du ihop Testnet/Prodnet?)</string>
 	<string name="send_coins_fragment_receiving_address_label">Skicka till</string>
 	<string name="send_coins_fragment_receiving_address_hint">skriv adress eller namn</string>
 	<string name="send_coins_fragment_receiving_address_error">Ogiltig Bitcoin adress!</string>
+	<string name="send_coins_fragment_receiving_address_error_cross_network">Kan inte använda %s adressen med denna plånbok!</string>
+	<string name="send_coins_fragment_receiving_address_error_cross_network_unknown">Kan inte använda adressen från det okända nätverket med denna plånbok!</string>
 	<string name="send_coins_fragment_available_label">Tillgängliga att skicka</string>
 	<string name="send_coins_fragment_pending">(%s BTC väntar på att bekräftas)</string>
 	<string name="send_coins_fragment_amount_label">Belopp att skicka</string>
+	<string name="send_coins_fragment_amount_error">Ogiltig mängd!</string>
 	<string name="send_coins_fragment_fee_label">Avgift (frivillig)</string>
 	<string name="send_coins_fragment_button_send">Skicka</string>
+	<string name="send_coins_fragment_button_back">Tillbaka</string>
 	<string name="send_coins_sending_msg">Skickar…</string>
+	<string name="send_coins_sent_msg">Skickat!</string>
 	<string name="send_coins_add_address_dialog_title">Mottagaradressen finns inte i din adressbok.\n\nVill du lägga till denna adress?</string>
 	<string name="send_coins_add_address_dialog_button_add">Lägg till adress</string>
 	<string name="send_coins_error_msg">Problem att skicka Bitcoins!</string>
 	<string name="send_coins_success_msg">Skickat %s BTC!</string>
-
+	<string name="send_coins_options_scan_title">Skanna</string>
+	<string name="send_coins_address_context_clear_title">Ange ny adress</string>
 	<string name="request_coins_activity_title">Ta emot Bitcoins</string>
+	<string name="request_coins_fragment_address_label">Adress att begära till</string>
+	<string name="request_coins_fragment_include_address_label">inkluderar etiketten med adressen</string>
 	<string name="request_coins_fragment_amount_label">Begärt belopp (frivilligt)</string>
-	<string name="request_coins_fragment_qr_label">Den som skickar dig Bitcoins ska scanna denna QR kod:</string>
+	<string name="request_coins_fragment_qr_label">Den som skickar dig Bitcoins ska scanna denna QR-kod:</string>
 	<string name="request_coins_fragment_nfc_enabled">Eller skicka med en telefon som har NFC.</string>
 	<string name="request_coins_clipboard_msg">Förfrågan om Bitcoin kopierades till klippbordet</string>
 	<string name="request_coins_share_dialog_title">Dela en förfrågan om Bitcoins…</string>
-
 	<string name="address_book_activity_title">Adressbok</string>
+	<string name="address_book_list_receiving_title">Dina adresser</string>
+	<string name="address_book_list_sending_title">Sändningsadresser</string>
 	<string name="address_book_empty_text">Din adressbok är tom</string>
 	<string name="address_book_context_send_title">Skicka Bitcoins till adressen</string>
-	<string name="address_book_context_edit_title">Ändra adressen</string>
+	<string name="address_book_context_edit_title">Ändra adress</string>
 	<string name="address_book_context_remove_title">Ta bort adressen</string>
-	<string name="address_book_context_show_qr_title">Visa QR kod</string>
-	<string name="address_book_context_copy_to_clipboard_title">Kopiera till klippbordet</string>
-
+	<string name="address_book_context_show_qr_title">Visa QR-kod</string>
+	<string name="address_book_context_copy_to_clipboard_title">Kopiera till urklipp</string>
+	<string name="address_book_context_default_title">Sätt som standardadress</string>
+	<string name="address_book_context_determine_creation_time_title">Fastställ skapelse-tid</string>
+	<string name="address_book_options_paste_from_clipboard_title">Klistra in från urklipp</string>
+	<string name="address_book_options_copy_from_clipboard_msg_empty">Urklippet är tomt</string>
+	<string name="address_book_options_scan_title">Skanna adress</string>
 	<string name="edit_address_book_entry_dialog_title_add">Lägg till adress</string>
 	<string name="edit_address_book_entry_dialog_title_edit">Ändra adress</string>
 	<string name="edit_address_book_entry_dialog_address_label">Adress</string>
 	<string name="edit_address_book_entry_dialog_label_label">Namn</string>
 	<string name="edit_address_book_entry_dialog_button_edit">Spara</string>
-
+	<string name="transaction_activity_title">Transaktion</string>
+	<string name="transaction_fragment_time_label">Datum</string>
+	<string name="transaction_fragment_amount_sent_label">Skickade</string>
+	<string name="transaction_fragment_amount_received_label">Mottagna</string>
+	<string name="transaction_fragment_from_label">Avsändare</string>
+	<string name="transaction_fragment_to_label">Mottagare</string>
+	<string name="transaction_fragment_you">du</string>
+	<string name="transaction_fragment_status_label">Status</string>
+	<string name="transaction_fragment_status_unknown">okänd</string>
+	<string name="transaction_fragment_status_pending">väntar på bekräftelse</string>
+	<string name="transaction_fragment_status_confirmed">bekräftad</string>
+	<string name="transaction_fragment_status_dead">död</string>
+	<string name="transaction_fragment_hash_label">Hash</string>
+	<string name="transaction_fragment_length_label">Längd</string>
+	<string name="amount_calculator_dialog_title">Valuta kalkylator</string>
+	<string name="amount_calculator_dialog_button_use">Använd</string>
+	<string name="peer_monitor_activity_title">Peer övervakaren</string>
+	<string name="peer_list_fragment_empty">Inga peers anslutna</string>
 	<string name="about_title">Om</string>
 	<string name="about_license_title">Licens</string>
-	<string name="about_credits_bitcoinj_title">"Denna app använder 'bitcoinj'"</string>
-	<string name="about_credits_zxing_title">"Denna app använder 'zxing'"</string>
-	<string name="about_credits_icon_title">"Appen använder en ikon av 'bitboy'"</string>
+	<string name="about_credits_bitcoinj_title">Denna app använder \'bitcoinj\'</string>
+	<string name="about_credits_zxing_title">Denna app använder \'zxing\'</string>
+	<string name="about_credits_icon_title">Appen använder en ikon av \'bitboy\'</string>
 	<string name="about_author_twitter_title">Utvecklaren på Twitter</string>
 	<string name="about_author_googleplus_title">Utvecklaren på Google+</string>
 	<string name="about_credits_market_app_title">Google Play app sida</string>
 	<string name="about_credits_market_publisher_title">Andra appar från utvecklaren</string>
-
 	<string name="notification_coins_received_msg">Tagit emot %s BTC</string>
 	<string name="notification_peers_connected_msg">Ansluten till %d noder</string>
 
@@ -82,8 +128,14 @@
 	<string name="button_help">Hjälp</string>
 	<string name="button_add">Lägg till</string>
 	<string name="button_delete">Ta bort</string>
+	<string name="button_edit">Redigera</string>
+	<string name="button_copy">Kopiera</string>
+	<string name="button_paste">Klistra in</string>
 	<string name="button_share">Dela</string>
+	<string name="button_set_as_default">Ange som standard</string>
 	<string name="button_request_coins">Ta emot Bitcoins</string>
 	<string name="button_send_coins">Skicka Bitcoins</string>
+	<string name="time_today">idag</string>
+	<string name="address_unlabeled">(saknar etikett)</string>
 
 </resources>
