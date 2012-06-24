@@ -137,7 +137,11 @@
 			<intent-filter>
 				<action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
 				<action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
-				<action android:name="android.intent.action.BOOT_COMPLETED"/>
+				<action android:name="android.intent.action.BOOT_COMPLETED" />
+			</intent-filter>
+			<intent-filter>
+				<action android:name="android.intent.action.PACKAGE_REPLACED" />
+				<data android:scheme="package" android:path="de.schildbach.wallet_test" />
 			</intent-filter>
 		</receiver>
 
