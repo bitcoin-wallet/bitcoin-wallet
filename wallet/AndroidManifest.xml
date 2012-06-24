@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
 	package="de.schildbach.wallet_test"
 	android:installLocation="preferExternal"
-	android:versionCode="85"
-	android:versionName="2.14_test" >
+	android:versionCode="86"
+	android:versionName="2.15_test" >
 
 	<uses-sdk
 		android:minSdkVersion="5"
