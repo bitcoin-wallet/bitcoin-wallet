@@ -96,11 +96,14 @@ public class AutosyncService extends Service implements OnSharedPreferenceChange
 	@Override
 	public int onStartCommand(final Intent intent, final int flags, final int startId)
 	{
-		final String action = intent.getAction();
-		if (Intent.ACTION_POWER_CONNECTED.equals(action))
-			isPowerConnected = true;
-		else if (Intent.ACTION_POWER_DISCONNECTED.equals(action))
-			isPowerConnected = false;
+		if (intent != null)
+		{
+			final String action = intent.getAction();
+			if (Intent.ACTION_POWER_CONNECTED.equals(action))
+				isPowerConnected = true;
+			else if (Intent.ACTION_POWER_DISCONNECTED.equals(action))
+				isPowerConnected = false;
+		}
 
 		check();
 
