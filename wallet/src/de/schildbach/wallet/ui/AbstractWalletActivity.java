@@ -22,8 +22,10 @@ import java.util.Locale;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -158,5 +160,11 @@ public abstract class AbstractWalletActivity extends SherlockFragmentActivity
 			startActivity(marketIntent);
 		else
 			startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(String.format(Constants.WEBMARKET_APP_URL, packageName))));
+	}
+
+	protected void touchLastUsed()
+	{
+		final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+		prefs.edit().putLong(Constants.PREFS_KEY_LAST_USED, System.currentTimeMillis()).commit();
 	}
 }

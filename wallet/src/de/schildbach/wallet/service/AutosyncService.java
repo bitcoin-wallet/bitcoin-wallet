@@ -37,13 +37,12 @@ import de.schildbach.wallet.Constants;
  */
 public class AutosyncService extends Service implements OnSharedPreferenceChangeListener
 {
-	private static final long AUTOSYNC_INTERVAL = AlarmManager.INTERVAL_HOUR;
-
 	private Context context;
 	private SharedPreferences prefs;
 	private AlarmManager alarmManager;
 	private WifiManager wifiManager;
 
+	private Intent serviceIntent;
 	private PendingIntent alarmIntent;
 	private WifiLock wifiLock;
 
@@ -61,8 +60,11 @@ public class AutosyncService extends Service implements OnSharedPreferenceChange
 		prefs.registerOnSharedPreferenceChangeListener(this);
 
 		alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-
 		wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+
+		serviceIntent = new Intent(context, BlockchainServiceImpl.class);
+
+		alarmIntent = PendingIntent.getService(context, 0, serviceIntent, 0);
 
 		wifiLock = wifiManager.createWifiLock(WifiManager.WIFI_MODE_FULL, Constants.LOCK_NAME);
 		wifiLock.setReferenceCounted(false);
@@ -82,7 +84,7 @@ public class AutosyncService extends Service implements OnSharedPreferenceChange
 	@Override
 	public void onDestroy()
 	{
-		cancelAlarm();
+		alarmManager.cancel(alarmIntent);
 
 		wifiLock.release();
 
@@ -113,7 +115,10 @@ public class AutosyncService extends Service implements OnSharedPreferenceChange
 
 	private void check()
 	{
+		final long now = System.currentTimeMillis();
+
 		final boolean prefsAutosync = prefs.getBoolean(Constants.PREFS_KEY_AUTOSYNC, false);
+		final long prefsLastUsed = prefs.getLong(Constants.PREFS_KEY_LAST_USED, 0);
 
 		final boolean shouldRunning = prefsAutosync && isPowerConnected;
 
@@ -122,30 +127,27 @@ public class AutosyncService extends Service implements OnSharedPreferenceChange
 			System.out.println("acquiring wifilock");
 			wifiLock.acquire();
 
-			final Intent serviceIntent = new Intent(context, BlockchainServiceImpl.class);
-
 			context.startService(serviceIntent);
 
-			alarmIntent = PendingIntent.getService(context, 0, serviceIntent, 0);
-			alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), AUTOSYNC_INTERVAL, alarmIntent);
+			final long lastUsedAgo = now - prefsLastUsed;
+			final long alarmInterval;
+			if (lastUsedAgo < Constants.LAST_USAGE_THRESHOLD_JUST_MS)
+				alarmInterval = AlarmManager.INTERVAL_FIFTEEN_MINUTES;
+			else if (lastUsedAgo < Constants.LAST_USAGE_THRESHOLD_RECENTLY_MS)
+				alarmInterval = AlarmManager.INTERVAL_HOUR;
+			else
+				alarmInterval = AlarmManager.INTERVAL_HALF_DAY;
+
+			alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, now, alarmInterval, alarmIntent);
 		}
 		else if (!shouldRunning && isRunning)
 		{
-			cancelAlarm();
+			alarmManager.cancel(alarmIntent);
 
 			System.out.println("releasing wifilock");
 			wifiLock.release();
 		}
 
 		isRunning = shouldRunning;
-	}
-
-	private void cancelAlarm()
-	{
-		if (alarmIntent != null)
-		{
-			alarmManager.cancel(alarmIntent);
-			alarmIntent = null;
-		}
 	}
 }

@@ -76,6 +76,8 @@ public final class WalletActivity extends AbstractWalletActivity
 		}
 
 		checkVersionAndTimeskewAlert();
+
+		touchLastUsed();
 	}
 
 	@Override

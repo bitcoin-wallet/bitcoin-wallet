@@ -116,6 +116,7 @@ public class Constants
 	public static final String PACKAGE_NAME_ZXING = "com.google.zxing.client.android";
 
 	public static final String PREFS_KEY_LAST_VERSION = "last_version";
+	public static final String PREFS_KEY_LAST_USED = "last_used";
 	public static final String PREFS_KEY_AUTOSYNC = "autosync";
 	public static final String PREFS_KEY_SELECTED_ADDRESS = "selected_address";
 	public static final String PREFS_KEY_EXCHANGE_CURRENCY = "exchange_currency";
@@ -124,4 +125,7 @@ public class Constants
 	public static final String PREFS_KEY_LABS_TRANSACTION_DETAILS = "labs_transactions_details";
 
 	public static final BigInteger DEFAULT_TX_FEE = Utils.CENT.divide(BigInteger.valueOf(20));
+
+	public static final long LAST_USAGE_THRESHOLD_JUST_MS = 1000 * 60 * 60 * 1;
+	public static final long LAST_USAGE_THRESHOLD_RECENTLY_MS = 1000 * 60 * 60 * 48;
 }
