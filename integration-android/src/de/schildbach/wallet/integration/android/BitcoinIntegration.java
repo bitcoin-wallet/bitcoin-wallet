@@ -31,7 +31,7 @@ public final class BitcoinIntegration
 	private static final String INTENT_EXTRA_TRANSACTION_HASH = "transaction_id";
 
 	/**
-	 * Request Bitcoins from user, without feedback from the app.
+	 * Request any amount of Bitcoins (probably a donation) from user, without feedback from the app.
 	 * 
 	 * @param context
 	 *            Android context
@@ -40,20 +40,33 @@ public final class BitcoinIntegration
 	 */
 	public static void request(final Context context, final String address)
 	{
-		final Intent intent = makeIntent(address);
+		final Intent intent = makeIntent(address, null);
 
-		final PackageManager pm = context.getPackageManager();
-		if (pm.resolveActivity(intent, 0) != null)
-			context.startActivity(intent);
-		else
-			redirectToDownload(context);
+		start(context, intent);
 	}
 
 	/**
-	 * Request Bitcoins from user, with feedback from the app. Result intent can be received by overriding
-	 * {@link android.app.Activity#onActivityResult()}. Result indicates either {@link Activity#RESULT_OK} or
-	 * {@link Activity#RESULT_CANCELED}. In the success case, use {@link #transactionHashFromResult(Intent)} to read the
-	 * transaction hash from the intent.
+	 * Request specific amount of Bitcoins from user, without feedback from the app.
+	 * 
+	 * @param context
+	 *            Android context
+	 * @param address
+	 *            Bitcoin address
+	 * @param amount
+	 *            Bitcoin amount in nanocoins
+	 */
+	public static void request(final Context context, final String address, final long amount)
+	{
+		final Intent intent = makeIntent(address, amount);
+
+		start(context, intent);
+	}
+
+	/**
+	 * Request any amount of Bitcoins (probably a donation) from user, with feedback from the app. Result intent can be
+	 * received by overriding {@link android.app.Activity#onActivityResult()}. Result indicates either
+	 * {@link Activity#RESULT_OK} or {@link Activity#RESULT_CANCELED}. In the success case, use
+	 * {@link #transactionHashFromResult(Intent)} to read the transaction hash from the intent.
 	 * 
 	 * Warning: A success indication is no guarantee! To be on the safe side, you must drive your own Bitcoin
 	 * infrastructure and validate the transaction.
@@ -65,13 +78,30 @@ public final class BitcoinIntegration
 	 */
 	public static void requestForResult(final Activity activity, final int requestCode, final String address)
 	{
-		final Intent intent = makeIntent(address);
+		final Intent intent = makeIntent(address, null);
 
-		final PackageManager pm = activity.getPackageManager();
-		if (pm.resolveActivity(intent, 0) != null)
-			activity.startActivityForResult(intent, requestCode);
-		else
-			redirectToDownload(activity);
+		startForResult(activity, requestCode, intent);
+	}
+
+	/**
+	 * Request specific amount of Bitcoins from user, with feedback from the app. Result intent can be received by
+	 * overriding {@link android.app.Activity#onActivityResult()}. Result indicates either {@link Activity#RESULT_OK} or
+	 * {@link Activity#RESULT_CANCELED}. In the success case, use {@link #transactionHashFromResult(Intent)} to read the
+	 * transaction hash from the intent.
+	 * 
+	 * Warning: A success indication is no guarantee! To be on the safe side, you must drive your own Bitcoin
+	 * infrastructure and validate the transaction.
+	 * 
+	 * @param context
+	 *            Android context
+	 * @param address
+	 *            Bitcoin address
+	 */
+	public static void requestForResult(final Activity activity, final int requestCode, final String address, final long amount)
+	{
+		final Intent intent = makeIntent(address, amount);
+
+		startForResult(activity, requestCode, intent);
 	}
 
 	/**
@@ -105,12 +135,37 @@ public final class BitcoinIntegration
 		return txHash;
 	}
 
-	private static Intent makeIntent(final String address)
+	private static final int NANOCOINS_PER_COIN = 100000000;
+
+	private static Intent makeIntent(final String address, final Long amount)
 	{
-		final Uri uri = Uri.parse("bitcoin:" + address);
-		final Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+		final StringBuilder uri = new StringBuilder("bitcoin:");
+		if (address != null)
+			uri.append(address);
+		if (amount != null)
+			uri.append("?amount=").append(String.format("%d.%08d", amount / NANOCOINS_PER_COIN, amount % NANOCOINS_PER_COIN));
+
+		final Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri.toString()));
 
 		return intent;
+	}
+
+	private static void start(final Context context, final Intent intent)
+	{
+		final PackageManager pm = context.getPackageManager();
+		if (pm.resolveActivity(intent, 0) != null)
+			context.startActivity(intent);
+		else
+			redirectToDownload(context);
+	}
+
+	private static void startForResult(final Activity activity, final int requestCode, final Intent intent)
+	{
+		final PackageManager pm = activity.getPackageManager();
+		if (pm.resolveActivity(intent, 0) != null)
+			activity.startActivityForResult(intent, requestCode);
+		else
+			redirectToDownload(activity);
 	}
 
 	private static void redirectToDownload(final Context context)
