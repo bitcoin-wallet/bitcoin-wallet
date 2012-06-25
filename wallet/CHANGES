@@ -1,3 +1,7 @@
+2.16
+
+* bugfixes
+
 2.15
 
 * exponentially backoff autosync frequency
