@@ -28,7 +28,7 @@ import android.widget.Toast;
  */
 public final class BitcoinIntegration
 {
-	private static final String INTENT_EXTRA_TRANSACTION_HASH = "transaction_id";
+	private static final String INTENT_EXTRA_TRANSACTION_HASH = "transaction_hash";
 
 	/**
 	 * Request any amount of Bitcoins (probably a donation) from user, without feedback from the app.
@@ -115,6 +115,7 @@ public final class BitcoinIntegration
 	public static void transactionHashToResult(final Intent result, final String txHash)
 	{
 		result.putExtra(INTENT_EXTRA_TRANSACTION_HASH, txHash);
+		result.putExtra(INTENT_EXTRA_TRANSACTION_HASH_OLD, txHash);
 	}
 
 	/**
@@ -182,4 +183,6 @@ public final class BitcoinIntegration
 			context.startActivity(binaryIntent);
 		// else out of luck
 	}
+
+	private static final String INTENT_EXTRA_TRANSACTION_HASH_OLD = "transaction_id";
 }
