@@ -486,7 +486,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 
 		final String initiateReset = prefs.getString(Constants.PREFS_KEY_INITIATE_RESET, null);
 		final boolean blockchainResetInitiated;
-		if ("blockchain".equals(initiateReset))
+		if (Constants.PREFS_VALUE_INITIATE_RESET_BLOCKCHAIN.equals(initiateReset))
 		{
 			blockchainResetInitiated = true;
 			wallet.clearTransactions(0);
@@ -513,10 +513,17 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 			}
 			catch (final BlockStoreException x)
 			{
-				x.printStackTrace();
+				prefs.edit().putString(Constants.PREFS_KEY_INITIATE_RESET, Constants.PREFS_VALUE_INITIATE_RESET_BLOCKCHAIN).commit();
 
-				copyBlockchainSnapshot(file);
-				blockStore = new BoundedOverheadBlockStore(Constants.NETWORK_PARAMETERS, file);
+				x.printStackTrace();
+				throw new Error("blockstore cannot be created", x);
+			}
+			catch (final IllegalStateException x)
+			{
+				prefs.edit().putString(Constants.PREFS_KEY_INITIATE_RESET, Constants.PREFS_VALUE_INITIATE_RESET_BLOCKCHAIN).commit();
+
+				x.printStackTrace();
+				throw new Error("blockstore cannot be created", x);
 			}
 
 			blockChain = new BlockChain(Constants.NETWORK_PARAMETERS, wallet, blockStore);
@@ -525,7 +532,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 		}
 		catch (final BlockStoreException x)
 		{
-			throw new Error("blockstore cannot be created", x);
+			throw new Error("blockchain cannot be created", x);
 		}
 
 		registerReceiver(tickReceiver, new IntentFilter(Intent.ACTION_TIME_TICK));
