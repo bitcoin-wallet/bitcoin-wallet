@@ -2,7 +2,7 @@
 <resources>
 
 	<string name="app_name">Bitcoin Wallet</string>
-	<string name="toast_wallet_reset">Le Wallet a été redémarré\net prend un peu de temps pour récupérer</string>
+	<string name="toast_wallet_reset">Le porte-monnaie a été redémarré\net prend un peu de temps pour récupérer</string>
 	<string name="blockchain_state_disclaimer">Utilisez à vos risques. Lisez les notes de sécurité.</string>
 	<string name="blockchain_state_message_hours">Chaîne de blocs %1$s, %2$d heures d\'écart</string>
 	<string name="blockchain_state_message_days">Chaîne de blocs %1$s, %2$d jours d\'écart</string>
@@ -16,7 +16,7 @@
 	<string name="wallet_address_fragment_clipboard_msg">Adresse Bitcoin dans le presse-papier</string>
 	<string name="wallet_address_fragment_share_dialog_title">Publiez votre adresse Bitcoin…</string>
 	<string name="wallet_addresses_fragment_add_dialog_title">Ajouter l\'adresse Bitcoin</string>
-	<string name="wallet_addresses_fragment_add_dialog_message">Les adresses Bitcoin ne peuvent pas être effacées. Voulez-vous ajouter une nouvelle adresse à votre wallet&#x202F;?</string>
+	<string name="wallet_addresses_fragment_add_dialog_message">Les adresses Bitcoin ne peuvent pas être effacées. Voulez-vous ajouter une nouvelle adresse à votre porte-monnaie&#x202F;?</string>
 	<string name="wallet_balance_fragment_local_value">vaut environ %1$s %2$s</string>
 	<string name="exchange_rates_fragment_empty_text">Impossible de charger les taux de changes</string>
 	<string name="exchange_rates_context_set_as_default_title">Définir comme devise étrangère par défaut</string>
@@ -48,8 +48,8 @@
 	<string name="send_coins_fragment_receiving_address_label">Payer à</string>
 	<string name="send_coins_fragment_receiving_address_hint">Entrer l\'adresse ou le nom</string>
 	<string name="send_coins_fragment_receiving_address_error">Addresse Bitcoin invalide&#x202F;!</string>
-	<string name="send_coins_fragment_receiving_address_error_cross_network">Impossible d\'utiliser l\'adresse %s avec ce wallet&#x202F;!</string>
-	<string name="send_coins_fragment_receiving_address_error_cross_network_unknown">Impossible d\'utiliser l\'adresse d\'un réseau inconnu avec ce wallet&#x202F;!</string>
+	<string name="send_coins_fragment_receiving_address_error_cross_network">Impossible d\'utiliser l\'adresse %s avec ce porte-monnaie&#x202F;!</string>
+	<string name="send_coins_fragment_receiving_address_error_cross_network_unknown">Impossible d\'utiliser l\'adresse d\'un réseau inconnu avec ce porte-monnaie&#x202F;!</string>
 	<string name="send_coins_fragment_available_label">Montant disponible</string>
 	<string name="send_coins_fragment_pending">(BTC %s en attente de confirmation)</string>
 	<string name="send_coins_fragment_amount_label">Montant à payer</string>
