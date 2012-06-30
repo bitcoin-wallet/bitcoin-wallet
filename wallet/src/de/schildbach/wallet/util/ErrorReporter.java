@@ -30,8 +30,7 @@ import java.util.Formatter;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import de.schildbach.wallet.Constants;
-
+import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.Context;
@@ -45,6 +44,7 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Environment;
 import android.os.StatFs;
+import de.schildbach.wallet.Constants;
 
 /**
  * @author Andreas Schildbach
@@ -94,6 +94,7 @@ public class ErrorReporter implements Thread.UncaughtExceptionHandler
 			final PackageInfo pi = pm.getPackageInfo(context.getPackageName(), 0);
 			final Resources res = context.getResources();
 			final Configuration config = res.getConfiguration();
+			final ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
 
 			report.append("Date: " + new Date() + "\n");
 			report.append("Version: " + pi.versionName + " (" + pi.versionCode + ")\n");
@@ -115,9 +116,10 @@ public class ErrorReporter implements Thread.UncaughtExceptionHandler
 			report.append("Type: " + android.os.Build.TYPE + "\n");
 			report.append("User: " + android.os.Build.USER + "\n");
 			report.append("Configuration: " + config + "\n");
-			report.append("ScreenLayout: size " + (config.screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) + " long "
+			report.append("Screen Layout: size " + (config.screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) + " long "
 					+ (config.screenLayout & Configuration.SCREENLAYOUT_LONG_MASK) + "\n");
-			report.append("DisplayMetrics: " + res.getDisplayMetrics() + "\n");
+			report.append("Display Metrics: " + res.getDisplayMetrics() + "\n");
+			report.append("Memory Class: " + activityManager.getMemoryClass() + "\n");
 			report.append("Databases:");
 			for (final String db : context.databaseList())
 				report.append(" " + db);
