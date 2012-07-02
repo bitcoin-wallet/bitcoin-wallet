@@ -4,9 +4,9 @@
 	<string name="app_name">Bitcoin Wallet</string>
 	<string name="toast_wallet_reset">Plånboken nollställdes,\ndet kan ta ett tag innan den återställts</string>
 	<string name="blockchain_state_disclaimer">Använd på egen risk. Läs säkerhetsråden.</string>
-	<string name="blockchain_state_message_hours">Blockkedjan är %d timmar efter</string>
-	<string name="blockchain_state_message_days">Blockkedjan är %d dagar efter</string>
-	<string name="blockchain_state_message_weeks">Blockkedjan är %d veckor efter</string>
+	<string name="blockchain_state_message_hours">Blockkedjan %1$s; är %2$d timmar efter</string>
+	<string name="blockchain_state_message_days">Blockkedjan %1$s; är %2$d dagar efter</string>
+	<string name="blockchain_state_message_weeks">Blockkedjan %1$s; är %2$d veckor efter</string>
 	<string name="blockchain_state_message_downloading">laddar ner</string>
 	<string name="blockchain_state_message_stalled">förhindrad</string>
 	<string name="blockchain_state_message_problem_storage">Blockkedjan laddas inte ner: lagringsproblem</string>
