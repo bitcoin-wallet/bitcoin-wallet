@@ -44,6 +44,7 @@ import de.schildbach.wallet_test.R;
 public final class SendCoinsActivity extends AbstractWalletActivity
 {
 	public static final String INTENT_EXTRA_ADDRESS = "address";
+	public static final String INTENT_EXTRA_ADDRESS_LABEL = "address_label";
 
 	private static final int DIALOG_HELP = 0;
 
@@ -178,7 +179,7 @@ public final class SendCoinsActivity extends AbstractWalletActivity
 		else if (intent.hasExtra(INTENT_EXTRA_ADDRESS))
 		{
 			address = intent.getStringExtra(INTENT_EXTRA_ADDRESS);
-			addressLabel = null; // TODO
+			addressLabel = intent.getStringExtra(INTENT_EXTRA_ADDRESS_LABEL);
 			amount = null;
 		}
 		else
