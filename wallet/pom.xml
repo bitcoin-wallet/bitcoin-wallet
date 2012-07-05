@@ -4,11 +4,16 @@
 
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>de.schildbach.wallet</groupId>
 	<artifactId>wallet_test</artifactId>
 	<packaging>apk</packaging>
 	<version>2.17</version>
 	<name>Bitcoin Wallet</name>
+
+	<parent>
+		<groupId>de.schildbach.wallet</groupId>
+		<artifactId>base</artifactId>
+		<version>1</version>
+	</parent>
 
 	<dependencies>
 		<dependency>

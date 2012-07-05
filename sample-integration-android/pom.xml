@@ -4,11 +4,16 @@
 
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>de.schildbach.wallet</groupId>
 	<artifactId>sample-integration-android</artifactId>
 	<packaging>apk</packaging>
 	<version>1.0</version>
 	<name>Sample for Bitcoin Integration for Android</name>
+
+	<parent>
+		<groupId>de.schildbach.wallet</groupId>
+		<artifactId>base</artifactId>
+		<version>1</version>
+	</parent>
 
 	<dependencies>
 		<dependency>
