@@ -4,9 +4,9 @@
 	<string name="app_name">Bitcoin Wallet</string>
 	<string name="toast_wallet_reset">Plånboken nollställdes,\ndet kan ta ett tag innan den återställts</string>
 	<string name="blockchain_state_disclaimer">Använd på egen risk. Läs säkerhetsråden.</string>
-	<string name="blockchain_state_message_hours">Blockkedjan %1$s; är %2$d timmar efter</string>
-	<string name="blockchain_state_message_days">Blockkedjan %1$s; är %2$d dagar efter</string>
-	<string name="blockchain_state_message_weeks">Blockkedjan %1$s; är %2$d veckor efter</string>
+	<string name="blockchain_state_message_hours">Blockkedjan %1$s, %2$d timmar efter</string>
+	<string name="blockchain_state_message_days">Blockkedjan %1$s, %2$d dagar efter</string>
+	<string name="blockchain_state_message_weeks">Blockkedjan %1$s, %2$d veckor efter</string>
 	<string name="blockchain_state_message_downloading">laddar ner</string>
 	<string name="blockchain_state_message_stalled">förhindrad</string>
 	<string name="blockchain_state_message_problem_storage">Blockkedjan laddas inte ner: lagringsproblem</string>
@@ -38,7 +38,7 @@
 	<string name="wallet_timeskew_dialog_msg">Enhetens tid är fel med %d minuter. Du kan förmodligen inte skicka eller ta emot Bitcoins på grund av detta problemet.\n\nDu bör kontrollera och korrigera tiden och tidszonen.</string>
 	<string name="wallet_timeskew_dialog_button_settings">Inställningar</string>
 	<string name="wallet_version_dialog_title">En ny version är tillgänglig!</string>
-	<string name="wallet_version_dialog_msg">Denna version löser viktiga buggar. För mer information, se ändringsloggen på Google Play</string>
+	<string name="wallet_version_dialog_msg">Denna version löser viktiga buggar. För mer information, se ändringsloggen på Google Play.</string>
 	<string name="wallet_version_dialog_button_market">Google Play</string>
 	<string name="wallet_version_dialog_button_binary">Ladda ner</string>
 	<string name="send_coins_activity_title">Skicka Bitcoins</string>
