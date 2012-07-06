@@ -7,7 +7,7 @@
 	<string name="blockchain_state_message_hours">Blockchain %1$s; %2$d horas atrás.</string>
 	<string name="blockchain_state_message_days">Blockchain %1$s; %2$d días atrás.</string>
 	<string name="blockchain_state_message_weeks">Blockchain %1$s; %2$d semanas atrás.</string>
-	<string name="blockchain_state_message_downloading">descárgandose</string>
+	<string name="blockchain_state_message_downloading">descargándose</string>
 	<string name="blockchain_state_message_stalled">interrumpida</string>
 	<string name="blockchain_state_message_problem_storage">No se descarga la blockchain: problema de espacio</string>
 	<string name="blockchain_state_message_problem_power">No se descarga la blockchain: problema de batería</string>
@@ -31,10 +31,10 @@
 	<string name="wallet_options_disconnect">Desconectar</string>
 	<string name="wallet_options_safety">Notas de seguridad</string>
 	<string name="wallet_options_donate">Donaciones</string>
-	<string name="wallet_low_storage_dialog_title">¡Espacio de almacenamiento interno del dispositivo bajo!</string>
+	<string name="wallet_low_storage_dialog_title">¡Espacio disponible interno del dispositivo bajo!</string>
 	<string name="wallet_low_storage_dialog_msg">Bitcoin Wallet utiliza el almacenamiento interno para recordar transacciones y bloques. Si se queda sin espacio, dejará de funcionar ¡y tus bitcoins estarán en peligro!\n\n¿Quieres abrir el Gestor de Aplicaciones para desinstalar aplicaciones innecesarias?</string>
 	<string name="wallet_low_storage_dialog_button_apps">Gestionar Aplicaciones</string>
-	<string name="wallet_timeskew_dialog_title">¡Comprueba la hora del sistema! </string>
+	<string name="wallet_timeskew_dialog_title">¡Comprueba la hora del sistema!</string>
 	<string name="wallet_timeskew_dialog_msg">¡La hora del dispositivo está mal en %d minutos. No podrás enviar o recibir bitcoins debido a este problema.\n\nDeberías comprobar y corregir los ajustes de hora y huso horario.</string>
 	<string name="wallet_timeskew_dialog_button_settings">Ajustes</string>
 	<string name="wallet_version_dialog_title">¡Hay una nueva versión disponible!</string>
