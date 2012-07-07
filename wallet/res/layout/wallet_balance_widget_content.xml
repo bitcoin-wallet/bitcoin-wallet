@@ -43,7 +43,7 @@
 	<ImageView
 		android:layout_width="1dp"
 		android:layout_height="fill_parent"
-		android:background="@drawable/appwidget_divider_holo" />
+		android:background="@drawable/appwidget_divider" />
 
 	<ImageButton
 		android:id="@+id/widget_button_request"
@@ -56,7 +56,7 @@
 	<ImageView
 		android:layout_width="1dp"
 		android:layout_height="fill_parent"
-		android:background="@drawable/appwidget_divider_holo" />
+		android:background="@drawable/appwidget_divider" />
 
 	<ImageButton
 		android:id="@+id/widget_button_send"
