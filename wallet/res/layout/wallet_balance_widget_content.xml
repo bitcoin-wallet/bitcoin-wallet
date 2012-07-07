@@ -1,39 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:id="@+id/widget_frame"
 	android:layout_width="fill_parent"
 	android:layout_height="fill_parent"
 	android:background="@drawable/appwidget_dark_bg_clickable"
-	android:focusable="true"
 	android:orientation="horizontal" >
 
-	<ImageView
-		android:layout_width="0px"
-		android:layout_height="wrap_content"
-		android:layout_gravity="center"
-		android:layout_weight="1"
-		android:src="@drawable/app_icon" />
-
 	<LinearLayout
+		android:id="@+id/widget_button_balance"
 		android:layout_width="0px"
-		android:layout_height="wrap_content"
+		android:layout_height="fill_parent"
 		android:layout_gravity="center"
-		android:layout_weight="2"
+		android:layout_weight="3"
+		android:background="@drawable/appwidget_button_left"
+		android:focusable="true"
 		android:gravity="left|center_vertical"
 		android:orientation="vertical" >
 
-		<TextView
-			android:layout_width="wrap_content"
+		<LinearLayout
+			android:layout_width="fill_parent"
 			android:layout_height="wrap_content"
-			android:singleLine="true"
-			android:text="BTC"
-			android:textColor="#bbb"
-			android:textSize="24sp" />
+			android:layout_marginLeft="12dp"
+			android:orientation="horizontal" >
+
+			<ImageView
+				android:layout_width="32dp"
+				android:layout_height="32dp"
+				android:layout_gravity="center"
+				android:src="@drawable/app_icon" />
+
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="12dp"
+				android:singleLine="true"
+				android:text="BTC"
+				android:textColor="#bbb"
+				android:textSize="24sp" />
+		</LinearLayout>
 
 		<TextView
 			android:id="@+id/widget_wallet_balance"
-			android:layout_width="wrap_content"
+			android:layout_width="fill_parent"
 			android:layout_height="wrap_content"
+			android:layout_marginLeft="12dp"
 			android:ellipsize="none"
 			android:fadingEdge="horizontal"
 			android:fadingEdgeLength="12dp"
