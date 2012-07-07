@@ -34,7 +34,9 @@
 			android:id="@+id/widget_wallet_balance"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:ellipsize="end"
+			android:ellipsize="none"
+			android:fadingEdge="horizontal"
+			android:fadingEdgeLength="12dp"
 			android:singleLine="true"
 			android:textColor="#eee"
 			android:textSize="30sp" />
