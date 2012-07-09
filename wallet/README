@@ -42,9 +42,6 @@ SETTING UP FOR DEVELOPMENT
 
 Make sure you've got Eclipse 3.7 (Indigo) with ADT 16 installed.
 
-Use https://github.com/mosabua/maven-android-sdk-deployer to deploy all Android components to
-your local Maven repository.
-
 Use Git to check out the project to your workspace:
 
   git clone https://code.google.com/p/bitcoin-wallet/ bitcoin-wallet
