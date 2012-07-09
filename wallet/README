@@ -30,7 +30,6 @@ Wallet file for testnet can be pulled from (even unrooted) device using
 
 Backups of key for testnet can be pulled from device using
 
-	adb pull /data/data/de.schildbach.wallet_test/files/key-backup-asn1-testnet
 	adb pull /data/data/de.schildbach.wallet_test/files/key-backup-base58-testnet
 
 Log messages can be viewed by
