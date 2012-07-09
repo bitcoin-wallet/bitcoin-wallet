@@ -40,7 +40,7 @@ Log messages can be viewed by
 
 SETTING UP FOR DEVELOPMENT
 
-Make sure you've got Eclipse 3.7 (Indigo) with ADT 16 installed.
+Make sure you've got Eclipse 3.7 (Indigo) with ADT 20 installed.
 
 Use Git to check out the project to your workspace:
 
@@ -80,7 +80,7 @@ Instructions for preparing an NFC tag with your address:
 - Some tags have less than 50 bytes capacity, those won't work. 1 KB tags recommended.
 
 - The tag needs to contain a Bitcoin URI. You can construct one with the "Request coins" dialog,
-  then share with messaging or email. You can also construct the URI by hand. Example for Prodnet:
+  then share with messaging or email. You can also construct the URI manually. Example for Prodnet:
   bitcoin:1G2Y2jP5YFZ5RGk2PXaeWwbeA5y1ZtFhoL
 
 - The type of the message needs to be URI or URL (not Text).
