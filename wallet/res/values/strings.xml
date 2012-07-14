@@ -64,6 +64,9 @@
 	<string name="send_coins_fragment_amount_label">Amount to pay</string>
 	<string name="send_coins_fragment_amount_empty">Put amount here</string>
 	<string name="send_coins_fragment_amount_error">Invalid amount!</string>
+	<string name="send_coins_fragment_bluetooth_message">Your payment will also be sent via Bluetooth.</string>
+	<string name="send_coins_fragment_bluetooth_ack">Your payment was successfully sent via Bluetooth.</string>
+	<string name="send_coins_fragment_bluetooth_nack">Your payment was rejected via Bluetooth.</string>
 	<string name="send_coins_fragment_button_send">Send</string>
 	<string name="send_coins_fragment_button_back">Back</string>
 	<string name="send_coins_preparation_msg">Signing…</string>
@@ -79,6 +82,7 @@
 	<string name="request_coins_fragment_amount_label">Requested amount (optional)</string>
 	<string name="request_coins_fragment_qr_label">Have this code scanned by the sender.</string>
 	<string name="request_coins_fragment_nfc_enabled">Or tap an NFC enabled device.</string>
+	<string name="request_coins_fragment_bluetooth_enabled">Accepting payments via Bluetooth.</string>
 	<string name="request_coins_clipboard_msg">Bitcoin request copied to clipboard</string>
 	<string name="request_coins_share_dialog_title">Share request for Bitcoins…</string>
 	<string name="request_coins_options_local_app_title">Request from local app</string>

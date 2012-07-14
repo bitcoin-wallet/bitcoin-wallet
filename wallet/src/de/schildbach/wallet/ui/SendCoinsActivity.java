@@ -34,6 +34,7 @@ import com.google.bitcoin.core.Address;
 import com.google.bitcoin.uri.BitcoinURI;
 import com.google.bitcoin.uri.BitcoinURIParseException;
 
+import de.schildbach.wallet.util.Bluetooth;
 import de.schildbach.wallet_test.R;
 
 /**
@@ -44,13 +45,16 @@ public final class SendCoinsActivity extends AbstractBindServiceActivity
 	private static final String INTENT_EXTRA_ADDRESS = "address";
 	private static final String INTENT_EXTRA_ADDRESS_LABEL = "address_label";
 	private static final String INTENT_EXTRA_AMOUNT = "amount";
+	private static final String INTENT_EXTRA_BLUETOOTH_MAC = "bluetooth_mac";
 
-	public static void start(final Context context, final String address, final String addressLabel, final BigInteger amount)
+	public static void start(final Context context, final String address, final String addressLabel, final BigInteger amount,
+			final String bluetoothMac)
 	{
 		final Intent intent = new Intent(context, SendCoinsActivity.class);
 		intent.putExtra(INTENT_EXTRA_ADDRESS, address);
 		intent.putExtra(INTENT_EXTRA_ADDRESS_LABEL, addressLabel);
 		intent.putExtra(INTENT_EXTRA_AMOUNT, amount);
+		intent.putExtra(INTENT_EXTRA_BLUETOOTH_MAC, bluetoothMac);
 		context.startActivity(intent);
 	}
 
@@ -58,7 +62,7 @@ public final class SendCoinsActivity extends AbstractBindServiceActivity
 	{
 		if (uri.matches("[a-zA-Z0-9]*"))
 		{
-			start(context, uri, null, null);
+			start(context, uri, null, null, null);
 		}
 		else
 		{
@@ -68,8 +72,9 @@ public final class SendCoinsActivity extends AbstractBindServiceActivity
 				final Address address = bitcoinUri.getAddress();
 				final String addressLabel = bitcoinUri.getLabel();
 				final BigInteger amount = bitcoinUri.getAmount();
+				final String bluetoothMac = (String) bitcoinUri.getParameterByName(Bluetooth.MAC_URI_PARAM);
 
-				start(context, address != null ? address.toString() : null, addressLabel, amount);
+				start(context, address != null ? address.toString() : null, addressLabel, amount, bluetoothMac);
 			}
 			catch (final BitcoinURIParseException x)
 			{
@@ -137,6 +142,7 @@ public final class SendCoinsActivity extends AbstractBindServiceActivity
 		final String address;
 		final String addressLabel;
 		final BigInteger amount;
+		final String bluetoothMac;
 
 		if ((Intent.ACTION_VIEW.equals(action) || NfcAdapter.ACTION_NDEF_DISCOVERED.equals(action)) && intentUri != null && "bitcoin".equals(scheme))
 		{
@@ -146,6 +152,7 @@ public final class SendCoinsActivity extends AbstractBindServiceActivity
 				address = bitcoinUri.getAddress().toString();
 				addressLabel = bitcoinUri.getLabel();
 				amount = bitcoinUri.getAmount();
+				bluetoothMac = (String) bitcoinUri.getParameterByName(Bluetooth.MAC_URI_PARAM);
 			}
 			catch (final BitcoinURIParseException x)
 			{
@@ -158,6 +165,7 @@ public final class SendCoinsActivity extends AbstractBindServiceActivity
 			address = intent.getStringExtra(INTENT_EXTRA_ADDRESS);
 			addressLabel = intent.getStringExtra(INTENT_EXTRA_ADDRESS_LABEL);
 			amount = (BigInteger) intent.getSerializableExtra(INTENT_EXTRA_AMOUNT);
+			bluetoothMac = intent.getStringExtra(INTENT_EXTRA_BLUETOOTH_MAC);
 		}
 		else
 		{
@@ -165,15 +173,15 @@ public final class SendCoinsActivity extends AbstractBindServiceActivity
 		}
 
 		if (address != null || amount != null)
-			updateSendCoinsFragment(address, addressLabel, amount);
+			updateSendCoinsFragment(address, addressLabel, amount, bluetoothMac);
 		else
 			longToast(R.string.send_coins_parse_address_error_msg);
 	}
 
-	private void updateSendCoinsFragment(final String receivingAddress, final String receivingLabel, final BigInteger amount)
+	private void updateSendCoinsFragment(final String receivingAddress, final String receivingLabel, final BigInteger amount, final String bluetoothMac)
 	{
 		final SendCoinsFragment sendCoinsFragment = (SendCoinsFragment) getSupportFragmentManager().findFragmentById(R.id.send_coins_fragment);
 
-		sendCoinsFragment.update(receivingAddress, receivingLabel, amount);
+		sendCoinsFragment.update(receivingAddress, receivingLabel, amount, bluetoothMac);
 	}
 }

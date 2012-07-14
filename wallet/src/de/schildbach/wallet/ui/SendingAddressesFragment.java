@@ -293,7 +293,7 @@ public final class SendingAddressesFragment extends SherlockListFragment impleme
 
 	private void handleSend(final String address)
 	{
-		SendCoinsActivity.start(activity, address, null, null);
+		SendCoinsActivity.start(activity, address, null, null, null);
 	}
 
 	private void handleRemove(final String address)

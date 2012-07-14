@@ -28,7 +28,7 @@ import de.schildbach.wallet_test.R;
 /**
  * @author Andreas Schildbach
  */
-public final class RequestCoinsActivity extends AbstractWalletActivity
+public final class RequestCoinsActivity extends AbstractBindServiceActivity
 {
 	@Override
 	protected void onCreate(final Bundle savedInstanceState)

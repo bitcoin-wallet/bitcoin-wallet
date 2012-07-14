@@ -279,7 +279,7 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 				return true;
 
 			case R.id.wallet_options_donate:
-				SendCoinsActivity.start(this, Constants.DONATION_ADDRESS, getString(R.string.wallet_donate_address_label), null);
+				SendCoinsActivity.start(this, Constants.DONATION_ADDRESS, getString(R.string.wallet_donate_address_label), null, null);
 				return true;
 
 			case R.id.wallet_options_help:

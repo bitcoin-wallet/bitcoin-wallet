@@ -110,6 +110,7 @@ public class Constants
 	public static final String PREFS_KEY_EXCHANGE_CURRENCY = "exchange_currency";
 	public static final String PREFS_KEY_TRUSTED_PEER = "trusted_peer";
 	public static final String PREFS_KEY_TRUSTED_PEER_ONLY = "trusted_peer_only";
+	public static final String PREFS_KEY_LABS_BLUETOOTH_OFFLINE_TRANSACTIONS = "labs_bluetooth_offline_transactions";
 	public static final String PREFS_KEY_BTC_PRECISION = "btc_precision";
 	public static final String PREFS_DEFAULT_BTC_PRECISION = "4";
 	public static final String PREFS_KEY_DISCLAIMER = "disclaimer";

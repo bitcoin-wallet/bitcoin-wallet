@@ -53,6 +53,11 @@
 			android:key="disclaimer"
 			android:summary="Have you really read the safety notes? Did you already back up your private keys to a safe place?"
 			android:title="Show disclaimer" />
+		<CheckBoxPreference
+			android:defaultValue="false"
+			android:key="labs_bluetooth_offline_transactions"
+			android:summary="Send and accept signed transactions via Bluetooth radio."
+			android:title="Bluetooth offline transactions" />
 	</PreferenceCategory>
 
 </PreferenceScreen>

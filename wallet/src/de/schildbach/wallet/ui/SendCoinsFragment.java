@@ -17,12 +17,18 @@
 
 package de.schildbach.wallet.ui;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
 import java.math.BigInteger;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import android.app.Activity;
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothSocket;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
@@ -78,6 +84,7 @@ import de.schildbach.wallet.ExchangeRatesProvider;
 import de.schildbach.wallet.ExchangeRatesProvider.ExchangeRate;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.integration.android.BitcoinIntegration;
+import de.schildbach.wallet.util.Bluetooth;
 import de.schildbach.wallet.util.GenericUtils;
 import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
@@ -92,6 +99,9 @@ public final class SendCoinsFragment extends SherlockFragment
 	private Wallet wallet;
 	private ContentResolver contentResolver;
 	private LoaderManager loaderManager;
+	private SharedPreferences prefs;
+
+	private BluetoothAdapter bluetoothAdapter;
 
 	private int btcPrecision;
 
@@ -104,6 +114,7 @@ public final class SendCoinsFragment extends SherlockFragment
 	private TextView receivingStaticAddressView;
 	private TextView receivingStaticLabelView;
 
+	private TextView bluetoothMessageView;
 	private ListView sentTransactionView;
 	private TransactionsListAdapter sentTransactionListAdapter;
 	private Button viewGo;
@@ -119,12 +130,17 @@ public final class SendCoinsFragment extends SherlockFragment
 
 	private AddressAndLabel validatedAddress = null;
 	private boolean isValidAmounts = false;
+
+	private String bluetoothMac;
+	private Boolean bluetoothAck = null;
+
 	private State state = State.INPUT;
 	private Transaction sentTransaction = null;
 
 	private static final int ID_RATE_LOADER = 0;
 
 	private static final int REQUEST_CODE_SCAN = 0;
+	private static final int REQUEST_CODE_ENABLE_BLUETOOTH = 1;
 
 	private static final Logger log = LoggerFactory.getLogger(SendCoinsFragment.class);
 
@@ -250,6 +266,7 @@ public final class SendCoinsFragment extends SherlockFragment
 
 		this.activity = (AbstractBindServiceActivity) activity;
 		this.application = (WalletApplication) activity.getApplication();
+		this.prefs = PreferenceManager.getDefaultSharedPreferences(activity);
 		this.wallet = application.getWallet();
 		this.contentResolver = activity.getContentResolver();
 		this.loaderManager = getLoaderManager();
@@ -275,13 +292,19 @@ public final class SendCoinsFragment extends SherlockFragment
 				sentTransaction = wallet.getTransaction((Sha256Hash) savedInstanceState.getSerializable("sent_transaction_hash"));
 				sentTransaction.getConfidence().addEventListener(sentTransactionConfidenceListener);
 			}
+
+			bluetoothMac = savedInstanceState.getString("bluetooth_mac");
+
+			if (savedInstanceState.containsKey("bluetooth_ack"))
+				bluetoothAck = savedInstanceState.getBoolean("bluetooth_ack");
 		}
+
+		bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
 		backgroundThread = new HandlerThread("backgroundThread", Process.THREAD_PRIORITY_BACKGROUND);
 		backgroundThread.start();
 		backgroundHandler = new Handler(backgroundThread.getLooper());
 
-		final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(activity);
 		btcPrecision = Integer.parseInt(prefs.getString(Constants.PREFS_KEY_BTC_PRECISION, Constants.PREFS_DEFAULT_BTC_PRECISION));
 	}
 
@@ -381,6 +404,8 @@ public final class SendCoinsFragment extends SherlockFragment
 		localAmountView.setHintPrecision(Constants.LOCAL_PRECISION);
 		amountCalculatorLink = new CurrencyCalculatorLink(btcAmountView, localAmountView);
 
+		bluetoothMessageView = (TextView) view.findViewById(R.id.send_coins_bluetooth_message);
+
 		sentTransactionView = (ListView) view.findViewById(R.id.send_coins_sent_transaction);
 		sentTransactionListAdapter = new TransactionsListAdapter(activity, wallet, application.maxConnectedPeers(), false);
 		sentTransactionView.setAdapter(sentTransactionListAdapter);
@@ -465,6 +490,11 @@ public final class SendCoinsFragment extends SherlockFragment
 
 		if (sentTransaction != null)
 			outState.putSerializable("sent_transaction_hash", sentTransaction.getHash());
+
+		outState.putString("bluetooth_mac", bluetoothMac);
+
+		if (bluetoothAck != null)
+			outState.putBoolean("bluetooth_ack", bluetoothAck);
 	}
 
 	@Override
@@ -481,26 +511,35 @@ public final class SendCoinsFragment extends SherlockFragment
 	@Override
 	public void onActivityResult(final int requestCode, final int resultCode, final Intent intent)
 	{
-		if (requestCode == REQUEST_CODE_SCAN && resultCode == Activity.RESULT_OK)
+		if (resultCode == Activity.RESULT_OK)
 		{
-			final String contents = intent.getStringExtra(ScanActivity.INTENT_EXTRA_RESULT);
-			if (contents.matches("[a-zA-Z0-9]*"))
+			if (requestCode == REQUEST_CODE_SCAN)
 			{
-				update(contents, null, null);
+				final String contents = intent.getStringExtra(ScanActivity.INTENT_EXTRA_RESULT);
+				if (contents.matches("[a-zA-Z0-9]*"))
+				{
+					update(contents, null, null, null);
+				}
+				else
+				{
+					try
+					{
+						final BitcoinURI bitcoinUri = new BitcoinURI(null, contents);
+						final Address address = bitcoinUri.getAddress();
+						final String addressLabel = bitcoinUri.getLabel();
+						final String bluetoothMac = (String) bitcoinUri.getParameterByName(Bluetooth.MAC_URI_PARAM);
+
+						update(address != null ? address.toString() : null, addressLabel, bitcoinUri.getAmount(), bluetoothMac);
+					}
+					catch (final BitcoinURIParseException x)
+					{
+						activity.parseErrorDialog(contents);
+					}
+				}
 			}
-			else
+			else if (requestCode == REQUEST_CODE_ENABLE_BLUETOOTH)
 			{
-				try
-				{
-					final BitcoinURI bitcoinUri = new BitcoinURI(null, contents);
-					final Address address = bitcoinUri.getAddress();
-					final String addressLabel = bitcoinUri.getLabel();
-					update(address != null ? address.toString() : null, addressLabel, bitcoinUri.getAmount());
-				}
-				catch (final BitcoinURIParseException x)
-				{
-					activity.parseErrorDialog(contents);
-				}
+				backgroundHandler.post(sendBluetoothRunnable);
 			}
 		}
 	}
@@ -698,6 +737,21 @@ public final class SendCoinsFragment extends SherlockFragment
 
 							sentTransaction.getConfidence().addEventListener(sentTransactionConfidenceListener);
 
+							final boolean labsBluetoothOfflineTransactions = prefs.getBoolean(
+									Constants.PREFS_KEY_LABS_BLUETOOTH_OFFLINE_TRANSACTIONS, false);
+							if (bluetoothAdapter != null && bluetoothMac != null && labsBluetoothOfflineTransactions)
+							{
+								if (bluetoothAdapter.isEnabled())
+								{
+									backgroundHandler.post(sendBluetoothRunnable);
+								}
+								else
+								{
+									// try to enable bluetooth
+									startActivityForResult(new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE), REQUEST_CODE_ENABLE_BLUETOOTH);
+								}
+							}
+
 							activity.getBlockchainService().broadcastTransaction(sentTransaction);
 
 							final Intent result = new Intent();
@@ -716,6 +770,92 @@ public final class SendCoinsFragment extends SherlockFragment
 			}
 		});
 	}
+
+	private Runnable sendBluetoothRunnable = new Runnable()
+	{
+		public void run()
+		{
+			log.info("trying to send tx " + sentTransaction.getHashAsString() + " via bluetooth");
+
+			final byte[] serializedTx = sentTransaction.unsafeBitcoinSerialize();
+
+			BluetoothSocket socket = null;
+			DataOutputStream os = null;
+			DataInputStream is = null;
+
+			try
+			{
+				final BluetoothDevice device = bluetoothAdapter.getRemoteDevice(Bluetooth.decompressMac(bluetoothMac));
+				socket = device.createInsecureRfcommSocketToServiceRecord(Bluetooth.BLUETOOTH_UUID);
+
+				socket.connect();
+				is = new DataInputStream(socket.getInputStream());
+				os = new DataOutputStream(socket.getOutputStream());
+
+				os.writeInt(1);
+				os.writeInt(serializedTx.length);
+				os.write(serializedTx);
+				os.flush();
+
+				log.info("tx " + sentTransaction.getHashAsString() + " sent via bluetooth");
+
+				final boolean ack = is.readBoolean();
+
+				log.info("received " + (ack ? "ack" : "nack"));
+
+				activity.runOnUiThread(new Runnable()
+				{
+					public void run()
+					{
+						bluetoothAck = ack;
+						updateView();
+					}
+				});
+			}
+			catch (final IOException x)
+			{
+				log.info("problem sending", x);
+			}
+			finally
+			{
+				if (os != null)
+				{
+					try
+					{
+						os.close();
+					}
+					catch (final IOException x)
+					{
+						// swallow
+					}
+				}
+
+				if (is != null)
+				{
+					try
+					{
+						is.close();
+					}
+					catch (final IOException x)
+					{
+						// swallow
+					}
+				}
+
+				if (socket != null)
+				{
+					try
+					{
+						socket.close();
+					}
+					catch (final IOException x)
+					{
+						// swallow
+					}
+				}
+			}
+		}
+	};
 
 	private void handleScan()
 	{
@@ -809,6 +949,19 @@ public final class SendCoinsFragment extends SherlockFragment
 			sentTransactionListAdapter.clear();
 		}
 
+		if (bluetoothMac != null)
+		{
+			bluetoothMessageView.setVisibility(View.VISIBLE);
+			if (bluetoothAck == null)
+				bluetoothMessageView.setText(R.string.send_coins_fragment_bluetooth_message);
+			else
+				bluetoothMessageView.setText(bluetoothAck ? R.string.send_coins_fragment_bluetooth_ack : R.string.send_coins_fragment_bluetooth_nack);
+		}
+		else
+		{
+			bluetoothMessageView.setVisibility(View.GONE);
+		}
+
 		viewCancel.setEnabled(state != State.PREPARATION);
 		viewGo.setEnabled(everythingValid());
 
@@ -847,7 +1000,7 @@ public final class SendCoinsFragment extends SherlockFragment
 		return state == State.INPUT && validatedAddress != null && isValidAmounts;
 	}
 
-	public void update(final String receivingAddress, final String receivingLabel, final BigInteger amount)
+	public void update(final String receivingAddress, final String receivingLabel, final BigInteger amount, final String bluetoothMac)
 	{
 		try
 		{
@@ -869,6 +1022,8 @@ public final class SendCoinsFragment extends SherlockFragment
 			amountCalculatorLink.requestFocus();
 		else if (receivingAddress != null && amount != null)
 			viewGo.requestFocus();
+
+		this.bluetoothMac = bluetoothMac;
 
 		updateView();
 

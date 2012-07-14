@@ -63,7 +63,16 @@
 				android:gravity="bottom"
 				android:text="@string/request_coins_fragment_nfc_enabled"
 				android:textSize="@dimen/font_size_normal"
-				android:textStyle="bold"
+				android:visibility="gone" />
+
+			<TextView
+				android:id="@+id/request_coins_fragment_bluetooth_enabled"
+				android:layout_width="match_parent"
+				android:layout_height="0px"
+				android:layout_gravity="bottom"
+				android:layout_weight="1"
+				android:text="@string/request_coins_fragment_bluetooth_enabled"
+				android:textSize="@dimen/font_size_normal"
 				android:visibility="gone" />
 		</LinearLayout>
 	</FrameLayout>

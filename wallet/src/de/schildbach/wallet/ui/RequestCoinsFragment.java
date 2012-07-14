@@ -21,7 +21,11 @@ import java.math.BigInteger;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import android.app.Activity;
+import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -55,6 +59,9 @@ import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.widget.ShareActionProvider;
 import com.google.bitcoin.core.Address;
 import com.google.bitcoin.core.ECKey;
+import com.google.bitcoin.core.ProtocolException;
+import com.google.bitcoin.core.Transaction;
+import com.google.bitcoin.core.VerificationException;
 import com.google.bitcoin.core.Wallet;
 import com.google.bitcoin.uri.BitcoinURI;
 
@@ -64,6 +71,7 @@ import de.schildbach.wallet.ExchangeRatesProvider;
 import de.schildbach.wallet.ExchangeRatesProvider.ExchangeRate;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.util.BitmapFragment;
+import de.schildbach.wallet.util.Bluetooth;
 import de.schildbach.wallet.util.Nfc;
 import de.schildbach.wallet.util.Qr;
 import de.schildbach.wallet_test.R;
@@ -73,12 +81,16 @@ import de.schildbach.wallet_test.R;
  */
 public final class RequestCoinsFragment extends SherlockFragment
 {
-	private AbstractWalletActivity activity;
+	private AbstractBindServiceActivity activity;
 	private WalletApplication application;
+	private Wallet wallet;
+	private SharedPreferences prefs;
 	private NfcManager nfcManager;
 	private LoaderManager loaderManager;
 	private ClipboardManager clipboardManager;
 	private ShareActionProvider shareActionProvider;
+	private BluetoothAdapter bluetoothAdapter;
+	private BluetoothListenThread acceptThread;
 
 	private int btcPrecision;
 
@@ -87,10 +99,17 @@ public final class RequestCoinsFragment extends SherlockFragment
 	private Spinner addressView;
 	private CheckBox includeLabelView;
 	private View nfcEnabledView;
+	private View bluetoothEnabledView;
+
+	private String bluetoothMac;
+
+	private static final int REQUEST_CODE_ENABLE_BLUETOOTH = 0;
 
 	private CurrencyCalculatorLink amountCalculatorLink;
 
 	private static final int ID_RATE_LOADER = 0;
+
+	private static final Logger log = LoggerFactory.getLogger(RequestCoinsFragment.class);
 
 	private final LoaderCallbacks<Cursor> rateLoaderCallbacks = new LoaderManager.LoaderCallbacks<Cursor>()
 	{
@@ -121,11 +140,14 @@ public final class RequestCoinsFragment extends SherlockFragment
 	{
 		super.onAttach(activity);
 
-		this.activity = (AbstractWalletActivity) activity;
+		this.activity = (AbstractBindServiceActivity) activity;
 		this.application = (WalletApplication) activity.getApplication();
+		this.wallet = application.getWallet();
+		this.prefs = PreferenceManager.getDefaultSharedPreferences(activity);
 		this.loaderManager = getLoaderManager();
 		this.nfcManager = (NfcManager) activity.getSystemService(Context.NFC_SERVICE);
 		this.clipboardManager = (ClipboardManager) activity.getSystemService(Context.CLIPBOARD_SERVICE);
+		this.bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 	}
 
 	@Override
@@ -133,7 +155,6 @@ public final class RequestCoinsFragment extends SherlockFragment
 	{
 		super.onCreate(savedInstanceState);
 
-		final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(activity);
 		btcPrecision = Integer.parseInt(prefs.getString(Constants.PREFS_KEY_BTC_PRECISION, Constants.PREFS_DEFAULT_BTC_PRECISION));
 	}
 
@@ -160,7 +181,6 @@ public final class RequestCoinsFragment extends SherlockFragment
 		amountCalculatorLink = new CurrencyCalculatorLink(btcAmountView, localAmountView);
 
 		addressView = (Spinner) view.findViewById(R.id.request_coins_fragment_address);
-		final Wallet wallet = application.getWallet();
 		final List<ECKey> keys = new LinkedList<ECKey>();
 		for (final ECKey key : application.getWallet().getKeys())
 			if (!wallet.isKeyRotating(key))
@@ -182,6 +202,8 @@ public final class RequestCoinsFragment extends SherlockFragment
 		includeLabelView = (CheckBox) view.findViewById(R.id.request_coins_fragment_include_label);
 
 		nfcEnabledView = view.findViewById(R.id.request_coins_fragment_nfc_enabled);
+
+		bluetoothEnabledView = view.findViewById(R.id.request_coins_fragment_bluetooth_enabled);
 
 		return view;
 	}
@@ -245,6 +267,10 @@ public final class RequestCoinsFragment extends SherlockFragment
 
 		loaderManager.initLoader(ID_RATE_LOADER, null, rateLoaderCallbacks);
 
+		final boolean labsBluetoothOfflineTransactions = prefs.getBoolean(Constants.PREFS_KEY_LABS_BLUETOOTH_OFFLINE_TRANSACTIONS, false);
+		if (bluetoothAdapter != null && labsBluetoothOfflineTransactions)
+			maybeInitBluetoothListening();
+
 		updateView();
 	}
 
@@ -252,6 +278,12 @@ public final class RequestCoinsFragment extends SherlockFragment
 	public void onPause()
 	{
 		loaderManager.destroyLoader(ID_RATE_LOADER);
+
+		if (acceptThread != null)
+		{
+			acceptThread.stopAccepting();
+			bluetoothEnabledView.setVisibility(View.GONE);
+		}
 
 		Nfc.unpublish(nfcManager, activity);
 
@@ -262,6 +294,77 @@ public final class RequestCoinsFragment extends SherlockFragment
 		includeLabelView.setOnCheckedChangeListener(null);
 
 		super.onPause();
+	}
+
+	@Override
+	public void onActivityResult(final int requestCode, final int resultCode, final Intent data)
+	{
+		if (requestCode == REQUEST_CODE_ENABLE_BLUETOOTH && resultCode == Activity.RESULT_OK)
+		{
+			maybeInitBluetoothListening();
+
+			updateView();
+		}
+	}
+
+	private void maybeInitBluetoothListening()
+	{
+		if (!bluetoothAdapter.isEnabled())
+		{
+			// try to enable bluetooth
+			startActivityForResult(new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE), REQUEST_CODE_ENABLE_BLUETOOTH);
+		}
+		else
+		{
+			bluetoothMac = Bluetooth.compressMac(bluetoothAdapter.getAddress());
+
+			acceptThread = new BluetoothListenThread(bluetoothAdapter)
+			{
+				@Override
+				public boolean handleTx(final byte[] msg)
+				{
+					try
+					{
+						final Transaction tx = new Transaction(Constants.NETWORK_PARAMETERS, msg);
+						log.info("tx " + tx.getHashAsString() + " arrived via blueooth");
+
+						try
+						{
+							if (wallet.isTransactionRelevant(tx))
+							{
+								wallet.receivePending(tx, null);
+
+								activity.runOnUiThread(new Runnable()
+								{
+									public void run()
+									{
+										activity.getBlockchainService().broadcastTransaction(tx);
+									}
+								});
+							}
+							else
+							{
+								log.info("tx " + tx.getHashAsString() + " irrelevant");
+							}
+
+							return true;
+						}
+						catch (final VerificationException x)
+						{
+							log.info("cannot verify tx " + tx.getHashAsString() + " received via bluetooth", x);
+						}
+					}
+					catch (final ProtocolException x)
+					{
+						log.info("cannot decode message received via bluetooth", x);
+					}
+
+					return false;
+				}
+			};
+
+			bluetoothEnabledView.setVisibility(View.VISIBLE);
+		}
 	}
 
 	@Override
@@ -310,7 +413,7 @@ public final class RequestCoinsFragment extends SherlockFragment
 
 	private void updateView()
 	{
-		final String request = determineRequestStr();
+		final String request = determineRequestStr() + (bluetoothMac != null ? "&" + Bluetooth.MAC_URI_PARAM + "=" + bluetoothMac : "");
 
 		// update qr code
 		final int size = (int) (256 * getResources().getDisplayMetrics().density);
