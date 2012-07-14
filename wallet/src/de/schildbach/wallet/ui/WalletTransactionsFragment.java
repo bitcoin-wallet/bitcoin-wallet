@@ -314,6 +314,7 @@ public final class WalletTransactionsFragment extends Fragment
 
 						final CircularProgressView rowConfidenceCircular = (CircularProgressView) row
 								.findViewById(R.id.transaction_row_confidence_circular);
+						rowConfidenceCircular.setMaxProgress(Constants.MAX_NUM_CONFIRMATIONS);
 						final TextView rowConfidenceTextual = (TextView) row.findViewById(R.id.transaction_row_confidence_textual);
 
 						final int textColor;
