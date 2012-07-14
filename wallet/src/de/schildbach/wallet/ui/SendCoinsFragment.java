@@ -711,6 +711,7 @@ public final class SendCoinsFragment extends SherlockFragment implements AmountC
 			public void run()
 			{
 				validateReceivingAddress(true);
+				validateAmounts(true);
 			}
 		}, 500);
 	}
