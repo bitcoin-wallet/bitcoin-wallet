@@ -41,6 +41,7 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.google.bitcoin.core.AbstractWalletEventListener;
+import com.google.bitcoin.core.Transaction;
 import com.google.bitcoin.core.Wallet;
 import com.google.bitcoin.core.Wallet.BalanceType;
 import com.google.bitcoin.core.WalletEventListener;
@@ -63,6 +64,12 @@ public final class ExchangeRatesFragment extends ListFragment implements LoaderM
 
 	private final WalletEventListener walletEventListener = new AbstractWalletEventListener()
 	{
+		@Override
+		public void onTransactionConfidenceChanged(final Wallet wallet, final Transaction tx)
+		{
+			// swallow
+		}
+
 		@Override
 		public void onChange()
 		{

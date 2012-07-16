@@ -42,13 +42,14 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.google.bitcoin.core.AbstractWalletEventListener;
+import com.google.bitcoin.core.Transaction;
 import com.google.bitcoin.core.Wallet;
 import com.google.bitcoin.core.Wallet.BalanceType;
 import com.google.bitcoin.core.WalletEventListener;
 
-import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.ExchangeRatesProvider;
+import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
 
@@ -67,6 +68,12 @@ public final class WalletBalanceFragment extends Fragment implements LoaderManag
 
 	private final WalletEventListener walletEventListener = new AbstractWalletEventListener()
 	{
+		@Override
+		public void onTransactionConfidenceChanged(final Wallet wallet, final Transaction tx)
+		{
+			// swallow
+		}
+
 		@Override
 		public void onChange()
 		{
