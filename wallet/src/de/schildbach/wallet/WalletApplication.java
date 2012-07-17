@@ -244,7 +244,7 @@ public class WalletApplication extends Application
 			catch (final FileNotFoundException x2)
 			{
 				wallet = new Wallet(Constants.NETWORK_PARAMETERS);
-				wallet.keychain.add(new ECKey());
+				wallet.addKey(new ECKey());
 
 				try
 				{
@@ -277,7 +277,7 @@ public class WalletApplication extends Application
 				final ECKey key = new DumpedPrivateKey(Constants.NETWORK_PARAMETERS, parts[0]).getKey();
 				key.setCreationTimeSeconds(parts.length >= 2 ? Iso8601Format.parseDateTimeT(parts[1]).getTime() / 1000 : 0);
 
-				wallet.keychain.add(key);
+				wallet.addKey(key);
 			}
 
 			in.close();
@@ -322,7 +322,7 @@ public class WalletApplication extends Application
 				final ECKey key = new DumpedPrivateKey(Constants.NETWORK_PARAMETERS, parts[0]).getKey();
 				key.setCreationTimeSeconds(parts.length >= 2 ? Iso8601Format.parseDateTimeT(parts[1]).getTime() / 1000 : 0);
 
-				wallet.keychain.add(key);
+				wallet.addKey(key);
 			}
 
 			in.close();
@@ -351,7 +351,7 @@ public class WalletApplication extends Application
 
 	public void addNewKeyToWallet()
 	{
-		wallet.keychain.add(new ECKey());
+		wallet.addKey(new ECKey());
 
 		saveWallet();
 
