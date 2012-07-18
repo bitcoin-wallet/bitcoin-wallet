@@ -480,10 +480,6 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 		intentFilter.addAction(Intent.ACTION_DEVICE_STORAGE_OK);
 		registerReceiver(connectivityReceiver, intentFilter);
 
-		final int versionCode = application.applicationVersionCode();
-		final int lastVersionCode = prefs.getInt(Constants.PREFS_KEY_LAST_VERSION, 0);
-		final boolean blockchainNeedsRescan = lastVersionCode <= 23 && versionCode > 23;
-
 		final String initiateReset = prefs.getString(Constants.PREFS_KEY_INITIATE_RESET, null);
 		final boolean blockchainResetInitiated;
 		if (Constants.PREFS_VALUE_INITIATE_RESET_BLOCKCHAIN.equals(initiateReset))
@@ -496,12 +492,14 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 		{
 			blockchainResetInitiated = false;
 		}
+
+		final int versionCode = application.applicationVersionCode();
 		prefs.edit().putInt(Constants.PREFS_KEY_LAST_VERSION, versionCode).remove(Constants.PREFS_KEY_INITIATE_RESET).commit();
 
 		final File file = new File(getDir("blockstore", Context.MODE_WORLD_READABLE | Context.MODE_WORLD_WRITEABLE), Constants.BLOCKCHAIN_FILENAME);
 		final boolean blockchainDoesNotExist = !file.exists();
 
-		if (blockchainResetInitiated || blockchainNeedsRescan || blockchainDoesNotExist)
+		if (blockchainResetInitiated || blockchainDoesNotExist)
 			copyBlockchainSnapshot(file);
 
 		try
