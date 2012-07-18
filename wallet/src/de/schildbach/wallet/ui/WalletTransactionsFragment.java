@@ -382,10 +382,12 @@ public final class WalletTransactionsFragment extends Fragment
 						final TextView rowAddress = (TextView) row.findViewById(R.id.transaction_row_address);
 						final Address address = sent ? getToAddress(tx) : getFromAddress(tx);
 						final String label;
-						if (address != null)
+						if (tx.isCoinBase())
+							label = getString(R.string.wallet_transactions_fragment_coinbase);
+						else if (address != null)
 							label = resolveLabel(address.toString());
 						else
-							label = sent ? "?" : getString(R.string.wallet_transactions_fragment_coinbase);
+							label = "?";
 						rowAddress.setTextColor(textColor);
 						rowAddress.setText(label != null ? label : address.toString());
 						rowAddress.setTypeface(label != null ? Typeface.DEFAULT : Typeface.MONOSPACE);
@@ -466,6 +468,8 @@ public final class WalletTransactionsFragment extends Fragment
 
 			activity.startActionMode(new ActionMode.Callback()
 			{
+				private Address address;
+
 				public boolean onCreateActionMode(final ActionMode mode, final Menu menu)
 				{
 					final MenuInflater inflater = mode.getMenuInflater();
@@ -490,17 +494,22 @@ public final class WalletTransactionsFragment extends Fragment
 						final BigInteger value = tx.getValue(wallet);
 						final boolean sent = value.signum() < 0;
 
-						final Address address = sent ? getToAddress(tx) : getFromAddress(tx);
+						address = sent ? getToAddress(tx) : getFromAddress(tx);
+
 						final String label;
-						if (address != null)
+						if (tx.isCoinBase())
+							label = getString(R.string.wallet_transactions_fragment_coinbase);
+						else if (address != null)
 							label = resolveLabel(address.toString());
 						else
-							label = sent ? "?" : getString(R.string.wallet_transactions_fragment_coinbase);
+							label = "?";
 
 						final String prefix = getString(sent ? R.string.symbol_to : R.string.symbol_from) + " ";
 
 						mode.setSubtitle(label != null ? prefix + label : WalletUtils.formatAddress(prefix, address,
 								Constants.ADDRESS_FORMAT_GROUP_SIZE, Constants.ADDRESS_FORMAT_LINE_SIZE));
+
+						menu.findItem(R.id.wallet_transactions_context_edit_address).setVisible(address != null);
 
 						return true;
 					}
@@ -535,44 +544,44 @@ public final class WalletTransactionsFragment extends Fragment
 
 				private void handleEditAddress(final Transaction tx)
 				{
-					try
-					{
-						final boolean sent = tx.getValue(wallet).signum() < 0;
-						final Address address = sent ? tx.getOutputs().get(0).getScriptPubKey().getToAddress() : tx.getInputs().get(0)
-								.getFromAddress();
-
-						EditAddressBookEntryFragment.edit(getFragmentManager(), address.toString());
-					}
-					catch (final ScriptException x)
-					{
-						// ignore click
-						x.printStackTrace();
-					}
+					EditAddressBookEntryFragment.edit(getFragmentManager(), address.toString());
 				}
 			});
 		}
 
-		private Address getFromAddress(final Transaction tx) throws ScriptException
+		private Address getFromAddress(final Transaction tx)
 		{
-			for (final TransactionInput input : tx.getInputs())
+			try
 			{
-				if (input.isCoinBase())
-					return null;
+				for (final TransactionInput input : tx.getInputs())
+				{
+					return input.getFromAddress();
+				}
 
-				return input.getFromAddress();
+				throw new IllegalStateException();
 			}
-
-			throw new IllegalStateException();
+			catch (final ScriptException x)
+			{
+				// this will happen on inputs connected to coinbase transactions
+				return null;
+			}
 		}
 
-		private Address getToAddress(final Transaction tx) throws ScriptException
+		private Address getToAddress(final Transaction tx)
 		{
-			for (final TransactionOutput output : tx.getOutputs())
+			try
 			{
-				return output.getScriptPubKey().getToAddress();
-			}
+				for (final TransactionOutput output : tx.getOutputs())
+				{
+					return output.getScriptPubKey().getToAddress();
+				}
 
-			throw new IllegalStateException();
+				throw new IllegalStateException();
+			}
+			catch (final ScriptException x)
+			{
+				return null;
+			}
 		}
 
 		private String resolveLabel(final String address)
