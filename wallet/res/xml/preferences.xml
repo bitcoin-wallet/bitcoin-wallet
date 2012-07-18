@@ -17,11 +17,7 @@
 			android:summary="@string/preferences_trusted_peer_summary"
 			android:title="@string/preferences_trusted_peer_title" />
 
-		<ListPreference
-			android:defaultValue="nop"
-			android:dialogTitle="@string/preferences_initiate_reset_dialog_title"
-			android:entries="@array/preferences_initiate_reset_entries"
-			android:entryValues="@array/preferences_initiate_reset_values"
+		<Preference
 			android:key="initiate_reset"
 			android:summary="@string/preferences_initiate_reset_summary"
 			android:title="@string/preferences_initiate_reset_title" />

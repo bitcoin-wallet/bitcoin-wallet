@@ -17,8 +17,20 @@
 
 package de.schildbach.wallet.ui;
 
+import java.io.File;
+
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
+import android.content.Intent;
 import android.os.Bundle;
+import android.preference.Preference;
 import android.preference.PreferenceActivity;
+import android.preference.PreferenceScreen;
+import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.WalletApplication;
+import de.schildbach.wallet.service.BlockchainServiceImpl;
 import de.schildbach.wallet_test.R;
 
 /**
@@ -26,11 +38,62 @@ import de.schildbach.wallet_test.R;
  */
 public final class PreferencesActivity extends PreferenceActivity
 {
+	private WalletApplication application;
+
+	private static final String PREFS_KEY_INITIATE_RESET = "initiate_reset";
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 
+		application = (WalletApplication) getApplication();
+
 		addPreferencesFromResource(R.xml.preferences);
+	}
+
+	@Override
+	public boolean onPreferenceTreeClick(final PreferenceScreen preferenceScreen, final Preference preference)
+	{
+		final String key = preference.getKey();
+
+		if (PREFS_KEY_INITIATE_RESET.equals(key))
+		{
+			final AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+			dialog.setTitle(R.string.preferences_initiate_reset_title);
+			dialog.setMessage(R.string.preferences_initiate_reset_dialog_message);
+			dialog.setPositiveButton(R.string.preferences_initiate_reset_dialog_positive, new OnClickListener()
+			{
+				public void onClick(final DialogInterface dialog, final int which)
+				{
+					handleResetBlockchain();
+					finish();
+				}
+			});
+			dialog.setNegativeButton(R.string.preferences_initiate_reset_dialog_negative, null);
+			dialog.show();
+
+			return true;
+		}
+
+		return false;
+	}
+
+	private void handleResetBlockchain()
+	{
+		// stop service to make sure peers do not get in the way
+		final Intent serviceIntent = new Intent(this, BlockchainServiceImpl.class);
+		stopService(serviceIntent);
+
+		// remove block chain
+		final File blockChainFile = new File(getDir("blockstore", Context.MODE_WORLD_READABLE | Context.MODE_WORLD_WRITEABLE),
+				Constants.BLOCKCHAIN_FILENAME);
+		blockChainFile.delete();
+
+		// clear transactions from wallet, keep keys
+		application.getWallet().clearTransactions(0);
+
+		// start service again
+		startService(serviceIntent);
 	}
 }

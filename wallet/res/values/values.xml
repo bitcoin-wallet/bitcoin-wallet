@@ -12,17 +12,9 @@
 	<string name="preferences_trusted_peer_summary">Hostname of single peer to connect to. Regular peer discovery will be skipped.
 		Need to restart app to take effect.</string>
 	<string name="preferences_initiate_reset_title">Reset Blockchain</string>
-	<string name="preferences_initiate_reset_summary">Initiate resetting blockchain &amp; transactions. Use only when being instructed.
-		Need to restart app to take effect.</string>
-	<string name="preferences_initiate_reset_dialog_title">Initiate reset</string>
-
-	<string-array name="preferences_initiate_reset_entries">
-		<item>No reset</item>
-		<item>Reset blockchain and transactions</item>
-	</string-array>
-	<string-array name="preferences_initiate_reset_values">
-		<item>nop</item>
-		<item>blockchain</item>
-	</string-array>
+	<string name="preferences_initiate_reset_summary">Reset blockchain, transactions and wallet balance. Use only when being instructed.</string>
+	<string name="preferences_initiate_reset_dialog_message">Would you like to reset and re-sync the blockchain?\n\nThis will temporary zero your wallet balance and remove transactions. Both will recover as blockchain sync progresses.</string>
+	<string name="preferences_initiate_reset_dialog_positive">Reset</string>
+	<string name="preferences_initiate_reset_dialog_negative">Dismiss</string>
 
 </resources>

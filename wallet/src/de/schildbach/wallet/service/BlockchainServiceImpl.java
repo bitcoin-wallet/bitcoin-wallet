@@ -488,45 +488,37 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 		intentFilter.addAction(Intent.ACTION_DEVICE_STORAGE_OK);
 		registerReceiver(connectivityReceiver, intentFilter);
 
-		final String initiateReset = prefs.getString(Constants.PREFS_KEY_INITIATE_RESET, null);
-		final boolean blockchainResetInitiated;
-		if (Constants.PREFS_VALUE_INITIATE_RESET_BLOCKCHAIN.equals(initiateReset))
-		{
-			blockchainResetInitiated = true;
-			wallet.clearTransactions(0);
-			application.saveWallet();
-		}
-		else
-		{
-			blockchainResetInitiated = false;
-		}
-
 		final int versionCode = application.applicationVersionCode();
-		prefs.edit().putInt(Constants.PREFS_KEY_LAST_VERSION, versionCode).remove(Constants.PREFS_KEY_INITIATE_RESET).commit();
+		prefs.edit().putInt(Constants.PREFS_KEY_LAST_VERSION, versionCode).commit();
 
-		final File file = new File(getDir("blockstore", Context.MODE_WORLD_READABLE | Context.MODE_WORLD_WRITEABLE), Constants.BLOCKCHAIN_FILENAME);
-		final boolean blockchainDoesNotExist = !file.exists();
+		final File blockChainFile = new File(getDir("blockstore", Context.MODE_WORLD_READABLE | Context.MODE_WORLD_WRITEABLE),
+				Constants.BLOCKCHAIN_FILENAME);
+		final boolean blockchainDoesNotExist = !blockChainFile.exists();
 
-		if (blockchainResetInitiated || blockchainDoesNotExist)
-			copyBlockchainSnapshot(file);
+		if (blockchainDoesNotExist)
+			copyBlockchainSnapshot(blockChainFile);
 
 		try
 		{
 			try
 			{
-				blockStore = new BoundedOverheadBlockStore(Constants.NETWORK_PARAMETERS, file);
+				blockStore = new BoundedOverheadBlockStore(Constants.NETWORK_PARAMETERS, blockChainFile);
 				blockStore.getChainHead(); // detect corruptions as early as possible
 			}
 			catch (final BlockStoreException x)
 			{
-				prefs.edit().putString(Constants.PREFS_KEY_INITIATE_RESET, Constants.PREFS_VALUE_INITIATE_RESET_BLOCKCHAIN).commit();
+				wallet.clearTransactions(0);
+				application.saveWallet();
+				blockChainFile.delete();
 
 				x.printStackTrace();
 				throw new Error("blockstore cannot be created", x);
 			}
 			catch (final IllegalStateException x)
 			{
-				prefs.edit().putString(Constants.PREFS_KEY_INITIATE_RESET, Constants.PREFS_VALUE_INITIATE_RESET_BLOCKCHAIN).commit();
+				wallet.clearTransactions(0);
+				application.saveWallet();
+				blockChainFile.delete();
 
 				x.printStackTrace();
 				throw new Error("blockstore cannot be created", x);
