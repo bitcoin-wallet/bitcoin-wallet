@@ -80,6 +80,11 @@ import de.schildbach.wallet_test.R;
  */
 public class TransactionsListFragment extends SherlockListFragment implements LoaderCallbacks<List<Transaction>>
 {
+	public enum Direction
+	{
+		RECEIVED, SENT
+	}
+
 	private AbstractWalletActivity activity;
 	private ContentResolver resolver;
 	private SharedPreferences prefs;
@@ -88,7 +93,7 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 	private Wallet wallet;
 	private ArrayAdapter<Transaction> adapter;
 
-	private int mode;
+	private Direction direction;
 
 	private int bestChainHeight;
 
@@ -97,14 +102,14 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 	private final Map<String, String> labelCache = new HashMap<String, String>();
 	private final static String NULL_MARKER = "";
 
-	private final static String KEY_MODE = "mode";
+	private final static String KEY_DIRECTION = "direction";
 
-	public static TransactionsListFragment instance(final int mode)
+	public static TransactionsListFragment instance(final Direction direction)
 	{
 		final TransactionsListFragment fragment = new TransactionsListFragment();
 
 		final Bundle args = new Bundle();
-		args.putInt(KEY_MODE, mode);
+		args.putSerializable(KEY_DIRECTION, direction);
 		fragment.setArguments(args);
 
 		return fragment;
@@ -151,7 +156,7 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 
 		setRetainInstance(true);
 
-		this.mode = getArguments().getInt(KEY_MODE);
+		this.direction = (Direction) getArguments().getSerializable(KEY_DIRECTION);
 
 		adapter = new ArrayAdapter<Transaction>(activity, 0)
 		{
@@ -291,7 +296,7 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 		// workaround for flashing background in ViewPager on Android 2.x
 		listView.setBackgroundColor(getResources().getColor(R.color.background_bright));
 
-		setEmptyText(getString(mode == 2 ? R.string.wallet_transactions_fragment_empty_text_sent
+		setEmptyText(getString(direction == Direction.SENT ? R.string.wallet_transactions_fragment_empty_text_sent
 				: R.string.wallet_transactions_fragment_empty_text_received));
 	}
 
@@ -484,7 +489,7 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 			for (final Transaction tx : transactions)
 			{
 				final boolean sent = tx.getValue(wallet).signum() < 0;
-				if ((mode == 0 && !sent) || mode == 1 || (mode == 2 && sent))
+				if ((direction == Direction.RECEIVED && !sent) || direction == null || (direction == Direction.SENT && sent))
 					adapter.add(tx);
 			}
 		}
