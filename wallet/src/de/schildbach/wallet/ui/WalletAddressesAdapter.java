@@ -54,8 +54,8 @@ public class WalletAddressesAdapter extends BaseAdapter
 		final Resources res = context.getResources();
 
 		dateFormat = android.text.format.DateFormat.getDateFormat(context);
-		colorInsignificant = res.getColor(R.color.insignificant);
-		colorLessSignificant = res.getColor(R.color.less_significant);
+		colorInsignificant = res.getColor(R.color.fg_insignificant);
+		colorLessSignificant = res.getColor(R.color.fg_less_significant);
 		inflater = LayoutInflater.from(context);
 		contextResolver = context.getContentResolver();
 

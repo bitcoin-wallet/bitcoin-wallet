@@ -8,7 +8,7 @@
 		android:layout_width="0px"
 		android:layout_height="fill_parent"
 		android:layout_weight="1"
-		android:background="@color/background_less_bright"
+		android:background="@color/bg_less_bright"
 		android:orientation="vertical" >
 
 		<TextView
@@ -18,7 +18,7 @@
 			android:layout_marginLeft="@dimen/list_entry_padding_horizontal"
 			android:layout_marginRight="@dimen/list_entry_padding_horizontal"
 			android:layout_marginTop="@dimen/list_entry_padding_vertical"
-			android:shadowColor="@color/background_bright"
+			android:shadowColor="@color/bg_bright"
 			android:shadowRadius="1"
 			android:text="@string/address_book_list_receiving_title"
 			android:textSize="@dimen/font_size_normal"
@@ -28,7 +28,7 @@
 			android:layout_width="fill_parent"
 			android:layout_height="0px"
 			android:layout_weight="1"
-			android:background="@color/background_bright"
+			android:background="@color/bg_bright"
 			android:foreground="@drawable/fragment_shadow_horizontal_light"
 			android:foregroundGravity="top|fill_horizontal" >
 
@@ -43,13 +43,13 @@
 	<View
 		android:layout_width="1dp"
 		android:layout_height="fill_parent"
-		android:background="@color/background_less_bright" />
+		android:background="@color/bg_less_bright" />
 
 	<LinearLayout
 		android:layout_width="0px"
 		android:layout_height="fill_parent"
 		android:layout_weight="1"
-		android:background="@color/background_less_bright"
+		android:background="@color/bg_less_bright"
 		android:orientation="vertical" >
 
 		<TextView
@@ -59,7 +59,7 @@
 			android:layout_marginLeft="@dimen/list_entry_padding_horizontal"
 			android:layout_marginRight="@dimen/list_entry_padding_horizontal"
 			android:layout_marginTop="@dimen/list_entry_padding_vertical"
-			android:shadowColor="@color/background_bright"
+			android:shadowColor="@color/bg_bright"
 			android:shadowRadius="1"
 			android:text="@string/address_book_list_sending_title"
 			android:textSize="@dimen/font_size_normal"
@@ -69,7 +69,7 @@
 			android:layout_width="fill_parent"
 			android:layout_height="0px"
 			android:layout_weight="1"
-			android:background="@color/background_bright"
+			android:background="@color/bg_bright"
 			android:foreground="@drawable/fragment_shadow_horizontal_light"
 			android:foregroundGravity="top|fill_horizontal" >
 

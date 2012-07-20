@@ -8,7 +8,7 @@
 		android:id="@+id/transactions_pager_tabs"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
-		android:background="@color/background_less_bright"
+		android:background="@color/bg_less_bright"
 		android:paddingBottom="4dp"
 		android:paddingTop="4dp" />
 

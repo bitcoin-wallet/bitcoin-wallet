@@ -162,8 +162,8 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 		{
 			private final DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(activity);
 			private final DateFormat timeFormat = android.text.format.DateFormat.getTimeFormat(activity);
-			private final int colorSignificant = getResources().getColor(R.color.significant);
-			private final int colorInsignificant = getResources().getColor(R.color.insignificant);
+			private final int colorSignificant = getResources().getColor(R.color.fg_significant);
+			private final int colorInsignificant = getResources().getColor(R.color.fg_insignificant);
 			private final LayoutInflater inflater = getLayoutInflater(null);
 
 			private static final String CONFIDENCE_SYMBOL_NOT_IN_BEST_CHAIN = "!";
@@ -294,7 +294,7 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 		final ListView listView = getListView();
 
 		// workaround for flashing background in ViewPager on Android 2.x
-		listView.setBackgroundColor(getResources().getColor(R.color.background_bright));
+		listView.setBackgroundColor(getResources().getColor(R.color.bg_bright));
 
 		setEmptyText(getString(direction == Direction.SENT ? R.string.wallet_transactions_fragment_empty_text_sent
 				: R.string.wallet_transactions_fragment_empty_text_received));

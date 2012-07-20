@@ -29,7 +29,7 @@
 			android:focusable="false"
 			android:imeOptions="flagNoExtractUi"
 			android:inputType="none"
-			android:textColor="@color/less_significant"
+			android:textColor="@color/fg_less_significant"
 			android:textSize="@dimen/font_size_normal" />
 
 		<TextView

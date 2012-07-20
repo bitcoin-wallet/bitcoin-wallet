@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-	<color name="significant">#ff000000</color>
-	<color name="less_significant">#ff666666</color>
-	<color name="insignificant">#ffcccccc</color>
-	<color name="error">#ffff0000</color>
-	<color name="background_bright">#ffffffff</color>
-	<color name="background_less_bright">#ffe8e8f0</color>
-	<color name="background_panel">#ffd8d8e0</color>
-	<color name="background_form">#ffe8e8f0</color>
+	<!-- foreground -->
+	<color name="fg_significant">#ff000000</color>
+	<color name="fg_less_significant">#ff666666</color>
+	<color name="fg_insignificant">#ffcccccc</color>
+	<color name="fg_error">#ffff0000</color>
+
+	<!-- background -->
+	<color name="bg_bright">#ffffffff</color>
+	<color name="bg_less_bright">#ffe8e8f0</color>
+	<color name="bg_panel">#ffd8d8e0</color>
+	<color name="bg_form">#ffe8e8f0</color>
 
 </resources>

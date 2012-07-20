@@ -648,7 +648,7 @@ public final class SendCoinsFragment extends SherlockFragment implements AmountC
 			final String label = AddressBookProvider.resolveLabel(contentResolver, validatedAddress.toString());
 			receivingStaticLabelView.setText(label != null ? label
 					: (receivingLabel != null ? receivingLabel : getString(R.string.address_unlabeled)));
-			receivingStaticLabelView.setTextColor(label != null ? R.color.significant : R.color.insignificant);
+			receivingStaticLabelView.setTextColor(label != null ? R.color.fg_significant : R.color.fg_insignificant);
 		}
 		else
 		{

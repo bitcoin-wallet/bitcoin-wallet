@@ -113,7 +113,7 @@ public final class SendingAddressesFragment extends SherlockListFragment impleme
 		final ListView listView = getListView();
 
 		// workaround for flashing background in ViewPager on Android 2.x
-		listView.setBackgroundColor(getResources().getColor(R.color.background_bright));
+		listView.setBackgroundColor(getResources().getColor(R.color.bg_bright));
 	}
 
 	@Override
