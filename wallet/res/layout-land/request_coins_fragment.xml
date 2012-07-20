@@ -13,7 +13,7 @@
 		<include
 			android:layout_width="fill_parent"
 			android:layout_height="fill_parent"
-			layout="@layout/request_coins_fragment_form" />
+			layout="@layout/request_coins_form_include" />
 	</FrameLayout>
 
 	<FrameLayout

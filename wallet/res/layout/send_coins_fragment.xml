@@ -110,6 +110,6 @@
 		android:layout_height="0px"
 		android:layout_weight="100" />
 
-	<include layout="@layout/send_coins_fragment_buttons" />
+	<include layout="@layout/send_coins_buttons_include" />
 
 </LinearLayout>
