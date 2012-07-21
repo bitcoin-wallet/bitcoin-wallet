@@ -19,12 +19,17 @@ package de.schildbach.wallet.util;
 
 import java.math.BigInteger;
 import java.util.Hashtable;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.text.Editable;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
+import android.text.style.RelativeSizeSpan;
+import android.text.style.StyleSpan;
 import android.text.style.TypefaceSpan;
 
 import com.google.bitcoin.core.Address;
@@ -135,5 +140,24 @@ public class WalletUtils
 			return String.format("%s%d.%04d", sign, coins, cents / 10000);
 		else
 			return String.format("%s%d.%08d", sign, coins, cents);
+	}
+
+	private static final Pattern P_SIGNIFICANT = Pattern.compile("^([-+]" + Constants.THIN_SPACE + ")?\\d*(\\.\\d{0,2})?");
+	private static Object SIGNIFICANT_SPAN = new StyleSpan(Typeface.BOLD);
+	private static Object UNSIGNIFICANT_SPAN = new RelativeSizeSpan(0.85f);
+
+	public static void formatValue(final Editable s)
+	{
+		s.removeSpan(SIGNIFICANT_SPAN);
+		s.removeSpan(UNSIGNIFICANT_SPAN);
+
+		final Matcher m = P_SIGNIFICANT.matcher(s);
+		if (m.find())
+		{
+			final int pivot = m.group().length();
+			s.setSpan(SIGNIFICANT_SPAN, 0, pivot, 0);
+			if (s.length() > pivot)
+				s.setSpan(UNSIGNIFICANT_SPAN, pivot, s.length(), 0);
+		}
 	}
 }

@@ -24,6 +24,8 @@ import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
+import android.text.Editable;
+import android.text.SpannableStringBuilder;
 import android.widget.RemoteViews;
 
 import com.google.bitcoin.core.Wallet;
@@ -46,7 +48,8 @@ public class WalletBalanceWidgetProvider extends AppWidgetProvider
 		final WalletApplication application = (WalletApplication) context.getApplicationContext();
 		final Wallet wallet = application.getWallet();
 		final BigInteger balance = wallet.getBalance(BalanceType.ESTIMATED);
-		final String balanceStr = WalletUtils.formatValue(balance);
+		final Editable balanceStr = new SpannableStringBuilder(WalletUtils.formatValue(balance));
+		WalletUtils.formatValue(balanceStr);
 
 		for (final int appWidgetId : appWidgetIds)
 		{

@@ -18,12 +18,9 @@
 package de.schildbach.wallet.ui;
 
 import java.math.BigInteger;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -31,8 +28,6 @@ import android.text.Editable;
 import android.text.InputType;
 import android.text.SpannableStringBuilder;
 import android.text.TextWatcher;
-import android.text.style.RelativeSizeSpan;
-import android.text.style.StyleSpan;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -194,7 +189,7 @@ public final class CurrencyAmountView extends FrameLayout
 		else
 			hint = new SpannableStringBuilder("0.00");
 
-		updateSpans(hint);
+		WalletUtils.formatValue(hint);
 		textView.setHint(hint);
 	}
 
@@ -213,25 +208,6 @@ public final class CurrencyAmountView extends FrameLayout
 		significantColor = color;
 
 		updateAppearance();
-	}
-
-	private static final Pattern P_SIGNIFICANT = Pattern.compile("^([-+]" + Constants.THIN_SPACE + ")?\\d*(\\.\\d{0,2})?");
-	private static Object SIGNIFICANT_SPAN = new StyleSpan(Typeface.BOLD);
-	private static Object UNSIGNIFICANT_SPAN = new RelativeSizeSpan(0.85f);
-
-	private static void updateSpans(final Editable s)
-	{
-		s.removeSpan(SIGNIFICANT_SPAN);
-		s.removeSpan(UNSIGNIFICANT_SPAN);
-
-		final Matcher m = P_SIGNIFICANT.matcher(s);
-		if (m.find())
-		{
-			final int pivot = m.group().length();
-			s.setSpan(SIGNIFICANT_SPAN, 0, pivot, 0);
-			if (s.length() > pivot)
-				s.setSpan(UNSIGNIFICANT_SPAN, pivot, s.length(), 0);
-		}
 	}
 
 	private boolean isValidAmount()
@@ -329,7 +305,7 @@ public final class CurrencyAmountView extends FrameLayout
 				s.append(replaced);
 			}
 
-			updateSpans(s);
+			WalletUtils.formatValue(s);
 		}
 
 		public void beforeTextChanged(final CharSequence s, final int start, final int count, final int after)
