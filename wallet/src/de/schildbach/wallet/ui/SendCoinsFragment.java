@@ -110,13 +110,11 @@ public final class SendCoinsFragment extends SherlockFragment implements AmountC
 		public void onServiceConnected(final ComponentName name, final IBinder binder)
 		{
 			service = ((BlockchainServiceImpl.LocalBinder) binder).getService();
-			onServiceBound();
 		}
 
 		public void onServiceDisconnected(final ComponentName name)
 		{
 			service = null;
-			onServiceUnbound();
 		}
 	};
 
@@ -342,16 +340,6 @@ public final class SendCoinsFragment extends SherlockFragment implements AmountC
 		feeView.setListener(amountsListener);
 
 		updateView();
-	}
-
-	protected void onServiceBound()
-	{
-		System.out.println("service bound");
-	}
-
-	protected void onServiceUnbound()
-	{
-		System.out.println("service unbound");
 	}
 
 	@Override
