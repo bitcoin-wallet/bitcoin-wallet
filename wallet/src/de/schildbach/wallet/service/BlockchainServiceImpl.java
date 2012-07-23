@@ -187,12 +187,16 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 		@Override
 		public void onPeerConnected(final Peer peer, final int peerCount)
 		{
+			System.out.println("Peer connected, count " + peerCount);
+
 			changed(peerCount);
 		}
 
 		@Override
 		public void onPeerDisconnected(final Peer peer, final int peerCount)
 		{
+			System.out.println("Peer disconnected, count " + peerCount);
+
 			changed(peerCount);
 		}
 
@@ -208,13 +212,10 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 					}
 					else
 					{
-						final String msg = getString(R.string.notification_peers_connected_msg, numPeers);
-						System.out.println("Peer connected, " + msg);
-
 						final NotificationCompat.Builder notification = new NotificationCompat.Builder(BlockchainServiceImpl.this);
 						notification.setSmallIcon(R.drawable.stat_sys_peers, numPeers > 4 ? 4 : numPeers);
 						notification.setContentTitle(getString(R.string.app_name) + (Constants.TEST ? " [testnet]" : ""));
-						notification.setContentText(msg);
+						notification.setContentText(getString(R.string.notification_peers_connected_msg, numPeers));
 						notification.setContentIntent(PendingIntent.getActivity(BlockchainServiceImpl.this, 0, new Intent(BlockchainServiceImpl.this,
 								WalletActivity.class), 0));
 						notification.setWhen(System.currentTimeMillis());
