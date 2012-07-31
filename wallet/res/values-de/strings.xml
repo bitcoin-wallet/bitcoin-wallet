@@ -72,6 +72,9 @@
 	<string name="send_coins_success_msg">BTC %s versendet!</string>
 	<string name="send_coins_options_scan_title">Scannen</string>
 	<string name="send_coins_address_context_clear_title">Adresse neu eingeben</string>
+	<string name="send_coins_dialog_fee_message">Du bist dabei, Bitcoins mit einer sehr geringen Gebühr zu versenden. Es kann lange dauern, bis diese Transaktion bestätigt wird.\n\nEs wird empfohlen, eine Gebühr von mindestens %s zu verwenden.</string>
+	<string name="send_coins_dialog_fee_positive">Trotzdem senden</string>
+	<string name="send_coins_dialog_fee_negative">Nicht senden</string>
 
 	<string name="request_coins_activity_title">Bitcoins anfordern</string>
 	<string name="request_coins_fragment_amount_label">Angeforderter Betrag (optional)</string>

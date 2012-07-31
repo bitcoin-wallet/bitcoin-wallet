@@ -305,7 +305,30 @@ public final class SendCoinsFragment extends SherlockFragment implements AmountC
 				validateAmounts(true);
 
 				if (everythingValid())
-					handleGo();
+				{
+					final BigInteger fee = feeView.getAmount();
+
+					if (fee.compareTo(Constants.DEFAULT_TX_FEE) >= 0)
+						handleGo();
+					else
+						feeDialog();
+				}
+			}
+
+			private void feeDialog()
+			{
+				final AlertDialog.Builder dialog = new AlertDialog.Builder(activity);
+				dialog.setMessage(getString(R.string.send_coins_dialog_fee_message,
+						Constants.CURRENCY_CODE_BITCOIN + " " + WalletUtils.formatValue(Constants.DEFAULT_TX_FEE)));
+				dialog.setPositiveButton(R.string.send_coins_dialog_fee_positive, new DialogInterface.OnClickListener()
+				{
+					public void onClick(final DialogInterface dialog, final int which)
+					{
+						handleGo();
+					}
+				});
+				dialog.setNegativeButton(R.string.send_coins_dialog_fee_negative, null);
+				dialog.show();
 			}
 		});
 

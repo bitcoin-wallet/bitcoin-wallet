@@ -66,6 +66,9 @@
 	<string name="send_coins_success_msg">BTC %s sent!</string>
 	<string name="send_coins_options_scan_title">Scan</string>
 	<string name="send_coins_address_context_clear_title">Enter new address</string>
+	<string name="send_coins_dialog_fee_message">You\'re about to send coins with a very low fee. This transaction can take long to confirm.\n\nIt is advised to use a fee of at least %s.</string>
+	<string name="send_coins_dialog_fee_positive">Send anyway</string>
+	<string name="send_coins_dialog_fee_negative">Don\'t send</string>
 	<string name="request_coins_activity_title">Request Bitcoins</string>
 	<string name="request_coins_fragment_address_label">Address to request to</string>
 	<string name="request_coins_fragment_include_address_label">include label with address</string>
