@@ -117,32 +117,41 @@ public class ExchangeRatesProvider extends ContentProvider
 			// http://bitcoincharts.com/t/weighted_prices.json
 
 			connection.connect();
-			final Reader is = new InputStreamReader(new BufferedInputStream(connection.getInputStream(), 1024));
 			final StringBuilder content = new StringBuilder();
-			IOUtils.copy(is, content);
-			is.close();
 
-			final Map<String, Double> rates = new TreeMap<String, Double>();
-
-			final JSONObject head = new JSONObject(content.toString());
-			for (final Iterator<String> i = head.keys(); i.hasNext();)
+			Reader reader = null;
+			try
 			{
-				final String currencyCode = i.next();
-				if (!"timestamp".equals(currencyCode))
+				reader = new InputStreamReader(new BufferedInputStream(connection.getInputStream(), 1024));
+				IOUtils.copy(reader, content);
+
+				final Map<String, Double> rates = new TreeMap<String, Double>();
+
+				final JSONObject head = new JSONObject(content.toString());
+				for (final Iterator<String> i = head.keys(); i.hasNext();)
 				{
-					final JSONObject o = head.getJSONObject(currencyCode);
-					double rate = o.optDouble("24h", 0);
-					if (rate == 0)
-						rate = o.optDouble("7d", 0);
-					if (rate == 0)
-						rate = o.optDouble("30d", 0);
+					final String currencyCode = i.next();
+					if (!"timestamp".equals(currencyCode))
+					{
+						final JSONObject o = head.getJSONObject(currencyCode);
+						double rate = o.optDouble("24h", 0);
+						if (rate == 0)
+							rate = o.optDouble("7d", 0);
+						if (rate == 0)
+							rate = o.optDouble("30d", 0);
 
-					if (rate != 0)
-						rates.put(currencyCode, rate);
+						if (rate != 0)
+							rates.put(currencyCode, rate);
+					}
 				}
-			}
 
-			return rates;
+				return rates;
+			}
+			finally
+			{
+				if (reader != null)
+					reader.close();
+			}
 		}
 		catch (final IOException x)
 		{
