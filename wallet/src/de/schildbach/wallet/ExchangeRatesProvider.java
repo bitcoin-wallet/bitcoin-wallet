@@ -49,6 +49,9 @@ public class ExchangeRatesProvider extends ContentProvider
 	public static final String KEY_EXCHANGE_RATE = "exchange_rate";
 
 	private Map<String, Double> exchangeRates = null;
+	private long lastUpdated = 0;
+
+	private static final int UPDATE_FREQ_MS = 60 * 60 * 1000;
 
 	@Override
 	public boolean onCreate()
@@ -59,12 +62,20 @@ public class ExchangeRatesProvider extends ContentProvider
 	@Override
 	public Cursor query(final Uri uri, final String[] projection, final String selection, final String[] selectionArgs, final String sortOrder)
 	{
-		if (exchangeRates == null)
+		final long now = System.currentTimeMillis();
+
+		if (exchangeRates == null || now - lastUpdated > UPDATE_FREQ_MS)
 		{
-			exchangeRates = getExchangeRates();
-			if (exchangeRates == null)
-				return null;
+			final Map<String, Double> newExchangeRates = getExchangeRates();
+			if (newExchangeRates != null)
+			{
+				exchangeRates = newExchangeRates;
+				lastUpdated = now;
+			}
 		}
+
+		if (exchangeRates == null)
+			return null;
 
 		final MatrixCursor cursor = new MatrixCursor(new String[] { BaseColumns._ID, KEY_CURRENCY_CODE, KEY_EXCHANGE_RATE });
 
