@@ -31,4 +31,4 @@ Licens: GPLv3
 Använd på egen risk!
 
 --
-BTC bitcoin wallet blockchain bitcoinandroid androidbitcoin Geldbörse Кошелёк plånbok
+BTC bitcoin wallet blockchain bitcoinandroid androidbitcoin Geldbörse Кошелёк plånbok mobile payment
