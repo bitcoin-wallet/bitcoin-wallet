@@ -549,6 +549,10 @@ public final class SendCoinsFragment extends SherlockFragment
 			case R.id.send_coins_options_scan:
 				handleScan();
 				return true;
+
+			case R.id.send_coins_options_empty:
+				handleEmpty();
+				return true;
 		}
 
 		return super.onOptionsItemSelected(item);
@@ -693,8 +697,10 @@ public final class SendCoinsFragment extends SherlockFragment
 		updateView();
 
 		// create spend
-		final SendRequest sendRequest = SendRequest.to(validatedAddress.address, amountCalculatorLink.getAmount());
+		final BigInteger amount = amountCalculatorLink.getAmount();
+		final SendRequest sendRequest = SendRequest.to(validatedAddress.address, amount);
 		sendRequest.changeAddress = pickOldestKey(wallet.getKeys()).toAddress(Constants.NETWORK_PARAMETERS);
+		sendRequest.emptyWallet = amount.equals(wallet.getBalance(BalanceType.AVAILABLE));
 
 		backgroundHandler.post(new Runnable()
 		{
@@ -737,6 +743,13 @@ public final class SendCoinsFragment extends SherlockFragment
 	private void handleScan()
 	{
 		startActivityForResult(new Intent(activity, ScanActivity.class), REQUEST_CODE_SCAN);
+	}
+
+	private void handleEmpty()
+	{
+		final BigInteger available = wallet.getBalance(BalanceType.AVAILABLE);
+
+		amountCalculatorLink.setBtcAmount(available);
 	}
 
 	public class AutoCompleteAddressAdapter extends CursorAdapter
