@@ -40,11 +40,9 @@ public class AutosyncService extends Service implements OnSharedPreferenceChange
 	private Context context;
 	private SharedPreferences prefs;
 	private AlarmManager alarmManager;
-	private WifiManager wifiManager;
 
 	private Intent serviceIntent;
 	private PendingIntent alarmIntent;
-	private WifiLock wifiLock;
 
 	private boolean isPowerConnected;
 	private boolean isRunning;
@@ -60,14 +58,10 @@ public class AutosyncService extends Service implements OnSharedPreferenceChange
 		prefs.registerOnSharedPreferenceChangeListener(this);
 
 		alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-		wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
 
-		serviceIntent = new Intent(context, BlockchainServiceImpl.class);
+		serviceIntent = new Intent(BlockchainService.ACTION_HOLD_WIFI_LOCK, null, context, BlockchainServiceImpl.class);
 
 		alarmIntent = PendingIntent.getService(context, 0, serviceIntent, 0);
-
-		wifiLock = wifiManager.createWifiLock(WifiManager.WIFI_MODE_FULL, Constants.LOCK_NAME);
-		wifiLock.setReferenceCounted(false);
 
 		// determine initial power connected state
 		final Intent batteryChanged = context.registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
@@ -85,8 +79,6 @@ public class AutosyncService extends Service implements OnSharedPreferenceChange
 	public void onDestroy()
 	{
 		alarmManager.cancel(alarmIntent);
-
-		wifiLock.release();
 
 		prefs.unregisterOnSharedPreferenceChangeListener(this);
 
@@ -127,9 +119,6 @@ public class AutosyncService extends Service implements OnSharedPreferenceChange
 
 		if (shouldRunning && !isRunning)
 		{
-			System.out.println("acquiring wifilock");
-			wifiLock.acquire();
-
 			context.startService(serviceIntent);
 
 			final long lastUsedAgo = now - prefsLastUsed;
@@ -146,9 +135,6 @@ public class AutosyncService extends Service implements OnSharedPreferenceChange
 		else if (!shouldRunning && isRunning)
 		{
 			alarmManager.cancel(alarmIntent);
-
-			System.out.println("releasing wifilock");
-			wifiLock.release();
 		}
 
 		isRunning = shouldRunning;

@@ -40,6 +40,8 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.Uri;
+import android.net.wifi.WifiManager;
+import android.net.wifi.WifiManager.WifiLock;
 import android.os.BatteryManager;
 import android.os.Binder;
 import android.os.Handler;
@@ -91,6 +93,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 	private final Handler handler = new Handler();
 	private final Handler delayHandler = new Handler();
 	private WakeLock wakeLock;
+	private WifiLock wifiLock;
 
 	private NotificationManager nm;
 	private static final int NOTIFICATION_ID_CONNECTED = 0;
@@ -468,6 +471,10 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 		final PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
 		wakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, Constants.LOCK_NAME);
 
+		final WifiManager wifiManager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
+		wifiLock = wifiManager.createWifiLock(WifiManager.WIFI_MODE_FULL, Constants.LOCK_NAME);
+		wifiLock.setReferenceCounted(false);
+
 		application = (WalletApplication) getApplication();
 		prefs = PreferenceManager.getDefaultSharedPreferences(this);
 		final Wallet wallet = application.getWallet();
@@ -549,6 +556,17 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 			nm.cancel(NOTIFICATION_ID_COINS_RECEIVED);
 		}
 
+		if (BlockchainService.ACTION_HOLD_WIFI_LOCK.equals(intent.getAction()))
+		{
+			System.out.println("acquiring wifilock");
+			wifiLock.acquire();
+		}
+		else
+		{
+			System.out.println("releasing wifilock");
+			wifiLock.release();
+		}
+
 		return START_NOT_STICKY;
 	}
 
@@ -621,6 +639,12 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 		{
 			System.out.println("wakelock still held, releasing");
 			wakeLock.release();
+		}
+
+		if (wifiLock.isHeld())
+		{
+			System.out.println("wifilock still held, releasing");
+			wifiLock.release();
 		}
 
 		super.onDestroy();
