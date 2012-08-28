@@ -21,12 +21,15 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.RoundingMode;
 
+import com.google.bitcoin.core.Utils;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.DialogFragment;
@@ -38,8 +41,10 @@ import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.TextView;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.ExchangeRatesProvider;
+import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
 
 /**
@@ -73,6 +78,7 @@ public final class AmountCalculatorFragment extends DialogFragment implements Lo
 	private Double exchangeRate;
 	private boolean exchangeDirection = true;
 	private CurrencyAmountView btcAmountView, localAmountView;
+	private TextView exchangeRateView;
 
 	@Override
 	public void onAttach(final Activity activity)
@@ -150,6 +156,8 @@ public final class AmountCalculatorFragment extends DialogFragment implements Lo
 			}
 		});
 
+		exchangeRateView = (TextView) view.findViewById(R.id.amount_calculator_rate);
+
 		dialog.setView(view);
 
 		dialog.setPositiveButton(R.string.amount_calculator_dialog_button_use, new DialogInterface.OnClickListener()
@@ -202,10 +210,15 @@ public final class AmountCalculatorFragment extends DialogFragment implements Lo
 					localAmountView.setHint(null);
 				}
 			}
+
+			exchangeRateView.setText(getString(R.string.amount_calculator_dialog_exchange_rate, exchangeCurrency,
+					WalletUtils.formatValue(new BigDecimal(Utils.COIN).multiply(bdExchangeRate).toBigInteger())));
 		}
 		else
 		{
 			localAmountView.setEnabled(false);
+
+			exchangeRateView.setText(R.string.amount_calculator_dialog_exchange_rate_not_available);
 		}
 	}
 

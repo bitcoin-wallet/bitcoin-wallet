@@ -124,6 +124,8 @@
 
 	<string name="amount_calculator_dialog_title">Währungs-Umrechner</string>
 	<string name="amount_calculator_dialog_button_use">Übernehmen</string>
+	<string name="amount_calculator_dialog_exchange_rate">BTC 1 ist etwa %1$s %2$s wert</string>
+	<string name="amount_calculator_dialog_exchange_rate_not_available">Umrechnungskurs nicht verfügbar.</string>
 
 	<string name="peer_monitor_activity_title">Peer Monitor</string>
 

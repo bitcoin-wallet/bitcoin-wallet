@@ -36,4 +36,14 @@
 			android:textSize="@dimen/font_size_xlarge" />
 	</de.schildbach.wallet.ui.CurrencyAmountView>
 
+	<TextView
+		android:id="@+id/amount_calculator_rate"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginBottom="6dp"
+		android:layout_marginLeft="24dp"
+		android:layout_marginRight="24dp"
+		android:textColor="@color/fg_less_significant"
+		android:textSize="@dimen/font_size_small" />
+
 </LinearLayout>

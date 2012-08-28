@@ -112,6 +112,8 @@
 	<string name="transaction_fragment_length_label">Length</string>
 	<string name="amount_calculator_dialog_title">Currency calculator</string>
 	<string name="amount_calculator_dialog_button_use">Use</string>
+	<string name="amount_calculator_dialog_exchange_rate">BTC 1 is worth about %1$s %2$s</string>
+	<string name="amount_calculator_dialog_exchange_rate_not_available">Exchange rate not available.</string>
 	<string name="peer_monitor_activity_title">Peer Monitor</string>
 	<string name="peer_list_fragment_empty">No peers connected</string>
 	<string name="about_title">About</string>
