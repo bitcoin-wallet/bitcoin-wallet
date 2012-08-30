@@ -25,7 +25,7 @@
 	<string name="wallet_low_storage_dialog_button_apps">Zarządzaj aplikacjami</string>
 
 	<string name="send_coins_activity_title">Wyslij Bitcoin</string>
-	<string name="send_coins_install_qr_scanner_msg">Prosze zainstaluj ZXing QR-code scanner lub Goggles!</string>
+	<string name="send_coins_install_qr_scanner_msg">Prosze zainstaluj ZXing QR-code scanner!</string>
 	<string name="send_coins_fragment_receiving_address_label">Zapłać</string>
 	<string name="send_coins_fragment_receiving_address_hint">Wpisz adres lub imię</string>
 	<string name="send_coins_fragment_receiving_address_error">Nieważny adres Bitcoin!</string>

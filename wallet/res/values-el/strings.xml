@@ -27,7 +27,7 @@
 	<string name="wallet_low_storage_dialog_button_apps">Διαχείριση των Εφαρμογών</string>
 
 	<string name="send_coins_activity_title">Αποστολή Bitcoins</string>
-	<string name="send_coins_install_qr_scanner_msg">Παρακαλείσθε να εγκαταστήσετε ένα QR-κώδικα σαρωτή, όπως τα: ZXing ή Goggles!</string>
+	<string name="send_coins_install_qr_scanner_msg">Παρακαλείσθε να εγκαταστήσετε ένα QR-κώδικα σαρωτή, όπως τα: ZXing!</string>
 	<string name="send_coins_fragment_receiving_address_label">Πληρωμή σε</string>
 	<string name="send_coins_fragment_receiving_address_hint">πληκτρολογήστε τη διεύθυνση ή το όνομα</string>
 	<string name="send_coins_fragment_receiving_address_error">Άκυρα Διεύθυνση Bitcoin!</string>
