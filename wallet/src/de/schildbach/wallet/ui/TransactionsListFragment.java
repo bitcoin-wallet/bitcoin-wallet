@@ -26,6 +26,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicLong;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;
@@ -545,11 +546,32 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 
 		private final WalletEventListener walletEventListener = new AbstractWalletEventListener()
 		{
+			private final AtomicLong lastMessageTime = new AtomicLong(0);
+			private static final int THROTTLE_MS = 200;
+			private final Handler handler = new Handler();
+
 			@Override
 			public void onChange()
 			{
-				forceLoad();
+				handler.removeCallbacksAndMessages(null);
+
+				final long now = System.currentTimeMillis();
+
+				if (now - lastMessageTime.get() > THROTTLE_MS)
+					handler.post(runnable);
+				else
+					handler.postDelayed(runnable, THROTTLE_MS);
 			}
+
+			private final Runnable runnable = new Runnable()
+			{
+				public void run()
+				{
+					lastMessageTime.set(System.currentTimeMillis());
+
+					forceLoad();
+				}
+			};
 		};
 
 		private static final Comparator<Transaction> TRANSACTION_COMPARATOR = new Comparator<Transaction>()
