@@ -126,7 +126,8 @@ public class TransactionsListAdapter extends ArrayAdapter<Transaction>
 				textColor = colorSignificant;
 
 				rowConfidenceCircular.setProgress(confidence.getDepthInBlocks());
-				rowConfidenceCircular.setMaxProgress(Constants.MAX_NUM_CONFIRMATIONS);
+				rowConfidenceCircular.setMaxProgress(tx.isCoinBase() ? Constants.NETWORK_PARAMETERS.getSpendableCoinbaseDepth()
+						: Constants.MAX_NUM_CONFIRMATIONS);
 				rowConfidenceCircular.setSize(1);
 				rowConfidenceCircular.setMaxSize(1);
 				rowConfidenceCircular.setColors(colorCircularBuilding, Color.DKGRAY);
