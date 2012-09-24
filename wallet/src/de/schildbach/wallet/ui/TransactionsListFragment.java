@@ -29,11 +29,8 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 
 import android.app.Activity;
-import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
 import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.database.ContentObserver;
 import android.graphics.Color;
@@ -71,7 +68,6 @@ import com.google.bitcoin.core.WalletEventListener;
 import de.schildbach.wallet.AddressBookProvider;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
-import de.schildbach.wallet.service.BlockchainService;
 import de.schildbach.wallet.util.CircularProgressView;
 import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
@@ -95,8 +91,6 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 	private ArrayAdapter<Transaction> adapter;
 
 	private Direction direction;
-
-	private int bestChainHeight;
 
 	private final Handler handler = new Handler();
 
@@ -122,17 +116,6 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 		public void onChange(final boolean selfChange)
 		{
 			labelCache.clear();
-
-			adapter.notifyDataSetChanged();
-		}
-	};
-
-	private final BroadcastReceiver broadcastReceiver = new BroadcastReceiver()
-	{
-		@Override
-		public void onReceive(final Context context, final Intent intent)
-		{
-			bestChainHeight = intent.getIntExtra(BlockchainService.ACTION_BLOCKCHAIN_STATE_BEST_CHAIN_HEIGHT, 0);
 
 			adapter.notifyDataSetChanged();
 		}
@@ -206,15 +189,7 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 						rowConfidenceTextual.setVisibility(View.GONE);
 						textColor = colorSignificant;
 
-						if (bestChainHeight > 0)
-						{
-							final int depth = bestChainHeight - confidence.getAppearedAtChainHeight() + 1;
-							rowConfidenceCircular.setProgress(depth > 0 ? depth : 0);
-						}
-						else
-						{
-							rowConfidenceCircular.setProgress(0);
-						}
+						rowConfidenceCircular.setProgress(confidence.getDepthInBlocks());
 					}
 					else if (confidenceType == ConfidenceType.NOT_IN_BEST_CHAIN)
 					{
@@ -299,22 +274,6 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 
 		setEmptyText(getString(direction == Direction.SENT ? R.string.wallet_transactions_fragment_empty_text_sent
 				: R.string.wallet_transactions_fragment_empty_text_received));
-	}
-
-	@Override
-	public void onResume()
-	{
-		super.onResume();
-
-		activity.registerReceiver(broadcastReceiver, new IntentFilter(BlockchainService.ACTION_BLOCKCHAIN_STATE));
-	}
-
-	@Override
-	public void onPause()
-	{
-		activity.unregisterReceiver(broadcastReceiver);
-
-		super.onPause();
 	}
 
 	@Override
