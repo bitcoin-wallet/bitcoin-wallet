@@ -1,3 +1,10 @@
+2.22
+
+* proper handling of coinbase transactions
+* watch transaction propagation (build-up of confidence) when sending coins
+* based on bitcoinj 0.6
+* blockchain can be reset without exiting the app
+
 2.21
 
 * low fee warning when sending coins
