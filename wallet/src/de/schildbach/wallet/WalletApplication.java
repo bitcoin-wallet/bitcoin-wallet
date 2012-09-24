@@ -18,14 +18,12 @@
 package de.schildbach.wallet;
 
 import java.io.BufferedReader;
-import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.ObjectStreamException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
@@ -116,81 +114,31 @@ public class WalletApplication extends Application
 
 	private void migrateWalletToProtobuf()
 	{
-		try
+		final File oldWalletFile = getFileStreamPath(Constants.WALLET_FILENAME);
+
+		if (oldWalletFile.exists())
 		{
+			System.out.println("found wallet to migrate");
+
 			final long start = System.currentTimeMillis();
-			final FileInputStream is = openFileInput(Constants.WALLET_FILENAME);
 
-			runWithStackSize(new Runnable()
+			// read
+			wallet = restoreWalletFromBackup();
+
+			try
 			{
-				public void run()
-				{
-					try
-					{
-						// read
-						final Wallet walletToMigrate = Wallet.loadFromFileStream(is);
+				// write
+				protobufSerializeWallet(wallet);
 
-						// write
-						protobufSerializeWallet(walletToMigrate);
+				// delete
+				oldWalletFile.delete();
 
-						// delete
-						new File(getFilesDir(), Constants.WALLET_FILENAME).delete();
-					}
-					catch (final EOFException x)
-					{
-						handleException(x);
-					}
-					catch (final StackOverflowError x)
-					{
-						handleException(x);
-					}
-					catch (final ObjectStreamException x)
-					{
-						handleException(x);
-					}
-					catch (final IOException x)
-					{
-						throw new Error("cannot migrate wallet", x);
-					}
-				}
-
-				private void handleException(final Throwable x)
-				{
-					x.printStackTrace();
-
-					try
-					{
-						// read
-						final Wallet walletToMigrate = restoreWalletFromBackup();
-
-						// write
-						protobufSerializeWallet(walletToMigrate);
-
-						// delete
-						new File(getFilesDir(), Constants.WALLET_FILENAME).delete();
-
-						handler.post(new Runnable()
-						{
-							public void run()
-							{
-								Toast.makeText(WalletApplication.this, R.string.toast_wallet_reset, Toast.LENGTH_LONG).show();
-							}
-						});
-					}
-					catch (final IOException x2)
-					{
-						throw new RuntimeException(x2);
-					}
-				}
-			}, Constants.WALLET_OPERATION_STACK_SIZE);
-
-			System.out.println("wallet migrated: '" + getFilesDir() + "/" + Constants.WALLET_FILENAME + "', took "
-					+ (System.currentTimeMillis() - start) + "ms");
-		}
-		catch (final FileNotFoundException x)
-		{
-			System.out.println("no wallet to migrate");
-			return; // nothing to migrate
+				System.out.println("wallet migrated: '" + oldWalletFile + "', took " + (System.currentTimeMillis() - start) + "ms");
+			}
+			catch (final IOException x)
+			{
+				throw new Error("cannot migrate wallet", x);
+			}
 		}
 	}
 
@@ -440,20 +388,6 @@ public class WalletApplication extends Application
 		}
 
 		throw new IllegalStateException("address not in keychain: " + selectedAddress);
-	}
-
-	private static void runWithStackSize(final Runnable runnable, final long stackSize)
-	{
-		final Thread thread = new Thread(null, runnable, "stackSizeBooster", stackSize);
-		thread.start();
-		try
-		{
-			thread.join();
-		}
-		catch (final InterruptedException x)
-		{
-			throw new RuntimeException(x);
-		}
 	}
 
 	public final int applicationVersionCode()
