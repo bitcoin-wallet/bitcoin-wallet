@@ -19,6 +19,7 @@ package de.schildbach.wallet;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -46,6 +47,10 @@ import com.google.bitcoin.core.DumpedPrivateKey;
 import com.google.bitcoin.core.ECKey;
 import com.google.bitcoin.core.Wallet;
 import com.google.bitcoin.core.Wallet.AutosaveEventListener;
+import com.google.bitcoin.store.BlockStore;
+import com.google.bitcoin.store.BlockStoreException;
+import com.google.bitcoin.store.BoundedOverheadBlockStore;
+import com.google.bitcoin.store.WalletProtobufSerializer;
 
 import de.schildbach.wallet.util.ErrorReporter;
 import de.schildbach.wallet.util.Iso8601Format;
@@ -166,9 +171,33 @@ public class WalletApplication extends Application
 		{
 			final long start = System.currentTimeMillis();
 
+			FileInputStream walletStream = null;
+
 			try
 			{
-				wallet = Wallet.loadFromFile(walletFile);
+				walletStream = new FileInputStream(walletFile);
+
+				final WalletProtobufSerializer walletSerializer = new WalletProtobufSerializer();
+
+				// temporary code: transaction confidence depth migration
+				final File blockChainFile = new File(getDir("blockstore", Context.MODE_WORLD_READABLE | Context.MODE_WORLD_WRITEABLE),
+						Constants.BLOCKCHAIN_FILENAME);
+				if (blockChainFile.exists())
+				{
+					try
+					{
+						final BlockStore blockStore = new BoundedOverheadBlockStore(Constants.NETWORK_PARAMETERS, blockChainFile);
+						walletSerializer.setChainHeight(blockStore.getChainHead().getHeight());
+						blockStore.close();
+					}
+					catch (final BlockStoreException x)
+					{
+						// don't migrate, blockchain will be rescanned anyway
+						x.printStackTrace();
+					}
+				}
+
+				wallet = walletSerializer.readWallet(walletStream);
 			}
 			catch (final IOException x)
 			{
@@ -185,6 +214,20 @@ public class WalletApplication extends Application
 				Toast.makeText(WalletApplication.this, x.getClass().getName(), Toast.LENGTH_LONG).show();
 
 				wallet = restoreWalletFromBackup();
+			}
+			finally
+			{
+				if (walletStream != null)
+				{
+					try
+					{
+						walletStream.close();
+					}
+					catch (final IOException x)
+					{
+						x.printStackTrace();
+					}
+				}
 			}
 
 			if (!wallet.isConsistent())
