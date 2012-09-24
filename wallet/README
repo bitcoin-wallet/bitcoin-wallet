@@ -13,7 +13,7 @@ FILES
 	Wallet for testnet
 
 The wallet file format is not compatible to wallet.dat (Satoshi client). Rather, it uses a custom protobuf format
-which should be compatible between clients using BitCoinJ.
+which should be compatible between clients using bitcoinj.
 
 /data/data/de.schildbach.wallet/files/key-backup-base58 (MODE_PRIVATE)
 	Backups of private keys for prodnet
@@ -86,10 +86,10 @@ Instructions for preparing an NFC tag with your address:
 
 BITCOINJ
 
-Bitcoin Wallet uses BitCoinJ for Bitcoin specific logic:
+Bitcoin Wallet uses bitcoinj for Bitcoin specific logic:
 
 http://code.google.com/p/bitcoinj/
 
-Delta to upstream BitCoinJ:
+Delta to upstream bitcoinj:
 
 - Basic support for transaction fees
