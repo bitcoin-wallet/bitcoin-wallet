@@ -23,9 +23,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 
 import android.app.Activity;
@@ -33,8 +31,6 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.ContentObserver;
-import android.graphics.Color;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
@@ -42,12 +38,8 @@ import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
 import android.text.format.DateUtils;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockListFragment;
 import com.actionbarsherlock.view.ActionMode;
@@ -58,17 +50,13 @@ import com.google.bitcoin.core.AbstractWalletEventListener;
 import com.google.bitcoin.core.Address;
 import com.google.bitcoin.core.ScriptException;
 import com.google.bitcoin.core.Transaction;
-import com.google.bitcoin.core.TransactionConfidence;
 import com.google.bitcoin.core.TransactionConfidence.ConfidenceType;
-import com.google.bitcoin.core.TransactionInput;
-import com.google.bitcoin.core.TransactionOutput;
 import com.google.bitcoin.core.Wallet;
 import com.google.bitcoin.core.WalletEventListener;
 
 import de.schildbach.wallet.AddressBookProvider;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
-import de.schildbach.wallet.util.CircularProgressView;
 import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
 
@@ -88,14 +76,11 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 
 	private WalletApplication application;
 	private Wallet wallet;
-	private ArrayAdapter<Transaction> adapter;
+	private TransactionsListAdapter adapter;
 
 	private Direction direction;
 
 	private final Handler handler = new Handler();
-
-	private final Map<String, String> labelCache = new HashMap<String, String>();
-	private final static String NULL_MARKER = "";
 
 	private final static String KEY_DIRECTION = "direction";
 
@@ -115,9 +100,7 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 		@Override
 		public void onChange(final boolean selfChange)
 		{
-			labelCache.clear();
-
-			adapter.notifyDataSetChanged();
+			adapter.clearLabelCache();
 		}
 	};
 
@@ -142,119 +125,7 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 
 		this.direction = (Direction) getArguments().getSerializable(KEY_DIRECTION);
 
-		adapter = new ArrayAdapter<Transaction>(activity, 0)
-		{
-			private final DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(activity);
-			private final DateFormat timeFormat = android.text.format.DateFormat.getTimeFormat(activity);
-			private final int colorSignificant = getResources().getColor(R.color.fg_significant);
-			private final int colorInsignificant = getResources().getColor(R.color.fg_insignificant);
-			private final LayoutInflater inflater = getLayoutInflater(null);
-
-			private static final String CONFIDENCE_SYMBOL_NOT_IN_BEST_CHAIN = "!";
-			private static final String CONFIDENCE_SYMBOL_DEAD = "\u271D"; // latin cross
-			private static final String CONFIDENCE_SYMBOL_UNKNOWN = "?";
-
-			@Override
-			public View getView(final int position, View row, final ViewGroup parent)
-			{
-				if (row == null)
-					row = inflater.inflate(R.layout.transaction_row, null);
-
-				final Transaction tx = getItem(position);
-				final TransactionConfidence confidence = tx.getConfidence();
-				final ConfidenceType confidenceType = confidence.getConfidenceType();
-
-				try
-				{
-					final BigInteger value = tx.getValue(wallet);
-					final boolean sent = value.signum() < 0;
-
-					final CircularProgressView rowConfidenceCircular = (CircularProgressView) row
-							.findViewById(R.id.transaction_row_confidence_circular);
-					rowConfidenceCircular.setMaxProgress(Constants.MAX_NUM_CONFIRMATIONS);
-					final TextView rowConfidenceTextual = (TextView) row.findViewById(R.id.transaction_row_confidence_textual);
-
-					final int textColor;
-					if (confidenceType == ConfidenceType.NOT_SEEN_IN_CHAIN)
-					{
-						rowConfidenceCircular.setVisibility(View.VISIBLE);
-						rowConfidenceTextual.setVisibility(View.GONE);
-						textColor = colorInsignificant;
-
-						rowConfidenceCircular.setProgress(0);
-					}
-					else if (confidenceType == ConfidenceType.BUILDING)
-					{
-						rowConfidenceCircular.setVisibility(View.VISIBLE);
-						rowConfidenceTextual.setVisibility(View.GONE);
-						textColor = colorSignificant;
-
-						rowConfidenceCircular.setProgress(confidence.getDepthInBlocks());
-					}
-					else if (confidenceType == ConfidenceType.NOT_IN_BEST_CHAIN)
-					{
-						rowConfidenceCircular.setVisibility(View.GONE);
-						rowConfidenceTextual.setVisibility(View.VISIBLE);
-						textColor = colorSignificant;
-
-						rowConfidenceTextual.setText(CONFIDENCE_SYMBOL_NOT_IN_BEST_CHAIN);
-						rowConfidenceTextual.setTextColor(Color.RED);
-					}
-					else if (confidenceType == ConfidenceType.DEAD)
-					{
-						rowConfidenceCircular.setVisibility(View.GONE);
-						rowConfidenceTextual.setVisibility(View.VISIBLE);
-						textColor = Color.RED;
-
-						rowConfidenceTextual.setText(CONFIDENCE_SYMBOL_DEAD);
-						rowConfidenceTextual.setTextColor(Color.RED);
-					}
-					else
-					{
-						rowConfidenceCircular.setVisibility(View.GONE);
-						rowConfidenceTextual.setVisibility(View.VISIBLE);
-						textColor = colorInsignificant;
-
-						rowConfidenceTextual.setText(CONFIDENCE_SYMBOL_UNKNOWN);
-						rowConfidenceTextual.setTextColor(colorInsignificant);
-					}
-
-					final TextView rowTime = (TextView) row.findViewById(R.id.transaction_row_time);
-					final Date time = tx.getUpdateTime();
-					rowTime.setText(time != null ? (DateUtils.isToday(time.getTime()) ? timeFormat.format(time) : dateFormat.format(time)) : null);
-					rowTime.setTextColor(textColor);
-
-					final TextView rowFromTo = (TextView) row.findViewById(R.id.transaction_row_fromto);
-					rowFromTo.setText(sent ? R.string.symbol_to : R.string.symbol_from);
-					rowFromTo.setTextColor(textColor);
-
-					final TextView rowAddress = (TextView) row.findViewById(R.id.transaction_row_address);
-					final Address address = sent ? getToAddress(tx) : getFromAddress(tx);
-					final String label;
-					if (tx.isCoinBase())
-						label = getString(R.string.wallet_transactions_fragment_coinbase);
-					else if (address != null)
-						label = resolveLabel(address.toString());
-					else
-						label = "?";
-					rowAddress.setTextColor(textColor);
-					rowAddress.setText(label != null ? label : address.toString());
-					rowAddress.setTypeface(label != null ? Typeface.DEFAULT : Typeface.MONOSPACE);
-
-					final CurrencyAmountView rowValue = (CurrencyAmountView) row.findViewById(R.id.transaction_row_value);
-					rowValue.setCurrencyCode(null);
-					rowValue.setAmountSigned(true);
-					rowValue.setTextColor(textColor);
-					rowValue.setAmount(value);
-
-					return row;
-				}
-				catch (final ScriptException x)
-				{
-					throw new RuntimeException(x);
-				}
-			}
-		};
+		adapter = new TransactionsListAdapter(activity, wallet);
 		setListAdapter(adapter);
 
 		activity.getContentResolver().registerContentObserver(AddressBookProvider.CONTENT_URI, true, addressBookObserver);
@@ -279,7 +150,7 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 	@Override
 	public void onDestroyView()
 	{
-		labelCache.clear();
+		adapter.clearLabelCache();
 
 		super.onDestroyView();
 	}
@@ -327,13 +198,13 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 					final BigInteger value = tx.getValue(wallet);
 					final boolean sent = value.signum() < 0;
 
-					address = sent ? getToAddress(tx) : getFromAddress(tx);
+					address = sent ? WalletUtils.getToAddress(tx) : WalletUtils.getFromAddress(tx);
 
 					final String label;
 					if (tx.isCoinBase())
 						label = getString(R.string.wallet_transactions_fragment_coinbase);
 					else if (address != null)
-						label = resolveLabel(address.toString());
+						label = AddressBookProvider.resolveLabel(resolver, address.toString());
 					else
 						label = "?";
 
@@ -380,59 +251,6 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 				EditAddressBookEntryFragment.edit(getFragmentManager(), address.toString());
 			}
 		});
-	}
-
-	private Address getFromAddress(final Transaction tx)
-	{
-		try
-		{
-			for (final TransactionInput input : tx.getInputs())
-			{
-				return input.getFromAddress();
-			}
-
-			throw new IllegalStateException();
-		}
-		catch (final ScriptException x)
-		{
-			// this will happen on inputs connected to coinbase transactions
-			return null;
-		}
-	}
-
-	private Address getToAddress(final Transaction tx)
-	{
-		try
-		{
-			for (final TransactionOutput output : tx.getOutputs())
-			{
-				return output.getScriptPubKey().getToAddress();
-			}
-
-			throw new IllegalStateException();
-		}
-		catch (final ScriptException x)
-		{
-			return null;
-		}
-	}
-
-	private String resolveLabel(final String address)
-	{
-		final String cachedLabel = labelCache.get(address);
-		if (cachedLabel == null)
-		{
-			final String label = AddressBookProvider.resolveLabel(resolver, address);
-			if (label != null)
-				labelCache.put(address, label);
-			else
-				labelCache.put(address, NULL_MARKER);
-			return label;
-		}
-		else
-		{
-			return cachedLabel != NULL_MARKER ? cachedLabel : null;
-		}
 	}
 
 	public Loader<List<Transaction>> onCreateLoader(final int id, final Bundle args)

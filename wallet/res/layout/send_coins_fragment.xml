@@ -110,6 +110,11 @@
 		android:layout_height="0px"
 		android:layout_weight="100" />
 
+	<ListView
+		android:id="@+id/send_coins_sent_transaction"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content" />
+
 	<include layout="@layout/send_coins_buttons_include" />
 
 </LinearLayout>

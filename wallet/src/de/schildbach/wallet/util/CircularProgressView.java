@@ -67,9 +67,10 @@ public class CircularProgressView extends View
 		canvas.drawPath(path, strokePaint);
 	}
 
-	public void setColor(final int color)
+	public void setColors(final int fillColor, final int strokeColor)
 	{
-		fillPaint.setColor(color);
+		fillPaint.setColor(fillColor);
+		strokePaint.setColor(strokeColor);
 		postInvalidate();
 	}
 

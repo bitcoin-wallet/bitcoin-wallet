@@ -33,6 +33,10 @@ import android.text.style.StyleSpan;
 import android.text.style.TypefaceSpan;
 
 import com.google.bitcoin.core.Address;
+import com.google.bitcoin.core.ScriptException;
+import com.google.bitcoin.core.Transaction;
+import com.google.bitcoin.core.TransactionInput;
+import com.google.bitcoin.core.TransactionOutput;
 import com.google.bitcoin.core.Utils;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
@@ -158,6 +162,41 @@ public class WalletUtils
 			s.setSpan(SIGNIFICANT_SPAN, 0, pivot, 0);
 			if (s.length() > pivot)
 				s.setSpan(UNSIGNIFICANT_SPAN, pivot, s.length(), 0);
+		}
+	}
+
+	public static Address getFromAddress(final Transaction tx)
+	{
+		try
+		{
+			for (final TransactionInput input : tx.getInputs())
+			{
+				return input.getFromAddress();
+			}
+
+			throw new IllegalStateException();
+		}
+		catch (final ScriptException x)
+		{
+			// this will happen on inputs connected to coinbase transactions
+			return null;
+		}
+	}
+
+	public static Address getToAddress(final Transaction tx)
+	{
+		try
+		{
+			for (final TransactionOutput output : tx.getOutputs())
+			{
+				return output.getScriptPubKey().getToAddress();
+			}
+
+			throw new IllegalStateException();
+		}
+		catch (final ScriptException x)
+		{
+			return null;
 		}
 	}
 }
