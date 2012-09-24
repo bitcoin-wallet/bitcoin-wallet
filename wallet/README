@@ -18,7 +18,7 @@ which should be compatible between clients using BitCoinJ.
 /data/data/de.schildbach.wallet/files/key-backup-base58 (MODE_PRIVATE)
 	Backups of private keys for prodnet
 
-/data/data/de.schildbach.wallet_test/files/key-backup-base58-testnet (MODE_WORLD_READABLE | MODE_WORLD_WRITEABLE)
+/data/data/de.schildbach.wallet_test/files/key-backup-base58-testnet (MODE_PRIVATE)
 	Backups of private keys for testnet
 
 
@@ -27,10 +27,6 @@ DEBUGGING
 Wallet file for testnet can be pulled from (even unrooted) device using
 
 	adb pull /data/data/de.schildbach.wallet_test/files/wallet-protobuf-testnet
-
-Backups of key for testnet can be pulled from device using
-
-	adb pull /data/data/de.schildbach.wallet_test/files/key-backup-base58-testnet
 
 Log messages can be viewed by
 

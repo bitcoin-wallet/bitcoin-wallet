@@ -509,7 +509,6 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 			catch (final BlockStoreException x)
 			{
 				wallet.clearTransactions(0);
-				application.saveWallet();
 				blockChainFile.delete();
 
 				x.printStackTrace();
@@ -518,7 +517,6 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 			catch (final IllegalStateException x)
 			{
 				wallet.clearTransactions(0);
-				application.saveWallet();
 				blockChainFile.delete();
 
 				x.printStackTrace();

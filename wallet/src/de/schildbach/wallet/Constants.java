@@ -19,7 +19,6 @@ package de.schildbach.wallet;
 
 import java.math.BigInteger;
 
-import android.content.Context;
 import android.content.Intent;
 
 import com.google.bitcoin.core.NetworkParameters;
@@ -47,10 +46,6 @@ public class Constants
 	private static final String WALLET_KEY_BACKUP_BASE58_PROD = "key-backup-base58";
 	private static final String WALLET_KEY_BACKUP_BASE58_TEST = "key-backup-base58-testnet";
 	public static final String WALLET_KEY_BACKUP_BASE58 = Constants.TEST ? WALLET_KEY_BACKUP_BASE58_TEST : WALLET_KEY_BACKUP_BASE58_PROD;
-
-	private static final int WALLET_MODE_PROD = Context.MODE_PRIVATE;
-	private static final int WALLET_MODE_TEST = Context.MODE_WORLD_READABLE | Context.MODE_WORLD_WRITEABLE;
-	public static final int WALLET_MODE = Constants.TEST ? WALLET_MODE_TEST : WALLET_MODE_PROD;
 
 	private static final String WALLET_KEY_BACKUP_SNAPSHOT_PROD = "key-backup-snapshot";
 	private static final String WALLET_KEY_BACKUP_SNAPSHOT_TEST = "key-backup-snapshot-testnet";
