@@ -63,6 +63,7 @@ import com.google.bitcoin.core.ScriptException;
 import com.google.bitcoin.core.Transaction;
 import com.google.bitcoin.core.TransactionInput;
 import com.google.bitcoin.core.Wallet;
+import com.google.bitcoin.core.Wallet.SendRequest;
 import com.google.bitcoin.core.WalletEventListener;
 import com.google.bitcoin.discovery.DnsDiscovery;
 import com.google.bitcoin.discovery.IrcDiscovery;
@@ -645,17 +646,10 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 	public Transaction sendCoins(final Address to, final BigInteger amount, final BigInteger fee)
 	{
 		final Wallet wallet = application.getWallet();
-		try
-		{
-			final Transaction tx = wallet.sendCoinsAsync(peerGroup, to, amount, fee);
-			application.saveWallet();
-			return tx;
-		}
-		catch (final IOException x)
-		{
-			x.printStackTrace();
-			return null;
-		}
+		final SendRequest sendRequest = SendRequest.to(to, amount);
+		sendRequest.fee = fee;
+		final Transaction tx = wallet.sendCoins(peerGroup, sendRequest).tx;
+		return tx;
 	}
 
 	public List<Peer> getConnectedPeers()

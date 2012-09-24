@@ -222,7 +222,7 @@ public final class TransactionFragment extends SherlockFragment
 
 		final TextView viewStatus = (TextView) view.findViewById(R.id.transaction_fragment_status);
 		final ConfidenceType confidenceType = tx.getConfidence().getConfidenceType();
-		if (confidenceType == ConfidenceType.OVERRIDDEN_BY_DOUBLE_SPEND || confidenceType == ConfidenceType.NOT_IN_BEST_CHAIN)
+		if (confidenceType == ConfidenceType.DEAD || confidenceType == ConfidenceType.NOT_IN_BEST_CHAIN)
 			viewStatus.setText(R.string.transaction_fragment_status_dead);
 		else if (confidenceType == ConfidenceType.NOT_SEEN_IN_CHAIN)
 			viewStatus.setText(R.string.transaction_fragment_status_pending);

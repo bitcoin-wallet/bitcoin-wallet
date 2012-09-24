@@ -167,7 +167,7 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 			private final LayoutInflater inflater = getLayoutInflater(null);
 
 			private static final String CONFIDENCE_SYMBOL_NOT_IN_BEST_CHAIN = "!";
-			private static final String CONFIDENCE_SYMBOL_OVERRIDDEN_BY_DOUBLE_SPEND = "\u271D"; // latin cross
+			private static final String CONFIDENCE_SYMBOL_DEAD = "\u271D"; // latin cross
 			private static final String CONFIDENCE_SYMBOL_UNKNOWN = "?";
 
 			@Override
@@ -224,13 +224,13 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 						rowConfidenceTextual.setText(CONFIDENCE_SYMBOL_NOT_IN_BEST_CHAIN);
 						rowConfidenceTextual.setTextColor(Color.RED);
 					}
-					else if (confidenceType == ConfidenceType.OVERRIDDEN_BY_DOUBLE_SPEND)
+					else if (confidenceType == ConfidenceType.DEAD)
 					{
 						rowConfidenceCircular.setVisibility(View.GONE);
 						rowConfidenceTextual.setVisibility(View.VISIBLE);
 						textColor = Color.RED;
 
-						rowConfidenceTextual.setText(CONFIDENCE_SYMBOL_OVERRIDDEN_BY_DOUBLE_SPEND);
+						rowConfidenceTextual.setText(CONFIDENCE_SYMBOL_DEAD);
 						rowConfidenceTextual.setTextColor(Color.RED);
 					}
 					else
