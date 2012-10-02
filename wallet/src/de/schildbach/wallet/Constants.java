@@ -80,7 +80,6 @@ public class Constants
 	public static final int BLOCKCHAIN_DOWNLOAD_THRESHOLD_MS = 5000;
 	public static final int BLOCKCHAIN_STATE_BROADCAST_THROTTLE_MS = 1000;
 	public static final int BLOCKCHAIN_UPTODATE_THRESHOLD_HOURS = 1;
-	public static final int SHUTDOWN_REMOVE_NOTIFICATION_DELAY = 1000;
 	public static final String LOCK_NAME = PACKAGE_NAME + " blockchain sync";
 
 	public static final String CURRENCY_CODE_BITCOIN = "BTC";

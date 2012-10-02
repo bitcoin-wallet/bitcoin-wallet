@@ -618,13 +618,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 			throw new RuntimeException(x);
 		}
 
-		handler.postDelayed(new Runnable()
-		{
-			public void run()
-			{
-				nm.cancel(NOTIFICATION_ID_CONNECTED);
-			}
-		}, Constants.SHUTDOWN_REMOVE_NOTIFICATION_DELAY);
+		nm.cancel(NOTIFICATION_ID_CONNECTED);
 
 		if (wakeLock.isHeld())
 		{
