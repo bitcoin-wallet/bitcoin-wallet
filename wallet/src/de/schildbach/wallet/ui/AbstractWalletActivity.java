@@ -59,7 +59,7 @@ public abstract class AbstractWalletActivity extends SherlockFragmentActivity
 
 		final ActionBar actionBar = getSupportActionBar();
 		actionBar.setIcon(R.drawable.app_icon);
-		actionBar.setSubtitle(Constants.TEST ? "[testnet]" : null);
+		actionBar.setSubtitle(Constants.TEST ? "[testnet3]" : null);
 	}
 
 	protected WalletApplication getWalletApplication()

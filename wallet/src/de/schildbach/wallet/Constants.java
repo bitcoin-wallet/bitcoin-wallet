@@ -33,7 +33,7 @@ public class Constants
 {
 	public static final boolean TEST = R.class.getPackage().getName().contains('_' + "test"); // replace protected
 
-	public static final NetworkParameters NETWORK_PARAMETERS = TEST ? NetworkParameters.testNet() : NetworkParameters.prodNet();
+	public static final NetworkParameters NETWORK_PARAMETERS = TEST ? NetworkParameters.testNet3() : NetworkParameters.prodNet();
 
 	private static final String WALLET_FILENAME_PROD = "wallet";
 	private static final String WALLET_FILENAME_TEST = "wallet-testnet";
@@ -60,7 +60,7 @@ public class Constants
 	public static final String BLOCKCHAIN_FILENAME = TEST ? BLOCKCHAIN_FILENAME_TEST : BLOCKCHAIN_FILENAME_PROD;
 
 	public static final String PEER_DISCOVERY_IRC_CHANNEL_PROD = "#bitcoin";
-	public static final String PEER_DISCOVERY_IRC_CHANNEL_TEST = "#bitcoinTEST";
+	public static final String PEER_DISCOVERY_IRC_CHANNEL_TEST = "#bitcoinTEST3";
 
 	private static final String BLOCKEXPLORER_BASE_URL_PROD = "https://blockexplorer.com/";
 	private static final String BLOCKEXPLORER_BASE_URL_TEST = "https://blockexplorer.com/testnet/";

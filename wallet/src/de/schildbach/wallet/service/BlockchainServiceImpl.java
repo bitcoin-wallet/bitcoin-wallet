@@ -156,10 +156,10 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 			notificationAddresses.add(from);
 
 		final String tickerMsg = getString(R.string.notification_coins_received_msg, WalletUtils.formatValue(amount))
-				+ (Constants.TEST ? " [testnet]" : "");
+				+ (Constants.TEST ? " [testnet3]" : "");
 
 		final String msg = getString(R.string.notification_coins_received_msg, WalletUtils.formatValue(notificationAccumulatedAmount))
-				+ (Constants.TEST ? " [testnet]" : "");
+				+ (Constants.TEST ? " [testnet3]" : "");
 
 		final StringBuilder text = new StringBuilder();
 		for (final Address address : notificationAddresses)
@@ -218,7 +218,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 					{
 						final NotificationCompat.Builder notification = new NotificationCompat.Builder(BlockchainServiceImpl.this);
 						notification.setSmallIcon(R.drawable.stat_sys_peers, numPeers > 4 ? 4 : numPeers);
-						notification.setContentTitle(getString(R.string.app_name) + (Constants.TEST ? " [testnet]" : ""));
+						notification.setContentTitle(getString(R.string.app_name) + (Constants.TEST ? " [testnet3]" : ""));
 						notification.setContentText(getString(R.string.notification_peers_connected_msg, numPeers));
 						notification.setContentIntent(PendingIntent.getActivity(BlockchainServiceImpl.this, 0, new Intent(BlockchainServiceImpl.this,
 								WalletActivity.class), 0));
