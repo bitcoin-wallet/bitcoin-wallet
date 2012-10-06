@@ -640,7 +640,12 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 		final Wallet wallet = application.getWallet();
 		final SendRequest sendRequest = SendRequest.to(to, amount);
 		sendRequest.fee = fee;
-		final Transaction tx = wallet.sendCoins(peerGroup, sendRequest).tx;
+
+		final Transaction tx;
+		if (peerGroup != null)
+			tx = wallet.sendCoins(peerGroup, sendRequest).tx;
+		else
+			tx = wallet.sendCoinsOffline(sendRequest);
 		return tx;
 	}
 
