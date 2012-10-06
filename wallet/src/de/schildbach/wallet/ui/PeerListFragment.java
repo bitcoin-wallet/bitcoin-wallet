@@ -122,8 +122,9 @@ public final class PeerListFragment extends SherlockListFragment implements Load
 	{
 		adapter.clear();
 
-		for (final Peer peer : peers)
-			adapter.add(peer);
+		if (peers != null)
+			for (final Peer peer : peers)
+				adapter.add(peer);
 	}
 
 	public void onLoaderReset(final Loader<List<Peer>> loader)

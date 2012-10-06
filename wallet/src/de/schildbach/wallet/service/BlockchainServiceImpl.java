@@ -651,7 +651,10 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 
 	public List<Peer> getConnectedPeers()
 	{
-		return peerGroup.getConnectedPeers();
+		if (peerGroup != null)
+			return peerGroup.getConnectedPeers();
+		else
+			return null;
 	}
 
 	private void sendBroadcastPeerState(final int numPeers)
