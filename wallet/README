@@ -6,6 +6,8 @@ takes around 1-2 hours on a decent WLAN.
 
 FILES
 
+Your wallet and your private keys are stored in app internal storage:
+
 /data/data/de.schildbach.wallet/files/wallet-protobuf (MODE_PRIVATE)
 	Wallet for prodnet
 
@@ -15,11 +17,25 @@ FILES
 The wallet file format is not compatible to wallet.dat (Satoshi client). Rather, it uses a custom protobuf format
 which should be compatible between clients using bitcoinj.
 
+Certain actions cause rolling backups of your private keys to app internal storage:
+
 /data/data/de.schildbach.wallet/files/key-backup-base58 (MODE_PRIVATE)
 	Backups of private keys for prodnet
 
 /data/data/de.schildbach.wallet_test/files/key-backup-base58-testnet (MODE_PRIVATE)
 	Backups of private keys for testnet
+
+Private keys can be exported to and imported from external storage:
+
+/sdcard/Download/bitcoin-wallet-keys-<yyyy-MM-dd>
+	Export of private keys for prodnet
+
+/sdcard/Download/bitcoin-wallet-keys-testnet-<yyyy-MM-dd>
+	Export of private keys for testnet
+
+The export file is encrypted using your chosen password. You can OpenSSL to decrypt:
+
+openssl enc -d -aes-256-cbc -a -in <filename>
 
 
 DEBUGGING

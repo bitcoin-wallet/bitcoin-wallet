@@ -24,6 +24,14 @@
 		android:showAsAction="ifRoom|withText"
 		android:title="@string/peer_monitor_activity_title"/>
 	<item
+		android:id="@+id/wallet_options_import_keys"
+		android:showAsAction="never"
+		android:title="@string/wallet_import_keys_dialog_title"/>
+	<item
+		android:id="@+id/wallet_options_export_keys"
+		android:showAsAction="never"
+		android:title="@string/wallet_export_keys_dialog_title"/>
+	<item
 		android:id="@+id/wallet_options_disconnect"
 		android:showAsAction="never"
 		android:title="@string/wallet_options_disconnect"/>

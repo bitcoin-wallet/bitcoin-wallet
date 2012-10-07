@@ -1,0 +1,71 @@
+/*
+ * Copyright 2012 the original author or authors.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+package de.schildbach.wallet.ui;
+
+import java.io.File;
+
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.TextView;
+import de.schildbach.wallet_test.R;
+
+/**
+ * @author Andreas Schildbach
+ */
+public class FileAdapter extends ArrayAdapter<File>
+{
+	private final LayoutInflater inflater;
+
+	public FileAdapter(final Context context, final File[] files)
+	{
+		super(context, 0, files);
+
+		inflater = LayoutInflater.from(context);
+	}
+
+	@Override
+	public View getView(final int position, View row, final ViewGroup parent)
+	{
+		final File file = getItem(position);
+
+		if (row == null)
+			row = inflater.inflate(R.layout.spinner_item, null);
+
+		final TextView textView = (TextView) row.findViewById(android.R.id.text1);
+		textView.setText(file.getName());
+
+		return row;
+	}
+
+	@Override
+	public View getDropDownView(final int position, View row, final ViewGroup parent)
+	{
+		final File file = getItem(position);
+
+		if (row == null)
+			row = inflater.inflate(R.layout.spinner_dropdown_item, null);
+
+		final TextView textView = (TextView) row.findViewById(android.R.id.text1);
+		textView.setText(file.getName());
+
+		return row;
+	}
+}
