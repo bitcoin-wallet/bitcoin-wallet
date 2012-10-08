@@ -22,16 +22,15 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.lang.reflect.Method;
 import java.nio.charset.Charset;
-import java.text.DateFormat;
-import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import android.app.Application;
@@ -42,8 +41,6 @@ import android.preference.PreferenceManager;
 import android.widget.Toast;
 
 import com.google.bitcoin.core.Address;
-import com.google.bitcoin.core.AddressFormatException;
-import com.google.bitcoin.core.DumpedPrivateKey;
 import com.google.bitcoin.core.ECKey;
 import com.google.bitcoin.core.Wallet;
 import com.google.bitcoin.core.Wallet.AutosaveEventListener;
@@ -53,8 +50,8 @@ import com.google.bitcoin.store.BoundedOverheadBlockStore;
 import com.google.bitcoin.store.WalletProtobufSerializer;
 
 import de.schildbach.wallet.util.ErrorReporter;
-import de.schildbach.wallet.util.Iso8601Format;
 import de.schildbach.wallet.util.StrictModeWrapper;
+import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
 
 /**
@@ -270,24 +267,7 @@ public class WalletApplication extends Application
 	{
 		try
 		{
-			final Wallet wallet = new Wallet(Constants.NETWORK_PARAMETERS);
-			final BufferedReader in = new BufferedReader(new InputStreamReader(openFileInput(Constants.WALLET_KEY_BACKUP_BASE58), UTF_8));
-
-			while (true)
-			{
-				final String line = in.readLine();
-				if (line == null)
-					break;
-
-				final String[] parts = line.split(" ");
-
-				final ECKey key = new DumpedPrivateKey(Constants.NETWORK_PARAMETERS, parts[0]).getKey();
-				key.setCreationTimeSeconds(parts.length >= 2 ? Iso8601Format.parseDateTimeT(parts[1]).getTime() / 1000 : 0);
-
-				wallet.addKey(key);
-			}
-
-			in.close();
+			final Wallet wallet = readKeys(openFileInput(Constants.WALLET_KEY_BACKUP_BASE58));
 
 			final File file = new File(getDir("blockstore", Context.MODE_WORLD_READABLE | Context.MODE_WORLD_WRITEABLE),
 					Constants.BLOCKCHAIN_FILENAME);
@@ -301,38 +281,13 @@ public class WalletApplication extends Application
 		{
 			throw new RuntimeException(x);
 		}
-		catch (final AddressFormatException x)
-		{
-			throw new RuntimeException(x);
-		}
-		catch (final ParseException x)
-		{
-			throw new RuntimeException(x);
-		}
 	}
 
 	private Wallet restoreWalletFromSnapshot() throws FileNotFoundException
 	{
 		try
 		{
-			final Wallet wallet = new Wallet(Constants.NETWORK_PARAMETERS);
-			final BufferedReader in = new BufferedReader(new InputStreamReader(getAssets().open(Constants.WALLET_KEY_BACKUP_SNAPSHOT), UTF_8));
-
-			while (true)
-			{
-				final String line = in.readLine();
-				if (line == null)
-					break;
-
-				final String[] parts = line.split(" ");
-
-				final ECKey key = new DumpedPrivateKey(Constants.NETWORK_PARAMETERS, parts[0]).getKey();
-				key.setCreationTimeSeconds(parts.length >= 2 ? Iso8601Format.parseDateTimeT(parts[1]).getTime() / 1000 : 0);
-
-				wallet.addKey(key);
-			}
-
-			in.close();
+			final Wallet wallet = readKeys(getAssets().open(Constants.WALLET_KEY_BACKUP_SNAPSHOT));
 
 			System.out.println("wallet restored from snapshot");
 
@@ -346,14 +301,19 @@ public class WalletApplication extends Application
 		{
 			throw new RuntimeException(x);
 		}
-		catch (final AddressFormatException x)
-		{
-			throw new RuntimeException(x);
-		}
-		catch (final ParseException x)
-		{
-			throw new RuntimeException(x);
-		}
+	}
+
+	private static Wallet readKeys(final InputStream is) throws IOException
+	{
+		final BufferedReader in = new BufferedReader(new InputStreamReader(is, UTF_8));
+		final List<ECKey> keys = WalletUtils.readKeys(in);
+		in.close();
+
+		final Wallet wallet = new Wallet(Constants.NETWORK_PARAMETERS);
+		for (final ECKey key : keys)
+			wallet.addKey(key);
+
+		return wallet;
 	}
 
 	public void addNewKeyToWallet()
@@ -384,25 +344,6 @@ public class WalletApplication extends Application
 		System.out.println("wallet saved to: '" + walletFile + "', took " + (System.currentTimeMillis() - start) + "ms");
 	}
 
-	private void writeKeys(final OutputStream os) throws IOException
-	{
-		final DateFormat format = Iso8601Format.newDateTimeFormatT();
-		final Writer out = new OutputStreamWriter(os, UTF_8);
-
-		for (final ECKey key : wallet.keychain)
-		{
-			out.write(key.getPrivateKeyEncoded(Constants.NETWORK_PARAMETERS).toString());
-			if (key.getCreationTimeSeconds() != 0)
-			{
-				out.write(' ');
-				out.write(format.format(new Date(key.getCreationTimeSeconds() * 1000)));
-			}
-			out.write('\n');
-		}
-
-		out.close();
-	}
-
 	private void backupKeys()
 	{
 		try
@@ -424,6 +365,13 @@ public class WalletApplication extends Application
 		{
 			x.printStackTrace();
 		}
+	}
+
+	private void writeKeys(final OutputStream os) throws IOException
+	{
+		final Writer out = new OutputStreamWriter(os, UTF_8);
+		WalletUtils.writeKeys(out, wallet.keychain);
+		out.close();
 	}
 
 	public Address determineSelectedAddress()

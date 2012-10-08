@@ -17,8 +17,16 @@
 
 package de.schildbach.wallet.util;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.Writer;
 import java.math.BigInteger;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.util.Date;
 import java.util.Hashtable;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -33,6 +41,9 @@ import android.text.style.StyleSpan;
 import android.text.style.TypefaceSpan;
 
 import com.google.bitcoin.core.Address;
+import com.google.bitcoin.core.AddressFormatException;
+import com.google.bitcoin.core.DumpedPrivateKey;
+import com.google.bitcoin.core.ECKey;
 import com.google.bitcoin.core.ScriptException;
 import com.google.bitcoin.core.Transaction;
 import com.google.bitcoin.core.TransactionInput;
@@ -197,6 +208,56 @@ public class WalletUtils
 		catch (final ScriptException x)
 		{
 			return null;
+		}
+	}
+
+	public static void writeKeys(final Writer out, final List<ECKey> keys) throws IOException
+	{
+		final DateFormat format = Iso8601Format.newDateTimeFormatT();
+
+		for (final ECKey key : keys)
+		{
+			out.write(key.getPrivateKeyEncoded(Constants.NETWORK_PARAMETERS).toString());
+			if (key.getCreationTimeSeconds() != 0)
+			{
+				out.write(' ');
+				out.write(format.format(new Date(key.getCreationTimeSeconds() * 1000)));
+			}
+			out.write('\n');
+		}
+	}
+
+	public static List<ECKey> readKeys(final BufferedReader in) throws IOException
+	{
+		try
+		{
+			final DateFormat format = Iso8601Format.newDateTimeFormatT();
+
+			final List<ECKey> keys = new LinkedList<ECKey>();
+
+			while (true)
+			{
+				final String line = in.readLine();
+				if (line == null)
+					break;
+
+				final String[] parts = line.split(" ");
+
+				final ECKey key = new DumpedPrivateKey(Constants.NETWORK_PARAMETERS, parts[0]).getKey();
+				key.setCreationTimeSeconds(parts.length >= 2 ? format.parse(parts[1]).getTime() / 1000 : 0);
+
+				keys.add(key);
+			}
+
+			return keys;
+		}
+		catch (final AddressFormatException x)
+		{
+			throw new IOException(x);
+		}
+		catch (final ParseException x)
+		{
+			throw new IOException(x);
 		}
 	}
 }
