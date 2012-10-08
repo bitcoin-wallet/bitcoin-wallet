@@ -239,7 +239,9 @@ public class WalletUtils
 			{
 				final String line = in.readLine();
 				if (line == null)
-					break;
+					break; // eof
+				if (line.length() == 0 || line.charAt(0) == '#')
+					continue; // skip comment
 
 				final String[] parts = line.split(" ");
 
