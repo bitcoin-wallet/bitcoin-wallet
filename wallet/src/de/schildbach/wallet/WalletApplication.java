@@ -195,6 +195,8 @@ public class WalletApplication extends Application
 				}
 
 				wallet = walletSerializer.readWallet(walletStream);
+
+				System.out.println("wallet loaded from: '" + walletFile + "', took " + (System.currentTimeMillis() - start) + "ms");
 			}
 			catch (final IOException x)
 			{
@@ -236,8 +238,6 @@ public class WalletApplication extends Application
 
 			if (!wallet.getParams().equals(Constants.NETWORK_PARAMETERS))
 				throw new Error("bad wallet network parameters: " + wallet.getParams().getId());
-
-			System.out.println("wallet loaded from: '" + walletFile + "', took " + (System.currentTimeMillis() - start) + "ms");
 		}
 		else
 		{
@@ -275,6 +275,8 @@ public class WalletApplication extends Application
 
 			Toast.makeText(this, R.string.toast_wallet_reset, Toast.LENGTH_LONG).show();
 
+			System.out.println("wallet restored from backup: '" + Constants.WALLET_KEY_BACKUP_BASE58 + "'");
+
 			return wallet;
 		}
 		catch (final IOException x)
@@ -289,7 +291,7 @@ public class WalletApplication extends Application
 		{
 			final Wallet wallet = readKeys(getAssets().open(Constants.WALLET_KEY_BACKUP_SNAPSHOT));
 
-			System.out.println("wallet restored from snapshot");
+			System.out.println("wallet restored from snapshot: '" + Constants.WALLET_KEY_BACKUP_SNAPSHOT + "'");
 
 			return wallet;
 		}
