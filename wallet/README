@@ -89,7 +89,3 @@ BITCOINJ
 Bitcoin Wallet uses bitcoinj for Bitcoin specific logic:
 
 http://code.google.com/p/bitcoinj/
-
-Delta to upstream bitcoinj:
-
-- Basic support for transaction fees
