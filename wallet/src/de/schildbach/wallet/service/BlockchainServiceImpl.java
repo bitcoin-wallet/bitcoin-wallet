@@ -635,6 +635,13 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 		super.onDestroy();
 	}
 
+	@Override
+	public void onLowMemory()
+	{
+		System.out.println("low memory detected, stopping service");
+		stopSelf();
+	}
+
 	public Transaction sendCoins(final Address to, final BigInteger amount, final BigInteger fee)
 	{
 		final Wallet wallet = application.getWallet();
