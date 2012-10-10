@@ -6,7 +6,7 @@
 	android:versionName="2.3_test" >
 
 	<uses-sdk
-		android:minSdkVersion="5"
+		android:minSdkVersion="8"
 		android:targetSdkVersion="11" />
 
 	<uses-permission android:name="android.permission.INTERNET" />

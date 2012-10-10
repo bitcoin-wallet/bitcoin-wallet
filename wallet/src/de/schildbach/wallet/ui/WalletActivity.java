@@ -43,7 +43,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.FragmentManager;
@@ -127,8 +126,6 @@ public final class WalletActivity extends AbstractWalletActivity
 
 		getSupportMenuInflater().inflate(R.menu.wallet_options, menu);
 		menu.findItem(R.id.wallet_options_donate).setVisible(!Constants.TEST);
-		menu.findItem(R.id.wallet_options_import_keys).setVisible(Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO);
-		menu.findItem(R.id.wallet_options_export_keys).setVisible(Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO);
 
 		return true;
 	}
