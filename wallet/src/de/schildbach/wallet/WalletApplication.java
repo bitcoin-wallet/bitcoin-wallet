@@ -35,6 +35,7 @@ import java.util.concurrent.TimeUnit;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.preference.PreferenceManager;
@@ -49,6 +50,7 @@ import com.google.bitcoin.store.BlockStoreException;
 import com.google.bitcoin.store.BoundedOverheadBlockStore;
 import com.google.bitcoin.store.WalletProtobufSerializer;
 
+import de.schildbach.wallet.service.BlockchainServiceImpl;
 import de.schildbach.wallet.util.ErrorReporter;
 import de.schildbach.wallet.util.StrictModeWrapper;
 import de.schildbach.wallet.util.WalletUtils;
@@ -393,6 +395,24 @@ public class WalletApplication extends Application
 		}
 
 		throw new IllegalStateException("address not in keychain: " + selectedAddress);
+	}
+
+	public void resetBlockchain()
+	{
+		// stop service to make sure peers do not get in the way
+		final Intent serviceIntent = new Intent(this, BlockchainServiceImpl.class);
+		stopService(serviceIntent);
+
+		// remove block chain
+		final File blockChainFile = new File(getDir("blockstore", Context.MODE_WORLD_READABLE | Context.MODE_WORLD_WRITEABLE),
+				Constants.BLOCKCHAIN_FILENAME);
+		blockChainFile.delete();
+
+		// clear transactions from wallet, keep keys
+		wallet.clearTransactions(0);
+
+		// start service again
+		startService(serviceIntent);
 	}
 
 	public final int applicationVersionCode()

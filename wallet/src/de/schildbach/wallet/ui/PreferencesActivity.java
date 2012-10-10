@@ -17,20 +17,14 @@
 
 package de.schildbach.wallet.ui;
 
-import java.io.File;
-
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
-import android.content.Intent;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceScreen;
-import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
-import de.schildbach.wallet.service.BlockchainServiceImpl;
 import de.schildbach.wallet_test.R;
 
 /**
@@ -66,7 +60,7 @@ public final class PreferencesActivity extends PreferenceActivity
 			{
 				public void onClick(final DialogInterface dialog, final int which)
 				{
-					handleResetBlockchain();
+					application.resetBlockchain();
 					finish();
 				}
 			});
@@ -77,23 +71,5 @@ public final class PreferencesActivity extends PreferenceActivity
 		}
 
 		return false;
-	}
-
-	private void handleResetBlockchain()
-	{
-		// stop service to make sure peers do not get in the way
-		final Intent serviceIntent = new Intent(this, BlockchainServiceImpl.class);
-		stopService(serviceIntent);
-
-		// remove block chain
-		final File blockChainFile = new File(getDir("blockstore", Context.MODE_WORLD_READABLE | Context.MODE_WORLD_WRITEABLE),
-				Constants.BLOCKCHAIN_FILENAME);
-		blockChainFile.delete();
-
-		// clear transactions from wallet, keep keys
-		application.getWallet().clearTransactions(0);
-
-		// start service again
-		startService(serviceIntent);
 	}
 }
