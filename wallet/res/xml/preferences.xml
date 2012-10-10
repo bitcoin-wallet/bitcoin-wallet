@@ -8,6 +8,7 @@
 			android:title="@string/preferences_warning_title" />
 
 		<CheckBoxPreference
+			android:defaultValue="true"
 			android:key="autosync"
 			android:summary="@string/preferences_autosync_summary"
 			android:title="@string/preferences_autosync_title" />

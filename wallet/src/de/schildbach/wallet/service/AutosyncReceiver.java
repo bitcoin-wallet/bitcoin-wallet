@@ -37,7 +37,7 @@ public class AutosyncReceiver extends BroadcastReceiver
 	public void onReceive(final Context context, final Intent intent)
 	{
 		final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-		final boolean prefsAutosync = prefs.getBoolean(Constants.PREFS_KEY_AUTOSYNC, false);
+		final boolean prefsAutosync = prefs.getBoolean(Constants.PREFS_KEY_AUTOSYNC, true);
 		final long prefsLastUsed = prefs.getLong(Constants.PREFS_KEY_LAST_USED, 0);
 
 		// determine power connected state
