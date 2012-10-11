@@ -138,11 +138,6 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 	{
 		super.onViewCreated(view, savedInstanceState);
 
-		final ListView listView = getListView();
-
-		// workaround for flashing background in ViewPager on Android 2.x
-		listView.setBackgroundColor(getResources().getColor(R.color.bg_bright));
-
 		setEmptyText(getString(direction == Direction.SENT ? R.string.wallet_transactions_fragment_empty_text_sent
 				: R.string.wallet_transactions_fragment_empty_text_received));
 	}

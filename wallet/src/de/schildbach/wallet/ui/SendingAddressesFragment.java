@@ -106,17 +106,6 @@ public final class SendingAddressesFragment extends SherlockListFragment impleme
 	}
 
 	@Override
-	public void onViewCreated(final View view, final Bundle savedInstanceState)
-	{
-		super.onViewCreated(view, savedInstanceState);
-
-		final ListView listView = getListView();
-
-		// workaround for flashing background in ViewPager on Android 2.x
-		listView.setBackgroundColor(getResources().getColor(R.color.bg_bright));
-	}
-
-	@Override
 	public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater)
 	{
 		inflater.inflate(R.menu.sending_addresses_fragment_options, menu);

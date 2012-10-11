@@ -16,6 +16,7 @@
 		android:id="@+id/address_book_pager"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
-		android:layout_gravity="bottom|center_horizontal" />
+		android:layout_gravity="bottom|center_horizontal"
+		android:background="@color/bg_bright" />
 
 </LinearLayout>
