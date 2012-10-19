@@ -33,7 +33,7 @@ import de.schildbach.wallet_test.R;
  */
 public class Constants
 {
-	public static final boolean TEST = R.class.getPackage().getName().contains('_' + "test"); // replace protected
+	public static final boolean TEST = R.class.getPackage().getName().contains("_test");
 
 	public static final String NETWORK_SUFFIX = TEST ? " [testnet3]" : "";
 
@@ -76,7 +76,7 @@ public class Constants
 	public static final String BLOCKEXPLORER_BASE_URL = TEST ? BLOCKEXPLORER_BASE_URL_TEST : BLOCKEXPLORER_BASE_URL_PROD;
 
 	private static final String PACKAGE_NAME_PROD = "de.schildbach.wallet";
-	private static final String PACKAGE_NAME_TEST = "de.schildbach.wallet" + '_' + "test"; // replace protected
+	private static final String PACKAGE_NAME_TEST = "de.schildbach.wallet_test";
 	public static final String PACKAGE_NAME = TEST ? PACKAGE_NAME_TEST : PACKAGE_NAME_PROD;
 
 	public static final String MIMETYPE_TRANSACTION = "application/x-btctx";
@@ -113,7 +113,7 @@ public class Constants
 	public static final String MARKET_PUBLISHER_URL = "market://search?q=pub:\"Andreas Schildbach\"";
 
 	private static final String VERSION_URL_PROD = "http://wallet.schildbach.de/version";
-	private static final String VERSION_URL_TEST = VERSION_URL_PROD + '_' + "test"; // replace protected
+	private static final String VERSION_URL_TEST = "http://wallet.schildbach.de/version_test";
 	public static final String VERSION_URL = TEST ? VERSION_URL_TEST : VERSION_URL_PROD;
 
 	public static final Intent INTENT_QR_SCANNER = new Intent("com.google.zxing.client.android.SCAN").putExtra("SCAN_MODE", "QR_CODE_MODE");
