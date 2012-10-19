@@ -35,32 +35,34 @@ public class Constants
 {
 	public static final boolean TEST = R.class.getPackage().getName().contains('_' + "test"); // replace protected
 
+	public static final String NETWORK_SUFFIX = TEST ? " [testnet3]" : "";
+
 	public static final NetworkParameters NETWORK_PARAMETERS = TEST ? NetworkParameters.testNet3() : NetworkParameters.prodNet();
 
 	private static final String WALLET_FILENAME_PROD = "wallet";
 	private static final String WALLET_FILENAME_TEST = "wallet-testnet";
-	public static final String WALLET_FILENAME = Constants.TEST ? WALLET_FILENAME_TEST : WALLET_FILENAME_PROD;
+	public static final String WALLET_FILENAME = TEST ? WALLET_FILENAME_TEST : WALLET_FILENAME_PROD;
 
 	private static final String WALLET_FILENAME_PROTOBUF_PROD = "wallet-protobuf";
 	private static final String WALLET_FILENAME_PROTOBUF_TEST = "wallet-protobuf-testnet";
-	public static final String WALLET_FILENAME_PROTOBUF = Constants.TEST ? WALLET_FILENAME_PROTOBUF_TEST : WALLET_FILENAME_PROTOBUF_PROD;
+	public static final String WALLET_FILENAME_PROTOBUF = TEST ? WALLET_FILENAME_PROTOBUF_TEST : WALLET_FILENAME_PROTOBUF_PROD;
 
 	private static final String WALLET_KEY_BACKUP_BASE58_PROD = "key-backup-base58";
 	private static final String WALLET_KEY_BACKUP_BASE58_TEST = "key-backup-base58-testnet";
-	public static final String WALLET_KEY_BACKUP_BASE58 = Constants.TEST ? WALLET_KEY_BACKUP_BASE58_TEST : WALLET_KEY_BACKUP_BASE58_PROD;
+	public static final String WALLET_KEY_BACKUP_BASE58 = TEST ? WALLET_KEY_BACKUP_BASE58_TEST : WALLET_KEY_BACKUP_BASE58_PROD;
 
 	public static final File EXTERNAL_WALLET_BACKUP_DIR = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
 	private static final String EXTERNAL_WALLET_KEY_BACKUP_PROD = "bitcoin-wallet-keys";
 	private static final String EXTERNAL_WALLET_KEY_BACKUP_TEST = "bitcoin-wallet-keys-testnet";
-	public static final String EXTERNAL_WALLET_KEY_BACKUP = Constants.TEST ? EXTERNAL_WALLET_KEY_BACKUP_TEST : EXTERNAL_WALLET_KEY_BACKUP_PROD;
+	public static final String EXTERNAL_WALLET_KEY_BACKUP = TEST ? EXTERNAL_WALLET_KEY_BACKUP_TEST : EXTERNAL_WALLET_KEY_BACKUP_PROD;
 
 	private static final String WALLET_KEY_BACKUP_SNAPSHOT_PROD = "key-backup-snapshot";
 	private static final String WALLET_KEY_BACKUP_SNAPSHOT_TEST = "key-backup-snapshot-testnet";
-	public static final String WALLET_KEY_BACKUP_SNAPSHOT = Constants.TEST ? WALLET_KEY_BACKUP_SNAPSHOT_TEST : WALLET_KEY_BACKUP_SNAPSHOT_PROD;
+	public static final String WALLET_KEY_BACKUP_SNAPSHOT = TEST ? WALLET_KEY_BACKUP_SNAPSHOT_TEST : WALLET_KEY_BACKUP_SNAPSHOT_PROD;
 
 	private static final String BLOCKCHAIN_SNAPSHOT_FILENAME_PROD = "blockchain-snapshot.jpg";
 	private static final String BLOCKCHAIN_SNAPSHOT_FILENAME_TEST = "blockchain-snapshot-testnet.jpg";
-	public static final String BLOCKCHAIN_SNAPSHOT_FILENAME = Constants.TEST ? BLOCKCHAIN_SNAPSHOT_FILENAME_TEST : BLOCKCHAIN_SNAPSHOT_FILENAME_PROD;
+	public static final String BLOCKCHAIN_SNAPSHOT_FILENAME = TEST ? BLOCKCHAIN_SNAPSHOT_FILENAME_TEST : BLOCKCHAIN_SNAPSHOT_FILENAME_PROD;
 
 	private static final String BLOCKCHAIN_FILENAME_PROD = "blockchain";
 	private static final String BLOCKCHAIN_FILENAME_TEST = "blockchain-testnet";

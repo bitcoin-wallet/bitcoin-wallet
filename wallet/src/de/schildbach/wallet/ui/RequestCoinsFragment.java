@@ -229,7 +229,7 @@ public final class RequestCoinsFragment extends SherlockFragment implements Amou
 		clipboardManager.setText(request);
 		activity.toast(R.string.request_coins_clipboard_msg);
 
-		System.out.println("bitcoin request uri: " + request + (Constants.TEST ? " [testnet3]" : ""));
+		System.out.println("bitcoin request uri: " + request + Constants.NETWORK_SUFFIX);
 	}
 
 	private void updateView()
