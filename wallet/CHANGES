@@ -1,3 +1,7 @@
+2.31
+
+* now requires froyo (Android 2.2) or later
+
 2.3
 
 * import private keys from external storage
