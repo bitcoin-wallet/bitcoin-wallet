@@ -22,6 +22,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.io.Writer;
@@ -125,9 +126,9 @@ public class ErrorReporter implements Thread.UncaughtExceptionHandler
 				report.append(" " + db);
 			report.append("\n\n\n");
 		}
-		catch (NameNotFoundException e)
+		catch (final NameNotFoundException x)
 		{
-			e.printStackTrace();
+			x.printStackTrace();
 		}
 	}
 
@@ -180,6 +181,29 @@ public class ErrorReporter implements Thread.UncaughtExceptionHandler
 		appendReport(report, filesDir, 0);
 		report.append("\nContents of CacheDir " + cacheDir + ":\n");
 		appendReport(report, cacheDir, 0);
+
+		Process process = null;
+		try
+		{
+			process = Runtime.getRuntime().exec("logcat -d -v time");
+			final BufferedReader logReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+
+			report.append('\n');
+			String line;
+			while ((line = logReader.readLine()) != null)
+				report.append(line).append('\n');
+
+			logReader.close();
+		}
+		catch (final IOException x)
+		{
+			x.printStackTrace();
+		}
+		finally
+		{
+			if (process != null)
+				process.destroy();
+		}
 
 		saveAsFile(report.toString());
 
