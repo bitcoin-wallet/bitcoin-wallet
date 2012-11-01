@@ -21,6 +21,7 @@ import java.io.FileFilter;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
+import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
 import java.security.SecureRandom;
 
@@ -84,14 +85,14 @@ public class EncryptionUtils
 	/**
 	 * OpenSSL salted prefix bytes - also used as magic number for encrypted key file.
 	 */
-	private static final byte[] OPENSSL_SALTED_BYTES = OPENSSL_SALTED_TEXT.getBytes(UTF8);
+	private static final byte[] OPENSSL_SALTED_BYTES = stringToBytesUTF8(OPENSSL_SALTED_TEXT);
 
 	/**
 	 * Magic text that appears at the beginning of every OpenSSL encrypted file. Used in identifying encrypted key
 	 * files.
 	 */
-	private static final String OPENSSL_MAGIC_TEXT = new String(Base64.encode(EncryptionUtils.OPENSSL_SALTED_TEXT.getBytes(UTF8), Base64.DEFAULT),
-			UTF8).substring(0, EncryptionUtils.NUMBER_OF_CHARACTERS_TO_MATCH_IN_OPENSSL_MAGIC_TEXT);
+	private static final String OPENSSL_MAGIC_TEXT = bytesToStringUTF8(Base64.encode(EncryptionUtils.OPENSSL_SALTED_BYTES, Base64.DEFAULT))
+			.substring(0, EncryptionUtils.NUMBER_OF_CHARACTERS_TO_MATCH_IN_OPENSSL_MAGIC_TEXT);
 
 	private static final int NUMBER_OF_CHARACTERS_TO_MATCH_IN_OPENSSL_MAGIC_TEXT = 10;
 
@@ -128,14 +129,14 @@ public class EncryptionUtils
 	 */
 	public static String encrypt(final String plainText, final char[] password) throws IOException
 	{
-		final byte[] plainTextAsBytes = plainText.getBytes(UTF8);
+		final byte[] plainTextAsBytes = stringToBytesUTF8(plainText);
 
 		final byte[] encryptedBytes = encrypt(plainTextAsBytes, password);
 
 		// OpenSSL prefixes the salt bytes + encryptedBytes with Salted___ and then base64 encodes it
 		final byte[] encryptedBytesPlusSaltedText = concat(OPENSSL_SALTED_BYTES, encryptedBytes);
 
-		return new String(Base64.encode(encryptedBytesPlusSaltedText, Base64.DEFAULT), UTF8);
+		return bytesToStringUTF8(Base64.encode(encryptedBytesPlusSaltedText, Base64.DEFAULT));
 	}
 
 	/**
@@ -187,7 +188,7 @@ public class EncryptionUtils
 	 */
 	public static String decrypt(final String textToDecode, final char[] password) throws IOException
 	{
-		final byte[] decodeTextAsBytes = Base64.decode(textToDecode.getBytes(UTF8), Base64.DEFAULT);
+		final byte[] decodeTextAsBytes = Base64.decode(stringToBytesUTF8(textToDecode), Base64.DEFAULT);
 
 		// Strip off the bytes due to the OPENSSL_SALTED_TEXT prefix text.
 		final int saltPrefixTextLength = OPENSSL_SALTED_BYTES.length;
@@ -197,7 +198,7 @@ public class EncryptionUtils
 
 		final byte[] decryptedBytes = decrypt(cipherBytes, password);
 
-		return new String(decryptedBytes, UTF8).trim();
+		return bytesToStringUTF8(decryptedBytes).trim();
 	}
 
 	/**
@@ -289,4 +290,28 @@ public class EncryptionUtils
 			}
 		}
 	};
+
+	private static final byte[] stringToBytesUTF8(final String str)
+	{
+		try
+		{
+			return str.getBytes(UTF8.name());
+		}
+		catch (final UnsupportedEncodingException x)
+		{
+			throw new RuntimeException(x);
+		}
+	}
+
+	private static final String bytesToStringUTF8(final byte[] bytes)
+	{
+		try
+		{
+			return new String(bytes, UTF8.name());
+		}
+		catch (final UnsupportedEncodingException x)
+		{
+			throw new RuntimeException(x);
+		}
+	}
 }
