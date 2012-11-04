@@ -256,7 +256,7 @@ public class EncryptionUtils
 
 	public final static FileFilter OPENSSL_FILE_FILTER = new FileFilter()
 	{
-		final char[] buf = new char[OPENSSL_MAGIC_TEXT.length()];
+		private final char[] buf = new char[OPENSSL_MAGIC_TEXT.length()];
 
 		public boolean accept(final File file)
 		{
