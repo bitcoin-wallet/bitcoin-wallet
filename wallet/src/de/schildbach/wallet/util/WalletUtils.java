@@ -18,6 +18,9 @@
 package de.schildbach.wallet.util;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileFilter;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.Writer;
 import java.math.BigInteger;
@@ -264,4 +267,38 @@ public class WalletUtils
 			throw new IOException(x);
 		}
 	}
+
+	public static final FileFilter KEYS_FILE_FILTER = new FileFilter()
+	{
+		public boolean accept(final File file)
+		{
+			BufferedReader reader = null;
+
+			try
+			{
+				reader = new BufferedReader(new FileReader(file));
+				WalletUtils.readKeys(reader);
+
+				return true;
+			}
+			catch (final IOException x)
+			{
+				return false;
+			}
+			finally
+			{
+				if (reader != null)
+				{
+					try
+					{
+						reader.close();
+					}
+					catch (final IOException x)
+					{
+						x.printStackTrace();
+					}
+				}
+			}
+		}
+	};
 }

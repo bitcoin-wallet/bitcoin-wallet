@@ -19,11 +19,13 @@ package de.schildbach.wallet.ui;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileFilter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.Reader;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.io.Writer;
@@ -52,6 +54,8 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.view.Window;
 import android.webkit.WebView;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -278,7 +282,13 @@ public final class WalletActivity extends AbstractWalletActivity
 	{
 		final AlertDialog alertDialog = (AlertDialog) dialog;
 
-		final File[] files = Constants.EXTERNAL_WALLET_BACKUP_DIR.listFiles(EncryptionUtils.OPENSSL_FILE_FILTER);
+		final File[] files = Constants.EXTERNAL_WALLET_BACKUP_DIR.listFiles(new FileFilter()
+		{
+			public boolean accept(final File file)
+			{
+				return WalletUtils.KEYS_FILE_FILTER.accept(file) || EncryptionUtils.OPENSSL_FILE_FILTER.accept(file);
+			}
+		});
 		Arrays.sort(files);
 		final FileAdapter adapter = new FileAdapter(this, files);
 
@@ -289,9 +299,9 @@ public final class WalletActivity extends AbstractWalletActivity
 		final EditText passwordView = (EditText) alertDialog.findViewById(R.id.wallet_import_keys_password);
 		passwordView.setText(null);
 
-		final DialogButtonEnablerListener dialogButtonEnabler = new DialogButtonEnablerListener(passwordView, alertDialog);
-		dialogButtonEnabler.handle();
+		final DialogButtonEnablerListener dialogButtonEnabler = new DialogButtonEnablerListener(fileView, passwordView, alertDialog);
 		passwordView.addTextChangedListener(dialogButtonEnabler);
+		fileView.setOnItemSelectedListener(dialogButtonEnabler);
 
 		final CheckBox showView = (CheckBox) alertDialog.findViewById(R.id.wallet_import_keys_show);
 		showView.setOnCheckedChangeListener(new ShowPasswordCheckListener(passwordView));
@@ -343,8 +353,7 @@ public final class WalletActivity extends AbstractWalletActivity
 		final EditText passwordView = (EditText) alertDialog.findViewById(R.id.wallet_export_keys_password);
 		passwordView.setText(null);
 
-		final DialogButtonEnablerListener dialogButtonEnabler = new DialogButtonEnablerListener(passwordView, alertDialog);
-		dialogButtonEnabler.handle();
+		final DialogButtonEnablerListener dialogButtonEnabler = new DialogButtonEnablerListener(null, passwordView, alertDialog);
 		passwordView.addTextChangedListener(dialogButtonEnabler);
 
 		final CheckBox showView = (CheckBox) alertDialog.findViewById(R.id.wallet_export_keys_show);
@@ -364,15 +373,29 @@ public final class WalletActivity extends AbstractWalletActivity
 		return dialog;
 	}
 
-	private static final class DialogButtonEnablerListener implements TextWatcher
+	private static final class DialogButtonEnablerListener implements TextWatcher, OnItemSelectedListener
 	{
-		private final TextView textView;
+		private final Spinner fileView;
+		private final TextView passwordView;
 		private final AlertDialog dialog;
 
-		public DialogButtonEnablerListener(final TextView textView, final AlertDialog dialog)
+		public DialogButtonEnablerListener(final Spinner fileView, final TextView passwordView, final AlertDialog dialog)
 		{
-			this.textView = textView;
+			this.fileView = fileView;
+			this.passwordView = passwordView;
 			this.dialog = dialog;
+
+			handle();
+		}
+
+		public void onItemSelected(final AdapterView<?> parent, final View view, final int position, final long id)
+		{
+			handle();
+		}
+
+		public void onNothingSelected(final AdapterView<?> parent)
+		{
+			handle();
 		}
 
 		public void afterTextChanged(final Editable s)
@@ -390,10 +413,24 @@ public final class WalletActivity extends AbstractWalletActivity
 
 		public void handle()
 		{
-			final boolean hasText = textView.getText().toString().trim().length() > 0;
+			final boolean hasFile;
+			final boolean needsPassword;
+			if (fileView != null)
+			{
+				final File selectedFile = (File) fileView.getSelectedItem();
+				hasFile = selectedFile != null;
+				needsPassword = hasFile ? EncryptionUtils.OPENSSL_FILE_FILTER.accept(selectedFile) : true;
+			}
+			else
+			{
+				hasFile = true;
+				needsPassword = true;
+			}
+
+			final boolean hasPassword = passwordView.getText().toString().trim().length() > 0;
 
 			final Button button = dialog.getButton(DialogInterface.BUTTON_POSITIVE);
-			button.setEnabled(hasText);
+			button.setEnabled(hasFile && (!needsPassword || hasPassword));
 		}
 	}
 
@@ -547,22 +584,36 @@ public final class WalletActivity extends AbstractWalletActivity
 	{
 		try
 		{
-			final BufferedReader cipherIn = new BufferedReader(new FileReader(file));
-			final StringBuilder cipherText = new StringBuilder();
-			while (true)
+			final Reader plainReader;
+			if (EncryptionUtils.OPENSSL_FILE_FILTER.accept(file))
 			{
-				final String line = cipherIn.readLine();
-				if (line == null)
-					break;
+				final BufferedReader cipherIn = new BufferedReader(new FileReader(file));
+				final StringBuilder cipherText = new StringBuilder();
+				while (true)
+				{
+					final String line = cipherIn.readLine();
+					if (line == null)
+						break;
 
-				cipherText.append(line);
+					cipherText.append(line);
+				}
+				cipherIn.close();
+
+				final String plainText = EncryptionUtils.decrypt(cipherText.toString(), password.toCharArray());
+				plainReader = new StringReader(plainText);
 			}
-			cipherIn.close();
+			else if (WalletUtils.KEYS_FILE_FILTER.accept(file))
+			{
+				plainReader = new FileReader(file);
+			}
+			else
+			{
+				throw new IllegalStateException(file.getAbsolutePath());
+			}
 
-			final String plainText = EncryptionUtils.decrypt(cipherText.toString(), password.toCharArray());
-			final BufferedReader plainIn = new BufferedReader(new StringReader(plainText));
-			final List<ECKey> importedKeys = WalletUtils.readKeys(plainIn);
-			plainIn.close();
+			final BufferedReader keyReader = new BufferedReader(plainReader);
+			final List<ECKey> importedKeys = WalletUtils.readKeys(keyReader);
+			keyReader.close();
 
 			final Wallet wallet = getWalletApplication().getWallet();
 			int importCount = 0;
