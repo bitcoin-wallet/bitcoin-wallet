@@ -1,6 +1,11 @@
+2.32
+
+* can import unencrypted private keys
+* collect logfile for crash report on Jelly Bean (Android 4.1) and above
+
 2.31
 
-* now requires froyo (Android 2.2) or later
+* now requires Froyo (Android 2.2) or later
 
 2.3
 
