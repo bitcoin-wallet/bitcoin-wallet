@@ -47,8 +47,6 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -98,15 +96,6 @@ public final class WalletActivity extends AbstractWalletActivity
 
 		final ActionBar actionBar = getSupportActionBar();
 		actionBar.setTitle(R.string.app_name);
-
-		final boolean twoPanes = findViewById(R.id.wallet_main_twopanes) != null;
-		if (!twoPanes)
-		{
-			final FragmentManager fm = getSupportFragmentManager();
-			final FragmentTransaction ft = fm.beginTransaction();
-			ft.hide(fm.findFragmentById(R.id.exchange_rates_fragment));
-			ft.commit();
-		}
 
 		checkVersionAndTimeskewAlert();
 
@@ -162,6 +151,10 @@ public final class WalletActivity extends AbstractWalletActivity
 
 			case R.id.wallet_options_address_book:
 				AddressBookActivity.start(this, true);
+				return true;
+
+			case R.id.wallet_options_exchange_rates:
+				startActivity(new Intent(this, ExchangeRatesActivity.class));
 				return true;
 
 			case R.id.wallet_options_peer_monitor:

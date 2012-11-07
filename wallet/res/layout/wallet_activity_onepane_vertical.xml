@@ -40,12 +40,6 @@
 				android:layout_width="fill_parent"
 				android:layout_height="fill_parent"
 				android:layout_gravity="bottom|center_horizontal" />
-
-			<fragment
-				android:id="@+id/exchange_rates_fragment"
-				android:name="de.schildbach.wallet.ui.ExchangeRatesFragment"
-				android:layout_width="fill_parent"
-				android:layout_height="fill_parent" />
 		</FrameLayout>
 	</LinearLayout>
 

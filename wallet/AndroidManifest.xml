@@ -98,6 +98,11 @@
 			android:screenOrientation="behind" />
 
 		<activity
+			android:name="de.schildbach.wallet.ui.ExchangeRatesActivity"
+			android:configChanges="keyboard|keyboardHidden"
+			android:screenOrientation="behind" />
+
+		<activity
 			android:name="de.schildbach.wallet.ui.PeerMonitorActivity"
 			android:configChanges="keyboard|keyboardHidden"
 			android:screenOrientation="behind" />

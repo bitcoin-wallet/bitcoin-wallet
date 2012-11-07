@@ -21,6 +21,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.database.Cursor;
@@ -30,8 +31,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
@@ -121,14 +120,7 @@ public final class WalletBalanceFragment extends Fragment implements LoaderManag
 			{
 				public void onClick(final View v)
 				{
-					final FragmentManager fm = getFragmentManager();
-					final FragmentTransaction ft = fm.beginTransaction();
-					ft.hide(fm.findFragmentById(R.id.wallet_address_fragment));
-					ft.hide(fm.findFragmentById(R.id.wallet_transactions_fragment));
-					ft.show(fm.findFragmentById(R.id.exchange_rates_fragment));
-					ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-					ft.addToBackStack(null);
-					ft.commit();
+					startActivity(new Intent(getActivity(), ExchangeRatesActivity.class));
 				}
 			});
 		}
