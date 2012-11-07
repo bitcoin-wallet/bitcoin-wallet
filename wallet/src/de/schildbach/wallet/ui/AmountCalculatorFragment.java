@@ -21,15 +21,12 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.RoundingMode;
 
-import com.google.bitcoin.core.Utils;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.database.Cursor;
-import android.graphics.Paint;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.DialogFragment;
@@ -42,6 +39,9 @@ import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
+
+import com.google.bitcoin.core.Utils;
+
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.ExchangeRatesProvider;
 import de.schildbach.wallet.util.WalletUtils;
@@ -212,7 +212,7 @@ public final class AmountCalculatorFragment extends DialogFragment implements Lo
 			}
 
 			exchangeRateView.setText(getString(R.string.amount_calculator_dialog_exchange_rate, exchangeCurrency,
-					WalletUtils.formatValue(new BigDecimal(Utils.COIN).multiply(bdExchangeRate).toBigInteger())));
+					WalletUtils.formatValue(WalletUtils.localValue(Utils.COIN, bdExchangeRate))));
 		}
 		else
 		{

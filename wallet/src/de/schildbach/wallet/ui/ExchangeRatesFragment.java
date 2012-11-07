@@ -49,6 +49,7 @@ import com.google.bitcoin.core.WalletEventListener;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.ExchangeRatesProvider;
 import de.schildbach.wallet.WalletApplication;
+import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
 
 /**
@@ -73,7 +74,7 @@ public final class ExchangeRatesFragment extends ListFragment implements LoaderM
 		@Override
 		public void onChange()
 		{
-			getActivity().runOnUiThread(new Runnable()
+			activity.runOnUiThread(new Runnable()
 			{
 				public void run()
 				{
@@ -106,11 +107,11 @@ public final class ExchangeRatesFragment extends ListFragment implements LoaderM
 	{
 		super.onActivityCreated(savedInstanceState);
 
-		prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+		prefs = PreferenceManager.getDefaultSharedPreferences(activity);
 
 		setEmptyText(getString(R.string.exchange_rates_fragment_empty_text));
 
-		adapter = new SimpleCursorAdapter(getActivity(), R.layout.exchange_rate_row, null, new String[] { ExchangeRatesProvider.KEY_CURRENCY_CODE,
+		adapter = new SimpleCursorAdapter(activity, R.layout.exchange_rate_row, null, new String[] { ExchangeRatesProvider.KEY_CURRENCY_CODE,
 				ExchangeRatesProvider.KEY_EXCHANGE_RATE }, new int[] { R.id.exchange_rate_currency_code, R.id.exchange_rate_value }, 0);
 		adapter.setViewBinder(new ViewBinder()
 		{
@@ -119,12 +120,12 @@ public final class ExchangeRatesFragment extends ListFragment implements LoaderM
 				if (!ExchangeRatesProvider.KEY_EXCHANGE_RATE.equals(cursor.getColumnName(columnIndex)))
 					return false;
 
-				final BigDecimal rate = new BigDecimal(cursor.getDouble(columnIndex));
-				final BigInteger value = new BigDecimal(balance).multiply(rate).toBigInteger();
+				final BigDecimal exchangeRate = new BigDecimal(cursor.getDouble(columnIndex));
 
 				final CurrencyAmountView valueView = (CurrencyAmountView) view;
 				valueView.setCurrencyCode(null);
-				valueView.setAmount(value);
+				final BigInteger localValue = WalletUtils.localValue(balance, exchangeRate);
+				valueView.setAmount(localValue);
 
 				return true;
 			}
@@ -217,7 +218,7 @@ public final class ExchangeRatesFragment extends ListFragment implements LoaderM
 
 	public Loader<Cursor> onCreateLoader(final int id, final Bundle args)
 	{
-		return new CursorLoader(getActivity(), ExchangeRatesProvider.CONTENT_URI, null, null, null, null);
+		return new CursorLoader(activity, ExchangeRatesProvider.CONTENT_URI, null, null, null, null);
 	}
 
 	public void onLoadFinished(final Loader<Cursor> loader, final Cursor data)

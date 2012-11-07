@@ -23,6 +23,7 @@ import java.io.FileFilter;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Writer;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -177,6 +178,15 @@ public class WalletUtils
 			if (s.length() > pivot)
 				s.setSpan(UNSIGNIFICANT_SPAN, pivot, s.length(), 0);
 		}
+	}
+
+	private static final BigDecimal LOCAL_VALUE_PRECISION = new BigDecimal(new BigInteger("10000", 10));
+
+	public static BigInteger localValue(final BigInteger btcValue, final BigDecimal exchangeRate)
+	{
+		final BigDecimal value = new BigDecimal(btcValue).multiply(exchangeRate);
+		final BigDecimal remainder = value.remainder(LOCAL_VALUE_PRECISION);
+		return value.subtract(remainder).toBigInteger();
 	}
 
 	public static Address getFromAddress(final Transaction tx)

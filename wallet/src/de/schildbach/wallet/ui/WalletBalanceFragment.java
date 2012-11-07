@@ -185,10 +185,11 @@ public final class WalletBalanceFragment extends Fragment implements LoaderManag
 			{
 				final String exchangeCurrency = prefs.getString(Constants.PREFS_KEY_EXCHANGE_CURRENCY, Constants.DEFAULT_EXCHANGE_CURRENCY);
 				final BigInteger balance = wallet.getBalance(BalanceType.ESTIMATED);
-				final BigInteger valueLocal = new BigDecimal(balance).multiply(new BigDecimal(exchangeRate)).toBigInteger();
+				final BigDecimal bdExchangeRate = new BigDecimal(exchangeRate);
+				final BigInteger localValue = WalletUtils.localValue(balance, bdExchangeRate);
 				viewBalanceLocal.setVisibility(View.VISIBLE);
 				viewBalanceLocal.setText(getString(R.string.wallet_balance_fragment_local_value, exchangeCurrency,
-						WalletUtils.formatValue(valueLocal)));
+						WalletUtils.formatValue(localValue)));
 				if (Constants.TEST)
 					viewBalanceLocal.setPaintFlags(viewBalanceLocal.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 			}
