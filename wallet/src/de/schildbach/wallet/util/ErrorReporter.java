@@ -152,39 +152,40 @@ public class ErrorReporter implements Thread.UncaughtExceptionHandler
 
 	public synchronized void uncaughtException(final Thread t, final Throwable e)
 	{
-		report.append("=== collected at exception time ===\n\n");
-
-		report.append("Total Internal memory: " + getTotalInternalMemorySize() + "\n");
-		report.append("Available Internal memory: " + getAvailableInternalMemorySize() + "\n");
-		report.append("\n");
-
-		final Writer result = new StringWriter();
-		final PrintWriter printWriter = new PrintWriter(result);
-		e.printStackTrace(printWriter);
-		final String stacktrace = result.toString();
-		report.append(stacktrace + "\n");
-
-		// If the exception was thrown in a background thread inside
-		// AsyncTask, then the actual exception can be found with getCause
-		Throwable cause = e.getCause();
-		while (cause != null)
-		{
-			cause.printStackTrace(printWriter);
-			report.append("Cause:\n");
-			report.append(result.toString() + "\n");
-			cause = cause.getCause();
-		}
-		printWriter.close();
-
-		// append contents of directories
-		report.append("\nContents of FilesDir " + filesDir + ":\n");
-		appendReport(report, filesDir, 0);
-		report.append("\nContents of CacheDir " + cacheDir + ":\n");
-		appendReport(report, cacheDir, 0);
-
 		Process process = null;
 		try
 		{
+			report.append("=== collected at exception time ===\n\n");
+
+			report.append("Total Internal memory: " + getTotalInternalMemorySize() + "\n");
+			report.append("Available Internal memory: " + getAvailableInternalMemorySize() + "\n");
+			report.append("\n");
+
+			final Writer result = new StringWriter();
+			final PrintWriter printWriter = new PrintWriter(result);
+			e.printStackTrace(printWriter);
+			final String stacktrace = result.toString();
+			report.append(stacktrace + "\n");
+
+			// If the exception was thrown in a background thread inside
+			// AsyncTask, then the actual exception can be found with getCause
+			Throwable cause = e.getCause();
+			while (cause != null)
+			{
+				cause.printStackTrace(printWriter);
+				report.append("Cause:\n");
+				report.append(result.toString() + "\n");
+				cause = cause.getCause();
+			}
+			printWriter.close();
+
+			// append contents of directories
+			report.append("\nContents of FilesDir " + filesDir + ":\n");
+			appendReport(report, filesDir, 0);
+			report.append("\nContents of CacheDir " + cacheDir + ":\n");
+			appendReport(report, cacheDir, 0);
+
+			// likely to throw exception on older android devices
 			process = Runtime.getRuntime().exec("logcat -d -v time");
 			final BufferedReader logReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
 
@@ -194,8 +195,10 @@ public class ErrorReporter implements Thread.UncaughtExceptionHandler
 				report.append(line).append('\n');
 
 			logReader.close();
+
+			saveAsFile(report.toString());
 		}
-		catch (final IOException x)
+		catch (final Exception x)
 		{
 			x.printStackTrace();
 		}
@@ -204,8 +207,6 @@ public class ErrorReporter implements Thread.UncaughtExceptionHandler
 			if (process != null)
 				process.destroy();
 		}
-
-		saveAsFile(report.toString());
 
 		previousHandler.uncaughtException(t, e);
 	}
