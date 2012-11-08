@@ -55,6 +55,25 @@
 		</dependency>
 	</dependencies>
 
+	<profiles>
+		<profile>
+			<id>release</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>com.jayway.maven.plugins.android.generation2</groupId>
+						<artifactId>android-maven-plugin</artifactId>
+						<configuration>
+							<proguard>
+								<skip>false</skip>
+							</proguard>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+
 	<build>
 		<sourceDirectory>src</sourceDirectory>
 		<plugins>
