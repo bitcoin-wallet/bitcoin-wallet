@@ -62,12 +62,7 @@
 			android:name="de.schildbach.wallet.ui.WalletActivity"
 			android:configChanges="keyboard|keyboardHidden"
 			android:exported="true"
-			android:launchMode="singleTask"
-			android:theme="@style/My.Theme" />
-
-		<activity-alias
-			android:name="de.schildbach.wallet.WalletActivity"
-			android:targetActivity="de.schildbach.wallet.ui.WalletActivity" >
+			android:theme="@style/My.Theme" >
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
 
@@ -80,8 +75,7 @@
 
 				<category android:name="android.intent.category.DEFAULT" />
 			</intent-filter>
-		</activity-alias>
-
+		</activity>
 		<activity
 			android:name="de.schildbach.wallet.ui.send.SendCoinsActivity"
 			android:configChanges="keyboard|keyboardHidden"
