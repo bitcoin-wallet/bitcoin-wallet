@@ -42,7 +42,6 @@
 	<string name="wallet_version_dialog_button_market">Google Play</string>
 	<string name="wallet_version_dialog_button_binary">Télécharger</string>
 	<string name="send_coins_activity_title">Envoyer les Bitcoins</string>
-	<string name="send_coins_install_qr_scanner_msg">Veuillez installer ZXing QR-code scanner&#x202F;!</string>
 	<string name="send_coins_uri_parse_error_title">URI Bitcoin invalide</string>
 	<string name="send_coins_parse_address_error_msg">Réception d\'une adresse Bitcoin invalide&#x202F;!\n(Mélange entre Testnet et Prodnet&#x202F;?)</string>
 	<string name="send_coins_fragment_receiving_address_label">Payer à</string>

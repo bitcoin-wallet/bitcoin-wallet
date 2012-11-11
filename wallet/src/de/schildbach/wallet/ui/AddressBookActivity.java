@@ -109,9 +109,9 @@ public final class AddressBookActivity extends AbstractWalletActivity
 	@Override
 	public void onActivityResult(final int requestCode, final int resultCode, final Intent intent)
 	{
-		if (requestCode == REQUEST_CODE_SCAN && resultCode == RESULT_OK && "QR_CODE".equals(intent.getStringExtra("SCAN_RESULT_FORMAT")))
+		if (requestCode == REQUEST_CODE_SCAN && resultCode == RESULT_OK)
 		{
-			final String contents = intent.getStringExtra("SCAN_RESULT");
+			final String contents = intent.getStringExtra(ScanActivity.INTENT_EXTRA_RESULT);
 
 			try
 			{
@@ -166,15 +166,7 @@ public final class AddressBookActivity extends AbstractWalletActivity
 
 	private void handleScan()
 	{
-		if (getPackageManager().resolveActivity(Constants.INTENT_QR_SCANNER, 0) != null)
-		{
-			startActivityForResult(Constants.INTENT_QR_SCANNER, REQUEST_CODE_SCAN);
-		}
-		else
-		{
-			showMarketPage(Constants.PACKAGE_NAME_ZXING);
-			longToast(R.string.send_coins_install_qr_scanner_msg);
-		}
+		startActivityForResult(new Intent(this, ScanActivity.class), REQUEST_CODE_SCAN);
 	}
 
 	/* private */void updateFragments()

@@ -13,6 +13,8 @@
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 	<uses-permission android:name="android.permission.NFC" />
+	<uses-permission android:name="android.permission.CAMERA" />
+	<uses-permission android:name="android.permission.VIBRATE" />
 	<uses-permission android:name="android.permission.WAKE_LOCK" />
 	<uses-permission android:name="android.permission.BROADCAST_STICKY" />
 	<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
@@ -28,6 +30,15 @@
 		android:required="false" />
 	<uses-feature
 		android:name="android.hardware.camera.front"
+		android:required="false" />
+	<uses-feature
+		android:name="android.hardware.camera.autofocus"
+		android:required="false" />
+	<uses-feature
+		android:name="android.hardware.camera.flash"
+		android:required="false" />
+	<uses-feature
+		android:name="android.hardware.screen.landscape"
 		android:required="false" />
 
 	<supports-screens
@@ -122,6 +133,13 @@
 		<activity
 			android:name="de.schildbach.wallet.ui.AboutActivity"
 			android:screenOrientation="behind" />
+		<activity
+			android:name="de.schildbach.wallet.ui.ScanActivity"
+			android:configChanges="orientation|keyboard|keyboardHidden"
+			android:screenOrientation="landscape"
+			android:stateNotNeeded="true"
+			android:theme="@style/My.Theme.Fullscreen"
+			android:windowSoftInputMode="stateAlwaysHidden" />
 
 		<provider
 			android:name="de.schildbach.wallet.AddressBookProvider"

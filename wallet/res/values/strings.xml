@@ -58,7 +58,6 @@
 	<string name="wallet_version_dialog_button_market">Google Play</string>
 	<string name="wallet_version_dialog_button_binary">Download</string>
 	<string name="send_coins_activity_title">Send Bitcoins</string>
-	<string name="send_coins_install_qr_scanner_msg">Please install ZXing QR-code scanner!</string>
 	<string name="send_coins_uri_parse_error_title">Invalid Bitcoin URI</string>
 	<string name="send_coins_parse_address_error_msg">Got invalid bitcoin address!\n(Mixing up Testnet/Prodnet?)</string>
 	<string name="send_coins_fragment_receiving_address_label">Pay to</string>
@@ -132,6 +131,8 @@
 	<string name="amount_calculator_dialog_exchange_rate_not_available">Exchange rate not available.</string>
 	<string name="peer_monitor_activity_title">Peer Monitor</string>
 	<string name="peer_list_fragment_empty">No peers connected</string>
+	<string name="scan_camera_problem_dialog_title">Sorry</string>
+	<string name="scan_camera_problem_dialog_message">The camera has a problem. You probably need to restart the device.</string>
 	<string name="about_title">About</string>
 	<string name="about_license_title">License</string>
 	<string name="about_credits_bitcoinj_title">"This app is using 'bitcoinj'"</string>

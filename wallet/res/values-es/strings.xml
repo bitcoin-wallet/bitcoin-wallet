@@ -42,7 +42,6 @@
 	<string name="wallet_version_dialog_button_market">Google Play</string>
 	<string name="wallet_version_dialog_button_binary">Descargar</string>
 	<string name="send_coins_activity_title">Enviar bitcoins</string>
-	<string name="send_coins_install_qr_scanner_msg">Por favor, ¡instala un explorador de códigos QR como ZXing!</string>
 	<string name="send_coins_uri_parse_error_title">URI de Bitcoin inválida</string>
 	<string name="send_coins_parse_address_error_msg">¡Dirección inválida de Bitcoin!\n(¿Confusión Testnet/Prodnet?)</string>
 	<string name="send_coins_fragment_receiving_address_label">Pagar a</string>

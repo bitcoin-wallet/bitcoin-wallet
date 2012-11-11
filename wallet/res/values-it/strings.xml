@@ -28,7 +28,6 @@
 	<string name="wallet_low_storage_dialog_button_apps">Gestisci applicazioni</string>
 
 	<string name="send_coins_activity_title">Invia Bitcoins</string>
-	<string name="send_coins_install_qr_scanner_msg">Installa ZXing QR-code scanner!</string>
 	<string name="send_coins_fragment_receiving_address_label">Paga a</string>
 	<string name="send_coins_fragment_receiving_address_hint">inserisci indirizzo o nome</string>
 	<string name="send_coins_fragment_receiving_address_error">Indirizzo Bitcoin invalido!</string>

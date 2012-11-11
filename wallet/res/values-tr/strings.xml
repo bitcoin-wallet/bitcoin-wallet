@@ -42,7 +42,6 @@
 	<string name="wallet_version_dialog_button_market">Google Play</string>
 	<string name="wallet_version_dialog_button_binary">İndir</string>
 	<string name="send_coins_activity_title">Bitcoin gönder</string>
-	<string name="send_coins_install_qr_scanner_msg">Lütfen ZXing QR code scanner uygulamasını yükleyiniz!</string>
 	<string name="send_coins_uri_parse_error_title">Geçersiz Bitcoin URİ\'si</string>
 	<string name="send_coins_parse_address_error_msg">Geçersiz bitcoin adresi alındı!\n(Testnet ile Prodnet karışmış olmasın?)</string>
 	<string name="send_coins_fragment_receiving_address_label">Şuna öde</string>

@@ -35,7 +35,6 @@ import com.google.bitcoin.core.Address;
 import com.google.bitcoin.uri.BitcoinURI;
 import com.google.bitcoin.uri.BitcoinURIParseException;
 
-import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.service.BlockchainServiceImpl;
 import de.schildbach.wallet_test.R;
 
@@ -90,9 +89,9 @@ public final class SendCoinsActivity extends AbstractWalletActivity
 	@Override
 	public void onActivityResult(final int requestCode, final int resultCode, final Intent intent)
 	{
-		if (requestCode == REQUEST_CODE_SCAN && resultCode == RESULT_OK && "QR_CODE".equals(intent.getStringExtra("SCAN_RESULT_FORMAT")))
+		if (requestCode == REQUEST_CODE_SCAN && resultCode == RESULT_OK)
 		{
-			final String contents = intent.getStringExtra("SCAN_RESULT");
+			final String contents = intent.getStringExtra(ScanActivity.INTENT_EXTRA_RESULT);
 			if (contents.matches("[a-zA-Z0-9]*"))
 			{
 				updateSendCoinsFragment(contents, null, null);
@@ -140,16 +139,7 @@ public final class SendCoinsActivity extends AbstractWalletActivity
 				return true;
 
 			case R.id.send_coins_options_scan:
-				if (getPackageManager().resolveActivity(Constants.INTENT_QR_SCANNER, 0) != null)
-				{
-					startActivityForResult(Constants.INTENT_QR_SCANNER, REQUEST_CODE_SCAN);
-				}
-				else
-				{
-					showMarketPage(Constants.PACKAGE_NAME_ZXING);
-					longToast(R.string.send_coins_install_qr_scanner_msg);
-				}
-
+				handleScan();
 				return true;
 		}
 
@@ -196,6 +186,11 @@ public final class SendCoinsActivity extends AbstractWalletActivity
 			updateSendCoinsFragment(address, addressLabel, amount);
 		else
 			longToast(R.string.send_coins_parse_address_error_msg);
+	}
+
+	private void handleScan()
+	{
+		startActivityForResult(new Intent(this, ScanActivity.class), REQUEST_CODE_SCAN);
 	}
 
 	private void updateSendCoinsFragment(final String receivingAddress, final String receivingLabel, final BigInteger amount)
