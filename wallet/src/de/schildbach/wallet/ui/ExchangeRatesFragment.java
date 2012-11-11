@@ -27,7 +27,6 @@ import com.google.common.base.Strings;
 import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
-import de.schildbach.wallet.WalletBalanceWidgetProvider;
 import de.schildbach.wallet.data.ExchangeRate;
 import de.schildbach.wallet.data.ExchangeRatesProvider;
 import de.schildbach.wallet.service.BlockchainState;
@@ -371,7 +370,6 @@ public final class ExchangeRatesFragment extends Fragment implements OnSharedPre
                             if (item.getItemId() == R.id.exchange_rates_context_set_as_default) {
                                 setDefaultCurrency(exchangeRate.getCurrencyCode());
                                 config.setExchangeCurrencyCode(exchangeRate.getCurrencyCode());
-                                WalletBalanceWidgetProvider.updateWidgets(activity, wallet);
                                 return true;
                             } else {
                                 return false;
