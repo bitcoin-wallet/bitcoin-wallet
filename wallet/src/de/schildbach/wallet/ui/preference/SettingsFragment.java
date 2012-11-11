@@ -27,7 +27,6 @@ import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceFragment;
 import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.WalletApplication;
-import de.schildbach.wallet.WalletBalanceWidgetProvider;
 import de.schildbach.wallet_test.R;
 
 /**
@@ -98,11 +97,7 @@ public final class SettingsFragment extends PreferenceFragment implements OnPref
 			@Override
 			public void run()
 			{
-				if (preference.equals(btcPrecisionPreference))
-				{
-					WalletBalanceWidgetProvider.updateWidgets(activity, application.getWallet());
-				}
-				else if (preference.equals(trustedPeerPreference))
+				if (preference.equals(trustedPeerPreference))
 				{
 					application.stopBlockchainService();
 					updateTrustedPeer((String) newValue);

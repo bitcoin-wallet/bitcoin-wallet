@@ -50,7 +50,6 @@ import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.ExchangeRatesProvider;
 import de.schildbach.wallet.ExchangeRatesProvider.ExchangeRate;
 import de.schildbach.wallet.WalletApplication;
-import de.schildbach.wallet.WalletBalanceWidgetProvider;
 import de.schildbach.wallet.service.BlockchainState;
 import de.schildbach.wallet.service.BlockchainStateLoader;
 import de.schildbach.wallet.util.WholeStringBuilder;
@@ -230,8 +229,6 @@ public final class ExchangeRatesFragment extends FancyListFragment implements On
 			private void handleSetAsDefault(final String currencyCode)
 			{
 				config.setExchangeCurrencyCode(currencyCode);
-
-				WalletBalanceWidgetProvider.updateWidgets(activity, wallet);
 			}
 		});
 	}
