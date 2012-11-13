@@ -483,9 +483,14 @@ public final class SendCoinsFragment extends SherlockFragment implements AmountC
 		isValidAmounts = false;
 
 		final BigInteger amount = amountView.getAmount();
-		final boolean validAmount = amount != null && amount.signum() > 0;
 
-		if (validAmount)
+		if (amount == null)
+		{
+			// empty amount
+			if (popups)
+				popupMessage(amountView, getString(R.string.send_coins_fragment_amount_empty));
+		}
+		else if (amount.signum() > 0)
 		{
 			final BigInteger estimated = wallet.getBalance(BalanceType.ESTIMATED);
 			final BigInteger available = wallet.getBalance(BalanceType.AVAILABLE);
