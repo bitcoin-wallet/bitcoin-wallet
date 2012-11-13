@@ -23,6 +23,12 @@
 	<uses-feature
 		android:name="android.hardware.nfc"
 		android:required="false" />
+	<uses-feature
+		android:name="android.hardware.camera"
+		android:required="false" />
+	<uses-feature
+		android:name="android.hardware.camera.front"
+		android:required="false" />
 
 	<supports-screens
 		android:anyDensity="true"
@@ -47,6 +53,7 @@
 			android:targetActivity="de.schildbach.wallet.ui.WalletActivity" >
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
+
 				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
 		</activity-alias>
@@ -58,59 +65,60 @@
 			android:windowSoftInputMode="adjustResize" >
 			<intent-filter android:label="@string/send_coins_activity_title" >
 				<action android:name="android.intent.action.VIEW" />
+
 				<data android:scheme="bitcoin" />
+
 				<category android:name="android.intent.category.DEFAULT" />
 				<category android:name="android.intent.category.BROWSABLE" />
 			</intent-filter>
 			<intent-filter android:label="@string/send_coins_activity_title" >
 				<action android:name="android.nfc.action.NDEF_DISCOVERED" />
+
 				<data android:scheme="bitcoin" />
+
 				<category android:name="android.intent.category.DEFAULT" />
 			</intent-filter>
 		</activity>
-
 		<activity
 			android:name="de.schildbach.wallet.ui.RequestCoinsActivity"
 			android:configChanges="keyboard|keyboardHidden"
 			android:screenOrientation="behind"
 			android:windowSoftInputMode="adjustResize" />
-
 		<activity
 			android:name="de.schildbach.wallet.ui.TransactionActivity"
 			android:configChanges="keyboard|keyboardHidden"
 			android:screenOrientation="behind" >
 			<intent-filter>
 				<action android:name="android.intent.action.VIEW" />
+
 				<data android:scheme="btctx" />
+
 				<category android:name="android.intent.category.DEFAULT" />
 				<category android:name="android.intent.category.BROWSABLE" />
 			</intent-filter>
 			<intent-filter>
 				<action android:name="android.nfc.action.NDEF_DISCOVERED" />
+
 				<data android:mimeType="application/x-btctx" />
+
 				<category android:name="android.intent.category.DEFAULT" />
 			</intent-filter>
 		</activity>
-
 		<activity
 			android:name="de.schildbach.wallet.ui.AddressBookActivity"
 			android:configChanges="keyboard|keyboardHidden"
 			android:screenOrientation="behind" />
-
 		<activity
 			android:name="de.schildbach.wallet.ui.ExchangeRatesActivity"
 			android:configChanges="keyboard|keyboardHidden"
 			android:screenOrientation="behind" />
-
 		<activity
 			android:name="de.schildbach.wallet.ui.PeerMonitorActivity"
 			android:configChanges="keyboard|keyboardHidden"
 			android:screenOrientation="behind" />
-
 		<activity
 			android:name="de.schildbach.wallet.ui.PreferencesActivity"
 			android:screenOrientation="behind" />
-
 		<activity
 			android:name="de.schildbach.wallet.ui.AboutActivity"
 			android:screenOrientation="behind" />
@@ -119,7 +127,6 @@
 			android:name="de.schildbach.wallet.AddressBookProvider"
 			android:authorities="de.schildbach.wallet_test.address_book"
 			android:exported="false" />
-
 		<provider
 			android:name="de.schildbach.wallet.ExchangeRatesProvider"
 			android:authorities="de.schildbach.wallet_test.exchange_rates"
@@ -131,6 +138,7 @@
 			<intent-filter>
 				<action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
 			</intent-filter>
+
 			<meta-data
 				android:name="android.appwidget.provider"
 				android:resource="@xml/wallet_balance_widget" />
@@ -148,10 +156,12 @@
 			</intent-filter>
 			<intent-filter>
 				<action android:name="android.intent.action.PACKAGE_REPLACED" />
-				<data android:scheme="package" android:path="de.schildbach.wallet_test" />
+
+				<data
+					android:path="de.schildbach.wallet_test"
+					android:scheme="package" />
 			</intent-filter>
 		</receiver>
-
 	</application>
 
 </manifest>

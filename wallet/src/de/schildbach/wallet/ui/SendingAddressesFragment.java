@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -109,6 +110,10 @@ public final class SendingAddressesFragment extends SherlockListFragment impleme
 	public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater)
 	{
 		inflater.inflate(R.menu.sending_addresses_fragment_options, menu);
+
+		final PackageManager pm = activity.getPackageManager();
+		menu.findItem(R.id.sending_addresses_options_scan).setVisible(
+				pm.hasSystemFeature(PackageManager.FEATURE_CAMERA) || pm.hasSystemFeature(PackageManager.FEATURE_CAMERA_FRONT));
 
 		super.onCreateOptionsMenu(menu, inflater);
 	}

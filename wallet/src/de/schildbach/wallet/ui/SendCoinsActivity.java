@@ -21,6 +21,7 @@ import java.math.BigInteger;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.nfc.NfcAdapter;
 import android.os.Bundle;
@@ -117,6 +118,10 @@ public final class SendCoinsActivity extends AbstractWalletActivity
 	public boolean onCreateOptionsMenu(final Menu menu)
 	{
 		getSupportMenuInflater().inflate(R.menu.send_coins_activity_options, menu);
+
+		final PackageManager pm = getPackageManager();
+		menu.findItem(R.id.send_coins_options_scan).setVisible(
+				pm.hasSystemFeature(PackageManager.FEATURE_CAMERA) || pm.hasSystemFeature(PackageManager.FEATURE_CAMERA_FRONT));
 
 		return super.onCreateOptionsMenu(menu);
 	}
