@@ -21,8 +21,12 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.Preference;
-import android.preference.PreferenceActivity;
 import android.preference.PreferenceScreen;
+
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.SherlockPreferenceActivity;
+import com.actionbarsherlock.view.MenuItem;
+
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet_test.R;
@@ -30,7 +34,7 @@ import de.schildbach.wallet_test.R;
 /**
  * @author Andreas Schildbach
  */
-public final class AboutActivity extends PreferenceActivity
+public final class AboutActivity extends SherlockPreferenceActivity
 {
 	private static final String KEY_ABOUT_VERSION = "about_version";
 	private static final String KEY_ABOUT_LICENSE = "about_license";
@@ -44,11 +48,15 @@ public final class AboutActivity extends PreferenceActivity
 	private static final String KEY_ABOUT_MARKET_PUBLISHER = "about_market_publisher";
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState)
+	protected void onCreate(final Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 
 		addPreferencesFromResource(R.xml.about);
+
+		final ActionBar actionBar = getSupportActionBar();
+		actionBar.setTitle(R.string.about_title);
+		actionBar.setDisplayHomeAsUpEnabled(true);
 
 		findPreference(KEY_ABOUT_VERSION).setSummary(((WalletApplication) getApplication()).applicationVersionName());
 		findPreference(KEY_ABOUT_LICENSE).setSummary(Constants.LICENSE_URL);
@@ -58,6 +66,19 @@ public final class AboutActivity extends PreferenceActivity
 		findPreference(KEY_ABOUT_CREDITS_ICON).setSummary(Constants.CREDITS_ICON_URL);
 		findPreference(KEY_ABOUT_MARKET_APP).setSummary(String.format(Constants.MARKET_APP_URL, getPackageName()));
 		findPreference(KEY_ABOUT_MARKET_PUBLISHER).setSummary(Constants.MARKET_PUBLISHER_URL);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(final MenuItem item)
+	{
+		switch (item.getItemId())
+		{
+			case android.R.id.home:
+				finish();
+				return true;
+		}
+
+		return super.onOptionsItemSelected(item);
 	}
 
 	@Override
