@@ -22,28 +22,49 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
 import android.preference.Preference;
-import android.preference.PreferenceActivity;
 import android.preference.PreferenceScreen;
+
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.SherlockPreferenceActivity;
+import com.actionbarsherlock.view.MenuItem;
+
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet_test.R;
 
 /**
  * @author Andreas Schildbach
  */
-public final class PreferencesActivity extends PreferenceActivity
+public final class PreferencesActivity extends SherlockPreferenceActivity
 {
 	private WalletApplication application;
 
 	private static final String PREFS_KEY_INITIATE_RESET = "initiate_reset";
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState)
+	protected void onCreate(final Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 
 		application = (WalletApplication) getApplication();
 
 		addPreferencesFromResource(R.xml.preferences);
+
+		final ActionBar actionBar = getSupportActionBar();
+		actionBar.setTitle(R.string.preferences_title);
+		actionBar.setDisplayHomeAsUpEnabled(true);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(final MenuItem item)
+	{
+		switch (item.getItemId())
+		{
+			case android.R.id.home:
+				finish();
+				return true;
+		}
+
+		return super.onOptionsItemSelected(item);
 	}
 
 	@Override
