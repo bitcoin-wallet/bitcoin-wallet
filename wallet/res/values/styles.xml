@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-	<style name="My.Theme" parent="Theme.Sherlock.Light.DarkActionBar.ForceOverflow">
+	<style name="My.Theme" parent="@style/Theme.Sherlock.Light.DarkActionBar.ForceOverflow">
 		<item name="actionBarStyle">@style/My.Widget.ActionBar</item>
 		<item name="android:actionBarStyle">@style/My.Widget.ActionBar</item>
 		<item name="actionModeStyle">@style/My.Widget.ActionMode</item>
@@ -14,7 +14,7 @@
 
 	<style name="My.Theme.Fullscreen" parent="@android:style/Theme.NoTitleBar.Fullscreen" />
 
-	<style name="My.Widget.ActionBar" parent="Widget.Sherlock.Light.ActionBar.Solid.Inverse">
+	<style name="My.Widget.ActionBar" parent="@style/Widget.Sherlock.Light.ActionBar.Solid.Inverse">
 		<item name="background">@drawable/action_bar_background</item>
 		<item name="android:background">@drawable/action_bar_background</item>
 		<item name="titleTextStyle">@style/My.TextAppearance.Widget.ActionBar.Title</item>
@@ -23,33 +23,33 @@
 		<item name="android:subtitleTextStyle">@style/My.TextAppearance.Widget.ActionBar.Subtitle</item>
 	</style>
 
-	<style name="My.TextAppearance.Widget.ActionBar.Title" parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Title">
+	<style name="My.TextAppearance.Widget.ActionBar.Title" parent="@style/TextAppearance.Sherlock.Widget.ActionBar.Title">
 		<item name="android:textColor">@android:color/white</item>
 		<item name="android:textStyle">bold</item>
 		<item name="android:shadowColor">@android:color/black</item>
 		<item name="android:shadowRadius">1</item>
 	</style>
 
-	<style name="My.TextAppearance.Widget.ActionBar.Subtitle" parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Subtitle">
+	<style name="My.TextAppearance.Widget.ActionBar.Subtitle" parent="@style/TextAppearance.Sherlock.Widget.ActionBar.Subtitle">
 		<item name="android:textColor">@android:color/white</item>
 		<item name="android:textStyle">normal</item>
 	</style>
 
-	<style name="My.Widget.ActionMode" parent="Widget.Sherlock.Light.ActionMode.Inverse">
+	<style name="My.Widget.ActionMode" parent="@style/Widget.Sherlock.Light.ActionMode.Inverse">
 		<item name="titleTextStyle">@style/My.TextAppearance.Widget.ActionMode.Title</item>
 		<item name="android:titleTextStyle">@style/My.TextAppearance.Widget.ActionMode.Title</item>
 		<item name="subtitleTextStyle">@style/My.TextAppearance.Widget.ActionMode.Subtitle</item>
 		<item name="android:subtitleTextStyle">@style/My.TextAppearance.Widget.ActionMode.Subtitle</item>
 	</style>
 
-	<style name="My.TextAppearance.Widget.ActionMode.Title" parent="@android:style/TextAppearance.Holo.Widget.ActionMode.Title">
+	<style name="My.TextAppearance.Widget.ActionMode.Title" parent="@style/TextAppearance.Sherlock.Widget.ActionMode.Title">
 		<item name="android:textColor">@android:color/white</item>
 		<item name="android:textStyle">bold</item>
 		<item name="android:shadowColor">@android:color/black</item>
 		<item name="android:shadowRadius">1</item>
 	</style>
 
-	<style name="My.TextAppearance.Widget.ActionMode.Subtitle" parent="@android:style/TextAppearance.Holo.Widget.ActionMode.Subtitle">
+	<style name="My.TextAppearance.Widget.ActionMode.Subtitle" parent="@style/TextAppearance.Sherlock.Widget.ActionMode.Subtitle">
 		<item name="android:textColor">@android:color/white</item>
 		<item name="android:textStyle">normal</item>
 	</style>
