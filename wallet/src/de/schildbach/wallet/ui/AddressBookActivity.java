@@ -22,7 +22,6 @@ import java.util.ArrayList;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -31,10 +30,7 @@ import android.support.v4.view.ViewPager;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.MenuItem;
 import com.google.bitcoin.core.Address;
-import com.google.bitcoin.core.AddressFormatException;
 import com.google.bitcoin.core.ECKey;
-import com.google.bitcoin.uri.BitcoinURI;
-import com.google.bitcoin.uri.BitcoinURIParseException;
 
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.util.ViewPagerTabs;
@@ -54,13 +50,8 @@ public final class AddressBookActivity extends AbstractWalletActivity
 
 	private static final String EXTRA_SENDING = "sending";
 
-	private static final int REQUEST_CODE_SCAN = 0;
-
 	private WalletAddressesFragment walletAddressesFragment;
 	private SendingAddressesFragment sendingAddressesFragment;
-
-	private FragmentManager fm;
-	private final Handler handler = new Handler();
 
 	@Override
 	protected void onCreate(final Bundle savedInstanceState)
@@ -75,7 +66,7 @@ public final class AddressBookActivity extends AbstractWalletActivity
 
 		final ViewPager pager = (ViewPager) findViewById(R.id.address_book_pager);
 
-		fm = getSupportFragmentManager();
+		final FragmentManager fm = getSupportFragmentManager();
 
 		if (pager != null)
 		{
@@ -107,66 +98,16 @@ public final class AddressBookActivity extends AbstractWalletActivity
 	}
 
 	@Override
-	public void onActivityResult(final int requestCode, final int resultCode, final Intent intent)
-	{
-		if (requestCode == REQUEST_CODE_SCAN && resultCode == RESULT_OK)
-		{
-			final String contents = intent.getStringExtra(ScanActivity.INTENT_EXTRA_RESULT);
-
-			try
-			{
-				final Address address;
-
-				if (contents.matches("[a-zA-Z0-9]*"))
-				{
-					address = new Address(Constants.NETWORK_PARAMETERS, contents);
-				}
-				else
-				{
-					// TODO nicer cross-network handling
-					final BitcoinURI bitcoinUri = new BitcoinURI(Constants.NETWORK_PARAMETERS, contents);
-					address = bitcoinUri.getAddress();
-				}
-
-				handler.postDelayed(new Runnable()
-				{
-					public void run()
-					{
-						EditAddressBookEntryFragment.edit(fm, address.toString());
-					}
-				}, 500);
-			}
-			catch (final AddressFormatException x)
-			{
-				parseErrorDialog(contents);
-			}
-			catch (final BitcoinURIParseException x)
-			{
-				parseErrorDialog(contents);
-			}
-		}
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item)
+	public boolean onOptionsItemSelected(final MenuItem item)
 	{
 		switch (item.getItemId())
 		{
 			case android.R.id.home:
 				finish();
 				return true;
-
-			case R.id.sending_addresses_options_scan:
-				handleScan();
-				return true;
 		}
 
 		return super.onOptionsItemSelected(item);
-	}
-
-	private void handleScan()
-	{
-		startActivityForResult(new Intent(this, ScanActivity.class), REQUEST_CODE_SCAN);
 	}
 
 	/* private */void updateFragments()

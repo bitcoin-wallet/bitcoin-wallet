@@ -21,7 +21,6 @@ import java.math.BigInteger;
 
 import android.app.Dialog;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.nfc.NfcAdapter;
 import android.os.Bundle;
@@ -31,7 +30,6 @@ import android.webkit.WebView;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
-import com.google.bitcoin.core.Address;
 import com.google.bitcoin.uri.BitcoinURI;
 import com.google.bitcoin.uri.BitcoinURIParseException;
 
@@ -47,8 +45,6 @@ public final class SendCoinsActivity extends AbstractWalletActivity
 	public static final String INTENT_EXTRA_ADDRESS_LABEL = "address_label";
 
 	private static final int DIALOG_HELP = 0;
-
-	private static final int REQUEST_CODE_SCAN = 0;
 
 	@Override
 	protected void onCreate(final Bundle savedInstanceState)
@@ -87,40 +83,9 @@ public final class SendCoinsActivity extends AbstractWalletActivity
 	}
 
 	@Override
-	public void onActivityResult(final int requestCode, final int resultCode, final Intent intent)
-	{
-		if (requestCode == REQUEST_CODE_SCAN && resultCode == RESULT_OK)
-		{
-			final String contents = intent.getStringExtra(ScanActivity.INTENT_EXTRA_RESULT);
-			if (contents.matches("[a-zA-Z0-9]*"))
-			{
-				updateSendCoinsFragment(contents, null, null);
-			}
-			else
-			{
-				try
-				{
-					final BitcoinURI bitcoinUri = new BitcoinURI(null, contents);
-					final Address address = bitcoinUri.getAddress();
-					final String addressLabel = bitcoinUri.getLabel();
-					updateSendCoinsFragment(address != null ? address.toString() : null, addressLabel, bitcoinUri.getAmount());
-				}
-				catch (final BitcoinURIParseException x)
-				{
-					parseErrorDialog(contents);
-				}
-			}
-		}
-	}
-
-	@Override
 	public boolean onCreateOptionsMenu(final Menu menu)
 	{
 		getSupportMenuInflater().inflate(R.menu.send_coins_activity_options, menu);
-
-		final PackageManager pm = getPackageManager();
-		menu.findItem(R.id.send_coins_options_scan).setVisible(
-				pm.hasSystemFeature(PackageManager.FEATURE_CAMERA) || pm.hasSystemFeature(PackageManager.FEATURE_CAMERA_FRONT));
 
 		return super.onCreateOptionsMenu(menu);
 	}
@@ -136,10 +101,6 @@ public final class SendCoinsActivity extends AbstractWalletActivity
 
 			case R.id.send_coins_options_help:
 				showDialog(DIALOG_HELP);
-				return true;
-
-			case R.id.send_coins_options_scan:
-				handleScan();
 				return true;
 		}
 
@@ -186,11 +147,6 @@ public final class SendCoinsActivity extends AbstractWalletActivity
 			updateSendCoinsFragment(address, addressLabel, amount);
 		else
 			longToast(R.string.send_coins_parse_address_error_msg);
-	}
-
-	private void handleScan()
-	{
-		startActivityForResult(new Intent(this, ScanActivity.class), REQUEST_CODE_SCAN);
 	}
 
 	private void updateSendCoinsFragment(final String receivingAddress, final String receivingLabel, final BigInteger amount)

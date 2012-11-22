@@ -44,6 +44,7 @@ import com.actionbarsherlock.view.MenuItem;
 import com.google.bitcoin.core.Address;
 import com.google.bitcoin.core.AddressFormatException;
 import com.google.bitcoin.uri.BitcoinURI;
+import com.google.bitcoin.uri.BitcoinURIParseException;
 
 import de.schildbach.wallet.AddressBookProvider;
 import de.schildbach.wallet.Constants;
@@ -60,6 +61,8 @@ public final class SendingAddressesFragment extends SherlockListFragment impleme
 	private ClipboardManager clipboardManager;
 	private SimpleCursorAdapter adapter;
 	private String walletAddressesSelection;
+
+	private static final int REQUEST_CODE_SCAN = 0;
 
 	@Override
 	public void onAttach(final Activity activity)
@@ -107,6 +110,41 @@ public final class SendingAddressesFragment extends SherlockListFragment impleme
 	}
 
 	@Override
+	public void onActivityResult(final int requestCode, final int resultCode, final Intent intent)
+	{
+		if (requestCode == REQUEST_CODE_SCAN && resultCode == Activity.RESULT_OK)
+		{
+			final String contents = intent.getStringExtra(ScanActivity.INTENT_EXTRA_RESULT);
+
+			try
+			{
+				final Address address;
+
+				if (contents.matches("[a-zA-Z0-9]*"))
+				{
+					address = new Address(Constants.NETWORK_PARAMETERS, contents);
+				}
+				else
+				{
+					// TODO nicer cross-network handling
+					final BitcoinURI bitcoinUri = new BitcoinURI(Constants.NETWORK_PARAMETERS, contents);
+					address = bitcoinUri.getAddress();
+				}
+
+				EditAddressBookEntryFragment.edit(getFragmentManager(), address.toString());
+			}
+			catch (final AddressFormatException x)
+			{
+				activity.parseErrorDialog(contents);
+			}
+			catch (final BitcoinURIParseException x)
+			{
+				activity.parseErrorDialog(contents);
+			}
+		}
+	}
+
+	@Override
 	public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater)
 	{
 		inflater.inflate(R.menu.sending_addresses_fragment_options, menu);
@@ -125,6 +163,10 @@ public final class SendingAddressesFragment extends SherlockListFragment impleme
 		{
 			case R.id.sending_addresses_options_paste:
 				handlePasteClipboard();
+				return true;
+
+			case R.id.sending_addresses_options_scan:
+				handleScan();
 				return true;
 		}
 
@@ -151,6 +193,11 @@ public final class SendingAddressesFragment extends SherlockListFragment impleme
 		{
 			activity.toast(R.string.address_book_options_copy_from_clipboard_msg_empty);
 		}
+	}
+
+	private void handleScan()
+	{
+		startActivityForResult(new Intent(activity, ScanActivity.class), REQUEST_CODE_SCAN);
 	}
 
 	@Override

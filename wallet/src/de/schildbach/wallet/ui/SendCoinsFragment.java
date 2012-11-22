@@ -27,6 +27,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.pm.PackageManager;
 import android.database.ContentObserver;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -59,6 +60,8 @@ import com.google.bitcoin.core.Transaction;
 import com.google.bitcoin.core.TransactionConfidence;
 import com.google.bitcoin.core.Wallet;
 import com.google.bitcoin.core.Wallet.BalanceType;
+import com.google.bitcoin.uri.BitcoinURI;
+import com.google.bitcoin.uri.BitcoinURIParseException;
 
 import de.schildbach.wallet.AddressBookProvider;
 import de.schildbach.wallet.Constants;
@@ -104,6 +107,8 @@ public final class SendCoinsFragment extends SherlockFragment implements AmountC
 
 	private State state = State.INPUT;
 	private Transaction sentTransaction;
+
+	private static final int REQUEST_CODE_SCAN = 0;
 
 	private enum State
 	{
@@ -220,6 +225,8 @@ public final class SendCoinsFragment extends SherlockFragment implements AmountC
 	public void onCreate(final Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
+
+		setHasOptionsMenu(true);
 
 		if (savedInstanceState != null)
 		{
@@ -436,6 +443,58 @@ public final class SendCoinsFragment extends SherlockFragment implements AmountC
 		super.onDestroy();
 	}
 
+	@Override
+	public void onActivityResult(final int requestCode, final int resultCode, final Intent intent)
+	{
+		if (requestCode == REQUEST_CODE_SCAN && resultCode == Activity.RESULT_OK)
+		{
+			final String contents = intent.getStringExtra(ScanActivity.INTENT_EXTRA_RESULT);
+			if (contents.matches("[a-zA-Z0-9]*"))
+			{
+				update(contents, null, null);
+			}
+			else
+			{
+				try
+				{
+					final BitcoinURI bitcoinUri = new BitcoinURI(null, contents);
+					final Address address = bitcoinUri.getAddress();
+					final String addressLabel = bitcoinUri.getLabel();
+					update(address != null ? address.toString() : null, addressLabel, bitcoinUri.getAmount());
+				}
+				catch (final BitcoinURIParseException x)
+				{
+					activity.parseErrorDialog(contents);
+				}
+			}
+		}
+	}
+
+	@Override
+	public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater)
+	{
+		inflater.inflate(R.menu.send_coins_fragment_options, menu);
+
+		final PackageManager pm = activity.getPackageManager();
+		menu.findItem(R.id.send_coins_options_scan).setVisible(
+				pm.hasSystemFeature(PackageManager.FEATURE_CAMERA) || pm.hasSystemFeature(PackageManager.FEATURE_CAMERA_FRONT));
+
+		super.onCreateOptionsMenu(menu, inflater);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(final MenuItem item)
+	{
+		switch (item.getItemId())
+		{
+			case R.id.send_coins_options_scan:
+				handleScan();
+				return true;
+		}
+
+		return super.onOptionsItemSelected(item);
+	}
+
 	private void validateReceivingAddress(final boolean popups)
 	{
 		try
@@ -623,6 +682,11 @@ public final class SendCoinsFragment extends SherlockFragment implements AmountC
 		{
 			activity.longToast(R.string.send_coins_error_msg);
 		}
+	}
+
+	private void handleScan()
+	{
+		startActivityForResult(new Intent(activity, ScanActivity.class), REQUEST_CODE_SCAN);
 	}
 
 	public class AutoCompleteAddressAdapter extends CursorAdapter
