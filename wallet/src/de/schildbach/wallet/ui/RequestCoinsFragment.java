@@ -150,6 +150,7 @@ public final class RequestCoinsFragment extends SherlockFragment implements Amou
 			public void changed()
 			{
 				updateView();
+				updateShareIntent();
 			}
 
 			public void done()
@@ -166,6 +167,7 @@ public final class RequestCoinsFragment extends SherlockFragment implements Amou
 			public void onItemSelected(final AdapterView<?> parent, final View view, final int position, final long id)
 			{
 				updateView();
+				updateShareIntent();
 			}
 
 			public void onNothingSelected(final AdapterView<?> parent)
@@ -178,6 +180,7 @@ public final class RequestCoinsFragment extends SherlockFragment implements Amou
 			public void onCheckedChanged(final CompoundButton buttonView, final boolean isChecked)
 			{
 				updateView();
+				updateShareIntent();
 			}
 		});
 
@@ -206,6 +209,8 @@ public final class RequestCoinsFragment extends SherlockFragment implements Amou
 
 		final MenuItem shareItem = menu.findItem(R.id.request_coins_options_share);
 		shareActionProvider = (ShareActionProvider) shareItem.getActionProvider();
+
+		updateShareIntent();
 
 		super.onCreateOptionsMenu(menu, inflater);
 	}
@@ -241,13 +246,6 @@ public final class RequestCoinsFragment extends SherlockFragment implements Amou
 		qrCodeBitmap = WalletUtils.getQRCodeBitmap(request, size);
 		qrView.setImageBitmap(qrCodeBitmap);
 
-		// update share intent
-		final IntentBuilder builder = IntentBuilder.from(activity);
-		builder.setText(determineRequestStr());
-		builder.setType("text/plain");
-		builder.setChooserTitle(R.string.request_coins_share_dialog_title);
-		shareActionProvider.setShareIntent(builder.getIntent());
-
 		// update ndef message
 		if (nfcManager != null)
 		{
@@ -255,6 +253,16 @@ public final class RequestCoinsFragment extends SherlockFragment implements Amou
 			if (success)
 				nfcEnabledView.setVisibility(View.VISIBLE);
 		}
+	}
+
+	private void updateShareIntent()
+	{
+		// update share intent
+		final IntentBuilder builder = IntentBuilder.from(activity);
+		builder.setText(determineRequestStr());
+		builder.setType("text/plain");
+		builder.setChooserTitle(R.string.request_coins_share_dialog_title);
+		shareActionProvider.setShareIntent(builder.getIntent());
 	}
 
 	private String determineRequestStr()
