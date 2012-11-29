@@ -24,6 +24,13 @@
 		</dependency>
 		<dependency>
 			<groupId>com.google.android</groupId>
+			<artifactId>annotations</artifactId>
+			<!-- version should match android artifact, but not available on maven central -->
+			<version>4.1.1.4</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.google.android</groupId>
 			<artifactId>support-v4</artifactId>
 			<version>r7</version>
 		</dependency>

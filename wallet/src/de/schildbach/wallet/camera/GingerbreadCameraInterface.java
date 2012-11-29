@@ -17,12 +17,14 @@
 
 package de.schildbach.wallet.camera;
 
+import android.annotation.TargetApi;
 import android.hardware.Camera;
+import android.os.Build;
 
 /**
  * @author Andreas Schildbach
  */
-// @TargetApi(Build.VERSION_CODES.GINGERBREAD)
+@TargetApi(Build.VERSION_CODES.GINGERBREAD)
 public final class GingerbreadCameraInterface implements CameraInterface
 {
 	public Camera open()
