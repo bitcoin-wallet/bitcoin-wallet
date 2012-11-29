@@ -77,6 +77,8 @@ public class ViewPagerTabs extends View implements OnPageChangeListener
 		}
 	}
 
+	private final Path path = new Path();
+
 	@Override
 	protected void onDraw(final Canvas canvas)
 	{
@@ -89,7 +91,7 @@ public class ViewPagerTabs extends View implements OnPageChangeListener
 		final float density = getResources().getDisplayMetrics().density;
 		final float spacing = 32 * density;
 
-		final Path path = new Path();
+		path.reset();
 		path.moveTo(viewHalfWidth, viewBottom - 5 * density);
 		path.lineTo(viewHalfWidth + 5 * density, viewBottom);
 		path.lineTo(viewHalfWidth - 5 * density, viewBottom);
