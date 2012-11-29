@@ -20,11 +20,11 @@ package de.schildbach.wallet.service;
 import java.math.BigInteger;
 import java.util.List;
 
-import android.R;
-
 import com.google.bitcoin.core.Address;
 import com.google.bitcoin.core.Peer;
 import com.google.bitcoin.core.Transaction;
+
+import de.schildbach.wallet_test.R;
 
 /**
  * @author Andreas Schildbach
