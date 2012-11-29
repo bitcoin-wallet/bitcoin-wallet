@@ -22,9 +22,12 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import android.annotation.SuppressLint;
+
 /**
  * @author Andreas Schildbach
  */
+@SuppressLint("SimpleDateFormat")
 public class Iso8601Format extends SimpleDateFormat
 {
 	private Iso8601Format(String formatString)

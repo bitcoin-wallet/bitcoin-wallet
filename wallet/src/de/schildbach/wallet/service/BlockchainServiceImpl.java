@@ -29,6 +29,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
+import android.annotation.SuppressLint;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
@@ -310,6 +311,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 			}
 		}
 
+		@SuppressLint("Wakelock")
 		private void check()
 		{
 			final Wallet wallet = application.getWallet();
