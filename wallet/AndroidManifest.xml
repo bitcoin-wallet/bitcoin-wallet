@@ -49,6 +49,7 @@
 
 	<application
 		android:name="de.schildbach.wallet.WalletApplication"
+		android:allowBackup="false"
 		android:debuggable="true"
 		android:hardwareAccelerated="true"
 		android:icon="@drawable/app_icon"
