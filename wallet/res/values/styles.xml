@@ -36,6 +36,8 @@
 	</style>
 
 	<style name="My.Widget.ActionMode" parent="@style/Widget.Sherlock.Light.ActionMode.Inverse">
+		<item name="background">@drawable/action_mode_background</item>
+		<item name="android:background">@drawable/action_mode_background</item>
 		<item name="titleTextStyle">@style/My.TextAppearance.Widget.ActionMode.Title</item>
 		<item name="android:titleTextStyle">@style/My.TextAppearance.Widget.ActionMode.Title</item>
 		<item name="subtitleTextStyle">@style/My.TextAppearance.Widget.ActionMode.Subtitle</item>
