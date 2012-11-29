@@ -7,11 +7,8 @@
 	<dimen name="font_size_xlarge">28sp</dimen>
 	<dimen name="symbol_size_normal">14sp</dimen>
 	<dimen name="list_entry_padding_horizontal">12dp</dimen>
-	<dimen name="list_entry_padding_horizontal_lax">24dp</dimen>
 	<dimen name="list_entry_padding_vertical">6dp</dimen>
-	<dimen name="action_bar_button_separator_width">1dp</dimen>
-	<dimen name="action_bar_button_separator_margin">8dp</dimen>
 	<dimen name="wallet_address_qr_size">96dp</dimen>
 	<dimen name="wallet_address_qr_size_large">128dp</dimen>
-	
+
 </resources>
