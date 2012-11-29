@@ -19,6 +19,7 @@
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
 		android:background="@color/bg_panel"
+		android:baselineAligned="false"
 		android:orientation="horizontal"
 		android:paddingBottom="@dimen/list_entry_padding_vertical"
 		android:paddingLeft="@dimen/list_entry_padding_horizontal"
