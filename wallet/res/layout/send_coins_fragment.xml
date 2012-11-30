@@ -77,7 +77,8 @@
 			android:layout_height="wrap_content"
 			android:drawablePadding="4dp"
 			android:imeOptions="flagNoExtractUi"
-			android:textSize="@dimen/font_size_xlarge" />
+			android:textSize="@dimen/font_size_xlarge"
+			tools:ignore="TextFields" />
 	</de.schildbach.wallet.ui.CurrencyAmountView>
 
 	<TextView
@@ -102,7 +103,8 @@
 			android:layout_height="wrap_content"
 			android:drawablePadding="4dp"
 			android:imeOptions="flagNoExtractUi"
-			android:textSize="@dimen/font_size_xlarge" />
+			android:textSize="@dimen/font_size_xlarge"
+			tools:ignore="TextFields" />
 	</de.schildbach.wallet.ui.CurrencyAmountView>
 
 	<!-- stretch dummy -->

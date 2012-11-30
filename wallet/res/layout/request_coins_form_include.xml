@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
 	android:background="@color/bg_form"
 	android:orientation="vertical" >
 
@@ -26,7 +27,8 @@
 			android:layout_height="wrap_content"
 			android:drawablePadding="4dp"
 			android:imeOptions="flagNoExtractUi"
-			android:textSize="@dimen/font_size_xlarge" />
+			android:textSize="@dimen/font_size_xlarge"
+			tools:ignore="TextFields" />
 	</de.schildbach.wallet.ui.CurrencyAmountView>
 
 	<TextView
