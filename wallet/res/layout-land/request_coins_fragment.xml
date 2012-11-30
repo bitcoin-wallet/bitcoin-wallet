@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
 	android:baselineAligned="false"
-	android:orientation="horizontal" >
+	android:orientation="horizontal"
+	tools:ignore="RequiredSize" >
 
 	<FrameLayout
 		android:layout_width="0px"
