@@ -88,14 +88,6 @@ public final class RequestCoinsFragment extends SherlockFragment implements Amou
 	}
 
 	@Override
-	public void onCreate(final Bundle savedInstanceState)
-	{
-		super.onCreate(savedInstanceState);
-
-		setHasOptionsMenu(true);
-	}
-
-	@Override
 	public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState)
 	{
 		final View view = inflater.inflate(R.layout.request_coins_fragment, container, false);
@@ -138,6 +130,15 @@ public final class RequestCoinsFragment extends SherlockFragment implements Amou
 		nfcEnabledView = view.findViewById(R.id.request_coins_fragment_nfc_enabled);
 
 		return view;
+	}
+
+	@Override
+	public void onViewCreated(final View view, final Bundle savedInstanceState)
+	{
+		super.onViewCreated(view, savedInstanceState);
+
+		// don't call in onCreate() because ActionBarSherlock invokes onCreateOptionsMenu() too early
+		setHasOptionsMenu(true);
 	}
 
 	@Override
