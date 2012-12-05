@@ -39,6 +39,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.google.bitcoin.core.Address;
@@ -65,6 +66,7 @@ public class WalletApplication extends Application
 	private Wallet wallet;
 
 	private static final Charset UTF_8 = Charset.forName("UTF-8");
+	private static final String TAG = WalletApplication.class.getSimpleName();
 
 	@Override
 	public void onCreate()
@@ -75,10 +77,10 @@ public class WalletApplication extends Application
 		}
 		catch (final Error x)
 		{
-			System.out.println("StrictMode not available");
+			Log.i(TAG, "StrictMode not available");
 		}
 
-		System.out.println(getClass().getName() + ".onCreate()");
+		Log.d(TAG, ".onCreate()");
 
 		super.onCreate();
 
@@ -140,7 +142,7 @@ public class WalletApplication extends Application
 
 		if (oldWalletFile.exists())
 		{
-			System.out.println("found wallet to migrate");
+			Log.i(TAG, "found wallet to migrate");
 
 			final long start = System.currentTimeMillis();
 
@@ -155,7 +157,7 @@ public class WalletApplication extends Application
 				// delete
 				oldWalletFile.delete();
 
-				System.out.println("wallet migrated: '" + oldWalletFile + "', took " + (System.currentTimeMillis() - start) + "ms");
+				Log.i(TAG, "wallet migrated: '" + oldWalletFile + "', took " + (System.currentTimeMillis() - start) + "ms");
 			}
 			catch (final IOException x)
 			{
@@ -198,7 +200,7 @@ public class WalletApplication extends Application
 
 				wallet = walletSerializer.readWallet(walletStream);
 
-				System.out.println("wallet loaded from: '" + walletFile + "', took " + (System.currentTimeMillis() - start) + "ms");
+				Log.i(TAG, "wallet loaded from: '" + walletFile + "', took " + (System.currentTimeMillis() - start) + "ms");
 			}
 			catch (final IOException x)
 			{
@@ -255,7 +257,7 @@ public class WalletApplication extends Application
 				try
 				{
 					protobufSerializeWallet(wallet);
-					System.out.println("wallet created: '" + walletFile + "'");
+					Log.i(TAG, "wallet created: '" + walletFile + "'");
 				}
 				catch (final IOException x2)
 				{
@@ -277,7 +279,7 @@ public class WalletApplication extends Application
 
 			Toast.makeText(this, R.string.toast_wallet_reset, Toast.LENGTH_LONG).show();
 
-			System.out.println("wallet restored from backup: '" + Constants.WALLET_KEY_BACKUP_BASE58 + "'");
+			Log.i(TAG, "wallet restored from backup: '" + Constants.WALLET_KEY_BACKUP_BASE58 + "'");
 
 			return wallet;
 		}
@@ -293,7 +295,7 @@ public class WalletApplication extends Application
 		{
 			final Wallet wallet = readKeys(getAssets().open(Constants.WALLET_KEY_BACKUP_SNAPSHOT));
 
-			System.out.println("wallet restored from snapshot: '" + Constants.WALLET_KEY_BACKUP_SNAPSHOT + "'");
+			Log.i(TAG, "wallet restored from snapshot: '" + Constants.WALLET_KEY_BACKUP_SNAPSHOT + "'");
 
 			return wallet;
 		}
@@ -345,7 +347,7 @@ public class WalletApplication extends Application
 
 		wallet.saveToFile(walletFile);
 
-		System.out.println("wallet saved to: '" + walletFile + "', took " + (System.currentTimeMillis() - start) + "ms");
+		Log.d(TAG, "wallet saved to: '" + walletFile + "', took " + (System.currentTimeMillis() - start) + "ms");
 	}
 
 	private void backupKeys()

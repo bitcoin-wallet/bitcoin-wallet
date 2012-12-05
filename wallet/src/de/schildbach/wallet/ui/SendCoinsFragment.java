@@ -653,9 +653,6 @@ public final class SendCoinsFragment extends SherlockFragment implements AmountC
 		final BigInteger amount = amountView.getAmount();
 		final BigInteger fee = feeView.getAmount();
 
-		System.out.println("about to send " + amount + " (" + Constants.CURRENCY_CODE_BITCOIN + " " + WalletUtils.formatValue(amount) + ") to "
-				+ validatedAddress);
-
 		sentTransaction = service.sendCoins(validatedAddress, amount, fee);
 
 		if (sentTransaction != null)

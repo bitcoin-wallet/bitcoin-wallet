@@ -51,6 +51,7 @@ import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
+import android.util.Log;
 
 import com.google.bitcoin.core.AbstractPeerEventListener;
 import com.google.bitcoin.core.AbstractWalletEventListener;
@@ -107,6 +108,8 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 
 	private static final int MAX_LAST_CHAIN_HEIGHTS = 10;
 	private static final int IDLE_TIMEOUT_MIN = 2;
+
+	private static final String TAG = BlockchainServiceImpl.class.getSimpleName();
 
 	private final WalletEventListener walletEventListener = new AbstractWalletEventListener()
 	{
@@ -191,7 +194,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 		@Override
 		public void onPeerConnected(final Peer peer, final int peerCount)
 		{
-			System.out.println("Peer connected, count " + peerCount);
+			Log.i(TAG, "Peer connected, count " + peerCount);
 
 			changed(peerCount);
 		}
@@ -199,7 +202,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 		@Override
 		public void onPeerDisconnected(final Peer peer, final int peerCount)
 		{
-			System.out.println("Peer disconnected, count " + peerCount);
+			Log.i(TAG, "Peer disconnected, count " + peerCount);
 
 			changed(peerCount);
 		}
@@ -281,7 +284,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 				hasConnectivity = !intent.getBooleanExtra(ConnectivityManager.EXTRA_NO_CONNECTIVITY, false);
 				final String reason = intent.getStringExtra(ConnectivityManager.EXTRA_REASON);
 				// final boolean isFailover = intent.getBooleanExtra(ConnectivityManager.EXTRA_IS_FAILOVER, false);
-				System.out.println("network is " + (hasConnectivity ? "up" : "down") + (reason != null ? ": " + reason : ""));
+				Log.i(TAG, "network is " + (hasConnectivity ? "up" : "down") + (reason != null ? ": " + reason : ""));
 
 				check();
 			}
@@ -291,21 +294,21 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 				final int scale = intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
 				final int plugged = intent.getIntExtra(BatteryManager.EXTRA_PLUGGED, 0);
 				hasPower = plugged != 0 || level > scale / 10;
-				System.out.println("battery changed: level=" + level + "/" + scale + " plugged=" + plugged);
+				Log.i(TAG, "battery changed: level=" + level + "/" + scale + " plugged=" + plugged);
 
 				check();
 			}
 			else if (Intent.ACTION_DEVICE_STORAGE_LOW.equals(action))
 			{
 				hasStorage = false;
-				System.out.println("device storage low");
+				Log.i(TAG, "device storage low");
 
 				check();
 			}
 			else if (Intent.ACTION_DEVICE_STORAGE_OK.equals(action))
 			{
 				hasStorage = true;
-				System.out.println("device storage ok");
+				Log.i(TAG, "device storage ok");
 
 				check();
 			}
@@ -319,10 +322,10 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 
 			if (hasEverything && peerGroup == null)
 			{
-				System.out.println("acquiring wakelock");
+				Log.d(TAG, "acquiring wakelock");
 				wakeLock.acquire();
 
-				System.out.println("starting peergroup");
+				Log.i(TAG, "starting peergroup");
 				peerGroup = new PeerGroup(Constants.NETWORK_PARAMETERS, blockChain, 1000);
 				peerGroup.addWallet(wallet);
 				peerGroup.setUserAgent(Constants.USER_AGENT, application.applicationVersionName());
@@ -357,13 +360,13 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 			}
 			else if (!hasEverything && peerGroup != null)
 			{
-				System.out.println("stopping peergroup");
+				Log.i(TAG, "stopping peergroup");
 				peerGroup.removeEventListener(peerEventListener);
 				peerGroup.removeWallet(wallet);
 				peerGroup.stop();
 				peerGroup = null;
 
-				System.out.println("releasing wakelock");
+				Log.d(TAG, "releasing wakelock");
 				wakeLock.release();
 			}
 
@@ -406,7 +409,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 						builder.append(',');
 					builder.append(lastDownloaded);
 				}
-				System.out.println("Number of blocks downloaded: " + builder);
+				Log.i(TAG, "Number of blocks downloaded: " + builder);
 
 				// determine if download is idling
 				boolean isIdle = false;
@@ -426,7 +429,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 				// if idling, shutdown service
 				if (isIdle)
 				{
-					System.out.println("end of block download detected, stopping service");
+					Log.i(TAG, "end of block download detected, stopping service");
 					stopSelf();
 				}
 			}
@@ -448,7 +451,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 	@Override
 	public IBinder onBind(final Intent intent)
 	{
-		System.out.println(getClass().getName() + ".onBind()");
+		Log.d(TAG, ".onBind()");
 
 		return mBinder;
 	}
@@ -456,7 +459,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 	@Override
 	public boolean onUnbind(final Intent intent)
 	{
-		System.out.println(getClass().getName() + ".onUnbind()");
+		Log.d(TAG, ".onUnbind()");
 
 		return super.onUnbind(intent);
 	}
@@ -464,7 +467,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 	@Override
 	public void onCreate()
 	{
-		System.out.println(getClass().getName() + ".onCreate()");
+		Log.d(TAG, ".onCreate()");
 
 		super.onCreate();
 
@@ -550,12 +553,12 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 
 		if (BlockchainService.ACTION_HOLD_WIFI_LOCK.equals(intent.getAction()))
 		{
-			System.out.println("acquiring wifilock");
+			Log.d(TAG, "acquiring wifilock");
 			wifiLock.acquire();
 		}
 		else
 		{
-			System.out.println("releasing wifilock");
+			Log.d(TAG, "releasing wifilock");
 			wifiLock.release();
 		}
 
@@ -572,18 +575,18 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 			final InputStream is = getAssets().open(blockchainSnapshotFilename);
 			final OutputStream os = new FileOutputStream(file);
 
-			System.out.println("copying blockchain snapshot");
+			Log.i(TAG, "copying blockchain snapshot");
 			final byte[] buf = new byte[8192];
 			int read;
 			while (-1 != (read = is.read(buf)))
 				os.write(buf, 0, read);
 			os.close();
 			is.close();
-			System.out.println("finished copying, took " + (System.currentTimeMillis() - t) + " ms");
+			Log.i(TAG, "finished copying, took " + (System.currentTimeMillis() - t) + " ms");
 		}
 		catch (final IOException x)
 		{
-			System.out.println("failed copying, starting from genesis");
+			Log.w(TAG, "failed copying, starting from genesis");
 			file.delete();
 		}
 	}
@@ -591,7 +594,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 	@Override
 	public void onDestroy()
 	{
-		System.out.println(getClass().getName() + ".onDestroy()");
+		Log.d(TAG, ".onDestroy()");
 
 		unregisterReceiver(tickReceiver);
 
@@ -623,13 +626,13 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 
 		if (wakeLock.isHeld())
 		{
-			System.out.println("wakelock still held, releasing");
+			Log.d(TAG, "wakelock still held, releasing");
 			wakeLock.release();
 		}
 
 		if (wifiLock.isHeld())
 		{
-			System.out.println("wifilock still held, releasing");
+			Log.d(TAG, "wifilock still held, releasing");
 			wifiLock.release();
 		}
 
@@ -639,12 +642,14 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 	@Override
 	public void onLowMemory()
 	{
-		System.out.println("low memory detected, stopping service");
+		Log.w(TAG, "low memory detected, stopping service");
 		stopSelf();
 	}
 
 	public Transaction sendCoins(final Address to, final BigInteger amount, final BigInteger fee)
 	{
+		Log.i(TAG, "about to send " + amount + " (" + Constants.CURRENCY_CODE_BITCOIN + " " + WalletUtils.formatValue(amount) + ") to " + to);
+
 		final Wallet wallet = application.getWallet();
 		final SendRequest sendRequest = SendRequest.to(to, amount);
 		sendRequest.fee = fee;
