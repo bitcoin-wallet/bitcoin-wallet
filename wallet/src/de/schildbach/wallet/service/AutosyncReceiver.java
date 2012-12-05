@@ -26,6 +26,7 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.BatteryManager;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import de.schildbach.wallet.Constants;
 
 /**
@@ -33,9 +34,17 @@ import de.schildbach.wallet.Constants;
  */
 public class AutosyncReceiver extends BroadcastReceiver
 {
+	private static final String TAG = AutosyncReceiver.class.getSimpleName();
+
 	@Override
 	public void onReceive(final Context context, final Intent intent)
 	{
+		Log.i(TAG, "got broadcast intent: " + intent);
+
+		// other app got replaced
+		if (intent.getAction().equals(Intent.ACTION_PACKAGE_REPLACED) && !intent.getDataString().equals(context.getPackageName()))
+			return;
+
 		final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
 		final boolean prefsAutosync = prefs.getBoolean(Constants.PREFS_KEY_AUTOSYNC, true);
 		final long prefsLastUsed = prefs.getLong(Constants.PREFS_KEY_LAST_USED, 0);

@@ -178,9 +178,7 @@
 			<intent-filter>
 				<action android:name="android.intent.action.PACKAGE_REPLACED" />
 
-				<data
-					android:path="de.schildbach.wallet_test"
-					android:scheme="package" />
+				<data android:scheme="package" />
 			</intent-filter>
 		</receiver>
 	</application>
