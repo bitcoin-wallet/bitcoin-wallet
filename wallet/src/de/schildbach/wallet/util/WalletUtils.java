@@ -272,11 +272,11 @@ public class WalletUtils
 		}
 		catch (final AddressFormatException x)
 		{
-			throw new IOException(x);
+			throw new IOException("cannot read keys: " + x);
 		}
 		catch (final ParseException x)
 		{
-			throw new IOException(x);
+			throw new IOException("cannot read keys: " + x);
 		}
 	}
 

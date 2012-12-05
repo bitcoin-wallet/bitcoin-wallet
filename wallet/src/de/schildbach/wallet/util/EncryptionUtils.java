@@ -172,7 +172,7 @@ public class EncryptionUtils
 		}
 		catch (final InvalidCipherTextException x)
 		{
-			throw new IOException("Could not encrypt bytes", x);
+			throw new IOException("Could not encrypt bytes: " + x);
 		}
 	}
 
@@ -238,7 +238,7 @@ public class EncryptionUtils
 		}
 		catch (final InvalidCipherTextException x)
 		{
-			throw new IOException("Could not decrypt input string", x);
+			throw new IOException("Could not decrypt input string: " + x);
 		}
 	}
 
