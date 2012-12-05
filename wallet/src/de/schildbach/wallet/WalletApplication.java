@@ -31,6 +31,7 @@ import java.lang.reflect.Method;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import android.app.Application;
@@ -364,7 +365,8 @@ public class WalletApplication extends Application
 		try
 		{
 			final long MS_PER_DAY = 24 * 60 * 60 * 1000;
-			final String filename = String.format("%s.%02d", Constants.WALLET_KEY_BACKUP_BASE58, (System.currentTimeMillis() / MS_PER_DAY) % 100l);
+			final String filename = String.format(Locale.US, "%s.%02d", Constants.WALLET_KEY_BACKUP_BASE58,
+					(System.currentTimeMillis() / MS_PER_DAY) % 100l);
 			writeKeys(openFileOutput(filename, Context.MODE_PRIVATE));
 		}
 		catch (final IOException x)

@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.math.BigInteger;
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.Locale;
 import java.util.zip.GZIPOutputStream;
 
 import android.app.Activity;
@@ -254,7 +255,7 @@ public final class TransactionFragment extends SherlockFragment
 			txStr.append(useCompressioon ? 'Z' : '-');
 			txStr.append(Base43.encode(useCompressioon ? gzippedSerializedTx : serializedTx));
 
-			final Bitmap qrCodeBitmap = WalletUtils.getQRCodeBitmap(txStr.toString().toUpperCase(), 512);
+			final Bitmap qrCodeBitmap = WalletUtils.getQRCodeBitmap(txStr.toString().toUpperCase(Locale.US), 512);
 			viewQr.setImageBitmap(qrCodeBitmap);
 			viewQr.setOnClickListener(new OnClickListener()
 			{

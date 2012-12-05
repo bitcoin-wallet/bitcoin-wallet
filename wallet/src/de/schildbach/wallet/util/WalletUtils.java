@@ -31,6 +31,7 @@ import java.util.Date;
 import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -155,11 +156,11 @@ public class WalletUtils
 		final int cents = absValue.remainder(Utils.COIN).intValue();
 
 		if (cents % 1000000 == 0)
-			return String.format("%s%d.%02d", sign, coins, cents / 1000000);
+			return String.format(Locale.US, "%s%d.%02d", sign, coins, cents / 1000000);
 		else if (cents % 10000 == 0)
-			return String.format("%s%d.%04d", sign, coins, cents / 10000);
+			return String.format(Locale.US, "%s%d.%04d", sign, coins, cents / 10000);
 		else
-			return String.format("%s%d.%08d", sign, coins, cents);
+			return String.format(Locale.US, "%s%d.%08d", sign, coins, cents);
 	}
 
 	private static final Pattern P_SIGNIFICANT = Pattern.compile("^([-+]" + Constants.THIN_SPACE + ")?\\d*(\\.\\d{0,2})?");
