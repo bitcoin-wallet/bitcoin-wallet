@@ -28,7 +28,6 @@ import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.support.v4.app.LoaderManager;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
@@ -51,7 +50,6 @@ public final class PeerListFragment extends SherlockListFragment implements Load
 {
 	private AbstractWalletActivity activity;
 	private BlockchainService service;
-	private LoaderManager lm;
 	private ArrayAdapter<Peer> adapter;
 
 	@Override
@@ -97,7 +95,7 @@ public final class PeerListFragment extends SherlockListFragment implements Load
 				rowText1.setText(peer.getAddress().toString());
 
 				final TextView rowText2 = (TextView) row.findViewById(android.R.id.text2);
-				rowText2.setText(peer.getVersionMessage().toString());
+				rowText2.setText(peer.getPeerVersionMessage().toString());
 
 				return row;
 			}
