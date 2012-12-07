@@ -290,11 +290,12 @@ public class ErrorReporter implements Thread.UncaughtExceptionHandler
 
 	private static void appendReport(final StringBuilder report, final File file, final int indent)
 	{
-		final Formatter formatter = new Formatter(report);
-
 		for (int i = 0; i < indent; i++)
 			report.append("  - ");
+
+		final Formatter formatter = new Formatter(report);
 		formatter.format("%tF %tT  %s  [%d]\n", file.lastModified(), file.lastModified(), file.getName(), file.length());
+		formatter.close();
 
 		if (file.isDirectory())
 			for (final File f : file.listFiles())
