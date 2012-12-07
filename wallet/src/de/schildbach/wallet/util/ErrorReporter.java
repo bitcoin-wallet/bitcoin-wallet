@@ -36,6 +36,7 @@ import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.DialogInterface.OnCancelListener;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -320,7 +321,13 @@ public class ErrorReporter implements Thread.UncaughtExceptionHandler
 			public void onClick(final DialogInterface dialog, final int which)
 			{
 				stackTraceFile.delete();
-				dialog.dismiss();
+			}
+		});
+		builder.setOnCancelListener(new OnCancelListener()
+		{
+			public void onCancel(final DialogInterface dialog)
+			{
+				stackTraceFile.delete();
 			}
 		});
 
