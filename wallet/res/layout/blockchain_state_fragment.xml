@@ -6,7 +6,7 @@
 
 	<TextView
 		android:id="@+id/blockchain_state_disclaimer"
-		android:layout_width="fill_parent"
+		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:layout_gravity="center"
 		android:gravity="center"
@@ -18,7 +18,7 @@
 
 	<TextView
 		android:id="@+id/blockchain_state_message"
-		android:layout_width="fill_parent"
+		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:layout_gravity="center"
 		android:gravity="center"

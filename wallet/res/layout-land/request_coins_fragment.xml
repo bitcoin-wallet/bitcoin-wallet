@@ -7,20 +7,20 @@
 
 	<FrameLayout
 		android:layout_width="0px"
-		android:layout_height="fill_parent"
+		android:layout_height="match_parent"
 		android:layout_weight="1"
 		android:foreground="@drawable/fragment_shadow_vertical_flip"
 		android:foregroundGravity="right|fill_vertical" >
 
 		<include
-			android:layout_width="fill_parent"
-			android:layout_height="fill_parent"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
 			layout="@layout/request_coins_form_include" />
 	</FrameLayout>
 
 	<FrameLayout
 		android:layout_width="wrap_content"
-		android:layout_height="fill_parent"
+		android:layout_height="match_parent"
 		android:background="@color/bg_panel"
 		android:paddingBottom="@dimen/list_entry_padding_vertical"
 		android:paddingLeft="@dimen/list_entry_padding_horizontal"
@@ -29,11 +29,11 @@
 
 		<LinearLayout
 			android:layout_width="@dimen/wallet_address_qr_size_large"
-			android:layout_height="fill_parent"
+			android:layout_height="match_parent"
 			android:orientation="vertical" >
 
 			<TextView
-				android:layout_width="fill_parent"
+				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:text="@string/request_coins_fragment_qr_label"
 				android:textSize="@dimen/font_size_normal"
@@ -57,7 +57,7 @@
 
 			<TextView
 				android:id="@+id/request_coins_fragment_nfc_enabled"
-				android:layout_width="fill_parent"
+				android:layout_width="match_parent"
 				android:layout_height="0px"
 				android:layout_weight="1"
 				android:gravity="bottom"

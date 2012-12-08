@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:id="@+id/wallet_main_twopanes"
-	android:layout_width="fill_parent"
-	android:layout_height="fill_parent"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
 	android:orientation="vertical" >
 
 	<TableLayout
-		android:layout_width="fill_parent"
+		android:layout_width="match_parent"
 		android:layout_height="0px"
 		android:layout_weight="1"
 		android:background="#d8d8e0" >
@@ -38,7 +38,7 @@
 				<fragment
 					android:id="@+id/exchange_rates_fragment"
 					android:name="de.schildbach.wallet.ui.ExchangeRatesFragment"
-					android:layout_width="fill_parent"
+					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
 					android:layout_gravity="bottom|center_horizontal" />
 			</FrameLayout>
@@ -53,7 +53,7 @@
 				<fragment
 					android:id="@+id/wallet_transactions_fragment"
 					android:name="de.schildbach.wallet.ui.WalletTransactionsFragment"
-					android:layout_width="fill_parent"
+					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
 					android:layout_gravity="bottom|center_horizontal" />
 			</FrameLayout>
@@ -63,7 +63,7 @@
 	<fragment
 		android:id="@+id/blockchain_state_fragment"
 		android:name="de.schildbach.wallet.ui.BlockchainStateFragment"
-		android:layout_width="fill_parent"
+		android:layout_width="match_parent"
 		android:layout_height="wrap_content" />
 
 </LinearLayout>

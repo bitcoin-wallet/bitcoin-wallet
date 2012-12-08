@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:tools="http://schemas.android.com/tools"
-	android:layout_width="fill_parent"
-	android:layout_height="fill_parent"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
 	android:background="@drawable/appwidget_dark_bg_clickable"
 	android:orientation="horizontal" >
 
 	<LinearLayout
 		android:id="@+id/widget_button_balance"
 		android:layout_width="0px"
-		android:layout_height="fill_parent"
+		android:layout_height="match_parent"
 		android:layout_gravity="center"
 		android:layout_weight="3"
 		android:background="@drawable/appwidget_button_left"
@@ -18,7 +18,7 @@
 		android:orientation="vertical" >
 
 		<LinearLayout
-			android:layout_width="fill_parent"
+			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:layout_marginLeft="12dp"
 			android:orientation="horizontal" >
@@ -42,7 +42,7 @@
 
 		<TextView
 			android:id="@+id/widget_wallet_balance"
-			android:layout_width="fill_parent"
+			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:layout_marginLeft="12dp"
 			android:ellipsize="none"
@@ -55,26 +55,26 @@
 
 	<ImageView
 		android:layout_width="1dp"
-		android:layout_height="fill_parent"
+		android:layout_height="match_parent"
 		android:background="@drawable/appwidget_divider" />
 
 	<ImageButton
 		android:id="@+id/widget_button_request"
 		android:layout_width="0px"
-		android:layout_height="fill_parent"
+		android:layout_height="match_parent"
 		android:layout_weight="1"
 		android:background="@drawable/appwidget_button_center"
 		android:src="@drawable/ic_action_receive" />
 
 	<ImageView
 		android:layout_width="1dp"
-		android:layout_height="fill_parent"
+		android:layout_height="match_parent"
 		android:background="@drawable/appwidget_divider" />
 
 	<ImageButton
 		android:id="@+id/widget_button_send"
 		android:layout_width="0px"
-		android:layout_height="fill_parent"
+		android:layout_height="match_parent"
 		android:layout_weight="1"
 		android:background="@drawable/appwidget_button_right"
 		android:src="@drawable/ic_action_send" />

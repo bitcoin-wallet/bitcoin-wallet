@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:tools="http://schemas.android.com/tools"
-	android:layout_width="fill_parent"
+	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
 	android:orientation="vertical" >
 
 	<de.schildbach.wallet.ui.CurrencyAmountView
 		android:id="@+id/amount_calculator_row_btc"
-		android:layout_width="fill_parent"
+		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:layout_marginLeft="12dp"
 		android:layout_marginRight="12dp"
 		android:layout_marginTop="8dp" >
 
 		<EditText
-			android:layout_width="fill_parent"
+			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:drawablePadding="4dp"
 			android:imeOptions="actionDone|flagNoExtractUi"
@@ -24,14 +24,14 @@
 
 	<de.schildbach.wallet.ui.CurrencyAmountView
 		android:id="@+id/amount_calculator_row_local"
-		android:layout_width="fill_parent"
+		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:layout_marginBottom="4dp"
 		android:layout_marginLeft="12dp"
 		android:layout_marginRight="12dp" >
 
 		<EditText
-			android:layout_width="fill_parent"
+			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:drawablePadding="4dp"
 			android:imeOptions="actionDone|flagNoExtractUi"
@@ -41,7 +41,7 @@
 
 	<TextView
 		android:id="@+id/amount_calculator_rate"
-		android:layout_width="fill_parent"
+		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:layout_marginBottom="6dp"
 		android:layout_marginLeft="24dp"
