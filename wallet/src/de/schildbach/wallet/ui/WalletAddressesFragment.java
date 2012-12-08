@@ -258,15 +258,9 @@ public final class WalletAddressesFragment extends SherlockListFragment
 			{
 				if (firstSeen != null)
 				{
-					activity.runOnUiThread(new Runnable()
-					{
-						public void run()
-						{
-							key.setCreationTimeSeconds(firstSeen.getTime() / 1000);
-							updateView();
-							application.saveWallet();
-						}
-					});
+					key.setCreationTimeSeconds(firstSeen.getTime() / 1000);
+					updateView();
+					application.saveWallet();
 				}
 			}
 		};

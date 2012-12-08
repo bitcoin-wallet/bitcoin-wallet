@@ -28,21 +28,27 @@ import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import android.os.Handler;
+import android.os.Looper;
 import de.schildbach.wallet.util.IOUtils;
 import de.schildbach.wallet.util.Iso8601Format;
 
 /**
  * @author Andreas Schildbach
  */
-public class DetermineFirstSeenThread extends Thread
+public abstract class DetermineFirstSeenThread extends Thread
 {
 	private static final Pattern P_FIRST_SEEN = Pattern.compile("<li>First seen.*\\((\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2})\\)</li>");
 
 	private final String address;
+	private final Handler callbackHandler;
 
 	public DetermineFirstSeenThread(final String address)
 	{
 		this.address = address;
+
+		callbackHandler = new Handler(Looper.myLooper());
+
 		start();
 	}
 
@@ -61,28 +67,48 @@ public class DetermineFirstSeenThread extends Thread
 			final Matcher m = P_FIRST_SEEN.matcher(content);
 			if (m.find())
 			{
-				succeed(Iso8601Format.parseDateTime(m.group(1)));
+				onSucceed(Iso8601Format.parseDateTime(m.group(1)));
 			}
 			else
 			{
-				succeed(null);
+				onSucceed(null);
 			}
 		}
 		catch (final IOException x)
 		{
-			failed(x);
+			onFail(x);
 		}
 		catch (final ParseException x)
 		{
-			failed(x);
+			onFail(x);
 		}
 	}
 
-	protected void succeed(final Date creationTime)
+	private void onSucceed(final Date creationTime)
 	{
+		callbackHandler.post(new Runnable()
+		{
+			public void run()
+			{
+				succeed(creationTime);
+			}
+		});
 	}
 
-	protected void failed(final Exception x)
+	private void onFail(final Exception exception)
+	{
+		callbackHandler.post(new Runnable()
+		{
+			public void run()
+			{
+				fail(exception);
+			}
+		});
+	}
+
+	protected abstract void succeed(final Date creationTime);
+
+	protected void fail(final Exception x)
 	{
 	}
 }
