@@ -62,7 +62,7 @@ public class WalletBalanceWidgetProvider extends AppWidgetProvider
 			views.setOnClickPendingIntent(R.id.widget_button_request,
 					PendingIntent.getActivity(context, 0, new Intent(context, RequestCoinsActivity.class), 0));
 
-			AppWidgetManager.getInstance(context).updateAppWidget(appWidgetId, views);
+			appWidgetManager.updateAppWidget(appWidgetId, views);
 		}
 	}
 }
