@@ -112,6 +112,15 @@ public final class PeerListFragment extends SherlockListFragment implements Load
 				rowVersion.setText(versionMessage.subVer);
 				rowVersion.setTypeface(isDownloading ? Typeface.DEFAULT_BOLD : Typeface.DEFAULT);
 
+				final TextView rowProtocol = (TextView) row.findViewById(R.id.peer_list_row_protocol);
+				rowProtocol.setText("protocol: " + versionMessage.clientVersion);
+				rowProtocol.setTypeface(isDownloading ? Typeface.DEFAULT_BOLD : Typeface.DEFAULT);
+
+				final TextView rowPing = (TextView) row.findViewById(R.id.peer_list_row_ping);
+				final long pingTime = peer.getPingTime();
+				rowPing.setText(pingTime < Long.MAX_VALUE ? getString(R.string.peer_list_row_ping_time, pingTime) : null);
+				rowPing.setTypeface(isDownloading ? Typeface.DEFAULT_BOLD : Typeface.DEFAULT);
+
 				return row;
 			}
 

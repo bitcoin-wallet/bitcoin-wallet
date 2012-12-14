@@ -141,6 +141,7 @@
 	<string name="amount_calculator_dialog_exchange_rate_not_available">Exchange rate not available.</string>
 	<string name="peer_monitor_activity_title">Peer Monitor</string>
 	<string name="peer_list_fragment_empty">No peers connected</string>
+	<string name="peer_list_row_ping_time">⇆ %d&#x2009;ms</string>
 	<string name="scan_camera_problem_dialog_title">Sorry</string>
 	<string name="scan_camera_problem_dialog_message">The camera has a problem. You probably need to restart the device.</string>
 	<string name="preferences_title">Preferences</string>
