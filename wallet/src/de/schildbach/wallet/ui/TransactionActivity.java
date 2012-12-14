@@ -33,7 +33,6 @@ import android.os.Bundle;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.MenuItem;
 import com.google.bitcoin.core.ProtocolException;
-import com.google.bitcoin.core.ScriptException;
 import com.google.bitcoin.core.Sha256Hash;
 import com.google.bitcoin.core.Transaction;
 import com.google.bitcoin.core.VerificationException;
@@ -191,13 +190,11 @@ public final class TransactionActivity extends AbstractWalletActivity
 
 		try
 		{
-			wallet.receivePending(tx);
+			if (wallet.isTransactionRelevant(tx))
+				// TODO dependent transactions
+				wallet.receivePending(tx, null);
 		}
 		catch (final VerificationException x)
-		{
-			throw new RuntimeException(x);
-		}
-		catch (final ScriptException x)
 		{
 			throw new RuntimeException(x);
 		}

@@ -27,6 +27,7 @@ import java.net.InetSocketAddress;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -381,10 +382,9 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 				wakeLock.acquire();
 
 				Log.i(TAG, "starting peergroup");
-				peerGroup = new PeerGroup(Constants.NETWORK_PARAMETERS, blockChain, 1000);
+				peerGroup = new PeerGroup(Constants.NETWORK_PARAMETERS, blockChain);
 				peerGroup.addWallet(wallet);
 				peerGroup.setUserAgent(Constants.USER_AGENT, application.applicationVersionName());
-				peerGroup.setFastCatchupTimeSecs(wallet.getEarliestKeyCreationTime());
 				peerGroup.addEventListener(peerConnectivityListener);
 
 				final String trustedPeerHost = prefs.getString(Constants.PREFS_KEY_TRUSTED_PEER, "").trim();
@@ -399,7 +399,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 					peerGroup.setMaxConnections(1);
 					peerGroup.addPeerDiscovery(new PeerDiscovery()
 					{
-						public InetSocketAddress[] getPeers() throws PeerDiscoveryException
+						public InetSocketAddress[] getPeers(final long timeoutValue, final TimeUnit timeoutUnit) throws PeerDiscoveryException
 						{
 							return new InetSocketAddress[] { new InetSocketAddress(trustedPeerHost, Constants.NETWORK_PARAMETERS.port) };
 						}
