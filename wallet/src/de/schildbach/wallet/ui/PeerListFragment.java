@@ -38,6 +38,7 @@ import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockListFragment;
 import com.google.bitcoin.core.Peer;
+import com.google.bitcoin.core.VersionMessage;
 
 import de.schildbach.wallet.service.BlockchainService;
 import de.schildbach.wallet.service.BlockchainServiceImpl;
@@ -87,17 +88,28 @@ public final class PeerListFragment extends SherlockListFragment implements Load
 			public View getView(final int position, View row, final ViewGroup parent)
 			{
 				if (row == null)
-					row = getLayoutInflater(null).inflate(android.R.layout.simple_list_item_2, null);
+					row = getLayoutInflater(null).inflate(R.layout.peer_list_row, null);
 
 				final Peer peer = getItem(position);
+				final VersionMessage versionMessage = peer.getPeerVersionMessage();
 
-				final TextView rowText1 = (TextView) row.findViewById(android.R.id.text1);
-				rowText1.setText(peer.getAddress().toString());
+				final TextView rowIp = (TextView) row.findViewById(R.id.peer_list_row_ip);
+				rowIp.setText(peer.getAddress().toString());
 
-				final TextView rowText2 = (TextView) row.findViewById(android.R.id.text2);
-				rowText2.setText(peer.getPeerVersionMessage().toString());
+				final TextView rowHeight = (TextView) row.findViewById(R.id.peer_list_row_height);
+				final long bestHeight = versionMessage.bestHeight;
+				rowHeight.setText(bestHeight > 0 ? bestHeight + " blocks" : null);
+
+				final TextView rowVersion = (TextView) row.findViewById(R.id.peer_list_row_version);
+				rowVersion.setText(versionMessage.subVer);
 
 				return row;
+			}
+
+			@Override
+			public boolean isEnabled(final int position)
+			{
+				return false;
 			}
 		};
 		setListAdapter(adapter);
