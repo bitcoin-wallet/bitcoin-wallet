@@ -12,7 +12,6 @@
 		android:gravity="center"
 		android:shadowColor="#000"
 		android:shadowRadius="1"
-		android:text="@string/blockchain_state_disclaimer"
 		android:textColor="#fff"
 		android:textSize="@dimen/font_size_small" />
 

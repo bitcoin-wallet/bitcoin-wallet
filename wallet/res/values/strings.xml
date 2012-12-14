@@ -3,7 +3,7 @@
 
 	<string name="app_name">Bitcoin Wallet</string>
 	<string name="toast_wallet_reset">Wallet was reset,\nwill take some time to recover</string>
-	<string name="blockchain_state_disclaimer">Use at your own risk. Read the safety notes.</string>
+	<string name="blockchain_state_disclaimer">Use at your own risk. Read the &lt;u>safety notes&lt;/u>.</string>
 	<string name="blockchain_state_message_hours">%1$s, %2$d hours behind</string>
 	<string name="blockchain_state_message_days">%1$s, %2$d days behind</string>
 	<string name="blockchain_state_message_weeks">%1$s, %2$d weeks behind</string>

@@ -5,7 +5,7 @@
 	<string name="app_name">Bitcoin Wallet</string>
 	<string name="toast_wallet_reset">Wallet wurde zurückgesetzt,\nwird einige Zeit benötigen</string>
 
-	<string name="blockchain_state_disclaimer">Benutzung auf eigene Gefahr. Bitte lies die Sicherheitshinweise.</string>
+	<string name="blockchain_state_disclaimer">Benutzung auf eigene Gefahr. Bitte lies die &lt;u>Sicherheitshinweise&lt;/u>.</string>
 	<string name="blockchain_state_message_hours">%1$s, hinkt %2$d Stunden hinterher</string>
 	<string name="blockchain_state_message_days">%1$s, hinkt %2$d Tage hinterher</string>
 	<string name="blockchain_state_message_weeks">%1$s, hinkt %2$d Wochen hinterher</string>

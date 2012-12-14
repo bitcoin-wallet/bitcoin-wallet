@@ -28,6 +28,7 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -83,8 +84,9 @@ public final class BlockchainStateFragment extends Fragment
 		final View view = inflater.inflate(R.layout.blockchain_state_fragment, container);
 
 		messageView = (TextView) view.findViewById(R.id.blockchain_state_message);
-		disclaimerView = (TextView) view.findViewById(R.id.blockchain_state_disclaimer);
 
+		disclaimerView = (TextView) view.findViewById(R.id.blockchain_state_disclaimer);
+		disclaimerView.setText(Html.fromHtml(getString(R.string.blockchain_state_disclaimer)));
 		disclaimerView.setOnClickListener(new OnClickListener()
 		{
 			public void onClick(final View v)
