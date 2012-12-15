@@ -26,7 +26,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.IBinder;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.AsyncTaskLoader;
@@ -52,6 +54,10 @@ public final class PeerListFragment extends SherlockListFragment implements Load
 	private AbstractWalletActivity activity;
 	private BlockchainService service;
 	private ArrayAdapter<Peer> adapter;
+
+	private final Handler handler = new Handler();
+
+	private static final long REFRESH_MS = 1000;
 
 	@Override
 	public void onAttach(final Activity activity)
@@ -92,6 +98,7 @@ public final class PeerListFragment extends SherlockListFragment implements Load
 
 				final Peer peer = getItem(position);
 				final VersionMessage versionMessage = peer.getPeerVersionMessage();
+				final boolean isDownloading = peer.getDownloadData();
 
 				final TextView rowIp = (TextView) row.findViewById(R.id.peer_list_row_ip);
 				rowIp.setText(peer.getAddress().toString());
@@ -99,9 +106,11 @@ public final class PeerListFragment extends SherlockListFragment implements Load
 				final TextView rowHeight = (TextView) row.findViewById(R.id.peer_list_row_height);
 				final long bestHeight = versionMessage.bestHeight;
 				rowHeight.setText(bestHeight > 0 ? bestHeight + " blocks" : null);
+				rowHeight.setTypeface(isDownloading ? Typeface.DEFAULT_BOLD : Typeface.DEFAULT);
 
 				final TextView rowVersion = (TextView) row.findViewById(R.id.peer_list_row_version);
 				rowVersion.setText(versionMessage.subVer);
+				rowVersion.setTypeface(isDownloading ? Typeface.DEFAULT_BOLD : Typeface.DEFAULT);
 
 				return row;
 			}
@@ -113,6 +122,30 @@ public final class PeerListFragment extends SherlockListFragment implements Load
 			}
 		};
 		setListAdapter(adapter);
+	}
+
+	@Override
+	public void onResume()
+	{
+		super.onResume();
+
+		handler.postDelayed(new Runnable()
+		{
+			public void run()
+			{
+				adapter.notifyDataSetChanged();
+
+				handler.postDelayed(this, REFRESH_MS);
+			}
+		}, REFRESH_MS);
+	}
+
+	@Override
+	public void onPause()
+	{
+		handler.removeCallbacksAndMessages(null);
+
+		super.onPause();
 	}
 
 	@Override
