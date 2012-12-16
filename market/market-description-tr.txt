@@ -1,6 +1,4 @@
-Android cihazınız için bağımsız bir Bitcoin cüzdanı. Bitcoin bir İnternet para birimidir.
-
-Telefondan telefonda uygulama tarafından görüntülenen QR kodu tarayarak ya da NFC vasıtasıyla NFC (Near Field Communication) Bitcoin gönderebilirsiniz.
+Android cihazınız için bağımsız bir Bitcoin cüzdanı. Telefondan telefonda uygulama tarafından görüntülenen QR kodu tarayarak ya da NFC vasıtasıyla NFC (Near Field Communication) Bitcoin gönderebilirsiniz.
 
 Bu gerçek Bitcoinler (Prodnet) için yayınlanan sürümdür. Değersiz Testnet Bitcoinleri ile deneme yapmak istiyorsanız başka bir uygulama tavsiye ederim ("Geliştiriciden diğer ürünlere" bakınız).
 

@@ -1,6 +1,4 @@
-This is a standalone Bitcoin Wallet for your Android device. Bitcoin is an internet currency.
-
-You can send Bitcoin between phones just by scanning the QR code that is displayed by the app. Or via NFC (Near Field Communication).
+This is a standalone Bitcoin Wallet for your Android device. You can send Bitcoin between phones just by scanning the QR code that is displayed by the app. Or via NFC (Near Field Communication).
 
 This is the version for real (Prodnet) Bitcoins. If you just want to try with worthless Testnet Bitcoins, I'd recommend the separate app (see "more from developer").
 

@@ -1,6 +1,4 @@
-Questa applicazione è in grado di gestire autonomamente un portafoglio Bitcoin. Bitcoin è una moneta elettronica usata su Internet.
-
-Puoi inviare Bitcoin tra due terminali semplicemente acquisendo i codici QR visualizzati da questa applicazione oppure utilizzando l'NFC (Near Field Communication).
+Questa applicazione è in grado di gestire autonomamente un portafoglio Bitcoin. Puoi inviare Bitcoin tra due terminali semplicemente acquisendo i codici QR visualizzati da questa applicazione oppure utilizzando l'NFC (Near Field Communication).
 
 Questa versione usa la vera rete Bitcoin (Prodnet). Se vuoi invece utilizzare la rete di test (con Bitcoins senza valore) è consigliato l'uso di un'altra applicazione disponibile dallo stesso autore.
 

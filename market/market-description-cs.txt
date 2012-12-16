@@ -1,6 +1,4 @@
-Tato aplikace je peněženka s Bitcoiny pro systém Android. Bitcoin je internetová měna.
-
-Můžete posílat Bitcoiny mezi telefony prostým naskenováním QR kódu, který je zobrazen aplikací, nebo pomocí NFC (Near Field Communication).
+Tato aplikace je peněženka s Bitcoiny pro systém Android. Můžete posílat Bitcoiny mezi telefony prostým naskenováním QR kódu, který je zobrazen aplikací, nebo pomocí NFC (Near Field Communication).
 
 Tato verze je pro reálné (Prodnet) Bitcoiny. Pokud chcete pouze experimentovat s bezcennými Testnet Bitcoiny, doporučuji separátní aplikaci (mrkněte na "více od vývojáře").
 

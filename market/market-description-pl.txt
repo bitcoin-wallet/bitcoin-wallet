@@ -1,6 +1,4 @@
-Samodzielny portfel Bitcoin dla Twojego urządzenia Android. Bitcoin są internetową walutą.
-
-Możesz wysyłać Bitcoin pomiędzy telefonami skanując kod QR, który jest wyświetlany przez aplikacje, lub przez NFC (Near Field Communication).
+Samodzielny portfel Bitcoin dla Twojego urządzenia Android. Możesz wysyłać Bitcoin pomiędzy telefonami skanując kod QR, który jest wyświetlany przez aplikacje, lub przez NFC (Near Field Communication).
 
 Wersja dla prawdziwej sieci Bitcoin (Prodnet). Jeżeli chcesz jedynie próbować z bezwartościowymi Testnet Bitcoin, zalecam oddzielną aplikacje (zobacz „więcej od twórcy“).
 
