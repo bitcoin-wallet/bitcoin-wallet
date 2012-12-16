@@ -1,7 +1,5 @@
 Dit is een standalone Bitcoin Wallet voor uw Android apparaat. U kan direct Bitcoins versturen tussen telefoons door simpelweg de QR-code te scannen die de app weergeeft of via NFC (Near Field Communication).
 
-Deze versie is voor echte Bitcoins (Prodnet). Als u gewoon wilt testen met waardeloze Testnet Bitcoins is het aan te raden om de losse app hier voor te gebruiken (zie "meer van deze auteur").
-
 FUNCTIES:
 
 • Weergeven van het wallet saldo in Bitcoin en verschillende andere valuta

@@ -1,7 +1,5 @@
 Consiste en una cartera de bitcoins para tu dispositivo Android. Puedes enviar bitcoins entre teléfonos haciendo explorar los códigos QR que muestra la aplicación o mediante NFC (Near Field Communication).
 
-Esta es la versión para bitcoins reales (Prodnet). Si quieres probarla con bitcoins Testnet sin valor, te recomiendo la otra aplicación aparte (ver "más del desarrollador").
-
 CARACTERÍSTICAS:
 
 • Visualización del saldo de la cartera en Bitcoin y en otras monedas

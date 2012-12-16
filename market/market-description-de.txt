@@ -1,7 +1,5 @@
 Dies ist ein eigenständiges Bitcoin Wallet für Dein Android-Gerät. Sie können Bitcoins zwischen Telefonen senden, nur durch Scannen des QR-Code, der durch die App angezeigt wird. Oder per NFC (Near Field Communication).
 
-Dies ist die Version für (reale) Prodnet-Bitcoins. Wenn Du lieber nur mit wertlosen Testnet-Bitcoins probieren willst, empfehle ich die separate Anwendung (siehe "Mehr vom Entwickler").
-
 FEATURES:
 
 • Anzeige des Wallet-Guthabens in Bitcoin und verschiedenen lokalen Währungen

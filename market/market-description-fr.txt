@@ -1,7 +1,5 @@
 Ceci est une application Bitcoin Wallet pour votre mobile Android. Vous pouvez envoyer des Bitcoins d'un mobile à un autre simplement en scannant le QR code affiché par l'application. Ou via NFC (Near Field Communication).
 
-Ceci est la version pour de vrais (Prodnet) Bitcoins. Si vous voulez seulement essayer avec des Bitcoins Testnet sans valeur,je recommande l'autre application (voir "more from developer").
-
 FONCTIONS:
 
 • Afficher le solde du  wallet en Bitcoin et dans d'autres devises

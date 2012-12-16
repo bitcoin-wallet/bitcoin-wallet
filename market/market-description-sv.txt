@@ -1,7 +1,5 @@
 Detta är en fristående Bitcoin plånbok för Android. Du kan skicka Bitcoins mellan telefoner genom att scanna den QR kod som visas på skärmen. Eller använda NFC (Near Field Communication).
 
-Detta är versionen för riktiga (Prodnet) Bitcoins. Om du bara vill prova med värdelösa Testnet Bitcoins, så rekommenderas den separata appen för det (se "mer från utvecklaren").
-
 FUNKTIONER:
 
 • Visa plånbokens värde i Bitcoins och andra valutor
