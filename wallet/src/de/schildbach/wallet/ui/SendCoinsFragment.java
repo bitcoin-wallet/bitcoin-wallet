@@ -27,12 +27,14 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.ContentObserver;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
+import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -80,6 +82,7 @@ public final class SendCoinsFragment extends SherlockFragment implements AmountC
 	private AbstractWalletActivity activity;
 	private WalletApplication application;
 	private ContentResolver contentResolver;
+	private SharedPreferences prefs;
 	private Wallet wallet;
 
 	private BlockchainService service;
@@ -218,6 +221,7 @@ public final class SendCoinsFragment extends SherlockFragment implements AmountC
 		this.activity = (AbstractWalletActivity) activity;
 		application = (WalletApplication) activity.getApplication();
 		contentResolver = activity.getContentResolver();
+		prefs = PreferenceManager.getDefaultSharedPreferences(activity);
 		wallet = application.getWallet();
 	}
 
@@ -355,17 +359,32 @@ public final class SendCoinsFragment extends SherlockFragment implements AmountC
 
 			private void feeDialog()
 			{
+				final boolean allowLowFee = prefs.getBoolean(Constants.PREFS_KEY_LABS_SEND_COINS_LOW_FEE, false);
+
 				final AlertDialog.Builder dialog = new AlertDialog.Builder(activity);
 				dialog.setMessage(getString(R.string.send_coins_dialog_fee_message,
 						Constants.CURRENCY_CODE_BITCOIN + " " + WalletUtils.formatValue(Constants.DEFAULT_TX_FEE)));
-				dialog.setPositiveButton(R.string.send_coins_dialog_fee_positive, new DialogInterface.OnClickListener()
+				if (allowLowFee)
 				{
-					public void onClick(final DialogInterface dialog, final int which)
+					dialog.setPositiveButton(R.string.send_coins_dialog_fee_button_send, new DialogInterface.OnClickListener()
 					{
-						handleGo();
-					}
-				});
-				dialog.setNegativeButton(R.string.send_coins_dialog_fee_negative, null);
+						public void onClick(final DialogInterface dialog, final int which)
+						{
+							handleGo();
+						}
+					});
+				}
+				else
+				{
+					dialog.setPositiveButton(R.string.send_coins_dialog_fee_button_adjust, new DialogInterface.OnClickListener()
+					{
+						public void onClick(final DialogInterface dialog, final int which)
+						{
+							feeView.setAmount(Constants.DEFAULT_TX_FEE);
+						}
+					});
+				}
+				dialog.setNegativeButton(R.string.send_coins_dialog_fee_button_dismiss, null);
 				dialog.show();
 			}
 		});
