@@ -26,7 +26,6 @@
 	<string name="wallet_transactions_fragment_empty_text_received">Şimdiye kadar hiçbir Bitcoin alınmadı</string>
 	<string name="wallet_transactions_fragment_empty_text_sent">Şimdiye kadar hiçbir Bitcoin gönderilmedi</string>
 	<string name="wallet_transactions_fragment_coinbase">oluşturulan</string>
-	<string name="wallet_transactions_context_edit_address_title">Adres ilâve et/düzenle</string>
 	<string name="wallet_transactions_context_show_transaction_title">Muamele detayları</string>
 	<string name="wallet_options_disconnect">Bağlantıyı kes</string>
 	<string name="wallet_options_safety">Güvenlik notları</string>
@@ -134,6 +133,7 @@
 	<string name="button_set_as_default">Varsayılan olarak ayarla</string>
 	<string name="button_request_coins">Bitcoin talep et</string>
 	<string name="button_send_coins">Bitcoin gönder</string>
+	<string name="button_edit_address">Adres ilâve et/düzenle</string>
 	<string name="time_today">bugün</string>
 	<string name="address_unlabeled">(etiketsiz)</string>
 

@@ -289,17 +289,14 @@ public final class SendCoinsFragment extends SherlockFragment implements AmountC
 						{
 							switch (item.getItemId())
 							{
+								case R.id.send_coins_address_context_edit_address:
+									handleEditAddress();
+
+									mode.finish();
+									return true;
+
 								case R.id.send_coins_address_context_clear:
-
-									// switch from static to input
-									validatedAddress = null;
-									receivingLabel = null;
-									receivingAddressView.setText(null);
-									receivingStaticAddressView.setText(null);
-
-									updateView();
-
-									receivingAddressView.requestFocus();
+									handleClear();
 
 									mode.finish();
 									return true;
@@ -312,6 +309,24 @@ public final class SendCoinsFragment extends SherlockFragment implements AmountC
 						{
 							if (receivingStaticView.hasFocus())
 								amountView.requestFocus();
+						}
+
+						private void handleEditAddress()
+						{
+							EditAddressBookEntryFragment.edit(getFragmentManager(), validatedAddress.toString());
+						}
+
+						private void handleClear()
+						{
+							// switch from static to input
+							validatedAddress = null;
+							receivingLabel = null;
+							receivingAddressView.setText(null);
+							receivingStaticAddressView.setText(null);
+
+							updateView();
+
+							receivingAddressView.requestFocus();
 						}
 					});
 				}

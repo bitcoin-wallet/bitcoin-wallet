@@ -29,7 +29,6 @@
 	<string name="wallet_transactions_fragment_empty_text_received">Noch keine Bitcoins empfangen</string>
 	<string name="wallet_transactions_fragment_empty_text_sent">Noch keine Bitcoins gesendet</string>
 	<string name="wallet_transactions_fragment_coinbase">geschürft</string>
-	<string name="wallet_transactions_context_edit_address_title">Adresse hinzufügen/ändern)</string>
 	<string name="wallet_transactions_context_show_transaction_title">Transaktionsdetails</string>
 	<string name="wallet_options_disconnect">Verbindungen trennen</string>
 	<string name="wallet_options_safety">Sicherheit</string>
@@ -176,6 +175,7 @@
 	<string name="button_set_as_default">Als Standard setzen</string>
 	<string name="button_request_coins">BTC anfordern</string>
 	<string name="button_send_coins">BTC senden</string>
+	<string name="button_edit_address">Adresse hinzufügen/ändern</string>
 
 	<string name="time_today">heute</string>
 	<string name="address_unlabeled">(unbenannt)</string>

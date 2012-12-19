@@ -26,7 +26,6 @@
 	<string name="wallet_transactions_fragment_empty_text_received">Inga Bitcoins har hittills mottagits</string>
 	<string name="wallet_transactions_fragment_empty_text_sent">Inga Bitcoins har hittills skickats</string>
 	<string name="wallet_transactions_fragment_coinbase">genererade</string>
-	<string name="wallet_transactions_context_edit_address_title">Lägg till/ändra etikett</string>
 	<string name="wallet_transactions_context_show_transaction_title">Transaktionsdetaljer</string>
 	<string name="wallet_options_disconnect">Koppla från</string>
 	<string name="wallet_options_safety">Säkerhetsinfo</string>
@@ -134,6 +133,7 @@
 	<string name="button_set_as_default">Ange som standard</string>
 	<string name="button_request_coins">Ta emot Bitcoins</string>
 	<string name="button_send_coins">Skicka Bitcoins</string>
+	<string name="button_edit_address">Lägg till/ändra etikett</string>
 	<string name="time_today">idag</string>
 	<string name="address_unlabeled">(saknar etikett)</string>
 

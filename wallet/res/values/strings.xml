@@ -27,7 +27,6 @@
 	<string name="wallet_transactions_fragment_empty_text_received">No Bitcoins received so far</string>
 	<string name="wallet_transactions_fragment_empty_text_sent">No Bitcoins sent so far</string>
 	<string name="wallet_transactions_fragment_coinbase">mined</string>
-	<string name="wallet_transactions_context_edit_address_title">Add/edit address</string>
 	<string name="wallet_transactions_context_show_transaction_title">Transaction details</string>
 	<string name="wallet_options_disconnect">Disconnect</string>
 	<string name="wallet_options_safety">Safety notes</string>
@@ -159,6 +158,7 @@
 	<string name="button_set_as_default">Set as default</string>
 	<string name="button_request_coins">Request coins</string>
 	<string name="button_send_coins">Send coins</string>
+	<string name="button_edit_address">Add/edit address</string>
 	<string name="time_today">today</string>
 	<string name="address_unlabeled">(unlabeled)</string>
 
