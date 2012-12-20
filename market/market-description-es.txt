@@ -4,7 +4,6 @@ CARACTERÍSTICAS:
 
 • Visualización del saldo de la cartera en Bitcoin y en otras monedas
 • Envío y recpción de bitcoins a través de NFC, códigos QR o URL Bitcoin
-• Permite usar milibitcents y cantidades más pequeñas (0,0001)
 • Libreta de direcciones para guardar las direcciones Bitcoin utilizadas habitualmente
 • Las transacciones se pueden llevar a cabo sin conexión, ejecutándose al recuperar la conexión
 • Notificaciones de sistema para la conectividad a la red Bitcoin y para la recepción de bitcoins

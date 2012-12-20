@@ -4,7 +4,6 @@ CARATTERISTICHE:
 
 • Visualizzazione del saldo in Bitcoin ed altre valute
 • Invio e ricezione di Bitcoin Bitcoin utilizzando NFC, codici QR o Bitcoin URLs
-• Supporto all'utilizzo di importi decimali oltre il millibitcent (0.0001 BTC)
 • Rubrica per la memorizzazione degli indirizzi Bitcoin usati regolarmente
 • Possibilità di impostare transazioni anche offline, eseguite alla prima occasione online
 • Notifiche di sistema per connettività Bitcoin e la ricezione di Bitcoins

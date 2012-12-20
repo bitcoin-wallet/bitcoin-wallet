@@ -4,7 +4,6 @@ VLASTNOSTI:
 
 • Zobrazení zůstatku peněženky v Bitcoinech a několika jiných měnách
 • Odesílání a přijímání Bitcoinů pomocí NFC, QR-kódů, nebo Bitcoin adres
-• Podpora milibitcentů a menších hodnot (0.0001)
 • Adresář pro často používané adresy
 • Možnost zadávání transakcí v offline režimu, k jejich zpracování dojde po připojení
 • Oznamování v liště při synchronizaci a při přijetí Bitcoinů

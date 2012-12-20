@@ -4,7 +4,6 @@ FUNCTIES:
 
 • Weergeven van het wallet saldo in Bitcoin en verschillende andere valuta
 • Verzenden en ontvangen van Bitcoin via NFC, QR-codes of Bitcoin URLs
-• Ondersteuning voor millibitcent en kleinere waarden (0.0001)
 • Adresboek voor veelgebruikte Bitcoin adressen
 • Transacties ingeven tijdens het offline zijn, deze zullen worden uitgevoerd wanneer u online komt.
 • Systeem melding over Bitcoin connectiviteit en ontvangen bitcoins

@@ -4,7 +4,6 @@ FEATURES:
 
 • Display of wallet balance in Bitcoin and various other currencies
 • Sending and receiving of Bitcoin via NFC, QR-codes or Bitcoin URLs
-• Support for millibitcent and smaller values (0.0001)
 • Address book for regularly used Bitcoin addresses
 • Enter transactions while offline, will be executed when online
 • Manages blockchain on your device (for enhanced security)

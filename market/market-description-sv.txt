@@ -4,7 +4,6 @@ FUNKTIONER:
 
 • Visa plånbokens värde i Bitcoins och andra valutor
 • Skicka och ta emot Bitcoins via NFC, QR-koder eller en Bitcoin URL
-• Stöd för millibitcent eller ännu mindre värden (0.0001)
 • Adressbok för de Bitcoin adresser man använder ofta
 • Påbörja transaktioner medan du är offline, de utförs när du kommer online
 • Systemnotifikationer när Bitcoins skickats till dig, och när plånboken kommunicerar med nätverket

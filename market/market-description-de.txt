@@ -4,7 +4,6 @@ FEATURES:
 
 • Anzeige des Wallet-Guthabens in Bitcoin und verschiedenen lokalen Währungen
 • Senden und Empfangen von Bitcoin via NFC, QR-Codes oder Bitcoin URLs
-• Unterstützung für millibitcent und kleineren Werten (0.0001) 
 • Adressbuch für regelmäßig genutzte Empfänger
 • Offline-Unterstützung, Transaktionen werden dann ausgeführt, wenn das Gerät wieder online ist
 • Verwaltet die Blockchain auf Deinem Gerät (für mehr Sicherheit)

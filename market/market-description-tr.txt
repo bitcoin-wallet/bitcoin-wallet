@@ -4,7 +4,6 @@ Android cihazınız için bağımsız bir Bitcoin cüzdanı. Telefondan telefond
 
 • Cüzdan bakiyesini Bitcoin olarak ve çeşitli döviz olarak gösterir
 • QR Code, Bitcoin bağlantıları ve NFC vasıtasıyla Bitcoin alım ve gönderimi
-• millibitcent (0.0001) ve daha küçük değerleri destekler
 • Düzenli kullanılan Bitcoin adresleri için adres defteri
 • Çevrimdışında girilen muameleler çevrimiçine girilince işlenir
 • Alınan Bitcoinler ve Bitcoin bağlantısı için sistem bildirimleri

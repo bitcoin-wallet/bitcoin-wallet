@@ -4,7 +4,6 @@ FONCTIONS:
 
 • Afficher le solde du  wallet en Bitcoin et dans d'autres devises
 • Envoyer et recevoir des Bitcoins via NFC, QR-codes ou Bitcoin URLs
-• Support des millibitcent et plus petites valeurs (0.0001)
 • Carnet d'adresses pour les adresses Bitcoin fréquemment utilisées
 • Saisir des transactions offline, les exécuter online
 • Notifications système pour la connectivité Bitcoin et la réception des bitcoins
