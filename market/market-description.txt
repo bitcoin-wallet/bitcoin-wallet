@@ -2,6 +2,7 @@ This is a standalone Bitcoin Wallet for your Android device. You can send Bitcoi
 
 FEATURES:
 
+• No cloud server or web service needed! This wallet is truly peer to peer.
 • Display of wallet balance in Bitcoin and various other currencies.
 • Sending and receiving of Bitcoin via NFC, QR-codes or Bitcoin URLs.
 • Address book for regularly used Bitcoin addresses.
