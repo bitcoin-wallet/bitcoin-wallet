@@ -2,12 +2,12 @@ Detta är en fristående Bitcoin plånbok för Android. Du kan skicka Bitcoins m
 
 FUNKTIONER:
 
-• Visa plånbokens värde i Bitcoins och andra valutor
-• Skicka och ta emot Bitcoins via NFC, QR-koder eller en Bitcoin URL
-• Adressbok för de Bitcoin adresser man använder ofta
-• Påbörja transaktioner medan du är offline, de utförs när du kommer online
-• Systemnotifikationer när Bitcoins skickats till dig, och när plånboken kommunicerar med nätverket
-• App widget som visar plånbokens värde (kräver att appen flyttats till telefonen)
+• Visa plånbokens värde i Bitcoins och andra valutor.
+• Skicka och ta emot Bitcoins via NFC, QR-koder eller en Bitcoin URL.
+• Adressbok för de Bitcoin adresser man använder ofta.
+• Påbörja transaktioner medan du är offline, de utförs när du kommer online.
+• Systemnotifikationer när Bitcoins skickats till dig, och när plånboken kommunicerar med nätverket.
+• App widget som visar plånbokens värde (kräver att appen flyttats till telefonen).
 
 KÄNDA PROBLEM:
 

@@ -2,12 +2,12 @@ Android cihazınız için bağımsız bir Bitcoin cüzdanı. Telefondan telefond
 
 ÖZELLİKLERİ:
 
-• Cüzdan bakiyesini Bitcoin olarak ve çeşitli döviz olarak gösterir
-• QR Code, Bitcoin bağlantıları ve NFC vasıtasıyla Bitcoin alım ve gönderimi
-• Düzenli kullanılan Bitcoin adresleri için adres defteri
-• Çevrimdışında girilen muameleler çevrimiçine girilince işlenir
-• Alınan Bitcoinler ve Bitcoin bağlantısı için sistem bildirimleri
-• Bitcoin bakiyesi için uygulama widget'i (uygulamanın telefona taşınmasını gerektirir)
+• Cüzdan bakiyesini Bitcoin olarak ve çeşitli döviz olarak gösterir.
+• QR Code, Bitcoin bağlantıları ve NFC vasıtasıyla Bitcoin alım ve gönderimi.
+• Düzenli kullanılan Bitcoin adresleri için adres defteri.
+• Çevrimdışında girilen muameleler çevrimiçine girilince işlenir.
+• Alınan Bitcoinler ve Bitcoin bağlantısı için sistem bildirimleri.
+• Bitcoin bakiyesi için uygulama widget'i (uygulamanın telefona taşınmasını gerektirir).
 
 BİLİNEN SORUNLAR, LÜTFEN OKUYUNUZ:
 

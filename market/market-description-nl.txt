@@ -2,12 +2,12 @@ Dit is een standalone Bitcoin Wallet voor uw Android apparaat. U kan direct Bitc
 
 FUNCTIES:
 
-• Weergeven van het wallet saldo in Bitcoin en verschillende andere valuta
-• Verzenden en ontvangen van Bitcoin via NFC, QR-codes of Bitcoin URLs
-• Adresboek voor veelgebruikte Bitcoin adressen
+• Weergeven van het wallet saldo in Bitcoin en verschillende andere valuta.
+• Verzenden en ontvangen van Bitcoin via NFC, QR-codes of Bitcoin URLs.
+• Adresboek voor veelgebruikte Bitcoin adressen.
 • Transacties ingeven tijdens het offline zijn, deze zullen worden uitgevoerd wanneer u online komt.
-• Systeem melding over Bitcoin connectiviteit en ontvangen bitcoins
-• Widget voor Bitcoin saldo (vereiste: app verplaatst naar telefoon)
+• Systeem melding over Bitcoin connectiviteit en ontvangen bitcoins.
+• Widget voor Bitcoin saldo (vereiste: app verplaatst naar telefoon).
 
 BEKENDE PROBLEMEN, SVP LEZEN:
 

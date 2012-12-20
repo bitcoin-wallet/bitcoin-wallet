@@ -2,12 +2,12 @@ Samodzielny portfel Bitcoin dla Twojego urządzenia Android. Możesz wysyłać B
 
 FUNKCJE:
 
-• Wyświetlanie stanu konta portfela w Bitcoin i rożnych innych walutach
-• Wysyłanie i odbieranie Bitcoin przez NFC, kod QR albo Bitcoin URL
-• Książka adresowa dla regularnie używanych adresów Bitcoin
-• Możliwość dodania transakcji offline, wykonywanych po połączeniu z siecią
-• Notyfikacje systemowe o połączeniu z siecią Bitcoin i otrzymanych monetach
-• Widget na stan konta Bitcoin (wymaga: aplikacja na telefonie)
+• Wyświetlanie stanu konta portfela w Bitcoin i rożnych innych walutach.
+• Wysyłanie i odbieranie Bitcoin przez NFC, kod QR albo Bitcoin URL.
+• Książka adresowa dla regularnie używanych adresów Bitcoin.
+• Możliwość dodania transakcji offline, wykonywanych po połączeniu z siecią.
+• Notyfikacje systemowe o połączeniu z siecią Bitcoin i otrzymanych monetach.
+• Widget na stan konta Bitcoin (wymaga: aplikacja na telefonie).
 
 ZNANE PROBLEMY (PROSZĘ PRZECZYTAJ):
 

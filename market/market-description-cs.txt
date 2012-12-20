@@ -2,12 +2,12 @@ Tato aplikace je peněženka s Bitcoiny pro systém Android. Můžete posílat B
 
 VLASTNOSTI:
 
-• Zobrazení zůstatku peněženky v Bitcoinech a několika jiných měnách
-• Odesílání a přijímání Bitcoinů pomocí NFC, QR-kódů, nebo Bitcoin adres
-• Adresář pro často používané adresy
-• Možnost zadávání transakcí v offline režimu, k jejich zpracování dojde po připojení
-• Oznamování v liště při synchronizaci a při přijetí Bitcoinů
-• Widget s celkovým zůstatkem (vyžaduje aplikaci přesunutou na kartě)
+• Zobrazení zůstatku peněženky v Bitcoinech a několika jiných měnách.
+• Odesílání a přijímání Bitcoinů pomocí NFC, QR-kódů, nebo Bitcoin adres.
+• Adresář pro často používané adresy.
+• Možnost zadávání transakcí v offline režimu, k jejich zpracování dojde po připojení.
+• Oznamování v liště při synchronizaci a při přijetí Bitcoinů.
+• Widget s celkovým zůstatkem (vyžaduje aplikaci přesunutou na kartě).
 
 ZNÁMÉ PROBLÉMY:
 

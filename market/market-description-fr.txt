@@ -2,12 +2,12 @@ Ceci est une application Bitcoin Wallet pour votre mobile Android. Vous pouvez e
 
 FONCTIONS:
 
-• Afficher le solde du  wallet en Bitcoin et dans d'autres devises
-• Envoyer et recevoir des Bitcoins via NFC, QR-codes ou Bitcoin URLs
-• Carnet d'adresses pour les adresses Bitcoin fréquemment utilisées
-• Saisir des transactions offline, les exécuter online
-• Notifications système pour la connectivité Bitcoin et la réception des bitcoins
-• App widget pour le solde du compte Bitcoin (demande que l'app soit dans le mobile)
+• Afficher le solde du  wallet en Bitcoin et dans d'autres devises.
+• Envoyer et recevoir des Bitcoins via NFC, QR-codes ou Bitcoin URLs.
+• Carnet d'adresses pour les adresses Bitcoin fréquemment utilisées.
+• Saisir des transactions offline, les exécuter online.
+• Notifications système pour la connectivité Bitcoin et la réception des bitcoins.
+• App widget pour le solde du compte Bitcoin (demande que l'app soit dans le mobile).
 
 PROBLEMES CONNUS, LIRE SVP:
 

@@ -2,13 +2,13 @@ This is a standalone Bitcoin Wallet for your Android device. You can send Bitcoi
 
 FEATURES:
 
-• Display of wallet balance in Bitcoin and various other currencies
-• Sending and receiving of Bitcoin via NFC, QR-codes or Bitcoin URLs
-• Address book for regularly used Bitcoin addresses
-• Enter transactions while offline, will be executed when online
-• Manages blockchain on your device (for enhanced security)
-• System notifications for Bitcoin connectivity and received coins
-• App widget for Bitcoin balance (requirement: app moved to phone)
+• Display of wallet balance in Bitcoin and various other currencies.
+• Sending and receiving of Bitcoin via NFC, QR-codes or Bitcoin URLs.
+• Address book for regularly used Bitcoin addresses.
+• Enter transactions while offline, will be executed when online.
+• Manages blockchain on your device (for enhanced security).
+• System notifications for Bitcoin connectivity and received coins.
+• App widget for Bitcoin balance (requirement: app moved to phone).
 
 KNOWN ISSUES, PLEASE READ:
 
