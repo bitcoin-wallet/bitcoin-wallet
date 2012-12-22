@@ -58,6 +58,7 @@ import com.actionbarsherlock.view.MenuItem;
 import com.google.bitcoin.core.Address;
 import com.google.bitcoin.core.AddressFormatException;
 import com.google.bitcoin.core.NetworkParameters;
+import com.google.bitcoin.core.Sha256Hash;
 import com.google.bitcoin.core.Transaction;
 import com.google.bitcoin.core.TransactionConfidence;
 import com.google.bitcoin.core.Wallet;
@@ -235,14 +236,22 @@ public final class SendCoinsFragment extends SherlockFragment implements AmountC
 		if (savedInstanceState != null)
 		{
 			state = (State) savedInstanceState.getSerializable("state");
+
 			if (savedInstanceState.containsKey("validated_address_bytes"))
 				validatedAddress = new Address((NetworkParameters) savedInstanceState.getSerializable("validated_address_params"),
 						savedInstanceState.getByteArray("validated_address_bytes"));
 			else
 				validatedAddress = null;
+
 			receivingLabel = savedInstanceState.getString("receiving_label");
+
 			isValidAmounts = savedInstanceState.getBoolean("is_valid_amounts");
-			sentTransaction = (Transaction) savedInstanceState.getSerializable("sent_transaction");
+
+			if (savedInstanceState.containsKey("sent_transaction_hash"))
+			{
+				sentTransaction = wallet.getTransaction((Sha256Hash) savedInstanceState.getSerializable("sent_transaction_hash"));
+				sentTransaction.getConfidence().addEventListener(sentTransactionConfidenceListener);
+			}
 		}
 
 		activity.bindService(new Intent(activity, BlockchainServiceImpl.class), serviceConnection, Context.BIND_AUTO_CREATE);
@@ -463,7 +472,8 @@ public final class SendCoinsFragment extends SherlockFragment implements AmountC
 		}
 		outState.putString("receiving_label", receivingLabel);
 
-		outState.putSerializable("sent_transaction", sentTransaction);
+		if (sentTransaction != null)
+			outState.putSerializable("sent_transaction_hash", sentTransaction.getHash());
 	}
 
 	@Override
@@ -691,14 +701,14 @@ public final class SendCoinsFragment extends SherlockFragment implements AmountC
 
 		if (sentTransaction != null)
 		{
+			sentTransaction.getConfidence().addEventListener(sentTransactionConfidenceListener);
+
 			state = State.SENDING;
 			updateView();
 
 			final Intent result = new Intent();
 			BitcoinIntegration.transactionHashToResult(result, sentTransaction.getHashAsString());
 			activity.setResult(Activity.RESULT_OK, result);
-
-			sentTransaction.getConfidence().addEventListener(sentTransactionConfidenceListener);
 
 			// final String label = AddressBookProvider.resolveLabel(contentResolver, validatedAddress.toString());
 			// if (label == null)
