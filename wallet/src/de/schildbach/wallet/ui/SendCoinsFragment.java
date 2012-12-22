@@ -694,11 +694,6 @@ public final class SendCoinsFragment extends SherlockFragment implements AmountC
 			state = State.SENDING;
 			updateView();
 
-			final WalletBalanceFragment balanceFragment = (WalletBalanceFragment) activity.getSupportFragmentManager().findFragmentById(
-					R.id.wallet_balance_fragment);
-			if (balanceFragment != null)
-				balanceFragment.updateView();
-
 			final Intent result = new Intent();
 			BitcoinIntegration.transactionHashToResult(result, sentTransaction.getHashAsString());
 			activity.setResult(Activity.RESULT_OK, result);
