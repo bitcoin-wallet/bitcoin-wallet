@@ -1,3 +1,7 @@
+2.37
+
+* lots of small improvements and bugfixes
+
 2.36
 
 * fixed exception when requesting coins on below Ice Cream Sandwich (Android 4.0)
