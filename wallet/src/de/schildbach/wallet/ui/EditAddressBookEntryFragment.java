@@ -26,9 +26,7 @@ import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -54,13 +52,8 @@ public final class EditAddressBookEntryFragment extends DialogFragment
 
 	public static void edit(final FragmentManager fm, final String address, final String suggestedAddressLabel)
 	{
-		final FragmentTransaction ft = fm.beginTransaction();
-		final Fragment prev = fm.findFragmentByTag(EditAddressBookEntryFragment.FRAGMENT_TAG);
-		if (prev != null)
-			ft.remove(prev);
-		ft.addToBackStack(null);
 		final DialogFragment newFragment = EditAddressBookEntryFragment.instance(address, suggestedAddressLabel);
-		newFragment.show(ft, EditAddressBookEntryFragment.FRAGMENT_TAG);
+		newFragment.show(fm, FRAGMENT_TAG);
 	}
 
 	private static EditAddressBookEntryFragment instance(final String address, final String suggestedAddressLabel)

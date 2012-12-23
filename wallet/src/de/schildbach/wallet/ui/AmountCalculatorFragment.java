@@ -32,7 +32,6 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
@@ -61,14 +60,9 @@ public final class AmountCalculatorFragment extends DialogFragment implements Lo
 
 	public static void calculate(final FragmentManager fm, final Listener listener)
 	{
-		final FragmentTransaction ft = fm.beginTransaction();
-		final Fragment prev = fm.findFragmentByTag(FRAGMENT_TAG);
-		if (prev != null)
-			ft.remove(prev);
-		ft.addToBackStack(null);
 		final DialogFragment newFragment = new AmountCalculatorFragment();
 		newFragment.setTargetFragment((Fragment) listener, 0);
-		newFragment.show(ft, FRAGMENT_TAG);
+		newFragment.show(fm, FRAGMENT_TAG);
 	}
 
 	private AbstractWalletActivity activity;
