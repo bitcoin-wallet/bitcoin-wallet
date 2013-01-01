@@ -69,7 +69,7 @@
 	<string name="send_coins_fragment_amount_label">Amount to pay</string>
 	<string name="send_coins_fragment_amount_empty">Put amount here</string>
 	<string name="send_coins_fragment_amount_error">Invalid amount!</string>
-	<string name="send_coins_fragment_fee_label">Fee (optional)</string>
+	<string name="send_coins_fragment_fee_label">Fee</string>
 	<string name="send_coins_fragment_button_send">Send</string>
 	<string name="send_coins_fragment_button_back">Back</string>
 	<string name="send_coins_sending_msg">Sending…</string>
