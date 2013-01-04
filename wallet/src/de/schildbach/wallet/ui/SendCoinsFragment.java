@@ -61,6 +61,7 @@ import com.google.bitcoin.core.NetworkParameters;
 import com.google.bitcoin.core.Sha256Hash;
 import com.google.bitcoin.core.Transaction;
 import com.google.bitcoin.core.TransactionConfidence;
+import com.google.bitcoin.core.TransactionConfidence.ConfidenceType;
 import com.google.bitcoin.core.Wallet;
 import com.google.bitcoin.core.Wallet.BalanceType;
 import com.google.bitcoin.uri.BitcoinURI;
@@ -204,10 +205,15 @@ public final class SendCoinsFragment extends SherlockFragment implements AmountC
 				{
 					sentTransactionListAdapter.notifyDataSetChanged();
 
-					if (state == State.SENDING && sentTransaction.getConfidence().numBroadcastPeers() > 0)
+					if (state == State.SENDING)
 					{
-						state = State.SENT;
-						updateView();
+						final TransactionConfidence confidence = sentTransaction.getConfidence();
+
+						if (confidence.numBroadcastPeers() > 0 || confidence.getConfidenceType() == ConfidenceType.BUILDING)
+						{
+							state = State.SENT;
+							updateView();
+						}
 					}
 				}
 			});
