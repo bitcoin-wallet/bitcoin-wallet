@@ -137,6 +137,10 @@
 	<string name="transaction_fragment_hash_label">Hash</string>
 	<string name="transaction_fragment_length_label">Länge</string>
 
+	<string name="transaction_row_message_unconfirmed_unlocked">Diese Zahlung sollte bald verfügbar werden.</string>
+	<string name="transaction_row_message_unconfirmed_locked">Diese Zahlung ist nicht standardgemäß und sollte nicht vertraut werden.</string>
+	<string name="transaction_row_message_dead">Diese Zahlung wurde vom Sender rückgängig gemacht.</string>
+
 	<string name="amount_calculator_dialog_title">Währungs-Umrechner</string>
 	<string name="amount_calculator_dialog_button_use">Übernehmen</string>
 	<string name="amount_calculator_dialog_exchange_rate">BTC 1 ist etwa %1$s %2$s wert</string>

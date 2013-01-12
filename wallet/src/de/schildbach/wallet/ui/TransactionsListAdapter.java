@@ -60,6 +60,7 @@ public class TransactionsListAdapter extends ArrayAdapter<Transaction>
 	private final DateFormat timeFormat;
 	private final int colorSignificant;
 	private final int colorInsignificant;
+	private final int colorError;
 	private final int colorCircularBuilding = Color.parseColor("#44ff44");
 	private final String textCoinBase;
 	private final LayoutInflater inflater;
@@ -83,6 +84,7 @@ public class TransactionsListAdapter extends ArrayAdapter<Transaction>
 		final Resources resources = context.getResources();
 		colorSignificant = resources.getColor(R.color.fg_significant);
 		colorInsignificant = resources.getColor(R.color.fg_insignificant);
+		colorError = resources.getColor(R.color.fg_error);
 		textCoinBase = context.getString(R.string.wallet_transactions_fragment_coinbase);
 		inflater = LayoutInflater.from(context);
 	}
@@ -187,6 +189,35 @@ public class TransactionsListAdapter extends ArrayAdapter<Transaction>
 			rowValue.setAmountSigned(true);
 			rowValue.setTextColor(textColor);
 			rowValue.setAmount(value);
+
+			final View rowExtend = row.findViewById(R.id.transaction_row_extend);
+			final TextView rowMessage = (TextView) row.findViewById(R.id.transaction_row_message);
+			final boolean isLocked = tx.getLockTime() > 0;
+			rowExtend.setVisibility(View.GONE);
+			if (!sent && confidenceType == ConfidenceType.NOT_SEEN_IN_CHAIN && isLocked)
+			{
+				rowExtend.setVisibility(View.VISIBLE);
+				rowMessage.setText(R.string.transaction_row_message_unconfirmed_locked);
+				rowMessage.setTextColor(colorError);
+			}
+			else if (!sent && confidenceType == ConfidenceType.NOT_SEEN_IN_CHAIN && !isLocked)
+			{
+				rowExtend.setVisibility(View.VISIBLE);
+				rowMessage.setText(R.string.transaction_row_message_unconfirmed_unlocked);
+				rowMessage.setTextColor(colorInsignificant);
+			}
+			else if (!sent && confidenceType == ConfidenceType.NOT_IN_BEST_CHAIN)
+			{
+				rowExtend.setVisibility(View.VISIBLE);
+				rowMessage.setText(R.string.transaction_row_message_unconfirmed_unlocked);
+				rowMessage.setTextColor(colorError);
+			}
+			else if (!sent && confidenceType == ConfidenceType.DEAD)
+			{
+				rowExtend.setVisibility(View.VISIBLE);
+				rowMessage.setText(R.string.transaction_row_message_dead);
+				rowMessage.setTextColor(colorError);
+			}
 
 			return row;
 		}
