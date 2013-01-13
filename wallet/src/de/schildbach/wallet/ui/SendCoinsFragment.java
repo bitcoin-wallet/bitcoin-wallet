@@ -804,7 +804,14 @@ public final class SendCoinsFragment extends SherlockFragment implements AmountC
 
 		sentTransactionListAdapter.clear();
 		if (sentTransaction != null)
+		{
+			sentTransactionView.setVisibility(View.VISIBLE);
 			sentTransactionListAdapter.add(sentTransaction);
+		}
+		else
+		{
+			sentTransactionView.setVisibility(View.GONE);
+		}
 
 		viewGo.setEnabled(everythingValid());
 		if (state == State.INPUT)

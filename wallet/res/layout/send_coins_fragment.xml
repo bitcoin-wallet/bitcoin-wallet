@@ -110,14 +110,15 @@
 	<!-- stretch dummy -->
 
 	<ImageView
-		android:layout_width="wrap_content"
+		android:layout_width="0px"
 		android:layout_height="0px"
 		android:layout_weight="1" />
 
 	<ListView
 		android:id="@+id/send_coins_sent_transaction"
 		android:layout_width="match_parent"
-		android:layout_height="wrap_content" />
+		android:layout_height="wrap_content"
+		android:visibility="gone" />
 
 	<include layout="@layout/send_coins_buttons_include" />
 
