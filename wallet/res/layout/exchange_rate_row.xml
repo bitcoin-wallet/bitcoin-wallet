@@ -14,7 +14,6 @@
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_marginRight="8dp"
-		android:layout_weight="0"
 		android:textSize="18sp" />
 
 	<!-- stretch dummy -->
@@ -22,15 +21,14 @@
 	<ImageView
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_weight="100" />
+		android:layout_weight="1" />
 
 	<de.schildbach.wallet.ui.CurrencyAmountView
 		android:id="@+id/exchange_rate_value"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_gravity="right"
-		android:layout_marginLeft="8dp"
-		android:layout_weight="0" >
+		android:layout_marginLeft="8dp" >
 
 		<TextView
 			android:layout_width="wrap_content"
