@@ -132,9 +132,10 @@
 	<string name="transaction_fragment_status_dead">dead</string>
 	<string name="transaction_fragment_hash_label">Hash</string>
 	<string name="transaction_fragment_length_label">Length</string>
-	<string name="transaction_row_message_unconfirmed_unlocked">This payment should become spendable in a few minutes.</string>
-	<string name="transaction_row_message_unconfirmed_locked">This payment is not standard and should not be trusted.</string>
-	<string name="transaction_row_message_dead">This payment has been reversed by the sender.</string>
+	<string name="transaction_row_message_own_unbroadcasted">This payment has not been transmitted yet.</string>
+	<string name="transaction_row_message_received_unconfirmed_unlocked">This payment should become spendable in a few minutes.</string>
+	<string name="transaction_row_message_received_unconfirmed_locked">This payment is not standard and should not be trusted.</string>
+	<string name="transaction_row_message_received_dead">This payment has been reversed by the sender.</string>
 	<string name="amount_calculator_dialog_title">Currency calculator</string>
 	<string name="amount_calculator_dialog_button_use">Use</string>
 	<string name="amount_calculator_dialog_exchange_rate">BTC 1 is worth about %1$s %2$s\nPrice fetched from %3$s</string>

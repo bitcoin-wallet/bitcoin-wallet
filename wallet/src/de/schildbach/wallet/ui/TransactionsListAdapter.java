@@ -195,28 +195,34 @@ public class TransactionsListAdapter extends ArrayAdapter<Transaction>
 			final TextView rowMessage = (TextView) row.findViewById(R.id.transaction_row_message);
 			final boolean isLocked = tx.getLockTime() > 0;
 			rowExtend.setVisibility(View.GONE);
-			if (!sent && confidenceType == ConfidenceType.NOT_SEEN_IN_CHAIN && isLocked)
+			if (isOwn && confidenceType == ConfidenceType.NOT_SEEN_IN_CHAIN && confidence.numBroadcastPeers() <= 1)
 			{
 				rowExtend.setVisibility(View.VISIBLE);
-				rowMessage.setText(R.string.transaction_row_message_unconfirmed_locked);
+				rowMessage.setText(R.string.transaction_row_message_own_unbroadcasted);
+				rowMessage.setTextColor(colorInsignificant);
+			}
+			else if (!sent && confidenceType == ConfidenceType.NOT_SEEN_IN_CHAIN && isLocked)
+			{
+				rowExtend.setVisibility(View.VISIBLE);
+				rowMessage.setText(R.string.transaction_row_message_received_unconfirmed_locked);
 				rowMessage.setTextColor(colorError);
 			}
 			else if (!sent && confidenceType == ConfidenceType.NOT_SEEN_IN_CHAIN && !isLocked)
 			{
 				rowExtend.setVisibility(View.VISIBLE);
-				rowMessage.setText(R.string.transaction_row_message_unconfirmed_unlocked);
+				rowMessage.setText(R.string.transaction_row_message_received_unconfirmed_unlocked);
 				rowMessage.setTextColor(colorInsignificant);
 			}
 			else if (!sent && confidenceType == ConfidenceType.NOT_IN_BEST_CHAIN)
 			{
 				rowExtend.setVisibility(View.VISIBLE);
-				rowMessage.setText(R.string.transaction_row_message_unconfirmed_unlocked);
+				rowMessage.setText(R.string.transaction_row_message_received_unconfirmed_unlocked);
 				rowMessage.setTextColor(colorError);
 			}
 			else if (!sent && confidenceType == ConfidenceType.DEAD)
 			{
 				rowExtend.setVisibility(View.VISIBLE);
-				rowMessage.setText(R.string.transaction_row_message_dead);
+				rowMessage.setText(R.string.transaction_row_message_received_dead);
 				rowMessage.setTextColor(colorError);
 			}
 
