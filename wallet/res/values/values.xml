@@ -13,7 +13,7 @@
 		Need to restart app to take effect.</string>
 	<string name="preferences_initiate_reset_title">Reset Blockchain</string>
 	<string name="preferences_initiate_reset_summary">Reset blockchain, transactions and wallet balance. Use only when being instructed.</string>
-	<string name="preferences_initiate_reset_dialog_message">Would you like to reset and re-sync the blockchain?\n\nThis will temporary zero your wallet balance and remove transactions. Both will recover as blockchain sync progresses.</string>
+	<string name="preferences_initiate_reset_dialog_message">Would you like to reset and replay the blockchain?\n\nThis will temporary zero your wallet balance and remove transactions. Both will recover as blockchain sync progresses.</string>
 	<string name="preferences_initiate_reset_dialog_positive">Reset</string>
 	<string name="preferences_initiate_reset_dialog_negative">Dismiss</string>
 

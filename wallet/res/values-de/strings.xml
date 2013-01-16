@@ -6,14 +6,15 @@
 	<string name="toast_wallet_reset">Wallet wurde zurückgesetzt,\nwird einige Zeit benötigen</string>
 
 	<string name="blockchain_state_disclaimer">Benutzung auf eigene Gefahr. Bitte lies die &lt;u>Sicherheitshinweise&lt;/u>.</string>
-	<string name="blockchain_state_message_hours">%1$s, hinkt %2$d Stunden hinterher</string>
-	<string name="blockchain_state_message_days">%1$s, hinkt %2$d Tage hinterher</string>
-	<string name="blockchain_state_message_weeks">%1$s, hinkt %2$d Wochen hinterher</string>
-	<string name="blockchain_state_message_downloading">Synchronisiere mit Netzwerk</string>
-	<string name="blockchain_state_message_stalled">Synchronisation blockiert</string>
-	<string name="blockchain_state_message_problem_storage">Synchronisation: Speicherplatz-Problem</string>
-	<string name="blockchain_state_message_problem_power">Synchronisation: Stromversorgungs-Problem</string>
-	<string name="blockchain_state_message_problem_network">Synchronisation: Netzwerk-Problem</string>
+	<string name="blockchain_state_progress_hours">%1$s, hinkt %2$d Stunden hinterher</string>
+	<string name="blockchain_state_progress_days">%1$s, hinkt %2$d Tage hinterher</string>
+	<string name="blockchain_state_progress_weeks">%1$s, hinkt %2$d Wochen hinterher</string>
+	<string name="blockchain_state_progress_downloading">Synchronisiere mit Netzwerk</string>
+	<string name="blockchain_state_progress_stalled">Synchronisation blockiert</string>
+	<string name="blockchain_state_progress_problem_storage">Synchronisation: Speicherplatz-Problem</string>
+	<string name="blockchain_state_progress_problem_power">Synchronisation: Stromversorgungs-Problem</string>
+	<string name="blockchain_state_progress_problem_network">Synchronisation: Netzwerk-Problem</string>
+	<string name="blockchain_state_replaying">Blockchain-Replay ist in Gang.</string>
 	<string name="wallet_address_fragment_your">Deine Bitcoin-Adresse:</string>
 	<string name="wallet_address_fragment_clipboard_msg">Bitcoin-Adresse ins Clipboard kopiert</string>
 	<string name="wallet_address_fragment_share_dialog_title">Bitcoin-Adresse veröffentlichen…</string>

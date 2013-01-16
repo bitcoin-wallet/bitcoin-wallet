@@ -1,33 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:tools="http://schemas.android.com/tools"
 	android:background="@drawable/action_bar_background"
+	android:orientation="vertical"
+	android:paddingBottom="@dimen/list_entry_padding_vertical"
+	android:paddingTop="@dimen/list_entry_padding_vertical"
 	tools:ignore="RequiredSize" >
 
 	<TextView
 		android:id="@+id/blockchain_state_disclaimer"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:layout_gravity="center"
 		android:gravity="center"
 		android:shadowColor="#000"
 		android:shadowRadius="1"
+		android:singleLine="true"
 		android:textColor="#fff"
 		android:textSize="@dimen/font_size_small" />
 
 	<TextView
-		android:id="@+id/blockchain_state_message"
+		android:id="@+id/blockchain_state_progress"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:layout_gravity="center"
 		android:gravity="center"
-		android:paddingBottom="@dimen/list_entry_padding_vertical"
-		android:paddingTop="@dimen/list_entry_padding_vertical"
 		android:shadowColor="#000"
 		android:shadowRadius="1"
 		android:singleLine="true"
 		android:textColor="#fff"
 		android:textSize="@dimen/font_size_small"
-		android:visibility="invisible" />
+		android:visibility="gone" />
 
-</FrameLayout>
+	<TextView
+		android:id="@+id/blockchain_state_replaying"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:gravity="center"
+		android:shadowColor="#000"
+		android:shadowRadius="1"
+		android:singleLine="true"
+		android:text="@string/blockchain_state_replaying"
+		android:textColor="#fff"
+		android:textSize="@dimen/font_size_small"
+		android:textStyle="bold"
+		android:visibility="gone" />
+
+</LinearLayout>

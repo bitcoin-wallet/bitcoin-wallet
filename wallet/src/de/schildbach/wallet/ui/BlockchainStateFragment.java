@@ -45,11 +45,13 @@ public final class BlockchainStateFragment extends Fragment
 {
 	private Activity activity;
 
-	private TextView messageView;
 	private TextView disclaimerView;
+	private TextView progressView;
+	private View replayingView;
 
 	private int download;
 	private Date bestChainDate;
+	private boolean replaying;
 
 	private final Handler delayMessageHandler = new Handler();
 
@@ -62,6 +64,7 @@ public final class BlockchainStateFragment extends Fragment
 		{
 			download = intent.getIntExtra(BlockchainService.ACTION_BLOCKCHAIN_STATE_DOWNLOAD, BlockchainService.ACTION_BLOCKCHAIN_STATE_DOWNLOAD_OK);
 			bestChainDate = (Date) intent.getSerializableExtra(BlockchainService.ACTION_BLOCKCHAIN_STATE_BEST_CHAIN_DATE);
+			replaying = intent.getBooleanExtra(BlockchainService.ACTION_BLOCKCHAIN_STATE_REPLAYING, false);
 
 			if (active.get())
 				updateView();
@@ -83,8 +86,6 @@ public final class BlockchainStateFragment extends Fragment
 	{
 		final View view = inflater.inflate(R.layout.blockchain_state_fragment, container);
 
-		messageView = (TextView) view.findViewById(R.id.blockchain_state_message);
-
 		disclaimerView = (TextView) view.findViewById(R.id.blockchain_state_disclaimer);
 		disclaimerView.setText(Html.fromHtml(getString(R.string.blockchain_state_disclaimer)));
 		disclaimerView.setOnClickListener(new OnClickListener()
@@ -94,6 +95,10 @@ public final class BlockchainStateFragment extends Fragment
 				activity.showDialog(WalletActivity.DIALOG_SAFETY);
 			}
 		});
+
+		progressView = (TextView) view.findViewById(R.id.blockchain_state_progress);
+
+		replayingView = view.findViewById(R.id.blockchain_state_replaying);
 
 		return view;
 	}
@@ -130,42 +135,42 @@ public final class BlockchainStateFragment extends Fragment
 	{
 		if (download != BlockchainService.ACTION_BLOCKCHAIN_STATE_DOWNLOAD_OK)
 		{
-			messageView.setVisibility(View.VISIBLE);
-			disclaimerView.setVisibility(View.INVISIBLE);
+			progressView.setVisibility(View.VISIBLE);
+			disclaimerView.setVisibility(View.GONE);
 
 			if ((download & BlockchainService.ACTION_BLOCKCHAIN_STATE_DOWNLOAD_STORAGE_PROBLEM) != 0)
-				messageView.setText(R.string.blockchain_state_message_problem_storage);
+				progressView.setText(R.string.blockchain_state_progress_problem_storage);
 			else if ((download & BlockchainService.ACTION_BLOCKCHAIN_STATE_DOWNLOAD_POWER_PROBLEM) != 0)
-				messageView.setText(R.string.blockchain_state_message_problem_power);
+				progressView.setText(R.string.blockchain_state_progress_problem_power);
 			else if ((download & BlockchainService.ACTION_BLOCKCHAIN_STATE_DOWNLOAD_NETWORK_PROBLEM) != 0)
-				messageView.setText(R.string.blockchain_state_message_problem_network);
+				progressView.setText(R.string.blockchain_state_progress_problem_network);
 		}
 		else if (bestChainDate != null)
 		{
 			final long blockchainLagHours = (System.currentTimeMillis() - bestChainDate.getTime()) / 1000 / 60 / 60;
 			final boolean blockchainUptodate = blockchainLagHours < Constants.BLOCKCHAIN_UPTODATE_THRESHOLD_HOURS;
 
-			messageView.setVisibility(blockchainUptodate ? View.INVISIBLE : View.VISIBLE);
-			disclaimerView.setVisibility(blockchainUptodate ? View.VISIBLE : View.INVISIBLE);
+			progressView.setVisibility(blockchainUptodate ? View.GONE : View.VISIBLE);
+			disclaimerView.setVisibility(blockchainUptodate ? View.VISIBLE : View.GONE);
 
-			final String downloading = getString(R.string.blockchain_state_message_downloading);
-			final String stalled = getString(R.string.blockchain_state_message_stalled);
+			final String downloading = getString(R.string.blockchain_state_progress_downloading);
+			final String stalled = getString(R.string.blockchain_state_progress_stalled);
 
 			final String stalledText;
 			if (blockchainLagHours < 48)
 			{
-				messageView.setText(getString(R.string.blockchain_state_message_hours, downloading, blockchainLagHours));
-				stalledText = getString(R.string.blockchain_state_message_hours, stalled, blockchainLagHours);
+				progressView.setText(getString(R.string.blockchain_state_progress_hours, downloading, blockchainLagHours));
+				stalledText = getString(R.string.blockchain_state_progress_hours, stalled, blockchainLagHours);
 			}
 			else if (blockchainLagHours < 24 * 14)
 			{
-				messageView.setText(getString(R.string.blockchain_state_message_days, downloading, blockchainLagHours / 24));
-				stalledText = getString(R.string.blockchain_state_message_days, stalled, blockchainLagHours / 24);
+				progressView.setText(getString(R.string.blockchain_state_progress_days, downloading, blockchainLagHours / 24));
+				stalledText = getString(R.string.blockchain_state_progress_days, stalled, blockchainLagHours / 24);
 			}
 			else
 			{
-				messageView.setText(getString(R.string.blockchain_state_message_weeks, downloading, blockchainLagHours / 24 / 7));
-				stalledText = getString(R.string.blockchain_state_message_weeks, stalled, blockchainLagHours / 24 / 7);
+				progressView.setText(getString(R.string.blockchain_state_progress_weeks, downloading, blockchainLagHours / 24 / 7));
+				stalledText = getString(R.string.blockchain_state_progress_weeks, stalled, blockchainLagHours / 24 / 7);
 			}
 
 			delayMessageHandler.removeCallbacksAndMessages(null);
@@ -173,14 +178,16 @@ public final class BlockchainStateFragment extends Fragment
 			{
 				public void run()
 				{
-					messageView.setText(stalledText);
+					progressView.setText(stalledText);
 				}
 			}, Constants.BLOCKCHAIN_DOWNLOAD_THRESHOLD_MS);
 		}
 		else
 		{
-			messageView.setVisibility(View.INVISIBLE);
+			progressView.setVisibility(View.GONE);
 			disclaimerView.setVisibility(View.VISIBLE);
 		}
+
+		replayingView.setVisibility(replaying ? View.VISIBLE : View.GONE);
 	}
 }

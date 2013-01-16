@@ -37,6 +37,7 @@ public interface BlockchainService
 	public static final String ACTION_BLOCKCHAIN_STATE = R.class.getPackage().getName() + ".blockchain_state";
 	public static final String ACTION_BLOCKCHAIN_STATE_BEST_CHAIN_DATE = "best_chain_date";
 	public static final String ACTION_BLOCKCHAIN_STATE_BEST_CHAIN_HEIGHT = "best_chain_height";
+	public static final String ACTION_BLOCKCHAIN_STATE_REPLAYING = "replaying";
 	public static final String ACTION_BLOCKCHAIN_STATE_DOWNLOAD = "download";
 	public static final int ACTION_BLOCKCHAIN_STATE_DOWNLOAD_OK = 0;
 	public static final int ACTION_BLOCKCHAIN_STATE_DOWNLOAD_STORAGE_PROBLEM = 1;
