@@ -118,6 +118,8 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 		@Override
 		public void onCoinsReceived(final Wallet wallet, final Transaction tx, final BigInteger prevBalance, final BigInteger newBalance)
 		{
+			super.onCoinsReceived(wallet, tx, prevBalance, newBalance);
+
 			try
 			{
 				final Address from;
@@ -139,8 +141,6 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 					{
 						if (amount.signum() > 0)
 							notifyCoinsReceived(from, amount);
-
-						notifyWidgets();
 					}
 				});
 			}
@@ -148,6 +148,18 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 			{
 				throw new RuntimeException(x);
 			}
+		}
+
+		@Override
+		public void onChange()
+		{
+			handler.post(new Runnable()
+			{
+				public void run()
+				{
+					notifyWidgets();
+				}
+			});
 		}
 	};
 
