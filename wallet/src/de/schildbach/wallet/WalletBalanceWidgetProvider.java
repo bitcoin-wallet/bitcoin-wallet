@@ -48,6 +48,13 @@ public class WalletBalanceWidgetProvider extends AppWidgetProvider
 		final WalletApplication application = (WalletApplication) context.getApplicationContext();
 		final Wallet wallet = application.getWallet();
 		final BigInteger balance = wallet.getBalance(BalanceType.ESTIMATED);
+
+		updateWidgets(context, appWidgetManager, appWidgetIds, balance);
+	}
+
+	public static void updateWidgets(final Context context, final AppWidgetManager appWidgetManager, final int[] appWidgetIds,
+			final BigInteger balance)
+	{
 		final Editable balanceStr = new SpannableStringBuilder(WalletUtils.formatValue(balance));
 		WalletUtils.formatValue(balanceStr);
 

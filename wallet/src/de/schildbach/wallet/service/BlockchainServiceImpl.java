@@ -33,8 +33,8 @@ import android.annotation.SuppressLint;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
-import android.appwidget.AppWidgetProviderInfo;
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -65,6 +65,7 @@ import com.google.bitcoin.core.ScriptException;
 import com.google.bitcoin.core.Transaction;
 import com.google.bitcoin.core.TransactionInput;
 import com.google.bitcoin.core.Wallet;
+import com.google.bitcoin.core.Wallet.BalanceType;
 import com.google.bitcoin.core.Wallet.SendRequest;
 import com.google.bitcoin.core.WalletEventListener;
 import com.google.bitcoin.discovery.DnsDiscovery;
@@ -77,6 +78,7 @@ import com.google.bitcoin.store.BoundedOverheadBlockStore;
 
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
+import de.schildbach.wallet.WalletBalanceWidgetProvider;
 import de.schildbach.wallet.ui.WalletActivity;
 import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
@@ -699,19 +701,17 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 
 	public void notifyWidgets()
 	{
-		final Context context = getApplicationContext();
+		final AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
 
-		// notify widgets
-		final AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
-		for (final AppWidgetProviderInfo providerInfo : appWidgetManager.getInstalledProviders())
+		final ComponentName providerName = new ComponentName(this, WalletBalanceWidgetProvider.class);
+		final int[] appWidgetIds = appWidgetManager.getAppWidgetIds(providerName);
+
+		if (appWidgetIds.length > 0)
 		{
-			// limit to own widgets
-			if (providerInfo.provider.getPackageName().equals(context.getPackageName()))
-			{
-				final Intent intent = new Intent(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
-				intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, appWidgetManager.getAppWidgetIds(providerInfo.provider));
-				context.sendBroadcast(intent);
-			}
+			final Wallet wallet = application.getWallet();
+			final BigInteger balance = wallet.getBalance(BalanceType.ESTIMATED);
+
+			WalletBalanceWidgetProvider.updateWidgets(this, appWidgetManager, appWidgetIds, balance);
 		}
 	}
 }
