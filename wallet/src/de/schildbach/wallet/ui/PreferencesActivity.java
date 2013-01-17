@@ -99,7 +99,7 @@ public final class PreferencesActivity extends SherlockPreferenceActivity implem
 					finish();
 				}
 			});
-			dialog.setNegativeButton(R.string.preferences_initiate_reset_dialog_negative, null);
+			dialog.setNegativeButton(R.string.button_dismiss, null);
 			dialog.show();
 
 			return true;

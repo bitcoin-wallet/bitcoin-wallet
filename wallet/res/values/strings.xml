@@ -137,6 +137,15 @@
 	<string name="peer_list_fragment_empty">No peers connected</string>
 	<string name="scan_camera_problem_dialog_title">Sorry</string>
 	<string name="scan_camera_problem_dialog_message">The camera has a problem. You probably need to restart the device.</string>
+	<string name="preferences_title">Preferences</string>
+	<string name="preferences_autosync_title">Sync on Power</string>
+	<string name="preferences_autosync_summary">Stay synchronized to blockchain in background while connected to power.</string>
+	<string name="preferences_trusted_peer_title">Trusted Peer</string>
+	<string name="preferences_trusted_peer_summary">Hostname of single peer to connect to. Regular peer discovery will be skipped.</string>
+	<string name="preferences_initiate_reset_title">Reset Blockchain</string>
+	<string name="preferences_initiate_reset_summary">Reset blockchain, transactions and wallet balance. Replay will take a while.</string>
+	<string name="preferences_initiate_reset_dialog_message">Would you like to reset and replay the blockchain?\n\nThis will temporary zero your wallet balance and remove transactions. Both will recover as blockchain sync progresses.</string>
+	<string name="preferences_initiate_reset_dialog_positive">Reset</string>
 	<string name="about_title">About</string>
 	<string name="about_license_title">License</string>
 	<string name="about_credits_bitcoinj_title">"This app is using 'bitcoinj'"</string>
