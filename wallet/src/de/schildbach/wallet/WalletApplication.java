@@ -52,6 +52,7 @@ import com.google.bitcoin.store.BlockStoreException;
 import com.google.bitcoin.store.BoundedOverheadBlockStore;
 import com.google.bitcoin.store.WalletProtobufSerializer;
 
+import de.schildbach.wallet.service.BlockchainService;
 import de.schildbach.wallet.service.BlockchainServiceImpl;
 import de.schildbach.wallet.util.ErrorReporter;
 import de.schildbach.wallet.util.StrictModeWrapper;
@@ -65,6 +66,8 @@ public class WalletApplication extends Application
 {
 	private File walletFile;
 	private Wallet wallet;
+	private Intent blockchainServiceIntent;
+	private Intent blockchainServiceCancelCoinsReceivedIntent;
 
 	private static final Charset UTF_8 = Charset.forName("UTF-8");
 	private static final String TAG = WalletApplication.class.getSimpleName();
@@ -86,6 +89,10 @@ public class WalletApplication extends Application
 		super.onCreate();
 
 		ErrorReporter.getInstance().init(this);
+
+		blockchainServiceIntent = new Intent(this, BlockchainServiceImpl.class);
+		blockchainServiceCancelCoinsReceivedIntent = new Intent(BlockchainService.ACTION_CANCEL_COINS_RECEIVED, null, this,
+				BlockchainServiceImpl.class);
 
 		walletFile = getFileStreamPath(Constants.WALLET_FILENAME_PROTOBUF);
 
@@ -401,11 +408,23 @@ public class WalletApplication extends Application
 		throw new IllegalStateException("address not in keychain: " + selectedAddress);
 	}
 
+	public void startBlockchainService(final boolean cancelCoinsReceived)
+	{
+		if (cancelCoinsReceived)
+			startService(blockchainServiceCancelCoinsReceivedIntent);
+		else
+			startService(blockchainServiceIntent);
+	}
+
+	public void stopBlockchainService()
+	{
+		stopService(blockchainServiceIntent);
+	}
+
 	public void resetBlockchain()
 	{
 		// stop service to make sure peers do not get in the way
-		final Intent serviceIntent = new Intent(this, BlockchainServiceImpl.class);
-		stopService(serviceIntent);
+		stopBlockchainService();
 
 		// remove block chain
 		final File blockChainFile = new File(getDir("blockstore", Context.MODE_WORLD_READABLE | Context.MODE_WORLD_WRITEABLE),
@@ -416,7 +435,7 @@ public class WalletApplication extends Application
 		wallet.clearTransactions(0);
 
 		// start service again
-		startService(serviceIntent);
+		startBlockchainService(false);
 	}
 
 	public final int applicationVersionCode()

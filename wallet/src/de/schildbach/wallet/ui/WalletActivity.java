@@ -107,7 +107,7 @@ public final class WalletActivity extends AbstractWalletActivity
 	{
 		super.onResume();
 
-		startService(new Intent(BlockchainService.ACTION_CANCEL_COINS_RECEIVED, null, this, BlockchainServiceImpl.class));
+		getWalletApplication().startBlockchainService(true);
 
 		checkLowStorageAlert();
 	}
@@ -202,7 +202,7 @@ public final class WalletActivity extends AbstractWalletActivity
 
 	private void handleDisconnect()
 	{
-		stopService(new Intent(this, BlockchainServiceImpl.class));
+		getWalletApplication().stopBlockchainService();
 		finish();
 	}
 

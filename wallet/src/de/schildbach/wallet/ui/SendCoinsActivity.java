@@ -33,7 +33,6 @@ import com.actionbarsherlock.view.MenuItem;
 import com.google.bitcoin.uri.BitcoinURI;
 import com.google.bitcoin.uri.BitcoinURIParseException;
 
-import de.schildbach.wallet.service.BlockchainServiceImpl;
 import de.schildbach.wallet_test.R;
 
 /**
@@ -53,7 +52,7 @@ public final class SendCoinsActivity extends AbstractWalletActivity
 
 		setContentView(R.layout.send_coins_content);
 
-		startService(new Intent(this, BlockchainServiceImpl.class));
+		getWalletApplication().startBlockchainService(false);
 
 		final ActionBar actionBar = getSupportActionBar();
 		actionBar.setTitle(R.string.send_coins_activity_title);
