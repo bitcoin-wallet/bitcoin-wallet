@@ -2,11 +2,6 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
 
 	<PreferenceCategory android:title="@string/preferences_title" >
-		<Preference
-			android:icon="@drawable/ic_menu_warning"
-			android:summary="@string/preferences_warning_summary"
-			android:title="@string/preferences_warning_title" />
-
 		<CheckBoxPreference
 			android:defaultValue="true"
 			android:key="autosync"

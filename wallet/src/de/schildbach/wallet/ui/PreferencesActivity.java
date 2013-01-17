@@ -22,21 +22,24 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
 import android.preference.Preference;
+import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceScreen;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockPreferenceActivity;
 import com.actionbarsherlock.view.MenuItem;
 
+import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet_test.R;
 
 /**
  * @author Andreas Schildbach
  */
-public final class PreferencesActivity extends SherlockPreferenceActivity
+public final class PreferencesActivity extends SherlockPreferenceActivity implements OnPreferenceChangeListener
 {
 	private WalletApplication application;
+	private Preference trustedPeerPreference;
 
 	private static final String PREFS_KEY_INITIATE_RESET = "initiate_reset";
 
@@ -49,9 +52,20 @@ public final class PreferencesActivity extends SherlockPreferenceActivity
 
 		addPreferencesFromResource(R.xml.preferences);
 
+		trustedPeerPreference = findPreference(Constants.PREFS_KEY_TRUSTED_PEER);
+		trustedPeerPreference.setOnPreferenceChangeListener(this);
+
 		final ActionBar actionBar = getSupportActionBar();
 		actionBar.setTitle(R.string.preferences_title);
 		actionBar.setDisplayHomeAsUpEnabled(true);
+	}
+
+	@Override
+	protected void onDestroy()
+	{
+		trustedPeerPreference.setOnPreferenceChangeListener(null);
+
+		super.onDestroy();
 	}
 
 	@Override
@@ -92,5 +106,13 @@ public final class PreferencesActivity extends SherlockPreferenceActivity
 		}
 
 		return false;
+	}
+
+	public boolean onPreferenceChange(final Preference preference, final Object newValue)
+	{
+		if (preference.equals(trustedPeerPreference))
+			application.stopBlockchainService();
+
+		return true;
 	}
 }
