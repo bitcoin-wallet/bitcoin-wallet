@@ -117,7 +117,7 @@ public final class SendCoinsFragment extends SherlockFragment implements AmountC
 
 	private enum State
 	{
-		INPUT, SENDING, SENT
+		INPUT, SENDING, SENT, FAILED
 	}
 
 	private final ServiceConnection serviceConnection = new ServiceConnection()
@@ -209,11 +209,12 @@ public final class SendCoinsFragment extends SherlockFragment implements AmountC
 					{
 						final TransactionConfidence confidence = sentTransaction.getConfidence();
 
-						if (confidence.numBroadcastPeers() > 0 || confidence.getConfidenceType() == ConfidenceType.BUILDING)
-						{
+						if (confidence.getConfidenceType() == ConfidenceType.DEAD)
+							state = State.FAILED;
+						else if (confidence.numBroadcastPeers() > 0 || confidence.getConfidenceType() == ConfidenceType.BUILDING)
 							state = State.SENT;
-							updateView();
-						}
+
+						updateView();
 					}
 				}
 			});
@@ -813,16 +814,29 @@ public final class SendCoinsFragment extends SherlockFragment implements AmountC
 			sentTransactionView.setVisibility(View.GONE);
 		}
 
-		viewGo.setEnabled(everythingValid());
-		if (state == State.INPUT)
-			viewGo.setText(R.string.send_coins_fragment_button_send);
-		else if (state == State.SENDING)
-			viewGo.setText(R.string.send_coins_sending_msg);
-		else if (state == State.SENT)
-			viewGo.setText(R.string.send_coins_sent_msg);
-
 		viewCancel.setEnabled(state != State.SENDING);
-		viewCancel.setText(state != State.SENT ? R.string.button_cancel : R.string.send_coins_fragment_button_back);
+		viewGo.setEnabled(everythingValid());
+
+		if (state == State.INPUT)
+		{
+			viewCancel.setText(R.string.button_cancel);
+			viewGo.setText(R.string.send_coins_fragment_button_send);
+		}
+		else if (state == State.SENDING)
+		{
+			viewCancel.setText(R.string.button_cancel);
+			viewGo.setText(R.string.send_coins_sending_msg);
+		}
+		else if (state == State.SENT)
+		{
+			viewCancel.setText(R.string.send_coins_fragment_button_back);
+			viewGo.setText(R.string.send_coins_sent_msg);
+		}
+		else if (state == State.FAILED)
+		{
+			viewCancel.setText(R.string.send_coins_fragment_button_back);
+			viewGo.setText(R.string.send_coins_failed_msg);
+		}
 	}
 
 	private boolean everythingValid()
