@@ -60,6 +60,8 @@ public final class WalletBalanceFragment extends Fragment implements LoaderManag
 	private WalletApplication application;
 	private Wallet wallet;
 	private SharedPreferences prefs;
+	private LoaderManager loaderManager;
+
 	private final Handler handler = new Handler();
 
 	private CurrencyAmountView viewBalance;
@@ -87,32 +89,21 @@ public final class WalletBalanceFragment extends Fragment implements LoaderManag
 	};
 
 	@Override
-	public void onCreate(final Bundle savedInstanceState)
+	public void onAttach(final Activity activity)
 	{
-		super.onCreate(savedInstanceState);
+		super.onAttach(activity);
 
-		final Activity activity = getActivity();
 		application = (WalletApplication) activity.getApplication();
 		prefs = PreferenceManager.getDefaultSharedPreferences(activity);
+		loaderManager = getLoaderManager();
 
 		wallet = application.getWallet();
-		wallet.addEventListener(walletEventListener);
-	}
-
-	@Override
-	public void onActivityCreated(final Bundle savedInstanceState)
-	{
-		super.onActivityCreated(savedInstanceState);
-
-		getLoaderManager().initLoader(0, null, this);
 	}
 
 	@Override
 	public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState)
 	{
 		final View view = inflater.inflate(R.layout.wallet_balance_fragment, container, false);
-		viewBalance = (CurrencyAmountView) view.findViewById(R.id.wallet_balance);
-		viewBalanceLocal = (TextView) view.findViewById(R.id.wallet_balance_local);
 
 		if ((getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) < Configuration.SCREENLAYOUT_SIZE_LARGE)
 		{
@@ -129,26 +120,39 @@ public final class WalletBalanceFragment extends Fragment implements LoaderManag
 	}
 
 	@Override
+	public void onViewCreated(final View view, final Bundle savedInstanceState)
+	{
+		super.onViewCreated(view, savedInstanceState);
+
+		viewBalance = (CurrencyAmountView) view.findViewById(R.id.wallet_balance);
+		viewBalanceLocal = (TextView) view.findViewById(R.id.wallet_balance_local);
+	}
+
+	@Override
 	public void onResume()
 	{
 		super.onResume();
+
+		loaderManager.initLoader(0, null, this);
+		wallet.addEventListener(walletEventListener);
 
 		updateView();
 	}
 
 	@Override
-	public void onDestroy()
+	public void onPause()
 	{
 		wallet.removeEventListener(walletEventListener);
+		loaderManager.destroyLoader(0);
 
-		super.onDestroy();
+		super.onPause();
 	}
 
 	public void updateView()
 	{
 		viewBalance.setAmount(wallet.getBalance(BalanceType.ESTIMATED));
 
-		getLoaderManager().restartLoader(0, null, this);
+		loaderManager.restartLoader(0, null, this);
 	}
 
 	private Runnable resetColorRunnable = new Runnable()
