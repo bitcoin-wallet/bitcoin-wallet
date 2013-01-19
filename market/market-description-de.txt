@@ -1,4 +1,4 @@
-Dies ist ein eigenständiges Bitcoin Wallet für Dein Android-Gerät. Du kannst Bitcoins zwischen Telefonen senden, nur durch Scannen des QR-Code, der durch die App angezeigt wird. Oder per NFC (Near Field Communication).
+Mit dieser App hast du deine Bitcoins immer dabei, in deiner Hosentasche! Du kannst Zahlungen senden, indem du einfach einen QR-Code scannst oder zwei Telefone aneinanderhälst (NFC). Bitcoin Wallet ist einfach zu nutzen und zuverlässig, gleichzeitig aber auch sicher und schnell.
 
 FEATURES:
 
