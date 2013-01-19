@@ -39,16 +39,14 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.google.bitcoin.core.AbstractWalletEventListener;
-import com.google.bitcoin.core.Transaction;
 import com.google.bitcoin.core.Wallet;
 import com.google.bitcoin.core.Wallet.BalanceType;
-import com.google.bitcoin.core.WalletEventListener;
 
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.ExchangeRatesProvider;
 import de.schildbach.wallet.ExchangeRatesProvider.ExchangeRate;
 import de.schildbach.wallet.WalletApplication;
+import de.schildbach.wallet.util.ThrottelingWalletChangeListener;
 import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
 
@@ -67,24 +65,12 @@ public final class WalletBalanceFragment extends Fragment implements LoaderManag
 	private CurrencyAmountView viewBalance;
 	private TextView viewBalanceLocal;
 
-	private final WalletEventListener walletEventListener = new AbstractWalletEventListener()
+	private final ThrottelingWalletChangeListener walletChangeListener = new ThrottelingWalletChangeListener()
 	{
 		@Override
-		public void onTransactionConfidenceChanged(final Wallet wallet, final Transaction tx)
+		public void onThrotteledWalletChanged()
 		{
-			// swallow
-		}
-
-		@Override
-		public void onChange()
-		{
-			getActivity().runOnUiThread(new Runnable()
-			{
-				public void run()
-				{
-					updateView();
-				}
-			});
+			updateView();
 		}
 	};
 
@@ -140,7 +126,7 @@ public final class WalletBalanceFragment extends Fragment implements LoaderManag
 		super.onResume();
 
 		loaderManager.initLoader(0, null, this);
-		wallet.addEventListener(walletEventListener);
+		wallet.addEventListener(walletChangeListener);
 
 		updateView();
 	}
@@ -148,7 +134,8 @@ public final class WalletBalanceFragment extends Fragment implements LoaderManag
 	@Override
 	public void onPause()
 	{
-		wallet.removeEventListener(walletEventListener);
+		wallet.removeEventListener(walletChangeListener);
+		walletChangeListener.removeCallbacks();
 		loaderManager.destroyLoader(0);
 
 		super.onPause();

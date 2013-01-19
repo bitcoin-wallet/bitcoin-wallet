@@ -43,17 +43,15 @@ import com.actionbarsherlock.view.ActionMode;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
-import com.google.bitcoin.core.AbstractWalletEventListener;
-import com.google.bitcoin.core.Transaction;
 import com.google.bitcoin.core.Utils;
 import com.google.bitcoin.core.Wallet;
 import com.google.bitcoin.core.Wallet.BalanceType;
-import com.google.bitcoin.core.WalletEventListener;
 
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.ExchangeRatesProvider;
 import de.schildbach.wallet.ExchangeRatesProvider.ExchangeRate;
 import de.schildbach.wallet.WalletApplication;
+import de.schildbach.wallet.util.ThrottelingWalletChangeListener;
 import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
 
@@ -69,24 +67,12 @@ public final class ExchangeRatesFragment extends ListFragment implements LoaderM
 	private BigInteger balance;
 	private String defaultCurrency;
 
-	private final WalletEventListener walletEventListener = new AbstractWalletEventListener()
+	private final ThrottelingWalletChangeListener walletChangeListener = new ThrottelingWalletChangeListener()
 	{
 		@Override
-		public void onTransactionConfidenceChanged(final Wallet wallet, final Transaction tx)
+		public void onThrotteledWalletChanged()
 		{
-			// swallow
-		}
-
-		@Override
-		public void onChange()
-		{
-			activity.runOnUiThread(new Runnable()
-			{
-				public void run()
-				{
-					updateView();
-				}
-			});
+			updateView();
 		}
 	};
 
@@ -106,7 +92,7 @@ public final class ExchangeRatesFragment extends ListFragment implements LoaderM
 		super.onCreate(savedInstanceState);
 
 		final Wallet wallet = application.getWallet();
-		wallet.addEventListener(walletEventListener);
+		wallet.addEventListener(walletChangeListener);
 	}
 
 	@Override
@@ -171,7 +157,8 @@ public final class ExchangeRatesFragment extends ListFragment implements LoaderM
 	@Override
 	public void onDestroy()
 	{
-		application.getWallet().removeEventListener(walletEventListener);
+		application.getWallet().removeEventListener(walletChangeListener);
+		walletChangeListener.removeCallbacks();
 
 		super.onDestroy();
 	}

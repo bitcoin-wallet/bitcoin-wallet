@@ -24,7 +24,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicLong;
 
 import android.app.Activity;
 import android.content.ContentResolver;
@@ -50,17 +49,16 @@ import com.actionbarsherlock.view.ActionMode;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
-import com.google.bitcoin.core.AbstractWalletEventListener;
 import com.google.bitcoin.core.Address;
 import com.google.bitcoin.core.ScriptException;
 import com.google.bitcoin.core.Transaction;
 import com.google.bitcoin.core.TransactionConfidence.ConfidenceType;
 import com.google.bitcoin.core.Wallet;
-import com.google.bitcoin.core.WalletEventListener;
 
 import de.schildbach.wallet.AddressBookProvider;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
+import de.schildbach.wallet.util.ThrottelingWalletChangeListener;
 import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
 
@@ -305,7 +303,7 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 		{
 			super.onStartLoading();
 
-			wallet.addEventListener(walletEventListener);
+			wallet.addEventListener(walletChangeListener);
 
 			forceLoad();
 		}
@@ -313,7 +311,8 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 		@Override
 		protected void onStopLoading()
 		{
-			wallet.removeEventListener(walletEventListener);
+			wallet.removeEventListener(walletChangeListener);
+			walletChangeListener.removeCallbacks();
 
 			super.onStopLoading();
 		}
@@ -328,34 +327,13 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 			return transactions;
 		}
 
-		private final WalletEventListener walletEventListener = new AbstractWalletEventListener()
+		private final ThrottelingWalletChangeListener walletChangeListener = new ThrottelingWalletChangeListener()
 		{
-			private final AtomicLong lastMessageTime = new AtomicLong(0);
-			private static final int THROTTLE_MS = 200;
-			private final Handler handler = new Handler();
-
 			@Override
-			public void onChange()
+			public void onThrotteledWalletChanged()
 			{
-				handler.removeCallbacksAndMessages(null);
-
-				final long now = System.currentTimeMillis();
-
-				if (now - lastMessageTime.get() > THROTTLE_MS)
-					handler.post(runnable);
-				else
-					handler.postDelayed(runnable, THROTTLE_MS);
+				forceLoad();
 			}
-
-			private final Runnable runnable = new Runnable()
-			{
-				public void run()
-				{
-					lastMessageTime.set(System.currentTimeMillis());
-
-					forceLoad();
-				}
-			};
 		};
 
 		private static final Comparator<Transaction> TRANSACTION_COMPARATOR = new Comparator<Transaction>()

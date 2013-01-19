@@ -57,7 +57,6 @@ import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import com.google.bitcoin.core.AbstractPeerEventListener;
-import com.google.bitcoin.core.AbstractWalletEventListener;
 import com.google.bitcoin.core.Address;
 import com.google.bitcoin.core.Block;
 import com.google.bitcoin.core.BlockChain;
@@ -84,6 +83,7 @@ import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.WalletBalanceWidgetProvider;
 import de.schildbach.wallet.ui.WalletActivity;
+import de.schildbach.wallet.util.ThrottelingWalletChangeListener;
 import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
 
@@ -118,15 +118,21 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 	private static final int MAX_LAST_CHAIN_HEIGHTS = 10;
 	private static final int IDLE_TIMEOUT_MIN = 2;
 
+	private static final long APPWIDGET_THROTTLE_MS = 500;
+
 	private static final String TAG = BlockchainServiceImpl.class.getSimpleName();
 
-	private final WalletEventListener walletEventListener = new AbstractWalletEventListener()
+	private final WalletEventListener walletEventListener = new ThrottelingWalletChangeListener(APPWIDGET_THROTTLE_MS)
 	{
+		@Override
+		public void onThrotteledWalletChanged()
+		{
+			notifyWidgets();
+		}
+
 		@Override
 		public void onCoinsReceived(final Wallet wallet, final Transaction tx, final BigInteger prevBalance, final BigInteger newBalance)
 		{
-			super.onCoinsReceived(wallet, tx, prevBalance, newBalance);
-
 			try
 			{
 				final Address from;
@@ -161,18 +167,6 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 			{
 				throw new RuntimeException(x);
 			}
-		}
-
-		@Override
-		public void onChange()
-		{
-			handler.post(new Runnable()
-			{
-				public void run()
-				{
-					notifyWidgets();
-				}
-			});
 		}
 	};
 
