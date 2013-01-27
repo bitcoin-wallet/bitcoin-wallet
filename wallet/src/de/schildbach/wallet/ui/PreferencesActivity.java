@@ -20,6 +20,7 @@ package de.schildbach.wallet.ui;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
@@ -58,6 +59,10 @@ public final class PreferencesActivity extends SherlockPreferenceActivity implem
 		final ActionBar actionBar = getSupportActionBar();
 		actionBar.setTitle(R.string.preferences_title);
 		actionBar.setDisplayHomeAsUpEnabled(true);
+
+		final SharedPreferences prefs = getPreferenceManager().getSharedPreferences();
+		final String trustedPeer = prefs.getString(Constants.PREFS_KEY_TRUSTED_PEER, "").trim();
+		updateTrustedPeer(trustedPeer);
 	}
 
 	@Override
@@ -111,8 +116,19 @@ public final class PreferencesActivity extends SherlockPreferenceActivity implem
 	public boolean onPreferenceChange(final Preference preference, final Object newValue)
 	{
 		if (preference.equals(trustedPeerPreference))
+		{
 			application.stopBlockchainService();
+			updateTrustedPeer((String) newValue);
+		}
 
 		return true;
+	}
+
+	private void updateTrustedPeer(final String trustedPeer)
+	{
+		if (trustedPeer.length() == 0)
+			trustedPeerPreference.setSummary(R.string.preferences_trusted_peer_summary);
+		else
+			trustedPeerPreference.setSummary(trustedPeer);
 	}
 }
