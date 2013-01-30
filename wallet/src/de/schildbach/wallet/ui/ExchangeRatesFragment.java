@@ -21,20 +21,24 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.database.Cursor;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.ListFragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
-import android.support.v4.widget.SimpleCursorAdapter;
-import android.support.v4.widget.SimpleCursorAdapter.ViewBinder;
+import android.support.v4.widget.CursorAdapter;
+import android.support.v4.widget.ResourceCursorAdapter;
 import android.view.View;
 import android.widget.BaseAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.actionbarsherlock.view.ActionMode;
 import com.actionbarsherlock.view.Menu;
@@ -55,13 +59,14 @@ import de.schildbach.wallet_test.R;
 /**
  * @author Andreas Schildbach
  */
-public final class ExchangeRatesFragment extends ListFragment implements LoaderManager.LoaderCallbacks<Cursor>
+public final class ExchangeRatesFragment extends ListFragment implements LoaderManager.LoaderCallbacks<Cursor>, OnSharedPreferenceChangeListener
 {
 	private AbstractWalletActivity activity;
 	private WalletApplication application;
 	private SharedPreferences prefs;
-	private SimpleCursorAdapter adapter;
+	private CursorAdapter adapter;
 	private BigInteger balance;
+	private String defaultCurrency;
 
 	private final WalletEventListener walletEventListener = new AbstractWalletEventListener()
 	{
@@ -91,6 +96,7 @@ public final class ExchangeRatesFragment extends ListFragment implements LoaderM
 
 		this.activity = (AbstractWalletActivity) activity;
 		application = (WalletApplication) activity.getApplication();
+		prefs = PreferenceManager.getDefaultSharedPreferences(activity);
 	}
 
 	@Override
@@ -107,29 +113,27 @@ public final class ExchangeRatesFragment extends ListFragment implements LoaderM
 	{
 		super.onActivityCreated(savedInstanceState);
 
-		prefs = PreferenceManager.getDefaultSharedPreferences(activity);
-
 		setEmptyText(getString(R.string.exchange_rates_fragment_empty_text));
 
-		adapter = new SimpleCursorAdapter(activity, R.layout.exchange_rate_row, null, new String[] { ExchangeRatesProvider.KEY_CURRENCY_CODE,
-				ExchangeRatesProvider.KEY_EXCHANGE_RATE }, new int[] { R.id.exchange_rate_currency_code, R.id.exchange_rate_value }, 0);
-		adapter.setViewBinder(new ViewBinder()
+		adapter = new ResourceCursorAdapter(activity, R.layout.exchange_rate_row, null, true)
 		{
-			public boolean setViewValue(final View view, final Cursor cursor, final int columnIndex)
+			@Override
+			public void bindView(final View view, final Context context, final Cursor cursor)
 			{
-				if (!ExchangeRatesProvider.KEY_EXCHANGE_RATE.equals(cursor.getColumnName(columnIndex)))
-					return false;
+				final TextView currencyCodeView = (TextView) view.findViewById(R.id.exchange_rate_currency_code);
+				final String currencyCode = cursor.getString(cursor.getColumnIndexOrThrow(ExchangeRatesProvider.KEY_CURRENCY_CODE));
+				final boolean isDefaultCurrency = currencyCode.equals(defaultCurrency);
+				currencyCodeView.setText(currencyCode + (isDefaultCurrency ? " (" + getText(R.string.exchange_rates_fragment_default) + ")" : ""));
+				currencyCodeView.setTypeface(isDefaultCurrency ? Typeface.DEFAULT_BOLD : Typeface.DEFAULT);
 
-				final BigDecimal exchangeRate = new BigDecimal(cursor.getDouble(columnIndex));
-
-				final CurrencyAmountView valueView = (CurrencyAmountView) view;
+				final CurrencyAmountView valueView = (CurrencyAmountView) view.findViewById(R.id.exchange_rate_value);
+				final BigDecimal exchangeRate = new BigDecimal(
+						cursor.getDouble(cursor.getColumnIndexOrThrow(ExchangeRatesProvider.KEY_EXCHANGE_RATE)));
 				valueView.setCurrencyCode(null);
 				final BigInteger localValue = WalletUtils.localValue(balance, exchangeRate);
 				valueView.setAmount(localValue);
-
-				return true;
 			}
-		});
+		};
 		setListAdapter(adapter);
 
 		getLoaderManager().initLoader(0, null, this);
@@ -140,7 +144,18 @@ public final class ExchangeRatesFragment extends ListFragment implements LoaderM
 	{
 		super.onResume();
 
+		defaultCurrency = prefs.getString(Constants.PREFS_KEY_EXCHANGE_CURRENCY, Constants.DEFAULT_EXCHANGE_CURRENCY);
+		prefs.registerOnSharedPreferenceChangeListener(this);
+
 		updateView();
+	}
+
+	@Override
+	public void onPause()
+	{
+		prefs.unregisterOnSharedPreferenceChangeListener(this);
+
+		super.onPause();
 	}
 
 	@Override
@@ -205,6 +220,15 @@ public final class ExchangeRatesFragment extends ListFragment implements LoaderM
 				}
 			}
 		});
+	}
+
+	public void onSharedPreferenceChanged(final SharedPreferences sharedPreferences, final String key)
+	{
+		if (Constants.PREFS_KEY_EXCHANGE_CURRENCY.equals(key))
+		{
+			defaultCurrency = prefs.getString(Constants.PREFS_KEY_EXCHANGE_CURRENCY, Constants.DEFAULT_EXCHANGE_CURRENCY);
+			updateView();
+		}
 	}
 
 	private void updateView()
