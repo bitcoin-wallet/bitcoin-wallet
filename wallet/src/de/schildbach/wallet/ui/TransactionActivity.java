@@ -30,6 +30,7 @@ import android.os.Build;
 import android.os.Bundle;
 
 import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.view.MenuItem;
 import com.google.bitcoin.core.ProtocolException;
 import com.google.bitcoin.core.ScriptException;
 import com.google.bitcoin.core.Sha256Hash;
@@ -72,16 +73,8 @@ public final class TransactionActivity extends AbstractWalletActivity
 		setContentView(R.layout.transaction_content);
 
 		final ActionBar actionBar = getSupportActionBar();
-
 		actionBar.setTitle(R.string.transaction_activity_title);
-
-		// actionBar.setBack(new OnClickListener()
-		// {
-		// public void onClick(final View v)
-		// {
-		// finish();
-		// }
-		// });
+		actionBar.setDisplayHomeAsUpEnabled(true);
 
 		handleIntent(getIntent());
 	}
@@ -166,6 +159,19 @@ public final class TransactionActivity extends AbstractWalletActivity
 
 		if (tx == null)
 			throw new IllegalArgumentException("no tx");
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(final MenuItem item)
+	{
+		switch (item.getItemId())
+		{
+			case android.R.id.home:
+				finish();
+				return true;
+		}
+
+		return super.onOptionsItemSelected(item);
 	}
 
 	private void updateView()
