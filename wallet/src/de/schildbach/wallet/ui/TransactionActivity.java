@@ -32,6 +32,7 @@ import android.os.Bundle;
 import com.actionbarsherlock.app.ActionBar;
 import com.google.bitcoin.core.ProtocolException;
 import com.google.bitcoin.core.ScriptException;
+import com.google.bitcoin.core.Sha256Hash;
 import com.google.bitcoin.core.Transaction;
 import com.google.bitcoin.core.VerificationException;
 import com.google.bitcoin.core.Wallet;
@@ -47,7 +48,7 @@ import de.schildbach.wallet_test.R;
  */
 public final class TransactionActivity extends AbstractWalletActivity
 {
-	public static final String INTENT_EXTRA_TRANSACTION = "transaction";
+	public static final String INTENT_EXTRA_TRANSACTION_HASH = "transaction_hash";
 
 	private static final String EXTRA_NDEF_MESSAGES = "android.nfc.extra.NDEF_MESSAGES"; // API level 10
 
@@ -57,8 +58,7 @@ public final class TransactionActivity extends AbstractWalletActivity
 	public static void show(final Context context, final Transaction tx)
 	{
 		final Intent intent = new Intent(context, TransactionActivity.class);
-		// use Bitcoin serialization, because Java serialization runs out of stack on some transactions
-		intent.putExtra(TransactionActivity.INTENT_EXTRA_TRANSACTION, tx.unsafeBitcoinSerialize());
+		intent.putExtra(TransactionActivity.INTENT_EXTRA_TRANSACTION_HASH, tx.getHash());
 		context.startActivity(intent);
 	}
 
@@ -108,16 +108,10 @@ public final class TransactionActivity extends AbstractWalletActivity
 		final Uri intentUri = intent.getData();
 		final String scheme = intentUri != null ? intentUri.getScheme() : null;
 
-		if (intent.hasExtra(INTENT_EXTRA_TRANSACTION))
+		if (intent.hasExtra(INTENT_EXTRA_TRANSACTION_HASH))
 		{
-			try
-			{
-				tx = new Transaction(Constants.NETWORK_PARAMETERS, getIntent().getByteArrayExtra(INTENT_EXTRA_TRANSACTION));
-			}
-			catch (final ProtocolException x)
-			{
-				throw new RuntimeException(x);
-			}
+			final Wallet wallet = ((WalletApplication) getApplication()).getWallet();
+			tx = wallet.getTransaction((Sha256Hash) intent.getSerializableExtra(INTENT_EXTRA_TRANSACTION_HASH));
 		}
 		else if (intentUri != null && "btctx".equals(scheme))
 		{
