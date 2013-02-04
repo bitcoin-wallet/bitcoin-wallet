@@ -43,12 +43,27 @@ import de.schildbach.wallet.util.IOUtils;
  */
 public class ExchangeRatesProvider extends ContentProvider
 {
+	public static class ExchangeRate
+	{
+		public ExchangeRate(final String currencyCode, final double rate, final String source)
+		{
+			this.currencyCode = currencyCode;
+			this.rate = rate;
+			this.source = source;
+		}
+
+		public final String currencyCode;
+		public final double rate;
+		public final String source;
+	}
+
 	public static final Uri CONTENT_URI = Uri.parse("content://" + Constants.PACKAGE_NAME + '.' + "exchange_rates");
 
 	public static final String KEY_CURRENCY_CODE = "currency_code";
-	public static final String KEY_EXCHANGE_RATE = "exchange_rate";
+	private static final String KEY_RATE = "rate";
+	private static final String KEY_SOURCE = "source";
 
-	private Map<String, Double> exchangeRates = null;
+	private Map<String, ExchangeRate> exchangeRates = null;
 	private long lastUpdated = 0;
 
 	private static final int UPDATE_FREQ_MS = 60 * 60 * 1000;
@@ -66,7 +81,7 @@ public class ExchangeRatesProvider extends ContentProvider
 
 		if (exchangeRates == null || now - lastUpdated > UPDATE_FREQ_MS)
 		{
-			Map<String, Double> newExchangeRates = getBitcoinCharts();
+			Map<String, ExchangeRate> newExchangeRates = getBitcoinCharts();
 			if (exchangeRates == null && newExchangeRates == null)
 				newExchangeRates = getBlockchainInfo();
 
@@ -80,21 +95,33 @@ public class ExchangeRatesProvider extends ContentProvider
 		if (exchangeRates == null)
 			return null;
 
-		final MatrixCursor cursor = new MatrixCursor(new String[] { BaseColumns._ID, KEY_CURRENCY_CODE, KEY_EXCHANGE_RATE });
+		final MatrixCursor cursor = new MatrixCursor(new String[] { BaseColumns._ID, KEY_CURRENCY_CODE, KEY_RATE, KEY_SOURCE });
 
 		if (selection == null)
 		{
-			for (final Map.Entry<String, Double> entry : exchangeRates.entrySet())
-				cursor.newRow().add(entry.getKey().hashCode()).add(entry.getKey()).add(entry.getValue());
+			for (final Map.Entry<String, ExchangeRate> entry : exchangeRates.entrySet())
+			{
+				final ExchangeRate rate = entry.getValue();
+				cursor.newRow().add(entry.getKey().hashCode()).add(rate.currencyCode).add(rate.rate).add(rate.source);
+			}
 		}
 		else if (selection.equals(KEY_CURRENCY_CODE))
 		{
 			final String code = selectionArgs[0];
-			final Double rate = exchangeRates.get(code);
-			cursor.newRow().add(code.hashCode()).add(code).add(rate);
+			final ExchangeRate rate = exchangeRates.get(code);
+			cursor.newRow().add(code.hashCode()).add(rate.currencyCode).add(rate.rate).add(rate.source);
 		}
 
 		return cursor;
+	}
+
+	public static ExchangeRate getExchangeRate(final Cursor cursor)
+	{
+		final String currencyCode = cursor.getString(cursor.getColumnIndexOrThrow(ExchangeRatesProvider.KEY_CURRENCY_CODE));
+		final double rate = cursor.getDouble(cursor.getColumnIndexOrThrow(ExchangeRatesProvider.KEY_RATE));
+		final String source = cursor.getString(cursor.getColumnIndexOrThrow(ExchangeRatesProvider.KEY_SOURCE));
+
+		return new ExchangeRate(currencyCode, rate, source);
 	}
 
 	@Override
@@ -121,11 +148,12 @@ public class ExchangeRatesProvider extends ContentProvider
 		throw new UnsupportedOperationException();
 	}
 
-	private static Map<String, Double> getBitcoinCharts()
+	private static Map<String, ExchangeRate> getBitcoinCharts()
 	{
 		try
 		{
-			final URLConnection connection = new URL("http://bitcoincharts.com/t/weighted_prices.json").openConnection();
+			final URL URL = new URL("http://bitcoincharts.com/t/weighted_prices.json");
+			final URLConnection connection = URL.openConnection();
 			connection.connect();
 			final StringBuilder content = new StringBuilder();
 
@@ -135,7 +163,7 @@ public class ExchangeRatesProvider extends ContentProvider
 				reader = new InputStreamReader(new BufferedInputStream(connection.getInputStream(), 1024));
 				IOUtils.copy(reader, content);
 
-				final Map<String, Double> rates = new TreeMap<String, Double>();
+				final Map<String, ExchangeRate> rates = new TreeMap<String, ExchangeRate>();
 
 				final JSONObject head = new JSONObject(content.toString());
 				for (final Iterator<String> i = head.keys(); i.hasNext();)
@@ -151,7 +179,7 @@ public class ExchangeRatesProvider extends ContentProvider
 							rate = o.optDouble("30d", 0);
 
 						if (rate != 0)
-							rates.put(currencyCode, rate);
+							rates.put(currencyCode, new ExchangeRate(currencyCode, rate, URL.getHost()));
 					}
 				}
 
@@ -175,11 +203,12 @@ public class ExchangeRatesProvider extends ContentProvider
 		return null;
 	}
 
-	private static Map<String, Double> getBlockchainInfo()
+	private static Map<String, ExchangeRate> getBlockchainInfo()
 	{
 		try
 		{
-			final URLConnection connection = new URL("https://blockchain.info/ticker").openConnection();
+			final URL URL = new URL("https://blockchain.info/ticker");
+			final URLConnection connection = URL.openConnection();
 			connection.connect();
 			final StringBuilder content = new StringBuilder();
 
@@ -189,7 +218,7 @@ public class ExchangeRatesProvider extends ContentProvider
 				reader = new InputStreamReader(new BufferedInputStream(connection.getInputStream(), 1024));
 				IOUtils.copy(reader, content);
 
-				final Map<String, Double> rates = new TreeMap<String, Double>();
+				final Map<String, ExchangeRate> rates = new TreeMap<String, ExchangeRate>();
 
 				final JSONObject head = new JSONObject(content.toString());
 				for (final Iterator<String> i = head.keys(); i.hasNext();)
@@ -199,7 +228,7 @@ public class ExchangeRatesProvider extends ContentProvider
 					final double rate = o.optDouble("15m", 0);
 
 					if (rate != 0)
-						rates.put(currencyCode, rate);
+						rates.put(currencyCode, new ExchangeRate(currencyCode, rate, URL.getHost()));
 				}
 
 				return rates;

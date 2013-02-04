@@ -22,6 +22,7 @@
 	<string name="exchange_rates_activity_title">Exchange Rates</string>
 	<string name="exchange_rates_fragment_empty_text">Could not load exchange rates</string>
 	<string name="exchange_rates_fragment_default">default</string>
+	<string name="exchange_rates_fragment_source">Price fetched from %s</string>
 	<string name="exchange_rates_context_set_as_default_title">Set as default foreign currency</string>
 	<string name="wallet_transactions_fragment_tab_received">Received</string>
 	<string name="wallet_transactions_fragment_tab_all">Both</string>
@@ -133,7 +134,7 @@
 	<string name="transaction_row_message_dead">This payment has been reversed by the sender.</string>
 	<string name="amount_calculator_dialog_title">Currency calculator</string>
 	<string name="amount_calculator_dialog_button_use">Use</string>
-	<string name="amount_calculator_dialog_exchange_rate">BTC 1 is worth about %1$s %2$s</string>
+	<string name="amount_calculator_dialog_exchange_rate">BTC 1 is worth about %1$s %2$s\nPrice fetched from %3$s</string>
 	<string name="amount_calculator_dialog_exchange_rate_not_available">Exchange rate not available.</string>
 	<string name="peer_monitor_activity_title">Peer Monitor</string>
 	<string name="peer_list_fragment_empty">No peers connected</string>

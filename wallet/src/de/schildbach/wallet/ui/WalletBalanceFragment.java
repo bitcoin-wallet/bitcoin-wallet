@@ -48,6 +48,7 @@ import com.google.bitcoin.core.WalletEventListener;
 
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.ExchangeRatesProvider;
+import de.schildbach.wallet.ExchangeRatesProvider.ExchangeRate;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
@@ -182,15 +183,15 @@ public final class WalletBalanceFragment extends Fragment implements LoaderManag
 		if (data != null)
 		{
 			data.moveToFirst();
-			final Double exchangeRate = data.getDouble(data.getColumnIndexOrThrow(ExchangeRatesProvider.KEY_EXCHANGE_RATE));
+			final ExchangeRate exchangeRate = ExchangeRatesProvider.getExchangeRate(data);
 
 			viewBalanceLocal.setVisibility(View.GONE);
-			if (application.getWallet().getBalance(BalanceType.ESTIMATED).signum() > 0 && exchangeRate != null)
+			if (application.getWallet().getBalance(BalanceType.ESTIMATED).signum() > 0)
 			{
 				final String exchangeCurrency = prefs.getString(Constants.PREFS_KEY_EXCHANGE_CURRENCY, Constants.DEFAULT_EXCHANGE_CURRENCY);
 				final BigInteger balance = wallet.getBalance(BalanceType.ESTIMATED);
-				final BigDecimal bdExchangeRate = new BigDecimal(exchangeRate);
-				final BigInteger localValue = WalletUtils.localValue(balance, bdExchangeRate);
+				final BigDecimal bdRate = new BigDecimal(exchangeRate.rate);
+				final BigInteger localValue = WalletUtils.localValue(balance, bdRate);
 				viewBalanceLocal.setVisibility(View.VISIBLE);
 				viewBalanceLocal.setText(getString(R.string.wallet_balance_fragment_local_value, exchangeCurrency,
 						WalletUtils.formatValue(localValue)));

@@ -52,6 +52,7 @@ import com.google.bitcoin.core.WalletEventListener;
 
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.ExchangeRatesProvider;
+import de.schildbach.wallet.ExchangeRatesProvider.ExchangeRate;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
@@ -120,17 +121,18 @@ public final class ExchangeRatesFragment extends ListFragment implements LoaderM
 			@Override
 			public void bindView(final View view, final Context context, final Cursor cursor)
 			{
+				final ExchangeRate exchangeRate = ExchangeRatesProvider.getExchangeRate(cursor);
+
 				final TextView currencyCodeView = (TextView) view.findViewById(R.id.exchange_rate_currency_code);
-				final String currencyCode = cursor.getString(cursor.getColumnIndexOrThrow(ExchangeRatesProvider.KEY_CURRENCY_CODE));
-				final boolean isDefaultCurrency = currencyCode.equals(defaultCurrency);
-				currencyCodeView.setText(currencyCode + (isDefaultCurrency ? " (" + getText(R.string.exchange_rates_fragment_default) + ")" : ""));
+				final boolean isDefaultCurrency = exchangeRate.currencyCode.equals(defaultCurrency);
+				currencyCodeView.setText(exchangeRate.currencyCode
+						+ (isDefaultCurrency ? " (" + getText(R.string.exchange_rates_fragment_default) + ")" : ""));
 				currencyCodeView.setTypeface(isDefaultCurrency ? Typeface.DEFAULT_BOLD : Typeface.DEFAULT);
 
 				final CurrencyAmountView valueView = (CurrencyAmountView) view.findViewById(R.id.exchange_rate_value);
-				final BigDecimal exchangeRate = new BigDecimal(
-						cursor.getDouble(cursor.getColumnIndexOrThrow(ExchangeRatesProvider.KEY_EXCHANGE_RATE)));
+				final BigDecimal bdRate = new BigDecimal(exchangeRate.rate);
 				valueView.setCurrencyCode(null);
-				final BigInteger localValue = WalletUtils.localValue(balance, exchangeRate);
+				final BigInteger localValue = WalletUtils.localValue(balance, bdRate);
 				valueView.setAmount(localValue);
 			}
 		};
@@ -170,7 +172,7 @@ public final class ExchangeRatesFragment extends ListFragment implements LoaderM
 	public void onListItemClick(final ListView l, final View v, final int position, final long id)
 	{
 		final Cursor cursor = (Cursor) adapter.getItem(position);
-		final String currencyCode = cursor.getString(cursor.getColumnIndexOrThrow(ExchangeRatesProvider.KEY_CURRENCY_CODE));
+		final ExchangeRate exchangeRate = ExchangeRatesProvider.getExchangeRate(cursor);
 
 		activity.startActionMode(new ActionMode.Callback()
 		{
@@ -184,7 +186,8 @@ public final class ExchangeRatesFragment extends ListFragment implements LoaderM
 
 			public boolean onPrepareActionMode(final ActionMode mode, final Menu menu)
 			{
-				mode.setTitle(currencyCode);
+				mode.setTitle(exchangeRate.currencyCode);
+				mode.setSubtitle(getString(R.string.exchange_rates_fragment_source, exchangeRate.source));
 
 				return true;
 			}
@@ -194,7 +197,7 @@ public final class ExchangeRatesFragment extends ListFragment implements LoaderM
 				switch (item.getItemId())
 				{
 					case R.id.exchange_rates_context_set_as_default:
-						handleSetAsDefault(currencyCode);
+						handleSetAsDefault(exchangeRate.currencyCode);
 
 						mode.finish();
 						return true;

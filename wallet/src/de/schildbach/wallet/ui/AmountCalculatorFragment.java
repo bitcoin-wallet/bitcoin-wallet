@@ -43,6 +43,7 @@ import com.google.bitcoin.core.Utils;
 
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.ExchangeRatesProvider;
+import de.schildbach.wallet.ExchangeRatesProvider.ExchangeRate;
 import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
 
@@ -69,7 +70,7 @@ public final class AmountCalculatorFragment extends DialogFragment implements Lo
 	private LayoutInflater inflater;
 
 	private String exchangeCurrency;
-	private Double exchangeRate;
+	private ExchangeRate exchangeRate;
 	private boolean exchangeDirection = true;
 	private CurrencyAmountView btcAmountView, localAmountView;
 	private TextView exchangeRateView;
@@ -182,7 +183,7 @@ public final class AmountCalculatorFragment extends DialogFragment implements Lo
 		{
 			localAmountView.setEnabled(true);
 
-			final BigDecimal bdExchangeRate = new BigDecimal(exchangeRate);
+			final BigDecimal bdRate = new BigDecimal(exchangeRate.rate);
 
 			if (exchangeDirection)
 			{
@@ -190,7 +191,7 @@ public final class AmountCalculatorFragment extends DialogFragment implements Lo
 				if (btcAmount != null)
 				{
 					localAmountView.setAmount(null);
-					localAmountView.setHint(new BigDecimal(btcAmount).multiply(bdExchangeRate).toBigInteger());
+					localAmountView.setHint(new BigDecimal(btcAmount).multiply(bdRate).toBigInteger());
 					btcAmountView.setHint(null);
 				}
 			}
@@ -200,13 +201,13 @@ public final class AmountCalculatorFragment extends DialogFragment implements Lo
 				if (localAmount != null)
 				{
 					btcAmountView.setAmount(null);
-					btcAmountView.setHint(new BigDecimal(localAmount).divide(bdExchangeRate, RoundingMode.HALF_UP).toBigInteger());
+					btcAmountView.setHint(new BigDecimal(localAmount).divide(bdRate, RoundingMode.HALF_UP).toBigInteger());
 					localAmountView.setHint(null);
 				}
 			}
 
 			exchangeRateView.setText(getString(R.string.amount_calculator_dialog_exchange_rate, exchangeCurrency,
-					WalletUtils.formatValue(WalletUtils.localValue(Utils.COIN, bdExchangeRate))));
+					WalletUtils.formatValue(WalletUtils.localValue(Utils.COIN, bdRate)), exchangeRate.source));
 		}
 		else
 		{
@@ -219,7 +220,7 @@ public final class AmountCalculatorFragment extends DialogFragment implements Lo
 	private void done()
 	{
 		final BigInteger amount = exchangeDirection ? btcAmountView.getAmount() : new BigDecimal(localAmountView.getAmount()).divide(
-				new BigDecimal(exchangeRate), RoundingMode.HALF_UP).toBigInteger();
+				new BigDecimal(exchangeRate.rate), RoundingMode.HALF_UP).toBigInteger();
 
 		((Listener) getTargetFragment()).useCalculatedAmount(amount);
 
@@ -237,7 +238,7 @@ public final class AmountCalculatorFragment extends DialogFragment implements Lo
 		if (data != null)
 		{
 			data.moveToFirst();
-			exchangeRate = data.getDouble(data.getColumnIndexOrThrow(ExchangeRatesProvider.KEY_EXCHANGE_RATE));
+			exchangeRate = ExchangeRatesProvider.getExchangeRate(data);
 
 			updateAppearance();
 		}
