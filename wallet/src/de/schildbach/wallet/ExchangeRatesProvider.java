@@ -66,7 +66,10 @@ public class ExchangeRatesProvider extends ContentProvider
 
 		if (exchangeRates == null || now - lastUpdated > UPDATE_FREQ_MS)
 		{
-			final Map<String, Double> newExchangeRates = getExchangeRates();
+			Map<String, Double> newExchangeRates = getBitcoinCharts();
+			if (exchangeRates == null && newExchangeRates == null)
+				newExchangeRates = getBlockchainInfo();
+
 			if (newExchangeRates != null)
 			{
 				exchangeRates = newExchangeRates;
@@ -118,15 +121,11 @@ public class ExchangeRatesProvider extends ContentProvider
 		throw new UnsupportedOperationException();
 	}
 
-	private static Map<String, Double> getExchangeRates()
+	private static Map<String, Double> getBitcoinCharts()
 	{
 		try
 		{
 			final URLConnection connection = new URL("http://bitcoincharts.com/t/weighted_prices.json").openConnection();
-			// https://mtgox.com/code/data/ticker.php
-			// https://bitmarket.eu/api/ticker
-			// http://bitcoincharts.com/t/weighted_prices.json
-
 			connection.connect();
 			final StringBuilder content = new StringBuilder();
 
@@ -175,4 +174,53 @@ public class ExchangeRatesProvider extends ContentProvider
 
 		return null;
 	}
+
+	private static Map<String, Double> getBlockchainInfo()
+	{
+		try
+		{
+			final URLConnection connection = new URL("https://blockchain.info/ticker").openConnection();
+			connection.connect();
+			final StringBuilder content = new StringBuilder();
+
+			Reader reader = null;
+			try
+			{
+				reader = new InputStreamReader(new BufferedInputStream(connection.getInputStream(), 1024));
+				IOUtils.copy(reader, content);
+
+				final Map<String, Double> rates = new TreeMap<String, Double>();
+
+				final JSONObject head = new JSONObject(content.toString());
+				for (final Iterator<String> i = head.keys(); i.hasNext();)
+				{
+					final String currencyCode = i.next();
+					final JSONObject o = head.getJSONObject(currencyCode);
+					final double rate = o.optDouble("15m", 0);
+
+					if (rate != 0)
+						rates.put(currencyCode, rate);
+				}
+
+				return rates;
+			}
+			finally
+			{
+				if (reader != null)
+					reader.close();
+			}
+		}
+		catch (final IOException x)
+		{
+			x.printStackTrace();
+		}
+		catch (final JSONException x)
+		{
+			x.printStackTrace();
+		}
+
+		return null;
+	}
+
+	// https://bitmarket.eu/api/ticker
 }
