@@ -61,6 +61,8 @@ public final class TransactionFragment extends SherlockFragment
 {
 	public static final String FRAGMENT_TAG = TransactionFragment.class.getName();
 
+	private static final int SHOW_QR_THRESHOLD_BYTES = 2500;
+
 	private FragmentActivity activity;
 
 	private DateFormat dateFormat;
@@ -239,35 +241,43 @@ public final class TransactionFragment extends SherlockFragment
 		viewLength.setText(Integer.toString(serializedTx.length));
 
 		final ImageView viewQr = (ImageView) view.findViewById(R.id.transaction_fragment_qr);
-
-		try
+		if (serializedTx.length < SHOW_QR_THRESHOLD_BYTES)
 		{
-			// encode transaction URI
-			final ByteArrayOutputStream bos = new ByteArrayOutputStream(serializedTx.length);
-			final GZIPOutputStream gos = new GZIPOutputStream(bos);
-			gos.write(serializedTx);
-			gos.close();
+			viewQr.setVisibility(View.VISIBLE);
 
-			final byte[] gzippedSerializedTx = bos.toByteArray();
-			final boolean useCompressioon = gzippedSerializedTx.length < serializedTx.length;
-
-			final StringBuilder txStr = new StringBuilder("btctx:");
-			txStr.append(useCompressioon ? 'Z' : '-');
-			txStr.append(Base43.encode(useCompressioon ? gzippedSerializedTx : serializedTx));
-
-			final Bitmap qrCodeBitmap = WalletUtils.getQRCodeBitmap(txStr.toString().toUpperCase(Locale.US), 512);
-			viewQr.setImageBitmap(qrCodeBitmap);
-			viewQr.setOnClickListener(new OnClickListener()
+			try
 			{
-				public void onClick(final View v)
+				// encode transaction URI
+				final ByteArrayOutputStream bos = new ByteArrayOutputStream(serializedTx.length);
+				final GZIPOutputStream gos = new GZIPOutputStream(bos);
+				gos.write(serializedTx);
+				gos.close();
+
+				final byte[] gzippedSerializedTx = bos.toByteArray();
+				final boolean useCompressioon = gzippedSerializedTx.length < serializedTx.length;
+
+				final StringBuilder txStr = new StringBuilder("btctx:");
+				txStr.append(useCompressioon ? 'Z' : '-');
+				txStr.append(Base43.encode(useCompressioon ? gzippedSerializedTx : serializedTx));
+
+				final Bitmap qrCodeBitmap = WalletUtils.getQRCodeBitmap(txStr.toString().toUpperCase(Locale.US), 512);
+				viewQr.setImageBitmap(qrCodeBitmap);
+				viewQr.setOnClickListener(new OnClickListener()
 				{
-					BitmapFragment.show(getFragmentManager(), qrCodeBitmap);
-				}
-			});
+					public void onClick(final View v)
+					{
+						BitmapFragment.show(getFragmentManager(), qrCodeBitmap);
+					}
+				});
+			}
+			catch (final IOException x)
+			{
+				throw new RuntimeException(x);
+			}
 		}
-		catch (final IOException x)
+		else
 		{
-			throw new RuntimeException(x);
+			viewQr.setVisibility(View.GONE);
 		}
 	}
 }
