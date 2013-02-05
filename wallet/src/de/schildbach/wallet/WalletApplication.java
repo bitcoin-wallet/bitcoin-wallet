@@ -47,9 +47,6 @@ import com.google.bitcoin.core.Address;
 import com.google.bitcoin.core.ECKey;
 import com.google.bitcoin.core.Wallet;
 import com.google.bitcoin.core.Wallet.AutosaveEventListener;
-import com.google.bitcoin.store.BlockStore;
-import com.google.bitcoin.store.BlockStoreException;
-import com.google.bitcoin.store.BoundedOverheadBlockStore;
 import com.google.bitcoin.store.WalletProtobufSerializer;
 
 import de.schildbach.wallet.service.BlockchainService;
@@ -186,27 +183,7 @@ public class WalletApplication extends Application
 			{
 				walletStream = new FileInputStream(walletFile);
 
-				final WalletProtobufSerializer walletSerializer = new WalletProtobufSerializer();
-
-				// temporary code: transaction confidence depth migration
-				final File blockChainFile = new File(getDir("blockstore", Context.MODE_WORLD_READABLE | Context.MODE_WORLD_WRITEABLE),
-						Constants.BLOCKCHAIN_FILENAME);
-				if (blockChainFile.exists())
-				{
-					try
-					{
-						final BlockStore blockStore = new BoundedOverheadBlockStore(Constants.NETWORK_PARAMETERS, blockChainFile);
-						walletSerializer.setChainHeight(blockStore.getChainHead().getHeight());
-						blockStore.close();
-					}
-					catch (final BlockStoreException x)
-					{
-						// don't migrate, blockchain will be rescanned anyway
-						x.printStackTrace();
-					}
-				}
-
-				wallet = walletSerializer.readWallet(walletStream);
+				wallet = new WalletProtobufSerializer().readWallet(walletStream);
 
 				Log.i(TAG, "wallet loaded from: '" + walletFile + "', took " + (System.currentTimeMillis() - start) + "ms");
 			}
