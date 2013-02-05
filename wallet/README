@@ -49,6 +49,45 @@ Log messages can be viewed by
 	adb logcat
 
 
+BUILDING
+
+You can probably skip some steps, especially if you built Android apps before.
+
+You'll need git, a Java SDK 5 (or later) and at least Maven 3 for this. If you're using Ubuntu,
+use
+
+	sudo apt-get install git maven openjdk-6-jdk
+
+Get the Android SDK Tools from
+
+	http://developer.android.com/sdk/
+
+and unpack it to your workspace directory. Switch to that Android SDK directory, and use
+
+	tools/android update sdk --no-ui --force --filter platform,platform-tools
+
+to download the necessary API level.
+
+Next, you need to build bitcoinj. In your workspace, use
+
+	git clone -b release-0.7 https://code.google.com/p/bitcoinj/ bitcoinj
+	cd bitcoinj
+	mvn clean install
+
+Finally, you can build Bitcoin Wallet and sign it with your development key. Again in your workspace,
+use
+
+	git clone https://code.google.com/p/bitcoin-wallet/ bitcoin-wallet
+	cd bitcoin-wallet
+	mvn clean install -Dandroid.sdk.path=<path to your android sdk>
+
+To upload the app to your Android device, use
+
+	sudo apt-get install android-tools-adb
+	cd wallet
+	adb install wallet/target/wallet_test-*.apk
+
+
 SETTING UP FOR DEVELOPMENT
 
 Make sure you've got Eclipse 3.7 (Indigo) with ADT 20 installed.
