@@ -18,6 +18,12 @@
 			android:summary="@string/preferences_trusted_peer_summary"
 			android:title="@string/preferences_trusted_peer_title" />
 
+		<CheckBoxPreference
+			android:defaultValue="false"
+			android:key="trusted_peer_only"
+			android:summary="@string/preferences_trusted_peer_only_summary"
+			android:title="@string/preferences_trusted_peer_only_title" />
+
 		<Preference
 			android:key="initiate_reset"
 			android:summary="@string/preferences_initiate_reset_summary"

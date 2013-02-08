@@ -41,6 +41,7 @@ public final class PreferencesActivity extends SherlockPreferenceActivity implem
 {
 	private WalletApplication application;
 	private Preference trustedPeerPreference;
+	private Preference trustedPeerOnlyPreference;
 
 	private static final String PREFS_KEY_INITIATE_RESET = "initiate_reset";
 
@@ -55,6 +56,9 @@ public final class PreferencesActivity extends SherlockPreferenceActivity implem
 
 		trustedPeerPreference = findPreference(Constants.PREFS_KEY_TRUSTED_PEER);
 		trustedPeerPreference.setOnPreferenceChangeListener(this);
+
+		trustedPeerOnlyPreference = findPreference(Constants.PREFS_KEY_TRUSTED_PEER_ONLY);
+		trustedPeerOnlyPreference.setOnPreferenceChangeListener(this);
 
 		final ActionBar actionBar = getSupportActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
@@ -119,6 +123,10 @@ public final class PreferencesActivity extends SherlockPreferenceActivity implem
 			application.stopBlockchainService();
 			updateTrustedPeer((String) newValue);
 		}
+		else if (preference.equals(trustedPeerOnlyPreference))
+		{
+			application.stopBlockchainService();
+		}
 
 		return true;
 	}
@@ -126,8 +134,14 @@ public final class PreferencesActivity extends SherlockPreferenceActivity implem
 	private void updateTrustedPeer(final String trustedPeer)
 	{
 		if (trustedPeer.length() == 0)
+		{
 			trustedPeerPreference.setSummary(R.string.preferences_trusted_peer_summary);
+			trustedPeerOnlyPreference.setEnabled(false);
+		}
 		else
+		{
 			trustedPeerPreference.setSummary(trustedPeer);
+			trustedPeerOnlyPreference.setEnabled(true);
+		}
 	}
 }

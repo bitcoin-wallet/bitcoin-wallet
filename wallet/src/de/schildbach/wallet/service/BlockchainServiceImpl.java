@@ -24,6 +24,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.math.BigInteger;
 import java.net.InetSocketAddress;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -382,29 +383,43 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 				peerGroup.addEventListener(peerConnectivityListener);
 
 				final String trustedPeerHost = prefs.getString(Constants.PREFS_KEY_TRUSTED_PEER, "").trim();
-				if (trustedPeerHost.length() == 0)
+				final boolean hasTrustedPeer = trustedPeerHost.length() > 0;
+
+				final boolean connectTrustedPeerOnly = hasTrustedPeer && prefs.getBoolean(Constants.PREFS_KEY_TRUSTED_PEER_ONLY, false);
+
+				peerGroup.setMaxConnections(connectTrustedPeerOnly ? 1 : Constants.MAX_CONNECTED_PEERS);
+
+				peerGroup.addPeerDiscovery(new PeerDiscovery()
 				{
-					peerGroup.setMaxConnections(Constants.MAX_CONNECTED_PEERS);
-					peerGroup.addPeerDiscovery(Constants.TEST ? new IrcDiscovery(Constants.PEER_DISCOVERY_IRC_CHANNEL_TEST) : new DnsDiscovery(
-							Constants.NETWORK_PARAMETERS));
-				}
-				else
-				{
-					peerGroup.setMaxConnections(1);
-					peerGroup.addPeerDiscovery(new PeerDiscovery()
+					private PeerDiscovery normalPeerDiscovery = Constants.TEST ? new IrcDiscovery(Constants.PEER_DISCOVERY_IRC_CHANNEL_TEST)
+							: new DnsDiscovery(Constants.NETWORK_PARAMETERS);
+
+					public InetSocketAddress[] getPeers(final long timeoutValue, final TimeUnit timeoutUnit) throws PeerDiscoveryException
 					{
-						public InetSocketAddress[] getPeers(final long timeoutValue, final TimeUnit timeoutUnit) throws PeerDiscoveryException
-						{
-							return new InetSocketAddress[] { new InetSocketAddress(trustedPeerHost, Constants.NETWORK_PARAMETERS.port) };
-						}
+						final List<InetSocketAddress> peers = new LinkedList<InetSocketAddress>();
 
-						public void shutdown()
-						{
-						}
-					});
-				}
+						if (hasTrustedPeer)
+							peers.add(new InetSocketAddress(trustedPeerHost, Constants.NETWORK_PARAMETERS.port));
+
+						if (!connectTrustedPeerOnly)
+							peers.addAll(Arrays.asList(normalPeerDiscovery.getPeers(timeoutValue, timeoutUnit)));
+
+						// workaround because PeerGroup will shuffle peers
+						if (hasTrustedPeer)
+							while (peers.size() >= Constants.MAX_CONNECTED_PEERS)
+								peers.remove(peers.size() - 1);
+
+						return peers.toArray(new InetSocketAddress[0]);
+					}
+
+					public void shutdown()
+					{
+						normalPeerDiscovery.shutdown();
+					}
+				});
+
+				// start peergroup
 				peerGroup.start();
-
 				peerGroup.startBlockChainDownload(blockchainDownloadListener);
 			}
 			else if (!hasEverything && peerGroup != null)

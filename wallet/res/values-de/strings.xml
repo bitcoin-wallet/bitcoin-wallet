@@ -166,7 +166,9 @@
 	<string name="preferences_connectivity_notification_title">Konnektivitäts-Anzeige</string>
 	<string name="preferences_connectivity_notification_summary">Zeigt die aktuelle Anzahl von verbundenen Peers im Notifizierungsbereich an.</string>
 	<string name="preferences_trusted_peer_title">Vertrauenswürdiger Peer</string>
-	<string name="preferences_trusted_peer_summary">Hostname eines einzelnen Peers, der verbunden wird. Das normale Auffinden von Peers wird übergangen.</string>
+	<string name="preferences_trusted_peer_summary">IP oder Hostname eines einzelnen Peers, der verbunden wird.</string>
+	<string name="preferences_trusted_peer_only_title">Reguläre Peers übergehen</string>
+	<string name="preferences_trusted_peer_only_summary">Verhindert Verbindungen zu Peers außer dem vertrauenswürdigen Peer.</string>
 	<string name="preferences_initiate_reset_title">Blockchain zurücksetzen</string>
 	<string name="preferences_initiate_reset_summary">Blockchain, Transaktionen und Guthaben werden zurückgesetzt. Das Wiedereinspielen wird eine Weile dauern.</string>
 	<string name="preferences_initiate_reset_dialog_message">Möchtest du die Blockchain zurücksetzen und wiedereinspielen?\n\nDies wird dein Guthaben und deine Transaktionen zwischenzeitlich leeren. Beides wird sich während des Vorgangs erholen.</string>

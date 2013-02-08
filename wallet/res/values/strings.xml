@@ -150,7 +150,9 @@
 	<string name="preferences_connectivity_notification_title">Connectivity Indicator</string>
 	<string name="preferences_connectivity_notification_summary">Show current number of connected peers in the notification area.</string>
 	<string name="preferences_trusted_peer_title">Trusted Peer</string>
-	<string name="preferences_trusted_peer_summary">Hostname of single peer to connect to. Regular peer discovery will be skipped.</string>
+	<string name="preferences_trusted_peer_summary">IP or hostname of single peer to connect to.</string>
+	<string name="preferences_trusted_peer_only_title">Skip Regular Peer Discovery</string>
+	<string name="preferences_trusted_peer_only_summary">Prevents connecting to any peers besided the trusted peer.</string>
 	<string name="preferences_initiate_reset_title">Reset Blockchain</string>
 	<string name="preferences_initiate_reset_summary">Reset blockchain, transactions and wallet balance. Replay will take a while.</string>
 	<string name="preferences_initiate_reset_dialog_message">Would you like to reset and replay the blockchain?\n\nThis will temporary zero your wallet balance and remove transactions. Both will recover as blockchain sync progresses.</string>
