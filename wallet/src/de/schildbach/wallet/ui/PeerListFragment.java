@@ -101,7 +101,7 @@ public final class PeerListFragment extends SherlockListFragment implements Load
 				final boolean isDownloading = peer.getDownloadData();
 
 				final TextView rowIp = (TextView) row.findViewById(R.id.peer_list_row_ip);
-				rowIp.setText(peer.getAddress().toString());
+				rowIp.setText(peer.getAddress().getAddr().getHostAddress());
 
 				final TextView rowHeight = (TextView) row.findViewById(R.id.peer_list_row_height);
 				final long bestHeight = versionMessage.bestHeight;
