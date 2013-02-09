@@ -139,6 +139,29 @@ Instructions for preparing an NFC tag with your address:
   could overwrite the tag with his own Bitcoin address.
 
 
+EXCHANGE RATES
+
+Bitcoin Wallet reads this feed from "bitcoin charts" for getting exchange rates:
+
+	http://bitcoincharts.com/t/weighted_prices.json
+
+The feed is described on this page (see Weighted Prices):
+
+	http://bitcoincharts.com/about/markets-api/
+
+I chose this feed because it is not dependent on a single exchange. However, you should keep in
+mind it's always a 24h average (falling back to 7d or even 30d if no trade occurred for a long
+time).
+
+If Bitcoincharts is not available, the feed from "Blockchain" is fetched instead:
+
+	https://blockchain.info/ticker
+
+The feed is described here:
+
+	https://blockchain.info/api/exchange_rates_api
+
+
 BITCOINJ
 
 Bitcoin Wallet uses bitcoinj for Bitcoin specific logic:
