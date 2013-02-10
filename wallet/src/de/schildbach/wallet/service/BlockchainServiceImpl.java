@@ -27,6 +27,7 @@ import java.net.InetSocketAddress;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicLong;
 
 import android.annotation.SuppressLint;
@@ -39,6 +40,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.net.wifi.WifiManager;
@@ -101,6 +103,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 	private WakeLock wakeLock;
 	private WifiLock wifiLock;
 
+	private PeerConnectivityListener peerConnectivityListener;
 	private NotificationManager nm;
 	private static final int NOTIFICATION_ID_CONNECTED = 0;
 	private static final int NOTIFICATION_ID_COINS_RECEIVED = 1;
@@ -212,31 +215,57 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 		nm.notify(NOTIFICATION_ID_COINS_RECEIVED, notification.getNotification());
 	}
 
-	private final PeerEventListener peerEventListener = new AbstractPeerEventListener()
+	private class PeerConnectivityListener extends AbstractPeerEventListener implements OnSharedPreferenceChangeListener
 	{
+		private int peerCount;
+		private AtomicBoolean stopped = new AtomicBoolean(false);
+
+		public PeerConnectivityListener()
+		{
+			prefs.registerOnSharedPreferenceChangeListener(this);
+		}
+
+		public void stop()
+		{
+			stopped.set(true);
+
+			prefs.unregisterOnSharedPreferenceChangeListener(this);
+
+			nm.cancel(NOTIFICATION_ID_CONNECTED);
+		}
+
 		@Override
 		public void onPeerConnected(final Peer peer, final int peerCount)
 		{
-			Log.i(TAG, "Peer connected, count " + peerCount);
-
+			this.peerCount = peerCount;
 			changed(peerCount);
 		}
 
 		@Override
 		public void onPeerDisconnected(final Peer peer, final int peerCount)
 		{
-			Log.i(TAG, "Peer disconnected, count " + peerCount);
-
+			this.peerCount = peerCount;
 			changed(peerCount);
+		}
+
+		public void onSharedPreferenceChanged(final SharedPreferences sharedPreferences, final String key)
+		{
+			if (Constants.PREFS_KEY_CONNECTIVITY_NOTIFICATION.equals(key))
+				changed(peerCount);
 		}
 
 		private void changed(final int numPeers)
 		{
+			if (stopped.get())
+				return;
+
 			handler.post(new Runnable()
 			{
 				public void run()
 				{
-					if (numPeers == 0)
+					final boolean connectivityNotification = prefs.getBoolean(Constants.PREFS_KEY_CONNECTIVITY_NOTIFICATION, true);
+
+					if (!connectivityNotification || numPeers == 0)
 					{
 						nm.cancel(NOTIFICATION_ID_CONNECTED);
 					}
@@ -258,7 +287,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 				}
 			});
 		}
-	};
+	}
 
 	private final PeerEventListener blockchainDownloadListener = new AbstractPeerEventListener()
 	{
@@ -356,7 +385,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 				peerGroup.addWallet(wallet);
 				peerGroup.setUserAgent(Constants.USER_AGENT, application.applicationVersionName());
 				peerGroup.setFastCatchupTimeSecs(wallet.getEarliestKeyCreationTime());
-				peerGroup.addEventListener(peerEventListener);
+				peerGroup.addEventListener(peerConnectivityListener);
 
 				final String trustedPeerHost = prefs.getString(Constants.PREFS_KEY_TRUSTED_PEER, "").trim();
 				if (trustedPeerHost.length() == 0)
@@ -387,7 +416,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 			else if (!hasEverything && peerGroup != null)
 			{
 				Log.i(TAG, "stopping peergroup");
-				peerGroup.removeEventListener(peerEventListener);
+				peerGroup.removeEventListener(peerConnectivityListener);
 				peerGroup.removeWallet(wallet);
 				peerGroup.stop();
 				peerGroup = null;
@@ -511,6 +540,8 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 		prefs = PreferenceManager.getDefaultSharedPreferences(this);
 		final Wallet wallet = application.getWallet();
 
+		peerConnectivityListener = new PeerConnectivityListener();
+
 		sendBroadcastPeerState(0);
 
 		final IntentFilter intentFilter = new IntentFilter();
@@ -631,9 +662,11 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 
 		if (peerGroup != null)
 		{
-			peerGroup.removeEventListener(peerEventListener);
+			peerGroup.removeEventListener(peerConnectivityListener);
 			peerGroup.stop();
 		}
+
+		peerConnectivityListener.stop();
 
 		unregisterReceiver(connectivityReceiver);
 
@@ -652,8 +685,6 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 		{
 			throw new RuntimeException(x);
 		}
-
-		nm.cancel(NOTIFICATION_ID_CONNECTED);
 
 		if (wakeLock.isHeld())
 		{

@@ -7,6 +7,11 @@
 			android:key="autosync"
 			android:summary="@string/preferences_autosync_summary"
 			android:title="@string/preferences_autosync_title" />
+		<CheckBoxPreference
+			android:defaultValue="true"
+			android:key="connectivity_notification"
+			android:summary="@string/preferences_connectivity_notification_summary"
+			android:title="@string/preferences_connectivity_notification_title" />
 
 		<EditTextPreference
 			android:key="trusted_peer"
