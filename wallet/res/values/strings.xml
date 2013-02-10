@@ -59,6 +59,8 @@
 	<string name="wallet_version_dialog_msg">This version fixes important bugs. For details, see the change log on Google Play.</string>
 	<string name="wallet_version_dialog_button_market">Google Play</string>
 	<string name="wallet_version_dialog_button_binary">Download</string>
+	<string name="wallet_old_sdk_dialog_title">Android version is out of date</string>
+	<string name="wallet_old_sdk_dialog_message">Chances are that one of the next releases of Bitcoin Wallet will not support your device any more. In some cases, it can get difficult to spend coins on this device.\n\nUnless you know what you are doing, it is recommended to move out your coins soon.</string>
 	<string name="send_coins_activity_title">Send Bitcoins</string>
 	<string name="send_coins_uri_parse_error_title">Invalid Bitcoin URI</string>
 	<string name="send_coins_parse_address_error_msg">Got invalid bitcoin address!\n(Mixing up Testnet/Prodnet?)</string>
@@ -164,6 +166,7 @@
 	<string name="notification_peers_connected_msg">%d peers connected</string>
 
 	<!-- generic buttons -->
+	<string name="button_ok">OK</string>
 	<string name="button_dismiss">Dismiss</string>
 	<string name="button_cancel">Cancel</string>
 	<string name="button_help">Help</string>

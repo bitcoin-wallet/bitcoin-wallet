@@ -64,6 +64,8 @@
 	<string name="wallet_version_dialog_msg">Diese Version behebt wichtige Fehler. Die Einzelheiten stehen in der Liste der Änderungen auf Google Play.</string>
 	<string name="wallet_version_dialog_button_market">Google Play</string>
 	<string name="wallet_version_dialog_button_binary">Herunterladen</string>
+	<string name="wallet_old_sdk_dialog_title">Android ist veraltet</string>
+	<string name="wallet_old_sdk_dialog_message">Es ist möglich, daß eine der nächsten Versionen von Bitcoin Wallet dein Gerät nicht mehr unterstützt. In manchen Fällen kann es schwierig werden, Zahlungen zu tätigen.\n\nEs wird empfohlen, die enthaltenen Bitcoins bald zu verschieben, außer du weisst was du tust.</string>
 
 	<string name="send_coins_activity_title">Bitcoins senden</string>
 	<string name="send_coins_uri_parse_error_title">Ungültige Bitcoin-URI</string>
@@ -183,6 +185,7 @@
 	<string name="notification_peers_connected_msg">%d Peers verbunden</string>
 
 	<!-- generic buttons -->
+	<string name="button_ok">Ok</string>
 	<string name="button_dismiss">Schließen</string>
 	<string name="button_cancel">Abbrechen</string>
 	<string name="button_help">Hilfe</string>

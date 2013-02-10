@@ -43,10 +43,13 @@ import android.content.DialogInterface.OnCancelListener;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -67,8 +70,6 @@ import com.google.bitcoin.core.ECKey;
 import com.google.bitcoin.core.Wallet;
 
 import de.schildbach.wallet.Constants;
-import de.schildbach.wallet.service.BlockchainService;
-import de.schildbach.wallet.service.BlockchainServiceImpl;
 import de.schildbach.wallet.util.EncryptionUtils;
 import de.schildbach.wallet.util.ErrorReporter;
 import de.schildbach.wallet.util.Iso8601Format;
@@ -84,6 +85,9 @@ public final class WalletActivity extends AbstractWalletActivity
 	public static final int DIALOG_SAFETY = 1;
 	private static final int DIALOG_IMPORT_KEYS = 2;
 	private static final int DIALOG_EXPORT_KEYS = 3;
+	private static final int DIALOG_ALERT_OLD_SDK = 4;
+
+	private SharedPreferences prefs;
 
 	@Override
 	protected void onCreate(final Bundle savedInstanceState)
@@ -92,12 +96,14 @@ public final class WalletActivity extends AbstractWalletActivity
 
 		ErrorReporter.getInstance().check(this);
 
+		prefs = PreferenceManager.getDefaultSharedPreferences(this);
+
 		setContentView(R.layout.wallet_content);
 
 		final ActionBar actionBar = getSupportActionBar();
 		actionBar.setTitle(R.string.app_name);
 
-		checkVersionAndTimeskewAlert();
+		checkAlerts();
 
 		touchLastUsed();
 	}
@@ -217,6 +223,8 @@ public final class WalletActivity extends AbstractWalletActivity
 			return createWebViewDialog("file:///android_asset/help" + languagePrefix() + ".html");
 		else if (id == DIALOG_SAFETY)
 			return createWebViewDialog("file:///android_asset/safety" + languagePrefix() + ".html");
+		else if (id == DIALOG_ALERT_OLD_SDK)
+			return createAlertOldSdkDialog();
 		else
 			throw new IllegalArgumentException();
 	}
@@ -366,6 +374,24 @@ public final class WalletActivity extends AbstractWalletActivity
 		return dialog;
 	}
 
+	private Dialog createAlertOldSdkDialog()
+	{
+		final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setIcon(android.R.drawable.ic_dialog_alert);
+		builder.setTitle(R.string.wallet_old_sdk_dialog_title);
+		builder.setMessage(R.string.wallet_old_sdk_dialog_message);
+		builder.setPositiveButton(R.string.button_ok, null);
+		builder.setNegativeButton(R.string.button_dismiss, new DialogInterface.OnClickListener()
+		{
+			public void onClick(final DialogInterface dialog, final int id)
+			{
+				prefs.edit().putBoolean(Constants.PREFS_KEY_ALERT_OLD_SDK_DISMISSED, true).commit();
+				finish();
+			}
+		});
+		return builder.create();
+	}
+
 	private static final class DialogButtonEnablerListener implements TextWatcher, OnItemSelectedListener
 	{
 		private final Spinner fileView;
@@ -449,7 +475,7 @@ public final class WalletActivity extends AbstractWalletActivity
 		}
 	}
 
-	private void checkVersionAndTimeskewAlert()
+	private void checkAlerts()
 	{
 		new Thread()
 		{
@@ -503,6 +529,20 @@ public final class WalletActivity extends AbstractWalletActivity
 				catch (final Exception x)
 				{
 					x.printStackTrace();
+				}
+
+				if (Build.VERSION.SDK_INT < Build.VERSION_CODES.GINGERBREAD_MR1
+						&& !prefs.getBoolean(Constants.PREFS_KEY_ALERT_OLD_SDK_DISMISSED, false))
+				{
+					runOnUiThread(new Runnable()
+					{
+						public void run()
+						{
+							showDialog(DIALOG_ALERT_OLD_SDK);
+						}
+					});
+
+					return;
 				}
 			}
 		}.start();
