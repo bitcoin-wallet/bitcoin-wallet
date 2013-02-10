@@ -7,6 +7,7 @@
 	<string name="blockchain_state_progress_hours">Chaîne de blocs %1$s, %2$d heures d\'écart</string>
 	<string name="blockchain_state_progress_days">Chaîne de blocs %1$s, %2$d jours d\'écart</string>
 	<string name="blockchain_state_progress_weeks">Chaîne de blocs %1$s, %2$d semaines d\'écart</string>
+	<string name="blockchain_state_progress_months">Chaîne de blocs %1$s, %2$d mois d\'écart</string>
 	<string name="blockchain_state_progress_downloading">téléchargement</string>
 	<string name="blockchain_state_progress_stalled">au point mort</string>
 	<string name="blockchain_state_progress_problem_storage">La chaîne de blocs n\'est pas téléchargé&#x202F;: problème de stockage</string>

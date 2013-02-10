@@ -9,6 +9,7 @@
 	<string name="blockchain_state_progress_hours">%1$s, hinkt %2$d Stunden hinterher</string>
 	<string name="blockchain_state_progress_days">%1$s, hinkt %2$d Tage hinterher</string>
 	<string name="blockchain_state_progress_weeks">%1$s, hinkt %2$d Wochen hinterher</string>
+	<string name="blockchain_state_progress_months">%1$s, hinkt %2$d Monate hinterher</string>
 	<string name="blockchain_state_progress_downloading">Synchronisiere mit Netzwerk</string>
 	<string name="blockchain_state_progress_stalled">Synchronisation blockiert</string>
 	<string name="blockchain_state_progress_problem_storage">Synchronisation: Speicherplatz-Problem</string>

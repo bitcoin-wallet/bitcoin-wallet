@@ -7,6 +7,7 @@
 	<string name="blockchain_state_progress_hours">Blockchain %1$s; %2$d horas atrás.</string>
 	<string name="blockchain_state_progress_days">Blockchain %1$s; %2$d días atrás.</string>
 	<string name="blockchain_state_progress_weeks">Blockchain %1$s; %2$d semanas atrás.</string>
+	<string name="blockchain_state_progress_months">Blockchain %1$s; %2$d meses atrás.</string>
 	<string name="blockchain_state_progress_downloading">descargándose</string>
 	<string name="blockchain_state_progress_stalled">interrumpida</string>
 	<string name="blockchain_state_progress_problem_storage">No se descarga la blockchain: problema de espacio</string>

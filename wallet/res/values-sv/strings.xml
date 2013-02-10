@@ -7,6 +7,7 @@
 	<string name="blockchain_state_progress_hours">Blockkedjan %1$s, %2$d timmar efter</string>
 	<string name="blockchain_state_progress_days">Blockkedjan %1$s, %2$d dagar efter</string>
 	<string name="blockchain_state_progress_weeks">Blockkedjan %1$s, %2$d veckor efter</string>
+	<string name="blockchain_state_progress_months">Blockkedjan %1$s, %2$d månader efter</string>
 	<string name="blockchain_state_progress_downloading">laddar ner</string>
 	<string name="blockchain_state_progress_stalled">förhindrad</string>
 	<string name="blockchain_state_progress_problem_storage">Blockkedjan laddas inte ner: lagringsproblem</string>

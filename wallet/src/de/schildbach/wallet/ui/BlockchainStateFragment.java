@@ -167,10 +167,15 @@ public final class BlockchainStateFragment extends Fragment
 				progressView.setText(getString(R.string.blockchain_state_progress_days, downloading, blockchainLagHours / 24));
 				stalledText = getString(R.string.blockchain_state_progress_days, stalled, blockchainLagHours / 24);
 			}
-			else
+			else if (blockchainLagHours < 24 * 30 * 3)
 			{
 				progressView.setText(getString(R.string.blockchain_state_progress_weeks, downloading, blockchainLagHours / 24 / 7));
 				stalledText = getString(R.string.blockchain_state_progress_weeks, stalled, blockchainLagHours / 24 / 7);
+			}
+			else
+			{
+				progressView.setText(getString(R.string.blockchain_state_progress_months, downloading, blockchainLagHours / 24 / 30));
+				stalledText = getString(R.string.blockchain_state_progress_months, stalled, blockchainLagHours / 24 / 30);
 			}
 
 			delayMessageHandler.removeCallbacksAndMessages(null);
