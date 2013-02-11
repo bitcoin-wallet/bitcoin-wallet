@@ -23,7 +23,6 @@ import java.math.BigInteger;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Configuration;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -106,7 +105,9 @@ public final class WalletBalanceFragment extends Fragment implements LoaderManag
 	{
 		final View view = inflater.inflate(R.layout.wallet_balance_fragment, container, false);
 
-		if ((getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) < Configuration.SCREENLAYOUT_SIZE_LARGE)
+		final boolean showExchangeRatesOption = getResources().getBoolean(R.bool.show_exchange_rates_option);
+
+		if (showExchangeRatesOption)
 		{
 			view.setOnClickListener(new OnClickListener()
 			{
@@ -115,6 +116,10 @@ public final class WalletBalanceFragment extends Fragment implements LoaderManag
 					startActivity(new Intent(getActivity(), ExchangeRatesActivity.class));
 				}
 			});
+		}
+		else
+		{
+			view.setEnabled(false);
 		}
 
 		return view;
