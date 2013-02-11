@@ -21,6 +21,7 @@ import java.math.BigInteger;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -208,6 +209,14 @@ public final class CurrencyAmountView extends FrameLayout
 		significantColor = color;
 
 		updateAppearance();
+	}
+
+	public void setStrikeThru(final boolean strikeThru)
+	{
+		if (strikeThru)
+			textView.setPaintFlags(textView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+		else
+			textView.setPaintFlags(textView.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
 	}
 
 	private boolean isValidAmount()

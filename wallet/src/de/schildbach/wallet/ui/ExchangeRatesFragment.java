@@ -25,7 +25,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.database.Cursor;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.ListFragment;
@@ -46,6 +45,7 @@ import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.google.bitcoin.core.AbstractWalletEventListener;
 import com.google.bitcoin.core.Transaction;
+import com.google.bitcoin.core.Utils;
 import com.google.bitcoin.core.Wallet;
 import com.google.bitcoin.core.Wallet.BalanceType;
 import com.google.bitcoin.core.WalletEventListener;
@@ -122,18 +122,26 @@ public final class ExchangeRatesFragment extends ListFragment implements LoaderM
 			public void bindView(final View view, final Context context, final Cursor cursor)
 			{
 				final ExchangeRate exchangeRate = ExchangeRatesProvider.getExchangeRate(cursor);
-
-				final TextView currencyCodeView = (TextView) view.findViewById(R.id.exchange_rate_currency_code);
-				final boolean isDefaultCurrency = exchangeRate.currencyCode.equals(defaultCurrency);
-				currencyCodeView.setText(exchangeRate.currencyCode
-						+ (isDefaultCurrency ? " (" + getText(R.string.exchange_rates_fragment_default) + ")" : ""));
-				currencyCodeView.setTypeface(isDefaultCurrency ? Typeface.DEFAULT_BOLD : Typeface.DEFAULT);
-
-				final CurrencyAmountView valueView = (CurrencyAmountView) view.findViewById(R.id.exchange_rate_value);
 				final BigDecimal bdRate = new BigDecimal(exchangeRate.rate);
-				valueView.setCurrencyCode(null);
-				final BigInteger localValue = WalletUtils.localValue(balance, bdRate);
-				valueView.setAmount(localValue);
+				final boolean isDefaultCurrency = exchangeRate.currencyCode.equals(defaultCurrency);
+
+				view.setBackgroundResource(isDefaultCurrency ? R.color.bg_less_bright : R.color.bg_bright);
+
+				final View defaultView = view.findViewById(R.id.exchange_rate_row_default);
+				defaultView.setVisibility(isDefaultCurrency ? View.VISIBLE : View.INVISIBLE);
+
+				final TextView currencyCodeView = (TextView) view.findViewById(R.id.exchange_rate_row_currency_code);
+				currencyCodeView.setText(exchangeRate.currencyCode);
+
+				final CurrencyAmountView rateView = (CurrencyAmountView) view.findViewById(R.id.exchange_rate_row_rate);
+				rateView.setCurrencyCode(null);
+				rateView.setAmount(WalletUtils.localValue(Utils.COIN, bdRate));
+
+				final CurrencyAmountView walletView = (CurrencyAmountView) view.findViewById(R.id.exchange_rate_row_balance);
+				walletView.setCurrencyCode(null);
+				walletView.setAmount(WalletUtils.localValue(balance, bdRate));
+				walletView.setStrikeThru(Constants.TEST);
+				walletView.setTextColor(getResources().getColor(R.color.fg_less_significant));
 			}
 		};
 		setListAdapter(adapter);

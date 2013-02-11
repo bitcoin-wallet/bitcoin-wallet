@@ -22,7 +22,9 @@
 	<string name="wallet_balance_fragment_local_value">worth about %1$s %2$s</string>
 	<string name="exchange_rates_activity_title">Exchange Rates</string>
 	<string name="exchange_rates_fragment_empty_text">Could not load exchange rates</string>
-	<string name="exchange_rates_fragment_default">default</string>
+	<string name="exchange_rates_fragment_default">(default)</string>
+	<string name="exchange_rates_fragment_rate">rate</string>
+	<string name="exchange_rates_fragment_balance">balance</string>
 	<string name="exchange_rates_fragment_source">Price fetched from %s</string>
 	<string name="exchange_rates_context_set_as_default_title">Set as default foreign currency</string>
 	<string name="wallet_transactions_fragment_tab_received">Received</string>
