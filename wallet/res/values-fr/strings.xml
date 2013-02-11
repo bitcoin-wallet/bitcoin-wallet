@@ -16,7 +16,6 @@
 	<string name="wallet_address_fragment_clipboard_msg">Adresse Bitcoin dans le presse-papier</string>
 	<string name="wallet_addresses_fragment_add_dialog_title">Ajouter l\'adresse Bitcoin</string>
 	<string name="wallet_addresses_fragment_add_dialog_message">Les adresses Bitcoin ne peuvent pas être effacées. Voulez-vous ajouter une nouvelle adresse à votre porte-monnaie&#x202F;?</string>
-	<string name="wallet_balance_fragment_local_value">vaut environ %1$s %2$s</string>
 	<string name="exchange_rates_fragment_empty_text">Impossible de charger les taux de changes</string>
 	<string name="exchange_rates_context_set_as_default_title">Définir comme devise étrangère par défaut</string>
 	<string name="wallet_transactions_fragment_tab_received">Reçu</string>

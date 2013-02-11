@@ -17,7 +17,6 @@
 	<string name="wallet_address_fragment_clipboard_msg">Bitcoin address copied to clipboard</string>
 	<string name="wallet_addresses_fragment_add_dialog_title">Add Bitcoin address</string>
 	<string name="wallet_addresses_fragment_add_dialog_message">Bitcoin addresses cannot be deleted. Do you want to add a new address to your wallet?</string>
-	<string name="wallet_balance_fragment_local_value">worth about %1$s %2$s</string>
 	<string name="exchange_rates_activity_title">Exchange Rates</string>
 	<string name="exchange_rates_fragment_empty_text">Could not load exchange rates</string>
 	<string name="exchange_rates_fragment_default">(default)</string>

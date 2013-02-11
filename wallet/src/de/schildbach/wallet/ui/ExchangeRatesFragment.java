@@ -208,14 +208,6 @@ public final class ExchangeRatesFragment extends ListFragment implements LoaderM
 			private void handleSetAsDefault(final String currencyCode)
 			{
 				prefs.edit().putString(Constants.PREFS_KEY_EXCHANGE_CURRENCY, currencyCode).commit();
-
-				final WalletBalanceFragment walletBalanceFragment = (WalletBalanceFragment) getFragmentManager().findFragmentById(
-						R.id.wallet_balance_fragment);
-				if (walletBalanceFragment != null)
-				{
-					walletBalanceFragment.updateView();
-					walletBalanceFragment.flashLocal();
-				}
 			}
 		});
 	}

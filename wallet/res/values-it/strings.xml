@@ -9,7 +9,6 @@
 	<string name="wallet_address_fragment_clipboard_msg">Indirizzo Bitcoin copiato nella clipboard</string>
 	<string name="wallet_addresses_fragment_add_dialog_title">Aggiungi un indirizzo Bitcoin</string>
 	<string name="wallet_addresses_fragment_add_dialog_message">Gli indirizzi Bitcoin non possono essere cancellati. Ne vuoi aggiungere uno nuovo?</string>
-	<string name="wallet_balance_fragment_local_value">del valore di circa %1$s %2$s</string>
 	<string name="exchange_rates_fragment_empty_text">Impossibile acquisire quotazioni di cambio</string>
 	<string name="wallet_transactions_fragment_tab_received">Ricevuto</string>
 	<string name="wallet_transactions_fragment_tab_all">Entrambi</string>

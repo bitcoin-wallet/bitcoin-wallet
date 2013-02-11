@@ -167,7 +167,7 @@ public class WalletUtils
 	private static Object SIGNIFICANT_SPAN = new StyleSpan(Typeface.BOLD);
 	private static Object UNSIGNIFICANT_SPAN = new RelativeSizeSpan(0.85f);
 
-	public static void formatValue(final Editable s)
+	public static void formatSignificant(final Editable s, final boolean smallerInsignificant)
 	{
 		s.removeSpan(SIGNIFICANT_SPAN);
 		s.removeSpan(UNSIGNIFICANT_SPAN);
@@ -177,7 +177,7 @@ public class WalletUtils
 		{
 			final int pivot = m.group().length();
 			s.setSpan(SIGNIFICANT_SPAN, 0, pivot, 0);
-			if (s.length() > pivot)
+			if (s.length() > pivot && smallerInsignificant)
 				s.setSpan(UNSIGNIFICANT_SPAN, pivot, s.length(), 0);
 		}
 	}

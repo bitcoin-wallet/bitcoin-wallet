@@ -56,7 +56,7 @@ public class WalletBalanceWidgetProvider extends AppWidgetProvider
 			final BigInteger balance)
 	{
 		final Editable balanceStr = new SpannableStringBuilder(WalletUtils.formatValue(balance));
-		WalletUtils.formatValue(balanceStr);
+		WalletUtils.formatSignificant(balanceStr, true);
 
 		for (final int appWidgetId : appWidgetIds)
 		{

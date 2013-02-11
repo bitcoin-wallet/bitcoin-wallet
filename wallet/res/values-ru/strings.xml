@@ -9,7 +9,6 @@
 	<string name="wallet_address_fragment_clipboard_msg">Bitcoin-адрес был скопирован в буфер обмена</string>
 	<string name="wallet_addresses_fragment_add_dialog_title">Добавить Bitcoin-адрес</string>
 	<string name="wallet_addresses_fragment_add_dialog_message">Bitcoin-адреса не могут быть удалены. Хотите добавить новый адрес в Ваш кошелёк?</string>
-	<string name="wallet_balance_fragment_local_value">стоимостью примерно %1$s %2$s</string>
 	<string name="exchange_rates_fragment_empty_text">Не удалось загрузить обменный курс</string>
 	<string name="wallet_transactions_fragment_tab_received">Получено</string>
 	<string name="wallet_transactions_fragment_tab_all">Все</string>

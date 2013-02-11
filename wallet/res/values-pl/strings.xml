@@ -9,7 +9,6 @@
 	<string name="wallet_address_fragment_clipboard_msg">Kopiuj adres Bitcoin do schowka</string>
 	<string name="wallet_addresses_fragment_add_dialog_title">Dodaj adres Bitcoin</string>
 	<string name="wallet_addresses_fragment_add_dialog_message">Adres Bitcoin nie może być skasowany. Chcesz dodać nowy adres do Twojego portfela?</string>
-	<string name="wallet_balance_fragment_local_value">wart około %1$s %2$s</string>
 	<string name="exchange_rates_fragment_empty_text">Kurs wymiany nie mógł być załadowany</string>
 	<string name="wallet_transactions_fragment_tab_received">Otrzymane</string>
 	<string name="wallet_transactions_fragment_tab_all">Wszystkie</string>

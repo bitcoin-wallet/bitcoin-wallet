@@ -16,7 +16,6 @@
 	<string name="wallet_address_fragment_clipboard_msg">Bitcoin adresi panoya kopyalandı</string>
 	<string name="wallet_addresses_fragment_add_dialog_title">Bitcoin adresi ekle</string>
 	<string name="wallet_addresses_fragment_add_dialog_message">Bitcoin adresleri silinemez. Cüzdanınıza yeni bir adres eklemek istediğinizden emin misiniz?</string>
-	<string name="wallet_balance_fragment_local_value">değeri yaklaşık %1$s %2$s</string>
 	<string name="exchange_rates_fragment_empty_text">Döviz kurları yüklenemedi</string>
 	<string name="exchange_rates_context_set_as_default_title">Varsayılan döviz olarak ayarla</string>
 	<string name="wallet_transactions_fragment_tab_received">Alınan</string>

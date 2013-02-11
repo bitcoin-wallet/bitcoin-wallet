@@ -64,6 +64,7 @@ public final class CurrencyAmountView extends FrameLayout
 	private Drawable deleteButtonDrawable, contextButtonDrawable;
 	private CurrencyCodeDrawable currencyCodeDrawable;
 	private boolean amountSigned = false;
+	private boolean smallerInsignificant = true;
 	private boolean validateAmount = true;
 
 	private TextView textView;
@@ -132,7 +133,8 @@ public final class CurrencyAmountView extends FrameLayout
 		if (currencyCode != null)
 		{
 			final float textSize = textView.getTextSize();
-			currencyCodeDrawable = new CurrencyCodeDrawable(currencyCode, textSize * 20f / 24f, lessSignificantColor, textSize * 0.37f);
+			final float smallerTextSize = textSize * (smallerInsignificant ? (20f / 24f) : 1);
+			currencyCodeDrawable = new CurrencyCodeDrawable(currencyCode, smallerTextSize, lessSignificantColor, textSize * 0.37f);
 		}
 		else
 		{
@@ -145,6 +147,11 @@ public final class CurrencyAmountView extends FrameLayout
 	public void setAmountSigned(final boolean amountSigned)
 	{
 		this.amountSigned = amountSigned;
+	}
+
+	public void setSmallerInsignificant(final boolean smallerInsignificant)
+	{
+		this.smallerInsignificant = smallerInsignificant;
 	}
 
 	public void setValidateAmount(final boolean validateAmount)
@@ -190,7 +197,7 @@ public final class CurrencyAmountView extends FrameLayout
 		else
 			hint = new SpannableStringBuilder("0.00");
 
-		WalletUtils.formatValue(hint);
+		WalletUtils.formatSignificant(hint, smallerInsignificant);
 		textView.setHint(hint);
 	}
 
@@ -314,7 +321,7 @@ public final class CurrencyAmountView extends FrameLayout
 				s.append(replaced);
 			}
 
-			WalletUtils.formatValue(s);
+			WalletUtils.formatSignificant(s, smallerInsignificant);
 		}
 
 		public void beforeTextChanged(final CharSequence s, final int start, final int count, final int after)
