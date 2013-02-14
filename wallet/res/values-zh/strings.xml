@@ -8,7 +8,6 @@
 	<string name="blockchain_state_disclaimer">请阅读安全及风险提示以了解潜在使用风险。</string>
 	<string name="wallet_address_fragment_your">你的比特币地址：</string>
 	<string name="wallet_address_fragment_clipboard_msg">比特币地址已复制到剪贴板</string>
-	<string name="wallet_address_fragment_share_dialog_title">分享你的比特币地址…</string>
 	<string name="wallet_addresses_fragment_add_dialog_title">添加比特币地址</string>
 	<string name="wallet_addresses_fragment_add_dialog_message">不能删除比特币地址，或许你想要一个新地址？</string>
 	<string name="wallet_balance_fragment_local_value">总价值约为%1$s %2$s</string>
@@ -37,7 +36,6 @@
 	<string name="send_coins_add_address_dialog_title">收件人不在你的地址簿中哦！\n\n你确信是支付给这个地址？</string>
 	<string name="send_coins_add_address_dialog_button_add">添加地址</string>
 	<string name="send_coins_error_msg">支付时遇到了问题！</string>
-	<string name="send_coins_success_msg">%s比特币已发送！</string>
 
 	<string name="request_coins_activity_title">接收比特币</string>
 	<string name="request_coins_fragment_amount_label">接收数量（可选）</string>

@@ -8,7 +8,6 @@
 	<string name="blockchain_state_disclaimer">Gebruik op eigen risico. Lees de &lt;u>veiligheids voorschriften&lt;/u>.</string>
 	<string name="wallet_address_fragment_your">Uw Bitcoin Adres:</string>
 	<string name="wallet_address_fragment_clipboard_msg">Bitcoin adres gekopieërd naar klembord</string>
-	<string name="wallet_address_fragment_share_dialog_title">Deel uw bitcoin adres…</string>
 	<string name="wallet_addresses_fragment_add_dialog_title">Voeg Bitcoin Adres toe</string>
 	<string name="wallet_addresses_fragment_add_dialog_message">Bitcoin adres kan niet verwijderd worden. Wilt u een nieuw adres toevoeggen aan uw wallet?</string>
 	<string name="wallet_balance_fragment_local_value">waard ongeveer %1$s %2$s</string>
@@ -37,7 +36,6 @@
 	<string name="send_coins_add_address_dialog_title">De ontvanger is nog niet aanwezig in uw adresboek.\n\nWilt u deze nu toevoegen?</string>
 	<string name="send_coins_add_address_dialog_button_add">Adres toevoegen</string>
 	<string name="send_coins_error_msg">Probleem bij het versturen van Bitcoins!</string>
-	<string name="send_coins_success_msg">BTC %s verzonden!</string>
 
 	<string name="request_coins_activity_title">Verzoek Bitcoins</string>
 	<string name="request_coins_fragment_amount_label">Verzocht bedrag (optioneel)</string>

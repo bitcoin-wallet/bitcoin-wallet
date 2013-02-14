@@ -8,7 +8,6 @@
 	<string name="blockchain_state_disclaimer">Используйте на свой риск. Ознакомьтесь с заметками по безопасности.</string>
 	<string name="wallet_address_fragment_your">Ваш Bitcoin-адрес:</string>
 	<string name="wallet_address_fragment_clipboard_msg">Bitcoin-адрес был скопирован в буфер обмена</string>
-	<string name="wallet_address_fragment_share_dialog_title">Распространить Bitcoin-адрес…</string>
 	<string name="wallet_addresses_fragment_add_dialog_title">Добавить Bitcoin-адрес</string>
 	<string name="wallet_addresses_fragment_add_dialog_message">Bitcoin-адреса не могут быть удалены. Хотите добавить новый адрес в Ваш кошелёк?</string>
 	<string name="wallet_balance_fragment_local_value">стоимостью примерно %1$s %2$s</string>
@@ -39,7 +38,6 @@
 	<string name="send_coins_add_address_dialog_title">Получатель ещё не добавлен в адресную книгу.\n\nЖелаете ли добавить адрес?</string>
 	<string name="send_coins_add_address_dialog_button_add">Добавить адрес</string>
 	<string name="send_coins_error_msg">Проблема с отправкой монет!</string>
-	<string name="send_coins_success_msg">BTC %s отправлено!</string>
 
 	<string name="request_coins_activity_title">Запросить Bitcoin-монеты</string>
 	<string name="request_coins_fragment_amount_label">Запрашиваемая сумма (опционально)</string>

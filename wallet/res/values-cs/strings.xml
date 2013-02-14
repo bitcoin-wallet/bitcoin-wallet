@@ -8,7 +8,6 @@
 	<string name="blockchain_state_disclaimer">Použití na vlastní riziko. Více v &lt;u>nápovědě&lt;/u>.</string>
 	<string name="wallet_address_fragment_your">Vaše Bitcoin Adresa:</string>
 	<string name="wallet_address_fragment_clipboard_msg">Adresa zkopírována do schránky</string>
-	<string name="wallet_address_fragment_share_dialog_title">Nasdílejte Vaši adresu…</string>
 	<string name="wallet_addresses_fragment_add_dialog_title">Přidat Bitcoin adresu</string>
 	<string name="wallet_addresses_fragment_add_dialog_message">Bitcoin adresa se nedá smazat. Chcete přidat do peněženky novou adresu?</string>
 	<string name="wallet_balance_fragment_local_value">hodnota okolo %1$s %2$s</string>
@@ -38,7 +37,6 @@
 	<string name="send_coins_add_address_dialog_title">Příjemce není ve Vašem adresáři.\n\nChcete jej přidat do adresáře?</string>
 	<string name="send_coins_add_address_dialog_button_add">Přidat</string>
 	<string name="send_coins_error_msg">Problém při zasílání!</string>
-	<string name="send_coins_success_msg">BTC %s odesláno!</string>
 
 	<string name="request_coins_activity_title">Vyžádat Bitcoiny</string>
 	<string name="request_coins_fragment_amount_label">Vyžadovaná částka (volitelně)</string>

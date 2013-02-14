@@ -15,7 +15,6 @@
 	<string name="blockchain_state_progress_problem_network">Blockkedjan laddas inte ner: Nätverksproblem</string>
 	<string name="wallet_address_fragment_your">Din Bitcoin adress:</string>
 	<string name="wallet_address_fragment_clipboard_msg">Bitcoin adressen kopierad till klippbordet</string>
-	<string name="wallet_address_fragment_share_dialog_title">Dela din Bitcoin adress…</string>
 	<string name="wallet_addresses_fragment_add_dialog_title">Lägg till Bitcoin adress</string>
 	<string name="wallet_addresses_fragment_add_dialog_message">Bitcoin adresser kan inte tas bort. Vill du lägga till en ny adress till din plånbok?</string>
 	<string name="wallet_balance_fragment_local_value">värda ungefär %1$s %2$s</string>
@@ -61,7 +60,6 @@
 	<string name="send_coins_add_address_dialog_title">Mottagaradressen finns inte i din adressbok.\n\nVill du lägga till denna adress?</string>
 	<string name="send_coins_add_address_dialog_button_add">Lägg till adress</string>
 	<string name="send_coins_error_msg">Problem att skicka Bitcoins!</string>
-	<string name="send_coins_success_msg">Skickat %s BTC!</string>
 	<string name="send_coins_options_scan_title">Skanna</string>
 	<string name="send_coins_address_context_clear_title">Ange ny adress</string>
 	<string name="request_coins_activity_title">Ta emot Bitcoins</string>

@@ -15,7 +15,6 @@
 	<string name="blockchain_state_progress_problem_network">No se descarga la blockchain: problema de red</string>
 	<string name="wallet_address_fragment_your">Tu dirección Bitcoin:</string>
 	<string name="wallet_address_fragment_clipboard_msg">Dirección Bitcoin copiada al portapapeles</string>
-	<string name="wallet_address_fragment_share_dialog_title">Comparte tu dirección Bitcoin…</string>
 	<string name="wallet_addresses_fragment_add_dialog_title">Añadir dirección Bitcoin</string>
 	<string name="wallet_addresses_fragment_add_dialog_message">Las direcciones Bitcoin no pueden eliminarse. ¿Quieres añadir una nueva dirección a tu cartera?</string>
 	<string name="wallet_balance_fragment_local_value">Vale alrededor de %1$s %2$s</string>
@@ -61,7 +60,6 @@
 	<string name="send_coins_add_address_dialog_title">El receptor no está en tu libreta de direcciones.\n\n¿Quieres añadir la dirección?</string>
 	<string name="send_coins_add_address_dialog_button_add">Añadir dirección</string>
 	<string name="send_coins_error_msg">¡Problema enviando bitcoins!</string>
-	<string name="send_coins_success_msg">¡BTC %s enviados!</string>
 	<string name="send_coins_options_scan_title">Explorar</string>
 	<string name="send_coins_address_context_clear_title">Introducir nueva dirección</string>
 	<string name="request_coins_activity_title">Solicitar bitcoins</string>

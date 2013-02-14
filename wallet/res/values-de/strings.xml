@@ -18,7 +18,6 @@
 	<string name="blockchain_state_replaying">Blockchain-Replay ist in Gang.</string>
 	<string name="wallet_address_fragment_your">Deine Bitcoin-Adresse:</string>
 	<string name="wallet_address_fragment_clipboard_msg">Bitcoin-Adresse ins Clipboard kopiert</string>
-	<string name="wallet_address_fragment_share_dialog_title">Bitcoin-Adresse veröffentlichen…</string>
 	<string name="wallet_addresses_fragment_add_dialog_title">Bitcoin-Adresse hinzufügen</string>
 	<string name="wallet_addresses_fragment_add_dialog_message">Bitcoin-Adressen können nicht gelöscht werden. Möchtest Du eine neue Adresse zu Deinem Wallet hinzufügen?</string>
 	<string name="wallet_balance_fragment_local_value">etwa %1$s %2$s wert</string>
@@ -92,7 +91,6 @@
 	<string name="send_coins_add_address_dialog_title">Der Empfänger ist noch nicht in Deinem Adressbuch gespeichert.\n\nMöchtest Du ihn jetzt hinzufügen?</string>
 	<string name="send_coins_add_address_dialog_button_add">Adresse hinzufügen</string>
 	<string name="send_coins_error_msg">Problem beim Versenden der Bitcoins!</string>
-	<string name="send_coins_success_msg">BTC %s versendet!</string>
 	<string name="send_coins_options_scan_title">Scannen</string>
 	<string name="send_coins_address_context_clear_title">Adresse neu eingeben</string>
 	<string name="send_coins_dialog_fee_message">Du bist dabei, Bitcoins mit einer geringen Gebühr zu versenden. Es kann sehr lange dauern, bis diese Transaktion bestätigt wird.\n\nEs wird empfohlen, eine Gebühr von mindestens %s zu verwenden.</string>

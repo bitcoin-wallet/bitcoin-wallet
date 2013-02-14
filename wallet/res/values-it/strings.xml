@@ -8,7 +8,6 @@
 	<string name="blockchain_state_disclaimer">Usatela a vostro rischio e pericolo. Leggete i dettagli nelle &lt;u>note di sicurezza&lt;/u>.</string>
 	<string name="wallet_address_fragment_your">Il tuo indirizzo Bitcoin:</string>
 	<string name="wallet_address_fragment_clipboard_msg">Indirizzo Bitcoin copiato nella clipboard</string>
-	<string name="wallet_address_fragment_share_dialog_title">Condividi il tuo indirizzo Bitcoin…</string>
 	<string name="wallet_addresses_fragment_add_dialog_title">Aggiungi un indirizzo Bitcoin</string>
 	<string name="wallet_addresses_fragment_add_dialog_message">Gli indirizzi Bitcoin non possono essere cancellati. Ne vuoi aggiungere uno nuovo?</string>
 	<string name="wallet_balance_fragment_local_value">del valore di circa %1$s %2$s</string>
@@ -40,7 +39,6 @@
 	<string name="send_coins_add_address_dialog_title">Il destinatario non è ancora presente in rubrica.\n\nVuoi aggiungerlo?</string>
 	<string name="send_coins_add_address_dialog_button_add">Aggiungi indirizzo</string>
 	<string name="send_coins_error_msg">"Problemi durante l'invio dei Bitcoins!"</string>
-	<string name="send_coins_success_msg">%s BTC inviati!</string>
 
 	<string name="request_coins_activity_title">Richiedi Bitcoins</string>
 	<string name="request_coins_fragment_amount_label">Importo richiesto (opzionale)</string>

@@ -15,7 +15,6 @@
 	<string name="blockchain_state_progress_problem_network">La chaîne de blocs n\'est pas téléchargé&#x202F;: problème de réseau</string>
 	<string name="wallet_address_fragment_your">Votre adresse Bitcoin&#x202F;:</string>
 	<string name="wallet_address_fragment_clipboard_msg">Adresse Bitcoin dans le presse-papier</string>
-	<string name="wallet_address_fragment_share_dialog_title">Publiez votre adresse Bitcoin…</string>
 	<string name="wallet_addresses_fragment_add_dialog_title">Ajouter l\'adresse Bitcoin</string>
 	<string name="wallet_addresses_fragment_add_dialog_message">Les adresses Bitcoin ne peuvent pas être effacées. Voulez-vous ajouter une nouvelle adresse à votre porte-monnaie&#x202F;?</string>
 	<string name="wallet_balance_fragment_local_value">vaut environ %1$s %2$s</string>
@@ -61,7 +60,6 @@
 	<string name="send_coins_add_address_dialog_title">Le destinataire n\'est pas dans votre carnet d\'adresse.\n\nVoulez-vous ajouter l\'adresse&#x202F;?</string>
 	<string name="send_coins_add_address_dialog_button_add">Ajouter l\'adresse</string>
 	<string name="send_coins_error_msg">Probleme durant l\'envoi&#x202F;!</string>
-	<string name="send_coins_success_msg">BTC %s envoyé&#x202F;!</string>
 	<string name="send_coins_options_scan_title">Analyser</string>
 	<string name="send_coins_address_context_clear_title">Entrer une nouvelle adresse</string>
 	<string name="request_coins_activity_title">Demander des Bitcoins</string>

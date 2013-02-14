@@ -15,7 +15,6 @@
 	<string name="blockchain_state_progress_problem_network">Blok zinciri indirilmiyor: şebeke problemi</string>
 	<string name="wallet_address_fragment_your">Bitcoin adresiniz:</string>
 	<string name="wallet_address_fragment_clipboard_msg">Bitcoin adresi panoya kopyalandı</string>
-	<string name="wallet_address_fragment_share_dialog_title">Bitcoin adresinizi paylaşın…</string>
 	<string name="wallet_addresses_fragment_add_dialog_title">Bitcoin adresi ekle</string>
 	<string name="wallet_addresses_fragment_add_dialog_message">Bitcoin adresleri silinemez. Cüzdanınıza yeni bir adres eklemek istediğinizden emin misiniz?</string>
 	<string name="wallet_balance_fragment_local_value">değeri yaklaşık %1$s %2$s</string>
@@ -61,7 +60,6 @@
 	<string name="send_coins_add_address_dialog_title">Alıcı henüz adres defterinizde bulunmamaktadır.\n\nAdresini eklemek ister misiniz?</string>
 	<string name="send_coins_add_address_dialog_button_add">Adres ekle</string>
 	<string name="send_coins_error_msg">Bitcoin gönderimi sırasında problem oluştu!</string>
-	<string name="send_coins_success_msg">%s BTC gönderildi!</string>
 	<string name="send_coins_options_scan_title">Tara</string>
 	<string name="send_coins_address_context_clear_title">Yeni adres gir</string>
 	<string name="request_coins_activity_title">Bitcoin talebi</string>
