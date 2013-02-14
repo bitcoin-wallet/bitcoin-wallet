@@ -24,6 +24,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import android.annotation.SuppressLint;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.hardware.Camera;
@@ -192,6 +193,7 @@ public final class CameraManager
 			return parameters.getPreviewSize();
 	}
 
+	@SuppressLint("InlinedApi")
 	private static void setDesiredCameraParameters(final Camera camera, final Camera.Size cameraResolution, final boolean safeMode)
 	{
 		final Camera.Parameters parameters = camera.getParameters();

@@ -17,6 +17,7 @@
 
 package de.schildbach.wallet.ui;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -71,6 +72,7 @@ public final class WalletAddressFragment extends Fragment
 		application = (WalletApplication) activity.getApplication();
 	}
 
+	@SuppressLint("InlinedApi")
 	@Override
 	public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState)
 	{

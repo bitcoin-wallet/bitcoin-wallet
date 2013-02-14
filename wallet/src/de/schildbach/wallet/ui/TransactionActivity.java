@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.zip.GZIPInputStream;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -63,6 +64,7 @@ public final class TransactionActivity extends AbstractWalletActivity
 		context.startActivity(intent);
 	}
 
+	@SuppressLint("InlinedApi")
 	@Override
 	protected void onCreate(final Bundle savedInstanceState)
 	{

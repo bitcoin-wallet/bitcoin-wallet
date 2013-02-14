@@ -20,6 +20,7 @@ package de.schildbach.wallet.ui;
 import java.math.BigInteger;
 import java.util.ArrayList;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -75,6 +76,7 @@ public final class RequestCoinsFragment extends SherlockFragment implements Amou
 	private CheckBox includeLabelView;
 	private View nfcEnabledView;
 
+	@SuppressLint("InlinedApi")
 	@Override
 	public void onAttach(final Activity activity)
 	{

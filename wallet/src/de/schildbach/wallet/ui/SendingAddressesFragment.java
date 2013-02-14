@@ -19,6 +19,7 @@ package de.schildbach.wallet.ui;
 
 import java.util.ArrayList;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -155,6 +156,7 @@ public final class SendingAddressesFragment extends SherlockListFragment impleme
 		}
 	}
 
+	@SuppressLint("InlinedApi")
 	@Override
 	public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater)
 	{
