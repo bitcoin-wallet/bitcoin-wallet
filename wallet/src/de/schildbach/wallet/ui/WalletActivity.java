@@ -64,7 +64,6 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.google.bitcoin.core.ECKey;
@@ -100,9 +99,6 @@ public final class WalletActivity extends AbstractWalletActivity
 		prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
 		setContentView(R.layout.wallet_content);
-
-		final ActionBar actionBar = getSupportActionBar();
-		actionBar.setTitle(R.string.app_name);
 
 		checkAlerts();
 

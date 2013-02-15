@@ -37,7 +37,6 @@ public final class PeerMonitorActivity extends AbstractWalletActivity
 		setContentView(R.layout.peer_monitor_content);
 
 		final ActionBar actionBar = getSupportActionBar();
-		actionBar.setTitle(R.string.peer_monitor_activity_title);
 		actionBar.setDisplayHomeAsUpEnabled(true);
 	}
 

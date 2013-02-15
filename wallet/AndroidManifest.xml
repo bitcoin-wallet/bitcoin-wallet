@@ -75,6 +75,7 @@
 		<activity
 			android:name="de.schildbach.wallet.ui.SendCoinsActivity"
 			android:configChanges="keyboard|keyboardHidden"
+			android:label="@string/send_coins_activity_title"
 			android:screenOrientation="behind"
 			android:windowSoftInputMode="adjustResize" >
 			<intent-filter android:label="@string/send_coins_activity_title" >
@@ -96,11 +97,13 @@
 		<activity
 			android:name="de.schildbach.wallet.ui.RequestCoinsActivity"
 			android:configChanges="keyboard|keyboardHidden"
+			android:label="@string/request_coins_activity_title"
 			android:screenOrientation="behind"
 			android:windowSoftInputMode="adjustResize" />
 		<activity
 			android:name="de.schildbach.wallet.ui.TransactionActivity"
 			android:configChanges="keyboard|keyboardHidden"
+			android:label="@string/transaction_activity_title"
 			android:screenOrientation="behind" >
 			<intent-filter>
 				<action android:name="android.intent.action.VIEW" />
@@ -121,20 +124,25 @@
 		<activity
 			android:name="de.schildbach.wallet.ui.AddressBookActivity"
 			android:configChanges="keyboard|keyboardHidden"
+			android:label="@string/address_book_activity_title"
 			android:screenOrientation="behind" />
 		<activity
 			android:name="de.schildbach.wallet.ui.ExchangeRatesActivity"
 			android:configChanges="keyboard|keyboardHidden"
+			android:label="@string/exchange_rates_activity_title"
 			android:screenOrientation="behind" />
 		<activity
 			android:name="de.schildbach.wallet.ui.PeerMonitorActivity"
 			android:configChanges="keyboard|keyboardHidden"
+			android:label="@string/peer_monitor_activity_title"
 			android:screenOrientation="behind" />
 		<activity
 			android:name="de.schildbach.wallet.ui.PreferencesActivity"
+			android:label="@string/preferences_title"
 			android:screenOrientation="behind" />
 		<activity
 			android:name="de.schildbach.wallet.ui.AboutActivity"
+			android:label="@string/about_title"
 			android:screenOrientation="behind" />
 		<activity
 			android:name="de.schildbach.wallet.ui.ScanActivity"

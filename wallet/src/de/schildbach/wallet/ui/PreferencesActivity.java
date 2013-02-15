@@ -57,7 +57,6 @@ public final class PreferencesActivity extends SherlockPreferenceActivity implem
 		trustedPeerPreference.setOnPreferenceChangeListener(this);
 
 		final ActionBar actionBar = getSupportActionBar();
-		actionBar.setTitle(R.string.preferences_title);
 		actionBar.setDisplayHomeAsUpEnabled(true);
 
 		final SharedPreferences prefs = getPreferenceManager().getSharedPreferences();

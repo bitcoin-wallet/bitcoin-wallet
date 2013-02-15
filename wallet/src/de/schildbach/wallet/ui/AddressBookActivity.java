@@ -61,7 +61,6 @@ public final class AddressBookActivity extends AbstractWalletActivity
 		setContentView(R.layout.address_book_content);
 
 		final ActionBar actionBar = getSupportActionBar();
-		actionBar.setTitle(R.string.address_book_activity_title);
 		actionBar.setDisplayHomeAsUpEnabled(true);
 
 		final ViewPager pager = (ViewPager) findViewById(R.id.address_book_pager);

@@ -55,7 +55,6 @@ public final class AboutActivity extends SherlockPreferenceActivity
 		addPreferencesFromResource(R.xml.about);
 
 		final ActionBar actionBar = getSupportActionBar();
-		actionBar.setTitle(R.string.about_title);
 		actionBar.setDisplayHomeAsUpEnabled(true);
 
 		findPreference(KEY_ABOUT_VERSION).setSummary(((WalletApplication) getApplication()).applicationVersionName());

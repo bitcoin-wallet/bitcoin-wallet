@@ -75,7 +75,6 @@ public final class TransactionActivity extends AbstractWalletActivity
 		setContentView(R.layout.transaction_content);
 
 		final ActionBar actionBar = getSupportActionBar();
-		actionBar.setTitle(R.string.transaction_activity_title);
 		actionBar.setDisplayHomeAsUpEnabled(true);
 
 		handleIntent(getIntent());

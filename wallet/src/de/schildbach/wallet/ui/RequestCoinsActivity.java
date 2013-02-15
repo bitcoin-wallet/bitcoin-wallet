@@ -43,7 +43,6 @@ public final class RequestCoinsActivity extends AbstractWalletActivity
 		setContentView(R.layout.request_coins_content);
 
 		final ActionBar actionBar = getSupportActionBar();
-		actionBar.setTitle(R.string.request_coins_activity_title);
 		actionBar.setDisplayHomeAsUpEnabled(true);
 	}
 

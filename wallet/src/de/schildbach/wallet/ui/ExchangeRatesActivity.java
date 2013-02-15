@@ -37,7 +37,6 @@ public final class ExchangeRatesActivity extends AbstractWalletActivity
 		setContentView(R.layout.exchange_rates_content);
 
 		final ActionBar actionBar = getSupportActionBar();
-		actionBar.setTitle(R.string.exchange_rates_activity_title);
 		actionBar.setDisplayHomeAsUpEnabled(true);
 	}
 

@@ -55,7 +55,6 @@ public final class SendCoinsActivity extends AbstractWalletActivity
 		getWalletApplication().startBlockchainService(false);
 
 		final ActionBar actionBar = getSupportActionBar();
-		actionBar.setTitle(R.string.send_coins_activity_title);
 		actionBar.setDisplayHomeAsUpEnabled(true);
 
 		handleIntent(getIntent());
