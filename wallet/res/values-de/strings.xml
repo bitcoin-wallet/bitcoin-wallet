@@ -34,6 +34,7 @@
 	<string name="wallet_transactions_fragment_empty_text_sent">Noch keine Bitcoins gesendet</string>
 	<string name="wallet_transactions_fragment_coinbase">geschürft</string>
 	<string name="wallet_transactions_context_show_transaction_title">Transaktionsdetails</string>
+	<string name="wallet_options_backup">Schlüsselsicherung</string>
 	<string name="wallet_options_disconnect">Verbindungen trennen</string>
 	<string name="wallet_options_safety">Sicherheit</string>
 	<string name="wallet_options_donate">Spenden</string>

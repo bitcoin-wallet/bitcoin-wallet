@@ -32,6 +32,7 @@
 	<string name="wallet_transactions_fragment_empty_text_sent">No Bitcoins sent so far</string>
 	<string name="wallet_transactions_fragment_coinbase">mined</string>
 	<string name="wallet_transactions_context_show_transaction_title">Transaction details</string>
+	<string name="wallet_options_backup">Backup Keys</string>
 	<string name="wallet_options_disconnect">Disconnect</string>
 	<string name="wallet_options_safety">Safety notes</string>
 	<string name="wallet_options_donate">Tip / Donate</string>
