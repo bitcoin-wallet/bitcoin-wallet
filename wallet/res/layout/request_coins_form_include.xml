@@ -25,7 +25,6 @@
 		<EditText
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:drawablePadding="4dp"
 			android:imeOptions="flagNoExtractUi"
 			android:textSize="@dimen/font_size_xlarge"
 			tools:ignore="TextFields" />

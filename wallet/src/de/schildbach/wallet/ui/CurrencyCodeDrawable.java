@@ -21,6 +21,7 @@ import android.graphics.Canvas;
 import android.graphics.ColorFilter;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
+import de.schildbach.wallet.Constants;
 
 /**
  * @author Andreas Schildbach
@@ -37,7 +38,7 @@ public final class CurrencyCodeDrawable extends Drawable
 		paint.setAntiAlias(true);
 		paint.setTextSize(textSize);
 
-		this.currencyCode = currencyCode;
+		this.currencyCode = currencyCode + Constants.CHAR_HAIR_SPACE;
 		this.y = y;
 	}
 

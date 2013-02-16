@@ -15,7 +15,6 @@
 		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:drawablePadding="4dp"
 			android:enabled="false"
 			android:textSize="42sp" />
 	</de.schildbach.wallet.ui.CurrencyAmountView>
