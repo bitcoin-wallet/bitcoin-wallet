@@ -17,6 +17,7 @@
 
 package de.schildbach.wallet.ui;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import android.app.Activity;
@@ -60,8 +61,9 @@ public final class WalletAddressesFragment extends SherlockListFragment
 	private AddressBookActivity activity;
 	private WalletApplication application;
 	private ContentResolver contentResolver;
+	private SharedPreferences prefs;
 
-	private BaseAdapter adapter;
+	private WalletAddressesAdapter adapter;
 
 	@Override
 	public void onAttach(final Activity activity)
@@ -71,6 +73,7 @@ public final class WalletAddressesFragment extends SherlockListFragment
 		this.activity = (AddressBookActivity) activity;
 		application = (WalletApplication) activity.getApplication();
 		contentResolver = activity.getContentResolver();
+		prefs = PreferenceManager.getDefaultSharedPreferences(activity);
 	}
 
 	@Override
@@ -80,7 +83,12 @@ public final class WalletAddressesFragment extends SherlockListFragment
 
 		setHasOptionsMenu(true);
 
-		adapter = new WalletAddressesAdapter(activity, application.getWallet().keychain, true);
+		final ArrayList<ECKey> keychain = application.getWallet().keychain;
+		adapter = new WalletAddressesAdapter(activity, keychain, true);
+
+		final String defaultAddress = keychain.get(0).toAddress(Constants.NETWORK_PARAMETERS).toString();
+		final String selectedAddress = prefs.getString(Constants.PREFS_KEY_SELECTED_ADDRESS, defaultAddress);
+		adapter.setSelectedAddress(selectedAddress);
 
 		setListAdapter(adapter);
 	}
@@ -243,8 +251,8 @@ public final class WalletAddressesFragment extends SherlockListFragment
 
 			private void handleDefault(final Address address)
 			{
-				final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(activity);
 				prefs.edit().putString(Constants.PREFS_KEY_SELECTED_ADDRESS, address.toString()).commit();
+				adapter.setSelectedAddress(address.toString());
 			}
 		});
 	}

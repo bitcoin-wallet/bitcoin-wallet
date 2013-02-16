@@ -48,6 +48,7 @@ public class WalletAddressesAdapter extends BaseAdapter
 
 	private final List<ECKey> keys;
 	private final boolean showKeyCreationTime;
+	private String selectedAddress = null;
 
 	public WalletAddressesAdapter(final Context context, final List<ECKey> keys, final boolean showKeyCreationTime)
 	{
@@ -61,6 +62,13 @@ public class WalletAddressesAdapter extends BaseAdapter
 
 		this.keys = keys;
 		this.showKeyCreationTime = showKeyCreationTime;
+	}
+
+	public void setSelectedAddress(final String selectedAddress)
+	{
+		this.selectedAddress = selectedAddress;
+
+		notifyDataSetChanged();
 	}
 
 	public int getCount()
@@ -85,6 +93,10 @@ public class WalletAddressesAdapter extends BaseAdapter
 
 		if (row == null)
 			row = inflater.inflate(R.layout.address_book_row, null);
+
+		final boolean isDefaultAddress = address.toString().equals(selectedAddress);
+
+		row.setBackgroundResource(isDefaultAddress ? R.color.bg_less_bright : R.color.bg_bright);
 
 		final TextView addressView = (TextView) row.findViewById(R.id.address_book_row_address);
 		addressView.setText(WalletUtils.formatAddress(address, Constants.ADDRESS_FORMAT_GROUP_SIZE, Constants.ADDRESS_FORMAT_LINE_SIZE));
