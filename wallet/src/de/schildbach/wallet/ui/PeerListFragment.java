@@ -17,7 +17,10 @@
 
 package de.schildbach.wallet.ui;
 
+import java.net.InetAddress;
 import java.util.List;
+import java.util.Map;
+import java.util.WeakHashMap;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;
@@ -49,7 +52,7 @@ import de.schildbach.wallet_test.R;
 /**
  * @author Andreas Schildbach
  */
-public final class PeerListFragment extends SherlockListFragment implements LoaderCallbacks<List<Peer>>
+public final class PeerListFragment extends SherlockListFragment
 {
 	private AbstractWalletActivity activity;
 	private BlockchainService service;
@@ -58,6 +61,11 @@ public final class PeerListFragment extends SherlockListFragment implements Load
 	private final Handler handler = new Handler();
 
 	private static final long REFRESH_MS = 1000;
+
+	private static final int ID_PEER_LOADER = 0;
+	private static final int ID_REVERSE_DNS_LOADER = 1;
+
+	private final Map<InetAddress, String> hostnames = new WeakHashMap<InetAddress, String>();
 
 	@Override
 	public void onAttach(final Activity activity)
@@ -101,7 +109,9 @@ public final class PeerListFragment extends SherlockListFragment implements Load
 				final boolean isDownloading = peer.getDownloadData();
 
 				final TextView rowIp = (TextView) row.findViewById(R.id.peer_list_row_ip);
-				rowIp.setText(peer.getAddress().getAddr().getHostAddress());
+				final InetAddress address = peer.getAddress().getAddr();
+				final String hostname = hostnames.get(address);
+				rowIp.setText(hostname != null ? hostname : address.getHostAddress());
 
 				final TextView rowHeight = (TextView) row.findViewById(R.id.peer_list_row_height);
 				final long bestHeight = peer.getBestHeight();
@@ -144,6 +154,27 @@ public final class PeerListFragment extends SherlockListFragment implements Load
 			{
 				adapter.notifyDataSetChanged();
 
+				final Loader<Object> loader = getLoaderManager().getLoader(ID_REVERSE_DNS_LOADER);
+				final boolean loaderRunning = loader != null && loader.isStarted();
+
+				if (!loaderRunning)
+				{
+					for (int i = 0; i < adapter.getCount(); i++)
+					{
+						final Peer peer = adapter.getItem(i);
+						final InetAddress address = peer.getAddress().getAddr();
+
+						if (!hostnames.containsKey(address))
+						{
+							final Bundle args = new Bundle();
+							args.putSerializable("address", address);
+							getLoaderManager().initLoader(ID_REVERSE_DNS_LOADER, args, reverseDnsLoaderCallbacks).forceLoad();
+
+							break;
+						}
+					}
+				}
+
 				handler.postDelayed(this, REFRESH_MS);
 			}
 		}, REFRESH_MS);
@@ -162,26 +193,9 @@ public final class PeerListFragment extends SherlockListFragment implements Load
 	{
 		activity.unbindService(serviceConnection);
 
+		getLoaderManager().destroyLoader(ID_REVERSE_DNS_LOADER);
+
 		super.onDestroy();
-	}
-
-	public Loader<List<Peer>> onCreateLoader(final int id, final Bundle args)
-	{
-		return new PeerLoader(activity, service);
-	}
-
-	public void onLoadFinished(final Loader<List<Peer>> loader, final List<Peer> peers)
-	{
-		adapter.clear();
-
-		if (peers != null)
-			for (final Peer peer : peers)
-				adapter.add(peer);
-	}
-
-	public void onLoaderReset(final Loader<List<Peer>> loader)
-	{
-		adapter.clear();
 	}
 
 	private final ServiceConnection serviceConnection = new ServiceConnection()
@@ -190,12 +204,12 @@ public final class PeerListFragment extends SherlockListFragment implements Load
 		{
 			service = ((BlockchainServiceImpl.LocalBinder) binder).getService();
 
-			getLoaderManager().initLoader(0, null, PeerListFragment.this);
+			getLoaderManager().initLoader(ID_PEER_LOADER, null, peerLoaderCallbacks);
 		}
 
 		public void onServiceDisconnected(final ComponentName name)
 		{
-			getLoaderManager().destroyLoader(0);
+			getLoaderManager().destroyLoader(ID_PEER_LOADER);
 
 			service = null;
 		}
@@ -245,4 +259,66 @@ public final class PeerListFragment extends SherlockListFragment implements Load
 			}
 		};
 	}
+
+	private final LoaderCallbacks<List<Peer>> peerLoaderCallbacks = new LoaderCallbacks<List<Peer>>()
+	{
+		public Loader<List<Peer>> onCreateLoader(final int id, final Bundle args)
+		{
+			return new PeerLoader(activity, service);
+		}
+
+		public void onLoadFinished(final Loader<List<Peer>> loader, final List<Peer> peers)
+		{
+			adapter.clear();
+
+			if (peers != null)
+				for (final Peer peer : peers)
+					adapter.add(peer);
+		}
+
+		public void onLoaderReset(final Loader<List<Peer>> loader)
+		{
+			adapter.clear();
+		}
+	};
+
+	private static class ReverseDnsLoader extends AsyncTaskLoader<String>
+	{
+		public final InetAddress address;
+
+		public ReverseDnsLoader(final Context context, final InetAddress address)
+		{
+			super(context);
+
+			this.address = address;
+		}
+
+		@Override
+		public String loadInBackground()
+		{
+			return address.getCanonicalHostName();
+		}
+	}
+
+	private final LoaderCallbacks<String> reverseDnsLoaderCallbacks = new LoaderCallbacks<String>()
+	{
+		public Loader<String> onCreateLoader(final int id, final Bundle args)
+		{
+			final InetAddress address = (InetAddress) args.getSerializable("address");
+
+			return new ReverseDnsLoader(activity, address);
+		}
+
+		public void onLoadFinished(final Loader<String> loader, final String hostname)
+		{
+			final InetAddress address = ((ReverseDnsLoader) loader).address;
+			hostnames.put(address, hostname);
+
+			getLoaderManager().destroyLoader(ID_REVERSE_DNS_LOADER);
+		}
+
+		public void onLoaderReset(final Loader<String> loader)
+		{
+		}
+	};
 }
