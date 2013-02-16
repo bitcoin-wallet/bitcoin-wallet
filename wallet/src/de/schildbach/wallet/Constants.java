@@ -91,9 +91,9 @@ public class Constants
 	public static final String LOCK_NAME = PACKAGE_NAME + " blockchain sync";
 
 	public static final String CURRENCY_CODE_BITCOIN = "BTC";
-	public static final String THIN_SPACE = "\u2009";
-	public static final String CURRENCY_PLUS_SIGN = "+" + THIN_SPACE;
-	public static final String CURRENCY_MINUS_SIGN = "-" + THIN_SPACE;
+	public static final char CHAR_THIN_SPACE = '\u2009';
+	public static final String CURRENCY_PLUS_SIGN = "+" + CHAR_THIN_SPACE;
+	public static final String CURRENCY_MINUS_SIGN = "-" + CHAR_THIN_SPACE;
 	public static final int ADDRESS_FORMAT_GROUP_SIZE = 4;
 	public static final int ADDRESS_FORMAT_LINE_SIZE = 12;
 

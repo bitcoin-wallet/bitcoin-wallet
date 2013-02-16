@@ -133,7 +133,7 @@ public class WalletUtils
 			if (end < len)
 			{
 				final boolean endOfLine = lineSize > 0 && end % lineSize == 0;
-				builder.append(endOfLine ? "\n" : Constants.THIN_SPACE);
+				builder.append(endOfLine ? '\n' : Constants.CHAR_THIN_SPACE);
 			}
 		}
 
@@ -163,7 +163,7 @@ public class WalletUtils
 			return String.format(Locale.US, "%s%d.%08d", sign, coins, cents);
 	}
 
-	private static final Pattern P_SIGNIFICANT = Pattern.compile("^([-+]" + Constants.THIN_SPACE + ")?\\d*(\\.\\d{0,2})?");
+	private static final Pattern P_SIGNIFICANT = Pattern.compile("^([-+]" + Constants.CHAR_THIN_SPACE + ")?\\d*(\\.\\d{0,2})?");
 	private static Object SIGNIFICANT_SPAN = new StyleSpan(Typeface.BOLD);
 	private static Object UNSIGNIFICANT_SPAN = new RelativeSizeSpan(0.85f);
 
