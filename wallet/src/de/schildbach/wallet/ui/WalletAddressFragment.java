@@ -20,6 +20,7 @@ package de.schildbach.wallet.ui;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.graphics.Bitmap;
@@ -30,6 +31,7 @@ import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -96,6 +98,15 @@ public final class WalletAddressFragment extends Fragment
 			public void onClick(final View v)
 			{
 				handleShowQRCode();
+			}
+		});
+
+		bitcoinAddressQrView.setOnLongClickListener(new OnLongClickListener()
+		{
+			public boolean onLongClick(final View v)
+			{
+				startActivity(new Intent(activity, RequestCoinsActivity.class));
+				return true;
 			}
 		});
 

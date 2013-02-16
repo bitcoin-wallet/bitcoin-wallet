@@ -4,7 +4,7 @@
 	<item
 		android:id="@+id/wallet_options_request"
 		android:icon="@drawable/ic_action_receive"
-		android:showAsAction="always|withText"
+		android:showAsAction="never"
 		android:title="@string/request_coins_activity_title"
 		android:titleCondensed="@string/button_request_coins"/>
 	<item
