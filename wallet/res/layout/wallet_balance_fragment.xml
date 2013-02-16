@@ -16,7 +16,7 @@
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:enabled="false"
-			android:textSize="42sp" />
+			android:textSize="@dimen/font_size_huge" />
 	</de.schildbach.wallet.ui.CurrencyAmountView>
 
 	<TextView
