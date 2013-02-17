@@ -18,7 +18,6 @@
 package de.schildbach.wallet.ui;
 
 import java.math.BigInteger;
-import java.text.DateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -53,17 +52,16 @@ import de.schildbach.wallet_test.R;
  */
 public class TransactionsListAdapter extends ArrayAdapter<Transaction>
 {
-	private final Wallet wallet;
+	private final Context context;
 	private final ContentResolver resolver;
+	private final LayoutInflater inflater;
+	private final Wallet wallet;
 
-	private final DateFormat dateFormat;
-	private final DateFormat timeFormat;
 	private final int colorSignificant;
 	private final int colorInsignificant;
 	private final int colorError;
 	private final int colorCircularBuilding = Color.parseColor("#44ff44");
 	private final String textCoinBase;
-	private final LayoutInflater inflater;
 
 	private final Map<String, String> labelCache = new HashMap<String, String>();
 	private final static String CACHE_NULL_MARKER = "";
@@ -76,17 +74,17 @@ public class TransactionsListAdapter extends ArrayAdapter<Transaction>
 	{
 		super(context, 0);
 
-		this.wallet = wallet;
+		this.context = context;
 		this.resolver = context.getContentResolver();
+		inflater = LayoutInflater.from(context);
 
-		dateFormat = android.text.format.DateFormat.getDateFormat(context);
-		timeFormat = android.text.format.DateFormat.getTimeFormat(context);
+		this.wallet = wallet;
+
 		final Resources resources = context.getResources();
 		colorSignificant = resources.getColor(R.color.fg_significant);
 		colorInsignificant = resources.getColor(R.color.fg_insignificant);
 		colorError = resources.getColor(R.color.fg_error);
 		textCoinBase = context.getString(R.string.wallet_transactions_fragment_coinbase);
-		inflater = LayoutInflater.from(context);
 	}
 
 	@Override
@@ -164,7 +162,7 @@ public class TransactionsListAdapter extends ArrayAdapter<Transaction>
 
 			final TextView rowTime = (TextView) row.findViewById(R.id.transaction_row_time);
 			final Date time = tx.getUpdateTime();
-			rowTime.setText(time != null ? (DateUtils.isToday(time.getTime()) ? timeFormat.format(time) : dateFormat.format(time)) : null);
+			rowTime.setText(time != null ? (DateUtils.getRelativeTimeSpanString(context, time.getTime())) : null);
 			rowTime.setTextColor(textColor);
 
 			final TextView rowFromTo = (TextView) row.findViewById(R.id.transaction_row_fromto);
