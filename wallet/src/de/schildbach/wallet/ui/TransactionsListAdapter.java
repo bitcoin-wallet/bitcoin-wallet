@@ -96,6 +96,7 @@ public class TransactionsListAdapter extends ArrayAdapter<Transaction>
 		final Transaction tx = getItem(position);
 		final TransactionConfidence confidence = tx.getConfidence();
 		final ConfidenceType confidenceType = confidence.getConfidenceType();
+		final boolean isOwn = confidence.getSource().equals(TransactionConfidence.Source.SELF);
 
 		try
 		{
@@ -109,9 +110,11 @@ public class TransactionsListAdapter extends ArrayAdapter<Transaction>
 			final int textColor;
 			if (confidenceType == ConfidenceType.NOT_SEEN_IN_CHAIN)
 			{
+				final boolean isValid = isOwn && confidence.numBroadcastPeers() > 1;
+
 				rowConfidenceCircular.setVisibility(View.VISIBLE);
 				rowConfidenceTextual.setVisibility(View.GONE);
-				textColor = colorInsignificant;
+				textColor = isValid ? colorSignificant : colorInsignificant;
 
 				rowConfidenceCircular.setProgress(1);
 				rowConfidenceCircular.setMaxProgress(1);
