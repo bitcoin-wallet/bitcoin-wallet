@@ -35,6 +35,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.support.v4.app.LoaderManager;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
@@ -75,6 +76,7 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 
 	private AbstractWalletActivity activity;
 	private ContentResolver resolver;
+	private LoaderManager loaderManager;
 	private SharedPreferences prefs;
 
 	private WalletApplication application;
@@ -114,6 +116,7 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 
 		this.activity = (AbstractWalletActivity) activity;
 		resolver = activity.getContentResolver();
+		loaderManager = getLoaderManager();
 		prefs = PreferenceManager.getDefaultSharedPreferences(activity);
 		application = (WalletApplication) activity.getApplication();
 		wallet = application.getWallet();
@@ -130,10 +133,18 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 
 		adapter = new TransactionsListAdapter(activity, wallet);
 		setListAdapter(adapter);
+	}
 
-		activity.getContentResolver().registerContentObserver(AddressBookProvider.CONTENT_URI, true, addressBookObserver);
+	@Override
+	public void onResume()
+	{
+		super.onResume();
 
-		getLoaderManager().initLoader(0, null, this);
+		resolver.registerContentObserver(AddressBookProvider.CONTENT_URI, true, addressBookObserver);
+
+		adapter.clearLabelCache();
+
+		loaderManager.initLoader(0, null, this);
 	}
 
 	@Override
@@ -152,21 +163,13 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 	}
 
 	@Override
-	public void onDestroyView()
+	public void onPause()
 	{
-		adapter.clearLabelCache();
+		loaderManager.destroyLoader(0);
 
-		super.onDestroyView();
-	}
+		resolver.unregisterContentObserver(addressBookObserver);
 
-	@Override
-	public void onDestroy()
-	{
-		activity.getContentResolver().unregisterContentObserver(addressBookObserver);
-
-		getLoaderManager().destroyLoader(0);
-
-		super.onDestroy();
+		super.onPause();
 	}
 
 	@Override
