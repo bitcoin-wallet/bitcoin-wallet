@@ -30,8 +30,9 @@
 	<string name="wallet_transactions_fragment_tab_received">Empfangen</string>
 	<string name="wallet_transactions_fragment_tab_all">Alle</string>
 	<string name="wallet_transactions_fragment_tab_sent">Gesendet</string>
-	<string name="wallet_transactions_fragment_empty_text_received">Noch keine Bitcoins empfangen</string>
-	<string name="wallet_transactions_fragment_empty_text_sent">Noch keine Bitcoins gesendet</string>
+	<string name="wallet_transactions_fragment_empty_text_received">Noch keine Bitcoins empfangen.</string>
+	<string name="wallet_transactions_fragment_empty_text_sent">Noch keine Bitcoins gesendet.</string>
+	<string name="wallet_transactions_fragment_empty_text_howto">Wie komme ich an Bitcoins?\n\nHandle gegen traditionelles Geld,\nverkaufe Güter oder Dienstleistungen oder\nverdiene durch Arbeit.</string>
 	<string name="wallet_transactions_fragment_coinbase">geschürft</string>
 	<string name="wallet_transactions_context_show_transaction_title">Transaktionsdetails</string>
 	<string name="wallet_options_backup">Schlüsselsicherung</string>

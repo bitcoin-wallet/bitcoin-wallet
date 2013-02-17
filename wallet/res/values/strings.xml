@@ -28,8 +28,9 @@
 	<string name="wallet_transactions_fragment_tab_received">Received</string>
 	<string name="wallet_transactions_fragment_tab_all">Both</string>
 	<string name="wallet_transactions_fragment_tab_sent">Sent</string>
-	<string name="wallet_transactions_fragment_empty_text_received">No Bitcoins received so far</string>
-	<string name="wallet_transactions_fragment_empty_text_sent">No Bitcoins sent so far</string>
+	<string name="wallet_transactions_fragment_empty_text_received">No Bitcoins received so far.</string>
+	<string name="wallet_transactions_fragment_empty_text_sent">No Bitcoins sent so far.</string>
+	<string name="wallet_transactions_fragment_empty_text_howto">How to get Bitcoins?\n\nTrade for traditional money,\nsell goods or services or\nearn by working.</string>
 	<string name="wallet_transactions_fragment_coinbase">mined</string>
 	<string name="wallet_transactions_context_show_transaction_title">Transaction details</string>
 	<string name="wallet_options_backup">Backup Keys</string>

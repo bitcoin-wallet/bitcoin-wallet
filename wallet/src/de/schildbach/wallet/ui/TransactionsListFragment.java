@@ -31,13 +31,16 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.ContentObserver;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
+import android.text.SpannableStringBuilder;
 import android.text.format.DateUtils;
+import android.text.style.StyleSpan;
 import android.view.View;
 import android.widget.ListView;
 
@@ -138,8 +141,14 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 	{
 		super.onViewCreated(view, savedInstanceState);
 
-		setEmptyText(getString(direction == Direction.SENT ? R.string.wallet_transactions_fragment_empty_text_sent
-				: R.string.wallet_transactions_fragment_empty_text_received));
+		final SpannableStringBuilder emptyText = new SpannableStringBuilder(
+				getString(direction == Direction.SENT ? R.string.wallet_transactions_fragment_empty_text_sent
+						: R.string.wallet_transactions_fragment_empty_text_received));
+		emptyText.setSpan(new StyleSpan(Typeface.BOLD), 0, emptyText.length(), SpannableStringBuilder.SPAN_POINT_MARK);
+		if (direction != Direction.SENT)
+			emptyText.append("\n\n").append(getString(R.string.wallet_transactions_fragment_empty_text_howto));
+
+		setEmptyText(emptyText);
 	}
 
 	@Override
