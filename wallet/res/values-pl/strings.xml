@@ -2,7 +2,6 @@
 
 <resources>
 
-	<string name="app_name">Bitcoin Wallet</string>
 	<string name="toast_wallet_reset">Portfel został zresetowany,\nponowne załadowanie potrwa trochę czasu</string>
 	
 	<string name="blockchain_state_disclaimer">Używasz jej na własne ryzyko. Proszę przeczytaj wskazówki bezpieczeństwa.</string>

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-	<string name="app_name">Bitcoin Wallet</string>
 	<string name="toast_wallet_reset">Wallet was reset,\nwill take some time to recover</string>
 	<string name="blockchain_state_disclaimer">Use at your own risk. Read the &lt;u>safety notes&lt;/u>.</string>
 	<string name="blockchain_state_progress_hours">%1$s, %2$d hours behind</string>

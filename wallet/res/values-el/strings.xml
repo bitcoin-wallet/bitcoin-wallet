@@ -2,7 +2,6 @@
 
 <resources>
 
-	<string name="app_name">Bitcoin πορτοφόλι</string>
 	<string name="toast_wallet_reset">Το πορτοφόλι έχει αποκατασταθεί,\nθα πάρει κάποιο χρόνο για την ανάκτηση</string>
 
 	<string name="blockchain_state_disclaimer">Χρησιμοποιήστε με δική σας ευθύνη. Διαβάστε τις οδηγίες ασφαλείας</string>

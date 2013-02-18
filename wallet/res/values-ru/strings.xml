@@ -2,7 +2,6 @@
 
 <resources>
 
-	<string name="app_name">Bitcoin Кошелёк</string>
 	<string name="toast_wallet_reset">Кошелёк был сброшен,\nна восстановление требуется какое-то время</string>
 
 	<string name="blockchain_state_disclaimer">Используйте на свой риск. Ознакомьтесь с заметками по безопасности.</string>

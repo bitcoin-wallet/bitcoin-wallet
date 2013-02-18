@@ -1,7 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
 
-	<string name="app_name">Bitcoin Wallet</string>
 	<string name="toast_wallet_reset">Plånboken nollställdes,\ndet kan ta ett tag innan den återställts</string>
 	<string name="blockchain_state_disclaimer">Använd på egen risk. Läs &lt;u>säkerhetsråden&lt;/u>.</string>
 	<string name="blockchain_state_progress_hours">Blockkedjan %1$s, %2$d timmar efter</string>

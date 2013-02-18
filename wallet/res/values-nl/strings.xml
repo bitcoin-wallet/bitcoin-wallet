@@ -2,7 +2,6 @@
 
 <resources>
 
-	<string name="app_name">Bitcoin Wallet</string>
 	<string name="toast_wallet_reset">Wallet is gereset,\nherstel zal enige tijd duren</string>
 
 	<string name="blockchain_state_disclaimer">Gebruik op eigen risico. Lees de &lt;u>veiligheids voorschriften&lt;/u>.</string>

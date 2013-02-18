@@ -2,7 +2,6 @@
 
 <resources>
 
-	<string name="app_name">Bitcoin Wallet</string>
 	<string name="toast_wallet_reset">Zresetováno,\nobnova chvilku potrvá</string>
 
 	<string name="blockchain_state_disclaimer">Použití na vlastní riziko. Více v &lt;u>nápovědě&lt;/u>.</string>

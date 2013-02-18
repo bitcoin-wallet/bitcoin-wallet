@@ -1,7 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
 
-	<string name="app_name">Bitcoin Cüzdanı</string>
 	<string name="toast_wallet_reset">Cüzdan sıfırlanmış,\ntamamlanması belli bir süre alacaktır.</string>
 	<string name="blockchain_state_disclaimer">Tüm riski siz üstlenmiş olursunuz. Güvenlik notlarını okuyunuz.</string>
 	<string name="blockchain_state_progress_hours">Blok zinciri %1$s, %2$d saat geride</string>
