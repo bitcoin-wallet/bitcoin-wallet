@@ -4,8 +4,8 @@
     <string name="symbol_to">→</string>
     <string name="symbol_from">←</string>
     <string name="symbol_internal">⇄</string>
-    <string name="app_name">Bitcoin Wallet [testnet3]</string>
-    <string name="app_name_short">Testnet3</string>
+    <string name="app_name">Bitcoin Wallet</string>
+    <string name="app_name_short">Bitcoin</string>
 
     <string-array name="preferences_precision_values">
         <item>8</item>
