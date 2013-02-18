@@ -1,3 +1,16 @@
+2.40
+
+* seriously reduced traffic and cpu usage due to usage of bloom filters
+* faster connect to peers
+* ability to spend your own change instantly
+* no need to manually disconnect any more for any of the preferences
+* preference for showing the connectivity indicator
+* shortcut to request coins by long tapping on qr code
+* peer monitor shows more info
+* fallback for fetching exchange rates (bitcoincharts first, then blockchain)
+* lots of small improvements and bugfixes
+* based on bitcoinj 0.7
+
 2.39
 
 * descriptions for transaction confidence states
