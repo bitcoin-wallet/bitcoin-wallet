@@ -160,7 +160,7 @@
 	<string name="preferences_initiate_reset_dialog_positive">Reset</string>
 	<string name="about_title">About</string>
 	<string name="about_license_title">License</string>
-	<string name="about_credits_bitcoinj_title">"This app is using 'bitcoinj'"</string>
+	<string name="about_credits_bitcoinj_title">"This app is using bitcoinj %s"</string>
 	<string name="about_credits_zxing_title">"This app is using 'zxing'"</string>
 	<string name="about_credits_icon_title">"This app is using an icon by 'bitboy'"</string>
 	<string name="about_author_twitter_title">Author at Twitter</string>

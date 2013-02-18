@@ -60,7 +60,7 @@
 
 	<string name="about_title">О программе</string>
 	<string name="about_license_title">Лицензия</string>
-	<string name="about_credits_bitcoinj_title">"Это приложение использует 'bitcoinj'"</string>
+	<string name="about_credits_bitcoinj_title">"Это приложение использует bitcoinj %s"</string>
 	<string name="about_credits_zxing_title">"Это приложение использует 'zxing'"</string>
 	<string name="about_credits_icon_title">"Это приложение использует иконку от 'bitboy'"</string>
 	<string name="about_author_twitter_title">Автор в Twitter</string>

@@ -61,7 +61,7 @@
 
 	<string name="about_title">Informazioni</string>
 	<string name="about_license_title">Licenza</string>
-	<string name="about_credits_bitcoinj_title">"Questa applicazione fa uso di 'bitcoinj'"</string>
+	<string name="about_credits_bitcoinj_title">"Questa applicazione fa uso di bitcoinj %s"</string>
 	<string name="about_credits_zxing_title">"Questa applicazione fa uso di 'zxing'"</string>
 	<string name="about_credits_icon_title">"Questa applicazione fa uso di una icona di 'bitboy'"</string>
 	<string name="about_author_twitter_title">"L'autore su Twitter"</string>
