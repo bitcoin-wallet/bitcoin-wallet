@@ -108,7 +108,7 @@ public final class Constants
 	public static final String DEFAULT_EXCHANGE_CURRENCY = "USD";
 
 	/** Donation address for tip/donate action. */
-	public static final String DONATION_ADDRESS = "18CK5k1gajRKKSC7yVSTXT9LUzbheh1XY4";
+	public static final String DONATION_ADDRESS = "1ARne9X86QCD6KJe25TzwQMqWWde9bCuy5";
 
 	/** Recipient e-mail address for reports. */
 	public static final String REPORT_EMAIL = "bitcoin.wallet.developers@gmail.com";
