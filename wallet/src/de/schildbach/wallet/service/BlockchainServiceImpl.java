@@ -116,7 +116,6 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 
 	private PeerConnectivityListener peerConnectivityListener;
 	private NotificationManager nm;
-	private static final int NOTIFICATION_ID_CONNECTED = 0;
 	private static final int NOTIFICATION_ID_COINS_RECEIVED = 1;
 
 	private final Set<Impediment> impediments = EnumSet.noneOf(Impediment.class);
@@ -242,8 +241,6 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 			stopped.set(true);
 
 			config.unregisterOnSharedPreferenceChangeListener(this);
-
-			nm.cancel(NOTIFICATION_ID_CONNECTED);
 		}
 
 		@Override
@@ -263,8 +260,6 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 		@Override
 		public void onSharedPreferenceChanged(final SharedPreferences sharedPreferences, final String key)
 		{
-			if (Configuration.PREFS_KEY_CONNECTIVITY_NOTIFICATION.equals(key))
-				changed(peerCount);
 		}
 
 		private void changed(final int numPeers)
@@ -277,25 +272,6 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 				@Override
 				public void run()
 				{
-					final boolean connectivityNotificationEnabled = config.getConnectivityNotificationEnabled();
-
-					if (!connectivityNotificationEnabled || numPeers == 0)
-					{
-						nm.cancel(NOTIFICATION_ID_CONNECTED);
-					}
-					else
-					{
-						final NotificationCompat.Builder notification = new NotificationCompat.Builder(BlockchainServiceImpl.this);
-						notification.setSmallIcon(R.drawable.stat_sys_peers, numPeers > 4 ? 4 : numPeers);
-						notification.setContentTitle(getString(R.string.app_name));
-						notification.setContentText(getString(R.string.notification_peers_connected_msg, numPeers));
-						notification.setContentIntent(PendingIntent.getActivity(BlockchainServiceImpl.this, 0, new Intent(BlockchainServiceImpl.this,
-								WalletActivity.class), 0));
-						notification.setWhen(System.currentTimeMillis());
-						notification.setOngoing(true);
-						nm.notify(NOTIFICATION_ID_CONNECTED, notification.getNotification());
-					}
-
 					// send broadcast
 					broadcastPeerState(numPeers);
 				}
