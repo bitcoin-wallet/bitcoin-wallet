@@ -177,7 +177,6 @@ public final class Constants {
 
     public static final int MEMORY_CLASS_LOWEND = 64;
 
-    public static final int NOTIFICATION_ID_CONNECTED = 0;
     public static final int NOTIFICATION_ID_COINS_RECEIVED = 1;
     public static final int NOTIFICATION_ID_INACTIVITY = 2;
 
