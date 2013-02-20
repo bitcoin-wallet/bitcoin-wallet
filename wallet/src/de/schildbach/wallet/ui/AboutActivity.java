@@ -123,7 +123,11 @@ public final class AboutActivity extends SherlockPreferenceActivity
 		}
 		else if (KEY_ABOUT_MARKET_APP.equals(key))
 		{
-			startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(String.format(Constants.MARKET_APP_URL, getPackageName()))));
+			final Intent marketIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(String.format(Constants.MARKET_APP_URL, getPackageName())));
+			if (getPackageManager().resolveActivity(marketIntent, 0) != null)
+				startActivity(marketIntent);
+			else
+				startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(String.format(Constants.WEBMARKET_APP_URL, getPackageName()))));
 			finish();
 		}
 		else if (KEY_ABOUT_MARKET_PUBLISHER.equals(key))

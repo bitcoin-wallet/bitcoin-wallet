@@ -152,15 +152,6 @@ public abstract class AbstractWalletActivity extends SherlockFragmentActivity
 			return "";
 	}
 
-	protected void showMarketPage(final String packageName)
-	{
-		final Intent marketIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(String.format(Constants.MARKET_APP_URL, packageName)));
-		if (getPackageManager().resolveActivity(marketIntent, 0) != null)
-			startActivity(marketIntent);
-		else
-			startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(String.format(Constants.WEBMARKET_APP_URL, packageName))));
-	}
-
 	protected void touchLastUsed()
 	{
 		final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
