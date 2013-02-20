@@ -102,9 +102,7 @@ public class ArchiveBackupDialogFragment extends DialogFragment {
         final Intent intent = new Intent(Intent.ACTION_SEND);
         intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.export_keys_dialog_mail_subject));
         intent.putExtra(Intent.EXTRA_TEXT,
-                getString(R.string.export_keys_dialog_mail_text) + "\n\n"
-                        + String.format(Constants.WEBMARKET_APP_URL, activity.getPackageName()) + "\n\n"
-                        + Constants.SOURCE_URL + '\n');
+                getString(R.string.export_keys_dialog_mail_text) + "\n\n" + Constants.SOURCE_URL + '\n');
         intent.setType(Constants.MIMETYPE_WALLET_BACKUP);
         intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(backupFile));
 
