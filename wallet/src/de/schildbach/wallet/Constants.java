@@ -145,8 +145,6 @@ public final class Constants
 	public static final String CREDITS_ICON_URL = "https://bitcointalk.org/index.php?action=profile;u=2062";
 	public static final String TWITTER_URL = "https://twitter.com/#!/bitcoin_wallet";
 	public static final String COMMUNITY_GOOGLEPLUS_URL = "https://plus.google.com/communities/105515929887248493912";
-	public static final String MARKET_APP_URL = "market://details?id=%s";
-	public static final String WEBMARKET_APP_URL = "https://play.google.com/store/apps/details?id=%s";
 
 	public static final int HTTP_TIMEOUT_MS = 15 * (int) DateUtils.SECOND_IN_MILLIS;
 

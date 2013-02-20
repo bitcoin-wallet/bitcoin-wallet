@@ -40,7 +40,6 @@ public final class AboutActivity extends SherlockPreferenceActivity
 	private static final String KEY_ABOUT_VERSION = "about_version";
 	private static final String KEY_ABOUT_LICENSE = "about_license";
 	private static final String KEY_ABOUT_SOURCE = "about_source";
-	private static final String KEY_ABOUT_MARKET_APP = "about_market_app";
 	private static final String KEY_ABOUT_COMMUNITY_GOOGLEPLUS = "about_community_googleplus";
 	private static final String KEY_ABOUT_TWITTER = "about_twitter";
 	private static final String KEY_ABOUT_CREDITS_BITCOINJ = "about_credits_bitcoinj";
@@ -91,15 +90,6 @@ public final class AboutActivity extends SherlockPreferenceActivity
 		else if (KEY_ABOUT_SOURCE.equals(key))
 		{
 			startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.SOURCE_URL)));
-			finish();
-		}
-		else if (KEY_ABOUT_MARKET_APP.equals(key))
-		{
-			final Intent marketIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(String.format(Constants.MARKET_APP_URL, getPackageName())));
-			if (getPackageManager().resolveActivity(marketIntent, 0) != null)
-				startActivity(marketIntent);
-			else
-				startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(String.format(Constants.WEBMARKET_APP_URL, getPackageName()))));
 			finish();
 		}
 		else if (KEY_ABOUT_COMMUNITY_GOOGLEPLUS.equals(key))
