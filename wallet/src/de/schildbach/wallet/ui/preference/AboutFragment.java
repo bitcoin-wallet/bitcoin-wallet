@@ -61,8 +61,6 @@ public final class AboutFragment extends PreferenceFragment
 
 		findPreference(KEY_ABOUT_VERSION).setSummary(application.packageInfo().versionName);
 		Intent marketIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(String.format(Constants.MARKET_APP_URL, activity.getPackageName())));
-		if (packageManager.resolveActivity(marketIntent, 0) == null)
-			marketIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(String.format(Constants.WEBMARKET_APP_URL, activity.getPackageName())));
 		findPreference(KEY_ABOUT_MARKET_APP).setIntent(marketIntent);
 		findPreference(KEY_ABOUT_CREDITS_BITCOINJ).setTitle(getString(R.string.about_credits_bitcoinj_title, VersionMessage.BITCOINJ_VERSION));
 	}

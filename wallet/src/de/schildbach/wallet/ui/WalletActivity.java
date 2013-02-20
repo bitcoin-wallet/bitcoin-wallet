@@ -704,7 +704,6 @@ public final class WalletActivity extends AbstractWalletActivity
 	private Dialog createVersionAlertDialog()
 	{
 		final PackageManager pm = getPackageManager();
-		final Intent marketIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(String.format(Constants.MARKET_APP_URL, getPackageName())));
 		final Intent binaryIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.BINARY_URL));
 
 		final DialogBuilder dialog = DialogBuilder.warn(this, R.string.wallet_version_dialog_title);
@@ -712,19 +711,6 @@ public final class WalletActivity extends AbstractWalletActivity
 		if (Build.VERSION.SDK_INT < Constants.SDK_DEPRECATED_BELOW)
 			message.append("\n\n").append(getString(R.string.wallet_version_dialog_msg_deprecated));
 		dialog.setMessage(message);
-
-		if (pm.resolveActivity(marketIntent, 0) != null)
-		{
-			dialog.setPositiveButton(R.string.wallet_version_dialog_button_market, new DialogInterface.OnClickListener()
-			{
-				@Override
-				public void onClick(final DialogInterface dialog, final int id)
-				{
-					startActivity(marketIntent);
-					finish();
-				}
-			});
-		}
 
 		if (pm.resolveActivity(binaryIntent, 0) != null)
 		{
