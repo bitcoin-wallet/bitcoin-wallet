@@ -107,7 +107,7 @@
 	<string name="peer_list_fragment_empty">Hiçbir eş bağlı değil</string>
 	<string name="about_title">Hakkında</string>
 	<string name="about_license_title">Lisans</string>
-	<string name="about_credits_bitcoinj_title">Bu uygulama \'bitcoinj\' kullanmaktadır</string>
+	<string name="about_credits_bitcoinj_title">Bu uygulama bitcoinj %s kullanmaktadır</string>
 	<string name="about_credits_zxing_title">Bu uygulama \'zxing\' kullanmaktadır</string>
 	<string name="about_credits_icon_title">Bu uygulama \'bitboy\' tarafından oluşturulan bir ikon kullanır</string>
 	<string name="about_author_twitter_title">Geliştiricinin Twitter sayfası</string>

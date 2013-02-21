@@ -107,7 +107,7 @@
 	<string name="peer_list_fragment_empty">Inga peers anslutna</string>
 	<string name="about_title">Om</string>
 	<string name="about_license_title">Licens</string>
-	<string name="about_credits_bitcoinj_title">Denna app använder \'bitcoinj\'</string>
+	<string name="about_credits_bitcoinj_title">Denna app använder bitcoinj %s</string>
 	<string name="about_credits_zxing_title">Denna app använder \'zxing\'</string>
 	<string name="about_credits_icon_title">Appen använder en ikon av \'bitboy\'</string>
 	<string name="about_author_twitter_title">Utvecklaren på Twitter</string>

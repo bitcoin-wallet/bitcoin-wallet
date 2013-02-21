@@ -60,7 +60,7 @@
 
 	<string name="about_title">Πληροφορίες</string>
 	<string name="about_license_title">Άδεια</string>
-	<string name="about_credits_bitcoinj_title">"Αυτή η εφαρμογή χρησιμοποιεί bitcoinj %s"</string>
+	<string name="about_credits_bitcoinj_title">Αυτή η εφαρμογή χρησιμοποιεί bitcoinj %s</string>
 	<string name="about_credits_zxing_title">"Αυτή η εφαρμογή χρησιμοποιεί'zxing'"</string>
 	<string name="about_credits_icon_title">"Η εφαρμογή αυτή χρησιμοποιεί ένα εικονίδιο από τη 'bitboy'"</string>
 	<string name="about_author_twitter_title">Δημιουργός στο Twitter</string>

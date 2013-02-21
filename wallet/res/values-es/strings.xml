@@ -107,7 +107,7 @@
 	<string name="peer_list_fragment_empty">Sin pares conectados</string>
 	<string name="about_title">Acerca de</string>
 	<string name="about_license_title">Licencia</string>
-	<string name="about_credits_bitcoinj_title">Esta aplicación utiliza \'bitcoinj\'</string>
+	<string name="about_credits_bitcoinj_title">Esta aplicación utiliza bitcoinj %s</string>
 	<string name="about_credits_zxing_title">Esta aplicación utiliza \'zxing\'</string>
 	<string name="about_credits_icon_title">Esta aplicación utiliza un icono de \'bitboy\'</string>
 	<string name="about_author_twitter_title">El autor en Twitter</string>
