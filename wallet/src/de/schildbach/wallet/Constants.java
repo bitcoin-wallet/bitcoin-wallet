@@ -100,6 +100,9 @@ public class Constants
 	public static final int ADDRESS_FORMAT_GROUP_SIZE = 4;
 	public static final int ADDRESS_FORMAT_LINE_SIZE = 12;
 
+	public static final int BTC_PRECISION = 8;
+	public static final int LOCAL_PRECISION = 4;
+
 	public static final String DONATION_ADDRESS = "1MH7wUsZ8K28q7LUrn2PQgDEykAbEibU4G";
 
 	public static final String LICENSE_URL = "http://www.gnu.org/licenses/gpl-3.0.txt";

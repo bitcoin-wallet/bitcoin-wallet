@@ -21,6 +21,7 @@ import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.math.BigInteger;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.Iterator;
@@ -36,6 +37,9 @@ import android.database.Cursor;
 import android.database.MatrixCursor;
 import android.net.Uri;
 import android.provider.BaseColumns;
+
+import com.google.bitcoin.core.Utils;
+
 import de.schildbach.wallet.util.IOUtils;
 
 /**
@@ -45,7 +49,7 @@ public class ExchangeRatesProvider extends ContentProvider
 {
 	public static class ExchangeRate
 	{
-		public ExchangeRate(final String currencyCode, final double rate, final String source)
+		public ExchangeRate(final String currencyCode, final BigInteger rate, final String source)
 		{
 			this.currencyCode = currencyCode;
 			this.rate = rate;
@@ -53,7 +57,7 @@ public class ExchangeRatesProvider extends ContentProvider
 		}
 
 		public final String currencyCode;
-		public final double rate;
+		public final BigInteger rate;
 		public final String source;
 	}
 
@@ -102,14 +106,14 @@ public class ExchangeRatesProvider extends ContentProvider
 			for (final Map.Entry<String, ExchangeRate> entry : exchangeRates.entrySet())
 			{
 				final ExchangeRate rate = entry.getValue();
-				cursor.newRow().add(entry.getKey().hashCode()).add(rate.currencyCode).add(rate.rate).add(rate.source);
+				cursor.newRow().add(entry.getKey().hashCode()).add(rate.currencyCode).add(rate.rate.longValue()).add(rate.source);
 			}
 		}
 		else if (selection.equals(KEY_CURRENCY_CODE))
 		{
 			final String code = selectionArgs[0];
 			final ExchangeRate rate = exchangeRates.get(code);
-			cursor.newRow().add(code.hashCode()).add(rate.currencyCode).add(rate.rate).add(rate.source);
+			cursor.newRow().add(code.hashCode()).add(rate.currencyCode).add(rate.rate.longValue()).add(rate.source);
 		}
 
 		return cursor;
@@ -118,7 +122,7 @@ public class ExchangeRatesProvider extends ContentProvider
 	public static ExchangeRate getExchangeRate(final Cursor cursor)
 	{
 		final String currencyCode = cursor.getString(cursor.getColumnIndexOrThrow(ExchangeRatesProvider.KEY_CURRENCY_CODE));
-		final double rate = cursor.getDouble(cursor.getColumnIndexOrThrow(ExchangeRatesProvider.KEY_RATE));
+		final BigInteger rate = BigInteger.valueOf(cursor.getLong(cursor.getColumnIndexOrThrow(ExchangeRatesProvider.KEY_RATE)));
 		final String source = cursor.getString(cursor.getColumnIndexOrThrow(ExchangeRatesProvider.KEY_SOURCE));
 
 		return new ExchangeRate(currencyCode, rate, source);
@@ -172,14 +176,14 @@ public class ExchangeRatesProvider extends ContentProvider
 					if (!"timestamp".equals(currencyCode))
 					{
 						final JSONObject o = head.getJSONObject(currencyCode);
-						double rate = o.optDouble("24h", 0);
-						if (rate == 0)
-							rate = o.optDouble("7d", 0);
-						if (rate == 0)
-							rate = o.optDouble("30d", 0);
+						String rate = o.optString("24h", null);
+						if (rate == null)
+							rate = o.optString("7d", null);
+						if (rate == null)
+							rate = o.optString("30d", null);
 
-						if (rate != 0)
-							rates.put(currencyCode, new ExchangeRate(currencyCode, rate, URL.getHost()));
+						if (rate != null)
+							rates.put(currencyCode, new ExchangeRate(currencyCode, Utils.toNanoCoins(rate), URL.getHost()));
 					}
 				}
 
@@ -225,10 +229,10 @@ public class ExchangeRatesProvider extends ContentProvider
 				{
 					final String currencyCode = i.next();
 					final JSONObject o = head.getJSONObject(currencyCode);
-					final double rate = o.optDouble("15m", 0);
+					final String rate = o.optString("15m", null);
 
-					if (rate != 0)
-						rates.put(currencyCode, new ExchangeRate(currencyCode, rate, URL.getHost()));
+					if (rate != null)
+						rates.put(currencyCode, new ExchangeRate(currencyCode, Utils.toNanoCoins(rate), URL.getHost()));
 				}
 
 				return rates;

@@ -63,6 +63,7 @@ public final class CurrencyAmountView extends FrameLayout
 	private int significantColor, lessSignificantColor, errorColor;
 	private Drawable deleteButtonDrawable, contextButtonDrawable;
 	private CurrencyCodeDrawable currencyCodeDrawable;
+	private int precision = Constants.BTC_PRECISION;
 	private boolean amountSigned = false;
 	private boolean smallerInsignificant = true;
 	private boolean validateAmount = true;
@@ -144,6 +145,11 @@ public final class CurrencyAmountView extends FrameLayout
 		updateAppearance();
 	}
 
+	public void setPrecision(final int precision)
+	{
+		this.precision = precision;
+	}
+
 	public void setAmountSigned(final boolean amountSigned)
 	{
 		this.amountSigned = amountSigned;
@@ -183,8 +189,8 @@ public final class CurrencyAmountView extends FrameLayout
 	public void setAmount(final BigInteger amount)
 	{
 		if (amount != null)
-			textView.setText(amountSigned ? WalletUtils.formatValue(amount, Constants.CURRENCY_PLUS_SIGN, Constants.CURRENCY_MINUS_SIGN)
-					: WalletUtils.formatValue(amount));
+			textView.setText(amountSigned ? WalletUtils.formatValue(amount, Constants.CURRENCY_PLUS_SIGN, Constants.CURRENCY_MINUS_SIGN, precision)
+					: WalletUtils.formatValue(amount, precision));
 		else
 			textView.setText(null);
 	}
@@ -193,7 +199,7 @@ public final class CurrencyAmountView extends FrameLayout
 	{
 		final SpannableStringBuilder hint;
 		if (amount != null)
-			hint = new SpannableStringBuilder(WalletUtils.formatValue(amount));
+			hint = new SpannableStringBuilder(WalletUtils.formatValue(amount, precision));
 		else
 			hint = new SpannableStringBuilder("0.00");
 

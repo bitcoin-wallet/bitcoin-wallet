@@ -17,9 +17,7 @@
 
 package de.schildbach.wallet.ui;
 
-import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.math.RoundingMode;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -125,6 +123,7 @@ public final class AmountCalculatorFragment extends DialogFragment implements Lo
 
 		localAmountView = (CurrencyAmountView) view.findViewById(R.id.amount_calculator_row_local);
 		localAmountView.setCurrencyCode(exchangeCurrency);
+		localAmountView.setPrecision(Constants.LOCAL_PRECISION);
 		localAmountView.setListener(new CurrencyAmountView.Listener()
 		{
 			public void changed()
@@ -183,15 +182,13 @@ public final class AmountCalculatorFragment extends DialogFragment implements Lo
 		{
 			localAmountView.setEnabled(true);
 
-			final BigDecimal bdRate = new BigDecimal(exchangeRate.rate);
-
 			if (exchangeDirection)
 			{
 				final BigInteger btcAmount = btcAmountView.getAmount();
 				if (btcAmount != null)
 				{
 					localAmountView.setAmount(null);
-					localAmountView.setHint(new BigDecimal(btcAmount).multiply(bdRate).toBigInteger());
+					localAmountView.setHint(WalletUtils.localValue(btcAmount, exchangeRate.rate));
 					btcAmountView.setHint(null);
 				}
 			}
@@ -201,13 +198,13 @@ public final class AmountCalculatorFragment extends DialogFragment implements Lo
 				if (localAmount != null)
 				{
 					btcAmountView.setAmount(null);
-					btcAmountView.setHint(new BigDecimal(localAmount).divide(bdRate, RoundingMode.HALF_UP).toBigInteger());
+					btcAmountView.setHint(WalletUtils.btcValue(localAmount, exchangeRate.rate));
 					localAmountView.setHint(null);
 				}
 			}
 
 			exchangeRateView.setText(getString(R.string.amount_calculator_dialog_exchange_rate, exchangeCurrency,
-					WalletUtils.formatValue(WalletUtils.localValue(Utils.COIN, bdRate)), exchangeRate.source));
+					WalletUtils.formatValue(WalletUtils.localValue(Utils.COIN, exchangeRate.rate)), exchangeRate.source));
 		}
 		else
 		{
@@ -219,8 +216,8 @@ public final class AmountCalculatorFragment extends DialogFragment implements Lo
 
 	private void done()
 	{
-		final BigInteger amount = exchangeDirection ? btcAmountView.getAmount() : new BigDecimal(localAmountView.getAmount()).divide(
-				new BigDecimal(exchangeRate.rate), RoundingMode.HALF_UP).toBigInteger();
+		final BigInteger amount = exchangeDirection ? btcAmountView.getAmount() : WalletUtils
+				.btcValue(localAmountView.getAmount(), exchangeRate.rate);
 
 		((Listener) getTargetFragment()).useCalculatedAmount(amount);
 

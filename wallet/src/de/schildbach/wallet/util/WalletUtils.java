@@ -23,7 +23,6 @@ import java.io.FileFilter;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Writer;
-import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -142,10 +141,15 @@ public class WalletUtils
 
 	public static String formatValue(final BigInteger value)
 	{
-		return formatValue(value, "", "-");
+		return formatValue(value, Constants.BTC_PRECISION);
 	}
 
-	public static String formatValue(final BigInteger value, final String plusSign, final String minusSign)
+	public static String formatValue(final BigInteger value, final int precision)
+	{
+		return formatValue(value, "", "-", precision);
+	}
+
+	public static String formatValue(final BigInteger value, final String plusSign, final String minusSign, final int precision)
 	{
 		final boolean negative = value.compareTo(BigInteger.ZERO) < 0;
 		final BigInteger absValue = value.abs();
@@ -155,9 +159,9 @@ public class WalletUtils
 		final int coins = absValue.divide(Utils.COIN).intValue();
 		final int cents = absValue.remainder(Utils.COIN).intValue();
 
-		if (cents % 1000000 == 0)
+		if (cents % 1000000 == 0 || precision <= 2)
 			return String.format(Locale.US, "%s%d.%02d", sign, coins, cents / 1000000);
-		else if (cents % 10000 == 0)
+		else if (cents % 10000 == 0 || precision <= 4)
 			return String.format(Locale.US, "%s%d.%04d", sign, coins, cents / 10000);
 		else
 			return String.format(Locale.US, "%s%d.%08d", sign, coins, cents);
@@ -182,13 +186,14 @@ public class WalletUtils
 		}
 	}
 
-	private static final BigDecimal LOCAL_VALUE_PRECISION = new BigDecimal(new BigInteger("10000", 10));
-
-	public static BigInteger localValue(final BigInteger btcValue, final BigDecimal exchangeRate)
+	public static BigInteger localValue(final BigInteger btcValue, final BigInteger rate)
 	{
-		final BigDecimal value = new BigDecimal(btcValue).multiply(exchangeRate);
-		final BigDecimal remainder = value.remainder(LOCAL_VALUE_PRECISION);
-		return value.subtract(remainder).toBigInteger();
+		return btcValue.multiply(rate).divide(Utils.COIN);
+	}
+
+	public static BigInteger btcValue(final BigInteger localValue, final BigInteger rate)
+	{
+		return localValue.multiply(Utils.COIN).divide(rate);
 	}
 
 	public static Address getFromAddress(final Transaction tx)

@@ -17,7 +17,6 @@
 
 package de.schildbach.wallet.ui;
 
-import java.math.BigDecimal;
 import java.math.BigInteger;
 
 import android.app.Activity;
@@ -108,7 +107,6 @@ public final class ExchangeRatesFragment extends ListFragment implements LoaderM
 			public void bindView(final View view, final Context context, final Cursor cursor)
 			{
 				final ExchangeRate exchangeRate = ExchangeRatesProvider.getExchangeRate(cursor);
-				final BigDecimal bdRate = new BigDecimal(exchangeRate.rate);
 				final boolean isDefaultCurrency = exchangeRate.currencyCode.equals(defaultCurrency);
 
 				view.setBackgroundResource(isDefaultCurrency ? R.color.bg_less_bright : R.color.bg_bright);
@@ -121,11 +119,13 @@ public final class ExchangeRatesFragment extends ListFragment implements LoaderM
 
 				final CurrencyAmountView rateView = (CurrencyAmountView) view.findViewById(R.id.exchange_rate_row_rate);
 				rateView.setCurrencyCode(null);
-				rateView.setAmount(WalletUtils.localValue(Utils.COIN, bdRate));
+				rateView.setPrecision(Constants.LOCAL_PRECISION);
+				rateView.setAmount(WalletUtils.localValue(Utils.COIN, exchangeRate.rate));
 
 				final CurrencyAmountView walletView = (CurrencyAmountView) view.findViewById(R.id.exchange_rate_row_balance);
 				walletView.setCurrencyCode(null);
-				walletView.setAmount(WalletUtils.localValue(balance, bdRate));
+				walletView.setPrecision(Constants.LOCAL_PRECISION);
+				walletView.setAmount(WalletUtils.localValue(balance, exchangeRate.rate));
 				walletView.setStrikeThru(Constants.TEST);
 				walletView.setTextColor(getResources().getColor(R.color.fg_less_significant));
 			}

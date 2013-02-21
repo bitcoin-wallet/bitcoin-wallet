@@ -17,7 +17,6 @@
 
 package de.schildbach.wallet.ui;
 
-import java.math.BigDecimal;
 import java.math.BigInteger;
 
 import android.app.Activity;
@@ -118,6 +117,7 @@ public final class WalletBalanceFragment extends Fragment
 		viewBalance = (CurrencyAmountView) view.findViewById(R.id.wallet_balance);
 
 		viewBalanceLocal = (CurrencyAmountView) view.findViewById(R.id.wallet_balance_local);
+		viewBalanceLocal.setPrecision(Constants.LOCAL_PRECISION);
 		viewBalanceLocal.setSmallerInsignificant(false);
 		viewBalanceLocal.setStrikeThru(Constants.TEST);
 	}
@@ -157,8 +157,7 @@ public final class WalletBalanceFragment extends Fragment
 				if (exchangeRate != null)
 				{
 					final BigInteger balance = wallet.getBalance(BalanceType.ESTIMATED);
-					final BigDecimal bdRate = new BigDecimal(exchangeRate.rate);
-					final BigInteger localValue = WalletUtils.localValue(balance, bdRate);
+					final BigInteger localValue = WalletUtils.localValue(balance, exchangeRate.rate);
 					viewBalanceLocal.setVisibility(View.VISIBLE);
 					viewBalanceLocal.setCurrencyCode(Constants.PREFIX_ALMOST_EQUAL_TO + exchangeRate.currencyCode);
 					viewBalanceLocal.setAmount(localValue);
