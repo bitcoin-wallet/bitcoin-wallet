@@ -104,7 +104,6 @@ public class TransactionsListAdapter extends ArrayAdapter<Transaction>
 			final boolean sent = value.signum() < 0;
 
 			final CircularProgressView rowConfidenceCircular = (CircularProgressView) row.findViewById(R.id.transaction_row_confidence_circular);
-			rowConfidenceCircular.setMaxProgress(Constants.MAX_NUM_CONFIRMATIONS);
 			final TextView rowConfidenceTextual = (TextView) row.findViewById(R.id.transaction_row_confidence_textual);
 
 			final int textColor;
