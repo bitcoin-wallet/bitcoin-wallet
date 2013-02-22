@@ -69,7 +69,7 @@ public final class CameraManager
 
 	public void open(final SurfaceHolder holder) throws IOException
 	{
-		camera = new CameraSupportManager().build().open();
+		camera = Camera.open();
 		camera.setPreviewDisplay(holder);
 
 		final Camera.Parameters parameters = camera.getParameters();

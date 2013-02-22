@@ -20,27 +20,24 @@ package de.schildbach.wallet.util;
 import java.nio.charset.Charset;
 import java.util.Arrays;
 
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
 import android.nfc.NfcManager;
-import android.os.Build;
 
 /**
  * @author Andreas Schildbach
  */
-@TargetApi(Build.VERSION_CODES.GINGERBREAD_MR1)
 public class NfcTools
 {
 	private static final Charset UTF_8 = Charset.forName("UTF-8");
 	private static final Charset US_ASCII = Charset.forName("US-ASCII");
 	private static final byte[] RTD_ANDROID_APP = "android.com:pkg".getBytes(US_ASCII);
 
-	public static boolean publishUri(final Object nfcManager, final Activity activity, final String uri)
+	public static boolean publishUri(final NfcManager nfcManager, final Activity activity, final String uri)
 	{
-		final NfcAdapter adapter = ((NfcManager) nfcManager).getDefaultAdapter();
+		final NfcAdapter adapter = nfcManager.getDefaultAdapter();
 		if (adapter == null)
 			return false;
 
@@ -50,10 +47,10 @@ public class NfcTools
 		return true;
 	}
 
-	public static boolean publishMimeObject(final Object nfcManager, final Activity activity, final String mimeType, final byte[] payload,
+	public static boolean publishMimeObject(final NfcManager nfcManager, final Activity activity, final String mimeType, final byte[] payload,
 			final boolean includeApplicationRecord)
 	{
-		final NfcAdapter adapter = ((NfcManager) nfcManager).getDefaultAdapter();
+		final NfcAdapter adapter = nfcManager.getDefaultAdapter();
 		if (adapter == null)
 			return false;
 
@@ -63,9 +60,9 @@ public class NfcTools
 		return true;
 	}
 
-	public static void unpublish(final Object nfcManager, final Activity activity)
+	public static void unpublish(final NfcManager nfcManager, final Activity activity)
 	{
-		final NfcAdapter adapter = ((NfcManager) nfcManager).getDefaultAdapter();
+		final NfcAdapter adapter = nfcManager.getDefaultAdapter();
 		if (adapter == null)
 			return;
 
@@ -111,12 +108,11 @@ public class NfcTools
 		return new NdefRecord(NdefRecord.TNF_EXTERNAL_TYPE, RTD_ANDROID_APP, new byte[0], packageName.getBytes(US_ASCII));
 	}
 
-	public static byte[] extractMimePayload(final String mimeType, final Object message)
+	public static byte[] extractMimePayload(final String mimeType, final NdefMessage message)
 	{
 		byte[] mimeBytes = mimeType.getBytes(US_ASCII);
 
-		final NdefMessage ndefMessage = (NdefMessage) message;
-		for (final NdefRecord record : ndefMessage.getRecords())
+		for (final NdefRecord record : message.getRecords())
 		{
 			if (record.getTnf() == NdefRecord.TNF_MIME_MEDIA && Arrays.equals(record.getType(), mimeBytes))
 				return record.getPayload();

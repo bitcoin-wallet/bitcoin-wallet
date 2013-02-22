@@ -17,13 +17,13 @@
 
 package de.schildbach.wallet.ui;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.graphics.Bitmap;
+import android.nfc.NfcManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
@@ -54,7 +54,7 @@ public final class WalletAddressFragment extends Fragment
 	private FragmentActivity activity;
 	private WalletApplication application;
 	private SharedPreferences prefs;
-	private Object nfcManager;
+	private NfcManager nfcManager;
 
 	private View bitcoinAddressButton;
 	private TextView bitcoinAddressLabel;
@@ -74,11 +74,10 @@ public final class WalletAddressFragment extends Fragment
 		application = (WalletApplication) activity.getApplication();
 	}
 
-	@SuppressLint("InlinedApi")
 	@Override
 	public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState)
 	{
-		nfcManager = activity.getSystemService(Context.NFC_SERVICE);
+		nfcManager = (NfcManager) activity.getSystemService(Context.NFC_SERVICE);
 
 		final View view = inflater.inflate(R.layout.wallet_address_fragment, container, false);
 		bitcoinAddressButton = view.findViewById(R.id.bitcoin_address_button);
@@ -128,8 +127,7 @@ public final class WalletAddressFragment extends Fragment
 	{
 		prefs.unregisterOnSharedPreferenceChangeListener(prefsListener);
 
-		if (nfcManager != null)
-			NfcTools.unpublish(nfcManager, getActivity());
+		NfcTools.unpublish(nfcManager, getActivity());
 
 		super.onPause();
 	}
@@ -151,8 +149,7 @@ public final class WalletAddressFragment extends Fragment
 			qrCodeBitmap = WalletUtils.getQRCodeBitmap(addressStr, size);
 			bitcoinAddressQrView.setImageBitmap(qrCodeBitmap);
 
-			if (nfcManager != null)
-				NfcTools.publishUri(nfcManager, getActivity(), addressStr);
+			NfcTools.publishUri(nfcManager, getActivity(), addressStr);
 		}
 	}
 

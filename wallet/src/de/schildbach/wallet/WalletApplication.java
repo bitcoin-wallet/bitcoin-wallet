@@ -39,6 +39,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.os.StrictMode;
 import android.preference.PreferenceManager;
 import android.text.format.DateUtils;
 import android.util.Log;
@@ -53,7 +54,6 @@ import com.google.bitcoin.store.WalletProtobufSerializer;
 import de.schildbach.wallet.service.BlockchainService;
 import de.schildbach.wallet.service.BlockchainServiceImpl;
 import de.schildbach.wallet.util.CrashReporter;
-import de.schildbach.wallet.util.StrictModeWrapper;
 import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
 
@@ -75,14 +75,7 @@ public class WalletApplication extends Application
 	@Override
 	public void onCreate()
 	{
-		try
-		{
-			StrictModeWrapper.init();
-		}
-		catch (final Error x)
-		{
-			Log.i(TAG, "StrictMode not available");
-		}
+		StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().detectNetwork().penaltyLog().build());
 
 		Log.d(TAG, ".onCreate()");
 

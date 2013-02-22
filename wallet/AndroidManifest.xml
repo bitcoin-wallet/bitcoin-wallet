@@ -7,7 +7,7 @@
 	android:versionName="2.49-test" >
 
 	<uses-sdk
-		android:minSdkVersion="8"
+		android:minSdkVersion="10"
 		android:targetSdkVersion="11"
 		tools:ignore="OldTargetApi" />
 

@@ -20,12 +20,12 @@ package de.schildbach.wallet.ui;
 import java.math.BigInteger;
 import java.util.ArrayList;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.nfc.NfcManager;
 import android.os.Bundle;
 import android.support.v4.app.ShareCompat.IntentBuilder;
 import android.text.ClipboardManager;
@@ -65,7 +65,7 @@ public final class RequestCoinsFragment extends SherlockFragment implements Amou
 {
 	private AbstractWalletActivity activity;
 	private WalletApplication application;
-	private Object nfcManager;
+	private NfcManager nfcManager;
 	private ClipboardManager clipboardManager;
 	private ShareActionProvider shareActionProvider;
 
@@ -76,7 +76,6 @@ public final class RequestCoinsFragment extends SherlockFragment implements Amou
 	private CheckBox includeLabelView;
 	private View nfcEnabledView;
 
-	@SuppressLint("InlinedApi")
 	@Override
 	public void onAttach(final Activity activity)
 	{
@@ -84,7 +83,7 @@ public final class RequestCoinsFragment extends SherlockFragment implements Amou
 		this.activity = (AbstractWalletActivity) activity;
 		application = (WalletApplication) activity.getApplication();
 
-		nfcManager = activity.getSystemService(Context.NFC_SERVICE);
+		nfcManager = (NfcManager) activity.getSystemService(Context.NFC_SERVICE);
 		clipboardManager = (ClipboardManager) activity.getSystemService(Context.CLIPBOARD_SERVICE);
 	}
 
@@ -192,8 +191,7 @@ public final class RequestCoinsFragment extends SherlockFragment implements Amou
 	@Override
 	public void onPause()
 	{
-		if (nfcManager != null)
-			NfcTools.unpublish(nfcManager, activity);
+		NfcTools.unpublish(nfcManager, activity);
 
 		amountView.setListener(null);
 
@@ -258,12 +256,9 @@ public final class RequestCoinsFragment extends SherlockFragment implements Amou
 		qrView.setImageBitmap(qrCodeBitmap);
 
 		// update ndef message
-		if (nfcManager != null)
-		{
-			final boolean success = NfcTools.publishUri(nfcManager, getActivity(), request);
-			if (success)
-				nfcEnabledView.setVisibility(View.VISIBLE);
-		}
+		final boolean success = NfcTools.publishUri(nfcManager, getActivity(), request);
+		if (success)
+			nfcEnabledView.setVisibility(View.VISIBLE);
 	}
 
 	private void updateShareIntent()

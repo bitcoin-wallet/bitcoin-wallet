@@ -23,11 +23,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.zip.GZIPInputStream;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
+import android.nfc.NdefMessage;
+import android.nfc.NfcAdapter;
+import android.nfc.NfcManager;
 import android.os.Bundle;
 
 import com.actionbarsherlock.app.ActionBar;
@@ -51,9 +52,7 @@ public final class TransactionActivity extends AbstractWalletActivity
 {
 	public static final String INTENT_EXTRA_TRANSACTION_HASH = "transaction_hash";
 
-	private static final String EXTRA_NDEF_MESSAGES = "android.nfc.extra.NDEF_MESSAGES"; // API level 10
-
-	private Object nfcManager;
+	private NfcManager nfcManager;
 	private Transaction tx;
 
 	public static void show(final Context context, final Transaction tx)
@@ -63,13 +62,12 @@ public final class TransactionActivity extends AbstractWalletActivity
 		context.startActivity(intent);
 	}
 
-	@SuppressLint("InlinedApi")
 	@Override
 	protected void onCreate(final Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 
-		nfcManager = getSystemService(Context.NFC_SERVICE);
+		nfcManager = (NfcManager) getSystemService(Context.NFC_SERVICE);
 
 		setContentView(R.layout.transaction_content);
 
@@ -90,8 +88,7 @@ public final class TransactionActivity extends AbstractWalletActivity
 	@Override
 	public void onPause()
 	{
-		if (nfcManager != null)
-			NfcTools.unpublish(nfcManager, this);
+		NfcTools.unpublish(nfcManager, this);
 
 		super.onPause();
 	}
@@ -140,9 +137,9 @@ public final class TransactionActivity extends AbstractWalletActivity
 				throw new RuntimeException(x);
 			}
 		}
-		else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD_MR1 && Constants.MIMETYPE_TRANSACTION.equals(intent.getType()))
+		else if (Constants.MIMETYPE_TRANSACTION.equals(intent.getType()))
 		{
-			final Object ndefMessage = intent.getParcelableArrayExtra(EXTRA_NDEF_MESSAGES)[0];
+			final NdefMessage ndefMessage = (NdefMessage) intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES)[0];
 			final byte[] payload = NfcTools.extractMimePayload(Constants.MIMETYPE_TRANSACTION, ndefMessage);
 
 			try
@@ -180,8 +177,7 @@ public final class TransactionActivity extends AbstractWalletActivity
 
 		transactionFragment.update(tx);
 
-		if (nfcManager != null)
-			NfcTools.publishMimeObject(nfcManager, this, Constants.MIMETYPE_TRANSACTION, tx.unsafeBitcoinSerialize(), false);
+		NfcTools.publishMimeObject(nfcManager, this, Constants.MIMETYPE_TRANSACTION, tx.unsafeBitcoinSerialize(), false);
 	}
 
 	private void processPendingTransaction(final Transaction tx)

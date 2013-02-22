@@ -52,7 +52,6 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
@@ -588,20 +587,6 @@ public final class WalletActivity extends AbstractWalletActivity
 				catch (final Exception x)
 				{
 					x.printStackTrace();
-				}
-
-				if (Build.VERSION.SDK_INT < Build.VERSION_CODES.GINGERBREAD_MR1
-						&& !prefs.getBoolean(Constants.PREFS_KEY_ALERT_OLD_SDK_DISMISSED, false))
-				{
-					runOnUiThread(new Runnable()
-					{
-						public void run()
-						{
-							showDialog(DIALOG_ALERT_OLD_SDK);
-						}
-					});
-
-					return;
 				}
 			}
 		}.start();

@@ -19,7 +19,6 @@ package de.schildbach.wallet.ui;
 
 import java.math.BigInteger;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ComponentName;
@@ -543,7 +542,6 @@ public final class SendCoinsFragment extends SherlockFragment implements AmountC
 		}
 	}
 
-	@SuppressLint("InlinedApi")
 	@Override
 	public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater)
 	{
