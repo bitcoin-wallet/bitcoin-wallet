@@ -65,6 +65,7 @@ import com.google.bitcoin.core.TransactionConfidence;
 import com.google.bitcoin.core.TransactionConfidence.ConfidenceType;
 import com.google.bitcoin.core.Wallet;
 import com.google.bitcoin.core.Wallet.BalanceType;
+import com.google.bitcoin.core.Wallet.SendRequest;
 import com.google.bitcoin.uri.BitcoinURI;
 import com.google.bitcoin.uri.BitcoinURIParseException;
 
@@ -703,14 +704,16 @@ public final class SendCoinsFragment extends SherlockFragment implements AmountC
 
 	private void handleGo()
 	{
-		final BigInteger amount = amountView.getAmount();
-		final BigInteger fee = feeView.getAmount();
-
-		sentTransaction = service.sendCoins(validatedAddress, amount, fee);
+		// create spend
+		final SendRequest sendRequest = SendRequest.to(validatedAddress, amountView.getAmount());
+		sendRequest.fee = feeView.getAmount();
+		sentTransaction = wallet.sendCoinsOffline(sendRequest);
 
 		if (sentTransaction != null)
 		{
 			sentTransaction.getConfidence().addEventListener(sentTransactionConfidenceListener);
+
+			service.broadcastTransaction(sentTransaction);
 
 			state = State.SENDING;
 			updateView();

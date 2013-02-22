@@ -70,7 +70,6 @@ import com.google.bitcoin.core.TransactionConfidence.ConfidenceType;
 import com.google.bitcoin.core.TransactionInput;
 import com.google.bitcoin.core.Wallet;
 import com.google.bitcoin.core.Wallet.BalanceType;
-import com.google.bitcoin.core.Wallet.SendRequest;
 import com.google.bitcoin.core.WalletEventListener;
 import com.google.bitcoin.discovery.DnsDiscovery;
 import com.google.bitcoin.discovery.IrcDiscovery;
@@ -719,20 +718,9 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 		stopSelf();
 	}
 
-	public Transaction sendCoins(final Address to, final BigInteger amount, final BigInteger fee)
+	public void broadcastTransaction(final Transaction tx)
 	{
-		Log.i(TAG, "about to send " + amount + " (" + Constants.CURRENCY_CODE_BITCOIN + " " + WalletUtils.formatValue(amount) + ") to " + to);
-
-		final Wallet wallet = application.getWallet();
-		final SendRequest sendRequest = SendRequest.to(to, amount);
-		sendRequest.fee = fee;
-
-		final Transaction tx;
-		if (peerGroup != null)
-			tx = wallet.sendCoins(peerGroup, sendRequest).tx;
-		else
-			tx = wallet.sendCoinsOffline(sendRequest);
-		return tx;
+		peerGroup.broadcastTransaction(tx);
 	}
 
 	public List<Peer> getConnectedPeers()

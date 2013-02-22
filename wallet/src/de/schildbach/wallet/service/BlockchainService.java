@@ -17,10 +17,8 @@
 
 package de.schildbach.wallet.service;
 
-import java.math.BigInteger;
 import java.util.List;
 
-import com.google.bitcoin.core.Address;
 import com.google.bitcoin.core.Peer;
 import com.google.bitcoin.core.Transaction;
 
@@ -47,7 +45,7 @@ public interface BlockchainService
 	public static final String ACTION_CANCEL_COINS_RECEIVED = R.class.getPackage().getName() + ".cancel_coins_received";
 	public static final String ACTION_HOLD_WIFI_LOCK = R.class.getPackage().getName() + ".hold_wifi_lock";
 
-	Transaction sendCoins(Address to, BigInteger amount, BigInteger fee);
+	void broadcastTransaction(Transaction tx);
 
 	List<Peer> getConnectedPeers();
 }
