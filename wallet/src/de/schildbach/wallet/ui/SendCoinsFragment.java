@@ -34,7 +34,9 @@ import android.database.ContentObserver;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.HandlerThread;
 import android.os.IBinder;
+import android.os.Process;
 import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -91,6 +93,8 @@ public final class SendCoinsFragment extends SherlockFragment implements AmountC
 
 	private BlockchainService service;
 	private final Handler handler = new Handler();
+	private HandlerThread backgroundThread;
+	private Handler backgroundHandler;
 
 	private AutoCompleteTextView receivingAddressView;
 	private View receivingStaticView;
@@ -213,7 +217,7 @@ public final class SendCoinsFragment extends SherlockFragment implements AmountC
 
 						if (confidence.getConfidenceType() == ConfidenceType.DEAD)
 							state = State.FAILED;
-						else if (confidence.numBroadcastPeers() > 0 || confidence.getConfidenceType() == ConfidenceType.BUILDING)
+						else if (confidence.numBroadcastPeers() > 1 || confidence.getConfidenceType() == ConfidenceType.BUILDING)
 							state = State.SENT;
 
 						updateView();
@@ -264,6 +268,10 @@ public final class SendCoinsFragment extends SherlockFragment implements AmountC
 		}
 
 		activity.bindService(new Intent(activity, BlockchainServiceImpl.class), serviceConnection, Context.BIND_AUTO_CREATE);
+
+		backgroundThread = new HandlerThread("backgroundThread", Process.THREAD_PRIORITY_BACKGROUND);
+		backgroundThread.start();
+		backgroundHandler = new Handler(backgroundThread.getLooper());
 	}
 
 	@Override
@@ -488,6 +496,8 @@ public final class SendCoinsFragment extends SherlockFragment implements AmountC
 	@Override
 	public void onDestroy()
 	{
+		backgroundThread.getLooper().quit();
+
 		activity.unbindService(serviceConnection);
 
 		if (sentTransaction != null)
@@ -704,32 +714,51 @@ public final class SendCoinsFragment extends SherlockFragment implements AmountC
 
 	private void handleGo()
 	{
+		state = State.SENDING;
+		updateView();
+
 		// create spend
 		final SendRequest sendRequest = SendRequest.to(validatedAddress, amountView.getAmount());
 		sendRequest.fee = feeView.getAmount();
-		sentTransaction = wallet.sendCoinsOffline(sendRequest);
 
-		if (sentTransaction != null)
+		backgroundHandler.post(new Runnable()
 		{
-			sentTransaction.getConfidence().addEventListener(sentTransactionConfidenceListener);
+			public void run()
+			{
+				final Transaction transaction = wallet.sendCoinsOffline(sendRequest);
 
-			service.broadcastTransaction(sentTransaction);
+				handler.post(new Runnable()
+				{
+					public void run()
+					{
+						if (transaction != null)
+						{
+							sentTransaction = transaction;
 
-			state = State.SENDING;
-			updateView();
+							sentTransaction.getConfidence().addEventListener(sentTransactionConfidenceListener);
 
-			final Intent result = new Intent();
-			BitcoinIntegration.transactionHashToResult(result, sentTransaction.getHashAsString());
-			activity.setResult(Activity.RESULT_OK, result);
+							service.broadcastTransaction(sentTransaction);
 
-			// final String label = AddressBookProvider.resolveLabel(contentResolver, validatedAddress.toString());
-			// if (label == null)
-			// showAddAddressDialog(validatedAddress.toString(), receivingLabel);
-		}
-		else
-		{
-			activity.longToast(R.string.send_coins_error_msg);
-		}
+							final Intent result = new Intent();
+							BitcoinIntegration.transactionHashToResult(result, sentTransaction.getHashAsString());
+							activity.setResult(Activity.RESULT_OK, result);
+
+							// final String label = AddressBookProvider.resolveLabel(contentResolver,
+							// validatedAddress.toString());
+							// if (label == null)
+							// showAddAddressDialog(validatedAddress.toString(), receivingLabel);
+						}
+						else
+						{
+							state = State.FAILED;
+							updateView();
+
+							activity.longToast(R.string.send_coins_error_msg);
+						}
+					}
+				});
+			}
+		});
 	}
 
 	private void handleScan()
