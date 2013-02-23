@@ -1,3 +1,7 @@
+2.41
+
+* labs preference for setting bitcoin value precision
+
 2.40
 
 * seriously reduced traffic and cpu usage due to usage of bloom filters
