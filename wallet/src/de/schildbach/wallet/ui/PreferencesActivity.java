@@ -192,7 +192,7 @@ public final class PreferencesActivity extends SherlockPreferenceActivity implem
 
 	private void updateTrustedPeer(final String trustedPeer)
 	{
-		if (trustedPeer.length() == 0)
+		if (trustedPeer.isEmpty())
 		{
 			trustedPeerPreference.setSummary(R.string.preferences_trusted_peer_summary);
 			trustedPeerOnlyPreference.setEnabled(false);

@@ -117,7 +117,7 @@ public final class EditAddressBookEntryFragment extends DialogFragment
 				{
 					final String newLabel = viewLabel.getText().toString().trim();
 
-					if (newLabel.length() > 0)
+					if (!newLabel.isEmpty())
 					{
 						final ContentValues values = new ContentValues();
 						values.put(AddressBookProvider.KEY_LABEL, newLabel);

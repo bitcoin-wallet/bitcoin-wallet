@@ -53,7 +53,7 @@ BUILDING
 
 You can probably skip some steps, especially if you built Android apps before.
 
-You'll need git, a Java SDK 5 (or later) and at least Maven 3 for this. If you're using Ubuntu,
+You'll need git, a Java SDK 6 (or later) and at least Maven 3 for this. If you're using Ubuntu,
 use
 
 	sudo apt-get install git maven openjdk-6-jdk

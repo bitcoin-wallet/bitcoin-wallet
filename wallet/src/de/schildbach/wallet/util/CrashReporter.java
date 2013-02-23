@@ -170,7 +170,7 @@ public class CrashReporter
 		}
 		catch (final NameNotFoundException x)
 		{
-			throw new IOException(x.toString());
+			throw new IOException(x);
 		}
 	}
 

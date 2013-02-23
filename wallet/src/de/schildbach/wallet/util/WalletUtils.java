@@ -246,7 +246,7 @@ public class WalletUtils
 				final String line = in.readLine();
 				if (line == null)
 					break; // eof
-				if (line.trim().length() == 0 || line.charAt(0) == '#')
+				if (line.trim().isEmpty() || line.charAt(0) == '#')
 					continue; // skip comment
 
 				final String[] parts = line.split(" ");
@@ -261,11 +261,11 @@ public class WalletUtils
 		}
 		catch (final AddressFormatException x)
 		{
-			throw new IOException("cannot read keys: " + x);
+			throw new IOException("cannot read keys", x);
 		}
 		catch (final ParseException x)
 		{
-			throw new IOException("cannot read keys: " + x);
+			throw new IOException("cannot read keys", x);
 		}
 	}
 

@@ -240,7 +240,7 @@ public final class CurrencyAmountView extends FrameLayout
 
 		try
 		{
-			if (amount.length() > 0)
+			if (!amount.isEmpty())
 			{
 				final BigInteger nanoCoins = Utils.toNanoCoins(amount);
 				if (nanoCoins.signum() >= 0)
@@ -271,7 +271,7 @@ public final class CurrencyAmountView extends FrameLayout
 
 		final String amount = textView.getText().toString().trim();
 
-		if (enabled && amount.length() > 0)
+		if (enabled && !amount.isEmpty())
 		{
 			textView.setCompoundDrawablesWithIntrinsicBounds(currencyCodeDrawable, null, deleteButtonDrawable, null);
 			contextButton.setOnClickListener(deleteClickListener);

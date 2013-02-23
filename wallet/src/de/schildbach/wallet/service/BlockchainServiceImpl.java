@@ -391,7 +391,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 				final int maxConnectedPeers = application.maxConnectedPeers();
 
 				final String trustedPeerHost = prefs.getString(Constants.PREFS_KEY_TRUSTED_PEER, "").trim();
-				final boolean hasTrustedPeer = trustedPeerHost.length() > 0;
+				final boolean hasTrustedPeer = !trustedPeerHost.isEmpty();
 
 				final boolean connectTrustedPeerOnly = hasTrustedPeer && prefs.getBoolean(Constants.PREFS_KEY_TRUSTED_PEER_ONLY, false);
 				peerGroup.setMaxConnections(connectTrustedPeerOnly ? 1 : maxConnectedPeers);

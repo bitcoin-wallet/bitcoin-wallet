@@ -573,7 +573,7 @@ public final class SendCoinsFragment extends SherlockFragment implements AmountC
 		try
 		{
 			final String addressStr = receivingAddressView.getText().toString().trim();
-			if (addressStr.length() > 0)
+			if (!addressStr.isEmpty())
 			{
 				final NetworkParameters addressParams = Address.getParametersFromAddress(addressStr);
 				if (addressParams != null && !addressParams.equals(Constants.NETWORK_PARAMETERS))
