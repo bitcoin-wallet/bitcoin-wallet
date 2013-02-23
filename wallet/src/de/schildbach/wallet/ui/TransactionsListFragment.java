@@ -29,6 +29,7 @@ import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.database.ContentObserver;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -65,7 +66,7 @@ import de.schildbach.wallet_test.R;
 /**
  * @author Andreas Schildbach
  */
-public class TransactionsListFragment extends SherlockListFragment implements LoaderCallbacks<List<Transaction>>
+public class TransactionsListFragment extends SherlockListFragment implements LoaderCallbacks<List<Transaction>>, OnSharedPreferenceChangeListener
 {
 	public enum Direction
 	{
@@ -140,9 +141,11 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 
 		resolver.registerContentObserver(AddressBookProvider.CONTENT_URI, true, addressBookObserver);
 
-		adapter.clearLabelCache();
+		prefs.registerOnSharedPreferenceChangeListener(this);
 
 		loaderManager.initLoader(0, null, this);
+
+		updateView();
 	}
 
 	@Override
@@ -164,6 +167,8 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 	public void onPause()
 	{
 		loaderManager.destroyLoader(0);
+
+		prefs.unregisterOnSharedPreferenceChangeListener(this);
 
 		resolver.unregisterContentObserver(addressBookObserver);
 
@@ -359,5 +364,18 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 					return 0;
 			}
 		};
+	}
+
+	public void onSharedPreferenceChanged(final SharedPreferences sharedPreferences, final String key)
+	{
+		if (Constants.PREFS_KEY_BTC_PRECISION.equals(key))
+			updateView();
+	}
+
+	private void updateView()
+	{
+		adapter.setPrecision(Integer.parseInt(prefs.getString(Constants.PREFS_KEY_BTC_PRECISION, Integer.toString(Constants.BTC_PRECISION))));
+
+		adapter.clearLabelCache();
 	}
 }

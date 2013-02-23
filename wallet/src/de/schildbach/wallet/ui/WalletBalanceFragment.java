@@ -58,6 +58,7 @@ public final class WalletBalanceFragment extends Fragment
 	private AbstractWalletActivity activity;
 	private Wallet wallet;
 	private LoaderManager loaderManager;
+	private SharedPreferences prefs;
 
 	private CurrencyAmountView viewBalance;
 	private CurrencyAmountView viewBalanceLocal;
@@ -78,6 +79,7 @@ public final class WalletBalanceFragment extends Fragment
 		this.activity = (AbstractWalletActivity) activity;
 		application = (WalletApplication) activity.getApplication();
 		loaderManager = getLoaderManager();
+		prefs = PreferenceManager.getDefaultSharedPreferences(activity);
 
 		wallet = application.getWallet();
 
@@ -150,6 +152,7 @@ public final class WalletBalanceFragment extends Fragment
 		if (balance != null)
 		{
 			viewBalance.setVisibility(View.VISIBLE);
+			viewBalance.setPrecision(Integer.parseInt(prefs.getString(Constants.PREFS_KEY_BTC_PRECISION, Integer.toString(Constants.BTC_PRECISION))));
 			viewBalance.setAmount(balance);
 
 			if (showLocalBalance)

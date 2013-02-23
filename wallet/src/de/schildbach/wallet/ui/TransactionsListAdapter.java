@@ -57,6 +57,8 @@ public class TransactionsListAdapter extends ArrayAdapter<Transaction>
 	private final LayoutInflater inflater;
 	private final Wallet wallet;
 
+	private int precision = Constants.BTC_PRECISION;
+
 	private final int colorSignificant;
 	private final int colorInsignificant;
 	private final int colorError;
@@ -85,6 +87,13 @@ public class TransactionsListAdapter extends ArrayAdapter<Transaction>
 		colorInsignificant = resources.getColor(R.color.fg_insignificant);
 		colorError = resources.getColor(R.color.fg_error);
 		textCoinBase = context.getString(R.string.wallet_transactions_fragment_coinbase);
+	}
+
+	public void setPrecision(final int precision)
+	{
+		this.precision = precision;
+
+		notifyDataSetChanged();
 	}
 
 	@Override
@@ -187,6 +196,7 @@ public class TransactionsListAdapter extends ArrayAdapter<Transaction>
 			final CurrencyAmountView rowValue = (CurrencyAmountView) row.findViewById(R.id.transaction_row_value);
 			rowValue.setCurrencyCode(null);
 			rowValue.setAmountSigned(true);
+			rowValue.setPrecision(precision);
 			rowValue.setTextColor(textColor);
 			rowValue.setAmount(value);
 

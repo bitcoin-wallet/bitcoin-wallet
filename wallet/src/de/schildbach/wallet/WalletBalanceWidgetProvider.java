@@ -24,6 +24,8 @@ import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.SpannableStringBuilder;
 import android.widget.RemoteViews;
@@ -55,7 +57,9 @@ public class WalletBalanceWidgetProvider extends AppWidgetProvider
 	public static void updateWidgets(final Context context, final AppWidgetManager appWidgetManager, final int[] appWidgetIds,
 			final BigInteger balance)
 	{
-		final Editable balanceStr = new SpannableStringBuilder(WalletUtils.formatValue(balance));
+		final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+		final int precision = Integer.parseInt(prefs.getString(Constants.PREFS_KEY_BTC_PRECISION, Integer.toString(Constants.BTC_PRECISION)));
+		final Editable balanceStr = new SpannableStringBuilder(WalletUtils.formatValue(balance, precision));
 		WalletUtils.formatSignificant(balanceStr, true);
 
 		for (final int appWidgetId : appWidgetIds)

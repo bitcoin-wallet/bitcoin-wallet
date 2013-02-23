@@ -66,8 +66,11 @@ public final class AmountCalculatorFragment extends DialogFragment implements Lo
 
 	private AbstractWalletActivity activity;
 	private LayoutInflater inflater;
+	private SharedPreferences prefs;
 
 	private String exchangeCurrency;
+	private int precision;
+
 	private ExchangeRate exchangeRate;
 	private boolean exchangeDirection = true;
 	private CurrencyAmountView btcAmountView, localAmountView;
@@ -80,13 +83,14 @@ public final class AmountCalculatorFragment extends DialogFragment implements Lo
 
 		this.activity = (AbstractWalletActivity) activity;
 		inflater = LayoutInflater.from(activity);
+		prefs = PreferenceManager.getDefaultSharedPreferences(activity);
 	}
 
 	@Override
 	public Dialog onCreateDialog(final Bundle savedInstanceState)
 	{
-		final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(activity);
 		exchangeCurrency = prefs.getString(Constants.PREFS_KEY_EXCHANGE_CURRENCY, Constants.DEFAULT_EXCHANGE_CURRENCY);
+		precision = Integer.parseInt(prefs.getString(Constants.PREFS_KEY_BTC_PRECISION, Integer.toString(Constants.BTC_PRECISION)));
 
 		final AlertDialog.Builder dialog = new AlertDialog.Builder(activity);
 		dialog.setInverseBackgroundForced(true);
@@ -204,7 +208,7 @@ public final class AmountCalculatorFragment extends DialogFragment implements Lo
 			}
 
 			exchangeRateView.setText(getString(R.string.amount_calculator_dialog_exchange_rate, exchangeCurrency,
-					WalletUtils.formatValue(WalletUtils.localValue(Utils.COIN, exchangeRate.rate)), exchangeRate.source));
+					WalletUtils.formatValue(WalletUtils.localValue(Utils.COIN, exchangeRate.rate), precision), exchangeRate.source));
 		}
 		else
 		{

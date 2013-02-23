@@ -139,11 +139,6 @@ public class WalletUtils
 		return builder;
 	}
 
-	public static String formatValue(final BigInteger value)
-	{
-		return formatValue(value, Constants.BTC_PRECISION);
-	}
-
 	public static String formatValue(final BigInteger value, final int precision)
 	{
 		return formatValue(value, "", "-", precision);
@@ -163,6 +158,8 @@ public class WalletUtils
 			return String.format(Locale.US, "%s%d.%02d", sign, coins, cents / 1000000);
 		else if (cents % 10000 == 0 || precision <= 4)
 			return String.format(Locale.US, "%s%d.%04d", sign, coins, cents / 10000);
+		else if (precision <= 6)
+			return String.format(Locale.US, "%s%d.%06d", sign, coins, cents / 100);
 		else
 			return String.format(Locale.US, "%s%d.%08d", sign, coins, cents);
 	}

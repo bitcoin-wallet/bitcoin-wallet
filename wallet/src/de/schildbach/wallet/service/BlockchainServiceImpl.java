@@ -180,9 +180,12 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 		if (from != null && !notificationAddresses.contains(from))
 			notificationAddresses.add(from);
 
-		final String tickerMsg = getString(R.string.notification_coins_received_msg, WalletUtils.formatValue(amount)) + Constants.NETWORK_SUFFIX;
+		final int precision = Integer.parseInt(prefs.getString(Constants.PREFS_KEY_BTC_PRECISION, Integer.toString(Constants.BTC_PRECISION)));
 
-		final String msg = getString(R.string.notification_coins_received_msg, WalletUtils.formatValue(notificationAccumulatedAmount))
+		final String tickerMsg = getString(R.string.notification_coins_received_msg, WalletUtils.formatValue(amount, precision))
+				+ Constants.NETWORK_SUFFIX;
+
+		final String msg = getString(R.string.notification_coins_received_msg, WalletUtils.formatValue(notificationAccumulatedAmount, precision))
 				+ Constants.NETWORK_SUFFIX;
 
 		final StringBuilder text = new StringBuilder();

@@ -5,4 +5,15 @@
 	<string name="symbol_from">←</string>
 	<string name="app_name">Testnet3</string>
 
+	<string-array name="preferences_precision_values">
+		<item>8</item>
+		<item>6</item>
+		<item>4</item>
+	</string-array>
+	<string-array name="preferences_precision_labels">
+		<item>8 digits</item>
+		<item>6 digits</item>
+		<item>4 digits</item>
+	</string-array>
+
 </resources>

@@ -45,6 +45,14 @@
 			android:key="labs_transactions_details"
 			android:summary="Click on transaction, open overflow menu, select Transaction details."
 			android:title="Transaction details" />
+
+		<ListPreference
+			android:defaultValue="8"
+			android:entries="@array/preferences_precision_labels"
+			android:entryValues="@array/preferences_precision_values"
+			android:key="btc_precision"
+			android:summary="This does not affect computations. It is used for saving view space only."
+			android:title="Precision of Bitcoin values" />
 	</PreferenceCategory>
 
 </PreferenceScreen>
