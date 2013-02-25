@@ -27,10 +27,12 @@ import java.util.zip.GZIPOutputStream;
 
 import android.app.Activity;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.text.ClipboardManager;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,6 +40,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragment;
 import com.google.bitcoin.core.Address;
@@ -64,6 +67,7 @@ public final class TransactionFragment extends SherlockFragment
 	private static final int SHOW_QR_THRESHOLD_BYTES = 2500;
 
 	private FragmentActivity activity;
+	private ClipboardManager clipboardManager;
 
 	private DateFormat dateFormat;
 	private DateFormat timeFormat;
@@ -77,6 +81,7 @@ public final class TransactionFragment extends SherlockFragment
 
 		dateFormat = android.text.format.DateFormat.getDateFormat(activity);
 		timeFormat = android.text.format.DateFormat.getTimeFormat(activity);
+		clipboardManager = (ClipboardManager) activity.getSystemService(Context.CLIPBOARD_SERVICE);
 	}
 
 	@Override
@@ -235,7 +240,17 @@ public final class TransactionFragment extends SherlockFragment
 			viewStatus.setText(R.string.transaction_fragment_status_unknown);
 
 		final TextView viewHash = (TextView) view.findViewById(R.id.transaction_fragment_hash);
-		viewHash.setText(tx.getHash().toString());
+		final View viewHashButton = view.findViewById(R.id.transaction_fragment_hash_button);
+		final String txHashString = tx.getHash().toString();
+		viewHash.setText(txHashString);
+		viewHashButton.setOnClickListener(new OnClickListener()
+		{
+			public void onClick(final View v)
+			{
+				clipboardManager.setText(txHashString);
+				((AbstractWalletActivity) activity).toast(R.string.transaction_fragment_hash_clipboard_msg);
+			}
+		});
 
 		final TextView viewLength = (TextView) view.findViewById(R.id.transaction_fragment_length);
 		viewLength.setText(Integer.toString(serializedTx.length));

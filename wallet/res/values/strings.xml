@@ -131,6 +131,7 @@
 	<string name="transaction_fragment_status_confirmed">confirmed</string>
 	<string name="transaction_fragment_status_dead">dead</string>
 	<string name="transaction_fragment_hash_label">Hash</string>
+	<string name="transaction_fragment_hash_clipboard_msg">Transaction hash copied to clipboard</string>
 	<string name="transaction_fragment_length_label">Length</string>
 	<string name="transaction_row_message_own_unbroadcasted">This payment has not been transmitted yet.</string>
 	<string name="transaction_row_message_received_unconfirmed_unlocked">This payment should become spendable in a few minutes.</string>

@@ -153,13 +153,24 @@
 			android:textSize="20sp"
 			android:textStyle="bold" />
 
-		<TextView
-			android:id="@+id/transaction_fragment_hash"
+		<FrameLayout
+			android:id="@+id/transaction_fragment_hash_button"
+			style="@style/My.Widget.Button.Borderless"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:textColor="@android:color/white"
-			android:textSize="20sp"
-			android:typeface="monospace" />
+			android:layout_gravity="bottom"
+			android:focusable="true"
+			android:foreground="@drawable/dropdown_ic_arrow"
+			android:foregroundGravity="bottom|right" >
+
+			<TextView
+				android:id="@+id/transaction_fragment_hash"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:textColor="@android:color/white"
+				android:textSize="20sp"
+				android:typeface="monospace" />
+		</FrameLayout>
 	</TableRow>
 
 	<TableRow>
