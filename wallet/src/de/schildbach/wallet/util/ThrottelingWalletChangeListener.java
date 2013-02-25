@@ -33,7 +33,7 @@ import com.google.bitcoin.core.WalletEventListener;
 public abstract class ThrottelingWalletChangeListener implements WalletEventListener
 {
 	private final long throttleMs;
-	private static final long DEFAULT_THROTTLE_MS = 250;
+	private static final long DEFAULT_THROTTLE_MS = 500;
 	private final AtomicLong lastMessageTime = new AtomicLong(0);
 	private final Handler handler = new Handler();
 

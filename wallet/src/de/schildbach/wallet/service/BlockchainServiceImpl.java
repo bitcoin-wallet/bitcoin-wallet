@@ -118,7 +118,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 	private static final int MAX_LAST_CHAIN_HEIGHTS = 10;
 	private static final int IDLE_TIMEOUT_MIN = 2;
 
-	private static final long APPWIDGET_THROTTLE_MS = 500;
+	private static final long APPWIDGET_THROTTLE_MS = 1000;
 
 	private static final String TAG = BlockchainServiceImpl.class.getSimpleName();
 
