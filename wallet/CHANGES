@@ -1,3 +1,8 @@
+2.42
+
+* fixed crash on Froyo (Android 2.2) devices
+* allow importing private keys from automatic backups
+
 2.41
 
 * labs preference for setting bitcoin value precision
