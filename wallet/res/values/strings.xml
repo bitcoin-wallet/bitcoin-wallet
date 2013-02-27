@@ -39,6 +39,10 @@
 	<string name="wallet_donate_address_label">Donation for Bitcoin Wallet</string>
 	<string name="wallet_import_keys_dialog_title">Import private keys</string>
 	<string name="wallet_import_keys_dialog_message">Pick a private keys import file from external or app-private storage:</string>
+	<string name="wallet_import_keys_dialog_file_security_encrypted">password encrypted</string>
+	<string name="wallet_import_keys_dialog_file_security_unencrypted">unencrypted</string>
+	<string name="wallet_import_keys_dialog_file_security_external">external storage</string>
+	<string name="wallet_import_keys_dialog_file_security_internal">app-private storage</string>
 	<string name="wallet_import_keys_dialog_file_created_automatic">automatic backup %s</string>
 	<string name="wallet_import_keys_dialog_file_created_manual">manually exported %s</string>
 	<string name="wallet_import_keys_dialog_button_import">Import</string>

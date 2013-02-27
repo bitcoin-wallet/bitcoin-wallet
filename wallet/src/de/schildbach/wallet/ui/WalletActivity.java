@@ -312,12 +312,20 @@ public final class WalletActivity extends AbstractWalletActivity
 			{
 				final File file = getItem(position);
 				final boolean isExternal = Constants.EXTERNAL_WALLET_BACKUP_DIR.equals(file.getParentFile());
+				final boolean isEncrypted = EncryptionUtils.OPENSSL_FILE_FILTER.accept(file);
 
 				if (row == null)
 					row = inflater.inflate(R.layout.wallet_import_keys_file_row, null);
 
 				final TextView filenameView = (TextView) row.findViewById(R.id.wallet_import_keys_file_row_filename);
 				filenameView.setText(file.getName());
+
+				final TextView securityView = (TextView) row.findViewById(R.id.wallet_import_keys_file_row_security);
+				final String encryptedStr = context.getString(isEncrypted ? R.string.wallet_import_keys_dialog_file_security_encrypted
+						: R.string.wallet_import_keys_dialog_file_security_unencrypted);
+				final String storageStr = context.getString(isExternal ? R.string.wallet_import_keys_dialog_file_security_external
+						: R.string.wallet_import_keys_dialog_file_security_internal);
+				securityView.setText(encryptedStr + ", " + storageStr);
 
 				final TextView createdView = (TextView) row.findViewById(R.id.wallet_import_keys_file_row_created);
 				createdView.setText(context.getString(isExternal ? R.string.wallet_import_keys_dialog_file_created_manual

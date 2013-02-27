@@ -17,6 +17,13 @@
 		android:textSize="@dimen/font_size_normal" />
 
 	<TextView
+		android:id="@+id/wallet_import_keys_file_row_security"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:textColor="@color/fg_less_significant"
+		android:textSize="@dimen/font_size_normal" />
+
+	<TextView
 		android:id="@+id/wallet_import_keys_file_row_created"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"

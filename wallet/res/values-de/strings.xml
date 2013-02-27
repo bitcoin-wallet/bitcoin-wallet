@@ -41,6 +41,10 @@
 	<string name="wallet_donate_address_label">Spende für Bitcoin Wallet</string>
 	<string name="wallet_import_keys_dialog_title">Private Schlüssel importieren</string>
 	<string name="wallet_import_keys_dialog_message">Wähle eine Import-Datei mit privaten Schlüsseln vom externen oder app-privaten Speicher aus:</string>
+	<string name="wallet_import_keys_dialog_file_security_encrypted">mit Passwort verschlüsselt</string>
+	<string name="wallet_import_keys_dialog_file_security_unencrypted">unverschlüsselt</string>
+	<string name="wallet_import_keys_dialog_file_security_external">externer Speicher</string>
+	<string name="wallet_import_keys_dialog_file_security_internal">app-privater Speicher</string>
 	<string name="wallet_import_keys_dialog_file_created_automatic">automatisch gesichert %s</string>
 	<string name="wallet_import_keys_dialog_file_created_manual">manuell exportiert %s</string>
 	<string name="wallet_import_keys_dialog_button_import">Import</string>
