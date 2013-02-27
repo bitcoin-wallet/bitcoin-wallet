@@ -11,13 +11,13 @@
 	android:paddingTop="@dimen/list_entry_padding_vertical" >
 
 	<TextView
-		android:id="@android:id/text1"
+		android:id="@+id/wallet_import_keys_file_row_filename"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:textSize="@dimen/font_size_normal" />
 
 	<TextView
-		android:id="@android:id/text2"
+		android:id="@+id/wallet_import_keys_file_row_created"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:textColor="@color/fg_less_significant"

@@ -19,7 +19,6 @@ package de.schildbach.wallet.ui;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileFilter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -32,8 +31,10 @@ import java.io.Writer;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 import android.app.AlertDialog;
@@ -243,8 +244,6 @@ public final class WalletActivity extends AbstractWalletActivity
 	private Dialog createImportKeysDialog()
 	{
 		final View view = getLayoutInflater().inflate(R.layout.wallet_import_keys_dialog, null);
-		final TextView messageView = (TextView) view.findViewById(R.id.wallet_import_keys_message);
-		messageView.setText(getString(R.string.wallet_import_keys_dialog_message, Constants.EXTERNAL_WALLET_BACKUP_DIR));
 		final Spinner fileView = (Spinner) view.findViewById(R.id.wallet_import_keys_file);
 		final EditText passwordView = (EditText) view.findViewById(R.id.wallet_import_keys_password);
 
@@ -285,14 +284,26 @@ public final class WalletActivity extends AbstractWalletActivity
 	{
 		final AlertDialog alertDialog = (AlertDialog) dialog;
 
-		final File[] files = Constants.EXTERNAL_WALLET_BACKUP_DIR.listFiles(new FileFilter()
+		final List<File> files = new LinkedList<File>();
+
+		// external storage
+		for (final File file : Constants.EXTERNAL_WALLET_BACKUP_DIR.listFiles())
+			if (WalletUtils.KEYS_FILE_FILTER.accept(file) || EncryptionUtils.OPENSSL_FILE_FILTER.accept(file))
+				files.add(file);
+
+		// internal storage
+		for (final String filename : fileList())
+			if (filename.startsWith(Constants.WALLET_KEY_BACKUP_BASE58 + '.'))
+				files.add(new File(getFilesDir(), filename));
+
+		// sort
+		Collections.sort(files, new Comparator<File>()
 		{
-			public boolean accept(final File file)
+			public int compare(final File lhs, final File rhs)
 			{
-				return WalletUtils.KEYS_FILE_FILTER.accept(file) || EncryptionUtils.OPENSSL_FILE_FILTER.accept(file);
+				return lhs.getName().compareToIgnoreCase(rhs.getName());
 			}
 		});
-		Arrays.sort(files);
 
 		final FileAdapter adapter = new FileAdapter(this, files)
 		{
@@ -300,16 +311,18 @@ public final class WalletActivity extends AbstractWalletActivity
 			public View getDropDownView(final int position, View row, final ViewGroup parent)
 			{
 				final File file = getItem(position);
+				final boolean isExternal = Constants.EXTERNAL_WALLET_BACKUP_DIR.equals(file.getParentFile());
 
 				if (row == null)
-					row = inflater.inflate(R.layout.spinner_dropdown_item, null);
+					row = inflater.inflate(R.layout.wallet_import_keys_file_row, null);
 
-				final TextView text1 = (TextView) row.findViewById(android.R.id.text1);
-				text1.setText(file.getName());
+				final TextView filenameView = (TextView) row.findViewById(R.id.wallet_import_keys_file_row_filename);
+				filenameView.setText(file.getName());
 
-				final TextView text2 = (TextView) row.findViewById(android.R.id.text2);
-				text2.setText(context.getString(R.string.wallet_import_keys_dialog_file_created,
-						DateUtils.getRelativeTimeSpanString(context, file.lastModified(), true)));
+				final TextView createdView = (TextView) row.findViewById(R.id.wallet_import_keys_file_row_created);
+				createdView.setText(context.getString(isExternal ? R.string.wallet_import_keys_dialog_file_created_manual
+						: R.string.wallet_import_keys_dialog_file_created_automatic, DateUtils.getRelativeTimeSpanString(context,
+						file.lastModified(), true)));
 
 				return row;
 			}

@@ -40,8 +40,9 @@
 	<string name="wallet_options_donate">Spenden</string>
 	<string name="wallet_donate_address_label">Spende für Bitcoin Wallet</string>
 	<string name="wallet_import_keys_dialog_title">Private Schlüssel importieren</string>
-	<string name="wallet_import_keys_dialog_message">Wähle eine Import-Datei mit privaten Schlüsseln vom externen Speicher (%s) aus:</string>
-	<string name="wallet_import_keys_dialog_file_created">Erstellt %s</string>
+	<string name="wallet_import_keys_dialog_message">Wähle eine Import-Datei mit privaten Schlüsseln vom externen oder app-privaten Speicher aus:</string>
+	<string name="wallet_import_keys_dialog_file_created_automatic">automatisch gesichert %s</string>
+	<string name="wallet_import_keys_dialog_file_created_manual">manuell exportiert %s</string>
 	<string name="wallet_import_keys_dialog_button_import">Import</string>
 	<string name="wallet_import_keys_dialog_success">Es wurden %d private Schlüssel importiert.\n\nDu musst Deine Blockchain zurücksetzen um Dein Guthaben zu aktualisieren. Möchtest Du?</string>
 	<string name="wallet_import_keys_dialog_failure">Private Schlüssel konnten nicht importiert werden:\n\n%s\n\nFalsches Passwort?</string>
