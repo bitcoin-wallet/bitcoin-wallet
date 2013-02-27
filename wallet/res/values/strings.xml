@@ -39,6 +39,7 @@
 	<string name="wallet_donate_address_label">Donation for Bitcoin Wallet</string>
 	<string name="wallet_import_keys_dialog_title">Import private keys</string>
 	<string name="wallet_import_keys_dialog_message">Pick a private keys import file from external storage (%s):</string>
+	<string name="wallet_import_keys_dialog_file_created">created %s</string>
 	<string name="wallet_import_keys_dialog_button_import">Import</string>
 	<string name="wallet_import_keys_dialog_success">%d private keys were imported.\n\nYou need to reset your blockchain in order to update your balance. Would you like to?</string>
 	<string name="wallet_import_keys_dialog_failure">Private keys could not be imported:\n\n%s\n\nBad password?</string>

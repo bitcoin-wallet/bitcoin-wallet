@@ -53,7 +53,9 @@ import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.text.format.DateUtils;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.webkit.WebView;
 import android.widget.AdapterView;
@@ -291,7 +293,27 @@ public final class WalletActivity extends AbstractWalletActivity
 			}
 		});
 		Arrays.sort(files);
-		final FileAdapter adapter = new FileAdapter(this, files);
+
+		final FileAdapter adapter = new FileAdapter(this, files)
+		{
+			@Override
+			public View getDropDownView(final int position, View row, final ViewGroup parent)
+			{
+				final File file = getItem(position);
+
+				if (row == null)
+					row = inflater.inflate(R.layout.spinner_dropdown_item, null);
+
+				final TextView text1 = (TextView) row.findViewById(android.R.id.text1);
+				text1.setText(file.getName());
+
+				final TextView text2 = (TextView) row.findViewById(android.R.id.text2);
+				text2.setText(context.getString(R.string.wallet_import_keys_dialog_file_created,
+						DateUtils.getRelativeTimeSpanString(context, file.lastModified(), true)));
+
+				return row;
+			}
+		};
 
 		final Spinner fileView = (Spinner) alertDialog.findViewById(R.id.wallet_import_keys_file);
 		fileView.setAdapter(adapter);

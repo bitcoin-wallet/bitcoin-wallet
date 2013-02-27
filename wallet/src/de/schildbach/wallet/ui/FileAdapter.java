@@ -30,14 +30,16 @@ import de.schildbach.wallet_test.R;
 /**
  * @author Andreas Schildbach
  */
-public class FileAdapter extends ArrayAdapter<File>
+public abstract class FileAdapter extends ArrayAdapter<File>
 {
-	private final LayoutInflater inflater;
+	protected final Context context;
+	protected final LayoutInflater inflater;
 
 	public FileAdapter(final Context context, final File[] files)
 	{
 		super(context, 0, files);
 
+		this.context = context;
 		inflater = LayoutInflater.from(context);
 	}
 
@@ -48,20 +50,6 @@ public class FileAdapter extends ArrayAdapter<File>
 
 		if (row == null)
 			row = inflater.inflate(R.layout.spinner_item, null);
-
-		final TextView textView = (TextView) row.findViewById(android.R.id.text1);
-		textView.setText(file.getName());
-
-		return row;
-	}
-
-	@Override
-	public View getDropDownView(final int position, View row, final ViewGroup parent)
-	{
-		final File file = getItem(position);
-
-		if (row == null)
-			row = inflater.inflate(R.layout.spinner_dropdown_item, null);
 
 		final TextView textView = (TextView) row.findViewById(android.R.id.text1);
 		textView.setText(file.getName());
