@@ -9,10 +9,6 @@ FONCTIONS:
 • Notifications système pour la connectivité Bitcoin et la réception des bitcoins.
 • App widget pour le solde du compte Bitcoin (demande que l'app soit dans le mobile).
 
-PROBLEMES CONNUS, LIRE SVP:
-
-• Au premier lancement de l'application, il peut arriver que l'app affiche seulement un écran blanc pour quelques secondes. C'est normal.
-
 Pour en savoir plus sur Bitcoin:
 http://bitcoin.org
 

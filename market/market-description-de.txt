@@ -11,10 +11,6 @@ FEATURES:
 • System-Benachrichtigungen für Bitcoin-Konnektivität und Empfang von Zahlungen.
 • App-Widget zeigt Bitcoin-Guthaben an (Voraussetzung: App ist nicht auf SD-Karte verschoben).
 
-BEKANNTE PROBLEME, BITTE LESEN:
-
-• Wenn die App zum ersten Mal ausgeführt wird, kann es passieren, daß für einige Sekunden nur ein weißes Display angezeigt wird. Das ist normal.
-
 Weitere Informationen zu Bitcoin findest Du unter
 http://bitcoin.org
 

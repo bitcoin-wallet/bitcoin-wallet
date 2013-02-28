@@ -18,10 +18,6 @@
 package de.schildbach.wallet.service;
 
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.math.BigInteger;
 import java.net.InetSocketAddress;
 import java.util.ArrayList;
@@ -80,6 +76,7 @@ import com.google.bitcoin.discovery.PeerDiscoveryException;
 import com.google.bitcoin.store.BlockStore;
 import com.google.bitcoin.store.BlockStoreException;
 import com.google.bitcoin.store.BoundedOverheadBlockStore;
+import com.google.bitcoin.store.SPVBlockStore;
 
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
@@ -589,21 +586,30 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 			Log.d(TAG, "blockchain does not exist, resetting wallet");
 
 			wallet.clearTransactions(0);
-			copyBlockchainSnapshot(blockChainFile);
 		}
 
 		try
 		{
-			blockStore = new BoundedOverheadBlockStore(Constants.NETWORK_PARAMETERS, blockChainFile);
+			blockStore = new SPVBlockStore(Constants.NETWORK_PARAMETERS, blockChainFile);
 			blockStore.getChainHead(); // detect corruptions as early as possible
 		}
 		catch (final BlockStoreException x)
 		{
-			blockChainFile.delete();
+			try
+			{
+				blockStore = new BoundedOverheadBlockStore(Constants.NETWORK_PARAMETERS, blockChainFile);
+				blockStore.getChainHead(); // detect corruptions as early as possible
+			}
+			catch (final BlockStoreException x2)
+			{
+				blockChainFile.delete();
 
-			x.printStackTrace();
-			throw new Error("blockstore cannot be created", x);
+				x2.printStackTrace();
+				throw new Error("blockstore cannot be created", x2);
+			}
 		}
+
+		Log.i(TAG, "using " + blockStore.getClass().getName());
 
 		try
 		{
@@ -649,32 +655,6 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 		}
 
 		return START_NOT_STICKY;
-	}
-
-	private void copyBlockchainSnapshot(final File file)
-	{
-		try
-		{
-			final long t = System.currentTimeMillis();
-
-			final String blockchainSnapshotFilename = Constants.BLOCKCHAIN_SNAPSHOT_FILENAME;
-			final InputStream is = getAssets().open(blockchainSnapshotFilename);
-			final OutputStream os = new FileOutputStream(file);
-
-			Log.i(TAG, "copying blockchain snapshot");
-			final byte[] buf = new byte[8192];
-			int read;
-			while (-1 != (read = is.read(buf)))
-				os.write(buf, 0, read);
-			os.close();
-			is.close();
-			Log.i(TAG, "finished copying, took " + (System.currentTimeMillis() - t) + " ms");
-		}
-		catch (final IOException x)
-		{
-			Log.w(TAG, "failed copying, starting from genesis");
-			file.delete();
-		}
 	}
 
 	@Override

@@ -11,10 +11,6 @@ FEATURES:
 • System notifications for Bitcoin connectivity and received coins.
 • App widget for Bitcoin balance (requirement: app moved to phone).
 
-KNOWN ISSUES, PLEASE READ:
-
-• When run for the first time, it can happen that the app shows only a white display for some seconds. This is normal.
-
 You can find more about Bitcoin at
 http://bitcoin.org
 

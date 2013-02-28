@@ -9,10 +9,6 @@ FUNKCJE:
 • Notyfikacje systemowe o połączeniu z siecią Bitcoin i otrzymanych monetach.
 • Widget na stan konta Bitcoin (wymaga: aplikacja na telefonie).
 
-ZNANE PROBLEMY (PROSZĘ PRZECZYTAJ):
-
-• Przy pierwszym uruchomieniu, aplikacja może wyświetlać przez jakiś czas jedynie biały ekran. To normalne.
-
 Więcej o Bitcoin dowiesz się pod adresem:
 http://bitcoin.org
 

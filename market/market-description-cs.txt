@@ -9,10 +9,6 @@ VLASTNOSTI:
 • Oznamování v liště při synchronizaci a při přijetí Bitcoinů.
 • Widget s celkovým zůstatkem (vyžaduje aplikaci přesunutou na kartě).
 
-ZNÁMÉ PROBLÉMY:
-
-• Při prvním spůštění může aplikace na několik sekund zobrazit pouze bílou obrazovku - je to normální.
-
 Více informací o Bitcoinech
 http://bitcoin.org
 

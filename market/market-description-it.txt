@@ -9,10 +9,6 @@ CARATTERISTICHE:
 • Notifiche di sistema per connettività Bitcoin e la ricezione di Bitcoins.
 • Widget per il saldo Bitcoin (è necessario che l'applicazione sia memorizzata sul dispositivo).
 
-PROBLEMI NOTI, SI PREGA DI FARE ATTENZIONE:
-
-• Durante la prima esecuzione dell'applicazione è possibile che si visualizzi uno schermo bianco per alcuni secondi. E' normale.
-
 Puoi trovare maggiori informazioni su Bitcoin qui:
 http://bitcoin.org
 

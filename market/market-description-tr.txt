@@ -9,10 +9,6 @@ Android cihazınız için bağımsız bir Bitcoin cüzdanı. Telefondan telefond
 • Alınan Bitcoinler ve Bitcoin bağlantısı için sistem bildirimleri.
 • Bitcoin bakiyesi için uygulama widget'i (uygulamanın telefona taşınmasını gerektirir).
 
-BİLİNEN SORUNLAR, LÜTFEN OKUYUNUZ:
-
-• İlk defa başlatıldığında uygulama birkaç saniye boyunca beyaz bir ekran görüntüleyebilir. Bu normaldir.
-
 Bitcoin hakkında daha fazla bilgi için şu siteyi ziyaret edebilirsiniz:
 http://bitcoin.org
 

@@ -9,10 +9,6 @@ FUNCTIES:
 • Systeem melding over Bitcoin connectiviteit en ontvangen bitcoins.
 • Widget voor Bitcoin saldo (vereiste: app verplaatst naar telefoon).
 
-BEKENDE PROBLEMEN, SVP LEZEN:
-
-• Wanneer de app de eerste keer start kan het zijn dat deze slechts een wit beeld geeft voor een korte tijd. Dit is normaal.
-
 Voor meer informatie over Bitcoin kunt u terecht op
 http://bitcoin.org
 

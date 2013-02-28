@@ -9,10 +9,6 @@ FUNKTIONER:
 • Systemnotifikationer när Bitcoins skickats till dig, och när plånboken kommunicerar med nätverket.
 • App widget som visar plånbokens värde (kräver att appen flyttats till telefonen).
 
-KÄNDA PROBLEM:
-
-• När appen körs för första gången så visas ibland bara en vit skärm under några sekunder. Det är helt normalt.
-
 Du kan lära dig mer om Bitcoin genom att besöka
 http://bitcoin.org
 
