@@ -139,7 +139,7 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 	{
 		super.onResume();
 
-		resolver.registerContentObserver(AddressBookProvider.CONTENT_URI, true, addressBookObserver);
+		resolver.registerContentObserver(AddressBookProvider.contentUri(activity.getPackageName()), true, addressBookObserver);
 
 		prefs.registerOnSharedPreferenceChangeListener(this);
 
@@ -214,7 +214,7 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 					if (tx.isCoinBase())
 						label = getString(R.string.wallet_transactions_fragment_coinbase);
 					else if (address != null)
-						label = AddressBookProvider.resolveLabel(resolver, address.toString());
+						label = AddressBookProvider.resolveLabel(activity, address.toString());
 					else
 						label = "?";
 

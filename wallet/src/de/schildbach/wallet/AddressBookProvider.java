@@ -20,7 +20,6 @@ package de.schildbach.wallet;
 import java.util.List;
 
 import android.content.ContentProvider;
-import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -36,8 +35,6 @@ public class AddressBookProvider extends ContentProvider
 {
 	private static final String DATABASE_TABLE = "address_book";
 
-	public static final Uri CONTENT_URI = Uri.parse("content://" + Constants.PACKAGE_NAME + '.' + DATABASE_TABLE);
-
 	public static final String KEY_ROWID = "_id";
 	public static final String KEY_ADDRESS = "address";
 	public static final String KEY_LABEL = "label";
@@ -46,12 +43,17 @@ public class AddressBookProvider extends ContentProvider
 	public static final String SELECTION_IN = "in";
 	public static final String SELECTION_NOTIN = "notin";
 
-	public static String resolveLabel(final ContentResolver contentResolver, final String address)
+	public static Uri contentUri(final String packageName)
+	{
+		return Uri.parse("content://" + packageName + '.' + DATABASE_TABLE);
+	}
+
+	public static String resolveLabel(final Context context, final String address)
 	{
 		String label = null;
 
-		final Uri uri = AddressBookProvider.CONTENT_URI.buildUpon().appendPath(address).build();
-		final Cursor cursor = contentResolver.query(uri, null, null, null, null);
+		final Uri uri = contentUri(context.getPackageName()).buildUpon().appendPath(address).build();
+		final Cursor cursor = context.getContentResolver().query(uri, null, null, null, null);
 
 		if (cursor != null)
 		{
@@ -90,7 +92,7 @@ public class AddressBookProvider extends ContentProvider
 
 		long rowId = helper.getWritableDatabase().insertOrThrow(DATABASE_TABLE, null, values);
 
-		final Uri rowUri = CONTENT_URI.buildUpon().appendPath(address).appendPath(Long.toString(rowId)).build();
+		final Uri rowUri = contentUri(getContext().getPackageName()).buildUpon().appendPath(address).appendPath(Long.toString(rowId)).build();
 
 		getContext().getContentResolver().notifyChange(rowUri, null);
 

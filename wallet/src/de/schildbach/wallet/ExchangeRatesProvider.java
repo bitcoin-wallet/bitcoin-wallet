@@ -61,8 +61,6 @@ public class ExchangeRatesProvider extends ContentProvider
 		public final String source;
 	}
 
-	public static final Uri CONTENT_URI = Uri.parse("content://" + Constants.PACKAGE_NAME + '.' + "exchange_rates");
-
 	public static final String KEY_CURRENCY_CODE = "currency_code";
 	private static final String KEY_RATE = "rate";
 	private static final String KEY_SOURCE = "source";
@@ -76,6 +74,11 @@ public class ExchangeRatesProvider extends ContentProvider
 	public boolean onCreate()
 	{
 		return true;
+	}
+
+	public static Uri contentUri(final String packageName)
+	{
+		return Uri.parse("content://" + packageName + '.' + "exchange_rates");
 	}
 
 	@Override

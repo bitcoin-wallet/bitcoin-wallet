@@ -22,7 +22,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Color;
@@ -53,7 +52,6 @@ import de.schildbach.wallet_test.R;
 public class TransactionsListAdapter extends ArrayAdapter<Transaction>
 {
 	private final Context context;
-	private final ContentResolver resolver;
 	private final LayoutInflater inflater;
 	private final Wallet wallet;
 
@@ -77,7 +75,6 @@ public class TransactionsListAdapter extends ArrayAdapter<Transaction>
 		super(context, 0);
 
 		this.context = context;
-		this.resolver = context.getContentResolver();
 		inflater = LayoutInflater.from(context);
 
 		this.wallet = wallet;
@@ -248,7 +245,7 @@ public class TransactionsListAdapter extends ArrayAdapter<Transaction>
 		final String cachedLabel = labelCache.get(address);
 		if (cachedLabel == null)
 		{
-			final String label = AddressBookProvider.resolveLabel(resolver, address);
+			final String label = AddressBookProvider.resolveLabel(context, address);
 			if (label != null)
 				labelCache.put(address, label);
 			else

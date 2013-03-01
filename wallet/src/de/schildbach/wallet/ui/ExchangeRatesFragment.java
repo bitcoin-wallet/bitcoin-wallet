@@ -232,7 +232,7 @@ public final class ExchangeRatesFragment extends ListFragment implements LoaderM
 
 	public Loader<Cursor> onCreateLoader(final int id, final Bundle args)
 	{
-		return new CursorLoader(activity, ExchangeRatesProvider.CONTENT_URI, null, null, null, null);
+		return new CursorLoader(activity, ExchangeRatesProvider.contentUri(activity.getPackageName()), null, null, null, null);
 	}
 
 	public void onLoadFinished(final Loader<Cursor> loader, final Cursor data)

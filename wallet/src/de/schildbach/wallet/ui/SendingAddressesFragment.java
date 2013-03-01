@@ -299,7 +299,7 @@ public final class SendingAddressesFragment extends SherlockListFragment impleme
 
 	private void handleRemove(final String address)
 	{
-		final Uri uri = AddressBookProvider.CONTENT_URI.buildUpon().appendPath(address).build();
+		final Uri uri = AddressBookProvider.contentUri(activity.getPackageName()).buildUpon().appendPath(address).build();
 		activity.getContentResolver().delete(uri, null, null);
 	}
 
@@ -319,7 +319,7 @@ public final class SendingAddressesFragment extends SherlockListFragment impleme
 
 	public Loader<Cursor> onCreateLoader(final int id, final Bundle args)
 	{
-		final Uri uri = AddressBookProvider.CONTENT_URI;
+		final Uri uri = AddressBookProvider.contentUri(activity.getPackageName());
 		return new CursorLoader(activity, uri, null, AddressBookProvider.SELECTION_NOTIN,
 				new String[] { walletAddressesSelection != null ? walletAddressesSelection : "" }, AddressBookProvider.KEY_LABEL
 						+ " COLLATE LOCALIZED ASC");

@@ -230,7 +230,7 @@ public final class AmountCalculatorFragment extends DialogFragment implements Lo
 
 	public Loader<Cursor> onCreateLoader(final int id, final Bundle args)
 	{
-		return new CursorLoader(activity, ExchangeRatesProvider.CONTENT_URI, null, ExchangeRatesProvider.KEY_CURRENCY_CODE,
+		return new CursorLoader(activity, ExchangeRatesProvider.contentUri(activity.getPackageName()), null, ExchangeRatesProvider.KEY_CURRENCY_CODE,
 				new String[] { exchangeCurrency }, null);
 	}
 

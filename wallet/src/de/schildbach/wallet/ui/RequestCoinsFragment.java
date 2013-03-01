@@ -22,7 +22,6 @@ import java.util.ArrayList;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -64,7 +63,6 @@ public final class RequestCoinsFragment extends SherlockFragment implements Amou
 {
 	private AbstractWalletActivity activity;
 	private WalletApplication application;
-	private ContentResolver contentResolver;
 	private Object nfcManager;
 	private ClipboardManager clipboardManager;
 	private ShareActionProvider shareActionProvider;
@@ -83,7 +81,6 @@ public final class RequestCoinsFragment extends SherlockFragment implements Amou
 		super.onAttach(activity);
 		this.activity = (AbstractWalletActivity) activity;
 		application = (WalletApplication) activity.getApplication();
-		contentResolver = activity.getContentResolver();
 
 		nfcManager = activity.getSystemService(Context.NFC_SERVICE);
 		clipboardManager = (ClipboardManager) activity.getSystemService(Context.CLIPBOARD_SERVICE);
@@ -272,7 +269,7 @@ public final class RequestCoinsFragment extends SherlockFragment implements Amou
 
 		final ECKey key = application.getWallet().keychain.get(addressView.getSelectedItemPosition());
 		final Address address = key.toAddress(Constants.NETWORK_PARAMETERS);
-		final String label = includeLabel ? AddressBookProvider.resolveLabel(contentResolver, address.toString()) : null;
+		final String label = includeLabel ? AddressBookProvider.resolveLabel(activity, address.toString()) : null;
 		final BigInteger amount = amountView.getAmount();
 
 		return BitcoinURI.convertToBitcoinURI(address, amount, label, null).toString();

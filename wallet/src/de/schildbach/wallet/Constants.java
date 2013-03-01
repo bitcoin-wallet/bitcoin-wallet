@@ -74,10 +74,6 @@ public class Constants
 	private static final String BLOCKEXPLORER_BASE_URL_TEST = "https://blockexplorer.com/testnet/";
 	public static final String BLOCKEXPLORER_BASE_URL = TEST ? BLOCKEXPLORER_BASE_URL_TEST : BLOCKEXPLORER_BASE_URL_PROD;
 
-	private static final String PACKAGE_NAME_PROD = "de.schildbach.wallet";
-	private static final String PACKAGE_NAME_TEST = "de.schildbach.wallet_test";
-	public static final String PACKAGE_NAME = TEST ? PACKAGE_NAME_TEST : PACKAGE_NAME_PROD;
-
 	public static final String MIMETYPE_TRANSACTION = "application/x-btctx";
 
 	public static final int MAX_CONNECTED_PEERS = 6;
@@ -88,7 +84,6 @@ public class Constants
 	public static final int BLOCKCHAIN_DOWNLOAD_THRESHOLD_MS = 5000;
 	public static final int BLOCKCHAIN_STATE_BROADCAST_THROTTLE_MS = 1000;
 	public static final int BLOCKCHAIN_UPTODATE_THRESHOLD_HOURS = 1;
-	public static final String LOCK_NAME = PACKAGE_NAME + " blockchain sync";
 
 	public static final String CURRENCY_CODE_BITCOIN = "BTC";
 	public static final char CHAR_HAIR_SPACE = '\u200a';

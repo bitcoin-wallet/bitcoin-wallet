@@ -248,7 +248,7 @@ public final class WalletBalanceFragment extends Fragment
 
 		public RateLoader(final Context context)
 		{
-			super(context, ExchangeRatesProvider.CONTENT_URI, null, ExchangeRatesProvider.KEY_CURRENCY_CODE, null, null);
+			super(context, ExchangeRatesProvider.contentUri(context.getPackageName()), null, ExchangeRatesProvider.KEY_CURRENCY_CODE, null, null);
 
 			prefs = PreferenceManager.getDefaultSharedPreferences(context);
 

@@ -69,6 +69,7 @@ public final class EditAddressBookEntryFragment extends DialogFragment
 	}
 
 	private Activity activity;
+	private ContentResolver contentResolver;
 
 	@Override
 	public void onAttach(final Activity activity)
@@ -76,6 +77,7 @@ public final class EditAddressBookEntryFragment extends DialogFragment
 		super.onAttach(activity);
 
 		this.activity = activity;
+		this.contentResolver = activity.getContentResolver();
 	}
 
 	@Override
@@ -87,10 +89,9 @@ public final class EditAddressBookEntryFragment extends DialogFragment
 
 		final LayoutInflater inflater = LayoutInflater.from(activity);
 
-		final ContentResolver contentResolver = activity.getContentResolver();
-		final Uri uri = AddressBookProvider.CONTENT_URI.buildUpon().appendPath(address).build();
+		final Uri uri = AddressBookProvider.contentUri(activity.getPackageName()).buildUpon().appendPath(address).build();
 
-		final String label = AddressBookProvider.resolveLabel(contentResolver, address);
+		final String label = AddressBookProvider.resolveLabel(activity, address);
 
 		final boolean isAdd = label == null;
 

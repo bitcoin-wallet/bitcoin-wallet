@@ -26,7 +26,6 @@ import java.util.Locale;
 import java.util.zip.GZIPOutputStream;
 
 import android.app.Activity;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
@@ -40,7 +39,6 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragment;
 import com.google.bitcoin.core.Address;
@@ -120,8 +118,6 @@ public final class TransactionFragment extends SherlockFragment
 			x.printStackTrace();
 		}
 
-		final ContentResolver contentResolver = activity.getContentResolver();
-
 		final View view = getView();
 
 		final Date time = tx.getUpdateTime();
@@ -160,7 +156,7 @@ public final class TransactionFragment extends SherlockFragment
 		final TextView viewFromLabel = (TextView) view.findViewById(R.id.transaction_fragment_from_label);
 		if (from != null)
 		{
-			final String label = AddressBookProvider.resolveLabel(contentResolver, from.toString());
+			final String label = AddressBookProvider.resolveLabel(activity, from.toString());
 			final StringBuilder builder = new StringBuilder();
 
 			if (fromMine)
@@ -196,7 +192,7 @@ public final class TransactionFragment extends SherlockFragment
 		final TextView viewToLabel = (TextView) view.findViewById(R.id.transaction_fragment_to_label);
 		if (to != null)
 		{
-			final String label = AddressBookProvider.resolveLabel(contentResolver, to.toString());
+			final String label = AddressBookProvider.resolveLabel(activity, to.toString());
 			final StringBuilder builder = new StringBuilder();
 
 			if (toMine)

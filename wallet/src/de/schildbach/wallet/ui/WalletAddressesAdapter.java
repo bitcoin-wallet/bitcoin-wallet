@@ -21,7 +21,6 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.util.List;
 
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.res.Resources;
 import android.view.LayoutInflater;
@@ -40,11 +39,11 @@ import de.schildbach.wallet_test.R;
 
 public class WalletAddressesAdapter extends BaseAdapter
 {
+	private final Context context;
 	private final DateFormat dateFormat;
 	private final int colorInsignificant;
 	private final int colorLessSignificant;
 	private final LayoutInflater inflater;
-	private final ContentResolver contextResolver;
 
 	private final List<ECKey> keys;
 	private final boolean showKeyCreationTime;
@@ -54,11 +53,11 @@ public class WalletAddressesAdapter extends BaseAdapter
 	{
 		final Resources res = context.getResources();
 
+		this.context = context;
 		dateFormat = android.text.format.DateFormat.getDateFormat(context);
 		colorInsignificant = res.getColor(R.color.fg_insignificant);
 		colorLessSignificant = res.getColor(R.color.fg_less_significant);
 		inflater = LayoutInflater.from(context);
-		contextResolver = context.getContentResolver();
 
 		this.keys = keys;
 		this.showKeyCreationTime = showKeyCreationTime;
@@ -102,7 +101,7 @@ public class WalletAddressesAdapter extends BaseAdapter
 		addressView.setText(WalletUtils.formatAddress(address, Constants.ADDRESS_FORMAT_GROUP_SIZE, Constants.ADDRESS_FORMAT_LINE_SIZE));
 
 		final TextView labelView = (TextView) row.findViewById(R.id.address_book_row_label);
-		final String label = AddressBookProvider.resolveLabel(contextResolver, address.toString());
+		final String label = AddressBookProvider.resolveLabel(context, address.toString());
 		if (label != null)
 		{
 			labelView.setText(label);

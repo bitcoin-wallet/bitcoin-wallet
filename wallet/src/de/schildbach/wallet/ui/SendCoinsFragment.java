@@ -454,7 +454,7 @@ public final class SendCoinsFragment extends SherlockFragment implements AmountC
 	{
 		super.onResume();
 
-		contentResolver.registerContentObserver(AddressBookProvider.CONTENT_URI, true, contentObserver);
+		contentResolver.registerContentObserver(AddressBookProvider.contentUri(activity.getPackageName()), true, contentObserver);
 
 		amountView.setListener(amountsListener);
 
@@ -802,8 +802,8 @@ public final class SendCoinsFragment extends SherlockFragment implements AmountC
 		@Override
 		public Cursor runQueryOnBackgroundThread(final CharSequence constraint)
 		{
-			final Cursor cursor = activity.managedQuery(AddressBookProvider.CONTENT_URI, null, AddressBookProvider.SELECTION_QUERY,
-					new String[] { constraint.toString() }, null);
+			final Cursor cursor = activity.managedQuery(AddressBookProvider.contentUri(activity.getPackageName()), null,
+					AddressBookProvider.SELECTION_QUERY, new String[] { constraint.toString() }, null);
 			return cursor;
 		}
 	}
@@ -817,7 +817,7 @@ public final class SendCoinsFragment extends SherlockFragment implements AmountC
 			receivingStaticView.setVisibility(View.VISIBLE);
 			receivingStaticAddressView.setText(WalletUtils.formatAddress(validatedAddress, Constants.ADDRESS_FORMAT_GROUP_SIZE,
 					Constants.ADDRESS_FORMAT_LINE_SIZE));
-			final String label = AddressBookProvider.resolveLabel(contentResolver, validatedAddress.toString());
+			final String label = AddressBookProvider.resolveLabel(activity, validatedAddress.toString());
 			receivingStaticLabelView.setText(label != null ? label
 					: (receivingLabel != null ? receivingLabel : getString(R.string.address_unlabeled)));
 			receivingStaticLabelView.setTextColor(label != null ? R.color.fg_significant : R.color.fg_insignificant);

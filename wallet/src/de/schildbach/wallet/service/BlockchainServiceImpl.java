@@ -540,11 +540,13 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 
 		nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
+		final String lockName = getPackageName() + " blockchain sync";
+
 		final PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
-		wakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, Constants.LOCK_NAME);
+		wakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, lockName);
 
 		final WifiManager wifiManager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
-		wifiLock = wifiManager.createWifiLock(WifiManager.WIFI_MODE_FULL, Constants.LOCK_NAME);
+		wifiLock = wifiManager.createWifiLock(WifiManager.WIFI_MODE_FULL, lockName);
 		wifiLock.setReferenceCounted(false);
 
 		application = (WalletApplication) getApplication();

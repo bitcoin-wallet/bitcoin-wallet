@@ -97,7 +97,7 @@ public final class WalletAddressesFragment extends SherlockListFragment
 	{
 		super.onResume();
 
-		contentResolver.registerContentObserver(AddressBookProvider.CONTENT_URI, true, contentObserver);
+		contentResolver.registerContentObserver(AddressBookProvider.contentUri(activity.getPackageName()), true, contentObserver);
 
 		updateView();
 	}
@@ -170,7 +170,7 @@ public final class WalletAddressesFragment extends SherlockListFragment
 				item.setVisible(enabled);
 
 				final String address = key.toAddress(Constants.NETWORK_PARAMETERS).toString();
-				final String label = AddressBookProvider.resolveLabel(contentResolver, address);
+				final String label = AddressBookProvider.resolveLabel(activity, address);
 				mode.setTitle(label != null ? label : WalletUtils.formatAddress(address, Constants.ADDRESS_FORMAT_GROUP_SIZE, 0));
 
 				return true;

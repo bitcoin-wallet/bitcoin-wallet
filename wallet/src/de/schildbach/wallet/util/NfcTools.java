@@ -27,7 +27,6 @@ import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
 import android.nfc.NfcManager;
 import android.os.Build;
-import de.schildbach.wallet.Constants;
 
 /**
  * @author Andreas Schildbach
@@ -46,7 +45,7 @@ public class NfcTools
 			return false;
 
 		final NdefRecord uriRecord = wellKnownUriRecord(uri);
-		adapter.enableForegroundNdefPush(activity, ndefMessage(uriRecord, true));
+		adapter.enableForegroundNdefPush(activity, ndefMessage(uriRecord, true, activity.getPackageName()));
 
 		return true;
 	}
@@ -59,7 +58,7 @@ public class NfcTools
 			return false;
 
 		final NdefRecord mimeRecord = mimeRecord(mimeType, payload);
-		adapter.enableForegroundNdefPush(activity, ndefMessage(mimeRecord, includeApplicationRecord));
+		adapter.enableForegroundNdefPush(activity, ndefMessage(mimeRecord, includeApplicationRecord, activity.getPackageName()));
 
 		return true;
 	}
@@ -73,11 +72,11 @@ public class NfcTools
 		adapter.disableForegroundNdefPush(activity);
 	}
 
-	private static NdefMessage ndefMessage(final NdefRecord record, final boolean includeApplicationRecord)
+	private static NdefMessage ndefMessage(final NdefRecord record, final boolean includeApplicationRecord, final String packageName)
 	{
 		if (includeApplicationRecord)
 		{
-			final NdefRecord appRecord = androidApplicationRecord(Constants.PACKAGE_NAME);
+			final NdefRecord appRecord = androidApplicationRecord(packageName);
 			return new NdefMessage(new NdefRecord[] { record, appRecord });
 		}
 		else
