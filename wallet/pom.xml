@@ -16,12 +16,16 @@
 	</parent>
 
 	<dependencies>
+
+		<!-- android.*, java.*, javax.* -->
 		<dependency>
 			<groupId>com.google.android</groupId>
 			<artifactId>android</artifactId>
 			<version>4.0.1.2</version>
 			<scope>provided</scope>
 		</dependency>
+
+		<!-- android.annotation.* -->
 		<dependency>
 			<groupId>com.google.android</groupId>
 			<artifactId>annotations</artifactId>
@@ -29,42 +33,57 @@
 			<version>4.1.1.4</version>
 			<scope>provided</scope>
 		</dependency>
+
+		<!-- android.support.v4.* -->
 		<dependency>
 			<groupId>com.google.android</groupId>
 			<artifactId>support-v4</artifactId>
 			<version>r7</version>
 		</dependency>
+
+		<!-- com.actionbarsherlock.* -->
 		<dependency>
 			<groupId>com.actionbarsherlock</groupId>
 			<artifactId>library</artifactId>
 			<version>4.1.0</version>
 			<type>apklib</type>
 		</dependency>
+
+		<!-- com.google.bitcoin.* -->
 		<dependency>
 			<groupId>com.google</groupId>
 			<artifactId>bitcoinj</artifactId>
 			<version>0.7.1</version>
 		</dependency>
+
+		<!-- de.schildbach.wallet.integration.android.* -->
 		<dependency>
 			<groupId>de.schildbach.wallet</groupId>
 			<artifactId>integration-android</artifactId>
 			<version>1.0</version>
 		</dependency>
+
+		<!-- com.google.zxing.* -->
 		<dependency>
 			<groupId>com.google.zxing</groupId>
 			<artifactId>core</artifactId>
 			<version>2.1</version>
 		</dependency>
+
+		<!-- org.slf4j.* -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
 			<version>1.6.2</version>
 		</dependency>
+
+		<!-- org.slf4j.impl.* -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-simple</artifactId>
 			<version>1.6.2</version>
 		</dependency>
+
 	</dependencies>
 
 	<profiles>

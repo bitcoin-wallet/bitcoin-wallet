@@ -16,17 +16,22 @@
 	</parent>
 
 	<dependencies>
+
+		<!-- android.*, java.*, javax.* -->
 		<dependency>
 			<groupId>com.google.android</groupId>
 			<artifactId>android</artifactId>
 			<version>2.3.3</version>
 			<scope>provided</scope>
 		</dependency>
+
+		<!-- de.schildbach.wallet.integration.android.* -->
 		<dependency>
 			<groupId>de.schildbach.wallet</groupId>
 			<artifactId>integration-android</artifactId>
 			<version>1.0</version>
 		</dependency>
+
 	</dependencies>
 
 	<build>
