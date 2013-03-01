@@ -376,18 +376,19 @@ public class WalletApplication extends Application
 		final ArrayList<ECKey> keychain = wallet.keychain;
 
 		final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-		final String defaultAddress = keychain.get(0).toAddress(Constants.NETWORK_PARAMETERS).toString();
-		final String selectedAddress = prefs.getString(Constants.PREFS_KEY_SELECTED_ADDRESS, defaultAddress);
+		final String selectedAddress = prefs.getString(Constants.PREFS_KEY_SELECTED_ADDRESS, null);
 
-		// sanity check
-		for (final ECKey key : keychain)
+		if (selectedAddress != null)
 		{
-			final Address address = key.toAddress(Constants.NETWORK_PARAMETERS);
-			if (address.toString().equals(selectedAddress))
-				return address;
+			for (final ECKey key : keychain)
+			{
+				final Address address = key.toAddress(Constants.NETWORK_PARAMETERS);
+				if (address.toString().equals(selectedAddress))
+					return address;
+			}
 		}
 
-		throw new IllegalStateException("address not in keychain: " + selectedAddress);
+		return keychain.get(0).toAddress(Constants.NETWORK_PARAMETERS);
 	}
 
 	public void startBlockchainService(final boolean cancelCoinsReceived)

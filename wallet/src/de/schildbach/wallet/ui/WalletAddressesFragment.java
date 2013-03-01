@@ -86,9 +86,8 @@ public final class WalletAddressesFragment extends SherlockListFragment
 		final ArrayList<ECKey> keychain = application.getWallet().keychain;
 		adapter = new WalletAddressesAdapter(activity, keychain, true);
 
-		final String defaultAddress = keychain.get(0).toAddress(Constants.NETWORK_PARAMETERS).toString();
-		final String selectedAddress = prefs.getString(Constants.PREFS_KEY_SELECTED_ADDRESS, defaultAddress);
-		adapter.setSelectedAddress(selectedAddress);
+		final Address selectedAddress = application.determineSelectedAddress();
+		adapter.setSelectedAddress(selectedAddress.toString());
 
 		setListAdapter(adapter);
 	}
