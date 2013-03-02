@@ -90,6 +90,7 @@ public final class WalletActivity extends AbstractWalletActivity
 	private static final int DIALOG_EXPORT_KEYS = 3;
 	private static final int DIALOG_ALERT_OLD_SDK = 4;
 
+	private Wallet wallet;
 	private SharedPreferences prefs;
 
 	@Override
@@ -99,6 +100,7 @@ public final class WalletActivity extends AbstractWalletActivity
 
 		ErrorReporter.getInstance().check(this);
 
+		wallet = getWalletApplication().getWallet();
 		prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
 		setContentView(R.layout.wallet_content);
@@ -691,21 +693,11 @@ public final class WalletActivity extends AbstractWalletActivity
 			final List<ECKey> importedKeys = WalletUtils.readKeys(keyReader);
 			keyReader.close();
 
-			final Wallet wallet = getWalletApplication().getWallet();
-			int importCount = 0;
-			k: for (final ECKey importedKey : importedKeys)
-			{
-				for (final ECKey key : wallet.getKeys())
-					if (importedKey.equals(key))
-						continue k;
-
-				wallet.addKey(importedKey);
-				importCount++;
-			}
+			final int numKeysImported = wallet.addKeys(importedKeys);
 
 			final AlertDialog.Builder dialog = new AlertDialog.Builder(this);
 			dialog.setInverseBackgroundForced(true);
-			dialog.setMessage(getString(R.string.wallet_import_keys_dialog_success, importCount));
+			dialog.setMessage(getString(R.string.wallet_import_keys_dialog_success, numKeysImported));
 			dialog.setPositiveButton(R.string.wallet_import_keys_dialog_button_reset_blockchain, new DialogInterface.OnClickListener()
 			{
 				public void onClick(final DialogInterface dialog, final int id)
@@ -736,7 +728,6 @@ public final class WalletActivity extends AbstractWalletActivity
 			final File file = new File(Constants.EXTERNAL_WALLET_BACKUP_DIR, Constants.EXTERNAL_WALLET_KEY_BACKUP + "-"
 					+ Iso8601Format.newDateFormat().format(new Date()));
 
-			final Wallet wallet = getWalletApplication().getWallet();
 			final ArrayList<ECKey> keys = wallet.keychain;
 
 			final StringWriter plainOut = new StringWriter();
