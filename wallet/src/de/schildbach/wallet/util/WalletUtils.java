@@ -155,11 +155,11 @@ public class WalletUtils
 		final int cents = absValue.remainder(Utils.COIN).intValue();
 
 		if (cents % 1000000 == 0 || precision <= 2)
-			return String.format(Locale.US, "%s%d.%02d", sign, coins, cents / 1000000);
+			return String.format(Locale.US, "%s%d.%02d", sign, coins, cents / 1000000 + cents % 1000000 / 500000);
 		else if (cents % 10000 == 0 || precision <= 4)
-			return String.format(Locale.US, "%s%d.%04d", sign, coins, cents / 10000);
+			return String.format(Locale.US, "%s%d.%04d", sign, coins, cents / 10000 + cents % 10000 / 5000);
 		else if (precision <= 6)
-			return String.format(Locale.US, "%s%d.%06d", sign, coins, cents / 100);
+			return String.format(Locale.US, "%s%d.%06d", sign, coins, cents / 100 + cents % 100 / 50);
 		else
 			return String.format(Locale.US, "%s%d.%08d", sign, coins, cents);
 	}
