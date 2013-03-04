@@ -314,7 +314,7 @@ public final class SendingAddressesFragment extends SherlockListFragment impleme
 	{
 		ClipboardManager clipboardManager = (ClipboardManager) activity.getSystemService(Context.CLIPBOARD_SERVICE);
 		clipboardManager.setText(address);
-		((AbstractWalletActivity) activity).toast(R.string.wallet_address_fragment_clipboard_msg);
+		activity.toast(R.string.wallet_address_fragment_clipboard_msg);
 	}
 
 	public Loader<Cursor> onCreateLoader(final int id, final Bundle args)

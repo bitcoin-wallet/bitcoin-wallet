@@ -245,7 +245,7 @@ public final class WalletAddressesFragment extends SherlockListFragment
 			{
 				final ClipboardManager clipboardManager = (ClipboardManager) activity.getSystemService(Context.CLIPBOARD_SERVICE);
 				clipboardManager.setText(address.toString());
-				((AbstractWalletActivity) activity).toast(R.string.wallet_address_fragment_clipboard_msg);
+				activity.toast(R.string.wallet_address_fragment_clipboard_msg);
 			}
 
 			private void handleDefault(final Address address)

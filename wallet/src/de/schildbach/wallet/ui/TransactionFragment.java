@@ -30,7 +30,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.text.ClipboardManager;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
@@ -64,7 +63,7 @@ public final class TransactionFragment extends SherlockFragment
 
 	private static final int SHOW_QR_THRESHOLD_BYTES = 2500;
 
-	private FragmentActivity activity;
+	private AbstractWalletActivity activity;
 	private ClipboardManager clipboardManager;
 
 	private DateFormat dateFormat;
@@ -75,7 +74,7 @@ public final class TransactionFragment extends SherlockFragment
 	{
 		super.onAttach(activity);
 
-		this.activity = (FragmentActivity) activity;
+		this.activity = (AbstractWalletActivity) activity;
 
 		dateFormat = android.text.format.DateFormat.getDateFormat(activity);
 		timeFormat = android.text.format.DateFormat.getTimeFormat(activity);
@@ -244,7 +243,7 @@ public final class TransactionFragment extends SherlockFragment
 			public void onClick(final View v)
 			{
 				clipboardManager.setText(txHashString);
-				((AbstractWalletActivity) activity).toast(R.string.transaction_fragment_hash_clipboard_msg);
+				activity.toast(R.string.transaction_fragment_hash_clipboard_msg);
 			}
 		});
 
