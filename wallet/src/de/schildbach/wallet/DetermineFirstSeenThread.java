@@ -38,7 +38,8 @@ import de.schildbach.wallet.util.Iso8601Format;
  */
 public abstract class DetermineFirstSeenThread extends Thread
 {
-	private static final Pattern P_FIRST_SEEN = Pattern.compile("<li>First seen.*\\((\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2})\\)</li>");
+	private static final Pattern P_FIRST_SEEN = Pattern.compile(
+			"<li>First seen.*(?:\\((\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2})\\)|(Never used on the network)).*</li>", Pattern.CASE_INSENSITIVE);
 
 	private final String address;
 	private final Handler callbackHandler;
@@ -57,7 +58,8 @@ public abstract class DetermineFirstSeenThread extends Thread
 	{
 		try
 		{
-			final URLConnection connection = new URL(Constants.BLOCKEXPLORER_BASE_URL + "address/" + address).openConnection();
+			final URL url = new URL(Constants.BLOCKEXPLORER_BASE_URL + "address/" + address);
+			final URLConnection connection = url.openConnection();
 			connection.connect();
 			final Reader is = new InputStreamReader(new BufferedInputStream(connection.getInputStream()));
 			final StringBuilder content = new StringBuilder();
@@ -67,11 +69,14 @@ public abstract class DetermineFirstSeenThread extends Thread
 			final Matcher m = P_FIRST_SEEN.matcher(content);
 			if (m.find())
 			{
-				onSucceed(Iso8601Format.parseDateTime(m.group(1)));
+				if (m.group(1) != null)
+					onSucceed(Iso8601Format.parseDateTime(m.group(1)));
+				else if (m.group(2) != null)
+					onSucceed(null);
 			}
 			else
 			{
-				onSucceed(null);
+				onFail(null);
 			}
 		}
 		catch (final IOException x)

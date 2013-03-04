@@ -263,12 +263,9 @@ public final class WalletAddressesFragment extends SherlockListFragment
 			@Override
 			protected void succeed(final Date firstSeen)
 			{
-				if (firstSeen != null)
-				{
-					key.setCreationTimeSeconds(firstSeen.getTime() / 1000);
-					updateView();
-					application.saveWallet();
-				}
+				key.setCreationTimeSeconds((firstSeen != null ? firstSeen.getTime() : System.currentTimeMillis()) / 1000);
+				updateView();
+				application.saveWallet();
 			}
 		};
 	}
