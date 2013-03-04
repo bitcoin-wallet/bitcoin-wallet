@@ -1,9 +1,3 @@
-KNOWN ISSUES
-
-When run for the first time, the block chain needs to be downloaded. For prodnet, this currently
-takes around 1-2 hours on a decent WLAN.
-
-
 FILES
 
 Your wallet and your private keys are stored in app internal storage:

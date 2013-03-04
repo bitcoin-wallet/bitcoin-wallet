@@ -18,6 +18,8 @@
 package de.schildbach.wallet.service;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.math.BigInteger;
 import java.net.InetSocketAddress;
 import java.util.ArrayList;
@@ -59,6 +61,7 @@ import com.google.bitcoin.core.AbstractPeerEventListener;
 import com.google.bitcoin.core.Address;
 import com.google.bitcoin.core.Block;
 import com.google.bitcoin.core.BlockChain;
+import com.google.bitcoin.core.CheckpointManager;
 import com.google.bitcoin.core.Peer;
 import com.google.bitcoin.core.PeerEventListener;
 import com.google.bitcoin.core.PeerGroup;
@@ -592,6 +595,22 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 		{
 			blockStore = new SPVBlockStore(Constants.NETWORK_PARAMETERS, blockChainFile);
 			blockStore.getChainHead(); // detect corruptions as early as possible
+
+			final long earliestKeyCreationTime = wallet.getEarliestKeyCreationTime();
+
+			if (!blockChainFileExists && earliestKeyCreationTime > 0)
+			{
+				try
+				{
+					final InputStream checkpointsInputStream = getAssets().open(Constants.CHECKPOINTS_FILENAME);
+					CheckpointManager.checkpoint(Constants.NETWORK_PARAMETERS, checkpointsInputStream, blockStore, earliestKeyCreationTime);
+				}
+				catch (final IOException x)
+				{
+					// continue without checkpoints
+					x.printStackTrace();
+				}
+			}
 		}
 		catch (final BlockStoreException x)
 		{

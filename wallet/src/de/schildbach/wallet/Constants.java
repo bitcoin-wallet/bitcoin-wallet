@@ -64,6 +64,8 @@ public class Constants
 	private static final String BLOCKCHAIN_FILENAME_TEST = "blockchain-testnet";
 	public static final String BLOCKCHAIN_FILENAME = TEST ? BLOCKCHAIN_FILENAME_TEST : BLOCKCHAIN_FILENAME_PROD;
 
+	public static final String CHECKPOINTS_FILENAME = "checkpoints";
+
 	private static final String BLOCKEXPLORER_BASE_URL_PROD = "https://blockexplorer.com/";
 	private static final String BLOCKEXPLORER_BASE_URL_TEST = "https://blockexplorer.com/testnet/";
 	public static final String BLOCKEXPLORER_BASE_URL = TEST ? BLOCKEXPLORER_BASE_URL_TEST : BLOCKEXPLORER_BASE_URL_PROD;
