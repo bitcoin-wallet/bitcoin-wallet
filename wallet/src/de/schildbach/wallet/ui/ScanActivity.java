@@ -243,7 +243,7 @@ public final class ScanActivity extends Activity implements SurfaceHolder.Callba
 		{
 			final Camera camera = cameraManager.getCamera();
 			final String focusMode = camera.getParameters().getFocusMode();
-			final boolean useAutoFocus = focusMode.equals(Camera.Parameters.FOCUS_MODE_AUTO) || focusMode.equals(Camera.Parameters.FOCUS_MODE_MACRO);
+			final boolean useAutoFocus = Camera.Parameters.FOCUS_MODE_AUTO.equals(focusMode) || Camera.Parameters.FOCUS_MODE_MACRO.equals(focusMode);
 
 			if (useAutoFocus)
 			{
