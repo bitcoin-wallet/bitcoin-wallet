@@ -42,6 +42,7 @@ import com.google.bitcoin.core.Transaction;
 import com.google.bitcoin.core.TransactionConfidence;
 import com.google.bitcoin.core.TransactionConfidence.ConfidenceType;
 import com.google.bitcoin.core.Wallet;
+import com.google.bitcoin.core.Wallet.DefaultCoinSelector;
 
 import de.schildbach.wallet.AddressBookProvider;
 import de.schildbach.wallet.Constants;
@@ -168,14 +169,11 @@ public class TransactionsListAdapter extends BaseAdapter
 			final CircularProgressView rowConfidenceCircular = (CircularProgressView) row.findViewById(R.id.transaction_row_confidence_circular);
 			final TextView rowConfidenceTextual = (TextView) row.findViewById(R.id.transaction_row_confidence_textual);
 
-			final int textColor;
+			// confidence
 			if (confidenceType == ConfidenceType.NOT_SEEN_IN_CHAIN)
 			{
-				final boolean isValid = isOwn && confidence.numBroadcastPeers() > 1;
-
 				rowConfidenceCircular.setVisibility(View.VISIBLE);
 				rowConfidenceTextual.setVisibility(View.GONE);
-				textColor = isValid ? colorSignificant : colorInsignificant;
 
 				rowConfidenceCircular.setProgress(1);
 				rowConfidenceCircular.setMaxProgress(1);
@@ -187,7 +185,6 @@ public class TransactionsListAdapter extends BaseAdapter
 			{
 				rowConfidenceCircular.setVisibility(View.VISIBLE);
 				rowConfidenceTextual.setVisibility(View.GONE);
-				textColor = colorSignificant;
 
 				rowConfidenceCircular.setProgress(confidence.getDepthInBlocks());
 				rowConfidenceCircular.setMaxProgress(tx.isCoinBase() ? Constants.NETWORK_PARAMETERS.getSpendableCoinbaseDepth()
@@ -200,7 +197,6 @@ public class TransactionsListAdapter extends BaseAdapter
 			{
 				rowConfidenceCircular.setVisibility(View.GONE);
 				rowConfidenceTextual.setVisibility(View.VISIBLE);
-				textColor = colorSignificant;
 
 				rowConfidenceTextual.setText(CONFIDENCE_SYMBOL_NOT_IN_BEST_CHAIN);
 				rowConfidenceTextual.setTextColor(Color.RED);
@@ -209,7 +205,6 @@ public class TransactionsListAdapter extends BaseAdapter
 			{
 				rowConfidenceCircular.setVisibility(View.GONE);
 				rowConfidenceTextual.setVisibility(View.VISIBLE);
-				textColor = Color.RED;
 
 				rowConfidenceTextual.setText(CONFIDENCE_SYMBOL_DEAD);
 				rowConfidenceTextual.setTextColor(Color.RED);
@@ -218,21 +213,30 @@ public class TransactionsListAdapter extends BaseAdapter
 			{
 				rowConfidenceCircular.setVisibility(View.GONE);
 				rowConfidenceTextual.setVisibility(View.VISIBLE);
-				textColor = colorInsignificant;
 
 				rowConfidenceTextual.setText(CONFIDENCE_SYMBOL_UNKNOWN);
 				rowConfidenceTextual.setTextColor(colorInsignificant);
 			}
 
+			// spendability
+			final int textColor;
+			if (confidenceType == ConfidenceType.DEAD)
+				textColor = Color.RED;
+			else
+				textColor = DefaultCoinSelector.isSelectable(tx) ? colorSignificant : colorInsignificant;
+
+			// time
 			final TextView rowTime = (TextView) row.findViewById(R.id.transaction_row_time);
 			final Date time = tx.getUpdateTime();
 			rowTime.setText(time != null ? (DateUtils.getRelativeTimeSpanString(context, time.getTime())) : null);
 			rowTime.setTextColor(textColor);
 
+			// receiving or sending
 			final TextView rowFromTo = (TextView) row.findViewById(R.id.transaction_row_fromto);
 			rowFromTo.setText(sent ? R.string.symbol_to : R.string.symbol_from);
 			rowFromTo.setTextColor(textColor);
 
+			// address
 			final TextView rowAddress = (TextView) row.findViewById(R.id.transaction_row_address);
 			final Address address = sent ? WalletUtils.getToAddress(tx) : WalletUtils.getFromAddress(tx);
 			final String label;
@@ -246,12 +250,14 @@ public class TransactionsListAdapter extends BaseAdapter
 			rowAddress.setText(label != null ? label : address.toString());
 			rowAddress.setTypeface(label != null ? Typeface.DEFAULT : Typeface.MONOSPACE);
 
+			// value
 			final CurrencyTextView rowValue = (CurrencyTextView) row.findViewById(R.id.transaction_row_value);
 			rowValue.setTextColor(textColor);
 			rowValue.setAlwaysSigned(true);
 			rowValue.setPrecision(precision);
 			rowValue.setAmount(value);
 
+			// extended message
 			final View rowExtend = row.findViewById(R.id.transaction_row_extend);
 			final TextView rowMessage = (TextView) row.findViewById(R.id.transaction_row_message);
 			final boolean isLocked = tx.getLockTime() > 0;
