@@ -87,7 +87,8 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 
 	private final Handler handler = new Handler();
 
-	private final static String KEY_DIRECTION = "direction";
+	private static final String KEY_DIRECTION = "direction";
+	private static final long THROTTLE_MS = 1000;
 
 	public static TransactionsListFragment instance(final Direction direction)
 	{
@@ -298,7 +299,7 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 		adapter.clear();
 	}
 
-	private final ThrottelingWalletChangeListener transactionChangeListener = new ThrottelingWalletChangeListener()
+	private final ThrottelingWalletChangeListener transactionChangeListener = new ThrottelingWalletChangeListener(THROTTLE_MS)
 	{
 		@Override
 		public void onThrotteledWalletChanged()
@@ -348,7 +349,7 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 			return transactions;
 		}
 
-		private final ThrottelingWalletChangeListener transactionAddRemoveListener = new ThrottelingWalletChangeListener()
+		private final ThrottelingWalletChangeListener transactionAddRemoveListener = new ThrottelingWalletChangeListener(THROTTLE_MS)
 		{
 			final AtomicBoolean relevant = new AtomicBoolean();
 
