@@ -24,6 +24,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import android.app.Activity;
 import android.content.ContentResolver;
@@ -145,6 +146,8 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 
 		loaderManager.initLoader(0, null, this);
 
+		wallet.addEventListener(transactionChangeListener);
+
 		updateView();
 	}
 
@@ -166,6 +169,9 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 	@Override
 	public void onPause()
 	{
+		wallet.removeEventListener(transactionChangeListener);
+		transactionChangeListener.removeCallbacks();
+
 		loaderManager.destroyLoader(0);
 
 		prefs.unregisterOnSharedPreferenceChangeListener(this);
@@ -292,6 +298,15 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 		adapter.clear();
 	}
 
+	private final ThrottelingWalletChangeListener transactionChangeListener = new ThrottelingWalletChangeListener()
+	{
+		@Override
+		public void onThrotteledWalletChanged()
+		{
+			adapter.notifyDataSetChanged();
+		}
+	};
+
 	private static class TransactionsLoader extends AsyncTaskLoader<List<Transaction>>
 	{
 		private final Wallet wallet;
@@ -308,7 +323,8 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 		{
 			super.onStartLoading();
 
-			wallet.addEventListener(walletChangeListener);
+			wallet.addEventListener(transactionAddRemoveListener);
+			transactionAddRemoveListener.onReorganize(null); // trigger at least one reload
 
 			forceLoad();
 		}
@@ -316,8 +332,8 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 		@Override
 		protected void onStopLoading()
 		{
-			wallet.removeEventListener(walletChangeListener);
-			walletChangeListener.removeCallbacks();
+			wallet.removeEventListener(transactionAddRemoveListener);
+			transactionAddRemoveListener.removeCallbacks();
 
 			super.onStopLoading();
 		}
@@ -332,12 +348,33 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 			return transactions;
 		}
 
-		private final ThrottelingWalletChangeListener walletChangeListener = new ThrottelingWalletChangeListener()
+		private final ThrottelingWalletChangeListener transactionAddRemoveListener = new ThrottelingWalletChangeListener()
 		{
+			final AtomicBoolean relevant = new AtomicBoolean();
+
+			@Override
+			public void onCoinsReceived(final Wallet wallet, final Transaction tx, final BigInteger prevBalance, final BigInteger newBalance)
+			{
+				relevant.set(true);
+			}
+
+			@Override
+			public void onCoinsSent(final Wallet wallet, final Transaction tx, final BigInteger prevBalance, final BigInteger newBalance)
+			{
+				relevant.set(true);
+			}
+
+			@Override
+			public void onReorganize(final Wallet wallet)
+			{
+				relevant.set(true);
+			}
+
 			@Override
 			public void onThrotteledWalletChanged()
 			{
-				forceLoad();
+				if (relevant.getAndSet(false))
+					forceLoad();
 			}
 		};
 
