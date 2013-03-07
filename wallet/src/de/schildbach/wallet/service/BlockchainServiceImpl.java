@@ -393,21 +393,30 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 
 				peerGroup.addPeerDiscovery(new PeerDiscovery()
 				{
-					private PeerDiscovery normalPeerDiscovery = Constants.TEST ? new IrcDiscovery(Constants.PEER_DISCOVERY_IRC_CHANNEL_TEST)
+					private final PeerDiscovery normalPeerDiscovery = Constants.TEST ? new IrcDiscovery(Constants.PEER_DISCOVERY_IRC_CHANNEL_TEST)
 							: new DnsDiscovery(Constants.NETWORK_PARAMETERS);
 
 					public InetSocketAddress[] getPeers(final long timeoutValue, final TimeUnit timeoutUnit) throws PeerDiscoveryException
 					{
 						final List<InetSocketAddress> peers = new LinkedList<InetSocketAddress>();
 
+						boolean needsTrimPeersWorkaround = false;
+
 						if (hasTrustedPeer)
-							peers.add(new InetSocketAddress(trustedPeerHost, Constants.NETWORK_PARAMETERS.port));
+						{
+							final InetSocketAddress addr = new InetSocketAddress(trustedPeerHost, Constants.NETWORK_PARAMETERS.port);
+							if (addr.getAddress() != null)
+							{
+								peers.add(addr);
+								needsTrimPeersWorkaround = true;
+							}
+						}
 
 						if (!connectTrustedPeerOnly)
 							peers.addAll(Arrays.asList(normalPeerDiscovery.getPeers(timeoutValue, timeoutUnit)));
 
 						// workaround because PeerGroup will shuffle peers
-						if (hasTrustedPeer)
+						if (needsTrimPeersWorkaround)
 							while (peers.size() >= Constants.MAX_CONNECTED_PEERS)
 								peers.remove(peers.size() - 1);
 
