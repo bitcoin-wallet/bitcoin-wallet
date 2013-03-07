@@ -69,6 +69,7 @@ public class ExchangeRatesProvider extends ContentProvider
 	private long lastUpdated = 0;
 
 	private static final int UPDATE_FREQ_MS = 60 * 60 * 1000;
+	private static final int TIMEOUT_MS = 15 * 1000;
 
 	@Override
 	public boolean onCreate()
@@ -161,6 +162,8 @@ public class ExchangeRatesProvider extends ContentProvider
 		{
 			final URL URL = new URL("http://bitcoincharts.com/t/weighted_prices.json");
 			final URLConnection connection = URL.openConnection();
+			connection.setConnectTimeout(TIMEOUT_MS);
+			connection.setReadTimeout(TIMEOUT_MS);
 			connection.connect();
 			final StringBuilder content = new StringBuilder();
 
@@ -216,6 +219,8 @@ public class ExchangeRatesProvider extends ContentProvider
 		{
 			final URL URL = new URL("https://blockchain.info/ticker");
 			final URLConnection connection = URL.openConnection();
+			connection.setConnectTimeout(TIMEOUT_MS);
+			connection.setReadTimeout(TIMEOUT_MS);
 			connection.connect();
 			final StringBuilder content = new StringBuilder();
 
