@@ -85,6 +85,7 @@
 	<string name="send_coins_fragment_fee_label">Fee</string>
 	<string name="send_coins_fragment_button_send">Send</string>
 	<string name="send_coins_fragment_button_back">Back</string>
+	<string name="send_coins_preparation_msg">Signing…</string>
 	<string name="send_coins_sending_msg">Sending…</string>
 	<string name="send_coins_sent_msg">Sent!</string>
 	<string name="send_coins_failed_msg">Failed!</string>

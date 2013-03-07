@@ -123,7 +123,7 @@ public final class SendCoinsFragment extends SherlockFragment implements AmountC
 
 	private enum State
 	{
-		INPUT, SENDING, SENT, FAILED
+		INPUT, PREPARATION, SENDING, SENT, FAILED
 	}
 
 	private final ServiceConnection serviceConnection = new ServiceConnection()
@@ -714,7 +714,7 @@ public final class SendCoinsFragment extends SherlockFragment implements AmountC
 
 	private void handleGo()
 	{
-		state = State.SENDING;
+		state = State.PREPARATION;
 		updateView();
 
 		// create spend
@@ -734,6 +734,9 @@ public final class SendCoinsFragment extends SherlockFragment implements AmountC
 						if (transaction != null)
 						{
 							sentTransaction = transaction;
+
+							state = State.SENDING;
+							updateView();
 
 							sentTransaction.getConfidence().addEventListener(sentTransactionConfidenceListener);
 
@@ -850,7 +853,7 @@ public final class SendCoinsFragment extends SherlockFragment implements AmountC
 			sentTransactionView.setVisibility(View.GONE);
 		}
 
-		viewCancel.setEnabled(state != State.SENDING);
+		viewCancel.setEnabled(state != State.PREPARATION);
 		viewGo.setEnabled(everythingValid());
 
 		if (state == State.INPUT)
@@ -858,9 +861,14 @@ public final class SendCoinsFragment extends SherlockFragment implements AmountC
 			viewCancel.setText(R.string.button_cancel);
 			viewGo.setText(R.string.send_coins_fragment_button_send);
 		}
-		else if (state == State.SENDING)
+		else if (state == State.PREPARATION)
 		{
 			viewCancel.setText(R.string.button_cancel);
+			viewGo.setText(R.string.send_coins_preparation_msg);
+		}
+		else if (state == State.SENDING)
+		{
+			viewCancel.setText(R.string.send_coins_fragment_button_back);
 			viewGo.setText(R.string.send_coins_sending_msg);
 		}
 		else if (state == State.SENT)
