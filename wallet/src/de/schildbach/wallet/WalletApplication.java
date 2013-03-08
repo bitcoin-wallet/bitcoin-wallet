@@ -51,6 +51,7 @@ import com.google.bitcoin.core.ECKey;
 import com.google.bitcoin.core.Wallet;
 import com.google.bitcoin.core.Wallet.AutosaveEventListener;
 import com.google.bitcoin.store.WalletProtobufSerializer;
+import com.google.bitcoin.utils.Locks;
 
 import de.schildbach.wallet.service.BlockchainService;
 import de.schildbach.wallet.service.BlockchainServiceImpl;
@@ -82,6 +83,8 @@ public class WalletApplication extends Application
 		else
 			policy.penaltyLog();
 		StrictMode.setThreadPolicy(policy.build());
+
+		Locks.throwOnLockCycles();
 
 		Log.d(TAG, ".onCreate()");
 
