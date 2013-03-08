@@ -24,7 +24,6 @@ import java.math.BigInteger;
 import java.net.InetSocketAddress;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -137,6 +136,8 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 		@Override
 		public void onCoinsReceived(final Wallet wallet, final Transaction tx, final BigInteger prevBalance, final BigInteger newBalance)
 		{
+			final int bestChainHeight = blockChain.getBestChainHeight();
+
 			try
 			{
 				final Address from;
@@ -158,7 +159,6 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 					public void run()
 					{
 						final boolean isReceived = amount.signum() > 0;
-						final int bestChainHeight = blockChain.getBestChainHeight();
 						final boolean replaying = bestChainHeight < bestChainHeightEver;
 						final boolean isReplayedTx = confidenceType == ConfidenceType.BUILDING && replaying;
 
@@ -320,13 +320,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 			{
 				lastMessageTime.set(System.currentTimeMillis());
 
-				final Date bestChainDate = new Date(blockChain.getChainHead().getHeader().getTimeSeconds() * DateUtils.SECOND_IN_MILLIS);
-				final int bestChainHeight = blockChain.getBestChainHeight();
-				if (bestChainHeight > bestChainHeightEver)
-					bestChainHeightEver = bestChainHeight;
-				final boolean replaying = bestChainHeight < bestChainHeightEver;
-
-				sendBroadcastBlockchainState(bestChainDate, bestChainHeight, replaying, ACTION_BLOCKCHAIN_STATE_DOWNLOAD_OK);
+				sendBroadcastBlockchainState(ACTION_BLOCKCHAIN_STATE_DOWNLOAD_OK);
 			}
 		};
 	};
@@ -455,14 +449,11 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 				wakeLock.release();
 			}
 
-			final Date bestChainDate = new Date(blockChain.getChainHead().getHeader().getTimeSeconds() * DateUtils.SECOND_IN_MILLIS);
-			final int bestChainHeight = blockChain.getBestChainHeight();
 			final int download = (hasConnectivity ? 0 : ACTION_BLOCKCHAIN_STATE_DOWNLOAD_NETWORK_PROBLEM)
 					| (hasPower ? 0 : ACTION_BLOCKCHAIN_STATE_DOWNLOAD_POWER_PROBLEM)
 					| (hasStorage ? 0 : ACTION_BLOCKCHAIN_STATE_DOWNLOAD_STORAGE_PROBLEM);
-			final boolean replaying = bestChainHeight < bestChainHeightEver;
 
-			sendBroadcastBlockchainState(bestChainDate, bestChainHeight, replaying, download);
+			sendBroadcastBlockchainState(download);
 		}
 	};
 
@@ -804,13 +795,15 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 		removeStickyBroadcast(new Intent(ACTION_PEER_STATE));
 	}
 
-	private void sendBroadcastBlockchainState(final Date chainDate, final int chainHeight, final boolean replaying, final int download)
+	private void sendBroadcastBlockchainState(final int download)
 	{
+		final StoredBlock chainHead = blockChain.getChainHead();
+
 		final Intent broadcast = new Intent(ACTION_BLOCKCHAIN_STATE);
 		broadcast.setPackage(getPackageName());
-		broadcast.putExtra(ACTION_BLOCKCHAIN_STATE_BEST_CHAIN_DATE, chainDate);
-		broadcast.putExtra(ACTION_BLOCKCHAIN_STATE_BEST_CHAIN_HEIGHT, chainHeight);
-		broadcast.putExtra(ACTION_BLOCKCHAIN_STATE_REPLAYING, replaying);
+		broadcast.putExtra(ACTION_BLOCKCHAIN_STATE_BEST_CHAIN_DATE, chainHead.getHeader().getTime());
+		broadcast.putExtra(ACTION_BLOCKCHAIN_STATE_BEST_CHAIN_HEIGHT, chainHead.getHeight());
+		broadcast.putExtra(ACTION_BLOCKCHAIN_STATE_REPLAYING, chainHead.getHeight() < bestChainHeightEver);
 		broadcast.putExtra(ACTION_BLOCKCHAIN_STATE_DOWNLOAD, download);
 
 		sendStickyBroadcast(broadcast);
