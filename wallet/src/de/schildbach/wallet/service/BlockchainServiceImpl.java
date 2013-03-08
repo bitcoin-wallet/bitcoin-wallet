@@ -384,12 +384,13 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 				peerGroup.setUserAgent(Constants.USER_AGENT, application.applicationVersionName());
 				peerGroup.addEventListener(peerConnectivityListener);
 
+				final int maxConnectedPeers = application.maxConnectedPeers();
+
 				final String trustedPeerHost = prefs.getString(Constants.PREFS_KEY_TRUSTED_PEER, "").trim();
 				final boolean hasTrustedPeer = trustedPeerHost.length() > 0;
 
 				final boolean connectTrustedPeerOnly = hasTrustedPeer && prefs.getBoolean(Constants.PREFS_KEY_TRUSTED_PEER_ONLY, false);
-
-				peerGroup.setMaxConnections(connectTrustedPeerOnly ? 1 : Constants.MAX_CONNECTED_PEERS);
+				peerGroup.setMaxConnections(connectTrustedPeerOnly ? 1 : maxConnectedPeers);
 
 				peerGroup.addPeerDiscovery(new PeerDiscovery()
 				{
@@ -417,7 +418,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 
 						// workaround because PeerGroup will shuffle peers
 						if (needsTrimPeersWorkaround)
-							while (peers.size() >= Constants.MAX_CONNECTED_PEERS)
+							while (peers.size() >= maxConnectedPeers)
 								peers.remove(peers.size() - 1);
 
 						return peers.toArray(new InetSocketAddress[0]);

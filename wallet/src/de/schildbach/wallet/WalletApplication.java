@@ -34,6 +34,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
+import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
@@ -65,6 +66,7 @@ public class WalletApplication extends Application
 	private Wallet wallet;
 	private Intent blockchainServiceIntent;
 	private Intent blockchainServiceCancelCoinsReceivedIntent;
+	private ActivityManager activityManager;
 
 	private static final Charset UTF_8 = Charset.forName("UTF-8");
 	private static final String TAG = WalletApplication.class.getSimpleName();
@@ -86,6 +88,8 @@ public class WalletApplication extends Application
 		super.onCreate();
 
 		ErrorReporter.getInstance().init(this);
+
+		activityManager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
 
 		blockchainServiceIntent = new Intent(this, BlockchainServiceImpl.class);
 		blockchainServiceCancelCoinsReceivedIntent = new Intent(BlockchainService.ACTION_CANCEL_COINS_RECEIVED, null, this,
@@ -443,5 +447,14 @@ public class WalletApplication extends Application
 		{
 			return "unknown";
 		}
+	}
+
+	public int maxConnectedPeers()
+	{
+		final int memoryClass = activityManager.getMemoryClass();
+		if (memoryClass <= 32)
+			return 4;
+		else
+			return 6;
 	}
 }

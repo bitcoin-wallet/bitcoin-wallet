@@ -54,6 +54,7 @@ public class TransactionsListAdapter extends ArrayAdapter<Transaction>
 	private final Context context;
 	private final LayoutInflater inflater;
 	private final Wallet wallet;
+	private final int maxConnectedPeers;
 
 	private int precision = Constants.BTC_PRECISION;
 
@@ -70,7 +71,7 @@ public class TransactionsListAdapter extends ArrayAdapter<Transaction>
 	private static final String CONFIDENCE_SYMBOL_DEAD = "\u271D"; // latin cross
 	private static final String CONFIDENCE_SYMBOL_UNKNOWN = "?";
 
-	public TransactionsListAdapter(final Context context, final Wallet wallet)
+	public TransactionsListAdapter(final Context context, final Wallet wallet, final int maxConnectedPeers)
 	{
 		super(context, 0);
 
@@ -78,6 +79,7 @@ public class TransactionsListAdapter extends ArrayAdapter<Transaction>
 		inflater = LayoutInflater.from(context);
 
 		this.wallet = wallet;
+		this.maxConnectedPeers = maxConnectedPeers;
 
 		final Resources resources = context.getResources();
 		colorSignificant = resources.getColor(R.color.fg_significant);
@@ -124,7 +126,7 @@ public class TransactionsListAdapter extends ArrayAdapter<Transaction>
 				rowConfidenceCircular.setProgress(1);
 				rowConfidenceCircular.setMaxProgress(1);
 				rowConfidenceCircular.setSize(confidence.numBroadcastPeers());
-				rowConfidenceCircular.setMaxSize(Constants.MAX_CONNECTED_PEERS - 1);
+				rowConfidenceCircular.setMaxSize(maxConnectedPeers - 1);
 				rowConfidenceCircular.setColors(colorInsignificant, colorInsignificant);
 			}
 			else if (confidenceType == ConfidenceType.BUILDING)

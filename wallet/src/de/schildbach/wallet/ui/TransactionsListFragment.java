@@ -132,7 +132,7 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 
 		this.direction = (Direction) getArguments().getSerializable(KEY_DIRECTION);
 
-		adapter = new TransactionsListAdapter(activity, wallet);
+		adapter = new TransactionsListAdapter(activity, wallet, application.maxConnectedPeers());
 		setListAdapter(adapter);
 	}
 

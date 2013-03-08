@@ -376,7 +376,7 @@ public final class SendCoinsFragment extends SherlockFragment implements AmountC
 		feeView.setAmount(Constants.DEFAULT_TX_FEE);
 
 		sentTransactionView = (ListView) view.findViewById(R.id.send_coins_sent_transaction);
-		sentTransactionListAdapter = new TransactionsListAdapter(activity, wallet);
+		sentTransactionListAdapter = new TransactionsListAdapter(activity, wallet, application.maxConnectedPeers());
 		sentTransactionView.setAdapter(sentTransactionListAdapter);
 
 		viewGo = (Button) view.findViewById(R.id.send_coins_go);
