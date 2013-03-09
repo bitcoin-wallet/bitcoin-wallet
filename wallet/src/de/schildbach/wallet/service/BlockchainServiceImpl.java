@@ -686,6 +686,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 		if (peerGroup != null)
 		{
 			peerGroup.removeEventListener(peerConnectivityListener);
+			peerGroup.removeWallet(application.getWallet());
 			peerGroup.stopAndWait();
 		}
 
