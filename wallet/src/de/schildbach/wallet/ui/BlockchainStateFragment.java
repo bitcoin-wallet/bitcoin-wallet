@@ -25,8 +25,11 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -41,9 +44,10 @@ import de.schildbach.wallet_test.R;
 /**
  * @author Andreas Schildbach
  */
-public final class BlockchainStateFragment extends Fragment
+public final class BlockchainStateFragment extends Fragment implements OnSharedPreferenceChangeListener
 {
 	private Activity activity;
+	private SharedPreferences prefs;
 
 	private TextView disclaimerView;
 	private TextView progressView;
@@ -79,6 +83,7 @@ public final class BlockchainStateFragment extends Fragment
 		super.onAttach(activity);
 
 		this.activity = activity;
+		prefs = PreferenceManager.getDefaultSharedPreferences(activity);
 	}
 
 	@Override
@@ -131,12 +136,23 @@ public final class BlockchainStateFragment extends Fragment
 		super.onDestroy();
 	}
 
+	public void onSharedPreferenceChanged(final SharedPreferences sharedPreferences, final String key)
+	{
+		if (Constants.PREFS_KEY_DISCLAIMER.equals(key))
+			updateView();
+	}
+
 	private void updateView()
 	{
+		final boolean disclaimer = prefs.getBoolean(Constants.PREFS_KEY_DISCLAIMER, true);
+
+		final boolean showDisclaimer;
+		final boolean showProgress;
+
 		if (download != BlockchainService.ACTION_BLOCKCHAIN_STATE_DOWNLOAD_OK)
 		{
-			progressView.setVisibility(View.VISIBLE);
-			disclaimerView.setVisibility(View.GONE);
+			showDisclaimer = false;
+			showProgress = true;
 
 			if ((download & BlockchainService.ACTION_BLOCKCHAIN_STATE_DOWNLOAD_STORAGE_PROBLEM) != 0)
 				progressView.setText(R.string.blockchain_state_progress_problem_storage);
@@ -150,8 +166,8 @@ public final class BlockchainStateFragment extends Fragment
 			final long blockchainLagHours = (System.currentTimeMillis() - bestChainDate.getTime()) / 1000 / 60 / 60;
 			final boolean blockchainUptodate = blockchainLagHours < Constants.BLOCKCHAIN_UPTODATE_THRESHOLD_HOURS;
 
-			progressView.setVisibility(blockchainUptodate ? View.GONE : View.VISIBLE);
-			disclaimerView.setVisibility(blockchainUptodate ? View.VISIBLE : View.GONE);
+			showProgress = !blockchainUptodate;
+			showDisclaimer = blockchainUptodate && disclaimer;
 
 			final String downloading = getString(R.string.blockchain_state_progress_downloading);
 			final String stalled = getString(R.string.blockchain_state_progress_stalled);
@@ -189,10 +205,16 @@ public final class BlockchainStateFragment extends Fragment
 		}
 		else
 		{
-			progressView.setVisibility(View.GONE);
-			disclaimerView.setVisibility(View.VISIBLE);
+			showDisclaimer = disclaimer;
+			showProgress = false;
 		}
 
-		replayingView.setVisibility(replaying ? View.VISIBLE : View.GONE);
+		final boolean showReplaying = replaying;
+
+		disclaimerView.setVisibility(showDisclaimer ? View.VISIBLE : View.GONE);
+		progressView.setVisibility(showProgress ? View.VISIBLE : View.GONE);
+		replayingView.setVisibility(showReplaying ? View.VISIBLE : View.GONE);
+
+		getView().setVisibility(showDisclaimer || showProgress || showReplaying ? View.VISIBLE : View.GONE);
 	}
 }

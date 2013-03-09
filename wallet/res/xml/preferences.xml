@@ -53,6 +53,12 @@
 			android:key="btc_precision"
 			android:summary="This does not affect computations. It is used for saving view space only."
 			android:title="Precision of Bitcoin values" />
+
+		<CheckBoxPreference
+			android:defaultValue="true"
+			android:key="disclaimer"
+			android:summary="Have you really read the safety notes? Did you already back up your private keys to a safe place?"
+			android:title="Show disclaimer" />
 	</PreferenceCategory>
 
 </PreferenceScreen>
