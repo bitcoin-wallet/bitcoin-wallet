@@ -113,6 +113,7 @@
 	<string name="request_coins_fragment_nfc_enabled">Oder berühr\'s mit einem NFC-fähigen Gerät.</string>
 	<string name="request_coins_clipboard_msg">Anforderung aufs Clipboard kopiert</string>
 	<string name="request_coins_share_dialog_title">Anforderung veröffentlichen…</string>
+	<string name="request_coins_options_local_app_title">Von lokaler App anfordern</string>
 
 	<string name="address_book_activity_title">Adressbuch</string>
 	<string name="address_book_list_receiving_title">Deine Adressen</string>

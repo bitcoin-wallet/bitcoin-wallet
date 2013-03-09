@@ -23,7 +23,9 @@ import java.util.ArrayList;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ShareCompat.IntentBuilder;
 import android.text.ClipboardManager;
@@ -223,6 +225,10 @@ public final class RequestCoinsFragment extends SherlockFragment implements Amou
 			case R.id.request_coins_options_copy:
 				handleCopy();
 				return true;
+
+			case R.id.request_coins_options_local_app:
+				handleLocalApp();
+				return true;
 		}
 
 		return super.onOptionsItemSelected(item);
@@ -233,6 +239,13 @@ public final class RequestCoinsFragment extends SherlockFragment implements Amou
 		final String request = determineRequestStr();
 		clipboardManager.setText(request);
 		activity.toast(R.string.request_coins_clipboard_msg);
+	}
+
+	private void handleLocalApp()
+	{
+		final Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(determineRequestStr()));
+		startActivity(intent);
+		activity.finish();
 	}
 
 	private void updateView()
