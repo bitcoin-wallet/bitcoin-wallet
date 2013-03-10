@@ -149,6 +149,19 @@
 			android:label="@string/about_title"
 			android:screenOrientation="behind" />
 		<activity
+			android:name="de.schildbach.wallet.ui.ImportKeysActivity"
+			android:configChanges="orientation|keyboard|keyboardHidden"
+			android:theme="@style/My.Theme.Dialog" >
+			<intent-filter android:label="@string/import_keys_intent_filter_action" >
+				<action android:name="android.intent.action.VIEW" />
+
+				<category android:name="android.intent.category.DEFAULT" />
+
+				<data android:mimeType="x-bitcoin/private-keys" />
+				<data android:mimeType="application/octet-stream" />
+			</intent-filter>
+		</activity>
+		<activity
 			android:name="de.schildbach.wallet.ui.ScanActivity"
 			android:configChanges="orientation|keyboard|keyboardHidden"
 			android:screenOrientation="landscape"

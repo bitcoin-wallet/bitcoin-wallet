@@ -39,28 +39,6 @@
 	<string name="wallet_options_safety">Sicherheit</string>
 	<string name="wallet_options_donate">Spenden</string>
 	<string name="wallet_donate_address_label">Spende für Bitcoin Wallet</string>
-	<string name="wallet_import_keys_dialog_title">Private Schlüssel importieren</string>
-	<string name="wallet_import_keys_dialog_message">Wähle eine Import-Datei mit privaten Schlüsseln vom externen oder app-privaten Speicher aus:</string>
-	<string name="wallet_import_keys_dialog_file_security_encrypted">mit Passwort verschlüsselt</string>
-	<string name="wallet_import_keys_dialog_file_security_unencrypted">unverschlüsselt</string>
-	<string name="wallet_import_keys_dialog_file_security_external">externer Speicher</string>
-	<string name="wallet_import_keys_dialog_file_security_internal">app-privater Speicher</string>
-	<string name="wallet_import_keys_dialog_file_created_automatic">automatisch gesichert %s</string>
-	<string name="wallet_import_keys_dialog_file_created_manual">manuell exportiert %s</string>
-	<string name="wallet_import_keys_dialog_button_import">Import</string>
-	<string name="wallet_import_keys_dialog_success_imported">Es wurden %d private Schlüssel importiert.</string>
-	<string name="wallet_import_keys_dialog_success_existing">%d private Schlüssel wurden nicht importiert, weil du sie schon im Wallet hast.</string>
-	<string name="wallet_import_keys_dialog_success_reset">Du musst Deine Blockchain zurücksetzen um dein Guthaben zu aktualisieren. Möchtest Du?</string>
-	<string name="wallet_import_keys_dialog_failure">Private Schlüssel konnten nicht importiert werden:\n\n%s\n\nFalsches Passwort?</string>
-	<string name="wallet_import_keys_dialog_button_reset_blockchain">Zurücksetzen</string>
-	<string name="wallet_export_keys_dialog_title">Private Schlüssel exportieren</string>
-	<string name="wallet_export_keys_dialog_message">Deine privaten Schlüssel werden mit dem gewählten Passwort verschlüsselt und auf den externen Speicher geschrieben.</string>
-	<string name="wallet_export_keys_dialog_button_export">Exportieren</string>
-	<string name="wallet_export_keys_dialog_success">Deine privaten Schlüssel wurden nach\n\n%s\n\nexportiert. Verwahre sie sicher, und verwahre dein Passwort sicher!</string>
-	<string name="wallet_export_keys_dialog_failure">Deine privaten Schlüssel konnten nicht exportiert werden:\n%s</string>
-	<string name="wallet_import_export_keys_dialog_password">Passwort</string>
-	<string name="wallet_import_export_keys_dialog_show">Passwort zeigen</string>
-	<string name="wallet_import_export_keys_dialog_failure_title">Fehler</string>
 	<string name="wallet_low_storage_dialog_title">Interner Speicher wird knapp!</string>
 	<string name="wallet_low_storage_dialog_msg">Bitcoin Wallet nutzt internen Speicher um sich Transaktionen und Blöcke zu merken. Wenn der
 		Speicher vollläuft, wird es nicht mehr funktionieren und Deine Bitcoins sind in Gefahr!\n\nMöchtest Du die
@@ -167,6 +145,34 @@
 	<string name="peer_list_fragment_empty">Keine Peers verbinden</string>
 
 	<string name="block_explorer_activity_title">Block Explorer</string>
+
+	<string name="import_keys_dialog_title">Private Schlüssel importieren</string>
+	<string name="import_keys_dialog_message">Wähle eine Import-Datei mit privaten Schlüsseln vom externen oder app-privaten Speicher aus:</string>
+	<string name="import_keys_dialog_file_security_encrypted">mit Passwort verschlüsselt</string>
+	<string name="import_keys_dialog_file_security_unencrypted">unverschlüsselt</string>
+	<string name="import_keys_dialog_file_security_external">externer Speicher</string>
+	<string name="import_keys_dialog_file_security_internal">app-privater Speicher</string>
+	<string name="import_keys_dialog_file_created_automatic">automatisch gesichert %s</string>
+	<string name="import_keys_dialog_file_created_manual">manuell exportiert %s</string>
+	<string name="import_keys_dialog_button_import">Import</string>
+	<string name="import_keys_dialog_success_imported">Es wurden %d private Schlüssel importiert.</string>
+	<string name="import_keys_dialog_success_existing">%d private Schlüssel wurden nicht importiert, weil du sie schon im Wallet hast.</string>
+	<string name="import_keys_dialog_success_reset">Du musst Deine Blockchain zurücksetzen um dein Guthaben zu aktualisieren. Möchtest Du?</string>
+	<string name="import_keys_dialog_failure">Private Schlüssel konnten nicht importiert werden:\n\n%s\n\nFalsches Passwort?</string>
+	<string name="import_keys_dialog_button_reset_blockchain">Zurücksetzen</string>
+	<string name="export_keys_dialog_title">Private Schlüssel exportieren</string>
+	<string name="export_keys_dialog_message">Deine privaten Schlüssel werden mit dem gewählten Passwort verschlüsselt und auf den externen Speicher geschrieben.</string>
+	<string name="export_keys_dialog_button_export">Exportieren</string>
+	<string name="export_keys_dialog_success">Deine privaten Schlüssel wurden nach\n\n%s\n\nexportiert. Verwahre sie sicher, und verwahre dein Passwort sicher!\n\nMöchtest du die Schlüssel mittels einer App archivieren?</string>
+	<string name="export_keys_dialog_failure">Deine privaten Schlüssel konnten nicht exportiert werden:\n%s</string>
+	<string name="export_keys_dialog_button_archive">Archivieren</string>
+	<string name="export_keys_dialog_mail_subject">Bitcoin Wallet Backup der privaten Schlüssel</string>
+	<string name="export_keys_dialog_mail_text">Die verschlüsselte Datei im Anhang enthält private Bitcoin-Schlüssel und sollte sicher verwahrt werden. Vergiss das Verschlüsselungs-Passwort nicht!</string>
+	<string name="export_keys_dialog_mail_intent_chooser">Schlüssel archivieren mit…</string>
+	<string name="import_export_keys_dialog_password">Passwort</string>
+	<string name="import_export_keys_dialog_show">Passwort zeigen</string>
+	<string name="import_export_keys_dialog_failure_title">Fehler</string>
+	<string name="import_keys_intent_filter_action">Bitcoin Schlüssel-Import</string>
 
 	<string name="scan_camera_problem_dialog_title">Sorry</string>
 	<string name="scan_camera_problem_dialog_message">Die Kamera hat ein Problem. Evtl. musst du dein Gerät neu starten.</string>

@@ -5,33 +5,20 @@
 	android:layout_margin="8dp"
 	android:orientation="vertical" >
 
-	<TextView
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:layout_marginBottom="@dimen/list_entry_padding_vertical"
-		android:layout_marginLeft="@dimen/list_entry_padding_horizontal"
-		android:layout_marginRight="@dimen/list_entry_padding_horizontal"
-		android:layout_marginTop="@dimen/list_entry_padding_vertical"
-		android:text="@string/wallet_export_keys_dialog_message"
-		android:textSize="@dimen/font_size_normal" />
-
 	<EditText
-		android:id="@+id/wallet_export_keys_password"
+		android:id="@+id/import_keys_from_content_dialog_password"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:layout_marginLeft="@dimen/list_entry_padding_horizontal"
 		android:layout_marginRight="@dimen/list_entry_padding_horizontal"
 		android:layout_marginTop="@dimen/list_entry_padding_vertical"
-		android:hint="@string/wallet_import_export_keys_dialog_password"
+		android:hint="@string/import_export_keys_dialog_password"
 		android:inputType="textPassword"
 		android:singleLine="true"
-		android:textSize="@dimen/font_size_normal" >
-
-		<requestFocus />
-	</EditText>
+		android:textSize="@dimen/font_size_normal" />
 
 	<CheckBox
-		android:id="@+id/wallet_export_keys_show"
+		android:id="@+id/import_keys_from_content_dialog_show"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:layout_marginBottom="@dimen/list_entry_padding_vertical"
@@ -39,7 +26,7 @@
 		android:layout_marginRight="@dimen/list_entry_padding_horizontal"
 		android:layout_marginTop="@dimen/list_entry_padding_vertical"
 		android:checked="false"
-		android:text="@string/wallet_import_export_keys_dialog_show"
+		android:text="@string/import_export_keys_dialog_show"
 		android:textSize="@dimen/font_size_normal" />
 
 </LinearLayout>

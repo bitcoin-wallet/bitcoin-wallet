@@ -38,11 +38,11 @@
 			<item
 				android:id="@+id/wallet_options_export_keys"
 				android:showAsAction="never"
-				android:title="@string/wallet_export_keys_dialog_title"/>
+				android:title="@string/export_keys_dialog_title"/>
 			<item
 				android:id="@+id/wallet_options_import_keys"
 				android:showAsAction="never"
-				android:title="@string/wallet_import_keys_dialog_title"/>
+				android:title="@string/import_keys_dialog_title"/>
 		</menu>
 	</item>
 	<item
