@@ -129,8 +129,11 @@ public final class CameraManager
 
 	public void close()
 	{
-		camera.stopPreview();
-		camera.release();
+		if (camera != null)
+		{
+			camera.stopPreview();
+			camera.release();
+		}
 	}
 
 	private static final Comparator<Camera.Size> numPixelComparator = new Comparator<Camera.Size>()
