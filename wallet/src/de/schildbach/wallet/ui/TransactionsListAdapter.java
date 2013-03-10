@@ -192,11 +192,10 @@ public class TransactionsListAdapter extends ArrayAdapter<Transaction>
 			rowAddress.setText(label != null ? label : address.toString());
 			rowAddress.setTypeface(label != null ? Typeface.DEFAULT : Typeface.MONOSPACE);
 
-			final CurrencyAmountView rowValue = (CurrencyAmountView) row.findViewById(R.id.transaction_row_value);
-			rowValue.setCurrencyCode(null);
-			rowValue.setAmountSigned(true);
-			rowValue.setPrecision(precision);
+			final CurrencyTextView rowValue = (CurrencyTextView) row.findViewById(R.id.transaction_row_value);
 			rowValue.setTextColor(textColor);
+			rowValue.setAlwaysSigned(true);
+			rowValue.setPrecision(precision);
 			rowValue.setAmount(value);
 
 			final View rowExtend = row.findViewById(R.id.transaction_row_extend);

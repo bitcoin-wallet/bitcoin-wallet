@@ -5,34 +5,19 @@
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
 	android:gravity="center"
-	android:orientation="vertical"
-	tools:ignore="RequiredSize" >
+	android:orientation="vertical" >
 
-	<de.schildbach.wallet.ui.CurrencyAmountView
+	<de.schildbach.wallet.ui.CurrencyTextView
 		android:id="@+id/wallet_balance"
 		android:layout_width="wrap_content"
-		android:layout_height="wrap_content" >
+		android:layout_height="wrap_content"
+		android:textSize="@dimen/font_size_huge" />
 
-		<TextView
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_gravity="center"
-			android:enabled="false"
-			android:textSize="@dimen/font_size_huge" />
-	</de.schildbach.wallet.ui.CurrencyAmountView>
-
-	<de.schildbach.wallet.ui.CurrencyAmountView
+	<de.schildbach.wallet.ui.CurrencyTextView
 		android:id="@+id/wallet_balance_local"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_marginBottom="12dp" >
-
-		<TextView
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_gravity="center"
-			android:enabled="false"
-			android:textSize="@dimen/font_size_small" />
-	</de.schildbach.wallet.ui.CurrencyAmountView>
+		android:layout_marginBottom="12dp"
+		android:textSize="@dimen/font_size_small" />
 
 </LinearLayout>

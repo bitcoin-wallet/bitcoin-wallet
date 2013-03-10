@@ -682,7 +682,8 @@ public final class SendCoinsFragment extends SherlockFragment implements AmountC
 	{
 		dismissPopup();
 
-		final CurrencyAmountView viewAvailable = (CurrencyAmountView) popupAvailableView.findViewById(R.id.send_coins_popup_available_amount);
+		final CurrencyTextView viewAvailable = (CurrencyTextView) popupAvailableView.findViewById(R.id.send_coins_popup_available_amount);
+		viewAvailable.setPrefix(Constants.CURRENCY_CODE_BITCOIN);
 		viewAvailable.setAmount(available);
 
 		final TextView viewPending = (TextView) popupAvailableView.findViewById(R.id.send_coins_popup_available_pending);

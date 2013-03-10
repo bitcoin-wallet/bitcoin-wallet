@@ -117,13 +117,11 @@ public final class ExchangeRatesFragment extends ListFragment implements LoaderM
 				final TextView currencyCodeView = (TextView) view.findViewById(R.id.exchange_rate_row_currency_code);
 				currencyCodeView.setText(exchangeRate.currencyCode);
 
-				final CurrencyAmountView rateView = (CurrencyAmountView) view.findViewById(R.id.exchange_rate_row_rate);
-				rateView.setCurrencyCode(null);
+				final CurrencyTextView rateView = (CurrencyTextView) view.findViewById(R.id.exchange_rate_row_rate);
 				rateView.setPrecision(Constants.LOCAL_PRECISION);
 				rateView.setAmount(WalletUtils.localValue(Utils.COIN, exchangeRate.rate));
 
-				final CurrencyAmountView walletView = (CurrencyAmountView) view.findViewById(R.id.exchange_rate_row_balance);
-				walletView.setCurrencyCode(null);
+				final CurrencyTextView walletView = (CurrencyTextView) view.findViewById(R.id.exchange_rate_row_balance);
 				walletView.setPrecision(Constants.LOCAL_PRECISION);
 				walletView.setAmount(WalletUtils.localValue(balance, exchangeRate.rate));
 				walletView.setStrikeThru(Constants.TEST);

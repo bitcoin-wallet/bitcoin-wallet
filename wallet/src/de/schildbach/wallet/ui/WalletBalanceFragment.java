@@ -60,8 +60,8 @@ public final class WalletBalanceFragment extends Fragment
 	private LoaderManager loaderManager;
 	private SharedPreferences prefs;
 
-	private CurrencyAmountView viewBalance;
-	private CurrencyAmountView viewBalanceLocal;
+	private CurrencyTextView viewBalance;
+	private CurrencyTextView viewBalanceLocal;
 
 	private boolean showLocalBalance;
 
@@ -116,11 +116,12 @@ public final class WalletBalanceFragment extends Fragment
 	{
 		super.onViewCreated(view, savedInstanceState);
 
-		viewBalance = (CurrencyAmountView) view.findViewById(R.id.wallet_balance);
+		viewBalance = (CurrencyTextView) view.findViewById(R.id.wallet_balance);
+		viewBalance.setPrefix(Constants.CURRENCY_CODE_BITCOIN);
 
-		viewBalanceLocal = (CurrencyAmountView) view.findViewById(R.id.wallet_balance_local);
+		viewBalanceLocal = (CurrencyTextView) view.findViewById(R.id.wallet_balance_local);
 		viewBalanceLocal.setPrecision(Constants.LOCAL_PRECISION);
-		viewBalanceLocal.setSmallerInsignificant(false);
+		viewBalanceLocal.setInsignificantRelativeSize(1);
 		viewBalanceLocal.setStrikeThru(Constants.TEST);
 	}
 
@@ -162,7 +163,7 @@ public final class WalletBalanceFragment extends Fragment
 					final BigInteger balance = wallet.getBalance(BalanceType.ESTIMATED);
 					final BigInteger localValue = WalletUtils.localValue(balance, exchangeRate.rate);
 					viewBalanceLocal.setVisibility(View.VISIBLE);
-					viewBalanceLocal.setCurrencyCode(Constants.PREFIX_ALMOST_EQUAL_TO + exchangeRate.currencyCode);
+					viewBalanceLocal.setPrefix(Constants.PREFIX_ALMOST_EQUAL_TO + exchangeRate.currencyCode);
 					viewBalanceLocal.setAmount(localValue);
 					viewBalanceLocal.setTextColor(getResources().getColor(R.color.fg_less_significant));
 				}

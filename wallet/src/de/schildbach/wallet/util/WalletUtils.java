@@ -165,21 +165,22 @@ public class WalletUtils
 	}
 
 	private static final Pattern P_SIGNIFICANT = Pattern.compile("^([-+]" + Constants.CHAR_THIN_SPACE + ")?\\d*(\\.\\d{0,2})?");
-	private static Object SIGNIFICANT_SPAN = new StyleSpan(Typeface.BOLD);
-	private static Object UNSIGNIFICANT_SPAN = new RelativeSizeSpan(0.85f);
+	private static final Object SIGNIFICANT_SPAN = new StyleSpan(Typeface.BOLD);
+	public static final RelativeSizeSpan SMALLER_SPAN = new RelativeSizeSpan(0.85f);
 
-	public static void formatSignificant(final Editable s, final boolean smallerInsignificant)
+	public static void formatSignificant(final Editable s, final RelativeSizeSpan insignificantRelativeSizeSpan)
 	{
 		s.removeSpan(SIGNIFICANT_SPAN);
-		s.removeSpan(UNSIGNIFICANT_SPAN);
+		if (insignificantRelativeSizeSpan != null)
+			s.removeSpan(insignificantRelativeSizeSpan);
 
 		final Matcher m = P_SIGNIFICANT.matcher(s);
 		if (m.find())
 		{
 			final int pivot = m.group().length();
-			s.setSpan(SIGNIFICANT_SPAN, 0, pivot, 0);
-			if (s.length() > pivot && smallerInsignificant)
-				s.setSpan(UNSIGNIFICANT_SPAN, pivot, s.length(), 0);
+			s.setSpan(SIGNIFICANT_SPAN, 0, pivot, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+			if (s.length() > pivot && insignificantRelativeSizeSpan != null)
+				s.setSpan(insignificantRelativeSizeSpan, pivot, s.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 		}
 	}
 

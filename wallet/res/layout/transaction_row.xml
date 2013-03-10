@@ -12,6 +12,7 @@
 	<LinearLayout
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
+		android:baselineAligned="true"
 		android:orientation="horizontal" >
 
 		<de.schildbach.wallet.util.CircularProgressView
@@ -54,19 +55,13 @@
 			android:singleLine="true"
 			android:textSize="@dimen/font_size_normal" />
 
-		<de.schildbach.wallet.ui.CurrencyAmountView
+		<de.schildbach.wallet.ui.CurrencyTextView
 			android:id="@+id/transaction_row_value"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_gravity="right"
-			android:layout_marginLeft="8dp" >
-
-			<TextView
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:enabled="false"
-				android:textSize="@dimen/font_size_normal" />
-		</de.schildbach.wallet.ui.CurrencyAmountView>
+			android:layout_marginLeft="8dp"
+			android:textSize="@dimen/font_size_normal" />
 	</LinearLayout>
 
 	<LinearLayout

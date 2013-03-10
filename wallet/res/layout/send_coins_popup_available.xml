@@ -13,18 +13,11 @@
 		android:textSize="@dimen/font_size_small"
 		android:textStyle="bold" />
 
-	<de.schildbach.wallet.ui.CurrencyAmountView
+	<de.schildbach.wallet.ui.CurrencyTextView
 		android:id="@+id/send_coins_popup_available_amount"
 		android:layout_width="match_parent"
-		android:layout_height="wrap_content" >
-
-		<TextView
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:enabled="false"
-			android:focusable="false"
-			android:textSize="@dimen/font_size_xlarge" />
-	</de.schildbach.wallet.ui.CurrencyAmountView>
+		android:layout_height="wrap_content"
+		android:textSize="@dimen/font_size_xlarge" />
 
 	<TextView
 		android:id="@+id/send_coins_popup_available_pending"

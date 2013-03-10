@@ -203,7 +203,7 @@ public final class CurrencyAmountView extends FrameLayout
 		else
 			hint = new SpannableStringBuilder("0.00");
 
-		WalletUtils.formatSignificant(hint, smallerInsignificant);
+		WalletUtils.formatSignificant(hint, smallerInsignificant ? WalletUtils.SMALLER_SPAN : null);
 		textView.setHint(hint);
 	}
 
@@ -327,7 +327,7 @@ public final class CurrencyAmountView extends FrameLayout
 				s.append(replaced);
 			}
 
-			WalletUtils.formatSignificant(s, smallerInsignificant);
+			WalletUtils.formatSignificant(s, smallerInsignificant ? WalletUtils.SMALLER_SPAN : null);
 		}
 
 		public void beforeTextChanged(final CharSequence s, final int start, final int count, final int after)
