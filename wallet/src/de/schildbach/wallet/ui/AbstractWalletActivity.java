@@ -21,16 +21,13 @@ import java.util.Locale;
 
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 
 import de.schildbach.wallet.Constants;
@@ -50,15 +47,6 @@ public abstract class AbstractWalletActivity extends SherlockFragmentActivity
 		super.onCreate(savedInstanceState);
 
 		application = (WalletApplication) getApplication();
-	}
-
-	@Override
-	protected void onStart()
-	{
-		super.onStart();
-
-		final ActionBar actionBar = getSupportActionBar();
-		actionBar.setIcon(R.drawable.app_icon);
 	}
 
 	protected WalletApplication getWalletApplication()
