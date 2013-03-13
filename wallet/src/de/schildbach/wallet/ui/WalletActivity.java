@@ -699,20 +699,43 @@ public final class WalletActivity extends AbstractWalletActivity
 			final List<ECKey> importedKeys = WalletUtils.readKeys(keyReader);
 			keyReader.close();
 
+			final int numKeysToImport = importedKeys.size();
 			final int numKeysImported = wallet.addKeys(importedKeys);
 
 			final AlertDialog.Builder dialog = new AlertDialog.Builder(this);
 			dialog.setInverseBackgroundForced(true);
-			dialog.setMessage(getString(R.string.wallet_import_keys_dialog_success, numKeysImported));
-			dialog.setPositiveButton(R.string.wallet_import_keys_dialog_button_reset_blockchain, new DialogInterface.OnClickListener()
+			final StringBuilder message = new StringBuilder();
+			if (numKeysImported > 0)
+				message.append(getString(R.string.wallet_import_keys_dialog_success_imported, numKeysImported));
+			if (numKeysImported < numKeysToImport)
 			{
-				public void onClick(final DialogInterface dialog, final int id)
+				if (message.length() > 0)
+					message.append('\n');
+				message.append(getString(R.string.wallet_import_keys_dialog_success_existing, numKeysToImport - numKeysImported));
+			}
+			if (numKeysImported > 0)
+			{
+				if (message.length() > 0)
+					message.append("\n\n");
+				message.append(getString(R.string.wallet_import_keys_dialog_success_reset));
+			}
+			dialog.setMessage(message);
+			if (numKeysImported > 0)
+			{
+				dialog.setPositiveButton(R.string.wallet_import_keys_dialog_button_reset_blockchain, new DialogInterface.OnClickListener()
 				{
-					getWalletApplication().resetBlockchain();
-					finish();
-				}
-			});
-			dialog.setNegativeButton(R.string.button_dismiss, null);
+					public void onClick(final DialogInterface dialog, final int id)
+					{
+						getWalletApplication().resetBlockchain();
+						finish();
+					}
+				});
+				dialog.setNegativeButton(R.string.button_dismiss, null);
+			}
+			else
+			{
+				dialog.setNeutralButton(R.string.button_dismiss, null);
+			}
 			dialog.show();
 		}
 		catch (final IOException x)

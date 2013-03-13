@@ -46,7 +46,9 @@
 	<string name="wallet_import_keys_dialog_file_created_automatic">automatic backup %s</string>
 	<string name="wallet_import_keys_dialog_file_created_manual">manually exported %s</string>
 	<string name="wallet_import_keys_dialog_button_import">Import</string>
-	<string name="wallet_import_keys_dialog_success">%d private keys were imported.\n\nYou need to reset your blockchain in order to update your balance. Would you like to?</string>
+	<string name="wallet_import_keys_dialog_success_imported">%d private keys were imported.</string>
+	<string name="wallet_import_keys_dialog_success_existing">%d private keys were not imported, because you already have them in your wallet.</string>
+	<string name="wallet_import_keys_dialog_success_reset">You need to reset your blockchain in order to update your balance. Would you like to?</string>
 	<string name="wallet_import_keys_dialog_failure">Private keys could not be imported:\n\n%s\n\nBad password?</string>
 	<string name="wallet_import_keys_dialog_button_reset_blockchain">Reset</string>
 	<string name="wallet_export_keys_dialog_title">Export private keys</string>
