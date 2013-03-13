@@ -20,6 +20,7 @@ package de.schildbach.wallet.service;
 import java.util.List;
 
 import com.google.bitcoin.core.Peer;
+import com.google.bitcoin.core.StoredBlock;
 import com.google.bitcoin.core.Transaction;
 
 import de.schildbach.wallet_test.R;
@@ -48,4 +49,6 @@ public interface BlockchainService
 	void broadcastTransaction(Transaction tx);
 
 	List<Peer> getConnectedPeers();
+
+	List<StoredBlock> getRecentBlocks(int maxBlocks);
 }

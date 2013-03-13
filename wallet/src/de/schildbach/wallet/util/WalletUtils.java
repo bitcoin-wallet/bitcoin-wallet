@@ -104,20 +104,20 @@ public class WalletUtils
 
 	public static Editable formatAddress(final Address address, final int groupSize, final int lineSize)
 	{
-		return formatAddress(address.toString(), groupSize, lineSize);
+		return formatHash(address.toString(), groupSize, lineSize);
 	}
 
 	public static Editable formatAddress(final String prefix, final Address address, final int groupSize, final int lineSize)
 	{
-		return formatAddress(prefix, address.toString(), groupSize, lineSize);
+		return formatHash(prefix, address.toString(), groupSize, lineSize, Constants.CHAR_THIN_SPACE);
 	}
 
-	public static Editable formatAddress(final String address, final int groupSize, final int lineSize)
+	public static Editable formatHash(final String address, final int groupSize, final int lineSize)
 	{
-		return formatAddress(null, address, groupSize, lineSize);
+		return formatHash(null, address, groupSize, lineSize, Constants.CHAR_THIN_SPACE);
 	}
 
-	public static Editable formatAddress(final String prefix, final String address, final int groupSize, final int lineSize)
+	public static Editable formatHash(final String prefix, final String address, final int groupSize, final int lineSize, final char groupSeparator)
 	{
 		final SpannableStringBuilder builder = prefix != null ? new SpannableStringBuilder(prefix) : new SpannableStringBuilder();
 
@@ -132,7 +132,7 @@ public class WalletUtils
 			if (end < len)
 			{
 				final boolean endOfLine = lineSize > 0 && end % lineSize == 0;
-				builder.append(endOfLine ? '\n' : Constants.CHAR_THIN_SPACE);
+				builder.append(endOfLine ? '\n' : groupSeparator);
 			}
 		}
 

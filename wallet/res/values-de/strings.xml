@@ -166,6 +166,8 @@
 
 	<string name="peer_list_fragment_empty">Keine Peers verbinden</string>
 
+	<string name="block_explorer_activity_title">Block Explorer</string>
+
 	<string name="scan_camera_problem_dialog_title">Sorry</string>
 	<string name="scan_camera_problem_dialog_message">Die Kamera hat ein Problem. Evtl. musst du dein Gerät neu starten.</string>
 

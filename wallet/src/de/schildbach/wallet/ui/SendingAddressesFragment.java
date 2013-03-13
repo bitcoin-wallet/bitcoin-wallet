@@ -102,7 +102,7 @@ public final class SendingAddressesFragment extends SherlockListFragment impleme
 				if (!AddressBookProvider.KEY_ADDRESS.equals(cursor.getColumnName(columnIndex)))
 					return false;
 
-				((TextView) view).setText(WalletUtils.formatAddress(cursor.getString(columnIndex), Constants.ADDRESS_FORMAT_GROUP_SIZE,
+				((TextView) view).setText(WalletUtils.formatHash(cursor.getString(columnIndex), Constants.ADDRESS_FORMAT_GROUP_SIZE,
 						Constants.ADDRESS_FORMAT_LINE_SIZE));
 
 				return true;

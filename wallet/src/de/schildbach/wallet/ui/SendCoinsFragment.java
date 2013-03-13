@@ -794,7 +794,7 @@ public final class SendCoinsFragment extends SherlockFragment implements AmountC
 			final TextView labelView = (TextView) viewGroup.findViewById(R.id.address_book_row_label);
 			labelView.setText(label);
 			final TextView addressView = (TextView) viewGroup.findViewById(R.id.address_book_row_address);
-			addressView.setText(WalletUtils.formatAddress(address, Constants.ADDRESS_FORMAT_GROUP_SIZE, Constants.ADDRESS_FORMAT_LINE_SIZE));
+			addressView.setText(WalletUtils.formatHash(address, Constants.ADDRESS_FORMAT_GROUP_SIZE, Constants.ADDRESS_FORMAT_LINE_SIZE));
 		}
 
 		@Override

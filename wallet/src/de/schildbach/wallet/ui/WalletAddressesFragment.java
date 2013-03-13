@@ -171,7 +171,7 @@ public final class WalletAddressesFragment extends SherlockListFragment
 
 				final String address = key.toAddress(Constants.NETWORK_PARAMETERS).toString();
 				final String label = AddressBookProvider.resolveLabel(activity, address);
-				mode.setTitle(label != null ? label : WalletUtils.formatAddress(address, Constants.ADDRESS_FORMAT_GROUP_SIZE, 0));
+				mode.setTitle(label != null ? label : WalletUtils.formatHash(address, Constants.ADDRESS_FORMAT_GROUP_SIZE, 0));
 
 				return true;
 			}

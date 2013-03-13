@@ -137,6 +137,11 @@
 			android:label="@string/peer_monitor_activity_title"
 			android:screenOrientation="behind" />
 		<activity
+			android:name="de.schildbach.wallet.ui.BlockExplorerActivity"
+			android:configChanges="keyboard|keyboardHidden"
+			android:label="@string/block_explorer_activity_title"
+			android:screenOrientation="behind" />
+		<activity
 			android:name="de.schildbach.wallet.ui.PreferencesActivity"
 			android:label="@string/preferences_title"
 			android:screenOrientation="behind" />

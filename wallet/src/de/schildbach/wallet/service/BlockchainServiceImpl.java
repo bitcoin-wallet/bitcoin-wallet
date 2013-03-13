@@ -24,6 +24,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.math.BigInteger;
 import java.net.InetSocketAddress;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.LinkedList;
@@ -65,6 +66,7 @@ import com.google.bitcoin.core.Peer;
 import com.google.bitcoin.core.PeerEventListener;
 import com.google.bitcoin.core.PeerGroup;
 import com.google.bitcoin.core.ScriptException;
+import com.google.bitcoin.core.StoredBlock;
 import com.google.bitcoin.core.Transaction;
 import com.google.bitcoin.core.TransactionConfidence.ConfidenceType;
 import com.google.bitcoin.core.TransactionInput;
@@ -746,6 +748,35 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 			return peerGroup.getConnectedPeers();
 		else
 			return null;
+	}
+
+	public List<StoredBlock> getRecentBlocks(final int maxBlocks)
+	{
+		final List<StoredBlock> blocks = new ArrayList<StoredBlock>(maxBlocks);
+
+		try
+		{
+			StoredBlock block = blockChain.getChainHead();
+			if (block != null)
+			{
+				blocks.add(block);
+
+				while (blocks.size() < maxBlocks)
+				{
+					block = block.getPrev(blockChain.getBlockStore());
+					if (block == null)
+						break;
+
+					blocks.add(block);
+				}
+			}
+		}
+		catch (final BlockStoreException x)
+		{
+			// swallow
+		}
+
+		return blocks;
 	}
 
 	private void sendBroadcastPeerState(final int numPeers)
