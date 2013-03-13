@@ -1,3 +1,10 @@
+2.45
+
+* new labs feature: block explorer
+* request coins from locally installed app
+* save memory and stack
+* based on bitcoinj 0.7.2
+
 2.44
 
 * bugfixes
@@ -10,6 +17,7 @@
 
 * fixed crash on Froyo (Android 2.2) devices
 * allow importing private keys from automatic backups
+* based on bitcoinj 0.7.1
 
 2.41
 
