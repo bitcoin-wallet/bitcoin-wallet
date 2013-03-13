@@ -26,6 +26,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
@@ -35,12 +36,14 @@ import android.text.format.DateUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockListFragment;
 import com.google.bitcoin.core.Block;
 import com.google.bitcoin.core.StoredBlock;
 
+import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.service.BlockchainService;
 import de.schildbach.wallet.service.BlockchainServiceImpl;
 import de.schildbach.wallet.util.WalletUtils;
@@ -104,12 +107,6 @@ public final class BlockListFragment extends SherlockListFragment implements Loa
 
 				return row;
 			}
-
-			@Override
-			public boolean isEnabled(final int position)
-			{
-				return false;
-			}
 		};
 		setListAdapter(adapter);
 	}
@@ -138,6 +135,15 @@ public final class BlockListFragment extends SherlockListFragment implements Loa
 		activity.unbindService(serviceConnection);
 
 		super.onDestroy();
+	}
+
+	@Override
+	public void onListItemClick(final ListView l, final View v, final int position, final long id)
+	{
+		final StoredBlock storedBlock = adapter.getItem(position);
+		final Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.BLOCKEXPLORER_BASE_URL + "block/"
+				+ storedBlock.getHeader().getHashAsString()));
+		startActivity(intent);
 	}
 
 	private final ServiceConnection serviceConnection = new ServiceConnection()
