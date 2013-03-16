@@ -17,6 +17,7 @@
 
 package de.schildbach.wallet.ui;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
@@ -35,7 +36,7 @@ import android.support.v4.content.Loader;
 import android.text.format.DateUtils;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -56,7 +57,9 @@ public final class BlockListFragment extends SherlockListFragment implements Loa
 {
 	private AbstractWalletActivity activity;
 	private BlockchainService service;
-	private ArrayAdapter<StoredBlock> adapter;
+	private BlockListAdapter adapter;
+
+	private final List<StoredBlock> blocks = new ArrayList<StoredBlock>(MAX_BLOCKS);
 
 	private static final int ID_BLOCK_LOADER = 0;
 
@@ -83,31 +86,7 @@ public final class BlockListFragment extends SherlockListFragment implements Loa
 	{
 		super.onCreate(savedInstanceState);
 
-		adapter = new ArrayAdapter<StoredBlock>(activity, 0)
-		{
-			@Override
-			public View getView(final int position, View row, final ViewGroup parent)
-			{
-				if (row == null)
-					row = getLayoutInflater(null).inflate(R.layout.block_list_row, null);
-
-				final StoredBlock storedBlock = getItem(position);
-				final Block header = storedBlock.getHeader();
-
-				final TextView rowHeight = (TextView) row.findViewById(R.id.block_list_row_height);
-				final int height = storedBlock.getHeight();
-				rowHeight.setText(Integer.toString(height));
-
-				final TextView rowTime = (TextView) row.findViewById(R.id.block_list_row_time);
-				final long timeMs = header.getTimeSeconds() * 1000;
-				rowTime.setText(DateUtils.getRelativeDateTimeString(activity, timeMs, DateUtils.MINUTE_IN_MILLIS, DateUtils.WEEK_IN_MILLIS, 0));
-
-				final TextView rowHash = (TextView) row.findViewById(R.id.block_list_row_hash);
-				rowHash.setText(WalletUtils.formatHash(null, header.getHashAsString(), 8, 0, ' '));
-
-				return row;
-			}
-		};
+		adapter = new BlockListAdapter();
 		setListAdapter(adapter);
 	}
 
@@ -172,6 +151,52 @@ public final class BlockListFragment extends SherlockListFragment implements Loa
 		}
 	};
 
+	private final class BlockListAdapter extends BaseAdapter
+	{
+		public int getCount()
+		{
+			return blocks.size();
+		}
+
+		public StoredBlock getItem(final int position)
+		{
+			return blocks.get(position);
+		}
+
+		public long getItemId(final int position)
+		{
+			return WalletUtils.longHash(blocks.get(position).getHeader().getHash());
+		}
+
+		@Override
+		public boolean hasStableIds()
+		{
+			return true;
+		}
+
+		public View getView(final int position, View row, final ViewGroup parent)
+		{
+			if (row == null)
+				row = getLayoutInflater(null).inflate(R.layout.block_list_row, null);
+
+			final StoredBlock storedBlock = getItem(position);
+			final Block header = storedBlock.getHeader();
+
+			final TextView rowHeight = (TextView) row.findViewById(R.id.block_list_row_height);
+			final int height = storedBlock.getHeight();
+			rowHeight.setText(Integer.toString(height));
+
+			final TextView rowTime = (TextView) row.findViewById(R.id.block_list_row_time);
+			final long timeMs = header.getTimeSeconds() * 1000;
+			rowTime.setText(DateUtils.getRelativeDateTimeString(activity, timeMs, DateUtils.MINUTE_IN_MILLIS, DateUtils.WEEK_IN_MILLIS, 0));
+
+			final TextView rowHash = (TextView) row.findViewById(R.id.block_list_row_hash);
+			rowHash.setText(WalletUtils.formatHash(null, header.getHashAsString(), 8, 0, ' '));
+
+			return row;
+		}
+	}
+
 	public Loader<List<StoredBlock>> onCreateLoader(final int id, final Bundle args)
 	{
 		return new BlockLoader(activity, service);
@@ -179,16 +204,17 @@ public final class BlockListFragment extends SherlockListFragment implements Loa
 
 	public void onLoadFinished(final Loader<List<StoredBlock>> loader, final List<StoredBlock> blocks)
 	{
-		adapter.clear();
+		BlockListFragment.this.blocks.clear();
+		BlockListFragment.this.blocks.addAll(blocks);
 
-		if (blocks != null)
-			for (final StoredBlock block : blocks)
-				adapter.add(block);
+		adapter.notifyDataSetChanged();
 	}
 
 	public void onLoaderReset(final Loader<List<StoredBlock>> loader)
 	{
-		adapter.clear();
+		blocks.clear();
+
+		adapter.notifyDataSetChanged();
 	}
 
 	private static class BlockLoader extends AsyncTaskLoader<List<StoredBlock>>
