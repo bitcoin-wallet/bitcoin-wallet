@@ -113,6 +113,9 @@
 				<groupId>com.jayway.maven.plugins.android.generation2</groupId>
 				<artifactId>android-maven-plugin</artifactId>
 				<configuration>
+					<excludeJarResources>
+						<excludeJarResource>.*\.jar$</excludeJarResource>
+					</excludeJarResources>
 					<sdk>
 						<platform>14</platform>
 					</sdk>
