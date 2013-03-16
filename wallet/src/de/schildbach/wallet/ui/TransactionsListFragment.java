@@ -24,6 +24,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import android.app.Activity;
@@ -272,26 +273,12 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 
 	public Loader<List<Transaction>> onCreateLoader(final int id, final Bundle args)
 	{
-		return new TransactionsLoader(activity, wallet);
+		return new TransactionsLoader(activity, wallet, direction);
 	}
 
 	public void onLoadFinished(final Loader<List<Transaction>> loader, final List<Transaction> transactions)
 	{
-		adapter.clear();
-
-		try
-		{
-			for (final Transaction tx : transactions)
-			{
-				final boolean sent = tx.getValue(wallet).signum() < 0;
-				if ((direction == Direction.RECEIVED && !sent) || direction == null || (direction == Direction.SENT && sent))
-					adapter.add(tx);
-			}
-		}
-		catch (final ScriptException x)
-		{
-			throw new RuntimeException(x);
-		}
+		adapter.replace(transactions);
 	}
 
 	public void onLoaderReset(final Loader<List<Transaction>> loader)
@@ -311,12 +298,14 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 	private static class TransactionsLoader extends AsyncTaskLoader<List<Transaction>>
 	{
 		private final Wallet wallet;
+		private final Direction direction;
 
-		private TransactionsLoader(final Context context, final Wallet wallet)
+		private TransactionsLoader(final Context context, final Wallet wallet, final Direction direction)
 		{
 			super(context);
 
 			this.wallet = wallet;
+			this.direction = direction;
 		}
 
 		@Override
@@ -342,11 +331,26 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 		@Override
 		public List<Transaction> loadInBackground()
 		{
-			final List<Transaction> transactions = new ArrayList<Transaction>(wallet.getTransactions(true, false));
+			final Set<Transaction> transactions = wallet.getTransactions(true, false);
+			final List<Transaction> filteredTransactions = new ArrayList<Transaction>(transactions.size());
 
-			Collections.sort(transactions, TRANSACTION_COMPARATOR);
+			try
+			{
+				for (final Transaction tx : transactions)
+				{
+					final boolean sent = tx.getValue(wallet).signum() < 0;
+					if ((direction == Direction.RECEIVED && !sent) || direction == null || (direction == Direction.SENT && sent))
+						filteredTransactions.add(tx);
+				}
+			}
+			catch (final ScriptException x)
+			{
+				throw new RuntimeException(x);
+			}
 
-			return transactions;
+			Collections.sort(filteredTransactions, TRANSACTION_COMPARATOR);
+
+			return filteredTransactions;
 		}
 
 		private final ThrottelingWalletChangeListener transactionAddRemoveListener = new ThrottelingWalletChangeListener(THROTTLE_MS)

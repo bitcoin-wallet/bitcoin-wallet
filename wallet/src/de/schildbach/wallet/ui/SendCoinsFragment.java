@@ -841,17 +841,17 @@ public final class SendCoinsFragment extends SherlockFragment implements AmountC
 
 		feeView.setEnabled(state == State.INPUT);
 
-		sentTransactionListAdapter.clear();
 		if (sentTransaction != null)
 		{
 			sentTransactionView.setVisibility(View.VISIBLE);
 			sentTransactionListAdapter.setPrecision(Integer.parseInt(prefs.getString(Constants.PREFS_KEY_BTC_PRECISION,
 					Integer.toString(Constants.BTC_PRECISION))));
-			sentTransactionListAdapter.add(sentTransaction);
+			sentTransactionListAdapter.replace(sentTransaction);
 		}
 		else
 		{
 			sentTransactionView.setVisibility(View.GONE);
+			sentTransactionListAdapter.clear();
 		}
 
 		viewCancel.setEnabled(state != State.PREPARATION);

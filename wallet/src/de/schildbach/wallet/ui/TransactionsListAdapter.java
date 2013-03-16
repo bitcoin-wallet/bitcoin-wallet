@@ -18,8 +18,11 @@
 package de.schildbach.wallet.ui;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import android.content.Context;
@@ -30,7 +33,7 @@ import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.google.bitcoin.core.Address;
@@ -49,13 +52,14 @@ import de.schildbach.wallet_test.R;
 /**
  * @author Andreas Schildbach
  */
-public class TransactionsListAdapter extends ArrayAdapter<Transaction>
+public class TransactionsListAdapter extends BaseAdapter
 {
 	private final Context context;
 	private final LayoutInflater inflater;
 	private final Wallet wallet;
 	private final int maxConnectedPeers;
 
+	private final List<Transaction> transactions = new ArrayList<Transaction>();
 	private int precision = Constants.BTC_PRECISION;
 
 	private final int colorSignificant;
@@ -73,8 +77,6 @@ public class TransactionsListAdapter extends ArrayAdapter<Transaction>
 
 	public TransactionsListAdapter(final Context context, final Wallet wallet, final int maxConnectedPeers)
 	{
-		super(context, 0);
-
 		this.context = context;
 		inflater = LayoutInflater.from(context);
 
@@ -95,7 +97,50 @@ public class TransactionsListAdapter extends ArrayAdapter<Transaction>
 		notifyDataSetChanged();
 	}
 
+	public void clear()
+	{
+		transactions.clear();
+
+		notifyDataSetChanged();
+	}
+
+	public void replace(final Transaction tx)
+	{
+		transactions.clear();
+		transactions.add(tx);
+
+		notifyDataSetChanged();
+	}
+
+	public void replace(final Collection<Transaction> transactions)
+	{
+		this.transactions.clear();
+		this.transactions.addAll(transactions);
+
+		notifyDataSetChanged();
+	}
+
+	public int getCount()
+	{
+		return transactions.size();
+	}
+
+	public Transaction getItem(final int position)
+	{
+		return transactions.get(position);
+	}
+
+	public long getItemId(final int position)
+	{
+		return WalletUtils.longHash(transactions.get(position).getHash());
+	}
+
 	@Override
+	public boolean hasStableIds()
+	{
+		return true;
+	}
+
 	public View getView(final int position, View row, final ViewGroup parent)
 	{
 		if (row == null)
