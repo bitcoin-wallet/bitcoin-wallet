@@ -18,7 +18,10 @@
 package de.schildbach.wallet.ui;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;
@@ -43,9 +46,13 @@ import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockListFragment;
 import com.google.bitcoin.core.Block;
+import com.google.bitcoin.core.Sha256Hash;
 import com.google.bitcoin.core.StoredBlock;
+import com.google.bitcoin.core.Transaction;
+import com.google.bitcoin.core.Wallet;
 
 import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.service.BlockchainService;
 import de.schildbach.wallet.service.BlockchainServiceImpl;
 import de.schildbach.wallet.util.WalletUtils;
@@ -54,17 +61,20 @@ import de.schildbach.wallet_test.R;
 /**
  * @author Andreas Schildbach
  */
-public final class BlockListFragment extends SherlockListFragment implements LoaderCallbacks<List<StoredBlock>>
+public final class BlockListFragment extends SherlockListFragment
 {
 	private AbstractWalletActivity activity;
+	private WalletApplication application;
+	private Wallet wallet;
 	private LoaderManager loaderManager;
 
 	private BlockchainService service;
-	private BlockListAdapter adapter;
 
-	private final List<StoredBlock> blocks = new ArrayList<StoredBlock>(MAX_BLOCKS);
+	private BlockListAdapter adapter;
+	private Set<Transaction> transactions;
 
 	private static final int ID_BLOCK_LOADER = 0;
+	private static final int ID_TRANSACTION_LOADER = 1;
 
 	private static final int MAX_BLOCKS = 32;
 
@@ -74,6 +84,8 @@ public final class BlockListFragment extends SherlockListFragment implements Loa
 		super.onAttach(activity);
 
 		this.activity = (AbstractWalletActivity) activity;
+		this.application = this.activity.getWalletApplication();
+		this.wallet = application.getWallet();
 		this.loaderManager = getLoaderManager();
 	}
 
@@ -101,12 +113,16 @@ public final class BlockListFragment extends SherlockListFragment implements Loa
 
 		activity.registerReceiver(tickReceiver, new IntentFilter(Intent.ACTION_TIME_TICK));
 
+		loaderManager.initLoader(ID_TRANSACTION_LOADER, null, transactionLoaderCallbacks);
+
 		adapter.notifyDataSetChanged();
 	}
 
 	@Override
 	public void onPause()
 	{
+		loaderManager.destroyLoader(ID_TRANSACTION_LOADER);
+
 		activity.unregisterReceiver(tickReceiver);
 
 		super.onPause();
@@ -135,7 +151,7 @@ public final class BlockListFragment extends SherlockListFragment implements Loa
 		{
 			service = ((BlockchainServiceImpl.LocalBinder) binder).getService();
 
-			loaderManager.initLoader(ID_BLOCK_LOADER, null, BlockListFragment.this);
+			loaderManager.initLoader(ID_BLOCK_LOADER, null, blockLoaderCallbacks);
 		}
 
 		public void onServiceDisconnected(final ComponentName name)
@@ -157,6 +173,27 @@ public final class BlockListFragment extends SherlockListFragment implements Loa
 
 	private final class BlockListAdapter extends BaseAdapter
 	{
+		private static final int ROW_BASE_CHILD_COUNT = 2;
+		private static final int ROW_INSERT_INDEX = 1;
+		private final TransactionsListAdapter transactionsAdapter = new TransactionsListAdapter(activity, wallet, application.maxConnectedPeers());
+
+		private final List<StoredBlock> blocks = new ArrayList<StoredBlock>(MAX_BLOCKS);
+
+		public void clear()
+		{
+			blocks.clear();
+
+			adapter.notifyDataSetChanged();
+		}
+
+		public void replace(final Collection<StoredBlock> blocks)
+		{
+			this.blocks.clear();
+			this.blocks.addAll(blocks);
+
+			notifyDataSetChanged();
+		}
+
 		public int getCount()
 		{
 			return blocks.size();
@@ -178,10 +215,13 @@ public final class BlockListFragment extends SherlockListFragment implements Loa
 			return true;
 		}
 
-		public View getView(final int position, View row, final ViewGroup parent)
+		public View getView(final int position, final View convertView, final ViewGroup parent)
 		{
-			if (row == null)
-				row = getLayoutInflater(null).inflate(R.layout.block_list_row, null);
+			final ViewGroup row;
+			if (convertView == null)
+				row = (ViewGroup) getLayoutInflater(null).inflate(R.layout.block_row, null);
+			else
+				row = (ViewGroup) convertView;
 
 			final StoredBlock storedBlock = getItem(position);
 			final Block header = storedBlock.getHeader();
@@ -197,28 +237,39 @@ public final class BlockListFragment extends SherlockListFragment implements Loa
 			final TextView rowHash = (TextView) row.findViewById(R.id.block_list_row_hash);
 			rowHash.setText(WalletUtils.formatHash(null, header.getHashAsString(), 8, 0, ' '));
 
+			final int transactionChildCount = row.getChildCount() - ROW_BASE_CHILD_COUNT;
+			int iTransactionView = 0;
+
+			if (transactions != null)
+			{
+				for (final Transaction tx : transactions)
+				{
+					if (tx.getAppearsInHashes().contains(header.getHash()))
+					{
+						final View view;
+						if (iTransactionView < transactionChildCount)
+						{
+							view = row.getChildAt(ROW_INSERT_INDEX + iTransactionView);
+						}
+						else
+						{
+							view = getLayoutInflater(null).inflate(R.layout.transaction_row_oneline, null);
+							row.addView(view, ROW_INSERT_INDEX + iTransactionView);
+						}
+
+						transactionsAdapter.bindView(view, tx);
+
+						iTransactionView++;
+					}
+				}
+			}
+
+			final int leftoverTransactionViews = transactionChildCount - iTransactionView;
+			if (leftoverTransactionViews > 0)
+				row.removeViews(ROW_INSERT_INDEX + iTransactionView, leftoverTransactionViews);
+
 			return row;
 		}
-	}
-
-	public Loader<List<StoredBlock>> onCreateLoader(final int id, final Bundle args)
-	{
-		return new BlockLoader(activity, service);
-	}
-
-	public void onLoadFinished(final Loader<List<StoredBlock>> loader, final List<StoredBlock> blocks)
-	{
-		BlockListFragment.this.blocks.clear();
-		BlockListFragment.this.blocks.addAll(blocks);
-
-		adapter.notifyDataSetChanged();
-	}
-
-	public void onLoaderReset(final Loader<List<StoredBlock>> loader)
-	{
-		blocks.clear();
-
-		adapter.notifyDataSetChanged();
 	}
 
 	private static class BlockLoader extends AsyncTaskLoader<List<StoredBlock>>
@@ -265,4 +316,77 @@ public final class BlockListFragment extends SherlockListFragment implements Loa
 			}
 		};
 	}
+
+	private final LoaderCallbacks<List<StoredBlock>> blockLoaderCallbacks = new LoaderCallbacks<List<StoredBlock>>()
+	{
+		public Loader<List<StoredBlock>> onCreateLoader(final int id, final Bundle args)
+		{
+			return new BlockLoader(activity, service);
+		}
+
+		public void onLoadFinished(final Loader<List<StoredBlock>> loader, final List<StoredBlock> blocks)
+		{
+			adapter.replace(blocks);
+
+			final Loader<Set<Transaction>> transactionLoader = loaderManager.getLoader(ID_TRANSACTION_LOADER);
+			if (transactionLoader != null && transactionLoader.isStarted())
+				transactionLoader.forceLoad();
+		}
+
+		public void onLoaderReset(final Loader<List<StoredBlock>> loader)
+		{
+			adapter.clear();
+		}
+	};
+
+	private static class TransactionsLoader extends AsyncTaskLoader<Set<Transaction>>
+	{
+		private final Wallet wallet;
+
+		private TransactionsLoader(final Context context, final Wallet wallet)
+		{
+			super(context);
+
+			this.wallet = wallet;
+		}
+
+		@Override
+		public Set<Transaction> loadInBackground()
+		{
+			final Set<Transaction> transactions = wallet.getTransactions(true, false);
+
+			final Set<Transaction> filteredTransactions = new HashSet<Transaction>(transactions.size());
+			for (final Transaction tx : transactions)
+			{
+				final Collection<Sha256Hash> appearsIn = tx.getAppearsInHashes();
+				if (appearsIn != null && !appearsIn.isEmpty()) // TODO filter by updateTime
+					filteredTransactions.add(tx);
+			}
+
+			return filteredTransactions;
+		}
+	}
+
+	private final LoaderCallbacks<Set<Transaction>> transactionLoaderCallbacks = new LoaderCallbacks<Set<Transaction>>()
+	{
+		public Loader<Set<Transaction>> onCreateLoader(final int id, final Bundle args)
+		{
+			return new TransactionsLoader(activity, wallet);
+		}
+
+		public void onLoadFinished(final Loader<Set<Transaction>> loader, final Set<Transaction> transactions)
+		{
+			BlockListFragment.this.transactions = transactions;
+
+			adapter.notifyDataSetChanged();
+		}
+
+		public void onLoaderReset(final Loader<Set<Transaction>> loader)
+		{
+			BlockListFragment.this.transactions.clear(); // be nice
+			BlockListFragment.this.transactions = null;
+
+			adapter.notifyDataSetChanged();
+		}
+	};
 }

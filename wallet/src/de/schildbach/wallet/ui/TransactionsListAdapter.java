@@ -154,9 +154,15 @@ public class TransactionsListAdapter extends BaseAdapter
 	public View getView(final int position, View row, final ViewGroup parent)
 	{
 		if (row == null)
-			row = inflater.inflate(R.layout.transaction_row, null);
+			row = inflater.inflate(R.layout.transaction_row_extended, null);
 
 		final Transaction tx = getItem(position);
+		bindView(row, tx);
+		return row;
+	}
+
+	public void bindView(final View row, final Transaction tx)
+	{
 		final TransactionConfidence confidence = tx.getConfidence();
 		final ConfidenceType confidenceType = confidence.getConfidenceType();
 		final boolean isOwn = confidence.getSource().equals(TransactionConfidence.Source.SELF);
@@ -227,9 +233,12 @@ public class TransactionsListAdapter extends BaseAdapter
 
 			// time
 			final TextView rowTime = (TextView) row.findViewById(R.id.transaction_row_time);
-			final Date time = tx.getUpdateTime();
-			rowTime.setText(time != null ? (DateUtils.getRelativeTimeSpanString(context, time.getTime())) : null);
-			rowTime.setTextColor(textColor);
+			if (rowTime != null)
+			{
+				final Date time = tx.getUpdateTime();
+				rowTime.setText(time != null ? (DateUtils.getRelativeTimeSpanString(context, time.getTime())) : null);
+				rowTime.setTextColor(textColor);
+			}
 
 			// receiving or sending
 			final TextView rowFromTo = (TextView) row.findViewById(R.id.transaction_row_fromto);
@@ -259,41 +268,42 @@ public class TransactionsListAdapter extends BaseAdapter
 
 			// extended message
 			final View rowExtend = row.findViewById(R.id.transaction_row_extend);
-			final TextView rowMessage = (TextView) row.findViewById(R.id.transaction_row_message);
-			final boolean isLocked = tx.getLockTime() > 0;
-			rowExtend.setVisibility(View.GONE);
-			if (isOwn && confidenceType == ConfidenceType.NOT_SEEN_IN_CHAIN && confidence.numBroadcastPeers() <= 1)
+			if (rowExtend != null)
 			{
-				rowExtend.setVisibility(View.VISIBLE);
-				rowMessage.setText(R.string.transaction_row_message_own_unbroadcasted);
-				rowMessage.setTextColor(colorInsignificant);
+				final TextView rowMessage = (TextView) row.findViewById(R.id.transaction_row_message);
+				final boolean isLocked = tx.getLockTime() > 0;
+				rowExtend.setVisibility(View.GONE);
+				if (isOwn && confidenceType == ConfidenceType.NOT_SEEN_IN_CHAIN && confidence.numBroadcastPeers() <= 1)
+				{
+					rowExtend.setVisibility(View.VISIBLE);
+					rowMessage.setText(R.string.transaction_row_message_own_unbroadcasted);
+					rowMessage.setTextColor(colorInsignificant);
+				}
+				else if (!sent && confidenceType == ConfidenceType.NOT_SEEN_IN_CHAIN && isLocked)
+				{
+					rowExtend.setVisibility(View.VISIBLE);
+					rowMessage.setText(R.string.transaction_row_message_received_unconfirmed_locked);
+					rowMessage.setTextColor(colorError);
+				}
+				else if (!sent && confidenceType == ConfidenceType.NOT_SEEN_IN_CHAIN && !isLocked)
+				{
+					rowExtend.setVisibility(View.VISIBLE);
+					rowMessage.setText(R.string.transaction_row_message_received_unconfirmed_unlocked);
+					rowMessage.setTextColor(colorInsignificant);
+				}
+				else if (!sent && confidenceType == ConfidenceType.NOT_IN_BEST_CHAIN)
+				{
+					rowExtend.setVisibility(View.VISIBLE);
+					rowMessage.setText(R.string.transaction_row_message_received_unconfirmed_unlocked);
+					rowMessage.setTextColor(colorError);
+				}
+				else if (!sent && confidenceType == ConfidenceType.DEAD)
+				{
+					rowExtend.setVisibility(View.VISIBLE);
+					rowMessage.setText(R.string.transaction_row_message_received_dead);
+					rowMessage.setTextColor(colorError);
+				}
 			}
-			else if (!sent && confidenceType == ConfidenceType.NOT_SEEN_IN_CHAIN && isLocked)
-			{
-				rowExtend.setVisibility(View.VISIBLE);
-				rowMessage.setText(R.string.transaction_row_message_received_unconfirmed_locked);
-				rowMessage.setTextColor(colorError);
-			}
-			else if (!sent && confidenceType == ConfidenceType.NOT_SEEN_IN_CHAIN && !isLocked)
-			{
-				rowExtend.setVisibility(View.VISIBLE);
-				rowMessage.setText(R.string.transaction_row_message_received_unconfirmed_unlocked);
-				rowMessage.setTextColor(colorInsignificant);
-			}
-			else if (!sent && confidenceType == ConfidenceType.NOT_IN_BEST_CHAIN)
-			{
-				rowExtend.setVisibility(View.VISIBLE);
-				rowMessage.setText(R.string.transaction_row_message_received_unconfirmed_unlocked);
-				rowMessage.setTextColor(colorError);
-			}
-			else if (!sent && confidenceType == ConfidenceType.DEAD)
-			{
-				rowExtend.setVisibility(View.VISIBLE);
-				rowMessage.setText(R.string.transaction_row_message_received_dead);
-				rowMessage.setTextColor(colorError);
-			}
-
-			return row;
 		}
 		catch (final ScriptException x)
 		{
