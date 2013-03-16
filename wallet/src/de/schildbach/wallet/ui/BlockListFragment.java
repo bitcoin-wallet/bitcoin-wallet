@@ -177,13 +177,13 @@ public final class BlockListFragment extends SherlockListFragment implements Loa
 		return new BlockLoader(activity, service);
 	}
 
-	public void onLoadFinished(final Loader<List<StoredBlock>> loader, final List<StoredBlock> peers)
+	public void onLoadFinished(final Loader<List<StoredBlock>> loader, final List<StoredBlock> blocks)
 	{
 		adapter.clear();
 
-		if (peers != null)
-			for (final StoredBlock peer : peers)
-				adapter.add(peer);
+		if (blocks != null)
+			for (final StoredBlock block : blocks)
+				adapter.add(block);
 	}
 
 	public void onLoaderReset(final Loader<List<StoredBlock>> loader)
