@@ -782,6 +782,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 	private void sendBroadcastPeerState(final int numPeers)
 	{
 		final Intent broadcast = new Intent(ACTION_PEER_STATE);
+		broadcast.setPackage(getPackageName());
 		broadcast.putExtra(ACTION_PEER_STATE_NUM_PEERS, numPeers);
 		sendStickyBroadcast(broadcast);
 	}
@@ -794,6 +795,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 	private void sendBroadcastBlockchainState(final Date chainDate, final int chainHeight, final boolean replaying, final int download)
 	{
 		final Intent broadcast = new Intent(ACTION_BLOCKCHAIN_STATE);
+		broadcast.setPackage(getPackageName());
 		broadcast.putExtra(ACTION_BLOCKCHAIN_STATE_BEST_CHAIN_DATE, chainDate);
 		broadcast.putExtra(ACTION_BLOCKCHAIN_STATE_BEST_CHAIN_HEIGHT, chainHeight);
 		broadcast.putExtra(ACTION_BLOCKCHAIN_STATE_REPLAYING, replaying);
