@@ -30,6 +30,7 @@ import android.content.ServiceConnection;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.support.v4.app.LoaderManager;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
@@ -56,6 +57,8 @@ import de.schildbach.wallet_test.R;
 public final class BlockListFragment extends SherlockListFragment implements LoaderCallbacks<List<StoredBlock>>
 {
 	private AbstractWalletActivity activity;
+	private LoaderManager loaderManager;
+
 	private BlockchainService service;
 	private BlockListAdapter adapter;
 
@@ -71,6 +74,7 @@ public final class BlockListFragment extends SherlockListFragment implements Loa
 		super.onAttach(activity);
 
 		this.activity = (AbstractWalletActivity) activity;
+		this.loaderManager = getLoaderManager();
 	}
 
 	@Override
@@ -131,12 +135,12 @@ public final class BlockListFragment extends SherlockListFragment implements Loa
 		{
 			service = ((BlockchainServiceImpl.LocalBinder) binder).getService();
 
-			getLoaderManager().initLoader(ID_BLOCK_LOADER, null, BlockListFragment.this);
+			loaderManager.initLoader(ID_BLOCK_LOADER, null, BlockListFragment.this);
 		}
 
 		public void onServiceDisconnected(final ComponentName name)
 		{
-			getLoaderManager().destroyLoader(ID_BLOCK_LOADER);
+			loaderManager.destroyLoader(ID_BLOCK_LOADER);
 
 			service = null;
 		}

@@ -62,6 +62,8 @@ public final class ExchangeRatesFragment extends ListFragment implements LoaderM
 	private AbstractWalletActivity activity;
 	private WalletApplication application;
 	private SharedPreferences prefs;
+	private LoaderManager loaderManager;
+
 	private CursorAdapter adapter;
 	private BigInteger balance;
 	private String defaultCurrency;
@@ -81,8 +83,9 @@ public final class ExchangeRatesFragment extends ListFragment implements LoaderM
 		super.onAttach(activity);
 
 		this.activity = (AbstractWalletActivity) activity;
-		application = (WalletApplication) activity.getApplication();
-		prefs = PreferenceManager.getDefaultSharedPreferences(activity);
+		this.application = (WalletApplication) activity.getApplication();
+		this.prefs = PreferenceManager.getDefaultSharedPreferences(activity);
+		this.loaderManager = getLoaderManager();
 	}
 
 	@Override
@@ -130,7 +133,7 @@ public final class ExchangeRatesFragment extends ListFragment implements LoaderM
 		};
 		setListAdapter(adapter);
 
-		getLoaderManager().initLoader(0, null, this);
+		loaderManager.initLoader(0, null, this);
 	}
 
 	@Override

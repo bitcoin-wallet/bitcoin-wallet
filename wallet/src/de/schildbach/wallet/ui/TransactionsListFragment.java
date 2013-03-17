@@ -76,12 +76,12 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 	}
 
 	private AbstractWalletActivity activity;
-	private ContentResolver resolver;
-	private LoaderManager loaderManager;
-	private SharedPreferences prefs;
-
 	private WalletApplication application;
 	private Wallet wallet;
+	private SharedPreferences prefs;
+	private ContentResolver resolver;
+	private LoaderManager loaderManager;
+
 	private TransactionsListAdapter adapter;
 
 	private Direction direction;
@@ -117,11 +117,11 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 		super.onAttach(activity);
 
 		this.activity = (AbstractWalletActivity) activity;
-		resolver = activity.getContentResolver();
-		loaderManager = getLoaderManager();
-		prefs = PreferenceManager.getDefaultSharedPreferences(activity);
-		application = (WalletApplication) activity.getApplication();
-		wallet = application.getWallet();
+		this.application = (WalletApplication) activity.getApplication();
+		this.wallet = application.getWallet();
+		this.prefs = PreferenceManager.getDefaultSharedPreferences(activity);
+		this.resolver = activity.getContentResolver();
+		this.loaderManager = getLoaderManager();
 	}
 
 	@Override

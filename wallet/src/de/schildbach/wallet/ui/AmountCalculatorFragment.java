@@ -67,6 +67,7 @@ public final class AmountCalculatorFragment extends DialogFragment implements Lo
 	private AbstractWalletActivity activity;
 	private LayoutInflater inflater;
 	private SharedPreferences prefs;
+	private LoaderManager loaderManager;
 
 	private String exchangeCurrency;
 	private int precision;
@@ -82,8 +83,9 @@ public final class AmountCalculatorFragment extends DialogFragment implements Lo
 		super.onAttach(activity);
 
 		this.activity = (AbstractWalletActivity) activity;
-		inflater = LayoutInflater.from(activity);
-		prefs = PreferenceManager.getDefaultSharedPreferences(activity);
+		this.inflater = LayoutInflater.from(activity);
+		this.prefs = PreferenceManager.getDefaultSharedPreferences(activity);
+		this.loaderManager = getLoaderManager();
 	}
 
 	@Override
@@ -175,7 +177,7 @@ public final class AmountCalculatorFragment extends DialogFragment implements Lo
 
 		updateAppearance();
 
-		getLoaderManager().initLoader(0, null, this);
+		loaderManager.initLoader(0, null, this);
 
 		return dialog.create();
 	}

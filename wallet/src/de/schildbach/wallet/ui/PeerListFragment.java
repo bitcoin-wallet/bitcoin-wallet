@@ -33,6 +33,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
+import android.support.v4.app.LoaderManager;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
@@ -55,6 +56,8 @@ import de.schildbach.wallet_test.R;
 public final class PeerListFragment extends SherlockListFragment
 {
 	private AbstractWalletActivity activity;
+	private LoaderManager loaderManager;
+
 	private BlockchainService service;
 	private ArrayAdapter<Peer> adapter;
 
@@ -73,6 +76,7 @@ public final class PeerListFragment extends SherlockListFragment
 		super.onAttach(activity);
 
 		this.activity = (AbstractWalletActivity) activity;
+		this.loaderManager = getLoaderManager();
 	}
 
 	@Override
@@ -154,7 +158,7 @@ public final class PeerListFragment extends SherlockListFragment
 			{
 				adapter.notifyDataSetChanged();
 
-				final Loader<Object> loader = getLoaderManager().getLoader(ID_REVERSE_DNS_LOADER);
+				final Loader<String> loader = loaderManager.getLoader(ID_REVERSE_DNS_LOADER);
 				final boolean loaderRunning = loader != null && loader.isStarted();
 
 				if (!loaderRunning)
@@ -168,7 +172,7 @@ public final class PeerListFragment extends SherlockListFragment
 						{
 							final Bundle args = new Bundle();
 							args.putSerializable("address", address);
-							getLoaderManager().initLoader(ID_REVERSE_DNS_LOADER, args, reverseDnsLoaderCallbacks).forceLoad();
+							loaderManager.initLoader(ID_REVERSE_DNS_LOADER, args, reverseDnsLoaderCallbacks).forceLoad();
 
 							break;
 						}
@@ -193,7 +197,7 @@ public final class PeerListFragment extends SherlockListFragment
 	{
 		activity.unbindService(serviceConnection);
 
-		getLoaderManager().destroyLoader(ID_REVERSE_DNS_LOADER);
+		loaderManager.destroyLoader(ID_REVERSE_DNS_LOADER);
 
 		super.onDestroy();
 	}
@@ -204,12 +208,12 @@ public final class PeerListFragment extends SherlockListFragment
 		{
 			service = ((BlockchainServiceImpl.LocalBinder) binder).getService();
 
-			getLoaderManager().initLoader(ID_PEER_LOADER, null, peerLoaderCallbacks);
+			loaderManager.initLoader(ID_PEER_LOADER, null, peerLoaderCallbacks);
 		}
 
 		public void onServiceDisconnected(final ComponentName name)
 		{
-			getLoaderManager().destroyLoader(ID_PEER_LOADER);
+			loaderManager.destroyLoader(ID_PEER_LOADER);
 
 			service = null;
 		}
@@ -314,7 +318,7 @@ public final class PeerListFragment extends SherlockListFragment
 			final InetAddress address = ((ReverseDnsLoader) loader).address;
 			hostnames.put(address, hostname);
 
-			getLoaderManager().destroyLoader(ID_REVERSE_DNS_LOADER);
+			loaderManager.destroyLoader(ID_REVERSE_DNS_LOADER);
 		}
 
 		public void onLoaderReset(final Loader<String> loader)

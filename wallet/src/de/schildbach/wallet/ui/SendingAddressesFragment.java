@@ -61,6 +61,8 @@ public final class SendingAddressesFragment extends SherlockListFragment impleme
 {
 	private AbstractWalletActivity activity;
 	private ClipboardManager clipboardManager;
+	private LoaderManager loaderManager;
+
 	private SimpleCursorAdapter adapter;
 	private String walletAddressesSelection;
 
@@ -74,8 +76,8 @@ public final class SendingAddressesFragment extends SherlockListFragment impleme
 		super.onAttach(activity);
 
 		this.activity = (AbstractWalletActivity) activity;
-
-		clipboardManager = (ClipboardManager) activity.getSystemService(Context.CLIPBOARD_SERVICE);
+		this.clipboardManager = (ClipboardManager) activity.getSystemService(Context.CLIPBOARD_SERVICE);
+		this.loaderManager = getLoaderManager();
 	}
 
 	@Override
@@ -110,7 +112,7 @@ public final class SendingAddressesFragment extends SherlockListFragment impleme
 		});
 		setListAdapter(adapter);
 
-		getLoaderManager().initLoader(0, null, this);
+		loaderManager.initLoader(0, null, this);
 	}
 
 	@Override

@@ -57,8 +57,8 @@ public final class WalletBalanceFragment extends Fragment
 	private WalletApplication application;
 	private AbstractWalletActivity activity;
 	private Wallet wallet;
-	private LoaderManager loaderManager;
 	private SharedPreferences prefs;
+	private LoaderManager loaderManager;
 
 	private CurrencyTextView viewBalance;
 	private CurrencyTextView viewBalanceLocal;
@@ -77,11 +77,10 @@ public final class WalletBalanceFragment extends Fragment
 		super.onAttach(activity);
 
 		this.activity = (AbstractWalletActivity) activity;
-		application = (WalletApplication) activity.getApplication();
-		loaderManager = getLoaderManager();
-		prefs = PreferenceManager.getDefaultSharedPreferences(activity);
-
-		wallet = application.getWallet();
+		this.application = (WalletApplication) activity.getApplication();
+		this.wallet = application.getWallet();
+		this.prefs = PreferenceManager.getDefaultSharedPreferences(activity);
+		this.loaderManager = getLoaderManager();
 
 		showLocalBalance = getResources().getBoolean(R.bool.show_local_balance);
 	}
