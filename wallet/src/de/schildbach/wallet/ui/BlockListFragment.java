@@ -226,7 +226,7 @@ public final class BlockListFragment extends SherlockListFragment implements Loa
 		{
 			super(context);
 
-			this.context = context;
+			this.context = context.getApplicationContext();
 			this.service = service;
 		}
 

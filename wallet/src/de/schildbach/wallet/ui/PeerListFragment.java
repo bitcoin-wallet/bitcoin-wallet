@@ -224,7 +224,7 @@ public final class PeerListFragment extends SherlockListFragment
 		{
 			super(context);
 
-			this.context = context;
+			this.context = context.getApplicationContext();
 			this.service = service;
 		}
 
