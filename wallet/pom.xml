@@ -53,7 +53,7 @@
 		<dependency>
 			<groupId>com.google</groupId>
 			<artifactId>bitcoinj</artifactId>
-			<version>0.7.2</version>
+			<version>0.7.3</version>
 		</dependency>
 
 		<!-- de.schildbach.wallet.integration.android.* -->
