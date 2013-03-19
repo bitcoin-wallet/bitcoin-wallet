@@ -123,20 +123,20 @@ public class WalletApplication extends Application
 			if (Constants.TEST)
 				chmod(file, 0777);
 		}
+	}
 
-		@SuppressWarnings({ "rawtypes", "unchecked" })
-		public void chmod(final File path, final int mode)
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	private static void chmod(final File path, final int mode)
+	{
+		try
 		{
-			try
-			{
-				final Class fileUtils = Class.forName("android.os.FileUtils");
-				final Method setPermissions = fileUtils.getMethod("setPermissions", String.class, int.class, int.class, int.class);
-				setPermissions.invoke(null, path.getAbsolutePath(), mode, -1, -1);
-			}
-			catch (final Exception x)
-			{
-				x.printStackTrace();
-			}
+			final Class fileUtils = Class.forName("android.os.FileUtils");
+			final Method setPermissions = fileUtils.getMethod("setPermissions", String.class, int.class, int.class, int.class);
+			setPermissions.invoke(null, path.getAbsolutePath(), mode, -1, -1);
+		}
+		catch (final Exception x)
+		{
+			x.printStackTrace();
 		}
 	}
 
@@ -340,6 +340,10 @@ public class WalletApplication extends Application
 		final long start = System.currentTimeMillis();
 
 		wallet.saveToFile(walletFile);
+
+		// make wallets world accessible in test mode
+		if (Constants.TEST)
+			chmod(walletFile, 0777);
 
 		Log.d(TAG, "wallet saved to: '" + walletFile + "', took " + (System.currentTimeMillis() - start) + "ms");
 	}
