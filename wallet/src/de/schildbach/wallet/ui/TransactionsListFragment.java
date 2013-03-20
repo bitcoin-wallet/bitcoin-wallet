@@ -25,7 +25,6 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 import android.app.Activity;
 import android.content.ContentResolver;
@@ -353,33 +352,13 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 			return filteredTransactions;
 		}
 
-		private final ThrottelingWalletChangeListener transactionAddRemoveListener = new ThrottelingWalletChangeListener(THROTTLE_MS)
+		private final ThrottelingWalletChangeListener transactionAddRemoveListener = new ThrottelingWalletChangeListener(THROTTLE_MS, true, true,
+				false)
 		{
-			final AtomicBoolean relevant = new AtomicBoolean();
-
-			@Override
-			public void onCoinsReceived(final Wallet wallet, final Transaction tx, final BigInteger prevBalance, final BigInteger newBalance)
-			{
-				relevant.set(true);
-			}
-
-			@Override
-			public void onCoinsSent(final Wallet wallet, final Transaction tx, final BigInteger prevBalance, final BigInteger newBalance)
-			{
-				relevant.set(true);
-			}
-
-			@Override
-			public void onReorganize(final Wallet wallet)
-			{
-				relevant.set(true);
-			}
-
 			@Override
 			public void onThrotteledWalletChanged()
 			{
-				if (relevant.getAndSet(false))
-					forceLoad();
+				forceLoad();
 			}
 		};
 

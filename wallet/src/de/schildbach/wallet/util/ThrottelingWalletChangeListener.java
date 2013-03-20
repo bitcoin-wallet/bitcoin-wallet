@@ -18,6 +18,7 @@
 package de.schildbach.wallet.util;
 
 import java.math.BigInteger;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicLong;
 
 import android.os.Handler;
@@ -33,9 +34,15 @@ import com.google.bitcoin.core.WalletEventListener;
 public abstract class ThrottelingWalletChangeListener implements WalletEventListener
 {
 	private final long throttleMs;
-	private static final long DEFAULT_THROTTLE_MS = 500;
+	private final boolean coinsRelevant;
+	private final boolean reorganizeRelevant;
+	private final boolean confidenceRelevant;
+
 	private final AtomicLong lastMessageTime = new AtomicLong(0);
 	private final Handler handler = new Handler();
+	private final AtomicBoolean relevant = new AtomicBoolean();
+
+	private static final long DEFAULT_THROTTLE_MS = 500;
 
 	public ThrottelingWalletChangeListener()
 	{
@@ -44,19 +51,36 @@ public abstract class ThrottelingWalletChangeListener implements WalletEventList
 
 	public ThrottelingWalletChangeListener(final long throttleMs)
 	{
+		this(throttleMs, true, true, true);
+	}
+
+	public ThrottelingWalletChangeListener(final boolean coinsRelevant, final boolean reorganizeRelevant, final boolean confidenceRelevant)
+	{
+		this(DEFAULT_THROTTLE_MS, coinsRelevant, reorganizeRelevant, confidenceRelevant);
+	}
+
+	public ThrottelingWalletChangeListener(final long throttleMs, final boolean coinsRelevant, final boolean reorganizeRelevant,
+			final boolean confidenceRelevant)
+	{
 		this.throttleMs = throttleMs;
+		this.coinsRelevant = coinsRelevant;
+		this.reorganizeRelevant = reorganizeRelevant;
+		this.confidenceRelevant = confidenceRelevant;
 	}
 
 	public final void onWalletChanged(final Wallet wallet)
 	{
-		handler.removeCallbacksAndMessages(null);
+		if (relevant.getAndSet(false))
+		{
+			handler.removeCallbacksAndMessages(null);
 
-		final long now = System.currentTimeMillis();
+			final long now = System.currentTimeMillis();
 
-		if (now - lastMessageTime.get() > throttleMs)
-			handler.post(runnable);
-		else
-			handler.postDelayed(runnable, throttleMs);
+			if (now - lastMessageTime.get() > throttleMs)
+				handler.post(runnable);
+			else
+				handler.postDelayed(runnable, throttleMs);
+		}
 	}
 
 	private final Runnable runnable = new Runnable()
@@ -79,22 +103,26 @@ public abstract class ThrottelingWalletChangeListener implements WalletEventList
 
 	public void onCoinsReceived(final Wallet wallet, final Transaction tx, final BigInteger prevBalance, final BigInteger newBalance)
 	{
-		// swallow
+		if (coinsRelevant)
+			relevant.set(true);
 	}
 
 	public void onCoinsSent(final Wallet wallet, final Transaction tx, final BigInteger prevBalance, final BigInteger newBalance)
 	{
-		// swallow
+		if (coinsRelevant)
+			relevant.set(true);
 	}
 
 	public void onReorganize(final Wallet wallet)
 	{
-		// swallow
+		if (reorganizeRelevant)
+			relevant.set(true);
 	}
 
 	public void onTransactionConfidenceChanged(final Wallet wallet, final Transaction tx)
 	{
-		// swallow
+		if (confidenceRelevant)
+			relevant.set(true);
 	}
 
 	public void onKeyAdded(final ECKey key)
