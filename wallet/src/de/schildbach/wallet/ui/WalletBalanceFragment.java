@@ -159,7 +159,6 @@ public final class WalletBalanceFragment extends Fragment
 			{
 				if (exchangeRate != null)
 				{
-					final BigInteger balance = wallet.getBalance(BalanceType.ESTIMATED);
 					final BigInteger localValue = WalletUtils.localValue(balance, exchangeRate.rate);
 					viewBalanceLocal.setVisibility(View.VISIBLE);
 					viewBalanceLocal.setPrefix(Constants.PREFIX_ALMOST_EQUAL_TO + exchangeRate.currencyCode);
