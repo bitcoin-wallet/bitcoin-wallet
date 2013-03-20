@@ -20,20 +20,23 @@ package de.schildbach.wallet.ui;
 import java.math.BigInteger;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.LoaderManager;
+import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v4.widget.CursorAdapter;
 import android.support.v4.widget.ResourceCursorAdapter;
 import android.view.View;
 import android.widget.BaseAdapter;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -50,33 +53,29 @@ import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.ExchangeRatesProvider;
 import de.schildbach.wallet.ExchangeRatesProvider.ExchangeRate;
 import de.schildbach.wallet.WalletApplication;
-import de.schildbach.wallet.util.ThrottelingWalletChangeListener;
+import de.schildbach.wallet.service.BlockchainService;
 import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
 
 /**
  * @author Andreas Schildbach
  */
-public final class ExchangeRatesFragment extends SherlockListFragment implements LoaderManager.LoaderCallbacks<Cursor>,
-		OnSharedPreferenceChangeListener
+public final class ExchangeRatesFragment extends SherlockListFragment implements OnSharedPreferenceChangeListener
 {
 	private AbstractWalletActivity activity;
 	private WalletApplication application;
+	private Wallet wallet;
 	private SharedPreferences prefs;
 	private LoaderManager loaderManager;
 
 	private CursorAdapter adapter;
-	private BigInteger balance;
-	private String defaultCurrency;
 
-	private final ThrottelingWalletChangeListener walletChangeListener = new ThrottelingWalletChangeListener()
-	{
-		@Override
-		public void onThrotteledWalletChanged()
-		{
-			updateView();
-		}
-	};
+	private BigInteger balance = null;
+	private boolean replaying = false;
+	private String defaultCurrency = null;
+
+	private static final int ID_BALANCE_LOADER = 0;
+	private static final int ID_RATE_LOADER = 1;
 
 	@Override
 	public void onAttach(final Activity activity)
@@ -85,17 +84,9 @@ public final class ExchangeRatesFragment extends SherlockListFragment implements
 
 		this.activity = (AbstractWalletActivity) activity;
 		this.application = (WalletApplication) activity.getApplication();
+		this.wallet = application.getWallet();
 		this.prefs = PreferenceManager.getDefaultSharedPreferences(activity);
 		this.loaderManager = getLoaderManager();
-	}
-
-	@Override
-	public void onCreate(final Bundle savedInstanceState)
-	{
-		super.onCreate(savedInstanceState);
-
-		final Wallet wallet = application.getWallet();
-		wallet.addEventListener(walletChangeListener);
 	}
 
 	@Override
@@ -127,20 +118,31 @@ public final class ExchangeRatesFragment extends SherlockListFragment implements
 
 				final CurrencyTextView walletView = (CurrencyTextView) view.findViewById(R.id.exchange_rate_row_balance);
 				walletView.setPrecision(Constants.LOCAL_PRECISION);
-				walletView.setAmount(WalletUtils.localValue(balance, exchangeRate.rate));
-				walletView.setStrikeThru(Constants.TEST);
+				if (!replaying)
+				{
+					walletView.setAmount(WalletUtils.localValue(balance, exchangeRate.rate));
+					walletView.setStrikeThru(Constants.TEST);
+				}
+				else
+				{
+					walletView.setText("n/a");
+					walletView.setStrikeThru(false);
+				}
 				walletView.setTextColor(getResources().getColor(R.color.fg_less_significant));
 			}
 		};
 		setListAdapter(adapter);
-
-		loaderManager.initLoader(0, null, this);
 	}
 
 	@Override
 	public void onResume()
 	{
 		super.onResume();
+
+		activity.registerReceiver(broadcastReceiver, new IntentFilter(BlockchainService.ACTION_BLOCKCHAIN_STATE));
+
+		loaderManager.initLoader(ID_BALANCE_LOADER, null, balanceLoaderCallbacks);
+		loaderManager.initLoader(ID_RATE_LOADER, null, rateLoaderCallbacks);
 
 		defaultCurrency = prefs.getString(Constants.PREFS_KEY_EXCHANGE_CURRENCY, Constants.DEFAULT_EXCHANGE_CURRENCY);
 		prefs.registerOnSharedPreferenceChangeListener(this);
@@ -153,16 +155,12 @@ public final class ExchangeRatesFragment extends SherlockListFragment implements
 	{
 		prefs.unregisterOnSharedPreferenceChangeListener(this);
 
+		loaderManager.destroyLoader(ID_RATE_LOADER);
+		loaderManager.destroyLoader(ID_BALANCE_LOADER);
+
+		activity.unregisterReceiver(broadcastReceiver);
+
 		super.onPause();
-	}
-
-	@Override
-	public void onDestroy()
-	{
-		application.getWallet().removeEventListener(walletChangeListener);
-		walletChangeListener.removeCallbacks();
-
-		super.onDestroy();
 	}
 
 	@Override
@@ -219,6 +217,7 @@ public final class ExchangeRatesFragment extends SherlockListFragment implements
 		if (Constants.PREFS_KEY_EXCHANGE_CURRENCY.equals(key))
 		{
 			defaultCurrency = prefs.getString(Constants.PREFS_KEY_EXCHANGE_CURRENCY, Constants.DEFAULT_EXCHANGE_CURRENCY);
+
 			updateView();
 		}
 	}
@@ -227,23 +226,57 @@ public final class ExchangeRatesFragment extends SherlockListFragment implements
 	{
 		balance = application.getWallet().getBalance(BalanceType.ESTIMATED);
 
-		final ListAdapter adapter = getListAdapter();
 		if (adapter != null)
 			((BaseAdapter) adapter).notifyDataSetChanged();
 	}
 
-	public Loader<Cursor> onCreateLoader(final int id, final Bundle args)
+	private final BlockchainBroadcastReceiver broadcastReceiver = new BlockchainBroadcastReceiver();
+
+	private final class BlockchainBroadcastReceiver extends BroadcastReceiver
 	{
-		return new CursorLoader(activity, ExchangeRatesProvider.contentUri(activity.getPackageName()), null, null, null, null);
+		@Override
+		public void onReceive(final Context context, final Intent intent)
+		{
+			replaying = intent.getBooleanExtra(BlockchainService.ACTION_BLOCKCHAIN_STATE_REPLAYING, false);
+
+			updateView();
+		}
 	}
 
-	public void onLoadFinished(final Loader<Cursor> loader, final Cursor data)
+	private final LoaderCallbacks<Cursor> rateLoaderCallbacks = new LoaderManager.LoaderCallbacks<Cursor>()
 	{
-		adapter.swapCursor(data);
-	}
+		public Loader<Cursor> onCreateLoader(final int id, final Bundle args)
+		{
+			return new CursorLoader(activity, ExchangeRatesProvider.contentUri(activity.getPackageName()), null, null, null, null);
+		}
 
-	public void onLoaderReset(final Loader<Cursor> loader)
+		public void onLoadFinished(final Loader<Cursor> loader, final Cursor data)
+		{
+			adapter.swapCursor(data);
+		}
+
+		public void onLoaderReset(final Loader<Cursor> loader)
+		{
+			adapter.swapCursor(null);
+		}
+	};
+
+	private final LoaderCallbacks<BigInteger> balanceLoaderCallbacks = new LoaderManager.LoaderCallbacks<BigInteger>()
 	{
-		adapter.swapCursor(null);
-	}
+		public Loader<BigInteger> onCreateLoader(final int id, final Bundle args)
+		{
+			return new WalletBalanceLoader(activity, wallet);
+		}
+
+		public void onLoadFinished(final Loader<BigInteger> loader, final BigInteger balance)
+		{
+			ExchangeRatesFragment.this.balance = balance;
+
+			updateView();
+		}
+
+		public void onLoaderReset(final Loader<BigInteger> loader)
+		{
+		}
+	};
 }

@@ -17,6 +17,7 @@
 	<string name="wallet_address_fragment_clipboard_msg">Bitcoin address copied to clipboard</string>
 	<string name="wallet_addresses_fragment_add_dialog_title">Add Bitcoin address</string>
 	<string name="wallet_addresses_fragment_add_dialog_message">Bitcoin addresses cannot be deleted. Do you want to add a new address to your wallet?</string>
+	<string name="wallet_balance_fragment_replaying">Balance is unavailable during replay.</string>
 	<string name="exchange_rates_activity_title">Exchange Rates</string>
 	<string name="exchange_rates_fragment_empty_text">Could not load exchange rates</string>
 	<string name="exchange_rates_fragment_default">(default)</string>
@@ -176,7 +177,7 @@
 	<string name="preferences_report_issue_summary">Collect information about your issue and email your report to the developers.</string>
 	<string name="preferences_initiate_reset_title">Reset Blockchain</string>
 	<string name="preferences_initiate_reset_summary">Reset blockchain, transactions and wallet balance. Replay will take a while.</string>
-	<string name="preferences_initiate_reset_dialog_message">Would you like to reset and replay the blockchain?\n\nThis will temporarily zero your wallet balance and remove transactions. Both will recover as blockchain sync progresses.</string>
+	<string name="preferences_initiate_reset_dialog_message">Would you like to reset and replay the blockchain?\n\nThis will temporarily hide your wallet balance and remove transactions. Both will recover as blockchain sync progresses.</string>
 	<string name="preferences_initiate_reset_dialog_positive">Reset</string>
 	<string name="report_issue_dialog_title_issue">Report issue</string>
 	<string name="report_issue_dialog_title_crash">Previous crash detected</string>

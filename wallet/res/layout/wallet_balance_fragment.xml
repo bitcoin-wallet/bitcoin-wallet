@@ -1,23 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:tools="http://schemas.android.com/tools"
-	style="@style/My.Widget.Button.Borderless"
 	android:layout_width="match_parent"
-	android:layout_height="wrap_content"
-	android:gravity="center"
-	android:orientation="vertical" >
+	android:layout_height="wrap_content" >
 
-	<de.schildbach.wallet.ui.CurrencyTextView
+	<LinearLayout
 		android:id="@+id/wallet_balance"
-		android:layout_width="wrap_content"
+		style="@style/My.Widget.Button.Borderless"
+		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:textSize="@dimen/font_size_huge" />
+		android:gravity="center"
+		android:orientation="vertical" >
 
-	<de.schildbach.wallet.ui.CurrencyTextView
-		android:id="@+id/wallet_balance_local"
+		<de.schildbach.wallet.ui.CurrencyTextView
+			android:id="@+id/wallet_balance_btc"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textSize="@dimen/font_size_huge" />
+
+		<de.schildbach.wallet.ui.CurrencyTextView
+			android:id="@+id/wallet_balance_local"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginBottom="12dp"
+			android:textSize="@dimen/font_size_small" />
+	</LinearLayout>
+
+	<TextView
+		android:id="@+id/wallet_balance_replaying"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_marginBottom="12dp"
+		android:layout_gravity="center"
+		android:text="@string/wallet_balance_fragment_replaying"
+		android:textColor="@color/fg_less_significant"
 		android:textSize="@dimen/font_size_small" />
 
-</LinearLayout>
+</FrameLayout>

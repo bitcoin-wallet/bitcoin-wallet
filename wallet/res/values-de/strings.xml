@@ -19,6 +19,7 @@
 	<string name="wallet_address_fragment_clipboard_msg">Bitcoin-Adresse ins Clipboard kopiert</string>
 	<string name="wallet_addresses_fragment_add_dialog_title">Bitcoin-Adresse hinzufügen</string>
 	<string name="wallet_addresses_fragment_add_dialog_message">Bitcoin-Adressen können nicht gelöscht werden. Möchtest Du eine neue Adresse zu Deinem Wallet hinzufügen?</string>
+	<string name="wallet_balance_fragment_replaying">Guthaben ist während des Replays nicht verfügbar.</string>
 	<string name="exchange_rates_activity_title">Wechselkurse</string>
 	<string name="exchange_rates_fragment_empty_text">Kann Wechselkurse nicht laden</string>
 	<string name="exchange_rates_fragment_default">(Standard)</string>
@@ -193,7 +194,7 @@
 	<string name="preferences_report_issue_summary">Sammelt Informationen über dein Problem und schickt den Bericht per e-Mail an die Entwickler.</string>
 	<string name="preferences_initiate_reset_title">Blockchain zurücksetzen</string>
 	<string name="preferences_initiate_reset_summary">Blockchain, Transaktionen und Guthaben werden zurückgesetzt. Das Wiedereinspielen wird eine Weile dauern.</string>
-	<string name="preferences_initiate_reset_dialog_message">Möchtest du die Blockchain zurücksetzen und wiedereinspielen?\n\nDies wird dein Guthaben und deine Transaktionen zwischenzeitlich leeren. Beides wird sich während des Vorgangs erholen.</string>
+	<string name="preferences_initiate_reset_dialog_message">Möchtest du die Blockchain zurücksetzen und wiedereinspielen?\n\nDies wird verübergehend dein Guthaben ausblenden und deine Transaktionen leeren. Beides wird sich während des Vorgangs erholen.</string>
 	<string name="preferences_initiate_reset_dialog_positive">Zurücksetzen</string>
 
 	<string name="report_issue_dialog_title_issue">Problem melden</string>
