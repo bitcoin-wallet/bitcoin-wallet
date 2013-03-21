@@ -41,6 +41,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.preference.PreferenceManager;
+import android.text.format.DateUtils;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -361,9 +362,8 @@ public class WalletApplication extends Application
 
 		try
 		{
-			final long MS_PER_DAY = 24 * 60 * 60 * 1000;
 			final String filename = String.format(Locale.US, "%s.%02d", Constants.WALLET_KEY_BACKUP_BASE58,
-					(System.currentTimeMillis() / MS_PER_DAY) % 100l);
+					(System.currentTimeMillis() / DateUtils.DAY_IN_MILLIS) % 100l);
 			writeKeys(openFileOutput(filename, Context.MODE_PRIVATE));
 		}
 		catch (final IOException x)

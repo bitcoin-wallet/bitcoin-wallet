@@ -88,7 +88,7 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 	private final Handler handler = new Handler();
 
 	private static final String KEY_DIRECTION = "direction";
-	private static final long THROTTLE_MS = 1000;
+	private static final long THROTTLE_MS = DateUtils.SECOND_IN_MILLIS;
 
 	public static TransactionsListFragment instance(final Direction direction)
 	{

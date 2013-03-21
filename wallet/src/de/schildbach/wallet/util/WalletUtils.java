@@ -40,6 +40,7 @@ import android.graphics.Typeface;
 import android.text.Editable;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
+import android.text.format.DateUtils;
 import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
 import android.text.style.TypefaceSpan;
@@ -250,7 +251,7 @@ public class WalletUtils
 			if (key.getCreationTimeSeconds() != 0)
 			{
 				out.write(' ');
-				out.write(format.format(new Date(key.getCreationTimeSeconds() * 1000)));
+				out.write(format.format(new Date(key.getCreationTimeSeconds() * DateUtils.SECOND_IN_MILLIS)));
 			}
 			out.write('\n');
 		}
@@ -275,7 +276,7 @@ public class WalletUtils
 				final String[] parts = line.split(" ");
 
 				final ECKey key = new DumpedPrivateKey(Constants.NETWORK_PARAMETERS, parts[0]).getKey();
-				key.setCreationTimeSeconds(parts.length >= 2 ? format.parse(parts[1]).getTime() / 1000 : 0);
+				key.setCreationTimeSeconds(parts.length >= 2 ? format.parse(parts[1]).getTime() / DateUtils.SECOND_IN_MILLIS : 0);
 
 				keys.add(key);
 			}

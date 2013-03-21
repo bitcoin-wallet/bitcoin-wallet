@@ -37,6 +37,7 @@ import android.database.Cursor;
 import android.database.MatrixCursor;
 import android.net.Uri;
 import android.provider.BaseColumns;
+import android.text.format.DateUtils;
 
 import com.google.bitcoin.core.Utils;
 
@@ -68,8 +69,8 @@ public class ExchangeRatesProvider extends ContentProvider
 	private Map<String, ExchangeRate> exchangeRates = null;
 	private long lastUpdated = 0;
 
-	private static final int UPDATE_FREQ_MS = 60 * 60 * 1000;
-	private static final int TIMEOUT_MS = 15 * 1000;
+	private static final long UPDATE_FREQ_MS = DateUtils.HOUR_IN_MILLIS;
+	private static final int TIMEOUT_MS = 15 * (int) DateUtils.SECOND_IN_MILLIS;
 
 	@Override
 	public boolean onCreate()

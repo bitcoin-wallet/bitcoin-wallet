@@ -21,6 +21,7 @@ import java.io.File;
 import java.math.BigInteger;
 
 import android.os.Environment;
+import android.text.format.DateUtils;
 
 import com.google.bitcoin.core.NetworkParameters;
 import com.google.bitcoin.core.Utils;
@@ -80,9 +81,9 @@ public class Constants
 	public static final String USER_AGENT = "Bitcoin Wallet";
 	public static final String DEFAULT_EXCHANGE_CURRENCY = "USD";
 	public static final int WALLET_OPERATION_STACK_SIZE = 256 * 1024;
-	public static final int BLOCKCHAIN_DOWNLOAD_THRESHOLD_MS = 5000;
-	public static final int BLOCKCHAIN_STATE_BROADCAST_THROTTLE_MS = 1000;
-	public static final int BLOCKCHAIN_UPTODATE_THRESHOLD_HOURS = 1;
+	public static final long BLOCKCHAIN_DOWNLOAD_THRESHOLD_MS = 5 * DateUtils.SECOND_IN_MILLIS;
+	public static final long BLOCKCHAIN_STATE_BROADCAST_THROTTLE_MS = DateUtils.SECOND_IN_MILLIS;
+	public static final long BLOCKCHAIN_UPTODATE_THRESHOLD_MS = DateUtils.HOUR_IN_MILLIS;
 
 	public static final String CURRENCY_CODE_BITCOIN = "BTC";
 	public static final char CHAR_HAIR_SPACE = '\u200a';
@@ -133,6 +134,6 @@ public class Constants
 
 	public static final BigInteger DEFAULT_TX_FEE = Utils.CENT.divide(BigInteger.valueOf(20));
 
-	public static final long LAST_USAGE_THRESHOLD_JUST_MS = 1000 * 60 * 60 * 1;
-	public static final long LAST_USAGE_THRESHOLD_RECENTLY_MS = 1000 * 60 * 60 * 48;
+	public static final long LAST_USAGE_THRESHOLD_JUST_MS = DateUtils.HOUR_IN_MILLIS;
+	public static final long LAST_USAGE_THRESHOLD_RECENTLY_MS = 2 * DateUtils.DAY_IN_MILLIS;
 }

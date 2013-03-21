@@ -191,7 +191,7 @@ public final class BlockListFragment extends SherlockListFragment implements Loa
 			rowHeight.setText(Integer.toString(height));
 
 			final TextView rowTime = (TextView) row.findViewById(R.id.block_list_row_time);
-			final long timeMs = header.getTimeSeconds() * 1000;
+			final long timeMs = header.getTimeSeconds() * DateUtils.SECOND_IN_MILLIS;
 			rowTime.setText(DateUtils.getRelativeDateTimeString(activity, timeMs, DateUtils.MINUTE_IN_MILLIS, DateUtils.WEEK_IN_MILLIS, 0));
 
 			final TextView rowHash = (TextView) row.findViewById(R.id.block_list_row_hash);

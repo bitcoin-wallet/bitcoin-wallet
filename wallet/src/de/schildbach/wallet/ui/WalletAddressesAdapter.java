@@ -23,6 +23,7 @@ import java.util.List;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -116,10 +117,10 @@ public class WalletAddressesAdapter extends BaseAdapter
 		if (showKeyCreationTime)
 		{
 			final TextView createdView = (TextView) row.findViewById(R.id.address_book_row_created);
-			final long created = key.getCreationTimeSeconds();
-			if (created != 0)
+			final long createdMs = key.getCreationTimeSeconds() * DateUtils.SECOND_IN_MILLIS;
+			if (createdMs != 0)
 			{
-				createdView.setText(dateFormat.format(new Date(created * 1000)));
+				createdView.setText(dateFormat.format(new Date(createdMs)));
 				createdView.setVisibility(View.VISIBLE);
 			}
 			else

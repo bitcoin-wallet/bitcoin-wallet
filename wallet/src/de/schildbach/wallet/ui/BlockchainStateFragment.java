@@ -32,6 +32,7 @@ import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.text.Html;
+import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -163,8 +164,8 @@ public final class BlockchainStateFragment extends Fragment implements OnSharedP
 		}
 		else if (bestChainDate != null)
 		{
-			final long blockchainLagHours = (System.currentTimeMillis() - bestChainDate.getTime()) / 1000 / 60 / 60;
-			final boolean blockchainUptodate = blockchainLagHours < Constants.BLOCKCHAIN_UPTODATE_THRESHOLD_HOURS;
+			final long blockchainLag = System.currentTimeMillis() - bestChainDate.getTime();
+			final boolean blockchainUptodate = blockchainLag < Constants.BLOCKCHAIN_UPTODATE_THRESHOLD_MS;
 
 			showProgress = !blockchainUptodate;
 			showDisclaimer = blockchainUptodate && disclaimer;
@@ -173,25 +174,29 @@ public final class BlockchainStateFragment extends Fragment implements OnSharedP
 			final String stalled = getString(R.string.blockchain_state_progress_stalled);
 
 			final String stalledText;
-			if (blockchainLagHours < 48)
+			if (blockchainLag < 2 * DateUtils.DAY_IN_MILLIS)
 			{
-				progressView.setText(getString(R.string.blockchain_state_progress_hours, downloading, blockchainLagHours));
-				stalledText = getString(R.string.blockchain_state_progress_hours, stalled, blockchainLagHours);
+				final long hours = blockchainLag / DateUtils.HOUR_IN_MILLIS;
+				progressView.setText(getString(R.string.blockchain_state_progress_hours, downloading, hours));
+				stalledText = getString(R.string.blockchain_state_progress_hours, stalled, hours);
 			}
-			else if (blockchainLagHours < 24 * 14)
+			else if (blockchainLag < 2 * DateUtils.WEEK_IN_MILLIS)
 			{
-				progressView.setText(getString(R.string.blockchain_state_progress_days, downloading, blockchainLagHours / 24));
-				stalledText = getString(R.string.blockchain_state_progress_days, stalled, blockchainLagHours / 24);
+				final long days = blockchainLag / DateUtils.DAY_IN_MILLIS;
+				progressView.setText(getString(R.string.blockchain_state_progress_days, downloading, days));
+				stalledText = getString(R.string.blockchain_state_progress_days, stalled, days);
 			}
-			else if (blockchainLagHours < 24 * 30 * 3)
+			else if (blockchainLag < 90 * DateUtils.DAY_IN_MILLIS)
 			{
-				progressView.setText(getString(R.string.blockchain_state_progress_weeks, downloading, blockchainLagHours / 24 / 7));
-				stalledText = getString(R.string.blockchain_state_progress_weeks, stalled, blockchainLagHours / 24 / 7);
+				final long weeks = blockchainLag / DateUtils.WEEK_IN_MILLIS;
+				progressView.setText(getString(R.string.blockchain_state_progress_weeks, downloading, weeks));
+				stalledText = getString(R.string.blockchain_state_progress_weeks, stalled, weeks);
 			}
 			else
 			{
-				progressView.setText(getString(R.string.blockchain_state_progress_months, downloading, blockchainLagHours / 24 / 30));
-				stalledText = getString(R.string.blockchain_state_progress_months, stalled, blockchainLagHours / 24 / 30);
+				final long months = blockchainLag / (30 * DateUtils.DAY_IN_MILLIS);
+				progressView.setText(getString(R.string.blockchain_state_progress_months, downloading, months));
+				stalledText = getString(R.string.blockchain_state_progress_months, stalled, months);
 			}
 
 			delayMessageHandler.removeCallbacksAndMessages(null);

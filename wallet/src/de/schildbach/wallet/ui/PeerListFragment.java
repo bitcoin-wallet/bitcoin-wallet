@@ -37,6 +37,7 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
+import android.text.format.DateUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -63,7 +64,7 @@ public final class PeerListFragment extends SherlockListFragment
 
 	private final Handler handler = new Handler();
 
-	private static final long REFRESH_MS = 1000;
+	private static final long REFRESH_MS = DateUtils.SECOND_IN_MILLIS;
 
 	private static final int ID_PEER_LOADER = 0;
 	private static final int ID_REVERSE_DNS_LOADER = 1;

@@ -56,6 +56,7 @@ import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
+import android.text.format.DateUtils;
 import android.util.Log;
 
 import com.google.bitcoin.core.AbstractPeerEventListener;
@@ -120,7 +121,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 	private static final int MAX_LAST_CHAIN_HEIGHTS = 10;
 	private static final int IDLE_TIMEOUT_MIN = 2;
 
-	private static final long APPWIDGET_THROTTLE_MS = 1000;
+	private static final long APPWIDGET_THROTTLE_MS = DateUtils.SECOND_IN_MILLIS;
 
 	private static final String TAG = BlockchainServiceImpl.class.getSimpleName();
 
@@ -312,7 +313,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 			{
 				lastMessageTime.set(System.currentTimeMillis());
 
-				final Date bestChainDate = new Date(blockChain.getChainHead().getHeader().getTimeSeconds() * 1000);
+				final Date bestChainDate = new Date(blockChain.getChainHead().getHeader().getTimeSeconds() * DateUtils.SECOND_IN_MILLIS);
 				final int bestChainHeight = blockChain.getBestChainHeight();
 				if (bestChainHeight > bestChainHeightEver)
 					bestChainHeightEver = bestChainHeight;
@@ -448,7 +449,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 				wakeLock.release();
 			}
 
-			final Date bestChainDate = new Date(blockChain.getChainHead().getHeader().getTimeSeconds() * 1000);
+			final Date bestChainDate = new Date(blockChain.getChainHead().getHeader().getTimeSeconds() * DateUtils.SECOND_IN_MILLIS);
 			final int bestChainHeight = blockChain.getBestChainHeight();
 			final int download = (hasConnectivity ? 0 : ACTION_BLOCKCHAIN_STATE_DOWNLOAD_NETWORK_PROBLEM)
 					| (hasPower ? 0 : ACTION_BLOCKCHAIN_STATE_DOWNLOAD_POWER_PROBLEM)

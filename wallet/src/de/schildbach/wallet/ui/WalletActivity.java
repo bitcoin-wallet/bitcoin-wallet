@@ -546,7 +546,7 @@ public final class WalletActivity extends AbstractWalletActivity
 
 					if (serverTime > 0)
 					{
-						final long diffMinutes = Math.abs((System.currentTimeMillis() - serverTime) / 1000 / 60);
+						final long diffMinutes = Math.abs((System.currentTimeMillis() - serverTime) / DateUtils.MINUTE_IN_MILLIS);
 
 						if (diffMinutes >= 60)
 						{
