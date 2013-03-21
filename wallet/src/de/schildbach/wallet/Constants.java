@@ -98,7 +98,7 @@ public class Constants
 	public static final int BTC_PRECISION = 8;
 	public static final int LOCAL_PRECISION = 4;
 
-	public static final String DONATION_ADDRESS = "1MH7wUsZ8K28q7LUrn2PQgDEykAbEibU4G";
+	public static final String DONATION_ADDRESS = "169EnuJgJf3L31cSkMLBm5hHvk42s8Qi4C";
 
 	public static final String LICENSE_URL = "http://www.gnu.org/licenses/gpl-3.0.txt";
 	public static final String SOURCE_URL = "http://code.google.com/p/bitcoin-wallet/";
