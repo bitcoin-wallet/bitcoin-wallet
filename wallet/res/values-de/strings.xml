@@ -173,7 +173,10 @@
 	<string name="scan_camera_problem_dialog_title">Sorry</string>
 	<string name="scan_camera_problem_dialog_message">Die Kamera hat ein Problem. Evtl. musst du dein Gerät neu starten.</string>
 
-	<string name="preferences_title">Einstellungen</string>
+	<string name="preferences_activity_title">Einstellungen</string>
+	<string name="preferences_category_main">Einstellungen</string>
+	<string name="preferences_category_diagnostics">Diagnose</string>
+	<string name="preferences_category_labs">Labor</string>
 	<string name="preferences_autosync_title">Sync am Strom</string>
 	<string name="preferences_autosync_summary">Synchronisiert die Blockchain im Hintergrund, solange das Gerät am Strom hängt.</string>
 	<string name="preferences_connectivity_notification_title">Konnektivitäts-Anzeige</string>

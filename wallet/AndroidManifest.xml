@@ -142,7 +142,7 @@
 			android:screenOrientation="behind" />
 		<activity
 			android:name="de.schildbach.wallet.ui.PreferencesActivity"
-			android:label="@string/preferences_title"
+			android:label="@string/preferences_activity_title"
 			android:screenOrientation="behind" />
 		<activity
 			android:name="de.schildbach.wallet.ui.AboutActivity"

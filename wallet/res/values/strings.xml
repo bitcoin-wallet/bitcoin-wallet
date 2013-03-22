@@ -157,7 +157,10 @@
 	<string name="block_explorer_activity_title">Block Explorer</string>
 	<string name="scan_camera_problem_dialog_title">Sorry</string>
 	<string name="scan_camera_problem_dialog_message">The camera has a problem. You probably need to restart the device.</string>
-	<string name="preferences_title">Preferences</string>
+	<string name="preferences_activity_title">Settings</string>
+	<string name="preferences_category_main">Preferences</string>
+	<string name="preferences_category_diagnostics">Diagnostics</string>
+	<string name="preferences_category_labs">Labs</string>
 	<string name="preferences_autosync_title">Sync on Power</string>
 	<string name="preferences_autosync_summary">Stay synchronized to blockchain in background while connected to power.</string>
 	<string name="preferences_connectivity_notification_title">Connectivity Indicator</string>
