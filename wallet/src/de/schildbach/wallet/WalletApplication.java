@@ -27,7 +27,6 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
-import java.lang.reflect.Method;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
@@ -53,7 +52,7 @@ import com.google.bitcoin.store.WalletProtobufSerializer;
 
 import de.schildbach.wallet.service.BlockchainService;
 import de.schildbach.wallet.service.BlockchainServiceImpl;
-import de.schildbach.wallet.util.ErrorReporter;
+import de.schildbach.wallet.util.CrashReporter;
 import de.schildbach.wallet.util.StrictModeWrapper;
 import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
@@ -88,7 +87,7 @@ public class WalletApplication extends Application
 
 		super.onCreate();
 
-		ErrorReporter.getInstance().init(this);
+		CrashReporter.init(getCacheDir());
 
 		activityManager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
 
@@ -122,22 +121,7 @@ public class WalletApplication extends Application
 		{
 			// make wallets world accessible in test mode
 			if (Constants.TEST)
-				chmod(file, 0777);
-		}
-	}
-
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	private static void chmod(final File path, final int mode)
-	{
-		try
-		{
-			final Class fileUtils = Class.forName("android.os.FileUtils");
-			final Method setPermissions = fileUtils.getMethod("setPermissions", String.class, int.class, int.class, int.class);
-			setPermissions.invoke(null, path.getAbsolutePath(), mode, -1, -1);
-		}
-		catch (final Exception x)
-		{
-			x.printStackTrace();
+				WalletUtils.chmod(file, 0777);
 		}
 	}
 
@@ -344,7 +328,7 @@ public class WalletApplication extends Application
 
 		// make wallets world accessible in test mode
 		if (Constants.TEST)
-			chmod(walletFile, 0777);
+			WalletUtils.chmod(walletFile, 0777);
 
 		Log.d(TAG, "wallet saved to: '" + walletFile + "', took " + (System.currentTimeMillis() - start) + "ms");
 	}

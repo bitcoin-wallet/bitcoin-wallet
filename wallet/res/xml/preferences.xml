@@ -26,6 +26,10 @@
 	</PreferenceCategory>
 	<PreferenceCategory android:title="@string/preferences_category_diagnostics" >
 		<Preference
+			android:key="report_issue"
+			android:summary="@string/preferences_report_issue_summary"
+			android:title="@string/preferences_report_issue_title" />
+		<Preference
 			android:key="initiate_reset"
 			android:summary="@string/preferences_initiate_reset_summary"
 			android:title="@string/preferences_initiate_reset_title" />

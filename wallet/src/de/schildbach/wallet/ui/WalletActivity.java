@@ -73,8 +73,9 @@ import com.google.bitcoin.core.ECKey;
 import com.google.bitcoin.core.Wallet;
 
 import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.WalletApplication;
+import de.schildbach.wallet.util.CrashReporter;
 import de.schildbach.wallet.util.EncryptionUtils;
-import de.schildbach.wallet.util.ErrorReporter;
 import de.schildbach.wallet.util.Iso8601Format;
 import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
@@ -90,6 +91,7 @@ public final class WalletActivity extends AbstractWalletActivity
 	private static final int DIALOG_EXPORT_KEYS = 3;
 	private static final int DIALOG_ALERT_OLD_SDK = 4;
 
+	private WalletApplication application;
 	private Wallet wallet;
 	private SharedPreferences prefs;
 
@@ -98,9 +100,8 @@ public final class WalletActivity extends AbstractWalletActivity
 	{
 		super.onCreate(savedInstanceState);
 
-		ErrorReporter.getInstance().check(this);
-
-		wallet = getWalletApplication().getWallet();
+		application = getWalletApplication();
+		wallet = application.getWallet();
 		prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
 		setContentView(R.layout.wallet_content);
@@ -597,6 +598,59 @@ public final class WalletActivity extends AbstractWalletActivity
 				}
 			}
 		}.start();
+
+		if (CrashReporter.hasSavedReport())
+		{
+			final ReportIssueDialogBuilder dialog = new ReportIssueDialogBuilder(this, R.string.report_issue_dialog_title_crash,
+					R.string.report_issue_dialog_message_crash)
+			{
+				@Override
+				protected CharSequence subject()
+				{
+					return Constants.REPORT_SUBJECT_CRASH + " " + application.applicationVersionName();
+				}
+
+				@Override
+				protected CharSequence collectStackTrace() throws IOException
+				{
+					final StringBuilder stackTrace = new StringBuilder();
+					CrashReporter.appendSavedStackTrace(stackTrace);
+
+					if (stackTrace.length() > 0)
+						return stackTrace;
+					else
+						return null;
+				}
+
+				@Override
+				protected CharSequence collectDeviceInfo() throws IOException
+				{
+					final StringBuilder deviceInfo = new StringBuilder();
+					CrashReporter.appendDeviceInfo(deviceInfo, WalletActivity.this);
+					return deviceInfo;
+				}
+
+				@Override
+				protected CharSequence collectApplicationLog() throws IOException
+				{
+					final StringBuilder applicationLog = new StringBuilder();
+					CrashReporter.appendSavedApplicationLog(applicationLog);
+
+					if (applicationLog.length() > 0)
+						return applicationLog;
+					else
+						return null;
+				}
+
+				@Override
+				protected CharSequence collectWalletDump()
+				{
+					return wallet.toString(false, null);
+				}
+			};
+
+			dialog.show();
+		}
 	}
 
 	private void timeskewAlert(final long diffMinutes)

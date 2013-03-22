@@ -17,6 +17,8 @@
 
 package de.schildbach.wallet.ui;
 
+import java.io.IOException;
+
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
@@ -32,6 +34,7 @@ import com.actionbarsherlock.view.MenuItem;
 
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
+import de.schildbach.wallet.util.CrashReporter;
 import de.schildbach.wallet_test.R;
 
 /**
@@ -43,6 +46,7 @@ public final class PreferencesActivity extends SherlockPreferenceActivity implem
 	private Preference trustedPeerPreference;
 	private Preference trustedPeerOnlyPreference;
 
+	private static final String PREFS_KEY_REPORT_ISSUE = "report_issue";
 	private static final String PREFS_KEY_INITIATE_RESET = "initiate_reset";
 
 	@Override
@@ -94,7 +98,54 @@ public final class PreferencesActivity extends SherlockPreferenceActivity implem
 	{
 		final String key = preference.getKey();
 
-		if (PREFS_KEY_INITIATE_RESET.equals(key))
+		if (PREFS_KEY_REPORT_ISSUE.equals(key))
+		{
+			final ReportIssueDialogBuilder dialog = new ReportIssueDialogBuilder(this, R.string.report_issue_dialog_title_issue,
+					R.string.report_issue_dialog_message_issue)
+			{
+				@Override
+				protected CharSequence subject()
+				{
+					return Constants.REPORT_SUBJECT_ISSUE + " " + application.applicationVersionName();
+				}
+
+				@Override
+				protected CharSequence collectStackTrace()
+				{
+					return null;
+				}
+
+				@Override
+				protected CharSequence collectDeviceInfo() throws IOException
+				{
+					final StringBuilder deviceInfo = new StringBuilder();
+					CrashReporter.appendDeviceInfo(deviceInfo, PreferencesActivity.this);
+					return deviceInfo;
+				}
+
+				@Override
+				protected CharSequence collectApplicationLog() throws IOException
+				{
+					final StringBuilder applicationLog = new StringBuilder();
+					CrashReporter.appendApplicationLog(applicationLog);
+					if (applicationLog.length() > 0)
+						return applicationLog;
+					else
+						return null;
+				}
+
+				@Override
+				protected CharSequence collectWalletDump()
+				{
+					return application.getWallet().toString(false, null);
+				}
+			};
+
+			dialog.show();
+
+			return true;
+		}
+		else if (PREFS_KEY_INITIATE_RESET.equals(key))
 		{
 			final AlertDialog.Builder dialog = new AlertDialog.Builder(this);
 			dialog.setTitle(R.string.preferences_initiate_reset_title);
