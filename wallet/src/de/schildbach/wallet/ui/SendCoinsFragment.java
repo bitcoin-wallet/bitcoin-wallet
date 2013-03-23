@@ -112,12 +112,13 @@ public final class SendCoinsFragment extends SherlockFragment implements AmountC
 	private View popupAvailableView;
 	private PopupWindow popupWindow;
 
-	private Address validatedAddress;
-	private String receivingLabel;
-	private boolean isValidAmounts;
+	private MenuItem scanAction;
 
+	private Address validatedAddress = null;
+	private String receivingLabel = null;
+	private boolean isValidAmounts = false;
 	private State state = State.INPUT;
-	private Transaction sentTransaction;
+	private Transaction sentTransaction = null;
 
 	private static final int REQUEST_CODE_SCAN = 0;
 
@@ -539,9 +540,10 @@ public final class SendCoinsFragment extends SherlockFragment implements AmountC
 	{
 		inflater.inflate(R.menu.send_coins_fragment_options, menu);
 
+		scanAction = menu.findItem(R.id.send_coins_options_scan);
+
 		final PackageManager pm = activity.getPackageManager();
-		menu.findItem(R.id.send_coins_options_scan).setVisible(
-				pm.hasSystemFeature(PackageManager.FEATURE_CAMERA) || pm.hasSystemFeature(PackageManager.FEATURE_CAMERA_FRONT));
+		scanAction.setVisible(pm.hasSystemFeature(PackageManager.FEATURE_CAMERA) || pm.hasSystemFeature(PackageManager.FEATURE_CAMERA_FRONT));
 
 		super.onCreateOptionsMenu(menu, inflater);
 	}
@@ -882,6 +884,9 @@ public final class SendCoinsFragment extends SherlockFragment implements AmountC
 			viewCancel.setText(R.string.send_coins_fragment_button_back);
 			viewGo.setText(R.string.send_coins_failed_msg);
 		}
+
+		if (scanAction != null)
+			scanAction.setEnabled(state == State.INPUT);
 	}
 
 	private boolean everythingValid()
