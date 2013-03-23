@@ -758,18 +758,15 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 		try
 		{
 			StoredBlock block = blockChain.getChainHead();
-			if (block != null)
+
+			while (block != null)
 			{
 				blocks.add(block);
 
-				while (blocks.size() < maxBlocks)
-				{
-					block = block.getPrev(blockChain.getBlockStore());
-					if (block == null)
-						break;
+				if (blocks.size() >= maxBlocks)
+					break;
 
-					blocks.add(block);
-				}
+				block = block.getPrev(blockStore);
 			}
 		}
 		catch (final BlockStoreException x)
