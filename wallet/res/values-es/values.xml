@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+	<string-array name="preferences_precision_values">
+		<item>8</item>
+		<item>6</item>
+		<item>4</item>
+	</string-array>
+	<string-array name="preferences_precision_labels">
+		<item>8 dígitos</item>
+		<item>6 dígitos</item>
+		<item>4 dígitos</item>
+	</string-array>
+
+</resources>
