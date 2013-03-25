@@ -601,6 +601,19 @@ public final class WalletActivity extends AbstractWalletActivity
 
 		if (CrashReporter.hasSavedReport())
 		{
+			final StringBuilder stackTrace = new StringBuilder();
+			final StringBuilder applicationLog = new StringBuilder();
+
+			try
+			{
+				CrashReporter.appendSavedStackTrace(stackTrace);
+				CrashReporter.appendSavedApplicationLog(applicationLog);
+			}
+			catch (final IOException x)
+			{
+				x.printStackTrace();
+			}
+
 			final ReportIssueDialogBuilder dialog = new ReportIssueDialogBuilder(this, R.string.report_issue_dialog_title_crash,
 					R.string.report_issue_dialog_message_crash)
 			{
@@ -613,9 +626,6 @@ public final class WalletActivity extends AbstractWalletActivity
 				@Override
 				protected CharSequence collectStackTrace() throws IOException
 				{
-					final StringBuilder stackTrace = new StringBuilder();
-					CrashReporter.appendSavedStackTrace(stackTrace);
-
 					if (stackTrace.length() > 0)
 						return stackTrace;
 					else
@@ -633,9 +643,6 @@ public final class WalletActivity extends AbstractWalletActivity
 				@Override
 				protected CharSequence collectApplicationLog() throws IOException
 				{
-					final StringBuilder applicationLog = new StringBuilder();
-					CrashReporter.appendSavedApplicationLog(applicationLog);
-
 					if (applicationLog.length() > 0)
 						return applicationLog;
 					else
