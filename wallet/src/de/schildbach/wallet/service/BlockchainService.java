@@ -45,6 +45,7 @@ public interface BlockchainService
 
 	public static final String ACTION_CANCEL_COINS_RECEIVED = R.class.getPackage().getName() + ".cancel_coins_received";
 	public static final String ACTION_HOLD_WIFI_LOCK = R.class.getPackage().getName() + ".hold_wifi_lock";
+	public static final String ACTION_RESET_BLOCKCHAIN = R.class.getPackage().getName() + ".reset_blockchain";
 
 	void broadcastTransaction(Transaction tx);
 

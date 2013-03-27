@@ -66,6 +66,7 @@ public class WalletApplication extends Application
 	private Wallet wallet;
 	private Intent blockchainServiceIntent;
 	private Intent blockchainServiceCancelCoinsReceivedIntent;
+	private Intent blockchainServiceResetBlockchainIntent;
 	private ActivityManager activityManager;
 
 	private static final Charset UTF_8 = Charset.forName("UTF-8");
@@ -94,6 +95,7 @@ public class WalletApplication extends Application
 		blockchainServiceIntent = new Intent(this, BlockchainServiceImpl.class);
 		blockchainServiceCancelCoinsReceivedIntent = new Intent(BlockchainService.ACTION_CANCEL_COINS_RECEIVED, null, this,
 				BlockchainServiceImpl.class);
+		blockchainServiceResetBlockchainIntent = new Intent(BlockchainService.ACTION_RESET_BLOCKCHAIN, null, this, BlockchainServiceImpl.class);
 
 		walletFile = getFileStreamPath(Constants.WALLET_FILENAME_PROTOBUF);
 
@@ -252,9 +254,7 @@ public class WalletApplication extends Application
 		{
 			final Wallet wallet = readKeys(openFileInput(Constants.WALLET_KEY_BACKUP_BASE58));
 
-			final File file = new File(getDir("blockstore", Context.MODE_WORLD_READABLE | Context.MODE_WORLD_WRITEABLE),
-					Constants.BLOCKCHAIN_FILENAME);
-			file.delete();
+			resetBlockchain();
 
 			Toast.makeText(this, R.string.toast_wallet_reset, Toast.LENGTH_LONG).show();
 
@@ -398,19 +398,8 @@ public class WalletApplication extends Application
 
 	public void resetBlockchain()
 	{
-		// stop service to make sure peers do not get in the way
-		stopBlockchainService();
-
-		// remove block chain
-		final File blockChainFile = new File(getDir("blockstore", Context.MODE_WORLD_READABLE | Context.MODE_WORLD_WRITEABLE),
-				Constants.BLOCKCHAIN_FILENAME);
-		blockChainFile.delete();
-
-		// clear transactions from wallet, keep keys
-		wallet.clearTransactions(0);
-
-		// start service again
-		startBlockchainService(false);
+		// actually stops the service
+		startService(blockchainServiceResetBlockchainIntent);
 	}
 
 	public final int applicationVersionCode()

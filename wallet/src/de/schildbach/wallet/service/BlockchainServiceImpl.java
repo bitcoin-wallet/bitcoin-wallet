@@ -99,6 +99,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 	private SharedPreferences prefs;
 
 	private BlockStore blockStore;
+	private File blockChainFile;
 	private BlockChain blockChain;
 	private PeerGroup peerGroup;
 
@@ -115,8 +116,8 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 	private int notificationCount = 0;
 	private BigInteger notificationAccumulatedAmount = BigInteger.ZERO;
 	private final List<Address> notificationAddresses = new LinkedList<Address>();
-
 	private int bestChainHeightEver;
+	private boolean resetBlockchainOnShutdown = false;
 
 	private static final int MAX_LAST_CHAIN_HEIGHTS = 10;
 	private static final int IDLE_TIMEOUT_MIN = 2;
@@ -566,6 +567,11 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 		prefs = PreferenceManager.getDefaultSharedPreferences(this);
 		final Wallet wallet = application.getWallet();
 
+		final int versionCode = application.applicationVersionCode();
+		prefs.edit().putInt(Constants.PREFS_KEY_LAST_VERSION, versionCode).commit();
+
+		bestChainHeightEver = prefs.getInt(Constants.PREFS_KEY_BEST_CHAIN_HEIGHT_EVER, 0);
+
 		peerConnectivityListener = new PeerConnectivityListener();
 
 		sendBroadcastPeerState(0);
@@ -577,50 +583,40 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 		intentFilter.addAction(Intent.ACTION_DEVICE_STORAGE_OK);
 		registerReceiver(connectivityReceiver, intentFilter);
 
-		final int versionCode = application.applicationVersionCode();
-		prefs.edit().putInt(Constants.PREFS_KEY_LAST_VERSION, versionCode).commit();
+		blockChainFile = new File(getDir("blockstore", Context.MODE_WORLD_READABLE | Context.MODE_WORLD_WRITEABLE), Constants.BLOCKCHAIN_FILENAME);
+		final boolean blockChainFileExists = blockChainFile.exists();
 
-		bestChainHeightEver = prefs.getInt(Constants.PREFS_KEY_BEST_CHAIN_HEIGHT_EVER, 0);
+		if (!blockChainFileExists)
+		{
+			Log.d(TAG, "blockchain does not exist, resetting wallet");
 
-		final File blockChainFile = new File(getDir("blockstore", Context.MODE_WORLD_READABLE | Context.MODE_WORLD_WRITEABLE),
-				Constants.BLOCKCHAIN_FILENAME);
-		final boolean blockchainDoesNotExist = !blockChainFile.exists();
-
-		if (blockchainDoesNotExist)
+			wallet.clearTransactions(0);
 			copyBlockchainSnapshot(blockChainFile);
+		}
 
 		try
 		{
-			try
-			{
-				blockStore = new BoundedOverheadBlockStore(Constants.NETWORK_PARAMETERS, blockChainFile);
-				blockStore.getChainHead(); // detect corruptions as early as possible
-			}
-			catch (final BlockStoreException x)
-			{
-				wallet.clearTransactions(0);
-				blockChainFile.delete();
+			blockStore = new BoundedOverheadBlockStore(Constants.NETWORK_PARAMETERS, blockChainFile);
+			blockStore.getChainHead(); // detect corruptions as early as possible
+		}
+		catch (final BlockStoreException x)
+		{
+			blockChainFile.delete();
 
-				x.printStackTrace();
-				throw new Error("blockstore cannot be created", x);
-			}
-			catch (final IllegalStateException x)
-			{
-				wallet.clearTransactions(0);
-				blockChainFile.delete();
+			x.printStackTrace();
+			throw new Error("blockstore cannot be created", x);
+		}
 
-				x.printStackTrace();
-				throw new Error("blockstore cannot be created", x);
-			}
-
+		try
+		{
 			blockChain = new BlockChain(Constants.NETWORK_PARAMETERS, wallet, blockStore);
-
-			application.getWallet().addEventListener(walletEventListener);
 		}
 		catch (final BlockStoreException x)
 		{
 			throw new Error("blockchain cannot be created", x);
 		}
+
+		application.getWallet().addEventListener(walletEventListener);
 
 		registerReceiver(tickReceiver, new IntentFilter(Intent.ACTION_TIME_TICK));
 	}
@@ -646,6 +642,12 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 		{
 			Log.d(TAG, "releasing wifilock");
 			wifiLock.release();
+		}
+
+		if (BlockchainService.ACTION_RESET_BLOCKCHAIN.equals(intent.getAction()))
+		{
+			resetBlockchainOnShutdown = true;
+			stopSelf();
 		}
 
 		return START_NOT_STICKY;
@@ -691,6 +693,8 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 			peerGroup.removeEventListener(peerConnectivityListener);
 			peerGroup.removeWallet(application.getWallet());
 			peerGroup.stopAndWait();
+
+			Log.i(TAG, "peergroup stopped");
 		}
 
 		peerConnectivityListener.stop();
@@ -725,6 +729,12 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 		{
 			Log.d(TAG, "wifilock still held, releasing");
 			wifiLock.release();
+		}
+
+		if (resetBlockchainOnShutdown)
+		{
+			Log.d(TAG, "removing blockchain");
+			blockChainFile.delete();
 		}
 
 		super.onDestroy();
