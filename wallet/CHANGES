@@ -1,3 +1,7 @@
+2.48
+
+* fix race condition when replaying blockchain
+
 2.47
 
 * report issues from within the app
