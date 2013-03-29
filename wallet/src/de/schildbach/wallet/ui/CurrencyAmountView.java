@@ -296,6 +296,7 @@ public final class CurrencyAmountView extends FrameLayout
 	{
 		final Bundle state = new Bundle();
 		state.putParcelable("super_state", super.onSaveInstanceState());
+		state.putParcelable("child_textview", textView.onSaveInstanceState());
 		state.putSerializable("amount", getAmount());
 		return state;
 	}
@@ -307,6 +308,7 @@ public final class CurrencyAmountView extends FrameLayout
 		{
 			final Bundle bundle = (Bundle) state;
 			super.onRestoreInstanceState(bundle.getParcelable("super_state"));
+			textView.onRestoreInstanceState(bundle.getParcelable("child_textview"));
 			setAmount((BigInteger) bundle.getSerializable("amount"));
 		}
 		else
