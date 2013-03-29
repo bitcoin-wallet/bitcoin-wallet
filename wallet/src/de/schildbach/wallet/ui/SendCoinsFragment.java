@@ -35,6 +35,9 @@ import android.os.HandlerThread;
 import android.os.IBinder;
 import android.os.Process;
 import android.preference.PreferenceManager;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.app.LoaderManager.LoaderCallbacks;
+import android.support.v4.content.Loader;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -71,6 +74,8 @@ import com.google.bitcoin.uri.BitcoinURIParseException;
 
 import de.schildbach.wallet.AddressBookProvider;
 import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.ExchangeRatesProvider;
+import de.schildbach.wallet.ExchangeRatesProvider.ExchangeRate;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.integration.android.BitcoinIntegration;
 import de.schildbach.wallet.service.BlockchainService;
@@ -82,13 +87,14 @@ import de.schildbach.wallet_test.R;
 /**
  * @author Andreas Schildbach
  */
-public final class SendCoinsFragment extends SherlockFragment implements AmountCalculatorFragment.Listener
+public final class SendCoinsFragment extends SherlockFragment
 {
 	private AbstractWalletActivity activity;
 	private WalletApplication application;
+	private Wallet wallet;
 	private ContentResolver contentResolver;
 	private SharedPreferences prefs;
-	private Wallet wallet;
+	private LoaderManager loaderManager;
 
 	private BlockchainService service;
 	private final Handler handler = new Handler();
@@ -99,7 +105,6 @@ public final class SendCoinsFragment extends SherlockFragment implements AmountC
 	private View receivingStaticView;
 	private TextView receivingStaticAddressView;
 	private TextView receivingStaticLabelView;
-	private CurrencyAmountView amountView;
 
 	private ListView sentTransactionView;
 	private TransactionsListAdapter sentTransactionListAdapter;
@@ -110,6 +115,8 @@ public final class SendCoinsFragment extends SherlockFragment implements AmountC
 	private View popupAvailableView;
 	private PopupWindow popupWindow;
 
+	private CurrencyCalculatorLink amountCalculatorLink;
+
 	private MenuItem scanAction;
 
 	private Address validatedAddress = null;
@@ -117,6 +124,8 @@ public final class SendCoinsFragment extends SherlockFragment implements AmountC
 	private boolean isValidAmounts = false;
 	private State state = State.INPUT;
 	private Transaction sentTransaction = null;
+
+	private static final int ID_RATE_LOADER = 0;
 
 	private static final int REQUEST_CODE_SCAN = 0;
 
@@ -226,16 +235,41 @@ public final class SendCoinsFragment extends SherlockFragment implements AmountC
 		}
 	};
 
+	private final LoaderCallbacks<Cursor> rateLoaderCallbacks = new LoaderManager.LoaderCallbacks<Cursor>()
+	{
+		public Loader<Cursor> onCreateLoader(final int id, final Bundle args)
+		{
+			return new ExchangeRateLoader(activity);
+		}
+
+		public void onLoadFinished(final Loader<Cursor> loader, final Cursor data)
+		{
+			if (data != null)
+			{
+				data.moveToFirst();
+				final ExchangeRate exchangeRate = ExchangeRatesProvider.getExchangeRate(data);
+
+				if (state == State.INPUT)
+					amountCalculatorLink.setExchangeRate(exchangeRate);
+			}
+		}
+
+		public void onLoaderReset(final Loader<Cursor> loader)
+		{
+		}
+	};
+
 	@Override
 	public void onAttach(final Activity activity)
 	{
 		super.onAttach(activity);
 
 		this.activity = (AbstractWalletActivity) activity;
-		application = (WalletApplication) activity.getApplication();
-		contentResolver = activity.getContentResolver();
-		prefs = PreferenceManager.getDefaultSharedPreferences(activity);
-		wallet = application.getWallet();
+		this.application = (WalletApplication) activity.getApplication();
+		this.wallet = application.getWallet();
+		this.contentResolver = activity.getContentResolver();
+		this.prefs = PreferenceManager.getDefaultSharedPreferences(activity);
+		this.loaderManager = getLoaderManager();
 	}
 
 	@Override
@@ -333,7 +367,7 @@ public final class SendCoinsFragment extends SherlockFragment implements AmountC
 						public void onDestroyActionMode(final ActionMode mode)
 						{
 							if (receivingStaticView.hasFocus())
-								amountView.requestFocus();
+								amountCalculatorLink.requestFocus();
 						}
 
 						private void handleEditAddress()
@@ -362,14 +396,9 @@ public final class SendCoinsFragment extends SherlockFragment implements AmountC
 			}
 		});
 
-		amountView = (CurrencyAmountView) view.findViewById(R.id.send_coins_amount);
-		amountView.setContextButton(R.drawable.ic_input_calculator, new OnClickListener()
-		{
-			public void onClick(final View v)
-			{
-				AmountCalculatorFragment.calculate(getFragmentManager(), SendCoinsFragment.this);
-			}
-		});
+		final CurrencyAmountView btcAmountView = (CurrencyAmountView) view.findViewById(R.id.send_coins_amount_btc);
+		final CurrencyAmountView localAmountView = (CurrencyAmountView) view.findViewById(R.id.send_coins_amount_local);
+		amountCalculatorLink = new CurrencyCalculatorLink(btcAmountView, localAmountView);
 
 		sentTransactionView = (ListView) view.findViewById(R.id.send_coins_sent_transaction);
 		sentTransactionListAdapter = new TransactionsListAdapter(activity, wallet, application.maxConnectedPeers(), false);
@@ -414,7 +443,9 @@ public final class SendCoinsFragment extends SherlockFragment implements AmountC
 
 		contentResolver.registerContentObserver(AddressBookProvider.contentUri(activity.getPackageName()), true, contentObserver);
 
-		amountView.setListener(amountsListener);
+		amountCalculatorLink.setListener(amountsListener);
+
+		loaderManager.initLoader(ID_RATE_LOADER, null, rateLoaderCallbacks);
 
 		updateView();
 	}
@@ -422,7 +453,9 @@ public final class SendCoinsFragment extends SherlockFragment implements AmountC
 	@Override
 	public void onPause()
 	{
-		amountView.setListener(null);
+		loaderManager.destroyLoader(ID_RATE_LOADER);
+
+		amountCalculatorLink.setListener(null);
 
 		contentResolver.unregisterContentObserver(contentObserver);
 
@@ -567,13 +600,13 @@ public final class SendCoinsFragment extends SherlockFragment implements AmountC
 	{
 		isValidAmounts = false;
 
-		final BigInteger amount = amountView.getAmount();
+		final BigInteger amount = amountCalculatorLink.getAmount();
 
 		if (amount == null)
 		{
 			// empty amount
 			if (popups)
-				popupMessage(amountView, getString(R.string.send_coins_fragment_amount_empty));
+				popupMessage(amountCalculatorLink.activeView(), getString(R.string.send_coins_fragment_amount_empty));
 		}
 		else if (amount.signum() > 0)
 		{
@@ -594,14 +627,14 @@ public final class SendCoinsFragment extends SherlockFragment implements AmountC
 			{
 				// not enough funds for amount
 				if (popups)
-					popupAvailable(amountView, available, pending);
+					popupAvailable(amountCalculatorLink.activeView(), available, pending);
 			}
 		}
 		else
 		{
 			// invalid amount
 			if (popups)
-				popupMessage(amountView, getString(R.string.send_coins_fragment_amount_error));
+				popupMessage(amountCalculatorLink.activeView(), getString(R.string.send_coins_fragment_amount_error));
 		}
 
 		updateView();
@@ -658,7 +691,7 @@ public final class SendCoinsFragment extends SherlockFragment implements AmountC
 		updateView();
 
 		// create spend
-		final SendRequest sendRequest = SendRequest.to(validatedAddress, amountView.getAmount());
+		final SendRequest sendRequest = SendRequest.to(validatedAddress, amountCalculatorLink.getAmount());
 		sendRequest.changeAddress = pickOldestKey(wallet.getKeys()).toAddress(Constants.NETWORK_PARAMETERS);
 
 		backgroundHandler.post(new Runnable()
@@ -771,7 +804,7 @@ public final class SendCoinsFragment extends SherlockFragment implements AmountC
 
 		receivingStaticView.setEnabled(state == State.INPUT);
 
-		amountView.setEnabled(state == State.INPUT);
+		amountCalculatorLink.setEnabled(state == State.INPUT);
 
 		if (sentTransaction != null)
 		{
@@ -838,11 +871,11 @@ public final class SendCoinsFragment extends SherlockFragment implements AmountC
 		}
 
 		if (amount != null)
-			amountView.setAmount(amount, false);
+			amountCalculatorLink.setBtcAmount(amount);
 
 		// focus
 		if (receivingAddress != null && amount == null)
-			amountView.requestFocus();
+			amountCalculatorLink.requestFocus();
 		else if (receivingAddress != null && amount != null)
 			viewGo.requestFocus();
 
@@ -867,10 +900,5 @@ public final class SendCoinsFragment extends SherlockFragment implements AmountC
 				oldestKey = key;
 
 		return oldestKey;
-	}
-
-	public void useCalculatedAmount(final BigInteger amount)
-	{
-		amountView.setAmount(amount, true);
 	}
 }
