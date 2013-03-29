@@ -104,6 +104,7 @@ public final class CurrencyAmountView extends FrameLayout
 		textView = (TextView) getChildAt(0);
 		textView.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
 		textView.setHintTextColor(lessSignificantColor);
+		textView.setHorizontalFadingEdgeEnabled(true);
 		setHint(null);
 		setValidateAmount(textView instanceof EditText);
 		final TextViewListener textViewListener = new TextViewListener();
