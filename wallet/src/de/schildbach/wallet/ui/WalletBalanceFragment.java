@@ -25,14 +25,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
-import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -230,60 +228,11 @@ public final class WalletBalanceFragment extends Fragment
 		}
 	};
 
-	private static class RateLoader extends CursorLoader implements OnSharedPreferenceChangeListener
-	{
-		private final SharedPreferences prefs;
-
-		public RateLoader(final Context context)
-		{
-			super(context, ExchangeRatesProvider.contentUri(context.getPackageName()), null, ExchangeRatesProvider.KEY_CURRENCY_CODE, null, null);
-
-			prefs = PreferenceManager.getDefaultSharedPreferences(context);
-
-			onCurrencyChange();
-		}
-
-		@Override
-		protected void onStartLoading()
-		{
-			super.onStartLoading();
-
-			prefs.registerOnSharedPreferenceChangeListener(this);
-
-			forceLoad();
-		}
-
-		@Override
-		protected void onStopLoading()
-		{
-			prefs.unregisterOnSharedPreferenceChangeListener(this);
-
-			super.onStopLoading();
-		}
-
-		public void onSharedPreferenceChanged(final SharedPreferences sharedPreferences, final String key)
-		{
-			if (Constants.PREFS_KEY_EXCHANGE_CURRENCY.equals(key))
-			{
-				cancelLoad();
-				onCurrencyChange();
-				forceLoad();
-			}
-		}
-
-		private void onCurrencyChange()
-		{
-			final String exchangeCurrency = prefs.getString(Constants.PREFS_KEY_EXCHANGE_CURRENCY, Constants.DEFAULT_EXCHANGE_CURRENCY);
-
-			setSelectionArgs(new String[] { exchangeCurrency });
-		}
-	}
-
 	private final LoaderCallbacks<Cursor> rateLoaderCallbacks = new LoaderManager.LoaderCallbacks<Cursor>()
 	{
 		public Loader<Cursor> onCreateLoader(final int id, final Bundle args)
 		{
-			return new RateLoader(activity);
+			return new ExchangeRateLoader(activity);
 		}
 
 		public void onLoadFinished(final Loader<Cursor> loader, final Cursor data)

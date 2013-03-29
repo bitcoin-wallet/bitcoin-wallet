@@ -31,7 +31,6 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.LoaderManager;
-import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -70,7 +69,6 @@ public final class AmountCalculatorFragment extends DialogFragment implements Lo
 	private SharedPreferences prefs;
 	private LoaderManager loaderManager;
 
-	private String exchangeCurrency;
 	private int precision;
 
 	private ExchangeRate exchangeRate;
@@ -92,7 +90,6 @@ public final class AmountCalculatorFragment extends DialogFragment implements Lo
 	@Override
 	public Dialog onCreateDialog(final Bundle savedInstanceState)
 	{
-		exchangeCurrency = prefs.getString(Constants.PREFS_KEY_EXCHANGE_CURRENCY, Constants.DEFAULT_EXCHANGE_CURRENCY);
 		precision = Integer.parseInt(prefs.getString(Constants.PREFS_KEY_BTC_PRECISION, Integer.toString(Constants.BTC_PRECISION)));
 
 		final AlertDialog.Builder dialog = new AlertDialog.Builder(activity);
@@ -129,7 +126,6 @@ public final class AmountCalculatorFragment extends DialogFragment implements Lo
 		});
 
 		localAmountView = (CurrencyAmountView) view.findViewById(R.id.amount_calculator_row_local);
-		localAmountView.setCurrencyCode(exchangeCurrency);
 		localAmountView.setPrecision(Constants.LOCAL_PRECISION);
 		localAmountView.setListener(new CurrencyAmountView.Listener()
 		{
@@ -188,6 +184,7 @@ public final class AmountCalculatorFragment extends DialogFragment implements Lo
 		if (exchangeRate != null)
 		{
 			localAmountView.setEnabled(true);
+			localAmountView.setCurrencyCode(exchangeRate.currencyCode);
 
 			if (exchangeDirection)
 			{
@@ -210,7 +207,7 @@ public final class AmountCalculatorFragment extends DialogFragment implements Lo
 				}
 			}
 
-			exchangeRateView.setText(getString(R.string.amount_calculator_dialog_exchange_rate, exchangeCurrency,
+			exchangeRateView.setText(getString(R.string.amount_calculator_dialog_exchange_rate, exchangeRate.currencyCode,
 					GenericUtils.formatValue(WalletUtils.localValue(Utils.COIN, exchangeRate.rate), precision), exchangeRate.source));
 		}
 		else
@@ -233,8 +230,7 @@ public final class AmountCalculatorFragment extends DialogFragment implements Lo
 
 	public Loader<Cursor> onCreateLoader(final int id, final Bundle args)
 	{
-		return new CursorLoader(activity, ExchangeRatesProvider.contentUri(activity.getPackageName()), null, ExchangeRatesProvider.KEY_CURRENCY_CODE,
-				new String[] { exchangeCurrency }, null);
+		return new ExchangeRateLoader(activity);
 	}
 
 	public void onLoadFinished(final Loader<Cursor> loader, final Cursor data)
