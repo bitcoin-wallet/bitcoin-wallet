@@ -22,7 +22,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -36,7 +35,6 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import de.schildbach.wallet.Constants;
-import de.schildbach.wallet.util.CrashReporter;
 import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
 
@@ -52,7 +50,7 @@ public abstract class ReportIssueDialogBuilder extends AlertDialog.Builder imple
 	private CheckBox viewCollectApplicationLog;
 	private CheckBox viewCollectWalletDump;
 
-	public ReportIssueDialogBuilder(final Activity context, final int titleResId, final int messageResId)
+	public ReportIssueDialogBuilder(final Context context, final int titleResId, final int messageResId)
 	{
 		super(context);
 
@@ -216,12 +214,7 @@ public abstract class ReportIssueDialogBuilder extends AlertDialog.Builder imple
 
 	protected abstract CharSequence subject();
 
-	private CharSequence collectApplicationInfo() throws IOException
-	{
-		final StringBuilder applicationInfo = new StringBuilder();
-		CrashReporter.appendApplicationInfo(applicationInfo, context);
-		return applicationInfo;
-	}
+	protected abstract CharSequence collectApplicationInfo() throws IOException;
 
 	protected abstract CharSequence collectStackTrace() throws IOException;
 

@@ -24,7 +24,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.util.Date;
 import java.util.Formatter;
 
 import android.app.ActivityManager;
@@ -35,6 +34,10 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 
+import com.google.bitcoin.core.Wallet;
+
+import de.schildbach.wallet.WalletApplication;
+
 /**
  * @author Andreas Schildbach
  */
@@ -42,6 +45,8 @@ public class CrashReporter
 {
 	private static final String STACK_TRACE_FILENAME = "crash.trace";
 	private static final String APPLICATION_LOG_FILENAME = "crash.log";
+
+	private static final long TIME_CREATE_APPLICATION = System.currentTimeMillis();
 
 	private static File stackTraceFile;
 	private static File applicationLogFile;
@@ -113,7 +118,6 @@ public class CrashReporter
 		final Configuration config = res.getConfiguration();
 		final ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
 
-		report.append("Date: " + new Date() + "\n");
 		report.append("Phone Model: " + android.os.Build.MODEL + "\n");
 		report.append("Android Version: " + android.os.Build.VERSION.RELEASE + "\n");
 		report.append("Board: " + android.os.Build.BOARD + "\n");
@@ -137,23 +141,30 @@ public class CrashReporter
 		report.append("Memory Class: " + activityManager.getMemoryClass() + "\n");
 	}
 
-	public static void appendApplicationInfo(final Appendable report, final Context context) throws IOException
+	public static void appendApplicationInfo(final Appendable report, final WalletApplication application) throws IOException
 	{
 		try
 		{
-			final PackageManager pm = context.getPackageManager();
-			final PackageInfo pi = pm.getPackageInfo(context.getPackageName(), 0);
+			final PackageManager pm = application.getPackageManager();
+			final PackageInfo pi = pm.getPackageInfo(application.getPackageName(), 0);
 			report.append("Version: " + pi.versionName + " (" + pi.versionCode + ")\n");
 			report.append("Package: " + pi.packageName + "\n");
+			report.append("Time of application create: " + String.format("%tF %tT", TIME_CREATE_APPLICATION, TIME_CREATE_APPLICATION) + "\n");
+			final long now = System.currentTimeMillis();
+			report.append("Current time: " + String.format("%tF %tT", now, now) + "\n");
+			final Wallet wallet = application.getWallet();
+			report.append("Keychain size: " + wallet.getKeychainSize() + "\n");
+			report.append("Transactions: " + wallet.getTransactions(true, true).size() + "\n");
+
 			report.append("Databases:");
-			for (final String db : context.databaseList())
+			for (final String db : application.databaseList())
 				report.append(" " + db);
 			report.append("\n");
 
-			final File filesDir = context.getFilesDir();
+			final File filesDir = application.getFilesDir();
 			report.append("\nContents of FilesDir " + filesDir + ":\n");
 			appendDir(report, filesDir, 0);
-			final File cacheDir = context.getCacheDir();
+			final File cacheDir = application.getCacheDir();
 			report.append("\nContents of CacheDir " + cacheDir + ":\n");
 			appendDir(report, cacheDir, 0);
 		}

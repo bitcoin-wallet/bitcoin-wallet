@@ -624,6 +624,14 @@ public final class WalletActivity extends AbstractWalletActivity
 				}
 
 				@Override
+				protected CharSequence collectApplicationInfo() throws IOException
+				{
+					final StringBuilder applicationInfo = new StringBuilder();
+					CrashReporter.appendApplicationInfo(applicationInfo, application);
+					return applicationInfo;
+				}
+
+				@Override
 				protected CharSequence collectStackTrace() throws IOException
 				{
 					if (stackTrace.length() > 0)

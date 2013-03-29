@@ -110,6 +110,14 @@ public final class PreferencesActivity extends SherlockPreferenceActivity implem
 				}
 
 				@Override
+				protected CharSequence collectApplicationInfo() throws IOException
+				{
+					final StringBuilder applicationInfo = new StringBuilder();
+					CrashReporter.appendApplicationInfo(applicationInfo, application);
+					return applicationInfo;
+				}
+
+				@Override
 				protected CharSequence collectStackTrace()
 				{
 					return null;
