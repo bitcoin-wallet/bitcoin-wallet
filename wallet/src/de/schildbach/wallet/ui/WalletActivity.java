@@ -139,7 +139,7 @@ public final class WalletActivity extends AbstractWalletActivity
 		menu.findItem(R.id.wallet_options_import_keys).setEnabled(
 				Environment.MEDIA_MOUNTED.equals(externalStorageState) || Environment.MEDIA_MOUNTED_READ_ONLY.equals(externalStorageState));
 		menu.findItem(R.id.wallet_options_export_keys).setEnabled(Environment.MEDIA_MOUNTED.equals(externalStorageState));
-		menu.findItem(R.id.wallet_options_disconnect).setVisible(prefs.getBoolean(Constants.PREFS_KEY_CONNECTIVITY_NOTIFICATION, true));
+		menu.findItem(R.id.wallet_options_disconnect).setVisible(prefs.getBoolean(Constants.PREFS_KEY_CONNECTIVITY_NOTIFICATION, false));
 
 		return true;
 	}
