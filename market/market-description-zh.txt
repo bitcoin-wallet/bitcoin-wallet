@@ -15,9 +15,6 @@
 
 • 第一次运行程序时，可能出现几秒钟的白屏。这属于正常现象。
 
-你可以在以下地址获得第一笔供你使用的比特币：https://freebitcoins.appspot.com/
-
-
 更多关于比特币的信息请点击：http://bitcoin.org
 如果你想赞助比特币钱包软件开发项目，该项目位于：https://code.google.com/p/bitcoin-wallet/
 

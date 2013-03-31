@@ -13,9 +13,6 @@ ZNANE PROBLEMY (PROSZĘ PRZECZYTAJ):
 
 • Przy pierwszym uruchomieniu, aplikacja może wyświetlać przez jakiś czas jedynie biały ekran. To normalne.
 
-Możesz dostać kilka pierwszych Bitcoinów za darmo:
-https://freebitcoins.appspot.com/
-
 Więcej o Bitcoin dowiesz się pod adresem:
 http://bitcoin.org
 

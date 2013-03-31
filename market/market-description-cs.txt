@@ -13,9 +13,6 @@ ZNÁMÉ PROBLÉMY:
 
 • Při prvním spůštění může aplikace na několik sekund zobrazit pouze bílou obrazovku - je to normální.
 
-První Bitcoiny na hraní je možné získat na adrese
-https://freebitcoins.appspot.com/
-
 Více informací o Bitcoinech
 http://bitcoin.org
 

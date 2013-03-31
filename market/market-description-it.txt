@@ -13,9 +13,6 @@ PROBLEMI NOTI, SI PREGA DI FARE ATTENZIONE:
 
 • Durante la prima esecuzione dell'applicazione è possibile che si visualizzi uno schermo bianco per alcuni secondi. E' normale.
 
-E' possibile ottenere un minimo importo di Bitcoin con cui sperimentare all'indirizzo:
-https://freebitcoins.appspot.com/
-
 Puoi trovare maggiori informazioni su Bitcoin qui:
 http://bitcoin.org
 

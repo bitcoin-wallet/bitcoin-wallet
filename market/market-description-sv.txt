@@ -13,9 +13,6 @@ KÄNDA PROBLEM:
 
 • När appen körs för första gången så visas ibland bara en vit skärm under några sekunder. Det är helt normalt.
 
-Du kan få dina första Bitcoins att leka med från
-https://freebitcoins.appspot.com
-
 Du kan lära dig mer om Bitcoin genom att besöka
 http://bitcoin.org
 

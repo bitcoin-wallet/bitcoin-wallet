@@ -13,9 +13,6 @@ INCIDENCIAS CONOCIDAS. LÉASE POR FAVOR:
 
 • Durante la primera ejecución, puede ocurrir que la aplicación muestre solo una pantalla blanca durante varios segundos. Esto es normal.
 
-Puedes obtener tus primeros bitcoins con los que jugar en
-https://freebitcoins.appspot.com/
-
 Puedes descubrir más sobre Bitcoin en
 http://bitcoin.org
 

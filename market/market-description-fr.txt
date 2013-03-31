@@ -13,9 +13,6 @@ PROBLEMES CONNUS, LIRE SVP:
 
 • Au premier lancement de l'application, il peut arriver que l'app affiche seulement un écran blanc pour quelques secondes. C'est normal.
 
-Pour obtenir vos premiers Bitcoins:
-https://freebitcoins.appspot.com/
-
 Pour en savoir plus sur Bitcoin:
 http://bitcoin.org
 

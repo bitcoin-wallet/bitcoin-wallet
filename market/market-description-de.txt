@@ -15,10 +15,6 @@ BEKANNTE PROBLEME, BITTE LESEN:
 
 • Wenn die App zum ersten Mal ausgeführt wird, kann es passieren, daß für einige Sekunden nur ein weißes Display angezeigt wird. Das ist normal.
 
-Du kannst erste Bitcoins von
-https://freebitcoins.appspot.com/
-erhalten.
-
 Weitere Informationen zu Bitcoin findest Du unter
 http://bitcoin.org
 

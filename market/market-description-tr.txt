@@ -13,9 +13,6 @@ BİLİNEN SORUNLAR, LÜTFEN OKUYUNUZ:
 
 • İlk defa başlatıldığında uygulama birkaç saniye boyunca beyaz bir ekran görüntüleyebilir. Bu normaldir.
 
-İlk Bitcoinlerinizi şu siteden edinebilirsiniz:
-https://freebitcoins.appspot.com/
-
 Bitcoin hakkında daha fazla bilgi için şu siteyi ziyaret edebilirsiniz:
 http://bitcoin.org
 

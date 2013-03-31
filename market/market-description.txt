@@ -15,9 +15,6 @@ KNOWN ISSUES, PLEASE READ:
 
 • When run for the first time, it can happen that the app shows only a white display for some seconds. This is normal.
 
-You can get your first Bitcoins to play with from
-https://freebitcoins.appspot.com/
-
 You can find more about Bitcoin at
 http://bitcoin.org
 
