@@ -109,9 +109,10 @@ public class WalletApplication extends Application
 
 	private static final class WalletAutosaveEventListener implements AutosaveEventListener
 	{
-		public boolean caughtException(final Throwable t)
+		public boolean caughtException(final Throwable throwable)
 		{
-			throw new Error(t);
+			CrashReporter.saveBackgroundTrace(throwable);
+			return true;
 		}
 
 		public void onBeforeAutoSave(final File file)

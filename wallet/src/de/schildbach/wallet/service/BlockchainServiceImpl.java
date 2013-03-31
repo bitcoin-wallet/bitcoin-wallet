@@ -85,6 +85,7 @@ import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.WalletBalanceWidgetProvider;
 import de.schildbach.wallet.ui.WalletActivity;
+import de.schildbach.wallet.util.CrashReporter;
 import de.schildbach.wallet.util.GenericUtils;
 import de.schildbach.wallet.util.ThrottelingWalletChangeListener;
 import de.schildbach.wallet_test.R;
@@ -216,7 +217,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 		nm.notify(NOTIFICATION_ID_COINS_RECEIVED, notification.getNotification());
 	}
 
-	private class PeerConnectivityListener extends AbstractPeerEventListener implements OnSharedPreferenceChangeListener
+	private final class PeerConnectivityListener extends AbstractPeerEventListener implements OnSharedPreferenceChangeListener
 	{
 		private int peerCount;
 		private AtomicBoolean stopped = new AtomicBoolean(false);
@@ -247,6 +248,12 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 		{
 			this.peerCount = peerCount;
 			changed(peerCount);
+		}
+
+		@Override
+		public void onException(final Throwable throwable)
+		{
+			CrashReporter.saveBackgroundTrace(throwable);
 		}
 
 		public void onSharedPreferenceChanged(final SharedPreferences sharedPreferences, final String key)

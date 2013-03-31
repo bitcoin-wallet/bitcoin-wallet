@@ -35,6 +35,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.util.CrashReporter;
 import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
 
@@ -174,6 +175,20 @@ public abstract class ReportIssueDialogBuilder extends AlertDialog.Builder imple
 			catch (final IOException x)
 			{
 				x.printStackTrace();
+			}
+		}
+
+		if (CrashReporter.hasSavedBackgroundTraces())
+		{
+			text.append("\n\n\n=== saved exceptions ===\n\n");
+
+			try
+			{
+				CrashReporter.appendSavedBackgroundTraces(text);
+			}
+			catch (final IOException x)
+			{
+				text.append(x.toString()).append('\n');
 			}
 		}
 

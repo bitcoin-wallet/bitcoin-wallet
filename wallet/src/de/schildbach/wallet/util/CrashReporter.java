@@ -43,60 +43,86 @@ import de.schildbach.wallet.WalletApplication;
  */
 public class CrashReporter
 {
-	private static final String STACK_TRACE_FILENAME = "crash.trace";
-	private static final String APPLICATION_LOG_FILENAME = "crash.log";
+	private static final String BACKGROUND_TRACES_FILENAME = "background.trace";
+	private static final String CRASH_TRACE_FILENAME = "crash.trace";
+	private static final String CRASH_APPLICATION_LOG_FILENAME = "crash.log";
 
 	private static final long TIME_CREATE_APPLICATION = System.currentTimeMillis();
 
-	private static File stackTraceFile;
-	private static File applicationLogFile;
+	private static File backgroundTracesFile;
+	private static File crashTraceFile;
+	private static File crashApplicationLogFile;
 
 	public static void init(final File cacheDir)
 	{
-		stackTraceFile = new File(cacheDir, STACK_TRACE_FILENAME);
-		applicationLogFile = new File(cacheDir, APPLICATION_LOG_FILENAME);
+		backgroundTracesFile = new File(cacheDir, BACKGROUND_TRACES_FILENAME);
+		crashTraceFile = new File(cacheDir, CRASH_TRACE_FILENAME);
+		crashApplicationLogFile = new File(cacheDir, CRASH_APPLICATION_LOG_FILENAME);
 
 		Thread.setDefaultUncaughtExceptionHandler(new ExceptionHandler(Thread.getDefaultUncaughtExceptionHandler()));
 	}
 
-	public static boolean hasSavedReport()
+	public static boolean hasSavedBackgroundTraces()
 	{
-		return stackTraceFile.exists();
+		return backgroundTracesFile.exists();
 	}
 
-	public static void appendSavedStackTrace(final Appendable report) throws IOException
+	public static void appendSavedBackgroundTraces(final Appendable report) throws IOException
 	{
-		BufferedReader stackTraceReader = null;
+		BufferedReader reader = null;
 
 		try
 		{
-			stackTraceReader = new BufferedReader(new FileReader(stackTraceFile));
-			copy(stackTraceReader, report);
+			reader = new BufferedReader(new FileReader(backgroundTracesFile));
+			copy(reader, report);
 		}
 		finally
 		{
-			if (stackTraceReader != null)
-				stackTraceReader.close();
+			if (reader != null)
+				reader.close();
 
-			stackTraceFile.delete();
+			backgroundTracesFile.delete();
 		}
 	}
 
-	public static void appendSavedApplicationLog(final Appendable report) throws IOException
+	public static boolean hasSavedCrashTrace()
 	{
-		BufferedReader applicationLogReader = null;
+		return crashTraceFile.exists();
+	}
+
+	public static void appendSavedCrashTrace(final Appendable report) throws IOException
+	{
+		BufferedReader reader = null;
 
 		try
 		{
-			applicationLogReader = new BufferedReader(new FileReader(applicationLogFile));
-			copy(applicationLogReader, report);
+			reader = new BufferedReader(new FileReader(crashTraceFile));
+			copy(reader, report);
 		}
 		finally
 		{
-			if (applicationLogReader != null)
-				applicationLogReader.close();
+			if (reader != null)
+				reader.close();
 
-			applicationLogFile.delete();
+			crashTraceFile.delete();
+		}
+	}
+
+	public static void appendSavedCrashApplicationLog(final Appendable report) throws IOException
+	{
+		BufferedReader reader = null;
+
+		try
+		{
+			reader = new BufferedReader(new FileReader(crashApplicationLogFile));
+			copy(reader, report);
+		}
+		finally
+		{
+			if (reader != null)
+				reader.close();
+
+			crashApplicationLogFile.delete();
 		}
 	}
 
@@ -213,6 +239,45 @@ public class CrashReporter
 				appendDir(report, f, indent + 1);
 	}
 
+	public static void saveBackgroundTrace(final Throwable throwable)
+	{
+		synchronized (backgroundTracesFile)
+		{
+			PrintWriter writer = null;
+
+			try
+			{
+				writer = new PrintWriter(new FileWriter(backgroundTracesFile, true));
+
+				final long now = System.currentTimeMillis();
+				writer.println(String.format("\n--- collected on %tF %tT", now, now));
+				appendTrace(writer, throwable);
+			}
+			catch (final IOException x)
+			{
+				x.printStackTrace();
+			}
+			finally
+			{
+				writer.close();
+			}
+		}
+	}
+
+	private static void appendTrace(final PrintWriter writer, final Throwable throwable)
+	{
+		throwable.printStackTrace(writer);
+		// If the exception was thrown in a background thread inside
+		// AsyncTask, then the actual exception can be found with getCause
+		Throwable cause = throwable.getCause();
+		while (cause != null)
+		{
+			writer.println("\nCause:\n");
+			cause.printStackTrace(writer);
+			cause = cause.getCause();
+		}
+	}
+
 	private static class ExceptionHandler implements Thread.UncaughtExceptionHandler
 	{
 		private final Thread.UncaughtExceptionHandler previousHandler;
@@ -226,7 +291,7 @@ public class CrashReporter
 		{
 			try
 			{
-				saveStacktrace(exception);
+				saveCrashTrace(exception);
 				saveApplicationLog();
 			}
 			catch (final IOException x)
@@ -237,25 +302,16 @@ public class CrashReporter
 			previousHandler.uncaughtException(t, exception);
 		}
 
-		private void saveStacktrace(final Throwable exception) throws IOException
+		private void saveCrashTrace(final Throwable throwable) throws IOException
 		{
-			final PrintWriter writer = new PrintWriter(new FileWriter(stackTraceFile));
-			exception.printStackTrace(writer);
-			// If the exception was thrown in a background thread inside
-			// AsyncTask, then the actual exception can be found with getCause
-			Throwable cause = exception.getCause();
-			while (cause != null)
-			{
-				writer.println("\nCause:\n");
-				cause.printStackTrace(writer);
-				cause = cause.getCause();
-			}
+			final PrintWriter writer = new PrintWriter(new FileWriter(crashTraceFile));
+			appendTrace(writer, throwable);
 			writer.close();
 		}
 
 		private void saveApplicationLog() throws IOException
 		{
-			final PrintWriter writer = new PrintWriter(new FileWriter(applicationLogFile));
+			final PrintWriter writer = new PrintWriter(new FileWriter(crashApplicationLogFile));
 			appendApplicationLog(writer);
 			writer.close();
 		}

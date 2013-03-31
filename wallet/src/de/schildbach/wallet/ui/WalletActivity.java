@@ -591,15 +591,15 @@ public final class WalletActivity extends AbstractWalletActivity
 			}
 		}.start();
 
-		if (CrashReporter.hasSavedReport())
+		if (CrashReporter.hasSavedCrashTrace())
 		{
 			final StringBuilder stackTrace = new StringBuilder();
 			final StringBuilder applicationLog = new StringBuilder();
 
 			try
 			{
-				CrashReporter.appendSavedStackTrace(stackTrace);
-				CrashReporter.appendSavedApplicationLog(applicationLog);
+				CrashReporter.appendSavedCrashTrace(stackTrace);
+				CrashReporter.appendSavedCrashApplicationLog(applicationLog);
 			}
 			catch (final IOException x)
 			{

@@ -51,6 +51,7 @@ import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.DetermineFirstSeenThread;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.util.BitmapFragment;
+import de.schildbach.wallet.util.CrashReporter;
 import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
 
@@ -267,6 +268,12 @@ public final class WalletAddressesFragment extends SherlockListFragment
 				key.setCreationTimeSeconds((firstSeen != null ? firstSeen.getTime() : System.currentTimeMillis()) / DateUtils.SECOND_IN_MILLIS);
 				updateView();
 				application.saveWallet();
+			}
+
+			@Override
+			protected void fail(final Exception x)
+			{
+				CrashReporter.saveBackgroundTrace(x);
 			}
 		};
 	}
