@@ -102,7 +102,7 @@
 	<string name="send_coins_error_msg">Problem beim Versenden der Bitcoins!</string>
 	<string name="send_coins_options_scan_title">Scannen</string>
 	<string name="send_coins_address_context_clear_title">Adresse neu eingeben</string>
-	<string name="send_coins_dialog_fee_message">Du bist dabei, Bitcoins mit einer geringen Gebühr zu versenden. Es kann sehr lange dauern, bis diese Transaktion bestätigt wird.\n\nEs wird empfohlen, eine Gebühr von mindestens %s zu verwenden.</string>
+	<string name="send_coins_dialog_fee_message">Du bist dabei, Bitcoins mit einer geringen Gebühr zu versenden. Es kann sehr lange dauern, bis diese Zahlung bestätigt wird.\n\nEs wird empfohlen, eine Gebühr von mindestens %s zu verwenden.</string>
 	<string name="send_coins_dialog_fee_button_send">Trotzdem senden</string>
 	<string name="send_coins_dialog_fee_button_adjust">Gebühr anpassen</string>
 	<string name="send_coins_dialog_fee_button_dismiss">Nicht senden</string>
