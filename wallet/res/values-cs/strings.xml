@@ -64,7 +64,7 @@
 	<string name="about_credits_market_app_title">Aplikace na Google Play</string>
 	<string name="about_credits_market_publisher_title">Ostatní autorovy aplikace</string>
 
-	<string name="notification_coins_received_msg">Obdrženo BTC %s</string>
+	<string name="notification_coins_received_msg">Obdrženo %s</string>
 	<string name="notification_peers_connected_msg">%d peerů připojeno</string>
 
 	<!-- generic buttons -->

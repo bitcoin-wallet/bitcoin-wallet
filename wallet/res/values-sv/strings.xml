@@ -92,7 +92,7 @@
 	<string name="about_author_googleplus_title">Utvecklaren på Google+</string>
 	<string name="about_credits_market_app_title">Google Play app sida</string>
 	<string name="about_credits_market_publisher_title">Andra appar från utvecklaren</string>
-	<string name="notification_coins_received_msg">Tagit emot %s BTC</string>
+	<string name="notification_coins_received_msg">Tagit emot %s</string>
 	<string name="notification_peers_connected_msg">Ansluten till %d noder</string>
 
 	<!-- generic buttons -->

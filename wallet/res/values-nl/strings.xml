@@ -63,7 +63,7 @@
 	<string name="about_credits_market_app_title">Google Play App Pagina</string>
 	<string name="about_credits_market_publisher_title">Andere Apps van Author</string>
 
-	<string name="notification_coins_received_msg">Ontvangen BTC %s</string>
+	<string name="notification_coins_received_msg">Ontvangen %s</string>
 	<string name="notification_peers_connected_msg">%d verbindingen</string>
 
 	<!-- generic buttons -->

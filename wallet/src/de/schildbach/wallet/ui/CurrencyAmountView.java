@@ -46,7 +46,6 @@ import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
 import com.google.bitcoin.core.Transaction;
-import com.google.bitcoin.core.Utils;
 
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.util.GenericUtils;
@@ -70,8 +69,9 @@ public final class CurrencyAmountView extends FrameLayout
 	private int significantColor, lessSignificantColor, errorColor;
 	private Drawable deleteButtonDrawable, contextButtonDrawable;
 	private Drawable currencySymbolDrawable;
-	private int inputPrecision = Constants.BTC_MAX_PRECISION;
-	private int hintPrecision = Constants.BTC_MAX_PRECISION;
+	private int inputPrecision = 0;
+	private int hintPrecision = 0;
+	private int shift = 0;
 	private boolean amountSigned = false;
 	private boolean smallerInsignificant = true;
 	private boolean validateAmount = true;
@@ -138,9 +138,13 @@ public final class CurrencyAmountView extends FrameLayout
 
 	public void setCurrencySymbol(@Nullable final String currencyCode)
 	{
-		if (Constants.CURRENCY_CODE_BITCOIN.equals(currencyCode))
+		if (Constants.CURRENCY_CODE_BTC.equals(currencyCode))
 		{
 			currencySymbolDrawable = getResources().getDrawable(R.drawable.currency_symbol_btc);
+		}
+		else if (Constants.CURRENCY_CODE_MBTC.equals(currencyCode))
+		{
+			currencySymbolDrawable = getResources().getDrawable(R.drawable.currency_symbol_mbtc);
 		}
 		else if (currencyCode != null)
 		{
@@ -165,6 +169,11 @@ public final class CurrencyAmountView extends FrameLayout
 	public void setHintPrecision(final int hintPrecision)
 	{
 		this.hintPrecision = hintPrecision;
+	}
+
+	public void setShift(final int shift)
+	{
+		this.shift = shift;
 	}
 
 	public void setAmountSigned(final boolean amountSigned)
@@ -199,7 +208,7 @@ public final class CurrencyAmountView extends FrameLayout
 	public BigInteger getAmount()
 	{
 		if (isValidAmount(false))
-			return Utils.toNanoCoins(textView.getText().toString().trim());
+			return GenericUtils.toNanoCoins(textView.getText().toString().trim(), shift);
 		else
 			return null;
 	}
@@ -211,7 +220,7 @@ public final class CurrencyAmountView extends FrameLayout
 
 		if (amount != null)
 			textView.setText(amountSigned ? GenericUtils.formatValue(amount, Constants.CURRENCY_PLUS_SIGN, Constants.CURRENCY_MINUS_SIGN,
-					inputPrecision) : GenericUtils.formatValue(amount, inputPrecision));
+					inputPrecision, shift) : GenericUtils.formatValue(amount, inputPrecision, shift));
 		else
 			textView.setText(null);
 
@@ -223,7 +232,7 @@ public final class CurrencyAmountView extends FrameLayout
 	{
 		final SpannableStringBuilder hint;
 		if (amount != null)
-			hint = new SpannableStringBuilder(GenericUtils.formatValue(amount, hintPrecision));
+			hint = new SpannableStringBuilder(GenericUtils.formatValue(amount, hintPrecision, shift));
 		else
 			hint = new SpannableStringBuilder("0.00");
 
@@ -264,7 +273,7 @@ public final class CurrencyAmountView extends FrameLayout
 		{
 			if (!amount.isEmpty())
 			{
-				final BigInteger nanoCoins = Utils.toNanoCoins(amount);
+				final BigInteger nanoCoins = GenericUtils.toNanoCoins(amount, shift);
 
 				// exactly zero
 				if (zeroIsValid && nanoCoins.signum() == 0)

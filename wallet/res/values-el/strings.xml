@@ -65,7 +65,7 @@
 	<string name="about_credits_market_app_title">Σελίδα Εφαρμογών του Google Play</string>
 	<string name="about_credits_market_publisher_title">Άλλες εφαρμογές του δημιουργού</string>
 
-	<string name="notification_coins_received_msg">Ελήφθη BTC %s</string>
+	<string name="notification_coins_received_msg">Ελήφθη %s</string>
 	<string name="notification_peers_connected_msg">%d χρήστες συνδεμένοι</string>
 
 	<!-- generic buttons -->

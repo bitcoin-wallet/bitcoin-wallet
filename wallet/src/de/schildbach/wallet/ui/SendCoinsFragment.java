@@ -108,6 +108,7 @@ public final class SendCoinsFragment extends SherlockFragment
 	private BluetoothAdapter bluetoothAdapter;
 
 	private int btcPrecision;
+	private int btcShift;
 
 	private final Handler handler = new Handler();
 	private HandlerThread backgroundThread;
@@ -378,7 +379,9 @@ public final class SendCoinsFragment extends SherlockFragment
 		backgroundThread.start();
 		backgroundHandler = new Handler(backgroundThread.getLooper());
 
-		btcPrecision = Integer.parseInt(prefs.getString(Constants.PREFS_KEY_BTC_PRECISION, Constants.PREFS_DEFAULT_BTC_PRECISION));
+		final String precision = prefs.getString(Constants.PREFS_KEY_BTC_PRECISION, Constants.PREFS_DEFAULT_BTC_PRECISION);
+		btcPrecision = precision.charAt(0) - '0';
+		btcShift = precision.length() == 3 ? precision.charAt(2) - '0' : 0;
 	}
 
 	@Override
@@ -410,10 +413,13 @@ public final class SendCoinsFragment extends SherlockFragment
 		});
 
 		final CurrencyAmountView btcAmountView = (CurrencyAmountView) view.findViewById(R.id.send_coins_amount_btc);
-		btcAmountView.setCurrencySymbol(Constants.CURRENCY_CODE_BITCOIN);
+		btcAmountView.setCurrencySymbol(btcShift == 0 ? Constants.CURRENCY_CODE_BTC : Constants.CURRENCY_CODE_MBTC);
+		btcAmountView.setInputPrecision(btcShift == 0 ? Constants.BTC_MAX_PRECISION : Constants.MBTC_MAX_PRECISION);
 		btcAmountView.setHintPrecision(btcPrecision);
+		btcAmountView.setShift(btcShift);
 
 		final CurrencyAmountView localAmountView = (CurrencyAmountView) view.findViewById(R.id.send_coins_amount_local);
+		localAmountView.setInputPrecision(Constants.LOCAL_PRECISION);
 		localAmountView.setHintPrecision(Constants.LOCAL_PRECISION);
 		amountCalculatorLink = new CurrencyCalculatorLink(btcAmountView, localAmountView);
 
@@ -796,12 +802,14 @@ public final class SendCoinsFragment extends SherlockFragment
 		dismissPopup();
 
 		final CurrencyTextView viewAvailable = (CurrencyTextView) popupAvailableView.findViewById(R.id.send_coins_popup_available_amount);
-		viewAvailable.setPrefix(Constants.CURRENCY_CODE_BITCOIN);
+		viewAvailable.setPrefix(btcShift == 0 ? Constants.CURRENCY_CODE_BTC : Constants.CURRENCY_CODE_MBTC);
+		viewAvailable.setPrecision(btcPrecision, btcShift);
 		viewAvailable.setAmount(available);
 
 		final TextView viewPending = (TextView) popupAvailableView.findViewById(R.id.send_coins_popup_available_pending);
 		viewPending.setVisibility(pending.signum() > 0 ? View.VISIBLE : View.GONE);
-		viewPending.setText(getString(R.string.send_coins_fragment_pending, GenericUtils.formatValue(pending, Constants.BTC_MAX_PRECISION)));
+		final int precision = btcShift == 0 ? Constants.BTC_MAX_PRECISION : Constants.MBTC_MAX_PRECISION;
+		viewPending.setText(getString(R.string.send_coins_fragment_pending, GenericUtils.formatValue(pending, precision, btcShift)));
 
 		popup(anchor, popupAvailableView);
 	}
@@ -987,8 +995,12 @@ public final class SendCoinsFragment extends SherlockFragment
 
 		if (sentTransaction != null)
 		{
+			final String precision = prefs.getString(Constants.PREFS_KEY_BTC_PRECISION, Constants.PREFS_DEFAULT_BTC_PRECISION);
+			final int btcPrecision = precision.charAt(0) - '0';
+			final int btcShift = precision.length() == 3 ? precision.charAt(2) - '0' : 0;
+
 			sentTransactionView.setVisibility(View.VISIBLE);
-			sentTransactionListAdapter.setPrecision(btcPrecision);
+			sentTransactionListAdapter.setPrecision(btcPrecision, btcShift);
 			sentTransactionListAdapter.replace(sentTransaction);
 		}
 		else

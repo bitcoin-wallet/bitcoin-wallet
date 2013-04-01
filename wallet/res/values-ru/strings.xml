@@ -181,7 +181,7 @@
 	<string name="about_author_googleplus_title">Автор в Google+</string>
 	<string name="about_credits_market_app_title">Страница на Google Play</string>
 	<string name="about_credits_market_publisher_title">Другие Приложения Автора</string>
-	<string name="notification_coins_received_msg">Получено BTC %s</string>
+	<string name="notification_coins_received_msg">Получено %s</string>
 	<string name="notification_peers_connected_msg">подключено %d участников</string>
 
 	<!-- generic buttons -->

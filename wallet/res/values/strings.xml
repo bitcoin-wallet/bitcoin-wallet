@@ -155,6 +155,8 @@
 	<string name="preferences_category_main">Preferences</string>
 	<string name="preferences_category_diagnostics">Diagnostics</string>
 	<string name="preferences_category_labs">Labs</string>
+	<string name="preferences_precision_title">Denomination and precision</string>
+	<string name="preferences_precision_summary">Unit to show amounts in. This does not affect computations.</string>
 	<string name="preferences_connectivity_notification_title">Connectivity Indicator</string>
 	<string name="preferences_connectivity_notification_summary">Show current number of connected peers in the notification area.</string>
 	<string name="preferences_trusted_peer_title">Trusted Peer</string>
@@ -188,7 +190,7 @@
 	<string name="about_author_googleplus_title">Author at Google+</string>
 	<string name="about_credits_market_app_title">Google Play App Page</string>
 	<string name="about_credits_market_publisher_title">Other Apps of Author</string>
-	<string name="notification_coins_received_msg">Received BTC %s</string>
+	<string name="notification_coins_received_msg">Received %s</string>
 	<string name="notification_peers_connected_msg">%d peers connected</string>
 
 	<!-- generic buttons -->

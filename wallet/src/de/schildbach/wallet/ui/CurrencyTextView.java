@@ -43,7 +43,8 @@ public final class CurrencyTextView extends TextView
 	private String prefix = null;
 	private ForegroundColorSpan prefixColorSpan = null;
 	private BigInteger amount = null;
-	private int precision = Constants.BTC_MAX_PRECISION;
+	private int precision = 0;
+	private int shift = 0;
 	private boolean alwaysSigned = false;
 	private RelativeSizeSpan prefixRelativeSizeSpan = null;
 	private RelativeSizeSpan insignificantRelativeSizeSpan = null;
@@ -76,9 +77,10 @@ public final class CurrencyTextView extends TextView
 		updateView();
 	}
 
-	public void setPrecision(final int precision)
+	public void setPrecision(final int precision, final int shift)
 	{
 		this.precision = precision;
+		this.shift = shift;
 		updateView();
 	}
 
@@ -128,9 +130,9 @@ public final class CurrencyTextView extends TextView
 		{
 			final String s;
 			if (alwaysSigned)
-				s = GenericUtils.formatValue(amount, Constants.CURRENCY_PLUS_SIGN, Constants.CURRENCY_MINUS_SIGN, precision);
+				s = GenericUtils.formatValue(amount, Constants.CURRENCY_PLUS_SIGN, Constants.CURRENCY_MINUS_SIGN, precision, shift);
 			else
-				s = GenericUtils.formatValue(amount, precision);
+				s = GenericUtils.formatValue(amount, precision, shift);
 
 			text = new SpannableStringBuilder(s);
 			WalletUtils.formatSignificant(text, insignificantRelativeSizeSpan);

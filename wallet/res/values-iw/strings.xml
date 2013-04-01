@@ -165,7 +165,7 @@
 	<string name="about_author_googleplus_title">Author at Google+</string>
 	<string name="about_credits_market_app_title">Google Play App Page</string>
 	<string name="about_credits_market_publisher_title">Other Apps of Author</string>
-	<string name="notification_coins_received_msg">נתקבלו BTC %s</string>
+	<string name="notification_coins_received_msg">נתקבלו %s</string>
 	<string name="notification_peers_connected_msg">%d שכנים מחוברים</string>
 
 	<!-- generic buttons -->

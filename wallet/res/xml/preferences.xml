@@ -2,6 +2,14 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
 
 	<PreferenceCategory android:title="@string/preferences_category_main" >
+		<ListPreference
+			android:defaultValue="4"
+			android:entries="@array/preferences_precision_labels"
+			android:entryValues="@array/preferences_precision_values"
+			android:key="btc_precision"
+			android:summary="@string/preferences_precision_summary"
+			android:title="@string/preferences_precision_title" />
+
 		<CheckBoxPreference
 			android:defaultValue="false"
 			android:key="connectivity_notification"
@@ -39,14 +47,6 @@
 			android:icon="@drawable/ic_menu_warning"
 			android:summary="This is all unfinished stuff. Use at your own risk!"
 			android:title="Warning" />
-
-		<ListPreference
-			android:defaultValue="4"
-			android:entries="@array/preferences_precision_labels"
-			android:entryValues="@array/preferences_precision_values"
-			android:key="btc_precision"
-			android:summary="This does not affect computations. It is used for saving view space only."
-			android:title="Precision of Bitcoin values" />
 
 		<CheckBoxPreference
 			android:defaultValue="true"

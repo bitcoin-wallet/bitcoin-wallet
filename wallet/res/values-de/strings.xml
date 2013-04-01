@@ -170,6 +170,8 @@
 	<string name="preferences_category_main">Einstellungen</string>
 	<string name="preferences_category_diagnostics">Diagnose</string>
 	<string name="preferences_category_labs">Labor</string>
+	<string name="preferences_precision_title">Stückelung und Genauigkeit</string>
+	<string name="preferences_precision_summary">Maßeinheit für die Anzeige von Werten. Dies beeinflußt keine Berechnungen.</string>
 	<string name="preferences_connectivity_notification_title">Konnektivitäts-Anzeige</string>
 	<string name="preferences_connectivity_notification_summary">Zeigt die aktuelle Anzahl von verbundenen Peers im Notifizierungsbereich an.</string>
 	<string name="preferences_trusted_peer_title">Vertrauenswürdiger Peer</string>
@@ -206,7 +208,7 @@
 	<string name="about_credits_market_app_title">Google Play App-Eintrag</string>
 	<string name="about_credits_market_publisher_title">Andere Apps des Autors</string>
 
-	<string name="notification_coins_received_msg">BTC %s empfangen</string>
+	<string name="notification_coins_received_msg">%s empfangen</string>
 	<string name="notification_peers_connected_msg">%d Peers verbunden</string>
 
 	<!-- generic buttons -->

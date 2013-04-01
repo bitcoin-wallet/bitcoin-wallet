@@ -10,11 +10,13 @@
 		<item>8</item>
 		<item>6</item>
 		<item>4</item>
+		<item>2/3</item>
 	</string-array>
 	<string-array name="preferences_precision_labels">
-		<item>8 digits</item>
-		<item>6 digits</item>
-		<item>4 digits</item>
+		<item>BTC, 8 digits</item>
+		<item>BTC, 6 digits</item>
+		<item>BTC, 4 digits</item>
+		<item>mBTC, 2 digits</item>
 	</string-array>
 
 </resources>

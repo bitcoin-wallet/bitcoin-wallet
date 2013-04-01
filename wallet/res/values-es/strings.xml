@@ -164,7 +164,7 @@
 	<string name="about_author_googleplus_title">El autor en Google+</string>
 	<string name="about_credits_market_app_title">Página de la aplicación en Android Market</string>
 	<string name="about_credits_market_publisher_title">Otras aplicaciones del autor</string>
-	<string name="notification_coins_received_msg">BTC %s recibidos</string>
+	<string name="notification_coins_received_msg">%s recibidos</string>
 	<string name="notification_peers_connected_msg">%d pares conectados</string>
 
 	<!-- generic buttons -->

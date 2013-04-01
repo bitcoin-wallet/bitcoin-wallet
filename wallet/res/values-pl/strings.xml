@@ -63,7 +63,7 @@
 	<string name="about_credits_market_app_title">strona Google Play App</string>
 	<string name="about_credits_market_publisher_title">Inne aplikacje autora</string>
 
-	<string name="notification_coins_received_msg">Otrzymane BTC %s</string>
+	<string name="notification_coins_received_msg">Otrzymane %s</string>
 	<string name="notification_peers_connected_msg">%d peer połączony</string>
 
 	<!-- generic buttons -->

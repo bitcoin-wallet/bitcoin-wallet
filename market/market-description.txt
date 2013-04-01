@@ -3,7 +3,8 @@ Have your Bitcoins always with you, in your pocket! You pay by quickly scanning 
 FEATURES:
 
 • No registration, web service or cloud needed! This wallet is de-centralized and peer to peer.
-• Display of wallet balance in Bitcoin and various other currencies.
+• Display of Bitcoin amount in BTC and mBTC.
+• Conversion to and from legitimate currencies.
 • Sending and receiving of Bitcoin via NFC, QR-codes or Bitcoin URLs.
 • Address book for regularly used Bitcoin addresses.
 • When you're offline, you can still pay via Bluetooth.

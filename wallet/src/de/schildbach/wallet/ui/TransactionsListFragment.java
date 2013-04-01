@@ -467,8 +467,11 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 
 	private void updateView()
 	{
-		adapter.setPrecision(Integer.parseInt(prefs.getString(Constants.PREFS_KEY_BTC_PRECISION, Constants.PREFS_DEFAULT_BTC_PRECISION)));
+		final String precision = prefs.getString(Constants.PREFS_KEY_BTC_PRECISION, Constants.PREFS_DEFAULT_BTC_PRECISION);
+		final int btcPrecision = precision.charAt(0) - '0';
+		final int btcShift = precision.length() == 3 ? precision.charAt(2) - '0' : 0;
 
+		adapter.setPrecision(btcPrecision, btcShift);
 		adapter.clearLabelCache();
 	}
 }

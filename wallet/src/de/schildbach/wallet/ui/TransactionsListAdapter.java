@@ -65,7 +65,8 @@ public class TransactionsListAdapter extends BaseAdapter
 	private final int maxConnectedPeers;
 
 	private final List<Transaction> transactions = new ArrayList<Transaction>();
-	private int precision = Constants.BTC_MAX_PRECISION;
+	private int precision = 0;
+	private int shift = 0;
 	private boolean showEmptyText = false;
 	private boolean showBackupWarning = false;
 
@@ -102,9 +103,10 @@ public class TransactionsListAdapter extends BaseAdapter
 		textInternal = context.getString(R.string.wallet_transactions_fragment_internal);
 	}
 
-	public void setPrecision(final int precision)
+	public void setPrecision(final int precision, final int shift)
 	{
 		this.precision = precision;
+		this.shift = shift;
 
 		notifyDataSetChanged();
 	}
@@ -326,7 +328,7 @@ public class TransactionsListAdapter extends BaseAdapter
 			final CurrencyTextView rowValue = (CurrencyTextView) row.findViewById(R.id.transaction_row_value);
 			rowValue.setTextColor(textColor);
 			rowValue.setAlwaysSigned(true);
-			rowValue.setPrecision(precision);
+			rowValue.setPrecision(precision, shift);
 			rowValue.setAmount(value);
 
 			// extended message

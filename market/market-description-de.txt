@@ -3,7 +3,8 @@ Hab deine Bitcoins immer dabei, in deiner Hosentasche! Du zahlst, indem du rasch
 FEATURES:
 
 • Keine Registrierung, Web-Dienst oder Cloud nötig! Diese Wallet ist de-zentral und Peer to Peer.
-• Anzeige des Wallet-Guthabens in Bitcoin und verschiedenen lokalen Währungen.
+• Anzeige von Bitcoin-Werten in BTC und mBTC.
+• Umrechnung von und zu den gesetzlichen Währungen.
 • Senden und Empfangen von Bitcoin via NFC, QR-Codes oder Bitcoin URLs.
 • Adressbuch für regelmäßig genutzte Empfänger.
 • Wenn du offline bist, kannst du trotzdem über Bluetooth zahlen.

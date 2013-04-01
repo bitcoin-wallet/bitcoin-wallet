@@ -184,7 +184,7 @@
 	<string name="about_author_googleplus_title">A Google+-on</string>
 	<string name="about_credits_market_app_title">Google Play Alkalmazások oldal</string>
 	<string name="about_credits_market_publisher_title">A szerző egyéb applikációi</string>
-	<string name="notification_coins_received_msg">%s BTC érkezett</string>
+	<string name="notification_coins_received_msg">%s érkezett</string>
 	<string name="notification_peers_connected_msg">%d peer kapcsolódva</string>
 
 	<!-- generic buttons -->
