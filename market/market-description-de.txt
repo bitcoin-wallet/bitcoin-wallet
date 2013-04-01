@@ -23,6 +23,7 @@ https://code.google.com/p/bitcoin-wallet/
 
 Lizenz: GPLv3
 Nutzung auf eigene Gefahr!
+http://www.gnu.org/licenses/gpl-3.0.de.html
 
 --
 BTC Bitcoin Wallet blockchain bitcoinandroid androidbitcoin Geldbörse Кошелёк mobile payment

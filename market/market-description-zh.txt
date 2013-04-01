@@ -20,3 +20,4 @@
 
 许可协议: GPLv3
 使用者须自行承担风险！
+http://www.gnu.org/licenses/gpl-3.0.en.html
