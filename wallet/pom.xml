@@ -6,7 +6,7 @@
 
 	<artifactId>wallet</artifactId>
 	<packaging>apk</packaging>
-	<version>2.49-test</version>
+	<version>3.0-test</version>
 	<name>Bitcoin Wallet</name>
 
 	<parent>

@@ -1,3 +1,14 @@
+3.0
+
+* now requires Gingerbread (Android 2.3.3) or later
+* export/import encrypted private key backups to/from mail or online storage
+* switch to new block store format, uses seriously less internal storage and doesn't grow
+  (existing installs can be migrated by resetting the blockchain once)
+* new installs are instantly fully updated and useable
+* got rid of block chain snapshot in APK, installs updates much faster
+* lots of small improvements and bugfixes
+* based on bitcoinj 0.8
+
 2.49
 
 * bugfixes
