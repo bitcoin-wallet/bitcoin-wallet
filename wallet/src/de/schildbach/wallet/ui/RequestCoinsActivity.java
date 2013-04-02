@@ -17,10 +17,7 @@
 
 package de.schildbach.wallet.ui;
 
-import android.app.Dialog;
 import android.os.Bundle;
-import android.view.Window;
-import android.webkit.WebView;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.Menu;
@@ -33,8 +30,6 @@ import de.schildbach.wallet_test.R;
  */
 public final class RequestCoinsActivity extends AbstractWalletActivity
 {
-	private static final int DIALOG_HELP = 0;
-
 	@Override
 	protected void onCreate(final Bundle savedInstanceState)
 	{
@@ -64,24 +59,10 @@ public final class RequestCoinsActivity extends AbstractWalletActivity
 				return true;
 
 			case R.id.request_coins_options_help:
-				showDialog(DIALOG_HELP);
+				HelpDialogFragment.page(getSupportFragmentManager(), "help_request_coins");
 				return true;
 		}
 
 		return super.onOptionsItemSelected(item);
-	}
-
-	@Override
-	protected Dialog onCreateDialog(final int id)
-	{
-		final WebView webView = new WebView(this);
-		webView.loadUrl("file:///android_asset/help_request_coins" + languagePrefix() + ".html");
-
-		final Dialog dialog = new Dialog(this);
-		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-		dialog.setContentView(webView);
-		dialog.setCanceledOnTouchOutside(true);
-
-		return dialog;
 	}
 }

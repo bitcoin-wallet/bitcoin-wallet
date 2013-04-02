@@ -98,7 +98,7 @@ public final class BlockchainStateFragment extends Fragment implements OnSharedP
 		{
 			public void onClick(final View v)
 			{
-				activity.showDialog(WalletActivity.DIALOG_SAFETY);
+				HelpDialogFragment.page(getFragmentManager(), "safety");
 			}
 		});
 

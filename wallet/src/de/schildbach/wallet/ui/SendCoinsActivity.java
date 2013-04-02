@@ -19,13 +19,10 @@ package de.schildbach.wallet.ui;
 
 import java.math.BigInteger;
 
-import android.app.Dialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.nfc.NfcAdapter;
 import android.os.Bundle;
-import android.view.Window;
-import android.webkit.WebView;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.Menu;
@@ -42,8 +39,6 @@ public final class SendCoinsActivity extends AbstractWalletActivity
 {
 	public static final String INTENT_EXTRA_ADDRESS = "address";
 	public static final String INTENT_EXTRA_ADDRESS_LABEL = "address_label";
-
-	private static final int DIALOG_HELP = 0;
 
 	@Override
 	protected void onCreate(final Bundle savedInstanceState)
@@ -67,20 +62,6 @@ public final class SendCoinsActivity extends AbstractWalletActivity
 	}
 
 	@Override
-	protected Dialog onCreateDialog(final int id)
-	{
-		final WebView webView = new WebView(this);
-		webView.loadUrl("file:///android_asset/help_send_coins" + languagePrefix() + ".html");
-
-		final Dialog dialog = new Dialog(this);
-		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-		dialog.setContentView(webView);
-		dialog.setCanceledOnTouchOutside(true);
-
-		return dialog;
-	}
-
-	@Override
 	public boolean onCreateOptionsMenu(final Menu menu)
 	{
 		getSupportMenuInflater().inflate(R.menu.send_coins_activity_options, menu);
@@ -98,7 +79,7 @@ public final class SendCoinsActivity extends AbstractWalletActivity
 				return true;
 
 			case R.id.send_coins_options_help:
-				showDialog(DIALOG_HELP);
+				HelpDialogFragment.page(getSupportFragmentManager(), "help_send_coins");
 				return true;
 		}
 

@@ -17,8 +17,6 @@
 
 package de.schildbach.wallet.ui;
 
-import java.util.Locale;
-
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.SharedPreferences;
@@ -107,37 +105,6 @@ public abstract class AbstractWalletActivity extends SherlockFragmentActivity
 		dialog.setMessage(uri);
 		dialog.setNeutralButton(R.string.button_dismiss, null);
 		dialog.show();
-	}
-
-	protected final static String languagePrefix()
-	{
-		final String language = Locale.getDefault().getLanguage();
-		if ("de".equals(language))
-			return "_de";
-		else if ("cs".equals(language))
-			return "_cs";
-		else if ("el".equals(language))
-			return "_el";
-		else if ("es".equals(language))
-			return "_es";
-		else if ("fr".equals(language))
-			return "_fr";
-		else if ("it".equals(language))
-			return "_it";
-		else if ("nl".equals(language))
-			return "_nl";
-		else if ("pl".equals(language))
-			return "_pl";
-		else if ("ru".equals(language))
-			return "_ru";
-		else if ("sv".equals(language))
-			return "_sv";
-		else if ("tr".equals(language))
-			return "_tr";
-		else if ("zh".equals(language))
-			return "_zh";
-		else
-			return "";
 	}
 
 	protected void touchLastUsed()

@@ -57,8 +57,6 @@ import android.text.TextWatcher;
 import android.text.format.DateUtils;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.Button;
@@ -85,11 +83,9 @@ import de.schildbach.wallet_test.R;
  */
 public final class WalletActivity extends AbstractWalletActivity
 {
-	private static final int DIALOG_HELP = 0;
-	public static final int DIALOG_SAFETY = 1;
-	private static final int DIALOG_IMPORT_KEYS = 2;
-	private static final int DIALOG_EXPORT_KEYS = 3;
-	private static final int DIALOG_ALERT_OLD_SDK = 4;
+	private static final int DIALOG_IMPORT_KEYS = 0;
+	private static final int DIALOG_EXPORT_KEYS = 1;
+	private static final int DIALOG_ALERT_OLD_SDK = 2;
 
 	private WalletApplication application;
 	private Wallet wallet;
@@ -200,7 +196,7 @@ public final class WalletActivity extends AbstractWalletActivity
 				return true;
 
 			case R.id.wallet_options_safety:
-				showDialog(DIALOG_SAFETY);
+				HelpDialogFragment.page(getSupportFragmentManager(), "safety");
 				return true;
 
 			case R.id.wallet_options_donate:
@@ -211,7 +207,7 @@ public final class WalletActivity extends AbstractWalletActivity
 				return true;
 
 			case R.id.wallet_options_help:
-				showDialog(DIALOG_HELP);
+				HelpDialogFragment.page(getSupportFragmentManager(), "help");
 				return true;
 		}
 
@@ -231,10 +227,6 @@ public final class WalletActivity extends AbstractWalletActivity
 			return createImportKeysDialog();
 		else if (id == DIALOG_EXPORT_KEYS)
 			return createExportKeysDialog();
-		else if (id == DIALOG_HELP)
-			return createWebViewDialog("file:///android_asset/help" + languagePrefix() + ".html");
-		else if (id == DIALOG_SAFETY)
-			return createWebViewDialog("file:///android_asset/safety" + languagePrefix() + ".html");
 		else if (id == DIALOG_ALERT_OLD_SDK)
 			return createAlertOldSdkDialog();
 		else
@@ -411,19 +403,6 @@ public final class WalletActivity extends AbstractWalletActivity
 
 		final CheckBox showView = (CheckBox) alertDialog.findViewById(R.id.wallet_export_keys_show);
 		showView.setOnCheckedChangeListener(new ShowPasswordCheckListener(passwordView));
-	}
-
-	private Dialog createWebViewDialog(final String url)
-	{
-		final WebView webView = new WebView(this);
-		webView.loadUrl(url);
-
-		final Dialog dialog = new Dialog(WalletActivity.this);
-		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-		dialog.setContentView(webView);
-		dialog.setCanceledOnTouchOutside(true);
-
-		return dialog;
 	}
 
 	private Dialog createAlertOldSdkDialog()
