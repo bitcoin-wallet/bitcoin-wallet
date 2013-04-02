@@ -33,8 +33,6 @@
 	<string name="send_coins_fragment_fee_label">Комиссия</string>
 	<string name="send_coins_fragment_button_send">Отправить</string>
 	<string name="send_coins_sending_msg">Отправка…</string>
-	<string name="send_coins_add_address_dialog_title">Получатель ещё не добавлен в адресную книгу.\n\nЖелаете ли добавить адрес?</string>
-	<string name="send_coins_add_address_dialog_button_add">Добавить адрес</string>
 	<string name="send_coins_error_msg">Проблема с отправкой монет!</string>
 
 	<string name="request_coins_activity_title">Запросить Bitcoin-монеты</string>

@@ -97,8 +97,6 @@
 	<string name="send_coins_sending_msg">Versenden…</string>
 	<string name="send_coins_sent_msg">Versendet!</string>
 	<string name="send_coins_failed_msg">Fehlgeschlagen!</string>
-	<string name="send_coins_add_address_dialog_title">Der Empfänger ist noch nicht in Deinem Adressbuch gespeichert.\n\nMöchtest Du ihn jetzt hinzufügen?</string>
-	<string name="send_coins_add_address_dialog_button_add">Adresse hinzufügen</string>
 	<string name="send_coins_error_msg">Problem beim Versenden der Bitcoins!</string>
 	<string name="send_coins_options_scan_title">Scannen</string>
 	<string name="send_coins_address_context_clear_title">Adresse neu eingeben</string>

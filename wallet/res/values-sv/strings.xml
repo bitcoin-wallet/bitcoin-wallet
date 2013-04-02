@@ -55,8 +55,6 @@
 	<string name="send_coins_fragment_button_back">Tillbaka</string>
 	<string name="send_coins_sending_msg">Skickar…</string>
 	<string name="send_coins_sent_msg">Skickat!</string>
-	<string name="send_coins_add_address_dialog_title">Mottagaradressen finns inte i din adressbok.\n\nVill du lägga till denna adress?</string>
-	<string name="send_coins_add_address_dialog_button_add">Lägg till adress</string>
 	<string name="send_coins_error_msg">Problem att skicka Bitcoins!</string>
 	<string name="send_coins_options_scan_title">Skanna</string>
 	<string name="send_coins_address_context_clear_title">Ange ny adress</string>

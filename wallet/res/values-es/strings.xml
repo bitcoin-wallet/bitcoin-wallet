@@ -91,8 +91,6 @@
 	<string name="send_coins_sending_msg">Enviando…</string>
 	<string name="send_coins_sent_msg">¡Enviado!</string>
 	<string name="send_coins_failed_msg">Fallido!</string>
-	<string name="send_coins_add_address_dialog_title">El receptor no está en tu libreta de direcciones.\n\n¿Quieres añadir la dirección?</string>
-	<string name="send_coins_add_address_dialog_button_add">Añadir dirección</string>
 	<string name="send_coins_error_msg">¡Problema enviando bitcoins!</string>
 	<string name="send_coins_options_scan_title">Explorar</string>
 	<string name="send_coins_address_context_clear_title">Introducir nueva dirección</string>

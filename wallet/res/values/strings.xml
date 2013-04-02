@@ -91,8 +91,6 @@
 	<string name="send_coins_sending_msg">Sending…</string>
 	<string name="send_coins_sent_msg">Sent!</string>
 	<string name="send_coins_failed_msg">Failed!</string>
-	<string name="send_coins_add_address_dialog_title">The recipient is not yet contained in your address book.\n\nDo you want to add the address?</string>
-	<string name="send_coins_add_address_dialog_button_add">Add address</string>
 	<string name="send_coins_error_msg">Problem sending coins!</string>
 	<string name="send_coins_options_scan_title">Scan</string>
 	<string name="send_coins_address_context_clear_title">Enter new address</string>

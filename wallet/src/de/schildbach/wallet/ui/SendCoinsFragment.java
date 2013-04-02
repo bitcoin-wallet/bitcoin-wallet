@@ -748,11 +748,6 @@ public final class SendCoinsFragment extends SherlockFragment implements AmountC
 							final Intent result = new Intent();
 							BitcoinIntegration.transactionHashToResult(result, sentTransaction.getHashAsString());
 							activity.setResult(Activity.RESULT_OK, result);
-
-							// final String label = AddressBookProvider.resolveLabel(contentResolver,
-							// validatedAddress.toString());
-							// if (label == null)
-							// showAddAddressDialog(validatedAddress.toString(), receivingLabel);
 						}
 						else
 						{
@@ -926,21 +921,6 @@ public final class SendCoinsFragment extends SherlockFragment implements AmountC
 				validateAmounts(true);
 			}
 		}, 500);
-	}
-
-	private void showAddAddressDialog(final String address, final String suggestedAddressLabel)
-	{
-		final AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-		builder.setMessage(R.string.send_coins_add_address_dialog_title);
-		builder.setPositiveButton(R.string.send_coins_add_address_dialog_button_add, new DialogInterface.OnClickListener()
-		{
-			public void onClick(final DialogInterface dialog, final int id)
-			{
-				EditAddressBookEntryFragment.edit(getFragmentManager(), address, suggestedAddressLabel);
-			}
-		});
-		builder.setNegativeButton(R.string.button_dismiss, null);
-		builder.show();
 	}
 
 	public void useCalculatedAmount(final BigInteger amount)

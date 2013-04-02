@@ -32,8 +32,6 @@
 	<string name="send_coins_fragment_fee_label">Poplatek</string>
 	<string name="send_coins_fragment_button_send">Poslat</string>
 	<string name="send_coins_sending_msg">Posílám…</string>
-	<string name="send_coins_add_address_dialog_title">Příjemce není ve Vašem adresáři.\n\nChcete jej přidat do adresáře?</string>
-	<string name="send_coins_add_address_dialog_button_add">Přidat</string>
 	<string name="send_coins_error_msg">Problém při zasílání!</string>
 
 	<string name="request_coins_activity_title">Vyžádat Bitcoiny</string>

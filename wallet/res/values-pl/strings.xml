@@ -31,8 +31,6 @@
 	<string name="send_coins_fragment_fee_label">Opłata</string>
 	<string name="send_coins_fragment_button_send">Wyślij</string>
 	<string name="send_coins_sending_msg">Wysyłanie…</string>
-	<string name="send_coins_add_address_dialog_title">Odbiorca jeszce nie jest w twojej książce adresowej.\n\nChcesz go dodać?</string>
-	<string name="send_coins_add_address_dialog_button_add">Dodaj adres</string>
 	<string name="send_coins_error_msg">Problem z wysłaniem monet!</string>
 
 	<string name="request_coins_activity_title">Zapytaj o Bitcoin</string>

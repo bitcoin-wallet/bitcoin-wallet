@@ -34,8 +34,6 @@
 	<string name="send_coins_fragment_fee_label">Commissione</string>
 	<string name="send_coins_fragment_button_send">Invia</string>
 	<string name="send_coins_sending_msg">Invio in corso…</string>
-	<string name="send_coins_add_address_dialog_title">Il destinatario non è ancora presente in rubrica.\n\nVuoi aggiungerlo?</string>
-	<string name="send_coins_add_address_dialog_button_add">Aggiungi indirizzo</string>
 	<string name="send_coins_error_msg">"Problemi durante l'invio dei Bitcoins!"</string>
 
 	<string name="request_coins_activity_title">Richiedi Bitcoins</string>
