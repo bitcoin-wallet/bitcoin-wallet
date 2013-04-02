@@ -477,6 +477,14 @@ public final class SendCoinsFragment extends SherlockFragment implements AmountC
 	}
 
 	@Override
+	public void onDetach()
+	{
+		handler.removeCallbacksAndMessages(null);
+
+		super.onDetach();
+	}
+
+	@Override
 	public void onSaveInstanceState(final Bundle outState)
 	{
 		super.onSaveInstanceState(outState);
