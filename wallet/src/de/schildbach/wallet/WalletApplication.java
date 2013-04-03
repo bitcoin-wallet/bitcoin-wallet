@@ -108,6 +108,8 @@ public class WalletApplication extends Application
 		backupKeys();
 
 		wallet.autosaveToFile(walletFile, 1, TimeUnit.SECONDS, new WalletAutosaveEventListener());
+
+		trimWallet();
 	}
 
 	private static final class WalletAutosaveEventListener implements AutosaveEventListener
@@ -436,5 +438,22 @@ public class WalletApplication extends Application
 			return 4;
 		else
 			return 6;
+	}
+
+	@Override
+	public void onLowMemory()
+	{
+		trimWallet();
+	}
+
+	private static final int STANDARD_TX_SIZE = 512 * 3;
+
+	private void trimWallet()
+	{
+		final int memoryClass = activityManager.getMemoryClass();
+		if (memoryClass <= Constants.MEMORY_CLASS_LOWEND)
+			wallet.trim(300 * STANDARD_TX_SIZE);
+		else
+			wallet.trim(1000 * STANDARD_TX_SIZE);
 	}
 }
