@@ -115,9 +115,7 @@ public class Constants
 	public static final String WEBMARKET_APP_URL = "https://play.google.com/store/apps/details?id=%s";
 	public static final String MARKET_PUBLISHER_URL = "market://search?q=pub:\"Andreas Schildbach\"";
 
-	private static final String VERSION_URL_PROD = "http://wallet.schildbach.de/version";
-	private static final String VERSION_URL_TEST = "http://wallet.schildbach.de/version_test";
-	public static final String VERSION_URL = TEST ? VERSION_URL_TEST : VERSION_URL_PROD;
+	public static final String VERSION_URL = "http://wallet.schildbach.de/version";
 
 	public static final String PREFS_KEY_LAST_VERSION = "last_version";
 	public static final String PREFS_KEY_LAST_USED = "last_used";

@@ -516,7 +516,11 @@ public final class WalletActivity extends AbstractWalletActivity
 				try
 				{
 					final int versionCode = getWalletApplication().applicationVersionCode();
-					final URLConnection connection = new URL(Constants.VERSION_URL + "?current=" + versionCode).openConnection();
+					final String versionName = getWalletApplication().applicationVersionName();
+					final int versionNameSplit = versionName.indexOf('-');
+					final String base = Constants.VERSION_URL + (versionNameSplit >= 0 ? versionName.substring(versionNameSplit) : "");
+
+					final URLConnection connection = new URL(base + "?current=" + versionCode).openConnection();
 					connection.connect();
 					final long serverTime = connection.getHeaderFieldDate("Date", 0);
 					final InputStream is = connection.getInputStream();
