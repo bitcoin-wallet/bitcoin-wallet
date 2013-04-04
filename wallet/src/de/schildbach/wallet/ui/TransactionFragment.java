@@ -251,10 +251,10 @@ public final class TransactionFragment extends SherlockFragment
 		viewLength.setText(Integer.toString(serializedTx.length));
 
 		final ImageView viewQr = (ImageView) view.findViewById(R.id.transaction_fragment_qr);
+		viewQr.setVisibility(View.GONE);
+
 		if (serializedTx.length < SHOW_QR_THRESHOLD_BYTES)
 		{
-			viewQr.setVisibility(View.VISIBLE);
-
 			try
 			{
 				// encode transaction URI
@@ -279,15 +279,17 @@ public final class TransactionFragment extends SherlockFragment
 						BitmapFragment.show(getFragmentManager(), qrCodeBitmap);
 					}
 				});
+
+				viewQr.setVisibility(View.VISIBLE);
 			}
 			catch (final IOException x)
 			{
 				throw new RuntimeException(x);
 			}
-		}
-		else
-		{
-			viewQr.setVisibility(View.GONE);
+			catch (final OutOfMemoryError x)
+			{
+				// swallow
+			}
 		}
 	}
 }
