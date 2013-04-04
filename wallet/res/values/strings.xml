@@ -10,7 +10,6 @@
 	<string name="blockchain_state_progress_downloading">Synchronizing with network</string>
 	<string name="blockchain_state_progress_stalled">Synchronization stalled</string>
 	<string name="blockchain_state_progress_problem_storage">Synchronizing: Storage problem</string>
-	<string name="blockchain_state_progress_problem_power">Synchronizing: Power problem</string>
 	<string name="blockchain_state_progress_problem_network">Synchronizing: Network problem</string>
 	<string name="blockchain_state_replaying">Blockchain replay is in progress.</string>
 	<string name="wallet_address_fragment_your">Your Bitcoin Address:</string>

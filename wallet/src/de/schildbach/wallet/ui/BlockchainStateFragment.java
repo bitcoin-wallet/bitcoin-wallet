@@ -157,8 +157,6 @@ public final class BlockchainStateFragment extends Fragment implements OnSharedP
 
 			if ((download & BlockchainService.ACTION_BLOCKCHAIN_STATE_DOWNLOAD_STORAGE_PROBLEM) != 0)
 				progressView.setText(R.string.blockchain_state_progress_problem_storage);
-			else if ((download & BlockchainService.ACTION_BLOCKCHAIN_STATE_DOWNLOAD_POWER_PROBLEM) != 0)
-				progressView.setText(R.string.blockchain_state_progress_problem_power);
 			else if ((download & BlockchainService.ACTION_BLOCKCHAIN_STATE_DOWNLOAD_NETWORK_PROBLEM) != 0)
 				progressView.setText(R.string.blockchain_state_progress_problem_network);
 		}

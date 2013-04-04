@@ -10,7 +10,6 @@
 	<string name="blockchain_state_progress_downloading">indiriliyor</string>
 	<string name="blockchain_state_progress_stalled">durakladı</string>
 	<string name="blockchain_state_progress_problem_storage">Blok zinciri indirilmiyor: kayıt problemi</string>
-	<string name="blockchain_state_progress_problem_power">Blok zinciri indirilmiyor: pil problemi</string>
 	<string name="blockchain_state_progress_problem_network">Blok zinciri indirilmiyor: şebeke problemi</string>
 	<string name="wallet_address_fragment_your">Bitcoin adresiniz:</string>
 	<string name="wallet_address_fragment_clipboard_msg">Bitcoin adresi panoya kopyalandı</string>

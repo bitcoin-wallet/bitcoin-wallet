@@ -10,7 +10,6 @@
 	<string name="blockchain_state_progress_downloading">téléchargement</string>
 	<string name="blockchain_state_progress_stalled">au point mort</string>
 	<string name="blockchain_state_progress_problem_storage">La chaîne de blocs n\'est pas téléchargé&#x202F;: problème de stockage</string>
-	<string name="blockchain_state_progress_problem_power">La chaîne de blocs n\'est pas téléchargé&#x202F;: problème de de batterie</string>
 	<string name="blockchain_state_progress_problem_network">La chaîne de blocs n\'est pas téléchargé&#x202F;: problème de réseau</string>
 	<string name="wallet_address_fragment_your">Votre adresse Bitcoin&#x202F;:</string>
 	<string name="wallet_address_fragment_clipboard_msg">Adresse Bitcoin dans le presse-papier</string>

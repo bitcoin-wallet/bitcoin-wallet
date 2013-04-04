@@ -10,7 +10,6 @@
 	<string name="blockchain_state_progress_downloading">descargándose</string>
 	<string name="blockchain_state_progress_stalled">interrumpida</string>
 	<string name="blockchain_state_progress_problem_storage">No se descarga la blockchain: problema de espacio</string>
-	<string name="blockchain_state_progress_problem_power">No se descarga la blockchain: problema de batería</string>
 	<string name="blockchain_state_progress_problem_network">No se descarga la blockchain: problema de red</string>
 	<string name="blockchain_state_replaying">Repetición de blockchain en progreso.</string>
 	<string name="wallet_address_fragment_your">Tu dirección Bitcoin:</string>

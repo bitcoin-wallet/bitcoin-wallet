@@ -12,7 +12,6 @@
 	<string name="blockchain_state_progress_downloading">Synchronisiere mit Netzwerk</string>
 	<string name="blockchain_state_progress_stalled">Synchronisation blockiert</string>
 	<string name="blockchain_state_progress_problem_storage">Synchronisation: Speicherplatz-Problem</string>
-	<string name="blockchain_state_progress_problem_power">Synchronisation: Stromversorgungs-Problem</string>
 	<string name="blockchain_state_progress_problem_network">Synchronisation: Netzwerk-Problem</string>
 	<string name="blockchain_state_replaying">Blockchain-Replay ist in Gang.</string>
 	<string name="wallet_address_fragment_your">Deine Bitcoin-Adresse:</string>

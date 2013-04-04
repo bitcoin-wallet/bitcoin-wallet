@@ -10,7 +10,6 @@
 	<string name="blockchain_state_progress_downloading">laddar ner</string>
 	<string name="blockchain_state_progress_stalled">förhindrad</string>
 	<string name="blockchain_state_progress_problem_storage">Blockkedjan laddas inte ner: lagringsproblem</string>
-	<string name="blockchain_state_progress_problem_power">Blockkedjan laddas inte ner: Problem med strömmen</string>
 	<string name="blockchain_state_progress_problem_network">Blockkedjan laddas inte ner: Nätverksproblem</string>
 	<string name="wallet_address_fragment_your">Din Bitcoin adress:</string>
 	<string name="wallet_address_fragment_clipboard_msg">Bitcoin adressen kopierad till klippbordet</string>

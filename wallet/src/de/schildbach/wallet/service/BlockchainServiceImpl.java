@@ -45,7 +45,6 @@ import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.net.wifi.WifiManager;
 import android.net.wifi.WifiManager.WifiLock;
-import android.os.BatteryManager;
 import android.os.Binder;
 import android.os.Handler;
 import android.os.IBinder;
@@ -328,7 +327,6 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 	private final BroadcastReceiver connectivityReceiver = new BroadcastReceiver()
 	{
 		private boolean hasConnectivity;
-		private boolean hasPower;
 		private boolean hasStorage = true;
 
 		@Override
@@ -342,16 +340,6 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 				final String reason = intent.getStringExtra(ConnectivityManager.EXTRA_REASON);
 				// final boolean isFailover = intent.getBooleanExtra(ConnectivityManager.EXTRA_IS_FAILOVER, false);
 				Log.i(TAG, "network is " + (hasConnectivity ? "up" : "down") + (reason != null ? ": " + reason : ""));
-
-				check();
-			}
-			else if (Intent.ACTION_BATTERY_CHANGED.equals(action))
-			{
-				final int level = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
-				final int scale = intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
-				final int plugged = intent.getIntExtra(BatteryManager.EXTRA_PLUGGED, 0);
-				hasPower = plugged != 0 || level > scale / 10;
-				Log.i(TAG, "battery changed: level=" + level + "/" + scale + " plugged=" + plugged);
 
 				check();
 			}
@@ -375,7 +363,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 		private void check()
 		{
 			final Wallet wallet = application.getWallet();
-			final boolean hasEverything = hasConnectivity && hasPower && hasStorage;
+			final boolean hasEverything = hasConnectivity && hasStorage;
 
 			if (hasEverything && peerGroup == null)
 			{
@@ -450,7 +438,6 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 			}
 
 			final int download = (hasConnectivity ? 0 : ACTION_BLOCKCHAIN_STATE_DOWNLOAD_NETWORK_PROBLEM)
-					| (hasPower ? 0 : ACTION_BLOCKCHAIN_STATE_DOWNLOAD_POWER_PROBLEM)
 					| (hasStorage ? 0 : ACTION_BLOCKCHAIN_STATE_DOWNLOAD_STORAGE_PROBLEM);
 
 			sendBroadcastBlockchainState(download);
@@ -574,7 +561,6 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 
 		final IntentFilter intentFilter = new IntentFilter();
 		intentFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
-		intentFilter.addAction(Intent.ACTION_BATTERY_CHANGED);
 		intentFilter.addAction(Intent.ACTION_DEVICE_STORAGE_LOW);
 		intentFilter.addAction(Intent.ACTION_DEVICE_STORAGE_OK);
 		registerReceiver(connectivityReceiver, intentFilter);
