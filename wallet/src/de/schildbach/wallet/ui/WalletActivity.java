@@ -29,13 +29,17 @@ import java.io.StringReader;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.net.URL;
-import java.net.URLConnection;
+import java.security.KeyStore;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.TrustManagerFactory;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -510,6 +514,8 @@ public final class WalletActivity extends AbstractWalletActivity
 	{
 		new Thread()
 		{
+			private static final int TIMEOUT_MS = 15 * (int) DateUtils.SECOND_IN_MILLIS;
+
 			@Override
 			public void run()
 			{
@@ -520,8 +526,26 @@ public final class WalletActivity extends AbstractWalletActivity
 					final int versionNameSplit = versionName.indexOf('-');
 					final String base = Constants.VERSION_URL + (versionNameSplit >= 0 ? versionName.substring(versionNameSplit) : "");
 
-					final URLConnection connection = new URL(base + "?current=" + versionCode).openConnection();
+					final URL url = new URL(base + "?current=" + versionCode);
+
+					final InputStream keystoreInputStream = getAssets().open("ssl-keystore");
+
+					final KeyStore keystore = KeyStore.getInstance("BKS");
+					keystore.load(keystoreInputStream, "password".toCharArray());
+					keystoreInputStream.close();
+
+					final TrustManagerFactory tmf = TrustManagerFactory.getInstance("X509");
+					tmf.init(keystore);
+
+					final SSLContext sslContext = SSLContext.getInstance("TLS");
+					sslContext.init(null, tmf.getTrustManagers(), null);
+
+					final HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
+					connection.setSSLSocketFactory(sslContext.getSocketFactory());
+					connection.setConnectTimeout(TIMEOUT_MS);
+					connection.setReadTimeout(TIMEOUT_MS);
 					connection.connect();
+
 					final long serverTime = connection.getHeaderFieldDate("Date", 0);
 					final InputStream is = connection.getInputStream();
 					final BufferedReader reader = new BufferedReader(new InputStreamReader(is), 64);
