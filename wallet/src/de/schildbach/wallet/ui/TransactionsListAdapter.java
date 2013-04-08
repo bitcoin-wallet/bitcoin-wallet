@@ -61,6 +61,7 @@ public class TransactionsListAdapter extends BaseAdapter
 
 	private final List<Transaction> transactions = new ArrayList<Transaction>();
 	private int precision = Constants.BTC_PRECISION;
+	private boolean showEmptyText = false;
 
 	private final int colorSignificant;
 	private final int colorInsignificant;
@@ -117,7 +118,15 @@ public class TransactionsListAdapter extends BaseAdapter
 		this.transactions.clear();
 		this.transactions.addAll(transactions);
 
+		showEmptyText = true;
+
 		notifyDataSetChanged();
+	}
+
+	@Override
+	public boolean isEmpty()
+	{
+		return showEmptyText && super.isEmpty();
 	}
 
 	public int getCount()

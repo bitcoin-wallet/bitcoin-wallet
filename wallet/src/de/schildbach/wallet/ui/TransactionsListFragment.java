@@ -282,7 +282,7 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 
 	public void onLoaderReset(final Loader<List<Transaction>> loader)
 	{
-		adapter.clear();
+		// don't clear the adapter, because it will confuse users
 	}
 
 	private final ThrottelingWalletChangeListener transactionChangeListener = new ThrottelingWalletChangeListener(THROTTLE_MS)
