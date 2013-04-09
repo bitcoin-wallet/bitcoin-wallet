@@ -51,9 +51,9 @@
 
 		<!-- com.google.bitcoin.* -->
 		<dependency>
-			<groupId>com.google</groupId>
+			<groupId>de.schildbach.wallet</groupId>
 			<artifactId>bitcoinj</artifactId>
-			<version>0.7.3</version>
+			<version>0.8</version>
 		</dependency>
 
 		<!-- de.schildbach.wallet.integration.android.* -->
