@@ -42,6 +42,7 @@ import com.google.bitcoin.core.Utils;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.ExchangeRatesProvider;
 import de.schildbach.wallet.ExchangeRatesProvider.ExchangeRate;
+import de.schildbach.wallet.util.GenericUtils;
 import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
 
@@ -210,7 +211,7 @@ public final class AmountCalculatorFragment extends DialogFragment implements Lo
 			}
 
 			exchangeRateView.setText(getString(R.string.amount_calculator_dialog_exchange_rate, exchangeCurrency,
-					WalletUtils.formatValue(WalletUtils.localValue(Utils.COIN, exchangeRate.rate), precision), exchangeRate.source));
+					GenericUtils.formatValue(WalletUtils.localValue(Utils.COIN, exchangeRate.rate), precision), exchangeRate.source));
 		}
 		else
 		{

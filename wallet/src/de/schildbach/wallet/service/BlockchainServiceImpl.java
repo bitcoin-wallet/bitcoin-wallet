@@ -86,8 +86,8 @@ import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.WalletBalanceWidgetProvider;
 import de.schildbach.wallet.ui.WalletActivity;
+import de.schildbach.wallet.util.GenericUtils;
 import de.schildbach.wallet.util.ThrottelingWalletChangeListener;
-import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
 
 /**
@@ -186,10 +186,10 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 
 		final int precision = Integer.parseInt(prefs.getString(Constants.PREFS_KEY_BTC_PRECISION, Integer.toString(Constants.BTC_PRECISION)));
 
-		final String tickerMsg = getString(R.string.notification_coins_received_msg, WalletUtils.formatValue(amount, precision))
+		final String tickerMsg = getString(R.string.notification_coins_received_msg, GenericUtils.formatValue(amount, precision))
 				+ Constants.NETWORK_SUFFIX;
 
-		final String msg = getString(R.string.notification_coins_received_msg, WalletUtils.formatValue(notificationAccumulatedAmount, precision))
+		final String msg = getString(R.string.notification_coins_received_msg, GenericUtils.formatValue(notificationAccumulatedAmount, precision))
 				+ Constants.NETWORK_SUFFIX;
 
 		final StringBuilder text = new StringBuilder();

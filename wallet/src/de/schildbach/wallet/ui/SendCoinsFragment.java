@@ -77,6 +77,7 @@ import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.integration.android.BitcoinIntegration;
 import de.schildbach.wallet.service.BlockchainService;
 import de.schildbach.wallet.service.BlockchainServiceImpl;
+import de.schildbach.wallet.util.GenericUtils;
 import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
 
@@ -405,7 +406,7 @@ public final class SendCoinsFragment extends SherlockFragment implements AmountC
 
 				final AlertDialog.Builder dialog = new AlertDialog.Builder(activity);
 				dialog.setMessage(getString(R.string.send_coins_dialog_fee_message,
-						Constants.CURRENCY_CODE_BITCOIN + " " + WalletUtils.formatValue(Constants.DEFAULT_TX_FEE, Constants.BTC_PRECISION)));
+						Constants.CURRENCY_CODE_BITCOIN + " " + GenericUtils.formatValue(Constants.DEFAULT_TX_FEE, Constants.BTC_PRECISION)));
 				if (allowLowFee)
 				{
 					dialog.setPositiveButton(R.string.send_coins_dialog_fee_button_send, new DialogInterface.OnClickListener()
@@ -698,7 +699,7 @@ public final class SendCoinsFragment extends SherlockFragment implements AmountC
 
 		final TextView viewPending = (TextView) popupAvailableView.findViewById(R.id.send_coins_popup_available_pending);
 		viewPending.setVisibility(pending.signum() > 0 ? View.VISIBLE : View.GONE);
-		viewPending.setText(getString(R.string.send_coins_fragment_pending, WalletUtils.formatValue(pending, Constants.BTC_PRECISION)));
+		viewPending.setText(getString(R.string.send_coins_fragment_pending, GenericUtils.formatValue(pending, Constants.BTC_PRECISION)));
 
 		popup(anchor, popupAvailableView);
 	}

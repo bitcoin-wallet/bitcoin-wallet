@@ -29,6 +29,7 @@ import android.text.style.RelativeSizeSpan;
 import android.util.AttributeSet;
 import android.widget.TextView;
 import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.util.GenericUtils;
 import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
 
@@ -125,9 +126,9 @@ public final class CurrencyTextView extends TextView
 		{
 			final String s;
 			if (alwaysSigned)
-				s = WalletUtils.formatValue(amount, Constants.CURRENCY_PLUS_SIGN, Constants.CURRENCY_MINUS_SIGN, precision);
+				s = GenericUtils.formatValue(amount, Constants.CURRENCY_PLUS_SIGN, Constants.CURRENCY_MINUS_SIGN, precision);
 			else
-				s = WalletUtils.formatValue(amount, precision);
+				s = GenericUtils.formatValue(amount, precision);
 
 			text = new SpannableStringBuilder(s);
 			WalletUtils.formatSignificant(text, insignificantRelativeSizeSpan);

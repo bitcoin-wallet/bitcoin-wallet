@@ -36,6 +36,7 @@ import com.google.bitcoin.core.Wallet.BalanceType;
 import de.schildbach.wallet.ui.RequestCoinsActivity;
 import de.schildbach.wallet.ui.SendCoinsActivity;
 import de.schildbach.wallet.ui.WalletActivity;
+import de.schildbach.wallet.util.GenericUtils;
 import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
 
@@ -59,7 +60,7 @@ public class WalletBalanceWidgetProvider extends AppWidgetProvider
 	{
 		final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
 		final int precision = Integer.parseInt(prefs.getString(Constants.PREFS_KEY_BTC_PRECISION, Integer.toString(Constants.BTC_PRECISION)));
-		final Editable balanceStr = new SpannableStringBuilder(WalletUtils.formatValue(balance, precision));
+		final Editable balanceStr = new SpannableStringBuilder(GenericUtils.formatValue(balance, precision));
 		WalletUtils.formatSignificant(balanceStr, WalletUtils.SMALLER_SPAN);
 
 		for (final int appWidgetId : appWidgetIds)

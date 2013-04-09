@@ -41,8 +41,8 @@ import android.text.format.DateUtils;
 
 import com.google.bitcoin.core.Utils;
 
+import de.schildbach.wallet.util.GenericUtils;
 import de.schildbach.wallet.util.IOUtils;
-import de.schildbach.wallet.util.WalletUtils;
 
 /**
  * @author Andreas Schildbach
@@ -65,7 +65,7 @@ public class ExchangeRatesProvider extends ContentProvider
 		@Override
 		public String toString()
 		{
-			return getClass().getSimpleName() + '[' + currencyCode + ':' + WalletUtils.formatValue(rate, Constants.BTC_PRECISION) + ']';
+			return getClass().getSimpleName() + '[' + currencyCode + ':' + GenericUtils.formatValue(rate, Constants.BTC_PRECISION) + ']';
 		}
 	}
 

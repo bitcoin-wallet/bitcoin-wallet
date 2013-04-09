@@ -150,31 +150,6 @@ public class WalletUtils
 		return builder;
 	}
 
-	public static String formatValue(final BigInteger value, final int precision)
-	{
-		return formatValue(value, "", "-", precision);
-	}
-
-	public static String formatValue(final BigInteger value, final String plusSign, final String minusSign, final int precision)
-	{
-		final boolean negative = value.compareTo(BigInteger.ZERO) < 0;
-		final BigInteger absValue = value.abs();
-
-		final String sign = negative ? minusSign : plusSign;
-
-		final int coins = absValue.divide(Utils.COIN).intValue();
-		final int cents = absValue.remainder(Utils.COIN).intValue();
-
-		if (cents % 1000000 == 0 || precision <= 2)
-			return String.format(Locale.US, "%s%d.%02d", sign, coins, cents / 1000000 + cents % 1000000 / 500000);
-		else if (cents % 10000 == 0 || precision <= 4)
-			return String.format(Locale.US, "%s%d.%04d", sign, coins, cents / 10000 + cents % 10000 / 5000);
-		else if (precision <= 6)
-			return String.format(Locale.US, "%s%d.%06d", sign, coins, cents / 100 + cents % 100 / 50);
-		else
-			return String.format(Locale.US, "%s%d.%08d", sign, coins, cents);
-	}
-
 	private static final Pattern P_SIGNIFICANT = Pattern.compile("^([-+]" + Constants.CHAR_THIN_SPACE + ")?\\d*(\\.\\d{0,2})?");
 	private static final Object SIGNIFICANT_SPAN = new StyleSpan(Typeface.BOLD);
 	public static final RelativeSizeSpan SMALLER_SPAN = new RelativeSizeSpan(0.85f);
