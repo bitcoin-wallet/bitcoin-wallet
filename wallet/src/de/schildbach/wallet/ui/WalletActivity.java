@@ -286,9 +286,10 @@ public final class WalletActivity extends AbstractWalletActivity
 		final List<File> files = new LinkedList<File>();
 
 		// external storage
-		for (final File file : Constants.EXTERNAL_WALLET_BACKUP_DIR.listFiles())
-			if (WalletUtils.KEYS_FILE_FILTER.accept(file) || EncryptionUtils.OPENSSL_FILE_FILTER.accept(file))
-				files.add(file);
+		if (Constants.EXTERNAL_WALLET_BACKUP_DIR.exists() && Constants.EXTERNAL_WALLET_BACKUP_DIR.isDirectory())
+			for (final File file : Constants.EXTERNAL_WALLET_BACKUP_DIR.listFiles())
+				if (WalletUtils.KEYS_FILE_FILTER.accept(file) || EncryptionUtils.OPENSSL_FILE_FILTER.accept(file))
+					files.add(file);
 
 		// internal storage
 		for (final String filename : fileList())
