@@ -108,7 +108,6 @@ public final class CurrencyAmountView extends FrameLayout
 		textView.setHorizontalFadingEdgeEnabled(true);
 		setHint(null);
 		setValidateAmount(textView instanceof EditText);
-		final TextViewListener textViewListener = new TextViewListener();
 		textView.addTextChangedListener(textViewListener);
 		textView.setOnFocusChangeListener(textViewListener);
 		textView.setOnEditorActionListener(textViewListener);
@@ -188,13 +187,19 @@ public final class CurrencyAmountView extends FrameLayout
 			return null;
 	}
 
-	public void setAmount(final BigInteger amount)
+	public void setAmount(final BigInteger amount, final boolean fireListener)
 	{
+		if (!fireListener)
+			textViewListener.setFire(false);
+
 		if (amount != null)
 			textView.setText(amountSigned ? GenericUtils.formatValue(amount, Constants.CURRENCY_PLUS_SIGN, Constants.CURRENCY_MINUS_SIGN, precision)
 					: GenericUtils.formatValue(amount, precision));
 		else
 			textView.setText(null);
+
+		if (!fireListener)
+			textViewListener.setFire(true);
 	}
 
 	public void setHint(final BigInteger amount)
@@ -258,7 +263,7 @@ public final class CurrencyAmountView extends FrameLayout
 	{
 		public void onClick(final View v)
 		{
-			textView.setText(null);
+			setAmount(null, true);
 			textView.requestFocus();
 		}
 	};
@@ -310,7 +315,7 @@ public final class CurrencyAmountView extends FrameLayout
 			final Bundle bundle = (Bundle) state;
 			super.onRestoreInstanceState(bundle.getParcelable("super_state"));
 			textView.onRestoreInstanceState(bundle.getParcelable("child_textview"));
-			setAmount((BigInteger) bundle.getSerializable("amount"));
+			setAmount((BigInteger) bundle.getSerializable("amount"), false);
 		}
 		else
 		{
@@ -318,8 +323,17 @@ public final class CurrencyAmountView extends FrameLayout
 		}
 	}
 
+	private final TextViewListener textViewListener = new TextViewListener();
+
 	private final class TextViewListener implements TextWatcher, OnFocusChangeListener, OnEditorActionListener
 	{
+		private boolean fire = true;
+
+		public void setFire(final boolean fire)
+		{
+			this.fire = fire;
+		}
+
 		public void afterTextChanged(final Editable s)
 		{
 			// workaround for German keyboards
@@ -341,7 +355,7 @@ public final class CurrencyAmountView extends FrameLayout
 		public void onTextChanged(final CharSequence s, final int start, final int before, final int count)
 		{
 			updateAppearance();
-			if (listener != null)
+			if (listener != null && fire)
 				listener.changed();
 		}
 
@@ -351,16 +365,16 @@ public final class CurrencyAmountView extends FrameLayout
 			{
 				final BigInteger amount = getAmount();
 				if (amount != null)
-					setAmount(amount);
+					setAmount(amount, false);
 			}
 
-			if (listener != null)
+			if (listener != null && fire)
 				listener.focusChanged(hasFocus);
 		}
 
 		public boolean onEditorAction(final TextView v, final int actionId, final KeyEvent event)
 		{
-			if (actionId == EditorInfo.IME_ACTION_DONE && listener != null)
+			if (actionId == EditorInfo.IME_ACTION_DONE && listener != null && fire)
 				listener.done();
 
 			return false;

@@ -191,7 +191,7 @@ public final class AmountCalculatorFragment extends DialogFragment implements Lo
 				final BigInteger btcAmount = btcAmountView.getAmount();
 				if (btcAmount != null)
 				{
-					localAmountView.setAmount(null);
+					localAmountView.setAmount(null, false);
 					localAmountView.setHint(WalletUtils.localValue(btcAmount, exchangeRate.rate));
 					btcAmountView.setHint(null);
 				}
@@ -201,7 +201,7 @@ public final class AmountCalculatorFragment extends DialogFragment implements Lo
 				final BigInteger localAmount = localAmountView.getAmount();
 				if (localAmount != null)
 				{
-					btcAmountView.setAmount(null);
+					btcAmountView.setAmount(null, false);
 					btcAmountView.setHint(WalletUtils.btcValue(localAmount, exchangeRate.rate));
 					localAmountView.setHint(null);
 				}

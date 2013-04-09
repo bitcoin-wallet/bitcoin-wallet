@@ -285,6 +285,6 @@ public final class RequestCoinsFragment extends SherlockFragment implements Amou
 
 	public void useCalculatedAmount(final BigInteger amount)
 	{
-		amountView.setAmount(amount);
+		amountView.setAmount(amount, true);
 	}
 }
