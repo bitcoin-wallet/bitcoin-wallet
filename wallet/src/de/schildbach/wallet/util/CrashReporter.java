@@ -25,6 +25,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.Formatter;
+import java.util.List;
+import java.util.Set;
 
 import android.app.ActivityManager;
 import android.content.Context;
@@ -34,6 +36,8 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 
+import com.google.bitcoin.core.Transaction;
+import com.google.bitcoin.core.TransactionOutput;
 import com.google.bitcoin.core.Wallet;
 
 import de.schildbach.wallet.WalletApplication;
@@ -180,7 +184,25 @@ public class CrashReporter
 			report.append("Current time: " + String.format("%tF %tT", now, now) + "\n");
 			final Wallet wallet = application.getWallet();
 			report.append("Keychain size: " + wallet.getKeychainSize() + "\n");
-			report.append("Transactions: " + wallet.getTransactions(true, true).size() + "\n");
+
+			final Set<Transaction> transactions = wallet.getTransactions(true, true);
+			int numInputs = 0;
+			int numOutputs = 0;
+			int numSpentOutputs = 0;
+			for (final Transaction tx : transactions)
+			{
+				numInputs += tx.getInputs().size();
+				final List<TransactionOutput> outputs = tx.getOutputs();
+				numOutputs += outputs.size();
+				for (final TransactionOutput txout : outputs)
+				{
+					if (!txout.isAvailableForSpending())
+						numSpentOutputs++;
+				}
+			}
+			report.append("Transactions: " + transactions.size() + "\n");
+			report.append("Inputs: " + numInputs + "\n");
+			report.append("Outputs: " + numOutputs + " (spent: " + numSpentOutputs + ")\n");
 
 			report.append("Databases:");
 			for (final String db : application.databaseList())
