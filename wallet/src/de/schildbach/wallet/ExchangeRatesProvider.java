@@ -125,6 +125,8 @@ public class ExchangeRatesProvider extends ContentProvider
 		{
 			final String code = selectionArgs[0];
 			final ExchangeRate rate = exchangeRates.get(code);
+			if (rate == null)
+				return null;
 			cursor.newRow().add(code.hashCode()).add(rate.currencyCode).add(rate.rate.longValue()).add(rate.source);
 		}
 
