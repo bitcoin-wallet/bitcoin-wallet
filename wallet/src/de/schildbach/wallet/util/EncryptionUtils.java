@@ -90,8 +90,8 @@ public class EncryptionUtils
 	 * Magic text that appears at the beginning of every OpenSSL encrypted file. Used in identifying encrypted key
 	 * files.
 	 */
-	private static final String OPENSSL_MAGIC_TEXT = new String(Base64.encode(EncryptionUtils.OPENSSL_SALTED_BYTES, Base64.DEFAULT), UTF8).substring(
-			0, EncryptionUtils.NUMBER_OF_CHARACTERS_TO_MATCH_IN_OPENSSL_MAGIC_TEXT);
+	private static final String OPENSSL_MAGIC_TEXT = new String(encodeBase64(EncryptionUtils.OPENSSL_SALTED_BYTES), UTF8).substring(0,
+			EncryptionUtils.NUMBER_OF_CHARACTERS_TO_MATCH_IN_OPENSSL_MAGIC_TEXT);
 
 	private static final int NUMBER_OF_CHARACTERS_TO_MATCH_IN_OPENSSL_MAGIC_TEXT = 10;
 
@@ -135,7 +135,7 @@ public class EncryptionUtils
 		// OpenSSL prefixes the salt bytes + encryptedBytes with Salted___ and then base64 encodes it
 		final byte[] encryptedBytesPlusSaltedText = concat(OPENSSL_SALTED_BYTES, encryptedBytes);
 
-		return new String(Base64.encode(encryptedBytesPlusSaltedText, Base64.DEFAULT), UTF8);
+		return new String(encodeBase64(encryptedBytesPlusSaltedText), UTF8);
 	}
 
 	/**
@@ -187,7 +187,7 @@ public class EncryptionUtils
 	 */
 	public static String decrypt(final String textToDecode, final char[] password) throws IOException
 	{
-		final byte[] decodeTextAsBytes = Base64.decode(textToDecode.getBytes(UTF8), Base64.DEFAULT);
+		final byte[] decodeTextAsBytes = decodeBase64(textToDecode.getBytes(UTF8));
 
 		// Strip off the bytes due to the OPENSSL_SALTED_TEXT prefix text.
 		final int saltPrefixTextLength = OPENSSL_SALTED_BYTES.length;
@@ -238,6 +238,23 @@ public class EncryptionUtils
 		catch (final InvalidCipherTextException x)
 		{
 			throw new IOException("Could not decrypt input string", x);
+		}
+	}
+
+	private static byte[] encodeBase64(byte[] decoded)
+	{
+		return Base64.encode(decoded, Base64.DEFAULT);
+	}
+
+	private static byte[] decodeBase64(byte[] encoded) throws IOException
+	{
+		try
+		{
+			return Base64.decode(encoded, Base64.DEFAULT);
+		}
+		catch (final IllegalArgumentException x)
+		{
+			throw new IOException("illegal base64 padding", x);
 		}
 	}
 
