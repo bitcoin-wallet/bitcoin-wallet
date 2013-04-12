@@ -100,7 +100,8 @@ public final class WalletActivity extends AbstractWalletActivity
 
 		setContentView(R.layout.wallet_content);
 
-		checkAlerts();
+		if (savedInstanceState == null)
+			checkAlerts();
 
 		touchLastUsed();
 	}
