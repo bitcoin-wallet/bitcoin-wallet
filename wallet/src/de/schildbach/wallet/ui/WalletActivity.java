@@ -537,7 +537,7 @@ public final class WalletActivity extends AbstractWalletActivity
 				}
 				catch (final Exception x)
 				{
-					x.printStackTrace();
+					CrashReporter.saveBackgroundTrace(x);
 				}
 			}
 		}.start();
