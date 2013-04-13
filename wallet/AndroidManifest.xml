@@ -3,8 +3,8 @@
 	xmlns:tools="http://schemas.android.com/tools"
 	package="de.schildbach.wallet_test"
 	android:installLocation="internalOnly"
-	android:versionCode="121"
-	android:versionName="3.01-test" >
+	android:versionCode="122"
+	android:versionName="3.02-test" >
 
 	<uses-sdk
 		android:minSdkVersion="10"
