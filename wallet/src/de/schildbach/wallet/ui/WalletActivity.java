@@ -28,6 +28,7 @@ import java.io.Reader;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.security.KeyStore;
 import java.util.ArrayList;
@@ -477,21 +478,25 @@ public final class WalletActivity extends AbstractWalletActivity
 					final String base = Constants.VERSION_URL + (versionNameSplit >= 0 ? versionName.substring(versionNameSplit) : "");
 
 					final URL url = new URL(base + "?current=" + versionCode);
+					final HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
-					final InputStream keystoreInputStream = getAssets().open("ssl-keystore");
+					if (connection instanceof HttpsURLConnection)
+					{
+						final InputStream keystoreInputStream = getAssets().open("ssl-keystore");
 
-					final KeyStore keystore = KeyStore.getInstance("BKS");
-					keystore.load(keystoreInputStream, "password".toCharArray());
-					keystoreInputStream.close();
+						final KeyStore keystore = KeyStore.getInstance("BKS");
+						keystore.load(keystoreInputStream, "password".toCharArray());
+						keystoreInputStream.close();
 
-					final TrustManagerFactory tmf = TrustManagerFactory.getInstance("X509");
-					tmf.init(keystore);
+						final TrustManagerFactory tmf = TrustManagerFactory.getInstance("X509");
+						tmf.init(keystore);
 
-					final SSLContext sslContext = SSLContext.getInstance("TLS");
-					sslContext.init(null, tmf.getTrustManagers(), null);
+						final SSLContext sslContext = SSLContext.getInstance("TLS");
+						sslContext.init(null, tmf.getTrustManagers(), null);
 
-					final HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
-					connection.setSSLSocketFactory(sslContext.getSocketFactory());
+						((HttpsURLConnection) connection).setSSLSocketFactory(sslContext.getSocketFactory());
+					}
+
 					connection.setConnectTimeout(TIMEOUT_MS);
 					connection.setReadTimeout(TIMEOUT_MS);
 					connection.connect();
