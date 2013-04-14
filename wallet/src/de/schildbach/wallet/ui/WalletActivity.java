@@ -470,15 +470,17 @@ public final class WalletActivity extends AbstractWalletActivity
 			@Override
 			public void run()
 			{
+				final int versionCode = getWalletApplication().applicationVersionCode();
+				final String versionName = getWalletApplication().applicationVersionName();
+				final int versionNameSplit = versionName.indexOf('-');
+				final String base = Constants.VERSION_URL + (versionNameSplit >= 0 ? versionName.substring(versionNameSplit) : "");
+
+				HttpURLConnection connection = null;
+
 				try
 				{
-					final int versionCode = getWalletApplication().applicationVersionCode();
-					final String versionName = getWalletApplication().applicationVersionName();
-					final int versionNameSplit = versionName.indexOf('-');
-					final String base = Constants.VERSION_URL + (versionNameSplit >= 0 ? versionName.substring(versionNameSplit) : "");
-
 					final URL url = new URL(base + "?current=" + versionCode);
-					final HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+					connection = (HttpURLConnection) url.openConnection();
 
 					if (connection instanceof HttpsURLConnection)
 					{
@@ -501,9 +503,8 @@ public final class WalletActivity extends AbstractWalletActivity
 					connection.setReadTimeout(TIMEOUT_MS);
 					connection.connect();
 
-					final long serverTime = connection.getHeaderFieldDate("Date", 0);
-					final InputStream is = connection.getInputStream();
-					final BufferedReader reader = new BufferedReader(new InputStreamReader(is), 64);
+					final long serverTime = connection.getDate();
+					final BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()), 64);
 					final int serverVersionCode = Integer.parseInt(reader.readLine().trim().split("\\s+")[0]);
 					reader.close();
 
@@ -543,6 +544,11 @@ public final class WalletActivity extends AbstractWalletActivity
 				catch (final Exception x)
 				{
 					CrashReporter.saveBackgroundTrace(x);
+				}
+				finally
+				{
+					if (connection != null)
+						connection.disconnect();
 				}
 			}
 		}.start();
