@@ -67,7 +67,6 @@ import com.google.bitcoin.core.ScriptException;
 import com.google.bitcoin.core.StoredBlock;
 import com.google.bitcoin.core.Transaction;
 import com.google.bitcoin.core.TransactionConfidence.ConfidenceType;
-import com.google.bitcoin.core.TransactionInput;
 import com.google.bitcoin.core.Wallet;
 import com.google.bitcoin.core.Wallet.BalanceType;
 import com.google.bitcoin.core.WalletEventListener;
@@ -86,6 +85,7 @@ import de.schildbach.wallet.ui.WalletActivity;
 import de.schildbach.wallet.util.CrashReporter;
 import de.schildbach.wallet.util.GenericUtils;
 import de.schildbach.wallet.util.ThrottelingWalletChangeListener;
+import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
 
 /**
@@ -139,17 +139,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 
 			try
 			{
-				final Address from;
-				if (!tx.isCoinBase())
-				{
-					final TransactionInput input = tx.getInputs().get(0);
-					from = input.getFromAddress();
-				}
-				else
-				{
-					from = null;
-				}
-
+				final Address from = WalletUtils.getFromAddress(tx);
 				final BigInteger amount = tx.getValue(wallet);
 				final ConfidenceType confidenceType = tx.getConfidence().getConfidenceType();
 

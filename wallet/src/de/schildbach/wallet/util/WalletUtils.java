@@ -182,6 +182,9 @@ public class WalletUtils
 
 	public static Address getFromAddress(final Transaction tx)
 	{
+		if (tx.isCoinBase())
+			return null;
+
 		try
 		{
 			for (final TransactionInput input : tx.getInputs())
