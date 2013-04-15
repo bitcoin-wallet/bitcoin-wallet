@@ -43,13 +43,17 @@ Log messages can be viewed by
 	adb logcat
 
 
-BUILDING
+BUILDING THE DEVELOPMENT VERSION
+
+It's important to know that the development version uses testnet, is debuggable and the wallet file
+is world readable/writeable. The goal is to be able to debug easily.
 
 You can probably skip some steps, especially if you built Android apps before.
 
-You'll need git, a Java SDK 6 (or later) and at least Maven 3 for this. If you're using Ubuntu,
-use
+You'll need git, a Java SDK 6 (or later) and at least Maven 3 for this. I'll assume Ubuntu Linux
+for the package installs.
 
+	# first time only
 	sudo apt-get install git maven openjdk-6-jdk
 
 Get the Android SDK Tools from
@@ -58,12 +62,14 @@ Get the Android SDK Tools from
 
 and unpack it to your workspace directory. Switch to that Android SDK directory, and use
 
+	# first time only
 	tools/android update sdk --no-ui --force --filter platform,platform-tools
 
 to download the necessary API level.
 
 Next, you need to build bitcoinj. In your workspace, use
 
+	# first time only
 	git clone -b patched-0.8 https://code.google.com/r/andreasschildbach-bitcoinj/ bitcoinj
 	cd bitcoinj
 	mvn clean install
@@ -71,15 +77,38 @@ Next, you need to build bitcoinj. In your workspace, use
 Finally, you can build Bitcoin Wallet and sign it with your development key. Again in your workspace,
 use
 
-	git clone https://code.google.com/p/bitcoin-wallet/ bitcoin-wallet
+	# first time only
+	git clone -b master https://code.google.com/p/bitcoin-wallet/ bitcoin-wallet
+
+	# each time
 	cd bitcoin-wallet
+	git pull
 	mvn clean install -Dandroid.sdk.path=<path to your android sdk>
 
 To upload the app to your Android device, use
 
+	# first time only
 	sudo apt-get install android-tools-adb
-	cd wallet
+
+	# each time
 	adb install wallet/target/wallet_test-*.apk
+
+
+BUILDING THE PRODUCTIVE VERSION
+
+At this point I'd like to remind that you continue on your own risk. According to the license,
+there is basically no warranty and liability. It's your responsibility to audit the source code
+for security issues and build, install and run the application in a secure way.
+
+The productive version uses prodnet, is built non-debuggable, space-optimized with ProGuard and the
+wallet file is protected against access from non-root users. In the code repository, it lives in a
+separate 'prodnet' branch that gets rebased against master with each released version.
+
+	# each time
+	cd bitcoin-wallet
+	git fetch origin
+	git checkout origin/prodnet
+	mvn clean install -Prelease -Dandroid.sdk.path=<path to your android sdk>
 
 
 SETTING UP FOR DEVELOPMENT
