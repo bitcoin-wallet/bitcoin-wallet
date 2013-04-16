@@ -37,8 +37,6 @@ public final class ExchangeRateLoader extends CursorLoader implements OnSharedPr
 		super(context, ExchangeRatesProvider.contentUri(context.getPackageName()), null, ExchangeRatesProvider.KEY_CURRENCY_CODE, null, null);
 
 		prefs = PreferenceManager.getDefaultSharedPreferences(context);
-
-		onCurrencyChange();
 	}
 
 	@Override
@@ -48,7 +46,7 @@ public final class ExchangeRateLoader extends CursorLoader implements OnSharedPr
 
 		prefs.registerOnSharedPreferenceChangeListener(this);
 
-		forceLoad();
+		onCurrencyChange();
 	}
 
 	@Override
@@ -62,11 +60,7 @@ public final class ExchangeRateLoader extends CursorLoader implements OnSharedPr
 	public void onSharedPreferenceChanged(final SharedPreferences sharedPreferences, final String key)
 	{
 		if (Constants.PREFS_KEY_EXCHANGE_CURRENCY.equals(key))
-		{
-			cancelLoad();
 			onCurrencyChange();
-			forceLoad();
-		}
 	}
 
 	private void onCurrencyChange()
@@ -74,5 +68,7 @@ public final class ExchangeRateLoader extends CursorLoader implements OnSharedPr
 		final String exchangeCurrency = prefs.getString(Constants.PREFS_KEY_EXCHANGE_CURRENCY, Constants.DEFAULT_EXCHANGE_CURRENCY);
 
 		setSelectionArgs(new String[] { exchangeCurrency });
+
+		forceLoad();
 	}
 }
