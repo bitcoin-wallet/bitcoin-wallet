@@ -7,7 +7,11 @@
 	<defs>
 		<filter id="drop-shadow">
 			<feGaussianBlur in="SourceAlpha" result="blur-out" stdDeviation="1" />
-			<feBlend in="SourceGraphic" in2="blur-out" mode="normal" />
+			<feOffset dx="0.5" dy="0.5" result="offsetblur" />
+			<feMerge>
+				<feMergeNode />
+				<feMergeNode in="SourceGraphic" />
+			</feMerge>
 		</filter>
 		<linearGradient id="coin-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
 			<stop offset="0%" style="stop-color:#f9aa4b" />
