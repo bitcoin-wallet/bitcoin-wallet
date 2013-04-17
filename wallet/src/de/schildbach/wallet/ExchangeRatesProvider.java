@@ -170,7 +170,7 @@ public class ExchangeRatesProvider extends ContentProvider
 	{
 		try
 		{
-			final URL URL = new URL("http://bitcoincharts.com/t/weighted_prices.json");
+			final URL URL = new URL("http://api.bitcoincharts.com/v1/weighted_prices.json");
 			final URLConnection connection = URL.openConnection();
 			connection.setConnectTimeout(TIMEOUT_MS);
 			connection.setReadTimeout(TIMEOUT_MS);
