@@ -36,6 +36,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 
 import com.google.bitcoin.core.Wallet;
 
@@ -60,6 +61,7 @@ public final class WalletBalanceFragment extends Fragment
 
 	private View viewBalance;
 	private CurrencyTextView viewBalanceBtc;
+	private FrameLayout viewBalanceLocalFrame;
 	private CurrencyTextView viewBalanceLocal;
 	private View viewReplaying;
 
@@ -118,6 +120,10 @@ public final class WalletBalanceFragment extends Fragment
 		viewBalanceBtc = (CurrencyTextView) view.findViewById(R.id.wallet_balance_btc);
 		viewBalanceBtc.setPrefix(Constants.CURRENCY_CODE_BITCOIN);
 
+		viewBalanceLocalFrame = (FrameLayout) view.findViewById(R.id.wallet_balance_local_frame);
+		if (showExchangeRatesOption)
+			viewBalanceLocalFrame.setForeground(getResources().getDrawable(R.drawable.dropdown_ic_arrow_small));
+
 		viewBalanceLocal = (CurrencyTextView) view.findViewById(R.id.wallet_balance_local);
 		viewBalanceLocal.setPrecision(Constants.LOCAL_PRECISION);
 		viewBalanceLocal.setInsignificantRelativeSize(1);
@@ -157,7 +163,7 @@ public final class WalletBalanceFragment extends Fragment
 			viewBalance.setVisibility(View.VISIBLE);
 
 			if (!showLocalBalance)
-				viewBalanceLocal.setVisibility(View.GONE);
+				viewBalanceLocalFrame.setVisibility(View.GONE);
 
 			if (balance != null)
 			{
@@ -171,14 +177,14 @@ public final class WalletBalanceFragment extends Fragment
 					if (exchangeRate != null)
 					{
 						final BigInteger localValue = WalletUtils.localValue(balance, exchangeRate.rate);
-						viewBalanceLocal.setVisibility(View.VISIBLE);
+						viewBalanceLocalFrame.setVisibility(View.VISIBLE);
 						viewBalanceLocal.setPrefix(Constants.PREFIX_ALMOST_EQUAL_TO + exchangeRate.currencyCode);
 						viewBalanceLocal.setAmount(localValue);
 						viewBalanceLocal.setTextColor(getResources().getColor(R.color.fg_less_significant));
 					}
 					else
 					{
-						viewBalanceLocal.setVisibility(View.INVISIBLE);
+						viewBalanceLocalFrame.setVisibility(View.INVISIBLE);
 					}
 				}
 			}
