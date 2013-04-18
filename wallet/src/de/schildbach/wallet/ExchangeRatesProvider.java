@@ -22,8 +22,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.math.BigInteger;
+import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLConnection;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.TreeMap;
@@ -171,16 +171,19 @@ public class ExchangeRatesProvider extends ContentProvider
 		try
 		{
 			final URL URL = new URL("http://api.bitcoincharts.com/v1/weighted_prices.json");
-			final URLConnection connection = URL.openConnection();
+			final HttpURLConnection connection = (HttpURLConnection) URL.openConnection();
 			connection.setConnectTimeout(TIMEOUT_MS);
 			connection.setReadTimeout(TIMEOUT_MS);
 			connection.connect();
-			final StringBuilder content = new StringBuilder();
+
+			if (connection.getResponseCode() != HttpURLConnection.HTTP_OK)
+				return null;
 
 			Reader reader = null;
 			try
 			{
 				reader = new InputStreamReader(new BufferedInputStream(connection.getInputStream(), 1024));
+				final StringBuilder content = new StringBuilder();
 				IOUtils.copy(reader, content);
 
 				final Map<String, ExchangeRate> rates = new TreeMap<String, ExchangeRate>();
@@ -228,16 +231,19 @@ public class ExchangeRatesProvider extends ContentProvider
 		try
 		{
 			final URL URL = new URL("https://blockchain.info/ticker");
-			final URLConnection connection = URL.openConnection();
+			final HttpURLConnection connection = (HttpURLConnection) URL.openConnection();
 			connection.setConnectTimeout(TIMEOUT_MS);
 			connection.setReadTimeout(TIMEOUT_MS);
 			connection.connect();
-			final StringBuilder content = new StringBuilder();
+
+			if (connection.getResponseCode() != HttpURLConnection.HTTP_OK)
+				return null;
 
 			Reader reader = null;
 			try
 			{
 				reader = new InputStreamReader(new BufferedInputStream(connection.getInputStream(), 1024));
+				final StringBuilder content = new StringBuilder();
 				IOUtils.copy(reader, content);
 
 				final Map<String, ExchangeRate> rates = new TreeMap<String, ExchangeRate>();

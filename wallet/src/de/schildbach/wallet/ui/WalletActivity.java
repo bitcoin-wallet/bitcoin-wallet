@@ -503,42 +503,45 @@ public final class WalletActivity extends AbstractWalletActivity
 					connection.setReadTimeout(TIMEOUT_MS);
 					connection.connect();
 
-					final long serverTime = connection.getDate();
-					final BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()), 64);
-					final int serverVersionCode = Integer.parseInt(reader.readLine().trim().split("\\s+")[0]);
-					reader.close();
-
-					if (serverTime > 0)
+					if (connection.getResponseCode() == HttpURLConnection.HTTP_OK)
 					{
-						final long diffMinutes = Math.abs((System.currentTimeMillis() - serverTime) / DateUtils.MINUTE_IN_MILLIS);
+						final long serverTime = connection.getDate();
+						final BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()), 64);
+						final int serverVersionCode = Integer.parseInt(reader.readLine().trim().split("\\s+")[0]);
+						reader.close();
 
-						if (diffMinutes >= 60)
+						if (serverTime > 0)
+						{
+							final long diffMinutes = Math.abs((System.currentTimeMillis() - serverTime) / DateUtils.MINUTE_IN_MILLIS);
+
+							if (diffMinutes >= 60)
+							{
+								runOnUiThread(new Runnable()
+								{
+									public void run()
+									{
+										if (!isFinishing())
+											timeskewAlert(diffMinutes);
+									}
+								});
+
+								return;
+							}
+						}
+
+						if (serverVersionCode > versionCode)
 						{
 							runOnUiThread(new Runnable()
 							{
 								public void run()
 								{
 									if (!isFinishing())
-										timeskewAlert(diffMinutes);
+										versionAlert(serverVersionCode);
 								}
 							});
 
 							return;
 						}
-					}
-
-					if (serverVersionCode > versionCode)
-					{
-						runOnUiThread(new Runnable()
-						{
-							public void run()
-							{
-								if (!isFinishing())
-									versionAlert(serverVersionCode);
-							}
-						});
-
-						return;
 					}
 				}
 				catch (final Exception x)
