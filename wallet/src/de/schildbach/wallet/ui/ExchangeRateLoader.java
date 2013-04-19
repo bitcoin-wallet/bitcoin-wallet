@@ -17,6 +17,9 @@
 
 package de.schildbach.wallet.ui;
 
+import java.util.Currency;
+import java.util.Locale;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
@@ -65,7 +68,7 @@ public final class ExchangeRateLoader extends CursorLoader implements OnSharedPr
 
 	private void onCurrencyChange()
 	{
-		final String exchangeCurrency = prefs.getString(Constants.PREFS_KEY_EXCHANGE_CURRENCY, Constants.DEFAULT_EXCHANGE_CURRENCY);
+		final String exchangeCurrency = prefs.getString(Constants.PREFS_KEY_EXCHANGE_CURRENCY, null);
 
 		setSelectionArgs(new String[] { exchangeCurrency });
 

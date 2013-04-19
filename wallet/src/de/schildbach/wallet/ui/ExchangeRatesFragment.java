@@ -144,7 +144,7 @@ public final class ExchangeRatesFragment extends SherlockListFragment implements
 		loaderManager.initLoader(ID_BALANCE_LOADER, null, balanceLoaderCallbacks);
 		loaderManager.initLoader(ID_RATE_LOADER, null, rateLoaderCallbacks);
 
-		defaultCurrency = prefs.getString(Constants.PREFS_KEY_EXCHANGE_CURRENCY, Constants.DEFAULT_EXCHANGE_CURRENCY);
+		defaultCurrency = prefs.getString(Constants.PREFS_KEY_EXCHANGE_CURRENCY, null);
 		prefs.registerOnSharedPreferenceChangeListener(this);
 
 		updateView();
@@ -216,7 +216,7 @@ public final class ExchangeRatesFragment extends SherlockListFragment implements
 	{
 		if (Constants.PREFS_KEY_EXCHANGE_CURRENCY.equals(key))
 		{
-			defaultCurrency = prefs.getString(Constants.PREFS_KEY_EXCHANGE_CURRENCY, Constants.DEFAULT_EXCHANGE_CURRENCY);
+			defaultCurrency = prefs.getString(Constants.PREFS_KEY_EXCHANGE_CURRENCY, null);
 
 			updateView();
 		}

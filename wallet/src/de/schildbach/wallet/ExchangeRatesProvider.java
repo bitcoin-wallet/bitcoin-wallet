@@ -24,7 +24,9 @@ import java.io.Reader;
 import java.math.BigInteger;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Currency;
 import java.util.Iterator;
+import java.util.Locale;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -118,19 +120,44 @@ public class ExchangeRatesProvider extends ContentProvider
 			for (final Map.Entry<String, ExchangeRate> entry : exchangeRates.entrySet())
 			{
 				final ExchangeRate rate = entry.getValue();
-				cursor.newRow().add(entry.getKey().hashCode()).add(rate.currencyCode).add(rate.rate.longValue()).add(rate.source);
+				cursor.newRow().add(rate.currencyCode.hashCode()).add(rate.currencyCode).add(rate.rate.longValue()).add(rate.source);
 			}
 		}
 		else if (selection.equals(KEY_CURRENCY_CODE))
 		{
-			final String code = selectionArgs[0];
-			final ExchangeRate rate = exchangeRates.get(code);
+			final String selectedCode = selectionArgs[0];
+			ExchangeRate rate = selectedCode != null ? exchangeRates.get(selectedCode) : null;
+
 			if (rate == null)
-				return null;
-			cursor.newRow().add(code.hashCode()).add(rate.currencyCode).add(rate.rate.longValue()).add(rate.source);
+			{
+				final String defaultCode = defaultCurrencyCode();
+				rate = defaultCode != null ? exchangeRates.get(defaultCode) : null;
+
+				if (rate == null)
+				{
+					rate = exchangeRates.get(Constants.DEFAULT_EXCHANGE_CURRENCY);
+
+					if (rate == null)
+						return null;
+				}
+			}
+
+			cursor.newRow().add(rate.currencyCode.hashCode()).add(rate.currencyCode).add(rate.rate.longValue()).add(rate.source);
 		}
 
 		return cursor;
+	}
+
+	private String defaultCurrencyCode()
+	{
+		try
+		{
+			return Currency.getInstance(Locale.getDefault()).getCurrencyCode();
+		}
+		catch (final IllegalArgumentException x)
+		{
+			return null;
+		}
 	}
 
 	public static ExchangeRate getExchangeRate(final Cursor cursor)
