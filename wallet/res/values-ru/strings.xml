@@ -37,7 +37,7 @@
 
 	<string name="request_coins_activity_title">Запросить Bitcoin-монеты</string>
 	<string name="request_coins_fragment_amount_label">Запрашиваемая сумма (опционально)</string>
-	<string name="request_coins_fragment_qr_label">Пусть отправитель сканирует этот QR-код:</string>
+	<string name="request_coins_fragment_qr_label">Пусть отправитель сканирует этот код.</string>
 	<string name="request_coins_fragment_nfc_enabled">Или коснитесь устройством другого с поддержкой NFC.</string>
 	<string name="request_coins_clipboard_msg">Запрос получения Bitcoin-монет скопирован</string>
 	<string name="request_coins_share_dialog_title">Распространить запрос Bitcoin-монет…</string>

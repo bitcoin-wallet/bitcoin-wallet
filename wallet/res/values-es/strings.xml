@@ -101,7 +101,7 @@
 	<string name="request_coins_fragment_address_label">Dirección en la que se solicita</string>
 	<string name="request_coins_fragment_include_address_label">incluir nombre con la dirección</string>
 	<string name="request_coins_fragment_amount_label">Cantidad solicitada (opcional)</string>
-	<string name="request_coins_fragment_qr_label">Utilizar este código QR para enviar:</string>
+	<string name="request_coins_fragment_qr_label">Utilizar este código para enviar.</string>
 	<string name="request_coins_fragment_nfc_enabled">O tocar con un dispositivo dotado de NFC.</string>
 	<string name="request_coins_clipboard_msg">Solicitud de bitcoins copiada al portapapeles</string>
 	<string name="request_coins_share_dialog_title">Compartir solicitud de bitcoins…</string>

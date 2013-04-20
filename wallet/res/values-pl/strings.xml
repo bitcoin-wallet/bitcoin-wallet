@@ -35,7 +35,7 @@
 
 	<string name="request_coins_activity_title">Zapytaj o Bitcoin</string>
 	<string name="request_coins_fragment_amount_label">Zapytana kwota (opcjonalna)</string>
-	<string name="request_coins_fragment_qr_label">Niech ten kod QR zostanie zeskanowany przez wysyłającego:</string>
+	<string name="request_coins_fragment_qr_label">Niech ten kod zostanie zeskanowany przez wysyłającego.</string>
 	<string name="request_coins_fragment_nfc_enabled">Albo dotknij kod z NFC zdolnym aparatem.</string>
 	<string name="request_coins_clipboard_msg">Zapytanie o Bitcoin zostało wklejone do schowka</string>
 	<string name="request_coins_share_dialog_title">Opublikuj zapytanie na Bitcoin…</string>

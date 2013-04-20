@@ -61,7 +61,7 @@
 	<string name="request_coins_fragment_address_label">Adresse pour la requête</string>
 	<string name="request_coins_fragment_include_address_label">inclure une étiquette avec l\'adresse</string>
 	<string name="request_coins_fragment_amount_label">Montant demandé (optionnel)</string>
-	<string name="request_coins_fragment_qr_label">QR-code à scanner par l\'envoyeur&#x202F;:</string>
+	<string name="request_coins_fragment_qr_label">Code à scanner par l\'envoyeur.</string>
 	<string name="request_coins_fragment_nfc_enabled">Ou toucher avec un appareil NFC.</string>
 	<string name="request_coins_clipboard_msg">Demande de Bitcoins collée dans le presse-papier</string>
 	<string name="request_coins_share_dialog_title">Publier la demande de Bitcoins…</string>

@@ -87,7 +87,7 @@
 	<string name="request_coins_fragment_amount_label">Angeforderter Betrag (optional)</string>
 	<string name="request_coins_fragment_address_label">Anfordernde Adresse</string>
 	<string name="request_coins_fragment_include_address_label">Name der Adresse beifügen</string>
-	<string name="request_coins_fragment_qr_label">Laß diesen QR-Code vom Sender scannen:</string>
+	<string name="request_coins_fragment_qr_label">Laß diesen Code vom Sender scannen.</string>
 	<string name="request_coins_fragment_nfc_enabled">Oder berühr\'s mit einem NFC-fähigen Gerät.</string>
 	<string name="request_coins_clipboard_msg">Anforderung aufs Clipboard kopiert</string>
 	<string name="request_coins_share_dialog_title">Anforderung veröffentlichen…</string>

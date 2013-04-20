@@ -35,7 +35,7 @@
 
 	<string name="request_coins_activity_title">接收比特币</string>
 	<string name="request_coins_fragment_amount_label">接收数量（可选）</string>
-	<string name="request_coins_fragment_qr_label">请付款者扫描此二维码：</string>
+	<string name="request_coins_fragment_qr_label">请付款者扫描此二维码。</string>
 	<string name="request_coins_fragment_nfc_enabled">或使用具备近场支付功能的设备。</string>
 	<string name="request_coins_clipboard_msg">索取比特币的请求已复制到剪贴板</string>
 	<string name="request_coins_share_dialog_title">使用其它方式分享该申请…</string>
