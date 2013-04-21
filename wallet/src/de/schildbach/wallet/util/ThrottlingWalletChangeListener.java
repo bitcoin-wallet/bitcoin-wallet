@@ -28,6 +28,7 @@ import com.google.bitcoin.core.ECKey;
 import com.google.bitcoin.core.Transaction;
 import com.google.bitcoin.core.Wallet;
 import com.google.bitcoin.core.WalletEventListener;
+import com.google.bitcoin.script.Script;
 
 /**
  * @author Andreas Schildbach
@@ -134,6 +135,12 @@ public abstract class ThrottlingWalletChangeListener implements WalletEventListe
 
 	@Override
 	public void onKeysAdded(final Wallet wallet, final List<ECKey> keys)
+	{
+		// swallow
+	}
+
+	@Override
+	public void onScriptsAdded(final Wallet wallet, final List<Script> scripts)
 	{
 		// swallow
 	}

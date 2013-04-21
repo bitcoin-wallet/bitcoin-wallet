@@ -871,6 +871,15 @@ public final class SendCoinsFragment extends SherlockFragment
 			}
 
 			@Override
+			protected void onInsufficientMoney(final BigInteger missing)
+			{
+				state = State.INPUT;
+				updateView();
+
+				activity.longToast(R.string.send_coins_error_msg);
+			}
+
+			@Override
 			protected void onFailure()
 			{
 				state = State.FAILED;

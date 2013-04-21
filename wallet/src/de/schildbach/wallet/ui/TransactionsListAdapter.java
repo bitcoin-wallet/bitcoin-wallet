@@ -46,7 +46,7 @@ import com.google.bitcoin.core.Transaction.Purpose;
 import com.google.bitcoin.core.TransactionConfidence;
 import com.google.bitcoin.core.TransactionConfidence.ConfidenceType;
 import com.google.bitcoin.core.Wallet;
-import com.google.bitcoin.core.Wallet.DefaultCoinSelector;
+import com.google.bitcoin.wallet.DefaultCoinSelector;
 
 import de.schildbach.wallet.AddressBookProvider;
 import de.schildbach.wallet.Constants;
