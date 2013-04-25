@@ -7,7 +7,7 @@ FUNKCJE:
 • Książka adresowa dla regularnie używanych adresów Bitcoin.
 • Możliwość dodania transakcji offline, wykonywanych po połączeniu z siecią.
 • Notyfikacje systemowe o połączeniu z siecią Bitcoin i otrzymanych monetach.
-• Widget na stan konta Bitcoin (wymaga: aplikacja na telefonie).
+• Widget na stan konta Bitcoin.
 
 Więcej o Bitcoin dowiesz się pod adresem:
 http://bitcoin.org

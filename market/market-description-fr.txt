@@ -7,7 +7,7 @@ FONCTIONS:
 • Carnet d'adresses pour les adresses Bitcoin fréquemment utilisées.
 • Saisir des transactions offline, les exécuter online.
 • Notifications système pour la connectivité Bitcoin et la réception des bitcoins.
-• App widget pour le solde du compte Bitcoin (demande que l'app soit dans le mobile).
+• App widget pour le solde du compte Bitcoin.
 
 Pour en savoir plus sur Bitcoin:
 http://bitcoin.org

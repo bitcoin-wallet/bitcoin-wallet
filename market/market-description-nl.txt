@@ -7,7 +7,7 @@ FUNCTIES:
 • Adresboek voor veelgebruikte Bitcoin adressen.
 • Transacties ingeven tijdens het offline zijn, deze zullen worden uitgevoerd wanneer u online komt.
 • Systeem melding over Bitcoin connectiviteit en ontvangen bitcoins.
-• Widget voor Bitcoin saldo (vereiste: app verplaatst naar telefoon).
+• Widget voor Bitcoin saldo.
 
 Voor meer informatie over Bitcoin kunt u terecht op
 http://bitcoin.org

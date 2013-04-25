@@ -9,7 +9,7 @@ FEATURES:
 • Enter transactions while offline, will be executed when online.
 • Manages blockchain on your device (for enhanced security).
 • System notifications for Bitcoin connectivity and received coins.
-• App widget for Bitcoin balance (requirement: app moved to phone).
+• App widget for Bitcoin balance.
 
 You can find more about Bitcoin at
 http://bitcoin.org

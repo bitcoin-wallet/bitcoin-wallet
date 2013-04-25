@@ -9,7 +9,7 @@ FEATURES:
 • Offline-Unterstützung, Transaktionen werden dann ausgeführt, wenn das Gerät wieder online ist.
 • Verwaltet die Blockchain auf Deinem Gerät (für mehr Sicherheit).
 • System-Benachrichtigungen für Bitcoin-Konnektivität und Empfang von Zahlungen.
-• App-Widget zeigt Bitcoin-Guthaben an (Voraussetzung: App ist nicht auf SD-Karte verschoben).
+• App-Widget zeigt Bitcoin-Guthaben an.
 
 Weitere Informationen zu Bitcoin findest Du unter
 http://bitcoin.org

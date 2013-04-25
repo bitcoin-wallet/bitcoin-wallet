@@ -7,7 +7,7 @@ CARACTERÍSTICAS:
 • Libreta de direcciones para guardar las direcciones Bitcoin utilizadas habitualmente.
 • Las transacciones se pueden llevar a cabo sin conexión, ejecutándose al recuperar la conexión.
 • Notificaciones de sistema para la conectividad a la red Bitcoin y para la recepción de bitcoins.
-• Widget de aplicación para el saldo Bitcoin (requisito: aplicación instalada en teléfono).
+• Widget de aplicación para el saldo Bitcoin.
 
 Puedes descubrir más sobre Bitcoin en
 http://bitcoin.org

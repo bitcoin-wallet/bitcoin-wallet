@@ -7,7 +7,7 @@ FUNKTIONER:
 • Adressbok för de Bitcoin adresser man använder ofta.
 • Påbörja transaktioner medan du är offline, de utförs när du kommer online.
 • Systemnotifikationer när Bitcoins skickats till dig, och när plånboken kommunicerar med nätverket.
-• App widget som visar plånbokens värde (kräver att appen flyttats till telefonen).
+• App widget som visar plånbokens värde.
 
 Du kan lära dig mer om Bitcoin genom att besöka
 http://bitcoin.org

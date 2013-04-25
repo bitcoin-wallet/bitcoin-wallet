@@ -7,7 +7,7 @@ VLASTNOSTI:
 • Adresář pro často používané adresy.
 • Možnost zadávání transakcí v offline režimu, k jejich zpracování dojde po připojení.
 • Oznamování v liště při synchronizaci a při přijetí Bitcoinů.
-• Widget s celkovým zůstatkem (vyžaduje aplikaci přesunutou na kartě).
+• Widget s celkovým zůstatkem.
 
 Více informací o Bitcoinech
 http://bitcoin.org
