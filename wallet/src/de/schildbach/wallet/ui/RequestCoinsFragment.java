@@ -275,7 +275,7 @@ public final class RequestCoinsFragment extends SherlockFragment implements Amou
 	{
 		final boolean includeLabel = includeLabelView.isChecked();
 
-		final ECKey key = application.getWallet().keychain.get(addressView.getSelectedItemPosition());
+		final ECKey key = (ECKey) addressView.getSelectedItem();
 		final Address address = key.toAddress(Constants.NETWORK_PARAMETERS);
 		final String label = includeLabel ? AddressBookProvider.resolveLabel(activity, address.toString()) : null;
 		final BigInteger amount = amountView.getAmount();
