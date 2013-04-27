@@ -25,7 +25,6 @@ import java.util.Comparator;
 import java.util.List;
 
 import android.annotation.SuppressLint;
-import android.graphics.Point;
 import android.graphics.Rect;
 import android.hardware.Camera;
 import android.hardware.Camera.PreviewCallback;
@@ -75,10 +74,10 @@ public final class CameraManager
 		final Camera.Parameters parameters = camera.getParameters();
 
 		final Rect surfaceFrame = holder.getSurfaceFrame();
+		cameraResolution = findBestPreviewSizeValue(parameters, surfaceFrame);
+
 		final int surfaceWidth = surfaceFrame.width();
 		final int surfaceHeight = surfaceFrame.height();
-
-		cameraResolution = findBestPreviewSizeValue(parameters, new Point(surfaceWidth, surfaceHeight));
 
 		int width = surfaceWidth * 3 / 4;
 		if (width < MIN_FRAME_WIDTH)
@@ -152,8 +151,13 @@ public final class CameraManager
 		}
 	};
 
-	private static Camera.Size findBestPreviewSizeValue(final Camera.Parameters parameters, final Point screenResolution)
+	private static Camera.Size findBestPreviewSizeValue(final Camera.Parameters parameters, Rect surfaceResolution)
 	{
+		if (surfaceResolution.height() > surfaceResolution.width())
+			surfaceResolution = new Rect(0, 0, surfaceResolution.height(), surfaceResolution.width());
+
+		final float screenAspectRatio = (float) surfaceResolution.width() / (float) surfaceResolution.height();
+
 		final List<Camera.Size> rawSupportedSizes = parameters.getSupportedPreviewSizes();
 		if (rawSupportedSizes == null)
 			return parameters.getPreviewSize();
@@ -161,8 +165,6 @@ public final class CameraManager
 		// sort by size, descending
 		final List<Camera.Size> supportedPreviewSizes = new ArrayList<Camera.Size>(rawSupportedSizes);
 		Collections.sort(supportedPreviewSizes, numPixelComparator);
-
-		final float screenAspectRatio = (float) screenResolution.x / (float) screenResolution.y;
 
 		Camera.Size bestSize = null;
 		float diff = Float.POSITIVE_INFINITY;
@@ -178,7 +180,7 @@ public final class CameraManager
 			final boolean isCandidatePortrait = realWidth < realHeight;
 			final int maybeFlippedWidth = isCandidatePortrait ? realHeight : realWidth;
 			final int maybeFlippedHeight = isCandidatePortrait ? realWidth : realHeight;
-			if (maybeFlippedWidth == screenResolution.x && maybeFlippedHeight == screenResolution.y)
+			if (maybeFlippedWidth == surfaceResolution.width() && maybeFlippedHeight == surfaceResolution.height())
 				return supportedPreviewSize;
 
 			final float aspectRatio = (float) maybeFlippedWidth / (float) maybeFlippedHeight;
