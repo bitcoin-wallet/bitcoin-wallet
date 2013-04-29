@@ -189,11 +189,11 @@ public class EncryptionUtils
 	{
 		final byte[] decodeTextAsBytes = decodeBase64(textToDecode.getBytes(UTF8));
 
-		// Strip off the bytes due to the OPENSSL_SALTED_TEXT prefix text.
-		final int saltPrefixTextLength = OPENSSL_SALTED_BYTES.length;
+		if (decodeTextAsBytes.length < OPENSSL_SALTED_BYTES.length)
+			throw new IOException("out of salt");
 
-		final byte[] cipherBytes = new byte[decodeTextAsBytes.length - saltPrefixTextLength];
-		System.arraycopy(decodeTextAsBytes, saltPrefixTextLength, cipherBytes, 0, decodeTextAsBytes.length - saltPrefixTextLength);
+		final byte[] cipherBytes = new byte[decodeTextAsBytes.length - OPENSSL_SALTED_BYTES.length];
+		System.arraycopy(decodeTextAsBytes, OPENSSL_SALTED_BYTES.length, cipherBytes, 0, decodeTextAsBytes.length - OPENSSL_SALTED_BYTES.length);
 
 		final byte[] decryptedBytes = decrypt(cipherBytes, password);
 
