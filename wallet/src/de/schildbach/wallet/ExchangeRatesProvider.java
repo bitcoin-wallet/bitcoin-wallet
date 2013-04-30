@@ -78,7 +78,7 @@ public class ExchangeRatesProvider extends ContentProvider
 	private Map<String, ExchangeRate> exchangeRates = null;
 	private long lastUpdated = 0;
 
-	private static final long UPDATE_FREQ_MS = DateUtils.HOUR_IN_MILLIS;
+	private static final long UPDATE_FREQ_MS = 10 * DateUtils.MINUTE_IN_MILLIS;
 	private static final int TIMEOUT_MS = 15 * (int) DateUtils.SECOND_IN_MILLIS;
 
 	@Override
