@@ -167,6 +167,10 @@ public final class RequestCoinsFragment extends SherlockFragment implements Amou
 		{
 			public void onItemSelected(final AdapterView<?> parent, final View view, final int position, final long id)
 			{
+				// ignore layout operations
+				if (view == null)
+					return;
+
 				updateView();
 				updateShareIntent();
 			}
