@@ -279,6 +279,12 @@ public class TransactionsListAdapter extends BaseAdapter
 					rowMessage.setText(R.string.transaction_row_message_own_unbroadcasted);
 					rowMessage.setTextColor(colorInsignificant);
 				}
+				else if (!sent && value.compareTo(Constants.DUST) < 0)
+				{
+					rowExtend.setVisibility(View.VISIBLE);
+					rowMessage.setText(R.string.transaction_row_message_received_dust);
+					rowMessage.setTextColor(colorInsignificant);
+				}
 				else if (!sent && confidenceType == ConfidenceType.NOT_SEEN_IN_CHAIN && isLocked)
 				{
 					rowExtend.setVisibility(View.VISIBLE);

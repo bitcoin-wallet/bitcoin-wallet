@@ -134,6 +134,7 @@
 	<string name="transaction_row_message_received_unconfirmed_unlocked">Diese Zahlung sollte in ein paar Minuten verfügbar werden.</string>
 	<string name="transaction_row_message_received_unconfirmed_locked">Diese Zahlung ist nicht standardgemäß und sollte nicht vertraut werden.</string>
 	<string name="transaction_row_message_received_dead">Diese Zahlung wurde vom Sender rückgängig gemacht.</string>
+	<string name="transaction_row_message_received_dust">Dieser kleine Betrag kann vermutlich nie wirtschaftlich ausgegeben werden.</string>
 
 	<string name="amount_calculator_dialog_title">Währungs-Umrechner</string>
 	<string name="amount_calculator_dialog_button_use">Übernehmen</string>
