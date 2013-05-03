@@ -59,6 +59,7 @@ import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.google.bitcoin.core.Address;
 import com.google.bitcoin.core.AddressFormatException;
+import com.google.bitcoin.core.ECKey;
 import com.google.bitcoin.core.NetworkParameters;
 import com.google.bitcoin.core.Sha256Hash;
 import com.google.bitcoin.core.Transaction;
@@ -730,6 +731,7 @@ public final class SendCoinsFragment extends SherlockFragment implements AmountC
 		// create spend
 		final SendRequest sendRequest = SendRequest.to(validatedAddress, amountView.getAmount());
 		sendRequest.fee = feeView.getAmount();
+		sendRequest.changeAddress = pickOldestKey(wallet.getKeys()).toAddress(Constants.NETWORK_PARAMETERS);
 
 		backgroundHandler.post(new Runnable()
 		{
@@ -928,6 +930,17 @@ public final class SendCoinsFragment extends SherlockFragment implements AmountC
 				validateAmounts(true);
 			}
 		}, 500);
+	}
+
+	private static ECKey pickOldestKey(final Iterable<ECKey> keys)
+	{
+		ECKey oldestKey = null;
+
+		for (final ECKey key : keys)
+			if (oldestKey == null || key.getCreationTimeSeconds() < oldestKey.getCreationTimeSeconds())
+				oldestKey = key;
+
+		return oldestKey;
 	}
 
 	public void useCalculatedAmount(final BigInteger amount)
