@@ -27,7 +27,7 @@ Private keys can be exported to and imported from external storage:
 /sdcard/Download/bitcoin-wallet-keys-testnet-<yyyy-MM-dd>
 	Export of private keys for testnet
 
-The export file is encrypted using your chosen password. You can OpenSSL to decrypt:
+The export file is encrypted using your chosen password. You can use OpenSSL to decrypt:
 
 openssl enc -d -aes-256-cbc -a -in <filename>
 
