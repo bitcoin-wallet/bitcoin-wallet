@@ -180,7 +180,7 @@ public final class WalletActivity extends AbstractWalletActivity
 				return true;
 
 			case R.id.wallet_options_export_keys:
-				showDialog(DIALOG_EXPORT_KEYS);
+				handleExportKeys();
 				return true;
 
 			case R.id.wallet_options_disconnect:
@@ -212,6 +212,11 @@ public final class WalletActivity extends AbstractWalletActivity
 		}
 
 		return super.onOptionsItemSelected(item);
+	}
+
+	public void handleExportKeys()
+	{
+		showDialog(DIALOG_EXPORT_KEYS);
 	}
 
 	private void handleDisconnect()

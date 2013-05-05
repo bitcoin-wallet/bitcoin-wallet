@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:baselineAligned="true"
+	android:orientation="horizontal"
+	android:paddingBottom="@dimen/list_entry_padding_vertical"
+	android:paddingLeft="@dimen/list_entry_padding_horizontal"
+	android:paddingRight="@dimen/list_entry_padding_horizontal"
+	android:paddingTop="@dimen/list_entry_padding_vertical" >
+
+	<View
+		android:layout_width="@dimen/symbol_size_normal"
+		android:layout_height="@dimen/symbol_size_normal"
+		android:layout_marginRight="8dp" />
+
+	<TextView
+		android:id="@+id/transaction_row_warning_message"
+		android:layout_width="0px"
+		android:layout_height="wrap_content"
+		android:layout_weight="1"
+		android:textColor="@color/fg_less_significant"
+		android:textSize="@dimen/font_size_small" />
+
+</LinearLayout>

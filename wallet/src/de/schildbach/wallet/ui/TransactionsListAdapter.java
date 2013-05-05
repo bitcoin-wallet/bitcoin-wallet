@@ -29,6 +29,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.text.Html;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -63,6 +64,7 @@ public class TransactionsListAdapter extends BaseAdapter
 	private final List<Transaction> transactions = new ArrayList<Transaction>();
 	private int precision = Constants.BTC_PRECISION;
 	private boolean showEmptyText = false;
+	private boolean showBackupWarning = false;
 
 	private final int colorSignificant;
 	private final int colorInsignificant;
@@ -77,13 +79,17 @@ public class TransactionsListAdapter extends BaseAdapter
 	private static final String CONFIDENCE_SYMBOL_DEAD = "\u271D"; // latin cross
 	private static final String CONFIDENCE_SYMBOL_UNKNOWN = "?";
 
-	public TransactionsListAdapter(final Context context, final Wallet wallet, final int maxConnectedPeers)
+	private static final int VIEW_TYPE_TRANSACTION = 0;
+	private static final int VIEW_TYPE_WARNING = 1;
+
+	public TransactionsListAdapter(final Context context, final Wallet wallet, final int maxConnectedPeers, final boolean showBackupWarning)
 	{
 		this.context = context;
 		inflater = LayoutInflater.from(context);
 
 		this.wallet = wallet;
 		this.maxConnectedPeers = maxConnectedPeers;
+		this.showBackupWarning = showBackupWarning;
 
 		final Resources resources = context.getResources();
 		colorSignificant = resources.getColor(R.color.fg_significant);
@@ -132,17 +138,43 @@ public class TransactionsListAdapter extends BaseAdapter
 
 	public int getCount()
 	{
-		return transactions.size();
+		int count = transactions.size();
+
+		if (count == 1 && showBackupWarning)
+			count++;
+
+		return count;
 	}
 
 	public Transaction getItem(final int position)
 	{
+		if (position == transactions.size() && showBackupWarning)
+			return null;
+
 		return transactions.get(position);
 	}
 
 	public long getItemId(final int position)
 	{
+		if (position == transactions.size() && showBackupWarning)
+			return 0;
+
 		return WalletUtils.longHash(transactions.get(position).getHash());
+	}
+
+	@Override
+	public int getViewTypeCount()
+	{
+		return 2;
+	}
+
+	@Override
+	public int getItemViewType(final int position)
+	{
+		if (position == transactions.size() && showBackupWarning)
+			return VIEW_TYPE_WARNING;
+		else
+			return VIEW_TYPE_TRANSACTION;
 	}
 
 	@Override
@@ -153,11 +185,29 @@ public class TransactionsListAdapter extends BaseAdapter
 
 	public View getView(final int position, View row, final ViewGroup parent)
 	{
-		if (row == null)
-			row = inflater.inflate(R.layout.transaction_row_extended, null);
+		final int type = getItemViewType(position);
 
-		final Transaction tx = getItem(position);
-		bindView(row, tx);
+		if (type == VIEW_TYPE_TRANSACTION)
+		{
+			if (row == null)
+				row = inflater.inflate(R.layout.transaction_row_extended, null);
+
+			final Transaction tx = getItem(position);
+			bindView(row, tx);
+		}
+		else if (type == VIEW_TYPE_WARNING)
+		{
+			if (row == null)
+				row = inflater.inflate(R.layout.transaction_row_warning, null);
+
+			final TextView messageView = (TextView) row.findViewById(R.id.transaction_row_warning_message);
+			messageView.setText(Html.fromHtml(context.getString(R.string.wallet_transactions_row_warning_backup)));
+		}
+		else
+		{
+			throw new IllegalStateException("unknown type: " + type);
+		}
+
 		return row;
 	}
 

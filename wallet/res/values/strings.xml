@@ -30,6 +30,7 @@
 	<string name="wallet_transactions_fragment_empty_text_received">No Bitcoins received so far.</string>
 	<string name="wallet_transactions_fragment_empty_text_sent">No Bitcoins sent so far.</string>
 	<string name="wallet_transactions_fragment_empty_text_howto">How to get Bitcoins?\n\nTrade for traditional money,\nsell goods or services or\nearn by working.</string>
+	<string name="wallet_transactions_row_warning_backup">Congratulations, you received your first payment! Have you already &lt;u>backed your wallet&lt;/u>, to protect against loss?</string>
 	<string name="wallet_transactions_fragment_coinbase">mined</string>
 	<string name="wallet_transactions_context_show_transaction_title">Transaction details</string>
 	<string name="wallet_options_backup">Backup Keys</string>

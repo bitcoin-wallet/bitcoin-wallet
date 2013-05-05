@@ -132,7 +132,9 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 
 		this.direction = (Direction) getArguments().getSerializable(KEY_DIRECTION);
 
-		adapter = new TransactionsListAdapter(activity, wallet, application.maxConnectedPeers());
+		final boolean showBackupWarning = direction == null || direction == Direction.RECEIVED;
+
+		adapter = new TransactionsListAdapter(activity, wallet, application.maxConnectedPeers(), showBackupWarning);
 		setListAdapter(adapter);
 	}
 
@@ -187,6 +189,14 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 	{
 		final Transaction tx = (Transaction) adapter.getItem(position);
 
+		if (tx != null)
+			handleTransactionClick(tx);
+		else
+			handleBackupWarningClick();
+	}
+
+	private void handleTransactionClick(final Transaction tx)
+	{
 		activity.startActionMode(new ActionMode.Callback()
 		{
 			private Address address;
@@ -268,6 +278,11 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 				EditAddressBookEntryFragment.edit(getFragmentManager(), address.toString());
 			}
 		});
+	}
+
+	private void handleBackupWarningClick()
+	{
+		((WalletActivity) activity).handleExportKeys();
 	}
 
 	public Loader<List<Transaction>> onCreateLoader(final int id, final Bundle args)
