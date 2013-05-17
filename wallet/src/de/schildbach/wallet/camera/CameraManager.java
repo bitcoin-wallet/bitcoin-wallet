@@ -39,10 +39,8 @@ public final class CameraManager
 {
 	private static final boolean CONTINUOUS_FOCUS = true;
 
-	private static final int MIN_FRAME_WIDTH = 240;
-	private static final int MIN_FRAME_HEIGHT = 240;
-	private static final int MAX_FRAME_WIDTH = 600;
-	private static final int MAX_FRAME_HEIGHT = 400;
+	private static final int MIN_FRAME_SIZE = 240;
+	private static final int MAX_FRAME_SIZE = 600;
 	private static final int MIN_PREVIEW_PIXELS = 470 * 320; // normal screen
 	private static final int MAX_PREVIEW_PIXELS = 1280 * 720;
 
@@ -79,23 +77,12 @@ public final class CameraManager
 		final int surfaceWidth = surfaceFrame.width();
 		final int surfaceHeight = surfaceFrame.height();
 
-		int width = surfaceWidth * 3 / 4;
-		if (width < MIN_FRAME_WIDTH)
-			width = MIN_FRAME_WIDTH;
-		else if (width > MAX_FRAME_WIDTH)
-			width = MAX_FRAME_WIDTH;
+		final int rawSize = Math.min(surfaceWidth * 2 / 3, surfaceHeight * 2 / 3);
+		final int frameSize = Math.max(MIN_FRAME_SIZE, Math.min(MAX_FRAME_SIZE, rawSize));
 
-		int height = surfaceHeight * 3 / 4;
-		if (height < MIN_FRAME_HEIGHT)
-			height = MIN_FRAME_HEIGHT;
-		else if (height > MAX_FRAME_HEIGHT)
-			height = MAX_FRAME_HEIGHT;
-
-		final int finalWidth = Math.min(width, height);
-
-		final int leftOffset = (surfaceWidth - finalWidth) / 2;
-		final int topOffset = (surfaceHeight - finalWidth) / 2;
-		frame = new Rect(leftOffset, topOffset, leftOffset + finalWidth, topOffset + finalWidth);
+		final int leftOffset = (surfaceWidth - frameSize) / 2;
+		final int topOffset = (surfaceHeight - frameSize) / 2;
+		frame = new Rect(leftOffset, topOffset, leftOffset + frameSize, topOffset + frameSize);
 		framePreview = new Rect(frame.left * cameraResolution.width / surfaceWidth, frame.top * cameraResolution.height / surfaceHeight, frame.right
 				* cameraResolution.width / surfaceWidth, frame.bottom * cameraResolution.height / surfaceHeight);
 
