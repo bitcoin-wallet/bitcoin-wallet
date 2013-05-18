@@ -42,9 +42,9 @@ public abstract class AbstractWalletActivity extends SherlockFragmentActivity
 	@Override
 	protected void onCreate(final Bundle savedInstanceState)
 	{
-		super.onCreate(savedInstanceState);
-
 		application = (WalletApplication) getApplication();
+
+		super.onCreate(savedInstanceState);
 	}
 
 	protected WalletApplication getWalletApplication()
