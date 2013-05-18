@@ -142,11 +142,11 @@
 	<string name="amount_calculator_dialog_exchange_rate">BTC 1 ist etwa %1$s %2$s wert\nKurs von %3$s abgerufen</string>
 	<string name="amount_calculator_dialog_exchange_rate_not_available">Umrechnungskurs nicht verfügbar.</string>
 
-	<string name="peer_monitor_activity_title">Peer Monitor</string>
+	<string name="network_monitor_activity_title">Netzwerk-Monitor</string>
+	<string name="network_monitor_peer_list_title">Peers</string>
+	<string name="network_monitor_block_list_title">Blöcke</string>
 
 	<string name="peer_list_fragment_empty">Keine Peers verbinden</string>
-
-	<string name="block_explorer_activity_title">Block Explorer</string>
 
 	<string name="import_keys_dialog_title">Private Schlüssel importieren</string>
 	<string name="import_keys_dialog_message">Wähle eine Import-Datei mit privaten Schlüsseln vom externen oder app-privaten Speicher aus:</string>

@@ -124,7 +124,6 @@ public class Constants
 	public static final String PREFS_KEY_TRUSTED_PEER_ONLY = "trusted_peer_only";
 	public static final String PREFS_KEY_LABS_SEND_COINS_LOW_FEE = "labs_send_coins_low_fee";
 	public static final String PREFS_KEY_LABS_TRANSACTION_DETAILS = "labs_transactions_details";
-	public static final String PREFS_KEY_LABS_BLOCK_EXPLORER = "labs_block_explorer";
 	public static final String PREFS_KEY_BTC_PRECISION = "btc_precision";
 	public static final String PREFS_KEY_DISCLAIMER = "disclaimer";
 

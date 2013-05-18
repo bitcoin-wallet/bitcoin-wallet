@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:orientation="horizontal" >
+
+	<LinearLayout
+		android:layout_width="0px"
+		android:layout_height="match_parent"
+		android:layout_weight="1"
+		android:background="@color/bg_less_bright"
+		android:orientation="vertical" >
+
+		<TextView
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginBottom="@dimen/list_entry_padding_vertical"
+			android:layout_marginLeft="@dimen/list_entry_padding_horizontal"
+			android:layout_marginRight="@dimen/list_entry_padding_horizontal"
+			android:layout_marginTop="@dimen/list_entry_padding_vertical"
+			android:shadowColor="@color/bg_bright"
+			android:shadowRadius="1"
+			android:text="@string/network_monitor_peer_list_title"
+			android:textSize="@dimen/font_size_normal"
+			android:textStyle="bold" />
+
+		<FrameLayout
+			android:layout_width="match_parent"
+			android:layout_height="0px"
+			android:layout_weight="1"
+			android:background="@color/bg_bright"
+			android:foreground="@drawable/fragment_shadow_horizontal_light"
+			android:foregroundGravity="top|fill_horizontal" >
+
+			<fragment
+				android:id="@+id/peer_list_fragment"
+				android:name="de.schildbach.wallet.ui.PeerListFragment"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent" />
+		</FrameLayout>
+	</LinearLayout>
+
+	<View
+		android:layout_width="1dp"
+		android:layout_height="match_parent"
+		android:background="@color/bg_less_bright" />
+
+	<LinearLayout
+		android:layout_width="0px"
+		android:layout_height="match_parent"
+		android:layout_weight="1"
+		android:background="@color/bg_less_bright"
+		android:orientation="vertical" >
+
+		<TextView
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginBottom="@dimen/list_entry_padding_vertical"
+			android:layout_marginLeft="@dimen/list_entry_padding_horizontal"
+			android:layout_marginRight="@dimen/list_entry_padding_horizontal"
+			android:layout_marginTop="@dimen/list_entry_padding_vertical"
+			android:shadowColor="@color/bg_bright"
+			android:shadowRadius="1"
+			android:text="@string/network_monitor_block_list_title"
+			android:textSize="@dimen/font_size_normal"
+			android:textStyle="bold" />
+
+		<FrameLayout
+			android:layout_width="match_parent"
+			android:layout_height="0px"
+			android:layout_weight="1"
+			android:background="@color/bg_bright"
+			android:foreground="@drawable/fragment_shadow_horizontal_light"
+			android:foregroundGravity="top|fill_horizontal" >
+
+			<fragment
+				android:id="@+id/block_list_fragment"
+				android:name="de.schildbach.wallet.ui.BlockListFragment"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent" />
+		</FrameLayout>
+	</LinearLayout>
+
+</LinearLayout>

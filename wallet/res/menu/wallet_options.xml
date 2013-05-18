@@ -23,14 +23,9 @@
 		android:showAsAction="never"
 		android:title="@string/exchange_rates_activity_title"/>
 	<item
-		android:id="@+id/wallet_options_peer_monitor"
-		android:icon="@drawable/ic_action_peers"
-		android:showAsAction="ifRoom|withText"
-		android:title="@string/peer_monitor_activity_title"/>
-	<item
-		android:id="@+id/wallet_options_block_explorer"
+		android:id="@+id/wallet_options_network_monitor"
 		android:showAsAction="never"
-		android:title="@string/block_explorer_activity_title"/>
+		android:title="@string/network_monitor_activity_title"/>
 	<item
 		android:showAsAction="never"
 		android:title="@string/wallet_options_backup">

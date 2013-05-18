@@ -148,10 +148,10 @@
 	<string name="amount_calculator_dialog_button_use">Uso</string>
 	<string name="amount_calculator_dialog_exchange_rate">1 BTC tiene un valor de %1$s %2$s\nValor obtenido de %3$s</string>
 	<string name="amount_calculator_dialog_exchange_rate_not_available">Tasa de cambio no disponible.</string>
-	<string name="peer_monitor_activity_title">Monitor de pares</string>
+	<string name="network_monitor_peer_list_title">Pares</string>
+	<string name="network_monitor_block_list_title">Bloques</string>
 	<string name="peer_list_fragment_empty">Sin pares conectados</string>
 	<string name="peer_list_row_ping_time">⇆ %d&#x2009;ms</string>
-	<string name="block_explorer_activity_title">Explorador de bloques</string>
 	<string name="scan_camera_problem_dialog_title">Lo siento</string>
 	<string name="scan_camera_problem_dialog_message">La cámara tiene un problema. Posiblemente necesites reiniciar tu dispositivo.</string>
 	<string name="preferences_activity_title">Preferencias</string>

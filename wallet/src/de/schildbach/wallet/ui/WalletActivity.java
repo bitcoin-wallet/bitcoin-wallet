@@ -137,7 +137,6 @@ public final class WalletActivity extends AbstractWalletActivity
 		final String externalStorageState = Environment.getExternalStorageState();
 
 		menu.findItem(R.id.wallet_options_exchange_rates).setVisible(res.getBoolean(R.bool.show_exchange_rates_option));
-		menu.findItem(R.id.wallet_options_block_explorer).setVisible(prefs.getBoolean(Constants.PREFS_KEY_LABS_BLOCK_EXPLORER, false));
 		menu.findItem(R.id.wallet_options_import_keys).setEnabled(
 				Environment.MEDIA_MOUNTED.equals(externalStorageState) || Environment.MEDIA_MOUNTED_READ_ONLY.equals(externalStorageState));
 		menu.findItem(R.id.wallet_options_export_keys).setEnabled(Environment.MEDIA_MOUNTED.equals(externalStorageState));
@@ -167,12 +166,8 @@ public final class WalletActivity extends AbstractWalletActivity
 				startActivity(new Intent(this, ExchangeRatesActivity.class));
 				return true;
 
-			case R.id.wallet_options_peer_monitor:
-				startActivity(new Intent(this, PeerMonitorActivity.class));
-				return true;
-
-			case R.id.wallet_options_block_explorer:
-				startActivity(new Intent(this, BlockExplorerActivity.class));
+			case R.id.wallet_options_network_monitor:
+				startActivity(new Intent(this, NetworkMonitorActivity.class));
 				return true;
 
 			case R.id.wallet_options_import_keys:

@@ -100,7 +100,6 @@
 	<string name="transaction_fragment_length_label">Längd</string>
 	<string name="amount_calculator_dialog_title">Valuta kalkylator</string>
 	<string name="amount_calculator_dialog_button_use">Använd</string>
-	<string name="peer_monitor_activity_title">Peer övervakaren</string>
 	<string name="peer_list_fragment_empty">Inga peers anslutna</string>
 	<string name="about_title">Om</string>
 	<string name="about_license_title">Licens</string>

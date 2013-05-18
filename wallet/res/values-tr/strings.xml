@@ -100,7 +100,6 @@
 	<string name="transaction_fragment_length_label">Uzunluk</string>
 	<string name="amount_calculator_dialog_title">Döviz hesaplayıcı</string>
 	<string name="amount_calculator_dialog_button_use">Kullan</string>
-	<string name="peer_monitor_activity_title">Eş izleyicisi</string>
 	<string name="peer_list_fragment_empty">Hiçbir eş bağlı değil</string>
 	<string name="about_title">Hakkında</string>
 	<string name="about_license_title">Lisans</string>

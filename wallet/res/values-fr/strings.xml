@@ -100,7 +100,7 @@
 	<string name="transaction_fragment_length_label">Taille</string>
 	<string name="amount_calculator_dialog_title">Convertisseur de devises</string>
 	<string name="amount_calculator_dialog_button_use">Utiliser</string>
-	<string name="peer_monitor_activity_title">Moniteur de pairs</string>
+	<string name="network_monitor_peer_list_title">Pairs</string>
 	<string name="peer_list_fragment_empty">Aucun pair connecté</string>
 	<string name="about_title">A propos de</string>
 	<string name="about_license_title">License</string>

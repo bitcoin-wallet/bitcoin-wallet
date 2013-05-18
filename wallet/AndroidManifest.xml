@@ -131,14 +131,9 @@
 			android:label="@string/exchange_rates_activity_title"
 			android:screenOrientation="behind" />
 		<activity
-			android:name="de.schildbach.wallet.ui.PeerMonitorActivity"
+			android:name="de.schildbach.wallet.ui.NetworkMonitorActivity"
 			android:configChanges="keyboard|keyboardHidden"
-			android:label="@string/peer_monitor_activity_title"
-			android:screenOrientation="behind" />
-		<activity
-			android:name="de.schildbach.wallet.ui.BlockExplorerActivity"
-			android:configChanges="keyboard|keyboardHidden"
-			android:label="@string/block_explorer_activity_title"
+			android:label="@string/network_monitor_activity_title"
 			android:screenOrientation="behind" />
 		<activity
 			android:name="de.schildbach.wallet.ui.PreferencesActivity"

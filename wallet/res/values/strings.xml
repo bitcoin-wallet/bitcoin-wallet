@@ -129,10 +129,11 @@
 	<string name="amount_calculator_dialog_button_use">Use</string>
 	<string name="amount_calculator_dialog_exchange_rate">BTC 1 is worth about %1$s %2$s\nPrice fetched from %3$s</string>
 	<string name="amount_calculator_dialog_exchange_rate_not_available">Exchange rate not available.</string>
-	<string name="peer_monitor_activity_title">Peer Monitor</string>
+	<string name="network_monitor_activity_title">Network Monitor</string>
+	<string name="network_monitor_peer_list_title">Peers</string>
+	<string name="network_monitor_block_list_title">Blocks</string>
 	<string name="peer_list_fragment_empty">No peers connected</string>
 	<string name="peer_list_row_ping_time">⇆ %d&#x2009;ms</string>
-	<string name="block_explorer_activity_title">Block Explorer</string>
 	<string name="import_keys_dialog_title">Import private keys</string>
 	<string name="import_keys_dialog_message">Pick a private keys import file from external or app-private storage:</string>
 	<string name="import_keys_dialog_file_security_encrypted">password encrypted</string>
