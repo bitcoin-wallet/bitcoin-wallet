@@ -5,5 +5,6 @@
 	<item name="wallet_address_fragment" type="layout">@layout/wallet_address_fragment_horizontal</item>
 	<item name="address_book_content" type="layout">@layout/address_book_twopanes</item>
 	<item name="show_exchange_rates_option" type="bool">false</item>
+	<item name="show_local_balance" type="bool">false</item>
 
 </resources>
