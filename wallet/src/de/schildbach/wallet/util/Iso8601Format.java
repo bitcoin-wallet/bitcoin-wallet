@@ -21,6 +21,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.TimeZone;
 
 import android.annotation.SuppressLint;
 
@@ -30,9 +31,13 @@ import android.annotation.SuppressLint;
 @SuppressLint("SimpleDateFormat")
 public class Iso8601Format extends SimpleDateFormat
 {
-	private Iso8601Format(String formatString)
+	private static final TimeZone UTC = TimeZone.getTimeZone("UTC");
+
+	private Iso8601Format(final String formatString)
 	{
 		super(formatString);
+
+		setTimeZone(UTC);
 	}
 
 	public static DateFormat newTimeFormat()

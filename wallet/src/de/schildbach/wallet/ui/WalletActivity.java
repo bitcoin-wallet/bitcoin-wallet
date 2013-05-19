@@ -31,12 +31,14 @@ import java.io.Writer;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.security.KeyStore;
+import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.TimeZone;
 
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
@@ -780,8 +782,10 @@ public final class WalletActivity extends AbstractWalletActivity
 		try
 		{
 			Constants.EXTERNAL_WALLET_BACKUP_DIR.mkdirs();
+			final DateFormat dateFormat = Iso8601Format.newDateFormat();
+			dateFormat.setTimeZone(TimeZone.getDefault());
 			final File file = new File(Constants.EXTERNAL_WALLET_BACKUP_DIR, Constants.EXTERNAL_WALLET_KEY_BACKUP + "-"
-					+ Iso8601Format.newDateFormat().format(new Date()));
+					+ dateFormat.format(new Date()));
 
 			final ArrayList<ECKey> keys = wallet.keychain;
 
