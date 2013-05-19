@@ -70,15 +70,14 @@ public final class WalletAddressFragment extends Fragment
 		super.onAttach(activity);
 
 		this.activity = (FragmentActivity) activity;
-		prefs = PreferenceManager.getDefaultSharedPreferences(activity);
-		application = (WalletApplication) activity.getApplication();
+		this.application = (WalletApplication) activity.getApplication();
+		this.prefs = PreferenceManager.getDefaultSharedPreferences(activity);
+		this.nfcManager = (NfcManager) activity.getSystemService(Context.NFC_SERVICE);
 	}
 
 	@Override
 	public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState)
 	{
-		nfcManager = (NfcManager) activity.getSystemService(Context.NFC_SERVICE);
-
 		final View view = inflater.inflate(R.layout.wallet_address_fragment, container, false);
 		bitcoinAddressButton = view.findViewById(R.id.bitcoin_address_button);
 		bitcoinAddressLabel = (TextView) view.findViewById(R.id.bitcoin_address_label);

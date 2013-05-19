@@ -76,10 +76,10 @@ public final class TransactionFragment extends SherlockFragment
 		super.onAttach(activity);
 
 		this.activity = (AbstractWalletActivity) activity;
+		this.clipboardManager = (ClipboardManager) activity.getSystemService(Context.CLIPBOARD_SERVICE);
 
 		dateFormat = android.text.format.DateFormat.getDateFormat(activity);
 		timeFormat = android.text.format.DateFormat.getTimeFormat(activity);
-		clipboardManager = (ClipboardManager) activity.getSystemService(Context.CLIPBOARD_SERVICE);
 	}
 
 	@Override

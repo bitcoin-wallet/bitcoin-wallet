@@ -312,7 +312,6 @@ public final class SendingAddressesFragment extends SherlockListFragment impleme
 
 	private void handleCopyToClipboard(final String address)
 	{
-		ClipboardManager clipboardManager = (ClipboardManager) activity.getSystemService(Context.CLIPBOARD_SERVICE);
 		clipboardManager.setText(address);
 		activity.toast(R.string.wallet_address_fragment_clipboard_msg);
 	}

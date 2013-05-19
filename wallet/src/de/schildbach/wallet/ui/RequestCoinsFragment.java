@@ -80,11 +80,11 @@ public final class RequestCoinsFragment extends SherlockFragment implements Amou
 	public void onAttach(final Activity activity)
 	{
 		super.onAttach(activity);
-		this.activity = (AbstractWalletActivity) activity;
-		application = (WalletApplication) activity.getApplication();
 
-		nfcManager = (NfcManager) activity.getSystemService(Context.NFC_SERVICE);
-		clipboardManager = (ClipboardManager) activity.getSystemService(Context.CLIPBOARD_SERVICE);
+		this.activity = (AbstractWalletActivity) activity;
+		this.application = (WalletApplication) activity.getApplication();
+		this.nfcManager = (NfcManager) activity.getSystemService(Context.NFC_SERVICE);
+		this.clipboardManager = (ClipboardManager) activity.getSystemService(Context.CLIPBOARD_SERVICE);
 	}
 
 	@Override
