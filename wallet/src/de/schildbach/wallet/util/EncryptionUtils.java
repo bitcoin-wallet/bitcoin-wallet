@@ -26,6 +26,7 @@ import java.security.SecureRandom;
 
 import org.spongycastle.crypto.BufferedBlockCipher;
 import org.spongycastle.crypto.CipherParameters;
+import org.spongycastle.crypto.DataLengthException;
 import org.spongycastle.crypto.InvalidCipherTextException;
 import org.spongycastle.crypto.PBEParametersGenerator;
 import org.spongycastle.crypto.engines.AESFastEngine;
@@ -173,6 +174,10 @@ public class EncryptionUtils
 		{
 			throw new IOException("Could not encrypt bytes", x);
 		}
+		catch (final DataLengthException x)
+		{
+			throw new IOException("Could not encrypt bytes", x);
+		}
 	}
 
 	/**
@@ -180,7 +185,7 @@ public class EncryptionUtils
 	 * 
 	 * @param textToDecode
 	 *            The code to decrypt
-	 * @param passwordbThe
+	 * @param password
 	 *            password to use for decryption
 	 * @return The decrypted text
 	 * @throws IOException
@@ -236,6 +241,10 @@ public class EncryptionUtils
 			return decryptedBytes;
 		}
 		catch (final InvalidCipherTextException x)
+		{
+			throw new IOException("Could not decrypt input string", x);
+		}
+		catch (final DataLengthException x)
 		{
 			throw new IOException("Could not decrypt input string", x);
 		}
