@@ -28,6 +28,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
 import android.annotation.SuppressLint;
@@ -114,11 +115,14 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 	private int notificationCount = 0;
 	private BigInteger notificationAccumulatedAmount = BigInteger.ZERO;
 	private final List<Address> notificationAddresses = new LinkedList<Address>();
+	private AtomicInteger transactionsReceived = new AtomicInteger();
 	private int bestChainHeightEver;
 	private boolean resetBlockchainOnShutdown = false;
 
-	private static final int MAX_LAST_CHAIN_HEIGHTS = 10;
-	private static final int IDLE_TIMEOUT_MIN = 2;
+	private static final int MIN_COLLECT_HISTORY = 2;
+	private static final int IDLE_BLOCK_TIMEOUT_MIN = 2;
+	private static final int IDLE_TRANSACTION_TIMEOUT_MIN = 9;
+	private static final int MAX_HISTORY_SIZE = Math.max(IDLE_TRANSACTION_TIMEOUT_MIN, IDLE_BLOCK_TIMEOUT_MIN);
 
 	private static final long APPWIDGET_THROTTLE_MS = DateUtils.SECOND_IN_MILLIS;
 
@@ -135,6 +139,8 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 		@Override
 		public void onCoinsReceived(final Wallet wallet, final Transaction tx, final BigInteger prevBalance, final BigInteger newBalance)
 		{
+			transactionsReceived.incrementAndGet();
+
 			final int bestChainHeight = blockChain.getBestChainHeight();
 
 			try
@@ -160,6 +166,12 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 			{
 				throw new RuntimeException(x);
 			}
+		}
+
+		@Override
+		public void onCoinsSent(final Wallet wallet, final Transaction tx, final BigInteger prevBalance, final BigInteger newBalance)
+		{
+			transactionsReceived.incrementAndGet();
 		}
 	};
 
@@ -434,10 +446,28 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 		}
 	};
 
+	private final static class ActivityHistoryEntry
+	{
+		public final int numTransactionsReceived;
+		public final int numBlocksDownloaded;
+
+		public ActivityHistoryEntry(final int numTransactionsReceived, final int numBlocksDownloaded)
+		{
+			this.numTransactionsReceived = numTransactionsReceived;
+			this.numBlocksDownloaded = numBlocksDownloaded;
+		}
+
+		@Override
+		public String toString()
+		{
+			return numTransactionsReceived + "/" + numBlocksDownloaded;
+		}
+	}
+
 	private final BroadcastReceiver tickReceiver = new BroadcastReceiver()
 	{
 		private int lastChainHeight = 0;
-		private final List<Integer> lastDownloadedHistory = new LinkedList<Integer>();
+		private final List<ActivityHistoryEntry> activityHistory = new LinkedList<ActivityHistoryEntry>();
 
 		@Override
 		public void onReceive(final Context context, final Intent intent)
@@ -446,33 +476,38 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 
 			if (lastChainHeight > 0)
 			{
-				final int downloaded = chainHeight - lastChainHeight;
+				final int numBlocksDownloaded = chainHeight - lastChainHeight;
+				final int numTransactionsReceived = transactionsReceived.getAndSet(0);
 
-				// push number of downloaded blocks
-				lastDownloadedHistory.add(0, downloaded);
+				// push history
+				activityHistory.add(0, new ActivityHistoryEntry(numTransactionsReceived, numBlocksDownloaded));
 
 				// trim
-				while (lastDownloadedHistory.size() > MAX_LAST_CHAIN_HEIGHTS)
-					lastDownloadedHistory.remove(lastDownloadedHistory.size() - 1);
+				while (activityHistory.size() > MAX_HISTORY_SIZE)
+					activityHistory.remove(activityHistory.size() - 1);
 
 				// print
 				final StringBuilder builder = new StringBuilder();
-				for (final int lastDownloaded : lastDownloadedHistory)
+				for (final ActivityHistoryEntry entry : activityHistory)
 				{
 					if (builder.length() > 0)
-						builder.append(',');
-					builder.append(lastDownloaded);
+						builder.append(", ");
+					builder.append(entry);
 				}
-				Log.i(TAG, "Number of blocks downloaded: " + builder);
+				Log.i(TAG, "History of transactions/blocks: " + builder);
 
-				// determine if download is idling
+				// determine if block and transaction activity is idling
 				boolean isIdle = false;
-				if (lastDownloadedHistory.size() >= IDLE_TIMEOUT_MIN)
+				if (activityHistory.size() >= MIN_COLLECT_HISTORY)
 				{
 					isIdle = true;
-					for (int i = 0; i < IDLE_TIMEOUT_MIN; i++)
+					for (int i = 0; i < activityHistory.size(); i++)
 					{
-						if (lastDownloadedHistory.get(i) > 0)
+						final ActivityHistoryEntry entry = activityHistory.get(i);
+						final boolean blocksIdle = entry.numBlocksDownloaded > 0 && i <= IDLE_BLOCK_TIMEOUT_MIN;
+						final boolean transactionsIdle = entry.numTransactionsReceived > 0 && i <= IDLE_TRANSACTION_TIMEOUT_MIN;
+
+						if (blocksIdle || transactionsIdle)
 						{
 							isIdle = false;
 							break;
@@ -483,7 +518,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 				// if idling, shutdown service
 				if (isIdle)
 				{
-					Log.i(TAG, "end of block download detected, stopping service");
+					Log.i(TAG, "idling detected, stopping service");
 					stopSelf();
 				}
 			}
