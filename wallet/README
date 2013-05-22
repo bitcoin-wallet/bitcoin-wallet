@@ -91,7 +91,7 @@ To upload the app to your Android device, use
 	sudo apt-get install android-tools-adb
 
 	# each time
-	adb install wallet/target/wallet_test-*.apk
+	adb install wallet/target/wallet-*-test.apk
 
 
 BUILDING THE PRODUCTIVE VERSION
