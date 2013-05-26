@@ -39,7 +39,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.StrictMode;
-import android.os.StrictMode.ThreadPolicy.Builder;
 import android.preference.PreferenceManager;
 import android.text.format.DateUtils;
 import android.util.Log;
@@ -76,12 +75,20 @@ public class WalletApplication extends Application
 	@Override
 	public void onCreate()
 	{
-		final Builder policy = new StrictMode.ThreadPolicy.Builder().detectNetwork();
+		final StrictMode.ThreadPolicy.Builder threadPolicy = new StrictMode.ThreadPolicy.Builder().detectAll().permitDiskReads().permitDiskWrites();
+		final StrictMode.VmPolicy.Builder vmPolicy = new StrictMode.VmPolicy.Builder().detectAll();
 		if (Constants.TEST)
-			policy.penaltyDeath();
+		{
+			threadPolicy.penaltyDeath();
+			vmPolicy.penaltyDeath();
+		}
 		else
-			policy.penaltyLog();
-		StrictMode.setThreadPolicy(policy.build());
+		{
+			threadPolicy.penaltyLog();
+			vmPolicy.penaltyLog();
+		}
+		StrictMode.setThreadPolicy(threadPolicy.build());
+		StrictMode.setVmPolicy(vmPolicy.build());
 
 		Locks.throwOnLockCycles();
 
