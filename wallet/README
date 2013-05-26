@@ -115,25 +115,26 @@ SETTING UP FOR DEVELOPMENT
 
 Make sure you've got Eclipse 3.7 (Indigo) with ADT 20 installed.
 
-Use Git to check out the project to your workspace:
+Use Git to check out the project and an Android library dependency to your workspace:
 
-  git clone https://code.google.com/p/bitcoin-wallet/ bitcoin-wallet
+	# clone Bitcoin Wallet project
+	git clone -b master https://code.google.com/p/bitcoin-wallet/ bitcoin-wallet
 
-Change to that directory.
+	# clone ActionBarSherlock library project
+	git clone -b 4.1.0 https://github.com/JakeWharton/ActionBarSherlock.git action-bar-sherlock
 
 Use the maven-eclipse-plugin to create Eclipse project files:
 
-  mvn eclipse:eclipse
+	cd bitcoin-wallet
+	mvn eclipse:eclipse
 
 Optional: In the generated .classpath, remove the org.eclipse.jdt.launching.JRE_CONTAINER
 classpath entry. It does not belong there, but cannot be excluded from being generated currently.
 
 In Eclipse, use File -> Import -> General -> Existing Project into Workspace to import project.
 
-If you see loads of "should be tagged with @Override" errors, set
-
-  Project -> Properties -> Java Compiler -> Errors/Warnings -> Annotations ->
-  Missing @Override annotation to 'Warning'
+If you see loads of "should be tagged with @Override" errors, set Project -> Properties ->
+Java Compiler -> Errors/Warnings -> Annotations -> Missing @Override annotation to 'Warning'
 
 
 NFC (Near field communication)
