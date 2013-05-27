@@ -121,7 +121,9 @@ Use Git to check out the project and an Android library dependency to your works
 	git clone -b master https://code.google.com/p/bitcoin-wallet/ bitcoin-wallet
 
 	# clone ActionBarSherlock library project
-	git clone -b 4.1.0 https://github.com/JakeWharton/ActionBarSherlock.git action-bar-sherlock
+	git clone https://github.com/JakeWharton/ActionBarSherlock.git action-bar-sherlock
+	cd action-bar-sherlock
+	git checkout 4.1.0
 
 Use the maven-eclipse-plugin to create Eclipse project files:
 
