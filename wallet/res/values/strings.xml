@@ -2,7 +2,7 @@
 <resources>
 
 	<string name="toast_wallet_reset">Wallet was reset,\nwill take some time to recover</string>
-	<string name="blockchain_state_disclaimer">Use at your own risk. Read the &lt;u>safety notes&lt;/u>.</string>
+	<string name="wallet_disclaimer">Use at your own risk. Read the &lt;u>safety notes&lt;/u>.</string>
 	<string name="blockchain_state_progress_hours">%1$s, %2$d hours behind</string>
 	<string name="blockchain_state_progress_days">%1$s, %2$d days behind</string>
 	<string name="blockchain_state_progress_weeks">%1$s, %2$d weeks behind</string>
@@ -11,7 +11,6 @@
 	<string name="blockchain_state_progress_stalled">Synchronization stalled</string>
 	<string name="blockchain_state_progress_problem_storage">Synchronizing: Storage problem</string>
 	<string name="blockchain_state_progress_problem_network">Synchronizing: Network problem</string>
-	<string name="blockchain_state_replaying">Blockchain replay is in progress.</string>
 	<string name="wallet_address_fragment_your">Your Bitcoin Address:</string>
 	<string name="wallet_address_fragment_clipboard_msg">Bitcoin address copied to clipboard</string>
 	<string name="wallet_addresses_fragment_add_dialog_title">Add Bitcoin address</string>

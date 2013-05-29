@@ -14,6 +14,7 @@
 	<style name="My.Widget.Button.Borderless" parent="@android:style/Widget.Holo.Button.Borderless">
 		<item name="android:paddingLeft">8dp</item>
 		<item name="android:paddingRight">8dp</item>
+		<item name="android:drawablePadding">8dp</item>
 	</style>
 
 </resources>

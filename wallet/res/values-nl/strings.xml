@@ -4,7 +4,7 @@
 
 	<string name="toast_wallet_reset">Wallet is gereset,\nherstel zal enige tijd duren</string>
 
-	<string name="blockchain_state_disclaimer">Gebruik op eigen risico. Lees de &lt;u>veiligheids voorschriften&lt;/u>.</string>
+	<string name="wallet_disclaimer">Gebruik op eigen risico. Lees de &lt;u>veiligheids voorschriften&lt;/u>.</string>
 	<string name="wallet_address_fragment_your">Uw Bitcoin Adres:</string>
 	<string name="wallet_address_fragment_clipboard_msg">Bitcoin adres gekopieërd naar klembord</string>
 	<string name="wallet_addresses_fragment_add_dialog_title">Voeg Bitcoin Adres toe</string>

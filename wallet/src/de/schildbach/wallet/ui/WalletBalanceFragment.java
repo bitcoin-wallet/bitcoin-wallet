@@ -18,6 +18,7 @@
 package de.schildbach.wallet.ui;
 
 import java.math.BigInteger;
+import java.util.Date;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;
@@ -27,16 +28,19 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
+import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import com.google.bitcoin.core.Wallet;
 
@@ -63,13 +67,17 @@ public final class WalletBalanceFragment extends Fragment
 	private CurrencyTextView viewBalanceBtc;
 	private FrameLayout viewBalanceLocalFrame;
 	private CurrencyTextView viewBalanceLocal;
-	private View viewReplaying;
+	private TextView viewProgress;
 
 	private boolean showLocalBalance;
 
-	private boolean replaying = false;
 	private BigInteger balance = null;
 	private ExchangeRate exchangeRate = null;
+
+	private int download;
+	private Date bestChainDate;
+
+	private final Handler delayMessageHandler = new Handler();
 
 	private static final int ID_BALANCE_LOADER = 0;
 	private static final int ID_RATE_LOADER = 1;
@@ -129,7 +137,7 @@ public final class WalletBalanceFragment extends Fragment
 		viewBalanceLocal.setInsignificantRelativeSize(1);
 		viewBalanceLocal.setStrikeThru(Constants.TEST);
 
-		viewReplaying = view.findViewById(R.id.wallet_balance_replaying);
+		viewProgress = (TextView) view.findViewById(R.id.wallet_balance_progress);
 	}
 
 	@Override
@@ -156,9 +164,78 @@ public final class WalletBalanceFragment extends Fragment
 		super.onPause();
 	}
 
+	@Override
+	public void onDestroy()
+	{
+		delayMessageHandler.removeCallbacksAndMessages(null);
+
+		super.onDestroy();
+	}
+
 	private void updateView()
 	{
-		if (!replaying)
+		final boolean showProgress;
+
+		if (download != BlockchainService.ACTION_BLOCKCHAIN_STATE_DOWNLOAD_OK)
+		{
+			showProgress = true;
+
+			if ((download & BlockchainService.ACTION_BLOCKCHAIN_STATE_DOWNLOAD_STORAGE_PROBLEM) != 0)
+				viewProgress.setText(R.string.blockchain_state_progress_problem_storage);
+			else if ((download & BlockchainService.ACTION_BLOCKCHAIN_STATE_DOWNLOAD_NETWORK_PROBLEM) != 0)
+				viewProgress.setText(R.string.blockchain_state_progress_problem_network);
+		}
+		else if (bestChainDate != null)
+		{
+			final long blockchainLag = System.currentTimeMillis() - bestChainDate.getTime();
+			final boolean blockchainUptodate = blockchainLag < Constants.BLOCKCHAIN_UPTODATE_THRESHOLD_MS;
+
+			showProgress = !blockchainUptodate;
+
+			final String downloading = getString(R.string.blockchain_state_progress_downloading);
+			final String stalled = getString(R.string.blockchain_state_progress_stalled);
+
+			final String stalledText;
+			if (blockchainLag < 2 * DateUtils.DAY_IN_MILLIS)
+			{
+				final long hours = blockchainLag / DateUtils.HOUR_IN_MILLIS;
+				viewProgress.setText(getString(R.string.blockchain_state_progress_hours, downloading, hours));
+				stalledText = getString(R.string.blockchain_state_progress_hours, stalled, hours);
+			}
+			else if (blockchainLag < 2 * DateUtils.WEEK_IN_MILLIS)
+			{
+				final long days = blockchainLag / DateUtils.DAY_IN_MILLIS;
+				viewProgress.setText(getString(R.string.blockchain_state_progress_days, downloading, days));
+				stalledText = getString(R.string.blockchain_state_progress_days, stalled, days);
+			}
+			else if (blockchainLag < 90 * DateUtils.DAY_IN_MILLIS)
+			{
+				final long weeks = blockchainLag / DateUtils.WEEK_IN_MILLIS;
+				viewProgress.setText(getString(R.string.blockchain_state_progress_weeks, downloading, weeks));
+				stalledText = getString(R.string.blockchain_state_progress_weeks, stalled, weeks);
+			}
+			else
+			{
+				final long months = blockchainLag / (30 * DateUtils.DAY_IN_MILLIS);
+				viewProgress.setText(getString(R.string.blockchain_state_progress_months, downloading, months));
+				stalledText = getString(R.string.blockchain_state_progress_months, stalled, months);
+			}
+
+			delayMessageHandler.removeCallbacksAndMessages(null);
+			delayMessageHandler.postDelayed(new Runnable()
+			{
+				public void run()
+				{
+					viewProgress.setText(stalledText);
+				}
+			}, Constants.BLOCKCHAIN_DOWNLOAD_THRESHOLD_MS);
+		}
+		else
+		{
+			showProgress = false;
+		}
+
+		if (!showProgress)
 		{
 			viewBalance.setVisibility(View.VISIBLE);
 
@@ -193,11 +270,11 @@ public final class WalletBalanceFragment extends Fragment
 				viewBalanceBtc.setVisibility(View.INVISIBLE);
 			}
 
-			viewReplaying.setVisibility(View.GONE);
+			viewProgress.setVisibility(View.GONE);
 		}
 		else
 		{
-			viewReplaying.setVisibility(View.VISIBLE);
+			viewProgress.setVisibility(View.VISIBLE);
 			viewBalance.setVisibility(View.INVISIBLE);
 		}
 	}
@@ -209,7 +286,8 @@ public final class WalletBalanceFragment extends Fragment
 		@Override
 		public void onReceive(final Context context, final Intent intent)
 		{
-			replaying = intent.getBooleanExtra(BlockchainService.ACTION_BLOCKCHAIN_STATE_REPLAYING, false);
+			download = intent.getIntExtra(BlockchainService.ACTION_BLOCKCHAIN_STATE_DOWNLOAD, BlockchainService.ACTION_BLOCKCHAIN_STATE_DOWNLOAD_OK);
+			bestChainDate = (Date) intent.getSerializableExtra(BlockchainService.ACTION_BLOCKCHAIN_STATE_BEST_CHAIN_DATE);
 
 			updateView();
 		}

@@ -61,8 +61,8 @@
 	</TableLayout>
 
 	<fragment
-		android:id="@+id/blockchain_state_fragment"
-		android:name="de.schildbach.wallet.ui.BlockchainStateFragment"
+		android:id="@+id/wallet_actions_fragment"
+		android:name="de.schildbach.wallet.ui.WalletActionsFragment"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content" />
 

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+	<item name="wallet_actions_top" type="bool">false</item>
 	<item name="wallet_content" type="layout">@layout/wallet_activity_onepane_vertical</item>
 	<item name="wallet_address_fragment" type="layout">@layout/wallet_address_fragment_horizontal</item>
 	<item name="address_book_content" type="layout">@layout/address_book_onepane</item>

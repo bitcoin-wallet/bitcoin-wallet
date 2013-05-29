@@ -2,7 +2,7 @@
 <resources>
 
 	<string name="toast_wallet_reset">La cartera se ha reiniciado\ny tardará un poco en reactivarse</string>
-	<string name="blockchain_state_disclaimer">Úsalo bajo tu propio riesgo. Lee las &lt;u>notas de seguridad&lt;/u>.</string>
+	<string name="wallet_disclaimer">Úsalo bajo tu propio riesgo. Lee las &lt;u>notas de seguridad&lt;/u>.</string>
 	<string name="blockchain_state_progress_hours">Blockchain %1$s; %2$d horas atrás.</string>
 	<string name="blockchain_state_progress_days">Blockchain %1$s; %2$d días atrás.</string>
 	<string name="blockchain_state_progress_weeks">Blockchain %1$s; %2$d semanas atrás.</string>
@@ -11,7 +11,6 @@
 	<string name="blockchain_state_progress_stalled">interrumpida</string>
 	<string name="blockchain_state_progress_problem_storage">No se descarga la blockchain: problema de espacio</string>
 	<string name="blockchain_state_progress_problem_network">No se descarga la blockchain: problema de red</string>
-	<string name="blockchain_state_replaying">Repetición de blockchain en progreso.</string>
 	<string name="wallet_address_fragment_your">Tu dirección Bitcoin:</string>
 	<string name="wallet_address_fragment_clipboard_msg">Dirección Bitcoin copiada al portapapeles</string>
 	<string name="wallet_addresses_fragment_add_dialog_title">Añadir dirección Bitcoin</string>

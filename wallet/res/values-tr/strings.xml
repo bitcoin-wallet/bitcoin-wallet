@@ -2,7 +2,7 @@
 <resources>
 
 	<string name="toast_wallet_reset">Cüzdan sıfırlanmış,\ntamamlanması belli bir süre alacaktır.</string>
-	<string name="blockchain_state_disclaimer">Tüm riski siz üstlenmiş olursunuz. Güvenlik notlarını okuyunuz.</string>
+	<string name="wallet_disclaimer">Tüm riski siz üstlenmiş olursunuz. Güvenlik notlarını okuyunuz.</string>
 	<string name="blockchain_state_progress_hours">Blok zinciri %1$s, %2$d saat geride</string>
 	<string name="blockchain_state_progress_days">Blok zinciri %1$s, %2$d gün geride</string>
 	<string name="blockchain_state_progress_weeks">Blok zinciri %1$s, %2$d hafta geride</string>

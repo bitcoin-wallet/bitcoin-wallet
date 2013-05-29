@@ -2,7 +2,7 @@
 <resources>
 
 	<string name="toast_wallet_reset">הארנק אופס, האתחול יקח זמן מה</string>
-	<string name="blockchain_state_disclaimer">השימוש באחריותך, קרא את הוראות השימוש</string>
+	<string name="wallet_disclaimer">השימוש באחריותך, קרא את הוראות השימוש</string>
 	<string name="blockchain_state_progress_hours">%1$s, %2$d שעות איחור</string>
 	<string name="blockchain_state_progress_days">%1$s, %2$d ימי איחור</string>
 	<string name="blockchain_state_progress_weeks">%1$s, %2$d שבועות איחור</string>
@@ -11,7 +11,6 @@
 	<string name="blockchain_state_progress_stalled">סינכרון עוקב</string>
 	<string name="blockchain_state_progress_problem_storage">סינכרון: בעיית אחסון</string>
 	<string name="blockchain_state_progress_problem_network">סינכרון:בעיית רשת</string>
-	<string name="blockchain_state_replaying">בתהליך קבלת תשובה משרשרת הבלוקים</string>
 	<string name="wallet_address_fragment_your">כתובת הארנק שלך</string>
 	<string name="wallet_address_fragment_clipboard_msg">כתובת הביטקוין הועתקה</string>
 	<string name="wallet_addresses_fragment_add_dialog_title">הוסף כתובת ביטקוין</string>
