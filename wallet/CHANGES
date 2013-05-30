@@ -1,3 +1,8 @@
+3.07
+
+* make request and send coins action buttons more visible
+* stay connected a little bit longer if there was transaction activity on the wallet
+
 3.06
 
 * merge peer monitor and block explorer into network monitor
