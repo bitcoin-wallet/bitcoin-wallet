@@ -16,6 +16,7 @@
 			android:layout_height="0px"
 			android:layout_gravity="top"
 			android:layout_weight="1"
+			android:paddingLeft="8dp"
 			android:text="@string/wallet_address_fragment_your"
 			android:textSize="@dimen/font_size_small" />
 
