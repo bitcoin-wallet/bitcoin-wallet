@@ -27,6 +27,7 @@ import java.util.List;
 import android.annotation.SuppressLint;
 import android.graphics.Rect;
 import android.hardware.Camera;
+import android.hardware.Camera.CameraInfo;
 import android.hardware.Camera.PreviewCallback;
 import android.view.SurfaceHolder;
 
@@ -66,7 +67,27 @@ public final class CameraManager
 
 	public void open(final SurfaceHolder holder) throws IOException
 	{
+		// try back-facing camera
 		camera = Camera.open();
+
+		// fall back to using front-facing camera
+		if (camera == null)
+		{
+			final int cameraCount = Camera.getNumberOfCameras();
+			final CameraInfo cameraInfo = new CameraInfo();
+
+			// search for front-facing camera
+			for (int i = 0; i < cameraCount; i++)
+			{
+				Camera.getCameraInfo(i, cameraInfo);
+				if (cameraInfo.facing == Camera.CameraInfo.CAMERA_FACING_FRONT)
+				{
+					camera = Camera.open(i);
+					break;
+				}
+			}
+		}
+
 		camera.setPreviewDisplay(holder);
 
 		final Camera.Parameters parameters = camera.getParameters();
