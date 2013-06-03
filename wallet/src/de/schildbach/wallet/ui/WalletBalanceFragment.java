@@ -76,6 +76,7 @@ public final class WalletBalanceFragment extends Fragment
 
 	private int download;
 	private Date bestChainDate;
+	private boolean replaying = false;
 
 	private final Handler delayMessageHandler = new Handler();
 
@@ -190,7 +191,7 @@ public final class WalletBalanceFragment extends Fragment
 			final long blockchainLag = System.currentTimeMillis() - bestChainDate.getTime();
 			final boolean blockchainUptodate = blockchainLag < Constants.BLOCKCHAIN_UPTODATE_THRESHOLD_MS;
 
-			showProgress = !blockchainUptodate;
+			showProgress = !(blockchainUptodate || !replaying);
 
 			final String downloading = getString(R.string.blockchain_state_progress_downloading);
 			final String stalled = getString(R.string.blockchain_state_progress_stalled);
@@ -288,6 +289,7 @@ public final class WalletBalanceFragment extends Fragment
 		{
 			download = intent.getIntExtra(BlockchainService.ACTION_BLOCKCHAIN_STATE_DOWNLOAD, BlockchainService.ACTION_BLOCKCHAIN_STATE_DOWNLOAD_OK);
 			bestChainDate = (Date) intent.getSerializableExtra(BlockchainService.ACTION_BLOCKCHAIN_STATE_BEST_CHAIN_DATE);
+			replaying = intent.getBooleanExtra(BlockchainService.ACTION_BLOCKCHAIN_STATE_REPLAYING, false);
 
 			updateView();
 		}
