@@ -32,13 +32,13 @@
 	<string name="wallet_transactions_row_warning_backup">Congratulations, you received your first payment! Have you already &lt;u>backed up your wallet&lt;/u>, to protect against loss?</string>
 	<string name="wallet_transactions_fragment_coinbase">mined</string>
 	<string name="wallet_transactions_context_show_transaction_title">Transaction details</string>
-	<string name="wallet_options_backup">Backup Keys</string>
+	<string name="wallet_options_backup">Back up Keys</string>
 	<string name="wallet_options_disconnect">Disconnect</string>
 	<string name="wallet_options_safety">Safety notes</string>
 	<string name="wallet_options_donate">Tip / Donate</string>
 	<string name="wallet_donate_address_label">Donation for Bitcoin Wallet</string>
 	<string name="wallet_low_storage_dialog_title">Internal Device Storage Space Low!</string>
-	<string name="wallet_low_storage_dialog_msg">Bitcoin Wallet uses internal storage for remembering transactions and blocks. If it runs out of space, it will stop working and your Bitcoins are at risk!\n\nDo you want to open the Application Manager in order to uninstall unneeded apps?</string>
+	<string name="wallet_low_storage_dialog_msg">Bitcoin Wallet uses internal storage for remembering transactions and blocks. If it runs out of space, it will stop working and your Bitcoins will be at risk!\n\nDo you want to open the Application Manager to uninstall unneeded apps?</string>
 	<string name="wallet_low_storage_dialog_button_apps">Manage Apps</string>
 	<string name="wallet_timeskew_dialog_title">Check your time settings!</string>
 	<string name="wallet_timeskew_dialog_msg">Your device time is off by %d minutes. You probably cannot send or receive Bitcoins due to this problem.\n\nYou should check and correct your time and timezone settings.</string>
@@ -81,7 +81,7 @@
 	<string name="request_coins_fragment_include_address_label">include label with address</string>
 	<string name="request_coins_fragment_amount_label">Requested amount (optional)</string>
 	<string name="request_coins_fragment_qr_label">Have this code scanned by the sender.</string>
-	<string name="request_coins_fragment_nfc_enabled">Or touch with NFC enabled device.</string>
+	<string name="request_coins_fragment_nfc_enabled">Or tap an NFC enabled device.</string>
 	<string name="request_coins_clipboard_msg">Bitcoin request copied to clipboard</string>
 	<string name="request_coins_share_dialog_title">Share request for Bitcoins…</string>
 	<string name="request_coins_options_local_app_title">Request from local app</string>
@@ -173,7 +173,7 @@
 	<string name="preferences_trusted_peer_title">Trusted Peer</string>
 	<string name="preferences_trusted_peer_summary">IP or hostname of single peer to connect to.</string>
 	<string name="preferences_trusted_peer_only_title">Skip Regular Peer Discovery</string>
-	<string name="preferences_trusted_peer_only_summary">Prevents connecting to any peers besided the trusted peer.</string>
+	<string name="preferences_trusted_peer_only_summary">Prevents connecting to any peers besides the trusted peer.</string>
 	<string name="preferences_report_issue_title">Report Issue</string>
 	<string name="preferences_report_issue_summary">Collect information about your issue and email your report to the developers.</string>
 	<string name="preferences_initiate_reset_title">Reset Blockchain</string>
