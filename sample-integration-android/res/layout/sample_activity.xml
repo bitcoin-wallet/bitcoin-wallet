@@ -4,14 +4,6 @@
 	android:layout_height="fill_parent"
 	android:orientation="vertical" >
 
-	<TextView
-		style="@android:style/TextAppearance.Large"
-		android:layout_width="256dp"
-		android:layout_height="wrap_content"
-		android:layout_gravity="center"
-		android:layout_marginTop="32dp"
-		android:text="This demonstrates the integration of a &quot;Donate Bitcoins&quot; button in your app." />
-
 	<FrameLayout
 		android:layout_width="fill_parent"
 		android:layout_height="0px"
@@ -23,7 +15,7 @@
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_gravity="center"
-			android:text="Donate" />
+			android:text="Simple Donate" />
 	</FrameLayout>
 
 	<TextView
@@ -32,8 +24,43 @@
 		android:layout_width="256dp"
 		android:layout_height="wrap_content"
 		android:layout_gravity="center"
-		android:layout_marginBottom="32dp"
-		android:minLines="5"
+		android:layout_marginBottom="16dp"
+		android:minLines="4"
 		android:visibility="invisible" />
+
+	<LinearLayout
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginBottom="32dp"
+			android:layout_marginRight="16dp"
+			android:layout_marginLeft="16dp"
+			android:orientation="vertical" >
+		<EditText
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:text="channel-server.example.com"
+				android:id="@+id/channel_host_text" />
+		<Button
+				android:id="@+id/open_channel_button"
+				style="@android:style/TextAppearance.Large"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_gravity="center_horizontal"
+				android:text="Open Payment Channel" />
+		<Button
+				android:id="@+id/pay_channel_button"
+				style="@android:style/TextAppearance.Large"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_gravity="center_horizontal"
+				android:text="Pay 0.10 BTC" />
+		<Button
+				android:id="@+id/close_channel_button"
+				style="@android:style/TextAppearance.Large"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_gravity="center_horizontal"
+				android:text="Close" />
+	</LinearLayout>
 
 </LinearLayout>
