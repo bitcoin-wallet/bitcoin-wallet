@@ -1,5 +1,6 @@
 /*
  * Copyright 2011-2013 the original author or authors.
+ * Copyright 2013 Google Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -725,17 +726,15 @@ public final class SendCoinsFragment extends SherlockFragment
 		updateView();
 	}
 
-	private void validateAmounts(final boolean popups)
-	{
-		isValidAmounts = false;
-
-		final BigInteger amount = amountCalculatorLink.getAmount();
-
+	/**
+	 * Either returns null if the amount is OK, or popupTextView/popupAvailableView set to the correct error message
+	 */
+	public static View validateAmount(Context context, Wallet wallet, BigInteger amount, TextView popupTextView, View popupAvailableView) {
 		if (amount == null)
 		{
 			// empty amount
-			if (popups)
-				popupMessage(amountCalculatorLink.activeView(), getString(R.string.send_coins_fragment_amount_empty));
+			popupTextView.setText(context.getString(R.string.send_coins_fragment_amount_empty));
+			return popupTextView;
 		}
 		else if (amount.signum() > 0)
 		{
@@ -750,23 +749,52 @@ public final class SendCoinsFragment extends SherlockFragment
 			if (enoughFundsForAmount)
 			{
 				// everything fine
-				isValidAmounts = true;
+				return null;
 			}
 			else
 			{
 				// not enough funds for amount
-				if (popups)
-					popupAvailable(amountCalculatorLink.activeView(), available, pending);
+				final CurrencyTextView viewAvailable = (CurrencyTextView) popupAvailableView.findViewById(R.id.send_coins_popup_available_amount);
+				viewAvailable.setPrefix(Constants.CURRENCY_CODE_BITCOIN);
+				viewAvailable.setAmount(available);
+
+				final TextView viewPending = (TextView) popupAvailableView.findViewById(R.id.send_coins_popup_available_pending);
+				viewPending.setVisibility(pending.signum() > 0 ? View.VISIBLE : View.GONE);
+				viewPending.setText(context.getString(R.string.send_coins_fragment_pending, GenericUtils.formatValue(pending, Constants.BTC_MAX_PRECISION)));
+
+				return popupAvailableView;
 			}
 		}
 		else
 		{
 			// invalid amount
-			if (popups)
-				popupMessage(amountCalculatorLink.activeView(), getString(R.string.send_coins_fragment_amount_error));
+			popupTextView.setText(context.getString(R.string.send_coins_fragment_amount_error));
+			return popupTextView;
+		}
+	}
+
+	private void validateAmounts(final boolean popups)
+	{
+		isValidAmounts = false;
+
+		final BigInteger amount = amountCalculatorLink.getAmount();
+
+		if (popups)
+			dismissPopup();
+
+		View popup = validateAmount(getActivity().getApplicationContext(), wallet, amount, popupMessageView, popupAvailableView);
+
+		if (popup == null)
+			isValidAmounts = true;
+		else if (popups && popup == popupAvailableView) {
+			popup(amountCalculatorLink.activeView(), popup);
+		} else if (popups && popup == popupMessageView) {
+			popupMessageView.setMaxWidth(getView().getWidth());
+			popup(amountCalculatorLink.activeView(), popupMessageView);
 		}
 
-		updateView();
+		if (popups)
+			updateView();
 	}
 
 	private void popupMessage(final View anchor, final String message)
@@ -777,21 +805,6 @@ public final class SendCoinsFragment extends SherlockFragment
 		popupMessageView.setMaxWidth(getView().getWidth());
 
 		popup(anchor, popupMessageView);
-	}
-
-	private void popupAvailable(final View anchor, final BigInteger available, final BigInteger pending)
-	{
-		dismissPopup();
-
-		final CurrencyTextView viewAvailable = (CurrencyTextView) popupAvailableView.findViewById(R.id.send_coins_popup_available_amount);
-		viewAvailable.setPrefix(Constants.CURRENCY_CODE_BITCOIN);
-		viewAvailable.setAmount(available);
-
-		final TextView viewPending = (TextView) popupAvailableView.findViewById(R.id.send_coins_popup_available_pending);
-		viewPending.setVisibility(pending.signum() > 0 ? View.VISIBLE : View.GONE);
-		viewPending.setText(getString(R.string.send_coins_fragment_pending, GenericUtils.formatValue(pending, Constants.BTC_MAX_PRECISION)));
-
-		popup(anchor, popupAvailableView);
 	}
 
 	private void popup(final View anchor, final View contentView)
