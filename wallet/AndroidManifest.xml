@@ -60,7 +60,7 @@
 		<activity
 			android:name="de.schildbach.wallet.ui.WalletActivity"
 			android:configChanges="keyboard|keyboardHidden"
-			android:launchMode="singleInstance" />
+			android:launchMode="singleTask" />
 
 		<activity-alias
 			android:name="de.schildbach.wallet.WalletActivity"
