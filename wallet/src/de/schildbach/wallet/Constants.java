@@ -56,10 +56,6 @@ public class Constants
 	private static final String EXTERNAL_WALLET_KEY_BACKUP_TEST = "bitcoin-wallet-keys-testnet";
 	public static final String EXTERNAL_WALLET_KEY_BACKUP = TEST ? EXTERNAL_WALLET_KEY_BACKUP_TEST : EXTERNAL_WALLET_KEY_BACKUP_PROD;
 
-	private static final String WALLET_KEY_BACKUP_SNAPSHOT_PROD = "key-backup-snapshot";
-	private static final String WALLET_KEY_BACKUP_SNAPSHOT_TEST = "key-backup-snapshot-testnet";
-	public static final String WALLET_KEY_BACKUP_SNAPSHOT = TEST ? WALLET_KEY_BACKUP_SNAPSHOT_TEST : WALLET_KEY_BACKUP_SNAPSHOT_PROD;
-
 	private static final String BLOCKCHAIN_FILENAME_PROD = "blockchain";
 	private static final String BLOCKCHAIN_FILENAME_TEST = "blockchain-testnet";
 	public static final String BLOCKCHAIN_FILENAME = TEST ? BLOCKCHAIN_FILENAME_TEST : BLOCKCHAIN_FILENAME_PROD;

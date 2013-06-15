@@ -228,24 +228,17 @@ public class WalletApplication extends Application
 		}
 		else
 		{
+			wallet = new Wallet(Constants.NETWORK_PARAMETERS);
+			wallet.addKey(new ECKey());
+
 			try
 			{
-				wallet = restoreWalletFromSnapshot();
+				protobufSerializeWallet(wallet);
+				Log.i(TAG, "wallet created: '" + walletFile + "'");
 			}
-			catch (final FileNotFoundException x)
+			catch (final IOException x2)
 			{
-				wallet = new Wallet(Constants.NETWORK_PARAMETERS);
-				wallet.addKey(new ECKey());
-
-				try
-				{
-					protobufSerializeWallet(wallet);
-					Log.i(TAG, "wallet created: '" + walletFile + "'");
-				}
-				catch (final IOException x2)
-				{
-					throw new Error("wallet cannot be created", x2);
-				}
+				throw new Error("wallet cannot be created", x2);
 			}
 		}
 
@@ -268,26 +261,6 @@ public class WalletApplication extends Application
 			Log.i(TAG, "wallet restored from backup: '" + Constants.WALLET_KEY_BACKUP_BASE58 + "'");
 
 			return wallet;
-		}
-		catch (final IOException x)
-		{
-			throw new RuntimeException(x);
-		}
-	}
-
-	private Wallet restoreWalletFromSnapshot() throws FileNotFoundException
-	{
-		try
-		{
-			final Wallet wallet = readKeys(getAssets().open(Constants.WALLET_KEY_BACKUP_SNAPSHOT));
-
-			Log.i(TAG, "wallet restored from snapshot: '" + Constants.WALLET_KEY_BACKUP_SNAPSHOT + "'");
-
-			return wallet;
-		}
-		catch (final FileNotFoundException x)
-		{
-			throw x;
 		}
 		catch (final IOException x)
 		{
