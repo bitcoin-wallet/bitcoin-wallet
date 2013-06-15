@@ -193,7 +193,7 @@ public class WalletApplication extends Application
 
 				wallet = restoreWalletFromBackup();
 			}
-			catch (final IllegalArgumentException x)
+			catch (final RuntimeException x)
 			{
 				x.printStackTrace();
 
