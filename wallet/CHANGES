@@ -1,3 +1,8 @@
+3.09
+
+* calculate correct fee to ensure speedy blockchain confirmation
+* based on bitcoinj 0.9
+
 3.08
 
 * bugfixes
