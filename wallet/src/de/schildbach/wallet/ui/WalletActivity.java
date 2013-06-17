@@ -32,7 +32,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.security.KeyStore;
 import java.text.DateFormat;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -787,7 +786,7 @@ public final class WalletActivity extends AbstractWalletActivity
 			final File file = new File(Constants.EXTERNAL_WALLET_BACKUP_DIR, Constants.EXTERNAL_WALLET_KEY_BACKUP + "-"
 					+ dateFormat.format(new Date()));
 
-			final ArrayList<ECKey> keys = wallet.keychain;
+			final List<ECKey> keys = wallet.getKeys();
 
 			final StringWriter plainOut = new StringWriter();
 			WalletUtils.writeKeys(plainOut, keys);

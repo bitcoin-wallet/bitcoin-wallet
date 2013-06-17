@@ -25,6 +25,8 @@ import android.text.format.DateUtils;
 
 import com.google.bitcoin.core.NetworkParameters;
 import com.google.bitcoin.core.Utils;
+import com.google.bitcoin.params.MainNetParams;
+import com.google.bitcoin.params.TestNet3Params;
 
 import de.schildbach.wallet_test.R;
 
@@ -37,7 +39,7 @@ public class Constants
 
 	public static final String NETWORK_SUFFIX = TEST ? " [testnet3]" : "";
 
-	public static final NetworkParameters NETWORK_PARAMETERS = TEST ? NetworkParameters.testNet3() : NetworkParameters.prodNet();
+	public static final NetworkParameters NETWORK_PARAMETERS = TEST ? TestNet3Params.get() : MainNetParams.get();
 
 	private static final String WALLET_FILENAME_PROD = "wallet";
 	private static final String WALLET_FILENAME_TEST = "wallet-testnet";

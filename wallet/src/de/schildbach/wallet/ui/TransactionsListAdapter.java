@@ -75,7 +75,6 @@ public class TransactionsListAdapter extends BaseAdapter
 	private final Map<String, String> labelCache = new HashMap<String, String>();
 	private final static String CACHE_NULL_MARKER = "";
 
-	private static final String CONFIDENCE_SYMBOL_NOT_IN_BEST_CHAIN = "!";
 	private static final String CONFIDENCE_SYMBOL_DEAD = "\u271D"; // latin cross
 	private static final String CONFIDENCE_SYMBOL_UNKNOWN = "?";
 
@@ -226,7 +225,7 @@ public class TransactionsListAdapter extends BaseAdapter
 			final TextView rowConfidenceTextual = (TextView) row.findViewById(R.id.transaction_row_confidence_textual);
 
 			// confidence
-			if (confidenceType == ConfidenceType.NOT_SEEN_IN_CHAIN)
+			if (confidenceType == ConfidenceType.PENDING)
 			{
 				rowConfidenceCircular.setVisibility(View.VISIBLE);
 				rowConfidenceTextual.setVisibility(View.GONE);
@@ -248,14 +247,6 @@ public class TransactionsListAdapter extends BaseAdapter
 				rowConfidenceCircular.setSize(1);
 				rowConfidenceCircular.setMaxSize(1);
 				rowConfidenceCircular.setColors(colorCircularBuilding, Color.DKGRAY);
-			}
-			else if (confidenceType == ConfidenceType.NOT_IN_BEST_CHAIN)
-			{
-				rowConfidenceCircular.setVisibility(View.GONE);
-				rowConfidenceTextual.setVisibility(View.VISIBLE);
-
-				rowConfidenceTextual.setText(CONFIDENCE_SYMBOL_NOT_IN_BEST_CHAIN);
-				rowConfidenceTextual.setTextColor(Color.RED);
 			}
 			else if (confidenceType == ConfidenceType.DEAD)
 			{
@@ -323,7 +314,7 @@ public class TransactionsListAdapter extends BaseAdapter
 				final TextView rowMessage = (TextView) row.findViewById(R.id.transaction_row_message);
 				final boolean isLocked = tx.getLockTime() > 0;
 				rowExtend.setVisibility(View.GONE);
-				if (isOwn && confidenceType == ConfidenceType.NOT_SEEN_IN_CHAIN && confidence.numBroadcastPeers() <= 1)
+				if (isOwn && confidenceType == ConfidenceType.PENDING && confidence.numBroadcastPeers() <= 1)
 				{
 					rowExtend.setVisibility(View.VISIBLE);
 					rowMessage.setText(R.string.transaction_row_message_own_unbroadcasted);
@@ -335,23 +326,17 @@ public class TransactionsListAdapter extends BaseAdapter
 					rowMessage.setText(R.string.transaction_row_message_received_dust);
 					rowMessage.setTextColor(colorInsignificant);
 				}
-				else if (!sent && confidenceType == ConfidenceType.NOT_SEEN_IN_CHAIN && isLocked)
+				else if (!sent && confidenceType == ConfidenceType.PENDING && isLocked)
 				{
 					rowExtend.setVisibility(View.VISIBLE);
 					rowMessage.setText(R.string.transaction_row_message_received_unconfirmed_locked);
 					rowMessage.setTextColor(colorError);
 				}
-				else if (!sent && confidenceType == ConfidenceType.NOT_SEEN_IN_CHAIN && !isLocked)
+				else if (!sent && confidenceType == ConfidenceType.PENDING && !isLocked)
 				{
 					rowExtend.setVisibility(View.VISIBLE);
 					rowMessage.setText(R.string.transaction_row_message_received_unconfirmed_unlocked);
 					rowMessage.setTextColor(colorInsignificant);
-				}
-				else if (!sent && confidenceType == ConfidenceType.NOT_IN_BEST_CHAIN)
-				{
-					rowExtend.setVisibility(View.VISIBLE);
-					rowMessage.setText(R.string.transaction_row_message_received_unconfirmed_unlocked);
-					rowMessage.setTextColor(colorError);
 				}
 				else if (!sent && confidenceType == ConfidenceType.DEAD)
 				{

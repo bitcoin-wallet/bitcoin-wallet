@@ -354,7 +354,7 @@ public final class BlockListFragment extends SherlockListFragment
 		@Override
 		public Set<Transaction> loadInBackground()
 		{
-			final Set<Transaction> transactions = wallet.getTransactions(true, false);
+			final Set<Transaction> transactions = wallet.getTransactions(true);
 
 			final Set<Transaction> filteredTransactions = new HashSet<Transaction>(transactions.size());
 			for (final Transaction tx : transactions)

@@ -18,7 +18,7 @@
 package de.schildbach.wallet.ui;
 
 import java.math.BigInteger;
-import java.util.ArrayList;
+import java.util.List;
 
 import android.app.Activity;
 import android.content.Context;
@@ -111,7 +111,7 @@ public final class RequestCoinsFragment extends SherlockFragment implements Amou
 		});
 
 		addressView = (Spinner) view.findViewById(R.id.request_coins_fragment_address);
-		final ArrayList<ECKey> keys = application.getWallet().keychain;
+		final List<ECKey> keys = application.getWallet().getKeys();
 		final WalletAddressesAdapter adapter = new WalletAddressesAdapter(activity, keys, false);
 		addressView.setAdapter(adapter);
 		final Address selectedAddress = application.determineSelectedAddress();

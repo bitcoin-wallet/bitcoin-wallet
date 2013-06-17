@@ -401,7 +401,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 
 						if (hasTrustedPeer)
 						{
-							final InetSocketAddress addr = new InetSocketAddress(trustedPeerHost, Constants.NETWORK_PARAMETERS.port);
+							final InetSocketAddress addr = new InetSocketAddress(trustedPeerHost, Constants.NETWORK_PARAMETERS.getPort());
 							if (addr.getAddress() != null)
 							{
 								peers.add(addr);

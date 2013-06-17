@@ -28,7 +28,6 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.nio.charset.Charset;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
@@ -339,20 +338,20 @@ public class WalletApplication extends Application
 	private void writeKeys(final OutputStream os) throws IOException
 	{
 		final Writer out = new OutputStreamWriter(os, UTF_8);
-		WalletUtils.writeKeys(out, wallet.keychain);
+		WalletUtils.writeKeys(out, wallet.getKeys());
 		out.close();
 	}
 
 	public Address determineSelectedAddress()
 	{
-		final ArrayList<ECKey> keychain = wallet.keychain;
+		final List<ECKey> keys = wallet.getKeys();
 
 		final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 		final String selectedAddress = prefs.getString(Constants.PREFS_KEY_SELECTED_ADDRESS, null);
 
 		if (selectedAddress != null)
 		{
-			for (final ECKey key : keychain)
+			for (final ECKey key : keys)
 			{
 				final Address address = key.toAddress(Constants.NETWORK_PARAMETERS);
 				if (address.toString().equals(selectedAddress))
@@ -360,7 +359,7 @@ public class WalletApplication extends Application
 			}
 		}
 
-		return keychain.get(0).toAddress(Constants.NETWORK_PARAMETERS);
+		return keys.get(0).toAddress(Constants.NETWORK_PARAMETERS);
 	}
 
 	public void startBlockchainService(final boolean cancelCoinsReceived)

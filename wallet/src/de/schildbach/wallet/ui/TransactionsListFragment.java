@@ -345,7 +345,7 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 		@Override
 		public List<Transaction> loadInBackground()
 		{
-			final Set<Transaction> transactions = wallet.getTransactions(true, false);
+			final Set<Transaction> transactions = wallet.getTransactions(true);
 			final List<Transaction> filteredTransactions = new ArrayList<Transaction>(transactions.size());
 
 			try
@@ -381,8 +381,8 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 		{
 			public int compare(final Transaction tx1, final Transaction tx2)
 			{
-				final boolean pending1 = tx1.getConfidence().getConfidenceType() == ConfidenceType.NOT_SEEN_IN_CHAIN;
-				final boolean pending2 = tx2.getConfidence().getConfidenceType() == ConfidenceType.NOT_SEEN_IN_CHAIN;
+				final boolean pending1 = tx1.getConfidence().getConfidenceType() == ConfidenceType.PENDING;
+				final boolean pending2 = tx2.getConfidence().getConfidenceType() == ConfidenceType.PENDING;
 
 				if (pending1 != pending2)
 					return pending1 ? -1 : 1;

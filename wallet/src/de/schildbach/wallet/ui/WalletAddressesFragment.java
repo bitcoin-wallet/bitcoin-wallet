@@ -17,8 +17,8 @@
 
 package de.schildbach.wallet.ui;
 
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -85,8 +85,8 @@ public final class WalletAddressesFragment extends SherlockListFragment
 
 		setHasOptionsMenu(true);
 
-		final ArrayList<ECKey> keychain = application.getWallet().keychain;
-		adapter = new WalletAddressesAdapter(activity, keychain, true);
+		final List<ECKey> keys = application.getWallet().getKeys();
+		adapter = new WalletAddressesAdapter(activity, keys, true);
 
 		final Address selectedAddress = application.determineSelectedAddress();
 		adapter.setSelectedAddress(selectedAddress.toString());

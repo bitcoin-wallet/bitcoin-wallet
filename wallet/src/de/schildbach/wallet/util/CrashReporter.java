@@ -185,7 +185,7 @@ public class CrashReporter
 			final Wallet wallet = application.getWallet();
 			report.append("Keychain size: " + wallet.getKeychainSize() + "\n");
 
-			final Set<Transaction> transactions = wallet.getTransactions(true, true);
+			final Set<Transaction> transactions = wallet.getTransactions(true);
 			int numInputs = 0;
 			int numOutputs = 0;
 			int numSpentOutputs = 0;

@@ -31,7 +31,6 @@ import java.util.Date;
 import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -207,7 +206,7 @@ public class WalletUtils
 		{
 			for (final TransactionOutput output : tx.getOutputs())
 			{
-				return output.getScriptPubKey().getToAddress();
+				return output.getScriptPubKey().getToAddress(Constants.NETWORK_PARAMETERS);
 			}
 
 			throw new IllegalStateException();
