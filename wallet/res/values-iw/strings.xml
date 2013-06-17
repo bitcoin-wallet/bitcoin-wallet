@@ -60,7 +60,6 @@
 	<string name="send_coins_fragment_amount_label">סכום לתשלום</string>
 	<string name="send_coins_fragment_amount_empty">הקש סכום</string>
 	<string name="send_coins_fragment_amount_error">סכום לא חוקי</string>
-	<string name="send_coins_fragment_fee_label">עמלה</string>
 	<string name="send_coins_fragment_button_send">שלח</string>
 	<string name="send_coins_fragment_button_back">אחורה</string>
 	<string name="send_coins_preparation_msg">חותם…</string>
@@ -72,10 +71,6 @@
 	<string name="send_coins_error_msg">בעיה בשליחת מטבעות</string>
 	<string name="send_coins_options_scan_title">סרוק</string>
 	<string name="send_coins_address_context_clear_title">הקש כתובת חדשה</string>
-	<string name="send_coins_dialog_fee_message">אתה עומד לשלוח פעולה עם עמלה נמוכה, לפעולה זאת יקח זמן להתבצע. האם להמשיך ?</string>
-	<string name="send_coins_dialog_fee_button_send">שלח בכל זאת</string>
-	<string name="send_coins_dialog_fee_button_adjust">שנה עמלה</string>
-	<string name="send_coins_dialog_fee_button_dismiss">אל תשלח</string>
 	<string name="request_coins_activity_title">בקש ביטקוין</string>
 	<string name="request_coins_fragment_address_label">כתובת לבקשה</string>
 	<string name="request_coins_fragment_include_address_label">כלול שם עם הכתובת</string>

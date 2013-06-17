@@ -62,7 +62,6 @@
 	<string name="send_coins_fragment_amount_label">Amount to pay</string>
 	<string name="send_coins_fragment_amount_empty">Put amount here</string>
 	<string name="send_coins_fragment_amount_error">Invalid amount!</string>
-	<string name="send_coins_fragment_fee_label">Fee</string>
 	<string name="send_coins_fragment_button_send">Send</string>
 	<string name="send_coins_fragment_button_back">Back</string>
 	<string name="send_coins_preparation_msg">Signing…</string>
@@ -72,10 +71,6 @@
 	<string name="send_coins_error_msg">Problem sending coins!</string>
 	<string name="send_coins_options_scan_title">Scan</string>
 	<string name="send_coins_address_context_clear_title">Enter new address</string>
-	<string name="send_coins_dialog_fee_message">You\'re about to send coins with a low fee. This payment can take very long to confirm.\n\nIt is advised to use a fee of at least %s.</string>
-	<string name="send_coins_dialog_fee_button_send">Send anyway</string>
-	<string name="send_coins_dialog_fee_button_adjust">Adjust fee</string>
-	<string name="send_coins_dialog_fee_button_dismiss">Don\'t send</string>
 	<string name="request_coins_activity_title">Request Bitcoins</string>
 	<string name="request_coins_fragment_address_label">Address to request to</string>
 	<string name="request_coins_fragment_include_address_label">include label with address</string>

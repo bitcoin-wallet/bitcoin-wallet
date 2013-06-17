@@ -31,7 +31,6 @@
 	<string name="send_coins_fragment_available_label">Disponibili</string>
 	<string name="send_coins_fragment_pending">(%s BTC in attesa di conferma)</string>
 	<string name="send_coins_fragment_amount_label">Importo da pagare</string>
-	<string name="send_coins_fragment_fee_label">Commissione</string>
 	<string name="send_coins_fragment_button_send">Invia</string>
 	<string name="send_coins_sending_msg">Invio in corso…</string>
 	<string name="send_coins_error_msg">"Problemi durante l'invio dei Bitcoins!"</string>

@@ -49,7 +49,6 @@
 	<string name="send_coins_fragment_pending">(%s BTC väntar på att bekräftas)</string>
 	<string name="send_coins_fragment_amount_label">Belopp att skicka</string>
 	<string name="send_coins_fragment_amount_error">Ogiltig mängd!</string>
-	<string name="send_coins_fragment_fee_label">Avgift</string>
 	<string name="send_coins_fragment_button_send">Skicka</string>
 	<string name="send_coins_fragment_button_back">Tillbaka</string>
 	<string name="send_coins_sending_msg">Skickar…</string>

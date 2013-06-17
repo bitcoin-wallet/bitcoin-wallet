@@ -42,11 +42,6 @@
 
 		<CheckBoxPreference
 			android:defaultValue="false"
-			android:key="labs_send_coins_low_fee"
-			android:summary="Transactions with a fee less than the default fee will likely never get confirmed. You really need to know what you are doing if you are using this option!"
-			android:title="Allow low fee when sending" />
-		<CheckBoxPreference
-			android:defaultValue="false"
 			android:key="labs_transactions_details"
 			android:summary="Click on transaction, open overflow menu, select Transaction details."
 			android:title="Transaction details" />

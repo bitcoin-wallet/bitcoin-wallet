@@ -120,12 +120,10 @@ public class Constants
 	public static final String PREFS_KEY_EXCHANGE_CURRENCY = "exchange_currency";
 	public static final String PREFS_KEY_TRUSTED_PEER = "trusted_peer";
 	public static final String PREFS_KEY_TRUSTED_PEER_ONLY = "trusted_peer_only";
-	public static final String PREFS_KEY_LABS_SEND_COINS_LOW_FEE = "labs_send_coins_low_fee";
 	public static final String PREFS_KEY_LABS_TRANSACTION_DETAILS = "labs_transactions_details";
 	public static final String PREFS_KEY_BTC_PRECISION = "btc_precision";
 	public static final String PREFS_KEY_DISCLAIMER = "disclaimer";
 
-	public static final BigInteger DEFAULT_TX_FEE = Utils.CENT.divide(BigInteger.valueOf(20));
 	public static final BigInteger DUST = Utils.CENT.divide(BigInteger.valueOf(100));
 
 	public static final long LAST_USAGE_THRESHOLD_JUST_MS = DateUtils.HOUR_IN_MILLIS;

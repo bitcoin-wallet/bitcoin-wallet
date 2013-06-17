@@ -82,7 +82,6 @@
 	<string name="send_coins_fragment_amount_label">Cantidad a pagar</string>
 	<string name="send_coins_fragment_amount_empty">Introduce cantidad aquí</string>
 	<string name="send_coins_fragment_amount_error">¡Cantidad inválida!</string>
-	<string name="send_coins_fragment_fee_label">Comisión</string>
 	<string name="send_coins_fragment_button_send">Enviar</string>
 	<string name="send_coins_fragment_button_back">Atrás</string>
 	<string name="send_coins_preparation_msg">Firmando…</string>
@@ -92,10 +91,6 @@
 	<string name="send_coins_error_msg">¡Problema enviando bitcoins!</string>
 	<string name="send_coins_options_scan_title">Explorar</string>
 	<string name="send_coins_address_context_clear_title">Introducir nueva dirección</string>
-	<string name="send_coins_dialog_fee_message">Estás a punto de enviar monedas con una tarifa baja. Esta transacción puede tardar mucho tiempo en confirmarse.\n\nSe recomiendo utilizar una comisión de al menos %s</string>
-	<string name="send_coins_dialog_fee_button_send">Enviar de todos modos</string>
-	<string name="send_coins_dialog_fee_button_adjust">Ajustar comisión</string>
-	<string name="send_coins_dialog_fee_button_dismiss">No enviar</string>
 	<string name="request_coins_activity_title">Solicitar bitcoins</string>
 	<string name="request_coins_fragment_address_label">Dirección en la que se solicita</string>
 	<string name="request_coins_fragment_include_address_label">incluir nombre con la dirección</string>

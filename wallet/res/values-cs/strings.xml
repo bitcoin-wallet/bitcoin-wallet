@@ -29,7 +29,6 @@
 	<string name="send_coins_fragment_available_label">Možno utratit</string>
 	<string name="send_coins_fragment_pending">(BTC %s čeká na potvrzení)</string>
 	<string name="send_coins_fragment_amount_label">Částka k zaplacení</string>
-	<string name="send_coins_fragment_fee_label">Poplatek</string>
 	<string name="send_coins_fragment_button_send">Poslat</string>
 	<string name="send_coins_sending_msg">Posílám…</string>
 	<string name="send_coins_error_msg">Problém při zasílání!</string>

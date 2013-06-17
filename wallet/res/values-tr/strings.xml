@@ -49,7 +49,6 @@
 	<string name="send_coins_fragment_pending">(%s BTC teyit bekliyor)</string>
 	<string name="send_coins_fragment_amount_label">Ödenecek miktar</string>
 	<string name="send_coins_fragment_amount_error">Geçersiz miktar!</string>
-	<string name="send_coins_fragment_fee_label">ücret</string>
 	<string name="send_coins_fragment_button_send">Gönder</string>
 	<string name="send_coins_fragment_button_back">Geri</string>
 	<string name="send_coins_sending_msg">Gönderiliyor…</string>

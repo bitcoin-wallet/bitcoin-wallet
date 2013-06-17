@@ -28,7 +28,6 @@
 	<string name="send_coins_fragment_available_label">可用余额</string>
 	<string name="send_coins_fragment_pending">（%s比特币等待网络确认）</string>
 	<string name="send_coins_fragment_amount_label">总量</string>
-	<string name="send_coins_fragment_fee_label">手续费</string>
 	<string name="send_coins_fragment_button_send">发送</string>
 	<string name="send_coins_sending_msg">发送中…</string>
 	<string name="send_coins_error_msg">支付时遇到了问题！</string>

@@ -30,7 +30,6 @@
 	<string name="send_coins_fragment_available_label">Διαθέσιμο για τις ξόδεμα</string>
 	<string name="send_coins_fragment_pending">(BTC %s αναμονή για την επιβεβαίωση)</string>
 	<string name="send_coins_fragment_amount_label">Ποσό να πληρωθεί</string>
-	<string name="send_coins_fragment_fee_label">Τέλος</string>
 	<string name="send_coins_fragment_button_send">Αποστολή</string>
 	<string name="send_coins_sending_msg">Αποστολή…</string>
 	<string name="send_coins_error_msg">Πρόβλημα στην αποστολή κερμάτων!</string>

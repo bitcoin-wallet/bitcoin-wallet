@@ -28,7 +28,6 @@
 	<string name="send_coins_fragment_available_label">Do dyspozycji</string>
 	<string name="send_coins_fragment_pending">(BTC %s czekanie na potwierdzenie)</string>
 	<string name="send_coins_fragment_amount_label">Kwota do zapłacenia</string>
-	<string name="send_coins_fragment_fee_label">Opłata</string>
 	<string name="send_coins_fragment_button_send">Wyślij</string>
 	<string name="send_coins_sending_msg">Wysyłanie…</string>
 	<string name="send_coins_error_msg">Problem z wysłaniem monet!</string>

@@ -30,7 +30,6 @@
 	<string name="send_coins_fragment_available_label">Доступно для отправки</string>
 	<string name="send_coins_fragment_pending">(BTC %s ожидают подтверждения)</string>
 	<string name="send_coins_fragment_amount_label">Сумма оплаты</string>
-	<string name="send_coins_fragment_fee_label">Комиссия</string>
 	<string name="send_coins_fragment_button_send">Отправить</string>
 	<string name="send_coins_sending_msg">Отправка…</string>
 	<string name="send_coins_error_msg">Проблема с отправкой монет!</string>

@@ -20,11 +20,9 @@ package de.schildbach.wallet.ui;
 import java.math.BigInteger;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.ComponentName;
 import android.content.ContentResolver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
@@ -102,7 +100,6 @@ public final class SendCoinsFragment extends SherlockFragment implements AmountC
 	private TextView receivingStaticAddressView;
 	private TextView receivingStaticLabelView;
 	private CurrencyAmountView amountView;
-	private CurrencyAmountView feeView;
 
 	private ListView sentTransactionView;
 	private TransactionsListAdapter sentTransactionListAdapter;
@@ -374,9 +371,6 @@ public final class SendCoinsFragment extends SherlockFragment implements AmountC
 			}
 		});
 
-		feeView = (CurrencyAmountView) view.findViewById(R.id.send_coins_fee);
-		feeView.setAmount(Constants.DEFAULT_TX_FEE, false);
-
 		sentTransactionView = (ListView) view.findViewById(R.id.send_coins_sent_transaction);
 		sentTransactionListAdapter = new TransactionsListAdapter(activity, wallet, application.maxConnectedPeers(), false);
 		sentTransactionView.setAdapter(sentTransactionListAdapter);
@@ -390,45 +384,7 @@ public final class SendCoinsFragment extends SherlockFragment implements AmountC
 				validateAmounts(true);
 
 				if (everythingValid())
-				{
-					final BigInteger fee = feeView.getAmount();
-
-					if (fee.compareTo(Constants.DEFAULT_TX_FEE) >= 0)
-						handleGo();
-					else
-						feeDialog();
-				}
-			}
-
-			private void feeDialog()
-			{
-				final boolean allowLowFee = prefs.getBoolean(Constants.PREFS_KEY_LABS_SEND_COINS_LOW_FEE, false);
-
-				final AlertDialog.Builder dialog = new AlertDialog.Builder(activity);
-				dialog.setMessage(getString(R.string.send_coins_dialog_fee_message,
-						Constants.CURRENCY_CODE_BITCOIN + " " + GenericUtils.formatValue(Constants.DEFAULT_TX_FEE, Constants.BTC_PRECISION)));
-				if (allowLowFee)
-				{
-					dialog.setPositiveButton(R.string.send_coins_dialog_fee_button_send, new DialogInterface.OnClickListener()
-					{
-						public void onClick(final DialogInterface dialog, final int which)
-						{
-							handleGo();
-						}
-					});
-				}
-				else
-				{
-					dialog.setPositiveButton(R.string.send_coins_dialog_fee_button_adjust, new DialogInterface.OnClickListener()
-					{
-						public void onClick(final DialogInterface dialog, final int which)
-						{
-							feeView.setAmount(Constants.DEFAULT_TX_FEE, false);
-						}
-					});
-				}
-				dialog.setNegativeButton(R.string.send_coins_dialog_fee_button_dismiss, null);
-				dialog.show();
+					handleGo();
 			}
 		});
 
@@ -460,16 +416,12 @@ public final class SendCoinsFragment extends SherlockFragment implements AmountC
 
 		amountView.setListener(amountsListener);
 
-		feeView.setListener(amountsListener);
-
 		updateView();
 	}
 
 	@Override
 	public void onPause()
 	{
-		feeView.setListener(null);
-
 		amountView.setListener(null);
 
 		contentResolver.unregisterContentObserver(contentObserver);
@@ -635,31 +587,8 @@ public final class SendCoinsFragment extends SherlockFragment implements AmountC
 
 			if (enoughFundsForAmount)
 			{
-				final BigInteger fee = feeView.getAmount();
-				final boolean validFee = fee != null && fee.signum() >= 0;
-
-				if (validFee)
-				{
-					final boolean enoughFunds = availableAfterAmount.subtract(fee).signum() >= 0;
-
-					if (enoughFunds)
-					{
-						// everything fine
-						isValidAmounts = true;
-					}
-					else
-					{
-						// not enough funds for fee
-						if (popups)
-							popupAvailable(feeView, availableAfterAmount, pending);
-					}
-				}
-				else
-				{
-					// invalid fee
-					if (popups)
-						popupMessage(feeView, getString(R.string.send_coins_fragment_amount_error));
-				}
+				// everything fine
+				isValidAmounts = true;
 			}
 			else
 			{
@@ -730,7 +659,6 @@ public final class SendCoinsFragment extends SherlockFragment implements AmountC
 
 		// create spend
 		final SendRequest sendRequest = SendRequest.to(validatedAddress, amountView.getAmount());
-		sendRequest.fee = feeView.getAmount();
 		sendRequest.changeAddress = pickOldestKey(wallet.getKeys()).toAddress(Constants.NETWORK_PARAMETERS);
 
 		backgroundHandler.post(new Runnable()
@@ -845,8 +773,6 @@ public final class SendCoinsFragment extends SherlockFragment implements AmountC
 
 		amountView.setEnabled(state == State.INPUT);
 
-		feeView.setEnabled(state == State.INPUT);
-
 		if (sentTransaction != null)
 		{
 			sentTransactionView.setVisibility(View.VISIBLE);
@@ -918,7 +844,7 @@ public final class SendCoinsFragment extends SherlockFragment implements AmountC
 		if (receivingAddress != null && amount == null)
 			amountView.requestFocus();
 		else if (receivingAddress != null && amount != null)
-			feeView.requestFocus();
+			viewGo.requestFocus();
 
 		updateView();
 

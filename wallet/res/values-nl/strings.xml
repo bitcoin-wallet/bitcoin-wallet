@@ -28,7 +28,6 @@
 	<string name="send_coins_fragment_available_label">Beschikbaar voor besteding</string>
 	<string name="send_coins_fragment_pending">(BTC %s wachtend op bevestiging)</string>
 	<string name="send_coins_fragment_amount_label">Bedrag te betalen</string>
-	<string name="send_coins_fragment_fee_label">Transactiekosten</string>
 	<string name="send_coins_fragment_button_send">Verzenden</string>
 	<string name="send_coins_sending_msg">Bezig met verzenden…</string>
 	<string name="send_coins_error_msg">Probleem bij het versturen van Bitcoins!</string>

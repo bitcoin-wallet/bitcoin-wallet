@@ -49,7 +49,6 @@
 	<string name="send_coins_fragment_pending">(BTC %s en attente de confirmation)</string>
 	<string name="send_coins_fragment_amount_label">Montant à payer</string>
 	<string name="send_coins_fragment_amount_error">Montant invalide&#x202F;!</string>
-	<string name="send_coins_fragment_fee_label">Commission</string>
 	<string name="send_coins_fragment_button_send">Envoyer</string>
 	<string name="send_coins_fragment_button_back">Retour</string>
 	<string name="send_coins_sending_msg">Envoi en cours…</string>

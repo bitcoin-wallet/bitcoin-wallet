@@ -68,7 +68,6 @@
 	<string name="send_coins_fragment_amount_label">Betrag</string>
 	<string name="send_coins_fragment_amount_empty">Ergänze Betrag hier</string>
 	<string name="send_coins_fragment_amount_error">Ungültiger Betrag!</string>
-	<string name="send_coins_fragment_fee_label">Gebühr</string>
 	<string name="send_coins_fragment_button_send">Senden</string>
 	<string name="send_coins_fragment_button_back">Zurück</string>
 	<string name="send_coins_preparation_msg">Signierung…</string>
@@ -78,10 +77,6 @@
 	<string name="send_coins_error_msg">Problem beim Versenden der Bitcoins!</string>
 	<string name="send_coins_options_scan_title">Scannen</string>
 	<string name="send_coins_address_context_clear_title">Adresse neu eingeben</string>
-	<string name="send_coins_dialog_fee_message">Du bist dabei, Bitcoins mit einer geringen Gebühr zu versenden. Es kann sehr lange dauern, bis diese Zahlung bestätigt wird.\n\nEs wird empfohlen, eine Gebühr von mindestens %s zu verwenden.</string>
-	<string name="send_coins_dialog_fee_button_send">Trotzdem senden</string>
-	<string name="send_coins_dialog_fee_button_adjust">Gebühr anpassen</string>
-	<string name="send_coins_dialog_fee_button_dismiss">Nicht senden</string>
 
 	<string name="request_coins_activity_title">Bitcoins anfordern</string>
 	<string name="request_coins_fragment_amount_label">Angeforderter Betrag (optional)</string>
