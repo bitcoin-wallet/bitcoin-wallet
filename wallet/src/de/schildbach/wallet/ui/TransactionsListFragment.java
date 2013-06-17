@@ -1,5 +1,6 @@
 /*
  * Copyright 2011-2013 the original author or authors.
+ * Copyright 2013 Google Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -145,7 +146,7 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 
 		final boolean showBackupWarning = direction == null || direction == Direction.RECEIVED;
 
-		adapter = new TransactionsListAdapter(activity, wallet, application.maxConnectedPeers(), showBackupWarning);
+		adapter = new TransactionsListAdapter(activity, application, application.maxConnectedPeers(), showBackupWarning);
 		setListAdapter(adapter);
 	}
 

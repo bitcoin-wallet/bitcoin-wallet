@@ -1,5 +1,6 @@
 /*
  * Copyright 2013 the original author or authors.
+ * Copyright 2013 Google Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -53,8 +54,6 @@ import com.google.bitcoin.core.Block;
 import com.google.bitcoin.core.Sha256Hash;
 import com.google.bitcoin.core.StoredBlock;
 import com.google.bitcoin.core.Transaction;
-import com.google.bitcoin.core.Wallet;
-
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.service.BlockchainService;
@@ -69,7 +68,6 @@ public final class BlockListFragment extends SherlockListFragment
 {
 	private AbstractWalletActivity activity;
 	private WalletApplication application;
-	private Wallet wallet;
 	private LoaderManager loaderManager;
 
 	private BlockchainService service;
@@ -89,7 +87,6 @@ public final class BlockListFragment extends SherlockListFragment
 
 		this.activity = (AbstractWalletActivity) activity;
 		this.application = this.activity.getWalletApplication();
-		this.wallet = application.getWallet();
 		this.loaderManager = getLoaderManager();
 	}
 
@@ -220,7 +217,7 @@ public final class BlockListFragment extends SherlockListFragment
 	{
 		private static final int ROW_BASE_CHILD_COUNT = 2;
 		private static final int ROW_INSERT_INDEX = 1;
-		private final TransactionsListAdapter transactionsAdapter = new TransactionsListAdapter(activity, wallet, application.maxConnectedPeers(),
+		private final TransactionsListAdapter transactionsAdapter = new TransactionsListAdapter(activity, application, application.maxConnectedPeers(),
 				false);
 
 		private final List<StoredBlock> blocks = new ArrayList<StoredBlock>(MAX_BLOCKS);
@@ -394,19 +391,19 @@ public final class BlockListFragment extends SherlockListFragment
 
 	private static class TransactionsLoader extends AsyncTaskLoader<Set<Transaction>>
 	{
-		private final Wallet wallet;
+		WalletApplication application;
 
-		private TransactionsLoader(final Context context, final Wallet wallet)
+		private TransactionsLoader(final Context context, final WalletApplication application)
 		{
 			super(context);
 
-			this.wallet = wallet;
+			this.application = application;
 		}
 
 		@Override
 		public Set<Transaction> loadInBackground()
 		{
-			final Set<Transaction> transactions = wallet.getTransactions(true);
+			final Set<Transaction> transactions = application.getWallet().getTransactions(true);
 
 			final Set<Transaction> filteredTransactions = new HashSet<Transaction>(transactions.size());
 			for (final Transaction tx : transactions)
@@ -425,7 +422,7 @@ public final class BlockListFragment extends SherlockListFragment
 		@Override
 		public Loader<Set<Transaction>> onCreateLoader(final int id, final Bundle args)
 		{
-			return new TransactionsLoader(activity, wallet);
+			return new TransactionsLoader(activity, application);
 		}
 
 		@Override

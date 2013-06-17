@@ -1,5 +1,6 @@
 /*
  * Copyright 2011-2013 the original author or authors.
+ * Copyright 2013 Google Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -43,11 +44,11 @@ import com.google.bitcoin.core.Transaction;
 import com.google.bitcoin.core.Transaction.Purpose;
 import com.google.bitcoin.core.TransactionConfidence;
 import com.google.bitcoin.core.TransactionConfidence.ConfidenceType;
-import com.google.bitcoin.core.Wallet;
 import com.google.bitcoin.core.Wallet.DefaultCoinSelector;
 
 import de.schildbach.wallet.AddressBookProvider;
 import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.util.CircularProgressView;
 import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
@@ -59,7 +60,7 @@ public class TransactionsListAdapter extends BaseAdapter
 {
 	private final Context context;
 	private final LayoutInflater inflater;
-	private final Wallet wallet;
+	private final WalletApplication walletApplication;
 	private final int maxConnectedPeers;
 
 	private final List<Transaction> transactions = new ArrayList<Transaction>();
@@ -83,12 +84,12 @@ public class TransactionsListAdapter extends BaseAdapter
 	private static final int VIEW_TYPE_TRANSACTION = 0;
 	private static final int VIEW_TYPE_WARNING = 1;
 
-	public TransactionsListAdapter(final Context context, final Wallet wallet, final int maxConnectedPeers, final boolean showBackupWarning)
+	public TransactionsListAdapter(final Context context, final WalletApplication walletApplication, final int maxConnectedPeers, final boolean showBackupWarning)
 	{
 		this.context = context;
 		inflater = LayoutInflater.from(context);
 
-		this.wallet = wallet;
+		this.walletApplication = walletApplication;
 		this.maxConnectedPeers = maxConnectedPeers;
 		this.showBackupWarning = showBackupWarning;
 
@@ -227,7 +228,7 @@ public class TransactionsListAdapter extends BaseAdapter
 
 		try
 		{
-			final BigInteger value = tx.getValue(wallet);
+			final BigInteger value = tx.getValue(walletApplication.getWallet());
 			final boolean sent = value.signum() < 0;
 
 			final CircularProgressView rowConfidenceCircular = (CircularProgressView) row.findViewById(R.id.transaction_row_confidence_circular);

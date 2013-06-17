@@ -424,7 +424,7 @@ public final class SendCoinsFragment extends SherlockFragment
 		bluetoothMessageView = (TextView) view.findViewById(R.id.send_coins_bluetooth_message);
 
 		sentTransactionView = (ListView) view.findViewById(R.id.send_coins_sent_transaction);
-		sentTransactionListAdapter = new TransactionsListAdapter(activity, wallet, application.maxConnectedPeers(), false);
+		sentTransactionListAdapter = new TransactionsListAdapter(activity, application, application.maxConnectedPeers(), false);
 		sentTransactionView.setAdapter(sentTransactionListAdapter);
 
 		viewGo = (Button) view.findViewById(R.id.send_coins_go);
