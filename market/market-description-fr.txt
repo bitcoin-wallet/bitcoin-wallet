@@ -1,11 +1,13 @@
-Ceci est une application Bitcoin Wallet pour votre mobile Android. Vous pouvez envoyer des Bitcoins d'un mobile à un autre simplement en scannant le QR code affiché par l'application. Ou via NFC (Near Field Communication).
+Avec cette app, vous pouvez apporter vos bitcoins partout avec vous dans vos poches! Vous pouvez envoyer des paiements simplement en scannant un code QR ou en touchant deux téléphones ensembles (NFC). Bitcoin Wallet est conçu pour être facile d'utilisation et fiable, tout en étant sécurisé et performant.
 
 FONCTIONS:
 
+• Aucun serveur cloud ou de service web nécessaire! Ce porte-monnaie est vraiment pair à pair.
 • Afficher le solde du  wallet en Bitcoin et dans d'autres devises.
 • Envoyer et recevoir des Bitcoins via NFC, QR-codes ou Bitcoin URLs.
 • Carnet d'adresses pour les adresses Bitcoin fréquemment utilisées.
 • Saisir des transactions offline, les exécuter online.
+• Gérer la blockchain sur votre appareil (pour une sécurité augmentée).
 • Notifications système pour la connectivité Bitcoin et la réception des bitcoins.
 • App widget pour le solde du compte Bitcoin.
 
