@@ -58,6 +58,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.text.format.DateUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
@@ -90,6 +91,8 @@ public final class WalletActivity extends AbstractWalletActivity
 	private WalletApplication application;
 	private Wallet wallet;
 	private SharedPreferences prefs;
+
+	private static final String TAG = WalletActivity.class.getSimpleName();
 
 	@Override
 	protected void onCreate(final Bundle savedInstanceState)
@@ -511,12 +514,16 @@ public final class WalletActivity extends AbstractWalletActivity
 						final int serverVersionCode = Integer.parseInt(reader.readLine().trim().split("\\s+")[0]);
 						reader.close();
 
+						Log.i(TAG, "according to \"" + url + "\", strongly recommended minimum app version is " + serverVersionCode);
+
 						if (serverTime > 0)
 						{
 							final long diffMinutes = Math.abs((System.currentTimeMillis() - serverTime) / DateUtils.MINUTE_IN_MILLIS);
 
 							if (diffMinutes >= 60)
 							{
+								Log.i(TAG, "according to \"" + url + "\", system clock is off by " + diffMinutes + " minutes");
+
 								runOnUiThread(new Runnable()
 								{
 									public void run()
