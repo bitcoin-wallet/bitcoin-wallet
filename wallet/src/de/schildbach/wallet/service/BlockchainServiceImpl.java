@@ -1,5 +1,6 @@
 /*
  * Copyright 2011-2013 the original author or authors.
+ * Copyright 2013 Google Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -80,6 +81,7 @@ import com.google.bitcoin.discovery.PeerDiscoveryException;
 import com.google.bitcoin.store.BlockStore;
 import com.google.bitcoin.store.BlockStoreException;
 import com.google.bitcoin.store.SPVBlockStore;
+import com.google.common.util.concurrent.ListenableFuture;
 
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
@@ -767,10 +769,11 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 	}
 
 	@Override
-	public void broadcastTransaction(final Transaction tx)
+	public ListenableFuture<Transaction> broadcastTransaction(final Transaction tx)
 	{
 		if (peerGroup != null)
-			peerGroup.broadcastTransaction(tx);
+			return peerGroup.broadcastTransaction(tx);
+		return null;
 	}
 
 	@Override

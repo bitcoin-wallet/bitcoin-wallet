@@ -1,5 +1,6 @@
 /*
  * Copyright 2011-2013 the original author or authors.
+ * Copyright 2013 Google Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -32,6 +33,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
+import com.google.bitcoin.protocols.channels.StoredPaymentChannelClientStates;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -64,6 +66,7 @@ import com.google.bitcoin.wallet.WalletFiles;
 
 import de.schildbach.wallet.service.BlockchainService;
 import de.schildbach.wallet.service.BlockchainServiceImpl;
+import de.schildbach.wallet.util.ChainServiceTransactionBroadcaster;
 import de.schildbach.wallet.util.CrashReporter;
 import de.schildbach.wallet.util.Io;
 import de.schildbach.wallet.util.LinuxSecureRandom;
@@ -139,6 +142,7 @@ public class WalletApplication extends Application
 		migrateWalletToProtobuf();
 
 		loadWalletFromProtobuf();
+		addWalletExtensions(); // Make sure our StoredPaymentChannelClientStates get added before we save
 		wallet.autosaveToFile(walletFile, 1, TimeUnit.SECONDS, new WalletAutosaveEventListener());
 
 		final int lastVersionCode = prefs.getInt(Constants.PREFS_KEY_LAST_VERSION, 0);
@@ -264,12 +268,13 @@ public class WalletApplication extends Application
 			try
 			{
 				walletStream = new FileInputStream(walletFile);
-
-				wallet = new WalletProtobufSerializer().readWallet(walletStream);
+				wallet = new Wallet(Constants.NETWORK_PARAMETERS);
+				addWalletExtensions(); // All extensions must be present before we deserialize
+				new WalletProtobufSerializer().readWallet(WalletProtobufSerializer.parseToProto(walletStream), wallet);
 
 				log.info("wallet loaded from: '" + walletFile + "', took " + (System.currentTimeMillis() - start) + "ms");
 			}
-			catch (final FileNotFoundException x)
+			catch (final IOException x)
 			{
 				log.error("problem loading wallet", x);
 
@@ -364,6 +369,13 @@ public class WalletApplication extends Application
 
 		log.info("wallet has no usable key - creating");
 		addNewKeyToWallet();
+	}
+
+	/**
+	 * Adds all necessary wallet extensions for use/deserialization
+	 */
+	private void addWalletExtensions() {
+		wallet.addOrGetExistingExtension(new StoredPaymentChannelClientStates(wallet, new ChainServiceTransactionBroadcaster(this)));
 	}
 
 	public void addNewKeyToWallet()

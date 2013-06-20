@@ -191,11 +191,17 @@
 	<string name="about_credits_market_publisher_title">Other Apps of Author</string>
 	<string name="notification_coins_received_msg">Received BTC %s</string>
 	<string name="notification_peers_connected_msg">%d peers connected</string>
+	<string name="channel_request_activity_title">Open Payment Channel</string>
+	<string name="channel_request_intro">%1$s would like to temporarily reserve at least %2$s %3$s from your wallet. Any unused money will be released back to your wallet. If you would like to allow the app to spend more without asking, you may specify a larger amount below.</string>
+	<string name="channel_request_max_payment">Maximum amount to pay</string>
+	<string name="send_coins_fragment_channel_label">Minimum for channel</string>
 
 	<!-- generic buttons -->
 	<string name="button_ok">OK</string>
+	<string name="button_allow">Allow</string>
 	<string name="button_dismiss">Dismiss</string>
 	<string name="button_cancel">Cancel</string>
+	<string name="button_reject">Reject</string>
 	<string name="button_help">Help</string>
 	<string name="button_add">Add</string>
 	<string name="button_delete">Delete</string>

@@ -132,6 +132,16 @@
 			android:label="@string/network_monitor_activity_title"
 			android:screenOrientation="behind" />
 		<activity
+			android:name="de.schildbach.wallet.ui.ChannelRequestActivity"
+			android:configChanges="keyboard|keyboardHidden"
+			android:label="@string/channel_request_activity_title"
+			android:screenOrientation="behind" >
+			<intent-filter>
+				<action android:name="org.bitcoin.PAYMENT_CHANNEL_ACCESS" />
+				<category android:name="android.intent.category.DEFAULT" />
+			</intent-filter>
+		</activity>
+		<activity
 			android:name="de.schildbach.wallet.ui.PreferencesActivity"
 			android:label="@string/preferences_activity_title"
 			android:screenOrientation="behind" />
@@ -184,6 +194,16 @@
 		<service
 			android:name="de.schildbach.wallet.service.BlockchainServiceImpl"
 			android:exported="false" />
+
+		<service
+			android:name="de.schildbach.wallet.service.ChannelService"
+			tools:ignore="ExportedService"
+			android:exported="true" >
+			<intent-filter>
+				<action android:name="org.bitcoin.PAYMENT_CHANNEL_TEST" />
+				<category android:name="android.intent.category.DEFAULT" />
+			</intent-filter>
+		</service>
 
 		<receiver android:name="de.schildbach.wallet.service.AutosyncReceiver" >
 			<intent-filter>

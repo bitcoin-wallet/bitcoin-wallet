@@ -6,6 +6,7 @@
 	android:orientation="vertical" >
 
 	<TextView
+		android:id="@+id/send_coins_popup_available_label"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:layout_marginTop="4dp"

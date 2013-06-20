@@ -762,6 +762,9 @@ public final class SendCoinsFragment extends SherlockFragment
 				viewPending.setVisibility(pending.signum() > 0 ? View.VISIBLE : View.GONE);
 				viewPending.setText(context.getString(R.string.send_coins_fragment_pending, GenericUtils.formatValue(pending, Constants.BTC_MAX_PRECISION)));
 
+				final TextView textLabel = (TextView) popupAvailableView.findViewById(R.id.send_coins_popup_available_label);
+				textLabel.setText(R.string.send_coins_fragment_available_label);
+
 				return popupAvailableView;
 			}
 		}
