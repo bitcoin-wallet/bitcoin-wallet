@@ -74,17 +74,13 @@ public class WalletApplication extends Application
 	@Override
 	public void onCreate()
 	{
-		final StrictMode.ThreadPolicy.Builder threadPolicy = new StrictMode.ThreadPolicy.Builder().detectAll().permitDiskReads().permitDiskWrites();
-		final StrictMode.VmPolicy.Builder vmPolicy = new StrictMode.VmPolicy.Builder().detectAll();
+		final StrictMode.ThreadPolicy.Builder threadPolicy = new StrictMode.ThreadPolicy.Builder().detectAll().permitDiskReads().permitDiskWrites()
+				.penaltyLog();
+		final StrictMode.VmPolicy.Builder vmPolicy = new StrictMode.VmPolicy.Builder().detectAll().penaltyLog();
 		if (Constants.TEST)
 		{
 			threadPolicy.penaltyDeath();
 			vmPolicy.penaltyDeath();
-		}
-		else
-		{
-			threadPolicy.penaltyLog();
-			vmPolicy.penaltyLog();
 		}
 		StrictMode.setThreadPolicy(threadPolicy.build());
 		StrictMode.setVmPolicy(vmPolicy.build());
