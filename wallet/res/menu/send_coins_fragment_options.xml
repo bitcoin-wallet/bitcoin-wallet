@@ -3,7 +3,7 @@
 
 	<item
 		android:id="@+id/send_coins_options_scan"
-		android:icon="@drawable/ic_action_qr"
+		android:icon="@drawable/ic_action_camera"
 		android:showAsAction="always|withText"
 		android:title="@string/send_coins_options_scan_title"/>
 
