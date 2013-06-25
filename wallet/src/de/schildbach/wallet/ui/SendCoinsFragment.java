@@ -93,8 +93,9 @@ public final class SendCoinsFragment extends SherlockFragment
 	private WalletApplication application;
 	private Wallet wallet;
 	private ContentResolver contentResolver;
-	private SharedPreferences prefs;
 	private LoaderManager loaderManager;
+
+	private int btcPrecision;
 
 	private BlockchainService service;
 	private final Handler handler = new Handler();
@@ -268,7 +269,6 @@ public final class SendCoinsFragment extends SherlockFragment
 		this.application = (WalletApplication) activity.getApplication();
 		this.wallet = application.getWallet();
 		this.contentResolver = activity.getContentResolver();
-		this.prefs = PreferenceManager.getDefaultSharedPreferences(activity);
 		this.loaderManager = getLoaderManager();
 	}
 
@@ -305,6 +305,9 @@ public final class SendCoinsFragment extends SherlockFragment
 		backgroundThread = new HandlerThread("backgroundThread", Process.THREAD_PRIORITY_BACKGROUND);
 		backgroundThread.start();
 		backgroundHandler = new Handler(backgroundThread.getLooper());
+
+		final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(activity);
+		btcPrecision = Integer.parseInt(prefs.getString(Constants.PREFS_KEY_BTC_PRECISION, Constants.PREFS_DEFAULT_BTC_PRECISION));
 	}
 
 	@Override
@@ -397,7 +400,9 @@ public final class SendCoinsFragment extends SherlockFragment
 		});
 
 		final CurrencyAmountView btcAmountView = (CurrencyAmountView) view.findViewById(R.id.send_coins_amount_btc);
+		btcAmountView.setHintPrecision(btcPrecision);
 		final CurrencyAmountView localAmountView = (CurrencyAmountView) view.findViewById(R.id.send_coins_amount_local);
+		localAmountView.setHintPrecision(Constants.LOCAL_PRECISION);
 		amountCalculatorLink = new CurrencyCalculatorLink(btcAmountView, localAmountView);
 
 		sentTransactionView = (ListView) view.findViewById(R.id.send_coins_sent_transaction);
@@ -809,8 +814,7 @@ public final class SendCoinsFragment extends SherlockFragment
 		if (sentTransaction != null)
 		{
 			sentTransactionView.setVisibility(View.VISIBLE);
-			sentTransactionListAdapter.setPrecision(Integer.parseInt(prefs.getString(Constants.PREFS_KEY_BTC_PRECISION,
-					Constants.PREFS_DEFAULT_BTC_PRECISION)));
+			sentTransactionListAdapter.setPrecision(btcPrecision);
 			sentTransactionListAdapter.replace(sentTransaction);
 		}
 		else

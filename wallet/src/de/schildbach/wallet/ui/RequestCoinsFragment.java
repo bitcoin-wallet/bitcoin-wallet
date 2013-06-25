@@ -23,11 +23,13 @@ import java.util.List;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.nfc.NfcManager;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.app.ShareCompat.IntentBuilder;
@@ -76,6 +78,8 @@ public final class RequestCoinsFragment extends SherlockFragment
 	private ClipboardManager clipboardManager;
 	private ShareActionProvider shareActionProvider;
 
+	private int btcPrecision;
+
 	private ImageView qrView;
 	private Bitmap qrCodeBitmap;
 	private Spinner addressView;
@@ -123,6 +127,15 @@ public final class RequestCoinsFragment extends SherlockFragment
 	}
 
 	@Override
+	public void onCreate(final Bundle savedInstanceState)
+	{
+		super.onCreate(savedInstanceState);
+
+		final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(activity);
+		btcPrecision = Integer.parseInt(prefs.getString(Constants.PREFS_KEY_BTC_PRECISION, Constants.PREFS_DEFAULT_BTC_PRECISION));
+	}
+
+	@Override
 	public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState)
 	{
 		final View view = inflater.inflate(R.layout.request_coins_fragment, container, false);
@@ -137,7 +150,9 @@ public final class RequestCoinsFragment extends SherlockFragment
 		});
 
 		final CurrencyAmountView btcAmountView = (CurrencyAmountView) view.findViewById(R.id.request_coins_amount_btc);
+		btcAmountView.setHintPrecision(btcPrecision);
 		final CurrencyAmountView localAmountView = (CurrencyAmountView) view.findViewById(R.id.request_coins_amount_local);
+		localAmountView.setHintPrecision(Constants.LOCAL_PRECISION);
 		amountCalculatorLink = new CurrencyCalculatorLink(btcAmountView, localAmountView);
 
 		addressView = (Spinner) view.findViewById(R.id.request_coins_fragment_address);
