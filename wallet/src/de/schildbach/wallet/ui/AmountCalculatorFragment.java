@@ -90,7 +90,7 @@ public final class AmountCalculatorFragment extends DialogFragment implements Lo
 	@Override
 	public Dialog onCreateDialog(final Bundle savedInstanceState)
 	{
-		precision = Integer.parseInt(prefs.getString(Constants.PREFS_KEY_BTC_PRECISION, Integer.toString(Constants.BTC_PRECISION)));
+		precision = Integer.parseInt(prefs.getString(Constants.PREFS_KEY_BTC_PRECISION, Constants.PREFS_DEFAULT_BTC_PRECISION));
 
 		final AlertDialog.Builder dialog = new AlertDialog.Builder(activity);
 		dialog.setInverseBackgroundForced(true);

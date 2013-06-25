@@ -246,8 +246,8 @@ public final class WalletBalanceFragment extends Fragment
 			if (balance != null)
 			{
 				viewBalanceBtc.setVisibility(View.VISIBLE);
-				viewBalanceBtc.setPrecision(Integer.parseInt(prefs.getString(Constants.PREFS_KEY_BTC_PRECISION,
-						Integer.toString(Constants.BTC_PRECISION))));
+				viewBalanceBtc.setPrecision(Integer.parseInt(prefs
+						.getString(Constants.PREFS_KEY_BTC_PRECISION, Constants.PREFS_DEFAULT_BTC_PRECISION)));
 				viewBalanceBtc.setAmount(balance);
 
 				if (showLocalBalance)

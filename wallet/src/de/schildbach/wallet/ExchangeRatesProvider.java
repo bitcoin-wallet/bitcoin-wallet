@@ -67,7 +67,7 @@ public class ExchangeRatesProvider extends ContentProvider
 		@Override
 		public String toString()
 		{
-			return getClass().getSimpleName() + '[' + currencyCode + ':' + GenericUtils.formatValue(rate, Constants.BTC_PRECISION) + ']';
+			return getClass().getSimpleName() + '[' + currencyCode + ':' + GenericUtils.formatValue(rate, Constants.BTC_MAX_PRECISION) + ']';
 		}
 	}
 

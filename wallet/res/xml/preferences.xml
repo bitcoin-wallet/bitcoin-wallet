@@ -47,7 +47,7 @@
 			android:title="Transaction details" />
 
 		<ListPreference
-			android:defaultValue="8"
+			android:defaultValue="4"
 			android:entries="@array/preferences_precision_labels"
 			android:entryValues="@array/preferences_precision_values"
 			android:key="btc_precision"

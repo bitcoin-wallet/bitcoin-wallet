@@ -88,7 +88,7 @@ public class Constants
 	public static final int ADDRESS_FORMAT_GROUP_SIZE = 4;
 	public static final int ADDRESS_FORMAT_LINE_SIZE = 12;
 
-	public static final int BTC_PRECISION = 8;
+	public static final int BTC_MAX_PRECISION = 8;
 	public static final int LOCAL_PRECISION = 4;
 
 	public static final String DONATION_ADDRESS = "15P7W9X5xWVLewpnSk5gjLWVakvZ3NRUGN";
@@ -122,6 +122,7 @@ public class Constants
 	public static final String PREFS_KEY_TRUSTED_PEER_ONLY = "trusted_peer_only";
 	public static final String PREFS_KEY_LABS_TRANSACTION_DETAILS = "labs_transactions_details";
 	public static final String PREFS_KEY_BTC_PRECISION = "btc_precision";
+	public static final String PREFS_DEFAULT_BTC_PRECISION = "4";
 	public static final String PREFS_KEY_DISCLAIMER = "disclaimer";
 
 	public static final BigInteger DUST = Utils.CENT.divide(BigInteger.valueOf(100));

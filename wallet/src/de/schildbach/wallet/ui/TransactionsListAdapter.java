@@ -62,7 +62,7 @@ public class TransactionsListAdapter extends BaseAdapter
 	private final int maxConnectedPeers;
 
 	private final List<Transaction> transactions = new ArrayList<Transaction>();
-	private int precision = Constants.BTC_PRECISION;
+	private int precision = Constants.BTC_MAX_PRECISION;
 	private boolean showEmptyText = false;
 	private boolean showBackupWarning = false;
 

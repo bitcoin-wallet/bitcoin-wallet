@@ -627,7 +627,7 @@ public final class SendCoinsFragment extends SherlockFragment implements AmountC
 
 		final TextView viewPending = (TextView) popupAvailableView.findViewById(R.id.send_coins_popup_available_pending);
 		viewPending.setVisibility(pending.signum() > 0 ? View.VISIBLE : View.GONE);
-		viewPending.setText(getString(R.string.send_coins_fragment_pending, GenericUtils.formatValue(pending, Constants.BTC_PRECISION)));
+		viewPending.setText(getString(R.string.send_coins_fragment_pending, GenericUtils.formatValue(pending, Constants.BTC_MAX_PRECISION)));
 
 		popup(anchor, popupAvailableView);
 	}
@@ -777,7 +777,7 @@ public final class SendCoinsFragment extends SherlockFragment implements AmountC
 		{
 			sentTransactionView.setVisibility(View.VISIBLE);
 			sentTransactionListAdapter.setPrecision(Integer.parseInt(prefs.getString(Constants.PREFS_KEY_BTC_PRECISION,
-					Integer.toString(Constants.BTC_PRECISION))));
+					Constants.PREFS_DEFAULT_BTC_PRECISION)));
 			sentTransactionListAdapter.replace(sentTransaction);
 		}
 		else
