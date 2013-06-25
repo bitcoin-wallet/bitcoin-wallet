@@ -1,3 +1,8 @@
+3.10
+
+* embed currency calculator into send and request coins forms
+* change default Bitcoin precision from 8 to 4
+
 3.09
 
 * calculate correct fee to ensure speedy blockchain confirmation
