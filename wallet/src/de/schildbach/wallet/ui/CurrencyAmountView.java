@@ -18,6 +18,7 @@
 package de.schildbach.wallet.ui;
 
 import java.math.BigInteger;
+import java.util.Currency;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -63,7 +64,7 @@ public final class CurrencyAmountView extends FrameLayout
 
 	private int significantColor, lessSignificantColor, errorColor;
 	private Drawable deleteButtonDrawable, contextButtonDrawable;
-	private CurrencyCodeDrawable currencyCodeDrawable;
+	private Drawable currencySymbolDrawable;
 	private int precision = Constants.BTC_MAX_PRECISION;
 	private boolean amountSigned = false;
 	private boolean smallerInsignificant = true;
@@ -126,22 +127,27 @@ public final class CurrencyAmountView extends FrameLayout
 		contextButton.setLayoutParams(chooseViewParams);
 		this.addView(contextButton);
 
-		setCurrencyCode(Constants.CURRENCY_CODE_BITCOIN);
+		setCurrencySymbol(Constants.CURRENCY_CODE_BITCOIN);
 
 		updateAppearance();
 	}
 
-	public void setCurrencyCode(final String currencyCode)
+	public void setCurrencySymbol(final String currencyCode)
 	{
-		if (currencyCode != null)
+		if (Constants.CURRENCY_CODE_BITCOIN.equals(currencyCode))
 		{
+			currencySymbolDrawable = getResources().getDrawable(R.drawable.currency_symbol_btc);
+		}
+		else if (currencyCode != null)
+		{
+			final String currencySymbol = currencySymbol(currencyCode);
 			final float textSize = textView.getTextSize();
 			final float smallerTextSize = textSize * (smallerInsignificant ? (20f / 24f) : 1);
-			currencyCodeDrawable = new CurrencyCodeDrawable(currencyCode, smallerTextSize, lessSignificantColor, textSize * 0.37f);
+			currencySymbolDrawable = new CurrencySymbolDrawable(currencySymbol, smallerTextSize, lessSignificantColor, textSize * 0.37f);
 		}
 		else
 		{
-			currencyCodeDrawable = null;
+			currencySymbolDrawable = null;
 		}
 
 		updateAppearance();
@@ -279,17 +285,17 @@ public final class CurrencyAmountView extends FrameLayout
 
 		if (enabled && !amount.isEmpty())
 		{
-			textView.setCompoundDrawablesWithIntrinsicBounds(currencyCodeDrawable, null, deleteButtonDrawable, null);
+			textView.setCompoundDrawablesWithIntrinsicBounds(currencySymbolDrawable, null, deleteButtonDrawable, null);
 			contextButton.setOnClickListener(deleteClickListener);
 		}
 		else if (enabled && contextButtonDrawable != null)
 		{
-			textView.setCompoundDrawablesWithIntrinsicBounds(currencyCodeDrawable, null, contextButtonDrawable, null);
+			textView.setCompoundDrawablesWithIntrinsicBounds(currencySymbolDrawable, null, contextButtonDrawable, null);
 			contextButton.setOnClickListener(contextButtonClickListener);
 		}
 		else
 		{
-			textView.setCompoundDrawablesWithIntrinsicBounds(currencyCodeDrawable, null, null, null);
+			textView.setCompoundDrawablesWithIntrinsicBounds(currencySymbolDrawable, null, null, null);
 			contextButton.setOnClickListener(null);
 		}
 
@@ -379,6 +385,19 @@ public final class CurrencyAmountView extends FrameLayout
 				listener.done();
 
 			return false;
+		}
+	}
+
+	private static String currencySymbol(final String currencyCode)
+	{
+		try
+		{
+			final Currency currency = Currency.getInstance(currencyCode);
+			return currency.getSymbol();
+		}
+		catch (final IllegalArgumentException x)
+		{
+			return currencyCode;
 		}
 	}
 }

@@ -155,7 +155,7 @@ public final class CurrencyCalculatorLink
 		if (exchangeRate != null)
 		{
 			localAmountView.setEnabled(enabled);
-			localAmountView.setCurrencyCode(exchangeRate.currencyCode);
+			localAmountView.setCurrencySymbol(exchangeRate.currencyCode);
 
 			if (exchangeDirection)
 			{

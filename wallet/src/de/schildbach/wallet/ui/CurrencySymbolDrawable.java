@@ -26,32 +26,32 @@ import de.schildbach.wallet.Constants;
 /**
  * @author Andreas Schildbach
  */
-public final class CurrencyCodeDrawable extends Drawable
+public final class CurrencySymbolDrawable extends Drawable
 {
 	private final Paint paint = new Paint();
-	private final String currencyCode;
+	private final String symbol;
 	private final float y;
 
-	public CurrencyCodeDrawable(final String currencyCode, final float textSize, final int color, final float y)
+	public CurrencySymbolDrawable(final String symbol, final float textSize, final int color, final float y)
 	{
 		paint.setColor(color);
 		paint.setAntiAlias(true);
 		paint.setTextSize(textSize);
 
-		this.currencyCode = currencyCode + Constants.CHAR_HAIR_SPACE;
+		this.symbol = symbol + Constants.CHAR_HAIR_SPACE;
 		this.y = y;
 	}
 
 	@Override
 	public void draw(final Canvas canvas)
 	{
-		canvas.drawText(currencyCode, 0, y, paint);
+		canvas.drawText(symbol, 0, y, paint);
 	}
 
 	@Override
 	public int getIntrinsicWidth()
 	{
-		return (int) paint.measureText(currencyCode);
+		return (int) paint.measureText(symbol);
 	}
 
 	@Override
