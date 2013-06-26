@@ -400,7 +400,9 @@ public final class SendCoinsFragment extends SherlockFragment
 		});
 
 		final CurrencyAmountView btcAmountView = (CurrencyAmountView) view.findViewById(R.id.send_coins_amount_btc);
+		btcAmountView.setCurrencySymbol(Constants.CURRENCY_CODE_BITCOIN);
 		btcAmountView.setHintPrecision(btcPrecision);
+
 		final CurrencyAmountView localAmountView = (CurrencyAmountView) view.findViewById(R.id.send_coins_amount_local);
 		localAmountView.setHintPrecision(Constants.LOCAL_PRECISION);
 		amountCalculatorLink = new CurrencyCalculatorLink(btcAmountView, localAmountView);

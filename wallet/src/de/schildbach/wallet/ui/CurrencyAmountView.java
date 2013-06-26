@@ -128,8 +128,6 @@ public final class CurrencyAmountView extends FrameLayout
 		contextButton.setLayoutParams(chooseViewParams);
 		this.addView(contextButton);
 
-		setCurrencySymbol(Constants.CURRENCY_CODE_BITCOIN);
-
 		updateAppearance();
 	}
 
