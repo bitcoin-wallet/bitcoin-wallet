@@ -25,8 +25,10 @@ import android.app.AlertDialog;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.ContentObserver;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
@@ -158,6 +160,8 @@ public final class WalletAddressesFragment extends SherlockListFragment
 			{
 				final MenuInflater inflater = mode.getMenuInflater();
 				inflater.inflate(R.menu.wallet_addresses_context, menu);
+				menu.findItem(R.id.wallet_addresses_context_open_blockexplorer).setVisible(
+						prefs.getBoolean(Constants.PREFS_KEY_LABS_BLOCKEXPLORER_INTEGRATION, false));
 
 				return true;
 			}
@@ -209,6 +213,13 @@ public final class WalletAddressesFragment extends SherlockListFragment
 					case R.id.wallet_addresses_context_determine_creation_time:
 						final ECKey key = getKey(position);
 						handleDetermineCreationTime(key);
+
+						mode.finish();
+						return true;
+
+					case R.id.wallet_addresses_context_open_blockexplorer:
+						startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.BLOCKEXPLORER_BASE_URL + "address/"
+								+ getAddress(position).toString())));
 
 						mode.finish();
 						return true;

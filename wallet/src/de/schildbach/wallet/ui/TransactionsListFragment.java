@@ -29,10 +29,12 @@ import java.util.Set;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.database.ContentObserver;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
@@ -207,6 +209,8 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 				inflater.inflate(R.menu.wallet_transactions_context, menu);
 				menu.findItem(R.id.wallet_transactions_context_show_transaction).setVisible(
 						prefs.getBoolean(Constants.PREFS_KEY_LABS_TRANSACTION_DETAILS, false));
+				menu.findItem(R.id.wallet_transactions_context_open_blockexplorer).setVisible(
+						prefs.getBoolean(Constants.PREFS_KEY_LABS_BLOCKEXPLORER_INTEGRATION, false));
 
 				return true;
 			}
@@ -262,6 +266,12 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 
 					case R.id.wallet_transactions_context_show_transaction:
 						TransactionActivity.show(activity, tx);
+
+						mode.finish();
+						return true;
+
+					case R.id.wallet_transactions_context_open_blockexplorer:
+						startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.BLOCKEXPLORER_BASE_URL + "tx/" + tx.getHashAsString())));
 
 						mode.finish();
 						return true;

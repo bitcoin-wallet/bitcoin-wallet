@@ -40,12 +40,6 @@
 			android:summary="This is all unfinished stuff. Use at your own risk!"
 			android:title="Warning" />
 
-		<CheckBoxPreference
-			android:defaultValue="false"
-			android:key="labs_transactions_details"
-			android:summary="Click on transaction, open overflow menu, select Transaction details."
-			android:title="Transaction details" />
-
 		<ListPreference
 			android:defaultValue="4"
 			android:entries="@array/preferences_precision_labels"
@@ -59,6 +53,16 @@
 			android:key="disclaimer"
 			android:summary="Have you really read the safety notes? Did you already back up your private keys to a safe place?"
 			android:title="Show disclaimer" />
+		<CheckBoxPreference
+			android:defaultValue="false"
+			android:key="labs_blockexplorer_integration"
+			android:summary="Links to blockexplorer.com for blocks, transactions and addresses."
+			android:title="Integrate blockexplorer.com" />
+		<CheckBoxPreference
+			android:defaultValue="false"
+			android:key="labs_transactions_details"
+			android:summary="Click on transaction, open overflow menu, select Transaction details."
+			android:title="Transaction details" />
 	</PreferenceCategory>
 
 </PreferenceScreen>

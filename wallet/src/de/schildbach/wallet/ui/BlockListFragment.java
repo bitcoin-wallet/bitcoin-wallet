@@ -30,9 +30,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.preference.PreferenceManager;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.AsyncTaskLoader;
@@ -45,6 +47,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockListFragment;
+import com.actionbarsherlock.view.ActionMode;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
 import com.google.bitcoin.core.Block;
 import com.google.bitcoin.core.Sha256Hash;
 import com.google.bitcoin.core.StoredBlock;
@@ -66,6 +72,7 @@ public final class BlockListFragment extends SherlockListFragment
 	private AbstractWalletActivity activity;
 	private WalletApplication application;
 	private Wallet wallet;
+	private SharedPreferences prefs;
 	private LoaderManager loaderManager;
 
 	private BlockchainService service;
@@ -86,6 +93,7 @@ public final class BlockListFragment extends SherlockListFragment
 		this.activity = (AbstractWalletActivity) activity;
 		this.application = this.activity.getWalletApplication();
 		this.wallet = application.getWallet();
+		this.prefs = PreferenceManager.getDefaultSharedPreferences(activity);
 		this.loaderManager = getLoaderManager();
 	}
 
@@ -140,9 +148,46 @@ public final class BlockListFragment extends SherlockListFragment
 	public void onListItemClick(final ListView l, final View v, final int position, final long id)
 	{
 		final StoredBlock storedBlock = adapter.getItem(position);
-		final Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.BLOCKEXPLORER_BASE_URL + "block/"
-				+ storedBlock.getHeader().getHashAsString()));
-		startActivity(intent);
+
+		activity.startActionMode(new ActionMode.Callback()
+		{
+			public boolean onCreateActionMode(final ActionMode mode, final Menu menu)
+			{
+				final MenuInflater inflater = mode.getMenuInflater();
+				inflater.inflate(R.menu.blocks_context, menu);
+				menu.findItem(R.id.blocks_context_open_blockexplorer).setVisible(
+						prefs.getBoolean(Constants.PREFS_KEY_LABS_BLOCKEXPLORER_INTEGRATION, false));
+
+				return true;
+			}
+
+			public boolean onPrepareActionMode(final ActionMode mode, final Menu menu)
+			{
+				mode.setTitle(Integer.toString(storedBlock.getHeight()));
+				mode.setSubtitle(storedBlock.getHeader().getHashAsString());
+
+				return true;
+			}
+
+			public boolean onActionItemClicked(final ActionMode mode, final MenuItem item)
+			{
+				switch (item.getItemId())
+				{
+					case R.id.blocks_context_open_blockexplorer:
+						startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.BLOCKEXPLORER_BASE_URL + "block/"
+								+ storedBlock.getHeader().getHashAsString())));
+
+						mode.finish();
+						return true;
+				}
+
+				return false;
+			}
+
+			public void onDestroyActionMode(final ActionMode mode)
+			{
+			}
+		});
 	}
 
 	private final ServiceConnection serviceConnection = new ServiceConnection()
