@@ -120,8 +120,7 @@ public final class SendCoinsFragment extends SherlockFragment
 
 	private MenuItem scanAction;
 
-	private Address validatedAddress = null;
-	private String receivingLabel = null;
+	private AddressAndLabel validatedAddress = null;
 	private boolean isValidAmounts = false;
 	private State state = State.INPUT;
 	private Transaction sentTransaction = null;
@@ -159,8 +158,6 @@ public final class SendCoinsFragment extends SherlockFragment
 		public void afterTextChanged(final Editable s)
 		{
 			dismissPopup();
-
-			receivingLabel = null;
 
 			validateReceivingAddress(false);
 		}
@@ -283,13 +280,7 @@ public final class SendCoinsFragment extends SherlockFragment
 		{
 			state = (State) savedInstanceState.getSerializable("state");
 
-			if (savedInstanceState.containsKey("validated_address_bytes"))
-				validatedAddress = new Address((NetworkParameters) savedInstanceState.getSerializable("validated_address_params"),
-						savedInstanceState.getByteArray("validated_address_bytes"));
-			else
-				validatedAddress = null;
-
-			receivingLabel = savedInstanceState.getString("receiving_label");
+			validatedAddress = savedInstanceState.getParcelable("validated_address");
 
 			isValidAmounts = savedInstanceState.getBoolean("is_valid_amounts");
 
@@ -375,14 +366,13 @@ public final class SendCoinsFragment extends SherlockFragment
 
 						private void handleEditAddress()
 						{
-							EditAddressBookEntryFragment.edit(getFragmentManager(), validatedAddress.toString());
+							EditAddressBookEntryFragment.edit(getFragmentManager(), validatedAddress.address.toString());
 						}
 
 						private void handleClear()
 						{
 							// switch from static to input
 							validatedAddress = null;
-							receivingLabel = null;
 							receivingAddressView.setText(null);
 							receivingStaticAddressView.setText(null);
 
@@ -483,13 +473,11 @@ public final class SendCoinsFragment extends SherlockFragment
 		super.onSaveInstanceState(outState);
 
 		outState.putSerializable("state", state);
+
 		if (validatedAddress != null)
-		{
-			outState.putSerializable("validated_address_params", validatedAddress.getParameters());
-			outState.putByteArray("validated_address_bytes", validatedAddress.getHash160());
-			outState.putBoolean("is_valid_amounts", isValidAmounts);
-		}
-		outState.putString("receiving_label", receivingLabel);
+			outState.putParcelable("validated_address", validatedAddress);
+
+		outState.putBoolean("is_valid_amounts", isValidAmounts);
 
 		if (sentTransaction != null)
 			outState.putSerializable("sent_transaction_hash", sentTransaction.getHash());
@@ -585,7 +573,9 @@ public final class SendCoinsFragment extends SherlockFragment
 				else
 				{
 					// valid address
-					validatedAddress = new Address(Constants.NETWORK_PARAMETERS, addressStr);
+					final String label = AddressBookProvider.resolveLabel(activity, addressStr);
+					validatedAddress = new AddressAndLabel(Constants.NETWORK_PARAMETERS, addressStr, label);
+					receivingAddressView.setText(null);
 				}
 			}
 			else
@@ -698,7 +688,7 @@ public final class SendCoinsFragment extends SherlockFragment
 		updateView();
 
 		// create spend
-		final SendRequest sendRequest = SendRequest.to(validatedAddress, amountCalculatorLink.getAmount());
+		final SendRequest sendRequest = SendRequest.to(validatedAddress.address, amountCalculatorLink.getAmount());
 		sendRequest.changeAddress = pickOldestKey(wallet.getKeys()).toAddress(Constants.NETWORK_PARAMETERS);
 
 		backgroundHandler.post(new Runnable()
@@ -793,12 +783,10 @@ public final class SendCoinsFragment extends SherlockFragment
 			receivingAddressView.setVisibility(View.GONE);
 
 			receivingStaticView.setVisibility(View.VISIBLE);
-			receivingStaticAddressView.setText(WalletUtils.formatAddress(validatedAddress, Constants.ADDRESS_FORMAT_GROUP_SIZE,
+			receivingStaticAddressView.setText(WalletUtils.formatAddress(validatedAddress.address, Constants.ADDRESS_FORMAT_GROUP_SIZE,
 					Constants.ADDRESS_FORMAT_LINE_SIZE));
-			final String label = AddressBookProvider.resolveLabel(activity, validatedAddress.toString());
-			receivingStaticLabelView.setText(label != null ? label
-					: (receivingLabel != null ? receivingLabel : getString(R.string.address_unlabeled)));
-			receivingStaticLabelView.setTextColor(label != null ? R.color.fg_significant : R.color.fg_insignificant);
+			receivingStaticLabelView.setText(validatedAddress.label != null ? validatedAddress.label : getString(R.string.address_unlabeled));
+			receivingStaticLabelView.setTextColor(validatedAddress.label != null ? R.color.fg_significant : R.color.fg_insignificant);
 		}
 		else
 		{
@@ -867,12 +855,13 @@ public final class SendCoinsFragment extends SherlockFragment
 	{
 		try
 		{
-			validatedAddress = new Address(Constants.NETWORK_PARAMETERS, receivingAddress);
-			this.receivingLabel = receivingLabel;
+			validatedAddress = new AddressAndLabel(Constants.NETWORK_PARAMETERS, receivingAddress, receivingLabel);
+			receivingAddressView.setText(null);
 		}
 		catch (final Exception x)
 		{
 			receivingAddressView.setText(receivingAddress);
+			validatedAddress = null;
 			x.printStackTrace();
 		}
 
