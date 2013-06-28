@@ -374,6 +374,15 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 				Log.d(TAG, "acquiring wakelock");
 				wakeLock.acquire();
 
+				// consistency check
+				if (wallet.getLastBlockSeenHeight() != blockChain.getBestChainHeight())
+				{
+					final String message = "wallet/blockchain out of sync: " + wallet.getLastBlockSeenHeight() + "/"
+							+ blockChain.getBestChainHeight();
+					Log.e(TAG, message);
+					CrashReporter.saveBackgroundTrace(new RuntimeException(message));
+				}
+
 				Log.i(TAG, "starting peergroup");
 				peerGroup = new PeerGroup(Constants.NETWORK_PARAMETERS, blockChain);
 				peerGroup.addWallet(wallet);
