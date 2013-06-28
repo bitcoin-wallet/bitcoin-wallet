@@ -479,13 +479,13 @@ public final class WalletActivity extends AbstractWalletActivity
 				final String versionName = getWalletApplication().applicationVersionName();
 				final int versionNameSplit = versionName.indexOf('-');
 				final String base = Constants.VERSION_URL + (versionNameSplit >= 0 ? versionName.substring(versionNameSplit) : "");
+				final String url = base + "?current=" + versionCode;
 
 				HttpURLConnection connection = null;
 
 				try
 				{
-					final URL url = new URL(base + "?current=" + versionCode);
-					connection = (HttpURLConnection) url.openConnection();
+					connection = (HttpURLConnection) new URL(url).openConnection();
 
 					if (connection instanceof HttpsURLConnection)
 					{
@@ -560,7 +560,7 @@ public final class WalletActivity extends AbstractWalletActivity
 				}
 				catch (final Exception x)
 				{
-					CrashReporter.saveBackgroundTrace(x);
+					CrashReporter.saveBackgroundTrace(new RuntimeException(url, x));
 				}
 				finally
 				{
