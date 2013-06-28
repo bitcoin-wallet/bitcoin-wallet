@@ -203,6 +203,7 @@ public class CrashReporter
 			report.append("Transactions: " + transactions.size() + "\n");
 			report.append("Inputs: " + numInputs + "\n");
 			report.append("Outputs: " + numOutputs + " (spent: " + numSpentOutputs + ")\n");
+			report.append("Last block seen: " + wallet.getLastBlockSeenHeight() + " (" + wallet.getLastBlockSeenHash() + ")\n");
 
 			report.append("Databases:");
 			for (final String db : application.databaseList())
