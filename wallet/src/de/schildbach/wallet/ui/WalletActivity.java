@@ -30,6 +30,7 @@ import java.io.StringWriter;
 import java.io.Writer;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.UnknownHostException;
 import java.security.KeyStore;
 import java.text.DateFormat;
 import java.util.Collections;
@@ -551,6 +552,11 @@ public final class WalletActivity extends AbstractWalletActivity
 							return;
 						}
 					}
+				}
+				catch (final UnknownHostException x)
+				{
+					// swallow
+					x.printStackTrace();
 				}
 				catch (final Exception x)
 				{
