@@ -29,6 +29,15 @@
 		android:layout_marginRight="8dp"
 		android:textSize="@dimen/font_size_normal" />
 
+	<ImageView
+		android:id="@+id/transaction_row_coinbase"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginRight="6dp"
+		android:baselineAlignBottom="true"
+		android:src="@drawable/coinbase"
+		android:visibility="gone" />
+
 	<TextView
 		android:id="@+id/transaction_row_address"
 		android:layout_width="0px"

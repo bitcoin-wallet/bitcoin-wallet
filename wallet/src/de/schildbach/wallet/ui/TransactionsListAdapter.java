@@ -215,6 +215,7 @@ public class TransactionsListAdapter extends BaseAdapter
 		final TransactionConfidence confidence = tx.getConfidence();
 		final ConfidenceType confidenceType = confidence.getConfidenceType();
 		final boolean isOwn = confidence.getSource().equals(TransactionConfidence.Source.SELF);
+		final boolean isCoinBase = tx.isCoinBase();
 
 		try
 		{
@@ -242,7 +243,7 @@ public class TransactionsListAdapter extends BaseAdapter
 				rowConfidenceTextual.setVisibility(View.GONE);
 
 				rowConfidenceCircular.setProgress(confidence.getDepthInBlocks());
-				rowConfidenceCircular.setMaxProgress(tx.isCoinBase() ? Constants.NETWORK_PARAMETERS.getSpendableCoinbaseDepth()
+				rowConfidenceCircular.setMaxProgress(isCoinBase ? Constants.NETWORK_PARAMETERS.getSpendableCoinbaseDepth()
 						: Constants.MAX_NUM_CONFIRMATIONS);
 				rowConfidenceCircular.setSize(1);
 				rowConfidenceCircular.setMaxSize(1);
@@ -286,11 +287,15 @@ public class TransactionsListAdapter extends BaseAdapter
 			rowFromTo.setText(sent ? R.string.symbol_to : R.string.symbol_from);
 			rowFromTo.setTextColor(textColor);
 
+			// coinbase
+			final View rowCoinbase = row.findViewById(R.id.transaction_row_coinbase);
+			rowCoinbase.setVisibility(isCoinBase ? View.VISIBLE : View.GONE);
+
 			// address
 			final TextView rowAddress = (TextView) row.findViewById(R.id.transaction_row_address);
 			final Address address = sent ? WalletUtils.getToAddress(tx) : WalletUtils.getFromAddress(tx);
 			final String label;
-			if (tx.isCoinBase())
+			if (isCoinBase)
 				label = textCoinBase;
 			else if (address != null)
 				label = resolveLabel(address.toString());
