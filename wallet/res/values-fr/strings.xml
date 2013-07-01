@@ -69,7 +69,6 @@
 	<string name="send_coins_sent_msg">Envoyé&#x202F;!</string>
 	<string name="send_coins_failed_msg">Échec&#x202F;!</string>
 	<string name="send_coins_error_msg">Problème durant l\'envoi&#x202F;!</string>
-	<string name="send_coins_options_scan_title">Analyser</string>
 	<string name="send_coins_address_context_clear_title">Entrer une nouvelle adresse</string>
 	<string name="request_coins_activity_title">Demander des Bitcoins</string>
 	<string name="request_coins_fragment_address_label">Adresse pour la requête</string>
@@ -212,6 +211,7 @@
 	<string name="button_request_coins">Demander des bitcoins</string>
 	<string name="button_send_coins">Envoyer des bitcoins</string>
 	<string name="button_edit_address">Ajouter/éditer une adresse</string>
+	<string name="button_scan">Analyser</string>
 	<string name="time_today">aujourd\'hui</string>
 	<string name="address_unlabeled">(sans étiquette)</string>
 

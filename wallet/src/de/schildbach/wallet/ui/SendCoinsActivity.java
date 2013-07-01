@@ -19,6 +19,8 @@ package de.schildbach.wallet.ui;
 
 import java.math.BigInteger;
 
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -28,6 +30,7 @@ import android.os.Bundle;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
+import com.google.bitcoin.core.Address;
 import com.google.bitcoin.uri.BitcoinURI;
 import com.google.bitcoin.uri.BitcoinURIParseException;
 
@@ -49,6 +52,34 @@ public final class SendCoinsActivity extends AbstractWalletActivity
 		intent.putExtra(INTENT_EXTRA_ADDRESS_LABEL, addressLabel);
 		intent.putExtra(INTENT_EXTRA_AMOUNT, amount);
 		context.startActivity(intent);
+	}
+
+	public static void start(final Context context, final String uri)
+	{
+		if (uri.matches("[a-zA-Z0-9]*"))
+		{
+			start(context, uri, null, null);
+		}
+		else
+		{
+			try
+			{
+				final BitcoinURI bitcoinUri = new BitcoinURI(null, uri);
+				final Address address = bitcoinUri.getAddress();
+				final String addressLabel = bitcoinUri.getLabel();
+				final BigInteger amount = bitcoinUri.getAmount();
+
+				start(context, address != null ? address.toString() : null, addressLabel, amount);
+			}
+			catch (final BitcoinURIParseException x)
+			{
+				final Builder dialog = new AlertDialog.Builder(context);
+				dialog.setTitle(R.string.send_coins_uri_parse_error_title);
+				dialog.setMessage(uri);
+				dialog.setNeutralButton(R.string.button_dismiss, null);
+				dialog.show();
+			}
+		}
 	}
 
 	@Override

@@ -16,6 +16,12 @@
 		android:titleCondensed="@string/button_send_coins"
 		android:visible="@bool/wallet_actions_top"/>
 	<item
+		android:id="@+id/wallet_options_scan"
+		android:icon="@drawable/ic_action_camera"
+		android:showAsAction="always|withText"
+		android:title="@string/button_scan"
+		android:visible="@bool/wallet_actions_top"/>
+	<item
 		android:id="@+id/wallet_options_address_book"
 		android:icon="@drawable/ic_action_labels"
 		android:showAsAction="ifRoom|withText"

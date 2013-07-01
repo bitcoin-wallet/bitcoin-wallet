@@ -54,7 +54,6 @@
 	<string name="send_coins_sending_msg">Gönderiliyor…</string>
 	<string name="send_coins_sent_msg">Gönderildi!</string>
 	<string name="send_coins_error_msg">Bitcoin gönderimi sırasında problem oluştu!</string>
-	<string name="send_coins_options_scan_title">Tara</string>
 	<string name="send_coins_address_context_clear_title">Yeni adres gir</string>
 	<string name="request_coins_activity_title">Bitcoin talebi</string>
 	<string name="request_coins_fragment_address_label">Talep için kullanılacak adres</string>
@@ -126,6 +125,7 @@
 	<string name="button_request_coins">Bitcoin talep et</string>
 	<string name="button_send_coins">Bitcoin gönder</string>
 	<string name="button_edit_address">Adres ilâve et/düzenle</string>
+	<string name="button_scan">Tara</string>
 	<string name="time_today">bugün</string>
 	<string name="address_unlabeled">(etiketsiz)</string>
 

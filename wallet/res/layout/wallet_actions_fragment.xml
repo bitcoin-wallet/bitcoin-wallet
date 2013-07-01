@@ -43,6 +43,13 @@
 			android:textColor="@android:color/white"
 			android:textSize="@dimen/font_size_tiny"
 			android:textStyle="bold" />
+
+		<ImageButton
+			android:id="@+id/wallet_actions_send_qr"
+			style="@style/My.Widget.Button.Borderless"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:src="@drawable/ic_action_camera" />
 	</LinearLayout>
 
 	<TextView

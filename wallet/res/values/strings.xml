@@ -69,7 +69,6 @@
 	<string name="send_coins_sent_msg">Sent!</string>
 	<string name="send_coins_failed_msg">Failed!</string>
 	<string name="send_coins_error_msg">Problem sending coins!</string>
-	<string name="send_coins_options_scan_title">Scan</string>
 	<string name="send_coins_address_context_clear_title">Enter new address</string>
 	<string name="request_coins_activity_title">Request Bitcoins</string>
 	<string name="request_coins_fragment_address_label">Address to request to</string>
@@ -211,6 +210,7 @@
 	<string name="button_set_as_default">Set as default</string>
 	<string name="button_request_coins">Request coins</string>
 	<string name="button_send_coins">Send coins</string>
+	<string name="button_scan">Scan</string>
 	<string name="button_edit_address">Add/edit address</string>
 	<string name="time_today">today</string>
 	<string name="address_unlabeled">(unlabeled)</string>

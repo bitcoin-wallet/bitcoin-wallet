@@ -75,7 +75,6 @@
 	<string name="send_coins_sent_msg">Versendet!</string>
 	<string name="send_coins_failed_msg">Fehlgeschlagen!</string>
 	<string name="send_coins_error_msg">Problem beim Versenden der Bitcoins!</string>
-	<string name="send_coins_options_scan_title">Scannen</string>
 	<string name="send_coins_address_context_clear_title">Adresse neu eingeben</string>
 
 	<string name="request_coins_activity_title">Bitcoins anfordern</string>
@@ -230,6 +229,7 @@
 	<string name="button_set_as_default">Als Standard setzen</string>
 	<string name="button_request_coins">BTC anfordern</string>
 	<string name="button_send_coins">BTC senden</string>
+	<string name="button_scan">Scannen</string>
 	<string name="button_edit_address">Adresse hinzufügen/ändern</string>
 
 	<string name="time_today">heute</string>

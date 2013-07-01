@@ -44,6 +44,7 @@ import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManagerFactory;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -93,6 +94,8 @@ public final class WalletActivity extends AbstractWalletActivity
 	private Wallet wallet;
 	private SharedPreferences prefs;
 
+	private static final int REQUEST_CODE_SCAN = 0;
+
 	private static final String TAG = WalletActivity.class.getSimpleName();
 
 	@Override
@@ -120,6 +123,13 @@ public final class WalletActivity extends AbstractWalletActivity
 		getWalletApplication().startBlockchainService(true);
 
 		checkLowStorageAlert();
+	}
+
+	@Override
+	public void onActivityResult(final int requestCode, final int resultCode, final Intent intent)
+	{
+		if (requestCode == REQUEST_CODE_SCAN && resultCode == Activity.RESULT_OK)
+			SendCoinsActivity.start(this, intent.getStringExtra(ScanActivity.INTENT_EXTRA_RESULT));
 	}
 
 	@Override
@@ -156,11 +166,15 @@ public final class WalletActivity extends AbstractWalletActivity
 		switch (item.getItemId())
 		{
 			case R.id.wallet_options_request:
-				startActivity(new Intent(this, RequestCoinsActivity.class));
+				handleRequestCoins();
 				return true;
 
 			case R.id.wallet_options_send:
-				startActivity(new Intent(this, SendCoinsActivity.class));
+				handleSendCoins();
+				return true;
+
+			case R.id.wallet_options_scan:
+				handleScan();
 				return true;
 
 			case R.id.wallet_options_address_book:
@@ -209,6 +223,21 @@ public final class WalletActivity extends AbstractWalletActivity
 		}
 
 		return super.onOptionsItemSelected(item);
+	}
+
+	public void handleRequestCoins()
+	{
+		startActivity(new Intent(this, RequestCoinsActivity.class));
+	}
+
+	public void handleSendCoins()
+	{
+		startActivity(new Intent(this, SendCoinsActivity.class));
+	}
+
+	public void handleScan()
+	{
+		startActivityForResult(new Intent(this, ScanActivity.class), REQUEST_CODE_SCAN);
 	}
 
 	public void handleExportKeys()

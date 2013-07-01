@@ -54,7 +54,6 @@
 	<string name="send_coins_sending_msg">Skickar…</string>
 	<string name="send_coins_sent_msg">Skickat!</string>
 	<string name="send_coins_error_msg">Problem att skicka Bitcoins!</string>
-	<string name="send_coins_options_scan_title">Skanna</string>
 	<string name="send_coins_address_context_clear_title">Ange ny adress</string>
 	<string name="request_coins_activity_title">Ta emot Bitcoins</string>
 	<string name="request_coins_fragment_address_label">Adress att begära till</string>
@@ -126,6 +125,7 @@
 	<string name="button_request_coins">Ta emot Bitcoins</string>
 	<string name="button_send_coins">Skicka Bitcoins</string>
 	<string name="button_edit_address">Lägg till/ändra etikett</string>
+	<string name="button_scan">Skanna</string>
 	<string name="time_today">idag</string>
 	<string name="address_unlabeled">(saknar etikett)</string>
 

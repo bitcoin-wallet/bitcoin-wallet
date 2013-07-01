@@ -18,7 +18,6 @@
 package de.schildbach.wallet.ui;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
@@ -29,7 +28,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet_test.R;
@@ -39,7 +37,7 @@ import de.schildbach.wallet_test.R;
  */
 public final class WalletActionsFragment extends Fragment implements OnSharedPreferenceChangeListener
 {
-	private Activity activity;
+	private WalletActivity activity;
 	private SharedPreferences prefs;
 
 	private View actionsView;
@@ -50,7 +48,7 @@ public final class WalletActionsFragment extends Fragment implements OnSharedPre
 	{
 		super.onAttach(activity);
 
-		this.activity = activity;
+		this.activity = (WalletActivity) activity;
 		prefs = PreferenceManager.getDefaultSharedPreferences(activity);
 	}
 
@@ -71,21 +69,30 @@ public final class WalletActionsFragment extends Fragment implements OnSharedPre
 			}
 		});
 
-		final Button requestButton = (Button) view.findViewById(R.id.wallet_actions_request);
+		final View requestButton = view.findViewById(R.id.wallet_actions_request);
 		requestButton.setOnClickListener(new OnClickListener()
 		{
 			public void onClick(final View v)
 			{
-				startActivity(new Intent(activity, RequestCoinsActivity.class));
+				activity.handleRequestCoins();
 			}
 		});
 
-		final Button sendButton = (Button) view.findViewById(R.id.wallet_actions_send);
+		final View sendButton = view.findViewById(R.id.wallet_actions_send);
 		sendButton.setOnClickListener(new OnClickListener()
 		{
 			public void onClick(final View v)
 			{
-				startActivity(new Intent(activity, SendCoinsActivity.class));
+				activity.handleSendCoins();
+			}
+		});
+
+		final View sendQrButton = view.findViewById(R.id.wallet_actions_send_qr);
+		sendQrButton.setOnClickListener(new OnClickListener()
+		{
+			public void onClick(final View v)
+			{
+				activity.handleScan();
 			}
 		});
 
