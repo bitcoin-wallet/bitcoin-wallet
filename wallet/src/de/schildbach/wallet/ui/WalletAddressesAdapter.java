@@ -18,6 +18,8 @@
 package de.schildbach.wallet.ui;
 
 import java.text.DateFormat;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -46,11 +48,11 @@ public class WalletAddressesAdapter extends BaseAdapter
 	private final int colorLessSignificant;
 	private final LayoutInflater inflater;
 
-	private final List<ECKey> keys;
+	private final List<ECKey> keys = new ArrayList<ECKey>();
 	private final boolean showKeyCreationTime;
 	private String selectedAddress = null;
 
-	public WalletAddressesAdapter(final Context context, final List<ECKey> keys, final boolean showKeyCreationTime)
+	public WalletAddressesAdapter(final Context context, final boolean showKeyCreationTime)
 	{
 		final Resources res = context.getResources();
 
@@ -60,8 +62,15 @@ public class WalletAddressesAdapter extends BaseAdapter
 		colorLessSignificant = res.getColor(R.color.fg_less_significant);
 		inflater = LayoutInflater.from(context);
 
-		this.keys = keys;
 		this.showKeyCreationTime = showKeyCreationTime;
+	}
+
+	public void replace(final Collection<ECKey> keys)
+	{
+		this.keys.clear();
+		this.keys.addAll(keys);
+
+		notifyDataSetChanged();
 	}
 
 	public void setSelectedAddress(final String selectedAddress)
@@ -84,6 +93,12 @@ public class WalletAddressesAdapter extends BaseAdapter
 	public long getItemId(final int position)
 	{
 		return keys.get(position).hashCode();
+	}
+
+	@Override
+	public boolean hasStableIds()
+	{
+		return true;
 	}
 
 	public View getView(final int position, View row, final ViewGroup parent)

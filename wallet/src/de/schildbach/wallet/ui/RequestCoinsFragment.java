@@ -159,7 +159,8 @@ public final class RequestCoinsFragment extends SherlockFragment
 
 		addressView = (Spinner) view.findViewById(R.id.request_coins_fragment_address);
 		final List<ECKey> keys = application.getWallet().getKeys();
-		final WalletAddressesAdapter adapter = new WalletAddressesAdapter(activity, keys, false);
+		final WalletAddressesAdapter adapter = new WalletAddressesAdapter(activity, false);
+		adapter.replace(keys);
 		addressView.setAdapter(adapter);
 		final Address selectedAddress = application.determineSelectedAddress();
 		for (int i = 0; i < keys.size(); i++)
