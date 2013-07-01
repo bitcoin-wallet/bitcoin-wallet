@@ -19,6 +19,7 @@ package de.schildbach.wallet.ui;
 
 import java.math.BigInteger;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.nfc.NfcAdapter;
@@ -37,8 +38,18 @@ import de.schildbach.wallet_test.R;
  */
 public final class SendCoinsActivity extends AbstractWalletActivity
 {
-	public static final String INTENT_EXTRA_ADDRESS = "address";
-	public static final String INTENT_EXTRA_ADDRESS_LABEL = "address_label";
+	private static final String INTENT_EXTRA_ADDRESS = "address";
+	private static final String INTENT_EXTRA_ADDRESS_LABEL = "address_label";
+	private static final String INTENT_EXTRA_AMOUNT = "amount";
+
+	public static void start(final Context context, final String address, final String addressLabel, final BigInteger amount)
+	{
+		final Intent intent = new Intent(context, SendCoinsActivity.class);
+		intent.putExtra(INTENT_EXTRA_ADDRESS, address);
+		intent.putExtra(INTENT_EXTRA_ADDRESS_LABEL, addressLabel);
+		intent.putExtra(INTENT_EXTRA_AMOUNT, amount);
+		context.startActivity(intent);
+	}
 
 	@Override
 	protected void onCreate(final Bundle savedInstanceState)
@@ -115,7 +126,7 @@ public final class SendCoinsActivity extends AbstractWalletActivity
 		{
 			address = intent.getStringExtra(INTENT_EXTRA_ADDRESS);
 			addressLabel = intent.getStringExtra(INTENT_EXTRA_ADDRESS_LABEL);
-			amount = null;
+			amount = (BigInteger) intent.getSerializableExtra(INTENT_EXTRA_AMOUNT);
 		}
 		else
 		{

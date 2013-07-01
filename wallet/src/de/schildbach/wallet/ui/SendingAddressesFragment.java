@@ -292,9 +292,7 @@ public final class SendingAddressesFragment extends SherlockListFragment impleme
 
 	private void handleSend(final String address)
 	{
-		final Intent intent = new Intent(activity, SendCoinsActivity.class);
-		intent.putExtra(SendCoinsActivity.INTENT_EXTRA_ADDRESS, address);
-		startActivity(intent);
+		SendCoinsActivity.start(activity, address, null, null);
 	}
 
 	private void handleRemove(final String address)
