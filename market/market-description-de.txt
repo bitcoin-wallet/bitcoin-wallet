@@ -7,7 +7,6 @@ FEATURES:
 • Senden und Empfangen von Bitcoin via NFC, QR-Codes oder Bitcoin URLs.
 • Adressbuch für regelmäßig genutzte Empfänger.
 • Offline-Unterstützung, Transaktionen werden dann ausgeführt, wenn das Gerät wieder online ist.
-• Verwaltet die Blockchain auf Deinem Gerät (für mehr Sicherheit).
 • System-Benachrichtigungen für Bitcoin-Konnektivität und Empfang von Zahlungen.
 • App-Widget zeigt Bitcoin-Guthaben an.
 

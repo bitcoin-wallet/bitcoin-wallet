@@ -7,7 +7,6 @@ FONCTIONS:
 • Envoyer et recevoir des Bitcoins via NFC, QR-codes ou Bitcoin URLs.
 • Carnet d'adresses pour les adresses Bitcoin fréquemment utilisées.
 • Saisir des transactions offline, les exécuter online.
-• Gérer la blockchain sur votre appareil (pour une sécurité augmentée).
 • Notifications système pour la connectivité Bitcoin et la réception des bitcoins.
 • App widget pour le solde du compte Bitcoin.
 
