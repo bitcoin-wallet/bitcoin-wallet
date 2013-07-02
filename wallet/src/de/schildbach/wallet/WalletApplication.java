@@ -31,6 +31,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
+import org.slf4j.LoggerFactory;
+
 import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
@@ -42,6 +44,14 @@ import android.preference.PreferenceManager;
 import android.text.format.DateUtils;
 import android.util.Log;
 import android.widget.Toast;
+import ch.qos.logback.classic.Level;
+import ch.qos.logback.classic.Logger;
+import ch.qos.logback.classic.LoggerContext;
+import ch.qos.logback.classic.android.LogcatAppender;
+import ch.qos.logback.classic.encoder.PatternLayoutEncoder;
+import ch.qos.logback.classic.spi.ILoggingEvent;
+import ch.qos.logback.core.rolling.RollingFileAppender;
+import ch.qos.logback.core.rolling.TimeBasedRollingPolicy;
 
 import com.google.bitcoin.core.Address;
 import com.google.bitcoin.core.ECKey;
@@ -74,6 +84,8 @@ public class WalletApplication extends Application
 	@Override
 	public void onCreate()
 	{
+		initLogging();
+
 		final StrictMode.ThreadPolicy.Builder threadPolicy = new StrictMode.ThreadPolicy.Builder().detectAll().permitDiskReads().permitDiskWrites()
 				.penaltyLog();
 		final StrictMode.VmPolicy.Builder vmPolicy = new StrictMode.VmPolicy.Builder().detectAll().penaltyLog();
@@ -113,6 +125,55 @@ public class WalletApplication extends Application
 				new File(getFilesDir(), filename).delete();
 
 		wallet.autosaveToFile(walletFile, 1, TimeUnit.SECONDS, new WalletAutosaveEventListener());
+	}
+
+	private void initLogging()
+	{
+		final File logDir = getDir("log", Constants.TEST ? Context.MODE_WORLD_READABLE : MODE_PRIVATE);
+		final File logFile = new File(logDir, "wallet.log");
+
+		final LoggerContext context = (LoggerContext) LoggerFactory.getILoggerFactory();
+
+		final PatternLayoutEncoder filePattern = new PatternLayoutEncoder();
+		filePattern.setContext(context);
+		filePattern.setPattern("%d{HH:mm:ss.SSS} [%thread] %logger{0} - %msg%n");
+		filePattern.start();
+
+		final RollingFileAppender<ILoggingEvent> fileAppender = new RollingFileAppender<ILoggingEvent>();
+		fileAppender.setContext(context);
+		fileAppender.setFile(logFile.getAbsolutePath());
+
+		final TimeBasedRollingPolicy<ILoggingEvent> rollingPolicy = new TimeBasedRollingPolicy<ILoggingEvent>();
+		rollingPolicy.setContext(context);
+		rollingPolicy.setParent(fileAppender);
+		rollingPolicy.setFileNamePattern(logDir.getAbsolutePath() + "/wallet.%d.log.gz");
+		rollingPolicy.setMaxHistory(7);
+		rollingPolicy.start();
+
+		fileAppender.setEncoder(filePattern);
+		fileAppender.setRollingPolicy(rollingPolicy);
+		fileAppender.start();
+
+		final PatternLayoutEncoder logcatTagPattern = new PatternLayoutEncoder();
+		logcatTagPattern.setContext(context);
+		logcatTagPattern.setPattern("%logger{0}");
+		logcatTagPattern.start();
+
+		final PatternLayoutEncoder logcatPattern = new PatternLayoutEncoder();
+		logcatPattern.setContext(context);
+		logcatPattern.setPattern("[%thread] %msg%n");
+		logcatPattern.start();
+
+		final LogcatAppender logcatAppender = new LogcatAppender();
+		logcatAppender.setContext(context);
+		logcatAppender.setTagEncoder(logcatTagPattern);
+		logcatAppender.setEncoder(logcatPattern);
+		logcatAppender.start();
+
+		final Logger log = context.getLogger(Logger.ROOT_LOGGER_NAME);
+		log.addAppender(fileAppender);
+		log.addAppender(logcatAppender);
+		log.setLevel(Level.INFO);
 	}
 
 	private static final class WalletAutosaveEventListener implements AutosaveEventListener

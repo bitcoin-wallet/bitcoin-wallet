@@ -74,14 +74,21 @@
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
-			<version>1.6.2</version>
+			<version>1.7.5</version>
 		</dependency>
 
-		<!-- org.slf4j.impl.* -->
+		<!-- ch.qos.logback.classic.* -->
 		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-simple</artifactId>
-			<version>1.6.2</version>
+			<groupId>com.github.tony19</groupId>
+			<artifactId>logback-android-classic</artifactId>
+			<version>1.0.10-2</version>
+		</dependency>
+
+		<!-- ch.qos.logback.core.* -->
+		<dependency>
+			<groupId>com.github.tony19</groupId>
+			<artifactId>logback-android-core</artifactId>
+			<version>1.0.10-2</version>
 		</dependency>
 
 		<!-- org.junit.* -->

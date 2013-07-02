@@ -57,6 +57,18 @@
 			android:textSize="@dimen/font_size_normal" />
 
 		<CheckBox
+			android:id="@+id/report_issue_dialog_collect_extended_application_log"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginBottom="@dimen/list_entry_padding_vertical"
+			android:layout_marginLeft="@dimen/list_entry_padding_horizontal"
+			android:layout_marginRight="@dimen/list_entry_padding_horizontal"
+			android:layout_marginTop="@dimen/list_entry_padding_vertical"
+			android:checked="false"
+			android:text="@string/report_issue_dialog_collect_extended_application_log"
+			android:textSize="@dimen/font_size_normal" />
+
+		<CheckBox
 			android:id="@+id/report_issue_dialog_collect_wallet_dump"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"

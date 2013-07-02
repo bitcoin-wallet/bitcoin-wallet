@@ -216,6 +216,9 @@ public class CrashReporter
 			final File cacheDir = application.getCacheDir();
 			report.append("\nContents of CacheDir " + cacheDir + ":\n");
 			appendDir(report, cacheDir, 0);
+			final File logDir = application.getDir("log", Context.MODE_PRIVATE);
+			report.append("\nContents of LogDir " + logDir + ":\n");
+			appendDir(report, logDir, 0);
 		}
 		catch (final NameNotFoundException x)
 		{

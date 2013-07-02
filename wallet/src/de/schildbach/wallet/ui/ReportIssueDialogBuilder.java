@@ -18,8 +18,12 @@
 package de.schildbach.wallet.ui;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 
 import android.app.AlertDialog;
@@ -36,6 +40,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.util.CrashReporter;
+import de.schildbach.wallet.util.IOUtils;
 import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
 
@@ -49,6 +54,7 @@ public abstract class ReportIssueDialogBuilder extends AlertDialog.Builder imple
 	private EditText viewDescription;
 	private CheckBox viewCollectDeviceInfo;
 	private CheckBox viewCollectApplicationLog;
+	private CheckBox viewCollectExtendedApplicationLog;
 	private CheckBox viewCollectWalletDump;
 
 	public ReportIssueDialogBuilder(final Context context, final int titleResId, final int messageResId)
@@ -67,6 +73,7 @@ public abstract class ReportIssueDialogBuilder extends AlertDialog.Builder imple
 		viewCollectDeviceInfo = (CheckBox) view.findViewById(R.id.report_issue_dialog_collect_device_info);
 		viewCollectApplicationLog = (CheckBox) view.findViewById(R.id.report_issue_dialog_collect_application_log);
 		viewCollectApplicationLog.setVisibility(Build.VERSION.SDK_INT >= Constants.SDK_JELLY_BEAN ? View.VISIBLE : View.GONE);
+		viewCollectExtendedApplicationLog = (CheckBox) view.findViewById(R.id.report_issue_dialog_collect_extended_application_log);
 		viewCollectWalletDump = (CheckBox) view.findViewById(R.id.report_issue_dialog_collect_wallet_dump);
 
 		setInverseBackgroundForced(true);
@@ -80,6 +87,7 @@ public abstract class ReportIssueDialogBuilder extends AlertDialog.Builder imple
 	{
 		final StringBuilder text = new StringBuilder();
 		final ArrayList<Uri> attachments = new ArrayList<Uri>();
+		final File cacheDir = context.getCacheDir();
 
 		text.append(viewDescription.getText()).append('\n');
 
@@ -136,11 +144,39 @@ public abstract class ReportIssueDialogBuilder extends AlertDialog.Builder imple
 
 				if (applicationLog != null)
 				{
-					final File file = File.createTempFile("application-log", null, context.getCacheDir());
+					final File file = File.createTempFile("application-log", null, cacheDir);
 
 					final FileWriter writer = new FileWriter(file);
 					writer.write(applicationLog.toString());
 					writer.close();
+
+					WalletUtils.chmod(file, 0777);
+
+					attachments.add(Uri.fromFile(file));
+				}
+			}
+			catch (final IOException x)
+			{
+				x.printStackTrace();
+			}
+		}
+
+		if (viewCollectExtendedApplicationLog.isChecked())
+		{
+			try
+			{
+				final File logDir = context.getDir("log", Context.MODE_PRIVATE);
+
+				for (final File logFile : logDir.listFiles())
+				{
+					final InputStream is = new FileInputStream(logFile);
+					final File file = File.createTempFile(logFile.getName(), null, cacheDir);
+					final OutputStream os = new FileOutputStream(file);
+
+					IOUtils.copy(is, os);
+
+					os.close();
+					is.close();
 
 					WalletUtils.chmod(file, 0777);
 
@@ -161,7 +197,7 @@ public abstract class ReportIssueDialogBuilder extends AlertDialog.Builder imple
 
 				if (walletDump != null)
 				{
-					final File file = File.createTempFile("wallet-dump", null, context.getCacheDir());
+					final File file = File.createTempFile("wallet-dump", null, cacheDir);
 
 					final FileWriter writer = new FileWriter(file);
 					writer.write(walletDump.toString());
