@@ -18,6 +18,3 @@ https://code.google.com/p/bitcoin-wallet/
 Άδεια: GPLv3
 Χρησιμοποιήστε με δική σας ευθύνη!
 http://www.gnu.org/licenses/gpl-3.0.en.html
-
--
-BTC bitcoin πορτοφόλι blockchain bitcoinandroid androidbitcoin Geldbörse Кошелёк mobile payment
