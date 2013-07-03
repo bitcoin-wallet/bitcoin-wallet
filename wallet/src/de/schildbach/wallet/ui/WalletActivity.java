@@ -44,6 +44,9 @@ import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManagerFactory;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -60,7 +63,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.text.format.DateUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
@@ -96,7 +98,7 @@ public final class WalletActivity extends AbstractWalletActivity
 
 	private static final int REQUEST_CODE_SCAN = 0;
 
-	private static final String TAG = WalletActivity.class.getSimpleName();
+	private static final Logger log = LoggerFactory.getLogger(WalletActivity.class);
 
 	@Override
 	protected void onCreate(final Bundle savedInstanceState)
@@ -541,7 +543,7 @@ public final class WalletActivity extends AbstractWalletActivity
 						final int serverVersionCode = Integer.parseInt(reader.readLine().trim().split("\\s+")[0]);
 						reader.close();
 
-						Log.i(TAG, "according to \"" + url + "\", strongly recommended minimum app version is " + serverVersionCode);
+						log.info("according to \"" + url + "\", strongly recommended minimum app version is " + serverVersionCode);
 
 						if (serverTime > 0)
 						{
@@ -549,7 +551,7 @@ public final class WalletActivity extends AbstractWalletActivity
 
 							if (diffMinutes >= 60)
 							{
-								Log.i(TAG, "according to \"" + url + "\", system clock is off by " + diffMinutes + " minutes");
+								log.info("according to \"" + url + "\", system clock is off by " + diffMinutes + " minutes");
 
 								runOnUiThread(new Runnable()
 								{

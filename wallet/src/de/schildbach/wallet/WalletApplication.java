@@ -31,6 +31,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import android.app.ActivityManager;
@@ -42,10 +43,8 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.StrictMode;
 import android.preference.PreferenceManager;
 import android.text.format.DateUtils;
-import android.util.Log;
 import android.widget.Toast;
 import ch.qos.logback.classic.Level;
-import ch.qos.logback.classic.Logger;
 import ch.qos.logback.classic.LoggerContext;
 import ch.qos.logback.classic.android.LogcatAppender;
 import ch.qos.logback.classic.encoder.PatternLayoutEncoder;
@@ -79,7 +78,8 @@ public class WalletApplication extends Application
 	private ActivityManager activityManager;
 
 	private static final Charset UTF_8 = Charset.forName("UTF-8");
-	private static final String TAG = WalletApplication.class.getSimpleName();
+
+	private static final Logger log = LoggerFactory.getLogger(WalletApplication.class);
 
 	@Override
 	public void onCreate()
@@ -99,7 +99,7 @@ public class WalletApplication extends Application
 
 		Locks.throwOnLockCycles();
 
-		Log.d(TAG, ".onCreate()");
+		log.debug(".onCreate()");
 
 		super.onCreate();
 
@@ -170,7 +170,7 @@ public class WalletApplication extends Application
 		logcatAppender.setEncoder(logcatPattern);
 		logcatAppender.start();
 
-		final Logger log = context.getLogger(Logger.ROOT_LOGGER_NAME);
+		final ch.qos.logback.classic.Logger log = context.getLogger(Logger.ROOT_LOGGER_NAME);
 		log.addAppender(fileAppender);
 		log.addAppender(logcatAppender);
 		log.setLevel(Level.INFO);
@@ -207,7 +207,7 @@ public class WalletApplication extends Application
 
 		if (oldWalletFile.exists())
 		{
-			Log.i(TAG, "found wallet to migrate");
+			log.info("found wallet to migrate");
 
 			final long start = System.currentTimeMillis();
 
@@ -222,7 +222,7 @@ public class WalletApplication extends Application
 				// delete
 				oldWalletFile.delete();
 
-				Log.i(TAG, "wallet migrated: '" + oldWalletFile + "', took " + (System.currentTimeMillis() - start) + "ms");
+				log.info("wallet migrated: '" + oldWalletFile + "', took " + (System.currentTimeMillis() - start) + "ms");
 			}
 			catch (final IOException x)
 			{
@@ -245,7 +245,7 @@ public class WalletApplication extends Application
 
 				wallet = new WalletProtobufSerializer().readWallet(walletStream);
 
-				Log.i(TAG, "wallet loaded from: '" + walletFile + "', took " + (System.currentTimeMillis() - start) + "ms");
+				log.info("wallet loaded from: '" + walletFile + "', took " + (System.currentTimeMillis() - start) + "ms");
 			}
 			catch (final IOException x)
 			{
@@ -296,7 +296,7 @@ public class WalletApplication extends Application
 			try
 			{
 				protobufSerializeWallet(wallet);
-				Log.i(TAG, "wallet created: '" + walletFile + "'");
+				log.info("wallet created: '" + walletFile + "'");
 			}
 			catch (final IOException x2)
 			{
@@ -320,7 +320,7 @@ public class WalletApplication extends Application
 
 			Toast.makeText(this, R.string.toast_wallet_reset, Toast.LENGTH_LONG).show();
 
-			Log.i(TAG, "wallet restored from backup: '" + Constants.WALLET_KEY_BACKUP_BASE58 + "'");
+			log.info("wallet restored from backup: '" + Constants.WALLET_KEY_BACKUP_BASE58 + "'");
 
 			return wallet;
 		}
@@ -372,7 +372,7 @@ public class WalletApplication extends Application
 		if (Constants.TEST)
 			WalletUtils.chmod(walletFile, 0777);
 
-		Log.d(TAG, "wallet saved to: '" + walletFile + "', took " + (System.currentTimeMillis() - start) + "ms");
+		log.debug("wallet saved to: '" + walletFile + "', took " + (System.currentTimeMillis() - start) + "ms");
 	}
 
 	private void backupKeys()

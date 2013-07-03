@@ -31,6 +31,9 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import android.annotation.SuppressLint;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -54,7 +57,6 @@ import android.os.PowerManager.WakeLock;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.text.format.DateUtils;
-import android.util.Log;
 
 import com.google.bitcoin.core.AbstractPeerEventListener;
 import com.google.bitcoin.core.Address;
@@ -126,7 +128,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 
 	private static final long APPWIDGET_THROTTLE_MS = DateUtils.SECOND_IN_MILLIS;
 
-	private static final String TAG = BlockchainServiceImpl.class.getSimpleName();
+	private static final Logger log = LoggerFactory.getLogger(BlockchainServiceImpl.class);
 
 	private final WalletEventListener walletEventListener = new ThrottelingWalletChangeListener(APPWIDGET_THROTTLE_MS)
 	{
@@ -343,21 +345,21 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 				hasConnectivity = !intent.getBooleanExtra(ConnectivityManager.EXTRA_NO_CONNECTIVITY, false);
 				final String reason = intent.getStringExtra(ConnectivityManager.EXTRA_REASON);
 				// final boolean isFailover = intent.getBooleanExtra(ConnectivityManager.EXTRA_IS_FAILOVER, false);
-				Log.i(TAG, "network is " + (hasConnectivity ? "up" : "down") + (reason != null ? ": " + reason : ""));
+				log.info("network is " + (hasConnectivity ? "up" : "down") + (reason != null ? ": " + reason : ""));
 
 				check();
 			}
 			else if (Intent.ACTION_DEVICE_STORAGE_LOW.equals(action))
 			{
 				hasStorage = false;
-				Log.i(TAG, "device storage low");
+				log.info("device storage low");
 
 				check();
 			}
 			else if (Intent.ACTION_DEVICE_STORAGE_OK.equals(action))
 			{
 				hasStorage = true;
-				Log.i(TAG, "device storage ok");
+				log.info("device storage ok");
 
 				check();
 			}
@@ -371,7 +373,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 
 			if (hasEverything && peerGroup == null)
 			{
-				Log.d(TAG, "acquiring wakelock");
+				log.debug("acquiring wakelock");
 				wakeLock.acquire();
 
 				// consistency check
@@ -379,11 +381,11 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 				{
 					final String message = "wallet/blockchain out of sync: " + wallet.getLastBlockSeenHeight() + "/"
 							+ blockChain.getBestChainHeight();
-					Log.e(TAG, message);
+					log.error(message);
 					CrashReporter.saveBackgroundTrace(new RuntimeException(message));
 				}
 
-				Log.i(TAG, "starting peergroup");
+				log.info("starting peergroup");
 				peerGroup = new PeerGroup(Constants.NETWORK_PARAMETERS, blockChain);
 				peerGroup.addWallet(wallet);
 				peerGroup.setUserAgent(Constants.USER_AGENT, application.applicationVersionName());
@@ -440,13 +442,13 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 			}
 			else if (!hasEverything && peerGroup != null)
 			{
-				Log.i(TAG, "stopping peergroup");
+				log.info("stopping peergroup");
 				peerGroup.removeEventListener(peerConnectivityListener);
 				peerGroup.removeWallet(wallet);
 				peerGroup.stop();
 				peerGroup = null;
 
-				Log.d(TAG, "releasing wakelock");
+				log.debug("releasing wakelock");
 				wakeLock.release();
 			}
 
@@ -505,7 +507,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 						builder.append(", ");
 					builder.append(entry);
 				}
-				Log.i(TAG, "History of transactions/blocks: " + builder);
+				log.info("History of transactions/blocks: " + builder);
 
 				// determine if block and transaction activity is idling
 				boolean isIdle = false;
@@ -529,7 +531,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 				// if idling, shutdown service
 				if (isIdle)
 				{
-					Log.i(TAG, "idling detected, stopping service");
+					log.info("idling detected, stopping service");
 					stopSelf();
 				}
 			}
@@ -551,7 +553,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 	@Override
 	public IBinder onBind(final Intent intent)
 	{
-		Log.d(TAG, ".onBind()");
+		log.debug(".onBind()");
 
 		return mBinder;
 	}
@@ -559,7 +561,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 	@Override
 	public boolean onUnbind(final Intent intent)
 	{
-		Log.d(TAG, ".onUnbind()");
+		log.debug(".onUnbind()");
 
 		return super.onUnbind(intent);
 	}
@@ -567,7 +569,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 	@Override
 	public void onCreate()
 	{
-		Log.d(TAG, ".onCreate()");
+		log.debug(".onCreate()");
 
 		super.onCreate();
 
@@ -606,7 +608,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 
 		if (!blockChainFileExists)
 		{
-			Log.d(TAG, "blockchain does not exist, resetting wallet");
+			log.debug("blockchain does not exist, resetting wallet");
 
 			wallet.clearTransactions(0);
 		}
@@ -648,7 +650,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 			}
 		}
 
-		Log.i(TAG, "using " + blockStore.getClass().getName());
+		log.info("using " + blockStore.getClass().getName());
 
 		try
 		{
@@ -678,12 +680,12 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 
 		if (BlockchainService.ACTION_HOLD_WIFI_LOCK.equals(intent.getAction()))
 		{
-			Log.d(TAG, "acquiring wifilock");
+			log.debug("acquiring wifilock");
 			wifiLock.acquire();
 		}
 		else
 		{
-			Log.d(TAG, "releasing wifilock");
+			log.debug("releasing wifilock");
 			wifiLock.release();
 		}
 
@@ -699,7 +701,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 	@Override
 	public void onDestroy()
 	{
-		Log.d(TAG, ".onDestroy()");
+		log.debug(".onDestroy()");
 
 		unregisterReceiver(tickReceiver);
 
@@ -711,7 +713,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 			peerGroup.removeWallet(application.getWallet());
 			peerGroup.stopAndWait();
 
-			Log.i(TAG, "peergroup stopped");
+			log.info("peergroup stopped");
 		}
 
 		peerConnectivityListener.stop();
@@ -738,19 +740,19 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 
 		if (wakeLock.isHeld())
 		{
-			Log.d(TAG, "wakelock still held, releasing");
+			log.debug("wakelock still held, releasing");
 			wakeLock.release();
 		}
 
 		if (wifiLock.isHeld())
 		{
-			Log.d(TAG, "wifilock still held, releasing");
+			log.debug("wifilock still held, releasing");
 			wifiLock.release();
 		}
 
 		if (resetBlockchainOnShutdown)
 		{
-			Log.d(TAG, "removing blockchain");
+			log.debug("removing blockchain");
 			blockChainFile.delete();
 		}
 
@@ -760,7 +762,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 	@Override
 	public void onLowMemory()
 	{
-		Log.w(TAG, "low memory detected, stopping service");
+		log.warn("low memory detected, stopping service");
 		stopSelf();
 	}
 

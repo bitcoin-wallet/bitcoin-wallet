@@ -17,6 +17,9 @@
 
 package de.schildbach.wallet.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -26,7 +29,6 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.BatteryManager;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import de.schildbach.wallet.Constants;
 
 /**
@@ -34,12 +36,12 @@ import de.schildbach.wallet.Constants;
  */
 public class AutosyncReceiver extends BroadcastReceiver
 {
-	private static final String TAG = AutosyncReceiver.class.getSimpleName();
+	private static final Logger log = LoggerFactory.getLogger(AutosyncReceiver.class);
 
 	@Override
 	public void onReceive(final Context context, final Intent intent)
 	{
-		Log.i(TAG, "got broadcast intent: " + intent);
+		log.info("got broadcast intent: " + intent);
 
 		// other app got replaced
 		if (intent.getAction().equals(Intent.ACTION_PACKAGE_REPLACED) && !intent.getDataString().equals("package:" + context.getPackageName()))
