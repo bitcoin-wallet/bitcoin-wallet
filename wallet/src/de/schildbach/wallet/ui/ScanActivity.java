@@ -157,7 +157,7 @@ public final class ScanActivity extends Activity implements SurfaceHolder.Callba
 		return super.onKeyDown(keyCode, event);
 	}
 
-	public void handleResult(final Result scanResult, final Bitmap scanImage)
+	public void handleResult(final Result scanResult, final Bitmap thumbnailImage, final float thumbnailScaleFactor)
 	{
 		vibrator.vibrate(VIBRATE_DURATION);
 
@@ -169,12 +169,13 @@ public final class ScanActivity extends Activity implements SurfaceHolder.Callba
 			paint.setColor(getResources().getColor(R.color.scan_result_dots));
 			paint.setStrokeWidth(10.0f);
 
-			final Canvas canvas = new Canvas(scanImage);
+			final Canvas canvas = new Canvas(thumbnailImage);
+			canvas.scale(thumbnailScaleFactor, thumbnailScaleFactor);
 			for (final ResultPoint point : points)
 				canvas.drawPoint(point.getX(), point.getY(), paint);
 		}
 
-		scannerView.drawResultBitmap(scanImage);
+		scannerView.drawResultBitmap(thumbnailImage);
 
 		final Intent result = new Intent();
 		result.putExtra(INTENT_EXTRA_RESULT, scanResult.getText());
@@ -298,18 +299,18 @@ public final class ScanActivity extends Activity implements SurfaceHolder.Callba
 				});
 				final Result scanResult = reader.decode(bitmap, hints);
 
-				// success
-				final int sourceWidth = source.getWidth();
-				final int sourceHeight = source.getHeight();
+				final int thumbnailWidth = source.getThumbnailWidth();
+				final int thumbnailHeight = source.getThumbnailHeight();
+				final float thumbnailScaleFactor = (float) thumbnailWidth / source.getWidth();
 
-				final Bitmap grayscaleBitmap = Bitmap.createBitmap(sourceWidth, sourceHeight, Bitmap.Config.ARGB_8888);
-				grayscaleBitmap.setPixels(source.renderCroppedGreyscaleBitmap(), 0, sourceWidth, 0, 0, sourceWidth, sourceHeight);
+				final Bitmap thumbnailImage = Bitmap.createBitmap(thumbnailWidth, thumbnailHeight, Bitmap.Config.ARGB_8888);
+				thumbnailImage.setPixels(source.renderThumbnail(), 0, thumbnailWidth, 0, 0, thumbnailWidth, thumbnailHeight);
 
 				runOnUiThread(new Runnable()
 				{
 					public void run()
 					{
-						handleResult(scanResult, grayscaleBitmap);
+						handleResult(scanResult, thumbnailImage, thumbnailScaleFactor);
 					}
 				});
 			}
