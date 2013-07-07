@@ -35,6 +35,7 @@ import com.google.bitcoin.core.Wallet.BalanceType;
 
 import de.schildbach.wallet.ui.RequestCoinsActivity;
 import de.schildbach.wallet.ui.SendCoinsActivity;
+import de.schildbach.wallet.ui.SendCoinsQrActivity;
 import de.schildbach.wallet.ui.WalletActivity;
 import de.schildbach.wallet.util.GenericUtils;
 import de.schildbach.wallet.util.WalletUtils;
@@ -69,10 +70,12 @@ public class WalletBalanceWidgetProvider extends AppWidgetProvider
 			views.setTextViewText(R.id.widget_wallet_balance, balanceStr);
 			views.setOnClickPendingIntent(R.id.widget_button_balance,
 					PendingIntent.getActivity(context, 0, new Intent(context, WalletActivity.class), 0));
-			views.setOnClickPendingIntent(R.id.widget_button_send,
-					PendingIntent.getActivity(context, 0, new Intent(context, SendCoinsActivity.class), 0));
 			views.setOnClickPendingIntent(R.id.widget_button_request,
 					PendingIntent.getActivity(context, 0, new Intent(context, RequestCoinsActivity.class), 0));
+			views.setOnClickPendingIntent(R.id.widget_button_send,
+					PendingIntent.getActivity(context, 0, new Intent(context, SendCoinsActivity.class), 0));
+			views.setOnClickPendingIntent(R.id.widget_button_send_qr,
+					PendingIntent.getActivity(context, 0, new Intent(context, SendCoinsQrActivity.class), 0));
 
 			appWidgetManager.updateAppWidget(appWidgetId, views);
 		}

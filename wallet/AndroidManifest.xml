@@ -95,6 +95,11 @@
 			</intent-filter>
 		</activity>
 		<activity
+			android:name="de.schildbach.wallet.ui.SendCoinsQrActivity"
+			android:configChanges="keyboard|keyboardHidden"
+			android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+		</activity>
+		<activity
 			android:name="de.schildbach.wallet.ui.RequestCoinsActivity"
 			android:configChanges="keyboard|keyboardHidden"
 			android:label="@string/request_coins_activity_title"
