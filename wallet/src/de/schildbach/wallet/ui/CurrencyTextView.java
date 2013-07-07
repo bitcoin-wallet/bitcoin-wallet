@@ -74,6 +74,11 @@ public final class CurrencyTextView extends TextView
 		updateView();
 	}
 
+	public BigInteger getAmount()
+	{
+		return this.amount;
+	}
+
 	public void setPrecision(final int precision)
 	{
 		this.precision = precision;

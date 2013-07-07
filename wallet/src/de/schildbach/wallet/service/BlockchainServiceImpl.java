@@ -87,6 +87,7 @@ import com.google.bitcoin.discovery.PeerDiscoveryException;
 import com.google.bitcoin.store.BlockStore;
 import com.google.bitcoin.store.BlockStoreException;
 import com.google.bitcoin.store.SPVBlockStore;
+import com.google.common.annotations.VisibleForTesting;
 import com.google.common.util.concurrent.ListenableFuture;
 
 import de.schildbach.wallet.Constants;
@@ -627,7 +628,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 		}
 	}
 
-	private final IBinder mBinder = new LocalBinder();
+	@VisibleForTesting final IBinder mBinder = new LocalBinder();
 
 	@Override
 	public IBinder onBind(final Intent intent)

@@ -82,6 +82,11 @@ public class CircularProgressView extends View
 		postInvalidate();
 	}
 
+	public int getProgress()
+	{
+		return this.progress;
+	}
+
 	public void setMaxProgress(final int maxProgress)
 	{
 		this.maxProgress = maxProgress;
@@ -90,12 +95,22 @@ public class CircularProgressView extends View
 		postInvalidate();
 	}
 
+	public int getMaxProgress()
+	{
+		return this.maxProgress;
+	}
+
 	public void setSize(final int size)
 	{
 		this.size = size;
 
 		updatePath(getWidth(), getHeight());
 		postInvalidate();
+	}
+
+	public int getSize()
+	{
+		return this.size;
 	}
 
 	public void setMaxSize(final int maxSize)
