@@ -51,7 +51,7 @@
 	<string name="wallet_old_sdk_dialog_message">Chances are that one of the next releases of Bitcoin Wallet will not support your device any more. In some cases, it can get difficult to spend coins on this device.\n\nUnless you know what you are doing, it is recommended to move out your coins soon.</string>
 	<string name="send_coins_activity_title">Send Bitcoins</string>
 	<string name="send_coins_uri_parse_error_title">Invalid Bitcoin URI</string>
-	<string name="send_coins_parse_address_error_msg">Got invalid bitcoin address!\n(Mixing up Testnet/Prodnet?)</string>
+	<string name="send_coins_parse_address_error_msg">Got invalid bitcoin address!\n(Mixing up Mainnet/Testnet?)</string>
 	<string name="send_coins_fragment_receiving_address_label">Pay to</string>
 	<string name="send_coins_fragment_receiving_address_hint">type address or name</string>
 	<string name="send_coins_fragment_receiving_address_error">Invalid Bitcoin Address!</string>

@@ -51,7 +51,7 @@
 	<string name="wallet_old_sdk_dialog_message">Il y a des chances pour qu\'une prochaine version de Bitcoin Wallet ne supporte plus votre appareil. Dans certains cas, il pourrait devenir difficile de dépenser des bitcoins sur cet appareil.\n\nÀ moins de savoir ce que vous faites, il est recommandé de déplacer vos bitcoins dans un avenir proche.</string>
 	<string name="send_coins_activity_title">Envoyer les Bitcoins</string>
 	<string name="send_coins_uri_parse_error_title">URI Bitcoin invalide</string>
-	<string name="send_coins_parse_address_error_msg">Réception d\'une adresse Bitcoin invalide&#x202F;!\n(Mélange entre Testnet et Prodnet&#x202F;?)</string>
+	<string name="send_coins_parse_address_error_msg">Réception d\'une adresse Bitcoin invalide&#x202F;!\n(Mélange entre Mainnet et Testnet&#x202F;?)</string>
 	<string name="send_coins_fragment_receiving_address_label">Payer à</string>
 	<string name="send_coins_fragment_receiving_address_hint">Entrer l\'adresse ou le nom</string>
 	<string name="send_coins_fragment_receiving_address_error">Addresse Bitcoin invalide&#x202F;!</string>

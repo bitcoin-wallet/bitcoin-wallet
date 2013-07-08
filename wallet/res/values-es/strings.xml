@@ -71,7 +71,7 @@
 	<string name="wallet_old_sdk_dialog_message">Lo más probable es que una de las próximas versiones de Bitcoin Wallet no soporte más tu dispositivo. En algunos casos, puede ser difícil invertir en este dispositivo.\n\nA menos que sepas que estás haciendo, se recomienda que transfieras tus monedas pronto.</string>
 	<string name="send_coins_activity_title">Enviar bitcoins</string>
 	<string name="send_coins_uri_parse_error_title">URI de Bitcoin inválida</string>
-	<string name="send_coins_parse_address_error_msg">¡Dirección inválida de Bitcoin!\n(¿Confusión Testnet/Prodnet?)</string>
+	<string name="send_coins_parse_address_error_msg">¡Dirección inválida de Bitcoin!\n(¿Confusión Mainnet/Testnet?)</string>
 	<string name="send_coins_fragment_receiving_address_label">Pagar a</string>
 	<string name="send_coins_fragment_receiving_address_hint">escribir dirección o nombre</string>
 	<string name="send_coins_fragment_receiving_address_error">¡Dirección Bitcoin inválida!</string>
