@@ -102,12 +102,12 @@ for security issues and build, install and run the application in a secure way.
 
 The productive version uses Mainnet, is built non-debuggable, space-optimized with ProGuard and the
 wallet file is protected against access from non-root users. In the code repository, it lives in a
-separate 'prodnet' branch that gets rebased against master with each released version.
+separate 'prod' branch that gets rebased against master with each released version.
 
 	# each time
 	cd bitcoin-wallet
 	git fetch origin
-	git checkout origin/prodnet
+	git checkout origin/prod
 	mvn clean install -Prelease -Dandroid.sdk.path=<path to your android sdk>
 
 
