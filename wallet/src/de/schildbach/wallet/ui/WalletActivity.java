@@ -29,6 +29,8 @@ import java.io.StringReader;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.net.HttpURLConnection;
+import java.net.SocketException;
+import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.net.UnknownHostException;
 import java.security.KeyStore;
@@ -582,6 +584,16 @@ public final class WalletActivity extends AbstractWalletActivity
 					}
 				}
 				catch (final UnknownHostException x)
+				{
+					// swallow
+					x.printStackTrace();
+				}
+				catch (final SocketException x)
+				{
+					// swallow
+					x.printStackTrace();
+				}
+				catch (final SocketTimeoutException x)
 				{
 					// swallow
 					x.printStackTrace();
