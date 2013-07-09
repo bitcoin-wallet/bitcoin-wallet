@@ -175,6 +175,9 @@ public final class WalletBalanceFragment extends Fragment
 
 	private void updateView()
 	{
+		if (!isAdded())
+			return;
+
 		final boolean showProgress;
 
 		if (download != BlockchainService.ACTION_BLOCKCHAIN_STATE_DOWNLOAD_OK)
