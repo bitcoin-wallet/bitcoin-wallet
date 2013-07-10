@@ -120,10 +120,6 @@ public class WalletApplication extends Application
 
 		backupKeys();
 
-		for (final String filename : fileList())
-			if (filename.endsWith(".tmp"))
-				new File(getFilesDir(), filename).delete();
-
 		wallet.autosaveToFile(walletFile, 1, TimeUnit.SECONDS, new WalletAutosaveEventListener());
 	}
 
