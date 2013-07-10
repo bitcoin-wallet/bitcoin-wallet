@@ -144,7 +144,7 @@ public abstract class ReportIssueDialogBuilder extends AlertDialog.Builder imple
 
 				if (applicationLog != null)
 				{
-					final File file = File.createTempFile("application-log", null, cacheDir);
+					final File file = File.createTempFile("application-log.", ".log", cacheDir);
 
 					final FileWriter writer = new FileWriter(file);
 					writer.write(applicationLog.toString());
@@ -170,7 +170,14 @@ public abstract class ReportIssueDialogBuilder extends AlertDialog.Builder imple
 				for (final File logFile : logDir.listFiles())
 				{
 					final InputStream is = new FileInputStream(logFile);
-					final File file = File.createTempFile(logFile.getName(), null, cacheDir);
+					final String logFileName = logFile.getName();
+					final File file;
+					if (logFileName.endsWith(".log.gz"))
+						file = File.createTempFile(logFileName.substring(0, logFileName.length() - 6), ".log.gz", cacheDir);
+					else if (logFileName.endsWith(".log"))
+						file = File.createTempFile(logFileName.substring(0, logFileName.length() - 3), ".log", cacheDir);
+					else
+						file = File.createTempFile(logFileName + '.', null, cacheDir);
 					final OutputStream os = new FileOutputStream(file);
 
 					IOUtils.copy(is, os);
@@ -197,7 +204,7 @@ public abstract class ReportIssueDialogBuilder extends AlertDialog.Builder imple
 
 				if (walletDump != null)
 				{
-					final File file = File.createTempFile("wallet-dump", null, cacheDir);
+					final File file = File.createTempFile("wallet-dump.", ".txt", cacheDir);
 
 					final FileWriter writer = new FileWriter(file);
 					writer.write(walletDump.toString());
