@@ -41,6 +41,7 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
+import com.google.bitcoin.core.Transaction;
 import com.google.bitcoin.core.Utils;
 
 import de.schildbach.wallet.Constants;
@@ -192,7 +193,7 @@ public final class CurrencyAmountView extends FrameLayout
 
 	public BigInteger getAmount()
 	{
-		if (isValidAmount())
+		if (isValidAmount(false))
 			return Utils.toNanoCoins(textView.getText().toString().trim());
 		else
 			return null;
@@ -250,7 +251,7 @@ public final class CurrencyAmountView extends FrameLayout
 			textView.setPaintFlags(textView.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
 	}
 
-	private boolean isValidAmount()
+	private boolean isValidAmount(final boolean zeroIsValid)
 	{
 		final String amount = textView.getText().toString().trim();
 
@@ -259,8 +260,16 @@ public final class CurrencyAmountView extends FrameLayout
 			if (!amount.isEmpty())
 			{
 				final BigInteger nanoCoins = Utils.toNanoCoins(amount);
-				if (nanoCoins.signum() >= 0)
+
+				// exactly zero
+				if (zeroIsValid && nanoCoins.signum() == 0)
 					return true;
+
+				// too small
+				if (nanoCoins.compareTo(Transaction.MIN_NONDUST_OUTPUT) < 0)
+					return false;
+
+				return true;
 			}
 		}
 		catch (final Exception x)
@@ -305,7 +314,7 @@ public final class CurrencyAmountView extends FrameLayout
 
 		contextButton.requestLayout();
 
-		textView.setTextColor(!validateAmount || isValidAmount() ? significantColor : errorColor);
+		textView.setTextColor(!validateAmount || isValidAmount(true) ? significantColor : errorColor);
 	}
 
 	@Override
