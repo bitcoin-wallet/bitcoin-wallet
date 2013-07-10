@@ -18,13 +18,11 @@
 package de.schildbach.wallet;
 
 import java.io.File;
-import java.math.BigInteger;
 
 import android.os.Environment;
 import android.text.format.DateUtils;
 
 import com.google.bitcoin.core.NetworkParameters;
-import com.google.bitcoin.core.Utils;
 import com.google.bitcoin.params.MainNetParams;
 import com.google.bitcoin.params.TestNet3Params;
 
@@ -124,8 +122,6 @@ public class Constants
 	public static final String PREFS_KEY_BTC_PRECISION = "btc_precision";
 	public static final String PREFS_DEFAULT_BTC_PRECISION = "4";
 	public static final String PREFS_KEY_DISCLAIMER = "disclaimer";
-
-	public static final BigInteger DUST = Utils.CENT.divide(BigInteger.valueOf(100));
 
 	public static final long LAST_USAGE_THRESHOLD_JUST_MS = DateUtils.HOUR_IN_MILLIS;
 	public static final long LAST_USAGE_THRESHOLD_RECENTLY_MS = 2 * DateUtils.DAY_IN_MILLIS;
