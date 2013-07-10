@@ -786,7 +786,8 @@ public final class SendCoinsFragment extends SherlockFragment
 			receivingStaticAddressView.setText(WalletUtils.formatAddress(validatedAddress.address, Constants.ADDRESS_FORMAT_GROUP_SIZE,
 					Constants.ADDRESS_FORMAT_LINE_SIZE));
 			receivingStaticLabelView.setText(validatedAddress.label != null ? validatedAddress.label : getString(R.string.address_unlabeled));
-			receivingStaticLabelView.setTextColor(validatedAddress.label != null ? R.color.fg_significant : R.color.fg_insignificant);
+			receivingStaticLabelView.setTextColor(getResources().getColor(
+					validatedAddress.label != null ? R.color.fg_significant : R.color.fg_insignificant));
 		}
 		else
 		{
