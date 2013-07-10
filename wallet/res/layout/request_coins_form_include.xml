@@ -29,6 +29,7 @@
 			android:layout_weight="1" >
 
 			<EditText
+				android:id="@+id/request_coins_amount_btc_edittext"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:imeOptions="flagNoExtractUi"
@@ -43,6 +44,7 @@
 			android:layout_weight="1" >
 
 			<EditText
+				android:id="@+id/request_coins_amount_local_edittext"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:imeOptions="flagNoExtractUi"
