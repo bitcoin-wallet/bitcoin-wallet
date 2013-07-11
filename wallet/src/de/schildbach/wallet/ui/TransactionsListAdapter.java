@@ -42,6 +42,7 @@ import com.google.bitcoin.core.Address;
 import com.google.bitcoin.core.ScriptException;
 import com.google.bitcoin.core.Transaction;
 import com.google.bitcoin.core.Transaction.Purpose;
+import com.google.bitcoin.core.TransactionOutput;
 import com.google.bitcoin.core.TransactionConfidence;
 import com.google.bitcoin.core.TransactionConfidence.ConfidenceType;
 import com.google.bitcoin.core.Wallet.DefaultCoinSelector;
@@ -52,6 +53,8 @@ import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.util.CircularProgressView;
 import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author Andreas Schildbach
@@ -83,6 +86,8 @@ public class TransactionsListAdapter extends BaseAdapter
 
 	private static final int VIEW_TYPE_TRANSACTION = 0;
 	private static final int VIEW_TYPE_WARNING = 1;
+
+	private static final Logger log = LoggerFactory.getLogger(TransactionsListAdapter.class);
 
 	public TransactionsListAdapter(final Context context, final WalletApplication walletApplication, final int maxConnectedPeers, final boolean showBackupWarning)
 	{
@@ -218,9 +223,53 @@ public class TransactionsListAdapter extends BaseAdapter
 		return row;
 	}
 
+	// Overridden during testing to set time more easily
+	protected long getCurrentTimeSecs() {
+		return System.currentTimeMillis()/1000;
+	}
+
 	public void bindView(final View row, final Transaction tx)
 	{
-		final TransactionConfidence confidence = tx.getConfidence();
+		// Payment channel refund/payment transactions never make it this far, so we have to process both the contract
+		// (this tx) and the payment/refund now
+		// For normal transactions the row view is fairly self-explanatory - to/from address, confirmation level, value
+		// sent/received, and extra warnings for unconfirmed/special transactions.
+		// For payment channel contracts it gets a bit more complicated - the to address should be the app which
+		// requested the channel be opened (from the ContractHashToCreatorMap in the wallet).
+		// The confirmation level depends on the spend state, initially the confirmation level of the contract is shown,
+		// after it is spent the confirmation level shown is either that of the payment/refund transaction if it has an
+		// output which comes back to us or simply the confirmation level of the contract.
+		// Some additional warning messages are present for contracts, one which informs the user that the contract may
+		// be partially refunded if we have not yet seen a spend of the contract, and a special version of the
+		// unconfirmed message telling the user that the output to us in the refund/spend transaction is not yet
+		// confirmed.
+
+
+		// paymentChannelCreatorApp == to address or null if this is not a payment channel contract
+		String paymentChannelCreatorApp = walletApplication.getContractHashToCreatorMap().getCreatorApp(tx.getHash());
+		Transaction paymentChannelSpend = null; // Either refund or incomplete spend (ie with a refund output)
+
+		// First output is contract output, and if it is either connected to a non-final transaction (ie a locked refund
+		// transaction) or unconnected, then we treat this contract as being unclosed
+		final boolean isContractClosed = tx.getOutput(0).isAvailableForSpending() ||
+				!tx.getOutput(0).getSpentBy().getParentTransaction().isFinal(0, getCurrentTimeSecs() + 5*60);
+
+		if (paymentChannelCreatorApp != null && !isContractClosed) {
+			paymentChannelSpend = tx.getOutput(0).getSpentBy().getParentTransaction();
+			boolean isOutputToUs = false;
+			for (TransactionOutput output : paymentChannelSpend.getOutputs())
+				if (output.isMine(walletApplication.getWallet())) {
+					isOutputToUs = true;
+					break;
+				}
+			if (!isOutputToUs) {
+				log.debug("binding View for payment channel contract that was spent fully");
+				paymentChannelSpend = null; // If there is no refund component, just ignore it
+			} else
+				log.debug("binding View for payment channel contract that was spent with a refund component");
+		}
+
+		final TransactionConfidence confidence = paymentChannelSpend == null ? tx.getConfidence() : paymentChannelSpend.getConfidence();
 		final ConfidenceType confidenceType = confidence.getConfidenceType();
 		final boolean isOwn = confidence.getSource().equals(TransactionConfidence.Source.SELF);
 		final boolean isCoinBase = tx.isCoinBase();
@@ -228,8 +277,11 @@ public class TransactionsListAdapter extends BaseAdapter
 
 		try
 		{
-			final BigInteger value = tx.getValue(walletApplication.getWallet());
+			BigInteger value = tx.getValue(walletApplication.getWallet());
 			final boolean sent = value.signum() < 0;
+
+			if (paymentChannelSpend != null)
+				value = value.add(paymentChannelSpend.getValue(walletApplication.getWallet()));
 
 			final CircularProgressView rowConfidenceCircular = (CircularProgressView) row.findViewById(R.id.transaction_row_confidence_circular);
 			final TextView rowConfidenceTextual = (TextView) row.findViewById(R.id.transaction_row_confidence_textual);
@@ -279,8 +331,10 @@ public class TransactionsListAdapter extends BaseAdapter
 			final int textColor;
 			if (confidenceType == ConfidenceType.DEAD)
 				textColor = Color.RED;
-			else
+			else if (paymentChannelSpend == null)
 				textColor = DefaultCoinSelector.isSelectable(tx) ? colorSignificant : colorInsignificant;
+			else
+				textColor = DefaultCoinSelector.isSelectable(paymentChannelSpend) ? colorSignificant : colorInsignificant;
 
 			// time
 			final TextView rowTime = (TextView) row.findViewById(R.id.transaction_row_time);
@@ -315,6 +369,8 @@ public class TransactionsListAdapter extends BaseAdapter
 				label = textInternal;
 			else if (address != null)
 				label = resolveLabel(address.toString());
+			else if (paymentChannelCreatorApp != null)
+				label = paymentChannelCreatorApp;
 			else
 				label = "?";
 			rowAddress.setTextColor(textColor);
@@ -334,6 +390,8 @@ public class TransactionsListAdapter extends BaseAdapter
 			{
 				final TextView rowMessage = (TextView) row.findViewById(R.id.transaction_row_message);
 				final boolean isTimeLocked = tx.isTimeLocked();
+				final boolean contractSpendUnseen = !walletApplication.getContractHashToCreatorMap().isSpendSeen(tx.getHash());
+
 				rowExtend.setVisibility(View.GONE);
 
 				if (tx.getPurpose() == Purpose.KEY_ROTATION)
@@ -342,13 +400,26 @@ public class TransactionsListAdapter extends BaseAdapter
 					rowMessage.setText(Html.fromHtml(context.getString(R.string.transaction_row_message_purpose_key_rotation)));
 					rowMessage.setTextColor(colorSignificant);
 				}
+				else if (paymentChannelCreatorApp != null && sent && contractSpendUnseen && isContractClosed &&
+						confidence.getConfidenceType() != ConfidenceType.DEAD)
+				{
+					rowExtend.setVisibility(View.VISIBLE);
+					rowMessage.setText(R.string.transaction_row_message_channel_locked);
+					rowMessage.setTextColor(colorInsignificant);
+				}
+				else if (paymentChannelSpend != null && confidence.getConfidenceType() == ConfidenceType.PENDING)
+				{
+					rowExtend.setVisibility(View.VISIBLE);
+					rowMessage.setText(R.string.transaction_row_message_channel_unlock_unconfirmed);
+					rowMessage.setTextColor(colorInsignificant);
+				}
 				else if (isOwn && confidenceType == ConfidenceType.PENDING && confidence.numBroadcastPeers() <= 1)
 				{
 					rowExtend.setVisibility(View.VISIBLE);
 					rowMessage.setText(R.string.transaction_row_message_own_unbroadcasted);
 					rowMessage.setTextColor(colorInsignificant);
 				}
-				else if (!sent && value.compareTo(Transaction.MIN_NONDUST_OUTPUT) < 0)
+				else if (!sent && value.compareTo(Transaction.MIN_NONDUST_OUTPUT) < 0 && paymentChannelCreatorApp != null)
 				{
 					rowExtend.setVisibility(View.VISIBLE);
 					rowMessage.setText(R.string.transaction_row_message_received_dust);
