@@ -5,6 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<artifactId>integration-android</artifactId>
+	<packaging>apklib</packaging>
 	<version>1.0</version>
 	<name>Bitcoin Integration for Android</name>
 
@@ -28,6 +29,24 @@
 
 	<build>
 		<sourceDirectory>src</sourceDirectory>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>com.jayway.maven.plugins.android.generation2</groupId>
+				<artifactId>android-maven-plugin</artifactId>
+				<configuration>
+					<sdk>
+						<platform>10</platform>
+					</sdk>
+					<!-- Force the generated BuildConfig into target/generated-sources where it is ignored,
+					 see https://code.google.com/p/maven-android-plugin/issues/detail?id=388 -->
+					<genDirectory>target/generated-sources/r</genDirectory>
+				</configuration>
+			</plugin>
+		</plugins>
 	</build>
 
 </project>

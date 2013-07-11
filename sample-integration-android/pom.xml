@@ -30,6 +30,7 @@
 			<groupId>de.schildbach.wallet</groupId>
 			<artifactId>integration-android</artifactId>
 			<version>1.0</version>
+			<type>apklib</type>
 		</dependency>
 
 	</dependencies>
