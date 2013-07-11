@@ -91,7 +91,7 @@ public class Constants
 	public static final int BTC_MAX_PRECISION = 8;
 	public static final int LOCAL_PRECISION = 4;
 
-	public static final String DONATION_ADDRESS = "15P7W9X5xWVLewpnSk5gjLWVakvZ3NRUGN";
+	public static final String DONATION_ADDRESS = "1GQs8ma4QktseTyhMh1FgPhC7KjoM9HH46";
 	public static final String REPORT_EMAIL = "wallet@schildbach.de";
 	public static final String REPORT_SUBJECT_ISSUE = "Reported issue";
 	public static final String REPORT_SUBJECT_CRASH = "Crash report";
