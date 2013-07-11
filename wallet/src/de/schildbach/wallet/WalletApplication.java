@@ -245,7 +245,7 @@ public class WalletApplication extends Application
 			}
 			catch (final IOException x)
 			{
-				x.printStackTrace();
+				log.error("problem loading wallet", x);
 
 				Toast.makeText(WalletApplication.this, x.getClass().getName(), Toast.LENGTH_LONG).show();
 
@@ -253,7 +253,7 @@ public class WalletApplication extends Application
 			}
 			catch (final RuntimeException x)
 			{
-				x.printStackTrace();
+				log.error("problem loading wallet", x);
 
 				Toast.makeText(WalletApplication.this, x.getClass().getName(), Toast.LENGTH_LONG).show();
 
@@ -269,7 +269,7 @@ public class WalletApplication extends Application
 					}
 					catch (final IOException x)
 					{
-						x.printStackTrace();
+						// swallow
 					}
 				}
 			}
@@ -379,7 +379,7 @@ public class WalletApplication extends Application
 		}
 		catch (final IOException x)
 		{
-			x.printStackTrace();
+			log.error("problem writing key backup", x);
 		}
 
 		try
@@ -390,7 +390,7 @@ public class WalletApplication extends Application
 		}
 		catch (final IOException x)
 		{
-			x.printStackTrace();
+			log.error("problem writing key backup", x);
 		}
 	}
 

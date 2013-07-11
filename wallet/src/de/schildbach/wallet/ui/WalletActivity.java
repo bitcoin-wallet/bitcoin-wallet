@@ -586,17 +586,17 @@ public final class WalletActivity extends AbstractWalletActivity
 				catch (final UnknownHostException x)
 				{
 					// swallow
-					x.printStackTrace();
+					log.debug("problem reading alert", x);
 				}
 				catch (final SocketException x)
 				{
 					// swallow
-					x.printStackTrace();
+					log.debug("problem reading alert", x);
 				}
 				catch (final SocketTimeoutException x)
 				{
 					// swallow
-					x.printStackTrace();
+					log.debug("problem reading alert", x);
 				}
 				catch (final Exception x)
 				{
@@ -622,7 +622,7 @@ public final class WalletActivity extends AbstractWalletActivity
 			}
 			catch (final IOException x)
 			{
-				x.printStackTrace();
+				log.info("problem appending crash info", x);
 			}
 
 			final ReportIssueDialogBuilder dialog = new ReportIssueDialogBuilder(this, R.string.report_issue_dialog_title_crash,
@@ -825,7 +825,7 @@ public final class WalletActivity extends AbstractWalletActivity
 					.setMessage(getString(R.string.import_keys_dialog_failure, x.getMessage())).setNeutralButton(R.string.button_dismiss, null)
 					.show();
 
-			x.printStackTrace();
+			log.info("problem reading private keys", x);
 		}
 	}
 
@@ -871,7 +871,7 @@ public final class WalletActivity extends AbstractWalletActivity
 					.setMessage(getString(R.string.export_keys_dialog_failure, x.getMessage())).setNeutralButton(R.string.button_dismiss, null)
 					.show();
 
-			x.printStackTrace();
+			log.error("problem writing private keys", x);
 		}
 	}
 

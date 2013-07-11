@@ -26,6 +26,9 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -56,6 +59,8 @@ public abstract class ReportIssueDialogBuilder extends AlertDialog.Builder imple
 	private CheckBox viewCollectApplicationLog;
 	private CheckBox viewCollectExtendedApplicationLog;
 	private CheckBox viewCollectWalletDump;
+
+	private static final Logger log = LoggerFactory.getLogger(ReportIssueDialogBuilder.class);
 
 	public ReportIssueDialogBuilder(final Context context, final int titleResId, final int messageResId)
 	{
@@ -157,7 +162,7 @@ public abstract class ReportIssueDialogBuilder extends AlertDialog.Builder imple
 			}
 			catch (final IOException x)
 			{
-				x.printStackTrace();
+				log.info("problem writing attachment", x);
 			}
 		}
 
@@ -192,7 +197,7 @@ public abstract class ReportIssueDialogBuilder extends AlertDialog.Builder imple
 			}
 			catch (final IOException x)
 			{
-				x.printStackTrace();
+				log.info("problem writing attachment", x);
 			}
 		}
 
@@ -217,7 +222,7 @@ public abstract class ReportIssueDialogBuilder extends AlertDialog.Builder imple
 			}
 			catch (final IOException x)
 			{
-				x.printStackTrace();
+				log.info("problem writing attachment", x);
 			}
 		}
 

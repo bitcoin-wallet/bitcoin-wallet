@@ -631,8 +631,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 				}
 				catch (final IOException x)
 				{
-					// continue without checkpoints
-					x.printStackTrace();
+					log.error("problem reading checkpoints, continuing without", x);
 				}
 			}
 		}
@@ -647,8 +646,9 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 			{
 				blockChainFile.delete();
 
-				x2.printStackTrace();
-				throw new Error("blockstore cannot be created", x2);
+				final String msg = "blockstore cannot be created";
+				log.error(msg, x2);
+				throw new Error(msg, x2);
 			}
 		}
 

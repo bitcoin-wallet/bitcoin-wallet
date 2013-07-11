@@ -28,6 +28,9 @@ import java.util.Formatter;
 import java.util.List;
 import java.util.Set;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.pm.PackageInfo;
@@ -56,6 +59,8 @@ public class CrashReporter
 	private static File backgroundTracesFile;
 	private static File crashTraceFile;
 	private static File crashApplicationLogFile;
+
+	private static final Logger log = LoggerFactory.getLogger(CrashReporter.class);
 
 	public static void init(final File cacheDir)
 	{
@@ -278,7 +283,7 @@ public class CrashReporter
 			}
 			catch (final IOException x)
 			{
-				x.printStackTrace();
+				log.error("problem writing background trace", x);
 			}
 			finally
 			{
@@ -319,7 +324,7 @@ public class CrashReporter
 			}
 			catch (final IOException x)
 			{
-				x.printStackTrace();
+				log.info("problem writing crash trace", x);
 			}
 
 			previousHandler.uncaughtException(t, exception);

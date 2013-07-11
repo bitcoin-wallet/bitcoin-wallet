@@ -21,6 +21,9 @@ import java.io.IOException;
 import java.util.EnumMap;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -75,6 +78,8 @@ public final class ScanActivity extends Activity implements SurfaceHolder.Callba
 	private Handler cameraHandler;
 
 	private static final int DIALOG_CAMERA_PROBLEM = 0;
+
+	private static final Logger log = LoggerFactory.getLogger(ScanActivity.class);
 
 	@Override
 	public void onCreate(final Bundle savedInstanceState)
@@ -215,12 +220,12 @@ public final class ScanActivity extends Activity implements SurfaceHolder.Callba
 			}
 			catch (final IOException x)
 			{
-				x.printStackTrace();
+				log.info("problem opening camera", x);
 				showDialog(DIALOG_CAMERA_PROBLEM);
 			}
 			catch (final RuntimeException x)
 			{
-				x.printStackTrace();
+				log.info("problem opening camera", x);
 				showDialog(DIALOG_CAMERA_PROBLEM);
 			}
 		}

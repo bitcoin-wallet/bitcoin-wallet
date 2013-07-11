@@ -32,6 +32,8 @@ import java.util.TreeMap;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import android.content.ContentProvider;
 import android.content.ContentValues;
@@ -80,6 +82,8 @@ public class ExchangeRatesProvider extends ContentProvider
 
 	private static final long UPDATE_FREQ_MS = 10 * DateUtils.MINUTE_IN_MILLIS;
 	private static final int TIMEOUT_MS = 15 * (int) DateUtils.SECOND_IN_MILLIS;
+
+	private static final Logger log = LoggerFactory.getLogger(ExchangeRatesProvider.class);
 
 	@Override
 	public boolean onCreate()
@@ -243,11 +247,11 @@ public class ExchangeRatesProvider extends ContentProvider
 		}
 		catch (final IOException x)
 		{
-			x.printStackTrace();
+			log.debug("problem reading exchange rates", x);
 		}
 		catch (final JSONException x)
 		{
-			x.printStackTrace();
+			log.debug("problem reading exchange rates", x);
 		}
 
 		return null;
@@ -296,11 +300,11 @@ public class ExchangeRatesProvider extends ContentProvider
 		}
 		catch (final IOException x)
 		{
-			x.printStackTrace();
+			log.debug("problem reading exchange rates", x);
 		}
 		catch (final JSONException x)
 		{
-			x.printStackTrace();
+			log.debug("problem reading exchange rates", x);
 		}
 
 		return null;

@@ -24,6 +24,9 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import android.annotation.SuppressLint;
 import android.graphics.Rect;
 import android.hardware.Camera;
@@ -49,6 +52,8 @@ public final class CameraManager
 	private Camera.Size cameraResolution;
 	private Rect frame;
 	private Rect framePreview;
+
+	private static final Logger log = LoggerFactory.getLogger(CameraManager.class);
 
 	public Camera getCamera()
 	{
@@ -126,7 +131,7 @@ public final class CameraManager
 				}
 				catch (final RuntimeException x2)
 				{
-					x2.printStackTrace();
+					log.info("problem setting camera parameters", x2);
 				}
 			}
 		}

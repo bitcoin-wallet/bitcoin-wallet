@@ -19,6 +19,9 @@ package de.schildbach.wallet.ui;
 
 import java.math.BigInteger;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import android.app.Activity;
 import android.content.ComponentName;
 import android.content.ContentResolver;
@@ -128,6 +131,8 @@ public final class SendCoinsFragment extends SherlockFragment
 	private static final int ID_RATE_LOADER = 0;
 
 	private static final int REQUEST_CODE_SCAN = 0;
+
+	private static final Logger log = LoggerFactory.getLogger(SendCoinsFragment.class);
 
 	private enum State
 	{
@@ -863,7 +868,7 @@ public final class SendCoinsFragment extends SherlockFragment
 		{
 			receivingAddressView.setText(receivingAddress);
 			validatedAddress = null;
-			x.printStackTrace();
+			log.info("problem parsing address: '" + receivingAddress + "'", x);
 		}
 
 		if (amount != null)

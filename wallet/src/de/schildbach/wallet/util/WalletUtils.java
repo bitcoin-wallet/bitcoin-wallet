@@ -34,6 +34,9 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -71,6 +74,8 @@ public class WalletUtils
 {
 	public final static QRCodeWriter QR_CODE_WRITER = new QRCodeWriter();
 
+	private static final Logger log = LoggerFactory.getLogger(WalletUtils.class);
+
 	public static Bitmap getQRCodeBitmap(final String url, final int size)
 	{
 		try
@@ -99,7 +104,7 @@ public class WalletUtils
 		}
 		catch (final WriterException x)
 		{
-			x.printStackTrace();
+			log.info("problem creating qr code", x);
 			return null;
 		}
 	}
@@ -298,7 +303,7 @@ public class WalletUtils
 					}
 					catch (final IOException x)
 					{
-						x.printStackTrace();
+						// swallow
 					}
 				}
 			}
@@ -316,7 +321,7 @@ public class WalletUtils
 		}
 		catch (final Exception x)
 		{
-			x.printStackTrace();
+			log.info("problem using undocumented chmod api", x);
 		}
 	}
 }

@@ -25,6 +25,9 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.zip.GZIPOutputStream;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -70,6 +73,8 @@ public final class TransactionFragment extends SherlockFragment
 	private DateFormat dateFormat;
 	private DateFormat timeFormat;
 
+	private static final Logger log = LoggerFactory.getLogger(TransactionFragment.class);
+
 	@Override
 	public void onAttach(final Activity activity)
 	{
@@ -103,7 +108,7 @@ public final class TransactionFragment extends SherlockFragment
 		}
 		catch (final ScriptException x)
 		{
-			x.printStackTrace();
+			log.debug("problem determining from address", x);
 		}
 
 		Address to = null;
@@ -115,7 +120,7 @@ public final class TransactionFragment extends SherlockFragment
 		}
 		catch (final ScriptException x)
 		{
-			x.printStackTrace();
+			log.debug("problem determining to address", x);
 		}
 
 		final View view = getView();
@@ -141,7 +146,7 @@ public final class TransactionFragment extends SherlockFragment
 		}
 		catch (final ScriptException x)
 		{
-			x.printStackTrace();
+			log.info("problem determining value sent from me", x);
 		}
 
 		final BigInteger amountReceived = tx.getValueSentToMe(wallet);
