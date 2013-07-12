@@ -464,6 +464,17 @@ public class WalletApplication extends Application
 		}
 	}
 
+	public final String applicationPackageFlavor()
+	{
+		final String packageName = getPackageName();
+		final int index = packageName.lastIndexOf('_');
+
+		if (index != -1)
+			return packageName.substring(index + 1);
+		else
+			return null;
+	}
+
 	public int maxConnectedPeers()
 	{
 		final int memoryClass = activityManager.getMemoryClass();
