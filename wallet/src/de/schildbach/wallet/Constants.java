@@ -38,31 +38,20 @@ public class Constants
 	public static final String NETWORK_SUFFIX = TEST ? " [testnet3]" : "";
 
 	public static final NetworkParameters NETWORK_PARAMETERS = TEST ? TestNet3Params.get() : MainNetParams.get();
+	private static final String FILENAME_NETWORK_SUFFIX = NETWORK_PARAMETERS.getId().equals(NetworkParameters.ID_MAINNET) ? "" : "-testnet";
 
-	private static final String WALLET_FILENAME_PROD = "wallet";
-	private static final String WALLET_FILENAME_TEST = "wallet-testnet";
-	public static final String WALLET_FILENAME = TEST ? WALLET_FILENAME_TEST : WALLET_FILENAME_PROD;
+	public static final String WALLET_FILENAME = "wallet" + FILENAME_NETWORK_SUFFIX;
 
-	private static final String WALLET_FILENAME_PROTOBUF_PROD = "wallet-protobuf";
-	private static final String WALLET_FILENAME_PROTOBUF_TEST = "wallet-protobuf-testnet";
-	public static final String WALLET_FILENAME_PROTOBUF = TEST ? WALLET_FILENAME_PROTOBUF_TEST : WALLET_FILENAME_PROTOBUF_PROD;
+	public static final String WALLET_FILENAME_PROTOBUF = "wallet-protobuf" + FILENAME_NETWORK_SUFFIX;
 
-	private static final String WALLET_KEY_BACKUP_BASE58_PROD = "key-backup-base58";
-	private static final String WALLET_KEY_BACKUP_BASE58_TEST = "key-backup-base58-testnet";
-	public static final String WALLET_KEY_BACKUP_BASE58 = TEST ? WALLET_KEY_BACKUP_BASE58_TEST : WALLET_KEY_BACKUP_BASE58_PROD;
+	public static final String WALLET_KEY_BACKUP_BASE58 = "key-backup-base58" + FILENAME_NETWORK_SUFFIX;
 
 	public static final File EXTERNAL_WALLET_BACKUP_DIR = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
-	private static final String EXTERNAL_WALLET_KEY_BACKUP_PROD = "bitcoin-wallet-keys";
-	private static final String EXTERNAL_WALLET_KEY_BACKUP_TEST = "bitcoin-wallet-keys-testnet";
-	public static final String EXTERNAL_WALLET_KEY_BACKUP = TEST ? EXTERNAL_WALLET_KEY_BACKUP_TEST : EXTERNAL_WALLET_KEY_BACKUP_PROD;
+	public static final String EXTERNAL_WALLET_KEY_BACKUP = "bitcoin-wallet-keys" + FILENAME_NETWORK_SUFFIX;
 
-	private static final String BLOCKCHAIN_FILENAME_PROD = "blockchain";
-	private static final String BLOCKCHAIN_FILENAME_TEST = "blockchain-testnet";
-	public static final String BLOCKCHAIN_FILENAME = TEST ? BLOCKCHAIN_FILENAME_TEST : BLOCKCHAIN_FILENAME_PROD;
+	public static final String BLOCKCHAIN_FILENAME = "blockchain" + FILENAME_NETWORK_SUFFIX;
 
-	private static final String CHECKPOINTS_FILENAME_PROD = "checkpoints";
-	private static final String CHECKPOINTS_FILENAME_TEST = "checkpoints-testnet";
-	public static final String CHECKPOINTS_FILENAME = TEST ? CHECKPOINTS_FILENAME_TEST : CHECKPOINTS_FILENAME_PROD;
+	public static final String CHECKPOINTS_FILENAME = "checkpoints" + FILENAME_NETWORK_SUFFIX;
 
 	private static final String BLOCKEXPLORER_BASE_URL_PROD = "https://blockexplorer.com/";
 	private static final String BLOCKEXPLORER_BASE_URL_TEST = "https://blockexplorer.com/testnet/";
