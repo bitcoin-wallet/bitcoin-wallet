@@ -53,7 +53,8 @@ public class Constants
 
 	private static final String BLOCKEXPLORER_BASE_URL_PROD = "https://blockexplorer.com/";
 	private static final String BLOCKEXPLORER_BASE_URL_TEST = "https://blockexplorer.com/testnet/";
-	public static final String BLOCKEXPLORER_BASE_URL = TEST ? BLOCKEXPLORER_BASE_URL_TEST : BLOCKEXPLORER_BASE_URL_PROD;
+	public static final String BLOCKEXPLORER_BASE_URL = NETWORK_PARAMETERS.equals(NetworkParameters.ID_MAINNET) ? BLOCKEXPLORER_BASE_URL_PROD
+			: BLOCKEXPLORER_BASE_URL_TEST;
 
 	public static final String MIMETYPE_TRANSACTION = "application/x-btctx";
 
