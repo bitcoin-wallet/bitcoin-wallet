@@ -160,8 +160,6 @@
 	<string name="preferences_category_main">Preferences</string>
 	<string name="preferences_category_diagnostics">Diagnostics</string>
 	<string name="preferences_category_labs">Labs</string>
-	<string name="preferences_autosync_title">Sync on Power</string>
-	<string name="preferences_autosync_summary">Stay synchronized to blockchain in background while connected to power.</string>
 	<string name="preferences_connectivity_notification_title">Connectivity Indicator</string>
 	<string name="preferences_connectivity_notification_summary">Show current number of connected peers in the notification area.</string>
 	<string name="preferences_trusted_peer_title">Trusted Peer</string>

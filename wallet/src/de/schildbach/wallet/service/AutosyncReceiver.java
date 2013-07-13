@@ -48,7 +48,6 @@ public class AutosyncReceiver extends BroadcastReceiver
 			return;
 
 		final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-		final boolean prefsAutosync = prefs.getBoolean(Constants.PREFS_KEY_AUTOSYNC, true);
 		final long prefsLastUsed = prefs.getLong(Constants.PREFS_KEY_LAST_USED, 0);
 
 		// determine power connected state
@@ -56,14 +55,12 @@ public class AutosyncReceiver extends BroadcastReceiver
 		final int batteryStatus = batteryChanged.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
 		boolean isPowerConnected = batteryStatus == BatteryManager.BATTERY_STATUS_CHARGING || batteryStatus == BatteryManager.BATTERY_STATUS_FULL;
 
-		final boolean running = prefsAutosync && isPowerConnected;
-
 		final AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
 		final Intent serviceIntent = new Intent(BlockchainService.ACTION_HOLD_WIFI_LOCK, null, context, BlockchainServiceImpl.class);
 		final PendingIntent alarmIntent = PendingIntent.getService(context, 0, serviceIntent, 0);
 
-		if (running)
+		if (isPowerConnected)
 		{
 			context.startService(serviceIntent);
 

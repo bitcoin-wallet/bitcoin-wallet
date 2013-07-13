@@ -176,8 +176,6 @@
 	<string name="preferences_category_main">Einstellungen</string>
 	<string name="preferences_category_diagnostics">Diagnose</string>
 	<string name="preferences_category_labs">Labor</string>
-	<string name="preferences_autosync_title">Sync am Strom</string>
-	<string name="preferences_autosync_summary">Synchronisiert die Blockchain im Hintergrund, solange das Gerät am Strom hängt.</string>
 	<string name="preferences_connectivity_notification_title">Konnektivitäts-Anzeige</string>
 	<string name="preferences_connectivity_notification_summary">Zeigt die aktuelle Anzahl von verbundenen Peers im Notifizierungsbereich an.</string>
 	<string name="preferences_trusted_peer_title">Vertrauenswürdiger Peer</string>

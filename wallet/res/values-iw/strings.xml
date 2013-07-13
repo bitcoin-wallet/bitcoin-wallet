@@ -151,8 +151,6 @@
 	<string name="preferences_category_main">העדפות</string>
 	<string name="preferences_category_diagnostics">בדיקה</string>
 	<string name="preferences_category_labs">מעבדות</string>
-	<string name="preferences_autosync_title">סנכרן עם חיבור למתח</string>
-	<string name="preferences_autosync_summary">הישאר מסונכרן לשרשרת הבלוקים בזמן חיבור למטען</string>
 	<string name="preferences_connectivity_notification_title">מצב קישוריות</string>
 	<string name="preferences_connectivity_notification_summary">הראה את מספר השכנים הקשורים</string>
 	<string name="preferences_trusted_peer_title">שכן מהימן</string>

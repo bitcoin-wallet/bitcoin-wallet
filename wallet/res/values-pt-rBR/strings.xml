@@ -160,8 +160,6 @@
 	<string name="preferences_category_main">Preferências</string>
 	<string name="preferences_category_diagnostics">Diagnósticos</string>
 	<string name="preferences_category_labs">Labs</string>
-	<string name="preferences_autosync_title">Sincronizar enquanto carrega</string>
-	<string name="preferences_autosync_summary">Manter sincronizado ao blockchain em segundo plano enquanto carrega.</string>
 	<string name="preferences_connectivity_notification_title">Indicador de conectividade</string>
 	<string name="preferences_connectivity_notification_summary">Mostrar número atual de pares conectados na área de transferência.</string>
 	<string name="preferences_trusted_peer_title">Pares de confiança</string>

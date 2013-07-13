@@ -148,11 +148,8 @@
 	<string name="scan_camera_problem_dialog_title">Lo siento</string>
 	<string name="scan_camera_problem_dialog_message">La cámara tiene un problema. Posiblemente necesites reiniciar tu dispositivo.</string>
 	<string name="preferences_activity_title">Preferencias</string>
-	<string name="preferences_autosync_title">Sincronizar en carga</string>
 	<string name="preferences_category_diagnostics">Diagnósticos</string>
 	<string name="preferences_category_labs">Labs</string>
-	<string name="preferences_autosync_title">Sincronizar durante la carga</string>
-	<string name="preferences_autosync_summary">Mantenerse sincronizado a blockchain en segundo plano mientras está en carga.</string>
 	<string name="preferences_connectivity_notification_title">Indicador de conectividad</string>
 	<string name="preferences_connectivity_notification_summary">Mostrar número actual de pares conectados en el área de notificación.</string>
 	<string name="preferences_trusted_peer_title">Pares de confianza</string>
