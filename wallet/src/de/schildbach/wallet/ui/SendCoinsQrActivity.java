@@ -24,7 +24,7 @@ import android.os.Bundle;
 /**
  * @author Andreas Schildbach
  */
-public final class SendCoinsQrActivity extends AbstractWalletActivity
+public final class SendCoinsQrActivity extends Activity
 {
 	private static final int REQUEST_CODE_SCAN = 0;
 
