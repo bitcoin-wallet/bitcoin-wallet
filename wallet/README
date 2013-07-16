@@ -34,13 +34,16 @@ openssl enc -d -aes-256-cbc -a -in <filename>
 
 DEBUGGING
 
-Wallet file for Testnet can be pulled from (even unrooted) device using
+Wallet file for Testnet can be pulled from an (even un-rooted) device using
 
 	adb pull /data/data/de.schildbach.wallet_test/files/wallet-protobuf-testnet
 
 Log messages can be viewed by
 
 	adb logcat
+
+The app can send extensive debug information. Use Options > Settings > Report Issue and follow the dialog.
+In the generated e-mail, replace the support address with yours.
 
 
 BUILDING THE DEVELOPMENT VERSION
