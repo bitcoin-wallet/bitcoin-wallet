@@ -37,6 +37,9 @@ public class NfcTools
 
 	public static boolean publishUri(final NfcManager nfcManager, final Activity activity, final String uri)
 	{
+		if (nfcManager == null)
+			return false;
+
 		final NfcAdapter adapter = nfcManager.getDefaultAdapter();
 		if (adapter == null)
 			return false;
@@ -50,6 +53,9 @@ public class NfcTools
 	public static boolean publishMimeObject(final NfcManager nfcManager, final Activity activity, final String mimeType, final byte[] payload,
 			final boolean includeApplicationRecord)
 	{
+		if (nfcManager == null)
+			return false;
+
 		final NfcAdapter adapter = nfcManager.getDefaultAdapter();
 		if (adapter == null)
 			return false;
@@ -62,6 +68,9 @@ public class NfcTools
 
 	public static void unpublish(final NfcManager nfcManager, final Activity activity)
 	{
+		if (nfcManager == null)
+			return;
+
 		final NfcAdapter adapter = nfcManager.getDefaultAdapter();
 		if (adapter == null)
 			return;
