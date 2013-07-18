@@ -99,7 +99,7 @@ public class WalletApplication extends Application
 
 		Locks.throwOnLockCycles();
 
-		log.debug(".onCreate()");
+		log.info("configuration: " + (Constants.TEST ? "test" : "prod") + ", " + Constants.NETWORK_PARAMETERS.getId());
 
 		super.onCreate();
 
