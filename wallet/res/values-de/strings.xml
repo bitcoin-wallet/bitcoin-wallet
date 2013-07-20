@@ -122,6 +122,7 @@
 	<string name="transaction_fragment_status_confirmed">bestätigt</string>
 	<string name="transaction_fragment_status_dead">tot</string>
 	<string name="transaction_fragment_hash_label">Hash</string>
+	<string name="transaction_fragment_hash_clipboard_msg">Transaktions-Hash ins Clipboard kopiert</string>
 	<string name="transaction_fragment_length_label">Länge</string>
 
 	<string name="transaction_row_message_own_unbroadcasted">Diese Zahlung ist noch nicht übertragen.</string>
@@ -140,6 +141,7 @@
 	<string name="network_monitor_block_list_title">Blöcke</string>
 
 	<string name="peer_list_fragment_empty">Keine Peers verbinden</string>
+	<string name="peer_list_row_ping_time">⇆ %d&#x2009;ms</string>
 
 	<string name="import_keys_dialog_title">Private Schlüssel importieren</string>
 	<string name="import_keys_dialog_message">Wähle eine Import-Datei mit privaten Schlüsseln vom externen oder app-privaten Speicher aus:</string>
