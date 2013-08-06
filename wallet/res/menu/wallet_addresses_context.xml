@@ -25,10 +25,6 @@
 		android:showAsAction="ifRoom|withText"
 		android:title="@string/address_book_context_show_qr_title"/>
 	<item
-		android:id="@+id/wallet_addresses_context_determine_creation_time"
-		android:showAsAction="never"
-		android:title="@string/address_book_context_determine_creation_time_title"/>
-	<item
 		android:id="@+id/wallet_addresses_context_open_blockexplorer"
 		android:showAsAction="never"
 		android:title="Open in blockexplorer.com"/>

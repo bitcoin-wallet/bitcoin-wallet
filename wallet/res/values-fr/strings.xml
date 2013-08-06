@@ -89,7 +89,6 @@
 	<string name="address_book_context_show_qr_title">Afficher le QR code</string>
 	<string name="address_book_context_copy_to_clipboard_title">Copier dans le presse-papiers</string>
 	<string name="address_book_context_default_title">Définir en tant qu\'adresse par défaut</string>
-	<string name="address_book_context_determine_creation_time_title">Déterminer le temps de création</string>
 	<string name="address_book_options_paste_from_clipboard_title">Coller depuis le presse-papiers</string>
 	<string name="address_book_options_copy_from_clipboard_msg_empty">Le presse-papiers est vide</string>
 	<string name="address_book_options_scan_title">Analyser l\'adresse</string>

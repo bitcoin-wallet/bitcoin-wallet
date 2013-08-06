@@ -17,7 +17,6 @@
 
 package de.schildbach.wallet.ui;
 
-import java.util.Date;
 import java.util.List;
 
 import android.app.Activity;
@@ -33,7 +32,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.text.ClipboardManager;
-import android.text.format.DateUtils;
 import android.view.View;
 import android.widget.BaseAdapter;
 import android.widget.ListAdapter;
@@ -53,10 +51,8 @@ import com.google.bitcoin.uri.BitcoinURI;
 
 import de.schildbach.wallet.AddressBookProvider;
 import de.schildbach.wallet.Constants;
-import de.schildbach.wallet.DetermineFirstSeenThread;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.util.BitmapFragment;
-import de.schildbach.wallet.util.CrashReporter;
 import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
 
@@ -177,11 +173,6 @@ public final class WalletAddressesFragment extends SherlockListFragment
 			public boolean onPrepareActionMode(final ActionMode mode, final Menu menu)
 			{
 				final ECKey key = getKey(position);
-				final boolean enabled = key.getCreationTimeSeconds() == 0;
-
-				final MenuItem item = menu.findItem(R.id.wallet_addresses_context_determine_creation_time);
-				item.setEnabled(enabled);
-				item.setVisible(enabled);
 
 				final String address = key.toAddress(Constants.NETWORK_PARAMETERS).toString();
 				final String label = AddressBookProvider.resolveLabel(activity, address);
@@ -214,13 +205,6 @@ public final class WalletAddressesFragment extends SherlockListFragment
 
 					case R.id.wallet_addresses_context_default:
 						handleDefault(getAddress(position));
-
-						mode.finish();
-						return true;
-
-					case R.id.wallet_addresses_context_determine_creation_time:
-						final ECKey key = getKey(position);
-						handleDetermineCreationTime(key);
 
 						mode.finish();
 						return true;
@@ -275,26 +259,6 @@ public final class WalletAddressesFragment extends SherlockListFragment
 				adapter.setSelectedAddress(address.toString());
 			}
 		});
-	}
-
-	private void handleDetermineCreationTime(final ECKey key)
-	{
-		new DetermineFirstSeenThread(key.toAddress(Constants.NETWORK_PARAMETERS).toString())
-		{
-			@Override
-			protected void succeed(final Date firstSeen)
-			{
-				key.setCreationTimeSeconds((firstSeen != null ? firstSeen.getTime() : System.currentTimeMillis()) / DateUtils.SECOND_IN_MILLIS);
-				updateView();
-				application.saveWallet();
-			}
-
-			@Override
-			protected void fail(final Exception x)
-			{
-				CrashReporter.saveBackgroundTrace(x);
-			}
-		};
 	}
 
 	private void updateView()

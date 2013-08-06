@@ -109,7 +109,6 @@
 	<string name="address_book_context_show_qr_title">Mostrar código QR</string>
 	<string name="address_book_context_copy_to_clipboard_title">Copiar al portapapeles</string>
 	<string name="address_book_context_default_title">Establecer como dirección por defecto</string>
-	<string name="address_book_context_determine_creation_time_title">Determinar hora de creación</string>
 	<string name="address_book_options_paste_from_clipboard_title">Pegar desde el portapapeles</string>
 	<string name="address_book_options_copy_from_clipboard_msg_empty">Portapapeles vacío</string>
 	<string name="address_book_options_scan_title">Explorar dirección</string>

@@ -73,7 +73,6 @@
 	<string name="address_book_context_show_qr_title">QR kodu göster</string>
 	<string name="address_book_context_copy_to_clipboard_title">Panoya kopyala</string>
 	<string name="address_book_context_default_title">Varsayılan adres olarak tanımla</string>
-	<string name="address_book_context_determine_creation_time_title">Oluşturma vaktini belirle</string>
 	<string name="address_book_options_paste_from_clipboard_title">Panodan yapıştır</string>
 	<string name="address_book_options_copy_from_clipboard_msg_empty">Pano boş</string>
 	<string name="address_book_options_scan_title">Adresi tara</string>
