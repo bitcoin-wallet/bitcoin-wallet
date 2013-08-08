@@ -86,16 +86,7 @@ public class WalletApplication extends Application
 	{
 		initLogging();
 
-		final StrictMode.ThreadPolicy.Builder threadPolicy = new StrictMode.ThreadPolicy.Builder().detectAll().permitDiskReads().permitDiskWrites()
-				.penaltyLog();
-		final StrictMode.VmPolicy.Builder vmPolicy = new StrictMode.VmPolicy.Builder().detectAll().penaltyLog();
-		if (Constants.TEST)
-		{
-			threadPolicy.penaltyDeath();
-			vmPolicy.penaltyDeath();
-		}
-		StrictMode.setThreadPolicy(threadPolicy.build());
-		StrictMode.setVmPolicy(vmPolicy.build());
+		StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().detectAll().permitDiskReads().permitDiskWrites().penaltyLog().build());
 
 		Locks.throwOnLockCycles();
 
