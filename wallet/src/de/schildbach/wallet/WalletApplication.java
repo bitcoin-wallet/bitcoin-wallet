@@ -280,15 +280,7 @@ public class WalletApplication extends Application
 			wallet = new Wallet(Constants.NETWORK_PARAMETERS);
 			wallet.addKey(new ECKey());
 
-			try
-			{
-				protobufSerializeWallet(wallet);
-				log.info("wallet created: '" + walletFile + "'");
-			}
-			catch (final IOException x2)
-			{
-				throw new Error("wallet cannot be created", x2);
-			}
+			log.info("new wallet created");
 		}
 
 		// this check is needed so encrypted wallets won't get their private keys removed accidently
