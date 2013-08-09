@@ -109,9 +109,11 @@ public class WalletApplication extends Application
 
 		loadWalletFromProtobuf();
 
-		backupKeys();
+		ensureKey();
 
 		wallet.autosaveToFile(walletFile, 1, TimeUnit.SECONDS, new WalletAutosaveEventListener());
+
+		backupKeys();
 	}
 
 	private void initLogging()
@@ -278,7 +280,6 @@ public class WalletApplication extends Application
 		else
 		{
 			wallet = new Wallet(Constants.NETWORK_PARAMETERS);
-			wallet.addKey(new ECKey());
 
 			log.info("new wallet created");
 		}
@@ -320,6 +321,12 @@ public class WalletApplication extends Application
 			wallet.addKey(key);
 
 		return wallet;
+	}
+
+	private void ensureKey()
+	{
+		if (wallet.getKeychainSize() == 0)
+			wallet.addKey(new ECKey());
 	}
 
 	public void addNewKeyToWallet()
