@@ -63,6 +63,7 @@ import com.google.bitcoin.core.Address;
 import com.google.bitcoin.core.Block;
 import com.google.bitcoin.core.BlockChain;
 import com.google.bitcoin.core.CheckpointManager;
+import com.google.bitcoin.core.ECKey;
 import com.google.bitcoin.core.Peer;
 import com.google.bitcoin.core.PeerEventListener;
 import com.google.bitcoin.core.PeerGroup;
@@ -87,6 +88,7 @@ import de.schildbach.wallet.WalletBalanceWidgetProvider;
 import de.schildbach.wallet.ui.WalletActivity;
 import de.schildbach.wallet.util.CrashReporter;
 import de.schildbach.wallet.util.GenericUtils;
+import de.schildbach.wallet.util.HttpGetThread;
 import de.schildbach.wallet.util.ThrottelingWalletChangeListener;
 import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
@@ -659,8 +661,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 
 		registerReceiver(tickReceiver, new IntentFilter(Intent.ACTION_TIME_TICK));
 
-		final boolean replaying = blockChain.getChainHead().getHeight() < bestChainHeightEver;
-		wallet.setKeyRotationEnabled(!replaying);
+		maybeRotateKeys();
 	}
 
 	@Override
@@ -848,6 +849,43 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 			final BigInteger balance = wallet.getBalance(BalanceType.ESTIMATED);
 
 			WalletBalanceWidgetProvider.updateWidgets(this, appWidgetManager, appWidgetIds, balance);
+		}
+	}
+
+	private void maybeRotateKeys()
+	{
+		final Wallet wallet = application.getWallet();
+		wallet.setKeyRotationEnabled(false);
+
+		final StoredBlock chainHead = blockChain.getChainHead();
+		final boolean replaying = chainHead.getHeight() < bestChainHeightEver;
+
+		if (!replaying)
+		{
+			final String versionName = application.applicationVersionName();
+			final int versionNameSplit = versionName.indexOf('-');
+			final String url = Constants.ROTATE_URL + (versionNameSplit >= 0 ? versionName.substring(versionNameSplit) : "");
+
+			new HttpGetThread(getAssets(), url)
+			{
+				@Override
+				protected void handleLine(final String line, final long serverTime)
+				{
+					log.info("according to \"" + url + "\", killswitch value is " + line);
+
+					final ECKey firstKey = wallet.getKeys().get(0);
+					final boolean enabled = firstKey.hashCode() % 100 < Integer.parseInt(line);
+
+					log.info("key rotation " + (enabled ? "enabled" : "disabled"));
+
+					if (enabled)
+					{
+						final boolean replaying = chainHead.getHeight() < bestChainHeightEver; // checking again
+
+						wallet.setKeyRotationEnabled(!replaying);
+					}
+				}
+			};
 		}
 	}
 }
