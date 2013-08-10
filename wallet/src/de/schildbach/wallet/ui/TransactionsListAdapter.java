@@ -71,6 +71,7 @@ public class TransactionsListAdapter extends BaseAdapter
 	private final int colorError;
 	private final int colorCircularBuilding = Color.parseColor("#44ff44");
 	private final String textCoinBase;
+	private final String textInternal;
 
 	private final Map<String, String> labelCache = new HashMap<String, String>();
 	private final static String CACHE_NULL_MARKER = "";
@@ -95,6 +96,7 @@ public class TransactionsListAdapter extends BaseAdapter
 		colorInsignificant = resources.getColor(R.color.fg_insignificant);
 		colorError = resources.getColor(R.color.fg_error);
 		textCoinBase = context.getString(R.string.wallet_transactions_fragment_coinbase);
+		textInternal = context.getString(R.string.wallet_transactions_fragment_internal);
 	}
 
 	public void setPrecision(final int precision)
@@ -216,6 +218,7 @@ public class TransactionsListAdapter extends BaseAdapter
 		final ConfidenceType confidenceType = confidence.getConfidenceType();
 		final boolean isOwn = confidence.getSource().equals(TransactionConfidence.Source.SELF);
 		final boolean isCoinBase = tx.isCoinBase();
+		final boolean isInternal = WalletUtils.isInternal(tx);
 
 		try
 		{
@@ -284,7 +287,12 @@ public class TransactionsListAdapter extends BaseAdapter
 
 			// receiving or sending
 			final TextView rowFromTo = (TextView) row.findViewById(R.id.transaction_row_fromto);
-			rowFromTo.setText(sent ? R.string.symbol_to : R.string.symbol_from);
+			if (isInternal)
+				rowFromTo.setText(R.string.symbol_internal);
+			else if (sent)
+				rowFromTo.setText(R.string.symbol_to);
+			else
+				rowFromTo.setText(R.string.symbol_from);
 			rowFromTo.setTextColor(textColor);
 
 			// coinbase
@@ -297,6 +305,8 @@ public class TransactionsListAdapter extends BaseAdapter
 			final String label;
 			if (isCoinBase)
 				label = textCoinBase;
+			else if (isInternal)
+				label = textInternal;
 			else if (address != null)
 				label = resolveLabel(address.toString());
 			else

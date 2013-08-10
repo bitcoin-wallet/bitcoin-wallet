@@ -58,6 +58,7 @@ import com.google.bitcoin.core.Transaction;
 import com.google.bitcoin.core.TransactionInput;
 import com.google.bitcoin.core.TransactionOutput;
 import com.google.bitcoin.core.Utils;
+import com.google.bitcoin.script.Script;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
 import com.google.zxing.WriterException;
@@ -219,6 +220,30 @@ public class WalletUtils
 		catch (final ScriptException x)
 		{
 			return null;
+		}
+	}
+
+	public static boolean isInternal(final Transaction tx)
+	{
+		if (tx.isCoinBase())
+			return false;
+
+		final List<TransactionOutput> outputs = tx.getOutputs();
+		if (outputs.size() != 1)
+			return false;
+
+		try
+		{
+			final TransactionOutput output = outputs.get(0);
+			final Script scriptPubKey = output.getScriptPubKey();
+			if (!scriptPubKey.isSentToRawPubKey())
+				return false;
+
+			return true;
+		}
+		catch (final ScriptException x)
+		{
+			return false;
 		}
 	}
 

@@ -3,6 +3,7 @@
 
 	<string name="symbol_to">→</string>
 	<string name="symbol_from">←</string>
+	<string name="symbol_internal">⇄</string>
 	<string name="app_name">Testnet3</string>
 
 	<string-array name="preferences_precision_values">
