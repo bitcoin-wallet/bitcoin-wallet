@@ -81,7 +81,6 @@ public class ExchangeRatesProvider extends ContentProvider
 	private long lastUpdated = 0;
 
 	private static final long UPDATE_FREQ_MS = 10 * DateUtils.MINUTE_IN_MILLIS;
-	private static final int TIMEOUT_MS = 15 * (int) DateUtils.SECOND_IN_MILLIS;
 
 	private static final Logger log = LoggerFactory.getLogger(ExchangeRatesProvider.class);
 
@@ -203,8 +202,8 @@ public class ExchangeRatesProvider extends ContentProvider
 		{
 			final URL URL = new URL("http://api.bitcoincharts.com/v1/weighted_prices.json");
 			final HttpURLConnection connection = (HttpURLConnection) URL.openConnection();
-			connection.setConnectTimeout(TIMEOUT_MS);
-			connection.setReadTimeout(TIMEOUT_MS);
+			connection.setConnectTimeout(Constants.HTTP_TIMEOUT_MS);
+			connection.setReadTimeout(Constants.HTTP_TIMEOUT_MS);
 			connection.connect();
 
 			if (connection.getResponseCode() != HttpURLConnection.HTTP_OK)
@@ -263,8 +262,8 @@ public class ExchangeRatesProvider extends ContentProvider
 		{
 			final URL URL = new URL("https://blockchain.info/ticker");
 			final HttpURLConnection connection = (HttpURLConnection) URL.openConnection();
-			connection.setConnectTimeout(TIMEOUT_MS);
-			connection.setReadTimeout(TIMEOUT_MS);
+			connection.setConnectTimeout(Constants.HTTP_TIMEOUT_MS);
+			connection.setReadTimeout(Constants.HTTP_TIMEOUT_MS);
 			connection.connect();
 
 			if (connection.getResponseCode() != HttpURLConnection.HTTP_OK)

@@ -22,18 +22,10 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.io.Writer;
-import java.net.HttpURLConnection;
-import java.net.SocketException;
-import java.net.SocketTimeoutException;
-import java.net.URL;
-import java.net.UnknownHostException;
-import java.security.KeyStore;
 import java.text.DateFormat;
 import java.util.Collections;
 import java.util.Comparator;
@@ -41,10 +33,6 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.TimeZone;
-
-import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.TrustManagerFactory;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -81,6 +69,7 @@ import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.util.CrashReporter;
 import de.schildbach.wallet.util.EncryptionUtils;
+import de.schildbach.wallet.util.HttpGetThread;
 import de.schildbach.wallet.util.Iso8601Format;
 import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
@@ -498,117 +487,57 @@ public final class WalletActivity extends AbstractWalletActivity
 
 	private void checkAlerts()
 	{
-		new Thread()
+		final int versionCode = getWalletApplication().applicationVersionCode();
+		final String versionName = getWalletApplication().applicationVersionName();
+		final int versionNameSplit = versionName.indexOf('-');
+		final String base = Constants.VERSION_URL + (versionNameSplit >= 0 ? versionName.substring(versionNameSplit) : "");
+		final String url = base + "?current=" + versionCode;
+
+		new HttpGetThread(getAssets(), url)
 		{
-			private static final int TIMEOUT_MS = 15 * (int) DateUtils.SECOND_IN_MILLIS;
-
 			@Override
-			public void run()
+			protected void handleLine(final String line, final long serverTime)
 			{
-				final int versionCode = getWalletApplication().applicationVersionCode();
-				final String versionName = getWalletApplication().applicationVersionName();
-				final int versionNameSplit = versionName.indexOf('-');
-				final String base = Constants.VERSION_URL + (versionNameSplit >= 0 ? versionName.substring(versionNameSplit) : "");
-				final String url = base + "?current=" + versionCode;
+				final int serverVersionCode = Integer.parseInt(line.split("\\s+")[0]);
 
-				HttpURLConnection connection = null;
+				log.info("according to \"" + url + "\", strongly recommended minimum app version is " + serverVersionCode);
 
-				try
+				if (serverTime > 0)
 				{
-					connection = (HttpURLConnection) new URL(url).openConnection();
+					final long diffMinutes = Math.abs((System.currentTimeMillis() - serverTime) / DateUtils.MINUTE_IN_MILLIS);
 
-					if (connection instanceof HttpsURLConnection)
+					if (diffMinutes >= 60)
 					{
-						final InputStream keystoreInputStream = getAssets().open("ssl-keystore");
+						log.info("according to \"" + url + "\", system clock is off by " + diffMinutes + " minutes");
 
-						final KeyStore keystore = KeyStore.getInstance("BKS");
-						keystore.load(keystoreInputStream, "password".toCharArray());
-						keystoreInputStream.close();
-
-						final TrustManagerFactory tmf = TrustManagerFactory.getInstance("X509");
-						tmf.init(keystore);
-
-						final SSLContext sslContext = SSLContext.getInstance("TLS");
-						sslContext.init(null, tmf.getTrustManagers(), null);
-
-						((HttpsURLConnection) connection).setSSLSocketFactory(sslContext.getSocketFactory());
-					}
-
-					connection.setConnectTimeout(TIMEOUT_MS);
-					connection.setReadTimeout(TIMEOUT_MS);
-					connection.connect();
-
-					if (connection.getResponseCode() == HttpURLConnection.HTTP_OK)
-					{
-						final long serverTime = connection.getDate();
-						final BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()), 64);
-						final int serverVersionCode = Integer.parseInt(reader.readLine().trim().split("\\s+")[0]);
-						reader.close();
-
-						log.info("according to \"" + url + "\", strongly recommended minimum app version is " + serverVersionCode);
-
-						if (serverTime > 0)
+						runOnUiThread(new Runnable()
 						{
-							final long diffMinutes = Math.abs((System.currentTimeMillis() - serverTime) / DateUtils.MINUTE_IN_MILLIS);
-
-							if (diffMinutes >= 60)
+							public void run()
 							{
-								log.info("according to \"" + url + "\", system clock is off by " + diffMinutes + " minutes");
-
-								runOnUiThread(new Runnable()
-								{
-									public void run()
-									{
-										if (!isFinishing())
-											timeskewAlert(diffMinutes);
-									}
-								});
-
-								return;
+								if (!isFinishing())
+									timeskewAlert(diffMinutes);
 							}
-						}
+						});
 
-						if (serverVersionCode > versionCode)
-						{
-							runOnUiThread(new Runnable()
-							{
-								public void run()
-								{
-									if (!isFinishing())
-										versionAlert(serverVersionCode);
-								}
-							});
-
-							return;
-						}
+						return;
 					}
 				}
-				catch (final UnknownHostException x)
+
+				if (serverVersionCode > versionCode)
 				{
-					// swallow
-					log.debug("problem reading alert", x);
-				}
-				catch (final SocketException x)
-				{
-					// swallow
-					log.debug("problem reading alert", x);
-				}
-				catch (final SocketTimeoutException x)
-				{
-					// swallow
-					log.debug("problem reading alert", x);
-				}
-				catch (final Exception x)
-				{
-					CrashReporter.saveBackgroundTrace(new RuntimeException(url, x));
-				}
-				finally
-				{
-					if (connection != null)
-						connection.disconnect();
+					runOnUiThread(new Runnable()
+					{
+						public void run()
+						{
+							if (!isFinishing())
+								versionAlert(serverVersionCode);
+						}
+					});
+
+					return;
 				}
 			}
-		}.start();
+		};
 
 		if (CrashReporter.hasSavedCrashTrace())
 		{
