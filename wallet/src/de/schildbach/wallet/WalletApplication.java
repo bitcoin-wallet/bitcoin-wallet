@@ -64,6 +64,7 @@ import com.google.bitcoin.wallet.WalletFiles;
 import de.schildbach.wallet.service.BlockchainService;
 import de.schildbach.wallet.service.BlockchainServiceImpl;
 import de.schildbach.wallet.util.CrashReporter;
+import de.schildbach.wallet.util.LinuxSecureRandom;
 import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
 
@@ -86,6 +87,8 @@ public class WalletApplication extends Application
 	@Override
 	public void onCreate()
 	{
+		new LinuxSecureRandom(); // init proper random number generator
+
 		initLogging();
 
 		StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().detectAll().permitDiskReads().permitDiskWrites().penaltyLog().build());
