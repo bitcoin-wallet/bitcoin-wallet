@@ -255,12 +255,6 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 			changed(peerCount);
 		}
 
-		@Override
-		public void onException(final Throwable throwable)
-		{
-			CrashReporter.saveBackgroundTrace(throwable);
-		}
-
 		public void onSharedPreferenceChanged(final SharedPreferences sharedPreferences, final String key)
 		{
 			if (Constants.PREFS_KEY_CONNECTIVITY_NOTIFICATION.equals(key))

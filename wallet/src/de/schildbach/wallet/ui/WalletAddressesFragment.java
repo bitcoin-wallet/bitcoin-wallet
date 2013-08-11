@@ -104,7 +104,7 @@ public final class WalletAddressesFragment extends SherlockListFragment
 		contentResolver.registerContentObserver(AddressBookProvider.contentUri(activity.getPackageName()), true, contentObserver);
 
 		wallet.addEventListener(walletListener);
-		walletListener.onKeyAdded(null); // trigger initial load of keys
+		walletListener.onKeysAdded(null, null); // trigger initial load of keys
 
 		updateView();
 	}
@@ -282,7 +282,7 @@ public final class WalletAddressesFragment extends SherlockListFragment
 	private final WalletEventListener walletListener = new AbstractWalletEventListener()
 	{
 		@Override
-		public void onKeyAdded(final ECKey key)
+		public void onKeysAdded(final Wallet wallet, final List<ECKey> keysAdded)
 		{
 			final List<ECKey> keys = application.getWallet().getKeys();
 

@@ -18,6 +18,7 @@
 package de.schildbach.wallet.util;
 
 import java.math.BigInteger;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -125,7 +126,7 @@ public abstract class ThrottelingWalletChangeListener implements WalletEventList
 			relevant.set(true);
 	}
 
-	public void onKeyAdded(final ECKey key)
+	public void onKeysAdded(final Wallet wallet, final List<ECKey> keys)
 	{
 		// swallow
 	}

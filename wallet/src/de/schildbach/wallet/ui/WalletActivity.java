@@ -600,7 +600,7 @@ public final class WalletActivity extends AbstractWalletActivity
 				@Override
 				protected CharSequence collectWalletDump()
 				{
-					return wallet.toString(false, null);
+					return wallet.toString(false, true, true, null);
 				}
 			};
 

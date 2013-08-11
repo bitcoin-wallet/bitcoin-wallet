@@ -20,6 +20,7 @@ package de.schildbach.wallet;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -55,9 +56,10 @@ import ch.qos.logback.core.rolling.TimeBasedRollingPolicy;
 import com.google.bitcoin.core.Address;
 import com.google.bitcoin.core.ECKey;
 import com.google.bitcoin.core.Wallet;
-import com.google.bitcoin.core.Wallet.AutosaveEventListener;
+import com.google.bitcoin.store.UnreadableWalletException;
 import com.google.bitcoin.store.WalletProtobufSerializer;
-import com.google.bitcoin.utils.Locks;
+import com.google.bitcoin.utils.Threading;
+import com.google.bitcoin.wallet.WalletFiles;
 
 import de.schildbach.wallet.service.BlockchainService;
 import de.schildbach.wallet.service.BlockchainServiceImpl;
@@ -88,13 +90,22 @@ public class WalletApplication extends Application
 
 		StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().detectAll().permitDiskReads().permitDiskWrites().penaltyLog().build());
 
-		Locks.throwOnLockCycles();
+		Threading.throwOnLockCycles();
 
 		log.info("configuration: " + (Constants.TEST ? "test" : "prod") + ", " + Constants.NETWORK_PARAMETERS.getId());
 
 		super.onCreate();
 
 		CrashReporter.init(getCacheDir());
+
+		Threading.uncaughtExceptionHandler = new Thread.UncaughtExceptionHandler()
+		{
+			public void uncaughtException(final Thread thread, final Throwable throwable)
+			{
+				log.info("bitcoinj uncaught exception", throwable);
+				CrashReporter.saveBackgroundTrace(throwable);
+			}
+		};
 
 		activityManager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
 
@@ -165,14 +176,8 @@ public class WalletApplication extends Application
 		log.setLevel(Level.INFO);
 	}
 
-	private static final class WalletAutosaveEventListener implements AutosaveEventListener
+	private static final class WalletAutosaveEventListener implements WalletFiles.Listener
 	{
-		public boolean caughtException(final Throwable throwable)
-		{
-			CrashReporter.saveBackgroundTrace(throwable);
-			return true;
-		}
-
 		public void onBeforeAutoSave(final File file)
 		{
 		}
@@ -236,7 +241,7 @@ public class WalletApplication extends Application
 
 				log.info("wallet loaded from: '" + walletFile + "', took " + (System.currentTimeMillis() - start) + "ms");
 			}
-			catch (final IOException x)
+			catch (final FileNotFoundException x)
 			{
 				log.error("problem loading wallet", x);
 
@@ -244,7 +249,7 @@ public class WalletApplication extends Application
 
 				wallet = restoreWalletFromBackup();
 			}
-			catch (final RuntimeException x)
+			catch (final UnreadableWalletException x)
 			{
 				log.error("problem loading wallet", x);
 

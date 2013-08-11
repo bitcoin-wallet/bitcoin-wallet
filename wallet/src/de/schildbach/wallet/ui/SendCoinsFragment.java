@@ -214,7 +214,7 @@ public final class SendCoinsFragment extends SherlockFragment
 
 	private final TransactionConfidence.Listener sentTransactionConfidenceListener = new TransactionConfidence.Listener()
 	{
-		public void onConfidenceChanged(final Transaction tx)
+		public void onConfidenceChanged(final Transaction tx, final TransactionConfidence.Listener.ChangeReason reason)
 		{
 			activity.runOnUiThread(new Runnable()
 			{

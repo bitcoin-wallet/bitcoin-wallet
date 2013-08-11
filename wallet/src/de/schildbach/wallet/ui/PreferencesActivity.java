@@ -145,7 +145,7 @@ public final class PreferencesActivity extends SherlockPreferenceActivity implem
 				@Override
 				protected CharSequence collectWalletDump()
 				{
-					return application.getWallet().toString(false, null);
+					return application.getWallet().toString(false, true, true, null);
 				}
 			};
 
