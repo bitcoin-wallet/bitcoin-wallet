@@ -125,7 +125,6 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 	private static final int IDLE_BLOCK_TIMEOUT_MIN = 2;
 	private static final int IDLE_TRANSACTION_TIMEOUT_MIN = 9;
 	private static final int MAX_HISTORY_SIZE = Math.max(IDLE_TRANSACTION_TIMEOUT_MIN, IDLE_BLOCK_TIMEOUT_MIN);
-
 	private static final long APPWIDGET_THROTTLE_MS = DateUtils.SECOND_IN_MILLIS;
 
 	private static final Logger log = LoggerFactory.getLogger(BlockchainServiceImpl.class);
@@ -584,9 +583,6 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 		prefs = PreferenceManager.getDefaultSharedPreferences(this);
 		final Wallet wallet = application.getWallet();
 
-		final int versionCode = application.applicationVersionCode();
-		prefs.edit().putInt(Constants.PREFS_KEY_LAST_VERSION, versionCode).commit();
-
 		bestChainHeightEver = prefs.getInt(Constants.PREFS_KEY_BEST_CHAIN_HEIGHT_EVER, 0);
 
 		peerConnectivityListener = new PeerConnectivityListener();
@@ -662,6 +658,9 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 		application.getWallet().addEventListener(walletEventListener);
 
 		registerReceiver(tickReceiver, new IntentFilter(Intent.ACTION_TIME_TICK));
+
+		final boolean replaying = blockChain.getChainHead().getHeight() < bestChainHeightEver;
+		wallet.setKeyRotationEnabled(!replaying);
 	}
 
 	@Override

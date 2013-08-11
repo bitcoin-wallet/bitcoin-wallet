@@ -56,6 +56,7 @@ import com.actionbarsherlock.view.MenuItem;
 import com.google.bitcoin.core.Address;
 import com.google.bitcoin.core.ScriptException;
 import com.google.bitcoin.core.Transaction;
+import com.google.bitcoin.core.Transaction.Purpose;
 import com.google.bitcoin.core.TransactionConfidence.ConfidenceType;
 import com.google.bitcoin.core.Wallet;
 
@@ -91,6 +92,7 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 
 	private static final String KEY_DIRECTION = "direction";
 	private static final long THROTTLE_MS = DateUtils.SECOND_IN_MILLIS;
+	private static final Uri KEY_ROTATION_URI = Uri.parse("http://bitcoin.org/en/alert/2013-08-11-android");
 
 	public static TransactionsListFragment instance(final Direction direction)
 	{
@@ -191,10 +193,12 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 	{
 		final Transaction tx = (Transaction) adapter.getItem(position);
 
-		if (tx != null)
-			handleTransactionClick(tx);
-		else
+		if (tx == null)
 			handleBackupWarningClick();
+		else if (tx.getPurpose() == Purpose.KEY_ROTATION)
+			handleKeyRotationClick();
+		else
+			handleTransactionClick(tx);
 	}
 
 	private void handleTransactionClick(final Transaction tx)
@@ -241,8 +245,11 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 
 					final String prefix = getString(sent ? R.string.symbol_to : R.string.symbol_from) + " ";
 
-					mode.setSubtitle(label != null ? prefix + label : WalletUtils.formatAddress(prefix, address, Constants.ADDRESS_FORMAT_GROUP_SIZE,
-							Constants.ADDRESS_FORMAT_LINE_SIZE));
+					if (tx.getPurpose() != Purpose.KEY_ROTATION)
+						mode.setSubtitle(label != null ? prefix + label : WalletUtils.formatAddress(prefix, address,
+								Constants.ADDRESS_FORMAT_GROUP_SIZE, Constants.ADDRESS_FORMAT_LINE_SIZE));
+					else
+						mode.setSubtitle(null);
 
 					menu.findItem(R.id.wallet_transactions_context_edit_address).setVisible(address != null);
 
@@ -288,6 +295,11 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 				EditAddressBookEntryFragment.edit(getFragmentManager(), address.toString());
 			}
 		});
+	}
+
+	private void handleKeyRotationClick()
+	{
+		startActivity(new Intent(Intent.ACTION_VIEW, KEY_ROTATION_URI));
 	}
 
 	private void handleBackupWarningClick()

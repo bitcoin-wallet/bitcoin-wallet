@@ -699,7 +699,7 @@ public final class SendCoinsFragment extends SherlockFragment
 		// create spend
 		final BigInteger amount = amountCalculatorLink.getAmount();
 		final SendRequest sendRequest = SendRequest.to(validatedAddress.address, amount);
-		sendRequest.changeAddress = pickOldestKey(wallet.getKeys()).toAddress(Constants.NETWORK_PARAMETERS);
+		sendRequest.changeAddress = pickOldestKey(wallet).toAddress(Constants.NETWORK_PARAMETERS);
 		sendRequest.emptyWallet = amount.equals(wallet.getBalance(BalanceType.AVAILABLE));
 
 		backgroundHandler.post(new Runnable()
@@ -905,13 +905,14 @@ public final class SendCoinsFragment extends SherlockFragment
 		}, 500);
 	}
 
-	private static ECKey pickOldestKey(final Iterable<ECKey> keys)
+	private static ECKey pickOldestKey(final Wallet wallet)
 	{
 		ECKey oldestKey = null;
 
-		for (final ECKey key : keys)
-			if (oldestKey == null || key.getCreationTimeSeconds() < oldestKey.getCreationTimeSeconds())
-				oldestKey = key;
+		for (final ECKey key : wallet.getKeys())
+			if (!wallet.isKeyRotating(key))
+				if (oldestKey == null || key.getCreationTimeSeconds() < oldestKey.getCreationTimeSeconds())
+					oldestKey = key;
 
 		return oldestKey;
 	}

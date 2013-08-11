@@ -768,7 +768,10 @@ public final class WalletActivity extends AbstractWalletActivity
 			final File file = new File(Constants.EXTERNAL_WALLET_BACKUP_DIR, Constants.EXTERNAL_WALLET_KEY_BACKUP + "-"
 					+ dateFormat.format(new Date()));
 
-			final List<ECKey> keys = wallet.getKeys();
+			final List<ECKey> keys = new LinkedList<ECKey>();
+			for (final ECKey key : wallet.getKeys())
+				if (!wallet.isKeyRotating(key))
+					keys.add(key);
 
 			final StringWriter plainOut = new StringWriter();
 			WalletUtils.writeKeys(plainOut, keys);

@@ -18,6 +18,7 @@
 package de.schildbach.wallet.ui;
 
 import java.math.BigInteger;
+import java.util.LinkedList;
 import java.util.List;
 
 import android.app.Activity;
@@ -54,6 +55,7 @@ import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.widget.ShareActionProvider;
 import com.google.bitcoin.core.Address;
 import com.google.bitcoin.core.ECKey;
+import com.google.bitcoin.core.Wallet;
 import com.google.bitcoin.uri.BitcoinURI;
 
 import de.schildbach.wallet.AddressBookProvider;
@@ -158,8 +160,12 @@ public final class RequestCoinsFragment extends SherlockFragment
 		amountCalculatorLink = new CurrencyCalculatorLink(btcAmountView, localAmountView);
 
 		addressView = (Spinner) view.findViewById(R.id.request_coins_fragment_address);
-		final List<ECKey> keys = application.getWallet().getKeys();
-		final WalletAddressesAdapter adapter = new WalletAddressesAdapter(activity, false);
+		final Wallet wallet = application.getWallet();
+		final List<ECKey> keys = new LinkedList<ECKey>();
+		for (final ECKey key : application.getWallet().getKeys())
+			if (!wallet.isKeyRotating(key))
+				keys.add(key);
+		final WalletAddressesAdapter adapter = new WalletAddressesAdapter(activity, wallet, false);
 		adapter.replace(keys);
 		addressView.setAdapter(adapter);
 		final Address selectedAddress = application.determineSelectedAddress();

@@ -40,6 +40,7 @@ import android.widget.TextView;
 import com.google.bitcoin.core.Address;
 import com.google.bitcoin.core.ScriptException;
 import com.google.bitcoin.core.Transaction;
+import com.google.bitcoin.core.Transaction.Purpose;
 import com.google.bitcoin.core.TransactionConfidence;
 import com.google.bitcoin.core.TransactionConfidence.ConfidenceType;
 import com.google.bitcoin.core.Wallet;
@@ -329,7 +330,14 @@ public class TransactionsListAdapter extends BaseAdapter
 				final TextView rowMessage = (TextView) row.findViewById(R.id.transaction_row_message);
 				final boolean isLocked = tx.getLockTime() > 0;
 				rowExtend.setVisibility(View.GONE);
-				if (isOwn && confidenceType == ConfidenceType.PENDING && confidence.numBroadcastPeers() <= 1)
+
+				if (tx.getPurpose() == Purpose.KEY_ROTATION)
+				{
+					rowExtend.setVisibility(View.VISIBLE);
+					rowMessage.setText(Html.fromHtml(context.getString(R.string.transaction_row_message_purpose_key_rotation)));
+					rowMessage.setTextColor(colorSignificant);
+				}
+				else if (isOwn && confidenceType == ConfidenceType.PENDING && confidence.numBroadcastPeers() <= 1)
 				{
 					rowExtend.setVisibility(View.VISIBLE);
 					rowMessage.setText(R.string.transaction_row_message_own_unbroadcasted);

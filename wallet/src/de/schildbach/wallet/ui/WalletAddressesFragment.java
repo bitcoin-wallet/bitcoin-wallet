@@ -88,7 +88,7 @@ public final class WalletAddressesFragment extends SherlockListFragment
 
 		setHasOptionsMenu(true);
 
-		adapter = new WalletAddressesAdapter(activity, true);
+		adapter = new WalletAddressesAdapter(activity, wallet, true);
 
 		final Address selectedAddress = application.determineSelectedAddress();
 		adapter.setSelectedAddress(selectedAddress.toString());

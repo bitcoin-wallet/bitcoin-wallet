@@ -94,6 +94,7 @@
 	<string name="address_book_options_paste_from_clipboard_title">Paste from clipboard</string>
 	<string name="address_book_options_copy_from_clipboard_msg_empty">Clipboard is empty</string>
 	<string name="address_book_options_scan_title">Scan address</string>
+	<string name="address_book_row_message_compromised_key">This address might be compromised. You should not use it any more for receiving coins.</string>
 	<string name="edit_address_book_entry_dialog_title_add">Add address</string>
 	<string name="edit_address_book_entry_dialog_title_edit">Edit address</string>
 	<string name="edit_address_book_entry_dialog_address_label">Address</string>
@@ -114,6 +115,7 @@
 	<string name="transaction_fragment_hash_label">Hash</string>
 	<string name="transaction_fragment_hash_clipboard_msg">Transaction hash copied to clipboard</string>
 	<string name="transaction_fragment_length_label">Length</string>
+	<string name="transaction_row_message_purpose_key_rotation">This transaction strengthens your wallet against theft. &lt;u>More info.&lt;/u></string>
 	<string name="transaction_row_message_own_unbroadcasted">This payment has not been transmitted yet.</string>
 	<string name="transaction_row_message_received_unconfirmed_unlocked">This payment should become spendable in a few minutes.</string>
 	<string name="transaction_row_message_received_unconfirmed_locked">This payment is not standard and should not be trusted.</string>

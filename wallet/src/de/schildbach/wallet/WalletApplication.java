@@ -28,6 +28,7 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.nio.charset.Charset;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
@@ -73,14 +74,18 @@ import de.schildbach.wallet_test.R;
  */
 public class WalletApplication extends Application
 {
-	private File walletFile;
-	private Wallet wallet;
+	private SharedPreferences prefs;
+	private ActivityManager activityManager;
+
 	private Intent blockchainServiceIntent;
 	private Intent blockchainServiceCancelCoinsReceivedIntent;
 	private Intent blockchainServiceResetBlockchainIntent;
-	private ActivityManager activityManager;
+
+	private File walletFile;
+	private Wallet wallet;
 
 	private static final Charset UTF_8 = Charset.forName("UTF-8");
+	private static final int KEY_ROTATION_VERSION_CODE = 135;
 
 	private static final Logger log = LoggerFactory.getLogger(WalletApplication.class);
 
@@ -110,6 +115,7 @@ public class WalletApplication extends Application
 			}
 		};
 
+		prefs = PreferenceManager.getDefaultSharedPreferences(this);
 		activityManager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
 
 		blockchainServiceIntent = new Intent(this, BlockchainServiceImpl.class);
@@ -122,12 +128,19 @@ public class WalletApplication extends Application
 		migrateWalletToProtobuf();
 
 		loadWalletFromProtobuf();
-
-		ensureKey();
-
 		wallet.autosaveToFile(walletFile, 1, TimeUnit.SECONDS, new WalletAutosaveEventListener());
 
-		backupKeys();
+		final int lastVersionCode = prefs.getInt(Constants.PREFS_KEY_LAST_VERSION, 0);
+		final int versionCode = applicationVersionCode();
+		prefs.edit().putInt(Constants.PREFS_KEY_LAST_VERSION, versionCode).commit();
+
+		if (lastVersionCode > 0 && lastVersionCode < KEY_ROTATION_VERSION_CODE && versionCode >= KEY_ROTATION_VERSION_CODE)
+		{
+			log.info("detected version jump crossing key rotation");
+			wallet.setKeyRotationTime(System.currentTimeMillis() / 1000);
+		}
+
+		ensureKey();
 	}
 
 	private void initLogging()
@@ -333,8 +346,12 @@ public class WalletApplication extends Application
 
 	private void ensureKey()
 	{
-		if (wallet.getKeychainSize() == 0)
-			wallet.addKey(new ECKey());
+		for (final ECKey key : wallet.getKeys())
+			if (!wallet.isKeyRotating(key))
+				return; // found
+
+		log.info("wallet has no usable key - creating");
+		addNewKeyToWallet();
 	}
 
 	public void addNewKeyToWallet()
@@ -394,29 +411,36 @@ public class WalletApplication extends Application
 
 	private void writeKeys(final OutputStream os) throws IOException
 	{
+		final List<ECKey> keys = new LinkedList<ECKey>();
+		for (final ECKey key : wallet.getKeys())
+			if (!wallet.isKeyRotating(key))
+				keys.add(key);
+
 		final Writer out = new OutputStreamWriter(os, UTF_8);
-		WalletUtils.writeKeys(out, wallet.getKeys());
+		WalletUtils.writeKeys(out, keys);
 		out.close();
 	}
 
 	public Address determineSelectedAddress()
 	{
-		final List<ECKey> keys = wallet.getKeys();
-
-		final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 		final String selectedAddress = prefs.getString(Constants.PREFS_KEY_SELECTED_ADDRESS, null);
 
-		if (selectedAddress != null)
+		Address firstAddress = null;
+		for (final ECKey key : wallet.getKeys())
 		{
-			for (final ECKey key : keys)
+			if (!wallet.isKeyRotating(key))
 			{
 				final Address address = key.toAddress(Constants.NETWORK_PARAMETERS);
+
 				if (address.toString().equals(selectedAddress))
 					return address;
+
+				if (firstAddress == null)
+					firstAddress = address;
 			}
 		}
 
-		return keys.get(0).toAddress(Constants.NETWORK_PARAMETERS);
+		return firstAddress;
 	}
 
 	public void startBlockchainService(final boolean cancelCoinsReceived)

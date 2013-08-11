@@ -34,6 +34,7 @@ import android.widget.TextView;
 
 import com.google.bitcoin.core.Address;
 import com.google.bitcoin.core.ECKey;
+import com.google.bitcoin.core.Wallet;
 
 import de.schildbach.wallet.AddressBookProvider;
 import de.schildbach.wallet.Constants;
@@ -43,6 +44,7 @@ import de.schildbach.wallet_test.R;
 public class WalletAddressesAdapter extends BaseAdapter
 {
 	private final Context context;
+	private final Wallet wallet;
 	private final DateFormat dateFormat;
 	private final int colorInsignificant;
 	private final int colorLessSignificant;
@@ -52,11 +54,12 @@ public class WalletAddressesAdapter extends BaseAdapter
 	private final boolean showKeyCreationTime;
 	private String selectedAddress = null;
 
-	public WalletAddressesAdapter(final Context context, final boolean showKeyCreationTime)
+	public WalletAddressesAdapter(final Context context, final Wallet wallet, final boolean showKeyCreationTime)
 	{
 		final Resources res = context.getResources();
 
 		this.context = context;
+		this.wallet = wallet;
 		dateFormat = android.text.format.DateFormat.getDateFormat(context);
 		colorInsignificant = res.getColor(R.color.fg_insignificant);
 		colorLessSignificant = res.getColor(R.color.fg_less_significant);
@@ -143,6 +146,10 @@ public class WalletAddressesAdapter extends BaseAdapter
 				createdView.setVisibility(View.GONE);
 			}
 		}
+
+		final TextView messageView = (TextView) row.findViewById(R.id.address_book_row_message);
+		final boolean isRotateKey = wallet.isKeyRotating(key);
+		messageView.setVisibility(isRotateKey ? View.VISIBLE : View.GONE);
 
 		return row;
 	}
