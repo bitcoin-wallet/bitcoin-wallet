@@ -4,7 +4,7 @@
 
 	<string name="toast_wallet_reset">Zresetováno,\nobnova chvilku potrvá</string>
 
-	<string name="wallet_disclaimer">Použití na vlastní riziko. Více v &lt;u>nápovědě&lt;/u>.</string>
+	<string name="wallet_disclaimer_fragment_remind_safety">Použití na vlastní riziko. Více v &lt;u>nápovědě&lt;/u>.</string>
 	<string name="wallet_address_fragment_your">Vaše Bitcoin Adresa:</string>
 	<string name="wallet_address_fragment_clipboard_msg">Adresa zkopírována do schránky</string>
 	<string name="wallet_addresses_fragment_add_dialog_title">Přidat Bitcoin adresu</string>

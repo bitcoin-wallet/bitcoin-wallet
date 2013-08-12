@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:background="@drawable/action_bar_background"
+	android:divider="@drawable/divider_dark"
+	android:orientation="vertical"
+	android:showDividers="middle" >
+
+	<fragment
+		android:id="@+id/wallet_actions_fragment"
+		android:name="de.schildbach.wallet.ui.WalletActionsFragment"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content" />
+
+	<fragment
+		android:id="@+id/wallet_disclaimer_fragment"
+		android:name="de.schildbach.wallet.ui.WalletDisclaimerFragment"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content" />
+
+</LinearLayout>

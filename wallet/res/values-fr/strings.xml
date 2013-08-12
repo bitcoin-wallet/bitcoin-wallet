@@ -2,7 +2,7 @@
 <resources>
 
 	<string name="toast_wallet_reset">Le porte-monnaie a été réinitialisé\net prendra un peu de temps pour récupérer</string>
-	<string name="wallet_disclaimer">Utilisez à vos risques. Lisez les &lt;u>notes de sécurité&lt;/u>.</string>
+	<string name="wallet_disclaimer_fragment_remind_safety">Utilisez à vos risques. Lisez les &lt;u>notes de sécurité&lt;/u>.</string>
 	<string name="blockchain_state_progress_hours">%1$s, %2$d heures d\'écart</string>
 	<string name="blockchain_state_progress_days">%1$s, %2$d jours d\'écart</string>
 	<string name="blockchain_state_progress_weeks">%1$s, %2$d semaines d\'écart</string>

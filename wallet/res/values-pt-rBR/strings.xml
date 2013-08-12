@@ -2,7 +2,7 @@
 <resources>
 
 	<string name="toast_wallet_reset">Carteira reiniciada.\nA recuperação pode levar um tempo</string>
-	<string name="wallet_disclaimer">Use por sua conta e risco. Leia as &lt;u&gt;safety notes&lt;/u&gt;.</string>
+	<string name="wallet_disclaimer_fragment_remind_safety">Use por sua conta e risco. Leia as &lt;u&gt;safety notes&lt;/u&gt;.</string>
 	<string name="blockchain_state_progress_hours">%1$s, %2$d horas atrás</string>
 	<string name="blockchain_state_progress_days">%1$s, %2$d dias atrás</string>
 	<string name="blockchain_state_progress_weeks">%1$s, %2$d semanas atrás</string>

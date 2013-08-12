@@ -4,7 +4,7 @@
 
 	<string name="toast_wallet_reset">Portfel został zresetowany,\nponowne załadowanie potrwa trochę czasu</string>
 	
-	<string name="wallet_disclaimer">Używasz jej na własne ryzyko. Proszę przeczytaj wskazówki bezpieczeństwa.</string>
+	<string name="wallet_disclaimer_fragment_remind_safety">Używasz jej na własne ryzyko. Proszę przeczytaj wskazówki bezpieczeństwa.</string>
 	<string name="wallet_address_fragment_your">Twój adres Bitcoin:</string>
 	<string name="wallet_address_fragment_clipboard_msg">Kopiuj adres Bitcoin do schowka</string>
 	<string name="wallet_addresses_fragment_add_dialog_title">Dodaj adres Bitcoin</string>

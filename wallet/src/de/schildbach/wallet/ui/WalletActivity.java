@@ -236,6 +236,8 @@ public final class WalletActivity extends AbstractWalletActivity
 	public void handleExportKeys()
 	{
 		showDialog(DIALOG_EXPORT_KEYS);
+
+		prefs.edit().putBoolean(Constants.PREFS_KEY_REMIND_BACKUP, false).commit();
 	}
 
 	private void handleDisconnect()

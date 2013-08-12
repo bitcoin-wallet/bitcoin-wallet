@@ -2,7 +2,7 @@
 <resources>
 
 	<string name="toast_wallet_reset">Ví tiền đã được thiết lập lại,\nsẽ tốn chút ít thời gian để hồi phục lại</string>
-	<string name="wallet_disclaimer">Sử dụng với sự cẩn trọng. Đọc &lt;u&gt;ghi chú an toàn&lt;/u&gt;.</string>
+	<string name="wallet_disclaimer_fragment_remind_safety">Sử dụng với sự cẩn trọng. Đọc &lt;u&gt;ghi chú an toàn&lt;/u&gt;.</string>
 	<string name="blockchain_state_progress_hours">Còn lại %1$s, %2$d giờ</string>
 	<string name="blockchain_state_progress_days">Còn lại %1$s, %2$d ngày</string>
 	<string name="blockchain_state_progress_weeks">Còn lại %1$s, %2$d tuần</string>

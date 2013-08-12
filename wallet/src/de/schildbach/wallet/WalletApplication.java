@@ -359,6 +359,8 @@ public class WalletApplication extends Application
 		wallet.addKey(new ECKey());
 
 		backupKeys();
+
+		prefs.edit().putBoolean(Constants.PREFS_KEY_REMIND_BACKUP, true).commit();
 	}
 
 	public void saveWallet()

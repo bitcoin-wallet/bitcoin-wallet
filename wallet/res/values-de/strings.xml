@@ -4,7 +4,8 @@
 
 	<string name="toast_wallet_reset">Wallet wurde zurückgesetzt,\nwird einige Zeit benötigen</string>
 
-	<string name="wallet_disclaimer">Nutzung auf eigene Gefahr. Lies die &lt;u>Sicherheitshinweise&lt;/u>.</string>
+	<string name="wallet_disclaimer_fragment_remind_safety">Nutzung auf eigene Gefahr. Lies die &lt;u>Sicherheitshinweise&lt;/u>.</string>
+	<string name="wallet_disclaimer_fragment_remind_backup">Bitte &lt;u>sichere dein Wallet&lt;/u>!</string>
 	<string name="blockchain_state_progress_hours">%1$s, hinkt %2$d Stunden hinterher</string>
 	<string name="blockchain_state_progress_days">%1$s, hinkt %2$d Tage hinterher</string>
 	<string name="blockchain_state_progress_weeks">%1$s, hinkt %2$d Wochen hinterher</string>
