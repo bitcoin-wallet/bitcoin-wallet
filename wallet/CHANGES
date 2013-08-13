@@ -3,71 +3,71 @@ useless for cryptographic purposes, versions 3.15 and later rotate all private k
 need to make a fresh backup of your wallet. It will not contain your old (insecure) keys, so
 keep your old backups around just in case.
 
-More info available at: http://bitcoin.org/en/alert/2013-08-11-android
+More info: http://bitcoin.org/en/alert/2013-08-11-android
 
 
-3.16
+v3.16
 
 * backup reminder when creating new keys
 * don't trigger blockchain sync because of plugging power
 
-3.15
+v3.15
 
 * auto-rotate weak keys
 * option for easy emptying wallet
 * based on bitcoinj 0.10
 
-3.14
+v3.14
 
 * Vietnamese and Portuguese (Brazil) translations
 * small improvements
 
-3.13
+v3.13
 
 * bugfix
 
-3.12
+v3.12
 
 * direct button on main screen for scanning a Bitcoin request QR code
 * extended logging
 
-3.11
+v3.11
 
 * some small improvements and bugfixes
 
-3.10
+v3.10
 
 * embed currency calculator into send and request coins forms
 * change default Bitcoin precision from 8 to 4
 
-3.09
+v3.09
 
 * calculate correct fee to ensure speedy blockchain confirmation
 * based on bitcoinj 0.9
 
-3.08
+v3.08
 
 * bugfixes
 
-3.07
+v3.07
 
 * make request and send coins action buttons more visible
 * stay connected a little bit longer if there was transaction activity on the wallet
 
-3.06
+v3.06
 
 * merge peer monitor and block explorer into network monitor
 * Hebrew translation
 
-3.05
+v3.05
 
 * backup reminder for first-time users
 
-3.01-3.04
+v3.01-v3.04
 
 * some small improvements and bugfixes
 
-3.0
+v3.0
 
 * now requires Gingerbread (Android 2.3.3) or later
 * export/import encrypted private key backups to/from mail or online storage
@@ -78,50 +78,50 @@ More info available at: http://bitcoin.org/en/alert/2013-08-11-android
 * lots of small improvements and bugfixes
 * based on bitcoinj 0.8
 
-2.49
+v2.49
 
 * bugfixes
 
-2.48
+v2.48
 
 * fix race condition when replaying blockchain
 
-2.47
+v2.47
 
 * report issues from within the app
 * new crash reporter
 
-2.46
+v2.46
 
 * bugfixes
 * based on bitcoinj 0.7.3
 
-2.45
+v2.45
 
 * new labs feature: block explorer
 * request coins from locally installed app
 * save memory and stack
 * based on bitcoinj 0.7.2
 
-2.44
+v2.44
 
 * bugfixes
 
-2.43
+v2.43
 
 * some small improvements and bugfixes
 
-2.42
+v2.42
 
 * fixed crash on Froyo (Android 2.2) devices
 * allow importing private keys from automatic backups
 * based on bitcoinj 0.7.1
 
-2.41
+v2.41
 
 * labs preference for setting bitcoin value precision
 
-2.40
+v2.40
 
 * seriously reduced traffic and cpu usage due to usage of bloom filters
 * faster connect to peers
@@ -134,126 +134,126 @@ More info available at: http://bitcoin.org/en/alert/2013-08-11-android
 * lots of small improvements and bugfixes
 * based on bitcoinj 0.7
 
-2.39
+v2.39
 
 * descriptions for transaction confidence states
 
-2.38
+v2.38
 
 * fixed testnet3 blockchain sync problem
 * based on bitcoinj 0.6.1
 
-2.37
+v2.37
 
 * lots of small improvements and bugfixes
 
-2.36
+v2.36
 
 * fixed exception when requesting coins on below Ice Cream Sandwich (Android 4.0)
 
-2.35
+v2.35
 
 * lots of small improvements and bugfixes
 
-2.34
+v2.34
 
 * embed qr code scanner for enhanced security
 
-2.33
+v2.33
 
 * fixed error reporting
 * minor UI enhancements
 
-2.32
+v2.32
 
 * can import unencrypted private keys
 * collect logfile for crash report on Jelly Bean (Android 4.1) and above
 
-2.31
+v2.31
 
 * now requires Froyo (Android 2.2) or later
 
-2.3
+v2.3
 
 * import private keys from external storage
 * export private keys to external storage
 
-2.24
+v2.24
 
 * migrated testnet to testnet3 (make sure to reset blockchain after upgrade)
 * fixed various crashes when being offline
 
-2.23
+v2.23
 
 * fixed updating of transaction list
 * fixed stuck connectivity indicator
 
-2.22
+v2.22
 
 * proper handling of coinbase transactions
 * watch transaction propagation (build-up of confidence) when sending coins
 * based on bitcoinj 0.6
 * blockchain can be reset without exiting the app
 
-2.21
+v2.21
 
 * low fee warning when sending coins
 
-2.20
+v2.20
 
 * bugfix
 
-2.19
+v2.19
 
 * bugfixes
 * based on BitCoinJ 0.5.2
 
-2.18
+v2.18
 
 * send and request buttons in app widget
 * bugfixes
 
-2.17
+v2.17
 
 * bugfixes
 
-2.16
+v2.16
 
 * bugfixes
 
-2.15
+v2.15
 
 * exponentially backoff autosync frequency
 * updated French, Spanish, Swedish and Turkish translations
 
-2.14
+v2.14
 
 * tries to stay on WIFI while autosyncing, but no guarantees (yet)
 
-2.13
+v2.13
 
 * bugfixes
 * based on BitCoinJ 0.5.1
 
-2.1
+v2.1
 
 * based on BitCoinJ 0.5.0
 * lots of UI work
 * changes how long the P2P network stays connected
 
-2.01
+v2.01
 
 * bugfixes
 
-2.0
+v2.0
 
 * Turkish translation
 
-1.55
+v1.55
 
 * unified address book for sending and receiving addresses
 
-1.54
+v1.54
 
 * migrates wallets to protobuf format
 * should be more stable, faster and future proof
