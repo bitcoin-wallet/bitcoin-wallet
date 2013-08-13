@@ -1,11 +1,17 @@
-3.15
-
 IMPORTANT: Because of the Android SecureRandom class has multiple severe bugs that render it
-useless for cryptographic purposes, this version rotates all private keys. You will need to
-make a fresh backup of your wallet. It will not contain your old (insecure) keys, so keep your
-old backups around just in case.
+useless for cryptographic purposes, versions 3.15 and later rotate all private keys. You will
+need to make a fresh backup of your wallet. It will not contain your old (insecure) keys, so
+keep your old backups around just in case.
 
 More info available at: http://bitcoin.org/en/alert/2013-08-11-android
+
+
+3.16
+
+* backup reminder when creating new keys
+* don't trigger blockchain sync because of plugging power
+
+3.15
 
 * auto-rotate weak keys
 * option for easy emptying wallet
