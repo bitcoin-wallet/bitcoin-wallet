@@ -20,8 +20,10 @@ package de.schildbach.wallet.ui;
 import java.io.IOException;
 
 import android.app.AlertDialog;
+import android.content.ComponentName;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.Preference;
@@ -48,6 +50,13 @@ public final class PreferencesActivity extends SherlockPreferenceActivity implem
 
 	private static final String PREFS_KEY_REPORT_ISSUE = "report_issue";
 	private static final String PREFS_KEY_INITIATE_RESET = "initiate_reset";
+	private static final String PREFS_KEY_DATA_USAGE = "data_usage";
+
+	private static final Intent dataUsageIntent = new Intent();
+	static
+	{
+		dataUsageIntent.setComponent(new ComponentName("com.android.settings", "com.android.settings.Settings$DataUsageSummaryActivity"));
+	}
 
 	@Override
 	protected void onCreate(final Bundle savedInstanceState)
@@ -55,7 +64,6 @@ public final class PreferencesActivity extends SherlockPreferenceActivity implem
 		super.onCreate(savedInstanceState);
 
 		application = (WalletApplication) getApplication();
-
 		addPreferencesFromResource(R.xml.preferences);
 
 		trustedPeerPreference = findPreference(Constants.PREFS_KEY_TRUSTED_PEER);
@@ -63,6 +71,9 @@ public final class PreferencesActivity extends SherlockPreferenceActivity implem
 
 		trustedPeerOnlyPreference = findPreference(Constants.PREFS_KEY_TRUSTED_PEER_ONLY);
 		trustedPeerOnlyPreference.setOnPreferenceChangeListener(this);
+
+		final Preference dataUsagePreference = findPreference(PREFS_KEY_DATA_USAGE);
+		dataUsagePreference.setEnabled(getPackageManager().resolveActivity(dataUsageIntent, 0) != null);
 
 		final ActionBar actionBar = getSupportActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
@@ -98,7 +109,12 @@ public final class PreferencesActivity extends SherlockPreferenceActivity implem
 	{
 		final String key = preference.getKey();
 
-		if (PREFS_KEY_REPORT_ISSUE.equals(key))
+		if (PREFS_KEY_DATA_USAGE.equals(key))
+		{
+			startActivity(dataUsageIntent);
+			finish();
+		}
+		else if (PREFS_KEY_REPORT_ISSUE.equals(key))
 		{
 			final ReportIssueDialogBuilder dialog = new ReportIssueDialogBuilder(this, R.string.report_issue_dialog_title_issue,
 					R.string.report_issue_dialog_message_issue)
