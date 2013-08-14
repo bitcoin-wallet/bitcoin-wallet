@@ -121,6 +121,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 	private final List<Address> notificationAddresses = new LinkedList<Address>();
 	private AtomicInteger transactionsReceived = new AtomicInteger();
 	private int bestChainHeightEver;
+	private long serviceCreatedAt;
 	private boolean resetBlockchainOnShutdown = false;
 
 	private static final int MIN_COLLECT_HISTORY = 2;
@@ -566,6 +567,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 	@Override
 	public void onCreate()
 	{
+		serviceCreatedAt = System.currentTimeMillis();
 		log.debug(".onCreate()");
 
 		super.onCreate();
@@ -755,6 +757,8 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 		}
 
 		super.onDestroy();
+
+		log.info("service was up for " + ((System.currentTimeMillis() - serviceCreatedAt) / 1000 / 60) + " minutes");
 	}
 
 	@Override
