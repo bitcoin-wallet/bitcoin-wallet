@@ -6,6 +6,11 @@ keep your old backups around just in case.
 More info: http://bitcoin.org/en/alert/2013-08-11-android
 
 
+v3.17
+
+* fixed issue with emptying wallet
+* based on bitcoinj 0.10.1
+
 v3.16
 
 * backup reminder when creating new keys
