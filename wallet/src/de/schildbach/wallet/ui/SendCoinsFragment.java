@@ -23,11 +23,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import android.app.Activity;
-import android.content.ComponentName;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.ContentObserver;
@@ -35,7 +33,6 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
-import android.os.IBinder;
 import android.os.Process;
 import android.preference.PreferenceManager;
 import android.support.v4.app.LoaderManager;
@@ -81,8 +78,6 @@ import de.schildbach.wallet.ExchangeRatesProvider;
 import de.schildbach.wallet.ExchangeRatesProvider.ExchangeRate;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.integration.android.BitcoinIntegration;
-import de.schildbach.wallet.service.BlockchainService;
-import de.schildbach.wallet.service.BlockchainServiceImpl;
 import de.schildbach.wallet.util.GenericUtils;
 import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
@@ -92,7 +87,7 @@ import de.schildbach.wallet_test.R;
  */
 public final class SendCoinsFragment extends SherlockFragment
 {
-	private AbstractWalletActivity activity;
+	private AbstractBindServiceActivity activity;
 	private WalletApplication application;
 	private Wallet wallet;
 	private ContentResolver contentResolver;
@@ -100,7 +95,6 @@ public final class SendCoinsFragment extends SherlockFragment
 
 	private int btcPrecision;
 
-	private BlockchainService service;
 	private final Handler handler = new Handler();
 	private HandlerThread backgroundThread;
 	private Handler backgroundHandler;
@@ -138,19 +132,6 @@ public final class SendCoinsFragment extends SherlockFragment
 	{
 		INPUT, PREPARATION, SENDING, SENT, FAILED
 	}
-
-	private final ServiceConnection serviceConnection = new ServiceConnection()
-	{
-		public void onServiceConnected(final ComponentName name, final IBinder binder)
-		{
-			service = ((BlockchainServiceImpl.LocalBinder) binder).getService();
-		}
-
-		public void onServiceDisconnected(final ComponentName name)
-		{
-			service = null;
-		}
-	};
 
 	private final class ReceivingAddressListener implements OnFocusChangeListener, TextWatcher
 	{
@@ -267,7 +248,7 @@ public final class SendCoinsFragment extends SherlockFragment
 	{
 		super.onAttach(activity);
 
-		this.activity = (AbstractWalletActivity) activity;
+		this.activity = (AbstractBindServiceActivity) activity;
 		this.application = (WalletApplication) activity.getApplication();
 		this.wallet = application.getWallet();
 		this.contentResolver = activity.getContentResolver();
@@ -295,8 +276,6 @@ public final class SendCoinsFragment extends SherlockFragment
 				sentTransaction.getConfidence().addEventListener(sentTransactionConfidenceListener);
 			}
 		}
-
-		activity.bindService(new Intent(activity, BlockchainServiceImpl.class), serviceConnection, Context.BIND_AUTO_CREATE);
 
 		backgroundThread = new HandlerThread("backgroundThread", Process.THREAD_PRIORITY_BACKGROUND);
 		backgroundThread.start();
@@ -492,8 +471,6 @@ public final class SendCoinsFragment extends SherlockFragment
 	public void onDestroy()
 	{
 		backgroundThread.getLooper().quit();
-
-		activity.unbindService(serviceConnection);
 
 		if (sentTransaction != null)
 			sentTransaction.getConfidence().removeEventListener(sentTransactionConfidenceListener);
@@ -721,7 +698,7 @@ public final class SendCoinsFragment extends SherlockFragment
 
 							sentTransaction.getConfidence().addEventListener(sentTransactionConfidenceListener);
 
-							service.broadcastTransaction(sentTransaction);
+							activity.getBlockchainService().broadcastTransaction(sentTransaction);
 
 							final Intent result = new Intent();
 							BitcoinIntegration.transactionHashToResult(result, sentTransaction.getHashAsString());

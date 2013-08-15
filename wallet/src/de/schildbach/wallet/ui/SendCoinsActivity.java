@@ -39,7 +39,7 @@ import de.schildbach.wallet_test.R;
 /**
  * @author Andreas Schildbach
  */
-public final class SendCoinsActivity extends AbstractWalletActivity
+public final class SendCoinsActivity extends AbstractBindServiceActivity
 {
 	private static final String INTENT_EXTRA_ADDRESS = "address";
 	private static final String INTENT_EXTRA_ADDRESS_LABEL = "address_label";
