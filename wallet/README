@@ -19,15 +19,15 @@ Certain actions cause rolling backups of your private keys to app internal stora
 /data/data/de.schildbach.wallet_test/files/key-backup-base58-testnet (MODE_PRIVATE)
 	Backups of private keys for Testnet
 
-Private keys can be exported to and imported from external storage:
+Private keys can be backed up to and restored from external storage:
 
 /sdcard/Download/bitcoin-wallet-keys-<yyyy-MM-dd>
-	Export of private keys for Mainnet
+	Backups of private keys for Mainnet
 
 /sdcard/Download/bitcoin-wallet-keys-testnet-<yyyy-MM-dd>
-	Export of private keys for Testnet
+	Backups of private keys for Testnet
 
-The export file is encrypted using your chosen password. You can use OpenSSL to decrypt:
+The backup file is encrypted using your chosen password. You can use OpenSSL to decrypt:
 
 openssl enc -d -aes-256-cbc -a -in <filename>
 
