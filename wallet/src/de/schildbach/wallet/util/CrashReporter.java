@@ -183,12 +183,15 @@ public class CrashReporter
 		{
 			final PackageManager pm = application.getPackageManager();
 			final PackageInfo pi = pm.getPackageInfo(application.getPackageName(), 0);
+			final long now = System.currentTimeMillis();
+
 			report.append("Version: " + pi.versionName + " (" + pi.versionCode + ")\n");
 			report.append("Package: " + pi.packageName + "\n");
 			report.append("Test/Prod: " + (Constants.TEST ? "test" : "prod") + "\n");
-			report.append("Time of application create: " + String.format("%tF %tT", TIME_CREATE_APPLICATION, TIME_CREATE_APPLICATION) + "\n");
-			final long now = System.currentTimeMillis();
-			report.append("Current time: " + String.format("%tF %tT", now, now) + "\n");
+			report.append("Time: " + String.format("%tF %tT", now, now) + "\n");
+			report.append("Time of launch: " + String.format("%tF %tT", TIME_CREATE_APPLICATION, TIME_CREATE_APPLICATION) + "\n");
+			report.append("Time of last update: " + String.format("%tF %tT", pi.lastUpdateTime, pi.lastUpdateTime) + "\n");
+			report.append("Time of first install: " + String.format("%tF %tT", pi.firstInstallTime, pi.firstInstallTime) + "\n");
 			report.append("Network: " + Constants.NETWORK_PARAMETERS.getId() + "\n");
 			final Wallet wallet = application.getWallet();
 			report.append("Keychain size: " + wallet.getKeychainSize() + "\n");
