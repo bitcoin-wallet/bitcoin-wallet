@@ -270,7 +270,7 @@ public class CrashReporter
 				appendDir(report, f, indent + 1);
 	}
 
-	public static void saveBackgroundTrace(final Throwable throwable)
+	public static void saveBackgroundTrace(final Throwable throwable, final int applicationVersion)
 	{
 		synchronized (backgroundTracesFile)
 		{
@@ -281,7 +281,7 @@ public class CrashReporter
 				writer = new PrintWriter(new FileWriter(backgroundTracesFile, true));
 
 				final long now = System.currentTimeMillis();
-				writer.println(String.format("\n--- collected on %tF %tT", now, now));
+				writer.println(String.format("\n--- collected at %tF %tT on version %d", now, now, applicationVersion));
 				appendTrace(writer, throwable);
 			}
 			catch (final IOException x)

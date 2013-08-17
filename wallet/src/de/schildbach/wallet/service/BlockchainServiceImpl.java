@@ -22,6 +22,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigInteger;
 import java.net.InetSocketAddress;
+import java.net.SocketException;
+import java.net.SocketTimeoutException;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -381,7 +384,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 				{
 					final String message = "wallet/blockchain out of sync: " + walletLastBlockSeenHeight + "/" + bestChainHeight;
 					log.error(message);
-					CrashReporter.saveBackgroundTrace(new RuntimeException(message));
+					CrashReporter.saveBackgroundTrace(new RuntimeException(message), application.applicationVersionCode());
 				}
 
 				log.info("starting peergroup");
@@ -888,6 +891,20 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 						final boolean replaying = chainHead.getHeight() < bestChainHeightEver; // checking again
 
 						wallet.setKeyRotationEnabled(!replaying);
+					}
+				}
+
+				@Override
+				protected void handleException(final Exception x)
+				{
+					if (x instanceof UnknownHostException || x instanceof SocketException || x instanceof SocketTimeoutException)
+					{
+						// swallow
+						log.debug("problem reading", x);
+					}
+					else
+					{
+						CrashReporter.saveBackgroundTrace(new RuntimeException(url, x), application.applicationVersionCode());
 					}
 				}
 			};

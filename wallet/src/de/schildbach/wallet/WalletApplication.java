@@ -112,7 +112,7 @@ public class WalletApplication extends Application
 			public void uncaughtException(final Thread thread, final Throwable throwable)
 			{
 				log.info("bitcoinj uncaught exception", throwable);
-				CrashReporter.saveBackgroundTrace(throwable);
+				CrashReporter.saveBackgroundTrace(throwable, applicationVersionCode());
 			}
 		};
 

@@ -26,6 +26,9 @@ import java.io.Reader;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.net.SocketException;
+import java.net.SocketTimeoutException;
+import java.net.UnknownHostException;
 import java.text.DateFormat;
 import java.util.Collections;
 import java.util.Comparator;
@@ -537,6 +540,20 @@ public final class WalletActivity extends AbstractWalletActivity
 					});
 
 					return;
+				}
+			}
+
+			@Override
+			protected void handleException(final Exception x)
+			{
+				if (x instanceof UnknownHostException || x instanceof SocketException || x instanceof SocketTimeoutException)
+				{
+					// swallow
+					log.debug("problem reading", x);
+				}
+				else
+				{
+					CrashReporter.saveBackgroundTrace(new RuntimeException(url, x), application.applicationVersionCode());
 				}
 			}
 		};
