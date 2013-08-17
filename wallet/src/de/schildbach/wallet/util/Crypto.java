@@ -50,7 +50,7 @@ import android.util.Base64;
  * @author jim
  * @author Andreas Schildbach
  */
-public class EncryptionUtils
+public class Crypto
 {
 	/**
 	 * The string encoding to use when converting strings to bytes
@@ -91,8 +91,8 @@ public class EncryptionUtils
 	 * Magic text that appears at the beginning of every OpenSSL encrypted file. Used in identifying encrypted key
 	 * files.
 	 */
-	private static final String OPENSSL_MAGIC_TEXT = new String(encodeBase64(EncryptionUtils.OPENSSL_SALTED_BYTES), UTF8).substring(0,
-			EncryptionUtils.NUMBER_OF_CHARACTERS_TO_MATCH_IN_OPENSSL_MAGIC_TEXT);
+	private static final String OPENSSL_MAGIC_TEXT = new String(encodeBase64(Crypto.OPENSSL_SALTED_BYTES), UTF8).substring(0,
+			Crypto.NUMBER_OF_CHARACTERS_TO_MATCH_IN_OPENSSL_MAGIC_TEXT);
 
 	private static final int NUMBER_OF_CHARACTERS_TO_MATCH_IN_OPENSSL_MAGIC_TEXT = 10;
 

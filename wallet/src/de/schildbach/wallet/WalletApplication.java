@@ -65,6 +65,7 @@ import com.google.bitcoin.wallet.WalletFiles;
 import de.schildbach.wallet.service.BlockchainService;
 import de.schildbach.wallet.service.BlockchainServiceImpl;
 import de.schildbach.wallet.util.CrashReporter;
+import de.schildbach.wallet.util.Io;
 import de.schildbach.wallet.util.LinuxSecureRandom;
 import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
@@ -202,7 +203,7 @@ public class WalletApplication extends Application
 		{
 			// make wallets world accessible in test mode
 			if (Constants.TEST)
-				WalletUtils.chmod(file, 0777);
+				Io.chmod(file, 0777);
 		}
 	}
 
@@ -383,7 +384,7 @@ public class WalletApplication extends Application
 
 		// make wallets world accessible in test mode
 		if (Constants.TEST)
-			WalletUtils.chmod(walletFile, 0777);
+			Io.chmod(walletFile, 0777);
 
 		log.debug("wallet saved to: '" + walletFile + "', took " + (System.currentTimeMillis() - start) + "ms");
 	}

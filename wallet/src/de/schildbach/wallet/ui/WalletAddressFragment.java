@@ -42,7 +42,7 @@ import com.google.bitcoin.uri.BitcoinURI;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.util.BitmapFragment;
-import de.schildbach.wallet.util.NfcTools;
+import de.schildbach.wallet.util.Nfc;
 import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
 
@@ -126,7 +126,7 @@ public final class WalletAddressFragment extends Fragment
 	{
 		prefs.unregisterOnSharedPreferenceChangeListener(prefsListener);
 
-		NfcTools.unpublish(nfcManager, getActivity());
+		Nfc.unpublish(nfcManager, getActivity());
 
 		super.onPause();
 	}
@@ -148,7 +148,7 @@ public final class WalletAddressFragment extends Fragment
 			qrCodeBitmap = WalletUtils.getQRCodeBitmap(addressStr, size);
 			bitcoinAddressQrView.setImageBitmap(qrCodeBitmap);
 
-			NfcTools.publishUri(nfcManager, getActivity(), addressStr);
+			Nfc.publishUri(nfcManager, getActivity(), addressStr);
 		}
 	}
 

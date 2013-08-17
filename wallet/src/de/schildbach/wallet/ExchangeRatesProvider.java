@@ -46,7 +46,7 @@ import android.text.format.DateUtils;
 import com.google.bitcoin.core.Utils;
 
 import de.schildbach.wallet.util.GenericUtils;
-import de.schildbach.wallet.util.IOUtils;
+import de.schildbach.wallet.util.Io;
 
 /**
  * @author Andreas Schildbach
@@ -214,7 +214,7 @@ public class ExchangeRatesProvider extends ContentProvider
 			{
 				reader = new InputStreamReader(new BufferedInputStream(connection.getInputStream(), 1024));
 				final StringBuilder content = new StringBuilder();
-				IOUtils.copy(reader, content);
+				Io.copy(reader, content);
 
 				final Map<String, ExchangeRate> rates = new TreeMap<String, ExchangeRate>();
 
@@ -274,7 +274,7 @@ public class ExchangeRatesProvider extends ContentProvider
 			{
 				reader = new InputStreamReader(new BufferedInputStream(connection.getInputStream(), 1024));
 				final StringBuilder content = new StringBuilder();
-				IOUtils.copy(reader, content);
+				Io.copy(reader, content);
 
 				final Map<String, ExchangeRate> rates = new TreeMap<String, ExchangeRate>();
 

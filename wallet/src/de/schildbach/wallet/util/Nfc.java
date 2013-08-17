@@ -29,7 +29,7 @@ import android.nfc.NfcManager;
 /**
  * @author Andreas Schildbach
  */
-public class NfcTools
+public class Nfc
 {
 	private static final Charset UTF_8 = Charset.forName("UTF-8");
 	private static final Charset US_ASCII = Charset.forName("US-ASCII");

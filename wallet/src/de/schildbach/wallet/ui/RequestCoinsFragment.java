@@ -64,7 +64,7 @@ import de.schildbach.wallet.ExchangeRatesProvider;
 import de.schildbach.wallet.ExchangeRatesProvider.ExchangeRate;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.util.BitmapFragment;
-import de.schildbach.wallet.util.NfcTools;
+import de.schildbach.wallet.util.Nfc;
 import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
 
@@ -253,7 +253,7 @@ public final class RequestCoinsFragment extends SherlockFragment
 	{
 		loaderManager.destroyLoader(ID_RATE_LOADER);
 
-		NfcTools.unpublish(nfcManager, activity);
+		Nfc.unpublish(nfcManager, activity);
 
 		amountCalculatorLink.setListener(null);
 
@@ -318,7 +318,7 @@ public final class RequestCoinsFragment extends SherlockFragment
 		qrView.setImageBitmap(qrCodeBitmap);
 
 		// update ndef message
-		final boolean success = NfcTools.publishUri(nfcManager, getActivity(), request);
+		final boolean success = Nfc.publishUri(nfcManager, getActivity(), request);
 		if (success)
 			nfcEnabledView.setVisibility(View.VISIBLE);
 	}

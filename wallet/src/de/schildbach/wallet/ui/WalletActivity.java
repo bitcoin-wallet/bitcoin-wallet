@@ -68,7 +68,7 @@ import com.google.bitcoin.core.Wallet;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.util.CrashReporter;
-import de.schildbach.wallet.util.EncryptionUtils;
+import de.schildbach.wallet.util.Crypto;
 import de.schildbach.wallet.util.HttpGetThread;
 import de.schildbach.wallet.util.Iso8601Format;
 import de.schildbach.wallet.util.WalletUtils;
@@ -316,7 +316,7 @@ public final class WalletActivity extends AbstractWalletActivity
 		// external storage
 		if (Constants.EXTERNAL_WALLET_BACKUP_DIR.exists() && Constants.EXTERNAL_WALLET_BACKUP_DIR.isDirectory())
 			for (final File file : Constants.EXTERNAL_WALLET_BACKUP_DIR.listFiles())
-				if (WalletUtils.KEYS_FILE_FILTER.accept(file) || EncryptionUtils.OPENSSL_FILE_FILTER.accept(file))
+				if (WalletUtils.KEYS_FILE_FILTER.accept(file) || Crypto.OPENSSL_FILE_FILTER.accept(file))
 					files.add(file);
 
 		// internal storage
@@ -340,7 +340,7 @@ public final class WalletActivity extends AbstractWalletActivity
 			{
 				final File file = getItem(position);
 				final boolean isExternal = Constants.EXTERNAL_WALLET_BACKUP_DIR.equals(file.getParentFile());
-				final boolean isEncrypted = EncryptionUtils.OPENSSL_FILE_FILTER.accept(file);
+				final boolean isEncrypted = Crypto.OPENSSL_FILE_FILTER.accept(file);
 
 				if (row == null)
 					row = inflater.inflate(R.layout.wallet_import_keys_file_row, null);
@@ -384,7 +384,7 @@ public final class WalletActivity extends AbstractWalletActivity
 			protected boolean needsPassword()
 			{
 				final File selectedFile = (File) fileView.getSelectedItem();
-				return selectedFile != null ? EncryptionUtils.OPENSSL_FILE_FILTER.accept(selectedFile) : false;
+				return selectedFile != null ? Crypto.OPENSSL_FILE_FILTER.accept(selectedFile) : false;
 			}
 		};
 		passwordView.addTextChangedListener(dialogButtonEnabler);
@@ -680,7 +680,7 @@ public final class WalletActivity extends AbstractWalletActivity
 		try
 		{
 			final Reader plainReader;
-			if (EncryptionUtils.OPENSSL_FILE_FILTER.accept(file))
+			if (Crypto.OPENSSL_FILE_FILTER.accept(file))
 			{
 				final BufferedReader cipherIn = new BufferedReader(new FileReader(file));
 				final StringBuilder cipherText = new StringBuilder();
@@ -694,7 +694,7 @@ public final class WalletActivity extends AbstractWalletActivity
 				}
 				cipherIn.close();
 
-				final String plainText = EncryptionUtils.decrypt(cipherText.toString(), password.toCharArray());
+				final String plainText = Crypto.decrypt(cipherText.toString(), password.toCharArray());
 				plainReader = new StringReader(plainText);
 			}
 			else if (WalletUtils.KEYS_FILE_FILTER.accept(file))
@@ -780,7 +780,7 @@ public final class WalletActivity extends AbstractWalletActivity
 			plainOut.close();
 			final String plainText = plainOut.toString();
 
-			final String cipherText = EncryptionUtils.encrypt(plainText, password.toCharArray());
+			final String cipherText = Crypto.encrypt(plainText, password.toCharArray());
 
 			final Writer cipherOut = new FileWriter(file);
 			cipherOut.write(cipherText);

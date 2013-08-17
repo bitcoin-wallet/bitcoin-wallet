@@ -43,8 +43,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.util.CrashReporter;
-import de.schildbach.wallet.util.IOUtils;
-import de.schildbach.wallet.util.WalletUtils;
+import de.schildbach.wallet.util.Io;
 import de.schildbach.wallet_test.R;
 
 /**
@@ -155,7 +154,7 @@ public abstract class ReportIssueDialogBuilder extends AlertDialog.Builder imple
 					writer.write(applicationLog.toString());
 					writer.close();
 
-					WalletUtils.chmod(file, 0777);
+					Io.chmod(file, 0777);
 
 					attachments.add(Uri.fromFile(file));
 				}
@@ -185,12 +184,12 @@ public abstract class ReportIssueDialogBuilder extends AlertDialog.Builder imple
 						file = File.createTempFile(logFileName + '.', null, cacheDir);
 					final OutputStream os = new FileOutputStream(file);
 
-					IOUtils.copy(is, os);
+					Io.copy(is, os);
 
 					os.close();
 					is.close();
 
-					WalletUtils.chmod(file, 0777);
+					Io.chmod(file, 0777);
 
 					attachments.add(Uri.fromFile(file));
 				}
@@ -215,7 +214,7 @@ public abstract class ReportIssueDialogBuilder extends AlertDialog.Builder imple
 					writer.write(walletDump.toString());
 					writer.close();
 
-					WalletUtils.chmod(file, 0777);
+					Io.chmod(file, 0777);
 
 					attachments.add(Uri.fromFile(file));
 				}

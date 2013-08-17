@@ -44,7 +44,7 @@ import android.widget.EditText;
 import com.google.bitcoin.core.ECKey;
 import com.google.bitcoin.core.Wallet;
 
-import de.schildbach.wallet.util.EncryptionUtils;
+import de.schildbach.wallet.util.Crypto;
 import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
 
@@ -177,7 +177,7 @@ public final class ImportKeysActivity extends AbstractWalletActivity
 			}
 			cipherIn.close();
 
-			final String plainText = EncryptionUtils.decrypt(cipherText.toString(), password.toCharArray());
+			final String plainText = Crypto.decrypt(cipherText.toString(), password.toCharArray());
 			final Reader plainReader = new StringReader(plainText);
 
 			final BufferedReader keyReader = new BufferedReader(plainReader);

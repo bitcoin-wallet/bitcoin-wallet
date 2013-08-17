@@ -23,7 +23,6 @@ import java.io.FileFilter;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Writer;
-import java.lang.reflect.Method;
 import java.math.BigInteger;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -334,19 +333,4 @@ public class WalletUtils
 			}
 		}
 	};
-
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public static void chmod(final File path, final int mode)
-	{
-		try
-		{
-			final Class fileUtils = Class.forName("android.os.FileUtils");
-			final Method setPermissions = fileUtils.getMethod("setPermissions", String.class, int.class, int.class, int.class);
-			setPermissions.invoke(null, path.getAbsolutePath(), mode, -1, -1);
-		}
-		catch (final Exception x)
-		{
-			log.info("problem using undocumented chmod api", x);
-		}
-	}
 }

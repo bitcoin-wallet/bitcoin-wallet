@@ -42,7 +42,7 @@ import com.google.bitcoin.core.Wallet;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.util.Base43;
-import de.schildbach.wallet.util.NfcTools;
+import de.schildbach.wallet.util.Nfc;
 import de.schildbach.wallet_test.R;
 
 /**
@@ -88,7 +88,7 @@ public final class TransactionActivity extends AbstractWalletActivity
 	@Override
 	public void onPause()
 	{
-		NfcTools.unpublish(nfcManager, this);
+		Nfc.unpublish(nfcManager, this);
 
 		super.onPause();
 	}
@@ -140,7 +140,7 @@ public final class TransactionActivity extends AbstractWalletActivity
 		else if (Constants.MIMETYPE_TRANSACTION.equals(intent.getType()))
 		{
 			final NdefMessage ndefMessage = (NdefMessage) intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES)[0];
-			final byte[] payload = NfcTools.extractMimePayload(Constants.MIMETYPE_TRANSACTION, ndefMessage);
+			final byte[] payload = Nfc.extractMimePayload(Constants.MIMETYPE_TRANSACTION, ndefMessage);
 
 			try
 			{
@@ -177,7 +177,7 @@ public final class TransactionActivity extends AbstractWalletActivity
 
 		transactionFragment.update(tx);
 
-		NfcTools.publishMimeObject(nfcManager, this, Constants.MIMETYPE_TRANSACTION, tx.unsafeBitcoinSerialize(), false);
+		Nfc.publishMimeObject(nfcManager, this, Constants.MIMETYPE_TRANSACTION, tx.unsafeBitcoinSerialize(), false);
 	}
 
 	private void processPendingTransaction(final Transaction tx)
