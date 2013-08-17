@@ -375,10 +375,11 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 				wakeLock.acquire();
 
 				// consistency check
-				if (wallet.getLastBlockSeenHeight() != blockChain.getBestChainHeight())
+				final int walletLastBlockSeenHeight = wallet.getLastBlockSeenHeight();
+				final int bestChainHeight = blockChain.getBestChainHeight();
+				if (walletLastBlockSeenHeight != -1 && walletLastBlockSeenHeight != bestChainHeight)
 				{
-					final String message = "wallet/blockchain out of sync: " + wallet.getLastBlockSeenHeight() + "/"
-							+ blockChain.getBestChainHeight();
+					final String message = "wallet/blockchain out of sync: " + walletLastBlockSeenHeight + "/" + bestChainHeight;
 					log.error(message);
 					CrashReporter.saveBackgroundTrace(new RuntimeException(message));
 				}
