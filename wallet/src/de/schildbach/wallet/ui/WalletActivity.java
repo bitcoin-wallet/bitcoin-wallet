@@ -49,6 +49,7 @@ import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.net.Uri;
@@ -492,11 +493,10 @@ public final class WalletActivity extends AbstractWalletActivity
 
 	private void checkAlerts()
 	{
-		final int versionCode = getWalletApplication().applicationVersionCode();
-		final String versionName = getWalletApplication().applicationVersionName();
-		final int versionNameSplit = versionName.indexOf('-');
-		final String base = Constants.VERSION_URL + (versionNameSplit >= 0 ? versionName.substring(versionNameSplit) : "");
-		final String url = base + "?current=" + versionCode;
+		final PackageInfo packageInfo = getWalletApplication().packageInfo();
+		final int versionNameSplit = packageInfo.versionName.indexOf('-');
+		final String base = Constants.VERSION_URL + (versionNameSplit >= 0 ? packageInfo.versionName.substring(versionNameSplit) : "");
+		final String url = base + "?current=" + packageInfo.versionCode;
 
 		new HttpGetThread(getAssets(), url)
 		{
@@ -528,7 +528,7 @@ public final class WalletActivity extends AbstractWalletActivity
 					}
 				}
 
-				if (serverVersionCode > versionCode)
+				if (serverVersionCode > packageInfo.versionCode)
 				{
 					runOnUiThread(new Runnable()
 					{
@@ -553,7 +553,7 @@ public final class WalletActivity extends AbstractWalletActivity
 				}
 				else
 				{
-					CrashReporter.saveBackgroundTrace(new RuntimeException(url, x), application.applicationVersionCode());
+					CrashReporter.saveBackgroundTrace(new RuntimeException(url, x), packageInfo);
 				}
 			}
 		};
@@ -579,7 +579,7 @@ public final class WalletActivity extends AbstractWalletActivity
 				@Override
 				protected CharSequence subject()
 				{
-					return Constants.REPORT_SUBJECT_CRASH + " " + application.applicationVersionName();
+					return Constants.REPORT_SUBJECT_CRASH + " " + packageInfo.versionName;
 				}
 
 				@Override

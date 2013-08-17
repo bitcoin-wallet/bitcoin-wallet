@@ -384,13 +384,13 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 				{
 					final String message = "wallet/blockchain out of sync: " + walletLastBlockSeenHeight + "/" + bestChainHeight;
 					log.error(message);
-					CrashReporter.saveBackgroundTrace(new RuntimeException(message), application.applicationVersionCode());
+					CrashReporter.saveBackgroundTrace(new RuntimeException(message), application.packageInfo());
 				}
 
 				log.info("starting peergroup");
 				peerGroup = new PeerGroup(Constants.NETWORK_PARAMETERS, blockChain);
 				peerGroup.addWallet(wallet);
-				peerGroup.setUserAgent(Constants.USER_AGENT, application.applicationVersionName());
+				peerGroup.setUserAgent(Constants.USER_AGENT, application.packageInfo().versionName);
 				peerGroup.addEventListener(peerConnectivityListener);
 
 				final int maxConnectedPeers = application.maxConnectedPeers();
@@ -870,7 +870,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 
 		if (!replaying)
 		{
-			final String versionName = application.applicationVersionName();
+			final String versionName = application.packageInfo().versionName;
 			final int versionNameSplit = versionName.indexOf('-');
 			final String url = Constants.ROTATE_URL + (versionNameSplit >= 0 ? versionName.substring(versionNameSplit) : "");
 
@@ -904,7 +904,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 					}
 					else
 					{
-						CrashReporter.saveBackgroundTrace(new RuntimeException(url, x), application.applicationVersionCode());
+						CrashReporter.saveBackgroundTrace(new RuntimeException(url, x), application.packageInfo());
 					}
 				}
 			};

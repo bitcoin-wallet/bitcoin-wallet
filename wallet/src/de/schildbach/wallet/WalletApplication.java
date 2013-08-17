@@ -41,6 +41,7 @@ import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.StrictMode;
 import android.preference.PreferenceManager;
@@ -84,6 +85,7 @@ public class WalletApplication extends Application
 
 	private File walletFile;
 	private Wallet wallet;
+	private PackageInfo packageInfo;
 
 	private static final Charset UTF_8 = Charset.forName("UTF-8");
 	private static final int KEY_ROTATION_VERSION_CODE = 135;
@@ -105,6 +107,15 @@ public class WalletApplication extends Application
 
 		super.onCreate();
 
+		try
+		{
+			packageInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+		}
+		catch (final NameNotFoundException x)
+		{
+			throw new RuntimeException(x);
+		}
+
 		CrashReporter.init(getCacheDir());
 
 		Threading.uncaughtExceptionHandler = new Thread.UncaughtExceptionHandler()
@@ -112,7 +123,7 @@ public class WalletApplication extends Application
 			public void uncaughtException(final Thread thread, final Throwable throwable)
 			{
 				log.info("bitcoinj uncaught exception", throwable);
-				CrashReporter.saveBackgroundTrace(throwable, applicationVersionCode());
+				CrashReporter.saveBackgroundTrace(throwable, packageInfo);
 			}
 		};
 
@@ -132,10 +143,9 @@ public class WalletApplication extends Application
 		wallet.autosaveToFile(walletFile, 1, TimeUnit.SECONDS, new WalletAutosaveEventListener());
 
 		final int lastVersionCode = prefs.getInt(Constants.PREFS_KEY_LAST_VERSION, 0);
-		final int versionCode = applicationVersionCode();
-		prefs.edit().putInt(Constants.PREFS_KEY_LAST_VERSION, versionCode).commit();
+		prefs.edit().putInt(Constants.PREFS_KEY_LAST_VERSION, packageInfo.versionCode).commit();
 
-		if (lastVersionCode > 0 && lastVersionCode < KEY_ROTATION_VERSION_CODE && versionCode >= KEY_ROTATION_VERSION_CODE)
+		if (lastVersionCode > 0 && lastVersionCode < KEY_ROTATION_VERSION_CODE && packageInfo.versionCode >= KEY_ROTATION_VERSION_CODE)
 		{
 			log.info("detected version jump crossing key rotation");
 			wallet.setKeyRotationTime(System.currentTimeMillis() / 1000);
@@ -465,28 +475,9 @@ public class WalletApplication extends Application
 		startService(blockchainServiceResetBlockchainIntent);
 	}
 
-	public final int applicationVersionCode()
+	public PackageInfo packageInfo()
 	{
-		try
-		{
-			return getPackageManager().getPackageInfo(getPackageName(), 0).versionCode;
-		}
-		catch (NameNotFoundException x)
-		{
-			return 0;
-		}
-	}
-
-	public final String applicationVersionName()
-	{
-		try
-		{
-			return getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
-		}
-		catch (NameNotFoundException x)
-		{
-			return "unknown";
-		}
+		return packageInfo;
 	}
 
 	public final String applicationPackageFlavor()

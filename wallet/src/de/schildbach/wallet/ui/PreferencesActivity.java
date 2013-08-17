@@ -122,7 +122,7 @@ public final class PreferencesActivity extends SherlockPreferenceActivity implem
 				@Override
 				protected CharSequence subject()
 				{
-					return Constants.REPORT_SUBJECT_ISSUE + " " + application.applicationVersionName();
+					return Constants.REPORT_SUBJECT_ISSUE + " " + application.packageInfo().versionName;
 				}
 
 				@Override
