@@ -78,7 +78,6 @@ import com.google.bitcoin.discovery.PeerDiscovery;
 import com.google.bitcoin.discovery.PeerDiscoveryException;
 import com.google.bitcoin.store.BlockStore;
 import com.google.bitcoin.store.BlockStoreException;
-import com.google.bitcoin.store.BoundedOverheadBlockStore;
 import com.google.bitcoin.store.SPVBlockStore;
 
 import de.schildbach.wallet.Constants;
@@ -632,19 +631,11 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 		}
 		catch (final BlockStoreException x)
 		{
-			try
-			{
-				blockStore = new BoundedOverheadBlockStore(Constants.NETWORK_PARAMETERS, blockChainFile);
-				blockStore.getChainHead(); // detect corruptions as early as possible
-			}
-			catch (final BlockStoreException x2)
-			{
-				blockChainFile.delete();
+			blockChainFile.delete();
 
-				final String msg = "blockstore cannot be created";
-				log.error(msg, x2);
-				throw new Error(msg, x2);
-			}
+			final String msg = "blockstore cannot be created";
+			log.error(msg, x);
+			throw new Error(msg, x);
 		}
 
 		log.info("using " + blockStore.getClass().getName());
