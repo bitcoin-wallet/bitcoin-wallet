@@ -513,10 +513,10 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 					for (int i = 0; i < activityHistory.size(); i++)
 					{
 						final ActivityHistoryEntry entry = activityHistory.get(i);
-						final boolean blocksIdle = entry.numBlocksDownloaded > 0 && i <= IDLE_BLOCK_TIMEOUT_MIN;
-						final boolean transactionsIdle = entry.numTransactionsReceived > 0 && i <= IDLE_TRANSACTION_TIMEOUT_MIN;
+						final boolean blocksActive = entry.numBlocksDownloaded > 0 && i <= IDLE_BLOCK_TIMEOUT_MIN;
+						final boolean transactionsActive = entry.numTransactionsReceived > 0 && i <= IDLE_TRANSACTION_TIMEOUT_MIN;
 
-						if (blocksIdle || transactionsIdle)
+						if (blocksActive || transactionsActive)
 						{
 							isIdle = false;
 							break;
