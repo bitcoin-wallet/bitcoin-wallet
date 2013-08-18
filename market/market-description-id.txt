@@ -1,0 +1,21 @@
+Dengan aplikasi ini Anda selalu mempunyai Bitcoin dengan Anda, dalam saku Anda! Anda dapat mengirim pembayaran hanya dengan memindai kode-QR atau mendekatkan dua ponsel bersama (NFC). Bitcoin Wallet dirancang untuk mudah digunakan dan diandalkan, sementara juga menjadi lebih aman dan cepat.
+
+FITUR:
+
+• Tidak diperlukan server awan atau layanan web! Dompet ini benar-benar peer ke peer.
+• Tampilkan saldo dompet dalam Bitcoin dan mata uang lainnya.
+• Mengirim dan menerima Bitcoin via NFC, kode-QR atau Tautan Bitcoin.
+• Buku alamat untuk alamat penggunaan bitcoin secara reguler.
+• Masukkan transaksi saat offline, akan dilaksanakan ketika online.
+• Notifikasi sistem untuk konektivitas Bitcoin dan menerima koin.
+• Widget Apl untuk saldo Bitcoin.
+
+Anda dapat mengetahui lebih mengenai Bitcoin di
+http://bitcoin.org
+
+Jika Anda ingin berkontribusi kepada Bitcoin Wallet, proyeknya berada di
+https://code.google.com/p/bitcoin-wallet/
+
+Lisensi: GPLv3
+Gunakan dengan resiko Anda!
+http://www.gnu.org/licenses/gpl-3.0.en.html
