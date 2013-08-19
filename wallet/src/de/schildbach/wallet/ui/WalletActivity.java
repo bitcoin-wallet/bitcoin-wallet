@@ -53,6 +53,8 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.net.Uri;
+import android.nfc.NdefMessage;
+import android.nfc.NfcAdapter;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
@@ -77,6 +79,7 @@ import de.schildbach.wallet.util.CrashReporter;
 import de.schildbach.wallet.util.Crypto;
 import de.schildbach.wallet.util.HttpGetThread;
 import de.schildbach.wallet.util.Iso8601Format;
+import de.schildbach.wallet.util.Nfc;
 import de.schildbach.wallet.util.Qr;
 import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
@@ -113,6 +116,8 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 			checkAlerts();
 
 		touchLastUsed();
+
+		handleIntent(getIntent());
 	}
 
 	@Override
@@ -123,6 +128,23 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 		getWalletApplication().startBlockchainService(true);
 
 		checkLowStorageAlert();
+	}
+
+	@Override
+	protected void onNewIntent(final Intent intent)
+	{
+		handleIntent(intent);
+	}
+
+	private void handleIntent(final Intent intent)
+	{
+		if (Constants.MIMETYPE_TRANSACTION.equals(intent.getType()))
+		{
+			final NdefMessage ndefMessage = (NdefMessage) intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES)[0];
+			final byte[] payload = Nfc.extractMimePayload(Constants.MIMETYPE_TRANSACTION, ndefMessage);
+
+			processDirectTransaction(payload);
+		}
 	}
 
 	@Override
