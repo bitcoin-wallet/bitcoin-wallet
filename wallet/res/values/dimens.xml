@@ -10,6 +10,7 @@
 	<dimen name="symbol_size_normal">14sp</dimen>
 	<dimen name="list_entry_padding_horizontal">12dp</dimen>
 	<dimen name="list_entry_padding_vertical">6dp</dimen>
+	<dimen name="divider_currency_padding">0dp</dimen>
 	<dimen name="wallet_address_qr_size">96dp</dimen>
 	<dimen name="wallet_address_qr_size_large">128dp</dimen>
 
