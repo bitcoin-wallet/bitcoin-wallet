@@ -50,6 +50,7 @@ import com.google.bitcoin.uri.BitcoinURIParseException;
 import de.schildbach.wallet.AddressBookProvider;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.util.BitmapFragment;
+import de.schildbach.wallet.util.Qr;
 import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
 
@@ -305,7 +306,7 @@ public final class SendingAddressesFragment extends SherlockListFragment impleme
 	{
 		final String uri = BitcoinURI.convertToBitcoinURI(address, null, null, null);
 		final int size = (int) (256 * getResources().getDisplayMetrics().density);
-		BitmapFragment.show(getFragmentManager(), WalletUtils.getQRCodeBitmap(uri, size));
+		BitmapFragment.show(getFragmentManager(), Qr.bitmap(uri, size));
 	}
 
 	private void handleCopyToClipboard(final String address)

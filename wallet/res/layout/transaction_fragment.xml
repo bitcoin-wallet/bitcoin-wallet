@@ -192,13 +192,4 @@
 			android:textSize="20sp" />
 	</TableRow>
 
-	<ImageView
-		android:id="@+id/transaction_fragment_qr"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_gravity="center"
-		android:background="@drawable/qrcode_frame"
-		android:padding="16dp"
-		android:scaleType="centerInside" />
-
 </TableLayout>

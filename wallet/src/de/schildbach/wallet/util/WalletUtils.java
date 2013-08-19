@@ -27,17 +27,11 @@ import java.math.BigInteger;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.Date;
-import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.text.Editable;
 import android.text.Spannable;
@@ -58,12 +52,6 @@ import com.google.bitcoin.core.TransactionInput;
 import com.google.bitcoin.core.TransactionOutput;
 import com.google.bitcoin.core.Utils;
 import com.google.bitcoin.script.Script;
-import com.google.zxing.BarcodeFormat;
-import com.google.zxing.EncodeHintType;
-import com.google.zxing.WriterException;
-import com.google.zxing.common.BitMatrix;
-import com.google.zxing.qrcode.QRCodeWriter;
-import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 
 import de.schildbach.wallet.Constants;
 
@@ -72,43 +60,6 @@ import de.schildbach.wallet.Constants;
  */
 public class WalletUtils
 {
-	public final static QRCodeWriter QR_CODE_WRITER = new QRCodeWriter();
-
-	private static final Logger log = LoggerFactory.getLogger(WalletUtils.class);
-
-	public static Bitmap getQRCodeBitmap(final String url, final int size)
-	{
-		try
-		{
-			final Hashtable<EncodeHintType, Object> hints = new Hashtable<EncodeHintType, Object>();
-			hints.put(EncodeHintType.MARGIN, 0);
-			hints.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.H);
-			final BitMatrix result = QR_CODE_WRITER.encode(url, BarcodeFormat.QR_CODE, size, size, hints);
-
-			final int width = result.getWidth();
-			final int height = result.getHeight();
-			final int[] pixels = new int[width * height];
-
-			for (int y = 0; y < height; y++)
-			{
-				final int offset = y * width;
-				for (int x = 0; x < width; x++)
-				{
-					pixels[offset + x] = result.get(x, y) ? Color.BLACK : Color.TRANSPARENT;
-				}
-			}
-
-			final Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
-			bitmap.setPixels(pixels, 0, width, 0, 0, width, height);
-			return bitmap;
-		}
-		catch (final WriterException x)
-		{
-			log.info("problem creating qr code", x);
-			return null;
-		}
-	}
-
 	public static Editable formatAddress(final Address address, final int groupSize, final int lineSize)
 	{
 		return formatHash(address.toString(), groupSize, lineSize);

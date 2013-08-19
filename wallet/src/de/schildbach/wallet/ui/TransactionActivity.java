@@ -17,15 +17,8 @@
 
 package de.schildbach.wallet.ui;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.zip.GZIPInputStream;
-
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.nfc.NdefMessage;
 import android.nfc.NfcAdapter;
 import android.nfc.NfcManager;
@@ -41,7 +34,6 @@ import com.google.bitcoin.core.Wallet;
 
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
-import de.schildbach.wallet.util.Base43;
 import de.schildbach.wallet.util.Nfc;
 import de.schildbach.wallet_test.R;
 
@@ -95,47 +87,10 @@ public final class TransactionActivity extends AbstractWalletActivity
 
 	private void handleIntent(final Intent intent)
 	{
-		final Uri intentUri = intent.getData();
-		final String scheme = intentUri != null ? intentUri.getScheme() : null;
-
 		if (intent.hasExtra(INTENT_EXTRA_TRANSACTION_HASH))
 		{
 			final Wallet wallet = ((WalletApplication) getApplication()).getWallet();
 			tx = wallet.getTransaction((Sha256Hash) intent.getSerializableExtra(INTENT_EXTRA_TRANSACTION_HASH));
-		}
-		else if (intentUri != null && "btctx".equals(scheme))
-		{
-			try
-			{
-				// decode transaction URI
-				final String part = intentUri.getSchemeSpecificPart();
-				final boolean useCompression = part.charAt(0) == 'Z';
-				final byte[] bytes = Base43.decode(part.substring(1));
-
-				InputStream is = new ByteArrayInputStream(bytes);
-				if (useCompression)
-					is = new GZIPInputStream(is);
-				final ByteArrayOutputStream baos = new ByteArrayOutputStream();
-
-				final byte[] buf = new byte[4096];
-				int read;
-				while (-1 != (read = is.read(buf)))
-					baos.write(buf, 0, read);
-				baos.close();
-				is.close();
-
-				tx = new Transaction(Constants.NETWORK_PARAMETERS, baos.toByteArray());
-
-				processPendingTransaction(tx);
-			}
-			catch (final IOException x)
-			{
-				throw new RuntimeException(x);
-			}
-			catch (final ProtocolException x)
-			{
-				throw new RuntimeException(x);
-			}
 		}
 		else if (Constants.MIMETYPE_TRANSACTION.equals(intent.getType()))
 		{

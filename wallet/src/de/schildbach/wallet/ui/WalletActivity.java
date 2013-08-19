@@ -67,6 +67,8 @@ import android.widget.TextView;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.google.bitcoin.core.ECKey;
+import com.google.bitcoin.core.Transaction;
+import com.google.bitcoin.core.VerificationException;
 import com.google.bitcoin.core.Wallet;
 
 import de.schildbach.wallet.Constants;
@@ -75,13 +77,14 @@ import de.schildbach.wallet.util.CrashReporter;
 import de.schildbach.wallet.util.Crypto;
 import de.schildbach.wallet.util.HttpGetThread;
 import de.schildbach.wallet.util.Iso8601Format;
+import de.schildbach.wallet.util.Qr;
 import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
 
 /**
  * @author Andreas Schildbach
  */
-public final class WalletActivity extends AbstractWalletActivity
+public final class WalletActivity extends AbstractOnDemandServiceActivity
 {
 	private static final int DIALOG_IMPORT_KEYS = 0;
 	private static final int DIALOG_EXPORT_KEYS = 1;
@@ -126,7 +129,50 @@ public final class WalletActivity extends AbstractWalletActivity
 	public void onActivityResult(final int requestCode, final int resultCode, final Intent intent)
 	{
 		if (requestCode == REQUEST_CODE_SCAN && resultCode == Activity.RESULT_OK)
-			SendCoinsActivity.start(this, intent.getStringExtra(ScanActivity.INTENT_EXTRA_RESULT));
+		{
+			final String result = intent.getStringExtra(ScanActivity.INTENT_EXTRA_RESULT);
+
+			if (result.startsWith("bitcoin:"))
+			{
+				SendCoinsActivity.start(this, result);
+			}
+			else
+			{
+				try
+				{
+					processDirectTransaction(Qr.decodeBinary(result));
+				}
+				catch (final IOException x)
+				{
+					log.info("problem decoding transaction received via qr code", x);
+				}
+			}
+		}
+	}
+
+	private void processDirectTransaction(final byte[] serializedTx)
+	{
+		try
+		{
+			final Transaction tx = new Transaction(Constants.NETWORK_PARAMETERS, serializedTx);
+
+			final Wallet wallet = ((WalletApplication) getApplication()).getWallet();
+
+			if (wallet.isTransactionRelevant(tx))
+			{
+				wallet.receivePending(tx, null);
+
+				this.broadcastTransaction(tx);
+			}
+			else
+			{
+				longToast("Direct transaction is not relevant for you.");
+			}
+		}
+		catch (final VerificationException x)
+		{
+			longToast("Direct transaction is not valid.");
+		}
 	}
 
 	@Override

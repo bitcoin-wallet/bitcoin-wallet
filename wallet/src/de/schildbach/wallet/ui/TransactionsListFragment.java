@@ -33,6 +33,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.database.ContentObserver;
+import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
@@ -63,6 +64,8 @@ import com.google.bitcoin.core.Wallet;
 import de.schildbach.wallet.AddressBookProvider;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
+import de.schildbach.wallet.util.BitmapFragment;
+import de.schildbach.wallet.util.Qr;
 import de.schildbach.wallet.util.ThrottelingWalletChangeListener;
 import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
@@ -206,6 +209,9 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 		activity.startActionMode(new ActionMode.Callback()
 		{
 			private Address address;
+			private byte[] serializedTx;
+
+			private static final int SHOW_QR_THRESHOLD_BYTES = 2500;
 
 			public boolean onCreateActionMode(final ActionMode mode, final Menu menu)
 			{
@@ -253,6 +259,10 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 
 					menu.findItem(R.id.wallet_transactions_context_edit_address).setVisible(address != null);
 
+					serializedTx = tx.unsafeBitcoinSerialize();
+
+					menu.findItem(R.id.wallet_transactions_context_show_qr).setVisible(serializedTx.length < SHOW_QR_THRESHOLD_BYTES);
+
 					return true;
 				}
 				catch (final ScriptException x)
@@ -267,6 +277,12 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 				{
 					case R.id.wallet_transactions_context_edit_address:
 						handleEditAddress(tx);
+
+						mode.finish();
+						return true;
+
+					case R.id.wallet_transactions_context_show_qr:
+						handleShowQr();
 
 						mode.finish();
 						return true;
@@ -293,6 +309,13 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 			private void handleEditAddress(final Transaction tx)
 			{
 				EditAddressBookEntryFragment.edit(getFragmentManager(), address.toString());
+			}
+
+			private void handleShowQr()
+			{
+				final int size = (int) (384 * getResources().getDisplayMetrics().density);
+				final Bitmap qrCodeBitmap = Qr.bitmap(Qr.encodeBinary(serializedTx), size);
+				BitmapFragment.show(getFragmentManager(), qrCodeBitmap);
 			}
 		});
 	}

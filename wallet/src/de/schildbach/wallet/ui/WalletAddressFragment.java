@@ -43,6 +43,7 @@ import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.util.BitmapFragment;
 import de.schildbach.wallet.util.Nfc;
+import de.schildbach.wallet.util.Qr;
 import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
 
@@ -145,7 +146,7 @@ public final class WalletAddressFragment extends Fragment
 			final String addressStr = BitcoinURI.convertToBitcoinURI(selectedAddress, null, null, null);
 
 			final int size = (int) (256 * getResources().getDisplayMetrics().density);
-			qrCodeBitmap = WalletUtils.getQRCodeBitmap(addressStr, size);
+			qrCodeBitmap = Qr.bitmap(addressStr, size);
 			bitcoinAddressQrView.setImageBitmap(qrCodeBitmap);
 
 			Nfc.publishUri(nfcManager, getActivity(), addressStr);

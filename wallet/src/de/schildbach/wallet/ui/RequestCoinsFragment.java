@@ -65,7 +65,7 @@ import de.schildbach.wallet.ExchangeRatesProvider.ExchangeRate;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.util.BitmapFragment;
 import de.schildbach.wallet.util.Nfc;
-import de.schildbach.wallet.util.WalletUtils;
+import de.schildbach.wallet.util.Qr;
 import de.schildbach.wallet_test.R;
 
 /**
@@ -314,7 +314,7 @@ public final class RequestCoinsFragment extends SherlockFragment
 
 		// update qr code
 		final int size = (int) (256 * getResources().getDisplayMetrics().density);
-		qrCodeBitmap = WalletUtils.getQRCodeBitmap(request, size);
+		qrCodeBitmap = Qr.bitmap(request, size);
 		qrView.setImageBitmap(qrCodeBitmap);
 
 		// update ndef message

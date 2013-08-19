@@ -17,20 +17,15 @@
 
 package de.schildbach.wallet.ui;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.math.BigInteger;
 import java.text.DateFormat;
 import java.util.Date;
-import java.util.Locale;
-import java.util.zip.GZIPOutputStream;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.ClipboardManager;
@@ -39,7 +34,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockFragment;
@@ -52,10 +46,7 @@ import com.google.bitcoin.core.Wallet;
 import de.schildbach.wallet.AddressBookProvider;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
-import de.schildbach.wallet.util.Base43;
-import de.schildbach.wallet.util.BitmapFragment;
 import de.schildbach.wallet.util.GenericUtils;
-import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
 
 /**
@@ -64,8 +55,6 @@ import de.schildbach.wallet_test.R;
 public final class TransactionFragment extends SherlockFragment
 {
 	public static final String FRAGMENT_TAG = TransactionFragment.class.getName();
-
-	private static final int SHOW_QR_THRESHOLD_BYTES = 2500;
 
 	private AbstractWalletActivity activity;
 	private ClipboardManager clipboardManager;
@@ -255,47 +244,5 @@ public final class TransactionFragment extends SherlockFragment
 
 		final TextView viewLength = (TextView) view.findViewById(R.id.transaction_fragment_length);
 		viewLength.setText(Integer.toString(serializedTx.length));
-
-		final ImageView viewQr = (ImageView) view.findViewById(R.id.transaction_fragment_qr);
-		viewQr.setVisibility(View.GONE);
-
-		if (serializedTx.length < SHOW_QR_THRESHOLD_BYTES)
-		{
-			try
-			{
-				// encode transaction URI
-				final ByteArrayOutputStream bos = new ByteArrayOutputStream(serializedTx.length);
-				final GZIPOutputStream gos = new GZIPOutputStream(bos);
-				gos.write(serializedTx);
-				gos.close();
-
-				final byte[] gzippedSerializedTx = bos.toByteArray();
-				final boolean useCompressioon = gzippedSerializedTx.length < serializedTx.length;
-
-				final StringBuilder txStr = new StringBuilder("btctx:");
-				txStr.append(useCompressioon ? 'Z' : '-');
-				txStr.append(Base43.encode(useCompressioon ? gzippedSerializedTx : serializedTx));
-
-				final Bitmap qrCodeBitmap = WalletUtils.getQRCodeBitmap(txStr.toString().toUpperCase(Locale.US), 512);
-				viewQr.setImageBitmap(qrCodeBitmap);
-				viewQr.setOnClickListener(new OnClickListener()
-				{
-					public void onClick(final View v)
-					{
-						BitmapFragment.show(getFragmentManager(), qrCodeBitmap);
-					}
-				});
-
-				viewQr.setVisibility(View.VISIBLE);
-			}
-			catch (final IOException x)
-			{
-				throw new RuntimeException(x);
-			}
-			catch (final OutOfMemoryError x)
-			{
-				// swallow
-			}
-		}
 	}
 }

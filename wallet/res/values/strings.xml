@@ -33,6 +33,7 @@
 	<string name="wallet_transactions_row_warning_backup">Congratulations, you received your first payment! Have you already &lt;u>backed up your wallet&lt;/u>, to protect against loss?</string>
 	<string name="wallet_transactions_fragment_coinbase">mined</string>
 	<string name="wallet_transactions_fragment_internal">internal</string>
+	<string name="wallet_transactions_context_show_qr_title">Show QR code</string>
 	<string name="wallet_transactions_context_show_transaction_title">Transaction details</string>
 	<string name="wallet_options_backup">Back up Keys</string>
 	<string name="wallet_options_disconnect">Disconnect</string>
