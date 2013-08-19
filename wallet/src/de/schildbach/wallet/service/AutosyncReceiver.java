@@ -60,9 +60,9 @@ public class AutosyncReceiver extends BroadcastReceiver
 		if (lastUsedAgo < Constants.LAST_USAGE_THRESHOLD_JUST_MS)
 			alarmInterval = AlarmManager.INTERVAL_FIFTEEN_MINUTES;
 		else if (lastUsedAgo < Constants.LAST_USAGE_THRESHOLD_RECENTLY_MS)
-			alarmInterval = AlarmManager.INTERVAL_HOUR;
-		else
 			alarmInterval = AlarmManager.INTERVAL_HALF_DAY;
+		else
+			alarmInterval = AlarmManager.INTERVAL_DAY;
 
 		final PendingIntent alarmIntent = PendingIntent.getService(context, 0, serviceIntent, 0);
 		alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, now, alarmInterval, alarmIntent);
