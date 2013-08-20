@@ -6,6 +6,13 @@ keep your old backups around just in case.
 More info: http://bitcoin.org/en/alert/2013-08-11-android
 
 
+v3.18
+
+* Indonesian translation
+* bluetooth offline transactions
+* revamp of qr-code and nfc based offline transactions
+* remove transaction details screen, link to blockexplorer.com instead
+
 v3.17
 
 * fixed issue with emptying wallet
