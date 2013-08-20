@@ -30,11 +30,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.preference.PreferenceManager;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.AsyncTaskLoader;
@@ -72,7 +70,6 @@ public final class BlockListFragment extends SherlockListFragment
 	private AbstractWalletActivity activity;
 	private WalletApplication application;
 	private Wallet wallet;
-	private SharedPreferences prefs;
 	private LoaderManager loaderManager;
 
 	private BlockchainService service;
@@ -93,7 +90,6 @@ public final class BlockListFragment extends SherlockListFragment
 		this.activity = (AbstractWalletActivity) activity;
 		this.application = this.activity.getWalletApplication();
 		this.wallet = application.getWallet();
-		this.prefs = PreferenceManager.getDefaultSharedPreferences(activity);
 		this.loaderManager = getLoaderManager();
 	}
 
@@ -155,8 +151,6 @@ public final class BlockListFragment extends SherlockListFragment
 			{
 				final MenuInflater inflater = mode.getMenuInflater();
 				inflater.inflate(R.menu.blocks_context, menu);
-				menu.findItem(R.id.blocks_context_open_blockexplorer).setVisible(
-						prefs.getBoolean(Constants.PREFS_KEY_LABS_BLOCKEXPLORER_INTEGRATION, false));
 
 				return true;
 			}

@@ -202,6 +202,7 @@
 	<string name="button_send_coins">Send coins</string>
 	<string name="button_scan">Scan</string>
 	<string name="button_edit_address">Add/edit address</string>
+	<string name="action_open_blockexplorer">Open in blockexplorer.com</string>
 	<string name="time_today">today</string>
 	<string name="address_unlabeled">(unlabeled)</string>
 

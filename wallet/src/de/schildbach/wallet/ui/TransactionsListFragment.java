@@ -221,8 +221,6 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 			{
 				final MenuInflater inflater = mode.getMenuInflater();
 				inflater.inflate(R.menu.wallet_transactions_context, menu);
-				menu.findItem(R.id.wallet_transactions_context_open_blockexplorer).setVisible(
-						prefs.getBoolean(Constants.PREFS_KEY_LABS_BLOCKEXPLORER_INTEGRATION, false));
 
 				return true;
 			}

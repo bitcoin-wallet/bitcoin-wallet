@@ -15,6 +15,6 @@
 	<item
 		android:id="@+id/wallet_transactions_context_open_blockexplorer"
 		android:showAsAction="never"
-		android:title="Open in blockexplorer.com"/>
+		android:title="@string/action_open_blockexplorer"/>
 
 </menu>
