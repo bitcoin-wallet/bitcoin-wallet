@@ -36,7 +36,6 @@
 	<string name="wallet_transactions_fragment_coinbase">geschürft</string>
 	<string name="wallet_transactions_fragment_internal">intern</string>
 	<string name="wallet_transactions_context_show_qr_title">QR-Code zeigen</string>
-	<string name="wallet_transactions_context_show_transaction_title">Transaktionsdetails</string>
 	<string name="wallet_options_backup">Schlüsselsicherung</string>
 	<string name="wallet_options_disconnect">Verbindungen trennen</string>
 	<string name="wallet_options_safety">Sicherheit</string>
@@ -111,23 +110,6 @@
 	<string name="edit_address_book_entry_dialog_address_label">Adresse</string>
 	<string name="edit_address_book_entry_dialog_label_label">Name</string>
 	<string name="edit_address_book_entry_dialog_button_edit">Speichern</string>
-
-	<string name="transaction_activity_title">Transaktion</string>
-
-	<string name="transaction_fragment_time_label">Datum</string>
-	<string name="transaction_fragment_amount_sent_label">Gesendet</string>
-	<string name="transaction_fragment_amount_received_label">Empfangen</string>
-	<string name="transaction_fragment_from_label">Sender</string>
-	<string name="transaction_fragment_to_label">Empfänger</string>
-	<string name="transaction_fragment_you">Du</string>
-	<string name="transaction_fragment_status_label">Status</string>
-	<string name="transaction_fragment_status_unknown">unbekannt</string>
-	<string name="transaction_fragment_status_pending">wartet auf Bestätigung</string>
-	<string name="transaction_fragment_status_confirmed">bestätigt</string>
-	<string name="transaction_fragment_status_dead">tot</string>
-	<string name="transaction_fragment_hash_label">Hash</string>
-	<string name="transaction_fragment_hash_clipboard_msg">Transaktions-Hash ins Clipboard kopiert</string>
-	<string name="transaction_fragment_length_label">Länge</string>
 
 	<string name="transaction_row_message_purpose_key_rotation">Diese Transaktion stärkt dein Wallet gegen Diebstahl. &lt;u>Mehr Information.&lt;/u></string>
 	<string name="transaction_row_message_own_unbroadcasted">Diese Zahlung ist noch nicht übertragen.</string>
