@@ -31,7 +31,7 @@ import de.schildbach.wallet.service.BlockchainServiceImpl;
 /**
  * @author Andreas Schildbach
  */
-public class AbstractOnDemandServiceActivity extends AbstractWalletActivity
+public abstract class AbstractOnDemandServiceActivity extends AbstractWalletActivity
 {
 	protected void broadcastTransaction(final Transaction tx)
 	{

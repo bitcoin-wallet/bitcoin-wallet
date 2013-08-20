@@ -29,7 +29,7 @@ import de.schildbach.wallet.service.BlockchainServiceImpl;
 /**
  * @author Andreas Schildbach
  */
-public class AbstractBindServiceActivity extends AbstractWalletActivity
+public abstract class AbstractBindServiceActivity extends AbstractWalletActivity
 {
 	private BlockchainService blockchainService;
 
