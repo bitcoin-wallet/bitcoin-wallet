@@ -25,6 +25,7 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
@@ -55,7 +56,8 @@ public final class PreferencesActivity extends SherlockPreferenceActivity implem
 	private static final Intent dataUsageIntent = new Intent();
 	static
 	{
-		dataUsageIntent.setComponent(new ComponentName("com.android.settings", "com.android.settings.Settings$DataUsageSummaryActivity"));
+		dataUsageIntent.setComponent(Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH ? new ComponentName("com.android.settings",
+				"com.android.settings.Settings$DataUsageSummaryActivity") : new ComponentName("com.android.phone", "com.android.phone.Settings"));
 	}
 
 	@Override
