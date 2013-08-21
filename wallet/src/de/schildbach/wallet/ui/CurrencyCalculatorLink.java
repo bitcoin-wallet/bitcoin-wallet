@@ -39,6 +39,7 @@ public final class CurrencyCalculatorLink
 
 	private final CurrencyAmountView.Listener btcAmountViewListener = new CurrencyAmountView.Listener()
 	{
+		@Override
 		public void changed()
 		{
 			if (btcAmountView.getAmount() != null)
@@ -56,12 +57,14 @@ public final class CurrencyCalculatorLink
 				listener.changed();
 		}
 
+		@Override
 		public void done()
 		{
 			if (listener != null)
 				listener.done();
 		}
 
+		@Override
 		public void focusChanged(final boolean hasFocus)
 		{
 			if (listener != null)
@@ -71,6 +74,7 @@ public final class CurrencyCalculatorLink
 
 	private final CurrencyAmountView.Listener localAmountViewListener = new CurrencyAmountView.Listener()
 	{
+		@Override
 		public void changed()
 		{
 			if (localAmountView.getAmount() != null)
@@ -88,12 +92,14 @@ public final class CurrencyCalculatorLink
 				listener.changed();
 		}
 
+		@Override
 		public void done()
 		{
 			if (listener != null)
 				listener.done();
 		}
 
+		@Override
 		public void focusChanged(final boolean hasFocus)
 		{
 			if (listener != null)

@@ -178,6 +178,7 @@ public final class PreferencesActivity extends SherlockPreferenceActivity implem
 			dialog.setMessage(R.string.preferences_initiate_reset_dialog_message);
 			dialog.setPositiveButton(R.string.preferences_initiate_reset_dialog_positive, new OnClickListener()
 			{
+				@Override
 				public void onClick(final DialogInterface dialog, final int which)
 				{
 					application.resetBlockchain();
@@ -193,6 +194,7 @@ public final class PreferencesActivity extends SherlockPreferenceActivity implem
 		return false;
 	}
 
+	@Override
 	public boolean onPreferenceChange(final Preference preference, final Object newValue)
 	{
 		if (preference.equals(trustedPeerPreference))

@@ -34,6 +34,7 @@ public final class ShowPasswordCheckListener implements OnCheckedChangeListener
 		this.passwordView = passwordView;
 	}
 
+	@Override
 	public void onCheckedChanged(final CompoundButton buttonView, final boolean isChecked)
 	{
 		passwordView.setInputType(InputType.TYPE_CLASS_TEXT

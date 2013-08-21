@@ -35,11 +35,13 @@ public abstract class AbstractBindServiceActivity extends AbstractWalletActivity
 
 	private final ServiceConnection serviceConnection = new ServiceConnection()
 	{
+		@Override
 		public void onServiceConnected(final ComponentName name, final IBinder binder)
 		{
 			blockchainService = ((BlockchainServiceImpl.LocalBinder) binder).getService();
 		}
 
+		@Override
 		public void onServiceDisconnected(final ComponentName name)
 		{
 			blockchainService = null;

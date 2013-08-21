@@ -115,6 +115,7 @@ public final class WalletBalanceFragment extends Fragment
 		{
 			viewBalance.setOnClickListener(new OnClickListener()
 			{
+				@Override
 				public void onClick(final View v)
 				{
 					startActivity(new Intent(getActivity(), ExchangeRatesActivity.class));
@@ -228,6 +229,7 @@ public final class WalletBalanceFragment extends Fragment
 			delayMessageHandler.removeCallbacksAndMessages(null);
 			delayMessageHandler.postDelayed(new Runnable()
 			{
+				@Override
 				public void run()
 				{
 					viewProgress.setText(stalledText);
@@ -300,11 +302,13 @@ public final class WalletBalanceFragment extends Fragment
 
 	private final LoaderCallbacks<BigInteger> balanceLoaderCallbacks = new LoaderManager.LoaderCallbacks<BigInteger>()
 	{
+		@Override
 		public Loader<BigInteger> onCreateLoader(final int id, final Bundle args)
 		{
 			return new WalletBalanceLoader(activity, wallet);
 		}
 
+		@Override
 		public void onLoadFinished(final Loader<BigInteger> loader, final BigInteger balance)
 		{
 			WalletBalanceFragment.this.balance = balance;
@@ -312,6 +316,7 @@ public final class WalletBalanceFragment extends Fragment
 			updateView();
 		}
 
+		@Override
 		public void onLoaderReset(final Loader<BigInteger> loader)
 		{
 		}
@@ -319,11 +324,13 @@ public final class WalletBalanceFragment extends Fragment
 
 	private final LoaderCallbacks<Cursor> rateLoaderCallbacks = new LoaderManager.LoaderCallbacks<Cursor>()
 	{
+		@Override
 		public Loader<Cursor> onCreateLoader(final int id, final Bundle args)
 		{
 			return new ExchangeRateLoader(activity);
 		}
 
+		@Override
 		public void onLoadFinished(final Loader<Cursor> loader, final Cursor data)
 		{
 			if (data != null)
@@ -334,6 +341,7 @@ public final class WalletBalanceFragment extends Fragment
 			}
 		}
 
+		@Override
 		public void onLoaderReset(final Loader<Cursor> loader)
 		{
 		}

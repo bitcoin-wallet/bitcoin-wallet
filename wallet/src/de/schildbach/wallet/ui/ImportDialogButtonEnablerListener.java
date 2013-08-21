@@ -43,25 +43,30 @@ public class ImportDialogButtonEnablerListener implements TextWatcher, OnItemSel
 		handle();
 	}
 
+	@Override
 	public void onItemSelected(final AdapterView<?> parent, final View view, final int position, final long id)
 	{
 		handle();
 	}
 
+	@Override
 	public void onNothingSelected(final AdapterView<?> parent)
 	{
 		handle();
 	}
 
+	@Override
 	public void afterTextChanged(final Editable s)
 	{
 		handle();
 	}
 
+	@Override
 	public void beforeTextChanged(final CharSequence s, final int start, final int count, final int after)
 	{
 	}
 
+	@Override
 	public void onTextChanged(final CharSequence s, final int start, final int before, final int count)
 	{
 	}

@@ -120,6 +120,7 @@ public class WalletApplication extends Application
 
 		Threading.uncaughtExceptionHandler = new Thread.UncaughtExceptionHandler()
 		{
+			@Override
 			public void uncaughtException(final Thread thread, final Throwable throwable)
 			{
 				log.info("bitcoinj uncaught exception", throwable);
@@ -205,10 +206,12 @@ public class WalletApplication extends Application
 
 	private static final class WalletAutosaveEventListener implements WalletFiles.Listener
 	{
+		@Override
 		public void onBeforeAutoSave(final File file)
 		{
 		}
 
+		@Override
 		public void onAfterAutoSave(final File file)
 		{
 			// make wallets world accessible in test mode

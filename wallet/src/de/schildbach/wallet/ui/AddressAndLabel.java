@@ -40,11 +40,13 @@ public class AddressAndLabel implements Parcelable
 		this.label = label;
 	}
 
+	@Override
 	public int describeContents()
 	{
 		return 0;
 	}
 
+	@Override
 	public void writeToParcel(final Parcel dest, final int flags)
 	{
 		dest.writeSerializable(address.getParameters());
@@ -55,11 +57,13 @@ public class AddressAndLabel implements Parcelable
 
 	public static final Parcelable.Creator<AddressAndLabel> CREATOR = new Parcelable.Creator<AddressAndLabel>()
 	{
+		@Override
 		public AddressAndLabel createFromParcel(final Parcel in)
 		{
 			return new AddressAndLabel(in);
 		}
 
+		@Override
 		public AddressAndLabel[] newArray(final int size)
 		{
 			return new AddressAndLabel[size];

@@ -108,15 +108,18 @@ public final class ScanActivity extends Activity implements SurfaceHolder.Callba
 		surfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
 	}
 
+	@Override
 	public void surfaceCreated(final SurfaceHolder holder)
 	{
 		cameraHandler.post(openRunnable);
 	}
 
+	@Override
 	public void surfaceDestroyed(final SurfaceHolder holder)
 	{
 	}
 
+	@Override
 	public void surfaceChanged(final SurfaceHolder holder, final int format, final int width, final int height)
 	{
 	}
@@ -151,6 +154,7 @@ public final class ScanActivity extends Activity implements SurfaceHolder.Callba
 			case KeyEvent.KEYCODE_VOLUME_UP:
 				cameraHandler.post(new Runnable()
 				{
+					@Override
 					public void run()
 					{
 						cameraManager.setTorch(keyCode == KeyEvent.KEYCODE_VOLUME_UP);
@@ -189,6 +193,7 @@ public final class ScanActivity extends Activity implements SurfaceHolder.Callba
 		// delayed finish
 		new Handler().post(new Runnable()
 		{
+			@Override
 			public void run()
 			{
 				finish();
@@ -198,6 +203,7 @@ public final class ScanActivity extends Activity implements SurfaceHolder.Callba
 
 	private final Runnable openRunnable = new Runnable()
 	{
+		@Override
 		public void run()
 		{
 			try
@@ -209,6 +215,7 @@ public final class ScanActivity extends Activity implements SurfaceHolder.Callba
 
 				runOnUiThread(new Runnable()
 				{
+					@Override
 					public void run()
 					{
 						scannerView.setFraming(framingRect, framingRectInPreview);
@@ -233,6 +240,7 @@ public final class ScanActivity extends Activity implements SurfaceHolder.Callba
 
 	private final Runnable closeRunnable = new Runnable()
 	{
+		@Override
 		public void run()
 		{
 			cameraManager.close();
@@ -245,6 +253,7 @@ public final class ScanActivity extends Activity implements SurfaceHolder.Callba
 
 	private final Runnable autofocusRunnable = new Runnable()
 	{
+		@Override
 		public void run()
 		{
 			final Camera camera = cameraManager.getCamera();
@@ -255,6 +264,7 @@ public final class ScanActivity extends Activity implements SurfaceHolder.Callba
 			{
 				camera.autoFocus(new Camera.AutoFocusCallback()
 				{
+					@Override
 					public void onAutoFocus(final boolean success, final Camera camera)
 					{
 					}
@@ -271,10 +281,12 @@ public final class ScanActivity extends Activity implements SurfaceHolder.Callba
 		private final QRCodeReader reader = new QRCodeReader();
 		private final Map<DecodeHintType, Object> hints = new EnumMap<DecodeHintType, Object>(DecodeHintType.class);
 
+		@Override
 		public void run()
 		{
 			cameraManager.requestPreviewFrame(new PreviewCallback()
 			{
+				@Override
 				public void onPreviewFrame(final byte[] data, final Camera camera)
 				{
 					decode(data);
@@ -291,10 +303,12 @@ public final class ScanActivity extends Activity implements SurfaceHolder.Callba
 			{
 				hints.put(DecodeHintType.NEED_RESULT_POINT_CALLBACK, new ResultPointCallback()
 				{
+					@Override
 					public void foundPossibleResultPoint(final ResultPoint dot)
 					{
 						runOnUiThread(new Runnable()
 						{
+							@Override
 							public void run()
 							{
 								scannerView.addDot(dot);
@@ -313,6 +327,7 @@ public final class ScanActivity extends Activity implements SurfaceHolder.Callba
 
 				runOnUiThread(new Runnable()
 				{
+					@Override
 					public void run()
 					{
 						handleResult(scanResult, thumbnailImage, thumbnailScaleFactor);
@@ -343,6 +358,7 @@ public final class ScanActivity extends Activity implements SurfaceHolder.Callba
 			builder.setMessage(R.string.scan_camera_problem_dialog_message);
 			builder.setNeutralButton(R.string.button_dismiss, new OnClickListener()
 			{
+				@Override
 				public void onClick(final DialogInterface dialog, final int which)
 				{
 					finish();
@@ -350,6 +366,7 @@ public final class ScanActivity extends Activity implements SurfaceHolder.Callba
 			});
 			builder.setOnCancelListener(new OnCancelListener()
 			{
+				@Override
 				public void onCancel(final DialogInterface dialog)
 				{
 					finish();

@@ -39,6 +39,7 @@ public abstract class AbstractOnDemandServiceActivity extends AbstractWalletActi
 
 		bindService(new Intent(this, BlockchainServiceImpl.class), new ServiceConnection()
 		{
+			@Override
 			public void onServiceConnected(final ComponentName name, final IBinder binder)
 			{
 				final BlockchainService blockchainService = ((BlockchainServiceImpl.LocalBinder) binder).getService();
@@ -46,6 +47,7 @@ public abstract class AbstractOnDemandServiceActivity extends AbstractWalletActi
 				blockchainService.broadcastTransaction(tx);
 			}
 
+			@Override
 			public void onServiceDisconnected(final ComponentName name)
 			{
 				unbindService(this);

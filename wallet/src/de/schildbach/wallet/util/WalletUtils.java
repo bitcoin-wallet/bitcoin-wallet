@@ -254,6 +254,7 @@ public class WalletUtils
 
 	public static final FileFilter KEYS_FILE_FILTER = new FileFilter()
 	{
+		@Override
 		public boolean accept(final File file)
 		{
 			BufferedReader reader = null;

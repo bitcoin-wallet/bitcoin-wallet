@@ -150,6 +150,7 @@ public final class CameraManager
 
 	private static final Comparator<Camera.Size> numPixelComparator = new Comparator<Camera.Size>()
 	{
+		@Override
 		public int compare(final Camera.Size size1, final Camera.Size size2)
 		{
 			final int pixels1 = size1.height * size1.width;

@@ -150,12 +150,14 @@ public final class SendCoinsFragment extends SherlockFragment
 
 	private final class ReceivingAddressListener implements OnFocusChangeListener, TextWatcher
 	{
+		@Override
 		public void onFocusChange(final View v, final boolean hasFocus)
 		{
 			if (!hasFocus)
 				validateReceivingAddress(true);
 		}
 
+		@Override
 		public void afterTextChanged(final Editable s)
 		{
 			dismissPopup();
@@ -163,10 +165,12 @@ public final class SendCoinsFragment extends SherlockFragment
 			validateReceivingAddress(false);
 		}
 
+		@Override
 		public void beforeTextChanged(final CharSequence s, final int start, final int count, final int after)
 		{
 		}
 
+		@Override
 		public void onTextChanged(final CharSequence s, final int start, final int before, final int count)
 		{
 		}
@@ -176,6 +180,7 @@ public final class SendCoinsFragment extends SherlockFragment
 
 	private final CurrencyAmountView.Listener amountsListener = new CurrencyAmountView.Listener()
 	{
+		@Override
 		public void changed()
 		{
 			dismissPopup();
@@ -183,6 +188,7 @@ public final class SendCoinsFragment extends SherlockFragment
 			validateAmounts(false);
 		}
 
+		@Override
 		public void done()
 		{
 			validateAmounts(true);
@@ -190,6 +196,7 @@ public final class SendCoinsFragment extends SherlockFragment
 			viewGo.requestFocusFromTouch();
 		}
 
+		@Override
 		public void focusChanged(final boolean hasFocus)
 		{
 			if (!hasFocus)
@@ -210,10 +217,12 @@ public final class SendCoinsFragment extends SherlockFragment
 
 	private final TransactionConfidence.Listener sentTransactionConfidenceListener = new TransactionConfidence.Listener()
 	{
+		@Override
 		public void onConfidenceChanged(final Transaction tx, final TransactionConfidence.Listener.ChangeReason reason)
 		{
 			activity.runOnUiThread(new Runnable()
 			{
+				@Override
 				public void run()
 				{
 					sentTransactionListAdapter.notifyDataSetChanged();
@@ -236,11 +245,13 @@ public final class SendCoinsFragment extends SherlockFragment
 
 	private final LoaderCallbacks<Cursor> rateLoaderCallbacks = new LoaderManager.LoaderCallbacks<Cursor>()
 	{
+		@Override
 		public Loader<Cursor> onCreateLoader(final int id, final Bundle args)
 		{
 			return new ExchangeRateLoader(activity);
 		}
 
+		@Override
 		public void onLoadFinished(final Loader<Cursor> loader, final Cursor data)
 		{
 			if (data != null)
@@ -253,6 +264,7 @@ public final class SendCoinsFragment extends SherlockFragment
 			}
 		}
 
+		@Override
 		public void onLoaderReset(final Loader<Cursor> loader)
 		{
 		}
@@ -325,12 +337,14 @@ public final class SendCoinsFragment extends SherlockFragment
 		{
 			private ActionMode actionMode;
 
+			@Override
 			public void onFocusChange(final View v, final boolean hasFocus)
 			{
 				if (hasFocus)
 				{
 					actionMode = activity.startActionMode(new ActionMode.Callback()
 					{
+						@Override
 						public boolean onCreateActionMode(final ActionMode mode, final Menu menu)
 						{
 							final MenuInflater inflater = mode.getMenuInflater();
@@ -339,11 +353,13 @@ public final class SendCoinsFragment extends SherlockFragment
 							return true;
 						}
 
+						@Override
 						public boolean onPrepareActionMode(final ActionMode mode, final Menu menu)
 						{
 							return false;
 						}
 
+						@Override
 						public boolean onActionItemClicked(final ActionMode mode, final MenuItem item)
 						{
 							switch (item.getItemId())
@@ -364,6 +380,7 @@ public final class SendCoinsFragment extends SherlockFragment
 							return false;
 						}
 
+						@Override
 						public void onDestroyActionMode(final ActionMode mode)
 						{
 							if (receivingStaticView.hasFocus())
@@ -412,6 +429,7 @@ public final class SendCoinsFragment extends SherlockFragment
 		viewGo = (Button) view.findViewById(R.id.send_coins_go);
 		viewGo.setOnClickListener(new OnClickListener()
 		{
+			@Override
 			public void onClick(final View v)
 			{
 				validateReceivingAddress(true);
@@ -425,6 +443,7 @@ public final class SendCoinsFragment extends SherlockFragment
 		viewCancel = (Button) view.findViewById(R.id.send_coins_cancel);
 		viewCancel.setOnClickListener(new OnClickListener()
 		{
+			@Override
 			public void onClick(final View v)
 			{
 				if (state == State.INPUT)
@@ -719,12 +738,14 @@ public final class SendCoinsFragment extends SherlockFragment
 
 		backgroundHandler.post(new Runnable()
 		{
+			@Override
 			public void run()
 			{
 				final Transaction transaction = wallet.sendCoinsOffline(sendRequest);
 
 				handler.post(new Runnable()
 				{
+					@Override
 					public void run()
 					{
 						if (transaction != null)
@@ -772,6 +793,7 @@ public final class SendCoinsFragment extends SherlockFragment
 
 	private Runnable sendBluetoothRunnable = new Runnable()
 	{
+		@Override
 		public void run()
 		{
 			log.info("trying to send tx " + sentTransaction.getHashAsString() + " via bluetooth");
@@ -804,6 +826,7 @@ public final class SendCoinsFragment extends SherlockFragment
 
 				activity.runOnUiThread(new Runnable()
 				{
+					@Override
 					public void run()
 					{
 						bluetoothAck = ack;
@@ -1028,6 +1051,7 @@ public final class SendCoinsFragment extends SherlockFragment
 
 		handler.postDelayed(new Runnable()
 		{
+			@Override
 			public void run()
 			{
 				validateReceivingAddress(true);

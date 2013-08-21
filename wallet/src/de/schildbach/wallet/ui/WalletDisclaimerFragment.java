@@ -61,6 +61,7 @@ public final class WalletDisclaimerFragment extends Fragment implements OnShared
 
 		messageView.setOnClickListener(new OnClickListener()
 		{
+			@Override
 			public void onClick(final View v)
 			{
 				final boolean showBackup = prefs.getBoolean(Constants.PREFS_KEY_REMIND_BACKUP, true);
@@ -92,6 +93,7 @@ public final class WalletDisclaimerFragment extends Fragment implements OnShared
 		super.onPause();
 	}
 
+	@Override
 	public void onSharedPreferenceChanged(final SharedPreferences sharedPreferences, final String key)
 	{
 		if (Constants.PREFS_KEY_DISCLAIMER.equals(key) || Constants.PREFS_KEY_REMIND_BACKUP.equals(key))

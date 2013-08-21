@@ -281,6 +281,7 @@ public final class CurrencyAmountView extends FrameLayout
 
 	private final OnClickListener deleteClickListener = new OnClickListener()
 	{
+		@Override
 		public void onClick(final View v)
 		{
 			setAmount(null, true);
@@ -354,6 +355,7 @@ public final class CurrencyAmountView extends FrameLayout
 			this.fire = fire;
 		}
 
+		@Override
 		public void afterTextChanged(final Editable s)
 		{
 			// workaround for German keyboards
@@ -368,10 +370,12 @@ public final class CurrencyAmountView extends FrameLayout
 			WalletUtils.formatSignificant(s, smallerInsignificant ? WalletUtils.SMALLER_SPAN : null);
 		}
 
+		@Override
 		public void beforeTextChanged(final CharSequence s, final int start, final int count, final int after)
 		{
 		}
 
+		@Override
 		public void onTextChanged(final CharSequence s, final int start, final int before, final int count)
 		{
 			updateAppearance();
@@ -379,6 +383,7 @@ public final class CurrencyAmountView extends FrameLayout
 				listener.changed();
 		}
 
+		@Override
 		public void onFocusChange(final View v, final boolean hasFocus)
 		{
 			if (!hasFocus)
@@ -392,6 +397,7 @@ public final class CurrencyAmountView extends FrameLayout
 				listener.focusChanged(hasFocus);
 		}
 
+		@Override
 		public boolean onEditorAction(final TextView v, final int actionId, final KeyEvent event)
 		{
 			if (actionId == EditorInfo.IME_ACTION_DONE && listener != null && fire)

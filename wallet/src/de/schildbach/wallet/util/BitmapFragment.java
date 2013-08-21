@@ -78,6 +78,7 @@ public class BitmapFragment extends DialogFragment
 		imageView.setImageBitmap(bitmap);
 		imageView.setOnClickListener(new View.OnClickListener()
 		{
+			@Override
 			public void onClick(final View v)
 			{
 				dismiss();

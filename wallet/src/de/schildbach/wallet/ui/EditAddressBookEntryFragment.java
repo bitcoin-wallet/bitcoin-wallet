@@ -111,6 +111,7 @@ public final class EditAddressBookEntryFragment extends DialogFragment
 
 		final DialogInterface.OnClickListener onClickListener = new DialogInterface.OnClickListener()
 		{
+			@Override
 			public void onClick(final DialogInterface dialog, final int which)
 			{
 				if (which == DialogInterface.BUTTON_POSITIVE)

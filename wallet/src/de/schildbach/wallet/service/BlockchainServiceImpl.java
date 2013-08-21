@@ -152,6 +152,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 
 				handler.post(new Runnable()
 				{
+					@Override
 					public void run()
 					{
 						final boolean isReceived = amount.signum() > 0;
@@ -254,6 +255,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 			changed(peerCount);
 		}
 
+		@Override
 		public void onSharedPreferenceChanged(final SharedPreferences sharedPreferences, final String key)
 		{
 			if (Constants.PREFS_KEY_CONNECTIVITY_NOTIFICATION.equals(key))
@@ -267,6 +269,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 
 			handler.post(new Runnable()
 			{
+				@Override
 				public void run()
 				{
 					final boolean connectivityNotification = prefs.getBoolean(Constants.PREFS_KEY_CONNECTIVITY_NOTIFICATION, false);
@@ -316,6 +319,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 
 		private final Runnable runnable = new Runnable()
 		{
+			@Override
 			public void run()
 			{
 				lastMessageTime.set(System.currentTimeMillis());
@@ -399,6 +403,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 				{
 					private final PeerDiscovery normalPeerDiscovery = new DnsDiscovery(Constants.NETWORK_PARAMETERS);
 
+					@Override
 					public InetSocketAddress[] getPeers(final long timeoutValue, final TimeUnit timeoutUnit) throws PeerDiscoveryException
 					{
 						final List<InetSocketAddress> peers = new LinkedList<InetSocketAddress>();
@@ -426,6 +431,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 						return peers.toArray(new InetSocketAddress[0]);
 					}
 
+					@Override
 					public void shutdown()
 					{
 						normalPeerDiscovery.shutdown();
@@ -758,12 +764,14 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 		stopSelf();
 	}
 
+	@Override
 	public void broadcastTransaction(final Transaction tx)
 	{
 		if (peerGroup != null)
 			peerGroup.broadcastTransaction(tx);
 	}
 
+	@Override
 	public List<Peer> getConnectedPeers()
 	{
 		if (peerGroup != null)
@@ -772,6 +780,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 			return null;
 	}
 
+	@Override
 	public List<StoredBlock> getRecentBlocks(final int maxBlocks)
 	{
 		final List<StoredBlock> blocks = new ArrayList<StoredBlock>(maxBlocks);

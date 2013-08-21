@@ -83,16 +83,19 @@ public class WalletAddressesAdapter extends BaseAdapter
 		notifyDataSetChanged();
 	}
 
+	@Override
 	public int getCount()
 	{
 		return keys.size();
 	}
 
+	@Override
 	public Object getItem(final int position)
 	{
 		return keys.get(position);
 	}
 
+	@Override
 	public long getItemId(final int position)
 	{
 		return keys.get(position).hashCode();
@@ -104,6 +107,7 @@ public class WalletAddressesAdapter extends BaseAdapter
 		return true;
 	}
 
+	@Override
 	public View getView(final int position, View row, final ViewGroup parent)
 	{
 		final ECKey key = (ECKey) getItem(position);

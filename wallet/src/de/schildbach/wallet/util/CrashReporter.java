@@ -322,6 +322,7 @@ public class CrashReporter
 			this.previousHandler = previousHandler;
 		}
 
+		@Override
 		public synchronized void uncaughtException(final Thread t, final Throwable exception)
 		{
 			try

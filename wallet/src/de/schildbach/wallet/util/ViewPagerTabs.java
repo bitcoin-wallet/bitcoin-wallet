@@ -163,18 +163,21 @@ public class ViewPagerTabs extends View implements OnPageChangeListener
 		return (int) (-paint.getFontMetrics().top + paint.getFontMetrics().bottom) + getPaddingTop() + getPaddingBottom();
 	}
 
+	@Override
 	public void onPageScrolled(final int position, final float positionOffset, final int positionOffsetPixels)
 	{
 		pageOffset = position + positionOffset;
 		invalidate();
 	}
 
+	@Override
 	public void onPageSelected(final int position)
 	{
 		pagePosition = position;
 		invalidate();
 	}
 
+	@Override
 	public void onPageScrollStateChanged(final int state)
 	{
 	}

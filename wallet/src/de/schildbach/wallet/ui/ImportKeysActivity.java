@@ -103,6 +103,7 @@ public final class ImportKeysActivity extends AbstractWalletActivity
 		builder.setView(view);
 		builder.setPositiveButton(R.string.import_keys_dialog_button_import, new OnClickListener()
 		{
+			@Override
 			public void onClick(final DialogInterface dialog, final int which)
 			{
 				final String password = passwordView.getText().toString().trim();
@@ -122,6 +123,7 @@ public final class ImportKeysActivity extends AbstractWalletActivity
 		});
 		builder.setNegativeButton(R.string.button_cancel, new OnClickListener()
 		{
+			@Override
 			public void onClick(final DialogInterface dialog, final int which)
 			{
 				passwordView.setText(null); // get rid of it asap
@@ -130,6 +132,7 @@ public final class ImportKeysActivity extends AbstractWalletActivity
 		});
 		builder.setOnCancelListener(new OnCancelListener()
 		{
+			@Override
 			public void onCancel(final DialogInterface dialog)
 			{
 				passwordView.setText(null); // get rid of it asap
@@ -209,6 +212,7 @@ public final class ImportKeysActivity extends AbstractWalletActivity
 			{
 				dialog.setPositiveButton(R.string.import_keys_dialog_button_reset_blockchain, new DialogInterface.OnClickListener()
 				{
+					@Override
 					public void onClick(final DialogInterface dialog, final int id)
 					{
 						getWalletApplication().resetBlockchain();
@@ -237,11 +241,13 @@ public final class ImportKeysActivity extends AbstractWalletActivity
 
 	private class FinishListener implements DialogInterface.OnClickListener, DialogInterface.OnCancelListener
 	{
+		@Override
 		public void onClick(final DialogInterface dialog, final int which)
 		{
 			finish();
 		}
 
+		@Override
 		public void onCancel(final DialogInterface dialog)
 		{
 			finish();

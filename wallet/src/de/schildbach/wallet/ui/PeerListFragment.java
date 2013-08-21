@@ -155,6 +155,7 @@ public final class PeerListFragment extends SherlockListFragment
 
 		handler.postDelayed(new Runnable()
 		{
+			@Override
 			public void run()
 			{
 				adapter.notifyDataSetChanged();
@@ -205,6 +206,7 @@ public final class PeerListFragment extends SherlockListFragment
 
 	private final ServiceConnection serviceConnection = new ServiceConnection()
 	{
+		@Override
 		public void onServiceConnected(final ComponentName name, final IBinder binder)
 		{
 			service = ((BlockchainServiceImpl.LocalBinder) binder).getService();
@@ -212,6 +214,7 @@ public final class PeerListFragment extends SherlockListFragment
 			loaderManager.initLoader(ID_PEER_LOADER, null, peerLoaderCallbacks);
 		}
 
+		@Override
 		public void onServiceDisconnected(final ComponentName name)
 		{
 			loaderManager.destroyLoader(ID_PEER_LOADER);
@@ -267,11 +270,13 @@ public final class PeerListFragment extends SherlockListFragment
 
 	private final LoaderCallbacks<List<Peer>> peerLoaderCallbacks = new LoaderCallbacks<List<Peer>>()
 	{
+		@Override
 		public Loader<List<Peer>> onCreateLoader(final int id, final Bundle args)
 		{
 			return new PeerLoader(activity, service);
 		}
 
+		@Override
 		public void onLoadFinished(final Loader<List<Peer>> loader, final List<Peer> peers)
 		{
 			adapter.clear();
@@ -281,6 +286,7 @@ public final class PeerListFragment extends SherlockListFragment
 					adapter.add(peer);
 		}
 
+		@Override
 		public void onLoaderReset(final Loader<List<Peer>> loader)
 		{
 			adapter.clear();
@@ -307,6 +313,7 @@ public final class PeerListFragment extends SherlockListFragment
 
 	private final LoaderCallbacks<String> reverseDnsLoaderCallbacks = new LoaderCallbacks<String>()
 	{
+		@Override
 		public Loader<String> onCreateLoader(final int id, final Bundle args)
 		{
 			final InetAddress address = (InetAddress) args.getSerializable("address");
@@ -314,6 +321,7 @@ public final class PeerListFragment extends SherlockListFragment
 			return new ReverseDnsLoader(activity, address);
 		}
 
+		@Override
 		public void onLoadFinished(final Loader<String> loader, final String hostname)
 		{
 			final InetAddress address = ((ReverseDnsLoader) loader).address;
@@ -322,6 +330,7 @@ public final class PeerListFragment extends SherlockListFragment
 			loaderManager.destroyLoader(ID_REVERSE_DNS_LOADER);
 		}
 
+		@Override
 		public void onLoaderReset(final Loader<String> loader)
 		{
 		}

@@ -283,6 +283,7 @@ public class Crypto
 	{
 		private final char[] buf = new char[OPENSSL_MAGIC_TEXT.length()];
 
+		@Override
 		public boolean accept(final File file)
 		{
 			Reader in = null;

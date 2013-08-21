@@ -147,6 +147,7 @@ public final class BlockListFragment extends SherlockListFragment
 
 		activity.startActionMode(new ActionMode.Callback()
 		{
+			@Override
 			public boolean onCreateActionMode(final ActionMode mode, final Menu menu)
 			{
 				final MenuInflater inflater = mode.getMenuInflater();
@@ -155,6 +156,7 @@ public final class BlockListFragment extends SherlockListFragment
 				return true;
 			}
 
+			@Override
 			public boolean onPrepareActionMode(final ActionMode mode, final Menu menu)
 			{
 				mode.setTitle(Integer.toString(storedBlock.getHeight()));
@@ -163,6 +165,7 @@ public final class BlockListFragment extends SherlockListFragment
 				return true;
 			}
 
+			@Override
 			public boolean onActionItemClicked(final ActionMode mode, final MenuItem item)
 			{
 				switch (item.getItemId())
@@ -178,6 +181,7 @@ public final class BlockListFragment extends SherlockListFragment
 				return false;
 			}
 
+			@Override
 			public void onDestroyActionMode(final ActionMode mode)
 			{
 			}
@@ -186,6 +190,7 @@ public final class BlockListFragment extends SherlockListFragment
 
 	private final ServiceConnection serviceConnection = new ServiceConnection()
 	{
+		@Override
 		public void onServiceConnected(final ComponentName name, final IBinder binder)
 		{
 			service = ((BlockchainServiceImpl.LocalBinder) binder).getService();
@@ -193,6 +198,7 @@ public final class BlockListFragment extends SherlockListFragment
 			loaderManager.initLoader(ID_BLOCK_LOADER, null, blockLoaderCallbacks);
 		}
 
+		@Override
 		public void onServiceDisconnected(final ComponentName name)
 		{
 			loaderManager.destroyLoader(ID_BLOCK_LOADER);
@@ -234,16 +240,19 @@ public final class BlockListFragment extends SherlockListFragment
 			notifyDataSetChanged();
 		}
 
+		@Override
 		public int getCount()
 		{
 			return blocks.size();
 		}
 
+		@Override
 		public StoredBlock getItem(final int position)
 		{
 			return blocks.get(position);
 		}
 
+		@Override
 		public long getItemId(final int position)
 		{
 			return WalletUtils.longHash(blocks.get(position).getHeader().getHash());
@@ -255,6 +264,7 @@ public final class BlockListFragment extends SherlockListFragment
 			return true;
 		}
 
+		@Override
 		public View getView(final int position, final View convertView, final ViewGroup parent)
 		{
 			final ViewGroup row;
@@ -359,11 +369,13 @@ public final class BlockListFragment extends SherlockListFragment
 
 	private final LoaderCallbacks<List<StoredBlock>> blockLoaderCallbacks = new LoaderCallbacks<List<StoredBlock>>()
 	{
+		@Override
 		public Loader<List<StoredBlock>> onCreateLoader(final int id, final Bundle args)
 		{
 			return new BlockLoader(activity, service);
 		}
 
+		@Override
 		public void onLoadFinished(final Loader<List<StoredBlock>> loader, final List<StoredBlock> blocks)
 		{
 			adapter.replace(blocks);
@@ -373,6 +385,7 @@ public final class BlockListFragment extends SherlockListFragment
 				transactionLoader.forceLoad();
 		}
 
+		@Override
 		public void onLoaderReset(final Loader<List<StoredBlock>> loader)
 		{
 			adapter.clear();
@@ -409,11 +422,13 @@ public final class BlockListFragment extends SherlockListFragment
 
 	private final LoaderCallbacks<Set<Transaction>> transactionLoaderCallbacks = new LoaderCallbacks<Set<Transaction>>()
 	{
+		@Override
 		public Loader<Set<Transaction>> onCreateLoader(final int id, final Bundle args)
 		{
 			return new TransactionsLoader(activity, wallet);
 		}
 
+		@Override
 		public void onLoadFinished(final Loader<Set<Transaction>> loader, final Set<Transaction> transactions)
 		{
 			BlockListFragment.this.transactions = transactions;
@@ -421,6 +436,7 @@ public final class BlockListFragment extends SherlockListFragment
 			adapter.notifyDataSetChanged();
 		}
 
+		@Override
 		public void onLoaderReset(final Loader<Set<Transaction>> loader)
 		{
 			BlockListFragment.this.transactions.clear(); // be nice

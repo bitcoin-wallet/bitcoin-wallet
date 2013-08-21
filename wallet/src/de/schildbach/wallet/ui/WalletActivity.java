@@ -352,6 +352,7 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 		builder.setView(view);
 		builder.setPositiveButton(R.string.import_keys_dialog_button_import, new OnClickListener()
 		{
+			@Override
 			public void onClick(final DialogInterface dialog, final int which)
 			{
 				final File file = (File) fileView.getSelectedItem();
@@ -363,6 +364,7 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 		});
 		builder.setNegativeButton(R.string.button_cancel, new OnClickListener()
 		{
+			@Override
 			public void onClick(final DialogInterface dialog, final int which)
 			{
 				passwordView.setText(null); // get rid of it asap
@@ -370,6 +372,7 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 		});
 		builder.setOnCancelListener(new OnCancelListener()
 		{
+			@Override
 			public void onCancel(final DialogInterface dialog)
 			{
 				passwordView.setText(null); // get rid of it asap
@@ -399,6 +402,7 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 		// sort
 		Collections.sort(files, new Comparator<File>()
 		{
+			@Override
 			public int compare(final File lhs, final File rhs)
 			{
 				return lhs.getName().compareToIgnoreCase(rhs.getName());
@@ -477,6 +481,7 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 		builder.setView(view);
 		builder.setPositiveButton(R.string.export_keys_dialog_button_export, new OnClickListener()
 		{
+			@Override
 			public void onClick(final DialogInterface dialog, final int which)
 			{
 				final String password = passwordView.getText().toString().trim();
@@ -487,6 +492,7 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 		});
 		builder.setNegativeButton(R.string.button_cancel, new OnClickListener()
 		{
+			@Override
 			public void onClick(final DialogInterface dialog, final int which)
 			{
 				passwordView.setText(null); // get rid of it asap
@@ -494,6 +500,7 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 		});
 		builder.setOnCancelListener(new OnCancelListener()
 		{
+			@Override
 			public void onCancel(final DialogInterface dialog)
 			{
 				passwordView.setText(null); // get rid of it asap
@@ -528,6 +535,7 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 		builder.setPositiveButton(R.string.button_ok, null);
 		builder.setNegativeButton(R.string.button_dismiss, new DialogInterface.OnClickListener()
 		{
+			@Override
 			public void onClick(final DialogInterface dialog, final int id)
 			{
 				prefs.edit().putBoolean(Constants.PREFS_KEY_ALERT_OLD_SDK_DISMISSED, true).commit();
@@ -548,6 +556,7 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 			builder.setMessage(R.string.wallet_low_storage_dialog_msg);
 			builder.setPositiveButton(R.string.wallet_low_storage_dialog_button_apps, new DialogInterface.OnClickListener()
 			{
+				@Override
 				public void onClick(final DialogInterface dialog, final int id)
 				{
 					startActivity(new Intent(android.provider.Settings.ACTION_MANAGE_APPLICATIONS_SETTINGS));
@@ -585,6 +594,7 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 
 						runOnUiThread(new Runnable()
 						{
+							@Override
 							public void run()
 							{
 								if (!isFinishing())
@@ -600,6 +610,7 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 				{
 					runOnUiThread(new Runnable()
 					{
+						@Override
 						public void run()
 						{
 							if (!isFinishing())
@@ -709,6 +720,7 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 		{
 			builder.setPositiveButton(R.string.wallet_timeskew_dialog_button_settings, new DialogInterface.OnClickListener()
 			{
+				@Override
 				public void onClick(final DialogInterface dialog, final int id)
 				{
 					startActivity(settingsIntent);
@@ -736,6 +748,7 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 		{
 			builder.setPositiveButton(R.string.wallet_version_dialog_button_market, new DialogInterface.OnClickListener()
 			{
+				@Override
 				public void onClick(final DialogInterface dialog, final int id)
 				{
 					startActivity(marketIntent);
@@ -748,6 +761,7 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 		{
 			builder.setNeutralButton(R.string.wallet_version_dialog_button_binary, new DialogInterface.OnClickListener()
 			{
+				@Override
 				public void onClick(final DialogInterface dialog, final int id)
 				{
 					startActivity(binaryIntent);
@@ -820,6 +834,7 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 			{
 				dialog.setPositiveButton(R.string.import_keys_dialog_button_reset_blockchain, new DialogInterface.OnClickListener()
 				{
+					@Override
 					public void onClick(final DialogInterface dialog, final int id)
 					{
 						getWalletApplication().resetBlockchain();
@@ -875,6 +890,7 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 					getString(R.string.export_keys_dialog_success, file));
 			dialog.setPositiveButton(R.string.export_keys_dialog_button_archive, new OnClickListener()
 			{
+				@Override
 				public void onClick(final DialogInterface dialog, final int which)
 				{
 					mailPrivateKeys(file);

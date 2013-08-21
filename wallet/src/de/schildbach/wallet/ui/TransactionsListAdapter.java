@@ -138,6 +138,7 @@ public class TransactionsListAdapter extends BaseAdapter
 		return showEmptyText && super.isEmpty();
 	}
 
+	@Override
 	public int getCount()
 	{
 		int count = transactions.size();
@@ -148,6 +149,7 @@ public class TransactionsListAdapter extends BaseAdapter
 		return count;
 	}
 
+	@Override
 	public Transaction getItem(final int position)
 	{
 		if (position == transactions.size() && showBackupWarning)
@@ -156,6 +158,7 @@ public class TransactionsListAdapter extends BaseAdapter
 		return transactions.get(position);
 	}
 
+	@Override
 	public long getItemId(final int position)
 	{
 		if (position == transactions.size() && showBackupWarning)
@@ -185,6 +188,7 @@ public class TransactionsListAdapter extends BaseAdapter
 		return true;
 	}
 
+	@Override
 	public View getView(final int position, View row, final ViewGroup parent)
 	{
 		final int type = getItemViewType(position);

@@ -87,6 +87,7 @@ public abstract class ReportIssueDialogBuilder extends AlertDialog.Builder imple
 		setNegativeButton(R.string.button_cancel, null);
 	}
 
+	@Override
 	public void onClick(final DialogInterface dialog, final int which)
 	{
 		final StringBuilder text = new StringBuilder();

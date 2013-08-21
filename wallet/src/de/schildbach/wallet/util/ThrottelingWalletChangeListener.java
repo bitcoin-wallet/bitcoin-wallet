@@ -69,6 +69,7 @@ public abstract class ThrottelingWalletChangeListener implements WalletEventList
 		this.confidenceRelevant = confidenceRelevant;
 	}
 
+	@Override
 	public final void onWalletChanged(final Wallet wallet)
 	{
 		if (relevant.getAndSet(false))
@@ -86,6 +87,7 @@ public abstract class ThrottelingWalletChangeListener implements WalletEventList
 
 	private final Runnable runnable = new Runnable()
 	{
+		@Override
 		public void run()
 		{
 			lastMessageTime.set(System.currentTimeMillis());
@@ -102,30 +104,35 @@ public abstract class ThrottelingWalletChangeListener implements WalletEventList
 	/** will be called back on UI thread */
 	public abstract void onThrotteledWalletChanged();
 
+	@Override
 	public void onCoinsReceived(final Wallet wallet, final Transaction tx, final BigInteger prevBalance, final BigInteger newBalance)
 	{
 		if (coinsRelevant)
 			relevant.set(true);
 	}
 
+	@Override
 	public void onCoinsSent(final Wallet wallet, final Transaction tx, final BigInteger prevBalance, final BigInteger newBalance)
 	{
 		if (coinsRelevant)
 			relevant.set(true);
 	}
 
+	@Override
 	public void onReorganize(final Wallet wallet)
 	{
 		if (reorganizeRelevant)
 			relevant.set(true);
 	}
 
+	@Override
 	public void onTransactionConfidenceChanged(final Wallet wallet, final Transaction tx)
 	{
 		if (confidenceRelevant)
 			relevant.set(true);
 	}
 
+	@Override
 	public void onKeysAdded(final Wallet wallet, final List<ECKey> keys)
 	{
 		// swallow

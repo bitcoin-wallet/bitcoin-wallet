@@ -51,6 +51,7 @@ public final class WalletActionsFragment extends Fragment
 		final View requestButton = view.findViewById(R.id.wallet_actions_request);
 		requestButton.setOnClickListener(new OnClickListener()
 		{
+			@Override
 			public void onClick(final View v)
 			{
 				activity.handleRequestCoins();
@@ -60,6 +61,7 @@ public final class WalletActionsFragment extends Fragment
 		final View sendButton = view.findViewById(R.id.wallet_actions_send);
 		sendButton.setOnClickListener(new OnClickListener()
 		{
+			@Override
 			public void onClick(final View v)
 			{
 				activity.handleSendCoins();
@@ -69,6 +71,7 @@ public final class WalletActionsFragment extends Fragment
 		final View sendQrButton = view.findViewById(R.id.wallet_actions_send_qr);
 		sendQrButton.setOnClickListener(new OnClickListener()
 		{
+			@Override
 			public void onClick(final View v)
 			{
 				activity.handleScan();

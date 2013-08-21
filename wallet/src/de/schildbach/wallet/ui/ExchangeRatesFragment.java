@@ -171,6 +171,7 @@ public final class ExchangeRatesFragment extends SherlockListFragment implements
 
 		activity.startActionMode(new ActionMode.Callback()
 		{
+			@Override
 			public boolean onCreateActionMode(final ActionMode mode, final Menu menu)
 			{
 				final MenuInflater inflater = mode.getMenuInflater();
@@ -179,6 +180,7 @@ public final class ExchangeRatesFragment extends SherlockListFragment implements
 				return true;
 			}
 
+			@Override
 			public boolean onPrepareActionMode(final ActionMode mode, final Menu menu)
 			{
 				mode.setTitle(exchangeRate.currencyCode);
@@ -187,6 +189,7 @@ public final class ExchangeRatesFragment extends SherlockListFragment implements
 				return true;
 			}
 
+			@Override
 			public boolean onActionItemClicked(final ActionMode mode, final MenuItem item)
 			{
 				switch (item.getItemId())
@@ -201,6 +204,7 @@ public final class ExchangeRatesFragment extends SherlockListFragment implements
 				return false;
 			}
 
+			@Override
 			public void onDestroyActionMode(final ActionMode mode)
 			{
 			}
@@ -212,6 +216,7 @@ public final class ExchangeRatesFragment extends SherlockListFragment implements
 		});
 	}
 
+	@Override
 	public void onSharedPreferenceChanged(final SharedPreferences sharedPreferences, final String key)
 	{
 		if (Constants.PREFS_KEY_EXCHANGE_CURRENCY.equals(key))
@@ -245,16 +250,19 @@ public final class ExchangeRatesFragment extends SherlockListFragment implements
 
 	private final LoaderCallbacks<Cursor> rateLoaderCallbacks = new LoaderManager.LoaderCallbacks<Cursor>()
 	{
+		@Override
 		public Loader<Cursor> onCreateLoader(final int id, final Bundle args)
 		{
 			return new CursorLoader(activity, ExchangeRatesProvider.contentUri(activity.getPackageName()), null, null, null, null);
 		}
 
+		@Override
 		public void onLoadFinished(final Loader<Cursor> loader, final Cursor data)
 		{
 			adapter.swapCursor(data);
 		}
 
+		@Override
 		public void onLoaderReset(final Loader<Cursor> loader)
 		{
 			adapter.swapCursor(null);
@@ -263,11 +271,13 @@ public final class ExchangeRatesFragment extends SherlockListFragment implements
 
 	private final LoaderCallbacks<BigInteger> balanceLoaderCallbacks = new LoaderManager.LoaderCallbacks<BigInteger>()
 	{
+		@Override
 		public Loader<BigInteger> onCreateLoader(final int id, final Bundle args)
 		{
 			return new WalletBalanceLoader(activity, wallet);
 		}
 
+		@Override
 		public void onLoadFinished(final Loader<BigInteger> loader, final BigInteger balance)
 		{
 			ExchangeRatesFragment.this.balance = balance;
@@ -275,6 +285,7 @@ public final class ExchangeRatesFragment extends SherlockListFragment implements
 			updateView();
 		}
 
+		@Override
 		public void onLoaderReset(final Loader<BigInteger> loader)
 		{
 		}

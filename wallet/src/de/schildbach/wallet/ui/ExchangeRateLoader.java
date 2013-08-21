@@ -58,6 +58,7 @@ public final class ExchangeRateLoader extends CursorLoader implements OnSharedPr
 		super.onStopLoading();
 	}
 
+	@Override
 	public void onSharedPreferenceChanged(final SharedPreferences sharedPreferences, final String key)
 	{
 		if (Constants.PREFS_KEY_EXCHANGE_CURRENCY.equals(key))

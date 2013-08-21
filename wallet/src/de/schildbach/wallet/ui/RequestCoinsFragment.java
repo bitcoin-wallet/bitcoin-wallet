@@ -113,11 +113,13 @@ public final class RequestCoinsFragment extends SherlockFragment
 
 	private final LoaderCallbacks<Cursor> rateLoaderCallbacks = new LoaderManager.LoaderCallbacks<Cursor>()
 	{
+		@Override
 		public Loader<Cursor> onCreateLoader(final int id, final Bundle args)
 		{
 			return new ExchangeRateLoader(activity);
 		}
 
+		@Override
 		public void onLoadFinished(final Loader<Cursor> loader, final Cursor data)
 		{
 			if (data != null)
@@ -130,6 +132,7 @@ public final class RequestCoinsFragment extends SherlockFragment
 			}
 		}
 
+		@Override
 		public void onLoaderReset(final Loader<Cursor> loader)
 		{
 		}
@@ -166,6 +169,7 @@ public final class RequestCoinsFragment extends SherlockFragment
 		qrView = (ImageView) view.findViewById(R.id.request_coins_qr);
 		qrView.setOnClickListener(new OnClickListener()
 		{
+			@Override
 			public void onClick(final View v)
 			{
 				BitmapFragment.show(getFragmentManager(), qrCodeBitmap);
@@ -224,16 +228,19 @@ public final class RequestCoinsFragment extends SherlockFragment
 
 		amountCalculatorLink.setListener(new CurrencyAmountView.Listener()
 		{
+			@Override
 			public void changed()
 			{
 				updateView();
 				updateShareIntent();
 			}
 
+			@Override
 			public void done()
 			{
 			}
 
+			@Override
 			public void focusChanged(final boolean hasFocus)
 			{
 			}
@@ -241,6 +248,7 @@ public final class RequestCoinsFragment extends SherlockFragment
 
 		addressView.setOnItemSelectedListener(new OnItemSelectedListener()
 		{
+			@Override
 			public void onItemSelected(final AdapterView<?> parent, final View view, final int position, final long id)
 			{
 				// ignore layout operations
@@ -251,6 +259,7 @@ public final class RequestCoinsFragment extends SherlockFragment
 				updateShareIntent();
 			}
 
+			@Override
 			public void onNothingSelected(final AdapterView<?> parent)
 			{
 			}
@@ -258,6 +267,7 @@ public final class RequestCoinsFragment extends SherlockFragment
 
 		includeLabelView.setOnCheckedChangeListener(new OnCheckedChangeListener()
 		{
+			@Override
 			public void onCheckedChanged(final CompoundButton buttonView, final boolean isChecked)
 			{
 				updateView();
@@ -336,6 +346,7 @@ public final class RequestCoinsFragment extends SherlockFragment
 
 								activity.runOnUiThread(new Runnable()
 								{
+									@Override
 									public void run()
 									{
 										activity.getBlockchainService().broadcastTransaction(tx);

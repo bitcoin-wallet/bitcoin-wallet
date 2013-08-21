@@ -99,6 +99,7 @@ public final class SendingAddressesFragment extends SherlockListFragment impleme
 				AddressBookProvider.KEY_ADDRESS }, new int[] { R.id.address_book_row_label, R.id.address_book_row_address }, 0);
 		adapter.setViewBinder(new ViewBinder()
 		{
+			@Override
 			public boolean setViewValue(final View view, final Cursor cursor, final int columnIndex)
 			{
 				if (!AddressBookProvider.KEY_ADDRESS.equals(cursor.getColumnName(columnIndex)))
@@ -140,6 +141,7 @@ public final class SendingAddressesFragment extends SherlockListFragment impleme
 				// workaround for "IllegalStateException: Can not perform this action after onSaveInstanceState"
 				handler.postDelayed(new Runnable()
 				{
+					@Override
 					public void run()
 					{
 						EditAddressBookEntryFragment.edit(getFragmentManager(), address.toString());
@@ -219,6 +221,7 @@ public final class SendingAddressesFragment extends SherlockListFragment impleme
 	{
 		activity.startActionMode(new ActionMode.Callback()
 		{
+			@Override
 			public boolean onCreateActionMode(final ActionMode mode, final Menu menu)
 			{
 				final MenuInflater inflater = mode.getMenuInflater();
@@ -227,6 +230,7 @@ public final class SendingAddressesFragment extends SherlockListFragment impleme
 				return true;
 			}
 
+			@Override
 			public boolean onPrepareActionMode(final ActionMode mode, final Menu menu)
 			{
 				final String label = getLabel(position);
@@ -235,6 +239,7 @@ public final class SendingAddressesFragment extends SherlockListFragment impleme
 				return true;
 			}
 
+			@Override
 			public boolean onActionItemClicked(final ActionMode mode, final MenuItem item)
 			{
 				switch (item.getItemId())
@@ -273,6 +278,7 @@ public final class SendingAddressesFragment extends SherlockListFragment impleme
 				return false;
 			}
 
+			@Override
 			public void onDestroyActionMode(final ActionMode mode)
 			{
 			}
@@ -315,6 +321,7 @@ public final class SendingAddressesFragment extends SherlockListFragment impleme
 		activity.toast(R.string.wallet_address_fragment_clipboard_msg);
 	}
 
+	@Override
 	public Loader<Cursor> onCreateLoader(final int id, final Bundle args)
 	{
 		final Uri uri = AddressBookProvider.contentUri(activity.getPackageName());
@@ -323,11 +330,13 @@ public final class SendingAddressesFragment extends SherlockListFragment impleme
 						+ " COLLATE LOCALIZED ASC");
 	}
 
+	@Override
 	public void onLoadFinished(final Loader<Cursor> loader, final Cursor data)
 	{
 		adapter.swapCursor(data);
 	}
 
+	@Override
 	public void onLoaderReset(final Loader<Cursor> loader)
 	{
 		adapter.swapCursor(null);

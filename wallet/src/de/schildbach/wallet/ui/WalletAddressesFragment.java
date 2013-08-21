@@ -147,6 +147,7 @@ public final class WalletAddressesFragment extends SherlockListFragment
 				.setMessage(R.string.wallet_addresses_fragment_add_dialog_message)
 				.setPositiveButton(R.string.button_add, new DialogInterface.OnClickListener()
 				{
+					@Override
 					public void onClick(final DialogInterface dialog, final int which)
 					{
 						application.addNewKeyToWallet();
@@ -161,6 +162,7 @@ public final class WalletAddressesFragment extends SherlockListFragment
 	{
 		activity.startActionMode(new ActionMode.Callback()
 		{
+			@Override
 			public boolean onCreateActionMode(final ActionMode mode, final Menu menu)
 			{
 				final MenuInflater inflater = mode.getMenuInflater();
@@ -169,6 +171,7 @@ public final class WalletAddressesFragment extends SherlockListFragment
 				return true;
 			}
 
+			@Override
 			public boolean onPrepareActionMode(final ActionMode mode, final Menu menu)
 			{
 				final ECKey key = getKey(position);
@@ -180,6 +183,7 @@ public final class WalletAddressesFragment extends SherlockListFragment
 				return true;
 			}
 
+			@Override
 			public boolean onActionItemClicked(final ActionMode mode, final MenuItem item)
 			{
 				switch (item.getItemId())
@@ -219,6 +223,7 @@ public final class WalletAddressesFragment extends SherlockListFragment
 				return false;
 			}
 
+			@Override
 			public void onDestroyActionMode(final ActionMode mode)
 			{
 			}
@@ -287,6 +292,7 @@ public final class WalletAddressesFragment extends SherlockListFragment
 
 			handler.post(new Runnable()
 			{
+				@Override
 				public void run()
 				{
 					adapter.replace(keys);

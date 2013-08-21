@@ -217,6 +217,7 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 
 			private static final int SHOW_QR_THRESHOLD_BYTES = 2500;
 
+			@Override
 			public boolean onCreateActionMode(final ActionMode mode, final Menu menu)
 			{
 				final MenuInflater inflater = mode.getMenuInflater();
@@ -225,6 +226,7 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 				return true;
 			}
 
+			@Override
 			public boolean onPrepareActionMode(final ActionMode mode, final Menu menu)
 			{
 				try
@@ -273,6 +275,7 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 				}
 			}
 
+			@Override
 			public boolean onActionItemClicked(final ActionMode mode, final MenuItem item)
 			{
 				switch (item.getItemId())
@@ -298,6 +301,7 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 				return false;
 			}
 
+			@Override
 			public void onDestroyActionMode(final ActionMode mode)
 			{
 				Nfc.unpublish(nfcManager, activity);
@@ -327,16 +331,19 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 		((WalletActivity) activity).handleExportKeys();
 	}
 
+	@Override
 	public Loader<List<Transaction>> onCreateLoader(final int id, final Bundle args)
 	{
 		return new TransactionsLoader(activity, wallet, direction);
 	}
 
+	@Override
 	public void onLoadFinished(final Loader<List<Transaction>> loader, final List<Transaction> transactions)
 	{
 		adapter.replace(transactions);
 	}
 
+	@Override
 	public void onLoaderReset(final Loader<List<Transaction>> loader)
 	{
 		// don't clear the adapter, because it will confuse users
@@ -421,6 +428,7 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 
 		private static final Comparator<Transaction> TRANSACTION_COMPARATOR = new Comparator<Transaction>()
 		{
+			@Override
 			public int compare(final Transaction tx1, final Transaction tx2)
 			{
 				final boolean pending1 = tx1.getConfidence().getConfidenceType() == ConfidenceType.PENDING;
@@ -444,6 +452,7 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 		};
 	}
 
+	@Override
 	public void onSharedPreferenceChanged(final SharedPreferences sharedPreferences, final String key)
 	{
 		if (Constants.PREFS_KEY_BTC_PRECISION.equals(key))

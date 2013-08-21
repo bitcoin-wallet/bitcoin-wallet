@@ -86,6 +86,7 @@ public final class WalletAddressFragment extends Fragment
 
 		bitcoinAddressButton.setOnClickListener(new OnClickListener()
 		{
+			@Override
 			public void onClick(final View v)
 			{
 				AddressBookActivity.start(activity, false);
@@ -94,6 +95,7 @@ public final class WalletAddressFragment extends Fragment
 
 		bitcoinAddressQrView.setOnClickListener(new OnClickListener()
 		{
+			@Override
 			public void onClick(final View v)
 			{
 				handleShowQRCode();
@@ -102,6 +104,7 @@ public final class WalletAddressFragment extends Fragment
 
 		bitcoinAddressQrView.setOnLongClickListener(new OnLongClickListener()
 		{
+			@Override
 			public boolean onLongClick(final View v)
 			{
 				startActivity(new Intent(activity, RequestCoinsActivity.class));
@@ -160,6 +163,7 @@ public final class WalletAddressFragment extends Fragment
 
 	private final OnSharedPreferenceChangeListener prefsListener = new OnSharedPreferenceChangeListener()
 	{
+		@Override
 		public void onSharedPreferenceChanged(final SharedPreferences sharedPreferences, final String key)
 		{
 			if (Constants.PREFS_KEY_SELECTED_ADDRESS.equals(key))
