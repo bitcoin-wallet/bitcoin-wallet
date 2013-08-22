@@ -80,8 +80,8 @@
 	<string name="request_coins_fragment_address_label">Address to request to</string>
 	<string name="request_coins_fragment_include_address_label">include label with address</string>
 	<string name="request_coins_fragment_amount_label">Requested amount (optional)</string>
-	<string name="request_coins_fragment_qr_label">Have this code scanned by the sender.</string>
-	<string name="request_coins_fragment_nfc_enabled">Or tap an NFC enabled device.</string>
+	<string name="request_coins_fragment_initiate_request_qr">Have this code scanned by the sender.</string>
+	<string name="request_coins_fragment_initiate_request_nfc">Or tap an NFC enabled device.</string>
 	<string name="request_coins_fragment_bluetooth_enabled">Accepting payments via Bluetooth.</string>
 	<string name="request_coins_clipboard_msg">Bitcoin request copied to clipboard</string>
 	<string name="request_coins_share_dialog_title">Share request for Bitcoins…</string>

@@ -58,8 +58,8 @@
 	<string name="request_coins_fragment_address_label">Adress att begära till</string>
 	<string name="request_coins_fragment_include_address_label">inkluderar etiketten med adressen</string>
 	<string name="request_coins_fragment_amount_label">Begärt belopp (frivilligt)</string>
-	<string name="request_coins_fragment_qr_label">Den som skickar dig Bitcoins ska scanna denna kod.</string>
-	<string name="request_coins_fragment_nfc_enabled">Eller skicka med en telefon som har NFC.</string>
+	<string name="request_coins_fragment_initiate_request_qr">Den som skickar dig Bitcoins ska scanna denna kod.</string>
+	<string name="request_coins_fragment_initiate_request_nfc">Eller skicka med en telefon som har NFC.</string>
 	<string name="request_coins_clipboard_msg">Förfrågan om Bitcoin kopierades till klippbordet</string>
 	<string name="request_coins_share_dialog_title">Dela en förfrågan om Bitcoins…</string>
 	<string name="address_book_activity_title">Adressbok</string>

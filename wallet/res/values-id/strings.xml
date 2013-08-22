@@ -76,8 +76,8 @@
 	<string name="request_coins_fragment_address_label">Alamat untuk diminta ke</string>
 	<string name="request_coins_fragment_include_address_label">masukkan label dgn alamat</string>
 	<string name="request_coins_fragment_amount_label">Jumlah permintaan (pilihan)</string>
-	<string name="request_coins_fragment_qr_label">Berikan kode untuk dipindai oleh pengirim.</string>
-	<string name="request_coins_fragment_nfc_enabled">Atau tempelkan pada ponsel dgn NFC</string>
+	<string name="request_coins_fragment_initiate_request_qr">Berikan kode untuk dipindai oleh pengirim.</string>
+	<string name="request_coins_fragment_initiate_request_nfc">Atau tempelkan pada ponsel dgn NFC</string>
 	<string name="request_coins_clipboard_msg">Permintaan Bitcoin disalin</string>
 	<string name="request_coins_share_dialog_title">Berbagi permintaan Bitcoin…</string>
 	<string name="request_coins_options_local_app_title">Meminta dari apl lokal</string>

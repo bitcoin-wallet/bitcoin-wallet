@@ -32,13 +32,6 @@
 			android:layout_height="match_parent"
 			android:orientation="vertical" >
 
-			<TextView
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:text="@string/request_coins_fragment_qr_label"
-				android:textSize="@dimen/font_size_normal"
-				android:textStyle="bold" />
-
 			<FrameLayout
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
@@ -56,21 +49,17 @@
 			</FrameLayout>
 
 			<TextView
-				android:id="@+id/request_coins_fragment_nfc_enabled"
+				android:id="@+id/request_coins_fragment_initiate_request"
 				android:layout_width="match_parent"
 				android:layout_height="0px"
 				android:layout_weight="1"
-				android:gravity="bottom"
-				android:text="@string/request_coins_fragment_nfc_enabled"
-				android:textSize="@dimen/font_size_normal"
-				android:visibility="gone" />
+				android:textSize="@dimen/font_size_normal" />
 
 			<TextView
 				android:id="@+id/request_coins_fragment_bluetooth_enabled"
 				android:layout_width="match_parent"
-				android:layout_height="0px"
+				android:layout_height="wrap_content"
 				android:layout_gravity="bottom"
-				android:layout_weight="1"
 				android:text="@string/request_coins_fragment_bluetooth_enabled"
 				android:textSize="@dimen/font_size_normal"
 				android:visibility="gone" />

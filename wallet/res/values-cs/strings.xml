@@ -35,8 +35,8 @@
 
 	<string name="request_coins_activity_title">Vyžádat Bitcoiny</string>
 	<string name="request_coins_fragment_amount_label">Vyžadovaná částka (volitelně)</string>
-	<string name="request_coins_fragment_qr_label">Dejte odesilateli oskenovat tento kód.</string>
-	<string name="request_coins_fragment_nfc_enabled">Nebo klepněte, pokud Vaše zařízení podporuje NFC.</string>
+	<string name="request_coins_fragment_initiate_request_qr">Dejte odesilateli oskenovat tento kód.</string>
+	<string name="request_coins_fragment_initiate_request_nfc">Nebo klepněte, pokud Vaše zařízení podporuje NFC.</string>
 	<string name="request_coins_clipboard_msg">Požadavek na platbu zkopírován do schránky</string>
 	<string name="request_coins_share_dialog_title">Sdílet požadavek na Bitcoiny…</string>
 

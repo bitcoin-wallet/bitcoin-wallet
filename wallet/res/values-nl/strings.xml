@@ -34,8 +34,8 @@
 
 	<string name="request_coins_activity_title">Verzoek Bitcoins</string>
 	<string name="request_coins_fragment_amount_label">Verzocht bedrag (optioneel)</string>
-	<string name="request_coins_fragment_qr_label">Laat deze code scannen door de zender.</string>
-	<string name="request_coins_fragment_nfc_enabled">of raak aan met een NFC gereed apparaat.</string>
+	<string name="request_coins_fragment_initiate_request_qr">Laat deze code scannen door de zender.</string>
+	<string name="request_coins_fragment_initiate_request_nfc">of raak aan met een NFC gereed apparaat.</string>
 	<string name="request_coins_clipboard_msg">Bitcoin verzoek gekopieërd naar klembord</string>
 	<string name="request_coins_share_dialog_title">Deel verzoek voor Bitcoins…</string>
 

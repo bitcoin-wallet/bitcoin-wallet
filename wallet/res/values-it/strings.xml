@@ -37,8 +37,8 @@
 
 	<string name="request_coins_activity_title">Richiedi Bitcoins</string>
 	<string name="request_coins_fragment_amount_label">Importo richiesto (opzionale)</string>
-	<string name="request_coins_fragment_qr_label">Fai rilevare questo codice al mittente.</string>
-	<string name="request_coins_fragment_nfc_enabled">Oppure tocca con un dispositivo NFC.</string>
+	<string name="request_coins_fragment_initiate_request_qr">Fai rilevare questo codice al mittente.</string>
+	<string name="request_coins_fragment_initiate_request_nfc">Oppure tocca con un dispositivo NFC.</string>
 	<string name="request_coins_clipboard_msg">Richiesta Bitcoin copiata negli appunti</string>
 	<string name="request_coins_share_dialog_title">Condividi richiesta di Bitcoins…</string>
 

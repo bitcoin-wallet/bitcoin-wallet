@@ -73,8 +73,8 @@
 	<string name="request_coins_fragment_address_label">כתובת לבקשה</string>
 	<string name="request_coins_fragment_include_address_label">כלול שם עם הכתובת</string>
 	<string name="request_coins_fragment_amount_label">כמות לבקשה</string>
-	<string name="request_coins_fragment_qr_label">תן לשולח לסרוק ברקוד זה</string>
-	<string name="request_coins_fragment_nfc_enabled">או גע עם מכשיר  NFC</string>
+	<string name="request_coins_fragment_initiate_request_qr">תן לשולח לסרוק ברקוד זה</string>
+	<string name="request_coins_fragment_initiate_request_nfc">או גע עם מכשיר  NFC</string>
 	<string name="request_coins_clipboard_msg">בקשה הועתקה ללוח</string>
 	<string name="request_coins_share_dialog_title">שתף בקשה לביטקוין</string>
 	<string name="request_coins_options_local_app_title">בקשה מיישום מקומי</string>

@@ -73,8 +73,8 @@
 	<string name="request_coins_fragment_address_label">Endereço para solicitação</string>
 	<string name="request_coins_fragment_include_address_label">inserir nome com o endereço</string>
 	<string name="request_coins_fragment_amount_label">Quantidade solicitada (opcional)</string>
-	<string name="request_coins_fragment_qr_label">Peça ao emissor que escaneie este código.</string>
-	<string name="request_coins_fragment_nfc_enabled">Ou aproxime-se de um dispositivo habilitado para NFC.</string>
+	<string name="request_coins_fragment_initiate_request_qr">Peça ao emissor que escaneie este código.</string>
+	<string name="request_coins_fragment_initiate_request_nfc">Ou aproxime-se de um dispositivo habilitado para NFC.</string>
 	<string name="request_coins_clipboard_msg">Solicitação de Bitcoin copiada</string>
 	<string name="request_coins_share_dialog_title">Compartilhar solicitação de Bitcoins…</string>
 	<string name="request_coins_options_local_app_title">Pedido de aplicação local</string>

@@ -40,6 +40,7 @@ import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.app.ShareCompat.IntentBuilder;
 import android.support.v4.content.Loader;
 import android.text.ClipboardManager;
+import android.text.SpannableStringBuilder;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -51,6 +52,7 @@ import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.view.Menu;
@@ -98,7 +100,7 @@ public final class RequestCoinsFragment extends SherlockFragment
 	private Bitmap qrCodeBitmap;
 	private Spinner addressView;
 	private CheckBox includeLabelView;
-	private View nfcEnabledView;
+	private TextView initiateRequestView;
 	private View bluetoothEnabledView;
 
 	private String bluetoothMac;
@@ -205,7 +207,7 @@ public final class RequestCoinsFragment extends SherlockFragment
 
 		includeLabelView = (CheckBox) view.findViewById(R.id.request_coins_fragment_include_label);
 
-		nfcEnabledView = view.findViewById(R.id.request_coins_fragment_nfc_enabled);
+		initiateRequestView = (TextView) view.findViewById(R.id.request_coins_fragment_initiate_request);
 
 		bluetoothEnabledView = view.findViewById(R.id.request_coins_fragment_bluetooth_enabled);
 
@@ -432,9 +434,13 @@ public final class RequestCoinsFragment extends SherlockFragment
 		qrView.setImageBitmap(qrCodeBitmap);
 
 		// update ndef message
-		final boolean success = Nfc.publishUri(nfcManager, getActivity(), request);
-		if (success)
-			nfcEnabledView.setVisibility(View.VISIBLE);
+		final boolean nfcSuccess = Nfc.publishUri(nfcManager, getActivity(), request);
+
+		// update initiate request message
+		final SpannableStringBuilder initiateText = new SpannableStringBuilder(getString(R.string.request_coins_fragment_initiate_request_qr));
+		if (nfcSuccess)
+			initiateText.append(' ').append(getString(R.string.request_coins_fragment_initiate_request_nfc));
+		initiateRequestView.setText(initiateText);
 	}
 
 	private void updateShareIntent()

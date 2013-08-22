@@ -36,8 +36,8 @@
 
 	<string name="request_coins_activity_title">Αίτηση για Bitcoins</string>
 	<string name="request_coins_fragment_amount_label">Ζητούμενο ποσό (προαιρετικό)</string>
-	<string name="request_coins_fragment_qr_label">Δώστε αυτό το κώδικα στον αποστολέα, για να το σαρώσει.</string>
-	<string name="request_coins_fragment_nfc_enabled">Ή φερετε σε επαφή αν έχετε συσκευή με NFC.</string>
+	<string name="request_coins_fragment_initiate_request_qr">Δώστε αυτό το κώδικα στον αποστολέα, για να το σαρώσει.</string>
+	<string name="request_coins_fragment_initiate_request_nfc">Ή φερετε σε επαφή αν έχετε συσκευή με NFC.</string>
 	<string name="request_coins_clipboard_msg">η αίτηση για Bitcoin αντιγράφηκε στο clipboard</string>
 	<string name="request_coins_share_dialog_title">request for sharing Bitcoins…</string>
 

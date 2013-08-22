@@ -73,8 +73,8 @@
 	<string name="request_coins_fragment_address_label">Địa chỉ để yêu cầu đến</string>
 	<string name="request_coins_fragment_include_address_label">bao gồm nhãn cùng địa chỉ</string>
 	<string name="request_coins_fragment_amount_label">Số lượng đã yêu cầu (tùy chọn)</string>
-	<string name="request_coins_fragment_qr_label">Đã nhận được mã này được quét từ người gửi.</string>
-	<string name="request_coins_fragment_nfc_enabled">Hoặc chạm vào phần NFC để bật thiết bị.</string>
+	<string name="request_coins_fragment_initiate_request_qr">Đã nhận được mã này được quét từ người gửi.</string>
+	<string name="request_coins_fragment_initiate_request_nfc">Hoặc chạm vào phần NFC để bật thiết bị.</string>
 	<string name="request_coins_clipboard_msg">Yêu cầu Bitcoin đã được sao chép vào bộ nhớ ảo</string>
 	<string name="request_coins_share_dialog_title">Chia sẻ yêu cầu về Bitcoin…</string>
 	<string name="request_coins_options_local_app_title">Gửi yêu cầu từ ứng dụng tại thiết bị</string>

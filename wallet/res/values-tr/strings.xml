@@ -58,8 +58,8 @@
 	<string name="request_coins_fragment_address_label">Talep için kullanılacak adres</string>
 	<string name="request_coins_fragment_include_address_label">adrese etiket iliştir</string>
 	<string name="request_coins_fragment_amount_label">Talep edilen miktar (seçime dayalı)</string>
-	<string name="request_coins_fragment_qr_label">Gönderici tarafından taranacak kodu.</string>
-	<string name="request_coins_fragment_nfc_enabled">Veya NFC destekleyen bir cihazla dokunmak.</string>
+	<string name="request_coins_fragment_initiate_request_qr">Gönderici tarafından taranacak kodu.</string>
+	<string name="request_coins_fragment_initiate_request_nfc">Veya NFC destekleyen bir cihazla dokunmak.</string>
 	<string name="request_coins_clipboard_msg">Bitcoin talebi panoya kopyalandı</string>
 	<string name="request_coins_share_dialog_title">Bitcoin talebini yayınla…</string>
 	<string name="address_book_activity_title">Adres defteri</string>
