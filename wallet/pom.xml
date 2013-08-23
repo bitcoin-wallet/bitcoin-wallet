@@ -121,6 +121,8 @@
 		</profile>
 	</profiles>
 
+	<!-- to build, run: mvn clean install -->
+	<!-- then to install on an android device, run: mvn android:deploy -->
 	<build>
 		<sourceDirectory>src</sourceDirectory>
 		<testSourceDirectory>test</testSourceDirectory>
@@ -175,5 +177,20 @@
 			</plugin>
 		</plugins>
 	</build>
+
+	<!-- to generate reports, run: mvn clean install site -->
+	<!-- then browse to: target/site/index.html -->
+	<reporting>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>findbugs-maven-plugin</artifactId>
+				<version>2.5.2</version>
+				<configuration>
+					<onlyAnalyze>de.schildbach.wallet.-</onlyAnalyze>
+				</configuration>
+			</plugin>
+		</plugins>
+	</reporting>
 
 </project>
