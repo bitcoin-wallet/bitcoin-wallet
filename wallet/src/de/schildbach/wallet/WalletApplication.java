@@ -27,7 +27,6 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
-import java.nio.charset.Charset;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
@@ -87,7 +86,6 @@ public class WalletApplication extends Application
 	private Wallet wallet;
 	private PackageInfo packageInfo;
 
-	private static final Charset UTF_8 = Charset.forName("UTF-8");
 	private static final int KEY_ROTATION_VERSION_CODE = 135;
 
 	private static final Logger log = LoggerFactory.getLogger(WalletApplication.class);
@@ -347,7 +345,7 @@ public class WalletApplication extends Application
 
 	private static Wallet readKeys(final InputStream is) throws IOException
 	{
-		final BufferedReader in = new BufferedReader(new InputStreamReader(is, UTF_8));
+		final BufferedReader in = new BufferedReader(new InputStreamReader(is, Constants.UTF_8));
 		final List<ECKey> keys = WalletUtils.readKeys(in);
 		in.close();
 
@@ -432,7 +430,7 @@ public class WalletApplication extends Application
 			if (!wallet.isKeyRotating(key))
 				keys.add(key);
 
-		final Writer out = new OutputStreamWriter(os, UTF_8);
+		final Writer out = new OutputStreamWriter(os, Constants.UTF_8);
 		WalletUtils.writeKeys(out, keys);
 		out.close();
 	}

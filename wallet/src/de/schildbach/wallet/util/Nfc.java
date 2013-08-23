@@ -17,7 +17,6 @@
 
 package de.schildbach.wallet.util;
 
-import java.nio.charset.Charset;
 import java.util.Arrays;
 
 import android.app.Activity;
@@ -25,15 +24,14 @@ import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
 import android.nfc.NfcManager;
+import de.schildbach.wallet.Constants;
 
 /**
  * @author Andreas Schildbach
  */
 public class Nfc
 {
-	private static final Charset UTF_8 = Charset.forName("UTF-8");
-	private static final Charset US_ASCII = Charset.forName("US-ASCII");
-	private static final byte[] RTD_ANDROID_APP = "android.com:pkg".getBytes(US_ASCII);
+	private static final byte[] RTD_ANDROID_APP = "android.com:pkg".getBytes(Constants.US_ASCII);
 
 	public static boolean publishUri(final NfcManager nfcManager, final Activity activity, final String uri)
 	{
@@ -93,12 +91,12 @@ public class Nfc
 
 	private static NdefRecord absoluteUriRecord(final String uri)
 	{
-		return new NdefRecord(NdefRecord.TNF_ABSOLUTE_URI, NdefRecord.RTD_URI, new byte[0], uri.getBytes(UTF_8));
+		return new NdefRecord(NdefRecord.TNF_ABSOLUTE_URI, NdefRecord.RTD_URI, new byte[0], uri.getBytes(Constants.UTF_8));
 	}
 
 	private static NdefRecord wellKnownUriRecord(final String uri)
 	{
-		final byte[] uriBytes = uri.getBytes(UTF_8);
+		final byte[] uriBytes = uri.getBytes(Constants.UTF_8);
 		final byte[] recordBytes = new byte[uriBytes.length + 1];
 		recordBytes[0] = (byte) 0x0; // prefix, alway 0 for bitcoin scheme
 		System.arraycopy(uriBytes, 0, recordBytes, 1, uriBytes.length);
@@ -107,19 +105,19 @@ public class Nfc
 
 	private static NdefRecord mimeRecord(final String mimeType, final byte[] payload)
 	{
-		final byte[] mimeBytes = mimeType.getBytes(US_ASCII);
+		final byte[] mimeBytes = mimeType.getBytes(Constants.US_ASCII);
 		final NdefRecord mimeRecord = new NdefRecord(NdefRecord.TNF_MIME_MEDIA, mimeBytes, new byte[0], payload);
 		return mimeRecord;
 	}
 
 	private static NdefRecord androidApplicationRecord(final String packageName)
 	{
-		return new NdefRecord(NdefRecord.TNF_EXTERNAL_TYPE, RTD_ANDROID_APP, new byte[0], packageName.getBytes(US_ASCII));
+		return new NdefRecord(NdefRecord.TNF_EXTERNAL_TYPE, RTD_ANDROID_APP, new byte[0], packageName.getBytes(Constants.US_ASCII));
 	}
 
 	public static byte[] extractMimePayload(final String mimeType, final NdefMessage message)
 	{
-		byte[] mimeBytes = mimeType.getBytes(US_ASCII);
+		byte[] mimeBytes = mimeType.getBytes(Constants.US_ASCII);
 
 		for (final NdefRecord record : message.getRecords())
 		{

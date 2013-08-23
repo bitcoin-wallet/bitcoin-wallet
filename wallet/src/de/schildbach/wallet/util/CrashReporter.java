@@ -19,10 +19,11 @@ package de.schildbach.wallet.util;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.util.Formatter;
 import java.util.List;
@@ -83,7 +84,7 @@ public class CrashReporter
 
 		try
 		{
-			reader = new BufferedReader(new FileReader(backgroundTracesFile));
+			reader = new BufferedReader(new InputStreamReader(new FileInputStream(backgroundTracesFile), Constants.UTF_8));
 			copy(reader, report);
 		}
 		finally
@@ -106,7 +107,7 @@ public class CrashReporter
 
 		try
 		{
-			reader = new BufferedReader(new FileReader(crashTraceFile));
+			reader = new BufferedReader(new InputStreamReader(new FileInputStream(crashTraceFile), Constants.UTF_8));
 			copy(reader, report);
 		}
 		finally
@@ -124,7 +125,7 @@ public class CrashReporter
 
 		try
 		{
-			reader = new BufferedReader(new FileReader(crashApplicationLogFile));
+			reader = new BufferedReader(new InputStreamReader(new FileInputStream(crashApplicationLogFile), Constants.UTF_8));
 			copy(reader, report);
 		}
 		finally
@@ -243,7 +244,7 @@ public class CrashReporter
 		{
 			// likely to throw exception on older android devices
 			process = Runtime.getRuntime().exec("logcat -d -v time");
-			logReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+			logReader = new BufferedReader(new InputStreamReader(process.getInputStream(), Constants.UTF_8));
 
 			String line;
 			while ((line = logReader.readLine()) != null)
@@ -281,7 +282,7 @@ public class CrashReporter
 
 			try
 			{
-				writer = new PrintWriter(new FileWriter(backgroundTracesFile, true));
+				writer = new PrintWriter(new OutputStreamWriter(new FileOutputStream(backgroundTracesFile, true), Constants.UTF_8));
 
 				final long now = System.currentTimeMillis();
 				writer.println(String.format("\n--- collected at %tF %tT on version %s (%d)", now, now, packageInfo.versionName,
@@ -340,14 +341,14 @@ public class CrashReporter
 
 		private void saveCrashTrace(final Throwable throwable) throws IOException
 		{
-			final PrintWriter writer = new PrintWriter(new FileWriter(crashTraceFile));
+			final PrintWriter writer = new PrintWriter(new OutputStreamWriter(new FileOutputStream(crashTraceFile), Constants.UTF_8));
 			appendTrace(writer, throwable);
 			writer.close();
 		}
 
 		private void saveApplicationLog() throws IOException
 		{
-			final PrintWriter writer = new PrintWriter(new FileWriter(crashApplicationLogFile));
+			final PrintWriter writer = new PrintWriter(new OutputStreamWriter(new FileOutputStream(crashApplicationLogFile), Constants.UTF_8));
 			appendApplicationLog(writer);
 			writer.close();
 		}

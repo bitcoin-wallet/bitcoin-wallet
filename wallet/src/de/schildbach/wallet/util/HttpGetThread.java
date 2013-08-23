@@ -82,13 +82,15 @@ public abstract class HttpGetThread extends Thread
 
 			connection.setConnectTimeout(Constants.HTTP_TIMEOUT_MS);
 			connection.setReadTimeout(Constants.HTTP_TIMEOUT_MS);
+			connection.setRequestProperty("Accept-Charset", "utf-8");
 			connection.connect();
 
 			if (connection.getResponseCode() == HttpURLConnection.HTTP_OK)
 			{
 				final long serverTime = connection.getDate();
+				// TODO parse connection.getContentType() for charset
 
-				final BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()), 64);
+				final BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream(), Constants.UTF_8), 64);
 				final String line = reader.readLine().trim();
 				reader.close();
 

@@ -212,7 +212,7 @@ public class ExchangeRatesProvider extends ContentProvider
 			Reader reader = null;
 			try
 			{
-				reader = new InputStreamReader(new BufferedInputStream(connection.getInputStream(), 1024));
+				reader = new InputStreamReader(new BufferedInputStream(connection.getInputStream(), 1024), Constants.UTF_8);
 				final StringBuilder content = new StringBuilder();
 				Io.copy(reader, content);
 
@@ -272,7 +272,7 @@ public class ExchangeRatesProvider extends ContentProvider
 			Reader reader = null;
 			try
 			{
-				reader = new InputStreamReader(new BufferedInputStream(connection.getInputStream(), 1024));
+				reader = new InputStreamReader(new BufferedInputStream(connection.getInputStream(), 1024), Constants.UTF_8);
 				final StringBuilder content = new StringBuilder();
 				Io.copy(reader, content);
 

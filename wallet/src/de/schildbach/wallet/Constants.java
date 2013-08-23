@@ -18,6 +18,7 @@
 package de.schildbach.wallet;
 
 import java.io.File;
+import java.nio.charset.Charset;
 
 import android.os.Environment;
 import android.text.format.DateUtils;
@@ -121,4 +122,7 @@ public class Constants
 	public static final int SDK_JELLY_BEAN = 16;
 
 	public static final int MEMORY_CLASS_LOWEND = 48;
+
+	public static final Charset UTF_8 = Charset.forName("UTF-8");
+	public static final Charset US_ASCII = Charset.forName("US-ASCII");
 }

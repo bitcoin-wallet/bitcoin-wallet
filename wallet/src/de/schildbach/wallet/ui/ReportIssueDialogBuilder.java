@@ -20,10 +20,11 @@ package de.schildbach.wallet.ui;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 import java.util.ArrayList;
 
 import org.slf4j.Logger;
@@ -151,7 +152,7 @@ public abstract class ReportIssueDialogBuilder extends AlertDialog.Builder imple
 				{
 					final File file = File.createTempFile("application-log.", ".log", cacheDir);
 
-					final FileWriter writer = new FileWriter(file);
+					final Writer writer = new OutputStreamWriter(new FileOutputStream(file), Constants.UTF_8);
 					writer.write(applicationLog.toString());
 					writer.close();
 
@@ -211,7 +212,7 @@ public abstract class ReportIssueDialogBuilder extends AlertDialog.Builder imple
 				{
 					final File file = File.createTempFile("wallet-dump.", ".txt", cacheDir);
 
-					final FileWriter writer = new FileWriter(file);
+					final Writer writer = new OutputStreamWriter(new FileOutputStream(file), Constants.UTF_8);
 					writer.write(walletDump.toString());
 					writer.close();
 

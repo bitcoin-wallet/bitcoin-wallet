@@ -20,8 +20,9 @@ package de.schildbach.wallet.util;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileFilter;
-import java.io.FileReader;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.Writer;
 import java.math.BigInteger;
 import java.text.DateFormat;
@@ -261,7 +262,7 @@ public class WalletUtils
 
 			try
 			{
-				reader = new BufferedReader(new FileReader(file));
+				reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), Constants.UTF_8));
 				WalletUtils.readKeys(reader);
 
 				return true;

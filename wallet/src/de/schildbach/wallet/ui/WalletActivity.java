@@ -19,9 +19,11 @@ package de.schildbach.wallet.ui;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.io.StringReader;
 import java.io.StringWriter;
@@ -781,7 +783,7 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 			final Reader plainReader;
 			if (Crypto.OPENSSL_FILE_FILTER.accept(file))
 			{
-				final BufferedReader cipherIn = new BufferedReader(new FileReader(file));
+				final BufferedReader cipherIn = new BufferedReader(new InputStreamReader(new FileInputStream(file), Constants.UTF_8));
 				final StringBuilder cipherText = new StringBuilder();
 				while (true)
 				{
@@ -798,7 +800,7 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 			}
 			else if (WalletUtils.KEYS_FILE_FILTER.accept(file))
 			{
-				plainReader = new FileReader(file);
+				plainReader = new InputStreamReader(new FileInputStream(file), Constants.UTF_8);
 			}
 			else
 			{
@@ -882,7 +884,7 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 
 			final String cipherText = Crypto.encrypt(plainText, password.toCharArray());
 
-			final Writer cipherOut = new FileWriter(file);
+			final Writer cipherOut = new OutputStreamWriter(new FileOutputStream(file), Constants.UTF_8);
 			cipherOut.write(cipherText);
 			cipherOut.close();
 
