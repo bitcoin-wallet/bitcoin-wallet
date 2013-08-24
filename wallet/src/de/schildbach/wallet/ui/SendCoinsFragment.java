@@ -36,6 +36,8 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.ContentObserver;
 import android.database.Cursor;
+import android.net.Uri;
+import android.nfc.NfcAdapter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
@@ -353,9 +355,6 @@ public final class SendCoinsFragment extends SherlockFragment
 
 		setHasOptionsMenu(true);
 
-		if (savedInstanceState != null)
-			restoreInstanceState(savedInstanceState);
-
 		bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
 		backgroundThread = new HandlerThread("backgroundThread", Process.THREAD_PRIORITY_BACKGROUND);
@@ -438,7 +437,53 @@ public final class SendCoinsFragment extends SherlockFragment
 
 		popupAvailableView = inflater.inflate(R.layout.send_coins_popup_available, container);
 
+		if (savedInstanceState != null)
+		{
+			restoreInstanceState(savedInstanceState);
+		}
+		else
+		{
+			final Intent intent = activity.getIntent();
+			final String action = intent.getAction();
+			final Uri intentUri = intent.getData();
+			final String scheme = intentUri != null ? intentUri.getScheme() : null;
+
+			if ((Intent.ACTION_VIEW.equals(action) || NfcAdapter.ACTION_NDEF_DISCOVERED.equals(action)) && intentUri != null
+					&& "bitcoin".equals(scheme))
+				initStateFromBitcoinUri(intentUri);
+			else if (intent.hasExtra(SendCoinsActivity.INTENT_EXTRA_ADDRESS))
+				initStateFromIntentExtras(intent.getExtras());
+		}
+
 		return view;
+	}
+
+	private void initStateFromIntentExtras(final Bundle extras)
+	{
+		final String address = extras.getString(SendCoinsActivity.INTENT_EXTRA_ADDRESS);
+		final String addressLabel = extras.getString(SendCoinsActivity.INTENT_EXTRA_ADDRESS_LABEL);
+		final BigInteger amount = (BigInteger) extras.getSerializable(SendCoinsActivity.INTENT_EXTRA_AMOUNT);
+		final String bluetoothMac = extras.getString(SendCoinsActivity.INTENT_EXTRA_BLUETOOTH_MAC);
+
+		update(address, addressLabel, amount, bluetoothMac);
+	}
+
+	private void initStateFromBitcoinUri(final Uri bitcoinUri)
+	{
+		try
+		{
+			final BitcoinURI uri = new BitcoinURI(null, bitcoinUri.toString());
+			final String address = uri.getAddress().toString();
+			final String addressLabel = uri.getLabel();
+			final BigInteger amount = uri.getAmount();
+			final String bluetoothMac = (String) uri.getParameterByName(Bluetooth.MAC_URI_PARAM);
+
+			update(address, addressLabel, amount, bluetoothMac);
+		}
+		catch (final BitcoinURIParseException x)
+		{
+			activity.parseErrorDialog(bitcoinUri.toString());
+		}
 	}
 
 	@Override
@@ -1052,6 +1097,8 @@ public final class SendCoinsFragment extends SherlockFragment
 			viewGo.requestFocus();
 
 		this.bluetoothMac = bluetoothMac;
+
+		bluetoothAck = null;
 
 		updateView();
 

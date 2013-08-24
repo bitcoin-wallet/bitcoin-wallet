@@ -23,8 +23,6 @@ import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
-import android.nfc.NfcAdapter;
 import android.os.Bundle;
 
 import com.actionbarsherlock.app.ActionBar;
@@ -42,10 +40,10 @@ import de.schildbach.wallet_test.R;
  */
 public final class SendCoinsActivity extends AbstractBindServiceActivity
 {
-	private static final String INTENT_EXTRA_ADDRESS = "address";
-	private static final String INTENT_EXTRA_ADDRESS_LABEL = "address_label";
-	private static final String INTENT_EXTRA_AMOUNT = "amount";
-	private static final String INTENT_EXTRA_BLUETOOTH_MAC = "bluetooth_mac";
+	public static final String INTENT_EXTRA_ADDRESS = "address";
+	public static final String INTENT_EXTRA_ADDRESS_LABEL = "address_label";
+	public static final String INTENT_EXTRA_AMOUNT = "amount";
+	public static final String INTENT_EXTRA_BLUETOOTH_MAC = "bluetooth_mac";
 
 	public static void start(final Context context, final String address, final String addressLabel, final BigInteger amount,
 			final String bluetoothMac)
@@ -98,14 +96,6 @@ public final class SendCoinsActivity extends AbstractBindServiceActivity
 
 		final ActionBar actionBar = getSupportActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
-
-		handleIntent(getIntent());
-	}
-
-	@Override
-	protected void onNewIntent(final Intent intent)
-	{
-		handleIntent(intent);
 	}
 
 	@Override
@@ -131,57 +121,5 @@ public final class SendCoinsActivity extends AbstractBindServiceActivity
 		}
 
 		return super.onOptionsItemSelected(item);
-	}
-
-	private void handleIntent(final Intent intent)
-	{
-		final String action = intent.getAction();
-		final Uri intentUri = intent.getData();
-		final String scheme = intentUri != null ? intentUri.getScheme() : null;
-
-		final String address;
-		final String addressLabel;
-		final BigInteger amount;
-		final String bluetoothMac;
-
-		if ((Intent.ACTION_VIEW.equals(action) || NfcAdapter.ACTION_NDEF_DISCOVERED.equals(action)) && intentUri != null && "bitcoin".equals(scheme))
-		{
-			try
-			{
-				final BitcoinURI bitcoinUri = new BitcoinURI(null, intentUri.toString());
-				address = bitcoinUri.getAddress().toString();
-				addressLabel = bitcoinUri.getLabel();
-				amount = bitcoinUri.getAmount();
-				bluetoothMac = (String) bitcoinUri.getParameterByName(Bluetooth.MAC_URI_PARAM);
-			}
-			catch (final BitcoinURIParseException x)
-			{
-				parseErrorDialog(intentUri.toString());
-				return;
-			}
-		}
-		else if (intent.hasExtra(INTENT_EXTRA_ADDRESS))
-		{
-			address = intent.getStringExtra(INTENT_EXTRA_ADDRESS);
-			addressLabel = intent.getStringExtra(INTENT_EXTRA_ADDRESS_LABEL);
-			amount = (BigInteger) intent.getSerializableExtra(INTENT_EXTRA_AMOUNT);
-			bluetoothMac = intent.getStringExtra(INTENT_EXTRA_BLUETOOTH_MAC);
-		}
-		else
-		{
-			return;
-		}
-
-		if (address != null || amount != null)
-			updateSendCoinsFragment(address, addressLabel, amount, bluetoothMac);
-		else
-			longToast(R.string.send_coins_parse_address_error_msg);
-	}
-
-	private void updateSendCoinsFragment(final String receivingAddress, final String receivingLabel, final BigInteger amount, final String bluetoothMac)
-	{
-		final SendCoinsFragment sendCoinsFragment = (SendCoinsFragment) getSupportFragmentManager().findFragmentById(R.id.send_coins_fragment);
-
-		sendCoinsFragment.update(receivingAddress, receivingLabel, amount, bluetoothMac);
 	}
 }
