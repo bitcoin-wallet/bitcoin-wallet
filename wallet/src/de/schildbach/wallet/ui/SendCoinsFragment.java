@@ -993,7 +993,15 @@ public final class SendCoinsFragment extends SherlockFragment
 			receivingStaticView.setVisibility(View.VISIBLE);
 			receivingStaticAddressView.setText(WalletUtils.formatAddress(validatedAddress.address, Constants.ADDRESS_FORMAT_GROUP_SIZE,
 					Constants.ADDRESS_FORMAT_LINE_SIZE));
-			receivingStaticLabelView.setText(validatedAddress.label != null ? validatedAddress.label : getString(R.string.address_unlabeled));
+			final String addressBookLabel = AddressBookProvider.resolveLabel(activity, validatedAddress.address.toString());
+			final String staticLabel;
+			if (addressBookLabel != null)
+				staticLabel = addressBookLabel;
+			else if (validatedAddress.label != null)
+				staticLabel = validatedAddress.label;
+			else
+				staticLabel = getString(R.string.address_unlabeled);
+			receivingStaticLabelView.setText(staticLabel);
 			receivingStaticLabelView.setTextColor(getResources().getColor(
 					validatedAddress.label != null ? R.color.fg_significant : R.color.fg_insignificant));
 		}
