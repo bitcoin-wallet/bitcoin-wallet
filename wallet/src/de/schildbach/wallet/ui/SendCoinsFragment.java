@@ -354,24 +354,7 @@ public final class SendCoinsFragment extends SherlockFragment
 		setHasOptionsMenu(true);
 
 		if (savedInstanceState != null)
-		{
-			state = (State) savedInstanceState.getSerializable("state");
-
-			validatedAddress = savedInstanceState.getParcelable("validated_address");
-
-			isValidAmounts = savedInstanceState.getBoolean("is_valid_amounts");
-
-			if (savedInstanceState.containsKey("sent_transaction_hash"))
-			{
-				sentTransaction = wallet.getTransaction((Sha256Hash) savedInstanceState.getSerializable("sent_transaction_hash"));
-				sentTransaction.getConfidence().addEventListener(sentTransactionConfidenceListener);
-			}
-
-			bluetoothMac = savedInstanceState.getString("bluetooth_mac");
-
-			if (savedInstanceState.containsKey("bluetooth_ack"))
-				bluetoothAck = savedInstanceState.getBoolean("bluetooth_ack");
-		}
+			restoreInstanceState(savedInstanceState);
 
 		bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
@@ -493,10 +476,26 @@ public final class SendCoinsFragment extends SherlockFragment
 	}
 
 	@Override
+	public void onDestroy()
+	{
+		backgroundThread.getLooper().quit();
+
+		if (sentTransaction != null)
+			sentTransaction.getConfidence().removeEventListener(sentTransactionConfidenceListener);
+
+		super.onDestroy();
+	}
+
+	@Override
 	public void onSaveInstanceState(final Bundle outState)
 	{
 		super.onSaveInstanceState(outState);
 
+		saveInstanceState(outState);
+	}
+
+	private void saveInstanceState(final Bundle outState)
+	{
 		outState.putSerializable("state", state);
 
 		if (validatedAddress != null)
@@ -513,15 +512,24 @@ public final class SendCoinsFragment extends SherlockFragment
 			outState.putBoolean("bluetooth_ack", bluetoothAck);
 	}
 
-	@Override
-	public void onDestroy()
+	private void restoreInstanceState(final Bundle savedInstanceState)
 	{
-		backgroundThread.getLooper().quit();
+		state = (State) savedInstanceState.getSerializable("state");
 
-		if (sentTransaction != null)
-			sentTransaction.getConfidence().removeEventListener(sentTransactionConfidenceListener);
+		validatedAddress = savedInstanceState.getParcelable("validated_address");
 
-		super.onDestroy();
+		isValidAmounts = savedInstanceState.getBoolean("is_valid_amounts");
+
+		if (savedInstanceState.containsKey("sent_transaction_hash"))
+		{
+			sentTransaction = wallet.getTransaction((Sha256Hash) savedInstanceState.getSerializable("sent_transaction_hash"));
+			sentTransaction.getConfidence().addEventListener(sentTransactionConfidenceListener);
+		}
+
+		bluetoothMac = savedInstanceState.getString("bluetooth_mac");
+
+		if (savedInstanceState.containsKey("bluetooth_ack"))
+			bluetoothAck = savedInstanceState.getBoolean("bluetooth_ack");
 	}
 
 	@Override
