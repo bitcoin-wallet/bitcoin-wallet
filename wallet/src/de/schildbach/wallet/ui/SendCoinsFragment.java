@@ -178,6 +178,69 @@ public final class SendCoinsFragment extends SherlockFragment
 
 	private final ReceivingAddressListener receivingAddressListener = new ReceivingAddressListener();
 
+	private final class ReceivingAddressActionMode implements ActionMode.Callback
+	{
+		@Override
+		public boolean onCreateActionMode(final ActionMode mode, final Menu menu)
+		{
+			final MenuInflater inflater = mode.getMenuInflater();
+			inflater.inflate(R.menu.send_coins_address_context, menu);
+
+			return true;
+		}
+
+		@Override
+		public boolean onPrepareActionMode(final ActionMode mode, final Menu menu)
+		{
+			return false;
+		}
+
+		@Override
+		public boolean onActionItemClicked(final ActionMode mode, final MenuItem item)
+		{
+			switch (item.getItemId())
+			{
+				case R.id.send_coins_address_context_edit_address:
+					handleEditAddress();
+
+					mode.finish();
+					return true;
+
+				case R.id.send_coins_address_context_clear:
+					handleClear();
+
+					mode.finish();
+					return true;
+			}
+
+			return false;
+		}
+
+		@Override
+		public void onDestroyActionMode(final ActionMode mode)
+		{
+			if (receivingStaticView.hasFocus())
+				amountCalculatorLink.requestFocus();
+		}
+
+		private void handleEditAddress()
+		{
+			EditAddressBookEntryFragment.edit(getFragmentManager(), validatedAddress.address.toString());
+		}
+
+		private void handleClear()
+		{
+			// switch from static to input
+			validatedAddress = null;
+			receivingAddressView.setText(null);
+			receivingStaticAddressView.setText(null);
+
+			updateView();
+
+			receivingAddressView.requestFocus();
+		}
+	}
+
 	private final CurrencyAmountView.Listener amountsListener = new CurrencyAmountView.Listener()
 	{
 		@Override
@@ -341,74 +404,9 @@ public final class SendCoinsFragment extends SherlockFragment
 			public void onFocusChange(final View v, final boolean hasFocus)
 			{
 				if (hasFocus)
-				{
-					actionMode = activity.startActionMode(new ActionMode.Callback()
-					{
-						@Override
-						public boolean onCreateActionMode(final ActionMode mode, final Menu menu)
-						{
-							final MenuInflater inflater = mode.getMenuInflater();
-							inflater.inflate(R.menu.send_coins_address_context, menu);
-
-							return true;
-						}
-
-						@Override
-						public boolean onPrepareActionMode(final ActionMode mode, final Menu menu)
-						{
-							return false;
-						}
-
-						@Override
-						public boolean onActionItemClicked(final ActionMode mode, final MenuItem item)
-						{
-							switch (item.getItemId())
-							{
-								case R.id.send_coins_address_context_edit_address:
-									handleEditAddress();
-
-									mode.finish();
-									return true;
-
-								case R.id.send_coins_address_context_clear:
-									handleClear();
-
-									mode.finish();
-									return true;
-							}
-
-							return false;
-						}
-
-						@Override
-						public void onDestroyActionMode(final ActionMode mode)
-						{
-							if (receivingStaticView.hasFocus())
-								amountCalculatorLink.requestFocus();
-						}
-
-						private void handleEditAddress()
-						{
-							EditAddressBookEntryFragment.edit(getFragmentManager(), validatedAddress.address.toString());
-						}
-
-						private void handleClear()
-						{
-							// switch from static to input
-							validatedAddress = null;
-							receivingAddressView.setText(null);
-							receivingStaticAddressView.setText(null);
-
-							updateView();
-
-							receivingAddressView.requestFocus();
-						}
-					});
-				}
+					actionMode = activity.startActionMode(new ReceivingAddressActionMode());
 				else
-				{
 					actionMode.finish();
-				}
 			}
 		});
 
