@@ -315,7 +315,8 @@ public final class RequestCoinsFragment extends SherlockFragment
 		{
 			maybeInitBluetoothListening();
 
-			updateView();
+			if (isResumed())
+				updateView();
 		}
 	}
 
