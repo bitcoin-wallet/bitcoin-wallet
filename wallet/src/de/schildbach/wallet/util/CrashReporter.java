@@ -295,7 +295,8 @@ public class CrashReporter
 			}
 			finally
 			{
-				writer.close();
+				if (writer != null)
+					writer.close();
 			}
 		}
 	}
