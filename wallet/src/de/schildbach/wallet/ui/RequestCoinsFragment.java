@@ -413,21 +413,21 @@ public final class RequestCoinsFragment extends SherlockFragment
 
 	private void handleCopy()
 	{
-		final String request = determineRequestStr();
+		final String request = determineRequestStr(false);
 		clipboardManager.setText(request);
 		activity.toast(R.string.request_coins_clipboard_msg);
 	}
 
 	private void handleLocalApp()
 	{
-		final Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(determineRequestStr()));
+		final Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(determineRequestStr(false)));
 		startActivity(intent);
 		activity.finish();
 	}
 
 	private void updateView()
 	{
-		final String request = determineRequestStr() + (bluetoothMac != null ? "&" + Bluetooth.MAC_URI_PARAM + "=" + bluetoothMac : "");
+		final String request = determineRequestStr(true);
 
 		// update qr code
 		final int size = (int) (256 * getResources().getDisplayMetrics().density);
@@ -448,13 +448,13 @@ public final class RequestCoinsFragment extends SherlockFragment
 	{
 		// update share intent
 		final IntentBuilder builder = IntentBuilder.from(activity);
-		builder.setText(determineRequestStr());
+		builder.setText(determineRequestStr(false));
 		builder.setType("text/plain");
 		builder.setChooserTitle(R.string.request_coins_share_dialog_title);
 		shareActionProvider.setShareIntent(builder.getIntent());
 	}
 
-	private String determineRequestStr()
+	private String determineRequestStr(final boolean includeBluetoothMac)
 	{
 		final boolean includeLabel = includeLabelView.isChecked();
 
@@ -463,6 +463,12 @@ public final class RequestCoinsFragment extends SherlockFragment
 		final String label = includeLabel ? AddressBookProvider.resolveLabel(activity, address.toString()) : null;
 		final BigInteger amount = amountCalculatorLink.getAmount();
 
-		return BitcoinURI.convertToBitcoinURI(address, amount, label, null).toString();
+		final StringBuilder uri = new StringBuilder(BitcoinURI.convertToBitcoinURI(address, amount, label, null));
+		if (includeBluetoothMac && bluetoothMac != null)
+		{
+			uri.append(amount == null && label == null ? '?' : '&');
+			uri.append(Bluetooth.MAC_URI_PARAM).append('=').append(bluetoothMac);
+		}
+		return uri.toString();
 	}
 }
