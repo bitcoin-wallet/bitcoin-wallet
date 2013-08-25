@@ -48,8 +48,6 @@ public abstract class HttpGetThread extends Thread
 	{
 		this.assets = assets;
 		this.url = url;
-
-		start();
 	}
 
 	@Override

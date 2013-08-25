@@ -40,8 +40,6 @@ public abstract class BluetoothListenThread extends Thread
 		try
 		{
 			this.listeningSocket = adapter.listenUsingInsecureRfcommWithServiceRecord("Bitcoin Transaction Submission", Bluetooth.BLUETOOTH_UUID);
-
-			start();
 		}
 		catch (final IOException x)
 		{

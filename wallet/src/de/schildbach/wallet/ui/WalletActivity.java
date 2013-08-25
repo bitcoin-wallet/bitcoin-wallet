@@ -637,7 +637,7 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 					CrashReporter.saveBackgroundTrace(new RuntimeException(url, x), packageInfo);
 				}
 			}
-		};
+		}.start();
 
 		if (CrashReporter.hasSavedCrashTrace())
 		{

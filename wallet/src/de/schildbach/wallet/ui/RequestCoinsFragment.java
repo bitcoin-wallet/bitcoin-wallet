@@ -377,6 +377,8 @@ public final class RequestCoinsFragment extends SherlockFragment
 				}
 			};
 
+			acceptThread.start();
+
 			bluetoothEnabledView.setVisibility(View.VISIBLE);
 		}
 	}
