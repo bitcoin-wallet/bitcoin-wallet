@@ -19,10 +19,12 @@ package de.schildbach.wallet;
 
 import java.io.File;
 import java.nio.charset.Charset;
+import java.util.regex.Pattern;
 
 import android.os.Environment;
 import android.text.format.DateUtils;
 
+import com.google.bitcoin.core.Base58;
 import com.google.bitcoin.core.NetworkParameters;
 import com.google.bitcoin.params.MainNetParams;
 import com.google.bitcoin.params.TestNet3Params;
@@ -58,6 +60,7 @@ public class Constants
 			: BLOCKEXPLORER_BASE_URL_TEST;
 
 	public static final String MIMETYPE_TRANSACTION = "application/x-btctx";
+	public static final Pattern PATTERN_BITCOIN_ADDRESS = Pattern.compile("[" + new String(Base58.ALPHABET) + "]{20,40}");
 
 	public static final int MAX_NUM_CONFIRMATIONS = 7;
 	public static final String USER_AGENT = "Bitcoin Wallet";

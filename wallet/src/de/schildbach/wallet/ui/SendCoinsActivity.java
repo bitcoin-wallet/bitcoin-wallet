@@ -32,6 +32,7 @@ import com.google.bitcoin.core.Address;
 import com.google.bitcoin.uri.BitcoinURI;
 import com.google.bitcoin.uri.BitcoinURIParseException;
 
+import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.util.Bluetooth;
 import de.schildbach.wallet_test.R;
 
@@ -58,7 +59,7 @@ public final class SendCoinsActivity extends AbstractBindServiceActivity
 
 	public static void start(final Context context, final String uri)
 	{
-		if (uri.matches("[a-zA-Z0-9]*"))
+		if (Constants.PATTERN_BITCOIN_ADDRESS.matcher(uri).matches())
 		{
 			start(context, uri, null, null, null);
 		}

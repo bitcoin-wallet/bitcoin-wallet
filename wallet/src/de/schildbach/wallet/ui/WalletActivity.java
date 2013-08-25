@@ -156,7 +156,7 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 		{
 			final String result = intent.getStringExtra(ScanActivity.INTENT_EXTRA_RESULT);
 
-			if (result.startsWith("bitcoin:"))
+			if (result.startsWith("bitcoin:") || Constants.PATTERN_BITCOIN_ADDRESS.matcher(result).matches())
 			{
 				SendCoinsActivity.start(this, result);
 			}
