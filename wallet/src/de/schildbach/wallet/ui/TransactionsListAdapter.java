@@ -332,7 +332,7 @@ public class TransactionsListAdapter extends BaseAdapter
 			if (rowExtend != null)
 			{
 				final TextView rowMessage = (TextView) row.findViewById(R.id.transaction_row_message);
-				final boolean isLocked = tx.getLockTime() > 0;
+				final boolean isTimeLocked = tx.isTimeLocked();
 				rowExtend.setVisibility(View.GONE);
 
 				if (tx.getPurpose() == Purpose.KEY_ROTATION)
@@ -353,13 +353,13 @@ public class TransactionsListAdapter extends BaseAdapter
 					rowMessage.setText(R.string.transaction_row_message_received_dust);
 					rowMessage.setTextColor(colorInsignificant);
 				}
-				else if (!sent && confidenceType == ConfidenceType.PENDING && isLocked)
+				else if (!sent && confidenceType == ConfidenceType.PENDING && isTimeLocked)
 				{
 					rowExtend.setVisibility(View.VISIBLE);
 					rowMessage.setText(R.string.transaction_row_message_received_unconfirmed_locked);
 					rowMessage.setTextColor(colorError);
 				}
-				else if (!sent && confidenceType == ConfidenceType.PENDING && !isLocked)
+				else if (!sent && confidenceType == ConfidenceType.PENDING && !isTimeLocked)
 				{
 					rowExtend.setVisibility(View.VISIBLE);
 					rowMessage.setText(R.string.transaction_row_message_received_unconfirmed_unlocked);
