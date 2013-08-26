@@ -17,8 +17,6 @@
 
 package de.schildbach.wallet.ui;
 
-import android.app.AlertDialog;
-import android.app.AlertDialog.Builder;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -96,15 +94,6 @@ public abstract class AbstractWalletActivity extends SherlockFragmentActivity
 		toast.setView(view);
 		toast.setDuration(duration);
 		toast.show();
-	}
-
-	protected void parseErrorDialog(final String uri)
-	{
-		final Builder dialog = new AlertDialog.Builder(this);
-		dialog.setTitle(R.string.send_coins_uri_parse_error_title);
-		dialog.setMessage(uri);
-		dialog.setNeutralButton(R.string.button_dismiss, null);
-		dialog.show();
 	}
 
 	protected void touchLastUsed()

@@ -51,8 +51,6 @@
 	<string name="wallet_old_sdk_dialog_title">Versi Android kedaluwarsa</string>
 	<string name="wallet_old_sdk_dialog_message">Salah satu kemungkinan Bitcoin Wallet versi akan datang tidak akan mendukung ponsel Anda lagi. Dalam beberapa kasus, akan sulit untuk menggunakan koin di ponsel ini.\n\nKecuali Anda tahu apa yang Anda lakukan, sangat direkomendasikan untuk segera memindahkan koin Anda.</string>
 	<string name="send_coins_activity_title">Kirim Bitcoin</string>
-	<string name="send_coins_uri_parse_error_title">Tautan Bitcoin Salah</string>
-	<string name="send_coins_parse_address_error_msg">Alamat bitcoin salah!\n(Keliru dgn Mainet/Testnet?)</string>
 	<string name="send_coins_fragment_receiving_address_label">Bayar ke</string>
 	<string name="send_coins_fragment_receiving_address_hint">masukkan alamat atau nama</string>
 	<string name="send_coins_fragment_receiving_address_error">Alamat Bitcoin Salah!</string>
@@ -144,6 +142,8 @@
 	<string name="import_keys_intent_filter_action">Pulihkan kunci pribadi</string>
 	<string name="scan_camera_problem_dialog_title">Maaf</string>
 	<string name="scan_camera_problem_dialog_message">Kamera mengalami masalah. Anda mungkin harus menyala-ulangkan ponsel.</string>
+	<string name="input_parser_invalid_bitcoin_uri">Tautan Bitcoin Salah:\n%s</string>
+	<string name="input_parser_invalid_address">Alamat bitcoin salah!\n(Keliru dgn Mainet/Testnet?)</string>
 	<string name="preferences_activity_title">Pengaturan</string>
 	<string name="preferences_category_main">Preferensi</string>
 	<string name="preferences_category_diagnostics">Diagnosa</string>

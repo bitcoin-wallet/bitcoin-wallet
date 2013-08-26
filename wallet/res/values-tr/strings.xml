@@ -37,8 +37,6 @@
 	<string name="wallet_version_dialog_button_market">Google Play</string>
 	<string name="wallet_version_dialog_button_binary">İndir</string>
 	<string name="send_coins_activity_title">Bitcoin gönder</string>
-	<string name="send_coins_uri_parse_error_title">Geçersiz Bitcoin URİ\'si</string>
-	<string name="send_coins_parse_address_error_msg">Geçersiz bitcoin adresi alındı!\n(Mainnet ile Testnet karışmış olmasın?)</string>
 	<string name="send_coins_fragment_receiving_address_label">Şuna öde</string>
 	<string name="send_coins_fragment_receiving_address_hint">adını veya adresini giriniz</string>
 	<string name="send_coins_fragment_receiving_address_error">Geçersiz Bitcoin adresi!</string>
@@ -83,6 +81,8 @@
 	<string name="amount_calculator_dialog_title">Döviz hesaplayıcı</string>
 	<string name="amount_calculator_dialog_button_use">Kullan</string>
 	<string name="peer_list_fragment_empty">Hiçbir eş bağlı değil</string>
+	<string name="input_parser_invalid_bitcoin_uri">Geçersiz Bitcoin URİ\'si:\n%s</string>
+	<string name="input_parser_invalid_address">Geçersiz bitcoin adresi alındı!\n(Mainnet ile Testnet karışmış olmasın?)</string>
 	<string name="about_title">Hakkında</string>
 	<string name="about_license_title">Lisans</string>
 	<string name="about_credits_bitcoinj_title">Bu uygulama bitcoinj %s kullanmaktadır</string>

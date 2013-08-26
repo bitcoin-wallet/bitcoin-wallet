@@ -58,8 +58,6 @@
 	<string name="wallet_old_sdk_dialog_message">Es ist möglich, daß eine der nächsten Versionen von Bitcoin Wallet dein Gerät nicht mehr unterstützt. In manchen Fällen kann es schwierig werden, Zahlungen zu tätigen.\n\nEs wird empfohlen, die enthaltenen Bitcoins bald zu verschieben, außer du weisst was du tust.</string>
 
 	<string name="send_coins_activity_title">Bitcoins senden</string>
-	<string name="send_coins_uri_parse_error_title">Ungültige Bitcoin-URI</string>
-	<string name="send_coins_parse_address_error_msg">Ungültige Bitcoin-Adresse gelesen!\n(Versuchst Du Mainnet/Testnet zu mischen?)</string>
 	<string name="send_coins_fragment_receiving_address_label">Empfänger</string>
 	<string name="send_coins_fragment_receiving_address_hint">Adresse oder Namen</string>
 	<string name="send_coins_fragment_receiving_address_error">Ungültige Bitcoin-Adresse!</string>
@@ -164,6 +162,9 @@
 
 	<string name="scan_camera_problem_dialog_title">Sorry</string>
 	<string name="scan_camera_problem_dialog_message">Die Kamera hat ein Problem. Evtl. musst du dein Gerät neu starten.</string>
+
+	<string name="input_parser_invalid_bitcoin_uri">Ungültige Bitcoin-URI:\n%s</string>
+	<string name="input_parser_invalid_address">Ungültige Bitcoin-Adresse gelesen!\n(Versuchst Du Mainnet/Testnet zu mischen?)</string>
 
 	<string name="preferences_activity_title">Einstellungen</string>
 	<string name="preferences_category_main">Einstellungen</string>

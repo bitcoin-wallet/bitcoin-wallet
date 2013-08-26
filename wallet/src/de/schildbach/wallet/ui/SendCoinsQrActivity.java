@@ -17,14 +17,23 @@
 
 package de.schildbach.wallet.ui;
 
+import java.math.BigInteger;
+
 import android.app.Activity;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.os.Bundle;
+
+import com.google.bitcoin.core.Address;
+import com.google.bitcoin.core.Transaction;
+
+import de.schildbach.wallet.ui.InputParser.StringInputParser;
 
 /**
  * @author Andreas Schildbach
  */
-public final class SendCoinsQrActivity extends Activity
+public final class SendCoinsQrActivity extends AbstractOnDemandServiceActivity
 {
 	private static final int REQUEST_CODE_SCAN = 0;
 
@@ -40,8 +49,47 @@ public final class SendCoinsQrActivity extends Activity
 	public void onActivityResult(final int requestCode, final int resultCode, final Intent intent)
 	{
 		if (requestCode == REQUEST_CODE_SCAN && resultCode == Activity.RESULT_OK)
-			SendCoinsActivity.start(this, intent.getStringExtra(ScanActivity.INTENT_EXTRA_RESULT));
+		{
+			final String input = intent.getStringExtra(ScanActivity.INTENT_EXTRA_RESULT);
 
-		finish();
+			new StringInputParser(input)
+			{
+				@Override
+				protected void bitcoinRequest(final Address address, final String addressLabel, final BigInteger amount, final String bluetoothMac)
+				{
+					SendCoinsActivity
+							.start(SendCoinsQrActivity.this, address != null ? address.toString() : null, addressLabel, amount, bluetoothMac);
+
+					SendCoinsQrActivity.this.finish();
+				}
+
+				@Override
+				protected void directTransaction(final Transaction transaction)
+				{
+					processDirectTransaction(transaction);
+
+					SendCoinsQrActivity.this.finish();
+				}
+
+				@Override
+				protected void error(final int messageResId, final Object... messageArgs)
+				{
+					dialog(SendCoinsQrActivity.this, dismissListener, 0, messageResId, messageArgs);
+				}
+
+				private final OnClickListener dismissListener = new OnClickListener()
+				{
+					@Override
+					public void onClick(final DialogInterface dialog, final int which)
+					{
+						SendCoinsQrActivity.this.finish();
+					}
+				};
+			}.parse();
+		}
+		else
+		{
+			finish();
+		}
 	}
 }

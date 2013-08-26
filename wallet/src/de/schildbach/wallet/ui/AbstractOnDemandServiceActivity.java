@@ -24,6 +24,8 @@ import android.content.ServiceConnection;
 import android.os.IBinder;
 
 import com.google.bitcoin.core.Transaction;
+import com.google.bitcoin.core.VerificationException;
+import com.google.bitcoin.core.Wallet;
 
 import de.schildbach.wallet.service.BlockchainService;
 import de.schildbach.wallet.service.BlockchainServiceImpl;
@@ -53,5 +55,28 @@ public abstract class AbstractOnDemandServiceActivity extends AbstractWalletActi
 				unbindService(this);
 			}
 		}, Context.BIND_AUTO_CREATE);
+	}
+
+	protected void processDirectTransaction(final Transaction tx)
+	{
+		final Wallet wallet = getWalletApplication().getWallet();
+
+		try
+		{
+			if (wallet.isTransactionRelevant(tx))
+			{
+				wallet.receivePending(tx, null);
+
+				this.broadcastTransaction(tx);
+			}
+			else
+			{
+				longToast("Direct transaction is not relevant for you.");
+			}
+		}
+		catch (final VerificationException x)
+		{
+			longToast("Direct transaction is not valid.");
+		}
 	}
 }

@@ -51,8 +51,6 @@
 	<string name="wallet_old_sdk_dialog_title">Версия для Android устарела</string>
 	<string name="wallet_old_sdk_dialog_message">Есть вероятность, что одна из будущих версий бумажника Bitcoin перестанет поддерживать ваше устройство. В некоторых случаях будет сложно потратить монеты с этого устройства.\n\nЕсли вы не уверены в том, что делаете, рекомендуется как можно скорее вывести монеты с устройства.</string>
 	<string name="send_coins_activity_title">Отправка Bitcoin</string>
-	<string name="send_coins_uri_parse_error_title">Неверный Bitcoin URI</string>
-	<string name="send_coins_parse_address_error_msg">Получен неверный адрес биткоин!\n(перепутаны Testnet/Mainnet?)</string>
 	<string name="send_coins_fragment_receiving_address_label">Оплата</string>
 	<string name="send_coins_fragment_receiving_address_hint">введите адрес или имя</string>
 	<string name="send_coins_fragment_receiving_address_error">Некорректный Bitcoin-адрес!</string>
@@ -144,6 +142,8 @@
 	<string name="import_keys_intent_filter_action">Восстановление ключа Bitcoin</string>
 	<string name="scan_camera_problem_dialog_title">Извините</string>
 	<string name="scan_camera_problem_dialog_message">Проблема с камерой. Возможно, вам нужно перезагрузить устройство.</string>
+	<string name="input_parser_invalid_bitcoin_uri">Неверный Bitcoin URI:\n%s</string>
+	<string name="input_parser_invalid_address">Получен неверный адрес биткоин!\n(перепутаны Testnet/Mainnet?)</string>
 	<string name="preferences_activity_title">Настройки</string>
 	<string name="preferences_category_main">Параметры</string>
 	<string name="preferences_category_diagnostics">Диагностика</string>

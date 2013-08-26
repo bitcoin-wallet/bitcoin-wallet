@@ -19,8 +19,6 @@ package de.schildbach.wallet.ui;
 
 import java.math.BigInteger;
 
-import android.app.AlertDialog;
-import android.app.AlertDialog.Builder;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -28,12 +26,7 @@ import android.os.Bundle;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
-import com.google.bitcoin.core.Address;
-import com.google.bitcoin.uri.BitcoinURI;
-import com.google.bitcoin.uri.BitcoinURIParseException;
 
-import de.schildbach.wallet.Constants;
-import de.schildbach.wallet.util.Bluetooth;
 import de.schildbach.wallet_test.R;
 
 /**
@@ -55,35 +48,6 @@ public final class SendCoinsActivity extends AbstractBindServiceActivity
 		intent.putExtra(INTENT_EXTRA_AMOUNT, amount);
 		intent.putExtra(INTENT_EXTRA_BLUETOOTH_MAC, bluetoothMac);
 		context.startActivity(intent);
-	}
-
-	public static void start(final Context context, final String uri)
-	{
-		if (Constants.PATTERN_BITCOIN_ADDRESS.matcher(uri).matches())
-		{
-			start(context, uri, null, null, null);
-		}
-		else
-		{
-			try
-			{
-				final BitcoinURI bitcoinUri = new BitcoinURI(null, uri);
-				final Address address = bitcoinUri.getAddress();
-				final String addressLabel = bitcoinUri.getLabel();
-				final BigInteger amount = bitcoinUri.getAmount();
-				final String bluetoothMac = (String) bitcoinUri.getParameterByName(Bluetooth.MAC_URI_PARAM);
-
-				start(context, address != null ? address.toString() : null, addressLabel, amount, bluetoothMac);
-			}
-			catch (final BitcoinURIParseException x)
-			{
-				final Builder dialog = new AlertDialog.Builder(context);
-				dialog.setTitle(R.string.send_coins_uri_parse_error_title);
-				dialog.setMessage(uri);
-				dialog.setNeutralButton(R.string.button_dismiss, null);
-				dialog.show();
-			}
-		}
 	}
 
 	@Override

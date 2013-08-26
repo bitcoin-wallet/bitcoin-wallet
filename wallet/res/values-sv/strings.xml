@@ -37,8 +37,6 @@
 	<string name="wallet_version_dialog_button_market">Google Play</string>
 	<string name="wallet_version_dialog_button_binary">Ladda ner</string>
 	<string name="send_coins_activity_title">Skicka Bitcoins</string>
-	<string name="send_coins_uri_parse_error_title">Ogiltig Bitcoinadress</string>
-	<string name="send_coins_parse_address_error_msg">Fick ogiltig bitcoinadress!\n(Blandar du ihop Mainnet/Testnet?)</string>
 	<string name="send_coins_fragment_receiving_address_label">Skicka till</string>
 	<string name="send_coins_fragment_receiving_address_hint">skriv adress eller namn</string>
 	<string name="send_coins_fragment_receiving_address_error">Ogiltig Bitcoin adress!</string>
@@ -83,6 +81,8 @@
 	<string name="amount_calculator_dialog_title">Valuta kalkylator</string>
 	<string name="amount_calculator_dialog_button_use">Använd</string>
 	<string name="peer_list_fragment_empty">Inga peers anslutna</string>
+	<string name="input_parser_invalid_bitcoin_uri">Ogiltig Bitcoinadress:\n%s</string>
+	<string name="input_parser_invalid_address">Fick ogiltig bitcoinadress!\n(Blandar du ihop Mainnet/Testnet?)</string>
 	<string name="about_title">Om</string>
 	<string name="about_license_title">Licens</string>
 	<string name="about_credits_bitcoinj_title">Denna app använder bitcoinj %s</string>

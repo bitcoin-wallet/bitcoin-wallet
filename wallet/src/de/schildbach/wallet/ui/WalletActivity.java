@@ -28,6 +28,7 @@ import java.io.Reader;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.math.BigInteger;
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
@@ -70,19 +71,20 @@ import android.widget.TextView;
 
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
+import com.google.bitcoin.core.Address;
 import com.google.bitcoin.core.ECKey;
 import com.google.bitcoin.core.Transaction;
-import com.google.bitcoin.core.VerificationException;
 import com.google.bitcoin.core.Wallet;
 
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
+import de.schildbach.wallet.ui.InputParser.BinaryInputParser;
+import de.schildbach.wallet.ui.InputParser.StringInputParser;
 import de.schildbach.wallet.util.CrashReporter;
 import de.schildbach.wallet.util.Crypto;
 import de.schildbach.wallet.util.HttpGetThread;
 import de.schildbach.wallet.util.Iso8601Format;
 import de.schildbach.wallet.util.Nfc;
-import de.schildbach.wallet.util.Qr;
 import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
 
@@ -140,12 +142,34 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 
 	private void handleIntent(final Intent intent)
 	{
-		if (Constants.MIMETYPE_TRANSACTION.equals(intent.getType()))
-		{
-			final NdefMessage ndefMessage = (NdefMessage) intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES)[0];
-			final byte[] payload = Nfc.extractMimePayload(Constants.MIMETYPE_TRANSACTION, ndefMessage);
+		final String action = intent.getAction();
 
-			processDirectTransaction(payload);
+		if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(action))
+		{
+			final String inputType = intent.getType();
+			final NdefMessage ndefMessage = (NdefMessage) intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES)[0];
+			final byte[] input = Nfc.extractMimePayload(Constants.MIMETYPE_TRANSACTION, ndefMessage);
+
+			new BinaryInputParser(inputType, input)
+			{
+				@Override
+				protected void bitcoinRequest(final Address address, final String addressLabel, final BigInteger amount, final String bluetoothMac)
+				{
+					cannotClassify(inputType);
+				}
+
+				@Override
+				protected void directTransaction(final Transaction transaction)
+				{
+					processDirectTransaction(transaction);
+				}
+
+				@Override
+				protected void error(final int messageResId, final Object... messageArgs)
+				{
+					dialog(WalletActivity.this, null, 0, messageResId, messageArgs);
+				}
+			}.parse();
 		}
 	}
 
@@ -154,48 +178,28 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 	{
 		if (requestCode == REQUEST_CODE_SCAN && resultCode == Activity.RESULT_OK)
 		{
-			final String result = intent.getStringExtra(ScanActivity.INTENT_EXTRA_RESULT);
+			final String input = intent.getStringExtra(ScanActivity.INTENT_EXTRA_RESULT);
 
-			if (result.startsWith("bitcoin:") || Constants.PATTERN_BITCOIN_ADDRESS.matcher(result).matches())
+			new StringInputParser(input)
 			{
-				SendCoinsActivity.start(this, result);
-			}
-			else
-			{
-				try
+				@Override
+				protected void bitcoinRequest(final Address address, final String addressLabel, final BigInteger amount, final String bluetoothMac)
 				{
-					processDirectTransaction(Qr.decodeBinary(result));
+					SendCoinsActivity.start(WalletActivity.this, address != null ? address.toString() : null, addressLabel, amount, bluetoothMac);
 				}
-				catch (final IOException x)
+
+				@Override
+				protected void directTransaction(final Transaction tx)
 				{
-					log.info("problem decoding transaction received via qr code", x);
+					processDirectTransaction(tx);
 				}
-			}
-		}
-	}
 
-	private void processDirectTransaction(final byte[] serializedTx)
-	{
-		try
-		{
-			final Transaction tx = new Transaction(Constants.NETWORK_PARAMETERS, serializedTx);
-
-			final Wallet wallet = ((WalletApplication) getApplication()).getWallet();
-
-			if (wallet.isTransactionRelevant(tx))
-			{
-				wallet.receivePending(tx, null);
-
-				this.broadcastTransaction(tx);
-			}
-			else
-			{
-				longToast("Direct transaction is not relevant for you.");
-			}
-		}
-		catch (final VerificationException x)
-		{
-			longToast("Direct transaction is not valid.");
+				@Override
+				protected void error(final int messageResId, final Object... messageArgs)
+				{
+					dialog(WalletActivity.this, null, R.string.button_scan, messageResId, messageArgs);
+				}
+			}.parse();
 		}
 	}
 

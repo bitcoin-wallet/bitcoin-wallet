@@ -47,8 +47,6 @@
 	<string name="wallet_old_sdk_dialog_title">גירסת אנדרויד לא מעודכנת</string>
 	<string name="wallet_old_sdk_dialog_message">סיכוי סביר כי מכשירך לא יתמך מהגירסה הבאה, המומלץ כי תעביר את כספך לארנק חלופי</string>
 	<string name="send_coins_activity_title">שלח ביטקוין</string>
-	<string name="send_coins_uri_parse_error_title">כתובת ביטקוין לא חוקית</string>
-	<string name="send_coins_parse_address_error_msg">כתובת ביטקוין לא חוקית</string>
 	<string name="send_coins_fragment_receiving_address_label">שלם ל</string>
 	<string name="send_coins_fragment_receiving_address_hint">הקש כתובת או שם</string>
 	<string name="send_coins_fragment_receiving_address_error">כתובת ביטקוין לא חוקית!</string>
@@ -130,6 +128,8 @@
 	<string name="import_export_keys_dialog_failure_title">שגיאה</string>
 	<string name="scan_camera_problem_dialog_title">סליחה</string>
 	<string name="scan_camera_problem_dialog_message">בעיה במצלמה</string>
+	<string name="input_parser_invalid_bitcoin_uri">כתובת ביטקוין לא חוקית:\n%s</string>
+	<string name="input_parser_invalid_address">כתובת ביטקוין לא חוקית</string>
 	<string name="preferences_activity_title">הגדרות</string>
 	<string name="preferences_category_main">העדפות</string>
 	<string name="preferences_category_diagnostics">בדיקה</string>

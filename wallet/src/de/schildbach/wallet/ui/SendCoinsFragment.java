@@ -31,6 +31,7 @@ import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -76,8 +77,6 @@ import com.google.bitcoin.core.TransactionConfidence.ConfidenceType;
 import com.google.bitcoin.core.Wallet;
 import com.google.bitcoin.core.Wallet.BalanceType;
 import com.google.bitcoin.core.Wallet.SendRequest;
-import com.google.bitcoin.uri.BitcoinURI;
-import com.google.bitcoin.uri.BitcoinURIParseException;
 
 import de.schildbach.wallet.AddressBookProvider;
 import de.schildbach.wallet.Constants;
@@ -85,6 +84,7 @@ import de.schildbach.wallet.ExchangeRatesProvider;
 import de.schildbach.wallet.ExchangeRatesProvider.ExchangeRate;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.integration.android.BitcoinIntegration;
+import de.schildbach.wallet.ui.InputParser.StringInputParser;
 import de.schildbach.wallet.util.Bluetooth;
 import de.schildbach.wallet.util.GenericUtils;
 import de.schildbach.wallet.util.WalletUtils;
@@ -470,20 +470,37 @@ public final class SendCoinsFragment extends SherlockFragment
 
 	private void initStateFromBitcoinUri(final Uri bitcoinUri)
 	{
-		try
-		{
-			final BitcoinURI uri = new BitcoinURI(null, bitcoinUri.toString());
-			final String address = uri.getAddress().toString();
-			final String addressLabel = uri.getLabel();
-			final BigInteger amount = uri.getAmount();
-			final String bluetoothMac = (String) uri.getParameterByName(Bluetooth.MAC_URI_PARAM);
+		final String input = bitcoinUri.toString();
 
-			update(address, addressLabel, amount, bluetoothMac);
-		}
-		catch (final BitcoinURIParseException x)
+		new StringInputParser(input)
 		{
-			activity.parseErrorDialog(bitcoinUri.toString());
-		}
+			@Override
+			protected void bitcoinRequest(final Address address, final String addressLabel, final BigInteger amount, final String bluetoothMac)
+			{
+				update(address.toString(), addressLabel, amount, bluetoothMac);
+			}
+
+			@Override
+			protected void directTransaction(final Transaction transaction)
+			{
+				cannotClassify(input);
+			}
+
+			@Override
+			protected void error(final int messageResId, final Object... messageArgs)
+			{
+				dialog(activity, dismissListener, 0, messageResId, messageArgs);
+			}
+
+			private final DialogInterface.OnClickListener dismissListener = new DialogInterface.OnClickListener()
+			{
+				@Override
+				public void onClick(final DialogInterface dialog, final int which)
+				{
+					activity.finish();
+				}
+			};
+		}.parse();
 	}
 
 	@Override
@@ -584,27 +601,28 @@ public final class SendCoinsFragment extends SherlockFragment
 		{
 			if (requestCode == REQUEST_CODE_SCAN)
 			{
-				final String contents = intent.getStringExtra(ScanActivity.INTENT_EXTRA_RESULT);
-				if (contents.matches("[a-zA-Z0-9]*"))
-				{
-					update(contents, null, null, null);
-				}
-				else
-				{
-					try
-					{
-						final BitcoinURI bitcoinUri = new BitcoinURI(null, contents);
-						final Address address = bitcoinUri.getAddress();
-						final String addressLabel = bitcoinUri.getLabel();
-						final String bluetoothMac = (String) bitcoinUri.getParameterByName(Bluetooth.MAC_URI_PARAM);
+				final String input = intent.getStringExtra(ScanActivity.INTENT_EXTRA_RESULT);
 
-						update(address != null ? address.toString() : null, addressLabel, bitcoinUri.getAmount(), bluetoothMac);
-					}
-					catch (final BitcoinURIParseException x)
+				new StringInputParser(input)
+				{
+					@Override
+					protected void bitcoinRequest(final Address address, final String addressLabel, final BigInteger amount, final String bluetoothMac)
 					{
-						activity.parseErrorDialog(contents);
+						SendCoinsActivity.start(activity, address != null ? address.toString() : null, addressLabel, amount, bluetoothMac);
 					}
-				}
+
+					@Override
+					protected void directTransaction(final Transaction transaction)
+					{
+						cannotClassify(input);
+					}
+
+					@Override
+					protected void error(final int messageResId, final Object... messageArgs)
+					{
+						dialog(activity, null, R.string.button_scan, messageResId, messageArgs);
+					}
+				}.parse();
 			}
 			else if (requestCode == REQUEST_CODE_ENABLE_BLUETOOTH)
 			{

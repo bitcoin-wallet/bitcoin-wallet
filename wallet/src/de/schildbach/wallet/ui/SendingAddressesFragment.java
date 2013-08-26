@@ -17,6 +17,7 @@
 
 package de.schildbach.wallet.ui;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 
 import android.app.Activity;
@@ -26,7 +27,6 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
@@ -43,12 +43,12 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.google.bitcoin.core.Address;
-import com.google.bitcoin.core.AddressFormatException;
+import com.google.bitcoin.core.Transaction;
 import com.google.bitcoin.uri.BitcoinURI;
-import com.google.bitcoin.uri.BitcoinURIParseException;
 
 import de.schildbach.wallet.AddressBookProvider;
 import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.ui.InputParser.StringInputParser;
 import de.schildbach.wallet.util.BitmapFragment;
 import de.schildbach.wallet.util.Qr;
 import de.schildbach.wallet.util.WalletUtils;
@@ -65,8 +65,6 @@ public final class SendingAddressesFragment extends SherlockListFragment impleme
 
 	private SimpleCursorAdapter adapter;
 	private String walletAddressesSelection;
-
-	private final Handler handler = new Handler();
 
 	private static final int REQUEST_CODE_SCAN = 0;
 
@@ -121,42 +119,28 @@ public final class SendingAddressesFragment extends SherlockListFragment impleme
 	{
 		if (requestCode == REQUEST_CODE_SCAN && resultCode == Activity.RESULT_OK)
 		{
-			final String contents = intent.getStringExtra(ScanActivity.INTENT_EXTRA_RESULT);
+			final String input = intent.getStringExtra(ScanActivity.INTENT_EXTRA_RESULT);
 
-			try
+			new StringInputParser(input)
 			{
-				final Address address;
-
-				if (contents.matches("[a-zA-Z0-9]*"))
+				@Override
+				protected void bitcoinRequest(final Address address, final String addressLabel, final BigInteger amount, final String bluetoothMac)
 				{
-					address = new Address(Constants.NETWORK_PARAMETERS, contents);
-				}
-				else
-				{
-					// TODO nicer cross-network handling
-					final BitcoinURI bitcoinUri = new BitcoinURI(Constants.NETWORK_PARAMETERS, contents);
-					address = bitcoinUri.getAddress();
+					EditAddressBookEntryFragment.edit(getFragmentManager(), address.toString());
 				}
 
-				// workaround for "IllegalStateException: Can not perform this action after onSaveInstanceState"
-				handler.postDelayed(new Runnable()
+				@Override
+				protected void directTransaction(final Transaction transaction)
 				{
-					@Override
-					public void run()
-					{
-						EditAddressBookEntryFragment.edit(getFragmentManager(), address.toString());
-					}
-				}, 500);
+					cannotClassify(input);
+				}
 
-			}
-			catch (final AddressFormatException x)
-			{
-				activity.parseErrorDialog(contents);
-			}
-			catch (final BitcoinURIParseException x)
-			{
-				activity.parseErrorDialog(contents);
-			}
+				@Override
+				protected void error(final int messageResId, final Object... messageArgs)
+				{
+					dialog(activity, null, R.string.address_book_options_scan_title, messageResId, messageArgs);
+				}
+			}.parse();
 		}
 	}
 
@@ -193,17 +177,28 @@ public final class SendingAddressesFragment extends SherlockListFragment impleme
 	{
 		if (clipboardManager.hasText())
 		{
-			final String text = clipboardManager.getText().toString().trim();
+			final String input = clipboardManager.getText().toString().trim();
 
-			try
+			new StringInputParser(input)
 			{
-				final Address address = new Address(Constants.NETWORK_PARAMETERS, text);
-				EditAddressBookEntryFragment.edit(getFragmentManager(), address.toString());
-			}
-			catch (final AddressFormatException x)
-			{
-				activity.toast(R.string.send_coins_parse_address_error_msg);
-			}
+				@Override
+				protected void bitcoinRequest(final Address address, final String addressLabel, final BigInteger amount, final String bluetoothMac)
+				{
+					EditAddressBookEntryFragment.edit(getFragmentManager(), address.toString());
+				}
+
+				@Override
+				protected void directTransaction(final Transaction transaction)
+				{
+					cannotClassify(input);
+				}
+
+				@Override
+				protected void error(final int messageResId, final Object... messageArgs)
+				{
+					dialog(activity, null, R.string.address_book_options_paste_from_clipboard_title, messageResId, messageArgs);
+				}
+			}.parse();
 		}
 		else
 		{
