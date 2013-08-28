@@ -46,6 +46,7 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.net.wifi.WifiManager;
 import android.net.wifi.WifiManager.WifiLock;
@@ -341,10 +342,11 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 
 			if (ConnectivityManager.CONNECTIVITY_ACTION.equals(action))
 			{
-				hasConnectivity = !intent.getBooleanExtra(ConnectivityManager.EXTRA_NO_CONNECTIVITY, false);
-				final String reason = intent.getStringExtra(ConnectivityManager.EXTRA_REASON);
-				// final boolean isFailover = intent.getBooleanExtra(ConnectivityManager.EXTRA_IS_FAILOVER, false);
-				log.info("network is " + (hasConnectivity ? "up" : "down") + (reason != null ? ": " + reason : ""));
+				final boolean extraConnectivity = !intent.getBooleanExtra(ConnectivityManager.EXTRA_NO_CONNECTIVITY, false);
+				final NetworkInfo networkInfo = (NetworkInfo) intent.getParcelableExtra(ConnectivityManager.EXTRA_NETWORK_INFO);
+				final boolean extraIsConnected = networkInfo != null && networkInfo.isConnected();
+				hasConnectivity = extraConnectivity && extraIsConnected;
+				log.info("network is " + (hasConnectivity ? "up" : "down") + " (extras: " + extraConnectivity + "/" + extraIsConnected + ")");
 
 				check();
 			}
