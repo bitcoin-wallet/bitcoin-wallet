@@ -17,9 +17,6 @@
 
 package de.schildbach.wallet.integration.sample;
 
-import java.io.IOException;
-import java.net.InetSocketAddress;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -39,7 +36,8 @@ import de.schildbach.wallet.integration.android.AbstractTCPPaymentChannel;
 import de.schildbach.wallet.integration.android.BitcoinIntegration;
 import de.schildbach.wallet.integration.android.BitcoinPaymentChannelManager;
 
-import static com.google.common.base.Preconditions.checkState;
+import java.io.IOException;
+import java.net.InetSocketAddress;
 
 /**
  * @author Andreas Schildbach
@@ -52,6 +50,11 @@ public class SampleActivity extends Activity
 	private static final String DONATION_ADDRESS = testNet ? "mwEacn7pYszzxfgcNaVUzYvzL6ypRJzB6A" : "1PZmMahjbfsTy6DsaRyfStzoWTPppWwDnZ";
 	private static final int DONATION_REQUEST_CODE = 0;
 	private static final int CHANNEL_REQUEST_CODE = 1;
+
+	// Amounts in satoshis
+	public static final int COIN = 10000000;
+	public static final int CENT = COIN / 100;
+	public static final int MILLI = CENT / 10;
 
 	private Button donateButton;
 	private TextView donateMessage;
@@ -105,7 +108,10 @@ public class SampleActivity extends Activity
 		});
 
 		payChannelButton.setOnClickListener(new OnClickListener() {
-			final long amount = 1000;
+			// Pay at least the min output value to avoid the case where not enough value is sent to actually close the
+			// channel (eg dust output would be created). In a real app of course, you would just avoid getting
+			// into a situation where the payments are so small the transaction can't ever be confirmed.
+			final long amount = 6000;
 			public void onClick(View v) {
 				Futures.addCallback(channel.sendMoney(amount), new FutureCallback<Long>() {
 					public void onSuccess(final Long nanoCoinsSent) {
@@ -143,53 +149,70 @@ public class SampleActivity extends Activity
 
 	private void attemptChannelOpen() {
 		final String host = hostText.getText().toString();
-		final long minValue = 10000000;
+
+		// The minimum amount we're going to ask the user to authorize us for. In this case, 10 millibits. The server
+		// is allowed to have a minimum channel size it's willing to tolerate - if here we ask the user for less than
+		// what the server allows, the channel can fail to build entirely, so it's best if we're a bit pushy here and
+		// ask for more than we might really need. The user can of course choose to give us more on the permissions
+		// screen that will pop up.
+		//
+		// The ExamplePaymentChannelServer app in the bitcoinj distribution shows how to receive these micropayments,
+		// and it has a minimum required channel size of 1 millibit, so we're going to ask for 10x the min amount.
+		// This is NOT the minimum payment granularity - once the channel is established, we can make payments of a
+		// single satoshi if the server is willing, but because we must eventually settle on the block chain the total
+		// amount of value put into the channel must be at least the minimum allowed value for a transaction.
+		final long minValue = CENT;
 
 		// We may have to call prepare multiple times, if the user has to step through some UI flows.
 		BitcoinPaymentChannelManager.prepare(this, minValue, true, testNet, CHANNEL_REQUEST_CODE, new BitcoinPaymentChannelManager.PrepareCallback() {
 			public void success() {
-				// We got authorized!
-					AbstractTCPPaymentChannel channelListener = new AbstractTCPPaymentChannel(new InetSocketAddress(host, 4242), 15 * 1000) {
-						public void channelOpen(final byte[] contractHash) {
-							if (contractHash.length != 32) {
-								// A real app should securely contact the server and verify contractHash here
-								channel.closeChannel();
-								return;
+				// We got authorized! Use the helper library to set up a simple TCP messaging socket.
+				AbstractTCPPaymentChannel channelListener = new AbstractTCPPaymentChannel(new InetSocketAddress(host, 4242), 15 * 1000) {
+					public void channelOpen(final byte[] contractHash) {
+						if (contractHash.length != 32) {
+							// A real app should securely contact the server and verify contractHash here
+							channel.closeChannel();
+							return;
+						}
+						SampleActivity.this.runOnUiThread(new Runnable() {
+							public void run() {
+								payChannelButton.setEnabled(true);
+								closeChannelButton.setEnabled(true);
+								openChannelButton.setEnabled(false);
+								hostText.setEnabled(false);
+								Toast.makeText(SampleActivity.this, "Channel opened " + hexEncodeHash(contractHash), Toast.LENGTH_SHORT).show();
 							}
-							SampleActivity.this.runOnUiThread(new Runnable() {
-								public void run() {
-									payChannelButton.setEnabled(true);
-									closeChannelButton.setEnabled(true);
-									openChannelButton.setEnabled(false);
-									hostText.setEnabled(false);
-									Toast.makeText(SampleActivity.this, "Channel opened " + hexEncodeHash(contractHash), Toast.LENGTH_SHORT).show();
-								}
-							});
-						}
+						});
+					}
 
-						public void channelInterruptedCalled() {
-							SampleActivity.this.runOnUiThread(new Runnable() {
-								public void run() {
-									Toast.makeText(SampleActivity.this, "Channel interrupted, will reconnect on pay", Toast.LENGTH_LONG).show();
-								}
-							});
-						}
+					public void channelInterruptedCalled() {
+						SampleActivity.this.runOnUiThread(new Runnable() {
+							public void run() {
+								Toast.makeText(SampleActivity.this, "Channel interrupted, will reconnect on pay", Toast.LENGTH_LONG).show();
+							}
+						});
+					}
 
-						public void channelClosedOrNotOpenedCalled() {
-							channel = null;
-							SampleActivity.this.runOnUiThread(new Runnable() {
-								public void run() {
-									payChannelButton.setEnabled(false);
-									closeChannelButton.setEnabled(false);
-									openChannelButton.setEnabled(true);
-									hostText.setEnabled(true);
-									Toast.makeText(SampleActivity.this, "Channel closed", Toast.LENGTH_LONG).show();
-								}
-							});
-							// A real app may wish to retry opening a new channel here
-						}
-					};
-				channel = new BitcoinPaymentChannelManager(SampleActivity.this, host + 4242, testNet, channelListener);
+					public void channelClosedOrNotOpenedCalled() {
+						channel = null;
+						SampleActivity.this.runOnUiThread(new Runnable() {
+							public void run() {
+								payChannelButton.setEnabled(false);
+								closeChannelButton.setEnabled(false);
+								openChannelButton.setEnabled(true);
+								hostText.setEnabled(true);
+								Toast.makeText(SampleActivity.this, "Channel closed or not opened", Toast.LENGTH_LONG).show();
+							}
+						});
+						// A real app may wish to retry opening a new channel here
+					}
+				};
+				// And now make a payments manager that uses it. hostID is some arbitrary string that identifies the
+				// entity you're paying - normally just host+port suffices to identify the server, but it could be
+				// other things too.
+				final String hostId = host + 4242;
+				channel = new BitcoinPaymentChannelManager(SampleActivity.this, hostId, testNet, channelListener);
+				// Connect the TCP socket to the server.
 				try {
 					channelListener.connect(channel);
 				} catch (final IOException e) {
@@ -206,6 +229,10 @@ public class SampleActivity extends Activity
 					});
 					return;
 				}
+				// And now we have a working socket, start the process of talking to Bitcoin Wallet and getting the
+				// stuff we need to process micropayments. This line starts the logical communication between the
+				// different parts of the protocol, with the channelListener tying it all to the network (this is why
+				// there are two connect calls, which may seem confusing otherwise).
 				channel.connect();
 			}
 
@@ -213,6 +240,14 @@ public class SampleActivity extends Activity
 				// We're in the foreground so invokeUI is true and this callback is never used.
 				// If we wanted to make payments from the background, this would be a place to pop up a notification
 				// in the users notification bar, so they can fix our problem later.
+				switch (reason) {
+					case NEED_AUTH:
+						// We ran out of money and need to ask the user for more.
+						break;
+					case NEED_WALLET_APP:
+						// The wallet app vanished (i.e. the user uninstalled or disabled it).
+						break;
+				}
 			}
 		});
 	}
