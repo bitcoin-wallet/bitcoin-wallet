@@ -65,6 +65,7 @@ public class ChannelRequestActivity extends AbstractWalletActivity {
 	private String requestedValueStr;
 
 	private CurrencyCalculatorLink currencyCalculatorLink;
+	private CurrencyAmountView btcAmountView;
 	private LoaderManager loaderManager;
 
 	private final LoaderManager.LoaderCallbacks<Cursor> rateLoaderCallbacks = new LoaderManager.LoaderCallbacks<Cursor>()
@@ -183,7 +184,7 @@ public class ChannelRequestActivity extends AbstractWalletActivity {
 		popupMessageView = (TextView) getLayoutInflater().inflate(R.layout.send_coins_popup_message, null);
 
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-		CurrencyAmountView btcAmountView = (CurrencyAmountView)findViewById(R.id.channel_value_view_btc);
+		btcAmountView = (CurrencyAmountView)findViewById(R.id.channel_value_view_btc);
 		btcAmountView.setCurrencySymbol(Constants.CURRENCY_CODE_BITCOIN);
 		btcAmountView.setHintPrecision(Integer.parseInt(prefs.getString(Constants.PREFS_KEY_BTC_PRECISION, Constants.PREFS_DEFAULT_BTC_PRECISION)));
 
@@ -323,6 +324,7 @@ public class ChannelRequestActivity extends AbstractWalletActivity {
 		final String intro = getString(R.string.channel_request_intro, requestingApp, requestedValueStr, "");
 		final TextView label = (TextView) findViewById(R.id.channel_request_intro_text);
 		label.setText(intro);
+		btcAmountView.setAmount(BigInteger.valueOf(appSpecifiedMinValue), true);
 		acceptButton.setEnabled(true);
 	}
 
