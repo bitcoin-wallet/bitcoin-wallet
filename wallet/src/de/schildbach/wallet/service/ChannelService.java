@@ -37,7 +37,6 @@ import com.google.common.annotations.VisibleForTesting;
 import com.google.protobuf.InvalidProtocolBufferException;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.ui.ChannelRequestActivity;
-import de.schildbach.wallet.ui.SendCoinsFragment;
 import de.schildbach.wallet.util.WalletUtils;
 import net.jcip.annotations.GuardedBy;
 import org.bitcoin.ChannelConstants;
@@ -121,11 +120,8 @@ public class ChannelService extends Service {
 		// created once that is used forever, but, realistically, an HD wallet should be used.
 		ECKey key = WalletUtils.pickOldestKey(walletApplication.getWallet());
 
-		// Apps are free to lock up to 10% of a user's total balance, or the amount the user allowed the app to spend
-		long maxChannel = Math.max(walletApplication.getWallet().getBalance().longValue() / 10, maxValue);
-
 		try {
-			metadata.client = new PaymentChannelClient(walletApplication.getWallet(), key, BigInteger.valueOf(maxChannel),
+			metadata.client = new PaymentChannelClient(walletApplication.getWallet(), key, BigInteger.valueOf(maxValue),
 					Sha256Hash.create(metadata.hostId.getBytes()), new PaymentChannelClient.ClientConnection() {
 				@Override
 				public void sendToServer(Protos.TwoWayChannelMessage msg) {
@@ -163,7 +159,7 @@ public class ChannelService extends Service {
 			metadata.client = null;
 			try {
 				metadata.listener.channelOpenFailed();
-			} catch (RemoteException e1) { }
+			} catch (RemoteException ignored) {}
 			closeConnection(cookie, false, true);
 		}
 	}
