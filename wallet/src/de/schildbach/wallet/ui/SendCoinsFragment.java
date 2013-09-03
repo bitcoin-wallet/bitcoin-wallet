@@ -37,6 +37,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.ContentObserver;
 import android.database.Cursor;
+import android.media.RingtoneManager;
 import android.net.Uri;
 import android.nfc.NfcAdapter;
 import android.os.Bundle;
@@ -819,6 +820,10 @@ public final class SendCoinsFragment extends SherlockFragment
 					{
 						if (transaction != null)
 						{
+							// play sound effect
+							RingtoneManager.getRingtone(activity,
+									Uri.parse("android.resource://" + activity.getPackageName() + "/" + R.raw.send_coins)).play();
+
 							sentTransaction = transaction;
 
 							state = State.SENDING;
