@@ -109,8 +109,8 @@
 	<string name="transaction_row_message_received_unconfirmed_locked">This payment is not standard and should not be trusted.</string>
 	<string name="transaction_row_message_received_dead">This payment has been reversed by the sender.</string>
 	<string name="transaction_row_message_received_dust">This small amount can probably never be spent economically.</string>
-	<string name="transaction_row_message_channel_locked">This payment locks in a micropayment channel and could be partially refunded.</string>
-	<string name="transaction_row_message_channel_unlock_unconfirmed">The returned value of this channel should become spendable in a few minutes.</string>
+	<string name="transaction_row_message_channel_locked">This is money reserved for an app and could be partially refunded.</string>
+	<string name="transaction_row_message_channel_unlock_unconfirmed">The returned value from this app should become spendable in a few minutes.</string>
 	<string name="amount_calculator_dialog_title">Currency calculator</string>
 	<string name="amount_calculator_dialog_button_use">Use</string>
 	<string name="amount_calculator_dialog_exchange_rate">BTC 1 is worth about %1$s %2$s\nPrice fetched from %3$s</string>
@@ -193,10 +193,10 @@
 	<string name="about_credits_market_publisher_title">Other Apps of Author</string>
 	<string name="notification_coins_received_msg">Received BTC %s</string>
 	<string name="notification_peers_connected_msg">%d peers connected</string>
-	<string name="channel_request_activity_title">Open Payment Channel</string>
+	<string name="channel_request_activity_title">Allow app reservation</string>
 	<string name="channel_request_intro">%1$s would like to temporarily reserve at least %2$s %3$s from your wallet. Any unused money will be released back to your wallet. If you would like to allow the app to spend more without asking, you may specify a larger amount below.</string>
 	<string name="channel_request_max_payment">Maximum amount to pay</string>
-	<string name="send_coins_fragment_channel_label">Minimum for channel</string>
+	<string name="send_coins_fragment_channel_label">Minimum for app</string>
 
 	<!-- generic buttons -->
 	<string name="button_ok">OK</string>
