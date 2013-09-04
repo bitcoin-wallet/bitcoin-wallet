@@ -410,7 +410,8 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 
 		// Handles all actual business logic, extracted out and static to enable easier testing
 		public static List<Transaction> getTransactionList(Set<Transaction> allTransactions, Wallet wallet,
-														   PaymentChannelContractToCreatorMap contractToCreatorMap, @Nullable Direction direction)
+														   PaymentChannelContractToCreatorMap contractToCreatorMap,
+														   @Nullable Direction direction)
 		{
 			final List<Transaction> filteredTransactions = new ArrayList<Transaction>(allTransactions.size());
 
@@ -419,20 +420,9 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 				for (final Transaction tx : allTransactions)
 				{
 					final boolean sent = tx.getValue(wallet).signum() < 0;
-					if ((direction == Direction.RECEIVED && !sent) || direction == null || (direction == Direction.SENT && sent)) {
-						// Skip payment channel refund/payment transactions (those are handled by the contract tx)
-						boolean isPaymentChannelSpend = false;
-						for (TransactionInput input : tx.getInputs()) {
-							if (contractToCreatorMap.getCreatorApp(input.getOutpoint().getHash()) != null) {
-								isPaymentChannelSpend = true;
-								if (input.getConnectedOutput() != null)
-									log.debug("Skipping payment channel spend with connected output " + input.getOutpoint().getHash());
-								else
-									log.debug("Skipping payment channel spend without connected output " + input.getOutpoint().getHash());
-								break;
-							}
-						}
-						if (!isPaymentChannelSpend)
+					if ((direction == Direction.RECEIVED && !sent) || direction == null || (direction == Direction.SENT && sent))
+					{
+						if (!shouldSuppressTx(contractToCreatorMap, tx))
 							filteredTransactions.add(tx);
 					}
 				}
@@ -445,6 +435,38 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 			Collections.sort(filteredTransactions, TRANSACTION_COMPARATOR);
 
 			return filteredTransactions;
+		}
+
+		private static boolean shouldSuppressTx(PaymentChannelContractToCreatorMap contractToCreatorMap, Transaction tx)
+		{
+			// A payment channel is composed of two transactions: the contract, which puts money into a
+			// shared pot, and the refund, which settles the final balance on the blockchain. We don't
+			// want to show this complexity in the UI, so we render only the contract tx and suppress the
+			// refund tx. To find out if the current tx is a refund, we can see if it spends a contract.
+			//
+			// However, there is an edge case we must handle: if a payment channel is opened,
+			// closed and another one is opened, the second contract will spend the refund of the first. So
+			// we check for contract-ness first, and then refund-ness.
+			if (contractToCreatorMap.getCreatorApp(tx.getHash()) != null)
+				return false;
+
+			for (TransactionInput input : tx.getInputs())
+			{
+				final String creatorOfConnectedOutput = contractToCreatorMap.getCreatorApp(input.getOutpoint().getHash());
+				if (creatorOfConnectedOutput == null)
+					continue;
+				if (log.isDebugEnabled())
+				{
+					if (input.getConnectedOutput() != null)
+						log.debug("Skipping payment channel spend {} for '{}' with connected output {}",
+								tx.getHashAsString(), creatorOfConnectedOutput, input.getOutpoint().getHash());
+					else
+						log.debug("Skipping payment channel spend {} for '{}' without connected output {}",
+								tx.getHashAsString(), creatorOfConnectedOutput, input.getOutpoint().getHash());
+				}
+				return true;
+			}
+			return false;
 		}
 
 		@Override
