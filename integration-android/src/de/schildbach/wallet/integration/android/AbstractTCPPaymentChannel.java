@@ -18,15 +18,15 @@ import static com.google.common.base.Preconditions.checkState;
 public abstract class AbstractTCPPaymentChannel implements ChannelListener {
 	private static final String TAG = AbstractTCPPaymentChannel.class.getName();
 
-	BitcoinPaymentChannelManager channel;
-	Thread readThread;
-	Socket socket;
+	protected BitcoinPaymentChannelManager channel;
+    protected Thread readThread;
+    protected Socket socket;
 
-	SocketAddress remoteAddress;
-	int connectTimeoutMillis;
-	List<byte[]> protobufsToSend = new LinkedList<byte[]>();
+    protected SocketAddress remoteAddress;
+    protected int connectTimeoutMillis;
+    protected List<byte[]> protobufsToSend = new LinkedList<byte[]>();
 
-	boolean gaveupConnecting = false;
+    protected boolean gaveupConnecting = false;
 
 	private synchronized void closeSocket() {
 		try {
@@ -91,6 +91,7 @@ public abstract class AbstractTCPPaymentChannel implements ChannelListener {
 			}
 		});
 		readThread.setName("tcp-paymentchannel-read");
+        readThread.setDaemon(true);
 		readThread.start();
 	}
 
@@ -103,7 +104,7 @@ public abstract class AbstractTCPPaymentChannel implements ChannelListener {
 	}
 
 	/**
-	 * 	 * Blocks until the connection has opened, or throws an IOException if it failed.
+	 * Blocks until the connection has opened, or throws an IOException if it failed.
 	 */
 	public synchronized void connect(BitcoinPaymentChannelManager channel) throws IOException {
 		this.channel = channel;
@@ -131,15 +132,13 @@ public abstract class AbstractTCPPaymentChannel implements ChannelListener {
 
 	public void channelClosedOrNotOpened() {
 		closeSocket();
-		channelClosedOrNotOpenedCalled();
 	}
 
 	public void channelInterrupted() {
 		closeSocket();
-		channelInterruptedCalled();
 	}
 
-	abstract public void channelOpen(byte[] contractHash);
-	abstract public void channelInterruptedCalled();
-	abstract public void channelClosedOrNotOpenedCalled();
+	public void channelOpen(byte[] contractHash) {
+
+    }
 }

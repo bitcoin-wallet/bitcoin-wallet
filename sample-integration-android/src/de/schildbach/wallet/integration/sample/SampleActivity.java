@@ -54,7 +54,6 @@ public class SampleActivity extends Activity
 	// Amounts in satoshis
 	public static final int COIN = 10000000;
 	public static final int CENT = COIN / 100;
-	public static final int MILLI = CENT / 10;
 
 	private Button donateButton;
 	private TextView donateMessage;
@@ -150,6 +149,8 @@ public class SampleActivity extends Activity
 	private void attemptChannelOpen() {
 		final String host = hostText.getText().toString();
 
+        openChannelButton.setEnabled(false);
+
 		// The minimum amount we're going to ask the user to authorize us for. In this case, 10 millibits. The server
 		// is allowed to have a minimum channel size it's willing to tolerate - if here we ask the user for less than
 		// what the server allows, the channel can fail to build entirely, so it's best if we're a bit pushy here and
@@ -178,14 +179,15 @@ public class SampleActivity extends Activity
 							public void run() {
 								payChannelButton.setEnabled(true);
 								closeChannelButton.setEnabled(true);
-								openChannelButton.setEnabled(false);
 								hostText.setEnabled(false);
 								Toast.makeText(SampleActivity.this, "Channel opened " + hexEncodeHash(contractHash), Toast.LENGTH_SHORT).show();
 							}
 						});
 					}
 
-					public void channelInterruptedCalled() {
+                    @Override
+					public void channelInterrupted() {
+                        super.channelInterrupted();
 						SampleActivity.this.runOnUiThread(new Runnable() {
 							public void run() {
 								Toast.makeText(SampleActivity.this, "Channel interrupted, will reconnect on pay", Toast.LENGTH_LONG).show();
@@ -193,7 +195,9 @@ public class SampleActivity extends Activity
 						});
 					}
 
-					public void channelClosedOrNotOpenedCalled() {
+                    @Override
+					public void channelClosedOrNotOpened() {
+                        super.channelClosedOrNotOpened();
 						channel = null;
 						SampleActivity.this.runOnUiThread(new Runnable() {
 							public void run() {
