@@ -202,10 +202,13 @@ public class WalletApplication extends Application
 		logcatAppender.setEncoder(logcatPattern);
 		logcatAppender.start();
 
-		final ch.qos.logback.classic.Logger log = context.getLogger(Logger.ROOT_LOGGER_NAME);
-		log.addAppender(fileAppender);
-		log.addAppender(logcatAppender);
-		log.setLevel(Level.INFO);
+		final ch.qos.logback.classic.Logger allLogging = context.getLogger(Logger.ROOT_LOGGER_NAME);
+		allLogging.addAppender(fileAppender);
+		allLogging.addAppender(logcatAppender);
+		allLogging.setLevel(Level.INFO);
+
+		final ch.qos.logback.classic.Logger appLogging = context.getLogger("de.schildbach.wallet");
+		appLogging.setLevel(Level.INFO);
 	}
 
 	private static final class WalletAutosaveEventListener implements WalletFiles.Listener
@@ -279,6 +282,8 @@ public class WalletApplication extends Application
 				new WalletProtobufSerializer().readWallet(WalletProtobufSerializer.parseToProto(walletStream), wallet);
 
 				log.info("wallet loaded from: '" + walletFile + "', took " + (System.currentTimeMillis() - start) + "ms");
+				if (log.isDebugEnabled())
+					log.debug(wallet.toString(false, true, true, null));
 			}
 			catch (final IOException x)
 			{
