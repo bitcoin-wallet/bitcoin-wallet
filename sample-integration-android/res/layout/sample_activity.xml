@@ -53,7 +53,7 @@
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:layout_gravity="center_horizontal"
-				android:text="Pay 6000 satoshis" />
+				android:text="Pay 30,000 satoshis" />
 		<Button
 				android:id="@+id/close_channel_button"
 				style="@android:style/TextAppearance.Large"

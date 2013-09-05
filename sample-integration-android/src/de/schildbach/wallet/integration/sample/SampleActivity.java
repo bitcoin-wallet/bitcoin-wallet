@@ -108,10 +108,10 @@ public class SampleActivity extends Activity
 		});
 
 		payChannelButton.setOnClickListener(new OnClickListener() {
-			// Pay at least the min output value to avoid the case where not enough value is sent to actually close the
-			// channel (eg dust output would be created). In a real app of course, you would just avoid getting
-			// into a situation where the payments are so small the transaction can't ever be confirmed.
-			final long amount = 6000;
+			// Pay at least this to avoid the case where not enough value is sent to actually
+			// close the channel. That can happen if the final contract transaction would have to pay more in fees
+            // than it's actually worth.
+			final long amount = 30000;
 			public void onClick(View v) {
 				Futures.addCallback(channel.sendMoney(amount), new FutureCallback<Long>() {
 					public void onSuccess(final Long nanoCoinsSent) {
