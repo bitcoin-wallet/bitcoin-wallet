@@ -184,34 +184,6 @@ public class ChannelService extends Service {
 		}
 	}
 
-	/** Called by {@link de.schildbach.wallet.ui.ChannelRequestActivity} to notify get data about a request */
-	public String getAppNameByChannel(String id) {
-		lock.lock();
-		try {
-			ChannelAndMetadata channel = cookieToChannelMap.get(id);
-			if (channel != null)
-				return channel.appName;
-			else
-				return null;
-		} finally {
-			lock.unlock();
-		}
-	}
-
-	/** Called by {@link de.schildbach.wallet.ui.ChannelRequestActivity} to notify get data about a request */
-	public String getAppIdByChannel(String id) {
-		lock.lock();
-		try {
-			ChannelAndMetadata channel = cookieToChannelMap.get(id);
-			if (channel != null)
-				return channel.appId;
-			else
-				return null;
-		} finally {
-			lock.unlock();
-		}
-	}
-
 	// There are two potential clients to this service - the local confirmation activity which uses getService() to call
 	// allowConnection and external apps which call IChannelRemoteService methods.
 	// The calls made to this class (except for getService()) are run in an android thread pool, so should all be
