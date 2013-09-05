@@ -133,7 +133,7 @@ public final class BitcoinPaymentChannelManager
 				if (runChannelClosed)
 					executorService.submit(new Runnable() {
 						public void run() {
-							clientListener.channelClosedOrNotOpened();
+                            clientListener.channelClosedOrNotOpened(ChannelListener.CloseReason.NO_WALLET_APP);
 						}
 					});
 			} else {
@@ -142,7 +142,7 @@ public final class BitcoinPaymentChannelManager
 			}
 			return false; // Next time wait until you get the connected callback
 		}
-		return state == ChannelState.CHANNEL_OPEN || (state == ChannelState.CHANNEL_OPENING && openingOk);
+		return state == ChannelState.CHANNEL_OPEN || state == ChannelState.CHANNEL_OPENING;
 	}
 
 	/**
@@ -168,11 +168,13 @@ public final class BitcoinPaymentChannelManager
 	/**
 	 * Closes the connection to the wallet app and optionally also asks for the payment channel to be closed too. If the
 	 * connection to the server dies, call this to enable the state to be resumed later. May generate a
-	 * {@link ChannelListener#channelClosedOrNotOpened()} or {@link ChannelListener#channelInterrupted()} callback if
+	 * {@link ChannelListener#channelClosedOrNotOpened} or {@link ChannelListener#channelInterrupted()} callback if
 	 * relevant.
 	 */
 	public synchronized void disconnectFromWallet(boolean closeChannel) {
 		if (closeChannel) {
+            boolean runChannelClosed = state != ChannelState.CHANNEL_CLOSED;
+            state = ChannelState.CHANNEL_CLOSED;
 			Log.d(TAG, "Attempting to close channel and associated service binding");
 			try {
 				if (remoteService != null)
@@ -181,12 +183,10 @@ public final class BitcoinPaymentChannelManager
 				// In this case it is not worth trying to reconnect just to close the channel, we leave it to the wallet
 				// to figure it out.
 			}
-			boolean runChannelClosed = state != ChannelState.CHANNEL_CLOSED;
-			state = ChannelState.CHANNEL_CLOSED;
 			if (runChannelClosed)
 				executorService.submit(new Runnable() {
 					public void run() {
-						clientListener.channelClosedOrNotOpened();
+                        clientListener.channelClosedOrNotOpened(ChannelListener.CloseReason.CLIENT_REQUESTED_CLOSE);
 					}
 				});
 		} else {
@@ -353,7 +353,7 @@ public final class BitcoinPaymentChannelManager
 				});
 			}
 
-			public void closeConnection() throws RemoteException {
+			public void closeConnection(final int reason) throws RemoteException {
 				doUnbind();
 				boolean runChannelClosed;
 				synchronized (BitcoinPaymentChannelManager.this) {
@@ -361,12 +361,14 @@ public final class BitcoinPaymentChannelManager
 					state = ChannelState.CHANNEL_CLOSED;
 				}
 				// Use the executor service to ensure callbacks are processed in order
-				if (runChannelClosed)
+				if (runChannelClosed) {
+                    final ChannelListener.CloseReason r = ChannelListener.CloseReason.from(reason);
 					executorService.submit(new Runnable() {
 						public void run() {
-							clientListener.channelClosedOrNotOpened();
+							clientListener.channelClosedOrNotOpened(r);
 						}
 					});
+                }
 			}
 		};
 
@@ -428,7 +430,7 @@ public final class BitcoinPaymentChannelManager
 	/**
 	 * <p>Attempts to send the given amount to the server. If there is not enough value left in the channel, the
 	 * remaining value will be sent and the application is expected to open a new channel if it wishes to send the rest
-	 * (a {@link ChannelListener#channelClosedOrNotOpened()} callback will be generated before the future returns).</p>
+	 * (a {@link ChannelListener#channelClosedOrNotOpened(int)} callback will be generated before the future returns).</p>
 	 *
 	 * <p>If the channel is not currently open, no value is sent and reconnection will be attempted. In this case, the
 	 * caller is expected to time the channel out after some reasonable period, just as for initial channel creation</p>
@@ -448,7 +450,7 @@ public final class BitcoinPaymentChannelManager
 	/**
 	 * Closes this channel, attempts to notify the server that the channel can be fully claimed. After this call, calls
 	 * to {@link BitcoinPaymentChannelManager#sendMoney(long)} will fail and no reconnection attempts will be made. A
-	 * {@link ChannelListener#channelClosedOrNotOpened()} callback will be generated.
+	 * {@link ChannelListener#channelClosedOrNotOpened} callback will be generated.
 	 */
 	public void closeChannel() {
 		executorService.submit(new Runnable() {

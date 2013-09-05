@@ -35,6 +35,7 @@ import com.google.common.util.concurrent.Futures;
 import de.schildbach.wallet.integration.android.AbstractTCPPaymentChannel;
 import de.schildbach.wallet.integration.android.BitcoinIntegration;
 import de.schildbach.wallet.integration.android.BitcoinPaymentChannelManager;
+import de.schildbach.wallet.integration.android.ChannelListener;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -141,6 +142,7 @@ public class SampleActivity extends Activity
 		closeChannelButton.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				channel.closeChannel();
+                channel = null;
 			}
 		});
 		closeChannelButton.setEnabled(false);
@@ -169,12 +171,15 @@ public class SampleActivity extends Activity
 			public void success() {
 				// We got authorized! Use the helper library to set up a simple TCP messaging socket.
 				AbstractTCPPaymentChannel channelListener = new AbstractTCPPaymentChannel(new InetSocketAddress(host, 4242), 15 * 1000) {
+                    boolean wasOpened = false;
+
 					public void channelOpen(final byte[] contractHash) {
 						if (contractHash.length != 32) {
 							// A real app should securely contact the server and verify contractHash here
 							channel.closeChannel();
 							return;
 						}
+                        wasOpened = true;
 						SampleActivity.this.runOnUiThread(new Runnable() {
 							public void run() {
 								payChannelButton.setEnabled(true);
@@ -196,8 +201,8 @@ public class SampleActivity extends Activity
 					}
 
                     @Override
-					public void channelClosedOrNotOpened() {
-                        super.channelClosedOrNotOpened();
+					public void channelClosedOrNotOpened(final ChannelListener.CloseReason reason) {
+                        super.channelClosedOrNotOpened(reason);
 						channel = null;
 						SampleActivity.this.runOnUiThread(new Runnable() {
 							public void run() {
@@ -205,7 +210,10 @@ public class SampleActivity extends Activity
 								closeChannelButton.setEnabled(false);
 								openChannelButton.setEnabled(true);
 								hostText.setEnabled(true);
-								Toast.makeText(SampleActivity.this, "Channel closed or not opened", Toast.LENGTH_LONG).show();
+                                if (wasOpened)
+								    Toast.makeText(SampleActivity.this, "Channel closed: " + reason, Toast.LENGTH_LONG).show();
+                                else
+                                    Toast.makeText(SampleActivity.this, "Channel failed to open: " + reason, Toast.LENGTH_LONG).show();
 							}
 						});
 						// A real app may wish to retry opening a new channel here

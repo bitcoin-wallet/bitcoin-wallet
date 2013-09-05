@@ -38,5 +38,5 @@ oneway interface IChannelCallback {
     void sendProtobuf(in byte[] protobuf);
 
     /** Called when the connection to the server should be closed due to server request, client request, or error */
-    void closeConnection();
+    void closeConnection(int reason);
 }

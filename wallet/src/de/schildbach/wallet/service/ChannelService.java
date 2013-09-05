@@ -119,65 +119,49 @@ public class ChannelService extends Service {
 		// TODO: Using a constant key for everything is very broken in many sense, at a minimum a large keypool can be
 		// created once that is used forever, but, realistically, an HD wallet should be used.
 		ECKey key = WalletUtils.pickOldestKey(walletApplication.getWallet());
+        metadata.client = new PaymentChannelClient(walletApplication.getWallet(), key, BigInteger.valueOf(maxValue),
+                Sha256Hash.create(metadata.hostId.getBytes()), new PaymentChannelClient.ClientConnection() {
+            @Override
+            public void sendToServer(Protos.TwoWayChannelMessage msg) {
+                try {
+                    metadata.listener.sendProtobuf(msg.toByteArray());
+                } catch (RemoteException e) {
+                    closeConnection(cookie, false);
+                }
+            }
 
-		try {
-			metadata.client = new PaymentChannelClient(walletApplication.getWallet(), key, BigInteger.valueOf(maxValue),
-					Sha256Hash.create(metadata.hostId.getBytes()), new PaymentChannelClient.ClientConnection() {
-				@Override
-				public void sendToServer(Protos.TwoWayChannelMessage msg) {
-					try {
-						metadata.listener.sendProtobuf(msg.toByteArray());
-					} catch (RemoteException e) {
-						closeConnection(cookie, false, true);
-					}
-				}
+            @Override
+            public void destroyConnection(PaymentChannelCloseException.CloseReason reason) {
+                try {
+                    metadata.listener.closeConnection(reason.ordinal());
+                } catch (RemoteException e) {
+                    closeConnection(cookie, false);
+                }
+            }
 
-				@Override
-				public void destroyConnection(PaymentChannelCloseException.CloseReason reason) {
-					try {
-						metadata.listener.closeConnection();
-					} catch (RemoteException e) {
-						closeConnection(cookie, false, true);
-					}
-				}
-
-				@Override
-				public void channelOpen() {
-					log.info("Successfully opened payment channel");
-					walletApplication.getContractHashToCreatorMap().setCreatorApp(metadata.client.state().getMultisigContract().getHash(),
-							metadata.appName);
-					try {
-						metadata.listener.channelOpen(metadata.client.state().getMultisigContract().getHash().getBytes());
-					} catch (RemoteException e) {
-						closeConnection(cookie, false, true);
-					}
-				}
-			});
-			metadata.client.connectionOpen();
-		} catch (Exception e) {
-			log.error("Failed to open payment channel", e);
-			metadata.client = null;
-			try {
-				metadata.listener.channelOpenFailed();
-			} catch (RemoteException ignored) {}
-			closeConnection(cookie, false, true);
-		}
+            @Override
+            public void channelOpen() {
+                log.info("Successfully opened payment channel");
+                walletApplication.getContractHashToCreatorMap().setCreatorApp(metadata.client.state().getMultisigContract().getHash(),
+                        metadata.appName);
+                try {
+                    metadata.listener.channelOpen(metadata.client.state().getMultisigContract().getHash().getBytes());
+                } catch (RemoteException e) {
+                    closeConnection(cookie, false);
+                }
+            }
+        });
+        metadata.client.connectionOpen();
 	}
 
 	// Closes the given connection and removes it from the pool
 	@GuardedBy("lock")
-	private void closeConnection(String id, boolean generateServerClose, boolean generateClientCloseConnection) {
+	private void closeConnection(String id, boolean generateServerClose) {
 		checkState(lock.isHeldByCurrentThread());
 
 		ChannelAndMetadata channel = cookieToChannelMap.remove(id);
 		if (channel == null || channel.client == null)
 			return;
-		try {
-			if (generateClientCloseConnection)
-				channel.listener.closeConnection();
-		} catch (RemoteException e) {
-			// Client went away, guess they probably closed the connection too
-		}
 		try {
 			if (generateServerClose)
 				channel.client.close();
@@ -344,7 +328,7 @@ public class ChannelService extends Service {
 			log.info("App requested channel close");
 			lock.lock();
 			try {
-				ChannelService.this.closeConnection(cookie, true, false);
+				ChannelService.this.closeConnection(cookie, true);
 			} finally {
 				lock.unlock();
 			}
@@ -358,7 +342,7 @@ public class ChannelService extends Service {
 			log.info("App is disconnecting from channel");
 			lock.lock();
 			try {
-				ChannelService.this.closeConnection(cookie, false, false);
+				ChannelService.this.closeConnection(cookie, false);
 			} finally {
 				lock.unlock();
 			}

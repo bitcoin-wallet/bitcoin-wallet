@@ -130,7 +130,7 @@ public abstract class AbstractTCPPaymentChannel implements ChannelListener {
 		}
 	}
 
-	public void channelClosedOrNotOpened() {
+	public void channelClosedOrNotOpened(ChannelListener.CloseReason reason) {
 		closeSocket();
 	}
 
