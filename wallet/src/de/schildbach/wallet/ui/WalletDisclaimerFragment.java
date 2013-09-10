@@ -18,6 +18,10 @@
 package de.schildbach.wallet.ui;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
@@ -33,6 +37,7 @@ import android.view.ViewParent;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.service.BlockchainService;
 import de.schildbach.wallet_test.R;
 
 /**
@@ -42,6 +47,8 @@ public final class WalletDisclaimerFragment extends Fragment implements OnShared
 {
 	private Activity activity;
 	private SharedPreferences prefs;
+
+	private int download;
 
 	private TextView messageView;
 
@@ -82,12 +89,16 @@ public final class WalletDisclaimerFragment extends Fragment implements OnShared
 
 		prefs.registerOnSharedPreferenceChangeListener(this);
 
+		activity.registerReceiver(broadcastReceiver, new IntentFilter(BlockchainService.ACTION_BLOCKCHAIN_STATE));
+
 		updateView();
 	}
 
 	@Override
 	public void onPause()
 	{
+		activity.unregisterReceiver(broadcastReceiver);
+
 		prefs.unregisterOnSharedPreferenceChangeListener(this);
 
 		super.onPause();
@@ -105,7 +116,21 @@ public final class WalletDisclaimerFragment extends Fragment implements OnShared
 		final boolean showBackup = prefs.getBoolean(Constants.PREFS_KEY_REMIND_BACKUP, true);
 		final boolean showSafety = prefs.getBoolean(Constants.PREFS_KEY_DISCLAIMER, true);
 
+		final int progressResId;
+		if (download == BlockchainService.ACTION_BLOCKCHAIN_STATE_DOWNLOAD_OK)
+			progressResId = 0;
+		else if ((download & BlockchainService.ACTION_BLOCKCHAIN_STATE_DOWNLOAD_STORAGE_PROBLEM) != 0)
+			progressResId = R.string.blockchain_state_progress_problem_storage;
+		else if ((download & BlockchainService.ACTION_BLOCKCHAIN_STATE_DOWNLOAD_NETWORK_PROBLEM) != 0)
+			progressResId = R.string.blockchain_state_progress_problem_network;
+		else
+			throw new IllegalStateException("download=" + download);
+
 		final SpannableStringBuilder text = new SpannableStringBuilder();
+		if (progressResId != 0)
+			text.append(Html.fromHtml("<b>" + getString(progressResId) + "</b>"));
+		if (progressResId != 0 && (showBackup || showSafety))
+			text.append('\n');
 		if (showBackup)
 			text.append(Html.fromHtml(getString(R.string.wallet_disclaimer_fragment_remind_backup)));
 		if (showBackup && showSafety)
@@ -117,6 +142,19 @@ public final class WalletDisclaimerFragment extends Fragment implements OnShared
 		final View view = getView();
 		final ViewParent parent = view.getParent();
 		final View fragment = parent instanceof FrameLayout ? (FrameLayout) parent : view;
-		fragment.setVisibility(showBackup || showSafety ? View.VISIBLE : View.GONE);
+		fragment.setVisibility(text.length() > 0 ? View.VISIBLE : View.GONE);
+	}
+
+	private final BlockchainBroadcastReceiver broadcastReceiver = new BlockchainBroadcastReceiver();
+
+	private final class BlockchainBroadcastReceiver extends BroadcastReceiver
+	{
+		@Override
+		public void onReceive(final Context context, final Intent intent)
+		{
+			download = intent.getIntExtra(BlockchainService.ACTION_BLOCKCHAIN_STATE_DOWNLOAD, BlockchainService.ACTION_BLOCKCHAIN_STATE_DOWNLOAD_OK);
+
+			updateView();
+		}
 	}
 }
