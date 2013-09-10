@@ -70,7 +70,7 @@
 	<string name="send_coins_fragment_amount_error">Ungültiger Betrag!</string>
 	<string name="send_coins_fragment_bluetooth_message">Die Zahlung wird auch über Bluetooth gesendet.</string>
 	<string name="send_coins_fragment_bluetooth_ack">Die Zahlung wurde erfolgreich über Bluetooth gesendet.</string>
-	<string name="send_coins_fragment_bluetooth_ack">Die Zahlung wurde über Bluetooth abgelehnt.</string>
+	<string name="send_coins_fragment_bluetooth_nack">Die Zahlung wurde über Bluetooth abgelehnt.</string>
 	<string name="send_coins_fragment_button_send">Senden</string>
 	<string name="send_coins_fragment_button_back">Zurück</string>
 	<string name="send_coins_preparation_msg">Signierung…</string>
