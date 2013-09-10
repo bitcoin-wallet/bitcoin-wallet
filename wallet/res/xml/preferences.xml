@@ -56,7 +56,7 @@
 		<CheckBoxPreference
 			android:defaultValue="false"
 			android:key="labs_bluetooth_offline_transactions"
-			android:summary="Send and accept signed transactions via Bluetooth radio."
+			android:summary="Accept signed transactions via Bluetooth radio."
 			android:title="Bluetooth offline transactions" />
 	</PreferenceCategory>
 

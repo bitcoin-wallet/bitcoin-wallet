@@ -58,6 +58,9 @@ import android.view.View.OnFocusChangeListener;
 import android.view.ViewGroup;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.CursorAdapter;
 import android.widget.ListView;
 import android.widget.PopupWindow;
@@ -115,6 +118,7 @@ public final class SendCoinsFragment extends SherlockFragment
 	private View receivingStaticView;
 	private TextView receivingStaticAddressView;
 	private TextView receivingStaticLabelView;
+	private CheckBox bluetoothEnableView;
 
 	private TextView bluetoothMessageView;
 	private ListView sentTransactionView;
@@ -401,6 +405,21 @@ public final class SendCoinsFragment extends SherlockFragment
 		localAmountView.setHintPrecision(Constants.LOCAL_PRECISION);
 		amountCalculatorLink = new CurrencyCalculatorLink(btcAmountView, localAmountView);
 
+		bluetoothEnableView = (CheckBox) view.findViewById(R.id.send_coins_bluetooth_enable);
+		bluetoothEnableView.setChecked(bluetoothAdapter != null && bluetoothAdapter.isEnabled());
+		bluetoothEnableView.setOnCheckedChangeListener(new OnCheckedChangeListener()
+		{
+			@Override
+			public void onCheckedChanged(final CompoundButton buttonView, final boolean isChecked)
+			{
+				if (isChecked && !bluetoothAdapter.isEnabled())
+				{
+					// try to enable bluetooth
+					startActivityForResult(new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE), REQUEST_CODE_ENABLE_BLUETOOTH);
+				}
+			}
+		});
+
 		bluetoothMessageView = (TextView) view.findViewById(R.id.send_coins_bluetooth_message);
 
 		sentTransactionView = (ListView) view.findViewById(R.id.send_coins_sent_transaction);
@@ -598,9 +617,9 @@ public final class SendCoinsFragment extends SherlockFragment
 	@Override
 	public void onActivityResult(final int requestCode, final int resultCode, final Intent intent)
 	{
-		if (resultCode == Activity.RESULT_OK)
+		if (requestCode == REQUEST_CODE_SCAN)
 		{
-			if (requestCode == REQUEST_CODE_SCAN)
+			if (resultCode == Activity.RESULT_OK)
 			{
 				final String input = intent.getStringExtra(ScanActivity.INTENT_EXTRA_RESULT);
 
@@ -625,10 +644,10 @@ public final class SendCoinsFragment extends SherlockFragment
 					}
 				}.parse();
 			}
-			else if (requestCode == REQUEST_CODE_ENABLE_BLUETOOTH)
-			{
-				backgroundHandler.post(sendBluetoothRunnable);
-			}
+		}
+		else if (requestCode == REQUEST_CODE_ENABLE_BLUETOOTH)
+		{
+			bluetoothEnableView.setChecked(resultCode == Activity.RESULT_OK);
 		}
 	}
 
@@ -831,20 +850,8 @@ public final class SendCoinsFragment extends SherlockFragment
 
 							sentTransaction.getConfidence().addEventListener(sentTransactionConfidenceListener);
 
-							final boolean labsBluetoothOfflineTransactions = prefs.getBoolean(
-									Constants.PREFS_KEY_LABS_BLUETOOTH_OFFLINE_TRANSACTIONS, false);
-							if (bluetoothAdapter != null && bluetoothMac != null && labsBluetoothOfflineTransactions)
-							{
-								if (bluetoothAdapter.isEnabled())
-								{
-									backgroundHandler.post(sendBluetoothRunnable);
-								}
-								else
-								{
-									// try to enable bluetooth
-									startActivityForResult(new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE), REQUEST_CODE_ENABLE_BLUETOOTH);
-								}
-							}
+							if (bluetoothAdapter != null && bluetoothAdapter.isEnabled() && bluetoothEnableView.isChecked())
+								backgroundHandler.post(sendBluetoothRunnable);
 
 							activity.getBlockchainService().broadcastTransaction(sentTransaction);
 
@@ -904,6 +911,10 @@ public final class SendCoinsFragment extends SherlockFragment
 					public void run()
 					{
 						bluetoothAck = ack;
+
+						if (state == State.SENDING)
+							state = State.SENT;
+
 						updateView();
 					}
 				});
@@ -1041,6 +1052,9 @@ public final class SendCoinsFragment extends SherlockFragment
 
 		amountCalculatorLink.setEnabled(state == State.INPUT);
 
+		bluetoothEnableView.setVisibility(bluetoothAdapter != null && bluetoothMac != null ? View.VISIBLE : View.GONE);
+		bluetoothEnableView.setEnabled(state == State.INPUT);
+
 		if (sentTransaction != null)
 		{
 			sentTransactionView.setVisibility(View.VISIBLE);
@@ -1053,13 +1067,10 @@ public final class SendCoinsFragment extends SherlockFragment
 			sentTransactionListAdapter.clear();
 		}
 
-		if (bluetoothMac != null)
+		if (bluetoothAck != null)
 		{
 			bluetoothMessageView.setVisibility(View.VISIBLE);
-			if (bluetoothAck == null)
-				bluetoothMessageView.setText(R.string.send_coins_fragment_bluetooth_message);
-			else
-				bluetoothMessageView.setText(bluetoothAck ? R.string.send_coins_fragment_bluetooth_ack : R.string.send_coins_fragment_bluetooth_nack);
+			bluetoothMessageView.setText(bluetoothAck ? R.string.send_coins_fragment_bluetooth_ack : R.string.send_coins_fragment_bluetooth_nack);
 		}
 		else
 		{
