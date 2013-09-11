@@ -19,6 +19,8 @@ package de.schildbach.wallet.util;
 
 import java.util.UUID;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author Andreas Schildbach
  */
@@ -27,12 +29,12 @@ public class Bluetooth
 	public static final UUID BLUETOOTH_UUID = UUID.fromString("3357A7BB-762D-464A-8D9A-DCA592D57D5B");
 	public static final String MAC_URI_PARAM = "bt";
 
-	public static String compressMac(final String mac)
+	public static String compressMac(@Nonnull final String mac)
 	{
 		return mac.replaceAll(":", "");
 	}
 
-	public static String decompressMac(final String compressedMac)
+	public static String decompressMac(@Nonnull final String compressedMac)
 	{
 		final StringBuilder mac = new StringBuilder();
 		for (int i = 0; i < compressedMac.length(); i += 2)

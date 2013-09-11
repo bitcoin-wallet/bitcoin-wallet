@@ -29,6 +29,8 @@ import java.util.Formatter;
 import java.util.List;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -65,7 +67,7 @@ public class CrashReporter
 
 	private static final Logger log = LoggerFactory.getLogger(CrashReporter.class);
 
-	public static void init(final File cacheDir)
+	public static void init(@Nonnull final File cacheDir)
 	{
 		backgroundTracesFile = new File(cacheDir, BACKGROUND_TRACES_FILENAME);
 		crashTraceFile = new File(cacheDir, CRASH_TRACE_FILENAME);
@@ -79,7 +81,7 @@ public class CrashReporter
 		return backgroundTracesFile.exists();
 	}
 
-	public static void appendSavedBackgroundTraces(final Appendable report) throws IOException
+	public static void appendSavedBackgroundTraces(@Nonnull final Appendable report) throws IOException
 	{
 		BufferedReader reader = null;
 
@@ -102,7 +104,7 @@ public class CrashReporter
 		return crashTraceFile.exists();
 	}
 
-	public static void appendSavedCrashTrace(final Appendable report) throws IOException
+	public static void appendSavedCrashTrace(@Nonnull final Appendable report) throws IOException
 	{
 		BufferedReader reader = null;
 
@@ -120,7 +122,7 @@ public class CrashReporter
 		}
 	}
 
-	public static void appendSavedCrashApplicationLog(final Appendable report) throws IOException
+	public static void appendSavedCrashApplicationLog(@Nonnull final Appendable report) throws IOException
 	{
 		BufferedReader reader = null;
 
@@ -138,7 +140,7 @@ public class CrashReporter
 		}
 	}
 
-	private static void copy(final BufferedReader in, final Appendable out) throws IOException
+	private static void copy(@Nonnull final BufferedReader in, @Nonnull final Appendable out) throws IOException
 	{
 		while (true)
 		{
@@ -150,7 +152,7 @@ public class CrashReporter
 		}
 	}
 
-	public static void appendDeviceInfo(final Appendable report, final Context context) throws IOException
+	public static void appendDeviceInfo(@Nonnull final Appendable report, final Context context) throws IOException
 	{
 		final Resources res = context.getResources();
 		final Configuration config = res.getConfiguration();
@@ -180,7 +182,7 @@ public class CrashReporter
 				+ (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB ? "/" + largeMemoryClass(activityManager) : "") + "\n");
 	}
 
-	private static int largeMemoryClass(final ActivityManager activityManager)
+	private static int largeMemoryClass(@Nonnull final ActivityManager activityManager)
 	{
 		try
 		{
@@ -192,7 +194,7 @@ public class CrashReporter
 		}
 	}
 
-	public static void appendApplicationInfo(final Appendable report, final WalletApplication application) throws IOException
+	public static void appendApplicationInfo(@Nonnull final Appendable report, @Nonnull final WalletApplication application) throws IOException
 	{
 		try
 		{
@@ -249,7 +251,7 @@ public class CrashReporter
 		}
 	}
 
-	public static void appendApplicationLog(final Appendable report) throws IOException
+	public static void appendApplicationLog(@Nonnull final Appendable report) throws IOException
 	{
 		Process process = null;
 		BufferedReader logReader = null;
@@ -274,7 +276,7 @@ public class CrashReporter
 		}
 	}
 
-	private static void appendDir(final Appendable report, final File file, final int indent) throws IOException
+	private static void appendDir(@Nonnull final Appendable report, @Nonnull final File file, final int indent) throws IOException
 	{
 		for (int i = 0; i < indent; i++)
 			report.append("  - ");
@@ -288,7 +290,7 @@ public class CrashReporter
 				appendDir(report, f, indent + 1);
 	}
 
-	public static void saveBackgroundTrace(final Throwable throwable, final PackageInfo packageInfo)
+	public static void saveBackgroundTrace(@Nonnull final Throwable throwable, @Nonnull final PackageInfo packageInfo)
 	{
 		synchronized (backgroundTracesFile)
 		{
@@ -315,7 +317,7 @@ public class CrashReporter
 		}
 	}
 
-	private static void appendTrace(final PrintWriter writer, final Throwable throwable)
+	private static void appendTrace(@Nonnull final PrintWriter writer, @Nonnull final Throwable throwable)
 	{
 		throwable.printStackTrace(writer);
 		// If the exception was thrown in a background thread inside
@@ -333,7 +335,7 @@ public class CrashReporter
 	{
 		private final Thread.UncaughtExceptionHandler previousHandler;
 
-		public ExceptionHandler(final Thread.UncaughtExceptionHandler previousHandler)
+		public ExceptionHandler(@Nonnull final Thread.UncaughtExceptionHandler previousHandler)
 		{
 			this.previousHandler = previousHandler;
 		}
@@ -354,7 +356,7 @@ public class CrashReporter
 			previousHandler.uncaughtException(t, exception);
 		}
 
-		private void saveCrashTrace(final Throwable throwable) throws IOException
+		private void saveCrashTrace(@Nonnull final Throwable throwable) throws IOException
 		{
 			final PrintWriter writer = new PrintWriter(new OutputStreamWriter(new FileOutputStream(crashTraceFile), Constants.UTF_8));
 			appendTrace(writer, throwable);

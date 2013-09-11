@@ -19,6 +19,9 @@ package de.schildbach.wallet.service;
 
 import java.util.List;
 
+import javax.annotation.CheckForNull;
+import javax.annotation.Nonnull;
+
 import com.google.bitcoin.core.Peer;
 import com.google.bitcoin.core.StoredBlock;
 import com.google.bitcoin.core.Transaction;
@@ -46,8 +49,9 @@ public interface BlockchainService
 	public static final String ACTION_HOLD_WIFI_LOCK = R.class.getPackage().getName() + ".hold_wifi_lock";
 	public static final String ACTION_RESET_BLOCKCHAIN = R.class.getPackage().getName() + ".reset_blockchain";
 
-	void broadcastTransaction(Transaction tx);
+	void broadcastTransaction(@Nonnull Transaction tx);
 
+	@CheckForNull
 	List<Peer> getConnectedPeers();
 
 	List<StoredBlock> getRecentBlocks(int maxBlocks);

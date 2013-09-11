@@ -21,6 +21,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import javax.annotation.Nonnull;
+
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -80,7 +82,7 @@ public class ScannerView extends View
 		dotPaint.setAntiAlias(true);
 	}
 
-	public void setFraming(final Rect frame, final Rect framePreview)
+	public void setFraming(@Nonnull final Rect frame, @Nonnull final Rect framePreview)
 	{
 		this.frame = frame;
 		this.framePreview = framePreview;
@@ -88,14 +90,14 @@ public class ScannerView extends View
 		invalidate();
 	}
 
-	public void drawResultBitmap(final Bitmap bitmap)
+	public void drawResultBitmap(@Nonnull final Bitmap bitmap)
 	{
 		resultBitmap = bitmap;
 
 		invalidate();
 	}
 
-	public void addDot(final ResultPoint dot)
+	public void addDot(@Nonnull final ResultPoint dot)
 	{
 		dots.put(dot, System.currentTimeMillis());
 

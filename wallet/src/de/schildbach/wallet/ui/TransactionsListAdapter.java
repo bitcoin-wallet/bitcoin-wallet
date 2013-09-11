@@ -25,6 +25,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Nonnull;
+
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Color;
@@ -83,7 +85,7 @@ public class TransactionsListAdapter extends BaseAdapter
 	private static final int VIEW_TYPE_TRANSACTION = 0;
 	private static final int VIEW_TYPE_WARNING = 1;
 
-	public TransactionsListAdapter(final Context context, final Wallet wallet, final int maxConnectedPeers, final boolean showBackupWarning)
+	public TransactionsListAdapter(final Context context, @Nonnull final Wallet wallet, final int maxConnectedPeers, final boolean showBackupWarning)
 	{
 		this.context = context;
 		inflater = LayoutInflater.from(context);
@@ -114,7 +116,7 @@ public class TransactionsListAdapter extends BaseAdapter
 		notifyDataSetChanged();
 	}
 
-	public void replace(final Transaction tx)
+	public void replace(@Nonnull final Transaction tx)
 	{
 		transactions.clear();
 		transactions.add(tx);
@@ -122,7 +124,7 @@ public class TransactionsListAdapter extends BaseAdapter
 		notifyDataSetChanged();
 	}
 
-	public void replace(final Collection<Transaction> transactions)
+	public void replace(@Nonnull final Collection<Transaction> transactions)
 	{
 		this.transactions.clear();
 		this.transactions.addAll(transactions);
@@ -217,7 +219,7 @@ public class TransactionsListAdapter extends BaseAdapter
 		return row;
 	}
 
-	public void bindView(final View row, final Transaction tx)
+	public void bindView(@Nonnull final View row, @Nonnull final Transaction tx)
 	{
 		final TransactionConfidence confidence = tx.getConfidence();
 		final ConfidenceType confidenceType = confidence.getConfidenceType();
@@ -379,7 +381,7 @@ public class TransactionsListAdapter extends BaseAdapter
 		}
 	}
 
-	private String resolveLabel(final String address)
+	private String resolveLabel(@Nonnull final String address)
 	{
 		final String cachedLabel = labelCache.get(address);
 		if (cachedLabel == null)

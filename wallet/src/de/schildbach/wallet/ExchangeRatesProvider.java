@@ -30,6 +30,9 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.TreeMap;
 
+import javax.annotation.CheckForNull;
+import javax.annotation.Nonnull;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.slf4j.Logger;
@@ -55,7 +58,7 @@ public class ExchangeRatesProvider extends ContentProvider
 {
 	public static class ExchangeRate
 	{
-		public ExchangeRate(final String currencyCode, final BigInteger rate, final String source)
+		public ExchangeRate(@Nonnull final String currencyCode, @Nonnull final BigInteger rate, @Nonnull final String source)
 		{
 			this.currencyCode = currencyCode;
 			this.rate = rate;
@@ -77,6 +80,7 @@ public class ExchangeRatesProvider extends ContentProvider
 	private static final String KEY_RATE = "rate";
 	private static final String KEY_SOURCE = "source";
 
+	@CheckForNull
 	private Map<String, ExchangeRate> exchangeRates = null;
 	private long lastUpdated = 0;
 
@@ -90,7 +94,7 @@ public class ExchangeRatesProvider extends ContentProvider
 		return true;
 	}
 
-	public static Uri contentUri(final String packageName)
+	public static Uri contentUri(@Nonnull final String packageName)
 	{
 		return Uri.parse("content://" + packageName + '.' + "exchange_rates");
 	}
@@ -163,7 +167,7 @@ public class ExchangeRatesProvider extends ContentProvider
 		}
 	}
 
-	public static ExchangeRate getExchangeRate(final Cursor cursor)
+	public static ExchangeRate getExchangeRate(@Nonnull final Cursor cursor)
 	{
 		final String currencyCode = cursor.getString(cursor.getColumnIndexOrThrow(ExchangeRatesProvider.KEY_CURRENCY_CODE));
 		final BigInteger rate = BigInteger.valueOf(cursor.getLong(cursor.getColumnIndexOrThrow(ExchangeRatesProvider.KEY_RATE)));

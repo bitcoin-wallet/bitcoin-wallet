@@ -19,6 +19,8 @@ package de.schildbach.wallet.ui;
 
 import java.io.IOException;
 
+import javax.annotation.Nonnull;
+
 import android.app.AlertDialog;
 import android.content.ComponentName;
 import android.content.DialogInterface;
@@ -210,7 +212,7 @@ public final class PreferencesActivity extends SherlockPreferenceActivity implem
 		return true;
 	}
 
-	private void updateTrustedPeer(final String trustedPeer)
+	private void updateTrustedPeer(@Nonnull final String trustedPeer)
 	{
 		if (trustedPeer.isEmpty())
 		{

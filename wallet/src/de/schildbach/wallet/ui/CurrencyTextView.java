@@ -19,6 +19,8 @@ package de.schildbach.wallet.ui;
 
 import java.math.BigInteger;
 
+import javax.annotation.Nonnull;
+
 import android.content.Context;
 import android.graphics.Paint;
 import android.text.Editable;
@@ -56,7 +58,7 @@ public final class CurrencyTextView extends TextView
 		super(context, attrs);
 	}
 
-	public void setPrefix(final String prefix)
+	public void setPrefix(@Nonnull final String prefix)
 	{
 		this.prefix = prefix + Constants.CHAR_HAIR_SPACE;
 		updateView();
@@ -68,7 +70,7 @@ public final class CurrencyTextView extends TextView
 		updateView();
 	}
 
-	public void setAmount(final BigInteger amount)
+	public void setAmount(@Nonnull final BigInteger amount)
 	{
 		this.amount = amount;
 		updateView();

@@ -20,6 +20,8 @@ package de.schildbach.wallet.util;
 import java.math.BigInteger;
 import java.util.Locale;
 
+import javax.annotation.Nonnull;
+
 import com.google.bitcoin.core.Utils;
 
 /**
@@ -29,12 +31,13 @@ public class GenericUtils
 {
 	private static final int COIN_INT = Utils.COIN.intValue();
 
-	public static String formatValue(final BigInteger value, final int precision)
+	public static String formatValue(@Nonnull final BigInteger value, final int precision)
 	{
 		return formatValue(value, "", "-", precision);
 	}
 
-	public static String formatValue(final BigInteger value, final String plusSign, final String minusSign, final int precision)
+	public static String formatValue(@Nonnull final BigInteger value, @Nonnull final String plusSign, @Nonnull final String minusSign,
+			final int precision)
 	{
 		long longValue = value.longValue();
 		if (precision <= 2)

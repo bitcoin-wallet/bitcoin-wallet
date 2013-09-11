@@ -22,6 +22,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.WeakHashMap;
 
+import javax.annotation.Nonnull;
+
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
@@ -228,7 +230,7 @@ public final class PeerListFragment extends SherlockListFragment
 		private Context context;
 		private BlockchainService service;
 
-		private PeerLoader(final Context context, final BlockchainService service)
+		private PeerLoader(final Context context, @Nonnull final BlockchainService service)
 		{
 			super(context);
 
@@ -297,7 +299,7 @@ public final class PeerListFragment extends SherlockListFragment
 	{
 		public final InetAddress address;
 
-		public ReverseDnsLoader(final Context context, final InetAddress address)
+		public ReverseDnsLoader(final Context context, @Nonnull final InetAddress address)
 		{
 			super(context);
 

@@ -21,6 +21,9 @@ import java.io.IOException;
 import java.math.BigInteger;
 import java.util.regex.Pattern;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.Context;
@@ -50,7 +53,7 @@ public abstract class InputParser
 	{
 		private final String input;
 
-		public StringInputParser(final String input)
+		public StringInputParser(@Nonnull final String input)
 		{
 			this.input = input;
 		}
@@ -131,7 +134,7 @@ public abstract class InputParser
 		private final String inputType;
 		private final byte[] input;
 
-		public BinaryInputParser(final String inputType, final byte[] input)
+		public BinaryInputParser(@Nonnull final String inputType, @Nonnull final byte[] input)
 		{
 			this.inputType = inputType;
 			this.input = input;
@@ -162,18 +165,19 @@ public abstract class InputParser
 
 	public abstract void parse();
 
-	protected abstract void bitcoinRequest(Address address, String addressLabel, BigInteger amount, String bluetoothMac);
+	protected abstract void bitcoinRequest(@Nonnull Address address, @Nullable String addressLabel, @Nullable BigInteger amount,
+			@Nullable String bluetoothMac);
 
-	protected abstract void directTransaction(Transaction transaction);
+	protected abstract void directTransaction(@Nonnull Transaction transaction);
 
 	protected abstract void error(int messageResId, Object... messageArgs);
 
-	protected void cannotClassify(final String input)
+	protected void cannotClassify(@Nonnull final String input)
 	{
 		error(R.string.input_parser_cannot_classify, input);
 	}
 
-	protected void dialog(final Context context, final OnClickListener dismissListener, final int titleResId, final int messageResId,
+	protected void dialog(final Context context, @Nullable final OnClickListener dismissListener, final int titleResId, final int messageResId,
 			final Object... messageArgs)
 	{
 		final Builder dialog = new AlertDialog.Builder(context);

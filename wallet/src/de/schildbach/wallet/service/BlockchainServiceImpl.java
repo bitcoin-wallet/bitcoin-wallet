@@ -31,6 +31,10 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
+import javax.annotation.CheckForNull;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -102,6 +106,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 	private BlockStore blockStore;
 	private File blockChainFile;
 	private BlockChain blockChain;
+	@CheckForNull
 	private PeerGroup peerGroup;
 
 	private final Handler handler = new Handler();
@@ -178,7 +183,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 		}
 	};
 
-	private void notifyCoinsReceived(final Address from, final BigInteger amount)
+	private void notifyCoinsReceived(@Nullable final Address from, @Nonnull final BigInteger amount)
 	{
 		if (notificationCount == 1)
 			nm.cancel(NOTIFICATION_ID_COINS_RECEIVED);

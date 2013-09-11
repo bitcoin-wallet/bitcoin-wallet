@@ -17,6 +17,8 @@
 
 package de.schildbach.wallet.ui;
 
+import javax.annotation.Nonnull;
+
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -50,17 +52,17 @@ public abstract class AbstractWalletActivity extends SherlockFragmentActivity
 		return application;
 	}
 
-	protected final void toast(final String text, final Object... formatArgs)
+	protected final void toast(@Nonnull final String text, final Object... formatArgs)
 	{
 		toast(text, 0, Toast.LENGTH_SHORT, formatArgs);
 	}
 
-	protected final void longToast(final String text, final Object... formatArgs)
+	protected final void longToast(@Nonnull final String text, final Object... formatArgs)
 	{
 		toast(text, 0, Toast.LENGTH_LONG, formatArgs);
 	}
 
-	protected final void toast(final String text, final int imageResId, final int duration, final Object... formatArgs)
+	protected final void toast(@Nonnull final String text, final int imageResId, final int duration, final Object... formatArgs)
 	{
 		final View view = getLayoutInflater().inflate(R.layout.transient_notification, null);
 		TextView tv = (TextView) view.findViewById(R.id.transient_notification_text);

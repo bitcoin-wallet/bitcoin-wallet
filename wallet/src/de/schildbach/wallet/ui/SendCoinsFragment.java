@@ -22,6 +22,9 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.math.BigInteger;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -478,7 +481,7 @@ public final class SendCoinsFragment extends SherlockFragment
 		return view;
 	}
 
-	private void initStateFromIntentExtras(final Bundle extras)
+	private void initStateFromIntentExtras(@Nonnull final Bundle extras)
 	{
 		final String address = extras.getString(SendCoinsActivity.INTENT_EXTRA_ADDRESS);
 		final String addressLabel = extras.getString(SendCoinsActivity.INTENT_EXTRA_ADDRESS_LABEL);
@@ -488,7 +491,7 @@ public final class SendCoinsFragment extends SherlockFragment
 		update(address, addressLabel, amount, bluetoothMac);
 	}
 
-	private void initStateFromBitcoinUri(final Uri bitcoinUri)
+	private void initStateFromBitcoinUri(@Nonnull final Uri bitcoinUri)
 	{
 		final String input = bitcoinUri.toString();
 
@@ -769,7 +772,7 @@ public final class SendCoinsFragment extends SherlockFragment
 		updateView();
 	}
 
-	private void popupMessage(final View anchor, final String message)
+	private void popupMessage(@Nonnull final View anchor, @Nonnull final String message)
 	{
 		dismissPopup();
 
@@ -779,7 +782,7 @@ public final class SendCoinsFragment extends SherlockFragment
 		popup(anchor, popupMessageView);
 	}
 
-	private void popupAvailable(final View anchor, final BigInteger available, final BigInteger pending)
+	private void popupAvailable(@Nonnull final View anchor, @Nonnull final BigInteger available, @Nonnull final BigInteger pending)
 	{
 		dismissPopup();
 
@@ -794,7 +797,7 @@ public final class SendCoinsFragment extends SherlockFragment
 		popup(anchor, popupAvailableView);
 	}
 
-	private void popup(final View anchor, final View contentView)
+	private void popup(@Nonnull final View anchor, @Nonnull final View contentView)
 	{
 		contentView.measure(MeasureSpec.makeMeasureSpec(MeasureSpec.UNSPECIFIED, 0), MeasureSpec.makeMeasureSpec(MeasureSpec.UNSPECIFIED, 0));
 
@@ -1115,7 +1118,8 @@ public final class SendCoinsFragment extends SherlockFragment
 		return state == State.INPUT && validatedAddress != null && isValidAmounts;
 	}
 
-	public void update(final String receivingAddress, final String receivingLabel, final BigInteger amount, final String bluetoothMac)
+	public void update(final String receivingAddress, final String receivingLabel, @Nullable final BigInteger amount,
+			@Nullable final String bluetoothMac)
 	{
 		try
 		{

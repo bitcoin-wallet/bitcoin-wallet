@@ -17,6 +17,8 @@
 
 package de.schildbach.wallet.ui;
 
+import javax.annotation.Nonnull;
+
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -35,7 +37,7 @@ import de.schildbach.wallet.service.BlockchainServiceImpl;
  */
 public abstract class AbstractOnDemandServiceActivity extends AbstractWalletActivity
 {
-	protected void broadcastTransaction(final Transaction tx)
+	protected void broadcastTransaction(@Nonnull final Transaction tx)
 	{
 		getWalletApplication().startBlockchainService(false); // make sure service will run for a while
 
@@ -57,7 +59,7 @@ public abstract class AbstractOnDemandServiceActivity extends AbstractWalletActi
 		}, Context.BIND_AUTO_CREATE);
 	}
 
-	protected void processDirectTransaction(final Transaction tx)
+	protected void processDirectTransaction(@Nonnull final Transaction tx)
 	{
 		final Wallet wallet = getWalletApplication().getWallet();
 

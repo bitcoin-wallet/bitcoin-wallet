@@ -23,6 +23,8 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
+import javax.annotation.Nonnull;
+
 import android.content.Context;
 import android.content.res.Resources;
 import android.text.format.DateUtils;
@@ -54,7 +56,7 @@ public class WalletAddressesAdapter extends BaseAdapter
 	private final boolean showKeyCreationTime;
 	private String selectedAddress = null;
 
-	public WalletAddressesAdapter(final Context context, final Wallet wallet, final boolean showKeyCreationTime)
+	public WalletAddressesAdapter(final Context context, @Nonnull final Wallet wallet, final boolean showKeyCreationTime)
 	{
 		final Resources res = context.getResources();
 
@@ -68,7 +70,7 @@ public class WalletAddressesAdapter extends BaseAdapter
 		this.showKeyCreationTime = showKeyCreationTime;
 	}
 
-	public void replace(final Collection<ECKey> keys)
+	public void replace(@Nonnull final Collection<ECKey> keys)
 	{
 		this.keys.clear();
 		this.keys.addAll(keys);

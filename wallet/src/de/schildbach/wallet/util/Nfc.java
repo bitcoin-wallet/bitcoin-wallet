@@ -19,6 +19,10 @@ package de.schildbach.wallet.util;
 
 import java.util.Arrays;
 
+import javax.annotation.CheckForNull;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import android.app.Activity;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
@@ -33,7 +37,7 @@ public class Nfc
 {
 	private static final byte[] RTD_ANDROID_APP = "android.com:pkg".getBytes(Constants.US_ASCII);
 
-	public static boolean publishUri(final NfcManager nfcManager, final Activity activity, final String uri)
+	public static boolean publishUri(@Nullable final NfcManager nfcManager, final Activity activity, @Nonnull final String uri)
 	{
 		if (nfcManager == null)
 			return false;
@@ -48,8 +52,8 @@ public class Nfc
 		return true;
 	}
 
-	public static boolean publishMimeObject(final NfcManager nfcManager, final Activity activity, final String mimeType, final byte[] payload,
-			final boolean includeApplicationRecord)
+	public static boolean publishMimeObject(@Nullable final NfcManager nfcManager, final Activity activity, @Nonnull final String mimeType,
+			@Nonnull final byte[] payload, final boolean includeApplicationRecord)
 	{
 		if (nfcManager == null)
 			return false;
@@ -64,7 +68,7 @@ public class Nfc
 		return true;
 	}
 
-	public static void unpublish(final NfcManager nfcManager, final Activity activity)
+	public static void unpublish(@Nullable final NfcManager nfcManager, final Activity activity)
 	{
 		if (nfcManager == null)
 			return;
@@ -76,7 +80,7 @@ public class Nfc
 		adapter.disableForegroundNdefPush(activity);
 	}
 
-	private static NdefMessage ndefMessage(final NdefRecord record, final boolean includeApplicationRecord, final String packageName)
+	private static NdefMessage ndefMessage(@Nonnull final NdefRecord record, final boolean includeApplicationRecord, final String packageName)
 	{
 		if (includeApplicationRecord)
 		{
@@ -89,12 +93,12 @@ public class Nfc
 		}
 	}
 
-	private static NdefRecord absoluteUriRecord(final String uri)
+	private static NdefRecord absoluteUriRecord(@Nonnull final String uri)
 	{
 		return new NdefRecord(NdefRecord.TNF_ABSOLUTE_URI, NdefRecord.RTD_URI, new byte[0], uri.getBytes(Constants.UTF_8));
 	}
 
-	private static NdefRecord wellKnownUriRecord(final String uri)
+	private static NdefRecord wellKnownUriRecord(@Nonnull final String uri)
 	{
 		final byte[] uriBytes = uri.getBytes(Constants.UTF_8);
 		final byte[] recordBytes = new byte[uriBytes.length + 1];
@@ -103,21 +107,22 @@ public class Nfc
 		return new NdefRecord(NdefRecord.TNF_WELL_KNOWN, NdefRecord.RTD_URI, new byte[0], recordBytes);
 	}
 
-	private static NdefRecord mimeRecord(final String mimeType, final byte[] payload)
+	private static NdefRecord mimeRecord(@Nonnull final String mimeType, @Nonnull final byte[] payload)
 	{
 		final byte[] mimeBytes = mimeType.getBytes(Constants.US_ASCII);
 		final NdefRecord mimeRecord = new NdefRecord(NdefRecord.TNF_MIME_MEDIA, mimeBytes, new byte[0], payload);
 		return mimeRecord;
 	}
 
-	private static NdefRecord androidApplicationRecord(final String packageName)
+	private static NdefRecord androidApplicationRecord(@Nonnull final String packageName)
 	{
 		return new NdefRecord(NdefRecord.TNF_EXTERNAL_TYPE, RTD_ANDROID_APP, new byte[0], packageName.getBytes(Constants.US_ASCII));
 	}
 
-	public static byte[] extractMimePayload(final String mimeType, final NdefMessage message)
+	@CheckForNull
+	public static byte[] extractMimePayload(@Nonnull final String mimeType, @Nonnull final NdefMessage message)
 	{
-		byte[] mimeBytes = mimeType.getBytes(Constants.US_ASCII);
+		final byte[] mimeBytes = mimeType.getBytes(Constants.US_ASCII);
 
 		for (final NdefRecord record : message.getRecords())
 		{

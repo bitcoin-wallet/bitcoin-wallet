@@ -40,6 +40,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.TimeZone;
 
+import javax.annotation.Nonnull;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -140,7 +142,7 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 		handleIntent(intent);
 	}
 
-	private void handleIntent(final Intent intent)
+	private void handleIntent(@Nonnull final Intent intent)
 	{
 		final String action = intent.getAction();
 
@@ -780,7 +782,7 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 		builder.show();
 	}
 
-	private void importPrivateKeys(final File file, final String password)
+	private void importPrivateKeys(@Nonnull final File file, @Nonnull final String password)
 	{
 		try
 		{
@@ -866,7 +868,7 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 		}
 	}
 
-	private void exportPrivateKeys(final String password)
+	private void exportPrivateKeys(@Nonnull final String password)
 	{
 		try
 		{
@@ -916,7 +918,7 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 		}
 	}
 
-	private void mailPrivateKeys(final File file)
+	private void mailPrivateKeys(@Nonnull final File file)
 	{
 		final Intent intent = new Intent(Intent.ACTION_SEND);
 		intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.export_keys_dialog_mail_subject));

@@ -17,6 +17,8 @@
 
 package de.schildbach.wallet.ui;
 
+import javax.annotation.Nonnull;
+
 import android.text.InputType;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
@@ -29,7 +31,7 @@ public final class ShowPasswordCheckListener implements OnCheckedChangeListener
 {
 	private EditText passwordView;
 
-	public ShowPasswordCheckListener(final EditText passwordView)
+	public ShowPasswordCheckListener(@Nonnull final EditText passwordView)
 	{
 		this.passwordView = passwordView;
 	}

@@ -24,6 +24,8 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.security.SecureRandom;
 
+import javax.annotation.Nonnull;
+
 import org.spongycastle.crypto.BufferedBlockCipher;
 import org.spongycastle.crypto.CipherParameters;
 import org.spongycastle.crypto.DataLengthException;
@@ -123,7 +125,7 @@ public class Crypto
 	 * @return The encrypted string
 	 * @throws IOException
 	 */
-	public static String encrypt(final String plainText, final char[] password) throws IOException
+	public static String encrypt(@Nonnull final String plainText, @Nonnull final char[] password) throws IOException
 	{
 		final byte[] plainTextAsBytes = plainText.getBytes(Constants.UTF_8);
 
@@ -186,7 +188,7 @@ public class Crypto
 	 * @return The decrypted text
 	 * @throws IOException
 	 */
-	public static String decrypt(final String textToDecode, final char[] password) throws IOException
+	public static String decrypt(@Nonnull final String textToDecode, @Nonnull final char[] password) throws IOException
 	{
 		final byte[] decodeTextAsBytes = decodeBase64(textToDecode.getBytes(Constants.UTF_8));
 

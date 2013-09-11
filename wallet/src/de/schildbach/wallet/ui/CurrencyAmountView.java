@@ -20,6 +20,10 @@ package de.schildbach.wallet.ui;
 import java.math.BigInteger;
 import java.util.Currency;
 
+import javax.annotation.CheckForNull;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Paint;
@@ -132,7 +136,7 @@ public final class CurrencyAmountView extends FrameLayout
 		updateAppearance();
 	}
 
-	public void setCurrencySymbol(final String currencyCode)
+	public void setCurrencySymbol(@Nullable final String currencyCode)
 	{
 		if (Constants.CURRENCY_CODE_BITCOIN.equals(currencyCode))
 		{
@@ -178,7 +182,7 @@ public final class CurrencyAmountView extends FrameLayout
 		this.validateAmount = validateAmount;
 	}
 
-	public void setContextButton(final int contextButtonResId, final OnClickListener contextButtonClickListener)
+	public void setContextButton(final int contextButtonResId, @Nonnull final OnClickListener contextButtonClickListener)
 	{
 		this.contextButtonDrawable = getContext().getResources().getDrawable(contextButtonResId);
 		this.contextButtonClickListener = contextButtonClickListener;
@@ -186,11 +190,12 @@ public final class CurrencyAmountView extends FrameLayout
 		updateAppearance();
 	}
 
-	public void setListener(final Listener listener)
+	public void setListener(@Nonnull final Listener listener)
 	{
 		this.listener = listener;
 	}
 
+	@CheckForNull
 	public BigInteger getAmount()
 	{
 		if (isValidAmount(false))
@@ -199,7 +204,7 @@ public final class CurrencyAmountView extends FrameLayout
 			return null;
 	}
 
-	public void setAmount(final BigInteger amount, final boolean fireListener)
+	public void setAmount(@Nullable final BigInteger amount, final boolean fireListener)
 	{
 		if (!fireListener)
 			textViewListener.setFire(false);
@@ -214,7 +219,7 @@ public final class CurrencyAmountView extends FrameLayout
 			textViewListener.setFire(true);
 	}
 
-	public void setHint(final BigInteger amount)
+	public void setHint(@Nullable final BigInteger amount)
 	{
 		final SpannableStringBuilder hint;
 		if (amount != null)
@@ -407,7 +412,7 @@ public final class CurrencyAmountView extends FrameLayout
 		}
 	}
 
-	private static String currencySymbol(final String currencyCode)
+	private static String currencySymbol(@Nonnull final String currencyCode)
 	{
 		try
 		{

@@ -17,6 +17,8 @@
 
 package de.schildbach.wallet.ui;
 
+import javax.annotation.Nonnull;
+
 import android.graphics.Canvas;
 import android.graphics.ColorFilter;
 import android.graphics.Paint;
@@ -32,7 +34,7 @@ public final class CurrencySymbolDrawable extends Drawable
 	private final String symbol;
 	private final float y;
 
-	public CurrencySymbolDrawable(final String symbol, final float textSize, final int color, final float y)
+	public CurrencySymbolDrawable(@Nonnull final String symbol, final float textSize, final int color, final float y)
 	{
 		paint.setColor(color);
 		paint.setAntiAlias(true);

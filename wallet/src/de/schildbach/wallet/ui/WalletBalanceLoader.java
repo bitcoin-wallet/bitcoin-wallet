@@ -19,6 +19,8 @@ package de.schildbach.wallet.ui;
 
 import java.math.BigInteger;
 
+import javax.annotation.Nonnull;
+
 import android.content.Context;
 import android.support.v4.content.AsyncTaskLoader;
 
@@ -34,7 +36,7 @@ public final class WalletBalanceLoader extends AsyncTaskLoader<BigInteger>
 {
 	private final Wallet wallet;
 
-	public WalletBalanceLoader(final Context context, final Wallet wallet)
+	public WalletBalanceLoader(final Context context, @Nonnull final Wallet wallet)
 	{
 		super(context);
 

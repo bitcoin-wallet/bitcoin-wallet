@@ -33,6 +33,10 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.annotation.CheckForNull;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import android.graphics.Typeface;
 import android.text.Editable;
 import android.text.Spannable;
@@ -62,22 +66,22 @@ import de.schildbach.wallet.Constants;
  */
 public class WalletUtils
 {
-	public static Editable formatAddress(final Address address, final int groupSize, final int lineSize)
+	public static Editable formatAddress(@Nonnull final Address address, final int groupSize, final int lineSize)
 	{
 		return formatHash(address.toString(), groupSize, lineSize);
 	}
 
-	public static Editable formatAddress(final String prefix, final Address address, final int groupSize, final int lineSize)
+	public static Editable formatAddress(@Nullable final String prefix, @Nonnull final Address address, final int groupSize, final int lineSize)
 	{
 		return formatHash(prefix, address.toString(), groupSize, lineSize, Constants.CHAR_THIN_SPACE);
 	}
 
-	public static Editable formatHash(final String address, final int groupSize, final int lineSize)
+	public static Editable formatHash(@Nonnull final String address, final int groupSize, final int lineSize)
 	{
 		return formatHash(null, address, groupSize, lineSize, Constants.CHAR_THIN_SPACE);
 	}
 
-	public static long longHash(final Sha256Hash hash)
+	public static long longHash(@Nonnull final Sha256Hash hash)
 	{
 		final byte[] bytes = hash.getBytes();
 
@@ -85,7 +89,8 @@ public class WalletUtils
 				| ((bytes[27] & 0xFFl) << 32) | ((bytes[26] & 0xFFl) << 40) | ((bytes[25] & 0xFFl) << 48) | ((bytes[23] & 0xFFl) << 56);
 	}
 
-	public static Editable formatHash(final String prefix, final String address, final int groupSize, final int lineSize, final char groupSeparator)
+	public static Editable formatHash(@Nullable final String prefix, @Nonnull final String address, final int groupSize, final int lineSize,
+			final char groupSeparator)
 	{
 		final SpannableStringBuilder builder = prefix != null ? new SpannableStringBuilder(prefix) : new SpannableStringBuilder();
 
@@ -111,7 +116,7 @@ public class WalletUtils
 	private static final Object SIGNIFICANT_SPAN = new StyleSpan(Typeface.BOLD);
 	public static final RelativeSizeSpan SMALLER_SPAN = new RelativeSizeSpan(0.85f);
 
-	public static void formatSignificant(final Editable s, final RelativeSizeSpan insignificantRelativeSizeSpan)
+	public static void formatSignificant(@Nonnull final Editable s, @Nullable final RelativeSizeSpan insignificantRelativeSizeSpan)
 	{
 		s.removeSpan(SIGNIFICANT_SPAN);
 		if (insignificantRelativeSizeSpan != null)
@@ -127,17 +132,18 @@ public class WalletUtils
 		}
 	}
 
-	public static BigInteger localValue(final BigInteger btcValue, final BigInteger rate)
+	public static BigInteger localValue(@Nonnull final BigInteger btcValue, @Nonnull final BigInteger rate)
 	{
 		return btcValue.multiply(rate).divide(Utils.COIN);
 	}
 
-	public static BigInteger btcValue(final BigInteger localValue, final BigInteger rate)
+	public static BigInteger btcValue(@Nonnull final BigInteger localValue, @Nonnull final BigInteger rate)
 	{
 		return localValue.multiply(Utils.COIN).divide(rate);
 	}
 
-	public static Address getFromAddress(final Transaction tx)
+	@CheckForNull
+	public static Address getFromAddress(@Nonnull final Transaction tx)
 	{
 		if (tx.isCoinBase())
 			return null;
@@ -158,7 +164,8 @@ public class WalletUtils
 		}
 	}
 
-	public static Address getToAddress(final Transaction tx)
+	@CheckForNull
+	public static Address getToAddress(@Nonnull final Transaction tx)
 	{
 		try
 		{
@@ -175,7 +182,7 @@ public class WalletUtils
 		}
 	}
 
-	public static boolean isInternal(final Transaction tx)
+	public static boolean isInternal(@Nonnull final Transaction tx)
 	{
 		if (tx.isCoinBase())
 			return false;
@@ -199,7 +206,7 @@ public class WalletUtils
 		}
 	}
 
-	public static void writeKeys(final Writer out, final List<ECKey> keys) throws IOException
+	public static void writeKeys(@Nonnull final Writer out, @Nonnull final List<ECKey> keys) throws IOException
 	{
 		final DateFormat format = Iso8601Format.newDateTimeFormatT();
 
@@ -217,7 +224,7 @@ public class WalletUtils
 		}
 	}
 
-	public static List<ECKey> readKeys(final BufferedReader in) throws IOException
+	public static List<ECKey> readKeys(@Nonnull final BufferedReader in) throws IOException
 	{
 		try
 		{
@@ -288,7 +295,8 @@ public class WalletUtils
 		}
 	};
 
-	public static ECKey pickOldestKey(final Wallet wallet)
+	@CheckForNull
+	public static ECKey pickOldestKey(@Nonnull final Wallet wallet)
 	{
 		ECKey oldestKey = null;
 

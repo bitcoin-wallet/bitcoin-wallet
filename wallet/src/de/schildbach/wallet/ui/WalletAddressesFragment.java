@@ -19,6 +19,8 @@ package de.schildbach.wallet.ui;
 
 import java.util.List;
 
+import javax.annotation.Nonnull;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ContentResolver;
@@ -238,26 +240,26 @@ public final class WalletAddressesFragment extends SherlockListFragment
 				return getKey(position).toAddress(Constants.NETWORK_PARAMETERS);
 			}
 
-			private void handleEdit(final Address address)
+			private void handleEdit(@Nonnull final Address address)
 			{
 				EditAddressBookEntryFragment.edit(getFragmentManager(), address.toString());
 			}
 
-			private void handleShowQr(final Address address)
+			private void handleShowQr(@Nonnull final Address address)
 			{
 				final String uri = BitcoinURI.convertToBitcoinURI(address, null, null, null);
 				final int size = (int) (256 * getResources().getDisplayMetrics().density);
 				BitmapFragment.show(getFragmentManager(), Qr.bitmap(uri, size));
 			}
 
-			private void handleCopyToClipboard(final Address address)
+			private void handleCopyToClipboard(@Nonnull final Address address)
 			{
 				final ClipboardManager clipboardManager = (ClipboardManager) activity.getSystemService(Context.CLIPBOARD_SERVICE);
 				clipboardManager.setText(address.toString());
 				activity.toast(R.string.wallet_address_fragment_clipboard_msg);
 			}
 
-			private void handleDefault(final Address address)
+			private void handleDefault(@Nonnull final Address address)
 			{
 				prefs.edit().putString(Constants.PREFS_KEY_SELECTED_ADDRESS, address.toString()).commit();
 				adapter.setSelectedAddress(address.toString());

@@ -19,6 +19,8 @@ package de.schildbach.wallet;
 
 import java.math.BigInteger;
 
+import javax.annotation.Nonnull;
+
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
@@ -56,8 +58,8 @@ public class WalletBalanceWidgetProvider extends AppWidgetProvider
 		updateWidgets(context, appWidgetManager, appWidgetIds, balance);
 	}
 
-	public static void updateWidgets(final Context context, final AppWidgetManager appWidgetManager, final int[] appWidgetIds,
-			final BigInteger balance)
+	public static void updateWidgets(final Context context, @Nonnull final AppWidgetManager appWidgetManager, @Nonnull final int[] appWidgetIds,
+			@Nonnull final BigInteger balance)
 	{
 		final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
 		final int precision = Integer.parseInt(prefs.getString(Constants.PREFS_KEY_BTC_PRECISION, Constants.PREFS_DEFAULT_BTC_PRECISION));

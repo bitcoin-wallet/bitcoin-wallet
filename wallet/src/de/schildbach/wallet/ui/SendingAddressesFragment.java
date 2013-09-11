@@ -20,6 +20,8 @@ package de.schildbach.wallet.ui;
 import java.math.BigInteger;
 import java.util.ArrayList;
 
+import javax.annotation.Nonnull;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -337,7 +339,7 @@ public final class SendingAddressesFragment extends SherlockListFragment impleme
 		adapter.swapCursor(null);
 	}
 
-	public void setWalletAddresses(final ArrayList<Address> addresses)
+	public void setWalletAddresses(@Nonnull final ArrayList<Address> addresses)
 	{
 		final StringBuilder builder = new StringBuilder();
 		for (final Address address : addresses)

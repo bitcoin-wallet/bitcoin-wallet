@@ -23,6 +23,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
@@ -232,7 +234,7 @@ public final class BlockListFragment extends SherlockListFragment
 			adapter.notifyDataSetChanged();
 		}
 
-		public void replace(final Collection<StoredBlock> blocks)
+		public void replace(@Nonnull final Collection<StoredBlock> blocks)
 		{
 			this.blocks.clear();
 			this.blocks.addAll(blocks);

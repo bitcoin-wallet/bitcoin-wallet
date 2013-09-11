@@ -22,6 +22,8 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import javax.annotation.Nonnull;
+
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothServerSocket;
 import android.bluetooth.BluetoothSocket;
@@ -35,7 +37,7 @@ public abstract class BluetoothListenThread extends Thread
 	private final BluetoothServerSocket listeningSocket;
 	private final AtomicBoolean running = new AtomicBoolean(true);
 
-	public BluetoothListenThread(final BluetoothAdapter adapter)
+	public BluetoothListenThread(@Nonnull final BluetoothAdapter adapter)
 	{
 		try
 		{
@@ -138,5 +140,5 @@ public abstract class BluetoothListenThread extends Thread
 		}
 	}
 
-	protected abstract boolean handleTx(byte[] msg);
+	protected abstract boolean handleTx(@Nonnull byte[] msg);
 }

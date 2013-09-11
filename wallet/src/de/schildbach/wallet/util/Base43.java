@@ -19,6 +19,8 @@ package de.schildbach.wallet.util;
 import java.math.BigInteger;
 import java.util.Arrays;
 
+import javax.annotation.Nonnull;
+
 import com.google.bitcoin.core.Utils;
 
 /**
@@ -29,7 +31,7 @@ public class Base43
 	private static final String ALPHABET = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ$*+-./:";
 	private static final BigInteger BASE = BigInteger.valueOf(ALPHABET.length());
 
-	public static String encode(byte[] input)
+	public static String encode(@Nonnull byte[] input)
 	{
 		// TODO: This could be a lot more efficient.
 		BigInteger bi = new BigInteger(1, input);
@@ -52,7 +54,7 @@ public class Base43
 		return s.toString();
 	}
 
-	public static byte[] decode(String input) throws IllegalArgumentException
+	public static byte[] decode(@Nonnull String input) throws IllegalArgumentException
 	{
 		byte[] bytes = decodeToBigInteger(input).toByteArray();
 		// We may have got one more byte than we wanted, if the high bit of the next-to-last byte was not zero. This
@@ -72,7 +74,7 @@ public class Base43
 		return tmp;
 	}
 
-	public static BigInteger decodeToBigInteger(String input) throws IllegalArgumentException
+	public static BigInteger decodeToBigInteger(@Nonnull String input) throws IllegalArgumentException
 	{
 		BigInteger bi = BigInteger.valueOf(0);
 		// Work backwards through the string.
@@ -91,11 +93,11 @@ public class Base43
 	/**
 	 * Uses the checksum in the last 4 bytes of the decoded data to verify the rest are correct. The checksum is removed
 	 * from the returned data.
-	 *
+	 * 
 	 * @throws IllegalArgumentException
 	 *             if the input is not base 43 or the checksum does not validate.
 	 */
-	public static byte[] decodeChecked(String input) throws IllegalArgumentException
+	public static byte[] decodeChecked(@Nonnull String input) throws IllegalArgumentException
 	{
 		byte[] tmp = decode(input);
 		if (tmp.length < 4)

@@ -19,6 +19,10 @@ package de.schildbach.wallet.ui;
 
 import java.math.BigInteger;
 
+import javax.annotation.CheckForNull;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import android.view.View;
 import de.schildbach.wallet.ExchangeRatesProvider.ExchangeRate;
 import de.schildbach.wallet.ui.CurrencyAmountView.Listener;
@@ -107,7 +111,7 @@ public final class CurrencyCalculatorLink
 		}
 	};
 
-	public CurrencyCalculatorLink(final CurrencyAmountView btcAmountView, final CurrencyAmountView localAmountView)
+	public CurrencyCalculatorLink(@Nonnull final CurrencyAmountView btcAmountView, @Nonnull final CurrencyAmountView localAmountView)
 	{
 		this.btcAmountView = btcAmountView;
 		this.btcAmountView.setListener(btcAmountViewListener);
@@ -118,7 +122,7 @@ public final class CurrencyCalculatorLink
 		update();
 	}
 
-	public void setListener(final Listener listener)
+	public void setListener(@Nullable final Listener listener)
 	{
 		this.listener = listener;
 	}
@@ -130,13 +134,14 @@ public final class CurrencyCalculatorLink
 		update();
 	}
 
-	public void setExchangeRate(final ExchangeRate exchangeRate)
+	public void setExchangeRate(@Nonnull final ExchangeRate exchangeRate)
 	{
 		this.exchangeRate = exchangeRate;
 
 		update();
 	}
 
+	@CheckForNull
 	public BigInteger getAmount()
 	{
 		if (exchangeDirection)
@@ -203,7 +208,7 @@ public final class CurrencyCalculatorLink
 		activeView().requestFocus();
 	}
 
-	public void setBtcAmount(final BigInteger amount)
+	public void setBtcAmount(@Nonnull final BigInteger amount)
 	{
 		btcAmountView.setAmount(amount, true);
 	}

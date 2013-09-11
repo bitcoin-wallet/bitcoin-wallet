@@ -17,6 +17,9 @@
 
 package de.schildbach.wallet.ui;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -45,18 +48,18 @@ public final class EditAddressBookEntryFragment extends DialogFragment
 	private static final String KEY_ADDRESS = "address";
 	private static final String KEY_SUGGESTED_ADDRESS_LABEL = "suggested_address_label";
 
-	public static void edit(final FragmentManager fm, final String address)
+	public static void edit(final FragmentManager fm, @Nonnull final String address)
 	{
 		edit(fm, address, null);
 	}
 
-	public static void edit(final FragmentManager fm, final String address, final String suggestedAddressLabel)
+	public static void edit(final FragmentManager fm, @Nonnull final String address, @Nullable final String suggestedAddressLabel)
 	{
 		final DialogFragment newFragment = EditAddressBookEntryFragment.instance(address, suggestedAddressLabel);
 		newFragment.show(fm, FRAGMENT_TAG);
 	}
 
-	private static EditAddressBookEntryFragment instance(final String address, final String suggestedAddressLabel)
+	private static EditAddressBookEntryFragment instance(@Nonnull final String address, @Nullable final String suggestedAddressLabel)
 	{
 		final EditAddressBookEntryFragment fragment = new EditAddressBookEntryFragment();
 

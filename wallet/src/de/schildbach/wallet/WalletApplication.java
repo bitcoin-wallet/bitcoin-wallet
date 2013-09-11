@@ -32,6 +32,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
+import javax.annotation.Nonnull;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -343,7 +345,7 @@ public class WalletApplication extends Application
 		}
 	}
 
-	private static Wallet readKeys(final InputStream is) throws IOException
+	private static Wallet readKeys(@Nonnull final InputStream is) throws IOException
 	{
 		final BufferedReader in = new BufferedReader(new InputStreamReader(is, Constants.UTF_8));
 		final List<ECKey> keys = WalletUtils.readKeys(in);
@@ -387,7 +389,7 @@ public class WalletApplication extends Application
 		}
 	}
 
-	private void protobufSerializeWallet(final Wallet wallet) throws IOException
+	private void protobufSerializeWallet(@Nonnull final Wallet wallet) throws IOException
 	{
 		final long start = System.currentTimeMillis();
 
@@ -423,7 +425,7 @@ public class WalletApplication extends Application
 		}
 	}
 
-	private void writeKeys(final OutputStream os) throws IOException
+	private void writeKeys(@Nonnull final OutputStream os) throws IOException
 	{
 		final List<ECKey> keys = new LinkedList<ECKey>();
 		for (final ECKey key : wallet.getKeys())

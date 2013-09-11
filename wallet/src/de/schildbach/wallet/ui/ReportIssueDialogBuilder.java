@@ -27,6 +27,8 @@ import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.util.ArrayList;
 
+import javax.annotation.CheckForNull;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -276,15 +278,21 @@ public abstract class ReportIssueDialogBuilder extends AlertDialog.Builder imple
 		context.startActivity(Intent.createChooser(intent, context.getString(R.string.report_issue_dialog_mail_intent_chooser)));
 	}
 
+	@CheckForNull
 	protected abstract CharSequence subject();
 
+	@CheckForNull
 	protected abstract CharSequence collectApplicationInfo() throws IOException;
 
+	@CheckForNull
 	protected abstract CharSequence collectStackTrace() throws IOException;
 
+	@CheckForNull
 	protected abstract CharSequence collectDeviceInfo() throws IOException;
 
+	@CheckForNull
 	protected abstract CharSequence collectApplicationLog() throws IOException;
 
+	@CheckForNull
 	protected abstract CharSequence collectWalletDump() throws IOException;
 }

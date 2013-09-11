@@ -20,6 +20,8 @@ package de.schildbach.wallet.ui;
 import java.math.BigInteger;
 import java.util.Date;
 
+import javax.annotation.CheckForNull;
+
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -70,11 +72,14 @@ public final class WalletBalanceFragment extends Fragment
 
 	private boolean showLocalBalance;
 
+	@CheckForNull
 	private BigInteger balance = null;
+	@CheckForNull
 	private ExchangeRate exchangeRate = null;
 
 	private int download;
-	private Date bestChainDate;
+	@CheckForNull
+	private Date bestChainDate = null;
 	private boolean replaying = false;
 
 	private static final int ID_BALANCE_LOADER = 0;

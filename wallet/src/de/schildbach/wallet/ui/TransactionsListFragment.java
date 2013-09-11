@@ -26,6 +26,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
+import javax.annotation.CheckForNull;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -92,6 +96,7 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 
 	private TransactionsListAdapter adapter;
 
+	@CheckForNull
 	private Direction direction;
 
 	private final Handler handler = new Handler();
@@ -100,7 +105,7 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 	private static final long THROTTLE_MS = DateUtils.SECOND_IN_MILLIS;
 	private static final Uri KEY_ROTATION_URI = Uri.parse("http://bitcoin.org/en/alert/2013-08-11-android");
 
-	public static TransactionsListFragment instance(final Direction direction)
+	public static TransactionsListFragment instance(@Nullable final Direction direction)
 	{
 		final TransactionsListFragment fragment = new TransactionsListFragment();
 
@@ -208,7 +213,7 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 			handleTransactionClick(tx);
 	}
 
-	private void handleTransactionClick(final Transaction tx)
+	private void handleTransactionClick(@Nonnull final Transaction tx)
 	{
 		activity.startActionMode(new ActionMode.Callback()
 		{
@@ -307,7 +312,7 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 				Nfc.unpublish(nfcManager, activity);
 			}
 
-			private void handleEditAddress(final Transaction tx)
+			private void handleEditAddress(@Nonnull final Transaction tx)
 			{
 				EditAddressBookEntryFragment.edit(getFragmentManager(), address.toString());
 			}
@@ -361,9 +366,10 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 	private static class TransactionsLoader extends AsyncTaskLoader<List<Transaction>>
 	{
 		private final Wallet wallet;
+		@CheckForNull
 		private final Direction direction;
 
-		private TransactionsLoader(final Context context, final Wallet wallet, final Direction direction)
+		private TransactionsLoader(final Context context, @Nonnull final Wallet wallet, @Nullable final Direction direction)
 		{
 			super(context);
 

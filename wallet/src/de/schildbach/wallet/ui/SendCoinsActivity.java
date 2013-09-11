@@ -19,6 +19,9 @@ package de.schildbach.wallet.ui;
 
 import java.math.BigInteger;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -39,8 +42,8 @@ public final class SendCoinsActivity extends AbstractBindServiceActivity
 	public static final String INTENT_EXTRA_AMOUNT = "amount";
 	public static final String INTENT_EXTRA_BLUETOOTH_MAC = "bluetooth_mac";
 
-	public static void start(final Context context, final String address, final String addressLabel, final BigInteger amount,
-			final String bluetoothMac)
+	public static void start(final Context context, @Nonnull final String address, @Nullable final String addressLabel,
+			@Nullable final BigInteger amount, @Nullable final String bluetoothMac)
 	{
 		final Intent intent = new Intent(context, SendCoinsActivity.class);
 		intent.putExtra(INTENT_EXTRA_ADDRESS, address);

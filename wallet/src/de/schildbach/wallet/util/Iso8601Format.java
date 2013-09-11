@@ -23,6 +23,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
 
+import javax.annotation.Nonnull;
+
 import android.annotation.SuppressLint;
 
 /**
@@ -33,7 +35,7 @@ public class Iso8601Format extends SimpleDateFormat
 {
 	private static final TimeZone UTC = TimeZone.getTimeZone("UTC");
 
-	private Iso8601Format(final String formatString)
+	private Iso8601Format(@Nonnull final String formatString)
 	{
 		super(formatString);
 
@@ -55,12 +57,12 @@ public class Iso8601Format extends SimpleDateFormat
 		return new Iso8601Format("yyyy-MM-dd HH:mm:ss");
 	}
 
-	public static String formatDateTime(final Date date)
+	public static String formatDateTime(@Nonnull final Date date)
 	{
 		return newDateTimeFormat().format(date);
 	}
 
-	public static Date parseDateTime(final String source) throws ParseException
+	public static Date parseDateTime(@Nonnull final String source) throws ParseException
 	{
 		return newDateTimeFormat().parse(source);
 	}
@@ -70,12 +72,12 @@ public class Iso8601Format extends SimpleDateFormat
 		return new Iso8601Format("yyyy-MM-dd'T'HH:mm:ss'Z'");
 	}
 
-	public static String formatDateTimeT(final Date date)
+	public static String formatDateTimeT(@Nonnull final Date date)
 	{
 		return newDateTimeFormatT().format(date);
 	}
 
-	public static Date parseDateTimeT(final String source) throws ParseException
+	public static Date parseDateTimeT(@Nonnull final String source) throws ParseException
 	{
 		return newDateTimeFormatT().parse(source);
 	}
