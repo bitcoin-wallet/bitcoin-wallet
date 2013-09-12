@@ -22,6 +22,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.math.BigInteger;
 
+import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -140,6 +141,7 @@ public final class SendCoinsFragment extends SherlockFragment
 	private AddressAndLabel validatedAddress = null;
 	private boolean isValidAmounts = false;
 
+	@CheckForNull
 	private String bluetoothMac;
 	private Boolean bluetoothAck = null;
 
@@ -853,7 +855,7 @@ public final class SendCoinsFragment extends SherlockFragment
 
 							sentTransaction.getConfidence().addEventListener(sentTransactionConfidenceListener);
 
-							if (bluetoothAdapter != null && bluetoothAdapter.isEnabled() && bluetoothEnableView.isChecked())
+							if (bluetoothAdapter != null && bluetoothAdapter.isEnabled() && bluetoothMac != null && bluetoothEnableView.isChecked())
 								backgroundHandler.post(sendBluetoothRunnable);
 
 							activity.getBlockchainService().broadcastTransaction(sentTransaction);
@@ -880,6 +882,9 @@ public final class SendCoinsFragment extends SherlockFragment
 		@Override
 		public void run()
 		{
+			if (bluetoothMac == null)
+				throw new IllegalArgumentException("bluetoothMac is null");
+
 			log.info("trying to send tx " + sentTransaction.getHashAsString() + " via bluetooth");
 
 			final byte[] serializedTx = sentTransaction.unsafeBitcoinSerialize();
