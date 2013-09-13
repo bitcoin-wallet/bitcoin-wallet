@@ -17,9 +17,6 @@
 
 package de.schildbach.wallet.ui;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
 import java.math.BigInteger;
 
 import javax.annotation.CheckForNull;
@@ -31,8 +28,6 @@ import org.slf4j.LoggerFactory;
 
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothDevice;
-import android.bluetooth.BluetoothSocket;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -92,8 +87,8 @@ import de.schildbach.wallet.ExchangeRatesProvider;
 import de.schildbach.wallet.ExchangeRatesProvider.ExchangeRate;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.integration.android.BitcoinIntegration;
+import de.schildbach.wallet.offline.SendBluetoothRunnable;
 import de.schildbach.wallet.ui.InputParser.StringInputParser;
-import de.schildbach.wallet.util.Bluetooth;
 import de.schildbach.wallet.util.GenericUtils;
 import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
@@ -847,7 +842,7 @@ public final class SendCoinsFragment extends SherlockFragment
 			@Override
 			public void run()
 			{
-				final Transaction transaction = wallet.sendCoinsOffline(sendRequest);
+				final Transaction transaction = wallet.sendCoinsOffline(sendRequest); // can take long
 
 				handler.post(new Runnable()
 				{
@@ -864,7 +859,21 @@ public final class SendCoinsFragment extends SherlockFragment
 							sentTransaction.getConfidence().addEventListener(sentTransactionConfidenceListener);
 
 							if (bluetoothAdapter != null && bluetoothAdapter.isEnabled() && bluetoothMac != null && bluetoothEnableView.isChecked())
-								backgroundHandler.post(sendBluetoothRunnable);
+							{
+								backgroundHandler.post(new SendBluetoothRunnable(bluetoothAdapter, bluetoothMac, transaction)
+								{
+									@Override
+									protected void onResult(final boolean ack)
+									{
+										bluetoothAck = ack;
+
+										if (state == State.SENDING)
+											state = State.SENT;
+
+										updateView();
+									}
+								});
+							}
 
 							activity.getBlockchainService().broadcastTransaction(sentTransaction);
 
@@ -884,101 +893,6 @@ public final class SendCoinsFragment extends SherlockFragment
 			}
 		});
 	}
-
-	private Runnable sendBluetoothRunnable = new Runnable()
-	{
-		@Override
-		public void run()
-		{
-			if (bluetoothMac == null)
-				throw new IllegalArgumentException("bluetoothMac is null");
-
-			log.info("trying to send tx " + sentTransaction.getHashAsString() + " via bluetooth");
-
-			final byte[] serializedTx = sentTransaction.unsafeBitcoinSerialize();
-
-			BluetoothSocket socket = null;
-			DataOutputStream os = null;
-			DataInputStream is = null;
-
-			try
-			{
-				final BluetoothDevice device = bluetoothAdapter.getRemoteDevice(Bluetooth.decompressMac(bluetoothMac));
-				socket = device.createInsecureRfcommSocketToServiceRecord(Bluetooth.BLUETOOTH_UUID);
-
-				socket.connect();
-				is = new DataInputStream(socket.getInputStream());
-				os = new DataOutputStream(socket.getOutputStream());
-
-				os.writeInt(1);
-				os.writeInt(serializedTx.length);
-				os.write(serializedTx);
-				os.flush();
-
-				log.info("tx " + sentTransaction.getHashAsString() + " sent via bluetooth");
-
-				final boolean ack = is.readBoolean();
-
-				log.info("received " + (ack ? "ack" : "nack"));
-
-				activity.runOnUiThread(new Runnable()
-				{
-					@Override
-					public void run()
-					{
-						bluetoothAck = ack;
-
-						if (state == State.SENDING)
-							state = State.SENT;
-
-						updateView();
-					}
-				});
-			}
-			catch (final IOException x)
-			{
-				log.info("problem sending", x);
-			}
-			finally
-			{
-				if (os != null)
-				{
-					try
-					{
-						os.close();
-					}
-					catch (final IOException x)
-					{
-						// swallow
-					}
-				}
-
-				if (is != null)
-				{
-					try
-					{
-						is.close();
-					}
-					catch (final IOException x)
-					{
-						// swallow
-					}
-				}
-
-				if (socket != null)
-				{
-					try
-					{
-						socket.close();
-					}
-					catch (final IOException x)
-					{
-						// swallow
-					}
-				}
-			}
-		}
-	};
 
 	private void handleScan()
 	{
