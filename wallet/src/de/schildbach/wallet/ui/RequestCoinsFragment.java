@@ -21,6 +21,8 @@ import java.math.BigInteger;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.annotation.CheckForNull;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -72,6 +74,7 @@ import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.ExchangeRatesProvider;
 import de.schildbach.wallet.ExchangeRatesProvider.ExchangeRate;
 import de.schildbach.wallet.WalletApplication;
+import de.schildbach.wallet.offline.AcceptBluetoothThread;
 import de.schildbach.wallet.util.BitmapFragment;
 import de.schildbach.wallet.util.Bluetooth;
 import de.schildbach.wallet.util.Nfc;
@@ -92,7 +95,8 @@ public final class RequestCoinsFragment extends SherlockFragment
 	private ClipboardManager clipboardManager;
 	private ShareActionProvider shareActionProvider;
 	private BluetoothAdapter bluetoothAdapter;
-	private BluetoothListenThread acceptThread;
+	@CheckForNull
+	private AcceptBluetoothThread acceptBluetoothThread;
 
 	private int btcPrecision;
 
@@ -291,9 +295,9 @@ public final class RequestCoinsFragment extends SherlockFragment
 	{
 		loaderManager.destroyLoader(ID_RATE_LOADER);
 
-		if (acceptThread != null)
+		if (acceptBluetoothThread != null)
 		{
-			acceptThread.stopAccepting();
+			acceptBluetoothThread.stopAccepting();
 			bluetoothEnabledView.setVisibility(View.GONE);
 		}
 
@@ -331,7 +335,7 @@ public final class RequestCoinsFragment extends SherlockFragment
 		{
 			bluetoothMac = Bluetooth.compressMac(bluetoothAdapter.getAddress());
 
-			acceptThread = new BluetoothListenThread(bluetoothAdapter)
+			acceptBluetoothThread = new AcceptBluetoothThread(bluetoothAdapter)
 			{
 				@Override
 				public boolean handleTx(final byte[] msg)
@@ -377,7 +381,7 @@ public final class RequestCoinsFragment extends SherlockFragment
 				}
 			};
 
-			acceptThread.start();
+			acceptBluetoothThread.start();
 
 			bluetoothEnabledView.setVisibility(View.VISIBLE);
 		}

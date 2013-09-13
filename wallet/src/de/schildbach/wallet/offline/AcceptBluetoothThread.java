@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.schildbach.wallet.ui;
+package de.schildbach.wallet.offline;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -30,14 +30,15 @@ import android.bluetooth.BluetoothSocket;
 import de.schildbach.wallet.util.Bluetooth;
 
 /**
- * @author Shahar Livne <shahar@square>
+ * @author Shahar Livne
+ * @author Andreas Schildbach
  */
-public abstract class BluetoothListenThread extends Thread
+public abstract class AcceptBluetoothThread extends Thread
 {
 	private final BluetoothServerSocket listeningSocket;
 	private final AtomicBoolean running = new AtomicBoolean(true);
 
-	public BluetoothListenThread(@Nonnull final BluetoothAdapter adapter)
+	public AcceptBluetoothThread(@Nonnull final BluetoothAdapter adapter)
 	{
 		try
 		{
