@@ -1,10 +1,6 @@
-IMPORTANT: Because of the Android SecureRandom class has multiple severe bugs that render it
-useless for cryptographic purposes, versions 3.15 and later rotate all private keys. You will
-need to make a fresh backup of your wallet. It will not contain your old (insecure) keys, so
-keep your old backups around just in case.
+v3.21
 
-More info: http://bitcoin.org/en/alert/2013-08-11-android
-
+* bugfix
 
 v3.20
 
