@@ -24,6 +24,9 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import javax.annotation.Nonnull;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothServerSocket;
 import android.bluetooth.BluetoothSocket;
@@ -37,6 +40,8 @@ public abstract class AcceptBluetoothThread extends Thread
 {
 	private final BluetoothServerSocket listeningSocket;
 	private final AtomicBoolean running = new AtomicBoolean(true);
+
+	private static final Logger log = LoggerFactory.getLogger(AcceptBluetoothThread.class);
 
 	public AcceptBluetoothThread(@Nonnull final BluetoothAdapter adapter)
 	{
@@ -84,7 +89,7 @@ public abstract class AcceptBluetoothThread extends Thread
 			}
 			catch (final IOException x)
 			{
-				x.printStackTrace();
+				log.info("exception in bluetooth accept loop", x);
 			}
 			finally
 			{

@@ -21,8 +21,6 @@ import java.math.BigInteger;
 import java.util.LinkedList;
 import java.util.List;
 
-import javax.annotation.CheckForNull;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -63,9 +61,6 @@ import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.widget.ShareActionProvider;
 import com.google.bitcoin.core.Address;
 import com.google.bitcoin.core.ECKey;
-import com.google.bitcoin.core.ProtocolException;
-import com.google.bitcoin.core.Transaction;
-import com.google.bitcoin.core.VerificationException;
 import com.google.bitcoin.core.Wallet;
 import com.google.bitcoin.uri.BitcoinURI;
 
@@ -74,7 +69,7 @@ import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.ExchangeRatesProvider;
 import de.schildbach.wallet.ExchangeRatesProvider.ExchangeRate;
 import de.schildbach.wallet.WalletApplication;
-import de.schildbach.wallet.offline.AcceptBluetoothThread;
+import de.schildbach.wallet.offline.AcceptBluetoothService;
 import de.schildbach.wallet.util.BitmapFragment;
 import de.schildbach.wallet.util.Bluetooth;
 import de.schildbach.wallet.util.Nfc;
@@ -95,8 +90,6 @@ public final class RequestCoinsFragment extends SherlockFragment
 	private ClipboardManager clipboardManager;
 	private ShareActionProvider shareActionProvider;
 	private BluetoothAdapter bluetoothAdapter;
-	@CheckForNull
-	private AcceptBluetoothThread acceptBluetoothThread;
 
 	private int btcPrecision;
 
@@ -108,6 +101,7 @@ public final class RequestCoinsFragment extends SherlockFragment
 	private View bluetoothEnabledView;
 
 	private String bluetoothMac;
+	private Intent bluetoothServiceIntent;
 
 	private static final int REQUEST_CODE_ENABLE_BLUETOOTH = 0;
 
@@ -295,12 +289,6 @@ public final class RequestCoinsFragment extends SherlockFragment
 	{
 		loaderManager.destroyLoader(ID_RATE_LOADER);
 
-		if (acceptBluetoothThread != null)
-		{
-			acceptBluetoothThread.stopAccepting();
-			bluetoothEnabledView.setVisibility(View.GONE);
-		}
-
 		Nfc.unpublish(nfcManager, activity);
 
 		amountCalculatorLink.setListener(null);
@@ -335,55 +323,8 @@ public final class RequestCoinsFragment extends SherlockFragment
 		{
 			bluetoothMac = Bluetooth.compressMac(bluetoothAdapter.getAddress());
 
-			acceptBluetoothThread = new AcceptBluetoothThread(bluetoothAdapter)
-			{
-				@Override
-				public boolean handleTx(final byte[] msg)
-				{
-					try
-					{
-						final Transaction tx = new Transaction(Constants.NETWORK_PARAMETERS, msg);
-						log.info("tx " + tx.getHashAsString() + " arrived via blueooth");
-
-						try
-						{
-							if (wallet.isTransactionRelevant(tx))
-							{
-								wallet.receivePending(tx, null);
-
-								activity.runOnUiThread(new Runnable()
-								{
-									@Override
-									public void run()
-									{
-										activity.getBlockchainService().broadcastTransaction(tx);
-									}
-								});
-							}
-							else
-							{
-								log.info("tx " + tx.getHashAsString() + " irrelevant");
-							}
-
-							return true;
-						}
-						catch (final VerificationException x)
-						{
-							log.info("cannot verify tx " + tx.getHashAsString() + " received via bluetooth", x);
-						}
-					}
-					catch (final ProtocolException x)
-					{
-						log.info("cannot decode message received via bluetooth", x);
-					}
-
-					return false;
-				}
-			};
-
-			acceptBluetoothThread.start();
-
-			bluetoothEnabledView.setVisibility(View.VISIBLE);
+			bluetoothServiceIntent = new Intent(activity, AcceptBluetoothService.class);
+			activity.startService(bluetoothServiceIntent);
 		}
 	}
 
@@ -448,6 +389,10 @@ public final class RequestCoinsFragment extends SherlockFragment
 		if (nfcSuccess)
 			initiateText.append(' ').append(getString(R.string.request_coins_fragment_initiate_request_nfc));
 		initiateRequestView.setText(initiateText);
+
+		// update bluetooth message
+		final boolean serviceRunning = application.isServiceRunning(AcceptBluetoothService.class);
+		bluetoothEnabledView.setVisibility(bluetoothAdapter.isEnabled() && serviceRunning ? View.VISIBLE : View.GONE);
 	}
 
 	private void updateShareIntent()

@@ -38,12 +38,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import android.app.ActivityManager;
+import android.app.ActivityManager.RunningServiceInfo;
 import android.app.Application;
+import android.app.Service;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.os.IBinder;
 import android.os.StrictMode;
 import android.preference.PreferenceManager;
 import android.text.format.DateUtils;
@@ -58,6 +63,7 @@ import ch.qos.logback.core.rolling.TimeBasedRollingPolicy;
 
 import com.google.bitcoin.core.Address;
 import com.google.bitcoin.core.ECKey;
+import com.google.bitcoin.core.Transaction;
 import com.google.bitcoin.core.Wallet;
 import com.google.bitcoin.store.UnreadableWalletException;
 import com.google.bitcoin.store.WalletProtobufSerializer;
@@ -476,6 +482,39 @@ public class WalletApplication extends Application
 	{
 		// actually stops the service
 		startService(blockchainServiceResetBlockchainIntent);
+	}
+
+	public void broadcastTransaction(@Nonnull final Transaction tx)
+	{
+		startBlockchainService(false); // make sure service will run for a while
+
+		bindService(new Intent(this, BlockchainServiceImpl.class), new ServiceConnection()
+		{
+			@Override
+			public void onServiceConnected(final ComponentName name, final IBinder binder)
+			{
+				final BlockchainService blockchainService = ((BlockchainServiceImpl.LocalBinder) binder).getService();
+
+				blockchainService.broadcastTransaction(tx);
+			}
+
+			@Override
+			public void onServiceDisconnected(final ComponentName name)
+			{
+				unbindService(this);
+			}
+		}, Context.BIND_AUTO_CREATE);
+	}
+
+	public boolean isServiceRunning(final Class<? extends Service> serviceClass)
+	{
+		final String packageName = getPackageName();
+
+		for (final RunningServiceInfo serviceInfo : activityManager.getRunningServices(Integer.MAX_VALUE))
+			if (packageName.equals(serviceInfo.service.getPackageName()) && serviceClass.getName().equals(serviceInfo.service.getClassName()))
+				return true;
+
+		return false;
 	}
 
 	public PackageInfo packageInfo()

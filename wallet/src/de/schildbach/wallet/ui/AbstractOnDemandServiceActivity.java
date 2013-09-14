@@ -19,46 +19,17 @@ package de.schildbach.wallet.ui;
 
 import javax.annotation.Nonnull;
 
-import android.content.ComponentName;
-import android.content.Context;
-import android.content.Intent;
-import android.content.ServiceConnection;
-import android.os.IBinder;
-
 import com.google.bitcoin.core.Transaction;
 import com.google.bitcoin.core.VerificationException;
 import com.google.bitcoin.core.Wallet;
 
-import de.schildbach.wallet.service.BlockchainService;
-import de.schildbach.wallet.service.BlockchainServiceImpl;
+import de.schildbach.wallet.WalletApplication;
 
 /**
  * @author Andreas Schildbach
  */
 public abstract class AbstractOnDemandServiceActivity extends AbstractWalletActivity
 {
-	protected void broadcastTransaction(@Nonnull final Transaction tx)
-	{
-		getWalletApplication().startBlockchainService(false); // make sure service will run for a while
-
-		bindService(new Intent(this, BlockchainServiceImpl.class), new ServiceConnection()
-		{
-			@Override
-			public void onServiceConnected(final ComponentName name, final IBinder binder)
-			{
-				final BlockchainService blockchainService = ((BlockchainServiceImpl.LocalBinder) binder).getService();
-
-				blockchainService.broadcastTransaction(tx);
-			}
-
-			@Override
-			public void onServiceDisconnected(final ComponentName name)
-			{
-				unbindService(this);
-			}
-		}, Context.BIND_AUTO_CREATE);
-	}
-
 	protected void processDirectTransaction(@Nonnull final Transaction tx)
 	{
 		final Wallet wallet = getWalletApplication().getWallet();
@@ -69,7 +40,8 @@ public abstract class AbstractOnDemandServiceActivity extends AbstractWalletActi
 			{
 				wallet.receivePending(tx, null);
 
-				this.broadcastTransaction(tx);
+				final WalletApplication application = (WalletApplication) getApplication();
+				application.broadcastTransaction(tx);
 			}
 			else
 			{
