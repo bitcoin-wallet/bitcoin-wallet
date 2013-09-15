@@ -73,7 +73,7 @@ to download the necessary API level.
 Next, you need to build bitcoinj. In your workspace, use
 
 	# first time only
-	git clone -b patched-0.8 https://code.google.com/r/andreasschildbach-bitcoinj/ bitcoinj
+	git clone -b release-0.10 https://code.google.com/r/bitcoinj/ bitcoinj
 	cd bitcoinj
 	mvn clean install
 
