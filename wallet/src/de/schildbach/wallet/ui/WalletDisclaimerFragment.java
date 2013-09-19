@@ -113,6 +113,9 @@ public final class WalletDisclaimerFragment extends Fragment implements OnShared
 
 	private void updateView()
 	{
+		if (!isResumed())
+			return;
+
 		final boolean showBackup = prefs.getBoolean(Constants.PREFS_KEY_REMIND_BACKUP, true);
 		final boolean showSafety = prefs.getBoolean(Constants.PREFS_KEY_DISCLAIMER, true);
 
