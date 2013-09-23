@@ -16,101 +16,158 @@
 
 package de.schildbach.wallet.util;
 
-import java.math.BigInteger;
-import java.util.Arrays;
+import java.nio.charset.Charset;
 
 import javax.annotation.Nonnull;
 
-import com.google.bitcoin.core.Utils;
-
 /**
- * Base43, derived from Base58
+ * Base43, derived from bitcoinj Base58
+ * 
+ * @author Andreas Schildbach
  */
 public class Base43
 {
-	private static final String ALPHABET = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ$*+-./:";
-	private static final BigInteger BASE = BigInteger.valueOf(ALPHABET.length());
+	private static final char[] ALPHABET = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ$*+-./:".toCharArray();
+
+	private static final int[] INDEXES = new int[128];
+	static
+	{
+		for (int i = 0; i < INDEXES.length; i++)
+			INDEXES[i] = -1;
+
+		for (int i = 0; i < ALPHABET.length; i++)
+			INDEXES[ALPHABET[i]] = i;
+	}
 
 	public static String encode(@Nonnull byte[] input)
 	{
-		// TODO: This could be a lot more efficient.
-		BigInteger bi = new BigInteger(1, input);
-		StringBuffer s = new StringBuffer();
-		while (bi.compareTo(BASE) >= 0)
+		if (input.length == 0)
+			return "";
+
+		input = copyOfRange(input, 0, input.length);
+
+		// Count leading zeroes.
+		int zeroCount = 0;
+		while (zeroCount < input.length && input[zeroCount] == 0)
+			++zeroCount;
+
+		// The actual encoding.
+		final byte[] temp = new byte[input.length * 2];
+		int j = temp.length;
+
+		int startAt = zeroCount;
+		while (startAt < input.length)
 		{
-			BigInteger mod = bi.mod(BASE);
-			s.insert(0, ALPHABET.charAt(mod.intValue()));
-			bi = bi.subtract(mod).divide(BASE);
+			byte mod = divmod43(input, startAt);
+			if (input[startAt] == 0)
+				++startAt;
+			temp[--j] = (byte) ALPHABET[mod];
 		}
-		s.insert(0, ALPHABET.charAt(bi.intValue()));
-		// Convert leading zeros too.
-		for (byte anInput : input)
-		{
-			if (anInput == 0)
-				s.insert(0, ALPHABET.charAt(0));
-			else
-				break;
-		}
-		return s.toString();
+
+		// Strip extra '1' if there are some after decoding.
+		while (j < temp.length && temp[j] == ALPHABET[0])
+			++j;
+
+		// Add as many leading '1' as there were leading zeros.
+		while (--zeroCount >= 0)
+			temp[--j] = (byte) ALPHABET[0];
+
+		final byte[] output = copyOfRange(temp, j, temp.length);
+
+		return new String(output, Charset.forName("US-ASCII"));
 	}
 
-	public static byte[] decode(@Nonnull String input) throws IllegalArgumentException
+	public static byte[] decode(@Nonnull final String input) throws IllegalArgumentException
 	{
-		byte[] bytes = decodeToBigInteger(input).toByteArray();
-		// We may have got one more byte than we wanted, if the high bit of the next-to-last byte was not zero. This
-		// is because BigIntegers are represented with twos-compliment notation, thus if the high bit of the last
-		// byte happens to be 1 another 8 zero bits will be added to ensure the number parses as positive. Detect
-		// that case here and chop it off.
-		boolean stripSignByte = bytes.length > 1 && bytes[0] == 0 && bytes[1] < 0;
-		// Count the leading zeros, if any.
-		int leadingZeros = 0;
-		for (int i = 0; input.charAt(i) == ALPHABET.charAt(0); i++)
+		if (input.length() == 0)
+			return new byte[0];
+
+		final byte[] input43 = new byte[input.length()];
+		// Transform the String to a base43 byte sequence
+		for (int i = 0; i < input.length(); ++i)
 		{
-			leadingZeros++;
+			final char c = input.charAt(i);
+
+			int digit43 = -1;
+
+			if (c >= 0 && c < 128)
+				digit43 = INDEXES[c];
+
+			if (digit43 < 0)
+				throw new IllegalArgumentException("Illegal character " + c + " at " + i);
+
+			input43[i] = (byte) digit43;
 		}
-		// Now cut/pad correctly. Java 6 has a convenience for this, but Android can't use it.
-		byte[] tmp = new byte[bytes.length - (stripSignByte ? 1 : 0) + leadingZeros];
-		System.arraycopy(bytes, stripSignByte ? 1 : 0, tmp, leadingZeros, tmp.length - leadingZeros);
-		return tmp;
+
+		// Count leading zeroes
+		int zeroCount = 0;
+		while (zeroCount < input43.length && input43[zeroCount] == 0)
+			++zeroCount;
+
+		// The encoding
+		final byte[] temp = new byte[input.length()];
+		int j = temp.length;
+
+		int startAt = zeroCount;
+		while (startAt < input43.length)
+		{
+			byte mod = divmod256(input43, startAt);
+			if (input43[startAt] == 0)
+				++startAt;
+
+			temp[--j] = mod;
+		}
+
+		// Do no add extra leading zeroes, move j to first non null byte.
+		while (j < temp.length && temp[j] == 0)
+			++j;
+
+		return copyOfRange(temp, j - zeroCount, temp.length);
 	}
 
-	public static BigInteger decodeToBigInteger(@Nonnull String input) throws IllegalArgumentException
+	//
+	// number -> number / 43, returns number % 43
+	//
+	private static byte divmod43(final byte[] number, final int startAt)
 	{
-		BigInteger bi = BigInteger.valueOf(0);
-		// Work backwards through the string.
-		for (int i = input.length() - 1; i >= 0; i--)
+		int remainder = 0;
+		for (int i = startAt; i < number.length; i++)
 		{
-			int alphaIndex = ALPHABET.indexOf(input.charAt(i));
-			if (alphaIndex == -1)
-			{
-				throw new IllegalArgumentException("Illegal character " + input.charAt(i) + " at " + i);
-			}
-			bi = bi.add(BigInteger.valueOf(alphaIndex).multiply(BASE.pow(input.length() - 1 - i)));
+			final int digit256 = (int) number[i] & 0xFF;
+			final int temp = remainder * 256 + digit256;
+
+			number[i] = (byte) (temp / 43);
+
+			remainder = temp % 43;
 		}
-		return bi;
+
+		return (byte) remainder;
 	}
 
-	/**
-	 * Uses the checksum in the last 4 bytes of the decoded data to verify the rest are correct. The checksum is removed
-	 * from the returned data.
-	 * 
-	 * @throws IllegalArgumentException
-	 *             if the input is not base 43 or the checksum does not validate.
-	 */
-	public static byte[] decodeChecked(@Nonnull String input) throws IllegalArgumentException
+	//
+	// number -> number / 256, returns number % 256
+	//
+	private static byte divmod256(final byte[] number43, final int startAt)
 	{
-		byte[] tmp = decode(input);
-		if (tmp.length < 4)
-			throw new IllegalArgumentException("Input too short");
-		byte[] checksum = new byte[4];
-		System.arraycopy(tmp, tmp.length - 4, checksum, 0, 4);
-		byte[] bytes = new byte[tmp.length - 4];
-		System.arraycopy(tmp, 0, bytes, 0, tmp.length - 4);
-		tmp = Utils.doubleDigest(bytes);
-		byte[] hash = new byte[4];
-		System.arraycopy(tmp, 0, hash, 0, 4);
-		if (!Arrays.equals(hash, checksum))
-			throw new IllegalArgumentException("Checksum does not validate");
-		return bytes;
+		int remainder = 0;
+		for (int i = startAt; i < number43.length; i++)
+		{
+			final int digit58 = (int) number43[i] & 0xFF;
+			final int temp = remainder * 43 + digit58;
+
+			number43[i] = (byte) (temp / 256);
+
+			remainder = temp % 256;
+		}
+
+		return (byte) remainder;
+	}
+
+	private static byte[] copyOfRange(final byte[] source, final int from, final int to)
+	{
+		final byte[] range = new byte[to - from];
+		System.arraycopy(source, from, range, 0, range.length);
+
+		return range;
 	}
 }
