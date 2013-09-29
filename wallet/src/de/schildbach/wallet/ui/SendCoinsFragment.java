@@ -302,16 +302,28 @@ public final class SendCoinsFragment extends SherlockFragment
 				{
 					sentTransactionListAdapter.notifyDataSetChanged();
 
+					final TransactionConfidence confidence = sentTransaction.getConfidence();
+					final ConfidenceType confidenceType = confidence.getConfidenceType();
+					final int numBroadcastPeers = confidence.numBroadcastPeers();
+
 					if (state == State.SENDING)
 					{
-						final TransactionConfidence confidence = sentTransaction.getConfidence();
-
-						if (confidence.getConfidenceType() == ConfidenceType.DEAD)
+						if (confidenceType == ConfidenceType.DEAD)
 							state = State.FAILED;
-						else if (confidence.numBroadcastPeers() > 1 || confidence.getConfidenceType() == ConfidenceType.BUILDING)
+						else if (numBroadcastPeers > 1 || confidenceType == ConfidenceType.BUILDING)
 							state = State.SENT;
 
 						updateView();
+					}
+
+					if (reason == ChangeReason.SEEN_PEERS && confidenceType == ConfidenceType.PENDING)
+					{
+						// play sound effect
+						final int soundResId = getResources().getIdentifier("send_coins_broadcast_" + numBroadcastPeers, "raw",
+								activity.getPackageName());
+						if (soundResId > 0)
+							RingtoneManager.getRingtone(activity, Uri.parse("android.resource://" + activity.getPackageName() + "/" + soundResId))
+									.play();
 					}
 				}
 			});
@@ -844,10 +856,6 @@ public final class SendCoinsFragment extends SherlockFragment
 					{
 						if (transaction != null)
 						{
-							// play sound effect
-							RingtoneManager.getRingtone(activity,
-									Uri.parse("android.resource://" + activity.getPackageName() + "/" + R.raw.send_coins)).play();
-
 							sentTransaction = transaction;
 
 							state = State.SENDING;
