@@ -1,20 +1,21 @@
-Questa applicazione è in grado di gestire autonomamente un portafoglio Bitcoin. Puoi inviare Bitcoin tra due terminali semplicemente acquisendo i codici QR visualizzati da questa applicazione oppure utilizzando l'NFC (Near Field Communication).
+Con questa app avrai sempre i tuoi Bitcoin con te, nella tua tasca! Puoi inviare pagamenti semplicemente scannerizzando un codice QR oppure avvicinando due telefonini insieme (NFC). Bitcoin Wallet è progettato per essere facile d usare e affidabile, oltre a essere anche sicuro e veloce.
 
 CARATTERISTICHE:
 
-• Visualizzazione del saldo in Bitcoin ed altre valute.
-• Invio e ricezione di Bitcoin Bitcoin utilizzando NFC, codici QR o Bitcoin URLs.
-• Rubrica per la memorizzazione degli indirizzi Bitcoin usati regolarmente.
-• Possibilità di impostare transazioni anche offline, eseguite alla prima occasione online.
-• Notifiche di sistema per connettività Bitcoin e la ricezione di Bitcoins.
-• Widget per il saldo Bitcoin.
+• Non è necessario alcun server cloud o servizio web! Questo portafoglio è veramente peer to peer.
+• Mostra il saldo del portafoglio in Bitcoin e in altre varie valute.
+• Invio e ricevimento di Bitcoin tramite NFC, codici QR o URL Bitcoin.
+• Rubrica degli indirizzi per usare indirizzi Bitcoin regolarmente.
+• Inserisci transazioni mentre sei offline, saranno eseguite quando tornerai online.
+• Notifiche di sistema per la connettività Bitcoin e la ricevuta di denaro.
+• App Widget per il saldo Bitcoin
 
-Puoi trovare maggiori informazioni su Bitcoin qui:
+Puoi trovare altri dettagli su Bitcoin su
 http://bitcoin.org
 
-Se vuoi contribuire a Bitcoin Wallet, l'indirizzo del progetto è
+Se vuoi contribuire a Bitcoin Wallet, il progetto si trova su
 https://code.google.com/p/bitcoin-wallet/
 
 Licenza: GPLv3
-Usalo a tuo rischio e pericolo!
+Usalo a tuo rischio!
 http://www.gnu.org/licenses/gpl-3.0.en.html
