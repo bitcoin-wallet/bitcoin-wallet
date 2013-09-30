@@ -1,0 +1,21 @@
+Az alkalmazás segítségével folyamatosan, közvetlenül a zsebedben tarthatod Bitcoin érméidet. Fizethetsz egyszerűen QR-kód beolvasásával, vagy akár NFC-képes eszközök összeérintésével is. A Bitcoin Wallet egyszerű és megbízható, miközben gyors és biztonságos.
+
+ELŐNYÖK:
+
+• Nincs szükség felhő, vagy webes háttérre! A tárca ténylegesen peer-to-peer működik.
+• A tárca egyenleg azonnal látható más pénznemekben is
+• Érmék küldése és fogadása NFC, QR-kód vagy közvetlen Bitcoin URL segítségével 
+• Címtár a rendszeresen használt Bitcoin címek számára
+• Kapcsolódás nélküli állapotban is előkészíthető tranzakciók, amelyek kapcsolódáskor teljesülnek
+• Rendszerüzenetek, értesítések a Bitcoin kapcsolódás állapotáról, vagy az érkezett érmékről
+• Widget a Bitcoin egyenlegről
+
+Bővebben a Bitcoin-ról:
+http://bitcoin.org
+
+Ha hozzájárulnál a Bitcoin Wallet projekthez, megtalálod a következő címen:
+https://code.google.com/p/bitcoin-wallet/
+
+Licensz: GPLv3
+Csak saját felelősségre használható!
+http://www.gnu.org/licenses/gpl-3.0.en.html
