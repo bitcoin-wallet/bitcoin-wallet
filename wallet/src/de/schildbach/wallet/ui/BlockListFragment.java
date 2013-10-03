@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
@@ -296,7 +297,7 @@ public final class BlockListFragment extends SherlockListFragment
 			{
 				for (final Transaction tx : transactions)
 				{
-					if (tx.getAppearsInHashes().contains(header.getHash()))
+					if (tx.getAppearsInHashes().containsKey(header.getHash()))
 					{
 						final View view;
 						if (iTransactionView < transactionChildCount)
@@ -413,7 +414,7 @@ public final class BlockListFragment extends SherlockListFragment
 			final Set<Transaction> filteredTransactions = new HashSet<Transaction>(transactions.size());
 			for (final Transaction tx : transactions)
 			{
-				final Collection<Sha256Hash> appearsIn = tx.getAppearsInHashes();
+				final Map<Sha256Hash, Integer> appearsIn = tx.getAppearsInHashes();
 				if (appearsIn != null && !appearsIn.isEmpty()) // TODO filter by updateTime
 					filteredTransactions.add(tx);
 			}
