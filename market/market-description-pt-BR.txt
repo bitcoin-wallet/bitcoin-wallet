@@ -14,7 +14,7 @@ Mais informações sobre Bitcoin em
 http://bitcoin.org
 
 Se você deseja contribuir com o Bitcoin Wallet, o projeto encontra-se em
-https://code.google.com/p/bitcoin-wallet/
+https://github.com/schildbach/bitcoin-wallet
 
 Licença: GPLv3
 Use por sua conta e risco!

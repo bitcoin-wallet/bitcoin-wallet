@@ -12,7 +12,7 @@
 • 比特币余额的程序插件。
 
 更多关于比特币的信息请点击：http://bitcoin.org
-如果你想赞助比特币钱包软件开发项目，该项目位于：https://code.google.com/p/bitcoin-wallet/
+如果你想赞助比特币钱包软件开发项目，该项目位于：https://github.com/schildbach/bitcoin-wallet
 
 许可协议: GPLv3
 使用者须自行承担风险！

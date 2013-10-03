@@ -13,7 +13,7 @@ Voor meer informatie over Bitcoin kunt u terecht op
 http://bitcoin.org
 
 Als u een bijdrage wil leveren aan Bitcoin Wallet, het project is te vinden op 
-https://code.google.com/p/bitcoin-wallet/
+https://github.com/schildbach/bitcoin-wallet
 
 Licentie: GPLv3
 Gebruik op eigen risico!

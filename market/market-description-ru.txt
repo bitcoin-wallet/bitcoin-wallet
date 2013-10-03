@@ -14,7 +14,7 @@
 http://bitcoin.org
 
 Если вы хотите помочь бумажнику Bitcoin, проект располагается по адресу
-https://code.google.com/p/bitcoin-wallet/
+https://github.com/schildbach/bitcoin-wallet
 
 Лицензия: GPLv3
 Используйте на свой риск!

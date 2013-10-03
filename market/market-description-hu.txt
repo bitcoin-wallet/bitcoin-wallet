@@ -14,7 +14,7 @@ Bővebben a Bitcoin-ról:
 http://bitcoin.org
 
 Ha hozzájárulnál a Bitcoin Wallet projekthez, megtalálod a következő címen:
-https://code.google.com/p/bitcoin-wallet/
+https://github.com/schildbach/bitcoin-wallet
 
 Licensz: GPLv3
 Csak saját felelősségre használható!

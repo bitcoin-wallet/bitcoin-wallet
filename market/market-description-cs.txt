@@ -13,7 +13,7 @@ Více informací o Bitcoinech
 http://bitcoin.org
 
 Pokud chcete přispět do projektu Bitcoin Wallet, naleznete jej na adrese
-https://code.google.com/p/bitcoin-wallet/
+https://github.com/schildbach/bitcoin-wallet
 
 License: GPLv3
 Použití pouze na vlastní riziko!

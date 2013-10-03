@@ -13,7 +13,7 @@ Bitcoin hakkında daha fazla bilgi için şu siteyi ziyaret edebilirsiniz:
 http://bitcoin.org
 
 Bitcoin Wallet uygulamasına katkıda bulunmak istiyorsanız proje sayfasını ziyaret ediniz:
-https://code.google.com/p/bitcoin-wallet/
+https://github.com/schildbach/bitcoin-wallet
 
 Lisans: GPLv3
 Tüm riski siz üstlenirsiniz!

@@ -13,7 +13,7 @@
 http://bitcoin.org
 
 Αν θέλετε να συμβάλει στη τη χρήση του Bitcoin Wallet, το έργο βρίσκεται εδώ:
-https://code.google.com/p/bitcoin-wallet/
+https://github.com/schildbach/bitcoin-wallet
 
 Άδεια: GPLv3
 Χρησιμοποιήστε με δική σας ευθύνη!

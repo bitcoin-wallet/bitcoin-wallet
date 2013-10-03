@@ -14,7 +14,7 @@ Anda dapat mengetahui lebih mengenai Bitcoin di
 http://bitcoin.org
 
 Jika Anda ingin berkontribusi kepada Bitcoin Wallet, proyeknya berada di
-https://code.google.com/p/bitcoin-wallet/
+https://github.com/schildbach/bitcoin-wallet
 
 Lisensi: GPLv3
 Gunakan dengan resiko Anda!
