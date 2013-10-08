@@ -18,7 +18,6 @@
 package de.schildbach.wallet;
 
 import java.io.BufferedInputStream;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.math.BigInteger;
@@ -33,7 +32,6 @@ import java.util.TreeMap;
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -236,7 +234,16 @@ public class ExchangeRatesProvider extends ContentProvider
 							rate = o.optString("30d", null);
 
 						if (rate != null)
-							rates.put(currencyCode, new ExchangeRate(currencyCode, Utils.toNanoCoins(rate), URL.getHost()));
+						{
+							try
+							{
+								rates.put(currencyCode, new ExchangeRate(currencyCode, Utils.toNanoCoins(rate), URL.getHost()));
+							}
+							catch (final ArithmeticException x)
+							{
+								log.debug("problem reading exchange rate: " + currencyCode, x);
+							}
+						}
 					}
 				}
 
@@ -248,11 +255,7 @@ public class ExchangeRatesProvider extends ContentProvider
 					reader.close();
 			}
 		}
-		catch (final IOException x)
-		{
-			log.debug("problem reading exchange rates", x);
-		}
-		catch (final JSONException x)
+		catch (final Exception x)
 		{
 			log.debug("problem reading exchange rates", x);
 		}
@@ -290,7 +293,16 @@ public class ExchangeRatesProvider extends ContentProvider
 					final String rate = o.optString("15m", null);
 
 					if (rate != null)
-						rates.put(currencyCode, new ExchangeRate(currencyCode, Utils.toNanoCoins(rate), URL.getHost()));
+					{
+						try
+						{
+							rates.put(currencyCode, new ExchangeRate(currencyCode, Utils.toNanoCoins(rate), URL.getHost()));
+						}
+						catch (final ArithmeticException x)
+						{
+							log.debug("problem reading exchange rate: " + currencyCode, x);
+						}
+					}
 				}
 
 				return rates;
@@ -301,11 +313,7 @@ public class ExchangeRatesProvider extends ContentProvider
 					reader.close();
 			}
 		}
-		catch (final IOException x)
-		{
-			log.debug("problem reading exchange rates", x);
-		}
-		catch (final JSONException x)
+		catch (final Exception x)
 		{
 			log.debug("problem reading exchange rates", x);
 		}
