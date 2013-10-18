@@ -29,6 +29,7 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
@@ -67,6 +68,8 @@ public final class SendingAddressesFragment extends SherlockListFragment impleme
 
 	private SimpleCursorAdapter adapter;
 	private String walletAddressesSelection;
+
+	private final Handler handler = new Handler();
 
 	private static final int REQUEST_CODE_SCAN = 0;
 
@@ -128,7 +131,15 @@ public final class SendingAddressesFragment extends SherlockListFragment impleme
 				@Override
 				protected void bitcoinRequest(final Address address, final String addressLabel, final BigInteger amount, final String bluetoothMac)
 				{
-					EditAddressBookEntryFragment.edit(getFragmentManager(), address.toString());
+					// workaround for "IllegalStateException: Can not perform this action after onSaveInstanceState"
+					handler.postDelayed(new Runnable()
+					{
+						@Override
+						public void run()
+						{
+							EditAddressBookEntryFragment.edit(getFragmentManager(), address.toString());
+						}
+					}, 500);
 				}
 
 				@Override
