@@ -1,3 +1,10 @@
+v3.22
+
+* sound effect when sending a payment
+* fixed rare issues with transactions missing or shown as unconfirmed
+* Hungarian translation
+* based on bitcoinj 0.10.2
+
 v3.21
 
 * bugfix
