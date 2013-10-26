@@ -2,7 +2,7 @@ Mit dieser App hast du deine Bitcoins immer dabei, in deiner Hosentasche! Du kan
 
 FEATURES:
 
-• Kein Cloud-Server oder Web-Dienst nötig! Dieses Wallet ist wahrlich Peer to Peer.
+• Kein Cloud-Server oder Web-Dienst nötig! Diese Wallet ist wahrlich Peer to Peer.
 • Anzeige des Wallet-Guthabens in Bitcoin und verschiedenen lokalen Währungen.
 • Senden und Empfangen von Bitcoin via NFC, QR-Codes oder Bitcoin URLs.
 • Adressbuch für regelmäßig genutzte Empfänger.

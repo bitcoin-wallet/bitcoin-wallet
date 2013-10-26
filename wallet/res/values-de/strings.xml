@@ -5,7 +5,7 @@
 	<string name="toast_wallet_reset">Wallet wurde zurückgesetzt,\nwird einige Zeit benötigen</string>
 
 	<string name="wallet_disclaimer_fragment_remind_safety">Nutzung auf eigene Gefahr. Lies die &lt;u>Sicherheitshinweise&lt;/u>.</string>
-	<string name="wallet_disclaimer_fragment_remind_backup">Bitte &lt;u>sichere dein Wallet&lt;/u>!</string>
+	<string name="wallet_disclaimer_fragment_remind_backup">Bitte &lt;u>sichere deine Wallet&lt;/u>!</string>
 	<string name="blockchain_state_progress_hours">%1$s, hinkt %2$d Stunden hinterher</string>
 	<string name="blockchain_state_progress_days">%1$s, hinkt %2$d Tage hinterher</string>
 	<string name="blockchain_state_progress_weeks">%1$s, hinkt %2$d Wochen hinterher</string>
@@ -17,7 +17,7 @@
 	<string name="wallet_address_fragment_your">Deine Bitcoin-Adresse:</string>
 	<string name="wallet_address_fragment_clipboard_msg">Bitcoin-Adresse ins Clipboard kopiert</string>
 	<string name="wallet_addresses_fragment_add_dialog_title">Bitcoin-Adresse hinzufügen</string>
-	<string name="wallet_addresses_fragment_add_dialog_message">Bitcoin-Adressen können nicht gelöscht werden. Möchtest Du eine neue Adresse zu Deinem Wallet hinzufügen?</string>
+	<string name="wallet_addresses_fragment_add_dialog_message">Bitcoin-Adressen können nicht gelöscht werden. Möchtest Du eine neue Adresse zu deiner Wallet hinzufügen?</string>
 	<string name="wallet_balance_fragment_replaying">Guthaben ist während des Replays nicht verfügbar.</string>
 	<string name="exchange_rates_activity_title">Wechselkurse</string>
 	<string name="exchange_rates_fragment_empty_text">Kann Wechselkurse nicht laden</string>
@@ -32,7 +32,7 @@
 	<string name="wallet_transactions_fragment_empty_text_received">Noch keine Bitcoins empfangen.</string>
 	<string name="wallet_transactions_fragment_empty_text_sent">Noch keine Bitcoins gesendet.</string>
 	<string name="wallet_transactions_fragment_empty_text_howto">Wie komme ich an Bitcoins?\n\nHandle gegen traditionelles Geld,\nverkaufe Güter oder Dienstleistungen oder\nverdiene durch Arbeit.</string>
-	<string name="wallet_transactions_row_warning_backup">Gratulation, du hast deine erste Zahlung erhalten! Hast du dein Wallet bereits &lt;u>gesichert&lt;/u>, um dich gegen Verlust zu schützen?</string>
+	<string name="wallet_transactions_row_warning_backup">Gratulation, du hast deine erste Zahlung erhalten! Hast du deine Wallet bereits &lt;u>gesichert&lt;/u>, um dich gegen Verlust zu schützen?</string>
 	<string name="wallet_transactions_fragment_coinbase">geschürft</string>
 	<string name="wallet_transactions_fragment_internal">intern</string>
 	<string name="wallet_transactions_context_show_qr_title">QR-Code zeigen</string>
@@ -61,8 +61,8 @@
 	<string name="send_coins_fragment_receiving_address_label">Empfänger</string>
 	<string name="send_coins_fragment_receiving_address_hint">Adresse oder Namen</string>
 	<string name="send_coins_fragment_receiving_address_error">Ungültige Bitcoin-Adresse!</string>
-	<string name="send_coins_fragment_receiving_address_error_cross_network">Kann %s-Adresse mit diesem Wallet nicht nutzen!</string>
-	<string name="send_coins_fragment_receiving_address_error_cross_network_unknown">Kann Adresse von unbekanntem Netzwerk mit diesem Wallet nicht nutzen!</string>
+	<string name="send_coins_fragment_receiving_address_error_cross_network">Kann %s-Adresse mit dieser Wallet nicht nutzen!</string>
+	<string name="send_coins_fragment_receiving_address_error_cross_network_unknown">Kann Adresse von unbekanntem Netzwerk mit dieser Wallet nicht nutzen!</string>
 	<string name="send_coins_fragment_available_label">Verfügbar</string>
 	<string name="send_coins_fragment_pending">(BTC %s warten auf Bestätigung)</string>
 	<string name="send_coins_fragment_amount_label">Betrag</string>
@@ -113,7 +113,7 @@
 	<string name="edit_address_book_entry_dialog_label_label">Name</string>
 	<string name="edit_address_book_entry_dialog_button_edit">Speichern</string>
 
-	<string name="transaction_row_message_purpose_key_rotation">Diese Transaktion stärkt dein Wallet gegen Diebstahl. &lt;u>Mehr Information.&lt;/u></string>
+	<string name="transaction_row_message_purpose_key_rotation">Diese Transaktion stärkt deine Wallet gegen Diebstahl. &lt;u>Mehr Information.&lt;/u></string>
 	<string name="transaction_row_message_own_unbroadcasted">Diese Zahlung ist noch nicht übertragen.</string>
 	<string name="transaction_row_message_received_unconfirmed_unlocked">Diese Zahlung sollte in ein paar Minuten verfügbar werden.</string>
 	<string name="transaction_row_message_received_unconfirmed_locked">Diese Zahlung ist nicht standardgemäß und sollte nicht vertraut werden.</string>
@@ -194,7 +194,7 @@
 	<string name="report_issue_dialog_collect_device_info">Geräte-Informationen anhängen</string>
 	<string name="report_issue_dialog_collect_application_log">Applikations-Logfile anhängen</string>
 	<string name="report_issue_dialog_collect_extended_application_log">Erweitertes Applikations-Logfile anhängen</string>
-	<string name="report_issue_dialog_collect_wallet_dump">Dump des Wallets anhängen</string>
+	<string name="report_issue_dialog_collect_wallet_dump">Dump der Wallet anhängen</string>
 	<string name="report_issue_dialog_mail_intent_chooser">Bericht senden mit…</string>
 
 	<string name="about_title">Über</string>
