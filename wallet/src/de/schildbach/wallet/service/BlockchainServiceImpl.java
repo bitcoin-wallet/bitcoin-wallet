@@ -694,6 +694,8 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 
 		if (BlockchainService.ACTION_RESET_BLOCKCHAIN.equals(intent.getAction()))
 		{
+			log.info("will remove blockchain on service shutdown");
+
 			resetBlockchainOnShutdown = true;
 			stopSelf();
 		}
@@ -755,7 +757,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 
 		if (resetBlockchainOnShutdown)
 		{
-			log.debug("removing blockchain");
+			log.info("removing blockchain");
 			blockChainFile.delete();
 		}
 

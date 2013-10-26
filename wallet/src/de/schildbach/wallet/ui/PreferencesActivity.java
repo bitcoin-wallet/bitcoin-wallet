@@ -21,6 +21,9 @@ import java.io.IOException;
 
 import javax.annotation.Nonnull;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import android.app.AlertDialog;
 import android.content.ComponentName;
 import android.content.DialogInterface;
@@ -61,6 +64,8 @@ public final class PreferencesActivity extends SherlockPreferenceActivity implem
 		dataUsageIntent.setComponent(Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH ? new ComponentName("com.android.settings",
 				"com.android.settings.Settings$DataUsageSummaryActivity") : new ComponentName("com.android.phone", "com.android.phone.Settings"));
 	}
+
+	private static final Logger log = LoggerFactory.getLogger(PreferencesActivity.class);
 
 	@Override
 	protected void onCreate(final Bundle savedInstanceState)
@@ -183,6 +188,8 @@ public final class PreferencesActivity extends SherlockPreferenceActivity implem
 				@Override
 				public void onClick(final DialogInterface dialog, final int which)
 				{
+					log.info("manually initiated blockchain reset");
+
 					application.resetBlockchain();
 					finish();
 				}
