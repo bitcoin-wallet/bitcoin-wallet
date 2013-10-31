@@ -244,7 +244,7 @@ public class TransactionsListAdapter extends BaseAdapter
 				rowConfidenceCircular.setProgress(1);
 				rowConfidenceCircular.setMaxProgress(1);
 				rowConfidenceCircular.setSize(confidence.numBroadcastPeers());
-				rowConfidenceCircular.setMaxSize(maxConnectedPeers - 1);
+				rowConfidenceCircular.setMaxSize(maxConnectedPeers / 2); // magic value
 				rowConfidenceCircular.setColors(colorInsignificant, colorInsignificant);
 			}
 			else if (confidenceType == ConfidenceType.BUILDING)
