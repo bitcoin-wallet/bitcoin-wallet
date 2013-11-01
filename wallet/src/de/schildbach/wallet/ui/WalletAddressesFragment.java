@@ -17,6 +17,8 @@
 
 package de.schildbach.wallet.ui;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.annotation.Nonnull;
@@ -288,9 +290,27 @@ public final class WalletAddressesFragment extends SherlockListFragment
 	private final WalletEventListener walletListener = new AbstractWalletEventListener()
 	{
 		@Override
-		public void onKeysAdded(final Wallet wallet, final List<ECKey> keysAdded)
+		public void onKeysAdded(final Wallet w, final List<ECKey> keysAdded)
 		{
-			final List<ECKey> keys = application.getWallet().getKeys();
+			final List<ECKey> keys = wallet.getKeys();
+
+			Collections.sort(keys, new Comparator<ECKey>()
+			{
+				@Override
+				public int compare(final ECKey lhs, final ECKey rhs)
+				{
+					final boolean lhsRotating = wallet.isKeyRotating(lhs);
+					final boolean rhsRotating = wallet.isKeyRotating(rhs);
+
+					if (lhsRotating != rhsRotating)
+						return lhsRotating ? 1 : -1;
+
+					if (lhs.getCreationTimeSeconds() != rhs.getCreationTimeSeconds())
+						return lhs.getCreationTimeSeconds() > rhs.getCreationTimeSeconds() ? 1 : -1;
+
+					return 0;
+				}
+			});
 
 			handler.post(new Runnable()
 			{
