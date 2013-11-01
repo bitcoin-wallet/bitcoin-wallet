@@ -48,6 +48,7 @@ public class WalletAddressesAdapter extends BaseAdapter
 	private final Context context;
 	private final Wallet wallet;
 	private final DateFormat dateFormat;
+	private final int colorSignificant;
 	private final int colorInsignificant;
 	private final int colorLessSignificant;
 	private final LayoutInflater inflater;
@@ -63,6 +64,7 @@ public class WalletAddressesAdapter extends BaseAdapter
 		this.context = context;
 		this.wallet = wallet;
 		dateFormat = android.text.format.DateFormat.getDateFormat(context);
+		colorSignificant = res.getColor(R.color.fg_significant);
 		colorInsignificant = res.getColor(R.color.fg_insignificant);
 		colorLessSignificant = res.getColor(R.color.fg_less_significant);
 		inflater = LayoutInflater.from(context);
@@ -114,6 +116,7 @@ public class WalletAddressesAdapter extends BaseAdapter
 	{
 		final ECKey key = (ECKey) getItem(position);
 		final Address address = key.toAddress(Constants.NETWORK_PARAMETERS);
+		final boolean isRotateKey = wallet.isKeyRotating(key);
 
 		if (row == null)
 			row = inflater.inflate(R.layout.address_book_row, null);
@@ -124,13 +127,14 @@ public class WalletAddressesAdapter extends BaseAdapter
 
 		final TextView addressView = (TextView) row.findViewById(R.id.address_book_row_address);
 		addressView.setText(WalletUtils.formatAddress(address, Constants.ADDRESS_FORMAT_GROUP_SIZE, Constants.ADDRESS_FORMAT_LINE_SIZE));
+		addressView.setTextColor(isRotateKey ? colorInsignificant : colorSignificant);
 
 		final TextView labelView = (TextView) row.findViewById(R.id.address_book_row_label);
 		final String label = AddressBookProvider.resolveLabel(context, address.toString());
 		if (label != null)
 		{
 			labelView.setText(label);
-			labelView.setTextColor(colorLessSignificant);
+			labelView.setTextColor(isRotateKey ? colorInsignificant : colorLessSignificant);
 		}
 		else
 		{
@@ -154,7 +158,6 @@ public class WalletAddressesAdapter extends BaseAdapter
 		}
 
 		final TextView messageView = (TextView) row.findViewById(R.id.address_book_row_message);
-		final boolean isRotateKey = wallet.isKeyRotating(key);
 		messageView.setVisibility(isRotateKey ? View.VISIBLE : View.GONE);
 
 		return row;
