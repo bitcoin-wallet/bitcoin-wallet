@@ -374,6 +374,9 @@ public final class RequestCoinsFragment extends SherlockFragment
 
 	private void updateView()
 	{
+		if (!isResumed())
+			return;
+
 		final String request = determineRequestStr(true);
 
 		// update qr code
