@@ -32,7 +32,7 @@ import com.google.bitcoin.core.WalletEventListener;
 /**
  * @author Andreas Schildbach
  */
-public abstract class ThrottelingWalletChangeListener implements WalletEventListener
+public abstract class ThrottlingWalletChangeListener implements WalletEventListener
 {
 	private final long throttleMs;
 	private final boolean coinsRelevant;
@@ -45,22 +45,22 @@ public abstract class ThrottelingWalletChangeListener implements WalletEventList
 
 	private static final long DEFAULT_THROTTLE_MS = 500;
 
-	public ThrottelingWalletChangeListener()
+	public ThrottlingWalletChangeListener()
 	{
 		this(DEFAULT_THROTTLE_MS);
 	}
 
-	public ThrottelingWalletChangeListener(final long throttleMs)
+	public ThrottlingWalletChangeListener(final long throttleMs)
 	{
 		this(throttleMs, true, true, true);
 	}
 
-	public ThrottelingWalletChangeListener(final boolean coinsRelevant, final boolean reorganizeRelevant, final boolean confidenceRelevant)
+	public ThrottlingWalletChangeListener(final boolean coinsRelevant, final boolean reorganizeRelevant, final boolean confidenceRelevant)
 	{
 		this(DEFAULT_THROTTLE_MS, coinsRelevant, reorganizeRelevant, confidenceRelevant);
 	}
 
-	public ThrottelingWalletChangeListener(final long throttleMs, final boolean coinsRelevant, final boolean reorganizeRelevant,
+	public ThrottlingWalletChangeListener(final long throttleMs, final boolean coinsRelevant, final boolean reorganizeRelevant,
 			final boolean confidenceRelevant)
 	{
 		this.throttleMs = throttleMs;
@@ -92,7 +92,7 @@ public abstract class ThrottelingWalletChangeListener implements WalletEventList
 		{
 			lastMessageTime.set(System.currentTimeMillis());
 
-			onThrotteledWalletChanged();
+			onThrottledWalletChanged();
 		}
 	};
 
@@ -102,7 +102,7 @@ public abstract class ThrottelingWalletChangeListener implements WalletEventList
 	}
 
 	/** will be called back on UI thread */
-	public abstract void onThrotteledWalletChanged();
+	public abstract void onThrottledWalletChanged();
 
 	@Override
 	public void onCoinsReceived(final Wallet wallet, final Transaction tx, final BigInteger prevBalance, final BigInteger newBalance)

@@ -27,7 +27,7 @@ import android.support.v4.content.AsyncTaskLoader;
 import com.google.bitcoin.core.Wallet;
 import com.google.bitcoin.core.Wallet.BalanceType;
 
-import de.schildbach.wallet.util.ThrottelingWalletChangeListener;
+import de.schildbach.wallet.util.ThrottlingWalletChangeListener;
 
 /**
  * @author Andreas Schildbach
@@ -68,10 +68,10 @@ public final class WalletBalanceLoader extends AsyncTaskLoader<BigInteger>
 		return wallet.getBalance(BalanceType.ESTIMATED);
 	}
 
-	private final ThrottelingWalletChangeListener walletChangeListener = new ThrottelingWalletChangeListener()
+	private final ThrottlingWalletChangeListener walletChangeListener = new ThrottlingWalletChangeListener()
 	{
 		@Override
-		public void onThrotteledWalletChanged()
+		public void onThrottledWalletChanged()
 		{
 			forceLoad();
 		}

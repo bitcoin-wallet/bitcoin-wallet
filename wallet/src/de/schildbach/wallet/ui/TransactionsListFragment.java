@@ -72,7 +72,7 @@ import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.util.BitmapFragment;
 import de.schildbach.wallet.util.Nfc;
 import de.schildbach.wallet.util.Qr;
-import de.schildbach.wallet.util.ThrottelingWalletChangeListener;
+import de.schildbach.wallet.util.ThrottlingWalletChangeListener;
 import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
 
@@ -354,10 +354,10 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 		// don't clear the adapter, because it will confuse users
 	}
 
-	private final ThrottelingWalletChangeListener transactionChangeListener = new ThrottelingWalletChangeListener(THROTTLE_MS)
+	private final ThrottlingWalletChangeListener transactionChangeListener = new ThrottlingWalletChangeListener(THROTTLE_MS)
 	{
 		@Override
-		public void onThrotteledWalletChanged()
+		public void onThrottledWalletChanged()
 		{
 			adapter.notifyDataSetChanged();
 		}
@@ -422,11 +422,11 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 			return filteredTransactions;
 		}
 
-		private final ThrottelingWalletChangeListener transactionAddRemoveListener = new ThrottelingWalletChangeListener(THROTTLE_MS, true, true,
+		private final ThrottlingWalletChangeListener transactionAddRemoveListener = new ThrottlingWalletChangeListener(THROTTLE_MS, true, true,
 				false)
 		{
 			@Override
-			public void onThrotteledWalletChanged()
+			public void onThrottledWalletChanged()
 			{
 				forceLoad();
 			}
