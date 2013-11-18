@@ -152,6 +152,11 @@ public class WalletApplication extends Application
 		final int lastVersionCode = prefs.getInt(Constants.PREFS_KEY_LAST_VERSION, 0);
 		prefs.edit().putInt(Constants.PREFS_KEY_LAST_VERSION, packageInfo.versionCode).commit();
 
+		if (packageInfo.versionCode > lastVersionCode)
+			log.info("detected app upgrade: " + lastVersionCode + " -> " + packageInfo.versionCode);
+		else if (packageInfo.versionCode < lastVersionCode)
+			log.warn("detected app downgrade: " + lastVersionCode + " -> " + packageInfo.versionCode);
+
 		if (lastVersionCode > 0 && lastVersionCode < KEY_ROTATION_VERSION_CODE && packageInfo.versionCode >= KEY_ROTATION_VERSION_CODE)
 		{
 			log.info("detected version jump crossing key rotation");
