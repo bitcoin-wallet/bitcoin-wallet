@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package de.schildbach.wallet.util;
+package hashengineering.digitalcoin.wallet.util;
 
 import java.io.File;
 import java.io.FileFilter;
@@ -38,7 +38,7 @@ import org.spongycastle.crypto.paddings.PaddedBufferedBlockCipher;
 import org.spongycastle.crypto.params.ParametersWithIV;
 
 import android.util.Base64;
-import de.schildbach.wallet.Constants;
+import hashengineering.digitalcoin.wallet.Constants;
 
 /**
  * This class encrypts and decrypts a string in a manner that is compatible with OpenSSL.

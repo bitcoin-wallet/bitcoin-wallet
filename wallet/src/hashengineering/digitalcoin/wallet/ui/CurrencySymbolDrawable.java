@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.schildbach.wallet.ui;
+package hashengineering.digitalcoin.wallet.ui;
 
 import javax.annotation.Nonnull;
 
@@ -23,7 +23,7 @@ import android.graphics.Canvas;
 import android.graphics.ColorFilter;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
-import de.schildbach.wallet.Constants;
+import hashengineering.digitalcoin.wallet.Constants;
 
 /**
  * @author Andreas Schildbach

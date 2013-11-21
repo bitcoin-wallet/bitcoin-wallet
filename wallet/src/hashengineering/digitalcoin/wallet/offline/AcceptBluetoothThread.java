@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.schildbach.wallet.offline;
+package hashengineering.digitalcoin.wallet.offline;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -30,7 +30,7 @@ import org.slf4j.LoggerFactory;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothServerSocket;
 import android.bluetooth.BluetoothSocket;
-import de.schildbach.wallet.util.Bluetooth;
+import hashengineering.digitalcoin.wallet.util.Bluetooth;
 
 /**
  * @author Shahar Livne
@@ -47,7 +47,7 @@ public abstract class AcceptBluetoothThread extends Thread
 	{
 		try
 		{
-			this.listeningSocket = adapter.listenUsingInsecureRfcommWithServiceRecord("Bitcoin Transaction Submission", Bluetooth.BLUETOOTH_UUID);
+			this.listeningSocket = adapter.listenUsingInsecureRfcommWithServiceRecord("digitalcoin Transaction Submission", Bluetooth.BLUETOOTH_UUID);
 		}
 		catch (final IOException x)
 		{

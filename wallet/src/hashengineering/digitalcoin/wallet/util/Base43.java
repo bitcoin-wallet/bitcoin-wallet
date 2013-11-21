@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package de.schildbach.wallet.util;
+package hashengineering.digitalcoin.wallet.util;
 
 import java.nio.charset.Charset;
 

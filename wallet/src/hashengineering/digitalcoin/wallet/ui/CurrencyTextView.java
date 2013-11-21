@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.schildbach.wallet.ui;
+package hashengineering.digitalcoin.wallet.ui;
 
 import java.math.BigInteger;
 
@@ -30,10 +30,10 @@ import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
 import android.util.AttributeSet;
 import android.widget.TextView;
-import de.schildbach.wallet.Constants;
-import de.schildbach.wallet.util.GenericUtils;
-import de.schildbach.wallet.util.WalletUtils;
-import de.schildbach.wallet.R;
+import hashengineering.digitalcoin.wallet.Constants;
+import hashengineering.digitalcoin.wallet.util.GenericUtils;
+import hashengineering.digitalcoin.wallet.util.WalletUtils;
+import hashengineering.digitalcoin.wallet.R;
 
 /**
  * @author Andreas Schildbach

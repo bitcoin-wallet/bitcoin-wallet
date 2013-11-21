@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.schildbach.wallet.ui;
+package hashengineering.digitalcoin.wallet.ui;
 
 import java.io.IOException;
 import java.math.BigInteger;
@@ -29,20 +29,20 @@ import android.app.AlertDialog.Builder;
 import android.content.Context;
 import android.content.DialogInterface.OnClickListener;
 
-import com.google.bitcoin.core.Address;
-import com.google.bitcoin.core.AddressFormatException;
-import com.google.bitcoin.core.Base58;
-import com.google.bitcoin.core.DumpedPrivateKey;
-import com.google.bitcoin.core.ECKey;
-import com.google.bitcoin.core.ProtocolException;
-import com.google.bitcoin.core.Transaction;
-import com.google.bitcoin.uri.BitcoinURI;
-import com.google.bitcoin.uri.BitcoinURIParseException;
+import com.google.digitalcoin.core.Address;
+import com.google.digitalcoin.core.AddressFormatException;
+import com.google.digitalcoin.core.Base58;
+import com.google.digitalcoin.core.DumpedPrivateKey;
+import com.google.digitalcoin.core.ECKey;
+import com.google.digitalcoin.core.ProtocolException;
+import com.google.digitalcoin.core.Transaction;
+import com.google.digitalcoin.uri.BitcoinURI;
+import com.google.digitalcoin.uri.BitcoinURIParseException;
 
-import de.schildbach.wallet.Constants;
-import de.schildbach.wallet.util.Bluetooth;
-import de.schildbach.wallet.util.Qr;
-import de.schildbach.wallet.R;
+import hashengineering.digitalcoin.wallet.Constants;
+import hashengineering.digitalcoin.wallet.util.Bluetooth;
+import hashengineering.digitalcoin.wallet.util.Qr;
+import hashengineering.digitalcoin.wallet.R;
 
 /**
  * @author Andreas Schildbach

@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.schildbach.wallet.ui;
+package hashengineering.digitalcoin.wallet.ui;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -45,17 +45,17 @@ import com.actionbarsherlock.view.ActionMode;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
-import com.google.bitcoin.core.Address;
-import com.google.bitcoin.core.Transaction;
-import com.google.bitcoin.uri.BitcoinURI;
+import com.google.digitalcoin.core.Address;
+import com.google.digitalcoin.core.Transaction;
+import com.google.digitalcoin.uri.BitcoinURI;
 
-import de.schildbach.wallet.AddressBookProvider;
-import de.schildbach.wallet.Constants;
-import de.schildbach.wallet.ui.InputParser.StringInputParser;
-import de.schildbach.wallet.util.BitmapFragment;
-import de.schildbach.wallet.util.Qr;
-import de.schildbach.wallet.util.WalletUtils;
-import de.schildbach.wallet.R;
+import hashengineering.digitalcoin.wallet.AddressBookProvider;
+import hashengineering.digitalcoin.wallet.Constants;
+import hashengineering.digitalcoin.wallet.ui.InputParser.StringInputParser;
+import hashengineering.digitalcoin.wallet.util.BitmapFragment;
+import hashengineering.digitalcoin.wallet.util.Qr;
+import hashengineering.digitalcoin.wallet.util.WalletUtils;
+import hashengineering.digitalcoin.wallet.R;
 
 /**
  * @author Andreas Schildbach

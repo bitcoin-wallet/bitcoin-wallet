@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.schildbach.wallet.ui;
+package hashengineering.digitalcoin.wallet.ui;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -35,7 +35,7 @@ import android.view.View;
 
 import com.google.zxing.ResultPoint;
 
-import de.schildbach.wallet.R;
+import hashengineering.digitalcoin.wallet.R;
 
 /**
  * @author Andreas Schildbach

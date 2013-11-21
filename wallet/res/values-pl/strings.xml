@@ -5,43 +5,43 @@
 	<string name="toast_wallet_reset">Portfel został zresetowany,\nponowne załadowanie potrwa trochę czasu</string>
 	
 	<string name="wallet_disclaimer_fragment_remind_safety">Używasz jej na własne ryzyko. Proszę przeczytaj wskazówki bezpieczeństwa.</string>
-	<string name="wallet_address_fragment_your">Twój adres Bitcoin:</string>
-	<string name="wallet_address_fragment_clipboard_msg">Kopiuj adres Bitcoin do schowka</string>
-	<string name="wallet_addresses_fragment_add_dialog_title">Dodaj adres Bitcoin</string>
-	<string name="wallet_addresses_fragment_add_dialog_message">Adres Bitcoin nie może być skasowany. Chcesz dodać nowy adres do Twojego portfela?</string>
+	<string name="wallet_address_fragment_your">Twój adres digitalcoin:</string>
+	<string name="wallet_address_fragment_clipboard_msg">Kopiuj adres digitalcoin do schowka</string>
+	<string name="wallet_addresses_fragment_add_dialog_title">Dodaj adres digitalcoin</string>
+	<string name="wallet_addresses_fragment_add_dialog_message">Adres digitalcoin nie może być skasowany. Chcesz dodać nowy adres do Twojego portfela?</string>
 	<string name="exchange_rates_fragment_empty_text">Kurs wymiany nie mógł być załadowany</string>
 	<string name="wallet_transactions_fragment_tab_received">Otrzymane</string>
 	<string name="wallet_transactions_fragment_tab_all">Wszystkie</string>
 	<string name="wallet_transactions_fragment_tab_sent">Wysłane</string>
-	<string name="wallet_transactions_fragment_empty_text_received">Jeszcze żadne Bitcoiny nie zostały otrzymane</string>
-	<string name="wallet_transactions_fragment_empty_text_sent">Jeszcze żadne Bitcoiny nie zostały wysłane</string>
+	<string name="wallet_transactions_fragment_empty_text_received">Jeszcze żadne digitalcoiny nie zostały otrzymane</string>
+	<string name="wallet_transactions_fragment_empty_text_sent">Jeszcze żadne digitalcoiny nie zostały wysłane</string>
 	<string name="wallet_options_safety">Wskazówki bezpieczeństwa</string>
 	<string name="wallet_options_donate">Podaruj</string>
 	<string name="wallet_low_storage_dialog_title">Pamięć wewnętrzna jest niska!</string>
-	<string name="wallet_low_storage_dialog_msg">Bitcoin Wallet używa pamięć wewnętrzną na zapamiętywanie transakcji i bloków. Jak nie będzie miejsca w pamięci, portfel przestanie pracować i Twoje Bitcoiny będą narażone na ryzyko!\n\n Chcesz otworzyć administratora aplikacji i odinstalować niepotrzebne aplikacje?</string>
+	<string name="wallet_low_storage_dialog_msg">digitalcoin Wallet używa pamięć wewnętrzną na zapamiętywanie transakcji i bloków. Jak nie będzie miejsca w pamięci, portfel przestanie pracować i Twoje digitalcoiny będą narażone na ryzyko!\n\n Chcesz otworzyć administratora aplikacji i odinstalować niepotrzebne aplikacje?</string>
 	<string name="wallet_low_storage_dialog_button_apps">Zarządzaj aplikacjami</string>
 
-	<string name="send_coins_activity_title">Wyslij Bitcoin</string>
+	<string name="send_coins_activity_title">Wyslij digitalcoin</string>
 	<string name="send_coins_fragment_receiving_address_label">Zapłać</string>
 	<string name="send_coins_fragment_receiving_address_hint">Wpisz adres lub imię</string>
-	<string name="send_coins_fragment_receiving_address_error">Nieważny adres Bitcoin!</string>
+	<string name="send_coins_fragment_receiving_address_error">Nieważny adres digitalcoin!</string>
 	<string name="send_coins_fragment_available_label">Do dyspozycji</string>
-	<string name="send_coins_fragment_pending">(BTC %s czekanie na potwierdzenie)</string>
+	<string name="send_coins_fragment_pending">(DGC %s czekanie na potwierdzenie)</string>
 	<string name="send_coins_fragment_amount_label">Kwota do zapłacenia</string>
 	<string name="send_coins_fragment_button_send">Wyślij</string>
 	<string name="send_coins_sending_msg">Wysyłanie…</string>
 	<string name="send_coins_error_msg">Problem z wysłaniem monet!</string>
 
-	<string name="request_coins_activity_title">Zapytaj o Bitcoin</string>
+	<string name="request_coins_activity_title">Zapytaj o digitalcoin</string>
 	<string name="request_coins_fragment_amount_label">Zapytana kwota (opcjonalna)</string>
 	<string name="request_coins_fragment_initiate_request_qr">Niech ten kod zostanie zeskanowany przez wysyłającego.</string>
 	<string name="request_coins_fragment_initiate_request_nfc">Albo dotknij kod z NFC zdolnym aparatem.</string>
-	<string name="request_coins_clipboard_msg">Zapytanie o Bitcoin zostało wklejone do schowka</string>
-	<string name="request_coins_share_dialog_title">Opublikuj zapytanie na Bitcoin…</string>
+	<string name="request_coins_clipboard_msg">Zapytanie o digitalcoin zostało wklejone do schowka</string>
+	<string name="request_coins_share_dialog_title">Opublikuj zapytanie na digitalcoin…</string>
 
 	<string name="address_book_activity_title">Książka adresowa</string>
 	<string name="address_book_empty_text">Żadnych wpisów w książce adresowej</string>
-	<string name="address_book_context_send_title">Wyślij Bitcoin na adres</string>
+	<string name="address_book_context_send_title">Wyślij digitalcoin na adres</string>
 	<string name="address_book_context_edit_title">Zmień adres</string>
 	<string name="address_book_context_remove_title">Zmaż adres</string>
 	<string name="address_book_context_show_qr_title">Pokaż kod QR</string>
@@ -55,7 +55,7 @@
 
 	<string name="about_title">Wokół</string>
 	<string name="about_license_title">Licencja</string>
-	<string name="about_credits_bitcoinj_title">Ta aplikacja używa bitcoinj %s</string>
+	<string name="about_credits_digitalcoinj_title">Ta aplikacja używa digitalcoinj %s</string>
 	<string name="about_credits_zxing_title">"Ta aplikacja używa 'zxing'"</string>
 	<string name="about_credits_icon_title">"Ta aplikacja używa icon od 'bitboy'"</string>
 	<string name="about_author_twitter_title">Autor na Twitter</string>
@@ -63,7 +63,7 @@
 	<string name="about_credits_market_app_title">strona Google Play App</string>
 	<string name="about_credits_market_publisher_title">Inne aplikacje autora</string>
 
-	<string name="notification_coins_received_msg">Otrzymane BTC %s</string>
+	<string name="notification_coins_received_msg">Otrzymane DGC %s</string>
 	<string name="notification_peers_connected_msg">%d peer połączony</string>
 
 	<!-- generic buttons -->

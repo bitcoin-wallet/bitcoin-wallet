@@ -34,7 +34,7 @@
 
 			<fragment
 				android:id="@+id/peer_list_fragment"
-				android:name="de.schildbach.wallet.ui.PeerListFragment"
+				android:name="hashengineering.digitalcoin.wallet.ui.PeerListFragment"
 				android:layout_width="match_parent"
 				android:layout_height="match_parent" />
 		</FrameLayout>
@@ -75,7 +75,7 @@
 
 			<fragment
 				android:id="@+id/block_list_fragment"
-				android:name="de.schildbach.wallet.ui.BlockListFragment"
+				android:name="hashengineering.digitalcoin.wallet.ui.BlockListFragment"
 				android:layout_width="match_parent"
 				android:layout_height="match_parent" />
 		</FrameLayout>

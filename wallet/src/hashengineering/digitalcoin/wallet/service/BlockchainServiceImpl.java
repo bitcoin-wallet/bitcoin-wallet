@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.schildbach.wallet.service;
+package hashengineering.digitalcoin.wallet.service;
 
 import java.io.File;
 import java.io.IOException;
@@ -50,7 +50,6 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.net.Uri;
 import android.net.wifi.WifiManager;
 import android.net.wifi.WifiManager.WifiLock;
@@ -63,37 +62,38 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.text.format.DateUtils;
 
-import com.google.bitcoin.core.AbstractPeerEventListener;
-import com.google.bitcoin.core.Address;
-import com.google.bitcoin.core.Block;
-import com.google.bitcoin.core.BlockChain;
-import com.google.bitcoin.core.CheckpointManager;
-import com.google.bitcoin.core.Peer;
-import com.google.bitcoin.core.PeerEventListener;
-import com.google.bitcoin.core.PeerGroup;
-import com.google.bitcoin.core.ScriptException;
-import com.google.bitcoin.core.StoredBlock;
-import com.google.bitcoin.core.Transaction;
-import com.google.bitcoin.core.TransactionConfidence.ConfidenceType;
-import com.google.bitcoin.core.Wallet;
-import com.google.bitcoin.core.Wallet.BalanceType;
-import com.google.bitcoin.core.WalletEventListener;
-import com.google.bitcoin.discovery.DnsDiscovery;
-import com.google.bitcoin.discovery.PeerDiscovery;
-import com.google.bitcoin.discovery.PeerDiscoveryException;
-import com.google.bitcoin.store.BlockStore;
-import com.google.bitcoin.store.BlockStoreException;
-import com.google.bitcoin.store.SPVBlockStore;
+import com.google.digitalcoin.core.AbstractPeerEventListener;
+import com.google.digitalcoin.core.Address;
+import com.google.digitalcoin.core.Block;
+import com.google.digitalcoin.core.BlockChain;
+import com.google.digitalcoin.core.CheckpointManager;
+import com.google.digitalcoin.core.Peer;
+import com.google.digitalcoin.core.PeerEventListener;
+import com.google.digitalcoin.core.PeerGroup;
+import com.google.digitalcoin.core.ScriptException;
+import com.google.digitalcoin.core.StoredBlock;
+import com.google.digitalcoin.core.Transaction;
+import com.google.digitalcoin.core.TransactionConfidence.ConfidenceType;
+import com.google.digitalcoin.core.Wallet;
+import com.google.digitalcoin.core.Wallet.BalanceType;
+import com.google.digitalcoin.core.WalletEventListener;
+import com.google.digitalcoin.discovery.DnsDiscovery;
+import com.google.digitalcoin.discovery.PeerDiscovery;
+import com.google.digitalcoin.discovery.PeerDiscoveryException;
+import com.google.digitalcoin.store.BlockStore;
+import com.google.digitalcoin.store.BlockStoreException;
+import com.google.digitalcoin.store.SPVBlockStore;
 
-import de.schildbach.wallet.Constants;
-import de.schildbach.wallet.WalletApplication;
-import de.schildbach.wallet.WalletBalanceWidgetProvider;
-import de.schildbach.wallet.ui.WalletActivity;
-import de.schildbach.wallet.util.CrashReporter;
-import de.schildbach.wallet.util.GenericUtils;
-import de.schildbach.wallet.util.ThrottlingWalletChangeListener;
-import de.schildbach.wallet.util.WalletUtils;
-import de.schildbach.wallet.R;
+import hashengineering.digitalcoin.wallet.Constants;
+import hashengineering.digitalcoin.wallet.WalletApplication;
+import hashengineering.digitalcoin.wallet.WalletBalanceWidgetProvider;
+import hashengineering.digitalcoin.wallet.ui.WalletActivity;
+import hashengineering.digitalcoin.wallet.util.CrashReporter;
+import hashengineering.digitalcoin.wallet.util.GenericUtils;
+import hashengineering.digitalcoin.wallet.util.WalletUtils;
+import hashengineering.digitalcoin.wallet.R;
+
+import hashengineering.digitalcoin.wallet.util.ThrottlingWalletChangeListener;
 
 /**
  * @author Andreas Schildbach

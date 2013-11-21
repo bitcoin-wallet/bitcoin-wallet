@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.schildbach.wallet.ui;
+package hashengineering.digitalcoin.wallet.ui;
 
 import java.math.BigInteger;
 import java.util.Date;
@@ -43,15 +43,15 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
-import com.google.bitcoin.core.Wallet;
+import com.google.digitalcoin.core.Wallet;
 
-import de.schildbach.wallet.Constants;
-import de.schildbach.wallet.ExchangeRatesProvider;
-import de.schildbach.wallet.ExchangeRatesProvider.ExchangeRate;
-import de.schildbach.wallet.WalletApplication;
-import de.schildbach.wallet.service.BlockchainService;
-import de.schildbach.wallet.util.WalletUtils;
-import de.schildbach.wallet.R;
+import hashengineering.digitalcoin.wallet.Constants;
+import hashengineering.digitalcoin.wallet.ExchangeRatesProvider;
+import hashengineering.digitalcoin.wallet.ExchangeRatesProvider.ExchangeRate;
+import hashengineering.digitalcoin.wallet.WalletApplication;
+import hashengineering.digitalcoin.wallet.service.BlockchainService;
+import hashengineering.digitalcoin.wallet.util.WalletUtils;
+import hashengineering.digitalcoin.wallet.R;
 
 /**
  * @author Andreas Schildbach

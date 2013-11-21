@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.schildbach.wallet.util;
+package hashengineering.digitalcoin.wallet.util;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -33,7 +33,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import android.content.res.AssetManager;
-import de.schildbach.wallet.Constants;
+import hashengineering.digitalcoin.wallet.Constants;
 
 /**
  * @author Andreas Schildbach

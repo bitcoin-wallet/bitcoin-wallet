@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.schildbach.wallet.util;
+package hashengineering.digitalcoin.wallet.util;
 
 import java.util.Arrays;
 
@@ -28,7 +28,7 @@ import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
 import android.nfc.NfcManager;
-import de.schildbach.wallet.Constants;
+import hashengineering.digitalcoin.wallet.Constants;
 
 /**
  * @author Andreas Schildbach

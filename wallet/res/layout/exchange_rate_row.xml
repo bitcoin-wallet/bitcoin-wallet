@@ -43,7 +43,7 @@
 			android:text="@string/exchange_rates_fragment_rate"
 			android:textSize="@dimen/font_size_normal" />
 
-		<de.schildbach.wallet.ui.CurrencyTextView
+		<hashengineering.digitalcoin.wallet.ui.CurrencyTextView
 			android:id="@+id/exchange_rate_row_rate"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
@@ -77,7 +77,7 @@
 			android:textColor="@color/fg_less_significant"
 			android:textSize="@dimen/font_size_normal" />
 
-		<de.schildbach.wallet.ui.CurrencyTextView
+		<hashengineering.digitalcoin.wallet.ui.CurrencyTextView
 			android:id="@+id/exchange_rate_row_balance"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"

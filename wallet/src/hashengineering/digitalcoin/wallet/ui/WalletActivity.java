@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.schildbach.wallet.ui;
+package hashengineering.digitalcoin.wallet.ui;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -73,22 +73,22 @@ import android.widget.TextView;
 
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
-import com.google.bitcoin.core.Address;
-import com.google.bitcoin.core.ECKey;
-import com.google.bitcoin.core.Transaction;
-import com.google.bitcoin.core.Wallet;
+import com.google.digitalcoin.core.Address;
+import com.google.digitalcoin.core.ECKey;
+import com.google.digitalcoin.core.Transaction;
+import com.google.digitalcoin.core.Wallet;
 
-import de.schildbach.wallet.Constants;
-import de.schildbach.wallet.WalletApplication;
-import de.schildbach.wallet.ui.InputParser.BinaryInputParser;
-import de.schildbach.wallet.ui.InputParser.StringInputParser;
-import de.schildbach.wallet.util.CrashReporter;
-import de.schildbach.wallet.util.Crypto;
-import de.schildbach.wallet.util.HttpGetThread;
-import de.schildbach.wallet.util.Iso8601Format;
-import de.schildbach.wallet.util.Nfc;
-import de.schildbach.wallet.util.WalletUtils;
-import de.schildbach.wallet.R;
+import hashengineering.digitalcoin.wallet.Constants;
+import hashengineering.digitalcoin.wallet.WalletApplication;
+import hashengineering.digitalcoin.wallet.ui.InputParser.BinaryInputParser;
+import hashengineering.digitalcoin.wallet.ui.InputParser.StringInputParser;
+import hashengineering.digitalcoin.wallet.util.CrashReporter;
+import hashengineering.digitalcoin.wallet.util.Crypto;
+import hashengineering.digitalcoin.wallet.util.HttpGetThread;
+import hashengineering.digitalcoin.wallet.util.Iso8601Format;
+import hashengineering.digitalcoin.wallet.util.Nfc;
+import hashengineering.digitalcoin.wallet.util.WalletUtils;
+import hashengineering.digitalcoin.wallet.R;
 
 /**
  * @author Andreas Schildbach

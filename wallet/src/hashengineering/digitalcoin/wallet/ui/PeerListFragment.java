@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.schildbach.wallet.ui;
+package hashengineering.digitalcoin.wallet.ui;
 
 import java.net.InetAddress;
 import java.util.List;
@@ -46,12 +46,12 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockListFragment;
-import com.google.bitcoin.core.Peer;
-import com.google.bitcoin.core.VersionMessage;
+import com.google.digitalcoin.core.Peer;
+import com.google.digitalcoin.core.VersionMessage;
 
-import de.schildbach.wallet.service.BlockchainService;
-import de.schildbach.wallet.service.BlockchainServiceImpl;
-import de.schildbach.wallet.R;
+import hashengineering.digitalcoin.wallet.service.BlockchainService;
+import hashengineering.digitalcoin.wallet.service.BlockchainServiceImpl;
+import hashengineering.digitalcoin.wallet.R;
 
 /**
  * @author Andreas Schildbach
@@ -118,7 +118,7 @@ public final class PeerListFragment extends SherlockListFragment
 				final TextView rowIp = (TextView) row.findViewById(R.id.peer_list_row_ip);
 				final InetAddress address = peer.getAddress().getAddr();
 				final String hostname = hostnames.get(address);
-				rowIp.setText(hostname != null ? hostname : address.getHostAddress());
+				rowIp.setText(/*address.toString()*/hostname != null ? hostname : address.getHostAddress());
 
 				final TextView rowHeight = (TextView) row.findViewById(R.id.peer_list_row_height);
 				final long bestHeight = peer.getBestHeight();

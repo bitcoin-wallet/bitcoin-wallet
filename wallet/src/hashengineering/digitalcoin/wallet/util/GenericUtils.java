@@ -15,14 +15,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.schildbach.wallet.util;
+package hashengineering.digitalcoin.wallet.util;
 
 import java.math.BigInteger;
 import java.util.Locale;
 
 import javax.annotation.Nonnull;
 
-import com.google.bitcoin.core.Utils;
+import com.google.digitalcoin.core.Utils;
 
 /**
  * @author Andreas Schildbach

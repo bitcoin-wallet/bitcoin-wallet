@@ -15,15 +15,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.schildbach.wallet.ui;
+package hashengineering.digitalcoin.wallet.ui;
 
 import javax.annotation.Nonnull;
 
-import com.google.bitcoin.core.Transaction;
-import com.google.bitcoin.core.VerificationException;
-import com.google.bitcoin.core.Wallet;
+import com.google.digitalcoin.core.Transaction;
+import com.google.digitalcoin.core.VerificationException;
+import com.google.digitalcoin.core.Wallet;
 
-import de.schildbach.wallet.WalletApplication;
+import hashengineering.digitalcoin.wallet.WalletApplication;
 
 /**
  * @author Andreas Schildbach

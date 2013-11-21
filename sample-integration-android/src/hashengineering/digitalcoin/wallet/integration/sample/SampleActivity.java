@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package de.schildbach.wallet.integration.sample;
+package hashengineering.digitalcoin.wallet.integration.sample;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -27,7 +27,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-import de.schildbach.wallet.integration.android.BitcoinIntegration;
+import hashengineering.digitalcoin.wallet.integration.android.BitcoinIntegration;
 
 /**
  * @author Andreas Schildbach

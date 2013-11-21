@@ -15,18 +15,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.schildbach.wallet.service;
+package hashengineering.digitalcoin.wallet.service;
 
 import java.util.List;
 
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
 
-import com.google.bitcoin.core.Peer;
-import com.google.bitcoin.core.StoredBlock;
-import com.google.bitcoin.core.Transaction;
+import com.google.digitalcoin.core.Peer;
+import com.google.digitalcoin.core.StoredBlock;
+import com.google.digitalcoin.core.Transaction;
 
-import de.schildbach.wallet.R;
+import hashengineering.digitalcoin.wallet.R;
 
 /**
  * @author Andreas Schildbach

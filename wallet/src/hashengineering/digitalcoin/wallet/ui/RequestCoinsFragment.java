@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.schildbach.wallet.ui;
+package hashengineering.digitalcoin.wallet.ui;
 
 import java.math.BigInteger;
 import java.util.LinkedList;
@@ -59,22 +59,22 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.widget.ShareActionProvider;
-import com.google.bitcoin.core.Address;
-import com.google.bitcoin.core.ECKey;
-import com.google.bitcoin.core.Wallet;
-import com.google.bitcoin.uri.BitcoinURI;
+import com.google.digitalcoin.core.Address;
+import com.google.digitalcoin.core.ECKey;
+import com.google.digitalcoin.core.Wallet;
+import com.google.digitalcoin.uri.BitcoinURI;
 
-import de.schildbach.wallet.AddressBookProvider;
-import de.schildbach.wallet.Constants;
-import de.schildbach.wallet.ExchangeRatesProvider;
-import de.schildbach.wallet.ExchangeRatesProvider.ExchangeRate;
-import de.schildbach.wallet.WalletApplication;
-import de.schildbach.wallet.offline.AcceptBluetoothService;
-import de.schildbach.wallet.util.BitmapFragment;
-import de.schildbach.wallet.util.Bluetooth;
-import de.schildbach.wallet.util.Nfc;
-import de.schildbach.wallet.util.Qr;
-import de.schildbach.wallet.R;
+import hashengineering.digitalcoin.wallet.AddressBookProvider;
+import hashengineering.digitalcoin.wallet.Constants;
+import hashengineering.digitalcoin.wallet.ExchangeRatesProvider;
+import hashengineering.digitalcoin.wallet.ExchangeRatesProvider.ExchangeRate;
+import hashengineering.digitalcoin.wallet.WalletApplication;
+import hashengineering.digitalcoin.wallet.offline.AcceptBluetoothService;
+import hashengineering.digitalcoin.wallet.util.BitmapFragment;
+import hashengineering.digitalcoin.wallet.util.Bluetooth;
+import hashengineering.digitalcoin.wallet.util.Nfc;
+import hashengineering.digitalcoin.wallet.util.Qr;
+import hashengineering.digitalcoin.wallet.R;
 
 /**
  * @author Andreas Schildbach

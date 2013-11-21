@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.schildbach.wallet.ui;
+package hashengineering.digitalcoin.wallet.ui;
 
 import java.math.BigInteger;
 
@@ -24,9 +24,9 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import android.view.View;
-import de.schildbach.wallet.ExchangeRatesProvider.ExchangeRate;
-import de.schildbach.wallet.ui.CurrencyAmountView.Listener;
-import de.schildbach.wallet.util.WalletUtils;
+import hashengineering.digitalcoin.wallet.ExchangeRatesProvider.ExchangeRate;
+import hashengineering.digitalcoin.wallet.ui.CurrencyAmountView.Listener;
+import hashengineering.digitalcoin.wallet.util.WalletUtils;
 
 /**
  * @author Andreas Schildbach

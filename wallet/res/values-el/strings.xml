@@ -5,45 +5,45 @@
 	<string name="toast_wallet_reset">Το πορτοφόλι έχει αποκατασταθεί,\nθα πάρει κάποιο χρόνο για την ανάκτηση</string>
 
 	<string name="wallet_disclaimer_fragment_remind_safety">Χρησιμοποιήστε με δική σας ευθύνη. Διαβάστε τις οδηγίες ασφαλείας</string>
-	<string name="wallet_address_fragment_your">H Bitcoin διεύθυνή σας:</string>
-	<string name="wallet_address_fragment_clipboard_msg">H Bitcoin διεύθυνή αντιγράφικε στο clipboard</string>
-	<string name="wallet_addresses_fragment_add_dialog_title">Προσθήκη διεύθυνσης Bitcoin</string>
-	<string name="wallet_addresses_fragment_add_dialog_message">Οι Bitcoin διευθύνσεις δεν μπορούν να διαγραφούν. Θέλετε να προσθέσετε μια νέα διεύθυνση στο πορτοφόλι σας;</string>
+	<string name="wallet_address_fragment_your">H digitalcoin διεύθυνή σας:</string>
+	<string name="wallet_address_fragment_clipboard_msg">H digitalcoin διεύθυνή αντιγράφικε στο clipboard</string>
+	<string name="wallet_addresses_fragment_add_dialog_title">Προσθήκη διεύθυνσης digitalcoin</string>
+	<string name="wallet_addresses_fragment_add_dialog_message">Οι digitalcoin διευθύνσεις δεν μπορούν να διαγραφούν. Θέλετε να προσθέσετε μια νέα διεύθυνση στο πορτοφόλι σας;</string>
 	<string name="exchange_rates_fragment_empty_text">Δεν ήταν δυνατή η φόρτωση των συναλλαγματικών ισοτιμιών</string>
 	<string name="wallet_transactions_fragment_tab_received">Ελήφθη</string>
 	<string name="wallet_transactions_fragment_tab_all">Και τα δύο</string>
 	<string name="wallet_transactions_fragment_tab_sent">Εστάλη</string>
-	<string name="wallet_transactions_fragment_empty_text_received">Δεν έχει ληφθεί κάποιο Bitcoin μέχρι στιγμής</string>
-	<string name="wallet_transactions_fragment_empty_text_sent">Δεν έχει ληφθεί σταλεί Bitcoin μέχρι στιγμής</string>
+	<string name="wallet_transactions_fragment_empty_text_received">Δεν έχει ληφθεί κάποιο digitalcoin μέχρι στιγμής</string>
+	<string name="wallet_transactions_fragment_empty_text_sent">Δεν έχει ληφθεί σταλεί digitalcoin μέχρι στιγμής</string>
 	<string name="wallet_options_safety">Οδηγίες ασφαλείας</string>
 	<string name="wallet_options_donate">Δωρίστε</string>
 	<string name="wallet_low_storage_dialog_title">Η εσωτερική μνήμη της συσκευής είναι χαμηλή!</string>
-	<string name="wallet_low_storage_dialog_msg">Το πορτοφόλι Bitcoin χρησιμοποιεί την εσωτερική μνήμη για να θυμάται τις συναλλαγές και τα μπλοκ. Αν ξεμείνει από
-χώρο, θα σταματήσει να λειτουργεί και τα Bitcoins σας θα είναι σε κίνδυνο! \n\nΘέλετε να ανοίξετε τη Διαχείριση εφαρμογών, προκειμένου να
+	<string name="wallet_low_storage_dialog_msg">Το πορτοφόλι digitalcoin χρησιμοποιεί την εσωτερική μνήμη για να θυμάται τις συναλλαγές και τα μπλοκ. Αν ξεμείνει από
+χώρο, θα σταματήσει να λειτουργεί και τα digitalcoins σας θα είναι σε κίνδυνο! \n\nΘέλετε να ανοίξετε τη Διαχείριση εφαρμογών, προκειμένου να
 απεγκατάσταση αχρείαστες εφαρμογές;</string>
 	<string name="wallet_low_storage_dialog_button_apps">Διαχείριση των Εφαρμογών</string>
 
-	<string name="send_coins_activity_title">Αποστολή Bitcoins</string>
+	<string name="send_coins_activity_title">Αποστολή digitalcoins</string>
 	<string name="send_coins_fragment_receiving_address_label">Πληρωμή σε</string>
 	<string name="send_coins_fragment_receiving_address_hint">πληκτρολογήστε τη διεύθυνση ή το όνομα</string>
-	<string name="send_coins_fragment_receiving_address_error">Άκυρα Διεύθυνση Bitcoin!</string>
+	<string name="send_coins_fragment_receiving_address_error">Άκυρα Διεύθυνση digitalcoin!</string>
 	<string name="send_coins_fragment_available_label">Διαθέσιμο για τις ξόδεμα</string>
-	<string name="send_coins_fragment_pending">(BTC %s αναμονή για την επιβεβαίωση)</string>
+	<string name="send_coins_fragment_pending">(DGC %s αναμονή για την επιβεβαίωση)</string>
 	<string name="send_coins_fragment_amount_label">Ποσό να πληρωθεί</string>
 	<string name="send_coins_fragment_button_send">Αποστολή</string>
 	<string name="send_coins_sending_msg">Αποστολή…</string>
 	<string name="send_coins_error_msg">Πρόβλημα στην αποστολή κερμάτων!</string>
 
-	<string name="request_coins_activity_title">Αίτηση για Bitcoins</string>
+	<string name="request_coins_activity_title">Αίτηση για digitalcoins</string>
 	<string name="request_coins_fragment_amount_label">Ζητούμενο ποσό (προαιρετικό)</string>
 	<string name="request_coins_fragment_initiate_request_qr">Δώστε αυτό το κώδικα στον αποστολέα, για να το σαρώσει.</string>
 	<string name="request_coins_fragment_initiate_request_nfc">Ή φερετε σε επαφή αν έχετε συσκευή με NFC.</string>
-	<string name="request_coins_clipboard_msg">η αίτηση για Bitcoin αντιγράφηκε στο clipboard</string>
-	<string name="request_coins_share_dialog_title">request for sharing Bitcoins…</string>
+	<string name="request_coins_clipboard_msg">η αίτηση για digitalcoin αντιγράφηκε στο clipboard</string>
+	<string name="request_coins_share_dialog_title">request for sharing digitalcoins…</string>
 
 	<string name="address_book_activity_title">Κατάλαγος διευθύνσεων</string>
 	<string name="address_book_empty_text">δεν υπάρχουν καταχωρήσεις στον kατάλαγο διευθύνσεων</string>
-	<string name="address_book_context_send_title">Αποστολή Bitcoins στη διεύθυνση</string>
+	<string name="address_book_context_send_title">Αποστολή digitalcoins στη διεύθυνση</string>
 	<string name="address_book_context_edit_title">Επεξεργασία διεύθυνσης</string>
 	<string name="address_book_context_remove_title">Αφαιρέστε τη διεύθυνση</string>
 	<string name="address_book_context_show_qr_title">Εμφάνιση κώδικα QR</string>
@@ -57,7 +57,7 @@
 
 	<string name="about_title">Πληροφορίες</string>
 	<string name="about_license_title">Άδεια</string>
-	<string name="about_credits_bitcoinj_title">Αυτή η εφαρμογή χρησιμοποιεί bitcoinj %s</string>
+	<string name="about_credits_digitalcoinj_title">Αυτή η εφαρμογή χρησιμοποιεί digitalcoinj %s</string>
 	<string name="about_credits_zxing_title">"Αυτή η εφαρμογή χρησιμοποιεί'zxing'"</string>
 	<string name="about_credits_icon_title">"Η εφαρμογή αυτή χρησιμοποιεί ένα εικονίδιο από τη 'bitboy'"</string>
 	<string name="about_author_twitter_title">Δημιουργός στο Twitter</string>
@@ -65,7 +65,7 @@
 	<string name="about_credits_market_app_title">Σελίδα Εφαρμογών του Google Play</string>
 	<string name="about_credits_market_publisher_title">Άλλες εφαρμογές του δημιουργού</string>
 
-	<string name="notification_coins_received_msg">Ελήφθη BTC %s</string>
+	<string name="notification_coins_received_msg">Ελήφθη DGC %s</string>
 	<string name="notification_peers_connected_msg">%d χρήστες συνδεμένοι</string>
 
 	<!-- generic buttons -->

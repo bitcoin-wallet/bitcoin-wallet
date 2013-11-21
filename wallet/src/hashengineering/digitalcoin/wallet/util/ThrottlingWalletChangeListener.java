@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.schildbach.wallet.util;
+package hashengineering.digitalcoin.wallet.util;
 
 import java.math.BigInteger;
 import java.util.List;
@@ -24,10 +24,10 @@ import java.util.concurrent.atomic.AtomicLong;
 
 import android.os.Handler;
 
-import com.google.bitcoin.core.ECKey;
-import com.google.bitcoin.core.Transaction;
-import com.google.bitcoin.core.Wallet;
-import com.google.bitcoin.core.WalletEventListener;
+import com.google.digitalcoin.core.ECKey;
+import com.google.digitalcoin.core.Transaction;
+import com.google.digitalcoin.core.Wallet;
+import com.google.digitalcoin.core.WalletEventListener;
 
 /**
  * @author Andreas Schildbach

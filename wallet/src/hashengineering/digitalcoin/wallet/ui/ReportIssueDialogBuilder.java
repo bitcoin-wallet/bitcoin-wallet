@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.schildbach.wallet.ui;
+package hashengineering.digitalcoin.wallet.ui;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -44,10 +44,10 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
-import de.schildbach.wallet.Constants;
-import de.schildbach.wallet.util.CrashReporter;
-import de.schildbach.wallet.util.Io;
-import de.schildbach.wallet.R;
+import hashengineering.digitalcoin.wallet.Constants;
+import hashengineering.digitalcoin.wallet.util.CrashReporter;
+import hashengineering.digitalcoin.wallet.util.Io;
+import hashengineering.digitalcoin.wallet.R;
 
 /**
  * @author Andreas Schildbach

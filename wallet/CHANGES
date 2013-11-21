@@ -1,7 +1,15 @@
+<<<<<<< HEAD
+-----------------digitalcoin Wallet
+v1.00
+Forked bitcoin-wallet v3.22 for digitalcoin V1.00 (http://digitalcoin.co)
+
+=================Bitcoin Wallet
+=======
 v3.23
 
 * fixed issue with detecting online state
 
+>>>>>>> upstream/master
 v3.22
 
 * sound effect when sending a payment

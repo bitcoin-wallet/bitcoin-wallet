@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.schildbach.wallet.ui;
+package hashengineering.digitalcoin.wallet.ui;
 
 import java.math.BigInteger;
 
@@ -25,10 +25,10 @@ import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.google.bitcoin.core.Address;
-import com.google.bitcoin.core.Transaction;
+import com.google.digitalcoin.core.Address;
+import com.google.digitalcoin.core.Transaction;
 
-import de.schildbach.wallet.ui.InputParser.StringInputParser;
+import hashengineering.digitalcoin.wallet.ui.InputParser.StringInputParser;
 
 /**
  * @author Andreas Schildbach

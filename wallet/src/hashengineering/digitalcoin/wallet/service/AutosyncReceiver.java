@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.schildbach.wallet.service;
+package hashengineering.digitalcoin.wallet.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,7 +27,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import de.schildbach.wallet.Constants;
+import hashengineering.digitalcoin.wallet.Constants;
 
 /**
  * @author Andreas Schildbach

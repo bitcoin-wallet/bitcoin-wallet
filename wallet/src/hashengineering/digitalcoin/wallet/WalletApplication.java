@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.schildbach.wallet;
+package hashengineering.digitalcoin.wallet;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -34,6 +34,7 @@ import java.util.concurrent.TimeUnit;
 
 import javax.annotation.Nonnull;
 
+import com.google.digitalcoin.core.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -61,22 +62,18 @@ import ch.qos.logback.classic.spi.ILoggingEvent;
 import ch.qos.logback.core.rolling.RollingFileAppender;
 import ch.qos.logback.core.rolling.TimeBasedRollingPolicy;
 
-import com.google.bitcoin.core.Address;
-import com.google.bitcoin.core.ECKey;
-import com.google.bitcoin.core.Transaction;
-import com.google.bitcoin.core.Wallet;
-import com.google.bitcoin.store.UnreadableWalletException;
-import com.google.bitcoin.store.WalletProtobufSerializer;
-import com.google.bitcoin.utils.Threading;
-import com.google.bitcoin.wallet.WalletFiles;
+import com.google.digitalcoin.store.UnreadableWalletException;
+import com.google.digitalcoin.store.WalletProtobufSerializer;
+import com.google.digitalcoin.utils.Threading;
+import com.google.digitalcoin.wallet.WalletFiles;
 
-import de.schildbach.wallet.service.BlockchainService;
-import de.schildbach.wallet.service.BlockchainServiceImpl;
-import de.schildbach.wallet.util.CrashReporter;
-import de.schildbach.wallet.util.Io;
-import de.schildbach.wallet.util.LinuxSecureRandom;
-import de.schildbach.wallet.util.WalletUtils;
-import de.schildbach.wallet.R;
+import hashengineering.digitalcoin.wallet.service.BlockchainService;
+import hashengineering.digitalcoin.wallet.service.BlockchainServiceImpl;
+import hashengineering.digitalcoin.wallet.util.CrashReporter;
+import hashengineering.digitalcoin.wallet.util.Io;
+import hashengineering.digitalcoin.wallet.util.LinuxSecureRandom;
+import hashengineering.digitalcoin.wallet.util.WalletUtils;
+import hashengineering.digitalcoin.wallet.R;
 
 /**
  * @author Andreas Schildbach
@@ -129,7 +126,7 @@ public class WalletApplication extends Application
 			@Override
 			public void uncaughtException(final Thread thread, final Throwable throwable)
 			{
-				log.info("bitcoinj uncaught exception", throwable);
+				log.info(CoinDefinition.coinName + "j uncaught exception", throwable);
 				CrashReporter.saveBackgroundTrace(throwable, packageInfo);
 			}
 		};

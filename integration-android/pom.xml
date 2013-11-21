@@ -6,10 +6,10 @@
 
 	<artifactId>integration-android</artifactId>
 	<version>1.0</version>
-	<name>Bitcoin Integration for Android</name>
+	<name>digitalcoin Integration for Android</name>
 
 	<parent>
-		<groupId>de.schildbach.wallet</groupId>
+		<groupId>hashengineering.digitalcoin.wallet</groupId>
 		<artifactId>base</artifactId>
 		<version>1</version>
 	</parent>

@@ -6,8 +6,11 @@
 			android:key="about_version"
 			android:title="Version" />
 		<Preference
-			android:summary="© 2011-2013, Andreas Schildbach"
+			android:summary="© 2011-2013, Andreas Schildbach\n2013 HashEngineering Solutions"
 			android:title="Copyright" />
+        <Preference
+                android:summary="Version 1.0.0.0 and above"
+                android:title="digitalcoin Compatibility" />
 		<Preference
 			android:key="about_license"
 			android:title="@string/about_license_title" />
@@ -21,14 +24,20 @@
 		<Preference
 			android:key="about_credits_icon"
 			android:title="@string/about_credits_icon_title" />
-		<Preference
+        <Preference
+                android:key="about_credits_website"
+                android:title="@string/about_credits_website_title" />
+        <Preference
+                android:key="about_credits_forum"
+                android:title="@string/about_credits_forum_title" />
+		<!--Preference
 			android:key="about_author_twitter"
 			android:summary="\@bitcoin_wallet"
-			android:title="@string/about_author_twitter_title" />
-		<Preference
+			android:title="@string/about_author_twitter_title" /-->
+		<!--Preference
 			android:key="about_author_googleplus"
 			android:summary="+Andreas Schildbach"
-			android:title="@string/about_author_googleplus_title" />
+			android:title="@string/about_author_googleplus_title" /-->
 		<Preference
 			android:key="about_market_app"
 			android:title="@string/about_credits_market_app_title" />

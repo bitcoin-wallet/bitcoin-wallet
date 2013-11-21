@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.schildbach.wallet.offline;
+package hashengineering.digitalcoin.wallet.offline;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -32,9 +32,9 @@ import android.bluetooth.BluetoothSocket;
 import android.os.Handler;
 import android.os.Looper;
 
-import com.google.bitcoin.core.Transaction;
+import com.google.digitalcoin.core.Transaction;
 
-import de.schildbach.wallet.util.Bluetooth;
+import hashengineering.digitalcoin.wallet.util.Bluetooth;
 
 /**
  * @author Andreas Schildbach

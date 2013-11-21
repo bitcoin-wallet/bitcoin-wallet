@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.schildbach.wallet.ui;
+package hashengineering.digitalcoin.wallet.ui;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -26,7 +26,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.widget.FrameLayout;
-import de.schildbach.wallet.R;
+import hashengineering.digitalcoin.wallet.R;
 
 /**
  * @author Andreas Schildbach

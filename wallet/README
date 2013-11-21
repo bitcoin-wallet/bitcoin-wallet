@@ -2,10 +2,10 @@ FILES
 
 Your wallet and your private keys are stored in app internal storage:
 
-/data/data/de.schildbach.wallet/files/wallet-protobuf (MODE_PRIVATE)
+/data/data/hashengineering.digitalcoin.wallet/files/wallet-protobuf (MODE_PRIVATE)
 	Wallet for Mainnet
 
-/data/data/de.schildbach.wallet_test/files/wallet-protobuf-testnet (MODE_WORLD_READABLE | MODE_WORLD_WRITEABLE)
+/data/data/hashengineering.digitalcoin.wallet/files/wallet-protobuf-testnet (MODE_WORLD_READABLE | MODE_WORLD_WRITEABLE)
 	Wallet for Testnet
 
 The wallet file format is not compatible to wallet.dat (Satoshi client). Rather, it uses a custom protobuf format
@@ -13,18 +13,18 @@ which should be compatible between clients using bitcoinj.
 
 Certain actions cause rolling backups of your private keys to app internal storage:
 
-/data/data/de.schildbach.wallet/files/key-backup-base58 (MODE_PRIVATE)
+/data/data/hashengineering.digitalcoin.wallet/files/key-backup-base58 (MODE_PRIVATE)
 	Backups of private keys for Mainnet
 
-/data/data/de.schildbach.wallet_test/files/key-backup-base58-testnet (MODE_PRIVATE)
+/data/data/hashengineering.digitalcoin.wallet/files/key-backup-base58-testnet (MODE_PRIVATE)
 	Backups of private keys for Testnet
 
 Private keys can be backed up to and restored from external storage:
 
-/sdcard/Download/bitcoin-wallet-keys-<yyyy-MM-dd>
+/sdcard/Download/digitalcoin-wallet-keys-<yyyy-MM-dd>
 	Backups of private keys for Mainnet
 
-/sdcard/Download/bitcoin-wallet-keys-testnet-<yyyy-MM-dd>
+/sdcard/Download/digitalcoin-wallet-keys-testnet-<yyyy-MM-dd>
 	Backups of private keys for Testnet
 
 The backup file is encrypted using your chosen password. You can use OpenSSL to decrypt:
@@ -36,7 +36,7 @@ DEBUGGING
 
 Wallet file for Testnet can be pulled from an (even un-rooted) device using
 
-	adb pull /data/data/de.schildbach.wallet_test/files/wallet-protobuf-testnet
+	adb pull /data/data/hashengineering.digitalcoin.wallet/files/wallet-protobuf-testnet
 
 Log messages can be viewed by
 

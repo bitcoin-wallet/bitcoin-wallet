@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.schildbach.wallet.ui;
+package hashengineering.digitalcoin.wallet.ui;
 
 import java.math.BigInteger;
 
@@ -70,28 +70,28 @@ import com.actionbarsherlock.view.ActionMode;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
-import com.google.bitcoin.core.Address;
-import com.google.bitcoin.core.AddressFormatException;
-import com.google.bitcoin.core.NetworkParameters;
-import com.google.bitcoin.core.Sha256Hash;
-import com.google.bitcoin.core.Transaction;
-import com.google.bitcoin.core.TransactionConfidence;
-import com.google.bitcoin.core.TransactionConfidence.ConfidenceType;
-import com.google.bitcoin.core.Wallet;
-import com.google.bitcoin.core.Wallet.BalanceType;
-import com.google.bitcoin.core.Wallet.SendRequest;
+import com.google.digitalcoin.core.Address;
+import com.google.digitalcoin.core.AddressFormatException;
+import com.google.digitalcoin.core.NetworkParameters;
+import com.google.digitalcoin.core.Sha256Hash;
+import com.google.digitalcoin.core.Transaction;
+import com.google.digitalcoin.core.TransactionConfidence;
+import com.google.digitalcoin.core.TransactionConfidence.ConfidenceType;
+import com.google.digitalcoin.core.Wallet;
+import com.google.digitalcoin.core.Wallet.BalanceType;
+import com.google.digitalcoin.core.Wallet.SendRequest;
 
-import de.schildbach.wallet.AddressBookProvider;
-import de.schildbach.wallet.Constants;
-import de.schildbach.wallet.ExchangeRatesProvider;
-import de.schildbach.wallet.ExchangeRatesProvider.ExchangeRate;
-import de.schildbach.wallet.WalletApplication;
-import de.schildbach.wallet.integration.android.BitcoinIntegration;
-import de.schildbach.wallet.offline.SendBluetoothRunnable;
-import de.schildbach.wallet.ui.InputParser.StringInputParser;
-import de.schildbach.wallet.util.GenericUtils;
-import de.schildbach.wallet.util.WalletUtils;
-import de.schildbach.wallet.R;
+import hashengineering.digitalcoin.wallet.AddressBookProvider;
+import hashengineering.digitalcoin.wallet.Constants;
+import hashengineering.digitalcoin.wallet.ExchangeRatesProvider;
+import hashengineering.digitalcoin.wallet.ExchangeRatesProvider.ExchangeRate;
+import hashengineering.digitalcoin.wallet.WalletApplication;
+import hashengineering.digitalcoin.wallet.integration.android.BitcoinIntegration;
+import hashengineering.digitalcoin.wallet.offline.SendBluetoothRunnable;
+import hashengineering.digitalcoin.wallet.ui.InputParser.StringInputParser;
+import hashengineering.digitalcoin.wallet.util.GenericUtils;
+import hashengineering.digitalcoin.wallet.util.WalletUtils;
+import hashengineering.digitalcoin.wallet.R;
 
 /**
  * @author Andreas Schildbach

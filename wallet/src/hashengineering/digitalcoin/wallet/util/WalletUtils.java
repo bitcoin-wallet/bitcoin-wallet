@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.schildbach.wallet.util;
+package hashengineering.digitalcoin.wallet.util;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -46,20 +46,20 @@ import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
 import android.text.style.TypefaceSpan;
 
-import com.google.bitcoin.core.Address;
-import com.google.bitcoin.core.AddressFormatException;
-import com.google.bitcoin.core.DumpedPrivateKey;
-import com.google.bitcoin.core.ECKey;
-import com.google.bitcoin.core.ScriptException;
-import com.google.bitcoin.core.Sha256Hash;
-import com.google.bitcoin.core.Transaction;
-import com.google.bitcoin.core.TransactionInput;
-import com.google.bitcoin.core.TransactionOutput;
-import com.google.bitcoin.core.Utils;
-import com.google.bitcoin.core.Wallet;
-import com.google.bitcoin.script.Script;
+import com.google.digitalcoin.core.Address;
+import com.google.digitalcoin.core.AddressFormatException;
+import com.google.digitalcoin.core.DumpedPrivateKey;
+import com.google.digitalcoin.core.ECKey;
+import com.google.digitalcoin.core.ScriptException;
+import com.google.digitalcoin.core.Sha256Hash;
+import com.google.digitalcoin.core.Transaction;
+import com.google.digitalcoin.core.TransactionInput;
+import com.google.digitalcoin.core.TransactionOutput;
+import com.google.digitalcoin.core.Utils;
+import com.google.digitalcoin.core.Wallet;
+import com.google.digitalcoin.script.Script;
 
-import de.schildbach.wallet.Constants;
+import hashengineering.digitalcoin.wallet.Constants;
 
 /**
  * @author Andreas Schildbach

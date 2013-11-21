@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.schildbach.wallet.ui;
+package hashengineering.digitalcoin.wallet.ui;
 
 import java.io.IOException;
 import java.util.EnumMap;
@@ -57,8 +57,8 @@ import com.google.zxing.ResultPointCallback;
 import com.google.zxing.common.HybridBinarizer;
 import com.google.zxing.qrcode.QRCodeReader;
 
-import de.schildbach.wallet.camera.CameraManager;
-import de.schildbach.wallet.R;
+import hashengineering.digitalcoin.wallet.camera.CameraManager;
+import hashengineering.digitalcoin.wallet.R;
 
 /**
  * @author Andreas Schildbach

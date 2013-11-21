@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.schildbach.wallet.ui;
+package hashengineering.digitalcoin.wallet.ui;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -23,10 +23,10 @@ import javax.annotation.Nullable;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.google.bitcoin.core.Address;
-import com.google.bitcoin.core.AddressFormatException;
-import com.google.bitcoin.core.NetworkParameters;
-import com.google.bitcoin.core.WrongNetworkException;
+import com.google.digitalcoin.core.Address;
+import com.google.digitalcoin.core.AddressFormatException;
+import com.google.digitalcoin.core.NetworkParameters;
+import com.google.digitalcoin.core.WrongNetworkException;
 
 /**
  * @author Andreas Schildbach

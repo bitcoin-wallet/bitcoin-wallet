@@ -4,7 +4,7 @@
 	android:layout_height="wrap_content"
 	android:orientation="vertical" >
 
-	<de.schildbach.wallet.util.ViewPagerTabs
+	<hashengineering.digitalcoin.wallet.util.ViewPagerTabs
 		android:id="@+id/transactions_pager_tabs"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"

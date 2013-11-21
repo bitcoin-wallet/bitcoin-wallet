@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.schildbach.wallet.camera;
+package hashengineering.digitalcoin.wallet.camera;
 
 import java.io.IOException;
 import java.util.ArrayList;
