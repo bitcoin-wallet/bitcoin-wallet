@@ -6,3 +6,5 @@ local.properties
 bin/
 gen/
 target/
+Thumbs.db
+production/
