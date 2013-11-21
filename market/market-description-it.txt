@@ -1,20 +1,20 @@
-Con questa app avrai sempre i tuoi Bitcoin con te, nella tua tasca! Puoi inviare pagamenti semplicemente scannerizzando un codice QR oppure avvicinando due telefonini insieme (NFC). Bitcoin Wallet è progettato per essere facile d usare e affidabile, oltre a essere anche sicuro e veloce.
+Con questa app avrai sempre i tuoi digitalcoin con te, nella tua tasca! Puoi inviare pagamenti semplicemente scannerizzando un codice QR oppure avvicinando due telefonini insieme (NFC). digitalcoin Wallet è progettato per essere facile d usare e affidabile, oltre a essere anche sicuro e veloce.
 
 CARATTERISTICHE:
 
 • Non è necessario alcun server cloud o servizio web! Questo portafoglio è veramente peer to peer.
-• Mostra il saldo del portafoglio in Bitcoin e in altre varie valute.
-• Invio e ricevimento di Bitcoin tramite NFC, codici QR o URL Bitcoin.
-• Rubrica degli indirizzi per usare indirizzi Bitcoin regolarmente.
+• Mostra il saldo del portafoglio in digitalcoin e in altre varie valute.
+• Invio e ricevimento di digitalcoin tramite NFC, codici QR o URL digitalcoin.
+• Rubrica degli indirizzi per usare indirizzi digitalcoin regolarmente.
 • Inserisci transazioni mentre sei offline, saranno eseguite quando tornerai online.
-• Notifiche di sistema per la connettività Bitcoin e la ricevuta di denaro.
-• App Widget per il saldo Bitcoin
+• Notifiche di sistema per la connettività digitalcoin e la ricevuta di denaro.
+• App Widget per il saldo digitalcoin
 
-Puoi trovare altri dettagli su Bitcoin su
-http://bitcoin.org
+Puoi trovare altri dettagli su digitalcoin su
+http://digitalcoin.co
 
-Se vuoi contribuire a Bitcoin Wallet, il progetto si trova su
-https://github.com/schildbach/bitcoin-wallet
+Se vuoi contribuire a digitalcoin Wallet, il progetto si trova su
+https://github.com/HashEngineering/digitalcoin-wallet
 
 Licenza: GPLv3
 Usalo a tuo rischio!

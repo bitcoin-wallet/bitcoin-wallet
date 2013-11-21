@@ -23,6 +23,7 @@ import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.google.digitalcoin.core.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -70,14 +71,7 @@ import com.actionbarsherlock.view.ActionMode;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
-import com.google.digitalcoin.core.Address;
-import com.google.digitalcoin.core.AddressFormatException;
-import com.google.digitalcoin.core.NetworkParameters;
-import com.google.digitalcoin.core.Sha256Hash;
-import com.google.digitalcoin.core.Transaction;
-import com.google.digitalcoin.core.TransactionConfidence;
 import com.google.digitalcoin.core.TransactionConfidence.ConfidenceType;
-import com.google.digitalcoin.core.Wallet;
 import com.google.digitalcoin.core.Wallet.BalanceType;
 import com.google.digitalcoin.core.Wallet.SendRequest;
 
@@ -481,7 +475,7 @@ public final class SendCoinsFragment extends SherlockFragment
 			final String scheme = intentUri != null ? intentUri.getScheme() : null;
 
 			if ((Intent.ACTION_VIEW.equals(action) || NfcAdapter.ACTION_NDEF_DISCOVERED.equals(action)) && intentUri != null
-					&& "bitcoin".equals(scheme))
+					&& CoinDefinition.coinURIScheme.equals(scheme))
 				initStateFromBitcoinUri(intentUri);
 			else if (intent.hasExtra(SendCoinsActivity.INTENT_EXTRA_ADDRESS))
 				initStateFromIntentExtras(intent.getExtras());

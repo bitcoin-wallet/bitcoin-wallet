@@ -46,17 +46,7 @@ import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
 import android.text.style.TypefaceSpan;
 
-import com.google.digitalcoin.core.Address;
-import com.google.digitalcoin.core.AddressFormatException;
-import com.google.digitalcoin.core.DumpedPrivateKey;
-import com.google.digitalcoin.core.ECKey;
-import com.google.digitalcoin.core.ScriptException;
-import com.google.digitalcoin.core.Sha256Hash;
-import com.google.digitalcoin.core.Transaction;
-import com.google.digitalcoin.core.TransactionInput;
-import com.google.digitalcoin.core.TransactionOutput;
-import com.google.digitalcoin.core.Utils;
-import com.google.digitalcoin.core.Wallet;
+import com.google.digitalcoin.core.*;
 import com.google.digitalcoin.script.Script;
 
 import hashengineering.digitalcoin.wallet.Constants;
@@ -210,7 +200,7 @@ public class WalletUtils
 	{
 		final DateFormat format = Iso8601Format.newDateTimeFormatT();
 
-		out.write("# KEEP YOUR PRIVATE KEYS SAFE! Anyone who can read this can spend your Bitcoins.\n");
+		out.write("# KEEP YOUR PRIVATE KEYS SAFE! Anyone who can read this can spend your "+ CoinDefinition.coinName+"s.\n");
 
 		for (final ECKey key : keys)
 		{

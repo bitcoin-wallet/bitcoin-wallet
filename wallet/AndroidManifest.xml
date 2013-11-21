@@ -148,7 +148,7 @@
 
 				<category android:name="android.intent.category.DEFAULT" />
 
-				<data android:mimeType="x-bitcoin/private-keys" />
+				<data android:mimeType="x-digitalcoin/private-keys" />
 				<data android:mimeType="application/octet-stream" />
 			</intent-filter>
 		</activity>

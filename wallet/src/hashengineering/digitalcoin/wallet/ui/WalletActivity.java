@@ -42,6 +42,7 @@ import java.util.TimeZone;
 
 import javax.annotation.Nonnull;
 
+import com.google.digitalcoin.core.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -73,10 +74,6 @@ import android.widget.TextView;
 
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
-import com.google.digitalcoin.core.Address;
-import com.google.digitalcoin.core.ECKey;
-import com.google.digitalcoin.core.Transaction;
-import com.google.digitalcoin.core.Wallet;
 
 import hashengineering.digitalcoin.wallet.Constants;
 import hashengineering.digitalcoin.wallet.WalletApplication;
@@ -925,7 +922,7 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 		intent.putExtra(Intent.EXTRA_TEXT,
 				getString(R.string.export_keys_dialog_mail_text) + "\n\n" + String.format(Constants.WEBMARKET_APP_URL, getPackageName()) + "\n\n"
 						+ Constants.SOURCE_URL + '\n');
-		intent.setType("x-bitcoin/private-keys");
+		intent.setType("x-"+ CoinDefinition.coinName.toLowerCase()+"/private-keys");
 		intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file));
 		startActivity(Intent.createChooser(intent, getString(R.string.export_keys_dialog_mail_intent_chooser)));
 	}

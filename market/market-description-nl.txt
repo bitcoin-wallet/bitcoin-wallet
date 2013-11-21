@@ -1,19 +1,19 @@
-Dit is een standalone Bitcoin Wallet voor uw Android apparaat. U kan direct Bitcoins versturen tussen telefoons door simpelweg de QR-code te scannen die de app weergeeft of via NFC (Near Field Communication).
+Dit is een standalone digitalcoin Wallet voor uw Android apparaat. U kan direct digitalcoins versturen tussen telefoons door simpelweg de QR-code te scannen die de app weergeeft of via NFC (Near Field Communication).
 
 FUNCTIES:
 
-• Weergeven van het wallet saldo in Bitcoin en verschillende andere valuta.
-• Verzenden en ontvangen van Bitcoin via NFC, QR-codes of Bitcoin URLs.
-• Adresboek voor veelgebruikte Bitcoin adressen.
+• Weergeven van het wallet saldo in digitalcoin en verschillende andere valuta.
+• Verzenden en ontvangen van digitalcoin via NFC, QR-codes of digitalcoin URLs.
+• Adresboek voor veelgebruikte digitalcoin adressen.
 • Transacties ingeven tijdens het offline zijn, deze zullen worden uitgevoerd wanneer u online komt.
-• Systeem melding over Bitcoin connectiviteit en ontvangen bitcoins.
-• Widget voor Bitcoin saldo.
+• Systeem melding over digitalcoin connectiviteit en ontvangen digitalcoins.
+• Widget voor digitalcoin saldo.
 
-Voor meer informatie over Bitcoin kunt u terecht op
-http://bitcoin.org
+Voor meer informatie over digitalcoin kunt u terecht op
+http://digitalcoin.co
 
-Als u een bijdrage wil leveren aan Bitcoin Wallet, het project is te vinden op 
-https://github.com/schildbach/bitcoin-wallet
+Als u een bijdrage wil leveren aan digitalcoin Wallet, het project is te vinden op
+https://github.com/HashEngineering/digitalcoin-wallet
 
 Licentie: GPLv3
 Gebruik op eigen risico!
