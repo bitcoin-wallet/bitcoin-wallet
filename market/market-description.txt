@@ -1,12 +1,12 @@
-With this app you always have your Bitcoins with you, in your pocket! You can send payments simply by scanning a QR-code or by touching two phones together (NFC). Bitcoin Wallet is designed to be easy to use and reliable, while also being secure and fast.
+Have your Bitcoins always with you, in your pocket! You pay by quickly scanning a QR-code. As a merchant, you receive payments reliably and instantly. Bitcoin Wallet is the first mobile Bitcoin app, and arguably also the most secure!
 
 FEATURES:
 
-• No cloud server or web service needed! This wallet is truly peer to peer.
+• No registration, web service or cloud needed! This wallet is de-centralized and peer to peer.
 • Display of wallet balance in Bitcoin and various other currencies.
 • Sending and receiving of Bitcoin via NFC, QR-codes or Bitcoin URLs.
 • Address book for regularly used Bitcoin addresses.
-• Enter transactions while offline, will be executed when online.
+• When you're offline, you can still pay via Bluetooth.
 • System notification for received coins.
 • App widget for Bitcoin balance.
 
