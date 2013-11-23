@@ -158,7 +158,7 @@ public class CrashReporter
 		final Configuration config = res.getConfiguration();
 		final ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
 
-		report.append("Phone Model: " + android.os.Build.MODEL + "\n");
+		report.append("Device Model: " + android.os.Build.MODEL + "\n");
 		report.append("Android Version: " + android.os.Build.VERSION.RELEASE + "\n");
 		report.append("Board: " + android.os.Build.BOARD + "\n");
 		report.append("Brand: " + android.os.Build.BRAND + "\n");
@@ -168,7 +168,6 @@ public class CrashReporter
 		report.append("Host: " + android.os.Build.HOST + "\n");
 		report.append("ID: " + android.os.Build.ID + "\n");
 		// report.append("Manufacturer: " + manufacturer + "\n");
-		report.append("Model: " + android.os.Build.MODEL + "\n");
 		report.append("Product: " + android.os.Build.PRODUCT + "\n");
 		report.append("Tags: " + android.os.Build.TAGS + "\n");
 		report.append("Time: " + android.os.Build.TIME + "\n");
