@@ -7,7 +7,7 @@ FEATURES:
 • Sending and receiving of Bitcoin via NFC, QR-codes or Bitcoin URLs.
 • Address book for regularly used Bitcoin addresses.
 • Enter transactions while offline, will be executed when online.
-• System notifications for Bitcoin connectivity and received coins.
+• System notification for received coins.
 • App widget for Bitcoin balance.
 
 You can find more about Bitcoin at
