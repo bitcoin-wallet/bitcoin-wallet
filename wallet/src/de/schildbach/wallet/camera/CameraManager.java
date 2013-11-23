@@ -41,8 +41,6 @@ import com.google.zxing.PlanarYUVLuminanceSource;
  */
 public final class CameraManager
 {
-	private static final boolean CONTINUOUS_FOCUS = true;
-
 	private static final int MIN_FRAME_SIZE = 240;
 	private static final int MAX_FRAME_SIZE = 600;
 	private static final int MIN_PREVIEW_PIXELS = 470 * 320; // normal screen
@@ -55,11 +53,6 @@ public final class CameraManager
 
 	private static final Logger log = LoggerFactory.getLogger(CameraManager.class);
 
-	public Camera getCamera()
-	{
-		return camera;
-	}
-
 	public Rect getFrame()
 	{
 		return frame;
@@ -70,7 +63,7 @@ public final class CameraManager
 		return framePreview;
 	}
 
-	public void open(final SurfaceHolder holder) throws IOException
+	public Camera open(final SurfaceHolder holder, final boolean continuousAutoFocus) throws IOException
 	{
 		// try back-facing camera
 		camera = Camera.open();
@@ -116,7 +109,7 @@ public final class CameraManager
 
 		try
 		{
-			setDesiredCameraParameters(camera, cameraResolution, false);
+			setDesiredCameraParameters(camera, cameraResolution, continuousAutoFocus);
 		}
 		catch (final RuntimeException x)
 		{
@@ -127,7 +120,7 @@ public final class CameraManager
 				try
 				{
 					camera.setParameters(parameters2);
-					setDesiredCameraParameters(camera, cameraResolution, true);
+					setDesiredCameraParameters(camera, cameraResolution, continuousAutoFocus);
 				}
 				catch (final RuntimeException x2)
 				{
@@ -137,6 +130,8 @@ public final class CameraManager
 		}
 
 		camera.startPreview();
+
+		return camera;
 	}
 
 	public void close()
@@ -213,23 +208,16 @@ public final class CameraManager
 	}
 
 	@SuppressLint("InlinedApi")
-	private static void setDesiredCameraParameters(final Camera camera, final Camera.Size cameraResolution, final boolean safeMode)
+	private static void setDesiredCameraParameters(final Camera camera, final Camera.Size cameraResolution, final boolean continuousAutoFocus)
 	{
 		final Camera.Parameters parameters = camera.getParameters();
-
 		if (parameters == null)
 			return;
 
-		String focusMode;
-		if (safeMode || !CONTINUOUS_FOCUS)
-			focusMode = findValue(parameters.getSupportedFocusModes(), Camera.Parameters.FOCUS_MODE_AUTO);
-		else
-			focusMode = findValue(parameters.getSupportedFocusModes(), Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE,
-					Camera.Parameters.FOCUS_MODE_CONTINUOUS_VIDEO, Camera.Parameters.FOCUS_MODE_AUTO);
-
-		if (!safeMode && focusMode == null)
-			focusMode = findValue(parameters.getSupportedFocusModes(), Camera.Parameters.FOCUS_MODE_MACRO, Camera.Parameters.FOCUS_MODE_EDOF);
-
+		final List<String> supportedFocusModes = parameters.getSupportedFocusModes();
+		final String focusMode = continuousAutoFocus ? findValue(supportedFocusModes, Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE,
+				Camera.Parameters.FOCUS_MODE_CONTINUOUS_VIDEO, Camera.Parameters.FOCUS_MODE_AUTO, Camera.Parameters.FOCUS_MODE_MACRO) : findValue(
+				supportedFocusModes, Camera.Parameters.FOCUS_MODE_AUTO, Camera.Parameters.FOCUS_MODE_MACRO);
 		if (focusMode != null)
 			parameters.setFocusMode(focusMode);
 
