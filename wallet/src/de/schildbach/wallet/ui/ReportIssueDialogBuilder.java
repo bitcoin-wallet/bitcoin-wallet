@@ -38,7 +38,6 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.CheckBox;
@@ -59,7 +58,6 @@ public abstract class ReportIssueDialogBuilder extends AlertDialog.Builder imple
 	private EditText viewDescription;
 	private CheckBox viewCollectDeviceInfo;
 	private CheckBox viewCollectApplicationLog;
-	private CheckBox viewCollectExtendedApplicationLog;
 	private CheckBox viewCollectWalletDump;
 
 	private static final Logger log = LoggerFactory.getLogger(ReportIssueDialogBuilder.class);
@@ -79,8 +77,6 @@ public abstract class ReportIssueDialogBuilder extends AlertDialog.Builder imple
 
 		viewCollectDeviceInfo = (CheckBox) view.findViewById(R.id.report_issue_dialog_collect_device_info);
 		viewCollectApplicationLog = (CheckBox) view.findViewById(R.id.report_issue_dialog_collect_application_log);
-		viewCollectApplicationLog.setVisibility(Build.VERSION.SDK_INT >= Constants.SDK_JELLY_BEAN ? View.VISIBLE : View.GONE);
-		viewCollectExtendedApplicationLog = (CheckBox) view.findViewById(R.id.report_issue_dialog_collect_extended_application_log);
 		viewCollectWalletDump = (CheckBox) view.findViewById(R.id.report_issue_dialog_collect_wallet_dump);
 
 		setInverseBackgroundForced(true);
@@ -145,31 +141,6 @@ public abstract class ReportIssueDialogBuilder extends AlertDialog.Builder imple
 		}
 
 		if (viewCollectApplicationLog.isChecked())
-		{
-			try
-			{
-				final CharSequence applicationLog = collectApplicationLog();
-
-				if (applicationLog != null)
-				{
-					final File file = File.createTempFile("application-log.", ".log", cacheDir);
-
-					final Writer writer = new OutputStreamWriter(new FileOutputStream(file), Constants.UTF_8);
-					writer.write(applicationLog.toString());
-					writer.close();
-
-					Io.chmod(file, 0777);
-
-					attachments.add(Uri.fromFile(file));
-				}
-			}
-			catch (final IOException x)
-			{
-				log.info("problem writing attachment", x);
-			}
-		}
-
-		if (viewCollectExtendedApplicationLog.isChecked())
 		{
 			try
 			{
@@ -289,9 +260,6 @@ public abstract class ReportIssueDialogBuilder extends AlertDialog.Builder imple
 
 	@CheckForNull
 	protected abstract CharSequence collectDeviceInfo() throws IOException;
-
-	@CheckForNull
-	protected abstract CharSequence collectApplicationLog() throws IOException;
 
 	@CheckForNull
 	protected abstract CharSequence collectWalletDump() throws IOException;

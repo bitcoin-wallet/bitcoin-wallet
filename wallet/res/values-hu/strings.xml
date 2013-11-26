@@ -173,7 +173,6 @@
 	<string name="report_issue_dialog_report">Jelentés</string>
 	<string name="report_issue_dialog_collect_device_info">Eszköz információk hozzáfűzése</string>
 	<string name="report_issue_dialog_collect_application_log">ALkalmazás log hozzáfűzése</string>
-	<string name="report_issue_dialog_collect_extended_application_log">A kibővített alkalmazás-napló hozzáfűzése</string>
 	<string name="report_issue_dialog_collect_wallet_dump">Tárca információk hozzáfűzése</string>
 	<string name="report_issue_dialog_mail_intent_chooser">Hiba küldése ezzel…</string>
 	<string name="about_title">Rólunk</string>

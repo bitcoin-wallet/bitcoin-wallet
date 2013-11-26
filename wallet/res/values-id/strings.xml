@@ -170,7 +170,6 @@
 	<string name="report_issue_dialog_report">Laporkan</string>
 	<string name="report_issue_dialog_collect_device_info">Tambahkan informasi ponsel</string>
 	<string name="report_issue_dialog_collect_application_log">Tambahkan catatan aplikasi</string>
-	<string name="report_issue_dialog_collect_extended_application_log">Tambahkan catatan aplikasi tambahan</string>
 	<string name="report_issue_dialog_collect_wallet_dump">Tambahkan dump dompet</string>
 	<string name="report_issue_dialog_mail_intent_chooser">Kirim laporan dgn…</string>
 	<string name="about_title">Mengenai</string>

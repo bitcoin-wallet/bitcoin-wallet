@@ -57,13 +57,11 @@ public class CrashReporter
 {
 	private static final String BACKGROUND_TRACES_FILENAME = "background.trace";
 	private static final String CRASH_TRACE_FILENAME = "crash.trace";
-	private static final String CRASH_APPLICATION_LOG_FILENAME = "crash.log";
 
 	private static final long TIME_CREATE_APPLICATION = System.currentTimeMillis();
 
 	private static File backgroundTracesFile;
 	private static File crashTraceFile;
-	private static File crashApplicationLogFile;
 
 	private static final Logger log = LoggerFactory.getLogger(CrashReporter.class);
 
@@ -71,7 +69,6 @@ public class CrashReporter
 	{
 		backgroundTracesFile = new File(cacheDir, BACKGROUND_TRACES_FILENAME);
 		crashTraceFile = new File(cacheDir, CRASH_TRACE_FILENAME);
-		crashApplicationLogFile = new File(cacheDir, CRASH_APPLICATION_LOG_FILENAME);
 
 		Thread.setDefaultUncaughtExceptionHandler(new ExceptionHandler(Thread.getDefaultUncaughtExceptionHandler()));
 	}
@@ -119,24 +116,6 @@ public class CrashReporter
 				reader.close();
 
 			crashTraceFile.delete();
-		}
-	}
-
-	public static void appendSavedCrashApplicationLog(@Nonnull final Appendable report) throws IOException
-	{
-		BufferedReader reader = null;
-
-		try
-		{
-			reader = new BufferedReader(new InputStreamReader(new FileInputStream(crashApplicationLogFile), Constants.UTF_8));
-			copy(reader, report);
-		}
-		finally
-		{
-			if (reader != null)
-				reader.close();
-
-			crashApplicationLogFile.delete();
 		}
 	}
 
@@ -250,31 +229,6 @@ public class CrashReporter
 		}
 	}
 
-	public static void appendApplicationLog(@Nonnull final Appendable report) throws IOException
-	{
-		Process process = null;
-		BufferedReader logReader = null;
-
-		try
-		{
-			// likely to throw exception on older android devices
-			process = Runtime.getRuntime().exec("logcat -d -v time");
-			logReader = new BufferedReader(new InputStreamReader(process.getInputStream(), Constants.UTF_8));
-
-			String line;
-			while ((line = logReader.readLine()) != null)
-				report.append(line).append('\n');
-		}
-		finally
-		{
-			if (logReader != null)
-				logReader.close();
-
-			if (process != null)
-				process.destroy();
-		}
-	}
-
 	private static void appendDir(@Nonnull final Appendable report, @Nonnull final File file, final int indent) throws IOException
 	{
 		for (int i = 0; i < indent; i++)
@@ -345,7 +299,6 @@ public class CrashReporter
 			try
 			{
 				saveCrashTrace(exception);
-				saveApplicationLog();
 			}
 			catch (final IOException x)
 			{
@@ -359,13 +312,6 @@ public class CrashReporter
 		{
 			final PrintWriter writer = new PrintWriter(new OutputStreamWriter(new FileOutputStream(crashTraceFile), Constants.UTF_8));
 			appendTrace(writer, throwable);
-			writer.close();
-		}
-
-		private void saveApplicationLog() throws IOException
-		{
-			final PrintWriter writer = new PrintWriter(new OutputStreamWriter(new FileOutputStream(crashApplicationLogFile), Constants.UTF_8));
-			appendApplicationLog(writer);
 			writer.close();
 		}
 	}

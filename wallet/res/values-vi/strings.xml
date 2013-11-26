@@ -163,7 +163,6 @@
 	<string name="report_issue_dialog_report">Báo cáo</string>
 	<string name="report_issue_dialog_collect_device_info">Thông tin chỉ thị về thiết bị</string>
 	<string name="report_issue_dialog_collect_application_log">Nhật trình chỉ thị của ứng dụng</string>
-	<string name="report_issue_dialog_collect_extended_application_log">Nhật trình chỉ thị độ mở rộng của ứng dụng</string>
 	<string name="report_issue_dialog_collect_wallet_dump">Các lỗi mà ví tiền gặp phải</string>
 	<string name="report_issue_dialog_mail_intent_chooser">Gửi báo cáo sử dụng…</string>
 	<string name="about_title">Thông tin</string>

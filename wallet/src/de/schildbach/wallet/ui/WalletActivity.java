@@ -653,7 +653,6 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 			try
 			{
 				CrashReporter.appendSavedCrashTrace(stackTrace);
-				CrashReporter.appendSavedCrashApplicationLog(applicationLog);
 			}
 			catch (final IOException x)
 			{
@@ -692,15 +691,6 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 					final StringBuilder deviceInfo = new StringBuilder();
 					CrashReporter.appendDeviceInfo(deviceInfo, WalletActivity.this);
 					return deviceInfo;
-				}
-
-				@Override
-				protected CharSequence collectApplicationLog() throws IOException
-				{
-					if (applicationLog.length() > 0)
-						return applicationLog;
-					else
-						return null;
 				}
 
 				@Override

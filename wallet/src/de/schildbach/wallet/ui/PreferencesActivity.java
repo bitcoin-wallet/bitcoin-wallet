@@ -157,17 +157,6 @@ public final class PreferencesActivity extends SherlockPreferenceActivity implem
 				}
 
 				@Override
-				protected CharSequence collectApplicationLog() throws IOException
-				{
-					final StringBuilder applicationLog = new StringBuilder();
-					CrashReporter.appendApplicationLog(applicationLog);
-					if (applicationLog.length() > 0)
-						return applicationLog;
-					else
-						return null;
-				}
-
-				@Override
 				protected CharSequence collectWalletDump()
 				{
 					return application.getWallet().toString(false, true, true, null);
