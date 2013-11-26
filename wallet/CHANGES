@@ -1,3 +1,9 @@
+v3.25
+
+* support for mBTC denomination
+* also use weighted exchange rates from BitcoinAverage
+* fixed issue with camera autofocus on some Samsung Galaxy devices
+
 v3.24
 
 * fixed issue with stuck outgoing transactions
