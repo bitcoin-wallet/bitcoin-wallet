@@ -55,11 +55,9 @@
 	<string name="send_coins_fragment_receiving_address_error">Endereço Bitcoin inválido!</string>
 	<string name="send_coins_fragment_receiving_address_error_cross_network">Não é possível usar o endereço %s com esta carteira!</string>
 	<string name="send_coins_fragment_receiving_address_error_cross_network_unknown">Não é possível usar um endereço de rede desconhecido com esta carteira!</string>
-	<string name="send_coins_fragment_available_label">Disponível para gastar</string>
 	<string name="send_coins_fragment_pending">(%s BTC esperando confirmação)</string>
 	<string name="send_coins_fragment_amount_label">Quantidade a pagar</string>
 	<string name="send_coins_fragment_amount_empty">Insira a quantidade aqui</string>
-	<string name="send_coins_fragment_amount_error">Quantidade inválida!</string>
 	<string name="send_coins_fragment_bluetooth_enable">Enviar pagamento também via Bluetooth</string>
 	<string name="send_coins_fragment_bluetooth_ack">Seu pagamento foi enviado com sucesso via Bluetooth.</string>
 	<string name="send_coins_fragment_bluetooth_nack">Seu pagamento via Bluetooth foi recusado.</string>

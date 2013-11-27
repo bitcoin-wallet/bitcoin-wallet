@@ -55,11 +55,9 @@
 	<string name="send_coins_fragment_receiving_address_error">¡Dirección Bitcoin inválida!</string>
 	<string name="send_coins_fragment_receiving_address_error_cross_network">¡No se puede usar la dirección %s con esta cartera!</string>
 	<string name="send_coins_fragment_receiving_address_error_cross_network_unknown">¡No se puede usar una dirección de red desconocida con esta cartera!</string>
-	<string name="send_coins_fragment_available_label">Disponible para gastar</string>
 	<string name="send_coins_fragment_pending">(%s BTC esperando confirmación)</string>
 	<string name="send_coins_fragment_amount_label">Cantidad a pagar</string>
 	<string name="send_coins_fragment_amount_empty">Introduzca aquí la cantidad</string>
-	<string name="send_coins_fragment_amount_error">¡Cantidad inválida!</string>
 	<string name="send_coins_fragment_bluetooth_enable">Su pago también será enviado a través de Bluetooth.</string>
 	<string name="send_coins_fragment_bluetooth_ack">Su pago ha sido enviado correctamente a través de Bluetooth.</string>
 	<string name="send_coins_fragment_bluetooth_nack">Su pago a través de Bluetooth ha sido rechazado.</string>

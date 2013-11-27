@@ -55,11 +55,9 @@
 	<string name="send_coins_fragment_receiving_address_error">無效比特幣地址!</string>
 	<string name="send_coins_fragment_receiving_address_error_cross_network">錢包無法使用 %s 這個地址!</string>
 	<string name="send_coins_fragment_receiving_address_error_cross_network_unknown">錢包無法使用未知網路的比特幣地址!</string>
-	<string name="send_coins_fragment_available_label">可用餘額</string>
 	<string name="send_coins_fragment_pending">(%s 比特幣等待確認)</string>
 	<string name="send_coins_fragment_amount_label">總金額</string>
 	<string name="send_coins_fragment_amount_empty">輸入金額</string>
-	<string name="send_coins_fragment_amount_error">無效金額輸入!</string>
 	<string name="send_coins_fragment_bluetooth_enable">用藍芽發送付款</string>
 	<string name="send_coins_fragment_bluetooth_ack">你的付款經藍芽發送成功。</string>
 	<string name="send_coins_fragment_bluetooth_nack">你的付款經藍芽發送失敗。</string>

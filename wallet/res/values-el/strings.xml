@@ -27,7 +27,6 @@
 	<string name="send_coins_fragment_receiving_address_label">Πληρωμή σε</string>
 	<string name="send_coins_fragment_receiving_address_hint">πληκτρολογήστε τη διεύθυνση ή το όνομα</string>
 	<string name="send_coins_fragment_receiving_address_error">Άκυρα Διεύθυνση Bitcoin!</string>
-	<string name="send_coins_fragment_available_label">Διαθέσιμο για τις ξόδεμα</string>
 	<string name="send_coins_fragment_pending">(BTC %s αναμονή για την επιβεβαίωση)</string>
 	<string name="send_coins_fragment_amount_label">Ποσό να πληρωθεί</string>
 	<string name="send_coins_fragment_button_send">Αποστολή</string>

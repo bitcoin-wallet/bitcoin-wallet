@@ -55,11 +55,9 @@
 	<string name="send_coins_fragment_receiving_address_error">Malvalida Bitmonadreso!</string>
 	<string name="send_coins_fragment_receiving_address_error_cross_network">Ne eblas uzi %s adreson kun ĉi tiu monujo!</string>
 	<string name="send_coins_fragment_receiving_address_error_cross_network_unknown">Ne eblas uzi adreson de nekonata reto kun ĉi tiu monujo!</string>
-	<string name="send_coins_fragment_available_label">Disponebla por elspezado</string>
 	<string name="send_coins_fragment_pending">(BTC %s atendadi konfirmon)</string>
 	<string name="send_coins_fragment_amount_label">Kvanto pagi</string>
 	<string name="send_coins_fragment_amount_empty">Metu kvanton tien</string>
-	<string name="send_coins_fragment_amount_error">Malvalida kvanto!</string>
 	<string name="send_coins_fragment_bluetooth_enable">Sendu pagon ankaŭ per Bluetooth</string>
 	<string name="send_coins_fragment_bluetooth_ack">Via pago estis sukcese sendita per Bluetooth.</string>
 	<string name="send_coins_fragment_bluetooth_nack">Via pago estis malakceptita per Bluetooth.</string>

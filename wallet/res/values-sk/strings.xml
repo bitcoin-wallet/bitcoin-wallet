@@ -55,11 +55,9 @@
 	<string name="send_coins_fragment_receiving_address_error">Nesprávna Bitcoin adresa!</string>
 	<string name="send_coins_fragment_receiving_address_error_cross_network">Adresu %s nie je možné použiť s touto peňaženkou!</string>
 	<string name="send_coins_fragment_receiving_address_error_cross_network_unknown">Adresu z neznámej siete nie je možné použiť s touto peňaženkou!</string>
-	<string name="send_coins_fragment_available_label">Je možné minúť</string>
 	<string name="send_coins_fragment_pending">(%s BTC čaká na potvrdenie)</string>
 	<string name="send_coins_fragment_amount_label">Suma</string>
 	<string name="send_coins_fragment_amount_empty">Sem zadajte sumu</string>
-	<string name="send_coins_fragment_amount_error">Nesprávna suma!</string>
 	<string name="send_coins_fragment_bluetooth_enable">Odoslanie platby cez Bluetooth</string>
 	<string name="send_coins_fragment_bluetooth_ack">Vaša platba cez Bluetooth bola úspešne vykonaná.</string>
 	<string name="send_coins_fragment_bluetooth_nack">Vaša platba cez Bluetooth bola zamietnutá.</string>

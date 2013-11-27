@@ -55,11 +55,9 @@
 	<string name="send_coins_fragment_receiving_address_error">Ugyldig Bitcoin-adresse!</string>
 	<string name="send_coins_fragment_receiving_address_error_cross_network">Kan ikke bruge %s adresse med denne tegnebog!</string>
 	<string name="send_coins_fragment_receiving_address_error_cross_network_unknown">Kan ikke bruge adresse for ukendt netværk med denne tegnebog!</string>
-	<string name="send_coins_fragment_available_label">Til rådighed for brug</string>
 	<string name="send_coins_fragment_pending">(BTC %s venter på bekræftelse)</string>
 	<string name="send_coins_fragment_amount_label">Beløb at betale</string>
 	<string name="send_coins_fragment_amount_empty">Indsæt beløb her</string>
-	<string name="send_coins_fragment_amount_error">Ugyldigt beløb!</string>
 	<string name="send_coins_fragment_bluetooth_enable">Send også betaling via Bluetooth</string>
 	<string name="send_coins_fragment_bluetooth_ack">Din betaling blev sendt via Bluetooth med succes.</string>
 	<string name="send_coins_fragment_bluetooth_nack">Din betaling blev afvist via Bluetooth.</string>

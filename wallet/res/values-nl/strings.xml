@@ -25,7 +25,6 @@
 	<string name="send_coins_fragment_receiving_address_label">Betalen naar</string>
 	<string name="send_coins_fragment_receiving_address_hint">typ adres of naam</string>
 	<string name="send_coins_fragment_receiving_address_error">Ongeldig Bitcoin Adres!</string>
-	<string name="send_coins_fragment_available_label">Beschikbaar voor besteding</string>
 	<string name="send_coins_fragment_pending">(BTC %s wachtend op bevestiging)</string>
 	<string name="send_coins_fragment_amount_label">Bedrag te betalen</string>
 	<string name="send_coins_fragment_button_send">Verzenden</string>

@@ -123,7 +123,6 @@ public final class SendCoinsFragment extends SherlockFragment
 	private Button viewCancel;
 
 	private TextView popupMessageView;
-	private View popupAvailableView;
 	private PopupWindow popupWindow;
 
 	private CurrencyCalculatorLink amountCalculatorLink;
@@ -465,8 +464,6 @@ public final class SendCoinsFragment extends SherlockFragment
 
 		popupMessageView = (TextView) inflater.inflate(R.layout.send_coins_popup_message, container);
 
-		popupAvailableView = inflater.inflate(R.layout.send_coins_popup_available, container);
-
 		if (savedInstanceState != null)
 		{
 			restoreInstanceState(savedInstanceState);
@@ -738,39 +735,15 @@ public final class SendCoinsFragment extends SherlockFragment
 
 		final BigInteger amount = amountCalculatorLink.getAmount();
 
-		if (amount == null)
+		if (amount != null && amount.signum() > 0)
+		{
+			isValidAmounts = true;
+		}
+		else
 		{
 			// empty amount
 			if (popups)
 				popupMessage(amountCalculatorLink.activeView(), getString(R.string.send_coins_fragment_amount_empty));
-		}
-		else if (amount.signum() > 0)
-		{
-			final BigInteger estimated = wallet.getBalance(BalanceType.ESTIMATED);
-			final BigInteger available = wallet.getBalance(BalanceType.AVAILABLE);
-			final BigInteger pending = estimated.subtract(available);
-			// TODO subscribe to wallet changes
-
-			final BigInteger availableAfterAmount = available.subtract(amount);
-			final boolean enoughFundsForAmount = availableAfterAmount.signum() >= 0;
-
-			if (enoughFundsForAmount)
-			{
-				// everything fine
-				isValidAmounts = true;
-			}
-			else
-			{
-				// not enough funds for amount
-				if (popups)
-					popupAvailable(amountCalculatorLink.activeView(), available, pending);
-			}
-		}
-		else
-		{
-			// invalid amount
-			if (popups)
-				popupMessage(amountCalculatorLink.activeView(), getString(R.string.send_coins_fragment_amount_error));
 		}
 
 		updateView();
@@ -784,23 +757,6 @@ public final class SendCoinsFragment extends SherlockFragment
 		popupMessageView.setMaxWidth(getView().getWidth());
 
 		popup(anchor, popupMessageView);
-	}
-
-	private void popupAvailable(@Nonnull final View anchor, @Nonnull final BigInteger available, @Nonnull final BigInteger pending)
-	{
-		dismissPopup();
-
-		final CurrencyTextView viewAvailable = (CurrencyTextView) popupAvailableView.findViewById(R.id.send_coins_popup_available_amount);
-		viewAvailable.setPrefix(config.getBtcPrefix());
-		viewAvailable.setPrecision(config.getBtcPrecision(), config.getBtcShift());
-		viewAvailable.setAmount(available);
-
-		final TextView viewPending = (TextView) popupAvailableView.findViewById(R.id.send_coins_popup_available_pending);
-		viewPending.setVisibility(pending.signum() > 0 ? View.VISIBLE : View.GONE);
-		viewPending.setText(getString(R.string.send_coins_fragment_pending,
-				GenericUtils.formatValue(pending, config.getBtcMaxPrecision(), config.getBtcShift())));
-
-		popup(anchor, popupAvailableView);
 	}
 
 	private void popup(@Nonnull final View anchor, @Nonnull final View contentView)
@@ -876,7 +832,34 @@ public final class SendCoinsFragment extends SherlockFragment
 				state = State.INPUT;
 				updateView();
 
-				activity.longToast(R.string.send_coins_error_msg);
+				final BigInteger estimated = wallet.getBalance(BalanceType.ESTIMATED);
+				final BigInteger available = wallet.getBalance(BalanceType.AVAILABLE);
+				final BigInteger pending = estimated.subtract(available);
+
+				final int btcShift = config.getBtcShift();
+				final int btcPrecision = config.getBtcMaxPrecision();
+				final String btcPrefix = config.getBtcPrefix();
+
+				final DialogBuilder dialog = new DialogBuilder(activity);
+				dialog.setIcon(R.drawable.ic_menu_warning);
+				dialog.setTitle(R.string.send_coins_fragment_insufficient_money_title);
+				final StringBuilder msg = new StringBuilder(String.format(getString(R.string.send_coins_fragment_insufficient_money_msg1), btcPrefix
+						+ ' ' + GenericUtils.formatValue(missing, btcPrecision, btcShift)));
+				if (pending.signum() > 0)
+					msg.append("\n\n").append(
+							getString(R.string.send_coins_fragment_pending, GenericUtils.formatValue(pending, btcPrecision, btcShift)));
+				msg.append("\n\n").append(getString(R.string.send_coins_fragment_insufficient_money_msg2));
+				dialog.setMessage(msg);
+				dialog.setPositiveButton(R.string.send_coins_options_empty, new DialogInterface.OnClickListener()
+				{
+					@Override
+					public void onClick(final DialogInterface dialog, final int which)
+					{
+						handleEmpty();
+					}
+				});
+				dialog.setNegativeButton(R.string.button_cancel, null);
+				dialog.show();
 			}
 
 			@Override

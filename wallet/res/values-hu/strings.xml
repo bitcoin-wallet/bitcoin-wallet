@@ -55,11 +55,9 @@
 	<string name="send_coins_fragment_receiving_address_error">Érvénytelen Bitcoin cím!</string>
 	<string name="send_coins_fragment_receiving_address_error_cross_network">a %s cím nem használható ezzel a tárcával!</string>
 	<string name="send_coins_fragment_receiving_address_error_cross_network_unknown">Ismeretlen hálózat címzettje nem használható ezzel a tárcával!</string>
-	<string name="send_coins_fragment_available_label">Rendelkezésre álló összeg</string>
 	<string name="send_coins_fragment_pending">(%s BTC várakozik jóváhagyásra)</string>
 	<string name="send_coins_fragment_amount_label">Fizetendő összeg</string>
 	<string name="send_coins_fragment_amount_empty">Írd be az összeget</string>
-	<string name="send_coins_fragment_amount_error">Érvénytelen összeg!</string>
 	<string name="send_coins_fragment_bluetooth_enable">Kifizetés küldése Bluetooth-on keresztül is</string>
 	<string name="send_coins_fragment_bluetooth_ack">A fizetés sikeresen elküldve Bluetooth-on.</string>
 	<string name="send_coins_fragment_bluetooth_nack">A Bluetooth fizetés visszautasítva.</string>

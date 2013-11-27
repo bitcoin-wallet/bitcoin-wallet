@@ -55,11 +55,9 @@
 	<string name="send_coins_fragment_receiving_address_error">Geçersiz Bitcoin adresi!</string>
 	<string name="send_coins_fragment_receiving_address_error_cross_network">%s adresi bu cüzdanla kullanılamaz!</string>
 	<string name="send_coins_fragment_receiving_address_error_cross_network_unknown">Bilinmeyen bir şebekenin adresi bu cüzdanla kullanılamaz!</string>
-	<string name="send_coins_fragment_available_label">Harcamak için kullanılabilir</string>
 	<string name="send_coins_fragment_pending">(%s BTC teyit bekliyor)</string>
 	<string name="send_coins_fragment_amount_label">Ödenecek miktar</string>
 	<string name="send_coins_fragment_amount_empty">Miktarı buraya giriniz</string>
-	<string name="send_coins_fragment_amount_error">Geçersiz miktar!</string>
 	<string name="send_coins_fragment_bluetooth_enable">Ödemeyi Bluetooth ile de gönder</string>
 	<string name="send_coins_fragment_bluetooth_ack">Ödemeniz Bluetooth vasıtasıyla başarıyla gönderildi.</string>
 	<string name="send_coins_fragment_bluetooth_nack">Bluetooth aracılığıyla ödemeniz reddedildi.</string>

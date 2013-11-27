@@ -54,11 +54,9 @@
 	<string name="send_coins_fragment_receiving_address_error">Alamat Bitcoin Salah!</string>
 	<string name="send_coins_fragment_receiving_address_error_cross_network">Tidak dapat menggunakan %s dgn dompet ini!</string>
 	<string name="send_coins_fragment_receiving_address_error_cross_network_unknown">Tidak dapat menggunakan alamat dari jaringan tak diketahui dgn dompet ini!</string>
-	<string name="send_coins_fragment_available_label">Tersedia utk dipakai</string>
 	<string name="send_coins_fragment_pending">(BTC %s menunggu konfirmasi)</string>
 	<string name="send_coins_fragment_amount_label">Jumlah pembayaran</string>
 	<string name="send_coins_fragment_amount_empty">Masukkan jumlah disini</string>
-	<string name="send_coins_fragment_amount_error">Jumlah salah!</string>
 	<string name="send_coins_fragment_button_send">Kirim</string>
 	<string name="send_coins_fragment_button_back">Kembali</string>
 	<string name="send_coins_preparation_msg">Menandai…</string>

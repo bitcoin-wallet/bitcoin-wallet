@@ -55,11 +55,9 @@
 	<string name="send_coins_fragment_receiving_address_error">Nieprawidłowy adres Bitcoin!</string>
 	<string name="send_coins_fragment_receiving_address_error_cross_network">W tym portfelu nie można użyć adresu %s!</string>
 	<string name="send_coins_fragment_receiving_address_error_cross_network_unknown">W tym portfelu nie można użyć adresu z nieznanej sieci!</string>
-	<string name="send_coins_fragment_available_label">Do dyspozycji</string>
 	<string name="send_coins_fragment_pending">(%s BTC oczekuje na potwierdzenie)</string>
 	<string name="send_coins_fragment_amount_label">Kwota do zapłacenia</string>
 	<string name="send_coins_fragment_amount_empty">Tutaj podaj kwotę</string>
-	<string name="send_coins_fragment_amount_error">Niepoprawna kwota!</string>
 	<string name="send_coins_fragment_bluetooth_enable">Wyślij płatność przez Bluetooth</string>
 	<string name="send_coins_fragment_bluetooth_ack">Twoja płatność przez Bluetooth została zakończona</string>
 	<string name="send_coins_fragment_bluetooth_nack">Twoja płatność przez Bluetooth została odrzucona</string>

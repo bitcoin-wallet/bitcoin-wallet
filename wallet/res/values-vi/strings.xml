@@ -52,11 +52,9 @@
 	<string name="send_coins_fragment_receiving_address_error">Địa chỉ Bitcoin không hợp lệ!</string>
 	<string name="send_coins_fragment_receiving_address_error_cross_network">Không thể sử dụng địa chỉ %s với ví tiền này!</string>
 	<string name="send_coins_fragment_receiving_address_error_cross_network_unknown">Không thể sử dụng địa chỉ của những mạng chưa rõ thông tin với ví tiền này!</string>
-	<string name="send_coins_fragment_available_label">Hiện đã có thể gửi đi</string>
 	<string name="send_coins_fragment_pending">(BTC %s đợi xác nhận)</string>
 	<string name="send_coins_fragment_amount_label">Số lượng chi trả</string>
 	<string name="send_coins_fragment_amount_empty">Đặt số lượng ở đây</string>
-	<string name="send_coins_fragment_amount_error">Số lượng không hợp lệ!</string>
 	<string name="send_coins_fragment_button_send">Gửi</string>
 	<string name="send_coins_fragment_button_back">Quay lại</string>
 	<string name="send_coins_preparation_msg">Đang đăng nhập…</string>
