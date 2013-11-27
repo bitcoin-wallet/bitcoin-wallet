@@ -33,9 +33,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.preference.PreferenceManager;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.AsyncTaskLoader;
@@ -74,6 +76,7 @@ public final class BlockListFragment extends SherlockListFragment
 	private WalletApplication application;
 	private Wallet wallet;
 	private LoaderManager loaderManager;
+	private SharedPreferences prefs;
 
 	private BlockchainService service;
 
@@ -94,6 +97,7 @@ public final class BlockListFragment extends SherlockListFragment
 		this.application = this.activity.getWalletApplication();
 		this.wallet = application.getWallet();
 		this.loaderManager = getLoaderManager();
+		this.prefs = PreferenceManager.getDefaultSharedPreferences(activity);
 	}
 
 	@Override
@@ -295,6 +299,12 @@ public final class BlockListFragment extends SherlockListFragment
 
 			if (transactions != null)
 			{
+				final String precision = prefs.getString(Constants.PREFS_KEY_BTC_PRECISION, Constants.PREFS_DEFAULT_BTC_PRECISION);
+				final int btcPrecision = precision.charAt(0) - '0';
+				final int btcShift = precision.length() == 3 ? precision.charAt(2) - '0' : 0;
+
+				transactionsAdapter.setPrecision(btcPrecision, btcShift);
+
 				for (final Transaction tx : transactions)
 				{
 					if (tx.getAppearsInHashes().containsKey(header.getHash()))
