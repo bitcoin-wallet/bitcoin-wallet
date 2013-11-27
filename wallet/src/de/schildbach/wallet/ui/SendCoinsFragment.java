@@ -87,7 +87,7 @@ import de.schildbach.wallet.ExchangeRatesProvider;
 import de.schildbach.wallet.ExchangeRatesProvider.ExchangeRate;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.integration.android.BitcoinIntegration;
-import de.schildbach.wallet.offline.SendBluetoothRunnable;
+import de.schildbach.wallet.offline.SendBluetoothTask;
 import de.schildbach.wallet.ui.InputParser.StringInputParser;
 import de.schildbach.wallet.util.GenericUtils;
 import de.schildbach.wallet.util.WalletUtils;
@@ -859,7 +859,7 @@ public final class SendCoinsFragment extends SherlockFragment
 
 				if (bluetoothAdapter != null && bluetoothAdapter.isEnabled() && bluetoothMac != null && bluetoothEnableView.isChecked())
 				{
-					backgroundHandler.post(new SendBluetoothRunnable(bluetoothAdapter, bluetoothMac, transaction)
+					new SendBluetoothTask(bluetoothAdapter, backgroundHandler)
 					{
 						@Override
 						protected void onResult(final boolean ack)
@@ -871,7 +871,7 @@ public final class SendCoinsFragment extends SherlockFragment
 
 							updateView();
 						}
-					});
+					}.send(bluetoothMac, transaction); // send asynchronously
 				}
 
 				activity.getBlockchainService().broadcastTransaction(sentTransaction);
