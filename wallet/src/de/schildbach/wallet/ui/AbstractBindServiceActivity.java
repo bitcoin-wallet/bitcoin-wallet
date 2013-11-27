@@ -23,7 +23,6 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
-import android.os.Bundle;
 import android.os.IBinder;
 import de.schildbach.wallet.service.BlockchainService;
 import de.schildbach.wallet.service.BlockchainServiceImpl;
@@ -52,19 +51,19 @@ public abstract class AbstractBindServiceActivity extends AbstractWalletActivity
 	};
 
 	@Override
-	protected void onCreate(final Bundle savedInstanceState)
+	protected void onResume()
 	{
-		super.onCreate(savedInstanceState);
+		super.onResume();
 
 		bindService(new Intent(this, BlockchainServiceImpl.class), serviceConnection, Context.BIND_AUTO_CREATE);
 	}
 
 	@Override
-	protected void onDestroy()
+	protected void onPause()
 	{
 		unbindService(serviceConnection);
 
-		super.onDestroy();
+		super.onPause();
 	}
 
 	protected BlockchainService getBlockchainService()

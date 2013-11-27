@@ -71,6 +71,7 @@ import com.google.bitcoin.core.Peer;
 import com.google.bitcoin.core.PeerEventListener;
 import com.google.bitcoin.core.PeerGroup;
 import com.google.bitcoin.core.ScriptException;
+import com.google.bitcoin.core.Sha256Hash;
 import com.google.bitcoin.core.StoredBlock;
 import com.google.bitcoin.core.Transaction;
 import com.google.bitcoin.core.TransactionConfidence.ConfidenceType;
@@ -676,7 +677,9 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 	@Override
 	public int onStartCommand(final Intent intent, final int flags, final int startId)
 	{
-		if (BlockchainService.ACTION_CANCEL_COINS_RECEIVED.equals(intent.getAction()))
+		final String action = intent.getAction();
+
+		if (BlockchainService.ACTION_CANCEL_COINS_RECEIVED.equals(action))
 		{
 			notificationCount = 0;
 			notificationAccumulatedAmount = BigInteger.ZERO;
@@ -685,7 +688,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 			nm.cancel(NOTIFICATION_ID_COINS_RECEIVED);
 		}
 
-		if (BlockchainService.ACTION_HOLD_WIFI_LOCK.equals(intent.getAction()))
+		if (BlockchainService.ACTION_HOLD_WIFI_LOCK.equals(action))
 		{
 			log.debug("acquiring wifilock");
 			wifiLock.acquire();
@@ -696,12 +699,28 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 			wifiLock.release();
 		}
 
-		if (BlockchainService.ACTION_RESET_BLOCKCHAIN.equals(intent.getAction()))
+		if (BlockchainService.ACTION_RESET_BLOCKCHAIN.equals(action))
 		{
 			log.info("will remove blockchain on service shutdown");
 
 			resetBlockchainOnShutdown = true;
 			stopSelf();
+		}
+
+		if (BlockchainService.ACTION_BROADCAST_TRANSACTION.equals(action))
+		{
+			final Sha256Hash hash = new Sha256Hash(intent.getByteArrayExtra(BlockchainService.ACTION_BROADCAST_TRANSACTION_HASH));
+			final Transaction tx = application.getWallet().getTransaction(hash);
+
+			if (peerGroup != null)
+			{
+				log.info("broadcasting transaction " + tx.getHashAsString());
+				peerGroup.broadcastTransaction(tx);
+			}
+			else
+			{
+				log.info("peergroup not available, not broadcasting transaction " + tx.getHashAsString());
+			}
 		}
 
 		return START_NOT_STICKY;
@@ -775,13 +794,6 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 	{
 		log.warn("low memory detected, stopping service");
 		stopSelf();
-	}
-
-	@Override
-	public void broadcastTransaction(final Transaction tx)
-	{
-		if (peerGroup != null)
-			peerGroup.broadcastTransaction(tx);
 	}
 
 	@Override
