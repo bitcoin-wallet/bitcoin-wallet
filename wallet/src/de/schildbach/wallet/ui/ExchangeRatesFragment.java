@@ -104,7 +104,7 @@ public final class ExchangeRatesFragment extends SherlockListFragment implements
 				final ExchangeRate exchangeRate = ExchangeRatesProvider.getExchangeRate(cursor);
 				final boolean isDefaultCurrency = exchangeRate.currencyCode.equals(defaultCurrency);
 
-				view.setBackgroundResource(isDefaultCurrency ? R.color.bg_less_bright : R.color.bg_bright);
+				view.setBackgroundResource(isDefaultCurrency ? R.color.bg_list_selected : R.color.bg_list);
 
 				final View defaultView = view.findViewById(R.id.exchange_rate_row_default);
 				defaultView.setVisibility(isDefaultCurrency ? View.VISIBLE : View.INVISIBLE);
