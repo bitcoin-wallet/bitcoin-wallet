@@ -226,7 +226,13 @@ public final class ScanActivity extends Activity implements SurfaceHolder.Callba
 					}
 				});
 
-				cameraHandler.post(new AutoFocusRunnable(camera));
+				final String focusMode = camera.getParameters().getFocusMode();
+				final boolean nonContinuousAutoFocus = Camera.Parameters.FOCUS_MODE_AUTO.equals(focusMode)
+						|| Camera.Parameters.FOCUS_MODE_MACRO.equals(focusMode);
+
+				if (nonContinuousAutoFocus)
+					cameraHandler.post(new AutoFocusRunnable(camera));
+
 				cameraHandler.post(fetchAndDecodeRunnable);
 			}
 			catch (final IOException x)
@@ -272,15 +278,8 @@ public final class ScanActivity extends Activity implements SurfaceHolder.Callba
 				@Override
 				public void onAutoFocus(final boolean success, final Camera camera)
 				{
-					final String focusMode = camera.getParameters().getFocusMode();
-					final boolean nonContinuousAutoFocus = Camera.Parameters.FOCUS_MODE_AUTO.equals(focusMode)
-							|| Camera.Parameters.FOCUS_MODE_MACRO.equals(focusMode);
-
-					if (nonContinuousAutoFocus)
-					{
-						// schedule again
-						cameraHandler.postDelayed(AutoFocusRunnable.this, AUTO_FOCUS_INTERVAL_MS);
-					}
+					// schedule again
+					cameraHandler.postDelayed(AutoFocusRunnable.this, AUTO_FOCUS_INTERVAL_MS);
 				}
 			});
 		}
