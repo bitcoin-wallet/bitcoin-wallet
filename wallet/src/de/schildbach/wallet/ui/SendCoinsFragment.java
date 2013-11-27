@@ -104,7 +104,7 @@ public final class SendCoinsFragment extends SherlockFragment
 	private ContentResolver contentResolver;
 	private LoaderManager loaderManager;
 	private SharedPreferences prefs;
-
+	@CheckForNull
 	private BluetoothAdapter bluetoothAdapter;
 
 	private int btcPrecision;

@@ -21,6 +21,8 @@ import java.math.BigInteger;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.annotation.CheckForNull;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -89,6 +91,7 @@ public final class RequestCoinsFragment extends SherlockFragment
 	private LoaderManager loaderManager;
 	private ClipboardManager clipboardManager;
 	private ShareActionProvider shareActionProvider;
+	@CheckForNull
 	private BluetoothAdapter bluetoothAdapter;
 
 	private int btcPrecision;
@@ -401,7 +404,7 @@ public final class RequestCoinsFragment extends SherlockFragment
 
 		// update bluetooth message
 		final boolean serviceRunning = application.isServiceRunning(AcceptBluetoothService.class);
-		bluetoothEnabledView.setVisibility(bluetoothAdapter.isEnabled() && serviceRunning ? View.VISIBLE : View.GONE);
+		bluetoothEnabledView.setVisibility(bluetoothAdapter != null && bluetoothAdapter.isEnabled() && serviceRunning ? View.VISIBLE : View.GONE);
 	}
 
 	private void updateShareIntent()
