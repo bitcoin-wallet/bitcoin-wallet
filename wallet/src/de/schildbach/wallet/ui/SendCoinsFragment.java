@@ -845,61 +845,51 @@ public final class SendCoinsFragment extends SherlockFragment
 		sendRequest.changeAddress = WalletUtils.pickOldestKey(wallet).toAddress(Constants.NETWORK_PARAMETERS);
 		sendRequest.emptyWallet = amount.equals(wallet.getBalance(BalanceType.AVAILABLE));
 
-		backgroundHandler.post(new Runnable()
+		new SendCoinsOfflineTask(wallet, backgroundHandler)
 		{
 			@Override
-			public void run()
+			protected void onSuccess(final Transaction transaction)
 			{
-				final Transaction transaction = wallet.sendCoinsOffline(sendRequest); // can take long
+				sentTransaction = transaction;
 
-				handler.post(new Runnable()
+				state = State.SENDING;
+				updateView();
+
+				sentTransaction.getConfidence().addEventListener(sentTransactionConfidenceListener);
+
+				if (bluetoothAdapter != null && bluetoothAdapter.isEnabled() && bluetoothMac != null && bluetoothEnableView.isChecked())
 				{
-					@Override
-					public void run()
+					backgroundHandler.post(new SendBluetoothRunnable(bluetoothAdapter, bluetoothMac, transaction)
 					{
-						if (transaction != null)
+						@Override
+						protected void onResult(final boolean ack)
 						{
-							sentTransaction = transaction;
+							bluetoothAck = ack;
 
-							state = State.SENDING;
+							if (state == State.SENDING)
+								state = State.SENT;
+
 							updateView();
-
-							sentTransaction.getConfidence().addEventListener(sentTransactionConfidenceListener);
-
-							if (bluetoothAdapter != null && bluetoothAdapter.isEnabled() && bluetoothMac != null && bluetoothEnableView.isChecked())
-							{
-								backgroundHandler.post(new SendBluetoothRunnable(bluetoothAdapter, bluetoothMac, transaction)
-								{
-									@Override
-									protected void onResult(final boolean ack)
-									{
-										bluetoothAck = ack;
-
-										if (state == State.SENDING)
-											state = State.SENT;
-
-										updateView();
-									}
-								});
-							}
-
-							activity.getBlockchainService().broadcastTransaction(sentTransaction);
-
-							final Intent result = new Intent();
-							BitcoinIntegration.transactionHashToResult(result, sentTransaction.getHashAsString());
-							activity.setResult(Activity.RESULT_OK, result);
 						}
-						else
-						{
-							state = State.FAILED;
-							updateView();
+					});
+				}
 
-							activity.longToast(R.string.send_coins_error_msg);
-						}
-					}
-				});
+				activity.getBlockchainService().broadcastTransaction(sentTransaction);
+
+				final Intent result = new Intent();
+				BitcoinIntegration.transactionHashToResult(result, sentTransaction.getHashAsString());
+				activity.setResult(Activity.RESULT_OK, result);
 			}
-		});
+
+			@Override
+			protected void onFailure()
+			{
+				state = State.FAILED;
+				updateView();
+
+				activity.longToast(R.string.send_coins_error_msg);
+			}
+		}.sendCoinsOffline(sendRequest); // send asynchronously
 	}
 
 	private void handleScan()
