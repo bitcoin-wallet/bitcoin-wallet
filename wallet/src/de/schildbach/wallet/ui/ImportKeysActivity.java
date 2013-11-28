@@ -228,6 +228,8 @@ public final class ImportKeysActivity extends AbstractWalletActivity
 			}
 			dialog.setOnCancelListener(finishListener);
 			dialog.show();
+
+			log.info("imported " + numKeysImported + " of " + numKeysToImport + " private keys");
 		}
 		catch (final IOException x)
 		{

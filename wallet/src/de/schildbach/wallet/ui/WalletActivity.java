@@ -846,6 +846,8 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 				dialog.setNeutralButton(R.string.button_dismiss, null);
 			}
 			dialog.show();
+
+			log.info("imported " + numKeysImported + " of " + numKeysToImport + " private keys");
 		}
 		catch (final IOException x)
 		{
@@ -896,6 +898,8 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 			});
 			dialog.setNegativeButton(R.string.button_dismiss, null);
 			dialog.show();
+
+			log.info("exported " + keys.size() + " private keys to " + file);
 		}
 		catch (final IOException x)
 		{
@@ -918,5 +922,7 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 		intent.setType("x-bitcoin/private-keys");
 		intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file));
 		startActivity(Intent.createChooser(intent, getString(R.string.export_keys_dialog_mail_intent_chooser)));
+
+		log.info("invoked archive private keys chooser");
 	}
 }
