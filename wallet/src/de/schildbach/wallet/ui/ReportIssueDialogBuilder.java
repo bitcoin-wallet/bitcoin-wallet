@@ -57,6 +57,7 @@ public abstract class ReportIssueDialogBuilder extends AlertDialog.Builder imple
 
 	private EditText viewDescription;
 	private CheckBox viewCollectDeviceInfo;
+	private CheckBox viewCollectInstalledPackages;
 	private CheckBox viewCollectApplicationLog;
 	private CheckBox viewCollectWalletDump;
 
@@ -76,6 +77,7 @@ public abstract class ReportIssueDialogBuilder extends AlertDialog.Builder imple
 		viewDescription = (EditText) view.findViewById(R.id.report_issue_dialog_description);
 
 		viewCollectDeviceInfo = (CheckBox) view.findViewById(R.id.report_issue_dialog_collect_device_info);
+		viewCollectInstalledPackages = (CheckBox) view.findViewById(R.id.report_issue_dialog_collect_device_info);
 		viewCollectApplicationLog = (CheckBox) view.findViewById(R.id.report_issue_dialog_collect_application_log);
 		viewCollectWalletDump = (CheckBox) view.findViewById(R.id.report_issue_dialog_collect_wallet_dump);
 
@@ -97,14 +99,14 @@ public abstract class ReportIssueDialogBuilder extends AlertDialog.Builder imple
 
 		try
 		{
+			text.append("\n\n\n=== application info ===\n\n");
+
 			final CharSequence applicationInfo = collectApplicationInfo();
 
-			text.append("\n\n\n=== application info ===\n\n");
 			text.append(applicationInfo);
 		}
 		catch (final IOException x)
 		{
-			text.append("\n\n\n=== application info ===\n\n");
 			text.append(x.toString()).append('\n');
 		}
 
@@ -128,14 +130,27 @@ public abstract class ReportIssueDialogBuilder extends AlertDialog.Builder imple
 		{
 			try
 			{
+				text.append("\n\n\n=== device info ===\n\n");
+
 				final CharSequence deviceInfo = collectDeviceInfo();
 
-				text.append("\n\n\n=== device info ===\n\n");
 				text.append(deviceInfo);
 			}
 			catch (final IOException x)
 			{
-				text.append("\n\n\n=== device info ===\n\n");
+				text.append(x.toString()).append('\n');
+			}
+		}
+
+		if (viewCollectInstalledPackages.isChecked())
+		{
+			try
+			{
+				text.append("\n\n\n=== installed packages ===\n\n");
+				CrashReporter.appendInstalledPackages(text, context);
+			}
+			catch (final IOException x)
+			{
 				text.append(x.toString()).append('\n');
 			}
 		}

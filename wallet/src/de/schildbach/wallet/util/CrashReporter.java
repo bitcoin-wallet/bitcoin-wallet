@@ -25,6 +25,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Formatter;
 import java.util.List;
 import java.util.Set;
@@ -170,6 +172,25 @@ public class CrashReporter
 		{
 			throw new RuntimeException(x);
 		}
+	}
+
+	public static void appendInstalledPackages(@Nonnull final Appendable report, final Context context) throws IOException
+	{
+		final PackageManager pm = context.getPackageManager();
+		final List<PackageInfo> installedPackages = pm.getInstalledPackages(0);
+
+		// sort by package name
+		Collections.sort(installedPackages, new Comparator<PackageInfo>()
+		{
+			@Override
+			public int compare(final PackageInfo lhs, final PackageInfo rhs)
+			{
+				return lhs.packageName.compareTo(rhs.packageName);
+			}
+		});
+
+		for (final PackageInfo p : installedPackages)
+			report.append(String.format("%s %s (%d) - %tF %tF\n", p.packageName, p.versionName, p.versionCode, p.firstInstallTime, p.lastUpdateTime));
 	}
 
 	public static void appendApplicationInfo(@Nonnull final Appendable report, @Nonnull final WalletApplication application) throws IOException
