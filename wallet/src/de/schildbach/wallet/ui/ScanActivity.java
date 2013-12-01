@@ -38,6 +38,7 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.hardware.Camera;
 import android.hardware.Camera.PreviewCallback;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
@@ -79,9 +80,10 @@ public final class ScanActivity extends Activity implements SurfaceHolder.Callba
 
 	private static final int DIALOG_CAMERA_PROBLEM = 0;
 
-	private static boolean DISABLE_CONTINUOUS_AUTOFOCUS = android.os.Build.MODEL.equals("GT-I9100") // Galaxy S2
-			|| android.os.Build.MODEL.equals("GT-I9300") // Galaxy S3
-			|| android.os.Build.MODEL.equals("GT-N7000"); // Galaxy Note
+	private static boolean DISABLE_CONTINUOUS_AUTOFOCUS = Build.MODEL.equals("GT-I9100") // Galaxy S2
+			|| Build.MODEL.equals("SAMSUNG-SGH-I727") // Galaxy S2 Skyrocket
+			|| Build.MODEL.equals("GT-I9300") // Galaxy S3
+			|| Build.MODEL.equals("GT-N7000"); // Galaxy Note
 
 	private static final Logger log = LoggerFactory.getLogger(ScanActivity.class);
 
