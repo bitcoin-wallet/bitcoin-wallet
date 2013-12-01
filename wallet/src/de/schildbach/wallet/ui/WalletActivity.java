@@ -42,9 +42,6 @@ import java.util.TimeZone;
 
 import javax.annotation.Nonnull;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -104,8 +101,6 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 	private SharedPreferences prefs;
 
 	private static final int REQUEST_CODE_SCAN = 0;
-
-	private static final Logger log = LoggerFactory.getLogger(WalletActivity.class);
 
 	@Override
 	protected void onCreate(final Bundle savedInstanceState)
