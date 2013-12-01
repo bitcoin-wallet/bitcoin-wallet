@@ -42,7 +42,7 @@ import de.schildbach.wallet_test.R;
  */
 public class ScannerView extends View
 {
-	private static final long LASER_ANIMATION_DELAY_MS = 50l;
+	private static final long LASER_ANIMATION_DELAY_MS = 100l;
 	private static final int DOT_OPACITY = 0xa0;
 	private static final int DOT_SIZE = 8;
 	private static final int DOT_TTL_MS = 500;
@@ -129,7 +129,8 @@ public class ScannerView extends View
 		else
 		{
 			// draw red "laser scanner" to show decoding is active
-			laserPaint.setAlpha((int) ((now) % 256));
+			final boolean laserPhase = (now / 600) % 2 == 0;
+			laserPaint.setAlpha(laserPhase ? 160 : 255);
 			canvas.drawRect(frame, laserPaint);
 
 			// draw points
