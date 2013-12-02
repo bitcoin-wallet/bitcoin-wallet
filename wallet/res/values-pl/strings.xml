@@ -60,7 +60,7 @@
 	<string name="about_credits_icon_title">"Ta aplikacja używa icon od 'bitboy'"</string>
 	<string name="about_author_twitter_title">Autor na Twitter</string>
 	<string name="about_author_googleplus_title">Autor na Google+</string>
-	<string name="about_credits_market_app_title">strona Google Play App</string>
+	<string name="about_market_app_title">strona Google Play App</string>
 	<string name="about_credits_market_publisher_title">Inne aplikacje autora</string>
 
 	<string name="notification_coins_received_msg">Otrzymane %s</string>

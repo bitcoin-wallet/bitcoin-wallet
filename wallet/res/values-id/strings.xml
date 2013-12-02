@@ -179,7 +179,7 @@
 	<string name="about_credits_icon_title">Apl ini menggunakan ikon oleh \'bitboy\'</string>
 	<string name="about_author_twitter_title">Pembuat di Twitter</string>
 	<string name="about_author_googleplus_title">Pembuat di Google+</string>
-	<string name="about_credits_market_app_title">Halaman Apl Google Play</string>
+	<string name="about_market_app_title">Halaman Apl Google Play</string>
 	<string name="about_credits_market_publisher_title">Apl lain oleh Pembuat</string>
 	<string name="notification_coins_received_msg">Diterima %s</string>
 	<string name="notification_peers_connected_msg">%d peer terhubung</string>

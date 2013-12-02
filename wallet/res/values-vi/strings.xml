@@ -172,7 +172,7 @@
 	<string name="about_credits_icon_title">Ứng dụng này sử dụng biểu tượng bởi \'bitboy\'</string>
 	<string name="about_author_twitter_title">Liên hệ tác giả bằng Twitter</string>
 	<string name="about_author_googleplus_title">Liên hệ tác giả bằng Google+</string>
-	<string name="about_credits_market_app_title">Trang web của ứng dụng trên Google Play</string>
+	<string name="about_market_app_title">Trang web của ứng dụng trên Google Play</string>
 	<string name="about_credits_market_publisher_title">Các tác giả khác</string>
 	<string name="notification_coins_received_msg">đã nhận %s</string>
 	<string name="notification_peers_connected_msg">%d mạng ngang hàng đã kết nối</string>

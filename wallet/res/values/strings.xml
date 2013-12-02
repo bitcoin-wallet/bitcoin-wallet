@@ -191,7 +191,8 @@
 	<string name="about_community_googleplus_summary">Discussions about the app</string>
 	<string name="about_author_twitter_title">Author at Twitter</string>
 	<string name="about_author_googleplus_title">Author at Google+</string>
-	<string name="about_credits_market_app_title">Google Play App Page</string>
+	<string name="about_market_app_title">Google Play Page</string>
+	<string name="about_market_app_summary">Review or rate the app</string>
 	<string name="about_credits_market_publisher_title">Other Apps of Author</string>
 	<string name="notification_coins_received_msg">Received %s</string>
 	<string name="notification_peers_connected_msg">%d peers connected</string>

@@ -208,7 +208,8 @@
 	<string name="about_community_googleplus_summary">Diskussionen über die App</string>
 	<string name="about_author_twitter_title">Autor bei Twitter</string>
 	<string name="about_author_googleplus_title">Autor bei Google+</string>
-	<string name="about_credits_market_app_title">Google Play App-Eintrag</string>
+	<string name="about_market_app_title">Eintrag bei Google Play</string>
+	<string name="about_market_app_summary">Rezensionen und Bewertungen</string>
 	<string name="about_credits_market_publisher_title">Andere Apps des Autors</string>
 
 	<string name="notification_coins_received_msg">%s empfangen</string>

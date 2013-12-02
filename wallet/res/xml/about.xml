@@ -16,7 +16,8 @@
 			android:title="Source Code" />
 		<Preference
 			android:key="about_market_app"
-			android:title="@string/about_credits_market_app_title" />
+			android:summary="@string/about_market_app_summary"
+			android:title="@string/about_market_app_title" />
 		<Preference
 			android:key="about_community_googleplus"
 			android:summary="@string/about_community_googleplus_summary"
