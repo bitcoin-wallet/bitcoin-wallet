@@ -43,6 +43,7 @@ public final class AboutActivity extends SherlockPreferenceActivity
 	private static final String KEY_ABOUT_CREDITS_BITCOINJ = "about_credits_bitcoinj";
 	private static final String KEY_ABOUT_CREDITS_ZXING = "about_credits_zxing";
 	private static final String KEY_ABOUT_CREDITS_ICON = "about_credits_icon";
+	private static final String KEY_ABOUT_COMMUNITY_GOOGLEPLUS = "about_community_googleplus";
 	private static final String KEY_ABOUT_AUTHOR_TWITTER = "about_author_twitter";
 	private static final String KEY_ABOUT_AUTHOR_GOOGLEPLUS = "about_author_googleplus";
 	private static final String KEY_ABOUT_MARKET_APP = "about_market_app";
@@ -109,6 +110,11 @@ public final class AboutActivity extends SherlockPreferenceActivity
 		else if (KEY_ABOUT_CREDITS_ICON.equals(key))
 		{
 			startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.CREDITS_ICON_URL)));
+			finish();
+		}
+		else if (KEY_ABOUT_COMMUNITY_GOOGLEPLUS.equals(key))
+		{
+			startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.COMMUNITY_GOOGLEPLUS_URL)));
 			finish();
 		}
 		else if (KEY_ABOUT_AUTHOR_TWITTER.equals(key))

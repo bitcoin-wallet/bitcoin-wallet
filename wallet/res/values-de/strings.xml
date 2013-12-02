@@ -204,6 +204,8 @@
 	<string name="about_credits_bitcoinj_title">Diese App nutzt bitcoinj %s</string>
 	<string name="about_credits_zxing_title">"Diese App nutzt 'zxing'"</string>
 	<string name="about_credits_icon_title">"Diese App nutzt ein Icon von 'bitboy'"</string>
+	<string name="about_community_googleplus_title">Google+ Community</string>
+	<string name="about_community_googleplus_summary">Diskussionen über die App</string>
 	<string name="about_author_twitter_title">Autor bei Twitter</string>
 	<string name="about_author_googleplus_title">Autor bei Google+</string>
 	<string name="about_credits_market_app_title">Google Play App-Eintrag</string>
