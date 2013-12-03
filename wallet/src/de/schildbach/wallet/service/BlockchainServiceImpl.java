@@ -869,14 +869,22 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 		final AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
 
 		final ComponentName providerName = new ComponentName(this, WalletBalanceWidgetProvider.class);
-		final int[] appWidgetIds = appWidgetManager.getAppWidgetIds(providerName);
 
-		if (appWidgetIds.length > 0)
+		try
 		{
-			final Wallet wallet = application.getWallet();
-			final BigInteger balance = wallet.getBalance(BalanceType.ESTIMATED);
+			final int[] appWidgetIds = appWidgetManager.getAppWidgetIds(providerName);
 
-			WalletBalanceWidgetProvider.updateWidgets(this, appWidgetManager, appWidgetIds, balance);
+			if (appWidgetIds.length > 0)
+			{
+				final Wallet wallet = application.getWallet();
+				final BigInteger balance = wallet.getBalance(BalanceType.ESTIMATED);
+
+				WalletBalanceWidgetProvider.updateWidgets(this, appWidgetManager, appWidgetIds, balance);
+			}
+		}
+		catch (final RuntimeException x) // system server dead?
+		{
+			log.warn("cannot update app widgets", x);
 		}
 	}
 
