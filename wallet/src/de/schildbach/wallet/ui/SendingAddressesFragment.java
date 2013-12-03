@@ -77,7 +77,6 @@ public final class SendingAddressesFragment extends FancyListFragment implements
 
 	private SimpleCursorAdapter adapter;
 	private String walletAddressesSelection;
-	private MenuItem pasteMenuItem;
 
 	private final Handler handler = new Handler();
 

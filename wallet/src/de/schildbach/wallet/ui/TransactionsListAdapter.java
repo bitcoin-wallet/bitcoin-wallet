@@ -251,7 +251,11 @@ public class TransactionsListAdapter extends BaseAdapter
 		{
 			final Coin value = tx.getValue(wallet);
 			final boolean sent = value.signum() < 0;
-			final Address address = sent ? WalletUtils.getWalletAddressOfReceived(tx, wallet) : WalletUtils.getFirstFromAddress(tx);
+			final Address address;
+			if (sent)
+				address = WalletUtils.getToAddressOfSent(tx, wallet);
+			else
+				address = WalletUtils.getWalletAddressOfReceived(tx, wallet);
 			txCache = new TransactionCacheEntry(value, sent, address);
 
 			transactionCache.put(tx.getHash(), txCache);

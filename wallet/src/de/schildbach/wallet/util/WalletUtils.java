@@ -44,7 +44,6 @@ import org.bitcoinj.core.ECKey;
 import org.bitcoinj.core.ScriptException;
 import org.bitcoinj.core.Sha256Hash;
 import org.bitcoinj.core.Transaction;
-import org.bitcoinj.core.TransactionInput;
 import org.bitcoinj.core.TransactionOutput;
 import org.bitcoinj.core.Wallet;
 import org.bitcoinj.script.Script;
@@ -114,7 +113,7 @@ public class WalletUtils
 	}
 
 	@CheckForNull
-	public static Address getWalletAddressOfReceived(@Nonnull final Transaction tx, @Nonnull final Wallet wallet)
+	public static Address getToAddressOfSent(@Nonnull final Transaction tx, @Nonnull final Wallet wallet)
 	{
 		for (final TransactionOutput output : tx.getOutputs())
 		{
@@ -136,25 +135,25 @@ public class WalletUtils
 	}
 
 	@CheckForNull
-	public static Address getFirstFromAddress(@Nonnull final Transaction tx)
+	public static Address getWalletAddressOfReceived(@Nonnull final Transaction tx, @Nonnull final Wallet wallet)
 	{
-		if (tx.isCoinBase())
-			return null;
-
-		try
+		for (final TransactionOutput output : tx.getOutputs())
 		{
-			for (final TransactionInput input : tx.getInputs())
+			try
 			{
-				return input.getFromAddress();
+				if (output.isMine(wallet))
+				{
+					final Script script = output.getScriptPubKey();
+					return script.getToAddress(Constants.NETWORK_PARAMETERS, true);
+				}
 			}
+			catch (final ScriptException x)
+			{
+				// swallow
+			}
+		}
 
-			throw new IllegalStateException();
-		}
-		catch (final ScriptException x)
-		{
-			// this will happen on inputs connected to coinbase transactions
-			return null;
-		}
+		return null;
 	}
 
 	public static Wallet restoreWalletFromProtobufOrBase58(final InputStream is) throws IOException
