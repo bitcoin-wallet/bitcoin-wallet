@@ -85,6 +85,7 @@ import com.google.bitcoin.store.BlockStore;
 import com.google.bitcoin.store.BlockStoreException;
 import com.google.bitcoin.store.SPVBlockStore;
 
+import de.schildbach.wallet.AddressBookProvider;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.WalletBalanceWidgetProvider;
@@ -214,19 +215,18 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 		{
 			if (text.length() > 0)
 				text.append(", ");
-			text.append(address.toString());
+
+			final String addressStr = address.toString();
+			final String label = AddressBookProvider.resolveLabel(getApplicationContext(), addressStr);
+			text.append(label != null ? label : addressStr);
 		}
-
-		if (text.length() == 0)
-			text.append("unknown");
-
-		text.insert(0, "From ");
 
 		final NotificationCompat.Builder notification = new NotificationCompat.Builder(this);
 		notification.setSmallIcon(R.drawable.stat_notify_received);
 		notification.setTicker(tickerMsg);
 		notification.setContentTitle(msg);
-		notification.setContentText(text);
+		if (text.length() > 0)
+			notification.setContentText(text);
 		notification.setContentIntent(PendingIntent.getActivity(this, 0, new Intent(this, WalletActivity.class), 0));
 		notification.setNumber(notificationCount == 1 ? 0 : notificationCount);
 		notification.setWhen(System.currentTimeMillis());
