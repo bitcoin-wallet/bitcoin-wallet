@@ -904,6 +904,6 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 
 				wallet.setKeyRotationEnabled(!replaying);
 			}
-		};
+		}.start();
 	}
 }
