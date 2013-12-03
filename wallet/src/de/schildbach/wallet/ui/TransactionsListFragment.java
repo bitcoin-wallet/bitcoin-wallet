@@ -246,7 +246,7 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 					final BigInteger value = tx.getValue(wallet);
 					final boolean sent = value.signum() < 0;
 
-					address = sent ? WalletUtils.getToAddress(tx) : WalletUtils.getFromAddress(tx);
+					address = sent ? WalletUtils.getFirstToAddress(tx) : WalletUtils.getFirstFromAddress(tx);
 
 					final String label;
 					if (tx.isCoinBase())

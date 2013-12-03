@@ -152,7 +152,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 
 			try
 			{
-				final Address from = WalletUtils.getFromAddress(tx);
+				final Address from = WalletUtils.getFirstFromAddress(tx);
 				final BigInteger amount = tx.getValue(wallet);
 				final ConfidenceType confidenceType = tx.getConfidence().getConfidenceType();
 

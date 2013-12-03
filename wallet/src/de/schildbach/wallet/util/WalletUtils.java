@@ -143,7 +143,7 @@ public class WalletUtils
 	}
 
 	@CheckForNull
-	public static Address getFromAddress(@Nonnull final Transaction tx)
+	public static Address getFirstFromAddress(@Nonnull final Transaction tx)
 	{
 		if (tx.isCoinBase())
 			return null;
@@ -165,7 +165,7 @@ public class WalletUtils
 	}
 
 	@CheckForNull
-	public static Address getToAddress(@Nonnull final Transaction tx)
+	public static Address getFirstToAddress(@Nonnull final Transaction tx)
 	{
 		try
 		{

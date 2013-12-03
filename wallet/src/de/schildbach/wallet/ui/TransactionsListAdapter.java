@@ -310,7 +310,7 @@ public class TransactionsListAdapter extends BaseAdapter
 
 			// address
 			final TextView rowAddress = (TextView) row.findViewById(R.id.transaction_row_address);
-			final Address address = sent ? WalletUtils.getToAddress(tx) : WalletUtils.getFromAddress(tx);
+			final Address address = sent ? WalletUtils.getFirstToAddress(tx) : WalletUtils.getFirstFromAddress(tx);
 			final String label;
 			if (isCoinBase)
 				label = textCoinBase;
