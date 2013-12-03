@@ -119,8 +119,10 @@
 	<string name="address_book_options_paste_from_clipboard_title">Paste from clipboard</string>
 	<string name="address_book_options_paste_from_clipboard_empty">Clipboard is empty</string>
 	<string name="address_book_options_paste_from_clipboard_invalid">Data from clipboard is unrecognizable</string>
+	<string name="address_book_options_paste_from_clipboard_own_address">Address on clipboard is your own.</string>
 	<string name="address_book_options_scan_title">Scan address</string>
 	<string name="address_book_options_scan_invalid">Scanned data is unrecognizable</string>
+	<string name="address_book_options_scan_own_address">The scanned address is your own.</string>
 	<string name="address_book_row_message_compromised_key">This address might be compromised. You should not use it any more for receiving coins.</string>
 	<string name="edit_address_book_entry_dialog_title_add">Add address</string>
 	<string name="edit_address_book_entry_dialog_title_edit">Edit address</string>

@@ -47,10 +47,12 @@ import com.google.bitcoin.core.Address;
 import com.google.bitcoin.core.AddressFormatException;
 import com.google.bitcoin.core.Transaction;
 import com.google.bitcoin.core.VerificationException;
+import com.google.bitcoin.core.Wallet;
 import com.google.bitcoin.uri.BitcoinURI;
 
 import de.schildbach.wallet.AddressBookProvider;
 import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.data.PaymentIntent;
 import de.schildbach.wallet.ui.InputParser.StringInputParser;
 import de.schildbach.wallet.ui.send.SendCoinsActivity;
@@ -66,6 +68,7 @@ import de.schildbach.wallet_test.R;
 public final class SendingAddressesFragment extends FancyListFragment implements LoaderManager.LoaderCallbacks<Cursor>
 {
 	private AbstractWalletActivity activity;
+	private Wallet wallet;
 	private ClipboardManager clipboardManager;
 	private LoaderManager loaderManager;
 
@@ -82,6 +85,8 @@ public final class SendingAddressesFragment extends FancyListFragment implements
 		super.onAttach(activity);
 
 		this.activity = (AbstractWalletActivity) activity;
+		final WalletApplication application = (WalletApplication) activity.getApplication();
+		this.wallet = application.getWallet();
 		this.clipboardManager = (ClipboardManager) activity.getSystemService(Context.CLIPBOARD_SERVICE);
 		this.loaderManager = getLoaderManager();
 	}
@@ -141,9 +146,17 @@ public final class SendingAddressesFragment extends FancyListFragment implements
 						public void run()
 						{
 							if (paymentIntent.hasAddress())
-								EditAddressBookEntryFragment.edit(getFragmentManager(), paymentIntent.getAddress().toString());
+							{
+								final Address address = paymentIntent.getAddress();
+								if (!wallet.isPubKeyHashMine(address.getHash160()))
+									EditAddressBookEntryFragment.edit(getFragmentManager(), address.toString());
+								else
+									dialog(activity, null, R.string.address_book_options_scan_title, R.string.address_book_options_scan_own_address);
+							}
 							else
+							{
 								dialog(activity, null, R.string.address_book_options_scan_title, R.string.address_book_options_scan_invalid);
+							}
 						}
 					}, 500);
 				}
@@ -204,10 +217,19 @@ public final class SendingAddressesFragment extends FancyListFragment implements
 				protected void handlePaymentIntent(final PaymentIntent paymentIntent)
 				{
 					if (paymentIntent.hasAddress())
-						EditAddressBookEntryFragment.edit(getFragmentManager(), paymentIntent.getAddress().toString());
+					{
+						final Address address = paymentIntent.getAddress();
+						if (!wallet.isPubKeyHashMine(address.getHash160()))
+							EditAddressBookEntryFragment.edit(getFragmentManager(), address.toString());
+						else
+							dialog(activity, null, R.string.address_book_options_paste_from_clipboard_title,
+									R.string.address_book_options_paste_from_clipboard_own_address);
+					}
 					else
+					{
 						dialog(activity, null, R.string.address_book_options_paste_from_clipboard_title,
 								R.string.address_book_options_paste_from_clipboard_invalid);
+					}
 				}
 
 				@Override

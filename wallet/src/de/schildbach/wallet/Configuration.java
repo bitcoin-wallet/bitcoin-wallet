@@ -49,6 +49,7 @@ public class Configuration
 	public static final String PREFS_KEY_TRUSTED_PEER_ONLY = "trusted_peer_only";
 	public static final String PREFS_KEY_DISCLAIMER = "disclaimer";
 	private static final String PREFS_KEY_LABS_QR_PAYMENT_REQUEST = "labs_qr_payment_request";
+	public static final String PREFS_KEY_LABS_SHOW_RECEIVED_TO_ADDRESS = "labs_show_received_to_address";
 
 	private static final String PREFS_KEY_LAST_VERSION = "last_version";
 	private static final String PREFS_KEY_LAST_USED = "last_used";
@@ -157,6 +158,11 @@ public class Configuration
 	public boolean getQrPaymentRequestEnabled()
 	{
 		return prefs.getBoolean(PREFS_KEY_LABS_QR_PAYMENT_REQUEST, false);
+	}
+
+	public boolean getShowReceivedToAddress()
+	{
+		return prefs.getBoolean(PREFS_KEY_LABS_SHOW_RECEIVED_TO_ADDRESS, false);
 	}
 
 	public boolean versionCodeCrossed(final int currentVersionCode, final int triggeringVersionCode)

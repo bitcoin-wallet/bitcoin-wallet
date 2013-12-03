@@ -112,6 +112,50 @@ public class WalletUtils
 	}
 
 	@CheckForNull
+	public static Address getToAddressOfSent(@Nonnull final Transaction tx, @Nonnull final Wallet wallet)
+	{
+		for (final TransactionOutput output : tx.getOutputs())
+		{
+			try
+			{
+				if (!output.isMine(wallet))
+				{
+					final Script script = output.getScriptPubKey();
+					return script.getToAddress(Constants.NETWORK_PARAMETERS, true);
+				}
+			}
+			catch (final ScriptException x)
+			{
+				// swallow
+			}
+		}
+
+		return null;
+	}
+
+	@CheckForNull
+	public static Address getWalletAddressOfReceived(@Nonnull final Transaction tx, @Nonnull final Wallet wallet)
+	{
+		for (final TransactionOutput output : tx.getOutputs())
+		{
+			try
+			{
+				if (output.isMine(wallet))
+				{
+					final Script script = output.getScriptPubKey();
+					return script.getToAddress(Constants.NETWORK_PARAMETERS, true);
+				}
+			}
+			catch (final ScriptException x)
+			{
+				// swallow
+			}
+		}
+
+		return null;
+	}
+
+	@CheckForNull
 	public static Address getFirstFromAddress(@Nonnull final Transaction tx)
 	{
 		if (tx.isCoinBase())
@@ -129,24 +173,6 @@ public class WalletUtils
 		catch (final ScriptException x)
 		{
 			// this will happen on inputs connected to coinbase transactions
-			return null;
-		}
-	}
-
-	@CheckForNull
-	public static Address getFirstToAddress(@Nonnull final Transaction tx)
-	{
-		try
-		{
-			for (final TransactionOutput output : tx.getOutputs())
-			{
-				return output.getScriptPubKey().getToAddress(Constants.NETWORK_PARAMETERS);
-			}
-
-			throw new IllegalStateException();
-		}
-		catch (final ScriptException x)
-		{
 			return null;
 		}
 	}

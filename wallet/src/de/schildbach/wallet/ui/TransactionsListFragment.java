@@ -237,7 +237,12 @@ public class TransactionsListFragment extends FancyListFragment implements Loade
 					final Coin value = tx.getValue(wallet);
 					final boolean sent = value.signum() < 0;
 
-					address = sent ? WalletUtils.getFirstToAddress(tx) : WalletUtils.getFirstFromAddress(tx);
+					if (sent)
+						address = WalletUtils.getToAddressOfSent(tx, wallet);
+					else if (config.getShowReceivedToAddress())
+						address = WalletUtils.getWalletAddressOfReceived(tx, wallet);
+					else
+						address = WalletUtils.getFirstFromAddress(tx);
 
 					final String label;
 					if (tx.isCoinBase())
@@ -255,7 +260,8 @@ public class TransactionsListFragment extends FancyListFragment implements Loade
 					else
 						mode.setSubtitle(null);
 
-					menu.findItem(R.id.wallet_transactions_context_edit_address).setVisible(address != null);
+					menu.findItem(R.id.wallet_transactions_context_edit_address).setVisible(
+							address != null && (sent || !config.getShowReceivedToAddress()));
 
 					serializedTx = tx.unsafeBitcoinSerialize();
 
@@ -461,13 +467,16 @@ public class TransactionsListFragment extends FancyListFragment implements Loade
 	@Override
 	public void onSharedPreferenceChanged(final SharedPreferences sharedPreferences, final String key)
 	{
-		if (Configuration.PREFS_KEY_BTC_PRECISION.equals(key))
+		if (Configuration.PREFS_KEY_BTC_PRECISION.equals(key) || Configuration.PREFS_KEY_LABS_SHOW_RECEIVED_TO_ADDRESS.equals(key))
 			updateView();
 	}
 
 	private void updateView()
 	{
 		adapter.setFormat(config.getFormat());
+
+		adapter.setShowReceivedToAddress(config.getShowReceivedToAddress());
+
 		adapter.clearLabelCache();
 	}
 }

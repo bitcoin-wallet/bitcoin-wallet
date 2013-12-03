@@ -68,6 +68,7 @@ public class TransactionsListAdapter extends BaseAdapter
 	private MonetaryFormat format;
 	private boolean showEmptyText = false;
 	private boolean showBackupWarning = false;
+	private boolean showReceivedToAddress = false;
 
 	private final int colorSignificant;
 	private final int colorInsignificant;
@@ -132,6 +133,11 @@ public class TransactionsListAdapter extends BaseAdapter
 		showEmptyText = true;
 
 		notifyDataSetChanged();
+	}
+
+	public void setShowReceivedToAddress(final boolean showReceivedToAddress)
+	{
+		this.showReceivedToAddress = showReceivedToAddress;
 	}
 
 	@Override
@@ -308,7 +314,14 @@ public class TransactionsListAdapter extends BaseAdapter
 
 		// address
 		final TextView rowAddress = (TextView) row.findViewById(R.id.transaction_row_address);
-		final Address address = sent ? WalletUtils.getFirstToAddress(tx) : WalletUtils.getFirstFromAddress(tx);
+		final Address address;
+		if (sent)
+			address = WalletUtils.getToAddressOfSent(tx, wallet);
+		else if (showReceivedToAddress)
+			address = WalletUtils.getWalletAddressOfReceived(tx, wallet);
+		else
+			address = WalletUtils.getFirstFromAddress(tx);
+
 		final String label;
 		if (isCoinBase)
 			label = textCoinBase;

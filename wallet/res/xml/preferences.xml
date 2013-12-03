@@ -58,6 +58,11 @@
 			android:key="labs_qr_payment_request"
 			android:summary="Use payment protocol for QR-code initiated payments"
 			android:title="BIP70 for scan-to-pay" />
+		<CheckBoxPreference
+			android:defaultValue="false"
+			android:key="labs_show_received_to_address"
+			android:summary="For received payments, show address to which to they were received rather than showing from where they came."
+			android:title="Show &apos;to address&apos;" />
 	</PreferenceCategory>
 
 </PreferenceScreen>
