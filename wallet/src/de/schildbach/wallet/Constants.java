@@ -18,6 +18,7 @@
 package de.schildbach.wallet;
 
 import java.io.File;
+import java.math.BigInteger;
 import java.nio.charset.Charset;
 
 import android.os.Environment;

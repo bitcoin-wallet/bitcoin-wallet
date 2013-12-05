@@ -45,7 +45,6 @@ import com.actionbarsherlock.view.ActionMode;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
-import com.google.bitcoin.core.Utils;
 import com.google.bitcoin.core.Wallet;
 import com.google.bitcoin.core.Wallet.BalanceType;
 
@@ -54,6 +53,7 @@ import de.schildbach.wallet.ExchangeRatesProvider;
 import de.schildbach.wallet.ExchangeRatesProvider.ExchangeRate;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.service.BlockchainService;
+import de.schildbach.wallet.util.GenericUtils;
 import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
 
@@ -114,7 +114,7 @@ public final class ExchangeRatesFragment extends SherlockListFragment implements
 
 				final CurrencyTextView rateView = (CurrencyTextView) view.findViewById(R.id.exchange_rate_row_rate);
 				rateView.setPrecision(Constants.LOCAL_PRECISION, 0);
-				rateView.setAmount(WalletUtils.localValue(Utils.COIN, exchangeRate.rate));
+				rateView.setAmount(WalletUtils.localValue(GenericUtils.ONE_BTC, exchangeRate.rate));
 
 				final CurrencyTextView walletView = (CurrencyTextView) view.findViewById(R.id.exchange_rate_row_balance);
 				walletView.setPrecision(Constants.LOCAL_PRECISION, 0);
