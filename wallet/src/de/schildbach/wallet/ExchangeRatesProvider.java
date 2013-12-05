@@ -253,24 +253,26 @@ public class ExchangeRatesProvider extends ContentProvider
 					{
 						final JSONObject o = head.getJSONObject(currencyCode);
 
-						String rate = null;
 						for (final String field : fields)
 						{
-							rate = o.optString(field, null);
+							final String rateStr = o.optString(field, null);
 
-							if (rate != null)
-								break;
-						}
+							if (rateStr != null)
+							{
+								try
+								{
+									final BigInteger rate = GenericUtils.toNanoCoins(rateStr, 0);
 
-						if (rate != null)
-						{
-							try
-							{
-								rates.put(currencyCode, new ExchangeRate(currencyCode, GenericUtils.toNanoCoins(rate, 0), url.getHost()));
-							}
-							catch (final ArithmeticException x)
-							{
-								log.debug("problem reading exchange rate: " + currencyCode, x);
+									if (rate.signum() > 0)
+									{
+										rates.put(currencyCode, new ExchangeRate(currencyCode, rate, url.getHost()));
+										break;
+									}
+								}
+								catch (final ArithmeticException x)
+								{
+									log.debug("problem reading exchange rate: " + currencyCode, x);
+								}
 							}
 						}
 					}
