@@ -55,7 +55,6 @@ import com.google.dogecoin.core.Sha256Hash;
 import com.google.dogecoin.core.Transaction;
 import com.google.dogecoin.core.TransactionInput;
 import com.google.dogecoin.core.TransactionOutput;
-import com.google.dogecoin.core.Utils;
 import com.google.dogecoin.core.Wallet;
 import com.google.dogecoin.script.Script;
 
@@ -134,12 +133,12 @@ public class WalletUtils
 
 	public static BigInteger localValue(@Nonnull final BigInteger btcValue, @Nonnull final BigInteger rate)
 	{
-		return btcValue.multiply(rate).divide(Utils.COIN);
+		return btcValue.multiply(rate).divide(GenericUtils.ONE_BTC);
 	}
 
 	public static BigInteger btcValue(@Nonnull final BigInteger localValue, @Nonnull final BigInteger rate)
 	{
-		return localValue.multiply(Utils.COIN).divide(rate);
+		return localValue.multiply(GenericUtils.ONE_BTC).divide(rate);
 	}
 
 	@CheckForNull

@@ -23,16 +23,18 @@ import java.util.Locale;
 
 import javax.annotation.Nonnull;
 
-import com.google.dogecoin.core.NetworkParameters;
-import com.google.dogecoin.core.Utils;
+import com.google.bitcoin.core.NetworkParameters;
 
 /**
  * @author Andreas Schildbach
  */
 public class GenericUtils
 {
-	private static final int BTC_COIN_INT = Utils.COIN.intValue();
-	private static final int MBTC_COIN_INT = Utils.COIN.intValue() / 1000;
+	public static final BigInteger ONE_BTC = new BigInteger("100000000", 10);
+	public static final BigInteger ONE_MBTC = new BigInteger("100000", 10);
+
+	private static final int ONE_BTC_INT = ONE_BTC.intValue();
+	private static final int ONE_MBTC_INT = ONE_MBTC.intValue();
 
 	public static String formatValue(@Nonnull final BigInteger value, final int precision, final int shift)
 	{
@@ -60,8 +62,8 @@ public class GenericUtils
 				throw new IllegalArgumentException("cannot handle precision/shift: " + precision + "/" + shift);
 
             final BigInteger absValue = newValue.abs();
-			final long coins = (absValue.divide(new BigInteger(String.valueOf(BTC_COIN_INT)))).longValue();
-			final int satoshis = (absValue.mod(new BigInteger(String.valueOf(BTC_COIN_INT))).intValue());
+			final long coins = (absValue.divide(new BigInteger(String.valueOf(ONE_BTC_INT)))).longValue();
+			final int satoshis = (absValue.mod(new BigInteger(String.valueOf(ONE_BTC_INT))).intValue());
 
 			if (satoshis % 1000000 == 0)
 				return String.format(Locale.US, "%s%d.%02d", sign, coins, satoshis / 1000000);
@@ -84,8 +86,8 @@ public class GenericUtils
 				throw new IllegalArgumentException("cannot handle precision/shift: " + precision + "/" + shift);
 
             final BigInteger absValue = newValue.abs();
-            final long coins = (absValue.divide(new BigInteger(String.valueOf(MBTC_COIN_INT)))).longValue();
-            final int satoshis = (absValue.mod(new BigInteger(String.valueOf(MBTC_COIN_INT))).intValue());
+            final long coins = (absValue.divide(new BigInteger(String.valueOf(ONE_MBTC_INT)))).longValue();
+            final int satoshis = (absValue.mod(new BigInteger(String.valueOf(ONE_MBTC_INT))).intValue());
 
 			if (satoshis % 1000 == 0)
 				return String.format(Locale.US, "%s%d.%02d", sign, coins, satoshis / 1000);
