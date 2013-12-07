@@ -10,7 +10,7 @@
 	<name>digitalcoin Wallet</name>
 
 	<parent>
-		<groupId>hashengineering.digitalcoin.wallet</groupId>
+		<groupId>de.schildbach.wallet</groupId>
 		<artifactId>base</artifactId>
 		<version>1</version>
 	</parent>
@@ -49,16 +49,16 @@
 			<type>apklib</type>
 		</dependency>
 
-		<!-- com.google.digitalcoin.* -->
+		<!-- com.google.bitcoin.* -->
 		<dependency>
 			<groupId>com.google</groupId>
 			<artifactId>digitalcoinj</artifactId>
 			<version>0.11</version>
 		</dependency>
 
-		<!-- hashengineering.digitalcoin.wallet.integration.android.* -->
+		<!-- de.schildbach.wallet.integration.android.* -->
 		<dependency>
-			<groupId>hashengineering.digitalcoin.wallet</groupId>
+			<groupId>de.schildbach.wallet</groupId>
 			<artifactId>integration-android</artifactId>
 			<version>1.0</version>
 		</dependency>
@@ -106,6 +106,7 @@
 			<scope>test</scope>
 		</dependency>
 
+
 	</dependencies>
 
 	<profiles>
@@ -141,6 +142,7 @@
 					<source>1.6</source>
 					<target>1.6</target>
 				</configuration>
+
 			</plugin>
 			<plugin>
 				<groupId>com.jayway.maven.plugins.android.generation2</groupId>
@@ -194,7 +196,7 @@
 				<artifactId>findbugs-maven-plugin</artifactId>
 				<version>2.5.2</version>
 				<configuration>
-					<onlyAnalyze>hashengineering.digitalcoin.wallet.-</onlyAnalyze>
+					<onlyAnalyze>de.schildbach.wallet.-</onlyAnalyze>
 				</configuration>
 			</plugin>
 		</plugins>

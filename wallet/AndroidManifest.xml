@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Need to update this for the coin -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:tools="http://schemas.android.com/tools"
-	package="hashengineering.digitalcoin.wallet"
+	package="de.schildbach.wallet.digitalcoin"
 	android:installLocation="internalOnly"
-	android:versionCode="100"
+	android:versionCode="10020"
 	android:versionName="1.00" >
 
 	<uses-sdk
@@ -55,20 +56,20 @@
 		android:xlargeScreens="true" />
 
 	<application
-		android:name="hashengineering.digitalcoin.wallet.WalletApplication"
+		android:name="de.schildbach.wallet.WalletApplication"
 		android:allowBackup="false"
 		android:hardwareAccelerated="true"
 		android:icon="@drawable/app_icon"
 		android:label="@string/app_name"
 		android:theme="@style/My.Theme" >
 		<activity
-			android:name="hashengineering.digitalcoin.wallet.ui.WalletActivity"
+			android:name="de.schildbach.wallet.ui.WalletActivity"
 			android:configChanges="keyboard|keyboardHidden"
 			android:launchMode="singleTask" />
 
 		<activity-alias
-			android:name="hashengineering.digitalcoin.wallet.WalletActivity"
-			android:targetActivity="hashengineering.digitalcoin.wallet.ui.WalletActivity" >
+			android:name="de.schildbach.wallet.WalletActivity"
+			android:targetActivity="de.schildbach.wallet.ui.WalletActivity" >
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
 
@@ -84,7 +85,7 @@
 		</activity-alias>
 
 		<activity
-			android:name="hashengineering.digitalcoin.wallet.ui.SendCoinsActivity"
+			android:name="de.schildbach.wallet.ui.SendCoinsActivity"
 			android:configChanges="keyboard|keyboardHidden"
 			android:label="@string/send_coins_activity_title"
 			android:screenOrientation="behind"
@@ -106,41 +107,41 @@
 			</intent-filter>
 		</activity>
 		<activity
-			android:name="hashengineering.digitalcoin.wallet.ui.SendCoinsQrActivity"
+			android:name="de.schildbach.wallet.ui.SendCoinsQrActivity"
 			android:configChanges="keyboard|keyboardHidden"
 			android:theme="@android:style/Theme.Translucent.NoTitleBar" >
 		</activity>
 		<activity
-			android:name="hashengineering.digitalcoin.wallet.ui.RequestCoinsActivity"
+			android:name="de.schildbach.wallet.ui.RequestCoinsActivity"
 			android:configChanges="keyboard|keyboardHidden"
 			android:label="@string/request_coins_activity_title"
 			android:screenOrientation="behind"
 			android:windowSoftInputMode="adjustResize" />
 		<activity
-			android:name="hashengineering.digitalcoin.wallet.ui.AddressBookActivity"
+			android:name="de.schildbach.wallet.ui.AddressBookActivity"
 			android:configChanges="keyboard|keyboardHidden"
 			android:label="@string/address_book_activity_title"
 			android:screenOrientation="behind" />
 		<activity
-			android:name="hashengineering.digitalcoin.wallet.ui.ExchangeRatesActivity"
+			android:name="de.schildbach.wallet.ui.ExchangeRatesActivity"
 			android:configChanges="keyboard|keyboardHidden"
 			android:label="@string/exchange_rates_activity_title"
 			android:screenOrientation="behind" />
 		<activity
-			android:name="hashengineering.digitalcoin.wallet.ui.NetworkMonitorActivity"
+			android:name="de.schildbach.wallet.ui.NetworkMonitorActivity"
 			android:configChanges="keyboard|keyboardHidden"
 			android:label="@string/network_monitor_activity_title"
 			android:screenOrientation="behind" />
 		<activity
-			android:name="hashengineering.digitalcoin.wallet.ui.PreferencesActivity"
+			android:name="de.schildbach.wallet.ui.PreferencesActivity"
 			android:label="@string/preferences_activity_title"
 			android:screenOrientation="behind" />
 		<activity
-			android:name="hashengineering.digitalcoin.wallet.ui.AboutActivity"
+			android:name="de.schildbach.wallet.ui.AboutActivity"
 			android:label="@string/about_title"
 			android:screenOrientation="behind" />
 		<activity
-			android:name="hashengineering.digitalcoin.wallet.ui.ImportKeysActivity"
+			android:name="de.schildbach.wallet.ui.ImportKeysActivity"
 			android:configChanges="orientation|keyboard|keyboardHidden"
 			android:theme="@style/My.Theme.Dialog" >
 			<intent-filter android:label="@string/import_keys_intent_filter_action" >
@@ -148,29 +149,30 @@
 
 				<category android:name="android.intent.category.DEFAULT" />
 
-				<data android:mimeType="x-digitalcoin/private-keys" />
+				<data android:mimeType="x-bitcoin/private-keys" />
 				<data android:mimeType="application/octet-stream" />
 			</intent-filter>
 		</activity>
 		<activity
-			android:name="hashengineering.digitalcoin.wallet.ui.ScanActivity"
+			android:name="de.schildbach.wallet.ui.ScanActivity"
 			android:configChanges="orientation|keyboard|keyboardHidden"
 			android:screenOrientation="landscape"
 			android:stateNotNeeded="true"
 			android:theme="@style/My.Theme.Fullscreen"
 			android:windowSoftInputMode="stateAlwaysHidden" />
-
+        <!-- Need to update this for the coin -->
 		<provider
-			android:name="hashengineering.digitalcoin.wallet.AddressBookProvider"
-			android:authorities="hashengineering.digitalcoin.wallet.address_book"
+			android:name="de.schildbach.wallet.AddressBookProvider"
+			android:authorities="de.schildbach.wallet.digitalcoin.address_book"
 			android:exported="false" />
+        <!-- Need to update this for the coin -->
 		<provider
-			android:name="hashengineering.digitalcoin.wallet.ExchangeRatesProvider"
-			android:authorities="hashengineering.digitalcoin.wallet.exchange_rates"
+			android:name="de.schildbach.wallet.ExchangeRatesProvider"
+			android:authorities="de.schildbach.wallet.digitalcoin.exchange_rates"
 			android:exported="false" />
 
 		<receiver
-			android:name="hashengineering.digitalcoin.wallet.WalletBalanceWidgetProvider"
+			android:name="de.schildbach.wallet.WalletBalanceWidgetProvider"
 			android:label="digitalcoin Wallet Balance" >
 			<intent-filter>
 				<action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
@@ -182,13 +184,13 @@
 		</receiver>
 
 		<service
-			android:name="hashengineering.digitalcoin.wallet.service.BlockchainServiceImpl"
+			android:name="de.schildbach.wallet.service.BlockchainServiceImpl"
 			android:exported="false" />
 		<service
-			android:name="hashengineering.digitalcoin.wallet.offline.AcceptBluetoothService"
+			android:name="de.schildbach.wallet.offline.AcceptBluetoothService"
 			android:exported="false" />
 
-		<receiver android:name="hashengineering.digitalcoin.wallet.service.AutosyncReceiver" >
+		<receiver android:name="de.schildbach.wallet.service.AutosyncReceiver" >
 			<intent-filter>
 				<action android:name="android.intent.action.BOOT_COMPLETED" />
 			</intent-filter>

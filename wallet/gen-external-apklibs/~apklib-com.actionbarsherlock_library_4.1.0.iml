@@ -20,7 +20,7 @@
     <exclude-output />
     <content url="file://$MODULE_DIR$/com.actionbarsherlock_library_4.1.0">
       <sourceFolder url="file://$MODULE_DIR$/com.actionbarsherlock_library_4.1.0/src" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/com.actionbarsherlock_library_4.1.0/gen" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/com.actionbarsherlock_library_4.1.0/gen" isTestSource="false" generated="true" />
     </content>
     <orderEntry type="jdk" jdkName="Maven Android 4.0 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />

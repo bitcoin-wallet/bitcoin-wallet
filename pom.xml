@@ -4,7 +4,7 @@
 
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>hashengineering.digitalcoin.wallet</groupId>
+	<groupId>de.schildbach.wallet</groupId>
 	<artifactId>base</artifactId>
 	<name>base</name>
 	<version>1</version>

@@ -10,7 +10,7 @@
 	<name>Sample for Bitcoin Integration for Android</name>
 
 	<parent>
-		<groupId>hashengineering.digitalcoin.wallet</groupId>
+		<groupId>de.schildbach.wallet</groupId>
 		<artifactId>base</artifactId>
 		<version>1</version>
 	</parent>
@@ -25,9 +25,9 @@
 			<scope>provided</scope>
 		</dependency>
 
-		<!-- hashengineering.digitalcoin.wallet.integration.android.* -->
+		<!-- de.schildbach.wallet.integration.android.* -->
 		<dependency>
-			<groupId>hashengineering.digitalcoin.wallet</groupId>
+			<groupId>de.schildbach.wallet</groupId>
 			<artifactId>integration-android</artifactId>
 			<version>1.0</version>
 		</dependency>

@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package hashengineering.digitalcoin.wallet.util;
+package de.schildbach.wallet.util;
 
 import static org.junit.Assert.assertEquals;
 
