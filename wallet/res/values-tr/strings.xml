@@ -35,7 +35,6 @@
 	<string name="wallet_transactions_fragment_internal">Dahili</string>
 	<string name="wallet_transactions_context_show_qr_title">QR kodu göster</string>
 	<string name="wallet_options_backup">Yedekleme Anahtarları</string>
-	<string name="wallet_options_disconnect">Bağlantıyı kes</string>
 	<string name="wallet_options_safety">Güvenlik notları</string>
 	<string name="wallet_options_donate">Bağış</string>
 	<string name="wallet_donate_address_label">Bu yazılıma bağış yap</string>

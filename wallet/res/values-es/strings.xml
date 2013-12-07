@@ -30,7 +30,6 @@
 	<string name="wallet_transactions_fragment_empty_text_howto">¿Cómo obtener Bitcoins?\n\nComercia por dinero tradicional,\nvende bienes o servicios o\ngana trabajando.</string>
 	<string name="wallet_transactions_fragment_coinbase">minados</string>
 	<string name="wallet_options_backup">Guardar llaves</string>
-	<string name="wallet_options_disconnect">Desconectar</string>
 	<string name="wallet_options_safety">Notas de seguridad</string>
 	<string name="wallet_options_donate">Donaciones</string>
 	<string name="wallet_donate_address_label">Donación para Bitcoin Wallet</string>

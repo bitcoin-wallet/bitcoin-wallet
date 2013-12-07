@@ -35,7 +35,6 @@
 	<string name="wallet_transactions_fragment_internal">vnútorné</string>
 	<string name="wallet_transactions_context_show_qr_title">Ukáž QR kód</string>
 	<string name="wallet_options_backup">Zálohovať kľúče</string>
-	<string name="wallet_options_disconnect">Odpojiť</string>
 	<string name="wallet_options_safety">Bezpečnosť</string>
 	<string name="wallet_options_donate">Prispieť</string>
 	<string name="wallet_donate_address_label">Prispieť na Bitcoin Wallet</string>

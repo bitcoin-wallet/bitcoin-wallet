@@ -35,7 +35,6 @@
 	<string name="wallet_transactions_fragment_internal">belső</string>
 	<string name="wallet_transactions_context_show_qr_title">QR-kód megtekintése</string>
 	<string name="wallet_options_backup">Kulcsok mentése</string>
-	<string name="wallet_options_disconnect">Szétkapcsolva</string>
 	<string name="wallet_options_safety">Biztonsági megjegyzések</string>
 	<string name="wallet_options_donate">Támogatás / Donate</string>
 	<string name="wallet_donate_address_label">Támogasd a Bitcoin Wallet létrehozóit</string>

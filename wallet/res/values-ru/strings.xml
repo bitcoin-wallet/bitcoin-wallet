@@ -35,7 +35,6 @@
 	<string name="wallet_transactions_fragment_internal">внутренний</string>
 	<string name="wallet_transactions_context_show_qr_title">Показать QR код</string>
 	<string name="wallet_options_backup">Экспортировать ключи</string>
-	<string name="wallet_options_disconnect">Отключиться</string>
 	<string name="wallet_options_safety">Заметки по безопасности</string>
 	<string name="wallet_options_donate">Пожертвовать</string>
 	<string name="wallet_donate_address_label">Пожертвование для Bitcoin Бумажника</string>

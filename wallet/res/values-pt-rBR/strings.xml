@@ -35,7 +35,6 @@
 	<string name="wallet_transactions_fragment_internal">interno</string>
 	<string name="wallet_transactions_context_show_qr_title">Mostrar Código QR</string>
 	<string name="wallet_options_backup">Backup de chaves</string>
-	<string name="wallet_options_disconnect">Desconectar</string>
 	<string name="wallet_options_safety">Indicações de segurança</string>
 	<string name="wallet_options_donate">Doações</string>
 	<string name="wallet_donate_address_label">Doação para Bitcoin Wallet</string>
