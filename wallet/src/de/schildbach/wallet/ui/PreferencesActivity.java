@@ -45,6 +45,7 @@ import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.util.CrashReporter;
 import de.schildbach.wallet.digitalcoin.R;
 
+
 /**
  * @author Andreas Schildbach
  */
@@ -154,17 +155,6 @@ public final class PreferencesActivity extends SherlockPreferenceActivity implem
 					final StringBuilder deviceInfo = new StringBuilder();
 					CrashReporter.appendDeviceInfo(deviceInfo, PreferencesActivity.this);
 					return deviceInfo;
-				}
-
-				@Override
-				protected CharSequence collectApplicationLog() throws IOException
-				{
-					final StringBuilder applicationLog = new StringBuilder();
-					CrashReporter.appendApplicationLog(applicationLog);
-					if (applicationLog.length() > 0)
-						return applicationLog;
-					else
-						return null;
 				}
 
 				@Override

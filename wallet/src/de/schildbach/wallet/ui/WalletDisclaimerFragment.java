@@ -40,6 +40,7 @@ import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.service.BlockchainService;
 import de.schildbach.wallet.digitalcoin.R;
 
+
 /**
  * @author Andreas Schildbach
  */

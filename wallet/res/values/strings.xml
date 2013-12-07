@@ -155,6 +155,8 @@
 	<string name="preferences_category_main">Preferences</string>
 	<string name="preferences_category_diagnostics">Diagnostics</string>
 	<string name="preferences_category_labs">Labs</string>
+	<string name="preferences_precision_title">Denomination and precision</string>
+	<string name="preferences_precision_summary">Unit to show amounts in. This does not affect computations.</string>
 	<string name="preferences_connectivity_notification_title">Connectivity Indicator</string>
 	<string name="preferences_connectivity_notification_summary">Show current number of connected peers in the notification area.</string>
 	<string name="preferences_trusted_peer_title">Trusted Peer</string>
@@ -176,22 +178,30 @@
 	<string name="report_issue_dialog_description">issue description</string>
 	<string name="report_issue_dialog_report">Report</string>
 	<string name="report_issue_dialog_collect_device_info">Append device information</string>
+	<string name="report_issue_dialog_collect_installed_packages">Append list of installed packages</string>
 	<string name="report_issue_dialog_collect_application_log">Append application log</string>
-	<string name="report_issue_dialog_collect_extended_application_log">Append extended application log</string>
 	<string name="report_issue_dialog_collect_wallet_dump">Append wallet dump</string>
 	<string name="report_issue_dialog_mail_intent_chooser">Send report using…</string>
 	<string name="about_title">About</string>
 	<string name="about_license_title">License</string>
 	<string name="about_credits_bitcoinj_title">This app is using digitalcoinj %s (based on bitcoinj 0.11)</string>
 	<string name="about_credits_zxing_title">"This app is using 'zxing'"</string>
+
 	<string name="about_credits_icon_title">"This app is using an icon by 'tjb0607'"</string>
     <string name="about_credits_website_title">"digitalcoin Website"</string>
     <string name="about_credits_forum_title">"digitalcoin Forum"</string>
+
+	<string name="about_community_googleplus_title">Google+ Community</string>
+	<string name="about_community_googleplus_summary">Discussions about the app</string>
+
 	<string name="about_author_twitter_title">Author at Twitter</string>
 	<string name="about_author_googleplus_title">Author at Google+</string>
-	<string name="about_credits_market_app_title">Google Play App Page</string>
+	<string name="about_market_app_title">Google Play Page</string>
+	<string name="about_market_app_summary">Review or rate the app</string>
 	<string name="about_credits_market_publisher_title">Other Apps of Author</string>
-	<string name="notification_coins_received_msg">Received DGC %s</string>
+
+	<string name="notification_coins_received_msg">Received %s</string>
+
 	<string name="notification_peers_connected_msg">%d peers connected</string>
 
 	<!-- generic buttons -->

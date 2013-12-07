@@ -170,7 +170,6 @@
 	<string name="report_issue_dialog_report">Laporkan</string>
 	<string name="report_issue_dialog_collect_device_info">Tambahkan informasi ponsel</string>
 	<string name="report_issue_dialog_collect_application_log">Tambahkan catatan aplikasi</string>
-	<string name="report_issue_dialog_collect_extended_application_log">Tambahkan catatan aplikasi tambahan</string>
 	<string name="report_issue_dialog_collect_wallet_dump">Tambahkan dump dompet</string>
 	<string name="report_issue_dialog_mail_intent_chooser">Kirim laporan dgn…</string>
 	<string name="about_title">Mengenai</string>
@@ -180,9 +179,9 @@
 	<string name="about_credits_icon_title">Apl ini menggunakan ikon oleh \'bitboy\'</string>
 	<string name="about_author_twitter_title">Pembuat di Twitter</string>
 	<string name="about_author_googleplus_title">Pembuat di Google+</string>
-	<string name="about_credits_market_app_title">Halaman Apl Google Play</string>
+	<string name="about_market_app_title">Halaman Apl Google Play</string>
 	<string name="about_credits_market_publisher_title">Apl lain oleh Pembuat</string>
-	<string name="notification_coins_received_msg">Diterima DGC %s</string>
+	<string name="notification_coins_received_msg">Diterima %s</string>
 	<string name="notification_peers_connected_msg">%d peer terhubung</string>
 
 	<!-- generic buttons -->

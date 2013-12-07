@@ -177,7 +177,6 @@
 	<string name="report_issue_dialog_report">Segnala</string>
 	<string name="report_issue_dialog_collect_device_info">Allega informazioni sul dispositivo</string>
 	<string name="report_issue_dialog_collect_application_log">Allega il registro dell\'applicazione</string>
-	<string name="report_issue_dialog_collect_extended_application_log">Allega il registro dell\'applicazione esteso</string>
 	<string name="report_issue_dialog_collect_wallet_dump">Allega il dump del portafoglio</string>
 	<string name="report_issue_dialog_mail_intent_chooser">Invio della segnalazione…</string>
 	<string name="about_title">Informazioni</string>
@@ -187,9 +186,9 @@
 	<string name="about_credits_icon_title">Questa applicazione fa uso di una icona di \'bitboy\'</string>
 	<string name="about_author_twitter_title">L\'autore su Twitter</string>
 	<string name="about_author_googleplus_title">L\'autore su Google+</string>
-	<string name="about_credits_market_app_title">Pagina dell\'Android Market</string>
+	<string name="about_market_app_title">Pagina dell\'Android Market</string>
 	<string name="about_credits_market_publisher_title">Altre applicazioni dell\'autore</string>
-	<string name="notification_coins_received_msg">Ricevuti %s DGC</string>
+	<string name="notification_coins_received_msg">Ricevuti %s</string>
 	<string name="notification_peers_connected_msg">Connesso a %d peers</string>
 
 	<!-- generic buttons -->

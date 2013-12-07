@@ -25,6 +25,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Formatter;
 import java.util.List;
 import java.util.Set;
@@ -57,13 +59,11 @@ public class CrashReporter
 {
 	private static final String BACKGROUND_TRACES_FILENAME = "background.trace";
 	private static final String CRASH_TRACE_FILENAME = "crash.trace";
-	private static final String CRASH_APPLICATION_LOG_FILENAME = "crash.log";
 
 	private static final long TIME_CREATE_APPLICATION = System.currentTimeMillis();
 
 	private static File backgroundTracesFile;
 	private static File crashTraceFile;
-	private static File crashApplicationLogFile;
 
 	private static final Logger log = LoggerFactory.getLogger(CrashReporter.class);
 
@@ -71,7 +71,6 @@ public class CrashReporter
 	{
 		backgroundTracesFile = new File(cacheDir, BACKGROUND_TRACES_FILENAME);
 		crashTraceFile = new File(cacheDir, CRASH_TRACE_FILENAME);
-		crashApplicationLogFile = new File(cacheDir, CRASH_APPLICATION_LOG_FILENAME);
 
 		Thread.setDefaultUncaughtExceptionHandler(new ExceptionHandler(Thread.getDefaultUncaughtExceptionHandler()));
 	}
@@ -122,24 +121,6 @@ public class CrashReporter
 		}
 	}
 
-	public static void appendSavedCrashApplicationLog(@Nonnull final Appendable report) throws IOException
-	{
-		BufferedReader reader = null;
-
-		try
-		{
-			reader = new BufferedReader(new InputStreamReader(new FileInputStream(crashApplicationLogFile), Constants.UTF_8));
-			copy(reader, report);
-		}
-		finally
-		{
-			if (reader != null)
-				reader.close();
-
-			crashApplicationLogFile.delete();
-		}
-	}
-
 	private static void copy(@Nonnull final BufferedReader in, @Nonnull final Appendable out) throws IOException
 	{
 		while (true)
@@ -158,7 +139,7 @@ public class CrashReporter
 		final Configuration config = res.getConfiguration();
 		final ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
 
-		report.append("Phone Model: " + android.os.Build.MODEL + "\n");
+		report.append("Device Model: " + android.os.Build.MODEL + "\n");
 		report.append("Android Version: " + android.os.Build.VERSION.RELEASE + "\n");
 		report.append("Board: " + android.os.Build.BOARD + "\n");
 		report.append("Brand: " + android.os.Build.BRAND + "\n");
@@ -168,7 +149,6 @@ public class CrashReporter
 		report.append("Host: " + android.os.Build.HOST + "\n");
 		report.append("ID: " + android.os.Build.ID + "\n");
 		// report.append("Manufacturer: " + manufacturer + "\n");
-		report.append("Model: " + android.os.Build.MODEL + "\n");
 		report.append("Product: " + android.os.Build.PRODUCT + "\n");
 		report.append("Tags: " + android.os.Build.TAGS + "\n");
 		report.append("Time: " + android.os.Build.TIME + "\n");
@@ -192,6 +172,25 @@ public class CrashReporter
 		{
 			throw new RuntimeException(x);
 		}
+	}
+
+	public static void appendInstalledPackages(@Nonnull final Appendable report, final Context context) throws IOException
+	{
+		final PackageManager pm = context.getPackageManager();
+		final List<PackageInfo> installedPackages = pm.getInstalledPackages(0);
+
+		// sort by package name
+		Collections.sort(installedPackages, new Comparator<PackageInfo>()
+		{
+			@Override
+			public int compare(final PackageInfo lhs, final PackageInfo rhs)
+			{
+				return lhs.packageName.compareTo(rhs.packageName);
+			}
+		});
+
+		for (final PackageInfo p : installedPackages)
+			report.append(String.format("%s %s (%d) - %tF %tF\n", p.packageName, p.versionName, p.versionCode, p.firstInstallTime, p.lastUpdateTime));
 	}
 
 	public static void appendApplicationInfo(@Nonnull final Appendable report, @Nonnull final WalletApplication application) throws IOException
@@ -248,31 +247,6 @@ public class CrashReporter
 		catch (final NameNotFoundException x)
 		{
 			throw new IOException(x);
-		}
-	}
-
-	public static void appendApplicationLog(@Nonnull final Appendable report) throws IOException
-	{
-		Process process = null;
-		BufferedReader logReader = null;
-
-		try
-		{
-			// likely to throw exception on older android devices
-			process = Runtime.getRuntime().exec("logcat -d -v time");
-			logReader = new BufferedReader(new InputStreamReader(process.getInputStream(), Constants.UTF_8));
-
-			String line;
-			while ((line = logReader.readLine()) != null)
-				report.append(line).append('\n');
-		}
-		finally
-		{
-			if (logReader != null)
-				logReader.close();
-
-			if (process != null)
-				process.destroy();
 		}
 	}
 
@@ -346,7 +320,6 @@ public class CrashReporter
 			try
 			{
 				saveCrashTrace(exception);
-				saveApplicationLog();
 			}
 			catch (final IOException x)
 			{
@@ -360,13 +333,6 @@ public class CrashReporter
 		{
 			final PrintWriter writer = new PrintWriter(new OutputStreamWriter(new FileOutputStream(crashTraceFile), Constants.UTF_8));
 			appendTrace(writer, throwable);
-			writer.close();
-		}
-
-		private void saveApplicationLog() throws IOException
-		{
-			final PrintWriter writer = new PrintWriter(new OutputStreamWriter(new FileOutputStream(crashApplicationLogFile), Constants.UTF_8));
-			appendApplicationLog(writer);
 			writer.close();
 		}
 	}

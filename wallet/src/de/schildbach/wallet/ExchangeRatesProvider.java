@@ -23,6 +23,7 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.math.BigInteger;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.*;
@@ -44,9 +45,6 @@ import android.database.MatrixCursor;
 import android.net.Uri;
 import android.provider.BaseColumns;
 import android.text.format.DateUtils;
-
-import com.google.bitcoin.core.Utils;
-
 import de.schildbach.wallet.util.GenericUtils;
 import de.schildbach.wallet.util.Io;
 
@@ -71,7 +69,7 @@ public class ExchangeRatesProvider extends ContentProvider
 		@Override
 		public String toString()
 		{
-			return getClass().getSimpleName() + '[' + currencyCode + ':' + GenericUtils.formatValue(rate, Constants.BTC_MAX_PRECISION) + ']';
+			return getClass().getSimpleName() + '[' + currencyCode + ':' + GenericUtils.formatValue(rate, Constants.BTC_MAX_PRECISION, 0) + ']';
 		}
 	}
 
@@ -82,6 +80,29 @@ public class ExchangeRatesProvider extends ContentProvider
 	@CheckForNull
 	private Map<String, ExchangeRate> exchangeRates = null;
 	private long lastUpdated = 0;
+
+	private static final URL BITCOINAVERAGE_URL;
+	private static final String[] BITCOINAVERAGE_FIELDS = new String[] { "24h_avg" };
+	private static final URL BITCOINCHARTS_URL;
+	private static final String[] BITCOINCHARTS_FIELDS = new String[] { "24h", "7d", "30d" };
+	private static final URL BLOCKCHAININFO_URL;
+	private static final String[] BLOCKCHAININFO_FIELDS = new String[] { "15m" };
+
+	// https://bitmarket.eu/api/ticker
+
+	static
+	{
+		try
+		{
+			BITCOINAVERAGE_URL = new URL("https://api.bitcoinaverage.com/ticker/all");
+			BITCOINCHARTS_URL = new URL("http://api.bitcoincharts.com/v1/weighted_prices.json");
+			BLOCKCHAININFO_URL = new URL("https://blockchain.info/ticker");
+		}
+		catch (final MalformedURLException x)
+		{
+			throw new RuntimeException(x); // cannot happen
+		}
+	}
 
 	private static final long UPDATE_FREQ_MS = 10 * DateUtils.MINUTE_IN_MILLIS;
 
@@ -105,9 +126,13 @@ public class ExchangeRatesProvider extends ContentProvider
 
 		if (exchangeRates == null || now - lastUpdated > UPDATE_FREQ_MS)
 		{
-			Map<String, ExchangeRate> newExchangeRates = getBitcoinCharts();
+			Map<String, ExchangeRate> newExchangeRates = null;
 			if (exchangeRates == null && newExchangeRates == null)
-				newExchangeRates = getBlockchainInfo();
+				newExchangeRates = requestExchangeRates(BITCOINAVERAGE_URL, BITCOINAVERAGE_FIELDS);
+			if (exchangeRates == null && newExchangeRates == null)
+				newExchangeRates = requestExchangeRates(BITCOINCHARTS_URL, BITCOINCHARTS_FIELDS);
+			if (exchangeRates == null && newExchangeRates == null)
+				newExchangeRates = requestExchangeRates(BLOCKCHAININFO_URL, BLOCKCHAININFO_FIELDS);
 
 			if (newExchangeRates != null)
 			{
@@ -199,6 +224,7 @@ public class ExchangeRatesProvider extends ContentProvider
 		throw new UnsupportedOperationException();
 	}
 
+
     private static Object getCoinValueBTC()
     {
         Date date = new Date();
@@ -285,10 +311,15 @@ public class ExchangeRatesProvider extends ContentProvider
         return null;
     }
 
-	private static Map<String, ExchangeRate> getBitcoinCharts()
+
+	private static Map<String, ExchangeRate> requestExchangeRates(final URL url, final String... fields)
 	{
+		HttpURLConnection connection = null;
+		Reader reader = null;
+
 		try
 		{
+
             Double btcRate = 0.0;
 
             Object result = getCoinValueBTC();
@@ -298,17 +329,15 @@ public class ExchangeRatesProvider extends ContentProvider
 
             else btcRate = (Double)result;
 
-			final URL URL = new URL("http://api.bitcoincharts.com/v1/weighted_prices.json");
-			final HttpURLConnection connection = (HttpURLConnection) URL.openConnection();
+
+			connection = (HttpURLConnection) url.openConnection();
+
 			connection.setConnectTimeout(Constants.HTTP_TIMEOUT_MS);
 			connection.setReadTimeout(Constants.HTTP_TIMEOUT_MS);
 			connection.connect();
 
-			if (connection.getResponseCode() != HttpURLConnection.HTTP_OK)
-				return null;
-
-			Reader reader = null;
-			try
+			final int responseCode = connection.getResponseCode();
+			if (responseCode == HttpURLConnection.HTTP_OK)
 			{
 				reader = new InputStreamReader(new BufferedInputStream(connection.getInputStream(), 1024), Constants.UTF_8);
 				final StringBuilder content = new StringBuilder();
@@ -317,7 +346,7 @@ public class ExchangeRatesProvider extends ContentProvider
 				final Map<String, ExchangeRate> rates = new TreeMap<String, ExchangeRate>();
 
                 //Add Bitcoin information
-                rates.put(CoinDefinition.cryptsyMarketCurrency, new ExchangeRate(CoinDefinition.cryptsyMarketCurrency, Utils.toNanoCoins(String.format("%.8f", btcRate).replace(",", ".")), "pubapi.cryptsy.com"));
+                rates.put(CoinDefinition.cryptsyMarketCurrency, new ExchangeRate(CoinDefinition.cryptsyMarketCurrency, GenericUtils.toNanoCoins(String.format("%.8f", btcRate).replace(",", "."), 0), "pubapi.cryptsy.com"));
 
 				final JSONObject head = new JSONObject(content.toString());
 				for (final Iterator<String> i = head.keys(); i.hasNext();)
@@ -326,11 +355,15 @@ public class ExchangeRatesProvider extends ContentProvider
 					if (!"timestamp".equals(currencyCode))
 					{
 						final JSONObject o = head.getJSONObject(currencyCode);
-						String rate = o.optString("24h", null);
-						if (rate == null)
-							rate = o.optString("7d", null);
-						if (rate == null)
-							rate = o.optString("30d", null);
+
+						String rate = null;
+						for (final String field : fields)
+						{
+							rate = o.optString(field, null);
+
+							if (rate != null)
+								break;
+						}
 
                         double rateForBTC = Double.parseDouble(rate);
 
@@ -340,7 +373,8 @@ public class ExchangeRatesProvider extends ContentProvider
 						{
 							try
 							{
-								rates.put(currencyCode, new ExchangeRate(currencyCode, Utils.toNanoCoins(rate.replace(",", ".")), URL.getHost()));
+								rates.put(currencyCode, new ExchangeRate(currencyCode, GenericUtils.toNanoCoins(rate.replace(",", "."), 0), url.getHost()));
+
 							}
 							catch (final ArithmeticException x)
 							{
@@ -352,93 +386,34 @@ public class ExchangeRatesProvider extends ContentProvider
 
 				return rates;
 			}
-			finally
+			else
 			{
-				if (reader != null)
-					reader.close();
+				log.debug("http status " + responseCode + " when fetching " + url);
 			}
 		}
 		catch (final Exception x)
 		{
 			log.debug("problem reading exchange rates", x);
 		}
-
-		return null;
-	}
-
-	private static Map<String, ExchangeRate> getBlockchainInfo()
-	{
-		try
+		finally
 		{
-            Double btcRate = 0.0;
 
-            Object result = getCoinValueBTC();
-
-            if(result == null)
-                return null;
-
-            else btcRate = (Double)result;
-
-			final URL URL = new URL("https://blockchain.info/ticker");
-			final HttpURLConnection connection = (HttpURLConnection) URL.openConnection();
-			connection.setConnectTimeout(Constants.HTTP_TIMEOUT_MS);
-			connection.setReadTimeout(Constants.HTTP_TIMEOUT_MS);
-			connection.connect();
-
-			if (connection.getResponseCode() != HttpURLConnection.HTTP_OK)
-				return null;
-
-			Reader reader = null;
-			try
+			if (reader != null)
 			{
-				reader = new InputStreamReader(new BufferedInputStream(connection.getInputStream(), 1024), Constants.UTF_8);
-				final StringBuilder content = new StringBuilder();
-				Io.copy(reader, content);
-
-				final Map<String, ExchangeRate> rates = new TreeMap<String, ExchangeRate>();
-
-                //Add Bitcoin information
-                rates.put(CoinDefinition.cryptsyMarketCurrency, new ExchangeRate(CoinDefinition.cryptsyMarketCurrency, Utils.toNanoCoins(String.format("%.8f", btcRate).replace(",", ".")), "pubapi.cryptsy.com"));
-
-                final JSONObject head = new JSONObject(content.toString());
-				for (final Iterator<String> i = head.keys(); i.hasNext();)
+				try
 				{
-					final String currencyCode = i.next();
-					final JSONObject o = head.getJSONObject(currencyCode);
-					//final String rate = o.optString("15m", null);
-
-                    double rateForBTC = o.getDouble("15m") * btcRate;
-
-                    final String rate = String.format("%.8f",rateForBTC); //o.optString("15m", null);
-
-					if (rate != null)
-					{
-						try
-						{
-							rates.put(currencyCode, new ExchangeRate(currencyCode, Utils.toNanoCoins(rate.replace(",", ".")), URL.getHost()));
-						}
-						catch (final ArithmeticException x)
-						{
-							log.debug("problem reading exchange rate: " + currencyCode, x);
-						}
-					}
-				}
-
-				return rates;
-			}
-			finally
-			{
-				if (reader != null)
 					reader.close();
+				}
+				catch (final IOException x)
+				{
+					// swallow
+				}
 			}
-		}
-		catch (final Exception x)
-		{
-			log.debug("problem reading exchange rates", x);
+
+			if (connection != null)
+				connection.disconnect();
 		}
 
 		return null;
 	}
-
-	// https://bitmarket.eu/api/ticker
 }

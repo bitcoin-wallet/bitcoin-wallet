@@ -73,9 +73,10 @@ import de.schildbach.wallet.util.BitmapFragment;
 import de.schildbach.wallet.util.Nfc;
 import de.schildbach.wallet.util.Qr;
 import de.schildbach.wallet.util.WalletUtils;
-import de.schildbach.wallet.digitalcoin.R;
 
+import de.schildbach.wallet.digitalcoin.R;
 import de.schildbach.wallet.util.ThrottlingWalletChangeListener;
+
 
 /**
  * @author Andreas Schildbach
@@ -247,7 +248,7 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 					final BigInteger value = tx.getValue(wallet);
 					final boolean sent = value.signum() < 0;
 
-					address = sent ? WalletUtils.getToAddress(tx) : WalletUtils.getFromAddress(tx);
+					address = sent ? WalletUtils.getFirstToAddress(tx) : WalletUtils.getFirstFromAddress(tx);
 
 					final String label;
 					if (tx.isCoinBase())
@@ -468,8 +469,11 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 
 	private void updateView()
 	{
-		adapter.setPrecision(Integer.parseInt(prefs.getString(Constants.PREFS_KEY_BTC_PRECISION, Constants.PREFS_DEFAULT_BTC_PRECISION)));
+		final String precision = prefs.getString(Constants.PREFS_KEY_BTC_PRECISION, Constants.PREFS_DEFAULT_BTC_PRECISION);
+		final int btcPrecision = precision.charAt(0) - '0';
+		final int btcShift = precision.length() == 3 ? precision.charAt(2) - '0' : 0;
 
+		adapter.setPrecision(btcPrecision, btcShift);
 		adapter.clearLabelCache();
 	}
 }

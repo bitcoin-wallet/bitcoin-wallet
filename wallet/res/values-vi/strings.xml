@@ -163,7 +163,6 @@
 	<string name="report_issue_dialog_report">Báo cáo</string>
 	<string name="report_issue_dialog_collect_device_info">Thông tin chỉ thị về thiết bị</string>
 	<string name="report_issue_dialog_collect_application_log">Nhật trình chỉ thị của ứng dụng</string>
-	<string name="report_issue_dialog_collect_extended_application_log">Nhật trình chỉ thị độ mở rộng của ứng dụng</string>
 	<string name="report_issue_dialog_collect_wallet_dump">Các lỗi mà ví tiền gặp phải</string>
 	<string name="report_issue_dialog_mail_intent_chooser">Gửi báo cáo sử dụng…</string>
 	<string name="about_title">Thông tin</string>
@@ -173,9 +172,9 @@
 	<string name="about_credits_icon_title">Ứng dụng này sử dụng biểu tượng bởi \'bitboy\'</string>
 	<string name="about_author_twitter_title">Liên hệ tác giả bằng Twitter</string>
 	<string name="about_author_googleplus_title">Liên hệ tác giả bằng Google+</string>
-	<string name="about_credits_market_app_title">Trang web của ứng dụng trên Google Play</string>
+	<string name="about_market_app_title">Trang web của ứng dụng trên Google Play</string>
 	<string name="about_credits_market_publisher_title">Các tác giả khác</string>
-	<string name="notification_coins_received_msg">DGC đã nhận %s</string>
+    <string name="notification_coins_received_msg">đã nhận %s</string>
 	<string name="notification_peers_connected_msg">%d mạng ngang hàng đã kết nối</string>
 
 	<!-- generic buttons -->

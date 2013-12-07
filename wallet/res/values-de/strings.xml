@@ -174,6 +174,8 @@
 	<string name="preferences_category_main">Einstellungen</string>
 	<string name="preferences_category_diagnostics">Diagnose</string>
 	<string name="preferences_category_labs">Labor</string>
+	<string name="preferences_precision_title">Stückelung und Genauigkeit</string>
+	<string name="preferences_precision_summary">Maßeinheit für die Anzeige von Werten. Dies beeinflußt keine Berechnungen.</string>
 	<string name="preferences_connectivity_notification_title">Konnektivitäts-Anzeige</string>
 	<string name="preferences_connectivity_notification_summary">Zeigt die aktuelle Anzahl von verbundenen Peers im Notifizierungsbereich an.</string>
 	<string name="preferences_trusted_peer_title">Vertrauenswürdiger Peer</string>
@@ -196,8 +198,8 @@
 	<string name="report_issue_dialog_description">Problembeschreibung</string>
 	<string name="report_issue_dialog_report">Senden</string>
 	<string name="report_issue_dialog_collect_device_info">Geräte-Informationen anhängen</string>
+	<string name="report_issue_dialog_collect_installed_packages">Liste von installierten Paketen anhängen</string>
 	<string name="report_issue_dialog_collect_application_log">Applikations-Logfile anhängen</string>
-	<string name="report_issue_dialog_collect_extended_application_log">Erweitertes Applikations-Logfile anhängen</string>
 	<string name="report_issue_dialog_collect_wallet_dump">Dump der Wallet anhängen</string>
 	<string name="report_issue_dialog_mail_intent_chooser">Bericht senden mit…</string>
 
@@ -206,12 +208,16 @@
 	<string name="about_credits_digitalcoinj_title">Diese App nutzt digitalcoinj %s</string>
 	<string name="about_credits_zxing_title">"Diese App nutzt 'zxing'"</string>
 	<string name="about_credits_icon_title">"Diese App nutzt ein Icon von 'bitboy'"</string>
+	<string name="about_community_googleplus_title">Google+ Community</string>
+	<string name="about_community_googleplus_summary">Diskussionen über die App</string>
 	<string name="about_author_twitter_title">Autor bei Twitter</string>
 	<string name="about_author_googleplus_title">Autor bei Google+</string>
-	<string name="about_credits_market_app_title">Google Play App-Eintrag</string>
+	<string name="about_market_app_title">Eintrag bei Google Play</string>
+	<string name="about_market_app_summary">Rezensionen und Bewertungen</string>
 	<string name="about_credits_market_publisher_title">Andere Apps des Autors</string>
 
-	<string name="notification_coins_received_msg">DGC %s empfangen</string>
+	<string name="notification_coins_received_msg">%s empfangen</string>
+
 	<string name="notification_peers_connected_msg">%d Peers verbunden</string>
 
 	<!-- generic buttons -->

@@ -30,6 +30,7 @@ import com.google.bitcoin.core.CoinDefinition;
 
 import de.schildbach.wallet.digitalcoin.R;
 
+
 /**
  * @author Andreas Schildbach
  */
@@ -67,7 +68,10 @@ public class Constants
 	public static final long BLOCKCHAIN_STATE_BROADCAST_THROTTLE_MS = DateUtils.SECOND_IN_MILLIS;
 	public static final long BLOCKCHAIN_UPTODATE_THRESHOLD_MS = DateUtils.HOUR_IN_MILLIS;
 
-	public static final String CURRENCY_CODE_BITCOIN = CoinDefinition.coinTicker;
+
+	public static final String CURRENCY_CODE_BTC = CoinDefinition.coinTicker;//"BTC";
+	public static final String CURRENCY_CODE_MBTC = "m" + CoinDefinition.coinTicker;//"BTC";
+
 	public static final char CHAR_HAIR_SPACE = '\u200a';
 	public static final char CHAR_THIN_SPACE = '\u2009';
 	public static final char CHAR_ALMOST_EQUAL_TO = '\u2248';
@@ -78,6 +82,7 @@ public class Constants
 	public static final int ADDRESS_FORMAT_LINE_SIZE = 12;
 
 	public static final int BTC_MAX_PRECISION = 8;
+	public static final int MBTC_MAX_PRECISION = 5;
 	public static final int LOCAL_PRECISION = 4;
 
 	public static final String DONATION_ADDRESS = CoinDefinition.DONATION_ADDRESS;
@@ -94,8 +99,12 @@ public class Constants
     public static final String CREDITS_WEBSITE_URL = "http://digitalcoin.co/";
     public static final String CREDITS_FORUM_URL = "http://digitalcoin.co/forums/";
 	public static final String CREDITS_ICON_URL = "https://bitcointalk.org/index.php?action=profile;u=2062";
+
 	public static final String AUTHOR_TWITTER_URL = "https://twitter.com/#!/HashEngineering";
 	public static final String AUTHOR_GOOGLEPLUS_URL = "https://profiles.google.com/HashEngineering";
+
+	public static final String COMMUNITY_GOOGLEPLUS_URL = "https://plus.google.com/communities/105515929887248493912";
+
 	public static final String MARKET_APP_URL = "market://details?id=%s";
 	public static final String WEBMARKET_APP_URL = "https://play.google.com/store/apps/details?id=%s";
 	public static final String MARKET_PUBLISHER_URL = "market://search?q=pub:\"HashEngineering\"";

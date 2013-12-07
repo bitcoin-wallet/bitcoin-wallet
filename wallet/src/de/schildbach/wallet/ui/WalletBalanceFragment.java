@@ -51,7 +51,9 @@ import de.schildbach.wallet.ExchangeRatesProvider.ExchangeRate;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.service.BlockchainService;
 import de.schildbach.wallet.util.WalletUtils;
+
 import de.schildbach.wallet.digitalcoin.R;
+
 
 /**
  * @author Andreas Schildbach
@@ -130,14 +132,13 @@ public final class WalletBalanceFragment extends Fragment
 		}
 
 		viewBalanceBtc = (CurrencyTextView) view.findViewById(R.id.wallet_balance_btc);
-		viewBalanceBtc.setPrefix(Constants.CURRENCY_CODE_BITCOIN);
 
 		viewBalanceLocalFrame = (FrameLayout) view.findViewById(R.id.wallet_balance_local_frame);
 		if (showExchangeRatesOption)
 			viewBalanceLocalFrame.setForeground(getResources().getDrawable(R.drawable.dropdown_ic_arrow_small));
 
 		viewBalanceLocal = (CurrencyTextView) view.findViewById(R.id.wallet_balance_local);
-		viewBalanceLocal.setPrecision(Constants.LOCAL_PRECISION);
+		viewBalanceLocal.setPrecision(Constants.LOCAL_PRECISION, 0);
 		viewBalanceLocal.setInsignificantRelativeSize(1);
 		viewBalanceLocal.setStrikeThru(Constants.TEST);
 
@@ -221,9 +222,14 @@ public final class WalletBalanceFragment extends Fragment
 
 			if (balance != null)
 			{
+				final String precision = prefs.getString(Constants.PREFS_KEY_BTC_PRECISION, Constants.PREFS_DEFAULT_BTC_PRECISION);
+				final int btcPrecision = precision.charAt(0) - '0';
+				final int btcShift = precision.length() == 3 ? precision.charAt(2) - '0' : 0;
+				final String prefix = btcShift == 0 ? Constants.CURRENCY_CODE_BTC : Constants.CURRENCY_CODE_MBTC;
+
 				viewBalanceBtc.setVisibility(View.VISIBLE);
-				viewBalanceBtc.setPrecision(Integer.parseInt(prefs
-						.getString(Constants.PREFS_KEY_BTC_PRECISION, Constants.PREFS_DEFAULT_BTC_PRECISION)));
+				viewBalanceBtc.setPrecision(btcPrecision, btcShift);
+				viewBalanceBtc.setPrefix(prefix);
 				viewBalanceBtc.setAmount(balance);
 
 				if (showLocalBalance)

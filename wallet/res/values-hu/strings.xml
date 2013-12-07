@@ -173,7 +173,6 @@
 	<string name="report_issue_dialog_report">Jelentés</string>
 	<string name="report_issue_dialog_collect_device_info">Eszköz információk hozzáfűzése</string>
 	<string name="report_issue_dialog_collect_application_log">ALkalmazás log hozzáfűzése</string>
-	<string name="report_issue_dialog_collect_extended_application_log">A kibővített alkalmazás-napló hozzáfűzése</string>
 	<string name="report_issue_dialog_collect_wallet_dump">Tárca információk hozzáfűzése</string>
 	<string name="report_issue_dialog_mail_intent_chooser">Hiba küldése ezzel…</string>
 	<string name="about_title">Rólunk</string>
@@ -183,9 +182,9 @@
 	<string name="about_credits_icon_title">Az app \'bitboy\' ikonját használja</string>
 	<string name="about_author_twitter_title">A Twitter-en</string>
 	<string name="about_author_googleplus_title">A Google+-on</string>
-	<string name="about_credits_market_app_title">Google Play Alkalmazások oldal</string>
+	<string name="about_market_app_title">Google Play Alkalmazások oldal</string>
 	<string name="about_credits_market_publisher_title">A szerző egyéb applikációi</string>
-	<string name="notification_coins_received_msg">%s DGC érkezett</string>
+	<string name="notification_coins_received_msg">%s érkezett</string>
 	<string name="notification_peers_connected_msg">%d peer kapcsolódva</string>
 
 	<!-- generic buttons -->

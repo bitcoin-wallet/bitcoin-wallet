@@ -81,11 +81,12 @@ import de.schildbach.wallet.ExchangeRatesProvider;
 import de.schildbach.wallet.ExchangeRatesProvider.ExchangeRate;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.integration.android.BitcoinIntegration;
-import de.schildbach.wallet.offline.SendBluetoothRunnable;
+import de.schildbach.wallet.offline.SendBluetoothTask;
 import de.schildbach.wallet.ui.InputParser.StringInputParser;
 import de.schildbach.wallet.util.GenericUtils;
 import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet.digitalcoin.R;
+
 
 /**
  * @author Andreas Schildbach
@@ -98,10 +99,11 @@ public final class SendCoinsFragment extends SherlockFragment
 	private ContentResolver contentResolver;
 	private LoaderManager loaderManager;
 	private SharedPreferences prefs;
-
+	@CheckForNull
 	private BluetoothAdapter bluetoothAdapter;
 
 	private int btcPrecision;
+	private int btcShift;
 
 	private final Handler handler = new Handler();
 	private HandlerThread backgroundThread;
@@ -372,7 +374,9 @@ public final class SendCoinsFragment extends SherlockFragment
 		backgroundThread.start();
 		backgroundHandler = new Handler(backgroundThread.getLooper());
 
-		btcPrecision = Integer.parseInt(prefs.getString(Constants.PREFS_KEY_BTC_PRECISION, Constants.PREFS_DEFAULT_BTC_PRECISION));
+		final String precision = prefs.getString(Constants.PREFS_KEY_BTC_PRECISION, Constants.PREFS_DEFAULT_BTC_PRECISION);
+		btcPrecision = precision.charAt(0) - '0';
+		btcShift = precision.length() == 3 ? precision.charAt(2) - '0' : 0;
 	}
 
 	@Override
@@ -404,10 +408,13 @@ public final class SendCoinsFragment extends SherlockFragment
 		});
 
 		final CurrencyAmountView btcAmountView = (CurrencyAmountView) view.findViewById(R.id.send_coins_amount_btc);
-		btcAmountView.setCurrencySymbol(Constants.CURRENCY_CODE_BITCOIN);
+		btcAmountView.setCurrencySymbol(btcShift == 0 ? Constants.CURRENCY_CODE_BTC : Constants.CURRENCY_CODE_MBTC);
+		btcAmountView.setInputPrecision(btcShift == 0 ? Constants.BTC_MAX_PRECISION : Constants.MBTC_MAX_PRECISION);
 		btcAmountView.setHintPrecision(btcPrecision);
+		btcAmountView.setShift(btcShift);
 
 		final CurrencyAmountView localAmountView = (CurrencyAmountView) view.findViewById(R.id.send_coins_amount_local);
+		localAmountView.setInputPrecision(Constants.LOCAL_PRECISION);
 		localAmountView.setHintPrecision(Constants.LOCAL_PRECISION);
 		amountCalculatorLink = new CurrencyCalculatorLink(btcAmountView, localAmountView);
 
@@ -790,12 +797,14 @@ public final class SendCoinsFragment extends SherlockFragment
 		dismissPopup();
 
 		final CurrencyTextView viewAvailable = (CurrencyTextView) popupAvailableView.findViewById(R.id.send_coins_popup_available_amount);
-		viewAvailable.setPrefix(Constants.CURRENCY_CODE_BITCOIN);
+		viewAvailable.setPrefix(btcShift == 0 ? Constants.CURRENCY_CODE_BTC : Constants.CURRENCY_CODE_MBTC);
+		viewAvailable.setPrecision(btcPrecision, btcShift);
 		viewAvailable.setAmount(available);
 
 		final TextView viewPending = (TextView) popupAvailableView.findViewById(R.id.send_coins_popup_available_pending);
 		viewPending.setVisibility(pending.signum() > 0 ? View.VISIBLE : View.GONE);
-		viewPending.setText(getString(R.string.send_coins_fragment_pending, GenericUtils.formatValue(pending, Constants.BTC_MAX_PRECISION)));
+		final int precision = btcShift == 0 ? Constants.BTC_MAX_PRECISION : Constants.MBTC_MAX_PRECISION;
+		viewPending.setText(getString(R.string.send_coins_fragment_pending, GenericUtils.formatValue(pending, precision, btcShift)));
 
 		popup(anchor, popupAvailableView);
 	}
@@ -831,61 +840,51 @@ public final class SendCoinsFragment extends SherlockFragment
 		sendRequest.changeAddress = WalletUtils.pickOldestKey(wallet).toAddress(Constants.NETWORK_PARAMETERS);
 		sendRequest.emptyWallet = amount.equals(wallet.getBalance(BalanceType.AVAILABLE));
 
-		backgroundHandler.post(new Runnable()
+		new SendCoinsOfflineTask(wallet, backgroundHandler)
 		{
 			@Override
-			public void run()
+			protected void onSuccess(final Transaction transaction)
 			{
-				final Transaction transaction = wallet.sendCoinsOffline(sendRequest); // can take long
+				sentTransaction = transaction;
 
-				handler.post(new Runnable()
+				state = State.SENDING;
+				updateView();
+
+				sentTransaction.getConfidence().addEventListener(sentTransactionConfidenceListener);
+
+				if (bluetoothAdapter != null && bluetoothAdapter.isEnabled() && bluetoothMac != null && bluetoothEnableView.isChecked())
 				{
-					@Override
-					public void run()
+					new SendBluetoothTask(bluetoothAdapter, backgroundHandler)
 					{
-						if (transaction != null)
+						@Override
+						protected void onResult(final boolean ack)
 						{
-							sentTransaction = transaction;
+							bluetoothAck = ack;
 
-							state = State.SENDING;
+							if (state == State.SENDING)
+								state = State.SENT;
+
 							updateView();
-
-							sentTransaction.getConfidence().addEventListener(sentTransactionConfidenceListener);
-
-							if (bluetoothAdapter != null && bluetoothAdapter.isEnabled() && bluetoothMac != null && bluetoothEnableView.isChecked())
-							{
-								backgroundHandler.post(new SendBluetoothRunnable(bluetoothAdapter, bluetoothMac, transaction)
-								{
-									@Override
-									protected void onResult(final boolean ack)
-									{
-										bluetoothAck = ack;
-
-										if (state == State.SENDING)
-											state = State.SENT;
-
-										updateView();
-									}
-								});
-							}
-
-							activity.getBlockchainService().broadcastTransaction(sentTransaction);
-
-							final Intent result = new Intent();
-							BitcoinIntegration.transactionHashToResult(result, sentTransaction.getHashAsString());
-							activity.setResult(Activity.RESULT_OK, result);
 						}
-						else
-						{
-							state = State.FAILED;
-							updateView();
+					}.send(bluetoothMac, transaction); // send asynchronously
+				}
 
-							activity.longToast(R.string.send_coins_error_msg);
-						}
-					}
-				});
+				application.broadcastTransaction(sentTransaction);
+
+				final Intent result = new Intent();
+				BitcoinIntegration.transactionHashToResult(result, sentTransaction.getHashAsString());
+				activity.setResult(Activity.RESULT_OK, result);
 			}
-		});
+
+			@Override
+			protected void onFailure()
+			{
+				state = State.FAILED;
+				updateView();
+
+				activity.longToast(R.string.send_coins_error_msg);
+			}
+		}.sendCoinsOffline(sendRequest); // send asynchronously
 	}
 
 	private void handleScan()
@@ -981,8 +980,12 @@ public final class SendCoinsFragment extends SherlockFragment
 
 		if (sentTransaction != null)
 		{
+			final String precision = prefs.getString(Constants.PREFS_KEY_BTC_PRECISION, Constants.PREFS_DEFAULT_BTC_PRECISION);
+			final int btcPrecision = precision.charAt(0) - '0';
+			final int btcShift = precision.length() == 3 ? precision.charAt(2) - '0' : 0;
+
 			sentTransactionView.setVisibility(View.VISIBLE);
-			sentTransactionListAdapter.setPrecision(btcPrecision);
+			sentTransactionListAdapter.setPrecision(btcPrecision, btcShift);
 			sentTransactionListAdapter.replace(sentTransaction);
 		}
 		else

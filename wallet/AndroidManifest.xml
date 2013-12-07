@@ -168,6 +168,7 @@
         <!-- Need to update this for the coin -->
 		<provider
 			android:name="de.schildbach.wallet.ExchangeRatesProvider"
+
 			android:authorities="de.schildbach.wallet.digitalcoin.exchange_rates"
 			android:exported="false" />
 

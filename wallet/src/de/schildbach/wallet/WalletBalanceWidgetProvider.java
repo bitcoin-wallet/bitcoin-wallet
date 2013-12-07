@@ -62,13 +62,19 @@ public class WalletBalanceWidgetProvider extends AppWidgetProvider
 			@Nonnull final BigInteger balance)
 	{
 		final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-		final int precision = Integer.parseInt(prefs.getString(Constants.PREFS_KEY_BTC_PRECISION, Constants.PREFS_DEFAULT_BTC_PRECISION));
-		final Editable balanceStr = new SpannableStringBuilder(GenericUtils.formatValue(balance, precision));
+		final String precision = prefs.getString(Constants.PREFS_KEY_BTC_PRECISION, Constants.PREFS_DEFAULT_BTC_PRECISION);
+		final int btcPrecision = precision.charAt(0) - '0';
+		final int btcShift = precision.length() == 3 ? precision.charAt(2) - '0' : 0;
+
+		final Editable balanceStr = new SpannableStringBuilder(GenericUtils.formatValue(balance, btcPrecision, btcShift));
 		WalletUtils.formatSignificant(balanceStr, WalletUtils.SMALLER_SPAN);
+
+		final String prefix = btcShift == 0 ? Constants.CURRENCY_CODE_BTC : Constants.CURRENCY_CODE_MBTC;
 
 		for (final int appWidgetId : appWidgetIds)
 		{
 			final RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.wallet_balance_widget_content);
+			views.setTextViewText(R.id.widget_wallet_prefix, prefix);
 			views.setTextViewText(R.id.widget_wallet_balance, balanceStr);
 			views.setOnClickPendingIntent(R.id.widget_button_balance,
 					PendingIntent.getActivity(context, 0, new Intent(context, WalletActivity.class), 0));

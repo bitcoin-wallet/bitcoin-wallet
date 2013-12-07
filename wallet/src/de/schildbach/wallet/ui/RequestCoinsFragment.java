@@ -21,6 +21,8 @@ import java.math.BigInteger;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.annotation.CheckForNull;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -76,6 +78,7 @@ import de.schildbach.wallet.util.Nfc;
 import de.schildbach.wallet.util.Qr;
 import de.schildbach.wallet.digitalcoin.R;
 
+
 /**
  * @author Andreas Schildbach
  */
@@ -89,9 +92,11 @@ public final class RequestCoinsFragment extends SherlockFragment
 	private LoaderManager loaderManager;
 	private ClipboardManager clipboardManager;
 	private ShareActionProvider shareActionProvider;
+	@CheckForNull
 	private BluetoothAdapter bluetoothAdapter;
 
 	private int btcPrecision;
+	private int btcShift;
 
 	private ImageView qrView;
 	private Bitmap qrCodeBitmap;
@@ -158,7 +163,9 @@ public final class RequestCoinsFragment extends SherlockFragment
 	{
 		super.onCreate(savedInstanceState);
 
-		btcPrecision = Integer.parseInt(prefs.getString(Constants.PREFS_KEY_BTC_PRECISION, Constants.PREFS_DEFAULT_BTC_PRECISION));
+		final String precision = prefs.getString(Constants.PREFS_KEY_BTC_PRECISION, Constants.PREFS_DEFAULT_BTC_PRECISION);
+		btcPrecision = precision.charAt(0) - '0';
+		btcShift = precision.length() == 3 ? precision.charAt(2) - '0' : 0;
 	}
 
 	@Override
@@ -177,10 +184,13 @@ public final class RequestCoinsFragment extends SherlockFragment
 		});
 
 		final CurrencyAmountView btcAmountView = (CurrencyAmountView) view.findViewById(R.id.request_coins_amount_btc);
-		btcAmountView.setCurrencySymbol(Constants.CURRENCY_CODE_BITCOIN);
+		btcAmountView.setCurrencySymbol(btcShift == 0 ? Constants.CURRENCY_CODE_BTC : Constants.CURRENCY_CODE_MBTC);
+		btcAmountView.setInputPrecision(btcShift == 0 ? Constants.BTC_MAX_PRECISION : Constants.MBTC_MAX_PRECISION);
 		btcAmountView.setHintPrecision(btcPrecision);
+		btcAmountView.setShift(btcShift);
 
 		final CurrencyAmountView localAmountView = (CurrencyAmountView) view.findViewById(R.id.request_coins_amount_local);
+		localAmountView.setInputPrecision(Constants.LOCAL_PRECISION);
 		localAmountView.setHintPrecision(Constants.LOCAL_PRECISION);
 		amountCalculatorLink = new CurrencyCalculatorLink(btcAmountView, localAmountView);
 
@@ -395,7 +405,7 @@ public final class RequestCoinsFragment extends SherlockFragment
 
 		// update bluetooth message
 		final boolean serviceRunning = application.isServiceRunning(AcceptBluetoothService.class);
-		bluetoothEnabledView.setVisibility(bluetoothAdapter.isEnabled() && serviceRunning ? View.VISIBLE : View.GONE);
+		bluetoothEnabledView.setVisibility(bluetoothAdapter != null && bluetoothAdapter.isEnabled() && serviceRunning ? View.VISIBLE : View.GONE);
 	}
 
 	private void updateShareIntent()

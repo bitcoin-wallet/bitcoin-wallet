@@ -38,6 +38,7 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.hardware.Camera;
 import android.hardware.Camera.PreviewCallback;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
@@ -78,6 +79,11 @@ public final class ScanActivity extends Activity implements SurfaceHolder.Callba
 	private Handler cameraHandler;
 
 	private static final int DIALOG_CAMERA_PROBLEM = 0;
+
+	private static boolean DISABLE_CONTINUOUS_AUTOFOCUS = Build.MODEL.equals("GT-I9100") // Galaxy S2
+			|| Build.MODEL.equals("SAMSUNG-SGH-I727") // Galaxy S2 Skyrocket
+			|| Build.MODEL.equals("GT-I9300") // Galaxy S3
+			|| Build.MODEL.equals("GT-N7000"); // Galaxy Note
 
 	private static final Logger log = LoggerFactory.getLogger(ScanActivity.class);
 
@@ -208,7 +214,7 @@ public final class ScanActivity extends Activity implements SurfaceHolder.Callba
 		{
 			try
 			{
-				cameraManager.open(surfaceHolder);
+				final Camera camera = cameraManager.open(surfaceHolder, !DISABLE_CONTINUOUS_AUTOFOCUS);
 
 				final Rect framingRect = cameraManager.getFrame();
 				final Rect framingRectInPreview = cameraManager.getFramePreview();
@@ -222,7 +228,13 @@ public final class ScanActivity extends Activity implements SurfaceHolder.Callba
 					}
 				});
 
-				cameraHandler.post(autofocusRunnable);
+				final String focusMode = camera.getParameters().getFocusMode();
+				final boolean nonContinuousAutoFocus = Camera.Parameters.FOCUS_MODE_AUTO.equals(focusMode)
+						|| Camera.Parameters.FOCUS_MODE_MACRO.equals(focusMode);
+
+				if (nonContinuousAutoFocus)
+					cameraHandler.post(new AutoFocusRunnable(camera));
+
 				cameraHandler.post(fetchAndDecodeRunnable);
 			}
 			catch (final IOException x)
@@ -251,30 +263,29 @@ public final class ScanActivity extends Activity implements SurfaceHolder.Callba
 		}
 	};
 
-	private final Runnable autofocusRunnable = new Runnable()
+	private final class AutoFocusRunnable implements Runnable
 	{
+		private final Camera camera;
+
+		public AutoFocusRunnable(final Camera camera)
+		{
+			this.camera = camera;
+		}
+
 		@Override
 		public void run()
 		{
-			final Camera camera = cameraManager.getCamera();
-			final String focusMode = camera.getParameters().getFocusMode();
-			final boolean useAutoFocus = Camera.Parameters.FOCUS_MODE_AUTO.equals(focusMode) || Camera.Parameters.FOCUS_MODE_MACRO.equals(focusMode);
-
-			if (useAutoFocus)
+			camera.autoFocus(new Camera.AutoFocusCallback()
 			{
-				camera.autoFocus(new Camera.AutoFocusCallback()
+				@Override
+				public void onAutoFocus(final boolean success, final Camera camera)
 				{
-					@Override
-					public void onAutoFocus(final boolean success, final Camera camera)
-					{
-					}
-				});
-
-				// schedule again
-				cameraHandler.postDelayed(autofocusRunnable, AUTO_FOCUS_INTERVAL_MS);
-			}
+					// schedule again
+					cameraHandler.postDelayed(AutoFocusRunnable.this, AUTO_FOCUS_INTERVAL_MS);
+				}
+			});
 		}
-	};
+	}
 
 	private final Runnable fetchAndDecodeRunnable = new Runnable()
 	{

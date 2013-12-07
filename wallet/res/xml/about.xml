@@ -17,10 +17,10 @@
 		<Preference
 			android:key="about_source"
 			android:title="Source Code" />
-		<Preference android:key="about_credits_bitcoinj" />
 		<Preference
-			android:key="about_credits_zxing"
-			android:title="@string/about_credits_zxing_title" />
+			android:key="about_market_app"
+			android:summary="@string/about_market_app_summary"
+			android:title="@string/about_market_app_title" />
 		<Preference
 			android:key="about_credits_icon"
 			android:title="@string/about_credits_icon_title" />
@@ -31,6 +31,10 @@
                 android:key="about_credits_forum"
                 android:title="@string/about_credits_forum_title" />
 		<!--Preference
+			android:key="about_community_googleplus"
+			android:summary="@string/about_community_googleplus_summary"
+			android:title="@string/about_community_googleplus_title" />
+		<Preference
 			android:key="about_author_twitter"
 			android:summary="\@bitcoin_wallet"
 			android:title="@string/about_author_twitter_title" /-->
@@ -39,11 +43,12 @@
 			android:summary="+Andreas Schildbach"
 			android:title="@string/about_author_googleplus_title" /-->
 		<Preference
-			android:key="about_market_app"
-			android:title="@string/about_credits_market_app_title" />
-		<Preference
 			android:key="about_market_publisher"
 			android:title="@string/about_credits_market_publisher_title" />
+		<Preference android:key="about_credits_bitcoinj" />
+		<Preference
+			android:key="about_credits_zxing"
+			android:title="@string/about_credits_zxing_title" />
 	</PreferenceCategory>
 
 </PreferenceScreen>

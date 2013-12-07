@@ -11,23 +11,36 @@ Your wallet and your private keys are stored in app internal storage:
 The wallet file format is not compatible to wallet.dat (Satoshi client). Rather, it uses a custom protobuf format
 which should be compatible between clients using bitcoinj.
 
-Certain actions cause rolling backups of your private keys to app internal storage:
+Certain actions cause automatic rolling backups of your private keys to app-private storage:
 
 /data/data/de.schildbach.wallet/files/key-backup-base58 (MODE_PRIVATE)
-	Backups of private keys for Mainnet
+	Automatic backups of private keys for Mainnet
 
+<<<<<<< HEAD
 /data/data/de.schildbach.wallet/files/key-backup-base58-testnet (MODE_PRIVATE)
 	Backups of private keys for Testnet
+=======
+/data/data/de.schildbach.wallet_test/files/key-backup-base58-testnet (MODE_PRIVATE)
+	Automatic backups of private keys for Testnet
+>>>>>>> upstream/prod
 
-Private keys can be backed up to and restored from external storage:
+Private keys can be manually backed up to and restored from external storage:
 
+<<<<<<< HEAD
 /sdcard/Download/digitalcoin-wallet-keys-<yyyy-MM-dd>
 	Backups of private keys for Mainnet
 
 /sdcard/Download/digitalcoin-wallet-keys-testnet-<yyyy-MM-dd>
 	Backups of private keys for Testnet
+=======
+/sdcard/Download/bitcoin-wallet-keys-<yyyy-MM-dd>
+	Manual backups of private keys for Mainnet
 
-The backup file is encrypted using your chosen password. You can use OpenSSL to decrypt:
+/sdcard/Download/bitcoin-wallet-keys-testnet-<yyyy-MM-dd>
+	Manual backups of private keys for Testnet
+>>>>>>> upstream/prod
+
+The manual backup files are encrypted using your chosen password. You can use OpenSSL to decrypt:
 
 openssl enc -d -aes-256-cbc -a -in <filename>
 

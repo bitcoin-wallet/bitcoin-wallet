@@ -19,9 +19,13 @@ package de.schildbach.wallet.ui;
 
 import javax.annotation.Nonnull;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.text.format.DateUtils;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,12 +36,15 @@ import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.digitalcoin.R;
 
+
 /**
  * @author Andreas Schildbach
  */
 public abstract class AbstractWalletActivity extends SherlockFragmentActivity
 {
 	private WalletApplication application;
+
+	protected static final Logger log = LoggerFactory.getLogger(AbstractWalletActivity.class);
 
 	@Override
 	protected void onCreate(final Bundle savedInstanceState)
@@ -101,6 +108,10 @@ public abstract class AbstractWalletActivity extends SherlockFragmentActivity
 	protected void touchLastUsed()
 	{
 		final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-		prefs.edit().putLong(Constants.PREFS_KEY_LAST_USED, System.currentTimeMillis()).commit();
+		final long prefsLastUsed = prefs.getLong(Constants.PREFS_KEY_LAST_USED, 0);
+		final long now = System.currentTimeMillis();
+		prefs.edit().putLong(Constants.PREFS_KEY_LAST_USED, now).commit();
+
+		log.info("just being used - last used {} minutes ago", (now - prefsLastUsed) / DateUtils.MINUTE_IN_MILLIS);
 	}
 }

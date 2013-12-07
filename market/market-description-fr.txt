@@ -7,8 +7,13 @@ FONCTIONS:
 • Envoyer et recevoir des digitalcoins via NFC, QR-codes ou digitalcoin URLs.
 • Carnet d'adresses pour les adresses digitalcoin fréquemment utilisées.
 • Saisir des transactions offline, les exécuter online.
+<<<<<<< HEAD
 • Notifications système pour la connectivité digitalcoin et la réception des digitalcoins.
 • App widget pour le solde du compte digitalcoin.
+=======
+• Notification système pour la réception des bitcoins.
+• App widget pour le solde du compte Bitcoin.
+>>>>>>> upstream/prod
 
 Pour en savoir plus sur digitalcoin:
 http://digitalcoin.co

@@ -26,7 +26,9 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.widget.FrameLayout;
+
 import de.schildbach.wallet.digitalcoin.R;
+
 
 /**
  * @author Andreas Schildbach

@@ -1,9 +1,36 @@
+<<<<<<< HEAD
 -----------------digitalcoin Wallet
 v1.00
 Forked bitcoin-wallet v3.23 for digitalcoin V1.00 (http://digitalcoin.co)
 
 =================Bitcoin Wallet
 =======
+=======
+v3.28
+
+* for those who still use the unsecure address (pre-August), moves coins to secure addresses
+* updated Russian and Turkish translations
+
+v3.27
+
+* small improvements for future bugfixing
+
+v3.26
+
+* improve battery usage
+* small bugfixes
+
+v3.25
+
+* support for mBTC denomination
+* also use weighted exchange rates from BitcoinAverage
+* fixed issue with camera autofocus on some Samsung Galaxy devices
+
+v3.24
+
+* fixed issue with stuck outgoing transactions
+
+>>>>>>> upstream/prod
 v3.23
 
 * fixed issue with detecting online state
