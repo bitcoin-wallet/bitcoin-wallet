@@ -1,40 +1,20 @@
-<<<<<<< HEAD
-Android cihazınız için bağımsız bir digitalcoin cüzdanı. Telefondan telefonda uygulama tarafından görüntülenen QR kodu tarayarak ya da NFC vasıtasıyla NFC (Near Field Communication) digitalcoin gönderebilirsiniz.
-=======
-Bitcoin'leriniz daima cebinizde sizinle olsun! Herhangi bir QR kodunu okuyarak çabuk ödeme yapabilirsiniz. Bir tüccar olarak ödemeleri güvenilir ve anında alabilirsiniz. Bitcoin cüzdanı ilk mobil Bitcoin uygulamasıdır ve muhtemelen en güvenli Bitcoin uygulamasıdır!
->>>>>>> upstream/prod
+digitalcoin'leriniz daima cebinizde sizinle olsun! Herhangi bir QR kodunu okuyarak çabuk ödeme yapabilirsiniz. Bir tüccar olarak ödemeleri güvenilir ve anında alabilirsiniz. digitalcoin cüzdanı ilk mobil digitalcoin uygulamasıdır ve muhtemelen en güvenli digitalcoin uygulamasıdır!
 
 İŞLEVLERİ:
-
-<<<<<<< HEAD
-• Cüzdan bakiyesini digitalcoin olarak ve çeşitli döviz olarak gösterir.
-• QR Code, digitalcoin bağlantıları ve NFC vasıtasıyla digitalcoin alım ve gönderimi.
-• Düzenli kullanılan digitalcoin adresleri için adres defteri.
-• Çevrimdışında girilen muameleler çevrimiçine girilince işlenir.
-• Alınan digitalcoinler ve digitalcoin bağlantısı için sistem bildirimleri.
-• digitalcoin bakiyesi için uygulama widget'i.
+• Hiçbir oturuma, web ya da bulut hizmetine gerek yoktur. Bu cüzdan merkezsiz ve eşten eşedir.
+• digitalcoin meblağlarının BTC ve mBTC olarak gösterilmesi.
+• Dövizlere ve dövizlerden dönüştürme.
+• NFC, QR kodu veya digitalcoin bağlantıları ile digitalcoin gönderir ve alır.
+• Sık kullanılan digitalcoin adresleri için adres defteri içerir.
+• Çevrimdışı olduğunuzda Bluetooth vasıtasıyla ödemeler.
+• Alınan digitalcoin'ler için sistem bildirimleri.
+• digitalcoin bakiyesini görüntüleyen widget.
 
 digitalcoin hakkında daha fazla bilgi için şu siteyi ziyaret edebilirsiniz:
 http://digitalcoin.co
 
 digitalcoin Wallet uygulamasına katkıda bulunmak istiyorsanız proje sayfasını ziyaret ediniz:
 https://github.com/HashEngineering/digitalcoin-wallet
-=======
-• Hiçbir oturuma, web ya da bulut hizmetine gerek yoktur. Bu cüzdan merkezsiz ve eşten eşedir.
-• Bitcoin meblağlarının BTC ve mBTC olarak gösterilmesi.
-• Dövizlere ve dövizlerden dönüştürme.
-• NFC, QR kodu veya Bitcoin bağlantıları ile Bitcoin gönderir ve alır.
-• Sık kullanılan Bitcoin adresleri için adres defteri içerir.
-• Çevrimdışı olduğunuzda Bluetooth vasıtasıyla ödemeler.
-• Alınan bitcoin'ler için sistem bildirimleri.
-• Bitcoin bakiyesini görüntüleyen widget.
-
-Bitcoin hakkında daha fazla bilgiyi şurada bulabilirsiniz:
-http://bitcoin.org
-
-Bitcoin Wallet'e iştirak etmek istiyorsanız, projenin adresi şudur:
-https://github.com/schildbach/bitcoin-wallet
->>>>>>> upstream/prod
 
 Lisans: GPLv3
 Tüm riski siz üstlenmiş olursunuz.
