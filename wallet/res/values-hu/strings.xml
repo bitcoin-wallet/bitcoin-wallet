@@ -2,8 +2,8 @@
 <resources>
 
 	<string name="toast_wallet_reset">A tárca alapállapotba került,\na visszaállítás némi időt vesz igénybe.</string>
-	<string name="wallet_disclaimer_fragment_remind_safety">Csak saját felelősségre használd. Olvasd el a &lt;u&gt;biztonsági megjegyzéseket&lt;/u&gt;.</string>
-	<string name="wallet_disclaimer_fragment_remind_backup">Kérjük &lt;u&gt;mentsd el a tárcád&lt;/u&gt;!</string>
+	<string name="wallet_disclaimer_fragment_remind_safety">Csak saját felelősségre használd. Olvasd el a &lt;u>biztonsági megjegyzéseket&lt;/u>.</string>
+	<string name="wallet_disclaimer_fragment_remind_backup">Kérjük &lt;u>mentsd el a tárcád&lt;/u>!</string>
 	<string name="blockchain_state_progress_hours">%1$s, %2$d óra van még hátra</string>
 	<string name="blockchain_state_progress_days">%1$s, %2$d nap van még hátra</string>
 	<string name="blockchain_state_progress_weeks">%1$s, %2$d hét van még hátra</string>
@@ -25,12 +25,12 @@
 	<string name="exchange_rates_fragment_source">Ár letöltve innen: %s</string>
 	<string name="exchange_rates_context_set_as_default_title">Alapértelmezett külföldi pénznem beállítása</string>
 	<string name="wallet_transactions_fragment_tab_received">Fogadott</string>
-	<string name="wallet_transactions_fragment_tab_all">Küldött és fogadott</string>
+	<string name="wallet_transactions_fragment_tab_all">Mindkettő</string>
 	<string name="wallet_transactions_fragment_tab_sent">Küldött</string>
 	<string name="wallet_transactions_fragment_empty_text_received">Nem érkezett Bitcoin eddig.</string>
 	<string name="wallet_transactions_fragment_empty_text_sent">Bitcoin küldés nem történt eddig.</string>
 	<string name="wallet_transactions_fragment_empty_text_howto">Hogy szerezz Bitcoin-t?\n\nVásárolj hagyományos pénzért,\nárusíts termékeket, kínálj szolgáltatásokat vagy\nkeress munkával.</string>
-	<string name="wallet_transactions_row_warning_backup">Gratulálunk, megérkezett az első kifizetésed! Ugye rendszeresen &lt;u&gt;elmented a tárcád&lt;/u&gt;, tartalmát, hogy biztonságban legyen?</string>
+	<string name="wallet_transactions_row_warning_backup">Gratulálunk, megérkezett az első kifizetésed! Ugye rendszeresen &lt;u>elmented a tárcád&lt;/u>, tartalmát, hogy biztonságban legyen?</string>
 	<string name="wallet_transactions_fragment_coinbase">bányászott</string>
 	<string name="wallet_transactions_fragment_internal">belső</string>
 	<string name="wallet_transactions_context_show_qr_title">QR-kód megtekintése</string>
@@ -62,6 +62,7 @@
 	<string name="send_coins_fragment_amount_label">Fizetendő összeg</string>
 	<string name="send_coins_fragment_amount_empty">Írd be az összeget</string>
 	<string name="send_coins_fragment_amount_error">Érvénytelen összeg!</string>
+	<string name="send_coins_fragment_bluetooth_enable">Kifizetés küldése Bluetooth-on keresztül is</string>
 	<string name="send_coins_fragment_bluetooth_ack">A fizetés sikeresen elküldve Bluetooth-on.</string>
 	<string name="send_coins_fragment_bluetooth_nack">A Bluetooth fizetés visszautasítva.</string>
 	<string name="send_coins_fragment_button_send">Küldés</string>
@@ -102,7 +103,7 @@
 	<string name="edit_address_book_entry_dialog_address_label">Cím</string>
 	<string name="edit_address_book_entry_dialog_label_label">Név</string>
 	<string name="edit_address_book_entry_dialog_button_edit">Mentés</string>
-	<string name="transaction_row_message_purpose_key_rotation">A művelet megerősíti a tárcád védelmét a lopások ellen.  &lt;u&gt;Bővebb információ&lt;/u&gt;</string>
+	<string name="transaction_row_message_purpose_key_rotation">A művelet megerősíti a tárcád védelmét a lopások ellen. &lt;u>Bővebb információ&lt;/u></string>
 	<string name="transaction_row_message_own_unbroadcasted">Ez a kifizetés még nem került elküldésre.</string>
 	<string name="transaction_row_message_received_unconfirmed_unlocked">Ez a kifizetés perceken belül hozzáférhetővé válik.</string>
 	<string name="transaction_row_message_received_unconfirmed_locked">Ez nem egy hagyományos fizetés, nem megbízható.</string>
@@ -116,7 +117,7 @@
 	<string name="network_monitor_peer_list_title">Kapcsolatok</string>
 	<string name="network_monitor_block_list_title">Blokkok</string>
 	<string name="peer_list_fragment_empty">Nincs kapcsolat</string>
-	<string name="peer_list_row_ping_time">⇆ %d ms</string>
+	<string name="peer_list_row_ping_time">⇆ %d&#x2009;ms</string>
 	<string name="import_keys_dialog_title">Privát kulcsok visszaállítása</string>
 	<string name="import_keys_dialog_message">Válassz egy privát kulcsot a külső mentésből, vagy az alkalmazás saját tárhelyéről:</string>
 	<string name="import_keys_dialog_file_security_encrypted">jelszó titkosítva</string>
@@ -146,11 +147,16 @@
 	<string name="import_keys_intent_filter_action">Bitcoin kulcs visszaállítása</string>
 	<string name="scan_camera_problem_dialog_title">Sajnáljuk</string>
 	<string name="scan_camera_problem_dialog_message">A kamera nem válaszol. Próbáld meg újraindítani az eszközt.</string>
+	<string name="input_parser_cannot_classify">Nem osztályozható bemenet:\n%s</string>
+	<string name="input_parser_invalid_bitcoin_uri">Érvénytelen Bitcoin URI:\n%s</string>
 	<string name="input_parser_invalid_address">Érvénytelen bitcoin cím!\n(Keveredés a Mainnet/Testnet-tel?)</string>
+	<string name="input_parser_invalid_transaction">Érvénytelen tranzakció:\n%s</string>
 	<string name="preferences_activity_title">Beállítások</string>
 	<string name="preferences_category_main">Beállítások</string>
 	<string name="preferences_category_diagnostics">Diagnosztika</string>
 	<string name="preferences_category_labs">Labs</string>
+	<string name="preferences_precision_title">Pontosítás és egyszerűsítés</string>
+	<string name="preferences_precision_summary">Egység, amelyben mutatja a mennyiséget. Ez nem érinti a számításokat.</string>
 	<string name="preferences_connectivity_notification_title">Kapcsolódási szint</string>
 	<string name="preferences_connectivity_notification_summary">Mutassa a kapcsolódások aktuális számát az értesítési területen.</string>
 	<string name="preferences_trusted_peer_title">Megbízható kapcsolat</string>
@@ -172,6 +178,7 @@
 	<string name="report_issue_dialog_description">a hiba leírása</string>
 	<string name="report_issue_dialog_report">Jelentés</string>
 	<string name="report_issue_dialog_collect_device_info">Eszköz információk hozzáfűzése</string>
+	<string name="report_issue_dialog_collect_installed_packages">A telepített csomagokhoz illesztés.</string>
 	<string name="report_issue_dialog_collect_application_log">ALkalmazás log hozzáfűzése</string>
 	<string name="report_issue_dialog_collect_wallet_dump">Tárca információk hozzáfűzése</string>
 	<string name="report_issue_dialog_mail_intent_chooser">Hiba küldése ezzel…</string>
@@ -180,13 +187,15 @@
 	<string name="about_credits_bitcoinj_title">Az applikáció bitcoinj %s-t használ</string>
 	<string name="about_credits_zxing_title">Ez az app \'zxing\'-et használ</string>
 	<string name="about_credits_icon_title">Az app \'bitboy\' ikonját használja</string>
+	<string name="about_community_googleplus_title">Google+ közösség</string>
+	<string name="about_community_googleplus_summary">Fórumok az applikációról</string>
 	<string name="about_author_twitter_title">A Twitter-en</string>
 	<string name="about_author_googleplus_title">A Google+-on</string>
-	<string name="about_market_app_title">Google Play Alkalmazások oldal</string>
+	<string name="about_market_app_title">Google Play oldal</string>
+	<string name="about_market_app_summary">Értékelések</string>
 	<string name="about_credits_market_publisher_title">A szerző egyéb applikációi</string>
-	<string name="notification_coins_received_msg">%s érkezett</string>
+	<string name="notification_coins_received_msg">Fogadott mennyiség: %s</string>
 	<string name="notification_peers_connected_msg">%d peer kapcsolódva</string>
-
 	<!-- generic buttons -->
 	<string name="button_ok">OK</string>
 	<string name="button_dismiss">Elutasít</string>
