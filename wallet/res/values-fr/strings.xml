@@ -148,7 +148,7 @@
 	<string name="scan_camera_problem_dialog_title">Désolé</string>
 	<string name="scan_camera_problem_dialog_message">La caméra a un problème. Vous devez probablement redémarrer votre appareil.</string>
 	<string name="input_parser_cannot_classify">Impossible de classifier l\'entrée :\n%s</string>
-	<string name="input_parser_invalid_dogecoin_uri">URI Dogecoin invalide :\n%s</string>
+	<string name="input_parser_invalid_bitcoin_uri">URI Dogecoin invalide :\n%s</string>
 	<string name="input_parser_invalid_address">Réception d\'une adresse Dogecoin invalide!\n(Mélange Mainnet/Testnet?)</string>
 	<string name="input_parser_invalid_transaction">Transaction invalide :\n%s</string>
 	<string name="preferences_activity_title">Réglages</string>
@@ -184,7 +184,7 @@
 	<string name="report_issue_dialog_mail_intent_chooser">Envoyer le rapport avec…</string>
 	<string name="about_title">À propos</string>
 	<string name="about_license_title">License</string>
-	<string name="about_credits_dogecoinj_title">Cette appli utilise dogecoinj %s</string>
+	<string name="about_credits_bitcoinj_title">Cette appli utilise dogecoinj %s</string>
 	<string name="about_credits_zxing_title">Cette appli utilise « zxing »</string>
 	<string name="about_credits_icon_title">Cette appli utilise une icône de « bitboy »</string>
 	<string name="about_community_googleplus_title">Commueauté Google+</string>
