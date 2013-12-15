@@ -211,7 +211,6 @@
 	<string name="button_send_coins">Érmék küldése</string>
 	<string name="button_scan">Szkennelés</string>
 	<string name="button_edit_address">Cím hozzáadása/szerkesztése</string>
-	<string name="action_open_blockexplorer">Megnyitás a blockexplorer.com oldalon</string>
 	<string name="time_today">ma</string>
 	<string name="address_unlabeled">(címke nélkül)</string>
 

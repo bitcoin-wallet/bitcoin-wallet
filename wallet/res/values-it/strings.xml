@@ -212,7 +212,6 @@
 	<string name="button_send_coins">Invia Bitcoins</string>
 	<string name="button_scan">Analizza</string>
 	<string name="button_edit_address">Aggiungi/modifica indirizzo</string>
-	<string name="action_open_blockexplorer">Aperto in blockexplorer.com</string>
 	<string name="time_today">oggi</string>
 	<string name="address_unlabeled">(non etichettato)</string>
 

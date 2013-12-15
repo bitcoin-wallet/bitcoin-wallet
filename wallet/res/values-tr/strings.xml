@@ -208,7 +208,6 @@
 	<string name="button_send_coins">Bitcoin gönder</string>
 	<string name="button_scan">Tara</string>
 	<string name="button_edit_address">Adres ilâve et/düzenle</string>
-	<string name="action_open_blockexplorer">blockexplorer.com\'da aç</string>
 	<string name="time_today">bugün</string>
 	<string name="address_unlabeled">(etiketsiz)</string>
 

@@ -211,7 +211,6 @@
 	<string name="button_send_coins">Envoi de pièces</string>
 	<string name="button_scan">Analyser</string>
 	<string name="button_edit_address">Ajouter/modifier une adresse</string>
-	<string name="action_open_blockexplorer">Ouvrir avec blockexplorer.com</string>
 	<string name="time_today">aujourd\'hui</string>
 	<string name="address_unlabeled">(sans étiquette)</string>
 

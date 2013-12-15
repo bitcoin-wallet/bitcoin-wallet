@@ -177,8 +177,8 @@ public final class BlockListFragment extends SherlockListFragment
 			{
 				switch (item.getItemId())
 				{
-					case R.id.blocks_context_open_blockexplorer:
-						startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.BLOCKEXPLORER_BASE_URL + "block/"
+					case R.id.blocks_context_browse:
+						startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.EXPLORE_BASE_URL + "block/"
 								+ storedBlock.getHeader().getHashAsString())));
 
 						mode.finish();

@@ -53,10 +53,10 @@ public class Constants
 
 	public static final String CHECKPOINTS_FILENAME = "checkpoints" + FILENAME_NETWORK_SUFFIX;
 
-	private static final String BLOCKEXPLORER_BASE_URL_PROD = "https://blockexplorer.com/";
-	private static final String BLOCKEXPLORER_BASE_URL_TEST = "https://blockexplorer.com/testnet/";
-	public static final String BLOCKEXPLORER_BASE_URL = NETWORK_PARAMETERS.getId().equals(NetworkParameters.ID_MAINNET) ? BLOCKEXPLORER_BASE_URL_PROD
-			: BLOCKEXPLORER_BASE_URL_TEST;
+	private static final String EXPLORE_BASE_URL_PROD = "https://www.biteasy.com/";
+	private static final String EXPLORE_BASE_URL_TEST = "https://www.biteasy.com/testnet/";
+	public static final String EXPLORE_BASE_URL = NETWORK_PARAMETERS.getId().equals(NetworkParameters.ID_MAINNET) ? EXPLORE_BASE_URL_PROD
+			: EXPLORE_BASE_URL_TEST;
 
 	public static final String MIMETYPE_TRANSACTION = "application/x-btctx";
 

@@ -216,8 +216,8 @@ public final class WalletAddressesFragment extends SherlockListFragment
 						mode.finish();
 						return true;
 
-					case R.id.wallet_addresses_context_open_blockexplorer:
-						startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.BLOCKEXPLORER_BASE_URL + "address/"
+					case R.id.wallet_addresses_context_browse:
+						startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.EXPLORE_BASE_URL + "address/"
 								+ getAddress(position).toString())));
 
 						mode.finish();
