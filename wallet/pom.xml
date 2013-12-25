@@ -121,6 +121,9 @@
 							<proguard>
 								<skip>false</skip>
 							</proguard>
+                            <zipalign>
+                                <skip>false</skip>
+                            </zipalign>
 						</configuration>
 					</plugin>
 				</plugins>
@@ -155,8 +158,36 @@
 					<sign>
 						<debug>both</debug>
 					</sign>
+                    <zipalign>
+                        <skip>false</skip>
+                    </zipalign>
 				</configuration>
 			</plugin>
+            <plugin>
+                <groupId>com.jayway.maven.plugins.android.generation2</groupId>
+                <artifactId>maven-android-plugin</artifactId>
+                <inherited>true</inherited>
+                <configuration>
+                    <sign>
+                        <debug>false</debug>
+                    </sign>
+                    <zipalign>
+                        <verbose>true</verbose>
+                        <inputApk>${project.build.directory}/${project.artifactId}.apk</inputApk>
+                        <outputApk>${project.build.directory}/${project.artifactId}-signed-aligned.apk
+                        </outputApk>
+                    </zipalign>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>alignApk</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>zipalign</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-eclipse-plugin</artifactId>
