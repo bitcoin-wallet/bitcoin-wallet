@@ -6,3 +6,5 @@ local.properties
 bin/
 gen/
 target/
+wallet/gen-external-apklibs/
+*.iml

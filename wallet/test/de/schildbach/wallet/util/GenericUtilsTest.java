@@ -53,7 +53,7 @@ public class GenericUtilsTest
 		assertEquals("11223344.556678", GenericUtils.formatValue(value, 6, 0));
 		assertEquals("11223344.55667788", GenericUtils.formatValue(value, 8, 0));
 
-		assertEquals("21000000.00", GenericUtils.formatValue(NetworkParameters.MAX_MONEY, 8, 0));
+		assertEquals("100000000000.00", GenericUtils.formatValue(NetworkParameters.MAX_MONEY, 8, 0));
 	}
 
 	@Test
@@ -75,6 +75,6 @@ public class GenericUtilsTest
 		assertEquals("11223344556.68", GenericUtils.formatValue(value, 2, 3));
 		assertEquals("11223344556.6779", GenericUtils.formatValue(value, 4, 3));
 
-		assertEquals("21000000000.00", GenericUtils.formatValue(NetworkParameters.MAX_MONEY, 5, 3));
+		assertEquals("100000000000000.00", GenericUtils.formatValue(NetworkParameters.MAX_MONEY, 5, 3));
 	}
 }

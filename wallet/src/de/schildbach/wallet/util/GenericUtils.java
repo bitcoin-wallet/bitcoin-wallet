@@ -42,26 +42,26 @@ public class GenericUtils
 	public static String formatValue(@Nonnull final BigInteger value, @Nonnull final String plusSign, @Nonnull final String minusSign,
 			final int precision, final int shift)
 	{
-		long longValue = value.longValue();
+        BigInteger newValue = value;
 
-		final String sign = longValue < 0 ? minusSign : plusSign;
+		final String sign = value.signum() != 1 ? minusSign : plusSign;
 
 		if (shift == 0)
 		{
 			if (precision == 2)
-				longValue = longValue - longValue % 1000000 + longValue % 1000000 / 500000 * 1000000;
+                newValue = value.subtract(value.mod(new BigInteger("1000000"))).add(value.mod(new BigInteger("1000000")).divide(new BigInteger("500000")).multiply(new BigInteger("1000000")));
 			else if (precision == 4)
-				longValue = longValue - longValue % 10000 + longValue % 10000 / 5000 * 10000;
+                newValue = value.subtract(value.mod(new BigInteger("10000"))).add(value.mod(new BigInteger("10000")).divide(new BigInteger("5000")).multiply(new BigInteger("10000")));
 			else if (precision == 6)
-				longValue = longValue - longValue % 100 + longValue % 100 / 50 * 100;
+                newValue = value.subtract(value.mod(new BigInteger("100"))).add(value.mod(new BigInteger("100")).divide(new BigInteger("50")).multiply(new BigInteger("100")));
 			else if (precision == 8)
 				;
 			else
 				throw new IllegalArgumentException("cannot handle precision/shift: " + precision + "/" + shift);
 
-			final long absValue = Math.abs(longValue);
-			final long coins = absValue / BTC_COIN_INT;
-			final int satoshis = (int) (absValue % BTC_COIN_INT);
+            final BigInteger absValue = newValue.abs();
+			final long coins = (absValue.divide(new BigInteger(String.valueOf(BTC_COIN_INT)))).longValue();
+			final int satoshis = (absValue.mod(new BigInteger(String.valueOf(BTC_COIN_INT))).intValue());
 
 			if (satoshis % 1000000 == 0)
 				return String.format(Locale.US, "%s%d.%02d", sign, coins, satoshis / 1000000);
@@ -75,17 +75,17 @@ public class GenericUtils
 		else if (shift == 3)
 		{
 			if (precision == 2)
-				longValue = longValue - longValue % 1000 + longValue % 1000 / 500 * 1000;
+                newValue = value.subtract(value.mod(new BigInteger("1000"))).add(value.mod(new BigInteger("1000")).divide(new BigInteger("500")).multiply(new BigInteger("1000")));
 			else if (precision == 4)
-				longValue = longValue - longValue % 10 + longValue % 10 / 5 * 10;
+                newValue = value.subtract(value.mod(new BigInteger("10"))).add(value.mod(new BigInteger("10")).divide(new BigInteger("5")).multiply(new BigInteger("10")));
 			else if (precision == 5)
 				;
 			else
 				throw new IllegalArgumentException("cannot handle precision/shift: " + precision + "/" + shift);
 
-			final long absValue = Math.abs(longValue);
-			final long coins = absValue / MBTC_COIN_INT;
-			final int satoshis = (int) (absValue % MBTC_COIN_INT);
+            final BigInteger absValue = newValue.abs();
+            final long coins = (absValue.divide(new BigInteger(String.valueOf(MBTC_COIN_INT)))).longValue();
+            final int satoshis = (absValue.mod(new BigInteger(String.valueOf(MBTC_COIN_INT))).intValue());
 
 			if (satoshis % 1000 == 0)
 				return String.format(Locale.US, "%s%d.%02d", sign, coins, satoshis / 1000);

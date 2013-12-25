@@ -22,6 +22,7 @@ import javax.annotation.Nonnull;
 import android.os.Handler;
 import android.os.Looper;
 
+import com.google.bitcoin.core.InsufficientMoneyException;
 import com.google.bitcoin.core.Transaction;
 import com.google.bitcoin.core.Wallet;
 import com.google.bitcoin.core.Wallet.SendRequest;
@@ -49,19 +50,26 @@ public abstract class SendCoinsOfflineTask
 			@Override
 			public void run()
 			{
-				final Transaction transaction = wallet.sendCoinsOffline(sendRequest); // can take long
+                try
+                {
+                    final Transaction transaction = wallet.sendCoinsOffline(sendRequest); // can take long
 
-				callbackHandler.post(new Runnable()
-				{
-					@Override
-					public void run()
-					{
-						if (transaction != null)
-							onSuccess(transaction);
-						else
-							onFailure();
-					}
-				});
+                    callbackHandler.post(new Runnable()
+                    {
+                        @Override
+                        public void run()
+                        {
+                            if (transaction != null)
+                                onSuccess(transaction);
+                            else
+                                onFailure();
+                        }
+                    });
+                } catch (InsufficientMoneyException e)
+                {
+                    //We can ignore this as balance is checked by the Fragment
+                }
+
 			}
 		});
 	}
