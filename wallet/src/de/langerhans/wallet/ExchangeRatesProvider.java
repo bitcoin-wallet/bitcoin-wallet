@@ -141,11 +141,11 @@ public class ExchangeRatesProvider extends ContentProvider
                 return null;
 
 			Map<String, ExchangeRate> newExchangeRates = null;
-			if (exchangeRates == null && newExchangeRates == null)
+			if (newExchangeRates == null)
 				newExchangeRates = requestExchangeRates(BITCOINAVERAGE_URL, dogeBtcConversion, BITCOINAVERAGE_FIELDS);
-			if (exchangeRates == null && newExchangeRates == null)
+			if (newExchangeRates == null)
 				newExchangeRates = requestExchangeRates(BITCOINCHARTS_URL, dogeBtcConversion, BITCOINCHARTS_FIELDS);
-			if (exchangeRates == null && newExchangeRates == null)
+			if (newExchangeRates == null)
 				newExchangeRates = requestExchangeRates(BLOCKCHAININFO_URL, dogeBtcConversion, BLOCKCHAININFO_FIELDS);
 
 
@@ -242,6 +242,8 @@ public class ExchangeRatesProvider extends ContentProvider
 
 	private static Map<String, ExchangeRate> requestExchangeRates(final URL url, float dogeBtcConversion, final String... fields)
 	{
+		final long start = System.currentTimeMillis();
+
 		HttpURLConnection connection = null;
 		Reader reader = null;
 
@@ -289,23 +291,25 @@ public class ExchangeRatesProvider extends ContentProvider
 								}
 								catch (final ArithmeticException x)
 								{
-									log.debug("problem reading exchange rate: " + currencyCode, x);
+									log.warn("problem fetching exchange rate: " + currencyCode, x);
 								}
 							}
 						}
 					}
 				}
 
+				log.info("fetched exchange rates from " + url + ", took " + (System.currentTimeMillis() - start) + " ms");
+
 				return rates;
 			}
 			else
 			{
-				log.debug("http status " + responseCode + " when fetching " + url);
+				log.warn("http status " + responseCode + " when fetching " + url);
 			}
 		}
 		catch (final Exception x)
 		{
-			log.debug("problem reading exchange rates", x);
+			log.warn("problem fetching exchange rates", x);
 		}
 		finally
 		{
