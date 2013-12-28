@@ -23,9 +23,7 @@ import java.util.Locale;
 
 import javax.annotation.Nonnull;
 
-import com.google.bitcoin.core.NetworkParameters;
 import com.google.bitcoin.core.Utils;
-import com.sun.xml.internal.bind.v2.runtime.reflect.opt.Const;
 import de.schildbach.wallet.Constants;
 
 /**
