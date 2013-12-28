@@ -86,12 +86,12 @@ import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.ExchangeRatesProvider;
 import de.schildbach.wallet.ExchangeRatesProvider.ExchangeRate;
 import de.schildbach.wallet.WalletApplication;
-import de.schildbach.wallet.integration.android.BitcoinIntegration;
+import de.schildbach.wallet_ltc.integration.android.BitcoinIntegration;
 import de.schildbach.wallet.offline.SendBluetoothTask;
 import de.schildbach.wallet.ui.InputParser.StringInputParser;
 import de.schildbach.wallet.util.GenericUtils;
 import de.schildbach.wallet.util.WalletUtils;
-import de.schildbach.wallet.R;
+import de.schildbach.wallet_ltc.R;
 
 /**
  * @author Andreas Schildbach

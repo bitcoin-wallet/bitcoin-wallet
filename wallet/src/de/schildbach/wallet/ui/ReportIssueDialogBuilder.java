@@ -46,7 +46,7 @@ import android.widget.TextView;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.util.CrashReporter;
 import de.schildbach.wallet.util.Io;
-import de.schildbach.wallet.R;
+import de.schildbach.wallet_ltc.R;
 
 /**
  * @author Andreas Schildbach

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package de.schildbach.wallet.integration.android;
+package de.schildbach.wallet_ltc.integration.android;
 
 import android.app.Activity;
 import android.content.Context;
@@ -140,7 +140,7 @@ public final class BitcoinIntegration
 
 	private static Intent makeIntent(final String address, final Long amount)
 	{
-		final StringBuilder uri = new StringBuilder("bitcoin:");
+		final StringBuilder uri = new StringBuilder("litecoin:");
 		if (address != null)
 			uri.append(address);
 		if (amount != null)
@@ -171,7 +171,7 @@ public final class BitcoinIntegration
 
 	private static void redirectToDownload(final Context context)
 	{
-		Toast.makeText(context, "No Bitcoin application found.\nPlease install Bitcoin Wallet.", Toast.LENGTH_LONG).show();
+		Toast.makeText(context, "No Litecoin application found.\nPlease install Litecoin Wallet.", Toast.LENGTH_LONG).show();
 
 		final Intent marketIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=de.schildbach.wallet"));
 		final Intent binaryIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://code.google.com/p/bitcoin-wallet/downloads/list"));

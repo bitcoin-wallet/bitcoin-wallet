@@ -25,6 +25,8 @@ import javax.annotation.Nonnull;
 
 import com.google.bitcoin.core.NetworkParameters;
 import com.google.bitcoin.core.Utils;
+import com.sun.xml.internal.bind.v2.runtime.reflect.opt.Const;
+import de.schildbach.wallet.Constants;
 
 /**
  * @author Andreas Schildbach
@@ -106,7 +108,7 @@ public class GenericUtils
 
 		if (nanoCoins.signum() < 0)
 			throw new IllegalArgumentException("negative amount: " + value);
-		if (nanoCoins.compareTo(NetworkParameters.MAX_MONEY) > 0)
+		if (nanoCoins.compareTo(Constants.NETWORK_PARAMETERS.getMaxMoney()) > 0)
 			throw new IllegalArgumentException("amount too large: " + value);
 
 		return nanoCoins;

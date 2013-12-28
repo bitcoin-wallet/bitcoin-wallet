@@ -38,7 +38,7 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.service.BlockchainService;
-import de.schildbach.wallet.R;
+import de.schildbach.wallet_ltc.R;
 
 /**
  * @author Andreas Schildbach

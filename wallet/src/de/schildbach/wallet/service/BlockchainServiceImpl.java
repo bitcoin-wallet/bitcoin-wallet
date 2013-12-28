@@ -35,8 +35,10 @@ import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.google.bitcoin.script.Script;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.litecoin.LitcoinPeerDBDiscovery;
 
 import android.annotation.SuppressLint;
 import android.app.NotificationManager;
@@ -78,9 +80,9 @@ import com.google.bitcoin.core.TransactionConfidence.ConfidenceType;
 import com.google.bitcoin.core.Wallet;
 import com.google.bitcoin.core.Wallet.BalanceType;
 import com.google.bitcoin.core.WalletEventListener;
-import com.google.bitcoin.discovery.DnsDiscovery;
-import com.google.bitcoin.discovery.PeerDiscovery;
-import com.google.bitcoin.discovery.PeerDiscoveryException;
+import com.google.bitcoin.net.discovery.DnsDiscovery;
+import com.google.bitcoin.net.discovery.PeerDiscovery;
+import com.google.bitcoin.net.discovery.PeerDiscoveryException;
 import com.google.bitcoin.store.BlockStore;
 import com.google.bitcoin.store.BlockStoreException;
 import com.google.bitcoin.store.SPVBlockStore;
@@ -94,7 +96,7 @@ import de.schildbach.wallet.util.CrashReporter;
 import de.schildbach.wallet.util.GenericUtils;
 import de.schildbach.wallet.util.ThrottlingWalletChangeListener;
 import de.schildbach.wallet.util.WalletUtils;
-import de.schildbach.wallet.R;
+import de.schildbach.wallet_ltc.R;
 
 /**
  * @author Andreas Schildbach
@@ -182,7 +184,10 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 		{
 			transactionsReceived.incrementAndGet();
 		}
-	};
+
+        @Override
+        public void onScriptsAdded(Wallet wallet, List<Script> scripts) { }
+    };
 
 	private void notifyCoinsReceived(@Nullable final Address from, @Nonnull final BigInteger amount)
 	{
@@ -412,6 +417,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 				peerGroup.addPeerDiscovery(new PeerDiscovery()
 				{
 					private final PeerDiscovery normalPeerDiscovery = new DnsDiscovery(Constants.NETWORK_PARAMETERS);
+                    private final PeerDiscovery dbPeerDiscovery = new LitcoinPeerDBDiscovery(Constants.NETWORK_PARAMETERS, getFileStreamPath("litecoin.peerdb"), peerGroup);
 
 					@Override
 					public InetSocketAddress[] getPeers(final long timeoutValue, final TimeUnit timeoutUnit) throws PeerDiscoveryException
@@ -432,8 +438,10 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 							}
 						}
 
-						if (!connectTrustedPeerOnly)
+						if (!connectTrustedPeerOnly) {
 							peers.addAll(Arrays.asList(normalPeerDiscovery.getPeers(timeoutValue, timeoutUnit)));
+                            peers.addAll(Arrays.asList(dbPeerDiscovery.getPeers(1, TimeUnit.SECONDS)));
+                        }
 
 						// workaround because PeerGroup will shuffle peers
 						if (needsTrimPeersWorkaround)
@@ -447,6 +455,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 					public void shutdown()
 					{
 						normalPeerDiscovery.shutdown();
+                        dbPeerDiscovery.shutdown();
 					}
 				});
 

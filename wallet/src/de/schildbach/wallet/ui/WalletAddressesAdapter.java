@@ -41,7 +41,7 @@ import com.google.bitcoin.core.Wallet;
 import de.schildbach.wallet.AddressBookProvider;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.util.WalletUtils;
-import de.schildbach.wallet.R;
+import de.schildbach.wallet_ltc.R;
 
 public class WalletAddressesAdapter extends BaseAdapter
 {

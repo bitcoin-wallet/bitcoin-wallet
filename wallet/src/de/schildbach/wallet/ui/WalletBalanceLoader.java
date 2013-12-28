@@ -18,6 +18,7 @@
 package de.schildbach.wallet.ui;
 
 import java.math.BigInteger;
+import java.util.List;
 
 import javax.annotation.Nonnull;
 
@@ -27,6 +28,7 @@ import android.support.v4.content.AsyncTaskLoader;
 import com.google.bitcoin.core.Wallet;
 import com.google.bitcoin.core.Wallet.BalanceType;
 
+import com.google.bitcoin.script.Script;
 import de.schildbach.wallet.util.ThrottlingWalletChangeListener;
 
 /**
@@ -75,5 +77,8 @@ public final class WalletBalanceLoader extends AsyncTaskLoader<BigInteger>
 		{
 			forceLoad();
 		}
-	};
+
+        @Override
+        public void onScriptsAdded(Wallet wallet, List<Script> scripts) { }
+    };
 }

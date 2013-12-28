@@ -66,6 +66,7 @@ import com.google.bitcoin.core.Transaction.Purpose;
 import com.google.bitcoin.core.TransactionConfidence.ConfidenceType;
 import com.google.bitcoin.core.Wallet;
 
+import com.google.bitcoin.script.Script;
 import de.schildbach.wallet.AddressBookProvider;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
@@ -74,7 +75,7 @@ import de.schildbach.wallet.util.Nfc;
 import de.schildbach.wallet.util.Qr;
 import de.schildbach.wallet.util.ThrottlingWalletChangeListener;
 import de.schildbach.wallet.util.WalletUtils;
-import de.schildbach.wallet.R;
+import de.schildbach.wallet_ltc.R;
 
 /**
  * @author Andreas Schildbach
@@ -361,7 +362,10 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 		{
 			adapter.notifyDataSetChanged();
 		}
-	};
+
+        @Override
+        public void onScriptsAdded(Wallet wallet, List<Script> scripts) { }
+    };
 
 	private static class TransactionsLoader extends AsyncTaskLoader<List<Transaction>>
 	{
@@ -430,7 +434,10 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 			{
 				forceLoad();
 			}
-		};
+
+            @Override
+            public void onScriptsAdded(Wallet wallet, List<Script> scripts) { }
+        };
 
 		private static final Comparator<Transaction> TRANSACTION_COMPARATOR = new Comparator<Transaction>()
 		{

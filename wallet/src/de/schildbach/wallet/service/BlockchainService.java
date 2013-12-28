@@ -24,7 +24,7 @@ import javax.annotation.CheckForNull;
 import com.google.bitcoin.core.Peer;
 import com.google.bitcoin.core.StoredBlock;
 
-import de.schildbach.wallet.R;
+import de.schildbach.wallet_ltc.R;
 
 /**
  * @author Andreas Schildbach
