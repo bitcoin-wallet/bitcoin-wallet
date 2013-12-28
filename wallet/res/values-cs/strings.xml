@@ -5,10 +5,10 @@
 	<string name="toast_wallet_reset">Zresetováno,\nobnova chvilku potrvá</string>
 
 	<string name="wallet_disclaimer_fragment_remind_safety">Použití na vlastní riziko. Více v &lt;u>nápovědě&lt;/u>.</string>
-	<string name="wallet_address_fragment_your">Vaše Bitcoin Adresa:</string>
+	<string name="wallet_address_fragment_your">Vaše Litecoin Adresa:</string>
 	<string name="wallet_address_fragment_clipboard_msg">Adresa zkopírována do schránky</string>
-	<string name="wallet_addresses_fragment_add_dialog_title">Přidat Bitcoin adresu</string>
-	<string name="wallet_addresses_fragment_add_dialog_message">Bitcoin adresa se nedá smazat. Chcete přidat do peněženky novou adresu?</string>
+	<string name="wallet_addresses_fragment_add_dialog_title">Přidat Litecoin adresu</string>
+	<string name="wallet_addresses_fragment_add_dialog_message">Litecoin adresa se nedá smazat. Chcete přidat do peněženky novou adresu?</string>
 	<string name="exchange_rates_fragment_empty_text">Nemohu zjistit směnný kurz</string>
 	<string name="wallet_transactions_fragment_tab_received">Obdrženo</string>
 	<string name="wallet_transactions_fragment_tab_all">Oba</string>
@@ -18,31 +18,31 @@
 	<string name="wallet_options_safety">Bezpečnost</string>
 	<string name="wallet_options_donate">Přispět</string>
 	<string name="wallet_low_storage_dialog_title">Málo vnitřní paměti!</string>
-	<string name="wallet_low_storage_dialog_msg">Bitcoin Wallet používá vnitřní paměť zařízení pro ukládání transakcí a bloků. Pokud paměť dojde, aplikace
-		může přestat fungovat a můžete pozbýt Vaše Bitcoiny!\n\nChcete otevřít správce aplikací pro odinstalací nepotřebných aplikací?</string>
+	<string name="wallet_low_storage_dialog_msg">Litecoin Wallet používá vnitřní paměť zařízení pro ukládání transakcí a bloků. Pokud paměť dojde, aplikace
+		může přestat fungovat a můžete pozbýt Vaše Litecoiny!\n\nChcete otevřít správce aplikací pro odinstalací nepotřebných aplikací?</string>
 	<string name="wallet_low_storage_dialog_button_apps">Spravovat aplikace</string>
 
-	<string name="send_coins_activity_title">Zaslat Bitcoiny</string>
+	<string name="send_coins_activity_title">Zaslat Litecoiny</string>
 	<string name="send_coins_fragment_receiving_address_label">Zaplatit</string>
 	<string name="send_coins_fragment_receiving_address_hint">napište adresu či jméno</string>
-	<string name="send_coins_fragment_receiving_address_error">Nesprávná Bitcoin Adresa!</string>
+	<string name="send_coins_fragment_receiving_address_error">Nesprávná Litecoin Adresa!</string>
 	<string name="send_coins_fragment_available_label">Možno utratit</string>
-	<string name="send_coins_fragment_pending">(BTC %s čeká na potvrzení)</string>
+	<string name="send_coins_fragment_pending">(LTC %s čeká na potvrzení)</string>
 	<string name="send_coins_fragment_amount_label">Částka k zaplacení</string>
 	<string name="send_coins_fragment_button_send">Poslat</string>
 	<string name="send_coins_sending_msg">Posílám…</string>
 	<string name="send_coins_error_msg">Problém při zasílání!</string>
 
-	<string name="request_coins_activity_title">Vyžádat Bitcoiny</string>
+	<string name="request_coins_activity_title">Vyžádat Litecoiny</string>
 	<string name="request_coins_fragment_amount_label">Vyžadovaná částka (volitelně)</string>
 	<string name="request_coins_fragment_initiate_request_qr">Dejte odesilateli oskenovat tento kód.</string>
 	<string name="request_coins_fragment_initiate_request_nfc">Nebo klepněte, pokud Vaše zařízení podporuje NFC.</string>
 	<string name="request_coins_clipboard_msg">Požadavek na platbu zkopírován do schránky</string>
-	<string name="request_coins_share_dialog_title">Sdílet požadavek na Bitcoiny…</string>
+	<string name="request_coins_share_dialog_title">Sdílet požadavek na Litecoiny…</string>
 
 	<string name="address_book_activity_title">Adresář</string>
 	<string name="address_book_empty_text">Žádný záznam v adresáři</string>
-	<string name="address_book_context_send_title">Poslat Bitcoiny na adresu</string>
+	<string name="address_book_context_send_title">Poslat Litecoiny na adresu</string>
 	<string name="address_book_context_edit_title">Editovat adresu</string>
 	<string name="address_book_context_remove_title">Odebrat adresu</string>
 	<string name="address_book_context_show_qr_title">Zobrazit QR kód</string>
@@ -74,7 +74,7 @@
 	<string name="button_add">Přidat</string>
 	<string name="button_delete">Smazat</string>
 	<string name="button_share">Sdílet</string>
-	<string name="button_request_coins">Vyžádat Bitcoiny</string>
-	<string name="button_send_coins">Zaslat Bitcoiny</string>
+	<string name="button_request_coins">Vyžádat Litecoiny</string>
+	<string name="button_send_coins">Zaslat Litecoiny</string>
 
 </resources>

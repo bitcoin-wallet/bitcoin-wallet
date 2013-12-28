@@ -53,7 +53,7 @@
 	<string name="send_coins_fragment_receiving_address_error_cross_network">לא ניתן להשתמש בכתובת זו בארנק זה</string>
 	<string name="send_coins_fragment_receiving_address_error_cross_network_unknown">לא ניתן להשתמש בכתובת  זו ברשת לא ידועה</string>
 	<string name="send_coins_fragment_available_label">ניתן להוצאה</string>
-	<string name="send_coins_fragment_pending">(BTC %s waiting for confirmation)</string>
+	<string name="send_coins_fragment_pending">(LTC %s waiting for confirmation)</string>
 	<string name="send_coins_fragment_amount_label">סכום לתשלום</string>
 	<string name="send_coins_fragment_amount_empty">הקש סכום</string>
 	<string name="send_coins_fragment_amount_error">סכום לא חוקי</string>
@@ -100,7 +100,7 @@
 	<string name="transaction_row_message_received_dead">תשלום זה בוטל על ידי השולח</string>
 	<string name="amount_calculator_dialog_title">מחשבון המרה</string>
 	<string name="amount_calculator_dialog_button_use">השתמש</string>
-	<string name="amount_calculator_dialog_exchange_rate">BTC 1 = %1$s %2$s\n fetched from %3$s</string>
+	<string name="amount_calculator_dialog_exchange_rate">LTC 1 = %1$s %2$s\n fetched from %3$s</string>
 	<string name="amount_calculator_dialog_exchange_rate_not_available">יחס המרה לא זמין</string>
 	<string name="peer_list_fragment_empty">אין שכנים מחוברים</string>
 	<string name="peer_list_row_ping_time">⇆ %d&#x2009;ms</string>

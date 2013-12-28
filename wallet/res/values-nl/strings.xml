@@ -5,43 +5,43 @@
 	<string name="toast_wallet_reset">Wallet is gereset,\nherstel zal enige tijd duren</string>
 
 	<string name="wallet_disclaimer_fragment_remind_safety">Gebruik op eigen risico. Lees de &lt;u>veiligheids voorschriften&lt;/u>.</string>
-	<string name="wallet_address_fragment_your">Uw Bitcoin Adres:</string>
-	<string name="wallet_address_fragment_clipboard_msg">Bitcoin adres gekopieërd naar klembord</string>
-	<string name="wallet_addresses_fragment_add_dialog_title">Voeg Bitcoin Adres toe</string>
-	<string name="wallet_addresses_fragment_add_dialog_message">Bitcoin adres kan niet verwijderd worden. Wilt u een nieuw adres toevoeggen aan uw wallet?</string>
+	<string name="wallet_address_fragment_your">Uw Litecoin Adres:</string>
+	<string name="wallet_address_fragment_clipboard_msg">Litecoin adres gekopieërd naar klembord</string>
+	<string name="wallet_addresses_fragment_add_dialog_title">Voeg Litecoin Adres toe</string>
+	<string name="wallet_addresses_fragment_add_dialog_message">Litecoin adres kan niet verwijderd worden. Wilt u een nieuw adres toevoeggen aan uw wallet?</string>
 	<string name="exchange_rates_fragment_empty_text">Kan geen wisselkoersen laden</string>
 	<string name="wallet_transactions_fragment_tab_received">Ontvangen</string>
 	<string name="wallet_transactions_fragment_tab_all">Beide</string>
 	<string name="wallet_transactions_fragment_tab_sent">Verzonden</string>
-	<string name="wallet_transactions_fragment_empty_text_received">Nog geen Bitcoins ontvangen</string>
-	<string name="wallet_transactions_fragment_empty_text_sent">Not geen Bitcoins verzonden</string>
+	<string name="wallet_transactions_fragment_empty_text_received">Nog geen Litecoins ontvangen</string>
+	<string name="wallet_transactions_fragment_empty_text_sent">Not geen Litecoins verzonden</string>
 	<string name="wallet_options_safety">Veiligheids voorschriften</string>
 	<string name="wallet_options_donate">Doneren</string>
 	<string name="wallet_low_storage_dialog_title">Interne opslagruimte van het apparaat is laag!</string>
-	<string name="wallet_low_storage_dialog_msg">Bitcoin Wallet gebruikt interne opslag voor het bewaren van transacties en blokken. Als er onvoldoende opslag ruimte is zal het programma niet juist meer werken en zijn uw Bitcoins in gevaar!\n\nWilt u Applicatie beheer openen om overbodige applicaties te verwijderen?</string>
+	<string name="wallet_low_storage_dialog_msg">Litecoin Wallet gebruikt interne opslag voor het bewaren van transacties en blokken. Als er onvoldoende opslag ruimte is zal het programma niet juist meer werken en zijn uw Litecoins in gevaar!\n\nWilt u Applicatie beheer openen om overbodige applicaties te verwijderen?</string>
 	<string name="wallet_low_storage_dialog_button_apps">Applicatie beheer</string>
 
-	<string name="send_coins_activity_title">Verzend Bitcoins</string>
+	<string name="send_coins_activity_title">Verzend Litecoins</string>
 	<string name="send_coins_fragment_receiving_address_label">Betalen naar</string>
 	<string name="send_coins_fragment_receiving_address_hint">typ adres of naam</string>
-	<string name="send_coins_fragment_receiving_address_error">Ongeldig Bitcoin Adres!</string>
+	<string name="send_coins_fragment_receiving_address_error">Ongeldig Litecoin Adres!</string>
 	<string name="send_coins_fragment_available_label">Beschikbaar voor besteding</string>
-	<string name="send_coins_fragment_pending">(BTC %s wachtend op bevestiging)</string>
+	<string name="send_coins_fragment_pending">(LTC %s wachtend op bevestiging)</string>
 	<string name="send_coins_fragment_amount_label">Bedrag te betalen</string>
 	<string name="send_coins_fragment_button_send">Verzenden</string>
 	<string name="send_coins_sending_msg">Bezig met verzenden…</string>
-	<string name="send_coins_error_msg">Probleem bij het versturen van Bitcoins!</string>
+	<string name="send_coins_error_msg">Probleem bij het versturen van Litecoins!</string>
 
-	<string name="request_coins_activity_title">Verzoek Bitcoins</string>
+	<string name="request_coins_activity_title">Verzoek Litecoins</string>
 	<string name="request_coins_fragment_amount_label">Verzocht bedrag (optioneel)</string>
 	<string name="request_coins_fragment_initiate_request_qr">Laat deze code scannen door de zender.</string>
 	<string name="request_coins_fragment_initiate_request_nfc">of raak aan met een NFC gereed apparaat.</string>
-	<string name="request_coins_clipboard_msg">Bitcoin verzoek gekopieërd naar klembord</string>
-	<string name="request_coins_share_dialog_title">Deel verzoek voor Bitcoins…</string>
+	<string name="request_coins_clipboard_msg">Litecoin verzoek gekopieërd naar klembord</string>
+	<string name="request_coins_share_dialog_title">Deel verzoek voor Litecoins…</string>
 
 	<string name="address_book_activity_title">Adresboek</string>
 	<string name="address_book_empty_text">Geen vermeldingen in het adresboek</string>
-	<string name="address_book_context_send_title">Verzend Bitcoins naar adres</string>
+	<string name="address_book_context_send_title">Verzend Litecoins naar adres</string>
 	<string name="address_book_context_edit_title">Bewerk adres</string>
 	<string name="address_book_context_remove_title">Verwijder adres</string>
 	<string name="address_book_context_show_qr_title">Geef QR code weer</string>
@@ -73,7 +73,7 @@
 	<string name="button_add">Toevoegen</string>
 	<string name="button_delete">Verwijderen</string>
 	<string name="button_share">Delen</string>
-	<string name="button_request_coins">Verzoek Bitcoins</string>
-	<string name="button_send_coins">Verzend Bitcoins</string>
+	<string name="button_request_coins">Verzoek Litecoins</string>
+	<string name="button_send_coins">Verzend Litecoins</string>
 
 </resources>

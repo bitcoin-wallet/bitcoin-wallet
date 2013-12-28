@@ -645,7 +645,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 
 			if (!blockChainFileExists && earliestKeyCreationTime > 0)
 			{
-				try
+				/*try
 				{
 					final InputStream checkpointsInputStream = getAssets().open(Constants.CHECKPOINTS_FILENAME);
 					CheckpointManager.checkpoint(Constants.NETWORK_PARAMETERS, checkpointsInputStream, blockStore, earliestKeyCreationTime);
@@ -653,7 +653,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 				catch (final IOException x)
 				{
 					log.error("problem reading checkpoints, continuing without", x);
-				}
+				}*/
 			}
 		}
 		catch (final BlockStoreException x)

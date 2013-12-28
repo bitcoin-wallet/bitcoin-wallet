@@ -4,7 +4,7 @@
 	<string name="symbol_to">→</string>
 	<string name="symbol_from">←</string>
 	<string name="symbol_internal">⇄</string>
-	<string name="app_name">Bitcoin</string>
+	<string name="app_name">Litecoin</string>
 
 	<string-array name="preferences_precision_values">
 		<item>8</item>
@@ -13,10 +13,10 @@
 		<item>2/3</item>
 	</string-array>
 	<string-array name="preferences_precision_labels">
-		<item>BTC, 8 digits</item>
-		<item>BTC, 6 digits</item>
-		<item>BTC, 4 digits</item>
-		<item>mBTC, 2 digits</item>
+		<item>LTC, 8 digits</item>
+		<item>LTC, 6 digits</item>
+		<item>LTC, 4 digits</item>
+		<item>mLTC, 2 digits</item>
 	</string-array>
 
 </resources>
