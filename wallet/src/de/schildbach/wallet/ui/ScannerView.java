@@ -35,7 +35,7 @@ import android.view.View;
 
 import com.google.zxing.ResultPoint;
 
-import de.schildbach.wallet.R;
+import de.schildbach.wallet_ltc.R;
 
 /**
  * @author Andreas Schildbach
