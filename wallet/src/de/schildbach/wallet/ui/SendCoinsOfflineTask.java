@@ -50,6 +50,8 @@ public abstract class SendCoinsOfflineTask
 			@Override
 			public void run()
 			{
+            try
+            {
                 final Transaction transaction = wallet.sendCoinsOffline(sendRequest); // can take long
 
                 callbackHandler.post(new Runnable()
@@ -57,13 +59,17 @@ public abstract class SendCoinsOfflineTask
                     @Override
                     public void run()
                     {
-                        if (transaction != null)
-                            onSuccess(transaction);
-                        else
-                            onFailure();
+                    if (transaction != null)
+                        onSuccess(transaction);
+                    else
+                        onFailure();
                     }
                 });
+            } catch (InsufficientMoneyException e)
+            {
+                //Fragment checks for money...
             }
+              }
 		});
 	}
 
