@@ -44,7 +44,7 @@ public class GenericUtils
 	{
         BigInteger newValue = value;
 
-		final String sign = value.signum() != 1 ? minusSign : plusSign;
+		final String sign = value.signum() == -1 ? minusSign : plusSign;
 
 		if (shift == 0)
 		{
