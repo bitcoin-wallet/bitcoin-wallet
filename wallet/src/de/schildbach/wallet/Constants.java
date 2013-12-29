@@ -59,7 +59,7 @@ public class Constants
 
 	public static final String MIMETYPE_TRANSACTION = "application/x-btctx";
 
-	public static final int MAX_NUM_CONFIRMATIONS = 7;
+	public static final int MAX_NUM_CONFIRMATIONS = 3;
 	public static final String USER_AGENT = "Bitcoin Wallet";
 	public static final String DEFAULT_EXCHANGE_CURRENCY = "USD";
 	public static final int WALLET_OPERATION_STACK_SIZE = 256 * 1024;
