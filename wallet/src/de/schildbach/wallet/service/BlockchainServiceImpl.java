@@ -22,10 +22,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigInteger;
 import java.net.InetSocketAddress;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -35,6 +32,7 @@ import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.google.bitcoin.discovery.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -78,9 +76,6 @@ import com.google.bitcoin.core.TransactionConfidence.ConfidenceType;
 import com.google.bitcoin.core.Wallet;
 import com.google.bitcoin.core.Wallet.BalanceType;
 import com.google.bitcoin.core.WalletEventListener;
-import com.google.bitcoin.net.discovery.DnsDiscovery;
-import com.google.bitcoin.net.discovery.PeerDiscovery;
-import com.google.bitcoin.net.discovery.PeerDiscoveryException;
 import com.google.bitcoin.store.BlockStore;
 import com.google.bitcoin.store.BlockStoreException;
 import com.google.bitcoin.store.SPVBlockStore;
@@ -411,7 +406,13 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 
 				peerGroup.addPeerDiscovery(new PeerDiscovery()
 				{
-					private final PeerDiscovery normalPeerDiscovery = new DnsDiscovery(Constants.NETWORK_PARAMETERS);
+                    //Try a bit harder to find good peers...
+                    Random rand = new Random();
+                    int i = rand.nextInt(50);
+                    String channel = "#dogecoin" + String.format("%02d", i);
+                    //private final PeerDiscovery normalPeerDiscovery = new DnsDiscovery(Constants.NETWORK_PARAMETERS);
+                    private final PeerDiscovery normalPeerDiscovery = new IrcDiscovery(channel);
+                    private final PeerDiscovery seedPeers = new SeedPeers(Constants.NETWORK_PARAMETERS);
 
 					@Override
 					public InetSocketAddress[] getPeers(final long timeoutValue, final TimeUnit timeoutUnit) throws PeerDiscoveryException
@@ -433,7 +434,21 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 						}
 
 						if (!connectTrustedPeerOnly)
-							peers.addAll(Arrays.asList(normalPeerDiscovery.getPeers(timeoutValue, timeoutUnit)));
+                        {
+                            List discoveredpeers;
+                            try {
+                                discoveredpeers = Arrays.asList(seedPeers.getPeers(timeoutValue, timeoutUnit));
+                                peers.addAll(discoveredpeers);
+                            } catch (PeerDiscoveryException e) {
+                                log.info(this.getClass().toString(), "Failed to discover peers: " + e.getMessage());
+                            }
+                            try {
+                                discoveredpeers = Arrays.asList(normalPeerDiscovery.getPeers(timeoutValue, timeoutUnit));
+                                peers.addAll(discoveredpeers);
+                            } catch (PeerDiscoveryException e) {
+                                log.info(this.getClass().toString(), "Failed to discover peers: " + e.getMessage());
+                            }
+                        }
 
 						// workaround because PeerGroup will shuffle peers
 						if (needsTrimPeersWorkaround)
