@@ -186,7 +186,7 @@
 	<string name="about_license_title">Lisans</string>
 	<string name="about_credits_bitcoinj_title">Bu uygulama dogecoinj %s kullanmaktadır</string>
 	<string name="about_credits_zxing_title">Bu uygulama \'zxing\' kullanmaktadır</string>
-	<string name="about_credits_icon_title">Bu uygulama \'bitboy\' tarafından oluşturulan bir ikon kullanır</string>
+	<string name="about_credits_icon_title">Bu uygulama \'dogecoin\' tarafından oluşturulan bir ikon kullanır</string>
 	<string name="about_author_twitter_title">Geliştiricinin Twitter sayfası</string>
 	<string name="about_author_googleplus_title">Geliştiricinin Google+ sayfası</string>
 	<string name="about_market_app_title">Android Market uygulama sayfası</string>

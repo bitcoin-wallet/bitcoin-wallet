@@ -176,7 +176,7 @@
 	<string name="about_license_title">Lisensi</string>
 	<string name="about_credits_bitcoinj_title">Apl ini menggunakan dogecoinj %s</string>
 	<string name="about_credits_zxing_title">Apl ini menggunakan \'zxing\'</string>
-	<string name="about_credits_icon_title">Apl ini menggunakan ikon oleh \'bitboy\'</string>
+	<string name="about_credits_icon_title">Apl ini menggunakan ikon oleh \'dogecoin\'</string>
 	<string name="about_author_twitter_title">Pembuat di Twitter</string>
 	<string name="about_author_googleplus_title">Pembuat di Google+</string>
 	<string name="about_market_app_title">Halaman Apl Google Play</string>

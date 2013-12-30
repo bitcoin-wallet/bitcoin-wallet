@@ -186,7 +186,7 @@
 	<string name="about_license_title">Licencia</string>
 	<string name="about_credits_bitcoinj_title">Táto aplikácia používa dogecoinj %s</string>
 	<string name="about_credits_zxing_title">Táto aplikácia používa \'zxing\'</string>
-	<string name="about_credits_icon_title">Táto aplikácia používa ikonu od \'bitboy\'</string>
+	<string name="about_credits_icon_title">Táto aplikácia používa ikonu od \'dogecoin\'</string>
 	<string name="about_community_googleplus_title">Google+ Komunita</string>
 	<string name="about_community_googleplus_summary">Diskusie o aplikácii</string>
 	<string name="about_author_twitter_title">Twitter autora</string>

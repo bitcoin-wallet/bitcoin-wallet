@@ -159,7 +159,7 @@
 	<string name="about_license_title">Licencia</string>
 	<string name="about_credits_bitcoinj_title">Esta aplicación utiliza dogecoinj %s</string>
 	<string name="about_credits_zxing_title">Esta aplicación utiliza \'zxing\'</string>
-	<string name="about_credits_icon_title">Esta aplicación utiliza un icono de \'bitboy\'</string>
+	<string name="about_credits_icon_title">Esta aplicación utiliza un icono de \'dogecoin\'</string>
 	<string name="about_author_twitter_title">El autor en Twitter</string>
 	<string name="about_author_googleplus_title">El autor en Google+</string>
 	<string name="about_market_app_title">Página de la aplicación en Android Market</string>

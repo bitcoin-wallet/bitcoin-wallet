@@ -21,6 +21,7 @@ import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -63,7 +64,7 @@ public class ExchangeRatesProvider extends ContentProvider
 		}
 
 		public final String currencyCode;
-		public final BigInteger rate;
+		public BigInteger rate;
 		public final String source;
 
 		@Override
@@ -80,6 +81,7 @@ public class ExchangeRatesProvider extends ContentProvider
 	@CheckForNull
 	private Map<String, ExchangeRate> exchangeRates = null;
 	private long lastUpdated = 0;
+    private float dogeBtcConversion = -1;
 
 	private static final URL BITCOINAVERAGE_URL;
 	private static final String[] BITCOINAVERAGE_FIELDS = new String[] { "24h_avg" };
@@ -87,6 +89,7 @@ public class ExchangeRatesProvider extends ContentProvider
 	private static final String[] BITCOINCHARTS_FIELDS = new String[] { "24h", "7d", "30d" };
 	private static final URL BLOCKCHAININFO_URL;
 	private static final String[] BLOCKCHAININFO_FIELDS = new String[] { "15m" };
+    private static final URL DOGEPOOL_URL;
 
 	// https://bitmarket.eu/api/ticker
 
@@ -96,7 +99,8 @@ public class ExchangeRatesProvider extends ContentProvider
 		{
 			BITCOINAVERAGE_URL = new URL("https://api.bitcoinaverage.com/ticker/all");
 			BITCOINCHARTS_URL = new URL("http://api.bitcoincharts.com/v1/weighted_prices.json");
-			BLOCKCHAININFO_URL = new URL("https://blockchain.info/ticker");
+            BLOCKCHAININFO_URL = new URL("https://blockchain.info/ticker");
+            DOGEPOOL_URL = new URL("http://dogepool.com/lastdoge");
 		}
 		catch (final MalformedURLException x)
 		{
@@ -126,13 +130,25 @@ public class ExchangeRatesProvider extends ContentProvider
 
 		if (exchangeRates == null || now - lastUpdated > UPDATE_FREQ_MS)
 		{
+            float newDogeBtcConversion = -1;
+            if (dogeBtcConversion == -1 && newDogeBtcConversion == -1)
+                newDogeBtcConversion = requestDogeBtcConversion(DOGEPOOL_URL);
+
+            if (newDogeBtcConversion != -1)
+                dogeBtcConversion = newDogeBtcConversion;
+
+            if (dogeBtcConversion == -1)
+                return null;
+
 			Map<String, ExchangeRate> newExchangeRates = null;
 			if (exchangeRates == null && newExchangeRates == null)
-				newExchangeRates = requestExchangeRates(BITCOINAVERAGE_URL, BITCOINAVERAGE_FIELDS);
+				newExchangeRates = requestExchangeRates(BITCOINAVERAGE_URL, dogeBtcConversion, BITCOINAVERAGE_FIELDS);
 			if (exchangeRates == null && newExchangeRates == null)
-				newExchangeRates = requestExchangeRates(BITCOINCHARTS_URL, BITCOINCHARTS_FIELDS);
+				newExchangeRates = requestExchangeRates(BITCOINCHARTS_URL, dogeBtcConversion, BITCOINCHARTS_FIELDS);
 			if (exchangeRates == null && newExchangeRates == null)
-				newExchangeRates = requestExchangeRates(BLOCKCHAININFO_URL, BLOCKCHAININFO_FIELDS);
+				newExchangeRates = requestExchangeRates(BLOCKCHAININFO_URL, dogeBtcConversion, BLOCKCHAININFO_FIELDS);
+
+
 
 			if (newExchangeRates != null)
 			{
@@ -141,7 +157,7 @@ public class ExchangeRatesProvider extends ContentProvider
 			}
 		}
 
-		if (exchangeRates == null)
+		if (exchangeRates == null || dogeBtcConversion == -1)
 			return null;
 
 		final MatrixCursor cursor = new MatrixCursor(new String[] { BaseColumns._ID, KEY_CURRENCY_CODE, KEY_RATE, KEY_SOURCE });
@@ -179,7 +195,7 @@ public class ExchangeRatesProvider extends ContentProvider
 		return cursor;
 	}
 
-	private String defaultCurrencyCode()
+    private String defaultCurrencyCode()
 	{
 		try
 		{
@@ -224,7 +240,7 @@ public class ExchangeRatesProvider extends ContentProvider
 		throw new UnsupportedOperationException();
 	}
 
-	private static Map<String, ExchangeRate> requestExchangeRates(final URL url, final String... fields)
+	private static Map<String, ExchangeRate> requestExchangeRates(final URL url, float dogeBtcConversion, final String... fields)
 	{
 		HttpURLConnection connection = null;
 		Reader reader = null;
@@ -266,7 +282,9 @@ public class ExchangeRatesProvider extends ContentProvider
 						{
 							try
 							{
-								rates.put(currencyCode, new ExchangeRate(currencyCode, GenericUtils.toNanoCoins(rate, 0), url.getHost()));
+                                BigDecimal btcRate = new BigDecimal(GenericUtils.toNanoCoins(rate, 0));
+                                BigInteger dogeRate = btcRate.multiply(BigDecimal.valueOf(dogeBtcConversion)).toBigInteger();
+								rates.put(currencyCode, new ExchangeRate(currencyCode, dogeRate, url.getHost()));
 							}
 							catch (final ArithmeticException x)
 							{
@@ -307,4 +325,62 @@ public class ExchangeRatesProvider extends ContentProvider
 
 		return null;
 	}
+
+    private static float requestDogeBtcConversion(URL url) {
+        HttpURLConnection connection = null;
+        Reader reader = null;
+
+        try
+        {
+            connection = (HttpURLConnection) url.openConnection();
+            connection.setConnectTimeout(Constants.HTTP_TIMEOUT_MS);
+            connection.setReadTimeout(Constants.HTTP_TIMEOUT_MS);
+            connection.connect();
+
+            final int responseCode = connection.getResponseCode();
+            if (responseCode == HttpURLConnection.HTTP_OK)
+            {
+                reader = new InputStreamReader(new BufferedInputStream(connection.getInputStream(), 1024), Constants.UTF_8);
+                final StringBuilder content = new StringBuilder();
+                Io.copy(reader, content);
+
+                try
+                {
+                    return Float.parseFloat(content.toString());
+                } catch (NumberFormatException e)
+                {
+                    log.debug("Hm, looks like dogepool changed their API...");
+                    return -1;
+                }
+
+            }
+            else
+            {
+                log.debug("http status " + responseCode + " when fetching " + url);
+            }
+        }
+        catch (final Exception x)
+        {
+            log.debug("problem reading exchange rates", x);
+        }
+        finally
+        {
+            if (reader != null)
+            {
+                try
+                {
+                    reader.close();
+                }
+                catch (final IOException x)
+                {
+                    // swallow
+                }
+            }
+
+            if (connection != null)
+                connection.disconnect();
+        }
+
+        return -1;
+    }
 }
