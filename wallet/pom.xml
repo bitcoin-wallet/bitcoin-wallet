@@ -6,8 +6,8 @@
 
 	<artifactId>wallet</artifactId>
 	<packaging>apk</packaging>
-	<version>3.28-test</version>
-	<name>Bitcoin Wallet</name>
+	<version>3.28</version>
+	<name>Dogecoin Wallet</name>
 
 	<parent>
 		<groupId>de.schildbach.wallet</groupId>
@@ -49,7 +49,7 @@
 			<type>apklib</type>
 		</dependency>
 
-		<!-- com.google.bitcoin.* -->
+		<!-- com.google.dogecoin.* -->
 		<dependency>
 			<groupId>com.google</groupId>
 			<artifactId>bitcoinj</artifactId>

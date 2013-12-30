@@ -21,10 +21,10 @@ Certain actions cause automatic rolling backups of your private keys to app-priv
 
 Private keys can be manually backed up to and restored from external storage:
 
-/sdcard/Download/bitcoin-wallet-keys-<yyyy-MM-dd>
+/sdcard/Download/dogecoin-wallet-keys-<yyyy-MM-dd>
 	Manual backups of private keys for Mainnet
 
-/sdcard/Download/bitcoin-wallet-keys-testnet-<yyyy-MM-dd>
+/sdcard/Download/dogecoin-wallet-keys-testnet-<yyyy-MM-dd>
 	Manual backups of private keys for Testnet
 
 The manual backup files are encrypted using your chosen password. You can use OpenSSL to decrypt:
@@ -77,7 +77,7 @@ Next, you need to build bitcoinj. In your workspace, use
 	cd bitcoinj
 	mvn clean install
 
-Finally, you can build Bitcoin Wallet and sign it with your development key. Again in your workspace,
+Finally, you can build dogecoin Wallet and sign it with your development key. Again in your workspace,
 use
 
 	# first time only
@@ -120,7 +120,7 @@ Make sure you've got Eclipse 3.7 (Indigo) with ADT 20 installed.
 
 Use Git to check out the project and an Android library dependency to your workspace:
 
-	# clone Bitcoin Wallet project
+	# clone Dogecoin Wallet project
 	git clone -b master https://github.com/schildbach/bitcoin-wallet.git bitcoin-wallet
 
 	# clone ActionBarSherlock library project
@@ -144,7 +144,7 @@ Java Compiler -> Errors/Warnings -> Annotations -> Missing @Override annotation 
 
 NFC (Near field communication)
 
-Bitcoin Wallet supports reading Bitcoin requests via NFC, either from a passive NFC tag or from
+Dogecoin Wallet supports reading Dogecoin requests via NFC, either from a passive NFC tag or from
 another NFC capable Android device that is requesting coins.
 
 For this to work, just enable NFC in your phone and hold your phone to the tag or device (with
@@ -158,19 +158,19 @@ Instructions for preparing an NFC tag with your address:
 
 - Some tags have less than 50 bytes capacity, those won't work. 1 KB tags recommended.
 
-- The tag needs to contain a Bitcoin URI. You can construct one with the "Request coins" dialog,
+- The tag needs to contain a Dogecoin URI. You can construct one with the "Request coins" dialog,
   then share with messaging or email. You can also construct the URI manually. Example for Mainnet:
-  bitcoin:1G2Y2jP5YFZ5RGk2PXaeWwbeA5y1ZtFhoL
+  dogecoin:DEwTHxztkSDUJEMywbPk5zVUGrupaNRqEy
 
 - The type of the message needs to be URI or URL (not Text).
 
 - If you put your tag at a public place, don't forget to enable write protect. Otherwise, someone
-  could overwrite the tag with his own Bitcoin address.
+  could overwrite the tag with his own Dogecoin address.
 
 
 EXCHANGE RATES
 
-Bitcoin Wallet reads this feed from "bitcoin charts" for getting exchange rates:
+Dogecoin Wallet reads this feed from "bitcoin charts" for getting exchange rates:
 
 	http://bitcoincharts.com/t/weighted_prices.json
 
@@ -193,6 +193,6 @@ The feed is described here:
 
 BITCOINJ
 
-Bitcoin Wallet uses bitcoinj for Bitcoin specific logic:
+Dogecoin Wallet uses bitcoinj for Dogecoin specific logic:
 
 http://code.google.com/p/bitcoinj/

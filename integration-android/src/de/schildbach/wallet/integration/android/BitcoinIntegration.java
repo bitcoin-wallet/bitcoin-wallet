@@ -140,7 +140,7 @@ public final class BitcoinIntegration
 
 	private static Intent makeIntent(final String address, final Long amount)
 	{
-		final StringBuilder uri = new StringBuilder("bitcoin:");
+		final StringBuilder uri = new StringBuilder("dogecoin:");
 		if (address != null)
 			uri.append(address);
 		if (amount != null)

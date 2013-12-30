@@ -1,21 +1,21 @@
-Bitcoin'leriniz daima cebinizde sizinle olsun! Herhangi bir QR kodunu okuyarak çabuk ödeme yapabilirsiniz. Bir tüccar olarak ödemeleri güvenilir ve anında alabilirsiniz. Bitcoin cüzdanı ilk mobil Bitcoin uygulamasıdır ve muhtemelen en güvenli Bitcoin uygulamasıdır!
+Dogecoin'leriniz daima cebinizde sizinle olsun! Herhangi bir QR kodunu okuyarak çabuk ödeme yapabilirsiniz. Bir tüccar olarak ödemeleri güvenilir ve anında alabilirsiniz. Dogecoin cüzdanı ilk mobil Dogecoin uygulamasıdır ve muhtemelen en güvenli Dogecoin uygulamasıdır!
 
 İŞLEVLERİ:
 
 • Hiçbir oturuma, web ya da bulut hizmetine gerek yoktur. Bu cüzdan merkezsiz ve eşten eşedir.
-• Bitcoin meblağlarının BTC ve mBTC olarak gösterilmesi.
+• Dogecoin meblağlarının BTC ve mBTC olarak gösterilmesi.
 • Dövizlere ve dövizlerden dönüştürme.
-• NFC, QR kodu veya Bitcoin bağlantıları ile Bitcoin gönderir ve alır.
-• Sık kullanılan Bitcoin adresleri için adres defteri içerir.
+• NFC, QR kodu veya Dogecoin bağlantıları ile Dogecoin gönderir ve alır.
+• Sık kullanılan Dogecoin adresleri için adres defteri içerir.
 • Çevrimdışı olduğunuzda Bluetooth vasıtasıyla ödemeler.
-• Alınan bitcoin'ler için sistem bildirimleri.
-• Bitcoin bakiyesini görüntüleyen widget.
+• Alınan dogecoin'ler için sistem bildirimleri.
+• Dogecoin bakiyesini görüntüleyen widget.
 
-Bitcoin hakkında daha fazla bilgiyi şurada bulabilirsiniz:
-http://bitcoin.org
+Dogecoin hakkında daha fazla bilgiyi şurada bulabilirsiniz:
+http://dogecoin.org
 
-Bitcoin Wallet'e iştirak etmek istiyorsanız, projenin adresi şudur:
-https://github.com/schildbach/bitcoin-wallet
+Dogecoin Wallet'e iştirak etmek istiyorsanız, projenin adresi şudur:
+https://github.com/langerhans/dogecoin-wallet-new
 
 Lisans: GPLv3
 Tüm riski siz üstlenmiş olursunuz.

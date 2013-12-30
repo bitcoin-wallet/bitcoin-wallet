@@ -1,20 +1,20 @@
-Com este aplicativo você sempre terá seus Bitcoins com você, no seu bolso! Você poderá efetuar pagamentos simplesmente escaneando um código QR ou aproximando dois telefones (NFC). O Bitcoin Wallet foi desenvolvido visando a funcionalidade, segurança e velocidade.
+Com este aplicativo você sempre terá seus Dogecoins com você, no seu bolso! Você poderá efetuar pagamentos simplesmente escaneando um código QR ou aproximando dois telefones (NFC). O Dogecoin Wallet foi desenvolvido visando a funcionalidade, segurança e velocidade.
 
 CARACTERÍSTICAS:
 
 • Nenhum servidor cloud ou serviço web é necessário! Esta carteira utiliza peer to peer.
-• Visualização do saldo da carteira em Bitcoins e outras moedas.
-• Envio e recebimento de Bitcoins via NFC, códigos QR ou endereços Bitcoin.
+• Visualização do saldo da carteira em Dogecoins e outras moedas.
+• Envio e recebimento de Dogecoins via NFC, códigos QR ou endereços Dogecoin.
 • Catálogo para guardar os endereços mais utilizados.
 • As transações efetuadas offline são processadas quando conectado.
-• Notificações de sistema para conectividade Bitcoin e recebimento de moedas.
-• Widget para saldo de Bitcoins.
+• Notificações de sistema para conectividade Dogecoin e recebimento de moedas.
+• Widget para saldo de Dogecoins.
 
-Mais informações sobre Bitcoin em
-http://bitcoin.org
+Mais informações sobre Dogecoin em
+http://dogecoin.org
 
-Se você deseja contribuir com o Bitcoin Wallet, o projeto encontra-se em
-https://github.com/schildbach/bitcoin-wallet
+Se você deseja contribuir com o Dogecoin Wallet, o projeto encontra-se em
+https://github.com/langerhans/dogecoin-wallet-new
 
 Licença: GPLv3
 Use por sua conta e risco!

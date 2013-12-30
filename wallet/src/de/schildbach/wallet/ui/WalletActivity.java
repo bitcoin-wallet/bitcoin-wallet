@@ -85,7 +85,7 @@ import de.schildbach.wallet.util.HttpGetThread;
 import de.schildbach.wallet.util.Iso8601Format;
 import de.schildbach.wallet.util.Nfc;
 import de.schildbach.wallet.util.WalletUtils;
-import de.schildbach.wallet_test.R;
+import de.schildbach.wallet.R;
 
 /**
  * @author Andreas Schildbach
@@ -730,7 +730,7 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 	{
 		final PackageManager pm = getPackageManager();
 		final Intent marketIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(String.format(Constants.MARKET_APP_URL, getPackageName())));
-		final Intent binaryIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.BINARY_URL));
+		//final Intent binaryIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.BINARY_URL));
 
 		final AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setIcon(android.R.drawable.ic_dialog_alert);
@@ -750,7 +750,7 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 			});
 		}
 
-		if (pm.resolveActivity(binaryIntent, 0) != null)
+/*		if (pm.resolveActivity(binaryIntent, 0) != null)
 		{
 			builder.setNeutralButton(R.string.wallet_version_dialog_button_binary, new DialogInterface.OnClickListener()
 			{
@@ -761,7 +761,7 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 					finish();
 				}
 			});
-		}
+		}*/
 
 		builder.setNegativeButton(R.string.button_dismiss, null);
 		builder.show();
@@ -914,7 +914,7 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 		intent.putExtra(Intent.EXTRA_TEXT,
 				getString(R.string.export_keys_dialog_mail_text) + "\n\n" + String.format(Constants.WEBMARKET_APP_URL, getPackageName()) + "\n\n"
 						+ Constants.SOURCE_URL + '\n');
-		intent.setType("x-bitcoin/private-keys");
+		intent.setType("x-dogecoin/private-keys");
 		intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file));
 		startActivity(Intent.createChooser(intent, getString(R.string.export_keys_dialog_mail_intent_chooser)));
 

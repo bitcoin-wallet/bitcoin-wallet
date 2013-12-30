@@ -6,7 +6,7 @@
 
 	<artifactId>integration-android</artifactId>
 	<version>1.0</version>
-	<name>Bitcoin Integration for Android</name>
+	<name>Dogecoin Integration for Android</name>
 
 	<parent>
 		<groupId>de.schildbach.wallet</groupId>

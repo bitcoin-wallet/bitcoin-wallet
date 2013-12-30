@@ -1,19 +1,19 @@
-Tato aplikace je peněženka s Bitcoiny pro systém Android. Můžete posílat Bitcoiny mezi telefony prostým naskenováním QR kódu, který je zobrazen aplikací, nebo pomocí NFC (Near Field Communication).
+Tato aplikace je peněženka s Dogecoiny pro systém Android. Můžete posílat Dogecoiny mezi telefony prostým naskenováním QR kódu, který je zobrazen aplikací, nebo pomocí NFC (Near Field Communication).
 
 VLASTNOSTI:
 
-• Zobrazení zůstatku peněženky v Bitcoinech a několika jiných měnách.
-• Odesílání a přijímání Bitcoinů pomocí NFC, QR-kódů, nebo Bitcoin adres.
+• Zobrazení zůstatku peněženky v Dogecoinech a několika jiných měnách.
+• Odesílání a přijímání Dogecoinů pomocí NFC, QR-kódů, nebo Dogecoin adres.
 • Adresář pro často používané adresy.
 • Možnost zadávání transakcí v offline režimu, k jejich zpracování dojde po připojení.
-• Oznamování v liště při synchronizaci a při přijetí Bitcoinů.
+• Oznamování v liště při synchronizaci a při přijetí Dogecoinů.
 • Widget s celkovým zůstatkem.
 
-Více informací o Bitcoinech
-http://bitcoin.org
+Více informací o Dogecoinech
+http://dogecoin.org
 
-Pokud chcete přispět do projektu Bitcoin Wallet, naleznete jej na adrese
-https://github.com/schildbach/bitcoin-wallet
+Pokud chcete přispět do projektu Dogecoin Wallet, naleznete jej na adrese
+https://github.com/langerhans/dogecoin-wallet-new
 
 License: GPLv3
 Použití pouze na vlastní riziko!

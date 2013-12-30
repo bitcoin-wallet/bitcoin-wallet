@@ -88,7 +88,7 @@
        y="470.21933"
        x="294.75256"
        id="image3185"
-       xlink:href="file:///home/aschildbach/dev/workspace/bitcoin-wallet/market/market-url-qr.png"
+       xlink:href="file:///home/aschildbach/dev/workspace/dogecoin-wallet/market/market-url-qr.png"
        height="462.85709"
        width="462.85709" />
     <g
@@ -166,7 +166,7 @@
          id="tspan3001"
          x="522.08307"
          y="329.50504"
-         style="font-size:128px;font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;font-family:Ubuntu;-inkscape-font-specification:Ubuntu Medium">Bitcoin Wallet</tspan><tspan
+         style="font-size:128px;font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;font-family:Ubuntu;-inkscape-font-specification:Ubuntu Medium">Dogecoin Wallet</tspan><tspan
          sodipodi:role="line"
          x="532.45416"
          y="450.97589"
@@ -187,7 +187,7 @@
          sodipodi:role="line"
          id="tspan2987"
          x="74.945839"
-         y="-360.49496">Your own Bitcoins, on your own phone!</tspan><tspan
+         y="-360.49496">Your own Dogecoins, on your own phone!</tspan><tspan
          sodipodi:role="line"
          x="74.945839"
          y="-300.49496"

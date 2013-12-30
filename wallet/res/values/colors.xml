@@ -9,8 +9,8 @@
 
 	<!-- background -->
 	<color name="bg_bright">#ffffffff</color>
-	<color name="bg_less_bright">#ffe8e8f0</color>
-	<color name="bg_panel">#ffd8d8e0</color>
+	<color name="bg_less_bright">#ffbcb38b</color>
+	<color name="bg_panel">#ffdbd2a9</color>
 	<color name="bg_form">#ffe8e8f0</color>
 	<color name="bg_list">#40ffffff</color>
 	<color name="bg_list_selected">#40808090</color>

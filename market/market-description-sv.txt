@@ -1,19 +1,19 @@
-Detta är en fristående Bitcoin plånbok för Android. Du kan skicka Bitcoins mellan telefoner genom att scanna den QR kod som visas på skärmen. Eller använda NFC (Near Field Communication).
+Detta är en fristående Dogecoin plånbok för Android. Du kan skicka Dogecoins mellan telefoner genom att scanna den QR kod som visas på skärmen. Eller använda NFC (Near Field Communication).
 
 FUNKTIONER:
 
-• Visa plånbokens värde i Bitcoins och andra valutor.
-• Skicka och ta emot Bitcoins via NFC, QR-koder eller en Bitcoin URL.
-• Adressbok för de Bitcoin adresser man använder ofta.
+• Visa plånbokens värde i Dogecoins och andra valutor.
+• Skicka och ta emot Dogecoins via NFC, QR-koder eller en Dogecoin URL.
+• Adressbok för de Dogecoin adresser man använder ofta.
 • Påbörja transaktioner medan du är offline, de utförs när du kommer online.
-• Systemnotifikationer när Bitcoins skickats till dig, och när plånboken kommunicerar med nätverket.
+• Systemnotifikationer när Dogecoins skickats till dig, och när plånboken kommunicerar med nätverket.
 • App widget som visar plånbokens värde.
 
-Du kan lära dig mer om Bitcoin genom att besöka
-http://bitcoin.org
+Du kan lära dig mer om Dogecoin genom att besöka
+http://dogecoin.org
 
-Om du vill hjälpa till med utvecklingen av Bitcoin Wallet så kan du hitta projektet här
-https://github.com/schildbach/bitcoin-wallet
+Om du vill hjälpa till med utvecklingen av Dogecoin Wallet så kan du hitta projektet här
+https://github.com/langerhans/dogecoin-wallet-new
 
 Licens: GPLv3
 Använd på egen risk!
