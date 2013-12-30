@@ -89,6 +89,8 @@ public final class HelpDialogFragment extends DialogFragment
 			return "_de";
 		else if ("cs".equals(language))
 			return "_cs";
+		else if ("da".equals(language))
+			return "_da";
 		else if ("el".equals(language))
 			return "_el";
 		else if ("es".equals(language))
