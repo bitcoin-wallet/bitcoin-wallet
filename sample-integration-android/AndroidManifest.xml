@@ -18,7 +18,7 @@
 
 	<application android:label="Sample for Dogecoin Integration" >
 		<activity
-			android:name="de.schildbach.wallet.integration.sample.SampleActivity"
+			android:name="de.langerhans.wallet.integration.sample.SampleActivity"
 			android:theme="@android:style/Theme.Light" >
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />

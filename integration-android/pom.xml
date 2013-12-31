@@ -9,7 +9,7 @@
 	<name>Dogecoin Integration for Android</name>
 
 	<parent>
-		<groupId>de.schildbach.wallet</groupId>
+		<groupId>de.langerhans.wallet</groupId>
 		<artifactId>base</artifactId>
 		<version>1</version>
 	</parent>
