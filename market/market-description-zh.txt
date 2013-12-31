@@ -14,6 +14,10 @@
 更多关于比特币的信息请点击：http://dogecoin.org
 如果你想赞助比特币钱包软件开发项目，该项目位于：https://github.com/langerhans/dogecoin-wallet-new
 
+This is a fork of the popular Bitcoin Wallet by Andreas Schildbach and was converted to Dogecoin by me.
+Find the original at
+https://play.google.com/store/apps/details?id=de.schildbach.wallet
+
 许可协议: GPLv3
 使用者须自行承担风险！
 http://www.gnu.org/licenses/gpl-3.0.en.html

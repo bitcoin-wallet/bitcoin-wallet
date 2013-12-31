@@ -3,7 +3,7 @@ Hab deine Dogecoins immer dabei, in deiner Hosentasche! Du zahlst, indem du rasc
 FEATURES:
 
 • Keine Registrierung, Web-Dienst oder Cloud nötig! Diese Wallet ist de-zentral und Peer to Peer.
-• Anzeige von Dogecoin-Werten in BTC und mBTC.
+• Anzeige von Dogecoin-Werten in DOGE und mDOGE.
 • Umrechnung von und zu den nationalen Währungen.
 • Senden und Empfangen von Dogecoin via NFC, QR-Codes oder Dogecoin URLs.
 • Adressbuch für regelmäßig genutzte Empfänger.
@@ -16,6 +16,10 @@ http://dogecoin.org
 
 Wenn Du zu Dogecoin Wallet beitragen willst, das Projekt befindet sich auf
 https://github.com/langerhans/dogecoin-wallet-new
+
+Dies ist ein Fork des bekannten Bitcoin Wallet von Andreas Schildbach. Ich habe es für Dogecoin angepasst.
+Das Original gibt es hier:
+https://play.google.com/store/apps/details?id=de.schildbach.wallet
 
 Lizenz: GPLv3
 Nutzung auf eigene Gefahr!

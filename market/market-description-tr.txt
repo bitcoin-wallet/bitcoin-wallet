@@ -3,7 +3,7 @@ Dogecoin'leriniz daima cebinizde sizinle olsun! Herhangi bir QR kodunu okuyarak 
 İŞLEVLERİ:
 
 • Hiçbir oturuma, web ya da bulut hizmetine gerek yoktur. Bu cüzdan merkezsiz ve eşten eşedir.
-• Dogecoin meblağlarının BTC ve mBTC olarak gösterilmesi.
+• Dogecoin meblağlarının DOGE ve mDOGE olarak gösterilmesi.
 • Dövizlere ve dövizlerden dönüştürme.
 • NFC, QR kodu veya Dogecoin bağlantıları ile Dogecoin gönderir ve alır.
 • Sık kullanılan Dogecoin adresleri için adres defteri içerir.
@@ -16,6 +16,10 @@ http://dogecoin.org
 
 Dogecoin Wallet'e iştirak etmek istiyorsanız, projenin adresi şudur:
 https://github.com/langerhans/dogecoin-wallet-new
+
+This is a fork of the popular Bitcoin Wallet by Andreas Schildbach and was converted to Dogecoin by me.
+Find the original at
+https://play.google.com/store/apps/details?id=de.schildbach.wallet
 
 Lisans: GPLv3
 Tüm riski siz üstlenmiş olursunuz.

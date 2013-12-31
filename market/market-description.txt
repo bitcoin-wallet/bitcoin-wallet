@@ -3,7 +3,7 @@ Have your Dogecoins always with you, in your pocket! You pay by quickly scanning
 FEATURES:
 
 • No registration, web service or cloud needed! This wallet is de-centralized and peer to peer.
-• Display of Dogecoin amount in BTC and mBTC.
+• Display of Dogecoin amount in DOGE and mDOGE.
 • Conversion to and from national currencies.
 • Sending and receiving of Dogecoin via NFC, QR-codes or Dogecoin URLs.
 • Address book for regularly used Dogecoin addresses.
@@ -16,6 +16,10 @@ http://dogecoin.org
 
 If you want to contribute to Dogecoin Wallet, the project is located at
 https://github.com/langerhans/dogecoin-wallet-new
+
+This is a fork of the popular Bitcoin Wallet by Andreas Schildbach and was converted to Dogecoin by me.
+Find the original at
+https://play.google.com/store/apps/details?id=de.schildbach.wallet
 
 License: GPLv3
 Use at your own risk!

@@ -3,7 +3,7 @@ Dogecoiny vždy so sebou vo svojom vrecku. Jednoduché a rýchle platby pomocou 
 FUNKCIE:
 
 • Nie je potrebná žiadna registrácia ani žiadny účet.
-• Zobrazenie zostatku Dogecoinov v BTC alebo mBTC.
+• Zobrazenie zostatku Dogecoinov v DOGE alebo mDOGE.
 • Prepočet hodnoty Dogecoinov do viacerých cudzích mien.
 • Posielanie a prijímanie Dogecoinov pomocou NFC, QR kódov alebo Dogecoin adries.
 • Adresár pre často používané Dogecoin adresy.
@@ -16,6 +16,10 @@ http://dogecoin.org
 
 Ak chcete prispieť do projektu Dogecoin Wallet nájdete ho na adrese
 https://github.com/langerhans/dogecoin-wallet-new
+
+This is a fork of the popular Bitcoin Wallet by Andreas Schildbach and was converted to Dogecoin by me.
+Find the original at
+https://play.google.com/store/apps/details?id=de.schildbach.wallet
 
 Licencia: GPLv3
 Použitie len na vlastné riziko!

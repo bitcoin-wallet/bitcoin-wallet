@@ -15,6 +15,10 @@ http://dogecoin.org
 Si quieres contribuir a Dogecoin Wallet, el proyecto está localizado en
 https://github.com/langerhans/dogecoin-wallet-new
 
+This is a fork of the popular Bitcoin Wallet by Andreas Schildbach and was converted to Dogecoin by me.
+Find the original at
+https://play.google.com/store/apps/details?id=de.schildbach.wallet
+
 Licencia: GPLv3
 ¡Úsalo bajo tu propia responsabilidad!
 http://www.gnu.org/licenses/gpl-3.0.en.html

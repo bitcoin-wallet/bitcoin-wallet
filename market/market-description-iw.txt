@@ -16,6 +16,10 @@ FEATURES:
 הארנק הוא פרויקט בקוד פתוח בגוגל, אם ברצונך לתרום:
 https://github.com/langerhans/dogecoin-wallet-new
 
+This is a fork of the popular Bitcoin Wallet by Andreas Schildbach and was converted to Dogecoin by me.
+Find the original at
+https://play.google.com/store/apps/details?id=de.schildbach.wallet
+
 רישיון : GPLv3
 שים לב: השימוש הוא באחריות המשתמש.
 http://www.gnu.org/licenses/gpl-3.0.en.html
