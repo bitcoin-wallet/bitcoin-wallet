@@ -8,3 +8,4 @@ gen/
 target/
 wallet/gen-external-apklibs/
 *.iml
+wallet/release_pom.xml
