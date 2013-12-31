@@ -64,11 +64,8 @@
 		<activity
 			android:name="de.schildbach.wallet.ui.WalletActivity"
 			android:configChanges="keyboard|keyboardHidden"
-			android:launchMode="singleTask" />
+			android:launchMode="singleTask">
 
-		<activity-alias
-			android:name="de.schildbach.wallet.WalletActivity"
-			android:targetActivity="de.schildbach.wallet.ui.WalletActivity" >
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
 
@@ -81,7 +78,7 @@
 
 				<category android:name="android.intent.category.DEFAULT" />
 			</intent-filter>
-		</activity-alias>
+		</activity>
 
 		<activity
 			android:name="de.schildbach.wallet.ui.SendCoinsActivity"
@@ -162,11 +159,11 @@
 
 		<provider
 			android:name="de.schildbach.wallet.AddressBookProvider"
-			android:authorities="de.schildbach.wallet.address_book"
+			android:authorities="de.schildbach.wallet_ltc.address_book"
 			android:exported="false" />
 		<provider
 			android:name="de.schildbach.wallet.ExchangeRatesProvider"
-			android:authorities="de.schildbach.wallet.exchange_rates"
+			android:authorities="de.schildbach.wallet_ltc.exchange_rates"
 			android:exported="false" />
 
 		<receiver
