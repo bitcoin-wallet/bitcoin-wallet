@@ -272,23 +272,25 @@ public class ExchangeRatesProvider extends ContentProvider
 						String rate = null;
 						for (final String field : fields)
 						{
-							rate = o.optString(field, null);
+							final String rate = o.optString(field, null);
 
 							if (rate != null)
-								break;
-						}
+							{
+								try
+								{
+									BigDecimal btcRate = new BigDecimal(GenericUtils.toNanoCoins(rate, 0));
+                                	BigInteger dogeRate = btcRate.multiply(BigDecimal.valueOf(dogeBtcConversion)).toBigInteger();
 
-						if (rate != null)
-						{
-							try
-							{
-                                BigDecimal btcRate = new BigDecimal(GenericUtils.toNanoCoins(rate, 0));
-                                BigInteger dogeRate = btcRate.multiply(BigDecimal.valueOf(dogeBtcConversion)).toBigInteger();
-								rates.put(currencyCode, new ExchangeRate(currencyCode, dogeRate, url.getHost()));
-							}
-							catch (final ArithmeticException x)
-							{
-								log.debug("problem reading exchange rate: " + currencyCode, x);
+									if (dogeRate.signum() > 0)
+									{
+										rates.put(currencyCode, new ExchangeRate(currencyCode, dogeRate, url.getHost()));
+										break;
+									}
+								}
+								catch (final ArithmeticException x)
+								{
+									log.debug("problem reading exchange rate: " + currencyCode, x);
+								}
 							}
 						}
 					}
