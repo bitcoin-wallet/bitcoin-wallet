@@ -148,8 +148,6 @@ public class ExchangeRatesProvider extends ContentProvider
 			if (newExchangeRates == null)
 				newExchangeRates = requestExchangeRates(BLOCKCHAININFO_URL, dogeBtcConversion, BLOCKCHAININFO_FIELDS);
 
-
-
 			if (newExchangeRates != null)
 			{
 				exchangeRates = newExchangeRates;
@@ -271,7 +269,6 @@ public class ExchangeRatesProvider extends ContentProvider
 					{
 						final JSONObject o = head.getJSONObject(currencyCode);
 
-						String rate = null;
 						for (final String field : fields)
 						{
 							final String rate = o.optString(field, null);
