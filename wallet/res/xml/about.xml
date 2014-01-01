@@ -6,7 +6,7 @@
 			android:key="about_version"
 			android:title="Version" />
 		<Preference
-			android:summary="© 2011-2013, Andreas Schildbach\n© 2013, Maximilian Keller"
+			android:summary="© 2011-2013, Andreas Schildbach\n© 2013-2014, Maximilian Keller"
 			android:title="Copyright" />
 		<Preference
 			android:key="about_license"
