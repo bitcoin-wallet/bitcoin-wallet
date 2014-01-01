@@ -80,7 +80,7 @@ public class Constants
 	public static final int LOCAL_PRECISION = 4;
 
 	public static final String DONATION_ADDRESS = "DEwTHxztkSDUJEMywbPk5zVUGrupaNRqEy";
-	public static final String REPORT_EMAIL = "max.keller@gmx.com";
+	public static final String REPORT_EMAIL = "dogecoinandroid@gmail.com";
 	public static final String REPORT_SUBJECT_ISSUE = "Reported issue";
 	public static final String REPORT_SUBJECT_CRASH = "Crash report";
 
