@@ -1,3 +1,8 @@
+v1.01 (DOGE)
+
+* fixed issues with fetching exchange rates
+* updated French, Hungarian, Italian and Portuguese translations
+
 v3.28
 
 * for those who still use the unsecure address (pre-August), moves coins to secure addresses
