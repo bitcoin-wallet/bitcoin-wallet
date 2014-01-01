@@ -1,20 +1,21 @@
-Con questa app avrai sempre i tuoi Dogecoin con te, nella tua tasca! Puoi inviare pagamenti semplicemente scannerizzando un codice QR oppure avvicinando due telefonini insieme (NFC). Dogecoin Wallet è progettato per essere facile d usare e affidabile, oltre a essere anche sicuro e veloce.
+﻿Porta i tuoi Dogecoin sempre con te, in tasca! Paghi velocemente scansionando un QR-code. Come un commerciante, riceverai i pagamenti sicuri e istantanei. Dogecoin Wallet è la prima Dogecoin app mobile, e probabilmente anche la più sicura!
 
 CARATTERISTICHE:
 
-• Non è necessario alcun server cloud o servizio web! Questo portafoglio è veramente peer to peer.
-• Mostra il saldo del portafoglio in Dogecoin e in altre varie valute.
+• Non è necessaria alcuna registrazione, servizio web o cloud! Questo portafoglio è de-centralizzato e peer to peer.
+• Mostra l'ammontare di Dogecoin in DOGE e mDOGE.
+• Conversione verso e dalle monete nazionali.
 • Invio e ricevimento di Dogecoin tramite NFC, codici QR o URL Dogecoin.
 • Rubrica degli indirizzi per usare indirizzi Dogecoin regolarmente.
-• Inserisci transazioni mentre sei offline, saranno eseguite quando tornerai online.
-• Notifiche di sistema per la connettività Dogecoin e la ricevuta di denaro.
+• Quando sei offline, puoi comunque ancora pagare via Bluetooth.
+• Sistema di notifica per le monete ricevute.
 • App Widget per il saldo Dogecoin
 
 Puoi trovare altri dettagli su Dogecoin su
 http://dogecoin.org
 
 Se vuoi contribuire a Dogecoin Wallet, il progetto si trova su
-https://github.com/langerhans/dogecoin-wallet-new
+https://github.com/schildbach/dogecoin-wallet
 
 This is a fork of the popular Bitcoin Wallet by Andreas Schildbach and was converted to Dogecoin by me.
 Find the original at

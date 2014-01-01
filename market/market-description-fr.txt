@@ -20,6 +20,7 @@ https://github.com/langerhans/dogecoin-wallet-new
 This is a fork of the popular Dogecoin Wallet by Andreas Schildbach and was converted to Dogecoin by me.
 Find the original at
 https://play.google.com/store/apps/details?id=de.schildbach.wallet
+
 Licence : GPLv3
 Utilisez à vos propres risques !
 http://www.gnu.org/licenses/gpl-3.0.fr.html

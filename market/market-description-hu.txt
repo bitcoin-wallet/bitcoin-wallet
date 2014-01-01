@@ -17,6 +17,10 @@ http://dogecoin.org
 Ha hozzájárulnál a Dogecoin Wallet projekthez:
 https://github.com/schildbach/dogecoin-wallet
 
+This is a fork of the popular Bitcoin Wallet by Andreas Schildbach and was converted to Dogecoin by me.
+Find the original at
+https://play.google.com/store/apps/details?id=de.schildbach.wallet
+
 Licensz: GPLv3
 Csak saját felelősségre használható!
 http://www.gnu.org/licenses/gpl-3.0.en.html
