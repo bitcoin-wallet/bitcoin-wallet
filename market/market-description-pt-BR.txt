@@ -1,13 +1,14 @@
-Com este aplicativo você sempre terá seus Dogecoins com você, no seu bolso! Você poderá efetuar pagamentos simplesmente escaneando um código QR ou aproximando dois telefones (NFC). O Dogecoin Wallet foi desenvolvido visando a funcionalidade, segurança e velocidade.
+Tenha os seus Dogecoins sempre com você, no seu bolso! Efetue pagamentos rapidamente apenas escaneando um código QR​​. Como comerciante, você pode receber pagamentos de forma confiável e instantaneamente. O Dogecoin Wallet é o primeiro aplicativo Dogecoin móvel, e, possivelmente, o mais seguro!
 
 CARACTERÍSTICAS:
 
-• Nenhum servidor cloud ou serviço web é necessário! Esta carteira utiliza peer to peer.
-• Visualização do saldo da carteira em Dogecoins e outras moedas.
+• Sem necessidade de cadastro, serviço web ou hospedagem! Esta carteira é descentralizada e "peer to peer".
+• Exibe a quantidade de Dogecoins em DOGE e mDOGE.
+• Conversão para moedas nacionais.
 • Envio e recebimento de Dogecoins via NFC, códigos QR ou endereços Dogecoin.
 • Catálogo para guardar os endereços mais utilizados.
-• As transações efetuadas offline são processadas quando conectado.
-• Notificações de sistema para conectividade Dogecoin e recebimento de moedas.
+• Quando você estiver off-line, você ainda pode pagar via Bluetooth.
+• Notificações do sistema para moedas recebidas.
 • Widget para saldo de Dogecoins.
 
 Mais informações sobre Dogecoin em
