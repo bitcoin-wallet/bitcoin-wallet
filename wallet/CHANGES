@@ -1,3 +1,9 @@
+v3.29
+
+* fixed issues with fetching exchange rates
+* Slovak translation
+* updated French, Hungarian, Italian and Portuguese translations
+
 v3.28
 
 * for those who still use the unsecure address (pre-August), moves coins to secure addresses
