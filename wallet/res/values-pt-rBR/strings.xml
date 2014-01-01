@@ -1,8 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <resources>
 
-	<string name="toast_wallet_reset">Carteira reiniciada.\nA recuperação pode levar um tempo</string>
-	<string name="wallet_disclaimer_fragment_remind_safety">Use por sua conta e risco. Leia as &lt;u&gt;safety notes&lt;/u&gt;.</string>
+	<string name="toast_wallet_reset">Carteira reiniciada.\nA recuperação pode levar um tempo\n</string>
+	<string name="wallet_disclaimer_fragment_remind_safety">Use por sua conta e risco. Leia as &lt;u&gt;indicações de segurança&lt;/u&gt;.</string>
+	<string name="wallet_disclaimer_fragment_remind_backup">Você precisa fazer um &lt;u&gt;back up de sua carteira&lt;/u&gt;!</string>
 	<string name="blockchain_state_progress_hours">%1$s, %2$d horas atrás</string>
 	<string name="blockchain_state_progress_days">%1$s, %2$d dias atrás</string>
 	<string name="blockchain_state_progress_weeks">%1$s, %2$d semanas atrás</string>
@@ -31,6 +32,8 @@
 	<string name="wallet_transactions_fragment_empty_text_howto">Como conseguir Bitcoins?\n\nTroque por dinheiro tradicional,\nvenda produtos ou serviços, ou\nganhe trabalhando.</string>
 	<string name="wallet_transactions_row_warning_backup">Parabéns, você recebeu o seu primeiro pagamento! Deseja efetuar o &lt;u&gt;backup de sua carteira&lt;/u&gt;, para proteger seus Bitcoins?</string>
 	<string name="wallet_transactions_fragment_coinbase">minados</string>
+	<string name="wallet_transactions_fragment_internal">interno</string>
+	<string name="wallet_transactions_context_show_qr_title">Mostrar Código QR</string>
 	<string name="wallet_options_backup">Backup de chaves</string>
 	<string name="wallet_options_disconnect">Desconectar</string>
 	<string name="wallet_options_safety">Indicações de segurança</string>
@@ -59,6 +62,9 @@
 	<string name="send_coins_fragment_amount_label">Quantidade a pagar</string>
 	<string name="send_coins_fragment_amount_empty">Insira a quantidade aqui</string>
 	<string name="send_coins_fragment_amount_error">Quantidade inválida!</string>
+	<string name="send_coins_fragment_bluetooth_enable">Enviar pagamento também via Bluetooth</string>
+	<string name="send_coins_fragment_bluetooth_ack">Seu pagamento foi enviado com sucesso via Bluetooth.</string>
+	<string name="send_coins_fragment_bluetooth_nack">Seu pagamento via Bluetooth foi recusado.</string>
 	<string name="send_coins_fragment_button_send">Enviar</string>
 	<string name="send_coins_fragment_button_back">Voltar</string>
 	<string name="send_coins_preparation_msg">Assinando…</string>
@@ -66,13 +72,15 @@
 	<string name="send_coins_sent_msg">Enviado!</string>
 	<string name="send_coins_failed_msg">Erro!</string>
 	<string name="send_coins_error_msg">Erro ao enviar Bitcoins!</string>
+	<string name="send_coins_options_empty">Carteira vazia</string>
 	<string name="send_coins_address_context_clear_title">Inserir novo endereço</string>
 	<string name="request_coins_activity_title">Solicitar Bitcoins</string>
 	<string name="request_coins_fragment_address_label">Endereço para solicitação</string>
 	<string name="request_coins_fragment_include_address_label">inserir nome com o endereço</string>
 	<string name="request_coins_fragment_amount_label">Quantidade solicitada (opcional)</string>
-	<string name="request_coins_fragment_initiate_request_qr">Peça ao emissor que escaneie este código.</string>
-	<string name="request_coins_fragment_initiate_request_nfc">Ou aproxime-se de um dispositivo habilitado para NFC.</string>
+	<string name="request_coins_fragment_initiate_request_qr">Tenha o código lido pelo emissor.</string>
+	<string name="request_coins_fragment_initiate_request_nfc">Ou toque em um dispositivo NFC habilitado.</string>
+	<string name="request_coins_fragment_bluetooth_enabled">Aceitar pagamentos via Bluetooth.</string>
 	<string name="request_coins_clipboard_msg">Solicitação de Bitcoin copiada</string>
 	<string name="request_coins_share_dialog_title">Compartilhar solicitação de Bitcoins…</string>
 	<string name="request_coins_options_local_app_title">Pedido de aplicação local</string>
@@ -89,11 +97,13 @@
 	<string name="address_book_options_paste_from_clipboard_title">Colar</string>
 	<string name="address_book_options_copy_from_clipboard_msg_empty">Área de transferência vazia</string>
 	<string name="address_book_options_scan_title">Escanear endereço</string>
+	<string name="address_book_row_message_compromised_key">Este endereço pode ser comprometido. Você não deve mais usá-lo para receber moedas.</string>
 	<string name="edit_address_book_entry_dialog_title_add">Adicionar endereço</string>
 	<string name="edit_address_book_entry_dialog_title_edit">Editar endereço</string>
 	<string name="edit_address_book_entry_dialog_address_label">Endereço</string>
 	<string name="edit_address_book_entry_dialog_label_label">Nome</string>
 	<string name="edit_address_book_entry_dialog_button_edit">Salvar</string>
+	<string name="transaction_row_message_purpose_key_rotation">Esta transação fortalece sua carteira contra roubo. &lt;u&gt;More info.&lt;/u&gt;</string>
 	<string name="transaction_row_message_own_unbroadcasted">Este pagamento ainda não foi transmitido.</string>
 	<string name="transaction_row_message_received_unconfirmed_unlocked">Este pagamento estará disponível em alguns minutos.</string>
 	<string name="transaction_row_message_received_unconfirmed_locked">Este pagamento não é comum e não deve ser confiável.</string>
@@ -109,23 +119,23 @@
 	<string name="peer_list_fragment_empty">Sem pares conectados</string>
 	<string name="peer_list_row_ping_time">⇆ %d ms</string>
 	<string name="import_keys_dialog_title">Importar chaves privadas</string>
-	<string name="import_keys_dialog_message">Selecione um arquivo de importação de chaves no armazenamento externo ou do aplicativo:</string>
+	<string name="import_keys_dialog_message">Selecione um backup de chave privada do armazenamento externo ou do aplicativo:</string>
 	<string name="import_keys_dialog_file_security_encrypted">senha criptografada</string>
 	<string name="import_keys_dialog_file_security_unencrypted">decifrado</string>
 	<string name="import_keys_dialog_file_security_external">armazenamento externo</string>
 	<string name="import_keys_dialog_file_security_internal">armazenamento privado do aplicativo</string>
 	<string name="import_keys_dialog_file_created_automatic">backup automático %s</string>
-	<string name="import_keys_dialog_file_created_manual">exportação manual %s</string>
+	<string name="import_keys_dialog_file_created_manual">backup manual %s</string>
 	<string name="import_keys_dialog_button_import">Importar</string>
-	<string name="import_keys_dialog_success_imported">foram importadas %d chaves privadas.</string>
-	<string name="import_keys_dialog_success_existing">%d chaves privadas não foram importadas porque já estavam em sua carteira.</string>
+	<string name="import_keys_dialog_success_imported">%d chaves privadas foram restauradas.</string>
+	<string name="import_keys_dialog_success_existing">%d chaves privadas não foram restauradas porque já estavam em sua carteira.</string>
 	<string name="import_keys_dialog_success_reset">Você precisa reiniciar seu blockchain para atualizar seu saldo. Deseja continuar?</string>
 	<string name="import_keys_dialog_failure">Não foi possível importar as chaves privadas:\n\n%s\n\nSenha incorreta?</string>
 	<string name="import_keys_dialog_button_reset_blockchain">Reiniciar</string>
 	<string name="export_keys_dialog_title">Exportar chaves privadas</string>
 	<string name="export_keys_dialog_message">Suas chaves privadas serão criptografadas com a senha escolhida e gravadas no armazenamento externo.</string>
 	<string name="export_keys_dialog_button_export">Exportar</string>
-	<string name="export_keys_dialog_success">Suas chaves privadas foram exportadas a\n\n%s\n\nMantenha sua senha e chaves privadas em segurança!\n\nDeseja utilizar um aplicativo para arquivar suas chaves?</string>
+	<string name="export_keys_dialog_success">Suas chaves privadas foram exportadas\n\n%s\n\nMantenha sua senha e chaves privadas em segurança!\n\nDeseja utilizar um aplicativo para arquivar suas chaves?</string>
 	<string name="export_keys_dialog_failure">Não foi possível exportar suas chaves privadas:\n%s</string>
 	<string name="export_keys_dialog_button_archive">Arquivo</string>
 	<string name="export_keys_dialog_mail_subject">Backup Bitcoin Wallet chaves privadas</string>
@@ -134,21 +144,27 @@
 	<string name="import_export_keys_dialog_password">senha</string>
 	<string name="import_export_keys_dialog_show">Mostrar senha</string>
 	<string name="import_export_keys_dialog_failure_title">Erro</string>
-	<string name="import_keys_intent_filter_action">Importação de chaves Bitcoin</string>
+	<string name="import_keys_intent_filter_action">Restauração de chaves Bitcoin</string>
 	<string name="scan_camera_problem_dialog_title">Desculpe</string>
 	<string name="scan_camera_problem_dialog_message">Ocorreu um problema com a câmera. Você provavelmente precisará reiniciar o dispositivo.</string>
-	<string name="input_parser_invalid_bitcoin_uri">URI de Bitcoin inválida:\n%s</string>
+	<string name="input_parser_cannot_classify">Não é possível classificar as entradas:\n%s</string>
+	<string name="input_parser_invalid_bitcoin_uri">Endereços Bitcoin inválidos:\n%s</string>
 	<string name="input_parser_invalid_address">Endereço inválido de Bitcoin!\n(Mixing up Mainnet/Testnet?)</string>
+	<string name="input_parser_invalid_transaction">Transação inválida:\n%s</string>
 	<string name="preferences_activity_title">Configurações</string>
 	<string name="preferences_category_main">Preferências</string>
 	<string name="preferences_category_diagnostics">Diagnósticos</string>
 	<string name="preferences_category_labs">Labs</string>
+	<string name="preferences_precision_title">Denominação e precisão</string>
+	<string name="preferences_precision_summary">Unidade para mostrar valores. Isso não afeta os cálculos.</string>
 	<string name="preferences_connectivity_notification_title">Indicador de conectividade</string>
 	<string name="preferences_connectivity_notification_summary">Mostrar número atual de pares conectados na área de transferência.</string>
 	<string name="preferences_trusted_peer_title">Pares de confiança</string>
 	<string name="preferences_trusted_peer_summary">IP ou hostname de um par para conectar.</string>
 	<string name="preferences_trusted_peer_only_title">Omitir busca de pares</string>
 	<string name="preferences_trusted_peer_only_summary">Impede a conexão com outros pares que não sejam de confiança.</string>
+	<string name="preferences_data_usage_title">Uso de dados</string>
+	<string name="preferences_data_usage_summary">Mostrar opções para restringir o uso de dados em redes móveis.</string>
 	<string name="preferences_report_issue_title">Informar problema</string>
 	<string name="preferences_report_issue_summary">Coleta informações sobre o problema e envia um relatório aos desenvolvedores.</string>
 	<string name="preferences_initiate_reset_title">Reiniciar Blockchain</string>
@@ -162,6 +178,7 @@
 	<string name="report_issue_dialog_description">descrição do problema</string>
 	<string name="report_issue_dialog_report">Reportar</string>
 	<string name="report_issue_dialog_collect_device_info">Acrescente informações sobre o dispositivo</string>
+	<string name="report_issue_dialog_collect_installed_packages">Anexar lista de pacotes instalados</string>
 	<string name="report_issue_dialog_collect_application_log">Anexar log do aplicativo</string>
 	<string name="report_issue_dialog_collect_wallet_dump">Anexar \"wallet dump\"</string>
 	<string name="report_issue_dialog_mail_intent_chooser">Enviar relatório usando…</string>
@@ -170,11 +187,14 @@
 	<string name="about_credits_bitcoinj_title">Este aplicativo utiliza bitcoinj %s</string>
 	<string name="about_credits_zxing_title">Este aplicativo utiliza \'zxing\'</string>
 	<string name="about_credits_icon_title">Este aplicativo utiliza icones \'bitboy\'</string>
+	<string name="about_community_googleplus_title">Comunidade Google+</string>
+	<string name="about_community_googleplus_summary">Discussões sobre o aplicativo</string>
 	<string name="about_author_twitter_title">Autor no Twitter</string>
 	<string name="about_author_googleplus_title">Autor no Google+</string>
-	<string name="about_market_app_title">Página do aplicativo no Google Play</string>
+	<string name="about_market_app_title">Página no Google Play</string>
+	<string name="about_market_app_summary">Comente ou classifique o aplicativo</string>
 	<string name="about_credits_market_publisher_title">Outros aplicativos do Autor</string>
-	<string name="notification_coins_received_msg">%s recebidos</string>
+	<string name="notification_coins_received_msg">Recebido %s</string>
 	<string name="notification_peers_connected_msg">%d pares conectados</string>
 
 	<!-- generic buttons -->
@@ -189,10 +209,11 @@
 	<string name="button_paste">Colar</string>
 	<string name="button_share">Compartilhar</string>
 	<string name="button_set_as_default">Definir como padrão</string>
-	<string name="button_request_coins">Solicitar BTC</string>
-	<string name="button_send_coins">Enviar BTC</string>
+	<string name="button_request_coins">Solicitar Bitcoins</string>
+	<string name="button_send_coins">Enviar Bitcoins</string>
 	<string name="button_scan">Escanear</string>
 	<string name="button_edit_address">Adicionar/editar endereço</string>
+	<string name="action_open_blockexplorer">Abrir em blockexplorer.com</string>
 	<string name="time_today">hoje</string>
 	<string name="address_unlabeled">(sem nome)</string>
 
