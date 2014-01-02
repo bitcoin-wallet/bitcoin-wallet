@@ -1,0 +1,22 @@
+Hav altid dine Bitcoins med dig i din lomme! Du betaler ved hurtigt at scanne en QR-kode. Som handlende kan du modtage betalinger pålideligt og øjeblikkeligt. Bitcoin Wallet er den første mobile Bitcoin-app, og muligvis den mest sikre!
+
+FUNKTIONER:
+
+• Ingen registrering, webservice eller sky behøves! Tegnebogen er decentraliseret og peer-to-peer.
+• Visning af Bitcoin-beløb i BTC og mBTC.
+• Konvertering til og fra lokale valutaer.
+• Afsendelse og modtagelse af Bitcoin via NFC, QR-koder eller Bitcoin-URLer.
+• Adressebog til ofte brugte Bitcoin-adresser.
+• Når du er offline, kan du stadig betale via Bluetooth.
+• Systemnotifikation for modtagne mønter.
+• App-widget for Bitcoin-saldo.
+
+Du kan finde mere om Bitcoin på
+http://bitcoin.org
+
+Hvis du vil bidrage til Bitcoin Wallet, kan projektet findes på
+https://github.com/schildbach/bitcoin-wallet
+
+Licens: GPLv3
+Brug for egen risiko!
+http://www.gnu.org/licenses/gpl-3.0.en.html
