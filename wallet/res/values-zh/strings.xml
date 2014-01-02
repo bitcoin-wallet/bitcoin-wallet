@@ -5,38 +5,38 @@
 	<string name="toast_wallet_reset">钱包已重置，\n需要一些时间才能恢复</string>
 
 	<string name="wallet_disclaimer_fragment_remind_safety">请阅读安全及风险提示以了解潜在使用风险。</string>
-	<string name="wallet_address_fragment_your">你的比特币地址：</string>
-	<string name="wallet_address_fragment_clipboard_msg">比特币地址已复制到剪贴板</string>
-	<string name="wallet_addresses_fragment_add_dialog_title">添加比特币地址</string>
-	<string name="wallet_addresses_fragment_add_dialog_message">不能删除比特币地址，或许你想要一个新地址？</string>
+	<string name="wallet_address_fragment_your">你的莱特币地址：</string>
+	<string name="wallet_address_fragment_clipboard_msg">莱特币地址已复制到剪贴板</string>
+	<string name="wallet_addresses_fragment_add_dialog_title">添加莱特币地址</string>
+	<string name="wallet_addresses_fragment_add_dialog_message">不能删除莱特币地址，或许你想要一个新地址？</string>
 	<string name="exchange_rates_fragment_empty_text">无法加载汇率</string>
 	<string name="wallet_transactions_fragment_tab_received">接收</string>
 	<string name="wallet_transactions_fragment_tab_all">全部</string>
 	<string name="wallet_transactions_fragment_tab_sent">发送</string>
-	<string name="wallet_transactions_fragment_empty_text_received">还没有收到比特币哦！</string>
-	<string name="wallet_transactions_fragment_empty_text_sent">还没有给人发送比特币</string>
+	<string name="wallet_transactions_fragment_empty_text_received">还没有收到莱特币哦！</string>
+	<string name="wallet_transactions_fragment_empty_text_sent">还没有给人发送莱特币</string>
 	<string name="wallet_options_safety">安全及风险提示</string>
 	<string name="wallet_options_donate">捐赠</string>
 	<string name="wallet_low_storage_dialog_title">内部存储空间不足！！</string>
-	<string name="wallet_low_storage_dialog_msg">比特币钱包使用内部空间来存储交易记录了货币包，如果空间用完，那么它就会罢工，然后你的 比特币 就会有危险哦！\n\n我们觉得你应该想删除一些不需要的程序？</string>
+	<string name="wallet_low_storage_dialog_msg">莱特币钱包使用内部空间来存储交易记录了货币包，如果空间用完，那么它就会罢工，然后你的 莱特币 就会有危险哦！\n\n我们觉得你应该想删除一些不需要的程序？</string>
 	<string name="wallet_low_storage_dialog_button_apps">管理应用程序</string>
 
-	<string name="send_coins_activity_title">发送比特币</string>
+	<string name="send_coins_activity_title">发送莱特币</string>
 	<string name="send_coins_fragment_receiving_address_label">发送给</string>
 	<string name="send_coins_fragment_receiving_address_hint">输入地址或姓名</string>
 	<string name="send_coins_fragment_receiving_address_error">地址错误！</string>
 	<string name="send_coins_fragment_available_label">可用余额</string>
-	<string name="send_coins_fragment_pending">（%s比特币等待网络确认）</string>
+	<string name="send_coins_fragment_pending">（%s莱特币等待网络确认）</string>
 	<string name="send_coins_fragment_amount_label">总量</string>
 	<string name="send_coins_fragment_button_send">发送</string>
 	<string name="send_coins_sending_msg">发送中…</string>
 	<string name="send_coins_error_msg">支付时遇到了问题！</string>
 
-	<string name="request_coins_activity_title">接收比特币</string>
+	<string name="request_coins_activity_title">接收莱特币</string>
 	<string name="request_coins_fragment_amount_label">接收数量（可选）</string>
 	<string name="request_coins_fragment_initiate_request_qr">请付款者扫描此二维码。</string>
 	<string name="request_coins_fragment_initiate_request_nfc">或使用具备近场支付功能的设备。</string>
-	<string name="request_coins_clipboard_msg">索取比特币的请求已复制到剪贴板</string>
+	<string name="request_coins_clipboard_msg">索取莱特币的请求已复制到剪贴板</string>
 	<string name="request_coins_share_dialog_title">使用其它方式分享该申请…</string>
 
 	<string name="address_book_activity_title">地址薄</string>
@@ -63,7 +63,7 @@
 	<string name="about_market_app_title">Google Play 市场程序页</string>
 	<string name="about_credits_market_publisher_title">作者其它程序</string>
 
-	<string name="notification_coins_received_msg">已收到%s比特币</string>
+	<string name="notification_coins_received_msg">已收到%s莱特币</string>
 	<string name="notification_peers_connected_msg">%d连接已建立</string>
 
 	<!-- generic buttons -->
@@ -73,7 +73,7 @@
 	<string name="button_add">添加</string>
 	<string name="button_delete">删除</string>
 	<string name="button_share">分享</string>
-	<string name="button_request_coins">向他人索取比特币</string>
-	<string name="button_send_coins">发送比特币</string>
+	<string name="button_request_coins">向他人索取莱特币</string>
+	<string name="button_send_coins">发送莱特币</string>
 
 </resources>
