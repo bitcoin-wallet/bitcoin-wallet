@@ -81,24 +81,24 @@ public class Constants
 	public static final int MBTC_MAX_PRECISION = 5;
 	public static final int LOCAL_PRECISION = 4;
 
-	public static final String DONATION_ADDRESS = "1HkX6X8EakdsgAysL93oKrWiXGPbFiG1xV"; // TODO: Put something here
-	public static final String REPORT_EMAIL = "wallet@schildbach.de";//TODO: Put something here
+	public static final String DONATION_ADDRESS = "LPwViUHsXXKWp65ZxVqag7B3wmbmo4Zfd2";
+	public static final String REPORT_EMAIL = "dev@litecoin.org";
 	public static final String REPORT_SUBJECT_ISSUE = "Reported issue";
 	public static final String REPORT_SUBJECT_CRASH = "Crash report";
 
     //TODO: Lots of these
 	public static final String LICENSE_URL = "http://www.gnu.org/licenses/gpl-3.0.txt";
-	public static final String SOURCE_URL = "https://github.com/schildbach/bitcoin-wallet";
+	public static final String SOURCE_URL = "https://github.com/Litecoin-Java/bitcoin-wallet";
 	public static final String BINARY_URL = "http://code.google.com/p/bitcoin-wallet/downloads/list";
-	public static final String CREDITS_BITCOINJ_URL = "http://code.google.com/p/bitcoinj/";
+	public static final String CREDITS_BITCOINJ_URL = "https://github.com/Litecoin-Java/bitcoinj";
 	public static final String CREDITS_ZXING_URL = "http://code.google.com/p/zxing/";
 	public static final String CREDITS_ICON_URL = "https://bitcointalk.org/index.php?action=profile;u=2062";
-	public static final String AUTHOR_TWITTER_URL = "https://twitter.com/#!/bitcoin_wallet";
-	public static final String AUTHOR_GOOGLEPLUS_URL = "https://profiles.google.com/andreas.schildbach";
-	public static final String COMMUNITY_GOOGLEPLUS_URL = "https://plus.google.com/communities/105515929887248493912";
+	public static final String AUTHOR_TWITTER_URL = "https://twitter.com/LitecoinProject";
+	public static final String AUTHOR_GOOGLEPLUS_URL = "https://plus.google.com/+LitecoinOrg";
+	public static final String COMMUNITY_GOOGLEPLUS_URL = "https://plus.google.com/+LitecoinOrg";
 	public static final String MARKET_APP_URL = "market://details?id=%s";
 	public static final String WEBMARKET_APP_URL = "https://play.google.com/store/apps/details?id=%s";
-	public static final String MARKET_PUBLISHER_URL = "market://search?q=pub:\"Andreas Schildbach\"";
+	public static final String MARKET_PUBLISHER_URL = "market://search?q=pub:\"Litecoin Project\"";
 
 	public static final String VERSION_URL = "http://wallet.schildbach.de/version";
 	public static final int HTTP_TIMEOUT_MS = 15 * (int) DateUtils.SECOND_IN_MILLIS;
