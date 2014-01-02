@@ -34,6 +34,9 @@ import java.util.TreeMap;
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
 
+import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.util.GenericUtils;
+import de.schildbach.wallet.util.Io;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,8 +48,6 @@ import android.database.MatrixCursor;
 import android.net.Uri;
 import android.provider.BaseColumns;
 import android.text.format.DateUtils;
-import de.schildbach.wallet.util.GenericUtils;
-import de.schildbach.wallet.util.Io;
 
 /**
  * @author Andreas Schildbach
@@ -81,22 +82,17 @@ public class ExchangeRatesProvider extends ContentProvider
 	private Map<String, ExchangeRate> exchangeRates = null;
 	private long lastUpdated = 0;
 
-	private static final URL BITCOINAVERAGE_URL;
-	private static final String[] BITCOINAVERAGE_FIELDS = new String[] { "24h_avg" };
-	private static final URL BITCOINCHARTS_URL;
-	private static final String[] BITCOINCHARTS_FIELDS = new String[] { "24h", "7d", "30d" };
-	private static final URL BLOCKCHAININFO_URL;
-	private static final String[] BLOCKCHAININFO_FIELDS = new String[] { "15m" };
-
-	// https://bitmarket.eu/api/ticker
+	private static final URL BTCE_URL;
+	private static final String[] BTCE_FIELDS = new String[] { "avg" };
+	private static final URL VIRCUREX_URL;
+	private static final String[] VIRCUREX_FIELDS = new String[] { "value" };
 
 	static
 	{
 		try
 		{
-			BITCOINAVERAGE_URL = new URL("https://api.bitcoinaverage.com/ticker/all");
-			BITCOINCHARTS_URL = new URL("http://api.bitcoincharts.com/v1/weighted_prices.json");
-			BLOCKCHAININFO_URL = new URL("https://blockchain.info/ticker");
+			BTCE_URL = new URL("https://btc-e.com/api/2/ltc_usd/ticker");
+            VIRCUREX_URL = new URL("https://vircurex.com/api/get_last_trade.json?base=LTC&alt=USD");
 		}
 		catch (final MalformedURLException x)
 		{
@@ -128,11 +124,9 @@ public class ExchangeRatesProvider extends ContentProvider
 		{
 			Map<String, ExchangeRate> newExchangeRates = null;
 			if (exchangeRates == null && newExchangeRates == null)
-				newExchangeRates = requestExchangeRates(BITCOINAVERAGE_URL, BITCOINAVERAGE_FIELDS);
+				newExchangeRates = requestExchangeRates(BTCE_URL, BTCE_FIELDS);
 			if (exchangeRates == null && newExchangeRates == null)
-				newExchangeRates = requestExchangeRates(BITCOINCHARTS_URL, BITCOINCHARTS_FIELDS);
-			if (exchangeRates == null && newExchangeRates == null)
-				newExchangeRates = requestExchangeRates(BLOCKCHAININFO_URL, BLOCKCHAININFO_FIELDS);
+				newExchangeRates = requestExchangeRates(VIRCUREX_URL, VIRCUREX_FIELDS);
 
 			if (newExchangeRates != null)
 			{
