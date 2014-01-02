@@ -35,7 +35,6 @@ import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v4.widget.SimpleCursorAdapter.ViewBinder;
-import android.text.ClipboardManager;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -52,6 +51,7 @@ import com.google.bitcoin.uri.BitcoinURI;
 import de.schildbach.wallet.AddressBookProvider;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.ui.InputParser.StringInputParser;
+import de.schildbach.wallet.util.AbstractClipboardManager;
 import de.schildbach.wallet.util.BitmapFragment;
 import de.schildbach.wallet.util.Qr;
 import de.schildbach.wallet.util.WalletUtils;
@@ -63,7 +63,7 @@ import de.schildbach.wallet_ltc.R;
 public final class SendingAddressesFragment extends SherlockListFragment implements LoaderManager.LoaderCallbacks<Cursor>
 {
 	private AbstractWalletActivity activity;
-	private ClipboardManager clipboardManager;
+	private AbstractClipboardManager clipboardManager;
 	private LoaderManager loaderManager;
 
 	private SimpleCursorAdapter adapter;
@@ -77,9 +77,8 @@ public final class SendingAddressesFragment extends SherlockListFragment impleme
 	public void onAttach(final Activity activity)
 	{
 		super.onAttach(activity);
-
+        this.clipboardManager = new AbstractClipboardManager(activity);
 		this.activity = (AbstractWalletActivity) activity;
-		this.clipboardManager = (ClipboardManager) activity.getSystemService(Context.CLIPBOARD_SERVICE);
 		this.loaderManager = getLoaderManager();
 	}
 
@@ -325,7 +324,7 @@ public final class SendingAddressesFragment extends SherlockListFragment impleme
 
 	private void handleCopyToClipboard(final String address)
 	{
-		clipboardManager.setText(address);
+		clipboardManager.setText("address", address);
 		activity.toast(R.string.wallet_address_fragment_clipboard_msg);
 	}
 

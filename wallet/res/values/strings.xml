@@ -148,8 +148,8 @@
 	<string name="scan_camera_problem_dialog_title">Sorry</string>
 	<string name="scan_camera_problem_dialog_message">The camera has a problem. You probably need to restart the device.</string>
 	<string name="input_parser_cannot_classify">Cannot classify input:\n%s</string>
-	<string name="input_parser_invalid_bitcoin_uri">Invalid Litecoin URI:\n%s</string>
-	<string name="input_parser_invalid_address">Got invalid bitcoin address!\n(Mixing up Mainnet/Testnet?)</string>
+	<string name="input_parser_invalid_Litecoin_uri">Invalid Litecoin URI:\n%s</string>
+	<string name="input_parser_invalid_address">Got invalid Litecoin address!\n(Mixing up Mainnet/Testnet?)</string>
 	<string name="input_parser_invalid_transaction">Invalid transaction:\n%s</string>
 	<string name="preferences_activity_title">Settings</string>
 	<string name="preferences_category_main">Preferences</string>
@@ -160,6 +160,8 @@
 	<string name="preferences_connectivity_notification_title">Connectivity Indicator</string>
 	<string name="preferences_connectivity_notification_summary">Show current number of connected peers in the notification area.</string>
 	<string name="preferences_trusted_peer_title">Trusted Peer</string>
+    <string name="preferences_trusted_peer_port_title">Trusted Peer Port</string>
+    <string name="preferences_trusted_peer_port_summary">Port of single peer to connect to.</string>
 	<string name="preferences_trusted_peer_summary">IP or hostname of single peer to connect to.</string>
 	<string name="preferences_trusted_peer_only_title">Skip Regular Peer Discovery</string>
 	<string name="preferences_trusted_peer_only_summary">Prevents connecting to any peers besides the trusted peer.</string>
@@ -184,7 +186,7 @@
 	<string name="report_issue_dialog_mail_intent_chooser">Send report using…</string>
 	<string name="about_title">About</string>
 	<string name="about_license_title">License</string>
-	<string name="about_credits_bitcoinj_title">This app is using bitcoinj %s</string>
+	<string name="about_credits_litecoinj_title">This app is using Litecoinj %s</string>
 	<string name="about_credits_zxing_title">"This app is using 'zxing'"</string>
 	<string name="about_credits_icon_title">"This app is using an icon by 'bitboy'"</string>
 	<string name="about_community_googleplus_title">Google+ Community</string>
@@ -213,7 +215,7 @@
 	<string name="button_send_coins">Send coins</string>
 	<string name="button_scan">Scan</string>
 	<string name="button_edit_address">Add/edit address</string>
-	<string name="action_open_blockexplorer">Open in blockexplorer.com</string>
+	<string name="action_open_blockexplorer">Open in Litecoin Explorer</string>
 	<string name="time_today">today</string>
 	<string name="address_unlabeled">(unlabeled)</string>
 

@@ -137,8 +137,8 @@
 	<string name="import_keys_intent_filter_action">Nhập dữ liệu từ khóa Litecoin</string>
 	<string name="scan_camera_problem_dialog_title">Rất tiếc</string>
 	<string name="scan_camera_problem_dialog_message">Phần camera gặp vấn đề. Bạn nên khởi động lại thiết bị này.</string>
-	<string name="input_parser_invalid_bitcoin_uri">Litecoin URI không hợp lệ:\n%s</string>
-	<string name="input_parser_invalid_address">Đã nhận được địa chỉ bitcoin không hợp lệ!\n(Nhầm lẫn giữa Mainnet/Testnet?)</string>
+	<string name="input_parser_invalid_litecoin_uri">Litecoin URI không hợp lệ:\n%s</string>
+	<string name="input_parser_invalid_address">Đã nhận được địa chỉ litecoin không hợp lệ!\n(Nhầm lẫn giữa Mainnet/Testnet?)</string>
 	<string name="preferences_activity_title">Thiết lập</string>
 	<string name="preferences_category_main">Tùy biến</string>
 	<string name="preferences_category_diagnostics">Chẩn đoán</string>
@@ -167,7 +167,7 @@
 	<string name="report_issue_dialog_mail_intent_chooser">Gửi báo cáo sử dụng…</string>
 	<string name="about_title">Thông tin</string>
 	<string name="about_license_title">Giấy phép</string>
-	<string name="about_credits_bitcoinj_title">Ứng dụng này đang sử dụng bitcoinj %s</string>
+	<string name="about_credits_litecoinj_title">Ứng dụng này đang sử dụng litecoinj %s</string>
 	<string name="about_credits_zxing_title">Ứng dụng này sử dụng \'zxing\'</string>
 	<string name="about_credits_icon_title">Ứng dụng này sử dụng biểu tượng bởi \'bitboy\'</string>
 	<string name="about_author_twitter_title">Liên hệ tác giả bằng Twitter</string>

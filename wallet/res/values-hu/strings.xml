@@ -146,7 +146,7 @@
 	<string name="import_keys_intent_filter_action">Litecoin kulcs visszaállítása</string>
 	<string name="scan_camera_problem_dialog_title">Sajnáljuk</string>
 	<string name="scan_camera_problem_dialog_message">A kamera nem válaszol. Próbáld meg újraindítani az eszközt.</string>
-	<string name="input_parser_invalid_address">Érvénytelen bitcoin cím!\n(Keveredés a Mainnet/Testnet-tel?)</string>
+	<string name="input_parser_invalid_address">Érvénytelen litecoin cím!\n(Keveredés a Mainnet/Testnet-tel?)</string>
 	<string name="preferences_activity_title">Beállítások</string>
 	<string name="preferences_category_main">Beállítások</string>
 	<string name="preferences_category_diagnostics">Diagnosztika</string>
@@ -177,7 +177,7 @@
 	<string name="report_issue_dialog_mail_intent_chooser">Hiba küldése ezzel…</string>
 	<string name="about_title">Rólunk</string>
 	<string name="about_license_title">Licensz</string>
-	<string name="about_credits_bitcoinj_title">Az applikáció bitcoinj %s-t használ</string>
+	<string name="about_credits_litecoinj_title">Az applikáció litecoinj %s-t használ</string>
 	<string name="about_credits_zxing_title">Ez az app \'zxing\'-et használ</string>
 	<string name="about_credits_icon_title">Az app \'bitboy\' ikonját használja</string>
 	<string name="about_author_twitter_title">A Twitter-en</string>
@@ -203,7 +203,7 @@
 	<string name="button_send_coins">Érmék küldése</string>
 	<string name="button_scan">Szkennelés</string>
 	<string name="button_edit_address">Cím hozzáadása/szerkesztése</string>
-	<string name="action_open_blockexplorer">Megnyitás a blockexplorer.com oldalon</string>
+	<string name="action_open_blockexplorer">Megnyitás a Litecoin Explorer oldalon</string>
 	<string name="time_today">ma</string>
 	<string name="address_unlabeled">(címke nélkül)</string>
 

@@ -142,8 +142,8 @@
 	<string name="import_keys_intent_filter_action">Pulihkan kunci pribadi</string>
 	<string name="scan_camera_problem_dialog_title">Maaf</string>
 	<string name="scan_camera_problem_dialog_message">Kamera mengalami masalah. Anda mungkin harus menyala-ulangkan ponsel.</string>
-	<string name="input_parser_invalid_bitcoin_uri">Tautan Litecoin Salah:\n%s</string>
-	<string name="input_parser_invalid_address">Alamat bitcoin salah!\n(Keliru dgn Mainet/Testnet?)</string>
+	<string name="input_parser_invalid_litecoin_uri">Tautan Litecoin Salah:\n%s</string>
+	<string name="input_parser_invalid_address">Alamat litecoin salah!\n(Keliru dgn Mainet/Testnet?)</string>
 	<string name="preferences_activity_title">Pengaturan</string>
 	<string name="preferences_category_main">Preferensi</string>
 	<string name="preferences_category_diagnostics">Diagnosa</string>
@@ -174,7 +174,7 @@
 	<string name="report_issue_dialog_mail_intent_chooser">Kirim laporan dgn…</string>
 	<string name="about_title">Mengenai</string>
 	<string name="about_license_title">Lisensi</string>
-	<string name="about_credits_bitcoinj_title">Apl ini menggunakan bitcoinj %s</string>
+	<string name="about_credits_litecoinj_title">Apl ini menggunakan litecoinj %s</string>
 	<string name="about_credits_zxing_title">Apl ini menggunakan \'zxing\'</string>
 	<string name="about_credits_icon_title">Apl ini menggunakan ikon oleh \'bitboy\'</string>
 	<string name="about_author_twitter_title">Pembuat di Twitter</string>

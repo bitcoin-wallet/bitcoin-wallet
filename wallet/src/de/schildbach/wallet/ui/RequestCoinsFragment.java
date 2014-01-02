@@ -23,6 +23,7 @@ import java.util.List;
 
 import javax.annotation.CheckForNull;
 
+import de.schildbach.wallet.util.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -41,7 +42,6 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.app.ShareCompat.IntentBuilder;
 import android.support.v4.content.Loader;
-import android.text.ClipboardManager;
 import android.text.SpannableStringBuilder;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -72,10 +72,6 @@ import de.schildbach.wallet.ExchangeRatesProvider;
 import de.schildbach.wallet.ExchangeRatesProvider.ExchangeRate;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.offline.AcceptBluetoothService;
-import de.schildbach.wallet.util.BitmapFragment;
-import de.schildbach.wallet.util.Bluetooth;
-import de.schildbach.wallet.util.Nfc;
-import de.schildbach.wallet.util.Qr;
 import de.schildbach.wallet_ltc.R;
 
 /**
@@ -89,7 +85,7 @@ public final class RequestCoinsFragment extends SherlockFragment
 	private SharedPreferences prefs;
 	private NfcManager nfcManager;
 	private LoaderManager loaderManager;
-	private ClipboardManager clipboardManager;
+	private AbstractClipboardManager clipboardManager;
 	private ShareActionProvider shareActionProvider;
 	@CheckForNull
 	private BluetoothAdapter bluetoothAdapter;
@@ -153,7 +149,7 @@ public final class RequestCoinsFragment extends SherlockFragment
 		this.prefs = PreferenceManager.getDefaultSharedPreferences(activity);
 		this.loaderManager = getLoaderManager();
 		this.nfcManager = (NfcManager) activity.getSystemService(Context.NFC_SERVICE);
-		this.clipboardManager = (ClipboardManager) activity.getSystemService(Context.CLIPBOARD_SERVICE);
+		this.clipboardManager = new AbstractClipboardManager(activity);
 		this.bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 	}
 
@@ -370,7 +366,7 @@ public final class RequestCoinsFragment extends SherlockFragment
 	private void handleCopy()
 	{
 		final String request = determineRequestStr(false);
-		clipboardManager.setText(request);
+		clipboardManager.setText("address", request);
 		activity.toast(R.string.request_coins_clipboard_msg);
 	}
 

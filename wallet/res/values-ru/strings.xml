@@ -148,7 +148,7 @@
 	<string name="scan_camera_problem_dialog_title">Извините</string>
 	<string name="scan_camera_problem_dialog_message">Проблема с камерой. Возможно, вам нужно перезагрузить устройство.</string>
 	<string name="input_parser_cannot_classify">Не удалось классифицировать ввод:\n%s</string>
-	<string name="input_parser_invalid_bitcoin_uri">Неверный Litecoin URI:\n%s</string>
+	<string name="input_parser_invalid_litecoin_uri">Неверный Litecoin URI:\n%s</string>
 	<string name="input_parser_invalid_address">Получен неверный адрес биткоин!\n(перепутаны Testnet/Mainnet?)</string>
 	<string name="input_parser_invalid_transaction">Неверная транзакция:\n%s</string>
 	<string name="preferences_activity_title">Настройки</string>
@@ -184,7 +184,7 @@
 	<string name="report_issue_dialog_mail_intent_chooser">Отправить отчет используя…</string>
 	<string name="about_title">О программе</string>
 	<string name="about_license_title">Лицензия</string>
-	<string name="about_credits_bitcoinj_title">Это приложение использует bitcoinj %s</string>
+	<string name="about_credits_litecoinj_title">Это приложение использует litecoinj %s</string>
 	<string name="about_credits_zxing_title">Это приложение использует \'zxing\'</string>
 	<string name="about_credits_icon_title">Это приложение использует иконку от \'bitboy\'</string>
 	<string name="about_author_twitter_title">Автор в Twitter</string>
@@ -209,7 +209,7 @@
 	<string name="button_send_coins">Отправить монеты</string>
 	<string name="button_scan">Сканировать</string>
 	<string name="button_edit_address">Добавить/изменить адрес</string>
-	<string name="action_open_blockexplorer">Открыть в blockexplorer.com</string>
+	<string name="action_open_blockexplorer">Открыть в Litecoin Explorer</string>
 	<string name="time_today">сегодня</string>
 	<string name="address_unlabeled">(без метки)</string>
 

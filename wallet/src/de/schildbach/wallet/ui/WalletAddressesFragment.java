@@ -35,7 +35,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
-import android.text.ClipboardManager;
 import android.view.View;
 import android.widget.BaseAdapter;
 import android.widget.ListAdapter;
@@ -56,6 +55,7 @@ import com.google.bitcoin.uri.BitcoinURI;
 import de.schildbach.wallet.AddressBookProvider;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
+import de.schildbach.wallet.util.AbstractClipboardManager;
 import de.schildbach.wallet.util.BitmapFragment;
 import de.schildbach.wallet.util.Qr;
 import de.schildbach.wallet.util.WalletUtils;
@@ -256,8 +256,8 @@ public final class WalletAddressesFragment extends SherlockListFragment
 
 			private void handleCopyToClipboard(@Nonnull final Address address)
 			{
-				final ClipboardManager clipboardManager = (ClipboardManager) activity.getSystemService(Context.CLIPBOARD_SERVICE);
-				clipboardManager.setText(address.toString());
+				final AbstractClipboardManager clipboardManager = new AbstractClipboardManager(activity);
+				clipboardManager.setText("address", address.toString());
 				activity.toast(R.string.wallet_address_fragment_clipboard_msg);
 			}
 

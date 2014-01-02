@@ -55,7 +55,7 @@
 
 	<string name="about_title">Wokół</string>
 	<string name="about_license_title">Licencja</string>
-	<string name="about_credits_bitcoinj_title">Ta aplikacja używa bitcoinj %s</string>
+	<string name="about_credits_litecoinj_title">Ta aplikacja używa litecoinj %s</string>
 	<string name="about_credits_zxing_title">"Ta aplikacja używa 'zxing'"</string>
 	<string name="about_credits_icon_title">"Ta aplikacja używa icon od 'bitboy'"</string>
 	<string name="about_author_twitter_title">Autor na Twitter</string>

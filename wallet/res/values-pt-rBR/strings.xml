@@ -137,7 +137,7 @@
 	<string name="import_keys_intent_filter_action">Importação de chaves Litecoin</string>
 	<string name="scan_camera_problem_dialog_title">Desculpe</string>
 	<string name="scan_camera_problem_dialog_message">Ocorreu um problema com a câmera. Você provavelmente precisará reiniciar o dispositivo.</string>
-	<string name="input_parser_invalid_bitcoin_uri">URI de Litecoin inválida:\n%s</string>
+	<string name="input_parser_invalid_litecoin_uri">URI de Litecoin inválida:\n%s</string>
 	<string name="input_parser_invalid_address">Endereço inválido de Litecoin!\n(Mixing up Mainnet/Testnet?)</string>
 	<string name="preferences_activity_title">Configurações</string>
 	<string name="preferences_category_main">Preferências</string>
@@ -167,7 +167,7 @@
 	<string name="report_issue_dialog_mail_intent_chooser">Enviar relatório usando…</string>
 	<string name="about_title">Sobre</string>
 	<string name="about_license_title">Licença</string>
-	<string name="about_credits_bitcoinj_title">Este aplicativo utiliza bitcoinj %s</string>
+	<string name="about_credits_litecoinj_title">Este aplicativo utiliza litecoinj %s</string>
 	<string name="about_credits_zxing_title">Este aplicativo utiliza \'zxing\'</string>
 	<string name="about_credits_icon_title">Este aplicativo utiliza icones \'bitboy\'</string>
 	<string name="about_author_twitter_title">Autor no Twitter</string>

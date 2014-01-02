@@ -55,7 +55,7 @@
 
 	<string name="about_title">关于</string>
 	<string name="about_license_title">授权</string>
-	<string name="about_credits_bitcoinj_title">本程序使用 bitcoinj %s</string>
+	<string name="about_credits_litecoinj_title">本程序使用 litecoinj %s</string>
 	<string name="about_credits_zxing_title">"本程序使用 'zxing'"</string>
 	<string name="about_credits_icon_title">"本程序使用 'bitboy' 制作的图标"</string>
 	<string name="about_author_twitter_title">作者Twitter</string>

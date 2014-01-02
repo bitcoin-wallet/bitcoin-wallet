@@ -128,7 +128,7 @@
 	<string name="import_export_keys_dialog_failure_title">שגיאה</string>
 	<string name="scan_camera_problem_dialog_title">סליחה</string>
 	<string name="scan_camera_problem_dialog_message">בעיה במצלמה</string>
-	<string name="input_parser_invalid_bitcoin_uri">כתובת ביטקוין לא חוקית:\n%s</string>
+	<string name="input_parser_invalid_litecoin_uri">כתובת ביטקוין לא חוקית:\n%s</string>
 	<string name="input_parser_invalid_address">כתובת ביטקוין לא חוקית</string>
 	<string name="preferences_activity_title">הגדרות</string>
 	<string name="preferences_category_main">העדפות</string>
@@ -158,7 +158,7 @@
 	<string name="report_issue_dialog_mail_intent_chooser">שלח דוח באמצעות…</string>
 	<string name="about_title">על</string>
 	<string name="about_license_title">רישיון</string>
-	<string name="about_credits_bitcoinj_title">This app is using bitcoinj %s</string>
+	<string name="about_credits_litecoinj_title">This app is using litecoinj %s</string>
 	<string name="about_credits_zxing_title">"This app is using 'zxing'"</string>
 	<string name="about_credits_icon_title">"This app is using an icon by 'bitboy'"</string>
 	<string name="about_author_twitter_title">Author at Twitter</string>

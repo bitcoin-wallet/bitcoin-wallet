@@ -410,17 +410,9 @@ public class WalletApplication extends Application
 		log.debug("wallet saved to: '" + walletFile + "', took " + (System.currentTimeMillis() - start) + "ms");
 	}
 
+    // Changed to append date/time stamp to prevent key overwriting
 	private void backupKeys()
 	{
-		try
-		{
-			writeKeys(openFileOutput(Constants.WALLET_KEY_BACKUP_BASE58, Context.MODE_PRIVATE));
-		}
-		catch (final IOException x)
-		{
-			log.error("problem writing key backup", x);
-		}
-
 		try
 		{
 			final String filename = String.format(Locale.US, "%s.%02d", Constants.WALLET_KEY_BACKUP_BASE58,

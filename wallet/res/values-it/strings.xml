@@ -148,8 +148,8 @@
 	<string name="scan_camera_problem_dialog_title">Scusa</string>
 	<string name="scan_camera_problem_dialog_message">La videocamera ha un problema. Probabilmente è necessario riavviare il dispositivo.</string>
 	<string name="input_parser_cannot_classify">Impossibile classificare ingresso:⏎\n%s</string>
-	<string name="input_parser_invalid_bitcoin_uri">URI Litecoin non valido:⏎\n%s</string>
-	<string name="input_parser_invalid_address">Ricevuto indirizzo bitcoin non valido!\n(Hai mescolato Mainnet/Testnet?)</string>
+	<string name="input_parser_invalid_litecoin_uri">URI Litecoin non valido:⏎\n%s</string>
+	<string name="input_parser_invalid_address">Ricevuto indirizzo litecoin non valido!\n(Hai mescolato Mainnet/Testnet?)</string>
 	<string name="input_parser_invalid_transaction">Transazione non valida:⏎\n%s</string>
 	<string name="preferences_activity_title">Impostazioni</string>
 	<string name="preferences_category_main">Preferenze</string>
@@ -181,7 +181,7 @@
 	<string name="report_issue_dialog_mail_intent_chooser">Invio della segnalazione…</string>
 	<string name="about_title">Informazioni</string>
 	<string name="about_license_title">Licenza</string>
-	<string name="about_credits_bitcoinj_title">Questa applicazione fa uso di \'bitcoinj\'</string>
+	<string name="about_credits_litecoinj_title">Questa applicazione fa uso di \'litecoinj\'</string>
 	<string name="about_credits_zxing_title">Questa applicazione fa uso di \'zxing\'</string>
 	<string name="about_credits_icon_title">Questa applicazione fa uso di una icona di \'bitboy\'</string>
 	<string name="about_author_twitter_title">L\'autore su Twitter</string>
@@ -207,7 +207,7 @@
 	<string name="button_send_coins">Invia Litecoins</string>
 	<string name="button_scan">Analizza</string>
 	<string name="button_edit_address">Aggiungi/modifica indirizzo</string>
-	<string name="action_open_blockexplorer">Aperto in blockexplorer.com</string>
+	<string name="action_open_blockexplorer">Aperto in Litecoin Explorer</string>
 	<string name="time_today">oggi</string>
 	<string name="address_unlabeled">(non etichettato)</string>
 

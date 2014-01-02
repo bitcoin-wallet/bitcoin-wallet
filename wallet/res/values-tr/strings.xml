@@ -50,7 +50,7 @@
 	<string name="wallet_version_dialog_button_market">Google Play</string>
 	<string name="wallet_version_dialog_button_binary">İndir</string>
 	<string name="wallet_old_sdk_dialog_title">Android sürümü eski</string>
-	<string name="wallet_old_sdk_dialog_message">Gelecek Litecoin Wallet sürümünün cihazınızı desteklememesi mümkündür. Bazı durumlarda bu cihazla bitcoin harcamak zor olabilir.\n\nLitecoinlerinizi güvenli bir yere aktarmanız tavsiye edilir.</string>
+	<string name="wallet_old_sdk_dialog_message">Gelecek Litecoin Wallet sürümünün cihazınızı desteklememesi mümkündür. Bazı durumlarda bu cihazla litecoin harcamak zor olabilir.\n\nLitecoinlerinizi güvenli bir yere aktarmanız tavsiye edilir.</string>
 	<string name="send_coins_activity_title">Litecoin gönder</string>
 	<string name="send_coins_fragment_receiving_address_label">Şuna öde</string>
 	<string name="send_coins_fragment_receiving_address_hint">adını veya adresini giriniz</string>
@@ -97,7 +97,7 @@
 	<string name="address_book_options_paste_from_clipboard_title">Panodan yapıştır</string>
 	<string name="address_book_options_copy_from_clipboard_msg_empty">Pano boş</string>
 	<string name="address_book_options_scan_title">Adresi tara</string>
-	<string name="address_book_row_message_compromised_key">Bu adres tehlikededir. Onu artık bitcoin almak için kullanmamalısınız.</string>
+	<string name="address_book_row_message_compromised_key">Bu adres tehlikededir. Onu artık litecoin almak için kullanmamalısınız.</string>
 	<string name="edit_address_book_entry_dialog_title_add">Adres ekle</string>
 	<string name="edit_address_book_entry_dialog_title_edit">Adres düzenle</string>
 	<string name="edit_address_book_entry_dialog_address_label">Adres</string>
@@ -148,8 +148,8 @@
 	<string name="scan_camera_problem_dialog_title">Üzgünüz</string>
 	<string name="scan_camera_problem_dialog_message">Fotoğraf makinesinde bir problem var. Muhtemelen cihazınızı yeniden başlatmanız gerekiyor.</string>
 	<string name="input_parser_cannot_classify">Girdi sınıflandırılamadı:\n%s</string>
-	<string name="input_parser_invalid_bitcoin_uri">Geçersiz Litecoin adresi:\n%s</string>
-	<string name="input_parser_invalid_address">Geçersiz bir bitcoin adresi alındı!\n(Mainnet ve Testnet karışmış olmasın?)</string>
+	<string name="input_parser_invalid_litecoin_uri">Geçersiz Litecoin adresi:\n%s</string>
+	<string name="input_parser_invalid_address">Geçersiz bir litecoin adresi alındı!\n(Mainnet ve Testnet karışmış olmasın?)</string>
 	<string name="input_parser_invalid_transaction">Geçersiz muamele:\n%s</string>
 	<string name="preferences_activity_title">Ayarlar</string>
 	<string name="preferences_category_main">Tercihler</string>
@@ -184,7 +184,7 @@
 	<string name="report_issue_dialog_mail_intent_chooser">Raporu şununla gönder…</string>
 	<string name="about_title">Hakkında</string>
 	<string name="about_license_title">Lisans</string>
-	<string name="about_credits_bitcoinj_title">Bu uygulama bitcoinj %s kullanmaktadır</string>
+	<string name="about_credits_litecoinj_title">Bu uygulama litecoinj %s kullanmaktadır</string>
 	<string name="about_credits_zxing_title">Bu uygulama \'zxing\' kullanmaktadır</string>
 	<string name="about_credits_icon_title">Bu uygulama \'bitboy\' tarafından oluşturulan bir ikon kullanır</string>
 	<string name="about_author_twitter_title">Geliştiricinin Twitter sayfası</string>
@@ -209,7 +209,7 @@
 	<string name="button_send_coins">Litecoin gönder</string>
 	<string name="button_scan">Tara</string>
 	<string name="button_edit_address">Adres ilâve et/düzenle</string>
-	<string name="action_open_blockexplorer">blockexplorer.com\'da aç</string>
+	<string name="action_open_blockexplorer">Litecoin Explorer\'da aç</string>
 	<string name="time_today">bugün</string>
 	<string name="address_unlabeled">(etiketsiz)</string>
 

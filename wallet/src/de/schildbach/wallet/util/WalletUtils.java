@@ -152,6 +152,9 @@ public class WalletUtils
 		{
 			for (final TransactionInput input : tx.getInputs())
 			{
+                // This deprecation is apparently because the "from" address is not necessarily good
+                // for receiving, and can be null if it's a coinbase transaction.
+                // Leaving for now since there's not really a good alternative.
 				return input.getFromAddress();
 			}
 

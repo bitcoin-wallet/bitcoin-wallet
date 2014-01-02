@@ -81,11 +81,11 @@
 	<string name="amount_calculator_dialog_title">Valuta kalkylator</string>
 	<string name="amount_calculator_dialog_button_use">Använd</string>
 	<string name="peer_list_fragment_empty">Inga peers anslutna</string>
-	<string name="input_parser_invalid_bitcoin_uri">Ogiltig Litecoinadress:\n%s</string>
-	<string name="input_parser_invalid_address">Fick ogiltig bitcoinadress!\n(Blandar du ihop Mainnet/Testnet?)</string>
+	<string name="input_parser_invalid_litecoin_uri">Ogiltig Litecoinadress:\n%s</string>
+	<string name="input_parser_invalid_address">Fick ogiltig litecoinadress!\n(Blandar du ihop Mainnet/Testnet?)</string>
 	<string name="about_title">Om</string>
 	<string name="about_license_title">Licens</string>
-	<string name="about_credits_bitcoinj_title">Denna app använder bitcoinj %s</string>
+	<string name="about_credits_litecoinj_title">Denna app använder litecoinj %s</string>
 	<string name="about_credits_zxing_title">Denna app använder \'zxing\'</string>
 	<string name="about_credits_icon_title">Appen använder en ikon av \'bitboy\'</string>
 	<string name="about_author_twitter_title">Utvecklaren på Twitter</string>

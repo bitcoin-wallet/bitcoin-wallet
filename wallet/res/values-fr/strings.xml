@@ -47,7 +47,7 @@
 	<string name="wallet_version_dialog_button_market">Google Play</string>
 	<string name="wallet_version_dialog_button_binary">Télécharger</string>
 	<string name="wallet_old_sdk_dialog_title">La version d\'Android n\'est pas à jour</string>
-	<string name="wallet_old_sdk_dialog_message">Il y a des chances pour qu\'une prochaine version de Litecoin Wallet ne supporte plus votre appareil. Dans certains cas, il pourrait devenir difficile de dépenser des bitcoins sur cet appareil.\n\nÀ moins de savoir ce que vous faites, il est recommandé de déplacer vos bitcoins dans un avenir proche.</string>
+	<string name="wallet_old_sdk_dialog_message">Il y a des chances pour qu\'une prochaine version de Litecoin Wallet ne supporte plus votre appareil. Dans certains cas, il pourrait devenir difficile de dépenser des litecoins sur cet appareil.\n\nÀ moins de savoir ce que vous faites, il est recommandé de déplacer vos litecoins dans un avenir proche.</string>
 	<string name="send_coins_activity_title">Envoyer les Litecoins</string>
 	<string name="send_coins_fragment_receiving_address_label">Payer à</string>
 	<string name="send_coins_fragment_receiving_address_hint">Entrer l\'adresse ou le nom</string>
@@ -137,7 +137,7 @@
 	<string name="import_keys_intent_filter_action">Importation de clé Litecoin</string>
 	<string name="scan_camera_problem_dialog_title">Désolé</string>
 	<string name="scan_camera_problem_dialog_message">La caméra rencontre un problème. Vous aurez probablement besoin de redémarrer l\'appareil.</string>
-	<string name="input_parser_invalid_bitcoin_uri">URI Litecoin invalide:\n%s</string>
+	<string name="input_parser_invalid_litecoin_uri">URI Litecoin invalide:\n%s</string>
 	<string name="input_parser_invalid_address">Réception d\'une adresse Litecoin invalide&#x202F;!\n(Mélange entre Mainnet et Testnet&#x202F;?)</string>
 	<string name="preferences_activity_title">Configuration</string>
 	<string name="preferences_category_main">Préférences</string>
@@ -167,7 +167,7 @@
 	<string name="report_issue_dialog_mail_intent_chooser">Envoyer le rapport à l\'aide de…</string>
 	<string name="about_title">A propos de</string>
 	<string name="about_license_title">License</string>
-	<string name="about_credits_bitcoinj_title">Cette application utilise bitcoinj %s</string>
+	<string name="about_credits_litecoinj_title">Cette application utilise litecoinj %s</string>
 	<string name="about_credits_zxing_title">Cette application utilise \'zxing\'</string>
 	<string name="about_credits_icon_title">Cette application utilise une icône de \'bitboy\'</string>
 	<string name="about_author_twitter_title">Auteur sur Twitter</string>
@@ -189,8 +189,8 @@
 	<string name="button_paste">Coller</string>
 	<string name="button_share">Partager</string>
 	<string name="button_set_as_default">Défaut</string>
-	<string name="button_request_coins">Demander des bitcoins</string>
-	<string name="button_send_coins">Envoyer des bitcoins</string>
+	<string name="button_request_coins">Demander des litecoins</string>
+	<string name="button_send_coins">Envoyer des litecoins</string>
 	<string name="button_edit_address">Ajouter/éditer une adresse</string>
 	<string name="button_scan">Analyser</string>
 	<string name="time_today">aujourd\'hui</string>

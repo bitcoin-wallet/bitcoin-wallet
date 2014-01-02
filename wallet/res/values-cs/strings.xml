@@ -13,8 +13,8 @@
 	<string name="wallet_transactions_fragment_tab_received">Obdrženo</string>
 	<string name="wallet_transactions_fragment_tab_all">Oba</string>
 	<string name="wallet_transactions_fragment_tab_sent">Zasláno</string>
-	<string name="wallet_transactions_fragment_empty_text_received">Zatím žádné bitcoiny neobdrženy</string>
-	<string name="wallet_transactions_fragment_empty_text_sent">Zatím žádné bitcoiny neodeslány</string>
+	<string name="wallet_transactions_fragment_empty_text_received">Zatím žádné Litecoiny neobdrženy</string>
+	<string name="wallet_transactions_fragment_empty_text_sent">Zatím žádné Litecoiny neodeslány</string>
 	<string name="wallet_options_safety">Bezpečnost</string>
 	<string name="wallet_options_donate">Přispět</string>
 	<string name="wallet_low_storage_dialog_title">Málo vnitřní paměti!</string>
@@ -56,7 +56,7 @@
 
 	<string name="about_title">O aplikaci</string>
 	<string name="about_license_title">Licence</string>
-	<string name="about_credits_bitcoinj_title">Aplikace používá bitcoinj %s</string>
+	<string name="about_credits_litecoinj_title">Aplikace používá Litecoinj %s</string>
 	<string name="about_credits_zxing_title">"Aplikace používá 'zxing'"</string>
 	<string name="about_credits_icon_title">"Aplikace používá ikonu od 'bitboy'"</string>
 	<string name="about_author_twitter_title">Autor na Twitteru</string>
