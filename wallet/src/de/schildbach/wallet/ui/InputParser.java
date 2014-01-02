@@ -61,7 +61,7 @@ public abstract class InputParser
 		@Override
 		public void parse()
 		{
-			if (input.startsWith("bitcoin:"))
+			if (input.startsWith("litecoin:"))
 			{
 				try
 				{
