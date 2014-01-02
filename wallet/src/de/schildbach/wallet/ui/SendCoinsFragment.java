@@ -487,7 +487,7 @@ public final class SendCoinsFragment extends SherlockFragment
 			final String scheme = intentUri != null ? intentUri.getScheme() : null;
 
 			if ((Intent.ACTION_VIEW.equals(action) || NfcAdapter.ACTION_NDEF_DISCOVERED.equals(action)) && intentUri != null
-					&& "bitcoin".equals(scheme))
+					&& "litecoin".equals(scheme))
 				initStateFromBitcoinUri(intentUri);
 			else if (intent.hasExtra(SendCoinsActivity.INTENT_EXTRA_ADDRESS))
 				initStateFromIntentExtras(intent.getExtras());

@@ -65,7 +65,7 @@ public abstract class InputParser
 			{
 				try
 				{
-					final BitcoinURI bitcoinUri = new BitcoinURI(null, input);
+					final BitcoinURI bitcoinUri = new BitcoinURI(Constants.NETWORK_PARAMETERS, input);
 					final Address address = bitcoinUri.getAddress();
 					final String addressLabel = bitcoinUri.getLabel();
 					final BigInteger amount = bitcoinUri.getAmount();
