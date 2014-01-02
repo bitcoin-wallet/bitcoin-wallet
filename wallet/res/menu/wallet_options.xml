@@ -49,10 +49,6 @@
 		</menu>
 	</item>
 	<item
-		android:id="@+id/wallet_options_disconnect"
-		android:showAsAction="never"
-		android:title="@string/wallet_options_disconnect"/>
-	<item
 		android:id="@+id/wallet_options_preferences"
 		android:showAsAction="never"
 		android:title="@string/preferences_activity_title"/>

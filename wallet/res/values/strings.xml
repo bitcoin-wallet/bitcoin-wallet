@@ -35,7 +35,6 @@
 	<string name="wallet_transactions_fragment_internal">internal</string>
 	<string name="wallet_transactions_context_show_qr_title">Show QR code</string>
 	<string name="wallet_options_backup">Back up Keys</string>
-	<string name="wallet_options_disconnect">Disconnect</string>
 	<string name="wallet_options_safety">Safety notes</string>
 	<string name="wallet_options_donate">Tip / Donate</string>
 	<string name="wallet_donate_address_label">Donation for Bitcoin Wallet</string>
@@ -213,7 +212,7 @@
 	<string name="button_send_coins">Send coins</string>
 	<string name="button_scan">Scan</string>
 	<string name="button_edit_address">Add/edit address</string>
-	<string name="action_open_blockexplorer">Open in blockexplorer.com</string>
+	<string name="action_browse">Browse</string>
 	<string name="time_today">today</string>
 	<string name="address_unlabeled">(unlabeled)</string>
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2011-2013 the original author or authors.
+ * Copyright 2011-2014 the original author or authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,6 +18,7 @@
 package de.schildbach.wallet;
 
 import java.io.File;
+import java.math.BigInteger;
 import java.nio.charset.Charset;
 
 import android.os.Environment;
@@ -52,10 +53,10 @@ public class Constants
 
 	public static final String CHECKPOINTS_FILENAME = "checkpoints" + FILENAME_NETWORK_SUFFIX;
 
-	private static final String BLOCKEXPLORER_BASE_URL_PROD = "https://blockexplorer.com/";
-	private static final String BLOCKEXPLORER_BASE_URL_TEST = "https://blockexplorer.com/testnet/";
-	public static final String BLOCKEXPLORER_BASE_URL = NETWORK_PARAMETERS.getId().equals(NetworkParameters.ID_MAINNET) ? BLOCKEXPLORER_BASE_URL_PROD
-			: BLOCKEXPLORER_BASE_URL_TEST;
+	private static final String EXPLORE_BASE_URL_PROD = "https://www.biteasy.com/";
+	private static final String EXPLORE_BASE_URL_TEST = "https://www.biteasy.com/testnet/";
+	public static final String EXPLORE_BASE_URL = NETWORK_PARAMETERS.getId().equals(NetworkParameters.ID_MAINNET) ? EXPLORE_BASE_URL_PROD
+			: EXPLORE_BASE_URL_TEST;
 
 	public static final String MIMETYPE_TRANSACTION = "application/x-btctx";
 
@@ -81,7 +82,7 @@ public class Constants
 	public static final int MBTC_MAX_PRECISION = 5;
 	public static final int LOCAL_PRECISION = 4;
 
-	public static final String DONATION_ADDRESS = "1HkX6X8EakdsgAysL93oKrWiXGPbFiG1xV";
+	public static final String DONATION_ADDRESS = "18CK5k1gajRKKSC7yVSTXT9LUzbheh1XY4";
 	public static final String REPORT_EMAIL = "wallet@schildbach.de";
 	public static final String REPORT_SUBJECT_ISSUE = "Reported issue";
 	public static final String REPORT_SUBJECT_CRASH = "Crash report";

@@ -1,5 +1,5 @@
 /*
- * Copyright 2011-2013 the original author or authors.
+ * Copyright 2011-2014 the original author or authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -127,11 +127,11 @@ public class ExchangeRatesProvider extends ContentProvider
 		if (exchangeRates == null || now - lastUpdated > UPDATE_FREQ_MS)
 		{
 			Map<String, ExchangeRate> newExchangeRates = null;
-			if (exchangeRates == null && newExchangeRates == null)
+			if (newExchangeRates == null)
 				newExchangeRates = requestExchangeRates(BITCOINAVERAGE_URL, BITCOINAVERAGE_FIELDS);
-			if (exchangeRates == null && newExchangeRates == null)
+			if (newExchangeRates == null)
 				newExchangeRates = requestExchangeRates(BITCOINCHARTS_URL, BITCOINCHARTS_FIELDS);
-			if (exchangeRates == null && newExchangeRates == null)
+			if (newExchangeRates == null)
 				newExchangeRates = requestExchangeRates(BLOCKCHAININFO_URL, BLOCKCHAININFO_FIELDS);
 
 			if (newExchangeRates != null)
@@ -226,6 +226,8 @@ public class ExchangeRatesProvider extends ContentProvider
 
 	private static Map<String, ExchangeRate> requestExchangeRates(final URL url, final String... fields)
 	{
+		final long start = System.currentTimeMillis();
+
 		HttpURLConnection connection = null;
 		Reader reader = null;
 
@@ -253,39 +255,43 @@ public class ExchangeRatesProvider extends ContentProvider
 					{
 						final JSONObject o = head.getJSONObject(currencyCode);
 
-						String rate = null;
 						for (final String field : fields)
 						{
-							rate = o.optString(field, null);
+							final String rateStr = o.optString(field, null);
 
-							if (rate != null)
-								break;
-						}
+							if (rateStr != null)
+							{
+								try
+								{
+									final BigInteger rate = GenericUtils.toNanoCoins(rateStr, 0);
 
-						if (rate != null)
-						{
-							try
-							{
-								rates.put(currencyCode, new ExchangeRate(currencyCode, GenericUtils.toNanoCoins(rate, 0), url.getHost()));
-							}
-							catch (final ArithmeticException x)
-							{
-								log.debug("problem reading exchange rate: " + currencyCode, x);
+									if (rate.signum() > 0)
+									{
+										rates.put(currencyCode, new ExchangeRate(currencyCode, rate, url.getHost()));
+										break;
+									}
+								}
+								catch (final ArithmeticException x)
+								{
+									log.warn("problem fetching exchange rate: " + currencyCode, x);
+								}
 							}
 						}
 					}
 				}
 
+				log.info("fetched exchange rates from " + url + ", took " + (System.currentTimeMillis() - start) + " ms");
+
 				return rates;
 			}
 			else
 			{
-				log.debug("http status " + responseCode + " when fetching " + url);
+				log.warn("http status " + responseCode + " when fetching " + url);
 			}
 		}
 		catch (final Exception x)
 		{
-			log.debug("problem reading exchange rates", x);
+			log.warn("problem fetching exchange rates", x);
 		}
 		finally
 		{

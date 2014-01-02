@@ -1,5 +1,5 @@
 /*
- * Copyright 2011-2013 the original author or authors.
+ * Copyright 2011-2014 the original author or authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -55,7 +55,6 @@ import com.google.bitcoin.core.Sha256Hash;
 import com.google.bitcoin.core.Transaction;
 import com.google.bitcoin.core.TransactionInput;
 import com.google.bitcoin.core.TransactionOutput;
-import com.google.bitcoin.core.Utils;
 import com.google.bitcoin.core.Wallet;
 import com.google.bitcoin.script.Script;
 
@@ -134,12 +133,12 @@ public class WalletUtils
 
 	public static BigInteger localValue(@Nonnull final BigInteger btcValue, @Nonnull final BigInteger rate)
 	{
-		return btcValue.multiply(rate).divide(Utils.COIN);
+		return btcValue.multiply(rate).divide(GenericUtils.ONE_BTC);
 	}
 
 	public static BigInteger btcValue(@Nonnull final BigInteger localValue, @Nonnull final BigInteger rate)
 	{
-		return localValue.multiply(Utils.COIN).divide(rate);
+		return localValue.multiply(GenericUtils.ONE_BTC).divide(rate);
 	}
 
 	@CheckForNull

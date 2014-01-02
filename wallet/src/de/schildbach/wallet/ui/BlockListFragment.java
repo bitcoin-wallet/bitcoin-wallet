@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 the original author or authors.
+ * Copyright 2013-2014 the original author or authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -177,8 +177,8 @@ public final class BlockListFragment extends SherlockListFragment
 			{
 				switch (item.getItemId())
 				{
-					case R.id.blocks_context_open_blockexplorer:
-						startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.BLOCKEXPLORER_BASE_URL + "block/"
+					case R.id.blocks_context_browse:
+						startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.EXPLORE_BASE_URL + "block/"
 								+ storedBlock.getHeader().getHashAsString())));
 
 						mode.finish();

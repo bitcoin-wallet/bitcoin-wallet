@@ -1,5 +1,5 @@
 /*
- * Copyright 2011-2013 the original author or authors.
+ * Copyright 2011-2014 the original author or authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -204,10 +204,12 @@ public class CrashReporter
 			report.append("Version: " + pi.versionName + " (" + pi.versionCode + ")\n");
 			report.append("Package: " + pi.packageName + "\n");
 			report.append("Test/Prod: " + (Constants.TEST ? "test" : "prod") + "\n");
-			report.append("Time: " + String.format("%tF %tT", now, now) + "\n");
-			report.append("Time of launch: " + String.format("%tF %tT", TIME_CREATE_APPLICATION, TIME_CREATE_APPLICATION) + "\n");
-			report.append("Time of last update: " + String.format("%tF %tT", pi.lastUpdateTime, pi.lastUpdateTime) + "\n");
-			report.append("Time of first install: " + String.format("%tF %tT", pi.firstInstallTime, pi.firstInstallTime) + "\n");
+			report.append("Time: " + String.format("%tF %tT %tz", now, now, now) + "\n");
+			report.append("Time of launch: "
+					+ String.format("%tF %tT %tz", TIME_CREATE_APPLICATION, TIME_CREATE_APPLICATION, TIME_CREATE_APPLICATION) + "\n");
+			report.append("Time of last update: " + String.format("%tF %tT %tz", pi.lastUpdateTime, pi.lastUpdateTime, pi.lastUpdateTime) + "\n");
+			report.append("Time of first install: " + String.format("%tF %tT %tz", pi.firstInstallTime, pi.firstInstallTime, pi.firstInstallTime)
+					+ "\n");
 			report.append("Network: " + Constants.NETWORK_PARAMETERS.getId() + "\n");
 			final Wallet wallet = application.getWallet();
 			report.append("Keychain size: " + wallet.getKeychainSize() + "\n");
@@ -275,7 +277,7 @@ public class CrashReporter
 				writer = new PrintWriter(new OutputStreamWriter(new FileOutputStream(backgroundTracesFile, true), Constants.UTF_8));
 
 				final long now = System.currentTimeMillis();
-				writer.println(String.format("\n--- collected at %tF %tT on version %s (%d)", now, now, packageInfo.versionName,
+				writer.println(String.format("\n--- collected at %tF %tT %tz on version %s (%d)", now, now, now, packageInfo.versionName,
 						packageInfo.versionCode));
 				appendTrace(writer, throwable);
 			}

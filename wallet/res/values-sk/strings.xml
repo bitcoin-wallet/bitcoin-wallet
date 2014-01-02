@@ -35,7 +35,6 @@
 	<string name="wallet_transactions_fragment_internal">vnútorné</string>
 	<string name="wallet_transactions_context_show_qr_title">Ukáž QR kód</string>
 	<string name="wallet_options_backup">Zálohovať kľúče</string>
-	<string name="wallet_options_disconnect">Odpojiť</string>
 	<string name="wallet_options_safety">Bezpečnosť</string>
 	<string name="wallet_options_donate">Prispieť</string>
 	<string name="wallet_donate_address_label">Prispieť na Bitcoin Wallet</string>
@@ -212,7 +211,6 @@
 	<string name="button_send_coins">Odoslať Bitcoiny</string>
 	<string name="button_scan">Skenovať</string>
 	<string name="button_edit_address">Pridať/zmeniť adresu</string>
-	<string name="action_open_blockexplorer">Otvoriť blockexplorer.com</string>
 	<string name="time_today">dnes</string>
 	<string name="address_unlabeled">(neoznačené)</string>
 
