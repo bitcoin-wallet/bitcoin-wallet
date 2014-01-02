@@ -163,7 +163,6 @@ public abstract class ReportIssueDialogBuilder extends AlertDialog.Builder imple
 
 				for (final File logFile : logDir.listFiles())
 				{
-					final InputStream is = new FileInputStream(logFile);
 					final String logFileName = logFile.getName();
 					final File file;
 					if (logFileName.endsWith(".log.gz"))
@@ -171,7 +170,9 @@ public abstract class ReportIssueDialogBuilder extends AlertDialog.Builder imple
 					else if (logFileName.endsWith(".log"))
 						file = File.createTempFile(logFileName.substring(0, logFileName.length() - 3), ".log", cacheDir);
 					else
-						file = File.createTempFile(logFileName + '.', null, cacheDir);
+						continue;
+
+					final InputStream is = new FileInputStream(logFile);
 					final OutputStream os = new FileOutputStream(file);
 
 					Io.copy(is, os);
