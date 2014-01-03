@@ -113,6 +113,20 @@
 			android:label="@string/request_coins_activity_title"
 			android:screenOrientation="behind"
 			android:windowSoftInputMode="adjustResize" />
+        <activity
+                android:name="de.schildbach.wallet.ui.TransactionActivity"
+                android:configChanges="keyboard|keyboardHidden"
+                android:label="@string/transaction_activity_title"
+                android:screenOrientation="behind" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <data android:scheme="ltctx" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+            </intent-filter>
+        </activity>
 		<activity
 			android:name="de.schildbach.wallet.ui.AddressBookActivity"
 			android:configChanges="keyboard|keyboardHidden"

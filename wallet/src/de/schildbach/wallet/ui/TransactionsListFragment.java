@@ -303,6 +303,9 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 
 						mode.finish();
 						return true;
+
+                    case R.id.wallet_transactions_context_show_transaction:
+                        TransactionActivity.show(activity, tx);
 				}
 				return false;
 			}

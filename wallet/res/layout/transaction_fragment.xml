@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:background="@android:color/black"
+	android:paddingLeft="12dp"
+	android:paddingRight="12dp" >
+
+	<TableRow android:id="@+id/transaction_fragment_time_row" >
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:paddingRight="16dp"
+			android:text="@string/transaction_fragment_time_label"
+			android:textColor="@android:color/white"
+			android:textSize="20sp"
+			android:textStyle="bold" />
+
+		<TextView
+			android:id="@+id/transaction_fragment_time"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textColor="@android:color/white"
+			android:textSize="20sp" />
+	</TableRow>
+
+	<TableRow android:id="@+id/transaction_fragment_amount_sent_row" >
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:paddingRight="16dp"
+			android:text="@string/transaction_fragment_amount_sent_label"
+			android:textColor="@android:color/white"
+			android:textSize="20sp"
+			android:textStyle="bold" />
+
+		<TextView
+			android:id="@+id/transaction_fragment_amount_sent"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textColor="@android:color/white"
+			android:textSize="20sp" />
+	</TableRow>
+
+	<TableRow android:id="@+id/transaction_fragment_amount_received_row" >
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:paddingRight="16dp"
+			android:text="@string/transaction_fragment_amount_received_label"
+			android:textColor="@android:color/white"
+			android:textSize="20sp"
+			android:textStyle="bold" />
+
+		<TextView
+			android:id="@+id/transaction_fragment_amount_received"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textColor="@android:color/white"
+			android:textSize="20sp" />
+	</TableRow>
+
+	<TableRow>
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:paddingRight="16dp"
+			android:text="@string/transaction_fragment_from_label"
+			android:textColor="@android:color/white"
+			android:textSize="20sp"
+			android:textStyle="bold" />
+
+		<FrameLayout
+			android:id="@+id/transaction_fragment_from_button"
+			style="@style/My.Widget.Button.Borderless"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="bottom"
+			android:focusable="true"
+			android:foreground="@drawable/dropdown_ic_arrow"
+			android:foregroundGravity="bottom|right" >
+
+			<TextView
+				android:id="@+id/transaction_fragment_from_label"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:textColor="@android:color/white"
+				android:textSize="20sp" />
+		</FrameLayout>
+	</TableRow>
+
+	<TableRow>
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:paddingRight="16dp"
+			android:text="@string/transaction_fragment_to_label"
+			android:textColor="@android:color/white"
+			android:textSize="20sp"
+			android:textStyle="bold" />
+
+		<FrameLayout
+			android:id="@+id/transaction_fragment_to_button"
+			style="@style/My.Widget.Button.Borderless"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="bottom"
+			android:focusable="true"
+			android:foreground="@drawable/dropdown_ic_arrow"
+			android:foregroundGravity="bottom|right" >
+
+			<TextView
+				android:id="@+id/transaction_fragment_to_label"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:textColor="@android:color/white"
+				android:textSize="20sp" />
+		</FrameLayout>
+	</TableRow>
+
+	<TableRow android:paddingTop="16dp" >
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:paddingRight="16dp"
+			android:text="@string/transaction_fragment_status_label"
+			android:textColor="@android:color/white"
+			android:textSize="20sp"
+			android:textStyle="bold" />
+
+		<TextView
+			android:id="@+id/transaction_fragment_status"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textColor="@android:color/white"
+			android:textSize="20sp" />
+	</TableRow>
+
+	<TableRow>
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:paddingRight="16dp"
+			android:text="@string/transaction_fragment_hash_label"
+			android:textColor="@android:color/white"
+			android:textSize="20sp"
+			android:textStyle="bold" />
+
+		<FrameLayout
+			android:id="@+id/transaction_fragment_hash_button"
+			style="@style/My.Widget.Button.Borderless"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="bottom"
+			android:focusable="true"
+			android:foreground="@drawable/dropdown_ic_arrow"
+			android:foregroundGravity="bottom|right" >
+
+			<TextView
+				android:id="@+id/transaction_fragment_hash"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:textColor="@android:color/white"
+				android:textSize="20sp"
+				android:typeface="monospace" />
+		</FrameLayout>
+	</TableRow>
+
+	<TableRow>
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:paddingRight="16dp"
+			android:text="@string/transaction_fragment_length_label"
+			android:textColor="@android:color/white"
+			android:textSize="20sp"
+			android:textStyle="bold" />
+
+		<TextView
+			android:id="@+id/transaction_fragment_length"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textColor="@android:color/white"
+			android:textSize="20sp" />
+	</TableRow>
+
+	<ImageView
+		android:id="@+id/transaction_fragment_qr"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_gravity="center"
+		android:background="@drawable/qrcode_frame"
+		android:padding="16dp"
+		android:scaleType="centerInside" />
+
+</TableLayout>
