@@ -34,6 +34,8 @@ import java.util.concurrent.TimeUnit;
 
 import javax.annotation.Nonnull;
 
+import org.bitcoinj.wallet.Protos;
+import org.litecoin.LitecoinWallet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -66,6 +68,7 @@ import com.google.bitcoin.store.UnreadableWalletException;
 import com.google.bitcoin.store.WalletProtobufSerializer;
 import com.google.bitcoin.utils.Threading;
 import com.google.bitcoin.wallet.WalletFiles;
+import com.google.bitcoin.core.NetworkParameters;
 
 import de.schildbach.wallet.service.BlockchainService;
 import de.schildbach.wallet.service.BlockchainServiceImpl;
@@ -275,7 +278,18 @@ public class WalletApplication extends Application
 			{
 				walletStream = new FileInputStream(walletFile);
 
-				wallet = new WalletProtobufSerializer().readWallet(walletStream);
+                try {
+                    WalletProtobufSerializer ser = new WalletProtobufSerializer();
+                    Protos.Wallet walletProto = ser.parseToProto(walletStream);
+                    final String paramsID = walletProto.getNetworkIdentifier();
+                    NetworkParameters params = NetworkParameters.fromID(paramsID);
+                    if (params == null)
+                        throw new UnreadableWalletException("Unknown network parameters ID " + paramsID);
+                    wallet = new LitecoinWallet(params);
+                    ser.readWallet(walletProto, wallet);
+                } catch (IOException e) {
+                    throw new UnreadableWalletException("Could not parse input stream to protobuf", e);
+                }
 
 				log.info("wallet loaded from: '" + walletFile + "', took " + (System.currentTimeMillis() - start) + "ms");
 			}
@@ -322,7 +336,7 @@ public class WalletApplication extends Application
 		}
 		else
 		{
-			wallet = new Wallet(Constants.NETWORK_PARAMETERS);
+			wallet = new LitecoinWallet(Constants.NETWORK_PARAMETERS);
 
 			log.info("new wallet created");
 		}
@@ -359,7 +373,7 @@ public class WalletApplication extends Application
 		final List<ECKey> keys = WalletUtils.readKeys(in);
 		in.close();
 
-		final Wallet wallet = new Wallet(Constants.NETWORK_PARAMETERS);
+		final Wallet wallet = new LitecoinWallet(Constants.NETWORK_PARAMETERS);
 		for (final ECKey key : keys)
 			wallet.addKey(key);
 
