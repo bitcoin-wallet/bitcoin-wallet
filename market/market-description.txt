@@ -4,7 +4,7 @@ FEATURES:
 
 • No registration, web service or cloud needed! This wallet is de-centralized and peer to peer.
 • Display of Bitcoin amount in BTC and mBTC.
-• Conversion to and from legitimate currencies.
+• Conversion to and from national currencies.
 • Sending and receiving of Bitcoin via NFC, QR-codes or Bitcoin URLs.
 • Address book for regularly used Bitcoin addresses.
 • When you're offline, you can still pay via Bluetooth.
