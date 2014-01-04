@@ -884,6 +884,7 @@ public final class SendCoinsFragment extends SherlockFragment
                     // This should never happen because we're only changing where outputs go
                     Log.e(TAG, "UNEXPECTED ERROR: InsufficientMoneyException when redirecting outputs!");
                 }
+            }
         }
 
         Log.i(TAG, "Final fee: " + sendRequest.fee.toString());
