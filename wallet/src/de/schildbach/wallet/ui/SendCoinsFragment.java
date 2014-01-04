@@ -878,7 +878,12 @@ public final class SendCoinsFragment extends SherlockFragment
                 Log.i(TAG, "Found a small change output of " + o.getValue() + "; putting in fee.");
                 // Removing the output means the value will go to fee
                 sendRequest.tx.removeOutput(o);
-            }
+                try {
+                    wallet.completeTx(sendRequest);
+                } catch (InsufficientMoneyException e) {
+                    // This should never happen because we're only changing where outputs go
+                    Log.e(TAG, "UNEXPECTED ERROR: InsufficientMoneyException when redirecting outputs!");
+                }
         }
 
         Log.i(TAG, "Final fee: " + sendRequest.fee.toString());
