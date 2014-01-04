@@ -3,8 +3,8 @@ Hab deine digitalcoins immer dabei, in deiner Hosentasche! Du zahlst, indem du r
 FEATURES:
 
 • Keine Registrierung, Web-Dienst oder Cloud nötig! Diese Wallet ist de-zentral und Peer to Peer.
-• Anzeige von digitalcoin-Werten in BTC und mBTC.
-• Umrechnung von und zu den gesetzlichen Währungen.
+• Anzeige von Bitcoin-Werten in DGC und mDGC.
+• Umrechnung von und zu den nationalen Währungen.
 • Senden und Empfangen von digitalcoin via NFC, QR-Codes oder digitalcoin URLs.
 • Adressbuch für regelmäßig genutzte Empfänger.
 • Wenn du offline bist, kannst du trotzdem über Bluetooth zahlen.

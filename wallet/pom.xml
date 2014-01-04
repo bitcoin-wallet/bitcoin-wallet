@@ -6,8 +6,9 @@
 
 	<artifactId>wallet</artifactId>
 	<packaging>apk</packaging>
-	<version>1.00</version>
+	<version>1.01.1</version>
 	<name>digitalcoin Wallet</name>
+
 
 	<parent>
 		<groupId>de.schildbach.wallet</groupId>

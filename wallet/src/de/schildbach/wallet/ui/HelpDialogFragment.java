@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 the original author or authors.
+ * Copyright 2013-2014 the original author or authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -103,6 +103,8 @@ public final class HelpDialogFragment extends DialogFragment
 			return "_pl";
 		else if ("ru".equals(language))
 			return "_ru";
+		else if ("sk".equals(language))
+			return "_sk";
 		else if ("sv".equals(language))
 			return "_sv";
 		else if ("tr".equals(language))

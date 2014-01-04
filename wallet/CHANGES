@@ -1,11 +1,17 @@
-<<<<<<< HEAD
------------------digitalcoin Wallet
+
+v1.0.1 updated digitalcoin 1.0.1
+
 v1.00
 Forked bitcoin-wallet v3.23 for digitalcoin V1.00 (http://digitalcoin.co)
 
-=================Bitcoin Wallet
-=======
-=======
+-------------------
+v3.29
+
+* fixed issues with fetching exchange rates
+* Slovak translation
+* updated French, Hungarian, Italian and Portuguese translations
+
+>>>>>>> upstream/prod
 v3.28
 
 * for those who still use the unsecure address (pre-August), moves coins to secure addresses

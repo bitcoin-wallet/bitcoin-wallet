@@ -1,5 +1,2 @@
-<<<<<<< HEAD
-Sizin digitalcoinleriniz, kendi cebinizde!
-=======
-Kendi Bitcoinleriniz, kendi cebinizde!
->>>>>>> upstream/prod
+Kendi digitalcoinleriniz, kendi cebinizde!
+

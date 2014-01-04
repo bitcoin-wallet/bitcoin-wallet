@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2013 the original author or authors.
+ * Copyright 2012-2014 the original author or authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -59,7 +59,9 @@ import com.google.zxing.common.HybridBinarizer;
 import com.google.zxing.qrcode.QRCodeReader;
 
 import de.schildbach.wallet.camera.CameraManager;
+
 import de.schildbach.wallet.digitalcoin.R;
+
 
 /**
  * @author Andreas Schildbach
@@ -82,6 +84,7 @@ public final class ScanActivity extends Activity implements SurfaceHolder.Callba
 
 	private static boolean DISABLE_CONTINUOUS_AUTOFOCUS = Build.MODEL.equals("GT-I9100") // Galaxy S2
 			|| Build.MODEL.equals("SAMSUNG-SGH-I727") // Galaxy S2 Skyrocket
+			|| Build.MODEL.equals("SGH-T989") // Galaxy S2 X
 			|| Build.MODEL.equals("GT-I9300") // Galaxy S3
 			|| Build.MODEL.equals("GT-N7000"); // Galaxy Note
 

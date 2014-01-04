@@ -1,5 +1,5 @@
 /*
- * Copyright 2011-2013 the original author or authors.
+ * Copyright 2011-2014 the original author or authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -46,7 +46,18 @@ import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
 import android.text.style.TypefaceSpan;
 
-import com.google.bitcoin.core.*;
+import com.google.bitcoin.core.CoinDefinition;
+import com.google.bitcoin.core.Address;
+import com.google.bitcoin.core.AddressFormatException;
+import com.google.bitcoin.core.DumpedPrivateKey;
+import com.google.bitcoin.core.ECKey;
+import com.google.bitcoin.core.ScriptException;
+import com.google.bitcoin.core.Sha256Hash;
+import com.google.bitcoin.core.Transaction;
+import com.google.bitcoin.core.TransactionInput;
+import com.google.bitcoin.core.TransactionOutput;
+import com.google.bitcoin.core.Wallet;
+
 import com.google.bitcoin.script.Script;
 
 import de.schildbach.wallet.Constants;
@@ -124,12 +135,12 @@ public class WalletUtils
 
 	public static BigInteger localValue(@Nonnull final BigInteger btcValue, @Nonnull final BigInteger rate)
 	{
-		return btcValue.multiply(rate).divide(Utils.COIN);
+		return btcValue.multiply(rate).divide(GenericUtils.ONE_BTC);
 	}
 
 	public static BigInteger btcValue(@Nonnull final BigInteger localValue, @Nonnull final BigInteger rate)
 	{
-		return localValue.multiply(Utils.COIN).divide(rate);
+		return localValue.multiply(GenericUtils.ONE_BTC).divide(rate);
 	}
 
 	@CheckForNull

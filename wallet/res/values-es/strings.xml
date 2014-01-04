@@ -30,7 +30,6 @@
 	<string name="wallet_transactions_fragment_empty_text_howto">¿Cómo obtener digitalcoins?\n\nComercia por dinero tradicional,\nvende bienes o servicios o\ngana trabajando.</string>
 	<string name="wallet_transactions_fragment_coinbase">minados</string>
 	<string name="wallet_options_backup">Guardar llaves</string>
-	<string name="wallet_options_disconnect">Desconectar</string>
 	<string name="wallet_options_safety">Notas de seguridad</string>
 	<string name="wallet_options_donate">Donaciones</string>
 	<string name="wallet_donate_address_label">Donación para digitalcoin Wallet</string>
@@ -157,7 +156,7 @@
 	<string name="report_issue_dialog_mail_intent_chooser">Enviar reporte utilizando…</string>
 	<string name="about_title">Acerca de</string>
 	<string name="about_license_title">Licencia</string>
-	<string name="about_credits_digitalcoinj_title">Esta aplicación utiliza digitalcoinj %s</string>
+	<string name="about_credits_bitcoinj_title">Esta aplicación utiliza digitalcoinj %s</string>
 	<string name="about_credits_zxing_title">Esta aplicación utiliza \'zxing\'</string>
 	<string name="about_credits_icon_title">Esta aplicación utiliza un icono de \'bitboy\'</string>
 	<string name="about_author_twitter_title">El autor en Twitter</string>

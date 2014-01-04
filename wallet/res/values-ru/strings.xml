@@ -36,7 +36,6 @@
 	<string name="wallet_transactions_fragment_internal">внутренний</string>
 	<string name="wallet_transactions_context_show_qr_title">Показать QR код</string>
 	<string name="wallet_options_backup">Экспортировать ключи</string>
-	<string name="wallet_options_disconnect">Отключиться</string>
 	<string name="wallet_options_safety">Заметки по безопасности</string>
 	<string name="wallet_options_donate">Пожертвовать</string>
 	<string name="wallet_donate_address_label">Пожертвование для Bitcoin Бумажника</string>
@@ -187,7 +186,7 @@
 	<string name="report_issue_dialog_mail_intent_chooser">Отправить отчет используя…</string>
 	<string name="about_title">О программе</string>
 	<string name="about_license_title">Лицензия</string>
-	<string name="about_credits_digitalcoinj_title">Это приложение использует digitalcoinj %s</string>
+	<string name="about_credits_bitcoinj_title">Это приложение использует digitalcoinj %s</string>
 	<string name="about_credits_zxing_title">Это приложение использует \'zxing\'</string>
 	<string name="about_credits_icon_title">Это приложение использует иконку от \'bitboy\'</string>
 	<string name="about_author_twitter_title">Автор в Twitter</string>
@@ -213,7 +212,6 @@
 	<string name="button_send_coins">Отправить монеты</string>
 	<string name="button_scan">Сканировать</string>
 	<string name="button_edit_address">Добавить/изменить адрес</string>
-	<string name="action_open_blockexplorer">Открыть в blockexplorer.com</string>
 	<string name="time_today">сегодня</string>
 	<string name="address_unlabeled">(без метки)</string>
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2011-2013 the original author or authors.
+ * Copyright 2011-2014 the original author or authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,6 +18,7 @@
 package de.schildbach.wallet;
 
 import java.io.File;
+import java.math.BigInteger;
 import java.nio.charset.Charset;
 
 import android.os.Environment;
@@ -29,7 +30,6 @@ import com.google.bitcoin.params.TestNet3Params;
 import com.google.bitcoin.core.CoinDefinition;
 
 import de.schildbach.wallet.digitalcoin.R;
-
 
 /**
  * @author Andreas Schildbach
@@ -54,10 +54,11 @@ public class Constants
 
 	public static final String CHECKPOINTS_FILENAME = "checkpoints" + FILENAME_NETWORK_SUFFIX;
 
-	private static final String BLOCKEXPLORER_BASE_URL_PROD = CoinDefinition.BLOCKEXPLORER_BASE_URL_PROD;
-	private static final String BLOCKEXPLORER_BASE_URL_TEST = CoinDefinition.BLOCKEXPLORER_BASE_URL_TEST;
-	public static final String BLOCKEXPLORER_BASE_URL = NETWORK_PARAMETERS.getId().equals(NetworkParameters.ID_MAINNET) ? BLOCKEXPLORER_BASE_URL_PROD
-			: BLOCKEXPLORER_BASE_URL_TEST;
+	private static final String EXPLORE_BASE_URL_PROD = CoinDefinition.BLOCKEXPLORER_BASE_URL_PROD;
+	private static final String EXPLORE_BASE_URL_TEST = CoinDefinition.BLOCKEXPLORER_BASE_URL_TEST;
+	public static final String EXPLORE_BASE_URL = NETWORK_PARAMETERS.getId().equals(NetworkParameters.ID_MAINNET) ? EXPLORE_BASE_URL_PROD
+			: EXPLORE_BASE_URL_TEST;
+
 
 	public static final String MIMETYPE_TRANSACTION = "application/x-" + CoinDefinition.coinTicker.toLowerCase() + "tx";
 
@@ -87,11 +88,12 @@ public class Constants
 
 	public static final String DONATION_ADDRESS = CoinDefinition.DONATION_ADDRESS;
 	public static final String REPORT_EMAIL = "hashengineeringsolutions@gmail.com";
+
 	public static final String REPORT_SUBJECT_ISSUE = "Reported issue";
 	public static final String REPORT_SUBJECT_CRASH = "Crash report";
 
 	public static final String LICENSE_URL = "http://www.gnu.org/licenses/gpl-3.0.txt";
-    public static final String FORKED_FROM_SOURCE = "based on bitcoin-wallet 3.23\n";
+    public static final String FORKED_FROM_SOURCE = "based on bitcoin-wallet 3.29\n";
 	public static final String SOURCE_URL = "https://github.com/HashEngineering/" + CoinDefinition.coinName + "-wallet";
 	public static final String BINARY_URL = "http://code.google.com/p/bitcoin-wallet/downloads/list";
 	public static final String CREDITS_BITCOINJ_URL = "https://github.com/HashEngineering/" + CoinDefinition.coinName + "j";

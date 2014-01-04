@@ -30,7 +30,6 @@
 	<string name="wallet_transactions_fragment_empty_text_howto">איך להשיג ביטקוין ?</string>
 	<string name="wallet_transactions_fragment_coinbase">נכרו</string>
 	<string name="wallet_options_backup">מפתחות גיבוי</string>
-	<string name="wallet_options_disconnect">מנותק</string>
 	<string name="wallet_options_safety">הוראות בטיחות</string>
 	<string name="wallet_options_donate">תרומה</string>
 	<string name="wallet_donate_address_label"></string>

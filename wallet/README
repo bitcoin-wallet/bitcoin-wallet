@@ -13,32 +13,19 @@ which should be compatible between clients using bitcoinj.
 
 Certain actions cause automatic rolling backups of your private keys to app-private storage:
 
-/data/data/de.schildbach.wallet/files/key-backup-base58 (MODE_PRIVATE)
+/data/data/de.schildbach.wallet.digitalcoin/files/key-backup-base58 (MODE_PRIVATE)
 	Automatic backups of private keys for Mainnet
 
-<<<<<<< HEAD
-/data/data/de.schildbach.wallet/files/key-backup-base58-testnet (MODE_PRIVATE)
-	Backups of private keys for Testnet
-=======
-/data/data/de.schildbach.wallet_test/files/key-backup-base58-testnet (MODE_PRIVATE)
-	Automatic backups of private keys for Testnet
->>>>>>> upstream/prod
 
 Private keys can be manually backed up to and restored from external storage:
 
-<<<<<<< HEAD
-/sdcard/Download/digitalcoin-wallet-keys-<yyyy-MM-dd>
-	Backups of private keys for Mainnet
 
-/sdcard/Download/digitalcoin-wallet-keys-testnet-<yyyy-MM-dd>
-	Backups of private keys for Testnet
-=======
-/sdcard/Download/bitcoin-wallet-keys-<yyyy-MM-dd>
+/sdcard/Download/digitalcoin-wallet-keys-<yyyy-MM-dd>
 	Manual backups of private keys for Mainnet
 
-/sdcard/Download/bitcoin-wallet-keys-testnet-<yyyy-MM-dd>
+/sdcard/Download/digitalcoin-wallet-keys-testnet-<yyyy-MM-dd>
 	Manual backups of private keys for Testnet
->>>>>>> upstream/prod
+
 
 The manual backup files are encrypted using your chosen password. You can use OpenSSL to decrypt:
 
