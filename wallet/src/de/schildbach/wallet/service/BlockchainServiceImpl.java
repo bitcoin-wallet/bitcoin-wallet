@@ -239,22 +239,19 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 		nm.notify(NOTIFICATION_ID_COINS_RECEIVED, notification.getNotification());
 	}
 
-	private final class PeerConnectivityListener extends AbstractPeerEventListener implements OnSharedPreferenceChangeListener
+
+	private final class PeerConnectivityListener extends AbstractPeerEventListener
 	{
 		private int peerCount;
 		private AtomicBoolean stopped = new AtomicBoolean(false);
 
 		public PeerConnectivityListener()
 		{
-			prefs.registerOnSharedPreferenceChangeListener(this);
 		}
 
 		public void stop()
 		{
 			stopped.set(true);
-
-			prefs.unregisterOnSharedPreferenceChangeListener(this);
-
 			nm.cancel(NOTIFICATION_ID_CONNECTED);
 		}
 
@@ -272,13 +269,6 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 			changed(peerCount);
 		}
 
-		@Override
-		public void onSharedPreferenceChanged(final SharedPreferences sharedPreferences, final String key)
-		{
-			if (Constants.PREFS_KEY_CONNECTIVITY_NOTIFICATION.equals(key))
-				changed(peerCount);
-		}
-
 		private void changed(final int numPeers)
 		{
 			if (stopped.get())
@@ -289,9 +279,8 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 				@Override
 				public void run()
 				{
-					final boolean connectivityNotification = prefs.getBoolean(Constants.PREFS_KEY_CONNECTIVITY_NOTIFICATION, false);
 
-					if (!connectivityNotification || numPeers == 0)
+					if (numPeers == 0)
 					{
 						nm.cancel(NOTIFICATION_ID_CONNECTED);
 					}

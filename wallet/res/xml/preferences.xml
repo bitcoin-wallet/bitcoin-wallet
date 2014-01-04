@@ -10,12 +10,6 @@
 			android:summary="@string/preferences_precision_summary"
 			android:title="@string/preferences_precision_title" />
 
-		<CheckBoxPreference
-			android:defaultValue="false"
-			android:key="connectivity_notification"
-			android:summary="@string/preferences_connectivity_notification_summary"
-			android:title="@string/preferences_connectivity_notification_title" />
-
 		<EditTextPreference
 			android:key="trusted_peer"
 			android:summary="@string/preferences_trusted_peer_summary"
