@@ -234,5 +234,6 @@
 	<string name="action_open_blockexplorer">Open in Litecoin Explorer</string>
 	<string name="time_today">today</string>
 	<string name="address_unlabeled">(unlabeled)</string>
+    <string name="send_coins_uri_parse_error_title">Parsing Error</string>
 
 </resources>

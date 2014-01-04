@@ -61,6 +61,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.text.format.DateUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
@@ -75,6 +76,12 @@ import com.google.bitcoin.core.ECKey;
 import com.google.bitcoin.core.Transaction;
 import com.google.bitcoin.core.Wallet;
 
+import com.google.bitcoin.uri.BitcoinURI;
+import com.google.bitcoin.uri.BitcoinURIParseException;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentIntegratorSupportV4;
+import com.google.zxing.integration.android.IntentResult;
+import com.sun.istack.internal.NotNull;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.ui.InputParser.BinaryInputParser;
@@ -173,14 +180,16 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 	@Override
 	public void onActivityResult(final int requestCode, final int resultCode, final Intent intent)
 	{
-		if (requestCode == REQUEST_CODE_SCAN && resultCode == Activity.RESULT_OK)
+        IntentResult scanResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
+        if (scanResult != null)
 		{
-			final String input = intent.getStringExtra(ScanActivity.INTENT_EXTRA_RESULT);
-
+			final String input = scanResult.getContents();
+            if(input == null) return;
+            Log.d("Litecoin", "SCAN RESULT:" + input);
 			new StringInputParser(input)
 			{
 				@Override
-				protected void bitcoinRequest(final Address address, final String addressLabel, final BigInteger amount, final String bluetoothMac)
+				protected void bitcoinRequest(@NotNull final Address address, final String addressLabel, final BigInteger amount, final String bluetoothMac)
 				{
 					SendCoinsActivity.start(WalletActivity.this, address != null ? address.toString() : null, addressLabel, amount, bluetoothMac);
 				}
@@ -305,7 +314,8 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 
 	public void handleScan()
 	{
-		startActivityForResult(new Intent(this, ScanActivity.class), REQUEST_CODE_SCAN);
+        IntentIntegrator integrator = new IntentIntegrator(this);
+        integrator.initiateScan();
 	}
 
 	public void handleExportKeys()

@@ -35,6 +35,7 @@ import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v4.widget.SimpleCursorAdapter.ViewBinder;
+import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -48,6 +49,8 @@ import com.google.bitcoin.core.Address;
 import com.google.bitcoin.core.Transaction;
 import com.google.bitcoin.uri.BitcoinURI;
 
+import com.google.zxing.integration.android.IntentIntegratorSupportV4;
+import com.google.zxing.integration.android.IntentResult;
 import de.schildbach.wallet.AddressBookProvider;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.ui.InputParser.StringInputParser;
@@ -121,9 +124,13 @@ public final class SendingAddressesFragment extends SherlockListFragment impleme
 	@Override
 	public void onActivityResult(final int requestCode, final int resultCode, final Intent intent)
 	{
-		if (requestCode == REQUEST_CODE_SCAN && resultCode == Activity.RESULT_OK)
+        IntentResult scanResult = IntentIntegratorSupportV4.parseActivityResult(requestCode, resultCode, intent);
+
+        if (scanResult != null)
 		{
-			final String input = intent.getStringExtra(ScanActivity.INTENT_EXTRA_RESULT);
+            final String input = scanResult.getContents();
+            if(input == null) return;
+            Log.d("Litecoin", "SCAN RESULT:" + input);
 
 			new StringInputParser(input)
 			{
@@ -220,8 +227,9 @@ public final class SendingAddressesFragment extends SherlockListFragment impleme
 
 	private void handleScan()
 	{
-		startActivityForResult(new Intent(activity, ScanActivity.class), REQUEST_CODE_SCAN);
-	}
+        IntentIntegratorSupportV4 integrator = new IntentIntegratorSupportV4(this);
+        integrator.initiateScan();
+    }
 
 	@Override
 	public void onListItemClick(final ListView l, final View v, final int position, final long id)

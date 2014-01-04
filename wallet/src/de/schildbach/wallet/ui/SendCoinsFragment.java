@@ -29,6 +29,9 @@ import android.util.Log;
 import android.widget.Toast;
 import com.google.bitcoin.core.InsufficientMoneyException;
 import com.google.bitcoin.core.VerificationException;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentIntegratorSupportV4;
+import com.google.zxing.integration.android.IntentResult;
 import org.litecoin.LitecoinWallet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -642,33 +645,34 @@ public final class SendCoinsFragment extends SherlockFragment
 	@Override
 	public void onActivityResult(final int requestCode, final int resultCode, final Intent intent)
 	{
-		if (requestCode == REQUEST_CODE_SCAN)
+        IntentResult scanResult = IntentIntegratorSupportV4.parseActivityResult(requestCode, resultCode, intent);
+
+        if (scanResult != null)
 		{
-			if (resultCode == Activity.RESULT_OK)
-			{
-				final String input = intent.getStringExtra(ScanActivity.INTENT_EXTRA_RESULT);
+            final String input = scanResult.getContents();
+            if(input == null) return;
+            Log.d("Litecoin", "SCAN RESULT:" + input);
 
-				new StringInputParser(input)
-				{
-					@Override
-					protected void bitcoinRequest(final Address address, final String addressLabel, final BigInteger amount, final String bluetoothMac)
-					{
-						SendCoinsActivity.start(activity, address != null ? address.toString() : null, addressLabel, amount, bluetoothMac);
-					}
+            new StringInputParser(input)
+            {
+                @Override
+                protected void bitcoinRequest(final Address address, final String addressLabel, final BigInteger amount, final String bluetoothMac)
+                {
+                    SendCoinsActivity.start(activity, address != null ? address.toString() : null, addressLabel, amount, bluetoothMac);
+                }
 
-					@Override
-					protected void directTransaction(final Transaction transaction)
-					{
-						cannotClassify(input);
-					}
+                @Override
+                protected void directTransaction(final Transaction transaction)
+                {
+                    cannotClassify(input);
+                }
 
-					@Override
-					protected void error(final int messageResId, final Object... messageArgs)
-					{
-						dialog(activity, null, R.string.button_scan, messageResId, messageArgs);
-					}
-				}.parse();
-			}
+                @Override
+                protected void error(final int messageResId, final Object... messageArgs)
+                {
+                    dialog(activity, null, R.string.button_scan, messageResId, messageArgs);
+                }
+            }.parse();
 		}
 		else if (requestCode == REQUEST_CODE_ENABLE_BLUETOOTH)
 		{
@@ -960,7 +964,8 @@ public final class SendCoinsFragment extends SherlockFragment
 
 	private void handleScan()
 	{
-		startActivityForResult(new Intent(activity, ScanActivity.class), REQUEST_CODE_SCAN);
+        IntentIntegratorSupportV4 integrator = new IntentIntegratorSupportV4(this);
+        integrator.initiateScan();
 	}
 
 	private void handleEmpty()
