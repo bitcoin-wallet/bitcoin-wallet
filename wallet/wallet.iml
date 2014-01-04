@@ -20,10 +20,11 @@
       <sourceFolder url="file://$MODULE_DIR$/target/generated-sources/r" isTestSource="false" generated="true" />
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/test" isTestSource="true" />
-      <excludeFolder url="file://$MODULE_DIR$/target/classes" />
       <excludeFolder url="file://$MODULE_DIR$/target/generated-sources/combined-assets" />
       <excludeFolder url="file://$MODULE_DIR$/target/generated-sources/combined-resources" />
       <excludeFolder url="file://$MODULE_DIR$/target/generated-sources/extracted-dependencies" />
+      <excludeFolder url="file://$MODULE_DIR$/target/idea-classes" />
+      <excludeFolder url="file://$MODULE_DIR$/target/idea-test-classes" />
     </content>
     <orderEntry type="jdk" jdkName="Maven Android 4.0 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
@@ -41,7 +42,6 @@
     <orderEntry type="library" name="Maven: com.google.android:support-v4:r7" level="project" />
     <orderEntry type="module" module-name="digitalcoinj" />
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.5" level="project" />
-    <orderEntry type="library" name="Maven: io.netty:netty:3.6.3.Final" level="project" />
     <orderEntry type="library" name="Maven: com.madgag:sc-light-jdk15on:1.47.0.2" level="project" />
     <orderEntry type="library" name="Maven: com.google.protobuf:protobuf-java:2.5.0" level="project" />
     <orderEntry type="library" name="Maven: com.google.guava:guava:13.0.1" level="project" />
@@ -49,6 +49,7 @@
     <orderEntry type="library" name="Maven: net.jcip:jcip-annotations:1.0" level="project" />
     <orderEntry type="library" name="Maven: com.lambdaworks:scrypt:1.3.3" level="project" />
     <orderEntry type="module" module-name="integration-android" />
+    <orderEntry type="library" name="Maven: com.google.zxing:core:2.2" level="project" />
     <orderEntry type="library" name="Maven: com.github.tony19:logback-android-classic:1.0.10-2" level="project" />
     <orderEntry type="library" name="Maven: com.github.tony19:apktool-lib:1.4.4-3" level="project" />
     <orderEntry type="library" name="Maven: com.github.tony19:logback-android-core:1.0.10-2" level="project" />

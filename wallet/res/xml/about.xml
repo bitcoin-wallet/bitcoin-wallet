@@ -9,7 +9,7 @@
 			android:summary="© 2011-2013, Andreas Schildbach\n2013 HashEngineering Solutions"
 			android:title="Copyright" />
         <Preference
-                android:summary="Version 1.0.0.0 and above"
+                android:summary="Version 1.0.1 and above"
                 android:title="digitalcoin Compatibility" />
 		<Preference
 			android:key="about_license"
