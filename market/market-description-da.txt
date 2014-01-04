@@ -1,21 +1,25 @@
-Hav altid dine Bitcoins med dig i din lomme! Du betaler ved hurtigt at scanne en QR-kode. Som handlende kan du modtage betalinger pålideligt og øjeblikkeligt. Bitcoin Wallet er den første mobile Bitcoin-app, og muligvis den mest sikre!
+Hav altid dine Dogecoins med dig i din lomme! Du betaler ved hurtigt at scanne en QR-kode. Som handlende kan du modtage betalinger pålideligt og øjeblikkeligt. Dogecoin Wallet er den første mobile Dogecoin-app, og muligvis den mest sikre!
 
 FUNKTIONER:
 
 • Ingen registrering, webservice eller sky behøves! Tegnebogen er decentraliseret og peer-to-peer.
-• Visning af Bitcoin-beløb i BTC og mBTC.
+• Visning af Dogecoin-beløb i DOGE og mDOGE.
 • Konvertering til og fra lokale valutaer.
-• Afsendelse og modtagelse af Bitcoin via NFC, QR-koder eller Bitcoin-URLer.
-• Adressebog til ofte brugte Bitcoin-adresser.
+• Afsendelse og modtagelse af Dogecoin via NFC, QR-koder eller Dogecoin-URLer.
+• Adressebog til ofte brugte Dogecoin-adresser.
 • Når du er offline, kan du stadig betale via Bluetooth.
 • Systemnotifikation for modtagne mønter.
-• App-widget for Bitcoin-saldo.
+• App-widget for Dogecoin-saldo.
 
-Du kan finde mere om Bitcoin på
-http://bitcoin.org
+Du kan finde mere om Dogecoin på
+http://dogecoin.org
 
-Hvis du vil bidrage til Bitcoin Wallet, kan projektet findes på
-https://github.com/schildbach/bitcoin-wallet
+Hvis du vil bidrage til Dogecoin Wallet, kan projektet findes på
+https://github.com/langerhans/dogecoin-wallet-new
+
+This is a fork of the popular Bitcoin Wallet by Andreas Schildbach and was converted to Dogecoin by me.
+Find the original at
+https://play.google.com/store/apps/details?id=de.schildbach.wallet
 
 Licens: GPLv3
 Brug for egen risiko!
