@@ -171,6 +171,13 @@
 	<string name="preferences_initiate_reset_summary">Reset blockchain, transactions and wallet balance. Replay will take a while.</string>
 	<string name="preferences_initiate_reset_dialog_message">Would you like to reset and replay the blockchain?\n\nThis will temporarily hide your wallet balance and remove transactions. Both will recover as blockchain sync progresses.</string>
 	<string name="preferences_initiate_reset_dialog_positive">Reset</string>
+    <string name="preferences_autosync">AutoSync</string>
+    <string name="preferences_autosync_switch_title">Enable AutoSync</string>
+    <string name="preferences_autosync_switch_summary">Check to enable automatic syncing of the blockchain.</string>
+    <string name="preferences_autosync_charging_summary">Check to auto sync only while charging.</string>
+    <string name="preferences_autosync_charging_title">AutoSync while charging</string>
+    <string name="preferences_autosync_wifi_summary">Check to auto sync only over WiFi.</string>
+    <string name="preferences_autosync_wifi_title">AutoSync on WiFi</string>
 	<string name="report_issue_dialog_title_issue">Report issue</string>
 	<string name="report_issue_dialog_title_crash">Previous crash detected</string>
 	<string name="report_issue_dialog_message_issue">Please describe your issue precisely enough so a developer can reproduce.</string>

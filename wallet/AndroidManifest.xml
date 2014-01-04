@@ -21,6 +21,7 @@
 	<uses-permission android:name="android.permission.BROADCAST_STICKY" />
 	<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 	<uses-permission android:name="android.permission.BLUETOOTH" />
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
 	<uses-feature
 		android:name="android.hardware.touchscreen"
@@ -191,6 +192,9 @@
 		<receiver android:name="de.langerhans.wallet.service.AutosyncReceiver" >
 			<intent-filter>
 				<action android:name="android.intent.action.BOOT_COMPLETED" />
+				<action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
+				<action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
+				<action android:name="android.net.wifi.supplicant.CONNECTION_CHANGE" />
 			</intent-filter>
 			<intent-filter>
 				<action android:name="android.intent.action.PACKAGE_REPLACED" />
