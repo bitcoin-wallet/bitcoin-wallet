@@ -34,7 +34,7 @@ import de.schildbach.wallet.util.Bluetooth;
 
 /**
  * @author Shahar Livne
- * @author Andreas Schildbach
+ * @author Andreas Schildbach, Litecoin Dev Team
  */
 public abstract class AcceptBluetoothThread extends Thread
 {

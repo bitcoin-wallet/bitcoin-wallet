@@ -38,7 +38,7 @@ import java.io.InputStream;
 import java.util.zip.GZIPInputStream;
 
 /**
- * @author Andreas Schildbach
+ * @author Andreas Schildbach, Litecoin Dev Team
  */
 public final class TransactionActivity extends AbstractWalletActivity
 {

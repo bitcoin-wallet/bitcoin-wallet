@@ -78,7 +78,7 @@ import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_ltc.R;
 
 /**
- * @author Andreas Schildbach
+ * @author Andreas Schildbach, Litecoin Dev Team
  */
 public class TransactionsListFragment extends SherlockListFragment implements LoaderCallbacks<List<Transaction>>, OnSharedPreferenceChangeListener
 {

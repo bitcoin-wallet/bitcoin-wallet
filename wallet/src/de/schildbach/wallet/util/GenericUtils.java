@@ -27,7 +27,7 @@ import com.google.bitcoin.core.Utils;
 import de.schildbach.wallet.Constants;
 
 /**
- * @author Andreas Schildbach
+ * @author Andreas Schildbach, Litecoin Dev Team
  */
 public class GenericUtils
 {

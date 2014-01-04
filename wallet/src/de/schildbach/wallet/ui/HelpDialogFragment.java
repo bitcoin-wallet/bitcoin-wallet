@@ -30,7 +30,7 @@ import android.view.Window;
 import android.webkit.WebView;
 
 /**
- * @author Andreas Schildbach
+ * @author Andreas Schildbach, Litecoin Dev Team
  */
 public final class HelpDialogFragment extends DialogFragment
 {

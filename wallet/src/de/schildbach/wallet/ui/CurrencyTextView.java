@@ -36,7 +36,7 @@ import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_ltc.R;
 
 /**
- * @author Andreas Schildbach
+ * @author Andreas Schildbach, Litecoin Dev Team
  */
 public final class CurrencyTextView extends TextView
 {

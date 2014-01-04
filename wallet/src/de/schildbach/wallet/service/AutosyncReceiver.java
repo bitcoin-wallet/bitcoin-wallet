@@ -31,7 +31,7 @@ import android.text.format.DateUtils;
 import de.schildbach.wallet.Constants;
 
 /**
- * @author Andreas Schildbach
+ * @author Andreas Schildbach, Litecoin Dev Team
  */
 public class AutosyncReceiver extends BroadcastReceiver
 {

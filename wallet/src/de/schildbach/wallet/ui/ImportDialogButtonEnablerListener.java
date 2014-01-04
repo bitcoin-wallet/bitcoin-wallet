@@ -30,7 +30,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 /**
- * @author Andreas Schildbach
+ * @author Andreas Schildbach, Litecoin Dev Team
  */
 public class ImportDialogButtonEnablerListener implements TextWatcher, OnItemSelectedListener
 {

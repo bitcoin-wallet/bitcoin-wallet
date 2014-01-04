@@ -6,7 +6,7 @@
 			android:key="about_version"
 			android:title="Version" />
 		<Preference
-			android:summary="© 2011-2013, Andreas Schildbach"
+			android:summary="© 2011-2014, Andreas Schildbach\n© 2014 Litecoin Dev Team"
 			android:title="Copyright" />
 		<Preference
 			android:key="about_license"
@@ -24,22 +24,16 @@
 			android:title="@string/about_community_googleplus_title" />
 		<Preference
 			android:key="about_author_twitter"
-			android:summary="\@bitcoin_wallet"
+			android:summary="\@LitecoinProject"
 			android:title="@string/about_author_twitter_title" />
 		<Preference
 			android:key="about_author_googleplus"
-			android:summary="+Andreas Schildbach"
+			android:summary="+LitecoinProject"
 			android:title="@string/about_author_googleplus_title" />
-		<Preference
-			android:key="about_market_publisher"
-			android:title="@string/about_credits_market_publisher_title" />
 		<Preference android:key="about_credits_bitcoinj" />
 		<Preference
 			android:key="about_credits_zxing"
 			android:title="@string/about_credits_zxing_title" />
-		<Preference
-			android:key="about_credits_icon"
-			android:title="@string/about_credits_icon_title" />
 	</PreferenceCategory>
 
 </PreferenceScreen>

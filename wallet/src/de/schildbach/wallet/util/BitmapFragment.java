@@ -31,7 +31,7 @@ import android.widget.ImageView;
 import de.schildbach.wallet_ltc.R;
 
 /**
- * @author Andreas Schildbach
+ * @author Andreas Schildbach, Litecoin Dev Team
  */
 public class BitmapFragment extends DialogFragment
 {

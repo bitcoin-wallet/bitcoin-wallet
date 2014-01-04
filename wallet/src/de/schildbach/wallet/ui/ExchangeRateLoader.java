@@ -26,7 +26,7 @@ import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.ExchangeRatesProvider;
 
 /**
- * @author Andreas Schildbach
+ * @author Andreas Schildbach, Litecoin Dev Team
  */
 public final class ExchangeRateLoader extends CursorLoader implements OnSharedPreferenceChangeListener
 {

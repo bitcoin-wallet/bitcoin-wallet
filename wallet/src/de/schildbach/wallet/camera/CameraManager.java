@@ -37,7 +37,7 @@ import android.view.SurfaceHolder;
 import com.google.zxing.PlanarYUVLuminanceSource;
 
 /**
- * @author Andreas Schildbach
+ * @author Andreas Schildbach, Litecoin Dev Team
  */
 public final class CameraManager
 {

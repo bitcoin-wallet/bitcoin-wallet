@@ -41,7 +41,7 @@ import de.schildbach.wallet.service.BlockchainService;
 import de.schildbach.wallet_ltc.R;
 
 /**
- * @author Andreas Schildbach
+ * @author Andreas Schildbach, Litecoin Dev Team
  */
 public final class WalletDisclaimerFragment extends Fragment implements OnSharedPreferenceChangeListener
 {

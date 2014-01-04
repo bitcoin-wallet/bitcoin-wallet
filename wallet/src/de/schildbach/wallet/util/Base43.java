@@ -23,7 +23,7 @@ import javax.annotation.Nonnull;
 /**
  * Base43, derived from bitcoinj Base58
  * 
- * @author Andreas Schildbach
+ * @author Andreas Schildbach, Litecoin Dev Team
  */
 public class Base43
 {

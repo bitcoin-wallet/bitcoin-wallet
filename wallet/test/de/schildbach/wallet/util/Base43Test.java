@@ -23,7 +23,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 /**
- * @author Andreas Schildbach
+ * @author Andreas Schildbach, Litecoin Dev Team
  */
 public class Base43Test
 {

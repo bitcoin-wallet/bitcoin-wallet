@@ -36,7 +36,7 @@ import android.content.res.AssetManager;
 import de.schildbach.wallet.Constants;
 
 /**
- * @author Andreas Schildbach
+ * @author Andreas Schildbach, Litecoin Dev Team
  */
 public abstract class HttpGetThread extends Thread
 {

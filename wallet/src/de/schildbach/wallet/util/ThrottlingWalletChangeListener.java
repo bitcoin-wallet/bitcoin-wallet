@@ -30,7 +30,7 @@ import com.google.bitcoin.core.Wallet;
 import com.google.bitcoin.core.WalletEventListener;
 
 /**
- * @author Andreas Schildbach
+ * @author Andreas Schildbach, Litecoin Dev Team
  */
 public abstract class ThrottlingWalletChangeListener implements WalletEventListener
 {

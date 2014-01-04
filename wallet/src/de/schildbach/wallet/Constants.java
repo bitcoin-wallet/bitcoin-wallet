@@ -33,7 +33,7 @@ import de.schildbach.wallet_ltc.R;
 import org.litecoin.LitecoinParams;
 
 /**
- * @author Andreas Schildbach
+ * @author Andreas Schildbach, Litecoin Dev Team
  */
 public class Constants
 {

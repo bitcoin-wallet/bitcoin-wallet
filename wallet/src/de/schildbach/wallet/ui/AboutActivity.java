@@ -33,7 +33,7 @@ import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet_ltc.R;
 
 /**
- * @author Andreas Schildbach
+ * @author Andreas Schildbach, Litecoin Dev Team
  */
 public final class AboutActivity extends SherlockPreferenceActivity
 {
@@ -44,10 +44,8 @@ public final class AboutActivity extends SherlockPreferenceActivity
 	private static final String KEY_ABOUT_COMMUNITY_GOOGLEPLUS = "about_community_googleplus";
 	private static final String KEY_ABOUT_AUTHOR_TWITTER = "about_author_twitter";
 	private static final String KEY_ABOUT_AUTHOR_GOOGLEPLUS = "about_author_googleplus";
-	private static final String KEY_ABOUT_MARKET_PUBLISHER = "about_market_publisher";
 	private static final String KEY_ABOUT_CREDITS_BITCOINJ = "about_credits_bitcoinj";
 	private static final String KEY_ABOUT_CREDITS_ZXING = "about_credits_zxing";
-	private static final String KEY_ABOUT_CREDITS_ICON = "about_credits_icon";
 
 	@Override
 	protected void onCreate(final Bundle savedInstanceState)
@@ -62,11 +60,9 @@ public final class AboutActivity extends SherlockPreferenceActivity
 		findPreference(KEY_ABOUT_VERSION).setSummary(((WalletApplication) getApplication()).packageInfo().versionName);
 		findPreference(KEY_ABOUT_LICENSE).setSummary(Constants.LICENSE_URL);
 		findPreference(KEY_ABOUT_SOURCE).setSummary(Constants.SOURCE_URL);
-		findPreference(KEY_ABOUT_MARKET_PUBLISHER).setSummary(Constants.MARKET_PUBLISHER_URL);
 		findPreference(KEY_ABOUT_CREDITS_BITCOINJ).setTitle(getString(R.string.about_credits_litecoinj_title, VersionMessage.BITCOINJ_VERSION));
 		findPreference(KEY_ABOUT_CREDITS_BITCOINJ).setSummary(Constants.CREDITS_BITCOINJ_URL);
 		findPreference(KEY_ABOUT_CREDITS_ZXING).setSummary(Constants.CREDITS_ZXING_URL);
-		findPreference(KEY_ABOUT_CREDITS_ICON).setSummary(Constants.CREDITS_ICON_URL);
 	}
 
 	@Override
@@ -120,11 +116,6 @@ public final class AboutActivity extends SherlockPreferenceActivity
 			startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.AUTHOR_GOOGLEPLUS_URL)));
 			finish();
 		}
-		else if (KEY_ABOUT_MARKET_PUBLISHER.equals(key))
-		{
-			startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.MARKET_PUBLISHER_URL)));
-			finish();
-		}
 		else if (KEY_ABOUT_CREDITS_BITCOINJ.equals(key))
 		{
 			startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.CREDITS_BITCOINJ_URL)));
@@ -133,11 +124,6 @@ public final class AboutActivity extends SherlockPreferenceActivity
 		else if (KEY_ABOUT_CREDITS_ZXING.equals(key))
 		{
 			startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.CREDITS_ZXING_URL)));
-			finish();
-		}
-		else if (KEY_ABOUT_CREDITS_ICON.equals(key))
-		{
-			startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.CREDITS_ICON_URL)));
 			finish();
 		}
 

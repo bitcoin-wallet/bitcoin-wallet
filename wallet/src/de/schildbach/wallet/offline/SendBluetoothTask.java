@@ -37,7 +37,7 @@ import com.google.bitcoin.core.Transaction;
 import de.schildbach.wallet.util.Bluetooth;
 
 /**
- * @author Andreas Schildbach
+ * @author Andreas Schildbach, Litecoin Dev Team
  */
 public abstract class SendBluetoothTask
 {

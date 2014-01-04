@@ -31,7 +31,7 @@ import com.google.bitcoin.core.Transaction;
 import de.schildbach.wallet.ui.InputParser.StringInputParser;
 
 /**
- * @author Andreas Schildbach
+ * @author Andreas Schildbach, Litecoin Dev Team
  */
 public final class SendCoinsQrActivity extends AbstractOnDemandServiceActivity
 {

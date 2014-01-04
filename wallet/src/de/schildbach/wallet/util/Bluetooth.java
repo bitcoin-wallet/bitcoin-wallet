@@ -22,7 +22,7 @@ import java.util.UUID;
 import javax.annotation.Nonnull;
 
 /**
- * @author Andreas Schildbach
+ * @author Andreas Schildbach, Litecoin Dev Team
  */
 public class Bluetooth
 {

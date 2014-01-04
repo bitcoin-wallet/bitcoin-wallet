@@ -29,7 +29,7 @@ import com.google.bitcoin.core.NetworkParameters;
 import com.google.bitcoin.core.WrongNetworkException;
 
 /**
- * @author Andreas Schildbach
+ * @author Andreas Schildbach, Litecoin Dev Team
  */
 public class AddressAndLabel implements Parcelable
 {

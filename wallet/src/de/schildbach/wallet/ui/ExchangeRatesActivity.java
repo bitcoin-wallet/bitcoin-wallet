@@ -25,7 +25,7 @@ import com.actionbarsherlock.view.MenuItem;
 import de.schildbach.wallet_ltc.R;
 
 /**
- * @author Andreas Schildbach
+ * @author Andreas Schildbach, Litecoin Dev Team
  */
 public final class ExchangeRatesActivity extends AbstractWalletActivity
 {

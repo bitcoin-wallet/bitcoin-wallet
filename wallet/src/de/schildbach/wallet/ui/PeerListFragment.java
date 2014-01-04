@@ -54,7 +54,7 @@ import de.schildbach.wallet.service.BlockchainServiceImpl;
 import de.schildbach.wallet_ltc.R;
 
 /**
- * @author Andreas Schildbach
+ * @author Andreas Schildbach, Litecoin Dev Team
  */
 public final class PeerListFragment extends SherlockListFragment
 {

@@ -31,7 +31,7 @@ import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 
 /**
- * @author Andreas Schildbach
+ * @author Andreas Schildbach, Litecoin Dev Team
  */
 public class AddressBookProvider extends ContentProvider
 {
