@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent" android:padding="8dp">
+
+    <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="0px" android:layout_weight="1">
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="To"
+                android:id="@+id/textView3" android:textStyle="bold" android:gravity="center_vertical"
+                android:layout_gravity="center_vertical"/>
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:id="@+id/txconfirm_to" android:textSize="12dip" android:text="Address"
+                android:layout_gravity="center_vertical|right" android:layout_marginLeft="8dp" android:gravity="center_vertical"/>
+    </LinearLayout>
+    <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="0px" android:layout_weight="1">
+        <TextView
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Spending"
+                android:id="@+id/textView" android:textStyle="bold" android:layout_weight="1"
+                android:gravity="center_vertical" android:layout_gravity="center_vertical"/>
+        <de.schildbach.wallet.ui.CurrencyTextView
+                android:id="@+id/txconfirm_value"
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|right"
+                android:layout_marginLeft="8dp"
+                android:textSize="@dimen/font_size_normal" android:layout_weight="1" android:gravity="center_vertical"/>
+    </LinearLayout>
+    <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="0px" android:layout_weight="1">
+        <TextView
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Fee"
+                android:id="@+id/textView2" android:textStyle="bold" android:layout_weight="1"
+                android:gravity="center_vertical" android:layout_gravity="center_vertical"/>
+        <de.schildbach.wallet.ui.CurrencyTextView
+                android:id="@+id/txconfirm_fee"
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|right"
+                android:layout_marginLeft="8dp"
+                android:textSize="@dimen/font_size_normal" android:layout_weight="1" android:gravity="center_vertical"/>
+    </LinearLayout>
+</LinearLayout>

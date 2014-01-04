@@ -28,6 +28,7 @@ import android.app.AlertDialog;
 import android.util.Log;
 import android.widget.Toast;
 import com.google.bitcoin.core.InsufficientMoneyException;
+import com.google.bitcoin.core.TransactionOutput;
 import com.google.bitcoin.core.VerificationException;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentIntegratorSupportV4;
@@ -108,6 +109,7 @@ import de.schildbach.wallet_ltc.R;
  */
 public final class SendCoinsFragment extends SherlockFragment
 {
+    private final String TAG = this.getClass().getName();
 	private AbstractBindServiceActivity activity;
 	private WalletApplication application;
 	private Wallet wallet;
@@ -861,54 +863,62 @@ public final class SendCoinsFragment extends SherlockFragment
         try {
             wallet.completeTx(sendRequest);
         } catch (InsufficientMoneyException e) {
-            Log.i("wallet_ltc", "Insufficient funds when completing tx");
+            Log.i(TAG, "Insufficient funds when completing tx");
             Toast
               .makeText(getActivity(), "Insufficient funds.  Please lower the amount and try again.", Toast.LENGTH_LONG)
               .show();
             return;
         }
-        // Get the size of the transaction
-        /*
-        Log.d("Litecoin", "Transaction size is " + sendRequest.tx.getLength());
-        BigInteger nTransactionFee = Constants.MIN_TX_FEE;
-        BigInteger nFeePerKB = Constants.TX_FEE_PER_KB;
-        BigInteger nSizeFee = nFeePerKB.multiply(new BigInteger(Integer.toString(sendRequest.tx.getLength() / 1000)));
-        BigInteger nPayFee = nTransactionFee.add(nSizeFee);
-        */
-
-        if(sendRequest.fee.compareTo(Constants.MIN_TX_FEE) > 0)
-        {
-            Log.i("LitecoinSendCoins", "Higher fee: " +
-                    sendRequest.fee.toString() + " < " + sendRequest.fee.toString());
-
-            new AlertDialog.Builder(SendCoinsFragment.this.getActivity())
-                    .setMessage("Transaction requires fee of " +
-                            new BigDecimal(sendRequest.fee).divide(new BigDecimal("100000000")) + ".  Continue?")
-                    .setTitle("Extra fee needed")
-                    .setCancelable(true)
-                    .setNeutralButton(android.R.string.cancel,
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int whichButton) {
-                                    startActivity(new Intent(getActivity(), WalletActivity.class));
-                                    getActivity().finish();
-                                }
-                            })
-                    .setPositiveButton(android.R.string.ok,
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    // Fees are agreeable
-                                    // Process the transaction
-                                    // Send Asynchronously
-                                    new NormalSendCoinsOfflineTask(wallet, backgroundHandler).commitRequest(sendRequest);
-                                }
-                            })
-                    .show();
-        } else {
-            // No fee recalculation necessary
-            // Process the transaction
-            // Send Asynchronously
-            new NormalSendCoinsOfflineTask(wallet, backgroundHandler).commitRequest(sendRequest);
+        // Now that the transaction is complete, adjust the outputs so change goes to fee
+        // if < 0.001 LTC.  Otherwise, we would need to add a penalty for the output that is
+        // larger than the output itself, so it costs LESS to just throw it into the fee.
+        for(TransactionOutput o: sendRequest.tx.getOutputs()) {
+            if(o.isMine(wallet) &&
+               o.getValue().compareTo(Constants.CENT.divide(new BigInteger("10"))) < 0) {
+                Log.i(TAG, "Found a small change output of " + o.getValue() + "; putting in fee.");
+                // Removing the output means the value will go to fee
+                sendRequest.tx.removeOutput(o);
+            }
         }
+
+        Log.i(TAG, "Final fee: " + sendRequest.fee.toString());
+        LayoutInflater inflater = LayoutInflater.from(getActivity());
+        View confirmView = inflater.inflate(R.layout.tx_confirm, null);
+        TextView v_to = (TextView)confirmView.findViewById(R.id.txconfirm_to);
+        CurrencyTextView v_value = (CurrencyTextView)confirmView.findViewById(R.id.txconfirm_value);
+        CurrencyTextView v_fee = (CurrencyTextView)confirmView.findViewById(R.id.txconfirm_fee);
+        v_to.setText(validatedAddress.address.toString());
+        v_value.setPrecision(Constants.LOCAL_PRECISION, 0);
+        v_value.setInsignificantRelativeSize(1);
+        v_fee.setPrecision(Constants.LOCAL_PRECISION, 0);
+        v_fee.setInsignificantRelativeSize(1);
+        // Set value to total deduction from wallet
+        v_value.setAmount(sendRequest.tx.getValueSentFromMe(wallet)
+                .subtract(sendRequest.tx.getValueSentToMe(wallet)));
+        // Set value to fee
+        v_fee.setAmount(new BigInteger(sendRequest.fee.toString()));
+        new AlertDialog.Builder(SendCoinsFragment.this.getActivity())
+                .setView(confirmView)
+                .setTitle("Transaction Info")
+                .setCancelable(true)
+                .setNeutralButton(android.R.string.cancel,
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                startActivity(new Intent(getActivity(), WalletActivity.class));
+                                getActivity().finish();
+                            }
+                        })
+                .setPositiveButton(android.R.string.ok,
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                // Fees are agreeable
+                                // Process the transaction
+                                // Send Asynchronously
+                                new NormalSendCoinsOfflineTask(wallet, backgroundHandler).commitRequest(sendRequest);
+                            }
+                        })
+                .show();
+
 
 	}
 
