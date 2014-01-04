@@ -23,7 +23,6 @@ import java.util.ArrayList;
 import javax.annotation.Nonnull;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -73,8 +72,6 @@ public final class SendingAddressesFragment extends SherlockListFragment impleme
 	private String walletAddressesSelection;
 
 	private final Handler handler = new Handler();
-
-	private static final int REQUEST_CODE_SCAN = 0;
 
 	@Override
 	public void onAttach(final Activity activity)
@@ -135,7 +132,7 @@ public final class SendingAddressesFragment extends SherlockListFragment impleme
 			new StringInputParser(input)
 			{
 				@Override
-				protected void bitcoinRequest(final Address address, final String addressLabel, final BigInteger amount, final String bluetoothMac)
+				protected void bitcoinRequest(@Nonnull final Address address, final String addressLabel, final BigInteger amount, final String bluetoothMac)
 				{
 					// workaround for "IllegalStateException: Can not perform this action after onSaveInstanceState"
 					handler.postDelayed(new Runnable()
@@ -149,7 +146,7 @@ public final class SendingAddressesFragment extends SherlockListFragment impleme
 				}
 
 				@Override
-				protected void directTransaction(final Transaction transaction)
+				protected void directTransaction(@Nonnull final Transaction transaction)
 				{
 					cannotClassify(input);
 				}
@@ -201,13 +198,13 @@ public final class SendingAddressesFragment extends SherlockListFragment impleme
 			new StringInputParser(input)
 			{
 				@Override
-				protected void bitcoinRequest(final Address address, final String addressLabel, final BigInteger amount, final String bluetoothMac)
+				protected void bitcoinRequest(@Nonnull final Address address, final String addressLabel, final BigInteger amount, final String bluetoothMac)
 				{
 					EditAddressBookEntryFragment.edit(getFragmentManager(), address.toString());
 				}
 
 				@Override
-				protected void directTransaction(final Transaction transaction)
+				protected void directTransaction(@Nonnull final Transaction transaction)
 				{
 					cannotClassify(input);
 				}

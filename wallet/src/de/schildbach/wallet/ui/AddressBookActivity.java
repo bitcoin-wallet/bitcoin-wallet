@@ -77,7 +77,7 @@ public final class AddressBookActivity extends AbstractWalletActivity
 
 			pager.setAdapter(pagerAdapter);
 			pager.setOnPageChangeListener(pagerTabs);
-			final int position = getIntent().getBooleanExtra(EXTRA_SENDING, true) == true ? 1 : 0;
+			final int position = getIntent().getBooleanExtra(EXTRA_SENDING, true) ? 1 : 0;
 			pager.setCurrentItem(position);
 			pager.setPageMargin(2);
 			pager.setPageMarginDrawable(R.color.bg_less_bright);

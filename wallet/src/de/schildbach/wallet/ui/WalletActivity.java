@@ -42,7 +42,6 @@ import java.util.TimeZone;
 
 import javax.annotation.Nonnull;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -76,12 +75,8 @@ import com.google.bitcoin.core.ECKey;
 import com.google.bitcoin.core.Transaction;
 import com.google.bitcoin.core.Wallet;
 
-import com.google.bitcoin.uri.BitcoinURI;
-import com.google.bitcoin.uri.BitcoinURIParseException;
 import com.google.zxing.integration.android.IntentIntegrator;
-import com.google.zxing.integration.android.IntentIntegratorSupportV4;
 import com.google.zxing.integration.android.IntentResult;
-import com.sun.istack.internal.NotNull;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.ui.InputParser.BinaryInputParser;
@@ -157,13 +152,13 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 			new BinaryInputParser(inputType, input)
 			{
 				@Override
-				protected void bitcoinRequest(final Address address, final String addressLabel, final BigInteger amount, final String bluetoothMac)
+				protected void bitcoinRequest(@Nonnull final Address address, final String addressLabel, final BigInteger amount, final String bluetoothMac)
 				{
 					cannotClassify(inputType);
 				}
 
 				@Override
-				protected void directTransaction(final Transaction transaction)
+				protected void directTransaction(@Nonnull final Transaction transaction)
 				{
 					processDirectTransaction(transaction);
 				}
@@ -189,13 +184,13 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 			new StringInputParser(input)
 			{
 				@Override
-				protected void bitcoinRequest(@NotNull final Address address, final String addressLabel, final BigInteger amount, final String bluetoothMac)
+				protected void bitcoinRequest(@Nonnull final Address address, final String addressLabel, final BigInteger amount, final String bluetoothMac)
 				{
-					SendCoinsActivity.start(WalletActivity.this, address != null ? address.toString() : null, addressLabel, amount, bluetoothMac);
+					SendCoinsActivity.start(WalletActivity.this, address.toString(), addressLabel, amount, bluetoothMac);
 				}
 
 				@Override
-				protected void directTransaction(final Transaction tx)
+				protected void directTransaction(@Nonnull final Transaction tx)
 				{
 					processDirectTransaction(tx);
 				}

@@ -656,13 +656,13 @@ public final class SendCoinsFragment extends SherlockFragment
             new StringInputParser(input)
             {
                 @Override
-                protected void bitcoinRequest(final Address address, final String addressLabel, final BigInteger amount, final String bluetoothMac)
+                protected void bitcoinRequest(@Nonnull final Address address, final String addressLabel, final BigInteger amount, final String bluetoothMac)
                 {
-                    SendCoinsActivity.start(activity, address != null ? address.toString() : null, addressLabel, amount, bluetoothMac);
+                    SendCoinsActivity.start(activity, address.toString(), addressLabel, amount, bluetoothMac);
                 }
 
                 @Override
-                protected void directTransaction(final Transaction transaction)
+                protected void directTransaction(@Nonnull final Transaction transaction)
                 {
                     cannotClassify(input);
                 }
