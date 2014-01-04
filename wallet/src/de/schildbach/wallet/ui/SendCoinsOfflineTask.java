@@ -73,6 +73,28 @@ public abstract class SendCoinsOfflineTask
 		});
 	}
 
+    public final void commitRequest(@Nonnull final SendRequest sendRequest)
+    {
+        backgroundHandler.post(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                final Transaction transaction; // can take long
+                wallet.commitTx(sendRequest.tx);
+
+                callbackHandler.post(new Runnable()
+                {
+                    @Override
+                    public void run()
+                    {
+                            onSuccess(sendRequest.tx);
+                    }
+                });
+            }
+        });
+    }
+
 	protected abstract void onSuccess(@Nonnull Transaction transaction);
 
 	protected abstract void onFailure();

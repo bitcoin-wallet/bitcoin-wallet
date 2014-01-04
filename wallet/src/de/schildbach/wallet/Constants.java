@@ -18,6 +18,8 @@
 package de.schildbach.wallet;
 
 import java.io.File;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.nio.charset.Charset;
 
 import android.os.Environment;
@@ -76,6 +78,10 @@ public class Constants
 	public static final String PREFIX_ALMOST_EQUAL_TO = Character.toString(CHAR_ALMOST_EQUAL_TO) + CHAR_THIN_SPACE;
 	public static final int ADDRESS_FORMAT_GROUP_SIZE = 4;
 	public static final int ADDRESS_FORMAT_LINE_SIZE = 12;
+
+    public static final BigInteger CENT = new BigInteger("1000000", 10);
+    public static final BigInteger MIN_TX_FEE = CENT.divide(new BigInteger("10"));
+    public static final BigInteger TX_FEE_PER_KB = CENT.divide(new BigInteger("10"));
 
 	public static final int BTC_MAX_PRECISION = 8;
 	public static final int MBTC_MAX_PRECISION = 5;
