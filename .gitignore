@@ -1,3 +1,6 @@
+gen-external-apklibs
+out
+*.iml
 .DS_Store
 local.properties
 .classpath
