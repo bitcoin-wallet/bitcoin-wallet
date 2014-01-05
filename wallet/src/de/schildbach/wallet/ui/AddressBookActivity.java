@@ -29,6 +29,8 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 
 import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.google.bitcoin.core.Address;
 import com.google.bitcoin.core.ECKey;
@@ -110,7 +112,16 @@ public final class AddressBookActivity extends AbstractWalletActivity
 		return super.onOptionsItemSelected(item);
 	}
 
-	/* private */void updateFragments()
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        // We have to clear out the options menu
+        menu.clear();
+        supportInvalidateOptionsMenu();
+        return true;
+    }
+
+    void updateFragments()
 	{
 		final List<ECKey> keys = getWalletApplication().getWallet().getKeys();
 		final ArrayList<Address> addresses = new ArrayList<Address>(keys.size());

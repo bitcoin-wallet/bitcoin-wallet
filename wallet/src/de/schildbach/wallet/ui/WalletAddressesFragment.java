@@ -169,9 +169,8 @@ public final class WalletAddressesFragment extends SherlockListFragment
 			@Override
 			public boolean onCreateActionMode(final ActionMode mode, final Menu menu)
 			{
-				final MenuInflater inflater = mode.getMenuInflater();
-				inflater.inflate(R.menu.wallet_addresses_context, menu);
-
+                final MenuInflater inflater = mode.getMenuInflater();
+                inflater.inflate(R.menu.wallet_addresses_context, menu);
 				return true;
 			}
 
