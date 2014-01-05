@@ -860,6 +860,8 @@ public final class SendCoinsFragment extends SherlockFragment
             // HACK to fix zero fee calculated by bitcoinj in this case
             // We subtract the minimum TX fee to allow completeTx to correctly
             // calculate the fee based on the TX size.
+            // NOTE: Emptying is the ONLY case where it is OK to subtract a
+            // higher fee from the
             Log.i(TAG, "Wallet empty: ");
             for(TransactionOutput o : baseSendRequest.tx.getOutputs()) {
                 Log.i(TAG, "\t" + o.getValue().toString());
@@ -870,39 +872,65 @@ public final class SendCoinsFragment extends SherlockFragment
             for(TransactionOutput o : baseSendRequest.tx.getOutputs()) {
                 Log.i(TAG, "\t" + o.getValue().toString());
             }
-
-        }
-        // Complete the transaction in order to get the final size
-        try {
-            wallet.completeTx(baseSendRequest);
-        } catch (InsufficientMoneyException e) {
-            Log.i(TAG, "Insufficient funds when completing tx: ");
-            for(TransactionOutput o : baseSendRequest.tx.getOutputs()) {
-                Log.i(TAG, "\t" + o.getValue().toString());
-            }
-            // This is likely due to fees, since the wallet checks the value against the wallet
-            // on input field change.  Try to re-factor to compensate and run complete again.
-            amount = amount.subtract(e.missing);
-            baseSendRequest = SendRequest.to(validatedAddress.address, amount);
-            Log.e(TAG, "Trying tx: ");
-            for(TransactionOutput o : baseSendRequest.tx.getOutputs()) {
-                Log.i(TAG, "\t" + o.getValue().toString());
-            }
+            // Complete the transaction in order to get the final size
             try {
                 wallet.completeTx(baseSendRequest);
-            } catch (InsufficientMoneyException f) {
-                // We tried - it didn't work.
-                Log.e(TAG, "Insufficient funds when completing tx");
-                Log.e(TAG, "Non-working tx: ");
+            } catch (InsufficientMoneyException e) {
+                // This will happen if the fee needs to be larger than the minimum.
+                // Recalculate and try again.
+                amount = amount.subtract(e.missing);
+                baseSendRequest = SendRequest.to(validatedAddress.address, amount);
+                Log.e(TAG, "Trying tx: ");
                 for(TransactionOutput o : baseSendRequest.tx.getOutputs()) {
                     Log.i(TAG, "\t" + o.getValue().toString());
                 }
-                Toast
-                        .makeText(getActivity(), "Unexpected Error: Insufficient Funds when recreating tx with fee.  " +
-                                "Please report this as a bug!", Toast.LENGTH_LONG)
+                try {
+                    wallet.completeTx(baseSendRequest);
+                } catch(InsufficientMoneyException f) {
+                    // We tried - it didn't work.
+                    Log.i(TAG, "Insufficient funds when completing tx: ");
+                    for(TransactionOutput o : baseSendRequest.tx.getOutputs()) {
+                        Log.i(TAG, "\t" + o.getValue().toString());
+                    }
+                    Toast
+                      .makeText(getActivity(), "Unexpected Error: Insufficient Funds when recreating emptying tx. " +
+                                    "Please report this as a bug!", Toast.LENGTH_LONG)
+                      .show();
+                    state = State.INPUT;
+                    updateView();
+                    return;
+                }
+            }
+        }
+        else {
+            // We're not emptying.
+            try {
+                wallet.completeTx(baseSendRequest);
+            } catch (InsufficientMoneyException e) {
+                Log.i(TAG, "Insufficient funds when completing tx: ");
+                for(TransactionOutput o : baseSendRequest.tx.getOutputs()) {
+                    Log.i(TAG, "\t" + o.getValue().toString());
+                }
+                // This is likely due to fees, since the wallet checks the value against the wallet
+                // on input field change.  Here's the rub: obviously our wallet doesn't have enough to
+                // pay the whole fee.  We should just let the user know so they can manually adjust
+                // their transaction.
+                final BigInteger missing = e.missing == null ? new BigInteger("0") : e.missing;
+                new AlertDialog.Builder(SendCoinsFragment.this.getActivity())
+                        .setTitle(activity.getString(R.string.sendcoins_title_insufficientfunds))
+                        .setMessage(activity.getString(R.string.sendcoins_insufficient_preamble) + " " +
+                                    activity.getString(R.string.sendcoins_insufficient_amount_prefix) + " " +
+                                    GenericUtils.formatValue(missing, Constants.BTC_MAX_PRECISION, 0) + " " +
+                                    activity.getString(R.string.sendcoins_insufficient_amount_suffix) + " " +
+                                    activity.getString(R.string.sendcoins_insufficient_instructions))
+                        .setPositiveButton(android.R.string.ok,
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        state = State.INPUT;
+                                        updateView();
+                                    }
+                                })
                         .show();
-                state = State.INPUT;
-                updateView();
                 return;
             }
         }
