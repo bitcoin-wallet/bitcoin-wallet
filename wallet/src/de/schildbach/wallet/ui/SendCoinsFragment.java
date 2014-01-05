@@ -845,40 +845,95 @@ public final class SendCoinsFragment extends SherlockFragment
 		updateView();
 
 		// create spend
-		final BigInteger amount = amountCalculatorLink.getAmount();
-		final SendRequest sendRequest = SendRequest.to(validatedAddress.address, amount);
-		sendRequest.changeAddress = WalletUtils.pickOldestKey(wallet).toAddress(Constants.NETWORK_PARAMETERS);
-		sendRequest.emptyWallet = amount.equals(wallet.getBalance(BalanceType.AVAILABLE));
+		BigInteger amount = amountCalculatorLink.getAmount();
+		SendRequest baseSendRequest = SendRequest.to(validatedAddress.address, amount);
+        baseSendRequest.changeAddress = WalletUtils.pickOldestKey(wallet).toAddress(Constants.NETWORK_PARAMETERS);
+        baseSendRequest.emptyWallet = amount.equals(wallet.getBalance(BalanceType.AVAILABLE));
 
         // Multi-part transaction creation to properly calculate fee
+        Log.i(TAG, "Initial outputs: ");
+        for(TransactionOutput o : baseSendRequest.tx.getOutputs()) {
+            Log.i(TAG, "\t" + o.getValue().toString());
+        }
+        // First, check if we're emptying the wallet
+        if(baseSendRequest.emptyWallet) {
+            // HACK to fix zero fee calculated by bitcoinj in this case
+            // We subtract the minimum TX fee to allow completeTx to correctly
+            // calculate the fee based on the TX size.
+            Log.i(TAG, "Wallet empty: ");
+            for(TransactionOutput o : baseSendRequest.tx.getOutputs()) {
+                Log.i(TAG, "\t" + o.getValue().toString());
+            }
+            amount = amount.subtract(Constants.MIN_TX_FEE);
+            baseSendRequest = SendRequest.to(validatedAddress.address, amount);
+            Log.i(TAG, "After refactoring: ");
+            for(TransactionOutput o : baseSendRequest.tx.getOutputs()) {
+                Log.i(TAG, "\t" + o.getValue().toString());
+            }
+
+        }
         // Complete the transaction in order to get the final size
         try {
-            wallet.completeTx(sendRequest);
+            wallet.completeTx(baseSendRequest);
         } catch (InsufficientMoneyException e) {
-            Log.i(TAG, "Insufficient funds when completing tx");
-            Toast
-              .makeText(getActivity(), "Insufficient funds.  Please lower the amount and try again.", Toast.LENGTH_LONG)
-              .show();
-            return;
+            Log.i(TAG, "Insufficient funds when completing tx: ");
+            for(TransactionOutput o : baseSendRequest.tx.getOutputs()) {
+                Log.i(TAG, "\t" + o.getValue().toString());
+            }
+            // This is likely due to fees, since the wallet checks the value against the wallet
+            // on input field change.  Try to re-factor to compensate and run complete again.
+            amount = amount.subtract(e.missing);
+            baseSendRequest = SendRequest.to(validatedAddress.address, amount);
+            Log.e(TAG, "Trying tx: ");
+            for(TransactionOutput o : baseSendRequest.tx.getOutputs()) {
+                Log.i(TAG, "\t" + o.getValue().toString());
+            }
+            try {
+                wallet.completeTx(baseSendRequest);
+            } catch (InsufficientMoneyException f) {
+                // We tried - it didn't work.
+                Log.e(TAG, "Insufficient funds when completing tx");
+                Log.e(TAG, "Non-working tx: ");
+                for(TransactionOutput o : baseSendRequest.tx.getOutputs()) {
+                    Log.i(TAG, "\t" + o.getValue().toString());
+                }
+                Toast
+                        .makeText(getActivity(), "Unexpected Error: Insufficient Funds when recreating tx with fee.  " +
+                                "Please report this as a bug!", Toast.LENGTH_LONG)
+                        .show();
+                state = State.INPUT;
+                updateView();
+                return;
+            }
         }
         // Now that the transaction is complete, adjust the outputs so change goes to fee
         // if < 0.001 LTC.  Otherwise, we would need to add a penalty for the output that is
         // larger than the output itself, so it costs LESS to just throw it into the fee.
-        for(TransactionOutput o: sendRequest.tx.getOutputs()) {
+        for(TransactionOutput o: baseSendRequest.tx.getOutputs()) {
             if(o.isMine(wallet) &&
                o.getValue().compareTo(Constants.CENT.divide(new BigInteger("10"))) < 0) {
                 Log.i(TAG, "Found a small change output of " + o.getValue() + "; putting in fee.");
                 // Removing the output means the value will go to fee
-                sendRequest.tx.removeOutput(o);
+                baseSendRequest.tx.removeOutput(o);
                 try {
-                    wallet.completeTx(sendRequest);
+                    baseSendRequest.setCompleted(false);
+                    wallet.completeTx(baseSendRequest);
                 } catch (InsufficientMoneyException e) {
                     // This should never happen because we're only changing where outputs go
                     Log.e(TAG, "UNEXPECTED ERROR: InsufficientMoneyException when redirecting outputs!");
+                    Toast
+                      .makeText(getActivity(), "Unexpected Error: Insufficient Funds when moving change to fee.  " +
+                                               "Please report this as a bug!", Toast.LENGTH_LONG)
+                      .show();
+                    state = State.INPUT;
+                    updateView();
                     return;
                 }
             }
         }
+
+        // Lock in sendRequest
+        final SendRequest sendRequest = baseSendRequest;
 
         Log.i(TAG, "Final fee: " + sendRequest.fee.toString());
         Log.i(TAG, "Final bytes: " + sendRequest.tx.getLength());
