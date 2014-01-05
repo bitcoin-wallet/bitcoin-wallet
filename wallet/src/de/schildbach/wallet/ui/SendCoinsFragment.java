@@ -881,6 +881,7 @@ public final class SendCoinsFragment extends SherlockFragment
         }
 
         Log.i(TAG, "Final fee: " + sendRequest.fee.toString());
+        Log.i(TAG, "Final size: " + sendRequest.tx.getLength());
         LayoutInflater inflater = LayoutInflater.from(getActivity());
         View confirmView = inflater.inflate(R.layout.tx_confirm, null);
         TextView v_to = (TextView)confirmView.findViewById(R.id.txconfirm_to);
