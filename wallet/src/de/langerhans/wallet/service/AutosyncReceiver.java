@@ -45,6 +45,10 @@ public class AutosyncReceiver extends BroadcastReceiver
 	{
 		log.info("got broadcast intent: " + intent);
 
+        // Workaround because Android sometime sucks hard...
+        if (intent.getAction() == null)
+            intent.setAction("de.langerhans.wallet.AUTOSYNC_ACTION");
+
 		// other app got replaced
 		if (intent.getAction().equals(Intent.ACTION_PACKAGE_REPLACED))
             if (!intent.getDataString().equals("package:" + context.getPackageName()))
@@ -142,8 +146,8 @@ public class AutosyncReceiver extends BroadcastReceiver
                 / DateUtils.MINUTE_IN_MILLIS);
 
         final Intent startIntent = new Intent(mCtx, AutosyncReceiver.class);
-        final PendingIntent alarmIntent = PendingIntent.getBroadcast(mCtx, 0, startIntent, 0);
         startIntent.setAction("de.langerhans.wallet.AUTOSYNC_ACTION");
+        final PendingIntent alarmIntent = PendingIntent.getBroadcast(mCtx, 0, startIntent, 0);
         final AlarmManager alarmManager = (AlarmManager) mCtx.getSystemService(Context.ALARM_SERVICE);
         alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, now, alarmInterval, alarmIntent);
     }
