@@ -1,21 +1,21 @@
-Tartsd a zsebedben Bitcoinjaidat! Egyszerűen, akár QR-kód leolvasásával is fizethetsz. Ha pedig termékeket, vagy szolgáltatást értékesítesz megbízható módon és gyorsan juthatsz a bevételeidhez. A Bitcoin Tárca az első Bitcoin app és kétségkívül a legbiztonságosabb is!
+Tartsd a zsebedben Litecoinjaidat! Egyszerűen, akár QR-kód leolvasásával is fizethetsz. Ha pedig termékeket, vagy szolgáltatást értékesítesz megbízható módon és gyorsan juthatsz a bevételeidhez. A Litecoin Tárca az első Litecoin app és kétségkívül a legbiztonságosabb is!
 
 ELŐNYÖK:
 
 • Nincs regisztráció és nem szükséges semmiféle háttéralkalmazás futtatása (web, vagy cloud)! Decentralizált és közvetlen (P2P).
-• A Bitcoinjaid mennyiségét BTC és mBTC formában is láthatod.
+• A Litecoinjaid mennyiségét LTC és mLTC formában is láthatod.
 • Átváltás a saját valutádra, oda-vissza.
-• Bitcoin küldése és fogadása NFC, QR-kód vagy közvetlen URL segítségével.
-• Címtár a rendszeresen használt Bitcoin címek számára.
+• Litecoin küldése és fogadása NFC, QR-kód vagy közvetlen URL segítségével.
+• Címtár a rendszeresen használt Litecoin címek számára.
 • Offline állapotban is fizethetsz - Bluetooth segítségével.
-• Rendszerüzenet Bitcoin érkezésekor.
-• Widget a Bitcoin egyenlegről.
+• Rendszerüzenet Litecoin érkezésekor.
+• Widget a Litecoin egyenlegről.
 
-Bővebben a Bitcoin-ról:
-http://bitcoin.org
+Bővebben a Litecoin-ról:
+http://litecoin.org
 
-Ha hozzájárulnál a Bitcoin Wallet projekthez:
-https://github.com/schildbach/bitcoin-wallet
+Ha hozzájárulnál a Litecoin Wallet projekthez:
+https://github.com/schildbach/litecoin-wallet
 
 Licensz: GPLv3
 Csak saját felelősségre használható!

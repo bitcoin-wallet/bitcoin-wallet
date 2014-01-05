@@ -1,19 +1,19 @@
-Consiste en una cartera de bitcoins para tu dispositivo Android. Puedes enviar bitcoins entre teléfonos haciendo explorar los códigos QR que muestra la aplicación o mediante NFC (Near Field Communication).
+Consiste en una cartera de litecoins para tu dispositivo Android. Puedes enviar litecoins entre teléfonos haciendo explorar los códigos QR que muestra la aplicación o mediante NFC (Near Field Communication).
 
 CARACTERÍSTICAS:
 
-• Visualización del saldo de la cartera en Bitcoin y en otras monedas.
-• Envío y recpción de bitcoins a través de NFC, códigos QR o URL Bitcoin.
-• Libreta de direcciones para guardar las direcciones Bitcoin utilizadas habitualmente.
+• Visualización del saldo de la cartera en Litecoin y en otras monedas.
+• Envío y recpción de litecoins a través de NFC, códigos QR o URL Litecoin.
+• Libreta de direcciones para guardar las direcciones Litecoin utilizadas habitualmente.
 • Las transacciones se pueden llevar a cabo sin conexión, ejecutándose al recuperar la conexión.
-• Notificaciones de sistema para la conectividad a la red Bitcoin y para la recepción de bitcoins.
-• Widget de aplicación para el saldo Bitcoin.
+• Notificaciones de sistema para la conectividad a la red Litecoin y para la recepción de litecoins.
+• Widget de aplicación para el saldo Litecoin.
 
-Puedes descubrir más sobre Bitcoin en
-http://bitcoin.org
+Puedes descubrir más sobre Litecoin en
+http://litecoin.org
 
-Si quieres contribuir a Bitcoin Wallet, el proyecto está localizado en
-https://github.com/schildbach/bitcoin-wallet
+Si quieres contribuir a Litecoin Wallet, el proyecto está localizado en
+https://github.com/schildbach/litecoin-wallet
 
 Licencia: GPLv3
 ¡Úsalo bajo tu propia responsabilidad!

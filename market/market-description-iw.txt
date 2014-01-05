@@ -11,10 +11,10 @@ FEATURES:
 • וידגט להצגת יתרה.
 
 בהתקנה ראשונה עלול להיראות מסך לבן לזמן מה, הדבר תקין.
-לפרטים נוספים : http://bitcoin.org
+לפרטים נוספים : http://litecoin.org
 
 הארנק הוא פרויקט בקוד פתוח בגוגל, אם ברצונך לתרום:
-https://github.com/schildbach/bitcoin-wallet
+https://github.com/schildbach/litecoin-wallet
 
 רישיון : GPLv3
 שים לב: השימוש הוא באחריות המשתמש.

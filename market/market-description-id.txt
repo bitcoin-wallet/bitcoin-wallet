@@ -1,20 +1,20 @@
-Dengan aplikasi ini Anda selalu mempunyai Bitcoin dengan Anda, dalam saku Anda! Anda dapat mengirim pembayaran hanya dengan memindai kode-QR atau mendekatkan dua ponsel bersama (NFC). Bitcoin Wallet dirancang untuk mudah digunakan dan diandalkan, sementara juga menjadi lebih aman dan cepat.
+Dengan aplikasi ini Anda selalu mempunyai Litecoin dengan Anda, dalam saku Anda! Anda dapat mengirim pembayaran hanya dengan memindai kode-QR atau mendekatkan dua ponsel bersama (NFC). Litecoin Wallet dirancang untuk mudah digunakan dan diandalkan, sementara juga menjadi lebih aman dan cepat.
 
 FITUR:
 
 • Tidak diperlukan server awan atau layanan web! Dompet ini benar-benar peer ke peer.
-• Tampilkan saldo dompet dalam Bitcoin dan mata uang lainnya.
-• Mengirim dan menerima Bitcoin via NFC, kode-QR atau Tautan Bitcoin.
-• Buku alamat untuk alamat penggunaan bitcoin secara reguler.
+• Tampilkan saldo dompet dalam Litecoin dan mata uang lainnya.
+• Mengirim dan menerima Litecoin via NFC, kode-QR atau Tautan Litecoin.
+• Buku alamat untuk alamat penggunaan litecoin secara reguler.
 • Masukkan transaksi saat offline, akan dilaksanakan ketika online.
-• Notifikasi sistem untuk konektivitas Bitcoin dan menerima koin.
-• Widget Apl untuk saldo Bitcoin.
+• Notifikasi sistem untuk konektivitas Litecoin dan menerima koin.
+• Widget Apl untuk saldo Litecoin.
 
-Anda dapat mengetahui lebih mengenai Bitcoin di
-http://bitcoin.org
+Anda dapat mengetahui lebih mengenai Litecoin di
+http://litecoin.org
 
-Jika Anda ingin berkontribusi kepada Bitcoin Wallet, proyeknya berada di
-https://github.com/schildbach/bitcoin-wallet
+Jika Anda ingin berkontribusi kepada Litecoin Wallet, proyeknya berada di
+https://github.com/schildbach/litecoin-wallet
 
 Lisensi: GPLv3
 Gunakan dengan resiko Anda!

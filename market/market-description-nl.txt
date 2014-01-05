@@ -1,19 +1,19 @@
-Dit is een standalone Bitcoin Wallet voor uw Android apparaat. U kan direct Bitcoins versturen tussen telefoons door simpelweg de QR-code te scannen die de app weergeeft of via NFC (Near Field Communication).
+Dit is een standalone Litecoin Wallet voor uw Android apparaat. U kan direct Litecoins versturen tussen telefoons door simpelweg de QR-code te scannen die de app weergeeft of via NFC (Near Field Communication).
 
 FUNCTIES:
 
-• Weergeven van het wallet saldo in Bitcoin en verschillende andere valuta.
-• Verzenden en ontvangen van Bitcoin via NFC, QR-codes of Bitcoin URLs.
-• Adresboek voor veelgebruikte Bitcoin adressen.
+• Weergeven van het wallet saldo in Litecoin en verschillende andere valuta.
+• Verzenden en ontvangen van Litecoin via NFC, QR-codes of Litecoin URLs.
+• Adresboek voor veelgebruikte Litecoin adressen.
 • Transacties ingeven tijdens het offline zijn, deze zullen worden uitgevoerd wanneer u online komt.
-• Systeem melding over Bitcoin connectiviteit en ontvangen bitcoins.
-• Widget voor Bitcoin saldo.
+• Systeem melding over Litecoin connectiviteit en ontvangen litecoins.
+• Widget voor Litecoin saldo.
 
-Voor meer informatie over Bitcoin kunt u terecht op
-http://bitcoin.org
+Voor meer informatie over Litecoin kunt u terecht op
+http://litecoin.org
 
-Als u een bijdrage wil leveren aan Bitcoin Wallet, het project is te vinden op 
-https://github.com/schildbach/bitcoin-wallet
+Als u een bijdrage wil leveren aan Litecoin Wallet, het project is te vinden op 
+https://github.com/schildbach/litecoin-wallet
 
 Licentie: GPLv3
 Gebruik op eigen risico!

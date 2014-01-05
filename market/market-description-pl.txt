@@ -1,19 +1,19 @@
-Samodzielny portfel Bitcoin dla Twojego urządzenia Android. Możesz wysyłać Bitcoin pomiędzy telefonami skanując kod QR, który jest wyświetlany przez aplikacje, lub przez NFC (Near Field Communication).
+Samodzielny portfel Litecoin dla Twojego urządzenia Android. Możesz wysyłać Litecoin pomiędzy telefonami skanując kod QR, który jest wyświetlany przez aplikacje, lub przez NFC (Near Field Communication).
 
 FUNKCJE:
 
-• Wyświetlanie stanu konta portfela w Bitcoin i rożnych innych walutach.
-• Wysyłanie i odbieranie Bitcoin przez NFC, kod QR albo Bitcoin URL.
-• Książka adresowa dla regularnie używanych adresów Bitcoin.
+• Wyświetlanie stanu konta portfela w Litecoin i rożnych innych walutach.
+• Wysyłanie i odbieranie Litecoin przez NFC, kod QR albo Litecoin URL.
+• Książka adresowa dla regularnie używanych adresów Litecoin.
 • Możliwość dodania transakcji offline, wykonywanych po połączeniu z siecią.
-• Notyfikacje systemowe o połączeniu z siecią Bitcoin i otrzymanych monetach.
-• Widget na stan konta Bitcoin.
+• Notyfikacje systemowe o połączeniu z siecią Litecoin i otrzymanych monetach.
+• Widget na stan konta Litecoin.
 
-Więcej o Bitcoin dowiesz się pod adresem:
-http://bitcoin.org
+Więcej o Litecoin dowiesz się pod adresem:
+http://litecoin.org
 
-Jeżeli chcesz wesprzeć Bitcoin Wallet, kody źródłowe projektu znajdują się pod adresem:
-https://github.com/schildbach/bitcoin-wallet
+Jeżeli chcesz wesprzeć Litecoin Wallet, kody źródłowe projektu znajdują się pod adresem:
+https://github.com/schildbach/litecoin-wallet
 
 Licencja: GPLv3
 Używanie jedynie na własne ryzyko!

@@ -1,21 +1,21 @@
-Hab deine Bitcoins immer dabei, in deiner Hosentasche! Du zahlst, indem du rasch einen QR-Code scannst. Als Händler empfängst du Zahlungen zuverlässig und sofort. Bitcoin Wallet ist die erste mobile Bitcoin app, und wohl auch die sicherste!
+Hab deine Litecoins immer dabei, in deiner Hosentasche! Du zahlst, indem du rasch einen QR-Code scannst. Als Händler empfängst du Zahlungen zuverlässig und sofort. Litecoin Wallet ist die erste mobile Litecoin app, und wohl auch die sicherste!
 
 FEATURES:
 
 • Keine Registrierung, Web-Dienst oder Cloud nötig! Diese Wallet ist de-zentral und Peer to Peer.
-• Anzeige von Bitcoin-Werten in BTC und mBTC.
+• Anzeige von Litecoin-Werten in LTC und mLTC.
 • Umrechnung von und zu den nationalen Währungen.
-• Senden und Empfangen von Bitcoin via NFC, QR-Codes oder Bitcoin URLs.
+• Senden und Empfangen von Litecoin via NFC, QR-Codes oder Litecoin URLs.
 • Adressbuch für regelmäßig genutzte Empfänger.
 • Wenn du offline bist, kannst du trotzdem über Bluetooth zahlen.
 • System-Benachrichtigung für den Empfang von Zahlungen.
-• App-Widget zeigt Bitcoin-Guthaben an.
+• App-Widget zeigt Litecoin-Guthaben an.
 
-Weitere Informationen zu Bitcoin findest Du unter
-http://bitcoin.org
+Weitere Informationen zu Litecoin findest Du unter
+http://litecoin.org
 
-Wenn Du zu Bitcoin Wallet beitragen willst, das Projekt befindet sich auf
-https://github.com/schildbach/bitcoin-wallet
+Wenn Du zu Litecoin Wallet beitragen willst, das Projekt befindet sich auf
+https://github.com/schildbach/litecoin-wallet
 
 Lizenz: GPLv3
 Nutzung auf eigene Gefahr!

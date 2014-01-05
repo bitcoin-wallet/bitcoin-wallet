@@ -1,19 +1,19 @@
-Tato aplikace je peněženka s Bitcoiny pro systém Android. Můžete posílat Bitcoiny mezi telefony prostým naskenováním QR kódu, který je zobrazen aplikací, nebo pomocí NFC (Near Field Communication).
+Tato aplikace je peněženka s Litecoiny pro systém Android. Můžete posílat Litecoiny mezi telefony prostým naskenováním QR kódu, který je zobrazen aplikací, nebo pomocí NFC (Near Field Communication).
 
 VLASTNOSTI:
 
-• Zobrazení zůstatku peněženky v Bitcoinech a několika jiných měnách.
-• Odesílání a přijímání Bitcoinů pomocí NFC, QR-kódů, nebo Bitcoin adres.
+• Zobrazení zůstatku peněženky v Litecoinech a několika jiných měnách.
+• Odesílání a přijímání Litecoinů pomocí NFC, QR-kódů, nebo Litecoin adres.
 • Adresář pro často používané adresy.
 • Možnost zadávání transakcí v offline režimu, k jejich zpracování dojde po připojení.
-• Oznamování v liště při synchronizaci a při přijetí Bitcoinů.
+• Oznamování v liště při synchronizaci a při přijetí Litecoinů.
 • Widget s celkovým zůstatkem.
 
-Více informací o Bitcoinech
-http://bitcoin.org
+Více informací o Litecoinech
+http://litecoin.org
 
-Pokud chcete přispět do projektu Bitcoin Wallet, naleznete jej na adrese
-https://github.com/schildbach/bitcoin-wallet
+Pokud chcete přispět do projektu Litecoin Wallet, naleznete jej na adrese
+https://github.com/schildbach/litecoin-wallet
 
 License: GPLv3
 Použití pouze na vlastní riziko!

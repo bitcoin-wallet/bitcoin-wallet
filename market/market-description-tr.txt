@@ -1,21 +1,21 @@
-Bitcoin'leriniz daima cebinizde sizinle olsun! Herhangi bir QR kodunu okuyarak çabuk ödeme yapabilirsiniz. Bir tüccar olarak ödemeleri güvenilir ve anında alabilirsiniz. Bitcoin cüzdanı ilk mobil Bitcoin uygulamasıdır ve muhtemelen en güvenli Bitcoin uygulamasıdır!
+Litecoin'leriniz daima cebinizde sizinle olsun! Herhangi bir QR kodunu okuyarak çabuk ödeme yapabilirsiniz. Bir tüccar olarak ödemeleri güvenilir ve anında alabilirsiniz. Litecoin cüzdanı ilk mobil Litecoin uygulamasıdır ve muhtemelen en güvenli Litecoin uygulamasıdır!
 
 İŞLEVLERİ:
 
 • Hiçbir oturuma, web ya da bulut hizmetine gerek yoktur. Bu cüzdan merkezsiz ve eşten eşedir.
-• Bitcoin meblağlarının BTC ve mBTC olarak gösterilmesi.
+• Litecoin meblağlarının LTC ve mLTC olarak gösterilmesi.
 • Dövizlere ve dövizlerden dönüştürme.
-• NFC, QR kodu veya Bitcoin bağlantıları ile Bitcoin gönderir ve alır.
-• Sık kullanılan Bitcoin adresleri için adres defteri içerir.
+• NFC, QR kodu veya Litecoin bağlantıları ile Litecoin gönderir ve alır.
+• Sık kullanılan Litecoin adresleri için adres defteri içerir.
 • Çevrimdışı olduğunuzda Bluetooth vasıtasıyla ödemeler.
-• Alınan bitcoin'ler için sistem bildirimleri.
-• Bitcoin bakiyesini görüntüleyen widget.
+• Alınan litecoin'ler için sistem bildirimleri.
+• Litecoin bakiyesini görüntüleyen widget.
 
-Bitcoin hakkında daha fazla bilgiyi şurada bulabilirsiniz:
-http://bitcoin.org
+Litecoin hakkında daha fazla bilgiyi şurada bulabilirsiniz:
+http://litecoin.org
 
-Bitcoin Wallet'e iştirak etmek istiyorsanız, projenin adresi şudur:
-https://github.com/schildbach/bitcoin-wallet
+Litecoin Wallet'e iştirak etmek istiyorsanız, projenin adresi şudur:
+https://github.com/schildbach/litecoin-wallet
 
 Lisans: GPLv3
 Tüm riski siz üstlenmiş olursunuz.
