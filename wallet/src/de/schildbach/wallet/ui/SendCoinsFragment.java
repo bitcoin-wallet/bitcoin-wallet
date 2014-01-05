@@ -881,7 +881,7 @@ public final class SendCoinsFragment extends SherlockFragment
         }
 
         Log.i(TAG, "Final fee: " + sendRequest.fee.toString());
-        Log.i(TAG, "Final size: " + sendRequest.tx.getLength());
+        Log.i(TAG, "Final bytes: " + sendRequest.tx.getLength());
         LayoutInflater inflater = LayoutInflater.from(getActivity());
         View confirmView = inflater.inflate(R.layout.tx_confirm, null);
         TextView v_to = (TextView)confirmView.findViewById(R.id.txconfirm_to);
@@ -913,8 +913,8 @@ public final class SendCoinsFragment extends SherlockFragment
                 .setNeutralButton(android.R.string.cancel,
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
-                                startActivity(new Intent(getActivity(), WalletActivity.class));
-                                getActivity().finish();
+                                state = State.INPUT;
+                                updateView();
                             }
                         })
                 .setPositiveButton(android.R.string.ok,
