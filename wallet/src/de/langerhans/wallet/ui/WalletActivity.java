@@ -277,7 +277,7 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 				return true;
 
 			case R.id.wallet_options_safety:
-				HelpDialogFragment.page(getSupportFragmentManager(), "safety");
+				HelpDialogFragment.page(getSupportFragmentManager(), R.string.help_safety);
 				return true;
 
 			case R.id.wallet_options_donate:
@@ -285,7 +285,7 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 				return true;
 
 			case R.id.wallet_options_help:
-				HelpDialogFragment.page(getSupportFragmentManager(), "help");
+				HelpDialogFragment.page(getSupportFragmentManager(), R.string.help_wallet);
 				return true;
 		}
 

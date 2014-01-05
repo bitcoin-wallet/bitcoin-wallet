@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+	<string name="help_wallet">
+<![CDATA[
+		<p>
+			La parte in alto a sinistra dello schermo mostra gli indirizzo Dogecoin che le altre persone hanno bisogno per poterti inviare dei Dogecoin.
+			Premi per cambiare l\'indirizzo.
+		</p>
+		<p>
+			Il codice QR sulla destra contiene il tuo indirizzo Dogecoin e può essere usato per farlo leggere ad altri.
+			Premi sul codice per visualizzarne una versione più grande.
+		</p>
+		<p>
+			Il tuo saldo viene visualizzato al centro dello schermo.
+			Il valore del tuo portafoglio viene anche mostrato nella tua valuta locale.
+			Premi sul saldo per visualizzare la lista di tutte le valute e scegliere quella di default.
+		</p>
+		<p>
+			In fondo allo schermo troverai la lista delle tue transazioni, inizialmente vuota.
+			Le transazioni da confermare saranno visualizzate in grigio finchè non confermate.
+			Premi su una di esse per aggiungere gli indirizzi mittente o destinazione nella rubrica.
+			Trascina a destra o sinistra per impostare dei filtri alla lista.
+		</p>
+		<p>
+			Puoi inviare o ricevere Dogecoins premendo i tasti nella barra delle azioni.
+			Sono disponibili ulteriori comandi nel menù opzioni.
+		</p>
+	]]>
+	</string>
+	<string name="help_request_coins">
+<![CDATA[
+		<p>
+			Utilizzando questa finestra puoi richiedere dei Dogecoin ad un\'altra persona
+			(che dovrebbe aver già installato Dogecoin Wallet).
+		</p>
+		<p>
+			Come prima cosa puoi inserire il numero di Dogecoin da richiedere.
+		</p>
+		<p>
+			Poi puoi generare dei codici QR da far acquisire all\'altra persona.
+			Oppure puoi inviare la richiesta con il tasto "condividi" nella barra azioni.
+			La persona che riceve la richiesta dovrà cliccare l\'URL Dogecoin.
+		</p>
+		<p>
+			In ogni modo alla persona ricevente verrà presentata un modulo precompilato per inviare i Dogecoin.
+			Per confermare l\'invio dovrà solo accettare la transazione.
+		</p>
+	]]>
+	</string>
+	<string name="help_send_coins">
+<![CDATA[
+		<p>
+			Hai iniziato il processo per inviare Dogecoins.
+			Sei giunto qui a partire dalla schermata principale o cliccando su di un URL Dogecoin dal tuo browser.
+		</p>
+		<p>
+			Come prima cosa è necessario inserire l\'indirizzo Dogecoin a cui inviare.
+			L\'indirizzo si autocompleterà in base al contenuto della tua rubrica.
+			Puoi anche acquisire un codice QR che contiene indirizzi Dogecoin o richieste Dogecoin premendo il tasto QR sulla barra azioni.
+		</p>
+		<p>
+			Ti è poi possibile visualizzare quanti Dogecoin puoi spendere.
+			Eventuali differenze con il saldo visualizzato sulla schermata principale fanno parte di transazioni
+			non ancora confermate il cui importo non può quindi essere ancora utilizzato.
+		</p>
+		<p>
+			Puoi infine inserire il numero di Dogecoin da inviare.
+		</p>
+		<p>
+			Puoi inserire una transazione anche senza collegamento ad Internet, verrà inviata alla prossima esecuzione di Dogecoin Wallet.
+			Se vuoi che la transazione venga processata il prima possibile assicurati di avere un buon collegamento ad Internet.
+		</p>
+		<p>
+			Nota:
+			I pagamenti non possono essere annullate!
+			Controlla sempre la correttezza degli indirizzi di destinazione.
+		</p>
+	]]>
+	</string>
+	<string name="help_safety">
+<![CDATA[
+		<p>
+			<b>Alcune informazioni riguardo la sicurezza relativa ai vostri Dogecoins:</b>
+		</p>
+		<p>
+			I Dogecoins di Dogecoin Wallet vengono memorizzati sul dispositivo.
+			<b>Se perdi il dispositivo, perdi i tuoi Dogecoin.</b>
+			Esattamente come denaro nel tuo vero portafoglio.
+		</p>
+		<p>
+			<b>Prima di disinstallare Dogecoin Wallet</b> (o cancellare i dati dell\'applicazione o del dispositivo), <b>trasferisci i tuoi Dogecoins ad un altro portafoglio</b>.
+			Eventuali Dogecoin non trasferiti saranno persi per sempre.
+		</p>
+		<p>
+			<b>I pagamenti non possono essere annullate</b>.
+			Se invi i tuoi Dogecoin ad indirizzi errati non c\'è modo di riaverli indietro
+			a meno che tu non conosca il ricevente e che sia disponibile a restituirli.
+		</p>
+		<p>
+			<b>Proteggi il tuo dispositivo Android!</b>
+			Installa solo applicazioni di cui ti fidi completamente.
+			Applicazioni malevole potrebbero provare a rubare il tuo portafoglio.
+		</p>
+		<p>
+			Tieni basso il rischio!
+			<b>Usa Dogecoin Wallet solo con piccoli importi</b> sufficienti per l\'uso quotidiano.
+		</p>
+	]]>
+	</string>
+
+</resources>
