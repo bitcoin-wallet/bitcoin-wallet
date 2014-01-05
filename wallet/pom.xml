@@ -6,7 +6,7 @@
 
 	<artifactId>wallet</artifactId>
 	<packaging>apk</packaging>
-	<version>1.01</version>
+	<version>1.02</version>
 	<name>Dogecoin Wallet</name>
 
 	<parent>
