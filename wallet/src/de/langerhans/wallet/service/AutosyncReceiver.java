@@ -46,8 +46,9 @@ public class AutosyncReceiver extends BroadcastReceiver
 		log.info("got broadcast intent: " + intent);
 
 		// other app got replaced
-		if (intent.getAction().equals(Intent.ACTION_PACKAGE_REPLACED) && !intent.getDataString().equals("package:" + context.getPackageName()))
-			return;
+		if (intent.getAction().equals(Intent.ACTION_PACKAGE_REPLACED))
+            if (!intent.getDataString().equals("package:" + context.getPackageName()))
+			    return;
 
 		final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
 		prefsLastUsed = prefs.getLong(Constants.PREFS_KEY_LAST_USED, 0);
