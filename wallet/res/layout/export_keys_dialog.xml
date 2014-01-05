@@ -30,6 +30,20 @@
 		<requestFocus />
 	</EditText>
 
+    <EditText
+        android:id="@+id/export_keys_dialog_password_repeat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/list_entry_padding_horizontal"
+        android:layout_marginRight="@dimen/list_entry_padding_horizontal"
+        android:layout_marginTop="@dimen/list_entry_padding_vertical"
+        android:hint="@string/import_export_keys_dialog_password_repeat"
+        android:inputType="textPassword"
+        android:singleLine="true"
+        android:textSize="@dimen/font_size_normal" >
+
+    </EditText>
+
 	<CheckBox
 		android:id="@+id/export_keys_dialog_show"
 		android:layout_width="match_parent"

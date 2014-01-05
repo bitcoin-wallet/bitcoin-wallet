@@ -155,7 +155,9 @@
 	<string name="export_keys_dialog_mail_subject">Dogecoin Wallet Sicherung der privaten Schlüssel</string>
 	<string name="export_keys_dialog_mail_text">Die verschlüsselte Datei im Anhang enthält private Dogecoin-Schlüssel und sollte sicher verwahrt werden. Vergiss das Verschlüsselungs-Passwort nicht!</string>
 	<string name="export_keys_dialog_mail_intent_chooser">Schlüssel archivieren mit…</string>
+    <string name="export_keys_dialog_pass_dont_match">Passwörter stimmen nicht überein!</string>
 	<string name="import_export_keys_dialog_password">Passwort</string>
+    <string name="import_export_keys_dialog_password_repeat">Passwort wiederholen</string>
 	<string name="import_export_keys_dialog_show">Passwort zeigen</string>
 	<string name="import_export_keys_dialog_failure_title">Fehler</string>
 	<string name="import_keys_intent_filter_action">Wiederherstellung der Dogecoin-Schlüssel</string>

@@ -140,8 +140,10 @@
 	<string name="export_keys_dialog_button_archive">Archive</string>
 	<string name="export_keys_dialog_mail_subject">Dogecoin Wallet private key backup</string>
 	<string name="export_keys_dialog_mail_text">The attached encrypted file contains Dogecoin private keys and should be kept safe at all times. Don\'t forget the encryption password!</string>
-	<string name="export_keys_dialog_mail_intent_chooser">Archive keys using…</string>
-	<string name="import_export_keys_dialog_password">password</string>
+    <string name="export_keys_dialog_mail_intent_chooser">Archive keys using…</string>
+    <string name="export_keys_dialog_pass_dont_match">Passwords don\'t match!</string>
+    <string name="import_export_keys_dialog_password">password</string>
+    <string name="import_export_keys_dialog_password_repeat">repeat password</string>
 	<string name="import_export_keys_dialog_show">Show password</string>
 	<string name="import_export_keys_dialog_failure_title">Error</string>
 	<string name="import_keys_intent_filter_action">Dogecoin key restore</string>

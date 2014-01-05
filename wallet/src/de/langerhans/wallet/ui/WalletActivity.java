@@ -60,13 +60,12 @@ import android.nfc.NfcAdapter;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.text.format.DateUtils;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
-import android.widget.EditText;
-import android.widget.Spinner;
-import android.widget.TextView;
+import android.widget.*;
 
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
@@ -470,13 +469,14 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 		fileView.setOnItemSelectedListener(dialogButtonEnabler);
 
 		final CheckBox showView = (CheckBox) alertDialog.findViewById(R.id.import_keys_from_storage_show);
-		showView.setOnCheckedChangeListener(new ShowPasswordCheckListener(passwordView));
+		showView.setOnCheckedChangeListener(new ShowPasswordCheckListener(new EditText[]{passwordView}));
 	}
 
 	private Dialog createExportKeysDialog()
 	{
 		final View view = getLayoutInflater().inflate(R.layout.export_keys_dialog, null);
 		final EditText passwordView = (EditText) view.findViewById(R.id.export_keys_dialog_password);
+        final EditText passwordRepeatView = (EditText) view.findViewById(R.id.export_keys_dialog_password_repeat);
 
 		final AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setInverseBackgroundForced(true);
@@ -488,9 +488,10 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 			public void onClick(final DialogInterface dialog, final int which)
 			{
 				final String password = passwordView.getText().toString().trim();
-				passwordView.setText(null); // get rid of it asap
+                passwordView.setText(null); // get rid of it asap
+                passwordRepeatView.setText(null);
 
-				exportPrivateKeys(password);
+                exportPrivateKeys(password);
 			}
 		});
 		builder.setNegativeButton(R.string.button_cancel, new OnClickListener()
@@ -499,6 +500,7 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 			public void onClick(final DialogInterface dialog, final int which)
 			{
 				passwordView.setText(null); // get rid of it asap
+                passwordRepeatView.setText(null);
 			}
 		});
 		builder.setOnCancelListener(new OnCancelListener()
@@ -507,6 +509,7 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 			public void onCancel(final DialogInterface dialog)
 			{
 				passwordView.setText(null); // get rid of it asap
+                passwordRepeatView.setText(null);
 			}
 		});
 
@@ -518,15 +521,40 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 	private void prepareExportKeysDialog(final Dialog dialog)
 	{
 		final AlertDialog alertDialog = (AlertDialog) dialog;
+        final Button button = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE);
+        button.setEnabled(false);
 
 		final EditText passwordView = (EditText) alertDialog.findViewById(R.id.export_keys_dialog_password);
 		passwordView.setText(null);
+        final EditText passwordRepeatView = (EditText) alertDialog.findViewById(R.id.export_keys_dialog_password_repeat);
+        passwordRepeatView.setText(null);
+        passwordRepeatView.addTextChangedListener(new TextWatcher() {
+            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override public void onTextChanged(CharSequence s, int start, int before, int count) {}
 
-		final ImportDialogButtonEnablerListener dialogButtonEnabler = new ImportDialogButtonEnablerListener(passwordView, alertDialog);
-		passwordView.addTextChangedListener(dialogButtonEnabler);
+            @Override
+            public void afterTextChanged(Editable s) {
+                final String password = passwordView.getText().toString().trim();
+                final String passwordRepeat = passwordRepeatView.getText().toString().trim();
+                if (!password.equals(passwordRepeat))
+                {
+                    button.setEnabled(false);
+                    // Only show an error popup if we think it's a typo. Not yet when the user entered just one char of his 20 char pass.
+                    if (passwordRepeat.length() - password.length() >= 0)
+                        passwordRepeatView.setError(getString(R.string.export_keys_dialog_pass_dont_match));
+                }
+                else
+                {
+                    button.setEnabled(true);
+                }
+            }
+        });
+
+//		final ImportDialogButtonEnablerListener dialogButtonEnabler = new ImportDialogButtonEnablerListener(passwordView, alertDialog);
+//		passwordView.addTextChangedListener(dialogButtonEnabler);
 
 		final CheckBox showView = (CheckBox) alertDialog.findViewById(R.id.export_keys_dialog_show);
-		showView.setOnCheckedChangeListener(new ShowPasswordCheckListener(passwordView));
+		showView.setOnCheckedChangeListener(new ShowPasswordCheckListener(new EditText[]{passwordView, passwordRepeatView}));
 	}
 
 	private Dialog createAlertOldSdkDialog()
