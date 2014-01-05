@@ -237,7 +237,7 @@
     <string name="send_coins_uri_parse_error_title">Parsing Error</string>
     <string name="sendcoins_title_insufficientfunds">Insufficient Funds</string>
     <string name="sendcoins_insufficient_preamble">There are not enough funds available to complete the transaction.</string>
-    <string name="sendcoins_insufficient_amount_prefix">You need another</string>
+    <string name="sendcoins_insufficient_amount_prefix">You need at least another</string>
     <string name="sendcoins_insufficient_amount_suffix">LTC in your wallet to continue.</string>
     <string name="sendcoins_insufficient_instructions">Please adjust your values or add funds to the wallet.</string>
     <string name="sendcoins_fee_required">Fee Required</string>
