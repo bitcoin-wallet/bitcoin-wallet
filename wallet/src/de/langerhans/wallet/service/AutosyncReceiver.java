@@ -143,6 +143,7 @@ public class AutosyncReceiver extends BroadcastReceiver
 
         final Intent startIntent = new Intent(mCtx, AutosyncReceiver.class);
         final PendingIntent alarmIntent = PendingIntent.getBroadcast(mCtx, 0, startIntent, 0);
+        startIntent.setAction("de.langerhans.wallet.AUTOSYNC_ACTION");
         final AlarmManager alarmManager = (AlarmManager) mCtx.getSystemService(Context.ALARM_SERVICE);
         alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, now, alarmInterval, alarmIntent);
     }
