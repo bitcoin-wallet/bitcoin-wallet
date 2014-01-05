@@ -34,7 +34,6 @@
 	<string name="wallet_transactions_fragment_coinbase">ditambang</string>
 	<string name="wallet_transactions_fragment_internal">Internal</string>
 	<string name="wallet_options_backup">Cadangkan Kunci</string>
-	<string name="wallet_options_disconnect">Putuskan</string>
 	<string name="wallet_options_safety">Nota keamanan</string>
 	<string name="wallet_options_donate">Tip / Donasi</string>
 	<string name="wallet_donate_address_label">Donasi untuk Litecoin Wallet</string>

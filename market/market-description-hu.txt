@@ -1,19 +1,20 @@
-Az alkalmazás segítségével folyamatosan, közvetlenül a zsebedben tarthatod Bitcoin érméidet. Fizethetsz egyszerűen QR-kód beolvasásával, vagy akár NFC-képes eszközök összeérintésével is. A Bitcoin Wallet egyszerű és megbízható, miközben gyors és biztonságos.
+Tartsd a zsebedben Bitcoinjaidat! Egyszerűen, akár QR-kód leolvasásával is fizethetsz. Ha pedig termékeket, vagy szolgáltatást értékesítesz megbízható módon és gyorsan juthatsz a bevételeidhez. A Bitcoin Tárca az első Bitcoin app és kétségkívül a legbiztonságosabb is!
 
 ELŐNYÖK:
 
-• Nincs szükség felhő, vagy webes háttérre! A tárca ténylegesen peer-to-peer működik.
-• A tárca egyenleg azonnal látható más pénznemekben is
-• Érmék küldése és fogadása NFC, QR-kód vagy közvetlen Bitcoin URL segítségével 
-• Címtár a rendszeresen használt Bitcoin címek számára
-• Kapcsolódás nélküli állapotban is előkészíthető tranzakciók, amelyek kapcsolódáskor teljesülnek
-• Rendszerüzenetek, értesítések a Bitcoin kapcsolódás állapotáról, vagy az érkezett érmékről
-• Widget a Bitcoin egyenlegről
+• Nincs regisztráció és nem szükséges semmiféle háttéralkalmazás futtatása (web, vagy cloud)! Decentralizált és közvetlen (P2P).
+• A Bitcoinjaid mennyiségét BTC és mBTC formában is láthatod.
+• Átváltás a saját valutádra, oda-vissza.
+• Bitcoin küldése és fogadása NFC, QR-kód vagy közvetlen URL segítségével.
+• Címtár a rendszeresen használt Bitcoin címek számára.
+• Offline állapotban is fizethetsz - Bluetooth segítségével.
+• Rendszerüzenet Bitcoin érkezésekor.
+• Widget a Bitcoin egyenlegről.
 
 Bővebben a Bitcoin-ról:
 http://bitcoin.org
 
-Ha hozzájárulnál a Bitcoin Wallet projekthez, megtalálod a következő címen:
+Ha hozzájárulnál a Bitcoin Wallet projekthez:
 https://github.com/schildbach/bitcoin-wallet
 
 Licensz: GPLv3

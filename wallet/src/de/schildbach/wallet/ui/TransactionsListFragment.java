@@ -1,5 +1,5 @@
 /*
- * Copyright 2011-2013 the original author or authors.
+ * Copyright 2011-2014 the original author or authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -298,8 +298,8 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 						mode.finish();
 						return true;
 
-					case R.id.wallet_transactions_context_open_blockexplorer:
-						startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.BLOCKEXPLORER_BASE_URL + "tx/" + tx.getHashAsString())));
+					case R.id.wallet_transactions_context_browse:
+						startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.EXPLORE_BASE_URL + "tx/" + tx.getHashAsString())));
 
 						mode.finish();
 						return true;

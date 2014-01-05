@@ -32,7 +32,6 @@
 	<string name="wallet_transactions_row_warning_backup">Chúc mừng, bạn đã nhận được phần thanh toán đầu tiên của mình! Bạn đã &lt;u&gt;sao lưu ví tiền của mình&lt;/u&gt;, để tránh việc thất thoát hay chưa?</string>
 	<string name="wallet_transactions_fragment_coinbase">đã khai thác</string>
 	<string name="wallet_options_backup">Sao lưu khóa</string>
-	<string name="wallet_options_disconnect">Ngắt kết nối</string>
 	<string name="wallet_options_safety">Ghi chú an toàn</string>
 	<string name="wallet_options_donate">Gợi ý / Ủng hộ</string>
 	<string name="wallet_donate_address_label">Ủng hộ </string>

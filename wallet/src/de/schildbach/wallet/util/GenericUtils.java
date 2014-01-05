@@ -31,8 +31,11 @@ import de.schildbach.wallet.Constants;
  */
 public class GenericUtils
 {
-	private static final int BTC_COIN_INT = Utils.COIN.intValue();
-	private static final int MBTC_COIN_INT = Utils.COIN.intValue() / 1000;
+	public static final BigInteger ONE_BTC = new BigInteger("100000000", 10);
+	public static final BigInteger ONE_MBTC = new BigInteger("100000", 10);
+
+	private static final int ONE_BTC_INT = ONE_BTC.intValue();
+	private static final int ONE_MBTC_INT = ONE_MBTC.intValue();
 
 	public static String formatValue(@Nonnull final BigInteger value, final int precision, final int shift)
 	{
@@ -60,8 +63,8 @@ public class GenericUtils
 				throw new IllegalArgumentException("cannot handle precision/shift: " + precision + "/" + shift);
 
 			final long absValue = Math.abs(longValue);
-			final long coins = absValue / BTC_COIN_INT;
-			final int satoshis = (int) (absValue % BTC_COIN_INT);
+			final long coins = absValue / ONE_BTC_INT;
+			final int satoshis = (int) (absValue % ONE_BTC_INT);
 
 			if (satoshis % 1000000 == 0)
 				return String.format(Locale.US, "%s%d.%02d", sign, coins, satoshis / 1000000);
@@ -84,8 +87,8 @@ public class GenericUtils
 				throw new IllegalArgumentException("cannot handle precision/shift: " + precision + "/" + shift);
 
 			final long absValue = Math.abs(longValue);
-			final long coins = absValue / MBTC_COIN_INT;
-			final int satoshis = (int) (absValue % MBTC_COIN_INT);
+			final long coins = absValue / ONE_MBTC_INT;
+			final int satoshis = (int) (absValue % ONE_MBTC_INT);
 
 			if (satoshis % 1000 == 0)
 				return String.format(Locale.US, "%s%d.%02d", sign, coins, satoshis / 1000);

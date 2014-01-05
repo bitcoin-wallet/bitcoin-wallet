@@ -25,8 +25,8 @@
 		android:showAsAction="ifRoom|withText"
 		android:title="@string/address_book_context_show_qr_title"/>
 	<item
-		android:id="@+id/wallet_addresses_context_open_blockexplorer"
+		android:id="@+id/wallet_addresses_context_browse"
 		android:showAsAction="never"
-		android:title="@string/action_open_blockexplorer"/>
+		android:title="@string/action_browse"/>
 
 </menu>

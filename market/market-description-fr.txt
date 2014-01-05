@@ -1,21 +1,22 @@
-Avec cette app, vous pouvez apporter vos bitcoins partout avec vous dans vos poches! Vous pouvez envoyer des paiements simplement en scannant un code QR ou en touchant deux téléphones ensembles (NFC). Bitcoin Wallet est conçu pour être facile d'utilisation et fiable, tout en étant sécurisé et performant.
+Ayez vos Bitcoins toujours avec vous dans votre poche ! Payez rapidement en numérisant un code-QR. En tant que marchant vous recevez les paiements de manière fiable et instantanée. Bitcoin Wallet est la première appli Bitcoin mobile et sans doute aussi la plus sécuritaire !
 
-FONCTIONS:
+FONCTIONS :
 
-• Aucun serveur cloud ou de service web nécessaire! Ce porte-monnaie est vraiment pair à pair.
-• Afficher le solde du  wallet en Bitcoin et dans d'autres devises.
-• Envoyer et recevoir des Bitcoins via NFC, QR-codes ou Bitcoin URLs.
-• Carnet d'adresses pour les adresses Bitcoin fréquemment utilisées.
-• Saisir des transactions offline, les exécuter online.
-• Notification système pour la réception des bitcoins.
-• App widget pour le solde du compte Bitcoin.
+• Pas d'inscription, de service Web ou de nuage de nécessaire ! Ce portefeuille est décentralisé et de pair-à-pair.
+• Affichage du montant de Bitcoin en BTC et mBTC.
+• Conversion de et vers des devises nationales.
+• Envoi et réception des Bitcoin via NFC, codes QR ou des URLs Bitcoin.
+• Carnet d'adresse pour les adresses Bitcoin utilisées régulièrement.
+• Quand vous êtes hors-ligne vous pouvez quand même payez via Bluetooth.
+• Notification du système pour les pièces reçues.
+• Widget affichant le solde Bitcoin.
 
-Pour en savoir plus sur Bitcoin:
+Vous pouvez en apprendre plus au sujet de Bitcoin sur
 http://bitcoin.org
 
-Si vous voulez contribuer à  Bitcoin Wallet, le projet se trouve à
+Si vous voulez contribuer à Bitcoin Wallet, le projet se trouve sur
 https://github.com/schildbach/bitcoin-wallet
 
-License: GPLv3
-Utilisez à vos propres risques!
+Licence : GPLv3
+Utilisez à vos propres risques !
 http://www.gnu.org/licenses/gpl-3.0.fr.html
