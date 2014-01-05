@@ -883,6 +883,7 @@ public final class SendCoinsFragment extends SherlockFragment
                 } catch (InsufficientMoneyException e) {
                     // This should never happen because we're only changing where outputs go
                     Log.e(TAG, "UNEXPECTED ERROR: InsufficientMoneyException when redirecting outputs!");
+                    return;
                 }
             }
         }
@@ -893,19 +894,28 @@ public final class SendCoinsFragment extends SherlockFragment
         TextView v_to = (TextView)confirmView.findViewById(R.id.txconfirm_to);
         CurrencyTextView v_value = (CurrencyTextView)confirmView.findViewById(R.id.txconfirm_value);
         CurrencyTextView v_fee = (CurrencyTextView)confirmView.findViewById(R.id.txconfirm_fee);
+        CurrencyTextView v_total = (CurrencyTextView)confirmView.findViewById(R.id.txconfirm_total);
         v_to.setText(validatedAddress.address.toString());
         v_value.setPrecision(Constants.LOCAL_PRECISION, 0);
         v_value.setInsignificantRelativeSize(1);
         v_fee.setPrecision(Constants.LOCAL_PRECISION, 0);
         v_fee.setInsignificantRelativeSize(1);
+        v_total.setPrecision(Constants.LOCAL_PRECISION, 0);
+        v_total.setInsignificantRelativeSize(1);
         // Set value to total deduction from wallet
+        // This is the amount coming FROM our wallet
+        //   minus the amount going back INTO our wallet
+        //   minus the FEE.
         v_value.setAmount(sendRequest.tx.getValueSentFromMe(wallet)
-                .subtract(sendRequest.tx.getValueSentToMe(wallet)));
+                .subtract(sendRequest.tx.getValueSentToMe(wallet))
+                .subtract(sendRequest.fee));
         // Set value to fee
         v_fee.setAmount(new BigInteger(sendRequest.fee.toString()));
+        // Set value to overall total exiting wallet
+        v_total.setAmount(sendRequest.tx.getValueSentFromMe(wallet)
+                .subtract(sendRequest.tx.getValueSentToMe(wallet)));
         new AlertDialog.Builder(SendCoinsFragment.this.getActivity())
                 .setView(confirmView)
-                .setTitle("Transaction Info")
                 .setCancelable(true)
                 .setNeutralButton(android.R.string.cancel,
                         new DialogInterface.OnClickListener() {

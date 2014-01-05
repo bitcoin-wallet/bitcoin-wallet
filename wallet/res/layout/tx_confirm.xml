@@ -9,11 +9,29 @@
             android:layout_width="fill_parent"
             android:layout_height="0px" android:layout_weight="1">
         <TextView
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Sending"
+                android:id="@+id/txconfirm_label_spending" android:textStyle="bold" android:layout_weight="1"
+                android:gravity="center_vertical" android:layout_gravity="center_vertical"/>
+        <de.schildbach.wallet.ui.CurrencyTextView
+                android:id="@+id/txconfirm_value"
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|right"
+                android:layout_marginLeft="8dp"
+                android:textSize="@dimen/font_size_normal" android:layout_weight="1" android:gravity="center_vertical"/>
+    </LinearLayout>
+    <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="0px" android:layout_weight="1">
+        <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="To"
-                android:id="@+id/textView3" android:textStyle="bold" android:gravity="center_vertical"
+                android:id="@+id/txconfirm_label_to" android:textStyle="bold" android:gravity="center_vertical"
                 android:layout_gravity="center_vertical"/>
         <TextView
                 android:layout_width="match_parent"
@@ -29,11 +47,11 @@
                 android:layout_width="0px"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Spending"
-                android:id="@+id/textView" android:textStyle="bold" android:layout_weight="1"
+                android:text="Fee"
+                android:id="@+id/txconfirm_label_fee" android:textStyle="bold" android:layout_weight="1"
                 android:gravity="center_vertical" android:layout_gravity="center_vertical"/>
         <de.schildbach.wallet.ui.CurrencyTextView
-                android:id="@+id/txconfirm_value"
+                android:id="@+id/txconfirm_fee"
                 android:layout_width="0px"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical|right"
@@ -41,17 +59,14 @@
                 android:textSize="@dimen/font_size_normal" android:layout_weight="1" android:gravity="center_vertical"/>
     </LinearLayout>
     <LinearLayout
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="0px" android:layout_weight="1">
-        <TextView
-                android:layout_width="0px"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Fee"
-                android:id="@+id/textView2" android:textStyle="bold" android:layout_weight="1"
-                android:gravity="center_vertical" android:layout_gravity="center_vertical"/>
+        <TextView android:layout_width="0px" android:layout_height="wrap_content"
+                  android:textAppearance="?android:attr/textAppearanceMedium" android:text="Total"
+                  android:id="@+id/txconfirm_total_label" android:textStyle="bold" android:layout_weight="1"
+                  android:gravity="center_vertical" android:layout_gravity="center_vertical"/>
         <de.schildbach.wallet.ui.CurrencyTextView
-                android:id="@+id/txconfirm_fee"
+                android:id="@+id/txconfirm_total"
                 android:layout_width="0px"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical|right"
