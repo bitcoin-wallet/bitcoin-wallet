@@ -146,7 +146,8 @@ public final class WalletAddressFragment extends Fragment
 			bitcoinAddressLabel.setText(WalletUtils.formatAddress(selectedAddress, Constants.ADDRESS_FORMAT_GROUP_SIZE,
 					Constants.ADDRESS_FORMAT_LINE_SIZE));
 
-			final String addressStr = BitcoinURI.convertToBitcoinURI(selectedAddress, null, null, null);
+			final String addressStr = BitcoinURI.convertToBitcoinURI(Constants.NETWORK_PARAMETERS, selectedAddress, null,
+                    null, null);
 
 			final int size = (int) (256 * getResources().getDisplayMetrics().density);
 			qrCodeBitmap = Qr.bitmap(addressStr, size);

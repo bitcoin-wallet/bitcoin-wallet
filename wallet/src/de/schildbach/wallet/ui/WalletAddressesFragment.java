@@ -249,7 +249,7 @@ public final class WalletAddressesFragment extends SherlockListFragment
 
 			private void handleShowQr(@Nonnull final Address address)
 			{
-				final String uri = BitcoinURI.convertToBitcoinURI(address, null, null, null);
+				final String uri = BitcoinURI.convertToBitcoinURI(Constants.NETWORK_PARAMETERS, address, null, null, null);
 				final int size = (int) (256 * getResources().getDisplayMetrics().density);
 				BitmapFragment.show(getFragmentManager(), Qr.bitmap(uri, size));
 			}

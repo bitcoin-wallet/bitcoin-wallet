@@ -422,7 +422,8 @@ public final class RequestCoinsFragment extends SherlockFragment
 		final String label = includeLabel ? AddressBookProvider.resolveLabel(activity, address.toString()) : null;
 		final BigInteger amount = amountCalculatorLink.getAmount();
 
-		final StringBuilder uri = new StringBuilder(BitcoinURI.convertToBitcoinURI(address, amount, label, null));
+		final StringBuilder uri = new StringBuilder(BitcoinURI.convertToBitcoinURI(
+                Constants.NETWORK_PARAMETERS, address, amount, label, null));
 		if (includeBluetoothMac && bluetoothMac != null)
 		{
 			uri.append(amount == null && label == null ? '?' : '&');
