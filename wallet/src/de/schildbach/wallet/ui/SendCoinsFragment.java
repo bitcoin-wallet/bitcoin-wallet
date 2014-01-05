@@ -17,7 +17,6 @@
 
 package de.schildbach.wallet.ui;
 
-import java.math.BigDecimal;
 import java.math.BigInteger;
 
 import javax.annotation.CheckForNull;
@@ -29,11 +28,8 @@ import android.util.Log;
 import android.widget.Toast;
 import com.google.bitcoin.core.InsufficientMoneyException;
 import com.google.bitcoin.core.TransactionOutput;
-import com.google.bitcoin.core.VerificationException;
-import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentIntegratorSupportV4;
 import com.google.zxing.integration.android.IntentResult;
-import org.litecoin.LitecoinWallet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -158,7 +154,6 @@ public final class SendCoinsFragment extends SherlockFragment
 
 	private static final int ID_RATE_LOADER = 0;
 
-	private static final int REQUEST_CODE_SCAN = 0;
 	private static final int REQUEST_CODE_ENABLE_BLUETOOTH = 1;
 
 	private static final Logger log = LoggerFactory.getLogger(SendCoinsFragment.class);
@@ -525,13 +520,13 @@ public final class SendCoinsFragment extends SherlockFragment
 		new StringInputParser(input)
 		{
 			@Override
-			protected void bitcoinRequest(final Address address, final String addressLabel, final BigInteger amount, final String bluetoothMac)
+			protected void bitcoinRequest(@Nonnull final Address address, final String addressLabel, final BigInteger amount, final String bluetoothMac)
 			{
 				update(address.toString(), addressLabel, amount, bluetoothMac);
 			}
 
 			@Override
-			protected void directTransaction(final Transaction transaction)
+			protected void directTransaction(@Nonnull final Transaction transaction)
 			{
 				cannotClassify(input);
 			}
@@ -635,7 +630,8 @@ public final class SendCoinsFragment extends SherlockFragment
 		if (savedInstanceState.containsKey("sent_transaction_hash"))
 		{
 			sentTransaction = wallet.getTransaction((Sha256Hash) savedInstanceState.getSerializable("sent_transaction_hash"));
-			sentTransaction.getConfidence().addEventListener(sentTransactionConfidenceListener);
+            if(sentTransaction != null)
+			    sentTransaction.getConfidence().addEventListener(sentTransactionConfidenceListener);
 		}
 
 		bluetoothMac = savedInstanceState.getString("bluetooth_mac");
@@ -740,10 +736,6 @@ public final class SendCoinsFragment extends SherlockFragment
 					validatedAddress = new AddressAndLabel(Constants.NETWORK_PARAMETERS, addressStr, label);
 					receivingAddressView.setText(null);
 				}
-			}
-			else
-			{
-				// empty field should not raise error message
 			}
 		}
 		catch (final AddressFormatException x)
@@ -1171,7 +1163,7 @@ public final class SendCoinsFragment extends SherlockFragment
 		// focus
 		if (receivingAddress != null && amount == null)
 			amountCalculatorLink.requestFocus();
-		else if (receivingAddress != null && amount != null)
+		else if (receivingAddress != null)
 			viewGo.requestFocus();
 
 		this.bluetoothMac = bluetoothMac;

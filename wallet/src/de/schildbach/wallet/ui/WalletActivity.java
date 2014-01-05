@@ -864,7 +864,9 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 	{
 		try
 		{
-			Constants.EXTERNAL_WALLET_BACKUP_DIR.mkdirs();
+			if(!Constants.EXTERNAL_WALLET_BACKUP_DIR.mkdirs()) {
+                Log.d("WalletActivity", "mkdirs() returned false.  This isn't critical, but might be interesting");
+            }
 			final DateFormat dateFormat = Iso8601Format.newDateFormat();
 			dateFormat.setTimeZone(TimeZone.getDefault());
 			final File file = new File(Constants.EXTERNAL_WALLET_BACKUP_DIR, Constants.EXTERNAL_WALLET_KEY_BACKUP + "-"
