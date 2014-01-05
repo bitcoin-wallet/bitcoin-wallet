@@ -15,7 +15,7 @@ Bővebben a Litecoin-ról:
 http://litecoin.org
 
 Ha hozzájárulnál a Litecoin Wallet projekthez:
-https://github.com/schildbach/litecoin-wallet
+https://github.com/Litecoin-Java/bitcoin-wallet
 
 Licensz: GPLv3
 Csak saját felelősségre használható!

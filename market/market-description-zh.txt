@@ -12,7 +12,7 @@
 • 莱特币余额的程序插件。
 
 更多关于莱特币的信息请点击：http://litecoin.org
-如果你想赞助莱特币钱包软件开发项目，该项目位于：https://github.com/schildbach/litecoin-wallet
+如果你想赞助莱特币钱包软件开发项目，该项目位于：https://github.com/Litecoin-Java/bitcoin-wallet
 
 许可协议: GPLv3
 使用者须自行承担风险！

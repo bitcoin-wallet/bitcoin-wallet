@@ -13,7 +13,7 @@ Więcej o Litecoin dowiesz się pod adresem:
 http://litecoin.org
 
 Jeżeli chcesz wesprzeć Litecoin Wallet, kody źródłowe projektu znajdują się pod adresem:
-https://github.com/schildbach/litecoin-wallet
+https://github.com/Litecoin-Java/bitcoin-wallet
 
 Licencja: GPLv3
 Używanie jedynie na własne ryzyko!

@@ -14,7 +14,7 @@ Bạn có thể tìm hiểu thêm về Litecoin tại
 http://litecoin.org
 
 Nếu bạn có ý tưởng đóng góp cho Litecoin Wallet, hãy truy cập vào trang web
-https://github.com/schildbach/litecoin-wallet
+https://github.com/Litecoin-Java/bitcoin-wallet
 
 Giấy phép: GPLv3
 Sử dụng với sự cẩn trọng của riêng bạn!

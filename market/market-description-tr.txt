@@ -15,7 +15,7 @@ Litecoin hakkında daha fazla bilgiyi şurada bulabilirsiniz:
 http://litecoin.org
 
 Litecoin Wallet'e iştirak etmek istiyorsanız, projenin adresi şudur:
-https://github.com/schildbach/litecoin-wallet
+https://github.com/Litecoin-Java/bitcoin-wallet
 
 Lisans: GPLv3
 Tüm riski siz üstlenmiş olursunuz.

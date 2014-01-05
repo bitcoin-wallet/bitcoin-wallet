@@ -13,7 +13,7 @@ Puedes descubrir más sobre Litecoin en
 http://litecoin.org
 
 Si quieres contribuir a Litecoin Wallet, el proyecto está localizado en
-https://github.com/schildbach/litecoin-wallet
+https://github.com/Litecoin-Java/bitcoin-wallet
 
 Licencia: GPLv3
 ¡Úsalo bajo tu propia responsabilidad!
