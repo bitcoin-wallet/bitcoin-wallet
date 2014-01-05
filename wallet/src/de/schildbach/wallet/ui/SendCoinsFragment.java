@@ -846,6 +846,7 @@ public final class SendCoinsFragment extends SherlockFragment
 
 		// create spend
 		BigInteger amount = amountCalculatorLink.getAmount();
+        BigInteger origAmount = amount;
 		SendRequest baseSendRequest = SendRequest.to(validatedAddress.address, amount);
         baseSendRequest.changeAddress = WalletUtils.pickOldestKey(wallet).toAddress(Constants.NETWORK_PARAMETERS);
         baseSendRequest.emptyWallet = amount.equals(wallet.getBalance(BalanceType.AVAILABLE));
@@ -901,6 +902,27 @@ public final class SendCoinsFragment extends SherlockFragment
                     return;
                 }
             }
+            final SendRequest dialogSendRequest = baseSendRequest;
+            new AlertDialog.Builder(SendCoinsFragment.this.getActivity())
+                    .setTitle(activity.getString(R.string.sendcoins_fee_required))
+                    .setMessage("A fee of " +
+                            GenericUtils.formatValue(origAmount.subtract(amount), Constants.BTC_MAX_PRECISION, 0) +
+                            " is required to complete this transaction.")
+                    .setCancelable(true)
+                    .setNeutralButton(android.R.string.cancel,
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int whichButton) {
+                                    state = State.INPUT;
+                                    updateView();
+                                }
+                            })
+                    .setPositiveButton(android.R.string.ok,
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    finalizeSend(dialogSendRequest);
+                                }
+                            })
+                    .show();
         }
         else {
             // We're not emptying.
@@ -915,51 +937,83 @@ public final class SendCoinsFragment extends SherlockFragment
                 // on input field change.  Here's the rub: obviously our wallet doesn't have enough to
                 // pay the whole fee.  We should just let the user know so they can manually adjust
                 // their transaction.
-                final BigInteger missing = e.missing == null ? new BigInteger("0") : e.missing;
-                new AlertDialog.Builder(SendCoinsFragment.this.getActivity())
-                        .setTitle(activity.getString(R.string.sendcoins_title_insufficientfunds))
-                        .setMessage(activity.getString(R.string.sendcoins_insufficient_preamble) + " " +
+                BigInteger missing = e.missing == null ? new BigInteger("0") : e.missing;
+                final SendRequest dialogSendRequest = SendRequest.to(validatedAddress.address, amount.subtract(missing));
+                try {
+                    wallet.completeTx(dialogSendRequest);
+                } catch (InsufficientMoneyException f) {
+                    missing = e.missing == null ? new BigInteger("0") : e.missing;
+                    // This happens when we don't have enough funds for the extra fee.
+                    new AlertDialog.Builder(SendCoinsFragment.this.getActivity())
+                            .setTitle(activity.getString(R.string.sendcoins_title_insufficientfunds))
+                            .setMessage(activity.getString(R.string.sendcoins_insufficient_preamble) + " " +
                                     activity.getString(R.string.sendcoins_insufficient_amount_prefix) + " " +
                                     GenericUtils.formatValue(missing, Constants.BTC_MAX_PRECISION, 0) + " " +
                                     activity.getString(R.string.sendcoins_insufficient_amount_suffix) + " " +
                                     activity.getString(R.string.sendcoins_insufficient_instructions))
+                            .setPositiveButton(android.R.string.ok,
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                            state = State.INPUT;
+                                            updateView();
+                                        }
+                                    })
+                            .show();
+                    return;
+                }
+                new AlertDialog.Builder(SendCoinsFragment.this.getActivity())
+                        .setTitle(activity.getString(R.string.sendcoins_fee_required))
+                        .setMessage("An extra fee of " +
+                                GenericUtils.formatValue(missing, Constants.BTC_MAX_PRECISION, 0) +
+                                " is required to complete this transaction.")
+                        .setCancelable(true)
+                        .setNeutralButton(android.R.string.cancel,
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int whichButton) {
+                                        state = State.INPUT;
+                                        updateView();
+                                    }
+                                })
                         .setPositiveButton(android.R.string.ok,
                                 new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialogInterface, int i) {
-                                        state = State.INPUT;
-                                        updateView();
+                                        finalizeSend(dialogSendRequest);
                                     }
                                 })
                         .show();
                 return;
             }
-        }
-        // Now that the transaction is complete, adjust the outputs so change goes to fee
-        // if < 0.001 LTC.  Otherwise, we would need to add a penalty for the output that is
-        // larger than the output itself, so it costs LESS to just throw it into the fee.
-        for(TransactionOutput o: baseSendRequest.tx.getOutputs()) {
-            if(o.isMine(wallet) &&
-               o.getValue().compareTo(Constants.CENT.divide(new BigInteger("10"))) < 0) {
-                Log.i(TAG, "Found a small change output of " + o.getValue() + "; putting in fee.");
-                // Removing the output means the value will go to fee
-                baseSendRequest.tx.removeOutput(o);
-                try {
-                    baseSendRequest.setCompleted(false);
-                    wallet.completeTx(baseSendRequest);
-                } catch (InsufficientMoneyException e) {
-                    // This should never happen because we're only changing where outputs go
-                    Log.e(TAG, "UNEXPECTED ERROR: InsufficientMoneyException when redirecting outputs!");
-                    Toast
-                      .makeText(getActivity(), "Unexpected Error: Insufficient Funds when moving change to fee.  " +
-                                               "Please report this as a bug!", Toast.LENGTH_LONG)
-                      .show();
-                    state = State.INPUT;
-                    updateView();
-                    return;
+
+            // Now that the transaction is complete, adjust the outputs so change goes to fee
+            // if < 0.001 LTC.  Otherwise, we would need to add a penalty for the output that is
+            // larger than the output itself, so it costs LESS to just throw it into the fee.
+            for(TransactionOutput o: baseSendRequest.tx.getOutputs()) {
+                if(o.isMine(wallet) &&
+                   o.getValue().compareTo(Constants.CENT.divide(new BigInteger("10"))) < 0) {
+                    Log.i(TAG, "Found a small change output of " + o.getValue() + "; putting in fee.");
+                    // Removing the output means the value will go to fee
+                    baseSendRequest.tx.removeOutput(o);
+                    try {
+                        baseSendRequest.setCompleted(false);
+                        wallet.completeTx(baseSendRequest);
+                    } catch (InsufficientMoneyException e) {
+                        // This should never happen because we're only changing where outputs go
+                        Log.e(TAG, "UNEXPECTED ERROR: InsufficientMoneyException when redirecting outputs!");
+                        Toast
+                          .makeText(getActivity(), "Unexpected Error: Insufficient Funds when moving change to fee.  " +
+                                  "Please report this as a bug!", Toast.LENGTH_LONG)
+                          .show();
+                        state = State.INPUT;
+                        updateView();
+                        return;
+                    }
                 }
             }
+            finalizeSend(baseSendRequest);
         }
+    }
 
+    private void finalizeSend(SendRequest baseSendRequest) {
         // Lock in sendRequest
         final SendRequest sendRequest = baseSendRequest;
 
