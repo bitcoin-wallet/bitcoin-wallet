@@ -189,6 +189,6 @@ public abstract class InputParser
 	}
 
 	private static final Pattern PATTERN_BITCOIN_ADDRESS = Pattern.compile("[" + new String(Base58.ALPHABET) + "]{20,40}");
-	private static final Pattern PATTERN_PRIVATE_KEY = Pattern.compile("T[" + new String(Base58.ALPHABET) + "]{50,51}");
+	private static final Pattern PATTERN_PRIVATE_KEY = Pattern.compile("[T6][" + new String(Base58.ALPHABET) + "]{50,51}");
 	private static final Pattern PATTERN_TRANSACTION = Pattern.compile("[0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ$\\*\\+\\-\\.\\/\\:]{100,}");
 }
