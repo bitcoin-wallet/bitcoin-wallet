@@ -117,10 +117,6 @@
 	<string name="transaction_row_message_received_unconfirmed_unlocked">Este pago puede requerir unos minutos.</string>
 	<string name="transaction_row_message_received_unconfirmed_locked">Este pago no es estándar y no se puede validar.</string>
 	<string name="transaction_row_message_received_dead">Este pago ha sido revocado por el emisor.</string>
-	<string name="amount_calculator_dialog_title">Calculadora de moneda</string>
-	<string name="amount_calculator_dialog_button_use">Uso</string>
-	<string name="amount_calculator_dialog_exchange_rate">1 BTC tiene un valor de %1$s %2$s\nValor obtenido de %3$s</string>
-	<string name="amount_calculator_dialog_exchange_rate_not_available">Tasa de cambio no disponible.</string>
 	<string name="network_monitor_peer_list_title">Pares</string>
 	<string name="network_monitor_block_list_title">Bloques</string>
 	<string name="peer_list_fragment_empty">Sin pares conectados</string>

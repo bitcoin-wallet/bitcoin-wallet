@@ -108,10 +108,6 @@
 	<string name="transaction_row_message_received_unconfirmed_locked">Ce paiement n\'est pas standard et vous ne devriez pas lui faire confiance.</string>
 	<string name="transaction_row_message_received_dead">Ce paiement a été annulé par son expéditeur.</string>
 	<string name="transaction_row_message_received_dust">Ce faible montant ne pourra probablement jamais être dépensé de façon économique.</string>
-	<string name="amount_calculator_dialog_title">Convertisseur de devises</string>
-	<string name="amount_calculator_dialog_button_use">Utiliser</string>
-	<string name="amount_calculator_dialog_exchange_rate">1 BTC vaut environ %1$s %2$s\nPrix provenant de %3$s</string>
-	<string name="amount_calculator_dialog_exchange_rate_not_available">Les taux de change ne sont pas disponibles.</string>
 	<string name="network_monitor_activity_title">Surveillance du réseau</string>
 	<string name="network_monitor_peer_list_title">Pairs</string>
 	<string name="network_monitor_block_list_title">Blocs</string>

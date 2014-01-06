@@ -98,10 +98,6 @@
 	<string name="transaction_row_message_received_unconfirmed_locked">Phần chi trả này không theo đúng tiêu chuẩn và bởi thế không đáng tin cậy</string>
 	<string name="transaction_row_message_received_dead">Phần chi trả này đã được chuyển ngược về phía người gửi.</string>
 	<string name="transaction_row_message_received_dust">Số lượng nhỏ này có thể không mang tính kinh tế cho lắm khi dành cho chi tiêu.</string>
-	<string name="amount_calculator_dialog_title">Máy tính tiền tệ</string>
-	<string name="amount_calculator_dialog_button_use">Sử dụng</string>
-	<string name="amount_calculator_dialog_exchange_rate">BTC 1 trị giá khoảng %1$s %2$s\nGiá được tải về từ %3$s</string>
-	<string name="amount_calculator_dialog_exchange_rate_not_available">Tỉ lệ hoán đổi hiện không có.</string>
 	<string name="network_monitor_activity_title">Giám sát mạng</string>
 	<string name="network_monitor_peer_list_title">Ngang hàn</string>
 	<string name="network_monitor_block_list_title">Block</string>
