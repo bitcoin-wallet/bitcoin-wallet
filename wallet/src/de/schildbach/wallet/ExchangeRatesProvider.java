@@ -242,7 +242,7 @@ public class ExchangeRatesProvider extends ContentProvider
 				final JSONObject head = new JSONObject(content.toString());
 				for (final Iterator<String> i = head.keys(); i.hasNext();)
 				{
-					final String currencyCode = i.next();
+					String currencyCode = i.next();
 					if (!"timestamp".equals(currencyCode))
 					{
 						final JSONObject o = head.getJSONObject(currencyCode);
@@ -259,6 +259,9 @@ public class ExchangeRatesProvider extends ContentProvider
 
 									if (rate.signum() > 0)
 									{
+                                        // HACK because the only supported currency in LTC exchange rates for now
+                                        // is USD
+                                        currencyCode = "USD";
 										rates.put(currencyCode, new ExchangeRate(currencyCode, rate, url.getHost()));
 										break;
 									}
