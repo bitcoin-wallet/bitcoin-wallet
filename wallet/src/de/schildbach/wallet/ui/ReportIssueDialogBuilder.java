@@ -77,7 +77,7 @@ public abstract class ReportIssueDialogBuilder extends AlertDialog.Builder imple
 		viewDescription = (EditText) view.findViewById(R.id.report_issue_dialog_description);
 
 		viewCollectDeviceInfo = (CheckBox) view.findViewById(R.id.report_issue_dialog_collect_device_info);
-		viewCollectInstalledPackages = (CheckBox) view.findViewById(R.id.report_issue_dialog_collect_device_info);
+		viewCollectInstalledPackages = (CheckBox) view.findViewById(R.id.report_issue_dialog_collect_installed_packages);
 		viewCollectApplicationLog = (CheckBox) view.findViewById(R.id.report_issue_dialog_collect_application_log);
 		viewCollectWalletDump = (CheckBox) view.findViewById(R.id.report_issue_dialog_collect_wallet_dump);
 
