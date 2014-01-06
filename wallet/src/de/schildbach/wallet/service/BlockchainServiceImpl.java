@@ -51,8 +51,6 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.net.ConnectivityManager;
 import android.net.Uri;
-import android.net.wifi.WifiManager;
-import android.net.wifi.WifiManager.WifiLock;
 import android.os.Binder;
 import android.os.Handler;
 import android.os.IBinder;
@@ -113,7 +111,6 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 	private final Handler handler = new Handler();
 	private final Handler delayHandler = new Handler();
 	private WakeLock wakeLock;
-	private WifiLock wifiLock;
 
 	private PeerConnectivityListener peerConnectivityListener;
 	private NotificationManager nm;
@@ -595,10 +592,6 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 		final PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
 		wakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, lockName);
 
-		final WifiManager wifiManager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
-		wifiLock = wifiManager.createWifiLock(WifiManager.WIFI_MODE_FULL, lockName);
-		wifiLock.setReferenceCounted(false);
-
 		application = (WalletApplication) getApplication();
 		prefs = PreferenceManager.getDefaultSharedPreferences(this);
 		final Wallet wallet = application.getWallet();
@@ -687,27 +680,14 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 
 			nm.cancel(NOTIFICATION_ID_COINS_RECEIVED);
 		}
-
-		if (BlockchainService.ACTION_HOLD_WIFI_LOCK.equals(action))
-		{
-			log.debug("acquiring wifilock");
-			wifiLock.acquire();
-		}
-		else
-		{
-			log.debug("releasing wifilock");
-			wifiLock.release();
-		}
-
-		if (BlockchainService.ACTION_RESET_BLOCKCHAIN.equals(action))
+		else if (BlockchainService.ACTION_RESET_BLOCKCHAIN.equals(action))
 		{
 			log.info("will remove blockchain on service shutdown");
 
 			resetBlockchainOnShutdown = true;
 			stopSelf();
 		}
-
-		if (BlockchainService.ACTION_BROADCAST_TRANSACTION.equals(action))
+		else if (BlockchainService.ACTION_BROADCAST_TRANSACTION.equals(action))
 		{
 			final Sha256Hash hash = new Sha256Hash(intent.getByteArrayExtra(BlockchainService.ACTION_BROADCAST_TRANSACTION_HASH));
 			final Transaction tx = application.getWallet().getTransaction(hash);
@@ -770,12 +750,6 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 		{
 			log.debug("wakelock still held, releasing");
 			wakeLock.release();
-		}
-
-		if (wifiLock.isHeld())
-		{
-			log.debug("wifilock still held, releasing");
-			wifiLock.release();
 		}
 
 		if (resetBlockchainOnShutdown)

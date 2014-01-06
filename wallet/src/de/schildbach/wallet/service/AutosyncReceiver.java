@@ -51,7 +51,7 @@ public class AutosyncReceiver extends BroadcastReceiver
 
 		final AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
-		final Intent serviceIntent = new Intent(BlockchainService.ACTION_HOLD_WIFI_LOCK, null, context, BlockchainServiceImpl.class);
+		final Intent serviceIntent = new Intent(context, BlockchainServiceImpl.class);
 		context.startService(serviceIntent);
 
 		final long now = System.currentTimeMillis();

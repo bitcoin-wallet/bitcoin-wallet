@@ -44,7 +44,6 @@ public interface BlockchainService
 	public static final int ACTION_BLOCKCHAIN_STATE_DOWNLOAD_NETWORK_PROBLEM = 2;
 
 	public static final String ACTION_CANCEL_COINS_RECEIVED = R.class.getPackage().getName() + ".cancel_coins_received";
-	public static final String ACTION_HOLD_WIFI_LOCK = R.class.getPackage().getName() + ".hold_wifi_lock";
 	public static final String ACTION_RESET_BLOCKCHAIN = R.class.getPackage().getName() + ".reset_blockchain";
 	public static final String ACTION_BROADCAST_TRANSACTION = R.class.getPackage().getName() + ".broadcast_transaction";
 	public static final String ACTION_BROADCAST_TRANSACTION_HASH = "hash";
