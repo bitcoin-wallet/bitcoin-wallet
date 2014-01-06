@@ -8,3 +8,4 @@ gen/
 target/
 Thumbs.db
 production/
+lib/
