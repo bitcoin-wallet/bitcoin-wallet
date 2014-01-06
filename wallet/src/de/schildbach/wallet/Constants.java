@@ -124,6 +124,7 @@ public class Constants
 
 	public static final int SDK_JELLY_BEAN = 16;
 	public static final int SDK_JELLY_BEAN_MR2 = 18;
+	public static final int SDK_KITKAT = 19;
 
 	public static final int MEMORY_CLASS_LOWEND = 48;
 

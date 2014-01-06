@@ -670,6 +670,9 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 	@Override
 	public int onStartCommand(final Intent intent, final int flags, final int startId)
 	{
+		log.info("service start command: " + intent
+				+ (intent.hasExtra(Intent.EXTRA_ALARM_COUNT) ? " (alarm count: " + intent.getIntExtra(Intent.EXTRA_ALARM_COUNT, 0) + ")" : ""));
+
 		final String action = intent.getAction();
 
 		if (BlockchainService.ACTION_CANCEL_COINS_RECEIVED.equals(action))
@@ -710,6 +713,8 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 	public void onDestroy()
 	{
 		log.debug(".onDestroy()");
+
+		WalletApplication.scheduleStartBlockchainService(this);
 
 		unregisterReceiver(tickReceiver);
 
