@@ -24,12 +24,12 @@
 	<string name="exchange_rates_fragment_balance">餘額</string>
 	<string name="exchange_rates_fragment_source">價格由 %s 取得</string>
 	<string name="exchange_rates_context_set_as_default_title">設定預設外幣</string>
-	<string name="wallet_transactions_fragment_tab_received">收錢</string>
+	<string name="wallet_transactions_fragment_tab_received">收到</string>
 	<string name="wallet_transactions_fragment_tab_all">全部</string>
-	<string name="wallet_transactions_fragment_tab_sent">付錢</string>
+	<string name="wallet_transactions_fragment_tab_sent">付出</string>
 	<string name="wallet_transactions_fragment_empty_text_received">尚未收到比特幣</string>
 	<string name="wallet_transactions_fragment_empty_text_sent">尚未付出比特幣</string>
-	<string name="wallet_transactions_fragment_empty_text_howto">如何取得比特幣?\n\n用傳統貨幣交易,\n賣物品或是服務或\n使用設備挖掘。</string>
+	<string name="wallet_transactions_fragment_empty_text_howto">如何取得比特幣?\n\n用傳統貨幣交易,\n賣物品或是服務或\n線上挖掘。</string>
 	<string name="wallet_transactions_row_warning_backup">恭喜你收到第一筆付款! 你是否已經&lt;u>備份好你的錢包&lt;/u>來防止意外發生?</string>
 	<string name="wallet_transactions_fragment_coinbase">已採礦</string>
 	<string name="wallet_transactions_fragment_internal">內部</string>
@@ -208,8 +208,8 @@
 	<string name="button_paste">貼上</string>
 	<string name="button_share">分享</string>
 	<string name="button_set_as_default">設為預設</string>
-	<string name="button_request_coins">請款</string>
-	<string name="button_send_coins">付款</string>
+	<string name="button_request_coins">收比特幣</string>
+	<string name="button_send_coins">付比特幣</string>
 	<string name="button_scan">掃描</string>
 	<string name="button_edit_address">新增/編輯地址</string>
 	<string name="action_browse">瀏覽</string>
