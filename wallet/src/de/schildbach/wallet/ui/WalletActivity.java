@@ -67,6 +67,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
@@ -905,8 +906,16 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 						+ Constants.SOURCE_URL + '\n');
 		intent.setType("x-bitcoin/private-keys");
 		intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file));
-		startActivity(Intent.createChooser(intent, getString(R.string.export_keys_dialog_mail_intent_chooser)));
 
-		log.info("invoked archive private keys chooser");
+		try
+		{
+			startActivity(Intent.createChooser(intent, getString(R.string.export_keys_dialog_mail_intent_chooser)));
+			log.info("invoked chooser for archiving private keys");
+		}
+		catch (final Exception x)
+		{
+			longToast(R.string.export_keys_dialog_mail_intent_failed);
+			log.error("archiving private keys failed", x);
+		}
 	}
 }

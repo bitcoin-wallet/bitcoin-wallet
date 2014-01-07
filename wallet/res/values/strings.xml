@@ -136,6 +136,7 @@
 	<string name="export_keys_dialog_mail_subject">Bitcoin Wallet private key backup</string>
 	<string name="export_keys_dialog_mail_text">The attached encrypted file contains Bitcoin private keys and should be kept safe at all times. Don\'t forget the encryption password!</string>
 	<string name="export_keys_dialog_mail_intent_chooser">Archive keys using…</string>
+	<string name="export_keys_dialog_mail_intent_failed">Archiving keys failed.</string>
 	<string name="import_export_keys_dialog_password">password</string>
 	<string name="import_export_keys_dialog_show">Show password</string>
 	<string name="import_export_keys_dialog_failure_title">Error</string>
@@ -177,6 +178,7 @@
 	<string name="report_issue_dialog_collect_application_log">Append application log</string>
 	<string name="report_issue_dialog_collect_wallet_dump">Append wallet dump</string>
 	<string name="report_issue_dialog_mail_intent_chooser">Send report using…</string>
+	<string name="report_issue_dialog_mail_intent_failed">Sending report failed.</string>
 	<string name="about_title">About</string>
 	<string name="about_license_title">License</string>
 	<string name="about_credits_bitcoinj_title">This app is using bitcoinj %s</string>
