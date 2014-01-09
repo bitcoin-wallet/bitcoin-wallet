@@ -84,6 +84,9 @@ public final class PreferencesActivity extends SherlockPreferenceActivity implem
 		final Preference dataUsagePreference = findPreference(PREFS_KEY_DATA_USAGE);
 		dataUsagePreference.setEnabled(getPackageManager().resolveActivity(dataUsageIntent, 0) != null);
 
+		final Preference bluetoothOfflineTransactionsPreference = findPreference(Constants.PREFS_KEY_LABS_BLUETOOTH_OFFLINE_TRANSACTIONS);
+		bluetoothOfflineTransactionsPreference.setEnabled(Build.VERSION.SDK_INT >= Constants.SDK_JELLY_BEAN_MR2);
+
 		final ActionBar actionBar = getSupportActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
 

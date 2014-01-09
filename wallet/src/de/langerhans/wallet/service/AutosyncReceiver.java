@@ -22,6 +22,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.os.BatteryManager;
+import de.langerhans.wallet.WalletApplication;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -90,36 +91,36 @@ public class AutosyncReceiver extends BroadcastReceiver
         if (!prefsAutosyncSwitch) //Case 1: Never AutoSync. We will check anyway later. Maybe the user changed their mind.
         {
             maybeStopService(context);
-            setTimer();
+            WalletApplication.scheduleStartBlockchainService(context);
             return;
         }
         if (bootDontSync) //Case 2: We just booted, no need to sync yet. Check back later.
         {
-            setTimer();
+            WalletApplication.scheduleStartBlockchainService(context);
             return;
         }
         if (wifiDontSync) //Case 3: We have no WiFi and the user doesn't want to sync. Check back later.
         {
             maybeStopService(context);
-            setTimer();
+            WalletApplication.scheduleStartBlockchainService(context);
             return;
         }
         if (powerDontSync) //Case 4: No power and user wants only to sync on power. Check pack later.
         {
             maybeStopService(context);
-            setTimer();
+            WalletApplication.scheduleStartBlockchainService(context);
             return;
         }
 
         // All other cases: We can sync now.
-        final Intent serviceIntent = new Intent(BlockchainService.ACTION_HOLD_WIFI_LOCK, null, context, BlockchainServiceImpl.class);
+        final Intent serviceIntent = new Intent(context, BlockchainServiceImpl.class);
         context.startService(serviceIntent);
-        setTimer();
+        WalletApplication.scheduleStartBlockchainService(context);
 	}
 
     private void maybeStopService(Context context)
     {
-        final Intent serviceIntent = new Intent(BlockchainService.ACTION_HOLD_WIFI_LOCK, null, context, BlockchainServiceImpl.class);
+        final Intent serviceIntent = new Intent(context, BlockchainServiceImpl.class);
         try
         {
             context.stopService(serviceIntent);
@@ -127,28 +128,5 @@ public class AutosyncReceiver extends BroadcastReceiver
         {
             log.debug("Tried to stop service which didn't run. Whatever :D");
         }
-    }
-
-    private void setTimer()
-    {
-        final long now = System.currentTimeMillis();
-
-        final long lastUsedAgo = now - prefsLastUsed;
-        final long alarmInterval;
-        if (lastUsedAgo < Constants.LAST_USAGE_THRESHOLD_JUST_MS)
-            alarmInterval = AlarmManager.INTERVAL_FIFTEEN_MINUTES;
-        else if (lastUsedAgo < Constants.LAST_USAGE_THRESHOLD_RECENTLY_MS)
-            alarmInterval = AlarmManager.INTERVAL_HALF_DAY;
-        else
-            alarmInterval = AlarmManager.INTERVAL_DAY;
-
-        log.info("last used {} minutes ago, rescheduling sync in roughly {} minutes", lastUsedAgo / DateUtils.MINUTE_IN_MILLIS, alarmInterval
-                / DateUtils.MINUTE_IN_MILLIS);
-
-        final Intent startIntent = new Intent(mCtx, AutosyncReceiver.class);
-        startIntent.setAction("de.langerhans.wallet.AUTOSYNC_ACTION");
-        final PendingIntent alarmIntent = PendingIntent.getBroadcast(mCtx, 0, startIntent, 0);
-        final AlarmManager alarmManager = (AlarmManager) mCtx.getSystemService(Context.ALARM_SERVICE);
-        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, now, alarmInterval, alarmIntent);
     }
 }

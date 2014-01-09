@@ -1,6 +1,21 @@
+v1.02 (DOGE)
+
+*Autosync settings. This needs a new permission to see if WiFi is active.
+*Password confirmation at wallet backup
+*fixed a possible force close on network loss.
+*updated Chinese translation
+*Dansih translation
+
+v3.30
+
+* improved battery usage
+* new Danish translation
+* updated Polish translation
+
 v1.01 (DOGE)
 
 * fixed issues with fetching exchange rates
+* new Slovak translation
 * updated French, Hungarian, Italian and Portuguese translations
 
 v3.28
