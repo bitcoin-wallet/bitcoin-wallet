@@ -34,7 +34,7 @@ import de.langerhans.wallet.integration.android.BitcoinIntegration;
  */
 public class SampleActivity extends Activity
 {
-	private static final String DONATION_ADDRESS = "1PZmMahjbfsTy6DsaRyfStzoWTPppWwDnZ"; // prodnet
+	private static final String DONATION_ADDRESS = "DEwTHxztkSDUJEMywbPk5zVUGrupaNRqEy"; // prodnet
 	// private static final String DONATION_ADDRESS = "mwEacn7pYszzxfgcNaVUzYvzL6ypRJzB6A"; // testnet
 	private static final int REQUEST_CODE = 0;
 
