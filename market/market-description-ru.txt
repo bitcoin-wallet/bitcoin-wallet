@@ -19,4 +19,4 @@ https://github.com/schildbach/bitcoin-wallet
 
 Лицензия: GPLv3
 Используйте на свой риск!
-http://www.gnu.org/licenses/gpl-3.0.en.html
+http://www.gnu.org/licenses/gpl-3.0.ru.html
