@@ -26,9 +26,13 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.bitcoin.core.Address;
+import com.google.bitcoin.core.ECKey;
 import com.google.bitcoin.core.Transaction;
 
+import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.ui.InputParser.StringInputParser;
+
+import javax.annotation.Nonnull;
 
 /**
  * @author Andreas Schildbach, Litecoin Dev Team
@@ -55,16 +59,16 @@ public final class SendCoinsQrActivity extends AbstractOnDemandServiceActivity
 			new StringInputParser(input)
 			{
 				@Override
-				protected void bitcoinRequest(final Address address, final String addressLabel, final BigInteger amount, final String bluetoothMac)
+				protected void bitcoinRequest(@Nonnull final Address address, final String addressLabel, final BigInteger amount, final String bluetoothMac)
 				{
 					SendCoinsActivity
-							.start(SendCoinsQrActivity.this, address != null ? address.toString() : null, addressLabel, amount, bluetoothMac);
+							.start(SendCoinsQrActivity.this, address.toString(), addressLabel, amount, bluetoothMac);
 
 					SendCoinsQrActivity.this.finish();
 				}
 
 				@Override
-				protected void directTransaction(final Transaction transaction)
+				protected void directTransaction(@Nonnull final Transaction transaction)
 				{
 					processDirectTransaction(transaction);
 
@@ -77,7 +81,13 @@ public final class SendCoinsQrActivity extends AbstractOnDemandServiceActivity
 					dialog(SendCoinsQrActivity.this, dismissListener, 0, messageResId, messageArgs);
 				}
 
-				private final OnClickListener dismissListener = new OnClickListener()
+                @Override
+                protected void handlePrivateKey(@Nonnull ECKey key) {
+                    final Address address = new Address(Constants.NETWORK_PARAMETERS, key.getPubKeyHash());
+                    bitcoinRequest(address, null, null, null);
+                }
+
+                private final OnClickListener dismissListener = new OnClickListener()
 				{
 					@Override
 					public void onClick(final DialogInterface dialog, final int which)

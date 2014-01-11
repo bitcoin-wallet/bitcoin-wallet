@@ -83,6 +83,7 @@ import de.schildbach.wallet.ui.InputParser.BinaryInputParser;
 import de.schildbach.wallet.ui.InputParser.StringInputParser;
 import de.schildbach.wallet.util.CrashReporter;
 import de.schildbach.wallet.util.Crypto;
+import de.schildbach.wallet.util.GenericUtils;
 import de.schildbach.wallet.util.HttpGetThread;
 import de.schildbach.wallet.util.Iso8601Format;
 import de.schildbach.wallet.util.Nfc;
@@ -168,6 +169,12 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 				{
 					dialog(WalletActivity.this, null, 0, messageResId, messageArgs);
 				}
+
+                @Override
+                protected void handlePrivateKey(@Nonnull ECKey key) {
+                    final Address address = new Address(Constants.NETWORK_PARAMETERS, key.getPubKeyHash());
+                    bitcoinRequest(address, null, null, null);
+                }
 			}.parse();
 		}
 	}
@@ -200,6 +207,34 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 				{
 					dialog(WalletActivity.this, null, R.string.button_scan, messageResId, messageArgs);
 				}
+
+                @Override
+                protected void handlePrivateKey(@Nonnull final ECKey key) {
+                    // We actually want to add this key to the wallet here.
+                    // Set the creation time to now
+                    key.setCreationTimeSeconds(System.currentTimeMillis() / 1000);
+                    final Address address = new Address(Constants.NETWORK_PARAMETERS, key.getPubKeyHash());
+                    new AlertDialog.Builder(WalletActivity.this)
+                            .setTitle("Import Private Key")
+                            .setMessage("Would you like to add " +
+                                    address.toString() +
+                                    " to your wallet?  If there are currently funds on it, they will only be accessible " +
+                                    "by resetting the blockchain, which can take a very long time.  If it is a new " +
+                                    "empty address, everything should work fine.")
+                            .setCancelable(true)
+                            .setNeutralButton(android.R.string.cancel,
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int whichButton) {
+                                        }
+                                    })
+                            .setPositiveButton(android.R.string.ok,
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                            wallet.addKey(key);
+                                        }
+                                    })
+                            .show();
+                }
 			}.parse();
 		}
 	}

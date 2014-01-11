@@ -45,6 +45,7 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.google.bitcoin.core.Address;
+import com.google.bitcoin.core.ECKey;
 import com.google.bitcoin.core.Transaction;
 import com.google.bitcoin.uri.BitcoinURI;
 
@@ -156,6 +157,12 @@ public final class SendingAddressesFragment extends SherlockListFragment impleme
 				{
 					dialog(activity, null, R.string.address_book_options_scan_title, messageResId, messageArgs);
 				}
+
+                @Override
+                protected void handlePrivateKey(@Nonnull ECKey key) {
+                    final Address address = new Address(Constants.NETWORK_PARAMETERS, key.getPubKeyHash());
+                    bitcoinRequest(address, null, null, null);
+                }
 			}.parse();
 		}
 	}
@@ -214,6 +221,12 @@ public final class SendingAddressesFragment extends SherlockListFragment impleme
 				{
 					dialog(activity, null, R.string.address_book_options_paste_from_clipboard_title, messageResId, messageArgs);
 				}
+
+                @Override
+                protected void handlePrivateKey(@Nonnull ECKey key) {
+                    final Address address = new Address(Constants.NETWORK_PARAMETERS, key.getPubKeyHash());
+                    bitcoinRequest(address, null, null, null);
+                }
 			}.parse();
 		}
 		else

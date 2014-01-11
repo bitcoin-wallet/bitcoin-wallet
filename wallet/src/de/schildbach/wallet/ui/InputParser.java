@@ -93,12 +93,14 @@ public abstract class InputParser
 			}
 			else if (PATTERN_PRIVATE_KEY.matcher(input).matches())
 			{
+                // Scan of a private key
+                // Add it to the wallet
+                // TODO: In the future, give a sweep option as well
+                //       See issue #11
 				try
 				{
 					final ECKey key = new DumpedPrivateKey(Constants.NETWORK_PARAMETERS, input).getKey();
-					final Address address = new Address(Constants.NETWORK_PARAMETERS, key.getPubKeyHash());
-
-					bitcoinRequest(address, null, null, null);
+                    handlePrivateKey(key);
 				}
 				catch (final AddressFormatException x)
 				{
@@ -167,6 +169,8 @@ public abstract class InputParser
 
 	protected abstract void bitcoinRequest(@Nonnull Address address, @Nullable String addressLabel, @Nullable BigInteger amount,
 			@Nullable String bluetoothMac);
+
+    protected abstract void handlePrivateKey(@Nonnull ECKey key);
 
 	protected abstract void directTransaction(@Nonnull Transaction transaction);
 

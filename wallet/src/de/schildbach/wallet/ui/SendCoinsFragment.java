@@ -26,6 +26,7 @@ import javax.annotation.Nullable;
 import android.app.AlertDialog;
 import android.util.Log;
 import android.widget.Toast;
+import com.google.bitcoin.core.ECKey;
 import com.google.bitcoin.core.InsufficientMoneyException;
 import com.google.bitcoin.core.TransactionOutput;
 import com.google.zxing.integration.android.IntentIntegratorSupportV4;
@@ -537,6 +538,12 @@ public final class SendCoinsFragment extends SherlockFragment
 				dialog(activity, dismissListener, 0, messageResId, messageArgs);
 			}
 
+            @Override
+            protected void handlePrivateKey(@Nonnull ECKey key) {
+                final Address address = new Address(Constants.NETWORK_PARAMETERS, key.getPubKeyHash());
+                bitcoinRequest(address, null, null, null);
+            }
+
 			private final DialogInterface.OnClickListener dismissListener = new DialogInterface.OnClickListener()
 			{
 				@Override
@@ -669,6 +676,12 @@ public final class SendCoinsFragment extends SherlockFragment
                 protected void error(final int messageResId, final Object... messageArgs)
                 {
                     dialog(activity, null, R.string.button_scan, messageResId, messageArgs);
+                }
+
+                @Override
+                protected void handlePrivateKey(@Nonnull ECKey key) {
+                    final Address address = new Address(Constants.NETWORK_PARAMETERS, key.getPubKeyHash());
+                    bitcoinRequest(address, null, null, null);
                 }
             }.parse();
 		}
