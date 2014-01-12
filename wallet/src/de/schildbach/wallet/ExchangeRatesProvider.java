@@ -21,6 +21,7 @@ import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -34,9 +35,12 @@ import java.util.TreeMap;
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
 
+import android.util.Log;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.util.GenericUtils;
 import de.schildbach.wallet.util.Io;
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -54,6 +58,8 @@ import android.text.format.DateUtils;
  */
 public class ExchangeRatesProvider extends ContentProvider
 {
+    static final protected String TAG = ExchangeRatesProvider.class.getName();
+
 	public static class ExchangeRate
 	{
 		public ExchangeRate(@Nonnull final String currencyCode, @Nonnull final BigInteger rate, @Nonnull final String source)
@@ -123,13 +129,19 @@ public class ExchangeRatesProvider extends ContentProvider
 		if (exchangeRates == null || now - lastUpdated > UPDATE_FREQ_MS)
 		{
 			Map<String, ExchangeRate> newExchangeRates = null;
-			if (exchangeRates == null && newExchangeRates == null)
+            // Attempt to get exchange rates from all providers.  Stop after first.
+			if (exchangeRates == null)
 				newExchangeRates = requestExchangeRates(BTCE_URL, BTCE_FIELDS);
 			if (exchangeRates == null && newExchangeRates == null)
 				newExchangeRates = requestExchangeRates(VIRCUREX_URL, VIRCUREX_FIELDS);
 
 			if (newExchangeRates != null)
 			{
+                // Get USD conversion exchange rates from Yahoo!
+                Iterator<ExchangeRate> it = newExchangeRates.values().iterator();
+                Map<String, ExchangeRate> fiatRates = new YahooRatesProvider().getRates(it.next());
+                if(fiatRates != null)
+                    newExchangeRates.putAll(fiatRates);
 				exchangeRates = newExchangeRates;
 				lastUpdated = now;
 			}
@@ -308,4 +320,102 @@ public class ExchangeRatesProvider extends ContentProvider
 
 		return null;
 	}
+
+    class YahooRatesProvider {
+        Map<String, ExchangeRate> getRates(ExchangeRate usdRate) {
+            // Fetch all the currencies from Yahoo!
+            URL url = null;
+            final BigDecimal decUsdRate = GenericUtils.fromNanoCoins(usdRate.rate, 0);
+            try {
+                // TODO: make this look less crappy and make it easier to add currencies.
+                url = new URL("http://query.yahooapis.com/v1/public/yql?q=select%20id%2C%20Rate%20from%20yahoo.finance.xchange" +
+                        "%20where%20pair%20in%20(%22USDEUR%22%2C%20%22USDJPY%22%2C%20%22USDBGN%22%2C%20%22USDCZK%22%2C%20" +
+                        "%22USDDKK%22%2C%20%22USDGBP%22%2C%20%22USDHUF%22%2C%20%22USDLTL%22%2C%20%22USDLVL%22%2C%20%22USDPLN" +
+                        "%22%2C%20%22USDRON%22%2C%20%22USDSEK%22%2C%20%22USDCHF%22%2C%20%22USDNOK%22%2C%20%22USDHRK%22%2C%20" +
+                        "%22USDRUB%22%2C%20%22USDTRY%22%2C%20%22USDAUD%22%2C%20%22USDBRL%22%2C%20%22USDCAD%22%2C%20%22USDCNY" +
+                        "%22%2C%20%22USDHKD%22%2C%20%22USDIDR%22%2C%20%22USDILS%22%2C%20%22USDINR%22%2C%20%22USDKRW%22%2C%20" +
+                        "%22USDMXN%22%2C%20%22USDMYR%22%2C%20%22USDNZD%22%2C%20%22USDPHP%22%2C%20%22USDSGD%22%2C%20%22USDTHB" +
+                        "%22%2C%20%22USDZAR%22%2C%20%22USDISK%22)&format=json&env=store%3A%2F%2Fdatatables.org" +
+                        "%2Falltableswithkeys&callback=");
+            } catch (MalformedURLException e) {
+                Log.i(ExchangeRatesProvider.TAG, "Failed to parse Yahoo! Finance URL");
+                return null;
+            }
+
+            HttpURLConnection connection = null;
+            Reader reader = null;
+
+            try
+            {
+                connection = (HttpURLConnection) url.openConnection();
+                connection.setConnectTimeout(Constants.HTTP_TIMEOUT_MS);
+                connection.setReadTimeout(Constants.HTTP_TIMEOUT_MS);
+                connection.connect();
+
+                final int responseCode = connection.getResponseCode();
+                if (responseCode == HttpURLConnection.HTTP_OK)
+                {
+                    reader = new InputStreamReader(new BufferedInputStream(connection.getInputStream(), 1024), Constants.UTF_8);
+                    final StringBuilder content = new StringBuilder();
+                    Io.copy(reader, content);
+
+                    final Map<String, ExchangeRate> rates = new TreeMap<String, ExchangeRate>();
+                    JSONObject head = new JSONObject(content.toString());
+                    JSONArray resultArray;
+                    try {
+                        head = head.getJSONObject("query");
+                        head = head.getJSONObject("results");
+                        resultArray = head.getJSONArray("rate");
+                    } catch(JSONException e) {
+                        Log.i(ExchangeRatesProvider.TAG, "Bad JSON response from Yahoo!: " + content.toString());
+                        return null;
+                    }
+                    for(int i = 0; i < resultArray.length(); ++i) {
+                        final JSONObject rateObj = resultArray.getJSONObject(i);
+                        String currencyCd = rateObj.getString("id").substring(3);
+                        Log.d(ExchangeRatesProvider.TAG, "Currency: " + currencyCd);
+                        String rateStr = rateObj.getString("Rate");
+                        Log.d(ExchangeRatesProvider.TAG, "Rate: " + rateStr);
+                        Log.d(ExchangeRatesProvider.TAG, "USD Rate: " + decUsdRate.toString());
+                        BigDecimal rate = new BigDecimal(rateStr);
+                        Log.d(ExchangeRatesProvider.TAG, "Converted Rate: " + rate.toString());
+                        rate = decUsdRate.multiply(rate);
+                        Log.d(ExchangeRatesProvider.TAG, "Final Rate: " + rate.toString());
+                        if (rate.signum() > 0)
+                        {
+                            rates.put(currencyCd, new ExchangeRate(currencyCd,
+                                    GenericUtils.toNanoCoins(rate.toString(), 0), url.getHost()));
+                        }
+                    }
+                    Log.i(ExchangeRatesProvider.TAG, "Fetched exchange rates from " + url);
+                    return rates;
+                } else {
+                    Log.i(ExchangeRatesProvider.TAG, "Bad response code from Yahoo!: " + responseCode);
+                }
+            }
+            catch (final Exception x)
+            {
+                Log.w(ExchangeRatesProvider.TAG, "Problem fetching exchange rates", x);
+            }
+            finally
+            {
+                if (reader != null)
+                {
+                    try
+                    {
+                        reader.close();
+                    }
+                    catch (final IOException x)
+                    {
+                        // swallow
+                    }
+                }
+
+                if (connection != null)
+                    connection.disconnect();
+            }
+
+            return null;
+        }
+    }
 }
