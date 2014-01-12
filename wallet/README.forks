@@ -1,0 +1,45 @@
+Bitcoin Wallet
+The original, since 2011. Free software, GPLv3 licensed.
+Source:  https://github.com/schildbach/bitcoin-wallet
+Install: https://play.google.com/store/apps/details?id=de.schildbach.wallet
+
+
+List of known forks:
+
+
+Blockchain Wallet
+Forked at an early stage and replaced the SPV paradigm by a proprietary server by
+blockchain.info. Guess its source is pretty much un-mergable.
+ Source:  https://github.com/blockchain/My-Wallet-Android
+ Install: https://play.google.com/store/apps/details?id=piuk.blockchain.android
+
+
+Litecoin Wallet
+Forked in March 2013 in order to replace Bitcoin by Litecoin.
+ Source:  https://github.com/hank/litecoin-wallet
+ Install: https://play.google.com/store/apps/details?id=de.schildbach.wallet.litecoin
+
+
+Feathercoin Wallet
+Forked in March 2013 in order to replace Bitcoin by Feathercoin.
+ Source:  https://github.com/hank/feathercoin-wallet
+ Install: https://play.google.com/store/apps/details?id=de.schildbach.wallet.feathercoin
+
+
+ארנק ביטקוין
+Forked in April 2013 in order to add a Hebrew translation.
+ Source:  The source was never released, but I talked the author into submitting the
+          Hebrew translation.
+ Install: https://play.google.com/store/apps/details?id=com.bitcoin_wallet.com
+
+
+Dogecoin Wallet
+Forked in January 2014 in order to replace Bitcoin by Dogecoin.
+ Source:  https://github.com/langerhans/dogecoin-wallet-new
+ Install: https://play.google.com/store/apps/details?id=de.langerhans.wallet
+
+
+Bitcoin Wallet LI
+The only added feature seems to be a sliding menu, but it fails to show any screenshots. Source is un-mergable.
+ Source:  https://code.google.com/p/bitcoin-wallet-li/
+ Install: https://play.google.com/store/apps/details?id=com.mypgwali
