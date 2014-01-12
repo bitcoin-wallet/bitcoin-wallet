@@ -1,3 +1,4 @@
+*.apk
 local_utils
 gen-external-apklibs
 out

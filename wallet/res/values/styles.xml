@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-	<style name="My.Theme" parent="@style/Theme.Sherlock.Light.DarkActionBar.ForceOverflow">
+	<style name="My.Theme" parent="@style/Theme.Sherlock.Light.DarkActionBar">
 		<item name="actionBarStyle">@style/My.Widget.ActionBar</item>
 		<item name="android:actionBarStyle">@style/My.Widget.ActionBar</item>
 		<item name="actionModeStyle">@style/My.Widget.ActionMode</item>
@@ -14,7 +14,7 @@
 
 	<style name="My.Theme.Fullscreen" parent="@android:style/Theme.NoTitleBar.Fullscreen" />
 
-	<style name="My.Theme.Dialog" parent="@style/Theme.Sherlock.Light.Dialog" />
+	<style name="My.Theme.Dialog" parent="@android:style/Theme.Dialog" />
 
 	<style name="My.Widget.ActionBar" parent="@style/Widget.Sherlock.Light.ActionBar.Solid.Inverse">
 		<item name="background">@drawable/action_bar_background</item>

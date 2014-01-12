@@ -112,15 +112,6 @@ public final class AddressBookActivity extends AbstractWalletActivity
 		return super.onOptionsItemSelected(item);
 	}
 
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        super.onPrepareOptionsMenu(menu);
-        // We have to clear out the options menu
-        menu.clear();
-        supportInvalidateOptionsMenu();
-        return true;
-    }
-
     void updateFragments()
 	{
 		final List<ECKey> keys = getWalletApplication().getWallet().getKeys();
