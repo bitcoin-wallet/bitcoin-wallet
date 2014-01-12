@@ -6,8 +6,8 @@
 
 	<artifactId>wallet</artifactId>
 	<packaging>apk</packaging>
-	<version>3.29</version>
-	<name>Bitcoin Wallet</name>
+	<version>3.29.1</version>
+	<name>Litecoin Wallet</name>
 
 	<parent>
 		<groupId>de.schildbach.wallet</groupId>
@@ -153,9 +153,12 @@
 					<sdk>
 						<platform>14</platform>
 					</sdk>
-					<sign>
-						<debug>both</debug>
-					</sign>
+                    <proguard>
+                        <skip>false</skip>
+                    </proguard>
+                    <sign>
+                        <debug>false</debug>
+                    </sign>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -183,7 +186,34 @@
 					</excludes>
 				</configuration>
 			</plugin>
-		</plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jarsigner-plugin</artifactId>
+                <version>1.2</version>
+                <executions>
+                    <execution>
+                        <id>signing</id>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                        <phase>package</phase>
+                        <inherited>true</inherited>
+                        <configuration>
+                            <archiveDirectory></archiveDirectory>
+                            <includes>
+                                <include>target/*.apk</include>
+                            </includes>
+                            <keystore>/Users/hank/.m2/litecoin-project2.jks</keystore>
+                            <alias>litecoin-project</alias>
+                            <arguments>
+                                <argument>-sigalg</argument><argument>MD5withRSA</argument>
+                                <argument>-digestalg</argument><argument>SHA1</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
 	</build>
 
 	<!-- to generate reports, run: mvn clean install site -->
@@ -191,9 +221,9 @@
 	<reporting>
 		<plugins>
 			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>findbugs-maven-plugin</artifactId>
-				<version>2.5.2</version>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>findbugs-maven-plugin</artifactId>
+                <version>2.5.4-SNAPSHOT</version>
 				<configuration>
 					<onlyAnalyze>de.schildbach.wallet.-</onlyAnalyze>
 				</configuration>
