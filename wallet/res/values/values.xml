@@ -19,4 +19,17 @@
 		<item>mLTC, 2 digits</item>
 	</string-array>
 
+
+    <string-array name="preferences_qr_values">
+        <item>com.google.zxing.client.android</item>
+        <item>la.droid.qr</item>
+        <item>com.srowen.bs.android</item>
+        <item>com.srowen.bs.android.simple</item>
+    </string-array>
+    <string-array name="preferences_qr_labels">
+        <item>Barcode Scanner</item>
+        <item>QR Droid</item>
+        <item>Barcode Scanner+</item>
+        <item>Barcode Scanner+ Simple</item>
+    </string-array>
 </resources>

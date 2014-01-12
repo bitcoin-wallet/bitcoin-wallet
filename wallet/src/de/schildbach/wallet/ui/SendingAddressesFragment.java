@@ -49,8 +49,8 @@ import com.google.bitcoin.core.ECKey;
 import com.google.bitcoin.core.Transaction;
 import com.google.bitcoin.uri.BitcoinURI;
 
-import com.google.zxing.integration.android.IntentIntegratorSupportV4;
-import com.google.zxing.integration.android.IntentResult;
+import de.schildbach.wallet.util.IntentIntegratorSupportV4;
+import de.schildbach.wallet.util.IntentResult;
 import de.schildbach.wallet.AddressBookProvider;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.ui.InputParser.StringInputParser;

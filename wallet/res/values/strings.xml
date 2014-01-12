@@ -241,5 +241,7 @@
     <string name="sendcoins_insufficient_amount_suffix">LTC in your wallet to continue.</string>
     <string name="sendcoins_insufficient_instructions">Please adjust your values or add funds to the wallet.</string>
     <string name="sendcoins_fee_required">Fee Required</string>
+    <string name="preferences_qr_title">QR Code Scanner App</string>
+    <string name="preferences_qr_summary">Which app should be used for QR code scanning?</string>
 
 </resources>

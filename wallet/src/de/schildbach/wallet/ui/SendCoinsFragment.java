@@ -29,8 +29,8 @@ import android.widget.Toast;
 import com.google.bitcoin.core.ECKey;
 import com.google.bitcoin.core.InsufficientMoneyException;
 import com.google.bitcoin.core.TransactionOutput;
-import com.google.zxing.integration.android.IntentIntegratorSupportV4;
-import com.google.zxing.integration.android.IntentResult;
+import de.schildbach.wallet.util.IntentIntegratorSupportV4;
+import de.schildbach.wallet.util.IntentResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

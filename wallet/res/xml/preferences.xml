@@ -52,6 +52,14 @@
 			android:key="labs_bluetooth_offline_transactions"
 			android:summary="Accept signed transactions via Bluetooth radio."
 			android:title="Bluetooth offline transactions" />
+
+        <ListPreference
+                android:defaultValue="com.google.zxing.client.android"
+                android:entries="@array/preferences_qr_labels"
+                android:entryValues="@array/preferences_qr_values"
+                android:key="qr_scanner"
+                android:summary="@string/preferences_qr_summary"
+                android:title="@string/preferences_qr_title" />
 	</PreferenceCategory>
 
 </PreferenceScreen>
