@@ -555,11 +555,8 @@ public class WalletApplication extends Application
 		final AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 		final PendingIntent alarmIntent = PendingIntent.getService(context, 0, new Intent(context, BlockchainServiceImpl.class), 0);
 		alarmManager.cancel(alarmIntent);
-		if (Build.VERSION.SDK_INT >= Constants.SDK_KITKAT)
-			// as of KitKat, set() is inexact
-			alarmManager.set(AlarmManager.RTC_WAKEUP, now + alarmInterval, alarmIntent);
-		else
-			// workaround for no inexact set() before KitKat
-			alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, now + alarmInterval, AlarmManager.INTERVAL_DAY, alarmIntent);
+
+		// workaround for no inexact set() before KitKat
+		alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, now + alarmInterval, AlarmManager.INTERVAL_DAY, alarmIntent);
 	}
 }
