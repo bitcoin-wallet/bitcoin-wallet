@@ -135,9 +135,9 @@ public final class ScanActivity extends Activity implements SurfaceHolder.Callba
 	@Override
 	protected void onPause()
 	{
-		cameraHandler.post(closeRunnable);
+        surfaceHolder.removeCallback(this);
 
-		surfaceHolder.removeCallback(this);
+		cameraHandler.post(closeRunnable);
 
 		super.onPause();
 	}
