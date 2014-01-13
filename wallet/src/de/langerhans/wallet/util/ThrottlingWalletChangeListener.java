@@ -44,7 +44,7 @@ public abstract class ThrottlingWalletChangeListener implements WalletEventListe
 	private final Handler handler = new Handler();
 	private final AtomicBoolean relevant = new AtomicBoolean();
 
-	private static final long DEFAULT_THROTTLE_MS = 500;
+	private static final long DEFAULT_THROTTLE_MS = 1000L;
 
 	public ThrottlingWalletChangeListener()
 	{

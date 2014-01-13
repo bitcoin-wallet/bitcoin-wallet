@@ -102,7 +102,7 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 	private final Handler handler = new Handler();
 
 	private static final String KEY_DIRECTION = "direction";
-	private static final long THROTTLE_MS = DateUtils.SECOND_IN_MILLIS;
+	private static final long THROTTLE_MS = 1500L;
 	private static final Uri KEY_ROTATION_URI = Uri.parse("http://bitcoin.org/en/alert/2013-08-11-android");
 
 	public static TransactionsListFragment instance(@Nullable final Direction direction)
