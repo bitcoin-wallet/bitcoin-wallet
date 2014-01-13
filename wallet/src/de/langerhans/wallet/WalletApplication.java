@@ -557,11 +557,11 @@ public class WalletApplication extends Application
         final PendingIntent alarmIntent = PendingIntent.getBroadcast(context, 0, startIntent, 0);
         alarmManager.cancel(alarmIntent);
         
-        if (Build.VERSION.SDK_INT >= Constants.SDK_KITKAT)
-            // as of KitKat, set() is inexact
-            alarmManager.set(AlarmManager.RTC_WAKEUP, now + alarmInterval, alarmIntent);
-        else
-            // workaround for no inexact set() before KitKat
-            alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, now + alarmInterval, AlarmManager.INTERVAL_DAY, alarmIntent);
+//        if (Build.VERSION.SDK_INT >= Constants.SDK_KITKAT)
+//            // as of KitKat, set() is inexact
+//            alarmManager.set(AlarmManager.RTC_WAKEUP, now + alarmInterval, alarmIntent);
+//        else
+//            // workaround for no inexact set() before KitKat
+            alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, now + alarmInterval, alarmInterval, alarmIntent);
 	}
 }

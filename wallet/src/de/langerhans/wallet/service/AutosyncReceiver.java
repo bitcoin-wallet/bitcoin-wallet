@@ -79,8 +79,14 @@ public class AutosyncReceiver extends BroadcastReceiver
 
         // determine power connected state
         boolean powerDontSync = false;
+        int batteryStatus;
         final Intent batteryChanged = context.getApplicationContext().registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
-        final int batteryStatus = batteryChanged.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
+        if (batteryChanged != null)
+            batteryStatus = batteryChanged.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
+        else
+            //If we didn't receive an Intent from this, we assume the device is not charging. Will prevent false positives.
+            batteryStatus = BatteryManager.BATTERY_STATUS_DISCHARGING;
+
         boolean isPowerConnected = batteryStatus == BatteryManager.BATTERY_STATUS_CHARGING || batteryStatus == BatteryManager.BATTERY_STATUS_FULL;
         if ((!isPowerConnected && prefsAutosyncCharge) || !prefsAutosyncCharge)
             powerDontSync = true;
