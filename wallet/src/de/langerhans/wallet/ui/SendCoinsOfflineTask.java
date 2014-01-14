@@ -67,7 +67,7 @@ public abstract class SendCoinsOfflineTask
                 });
             } catch (InsufficientMoneyException e)
             {
-                //Fragment checks for money...
+                onFailure();
             }
               }
 		});

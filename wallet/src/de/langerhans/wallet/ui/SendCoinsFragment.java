@@ -23,6 +23,7 @@ import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import android.app.AlertDialog;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -845,6 +846,20 @@ public final class SendCoinsFragment extends SherlockFragment
 		sendRequest.changeAddress = WalletUtils.pickOldestKey(wallet).toAddress(Constants.NETWORK_PARAMETERS);
 		sendRequest.emptyWallet = amount.equals(wallet.getBalance(BalanceType.AVAILABLE));
 
+        //Emptying a wallet with less than 2 DOGE can't be possible due to min fee 2 DOGE of such a tx.
+        if (amount.compareTo(BigInteger.valueOf(200000000)) < 0 && sendRequest.emptyWallet)
+        {
+            AlertDialog.Builder bld = new AlertDialog.Builder(activity);
+                bld.setTitle(R.string.send_coins_error_msg);
+                bld.setMessage(R.string.send_coins_error_desc);
+                bld.setNeutralButton(activity.getResources().getString(android.R.string.ok), null);
+                bld.setCancelable(false);
+                bld.create().show();
+            state = State.FAILED;
+            updateView();
+            return;
+        }
+
 		new SendCoinsOfflineTask(wallet, backgroundHandler)
 		{
 			@Override
@@ -885,9 +900,19 @@ public final class SendCoinsFragment extends SherlockFragment
 			protected void onFailure()
 			{
 				state = State.FAILED;
-				updateView();
-
-				activity.longToast(R.string.send_coins_error_msg);
+				activity.runOnUiThread(new Runnable(){
+                    @Override
+                    public void run()
+                    {
+                        updateView();
+                        AlertDialog.Builder bld = new AlertDialog.Builder(activity);
+                            bld.setTitle(R.string.send_coins_error_msg);
+                            bld.setMessage(R.string.send_coins_error_desc);
+                            bld.setNeutralButton(activity.getResources().getString(android.R.string.ok), null);
+                            bld.setCancelable(false);
+                            bld.create().show();
+                    }
+                });
 			}
 		}.sendCoinsOffline(sendRequest); // send asynchronously
 	}

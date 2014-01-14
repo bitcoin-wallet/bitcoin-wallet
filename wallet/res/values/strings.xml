@@ -72,6 +72,10 @@
 	<string name="send_coins_sent_msg">Sent!</string>
 	<string name="send_coins_failed_msg">Failed!</string>
 	<string name="send_coins_error_msg">Problem sending coins!</string>
+    <string name="send_coins_error_desc">There was an error while sending this transaction.\n
+        This is probably due to a very small amount which can\'t be spent due to network fees.\n
+        Please top up your balance to accommodate fees. If you think this is an error,\n
+        please use the \'Report Issue\' function.</string>
 	<string name="send_coins_options_empty">Empty wallet</string>
 	<string name="send_coins_address_context_clear_title">Enter new address</string>
 	<string name="request_coins_activity_title">Request Dogecoins</string>
