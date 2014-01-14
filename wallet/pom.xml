@@ -144,25 +144,6 @@
 				</configuration>
 			</plugin>
 			<plugin>
-				<groupId>com.jayway.maven.plugins.android.generation2</groupId>
-				<artifactId>android-maven-plugin</artifactId>
-                <version>3.8.0</version>
-                <configuration>
-					<excludeJarResources>
-						<excludeJarResource>.*\.jar$</excludeJarResource>
-					</excludeJarResources>
-					<sdk>
-						<platform>14</platform>
-					</sdk>
-                    <proguard>
-                        <skip>false</skip>
-                    </proguard>
-                    <sign>
-                        <debug>false</debug>
-                    </sign>
-				</configuration>
-			</plugin>
-			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-eclipse-plugin</artifactId>
 				<configuration>
@@ -204,13 +185,52 @@
                             <includes>
                                 <include>target/*.apk</include>
                             </includes>
-                            <keystore>/Users/hank/.m2/litecoin-project2.jks</keystore>
+                            <keystore>${sign.keystore}</keystore>
+                            <alias>${sign.alias}</alias>
+                            <storepass>${sign.storepass}</storepass>
+                            <keypass>${sign.keypass}</keypass>
+                            <verbose>true</verbose>
                             <alias>litecoin-project</alias>
                             <arguments>
                                 <argument>-sigalg</argument><argument>MD5withRSA</argument>
                                 <argument>-digestalg</argument><argument>SHA1</argument>
                             </arguments>
                         </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>com.jayway.maven.plugins.android.generation2</groupId>
+                <artifactId>android-maven-plugin</artifactId>
+                <version>3.8.0</version>
+                <inherited>true</inherited>
+                <configuration>
+                    <excludeJarResources>
+                        <excludeJarResource>.*\.jar$</excludeJarResource>
+                    </excludeJarResources>
+                    <sdk>
+                        <platform>14</platform>
+                    </sdk>
+                    <proguard>
+                        <skip>false</skip>
+                    </proguard>
+                    <sign>
+                        <debug>false</debug>
+                    </sign>
+                    <zipalign>
+                        <skip>false</skip>
+                        <verbose>true</verbose>
+                        <inputApk>${project.build.directory}/${project.artifactId}-${project.version}.apk</inputApk>
+                        <outputApk>${project.build.directory}/${project.artifactId}-${project.version}-signed-aligned.apk</outputApk>
+                    </zipalign>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>alignApk</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>zipalign</goal>
+                        </goals>
                     </execution>
                 </executions>
             </plugin>
