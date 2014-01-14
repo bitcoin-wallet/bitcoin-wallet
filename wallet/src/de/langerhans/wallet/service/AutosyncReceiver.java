@@ -57,7 +57,7 @@ public class AutosyncReceiver extends BroadcastReceiver
 
 		final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
 		prefsLastUsed = prefs.getLong(Constants.PREFS_KEY_LAST_USED, 0);
-        final boolean prefsAutosyncSwitch = prefs.getBoolean(Constants.PREFS_KEY_AUTOSYNC_SWITCH, true);
+        final boolean prefsAutosyncSwitch = prefs.getBoolean(Constants.PREFS_KEY_AUTOSYNC_SWITCH, false);
         final boolean prefsAutosyncCharge = prefs.getBoolean(Constants.PREFS_KEY_AUTOSYNC_CHARGE, false);
         final boolean prefsAutosyncWiFi = prefs.getBoolean(Constants.PREFS_KEY_AUTOSYNC_WIFI, false);
         mCtx = context;
