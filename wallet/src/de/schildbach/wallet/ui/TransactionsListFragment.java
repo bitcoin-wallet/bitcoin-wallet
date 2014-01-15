@@ -64,6 +64,7 @@ import com.google.bitcoin.core.Transaction;
 import com.google.bitcoin.core.Transaction.Purpose;
 import com.google.bitcoin.core.TransactionConfidence.ConfidenceType;
 import com.google.bitcoin.core.Wallet;
+import com.google.bitcoin.utils.Threading;
 
 import de.schildbach.wallet.AddressBookProvider;
 import de.schildbach.wallet.Configuration;
@@ -165,7 +166,7 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 
 		loaderManager.initLoader(0, null, this);
 
-		wallet.addEventListener(transactionChangeListener);
+		wallet.addEventListener(transactionChangeListener, Threading.SAME_THREAD);
 
 		updateView();
 	}
@@ -382,7 +383,7 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 		{
 			super.onStartLoading();
 
-			wallet.addEventListener(transactionAddRemoveListener);
+			wallet.addEventListener(transactionAddRemoveListener, Threading.SAME_THREAD);
 			transactionAddRemoveListener.onReorganize(null); // trigger at least one reload
 
 			forceLoad();
