@@ -52,6 +52,7 @@ import com.google.dogecoin.core.ECKey;
 import com.google.dogecoin.core.Wallet;
 import com.google.dogecoin.core.WalletEventListener;
 import com.google.dogecoin.uri.BitcoinURI;
+import com.google.dogecoin.utils.Threading;
 
 import de.langerhans.wallet.AddressBookProvider;
 import de.langerhans.wallet.Constants;
@@ -108,7 +109,7 @@ public final class WalletAddressesFragment extends SherlockListFragment
 
 		contentResolver.registerContentObserver(AddressBookProvider.contentUri(activity.getPackageName()), true, contentObserver);
 
-		wallet.addEventListener(walletListener);
+		wallet.addEventListener(walletListener, Threading.SAME_THREAD);
 		walletListener.onKeysAdded(null, null); // trigger initial load of keys
 
 		updateView();

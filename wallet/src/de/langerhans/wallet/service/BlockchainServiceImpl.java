@@ -77,6 +77,7 @@ import com.google.dogecoin.core.WalletEventListener;
 import com.google.dogecoin.store.BlockStore;
 import com.google.dogecoin.store.BlockStoreException;
 import com.google.dogecoin.store.SPVBlockStore;
+import com.google.dogecoin.utils.Threading;
 
 import de.langerhans.wallet.AddressBookProvider;
 import de.langerhans.wallet.Constants;
@@ -675,7 +676,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 			throw new Error("blockchain cannot be created", x);
 		}
 
-		application.getWallet().addEventListener(walletEventListener);
+		application.getWallet().addEventListener(walletEventListener, Threading.SAME_THREAD);
 
 		registerReceiver(tickReceiver, new IntentFilter(Intent.ACTION_TIME_TICK));
 

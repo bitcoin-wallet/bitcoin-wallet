@@ -65,6 +65,7 @@ import com.google.dogecoin.core.Transaction;
 import com.google.dogecoin.core.Transaction.Purpose;
 import com.google.dogecoin.core.TransactionConfidence.ConfidenceType;
 import com.google.dogecoin.core.Wallet;
+import com.google.dogecoin.utils.Threading;
 
 import de.langerhans.wallet.AddressBookProvider;
 import de.langerhans.wallet.Constants;
@@ -165,7 +166,7 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 
 		loaderManager.initLoader(0, null, this);
 
-		wallet.addEventListener(transactionChangeListener);
+		wallet.addEventListener(transactionChangeListener, Threading.SAME_THREAD);
 
 		updateView();
 	}
@@ -382,7 +383,7 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 		{
 			super.onStartLoading();
 
-			wallet.addEventListener(transactionAddRemoveListener);
+			wallet.addEventListener(transactionAddRemoveListener, Threading.SAME_THREAD);
 			transactionAddRemoveListener.onReorganize(null); // trigger at least one reload
 
 			forceLoad();
