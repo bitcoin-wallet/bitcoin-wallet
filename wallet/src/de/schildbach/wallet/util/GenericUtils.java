@@ -102,14 +102,14 @@ public class GenericUtils
 		}
 	}
 
-	public static BigInteger toNanoCoins(final String value, final int shift)
+	public static BigInteger toNanoCoins(final String value, final int shift) throws ArithmeticException
 	{
 		final BigInteger nanoCoins = new BigDecimal(value).movePointRight(8 - shift).toBigIntegerExact();
 
 		if (nanoCoins.signum() < 0)
-			throw new IllegalArgumentException("negative amount: " + value);
+			throw new ArithmeticException("negative amount: " + value);
 		if (nanoCoins.compareTo(NetworkParameters.MAX_MONEY) > 0)
-			throw new IllegalArgumentException("amount too large: " + value);
+			throw new ArithmeticException("amount too large: " + value);
 
 		return nanoCoins;
 	}
