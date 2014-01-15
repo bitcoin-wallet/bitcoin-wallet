@@ -273,25 +273,25 @@ public class ExchangeRatesProvider extends ContentProvider
 								}
 								catch (final ArithmeticException x)
 								{
-									log.warn("problem fetching exchange rate: " + currencyCode, x);
+									log.warn("problem fetching {} exchange rate from {}: {}", new Object[] { currencyCode, url, x.getMessage() });
 								}
 							}
 						}
 					}
 				}
 
-				log.info("fetched exchange rates from " + url + ", took " + (System.currentTimeMillis() - start) + " ms");
+				log.info("fetched exchange rates from {}, took {} ms", url, (System.currentTimeMillis() - start));
 
 				return rates;
 			}
 			else
 			{
-				log.warn("http status " + responseCode + " when fetching " + url);
+				log.warn("http status {} when fetching {}", responseCode, url);
 			}
 		}
 		catch (final Exception x)
 		{
-			log.warn("problem fetching exchange rates", x);
+			log.warn("problem fetching exchange rates from " + url, x);
 		}
 		finally
 		{
