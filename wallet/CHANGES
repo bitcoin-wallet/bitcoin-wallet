@@ -1,3 +1,12 @@
+v1.03
+- Reworked fee calculation. Should be more reliable now. 
+  General advice: Sending very small amounts will usually cost you more fee than it's worth.
+  For example it can be cheaper to send 2 instead of 1.6 DOGE.
+- Lots of small bug fixes and internal improvements. Should fix a few possible crashes.
+- Fixed AutoSync timing
+- Tradional Chinese translation
+- Update Polish localization
+
 v1.02 (DOGE)
 
 *Autosync settings. This needs a new permission to see if WiFi is active.
