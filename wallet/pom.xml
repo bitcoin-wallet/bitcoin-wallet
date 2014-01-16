@@ -212,7 +212,7 @@
                         <platform>14</platform>
                     </sdk>
                     <proguard>
-                        <skip>false</skip>
+                        <skip>true</skip>
                     </proguard>
                     <sign>
                         <debug>false</debug>
