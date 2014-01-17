@@ -1,3 +1,6 @@
+v1.04
+- Fix to prevent syncing to the wrong blockchain fork.
+
 v1.03
 - Reworked fee calculation. Should be more reliable now. 
   General advice: Sending very small amounts will usually cost you more fee than it's worth.
