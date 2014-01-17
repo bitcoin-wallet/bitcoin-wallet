@@ -25,7 +25,6 @@ import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.graphics.Bitmap;
 import android.nfc.NfcManager;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
@@ -39,6 +38,7 @@ import android.widget.TextView;
 import com.google.bitcoin.core.Address;
 import com.google.bitcoin.uri.BitcoinURI;
 
+import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.util.BitmapFragment;
@@ -54,7 +54,7 @@ public final class WalletAddressFragment extends Fragment
 {
 	private FragmentActivity activity;
 	private WalletApplication application;
-	private SharedPreferences prefs;
+	private Configuration config;
 	private NfcManager nfcManager;
 
 	private View bitcoinAddressButton;
@@ -72,7 +72,7 @@ public final class WalletAddressFragment extends Fragment
 
 		this.activity = (FragmentActivity) activity;
 		this.application = (WalletApplication) activity.getApplication();
-		this.prefs = PreferenceManager.getDefaultSharedPreferences(activity);
+		this.config = application.getConfiguration();
 		this.nfcManager = (NfcManager) activity.getSystemService(Context.NFC_SERVICE);
 	}
 
@@ -120,7 +120,7 @@ public final class WalletAddressFragment extends Fragment
 	{
 		super.onResume();
 
-		prefs.registerOnSharedPreferenceChangeListener(prefsListener);
+		config.registerOnSharedPreferenceChangeListener(prefsListener);
 
 		updateView();
 	}
@@ -128,7 +128,7 @@ public final class WalletAddressFragment extends Fragment
 	@Override
 	public void onPause()
 	{
-		prefs.unregisterOnSharedPreferenceChangeListener(prefsListener);
+		config.unregisterOnSharedPreferenceChangeListener(prefsListener);
 
 		Nfc.unpublish(nfcManager, getActivity());
 
@@ -166,7 +166,7 @@ public final class WalletAddressFragment extends Fragment
 		@Override
 		public void onSharedPreferenceChanged(final SharedPreferences sharedPreferences, final String key)
 		{
-			if (Constants.PREFS_KEY_SELECTED_ADDRESS.equals(key))
+			if (Configuration.PREFS_KEY_SELECTED_ADDRESS.equals(key))
 				updateView();
 		}
 	};

@@ -102,21 +102,6 @@ public class Constants
 	public static final String VERSION_URL = "http://wallet.schildbach.de/version";
 	public static final int HTTP_TIMEOUT_MS = 15 * (int) DateUtils.SECOND_IN_MILLIS;
 
-	public static final String PREFS_KEY_LAST_VERSION = "last_version";
-	public static final String PREFS_KEY_LAST_USED = "last_used";
-	public static final String PREFS_KEY_BEST_CHAIN_HEIGHT_EVER = "best_chain_height_ever";
-	public static final String PREFS_KEY_REMIND_BACKUP = "remind_backup";
-
-	public static final String PREFS_KEY_CONNECTIVITY_NOTIFICATION = "connectivity_notification";
-	public static final String PREFS_KEY_SELECTED_ADDRESS = "selected_address";
-	public static final String PREFS_KEY_EXCHANGE_CURRENCY = "exchange_currency";
-	public static final String PREFS_KEY_TRUSTED_PEER = "trusted_peer";
-	public static final String PREFS_KEY_TRUSTED_PEER_ONLY = "trusted_peer_only";
-	public static final String PREFS_KEY_LABS_BLUETOOTH_OFFLINE_TRANSACTIONS = "labs_bluetooth_offline_transactions";
-	public static final String PREFS_KEY_BTC_PRECISION = "btc_precision";
-	public static final String PREFS_DEFAULT_BTC_PRECISION = "4";
-	public static final String PREFS_KEY_DISCLAIMER = "disclaimer";
-
 	public static final long LAST_USAGE_THRESHOLD_JUST_MS = DateUtils.HOUR_IN_MILLIS;
 	public static final long LAST_USAGE_THRESHOLD_RECENTLY_MS = 2 * DateUtils.DAY_IN_MILLIS;
 

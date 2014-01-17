@@ -29,12 +29,10 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.database.ContentObserver;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.preference.PreferenceManager;
 import android.text.ClipboardManager;
 import android.view.View;
 import android.widget.BaseAdapter;
@@ -54,6 +52,7 @@ import com.google.bitcoin.core.WalletEventListener;
 import com.google.bitcoin.uri.BitcoinURI;
 
 import de.schildbach.wallet.AddressBookProvider;
+import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.util.BitmapFragment;
@@ -68,9 +67,9 @@ public final class WalletAddressesFragment extends SherlockListFragment
 {
 	private AddressBookActivity activity;
 	private WalletApplication application;
+	private Configuration config;
 	private Wallet wallet;
 	private ContentResolver contentResolver;
-	private SharedPreferences prefs;
 
 	private WalletAddressesAdapter adapter;
 
@@ -81,9 +80,9 @@ public final class WalletAddressesFragment extends SherlockListFragment
 
 		this.activity = (AddressBookActivity) activity;
 		this.application = (WalletApplication) activity.getApplication();
+		this.config = application.getConfiguration();
 		this.wallet = application.getWallet();
 		this.contentResolver = activity.getContentResolver();
-		this.prefs = PreferenceManager.getDefaultSharedPreferences(activity);
 	}
 
 	@Override
@@ -263,8 +262,9 @@ public final class WalletAddressesFragment extends SherlockListFragment
 
 			private void handleDefault(@Nonnull final Address address)
 			{
-				prefs.edit().putString(Constants.PREFS_KEY_SELECTED_ADDRESS, address.toString()).commit();
-				adapter.setSelectedAddress(address.toString());
+				final String addressStr = address.toString();
+				config.setSelectedAddress(addressStr);
+				adapter.setSelectedAddress(addressStr);
 			}
 		});
 	}

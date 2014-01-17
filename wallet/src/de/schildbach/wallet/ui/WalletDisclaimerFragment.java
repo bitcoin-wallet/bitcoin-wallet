@@ -25,7 +25,6 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.text.Html;
 import android.text.SpannableStringBuilder;
@@ -36,7 +35,8 @@ import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.widget.FrameLayout;
 import android.widget.TextView;
-import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.Configuration;
+import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.service.BlockchainService;
 import de.schildbach.wallet_test.R;
 
@@ -46,7 +46,7 @@ import de.schildbach.wallet_test.R;
 public final class WalletDisclaimerFragment extends Fragment implements OnSharedPreferenceChangeListener
 {
 	private Activity activity;
-	private SharedPreferences prefs;
+	private Configuration config;
 
 	private int download;
 
@@ -58,7 +58,8 @@ public final class WalletDisclaimerFragment extends Fragment implements OnShared
 		super.onAttach(activity);
 
 		this.activity = (WalletActivity) activity;
-		this.prefs = PreferenceManager.getDefaultSharedPreferences(activity);
+		final WalletApplication application = (WalletApplication) activity.getApplication();
+		this.config = application.getConfiguration();
 	}
 
 	@Override
@@ -71,7 +72,7 @@ public final class WalletDisclaimerFragment extends Fragment implements OnShared
 			@Override
 			public void onClick(final View v)
 			{
-				final boolean showBackup = prefs.getBoolean(Constants.PREFS_KEY_REMIND_BACKUP, true);
+				final boolean showBackup = config.remindBackup();
 				if (showBackup)
 					((WalletActivity) activity).handleExportKeys();
 				else
@@ -87,7 +88,7 @@ public final class WalletDisclaimerFragment extends Fragment implements OnShared
 	{
 		super.onResume();
 
-		prefs.registerOnSharedPreferenceChangeListener(this);
+		config.registerOnSharedPreferenceChangeListener(this);
 
 		activity.registerReceiver(broadcastReceiver, new IntentFilter(BlockchainService.ACTION_BLOCKCHAIN_STATE));
 
@@ -99,7 +100,7 @@ public final class WalletDisclaimerFragment extends Fragment implements OnShared
 	{
 		activity.unregisterReceiver(broadcastReceiver);
 
-		prefs.unregisterOnSharedPreferenceChangeListener(this);
+		config.unregisterOnSharedPreferenceChangeListener(this);
 
 		super.onPause();
 	}
@@ -107,7 +108,7 @@ public final class WalletDisclaimerFragment extends Fragment implements OnShared
 	@Override
 	public void onSharedPreferenceChanged(final SharedPreferences sharedPreferences, final String key)
 	{
-		if (Constants.PREFS_KEY_DISCLAIMER.equals(key) || Constants.PREFS_KEY_REMIND_BACKUP.equals(key))
+		if (Configuration.PREFS_KEY_DISCLAIMER.equals(key) || Configuration.PREFS_KEY_REMIND_BACKUP.equals(key))
 			updateView();
 	}
 
@@ -116,8 +117,8 @@ public final class WalletDisclaimerFragment extends Fragment implements OnShared
 		if (!isResumed())
 			return;
 
-		final boolean showBackup = prefs.getBoolean(Constants.PREFS_KEY_REMIND_BACKUP, true);
-		final boolean showSafety = prefs.getBoolean(Constants.PREFS_KEY_DISCLAIMER, true);
+		final boolean showBackup = config.remindBackup();
+		final boolean showDisclaimer = config.getDisclaimerEnabled();
 
 		final int progressResId;
 		if (download == BlockchainService.ACTION_BLOCKCHAIN_STATE_DOWNLOAD_OK)
@@ -132,13 +133,13 @@ public final class WalletDisclaimerFragment extends Fragment implements OnShared
 		final SpannableStringBuilder text = new SpannableStringBuilder();
 		if (progressResId != 0)
 			text.append(Html.fromHtml("<b>" + getString(progressResId) + "</b>"));
-		if (progressResId != 0 && (showBackup || showSafety))
+		if (progressResId != 0 && (showBackup || showDisclaimer))
 			text.append('\n');
 		if (showBackup)
 			text.append(Html.fromHtml(getString(R.string.wallet_disclaimer_fragment_remind_backup)));
-		if (showBackup && showSafety)
+		if (showBackup && showDisclaimer)
 			text.append('\n');
-		if (showSafety)
+		if (showDisclaimer)
 			text.append(Html.fromHtml(getString(R.string.wallet_disclaimer_fragment_remind_safety)));
 		messageView.setText(text);
 

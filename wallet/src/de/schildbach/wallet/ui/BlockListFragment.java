@@ -33,11 +33,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.preference.PreferenceManager;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.AsyncTaskLoader;
@@ -60,6 +58,7 @@ import com.google.bitcoin.core.StoredBlock;
 import com.google.bitcoin.core.Transaction;
 import com.google.bitcoin.core.Wallet;
 
+import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.service.BlockchainService;
@@ -74,9 +73,9 @@ public final class BlockListFragment extends SherlockListFragment
 {
 	private AbstractWalletActivity activity;
 	private WalletApplication application;
+	private Configuration config;
 	private Wallet wallet;
 	private LoaderManager loaderManager;
-	private SharedPreferences prefs;
 
 	private BlockchainService service;
 
@@ -95,9 +94,9 @@ public final class BlockListFragment extends SherlockListFragment
 
 		this.activity = (AbstractWalletActivity) activity;
 		this.application = this.activity.getWalletApplication();
+		this.config = application.getConfiguration();
 		this.wallet = application.getWallet();
 		this.loaderManager = getLoaderManager();
-		this.prefs = PreferenceManager.getDefaultSharedPreferences(activity);
 	}
 
 	@Override
@@ -299,9 +298,8 @@ public final class BlockListFragment extends SherlockListFragment
 
 			if (transactions != null)
 			{
-				final String precision = prefs.getString(Constants.PREFS_KEY_BTC_PRECISION, Constants.PREFS_DEFAULT_BTC_PRECISION);
-				final int btcPrecision = precision.charAt(0) - '0';
-				final int btcShift = precision.length() == 3 ? precision.charAt(2) - '0' : 0;
+				final int btcPrecision = config.getBtcPrecision();
+				final int btcShift = config.getBtcShift();
 
 				transactionsAdapter.setPrecision(btcPrecision, btcShift);
 

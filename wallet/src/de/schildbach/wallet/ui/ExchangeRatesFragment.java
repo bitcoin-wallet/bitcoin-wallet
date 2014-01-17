@@ -28,7 +28,6 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.CursorLoader;
@@ -46,6 +45,7 @@ import com.actionbarsherlock.view.MenuItem;
 import com.google.bitcoin.core.Wallet;
 import com.google.bitcoin.core.Wallet.BalanceType;
 
+import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.ExchangeRatesProvider;
 import de.schildbach.wallet.ExchangeRatesProvider.ExchangeRate;
@@ -62,8 +62,8 @@ public final class ExchangeRatesFragment extends SherlockListFragment implements
 {
 	private AbstractWalletActivity activity;
 	private WalletApplication application;
+	private Configuration config;
 	private Wallet wallet;
-	private SharedPreferences prefs;
 	private LoaderManager loaderManager;
 
 	private ExchangeRatesAdapter adapter;
@@ -82,8 +82,8 @@ public final class ExchangeRatesFragment extends SherlockListFragment implements
 
 		this.activity = (AbstractWalletActivity) activity;
 		this.application = (WalletApplication) activity.getApplication();
+		this.config = application.getConfiguration();
 		this.wallet = application.getWallet();
-		this.prefs = PreferenceManager.getDefaultSharedPreferences(activity);
 		this.loaderManager = getLoaderManager();
 	}
 
@@ -108,8 +108,8 @@ public final class ExchangeRatesFragment extends SherlockListFragment implements
 		loaderManager.initLoader(ID_BALANCE_LOADER, null, balanceLoaderCallbacks);
 		loaderManager.initLoader(ID_RATE_LOADER, null, rateLoaderCallbacks);
 
-		defaultCurrency = prefs.getString(Constants.PREFS_KEY_EXCHANGE_CURRENCY, null);
-		prefs.registerOnSharedPreferenceChangeListener(this);
+		defaultCurrency = config.getExchangeCurrencyCode();
+		config.registerOnSharedPreferenceChangeListener(this);
 
 		updateView();
 	}
@@ -117,7 +117,7 @@ public final class ExchangeRatesFragment extends SherlockListFragment implements
 	@Override
 	public void onPause()
 	{
-		prefs.unregisterOnSharedPreferenceChangeListener(this);
+		config.unregisterOnSharedPreferenceChangeListener(this);
 
 		loaderManager.destroyLoader(ID_RATE_LOADER);
 		loaderManager.destroyLoader(ID_BALANCE_LOADER);
@@ -175,7 +175,7 @@ public final class ExchangeRatesFragment extends SherlockListFragment implements
 
 			private void handleSetAsDefault(final String currencyCode)
 			{
-				prefs.edit().putString(Constants.PREFS_KEY_EXCHANGE_CURRENCY, currencyCode).commit();
+				config.setExchangeCurrencyCode(currencyCode);
 			}
 		});
 	}
@@ -183,9 +183,9 @@ public final class ExchangeRatesFragment extends SherlockListFragment implements
 	@Override
 	public void onSharedPreferenceChanged(final SharedPreferences sharedPreferences, final String key)
 	{
-		if (Constants.PREFS_KEY_EXCHANGE_CURRENCY.equals(key) || Constants.PREFS_KEY_BTC_PRECISION.equals(key))
+		if (Configuration.PREFS_KEY_EXCHANGE_CURRENCY.equals(key) || Configuration.PREFS_KEY_BTC_PRECISION.equals(key))
 		{
-			defaultCurrency = prefs.getString(Constants.PREFS_KEY_EXCHANGE_CURRENCY, null);
+			defaultCurrency = config.getExchangeCurrencyCode();
 
 			updateView();
 		}
@@ -197,8 +197,7 @@ public final class ExchangeRatesFragment extends SherlockListFragment implements
 
 		if (adapter != null)
 		{
-			final String precision = prefs.getString(Constants.PREFS_KEY_BTC_PRECISION, Constants.PREFS_DEFAULT_BTC_PRECISION);
-			final int btcShift = precision.length() == 3 ? precision.charAt(2) - '0' : 0;
+			final int btcShift = config.getBtcShift();
 
 			final BigInteger base = btcShift == 0 ? GenericUtils.ONE_BTC : GenericUtils.ONE_MBTC;
 

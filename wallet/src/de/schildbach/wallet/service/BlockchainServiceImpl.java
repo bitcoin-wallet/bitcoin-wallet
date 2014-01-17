@@ -56,7 +56,6 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
-import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.text.format.DateUtils;
 
@@ -84,6 +83,7 @@ import com.google.bitcoin.store.BlockStoreException;
 import com.google.bitcoin.store.SPVBlockStore;
 
 import de.schildbach.wallet.AddressBookProvider;
+import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.WalletBalanceWidgetProvider;
@@ -100,7 +100,7 @@ import de.schildbach.wallet_test.R;
 public class BlockchainServiceImpl extends android.app.Service implements BlockchainService
 {
 	private WalletApplication application;
-	private SharedPreferences prefs;
+	private Configuration config;
 
 	private BlockStore blockStore;
 	private File blockChainFile;
@@ -191,10 +191,9 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 		if (from != null && !notificationAddresses.contains(from))
 			notificationAddresses.add(from);
 
-		final String precision = prefs.getString(Constants.PREFS_KEY_BTC_PRECISION, Constants.PREFS_DEFAULT_BTC_PRECISION);
-		final int btcPrecision = precision.charAt(0) - '0';
-		final int btcShift = precision.length() == 3 ? precision.charAt(2) - '0' : 0;
-		final String btcPrefix = btcShift == 0 ? Constants.CURRENCY_CODE_BTC : Constants.CURRENCY_CODE_MBTC;
+		final int btcPrecision = config.getBtcPrecision();
+		final int btcShift = config.getBtcShift();
+		final String btcPrefix = config.getBtcPrefix();
 
 		final String packageFlavor = application.applicationPackageFlavor();
 		final String msgSuffix = packageFlavor != null ? " [" + packageFlavor + "]" : "";
@@ -238,14 +237,14 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 
 		public PeerConnectivityListener()
 		{
-			prefs.registerOnSharedPreferenceChangeListener(this);
+			config.registerOnSharedPreferenceChangeListener(this);
 		}
 
 		public void stop()
 		{
 			stopped.set(true);
 
-			prefs.unregisterOnSharedPreferenceChangeListener(this);
+			config.unregisterOnSharedPreferenceChangeListener(this);
 
 			nm.cancel(NOTIFICATION_ID_CONNECTED);
 		}
@@ -267,7 +266,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 		@Override
 		public void onSharedPreferenceChanged(final SharedPreferences sharedPreferences, final String key)
 		{
-			if (Constants.PREFS_KEY_CONNECTIVITY_NOTIFICATION.equals(key))
+			if (Configuration.PREFS_KEY_CONNECTIVITY_NOTIFICATION.equals(key))
 				changed(peerCount);
 		}
 
@@ -281,9 +280,9 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 				@Override
 				public void run()
 				{
-					final boolean connectivityNotification = prefs.getBoolean(Constants.PREFS_KEY_CONNECTIVITY_NOTIFICATION, false);
+					final boolean connectivityNotificationEnabled = config.getConnectivityNotificationEnabled();
 
-					if (!connectivityNotification || numPeers == 0)
+					if (!connectivityNotificationEnabled || numPeers == 0)
 					{
 						nm.cancel(NOTIFICATION_ID_CONNECTED);
 					}
@@ -400,10 +399,10 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 
 				final int maxConnectedPeers = application.maxConnectedPeers();
 
-				final String trustedPeerHost = prefs.getString(Constants.PREFS_KEY_TRUSTED_PEER, "").trim();
+				final String trustedPeerHost = config.getTrustedPeerHost();
 				final boolean hasTrustedPeer = !trustedPeerHost.isEmpty();
 
-				final boolean connectTrustedPeerOnly = hasTrustedPeer && prefs.getBoolean(Constants.PREFS_KEY_TRUSTED_PEER_ONLY, false);
+				final boolean connectTrustedPeerOnly = hasTrustedPeer && config.getTrustedPeerOnly();
 				peerGroup.setMaxConnections(connectTrustedPeerOnly ? 1 : maxConnectedPeers);
 
 				peerGroup.addPeerDiscovery(new PeerDiscovery()
@@ -593,10 +592,10 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 		wakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, lockName);
 
 		application = (WalletApplication) getApplication();
-		prefs = PreferenceManager.getDefaultSharedPreferences(this);
+		config = application.getConfiguration();
 		final Wallet wallet = application.getWallet();
 
-		bestChainHeightEver = prefs.getInt(Constants.PREFS_KEY_BEST_CHAIN_HEIGHT_EVER, 0);
+		bestChainHeightEver = config.getBestChainHeightEver();
 
 		peerConnectivityListener = new PeerConnectivityListener();
 
@@ -736,7 +735,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 		removeBroadcastPeerState();
 		removeBroadcastBlockchainState();
 
-		prefs.edit().putInt(Constants.PREFS_KEY_BEST_CHAIN_HEIGHT_EVER, bestChainHeightEver).commit();
+		config.setBestChainHeightEver(bestChainHeightEver);
 
 		delayHandler.removeCallbacksAndMessages(null);
 

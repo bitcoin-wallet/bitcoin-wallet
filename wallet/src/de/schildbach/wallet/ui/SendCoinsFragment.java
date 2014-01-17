@@ -32,7 +32,6 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.ContentObserver;
 import android.database.Cursor;
@@ -43,7 +42,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Process;
-import android.preference.PreferenceManager;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
@@ -82,6 +80,7 @@ import com.google.bitcoin.core.Wallet.BalanceType;
 import com.google.bitcoin.core.Wallet.SendRequest;
 
 import de.schildbach.wallet.AddressBookProvider;
+import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.ExchangeRatesProvider;
 import de.schildbach.wallet.ExchangeRatesProvider.ExchangeRate;
@@ -100,15 +99,12 @@ public final class SendCoinsFragment extends SherlockFragment
 {
 	private AbstractBindServiceActivity activity;
 	private WalletApplication application;
+	private Configuration config;
 	private Wallet wallet;
 	private ContentResolver contentResolver;
 	private LoaderManager loaderManager;
-	private SharedPreferences prefs;
 	@CheckForNull
 	private BluetoothAdapter bluetoothAdapter;
-
-	private int btcPrecision;
-	private int btcShift;
 
 	private final Handler handler = new Handler();
 	private HandlerThread backgroundThread;
@@ -331,7 +327,7 @@ public final class SendCoinsFragment extends SherlockFragment
 		@Override
 		public Loader<Cursor> onCreateLoader(final int id, final Bundle args)
 		{
-			return new ExchangeRateLoader(activity);
+			return new ExchangeRateLoader(activity, config);
 		}
 
 		@Override
@@ -360,7 +356,7 @@ public final class SendCoinsFragment extends SherlockFragment
 
 		this.activity = (AbstractBindServiceActivity) activity;
 		this.application = (WalletApplication) activity.getApplication();
-		this.prefs = PreferenceManager.getDefaultSharedPreferences(activity);
+		this.config = application.getConfiguration();
 		this.wallet = application.getWallet();
 		this.contentResolver = activity.getContentResolver();
 		this.loaderManager = getLoaderManager();
@@ -378,10 +374,6 @@ public final class SendCoinsFragment extends SherlockFragment
 		backgroundThread = new HandlerThread("backgroundThread", Process.THREAD_PRIORITY_BACKGROUND);
 		backgroundThread.start();
 		backgroundHandler = new Handler(backgroundThread.getLooper());
-
-		final String precision = prefs.getString(Constants.PREFS_KEY_BTC_PRECISION, Constants.PREFS_DEFAULT_BTC_PRECISION);
-		btcPrecision = precision.charAt(0) - '0';
-		btcShift = precision.length() == 3 ? precision.charAt(2) - '0' : 0;
 	}
 
 	@Override
@@ -413,10 +405,10 @@ public final class SendCoinsFragment extends SherlockFragment
 		});
 
 		final CurrencyAmountView btcAmountView = (CurrencyAmountView) view.findViewById(R.id.send_coins_amount_btc);
-		btcAmountView.setCurrencySymbol(btcShift == 0 ? Constants.CURRENCY_CODE_BTC : Constants.CURRENCY_CODE_MBTC);
-		btcAmountView.setInputPrecision(btcShift == 0 ? Constants.BTC_MAX_PRECISION : Constants.MBTC_MAX_PRECISION);
-		btcAmountView.setHintPrecision(btcPrecision);
-		btcAmountView.setShift(btcShift);
+		btcAmountView.setCurrencySymbol(config.getBtcPrefix());
+		btcAmountView.setInputPrecision(config.getBtcMaxPrecision());
+		btcAmountView.setHintPrecision(config.getBtcPrecision());
+		btcAmountView.setShift(config.getBtcShift());
 
 		final CurrencyAmountView localAmountView = (CurrencyAmountView) view.findViewById(R.id.send_coins_amount_local);
 		localAmountView.setInputPrecision(Constants.LOCAL_PRECISION);
@@ -802,14 +794,14 @@ public final class SendCoinsFragment extends SherlockFragment
 		dismissPopup();
 
 		final CurrencyTextView viewAvailable = (CurrencyTextView) popupAvailableView.findViewById(R.id.send_coins_popup_available_amount);
-		viewAvailable.setPrefix(btcShift == 0 ? Constants.CURRENCY_CODE_BTC : Constants.CURRENCY_CODE_MBTC);
-		viewAvailable.setPrecision(btcPrecision, btcShift);
+		viewAvailable.setPrefix(config.getBtcPrefix());
+		viewAvailable.setPrecision(config.getBtcPrecision(), config.getBtcShift());
 		viewAvailable.setAmount(available);
 
 		final TextView viewPending = (TextView) popupAvailableView.findViewById(R.id.send_coins_popup_available_pending);
 		viewPending.setVisibility(pending.signum() > 0 ? View.VISIBLE : View.GONE);
-		final int precision = btcShift == 0 ? Constants.BTC_MAX_PRECISION : Constants.MBTC_MAX_PRECISION;
-		viewPending.setText(getString(R.string.send_coins_fragment_pending, GenericUtils.formatValue(pending, precision, btcShift)));
+		viewPending.setText(getString(R.string.send_coins_fragment_pending,
+				GenericUtils.formatValue(pending, config.getBtcMaxPrecision(), config.getBtcShift())));
 
 		popup(anchor, popupAvailableView);
 	}
@@ -985,9 +977,8 @@ public final class SendCoinsFragment extends SherlockFragment
 
 		if (sentTransaction != null)
 		{
-			final String precision = prefs.getString(Constants.PREFS_KEY_BTC_PRECISION, Constants.PREFS_DEFAULT_BTC_PRECISION);
-			final int btcPrecision = precision.charAt(0) - '0';
-			final int btcShift = precision.length() == 3 ? precision.charAt(2) - '0' : 0;
+			final int btcPrecision = config.getBtcPrecision();
+			final int btcShift = config.getBtcShift();
 
 			sentTransactionView.setVisibility(View.VISIBLE);
 			sentTransactionListAdapter.setPrecision(btcPrecision, btcShift);

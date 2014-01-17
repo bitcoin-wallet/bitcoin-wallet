@@ -50,7 +50,6 @@ import android.content.DialogInterface.OnCancelListener;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
@@ -59,7 +58,6 @@ import android.nfc.NdefMessage;
 import android.nfc.NfcAdapter;
 import android.os.Bundle;
 import android.os.Environment;
-import android.preference.PreferenceManager;
 import android.text.format.DateUtils;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,7 +65,6 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
@@ -76,6 +73,7 @@ import com.google.bitcoin.core.ECKey;
 import com.google.bitcoin.core.Transaction;
 import com.google.bitcoin.core.Wallet;
 
+import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.ui.InputParser.BinaryInputParser;
@@ -97,8 +95,8 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 	private static final int DIALOG_EXPORT_KEYS = 1;
 
 	private WalletApplication application;
+	private Configuration config;
 	private Wallet wallet;
-	private SharedPreferences prefs;
 
 	private static final int REQUEST_CODE_SCAN = 0;
 
@@ -108,15 +106,15 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 		super.onCreate(savedInstanceState);
 
 		application = getWalletApplication();
+		config = application.getConfiguration();
 		wallet = application.getWallet();
-		prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
 		setContentView(R.layout.wallet_content);
 
 		if (savedInstanceState == null)
 			checkAlerts();
 
-		touchLastUsed();
+		config.touchLastUsed();
 
 		handleIntent(getIntent());
 	}
@@ -307,7 +305,7 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 	{
 		showDialog(DIALOG_EXPORT_KEYS);
 
-		prefs.edit().putBoolean(Constants.PREFS_KEY_REMIND_BACKUP, false).commit();
+		config.disarmBackupReminder();
 	}
 
 	@Override

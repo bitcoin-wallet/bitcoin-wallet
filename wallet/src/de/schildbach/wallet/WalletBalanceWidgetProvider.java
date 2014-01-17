@@ -26,7 +26,6 @@ import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.SpannableStringBuilder;
@@ -61,20 +60,14 @@ public class WalletBalanceWidgetProvider extends AppWidgetProvider
 	public static void updateWidgets(final Context context, @Nonnull final AppWidgetManager appWidgetManager, @Nonnull final int[] appWidgetIds,
 			@Nonnull final BigInteger balance)
 	{
-		final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-		final String precision = prefs.getString(Constants.PREFS_KEY_BTC_PRECISION, Constants.PREFS_DEFAULT_BTC_PRECISION);
-		final int btcPrecision = precision.charAt(0) - '0';
-		final int btcShift = precision.length() == 3 ? precision.charAt(2) - '0' : 0;
-
-		final Editable balanceStr = new SpannableStringBuilder(GenericUtils.formatValue(balance, btcPrecision, btcShift));
+		final Configuration config = new Configuration(PreferenceManager.getDefaultSharedPreferences(context));
+		final Editable balanceStr = new SpannableStringBuilder(GenericUtils.formatValue(balance, config.getBtcPrecision(), config.getBtcShift()));
 		WalletUtils.formatSignificant(balanceStr, WalletUtils.SMALLER_SPAN);
-
-		final String prefix = btcShift == 0 ? Constants.CURRENCY_CODE_BTC : Constants.CURRENCY_CODE_MBTC;
 
 		for (final int appWidgetId : appWidgetIds)
 		{
 			final RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.wallet_balance_widget_content);
-			views.setTextViewText(R.id.widget_wallet_prefix, prefix);
+			views.setTextViewText(R.id.widget_wallet_prefix, config.getBtcPrefix());
 			views.setTextViewText(R.id.widget_wallet_balance, balanceStr);
 			views.setOnClickPendingIntent(R.id.widget_button_balance,
 					PendingIntent.getActivity(context, 0, new Intent(context, WalletActivity.class), 0));
