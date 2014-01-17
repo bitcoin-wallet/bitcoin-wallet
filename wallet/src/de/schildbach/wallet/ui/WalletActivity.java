@@ -95,7 +95,6 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 {
 	private static final int DIALOG_IMPORT_KEYS = 0;
 	private static final int DIALOG_EXPORT_KEYS = 1;
-	private static final int DIALOG_ALERT_OLD_SDK = 2;
 
 	private WalletApplication application;
 	private Wallet wallet;
@@ -318,8 +317,6 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 			return createImportKeysDialog();
 		else if (id == DIALOG_EXPORT_KEYS)
 			return createExportKeysDialog();
-		else if (id == DIALOG_ALERT_OLD_SDK)
-			return createAlertOldSdkDialog();
 		else
 			throw new IllegalArgumentException();
 	}
@@ -517,25 +514,6 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 
 		final CheckBox showView = (CheckBox) alertDialog.findViewById(R.id.export_keys_dialog_show);
 		showView.setOnCheckedChangeListener(new ShowPasswordCheckListener(passwordView));
-	}
-
-	private Dialog createAlertOldSdkDialog()
-	{
-		final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		builder.setIcon(android.R.drawable.ic_dialog_alert);
-		builder.setTitle(R.string.wallet_old_sdk_dialog_title);
-		builder.setMessage(R.string.wallet_old_sdk_dialog_message);
-		builder.setPositiveButton(R.string.button_ok, null);
-		builder.setNegativeButton(R.string.button_dismiss, new DialogInterface.OnClickListener()
-		{
-			@Override
-			public void onClick(final DialogInterface dialog, final int id)
-			{
-				prefs.edit().putBoolean(Constants.PREFS_KEY_ALERT_OLD_SDK_DISMISSED, true).commit();
-				finish();
-			}
-		});
-		return builder.create();
 	}
 
 	private void checkLowStorageAlert()
