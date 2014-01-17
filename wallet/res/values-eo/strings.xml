@@ -43,7 +43,6 @@
 	<string name="wallet_low_storage_dialog_button_apps">Administri Aplikaĵojn</string>
 	<string name="wallet_timeskew_dialog_title">Kontrolu vian tempojn agordojn!</string>
 	<string name="wallet_timeskew_dialog_msg">Via aparata tempo estas ekstere de %d minutoj. Vi probable ne povas sendi aŭ ricevi Bitmonoj pro tiu problemo.\n\nVi devus kontroli kaj korekti vian tempon kaj horzonojn agordojn.</string>
-	<string name="wallet_timeskew_dialog_button_settings">Agordoj</string>
 	<string name="wallet_version_dialog_title">Nova versio estas disponebla!</string>
 	<string name="wallet_version_dialog_msg">Tiu versio korektas gravajn cimojn. Por detaloj, vidu la ŝanĝan loglibron ĉe Google Play.</string>
 	<string name="wallet_version_dialog_button_market">Google Play</string>
@@ -191,6 +190,7 @@
 	<string name="about_credits_market_publisher_title">Aliaj aplikaĵoj de Aŭtoro</string>
 	<string name="notification_coins_received_msg">Ricevita %s</string>
 	<string name="notification_peers_connected_msg">%d pajroj konektitaj</string>
+
 	<!-- generic buttons -->
 	<string name="button_ok">Jes</string>
 	<string name="button_dismiss">Eksigi</string>
@@ -207,6 +207,7 @@
 	<string name="button_send_coins">Sendu monon</string>
 	<string name="button_scan">Skani</string>
 	<string name="button_edit_address">Aldoni/redakti adreson</string>
+	<string name="button_settings">Agordoj</string>
 	<string name="action_browse">Esplori</string>
 	<string name="time_today">hodiaŭ</string>
 	<string name="address_unlabeled">(sen nomo)</string>

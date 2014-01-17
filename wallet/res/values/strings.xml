@@ -43,11 +43,12 @@
 	<string name="wallet_low_storage_dialog_button_apps">Manage Apps</string>
 	<string name="wallet_timeskew_dialog_title">Check your time settings!</string>
 	<string name="wallet_timeskew_dialog_msg">Your device time is off by %d minutes. You probably cannot send or receive Bitcoins due to this problem.\n\nYou should check and correct your time and timezone settings.</string>
-	<string name="wallet_timeskew_dialog_button_settings">Settings</string>
 	<string name="wallet_version_dialog_title">A new version is available!</string>
 	<string name="wallet_version_dialog_msg">This version fixes important bugs. For details, see the change log on Google Play.</string>
 	<string name="wallet_version_dialog_button_market">Google Play</string>
 	<string name="wallet_version_dialog_button_binary">Download</string>
+	<string name="wallet_precision_warning_dialog_title">Change of denomination</string>
+	<string name="wallet_precision_warning_dialog_msg">Denomination has been changed from bitcoin (BTC) to millibitcoin (mBTC). All amounts are multiplied by a factor of 1000.\n\nYou can revert this change in the settings.</string>
 	<string name="wallet_old_sdk_dialog_title">Android version is out of date</string>
 	<string name="wallet_old_sdk_dialog_message">Chances are that one of the next releases of Bitcoin Wallet will not support your device any more. In some cases, it can get difficult to spend coins on this device.\n\nUnless you know what you are doing, it is recommended to move out your coins soon.</string>
 	<string name="send_coins_activity_title">Send Bitcoins</string>
@@ -211,6 +212,7 @@
 	<string name="button_send_coins">Send coins</string>
 	<string name="button_scan">Scan</string>
 	<string name="button_edit_address">Add/edit address</string>
+	<string name="button_settings">Settings</string>
 	<string name="action_browse">Browse</string>
 	<string name="time_today">today</string>
 	<string name="address_unlabeled">(unlabeled)</string>

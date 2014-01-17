@@ -43,7 +43,6 @@
 	<string name="wallet_low_storage_dialog_button_apps">Spravovať aplikácie</string>
 	<string name="wallet_timeskew_dialog_title">Skontrolujte nastavenie času!</string>
 	<string name="wallet_timeskew_dialog_msg">Vaše zariadenie má posunutý čas o %d minúť. Pravdepodobne nemôže posielať a prijímať Bitcoiny kvôli tomuto problému.\n\nMali by ste skontrolovať a upraviť nastavenie času alebo časovej zóny.</string>
-	<string name="wallet_timeskew_dialog_button_settings">Nastavenia</string>
 	<string name="wallet_version_dialog_title">Je dostupná nová verzia!</string>
 	<string name="wallet_version_dialog_msg">Táto verzia opravuje kritické chyby. Pre viac informácií navštívte Google Play.</string>
 	<string name="wallet_version_dialog_button_market">Google Play</string>
@@ -207,6 +206,7 @@
 	<string name="button_send_coins">Odoslať Bitcoiny</string>
 	<string name="button_scan">Skenovať</string>
 	<string name="button_edit_address">Pridať/zmeniť adresu</string>
+	<string name="button_settings">Nastavenia</string>
 	<string name="time_today">dnes</string>
 	<string name="address_unlabeled">(neoznačené)</string>
 

@@ -43,7 +43,6 @@
 	<string name="wallet_low_storage_dialog_button_apps">Gestisci applicazioni</string>
 	<string name="wallet_timeskew_dialog_title">Controlla data e ora!</string>
 	<string name="wallet_timeskew_dialog_msg">Il tuo dispositivo è spento da %d minuti. Probabilmente non puoi inviare o ricevere Bitcoin a causa di questo problema.\n\nDovresti controllare e correggere le tue impostazioni dell\'orario e del fuso orario.</string>
-	<string name="wallet_timeskew_dialog_button_settings">Impostazioni</string>
 	<string name="wallet_version_dialog_title">Una nuova versione è disponibile!</string>
 	<string name="wallet_version_dialog_msg">Questa versione ha corretto bug importanti. Per dettagli, guarda il change log su Google Play.</string>
 	<string name="wallet_version_dialog_button_market">Google Play</string>
@@ -208,6 +207,7 @@
 	<string name="button_send_coins">Invia Bitcoins</string>
 	<string name="button_scan">Analizza</string>
 	<string name="button_edit_address">Aggiungi/modifica indirizzo</string>
+	<string name="button_settings">Impostazioni</string>
 	<string name="time_today">oggi</string>
 	<string name="address_unlabeled">(non etichettato)</string>
 

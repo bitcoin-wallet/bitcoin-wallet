@@ -40,7 +40,6 @@
 	<string name="wallet_low_storage_dialog_button_apps">Quản lý ứng dụng</string>
 	<string name="wallet_timeskew_dialog_title">Kiểm tra thiết lập về múi giờ của bạn!</string>
 	<string name="wallet_timeskew_dialog_msg">Thiết bị của bạn đã tắt trong %d phút. Có thể đây là lý do bạn không thể gửi hoặc nhận Bitcoin.\n\nXin vui lòng kiểm tra lại thời gian của bạn và các thiết lập liên quan đến múi giờ.</string>
-	<string name="wallet_timeskew_dialog_button_settings">Thiết lập</string>
 	<string name="wallet_version_dialog_title">Hiện đã có một phiên bản mới!</string>
 	<string name="wallet_version_dialog_msg">Phiên bản này sửa các lỗi quan trọng mà chương trình gặp phải. Để biết thêm chi tiết, xem phần nhật trình thay đổi trên Google Play.</string>
 	<string name="wallet_version_dialog_button_market">Google Play</string>
@@ -188,6 +187,7 @@
 	<string name="button_send_coins">Gửi coin</string>
 	<string name="button_scan">Quét</string>
 	<string name="button_edit_address">Thêm/chỉnh sửa địa chỉ</string>
+	<string name="button_settings">Thiết lập</string>
 	<string name="time_today">hôm nay</string>
 	<string name="address_unlabeled">(chưa có nhãn)</string>
 

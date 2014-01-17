@@ -47,9 +47,10 @@ public class Configuration
 	private static final String PREFS_KEY_LAST_VERSION = "last_version";
 	private static final String PREFS_KEY_LAST_USED = "last_used";
 	private static final String PREFS_KEY_BEST_CHAIN_HEIGHT_EVER = "best_chain_height_ever";
+	private static final String PREFS_KEY_CHANGE_LOG_VERSION = "change_log_version";
 	public static final String PREFS_KEY_REMIND_BACKUP = "remind_backup";
 
-	private static final String PREFS_DEFAULT_BTC_PRECISION = "4";
+	private static final String PREFS_DEFAULT_BTC_PRECISION = "2/3";
 
 	private static final Logger log = LoggerFactory.getLogger(Configuration.class);
 
@@ -58,6 +59,11 @@ public class Configuration
 		this.prefs = prefs;
 
 		this.lastVersionCode = prefs.getInt(PREFS_KEY_LAST_VERSION, 0);
+	}
+
+	public boolean hasBtcPrecision()
+	{
+		return prefs.contains(PREFS_KEY_BTC_PRECISION);
 	}
 
 	public int getBtcPrecision()
@@ -185,6 +191,19 @@ public class Configuration
 	public void setBestChainHeightEver(final int bestChainHeightEver)
 	{
 		prefs.edit().putInt(PREFS_KEY_BEST_CHAIN_HEIGHT_EVER, bestChainHeightEver).commit();
+	}
+
+	public boolean changeLogVersionCodeCrossed(final int currentVersionCode, final int triggeringVersionCode)
+	{
+		final int changeLogVersion = prefs.getInt(PREFS_KEY_CHANGE_LOG_VERSION, 0);
+
+		final boolean wasBelow = changeLogVersion < triggeringVersionCode;
+		final boolean wasUsedBefore = changeLogVersion > 0;
+		final boolean isNowAbove = currentVersionCode >= triggeringVersionCode;
+
+		prefs.edit().putInt(PREFS_KEY_CHANGE_LOG_VERSION, currentVersionCode).commit();
+
+		return /* wasUsedBefore && */wasBelow && isNowAbove;
 	}
 
 	public void registerOnSharedPreferenceChangeListener(final OnSharedPreferenceChangeListener listener)

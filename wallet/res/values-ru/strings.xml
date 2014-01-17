@@ -43,7 +43,6 @@
 	<string name="wallet_low_storage_dialog_button_apps">Управление приложениями</string>
 	<string name="wallet_timeskew_dialog_title">Проверьте настройки времени!</string>
 	<string name="wallet_timeskew_dialog_msg">Время на вашем устройстве отстаёт на %d минут. Возможно, из-за этого вам не удастся отправлять или получать Bitcoin.\n\nПроверьте, поправьте время, параметры временной зоны.</string>
-	<string name="wallet_timeskew_dialog_button_settings">Настройки</string>
 	<string name="wallet_version_dialog_title">Доступна новая версия!</string>
 	<string name="wallet_version_dialog_msg">Эта версия исправляет важные ошибки. Детали на Google Play.</string>
 	<string name="wallet_version_dialog_button_market">Google Play</string>
@@ -204,6 +203,7 @@
 	<string name="button_send_coins">Отправить монеты</string>
 	<string name="button_scan">Сканировать</string>
 	<string name="button_edit_address">Добавить/изменить адрес</string>
+	<string name="button_settings">Настройки</string>
 	<string name="time_today">сегодня</string>
 	<string name="address_unlabeled">(без метки)</string>
 

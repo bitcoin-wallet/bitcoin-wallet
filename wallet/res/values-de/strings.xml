@@ -48,11 +48,12 @@
 	<string name="wallet_timeskew_dialog_title">Überprüfe Deine Zeit-Einstellungen!</string>
 	<string name="wallet_timeskew_dialog_msg">Deine Gerätezeit geht %d Minuten falsch. Deswegen kannst Du möglicherweise keine Bitcoins senden
 		oder empfangen.\n\nDu solltest Deine Zeit- und Zeitzoneneinstellungen überprüfen und korrigieren.</string>
-	<string name="wallet_timeskew_dialog_button_settings">Einstellungen</string>
 	<string name="wallet_version_dialog_title">Eine neue Version ist verfügbar!</string>
 	<string name="wallet_version_dialog_msg">Diese Version behebt wichtige Fehler. Die Einzelheiten stehen in der Liste der Änderungen auf Google Play.</string>
 	<string name="wallet_version_dialog_button_market">Google Play</string>
 	<string name="wallet_version_dialog_button_binary">Herunterladen</string>
+	<string name="wallet_precision_warning_dialog_title">Änderung der Stückelung</string>
+	<string name="wallet_precision_warning_dialog_msg">Die Stückelung wurde von Bitcoin (BTC) auf Millibitcoin (mBTC) geändert. Alle Werte sind mit dem Faktor 1000 multipliziert.\n\nDiese Änderung kannst Du in den Einstellungen rückgängig machen.</string>
 	<string name="wallet_old_sdk_dialog_title">Android ist veraltet</string>
 	<string name="wallet_old_sdk_dialog_message">Es ist möglich, daß eine der nächsten Versionen von Bitcoin Wallet dein Gerät nicht mehr unterstützt. In manchen Fällen kann es schwierig werden, Zahlungen zu tätigen.\n\nEs wird empfohlen, die enthaltenen Bitcoins bald zu verschieben, außer du weisst was du tust.</string>
 
@@ -228,6 +229,7 @@
 	<string name="button_send_coins">BTC senden</string>
 	<string name="button_scan">Scannen</string>
 	<string name="button_edit_address">Adresse hinzufügen/ändern</string>
+	<string name="button_settings">Einstellungen</string>
 
 	<string name="action_browse">Im Browser öffnen</string>
 

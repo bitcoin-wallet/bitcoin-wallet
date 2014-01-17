@@ -93,12 +93,15 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 {
 	private static final int DIALOG_IMPORT_KEYS = 0;
 	private static final int DIALOG_EXPORT_KEYS = 1;
+	private static final int DIALOG_CHANGELOG = 2;
 
 	private WalletApplication application;
 	private Configuration config;
 	private Wallet wallet;
 
 	private static final int REQUEST_CODE_SCAN = 0;
+
+	private static final int DEFAULT_PRECISION_CHANGE_VERSION_CODE = 152;
 
 	@Override
 	protected void onCreate(final Bundle savedInstanceState)
@@ -315,6 +318,8 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 			return createImportKeysDialog();
 		else if (id == DIALOG_EXPORT_KEYS)
 			return createExportKeysDialog();
+		else if (id == DIALOG_CHANGELOG)
+			return createChangeLogDialog();
 		else
 			throw new IllegalArgumentException();
 	}
@@ -517,6 +522,24 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 		showView.setOnCheckedChangeListener(new ShowPasswordCheckListener(passwordView));
 	}
 
+	private Dialog createChangeLogDialog()
+	{
+		final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setIcon(R.drawable.ic_menu_warning);
+		builder.setTitle(R.string.wallet_precision_warning_dialog_title);
+		builder.setMessage(R.string.wallet_precision_warning_dialog_msg);
+		builder.setPositiveButton(R.string.button_dismiss, null);
+		builder.setNegativeButton(R.string.button_settings, new DialogInterface.OnClickListener()
+		{
+			@Override
+			public void onClick(final DialogInterface dialog, final int id)
+			{
+				startActivity(new Intent(WalletActivity.this, PreferencesActivity.class));
+			}
+		});
+		return builder.create();
+	}
+
 	private void checkLowStorageAlert()
 	{
 		final Intent stickyIntent = registerReceiver(null, new IntentFilter(Intent.ACTION_DEVICE_STORAGE_LOW));
@@ -609,10 +632,14 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 			}
 		}.start();
 
-		if (CrashReporter.hasSavedCrashTrace())
+		if (!config.hasBtcPrecision()
+				&& config.changeLogVersionCodeCrossed(application.packageInfo().versionCode, DEFAULT_PRECISION_CHANGE_VERSION_CODE))
+		{
+			showDialog(DIALOG_CHANGELOG);
+		}
+		else if (CrashReporter.hasSavedCrashTrace())
 		{
 			final StringBuilder stackTrace = new StringBuilder();
-			final StringBuilder applicationLog = new StringBuilder();
 
 			try
 			{
@@ -680,7 +707,7 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 
 		if (pm.resolveActivity(settingsIntent, 0) != null)
 		{
-			builder.setPositiveButton(R.string.wallet_timeskew_dialog_button_settings, new DialogInterface.OnClickListener()
+			builder.setPositiveButton(R.string.button_settings, new DialogInterface.OnClickListener()
 			{
 				@Override
 				public void onClick(final DialogInterface dialog, final int id)

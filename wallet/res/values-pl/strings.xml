@@ -43,7 +43,6 @@
 	<string name="wallet_low_storage_dialog_button_apps">Zarządzaj aplikacjami</string>
 	<string name="wallet_timeskew_dialog_title">Sprawdź ustawienia czasu!</string>
 	<string name="wallet_timeskew_dialog_msg">Czas na twoim urządzeniu jest przesunięty o %d minut. Prawdopodobnie w wyniku tego problemu nie możesz otrzymywać ani wysyłać Bitcoinów.\n\nSprawdź i skoryguj ustawienia czasu i strefy czasowej.</string>
-	<string name="wallet_timeskew_dialog_button_settings">Ustawienia</string>
 	<string name="wallet_version_dialog_title">Nowa wersja jest dostępna!</string>
 	<string name="wallet_version_dialog_msg">W tej wersji poprawiono ważne błędy. Więcej szczegółów znajdziesz w dzienniku zmian na Google Play.</string>
 	<string name="wallet_version_dialog_button_market">Google Play</string>
@@ -207,6 +206,7 @@
 	<string name="button_send_coins">Wyślij monety</string>
 	<string name="button_scan">Skanuj</string>
 	<string name="button_edit_address">Dodaj/zmień adres</string>
+	<string name="button_settings">Ustawienia</string>
 	<string name="action_browse">Przeglądaj</string>
 	<string name="time_today">dzisiaj</string>
 	<string name="address_unlabeled">(nieopisane)</string>

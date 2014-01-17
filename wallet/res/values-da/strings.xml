@@ -43,7 +43,6 @@
 	<string name="wallet_low_storage_dialog_button_apps">Håndtér apps</string>
 	<string name="wallet_timeskew_dialog_title">Tjek dine tidsindstillinger!</string>
 	<string name="wallet_timeskew_dialog_msg">Din enheds tid fraviger med %d minutter. Du kan sandsynligvis ikke sende eller modtage Bitcoins på grund af dette problem.\n\nDu bør tjekke og rette dine tids- og tidzoneindstillinger.</string>
-	<string name="wallet_timeskew_dialog_button_settings">Indstillinger</string>
 	<string name="wallet_version_dialog_title">En ny version er tilgængelig!</string>
 	<string name="wallet_version_dialog_msg">Denne version retter vigtige fejl. For detaljer, se ændringsloggen på Google Play.</string>
 	<string name="wallet_version_dialog_button_market">Google Play</string>
@@ -208,6 +207,7 @@
 	<string name="button_send_coins">Send mønter</string>
 	<string name="button_scan">Scan</string>
 	<string name="button_edit_address">Tilføj/redigér adresse</string>
+	<string name="button_settings">Indstillinger</string>
 	<string name="time_today">i dag</string>
 	<string name="address_unlabeled">(uden etiket)</string>
 
