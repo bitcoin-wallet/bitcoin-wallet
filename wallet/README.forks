@@ -14,7 +14,7 @@ blockchain.info. Guess its source is pretty much un-mergable.
  Install: https://play.google.com/store/apps/details?id=piuk.blockchain.android
 
 
-Litecoin Wallet
+Litecoin Wallet (old)
 Forked in March 2013 in order to replace Bitcoin by Litecoin.
  Source:  https://github.com/hank/litecoin-wallet
  Install: https://play.google.com/store/apps/details?id=de.schildbach.wallet.litecoin
@@ -33,13 +33,43 @@ Forked in April 2013 in order to add a Hebrew translation.
  Install: https://play.google.com/store/apps/details?id=com.bitcoin_wallet.com
 
 
+DigiByte Wallet
+Forked in November 2013 in order to replace Bitcoin by DigiByte.
+ Source:  https://github.com/digibyte/DigiByteAndroid
+ Install: https://play.google.com/store/apps/details?id=de.schildbach.wallet.digibyte
+
+
+GoldCoin Wallet
+Forked in December 2013 in order to replace Bitcoin by GoldCoin.
+ Source:  https://github.com/goldcoin/goldcoin-android/
+ Install: https://play.google.com/store/apps/details?id=de.schildbach.wallet.goldcoin
+
+
 Dogecoin Wallet
 Forked in January 2014 in order to replace Bitcoin by Dogecoin.
  Source:  https://github.com/langerhans/dogecoin-wallet-new
  Install: https://play.google.com/store/apps/details?id=de.langerhans.wallet
 
 
-Bitcoin Wallet LI
+Bitcoin Wallet Li
 The only added feature seems to be a sliding menu, but it fails to show any screenshots. Source is un-mergable.
  Source:  https://code.google.com/p/bitcoin-wallet-li/
  Install: https://play.google.com/store/apps/details?id=com.mypgwali
+
+
+Litecoin Wallet
+Forked in January 2014 in order to replace Bitcoin by Litecoin.
+ Source:  https://github.com/Litecoin-Java/bitcoin-wallet
+ Install: https://play.google.com/store/apps/details?id=de.schildbach.wallet_ltc
+
+
+Franko Wallet
+Forked in January 2014 in order to replace Bitcoin by Frankos.
+ Source:  https://github.com/HashEngineering/franko-wallet
+ Install: https://play.google.com/store/apps/details?id=hashengineering.franko.wallet
+
+
+Digitalcoin Wallet
+Forked in January 2014 in order to replace Bitcoin by Digitalcoin.
+ Source:  https://github.com/Crypto-Expert/digitalcoin-wallet
+ Install: Not released.
