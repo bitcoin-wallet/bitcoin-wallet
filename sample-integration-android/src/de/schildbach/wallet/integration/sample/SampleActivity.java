@@ -27,7 +27,8 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-import de.schildbach.wallet.integration.android.BitcoinIntegration;
+
+import de.schildbach.wallet_ltc.integration.android.BitcoinIntegration;
 
 /**
  * @author Andreas Schildbach
