@@ -367,37 +367,7 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 			}
 		});
 
-		return builder.create();
-	}
-
-	private void prepareImportKeysDialog(final Dialog dialog)
-	{
-		final AlertDialog alertDialog = (AlertDialog) dialog;
-
-		final List<File> files = new LinkedList<File>();
-
-		// external storage
-		if (Constants.EXTERNAL_WALLET_BACKUP_DIR.exists() && Constants.EXTERNAL_WALLET_BACKUP_DIR.isDirectory())
-			for (final File file : Constants.EXTERNAL_WALLET_BACKUP_DIR.listFiles())
-				if (WalletUtils.KEYS_FILE_FILTER.accept(file) || Crypto.OPENSSL_FILE_FILTER.accept(file))
-					files.add(file);
-
-		// internal storage
-		for (final String filename : fileList())
-			if (filename.startsWith(Constants.WALLET_KEY_BACKUP_BASE58 + '.'))
-				files.add(new File(getFilesDir(), filename));
-
-		// sort
-		Collections.sort(files, new Comparator<File>()
-		{
-			@Override
-			public int compare(final File lhs, final File rhs)
-			{
-				return lhs.getName().compareToIgnoreCase(rhs.getName());
-			}
-		});
-
-		final FileAdapter adapter = new FileAdapter(this, files)
+		final FileAdapter adapter = new FileAdapter(this)
 		{
 			@Override
 			public View getDropDownView(final int position, View row, final ViewGroup parent)
@@ -429,8 +399,41 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 			}
 		};
 
-		final Spinner fileView = (Spinner) alertDialog.findViewById(R.id.import_keys_from_storage_file);
 		fileView.setAdapter(adapter);
+
+		return builder.create();
+	}
+
+	private void prepareImportKeysDialog(final Dialog dialog)
+	{
+		final AlertDialog alertDialog = (AlertDialog) dialog;
+
+		final List<File> files = new LinkedList<File>();
+
+		// external storage
+		if (Constants.EXTERNAL_WALLET_BACKUP_DIR.exists() && Constants.EXTERNAL_WALLET_BACKUP_DIR.isDirectory())
+			for (final File file : Constants.EXTERNAL_WALLET_BACKUP_DIR.listFiles())
+				if (WalletUtils.KEYS_FILE_FILTER.accept(file) || Crypto.OPENSSL_FILE_FILTER.accept(file))
+					files.add(file);
+
+		// internal storage
+		for (final String filename : fileList())
+			if (filename.startsWith(Constants.WALLET_KEY_BACKUP_BASE58 + '.'))
+				files.add(new File(getFilesDir(), filename));
+
+		// sort
+		Collections.sort(files, new Comparator<File>()
+		{
+			@Override
+			public int compare(final File lhs, final File rhs)
+			{
+				return lhs.getName().compareToIgnoreCase(rhs.getName());
+			}
+		});
+
+		final Spinner fileView = (Spinner) alertDialog.findViewById(R.id.import_keys_from_storage_file);
+		final FileAdapter adapter = (FileAdapter) fileView.getAdapter();
+		adapter.setFiles(files);
 		fileView.setEnabled(!adapter.isEmpty());
 
 		final EditText passwordView = (EditText) alertDialog.findViewById(R.id.import_keys_from_storage_password);
@@ -812,10 +815,21 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 		}
 		catch (final IOException x)
 		{
-			new AlertDialog.Builder(this).setInverseBackgroundForced(true).setIcon(android.R.drawable.ic_dialog_alert)
-					.setTitle(R.string.import_export_keys_dialog_failure_title)
-					.setMessage(getString(R.string.import_keys_dialog_failure, x.getMessage())).setNeutralButton(R.string.button_dismiss, null)
-					.show();
+			final AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+			dialog.setInverseBackgroundForced(true);
+			dialog.setIcon(android.R.drawable.ic_dialog_alert);
+			dialog.setTitle(R.string.import_export_keys_dialog_failure_title);
+			dialog.setMessage(getString(R.string.import_keys_dialog_failure, x.getMessage()));
+			dialog.setPositiveButton(R.string.button_dismiss, null);
+			dialog.setNegativeButton(R.string.button_retry, new DialogInterface.OnClickListener()
+			{
+				@Override
+				public void onClick(final DialogInterface dialog, final int id)
+				{
+					showDialog(DIALOG_IMPORT_KEYS);
+				}
+			});
+			dialog.show();
 
 			log.info("problem reading private keys", x);
 		}

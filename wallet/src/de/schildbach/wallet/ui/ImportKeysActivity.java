@@ -228,10 +228,21 @@ public final class ImportKeysActivity extends AbstractWalletActivity
 		}
 		catch (final IOException x)
 		{
-			new AlertDialog.Builder(this).setInverseBackgroundForced(true).setIcon(android.R.drawable.ic_dialog_alert)
-					.setTitle(R.string.import_export_keys_dialog_failure_title)
-					.setMessage(getString(R.string.import_keys_dialog_failure, x.getMessage()))
-					.setNeutralButton(R.string.button_dismiss, finishListener).setOnCancelListener(finishListener).show();
+			final AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+			dialog.setInverseBackgroundForced(true);
+			dialog.setIcon(android.R.drawable.ic_dialog_alert);
+			dialog.setTitle(R.string.import_export_keys_dialog_failure_title);
+			dialog.setMessage(getString(R.string.import_keys_dialog_failure, x.getMessage()));
+			dialog.setPositiveButton(R.string.button_dismiss, finishListener).setOnCancelListener(finishListener);
+			dialog.setNegativeButton(R.string.button_retry, new DialogInterface.OnClickListener()
+			{
+				@Override
+				public void onClick(final DialogInterface dialog, final int id)
+				{
+					showDialog(DIALOG_IMPORT_KEYS);
+				}
+			});
+			dialog.show();
 
 			log.info("problem reading private keys", x);
 		}

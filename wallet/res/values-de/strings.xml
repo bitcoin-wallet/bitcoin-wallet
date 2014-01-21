@@ -215,6 +215,7 @@
 	<string name="button_ok">Ok</string>
 	<string name="button_dismiss">Schließen</string>
 	<string name="button_cancel">Abbrechen</string>
+	<string name="button_retry">Wiederholen</string>
 	<string name="button_help">Hilfe</string>
 	<string name="button_add">Hinzufügen</string>
 	<string name="button_delete">Löschen</string>
