@@ -55,9 +55,11 @@ public class Constants
 
 	public static final String CHECKPOINTS_FILENAME = "checkpoints" + FILENAME_NETWORK_SUFFIX;
 
-	private static final String EXPLORE_BASE_URL_PROD = "http://explorer.litecoin.net/";
-	public static final String EXPLORE_BASE_URL = EXPLORE_BASE_URL_PROD;
-            
+    private static final String EXPLORE_BASE_URL_PROD = "http://ltc.block-explorer.com/";
+    private static final String EXPLORE2_BASE_URL_PROD = "http://explorer.litecoin.net/";
+    public static final String EXPLORE_BASE_URL = EXPLORE_BASE_URL_PROD;
+    public static final String EXPLORE2_BASE_URL = EXPLORE2_BASE_URL_PROD;
+
 	public static final String MIMETYPE_TRANSACTION = "application/x-ltctx";
 
 	public static final int MAX_NUM_CONFIRMATIONS = 7;
