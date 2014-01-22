@@ -42,7 +42,9 @@ import java.io.IOException;
 import java.math.BigInteger;
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.Locale;
+import java.util.Map;
 import java.util.zip.GZIPOutputStream;
 
 /**
@@ -218,7 +220,8 @@ public final class TransactionFragment extends SherlockFragment
 		}
 
 		final TextView viewStatus = (TextView) view.findViewById(R.id.transaction_fragment_status);
-		final TransactionConfidence.ConfidenceType confidenceType = tx.getConfidence().getConfidenceType();
+        final TransactionConfidence confidence = tx.getConfidence();
+        final TransactionConfidence.ConfidenceType confidenceType = confidence.getConfidenceType();
 		if (confidenceType == TransactionConfidence.ConfidenceType.DEAD)
 			viewStatus.setText(R.string.transaction_fragment_status_dead);
 		else if (confidenceType == TransactionConfidence.ConfidenceType.PENDING)
@@ -227,6 +230,9 @@ public final class TransactionFragment extends SherlockFragment
 			viewStatus.setText(R.string.transaction_fragment_status_confirmed);
 		else
 			viewStatus.setText(R.string.transaction_fragment_status_unknown);
+
+        final TextView viewConfirmations = (TextView)view.findViewById(R.id.transaction_fragment_confirmations);
+        viewConfirmations.setText(String.valueOf(confidence.getDepthInBlocks()));
 
 		final TextView viewHash = (TextView) view.findViewById(R.id.transaction_fragment_hash);
 		final View viewHashButton = view.findViewById(R.id.transaction_fragment_hash_button);

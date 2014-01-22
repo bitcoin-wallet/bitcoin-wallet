@@ -142,6 +142,25 @@
 			android:textSize="20sp" />
 	</TableRow>
 
+    <TableRow android:paddingTop="16dp" >
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="16dp"
+                android:text="@string/transaction_fragment_confirmations_label"
+                android:textColor="@android:color/white"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+        <TextView
+                android:id="@+id/transaction_fragment_confirmations"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/white"
+                android:textSize="20sp" />
+    </TableRow>
+
 	<TableRow>
 
 		<TextView

@@ -245,5 +245,6 @@
     <string name="preferences_qr_title">QR Code Scanner App</string>
     <string name="preferences_qr_summary">Which app should be used for QR code scanning?</string>
     <string name="wallet_transactions_context_browse2">Alternative Explorer</string>
+    <string name="transaction_fragment_confirmations_label">Confirmations</string>
 
 </resources>
