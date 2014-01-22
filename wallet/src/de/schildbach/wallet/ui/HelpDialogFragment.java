@@ -72,7 +72,7 @@ public final class HelpDialogFragment extends DialogFragment
 		final String page = args.getString(KEY_PAGE);
 
 		final WebView webView = new WebView(activity);
-		webView.loadUrl("file:///android_asset/" + page + languagePrefix() + ".html");
+		webView.loadUrl("file:///android_res/raw/" + page + ".html");
 
 		final Dialog dialog = new Dialog(activity);
 		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -80,38 +80,5 @@ public final class HelpDialogFragment extends DialogFragment
 		dialog.setCanceledOnTouchOutside(true);
 
 		return dialog;
-	}
-
-	private final static String languagePrefix()
-	{
-		final String language = Locale.getDefault().getLanguage();
-		if ("de".equals(language))
-			return "_de";
-		else if ("cs".equals(language))
-			return "_cs";
-		else if ("el".equals(language))
-			return "_el";
-		else if ("es".equals(language))
-			return "_es";
-		else if ("fr".equals(language))
-			return "_fr";
-		else if ("it".equals(language))
-			return "_it";
-		else if ("nl".equals(language))
-			return "_nl";
-		else if ("pl".equals(language))
-			return "_pl";
-		else if ("ru".equals(language))
-			return "_ru";
-		else if ("sk".equals(language))
-			return "_sk";
-		else if ("sv".equals(language))
-			return "_sv";
-		else if ("tr".equals(language))
-			return "_tr";
-		else if ("zh".equals(language))
-			return "_zh";
-		else
-			return "";
 	}
 }
