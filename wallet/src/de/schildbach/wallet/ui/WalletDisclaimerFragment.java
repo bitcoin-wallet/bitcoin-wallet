@@ -75,7 +75,7 @@ public final class WalletDisclaimerFragment extends Fragment implements OnShared
 				if (showBackup)
 					((WalletActivity) activity).handleExportKeys();
 				else
-					HelpDialogFragment.page(getFragmentManager(), "safety");
+					HelpDialogFragment.page(getFragmentManager(), R.string.help_safety);
 			}
 		});
 

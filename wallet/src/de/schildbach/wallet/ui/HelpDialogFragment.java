@@ -17,17 +17,13 @@
 
 package de.schildbach.wallet.ui;
 
-import java.util.Locale;
-
-import javax.annotation.Nonnull;
-
-import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
-import android.view.Window;
-import android.webkit.WebView;
+import android.text.Html;
+import de.schildbach.wallet_ltc.R;
 
 /**
  * @author Andreas Schildbach, Litecoin Dev Team
@@ -36,49 +32,35 @@ public final class HelpDialogFragment extends DialogFragment
 {
 	private static final String FRAGMENT_TAG = HelpDialogFragment.class.getName();
 
-	private static final String KEY_PAGE = "page";
+	private static final String KEY_MESSAGE = "message";
 
-	public static void page(final FragmentManager fm, @Nonnull final String page)
+	public static void page(final FragmentManager fm, final int messageResId)
 	{
-		final DialogFragment newFragment = HelpDialogFragment.instance(page);
+		final DialogFragment newFragment = HelpDialogFragment.instance(messageResId);
 		newFragment.show(fm, FRAGMENT_TAG);
 	}
 
-	private static HelpDialogFragment instance(@Nonnull final String page)
+	private static HelpDialogFragment instance(final int messageResId)
 	{
 		final HelpDialogFragment fragment = new HelpDialogFragment();
 
 		final Bundle args = new Bundle();
-		args.putString(KEY_PAGE, page);
+		args.putInt(KEY_MESSAGE, messageResId);
 		fragment.setArguments(args);
 
 		return fragment;
-	}
-
-	private Activity activity;
-
-	@Override
-	public void onAttach(final Activity activity)
-	{
-		super.onAttach(activity);
-
-		this.activity = activity;
 	}
 
 	@Override
 	public Dialog onCreateDialog(final Bundle savedInstanceState)
 	{
 		final Bundle args = getArguments();
-		final String page = args.getString(KEY_PAGE);
+        final int messageResId = args.getInt(KEY_MESSAGE);
 
-		final WebView webView = new WebView(activity);
-		webView.loadUrl("file:///android_res/raw/" + page + ".html");
+        final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity())
+                .setMessage(Html.fromHtml(getString(messageResId)))
+                .setNeutralButton(R.string.button_dismiss, null);
 
-		final Dialog dialog = new Dialog(activity);
-		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-		dialog.setContentView(webView);
-		dialog.setCanceledOnTouchOutside(true);
-
-		return dialog;
+        return builder.create();
 	}
 }
