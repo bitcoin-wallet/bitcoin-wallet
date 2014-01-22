@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="help_wallet">
+<![CDATA[
+		<p>
+			Ekranın üst sol köşesi diğer kişilerin size Litecoin yollayabilmek için bilmeleri seçilen sizin Litecoin adresinizi gösterir.
+			Adresi değiştirmek için dokunmak yeterlidir.
+		</p>
+		<p>
+			Sağdaki QR code Litecoin adresinizi içerir ve diğer kişiler tarafından taranmak için kullanılabilir.
+			Daha büyük bir QR code görüntülemek için koda dokununuz.
+		</p>
+		<p>
+			Ekranın ortasında bakiyeniz görüntülenir.
+			Cüzdanınızın seçilen yerel dövizde değeri de sunulur.
+			Tüm yerel dövizlerin listesini görüntülemek için bakiyenize dokununuz, herhangi bir dövizi varsayılan olarak seçmek içinse listedeki bir dövize dokununuz.
+		</p>
+		<p>
+			Ekranın alt kısmı başlangıçta boş olan muamele listenizi içerir.
+			Bekleyen muameleler teyit edilene dek gri olarak görüntülenirler.
+			Herhangi bir unsura dokunarak alıcı ya da gönderici adresini adres defterine ilâve edebilirsiniz.
+			Listeye filtre uygulamak için sağa ya da sola kaydırabilirsiniz.
+		</p>
+		<p>
+			Litecoin yollamak ya da talep etmek için etkinlik çubuğunda düğmelere dokunabilirsiniz.
+			Tercihler menüsünde daha fazla seçenek bulabilirsiniz.
+		</p>
+]]>
+    </string>
+    <string name="help_request_coins">
+<![CDATA[
+		<p>
+			Bu diyaloğu kullanarak başka bir kişiden Litecoin talep edebilirsiniz (bu kişinin Litecoin Wallet uygulamasını cihazında kurmuş olması gerekir).
+		</p>
+		<p>
+			İlk olarak talep edilen Litecoin miktarını girebilirsiniz.
+		</p>
+		<p>
+			Ardından ya diğer kişi tarafından taranacak bir QR code oluşturmanız,
+			ya da uzaktaki bir kişiye etkinlik çubuğunda paylaş düğmesiyle talebinizi göndermeniz gerekir.
+			Bu kişinin Litecoin bağlantısını tıklaması gerekecektir.
+		</p>
+		<p>
+			Her durumda diğer kişiye Litecoin göndermesi için tüm seçenekleri doldurulmuş bir diyalog gösterilecektir.
+			Kabul ederse tüm yapması gereken muameleyi yollamaktır.
+		</p>
+]]>
+    </string>
+    <string name="help_send_coins">
+<![CDATA[
+		<p>
+			Litecoin gönderme prosedürünü başlattınız.
+			Buraya ya ana ekrandan ya da mobil ağ tarayıcınızda bir Litecoin bağlantısına tıklayarak geldiniz.
+		</p>
+		<p>
+			İlk olarak ödeme yapacağınız Litecoin adresini girmelisiniz.
+			Adres defterinizde bilinen adreslere dayanılarak adres otomatik olarak tamamlanacaktır.
+			Ayrıca etkinlik çubuğunda QR düğmesine dokunarak Litecoin adresi ya da talebi içeren QR kodlarını tarayabilirsiniz.
+		</p>
+		<p>
+			Bunun ardından o anda ne kadar Litecoin harcayabileceğinizi görüntüleyebilirsiniz.
+			Varsa ana ekrandaki bakiye ile farklılıklar henüz teyit edilmemiştir ve dolayısıyla henüz harcanamaz.
+		</p>
+		<p>
+			Son olarak ödenecek miktarı ve sunduğunuz ücreti girmeniz gerekir.
+		</p>
+		<p>
+			Çevrimdışı olduğunuz sırada bir muamele girebilirsiniz.
+			Litecoin Wallet uygulamasının sonraki açılışında gönderilir.
+			Bir muamelenin mümkün olduğu kadar çabuk işlenmesini istiyorsanız bağlantınızın iyi olduğundan (mesela WLAN ile).
+		</p>
+		<p>
+			Not:
+			Muameleler geri alınamaz!
+			Alıcı adresini daima kontrol ediniz.
+		</p>
+]]>
+    </string>
+    <string name="help_safety">
+<![CDATA[
+		<p><b>Litecoinlerinizin güvenliği hakkında önemli noktalar:</b></p>
+        <p>
+            Litecoin cüzdanınızdaki Litecoinler cihazınızda saklanır.
+            <b>Cihazınızı kaybederseniz Litecoinlerinizi de kaybedersiniz.</b>
+            Tıpkı fiziki cüzdanınızdaki para gibi.
+        </p>
+        <p>
+            <b>Litecoin Wallet</b> uygulamasını kaldırmadan önce (ya da uygulama verilerini/cihazınızı sıfırlamadan önce) <b>tüm Litecoinlerinizi başka bir cüzdana aktarınız</b>.
+            Kalan tüm Litecoinler kaybolacaktır.
+        </p>
+        <p>
+            <b>Muameleler geri alınamaz</b>.
+            Litecoinlerinizi yanlış bir adrese yollarsanız, bunları geri almak için alıcıyı tanımanız ve onun geri yollamayı kabul etmeniz dışında hiçbir yol yoktur.
+        </p>
+        <p>
+            <b>Android cihazınızı güvenli kullanın!</b>
+            Sadece tamamen güvendiğiniz uygulamaları indiriniz.
+            Kötücül uygulamalar cüzdanınızı çalmaya çalışabilir.
+        </p>
+        <p>
+            Riski sınırlayın!
+            <b>Litecoin Wallet uygulamasını sadece küçük tutarlar için kullanınız</b>.
+        </p>
+        <p><b>DISCLAIMER OF WARRANTY</b></p>
+        <p>The developers of this app use their best efforts to improve its functionality and security. That being said, Litecoin (like Bitcoin) is experimental software with source fully available to the public.</p>
+        <span style=\"font-family: monospace\">THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.</span>
+]]>
+    </string>
+</resources>

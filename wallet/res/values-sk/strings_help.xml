@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="help_wallet">
+<![CDATA[
+		<p>
+			V ľavej hornej časti obrazovky je Vaša aktuálna Bitcoin adresa, túto adresu potrebuje poznať odosielateľ, aby Vám mohol poslať Bitcoiny.
+			Kliknutím na adresu ju môžte zmeniť.
+		</p>
+		<p>
+			QR kód na pravej strane obsahuje Vašu Bitcoin adresu, odosielateľ ho môže jednoducho naskenovať.
+			Kliknite na QR kód, aby ste ho zväčšili.
+		</p>
+		<p>
+			V strede obrazovky je zobrazený aktuálny zostatok.
+			Hodnota Vašich Bitcoinov je zobrazená aj v inej zvolenej mene.
+			Kliknutím na zostatok zobrazíte zoznam cudzích mien, následným kliknutím na menu ju môžte nastaviť ako predvolenú.
+		</p>
+		<p>
+			V spodnej časti obrazovky sa nachádza zoznam transakcií. Zoznam je na začiatku prázdny.
+			Aktuálne prebiehajúce transakcie sú šedé, až kým nie sú potvrdené.
+			Kliknutím na transakciu môžete pridať danú adresu do adresára.
+			Ťahom vľavo a vpravo môžte filtrovať prijaté a odoslané platby.
+		</p>
+		<p>
+			Kliknutím na tlačidlá naspodku môžte poslať alebo vyžiadať Bitcoiny.
+			Ďalšie možnosti sú v ponuke nastavení.
+		</p>
+]]>
+    </string>
+    <string name="help_request_coins">
+<![CDATA[
+		<p>
+			Na tejto obrazovke môžete vyžiadať Bitcoiny od niekoho iného (kto má nainštalovanú aplikáciu Bitcoin Wallet).
+		</p>
+		<p>
+			Najprv zadajte sumu Bitcoinov, ktoré chcete vyžiadať.
+		</p>
+		<p>
+			Potom dajte druhej strane naskenovať vygenerovaný QR kód
+			alebo môžte svoju žiadosť poslať použitím tlačidla zdieľať.
+			Druhá strana potom klikne na Bitcoin URL.
+		</p>
+		<p>
+			V oboch prípadoch druhá strana uvidí predvyplnenú obrazovku na odosielanie Bitcoinov.
+			Ak s transakciou súhlasí, tak ju iba potvrdí.
+		</p>
+]]>
+    </string>
+    <string name="help_send_coins">
+<![CDATA[
+		<p>
+			Práve ste začali proces odosielania Bitcoinov.
+			Dostali ste sa sem z hlavnej obrazovky alebo kliknutím na Bitcoin adresu v prehliadači.
+		</p>
+		<p>
+			Najprv zadajte adresu, na ktorú chcete odoslať platbu.
+			Ak sa adresa nachádza v adresári, tak sa automaticky doplní.
+			Kliknutím na ikonu fotoaparátu môžete naskenovať QR kód s Bitcoin adresou alebo požiadavkou na zaplatenie.
+		</p>
+		<p>
+			Ďalej vidíte koľko Bitcoinov môžete aktuálne minúť.
+			Rozdiel medzi zostatkom na hlavnej obrazovke a počtom Bitcoinov, ktoré môžete minúť tvoria nepotvrdené transakcie.
+		</p>
+		<p>
+			Nakoniec zadajte sumu platby.
+		</p>
+		<p>
+			Môžete zadať platbu aj keď ste v offline režime.
+			Platba bude odoslaná pri ďalšom spustení aplikácie.
+			Ak chcete, aby platba bola spracovaná v čo najkratšom čase, uistite sa že máte rýchle pripojenie (napríklad WiFi).
+		</p>
+		<p>
+			Poznámka:
+			Transakcie nie je možné stornovať!
+			Vždy skontrolujte adresu príjemcu.
+		</p>
+]]>
+    </string>
+    <string name="help_safety">
+<![CDATA[
+		<p><b>Dôležité informácie o bezpečnosti:</b></p>
+        <p>
+            Bitcoiny sú uložené na Vašom zariadení.
+            <b>Ak zariadenie stratíte, prídete o všetky svoje Bitcoiny.</b>
+        </p>
+        <p>
+            To znamená, že by ste mali <b>zálohovať svoju peňaženku</b>!
+            Využite funkciu zálohovania v tejto aplikácii, neodporúča sa na zálohovanie použiť aplikácie tretích strán.
+            Svoju zálohu bezpečne uchovajte a nezabudnite heslo.
+        </p>
+        <p>
+            <b>Pred odinštalovaním</b> (alebo vymazaním dát/obnovením továrenských nastavení), <b>odošlite svoje Bitcoiny do inej peňaženky</b>.
+            Inak o svoje Bitcoiny prídete.
+        </p>
+        <p>
+            <b>Platby sa nedajú stornovať</b>.
+            Ak pošlete svoje Bitcoiny na nesprávnu adresu, je takmer nemožné získať ich späť.
+        </p>
+        <p>
+            <b>Chráňte si svoje zariadenie!</b>
+            Nepoužívajte rootnuté zariadenie.
+            Inštalujte len aplikácie, ktorým dôverujete.
+            Škodlivé aplikácie sa môžu pokúsiť ukradnúť Vašu peňaženku.
+        </p>
+        <p>
+            Znížte riziko na minimum!
+            <b>Aplikáciu používajte len na malé sumy.</b>
+        </p>
+        <p><b>DISCLAIMER OF WARRANTY</b></p>
+        <p>The developers of this app use their best efforts to improve its functionality and security. That being said, Litecoin (like Bitcoin) is experimental software with source fully available to the public.</p>
+        <span style=\"font-family: monospace\">THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.</span>
+]]>
+    </string>
+</resources>
