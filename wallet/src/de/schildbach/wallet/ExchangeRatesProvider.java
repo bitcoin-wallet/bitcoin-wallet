@@ -43,6 +43,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.MatrixCursor;
 import android.net.Uri;
+import android.preference.PreferenceManager;
 import android.provider.BaseColumns;
 import android.text.format.DateUtils;
 import de.schildbach.wallet.util.GenericUtils;
@@ -55,7 +56,7 @@ public class ExchangeRatesProvider extends ContentProvider
 {
 	public static class ExchangeRate
 	{
-		public ExchangeRate(@Nonnull final String currencyCode, @Nonnull final BigInteger rate, @Nonnull final String source)
+		public ExchangeRate(@Nonnull final String currencyCode, @Nonnull final BigInteger rate, final String source)
 		{
 			this.currencyCode = currencyCode;
 			this.rate = rate;
@@ -76,6 +77,8 @@ public class ExchangeRatesProvider extends ContentProvider
 	public static final String KEY_CURRENCY_CODE = "currency_code";
 	private static final String KEY_RATE = "rate";
 	private static final String KEY_SOURCE = "source";
+
+	private Configuration config;
 
 	@CheckForNull
 	private Map<String, ExchangeRate> exchangeRates = null;
@@ -111,6 +114,15 @@ public class ExchangeRatesProvider extends ContentProvider
 	@Override
 	public boolean onCreate()
 	{
+		this.config = new Configuration(PreferenceManager.getDefaultSharedPreferences(getContext()));
+
+		final ExchangeRate cachedExchangeRate = config.getCachedExchangeRate();
+		if (cachedExchangeRate != null)
+		{
+			exchangeRates = new TreeMap<String, ExchangeRate>();
+			exchangeRates.put(cachedExchangeRate.currencyCode, cachedExchangeRate);
+		}
+
 		return true;
 	}
 
@@ -124,7 +136,7 @@ public class ExchangeRatesProvider extends ContentProvider
 	{
 		final long now = System.currentTimeMillis();
 
-		if (exchangeRates == null || now - lastUpdated > UPDATE_FREQ_MS)
+		if (lastUpdated == 0 || now - lastUpdated > UPDATE_FREQ_MS)
 		{
 			Map<String, ExchangeRate> newExchangeRates = null;
 			if (newExchangeRates == null)
@@ -138,6 +150,10 @@ public class ExchangeRatesProvider extends ContentProvider
 			{
 				exchangeRates = newExchangeRates;
 				lastUpdated = now;
+
+				final ExchangeRate exchangeRateToCache = bestExchangeRate(config.getExchangeCurrencyCode());
+				if (exchangeRateToCache != null)
+					config.setCachedExchangeRate(exchangeRateToCache);
 			}
 		}
 
@@ -156,27 +172,27 @@ public class ExchangeRatesProvider extends ContentProvider
 		}
 		else if (selection.equals(KEY_CURRENCY_CODE))
 		{
-			final String selectedCode = selectionArgs[0];
-			ExchangeRate rate = selectedCode != null ? exchangeRates.get(selectedCode) : null;
-
-			if (rate == null)
-			{
-				final String defaultCode = defaultCurrencyCode();
-				rate = defaultCode != null ? exchangeRates.get(defaultCode) : null;
-
-				if (rate == null)
-				{
-					rate = exchangeRates.get(Constants.DEFAULT_EXCHANGE_CURRENCY);
-
-					if (rate == null)
-						return null;
-				}
-			}
+			final ExchangeRate rate = bestExchangeRate(selectionArgs[0]);
 
 			cursor.newRow().add(rate.currencyCode.hashCode()).add(rate.currencyCode).add(rate.rate.longValue()).add(rate.source);
 		}
 
 		return cursor;
+	}
+
+	private ExchangeRate bestExchangeRate(final String currencyCode)
+	{
+		ExchangeRate rate = currencyCode != null ? exchangeRates.get(currencyCode) : null;
+		if (rate != null)
+			return rate;
+
+		final String defaultCode = defaultCurrencyCode();
+		rate = defaultCode != null ? exchangeRates.get(defaultCode) : null;
+
+		if (rate != null)
+			return rate;
+
+		return exchangeRates.get(Constants.DEFAULT_EXCHANGE_CURRENCY);
 	}
 
 	private String defaultCurrencyCode()

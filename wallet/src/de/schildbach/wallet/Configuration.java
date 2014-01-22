@@ -17,14 +17,18 @@
 
 package de.schildbach.wallet;
 
+import java.math.BigInteger;
+
 import javax.annotation.Nonnull;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.text.format.DateUtils;
+import de.schildbach.wallet.ExchangeRatesProvider.ExchangeRate;
 
 /**
  * @author Andreas Schildbach
@@ -47,6 +51,8 @@ public class Configuration
 	private static final String PREFS_KEY_LAST_VERSION = "last_version";
 	private static final String PREFS_KEY_LAST_USED = "last_used";
 	private static final String PREFS_KEY_BEST_CHAIN_HEIGHT_EVER = "best_chain_height_ever";
+	private static final String PREFS_KEY_CACHED_EXCHANGE_CURRENCY = "cached_exchange_currency";
+	private static final String PREFS_KEY_CACHED_EXCHANGE_RATE = "cached_exchange_rate";
 	private static final String PREFS_KEY_CHANGE_LOG_VERSION = "change_log_version";
 	public static final String PREFS_KEY_REMIND_BACKUP = "remind_backup";
 
@@ -191,6 +197,28 @@ public class Configuration
 	public void setBestChainHeightEver(final int bestChainHeightEver)
 	{
 		prefs.edit().putInt(PREFS_KEY_BEST_CHAIN_HEIGHT_EVER, bestChainHeightEver).commit();
+	}
+
+	public ExchangeRate getCachedExchangeRate()
+	{
+		if (prefs.contains(PREFS_KEY_CACHED_EXCHANGE_CURRENCY) && prefs.contains(PREFS_KEY_CACHED_EXCHANGE_RATE))
+		{
+			final String cachedExchangeCurrency = prefs.getString(PREFS_KEY_CACHED_EXCHANGE_CURRENCY, null);
+			final BigInteger cachedExchangeRate = BigInteger.valueOf(prefs.getLong(PREFS_KEY_CACHED_EXCHANGE_RATE, 0));
+			return new ExchangeRate(cachedExchangeCurrency, cachedExchangeRate, null);
+		}
+		else
+		{
+			return null;
+		}
+	}
+
+	public void setCachedExchangeRate(final ExchangeRate cachedExchangeRate)
+	{
+		final Editor edit = prefs.edit();
+		edit.putString(PREFS_KEY_CACHED_EXCHANGE_CURRENCY, cachedExchangeRate.currencyCode);
+		edit.putLong(PREFS_KEY_CACHED_EXCHANGE_RATE, cachedExchangeRate.rate.longValue());
+		edit.commit();
 	}
 
 	public boolean changeLogVersionCodeCrossed(final int currentVersionCode, final int triggeringVersionCode)
