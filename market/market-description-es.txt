@@ -1,20 +1,22 @@
-Consiste en una cartera de bitcoins para tu dispositivo Android. Puedes enviar bitcoins entre teléfonos haciendo explorar los códigos QR que muestra la aplicación o mediante NFC (Near Field Communication).
+Ten tus Bitcoins siempre contigo, en tu bolsillo! Paga rápidamente escaneando un código QR. Como comerciante, recibes los pagos de forma fiable e instantáneamente. Bitcoin Wallet es la primera Bitcoin app para movil, e incluso la mas segura!
 
 CARACTERÍSTICAS:
 
-• Visualización del saldo de la cartera en Bitcoin y en otras monedas.
-• Envío y recpción de bitcoins a través de NFC, códigos QR o URL Bitcoin.
-• Libreta de direcciones para guardar las direcciones Bitcoin utilizadas habitualmente.
-• Las transacciones se pueden llevar a cabo sin conexión, ejecutándose al recuperar la conexión.
-• Notificaciones de sistema para la conectividad a la red Bitcoin y para la recepción de bitcoins.
-• Widget de aplicación para el saldo Bitcoin.
+• ¡No requiere registro, servidor en la nube o servicio web! Este monedero es auténticamente entre pares (peer-to-peer).
+• Muestra la cantidad de Bitcoins en BTC y mBTC
+• Conversión a divisas nacionales.
+• Envío y recepción de bitcoins vía NFC, códigos QR o URL de Bitcoin.
+• Libreta de direcciones para guardar las direcciones Bitcoin más utilizadas.
+• Cuando no tengas conexión, puedes seguir pagando via Bluetooth.
+• Notificación al recibir monedas.
+• Widget para el saldo de bitcoins.
 
 Puedes descubrir más sobre Bitcoin en
 http://bitcoin.org
 
-Si quieres contribuir a Bitcoin Wallet, el proyecto está localizado en
+Si quieres contribuir a Bitcoin Wallet, el proyecto se encuentra en
 https://github.com/schildbach/bitcoin-wallet
 
 Licencia: GPLv3
-¡Úsalo bajo tu propia responsabilidad!
+¡Úsalo bajo tu propio riesgo!
 http://www.gnu.org/licenses/gpl-3.0.en.html
