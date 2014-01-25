@@ -1,0 +1,26 @@
+Havu viajn Dogemonojn ĉiam kun vi, en via poŝo! Vi povas pagi per rapide skanado de QR-kodo. Kiel komercisto, vi povas ricevi pagojn fidinde kaj tuj. Dogecoin Wallet estas unua movebla Dogemona aplikaĵo, kaj disputeble ankaŭ la plej sekura!
+
+TRAJTOJ:
+
+• Neniu registriĝo, ttt servo aŭ nubo bezonataj! Ĉi monujo estas malcentralizita kaj pajro al pajro.
+• Montro de Dogemona kvanto en DOGE kaj mDOGE.
+• Konvertiĝo al kaj de la naciaj valutoj.
+• Sendado kaj ricevo de Dogemono tra NFC, QR-kodoj aŭ Dogemono URLoj.
+• Adreslibro por regule uzataj Dogemonadresoj.
+• Kiam vi estas senkonekta, vi ankoraŭ povas pagi per Bluetooth.
+• Sistema sciigo por ricevitaj moneroj.
+• Aplikaĵa fenestraĵo por Dogemona saldo.
+
+Vi povas trovi pli pri Dogemono ĉe
+http://dogecoin.com
+
+Se vi volas kontribui al Dogecoin Wallet, la projekto lokas ĉe
+https://github.com/langerhans/dogecoin-wallet-new
+
+This is a fork of the popular Dogecoin Wallet by Andreas Schildbach and was converted to Dogecoin by me.
+Find the original at
+https://play.google.com/store/apps/details?id=de.schildbach.wallet
+
+Licenco: GPLv3
+Uzu je via propra risko!
+http://www.gnu.org/licenses/gpl-3.0.en.html

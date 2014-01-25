@@ -1,18 +1,20 @@
-Consiste en una cartera de dogecoins para tu dispositivo Android. Puedes enviar dogecoins entre teléfonos haciendo explorar los códigos QR que muestra la aplicación o mediante NFC (Near Field Communication).
+Ten tus Dogecoins siempre contigo, en tu bolsillo! Paga rápidamente escaneando un código QR. Como comerciante, recibes los pagos de forma fiable e instantáneamente. Dogecoin Wallet es la primera Dogecoin app para movil, e incluso la mas segura!
 
 CARACTERÍSTICAS:
 
-• Visualización del saldo de la cartera en Dogecoin y en otras monedas.
-• Envío y recpción de dogecoins a través de NFC, códigos QR o URL Dogecoin.
-• Libreta de direcciones para guardar las direcciones Dogecoin utilizadas habitualmente.
-• Las transacciones se pueden llevar a cabo sin conexión, ejecutándose al recuperar la conexión.
-• Notificaciones de sistema para la conectividad a la red Dogecoin y para la recepción de dogecoins.
-• Widget de aplicación para el saldo Dogecoin.
+• ¡No requiere registro, servidor en la nube o servicio web! Este monedero es auténticamente entre pares (peer-to-peer).
+• Muestra la cantidad de Dogecoins en DOGE y mDOGE
+• Conversión a divisas nacionales.
+• Envío y recepción de dogecoins vía NFC, códigos QR o URL de Dogecoin.
+• Libreta de direcciones para guardar las direcciones Dogecoin más utilizadas.
+• Cuando no tengas conexión, puedes seguir pagando via Bluetooth.
+• Notificación al recibir monedas.
+• Widget para el saldo de dogecoins.
 
 Puedes descubrir más sobre Dogecoin en
 http://dogecoin.org
 
-Si quieres contribuir a Dogecoin Wallet, el proyecto está localizado en
+Si quieres contribuir a Dogecoin Wallet, el proyecto se encuentra en
 https://github.com/langerhans/dogecoin-wallet-new
 
 This is a fork of the popular Bitcoin Wallet by Andreas Schildbach and was converted to Dogecoin by me.
@@ -20,5 +22,5 @@ Find the original at
 https://play.google.com/store/apps/details?id=de.schildbach.wallet
 
 Licencia: GPLv3
-¡Úsalo bajo tu propia responsabilidad!
+¡Úsalo bajo tu propio riesgo!
 http://www.gnu.org/licenses/gpl-3.0.en.html
