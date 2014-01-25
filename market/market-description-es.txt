@@ -1,21 +1,21 @@
-Ten tus Bitcoins siempre contigo, en tu bolsillo! Paga rápidamente escaneando un código QR. Como comerciante, recibes los pagos de forma fiable e instantáneamente. Bitcoin Wallet es la primera Bitcoin app para movil, e incluso la mas segura!
+Ten tus Litecoins siempre contigo, en tu bolsillo! Paga rápidamente escaneando un código QR. Como comerciante, recibes los pagos de forma fiable e instantáneamente. Litecoin Wallet es la primera Litecoin app para movil, e incluso la mas segura!
 
 CARACTERÍSTICAS:
 
 • ¡No requiere registro, servidor en la nube o servicio web! Este monedero es auténticamente entre pares (peer-to-peer).
-• Muestra la cantidad de Bitcoins en BTC y mBTC
+• Muestra la cantidad de Litecoins en LTC y mLTC
 • Conversión a divisas nacionales.
-• Envío y recepción de bitcoins vía NFC, códigos QR o URL de Bitcoin.
-• Libreta de direcciones para guardar las direcciones Bitcoin más utilizadas.
+• Envío y recepción de litecoins vía NFC, códigos QR o URL de Litecoin.
+• Libreta de direcciones para guardar las direcciones Litecoin más utilizadas.
 • Cuando no tengas conexión, puedes seguir pagando via Bluetooth.
 • Notificación al recibir monedas.
-• Widget para el saldo de bitcoins.
+• Widget para el saldo de litecoins.
 
-Puedes descubrir más sobre Bitcoin en
-http://bitcoin.org
+Puedes descubrir más sobre Litecoin en
+http://litecoin.org
 
-Si quieres contribuir a Bitcoin Wallet, el proyecto se encuentra en
-https://github.com/schildbach/bitcoin-wallet
+Si quieres contribuir a Litecoin Wallet, el proyecto se encuentra en
+https://github.com/Litecoin-Java/bitcoin-wallet
 
 Licencia: GPLv3
 ¡Úsalo bajo tu propio riesgo!

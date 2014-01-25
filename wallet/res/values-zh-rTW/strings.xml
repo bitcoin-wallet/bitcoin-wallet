@@ -37,9 +37,9 @@
 	<string name="wallet_options_backup">備份錢包私人金鑰</string>
 	<string name="wallet_options_safety">安全提示</string>
 	<string name="wallet_options_donate">捐贈</string>
-	<string name="wallet_donate_address_label">捐贈給Bitcoin Wallet App</string>
+	<string name="wallet_donate_address_label">捐贈給Litecoin Wallet App</string>
 	<string name="wallet_low_storage_dialog_title">儲存空間不足!</string>
-	<string name="wallet_low_storage_dialog_msg">Bitcoin Wallet App 使用手機內部儲存空間來紀錄交易，如果空間不足該 App 無法正常運作而且可能導致你的比特幣不安全!\n\n你是否需要開啟應用程式頁來刪除一些較少使用 app?</string>
+	<string name="wallet_low_storage_dialog_msg">Litecoin Wallet App 使用手機內部儲存空間來紀錄交易，如果空間不足該 App 無法正常運作而且可能導致你的比特幣不安全!\n\n你是否需要開啟應用程式頁來刪除一些較少使用 app?</string>
 	<string name="wallet_low_storage_dialog_button_apps">管理App</string>
 	<string name="wallet_timeskew_dialog_title">確認你的時間設定!</string>
 	<string name="wallet_timeskew_dialog_msg">你的裝置時間慢了 %d 分，你可能無法收付比特幣，\n\n你應該再確認你的時間與時區設定正確。</string>
@@ -49,7 +49,7 @@
 	<string name="wallet_version_dialog_button_market">Google Play</string>
 	<string name="wallet_version_dialog_button_binary">下載</string>
 	<string name="wallet_old_sdk_dialog_title">Android 版本太舊</string>
-	<string name="wallet_old_sdk_dialog_message">很可能下個版本的 Bitcoin Wallet App 將不再支援你的裝置，某些狀況下可能導致難以付款，\n\n除非你確認其中風險，不然建議你儘快將錢包的錢轉出。</string>
+	<string name="wallet_old_sdk_dialog_message">很可能下個版本的 Litecoin Wallet App 將不再支援你的裝置，某些狀況下可能導致難以付款，\n\n除非你確認其中風險，不然建議你儘快將錢包的錢轉出。</string>
 	<string name="send_coins_activity_title">比特幣付款</string>
 	<string name="send_coins_fragment_receiving_address_label">付給</string>
 	<string name="send_coins_fragment_receiving_address_hint">輸入地址或是名稱</string>
@@ -110,7 +110,7 @@
 	<string name="transaction_row_message_received_dust">極小額付款可能無法有效支付</string>
 	<string name="amount_calculator_dialog_title">幣值計算</string>
 	<string name="amount_calculator_dialog_button_use">使用</string>
-	<string name="amount_calculator_dialog_exchange_rate">BTC 1 價值 %1$s %2$s\n價格由 %3$s 取得</string>
+	<string name="amount_calculator_dialog_exchange_rate">LTC 1 價值 %1$s %2$s\n價格由 %3$s 取得</string>
 	<string name="amount_calculator_dialog_exchange_rate_not_available">匯率無法取得</string>
 	<string name="network_monitor_activity_title">網路監視器</string>
 	<string name="network_monitor_peer_list_title">節點</string>
@@ -147,7 +147,7 @@
 	<string name="scan_camera_problem_dialog_title">抱歉</string>
 	<string name="scan_camera_problem_dialog_message">照相機有問題，你可能需要重新啟動裝置</string>
 	<string name="input_parser_cannot_classify">無法分類輸入:\n%s</string>
-	<string name="input_parser_invalid_bitcoin_uri">比特幣 URI 無效:\n%s</string>
+	<string name="input_parser_invalid_litecoin_uri">比特幣 URI 無效:\n%s</string>
 	<string name="input_parser_invalid_address">取得無效比特幣地址!\n(是否 Mainnet/Testnet 混用?)</string>
 	<string name="input_parser_invalid_transaction">無效交易:\n%s</string>
 	<string name="preferences_activity_title">設定</string>
@@ -183,7 +183,7 @@
 	<string name="report_issue_dialog_mail_intent_chooser">寄送報告…</string>
 	<string name="about_title">關於</string>
 	<string name="about_license_title">授權</string>
-	<string name="about_credits_bitcoinj_title">本 app 使用 bitcoinj %s</string>
+	<string name="about_credits_litecoinj_title">本 app 使用 litecoinj %s</string>
 	<string name="about_credits_zxing_title">"本 app 使用 'zxing'"</string>
 	<string name="about_credits_icon_title">"本 app 使用圖標來自'bitboy'"</string>
 	<string name="about_community_googleplus_title">Google+ 社群</string>

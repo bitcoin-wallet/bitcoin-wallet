@@ -13,7 +13,7 @@
 http://litecoin.org
 
 Αν θέλετε να συμβάλει στη τη χρήση του Litecoin Wallet, το έργο βρίσκεται εδώ:
-https://github.com/Litecoin-Java/bitcoin-wallet
+https://github.com/Litecoin-Java/litecoin-wallet
 
 Άδεια: GPLv3
 Χρησιμοποιήστε με δική σας ευθύνη!

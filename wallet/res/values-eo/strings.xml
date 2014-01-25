@@ -57,7 +57,7 @@
 	<string name="send_coins_fragment_receiving_address_error_cross_network">Ne eblas uzi %s adreson kun ĉi tiu monujo!</string>
 	<string name="send_coins_fragment_receiving_address_error_cross_network_unknown">Ne eblas uzi adreson de nekonata reto kun ĉi tiu monujo!</string>
 	<string name="send_coins_fragment_available_label">Disponebla por elspezado</string>
-	<string name="send_coins_fragment_pending">(BTC %s atendadi konfirmon)</string>
+	<string name="send_coins_fragment_pending">(LTC %s atendadi konfirmon)</string>
 	<string name="send_coins_fragment_amount_label">Kvanto pagi</string>
 	<string name="send_coins_fragment_amount_empty">Metu kvanton tien</string>
 	<string name="send_coins_fragment_amount_error">Malvalida kvanto!</string>
@@ -143,7 +143,7 @@
 	<string name="scan_camera_problem_dialog_title">Pardonu</string>
 	<string name="scan_camera_problem_dialog_message">La kamero havas problemon. Vi verŝajne bezonas restartigi la aparaton.</string>
 	<string name="input_parser_cannot_classify">Ne eblis klasifiki enigon:\n%s</string>
-	<string name="input_parser_invalid_bitcoin_uri">Malvalida Bitmono URI:\n%s</string>
+	<string name="input_parser_invalid_litecoin_uri">Malvalida Bitmono URI:\n%s</string>
 	<string name="input_parser_invalid_address">Havas malvalidan bitmonadreson!\n(Uzante testreto anstataŭ ĉefreto?)</string>
 	<string name="input_parser_invalid_transaction">Malvalida transakcio:\n%s</string>
 	<string name="preferences_activity_title">Agoroj</string>
@@ -179,7 +179,7 @@
 	<string name="report_issue_dialog_mail_intent_chooser">Sendi reporton uzante…</string>
 	<string name="about_title">Pri</string>
 	<string name="about_license_title">Licenco</string>
-	<string name="about_credits_bitcoinj_title">Ĉi tiu aplikaĵo uzas bitcoinj-n %s</string>
+	<string name="about_credits_litecoinj_title">Ĉi tiu aplikaĵo uzas litecoinj-n %s</string>
 	<string name="about_credits_zxing_title">Ĉi tiu aplikaĵo uzas \'zxing\'-n</string>
 	<string name="about_credits_icon_title">Ĉi tiu aplikaĵo uzas bildsimbolon per \'bitboy\'</string>
 	<string name="about_community_googleplus_title">\"Google+\" Komunumo</string>

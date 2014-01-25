@@ -15,7 +15,7 @@
 http://litecoin.org
 
 Если вы хотите помочь бумажнику Litecoin, проект располагается по адресу
-https://github.com/Litecoin-Java/bitcoin-wallet
+https://github.com/Litecoin-Java/litecoin-wallet
 
 Лицензия: GPLv3
 Используйте на свой риск!

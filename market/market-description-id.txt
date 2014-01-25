@@ -14,7 +14,7 @@ Anda dapat mengetahui lebih mengenai Litecoin di
 http://litecoin.org
 
 Jika Anda ingin berkontribusi kepada Litecoin Wallet, proyeknya berada di
-https://github.com/Litecoin-Java/bitcoin-wallet
+https://github.com/Litecoin-Java/litecoin-wallet
 
 Lisensi: GPLv3
 Gunakan dengan resiko Anda!

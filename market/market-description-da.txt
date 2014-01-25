@@ -1,21 +1,21 @@
-Hav altid dine Bitcoins med dig i din lomme! Du betaler ved hurtigt at scanne en QR-kode. Som handlende kan du modtage betalinger pålideligt og øjeblikkeligt. Bitcoin Wallet er den første mobile Bitcoin-app, og muligvis den mest sikre!
+Hav altid dine Litecoins med dig i din lomme! Du betaler ved hurtigt at scanne en QR-kode. Som handlende kan du modtage betalinger pålideligt og øjeblikkeligt. Litecoin Wallet er den første mobile Litecoin-app, og muligvis den mest sikre!
 
 FUNKTIONER:
 
 • Ingen registrering, webservice eller sky behøves! Tegnebogen er decentraliseret og peer-to-peer.
-• Visning af Bitcoin-beløb i BTC og mBTC.
+• Visning af Litecoin-beløb i LTC og mLTC.
 • Konvertering til og fra lokale valutaer.
-• Afsendelse og modtagelse af Bitcoin via NFC, QR-koder eller Bitcoin-URLer.
-• Adressebog til ofte brugte Bitcoin-adresser.
+• Afsendelse og modtagelse af Litecoin via NFC, QR-koder eller Litecoin-URLer.
+• Adressebog til ofte brugte Litecoin-adresser.
 • Når du er offline, kan du stadig betale via Bluetooth.
 • Systemnotifikation for modtagne mønter.
 • App-widget for Litecoin-saldo.
 
-Du kan finde mere om Bitcoin på
-http://bitcoin.org
+Du kan finde mere om Litecoin på
+http://litecoin.org
 
 Hvis du vil bidrage til Litecoin Wallet, kan projektet findes på
-https://github.com/schildbach/bitcoin-wallet
+https://github.com/Litecoin-Java/bitcoin-wallet
 
 Licens: GPLv3
 Brug for egen risiko!
