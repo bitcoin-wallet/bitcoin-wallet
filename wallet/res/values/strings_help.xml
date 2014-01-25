@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="help_wallet">
+<![CDATA[
+		<p>
+			The upper left part of the screen displays your selected Litecoin address that other people need to know in order to send you Litecoins.
+			Tap to change the address.
+		</p>
+		<p>
+			The QR code on the right contains your litecoin address and can be used for scanning by another party.
+			Tap on the QR code to get a larger version of it.
+		</p>
+		<p>
+			In the middle of the screen, your balance is displayed.
+			The value of your wallet is also shown in one selected local currency.
+			Tap on balance to display list of all local currencies, and tap on one of the currencies to select it as default.
+		</p>
+		<p>
+			The bottom of the screen is covered by your transactions list, which is empty at the beginning.
+			Pending transactions are greyed out until they are confirmed.
+			Tap on one entry to add the senders or receivers address to the address book.
+			Swipe left or right to apply filters to the list.
+		</p>
+		<p>
+			You can send or request coins by tapping the buttons in the action bar.
+			More options are available in the options menu.
+        </p>
+]]>
+    </string>
+    <string name="help_request_coins">
+<![CDATA[
+		<p>
+			Using this dialog, you can request coins from another person (who should already have installed Litecoin Wallet).
+		</p>
+		<p>
+			First, you can enter an amount of Litecoins to request.
+		</p>
+		<p>
+			Then, you either have the generated QR code scanned by the other person.
+			Or, you can send your request to a remote person with the share button in the action bar.
+			The other person will have to click the Litecoin URL.
+		</p>
+		<p>
+			Either way, the other person will be presented a dialog for sending coins with all fields pre-populated.
+			If she accepts, all she needs to do is sending the payment.
+		</p>
+]]>
+    </string>
+    <string name="help_send_coins">
+<![CDATA[
+		<p>
+			You have initiated the process of sending coins.
+			You came here either through the main screen or by clicking on a Litecoin URL in your mobile browser.
+		</p>
+		<p>
+			First, you enter the Litecoin address to pay to.
+			The address will autocomplete from known entries in your address book.
+			You can also scan QR codes with Litecoin addresses or Litecoin requests by pressing the QR button in the action bar.
+		</p>
+		<p>
+			Next, you can see how many Litecoins you can spend at the moment.
+			Any difference to the balance from the main screen is still unconfirmed and can thus not yet be spent.
+		</p>
+		<p>
+			Last, you enter the amount to pay.
+		</p>
+		<p>
+			You can enter a payment while being offline.
+			It will be sent on next restart of Litecoin Wallet.
+			If you want a payment to be processed as fast as possible, make sure you are well connected (i.e. on a WLAN).
+		</p>
+		<p>
+			Note:
+			Payments are irreversible!
+			Always check the receiving address.
+		</p>
+]]>
+    </string>
+    <string name="help_safety">
+<![CDATA[
+        <p><b>Important safety notes:</b></p>
+        <p>
+            Litecoins are stored on the device.
+            <b>If you lose it, you\'ll lose your Litecoins.</b>
+        </p>
+        <p>
+            This means you need to <b>back up your wallet</b>!
+            Use the in-app backup facility for this, rather than a third party backup app.
+            Keep your backup safe and remember the password.
+        </p>
+        <p>
+            <b>Before uninstalling</b> (or clearing app data/wiping your device), <b>transfer your Litecoins to another wallet</b>.
+            Remaining Litecoins will be lost.
+        </p>
+        <p>
+            <b>Payments are irreversible</b>.
+            If you send your Litecoins into the void, there is almost no way to get them back.
+        </p>
+        <p>
+            <b>Keep your mobile device safe!</b>
+            Do not root your device.
+            Do only install apps you fully trust.
+            Malicious apps could be trying to steal your wallet.
+        </p>
+        <p>
+            Keep the risk low!
+            <b>Only use with small amounts</b> for day use.
+        </p>
+        <p><b>DISCLAIMER OF WARRANTY</b></p>
+        <p>The developers of this app use their best efforts to improve its functionality and security. That being said, Litecoin (like Bitcoin) is experimental software with source fully available to the public.</p>
+        <span style=\"font-family: monospace\">THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.</span>
+]]>
+    </string>
+</resources>

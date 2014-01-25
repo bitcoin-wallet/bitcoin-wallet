@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="help_wallet">
+<![CDATA[
+		<p>
+			屏幕左上部分将显示您所选择的用于接收莱特币的地址。
+			点击一下可以更换地址。
+		</p>
+		<p>
+			右边的二维码包含了您的地址信息。
+			点击二维码可以放大。
+		</p>
+		<p>
+			您的余额会显示在屏幕中间的位置，同时也会显示对应您指定货币的总价值。
+			点击您的余额会展开所有可用货币类型，点击其中之一设为您的默认货币。
+		</p>
+		<p>
+			屏幕的下部会显示您的过往交易信息，在尚未进行交易时会显示空白。
+			进行中的交易以灰色显示。
+			点击单条交易信息可以选择将其相关交易地址添加至您的地址簿。
+			向左/右滑屏来对交易列表应用过滤器。
+		</p>
+		<p>
+			点击操作区域的按钮发送或者接受莱特币。
+			选项菜单中提供有更丰富的选项设置。
+		</p>
+]]>
+    </string>
+    <string name="help_request_coins">
+<![CDATA[
+		<p>
+			您可以使用这个对话框来向他人申请收取莱特币，但前提是对方也已经安装过莱特币客户端。
+		</p>
+		<p>
+			首先，您需要输入索取的莱特币数量。
+		</p>
+		<p>
+			你有以下两个方法来继续进行交易。
+			其一是让对方扫描您生成的对应二维码。
+			其二是将该命令使用分享功能发送给对方。对方需要点击您发送的地址来完成交易。
+		</p>
+		<p>
+			使用以上的方法后对方的客户端会弹出一个已经填好交易内容的对话框，对方只需要点击确认交易按钮便可完成整个交易过程。
+		</p>
+]]>
+    </string>
+    <string name="help_send_coins">
+<![CDATA[
+		<p>
+			您在发起一个发送莱特币的交易。
+		</p>
+		<p>
+			首先您需要输入一个对方用于接收莱特币的地址。
+			如果您的地址簿中有相关条目，您所输入的地址便会自动补充完整。
+			或者您可以扫描对应的二维码来导入对方的莱特币地址。
+		</p>
+		<p>
+			您可以看到当前的余额，需要注意的是，尚未确认的莱特币不能用于支付功能。
+		</p>
+		<p>
+			输入您转账的金额和想要支付的手续费。
+		</p>
+		<p>
+			您在离线状态下也可以发起交易，这个交易会在您下一次客户端联网后执行。
+			如果您希望交易被迅速处理，请保证您网络连接通畅（比如使用Wifi无线网）。
+		</p>
+		<p>
+			注意：
+			交易是不可逆的，发送之前请一定要确认对方的接收地址！
+		</p>
+]]>
+    </string>
+    <string name="help_safety">
+<![CDATA[
+		<p><b>关于钱包安全问题有以下几点需要说明</b></p>
+        <p>
+            莱特币保存在您机器中的钱包里。
+            <b>如果您不幸遗失了手机，那么钱包也就随之丢失了。</b>
+            就像你在大街上丢了你的钱包一样。
+        </p>
+        <p>
+            <b>在您卸载莱特币客户端</b> （或清除应用程序数据或恢复出厂设置)之前,<b>请务必将钱包里的莱特币转移到其他钱包之中</b>.
+            任何未转移的莱特币都将丢失。
+        </p>
+        <p>
+            <b>交易本身是不可逆的。</b>.
+            如果您倒霉催的给一个未知的地址发送了莱特币，那么没有任何办法可以将它们收回，除非你知道谁收到了而且他愿意将天上掉的馅饼还给你。
+        </p>
+        <p>
+            <b>请安全保管好您的安卓设备！</b>
+            只安装您完全了解且信任的程序，
+            恶意程序可能会试图窃取你的钱包，就像在公交车如果你不盯好自己的钱包那么小偷就可能会帮你保管。
+        </p>
+        <p>
+            降低风险策略之一！
+            <b>只在手机钱包中留有少量日常使用的莱特币</b>。
+        </p>
+        <p><b>DISCLAIMER OF WARRANTY</b></p>
+        <p>The developers of this app use their best efforts to improve its functionality and security. That being said, Litecoin (like Bitcoin) is experimental software with source fully available to the public.</p>
+        <span style=\"font-family: monospace\">THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.</span>
+]]>
+    </string>
+</resources>

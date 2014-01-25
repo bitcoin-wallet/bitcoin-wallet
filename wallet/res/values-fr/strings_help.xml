@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="help_wallet">
+<![CDATA[
+		<p>
+			La partie supérieure gauche de l\'écran affiche l\'adresse Litecoin que vous avez choisie et que les gens doivent connaître pour vous envoyer des Litecoins.
+			Tapez pour changer cette adresse.
+		</p>
+		<p>
+			Le QR code à droite contient votre adresse litecoin et peut être utilisée pour être scannée par un tiers.
+			Tapez sur le code QR pour l\'agrandir.
+		</p>
+		<p>
+			Au milieu de l\'écran, votre solde est affiché.
+			La valeur de votre porte-monnaie est aussi affichée dans une devise locale que vous pouvez choisir.
+			Tapez sur le solde pour afficher la liste de toutes les devises locales et tapez sur l\'une d\'entre elles pour en faire la devise locale par défaut.
+		</p>
+		<p>
+			Le bas de l\'écran est couvert par votre liste de transactions, qui est vide initialement.
+			Les transactions en cours de traitement sont grisées jusqu\'à ce qu\'elles soient confirmées.
+			Tapez sur une transaction pour ajouter l\'adresse du destinataire ou de l\'envoyeur à votre carnet d\'adresses.
+			Balayer vers la gauche ou vers la droite pour appliquer des filtres à la liste.
+		</p>
+		<p>
+			Vous pouvez envoyer ou recevoir des litecoins en tapant les boutons dans la barre d\'action.
+			Plus d\'options sont disponibles dans le menu options.
+		</p>
+]]>
+    </string>
+    <string name="help_request_coins">
+<![CDATA[
+		<p>
+			En utilisant cette boîte de dialogue, vous pouvez recevoir des litecoins (vous devez avoir installé Litecoin Wallet).
+		</p>
+		<p>
+			D\'abord, saisissez le montant de Litecoins à recevoir.
+		</p>
+		<p>
+			Ensuite, l\'autre personne doit scanner le code QR généré.
+			Ou bien, vous pouvez envoyer une URL Litecoin à une personne à distance avec le bouton "publier" dans la barre d\'action.
+			L\'autre personne devra cliquer l\'URL Litecoin.
+		</p>
+		<p>
+			Dans les deux cas, l\'autre personne se verra présenter une boîte de dialogue pour envoyer des litecoins avec tous les champs pré-remplis.
+			Si elle accepte, elle n\'a plus qu\'à envoyer le paiement.
+		</p>
+]]>
+    </string>
+    <string name="help_send_coins">
+<![CDATA[
+		<p>
+			Vous avez commencé le processus d\'envoi de litecoins.
+			Vous êtes arivé ici depuis l\'écran principal ou en cliqunat une URL Litecoin dans votre navigateur mobile.
+		</p>
+		<p>
+			D\'abord, vous saisissez l\'adresse Litecoin de destination.
+			L\'adresse sera complétée automatiquement pour les adresses enregistrées dans votre carnet.
+			Vous pouvez aussi scanner des codes QR d\'adresses Litecoin ou de demande de Litecoin en pressant le bouton QR dans la barre des actions.
+		</p>
+		<p>
+			Ensuite,vous pouvez voir combien de Litecoins sont disponibles.
+			Tout écart avec le solde de l\'écran principal représente un montant qui n\'est pas encore confirmé et n\'est donc pas disponible.
+		</p>
+		<p>
+			Enfin, saisissez le montant à payer que vous proposez.
+		</p>
+		<p>
+			Vous pouvez saisir un paiement hors-lighe.
+			Elle sera envoyée au prochain lancement de Litecoin Wallet.
+			Si vous voulez le traitement le plus rapide possible de votre paiement, assurez vous d\'être bien connecté (c\'est à dire sur un WLAN).
+		</p>
+		<p>
+			Note:
+			Les paiements sont irréversibles!
+			Vérifiez toujours l\'adresse de destination.
+		</p>
+]]>
+    </string>
+    <string name="help_safety">
+<![CDATA[
+		<p><b>Quelques mots sur la sécurité de vos Litecoins:</b></p>
+        <p>
+            Les Litecoins sont stockés sur l\'appareil avec Litecoin Wallet.
+            <b>Si vous le perdez, vous perdez vos Litecoins.</b>
+        </p>
+        <p>
+            Cela signifie que vous avez besoin de <b>sauvegarder vos clés privées</b>!
+            Conservez-les dans un endroit sécurisé et souvenez-vous de votre mot de passe.
+        </p>
+        <p>
+            <b>Avant de désinstaller Litecoin Wallet</b> (ou d\'effacer les données de l\'application/effacer les données de votre appareil), <b>transférez vos Litecoins dans un autre porte-monnaie</b>.
+            Tout les litecoins restant seront perdus.
+        </p>
+        <p>
+            <b>Les paiements sont irréversibles</b>.
+            Si vous envoyez vos Litecoins dans le vide, il n\'y a aucun moyen de les récupérer sauf si vous connaissez le destinataire et qu\'il est d\'accord pour vous les renvoyer.
+        </p>
+        <p>
+            <b>Gardez votre appareil mobile en sécurité!</b>
+            N\'installez que des applications de confiance.
+            Des applications malveillantes pourraient essayer de voler votre porte-monnaie.
+        </p>
+        <p>
+            Minimisez les risques!
+            <b>Utilisez Litecoin Wallet seulement pour des petits montants</b> pour un usage quotidien.
+        </p>
+        <p><b>DISCLAIMER OF WARRANTY</b></p>
+        <p>The developers of this app use their best efforts to improve its functionality and security. That being said, Litecoin (like Bitcoin) is experimental software with source fully available to the public.</p>
+        <span style=\"font-family: monospace\">THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.</span>
+]]>
+    </string>
+</resources>

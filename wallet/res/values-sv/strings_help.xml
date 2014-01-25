@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="help_wallet">
+<![CDATA[
+		<p>
+			I den övre vänstra delen av skärmen kan du se den Litecoin adress som andra behöver för att kunna skicka Litecoins till dig.
+			Tryck med fingret på adressen för att skaffa dig en ny Litecoin adress.
+		</p>
+		<p>
+			QR koden till höger innehåller din Litecoin adress och kan scannas av de som vill skicka dig Litecoins.
+			Tryck med fingret på QR koden så visas en större version av den.
+		</p>
+		<p>
+			I mitten av skärmen visas plånbokens värde.
+			Plånbokens värde visas också i en vald lokal valuta.
+			Tryck med fingret på balansen så visas plånbokens värde i fler lokala valutor, och om du trycker på en av dem med fingret så blir det den nya valda valutan.
+		</p>
+		<p>
+			Nedre delen av skärmen visar en lista med dina transaktioner, och från början är den naturligtvis tom.
+			Väntande transaktioner är gråa tills de bekräftats.
+			Tryck med fingret på en transaktion så kan du spara sändarens eller mottagarens adress till din adressbok.
+			Dra med fingret åt vänster eller höger för att filtrera listan.
+		</p>
+		<p>
+			Du kan sända eller ta emot Litecoins genom att trycka med fingret på knapparna i aktivitetslistan.
+			Fler val är möjliga i menyn.
+		</p>
+]]>
+    </string>
+    <string name="help_request_coins">
+<![CDATA[
+		<p>
+			Med denna dialog kan du ta emot Litecoins från någon annan (som redan har Litecoin Wallet installerad på sin telefon).
+		</p>
+		<p>
+			Först anger du hur många Litecoins du vill att de skickar.
+		</p>
+		<p>
+			Sedan kan den andra personen scanna QR koden.
+			Eller så använder du "Dela" knappen i aktivitetslistan för att skicka din uppmaning att skicka Litecoins.
+			Den andra personen behöver sedan bara klicka på den Litecoin URL du skickat.
+		</p>
+		<p>
+			Sedan kommer den andra personen att få se en dialogruta där alla fält redan är ifyllda.
+			Om han eller hon sedan accapterar transaktionen så skickas Litecoins till dig.
+		</p>
+]]>
+    </string>
+    <string name="help_send_coins">
+<![CDATA[
+		<p>
+			Du har påbörjat skickandet av Litecoins.
+			Du kom hit endera från huvudskärmen eller genom att klicka på en Litecoin URL i din webbläsare.
+		</p>
+		<p>
+			Ange först vilken Litecoin adress du vill skicka till.
+			Adressen kan automatiskt fyllas i om den börjar med någon av adresserna i din adressbok.
+			Du kan också scanna en QR kod innehållande en Litecoin adress, genom att trycka på QR knappen i aktivitetslistan.
+		</p>
+		<p>
+			Sedan kan du se hur många Litecoins du för tillfället kan skicka.
+			Om det antalet skiljer sig från det som visas på huvudskärmen, så beror det på hittills obekräftade överföringar som du ännu inte får använda.
+		</p>
+		<p>
+			Slutligen anger du hur många Litecoins du vill skicka vill betalar.
+		</p>
+		<p>
+			Du kan skapa en transaktion även om du inte är online.
+			Den kommer att skickas nästa gång Litecoin Wallet startas.
+			Om du vill att en transaktion ska processas så fort som möjligt, se till att ha bra koppling till internet (exempelvis ett WLAN).
+		</p>
+		<p>
+			Notera:
+			Transaktioner kan inte stoppas!
+			Kontrollera alltid den adress du skickar till.
+		</p>
+]]>
+    </string>
+    <string name="help_safety">
+<![CDATA[
+		<p><b>Några ord om säkerhet och Litecoins:</b></p>
+        <p>
+            Dina Litecoins i Litecoin Wallet sparas på din Android telefon.
+            <b>Om du tappar bort din telefon, så tappar du bort dina Litecoins.</b>
+            Precis som pengar i din vanliga plånbok.
+        </p>
+        <p>
+            <b>Innan du avinstallerar Litecoin Wallet</b> (eller tar bort appens data/rensar din telefon), <b>skicka dina Litecoins till en annan plånbok</b>.
+            Alla kvarvarande Litecoins kommer att försvinna.
+        </p>
+        <p>
+            <b>Transaktioner kan inte stoppas</b>.
+            Efter att du skickat Litecoins finns det inget sätt att få dem tillbaka, annat än om du vet vem mottagaren är, och han/hon skickar dem tillbaka.
+        </p>
+        <p>
+            <b>Se till att skydda din telefon!</b>
+            Installera endast appar du helt litar på.
+            En elak app kan försöka stjäla din plånbok.
+        </p>
+        <p>
+            Utsätt dig inte för onödig risk!
+            <b>Använd bara Litecoin Wallet med mindre belopp</b> för daglig användning.
+        </p>
+        <p><b>DISCLAIMER OF WARRANTY</b></p>
+        <p>The developers of this app use their best efforts to improve its functionality and security. That being said, Litecoin (like Bitcoin) is experimental software with source fully available to the public.</p>
+        <span style=\"font-family: monospace\">THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.</span>
+]]>
+    </string>
+</resources>
