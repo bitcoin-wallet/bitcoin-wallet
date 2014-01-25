@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+	<string name="help_wallet">
+<![CDATA[
+		<p>
+			La partie supérieure gauche de l\'écran affiche l\'adresse Bitcoin que vous avez choisie et que les gens doivent connaître pour vous envoyer des Bitcoins.
+			Tapez pour changer cette adresse.
+		</p>
+		<p>
+			Le QR code à droite contient votre adresse bitcoin et peut être utilisée pour être scannée par un tiers.
+			Tapez sur le code QR pour l\'agrandir.
+		</p>
+		<p>
+			Au milieu de l\'écran, votre solde est affiché.
+			La valeur de votre porte-monnaie est aussi affichée dans une devise locale que vous pouvez choisir.
+			Tapez sur le solde pour afficher la liste de toutes les devises locales et tapez sur l\'une d\'entre elles pour en faire la devise locale par défaut.
+		</p>
+		<p>
+			Le bas de l\'écran est couvert par votre liste de transactions, qui est vide initialement.
+			Les transactions en cours de traitement sont grisées jusqu\'à ce qu\'elles soient confirmées.
+			Tapez sur une transaction pour ajouter l\'adresse du destinataire ou de l\'envoyeur à votre carnet d\'adresses.
+			Balayer vers la gauche ou vers la droite pour appliquer des filtres à la liste.
+		</p>
+		<p>
+			Vous pouvez envoyer ou recevoir des bitcoins en tapant les boutons dans la barre d\'action.
+			Plus d\'options sont disponibles dans le menu options.
+		</p>
+	]]>
+	</string>
+	<string name="help_request_coins">
+<![CDATA[
+		<p>
+			La partie supérieure gauche de l\'écran affiche l\'adresse Bitcoin que vous avez choisie et que les gens doivent connaître pour vous envoyer des Bitcoins.
+			Tapez pour changer cette adresse.
+		</p>
+		<p>
+			Le QR code à droite contient votre adresse bitcoin et peut être utilisée pour être scannée par un tiers.
+			Tapez sur le code QR pour l\'agrandir.
+		</p>
+		<p>
+			Au milieu de l\'écran, votre solde est affiché.
+			La valeur de votre porte-monnaie est aussi affichée dans une devise locale que vous pouvez choisir.
+			Tapez sur le solde pour afficher la liste de toutes les devises locales et tapez sur l\'une d\'entre elles pour en faire la devise locale par défaut.
+		</p>
+		<p>
+			Le bas de l\'écran est couvert par votre liste de transactions, qui est vide initialement.
+			Les transactions en cours de traitement sont grisées jusqu\'à ce qu\'elles soient confirmées.
+			Tapez sur une transaction pour ajouter l\'adresse du destinataire ou de l\'envoyeur à votre carnet d\'adresses.
+			Balayer vers la gauche ou vers la droite pour appliquer des filtres à la liste.
+		</p>
+		<p>
+			Vous pouvez envoyer ou recevoir des bitcoins en tapant les boutons dans la barre d\'action.
+			Plus d\'options sont disponibles dans le menu options.
+		</p>
+	]]>
+	</string>
+	<string name="help_send_coins">
+<![CDATA[
+		<p>
+			Vous avez commencé le processus d\'envoi de bitcoins.
+			Vous êtes arivé ici depuis l\'écran principal ou en cliqunat une URL Bitcoin dans votre navigateur mobile.
+		</p>
+		<p>
+			D\'abord, vous saisissez l\'adresse Bitcoin de destination.
+			L\'adresse sera complétée automatiquement pour les adresses enregistrées dans votre carnet.
+			Vous pouvez aussi scanner des codes QR d\'adresses Bitcoin ou de demande de Bitcoin en pressant le bouton QR dans la barre des actions.
+		</p>
+		<p>
+			Ensuite,vous pouvez voir combien de Bitcoins sont disponibles.
+			Tout écart avec le solde de l\'écran principal représente un montant qui n\'est pas encore confirmé et n\'est donc pas disponible.
+		</p>
+		<p>
+			Enfin, saisissez le montant à payer que vous proposez.
+		</p>
+		<p>
+			Vous pouvez saisir un paiement hors-lighe.
+			Elle sera envoyée au prochain lancement de Bitcoin Wallet.
+			Si vous voulez le traitement le plus rapide possible de votre paiement, assurez vous d\'être bien connecté (c\'est à dire sur un WLAN).
+		</p>
+		<p>
+			Note:
+			Les paiements sont irréversibles!
+			Vérifiez toujours l\'adresse de destination.
+		</p>
+	]]>
+	</string>
+	<string name="help_safety">
+<![CDATA[
+		<p>
+			<b>Quelques mots sur la sécurité de vos Bitcoins:</b>
+		</p>
+		<p>
+			Les Bitcoins sont stockés sur l\'appareil avec Bitcoin Wallet.
+			<b>Si vous le perdez, vous perdez vos Bitcoins.</b>
+		</p>
+		<p>
+			Cela signifie que vous avez besoin de <b>sauvegarder vos clés privées</b>!
+			Conservez-les dans un endroit sécurisé et souvenez-vous de votre mot de passe.
+		</p>
+		<p>
+			<b>Avant de désinstaller Bitcoin Wallet</b> (ou d\'effacer les données de l\'application/effacer les données de votre appareil), <b>transférez vos Bitcoins dans un autre porte-monnaie</b>.
+			Tout les bitcoins restant seront perdus.
+		</p>
+		<p>
+			<b>Les paiements sont irréversibles</b>.
+			Si vous envoyez vos Bitcoins dans le vide, il n\'y a aucun moyen de les récupérer sauf si vous connaissez le destinataire et qu\'il est d\'accord pour vous les renvoyer.
+		</p>
+		<p>
+			<b>Gardez votre appareil mobile en sécurité!</b>
+			N\'installez que des applications de confiance.
+			Des applications malveillantes pourraient essayer de voler votre porte-monnaie.
+		</p>
+		<p>
+			Minimisez les risques!
+			<b>Utilisez Bitcoin Wallet seulement pour des petits montants</b> pour un usage quotidien.
+		</p>
+	]]>
+	</string>
+
+</resources>

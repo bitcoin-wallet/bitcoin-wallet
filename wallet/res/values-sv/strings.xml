@@ -77,8 +77,6 @@
 	<string name="edit_address_book_entry_dialog_address_label">Adress</string>
 	<string name="edit_address_book_entry_dialog_label_label">Namn</string>
 	<string name="edit_address_book_entry_dialog_button_edit">Spara</string>
-	<string name="amount_calculator_dialog_title">Valuta kalkylator</string>
-	<string name="amount_calculator_dialog_button_use">Använd</string>
 	<string name="peer_list_fragment_empty">Inga peers anslutna</string>
 	<string name="input_parser_invalid_litecoin_uri">Ogiltig Litecoinadress:\n%s</string>
 	<string name="input_parser_invalid_address">Fick ogiltig litecoinadress!\n(Blandar du ihop Mainnet/Testnet?)</string>

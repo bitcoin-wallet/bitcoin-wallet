@@ -22,6 +22,7 @@ import java.util.Locale;
 import javax.annotation.Nonnull;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;

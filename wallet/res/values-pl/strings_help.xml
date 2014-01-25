@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+	<string name="help_wallet">
+<![CDATA[
+		<p>
+			Po lewej górnej stronie ekranu wyświetlany jest Twój aktualnie wybrany adres Bitcoin, który inne osoby muszą znać żeby wysłać Ci Bitcoin.
+			Naciśnij żeby, go zmienić.
+		</p>
+		<p>
+			Kod QR po prawej zawiera Twój adres Bitcoin i może zeskanowany przez inną osobę.
+			Naciśnij na kod QR żeby otrzymać jego większą wersje.
+		</p>
+		<p>
+			Na środku ekranu wyświetlany jest stan Twojego konta.
+			Wartość Twojego portfela pokazana jest też w jednej wybranej lokalnej walucie.
+			Naciśnij na stan konta żeby wyświetliła się lista wszystkich lokalnych walut. Naciśnij na jedną z walut, żeby wybrać ją jako domyślną.
+		</p>
+		<p>
+			Dół ekranu jest pokryty listą twoich transakcji, która na początku jest pusta.
+			Transakcje w toku są dotąd podświetlone na szaro póki nie zostaną potwierdzone.
+			Naciśnij na wejście żeby dodać adres wysyłającego lub odbiorcy do książki adresowej.
+			Przeciągając po ekranie palcem na lewo lub prawo możesz zaaplikować filtry na listę.
+		</p>
+		<p>
+			Możesz wysłać lub zapytać o monety naciskając guziki na listwie menu.
+			Więcej opcji jest dostępnych w menu opcji.
+		</p>
+	]]>
+	</string>
+	<string name="help_request_coins">
+<![CDATA[
+		<p>
+			Przy pomocy tego dialogu, możesz wysłać prośbę o Bitcoiny do innej osoby, tak jakbyś wystawił jej rachunek do zapłacenia. Osoba ta powinna mieć zainstalowany Bitcoin Wallet.
+		</p>
+		<p>
+			U góry, wpisz kwotę Bitcoin, o którą chcesz zapytać.
+		</p>
+		<p>
+			Potem osoba wczyta wytworzony kod QR,
+			albo Ty możesz wysłać rachunek za pomocą guzika Opublikuj na listwie menu.
+			Odbiorca będzie musiał otworzyć Bitcoin URL zawarty w wysłanej wiadomości.
+		</p>
+		<p>
+			Osoba, która otrzymała wysłane zapytanie otrzyma gotowy i wypełniony formularz wysyłania Bitcoinów.
+			Jedyne co będzie musiała zrobić to potwierdzenie transakcji.
+		</p>
+	]]>
+	</string>
+	<string name="help_send_coins">
+<![CDATA[
+		<p>
+			Zainicjowałeś proces wysyłania monet.
+			Przyszedłeś tutaj przez główny ekran albo naciskając na Bitcoin URL w Twojej mobilnej przeglądarce.
+		</p>
+		<p>
+			Wpisz adres Bitcoin na który ma wpłynąć zapłata.
+			Wyświetlone zostaną podpowiedzi adresu z danych Twojej książki adresowej.
+			Możesz też skanować kody QR z adresami Bitcoin albo zapytaniami Bitcoin naciskając guzik QR w menu.
+		</p>
+		<p>
+			Poniżej widzisz ile Bitcoin możesz wydać w tym momencie.
+			Rożnica ze stanem konta na głównym ekranie wynika z jeszcze nie potwierdzonych monet, które nie mogą jeszcze zostać wydane.
+		</p>
+		<p>
+			Na dole wpisz kwotę do zapłacenia chcesz zaoferować.
+		</p>
+		<p>
+			Możesz wpisać transakcje będąc offline.
+			Transakcja zostanie wysłana przy następnym starcie aplikacji.
+			Jeżeli chcesz żeby Twoja transakcja była wysłana jak najszybciej, upewnij się że jesteś połączony (np. z bezprzewodową siecią).
+		</p>
+		<p>
+			Uwaga:
+			Transakcja nie może być cofnięta!
+			Zawsze sprawdź adres odbiorcy.
+		</p>
+	]]>
+	</string>
+	<string name="help_safety">
+<![CDATA[
+		<p>
+			<b>Pare słów o bezpieczeństwie twoich Bitcoin:</b>
+		</p>
+		<p>
+			Bitcoin w Bitcoin Wallet są magazynowane na urządzeniu.
+			<b>Jak zgubisz swoje urządzenie, zgubisz też swój portfel i Bitcoiny.</b>
+			Zupełnie jak pieniądze w Twoim fizycznym portfelu.
+		</p>
+		<p>
+			<b>Zanim odinstalujesz Bitcoin Wallet</b> (albo wymażesz dane aplikacji/wyczyścisz swoje urządzenie), <b>przetransferuj twoje Bitcoin na inny portfel</b>.
+			Każdy pozostały Bitcoin będzie stracony.
+		</p>
+		<p>
+			<b>Żadne transakcje nie mogą zostać cofnięte</b>.
+			Jeżeli wyślesz swoje Bitcoiny, nie będzie już możliwości żeby je odzyskać, dopóki nie znasz odbiorcy, który musi godzić się na ich odesłanie.
+		</p>
+		<p>
+			<b>Uważaj na swoje urządzenie Android!</b>
+			Instaluje tylko aplikacje, którym ufasz.
+			Złośliwe aplikacje mogą próbować ukraść Twój portfel.
+		</p>
+		<p>
+			Utrzymuj niskie ryzyko!
+			<b>Używaj Bitcoin Wallet do przetrzymywania jedynie małych ilości Bitcoin</b> do użytku codziennego.
+		</p>
+	]]>
+	</string>
+
+</resources>

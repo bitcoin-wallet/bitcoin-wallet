@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+	<string name="help_wallet">
+<![CDATA[
+		<p>
+			Den øverste venstre del af skærmen viser din valgte Bitcoin-adresse, som andre har brug for at vide for at sende
+			dig Bitcoins.
+			Berør for at ændre adresse.
+		</p>
+		<p>
+			QR-koden til højre indeholder din bitcoin-adresse og kan scannes af en anden person.
+			Berør QR-koden for at få en større version af den.
+		</p>
+		<p>
+			I midten af skærmen vises din saldo.
+			Din tegnebogs saldo vises også i en valgt lokal valutaenhed.
+			Berør saldoen for at få vist en liste over alle lokale valutaenheder, og berør en af valutaerne for at vælge den
+			som standard.
+		</p>
+		<p>
+			Bunden af skærmen indeholder din transaktionsliste, som i begyndelsen er tom.
+			Ventende transaktioner er grå, indtil de er bekræftet.
+			Berør en linie for at føje afsenderens eller modtagerens adresse til adressebogen.
+			Swipe venstre eller højre for at anvende filtre på listen.
+		</p>
+		<p>
+			Du kan sende eller forespørge mønter ved at berøre knapperne i action-bjælken.
+			Flere indstillinger kan findes i menuen Opsætning.
+		</p>
+	]]>
+	</string>
+	<string name="help_request_coins">
+<![CDATA[
+		<p>
+			Ved at bruge denne dialog kan du forespørge mønter fra en anden person (som allerede skal have installeret Bitcoin Wallet).
+		</p>
+		<p>
+			First kan du indtaste et antal Bitcoins til forespørgslen.
+		</p>
+		<p>
+			Bagefter får du enten QR-koden scannet af den anden person,
+			eller du kan sende din forespørgsel til en person over længere afstand med Del-knappen i action-bjælken.
+			Den anden person skal klikke på Bitcoin-URL\'en.
+		</p>
+		<p>
+			Den anden person vil præsenteres for en dialog for afsendelse af mønter med alle felter forudfyldt.
+			Hvis hun accepterer, er alt hun behøver at gøre, at sende betalingen.
+		</p>
+	]]>
+	</string>
+	<string name="help_send_coins">
+<![CDATA[
+		<p>
+			Du har startet processen for at sende mønter.
+			Du kom hertil enten via hovedsskærmen eller ved at klikke på en Bitcoin-URL i din molbilbrowser.
+		</p>
+		<p>
+			Først skriver du den Bitcoin-adresse, du vil betale til.
+			Adressen vil autoudfyldes ud fra kendte indgange i din adressebog.
+			Du kan også scanne QR-koder med Bitcoin-adresser eller Bitcoin-forespørgsler ved at klikke på QR-knappen i action-bjælken.
+		</p>
+		<p>
+			Dernæst kan du se, hvor mange Bitcoins du kan bruge i øjeblikket.
+			En evt. difference til saldoen fra hovedskærmen er stadig ubekræftet og kan dermed ikke bruges.
+		</p>
+		<p>
+			Til sidst skrives beløbet, der skal betales.
+		</p>
+		<p>
+			Du kan indtaste et beløb, mens du er offline.
+			Det vil blive sendt, næste gang Bitcoin Wallet genstartes.
+			Hvis du vil have, at en betaling går igennem så hurtigt som muligt, så vær sikker på, at du er ordentligt forbundet (dvs. på et WLAN).
+		</p>
+		<p>
+			Bemærk:
+			Betalinger kan ikke fortrydes!
+			Tjek altid modtageradressen.
+		</p>
+	]]>
+	</string>
+	<string name="help_safety">
+<![CDATA[
+		<p>
+			<b>Vigtige bemærkninger om sikkerhed:</b>
+		</p>
+		<p>
+			Bitcoins gemmes på enheden.
+			<b>Hvis du mister den, mister du dine Bitcoins.</b>
+		</p>
+		<p>
+			Dette betyder, at du er nødt til at <b>sikkerhedskopiere din tegnebog</b>!
+			Brug funktionen for sikkerhedskopiering i appen for dette, frem for en tredjepartsapp til sikkerhedskopiering.
+			Opbevar din sikkerhedskopi sikkert og husk kodeordet.
+		</p>
+		<p>
+			<b>Før afinstallering</b> (eller sletning af appdata/nulstilling af enheden til fabriksindstillinger), <b>overfør dine Bitcoins til en anden tegnebog</b>.
+			Tilbageværende Bitcoins mistes.
+		</p>
+		<p>
+			<b>Betalinger kan ikke fortrydes</b>.
+			Hvis du sender dine Bitcoins ud i det blå, er der stort set ingen måde at få dem tilbage.
+		</p>
+		<p>
+			<b>Opbevar din mobile enhed sikkert!</b>
+			Udfør ikke root på enheden.
+			Installér kun apps, du stoler fuldstændigt på.
+			Ondsindede apps kan være ude på at stjæle din tegnebog.
+		</p>
+		<p>
+			Hold risikoen lav!
+			<b>Brug kun med små beløb</b> til daglig brug.
+		</p>
+	]]>
+	</string>
+
+</resources>
