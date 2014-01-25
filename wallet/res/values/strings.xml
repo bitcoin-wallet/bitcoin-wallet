@@ -199,7 +199,7 @@
 	<string name="report_issue_dialog_mail_intent_chooser">Send report using…</string>
 	<string name="about_title">About</string>
 	<string name="about_license_title">License</string>
-	<string name="about_credits_bitcoinj_title">This app is using bitcoinj %s</string>
+	<string name="about_credits_litecoinj_title">This app is using bitcoinj %s</string>
 	<string name="about_credits_zxing_title">"This app is using 'zxing'"</string>
 	<string name="about_credits_icon_title">"This app is using an icon by 'bitboy'"</string>
 	<string name="about_community_googleplus_title">Google+ Community</string>
