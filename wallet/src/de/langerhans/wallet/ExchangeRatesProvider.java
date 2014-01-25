@@ -35,6 +35,8 @@ import java.util.TreeMap;
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
 
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -89,7 +91,8 @@ public class ExchangeRatesProvider extends ContentProvider
 	private static final String[] BITCOINCHARTS_FIELDS = new String[] { "24h", "7d", "30d" };
 	private static final URL BLOCKCHAININFO_URL;
 	private static final String[] BLOCKCHAININFO_FIELDS = new String[] { "15m" };
-    private static final URL DOGEPOOL_URL;
+    private static final URL CRYPTSY_URL;
+    private static final URL VIRCUREX_URL;
 
 	// https://bitmarket.eu/api/ticker
 
@@ -100,7 +103,8 @@ public class ExchangeRatesProvider extends ContentProvider
 			BITCOINAVERAGE_URL = new URL("https://api.bitcoinaverage.com/ticker/all");
 			BITCOINCHARTS_URL = new URL("http://api.bitcoincharts.com/v1/weighted_prices.json");
             BLOCKCHAININFO_URL = new URL("https://blockchain.info/ticker");
-            DOGEPOOL_URL = new URL("http://dogepool.com/lastdoge");
+            CRYPTSY_URL = new URL("http://pubapi.cryptsy.com/api.php?method=singlemarketdata&marketid=132");
+            VIRCUREX_URL = new URL("https://vircurex.com/api/get_last_trade.json?base=DOGE&alt=BTC");
 		}
 		catch (final MalformedURLException x)
 		{
@@ -127,12 +131,17 @@ public class ExchangeRatesProvider extends ContentProvider
 	public Cursor query(final Uri uri, final String[] projection, final String selection, final String[] selectionArgs, final String sortOrder)
 	{
 		final long now = System.currentTimeMillis();
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getContext());
+        int provider = Integer.parseInt(sp.getString(Constants.PREFS_KEY_EXCHANGE_PROVIDER, "0"));
+        boolean forceRefresh = sp.getBoolean(Constants.PREFS_KEY_EXCHANGE_FORCE_REFRESH, false);
+        if (forceRefresh)
+            sp.edit().putBoolean(Constants.PREFS_KEY_EXCHANGE_FORCE_REFRESH, false).commit();
 
-		if (exchangeRates == null || now - lastUpdated > UPDATE_FREQ_MS)
+		if (exchangeRates == null || now - lastUpdated > UPDATE_FREQ_MS || forceRefresh);
 		{
             float newDogeBtcConversion = -1;
-            if (dogeBtcConversion == -1 && newDogeBtcConversion == -1)
-                newDogeBtcConversion = requestDogeBtcConversion(DOGEPOOL_URL);
+            if ((dogeBtcConversion == -1 && newDogeBtcConversion == -1) || forceRefresh)
+                newDogeBtcConversion = requestDogeBtcConversion(provider);
 
             if (newDogeBtcConversion != -1)
                 dogeBtcConversion = newDogeBtcConversion;
@@ -150,6 +159,19 @@ public class ExchangeRatesProvider extends ContentProvider
 
 			if (newExchangeRates != null)
 			{
+                String providerUrl;
+                switch (provider) {
+                    case 0:
+                        providerUrl = "http://www.cryptsy.com";
+                        break;
+                    case 1:
+                        providerUrl = "http://www.vircurex.com";
+                        break;
+                    default:
+                        providerUrl = "";
+                        break;
+                }
+                newExchangeRates.put("mBTC", new ExchangeRate("mBTC", new BigDecimal(GenericUtils.toNanoCoins(String.valueOf(dogeBtcConversion*1000), 0)).toBigInteger(), providerUrl));
 				exchangeRates = newExchangeRates;
 				lastUpdated = now;
 			}
@@ -329,13 +351,25 @@ public class ExchangeRatesProvider extends ContentProvider
 		return null;
 	}
 
-    private static float requestDogeBtcConversion(URL url) {
+    private static float requestDogeBtcConversion(int provider) {
         HttpURLConnection connection = null;
         Reader reader = null;
+        URL providerUrl;
+        switch (provider) {
+            case 0:
+                providerUrl = CRYPTSY_URL;
+                break;
+            case 1:
+                providerUrl = VIRCUREX_URL;
+                break;
+            default:
+                providerUrl = CRYPTSY_URL;
+                break;
+        }
 
         try
         {
-            connection = (HttpURLConnection) url.openConnection();
+            connection = (HttpURLConnection) providerUrl.openConnection();
             connection.setConnectTimeout(Constants.HTTP_TIMEOUT_MS);
             connection.setReadTimeout(Constants.HTTP_TIMEOUT_MS);
             connection.connect();
@@ -347,19 +381,36 @@ public class ExchangeRatesProvider extends ContentProvider
                 final StringBuilder content = new StringBuilder();
                 Io.copy(reader, content);
 
+                final JSONObject json = new JSONObject(content.toString());
                 try
                 {
-                    return Float.parseFloat(content.toString());
+                    float rate;
+                    switch (provider) {
+                        case 0:
+                            rate = Float.parseFloat(
+                                json.getJSONObject("return")
+                                    .getJSONObject("markets")
+                                    .getJSONObject("DOGE")
+                                    .getString("lasttradeprice"));
+                            break;
+                        case 1:
+                            rate = Float.parseFloat(
+                                    json.getString("value"));
+                            break;
+                        default:
+                            return -1;
+                    }
+                    return rate;
                 } catch (NumberFormatException e)
                 {
-                    log.debug("Hm, looks like dogepool changed their API...");
+                    log.debug("Couldn't get the current exchnage rate from provider " + String.valueOf(provider));
                     return -1;
                 }
 
             }
             else
             {
-                log.debug("http status " + responseCode + " when fetching " + url);
+                log.debug("http status " + responseCode + " when fetching " + providerUrl);
             }
         }
         catch (final Exception x)

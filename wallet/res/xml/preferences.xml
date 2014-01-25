@@ -31,6 +31,13 @@
 			android:key="data_usage"
 			android:summary="@string/preferences_data_usage_summary"
 			android:title="@string/preferences_data_usage_title" />
+        <ListPreference
+            android:key="exchange_provider"
+            android:title="@string/preferences_exchange_title"
+            android:summary="@string/preferences_exchange_summary"
+            android:entries="@array/preferences_exchange_labels"
+            android:entryValues="@array/preferences_exchange_values"
+            android:defaultValue="0"/>
 	</PreferenceCategory>
     <PreferenceCategory android:title="@string/preferences_autosync" >
         <CheckBoxPreference

@@ -1,3 +1,7 @@
+v1.05
+- Exchange rate provider selection. Currently supported: Cryptsy and Vircurex
+- New base currency for exchnage rates: mBTC (Because BTC value is too small. 1 mBTC = 0.001 BTC)
+
 v1.04
 - Fix to prevent syncing to the wrong blockchain fork.
 

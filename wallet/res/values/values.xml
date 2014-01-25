@@ -19,4 +19,12 @@
 		<item>mDOGE, 2 digits</item>
 	</string-array>
 
+    <string-array name="preferences_exchange_values">
+        <item>0</item>
+        <item>1</item>
+    </string-array>
+    <string-array name="preferences_exchange_labels">
+        <item>Cryptsy</item>
+        <item>Vircurex</item>
+    </string-array>
 </resources>

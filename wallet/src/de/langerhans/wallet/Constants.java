@@ -109,6 +109,8 @@ public class Constants
     public static final String PREFS_KEY_AUTOSYNC_SWITCH = "auto_sync_switch";
     public static final String PREFS_KEY_AUTOSYNC_CHARGE = "auto_sync_charging";
     public static final String PREFS_KEY_AUTOSYNC_WIFI = "auto_sync_wifi";
+    public static final String PREFS_KEY_EXCHANGE_PROVIDER = "exchange_provider";
+    public static final String PREFS_KEY_EXCHANGE_FORCE_REFRESH = "exchange_force";
 
 	public static final String PREFS_KEY_CONNECTIVITY_NOTIFICATION = "connectivity_notification";
 	public static final String PREFS_KEY_SELECTED_ADDRESS = "selected_address";
