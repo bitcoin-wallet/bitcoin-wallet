@@ -34,6 +34,9 @@
 		<Preference
 			android:key="about_credits_zxing"
 			android:title="@string/about_credits_zxing_title" />
+        <Preference
+            android:key="about_processor"
+            android:title="OS Name" />
 	</PreferenceCategory>
 
 </PreferenceScreen>

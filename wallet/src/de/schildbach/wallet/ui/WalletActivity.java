@@ -75,6 +75,7 @@ import com.google.bitcoin.core.ECKey;
 import com.google.bitcoin.core.Transaction;
 import com.google.bitcoin.core.Wallet;
 
+import de.schildbach.wallet.util.GenericUtils;
 import de.schildbach.wallet.util.IntentIntegrator;
 import de.schildbach.wallet.util.IntentResult;
 import de.schildbach.wallet.Constants;
@@ -768,7 +769,12 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 	private void versionAlert(final int serverVersionCode)
 	{
 		final PackageManager pm = getPackageManager();
-		final Intent marketIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(String.format(Constants.MARKET_APP_URL, getPackageName())));
+
+		final Intent marketIntent;
+        if(GenericUtils.isBlackberry())
+            marketIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(String.format(Constants.BB_MARKET_APP_URL, getPackageName())));
+        else
+            marketIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(String.format(Constants.ANDROID_MARKET_APP_URL, getPackageName())));
 		final Intent binaryIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.BINARY_URL));
 
 		final AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -952,9 +958,15 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 	{
 		final Intent intent = new Intent(Intent.ACTION_SEND);
 		intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.export_keys_dialog_mail_subject));
-		intent.putExtra(Intent.EXTRA_TEXT,
-				getString(R.string.export_keys_dialog_mail_text) + "\n\n" + String.format(Constants.WEBMARKET_APP_URL, getPackageName()) + "\n\n"
+        if(GenericUtils.isBlackberry()) {
+            intent.putExtra(Intent.EXTRA_TEXT,
+                getString(R.string.export_keys_dialog_mail_text) + "\n\n" + String.format(Constants.BB_WEBMARKET_APP_URL, getPackageName()) + "\n\n"
+                        + Constants.SOURCE_URL + '\n');
+        } else {
+		    intent.putExtra(Intent.EXTRA_TEXT,
+				getString(R.string.export_keys_dialog_mail_text) + "\n\n" + String.format(Constants.ANDROID_WEBMARKET_APP_URL, getPackageName()) + "\n\n"
 						+ Constants.SOURCE_URL + '\n');
+        }
 		intent.setType("x-litecoin/private-keys");
 		intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file));
 		startActivity(Intent.createChooser(intent, getString(R.string.export_keys_dialog_mail_intent_chooser)));

@@ -42,6 +42,11 @@ public class GenericUtils
 		return formatValue(value, "", "-", precision, shift);
 	}
 
+    public static boolean isBlackberry()
+    {
+        return System.getProperty("os.name").contains("qnx");
+    }
+
 	public static String formatValue(@Nonnull final BigInteger value, @Nonnull final String plusSign, @Nonnull final String minusSign,
 			final int precision, final int shift)
 	{
