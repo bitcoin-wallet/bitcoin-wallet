@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-	<string name="help_wallet">
+    <string name="help_wallet">
 <![CDATA[
 		<p>
-			La parte superior izquierda de la pantalla muestra tu dirección Bitcoin seleccionada, que tendrán que conocer quienes te envíen bitcoins.
+			La parte superior izquierda de la pantalla muestra tu dirección Litecoin seleccionada, que tendrán que conocer quienes te envíen litecoins.
 			Pulsar para cambiar la dirección.
 		</p>
 		<p>
-			El código QR a la derecha contiene tu dirección Bitcoin y puede utilizarse para que otras personas lo exploren.
+			El código QR a la derecha contiene tu dirección Litecoin y puede utilizarse para que otras personas lo exploren.
 			Pulsa sobre el código QR para obtener una versión mayor.
 		</p>
 		<p>
@@ -26,40 +25,40 @@
 			Puedes enviar o solicitar monedas pulsando los botones en la barra de acciones.
 			Hay más funcionalidad disponible en el menú de opciones.
 		</p>
-	]]>
-	</string>
-	<string name="help_request_coins">
+]]>
+    </string>
+    <string name="help_request_coins">
 <![CDATA[
 		<p>
-			Mediante este cuadro de diálogo puedes solicitar bitcoins de otra persona (que debería tener instalada Bitcoin Wallet).
+			Mediante este cuadro de diálogo puedes solicitar litecoins de otra persona (que debería tener instalada Litecoin Wallet).
 		</p>
 		<p>
-			En primer lugar, puedes introducir la cantidad de bitcoins que se desea solicitar.
+			En primer lugar, puedes introducir la cantidad de litecoins que se desea solicitar.
 		</p>
 		<p>
 			A continuación, puedes hacer que la otra persona explore el código QR generado,
 			o bien enviar tu solicitud a una persona remota mediante el botón de compartir de la barra de acciones.
-			La otra persona tendrá que acceder a la URL de Bitcoin.
+			La otra persona tendrá que acceder a la URL de Litecoin.
 		</p>
 		<p>
-			En ambos casos, a la otra persona se le mostrará un cuadro de diálogo para enviar bitcoins con todos los campos completados.
+			En ambos casos, a la otra persona se le mostrará un cuadro de diálogo para enviar litecoins con todos los campos completados.
 			Si está de acuerdo, bastará con que acepte la transacción.
 		</p>
-	]]>
-	</string>
-	<string name="help_send_coins">
+]]>
+    </string>
+    <string name="help_send_coins">
 <![CDATA[
 		<p>
-			Has iniciado el proceso de enviar bitcoins.
-			Has llegado aquí bien a través de la pantalla principal o bien al acceder a una URL Bitcoin en tu navegador móvil.
+			Has iniciado el proceso de enviar litecoins.
+			Has llegado aquí bien a través de la pantalla principal o bien al acceder a una URL Litecoin en tu navegador móvil.
 		</p>
 		<p>
-			En primer lugar, debes introducir la dirección Bitcoin receptora del pago.
+			En primer lugar, debes introducir la dirección Litecoin receptora del pago.
 			La dirección se irá autocompletando con las entradas conocidas de la libreta de direcciones.
-			También puedes explorar códigos QR con direcciones Bitcoin o solicitudes de bitcoins pulsando el botón QR de la barra de acciones.
+			También puedes explorar códigos QR con direcciones Litecoin o solicitudes de litecoins pulsando el botón QR de la barra de acciones.
 		</p>
 		<p>
-			A continuación, podrás ver cuántos bitcoins puedes gastar en este momento.
+			A continuación, podrás ver cuántos litecoins puedes gastar en este momento.
 			Cualquier discrepancia que haya con el saldo de la pantalla principal se debe a cantidades no confirmadas que aún no pueden gastarse.
 		</p>
 		<p>
@@ -67,7 +66,7 @@
 		</p>
 		<p>
 			Puedes llevar a cabo una transacción sin conexión.
-			Se enviará la siguiente vez que se reinicie Bitcoin Wallet.
+			Se enviará la siguiente vez que se reinicie Litecoin Wallet.
 			Si quieres que se procese una transacción lo más rápido posible, asegúrate de tener una buena conexión (WLAN).
 		</p>
 		<p>
@@ -75,36 +74,42 @@
 			¡Las transacciones no pueden revertirse!
 			Verifica siempre la dirección de recepción.
 		</p>
-	]]>
-	</string>
-	<string name="help_safety">
+]]>
+    </string>
+    <string name="help_safety">
 <![CDATA[
-		<p>
-			<b>Algunos comentarios sobre la seguridad de tus bitcoins:</b>
-		</p>
-		<p>
-			Los bitcoins en Bitcoin Wallet se almacenan en el dispositivo.
-			<b>Si pierdes tu dispositivo, pierdes tus bitcoins.</b>
-			Esto es lo mismo que ocurriría con tu dinero en una cartera convencional.
-		</p>
-		<p>
-			<b>Antes de desinstalar Bitcoin Wallet</b> (o de eliminar los datos de aplicación o el almacenamiento del dispositivo), <b>transfiere tus bitcoins a otra cartera</b>.
-			Los bitcoins que queden en el dispositivo se perderán.
-		</p>
-		<p>
-			<b>Las transacciones no se pueden deshacer</b>.
-			Si envías bitcoins por error, no hay manera de recuperarlos a menos que conozcas al receptor y acepte devolvértelos.
-		</p>
-		<p>
-			<b>¡Mantén seguro tu dispositivo Android!</b>
-			Instala solamente aplicaciones en las que confíes plenamente.
-			Puede haber aplicaciones malignas que intenten robar tu cartera.
-		</p>
-		<p>
-			¡Minimiza el riesgo!
-			<b>Utiliza Bitcoin Wallet solamente para cantidades pequeñas</b> de uso diario.
-		</p>
-	]]>
-	</string>
-
+		<p><b>Algunos comentarios sobre la seguridad de tus litecoins:</b></p>
+        <p>
+            Los litecoins en Litecoin Wallet se almacenan en el dispositivo.
+            <b>Si pierdes tu dispositivo, pierdes tus litecoins.</b>
+            Esto es lo mismo que ocurriría con tu dinero en una cartera convencional.
+        </p>
+        <p>
+            <b>Antes de desinstalar Litecoin Wallet</b> (o de eliminar los datos de aplicación o el almacenamiento del dispositivo), <b>transfiere tus litecoins a otra cartera</b>.
+            Los litecoins que queden en el dispositivo se perderán.
+        </p>
+        <p>
+            <b>Las transacciones no se pueden deshacer</b>.
+            Si envías litecoins por error, no hay manera de recuperarlos a menos que conozcas al receptor y acepte devolvértelos.
+        </p>
+        <p>
+            <b>¡Mantén seguro tu dispositivo Android!</b>
+            Instala solamente aplicaciones en las que confíes plenamente.
+            Puede haber aplicaciones malignas que intenten robar tu cartera.
+        </p>
+        <p>
+            ¡Minimiza el riesgo!
+            <b>Utiliza Litecoin Wallet solamente para cantidades pequeñas</b> de uso diario.
+        </p>
+        <p><b>DISCLAIMER OF WARRANTY</b></p>
+        <p>The developers of this app use their best efforts to improve its functionality and security. That being said, Litecoin (like Bitcoin) is experimental software with source fully available to the public.</p>
+        <span style=\"font-family: monospace\">THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.</span>
+]]>
+    </string>
 </resources>

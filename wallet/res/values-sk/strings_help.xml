@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-	<string name="help_wallet">
+    <string name="help_wallet">
 <![CDATA[
 		<p>
 			V ľavej hornej časti obrazovky je Vaša aktuálna Bitcoin adresa, túto adresu potrebuje poznať odosielateľ, aby Vám mohol poslať Bitcoiny.
@@ -26,9 +25,9 @@
 			Kliknutím na tlačidlá naspodku môžte poslať alebo vyžiadať Bitcoiny.
 			Ďalšie možnosti sú v ponuke nastavení.
 		</p>
-	]]>
-	</string>
-	<string name="help_request_coins">
+]]>
+    </string>
+    <string name="help_request_coins">
 <![CDATA[
 		<p>
 			Na tejto obrazovke môžete vyžiadať Bitcoiny od niekoho iného (kto má nainštalovanú aplikáciu Bitcoin Wallet).
@@ -45,9 +44,9 @@
 			V oboch prípadoch druhá strana uvidí predvyplnenú obrazovku na odosielanie Bitcoinov.
 			Ak s transakciou súhlasí, tak ju iba potvrdí.
 		</p>
-	]]>
-	</string>
-	<string name="help_send_coins">
+]]>
+    </string>
+    <string name="help_send_coins">
 <![CDATA[
 		<p>
 			Práve ste začali proces odosielania Bitcoinov.
@@ -75,41 +74,47 @@
 			Transakcie nie je možné stornovať!
 			Vždy skontrolujte adresu príjemcu.
 		</p>
-	]]>
-	</string>
-	<string name="help_safety">
+]]>
+    </string>
+    <string name="help_safety">
 <![CDATA[
-		<p>
-			<b>Dôležité informácie o bezpečnosti:</b>
-		</p>
-		<p>
-			Bitcoiny sú uložené na Vašom zariadení.
-			<b>Ak zariadenie stratíte, prídete o všetky svoje Bitcoiny.</b>
-		</p>
-		<p>
-			To znamená, že by ste mali <b>zálohovať svoju peňaženku</b>!
-			Využite funkciu zálohovania v tejto aplikácii, neodporúča sa na zálohovanie použiť aplikácie tretích strán.
-			Svoju zálohu bezpečne uchovajte a nezabudnite heslo.
-		</p>
-		<p>
-			<b>Pred odinštalovaním</b> (alebo vymazaním dát/obnovením továrenských nastavení), <b>odošlite svoje Bitcoiny do inej peňaženky</b>.
-			Inak o svoje Bitcoiny prídete.
-		</p>
-		<p>
-			<b>Platby sa nedajú stornovať</b>.
-			Ak pošlete svoje Bitcoiny na nesprávnu adresu, je takmer nemožné získať ich späť.
-		</p>
-		<p>
-			<b>Chráňte si svoje zariadenie!</b>
-			Nepoužívajte rootnuté zariadenie.
-			Inštalujte len aplikácie, ktorým dôverujete.
-			Škodlivé aplikácie sa môžu pokúsiť ukradnúť Vašu peňaženku.
-		</p>
-		<p>
-			Znížte riziko na minimum!
-			<b>Aplikáciu používajte len na malé sumy.</b>
-		</p>
-	]]>
-	</string>
-
+		<p><b>Dôležité informácie o bezpečnosti:</b></p>
+        <p>
+            Bitcoiny sú uložené na Vašom zariadení.
+            <b>Ak zariadenie stratíte, prídete o všetky svoje Bitcoiny.</b>
+        </p>
+        <p>
+            To znamená, že by ste mali <b>zálohovať svoju peňaženku</b>!
+            Využite funkciu zálohovania v tejto aplikácii, neodporúča sa na zálohovanie použiť aplikácie tretích strán.
+            Svoju zálohu bezpečne uchovajte a nezabudnite heslo.
+        </p>
+        <p>
+            <b>Pred odinštalovaním</b> (alebo vymazaním dát/obnovením továrenských nastavení), <b>odošlite svoje Bitcoiny do inej peňaženky</b>.
+            Inak o svoje Bitcoiny prídete.
+        </p>
+        <p>
+            <b>Platby sa nedajú stornovať</b>.
+            Ak pošlete svoje Bitcoiny na nesprávnu adresu, je takmer nemožné získať ich späť.
+        </p>
+        <p>
+            <b>Chráňte si svoje zariadenie!</b>
+            Nepoužívajte rootnuté zariadenie.
+            Inštalujte len aplikácie, ktorým dôverujete.
+            Škodlivé aplikácie sa môžu pokúsiť ukradnúť Vašu peňaženku.
+        </p>
+        <p>
+            Znížte riziko na minimum!
+            <b>Aplikáciu používajte len na malé sumy.</b>
+        </p>
+        <p><b>DISCLAIMER OF WARRANTY</b></p>
+        <p>The developers of this app use their best efforts to improve its functionality and security. That being said, Litecoin (like Bitcoin) is experimental software with source fully available to the public.</p>
+        <span style=\"font-family: monospace\">THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.</span>
+]]>
+    </string>
 </resources>

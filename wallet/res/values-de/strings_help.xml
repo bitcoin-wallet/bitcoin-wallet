@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-	<string name="help_wallet">
+    <string name="help_wallet">
 <![CDATA[
 		<p>
-			Im linken oberen Teil des Bildschirms wird Deine Bitcoin-Adresse angezeigt, mit der Du Zahlungen von anderen Teilnehmern empfangen kannst.
+			Im linken oberen Teil des Bildschirms wird Deine Litecoin-Adresse angezeigt, mit der Du Zahlungen von anderen Teilnehmern empfangen kannst.
 			Mit einem Tap auf die Adresse wird eine neue Adresse generiert.
 		</p>
 		<p>
-			Der QR-Code auf dem oberen rechten Teil des Displays enthält ebenfalls Deine Bitcoin-Adresse und kann von einem anderen Teilnehmer eingescannt werden.
+			Der QR-Code auf dem oberen rechten Teil des Displays enthält ebenfalls Deine Litecoin-Adresse und kann von einem anderen Teilnehmer eingescannt werden.
 			Mit einem Tap auf den QR-Code wird dieser vergrößert.
 		</p>
 		<p>
-			In der Mitte des Bildschirms wird Dein aktuelles Bitcoin-Guthaben angezeigt.
+			In der Mitte des Bildschirms wird Dein aktuelles Litecoin-Guthaben angezeigt.
 			Außerdem wird der entsprechende Wert in einer ausgewählten Währung angezeigt.
 			Ein Tap auf die Guthabenanzeige öffnet eine Liste mit allen verfügbaren Währungen, ein weiterer Tap auf eine der verfügbaren Währungen setzt die ausgewählte Währung als Standardwährung.
 		</p>
@@ -26,12 +25,12 @@
 			In der Titelzeile finden sich Knöpfe zum Anfordern oder Versenden von Zahlungen.
 			Im Optionsmenü sind weitere Aktionen versteckt.
 		</p>
-	]]>
-	</string>
-	<string name="help_request_coins">
+]]>
+    </string>
+    <string name="help_request_coins">
 <![CDATA[
 		<p>
-			In diesem Dialogfeld kann eine Zahlung von einem anderen Teilnehmer angefordert werden, der dafür Bitcoin Wallet auf seinem Gerät installiert haben sollte.
+			In diesem Dialogfeld kann eine Zahlung von einem anderen Teilnehmer angefordert werden, der dafür Litecoin Wallet auf seinem Gerät installiert haben sollte.
 		</p>
 		<p>
 			Dafür muss der angeforderte Betrag eingegeben werden.
@@ -45,21 +44,21 @@
 			Bei beiden Varianten wird bei dem anderen Teilnehmer ein Zahlungsdialog geöffnet, bei dem sämtliche Felder bereits ausgefüllt sind.
 			Wenn alle Angaben korrekt sind, kann die Zahlung kann durch eine einfache Bestätigung ausgeführt werden.
 		</p>
-	]]>
-	</string>
-	<string name="help_send_coins">
+]]>
+    </string>
+    <string name="help_send_coins">
 <![CDATA[
 		<p>
 			Dieses Dialogfeld wird geöffnet, wenn der Zahlungsprozess initiiert wurde.
-			Dies geschieht entweder durch einen Tap auf "Zahlung senden" auf der Startseite oder einen Tap auf eine Bitcoin-URL im mobilen Browser.
+			Dies geschieht entweder durch einen Tap auf "Zahlung senden" auf der Startseite oder einen Tap auf eine Litecoin-URL im mobilen Browser.
 		</p>
 		<p>
 			Im ersten Feld muss die Empfängeradresse eingegeben werden.
 			Wenn eine Adresse im Adressbuch gespeichert wurde, wird diese automatisch vervollständigt.
-			Es kann ebenfalls ein QR-Code mit Bitcoin-Adressen oder Zahlungsanforderungen eingescannt werden, indem man den QR-Button in der Aktionsleiste tappt.
+			Es kann ebenfalls ein QR-Code mit Litecoin-Adressen oder Zahlungsanforderungen eingescannt werden, indem man den QR-Button in der Aktionsleiste tappt.
 		</p>
 		<p>
-			Im nächsten Feld wird das verschickbare Bitcoin-Guthaben angezeigt.
+			Im nächsten Feld wird das verschickbare Litecoin-Guthaben angezeigt.
 			Falls dieses Guthaben vom angezeigten Guthaben auf der Hauptseite abweicht, sind noch nicht alle Transaktionen bestätigt.
 		</p>
 		<p>
@@ -67,7 +66,7 @@
 		</p>
 		<p>
 			Eine Zahlung kann auch offline eingegeben werden.
-			Sie wird bei einem Neustart von Bitcoin Wallet ausgeführt.
+			Sie wird bei einem Neustart von Litecoin Wallet ausgeführt.
 			Wenn eine Zahlung so schnell wie möglich bestätigt werden soll, ist eine gute Verbindung (z.B. über WLAN) vonnöten.
 		</p>
 		<p>
@@ -75,41 +74,47 @@
 			Zahlungen sind irreversibel!
 			Die Empfängeradresse sollte deswegen vor Bestätigung der Zahlung unbedingt auf Richtigkeit überprüft werden.
 		</p>
-	]]>
-	</string>
-	<string name="help_safety">
+]]>
+    </string>
+    <string name="help_safety">
 <![CDATA[
-		<p>
-			<b>Wichtige Sicherheitshinweise:</b>
-		</p>
-		<p>
-			Bitcoins werden lokal auf dem Gerät gespeichert.
-			<b>Wenn das Gerät verloren geht, gehen alle Bitcoins verloren.</b>
-		</p>
-		<p>
-			Das bedeutet, <b>du musst deine Wallet sichern</b>!
-			Nutze dafür die Sicherungs-Funktion in der App anstatt einer externen Backup-App.
-			Hebe deine Sicherung gut auf und vergiß das Passwort nicht.
-		</p>
-		<p>
-			<b>Vor der Deinstallation</b> (oder dem Löschen der App-Daten/Formatierung des Geräts), <b>müssen alle Bitcoins auf eine andere Wallet übertragen werden</b>.
-			Auf dem Gerät verbleibende Bitcoins gehen verloren.
-		</p>
-		<p>
-			<b>Zahlungen können nicht rückgängig gemacht werden</b>.
-			Wenn Bitcoins ins Unbekannte geschickt werden, gibt es kaum Möglichkeit, sie zurückzuholen.
-		</p>
-		<p>
-			<b>Halte dein Mobilgerät sicher!</b>
-			Roote dein Gerät nicht.
-			Installiere nur Apps, denen du vollkommen vertraust.
-			Bösartige Apps könnten versuchen, die in der Wallet gespeicherten Bitcoins zu stehlen.
-		</p>
-		<p>
-			Minimiere das Risiko!
-			Speichere nur <b>Beträge für den täglichen Gebrauch</b>.
-		</p>
-	]]>
-	</string>
-
+		<p><b>Wichtige Sicherheitshinweise:</b></p>
+        <p>
+            Litecoins werden lokal auf dem Gerät gespeichert.
+            <b>Wenn das Gerät verloren geht, gehen alle Litecoins verloren.</b>
+        </p>
+        <p>
+            Das bedeutet, <b>du musst deine Wallet sichern</b>!
+            Nutze dafür die Sicherungs-Funktion in der App anstatt einer externen Backup-App.
+            Hebe deine Sicherung gut auf und vergiß das Passwort nicht.
+        </p>
+        <p>
+            <b>Vor der Deinstallation</b> (oder dem Löschen der App-Daten/Formatierung des Geräts), <b>müssen alle Litecoins auf eine andere Wallet übertragen werden</b>.
+            Auf dem Gerät verbleibende Litecoins gehen verloren.
+        </p>
+        <p>
+            <b>Zahlungen können nicht rückgängig gemacht werden</b>.
+            Wenn Litecoins ins Unbekannte geschickt werden, gibt es kaum Möglichkeit, sie zurückzuholen.
+        </p>
+        <p>
+            <b>Halte dein Mobilgerät sicher!</b>
+            Roote dein Gerät nicht.
+            Installiere nur Apps, denen du vollkommen vertraust.
+            Bösartige Apps könnten versuchen, die in der Wallet gespeicherten Litecoins zu stehlen.
+        </p>
+        <p>
+            Minimiere das Risiko!
+            Speichere nur <b>Beträge für den täglichen Gebrauch</b>.
+        </p>
+        <p><b>DISCLAIMER OF WARRANTY</b></p>
+        <p>The developers of this app use their best efforts to improve its functionality and security. That being said, Litecoin (like Bitcoin) is experimental software with source fully available to the public.</p>
+        <span style=\"font-family: monospace\">THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.</span>
+]]>
+    </string>
 </resources>

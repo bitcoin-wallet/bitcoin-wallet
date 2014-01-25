@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-	<string name="help_wallet">
+    <string name="help_wallet">
 <![CDATA[
 		<p>
-			Horní levá část obrazovky zobrazuje Vaši aktuální Bitcoin adresu, kterou druhá strana potřebuje znát, aby Vám mohla zaslat platbu.
+			Horní levá část obrazovky zobrazuje Vaši aktuální Litecoin adresu, kterou druhá strana potřebuje znát, aby Vám mohla zaslat platbu.
 			Kliknutím na adresu ji změníte.
 		</p>
 		<p>
-			QR kód na pravé straně obsahuje Vaši Bitcoin adresu a může být použit pro naskenování druhou stranou.
+			QR kód na pravé straně obsahuje Vaši Litecoin adresu a může být použit pro naskenování druhou stranou.
 			Klepněte na QR kód pro zobrazení větší verze.
 		</p>
 		<p>
@@ -23,18 +22,18 @@
 			Táhnutím vlevo či vpravo je možné aplikovat na seznam filtr.
 		</p>
 		<p>
-			Můžete poslat nebo si vyžádat Bitcoiny klepnutím na patřičné tlačítko v akční nabídce.
+			Můžete poslat nebo si vyžádat Litecoiny klepnutím na patřičné tlačítko v akční nabídce.
 			Více možností je v nabídce nastavení.
 		</p>
-	]]>
-	</string>
-	<string name="help_request_coins">
+]]>
+    </string>
+    <string name="help_request_coins">
 <![CDATA[
 		<p>
-			Pomocí tohoto dialogu můžete vyžádat Bitcoiny od někoho jiného (kdo by měl také mít nainstalovanou aplikaci Bitcoin Wallet).
+			Pomocí tohoto dialogu můžete vyžádat Litecoiny od někoho jiného (kdo by měl také mít nainstalovanou aplikaci Litecoin Wallet).
 		</p>
 		<p>
-			Nejprve zadejte množství Bitcoinů, které chcete vyžádat.
+			Nejprve zadejte množství Litecoinů, které chcete vyžádat.
 		</p>
 		<p>
 			Potom můžete protistraně nabídnout vygenerovaný QR kód k oskenování,
@@ -42,15 +41,15 @@
 			Druhá strana potom klikne na získanou adresu.
 		</p>
 		<p>
-			V obou případech bude odesílatel uvidí dialog na zasílání Bitcoinů s předvzplněnými údaji.
+			V obou případech bude odesílatel uvidí dialog na zasílání Litecoinů s předvzplněnými údaji.
 			Pokud souhlasí, potvrdí zadané informace a dojde k transakci.
 		</p>
-	]]>
-	</string>
-	<string name="help_send_coins">
+]]>
+    </string>
+    <string name="help_send_coins">
 <![CDATA[
 		<p>
-			Právě jste zahájil zasílání Bitcoinů.
+			Právě jste zahájil zasílání Litecoinů.
 			Sem jste se musel dostat buď přes hlavní obrazovku aplikace, nebo pomocí klepnutí na speciální adresu v prohlížeči.
 		</p>
 		<p>
@@ -59,7 +58,7 @@
 			Můžete také naskenovat QR kód s adresou peněženky nebo požadavek na zaplacení stisknutím tlačítka s QR kódem.
 		</p>
 		<p>
-			V dalším kroku uvidíte, kolik Bitcoinů můžete momentálně utratit.
+			V dalším kroku uvidíte, kolik Litecoinů můžete momentálně utratit.
 			Jakýkoliv rozdíl vůči zůstatku zobrazenému na výchozí obrazovce je stále nepotvrzen a tudíž nemůže být utracen.
 		</p>
 		<p>
@@ -67,7 +66,7 @@
 		</p>
 		<p>
 			Transakce můžete provádět, i když jste právě offline.
-			Budou provedeny při dalším spuštění aplikace Bitcoin Wallet.
+			Budou provedeny při dalším spuštění aplikace Litecoin Wallet.
 			Pokud chcete transakci provést co nejrychleji, ujistěte se, že máte rychlé připojení (například jste připojeni pomocí bezdrátové sítě).
 		</p>
 		<p>
@@ -75,36 +74,42 @@
 			Transakce nemohou být zrušeny!
 			Vždy zkontrolujte adresu příjemce.
 		</p>
-	]]>
-	</string>
-	<string name="help_safety">
+]]>
+    </string>
+    <string name="help_safety">
 <![CDATA[
-		<p>
-			Několik slov o bezpečnosti vašich Bitcoinů:
-		</p>
-		<p>
-			Bitcoiny v aplikaci Bitcoin Wallet jsou uloženy ve vašem zařízení.
-			<b>Pokud o zařízení přijdete, přijdete i o Bitcoiny v něm.</b>
-			Stejně jako při ztrátě normální peněženky.
-		</p>
-		<p>
-			<b>Před odinstalací aplikace Bitcoin Wallet</b> (nebo při odstraňování dat/wipe), <b> si přepošlete zůstatek do jiné peněženky</b>.
-			Jakékoliv zůstavší Bitcony budou nenávratně ztraceny.
-		</p>
-		<p>
-			<b>Transakce nemohou být zrušeny</b>.
-			Pokud pošlete Bitcoiny někam neznámo kam, neexistuje možnost, jak je získat zpět, jedině byste znali příjemce a on měl zrovna náladu je poctivě vrátit.
-		</p>
-		<p>
-			<b>Udržujte vašeho Androida v bezpečí!</b>
-			Instalujte pouze aplikace, kterým plně důvěřujete.
-			Existují škodlivé aplikace, které vás mohou o vaše Bitcoiny připravit.
-		</p>
-		<p>
-			Neriskujte zbytečně!
-			<b>V aplikaci Bitcoin Wallet mějte pouze malé částky</b> pro rychlé použití.
-		</p>
-	]]>
-	</string>
-
+		<p><b>Několik slov o bezpečnosti vašich Litecoinů:</b></p>
+        <p>
+            Litecoiny v aplikaci Litecoin Wallet jsou uloženy ve vašem zařízení.
+            <b>Pokud o zařízení přijdete, přijdete i o Litecoiny v něm.</b>
+            Stejně jako při ztrátě normální peněženky.
+        </p>
+        <p>
+            <b>Před odinstalací aplikace Litecoin Wallet</b> (nebo při odstraňování dat/wipe), <b> si přepošlete zůstatek do jiné peněženky</b>.
+            Jakékoliv zůstavší Bitcony budou nenávratně ztraceny.
+        </p>
+        <p>
+            <b>Transakce nemohou být zrušeny</b>.
+            Pokud pošlete Litecoiny někam neznámo kam, neexistuje možnost, jak je získat zpět, jedině byste znali příjemce a on měl zrovna náladu je poctivě vrátit.
+        </p>
+        <p>
+            <b>Udržujte vašeho Androida v bezpečí!</b>
+            Instalujte pouze aplikace, kterým plně důvěřujete.
+            Existují škodlivé aplikace, které vás mohou o vaše Litecoiny připravit.
+        </p>
+        <p>
+            Neriskujte zbytečně!
+            <b>V aplikaci Litecoin Wallet mějte pouze malé částky</b> pro rychlé použití.
+        </p>
+        <p><b>DISCLAIMER OF WARRANTY</b></p>
+        <p>The developers of this app use their best efforts to improve its functionality and security. That being said, Litecoin (like Bitcoin) is experimental software with source fully available to the public.</p>
+        <span style=\"font-family: monospace\">THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.</span>
+]]>
+    </string>
 </resources>

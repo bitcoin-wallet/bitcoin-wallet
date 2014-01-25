@@ -62,8 +62,6 @@
 	<string name="send_coins_sending_msg">שולח…</string>
 	<string name="send_coins_sent_msg">נשלח!</string>
 	<string name="send_coins_failed_msg">נכשל!</string>
-	<string name="send_coins_add_address_dialog_title">האם להוסיף את הנמען לפסר הכתובות ?</string>
-	<string name="send_coins_add_address_dialog_button_add">הוסף כתובת</string>
 	<string name="send_coins_error_msg">בעיה בשליחת מטבעות</string>
 	<string name="send_coins_address_context_clear_title">הקש כתובת חדשה</string>
 	<string name="request_coins_activity_title">בקש ביטקוין</string>
