@@ -156,11 +156,11 @@ public final class AboutActivity extends SherlockPreferenceActivity
 			startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.CREDITS_ZXING_URL)));
 			finish();
 		}
-		else if (KEY_ABOUT_CREDITS_ICON.equals(key))
+		/*else if (KEY_ABOUT_CREDITS_ICON.equals(key))
 		{
 			startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.CREDITS_ICON_URL)));
 			finish();
-		}
+		}*/
 		return false;
 	}
 }

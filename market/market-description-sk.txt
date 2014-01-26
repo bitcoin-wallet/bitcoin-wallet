@@ -12,10 +12,10 @@ FUNKCIE:
 • Widget s celkovým zostatkom.
 
 Viac informácií o Bitcoine
-http://bitcoin.org
+http://digitalcoin.co
 
 Ak chcete prispieť do projektu Bitcoin Wallet nájdete ho na adrese
-https://github.com/schildbach/bitcoin-wallet
+https://github.com/HashEngineering/digitalcoin-wallet
 
 Licencia: GPLv3
 Použitie len na vlastné riziko!

@@ -12,10 +12,10 @@ FUNKTIONER:
 • App-widget for Bitcoin-saldo.
 
 Du kan finde mere om Bitcoin på
-http://bitcoin.org
+http://digitalcoin.co
 
 Hvis du vil bidrage til Bitcoin Wallet, kan projektet findes på
-https://github.com/schildbach/bitcoin-wallet
+https://github.com/HashEngineering/digitalcoin-wallet
 
 Licens: GPLv3
 Brug for egen risiko!

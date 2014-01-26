@@ -93,7 +93,7 @@ public class Constants
 	public static final String REPORT_SUBJECT_CRASH = "Crash report";
 
 	public static final String LICENSE_URL = "http://www.gnu.org/licenses/gpl-3.0.txt";
-    public static final String FORKED_FROM_SOURCE = "based on bitcoin-wallet 3.29\n";
+    public static final String FORKED_FROM_SOURCE = "based on bitcoin-wallet 3.30\n";
 	public static final String SOURCE_URL = "https://github.com/HashEngineering/" + CoinDefinition.coinName + "-wallet";
 	public static final String BINARY_URL = "http://code.google.com/p/bitcoin-wallet/downloads/list";
 	public static final String CREDITS_BITCOINJ_URL = "https://github.com/HashEngineering/" + CoinDefinition.coinName + "j";
