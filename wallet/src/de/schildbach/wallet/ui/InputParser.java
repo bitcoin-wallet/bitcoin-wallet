@@ -18,7 +18,6 @@
 package de.schildbach.wallet.ui;
 
 import java.io.IOException;
-import java.math.BigInteger;
 import java.util.regex.Pattern;
 
 import javax.annotation.Nonnull;
@@ -40,7 +39,7 @@ import com.google.bitcoin.uri.BitcoinURI;
 import com.google.bitcoin.uri.BitcoinURIParseException;
 
 import de.schildbach.wallet.Constants;
-import de.schildbach.wallet.util.Bluetooth;
+import de.schildbach.wallet.PaymentIntent;
 import de.schildbach.wallet.util.Qr;
 import de.schildbach.wallet_test.R;
 
@@ -66,12 +65,8 @@ public abstract class InputParser
 				try
 				{
 					final BitcoinURI bitcoinUri = new BitcoinURI(null, input);
-					final Address address = bitcoinUri.getAddress();
-					final String addressLabel = bitcoinUri.getLabel();
-					final BigInteger amount = bitcoinUri.getAmount();
-					final String bluetoothMac = (String) bitcoinUri.getParameterByName(Bluetooth.MAC_URI_PARAM);
 
-					bitcoinRequest(address, addressLabel, amount, bluetoothMac);
+					handlePaymentIntent(PaymentIntent.fromBitcoinUri(bitcoinUri));
 				}
 				catch (final BitcoinURIParseException x)
 				{
@@ -84,7 +79,7 @@ public abstract class InputParser
 				{
 					final Address address = new Address(Constants.NETWORK_PARAMETERS, input);
 
-					bitcoinRequest(address, null, null, null);
+					handlePaymentIntent(PaymentIntent.fromAddress(address, null));
 				}
 				catch (final AddressFormatException x)
 				{
@@ -98,7 +93,7 @@ public abstract class InputParser
 					final ECKey key = new DumpedPrivateKey(Constants.NETWORK_PARAMETERS, input).getKey();
 					final Address address = new Address(Constants.NETWORK_PARAMETERS, key.getPubKeyHash());
 
-					bitcoinRequest(address, null, null, null);
+					handlePaymentIntent(PaymentIntent.fromAddress(address, null));
 				}
 				catch (final AddressFormatException x)
 				{
@@ -111,7 +106,7 @@ public abstract class InputParser
 				{
 					final Transaction tx = new Transaction(Constants.NETWORK_PARAMETERS, Qr.decodeBinary(input));
 
-					directTransaction(tx);
+					handleDirectTransaction(tx);
 				}
 				catch (final IOException x)
 				{
@@ -149,7 +144,7 @@ public abstract class InputParser
 				{
 					final Transaction tx = new Transaction(Constants.NETWORK_PARAMETERS, input);
 
-					directTransaction(tx);
+					handleDirectTransaction(tx);
 				}
 				catch (final ProtocolException x)
 				{
@@ -165,10 +160,9 @@ public abstract class InputParser
 
 	public abstract void parse();
 
-	protected abstract void bitcoinRequest(@Nonnull Address address, @Nullable String addressLabel, @Nullable BigInteger amount,
-			@Nullable String bluetoothMac);
+	protected abstract void handlePaymentIntent(@Nonnull PaymentIntent paymentIntent);
 
-	protected abstract void directTransaction(@Nonnull Transaction transaction);
+	protected abstract void handleDirectTransaction(@Nonnull Transaction transaction);
 
 	protected abstract void error(int messageResId, Object... messageArgs);
 

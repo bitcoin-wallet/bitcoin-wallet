@@ -21,7 +21,6 @@ import java.math.BigInteger;
 
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -84,6 +83,7 @@ import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.ExchangeRatesProvider;
 import de.schildbach.wallet.ExchangeRatesProvider.ExchangeRate;
+import de.schildbach.wallet.PaymentIntent;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.integration.android.BitcoinIntegration;
 import de.schildbach.wallet.offline.SendBluetoothTask;
@@ -481,7 +481,7 @@ public final class SendCoinsFragment extends SherlockFragment
 			if ((Intent.ACTION_VIEW.equals(action) || NfcAdapter.ACTION_NDEF_DISCOVERED.equals(action)) && intentUri != null
 					&& "bitcoin".equals(scheme))
 				initStateFromBitcoinUri(intentUri);
-			else if (intent.hasExtra(SendCoinsActivity.INTENT_EXTRA_ADDRESS))
+			else if (intent.hasExtra(SendCoinsActivity.INTENT_EXTRA_PAYMENT_INTENT))
 				initStateFromIntentExtras(intent.getExtras());
 		}
 
@@ -490,12 +490,9 @@ public final class SendCoinsFragment extends SherlockFragment
 
 	private void initStateFromIntentExtras(@Nonnull final Bundle extras)
 	{
-		final String address = extras.getString(SendCoinsActivity.INTENT_EXTRA_ADDRESS);
-		final String addressLabel = extras.getString(SendCoinsActivity.INTENT_EXTRA_ADDRESS_LABEL);
-		final BigInteger amount = (BigInteger) extras.getSerializable(SendCoinsActivity.INTENT_EXTRA_AMOUNT);
-		final String bluetoothMac = extras.getString(SendCoinsActivity.INTENT_EXTRA_BLUETOOTH_MAC);
+		final PaymentIntent paymentIntent = extras.getParcelable(SendCoinsActivity.INTENT_EXTRA_PAYMENT_INTENT);
 
-		update(address, addressLabel, amount, bluetoothMac);
+		update(paymentIntent);
 	}
 
 	private void initStateFromBitcoinUri(@Nonnull final Uri bitcoinUri)
@@ -505,13 +502,13 @@ public final class SendCoinsFragment extends SherlockFragment
 		new StringInputParser(input)
 		{
 			@Override
-			protected void bitcoinRequest(final Address address, final String addressLabel, final BigInteger amount, final String bluetoothMac)
+			protected void handlePaymentIntent(final PaymentIntent paymentIntent)
 			{
-				update(address.toString(), addressLabel, amount, bluetoothMac);
+				update(paymentIntent);
 			}
 
 			@Override
-			protected void directTransaction(final Transaction transaction)
+			protected void handleDirectTransaction(final Transaction transaction)
 			{
 				cannotClassify(input);
 			}
@@ -636,13 +633,13 @@ public final class SendCoinsFragment extends SherlockFragment
 				new StringInputParser(input)
 				{
 					@Override
-					protected void bitcoinRequest(final Address address, final String addressLabel, final BigInteger amount, final String bluetoothMac)
+					protected void handlePaymentIntent(final PaymentIntent paymentIntent)
 					{
-						SendCoinsActivity.start(activity, address != null ? address.toString() : null, addressLabel, amount, bluetoothMac);
+						SendCoinsActivity.start(activity, paymentIntent);
 					}
 
 					@Override
-					protected void directTransaction(final Transaction transaction)
+					protected void handleDirectTransaction(final Transaction transaction)
 					{
 						cannotClassify(input);
 					}
@@ -1038,31 +1035,34 @@ public final class SendCoinsFragment extends SherlockFragment
 		return state == State.INPUT && validatedAddress != null && isValidAmounts;
 	}
 
-	public void update(final String receivingAddress, final String receivingLabel, @Nullable final BigInteger amount,
-			@Nullable final String bluetoothMac)
+	private void update(final @Nonnull PaymentIntent paymentIntent)
 	{
+		log.info("got {}", paymentIntent);
+
+		final String addressStr = paymentIntent.getAddress().toString();
+
 		try
 		{
-			validatedAddress = new AddressAndLabel(Constants.NETWORK_PARAMETERS, receivingAddress, receivingLabel);
+			validatedAddress = new AddressAndLabel(Constants.NETWORK_PARAMETERS, addressStr, paymentIntent.addressLabel);
 			receivingAddressView.setText(null);
 		}
 		catch (final Exception x)
 		{
-			receivingAddressView.setText(receivingAddress);
+			receivingAddressView.setText(addressStr);
 			validatedAddress = null;
-			log.info("problem parsing address: '" + receivingAddress + "'", x);
+			log.info("problem parsing address: '" + addressStr + "'", x);
 		}
 
-		if (amount != null)
-			amountCalculatorLink.setBtcAmount(amount);
+		if (paymentIntent.hasAmount())
+			amountCalculatorLink.setBtcAmount(paymentIntent.amount);
 
 		// focus
-		if (receivingAddress != null && amount == null)
+		if (!paymentIntent.hasAmount())
 			amountCalculatorLink.requestFocus();
-		else if (receivingAddress != null && amount != null)
+		else
 			viewGo.requestFocus();
 
-		this.bluetoothMac = bluetoothMac;
+		this.bluetoothMac = paymentIntent.bluetoothMac;
 
 		bluetoothAck = null;
 

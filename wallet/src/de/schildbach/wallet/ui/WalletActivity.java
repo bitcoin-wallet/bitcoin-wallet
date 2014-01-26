@@ -28,7 +28,6 @@ import java.io.Reader;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.io.Writer;
-import java.math.BigInteger;
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
@@ -68,13 +67,14 @@ import android.widget.TextView;
 
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
-import com.google.bitcoin.core.Address;
+import com.google.bitcoin.core.AddressFormatException;
 import com.google.bitcoin.core.ECKey;
 import com.google.bitcoin.core.Transaction;
 import com.google.bitcoin.core.Wallet;
 
 import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.PaymentIntent;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.ui.InputParser.BinaryInputParser;
 import de.schildbach.wallet.ui.InputParser.StringInputParser;
@@ -151,13 +151,13 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 			new BinaryInputParser(inputType, input)
 			{
 				@Override
-				protected void bitcoinRequest(final Address address, final String addressLabel, final BigInteger amount, final String bluetoothMac)
+				protected void handlePaymentIntent(final PaymentIntent paymentIntent)
 				{
 					cannotClassify(inputType);
 				}
 
 				@Override
-				protected void directTransaction(final Transaction transaction)
+				protected void handleDirectTransaction(final Transaction transaction)
 				{
 					processDirectTransaction(transaction);
 				}
@@ -181,13 +181,13 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 			new StringInputParser(input)
 			{
 				@Override
-				protected void bitcoinRequest(final Address address, final String addressLabel, final BigInteger amount, final String bluetoothMac)
+				protected void handlePaymentIntent(final PaymentIntent paymentIntent)
 				{
-					SendCoinsActivity.start(WalletActivity.this, address != null ? address.toString() : null, addressLabel, amount, bluetoothMac);
+					SendCoinsActivity.start(WalletActivity.this, paymentIntent);
 				}
 
 				@Override
-				protected void directTransaction(final Transaction tx)
+				protected void handleDirectTransaction(final Transaction tx)
 				{
 					processDirectTransaction(tx);
 				}
@@ -278,7 +278,7 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 				return true;
 
 			case R.id.wallet_options_donate:
-				SendCoinsActivity.start(this, Constants.DONATION_ADDRESS, getString(R.string.wallet_donate_address_label), null, null);
+				handleDonate();
 				return true;
 
 			case R.id.wallet_options_help:
@@ -309,6 +309,19 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 		showDialog(DIALOG_EXPORT_KEYS);
 
 		config.disarmBackupReminder();
+	}
+
+	private void handleDonate()
+	{
+		try
+		{
+			SendCoinsActivity.start(this, PaymentIntent.fromAddress(Constants.DONATION_ADDRESS, getString(R.string.wallet_donate_address_label)));
+		}
+		catch (final AddressFormatException x)
+		{
+			// cannot happen, address is hardcoded
+			throw new RuntimeException(x);
+		}
 	}
 
 	@Override
