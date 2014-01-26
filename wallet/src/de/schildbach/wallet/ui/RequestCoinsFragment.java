@@ -385,12 +385,17 @@ public final class RequestCoinsFragment extends SherlockFragment
 		final String bitcoinRequest = determineBitcoinRequestStr(true);
 		final byte[] paymentRequest = determinePaymentRequest(true);
 
-		// update qr code
+		// update qr-code
 		final int size = (int) (256 * getResources().getDisplayMetrics().density);
-		qrCodeBitmap = Qr.bitmap(bitcoinRequest, size);
+		final String qrContent;
+		if (config.getQrPaymentRequestEnabled())
+			qrContent = "BITCOIN:-" + Qr.encodeBinary(paymentRequest);
+		else
+			qrContent = bitcoinRequest;
+		qrCodeBitmap = Qr.bitmap(qrContent, size);
 		qrView.setImageBitmap(qrCodeBitmap);
 
-		// update ndef message
+		// update nfc ndef message
 		final boolean nfcSuccess;
 		if (config.getNfcPaymentRequestEnabled())
 			nfcSuccess = Nfc.publishMimeObject(nfcManager, activity, Constants.MIMETYPE_PAYMENTREQUEST, paymentRequest, false);

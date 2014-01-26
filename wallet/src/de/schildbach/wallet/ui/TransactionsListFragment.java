@@ -321,7 +321,7 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 			private void handleShowQr()
 			{
 				final int size = (int) (384 * getResources().getDisplayMetrics().density);
-				final Bitmap qrCodeBitmap = Qr.bitmap(Qr.encodeBinary(serializedTx), size);
+				final Bitmap qrCodeBitmap = Qr.bitmap(Qr.encodeCompressBinary(serializedTx), size);
 				BitmapFragment.show(getFragmentManager(), qrCodeBitmap);
 			}
 		});
