@@ -36,6 +36,7 @@ import android.database.ContentObserver;
 import android.database.Cursor;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.nfc.NdefMessage;
 import android.nfc.NfcAdapter;
 import android.os.Bundle;
 import android.os.Handler;
@@ -87,8 +88,10 @@ import de.schildbach.wallet.PaymentIntent;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.integration.android.BitcoinIntegration;
 import de.schildbach.wallet.offline.SendBluetoothTask;
+import de.schildbach.wallet.ui.InputParser.BinaryInputParser;
 import de.schildbach.wallet.ui.InputParser.StringInputParser;
 import de.schildbach.wallet.util.GenericUtils;
+import de.schildbach.wallet.util.Nfc;
 import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
 
@@ -333,6 +336,15 @@ public final class SendCoinsFragment extends SherlockFragment
 		}
 	};
 
+	private final DialogInterface.OnClickListener activityDismissListener = new DialogInterface.OnClickListener()
+	{
+		@Override
+		public void onClick(final DialogInterface dialog, final int which)
+		{
+			activity.finish();
+		}
+	};
+
 	@Override
 	public void onAttach(final Activity activity)
 	{
@@ -464,12 +476,23 @@ public final class SendCoinsFragment extends SherlockFragment
 			final String action = intent.getAction();
 			final Uri intentUri = intent.getData();
 			final String scheme = intentUri != null ? intentUri.getScheme() : null;
+			final String mimeType = intent.getType();
 
 			if ((Intent.ACTION_VIEW.equals(action) || NfcAdapter.ACTION_NDEF_DISCOVERED.equals(action)) && intentUri != null
 					&& "bitcoin".equals(scheme))
+			{
 				initStateFromBitcoinUri(intentUri);
+			}
+			else if ((NfcAdapter.ACTION_NDEF_DISCOVERED.equals(action)) && Constants.MIMETYPE_PAYMENTREQUEST.equals(mimeType))
+			{
+				final NdefMessage ndefMessage = (NdefMessage) intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES)[0];
+				final byte[] ndefMessagePayload = Nfc.extractMimePayload(Constants.MIMETYPE_PAYMENTREQUEST, ndefMessage);
+				initStateFromPaymentRequest(mimeType, ndefMessagePayload);
+			}
 			else if (intent.hasExtra(SendCoinsActivity.INTENT_EXTRA_PAYMENT_INTENT))
+			{
 				initStateFromIntentExtras(intent.getExtras());
+			}
 		}
 
 		return view;
@@ -1013,17 +1036,32 @@ public final class SendCoinsFragment extends SherlockFragment
 			@Override
 			protected void error(final int messageResId, final Object... messageArgs)
 			{
-				dialog(activity, dismissListener, 0, messageResId, messageArgs);
+				dialog(activity, activityDismissListener, 0, messageResId, messageArgs);
+			}
+		}.parse();
+	}
+
+	private void initStateFromPaymentRequest(@Nonnull final String mimeType, @Nonnull final byte[] input)
+	{
+		new BinaryInputParser(mimeType, input)
+		{
+			@Override
+			protected void handlePaymentIntent(final PaymentIntent paymentIntent)
+			{
+				updateStateFrom(paymentIntent);
 			}
 
-			private final DialogInterface.OnClickListener dismissListener = new DialogInterface.OnClickListener()
+			@Override
+			protected void handleDirectTransaction(final Transaction transaction)
 			{
-				@Override
-				public void onClick(final DialogInterface dialog, final int which)
-				{
-					activity.finish();
-				}
-			};
+				throw new UnsupportedOperationException();
+			}
+
+			@Override
+			protected void error(final int messageResId, final Object... messageArgs)
+			{
+				dialog(activity, activityDismissListener, 0, messageResId, messageArgs);
+			}
 		}.parse();
 	}
 
@@ -1035,7 +1073,7 @@ public final class SendCoinsFragment extends SherlockFragment
 
 		try
 		{
-			validatedAddress = new AddressAndLabel(Constants.NETWORK_PARAMETERS, addressStr, paymentIntent.addressLabel);
+			validatedAddress = new AddressAndLabel(Constants.NETWORK_PARAMETERS, addressStr, paymentIntent.memo);
 			receivingAddressView.setText(null);
 		}
 		catch (final Exception x)

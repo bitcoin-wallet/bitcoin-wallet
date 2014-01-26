@@ -46,17 +46,17 @@ public final class PaymentIntent implements Parcelable
 	private final Address address;
 
 	@CheckForNull
-	public final String addressLabel;
+	public final String memo;
 
 	@CheckForNull
 	public final String bluetoothMac;
 
-	public PaymentIntent(@Nonnull final Address address, @Nullable final String addressLabel, @Nullable final BigInteger amount,
+	public PaymentIntent(@Nonnull final Address address, @Nullable final String memo, @Nullable final BigInteger amount,
 			@Nullable final String bluetoothMac)
 	{
 		this.amount = amount;
 		this.address = address;
-		this.addressLabel = addressLabel;
+		this.memo = memo;
 		this.bluetoothMac = bluetoothMac;
 	}
 
@@ -123,7 +123,7 @@ public final class PaymentIntent implements Parcelable
 		dest.writeSerializable(address.getParameters());
 		dest.writeByteArray(address.getHash160());
 
-		dest.writeString(addressLabel);
+		dest.writeString(memo);
 
 		dest.writeString(bluetoothMac);
 	}
@@ -152,7 +152,7 @@ public final class PaymentIntent implements Parcelable
 		in.readByteArray(addressHash);
 		address = new Address(addressParameters, addressHash);
 
-		addressLabel = in.readString();
+		memo = in.readString();
 
 		bluetoothMac = in.readString();
 	}

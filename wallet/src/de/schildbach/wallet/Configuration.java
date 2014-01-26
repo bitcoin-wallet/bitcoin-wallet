@@ -46,6 +46,7 @@ public class Configuration
 	public static final String PREFS_KEY_TRUSTED_PEER_ONLY = "trusted_peer_only";
 	public static final String PREFS_KEY_DISCLAIMER = "disclaimer";
 	public static final String PREFS_KEY_SELECTED_ADDRESS = "selected_address";
+	private static final String PREFS_KEY_LABS_NFC_PAYMENT_REQUEST = "labs_nfc_payment_request";
 	public static final String PREFS_KEY_LABS_BLUETOOTH_OFFLINE_TRANSACTIONS = "labs_bluetooth_offline_transactions";
 
 	private static final String PREFS_KEY_LAST_VERSION = "last_version";
@@ -148,6 +149,11 @@ public class Configuration
 	public void setExchangeCurrencyCode(final String exchangeCurrencyCode)
 	{
 		prefs.edit().putString(PREFS_KEY_EXCHANGE_CURRENCY, exchangeCurrencyCode).commit();
+	}
+
+	public boolean getNfcPaymentRequestEnabled()
+	{
+		return prefs.getBoolean(PREFS_KEY_LABS_NFC_PAYMENT_REQUEST, false);
 	}
 
 	public boolean getBluetoothOfflineTransactionsEnabled()

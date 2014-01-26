@@ -22,7 +22,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 import javax.annotation.CheckForNull;
+import javax.annotation.Nonnull;
 
+import org.bitcoin.protocols.payments.Protos;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -62,7 +64,9 @@ import com.actionbarsherlock.widget.ShareActionProvider;
 import com.google.bitcoin.core.Address;
 import com.google.bitcoin.core.ECKey;
 import com.google.bitcoin.core.Wallet;
+import com.google.bitcoin.script.ScriptBuilder;
 import com.google.bitcoin.uri.BitcoinURI;
+import com.google.protobuf.ByteString;
 
 import de.schildbach.wallet.AddressBookProvider;
 import de.schildbach.wallet.Configuration;
@@ -361,14 +365,14 @@ public final class RequestCoinsFragment extends SherlockFragment
 
 	private void handleCopy()
 	{
-		final String request = determineRequestStr(false);
+		final String request = determineBitcoinRequestStr(false);
 		clipboardManager.setText(request);
 		activity.toast(R.string.request_coins_clipboard_msg);
 	}
 
 	private void handleLocalApp()
 	{
-		final Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(determineRequestStr(false)));
+		final Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(determineBitcoinRequestStr(false)));
 		startActivity(intent);
 		activity.finish();
 	}
@@ -378,15 +382,20 @@ public final class RequestCoinsFragment extends SherlockFragment
 		if (!isResumed())
 			return;
 
-		final String request = determineRequestStr(true);
+		final String bitcoinRequest = determineBitcoinRequestStr(true);
+		final byte[] paymentRequest = determinePaymentRequest(true);
 
 		// update qr code
 		final int size = (int) (256 * getResources().getDisplayMetrics().density);
-		qrCodeBitmap = Qr.bitmap(request, size);
+		qrCodeBitmap = Qr.bitmap(bitcoinRequest, size);
 		qrView.setImageBitmap(qrCodeBitmap);
 
 		// update ndef message
-		final boolean nfcSuccess = Nfc.publishUri(nfcManager, getActivity(), request);
+		final boolean nfcSuccess;
+		if (config.getNfcPaymentRequestEnabled())
+			nfcSuccess = Nfc.publishMimeObject(nfcManager, activity, Constants.MIMETYPE_PAYMENTREQUEST, paymentRequest, false);
+		else
+			nfcSuccess = Nfc.publishUri(nfcManager, activity, bitcoinRequest);
 
 		// update initiate request message
 		final SpannableStringBuilder initiateText = new SpannableStringBuilder(getString(R.string.request_coins_fragment_initiate_request_qr));
@@ -407,13 +416,13 @@ public final class RequestCoinsFragment extends SherlockFragment
 	{
 		// update share intent
 		final IntentBuilder builder = IntentBuilder.from(activity);
-		builder.setText(determineRequestStr(false));
+		builder.setText(determineBitcoinRequestStr(false));
 		builder.setType("text/plain");
 		builder.setChooserTitle(R.string.request_coins_share_dialog_title);
 		shareActionProvider.setShareIntent(builder.getIntent());
 	}
 
-	private String determineRequestStr(final boolean includeBluetoothMac)
+	private String determineBitcoinRequestStr(final boolean includeBluetoothMac)
 	{
 		final boolean includeLabel = includeLabelView.isChecked();
 
@@ -429,5 +438,39 @@ public final class RequestCoinsFragment extends SherlockFragment
 			uri.append(Bluetooth.MAC_URI_PARAM).append('=').append(bluetoothMac);
 		}
 		return uri.toString();
+	}
+
+	private byte[] determinePaymentRequest(final boolean includeBluetoothMac)
+	{
+		final ECKey key = (ECKey) addressView.getSelectedItem();
+		final Address address = key.toAddress(Constants.NETWORK_PARAMETERS);
+
+		return createPaymentRequest(amountCalculatorLink.getAmount(), address,
+				includeLabelView.isChecked() ? AddressBookProvider.resolveLabel(activity, address.toString()) : null, includeBluetoothMac
+						&& bluetoothMac != null ? "bt:" + bluetoothMac : null);
+	}
+
+	private static byte[] createPaymentRequest(final BigInteger amount, @Nonnull final Address toAddress, final String memo, final String paymentUrl)
+	{
+		if (amount != null && amount.compareTo(BigInteger.valueOf(Long.MAX_VALUE)) > 0)
+			throw new IllegalArgumentException("amount too big for protobuf: " + amount);
+
+		final Protos.Output.Builder output = Protos.Output.newBuilder();
+		output.setAmount(amount != null ? amount.longValue() : 0);
+		output.setScript(ByteString.copyFrom(ScriptBuilder.createOutputScript(toAddress).getProgram()));
+
+		final Protos.PaymentDetails.Builder paymentDetails = Protos.PaymentDetails.newBuilder();
+		paymentDetails.setNetwork(Constants.NETWORK_PARAMETERS.getPaymentProtocolId());
+		paymentDetails.addOutputs(output);
+		if (memo != null)
+			paymentDetails.setMemo(memo);
+		if (paymentUrl != null)
+			paymentDetails.setPaymentUrl(paymentUrl);
+		paymentDetails.setTime(System.currentTimeMillis());
+
+		final Protos.PaymentRequest.Builder paymentRequest = Protos.PaymentRequest.newBuilder();
+		paymentRequest.setSerializedPaymentDetails(paymentDetails.build().toByteString());
+
+		return paymentRequest.build().toByteArray();
 	}
 }
