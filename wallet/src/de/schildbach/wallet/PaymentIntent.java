@@ -18,6 +18,7 @@
 package de.schildbach.wallet;
 
 import java.math.BigInteger;
+import java.util.Arrays;
 
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
@@ -40,9 +41,18 @@ import de.schildbach.wallet.util.GenericUtils;
  */
 public final class PaymentIntent implements Parcelable
 {
+	public enum Standard
+	{
+		BIP21, BIP70
+	}
+
+	@CheckForNull
+	public final Standard standard;
+
 	@CheckForNull
 	public final BigInteger amount;
 
+	@CheckForNull
 	private final Address address;
 
 	@CheckForNull
@@ -51,18 +61,28 @@ public final class PaymentIntent implements Parcelable
 	@CheckForNull
 	public final String bluetoothMac;
 
-	public PaymentIntent(@Nonnull final Address address, @Nullable final String memo, @Nullable final BigInteger amount,
-			@Nullable final String bluetoothMac)
+	@CheckForNull
+	public final byte[] payeeData;
+
+	public PaymentIntent(@Nullable final Standard standard, @Nonnull final Address address, @Nullable final String memo,
+			@Nullable final BigInteger amount, @Nullable final String bluetoothMac, @Nullable final byte[] payeeData)
 	{
+		this.standard = standard;
 		this.amount = amount;
 		this.address = address;
 		this.memo = memo;
 		this.bluetoothMac = bluetoothMac;
+		this.payeeData = payeeData;
 	}
 
 	private PaymentIntent(@Nonnull final Address address, @Nullable final String addressLabel)
 	{
-		this(address, addressLabel, null, null);
+		this(null, address, addressLabel, null, null, null);
+	}
+
+	public static PaymentIntent blank()
+	{
+		return new PaymentIntent(null, null, null, null, null, null);
 	}
 
 	public static PaymentIntent fromAddress(@Nonnull final Address address, @Nullable final String addressLabel)
@@ -78,8 +98,8 @@ public final class PaymentIntent implements Parcelable
 
 	public static PaymentIntent fromBitcoinUri(@Nonnull final BitcoinURI bitcoinUri)
 	{
-		return new PaymentIntent(bitcoinUri.getAddress(), bitcoinUri.getLabel(), bitcoinUri.getAmount(),
-				(String) bitcoinUri.getParameterByName(Bluetooth.MAC_URI_PARAM));
+		return new PaymentIntent(null, bitcoinUri.getAddress(), bitcoinUri.getLabel(), bitcoinUri.getAmount(),
+				(String) bitcoinUri.getParameterByName(Bluetooth.MAC_URI_PARAM), null);
 	}
 
 	public Address getAddress()
@@ -99,11 +119,18 @@ public final class PaymentIntent implements Parcelable
 
 		builder.append(getClass().getSimpleName());
 		builder.append('[');
-		builder.append(address.toString());
+		builder.append(standard);
+		builder.append(',');
+		builder.append(address != null ? address.toString() : "null");
 		builder.append(',');
 		builder.append(amount != null ? GenericUtils.formatValue(amount, Constants.BTC_MAX_PRECISION, 0) : "null");
 		builder.append(',');
 		builder.append(bluetoothMac);
+		if (payeeData != null)
+		{
+			builder.append(',');
+			builder.append(Arrays.toString(payeeData));
+		}
 		builder.append(']');
 
 		return builder.toString();
@@ -118,14 +145,34 @@ public final class PaymentIntent implements Parcelable
 	@Override
 	public void writeToParcel(final Parcel dest, final int flags)
 	{
+		dest.writeSerializable(standard);
+
 		dest.writeSerializable(amount);
 
-		dest.writeSerializable(address.getParameters());
-		dest.writeByteArray(address.getHash160());
+		if (address != null)
+		{
+			dest.writeInt(1);
+			dest.writeSerializable(address.getParameters());
+			dest.writeByteArray(address.getHash160());
+		}
+		else
+		{
+			dest.writeInt(0);
+		}
 
 		dest.writeString(memo);
 
 		dest.writeString(bluetoothMac);
+
+		if (payeeData != null)
+		{
+			dest.writeInt(payeeData.length);
+			dest.writeByteArray(payeeData);
+		}
+		else
+		{
+			dest.writeInt(0);
+		}
 	}
 
 	public static final Parcelable.Creator<PaymentIntent> CREATOR = new Parcelable.Creator<PaymentIntent>()
@@ -145,15 +192,35 @@ public final class PaymentIntent implements Parcelable
 
 	private PaymentIntent(final Parcel in)
 	{
+		standard = (Standard) in.readSerializable();
+
 		amount = (BigInteger) in.readSerializable();
 
-		final NetworkParameters addressParameters = (NetworkParameters) in.readSerializable();
-		final byte[] addressHash = new byte[Address.LENGTH];
-		in.readByteArray(addressHash);
-		address = new Address(addressParameters, addressHash);
+		if (in.readInt() != 0)
+		{
+			final NetworkParameters addressParameters = (NetworkParameters) in.readSerializable();
+			final byte[] addressHash = new byte[Address.LENGTH];
+			in.readByteArray(addressHash);
+			address = new Address(addressParameters, addressHash);
+		}
+		else
+		{
+			address = null;
+		}
 
 		memo = in.readString();
 
 		bluetoothMac = in.readString();
+
+		final int payeeDataLength = in.readInt();
+		if (payeeDataLength > 0)
+		{
+			payeeData = new byte[payeeDataLength];
+			in.readByteArray(payeeData);
+		}
+		else
+		{
+			payeeData = null;
+		}
 	}
 }

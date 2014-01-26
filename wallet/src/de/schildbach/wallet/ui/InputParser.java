@@ -41,6 +41,7 @@ import com.google.bitcoin.protocols.payments.PaymentSession;
 import com.google.bitcoin.script.Script;
 import com.google.bitcoin.uri.BitcoinURI;
 import com.google.bitcoin.uri.BitcoinURIParseException;
+import com.google.protobuf.ByteString;
 import com.google.protobuf.InvalidProtocolBufferException;
 
 import de.schildbach.wallet.Constants;
@@ -234,8 +235,11 @@ public abstract class InputParser
 
 		final long amount = output.getAmount();
 
-		handlePaymentIntent(new PaymentIntent(script.getToAddress(Constants.NETWORK_PARAMETERS), paymentDetails.getMemo(),
-				amount != 0 ? BigInteger.valueOf(amount) : null, bluetoothMac));
+		final ByteString merchantData = paymentDetails.getMerchantData();
+
+		handlePaymentIntent(new PaymentIntent(PaymentIntent.Standard.BIP70, script.getToAddress(Constants.NETWORK_PARAMETERS),
+				paymentDetails.getMemo(), amount != 0 ? BigInteger.valueOf(amount) : null, bluetoothMac,
+				merchantData != null ? merchantData.toByteArray() : null));
 	}
 
 	protected abstract void handlePaymentIntent(@Nonnull PaymentIntent paymentIntent);

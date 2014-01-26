@@ -132,10 +132,10 @@ public final class SendCoinsFragment extends SherlockFragment
 
 	private MenuItem scanAction;
 
+	private PaymentIntent paymentIntent;
+
 	private AddressAndLabel validatedAddress = null;
 
-	@CheckForNull
-	private String bluetoothMac;
 	private Boolean bluetoothAck = null;
 
 	private State state = State.INPUT;
@@ -493,6 +493,10 @@ public final class SendCoinsFragment extends SherlockFragment
 			{
 				initStateFromIntentExtras(intent.getExtras());
 			}
+			else
+			{
+				updateStateFrom(PaymentIntent.blank());
+			}
 		}
 
 		return view;
@@ -561,6 +565,8 @@ public final class SendCoinsFragment extends SherlockFragment
 
 	private void saveInstanceState(final Bundle outState)
 	{
+		outState.putParcelable("payment_intent", paymentIntent);
+
 		outState.putSerializable("state", state);
 
 		if (validatedAddress != null)
@@ -569,14 +575,14 @@ public final class SendCoinsFragment extends SherlockFragment
 		if (sentTransaction != null)
 			outState.putSerializable("sent_transaction_hash", sentTransaction.getHash());
 
-		outState.putString("bluetooth_mac", bluetoothMac);
-
 		if (bluetoothAck != null)
 			outState.putBoolean("bluetooth_ack", bluetoothAck);
 	}
 
 	private void restoreInstanceState(final Bundle savedInstanceState)
 	{
+		paymentIntent = (PaymentIntent) savedInstanceState.getParcelable("payment_intent");
+
 		state = (State) savedInstanceState.getSerializable("state");
 
 		validatedAddress = savedInstanceState.getParcelable("validated_address");
@@ -586,8 +592,6 @@ public final class SendCoinsFragment extends SherlockFragment
 			sentTransaction = wallet.getTransaction((Sha256Hash) savedInstanceState.getSerializable("sent_transaction_hash"));
 			sentTransaction.getConfidence().addEventListener(sentTransactionConfidenceListener);
 		}
-
-		bluetoothMac = savedInstanceState.getString("bluetooth_mac");
 
 		if (savedInstanceState.containsKey("bluetooth_ack"))
 			bluetoothAck = savedInstanceState.getBoolean("bluetooth_ack");
@@ -749,7 +753,8 @@ public final class SendCoinsFragment extends SherlockFragment
 		// create spend
 		final BigInteger amount = amountCalculatorLink.getAmount();
 		final SendRequest sendRequest = SendRequest.to(validatedAddress.address, amount);
-		sendRequest.changeAddress = WalletUtils.pickOldestKey(wallet).toAddress(Constants.NETWORK_PARAMETERS);
+		final Address changeAddress = WalletUtils.pickOldestKey(wallet).toAddress(Constants.NETWORK_PARAMETERS);
+		sendRequest.changeAddress = changeAddress;
 		sendRequest.emptyWallet = amount.equals(wallet.getBalance(BalanceType.AVAILABLE));
 
 		new SendCoinsOfflineTask(wallet, backgroundHandler)
@@ -764,7 +769,7 @@ public final class SendCoinsFragment extends SherlockFragment
 
 				sentTransaction.getConfidence().addEventListener(sentTransactionConfidenceListener);
 
-				if (bluetoothAdapter != null && bluetoothAdapter.isEnabled() && bluetoothMac != null && bluetoothEnableView.isChecked())
+				if (bluetoothAdapter != null && bluetoothAdapter.isEnabled() && paymentIntent.bluetoothMac != null && bluetoothEnableView.isChecked())
 				{
 					new SendBluetoothTask(bluetoothAdapter, backgroundHandler)
 					{
@@ -778,7 +783,7 @@ public final class SendCoinsFragment extends SherlockFragment
 
 							updateView();
 						}
-					}.send(bluetoothMac, transaction); // send asynchronously
+					}.send(paymentIntent.bluetoothMac, paymentIntent.standard, transaction, changeAddress, amount, paymentIntent.payeeData);
 				}
 
 				application.broadcastTransaction(sentTransaction);
@@ -891,6 +896,9 @@ public final class SendCoinsFragment extends SherlockFragment
 
 	private void updateView()
 	{
+		if (paymentIntent == null)
+			return;
+
 		if (validatedAddress != null)
 		{
 			receivingAddressView.setVisibility(View.GONE);
@@ -923,7 +931,7 @@ public final class SendCoinsFragment extends SherlockFragment
 
 		amountCalculatorLink.setEnabled(state == State.INPUT);
 
-		bluetoothEnableView.setVisibility(bluetoothAdapter != null && bluetoothMac != null ? View.VISIBLE : View.GONE);
+		bluetoothEnableView.setVisibility(bluetoothAdapter != null && paymentIntent.bluetoothMac != null ? View.VISIBLE : View.GONE);
 		bluetoothEnableView.setEnabled(state == State.INPUT);
 
 		if (sentTransaction != null)
@@ -1068,6 +1076,8 @@ public final class SendCoinsFragment extends SherlockFragment
 	private void updateStateFrom(final @Nonnull PaymentIntent paymentIntent)
 	{
 		log.info("got {}", paymentIntent);
+
+		this.paymentIntent = paymentIntent;
 
 		final String addressStr = paymentIntent.getAddress().toString();
 
