@@ -30,6 +30,11 @@ import org.slf4j.LoggerFactory;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothServerSocket;
 import android.bluetooth.BluetoothSocket;
+
+import com.google.bitcoin.core.ProtocolException;
+import com.google.bitcoin.core.Transaction;
+
+import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.util.Bluetooth;
 
 /**
@@ -81,8 +86,18 @@ public abstract class AcceptBluetoothThread extends Thread
 					final byte[] msg = new byte[msgLength];
 					is.readFully(msg);
 
-					if (!handleTx(msg))
+					try
+					{
+						final Transaction tx = new Transaction(Constants.NETWORK_PARAMETERS, msg);
+
+						if (!handleTx(tx))
+							ack = false;
+					}
+					catch (final ProtocolException x)
+					{
+						log.info("cannot decode message received via bluetooth", x);
 						ack = false;
+					}
 				}
 
 				os.writeBoolean(ack);
@@ -146,5 +161,5 @@ public abstract class AcceptBluetoothThread extends Thread
 		}
 	}
 
-	protected abstract boolean handleTx(@Nonnull byte[] msg);
+	protected abstract boolean handleTx(@Nonnull Transaction tx);
 }

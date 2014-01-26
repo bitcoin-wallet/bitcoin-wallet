@@ -32,12 +32,10 @@ import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
 import android.text.format.DateUtils;
 
-import com.google.bitcoin.core.ProtocolException;
 import com.google.bitcoin.core.Transaction;
 import com.google.bitcoin.core.VerificationException;
 import com.google.bitcoin.core.Wallet;
 
-import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
 
 /**
@@ -94,43 +92,35 @@ public final class AcceptBluetoothService extends Service
 		acceptBluetoothThread = new AcceptBluetoothThread(bluetoothAdapter)
 		{
 			@Override
-			public boolean handleTx(final byte[] msg)
+			public boolean handleTx(final Transaction tx)
 			{
+				log.info("tx " + tx.getHashAsString() + " arrived via blueooth");
+
 				try
 				{
-					final Transaction tx = new Transaction(Constants.NETWORK_PARAMETERS, msg);
-					log.info("tx " + tx.getHashAsString() + " arrived via blueooth");
-
-					try
+					if (wallet.isTransactionRelevant(tx))
 					{
-						if (wallet.isTransactionRelevant(tx))
-						{
-							wallet.receivePending(tx, null);
+						wallet.receivePending(tx, null);
 
-							handler.post(new Runnable()
+						handler.post(new Runnable()
+						{
+							@Override
+							public void run()
 							{
-								@Override
-								public void run()
-								{
-									application.broadcastTransaction(tx);
-								}
-							});
-						}
-						else
-						{
-							log.info("tx " + tx.getHashAsString() + " irrelevant");
-						}
-
-						return true;
+								application.broadcastTransaction(tx);
+							}
+						});
 					}
-					catch (final VerificationException x)
+					else
 					{
-						log.info("cannot verify tx " + tx.getHashAsString() + " received via bluetooth", x);
+						log.info("tx " + tx.getHashAsString() + " irrelevant");
 					}
+
+					return true;
 				}
-				catch (final ProtocolException x)
+				catch (final VerificationException x)
 				{
-					log.info("cannot decode message received via bluetooth", x);
+					log.info("cannot verify tx " + tx.getHashAsString() + " received via bluetooth", x);
 				}
 
 				return false;
