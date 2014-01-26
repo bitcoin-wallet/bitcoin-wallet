@@ -28,7 +28,6 @@ import android.view.ViewParent;
 import android.widget.FrameLayout;
 import de.schildbach.wallet.digitalcoin.R;
 
-
 /**
  * @author Andreas Schildbach
  */

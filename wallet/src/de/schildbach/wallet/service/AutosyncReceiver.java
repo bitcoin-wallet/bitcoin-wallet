@@ -20,15 +20,10 @@ package de.schildbach.wallet.service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
-import android.text.format.DateUtils;
-import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.WalletApplication;
 
 /**
  * @author Andreas Schildbach
@@ -40,35 +35,10 @@ public class AutosyncReceiver extends BroadcastReceiver
 	@Override
 	public void onReceive(final Context context, final Intent intent)
 	{
-		log.info("got broadcast intent: " + intent);
+		log.info("got broadcast: " + intent);
 
-		// other app got replaced
-		if (intent.getAction().equals(Intent.ACTION_PACKAGE_REPLACED) && !intent.getDataString().equals("package:" + context.getPackageName()))
-			return;
-
-		final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-		final long prefsLastUsed = prefs.getLong(Constants.PREFS_KEY_LAST_USED, 0);
-
-		final AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-
-		final Intent serviceIntent = new Intent(BlockchainService.ACTION_HOLD_WIFI_LOCK, null, context, BlockchainServiceImpl.class);
-		context.startService(serviceIntent);
-
-		final long now = System.currentTimeMillis();
-
-		final long lastUsedAgo = now - prefsLastUsed;
-		final long alarmInterval;
-		if (lastUsedAgo < Constants.LAST_USAGE_THRESHOLD_JUST_MS)
-			alarmInterval = AlarmManager.INTERVAL_FIFTEEN_MINUTES;
-		else if (lastUsedAgo < Constants.LAST_USAGE_THRESHOLD_RECENTLY_MS)
-			alarmInterval = AlarmManager.INTERVAL_HALF_DAY;
-		else
-			alarmInterval = AlarmManager.INTERVAL_DAY;
-
-		log.info("last used {} minutes ago, rescheduling sync in roughly {} minutes", lastUsedAgo / DateUtils.MINUTE_IN_MILLIS, alarmInterval
-				/ DateUtils.MINUTE_IN_MILLIS);
-
-		final PendingIntent alarmIntent = PendingIntent.getService(context, 0, serviceIntent, 0);
-		alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, now, alarmInterval, alarmIntent);
+		// make sure there is always an alarm scheduled
+		if (!Intent.ACTION_PACKAGE_REPLACED.equals(intent.getAction()) || intent.getDataString().equals("package:" + context.getPackageName()))
+			WalletApplication.scheduleStartBlockchainService(context);
 	}
 }

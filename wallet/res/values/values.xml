@@ -6,6 +6,7 @@
 	<string name="symbol_internal">⇄</string>
 	<string name="app_name">digitalcoin</string>
 
+
 	<string-array name="preferences_precision_values">
 		<item>8</item>
 		<item>6</item>

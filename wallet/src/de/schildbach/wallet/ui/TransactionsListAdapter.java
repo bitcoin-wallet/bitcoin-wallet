@@ -54,7 +54,6 @@ import de.schildbach.wallet.util.CircularProgressView;
 import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet.digitalcoin.R;
 
-
 /**
  * @author Andreas Schildbach
  */

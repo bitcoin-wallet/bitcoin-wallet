@@ -40,7 +40,6 @@ import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.service.BlockchainService;
 import de.schildbach.wallet.digitalcoin.R;
 
-
 /**
  * @author Andreas Schildbach
  */
@@ -76,7 +75,7 @@ public final class WalletDisclaimerFragment extends Fragment implements OnShared
 				if (showBackup)
 					((WalletActivity) activity).handleExportKeys();
 				else
-					HelpDialogFragment.page(getFragmentManager(), "safety");
+					HelpDialogFragment.page(getFragmentManager(), R.string.help_safety);
 			}
 		});
 

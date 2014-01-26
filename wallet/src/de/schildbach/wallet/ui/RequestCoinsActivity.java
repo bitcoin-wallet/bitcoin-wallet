@@ -22,11 +22,7 @@ import android.os.Bundle;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
-
-
 import de.schildbach.wallet.digitalcoin.R;
-
-
 
 /**
  * @author Andreas Schildbach
@@ -62,7 +58,7 @@ public final class RequestCoinsActivity extends AbstractBindServiceActivity
 				return true;
 
 			case R.id.request_coins_options_help:
-				HelpDialogFragment.page(getSupportFragmentManager(), "help_request_coins");
+				HelpDialogFragment.page(getSupportFragmentManager(), R.string.help_request_coins);
 				return true;
 		}
 

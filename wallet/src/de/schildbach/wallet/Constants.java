@@ -28,8 +28,8 @@ import com.google.bitcoin.core.NetworkParameters;
 import com.google.bitcoin.params.MainNetParams;
 import com.google.bitcoin.params.TestNet3Params;
 import com.google.bitcoin.core.CoinDefinition;
-
 import de.schildbach.wallet.digitalcoin.R;
+
 
 /**
  * @author Andreas Schildbach
@@ -134,6 +134,8 @@ public class Constants
 	public static final long LAST_USAGE_THRESHOLD_RECENTLY_MS = 2 * DateUtils.DAY_IN_MILLIS;
 
 	public static final int SDK_JELLY_BEAN = 16;
+	public static final int SDK_JELLY_BEAN_MR2 = 18;
+	public static final int SDK_KITKAT = 19;
 
 	public static final int MEMORY_CLASS_LOWEND = 48;
 

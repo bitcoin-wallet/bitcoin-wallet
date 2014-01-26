@@ -42,10 +42,7 @@ import com.google.bitcoin.uri.BitcoinURIParseException;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.util.Bluetooth;
 import de.schildbach.wallet.util.Qr;
-
 import de.schildbach.wallet.digitalcoin.R;
-
-
 
 /**
  * @author Andreas Schildbach

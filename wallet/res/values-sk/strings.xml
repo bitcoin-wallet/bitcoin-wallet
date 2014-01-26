@@ -108,10 +108,6 @@
 	<string name="transaction_row_message_received_unconfirmed_locked">Táto platba je podozrivá.</string>
 	<string name="transaction_row_message_received_dead">Táto platba bola zrušená odosielateľom.</string>
 	<string name="transaction_row_message_received_dust">Takéto malé množstvo zrejme nebude možné minúť.</string>
-	<string name="amount_calculator_dialog_title">Menová kalkulačka</string>
-	<string name="amount_calculator_dialog_button_use">Použiť</string>
-	<string name="amount_calculator_dialog_exchange_rate">1 BTC má hodnotu asi %1$s %2$s\nCena získaná z %3$s</string>
-	<string name="amount_calculator_dialog_exchange_rate_not_available">Výmenný kurz nie je dostupný.</string>
 	<string name="network_monitor_activity_title">Stav siete</string>
 	<string name="network_monitor_peer_list_title">Uzly</string>
 	<string name="network_monitor_block_list_title">Bloky</string>

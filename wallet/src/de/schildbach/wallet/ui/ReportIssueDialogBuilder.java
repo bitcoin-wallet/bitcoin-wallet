@@ -46,11 +46,7 @@ import android.widget.TextView;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.util.CrashReporter;
 import de.schildbach.wallet.util.Io;
-
-
 import de.schildbach.wallet.digitalcoin.R;
-
-
 
 /**
  * @author Andreas Schildbach
@@ -81,7 +77,7 @@ public abstract class ReportIssueDialogBuilder extends AlertDialog.Builder imple
 		viewDescription = (EditText) view.findViewById(R.id.report_issue_dialog_description);
 
 		viewCollectDeviceInfo = (CheckBox) view.findViewById(R.id.report_issue_dialog_collect_device_info);
-		viewCollectInstalledPackages = (CheckBox) view.findViewById(R.id.report_issue_dialog_collect_device_info);
+		viewCollectInstalledPackages = (CheckBox) view.findViewById(R.id.report_issue_dialog_collect_installed_packages);
 		viewCollectApplicationLog = (CheckBox) view.findViewById(R.id.report_issue_dialog_collect_application_log);
 		viewCollectWalletDump = (CheckBox) view.findViewById(R.id.report_issue_dialog_collect_wallet_dump);
 
@@ -167,7 +163,6 @@ public abstract class ReportIssueDialogBuilder extends AlertDialog.Builder imple
 
 				for (final File logFile : logDir.listFiles())
 				{
-					final InputStream is = new FileInputStream(logFile);
 					final String logFileName = logFile.getName();
 					final File file;
 					if (logFileName.endsWith(".log.gz"))
@@ -175,7 +170,9 @@ public abstract class ReportIssueDialogBuilder extends AlertDialog.Builder imple
 					else if (logFileName.endsWith(".log"))
 						file = File.createTempFile(logFileName.substring(0, logFileName.length() - 3), ".log", cacheDir);
 					else
-						file = File.createTempFile(logFileName + '.', null, cacheDir);
+						continue;
+
+					final InputStream is = new FileInputStream(logFile);
 					final OutputStream os = new FileOutputStream(file);
 
 					Io.copy(is, os);
