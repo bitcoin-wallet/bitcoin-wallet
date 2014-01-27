@@ -17,6 +17,8 @@
 
 package de.schildbach.wallet.ui;
 
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.math.BigInteger;
 
 import javax.annotation.CheckForNull;
@@ -89,6 +91,7 @@ import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.integration.android.BitcoinIntegration;
 import de.schildbach.wallet.offline.SendBluetoothTask;
 import de.schildbach.wallet.ui.InputParser.BinaryInputParser;
+import de.schildbach.wallet.ui.InputParser.StreamInputParser;
 import de.schildbach.wallet.ui.InputParser.StringInputParser;
 import de.schildbach.wallet.util.GenericUtils;
 import de.schildbach.wallet.util.Nfc;
@@ -488,6 +491,10 @@ public final class SendCoinsFragment extends SherlockFragment
 				final NdefMessage ndefMessage = (NdefMessage) intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES)[0];
 				final byte[] ndefMessagePayload = Nfc.extractMimePayload(Constants.MIMETYPE_PAYMENTREQUEST, ndefMessage);
 				initStateFromPaymentRequest(mimeType, ndefMessagePayload);
+			}
+			else if ((Intent.ACTION_VIEW.equals(action)) && intentUri != null && Constants.MIMETYPE_PAYMENTREQUEST.equals(mimeType))
+			{
+				initStateFromIntentUri(mimeType, intentUri);
 			}
 			else if (intent.hasExtra(SendCoinsActivity.INTENT_EXTRA_PAYMENT_INTENT))
 			{
@@ -1071,6 +1078,39 @@ public final class SendCoinsFragment extends SherlockFragment
 				dialog(activity, activityDismissListener, 0, messageResId, messageArgs);
 			}
 		}.parse();
+	}
+
+	private void initStateFromIntentUri(@Nonnull final String mimeType, @Nonnull final Uri bitcoinUri)
+	{
+		try
+		{
+			final InputStream is = contentResolver.openInputStream(bitcoinUri);
+
+			new StreamInputParser(mimeType, is)
+			{
+				@Override
+				protected void handlePaymentIntent(final PaymentIntent paymentIntent)
+				{
+					updateStateFrom(paymentIntent);
+				}
+
+				@Override
+				protected void handleDirectTransaction(final Transaction transaction)
+				{
+					throw new UnsupportedOperationException();
+				}
+
+				@Override
+				protected void error(final int messageResId, final Object... messageArgs)
+				{
+					dialog(activity, activityDismissListener, 0, messageResId, messageArgs);
+				}
+			}.parse();
+		}
+		catch (final FileNotFoundException x)
+		{
+			throw new RuntimeException(x);
+		}
 	}
 
 	private void updateStateFrom(final @Nonnull PaymentIntent paymentIntent)

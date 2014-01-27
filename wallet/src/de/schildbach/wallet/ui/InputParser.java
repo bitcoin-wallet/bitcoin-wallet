@@ -17,7 +17,9 @@
 
 package de.schildbach.wallet.ui;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.math.BigInteger;
 import java.util.regex.Pattern;
 
@@ -46,6 +48,7 @@ import com.google.protobuf.InvalidProtocolBufferException;
 
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.PaymentIntent;
+import de.schildbach.wallet.util.Io;
 import de.schildbach.wallet.util.Qr;
 import de.schildbach.wallet_test.R;
 
@@ -187,6 +190,67 @@ public abstract class InputParser
 				catch (final InvalidProtocolBufferException x)
 				{
 					error(R.string.input_parser_io_error, x.getMessage());
+				}
+			}
+			else
+			{
+				cannotClassify(inputType);
+			}
+		}
+	}
+
+	public abstract static class StreamInputParser extends InputParser
+	{
+		private final String inputType;
+		private final InputStream is;
+
+		public StreamInputParser(@Nonnull final String inputType, @Nonnull final InputStream is)
+		{
+			this.inputType = inputType;
+			this.is = is;
+		}
+
+		@Override
+		public void parse()
+		{
+			if (Constants.MIMETYPE_PAYMENTREQUEST.equals(inputType))
+			{
+				ByteArrayOutputStream baos = null;
+
+				try
+				{
+					baos = new ByteArrayOutputStream();
+					Io.copy(is, baos);
+					parseAndHandlePaymentRequest(baos.toByteArray());
+				}
+				catch (final PaymentRequestException x)
+				{
+					error(R.string.input_parser_invalid_paymentrequest, x.getMessage());
+				}
+				catch (final IOException x)
+				{
+					error(R.string.input_parser_io_error, x.getMessage());
+				}
+				finally
+				{
+					try
+					{
+						if (baos != null)
+							baos.close();
+					}
+					catch (IOException x)
+					{
+						x.printStackTrace();
+					}
+
+					try
+					{
+						is.close();
+					}
+					catch (IOException x)
+					{
+						x.printStackTrace();
+					}
 				}
 			}
 			else
