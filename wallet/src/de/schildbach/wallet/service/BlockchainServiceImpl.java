@@ -284,15 +284,15 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 					}
 					else
 					{
-						final NotificationCompat.Builder notification = new NotificationCompat.Builder(BlockchainServiceImpl.this);
-						notification.setSmallIcon(R.drawable.stat_sys_peers, numPeers > 4 ? 4 : numPeers);
-						notification.setContentTitle(getString(R.string.app_name));
-						notification.setContentText(getString(R.string.notification_peers_connected_msg, numPeers));
-						notification.setContentIntent(PendingIntent.getActivity(BlockchainServiceImpl.this, 0, new Intent(BlockchainServiceImpl.this,
-								WalletActivity.class), 0));
-						notification.setWhen(System.currentTimeMillis());
-						notification.setOngoing(true);
-						nm.notify(NOTIFICATION_ID_CONNECTED, notification.getNotification());
+						final NotificationCompat.Builder notification = new NotificationCompat.Builder(BlockchainServiceImpl.this)
+                                .setSmallIcon(R.drawable.stat_sys_peers, numPeers > 4 ? 4 : numPeers)
+						        .setContentTitle(getString(R.string.app_name))
+						        .setContentText(getString(R.string.notification_peers_connected_msg, numPeers))
+						        .setContentIntent(PendingIntent.getActivity(BlockchainServiceImpl.this, 0, new Intent(BlockchainServiceImpl.this,
+                                        WalletActivity.class), 0))
+						        .setWhen(System.currentTimeMillis())
+						        .setOngoing(true);
+						nm.notify(NOTIFICATION_ID_CONNECTED, notification.build());
 					}
 
 					// send broadcast

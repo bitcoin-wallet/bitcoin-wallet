@@ -35,11 +35,13 @@
 		</dependency>
 
 		<!-- android.support.v4.* -->
+        <!-- Maven central does not have the latest version (v13)! In fact, it's not even official!
 		<dependency>
 			<groupId>com.google.android</groupId>
 			<artifactId>support-v4</artifactId>
 			<version>r7</version>
 		</dependency>
+		-->
 
 		<!-- com.actionbarsherlock.* -->
 		<dependency>
