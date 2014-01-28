@@ -292,9 +292,6 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
                                 .setWhen(System.currentTimeMillis())
                                 .setOngoing(true)
                                 /*
-                                 * Sets the big view "big text" style and supplies the
-                                 * text (the user's reminder message) that will be displayed
-                                 * in the detail area of the expanded notification.
                                  * These calls are ignored by the support library for
                                  * pre-4.1 devices.
                                  */
