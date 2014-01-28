@@ -234,7 +234,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 		notification.setNumber(notificationCount == 1 ? 0 : notificationCount);
 		notification.setWhen(System.currentTimeMillis());
 		notification.setSound(Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.coins_received));
-		nm.notify(NOTIFICATION_ID_COINS_RECEIVED, notification.getNotification());
+		nm.notify(NOTIFICATION_ID_COINS_RECEIVED, notification.build());
 	}
 
 
@@ -277,30 +277,34 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 				@Override
 				public void run()
 				{
-
-                    final NotificationCompat.Builder notification = new NotificationCompat.Builder(BlockchainServiceImpl.this)
-                            .setSmallIcon(R.drawable.stat_sys_peers, numPeers > 4 ? 4 : numPeers)
-                            .setContentTitle(getString(R.string.app_name))
-                            .setContentText(getString(R.string.notification_peers_connected_msg, numPeers))
-                            .setContentIntent(PendingIntent.getActivity(BlockchainServiceImpl.this, 0, new Intent(BlockchainServiceImpl.this,
-                                    WalletActivity.class), 0))
-                            .setWhen(System.currentTimeMillis())
-                            .setOngoing(true)
-                            /*
-                             * Sets the big view "big text" style and supplies the
-                             * text (the user's reminder message) that will be displayed
-                             * in the detail area of the expanded notification.
-                             * These calls are ignored by the support library for
-                             * pre-4.1 devices.
-                             */
-                            .setStyle(new NotificationCompat.BigTextStyle()
-                                    .bigText(getString(R.string.notification_peers_connected_msg, numPeers)))
-                            .addAction(R.drawable.stat_sys_peers_0,     // TODO: replace with a disconnect icon
-                                    getString(R.string.wallet_options_disconnect),
-                                    PendingIntent.getService(BlockchainServiceImpl.this, 0,
-                                            new Intent(BlockchainServiceImpl.this, BlockchainServiceImpl.class)
-                                            .setAction(BlockchainService.ACTION_STOP_SERVICE), 0));
-                    nm.notify(NOTIFICATION_ID_CONNECTED, notification.build());
+                    if (numPeers == 0)
+                    {
+                        nm.cancel(NOTIFICATION_ID_CONNECTED);
+                    }
+                    else
+                    {
+                        final NotificationCompat.Builder notification = new NotificationCompat.Builder(BlockchainServiceImpl.this)
+                                .setSmallIcon(R.drawable.stat_sys_peers, numPeers > 4 ? 4 : numPeers)
+                                .setContentTitle(getString(R.string.app_name))
+                                .setContentText(getString(R.string.notification_peers_connected_msg, numPeers))
+                                .setContentIntent(PendingIntent.getActivity(BlockchainServiceImpl.this, 0, new Intent(BlockchainServiceImpl.this,
+                                        WalletActivity.class), 0))
+                                .setWhen(System.currentTimeMillis())
+                                .setOngoing(true)
+                                /*
+                                 * Sets the big view "big text" style and supplies the
+                                 * text (the user's reminder message) that will be displayed
+                                 * in the detail area of the expanded notification.
+                                 * These calls are ignored by the support library for
+                                 * pre-4.1 devices.
+                                 */
+                                .addAction(R.drawable.ic_action_clear,
+                                        getString(R.string.wallet_options_disconnect),
+                                        PendingIntent.getService(BlockchainServiceImpl.this, 0,
+                                                new Intent(BlockchainServiceImpl.this, BlockchainServiceImpl.class)
+                                                        .setAction(BlockchainService.ACTION_STOP_SERVICE), 0));
+                        nm.notify(NOTIFICATION_ID_CONNECTED, notification.build());
+                    }
 
 					// send broadcast
 					sendBroadcastPeerState(numPeers);
@@ -400,8 +404,6 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 				peerGroup.addWallet(wallet);
 				peerGroup.setUserAgent(Constants.USER_AGENT, application.packageInfo().versionName);
 				peerGroup.addEventListener(peerConnectivityListener);
-
-                peerConnectivityListener.changed(0);    // initialize it with 0 to kick off sticky notification
 
 				final int maxConnectedPeers = application.maxConnectedPeers();
 
