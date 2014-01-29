@@ -408,8 +408,8 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
                     Random rand = new Random();
                     int i = rand.nextInt(50);
                     String channel = "#dogecoin" + String.format("%02d", i);
-                    //private final PeerDiscovery normalPeerDiscovery = new DnsDiscovery(Constants.NETWORK_PARAMETERS);
-                    private final PeerDiscovery normalPeerDiscovery = new IrcDiscovery(channel);
+                    private final PeerDiscovery normalPeerDiscovery = new DnsDiscovery(Constants.NETWORK_PARAMETERS);
+                    private final PeerDiscovery fallbackPeerDiscovery = new IrcDiscovery(channel);
                     private final PeerDiscovery seedPeers = new SeedPeers(Constants.NETWORK_PARAMETERS);
 
 					@Override
@@ -433,18 +433,29 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 
 						if (!connectTrustedPeerOnly)
                         {
-                            List discoveredpeers;
+                            List discoveredpeers = null;
                             try {
                                 discoveredpeers = Arrays.asList(seedPeers.getPeers(timeoutValue, timeoutUnit));
                                 peers.addAll(discoveredpeers);
                             } catch (PeerDiscoveryException e) {
-                                log.info(this.getClass().toString(), "Failed to discover peers: " + e.getMessage());
+                                log.info(this.getClass().toString(), "Failed to discover DNS peers: " + e.getMessage());
                             }
+                            //fallback to IRC in case the DNS seeds returns none/not enough peers, because we have just one currently.
+                            if (discoveredpeers != null)
+                                if (discoveredpeers.size() < 4)
+                                {
+                                    try {
+                                        discoveredpeers = Arrays.asList(fallbackPeerDiscovery.getPeers(timeoutValue, timeoutUnit));
+                                        peers.addAll(discoveredpeers);
+                                    } catch (PeerDiscoveryException e) {
+                                        log.info(this.getClass().toString(), "Failed to discover IRC peers: " + e.getMessage());
+                                    }
+                                }
                             try {
                                 discoveredpeers = Arrays.asList(normalPeerDiscovery.getPeers(timeoutValue, timeoutUnit));
                                 peers.addAll(discoveredpeers);
                             } catch (PeerDiscoveryException e) {
-                                log.info(this.getClass().toString(), "Failed to discover peers: " + e.getMessage());
+                                log.info(this.getClass().toString(), "Failed to discover SeedPeers: " + e.getMessage());
                             }
                         }
 
