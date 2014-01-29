@@ -302,15 +302,20 @@ public final class ScanActivity extends Activity implements SurfaceHolder.Callba
 				@Override
 				public void onPreviewFrame(final byte[] data, final Camera camera)
 				{
-					decode(data);
+					decode(data, false);
 				}
 			});
 		}
 
-		private void decode(final byte[] data)
+		private void decode(final byte[] data, final boolean invert)
 		{
 			final PlanarYUVLuminanceSource source = cameraManager.buildLuminanceSource(data);
-			final BinaryBitmap bitmap = new BinaryBitmap(new HybridBinarizer(source));
+
+            final BinaryBitmap bitmap;
+            if (invert)
+			    bitmap = new BinaryBitmap(new HybridBinarizer(source.invert()));
+            else
+                bitmap = new BinaryBitmap(new HybridBinarizer(source));
 
 			try
 			{
@@ -349,8 +354,11 @@ public final class ScanActivity extends Activity implements SurfaceHolder.Callba
 			}
 			catch (final ReaderException x)
 			{
-				// retry
-				cameraHandler.post(fetchAndDecodeRunnable);
+				// retry inverted, then normal.
+                if (invert)
+				    cameraHandler.post(fetchAndDecodeRunnable);
+                else
+                    decode(data, true);
 			}
 			finally
 			{

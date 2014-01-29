@@ -2,6 +2,7 @@ v1.05
 - Make use of upgraded network: Faster sync times, less bandwidth, battery and processor usage!
 - Exchange rate provider selection. Currently supported: Cryptsy and Vircurex
 - New base currency for exchnage rates: mBTC (Because BTC value is too small. 1 mBTC = 0.001 BTC)
+- Support for inverted QR Codes
 - Translations: New: Macedonian and Esperanto. Updated: Spanish
 
 v1.04
