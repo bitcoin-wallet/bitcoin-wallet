@@ -987,7 +987,7 @@ public final class SendCoinsFragment extends SherlockFragment
 			else if (validatedAddress.label != null)
 				staticLabel = validatedAddress.label;
 			else
-				staticLabel = getString(R.string.address_unlabeled);
+				staticLabel = activity.getString(R.string.address_unlabeled);
 			receivingStaticLabelView.setText(staticLabel);
 			receivingStaticLabelView.setTextColor(getResources().getColor(
 					validatedAddress.label != null ? R.color.fg_significant : R.color.fg_insignificant));
