@@ -91,6 +91,7 @@ public class ExchangeRatesProvider extends ContentProvider
 	private static final String[] BITCOINCHARTS_FIELDS = new String[] { "24h", "7d", "30d" };
 	private static final URL BLOCKCHAININFO_URL;
 	private static final String[] BLOCKCHAININFO_FIELDS = new String[] { "15m" };
+    private static final URL DOGEPOOL_URL;
     private static final URL CRYPTSY_URL;
     private static final URL VIRCUREX_URL;
 
@@ -103,6 +104,7 @@ public class ExchangeRatesProvider extends ContentProvider
 			BITCOINAVERAGE_URL = new URL("https://api.bitcoinaverage.com/ticker/all");
 			BITCOINCHARTS_URL = new URL("http://api.bitcoincharts.com/v1/weighted_prices.json");
             BLOCKCHAININFO_URL = new URL("https://blockchain.info/ticker");
+            DOGEPOOL_URL = new URL("http://dogepool.com/lastdoge");
             CRYPTSY_URL = new URL("http://pubapi.cryptsy.com/api.php?method=singlemarketdata&marketid=132");
             VIRCUREX_URL = new URL("https://vircurex.com/api/get_last_trade.json?base=DOGE&alt=BTC");
 		}
@@ -357,13 +359,13 @@ public class ExchangeRatesProvider extends ContentProvider
         URL providerUrl;
         switch (provider) {
             case 0:
-                providerUrl = CRYPTSY_URL;
+                providerUrl = DOGEPOOL_URL;
                 break;
             case 1:
                 providerUrl = VIRCUREX_URL;
                 break;
             default:
-                providerUrl = CRYPTSY_URL;
+                providerUrl = DOGEPOOL_URL;
                 break;
         }
 
@@ -387,11 +389,12 @@ public class ExchangeRatesProvider extends ContentProvider
                     float rate;
                     switch (provider) {
                         case 0:
-                            rate = Float.parseFloat(
+                            /*rate = Float.parseFloat(
                                 json.getJSONObject("return")
                                     .getJSONObject("markets")
                                     .getJSONObject("DOGE")
-                                    .getString("lasttradeprice"));
+                                    .getString("lasttradeprice"));*/ //For later use.
+                            rate = Float.parseFloat(content.toString());
                             break;
                         case 1:
                             rate = Float.parseFloat(
