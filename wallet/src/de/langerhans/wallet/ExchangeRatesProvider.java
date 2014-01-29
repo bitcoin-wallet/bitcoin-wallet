@@ -383,7 +383,6 @@ public class ExchangeRatesProvider extends ContentProvider
                 final StringBuilder content = new StringBuilder();
                 Io.copy(reader, content);
 
-                final JSONObject json = new JSONObject(content.toString());
                 try
                 {
                     float rate;
@@ -397,6 +396,7 @@ public class ExchangeRatesProvider extends ContentProvider
                             rate = Float.parseFloat(content.toString());
                             break;
                         case 1:
+                            final JSONObject json = new JSONObject(content.toString());
                             rate = Float.parseFloat(
                                     json.getString("value"));
                             break;
