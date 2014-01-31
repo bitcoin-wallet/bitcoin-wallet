@@ -89,7 +89,7 @@ import de.schildbach.wallet.ExchangeRatesProvider.ExchangeRate;
 import de.schildbach.wallet.PaymentIntent;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.integration.android.BitcoinIntegration;
-import de.schildbach.wallet.offline.SendBluetoothTask;
+import de.schildbach.wallet.offline.DirectPaymentTask;
 import de.schildbach.wallet.ui.InputParser.BinaryInputParser;
 import de.schildbach.wallet.ui.InputParser.StreamInputParser;
 import de.schildbach.wallet.ui.InputParser.StringInputParser;
@@ -120,9 +120,9 @@ public final class SendCoinsFragment extends SherlockFragment
 	private View receivingStaticView;
 	private TextView receivingStaticAddressView;
 	private TextView receivingStaticLabelView;
-	private CheckBox bluetoothEnableView;
+	private CheckBox directPaymentEnableView;
 
-	private TextView bluetoothMessageView;
+	private TextView directPaymentMessageView;
 	private ListView sentTransactionView;
 	private TransactionsListAdapter sentTransactionListAdapter;
 	private Button viewGo;
@@ -139,7 +139,7 @@ public final class SendCoinsFragment extends SherlockFragment
 
 	private AddressAndLabel validatedAddress = null;
 
-	private Boolean bluetoothAck = null;
+	private Boolean directPaymentAck = null;
 
 	private State state = State.INPUT;
 	private Transaction sentTransaction = null;
@@ -415,9 +415,9 @@ public final class SendCoinsFragment extends SherlockFragment
 		amountCalculatorLink = new CurrencyCalculatorLink(btcAmountView, localAmountView);
 		amountCalculatorLink.setExchangeDirection(config.getLastExchangeDirection());
 
-		bluetoothEnableView = (CheckBox) view.findViewById(R.id.send_coins_bluetooth_enable);
-		bluetoothEnableView.setChecked(bluetoothAdapter != null && bluetoothAdapter.isEnabled());
-		bluetoothEnableView.setOnCheckedChangeListener(new OnCheckedChangeListener()
+		directPaymentEnableView = (CheckBox) view.findViewById(R.id.send_coins_direct_payment_enable);
+		directPaymentEnableView.setChecked(bluetoothAdapter != null && bluetoothAdapter.isEnabled());
+		directPaymentEnableView.setOnCheckedChangeListener(new OnCheckedChangeListener()
 		{
 			@Override
 			public void onCheckedChanged(final CompoundButton buttonView, final boolean isChecked)
@@ -430,7 +430,7 @@ public final class SendCoinsFragment extends SherlockFragment
 			}
 		});
 
-		bluetoothMessageView = (TextView) view.findViewById(R.id.send_coins_bluetooth_message);
+		directPaymentMessageView = (TextView) view.findViewById(R.id.send_coins_direct_payment_message);
 
 		sentTransactionView = (ListView) view.findViewById(R.id.send_coins_sent_transaction);
 		sentTransactionListAdapter = new TransactionsListAdapter(activity, wallet, application.maxConnectedPeers(), false);
@@ -582,8 +582,8 @@ public final class SendCoinsFragment extends SherlockFragment
 		if (sentTransaction != null)
 			outState.putSerializable("sent_transaction_hash", sentTransaction.getHash());
 
-		if (bluetoothAck != null)
-			outState.putBoolean("bluetooth_ack", bluetoothAck);
+		if (directPaymentAck != null)
+			outState.putBoolean("direct_payment_ack", directPaymentAck);
 	}
 
 	private void restoreInstanceState(final Bundle savedInstanceState)
@@ -600,8 +600,8 @@ public final class SendCoinsFragment extends SherlockFragment
 			sentTransaction.getConfidence().addEventListener(sentTransactionConfidenceListener);
 		}
 
-		if (savedInstanceState.containsKey("bluetooth_ack"))
-			bluetoothAck = savedInstanceState.getBoolean("bluetooth_ack");
+		if (savedInstanceState.containsKey("direct_payment_ack"))
+			directPaymentAck = savedInstanceState.getBoolean("direct_payment_ack");
 	}
 
 	@Override
@@ -637,7 +637,7 @@ public final class SendCoinsFragment extends SherlockFragment
 		}
 		else if (requestCode == REQUEST_CODE_ENABLE_BLUETOOTH)
 		{
-			bluetoothEnableView.setChecked(resultCode == Activity.RESULT_OK);
+			directPaymentEnableView.setChecked(resultCode == Activity.RESULT_OK);
 		}
 	}
 
@@ -776,28 +776,64 @@ public final class SendCoinsFragment extends SherlockFragment
 
 				sentTransaction.getConfidence().addEventListener(sentTransactionConfidenceListener);
 
-				if (bluetoothAdapter != null && bluetoothAdapter.isEnabled() && paymentIntent.bluetoothMac != null && bluetoothEnableView.isChecked())
-				{
-					new SendBluetoothTask(bluetoothAdapter, backgroundHandler)
-					{
-						@Override
-						protected void onResult(final boolean ack)
-						{
-							bluetoothAck = ack;
-
-							if (state == State.SENDING)
-								state = State.SENT;
-
-							updateView();
-						}
-					}.send(paymentIntent.bluetoothMac, paymentIntent.standard, transaction, changeAddress, amount, paymentIntent.payeeData);
-				}
+				directPay(sentTransaction);
 
 				application.broadcastTransaction(sentTransaction);
 
 				final Intent result = new Intent();
 				BitcoinIntegration.transactionHashToResult(result, sentTransaction.getHashAsString());
 				activity.setResult(Activity.RESULT_OK, result);
+			}
+
+			private void directPay(final Transaction transaction)
+			{
+				if (directPaymentEnableView.isChecked())
+				{
+					final DirectPaymentTask.ResultCallback callback = new DirectPaymentTask.ResultCallback()
+					{
+						@Override
+						public void onResult(final boolean ack)
+						{
+							directPaymentAck = ack;
+
+							if (state == State.SENDING)
+								state = State.SENT;
+
+							updateView();
+						}
+
+						@Override
+						public void onFail(final String message)
+						{
+							final DialogBuilder dialog = new DialogBuilder(activity);
+							dialog.setIcon(R.drawable.ic_menu_warning);
+							dialog.setTitle(R.string.send_coins_fragment_direct_payment_failed_title);
+							dialog.setMessage(paymentIntent.paymentUrl + "\n" + message + "\n\n"
+									+ getString(R.string.send_coins_fragment_direct_payment_failed_msg));
+							dialog.setPositiveButton(R.string.button_retry, new DialogInterface.OnClickListener()
+							{
+								@Override
+								public void onClick(final DialogInterface dialog, final int which)
+								{
+									directPay(transaction);
+								}
+							});
+							dialog.setNegativeButton(R.string.button_dismiss, null);
+							dialog.show();
+						}
+					};
+
+					if (paymentIntent.isHttpPaymentUrl())
+					{
+						new DirectPaymentTask.HttpPaymentTask(backgroundHandler, callback, paymentIntent.paymentUrl).send(paymentIntent.standard,
+								transaction, changeAddress, amount, paymentIntent.payeeData);
+					}
+					else if (paymentIntent.isBluetoothPaymentUrl() && bluetoothAdapter != null && bluetoothAdapter.isEnabled())
+					{
+						new DirectPaymentTask.BluetoothPaymentTask(backgroundHandler, callback, bluetoothAdapter, paymentIntent.getBluetoothMac())
+								.send(paymentIntent.standard, transaction, changeAddress, amount, paymentIntent.payeeData);
+					}
+				}
 			}
 
 			@Override
@@ -938,8 +974,20 @@ public final class SendCoinsFragment extends SherlockFragment
 
 		amountCalculatorLink.setEnabled(state == State.INPUT);
 
-		bluetoothEnableView.setVisibility(bluetoothAdapter != null && paymentIntent.bluetoothMac != null ? View.VISIBLE : View.GONE);
-		bluetoothEnableView.setEnabled(state == State.INPUT);
+		final boolean directPaymentVisible;
+		if (paymentIntent.hasPaymentUrl())
+		{
+			if (paymentIntent.isBluetoothPaymentUrl())
+				directPaymentVisible = bluetoothAdapter != null;
+			else
+				directPaymentVisible = true;
+		}
+		else
+		{
+			directPaymentVisible = false;
+		}
+		directPaymentEnableView.setVisibility(directPaymentVisible ? View.VISIBLE : View.GONE);
+		directPaymentEnableView.setEnabled(state == State.INPUT);
 
 		if (sentTransaction != null)
 		{
@@ -956,14 +1004,15 @@ public final class SendCoinsFragment extends SherlockFragment
 			sentTransactionListAdapter.clear();
 		}
 
-		if (bluetoothAck != null)
+		if (directPaymentAck != null)
 		{
-			bluetoothMessageView.setVisibility(View.VISIBLE);
-			bluetoothMessageView.setText(bluetoothAck ? R.string.send_coins_fragment_bluetooth_ack : R.string.send_coins_fragment_bluetooth_nack);
+			directPaymentMessageView.setVisibility(View.VISIBLE);
+			directPaymentMessageView.setText(directPaymentAck ? R.string.send_coins_fragment_direct_payment_ack
+					: R.string.send_coins_fragment_direct_payment_nack);
 		}
 		else
 		{
-			bluetoothMessageView.setVisibility(View.GONE);
+			directPaymentMessageView.setVisibility(View.GONE);
 		}
 
 		viewCancel.setEnabled(state != State.PREPARATION);
@@ -1136,7 +1185,7 @@ public final class SendCoinsFragment extends SherlockFragment
 		if (paymentIntent.hasAmount())
 			amountCalculatorLink.setBtcAmount(paymentIntent.amount);
 
-		bluetoothAck = null;
+		directPaymentAck = null;
 
 		updateView();
 

@@ -57,9 +57,6 @@
 	<string name="send_coins_fragment_receiving_address_error_cross_network_unknown">Kan ikke bruge adresse for ukendt netværk med denne tegnebog!</string>
 	<string name="send_coins_fragment_pending">(BTC %s venter på bekræftelse)</string>
 	<string name="send_coins_fragment_amount_label">Beløb at betale</string>
-	<string name="send_coins_fragment_bluetooth_enable">Send også betaling via Bluetooth</string>
-	<string name="send_coins_fragment_bluetooth_ack">Din betaling blev sendt via Bluetooth med succes.</string>
-	<string name="send_coins_fragment_bluetooth_nack">Din betaling blev afvist via Bluetooth.</string>
 	<string name="send_coins_fragment_button_send">Send</string>
 	<string name="send_coins_fragment_button_back">Tilbage</string>
 	<string name="send_coins_preparation_msg">Signerer …</string>

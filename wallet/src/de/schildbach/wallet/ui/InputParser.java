@@ -295,15 +295,19 @@ public abstract class InputParser
 			throw new PaymentRequestException.InvalidOutputs("can only handle send-to-address scripts in payment request");
 
 		final String paymentUrl = paymentDetails.getPaymentUrl();
-		final String bluetoothMac = paymentUrl != null && paymentUrl.startsWith("bt:") ? paymentUrl.substring(3) : null;
 
 		final long amount = output.getAmount();
 
 		final ByteString merchantData = paymentDetails.getMerchantData();
 
-		handlePaymentIntent(new PaymentIntent(PaymentIntent.Standard.BIP70, script.getToAddress(Constants.NETWORK_PARAMETERS),
-				paymentDetails.getMemo(), amount != 0 ? BigInteger.valueOf(amount) : null, bluetoothMac,
-				merchantData != null ? merchantData.toByteArray() : null));
+		final PaymentIntent paymentIntent = new PaymentIntent(PaymentIntent.Standard.BIP70, script.getToAddress(Constants.NETWORK_PARAMETERS),
+				paymentDetails.getMemo(), amount != 0 ? BigInteger.valueOf(amount) : null, paymentUrl,
+				merchantData != null ? merchantData.toByteArray() : null);
+
+		if (paymentIntent.hasPaymentUrl() && !paymentIntent.isSupportedPaymentUrl())
+			throw new PaymentRequestException.InvalidPaymentURL("cannot handle payment url: " + paymentIntent.paymentUrl);
+
+		handlePaymentIntent(paymentIntent);
 	}
 
 	protected abstract void handlePaymentIntent(@Nonnull PaymentIntent paymentIntent);

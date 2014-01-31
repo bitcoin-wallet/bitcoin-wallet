@@ -106,13 +106,13 @@
 	</LinearLayout>
 
 	<CheckBox
-		android:id="@+id/send_coins_bluetooth_enable"
+		android:id="@+id/send_coins_direct_payment_enable"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:layout_marginLeft="@dimen/list_entry_padding_horizontal"
 		android:layout_marginRight="@dimen/list_entry_padding_horizontal"
 		android:layout_marginTop="8dp"
-		android:text="@string/send_coins_fragment_bluetooth_enable"
+		android:text="@string/send_coins_fragment_direct_payment_enable"
 		android:textSize="@dimen/font_size_normal" />
 
 	<!-- stretch dummy -->
@@ -123,7 +123,7 @@
 		android:layout_weight="1" />
 
 	<TextView
-		android:id="@+id/send_coins_bluetooth_message"
+		android:id="@+id/send_coins_direct_payment_message"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:layout_marginBottom="@dimen/list_entry_padding_vertical"

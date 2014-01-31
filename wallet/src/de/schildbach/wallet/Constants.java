@@ -58,6 +58,8 @@ public class Constants
 			: EXPLORE_BASE_URL_TEST;
 
 	public static final String MIMETYPE_PAYMENTREQUEST = "application/bitcoin-paymentrequest"; // BIP 71
+	public static final String MIMETYPE_PAYMENT = "application/bitcoin-payment"; // BIP 71
+	public static final String MIMETYPE_PAYMENTACK = "application/bitcoin-paymentack"; // BIP 71
 	public static final String MIMETYPE_TRANSACTION = "application/x-btctx";
 
 	public static final int MAX_NUM_CONFIRMATIONS = 7;

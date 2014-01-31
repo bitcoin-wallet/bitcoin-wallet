@@ -59,9 +59,11 @@
 	<string name="send_coins_fragment_receiving_address_error_cross_network_unknown">Cannot use address of unknown network with this wallet!</string>
 	<string name="send_coins_fragment_pending">(BTC %s waiting for confirmation)</string>
 	<string name="send_coins_fragment_amount_label">Amount to pay</string>
-	<string name="send_coins_fragment_bluetooth_enable">Send payment also via Bluetooth</string>
-	<string name="send_coins_fragment_bluetooth_ack">Your payment was successfully sent via Bluetooth.</string>
-	<string name="send_coins_fragment_bluetooth_nack">Your payment was rejected via Bluetooth.</string>
+	<string name="send_coins_fragment_direct_payment_enable">Send payment directly to the payee.</string>
+	<string name="send_coins_fragment_direct_payment_ack">Your payment was successfully sent directly.</string>
+	<string name="send_coins_fragment_direct_payment_nack">Your payment was rejected via direct connection.</string>
+	<string name="send_coins_fragment_direct_payment_failed_title">Direct payment failed</string>
+	<string name="send_coins_fragment_direct_payment_failed_msg">Your payment will still be broadcasted via the P2P network.</string>
 	<string name="send_coins_fragment_button_send">Send</string>
 	<string name="send_coins_fragment_button_back">Back</string>
 	<string name="send_coins_fragment_insufficient_money_title">Not enough available coins</string>
