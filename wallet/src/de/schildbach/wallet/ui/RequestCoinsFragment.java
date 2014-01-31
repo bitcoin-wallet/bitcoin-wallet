@@ -214,6 +214,9 @@ public final class RequestCoinsFragment extends SherlockFragment
 
 		// don't call in onCreate() because ActionBarSherlock invokes onCreateOptionsMenu() too early
 		setHasOptionsMenu(true);
+
+		amountCalculatorLink.setExchangeDirection(config.getLastExchangeDirection());
+		amountCalculatorLink.requestFocus();
 	}
 
 	@Override
@@ -272,6 +275,14 @@ public final class RequestCoinsFragment extends SherlockFragment
 			maybeInitBluetoothListening();
 
 		updateView();
+	}
+
+	@Override
+	public void onDestroyView()
+	{
+		super.onDestroyView();
+
+		config.setLastExchangeDirection(amountCalculatorLink.getExchangeDirection());
 	}
 
 	@Override

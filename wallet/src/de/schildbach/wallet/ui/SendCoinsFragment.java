@@ -398,6 +398,7 @@ public final class SendCoinsFragment extends SherlockFragment
 		localAmountView.setInputPrecision(Constants.LOCAL_PRECISION);
 		localAmountView.setHintPrecision(Constants.LOCAL_PRECISION);
 		amountCalculatorLink = new CurrencyCalculatorLink(btcAmountView, localAmountView);
+		amountCalculatorLink.setExchangeDirection(config.getLastExchangeDirection());
 
 		bluetoothEnableView = (CheckBox) view.findViewById(R.id.send_coins_bluetooth_enable);
 		bluetoothEnableView.setChecked(bluetoothAdapter != null && bluetoothAdapter.isEnabled());
@@ -472,6 +473,14 @@ public final class SendCoinsFragment extends SherlockFragment
 		}
 
 		return view;
+	}
+
+	@Override
+	public void onDestroyView()
+	{
+		super.onDestroyView();
+
+		config.setLastExchangeDirection(amountCalculatorLink.getExchangeDirection());
 	}
 
 	@Override

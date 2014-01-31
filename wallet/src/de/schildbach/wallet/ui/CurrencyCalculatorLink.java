@@ -47,15 +47,9 @@ public final class CurrencyCalculatorLink
 		public void changed()
 		{
 			if (btcAmountView.getAmount() != null)
-			{
-				exchangeDirection = true;
-
-				update();
-			}
+				setExchangeDirection(true);
 			else
-			{
 				localAmountView.setHint(null);
-			}
 
 			if (listener != null)
 				listener.changed();
@@ -75,15 +69,9 @@ public final class CurrencyCalculatorLink
 		public void changed()
 		{
 			if (localAmountView.getAmount() != null)
-			{
-				exchangeDirection = false;
-
-				update();
-			}
+				setExchangeDirection(false);
 			else
-			{
 				btcAmountView.setHint(null);
-			}
 
 			if (listener != null)
 				listener.changed();
@@ -179,6 +167,18 @@ public final class CurrencyCalculatorLink
 		{
 			localAmountView.setEnabled(false);
 		}
+	}
+
+	public void setExchangeDirection(final boolean exchangeDirection)
+	{
+		this.exchangeDirection = exchangeDirection;
+
+		update();
+	}
+
+	public boolean getExchangeDirection()
+	{
+		return exchangeDirection;
 	}
 
 	public View activeTextView()
