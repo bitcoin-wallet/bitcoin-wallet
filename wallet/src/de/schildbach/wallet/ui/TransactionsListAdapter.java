@@ -345,10 +345,16 @@ public class TransactionsListAdapter extends BaseAdapter
 					rowMessage.setText(Html.fromHtml(context.getString(R.string.transaction_row_message_purpose_key_rotation)));
 					rowMessage.setTextColor(colorSignificant);
 				}
-				else if (isOwn && confidenceType == ConfidenceType.PENDING && confidence.numBroadcastPeers() <= 1)
+				else if (isOwn && confidenceType == ConfidenceType.PENDING && confidence.numBroadcastPeers() == 0)
 				{
 					rowExtend.setVisibility(View.VISIBLE);
 					rowMessage.setText(R.string.transaction_row_message_own_unbroadcasted);
+					rowMessage.setTextColor(colorInsignificant);
+				}
+				else if (!isOwn && confidenceType == ConfidenceType.PENDING && confidence.numBroadcastPeers() == 0)
+				{
+					rowExtend.setVisibility(View.VISIBLE);
+					rowMessage.setText(R.string.transaction_row_message_received_direct);
 					rowMessage.setTextColor(colorInsignificant);
 				}
 				else if (!sent && value.compareTo(Transaction.MIN_NONDUST_OUTPUT) < 0)
