@@ -21,6 +21,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.regex.Pattern;
 
 import javax.annotation.Nonnull;
@@ -93,7 +94,10 @@ public abstract class InputParser
 				{
 					final BitcoinURI bitcoinUri = new BitcoinURI(null, input);
 
-					handlePaymentIntent(PaymentIntent.fromBitcoinUri(bitcoinUri));
+					if (bitcoinUri.getAddress().getParameters().equals(Constants.NETWORK_PARAMETERS))
+						handlePaymentIntent(PaymentIntent.fromBitcoinUri(bitcoinUri));
+					else
+						error(R.string.input_parser_invalid_address, input);
 				}
 				catch (final BitcoinURIParseException x)
 				{
@@ -301,24 +305,21 @@ public abstract class InputParser
 		if (!paymentDetails.getNetwork().equals(Constants.NETWORK_PARAMETERS.getPaymentProtocolId()))
 			throw new PaymentRequestException.InvalidNetwork("cannot handle payment request network: " + paymentDetails.getNetwork());
 
-		if (paymentDetails.getOutputsCount() != 1)
-			throw new PaymentRequestException.InvalidOutputs("can only handle payment requests with 1 output");
-
-		final Protos.Output output = paymentDetails.getOutputs(0);
-		final Script script = new Script(output.getScript().toByteArray());
-
-		if (!script.isSentToAddress())
-			throw new PaymentRequestException.InvalidOutputs("can only handle send-to-address scripts in payment request");
+		final ArrayList<PaymentIntent.Output> outputs = new ArrayList<PaymentIntent.Output>(paymentDetails.getOutputsCount());
+		for (final Protos.Output output : paymentDetails.getOutputsList())
+		{
+			final BigInteger amount = BigInteger.valueOf(output.getAmount());
+			final Script script = new Script(output.getScript().toByteArray());
+			outputs.add(new PaymentIntent.Output(amount, script));
+		}
 
 		final String paymentUrl = paymentDetails.getPaymentUrl();
-
-		final long amount = output.getAmount();
 
 		final ByteString merchantData = paymentDetails.getMerchantData();
 
 		final PaymentIntent paymentIntent = new PaymentIntent(PaymentIntent.Standard.BIP70, pkiName, pkiOrgName, pkiCaName,
-				script.getToAddress(Constants.NETWORK_PARAMETERS), paymentDetails.getMemo(), amount != 0 ? BigInteger.valueOf(amount) : null,
-				paymentUrl, merchantData != null ? merchantData.toByteArray() : null);
+				outputs.toArray(new PaymentIntent.Output[0]), paymentDetails.getMemo(), paymentUrl, merchantData != null ? merchantData.toByteArray()
+						: null);
 
 		if (paymentIntent.hasPaymentUrl() && !paymentIntent.isSupportedPaymentUrl())
 			throw new PaymentRequestException.InvalidPaymentURL("cannot handle payment url: " + paymentIntent.paymentUrl);

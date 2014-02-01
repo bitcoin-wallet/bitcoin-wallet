@@ -191,6 +191,13 @@ public final class SendCoinsFragment extends SherlockFragment
 
 	private final class ReceivingAddressActionMode implements ActionMode.Callback
 	{
+		private final Address address;
+
+		public ReceivingAddressActionMode(final Address address)
+		{
+			this.address = address;
+		}
+
 		@Override
 		public boolean onCreateActionMode(final ActionMode mode, final Menu menu)
 		{
@@ -203,7 +210,9 @@ public final class SendCoinsFragment extends SherlockFragment
 		@Override
 		public boolean onPrepareActionMode(final ActionMode mode, final Menu menu)
 		{
-			return false;
+			menu.findItem(R.id.send_coins_address_context_clear).setVisible(paymentIntent.mayEditAddress());
+
+			return true;
 		}
 
 		@Override
@@ -236,7 +245,7 @@ public final class SendCoinsFragment extends SherlockFragment
 
 		private void handleEditAddress()
 		{
-			EditAddressBookEntryFragment.edit(getFragmentManager(), validatedAddress.address.toString());
+			EditAddressBookEntryFragment.edit(getFragmentManager(), address.toString());
 		}
 
 		private void handleClear()
@@ -404,9 +413,16 @@ public final class SendCoinsFragment extends SherlockFragment
 			public void onFocusChange(final View v, final boolean hasFocus)
 			{
 				if (hasFocus)
-					actionMode = activity.startActionMode(new ReceivingAddressActionMode());
+				{
+					final Address address = paymentIntent.hasAddress() ? paymentIntent.getAddress()
+							: (validatedAddress != null ? validatedAddress.address : null);
+					if (address != null)
+						actionMode = activity.startActionMode(new ReceivingAddressActionMode(address));
+				}
 				else
+				{
 					actionMode.finish();
+				}
 			}
 		});
 
@@ -722,11 +738,39 @@ public final class SendCoinsFragment extends SherlockFragment
 		updateView();
 	}
 
+	private boolean isOutputsValid()
+	{
+		if (paymentIntent.hasOutputs())
+			return true;
+
+		if (validatedAddress != null)
+			return true;
+
+		return false;
+	}
+
 	private boolean isAmountValid()
 	{
-		final BigInteger amount = amountCalculatorLink.getAmount();
+		final BigInteger amount = paymentIntent.mayEditAmount() ? amountCalculatorLink.getAmount() : paymentIntent.getAmount();
 
 		return amount != null && amount.signum() > 0;
+	}
+
+	private boolean everythingValid()
+	{
+		return state == State.INPUT && isOutputsValid() && isAmountValid();
+	}
+
+	private void requestFocusFirst()
+	{
+		if (!isOutputsValid())
+			receivingAddressView.requestFocus();
+		else if (!isAmountValid())
+			amountCalculatorLink.requestFocus();
+		else if (everythingValid())
+			viewGo.requestFocus();
+		else
+			log.warn("unclear focus");
 	}
 
 	private void popupMessage(@Nonnull final View anchor, @Nonnull final String message)
@@ -764,12 +808,16 @@ public final class SendCoinsFragment extends SherlockFragment
 		state = State.PREPARATION;
 		updateView();
 
-		// create spend
-		final BigInteger amount = amountCalculatorLink.getAmount();
-		final SendRequest sendRequest = SendRequest.to(validatedAddress.address, amount);
-		final Address changeAddress = WalletUtils.pickOldestKey(wallet).toAddress(Constants.NETWORK_PARAMETERS);
-		sendRequest.changeAddress = changeAddress;
-		sendRequest.emptyWallet = amount.equals(wallet.getBalance(BalanceType.AVAILABLE));
+		// final payment intent
+		final PaymentIntent finalPaymentIntent = paymentIntent.mergeWithEditedValues(amountCalculatorLink.getAmount(),
+				validatedAddress != null ? validatedAddress.address : null);
+		final BigInteger finalAmount = finalPaymentIntent.getAmount();
+
+		// prepare send request
+		final SendRequest sendRequest = finalPaymentIntent.toSendRequest();
+		final Address returnAddress = WalletUtils.pickOldestKey(wallet).toAddress(Constants.NETWORK_PARAMETERS);
+		sendRequest.changeAddress = returnAddress;
+		sendRequest.emptyWallet = paymentIntent.mayEditAmount() && finalAmount.equals(wallet.getBalance(BalanceType.AVAILABLE));
 
 		new SendCoinsOfflineTask(wallet, backgroundHandler)
 		{
@@ -833,12 +881,12 @@ public final class SendCoinsFragment extends SherlockFragment
 					if (paymentIntent.isHttpPaymentUrl())
 					{
 						new DirectPaymentTask.HttpPaymentTask(backgroundHandler, callback, paymentIntent.paymentUrl).send(paymentIntent.standard,
-								transaction, changeAddress, amount, paymentIntent.payeeData);
+								transaction, returnAddress, finalAmount, paymentIntent.payeeData);
 					}
 					else if (paymentIntent.isBluetoothPaymentUrl() && bluetoothAdapter != null && bluetoothAdapter.isEnabled())
 					{
 						new DirectPaymentTask.BluetoothPaymentTask(backgroundHandler, callback, bluetoothAdapter, paymentIntent.getBluetoothMac())
-								.send(paymentIntent.standard, transaction, changeAddress, amount, paymentIntent.payeeData);
+								.send(paymentIntent.standard, transaction, returnAddress, finalAmount, paymentIntent.payeeData);
 					}
 				}
 			}
@@ -977,7 +1025,20 @@ public final class SendCoinsFragment extends SherlockFragment
 			payeeVerifiedByView.setVisibility(View.GONE);
 		}
 
-		if (validatedAddress != null)
+		if (paymentIntent.hasOutputs())
+		{
+			receivingAddressView.setVisibility(View.GONE);
+			receivingStaticView.setVisibility(View.VISIBLE);
+
+			receivingStaticLabelView.setText(paymentIntent.memo);
+
+			if (paymentIntent.hasAddress())
+				receivingStaticAddressView.setText(WalletUtils.formatAddress(paymentIntent.getAddress(), Constants.ADDRESS_FORMAT_GROUP_SIZE,
+						Constants.ADDRESS_FORMAT_LINE_SIZE));
+			else
+				receivingStaticAddressView.setText(R.string.send_coins_fragment_receiving_address_complex);
+		}
+		else if (validatedAddress != null)
 		{
 			receivingAddressView.setVisibility(View.GONE);
 
@@ -1007,7 +1068,7 @@ public final class SendCoinsFragment extends SherlockFragment
 
 		receivingStaticView.setEnabled(state == State.INPUT);
 
-		amountCalculatorLink.setEnabled(state == State.INPUT);
+		amountCalculatorLink.setEnabled(state == State.INPUT && paymentIntent.mayEditAmount());
 
 		final boolean directPaymentVisible;
 		if (paymentIntent.hasPaymentUrl())
@@ -1088,23 +1149,6 @@ public final class SendCoinsFragment extends SherlockFragment
 		receivingStaticView.setNextFocusDownId(activeAmountViewId);
 		GenericUtils.setNextFocusForwardId(receivingAddressView, activeAmountViewId);
 		viewGo.setNextFocusUpId(activeAmountViewId);
-	}
-
-	private void requestFocusFirst()
-	{
-		if (validatedAddress == null)
-			receivingAddressView.requestFocus();
-		else if (!isAmountValid())
-			amountCalculatorLink.requestFocus();
-		else if (everythingValid())
-			viewGo.requestFocus();
-		else
-			log.warn("unclear focus");
-	}
-
-	private boolean everythingValid()
-	{
-		return state == State.INPUT && validatedAddress != null && isAmountValid();
 	}
 
 	private void initStateFromIntentExtras(@Nonnull final Bundle extras)
@@ -1203,39 +1247,13 @@ public final class SendCoinsFragment extends SherlockFragment
 
 		this.paymentIntent = paymentIntent;
 
-		if (paymentIntent.hasAddress())
-		{
-			final String addressStr = paymentIntent.getAddress().toString();
-
-			try
-			{
-				validatedAddress = new AddressAndLabel(Constants.NETWORK_PARAMETERS, addressStr, paymentIntent.memo);
-				receivingAddressView.setText(null);
-			}
-			catch (final Exception x)
-			{
-				receivingAddressView.setText(addressStr);
-				validatedAddress = null;
-				log.info("problem parsing address: '" + addressStr + "'", x);
-			}
-		}
-
 		if (paymentIntent.hasAmount())
-			amountCalculatorLink.setBtcAmount(paymentIntent.amount);
+			amountCalculatorLink.setBtcAmount(paymentIntent.getAmount());
 
 		directPaymentAck = null;
 
 		updateView();
 
 		requestFocusFirst();
-
-		handler.postDelayed(new Runnable()
-		{
-			@Override
-			public void run()
-			{
-				validateReceivingAddress(true);
-			}
-		}, 500);
 	}
 }

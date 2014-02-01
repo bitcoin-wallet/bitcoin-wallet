@@ -65,6 +65,7 @@
 	<string name="send_coins_fragment_receiving_address_error">Ungültige Bitcoin-Adresse!</string>
 	<string name="send_coins_fragment_receiving_address_error_cross_network">Kann %s-Adresse mit dieser Wallet nicht nutzen!</string>
 	<string name="send_coins_fragment_receiving_address_error_cross_network_unknown">Kann Adresse von unbekanntem Netzwerk mit dieser Wallet nicht nutzen!</string>
+	<string name="send_coins_fragment_receiving_address_complex">komplexe\nAdresse</string>
 	<string name="send_coins_fragment_pending">(BTC %s warten auf Bestätigung)</string>
 	<string name="send_coins_fragment_amount_label">Betrag</string>
 	<string name="send_coins_fragment_direct_payment_enable">Zahlung auch direkt senden</string>

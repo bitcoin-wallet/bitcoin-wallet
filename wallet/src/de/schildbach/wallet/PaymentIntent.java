@@ -29,8 +29,11 @@ import android.os.Parcelable;
 
 import com.google.bitcoin.core.Address;
 import com.google.bitcoin.core.AddressFormatException;
-import com.google.bitcoin.core.NetworkParameters;
+import com.google.bitcoin.core.Transaction;
+import com.google.bitcoin.core.Wallet.SendRequest;
 import com.google.bitcoin.core.WrongNetworkException;
+import com.google.bitcoin.script.Script;
+import com.google.bitcoin.script.ScriptBuilder;
 import com.google.bitcoin.uri.BitcoinURI;
 
 import de.schildbach.wallet.util.Bluetooth;
@@ -46,6 +49,89 @@ public final class PaymentIntent implements Parcelable
 		BIP21, BIP70
 	}
 
+	public final static class Output implements Parcelable
+	{
+		public final BigInteger amount;
+		public final Script script;
+
+		public Output(final BigInteger amount, final Script script)
+		{
+			this.amount = amount;
+			this.script = script;
+		}
+
+		public boolean hasAmount()
+		{
+			return amount != null && amount.signum() != 0;
+		}
+
+		@Override
+		public String toString()
+		{
+			final StringBuilder builder = new StringBuilder();
+
+			builder.append(getClass().getSimpleName());
+			builder.append('[');
+			builder.append(hasAmount() ? GenericUtils.formatValue(amount, Constants.BTC_MAX_PRECISION, 0) : "null");
+			builder.append(',');
+			if (script.isSentToAddress())
+				builder.append(script.getToAddress(Constants.NETWORK_PARAMETERS));
+			else if (script.isSentToRawPubKey())
+				for (final byte b : script.getPubKey())
+					builder.append(String.format("%02x", b));
+			else if (script.isSentToMultiSig())
+				builder.append("multisig");
+			else if (script.isSentToP2SH())
+				builder.append("p2sh");
+			else
+				builder.append("unknown");
+			builder.append(']');
+
+			return builder.toString();
+		}
+
+		@Override
+		public int describeContents()
+		{
+			return 0;
+		}
+
+		@Override
+		public void writeToParcel(final Parcel dest, final int flags)
+		{
+			dest.writeSerializable(amount);
+
+			final byte[] program = script.getProgram();
+			dest.writeInt(program.length);
+			dest.writeByteArray(program);
+		}
+
+		public static final Parcelable.Creator<Output> CREATOR = new Parcelable.Creator<Output>()
+		{
+			@Override
+			public Output createFromParcel(final Parcel in)
+			{
+				return new Output(in);
+			}
+
+			@Override
+			public Output[] newArray(final int size)
+			{
+				return new Output[size];
+			}
+		};
+
+		private Output(final Parcel in)
+		{
+			amount = (BigInteger) in.readSerializable();
+
+			final int programLength = in.readInt();
+			final byte[] program = new byte[programLength];
+			in.readByteArray(program);
+			script = new Script(program);
+		}
+	}
+
 	@CheckForNull
 	public final Standard standard;
 
@@ -59,10 +145,7 @@ public final class PaymentIntent implements Parcelable
 	public final String payeeVerifiedBy;
 
 	@CheckForNull
-	public final BigInteger amount;
-
-	@CheckForNull
-	private final Address address;
+	public final Output[] outputs;
 
 	@CheckForNull
 	public final String memo;
@@ -74,15 +157,14 @@ public final class PaymentIntent implements Parcelable
 	public final byte[] payeeData;
 
 	public PaymentIntent(@Nullable final Standard standard, @Nullable final String payeeName, @Nullable final String payeeOrganization,
-			@Nullable final String payeeVerifiedBy, @Nonnull final Address address, @Nullable final String memo, @Nullable final BigInteger amount,
-			@Nullable final String paymentUrl, @Nullable final byte[] payeeData)
+			@Nullable final String payeeVerifiedBy, @Nullable final Output[] outputs, @Nullable final String memo, @Nullable final String paymentUrl,
+			@Nullable final byte[] payeeData)
 	{
 		this.standard = standard;
 		this.payeeName = payeeName;
 		this.payeeOrganization = payeeOrganization;
 		this.payeeVerifiedBy = payeeVerifiedBy;
-		this.amount = amount;
-		this.address = address;
+		this.outputs = outputs;
 		this.memo = memo;
 		this.paymentUrl = paymentUrl;
 		this.payeeData = payeeData;
@@ -90,12 +172,12 @@ public final class PaymentIntent implements Parcelable
 
 	private PaymentIntent(@Nonnull final Address address, @Nullable final String addressLabel)
 	{
-		this(null, null, null, null, address, addressLabel, null, null, null);
+		this(null, null, null, null, buildSimplePayTo(BigInteger.ZERO, address), addressLabel, null, null);
 	}
 
 	public static PaymentIntent blank()
 	{
-		return new PaymentIntent(null, null, null, null, null, null, null, null, null);
+		return new PaymentIntent(null, null, null, null, null, null, null, null);
 	}
 
 	public static PaymentIntent fromAddress(@Nonnull final Address address, @Nullable final String addressLabel)
@@ -111,10 +193,50 @@ public final class PaymentIntent implements Parcelable
 
 	public static PaymentIntent fromBitcoinUri(@Nonnull final BitcoinURI bitcoinUri)
 	{
+		final Output[] outputs = buildSimplePayTo(bitcoinUri.getAmount(), bitcoinUri.getAddress());
 		final String bluetoothMac = (String) bitcoinUri.getParameterByName(Bluetooth.MAC_URI_PARAM);
 
-		return new PaymentIntent(PaymentIntent.Standard.BIP21, null, null, null, bitcoinUri.getAddress(), bitcoinUri.getLabel(),
-				bitcoinUri.getAmount(), bluetoothMac != null ? "bt:" + bluetoothMac : null, null);
+		return new PaymentIntent(PaymentIntent.Standard.BIP21, null, null, null, outputs, bitcoinUri.getLabel(), bluetoothMac != null ? "bt:"
+				+ bluetoothMac : null, null);
+	}
+
+	public PaymentIntent mergeWithEditedValues(@Nullable final BigInteger editedAmount, @Nullable final Address editedAddress)
+	{
+		final Output[] outputs;
+
+		if (hasOutputs())
+		{
+			if (mayEditAmount())
+			{
+				// put all coins on first output, skip the others
+				outputs = new Output[] { new Output(editedAmount, this.outputs[0].script) };
+			}
+			else
+			{
+				// exact copy of outputs
+				outputs = this.outputs;
+			}
+		}
+		else
+		{
+			// custom output
+			outputs = new Output[] { new Output(editedAmount, ScriptBuilder.createOutputScript(editedAddress)) };
+		}
+
+		return new PaymentIntent(standard, payeeName, payeeOrganization, payeeVerifiedBy, outputs, memo, null, payeeData);
+	}
+
+	public SendRequest toSendRequest()
+	{
+		final Transaction transaction = new Transaction(Constants.NETWORK_PARAMETERS);
+		for (final PaymentIntent.Output output : outputs)
+			transaction.addOutput(output.amount, output.script);
+		return SendRequest.forTx(transaction);
+	}
+
+	private static Output[] buildSimplePayTo(final BigInteger amount, final Address address)
+	{
+		return new Output[] { new Output(amount, ScriptBuilder.createOutputScript(address)) };
 	}
 
 	public boolean hasPayee()
@@ -122,19 +244,64 @@ public final class PaymentIntent implements Parcelable
 		return payeeName != null;
 	}
 
+	public boolean hasOutputs()
+	{
+		return outputs != null && outputs.length > 0;
+	}
+
 	public boolean hasAddress()
 	{
-		return address != null;
+		if (outputs == null || outputs.length != 1)
+			return false;
+
+		final Script script = outputs[0].script;
+		return script.isSentToAddress() || script.isSentToRawPubKey();
 	}
 
 	public Address getAddress()
 	{
-		return address;
+		if (!hasAddress())
+			throw new IllegalStateException();
+
+		final Script script = outputs[0].script;
+		if (script.isSentToAddress())
+			return script.getToAddress(Constants.NETWORK_PARAMETERS);
+		else if (script.isSentToRawPubKey())
+			return new Address(Constants.NETWORK_PARAMETERS, script.getPubKeyHash());
+		else
+			throw new IllegalStateException();
+	}
+
+	public boolean mayEditAddress()
+	{
+		return standard == null;
 	}
 
 	public boolean hasAmount()
 	{
-		return amount != null;
+		if (hasOutputs())
+			for (final Output output : outputs)
+				if (output.hasAmount())
+					return true;
+
+		return false;
+	}
+
+	public BigInteger getAmount()
+	{
+		BigInteger amount = BigInteger.ZERO;
+
+		if (hasOutputs())
+			for (final Output output : outputs)
+				if (output.hasAmount())
+					amount = amount.add(output.amount);
+
+		return amount;
+	}
+
+	public boolean mayEditAmount()
+	{
+		return !(standard == Standard.BIP70 && hasAmount());
 	}
 
 	public boolean hasPaymentUrl()
@@ -184,9 +351,7 @@ public final class PaymentIntent implements Parcelable
 				builder.append("/").append(payeeVerifiedBy);
 			builder.append(',');
 		}
-		builder.append(address != null ? address.toString() : "null");
-		builder.append(',');
-		builder.append(amount != null ? GenericUtils.formatValue(amount, Constants.BTC_MAX_PRECISION, 0) : "null");
+		builder.append(hasOutputs() ? Arrays.toString(outputs) : "null");
 		builder.append(',');
 		builder.append(paymentUrl);
 		if (payeeData != null)
@@ -214,13 +379,10 @@ public final class PaymentIntent implements Parcelable
 		dest.writeString(payeeOrganization);
 		dest.writeString(payeeVerifiedBy);
 
-		dest.writeSerializable(amount);
-
-		if (address != null)
+		if (outputs != null)
 		{
-			dest.writeInt(1);
-			dest.writeSerializable(address.getParameters());
-			dest.writeByteArray(address.getHash160());
+			dest.writeInt(outputs.length);
+			dest.writeTypedArray(outputs, 0);
 		}
 		else
 		{
@@ -265,18 +427,15 @@ public final class PaymentIntent implements Parcelable
 		payeeOrganization = in.readString();
 		payeeVerifiedBy = in.readString();
 
-		amount = (BigInteger) in.readSerializable();
-
-		if (in.readInt() != 0)
+		final int outputsLength = in.readInt();
+		if (outputsLength > 0)
 		{
-			final NetworkParameters addressParameters = (NetworkParameters) in.readSerializable();
-			final byte[] addressHash = new byte[Address.LENGTH];
-			in.readByteArray(addressHash);
-			address = new Address(addressParameters, addressHash);
+			outputs = new Output[outputsLength];
+			in.readTypedArray(outputs, Output.CREATOR);
 		}
 		else
 		{
-			address = null;
+			outputs = null;
 		}
 
 		memo = in.readString();
