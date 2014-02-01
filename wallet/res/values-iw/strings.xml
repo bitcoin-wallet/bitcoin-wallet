@@ -51,7 +51,6 @@
 	<string name="send_coins_fragment_receiving_address_error_cross_network">לא ניתן להשתמש בכתובת זו בארנק זה</string>
 	<string name="send_coins_fragment_receiving_address_error_cross_network_unknown">לא ניתן להשתמש בכתובת  זו ברשת לא ידועה</string>
 	<string name="send_coins_fragment_amount_label">סכום לתשלום</string>
-	<string name="send_coins_fragment_amount_empty">הקש סכום</string>
 	<string name="send_coins_fragment_button_send">שלח</string>
 	<string name="send_coins_fragment_button_back">אחורה</string>
 	<string name="send_coins_preparation_msg">חותם…</string>

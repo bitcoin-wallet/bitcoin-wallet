@@ -57,7 +57,6 @@
 	<string name="send_coins_fragment_receiving_address_error_cross_network_unknown">Невозможно использовать адрес неизвестной сети с этим бумажником</string>
 	<string name="send_coins_fragment_pending">(BTC %s ожидают подтверждения)</string>
 	<string name="send_coins_fragment_amount_label">Величина оплаты</string>
-	<string name="send_coins_fragment_amount_empty">Введите сумму</string>
 	<string name="send_coins_fragment_bluetooth_enable">Также послать через Bluetooth</string>
 	<string name="send_coins_fragment_bluetooth_ack">Ваш платёж был успешно отправлен через Bluetooth.</string>
 	<string name="send_coins_fragment_bluetooth_nack">Ваш платёж через Bluetooth был отклонён.</string>

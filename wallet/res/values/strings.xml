@@ -59,7 +59,6 @@
 	<string name="send_coins_fragment_receiving_address_error_cross_network_unknown">Cannot use address of unknown network with this wallet!</string>
 	<string name="send_coins_fragment_pending">(BTC %s waiting for confirmation)</string>
 	<string name="send_coins_fragment_amount_label">Amount to pay</string>
-	<string name="send_coins_fragment_amount_empty">Put amount here</string>
 	<string name="send_coins_fragment_bluetooth_enable">Send payment also via Bluetooth</string>
 	<string name="send_coins_fragment_bluetooth_ack">Your payment was successfully sent via Bluetooth.</string>
 	<string name="send_coins_fragment_bluetooth_nack">Your payment was rejected via Bluetooth.</string>
