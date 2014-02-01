@@ -7,8 +7,8 @@
 	<TextView
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:layout_marginLeft="20dp"
-		android:layout_marginRight="20dp"
+		android:layout_marginLeft="@dimen/list_entry_padding_horizontal_lax"
+		android:layout_marginRight="@dimen/list_entry_padding_horizontal_lax"
 		android:layout_marginTop="8dp"
 		android:text="@string/send_coins_fragment_receiving_address_label"
 		android:textColor="#000"
@@ -33,8 +33,8 @@
 		style="@style/My.Widget.EditText"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:layout_marginLeft="12dp"
-		android:layout_marginRight="12dp"
+		android:layout_marginLeft="@dimen/list_entry_padding_horizontal"
+		android:layout_marginRight="@dimen/list_entry_padding_horizontal"
 		android:orientation="horizontal"
 		android:visibility="gone" >
 
@@ -58,8 +58,8 @@
 	<TextView
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:layout_marginLeft="20dp"
-		android:layout_marginRight="20dp"
+		android:layout_marginLeft="@dimen/list_entry_padding_horizontal_lax"
+		android:layout_marginRight="@dimen/list_entry_padding_horizontal_lax"
 		android:layout_marginTop="8dp"
 		android:text="@string/send_coins_fragment_amount_label"
 		android:textSize="@dimen/font_size_small"
@@ -127,8 +127,8 @@
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:layout_marginBottom="@dimen/list_entry_padding_vertical"
-		android:layout_marginLeft="@dimen/list_entry_padding_horizontal"
-		android:layout_marginRight="@dimen/list_entry_padding_horizontal"
+		android:layout_marginLeft="@dimen/list_entry_padding_horizontal_lax"
+		android:layout_marginRight="@dimen/list_entry_padding_horizontal_lax"
 		android:textSize="@dimen/font_size_normal"
 		android:visibility="gone" />
 
