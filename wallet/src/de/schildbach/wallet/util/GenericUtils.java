@@ -17,11 +17,15 @@
 
 package de.schildbach.wallet.util;
 
+import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Locale;
 
 import javax.annotation.Nonnull;
+
+import android.view.View;
+import android.widget.TextView;
 
 import com.google.bitcoin.core.NetworkParameters;
 
@@ -112,5 +116,22 @@ public class GenericUtils
 			throw new ArithmeticException("amount too large: " + value);
 
 		return nanoCoins;
+	}
+
+	public static void setNextFocusForwardId(final View view, final int nextFocusForwardId)
+	{
+		try
+		{
+			final Method setNextFocusForwardId = TextView.class.getMethod("setNextFocusForwardId", Integer.TYPE);
+			setNextFocusForwardId.invoke(view, nextFocusForwardId);
+		}
+		catch (final NoSuchMethodException x)
+		{
+			// expected on API levels below 11
+		}
+		catch (final Exception x)
+		{
+			throw new RuntimeException(x);
+		}
 	}
 }

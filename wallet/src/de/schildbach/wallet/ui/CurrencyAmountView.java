@@ -36,14 +36,11 @@ import android.text.SpannableStringBuilder;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.Gravity;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TextView;
-import android.widget.TextView.OnEditorActionListener;
 
 import com.google.bitcoin.core.Transaction;
 
@@ -60,8 +57,6 @@ public final class CurrencyAmountView extends FrameLayout
 	public static interface Listener
 	{
 		void changed();
-
-		void done();
 
 		void focusChanged(final boolean hasFocus);
 	}
@@ -118,7 +113,6 @@ public final class CurrencyAmountView extends FrameLayout
 		setValidateAmount(textView instanceof EditText);
 		textView.addTextChangedListener(textViewListener);
 		textView.setOnFocusChangeListener(textViewListener);
-		textView.setOnEditorActionListener(textViewListener);
 
 		contextButton = new View(context)
 		{
@@ -265,6 +259,17 @@ public final class CurrencyAmountView extends FrameLayout
 			textView.setPaintFlags(textView.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
 	}
 
+	public TextView getTextView()
+	{
+		return textView;
+	}
+
+	public void setNextFocusId(final int nextFocusId)
+	{
+		textView.setNextFocusDownId(nextFocusId);
+		GenericUtils.setNextFocusForwardId(textView, nextFocusId);
+	}
+
 	private boolean isValidAmount(final boolean zeroIsValid)
 	{
 		final String amount = textView.getText().toString().trim();
@@ -360,7 +365,7 @@ public final class CurrencyAmountView extends FrameLayout
 
 	private final TextViewListener textViewListener = new TextViewListener();
 
-	private final class TextViewListener implements TextWatcher, OnFocusChangeListener, OnEditorActionListener
+	private final class TextViewListener implements TextWatcher, OnFocusChangeListener
 	{
 		private boolean fire = true;
 
@@ -409,15 +414,6 @@ public final class CurrencyAmountView extends FrameLayout
 
 			if (listener != null && fire)
 				listener.focusChanged(hasFocus);
-		}
-
-		@Override
-		public boolean onEditorAction(final TextView v, final int actionId, final KeyEvent event)
-		{
-			if (actionId == EditorInfo.IME_ACTION_DONE && listener != null && fire)
-				listener.done();
-
-			return false;
 		}
 	}
 

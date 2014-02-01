@@ -222,7 +222,7 @@ public final class SendCoinsFragment extends SherlockFragment
 		public void onDestroyActionMode(final ActionMode mode)
 		{
 			if (receivingStaticView.hasFocus())
-				amountCalculatorLink.requestFocus();
+				requestFocusFirst();
 		}
 
 		private void handleEditAddress()
@@ -239,7 +239,7 @@ public final class SendCoinsFragment extends SherlockFragment
 
 			updateView();
 
-			receivingAddressView.requestFocus();
+			requestFocusFirst();
 		}
 	}
 
@@ -249,14 +249,6 @@ public final class SendCoinsFragment extends SherlockFragment
 		public void changed()
 		{
 			updateView();
-		}
-
-		@Override
-		public void done()
-		{
-			updateView();
-
-			viewGo.requestFocusFromTouch();
 		}
 
 		@Override
@@ -439,8 +431,12 @@ public final class SendCoinsFragment extends SherlockFragment
 
 				if (everythingValid())
 					handleGo();
+				else
+					requestFocusFirst();
 			}
 		});
+
+		amountCalculatorLink.setNextFocusId(viewGo.getId());
 
 		viewCancel = (Button) view.findViewById(R.id.send_coins_cancel);
 		viewCancel.setOnClickListener(new OnClickListener()
@@ -954,6 +950,25 @@ public final class SendCoinsFragment extends SherlockFragment
 
 		if (scanAction != null)
 			scanAction.setEnabled(state == State.INPUT);
+
+		// focus linking
+		final int activeAmountViewId = amountCalculatorLink.activeTextView().getId();
+		receivingAddressView.setNextFocusDownId(activeAmountViewId);
+		receivingStaticView.setNextFocusDownId(activeAmountViewId);
+		GenericUtils.setNextFocusForwardId(receivingAddressView, activeAmountViewId);
+		viewGo.setNextFocusUpId(activeAmountViewId);
+	}
+
+	private void requestFocusFirst()
+	{
+		if (validatedAddress == null)
+			receivingAddressView.requestFocus();
+		else if (!isAmountValid())
+			amountCalculatorLink.requestFocus();
+		else if (everythingValid())
+			viewGo.requestFocus();
+		else
+			log.warn("unclear focus");
 	}
 
 	private boolean everythingValid()
@@ -1024,15 +1039,11 @@ public final class SendCoinsFragment extends SherlockFragment
 		if (paymentIntent.hasAmount())
 			amountCalculatorLink.setBtcAmount(paymentIntent.amount);
 
-		// focus
-		if (!paymentIntent.hasAmount())
-			amountCalculatorLink.requestFocus();
-		else
-			viewGo.requestFocus();
-
 		bluetoothAck = null;
 
 		updateView();
+
+		requestFocusFirst();
 
 		handler.postDelayed(new Runnable()
 		{

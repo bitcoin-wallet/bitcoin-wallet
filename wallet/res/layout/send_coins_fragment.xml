@@ -23,7 +23,7 @@
 		android:layout_marginRight="@dimen/list_entry_padding_horizontal"
 		android:completionThreshold="1"
 		android:hint="@string/send_coins_fragment_receiving_address_hint"
-		android:imeOptions="actionNext|flagNoExtractUi"
+		android:imeOptions="flagNoExtractUi"
 		android:singleLine="true"
 		android:textColor="#000"
 		android:textSize="@dimen/font_size_normal" />

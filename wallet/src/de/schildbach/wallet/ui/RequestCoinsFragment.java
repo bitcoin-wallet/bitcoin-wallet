@@ -231,11 +231,6 @@ public final class RequestCoinsFragment extends SherlockFragment
 			}
 
 			@Override
-			public void done()
-			{
-			}
-
-			@Override
 			public void focusChanged(final boolean hasFocus)
 			{
 			}
@@ -391,6 +386,10 @@ public final class RequestCoinsFragment extends SherlockFragment
 		// update bluetooth message
 		final boolean serviceRunning = application.isServiceRunning(AcceptBluetoothService.class);
 		bluetoothEnabledView.setVisibility(bluetoothAdapter != null && bluetoothAdapter.isEnabled() && serviceRunning ? View.VISIBLE : View.GONE);
+
+		// focus linking
+		final int activeAmountViewId = amountCalculatorLink.activeTextView().getId();
+		addressView.setNextFocusUpId(activeAmountViewId);
 	}
 
 	private void updateShareIntent()
