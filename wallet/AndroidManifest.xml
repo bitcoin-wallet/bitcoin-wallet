@@ -3,7 +3,7 @@
 	xmlns:tools="http://schemas.android.com/tools"
 	package="de.langerhans.wallet"
 	android:installLocation="internalOnly"
-	android:versionCode="154"
+	android:versionCode="155"
 	android:versionName="1.05" >
 
 	<uses-sdk
