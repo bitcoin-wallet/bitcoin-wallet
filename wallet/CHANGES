@@ -3,6 +3,7 @@ v1.05
 - Exchange rate provider selection. Currently supported: Cryptsy and Vircurex
 - New base currency for exchnage rates: mBTC (Because BTC value is too small. 1 mBTC = 0.001 BTC)
 - Support for inverted QR Codes
+- Fixed menu item doubling on rotate in address screen
 - Translations: New: Macedonian and Esperanto. Updated: Spanish
 
 v1.04

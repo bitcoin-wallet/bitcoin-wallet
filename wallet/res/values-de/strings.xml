@@ -81,6 +81,7 @@
     <string name="send_coins_error_desc">Beim Senden der Transaktion ist ein Fehler aufgetreten.\n
         Dies liegt vermutlich an einem zu kleinen Betrag, welcher nicht für die Gebühren des Netzwerks ausreicht.\n
         Bitte fülle deinen Kontostand weiter auf, um die Gebühren zahlen zu können.\n
+        Möchtest du dein Wallet leeren, verwende \'Wallet entleeren\' im Menü.\n
         Fall du denkst, dass dies ein Fehler ist, sende mir bitte eine Info über die App.</string>
 	<string name="send_coins_options_empty">Wallet entleeren</string>
 	<string name="send_coins_address_context_clear_title">Adresse neu eingeben</string>

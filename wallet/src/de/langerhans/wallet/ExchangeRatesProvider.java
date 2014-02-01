@@ -173,7 +173,9 @@ public class ExchangeRatesProvider extends ContentProvider
                         providerUrl = "";
                         break;
                 }
-                newExchangeRates.put("mBTC", new ExchangeRate("mBTC", new BigDecimal(GenericUtils.toNanoCoins(String.valueOf(dogeBtcConversion*1000), 0)).toBigInteger(), providerUrl));
+                float mBTCRate = dogeBtcConversion*1000;
+                String strmBTCRate = String.format("%.5f", mBTCRate).replace(',', '.');
+                newExchangeRates.put("mBTC", new ExchangeRate("mBTC", new BigDecimal(GenericUtils.toNanoCoins(strmBTCRate, 0)).toBigInteger(), providerUrl));
 				exchangeRates = newExchangeRates;
 				lastUpdated = now;
 			}
