@@ -15,6 +15,37 @@
 		android:textSize="@dimen/font_size_small"
 		android:textStyle="bold" />
 
+	<TextView
+		android:id="@+id/send_coins_payee_name"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginLeft="@dimen/list_entry_padding_horizontal_lax"
+		android:layout_marginRight="@dimen/list_entry_padding_horizontal_lax"
+		android:layout_marginTop="8dp"
+		android:singleLine="true"
+		android:textColor="@color/fg_significant"
+		android:textSize="@dimen/font_size_normal" />
+
+	<TextView
+		android:id="@+id/send_coins_payee_organization"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginLeft="@dimen/list_entry_padding_horizontal_lax"
+		android:layout_marginRight="@dimen/list_entry_padding_horizontal_lax"
+		android:singleLine="true"
+		android:textColor="@color/fg_significant"
+		android:textSize="@dimen/font_size_normal" />
+
+	<TextView
+		android:id="@+id/send_coins_payee_verified_by"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginLeft="@dimen/list_entry_padding_horizontal_lax"
+		android:layout_marginRight="@dimen/list_entry_padding_horizontal_lax"
+		android:singleLine="true"
+		android:textColor="@color/fg_less_significant"
+		android:textSize="@dimen/font_size_normal" />
+
 	<AutoCompleteTextView
 		android:id="@+id/send_coins_receiving_address"
 		android:layout_width="match_parent"

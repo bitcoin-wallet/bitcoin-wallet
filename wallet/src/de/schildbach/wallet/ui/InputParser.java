@@ -40,6 +40,7 @@ import com.google.bitcoin.core.ProtocolException;
 import com.google.bitcoin.core.Transaction;
 import com.google.bitcoin.protocols.payments.PaymentRequestException;
 import com.google.bitcoin.protocols.payments.PaymentSession;
+import com.google.bitcoin.protocols.payments.PaymentSession.PkiVerificationData;
 import com.google.bitcoin.script.Script;
 import com.google.bitcoin.uri.BitcoinURI;
 import com.google.bitcoin.uri.BitcoinURIParseException;
@@ -270,8 +271,23 @@ public abstract class InputParser
 
 		final Protos.PaymentRequest paymentRequest = Protos.PaymentRequest.parseFrom(serializedPaymentRequest);
 
+		final String pkiName;
+		final String pkiOrgName;
+		final String pkiCaName;
 		if (!"none".equals(paymentRequest.getPkiType()))
-			new PaymentSession(paymentRequest, true); // verify PKI signature
+		{
+			// implicitly verify PKI signature
+			final PkiVerificationData verificationData = new PaymentSession(paymentRequest, true).pkiVerificationData;
+			pkiName = verificationData.name;
+			pkiOrgName = verificationData.orgName;
+			pkiCaName = verificationData.rootAuthority.getCAName();
+		}
+		else
+		{
+			pkiName = null;
+			pkiOrgName = null;
+			pkiCaName = null;
+		}
 
 		if (paymentRequest.getPaymentDetailsVersion() != 1)
 			throw new PaymentRequestException.InvalidVersion("cannot handle payment details version: " + paymentRequest.getPaymentDetailsVersion());
@@ -300,9 +316,9 @@ public abstract class InputParser
 
 		final ByteString merchantData = paymentDetails.getMerchantData();
 
-		final PaymentIntent paymentIntent = new PaymentIntent(PaymentIntent.Standard.BIP70, script.getToAddress(Constants.NETWORK_PARAMETERS),
-				paymentDetails.getMemo(), amount != 0 ? BigInteger.valueOf(amount) : null, paymentUrl,
-				merchantData != null ? merchantData.toByteArray() : null);
+		final PaymentIntent paymentIntent = new PaymentIntent(PaymentIntent.Standard.BIP70, pkiName, pkiOrgName, pkiCaName,
+				script.getToAddress(Constants.NETWORK_PARAMETERS), paymentDetails.getMemo(), amount != 0 ? BigInteger.valueOf(amount) : null,
+				paymentUrl, merchantData != null ? merchantData.toByteArray() : null);
 
 		if (paymentIntent.hasPaymentUrl() && !paymentIntent.isSupportedPaymentUrl())
 			throw new PaymentRequestException.InvalidPaymentURL("cannot handle payment url: " + paymentIntent.paymentUrl);

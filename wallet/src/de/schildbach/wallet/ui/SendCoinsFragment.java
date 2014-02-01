@@ -116,6 +116,9 @@ public final class SendCoinsFragment extends SherlockFragment
 	private HandlerThread backgroundThread;
 	private Handler backgroundHandler;
 
+	private TextView payeeNameView;
+	private TextView payeeOrganizationView;
+	private TextView payeeVerifiedByView;
 	private AutoCompleteTextView receivingAddressView;
 	private View receivingStaticView;
 	private TextView receivingStaticAddressView;
@@ -379,6 +382,10 @@ public final class SendCoinsFragment extends SherlockFragment
 	public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState)
 	{
 		final View view = inflater.inflate(R.layout.send_coins_fragment, container);
+
+		payeeNameView = (TextView) view.findViewById(R.id.send_coins_payee_name);
+		payeeOrganizationView = (TextView) view.findViewById(R.id.send_coins_payee_organization);
+		payeeVerifiedByView = (TextView) view.findViewById(R.id.send_coins_payee_verified_by);
 
 		receivingAddressView = (AutoCompleteTextView) view.findViewById(R.id.send_coins_receiving_address);
 		receivingAddressView.setAdapter(new AutoCompleteAddressAdapter(activity, null));
@@ -941,6 +948,34 @@ public final class SendCoinsFragment extends SherlockFragment
 	{
 		if (paymentIntent == null)
 			return;
+
+		if (paymentIntent.hasPayee())
+		{
+			payeeNameView.setVisibility(View.VISIBLE);
+			payeeNameView.setText(paymentIntent.payeeName);
+
+			if (paymentIntent.payeeOrganization != null)
+			{
+				payeeOrganizationView.setVisibility(View.VISIBLE);
+				payeeOrganizationView.setText(paymentIntent.payeeOrganization);
+			}
+			else
+			{
+				payeeOrganizationView.setVisibility(View.GONE);
+			}
+
+			payeeVerifiedByView.setVisibility(View.VISIBLE);
+			final String verifiedBy = paymentIntent.payeeVerifiedBy != null ? paymentIntent.payeeVerifiedBy
+					: getString(R.string.send_coins_fragment_payee_verified_by_unknown);
+			payeeVerifiedByView.setText(Constants.CHAR_CHECKMARK
+					+ String.format(getString(R.string.send_coins_fragment_payee_verified_by), verifiedBy));
+		}
+		else
+		{
+			payeeNameView.setVisibility(View.GONE);
+			payeeOrganizationView.setVisibility(View.GONE);
+			payeeVerifiedByView.setVisibility(View.GONE);
+		}
 
 		if (validatedAddress != null)
 		{
