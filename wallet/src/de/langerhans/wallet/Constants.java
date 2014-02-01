@@ -80,14 +80,14 @@ public class Constants
 	public static final int MBTC_MAX_PRECISION = 5;
 	public static final int LOCAL_PRECISION = 4;
 
-	public static final String DONATION_ADDRESS = "DLnvez7jBWz3iTvckeBVbGizMFCf5aaWGB";
+	public static final String DONATION_ADDRESS = "DQr7Q7aPyyNXRL81xa9zinCaNjkyMsUZbF";
 	public static final String REPORT_EMAIL = "dogecoinandroid@gmail.com";
 	public static final String REPORT_SUBJECT_ISSUE = "Reported issue";
 	public static final String REPORT_SUBJECT_CRASH = "Crash report";
 
 	public static final String LICENSE_URL = "http://www.gnu.org/licenses/gpl-3.0.txt";
 	public static final String SOURCE_URL = "https://github.com/langerhans/dogecoin-wallet-new";
-	public static final String BINARY_URL = ""; //TODO
+	public static final String BINARY_URL = "http://langerhans.github.io/dogecoin-wallet-new/";
 	public static final String CREDITS_BITCOINJ_URL = "https://github.com/langerhans/dogecoinj-new";
 	public static final String CREDITS_ZXING_URL = "http://code.google.com/p/zxing/";
 	public static final String CREDITS_ICON_URL = "http://dogecoin.com/";
