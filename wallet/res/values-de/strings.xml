@@ -107,8 +107,10 @@
 	<string name="address_book_context_show_qr_title">QR-Code zeigen</string>
 	<string name="address_book_context_copy_to_clipboard_title">Ins Clipboard kopieren</string>
 	<string name="address_book_options_paste_from_clipboard_title">Aus dem Clipboard einfügen</string>
-	<string name="address_book_options_copy_from_clipboard_msg_empty">Clipboard ist leer</string>
+	<string name="address_book_options_paste_from_clipboard_empty">Clipboard ist leer</string>
+	<string name="address_book_options_paste_from_clipboard_invalid">Die Daten auf dem Clipboard sind nicht entzifferbar</string>
 	<string name="address_book_options_scan_title">Adresse scannen</string>
+	<string name="address_book_options_scan_invalid">Gescannte Daten sind nicht entzifferbar</string>
 	<string name="address_book_row_message_compromised_key">Diese Adresse ist vielleicht kompromittiert. Du solltest sie nicht mehr zum Empfang von Bitcoins nutzen.</string>
 
 	<string name="edit_address_book_entry_dialog_title_add">Adresse hinzufügen</string>

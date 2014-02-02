@@ -122,6 +122,11 @@ public final class PaymentIntent implements Parcelable
 		return payeeName != null;
 	}
 
+	public boolean hasAddress()
+	{
+		return address != null;
+	}
+
 	public Address getAddress()
 	{
 		return address;

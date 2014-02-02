@@ -1203,18 +1203,21 @@ public final class SendCoinsFragment extends SherlockFragment
 
 		this.paymentIntent = paymentIntent;
 
-		final String addressStr = paymentIntent.getAddress().toString();
+		if (paymentIntent.hasAddress())
+		{
+			final String addressStr = paymentIntent.getAddress().toString();
 
-		try
-		{
-			validatedAddress = new AddressAndLabel(Constants.NETWORK_PARAMETERS, addressStr, paymentIntent.memo);
-			receivingAddressView.setText(null);
-		}
-		catch (final Exception x)
-		{
-			receivingAddressView.setText(addressStr);
-			validatedAddress = null;
-			log.info("problem parsing address: '" + addressStr + "'", x);
+			try
+			{
+				validatedAddress = new AddressAndLabel(Constants.NETWORK_PARAMETERS, addressStr, paymentIntent.memo);
+				receivingAddressView.setText(null);
+			}
+			catch (final Exception x)
+			{
+				receivingAddressView.setText(addressStr);
+				validatedAddress = null;
+				log.info("problem parsing address: '" + addressStr + "'", x);
+			}
 		}
 
 		if (paymentIntent.hasAmount())

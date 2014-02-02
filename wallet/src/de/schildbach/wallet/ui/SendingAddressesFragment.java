@@ -138,7 +138,10 @@ public final class SendingAddressesFragment extends SherlockListFragment impleme
 						@Override
 						public void run()
 						{
-							EditAddressBookEntryFragment.edit(getFragmentManager(), paymentIntent.getAddress().toString());
+							if (paymentIntent.hasAddress())
+								EditAddressBookEntryFragment.edit(getFragmentManager(), paymentIntent.getAddress().toString());
+							else
+								dialog(activity, null, R.string.address_book_options_scan_title, R.string.address_book_options_scan_invalid);
 						}
 					}, 500);
 				}
@@ -198,7 +201,11 @@ public final class SendingAddressesFragment extends SherlockListFragment impleme
 				@Override
 				protected void handlePaymentIntent(final PaymentIntent paymentIntent)
 				{
-					EditAddressBookEntryFragment.edit(getFragmentManager(), paymentIntent.getAddress().toString());
+					if (paymentIntent.hasAddress())
+						EditAddressBookEntryFragment.edit(getFragmentManager(), paymentIntent.getAddress().toString());
+					else
+						dialog(activity, null, R.string.address_book_options_paste_from_clipboard_title,
+								R.string.address_book_options_paste_from_clipboard_invalid);
 				}
 
 				@Override
@@ -216,7 +223,7 @@ public final class SendingAddressesFragment extends SherlockListFragment impleme
 		}
 		else
 		{
-			activity.toast(R.string.address_book_options_copy_from_clipboard_msg_empty);
+			activity.toast(R.string.address_book_options_paste_from_clipboard_empty);
 		}
 	}
 

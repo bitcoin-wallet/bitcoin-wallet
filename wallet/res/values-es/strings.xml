@@ -87,7 +87,7 @@
 	<string name="address_book_context_copy_to_clipboard_title">Copiar al portapapeles</string>
 	<string name="address_book_context_default_title">Establecer como dirección predeterminada</string>
 	<string name="address_book_options_paste_from_clipboard_title">Pegar desde el portapapeles</string>
-	<string name="address_book_options_copy_from_clipboard_msg_empty">Portapapeles vacío</string>
+	<string name="address_book_options_paste_from_clipboard_empty">Portapapeles vacío</string>
 	<string name="address_book_options_scan_title">Explorar dirección</string>
 	<string name="address_book_row_message_compromised_key">Esta dirección puede haberse visto comprometida. Ya no la debería utilizar para recibir bitcoins.</string>
 	<string name="edit_address_book_entry_dialog_title_add">Añadir dirección</string>

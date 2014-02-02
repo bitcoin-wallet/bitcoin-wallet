@@ -87,7 +87,7 @@
 	<string name="address_book_context_copy_to_clipboard_title">Copia negli appunti</string>
 	<string name="address_book_context_default_title">Imposta come indirizzo di default</string>
 	<string name="address_book_options_paste_from_clipboard_title">Incolla dagli appunti</string>
-	<string name="address_book_options_copy_from_clipboard_msg_empty">Appunti pieni</string>
+	<string name="address_book_options_paste_from_clipboard_empty">Appunti pieni</string>
 	<string name="address_book_options_scan_title">Scansione indirizzo</string>
 	<string name="address_book_row_message_compromised_key">Questo indirizzo potrebbe essere compromesso. Non dovresti usarlo più per ricevere denaro.</string>
 	<string name="edit_address_book_entry_dialog_title_add">Aggiungi indirizzo</string>

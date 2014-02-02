@@ -87,7 +87,7 @@
 	<string name="address_book_context_copy_to_clipboard_title">複製到剪貼簿</string>
 	<string name="address_book_context_default_title">設為預設地址</string>
 	<string name="address_book_options_paste_from_clipboard_title">從剪貼簿貼上</string>
-	<string name="address_book_options_copy_from_clipboard_msg_empty">剪貼簿是空的。</string>
+	<string name="address_book_options_paste_from_clipboard_empty">剪貼簿是空的。</string>
 	<string name="address_book_options_scan_title">掃描地址</string>
 	<string name="address_book_row_message_compromised_key">該地址可能已洩漏，你不應該再繼續使用來請款。</string>
 	<string name="edit_address_book_entry_dialog_title_add">新增地址</string>

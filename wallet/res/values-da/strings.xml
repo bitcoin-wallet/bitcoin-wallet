@@ -87,7 +87,7 @@
 	<string name="address_book_context_copy_to_clipboard_title">Kopiér til udklipsholder</string>
 	<string name="address_book_context_default_title">Sæt som standardadresse</string>
 	<string name="address_book_options_paste_from_clipboard_title">Indsæt fra udklipsholder</string>
-	<string name="address_book_options_copy_from_clipboard_msg_empty">Udklipsholder er tom</string>
+	<string name="address_book_options_paste_from_clipboard_empty">Udklipsholder er tom</string>
 	<string name="address_book_options_scan_title">Scan adresse</string>
 	<string name="address_book_row_message_compromised_key">Denne adresse kan være blevet misbrugt. Du bør ikke bruge den til at modtage mønter længere.</string>
 	<string name="edit_address_book_entry_dialog_title_add">Tilføj adresse</string>
