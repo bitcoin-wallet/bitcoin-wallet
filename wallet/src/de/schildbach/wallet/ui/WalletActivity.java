@@ -33,6 +33,7 @@ import java.net.SocketException;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -920,7 +921,7 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 			if(!Constants.EXTERNAL_WALLET_BACKUP_DIR.mkdirs()) {
                 Log.d("WalletActivity", "mkdirs() returned false.  This isn't critical, but might be interesting");
             }
-			final DateFormat dateFormat = Iso8601Format.newDateFormat();
+			final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd-HHmmss");
 			dateFormat.setTimeZone(TimeZone.getDefault());
 			final File file = new File(Constants.EXTERNAL_WALLET_BACKUP_DIR, Constants.EXTERNAL_WALLET_KEY_BACKUP + "-"
 					+ dateFormat.format(new Date()));
