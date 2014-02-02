@@ -88,8 +88,10 @@ public class ExchangeRatesProvider extends ContentProvider
 	private Map<String, ExchangeRate> exchangeRates = null;
 	private long lastUpdated = 0;
 
-	private static final URL BTCE_URL;
-	private static final String[] BTCE_FIELDS = new String[] { "avg" };
+    private static final URL BTCE_URL;
+    private static final String[] BTCE_FIELDS = new String[] { "avg" };
+    private static final URL BTCE_EURO_URL;
+    private static final String[] BTCE_EURO_FIELDS = new String[] { "avg" };
 	private static final URL VIRCUREX_URL;
 	private static final String[] VIRCUREX_FIELDS = new String[] { "value" };
 
@@ -97,8 +99,9 @@ public class ExchangeRatesProvider extends ContentProvider
 	{
 		try
 		{
-			BTCE_URL = new URL("https://btc-e.com/api/2/ltc_usd/ticker");
-            VIRCUREX_URL = new URL("https://vircurex.com/api/get_last_trade.json?base=LTC&alt=USD");
+            BTCE_URL = new URL("https://btc-e.com/api/2/ltc_usd/ticker");
+            BTCE_EURO_URL = new URL("https://btc-e.com/api/2/ltc_eur/ticker");
+            VIRCUREX_URL = new URL("https://api.vircurex.com/api/get_last_trade.json?base=LTC&alt=USD");
 		}
 		catch (final MalformedURLException x)
 		{
@@ -129,19 +132,32 @@ public class ExchangeRatesProvider extends ContentProvider
 		if (exchangeRates == null || now - lastUpdated > UPDATE_FREQ_MS)
 		{
 			Map<String, ExchangeRate> newExchangeRates = null;
-            // Attempt to get exchange rates from all providers.  Stop after first.
+            // Attempt to get USD exchange rates from all providers.  Stop after first.
 			if (exchangeRates == null)
-				newExchangeRates = requestExchangeRates(BTCE_URL, BTCE_FIELDS);
+				newExchangeRates = requestExchangeRates(BTCE_URL, "USD", BTCE_FIELDS);
 			if (exchangeRates == null && newExchangeRates == null)
-				newExchangeRates = requestExchangeRates(VIRCUREX_URL, VIRCUREX_FIELDS);
+				newExchangeRates = requestExchangeRates(VIRCUREX_URL, "USD", VIRCUREX_FIELDS);
 
-			if (newExchangeRates != null)
+            // Get Euro rates as a fallback if Yahoo! fails below
+            Map<String, ExchangeRate> euroRate = requestExchangeRates(BTCE_EURO_URL, "EUR", BTCE_EURO_FIELDS);
+            if(euroRate != null) {
+                if(newExchangeRates != null)
+                    newExchangeRates.putAll(euroRate);
+                else
+                    newExchangeRates = euroRate;
+            }
+
+            if (newExchangeRates != null)
 			{
                 // Get USD conversion exchange rates from Yahoo!
                 Iterator<ExchangeRate> it = newExchangeRates.values().iterator();
                 Map<String, ExchangeRate> fiatRates = new YahooRatesProvider().getRates(it.next());
-                if(fiatRates != null)
+                if(fiatRates != null) {
+                    // Remove EUR if we have a better source above
+                    if(euroRate != null)
+                        fiatRates.remove("EUR");
                     newExchangeRates.putAll(fiatRates);
+                }
 				exchangeRates = newExchangeRates;
 				lastUpdated = now;
 			}
@@ -230,7 +246,7 @@ public class ExchangeRatesProvider extends ContentProvider
 		throw new UnsupportedOperationException();
 	}
 
-	private static Map<String, ExchangeRate> requestExchangeRates(final URL url, final String... fields)
+	private static Map<String, ExchangeRate> requestExchangeRates(final URL url, final String currencyCode, final String... fields)
 	{
 		HttpURLConnection connection = null;
 		Reader reader = null;
@@ -254,10 +270,10 @@ public class ExchangeRatesProvider extends ContentProvider
 				final JSONObject head = new JSONObject(content.toString());
 				for (final Iterator<String> i = head.keys(); i.hasNext();)
 				{
-					String currencyCode = i.next();
-					if (!"timestamp".equals(currencyCode))
+					String code = i.next();
+					if (!"timestamp".equals(code))
 					{
-						final JSONObject o = head.getJSONObject(currencyCode);
+						final JSONObject o = head.getJSONObject(code);
 
 						for (final String field : fields)
 						{
@@ -271,9 +287,6 @@ public class ExchangeRatesProvider extends ContentProvider
 
 									if (rate.signum() > 0)
 									{
-                                        // HACK because the only supported currency in LTC exchange rates for now
-                                        // is USD
-                                        currencyCode = "USD";
 										rates.put(currencyCode, new ExchangeRate(currencyCode, rate, url.getHost()));
 										break;
 									}
