@@ -243,5 +243,8 @@
     <string name="preferences_qr_summary">Which app should be used for QR code scanning?</string>
     <string name="wallet_transactions_context_browse2">Alternative Explorer</string>
     <string name="transaction_fragment_confirmations_label">Confirmations</string>
+    <string name="disclaimer">Have you really read the safety notes? Did you already back up your private keys to a safe
+        place?
+    </string>
 
 </resources>

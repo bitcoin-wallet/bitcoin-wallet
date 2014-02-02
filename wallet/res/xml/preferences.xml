@@ -10,6 +10,12 @@
 			android:summary="@string/preferences_precision_summary"
 			android:title="@string/preferences_precision_title" />
 
+		<CheckBoxPreference
+			android:defaultValue="true"
+			android:key="connectivity_notification"
+			android:summary="@string/preferences_connectivity_notification_summary"
+			android:title="@string/preferences_connectivity_notification_title" />
+
 		<EditTextPreference
 			android:key="trusted_peer"
 			android:summary="@string/preferences_trusted_peer_summary"
@@ -45,7 +51,7 @@
 		<CheckBoxPreference
 			android:defaultValue="true"
 			android:key="disclaimer"
-			android:summary="Have you really read the safety notes? Did you already back up your private keys to a safe place?"
+			android:summary="@string/disclaimer"
 			android:title="Show disclaimer" />
 		<CheckBoxPreference
 			android:defaultValue="false"
