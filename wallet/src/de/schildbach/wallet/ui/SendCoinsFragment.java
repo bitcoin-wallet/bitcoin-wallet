@@ -635,7 +635,7 @@ public final class SendCoinsFragment extends SherlockFragment
 					@Override
 					protected void handlePaymentIntent(final PaymentIntent paymentIntent)
 					{
-						SendCoinsActivity.start(activity, paymentIntent);
+						update(paymentIntent);
 					}
 
 					@Override
