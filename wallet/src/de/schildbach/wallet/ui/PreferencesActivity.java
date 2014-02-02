@@ -21,6 +21,7 @@ import java.io.IOException;
 
 import javax.annotation.Nonnull;
 
+import de.schildbach.wallet.util.GenericUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -80,10 +81,14 @@ public final class PreferencesActivity extends SherlockPreferenceActivity implem
 
 		trustedPeerOnlyPreference = findPreference(Constants.PREFS_KEY_TRUSTED_PEER_ONLY);
 		trustedPeerOnlyPreference.setOnPreferenceChangeListener(this);
+        final Preference dataUsagePreference = findPreference(PREFS_KEY_DATA_USAGE);
 
-		final Preference dataUsagePreference = findPreference(PREFS_KEY_DATA_USAGE);
-		dataUsagePreference.setEnabled(getPackageManager().resolveActivity(dataUsageIntent, 0) != null);
-
+        if(GenericUtils.isBlackberry()) {
+            // BlackBerry crashes if we let it do this
+            dataUsagePreference.setEnabled(false);
+        } else {
+		    dataUsagePreference.setEnabled(getPackageManager().resolveActivity(dataUsageIntent, 0) != null);
+        }
 		final Preference bluetoothOfflineTransactionsPreference = findPreference(Constants.PREFS_KEY_LABS_BLUETOOTH_OFFLINE_TRANSACTIONS);
 		bluetoothOfflineTransactionsPreference.setEnabled(Build.VERSION.SDK_INT >= Constants.SDK_JELLY_BEAN_MR2);
 
