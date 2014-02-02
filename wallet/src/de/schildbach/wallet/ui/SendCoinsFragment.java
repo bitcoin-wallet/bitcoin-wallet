@@ -155,7 +155,8 @@ public final class SendCoinsFragment extends SherlockFragment
 
 	private static final int ID_RATE_LOADER = 0;
 
-	private static final int REQUEST_CODE_ENABLE_BLUETOOTH = 1;
+    private static final int REQUEST_CODE_SCAN = 0;
+    private static final int REQUEST_CODE_ENABLE_BLUETOOTH = 1;
 
 	private static final Logger log = LoggerFactory.getLogger(SendCoinsFragment.class);
 
@@ -650,11 +651,27 @@ public final class SendCoinsFragment extends SherlockFragment
 	@Override
 	public void onActivityResult(final int requestCode, final int resultCode, final Intent intent)
 	{
-        IntentResult scanResult = IntentIntegratorSupportV4.parseActivityResult(requestCode, resultCode, intent);
+        final String input;
+        if (requestCode == REQUEST_CODE_ENABLE_BLUETOOTH)
+        {
+            bluetoothEnableView.setChecked(resultCode == Activity.RESULT_OK);
+        }
+        else
+        {
+            /* Check if user wants to use internal scanner */
+            if(prefs.getString(Constants.PREFS_KEY_QR_SCANNER, "").equals("internal"))
+            {
+                input = intent.getStringExtra(ScanActivity.INTENT_EXTRA_RESULT);
+            }
+            else
+            {
+                IntentResult scanResult = IntentIntegratorSupportV4.parseActivityResult(requestCode, resultCode, intent);
+                if (scanResult != null)
+                    input = scanResult.getContents();
+                else
+                    input = null;
+            }
 
-        if (scanResult != null)
-		{
-            final String input = scanResult.getContents();
             if(input == null) return;
             Log.d("Litecoin", "SCAN RESULT:" + input);
 
@@ -684,12 +701,8 @@ public final class SendCoinsFragment extends SherlockFragment
                     bitcoinRequest(address, null, null, null);
                 }
             }.parse();
-		}
-		else if (requestCode == REQUEST_CODE_ENABLE_BLUETOOTH)
-		{
-			bluetoothEnableView.setChecked(resultCode == Activity.RESULT_OK);
-		}
-	}
+        }
+    }
 
 	@Override
 	public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater)
@@ -1137,8 +1150,12 @@ public final class SendCoinsFragment extends SherlockFragment
 
 	private void handleScan()
 	{
-        IntentIntegratorSupportV4 integrator = new IntentIntegratorSupportV4(this);
-        integrator.initiateScan();
+        if(prefs.getString(Constants.PREFS_KEY_QR_SCANNER, "").equals("internal")) {
+            startActivityForResult(new Intent(activity, ScanActivity.class), REQUEST_CODE_SCAN);
+        } else {
+            IntentIntegratorSupportV4 integrator = new IntentIntegratorSupportV4(this);
+            integrator.initiateScan();
+        }
 	}
 
 	private void handleEmpty()

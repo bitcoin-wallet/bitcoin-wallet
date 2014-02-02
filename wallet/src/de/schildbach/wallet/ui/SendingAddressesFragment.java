@@ -24,11 +24,13 @@ import javax.annotation.Nonnull;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
@@ -73,6 +75,8 @@ public final class SendingAddressesFragment extends SherlockListFragment impleme
 	private String walletAddressesSelection;
 
 	private final Handler handler = new Handler();
+
+	private static final int REQUEST_CODE_SCAN = 0;
 
 	@Override
 	public void onAttach(final Activity activity)
@@ -119,53 +123,63 @@ public final class SendingAddressesFragment extends SherlockListFragment impleme
 		loaderManager.initLoader(0, null, this);
 	}
 
-	@Override
-	public void onActivityResult(final int requestCode, final int resultCode, final Intent intent)
-	{
-        IntentResult scanResult = IntentIntegratorSupportV4.parseActivityResult(requestCode, resultCode, intent);
+    @Override
+    public void onActivityResult(final int requestCode, final int resultCode, final Intent intent)
+    {
+        final String input;
+        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(activity);
+        /* Check if user wants to use internal scanner */
+        if(prefs.getString(Constants.PREFS_KEY_QR_SCANNER, "").equals("internal"))
+        {
+            input = intent.getStringExtra(ScanActivity.INTENT_EXTRA_RESULT);
+        }
+        else
+        {
+            IntentResult scanResult = IntentIntegratorSupportV4.parseActivityResult(requestCode, resultCode, intent);
+            if (scanResult != null)
+                input = scanResult.getContents();
+            else
+                input = null;
+        }
 
-        if (scanResult != null)
-		{
-            final String input = scanResult.getContents();
-            if(input == null) return;
-            Log.d("Litecoin", "SCAN RESULT:" + input);
+        if(input == null) return;
+        Log.d("Litecoin", "SCAN RESULT:" + input);
 
-			new StringInputParser(input)
-			{
-				@Override
-				protected void bitcoinRequest(@Nonnull final Address address, final String addressLabel, final BigInteger amount, final String bluetoothMac)
-				{
-					// workaround for "IllegalStateException: Can not perform this action after onSaveInstanceState"
-					handler.postDelayed(new Runnable()
-					{
-						@Override
-						public void run()
-						{
-							EditAddressBookEntryFragment.edit(getFragmentManager(), address.toString());
-						}
-					}, 500);
-				}
+        new StringInputParser(input)
+        {
+            @Override
+            protected void bitcoinRequest(@Nonnull final Address address, final String addressLabel, final BigInteger amount, final String bluetoothMac)
+            {
+                // workaround for "IllegalStateException: Can not perform this action after onSaveInstanceState"
+                handler.postDelayed(new Runnable()
+                {
+                    @Override
+                    public void run()
+                    {
+                        EditAddressBookEntryFragment.edit(getFragmentManager(), address.toString());
+                    }
+                }, 500);
+            }
 
-				@Override
-				protected void directTransaction(@Nonnull final Transaction transaction)
-				{
-					cannotClassify(input);
-				}
+            @Override
+            protected void directTransaction(@Nonnull final Transaction transaction)
+            {
+                cannotClassify(input);
+            }
 
-				@Override
-				protected void error(final int messageResId, final Object... messageArgs)
-				{
-					dialog(activity, null, R.string.address_book_options_scan_title, messageResId, messageArgs);
-				}
+            @Override
+            protected void error(final int messageResId, final Object... messageArgs)
+            {
+                dialog(activity, null, R.string.address_book_options_scan_title, messageResId, messageArgs);
+            }
 
-                @Override
-                protected void handlePrivateKey(@Nonnull ECKey key) {
-                    final Address address = new Address(Constants.NETWORK_PARAMETERS, key.getPubKeyHash());
-                    bitcoinRequest(address, null, null, null);
-                }
-			}.parse();
-		}
-	}
+            @Override
+            protected void handlePrivateKey(@Nonnull ECKey key) {
+                final Address address = new Address(Constants.NETWORK_PARAMETERS, key.getPubKeyHash());
+                bitcoinRequest(address, null, null, null);
+            }
+        }.parse();
+    }
 
 	@Override
 	public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater)
@@ -237,8 +251,13 @@ public final class SendingAddressesFragment extends SherlockListFragment impleme
 
 	private void handleScan()
 	{
-        IntentIntegratorSupportV4 integrator = new IntentIntegratorSupportV4(this);
-        integrator.initiateScan();
+        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(activity);
+        if(prefs.getString(Constants.PREFS_KEY_QR_SCANNER, "").equals("internal")) {
+            startActivityForResult(new Intent(activity, ScanActivity.class), REQUEST_CODE_SCAN);
+        } else {
+            IntentIntegratorSupportV4 integrator = new IntentIntegratorSupportV4(this);
+            integrator.initiateScan();
+        }
     }
 
 	@Override

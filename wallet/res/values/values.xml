@@ -25,11 +25,13 @@
         <item>la.droid.qr</item>
         <item>com.srowen.bs.android</item>
         <item>com.srowen.bs.android.simple</item>
+        <item>internal</item>
     </string-array>
     <string-array name="preferences_qr_labels">
         <item>Barcode Scanner</item>
         <item>QR Droid</item>
         <item>Barcode Scanner+</item>
         <item>Barcode Scanner+ Simple</item>
+        <item>Internal</item>
     </string-array>
 </resources>

@@ -182,61 +182,70 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 	@Override
 	public void onActivityResult(final int requestCode, final int resultCode, final Intent intent)
 	{
-        IntentResult scanResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
-        if (scanResult != null)
-		{
-			final String input = scanResult.getContents();
-            if(input == null) return;
-            Log.d("Litecoin", "SCAN RESULT:" + input);
-			new StringInputParser(input)
-			{
-				@Override
-				protected void bitcoinRequest(@Nonnull final Address address, final String addressLabel, final BigInteger amount, final String bluetoothMac)
-				{
-					SendCoinsActivity.start(WalletActivity.this, address.toString(), addressLabel, amount, bluetoothMac);
-				}
+        final String input;
+        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        /* Check if user wants to use internal scanner */
+        if(prefs.getString(Constants.PREFS_KEY_QR_SCANNER, "").equals("internal"))
+        {
+            input = intent.getStringExtra(ScanActivity.INTENT_EXTRA_RESULT);
+        }
+        else
+        {
+            IntentResult scanResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
+            if (scanResult != null)
+                input = scanResult.getContents();
+            else
+                input = null;
+        }
 
-				@Override
-				protected void directTransaction(@Nonnull final Transaction tx)
-				{
-					processDirectTransaction(tx);
-				}
+        new StringInputParser(input)
+        {
+            @Override
+            protected void bitcoinRequest(@Nonnull final Address address, final String addressLabel, final BigInteger amount, final String bluetoothMac)
+            {
+                SendCoinsActivity.start(WalletActivity.this, address.toString(), addressLabel, amount, bluetoothMac);
+            }
 
-				@Override
-				protected void error(final int messageResId, final Object... messageArgs)
-				{
-					dialog(WalletActivity.this, null, R.string.button_scan, messageResId, messageArgs);
-				}
+            @Override
+            protected void directTransaction(@Nonnull final Transaction tx)
+            {
+                processDirectTransaction(tx);
+            }
 
-                @Override
-                protected void handlePrivateKey(@Nonnull final ECKey key) {
-                    // We actually want to add this key to the wallet here.
-                    // Set the creation time to now
-                    key.setCreationTimeSeconds(System.currentTimeMillis() / 1000);
-                    final Address address = new Address(Constants.NETWORK_PARAMETERS, key.getPubKeyHash());
-                    new AlertDialog.Builder(WalletActivity.this)
-                            .setTitle("Import Private Key")
-                            .setMessage("Would you like to add " +
-                                    address.toString() +
-                                    " to your wallet?  If there are currently funds on it, they will only be accessible " +
-                                    "by resetting the blockchain, which can take a very long time.  If it is a new " +
-                                    "empty address, everything should work fine.")
-                            .setCancelable(true)
-                            .setNeutralButton(android.R.string.cancel,
-                                    new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialog, int whichButton) {
-                                        }
-                                    })
-                            .setPositiveButton(android.R.string.ok,
-                                    new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialogInterface, int i) {
-                                            wallet.addKey(key);
-                                        }
-                                    })
-                            .show();
-                }
-			}.parse();
-		}
+            @Override
+            protected void error(final int messageResId, final Object... messageArgs)
+            {
+                dialog(WalletActivity.this, null, R.string.button_scan, messageResId, messageArgs);
+            }
+
+            @Override
+            protected void handlePrivateKey(@Nonnull final ECKey key) {
+                // We actually want to add this key to the wallet here.
+                // Set the creation time to now
+                key.setCreationTimeSeconds(System.currentTimeMillis() / 1000);
+                final Address address = new Address(Constants.NETWORK_PARAMETERS, key.getPubKeyHash());
+                new AlertDialog.Builder(WalletActivity.this)
+                        .setTitle("Import Private Key")
+                        .setMessage("Would you like to add " +
+                                address.toString() +
+                                " to your wallet?  If there are currently funds on it, they will only be accessible " +
+                                "by resetting the blockchain, which can take a very long time.  If it is a new " +
+                                "empty address, everything should work fine.")
+                        .setCancelable(true)
+                        .setNeutralButton(android.R.string.cancel,
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int whichButton) {
+                                    }
+                                })
+                        .setPositiveButton(android.R.string.ok,
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        wallet.addKey(key);
+                                    }
+                                })
+                        .show();
+            }
+        }.parse();
 	}
 
 	@Override
@@ -343,10 +352,14 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 	}
 
 	public void handleScan()
-	{
-        IntentIntegrator integrator = new IntentIntegrator(this);
-        integrator.initiateScan();
-	}
+    {
+        if(prefs.getString(Constants.PREFS_KEY_QR_SCANNER, "").equals("internal")) {
+            startActivityForResult(new Intent(this, ScanActivity.class), REQUEST_CODE_SCAN);
+        } else {
+            IntentIntegrator integrator = new IntentIntegrator(this);
+            integrator.initiateScan();
+        }
+    }
 
 	public void handleExportKeys()
 	{
