@@ -110,9 +110,13 @@ public final class AboutActivity extends SherlockPreferenceActivity
 
             if (getPackageManager().resolveActivity(marketIntent, 0) != null)
 				startActivity(marketIntent);
-			else
-				startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(String.format(Constants.ANDROID_WEBMARKET_APP_URL, getPackageName()))));
-			finish();
+			else {
+                if(GenericUtils.isBlackberry())
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(String.format(Constants.BB_WEBMARKET_APP_URL, getPackageName()))));
+                else
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(String.format(Constants.ANDROID_WEBMARKET_APP_URL, getPackageName()))));
+            }
+            finish();
 		}
 		else if (KEY_ABOUT_COMMUNITY_GOOGLEPLUS.equals(key))
 		{

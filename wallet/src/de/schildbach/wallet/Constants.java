@@ -103,9 +103,9 @@ public class Constants
 	public static final String AUTHOR_GOOGLEPLUS_URL = "https://plus.google.com/+LitecoinOrg";
 	public static final String COMMUNITY_GOOGLEPLUS_URL = "https://plus.google.com/+LitecoinOrg";
     public static final String ANDROID_MARKET_APP_URL = "market://details?id=%s";
-    public static final String BB_MARKET_APP_URL = "TBD %s";
+    public static final String BB_MARKET_APP_URL = "http://appworld.blackberry.com/webstore/content/46329888";
     public static final String ANDROID_WEBMARKET_APP_URL = "https://play.google.com/store/apps/details?id=%s";
-    public static final String BB_WEBMARKET_APP_URL = "TBD %s";
+    public static final String BB_WEBMARKET_APP_URL = "http://appworld.blackberry.com/webstore/content/46329888";
 
 	public static final String VERSION_URL = "http://wallet.schildbach.de/version";
 	public static final int HTTP_TIMEOUT_MS = 15 * (int) DateUtils.SECOND_IN_MILLIS;
