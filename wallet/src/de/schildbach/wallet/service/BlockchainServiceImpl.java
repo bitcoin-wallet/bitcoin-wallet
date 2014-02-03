@@ -563,6 +563,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 				if (isIdle)
 				{
 					log.info("idling detected, stopping service");
+                    WalletApplication.scheduleStartBlockchainService(BlockchainServiceImpl.this);
 					stopSelf();
 				}
 			}
@@ -708,6 +709,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 			log.info("will remove blockchain on service shutdown");
 
 			resetBlockchainOnShutdown = true;
+            WalletApplication.scheduleStartBlockchainService(this);
 			stopSelf();
 		}
 		else if (BlockchainService.ACTION_BROADCAST_TRANSACTION.equals(action))
@@ -733,8 +735,6 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 	public void onDestroy()
 	{
 		log.debug(".onDestroy()");
-
-		WalletApplication.scheduleStartBlockchainService(this);
 
 		unregisterReceiver(tickReceiver);
 
@@ -792,6 +792,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 	public void onLowMemory()
 	{
 		log.warn("low memory detected, stopping service");
+        WalletApplication.scheduleStartBlockchainService(this);
 		stopSelf();
 	}
 
