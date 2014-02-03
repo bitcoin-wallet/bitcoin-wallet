@@ -37,8 +37,10 @@ import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.TimeZone;
 
 import javax.annotation.Nonnull;
@@ -86,7 +88,6 @@ import de.schildbach.wallet.ui.InputParser.StringInputParser;
 import de.schildbach.wallet.util.CrashReporter;
 import de.schildbach.wallet.util.Crypto;
 import de.schildbach.wallet.util.HttpGetThread;
-import de.schildbach.wallet.util.Iso8601Format;
 import de.schildbach.wallet.util.Nfc;
 import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_ltc.R;
@@ -859,10 +860,19 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 
 			final BufferedReader keyReader = new BufferedReader(plainReader);
 			final List<ECKey> importedKeys = WalletUtils.readKeys(keyReader);
-			keyReader.close();
+            final BufferedReader noteReader = new BufferedReader(plainReader);
+            final Map<String, String> notes = WalletUtils.readNotes(noteReader);
 
 			final int numKeysToImport = importedKeys.size();
 			final int numKeysImported = wallet.addKeys(importedKeys);
+
+            // Write each transaction to shared preferences
+            Iterator it = notes.entrySet().iterator();
+            while (it.hasNext()) {
+                Map.Entry pair = (Map.Entry)it.next();
+                prefs.edit().putString((String)pair.getKey(), (String)pair.getValue()).commit();
+                it.remove(); // avoids a ConcurrentModificationException
+            }
 
 			final AlertDialog.Builder dialog = new AlertDialog.Builder(this);
 			dialog.setInverseBackgroundForced(true);

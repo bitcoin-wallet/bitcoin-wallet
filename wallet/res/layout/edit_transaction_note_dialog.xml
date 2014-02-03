@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:fillViewport="true"
+	android:scrollbars="none" >
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_margin="8dp"
+		android:orientation="vertical" >
+
+		<TextView
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="12dp"
+			android:layout_marginTop="8dp"
+			android:text="@string/edit_transaction_note_dialog_txid_label"
+			android:textSize="@dimen/font_size_small"
+			android:textStyle="bold" />
+
+		<EditText
+			android:id="@+id/edit_transaction_note_txid"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_margin="8dp"
+			android:enabled="false"
+			android:focusable="false"
+			android:imeOptions="flagNoExtractUi"
+			android:inputType="none"
+			android:textColor="@color/fg_less_significant"
+			android:textSize="@dimen/font_size_normal" />
+
+		<TextView
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="12dp"
+			android:layout_marginTop="8dp"
+			android:text="@string/edit_transaction_note_dialog_note_label"
+			android:textSize="@dimen/font_size_small"
+			android:textStyle="bold" />
+
+		<EditText
+			android:id="@+id/edit_transaction_note_note"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_margin="8dp"
+			android:imeOptions="flagNoExtractUi"
+			android:inputType="textPersonName"
+			android:singleLine="true"
+			android:textSize="@dimen/font_size_normal" >
+
+			<requestFocus />
+		</EditText>
+	</LinearLayout>
+
+</ScrollView>

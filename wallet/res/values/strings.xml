@@ -246,5 +246,9 @@
     <string name="disclaimer">Have you really read the safety notes? Did you already back up your private keys to a safe
         place?
     </string>
+    <string name="edit_transaction_note_dialog_title_edit">Transaction Note</string>
+    <string name="edit_transaction_note_dialog_txid_label">TX</string>
+    <string name="edit_transaction_note_dialog_note_label">Note</string>
+    <string name="button_edit_note">Edit Note</string>
 
 </resources>

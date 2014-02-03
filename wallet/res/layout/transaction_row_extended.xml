@@ -72,9 +72,20 @@
 			android:layout_marginLeft="8dp"
 			android:textSize="@dimen/font_size_normal" />
 	</LinearLayout>
+    <LinearLayout
+            android:id="@+id/transaction_row_extend_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:id="@+id/txNote"/>
+    </LinearLayout>
 	<LinearLayout
-		android:id="@+id/transaction_row_extend"
+		android:id="@+id/transaction_row_extend_2"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:orientation="horizontal"

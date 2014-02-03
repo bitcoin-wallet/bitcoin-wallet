@@ -28,8 +28,10 @@ import java.math.BigInteger;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -261,6 +263,33 @@ public class WalletUtils
 			throw new IOException("ParseException when reading keys", x);
 		}
 	}
+
+    public static Map<String, String> readNotes(@Nonnull final BufferedReader in) throws IOException
+    {
+        final DateFormat format = Iso8601Format.newDateTimeFormatT();
+
+        final Map<String, String> notes = new HashMap<String, String>();
+
+        while (true)
+        {
+            final String line = in.readLine();
+            if (line == null)
+                break; // eof
+            if (line.trim().isEmpty() || !line.startsWith("# tx:"))
+                continue; // skip
+
+            // Format: # tx:TXID Notes...
+            Pattern txnotePattern = Pattern.compile("^# (tx:\\w+) (.+)");
+            Matcher txnoteMatch = txnotePattern.matcher(line);
+            if(txnoteMatch.matches()) {
+                String txid = txnoteMatch.group(1);
+                String txnote = txnoteMatch.group(2);
+                notes.put(txid, txnote);
+            }
+        }
+
+        return notes;
+    }
 
 	public static final FileFilter KEYS_FILE_FILTER = new FileFilter()
 	{

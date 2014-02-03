@@ -435,6 +435,7 @@ public class WalletApplication extends Application
 			final String filename = String.format(Locale.US, "%s.%02d", Constants.WALLET_KEY_BACKUP_BASE58,
 					(System.currentTimeMillis() / DateUtils.DAY_IN_MILLIS) % 100l);
 			writeKeys(openFileOutput(filename, Context.MODE_PRIVATE));
+            // If we
 		}
 		catch (final IOException x)
 		{

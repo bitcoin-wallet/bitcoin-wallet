@@ -28,9 +28,11 @@ import java.util.Map;
 import javax.annotation.Nonnull;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.preference.PreferenceManager;
 import android.text.Html;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
@@ -63,6 +65,7 @@ public class TransactionsListAdapter extends BaseAdapter
 	private final LayoutInflater inflater;
 	private final Wallet wallet;
 	private final int maxConnectedPeers;
+    private SharedPreferences prefs;
 
 	private final List<Transaction> transactions = new ArrayList<Transaction>();
 	private int precision = 0;
@@ -101,6 +104,7 @@ public class TransactionsListAdapter extends BaseAdapter
 		colorError = resources.getColor(R.color.fg_error);
 		textCoinBase = context.getString(R.string.wallet_transactions_fragment_coinbase);
 		textInternal = context.getString(R.string.wallet_transactions_fragment_internal);
+        prefs = PreferenceManager.getDefaultSharedPreferences(context);
 	}
 
 	public void setPrecision(final int precision, final int shift)
@@ -225,6 +229,7 @@ public class TransactionsListAdapter extends BaseAdapter
 	{
 		final TransactionConfidence confidence = tx.getConfidence();
 		final ConfidenceType confidenceType = confidence.getConfidenceType();
+        final String txNote = prefs.getString("tx:"+tx.getHashAsString(), "");
 		final boolean isOwn = confidence.getSource().equals(TransactionConfidence.Source.SELF);
 		final boolean isCoinBase = tx.isCoinBase();
 		final boolean isInternal = WalletUtils.isInternal(tx);
@@ -331,8 +336,17 @@ public class TransactionsListAdapter extends BaseAdapter
 			rowValue.setPrecision(precision, shift);
 			rowValue.setAmount(value);
 
+            // note
+            final TextView noteView = (TextView)row.findViewById(R.id.txNote);
+            if(txNote.isEmpty()) {
+                noteView.setVisibility(View.GONE);
+            } else {
+                noteView.setVisibility(View.VISIBLE);
+                noteView.setText(txNote);
+            }
+
 			// extended message
-			final View rowExtend = row.findViewById(R.id.transaction_row_extend);
+			final View rowExtend = row.findViewById(R.id.transaction_row_extend_2);
 			if (rowExtend != null)
 			{
 				final TextView rowMessage = (TextView) row.findViewById(R.id.transaction_row_message);

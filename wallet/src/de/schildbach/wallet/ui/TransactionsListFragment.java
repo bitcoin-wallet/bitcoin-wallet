@@ -298,6 +298,12 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 						mode.finish();
 						return true;
 
+                    case R.id.wallet_transactions_context_edit_note:
+                        handleEditNote(tx);
+
+                        mode.finish();
+                        return true;
+
 					case R.id.wallet_transactions_context_browse:
 						startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.EXPLORE_BASE_URL + "tx/" + tx.getHashAsString())));
 
@@ -325,6 +331,11 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 			{
 				EditAddressBookEntryFragment.edit(getFragmentManager(), address.toString());
 			}
+
+            private void handleEditNote(@Nonnull final Transaction tx)
+            {
+                EditTransactionNoteFragment.edit(getFragmentManager(), tx.getHashAsString(), adapter);
+            }
 
 			private void handleShowQr()
 			{
