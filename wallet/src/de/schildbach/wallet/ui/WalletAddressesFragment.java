@@ -24,7 +24,6 @@ import java.util.List;
 import javax.annotation.Nonnull;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -146,18 +145,21 @@ public final class WalletAddressesFragment extends SherlockListFragment
 
 	private void handleAddAddress()
 	{
-		new AlertDialog.Builder(activity).setTitle(R.string.wallet_addresses_fragment_add_dialog_title)
-				.setMessage(R.string.wallet_addresses_fragment_add_dialog_message)
-				.setPositiveButton(R.string.button_add, new DialogInterface.OnClickListener()
-				{
-					@Override
-					public void onClick(final DialogInterface dialog, final int which)
-					{
-						application.addNewKeyToWallet();
+		final DialogBuilder dialog = new DialogBuilder(activity);
+		dialog.setTitle(R.string.wallet_addresses_fragment_add_dialog_title);
+		dialog.setMessage(R.string.wallet_addresses_fragment_add_dialog_message);
+		dialog.setPositiveButton(R.string.button_add, new DialogInterface.OnClickListener()
+		{
+			@Override
+			public void onClick(final DialogInterface dialog, final int which)
+			{
+				application.addNewKeyToWallet();
 
-						activity.updateFragments();
-					}
-				}).setNegativeButton(R.string.button_cancel, null).show();
+				activity.updateFragments();
+			}
+		});
+		dialog.setNegativeButton(R.string.button_cancel, null);
+		dialog.show();
 	}
 
 	@Override

@@ -23,8 +23,6 @@ import java.util.regex.Pattern;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import android.app.AlertDialog;
-import android.app.AlertDialog.Builder;
 import android.content.Context;
 import android.content.DialogInterface.OnClickListener;
 
@@ -174,7 +172,7 @@ public abstract class InputParser
 	protected void dialog(final Context context, @Nullable final OnClickListener dismissListener, final int titleResId, final int messageResId,
 			final Object... messageArgs)
 	{
-		final Builder dialog = new AlertDialog.Builder(context);
+		final DialogBuilder dialog = new DialogBuilder(context);
 		if (titleResId != 0)
 			dialog.setTitle(titleResId);
 		dialog.setMessage(context.getString(messageResId, messageArgs));

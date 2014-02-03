@@ -92,12 +92,10 @@ public final class ImportKeysActivity extends AbstractWalletActivity
 		final View view = getLayoutInflater().inflate(R.layout.import_keys_from_content_dialog, null);
 		final EditText passwordView = (EditText) view.findViewById(R.id.import_keys_from_content_dialog_password);
 
-		final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		builder.setInverseBackgroundForced(true);
-		builder.setIcon(R.drawable.app_icon);
-		builder.setTitle(R.string.import_keys_dialog_title);
-		builder.setView(view);
-		builder.setPositiveButton(R.string.import_keys_dialog_button_import, new OnClickListener()
+		final DialogBuilder dialog = new DialogBuilder(this);
+		dialog.setTitle(R.string.import_keys_dialog_title);
+		dialog.setView(view);
+		dialog.setPositiveButton(R.string.import_keys_dialog_button_import, new OnClickListener()
 		{
 			@Override
 			public void onClick(final DialogInterface dialog, final int which)
@@ -117,7 +115,7 @@ public final class ImportKeysActivity extends AbstractWalletActivity
 				}
 			}
 		});
-		builder.setNegativeButton(R.string.button_cancel, new OnClickListener()
+		dialog.setNegativeButton(R.string.button_cancel, new OnClickListener()
 		{
 			@Override
 			public void onClick(final DialogInterface dialog, final int which)
@@ -126,7 +124,7 @@ public final class ImportKeysActivity extends AbstractWalletActivity
 				finish();
 			}
 		});
-		builder.setOnCancelListener(new OnCancelListener()
+		dialog.setOnCancelListener(new OnCancelListener()
 		{
 			@Override
 			public void onCancel(final DialogInterface dialog)
@@ -136,7 +134,7 @@ public final class ImportKeysActivity extends AbstractWalletActivity
 			}
 		});
 
-		return builder.create();
+		return dialog.create();
 	}
 
 	private void prepareImportKeysDialog(final Dialog dialog)
@@ -186,8 +184,7 @@ public final class ImportKeysActivity extends AbstractWalletActivity
 			final int numKeysToImport = importedKeys.size();
 			final int numKeysImported = wallet.addKeys(importedKeys);
 
-			final AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-			dialog.setInverseBackgroundForced(true);
+			final DialogBuilder dialog = new DialogBuilder(this);
 			final StringBuilder message = new StringBuilder();
 			if (numKeysImported > 0)
 				message.append(getString(R.string.import_keys_dialog_success_imported, numKeysImported));
@@ -228,9 +225,8 @@ public final class ImportKeysActivity extends AbstractWalletActivity
 		}
 		catch (final IOException x)
 		{
-			final AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-			dialog.setInverseBackgroundForced(true);
-			dialog.setIcon(android.R.drawable.ic_dialog_alert);
+			final DialogBuilder dialog = new DialogBuilder(this);
+			dialog.setIcon(R.drawable.ic_menu_warning);
 			dialog.setTitle(R.string.import_export_keys_dialog_failure_title);
 			dialog.setMessage(getString(R.string.import_keys_dialog_failure, x.getMessage()));
 			dialog.setPositiveButton(R.string.button_dismiss, finishListener).setOnCancelListener(finishListener);

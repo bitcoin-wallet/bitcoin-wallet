@@ -21,7 +21,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.ContentResolver;
 import android.content.ContentValues;
@@ -98,8 +97,8 @@ public final class EditAddressBookEntryFragment extends DialogFragment
 
 		final boolean isAdd = label == null;
 
-		final AlertDialog.Builder dialog = new AlertDialog.Builder(activity);
-		dialog.setInverseBackgroundForced(true);
+		final DialogBuilder dialog = new DialogBuilder(activity);
+
 		dialog.setTitle(isAdd ? R.string.edit_address_book_entry_dialog_title_add : R.string.edit_address_book_entry_dialog_title_edit);
 
 		final View view = inflater.inflate(R.layout.edit_address_book_entry_dialog, null);

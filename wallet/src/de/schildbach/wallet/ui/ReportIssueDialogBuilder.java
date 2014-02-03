@@ -32,7 +32,6 @@ import javax.annotation.CheckForNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
@@ -52,7 +51,7 @@ import de.schildbach.wallet_test.R;
 /**
  * @author Andreas Schildbach
  */
-public abstract class ReportIssueDialogBuilder extends AlertDialog.Builder implements OnClickListener
+public abstract class ReportIssueDialogBuilder extends DialogBuilder implements OnClickListener
 {
 	private final Context context;
 
@@ -82,7 +81,6 @@ public abstract class ReportIssueDialogBuilder extends AlertDialog.Builder imple
 		viewCollectApplicationLog = (CheckBox) view.findViewById(R.id.report_issue_dialog_collect_application_log);
 		viewCollectWalletDump = (CheckBox) view.findViewById(R.id.report_issue_dialog_collect_wallet_dump);
 
-		setInverseBackgroundForced(true);
 		setTitle(titleResId);
 		setView(view);
 		setPositiveButton(R.string.report_issue_dialog_report, this);

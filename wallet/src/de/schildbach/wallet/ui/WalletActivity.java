@@ -352,11 +352,10 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 		final Spinner fileView = (Spinner) view.findViewById(R.id.import_keys_from_storage_file);
 		final EditText passwordView = (EditText) view.findViewById(R.id.import_keys_from_storage_password);
 
-		final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		builder.setInverseBackgroundForced(true);
-		builder.setTitle(R.string.import_keys_dialog_title);
-		builder.setView(view);
-		builder.setPositiveButton(R.string.import_keys_dialog_button_import, new OnClickListener()
+		final DialogBuilder dialog = new DialogBuilder(this);
+		dialog.setTitle(R.string.import_keys_dialog_title);
+		dialog.setView(view);
+		dialog.setPositiveButton(R.string.import_keys_dialog_button_import, new OnClickListener()
 		{
 			@Override
 			public void onClick(final DialogInterface dialog, final int which)
@@ -368,7 +367,7 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 				importPrivateKeys(file, password);
 			}
 		});
-		builder.setNegativeButton(R.string.button_cancel, new OnClickListener()
+		dialog.setNegativeButton(R.string.button_cancel, new OnClickListener()
 		{
 			@Override
 			public void onClick(final DialogInterface dialog, final int which)
@@ -376,7 +375,7 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 				passwordView.setText(null); // get rid of it asap
 			}
 		});
-		builder.setOnCancelListener(new OnCancelListener()
+		dialog.setOnCancelListener(new OnCancelListener()
 		{
 			@Override
 			public void onCancel(final DialogInterface dialog)
@@ -419,7 +418,7 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 
 		fileView.setAdapter(adapter);
 
-		return builder.create();
+		return dialog.create();
 	}
 
 	private void prepareImportKeysDialog(final Dialog dialog)
@@ -484,11 +483,10 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 		final View view = getLayoutInflater().inflate(R.layout.export_keys_dialog, null);
 		final EditText passwordView = (EditText) view.findViewById(R.id.export_keys_dialog_password);
 
-		final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		builder.setInverseBackgroundForced(true);
-		builder.setTitle(R.string.export_keys_dialog_title);
-		builder.setView(view);
-		builder.setPositiveButton(R.string.export_keys_dialog_button_export, new OnClickListener()
+		final DialogBuilder dialog = new DialogBuilder(this);
+		dialog.setTitle(R.string.export_keys_dialog_title);
+		dialog.setView(view);
+		dialog.setPositiveButton(R.string.export_keys_dialog_button_export, new OnClickListener()
 		{
 			@Override
 			public void onClick(final DialogInterface dialog, final int which)
@@ -499,7 +497,7 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 				exportPrivateKeys(password);
 			}
 		});
-		builder.setNegativeButton(R.string.button_cancel, new OnClickListener()
+		dialog.setNegativeButton(R.string.button_cancel, new OnClickListener()
 		{
 			@Override
 			public void onClick(final DialogInterface dialog, final int which)
@@ -507,7 +505,7 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 				passwordView.setText(null); // get rid of it asap
 			}
 		});
-		builder.setOnCancelListener(new OnCancelListener()
+		dialog.setOnCancelListener(new OnCancelListener()
 		{
 			@Override
 			public void onCancel(final DialogInterface dialog)
@@ -515,10 +513,7 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 				passwordView.setText(null); // get rid of it asap
 			}
 		});
-
-		final AlertDialog dialog = builder.create();
-
-		return dialog;
+		return dialog.create();
 	}
 
 	private void prepareExportKeysDialog(final Dialog dialog)
@@ -537,12 +532,12 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 
 	private Dialog createChangeLogDialog()
 	{
-		final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		builder.setIcon(R.drawable.ic_menu_warning);
-		builder.setTitle(R.string.wallet_precision_warning_dialog_title);
-		builder.setMessage(R.string.wallet_precision_warning_dialog_msg);
-		builder.setPositiveButton(R.string.button_dismiss, null);
-		builder.setNegativeButton(R.string.button_settings, new DialogInterface.OnClickListener()
+		final DialogBuilder dialog = new DialogBuilder(this);
+		dialog.setIcon(R.drawable.ic_menu_warning);
+		dialog.setTitle(R.string.wallet_precision_warning_dialog_title);
+		dialog.setMessage(R.string.wallet_precision_warning_dialog_msg);
+		dialog.setPositiveButton(R.string.button_dismiss, null);
+		dialog.setNegativeButton(R.string.button_settings, new DialogInterface.OnClickListener()
 		{
 			@Override
 			public void onClick(final DialogInterface dialog, final int id)
@@ -550,7 +545,7 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 				startActivity(new Intent(WalletActivity.this, PreferencesActivity.class));
 			}
 		});
-		return builder.create();
+		return dialog.create();
 	}
 
 	private void checkLowStorageAlert()
@@ -558,11 +553,11 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 		final Intent stickyIntent = registerReceiver(null, new IntentFilter(Intent.ACTION_DEVICE_STORAGE_LOW));
 		if (stickyIntent != null)
 		{
-			final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-			builder.setIcon(android.R.drawable.ic_dialog_alert);
-			builder.setTitle(R.string.wallet_low_storage_dialog_title);
-			builder.setMessage(R.string.wallet_low_storage_dialog_msg);
-			builder.setPositiveButton(R.string.wallet_low_storage_dialog_button_apps, new DialogInterface.OnClickListener()
+			final DialogBuilder dialog = new DialogBuilder(this);
+			dialog.setIcon(R.drawable.ic_menu_warning);
+			dialog.setTitle(R.string.wallet_low_storage_dialog_title);
+			dialog.setMessage(R.string.wallet_low_storage_dialog_msg);
+			dialog.setPositiveButton(R.string.wallet_low_storage_dialog_button_apps, new DialogInterface.OnClickListener()
 			{
 				@Override
 				public void onClick(final DialogInterface dialog, final int id)
@@ -571,8 +566,8 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 					finish();
 				}
 			});
-			builder.setNegativeButton(R.string.button_dismiss, null);
-			builder.show();
+			dialog.setNegativeButton(R.string.button_dismiss, null);
+			dialog.show();
 		}
 	}
 
@@ -713,14 +708,14 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 		final PackageManager pm = getPackageManager();
 		final Intent settingsIntent = new Intent(android.provider.Settings.ACTION_DATE_SETTINGS);
 
-		final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		builder.setIcon(android.R.drawable.ic_dialog_alert);
-		builder.setTitle(R.string.wallet_timeskew_dialog_title);
-		builder.setMessage(getString(R.string.wallet_timeskew_dialog_msg, diffMinutes));
+		final DialogBuilder dialog = new DialogBuilder(this);
+		dialog.setIcon(R.drawable.ic_menu_warning);
+		dialog.setTitle(R.string.wallet_timeskew_dialog_title);
+		dialog.setMessage(getString(R.string.wallet_timeskew_dialog_msg, diffMinutes));
 
 		if (pm.resolveActivity(settingsIntent, 0) != null)
 		{
-			builder.setPositiveButton(R.string.button_settings, new DialogInterface.OnClickListener()
+			dialog.setPositiveButton(R.string.button_settings, new DialogInterface.OnClickListener()
 			{
 				@Override
 				public void onClick(final DialogInterface dialog, final int id)
@@ -731,8 +726,8 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 			});
 		}
 
-		builder.setNegativeButton(R.string.button_dismiss, null);
-		builder.show();
+		dialog.setNegativeButton(R.string.button_dismiss, null);
+		dialog.show();
 	}
 
 	private void versionAlert(final int serverVersionCode)
@@ -741,14 +736,14 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 		final Intent marketIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(String.format(Constants.MARKET_APP_URL, getPackageName())));
 		final Intent binaryIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.BINARY_URL));
 
-		final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		builder.setIcon(android.R.drawable.ic_dialog_alert);
-		builder.setTitle(R.string.wallet_version_dialog_title);
-		builder.setMessage(getString(R.string.wallet_version_dialog_msg));
+		final DialogBuilder dialog = new DialogBuilder(this);
+		dialog.setIcon(R.drawable.ic_menu_warning);
+		dialog.setTitle(R.string.wallet_version_dialog_title);
+		dialog.setMessage(getString(R.string.wallet_version_dialog_msg));
 
 		if (pm.resolveActivity(marketIntent, 0) != null)
 		{
-			builder.setPositiveButton(R.string.wallet_version_dialog_button_market, new DialogInterface.OnClickListener()
+			dialog.setPositiveButton(R.string.wallet_version_dialog_button_market, new DialogInterface.OnClickListener()
 			{
 				@Override
 				public void onClick(final DialogInterface dialog, final int id)
@@ -761,7 +756,7 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 
 		if (pm.resolveActivity(binaryIntent, 0) != null)
 		{
-			builder.setNeutralButton(R.string.wallet_version_dialog_button_binary, new DialogInterface.OnClickListener()
+			dialog.setNeutralButton(R.string.wallet_version_dialog_button_binary, new DialogInterface.OnClickListener()
 			{
 				@Override
 				public void onClick(final DialogInterface dialog, final int id)
@@ -772,8 +767,8 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 			});
 		}
 
-		builder.setNegativeButton(R.string.button_dismiss, null);
-		builder.show();
+		dialog.setNegativeButton(R.string.button_dismiss, null);
+		dialog.show();
 	}
 
 	private void importPrivateKeys(@Nonnull final File file, @Nonnull final String password)
@@ -814,8 +809,7 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 			final int numKeysToImport = importedKeys.size();
 			final int numKeysImported = wallet.addKeys(importedKeys);
 
-			final AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-			dialog.setInverseBackgroundForced(true);
+			final DialogBuilder dialog = new DialogBuilder(this);
 			final StringBuilder message = new StringBuilder();
 			if (numKeysImported > 0)
 				message.append(getString(R.string.import_keys_dialog_success_imported, numKeysImported));
@@ -855,9 +849,8 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 		}
 		catch (final IOException x)
 		{
-			final AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-			dialog.setInverseBackgroundForced(true);
-			dialog.setIcon(android.R.drawable.ic_dialog_alert);
+			final DialogBuilder dialog = new DialogBuilder(this);
+			dialog.setIcon(R.drawable.ic_menu_warning);
 			dialog.setTitle(R.string.import_export_keys_dialog_failure_title);
 			dialog.setMessage(getString(R.string.import_keys_dialog_failure, x.getMessage()));
 			dialog.setPositiveButton(R.string.button_dismiss, null);
@@ -901,8 +894,8 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 			cipherOut.write(cipherText);
 			cipherOut.close();
 
-			final AlertDialog.Builder dialog = new AlertDialog.Builder(this).setInverseBackgroundForced(true).setMessage(
-					getString(R.string.export_keys_dialog_success, file));
+			final DialogBuilder dialog = new DialogBuilder(this);
+			dialog.setMessage(getString(R.string.export_keys_dialog_success, file));
 			dialog.setPositiveButton(R.string.export_keys_dialog_button_archive, new OnClickListener()
 			{
 				@Override
@@ -918,10 +911,12 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 		}
 		catch (final IOException x)
 		{
-			new AlertDialog.Builder(this).setInverseBackgroundForced(true).setIcon(android.R.drawable.ic_dialog_alert)
-					.setTitle(R.string.import_export_keys_dialog_failure_title)
-					.setMessage(getString(R.string.export_keys_dialog_failure, x.getMessage())).setNeutralButton(R.string.button_dismiss, null)
-					.show();
+			final DialogBuilder dialog = new DialogBuilder(this);
+			dialog.setIcon(R.drawable.ic_menu_warning);
+			dialog.setTitle(R.string.import_export_keys_dialog_failure_title);
+			dialog.setMessage(getString(R.string.export_keys_dialog_failure, x.getMessage()));
+			dialog.setNeutralButton(R.string.button_dismiss, null);
+			dialog.show();
 
 			log.error("problem writing private keys", x);
 		}

@@ -24,7 +24,6 @@ import javax.annotation.Nonnull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import android.app.AlertDialog;
 import android.content.ComponentName;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
@@ -173,7 +172,7 @@ public final class PreferencesActivity extends SherlockPreferenceActivity implem
 		}
 		else if (PREFS_KEY_INITIATE_RESET.equals(key))
 		{
-			final AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+			final DialogBuilder dialog = new DialogBuilder(this);
 			dialog.setTitle(R.string.preferences_initiate_reset_title);
 			dialog.setMessage(R.string.preferences_initiate_reset_dialog_message);
 			dialog.setPositiveButton(R.string.preferences_initiate_reset_dialog_positive, new OnClickListener()
