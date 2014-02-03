@@ -727,6 +727,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
         else if (BlockchainService.ACTION_STOP_SERVICE.equals(action))
         {
             log.info("stopping self");
+            // deliberate stop command, so don't schedule restart
             stopSelf();
         }
 
