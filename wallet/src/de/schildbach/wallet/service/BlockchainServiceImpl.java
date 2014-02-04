@@ -287,7 +287,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 				@Override
 				public void run()
 				{
-                    if (numPeers == 0)
+                    if (numPeers == 0 || GenericUtils.isBlackberry())
                     {
                         nm.cancel(NOTIFICATION_ID_CONNECTED);
                     }
