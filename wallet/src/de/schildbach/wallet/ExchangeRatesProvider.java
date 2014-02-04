@@ -31,6 +31,8 @@ import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
@@ -149,15 +151,21 @@ public class ExchangeRatesProvider extends ContentProvider
 
             if (newExchangeRates != null)
 			{
-                // Get USD conversion exchange rates from Yahoo!
-                Iterator<ExchangeRate> it = newExchangeRates.values().iterator();
-                Map<String, ExchangeRate> fiatRates = new YahooRatesProvider().getRates(it.next());
-                if(fiatRates != null) {
-                    // Remove EUR if we have a better source above
-                    if(euroRate != null)
-                        fiatRates.remove("EUR");
-                    newExchangeRates.putAll(fiatRates);
+                // Get USD conversion exchange rates from Google
+                ExchangeRate usdRate = newExchangeRates.get("USD");
+                RateProvider providers[] = {new GoogleRatesProvider(), new YahooRatesProvider()};
+                Map<String, ExchangeRate> fiatRates;
+                for(RateProvider provider : providers) {
+                    fiatRates = provider.getRates(usdRate);
+                    if(fiatRates != null) {
+                        // Remove EUR if we have a better source above
+                        if(euroRate != null)
+                            fiatRates.remove("EUR");
+                        newExchangeRates.putAll(fiatRates);
+                        break;
+                    }
                 }
+
 				exchangeRates = newExchangeRates;
 				lastUpdated = now;
 			}
@@ -334,8 +342,104 @@ public class ExchangeRatesProvider extends ContentProvider
 		return null;
 	}
 
-    class YahooRatesProvider {
-        Map<String, ExchangeRate> getRates(ExchangeRate usdRate) {
+    abstract class RateProvider {
+        abstract Map<String, ExchangeRate> getRates(ExchangeRate usdRate);
+    }
+
+    class GoogleRatesProvider extends RateProvider {
+        public Map<String, ExchangeRate> getRates(ExchangeRate usdRate) {
+            URL url = null;
+            final BigDecimal decUsdRate = GenericUtils.fromNanoCoins(usdRate.rate, 0);
+            try {
+                url = new URL("http://spreadsheets.google.com/feeds/list/0Av2v4lMxiJ1AdE9laEZJdzhmMzdmcW90VWNfUTYtM2c/2/public/basic?alt=json");
+            } catch(MalformedURLException e) {
+                Log.i(ExchangeRatesProvider.TAG, "Failed to parse Google Spreadsheets URL");
+                return null;
+            }
+            HttpURLConnection connection = null;
+            Reader reader = null;
+
+            try
+            {
+                connection = (HttpURLConnection) url.openConnection();
+                connection.setConnectTimeout(Constants.HTTP_TIMEOUT_MS);
+                connection.setReadTimeout(Constants.HTTP_TIMEOUT_MS);
+                connection.connect();
+
+                final int responseCode = connection.getResponseCode();
+                if (responseCode == HttpURLConnection.HTTP_OK)
+                {
+                    reader = new InputStreamReader(new BufferedInputStream(connection.getInputStream(), 1024), Constants.UTF_8);
+                    final StringBuilder content = new StringBuilder();
+                    Io.copy(reader, content);
+
+                    final Map<String, ExchangeRate> rates = new TreeMap<String, ExchangeRate>();
+                    JSONObject head = new JSONObject(content.toString());
+                    JSONArray resultArray;
+
+                    try {
+                        head = head.getJSONObject("feed");
+                        resultArray = head.getJSONArray("entry");
+                        // Format: eg. _cpzh4: 3.673
+                        Pattern p = Pattern.compile("_cpzh4: ([\\d\\.]+)");
+                        for(int i = 0; i < resultArray.length(); ++i) {
+                            String currencyCd = resultArray.getJSONObject(i).getJSONObject("title").getString("$t");
+                            String rateStr = resultArray.getJSONObject(i).getJSONObject("content").getString("$t");
+                            Matcher m = p.matcher(rateStr);
+                            if(m.matches())
+                            {
+                                // Just get the good part
+                                rateStr = m.group(1);
+                                Log.d(ExchangeRatesProvider.TAG, "Currency: " + currencyCd);
+                                Log.d(ExchangeRatesProvider.TAG, "Rate: " + rateStr);
+                                Log.d(ExchangeRatesProvider.TAG, "USD Rate: " + decUsdRate.toString());
+                                BigDecimal rate = new BigDecimal(rateStr);
+                                Log.d(ExchangeRatesProvider.TAG, "Converted Rate: " + rate.toString());
+                                rate = decUsdRate.multiply(rate);
+                                Log.d(ExchangeRatesProvider.TAG, "Final Rate: " + rate.toString());
+                                if (rate.signum() > 0)
+                                {
+                                    rates.put(currencyCd, new ExchangeRate(currencyCd,
+                                            GenericUtils.toNanoCoins(rate.toString(), 0), url.getHost()));
+                                }
+                            }
+                        }
+                    } catch(JSONException e) {
+                        Log.i(ExchangeRatesProvider.TAG, "Bad JSON response from Google Spreadsheets!: " + content.toString());
+                        return null;
+                    }
+                    return rates;
+                } else {
+                    Log.i(ExchangeRatesProvider.TAG, "Bad response code from Google Spreadsheets!: " + responseCode);
+                }
+            }
+            catch (final Exception x)
+            {
+                Log.w(ExchangeRatesProvider.TAG, "Problem fetching exchange rates", x);
+            }
+            finally
+            {
+                if (reader != null)
+                {
+                    try
+                    {
+                        reader.close();
+                    }
+                    catch (final IOException x)
+                    {
+                        // swallow
+                    }
+                }
+
+                if (connection != null)
+                    connection.disconnect();
+            }
+            return null;
+        }
+    }
+
+    class YahooRatesProvider extends RateProvider{
+        public Map<String, ExchangeRate> getRates(ExchangeRate usdRate) {
             // Fetch all the currencies from Yahoo!
             URL url = null;
             final BigDecimal decUsdRate = GenericUtils.fromNanoCoins(usdRate.rate, 0);
