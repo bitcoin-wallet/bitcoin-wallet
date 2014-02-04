@@ -9,7 +9,7 @@
 		android:titleCondensed="@string/button_edit"/>
     <item
             android:id="@+id/wallet_transactions_context_edit_note"
-            android:icon="@drawable/ic_action_edit"
+            android:icon="@drawable/ic_action_labels"
             android:showAsAction="ifRoom|withText"
             android:title="@string/button_edit_note"
             android:titleCondensed="@string/button_edit_note"/>
