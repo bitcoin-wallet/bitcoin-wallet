@@ -6,7 +6,7 @@
 
 	<artifactId>wallet</artifactId>
 	<packaging>apk</packaging>
-	<version>3.30.4</version>
+	<version>3.30.5</version>
 	<name>Litecoin Wallet</name>
 
 	<parent>
