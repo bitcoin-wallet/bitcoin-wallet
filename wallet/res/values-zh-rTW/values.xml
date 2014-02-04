@@ -1,11 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+	<string name="symbol_to">→</string>
+	<string name="symbol_from">←</string>
+	<string name="symbol_internal">⇄</string>
+	<string name="app_name">Litecoin</string>
+
+	<string-array name="preferences_precision_values">
+		<item>8</item>
+		<item>6</item>
+		<item>4</item>
+		<item>2/3</item>
+	</string-array>
 	<string-array name="preferences_precision_labels">
-		<item>BTC, 8位數</item>
-		<item>BTC, 6位數</item>
-		<item>BTC, 4位數</item>
-		<item>mBTC, 2位數</item>
+		<item>LTC, 8 位數</item>
+		<item>LTC, 6 位數</item>
+		<item>LTC, 4 位數</item>
+		<item>mLTC, 2 位數</item>
 	</string-array>
 
+
+    <string-array name="preferences_qr_values">
+        <item>com.google.zxing.client.android</item>
+        <item>la.droid.qr</item>
+        <item>com.srowen.bs.android</item>
+        <item>com.srowen.bs.android.simple</item>
+        <item>internal</item>
+    </string-array>
+    <string-array name="preferences_qr_labels">
+        <item>Barcode Scanner</item>
+        <item>QR Droid</item>
+        <item>Barcode Scanner+</item>
+        <item>Barcode Scanner+ Simple</item>
+        <item>Internal</item>
+    </string-array>
 </resources>
