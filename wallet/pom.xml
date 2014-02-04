@@ -34,12 +34,15 @@
 			<scope>provided</scope>
 		</dependency>
 
-		<!-- android.support.v4.* -->
+
+        <!-- android.support.v4.* -->
 		<dependency>
 			<groupId>com.google.android</groupId>
 			<artifactId>support-v4</artifactId>
-			<version>r7</version>
-		</dependency>
+			<version>r13</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/libs/android-support-v4.jar</systemPath>
+        </dependency>
 
 		<!-- com.actionbarsherlock.* -->
 		<dependency>
