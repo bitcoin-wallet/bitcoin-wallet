@@ -39,9 +39,7 @@
 		<dependency>
 			<groupId>com.google.android</groupId>
 			<artifactId>support-v4</artifactId>
-			<version>r13</version>
-            <scope>system</scope>
-            <systemPath>${basedir}/libs/android-support-v4.jar</systemPath>
+			<version>r7</version>
         </dependency>
 
 		<!-- com.actionbarsherlock.* -->
