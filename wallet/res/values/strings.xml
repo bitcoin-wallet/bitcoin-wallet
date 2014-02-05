@@ -52,6 +52,9 @@
 	<string name="wallet_old_sdk_dialog_title">Android version is out of date</string>
 	<string name="wallet_old_sdk_dialog_message">Chances are that one of the next releases of Bitcoin Wallet will not support your device any more. In some cases, it can get difficult to spend coins on this device.\n\nUnless you know what you are doing, it is recommended to move out your coins soon.</string>
 	<string name="send_coins_activity_title">Send Bitcoins</string>
+	<string name="send_coins_fragment_request_payment_request_progress">Fetching signature from %s…</string>
+	<string name="send_coins_fragment_request_payment_request_failed_title">Fetching signature failed</string>
+	<string name="send_coins_fragment_request_payment_request_wrong_signature">Wrong signature!</string>
 	<string name="send_coins_fragment_payee_verified_by">verified by: %s</string>
 	<string name="send_coins_fragment_payee_verified_by_unknown">unknown</string>
 	<string name="send_coins_fragment_receiving_address_label">Pay to</string>
@@ -226,5 +229,9 @@
 	<string name="action_browse">Browse</string>
 	<string name="time_today">today</string>
 	<string name="address_unlabeled">(unlabeled)</string>
+
+	<!-- generic error messages -->
+	<string name="error_io">I/O error: %s</string>
+	<string name="error_http">HTTP error %1$s:\n%2$s</string>
 
 </resources>

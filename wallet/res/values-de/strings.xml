@@ -58,6 +58,9 @@
 	<string name="wallet_old_sdk_dialog_message">Es ist möglich, daß eine der nächsten Versionen von Bitcoin Wallet dein Gerät nicht mehr unterstützt. In manchen Fällen kann es schwierig werden, Zahlungen zu tätigen.\n\nEs wird empfohlen, die enthaltenen Bitcoins bald zu verschieben, außer du weisst was du tust.</string>
 
 	<string name="send_coins_activity_title">Bitcoins senden</string>
+	<string name="send_coins_fragment_request_payment_request_progress">Rufe Signatur von %s ab…</string>
+	<string name="send_coins_fragment_request_payment_request_failed_title">Abrufen der Signatur fehlgeschlagen</string>
+	<string name="send_coins_fragment_request_payment_request_wrong_signature">Falsche Signatur!</string>
 	<string name="send_coins_fragment_payee_verified_by">verifiziert durch: %s</string>
 	<string name="send_coins_fragment_payee_verified_by_unknown">unbekannt</string>
 	<string name="send_coins_fragment_receiving_address_label">Empfänger</string>
@@ -246,5 +249,9 @@
 
 	<string name="time_today">heute</string>
 	<string name="address_unlabeled">(unbenannt)</string>
+
+	<!-- generic error messages -->
+	<string name="error_io">I/O-Fehler: %s</string>
+	<string name="error_http">HTTP-Fehler %1$s:\n%2$s</string>
 
 </resources>

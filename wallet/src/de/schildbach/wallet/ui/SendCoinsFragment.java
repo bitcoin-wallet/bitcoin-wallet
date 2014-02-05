@@ -28,6 +28,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -1251,5 +1252,55 @@ public final class SendCoinsFragment extends SherlockFragment
 		updateView();
 
 		requestFocusFirst();
+
+		if (paymentIntent.hasPaymentRequestUrl() && paymentIntent.isSupportedPaymentRequestUrl())
+			requestPaymentRequest(paymentIntent.paymentRequestUrl);
+	}
+
+	private void requestPaymentRequest(final String paymentRequestUrl)
+	{
+		final String host = Uri.parse(paymentRequestUrl).getHost();
+		final ProgressDialog progressDialog = ProgressDialog.show(activity, null,
+				getString(R.string.send_coins_fragment_request_payment_request_progress, host), true, true, null);
+
+		new RequestPaymentRequestTask.HttpRequestTask(backgroundHandler, new RequestPaymentRequestTask.ResultCallback()
+		{
+			@Override
+			public void onPaymentIntent(final PaymentIntent paymentIntent)
+			{
+				progressDialog.dismiss();
+
+				if (SendCoinsFragment.this.paymentIntent.isSecurityExtendedBy(paymentIntent))
+				{
+					updateStateFrom(paymentIntent);
+				}
+				else
+				{
+					final DialogBuilder dialog = DialogBuilder.warn(activity, R.string.send_coins_fragment_request_payment_request_failed_title);
+					dialog.setMessage(getString(R.string.send_coins_fragment_request_payment_request_wrong_signature));
+					dialog.singleDismissButton(null);
+					dialog.show();
+				}
+			}
+
+			@Override
+			public void onFail(final int messageResId, final Object... messageArgs)
+			{
+				progressDialog.dismiss();
+
+				final DialogBuilder dialog = DialogBuilder.warn(activity, R.string.send_coins_fragment_request_payment_request_failed_title);
+				dialog.setMessage(getString(messageResId, messageArgs));
+				dialog.setPositiveButton(R.string.button_retry, new DialogInterface.OnClickListener()
+				{
+					@Override
+					public void onClick(final DialogInterface dialog, final int which)
+					{
+						requestPaymentRequest(paymentRequestUrl);
+					}
+				});
+				dialog.setNegativeButton(R.string.button_dismiss, null);
+				dialog.show();
+			}
+		}).requestPaymentRequest(paymentRequestUrl);
 	}
 }

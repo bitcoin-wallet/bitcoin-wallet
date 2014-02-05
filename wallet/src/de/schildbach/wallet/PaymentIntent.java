@@ -156,9 +156,12 @@ public final class PaymentIntent implements Parcelable
 	@CheckForNull
 	public final byte[] payeeData;
 
+	@CheckForNull
+	public final String paymentRequestUrl;
+
 	public PaymentIntent(@Nullable final Standard standard, @Nullable final String payeeName, @Nullable final String payeeOrganization,
 			@Nullable final String payeeVerifiedBy, @Nullable final Output[] outputs, @Nullable final String memo, @Nullable final String paymentUrl,
-			@Nullable final byte[] payeeData)
+			@Nullable final byte[] payeeData, @Nullable final String paymentRequestUrl)
 	{
 		this.standard = standard;
 		this.payeeName = payeeName;
@@ -168,16 +171,17 @@ public final class PaymentIntent implements Parcelable
 		this.memo = memo;
 		this.paymentUrl = paymentUrl;
 		this.payeeData = payeeData;
+		this.paymentRequestUrl = paymentRequestUrl;
 	}
 
 	private PaymentIntent(@Nonnull final Address address, @Nullable final String addressLabel)
 	{
-		this(null, null, null, null, buildSimplePayTo(BigInteger.ZERO, address), addressLabel, null, null);
+		this(null, null, null, null, buildSimplePayTo(BigInteger.ZERO, address), addressLabel, null, null, null);
 	}
 
 	public static PaymentIntent blank()
 	{
-		return new PaymentIntent(null, null, null, null, null, null, null, null);
+		return new PaymentIntent(null, null, null, null, null, null, null, null, null);
 	}
 
 	public static PaymentIntent fromAddress(@Nonnull final Address address, @Nullable final String addressLabel)
@@ -197,7 +201,7 @@ public final class PaymentIntent implements Parcelable
 		final String bluetoothMac = (String) bitcoinUri.getParameterByName(Bluetooth.MAC_URI_PARAM);
 
 		return new PaymentIntent(PaymentIntent.Standard.BIP21, null, null, null, outputs, bitcoinUri.getLabel(), bluetoothMac != null ? "bt:"
-				+ bluetoothMac : null, null);
+				+ bluetoothMac : null, null, bitcoinUri.getPaymentRequestUrl());
 	}
 
 	public PaymentIntent mergeWithEditedValues(@Nullable final BigInteger editedAmount, @Nullable final Address editedAddress)
@@ -223,7 +227,7 @@ public final class PaymentIntent implements Parcelable
 			outputs = new Output[] { new Output(editedAmount, ScriptBuilder.createOutputScript(editedAddress)) };
 		}
 
-		return new PaymentIntent(standard, payeeName, payeeOrganization, payeeVerifiedBy, outputs, memo, null, payeeData);
+		return new PaymentIntent(standard, payeeName, payeeOrganization, payeeVerifiedBy, outputs, memo, null, payeeData, null);
 	}
 
 	public SendRequest toSendRequest()
@@ -333,6 +337,39 @@ public final class PaymentIntent implements Parcelable
 			throw new IllegalStateException();
 	}
 
+	public boolean hasPaymentRequestUrl()
+	{
+		return paymentRequestUrl != null;
+	}
+
+	public boolean isSupportedPaymentRequestUrl()
+	{
+		return isHttpPaymentRequestUrl();
+	}
+
+	public boolean isHttpPaymentRequestUrl()
+	{
+		return paymentRequestUrl != null
+				&& (GenericUtils.startsWithIgnoreCase(paymentRequestUrl, "http:") || GenericUtils.startsWithIgnoreCase(paymentRequestUrl, "https:"));
+	}
+
+	public boolean isSecurityExtendedBy(final PaymentIntent paymentIntent)
+	{
+		// check address
+		if (hasAddress() != paymentIntent.hasAddress())
+			return false;
+		if (!getAddress().equals(paymentIntent.getAddress()))
+			return false;
+
+		// check amount
+		if (hasAmount() != paymentIntent.hasAmount())
+			return false;
+		if (!getAmount().equals(paymentIntent.getAmount()))
+			return false;
+
+		return true;
+	}
+
 	@Override
 	public String toString()
 	{
@@ -358,6 +395,11 @@ public final class PaymentIntent implements Parcelable
 		{
 			builder.append(',');
 			builder.append(Arrays.toString(payeeData));
+		}
+		if (paymentRequestUrl != null)
+		{
+			builder.append(",paymentRequestUrl=");
+			builder.append(paymentRequestUrl);
 		}
 		builder.append(']');
 
@@ -402,6 +444,8 @@ public final class PaymentIntent implements Parcelable
 		{
 			dest.writeInt(0);
 		}
+
+		dest.writeString(paymentRequestUrl);
 	}
 
 	public static final Parcelable.Creator<PaymentIntent> CREATOR = new Parcelable.Creator<PaymentIntent>()
@@ -452,5 +496,7 @@ public final class PaymentIntent implements Parcelable
 		{
 			payeeData = null;
 		}
+
+		paymentRequestUrl = in.readString();
 	}
 }
