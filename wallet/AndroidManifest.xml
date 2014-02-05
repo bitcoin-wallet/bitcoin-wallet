@@ -3,8 +3,8 @@
 	xmlns:tools="http://schemas.android.com/tools"
 	package="de.schildbach.wallet_ltc"
 	android:installLocation="internalOnly"
-	android:versionCode="159"
-	android:versionName="3.30.5" >
+	android:versionCode="160"
+	android:versionName="3.30.6" >
 
 	<uses-sdk
 		android:minSdkVersion="10"
