@@ -53,7 +53,7 @@ public abstract class InputParser
 	{
 		private final String input;
 
-		public StringInputParser(@Nonnull final String input)
+		public StringInputParser(final String input)
 		{
 			this.input = input;
 		}
@@ -61,6 +61,7 @@ public abstract class InputParser
 		@Override
 		public void parse()
 		{
+            if(input == null) return;
 			if (input.startsWith("litecoin:"))
 			{
 				try
