@@ -25,6 +25,10 @@ import java.util.List;
 
 import javax.annotation.Nonnull;
 
+import org.bitcoinj.core.Address;
+import org.bitcoinj.core.ECKey;
+import org.bitcoinj.core.Wallet;
+
 import android.content.Context;
 import android.content.res.Resources;
 import android.text.format.DateUtils;
@@ -33,11 +37,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
-
-import com.google.bitcoin.core.Address;
-import com.google.bitcoin.core.ECKey;
-import com.google.bitcoin.core.Wallet;
-
 import de.schildbach.wallet.AddressBookProvider;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.util.WalletUtils;

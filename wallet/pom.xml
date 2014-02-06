@@ -64,9 +64,9 @@
 
 		<!-- com.google.bitcoin.* -->
 		<dependency>
-			<groupId>com.google</groupId>
-			<artifactId>bitcoinj</artifactId>
-			<version>0.11.3</version>
+			<groupId>org.bitcoinj</groupId>
+			<artifactId>bitcoinj-core</artifactId>
+			<version>0.12</version>
 		</dependency>
 
 		<!-- de.schildbach.wallet.integration.android.* -->

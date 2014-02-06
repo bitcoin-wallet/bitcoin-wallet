@@ -33,6 +33,9 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
+import org.bitcoinj.core.Transaction;
+import org.bitcoinj.core.TransactionOutput;
+import org.bitcoinj.core.Wallet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -44,9 +47,6 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
 
-import com.google.bitcoin.core.Transaction;
-import com.google.bitcoin.core.TransactionOutput;
-import com.google.bitcoin.core.Wallet;
 import com.google.common.base.Charsets;
 
 import de.schildbach.wallet.Constants;

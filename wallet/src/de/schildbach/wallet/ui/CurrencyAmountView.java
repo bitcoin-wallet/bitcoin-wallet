@@ -17,11 +17,12 @@
 
 package de.schildbach.wallet.ui;
 
-import java.math.BigInteger;
-
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+
+import org.bitcoinj.core.Coin;
+import org.bitcoinj.core.Transaction;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -41,9 +42,6 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TextView;
-
-import com.google.bitcoin.core.Transaction;
-
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.util.GenericUtils;
 import de.schildbach.wallet.util.WalletUtils;
@@ -197,7 +195,7 @@ public final class CurrencyAmountView extends FrameLayout
 	}
 
 	@CheckForNull
-	public BigInteger getAmount()
+	public Coin getAmount()
 	{
 		if (isValidAmount(false))
 			return GenericUtils.parseCoin(textView.getText().toString().trim(), shift);
@@ -205,7 +203,7 @@ public final class CurrencyAmountView extends FrameLayout
 			return null;
 	}
 
-	public void setAmount(@Nullable final BigInteger amount, final boolean fireListener)
+	public void setAmount(@Nullable final Coin amount, final boolean fireListener)
 	{
 		if (!fireListener)
 			textViewListener.setFire(false);
@@ -220,9 +218,9 @@ public final class CurrencyAmountView extends FrameLayout
 			textViewListener.setFire(true);
 	}
 
-	public void setHint(@Nullable final BigInteger amount)
+	public void setHint(@Nullable final Coin amount)
 	{
-		final Spannable hint = new SpannableString(GenericUtils.formatValue(amount != null ? amount : BigInteger.ZERO, hintPrecision, shift));
+		final Spannable hint = new SpannableString(GenericUtils.formatValue(amount != null ? amount : Coin.ZERO, hintPrecision, shift));
 		WalletUtils.formatSignificant(hint, WalletUtils.SMALLER_SPAN);
 		textView.setHint(hint);
 	}
@@ -271,7 +269,7 @@ public final class CurrencyAmountView extends FrameLayout
 		{
 			if (!str.isEmpty())
 			{
-				final BigInteger coin = GenericUtils.parseCoin(str, shift);
+				final Coin coin = GenericUtils.parseCoin(str, shift);
 
 				// exactly zero
 				if (zeroIsValid && coin.signum() == 0)
@@ -348,7 +346,7 @@ public final class CurrencyAmountView extends FrameLayout
 			final Bundle bundle = (Bundle) state;
 			super.onRestoreInstanceState(bundle.getParcelable("super_state"));
 			textView.onRestoreInstanceState(bundle.getParcelable("child_textview"));
-			setAmount((BigInteger) bundle.getSerializable("amount"), false);
+			setAmount((Coin) bundle.getSerializable("amount"), false);
 		}
 		else
 		{
@@ -400,7 +398,7 @@ public final class CurrencyAmountView extends FrameLayout
 		{
 			if (!hasFocus)
 			{
-				final BigInteger amount = getAmount();
+				final Coin amount = getAmount();
 				if (amount != null)
 					setAmount(amount, false);
 			}

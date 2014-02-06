@@ -19,27 +19,27 @@ package de.schildbach.wallet.data;
 
 import static com.google.common.base.Preconditions.checkArgument;
 
-import java.math.BigInteger;
 import java.util.Arrays;
 
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import org.bitcoinj.core.Address;
+import org.bitcoinj.core.AddressFormatException;
+import org.bitcoinj.core.Coin;
+import org.bitcoinj.core.Transaction;
+import org.bitcoinj.core.Wallet.SendRequest;
+import org.bitcoinj.core.WrongNetworkException;
+import org.bitcoinj.script.Script;
+import org.bitcoinj.script.ScriptBuilder;
+import org.bitcoinj.uri.BitcoinURI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.google.bitcoin.core.Address;
-import com.google.bitcoin.core.AddressFormatException;
-import com.google.bitcoin.core.Transaction;
-import com.google.bitcoin.core.Wallet.SendRequest;
-import com.google.bitcoin.core.WrongNetworkException;
-import com.google.bitcoin.script.Script;
-import com.google.bitcoin.script.ScriptBuilder;
-import com.google.bitcoin.uri.BitcoinURI;
 import com.google.common.io.BaseEncoding;
 
 import de.schildbach.wallet.Constants;
@@ -58,10 +58,10 @@ public final class PaymentIntent implements Parcelable
 
 	public final static class Output implements Parcelable
 	{
-		public final BigInteger amount;
+		public final Coin amount;
 		public final Script script;
 
-		public Output(final BigInteger amount, final Script script)
+		public Output(final Coin amount, final Script script)
 		{
 			this.amount = amount;
 			this.script = script;
@@ -128,7 +128,7 @@ public final class PaymentIntent implements Parcelable
 
 		private Output(final Parcel in)
 		{
-			amount = (BigInteger) in.readSerializable();
+			amount = (Coin) in.readSerializable();
 
 			final int programLength = in.readInt();
 			final byte[] program = new byte[programLength];
@@ -187,7 +187,7 @@ public final class PaymentIntent implements Parcelable
 
 	private PaymentIntent(@Nonnull final Address address, @Nullable final String addressLabel)
 	{
-		this(null, null, null, null, buildSimplePayTo(BigInteger.ZERO, address), addressLabel, null, null, null, null);
+		this(null, null, null, null, buildSimplePayTo(Coin.ZERO, address), addressLabel, null, null, null, null);
 	}
 
 	public static PaymentIntent blank()
@@ -233,7 +233,7 @@ public final class PaymentIntent implements Parcelable
 		}
 	}
 
-	public PaymentIntent mergeWithEditedValues(@Nullable final BigInteger editedAmount, @Nullable final Address editedAddress)
+	public PaymentIntent mergeWithEditedValues(@Nullable final Coin editedAmount, @Nullable final Address editedAddress)
 	{
 		final Output[] outputs;
 
@@ -272,7 +272,7 @@ public final class PaymentIntent implements Parcelable
 		return SendRequest.forTx(transaction);
 	}
 
-	private static Output[] buildSimplePayTo(final BigInteger amount, final Address address)
+	private static Output[] buildSimplePayTo(final Coin amount, final Address address)
 	{
 		return new Output[] { new Output(amount, ScriptBuilder.createOutputScript(address)) };
 	}
@@ -325,9 +325,9 @@ public final class PaymentIntent implements Parcelable
 		return false;
 	}
 
-	public BigInteger getAmount()
+	public Coin getAmount()
 	{
-		BigInteger amount = BigInteger.ZERO;
+		Coin amount = Coin.ZERO;
 
 		if (hasOutputs())
 			for (final Output output : outputs)

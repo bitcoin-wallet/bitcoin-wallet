@@ -41,6 +41,13 @@ import java.util.TimeZone;
 
 import javax.annotation.Nonnull;
 
+import org.bitcoinj.core.AddressFormatException;
+import org.bitcoinj.core.ECKey;
+import org.bitcoinj.core.Transaction;
+import org.bitcoinj.core.VerificationException;
+import org.bitcoinj.core.Wallet;
+import org.bitcoinj.core.Wallet.BalanceType;
+import org.bitcoinj.store.WalletProtobufSerializer;
 import org.bitcoinj.wallet.Protos;
 
 import android.app.Activity;
@@ -71,13 +78,6 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.google.bitcoin.core.AddressFormatException;
-import com.google.bitcoin.core.ECKey;
-import com.google.bitcoin.core.Transaction;
-import com.google.bitcoin.core.VerificationException;
-import com.google.bitcoin.core.Wallet;
-import com.google.bitcoin.core.Wallet.BalanceType;
-import com.google.bitcoin.store.WalletProtobufSerializer;
 import com.google.common.base.Charsets;
 
 import de.schildbach.wallet.Configuration;

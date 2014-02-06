@@ -27,6 +27,11 @@ import java.util.concurrent.RejectedExecutionException;
 
 import javax.annotation.Nonnull;
 
+import org.bitcoinj.core.Block;
+import org.bitcoinj.core.Sha256Hash;
+import org.bitcoinj.core.StoredBlock;
+import org.bitcoinj.core.Transaction;
+import org.bitcoinj.core.Wallet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -57,13 +62,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-
-import com.google.bitcoin.core.Block;
-import com.google.bitcoin.core.Sha256Hash;
-import com.google.bitcoin.core.StoredBlock;
-import com.google.bitcoin.core.Transaction;
-import com.google.bitcoin.core.Wallet;
-
 import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;

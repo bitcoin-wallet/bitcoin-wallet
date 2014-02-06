@@ -17,10 +17,12 @@
 
 package de.schildbach.wallet.ui;
 
-import java.math.BigInteger;
-
 import javax.annotation.CheckForNull;
 
+import org.bitcoinj.core.Address;
+import org.bitcoinj.core.Coin;
+import org.bitcoinj.core.Wallet;
+import org.bitcoinj.uri.BitcoinURI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -55,11 +57,6 @@ import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.google.bitcoin.core.Address;
-import com.google.bitcoin.core.Wallet;
-import com.google.bitcoin.uri.BitcoinURI;
-
 import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.ExchangeRatesProvider;
@@ -407,7 +404,7 @@ public final class RequestCoinsFragment extends Fragment
 	private String determineBitcoinRequestStr(final boolean includeBluetoothMac)
 	{
 		final Address address = application.determineSelectedAddress();
-		final BigInteger amount = amountCalculatorLink.getAmount();
+		final Coin amount = amountCalculatorLink.getAmount();
 
 		final StringBuilder uri = new StringBuilder(BitcoinURI.convertToBitcoinURI(address, amount, null, null));
 		if (includeBluetoothMac && bluetoothMac != null)
@@ -421,7 +418,7 @@ public final class RequestCoinsFragment extends Fragment
 	private byte[] determinePaymentRequest(final boolean includeBluetoothMac)
 	{
 		final Address address = application.determineSelectedAddress();
-		final BigInteger amount = amountCalculatorLink.getAmount();
+		final Coin amount = amountCalculatorLink.getAmount();
 
 		return PaymentProtocol.createPaymentRequest(amount, address, null, includeBluetoothMac && bluetoothMac != null ? "bt:" + bluetoothMac : null)
 				.toByteArray();

@@ -17,27 +17,25 @@
 
 package de.schildbach.wallet.ui;
 
-import java.math.BigInteger;
 import java.util.concurrent.RejectedExecutionException;
 
 import javax.annotation.Nonnull;
 
+import org.bitcoinj.core.Coin;
+import org.bitcoinj.core.Wallet;
+import org.bitcoinj.core.Wallet.BalanceType;
+import org.bitcoinj.utils.Threading;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import android.content.AsyncTaskLoader;
 import android.content.Context;
-
-import com.google.bitcoin.core.Wallet;
-import com.google.bitcoin.core.Wallet.BalanceType;
-import com.google.bitcoin.utils.Threading;
-
 import de.schildbach.wallet.util.ThrottlingWalletChangeListener;
 
 /**
  * @author Andreas Schildbach
  */
-public final class WalletBalanceLoader extends AsyncTaskLoader<BigInteger>
+public final class WalletBalanceLoader extends AsyncTaskLoader<Coin>
 {
 	private final Wallet wallet;
 
@@ -70,7 +68,7 @@ public final class WalletBalanceLoader extends AsyncTaskLoader<BigInteger>
 	}
 
 	@Override
-	public BigInteger loadInBackground()
+	public Coin loadInBackground()
 	{
 		return wallet.getBalance(BalanceType.ESTIMATED);
 	}

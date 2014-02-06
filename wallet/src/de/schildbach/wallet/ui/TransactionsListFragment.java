@@ -17,7 +17,6 @@
 
 package de.schildbach.wallet.ui;
 
-import java.math.BigInteger;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -31,6 +30,14 @@ import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import org.bitcoinj.core.Address;
+import org.bitcoinj.core.Coin;
+import org.bitcoinj.core.ScriptException;
+import org.bitcoinj.core.Transaction;
+import org.bitcoinj.core.Transaction.Purpose;
+import org.bitcoinj.core.TransactionConfidence.ConfidenceType;
+import org.bitcoinj.core.Wallet;
+import org.bitcoinj.utils.Threading;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -60,15 +67,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
-
-import com.google.bitcoin.core.Address;
-import com.google.bitcoin.core.ScriptException;
-import com.google.bitcoin.core.Transaction;
-import com.google.bitcoin.core.Transaction.Purpose;
-import com.google.bitcoin.core.TransactionConfidence.ConfidenceType;
-import com.google.bitcoin.core.Wallet;
-import com.google.bitcoin.utils.Threading;
-
 import de.schildbach.wallet.AddressBookProvider;
 import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
@@ -234,7 +232,7 @@ public class TransactionsListFragment extends FancyListFragment implements Loade
 					mode.setTitle(time != null ? (DateUtils.isToday(time.getTime()) ? getString(R.string.time_today) : dateFormat.format(time))
 							+ ", " + timeFormat.format(time) : null);
 
-					final BigInteger value = tx.getValue(wallet);
+					final Coin value = tx.getValue(wallet);
 					final boolean sent = value.signum() < 0;
 
 					address = sent ? WalletUtils.getFirstToAddress(tx) : WalletUtils.getFirstFromAddress(tx);

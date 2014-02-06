@@ -17,6 +17,8 @@
 
 package de.schildbach.wallet.ui;
 
+import org.bitcoinj.core.VersionMessage;
+
 import android.app.ActionBar;
 import android.content.Intent;
 import android.net.Uri;
@@ -25,9 +27,6 @@ import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceScreen;
 import android.view.MenuItem;
-
-import com.google.bitcoin.core.VersionMessage;
-
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet_test.R;

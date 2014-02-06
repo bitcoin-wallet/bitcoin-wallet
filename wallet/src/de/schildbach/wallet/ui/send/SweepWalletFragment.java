@@ -1,10 +1,22 @@
 package de.schildbach.wallet.ui.send;
 
-import java.math.BigInteger;
 import java.util.Collection;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+
+import org.bitcoinj.core.Address;
+import org.bitcoinj.core.Coin;
+import org.bitcoinj.core.ECKey;
+import org.bitcoinj.core.Sha256Hash;
+import org.bitcoinj.core.Transaction;
+import org.bitcoinj.core.TransactionConfidence;
+import org.bitcoinj.core.VerificationException;
+import org.bitcoinj.core.Wallet;
+import org.bitcoinj.core.Wallet.BalanceType;
+import org.bitcoinj.core.Wallet.SendRequest;
+import org.bitcoinj.wallet.WalletTransaction;
+import org.bitcoinj.wallet.WalletTransaction.Pool;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -29,19 +41,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-
-import com.google.bitcoin.core.Address;
-import com.google.bitcoin.core.ECKey;
-import com.google.bitcoin.core.Sha256Hash;
-import com.google.bitcoin.core.Transaction;
-import com.google.bitcoin.core.TransactionConfidence;
-import com.google.bitcoin.core.VerificationException;
-import com.google.bitcoin.core.Wallet;
-import com.google.bitcoin.core.Wallet.BalanceType;
-import com.google.bitcoin.core.Wallet.SendRequest;
-import com.google.bitcoin.wallet.WalletTransaction;
-import com.google.bitcoin.wallet.WalletTransaction.Pool;
-
 import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
@@ -404,7 +403,7 @@ public class SweepWalletFragment extends Fragment
 			}
 		};
 
-		final Address address = walletToSweep.getKeys().iterator().next().toAddress(Constants.NETWORK_PARAMETERS);
+		final Address address = walletToSweep.getImportedKeys().iterator().next().toAddress(Constants.NETWORK_PARAMETERS);
 		new RequestWalletBalanceTask(backgroundHandler, callback, application.httpUserAgent()).requestWalletBalance(address);
 	}
 
@@ -509,7 +508,7 @@ public class SweepWalletFragment extends Fragment
 			}
 
 			@Override
-			protected void onInsufficientMoney(@Nullable final BigInteger missing)
+			protected void onInsufficientMoney(@Nullable final Coin missing)
 			{
 				state = State.FAILED;
 				updateView();

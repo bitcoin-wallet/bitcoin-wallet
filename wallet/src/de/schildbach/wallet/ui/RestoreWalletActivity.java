@@ -26,6 +26,9 @@ import java.io.InputStreamReader;
 
 import javax.annotation.Nonnull;
 
+import org.bitcoinj.core.Wallet;
+import org.bitcoinj.core.Wallet.BalanceType;
+
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.ContentResolver;
@@ -38,8 +41,6 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 
-import com.google.bitcoin.core.Wallet;
-import com.google.bitcoin.core.Wallet.BalanceType;
 import com.google.common.base.Charsets;
 
 import de.schildbach.wallet.Configuration;

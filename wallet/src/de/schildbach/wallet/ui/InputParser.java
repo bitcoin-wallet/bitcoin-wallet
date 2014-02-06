@@ -25,26 +25,24 @@ import java.util.regex.Pattern;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import org.bitcoinj.core.Address;
+import org.bitcoinj.core.AddressFormatException;
+import org.bitcoinj.core.Base58;
+import org.bitcoinj.core.DumpedPrivateKey;
+import org.bitcoinj.core.ECKey;
+import org.bitcoinj.core.NetworkParameters;
+import org.bitcoinj.core.ProtocolException;
+import org.bitcoinj.core.Transaction;
+import org.bitcoinj.core.VerificationException;
+import org.bitcoinj.protocols.payments.PaymentProtocolException;
+import org.bitcoinj.protocols.payments.PaymentProtocolException.PkiVerificationException;
+import org.bitcoinj.uri.BitcoinURI;
+import org.bitcoinj.uri.BitcoinURIParseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import android.content.Context;
 import android.content.DialogInterface.OnClickListener;
-
-import com.google.bitcoin.core.Address;
-import com.google.bitcoin.core.AddressFormatException;
-import com.google.bitcoin.core.Base58;
-import com.google.bitcoin.core.DumpedPrivateKey;
-import com.google.bitcoin.core.ECKey;
-import com.google.bitcoin.core.NetworkParameters;
-import com.google.bitcoin.core.ProtocolException;
-import com.google.bitcoin.core.Transaction;
-import com.google.bitcoin.core.VerificationException;
-import com.google.bitcoin.protocols.payments.PaymentRequestException;
-import com.google.bitcoin.protocols.payments.PaymentRequestException.PkiVerificationException;
-import com.google.bitcoin.uri.BitcoinURI;
-import com.google.bitcoin.uri.BitcoinURIParseException;
-
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.data.PaymentIntent;
 import de.schildbach.wallet.util.Io;
@@ -91,7 +89,7 @@ public abstract class InputParser
 
 					error(R.string.input_parser_unverifyable_paymentrequest, x.getMessage());
 				}
-				catch (final PaymentRequestException x)
+				catch (final PaymentProtocolException x)
 				{
 					log.info("got invalid payment request", x);
 
@@ -209,13 +207,13 @@ public abstract class InputParser
 				{
 					parseAndHandlePaymentRequest(input);
 				}
-				catch (final PkiVerificationException x)
+				catch (final PaymentProtocolException.PkiVerificationException x)
 				{
 					log.info("got unverifyable payment request", x);
 
 					error(R.string.input_parser_unverifyable_paymentrequest, x.getMessage());
 				}
-				catch (final PaymentRequestException x)
+				catch (final PaymentProtocolException x)
 				{
 					log.info("got invalid payment request", x);
 
@@ -277,7 +275,7 @@ public abstract class InputParser
 
 					error(R.string.input_parser_unverifyable_paymentrequest, x.getMessage());
 				}
-				catch (final PaymentRequestException x)
+				catch (final PaymentProtocolException x)
 				{
 					log.info("got invalid payment request", x);
 
@@ -326,7 +324,7 @@ public abstract class InputParser
 
 	public abstract void parse();
 
-	protected final void parseAndHandlePaymentRequest(@Nonnull final byte[] serializedPaymentRequest) throws PaymentRequestException
+	protected final void parseAndHandlePaymentRequest(@Nonnull final byte[] serializedPaymentRequest) throws PaymentProtocolException
 	{
 		final PaymentIntent paymentIntent = PaymentProtocol.parsePaymentRequest(serializedPaymentRequest);
 

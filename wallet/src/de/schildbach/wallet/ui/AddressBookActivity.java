@@ -20,6 +20,9 @@ package de.schildbach.wallet.ui;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.bitcoinj.core.Address;
+import org.bitcoinj.core.ECKey;
+
 import android.app.ActionBar;
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -32,10 +35,6 @@ import android.support.v4.view.ViewPager;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-
-import com.google.bitcoin.core.Address;
-import com.google.bitcoin.core.ECKey;
-
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.util.ViewPagerTabs;
 import de.schildbach.wallet_test.R;
@@ -134,7 +133,7 @@ public final class AddressBookActivity extends AbstractWalletActivity
 
 	/* private */void updateFragments()
 	{
-		final List<ECKey> keys = getWalletApplication().getWallet().getKeys();
+		final List<ECKey> keys = getWalletApplication().getWallet().getImportedKeys();
 		final ArrayList<Address> addresses = new ArrayList<Address>(keys.size());
 
 		for (final ECKey key : keys)

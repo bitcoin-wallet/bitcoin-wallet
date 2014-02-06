@@ -40,6 +40,21 @@ import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import org.bitcoinj.core.Address;
+import org.bitcoinj.core.AddressFormatException;
+import org.bitcoinj.core.Coin;
+import org.bitcoinj.core.DumpedPrivateKey;
+import org.bitcoinj.core.ECKey;
+import org.bitcoinj.core.ScriptException;
+import org.bitcoinj.core.Sha256Hash;
+import org.bitcoinj.core.Transaction;
+import org.bitcoinj.core.TransactionInput;
+import org.bitcoinj.core.TransactionOutput;
+import org.bitcoinj.core.Wallet;
+import org.bitcoinj.script.Script;
+import org.bitcoinj.store.UnreadableWalletException;
+import org.bitcoinj.store.WalletProtobufSerializer;
+
 import android.graphics.Typeface;
 import android.text.Editable;
 import android.text.Spannable;
@@ -49,19 +64,6 @@ import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
 import android.text.style.TypefaceSpan;
 
-import com.google.bitcoin.core.Address;
-import com.google.bitcoin.core.AddressFormatException;
-import com.google.bitcoin.core.DumpedPrivateKey;
-import com.google.bitcoin.core.ECKey;
-import com.google.bitcoin.core.ScriptException;
-import com.google.bitcoin.core.Sha256Hash;
-import com.google.bitcoin.core.Transaction;
-import com.google.bitcoin.core.TransactionInput;
-import com.google.bitcoin.core.TransactionOutput;
-import com.google.bitcoin.core.Wallet;
-import com.google.bitcoin.script.Script;
-import com.google.bitcoin.store.UnreadableWalletException;
-import com.google.bitcoin.store.WalletProtobufSerializer;
 import com.google.common.base.Charsets;
 
 import de.schildbach.wallet.Constants;
@@ -138,14 +140,16 @@ public class WalletUtils
 		}
 	}
 
-	public static BigInteger localValue(@Nonnull final BigInteger btcValue, @Nonnull final BigInteger rate)
+	private static final BigInteger COIN_BI = BigInteger.valueOf(Coin.COIN.value);
+
+	public static Coin localValue(@Nonnull final Coin btcValue, final BigInteger rate)
 	{
-		return btcValue.multiply(rate).divide(GenericUtils.ONE_BTC);
+		return Coin.valueOf(BigInteger.valueOf(btcValue.value).multiply(rate).divide(COIN_BI).longValue());
 	}
 
-	public static BigInteger btcValue(@Nonnull final BigInteger localValue, @Nonnull final BigInteger rate)
+	public static Coin btcValue(@Nonnull final Coin localValue, final BigInteger rate)
 	{
-		return localValue.multiply(GenericUtils.ONE_BTC).divide(rate);
+		return Coin.valueOf(BigInteger.valueOf(localValue.value).multiply(COIN_BI).divide(rate).longValue());
 	}
 
 	@CheckForNull
@@ -255,7 +259,7 @@ public class WalletUtils
 	{
 		final BufferedReader keyReader = new BufferedReader(new InputStreamReader(is, Charsets.UTF_8));
 		final Wallet wallet = new Wallet(Constants.NETWORK_PARAMETERS);
-		wallet.addKeys(WalletUtils.readKeys(keyReader));
+		wallet.importKeys(WalletUtils.readKeys(keyReader));
 		return wallet;
 	}
 
@@ -390,7 +394,7 @@ public class WalletUtils
 	{
 		ECKey oldestKey = null;
 
-		for (final ECKey key : wallet.getKeys())
+		for (final ECKey key : wallet.getImportedKeys())
 			if (!wallet.isKeyRotating(key))
 				if (oldestKey == null || key.getCreationTimeSeconds() < oldestKey.getCreationTimeSeconds())
 					oldestKey = key;

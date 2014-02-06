@@ -27,16 +27,14 @@ import javax.annotation.Nonnull;
 
 import org.bitcoin.protocols.payments.Protos;
 import org.bitcoin.protocols.payments.Protos.PaymentACK;
+import org.bitcoinj.core.ProtocolException;
+import org.bitcoinj.core.Transaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothServerSocket;
 import android.bluetooth.BluetoothSocket;
-
-import com.google.bitcoin.core.ProtocolException;
-import com.google.bitcoin.core.Transaction;
-
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.util.Bluetooth;
 import de.schildbach.wallet.util.PaymentProtocol;

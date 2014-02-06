@@ -19,14 +19,13 @@ package de.schildbach.wallet.ui.send;
 
 import javax.annotation.Nonnull;
 
+import org.bitcoinj.core.ECKey;
+
 import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-
-import com.google.bitcoin.core.ECKey;
-
 import de.schildbach.wallet.ui.AbstractBindServiceActivity;
 import de.schildbach.wallet_test.R;
 

@@ -19,14 +19,13 @@ package de.schildbach.wallet;
 
 import java.io.File;
 
+import org.bitcoinj.core.NetworkParameters;
+import org.bitcoinj.params.MainNetParams;
+import org.bitcoinj.params.TestNet3Params;
+
 import android.os.Build;
 import android.os.Environment;
 import android.text.format.DateUtils;
-
-import com.google.bitcoin.core.NetworkParameters;
-import com.google.bitcoin.params.MainNetParams;
-import com.google.bitcoin.params.TestNet3Params;
-
 import de.schildbach.wallet_test.R;
 
 /**

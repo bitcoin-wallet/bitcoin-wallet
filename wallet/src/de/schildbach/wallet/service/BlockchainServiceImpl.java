@@ -20,7 +20,6 @@ package de.schildbach.wallet.service;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.math.BigInteger;
 import java.net.InetSocketAddress;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -38,6 +37,28 @@ import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import org.bitcoinj.core.AbstractPeerEventListener;
+import org.bitcoinj.core.Address;
+import org.bitcoinj.core.Block;
+import org.bitcoinj.core.BlockChain;
+import org.bitcoinj.core.CheckpointManager;
+import org.bitcoinj.core.Coin;
+import org.bitcoinj.core.Peer;
+import org.bitcoinj.core.PeerEventListener;
+import org.bitcoinj.core.PeerGroup;
+import org.bitcoinj.core.Sha256Hash;
+import org.bitcoinj.core.StoredBlock;
+import org.bitcoinj.core.Transaction;
+import org.bitcoinj.core.TransactionConfidence.ConfidenceType;
+import org.bitcoinj.core.Wallet;
+import org.bitcoinj.core.WalletEventListener;
+import org.bitcoinj.net.discovery.DnsDiscovery;
+import org.bitcoinj.net.discovery.PeerDiscovery;
+import org.bitcoinj.net.discovery.PeerDiscoveryException;
+import org.bitcoinj.store.BlockStore;
+import org.bitcoinj.store.BlockStoreException;
+import org.bitcoinj.store.SPVBlockStore;
+import org.bitcoinj.utils.Threading;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -61,29 +82,6 @@ import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
 import android.support.v4.content.LocalBroadcastManager;
 import android.text.format.DateUtils;
-
-import com.google.bitcoin.core.AbstractPeerEventListener;
-import com.google.bitcoin.core.Address;
-import com.google.bitcoin.core.Block;
-import com.google.bitcoin.core.BlockChain;
-import com.google.bitcoin.core.CheckpointManager;
-import com.google.bitcoin.core.Peer;
-import com.google.bitcoin.core.PeerEventListener;
-import com.google.bitcoin.core.PeerGroup;
-import com.google.bitcoin.core.Sha256Hash;
-import com.google.bitcoin.core.StoredBlock;
-import com.google.bitcoin.core.Transaction;
-import com.google.bitcoin.core.TransactionConfidence.ConfidenceType;
-import com.google.bitcoin.core.Wallet;
-import com.google.bitcoin.core.WalletEventListener;
-import com.google.bitcoin.net.discovery.DnsDiscovery;
-import com.google.bitcoin.net.discovery.PeerDiscovery;
-import com.google.bitcoin.net.discovery.PeerDiscoveryException;
-import com.google.bitcoin.store.BlockStore;
-import com.google.bitcoin.store.BlockStoreException;
-import com.google.bitcoin.store.SPVBlockStore;
-import com.google.bitcoin.utils.Threading;
-
 import de.schildbach.wallet.AddressBookProvider;
 import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
@@ -122,7 +120,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 
 	private final Set<Impediment> impediments = EnumSet.noneOf(Impediment.class);
 	private int notificationCount = 0;
-	private BigInteger notificationAccumulatedAmount = BigInteger.ZERO;
+	private Coin notificationAccumulatedAmount = Coin.ZERO;
 	private final List<Address> notificationAddresses = new LinkedList<Address>();
 	private AtomicInteger transactionsReceived = new AtomicInteger();
 	private int bestChainHeightEver;
@@ -147,14 +145,14 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 		}
 
 		@Override
-		public void onCoinsReceived(final Wallet wallet, final Transaction tx, final BigInteger prevBalance, final BigInteger newBalance)
+		public void onCoinsReceived(final Wallet wallet, final Transaction tx, final Coin prevBalance, final Coin newBalance)
 		{
 			transactionsReceived.incrementAndGet();
 
 			final int bestChainHeight = blockChain.getBestChainHeight();
 
 			final Address from = WalletUtils.getFirstFromAddress(tx);
-			final BigInteger amount = tx.getValue(wallet);
+			final Coin amount = tx.getValue(wallet);
 			final ConfidenceType confidenceType = tx.getConfidence().getConfidenceType();
 
 			handler.post(new Runnable()
@@ -173,13 +171,13 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 		}
 
 		@Override
-		public void onCoinsSent(final Wallet wallet, final Transaction tx, final BigInteger prevBalance, final BigInteger newBalance)
+		public void onCoinsSent(final Wallet wallet, final Transaction tx, final Coin prevBalance, final Coin newBalance)
 		{
 			transactionsReceived.incrementAndGet();
 		}
 	};
 
-	private void notifyCoinsReceived(@Nullable final Address from, @Nonnull final BigInteger amount)
+	private void notifyCoinsReceived(@Nullable final Address from, @Nonnull final Coin amount)
 	{
 		if (notificationCount == 1)
 			nm.cancel(NOTIFICATION_ID_COINS_RECEIVED);
@@ -674,7 +672,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 			if (BlockchainService.ACTION_CANCEL_COINS_RECEIVED.equals(action))
 			{
 				notificationCount = 0;
-				notificationAccumulatedAmount = BigInteger.ZERO;
+				notificationAccumulatedAmount = Coin.ZERO;
 				notificationAddresses.clear();
 
 				nm.cancel(NOTIFICATION_ID_COINS_RECEIVED);

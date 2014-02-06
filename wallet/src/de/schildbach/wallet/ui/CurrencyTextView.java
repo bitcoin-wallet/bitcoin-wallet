@@ -17,9 +17,9 @@
 
 package de.schildbach.wallet.ui;
 
-import java.math.BigInteger;
-
 import javax.annotation.Nonnull;
+
+import org.bitcoinj.core.Coin;
 
 import android.content.Context;
 import android.graphics.Paint;
@@ -42,7 +42,7 @@ public final class CurrencyTextView extends TextView
 {
 	private String prefix = null;
 	private ForegroundColorSpan prefixColorSpan = null;
-	private BigInteger amount = null;
+	private Coin amount = null;
 	private int precision = 0;
 	private int shift = 0;
 	private boolean alwaysSigned = false;
@@ -71,7 +71,7 @@ public final class CurrencyTextView extends TextView
 		updateView();
 	}
 
-	public void setAmount(@Nonnull final BigInteger amount)
+	public void setAmount(@Nonnull final Coin amount)
 	{
 		this.amount = amount;
 		updateView();

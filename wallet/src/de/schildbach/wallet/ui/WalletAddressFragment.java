@@ -17,6 +17,9 @@
 
 package de.schildbach.wallet.ui;
 
+import org.bitcoinj.core.Address;
+import org.bitcoinj.uri.BitcoinURI;
+
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
@@ -31,10 +34,6 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.google.bitcoin.core.Address;
-import com.google.bitcoin.uri.BitcoinURI;
-
 import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;

@@ -18,13 +18,13 @@
 package de.schildbach.wallet.util;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.Currency;
 import java.util.Locale;
 
 import javax.annotation.Nonnull;
 
-import com.google.bitcoin.core.NetworkParameters;
+import org.bitcoinj.core.Coin;
+import org.bitcoinj.core.NetworkParameters;
 
 import de.schildbach.wallet.Constants;
 
@@ -33,23 +33,19 @@ import de.schildbach.wallet.Constants;
  */
 public class GenericUtils
 {
-	public static final BigInteger ONE_BTC = new BigInteger("100000000", 10);
-	public static final BigInteger ONE_MBTC = new BigInteger("100000", 10);
-	public static final BigInteger ONE_UBTC = new BigInteger("100", 10);
+	private static final int ONE_BTC_INT = (int) Coin.COIN.value;
+	private static final int ONE_MBTC_INT = (int) Coin.MILLICOIN.value;
+	private static final int ONE_UBTC_INT = (int) Coin.MICROCOIN.value;
 
-	private static final int ONE_BTC_INT = ONE_BTC.intValue();
-	private static final int ONE_MBTC_INT = ONE_MBTC.intValue();
-	private static final int ONE_UBTC_INT = ONE_UBTC.intValue();
-
-	public static String formatValue(@Nonnull final BigInteger value, final int precision, final int shift)
+	public static String formatValue(@Nonnull final Coin value, final int precision, final int shift)
 	{
 		return formatValue(value, "", "-", precision, shift);
 	}
 
-	public static String formatValue(@Nonnull final BigInteger value, @Nonnull final String plusSign, @Nonnull final String minusSign,
-			final int precision, final int shift)
+	public static String formatValue(@Nonnull final Coin value, @Nonnull final String plusSign, @Nonnull final String minusSign, final int precision,
+			final int shift)
 	{
-		long longValue = value.longValue();
+		long longValue = value.value;
 
 		final String sign = longValue < 0 ? minusSign : plusSign;
 
@@ -125,14 +121,14 @@ public class GenericUtils
 		}
 	}
 
-	public static String formatDebugValue(@Nonnull final BigInteger value)
+	public static String formatDebugValue(@Nonnull final Coin value)
 	{
 		return formatValue(value, Constants.BTC_MAX_PRECISION, 0);
 	}
 
-	public static BigInteger parseCoin(final String str, final int shift) throws ArithmeticException
+	public static Coin parseCoin(final String str, final int shift) throws ArithmeticException
 	{
-		final BigInteger coin = new BigDecimal(str).movePointRight(8 - shift).toBigIntegerExact();
+		final Coin coin = Coin.valueOf(new BigDecimal(str).movePointRight(8 - shift).toBigIntegerExact().longValue());
 
 		if (coin.signum() < 0)
 			throw new ArithmeticException("negative amount: " + str);

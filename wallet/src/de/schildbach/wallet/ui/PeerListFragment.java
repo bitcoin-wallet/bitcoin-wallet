@@ -25,6 +25,8 @@ import java.util.concurrent.RejectedExecutionException;
 
 import javax.annotation.Nonnull;
 
+import org.bitcoinj.core.Peer;
+import org.bitcoinj.core.VersionMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -50,10 +52,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
-
-import com.google.bitcoin.core.Peer;
-import com.google.bitcoin.core.VersionMessage;
-
 import de.schildbach.wallet.service.BlockchainService;
 import de.schildbach.wallet.service.BlockchainServiceImpl;
 import de.schildbach.wallet.util.WholeStringBuilder;

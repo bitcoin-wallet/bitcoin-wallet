@@ -17,7 +17,6 @@
 
 package de.schildbach.wallet.ui;
 
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -26,6 +25,15 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Nonnull;
+
+import org.bitcoinj.core.Address;
+import org.bitcoinj.core.Coin;
+import org.bitcoinj.core.Transaction;
+import org.bitcoinj.core.Transaction.Purpose;
+import org.bitcoinj.core.TransactionConfidence;
+import org.bitcoinj.core.TransactionConfidence.ConfidenceType;
+import org.bitcoinj.core.Wallet;
+import org.bitcoinj.wallet.DefaultCoinSelector;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -38,15 +46,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
-
-import com.google.bitcoin.core.Address;
-import com.google.bitcoin.core.Transaction;
-import com.google.bitcoin.core.Transaction.Purpose;
-import com.google.bitcoin.core.TransactionConfidence;
-import com.google.bitcoin.core.TransactionConfidence.ConfidenceType;
-import com.google.bitcoin.core.Wallet;
-import com.google.bitcoin.wallet.DefaultCoinSelector;
-
 import de.schildbach.wallet.AddressBookProvider;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.util.CircularProgressView;
@@ -228,7 +227,7 @@ public class TransactionsListAdapter extends BaseAdapter
 		final boolean isCoinBase = tx.isCoinBase();
 		final boolean isInternal = WalletUtils.isInternal(tx);
 
-		final BigInteger value = tx.getValue(wallet);
+		final Coin value = tx.getValue(wallet);
 		final boolean sent = value.signum() < 0;
 
 		final CircularProgressView rowConfidenceCircular = (CircularProgressView) row.findViewById(R.id.transaction_row_confidence_circular);

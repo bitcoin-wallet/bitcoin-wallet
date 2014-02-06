@@ -17,9 +17,11 @@
 
 package de.schildbach.wallet.ui;
 
-import java.math.BigInteger;
-
 import javax.annotation.CheckForNull;
+
+import org.bitcoinj.core.Coin;
+import org.bitcoinj.core.Wallet;
+import org.bitcoinj.core.Wallet.BalanceType;
 
 import android.app.Activity;
 import android.app.LoaderManager;
@@ -43,10 +45,6 @@ import android.widget.ResourceCursorAdapter;
 import android.widget.SearchView;
 import android.widget.SearchView.OnQueryTextListener;
 import android.widget.TextView;
-
-import com.google.bitcoin.core.Wallet;
-import com.google.bitcoin.core.Wallet.BalanceType;
-
 import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.ExchangeRatesProvider;
@@ -55,7 +53,6 @@ import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.WalletBalanceWidgetProvider;
 import de.schildbach.wallet.service.BlockchainState;
 import de.schildbach.wallet.service.BlockchainStateLoader;
-import de.schildbach.wallet.util.GenericUtils;
 import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet.util.WholeStringBuilder;
 import de.schildbach.wallet_test.R;
@@ -75,7 +72,7 @@ public final class ExchangeRatesFragment extends FancyListFragment implements On
 	private ExchangeRatesAdapter adapter;
 	private String query = null;
 
-	private BigInteger balance = null;
+	private Coin balance = null;
 	@CheckForNull
 	private BlockchainState blockchainState = null;
 	@CheckForNull
@@ -259,7 +256,7 @@ public final class ExchangeRatesFragment extends FancyListFragment implements On
 		{
 			final int btcShift = config.getBtcShift();
 
-			final BigInteger base = btcShift == 0 ? GenericUtils.ONE_BTC : GenericUtils.ONE_MBTC;
+			final Coin base = btcShift == 0 ? Coin.COIN : Coin.MILLICOIN;
 
 			adapter.setRateBase(base);
 		}
@@ -312,16 +309,16 @@ public final class ExchangeRatesFragment extends FancyListFragment implements On
 		}
 	};
 
-	private final LoaderCallbacks<BigInteger> balanceLoaderCallbacks = new LoaderManager.LoaderCallbacks<BigInteger>()
+	private final LoaderCallbacks<Coin> balanceLoaderCallbacks = new LoaderManager.LoaderCallbacks<Coin>()
 	{
 		@Override
-		public Loader<BigInteger> onCreateLoader(final int id, final Bundle args)
+		public Loader<Coin> onCreateLoader(final int id, final Bundle args)
 		{
 			return new WalletBalanceLoader(activity, wallet);
 		}
 
 		@Override
-		public void onLoadFinished(final Loader<BigInteger> loader, final BigInteger balance)
+		public void onLoadFinished(final Loader<Coin> loader, final Coin balance)
 		{
 			ExchangeRatesFragment.this.balance = balance;
 
@@ -329,7 +326,7 @@ public final class ExchangeRatesFragment extends FancyListFragment implements On
 		}
 
 		@Override
-		public void onLoaderReset(final Loader<BigInteger> loader)
+		public void onLoaderReset(final Loader<Coin> loader)
 		{
 		}
 	};
@@ -358,14 +355,14 @@ public final class ExchangeRatesFragment extends FancyListFragment implements On
 
 	private final class ExchangeRatesAdapter extends ResourceCursorAdapter
 	{
-		private BigInteger rateBase = GenericUtils.ONE_BTC;
+		private Coin rateBase = Coin.COIN;
 
 		private ExchangeRatesAdapter(final Context context)
 		{
 			super(context, R.layout.exchange_rate_row, null, true);
 		}
 
-		public void setRateBase(final BigInteger rateBase)
+		public void setRateBase(final Coin rateBase)
 		{
 			this.rateBase = rateBase;
 

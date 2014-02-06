@@ -17,11 +17,11 @@
 
 package de.schildbach.wallet.ui;
 
-import java.math.BigInteger;
-
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+
+import org.bitcoinj.core.Coin;
 
 import android.view.View;
 import de.schildbach.wallet.ExchangeRatesProvider.ExchangeRate;
@@ -116,7 +116,7 @@ public final class CurrencyCalculatorLink
 	}
 
 	@CheckForNull
-	public BigInteger getAmount()
+	public Coin getAmount()
 	{
 		if (exchangeDirection)
 		{
@@ -124,7 +124,7 @@ public final class CurrencyCalculatorLink
 		}
 		else if (exchangeRate != null)
 		{
-			final BigInteger localAmount = localAmountView.getAmount();
+			final Coin localAmount = localAmountView.getAmount();
 			return localAmount != null ? WalletUtils.btcValue(localAmount, exchangeRate.rate) : null;
 		}
 		else
@@ -149,7 +149,7 @@ public final class CurrencyCalculatorLink
 
 			if (exchangeDirection)
 			{
-				final BigInteger btcAmount = btcAmountView.getAmount();
+				final Coin btcAmount = btcAmountView.getAmount();
 				if (btcAmount != null)
 				{
 					localAmountView.setAmount(null, false);
@@ -159,7 +159,7 @@ public final class CurrencyCalculatorLink
 			}
 			else
 			{
-				final BigInteger localAmount = localAmountView.getAmount();
+				final Coin localAmount = localAmountView.getAmount();
 				if (localAmount != null)
 				{
 					btcAmountView.setAmount(null, false);
@@ -201,7 +201,7 @@ public final class CurrencyCalculatorLink
 		activeTextView().requestFocus();
 	}
 
-	public void setBtcAmount(@Nonnull final BigInteger amount)
+	public void setBtcAmount(@Nonnull final Coin amount)
 	{
 		final Listener listener = this.listener;
 		this.listener = null;

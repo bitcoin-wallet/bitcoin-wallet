@@ -36,6 +36,7 @@ import java.util.zip.GZIPInputStream;
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
 
+import org.bitcoinj.core.Coin;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -76,7 +77,7 @@ public class ExchangeRatesProvider extends ContentProvider
 		@Override
 		public String toString()
 		{
-			return getClass().getSimpleName() + '[' + currencyCode + ':' + GenericUtils.formatDebugValue(rate) + ']';
+			return getClass().getSimpleName() + '[' + currencyCode + ':' + Coin.valueOf(rate.longValue()).toPlainString() + ']';
 		}
 	}
 
@@ -318,7 +319,7 @@ public class ExchangeRatesProvider extends ContentProvider
 							{
 								try
 								{
-									final BigInteger rate = GenericUtils.parseCoin(rateStr, 0);
+									final BigInteger rate = BigInteger.valueOf((long) (Double.parseDouble(rateStr) * Coin.COIN.value));
 
 									if (rate.signum() > 0)
 									{
@@ -326,7 +327,7 @@ public class ExchangeRatesProvider extends ContentProvider
 										break;
 									}
 								}
-								catch (final ArithmeticException x)
+								catch (final NumberFormatException x)
 								{
 									log.warn("problem fetching {} exchange rate from {} ({}): {}", currencyCode, url, contentEncoding, x.getMessage());
 								}

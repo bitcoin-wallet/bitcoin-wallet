@@ -19,13 +19,25 @@ package de.schildbach.wallet.ui.send;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.math.BigInteger;
 
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.bitcoin.protocols.payments.Protos.Payment;
+import org.bitcoinj.core.Address;
+import org.bitcoinj.core.AddressFormatException;
+import org.bitcoinj.core.Coin;
+import org.bitcoinj.core.ECKey;
+import org.bitcoinj.core.NetworkParameters;
+import org.bitcoinj.core.Sha256Hash;
+import org.bitcoinj.core.Transaction;
+import org.bitcoinj.core.TransactionConfidence;
+import org.bitcoinj.core.TransactionConfidence.ConfidenceType;
+import org.bitcoinj.core.VerificationException;
+import org.bitcoinj.core.Wallet;
+import org.bitcoinj.core.Wallet.BalanceType;
+import org.bitcoinj.core.Wallet.SendRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -73,20 +85,6 @@ import android.widget.CursorAdapter;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
-
-import com.google.bitcoin.core.Address;
-import com.google.bitcoin.core.AddressFormatException;
-import com.google.bitcoin.core.ECKey;
-import com.google.bitcoin.core.NetworkParameters;
-import com.google.bitcoin.core.Sha256Hash;
-import com.google.bitcoin.core.Transaction;
-import com.google.bitcoin.core.TransactionConfidence;
-import com.google.bitcoin.core.TransactionConfidence.ConfidenceType;
-import com.google.bitcoin.core.VerificationException;
-import com.google.bitcoin.core.Wallet;
-import com.google.bitcoin.core.Wallet.BalanceType;
-import com.google.bitcoin.core.Wallet.SendRequest;
-
 import de.schildbach.wallet.AddressBookProvider;
 import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
@@ -111,6 +109,7 @@ import de.schildbach.wallet.ui.ProgressDialogFragment;
 import de.schildbach.wallet.ui.ScanActivity;
 import de.schildbach.wallet.ui.TransactionsListAdapter;
 import de.schildbach.wallet.util.Bluetooth;
+import de.schildbach.wallet.util.GenericUtils;
 import de.schildbach.wallet.util.Nfc;
 import de.schildbach.wallet.util.PaymentProtocol;
 import de.schildbach.wallet.util.WalletUtils;
@@ -804,7 +803,7 @@ public final class SendCoinsFragment extends Fragment
 
 	private boolean isAmountValid()
 	{
-		final BigInteger amount = paymentIntent.mayEditAmount() ? amountCalculatorLink.getAmount() : paymentIntent.getAmount();
+		final Coin amount = paymentIntent.mayEditAmount() ? amountCalculatorLink.getAmount() : paymentIntent.getAmount();
 
 		return amount != null && amount.signum() > 0;
 	}
@@ -864,7 +863,7 @@ public final class SendCoinsFragment extends Fragment
 		// final payment intent
 		final PaymentIntent finalPaymentIntent = paymentIntent.mergeWithEditedValues(amountCalculatorLink.getAmount(),
 				validatedAddress != null ? validatedAddress.address : null);
-		final BigInteger finalAmount = finalPaymentIntent.getAmount();
+		final Coin finalAmount = finalPaymentIntent.getAmount();
 
 		// prepare send request
 		final SendRequest sendRequest = finalPaymentIntent.toSendRequest();
@@ -954,14 +953,14 @@ public final class SendCoinsFragment extends Fragment
 			}
 
 			@Override
-			protected void onInsufficientMoney(@Nullable final BigInteger missing)
+			protected void onInsufficientMoney(@Nullable final Coin missing)
 			{
 				state = State.INPUT;
 				updateView();
 
-				final BigInteger estimated = wallet.getBalance(BalanceType.ESTIMATED);
-				final BigInteger available = wallet.getBalance(BalanceType.AVAILABLE);
-				final BigInteger pending = estimated.subtract(available);
+				final Coin estimated = wallet.getBalance(BalanceType.ESTIMATED);
+				final Coin available = wallet.getBalance(BalanceType.AVAILABLE);
+				final Coin pending = estimated.subtract(available);
 
 				final int btcShift = config.getBtcShift();
 				final int btcPrecision = config.getBtcMaxPrecision();
@@ -1012,7 +1011,7 @@ public final class SendCoinsFragment extends Fragment
 
 	private void handleEmpty()
 	{
-		final BigInteger available = wallet.getBalance(BalanceType.AVAILABLE);
+		final Coin available = wallet.getBalance(BalanceType.AVAILABLE);
 
 		amountCalculatorLink.setBtcAmount(available);
 

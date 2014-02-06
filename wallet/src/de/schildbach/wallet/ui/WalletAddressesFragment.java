@@ -23,6 +23,14 @@ import java.util.List;
 
 import javax.annotation.Nonnull;
 
+import org.bitcoinj.core.AbstractWalletEventListener;
+import org.bitcoinj.core.Address;
+import org.bitcoinj.core.ECKey;
+import org.bitcoinj.core.Wallet;
+import org.bitcoinj.core.WalletEventListener;
+import org.bitcoinj.uri.BitcoinURI;
+import org.bitcoinj.utils.Threading;
+
 import android.app.Activity;
 import android.app.ListFragment;
 import android.content.ContentResolver;
@@ -42,15 +50,6 @@ import android.view.View;
 import android.widget.BaseAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-
-import com.google.bitcoin.core.AbstractWalletEventListener;
-import com.google.bitcoin.core.Address;
-import com.google.bitcoin.core.ECKey;
-import com.google.bitcoin.core.Wallet;
-import com.google.bitcoin.core.WalletEventListener;
-import com.google.bitcoin.uri.BitcoinURI;
-import com.google.bitcoin.utils.Threading;
-
 import de.schildbach.wallet.AddressBookProvider;
 import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
@@ -108,7 +107,7 @@ public final class WalletAddressesFragment extends ListFragment
 		contentResolver.registerContentObserver(AddressBookProvider.contentUri(activity.getPackageName()), true, contentObserver);
 
 		wallet.addEventListener(walletListener, Threading.SAME_THREAD);
-		walletListener.onKeysAdded(null, null); // trigger initial load of keys
+		walletListener.onKeysAdded(null); // trigger initial load of keys
 
 		updateView();
 	}
@@ -293,9 +292,9 @@ public final class WalletAddressesFragment extends ListFragment
 	private final WalletEventListener walletListener = new AbstractWalletEventListener()
 	{
 		@Override
-		public void onKeysAdded(final Wallet w, final List<ECKey> keysAdded)
+		public void onKeysAdded(final List<ECKey> keysAdded)
 		{
-			final List<ECKey> keys = wallet.getKeys();
+			final List<ECKey> keys = wallet.getImportedKeys();
 
 			Collections.sort(keys, new Comparator<ECKey>()
 			{
