@@ -1,3 +1,7 @@
+v3.32
+
+* Support for BIP72 URI extension for payment protocol.
+
 v3.31
 
 * Default denomination has changed to millibitcoin (mBTC).
