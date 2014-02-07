@@ -859,10 +859,10 @@ public final class SendCoinsFragment extends SherlockFragment
 						}
 
 						@Override
-						public void onFail(final String message)
+						public void onFail(final int messageResId, final Object... messageArgs)
 						{
 							final DialogBuilder dialog = DialogBuilder.warn(activity, R.string.send_coins_fragment_direct_payment_failed_title);
-							dialog.setMessage(paymentIntent.paymentUrl + "\n" + message + "\n\n"
+							dialog.setMessage(paymentIntent.paymentUrl + "\n" + getString(messageResId, messageArgs) + "\n\n"
 									+ getString(R.string.send_coins_fragment_direct_payment_failed_msg));
 							dialog.setPositiveButton(R.string.button_retry, new DialogInterface.OnClickListener()
 							{

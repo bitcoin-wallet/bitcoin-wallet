@@ -48,6 +48,7 @@ import com.google.protobuf.ByteString;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.PaymentIntent;
 import de.schildbach.wallet.util.Bluetooth;
+import de.schildbach.wallet_test.R;
 
 /**
  * @author Andreas Schildbach
@@ -64,7 +65,7 @@ public abstract class DirectPaymentTask
 	{
 		void onResult(boolean ack);
 
-		void onFail(String message);
+		void onFail(int messageResId, Object... messageArgs);
 	}
 
 	public DirectPaymentTask(@Nonnull final Handler backgroundHandler, @Nonnull final ResultCallback resultCallback)
@@ -143,18 +144,17 @@ public abstract class DirectPaymentTask
 						else
 						{
 							final String responseMessage = connection.getResponseMessage();
-							final String message = "Error " + responseCode + (responseMessage != null ? ": " + responseMessage : "");
 
-							log.info("got http response: " + message);
+							log.info("got http error {}: {}", responseCode, responseMessage);
 
-							onFail(message);
+							onFail(R.string.error_http, responseCode, responseMessage);
 						}
 					}
 					catch (final IOException x)
 					{
 						log.info("problem sending", x);
 
-						onFail(x.getMessage());
+						onFail(R.string.error_io, x.getMessage());
 					}
 					finally
 					{
@@ -281,7 +281,7 @@ public abstract class DirectPaymentTask
 					{
 						log.info("problem sending", x);
 
-						onFail(x.getMessage());
+						onFail(R.string.error_io, x.getMessage());
 					}
 					finally
 					{
@@ -341,14 +341,14 @@ public abstract class DirectPaymentTask
 		});
 	}
 
-	protected void onFail(final String message)
+	protected void onFail(final int messageResId, final Object... messageArgs)
 	{
 		callbackHandler.post(new Runnable()
 		{
 			@Override
 			public void run()
 			{
-				resultCallback.onFail(message);
+				resultCallback.onFail(messageResId, messageArgs);
 			}
 		});
 	}
