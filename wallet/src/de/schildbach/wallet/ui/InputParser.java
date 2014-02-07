@@ -21,6 +21,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigInteger;
+import java.security.cert.TrustAnchor;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 
@@ -28,6 +29,11 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.bitcoin.protocols.payments.Protos;
+import org.spongycastle.asn1.ASN1String;
+import org.spongycastle.asn1.x500.AttributeTypeAndValue;
+import org.spongycastle.asn1.x500.RDN;
+import org.spongycastle.asn1.x500.X500Name;
+import org.spongycastle.asn1.x500.style.RFC4519Style;
 
 import android.content.Context;
 import android.content.DialogInterface.OnClickListener;
@@ -284,7 +290,7 @@ public abstract class InputParser
 			final PkiVerificationData verificationData = new PaymentSession(paymentRequest, true).pkiVerificationData;
 			pkiName = verificationData.name;
 			pkiOrgName = verificationData.orgName;
-			pkiCaName = verificationData.rootAuthority.getCAName();
+			pkiCaName = getNameFromCert(verificationData.rootAuthority);
 		}
 		else
 		{
@@ -325,6 +331,39 @@ public abstract class InputParser
 			throw new PaymentRequestException.InvalidPaymentURL("cannot handle payment url: " + paymentIntent.paymentUrl);
 
 		handlePaymentIntent(paymentIntent);
+	}
+
+	private String getNameFromCert(final TrustAnchor rootAuthority) throws PaymentRequestException.PkiVerificationException
+	{
+		final X500Name name = new X500Name(rootAuthority.getTrustedCert().getSubjectX500Principal().getName());
+		String commonName = null, org = null, location = null, country = null;
+		for (final RDN rdn : name.getRDNs())
+		{
+			final AttributeTypeAndValue pair = rdn.getFirst();
+			final String val = ((ASN1String) pair.getValue()).getString();
+
+			if (pair.getType().equals(RFC4519Style.cn))
+				commonName = val;
+			else if (pair.getType().equals(RFC4519Style.o))
+				org = val;
+			else if (pair.getType().equals(RFC4519Style.l))
+				location = val;
+			else if (pair.getType().equals(RFC4519Style.c))
+				country = val;
+		}
+
+		if (org != null && location != null && country != null)
+		{
+			return org + ", " + location + ", " + country;
+		}
+		else if (commonName != null)
+		{
+			return commonName;
+		}
+		else
+		{
+			return null;
+		}
 	}
 
 	protected abstract void handlePaymentIntent(@Nonnull PaymentIntent paymentIntent);
