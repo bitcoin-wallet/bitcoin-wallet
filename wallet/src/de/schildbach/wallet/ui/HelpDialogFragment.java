@@ -25,7 +25,6 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.text.Html;
-import de.schildbach.wallet_test.R;
 
 /**
  * @author Andreas Schildbach
@@ -71,7 +70,7 @@ public final class HelpDialogFragment extends DialogFragment
 
 		final DialogBuilder dialog = new DialogBuilder(activity);
 		dialog.setMessage(Html.fromHtml(getString(messageResId)));
-		dialog.setNeutralButton(R.string.button_dismiss, null);
+		dialog.singleDismissButton(null);
 		return dialog.create();
 	}
 }

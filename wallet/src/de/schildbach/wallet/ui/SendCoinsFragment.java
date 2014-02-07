@@ -860,9 +860,7 @@ public final class SendCoinsFragment extends SherlockFragment
 						@Override
 						public void onFail(final String message)
 						{
-							final DialogBuilder dialog = new DialogBuilder(activity);
-							dialog.setIcon(R.drawable.ic_menu_warning);
-							dialog.setTitle(R.string.send_coins_fragment_direct_payment_failed_title);
+							final DialogBuilder dialog = DialogBuilder.warn(activity, R.string.send_coins_fragment_direct_payment_failed_title);
 							dialog.setMessage(paymentIntent.paymentUrl + "\n" + message + "\n\n"
 									+ getString(R.string.send_coins_fragment_direct_payment_failed_msg));
 							dialog.setPositiveButton(R.string.button_retry, new DialogInterface.OnClickListener()
@@ -905,9 +903,7 @@ public final class SendCoinsFragment extends SherlockFragment
 				final int btcPrecision = config.getBtcMaxPrecision();
 				final String btcPrefix = config.getBtcPrefix();
 
-				final DialogBuilder dialog = new DialogBuilder(activity);
-				dialog.setIcon(R.drawable.ic_menu_warning);
-				dialog.setTitle(R.string.send_coins_fragment_insufficient_money_title);
+				final DialogBuilder dialog = DialogBuilder.warn(activity, R.string.send_coins_fragment_insufficient_money_title);
 				final StringBuilder msg = new StringBuilder(String.format(getString(R.string.send_coins_fragment_insufficient_money_msg1), btcPrefix
 						+ ' ' + GenericUtils.formatValue(missing, btcPrecision, btcShift)));
 				if (pending.signum() > 0)

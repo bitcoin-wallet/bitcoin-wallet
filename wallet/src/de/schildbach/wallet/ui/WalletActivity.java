@@ -532,9 +532,7 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 
 	private Dialog createChangeLogDialog()
 	{
-		final DialogBuilder dialog = new DialogBuilder(this);
-		dialog.setIcon(R.drawable.ic_menu_warning);
-		dialog.setTitle(R.string.wallet_precision_warning_dialog_title);
+		final DialogBuilder dialog = DialogBuilder.warn(this, R.string.wallet_precision_warning_dialog_title);
 		dialog.setMessage(R.string.wallet_precision_warning_dialog_msg);
 		dialog.setPositiveButton(R.string.button_dismiss, null);
 		dialog.setNegativeButton(R.string.button_settings, new DialogInterface.OnClickListener()
@@ -553,9 +551,7 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 		final Intent stickyIntent = registerReceiver(null, new IntentFilter(Intent.ACTION_DEVICE_STORAGE_LOW));
 		if (stickyIntent != null)
 		{
-			final DialogBuilder dialog = new DialogBuilder(this);
-			dialog.setIcon(R.drawable.ic_menu_warning);
-			dialog.setTitle(R.string.wallet_low_storage_dialog_title);
+			final DialogBuilder dialog = DialogBuilder.warn(this, R.string.wallet_low_storage_dialog_title);
 			dialog.setMessage(R.string.wallet_low_storage_dialog_msg);
 			dialog.setPositiveButton(R.string.wallet_low_storage_dialog_button_apps, new DialogInterface.OnClickListener()
 			{
@@ -708,9 +704,7 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 		final PackageManager pm = getPackageManager();
 		final Intent settingsIntent = new Intent(android.provider.Settings.ACTION_DATE_SETTINGS);
 
-		final DialogBuilder dialog = new DialogBuilder(this);
-		dialog.setIcon(R.drawable.ic_menu_warning);
-		dialog.setTitle(R.string.wallet_timeskew_dialog_title);
+		final DialogBuilder dialog = DialogBuilder.warn(this, R.string.wallet_timeskew_dialog_title);
 		dialog.setMessage(getString(R.string.wallet_timeskew_dialog_msg, diffMinutes));
 
 		if (pm.resolveActivity(settingsIntent, 0) != null)
@@ -736,9 +730,7 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 		final Intent marketIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(String.format(Constants.MARKET_APP_URL, getPackageName())));
 		final Intent binaryIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.BINARY_URL));
 
-		final DialogBuilder dialog = new DialogBuilder(this);
-		dialog.setIcon(R.drawable.ic_menu_warning);
-		dialog.setTitle(R.string.wallet_version_dialog_title);
+		final DialogBuilder dialog = DialogBuilder.warn(this, R.string.wallet_version_dialog_title);
 		dialog.setMessage(getString(R.string.wallet_version_dialog_msg));
 
 		if (pm.resolveActivity(marketIntent, 0) != null)
@@ -841,7 +833,7 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 			}
 			else
 			{
-				dialog.setNeutralButton(R.string.button_dismiss, null);
+				dialog.singleDismissButton(null);
 			}
 			dialog.show();
 
@@ -849,9 +841,7 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 		}
 		catch (final IOException x)
 		{
-			final DialogBuilder dialog = new DialogBuilder(this);
-			dialog.setIcon(R.drawable.ic_menu_warning);
-			dialog.setTitle(R.string.import_export_keys_dialog_failure_title);
+			final DialogBuilder dialog = DialogBuilder.warn(this, R.string.import_export_keys_dialog_failure_title);
 			dialog.setMessage(getString(R.string.import_keys_dialog_failure, x.getMessage()));
 			dialog.setPositiveButton(R.string.button_dismiss, null);
 			dialog.setNegativeButton(R.string.button_retry, new DialogInterface.OnClickListener()
@@ -911,11 +901,9 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 		}
 		catch (final IOException x)
 		{
-			final DialogBuilder dialog = new DialogBuilder(this);
-			dialog.setIcon(R.drawable.ic_menu_warning);
-			dialog.setTitle(R.string.import_export_keys_dialog_failure_title);
+			final DialogBuilder dialog = DialogBuilder.warn(this, R.string.import_export_keys_dialog_failure_title);
 			dialog.setMessage(getString(R.string.export_keys_dialog_failure, x.getMessage()));
-			dialog.setNeutralButton(R.string.button_dismiss, null);
+			dialog.singleDismissButton(null);
 			dialog.show();
 
 			log.error("problem writing private keys", x);

@@ -388,7 +388,7 @@ public abstract class InputParser
 		if (titleResId != 0)
 			dialog.setTitle(titleResId);
 		dialog.setMessage(context.getString(messageResId, messageArgs));
-		dialog.setNeutralButton(R.string.button_dismiss, dismissListener);
+		dialog.singleDismissButton(dismissListener);
 		dialog.show();
 	}
 
