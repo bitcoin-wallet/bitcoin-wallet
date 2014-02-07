@@ -4,11 +4,11 @@
 	<string name="help_wallet">
 <![CDATA[
 		<p>
-			The upper left part of the screen displays your selected Bitcoin address that other people need to know in order to send you Bitcoins.
+			The upper left part of the screen displays your selected digitalcoin address that other people need to know in order to send you digitalcoins.
 			Tap to change the address.
 		</p>
 		<p>
-			The QR code on the right contains your bitcoin address and can be used for scanning by another party.
+			The QR code on the right contains your digitalcoin address and can be used for scanning by another party.
 			Tap on the QR code to get a larger version of it.
 		</p>
 		<p>
@@ -31,15 +31,15 @@
 	<string name="help_request_coins">
 <![CDATA[
 		<p>
-			Using this dialog, you can request coins from another person (who should already have installed Bitcoin Wallet).
+			Using this dialog, you can request coins from another person (who should already have installed digitalcoin Wallet).
 		</p>
 		<p>
-			First, you can enter an amount of Bitcoins to request.
+			First, you can enter an amount of digitalcoins to request.
 		</p>
 		<p>
 			Then, you either have the generated QR code scanned by the other person.
 			Or, you can send your request to a remote person with the share button in the action bar.
-			The other person will have to click the Bitcoin URL.
+			The other person will have to click the digitalcoin URL.
 		</p>
 		<p>
 			Either way, the other person will be presented a dialog for sending coins with all fields pre-populated.
@@ -51,15 +51,15 @@
 <![CDATA[
 		<p>
 			You have initiated the process of sending coins.
-			You came here either through the main screen or by clicking on a Bitcoin URL in your mobile browser.
+			You came here either through the main screen or by clicking on a digitalcoin URL in your mobile browser.
 		</p>
 		<p>
-			First, you enter the Bitcoin address to pay to.
+			First, you enter the digitalcoin address to pay to.
 			The address will autocomplete from known entries in your address book.
-			You can also scan QR codes with Bitcoin addresses or Bitcoin requests by pressing the QR button in the action bar.
+			You can also scan QR codes with digitalcoin addresses or digitalcoin requests by pressing the QR button in the action bar.
 		</p>
 		<p>
-			Next, you can see how many Bitcoins you can spend at the moment.
+			Next, you can see how many digitalcoins you can spend at the moment.
 			Any difference to the balance from the main screen is still unconfirmed and can thus not yet be spent.
 		</p>
 		<p>
@@ -67,7 +67,7 @@
 		</p>
 		<p>
 			You can enter a payment while being offline.
-			It will be sent on next restart of Bitcoin Wallet.
+			It will be sent on next restart of digitalcoin Wallet.
 			If you want a payment to be processed as fast as possible, make sure you are well connected (i.e. on a WLAN).
 		</p>
 		<p>
@@ -83,8 +83,8 @@
 			<b>Important safety notes:</b>
 		</p>
 		<p>
-			Bitcoins are stored on the device.
-			<b>If you lose it, you\'ll lose your Bitcoins.</b>
+			digitalcoins are stored on the device.
+			<b>If you lose it, you\'ll lose your digitalcoins.</b>
 		</p>
 		<p>
 			This means you need to <b>back up your wallet</b>!
@@ -92,12 +92,12 @@
 			Keep your backup safe and remember the password.
 		</p>
 		<p>
-			<b>Before uninstalling</b> (or clearing app data/wiping your device), <b>transfer your Bitcoins to another wallet</b>.
-			Remaining Bitcoins will be lost.
+			<b>Before uninstalling</b> (or clearing app data/wiping your device), <b>transfer your digitalcoins to another wallet</b>.
+			Remaining digitalcoins will be lost.
 		</p>
 		<p>
 			<b>Payments are irreversible</b>.
-			If you send your Bitcoins into the void, there is almost no way to get them back.
+			If you send your digitalcoins into the void, there is almost no way to get them back.
 		</p>
 		<p>
 			<b>Keep your mobile device safe!</b>

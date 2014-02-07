@@ -25,7 +25,6 @@
 	<string name="send_coins_fragment_receiving_address_label">发送给</string>
 	<string name="send_coins_fragment_receiving_address_hint">输入地址或姓名</string>
 	<string name="send_coins_fragment_receiving_address_error">地址错误！</string>
-	<string name="send_coins_fragment_available_label">可用余额</string>
 	<string name="send_coins_fragment_pending">（%s比特币等待网络确认）</string>
 	<string name="send_coins_fragment_amount_label">总量</string>
 	<string name="send_coins_fragment_button_send">发送</string>

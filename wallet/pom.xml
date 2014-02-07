@@ -6,7 +6,8 @@
 
 	<artifactId>wallet</artifactId>
 	<packaging>apk</packaging>
-	<version>1.0.1.3</version>
+
+	<version>1.0.1.4</version>
 	<name>digitalcoin Wallet</name>
 
 	<parent>
@@ -53,7 +54,7 @@
 		<dependency>
 			<groupId>com.google</groupId>
 			<artifactId>digitalcoinj</artifactId>
-			<version>0.11</version>
+			<version>0.12-SNAPSHOT</version>
 		</dependency>
 
 		<!-- de.schildbach.wallet.integration.android.* -->

@@ -2,10 +2,12 @@
 <!-- Need to update this for the coin -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:tools="http://schemas.android.com/tools"
+
 	package="de.schildbach.wallet.digitalcoin"
 	android:installLocation="internalOnly"
-	android:versionCode="10025"
-	android:versionName="1.0.1.3" >
+	android:versionCode="10026"
+	android:versionName="1.0.1.4" >
+
 
 	<uses-sdk
 		android:minSdkVersion="10"
@@ -102,6 +104,20 @@
 				<action android:name="android.nfc.action.NDEF_DISCOVERED" />
 
 				<data android:scheme="bitcoin" />
+
+				<category android:name="android.intent.category.DEFAULT" />
+			</intent-filter>
+			<intent-filter android:label="@string/send_coins_activity_title">
+				<action android:name="android.intent.action.VIEW" />
+
+				<data android:mimeType="application/bitcoin-paymentrequest" />
+
+				<category android:name="android.intent.category.DEFAULT" />
+			</intent-filter>
+			<intent-filter android:label="@string/send_coins_activity_title" >
+				<action android:name="android.nfc.action.NDEF_DISCOVERED" />
+
+				<data android:mimeType="application/bitcoin-paymentrequest" />
 
 				<category android:name="android.intent.category.DEFAULT" />
 			</intent-filter>

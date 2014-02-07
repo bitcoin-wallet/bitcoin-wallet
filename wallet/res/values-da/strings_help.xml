@@ -4,12 +4,12 @@
 	<string name="help_wallet">
 <![CDATA[
 		<p>
-			Den øverste venstre del af skærmen viser din valgte Bitcoin-adresse, som andre har brug for at vide for at sende
-			dig Bitcoins.
+			Den øverste venstre del af skærmen viser din valgte digitalcoin-adresse, som andre har brug for at vide for at sende
+			dig digitalcoins.
 			Berør for at ændre adresse.
 		</p>
 		<p>
-			QR-koden til højre indeholder din bitcoin-adresse og kan scannes af en anden person.
+			QR-koden til højre indeholder din digitalcoin-adresse og kan scannes af en anden person.
 			Berør QR-koden for at få en større version af den.
 		</p>
 		<p>
@@ -33,15 +33,15 @@
 	<string name="help_request_coins">
 <![CDATA[
 		<p>
-			Ved at bruge denne dialog kan du forespørge mønter fra en anden person (som allerede skal have installeret Bitcoin Wallet).
+			Ved at bruge denne dialog kan du forespørge mønter fra en anden person (som allerede skal have installeret digitalcoin Wallet).
 		</p>
 		<p>
-			First kan du indtaste et antal Bitcoins til forespørgslen.
+			First kan du indtaste et antal digitalcoins til forespørgslen.
 		</p>
 		<p>
 			Bagefter får du enten QR-koden scannet af den anden person,
 			eller du kan sende din forespørgsel til en person over længere afstand med Del-knappen i action-bjælken.
-			Den anden person skal klikke på Bitcoin-URL\'en.
+			Den anden person skal klikke på digitalcoin-URL\'en.
 		</p>
 		<p>
 			Den anden person vil præsenteres for en dialog for afsendelse af mønter med alle felter forudfyldt.
@@ -53,15 +53,15 @@
 <![CDATA[
 		<p>
 			Du har startet processen for at sende mønter.
-			Du kom hertil enten via hovedsskærmen eller ved at klikke på en Bitcoin-URL i din molbilbrowser.
+			Du kom hertil enten via hovedsskærmen eller ved at klikke på en digitalcoin-URL i din molbilbrowser.
 		</p>
 		<p>
-			Først skriver du den Bitcoin-adresse, du vil betale til.
+			Først skriver du den digitalcoin-adresse, du vil betale til.
 			Adressen vil autoudfyldes ud fra kendte indgange i din adressebog.
-			Du kan også scanne QR-koder med Bitcoin-adresser eller Bitcoin-forespørgsler ved at klikke på QR-knappen i action-bjælken.
+			Du kan også scanne QR-koder med digitalcoin-adresser eller digitalcoin-forespørgsler ved at klikke på QR-knappen i action-bjælken.
 		</p>
 		<p>
-			Dernæst kan du se, hvor mange Bitcoins du kan bruge i øjeblikket.
+			Dernæst kan du se, hvor mange digitalcoins du kan bruge i øjeblikket.
 			En evt. difference til saldoen fra hovedskærmen er stadig ubekræftet og kan dermed ikke bruges.
 		</p>
 		<p>
@@ -69,7 +69,7 @@
 		</p>
 		<p>
 			Du kan indtaste et beløb, mens du er offline.
-			Det vil blive sendt, næste gang Bitcoin Wallet genstartes.
+			Det vil blive sendt, næste gang digitalcoin Wallet genstartes.
 			Hvis du vil have, at en betaling går igennem så hurtigt som muligt, så vær sikker på, at du er ordentligt forbundet (dvs. på et WLAN).
 		</p>
 		<p>
@@ -85,8 +85,8 @@
 			<b>Vigtige bemærkninger om sikkerhed:</b>
 		</p>
 		<p>
-			Bitcoins gemmes på enheden.
-			<b>Hvis du mister den, mister du dine Bitcoins.</b>
+			digitalcoins gemmes på enheden.
+			<b>Hvis du mister den, mister du dine digitalcoins.</b>
 		</p>
 		<p>
 			Dette betyder, at du er nødt til at <b>sikkerhedskopiere din tegnebog</b>!
@@ -94,12 +94,12 @@
 			Opbevar din sikkerhedskopi sikkert og husk kodeordet.
 		</p>
 		<p>
-			<b>Før afinstallering</b> (eller sletning af appdata/nulstilling af enheden til fabriksindstillinger), <b>overfør dine Bitcoins til en anden tegnebog</b>.
-			Tilbageværende Bitcoins mistes.
+			<b>Før afinstallering</b> (eller sletning af appdata/nulstilling af enheden til fabriksindstillinger), <b>overfør dine digitalcoins til en anden tegnebog</b>.
+			Tilbageværende digitalcoins mistes.
 		</p>
 		<p>
 			<b>Betalinger kan ikke fortrydes</b>.
-			Hvis du sender dine Bitcoins ud i det blå, er der stort set ingen måde at få dem tilbage.
+			Hvis du sender dine digitalcoins ud i det blå, er der stort set ingen måde at få dem tilbage.
 		</p>
 		<p>
 			<b>Opbevar din mobile enhed sikkert!</b>

@@ -35,7 +35,6 @@ import de.schildbach.wallet.util.GenericUtils;
 import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet.digitalcoin.R;
 
-
 /**
  * @author Andreas Schildbach
  */

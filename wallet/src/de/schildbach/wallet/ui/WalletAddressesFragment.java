@@ -24,17 +24,14 @@ import java.util.List;
 import javax.annotation.Nonnull;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.database.ContentObserver;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.preference.PreferenceManager;
 import android.text.ClipboardManager;
 import android.view.View;
 import android.widget.BaseAdapter;
@@ -52,8 +49,10 @@ import com.google.bitcoin.core.ECKey;
 import com.google.bitcoin.core.Wallet;
 import com.google.bitcoin.core.WalletEventListener;
 import com.google.bitcoin.uri.BitcoinURI;
+import com.google.bitcoin.utils.Threading;
 
 import de.schildbach.wallet.AddressBookProvider;
+import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.util.BitmapFragment;
@@ -68,9 +67,9 @@ public final class WalletAddressesFragment extends SherlockListFragment
 {
 	private AddressBookActivity activity;
 	private WalletApplication application;
+	private Configuration config;
 	private Wallet wallet;
 	private ContentResolver contentResolver;
-	private SharedPreferences prefs;
 
 	private WalletAddressesAdapter adapter;
 
@@ -81,9 +80,9 @@ public final class WalletAddressesFragment extends SherlockListFragment
 
 		this.activity = (AddressBookActivity) activity;
 		this.application = (WalletApplication) activity.getApplication();
+		this.config = application.getConfiguration();
 		this.wallet = application.getWallet();
 		this.contentResolver = activity.getContentResolver();
-		this.prefs = PreferenceManager.getDefaultSharedPreferences(activity);
 	}
 
 	@Override
@@ -108,7 +107,7 @@ public final class WalletAddressesFragment extends SherlockListFragment
 
 		contentResolver.registerContentObserver(AddressBookProvider.contentUri(activity.getPackageName()), true, contentObserver);
 
-		wallet.addEventListener(walletListener);
+		wallet.addEventListener(walletListener, Threading.SAME_THREAD);
 		walletListener.onKeysAdded(null, null); // trigger initial load of keys
 
 		updateView();
@@ -147,18 +146,21 @@ public final class WalletAddressesFragment extends SherlockListFragment
 
 	private void handleAddAddress()
 	{
-		new AlertDialog.Builder(activity).setTitle(R.string.wallet_addresses_fragment_add_dialog_title)
-				.setMessage(R.string.wallet_addresses_fragment_add_dialog_message)
-				.setPositiveButton(R.string.button_add, new DialogInterface.OnClickListener()
-				{
-					@Override
-					public void onClick(final DialogInterface dialog, final int which)
-					{
-						application.addNewKeyToWallet();
+		final DialogBuilder dialog = new DialogBuilder(activity);
+		dialog.setTitle(R.string.wallet_addresses_fragment_add_dialog_title);
+		dialog.setMessage(R.string.wallet_addresses_fragment_add_dialog_message);
+		dialog.setPositiveButton(R.string.button_add, new DialogInterface.OnClickListener()
+		{
+			@Override
+			public void onClick(final DialogInterface dialog, final int which)
+			{
+				application.addNewKeyToWallet();
 
-						activity.updateFragments();
-					}
-				}).setNegativeButton(R.string.button_cancel, null).show();
+				activity.updateFragments();
+			}
+		});
+		dialog.setNegativeButton(R.string.button_cancel, null);
+		dialog.show();
 	}
 
 	@Override
@@ -263,8 +265,9 @@ public final class WalletAddressesFragment extends SherlockListFragment
 
 			private void handleDefault(@Nonnull final Address address)
 			{
-				prefs.edit().putString(Constants.PREFS_KEY_SELECTED_ADDRESS, address.toString()).commit();
-				adapter.setSelectedAddress(address.toString());
+				final String addressStr = address.toString();
+				config.setSelectedAddress(addressStr);
+				adapter.setSelectedAddress(addressStr);
 			}
 		});
 	}

@@ -45,7 +45,7 @@
 	<string name="wallet_low_storage_dialog_button_apps">Uygulama yönetimi</string>
 	<string name="wallet_timeskew_dialog_title">Saat ayarınızı kontrol ediniz!</string>
 	<string name="wallet_timeskew_dialog_msg">Cihazınızın saati %d dakika gecikmiş ya da ileride. Muhtemelen bu problem sebebiyle digitalcoin alamayacaksınız ve yollayamayacaksınız.\n\nSaat ve zaman diliminizi kontrol edip düzeltmeniz gerekir.</string>
-	<string name="wallet_timeskew_dialog_button_settings">Ayarlar</string>
+
 	<string name="wallet_version_dialog_title">Yeni bir sürüm mevcuttur!</string>
 	<string name="wallet_version_dialog_msg">Bu sürüm önemli hata düzeltmeleri içerir. Detaylar için Google Play\'de değişikliklere bakınız.</string>
 	<string name="wallet_version_dialog_button_market">Google Play</string>
@@ -58,14 +58,9 @@
 	<string name="send_coins_fragment_receiving_address_error">Geçersiz digitalcoin adresi!</string>
 	<string name="send_coins_fragment_receiving_address_error_cross_network">%s adresi bu cüzdanla kullanılamaz!</string>
 	<string name="send_coins_fragment_receiving_address_error_cross_network_unknown">Bilinmeyen bir şebekenin adresi bu cüzdanla kullanılamaz!</string>
-	<string name="send_coins_fragment_available_label">Harcamak için kullanılabilir</string>
 	<string name="send_coins_fragment_pending">(%s DGC teyit bekliyor)</string>
+
 	<string name="send_coins_fragment_amount_label">Ödenecek miktar</string>
-	<string name="send_coins_fragment_amount_empty">Miktarı buraya giriniz</string>
-	<string name="send_coins_fragment_amount_error">Geçersiz miktar!</string>
-	<string name="send_coins_fragment_bluetooth_enable">Ödemeyi Bluetooth ile de gönder</string>
-	<string name="send_coins_fragment_bluetooth_ack">Ödemeniz Bluetooth vasıtasıyla başarıyla gönderildi.</string>
-	<string name="send_coins_fragment_bluetooth_nack">Bluetooth aracılığıyla ödemeniz reddedildi.</string>
 	<string name="send_coins_fragment_button_send">Gönder</string>
 	<string name="send_coins_fragment_button_back">Geri</string>
 	<string name="send_coins_preparation_msg">İmzalanıyor…</string>
@@ -100,9 +95,9 @@
 	<string name="address_book_context_copy_to_clipboard_title">Panoya kopyala</string>
 	<string name="address_book_context_default_title">Varsayılan adres olarak tanımla</string>
 	<string name="address_book_options_paste_from_clipboard_title">Panodan yapıştır</string>
-	<string name="address_book_options_copy_from_clipboard_msg_empty">Pano boş</string>
+	<string name="address_book_options_paste_from_clipboard_empty">Pano boş</string>
 	<string name="address_book_options_scan_title">Adresi tara</string>
-	<string name="address_book_row_message_compromised_key">Bu adres tehlikededir. Onu artık bitcoin almak için kullanmamalısınız.</string>
+	<string name="address_book_row_message_compromised_key">Bu adres tehlikededir. Onu artık digitalcoin almak için kullanmamalısınız.</string>
 	<string name="edit_address_book_entry_dialog_title_add">Adres ekle</string>
 	<string name="edit_address_book_entry_dialog_title_edit">Adres düzenle</string>
 	<string name="edit_address_book_entry_dialog_address_label">Adres</string>
@@ -141,12 +136,12 @@
 	<string name="export_keys_dialog_failure">Özel anahtarlarınız yedeklenemedi:\n%s</string>
 	<string name="export_keys_dialog_button_archive">Arşivle</string>
 	<string name="export_keys_dialog_mail_subject">digitalcoin Wallet özel anahtar yedeklemesi</string>
-	<string name="export_keys_dialog_mail_text">Eklenen şifreli dosya Bitcoin özel anahtarlarını içermektedir ve güvenli bir yerde saklanmalıdır. Şifreleme parolanızı unutmayınız!</string>
+	<string name="export_keys_dialog_mail_text">Eklenen şifreli dosya digitalcoin özel anahtarlarını içermektedir ve güvenli bir yerde saklanmalıdır. Şifreleme parolanızı unutmayınız!</string>
 	<string name="export_keys_dialog_mail_intent_chooser">Anahtarları şunu kullanarak arşivle…</string>
 	<string name="import_export_keys_dialog_password">parola</string>
 	<string name="import_export_keys_dialog_show">Parolayı göster</string>
 	<string name="import_export_keys_dialog_failure_title">Hata</string>
-	<string name="import_keys_intent_filter_action">Bitcoin anahtar geri yükleme</string>
+	<string name="import_keys_intent_filter_action">digitalcoin anahtar geri yükleme</string>
 	<string name="scan_camera_problem_dialog_title">Üzgünüz</string>
 	<string name="scan_camera_problem_dialog_message">Fotoğraf makinesinde bir problem var. Muhtemelen cihazınızı yeniden başlatmanız gerekiyor.</string>
 	<string name="input_parser_cannot_classify">Girdi sınıflandırılamadı:\n%s</string>
@@ -213,6 +208,7 @@
 	<string name="button_send_coins">digitalcoin gönder</string>
 	<string name="button_scan">Tara</string>
 	<string name="button_edit_address">Adres ilâve et/düzenle</string>
+	<string name="button_settings">Ayarlar</string>
 	<string name="time_today">bugün</string>
 	<string name="address_unlabeled">(etiketsiz)</string>
 

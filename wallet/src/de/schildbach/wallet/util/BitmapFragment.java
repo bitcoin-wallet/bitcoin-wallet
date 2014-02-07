@@ -30,6 +30,7 @@ import android.view.Window;
 import android.widget.ImageView;
 import de.schildbach.wallet.digitalcoin.R;
 
+
 /**
  * @author Andreas Schildbach
  */

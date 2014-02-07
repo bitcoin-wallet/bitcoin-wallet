@@ -17,7 +17,6 @@
 
 package de.schildbach.wallet.ui;
 
-import java.math.BigInteger;
 import java.util.ArrayList;
 
 import javax.annotation.Nonnull;
@@ -46,11 +45,13 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.google.bitcoin.core.Address;
+import com.google.bitcoin.core.AddressFormatException;
 import com.google.bitcoin.core.Transaction;
 import com.google.bitcoin.uri.BitcoinURI;
 
 import de.schildbach.wallet.AddressBookProvider;
 import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.PaymentIntent;
 import de.schildbach.wallet.ui.InputParser.StringInputParser;
 import de.schildbach.wallet.util.BitmapFragment;
 import de.schildbach.wallet.util.Qr;
@@ -129,7 +130,7 @@ public final class SendingAddressesFragment extends SherlockListFragment impleme
 			new StringInputParser(input)
 			{
 				@Override
-				protected void bitcoinRequest(final Address address, final String addressLabel, final BigInteger amount, final String bluetoothMac)
+				protected void handlePaymentIntent(final PaymentIntent paymentIntent)
 				{
 					// workaround for "IllegalStateException: Can not perform this action after onSaveInstanceState"
 					handler.postDelayed(new Runnable()
@@ -137,13 +138,16 @@ public final class SendingAddressesFragment extends SherlockListFragment impleme
 						@Override
 						public void run()
 						{
-							EditAddressBookEntryFragment.edit(getFragmentManager(), address.toString());
+							if (paymentIntent.hasAddress())
+								EditAddressBookEntryFragment.edit(getFragmentManager(), paymentIntent.getAddress().toString());
+							else
+								dialog(activity, null, R.string.address_book_options_scan_title, R.string.address_book_options_scan_invalid);
 						}
 					}, 500);
 				}
 
 				@Override
-				protected void directTransaction(final Transaction transaction)
+				protected void handleDirectTransaction(final Transaction transaction)
 				{
 					cannotClassify(input);
 				}
@@ -195,13 +199,17 @@ public final class SendingAddressesFragment extends SherlockListFragment impleme
 			new StringInputParser(input)
 			{
 				@Override
-				protected void bitcoinRequest(final Address address, final String addressLabel, final BigInteger amount, final String bluetoothMac)
+				protected void handlePaymentIntent(final PaymentIntent paymentIntent)
 				{
-					EditAddressBookEntryFragment.edit(getFragmentManager(), address.toString());
+					if (paymentIntent.hasAddress())
+						EditAddressBookEntryFragment.edit(getFragmentManager(), paymentIntent.getAddress().toString());
+					else
+						dialog(activity, null, R.string.address_book_options_paste_from_clipboard_title,
+								R.string.address_book_options_paste_from_clipboard_invalid);
 				}
 
 				@Override
-				protected void directTransaction(final Transaction transaction)
+				protected void handleDirectTransaction(final Transaction transaction)
 				{
 					cannotClassify(input);
 				}
@@ -215,7 +223,7 @@ public final class SendingAddressesFragment extends SherlockListFragment impleme
 		}
 		else
 		{
-			activity.toast(R.string.address_book_options_copy_from_clipboard_msg_empty);
+			activity.toast(R.string.address_book_options_paste_from_clipboard_empty);
 		}
 	}
 
@@ -307,7 +315,15 @@ public final class SendingAddressesFragment extends SherlockListFragment impleme
 
 	private void handleSend(final String address)
 	{
-		SendCoinsActivity.start(activity, address, null, null, null);
+		try
+		{
+			SendCoinsActivity.start(activity, PaymentIntent.fromAddress(address, null));
+		}
+		catch (final AddressFormatException x)
+		{
+			// cannot happen, address was picked from address book
+			throw new RuntimeException(x);
+		}
 	}
 
 	private void handleRemove(final String address)

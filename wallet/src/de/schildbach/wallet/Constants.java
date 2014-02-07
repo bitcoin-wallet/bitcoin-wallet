@@ -18,7 +18,6 @@
 package de.schildbach.wallet;
 
 import java.io.File;
-import java.math.BigInteger;
 import java.nio.charset.Charset;
 
 import android.os.Environment;
@@ -29,6 +28,7 @@ import com.google.bitcoin.params.MainNetParams;
 import com.google.bitcoin.params.TestNet3Params;
 import com.google.bitcoin.core.CoinDefinition;
 import de.schildbach.wallet.digitalcoin.R;
+
 
 
 /**
@@ -59,7 +59,9 @@ public class Constants
 	public static final String EXPLORE_BASE_URL = NETWORK_PARAMETERS.getId().equals(NetworkParameters.ID_MAINNET) ? EXPLORE_BASE_URL_PROD
 			: EXPLORE_BASE_URL_TEST;
 
-
+	public static final String MIMETYPE_PAYMENTREQUEST = "application/"+ CoinDefinition.coinTicker.toLowerCase() +"-paymentrequest"; // BIP 71
+	public static final String MIMETYPE_PAYMENT = "application/"+ CoinDefinition.coinTicker.toLowerCase() +"-payment"; // BIP 71
+	public static final String MIMETYPE_PAYMENTACK = "application/"+ CoinDefinition.coinTicker.toLowerCase() +"-paymentack"; // BIP 71
 	public static final String MIMETYPE_TRANSACTION = "application/x-" + CoinDefinition.coinTicker.toLowerCase() + "tx";
 
 	public static final int MAX_NUM_CONFIRMATIONS = 7;
@@ -76,6 +78,7 @@ public class Constants
 	public static final char CHAR_HAIR_SPACE = '\u200a';
 	public static final char CHAR_THIN_SPACE = '\u2009';
 	public static final char CHAR_ALMOST_EQUAL_TO = '\u2248';
+	public static final char CHAR_CHECKMARK = '\u2713';
 	public static final String CURRENCY_PLUS_SIGN = "+" + CHAR_THIN_SPACE;
 	public static final String CURRENCY_MINUS_SIGN = "-" + CHAR_THIN_SPACE;
 	public static final String PREFIX_ALMOST_EQUAL_TO = Character.toString(CHAR_ALMOST_EQUAL_TO) + CHAR_THIN_SPACE;
@@ -94,6 +97,7 @@ public class Constants
 
 	public static final String LICENSE_URL = "http://www.gnu.org/licenses/gpl-3.0.txt";
     public static final String FORKED_FROM_SOURCE = "based on bitcoin-wallet 3.30\n";
+    public static final String FORKED_FROM_SOURCE_BITCOINJ = "based on bitcoinj 0.12\n";
 	public static final String SOURCE_URL = "https://github.com/HashEngineering/" + CoinDefinition.coinName + "-wallet";
 	public static final String BINARY_URL = "http://code.google.com/p/bitcoin-wallet/downloads/list";
 	public static final String CREDITS_BITCOINJ_URL = "https://github.com/HashEngineering/" + CoinDefinition.coinName + "j";
@@ -114,28 +118,11 @@ public class Constants
 	public static final String VERSION_URL = "http://wallet.schildbach.de/version";
 	public static final int HTTP_TIMEOUT_MS = 15 * (int) DateUtils.SECOND_IN_MILLIS;
 
-	public static final String PREFS_KEY_LAST_VERSION = "last_version";
-	public static final String PREFS_KEY_LAST_USED = "last_used";
-	public static final String PREFS_KEY_BEST_CHAIN_HEIGHT_EVER = "best_chain_height_ever";
-	public static final String PREFS_KEY_ALERT_OLD_SDK_DISMISSED = "alert_old_sdk_dismissed";
-	public static final String PREFS_KEY_REMIND_BACKUP = "remind_backup";
-
-	public static final String PREFS_KEY_CONNECTIVITY_NOTIFICATION = "connectivity_notification";
-	public static final String PREFS_KEY_SELECTED_ADDRESS = "selected_address";
-	public static final String PREFS_KEY_EXCHANGE_CURRENCY = "exchange_currency";
-	public static final String PREFS_KEY_TRUSTED_PEER = "trusted_peer";
-	public static final String PREFS_KEY_TRUSTED_PEER_ONLY = "trusted_peer_only";
-	public static final String PREFS_KEY_LABS_BLUETOOTH_OFFLINE_TRANSACTIONS = "labs_bluetooth_offline_transactions";
-	public static final String PREFS_KEY_BTC_PRECISION = "btc_precision";
-	public static final String PREFS_DEFAULT_BTC_PRECISION = "4";
-	public static final String PREFS_KEY_DISCLAIMER = "disclaimer";
-
 	public static final long LAST_USAGE_THRESHOLD_JUST_MS = DateUtils.HOUR_IN_MILLIS;
 	public static final long LAST_USAGE_THRESHOLD_RECENTLY_MS = 2 * DateUtils.DAY_IN_MILLIS;
 
 	public static final int SDK_JELLY_BEAN = 16;
 	public static final int SDK_JELLY_BEAN_MR2 = 18;
-	public static final int SDK_KITKAT = 19;
 
 	public static final int MEMORY_CLASS_LOWEND = 48;
 

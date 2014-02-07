@@ -1,0 +1,115 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+
+	<string name="help_wallet">
+<![CDATA[
+		<p>
+			La supra maldekstra parto de la ekrano montras vian elektitan Bitmonadreson, ke aliaj homoj bezonas scii por sendi al vi Bitmonojn.
+			Frapetu por ŝanĝi la adreson.
+		</p>
+		<p>
+			La QR kodo dekstre enhavas vian bitmonadreson kaj povas esti uzata por skanado de alia partio.
+			Frapetu sur la QR kodo por obteni pli grandan version.
+		</p>
+		<p>
+			En la mezo de la ekrano, via saldo estas montrata.
+			La valoro de via monujo ankaŭ montras en elektita loka valuto.
+			Frapetu sur saldo por montri liston de tutaj lokaj valutoj, kaj frapetu sur unu de la valutoj por elekti ĝin kiel defaŭlto.
+		</p>
+		<p>
+			La malsupro de la ekrano estas kovrita per via transakcia listo, kiu estas malplena je la komenco.
+			Atendantaj transakcioj grizas ĝis ili estas konfirmitaj.
+			Frapetu sur enskribigo por aldoni la sendintan aŭ ricevintan adreson al la adreslibro.
+			Frapegu maldekstran aŭ dekstran por apliki filtrilojn al la listo.
+		</p>
+		<p>
+			Vi povas sendi aŭ peti monojn per frapetadi la butonojn en la agejo.
+			Pli da opcioj estas disponeblaj en la opcioj menuo.
+		</p>
+	]]>
+	</string>
+	<string name="help_request_coins">
+<![CDATA[
+		<p>
+			Uzante ĉi tiun dialogon, vi povas peti monon de alia persono (kiu devus jam esti instalita BitmonMonujo).
+		</p>
+		<p>
+			Unue, vi povas eniri kvanton de Bitmonj por peti.
+		</p>
+		<p>
+			Tiam, vi devas havi la generitan QR-kodon skanitan de la alia persono. 
+			Aŭ, vi povas sendi vian peton al fora persono kun la "kunhavigi" butonon en la agujo.
+			La alia persono devos klaki la Bitmonon URLon.
+		</p>
+		<p>
+			Ĉiaokaze, la alia persono estos prezentita dialogo por sendi monon kun ĉiuj kampoj jam plenigis.
+			Se ŝi akceptas, ĉiuj ŝi bezonas fari estas sendi la pagon.
+		</p>
+	]]>
+	</string>
+	<string name="help_send_coins">
+<![CDATA[
+		<p>
+			Vi komencis la procezon de sendado de mono.
+			Vi venis ĉi tien tra la ĉefa ekrano aŭ klakante sur Bitmona URL en via poŝtelefonretumilo.
+		</p>
+		<p>
+			Unue, vi enigi la Bitmonadreson por pagi al.
+			La adreso aŭtomate kompletigos el konataj enigoj en via adreslibro.
+			Vi povas ankaŭ skani QR-kodojn kun Bitmonadresoj aŭ Bitmonaj petoj per klaki la QR-butonon en la agujo.
+		</p>
+		<p>
+			Tuj poste, vi povas vidi kiom da Bitmonoj vi povas elspezi nune.
+			Ajna diferenco al la saldo de la ĉefa ekrano estas ankoraŭ nekonfirmitaj kaj povas tial ankoraŭ ne elspezi.
+		</p>
+		<p>
+			Lasta, vi enigas la sumon por pagi.
+		</p>
+		<p>
+			Vi povas enigi pagon senkonekte.
+			Ĝi senditos ĉe rekomenco de BitmonMonujo.
+			Se vi volas pagon faritan, kiel rapide, kiel eblece, estu certe, ke vi estas bon konekita (ezkemple, WLAN).
+		</p>
+		<p>
+			Noto:
+			Pagoj estas neinversigeblaj!
+			Ĉiam kontrolu la ricevantadreson.
+		</p>
+	]]>
+	</string>
+	<string name="help_safety">
+<![CDATA[
+		<p>
+			<b>Gravaj sekurecaj notoj:</b>
+		</p>
+		<p>
+			Bitmonoj estas stokitaj sur l\'aparato.
+			<b>Se vi perdas ĝin, vi perdos viajn Bitmonojn.</b>
+		</p>
+		<p>
+			Tio signifas ke vi bezonas <b>savkopii vian monujon</b>!
+			Uzu la en-aplikaĵo savkopiilo, anstataŭ alia savkopiilo.
+			Konservu vian savkopion sekuran kaj memoru la pasvorton.
+		</p>
+		<p>
+			<b>Antaŭ malinstalado</b> (aŭ purigado de aplikaĵaj datumoj/purigi vian aparaton), <b>transdonu viajn Bitmonojn al alia monujo</b>.
+			La restoj da Bitmonoj perdiĝos.
+		</p>
+		<p>
+			<b>Pagoj estas neinversigeblaj</b>.
+			Se vi sendas viajn Bitmonojn en l\'abismon, estas preskaŭ ne ebli rehavi ilin.
+		</p>
+		<p>
+			<b>Konservu vian moveblan aparaton sekuran!</b>
+			Ne radiku vian aparaton.
+			Nur instali aplikaĵojn, ke vi plene fidas.
+			Malicaj aplikaĵoj povus esti provante ŝteli vian monujon.
+		</p>
+		<p>
+			Tenu la riskon malalte!
+			<b>Nur uzi kun malgrandaj kvantoj</b> por ĉiutaga uzo.
+		</p>
+	]]>
+	</string>
+
+</resources>

@@ -17,17 +17,15 @@
 
 package de.schildbach.wallet.ui;
 
-import java.math.BigInteger;
-
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.google.bitcoin.core.Address;
 import com.google.bitcoin.core.Transaction;
 
+import de.schildbach.wallet.PaymentIntent;
 import de.schildbach.wallet.ui.InputParser.StringInputParser;
 
 /**
@@ -55,16 +53,15 @@ public final class SendCoinsQrActivity extends AbstractOnDemandServiceActivity
 			new StringInputParser(input)
 			{
 				@Override
-				protected void bitcoinRequest(final Address address, final String addressLabel, final BigInteger amount, final String bluetoothMac)
+				protected void handlePaymentIntent(final PaymentIntent paymentIntent)
 				{
-					SendCoinsActivity
-							.start(SendCoinsQrActivity.this, address != null ? address.toString() : null, addressLabel, amount, bluetoothMac);
+					SendCoinsActivity.start(SendCoinsQrActivity.this, paymentIntent);
 
 					SendCoinsQrActivity.this.finish();
 				}
 
 				@Override
-				protected void directTransaction(final Transaction transaction)
+				protected void handleDirectTransaction(final Transaction transaction)
 				{
 					processDirectTransaction(transaction);
 

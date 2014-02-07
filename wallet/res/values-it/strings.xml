@@ -42,8 +42,9 @@
 	<string name="wallet_low_storage_dialog_msg">digitalcoin Wallet usa una memoria interna per memorizzare transazioni e blocchi. Se si esaurisce lo spazio, smetterà di funzionare e i tuoi digitalcoin saranno a rischio!\n\nVuoi aprire il Gestore delle Applicazioni per disinstallare app non necessarie?</string>
 	<string name="wallet_low_storage_dialog_button_apps">Gestisci applicazioni</string>
 	<string name="wallet_timeskew_dialog_title">Controlla data e ora!</string>
-	<string name="wallet_timeskew_dialog_msg">Il tuo dispositivo è spento da %d minuti. Probabilmente non puoi inviare o ricevere digitalcoin a causa di questo problema.\n\nDovresti controllare e correggere le tue impostazioni dell\'orario e del fuso orario.</string>
-	<string name="wallet_timeskew_dialog_button_settings">Impostazioni</string>
+
+	<string name="wallet_timeskew_dialog_msg">Il tuo dispositivo è spento da %d minuti. Probabilmente non puoi inviare o ricevere digitalconi a causa di questo problema.\n\nDovresti controllare e correggere le tue impostazioni dell\'orario e del fuso orario.</string>
+
 	<string name="wallet_version_dialog_title">Una nuova versione è disponibile!</string>
 	<string name="wallet_version_dialog_msg">Questa versione ha corretto bug importanti. Per dettagli, guarda il change log su Google Play.</string>
 	<string name="wallet_version_dialog_button_market">Google Play</string>
@@ -56,14 +57,10 @@
 	<string name="send_coins_fragment_receiving_address_error">Indirizzo digitalcoin invalido!</string>
 	<string name="send_coins_fragment_receiving_address_error_cross_network">Non puoi usare l\'indirizzo %s con questo portafoglio!</string>
 	<string name="send_coins_fragment_receiving_address_error_cross_network_unknown">Non puoi usare l\'indirizzo di una rete sconosciuta con questo portafoglio!</string>
-	<string name="send_coins_fragment_available_label">Disponibili</string>
+
 	<string name="send_coins_fragment_pending">(%s DGC in attesa di conferma)</string>
+
 	<string name="send_coins_fragment_amount_label">Importo da pagare</string>
-	<string name="send_coins_fragment_amount_empty">Metti la quantità qui</string>
-	<string name="send_coins_fragment_amount_error">Quantità non valida!</string>
-	<string name="send_coins_fragment_bluetooth_enable">Invia pagamento anche via Bluetooth</string>
-	<string name="send_coins_fragment_bluetooth_ack">I tuoi pagamenti sono stati inviati via Bluetooth con successo.</string>
-	<string name="send_coins_fragment_bluetooth_nack">Il tuo pagamento è stato rifiutato via Bluetooth.</string>
 	<string name="send_coins_fragment_button_send">Invia</string>
 	<string name="send_coins_fragment_button_back">Indietro</string>
 	<string name="send_coins_preparation_msg">Sottoscrittura…</string>
@@ -94,7 +91,7 @@
 	<string name="address_book_context_copy_to_clipboard_title">Copia negli appunti</string>
 	<string name="address_book_context_default_title">Imposta come indirizzo di default</string>
 	<string name="address_book_options_paste_from_clipboard_title">Incolla dagli appunti</string>
-	<string name="address_book_options_copy_from_clipboard_msg_empty">Appunti pieni</string>
+	<string name="address_book_options_paste_from_clipboard_empty">Appunti pieni</string>
 	<string name="address_book_options_scan_title">Scansione indirizzo</string>
 	<string name="address_book_row_message_compromised_key">Questo indirizzo potrebbe essere compromesso. Non dovresti usarlo più per ricevere denaro.</string>
 	<string name="edit_address_book_entry_dialog_title_add">Aggiungi indirizzo</string>
@@ -145,7 +142,7 @@
 
 	<string name="input_parser_cannot_classify">Impossibile classificare ingresso:\n%s</string>
 	<string name="input_parser_invalid_bitcoin_uri">URI digitalcoin non valido:\n%s</string>
-	<string name="input_parser_invalid_address">Ricevuto indirizzo bitcoin non valido!\n(Hai mescolato Mainnet/Testnet?)</string>
+	<string name="input_parser_invalid_address">Ricevuto indirizzo digitalcoin non valido!\n(Hai mescolato Mainnet/Testnet?)</string>
 	<string name="input_parser_invalid_transaction">Transazione non valida:\n%s</string>
 
 	<string name="preferences_activity_title">Impostazioni</string>
@@ -210,6 +207,7 @@
 	<string name="button_send_coins">Invia digitalcoins</string>
 	<string name="button_scan">Analizza</string>
 	<string name="button_edit_address">Aggiungi/modifica indirizzo</string>
+	<string name="button_settings">Impostazioni</string>
 	<string name="time_today">oggi</string>
 	<string name="address_unlabeled">(non etichettato)</string>
 

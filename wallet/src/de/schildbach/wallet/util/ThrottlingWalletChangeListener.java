@@ -138,8 +138,10 @@ public abstract class ThrottlingWalletChangeListener implements WalletEventListe
 	{
 		// swallow
 	}
-    public void onScriptsAdded(Wallet wallet, List<Script> scripts)
-    {
 
-    }
+	@Override
+	public void onScriptsAdded(final Wallet wallet, final List<Script> scripts)
+	{
+		// swallow
+	}
 }

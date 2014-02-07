@@ -1,20 +1,23 @@
-Consiste en una cartera de digitalcoins para tu dispositivo Android. Puedes enviar digitalcoins entre teléfonos haciendo explorar los códigos QR que muestra la aplicación o mediante NFC (Near Field Communication).
+Ten tus digitalcoins siempre contigo, en tu bolsillo! Paga rápidamente escaneando un código QR. Como comerciante, recibes los pagos de forma fiable e instantáneamente. digitalcoin Wallet es la primera digitalcoin app para movil, e incluso la mas segura!
 
 CARACTERÍSTICAS:
 
-• Visualización del saldo de la cartera en digitalcoin y en otras monedas.
-• Envío y recpción de digitalcoins a través de NFC, códigos QR o URL digitalcoin.
-• Libreta de direcciones para guardar las direcciones digitalcoin utilizadas habitualmente.
-• Las transacciones se pueden llevar a cabo sin conexión, ejecutándose al recuperar la conexión.
-• Notificaciones de sistema para la conectividad a la red digitalcoin y para la recepción de digitalcoins.
-• Widget de aplicación para el saldo digitalcoin.
+• ¡No requiere registro, servidor en la nube o servicio web! Este monedero es auténticamente entre pares (peer-to-peer).
+• Muestra la cantidad de digitalcoins en BTC y mBTC
+• Conversión a divisas nacionales.
+• Envío y recepción de digitalcoins vía NFC, códigos QR o URL de digitalcoin.
+• Libreta de direcciones para guardar las direcciones digitalcoin más utilizadas.
+• Cuando no tengas conexión, puedes seguir pagando via Bluetooth.
+• Notificación al recibir monedas.
+• Widget para el saldo de digitalcoins.
 
 Puedes descubrir más sobre digitalcoin en
 http://digitalcoin.co
 
-Si quieres contribuir a digitalcoin Wallet, el proyecto está localizado en
+Si quieres contribuir a digitalcoin Wallet, el proyecto se encuentra en
 https://github.com/HashEngineering/digitalcoin-wallet
 
+
 Licencia: GPLv3
-¡Úsalo bajo tu propia responsabilidad!
+¡Úsalo bajo tu propio riesgo!
 http://www.gnu.org/licenses/gpl-3.0.en.html

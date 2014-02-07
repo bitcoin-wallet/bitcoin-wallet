@@ -17,11 +17,15 @@
 
 package de.schildbach.wallet.util;
 
+import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Locale;
 
 import javax.annotation.Nonnull;
+
+import android.view.View;
+import android.widget.TextView;
 
 import com.google.bitcoin.core.NetworkParameters;
 
@@ -102,15 +106,37 @@ public class GenericUtils
 		}
 	}
 
-	public static BigInteger toNanoCoins(final String value, final int shift)
+	public static BigInteger toNanoCoins(final String value, final int shift) throws ArithmeticException
 	{
 		final BigInteger nanoCoins = new BigDecimal(value).movePointRight(8 - shift).toBigIntegerExact();
 
 		if (nanoCoins.signum() < 0)
-			throw new IllegalArgumentException("negative amount: " + value);
+			throw new ArithmeticException("negative amount: " + value);
 		if (nanoCoins.compareTo(NetworkParameters.MAX_MONEY) > 0)
-			throw new IllegalArgumentException("amount too large: " + value);
+			throw new ArithmeticException("amount too large: " + value);
 
 		return nanoCoins;
+	}
+
+	public static boolean startsWithIgnoreCase(final String string, final String prefix)
+	{
+		return string.regionMatches(true, 0, prefix, 0, prefix.length());
+	}
+
+	public static void setNextFocusForwardId(final View view, final int nextFocusForwardId)
+	{
+		try
+		{
+			final Method setNextFocusForwardId = TextView.class.getMethod("setNextFocusForwardId", Integer.TYPE);
+			setNextFocusForwardId.invoke(view, nextFocusForwardId);
+		}
+		catch (final NoSuchMethodException x)
+		{
+			// expected on API levels below 11
+		}
+		catch (final Exception x)
+		{
+			throw new RuntimeException(x);
+		}
 	}
 }

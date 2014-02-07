@@ -24,7 +24,6 @@ import javax.annotation.Nonnull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import android.app.AlertDialog;
 import android.content.ComponentName;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
@@ -40,6 +39,7 @@ import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockPreferenceActivity;
 import com.actionbarsherlock.view.MenuItem;
 
+import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.util.CrashReporter;
@@ -75,23 +75,23 @@ public final class PreferencesActivity extends SherlockPreferenceActivity implem
 		application = (WalletApplication) getApplication();
 		addPreferencesFromResource(R.xml.preferences);
 
-		trustedPeerPreference = findPreference(Constants.PREFS_KEY_TRUSTED_PEER);
+		trustedPeerPreference = findPreference(Configuration.PREFS_KEY_TRUSTED_PEER);
 		trustedPeerPreference.setOnPreferenceChangeListener(this);
 
-		trustedPeerOnlyPreference = findPreference(Constants.PREFS_KEY_TRUSTED_PEER_ONLY);
+		trustedPeerOnlyPreference = findPreference(Configuration.PREFS_KEY_TRUSTED_PEER_ONLY);
 		trustedPeerOnlyPreference.setOnPreferenceChangeListener(this);
 
 		final Preference dataUsagePreference = findPreference(PREFS_KEY_DATA_USAGE);
 		dataUsagePreference.setEnabled(getPackageManager().resolveActivity(dataUsageIntent, 0) != null);
 
-		final Preference bluetoothOfflineTransactionsPreference = findPreference(Constants.PREFS_KEY_LABS_BLUETOOTH_OFFLINE_TRANSACTIONS);
+		final Preference bluetoothOfflineTransactionsPreference = findPreference(Configuration.PREFS_KEY_LABS_BLUETOOTH_OFFLINE_TRANSACTIONS);
 		bluetoothOfflineTransactionsPreference.setEnabled(Build.VERSION.SDK_INT >= Constants.SDK_JELLY_BEAN_MR2);
 
 		final ActionBar actionBar = getSupportActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
 
 		final SharedPreferences prefs = getPreferenceManager().getSharedPreferences();
-		final String trustedPeer = prefs.getString(Constants.PREFS_KEY_TRUSTED_PEER, "").trim();
+		final String trustedPeer = prefs.getString(Configuration.PREFS_KEY_TRUSTED_PEER, "").trim();
 		updateTrustedPeer(trustedPeer);
 	}
 
@@ -172,7 +172,7 @@ public final class PreferencesActivity extends SherlockPreferenceActivity implem
 		}
 		else if (PREFS_KEY_INITIATE_RESET.equals(key))
 		{
-			final AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+			final DialogBuilder dialog = new DialogBuilder(this);
 			dialog.setTitle(R.string.preferences_initiate_reset_title);
 			dialog.setMessage(R.string.preferences_initiate_reset_dialog_message);
 			dialog.setPositiveButton(R.string.preferences_initiate_reset_dialog_positive, new OnClickListener()

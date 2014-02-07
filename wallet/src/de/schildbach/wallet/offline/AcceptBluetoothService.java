@@ -32,12 +32,10 @@ import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
 import android.text.format.DateUtils;
 
-import com.google.bitcoin.core.ProtocolException;
 import com.google.bitcoin.core.Transaction;
 import com.google.bitcoin.core.VerificationException;
 import com.google.bitcoin.core.Wallet;
 
-import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
 
 /**
@@ -46,8 +44,10 @@ import de.schildbach.wallet.WalletApplication;
 public final class AcceptBluetoothService extends Service
 {
 	private WalletApplication application;
+	private Wallet wallet;
 	private WakeLock wakeLock;
-	private AcceptBluetoothThread acceptBluetoothThread;
+	private AcceptBluetoothThread classicThread;
+	private AcceptBluetoothThread paymentProtocolThread;
 
 	private long serviceCreatedAt;
 
@@ -80,10 +80,10 @@ public final class AcceptBluetoothService extends Service
 
 		super.onCreate();
 
-		application = (WalletApplication) getApplication();
+		this.application = (WalletApplication) getApplication();
+		this.wallet = application.getWallet();
 
 		final BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-		final Wallet wallet = application.getWallet();
 
 		final PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
 		wakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, getPackageName() + " bluetooth transaction submission");
@@ -91,59 +91,66 @@ public final class AcceptBluetoothService extends Service
 
 		registerReceiver(bluetoothStateChangeReceiver, new IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED));
 
-		acceptBluetoothThread = new AcceptBluetoothThread(bluetoothAdapter)
+		classicThread = new AcceptBluetoothThread.Classic(bluetoothAdapter)
 		{
 			@Override
-			public boolean handleTx(final byte[] msg)
+			public boolean handleTx(final Transaction tx)
 			{
-				try
-				{
-					final Transaction tx = new Transaction(Constants.NETWORK_PARAMETERS, msg);
-					log.info("tx " + tx.getHashAsString() + " arrived via blueooth");
-
-					try
-					{
-						if (wallet.isTransactionRelevant(tx))
-						{
-							wallet.receivePending(tx, null);
-
-							handler.post(new Runnable()
-							{
-								@Override
-								public void run()
-								{
-									application.broadcastTransaction(tx);
-								}
-							});
-						}
-						else
-						{
-							log.info("tx " + tx.getHashAsString() + " irrelevant");
-						}
-
-						return true;
-					}
-					catch (final VerificationException x)
-					{
-						log.info("cannot verify tx " + tx.getHashAsString() + " received via bluetooth", x);
-					}
-				}
-				catch (final ProtocolException x)
-				{
-					log.info("cannot decode message received via bluetooth", x);
-				}
-
-				return false;
+				return AcceptBluetoothService.this.handleTx(tx);
 			}
 		};
+		classicThread.start();
 
-		acceptBluetoothThread.start();
+		paymentProtocolThread = new AcceptBluetoothThread.PaymentProtocol(bluetoothAdapter)
+		{
+			@Override
+			public boolean handleTx(final Transaction tx)
+			{
+				return AcceptBluetoothService.this.handleTx(tx);
+			}
+		};
+		paymentProtocolThread.start();
+	}
+
+	private boolean handleTx(final Transaction tx)
+	{
+		log.info("tx " + tx.getHashAsString() + " arrived via blueooth");
+
+		try
+		{
+			if (wallet.isTransactionRelevant(tx))
+			{
+				wallet.receivePending(tx, null);
+
+				handler.post(new Runnable()
+				{
+					@Override
+					public void run()
+					{
+						application.broadcastTransaction(tx);
+					}
+				});
+			}
+			else
+			{
+				log.info("tx " + tx.getHashAsString() + " irrelevant");
+			}
+
+			return true;
+		}
+		catch (final VerificationException x)
+		{
+			log.info("cannot verify tx " + tx.getHashAsString() + " received via bluetooth", x);
+		}
+
+		return false;
 	}
 
 	@Override
 	public void onDestroy()
 	{
-		acceptBluetoothThread.stopAccepting();
+		paymentProtocolThread.stopAccepting();
+		classicThread.stopAccepting();
 
 		unregisterReceiver(bluetoothStateChangeReceiver);
 

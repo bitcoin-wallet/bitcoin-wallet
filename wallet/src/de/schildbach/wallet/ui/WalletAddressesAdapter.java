@@ -43,6 +43,9 @@ import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet.digitalcoin.R;
 
+/**
+ * @author Andreas Schildbach
+ */
 public class WalletAddressesAdapter extends BaseAdapter
 {
 	private final Context context;

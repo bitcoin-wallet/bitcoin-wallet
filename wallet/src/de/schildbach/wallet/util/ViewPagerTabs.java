@@ -33,6 +33,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import de.schildbach.wallet.digitalcoin.R;
 
+
 /**
  * @author Andreas Schildbach
  */

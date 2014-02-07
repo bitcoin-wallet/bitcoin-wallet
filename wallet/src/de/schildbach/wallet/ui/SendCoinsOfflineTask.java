@@ -17,6 +17,8 @@
 
 package de.schildbach.wallet.ui;
 
+import java.math.BigInteger;
+
 import javax.annotation.Nonnull;
 
 import android.os.Handler;
@@ -50,31 +52,50 @@ public abstract class SendCoinsOfflineTask
 			@Override
 			public void run()
 			{
-                try {
-				final Transaction transaction = wallet.sendCoinsOffline(sendRequest); // can take long
 
+				try
 
-				callbackHandler.post(new Runnable()
 				{
-					@Override
-					public void run()
-					{
-						if (transaction != null)
-							onSuccess(transaction);
-						else
-							onFailure();
-                	}
-				});
+					final Transaction transaction = wallet.sendCoinsOffline(sendRequest); // can take long
 
-                } catch(InsufficientMoneyException x)
-                {
-                    //HashEngineering added this
-                }
+					callbackHandler.post(new Runnable()
+					{
+						@Override
+						public void run()
+						{
+							onSuccess(transaction);
+						}
+					});
+				}
+				catch (final InsufficientMoneyException x)
+				{
+					callbackHandler.post(new Runnable()
+					{
+						@Override
+						public void run()
+						{
+							onInsufficientMoney(x.missing);
+						}
+					});
+				}
+				catch (final IllegalArgumentException x)
+				{
+					callbackHandler.post(new Runnable()
+					{
+						@Override
+						public void run()
+						{
+							onFailure();
+						}
+					});
+				}
 			}
 		});
 	}
 
 	protected abstract void onSuccess(@Nonnull Transaction transaction);
+
+	protected abstract void onInsufficientMoney(@Nonnull BigInteger missing);
 
 	protected abstract void onFailure();
 }

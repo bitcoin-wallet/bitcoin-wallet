@@ -50,15 +50,19 @@
 	<string name="wallet_timeskew_dialog_title">Überprüfe Deine Zeit-Einstellungen!</string>
 	<string name="wallet_timeskew_dialog_msg">Deine Gerätezeit geht %d Minuten falsch. Deswegen kannst Du möglicherweise keine digitalcoins senden
 		oder empfangen.\n\nDu solltest Deine Zeit- und Zeitzoneneinstellungen überprüfen und korrigieren.</string>
-	<string name="wallet_timeskew_dialog_button_settings">Einstellungen</string>
 	<string name="wallet_version_dialog_title">Eine neue Version ist verfügbar!</string>
 	<string name="wallet_version_dialog_msg">Diese Version behebt wichtige Fehler. Die Einzelheiten stehen in der Liste der Änderungen auf Google Play.</string>
 	<string name="wallet_version_dialog_button_market">Google Play</string>
 	<string name="wallet_version_dialog_button_binary">Herunterladen</string>
+	<string name="wallet_precision_warning_dialog_title">Änderung der Stückelung</string>
+	<string name="wallet_precision_warning_dialog_msg">Die Stückelung wurde von digitalcoin (DGC) auf Millidigitalcoin (mDGC) geändert. Alle Werte sind mit dem Faktor 1000 multipliziert.\n\nDiese Änderung kannst Du in den Einstellungen rückgängig machen.</string>
 	<string name="wallet_old_sdk_dialog_title">Android ist veraltet</string>
 	<string name="wallet_old_sdk_dialog_message">Es ist möglich, daß eine der nächsten Versionen von digitalcoin Wallet dein Gerät nicht mehr unterstützt. In manchen Fällen kann es schwierig werden, Zahlungen zu tätigen.\n\nEs wird empfohlen, die enthaltenen digitalcoins bald zu verschieben, außer du weisst was du tust.</string>
 
 	<string name="send_coins_activity_title">digitalcoins senden</string>
+	<string name="send_coins_fragment_payee_verified_by">verifiziert durch: %s</string>
+	<string name="send_coins_fragment_payee_verified_by_unknown">unbekannt</string>
+
 	<string name="send_coins_fragment_receiving_address_label">Empfänger</string>
 	<string name="send_coins_fragment_receiving_address_hint">Adresse oder Namen</string>
 
@@ -66,16 +70,20 @@
 	<string name="send_coins_fragment_receiving_address_error_cross_network">Kann %s-Adresse mit dieser Wallet nicht nutzen!</string>
 	<string name="send_coins_fragment_receiving_address_error_cross_network_unknown">Kann Adresse von unbekanntem Netzwerk mit dieser Wallet nicht nutzen!</string>
 
-	<string name="send_coins_fragment_available_label">Verfügbar</string>
+	<string name="send_coins_fragment_receiving_address_complex">komplexe\nAdresse</string>
 	<string name="send_coins_fragment_pending">(DGC %s warten auf Bestätigung)</string>
+
 	<string name="send_coins_fragment_amount_label">Betrag</string>
-	<string name="send_coins_fragment_amount_empty">Ergänze Betrag hier</string>
-	<string name="send_coins_fragment_amount_error">Ungültiger Betrag!</string>
-	<string name="send_coins_fragment_bluetooth_enable">Zahlung auch über Bluetooth senden</string>
-	<string name="send_coins_fragment_bluetooth_ack">Die Zahlung wurde erfolgreich über Bluetooth gesendet.</string>
-	<string name="send_coins_fragment_bluetooth_nack">Die Zahlung wurde über Bluetooth abgelehnt.</string>
+	<string name="send_coins_fragment_direct_payment_enable">Zahlung auch direkt senden</string>
+	<string name="send_coins_fragment_direct_payment_ack">Die Zahlung wurde erfolgreich direkt gesendet.</string>
+	<string name="send_coins_fragment_direct_payment_nack">Die Zahlung wurde über die direkte Verbindung abgelehnt.</string>
+	<string name="send_coins_fragment_direct_payment_failed_title">Direkte Zahlung fehlgeschlagen</string>
+	<string name="send_coins_fragment_direct_payment_failed_msg">Deine Zahlung wird trotzdem über das P2P-Netzwerk übertragen.</string>
 	<string name="send_coins_fragment_button_send">Senden</string>
 	<string name="send_coins_fragment_button_back">Zurück</string>
+	<string name="send_coins_fragment_insufficient_money_title">Nicht genug verfügbare digitalcoins</string>
+	<string name="send_coins_fragment_insufficient_money_msg1">Dir fehlen %s.</string>
+	<string name="send_coins_fragment_insufficient_money_msg2">Möchtest Du alles zahlen was Du hast?</string>
 	<string name="send_coins_preparation_msg">Signierung…</string>
 	<string name="send_coins_sending_msg">Versenden…</string>
 	<string name="send_coins_sent_msg">Versendet!</string>
@@ -106,9 +114,13 @@
 	<string name="address_book_context_show_qr_title">QR-Code zeigen</string>
 	<string name="address_book_context_copy_to_clipboard_title">Ins Clipboard kopieren</string>
 	<string name="address_book_options_paste_from_clipboard_title">Aus dem Clipboard einfügen</string>
-	<string name="address_book_options_copy_from_clipboard_msg_empty">Clipboard ist leer</string>
+	<string name="address_book_options_paste_from_clipboard_empty">Clipboard ist leer</string>
+	<string name="address_book_options_paste_from_clipboard_invalid">Die Daten auf dem Clipboard sind nicht entzifferbar</string>
 	<string name="address_book_options_scan_title">Adresse scannen</string>
+
+	<string name="address_book_options_scan_invalid">Gescannte Daten sind nicht entzifferbar</string>
 	<string name="address_book_row_message_compromised_key">Diese Adresse ist vielleicht kompromittiert. Du solltest sie nicht mehr zum Empfang von digitalcoins nutzen.</string>
+
 
 	<string name="edit_address_book_entry_dialog_title_add">Adresse hinzufügen</string>
 	<string name="edit_address_book_entry_dialog_title_edit">Adresse ändern</string>
@@ -118,6 +130,7 @@
 
 	<string name="transaction_row_message_purpose_key_rotation">Diese Transaktion stärkt deine Wallet gegen Diebstahl. &lt;u>Mehr Information.&lt;/u></string>
 	<string name="transaction_row_message_own_unbroadcasted">Diese Zahlung ist noch nicht übertragen.</string>
+	<string name="transaction_row_message_received_direct">Diese Zahlung wurde direkt empfangen. Es besteht das Risiko, daß sie niemals verfügbar wird.</string>
 	<string name="transaction_row_message_received_unconfirmed_unlocked">Diese Zahlung sollte in ein paar Minuten verfügbar werden.</string>
 	<string name="transaction_row_message_received_unconfirmed_locked">Diese Zahlung ist nicht standardgemäß und sollte nicht vertraut werden.</string>
 	<string name="transaction_row_message_received_dead">Diese Zahlung wurde vom Sender rückgängig gemacht.</string>
@@ -153,6 +166,7 @@
 	<string name="export_keys_dialog_mail_subject">digitalcoin Wallet Sicherung der privaten Schlüssel</string>
 	<string name="export_keys_dialog_mail_text">Die verschlüsselte Datei im Anhang enthält private digitalcoin-Schlüssel und sollte sicher verwahrt werden. Vergiss das Verschlüsselungs-Passwort nicht!</string>
 	<string name="export_keys_dialog_mail_intent_chooser">Schlüssel archivieren mit…</string>
+	<string name="export_keys_dialog_mail_intent_failed">Archivieren der Schlüssel fehlgeschlagen.</string>
 	<string name="import_export_keys_dialog_password">Passwort</string>
 	<string name="import_export_keys_dialog_show">Passwort zeigen</string>
 	<string name="import_export_keys_dialog_failure_title">Fehler</string>
@@ -161,8 +175,11 @@
 	<string name="scan_camera_problem_dialog_title">Sorry</string>
 	<string name="scan_camera_problem_dialog_message">Die Kamera hat ein Problem. Evtl. musst du dein Gerät neu starten.</string>
 
+	<string name="input_parser_io_error">Kann Daten nicht lesen:\n%s</string>
 	<string name="input_parser_invalid_bitcoin_uri">Ungültige digitalcoin-URI:\n%s</string>
 	<string name="input_parser_invalid_address">Ungültige digitalcoin-Adresse gelesen!\n(Versuchst Du Mainnet/Testnet zu mischen?)</string>
+	<string name="input_parser_invalid_paymentrequest">Ungültige Zahlungsanforderung:\n%s</string>
+	<string name="input_parser_invalid_transaction">Ungültige Transaktion:\n%s</string>
 
 	<string name="preferences_activity_title">Einstellungen</string>
 	<string name="preferences_category_main">Einstellungen</string>
@@ -196,6 +213,7 @@
 	<string name="report_issue_dialog_collect_application_log">Applikations-Logfile anhängen</string>
 	<string name="report_issue_dialog_collect_wallet_dump">Dump der Wallet anhängen</string>
 	<string name="report_issue_dialog_mail_intent_chooser">Bericht senden mit…</string>
+	<string name="report_issue_dialog_mail_intent_failed">Senden des Berichts fehlgeschlagen.</string>
 
 	<string name="about_title">Über</string>
 	<string name="about_license_title">Lizenz</string>
@@ -218,6 +236,7 @@
 	<string name="button_ok">Ok</string>
 	<string name="button_dismiss">Schließen</string>
 	<string name="button_cancel">Abbrechen</string>
+	<string name="button_retry">Wiederholen</string>
 	<string name="button_help">Hilfe</string>
 	<string name="button_add">Hinzufügen</string>
 	<string name="button_delete">Löschen</string>
@@ -230,6 +249,7 @@
 	<string name="button_send_coins">DGC senden</string>
 	<string name="button_scan">Scannen</string>
 	<string name="button_edit_address">Adresse hinzufügen/ändern</string>
+	<string name="button_settings">Einstellungen</string>
 	<string name="action_browse">Im Browser öffnen</string>
 
 

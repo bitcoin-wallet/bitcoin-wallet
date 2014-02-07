@@ -9,11 +9,9 @@
 	<Button
 		android:id="@+id/wallet_actions_request"
 		style="@style/My.Widget.Button.Borderless"
-		android:layout_width="0px"
+		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_weight="1"
 		android:drawableLeft="@drawable/ic_action_receive"
-		android:gravity="left|center_vertical"
 		android:singleLine="true"
 		android:text="@string/button_request_coins"
 		android:textAllCaps="true"
@@ -21,14 +19,17 @@
 		android:textSize="@dimen/font_size_tiny"
 		android:textStyle="bold" />
 
+	<View
+		android:layout_width="0px"
+		android:layout_height="0px"
+		android:layout_weight="1" />
+
 	<Button
 		android:id="@+id/wallet_actions_send"
 		style="@style/My.Widget.Button.Borderless"
-		android:layout_width="0px"
+		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_weight="1"
 		android:drawableRight="@drawable/ic_action_send"
-		android:gravity="right|center_vertical"
 		android:singleLine="true"
 		android:text="@string/button_send_coins"
 		android:textAllCaps="true"

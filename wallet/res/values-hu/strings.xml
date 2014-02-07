@@ -45,7 +45,6 @@
 	<string name="wallet_low_storage_dialog_button_apps">Alkalmazások kezelése</string>
 	<string name="wallet_timeskew_dialog_title">Ellenőrizd a dátum/idő beállításokat!</string>
 	<string name="wallet_timeskew_dialog_msg">A készüléked %d percig ki volt kapcsolva. Valószínűleg sem küldeni, sem fogadni nem tudtál érméket emiatt.\n\nEllenőrizd a dátum/idő és időzóna beállításaidat!</string>
-	<string name="wallet_timeskew_dialog_button_settings">Beállítások</string>
 	<string name="wallet_version_dialog_title">Megjelent a program legújabb verziója!</string>
 	<string name="wallet_version_dialog_msg">Fontos hibajavításokat tartalmaz az új verzió. A részleteket megtalálod a Google Play-en.</string>
 	<string name="wallet_version_dialog_button_market">Google Play</string>
@@ -58,14 +57,10 @@
 	<string name="send_coins_fragment_receiving_address_error">Érvénytelen digitalcoin cím!</string>
 	<string name="send_coins_fragment_receiving_address_error_cross_network">a %s cím nem használható ezzel a tárcával!</string>
 	<string name="send_coins_fragment_receiving_address_error_cross_network_unknown">Ismeretlen hálózat címzettje nem használható ezzel a tárcával!</string>
-	<string name="send_coins_fragment_available_label">Rendelkezésre álló összeg</string>
+
 	<string name="send_coins_fragment_pending">(%s DGC várakozik jóváhagyásra)</string>
+
 	<string name="send_coins_fragment_amount_label">Fizetendő összeg</string>
-	<string name="send_coins_fragment_amount_empty">Írd be az összeget</string>
-	<string name="send_coins_fragment_amount_error">Érvénytelen összeg!</string>
-	<string name="send_coins_fragment_bluetooth_enable">Kifizetés küldése Bluetooth-on keresztül is</string>
-	<string name="send_coins_fragment_bluetooth_ack">A fizetés sikeresen elküldve Bluetooth-on.</string>
-	<string name="send_coins_fragment_bluetooth_nack">A Bluetooth fizetés visszautasítva.</string>
 	<string name="send_coins_fragment_button_send">Küldés</string>
 	<string name="send_coins_fragment_button_back">Vissza</string>
 	<string name="send_coins_preparation_msg">Aláírás…</string>
@@ -96,7 +91,7 @@
 	<string name="address_book_context_copy_to_clipboard_title">Másolás</string>
 	<string name="address_book_context_default_title">Alapértelmezett cím</string>
 	<string name="address_book_options_paste_from_clipboard_title">Beillesztés</string>
-	<string name="address_book_options_copy_from_clipboard_msg_empty">A vágólap üres</string>
+	<string name="address_book_options_paste_from_clipboard_empty">A vágólap üres</string>
 	<string name="address_book_options_scan_title">Cím szkennelése</string>
 	<string name="address_book_row_message_compromised_key">Ez a cím vélhetőleg hamisítás áldozata lett. Ne használd a későbbiekben érmék fogadására.</string>
 	<string name="edit_address_book_entry_dialog_title_add">Cím hozzáadása</string>
@@ -211,7 +206,7 @@
 	<string name="button_send_coins">Érmék küldése</string>
 	<string name="button_scan">Szkennelés</string>
 	<string name="button_edit_address">Cím hozzáadása/szerkesztése</string>
-
+	<string name="button_settings">Beállítások</string>
 	<string name="time_today">ma</string>
 	<string name="address_unlabeled">(címke nélkül)</string>
 

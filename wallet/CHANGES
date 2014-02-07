@@ -1,5 +1,9 @@
 digitalcoin Wallet
 -----------------
+v1.0.1.4
+* Updated to v3.31 (bitcoin-wallet)
+* Few bug fixes (import parser)
+
 v1.0.1.3
 
 * Added checkpoints file for faster blockchain sync
@@ -18,6 +22,16 @@ v1.00
 
 Bitcoin Wallet
 -------------------
+v3.31
+
+* Default denomination has changed to millibitcoin (mBTC).
+* Cross-calculated exchange rates for currencies without Bitcoin volume. Thanks to BitcoinAverage.
+* Better handling of errors when sending coins, specifically when funds are exceeded.
+* Labs: Uses BIP70 payment protocol for tap-to-pay and scan-to-pay, if enabled in the settings.
+* New translations into Traditional Chinese, Macedonian and Esperanto. Updated Spanish.
+* Resolved issues with wallets with many transactions.
+* Based on bitcoinj 0.11.
+
 v3.30
 
 * improved battery usage

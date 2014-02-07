@@ -38,13 +38,12 @@
 	<string name="wallet_options_backup">Экспортировать ключи</string>
 	<string name="wallet_options_safety">Заметки по безопасности</string>
 	<string name="wallet_options_donate">Пожертвовать</string>
-	<string name="wallet_donate_address_label">Пожертвование для Bitcoin Бумажника</string>
+	<string name="wallet_donate_address_label">Пожертвование для digitalcoin Бумажника</string>
 	<string name="wallet_low_storage_dialog_title">Недостаточно внутренней памяти на устройстве!</string>
 	<string name="wallet_low_storage_dialog_msg">digitalcoin Кошелёк использует внутреннюю память для запоминания транзакций и блоков. Если память закончится, приложение перестанет работать, что поставит под угрозу содержимое digitalcoin-кошелька!\n\nОткрыть Управление Приложениями, чтобы удалить ненужные программы?</string>
 	<string name="wallet_low_storage_dialog_button_apps">Управление приложениями</string>
 	<string name="wallet_timeskew_dialog_title">Проверьте настройки времени!</string>
-	<string name="wallet_timeskew_dialog_msg">Время на вашем устройстве отстаёт на %d минут. Возможно, из-за этого вам не удастся отправлять или получать Bitcoin.\n\nПроверьте, поправьте время, параметры временной зоны.</string>
-	<string name="wallet_timeskew_dialog_button_settings">Настройки</string>
+	<string name="wallet_timeskew_dialog_msg">Время на вашем устройстве отстаёт на %d минут. Возможно, из-за этого вам не удастся отправлять или получать digitalcoin.\n\nПроверьте, поправьте время, параметры временной зоны.</string>
 	<string name="wallet_version_dialog_title">Доступна новая версия!</string>
 	<string name="wallet_version_dialog_msg">Эта версия исправляет важные ошибки. Детали на Google Play.</string>
 	<string name="wallet_version_dialog_button_market">Google Play</string>
@@ -58,15 +57,10 @@
 	<string name="send_coins_fragment_receiving_address_error">Некорректный digitalcoin-адрес!</string>
 	<string name="send_coins_fragment_receiving_address_error_cross_network">Невозможно использовать адрес %s с этим бумажником!</string>
 	<string name="send_coins_fragment_receiving_address_error_cross_network_unknown">Невозможно использовать адрес неизвестной сети с этим бумажником</string>
-	<string name="send_coins_fragment_available_label">Доступно для отправки</string>
+
 	<string name="send_coins_fragment_pending">(DGC %s ожидают подтверждения)</string>
 	<string name="send_coins_fragment_amount_label">Величина оплаты</string>
 
-	<string name="send_coins_fragment_amount_empty">Введите сумму</string>
-	<string name="send_coins_fragment_amount_error">Неверная сумма!</string>
-	<string name="send_coins_fragment_bluetooth_enable">Также послать через Bluetooth</string>
-	<string name="send_coins_fragment_bluetooth_ack">Ваш платёж был успешно отправлен через Bluetooth.</string>
-	<string name="send_coins_fragment_bluetooth_nack">Ваш платёж через Bluetooth был отклонён.</string>
 	<string name="send_coins_fragment_button_send">Отправить</string>
 	<string name="send_coins_fragment_button_back">Назад</string>
 	<string name="send_coins_preparation_msg">Подписываю…</string>
@@ -97,7 +91,7 @@
 	<string name="address_book_context_copy_to_clipboard_title">Скопировать в буфер обмена</string>
 	<string name="address_book_context_default_title">Установить как адрес по умолчанию</string>
 	<string name="address_book_options_paste_from_clipboard_title">Вставить из буфера обмена</string>
-	<string name="address_book_options_copy_from_clipboard_msg_empty">Буфер обмена пуст</string>
+	<string name="address_book_options_paste_from_clipboard_empty">Буфер обмена пуст</string>
 	<string name="address_book_options_scan_title">Сканировать адрес</string>
 	<string name="address_book_row_message_compromised_key">Этот адрес мог быть скомпрометирован. Не используйте его больше для получения средств.</string>
 	<string name="edit_address_book_entry_dialog_title_add">Добавить адрес</string>
@@ -209,6 +203,7 @@
 	<string name="button_send_coins">Отправить монеты</string>
 	<string name="button_scan">Сканировать</string>
 	<string name="button_edit_address">Добавить/изменить адрес</string>
+	<string name="button_settings">Настройки</string>
 	<string name="time_today">сегодня</string>
 	<string name="address_unlabeled">(без метки)</string>
 

@@ -22,7 +22,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 import javax.annotation.CheckForNull;
+import javax.annotation.Nonnull;
 
+import org.bitcoin.protocols.payments.Protos;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,13 +32,11 @@ import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.nfc.NfcManager;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.app.ShareCompat.IntentBuilder;
@@ -64,9 +64,12 @@ import com.actionbarsherlock.widget.ShareActionProvider;
 import com.google.bitcoin.core.Address;
 import com.google.bitcoin.core.ECKey;
 import com.google.bitcoin.core.Wallet;
+import com.google.bitcoin.script.ScriptBuilder;
 import com.google.bitcoin.uri.BitcoinURI;
+import com.google.protobuf.ByteString;
 
 import de.schildbach.wallet.AddressBookProvider;
+import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.ExchangeRatesProvider;
 import de.schildbach.wallet.ExchangeRatesProvider.ExchangeRate;
@@ -85,17 +88,14 @@ public final class RequestCoinsFragment extends SherlockFragment
 {
 	private AbstractBindServiceActivity activity;
 	private WalletApplication application;
+	private Configuration config;
 	private Wallet wallet;
-	private SharedPreferences prefs;
 	private NfcManager nfcManager;
 	private LoaderManager loaderManager;
 	private ClipboardManager clipboardManager;
 	private ShareActionProvider shareActionProvider;
 	@CheckForNull
 	private BluetoothAdapter bluetoothAdapter;
-
-	private int btcPrecision;
-	private int btcShift;
 
 	private ImageView qrView;
 	private Bitmap qrCodeBitmap;
@@ -120,7 +120,7 @@ public final class RequestCoinsFragment extends SherlockFragment
 		@Override
 		public Loader<Cursor> onCreateLoader(final int id, final Bundle args)
 		{
-			return new ExchangeRateLoader(activity);
+			return new ExchangeRateLoader(activity, config);
 		}
 
 		@Override
@@ -149,22 +149,12 @@ public final class RequestCoinsFragment extends SherlockFragment
 
 		this.activity = (AbstractBindServiceActivity) activity;
 		this.application = (WalletApplication) activity.getApplication();
+		this.config = application.getConfiguration();
 		this.wallet = application.getWallet();
-		this.prefs = PreferenceManager.getDefaultSharedPreferences(activity);
 		this.loaderManager = getLoaderManager();
 		this.nfcManager = (NfcManager) activity.getSystemService(Context.NFC_SERVICE);
 		this.clipboardManager = (ClipboardManager) activity.getSystemService(Context.CLIPBOARD_SERVICE);
 		this.bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-	}
-
-	@Override
-	public void onCreate(final Bundle savedInstanceState)
-	{
-		super.onCreate(savedInstanceState);
-
-		final String precision = prefs.getString(Constants.PREFS_KEY_BTC_PRECISION, Constants.PREFS_DEFAULT_BTC_PRECISION);
-		btcPrecision = precision.charAt(0) - '0';
-		btcShift = precision.length() == 3 ? precision.charAt(2) - '0' : 0;
 	}
 
 	@Override
@@ -183,10 +173,10 @@ public final class RequestCoinsFragment extends SherlockFragment
 		});
 
 		final CurrencyAmountView btcAmountView = (CurrencyAmountView) view.findViewById(R.id.request_coins_amount_btc);
-		btcAmountView.setCurrencySymbol(btcShift == 0 ? Constants.CURRENCY_CODE_BTC : Constants.CURRENCY_CODE_MBTC);
-		btcAmountView.setInputPrecision(btcShift == 0 ? Constants.BTC_MAX_PRECISION : Constants.MBTC_MAX_PRECISION);
-		btcAmountView.setHintPrecision(btcPrecision);
-		btcAmountView.setShift(btcShift);
+		btcAmountView.setCurrencySymbol(config.getBtcPrefix());
+		btcAmountView.setInputPrecision(config.getBtcMaxPrecision());
+		btcAmountView.setHintPrecision(config.getBtcPrecision());
+		btcAmountView.setShift(config.getBtcShift());
 
 		final CurrencyAmountView localAmountView = (CurrencyAmountView) view.findViewById(R.id.request_coins_amount_local);
 		localAmountView.setInputPrecision(Constants.LOCAL_PRECISION);
@@ -228,6 +218,9 @@ public final class RequestCoinsFragment extends SherlockFragment
 
 		// don't call in onCreate() because ActionBarSherlock invokes onCreateOptionsMenu() too early
 		setHasOptionsMenu(true);
+
+		amountCalculatorLink.setExchangeDirection(config.getLastExchangeDirection());
+		amountCalculatorLink.requestFocus();
 	}
 
 	@Override
@@ -242,11 +235,6 @@ public final class RequestCoinsFragment extends SherlockFragment
 			{
 				updateView();
 				updateShareIntent();
-			}
-
-			@Override
-			public void done()
-			{
 			}
 
 			@Override
@@ -286,11 +274,19 @@ public final class RequestCoinsFragment extends SherlockFragment
 
 		loaderManager.initLoader(ID_RATE_LOADER, null, rateLoaderCallbacks);
 
-		final boolean labsBluetoothOfflineTransactions = prefs.getBoolean(Constants.PREFS_KEY_LABS_BLUETOOTH_OFFLINE_TRANSACTIONS, false);
-		if (bluetoothAdapter != null && labsBluetoothOfflineTransactions)
+		final boolean labsBluetoothOfflineTransactionsEnabled = config.getBluetoothOfflineTransactionsEnabled();
+		if (bluetoothAdapter != null && labsBluetoothOfflineTransactionsEnabled)
 			maybeInitBluetoothListening();
 
 		updateView();
+	}
+
+	@Override
+	public void onDestroyView()
+	{
+		super.onDestroyView();
+
+		config.setLastExchangeDirection(amountCalculatorLink.getExchangeDirection());
 	}
 
 	@Override
@@ -369,14 +365,14 @@ public final class RequestCoinsFragment extends SherlockFragment
 
 	private void handleCopy()
 	{
-		final String request = determineRequestStr(false);
+		final String request = determineBitcoinRequestStr(false);
 		clipboardManager.setText(request);
 		activity.toast(R.string.request_coins_clipboard_msg);
 	}
 
 	private void handleLocalApp()
 	{
-		final Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(determineRequestStr(false)));
+		final Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(determineBitcoinRequestStr(false)));
 		startActivity(intent);
 		activity.finish();
 	}
@@ -386,15 +382,25 @@ public final class RequestCoinsFragment extends SherlockFragment
 		if (!isResumed())
 			return;
 
-		final String request = determineRequestStr(true);
+		final String bitcoinRequest = determineBitcoinRequestStr(true);
+		final byte[] paymentRequest = determinePaymentRequest(true);
 
-		// update qr code
+		// update qr-code
 		final int size = (int) (256 * getResources().getDisplayMetrics().density);
-		qrCodeBitmap = Qr.bitmap(request, size);
+		final String qrContent;
+		if (config.getQrPaymentRequestEnabled())
+			qrContent = "BITCOIN:-" + Qr.encodeBinary(paymentRequest);
+		else
+			qrContent = bitcoinRequest;
+		qrCodeBitmap = Qr.bitmap(qrContent, size);
 		qrView.setImageBitmap(qrCodeBitmap);
 
-		// update ndef message
-		final boolean nfcSuccess = Nfc.publishUri(nfcManager, getActivity(), request);
+		// update nfc ndef message
+		final boolean nfcSuccess;
+		if (config.getNfcPaymentRequestEnabled())
+			nfcSuccess = Nfc.publishMimeObject(nfcManager, activity, Constants.MIMETYPE_PAYMENTREQUEST, paymentRequest, false);
+		else
+			nfcSuccess = Nfc.publishUri(nfcManager, activity, bitcoinRequest);
 
 		// update initiate request message
 		final SpannableStringBuilder initiateText = new SpannableStringBuilder(getString(R.string.request_coins_fragment_initiate_request_qr));
@@ -405,19 +411,23 @@ public final class RequestCoinsFragment extends SherlockFragment
 		// update bluetooth message
 		final boolean serviceRunning = application.isServiceRunning(AcceptBluetoothService.class);
 		bluetoothEnabledView.setVisibility(bluetoothAdapter != null && bluetoothAdapter.isEnabled() && serviceRunning ? View.VISIBLE : View.GONE);
+
+		// focus linking
+		final int activeAmountViewId = amountCalculatorLink.activeTextView().getId();
+		addressView.setNextFocusUpId(activeAmountViewId);
 	}
 
 	private void updateShareIntent()
 	{
 		// update share intent
 		final IntentBuilder builder = IntentBuilder.from(activity);
-		builder.setText(determineRequestStr(false));
+		builder.setText(determineBitcoinRequestStr(false));
 		builder.setType("text/plain");
 		builder.setChooserTitle(R.string.request_coins_share_dialog_title);
 		shareActionProvider.setShareIntent(builder.getIntent());
 	}
 
-	private String determineRequestStr(final boolean includeBluetoothMac)
+	private String determineBitcoinRequestStr(final boolean includeBluetoothMac)
 	{
 		final boolean includeLabel = includeLabelView.isChecked();
 
@@ -433,5 +443,39 @@ public final class RequestCoinsFragment extends SherlockFragment
 			uri.append(Bluetooth.MAC_URI_PARAM).append('=').append(bluetoothMac);
 		}
 		return uri.toString();
+	}
+
+	private byte[] determinePaymentRequest(final boolean includeBluetoothMac)
+	{
+		final ECKey key = (ECKey) addressView.getSelectedItem();
+		final Address address = key.toAddress(Constants.NETWORK_PARAMETERS);
+
+		return createPaymentRequest(amountCalculatorLink.getAmount(), address,
+				includeLabelView.isChecked() ? AddressBookProvider.resolveLabel(activity, address.toString()) : null, includeBluetoothMac
+						&& bluetoothMac != null ? "bt:" + bluetoothMac : null);
+	}
+
+	private static byte[] createPaymentRequest(final BigInteger amount, @Nonnull final Address toAddress, final String memo, final String paymentUrl)
+	{
+		if (amount != null && amount.compareTo(BigInteger.valueOf(Long.MAX_VALUE)) > 0)
+			throw new IllegalArgumentException("amount too big for protobuf: " + amount);
+
+		final Protos.Output.Builder output = Protos.Output.newBuilder();
+		output.setAmount(amount != null ? amount.longValue() : 0);
+		output.setScript(ByteString.copyFrom(ScriptBuilder.createOutputScript(toAddress).getProgram()));
+
+		final Protos.PaymentDetails.Builder paymentDetails = Protos.PaymentDetails.newBuilder();
+		paymentDetails.setNetwork(Constants.NETWORK_PARAMETERS.getPaymentProtocolId());
+		paymentDetails.addOutputs(output);
+		if (memo != null)
+			paymentDetails.setMemo(memo);
+		if (paymentUrl != null)
+			paymentDetails.setPaymentUrl(paymentUrl);
+		paymentDetails.setTime(System.currentTimeMillis());
+
+		final Protos.PaymentRequest.Builder paymentRequest = Protos.PaymentRequest.newBuilder();
+		paymentRequest.setSerializedPaymentDetails(paymentDetails.build().toByteString());
+
+		return paymentRequest.build().toByteArray();
 	}
 }
