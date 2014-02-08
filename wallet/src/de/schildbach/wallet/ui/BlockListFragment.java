@@ -31,31 +31,32 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import android.app.Activity;
+import android.app.ListFragment;
+import android.app.LoaderManager;
+import android.app.LoaderManager.LoaderCallbacks;
+import android.content.AsyncTaskLoader;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.Loader;
 import android.content.ServiceConnection;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.app.LoaderManager.LoaderCallbacks;
-import android.support.v4.content.AsyncTaskLoader;
-import android.support.v4.content.Loader;
 import android.text.format.DateUtils;
+import android.view.ActionMode;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.actionbarsherlock.app.SherlockListFragment;
-import com.actionbarsherlock.view.ActionMode;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
-import com.actionbarsherlock.view.MenuItem;
 import com.google.bitcoin.core.Block;
 import com.google.bitcoin.core.Sha256Hash;
 import com.google.bitcoin.core.StoredBlock;
@@ -73,7 +74,7 @@ import de.schildbach.wallet_test.R;
 /**
  * @author Andreas Schildbach
  */
-public final class BlockListFragment extends SherlockListFragment
+public final class BlockListFragment extends ListFragment
 {
 	private AbstractWalletActivity activity;
 	private WalletApplication application;
@@ -234,6 +235,7 @@ public final class BlockListFragment extends SherlockListFragment
 		private static final int ROW_INSERT_INDEX = 1;
 		private final TransactionsListAdapter transactionsAdapter = new TransactionsListAdapter(activity, wallet, application.maxConnectedPeers(),
 				false);
+		private final LayoutInflater inflater = LayoutInflater.from(activity);
 
 		private final List<StoredBlock> blocks = new ArrayList<StoredBlock>(MAX_BLOCKS);
 
@@ -281,7 +283,7 @@ public final class BlockListFragment extends SherlockListFragment
 		{
 			final ViewGroup row;
 			if (convertView == null)
-				row = (ViewGroup) getLayoutInflater(null).inflate(R.layout.block_row, null);
+				row = (ViewGroup) inflater.inflate(R.layout.block_row, null);
 			else
 				row = (ViewGroup) convertView;
 
@@ -320,7 +322,7 @@ public final class BlockListFragment extends SherlockListFragment
 						}
 						else
 						{
-							view = getLayoutInflater(null).inflate(R.layout.transaction_row_oneline, null);
+							view = inflater.inflate(R.layout.transaction_row_oneline, null);
 							row.addView(view, ROW_INSERT_INDEX + iTransactionView);
 						}
 

@@ -22,28 +22,28 @@ import java.util.ArrayList;
 import javax.annotation.Nonnull;
 
 import android.app.Activity;
+import android.app.ListFragment;
+import android.app.LoaderManager;
 import android.content.Context;
+import android.content.CursorLoader;
 import android.content.Intent;
+import android.content.Loader;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.CursorLoader;
-import android.support.v4.content.Loader;
-import android.support.v4.widget.SimpleCursorAdapter;
-import android.support.v4.widget.SimpleCursorAdapter.ViewBinder;
 import android.text.ClipboardManager;
+import android.view.ActionMode;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
+import android.widget.SimpleCursorAdapter.ViewBinder;
 import android.widget.TextView;
 
-import com.actionbarsherlock.app.SherlockListFragment;
-import com.actionbarsherlock.view.ActionMode;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
-import com.actionbarsherlock.view.MenuItem;
 import com.google.bitcoin.core.Address;
 import com.google.bitcoin.core.AddressFormatException;
 import com.google.bitcoin.core.Transaction;
@@ -64,7 +64,7 @@ import de.schildbach.wallet_test.R;
 /**
  * @author Andreas Schildbach
  */
-public final class SendingAddressesFragment extends SherlockListFragment implements LoaderManager.LoaderCallbacks<Cursor>
+public final class SendingAddressesFragment extends ListFragment implements LoaderManager.LoaderCallbacks<Cursor>
 {
 	private AbstractWalletActivity activity;
 	private ClipboardManager clipboardManager;

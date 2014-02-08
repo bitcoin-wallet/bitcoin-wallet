@@ -17,11 +17,9 @@
 
 package de.schildbach.wallet.ui;
 
+import android.app.ActionBar;
 import android.os.Bundle;
-
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.view.MenuItem;
-
+import android.view.MenuItem;
 import de.schildbach.wallet_test.R;
 
 /**
@@ -36,7 +34,7 @@ public final class ExchangeRatesActivity extends AbstractWalletActivity
 
 		setContentView(R.layout.exchange_rates_content);
 
-		final ActionBar actionBar = getSupportActionBar();
+		final ActionBar actionBar = getActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
 	}
 

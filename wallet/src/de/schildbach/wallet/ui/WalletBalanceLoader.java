@@ -25,8 +25,8 @@ import javax.annotation.Nonnull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import android.content.AsyncTaskLoader;
 import android.content.Context;
-import android.support.v4.content.AsyncTaskLoader;
 
 import com.google.bitcoin.core.Wallet;
 import com.google.bitcoin.core.Wallet.BalanceType;

@@ -1,86 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-	<style name="My.Theme" parent="@style/Theme.Sherlock.Light.DarkActionBar.ForceOverflow">
-		<item name="actionBarStyle">@style/My.Widget.ActionBar</item>
+	<style name="My.Theme" parent="@android:style/Theme.Holo.Light.DarkActionBar">
 		<item name="android:actionBarStyle">@style/My.Widget.ActionBar</item>
-		<item name="actionModeStyle">@style/My.Widget.ActionMode</item>
 		<item name="android:actionModeStyle">@style/My.Widget.ActionMode</item>
-		<item name="android:editTextStyle">@style/My.Widget.EditText</item>
-		<item name="android:autoCompleteTextViewStyle">@style/My.Widget.AutoCompleteTextView</item>
-		<item name="android:spinnerStyle">@style/My.Widget.Spinner</item>
-		<item name="android:checkboxStyle">@style/My.Widget.CompoundButton.CheckBox</item>
 	</style>
 
-	<style name="My.Theme.Fullscreen" parent="@android:style/Theme.NoTitleBar.Fullscreen" />
+	<style name="My.Theme.Fullscreen" parent="@android:style/Theme.Holo.NoActionBar.Fullscreen" />
 
-	<style name="My.Theme.Dialog" parent="@style/Theme.Sherlock.Light.Dialog" />
+	<style name="My.Theme.Dialog" parent="@android:style/Theme.Holo.Light.Dialog" />
 
-	<style name="My.Widget.ActionBar" parent="@style/Widget.Sherlock.Light.ActionBar.Solid.Inverse">
-		<item name="background">@drawable/action_bar_background</item>
+	<style name="My.Widget.ActionBar" parent="@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse">
 		<item name="android:background">@drawable/action_bar_background</item>
-		<item name="titleTextStyle">@style/My.TextAppearance.Widget.ActionBar.Title</item>
 		<item name="android:titleTextStyle">@style/My.TextAppearance.Widget.ActionBar.Title</item>
-		<item name="subtitleTextStyle">@style/My.TextAppearance.Widget.ActionBar.Subtitle</item>
 		<item name="android:subtitleTextStyle">@style/My.TextAppearance.Widget.ActionBar.Subtitle</item>
 	</style>
 
-	<style name="My.TextAppearance.Widget.ActionBar.Title" parent="@style/TextAppearance.Sherlock.Widget.ActionBar.Title">
+	<style name="My.TextAppearance.Widget.ActionBar.Title" parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Title">
 		<item name="android:textColor">@android:color/white</item>
 		<item name="android:textStyle">bold</item>
 		<item name="android:shadowColor">@android:color/black</item>
 		<item name="android:shadowRadius">1</item>
 	</style>
 
-	<style name="My.TextAppearance.Widget.ActionBar.Subtitle" parent="@style/TextAppearance.Sherlock.Widget.ActionBar.Subtitle">
+	<style name="My.TextAppearance.Widget.ActionBar.Subtitle" parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Subtitle">
 		<item name="android:textColor">@android:color/white</item>
 		<item name="android:textStyle">normal</item>
 	</style>
 
-	<style name="My.Widget.ActionMode" parent="@style/Widget.Sherlock.Light.ActionMode.Inverse">
-		<item name="background">@drawable/action_mode_background</item>
+	<style name="My.Widget.ActionMode" parent="@android:style/Widget.Holo.Light.ActionMode.Inverse">
 		<item name="android:background">@drawable/action_mode_background</item>
-		<item name="titleTextStyle">@style/My.TextAppearance.Widget.ActionMode.Title</item>
 		<item name="android:titleTextStyle">@style/My.TextAppearance.Widget.ActionMode.Title</item>
-		<item name="subtitleTextStyle">@style/My.TextAppearance.Widget.ActionMode.Subtitle</item>
 		<item name="android:subtitleTextStyle">@style/My.TextAppearance.Widget.ActionMode.Subtitle</item>
 	</style>
 
-	<style name="My.TextAppearance.Widget.ActionMode.Title" parent="@style/TextAppearance.Sherlock.Widget.ActionMode.Title">
+	<style name="My.TextAppearance.Widget.ActionMode.Title" parent="@android:style/TextAppearance.Holo.Widget.ActionMode.Title">
 		<item name="android:textColor">@android:color/white</item>
 		<item name="android:textStyle">bold</item>
 		<item name="android:shadowColor">@android:color/black</item>
 		<item name="android:shadowRadius">1</item>
 	</style>
 
-	<style name="My.TextAppearance.Widget.ActionMode.Subtitle" parent="@style/TextAppearance.Sherlock.Widget.ActionMode.Subtitle">
+	<style name="My.TextAppearance.Widget.ActionMode.Subtitle" parent="@android:style/TextAppearance.Holo.Widget.ActionMode.Subtitle">
 		<item name="android:textColor">@android:color/white</item>
 		<item name="android:textStyle">normal</item>
 	</style>
 
-	<style name="My.Widget.EditText" parent="@android:style/Widget.EditText">
-		<item name="android:background">@drawable/edit_text</item>
-	</style>
-
-	<style name="My.Widget.AutoCompleteTextView" parent="@android:style/Widget.AutoCompleteTextView">
-		<item name="android:background">@drawable/edit_text</item>
-	</style>
-
-	<style name="My.Widget.Spinner" parent="@android:style/Widget.Spinner">
-		<item name="android:background">@drawable/spinner_background</item>
-	</style>
-
-	<style name="My.Widget.CompoundButton.CheckBox" parent="@android:style/Widget.CompoundButton.CheckBox">
-		<item name="android:button">@drawable/btn_check</item>
-		<item name="android:paddingLeft">42dp</item>
-	</style>
-
-	<style name="My.Widget.Button.Borderless" parent="@android:style/Widget">
-		<item name="android:background">@android:drawable/list_selector_background</item>
+	<style name="My.Widget.Button.Borderless" parent="@android:style/Widget.Holo.Button.Borderless">
 		<item name="android:paddingLeft">8dp</item>
 		<item name="android:paddingRight">8dp</item>
 		<item name="android:drawablePadding">8dp</item>
-		<item name="android:minHeight">48dp</item>
 	</style>
 
 </resources>

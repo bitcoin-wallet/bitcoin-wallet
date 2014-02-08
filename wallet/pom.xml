@@ -23,13 +23,21 @@
 		</license>
 	</licenses>
 
+	<repositories>
+		<repository>
+			<id>android-support</id>
+			<url>file://${env.ANDROID_HOME}/extras/android/m2repository</url>
+		</repository>
+	</repositories>
+
 	<dependencies>
 
 		<!-- android.*, java.*, javax.* -->
 		<dependency>
 			<groupId>com.google.android</groupId>
 			<artifactId>android</artifactId>
-			<version>4.0.1.2</version>
+			<!-- 4.1.3 not available on central -->
+			<version>4.1.1.4</version>
 			<scope>provided</scope>
 		</dependency>
 
@@ -37,24 +45,22 @@
 		<dependency>
 			<groupId>com.google.android</groupId>
 			<artifactId>annotations</artifactId>
-			<!-- version should match android artifact, but not available on maven central -->
 			<version>4.1.1.4</version>
 			<scope>provided</scope>
 		</dependency>
 
-		<!-- android.support.v4.* -->
+		<!-- android.support.v4.*, provided by android-support -->
 		<dependency>
-			<groupId>com.google.android</groupId>
+			<groupId>com.android.support</groupId>
 			<artifactId>support-v4</artifactId>
-			<version>r7</version>
+			<version>19.1.0</version>
 		</dependency>
 
-		<!-- com.actionbarsherlock.* -->
+		<!-- android.support.v13.*, provided by android-support -->
 		<dependency>
-			<groupId>com.actionbarsherlock</groupId>
-			<artifactId>library</artifactId>
-			<version>4.1.0</version>
-			<type>apklib</type>
+			<groupId>com.android.support</groupId>
+			<artifactId>support-v13</artifactId>
+			<version>19.1.0</version>
 		</dependency>
 
 		<!-- com.google.bitcoin.* -->
@@ -180,7 +186,7 @@
 						<excludeJarResource>.*\.jar$</excludeJarResource>
 					</excludeJarResources>
 					<sdk>
-						<platform>14</platform>
+						<platform>15</platform>
 					</sdk>
 					<sign>
 						<debug>both</debug>
