@@ -354,15 +354,17 @@ public final class PaymentIntent implements Parcelable
 	public boolean isSecurityExtendedBy(final PaymentIntent paymentIntent)
 	{
 		// check address
-		if (hasAddress() != paymentIntent.hasAddress())
+		final boolean hasAddress = hasAddress();
+		if (hasAddress != paymentIntent.hasAddress())
 			return false;
-		if (!getAddress().equals(paymentIntent.getAddress()))
+		if (hasAddress && !getAddress().equals(paymentIntent.getAddress()))
 			return false;
 
 		// check amount
-		if (hasAmount() != paymentIntent.hasAmount())
+		final boolean hasAmount = hasAmount();
+		if (hasAmount != paymentIntent.hasAmount())
 			return false;
-		if (!getAmount().equals(paymentIntent.getAmount()))
+		if (hasAmount && !getAmount().equals(paymentIntent.getAmount()))
 			return false;
 
 		return true;
