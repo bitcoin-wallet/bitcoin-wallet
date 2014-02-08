@@ -648,7 +648,7 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 			}
 		}.start();
 
-		if (!config.hasBtcPrecision()
+		if (!config.hasBtcPrecision() && CoinDefinition.coinPrecision != CoinDefinition.CoinPrecision.Coins
 				&& config.changeLogVersionCodeCrossed(application.packageInfo().versionCode, DEFAULT_PRECISION_CHANGE_VERSION_CODE))
 		{
 			showDialog(DIALOG_CHANGELOG);
