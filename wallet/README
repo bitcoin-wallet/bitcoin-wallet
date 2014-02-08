@@ -57,14 +57,18 @@ the package installs.
 If you want to use Maven 3.1.0 or later, you need edit pom.xml to use android-maven-plugin version
 3.8.2 or later.
 
-Get the Android SDK Tools from
+Get the Android SDK (Tools only) from
 
 	http://developer.android.com/sdk/
 
-and unpack it to your workspace directory. Switch to that Android SDK directory, and use
+and unpack it to your workspace directory. Point your ANDROID_HOME variable to that Android SDK directory
+and switch to it. Use
 
-	# first time only
-	tools/android update sdk --no-ui --force --filter platform,platform-tools
+	# make sure tools are at the newest version
+	tools/android update sdk --no-ui --force --filter tools
+
+	# fetch required android dependencies
+	tools/android update sdk --no-ui --force --filter build-tools-20.0.0,android-10,android-15,extra-android-m2repository
 
 to download the necessary API level.
 
@@ -77,7 +81,7 @@ use
 	# each time
 	cd bitcoin-wallet
 	git pull
-	mvn clean install -Dandroid.sdk.path=<path to your android sdk>
+	mvn clean install
 
 To upload the app to your Android device, use
 
@@ -113,11 +117,6 @@ Use Git to check out the project and an Android library dependency to your works
 
 	# clone Bitcoin Wallet project
 	git clone -b master https://github.com/schildbach/bitcoin-wallet.git bitcoin-wallet
-
-	# clone ActionBarSherlock library project
-	git clone https://github.com/JakeWharton/ActionBarSherlock.git action-bar-sherlock
-	cd action-bar-sherlock
-	git checkout 4.1.0
 
 Use the maven-eclipse-plugin to create Eclipse project files:
 

@@ -64,6 +64,8 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.text.Html;
 import android.text.format.DateUtils;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
@@ -71,8 +73,6 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuItem;
 import com.google.bitcoin.core.AddressFormatException;
 import com.google.bitcoin.core.ECKey;
 import com.google.bitcoin.core.Transaction;
@@ -221,7 +221,7 @@ public final class WalletActivity extends AbstractWalletActivity
 	{
 		super.onCreateOptionsMenu(menu);
 
-		getSupportMenuInflater().inflate(R.menu.wallet_options, menu);
+		getMenuInflater().inflate(R.menu.wallet_options, menu);
 		menu.findItem(R.id.wallet_options_donate).setVisible(!Constants.TEST);
 
 		return true;
@@ -293,7 +293,7 @@ public final class WalletActivity extends AbstractWalletActivity
 				return true;
 
 			case R.id.wallet_options_safety:
-				HelpDialogFragment.page(getSupportFragmentManager(), R.string.help_safety);
+				HelpDialogFragment.page(getFragmentManager(), R.string.help_safety);
 				return true;
 
 			case R.id.wallet_options_donate:
@@ -301,7 +301,7 @@ public final class WalletActivity extends AbstractWalletActivity
 				return true;
 
 			case R.id.wallet_options_help:
-				HelpDialogFragment.page(getSupportFragmentManager(), R.string.help_wallet);
+				HelpDialogFragment.page(getFragmentManager(), R.string.help_wallet);
 				return true;
 		}
 

@@ -29,27 +29,28 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import android.app.Activity;
+import android.app.ListFragment;
+import android.app.LoaderManager;
+import android.app.LoaderManager.LoaderCallbacks;
+import android.content.AsyncTaskLoader;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.Loader;
 import android.content.ServiceConnection;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.app.LoaderManager.LoaderCallbacks;
-import android.support.v4.content.AsyncTaskLoader;
-import android.support.v4.content.Loader;
 import android.text.format.DateUtils;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.actionbarsherlock.app.SherlockListFragment;
 import com.google.bitcoin.core.Peer;
 import com.google.bitcoin.core.VersionMessage;
 
@@ -61,7 +62,7 @@ import de.schildbach.wallet_test.R;
 /**
  * @author Andreas Schildbach
  */
-public final class PeerListFragment extends SherlockListFragment
+public final class PeerListFragment extends ListFragment
 {
 	private AbstractWalletActivity activity;
 	private LoaderManager loaderManager;
@@ -104,11 +105,13 @@ public final class PeerListFragment extends SherlockListFragment
 
 		adapter = new ArrayAdapter<Peer>(activity, 0)
 		{
+			private final LayoutInflater inflater = LayoutInflater.from(activity);
+
 			@Override
 			public View getView(final int position, View row, final ViewGroup parent)
 			{
 				if (row == null)
-					row = getLayoutInflater(null).inflate(R.layout.peer_list_row, null);
+					row = inflater.inflate(R.layout.peer_list_row, null);
 
 				final Peer peer = getItem(position);
 				final VersionMessage versionMessage = peer.getPeerVersionMessage();

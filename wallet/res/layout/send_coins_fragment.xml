@@ -61,7 +61,7 @@
 
 	<LinearLayout
 		android:id="@+id/send_coins_receiving_static"
-		style="@style/My.Widget.EditText"
+		style="@android:style/Widget.Holo.Light.EditText"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:layout_marginLeft="@dimen/list_entry_padding_horizontal"

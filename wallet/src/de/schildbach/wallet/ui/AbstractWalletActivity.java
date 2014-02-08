@@ -22,20 +22,18 @@ import javax.annotation.Nonnull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.actionbarsherlock.app.SherlockFragmentActivity;
-
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet_test.R;
 
 /**
  * @author Andreas Schildbach
  */
-public abstract class AbstractWalletActivity extends SherlockFragmentActivity
+public abstract class AbstractWalletActivity extends Activity
 {
 	private WalletApplication application;
 

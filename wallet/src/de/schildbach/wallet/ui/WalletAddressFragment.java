@@ -18,14 +18,13 @@
 package de.schildbach.wallet.ui;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.graphics.Bitmap;
 import android.nfc.NfcManager;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -50,7 +49,7 @@ import de.schildbach.wallet_test.R;
  */
 public final class WalletAddressFragment extends Fragment
 {
-	private FragmentActivity activity;
+	private Activity activity;
 	private WalletApplication application;
 	private Configuration config;
 	private NfcManager nfcManager;
@@ -68,7 +67,7 @@ public final class WalletAddressFragment extends Fragment
 	{
 		super.onAttach(activity);
 
-		this.activity = (FragmentActivity) activity;
+		this.activity = activity;
 		this.application = (WalletApplication) activity.getApplication();
 		this.config = application.getConfiguration();
 		this.nfcManager = (NfcManager) activity.getSystemService(Context.NFC_SERVICE);
