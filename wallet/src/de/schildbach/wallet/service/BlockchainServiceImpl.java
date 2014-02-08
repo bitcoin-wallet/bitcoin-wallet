@@ -42,6 +42,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import android.annotation.SuppressLint;
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -57,7 +58,6 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
-import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.text.format.DateUtils;
 
@@ -214,7 +214,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 			text.append(label != null ? label : addressStr);
 		}
 
-		final NotificationCompat.Builder notification = new NotificationCompat.Builder(this);
+		final Notification.Builder notification = new Notification.Builder(this);
 		notification.setSmallIcon(R.drawable.stat_notify_received);
 		notification.setTicker(tickerMsg);
 		notification.setContentTitle(msg);
@@ -285,7 +285,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 					}
 					else
 					{
-						final NotificationCompat.Builder notification = new NotificationCompat.Builder(BlockchainServiceImpl.this);
+						final Notification.Builder notification = new Notification.Builder(BlockchainServiceImpl.this);
 						notification.setSmallIcon(R.drawable.stat_sys_peers, numPeers > 4 ? 4 : numPeers);
 						notification.setContentTitle(getString(R.string.app_name));
 						notification.setContentText(getString(R.string.notification_peers_connected_msg, numPeers));

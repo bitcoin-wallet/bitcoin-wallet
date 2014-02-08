@@ -17,12 +17,10 @@
 
 package de.schildbach.wallet.ui;
 
+import android.app.ActionBar;
 import android.os.Bundle;
-
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuItem;
-
+import android.view.Menu;
+import android.view.MenuItem;
 import de.schildbach.wallet_test.R;
 
 /**
@@ -37,14 +35,14 @@ public final class RequestCoinsActivity extends AbstractBindServiceActivity
 
 		setContentView(R.layout.request_coins_content);
 
-		final ActionBar actionBar = getSupportActionBar();
+		final ActionBar actionBar = getActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(final Menu menu)
 	{
-		getSupportMenuInflater().inflate(R.menu.request_coins_activity_options, menu);
+		getMenuInflater().inflate(R.menu.request_coins_activity_options, menu);
 
 		return super.onCreateOptionsMenu(menu);
 	}
@@ -59,7 +57,7 @@ public final class RequestCoinsActivity extends AbstractBindServiceActivity
 				return true;
 
 			case R.id.request_coins_options_help:
-				HelpDialogFragment.page(getSupportFragmentManager(), R.string.help_request_coins);
+				HelpDialogFragment.page(getFragmentManager(), R.string.help_request_coins);
 				return true;
 		}
 
