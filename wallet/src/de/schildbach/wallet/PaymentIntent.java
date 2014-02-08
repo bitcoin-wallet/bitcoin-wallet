@@ -74,15 +74,13 @@ public final class PaymentIntent implements Parcelable
 			builder.append('[');
 			builder.append(hasAmount() ? GenericUtils.formatValue(amount, Constants.BTC_MAX_PRECISION, 0) : "null");
 			builder.append(',');
-			if (script.isSentToAddress())
+			if (script.isSentToAddress() || script.isSentToP2SH())
 				builder.append(script.getToAddress(Constants.NETWORK_PARAMETERS));
 			else if (script.isSentToRawPubKey())
 				for (final byte b : script.getPubKey())
 					builder.append(String.format("%02x", b));
 			else if (script.isSentToMultiSig())
 				builder.append("multisig");
-			else if (script.isSentToP2SH())
-				builder.append("p2sh");
 			else
 				builder.append("unknown");
 			builder.append(']');
@@ -259,7 +257,7 @@ public final class PaymentIntent implements Parcelable
 			return false;
 
 		final Script script = outputs[0].script;
-		return script.isSentToAddress() || script.isSentToRawPubKey();
+		return script.isSentToAddress() || script.isSentToP2SH() || script.isSentToRawPubKey();
 	}
 
 	public Address getAddress()
@@ -268,7 +266,7 @@ public final class PaymentIntent implements Parcelable
 			throw new IllegalStateException();
 
 		final Script script = outputs[0].script;
-		if (script.isSentToAddress())
+		if (script.isSentToAddress() || script.isSentToP2SH())
 			return script.getToAddress(Constants.NETWORK_PARAMETERS);
 		else if (script.isSentToRawPubKey())
 			return new Address(Constants.NETWORK_PARAMETERS, script.getPubKeyHash());
