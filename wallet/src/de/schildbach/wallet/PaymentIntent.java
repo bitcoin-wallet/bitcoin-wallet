@@ -222,7 +222,7 @@ public final class PaymentIntent implements Parcelable
 		else
 		{
 			// custom output
-			outputs = new Output[] { new Output(editedAmount, ScriptBuilder.createOutputScript(editedAddress)) };
+			outputs = buildSimplePayTo(editedAmount, editedAddress);
 		}
 
 		return new PaymentIntent(standard, payeeName, payeeOrganization, payeeVerifiedBy, outputs, memo, null, payeeData, null);
