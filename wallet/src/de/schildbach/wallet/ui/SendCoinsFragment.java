@@ -23,6 +23,7 @@ import java.math.BigInteger;
 
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -891,7 +892,7 @@ public final class SendCoinsFragment extends SherlockFragment
 			}
 
 			@Override
-			protected void onInsufficientMoney(final BigInteger missing)
+			protected void onInsufficientMoney(@Nullable final BigInteger missing)
 			{
 				state = State.INPUT;
 				updateView();
@@ -905,12 +906,15 @@ public final class SendCoinsFragment extends SherlockFragment
 				final String btcPrefix = config.getBtcPrefix();
 
 				final DialogBuilder dialog = DialogBuilder.warn(activity, R.string.send_coins_fragment_insufficient_money_title);
-				final StringBuilder msg = new StringBuilder(String.format(getString(R.string.send_coins_fragment_insufficient_money_msg1), btcPrefix
-						+ ' ' + GenericUtils.formatValue(missing, btcPrecision, btcShift)));
+				final StringBuilder msg = new StringBuilder();
+				if (missing != null)
+					msg.append(
+							String.format(getString(R.string.send_coins_fragment_insufficient_money_msg1),
+									btcPrefix + ' ' + GenericUtils.formatValue(missing, btcPrecision, btcShift))).append("\n\n");
 				if (pending.signum() > 0)
-					msg.append("\n\n").append(
-							getString(R.string.send_coins_fragment_pending, GenericUtils.formatValue(pending, btcPrecision, btcShift)));
-				msg.append("\n\n").append(getString(R.string.send_coins_fragment_insufficient_money_msg2));
+					msg.append(getString(R.string.send_coins_fragment_pending, GenericUtils.formatValue(pending, btcPrecision, btcShift))).append(
+							"\n\n");
+				msg.append(getString(R.string.send_coins_fragment_insufficient_money_msg2));
 				dialog.setMessage(msg);
 				dialog.setPositiveButton(R.string.send_coins_options_empty, new DialogInterface.OnClickListener()
 				{
