@@ -159,6 +159,7 @@
 	<string name="input_parser_cannot_classify">Cannot classify input:\n%s</string>
 	<string name="input_parser_invalid_bitcoin_uri">Invalid Bitcoin URI:\n%s</string>
 	<string name="input_parser_invalid_address">Got invalid bitcoin address!\n(Mixing up Mainnet/Testnet?)</string>
+	<string name="input_parser_unverifyable_paymentrequest">Cannot verify payment request:\n%s</string>
 	<string name="input_parser_invalid_paymentrequest">Invalid payment request:\n%s</string>
 	<string name="input_parser_invalid_transaction">Invalid transaction:\n%s</string>
 	<string name="preferences_activity_title">Settings</string>

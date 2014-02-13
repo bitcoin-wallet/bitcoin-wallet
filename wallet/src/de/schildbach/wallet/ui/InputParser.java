@@ -29,6 +29,8 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.bitcoin.protocols.payments.Protos;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.spongycastle.asn1.ASN1String;
 import org.spongycastle.asn1.x500.AttributeTypeAndValue;
 import org.spongycastle.asn1.x500.RDN;
@@ -46,6 +48,7 @@ import com.google.bitcoin.core.ECKey;
 import com.google.bitcoin.core.ProtocolException;
 import com.google.bitcoin.core.Transaction;
 import com.google.bitcoin.protocols.payments.PaymentRequestException;
+import com.google.bitcoin.protocols.payments.PaymentRequestException.PkiVerificationException;
 import com.google.bitcoin.protocols.payments.PaymentSession;
 import com.google.bitcoin.protocols.payments.PaymentSession.PkiVerificationData;
 import com.google.bitcoin.script.Script;
@@ -64,6 +67,8 @@ import de.schildbach.wallet_test.R;
  */
 public abstract class InputParser
 {
+	private static final Logger log = LoggerFactory.getLogger(InputParser.class);
+
 	public abstract static class StringInputParser extends InputParser
 	{
 		private final String input;
@@ -84,13 +89,23 @@ public abstract class InputParser
 
 					parseAndHandlePaymentRequest(serializedPaymentRequest);
 				}
-				catch (final PaymentRequestException x)
-				{
-					error(R.string.input_parser_invalid_paymentrequest, x.getMessage());
-				}
 				catch (final IOException x)
 				{
+					log.info("i/o error while fetching payment request", x);
+
 					error(R.string.input_parser_io_error, x.getMessage());
+				}
+				catch (final PkiVerificationException x)
+				{
+					log.info("got unverifyable payment request", x);
+
+					error(R.string.input_parser_unverifyable_paymentrequest, x.getMessage());
+				}
+				catch (final PaymentRequestException x)
+				{
+					log.info("got invalid payment request", x);
+
+					error(R.string.input_parser_invalid_paymentrequest, x.getMessage());
 				}
 			}
 			else if (input.startsWith("bitcoin:"))
@@ -110,6 +125,8 @@ public abstract class InputParser
 				}
 				catch (final BitcoinURIParseException x)
 				{
+					log.info("got invalid bitcoin uri: '" + input + "'", x);
+
 					error(R.string.input_parser_invalid_bitcoin_uri, input);
 				}
 			}
@@ -123,6 +140,8 @@ public abstract class InputParser
 				}
 				catch (final AddressFormatException x)
 				{
+					log.info("got invalid address", x);
+
 					error(R.string.input_parser_invalid_address);
 				}
 			}
@@ -137,6 +156,8 @@ public abstract class InputParser
 				}
 				catch (final AddressFormatException x)
 				{
+					log.info("got invalid address", x);
+
 					error(R.string.input_parser_invalid_address);
 				}
 			}
@@ -150,10 +171,14 @@ public abstract class InputParser
 				}
 				catch (final IOException x)
 				{
+					log.info("i/o error while fetching transaction", x);
+
 					error(R.string.input_parser_invalid_transaction, x.getMessage());
 				}
 				catch (final ProtocolException x)
 				{
+					log.info("got invalid transaction", x);
+
 					error(R.string.input_parser_invalid_transaction, x.getMessage());
 				}
 			}
@@ -188,6 +213,8 @@ public abstract class InputParser
 				}
 				catch (final ProtocolException x)
 				{
+					log.info("got invalid transaction", x);
+
 					error(R.string.input_parser_invalid_transaction, x.getMessage());
 				}
 			}
@@ -197,13 +224,23 @@ public abstract class InputParser
 				{
 					parseAndHandlePaymentRequest(input);
 				}
-				catch (final PaymentRequestException x)
-				{
-					error(R.string.input_parser_invalid_paymentrequest, x.getMessage());
-				}
 				catch (final InvalidProtocolBufferException x)
 				{
+					log.info("got invalid protocol buffer", x);
+
 					error(R.string.input_parser_io_error, x.getMessage());
+				}
+				catch (final PkiVerificationException x)
+				{
+					log.info("got unverifyable payment request", x);
+
+					error(R.string.input_parser_unverifyable_paymentrequest, x.getMessage());
+				}
+				catch (final PaymentRequestException x)
+				{
+					log.info("got invalid payment request", x);
+
+					error(R.string.input_parser_invalid_paymentrequest, x.getMessage());
 				}
 			}
 			else
@@ -237,13 +274,23 @@ public abstract class InputParser
 					Io.copy(is, baos);
 					parseAndHandlePaymentRequest(baos.toByteArray());
 				}
-				catch (final PaymentRequestException x)
-				{
-					error(R.string.input_parser_invalid_paymentrequest, x.getMessage());
-				}
 				catch (final IOException x)
 				{
+					log.info("i/o error while fetching payment request", x);
+
 					error(R.string.input_parser_io_error, x.getMessage());
+				}
+				catch (final PkiVerificationException x)
+				{
+					log.info("got unverifyable payment request", x);
+
+					error(R.string.input_parser_unverifyable_paymentrequest, x.getMessage());
+				}
+				catch (final PaymentRequestException x)
+				{
+					log.info("got invalid payment request", x);
+
+					error(R.string.input_parser_invalid_paymentrequest, x.getMessage());
 				}
 				finally
 				{
