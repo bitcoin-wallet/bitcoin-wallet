@@ -51,7 +51,6 @@ import com.google.bitcoin.protocols.payments.PaymentSession.PkiVerificationData;
 import com.google.bitcoin.script.Script;
 import com.google.bitcoin.uri.BitcoinURI;
 import com.google.bitcoin.uri.BitcoinURIParseException;
-import com.google.protobuf.ByteString;
 import com.google.protobuf.InvalidProtocolBufferException;
 
 import de.schildbach.wallet.Constants;
@@ -323,13 +322,12 @@ public abstract class InputParser
 			outputs.add(new PaymentIntent.Output(amount, script));
 		}
 
-		final String paymentUrl = paymentDetails.getPaymentUrl();
-
-		final ByteString merchantData = paymentDetails.getMerchantData();
+		final String memo = paymentDetails.hasMemo() ? paymentDetails.getMemo() : null;
+		final String paymentUrl = paymentDetails.hasPaymentUrl() ? paymentDetails.getPaymentUrl() : null;
+		final byte[] merchantData = paymentDetails.hasMerchantData() ? paymentDetails.getMerchantData().toByteArray() : null;
 
 		final PaymentIntent paymentIntent = new PaymentIntent(PaymentIntent.Standard.BIP70, pkiName, pkiOrgName, pkiCaName,
-				outputs.toArray(new PaymentIntent.Output[0]), paymentDetails.getMemo(), paymentUrl, merchantData != null ? merchantData.toByteArray()
-						: null, null);
+				outputs.toArray(new PaymentIntent.Output[0]), memo, paymentUrl, merchantData, null);
 
 		if (paymentIntent.hasPaymentUrl() && !paymentIntent.isSupportedPaymentUrl())
 			throw new PaymentRequestException.InvalidPaymentURL("cannot handle payment url: " + paymentIntent.paymentUrl);

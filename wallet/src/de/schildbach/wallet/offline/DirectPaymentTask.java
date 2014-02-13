@@ -386,6 +386,8 @@ public abstract class DirectPaymentTask
 		if (!paymentAck.getPayment().equals(expectedPaymentMessage))
 			return null;
 
-		return paymentAck.getMemo();
+		final String memo = paymentAck.hasMemo() ? paymentAck.getMemo() : null;
+
+		return memo;
 	}
 }
