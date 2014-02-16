@@ -106,7 +106,7 @@ public final class RequestCoinsFragment extends SherlockFragment
 
 	private static final int ID_RATE_LOADER = 0;
 
-	private static boolean ENABLE_BLUETOOTH_LISTENING = Build.VERSION.SDK_INT >= Constants.SDK_JELLY_BEAN_MR2;
+	private static boolean ENABLE_BLUETOOTH_LISTENING = true;
 
 	private static final Logger log = LoggerFactory.getLogger(RequestCoinsFragment.class);
 
