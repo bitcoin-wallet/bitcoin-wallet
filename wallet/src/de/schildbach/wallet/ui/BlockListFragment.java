@@ -23,8 +23,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.RejectedExecutionException;
 
 import javax.annotation.Nonnull;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;
@@ -86,6 +90,8 @@ public final class BlockListFragment extends SherlockListFragment
 	private static final int ID_TRANSACTION_LOADER = 1;
 
 	private static final int MAX_BLOCKS = 32;
+
+	private static final Logger log = LoggerFactory.getLogger(BlockListFragment.class);
 
 	@Override
 	public void onAttach(final Activity activity)
@@ -373,7 +379,14 @@ public final class BlockListFragment extends SherlockListFragment
 			@Override
 			public void onReceive(final Context context, final Intent intent)
 			{
-				forceLoad();
+				try
+				{
+					forceLoad();
+				}
+				catch (final RejectedExecutionException x)
+				{
+					log.info("rejected execution: " + BlockLoader.this.toString());
+				}
 			}
 		};
 	}

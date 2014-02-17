@@ -25,10 +25,14 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.RejectedExecutionException;
 
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import android.app.Activity;
 import android.content.ContentResolver;
@@ -105,6 +109,8 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 	private static final String KEY_DIRECTION = "direction";
 	private static final long THROTTLE_MS = DateUtils.SECOND_IN_MILLIS;
 	private static final Uri KEY_ROTATION_URI = Uri.parse("http://bitcoin.org/en/alert/2013-08-11-android");
+
+	private static final Logger log = LoggerFactory.getLogger(TransactionsListFragment.class);
 
 	public static TransactionsListFragment instance(@Nullable final Direction direction)
 	{
@@ -428,7 +434,14 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 			@Override
 			public void onThrottledWalletChanged()
 			{
-				forceLoad();
+				try
+				{
+					forceLoad();
+				}
+				catch (final RejectedExecutionException x)
+				{
+					log.info("rejected execution: " + TransactionsLoader.this.toString());
+				}
 			}
 		};
 
