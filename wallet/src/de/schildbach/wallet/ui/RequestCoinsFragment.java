@@ -24,6 +24,7 @@ import java.util.List;
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
 
+import com.google.bitcoin.core.CoinDefinition;
 import org.bitcoin.protocols.payments.Protos;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -389,7 +390,7 @@ public final class RequestCoinsFragment extends SherlockFragment
 		final int size = (int) (256 * getResources().getDisplayMetrics().density);
 		final String qrContent;
 		if (config.getQrPaymentRequestEnabled())
-			qrContent = "BITCOIN:-" + Qr.encodeBinary(paymentRequest);
+			qrContent = CoinDefinition.coinURIScheme.toUpperCase() + ":-" + Qr.encodeBinary(paymentRequest);
 		else
 			qrContent = bitcoinRequest;
 		qrCodeBitmap = Qr.bitmap(qrContent, size);

@@ -3,7 +3,7 @@
 
 	<PreferenceCategory android:title="@string/preferences_category_main" >
 		<ListPreference
-			android:defaultValue="2/3"
+			android:defaultValue="2/0"
 			android:entries="@array/preferences_precision_labels"
 			android:entryValues="@array/preferences_precision_values"
 			android:key="btc_precision"

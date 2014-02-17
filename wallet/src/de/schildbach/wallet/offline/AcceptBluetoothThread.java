@@ -29,6 +29,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.google.bitcoin.core.CoinDefinition;
 import org.bitcoin.protocols.payments.Protos;
 import org.bitcoin.protocols.payments.Protos.PaymentACK;
 import org.slf4j.Logger;
@@ -292,7 +293,7 @@ public abstract class AcceptBluetoothThread extends Thread
 	{
 		try
 		{
-			return adapter.listenUsingInsecureRfcommWithServiceRecord("Bitcoin Transaction Submission", uuid);
+			return adapter.listenUsingInsecureRfcommWithServiceRecord(CoinDefinition.coinName+ " Transaction Submission", uuid);
 		}
 		catch (final IOException x)
 		{

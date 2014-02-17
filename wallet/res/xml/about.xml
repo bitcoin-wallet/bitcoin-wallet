@@ -6,7 +6,7 @@
 			android:key="about_version"
 			android:title="Version" />
 		<Preference
-			android:summary="© 2011-2014, Andreas Schildbach\n© 2013-2014, HashEngineering Solutions\n© 2013-2014, Crypto-Expert"
+			android:summary="© 2011-2014, Andreas Schildbach\n© 2013-2014, HashEngineering Solutions"
 			android:title="Copyright" />
         <Preference
                 android:summary="Version 1.1 (v1.0.1.0-g3aaa7ba-beta) and above"
