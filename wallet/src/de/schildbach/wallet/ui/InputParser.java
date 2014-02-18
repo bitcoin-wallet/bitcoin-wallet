@@ -309,7 +309,7 @@ public abstract class InputParser
 		final Protos.PaymentDetails paymentDetails = Protos.PaymentDetails.newBuilder().mergeFrom(paymentRequest.getSerializedPaymentDetails())
 				.build();
 
-		if (paymentDetails.hasExpires() && System.currentTimeMillis() >= paymentDetails.getExpires())
+		if (paymentDetails.hasExpires() && (System.currentTimeMillis() / 1000) >= paymentDetails.getExpires())
 			throw new PaymentRequestException.Expired("payment details expired: " + paymentDetails.getExpires());
 
 		if (!paymentDetails.getNetwork().equals(Constants.NETWORK_PARAMETERS.getPaymentProtocolId()))
