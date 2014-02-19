@@ -574,7 +574,7 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 		final String base = Constants.VERSION_URL + (versionNameSplit >= 0 ? packageInfo.versionName.substring(versionNameSplit) : "");
 		final String url = base + "?package=" + packageInfo.packageName + "&current=" + packageInfo.versionCode;
 
-		new HttpGetThread(getAssets(), url)
+		new HttpGetThread(getAssets(), url, application.httpUserAgent())
 		{
 			@Override
 			protected void handleLine(final String line, final long serverTime)

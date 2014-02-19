@@ -26,6 +26,7 @@ import java.math.BigInteger;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -78,12 +79,16 @@ public abstract class DirectPaymentTask
 	public final static class HttpPaymentTask extends DirectPaymentTask
 	{
 		private final String url;
+		@CheckForNull
+		private final String userAgent;
 
-		public HttpPaymentTask(@Nonnull final Handler backgroundHandler, @Nonnull final ResultCallback resultCallback, @Nonnull final String url)
+		public HttpPaymentTask(@Nonnull final Handler backgroundHandler, @Nonnull final ResultCallback resultCallback, @Nonnull final String url,
+				@Nullable final String userAgent)
 		{
 			super(backgroundHandler, resultCallback);
 
 			this.url = url;
+			this.userAgent = userAgent;
 		}
 
 		@Override
@@ -120,6 +125,8 @@ public abstract class DirectPaymentTask
 						connection.setRequestProperty("Content-Type", Constants.MIMETYPE_PAYMENT);
 						connection.setRequestProperty("Accept", Constants.MIMETYPE_PAYMENTACK);
 						connection.setRequestProperty("Content-Length", Integer.toString(payment.getSerializedSize()));
+						if (userAgent != null)
+							connection.addRequestProperty("User-Agent", userAgent);
 						connection.connect();
 
 						os = connection.getOutputStream();

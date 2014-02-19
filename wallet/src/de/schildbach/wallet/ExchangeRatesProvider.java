@@ -40,6 +40,7 @@ import org.slf4j.LoggerFactory;
 
 import android.content.ContentProvider;
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.database.MatrixCursor;
 import android.net.Uri;
@@ -79,6 +80,7 @@ public class ExchangeRatesProvider extends ContentProvider
 	private static final String KEY_SOURCE = "source";
 
 	private Configuration config;
+	private String userAgent;
 
 	@CheckForNull
 	private Map<String, ExchangeRate> exchangeRates = null;
@@ -114,7 +116,11 @@ public class ExchangeRatesProvider extends ContentProvider
 	@Override
 	public boolean onCreate()
 	{
-		this.config = new Configuration(PreferenceManager.getDefaultSharedPreferences(getContext()));
+		final Context context = getContext();
+
+		this.config = new Configuration(PreferenceManager.getDefaultSharedPreferences(context));
+
+		this.userAgent = WalletApplication.httpUserAgent(WalletApplication.packageInfoFromContext(context).versionName);
 
 		final ExchangeRate cachedExchangeRate = config.getCachedExchangeRate();
 		if (cachedExchangeRate != null)
@@ -140,11 +146,11 @@ public class ExchangeRatesProvider extends ContentProvider
 		{
 			Map<String, ExchangeRate> newExchangeRates = null;
 			if (newExchangeRates == null)
-				newExchangeRates = requestExchangeRates(BITCOINAVERAGE_URL, BITCOINAVERAGE_FIELDS);
+				newExchangeRates = requestExchangeRates(BITCOINAVERAGE_URL, userAgent, BITCOINAVERAGE_FIELDS);
 			if (newExchangeRates == null)
-				newExchangeRates = requestExchangeRates(BITCOINCHARTS_URL, BITCOINCHARTS_FIELDS);
+				newExchangeRates = requestExchangeRates(BITCOINCHARTS_URL, userAgent, BITCOINCHARTS_FIELDS);
 			if (newExchangeRates == null)
-				newExchangeRates = requestExchangeRates(BLOCKCHAININFO_URL, BLOCKCHAININFO_FIELDS);
+				newExchangeRates = requestExchangeRates(BLOCKCHAININFO_URL, userAgent, BLOCKCHAININFO_FIELDS);
 
 			if (newExchangeRates != null)
 			{
@@ -240,7 +246,7 @@ public class ExchangeRatesProvider extends ContentProvider
 		throw new UnsupportedOperationException();
 	}
 
-	private static Map<String, ExchangeRate> requestExchangeRates(final URL url, final String... fields)
+	private static Map<String, ExchangeRate> requestExchangeRates(final URL url, final String userAgent, final String... fields)
 	{
 		final long start = System.currentTimeMillis();
 
@@ -252,6 +258,7 @@ public class ExchangeRatesProvider extends ContentProvider
 			connection = (HttpURLConnection) url.openConnection();
 			connection.setConnectTimeout(Constants.HTTP_TIMEOUT_MS);
 			connection.setReadTimeout(Constants.HTTP_TIMEOUT_MS);
+			connection.addRequestProperty("User-Agent", userAgent);
 			connection.connect();
 
 			final int responseCode = connection.getResponseCode();

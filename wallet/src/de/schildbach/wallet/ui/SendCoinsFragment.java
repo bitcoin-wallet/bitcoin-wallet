@@ -880,8 +880,8 @@ public final class SendCoinsFragment extends SherlockFragment
 
 					if (paymentIntent.isHttpPaymentUrl())
 					{
-						new DirectPaymentTask.HttpPaymentTask(backgroundHandler, callback, paymentIntent.paymentUrl).send(paymentIntent.standard,
-								transaction, returnAddress, finalAmount, paymentIntent.payeeData);
+						new DirectPaymentTask.HttpPaymentTask(backgroundHandler, callback, paymentIntent.paymentUrl, application.httpUserAgent())
+								.send(paymentIntent.standard, transaction, returnAddress, finalAmount, paymentIntent.payeeData);
 					}
 					else if (paymentIntent.isBluetoothPaymentUrl() && bluetoothAdapter != null && bluetoothAdapter.isEnabled())
 					{
@@ -1305,6 +1305,6 @@ public final class SendCoinsFragment extends SherlockFragment
 				dialog.setNegativeButton(R.string.button_dismiss, null);
 				dialog.show();
 			}
-		}).requestPaymentRequest(paymentRequestUrl);
+		}, application.httpUserAgent()).requestPaymentRequest(paymentRequestUrl);
 	}
 }

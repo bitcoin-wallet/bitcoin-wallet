@@ -62,6 +62,7 @@ import ch.qos.logback.core.rolling.TimeBasedRollingPolicy;
 import com.google.bitcoin.core.Address;
 import com.google.bitcoin.core.ECKey;
 import com.google.bitcoin.core.Transaction;
+import com.google.bitcoin.core.VersionMessage;
 import com.google.bitcoin.core.Wallet;
 import com.google.bitcoin.store.UnreadableWalletException;
 import com.google.bitcoin.store.WalletProtobufSerializer;
@@ -111,14 +112,7 @@ public class WalletApplication extends Application
 
 		super.onCreate();
 
-		try
-		{
-			packageInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
-		}
-		catch (final NameNotFoundException x)
-		{
-			throw new RuntimeException(x);
-		}
+		packageInfo = packageInfoFromContext(this);
 
 		CrashReporter.init(getCacheDir());
 
@@ -504,6 +498,18 @@ public class WalletApplication extends Application
 		return false;
 	}
 
+	public static PackageInfo packageInfoFromContext(final Context context)
+	{
+		try
+		{
+			return context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
+		}
+		catch (final NameNotFoundException x)
+		{
+			throw new RuntimeException(x);
+		}
+	}
+
 	public PackageInfo packageInfo()
 	{
 		return packageInfo;
@@ -518,6 +524,18 @@ public class WalletApplication extends Application
 			return packageName.substring(index + 1);
 		else
 			return null;
+	}
+
+	public static String httpUserAgent(final String versionName)
+	{
+		final VersionMessage versionMessage = new VersionMessage(Constants.NETWORK_PARAMETERS, 0);
+		versionMessage.appendToSubVer(Constants.USER_AGENT, versionName, null);
+		return versionMessage.subVer;
+	}
+
+	public String httpUserAgent()
+	{
+		return httpUserAgent(packageInfo().versionName);
 	}
 
 	public int maxConnectedPeers()

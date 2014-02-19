@@ -22,7 +22,9 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -64,9 +66,15 @@ public abstract class RequestPaymentRequestTask
 
 	public final static class HttpRequestTask extends RequestPaymentRequestTask
 	{
-		public HttpRequestTask(@Nonnull final Handler backgroundHandler, @Nonnull final ResultCallback resultCallback)
+		@CheckForNull
+		private final String userAgent;
+
+		public HttpRequestTask(@Nonnull final Handler backgroundHandler, @Nonnull final ResultCallback resultCallback,
+				@Nullable final String userAgent)
 		{
 			super(backgroundHandler, resultCallback);
+
+			this.userAgent = userAgent;
 		}
 
 		@Override
@@ -94,6 +102,8 @@ public abstract class RequestPaymentRequestTask
 
 						connection.setRequestMethod("GET");
 						connection.setRequestProperty("Accept", Constants.MIMETYPE_PAYMENTREQUEST);
+						if (userAgent != null)
+							connection.addRequestProperty("User-Agent", userAgent);
 						connection.connect();
 
 						final int responseCode = connection.getResponseCode();
