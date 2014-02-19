@@ -141,6 +141,9 @@ public class WalletApplication extends Application
 		loadWalletFromProtobuf();
 		wallet.autosaveToFile(walletFile, 1, TimeUnit.SECONDS, new WalletAutosaveEventListener());
 
+		// clean up spam
+		wallet.cleanup();
+
 		config.updateLastVersionCode(packageInfo.versionCode);
 
 		if (config.versionCodeCrossed(packageInfo.versionCode, KEY_ROTATION_VERSION_CODE))
