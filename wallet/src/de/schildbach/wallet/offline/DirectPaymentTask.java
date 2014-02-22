@@ -390,9 +390,6 @@ public abstract class DirectPaymentTask
 	private static String parsePaymentAck(@Nonnull final Protos.PaymentACK paymentAck, @Nonnull final Payment expectedPaymentMessage)
 			throws IOException
 	{
-		if (!paymentAck.getPayment().equals(expectedPaymentMessage))
-			return null;
-
 		final String memo = paymentAck.hasMemo() ? paymentAck.getMemo() : null;
 
 		return memo;
