@@ -1,3 +1,8 @@
+v3.35
+
+* Protect wallet against dust spam.
+* Fixed some bugs in the payment protocol.
+
 v3.34
 
 * Small bugfix.
