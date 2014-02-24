@@ -1,3 +1,7 @@
+v3.36
+
+* Small bugfix.
+
 v3.35
 
 * Protect wallet against dust spam.
