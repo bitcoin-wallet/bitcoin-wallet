@@ -4,7 +4,7 @@
 	android:versionCode="1"
 	android:versionName="1.0" >
 
-	<uses-sdk android:minSdkVersion="7" />
+	<uses-sdk android:minSdkVersion="10" />
 
 	<uses-feature
 		android:name="android.hardware.touchscreen"
@@ -16,7 +16,7 @@
 		android:normalScreens="true"
 		android:smallScreens="true" />
 
-	<application android:label="Sample for Bitcoin Integration" >
+	<application android:label="Bitcoin in-app payment sample" >
 		<activity
 			android:name="de.schildbach.wallet.integration.sample.SampleActivity"
 			android:theme="@android:style/Theme.Light" >

@@ -2,14 +2,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="fill_parent"
 	android:layout_height="fill_parent"
+	android:layout_marginBottom="24dp"
+	android:layout_marginTop="24dp"
 	android:orientation="vertical" >
 
 	<TextView
-		style="@android:style/TextAppearance.Large"
+		style="@android:style/TextAppearance.Medium"
 		android:layout_width="256dp"
 		android:layout_height="wrap_content"
 		android:layout_gravity="center"
-		android:layout_marginTop="32dp"
 		android:text="This demonstrates the integration of a &quot;Donate Bitcoins&quot; button in your app." />
 
 	<FrameLayout
@@ -19,7 +20,7 @@
 
 		<Button
 			android:id="@+id/sample_donate_button"
-			style="@android:style/TextAppearance.Large"
+			style="@android:style/TextAppearance.Medium"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_gravity="center"
@@ -27,12 +28,34 @@
 	</FrameLayout>
 
 	<TextView
-		android:id="@+id/sample_donate_message"
-		style="@android:style/TextAppearance.Large"
+		style="@android:style/TextAppearance.Medium"
 		android:layout_width="256dp"
 		android:layout_height="wrap_content"
 		android:layout_gravity="center"
-		android:layout_marginBottom="32dp"
+		android:layout_marginTop="24dp"
+		android:text="Here is a more complex request for a payment to two addresses." />
+
+	<FrameLayout
+		android:layout_width="fill_parent"
+		android:layout_height="0px"
+		android:layout_weight="1" >
+
+		<Button
+			android:id="@+id/sample_request_button"
+			style="@android:style/TextAppearance.Medium"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center"
+			android:text="Request" />
+	</FrameLayout>
+
+	<TextView
+		android:id="@+id/sample_donate_message"
+		style="@android:style/TextAppearance.Medium"
+		android:layout_width="256dp"
+		android:layout_height="wrap_content"
+		android:layout_gravity="center"
+		android:layout_marginTop="24dp"
 		android:minLines="5"
 		android:visibility="invisible" />
 
