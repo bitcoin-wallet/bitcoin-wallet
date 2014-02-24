@@ -71,8 +71,10 @@ public final class BitcoinIntegration
 	 * Warning: A success indication is no guarantee! To be on the safe side, you must drive your own Bitcoin
 	 * infrastructure and validate the transaction.
 	 * 
-	 * @param context
-	 *            Android context
+	 * @param activity
+	 *            Calling Android activity
+	 * @param requestCode
+	 *            Code identifying the call when {@link android.app.Activity#onActivityResult()} is called back
 	 * @param address
 	 *            Bitcoin address
 	 */
@@ -92,8 +94,10 @@ public final class BitcoinIntegration
 	 * Warning: A success indication is no guarantee! To be on the safe side, you must drive your own Bitcoin
 	 * infrastructure and validate the transaction.
 	 * 
-	 * @param context
-	 *            Android context
+	 * @param activity
+	 *            Calling Android activity
+	 * @param requestCode
+	 *            Code identifying the call when {@link android.app.Activity#onActivityResult()} is called back
 	 * @param address
 	 *            Bitcoin address
 	 */
