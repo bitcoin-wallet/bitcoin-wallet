@@ -25,10 +25,14 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.RejectedExecutionException;
 
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import android.app.Activity;
 import android.content.ContentResolver;
@@ -43,7 +47,6 @@ import android.net.Uri;
 import android.nfc.NfcManager;
 import android.os.Bundle;
 import android.os.Handler;
-import android.preference.PreferenceManager;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.AsyncTaskLoader;
@@ -68,6 +71,7 @@ import com.google.dogecoin.core.Wallet;
 import com.google.dogecoin.utils.Threading;
 
 import de.langerhans.wallet.AddressBookProvider;
+import de.langerhans.wallet.Configuration;
 import de.langerhans.wallet.Constants;
 import de.langerhans.wallet.WalletApplication;
 import de.langerhans.wallet.util.BitmapFragment;
@@ -89,8 +93,8 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 
 	private AbstractWalletActivity activity;
 	private WalletApplication application;
+	private Configuration config;
 	private Wallet wallet;
-	private SharedPreferences prefs;
 	private NfcManager nfcManager;
 	private ContentResolver resolver;
 	private LoaderManager loaderManager;
@@ -105,6 +109,8 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 	private static final String KEY_DIRECTION = "direction";
 	private static final long THROTTLE_MS = 1500L;
 	private static final Uri KEY_ROTATION_URI = Uri.parse("http://bitcoin.org/en/alert/2013-08-11-android");
+
+	private static final Logger log = LoggerFactory.getLogger(TransactionsListFragment.class);
 
 	public static TransactionsListFragment instance(@Nullable final Direction direction)
 	{
@@ -133,8 +139,8 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 
 		this.activity = (AbstractWalletActivity) activity;
 		this.application = (WalletApplication) activity.getApplication();
+		this.config = application.getConfiguration();
 		this.wallet = application.getWallet();
-		this.prefs = PreferenceManager.getDefaultSharedPreferences(activity);
 		this.nfcManager = (NfcManager) activity.getSystemService(Context.NFC_SERVICE);
 		this.resolver = activity.getContentResolver();
 		this.loaderManager = getLoaderManager();
@@ -162,7 +168,7 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 
 		resolver.registerContentObserver(AddressBookProvider.contentUri(activity.getPackageName()), true, addressBookObserver);
 
-		prefs.registerOnSharedPreferenceChangeListener(this);
+		config.registerOnSharedPreferenceChangeListener(this);
 
 		loaderManager.initLoader(0, null, this);
 
@@ -194,7 +200,7 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 
 		loaderManager.destroyLoader(0);
 
-		prefs.unregisterOnSharedPreferenceChangeListener(this);
+		config.unregisterOnSharedPreferenceChangeListener(this);
 
 		resolver.unregisterContentObserver(addressBookObserver);
 
@@ -321,7 +327,7 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 			private void handleShowQr()
 			{
 				final int size = (int) (384 * getResources().getDisplayMetrics().density);
-				final Bitmap qrCodeBitmap = Qr.bitmap(Qr.encodeBinary(serializedTx), size);
+				final Bitmap qrCodeBitmap = Qr.bitmap(Qr.encodeCompressBinary(serializedTx), size);
 				BitmapFragment.show(getFragmentManager(), qrCodeBitmap);
 			}
 		});
@@ -423,13 +429,19 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 			return filteredTransactions;
 		}
 
-		private final ThrottlingWalletChangeListener transactionAddRemoveListener = new ThrottlingWalletChangeListener(THROTTLE_MS, true, true,
-				false)
+		private final ThrottlingWalletChangeListener transactionAddRemoveListener = new ThrottlingWalletChangeListener(THROTTLE_MS, true, true, false)
 		{
 			@Override
 			public void onThrottledWalletChanged()
 			{
-				forceLoad();
+				try
+				{
+					forceLoad();
+				}
+				catch (final RejectedExecutionException x)
+				{
+					log.info("rejected execution: " + TransactionsLoader.this.toString());
+				}
 			}
 		};
 
@@ -462,15 +474,14 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 	@Override
 	public void onSharedPreferenceChanged(final SharedPreferences sharedPreferences, final String key)
 	{
-		if (Constants.PREFS_KEY_BTC_PRECISION.equals(key))
+		if (Configuration.PREFS_KEY_BTC_PRECISION.equals(key))
 			updateView();
 	}
 
 	private void updateView()
 	{
-		final String precision = prefs.getString(Constants.PREFS_KEY_BTC_PRECISION, Constants.PREFS_DEFAULT_BTC_PRECISION);
-		final int btcPrecision = precision.charAt(0) - '0';
-		final int btcShift = precision.length() == 3 ? precision.charAt(2) - '0' : 0;
+		final int btcPrecision = config.getBtcPrecision();
+		final int btcShift = config.getBtcShift();
 
 		adapter.setPrecision(btcPrecision, btcShift);
 		adapter.clearLabelCache();

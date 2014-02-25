@@ -4,7 +4,7 @@ Dogecoin'leriniz daima cebinizde sizinle olsun! Herhangi bir QR kodunu okuyarak 
 
 • Hiçbir oturuma, web ya da bulut hizmetine gerek yoktur. Bu cüzdan merkezsiz ve eşten eşedir.
 • Dogecoin meblağlarının DOGE ve mDOGE olarak gösterilmesi.
-• Dövizlere ve dövizlerden dönüştürme.
+• Ulusal para birimlerine ve bu para birimlerinden dönüştürme.
 • NFC, QR kodu veya Dogecoin bağlantıları ile Dogecoin gönderir ve alır.
 • Sık kullanılan Dogecoin adresleri için adres defteri içerir.
 • Çevrimdışı olduğunuzda Bluetooth vasıtasıyla ödemeler.

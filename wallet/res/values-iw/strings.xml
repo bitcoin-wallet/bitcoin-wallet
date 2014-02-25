@@ -39,7 +39,6 @@
 	<string name="wallet_low_storage_dialog_button_apps">נהל יישומים</string>
 	<string name="wallet_timeskew_dialog_title">בדוק את הגדרות הזמנים שלך</string>
 	<string name="wallet_timeskew_dialog_msg">זמן המכשיר מאחר ב %d /n יתכן והדבר יפגע בשליחה/קבלה - אנא תקן את הגדרת הזמן</string>
-	<string name="wallet_timeskew_dialog_button_settings">הגדרות</string>
 	<string name="wallet_version_dialog_title">גירסה חדשה זמינה!</string>
 	<string name="wallet_version_dialog_msg">גירסה זו מתקנת באגים חשובים, לפרטים גש לדף האפליקציה.</string>
 	<string name="wallet_version_dialog_button_market">Google Play</string>
@@ -52,11 +51,8 @@
 	<string name="send_coins_fragment_receiving_address_error">כתובת ביטקוין לא חוקית!</string>
 	<string name="send_coins_fragment_receiving_address_error_cross_network">לא ניתן להשתמש בכתובת זו בארנק זה</string>
 	<string name="send_coins_fragment_receiving_address_error_cross_network_unknown">לא ניתן להשתמש בכתובת  זו ברשת לא ידועה</string>
-	<string name="send_coins_fragment_available_label">ניתן להוצאה</string>
 	<string name="send_coins_fragment_pending">(DOGE %s waiting for confirmation)</string>
 	<string name="send_coins_fragment_amount_label">סכום לתשלום</string>
-	<string name="send_coins_fragment_amount_empty">הקש סכום</string>
-	<string name="send_coins_fragment_amount_error">סכום לא חוקי</string>
 	<string name="send_coins_fragment_button_send">שלח</string>
 	<string name="send_coins_fragment_button_back">אחורה</string>
 	<string name="send_coins_preparation_msg">חותם…</string>
@@ -87,7 +83,7 @@
 	<string name="address_book_context_copy_to_clipboard_title">העתק ללוח</string>
 	<string name="address_book_context_default_title">שמור ככתובת ברירת מחדל</string>
 	<string name="address_book_options_paste_from_clipboard_title">הדבק מהלוח</string>
-	<string name="address_book_options_copy_from_clipboard_msg_empty">הלוח ריק</string>
+	<string name="address_book_options_paste_from_clipboard_empty">הלוח ריק</string>
 	<string name="address_book_options_scan_title">סרוק כתובת</string>
 	<string name="edit_address_book_entry_dialog_title_add">הוסף כתובת</string>
 	<string name="edit_address_book_entry_dialog_title_edit">ערוך כתובת</string>
@@ -180,6 +176,7 @@
 	<string name="button_send_coins">שלח מטבעות</string>
 	<string name="button_scan">סרוק</string>
 	<string name="button_edit_address">הוסף או ערוך כתובת</string>
+	<string name="button_settings">הגדרות</string>
 	<string name="time_today">היום</string>
 	<string name="address_unlabeled">(לא מסומן)</string>
 

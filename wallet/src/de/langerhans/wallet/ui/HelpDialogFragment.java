@@ -20,13 +20,11 @@ package de.langerhans.wallet.ui;
 import javax.annotation.Nonnull;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.text.Html;
-import de.langerhans.wallet.R;
 
 /**
  * @author Andreas Schildbach
@@ -70,9 +68,9 @@ public final class HelpDialogFragment extends DialogFragment
 		final Bundle args = getArguments();
 		final int messageResId = args.getInt(KEY_MESSAGE);
 
-		final AlertDialog.Builder dialog = new AlertDialog.Builder(activity);
+		final DialogBuilder dialog = new DialogBuilder(activity);
 		dialog.setMessage(Html.fromHtml(getString(messageResId)));
-		dialog.setNeutralButton(R.string.button_dismiss, null);
+		dialog.singleDismissButton(null);
 		return dialog.create();
 	}
 }

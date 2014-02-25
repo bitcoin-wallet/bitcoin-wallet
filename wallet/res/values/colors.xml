@@ -14,6 +14,7 @@
 	<color name="bg_form">#ffe8e8f0</color>
 	<color name="bg_list">#40ffffff</color>
 	<color name="bg_list_selected">#40808090</color>
+	<color name="bg_dialog_title">#ffb8b8b0</color>
 
 	<!-- scanner -->
 	<color name="scan_mask">#60000000</color>

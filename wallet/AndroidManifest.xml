@@ -3,8 +3,8 @@
 	xmlns:tools="http://schemas.android.com/tools"
 	package="de.langerhans.wallet"
 	android:installLocation="internalOnly"
-	android:versionCode="155"
-	android:versionName="1.05" >
+	android:versionCode="156"
+	android:versionName="1.06" >
 
 	<uses-sdk
 		android:minSdkVersion="10"
@@ -102,6 +102,20 @@
 				<action android:name="android.nfc.action.NDEF_DISCOVERED" />
 
 				<data android:scheme="dogecoin" />
+
+				<category android:name="android.intent.category.DEFAULT" />
+			</intent-filter>
+			<intent-filter android:label="@string/send_coins_activity_title">
+				<action android:name="android.intent.action.VIEW" />
+
+				<data android:mimeType="application/dogecoin-paymentrequest" />
+
+				<category android:name="android.intent.category.DEFAULT" />
+			</intent-filter>
+			<intent-filter android:label="@string/send_coins_activity_title" >
+				<action android:name="android.nfc.action.NDEF_DISCOVERED" />
+
+				<data android:mimeType="application/dogecoin-paymentrequest" />
 
 				<category android:name="android.intent.category.DEFAULT" />
 			</intent-filter>

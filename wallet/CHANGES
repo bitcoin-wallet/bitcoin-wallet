@@ -1,27 +1,39 @@
-v1.05
-- Make use of upgraded network: Faster sync times, less bandwidth, battery and processor usage!
-- Exchange rate provider selection. Currently supported: Cryptsy and Vircurex
-- New base currency for exchnage rates: mBTC (Because BTC value is too small. 1 mBTC = 0.001 BTC)
-- Support for inverted QR Codes
-- Fixed menu item doubling on rotate in address screen
-- Translations: New: Macedonian and Esperanto. Updated: Spanish
+v3.37
 
-v1.04
-- Fix to prevent syncing to the wrong blockchain fork.
+* New translation into Japanese.
 
-v1.03
-- Reworked fee calculation. Should be more reliable now. 
-  General advice: Sending very small amounts will usually cost you more fee than it's worth.
-  For example it can be cheaper to send 2 instead of 1.6 DOGE.
-- Lots of small bug fixes and internal improvements. Should fix a few possible crashes.
-- Fixed AutoSync timing
-- Tradional Chinese translation
-- Update Polish localization
+v3.36
 
+* Small bugfix.
+
+v3.35
+
+* Protect wallet against dust spam.
+* Fixed some bugs in the payment protocol.
+
+v3.34
+
+* Small bugfix.
+
+v3.33
+
+* Small bugfixes.
+
+v3.32
+
+* Support for BIP72 URI extension for payment protocol.
+
+v3.31
+
+* Default denomination has changed to millibitcoin (mBTC).
+* Cross-calculated exchange rates for currencies without Bitcoin volume. Thanks to BitcoinAverage.
+* Better handling of errors when sending coins, specifically when funds are exceeded.
+* Labs: Uses BIP70 payment protocol for tap-to-pay and scan-to-pay, if enabled in the settings.
+* New translations into Traditional Chinese, Macedonian and Esperanto. Updated Spanish.
+* Resolved issues with wallets with many transactions.
+* Based on bitcoinj 0.11.
 v1.02 (DOGE)
 
-*Autosync settings. This needs a new permission to see if WiFi is active.
-*Password confirmation at wallet backup
 *fixed a possible force close on network loss.
 *updated Chinese translation
 *Dansih translation

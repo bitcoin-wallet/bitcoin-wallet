@@ -4,54 +4,45 @@
 	<string name="help_wallet">
 <![CDATA[
 		<p>
-			La partie supérieure gauche de l\'écran affiche l\'adresse Dogecoin que vous avez choisie et que les gens doivent connaître pour vous envoyer des Dogecoins.
-			Tapez pour changer cette adresse.
+			La partie supérieure gauche de l\'écran affiche votre adresse Dogecoin choisie et que d\'autres personnes doivent connaître pour vous envoyer des dogecoins.
+			Toquer pour changer cette adresse.
 		</p>
 		<p>
-			Le QR code à droite contient votre adresse dogecoin et peut être utilisée pour être scannée par un tiers.
-			Tapez sur le code QR pour l\'agrandir.
+			Le code QR à droite contient votre adresse dogecoin et peut être numérisée par un tiers.
+			Toquer le code QR pour l\'agrandir.
 		</p>
 		<p>
 			Au milieu de l\'écran, votre solde est affiché.
-			La valeur de votre porte-monnaie est aussi affichée dans une devise locale que vous pouvez choisir.
-			Tapez sur le solde pour afficher la liste de toutes les devises locales et tapez sur l\'une d\'entre elles pour en faire la devise locale par défaut.
+			La valeur de votre portefeuille est aussi affichée dans une devise locale choisie.
+			Toquer sur le solde pour afficher la liste de toutes les devises locales et toquer sur l\'une d\'entre elles pour la choisir par défaut.
 		</p>
 		<p>
 			Le bas de l\'écran est couvert par votre liste de transactions, qui est vide initialement.
-			Les transactions en cours de traitement sont grisées jusqu\'à ce qu\'elles soient confirmées.
-			Tapez sur une transaction pour ajouter l\'adresse du destinataire ou de l\'envoyeur à votre carnet d\'adresses.
-			Balayer vers la gauche ou vers la droite pour appliquer des filtres à la liste.
+			Les transactions en attente sont grisées jusqu\'à ce qu\'elles soient confirmées.
+			Toquer sur une entrée pour ajouter l\'adresse du destinataire ou de l\'envoyeur au carnet d\'adresses.
+			Glisser vers la gauche ou vers la droite pour appliquer des filtres à la liste.
 		</p>
 		<p>
-			Vous pouvez envoyer ou recevoir des dogecoins en tapant les boutons dans la barre d\'action.
-			Plus d\'options sont disponibles dans le menu options.
+			Vous pouvez envoyer ou recevoir des dogecoins en toquant les boutons dans la barre des actions.
+			Plus d\'options sont disponibles dans le menu des options.
 		</p>
 	]]>
 	</string>
 	<string name="help_request_coins">
 <![CDATA[
 		<p>
-			La partie supérieure gauche de l\'écran affiche l\'adresse Dogecoin que vous avez choisie et que les gens doivent connaître pour vous envoyer des Dogecoins.
-			Tapez pour changer cette adresse.
+			En utilisant cette zone de dialogue vous pouvez demander des pièces à une autre personne (qui devrait déjà avoir installé le Dogecoin Wallet).
 		</p>
 		<p>
-			Le QR code à droite contient votre adresse dogecoin et peut être utilisée pour être scannée par un tiers.
-			Tapez sur le code QR pour l\'agrandir.
+			Vous pouvez d\'abord saisir un montant de dogecoins à demander.
 		</p>
 		<p>
-			Au milieu de l\'écran, votre solde est affiché.
-			La valeur de votre porte-monnaie est aussi affichée dans une devise locale que vous pouvez choisir.
-			Tapez sur le solde pour afficher la liste de toutes les devises locales et tapez sur l\'une d\'entre elles pour en faire la devise locale par défaut.
+			Ensuite, soit l\'autre personne numérise le code QR généré, soit vous pouvez envoyer votre demande à une personne éloignée avec le bouton Partager de la barre des actions.
+			L\'autre personne devra cliquer sur l\'URL dogecoin.
 		</p>
 		<p>
-			Le bas de l\'écran est couvert par votre liste de transactions, qui est vide initialement.
-			Les transactions en cours de traitement sont grisées jusqu\'à ce qu\'elles soient confirmées.
-			Tapez sur une transaction pour ajouter l\'adresse du destinataire ou de l\'envoyeur à votre carnet d\'adresses.
-			Balayer vers la gauche ou vers la droite pour appliquer des filtres à la liste.
-		</p>
-		<p>
-			Vous pouvez envoyer ou recevoir des dogecoins en tapant les boutons dans la barre d\'action.
-			Plus d\'options sont disponibles dans le menu options.
+			Dans les deux cas, l\'autre personne obtiendra une zone de dialogue pré-remplie pour envoyer les pièces.
+			Si elle accepte, elle n\'aura qu\'à envoyer le paiement.
 		</p>
 	]]>
 	</string>
@@ -59,61 +50,63 @@
 <![CDATA[
 		<p>
 			Vous avez commencé le processus d\'envoi de dogecoins.
-			Vous êtes arivé ici depuis l\'écran principal ou en cliqunat une URL Dogecoin dans votre navigateur mobile.
+			Vous êtes arrivé ici depuis l\'écran principal ou en cliquant sur une URL dogecoin dans votre navigateur.
 		</p>
 		<p>
-			D\'abord, vous saisissez l\'adresse Dogecoin de destination.
-			L\'adresse sera complétée automatiquement pour les adresses enregistrées dans votre carnet.
-			Vous pouvez aussi scanner des codes QR d\'adresses Dogecoin ou de demande de Dogecoin en pressant le bouton QR dans la barre des actions.
+			D\'abord, saisir l\'adresse dogecoin de destination.
+			L\'adresse sera auto-complétée pour les adresses enregistrées dans votre carnet.
+			Vous pouvez aussi numériser des codes QR avec des adresses dogecoin ou des demandes de dogecoins en pressant le bouton QR dans la barre des actions.
 		</p>
 		<p>
-			Ensuite,vous pouvez voir combien de Dogecoins sont disponibles.
-			Tout écart avec le solde de l\'écran principal représente un montant qui n\'est pas encore confirmé et n\'est donc pas disponible.
+			Ensuite, vous pouvez voir combien de dogecoins peuvent être dépensés actuellement.
+			Tout écart avec le solde de l\'écran principal n\'est pas encore confirmé et ne peut donc pas être dépensé.
 		</p>
 		<p>
-			Enfin, saisissez le montant à payer que vous proposez.
+			Enfin, saisir le montant à payer.
 		</p>
 		<p>
-			Vous pouvez saisir un paiement hors-lighe.
-			Elle sera envoyée au prochain lancement de Dogecoin Wallet.
-			Si vous voulez le traitement le plus rapide possible de votre paiement, assurez vous d\'être bien connecté (c\'est à dire sur un WLAN).
+			Vous pouvez saisir un paiement hors-ligne.
+			Il sera envoyé au prochain lancement du Dogecoin Wallet.
+			Pour le traitement le plus rapide possible de votre paiement, assurez vous d\'être bien connecté (c.-à-d. sur un WLAN).
 		</p>
 		<p>
-			Note:
-			Les paiements sont irréversibles!
-			Vérifiez toujours l\'adresse de destination.
+			Note :
+			Les paiements sont irréversibles !
+			Toujours vérifier l\'adresse de destination.
 		</p>
 	]]>
 	</string>
 	<string name="help_safety">
 <![CDATA[
 		<p>
-			<b>Quelques mots sur la sécurité de vos Dogecoins:</b>
+			<b>Notes de sécurité importantes :</b>
 		</p>
 		<p>
-			Les Dogecoins sont stockés sur l\'appareil avec Dogecoin Wallet.
-			<b>Si vous le perdez, vous perdez vos Dogecoins.</b>
+			Les dogecoins sont stockés sur l\'appareil.
+			<b>Si vous le perdez, vous perdez vos dogecoins.</b>
 		</p>
 		<p>
-			Cela signifie que vous avez besoin de <b>sauvegarder vos clés privées</b>!
-			Conservez-les dans un endroit sécurisé et souvenez-vous de votre mot de passe.
+			Cela signifie que vous devez <b>sauvegarder votre portefeuille</b>!
+			Utiliser la fonction de sauvegarde de l\'appli plutôt qu\'une appli de sauvegarde tierce.
+			Garder votre sauvegarde en sûreté et souvenez-vous de votre mot de passe.
 		</p>
 		<p>
-			<b>Avant de désinstaller Dogecoin Wallet</b> (ou d\'effacer les données de l\'application/effacer les données de votre appareil), <b>transférez vos Dogecoins dans un autre porte-monnaie</b>.
-			Tout les dogecoins restant seront perdus.
+			<b>Avant de désinstaller Dogecoin Wallet</b> (ou d\'effacer les données de l\'appli/effacer les données de votre appareil), <b>transférer vos dogecoins vers un autre portefeuille</b>.
+			Les dogecoins restant seront perdus.
 		</p>
 		<p>
 			<b>Les paiements sont irréversibles</b>.
-			Si vous envoyez vos Dogecoins dans le vide, il n\'y a aucun moyen de les récupérer sauf si vous connaissez le destinataire et qu\'il est d\'accord pour vous les renvoyer.
+			Si vous envoyez vos dogecoins dans le vide, il n\'y a presque aucun moyen de les récupérer.
 		</p>
 		<p>
-			<b>Gardez votre appareil mobile en sécurité!</b>
-			N\'installez que des applications de confiance.
-			Des applications malveillantes pourraient essayer de voler votre porte-monnaie.
+			<b>Garder votre appareil mobile en sécurité !</b>
+			Ne pas rooter votre appareil.
+			N\'installer que des applications de confiance.
+			Des applications malveillantes pourraient essayer de voler votre portefeuille.
 		</p>
 		<p>
-			Minimisez les risques!
-			<b>Utilisez Dogecoin Wallet seulement pour des petits montants</b> pour un usage quotidien.
+			Minimiser les risques !
+			<b>N\'utiliser que pour des petits montants</b> pour un usage quotidien.
 		</p>
 	]]>
 	</string>

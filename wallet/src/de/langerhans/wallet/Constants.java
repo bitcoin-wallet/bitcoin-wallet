@@ -18,7 +18,6 @@
 package de.langerhans.wallet;
 
 import java.io.File;
-import java.math.BigInteger;
 import java.nio.charset.Charset;
 
 import android.os.Environment;
@@ -56,6 +55,9 @@ public class Constants
 	public static final String BLOCKEXPLORER_BASE_URL = NETWORK_PARAMETERS.getId().equals(NetworkParameters.ID_MAINNET) ? BLOCKEXPLORER_BASE_URL_PROD
 			: BLOCKEXPLORER_BASE_URL_TEST;
 
+	public static final String MIMETYPE_PAYMENTREQUEST = "application/dogecoin-paymentrequest"; // BIP 71
+	public static final String MIMETYPE_PAYMENT = "application/dogecoin-payment"; // BIP 71
+	public static final String MIMETYPE_PAYMENTACK = "application/dogecoin-paymentack"; // BIP 71
 	public static final String MIMETYPE_TRANSACTION = "application/x-dogetx";
 
 	public static final int MAX_NUM_CONFIRMATIONS = 3;
@@ -70,6 +72,7 @@ public class Constants
 	public static final char CHAR_HAIR_SPACE = '\u200a';
 	public static final char CHAR_THIN_SPACE = '\u2009';
 	public static final char CHAR_ALMOST_EQUAL_TO = '\u2248';
+	public static final char CHAR_CHECKMARK = '\u2713';
 	public static final String CURRENCY_PLUS_SIGN = "+" + CHAR_THIN_SPACE;
 	public static final String CURRENCY_MINUS_SIGN = "-" + CHAR_THIN_SPACE;
 	public static final String PREFIX_ALMOST_EQUAL_TO = Character.toString(CHAR_ALMOST_EQUAL_TO) + CHAR_THIN_SPACE;
@@ -127,7 +130,6 @@ public class Constants
 
 	public static final int SDK_JELLY_BEAN = 16;
 	public static final int SDK_JELLY_BEAN_MR2 = 18;
-	public static final int SDK_KITKAT = 19;
 
 	public static final int MEMORY_CLASS_LOWEND = 48;
 

@@ -43,7 +43,6 @@
 	<string name="wallet_low_storage_dialog_button_apps">管理App</string>
 	<string name="wallet_timeskew_dialog_title">確認你的時間設定!</string>
 	<string name="wallet_timeskew_dialog_msg">你的裝置時間慢了 %d 分，你可能無法收付狗貨幣，\n\n你應該再確認你的時間與時區設定正確。</string>
-	<string name="wallet_timeskew_dialog_button_settings">設定</string>
 	<string name="wallet_version_dialog_title">有新版本!</string>
 	<string name="wallet_version_dialog_msg">這版本修正重要的錯誤，細節請參閱Google Play上說明。</string>
 	<string name="wallet_version_dialog_button_market">Google Play</string>
@@ -56,14 +55,8 @@
 	<string name="send_coins_fragment_receiving_address_error">無效狗貨幣地址!</string>
 	<string name="send_coins_fragment_receiving_address_error_cross_network">錢包無法使用 %s 這個地址!</string>
 	<string name="send_coins_fragment_receiving_address_error_cross_network_unknown">錢包無法使用未知網路的狗貨幣地址!</string>
-	<string name="send_coins_fragment_available_label">可用餘額</string>
 	<string name="send_coins_fragment_pending">(%s 狗貨幣等待確認)</string>
 	<string name="send_coins_fragment_amount_label">總金額</string>
-	<string name="send_coins_fragment_amount_empty">輸入金額</string>
-	<string name="send_coins_fragment_amount_error">無效金額輸入!</string>
-	<string name="send_coins_fragment_bluetooth_enable">用藍芽發送付款</string>
-	<string name="send_coins_fragment_bluetooth_ack">你的付款經藍芽發送成功。</string>
-	<string name="send_coins_fragment_bluetooth_nack">你的付款經藍芽發送失敗。</string>
 	<string name="send_coins_fragment_button_send">付款</string>
 	<string name="send_coins_fragment_button_back">退回</string>
 	<string name="send_coins_preparation_msg">簽署中…</string>
@@ -94,7 +87,7 @@
 	<string name="address_book_context_copy_to_clipboard_title">複製到剪貼簿</string>
 	<string name="address_book_context_default_title">設為預設地址</string>
 	<string name="address_book_options_paste_from_clipboard_title">從剪貼簿貼上</string>
-	<string name="address_book_options_copy_from_clipboard_msg_empty">剪貼簿是空的。</string>
+	<string name="address_book_options_paste_from_clipboard_empty">剪貼簿是空的。</string>
 	<string name="address_book_options_scan_title">掃描地址</string>
 	<string name="address_book_row_message_compromised_key">該地址可能已洩漏，你不應該再繼續使用來請款。</string>
 	<string name="edit_address_book_entry_dialog_title_add">新增地址</string>
@@ -212,6 +205,7 @@
 	<string name="button_send_coins">付狗貨幣</string>
 	<string name="button_scan">掃描</string>
 	<string name="button_edit_address">新增/編輯地址</string>
+	<string name="button_settings">設定</string>
 	<string name="action_browse">瀏覽</string>
 	<string name="time_today">今天</string>
 	<string name="address_unlabeled">(無標籤)</string>

@@ -43,7 +43,6 @@
 	<string name="wallet_low_storage_dialog_button_apps">Менаџирај апликации</string>
 	<string name="wallet_timeskew_dialog_title">Провери ги поставувањата за време!</string>
 	<string name="wallet_timeskew_dialog_msg">Времето на твојот уред е неточно за %d минути. Најверојатно не можеш да праќаш или примаш Dogecoins поради овој проблем.\n\nТреба да ги провериш и коригираш поставувањата за твоето време и временската зона.</string>
-	<string name="wallet_timeskew_dialog_button_settings">Поставувања</string>
 	<string name="wallet_version_dialog_title">Достапна е нова верзија!</string>
 	<string name="wallet_version_dialog_msg">Оваа верзија поправа важни софтверски грешки. За детали, види го дневникот со грешки на Google Play.</string>
 	<string name="wallet_version_dialog_button_market">Google Play</string>
@@ -56,14 +55,8 @@
 	<string name="send_coins_fragment_receiving_address_error">Невалидна Dogecoin адреса!</string>
 	<string name="send_coins_fragment_receiving_address_error_cross_network">Не може да користиш %s адреса со овој паричник!</string>
 	<string name="send_coins_fragment_receiving_address_error_cross_network_unknown">Не може да користиш адреса на непозната мрежа со овој паричник!</string>
-	<string name="send_coins_fragment_available_label">Достапно за трошење</string>
-	<string name="send_coins_fragment_pending">(BTC %s чека за потврда)</string>
+	<string name="send_coins_fragment_pending">(DOGE %s чека за потврда)</string>
 	<string name="send_coins_fragment_amount_label">Сума да се плати</string>
-	<string name="send_coins_fragment_amount_empty">Внеси сума тука</string>
-	<string name="send_coins_fragment_amount_error">Невалидна сума!</string>
-	<string name="send_coins_fragment_bluetooth_enable">Испрати плаќање и преку Bluetooth</string>
-	<string name="send_coins_fragment_bluetooth_ack">Твоето плаќање е успешно испратено преку Bluetooth.</string>
-	<string name="send_coins_fragment_bluetooth_nack">Твоето плаќање е одбиено преку Bluetooth.</string>
 	<string name="send_coins_fragment_button_send">Испрати</string>
 	<string name="send_coins_fragment_button_back">Назад</string>
 	<string name="send_coins_preparation_msg">Потпишувам…</string>
@@ -94,7 +87,7 @@
 	<string name="address_book_context_copy_to_clipboard_title">Копирај во склад</string>
 	<string name="address_book_context_default_title">Постави како главна адреса</string>
 	<string name="address_book_options_paste_from_clipboard_title">Внеси од склад</string>
-	<string name="address_book_options_copy_from_clipboard_msg_empty">Складот е празен</string>
+	<string name="address_book_options_paste_from_clipboard_empty">Складот е празен</string>
 	<string name="address_book_options_scan_title">Скенирај адреса</string>
 	<string name="address_book_row_message_compromised_key">Оваа адреса можеби е компромитирана. Не треба да ја користиш за примање Dogecoins повеќе.</string>
 	<string name="edit_address_book_entry_dialog_title_add">Додади адреса</string>
@@ -208,6 +201,7 @@
 	<string name="button_send_coins">Испрати коини</string>
 	<string name="button_scan">Скенирај</string>
 	<string name="button_edit_address">Додај/уреди адреса</string>
+	<string name="button_settings">Поставувања</string>
 	<string name="action_browse">Прегледај</string>
 	<string name="time_today">денес</string>
 	<string name="address_unlabeled">(без ознака)</string>

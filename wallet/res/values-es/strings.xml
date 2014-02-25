@@ -43,7 +43,6 @@
 	<string name="wallet_low_storage_dialog_button_apps">Gestionar Aplicaciones</string>
 	<string name="wallet_timeskew_dialog_title">¡Comprueba la hora del sistema! </string>
 	<string name="wallet_timeskew_dialog_msg">¡La hora del dispositivo está mal en %d minutos. No podrás enviar o recibir dogecoins debido a este problema.\n\nDeberías comprobar y corregir los ajustes de hora y huso horario.</string>
-	<string name="wallet_timeskew_dialog_button_settings">Ajustes</string>
 	<string name="wallet_version_dialog_title">¡Hay una nueva versión disponible!</string>
 	<string name="wallet_version_dialog_msg">Esta versión corrige fallos importantes. Detalles en el historial de cambios de Google Play.</string>
 	<string name="wallet_version_dialog_button_market">Google Play</string>
@@ -56,14 +55,8 @@
 	<string name="send_coins_fragment_receiving_address_error">¡Dirección Dogecoin inválida!</string>
 	<string name="send_coins_fragment_receiving_address_error_cross_network">¡No se puede usar la dirección %s con esta cartera!</string>
 	<string name="send_coins_fragment_receiving_address_error_cross_network_unknown">¡No se puede usar una dirección de red desconocida con esta cartera!</string>
-	<string name="send_coins_fragment_available_label">Disponible para gastar</string>
 	<string name="send_coins_fragment_pending">(%s DOGE esperando confirmación)</string>
 	<string name="send_coins_fragment_amount_label">Cantidad a pagar</string>
-	<string name="send_coins_fragment_amount_empty">Introduzca aquí la cantidad</string>
-	<string name="send_coins_fragment_amount_error">¡Cantidad inválida!</string>
-	<string name="send_coins_fragment_bluetooth_enable">Su pago también será enviado a través de Bluetooth.</string>
-	<string name="send_coins_fragment_bluetooth_ack">Su pago ha sido enviado correctamente a través de Bluetooth.</string>
-	<string name="send_coins_fragment_bluetooth_nack">Su pago a través de Bluetooth ha sido rechazado.</string>
 	<string name="send_coins_fragment_button_send">Enviar</string>
 	<string name="send_coins_fragment_button_back">Atrás</string>
 	<string name="send_coins_preparation_msg">Firmando…</string>
@@ -94,7 +87,7 @@
 	<string name="address_book_context_copy_to_clipboard_title">Copiar al portapapeles</string>
 	<string name="address_book_context_default_title">Establecer como dirección predeterminada</string>
 	<string name="address_book_options_paste_from_clipboard_title">Pegar desde el portapapeles</string>
-	<string name="address_book_options_copy_from_clipboard_msg_empty">Portapapeles vacío</string>
+	<string name="address_book_options_paste_from_clipboard_empty">Portapapeles vacío</string>
 	<string name="address_book_options_scan_title">Explorar dirección</string>
 	<string name="address_book_row_message_compromised_key">Esta dirección puede haberse visto comprometida. Ya no la debería utilizar para recibir dogecoins.</string>
 	<string name="edit_address_book_entry_dialog_title_add">Añadir dirección</string>
@@ -208,6 +201,7 @@
 	<string name="button_send_coins">Enviar dogecoins</string>
 	<string name="button_scan">Explorar</string>
 	<string name="button_edit_address">Añadir/modificar dirección</string>
+	<string name="button_settings">Ajustes</string>
 	<string name="time_today">hoy</string>
 	<string name="address_unlabeled">(sin nombre)</string>
 

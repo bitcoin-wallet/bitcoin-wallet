@@ -43,6 +43,9 @@ import de.langerhans.wallet.Constants;
 import de.langerhans.wallet.util.WalletUtils;
 import de.langerhans.wallet.R;
 
+/**
+ * @author Andreas Schildbach
+ */
 public class WalletAddressesAdapter extends BaseAdapter
 {
 	private final Context context;

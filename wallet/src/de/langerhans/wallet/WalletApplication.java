@@ -46,10 +46,8 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
-import android.os.Build;
 import android.os.StrictMode;
 import android.preference.PreferenceManager;
 import android.text.format.DateUtils;
@@ -65,6 +63,7 @@ import ch.qos.logback.core.rolling.TimeBasedRollingPolicy;
 import com.google.dogecoin.core.Address;
 import com.google.dogecoin.core.ECKey;
 import com.google.dogecoin.core.Transaction;
+import com.google.dogecoin.core.VersionMessage;
 import com.google.dogecoin.core.Wallet;
 import com.google.dogecoin.store.UnreadableWalletException;
 import com.google.dogecoin.store.WalletProtobufSerializer;
@@ -83,7 +82,7 @@ import de.langerhans.wallet.util.WalletUtils;
  */
 public class WalletApplication extends Application
 {
-	private SharedPreferences prefs;
+	private Configuration config;
 	private ActivityManager activityManager;
 
 	private Intent blockchainServiceIntent;
@@ -113,14 +112,7 @@ public class WalletApplication extends Application
 
 		super.onCreate();
 
-		try
-		{
-			packageInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
-		}
-		catch (final NameNotFoundException x)
-		{
-			throw new RuntimeException(x);
-		}
+		packageInfo = packageInfoFromContext(this);
 
 		CrashReporter.init(getCacheDir());
 
@@ -134,7 +126,7 @@ public class WalletApplication extends Application
 			}
 		};
 
-		prefs = PreferenceManager.getDefaultSharedPreferences(this);
+		config = new Configuration(PreferenceManager.getDefaultSharedPreferences(this));
 		activityManager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
 
 		blockchainServiceIntent = new Intent(this, BlockchainServiceImpl.class);
@@ -149,15 +141,12 @@ public class WalletApplication extends Application
 		loadWalletFromProtobuf();
 		wallet.autosaveToFile(walletFile, 1, TimeUnit.SECONDS, new WalletAutosaveEventListener());
 
-		final int lastVersionCode = prefs.getInt(Constants.PREFS_KEY_LAST_VERSION, 0);
-		prefs.edit().putInt(Constants.PREFS_KEY_LAST_VERSION, packageInfo.versionCode).commit();
+		// clean up spam
+		wallet.cleanup();
 
-		if (packageInfo.versionCode > lastVersionCode)
-			log.info("detected app upgrade: " + lastVersionCode + " -> " + packageInfo.versionCode);
-		else if (packageInfo.versionCode < lastVersionCode)
-			log.warn("detected app downgrade: " + lastVersionCode + " -> " + packageInfo.versionCode);
+		config.updateLastVersionCode(packageInfo.versionCode);
 
-		if (lastVersionCode > 0 && lastVersionCode < KEY_ROTATION_VERSION_CODE && packageInfo.versionCode >= KEY_ROTATION_VERSION_CODE)
+		if (config.versionCodeCrossed(packageInfo.versionCode, KEY_ROTATION_VERSION_CODE))
 		{
 			log.info("detected version jump crossing key rotation");
 			wallet.setKeyRotationTime(System.currentTimeMillis() / 1000);
@@ -229,6 +218,11 @@ public class WalletApplication extends Application
 			if (Constants.TEST)
 				Io.chmod(file, 0777);
 		}
+	}
+
+	public Configuration getConfiguration()
+	{
+		return config;
 	}
 
 	public Wallet getWallet()
@@ -385,7 +379,7 @@ public class WalletApplication extends Application
 
 		backupKeys();
 
-		prefs.edit().putBoolean(Constants.PREFS_KEY_REMIND_BACKUP, true).commit();
+		config.armBackupReminder();
 	}
 
 	public void saveWallet()
@@ -450,7 +444,7 @@ public class WalletApplication extends Application
 
 	public Address determineSelectedAddress()
 	{
-		final String selectedAddress = prefs.getString(Constants.PREFS_KEY_SELECTED_ADDRESS, null);
+		final String selectedAddress = config.getSelectedAddress();
 
 		Address firstAddress = null;
 		for (final ECKey key : wallet.getKeys())
@@ -507,6 +501,18 @@ public class WalletApplication extends Application
 		return false;
 	}
 
+	public static PackageInfo packageInfoFromContext(final Context context)
+	{
+		try
+		{
+			return context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
+		}
+		catch (final NameNotFoundException x)
+		{
+			throw new RuntimeException(x);
+		}
+	}
+
 	public PackageInfo packageInfo()
 	{
 		return packageInfo;
@@ -523,6 +529,18 @@ public class WalletApplication extends Application
 			return null;
 	}
 
+	public static String httpUserAgent(final String versionName)
+	{
+		final VersionMessage versionMessage = new VersionMessage(Constants.NETWORK_PARAMETERS, 0);
+		versionMessage.appendToSubVer(Constants.USER_AGENT, versionName, null);
+		return versionMessage.subVer;
+	}
+
+	public String httpUserAgent()
+	{
+		return httpUserAgent(packageInfo().versionName);
+	}
+
 	public int maxConnectedPeers()
 	{
 		final int memoryClass = activityManager.getMemoryClass();
@@ -534,12 +552,9 @@ public class WalletApplication extends Application
 
 	public static void scheduleStartBlockchainService(@Nonnull final Context context)
 	{
-		final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-		final long prefsLastUsed = prefs.getLong(Constants.PREFS_KEY_LAST_USED, 0);
+		final Configuration config = new Configuration(PreferenceManager.getDefaultSharedPreferences(context));
 
-        final long now = System.currentTimeMillis();
-
-        final long lastUsedAgo = now - prefsLastUsed;
+		final long lastUsedAgo = config.getLastUsedAgo();
         final long alarmInterval;
         if (lastUsedAgo < Constants.LAST_USAGE_THRESHOLD_JUST_MS)
             alarmInterval = AlarmManager.INTERVAL_FIFTEEN_MINUTES;
@@ -557,11 +572,8 @@ public class WalletApplication extends Application
         final PendingIntent alarmIntent = PendingIntent.getBroadcast(context, 0, startIntent, 0);
         alarmManager.cancel(alarmIntent);
         
-//        if (Build.VERSION.SDK_INT >= Constants.SDK_KITKAT)
-//            // as of KitKat, set() is inexact
-//            alarmManager.set(AlarmManager.RTC_WAKEUP, now + alarmInterval, alarmIntent);
-//        else
-//            // workaround for no inexact set() before KitKat
+
+		final long now = System.currentTimeMillis();
             alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, now + alarmInterval, alarmInterval, alarmIntent);
 	}
 }

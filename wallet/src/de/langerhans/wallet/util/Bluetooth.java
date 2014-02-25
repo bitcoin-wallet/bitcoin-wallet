@@ -26,7 +26,8 @@ import javax.annotation.Nonnull;
  */
 public class Bluetooth
 {
-	public static final UUID BLUETOOTH_UUID = UUID.fromString("3357A7BB-762D-464A-8D9A-DCA592D57D5B");
+	public static final UUID BLUETOOTH_UUID_CLASSIC = UUID.fromString("3357A7BB-762D-464A-8D9A-DCA592D57D5B");
+	public static final UUID BLUETOOTH_UUID_PAYMENT_PROTOCOL = UUID.fromString("3357A7BB-762D-464A-8D9A-DCA592D57D5A");
 	public static final String MAC_URI_PARAM = "bt";
 
 	public static String compressMac(@Nonnull final String mac)

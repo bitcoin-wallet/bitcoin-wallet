@@ -1,12 +1,12 @@
-﻿Ayez vos Dogecoins toujours avec vous dans votre poche ! Payez rapidement en numérisant un code-QR. En tant que marchant vous recevez les paiements de manière fiable et instantanée. Dogecoin Wallet est la première appli Dogecoin mobile et sans doute aussi la plus sécuritaire !
+﻿Ayez vos dogecoins toujours avec vous dans votre poche ! Payez rapidement en numérisant un code-QR. En tant que marchant vous recevez les paiements de manière fiable et instantanée. Dogecoin Wallet est la première appli dogecoin mobile et sans doute aussi la plus sécuritaire !
 
 FONCTIONS :
 
 • Pas d'inscription, de service Web ou de nuage de nécessaire ! Ce portefeuille est décentralisé et de pair-à-pair.
-• Affichage du montant de Dogecoin en DOGE et mDOGE.
+• Affichage du montant de dogecoin en BTC et mBTC.
 • Conversion de et vers des devises nationales.
-• Envoi et réception des Dogecoin via NFC, codes QR ou des URLs Dogecoin.
-• Carnet d'adresse pour les adresses Dogecoin utilisées régulièrement.
+• Envoi et réception des dogecoins via NFC, codes QR ou des URLs dogecoin.
+• Carnet d'adresses pour les adresses dogecoin utilisées régulièrement.
 • Quand vous êtes hors-ligne vous pouvez quand même payez via Bluetooth.
 • Notification du système pour les pièces reçues.
 • Widget affichant le solde Dogecoin.
@@ -22,5 +22,5 @@ Find the original at
 https://play.google.com/store/apps/details?id=de.schildbach.wallet
 
 Licence : GPLv3
-Utilisez à vos propres risques !
+Utiliser à vos propres risques !
 http://www.gnu.org/licenses/gpl-3.0.fr.html

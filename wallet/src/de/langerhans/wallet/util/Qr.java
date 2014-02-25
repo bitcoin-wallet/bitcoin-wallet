@@ -82,7 +82,7 @@ public class Qr
 		}
 	}
 
-	public static String encodeBinary(@Nonnull final byte[] bytes)
+	public static String encodeCompressBinary(@Nonnull final byte[] bytes)
 	{
 		try
 		{
@@ -106,7 +106,12 @@ public class Qr
 		}
 	}
 
-	public static byte[] decodeBinary(@Nonnull final String content) throws IOException
+	public static String encodeBinary(@Nonnull final byte[] bytes)
+	{
+		return Base43.encode(bytes);
+	}
+
+	public static byte[] decodeDecompressBinary(@Nonnull final String content) throws IOException
 	{
 		final boolean useCompression = content.charAt(0) == 'Z';
 		final byte[] bytes = Base43.decode(content.substring(1));
@@ -124,5 +129,10 @@ public class Qr
 		is.close();
 
 		return baos.toByteArray();
+	}
+
+	public static byte[] decodeBinary(@Nonnull final String content) throws IOException
+	{
+		return Base43.decode(content);
 	}
 }

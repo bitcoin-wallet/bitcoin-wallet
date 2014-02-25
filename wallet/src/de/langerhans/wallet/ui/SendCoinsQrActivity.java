@@ -17,8 +17,6 @@
 
 package de.langerhans.wallet.ui;
 
-import java.math.BigInteger;
-
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
@@ -28,6 +26,7 @@ import android.os.Bundle;
 import com.google.dogecoin.core.Address;
 import com.google.dogecoin.core.Transaction;
 
+import de.langerhans.wallet.PaymentIntent;
 import de.langerhans.wallet.ui.InputParser.StringInputParser;
 
 /**
@@ -55,16 +54,15 @@ public final class SendCoinsQrActivity extends AbstractOnDemandServiceActivity
 			new StringInputParser(input)
 			{
 				@Override
-				protected void bitcoinRequest(final Address address, final String addressLabel, final BigInteger amount, final String bluetoothMac)
+				protected void handlePaymentIntent(final PaymentIntent paymentIntent)
 				{
-					SendCoinsActivity
-							.start(SendCoinsQrActivity.this, address != null ? address.toString() : null, addressLabel, amount, bluetoothMac);
+					SendCoinsActivity.start(SendCoinsQrActivity.this, paymentIntent);
 
 					SendCoinsQrActivity.this.finish();
 				}
 
 				@Override
-				protected void directTransaction(final Transaction transaction)
+				protected void handleDirectTransaction(final Transaction transaction)
 				{
 					processDirectTransaction(transaction);
 

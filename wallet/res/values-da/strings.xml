@@ -43,29 +43,38 @@
 	<string name="wallet_low_storage_dialog_button_apps">Håndtér apps</string>
 	<string name="wallet_timeskew_dialog_title">Tjek dine tidsindstillinger!</string>
 	<string name="wallet_timeskew_dialog_msg">Din enheds tid fraviger med %d minutter. Du kan sandsynligvis ikke sende eller modtage Dogecoins på grund af dette problem.\n\nDu bør tjekke og rette dine tids- og tidzoneindstillinger.</string>
-	<string name="wallet_timeskew_dialog_button_settings">Indstillinger</string>
 	<string name="wallet_version_dialog_title">En ny version er tilgængelig!</string>
 	<string name="wallet_version_dialog_msg">Denne version retter vigtige fejl. For detaljer, se ændringsloggen på Google Play.</string>
 	<string name="wallet_version_dialog_button_market">Google Play</string>
 	<string name="wallet_version_dialog_button_binary">Download</string>
+	<string name="wallet_precision_warning_dialog_title">Ændring af denominering</string>
+	<string name="wallet_precision_warning_dialog_msg">Denominering er ændret fra dogecoin (DOGE) til millidogecoin (mDOGE). Alle beløb ganges op med en faktor 1000.\n\nDu kan ændre dette tilbage i opsætningen.</string>
 	<string name="wallet_old_sdk_dialog_title">Android-version er uddateret</string>
 	<string name="wallet_old_sdk_dialog_message">Der er risiko for, at en af de næste udgivelser af Dogecoin Wallet ikke vil understøtte din enhed længere. I nogle tilfælde kan det være svært at bruge mønter på denne enhed.\n\nMed mindre du ved hvad du gør, anbefales det snart at flytte dine mønter væk.</string>
 	<string name="send_coins_activity_title">Send Dogecoins</string>
+	<string name="send_coins_fragment_request_payment_request_progress">Henter signatur fra %s…</string>
+	<string name="send_coins_fragment_request_payment_request_failed_title">Hentning af signatur mislykkedes</string>
+	<string name="send_coins_fragment_request_payment_request_wrong_signature">Forkert signatur!</string>
+	<string name="send_coins_fragment_payee_verified_by">verificeret af: %s</string>
+	<string name="send_coins_fragment_payee_verified_by_unknown">ukendt</string>
 	<string name="send_coins_fragment_receiving_address_label">Betal til</string>
 	<string name="send_coins_fragment_receiving_address_hint">skriv adresse eller navn</string>
 	<string name="send_coins_fragment_receiving_address_error">Ugyldig Dogecoin-adresse!</string>
 	<string name="send_coins_fragment_receiving_address_error_cross_network">Kan ikke bruge %s adresse med denne tegnebog!</string>
 	<string name="send_coins_fragment_receiving_address_error_cross_network_unknown">Kan ikke bruge adresse for ukendt netværk med denne tegnebog!</string>
-	<string name="send_coins_fragment_available_label">Til rådighed for brug</string>
+	<string name="send_coins_fragment_receiving_address_complex">kompleks\nadresse</string>
 	<string name="send_coins_fragment_pending">(DOGE %s venter på bekræftelse)</string>
 	<string name="send_coins_fragment_amount_label">Beløb at betale</string>
-	<string name="send_coins_fragment_amount_empty">Indsæt beløb her</string>
-	<string name="send_coins_fragment_amount_error">Ugyldigt beløb!</string>
-	<string name="send_coins_fragment_bluetooth_enable">Send også betaling via Bluetooth</string>
-	<string name="send_coins_fragment_bluetooth_ack">Din betaling blev sendt via Bluetooth med succes.</string>
-	<string name="send_coins_fragment_bluetooth_nack">Din betaling blev afvist via Bluetooth.</string>
+	<string name="send_coins_fragment_direct_payment_enable">Send betaling direkte til modtageren.</string>
+	<string name="send_coins_fragment_direct_payment_ack">Din betaling blev sendt direkte med succes.</string>
+	<string name="send_coins_fragment_direct_payment_nack">Din betaling blev afvist via direkte forbindelse.</string>
+	<string name="send_coins_fragment_direct_payment_failed_title">Direkte betaling mislykkedes</string>
+	<string name="send_coins_fragment_direct_payment_failed_msg">Din betaling vil stadig blive sendt ud på P2P-netværket.</string>
 	<string name="send_coins_fragment_button_send">Send</string>
 	<string name="send_coins_fragment_button_back">Tilbage</string>
+	<string name="send_coins_fragment_insufficient_money_title">Ikke nok tilgængelige mønter</string>
+	<string name="send_coins_fragment_insufficient_money_msg1">Du mangler %s.</string>
+	<string name="send_coins_fragment_insufficient_money_msg2">Vil du betale alt hvad du har?</string>
 	<string name="send_coins_preparation_msg">Signerer …</string>
 	<string name="send_coins_sending_msg">Sender …</string>
 	<string name="send_coins_sent_msg">Sendt!</string>
@@ -94,8 +103,10 @@
 	<string name="address_book_context_copy_to_clipboard_title">Kopiér til udklipsholder</string>
 	<string name="address_book_context_default_title">Sæt som standardadresse</string>
 	<string name="address_book_options_paste_from_clipboard_title">Indsæt fra udklipsholder</string>
-	<string name="address_book_options_copy_from_clipboard_msg_empty">Udklipsholder er tom</string>
+	<string name="address_book_options_paste_from_clipboard_empty">Udklipsholder er tom</string>
+	<string name="address_book_options_paste_from_clipboard_invalid">Data fra udklipsholder kan ikke genkendes</string>
 	<string name="address_book_options_scan_title">Scan adresse</string>
+	<string name="address_book_options_scan_invalid">Scannet data kan ikke genkendes</string>
 	<string name="address_book_row_message_compromised_key">Denne adresse kan være blevet misbrugt. Du bør ikke bruge den til at modtage mønter længere.</string>
 	<string name="edit_address_book_entry_dialog_title_add">Tilføj adresse</string>
 	<string name="edit_address_book_entry_dialog_title_edit">Redigér adresse</string>
@@ -104,6 +115,7 @@
 	<string name="edit_address_book_entry_dialog_button_edit">Gem</string>
 	<string name="transaction_row_message_purpose_key_rotation">Denne transaktion styrker din tegnebog mod tyveri. &lt;u>Mere info.&lt;/u></string>
 	<string name="transaction_row_message_own_unbroadcasted">Denne betaling er ikke sendt endnu.</string>
+	<string name="transaction_row_message_received_direct">Denne betaling er modtaget direkte. Der er en risiko for, at den aldrig bliver brugbar.</string>
 	<string name="transaction_row_message_received_unconfirmed_unlocked">Denne betaling bør blive brugbar om få minutter.</string>
 	<string name="transaction_row_message_received_unconfirmed_locked">Denne betaling er ikke standard og kan ikke stoles på.</string>
 	<string name="transaction_row_message_received_dead">Denne betaling er blevet omstødt af afsenderen.</string>
@@ -136,15 +148,18 @@
 	<string name="export_keys_dialog_mail_subject">Sikkerhedskopiering af private nøgler fra Dogecoin-tegnebog</string>
 	<string name="export_keys_dialog_mail_text">Den vedhæftede krypterede fil indeholder private Dogecoin-nøgler og bør til enhver tid opbevares sikkert. Glem ikke krypteringskodeordet!</string>
 	<string name="export_keys_dialog_mail_intent_chooser">Arkivér nøgler med …</string>
+	<string name="export_keys_dialog_mail_intent_failed">Arkivering af nøgler mislykkedes.</string>
 	<string name="import_export_keys_dialog_password">kodeord</string>
 	<string name="import_export_keys_dialog_show">Vis kodeord</string>
 	<string name="import_export_keys_dialog_failure_title">Fejl</string>
 	<string name="import_keys_intent_filter_action">Genoprettelse af Dogecoin-nøgler</string>
 	<string name="scan_camera_problem_dialog_title">Beklager</string>
 	<string name="scan_camera_problem_dialog_message">Der er et problem med kameraet. En gentstart af enheden er sandsynligvis nødvendig.</string>
+	<string name="input_parser_io_error">Kan ikke læse data:\n%s</string>
 	<string name="input_parser_cannot_classify">Kan ikke klassificere input:\n%s</string>
 	<string name="input_parser_invalid_bitcoin_uri">Ugyldig Dogecoin-URI:\n%s</string>
 	<string name="input_parser_invalid_address">Modtog ugyldig dogecoin-adresse!\n(Blanding af Mainnet/Testnet?)</string>
+	<string name="input_parser_invalid_paymentrequest">Ugyldig betalingsforespørgsel:\n%s</string>
 	<string name="input_parser_invalid_transaction">Ugyldig transaktion:\n%s</string>
 	<string name="preferences_activity_title">Opsætning</string>
 	<string name="preferences_category_main">Indstillinger</string>
@@ -177,6 +192,7 @@
 	<string name="report_issue_dialog_collect_application_log">Tilføj programlog</string>
 	<string name="report_issue_dialog_collect_wallet_dump">Tilføj dump af tegnebog</string>
 	<string name="report_issue_dialog_mail_intent_chooser">Send rapport ved hjælp af…</string>
+	<string name="report_issue_dialog_mail_intent_failed">Afsendelse af rapport mislykkedes.</string>
 	<string name="about_title">Om</string>
 	<string name="about_license_title">Licens</string>
 	<string name="about_credits_bitcoinj_title">Denne app bruger bitcoinj %s</string>
@@ -196,6 +212,7 @@
 	<string name="button_ok">O.k.</string>
 	<string name="button_dismiss">Afvis</string>
 	<string name="button_cancel">Annullér</string>
+	<string name="button_retry">Prøv igen</string>
 	<string name="button_help">Hjælp</string>
 	<string name="button_add">Tilføj</string>
 	<string name="button_delete">Slet</string>
@@ -208,7 +225,13 @@
 	<string name="button_send_coins">Send mønter</string>
 	<string name="button_scan">Scan</string>
 	<string name="button_edit_address">Tilføj/redigér adresse</string>
+	<string name="button_settings">Opsætning</string>
+	<string name="action_browse">Gennemse</string>
 	<string name="time_today">i dag</string>
 	<string name="address_unlabeled">(uden etiket)</string>
+
+	<!-- generic error messages -->
+	<string name="error_io">I/O-fejl: %s</string>
+	<string name="error_http">HTTP-fejl %1$s:\n%2$s</string>
 
 </resources>
