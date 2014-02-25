@@ -337,7 +337,7 @@ public final class SendCoinsFragment extends SherlockFragment
 		@Override
 		public void onLoadFinished(final Loader<Cursor> loader, final Cursor data)
 		{
-			if (data != null)
+			if (data != null && data.getCount() > 0)
 			{
 				data.moveToFirst();
 				final ExchangeRate exchangeRate = ExchangeRatesProvider.getExchangeRate(data);
