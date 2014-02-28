@@ -90,14 +90,6 @@ public final class SendingAddressesFragment extends SherlockListFragment impleme
 		super.onCreate(savedInstanceState);
 
 		setHasOptionsMenu(true);
-	}
-
-	@Override
-	public void onActivityCreated(final Bundle savedInstanceState)
-	{
-		super.onActivityCreated(savedInstanceState);
-
-		setEmptyText(getString(R.string.address_book_empty_text));
 
 		adapter = new SimpleCursorAdapter(activity, R.layout.address_book_row, null, new String[] { AddressBookProvider.KEY_LABEL,
 				AddressBookProvider.KEY_ADDRESS }, new int[] { R.id.address_book_row_label, R.id.address_book_row_address }, 0);
@@ -118,6 +110,22 @@ public final class SendingAddressesFragment extends SherlockListFragment impleme
 		setListAdapter(adapter);
 
 		loaderManager.initLoader(0, null, this);
+	}
+
+	@Override
+	public void onViewCreated(View view, Bundle savedInstanceState)
+	{
+		super.onViewCreated(view, savedInstanceState);
+
+		setEmptyText(getString(R.string.address_book_empty_text));
+	}
+
+	@Override
+	public void onDestroy()
+	{
+		loaderManager.destroyLoader(0);
+
+		super.onDestroy();
 	}
 
 	@Override
