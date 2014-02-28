@@ -43,12 +43,11 @@ import android.os.Looper;
 
 import com.google.bitcoin.core.Address;
 import com.google.bitcoin.core.Transaction;
-import com.google.bitcoin.script.ScriptBuilder;
-import com.google.protobuf.ByteString;
 
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.PaymentIntent;
 import de.schildbach.wallet.util.Bluetooth;
+import de.schildbach.wallet.util.PaymentProtocol;
 import de.schildbach.wallet_test.R;
 
 /**
@@ -111,7 +110,7 @@ public abstract class DirectPaymentTask
 
 					try
 					{
-						final Payment payment = createPaymentMessage(transaction, refundAddress, refundAmount, null, merchantData);
+						final Payment payment = PaymentProtocol.createPaymentMessage(transaction, refundAddress, refundAmount, null, merchantData);
 
 						connection = (HttpURLConnection) new URL(url).openConnection();
 
@@ -142,7 +141,7 @@ public abstract class DirectPaymentTask
 
 							final Protos.PaymentACK paymentAck = Protos.PaymentACK.parseFrom(is);
 
-							final boolean ack = !"nack".equals(parsePaymentAck(paymentAck, payment));
+							final boolean ack = !"nack".equals(PaymentProtocol.parsePaymentAck(paymentAck));
 
 							log.info("received {} via http", ack ? "ack" : "nack");
 
@@ -265,7 +264,8 @@ public abstract class DirectPaymentTask
 							is = new DataInputStream(socket.getInputStream());
 							os = new DataOutputStream(socket.getOutputStream());
 
-							final Payment payment = createPaymentMessage(transaction, refundAddress, refundAmount, null, merchantData);
+							final Payment payment = PaymentProtocol
+									.createPaymentMessage(transaction, refundAddress, refundAmount, null, merchantData);
 							payment.writeDelimitedTo(os);
 							os.flush();
 
@@ -273,7 +273,7 @@ public abstract class DirectPaymentTask
 
 							final Protos.PaymentACK paymentAck = Protos.PaymentACK.parseDelimitedFrom(is);
 
-							ack = "ack".equals(parsePaymentAck(paymentAck, payment));
+							ack = "ack".equals(PaymentProtocol.parsePaymentAck(paymentAck));
 						}
 						else
 						{
@@ -358,40 +358,5 @@ public abstract class DirectPaymentTask
 				resultCallback.onFail(messageResId, messageArgs);
 			}
 		});
-	}
-
-	private static Payment createPaymentMessage(@Nonnull final Transaction transaction, @Nullable final Address refundAddress,
-			@Nullable final BigInteger refundAmount, @Nullable final String memo, @Nullable final byte[] merchantData) throws IOException
-	{
-		final Protos.Payment.Builder builder = Protos.Payment.newBuilder();
-
-		builder.addTransactions(ByteString.copyFrom(transaction.unsafeBitcoinSerialize()));
-
-		if (refundAddress != null)
-		{
-			if (refundAmount.compareTo(BigInteger.valueOf(Long.MAX_VALUE)) > 0)
-				throw new IllegalArgumentException("refund amount too big for protobuf: " + refundAmount);
-
-			final Protos.Output.Builder refundOutput = Protos.Output.newBuilder();
-			refundOutput.setAmount(refundAmount.longValue());
-			refundOutput.setScript(ByteString.copyFrom(ScriptBuilder.createOutputScript(refundAddress).getProgram()));
-			builder.addRefundTo(refundOutput);
-		}
-
-		if (memo != null)
-			builder.setMemo(memo);
-
-		if (merchantData != null)
-			builder.setMerchantData(ByteString.copyFrom(merchantData));
-
-		return builder.build();
-	}
-
-	private static String parsePaymentAck(@Nonnull final Protos.PaymentACK paymentAck, @Nonnull final Payment expectedPaymentMessage)
-			throws IOException
-	{
-		final String memo = paymentAck.hasMemo() ? paymentAck.getMemo() : null;
-
-		return memo;
 	}
 }

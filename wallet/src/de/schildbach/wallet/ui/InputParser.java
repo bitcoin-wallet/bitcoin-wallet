@@ -20,14 +20,11 @@ package de.schildbach.wallet.ui;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.math.BigInteger;
-import java.util.ArrayList;
 import java.util.regex.Pattern;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import org.bitcoin.protocols.payments.Protos;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -43,17 +40,13 @@ import com.google.bitcoin.core.ProtocolException;
 import com.google.bitcoin.core.Transaction;
 import com.google.bitcoin.protocols.payments.PaymentRequestException;
 import com.google.bitcoin.protocols.payments.PaymentRequestException.PkiVerificationException;
-import com.google.bitcoin.protocols.payments.PaymentSession;
-import com.google.bitcoin.protocols.payments.PaymentSession.PkiVerificationData;
-import com.google.bitcoin.script.Script;
 import com.google.bitcoin.uri.BitcoinURI;
 import com.google.bitcoin.uri.BitcoinURIParseException;
-import com.google.protobuf.InvalidProtocolBufferException;
-import com.google.protobuf.UninitializedMessageException;
 
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.PaymentIntent;
 import de.schildbach.wallet.util.Io;
+import de.schildbach.wallet.util.PaymentProtocol;
 import de.schildbach.wallet.util.Qr;
 import de.schildbach.wallet_test.R;
 
@@ -312,74 +305,11 @@ public abstract class InputParser
 
 	public abstract void parse();
 
-	protected void parseAndHandlePaymentRequest(@Nonnull final byte[] serializedPaymentRequest) throws PaymentRequestException
+	protected final void parseAndHandlePaymentRequest(@Nonnull final byte[] serializedPaymentRequest) throws PaymentRequestException
 	{
-		try
-		{
-			if (serializedPaymentRequest.length > 50000)
-				throw new PaymentRequestException("payment request too big: " + serializedPaymentRequest.length);
+		final PaymentIntent paymentIntent = PaymentProtocol.parsePaymentRequest(serializedPaymentRequest);
 
-			final Protos.PaymentRequest paymentRequest = Protos.PaymentRequest.parseFrom(serializedPaymentRequest);
-
-			final String pkiName;
-			final String pkiOrgName;
-			final String pkiCaName;
-			if (!"none".equals(paymentRequest.getPkiType()))
-			{
-				// implicitly verify PKI signature
-				final PkiVerificationData verificationData = new PaymentSession(paymentRequest, true).pkiVerificationData;
-				pkiName = verificationData.name;
-				pkiOrgName = verificationData.orgName;
-				pkiCaName = verificationData.rootAuthorityName;
-			}
-			else
-			{
-				pkiName = null;
-				pkiOrgName = null;
-				pkiCaName = null;
-			}
-
-			if (paymentRequest.getPaymentDetailsVersion() != 1)
-				throw new PaymentRequestException.InvalidVersion("cannot handle payment details version: "
-						+ paymentRequest.getPaymentDetailsVersion());
-
-			final Protos.PaymentDetails paymentDetails = Protos.PaymentDetails.newBuilder().mergeFrom(paymentRequest.getSerializedPaymentDetails())
-					.build();
-
-			if (paymentDetails.hasExpires() && System.currentTimeMillis() / 1000 >= paymentDetails.getExpires())
-				throw new PaymentRequestException.Expired("payment details expired: " + paymentDetails.getExpires());
-
-			if (!paymentDetails.getNetwork().equals(Constants.NETWORK_PARAMETERS.getPaymentProtocolId()))
-				throw new PaymentRequestException.InvalidNetwork("cannot handle payment request network: " + paymentDetails.getNetwork());
-
-			final ArrayList<PaymentIntent.Output> outputs = new ArrayList<PaymentIntent.Output>(paymentDetails.getOutputsCount());
-			for (final Protos.Output output : paymentDetails.getOutputsList())
-			{
-				final BigInteger amount = BigInteger.valueOf(output.getAmount());
-				final Script script = new Script(output.getScript().toByteArray());
-				outputs.add(new PaymentIntent.Output(amount, script));
-			}
-
-			final String memo = paymentDetails.hasMemo() ? paymentDetails.getMemo() : null;
-			final String paymentUrl = paymentDetails.hasPaymentUrl() ? paymentDetails.getPaymentUrl() : null;
-			final byte[] merchantData = paymentDetails.hasMerchantData() ? paymentDetails.getMerchantData().toByteArray() : null;
-
-			final PaymentIntent paymentIntent = new PaymentIntent(PaymentIntent.Standard.BIP70, pkiName, pkiOrgName, pkiCaName,
-					outputs.toArray(new PaymentIntent.Output[0]), memo, paymentUrl, merchantData, null);
-
-			if (paymentIntent.hasPaymentUrl() && !paymentIntent.isSupportedPaymentUrl())
-				throw new PaymentRequestException.InvalidPaymentURL("cannot handle payment url: " + paymentIntent.paymentUrl);
-
-			handlePaymentIntent(paymentIntent);
-		}
-		catch (final InvalidProtocolBufferException x)
-		{
-			throw new PaymentRequestException(x);
-		}
-		catch (final UninitializedMessageException x)
-		{
-			throw new PaymentRequestException(x);
-		}
+		handlePaymentIntent(paymentIntent);
 	}
 
 	protected abstract void handlePaymentIntent(@Nonnull PaymentIntent paymentIntent);
