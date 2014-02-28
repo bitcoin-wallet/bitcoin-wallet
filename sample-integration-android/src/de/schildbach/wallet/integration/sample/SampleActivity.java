@@ -27,6 +27,7 @@ import android.text.style.TypefaceSpan;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,10 +45,8 @@ import de.schildbach.wallet.integration.android.BitcoinIntegration;
 public class SampleActivity extends Activity
 {
 	private static final long AMOUNT = 500000;
-	private static final String DONATION_ADDRESS = "18CK5k1gajRKKSC7yVSTXT9LUzbheh1XY4"; // mainnet
-	private static final String DONATION_ADDRESS2 = "1PZmMahjbfsTy6DsaRyfStzoWTPppWwDnZ"; // mainnet
-	// private static final String DONATION_ADDRESS = "mkCLjaXncyw8eSWJBcBtnTgviU85z5PfwS"; // testnet
-	// private static final String DONATION_ADDRESS2 = "mwEacn7pYszzxfgcNaVUzYvzL6ypRJzB6A"; // testnet
+	private static final String[] DONATION_ADDRESSES_MAINNET = { "18CK5k1gajRKKSC7yVSTXT9LUzbheh1XY4", "1PZmMahjbfsTy6DsaRyfStzoWTPppWwDnZ" };
+	private static final String[] DONATION_ADDRESSES_TESTNET = { "mkCLjaXncyw8eSWJBcBtnTgviU85z5PfwS", "mwEacn7pYszzxfgcNaVUzYvzL6ypRJzB6A" };
 	private static final String MEMO = "Sample donation";
 	private static final int REQUEST_CODE = 0;
 
@@ -82,24 +81,34 @@ public class SampleActivity extends Activity
 		donateMessage = (TextView) findViewById(R.id.sample_donate_message);
 	}
 
+	private String[] donationAddresses()
+	{
+		final boolean isMainnet = ((RadioButton) findViewById(R.id.sample_network_mainnet)).isChecked();
+
+		return isMainnet ? DONATION_ADDRESSES_MAINNET : DONATION_ADDRESSES_TESTNET;
+	}
+
 	private void handleDonate()
 	{
-		BitcoinIntegration.requestForResult(SampleActivity.this, REQUEST_CODE, DONATION_ADDRESS);
+		final String[] addresses = donationAddresses();
+
+		BitcoinIntegration.requestForResult(SampleActivity.this, REQUEST_CODE, addresses[0]);
 	}
 
 	private void handleRequest()
 	{
 		try
 		{
-			final NetworkParameters params = Address.getParametersFromAddress(DONATION_ADDRESS);
+			final String[] addresses = donationAddresses();
+			final NetworkParameters params = Address.getParametersFromAddress(addresses[0]);
 
 			final Protos.Output.Builder output1 = Protos.Output.newBuilder();
 			output1.setAmount(AMOUNT);
-			output1.setScript(ByteString.copyFrom(ScriptBuilder.createOutputScript(new Address(params, DONATION_ADDRESS)).getProgram()));
+			output1.setScript(ByteString.copyFrom(ScriptBuilder.createOutputScript(new Address(params, addresses[0])).getProgram()));
 
 			final Protos.Output.Builder output2 = Protos.Output.newBuilder();
 			output2.setAmount(AMOUNT);
-			output2.setScript(ByteString.copyFrom(ScriptBuilder.createOutputScript(new Address(params, DONATION_ADDRESS2)).getProgram()));
+			output2.setScript(ByteString.copyFrom(ScriptBuilder.createOutputScript(new Address(params, addresses[1])).getProgram()));
 
 			final Protos.PaymentDetails.Builder paymentDetails = Protos.PaymentDetails.newBuilder();
 			paymentDetails.setNetwork(params.getPaymentProtocolId());
