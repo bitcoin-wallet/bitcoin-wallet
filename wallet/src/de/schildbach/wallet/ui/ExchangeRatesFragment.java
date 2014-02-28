@@ -19,6 +19,8 @@ package de.schildbach.wallet.ui;
 
 import java.math.BigInteger;
 
+import javax.annotation.CheckForNull;
+
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -70,6 +72,7 @@ public final class ExchangeRatesFragment extends SherlockListFragment implements
 
 	private BigInteger balance = null;
 	private boolean replaying = false;
+	@CheckForNull
 	private String defaultCurrency = null;
 
 	private static final int ID_BALANCE_LOADER = 0;
@@ -88,14 +91,27 @@ public final class ExchangeRatesFragment extends SherlockListFragment implements
 	}
 
 	@Override
-	public void onActivityCreated(final Bundle savedInstanceState)
+	public void onCreate(final Bundle savedInstanceState)
 	{
-		super.onActivityCreated(savedInstanceState);
+		super.onCreate(savedInstanceState);
 
-		setEmptyText(getString(R.string.exchange_rates_fragment_empty_text));
+		setRetainInstance(true);
 
 		adapter = new ExchangeRatesAdapter(activity);
 		setListAdapter(adapter);
+
+		loaderManager.initLoader(ID_RATE_LOADER, null, rateLoaderCallbacks);
+
+		defaultCurrency = config.getExchangeCurrencyCode();
+		config.registerOnSharedPreferenceChangeListener(this);
+	}
+
+	@Override
+	public void onViewCreated(final View view, final Bundle savedInstanceState)
+	{
+		super.onViewCreated(view, savedInstanceState);
+
+		setEmptyText(getString(R.string.exchange_rates_fragment_empty_text));
 	}
 
 	@Override
@@ -106,10 +122,6 @@ public final class ExchangeRatesFragment extends SherlockListFragment implements
 		activity.registerReceiver(broadcastReceiver, new IntentFilter(BlockchainService.ACTION_BLOCKCHAIN_STATE));
 
 		loaderManager.initLoader(ID_BALANCE_LOADER, null, balanceLoaderCallbacks);
-		loaderManager.initLoader(ID_RATE_LOADER, null, rateLoaderCallbacks);
-
-		defaultCurrency = config.getExchangeCurrencyCode();
-		config.registerOnSharedPreferenceChangeListener(this);
 
 		updateView();
 	}
@@ -117,14 +129,21 @@ public final class ExchangeRatesFragment extends SherlockListFragment implements
 	@Override
 	public void onPause()
 	{
-		config.unregisterOnSharedPreferenceChangeListener(this);
-
-		loaderManager.destroyLoader(ID_RATE_LOADER);
 		loaderManager.destroyLoader(ID_BALANCE_LOADER);
 
 		activity.unregisterReceiver(broadcastReceiver);
 
 		super.onPause();
+	}
+
+	@Override
+	public void onDestroy()
+	{
+		config.unregisterOnSharedPreferenceChangeListener(this);
+
+		loaderManager.destroyLoader(ID_RATE_LOADER);
+
+		super.onDestroy();
 	}
 
 	@Override
@@ -229,13 +248,33 @@ public final class ExchangeRatesFragment extends SherlockListFragment implements
 		@Override
 		public void onLoadFinished(final Loader<Cursor> loader, final Cursor data)
 		{
-			adapter.swapCursor(data);
+			final Cursor oldCursor = adapter.swapCursor(data);
+
+			if (oldCursor == null && defaultCurrency != null)
+			{
+				final int defaultCurrencyPosition = findCurrencyCode(data, defaultCurrency);
+				if (defaultCurrencyPosition >= 0)
+					getListView().setSelection(defaultCurrencyPosition); // scroll to selection
+			}
 		}
 
 		@Override
 		public void onLoaderReset(final Loader<Cursor> loader)
 		{
-			adapter.swapCursor(null);
+		}
+
+		private int findCurrencyCode(final Cursor cursor, final String currencyCode)
+		{
+			final int currencyCodeColumn = cursor.getColumnIndexOrThrow(ExchangeRatesProvider.KEY_CURRENCY_CODE);
+
+			cursor.moveToPosition(-1);
+			while (cursor.moveToNext())
+			{
+				if (cursor.getString(currencyCodeColumn).equals(currencyCode))
+					return cursor.getPosition();
+			}
+
+			return -1;
 		}
 	};
 
