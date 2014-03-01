@@ -441,15 +441,14 @@ public final class SendCoinsFragment extends SherlockFragment
 		amountCalculatorLink.setExchangeDirection(config.getLastExchangeDirection());
 
 		directPaymentEnableView = (CheckBox) view.findViewById(R.id.send_coins_direct_payment_enable);
-		directPaymentEnableView.setChecked(bluetoothAdapter != null && bluetoothAdapter.isEnabled());
 		directPaymentEnableView.setOnCheckedChangeListener(new OnCheckedChangeListener()
 		{
 			@Override
 			public void onCheckedChanged(final CompoundButton buttonView, final boolean isChecked)
 			{
-				if (isChecked && !bluetoothAdapter.isEnabled())
+				if (paymentIntent.isBluetoothPaymentUrl() && isChecked && !bluetoothAdapter.isEnabled())
 				{
-					// try to enable bluetooth
+					// ask for permission to enable bluetooth
 					startActivityForResult(new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE), REQUEST_CODE_ENABLE_BLUETOOTH);
 				}
 			}
@@ -662,7 +661,8 @@ public final class SendCoinsFragment extends SherlockFragment
 		}
 		else if (requestCode == REQUEST_CODE_ENABLE_BLUETOOTH)
 		{
-			directPaymentEnableView.setChecked(resultCode == Activity.RESULT_OK);
+			if (paymentIntent.isBluetoothPaymentUrl())
+				directPaymentEnableView.setChecked(resultCode == Activity.RESULT_OK);
 		}
 	}
 
@@ -1250,6 +1250,11 @@ public final class SendCoinsFragment extends SherlockFragment
 
 		if (paymentIntent.hasAmount())
 			amountCalculatorLink.setBtcAmount(paymentIntent.getAmount());
+
+		if (paymentIntent.isBluetoothPaymentUrl())
+			directPaymentEnableView.setChecked(bluetoothAdapter != null && bluetoothAdapter.isEnabled());
+		else if (paymentIntent.isHttpPaymentUrl())
+			directPaymentEnableView.setChecked(true);
 
 		directPaymentAck = null;
 
