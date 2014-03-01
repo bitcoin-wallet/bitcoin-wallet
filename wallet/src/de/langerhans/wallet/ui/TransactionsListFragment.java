@@ -316,7 +316,11 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 			@Override
 			public void onDestroyActionMode(final ActionMode mode)
 			{
-				Nfc.unpublish(nfcManager, activity);
+                try {
+                    Nfc.unpublish(nfcManager, activity);
+                } catch (IllegalStateException ise) {
+                    // Swallow. Activity is probably paused currently. No need to unpublish.
+                }
 			}
 
 			private void handleEditAddress(@Nonnull final Transaction tx)
