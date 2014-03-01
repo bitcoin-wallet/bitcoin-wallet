@@ -84,7 +84,6 @@
 	<string name="send_coins_address_context_clear_title">新しいアドレスを入力</string>
 	<string name="request_coins_activity_title">ビットコインをリクエスト</string>
 	<string name="request_coins_fragment_address_label">リクエストするアドレス</string>
-	<string name="request_coins_fragment_include_address_label">アドレスにラベルを含む</string>
 	<string name="request_coins_fragment_amount_label">総額のリクエスト（オプション）</string>
 	<string name="request_coins_fragment_initiate_request_qr">このコードは送金者によってスキャンされました。</string>
 	<string name="request_coins_fragment_initiate_request_nfc">または、NFC使用可能なようにタップしてください。</string>

@@ -47,9 +47,6 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -64,7 +61,6 @@ import com.google.bitcoin.core.ECKey;
 import com.google.bitcoin.core.Wallet;
 import com.google.bitcoin.uri.BitcoinURI;
 
-import de.schildbach.wallet.AddressBookProvider;
 import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.ExchangeRatesProvider;
@@ -97,7 +93,6 @@ public final class RequestCoinsFragment extends SherlockFragment
 	private ImageView qrView;
 	private Bitmap qrCodeBitmap;
 	private Spinner addressView;
-	private CheckBox includeLabelView;
 	private TextView initiateRequestView;
 	private View bluetoothEnabledView;
 
@@ -199,8 +194,6 @@ public final class RequestCoinsFragment extends SherlockFragment
 			}
 		}
 
-		includeLabelView = (CheckBox) view.findViewById(R.id.request_coins_fragment_include_label);
-
 		initiateRequestView = (TextView) view.findViewById(R.id.request_coins_fragment_initiate_request);
 
 		bluetoothEnabledView = view.findViewById(R.id.request_coins_fragment_bluetooth_enabled);
@@ -259,16 +252,6 @@ public final class RequestCoinsFragment extends SherlockFragment
 			}
 		});
 
-		includeLabelView.setOnCheckedChangeListener(new OnCheckedChangeListener()
-		{
-			@Override
-			public void onCheckedChanged(final CompoundButton buttonView, final boolean isChecked)
-			{
-				updateView();
-				updateShareIntent();
-			}
-		});
-
 		loaderManager.initLoader(ID_RATE_LOADER, null, rateLoaderCallbacks);
 
 		final boolean labsBluetoothOfflineTransactionsEnabled = config.getBluetoothOfflineTransactionsEnabled();
@@ -296,8 +279,6 @@ public final class RequestCoinsFragment extends SherlockFragment
 		amountCalculatorLink.setListener(null);
 
 		addressView.setOnItemSelectedListener(null);
-
-		includeLabelView.setOnCheckedChangeListener(null);
 
 		super.onPause();
 	}
@@ -426,17 +407,14 @@ public final class RequestCoinsFragment extends SherlockFragment
 
 	private String determineBitcoinRequestStr(final boolean includeBluetoothMac)
 	{
-		final boolean includeLabel = includeLabelView.isChecked();
-
 		final ECKey key = (ECKey) addressView.getSelectedItem();
 		final Address address = key.toAddress(Constants.NETWORK_PARAMETERS);
-		final String label = includeLabel ? AddressBookProvider.resolveLabel(activity, address.toString()) : null;
 		final BigInteger amount = amountCalculatorLink.getAmount();
 
-		final StringBuilder uri = new StringBuilder(BitcoinURI.convertToBitcoinURI(address, amount, label, null));
+		final StringBuilder uri = new StringBuilder(BitcoinURI.convertToBitcoinURI(address, amount, null, null));
 		if (includeBluetoothMac && bluetoothMac != null)
 		{
-			uri.append(amount == null && label == null ? '?' : '&');
+			uri.append(amount == null ? '?' : '&');
 			uri.append(Bluetooth.MAC_URI_PARAM).append('=').append(bluetoothMac);
 		}
 		return uri.toString();
@@ -447,8 +425,7 @@ public final class RequestCoinsFragment extends SherlockFragment
 		final ECKey key = (ECKey) addressView.getSelectedItem();
 		final Address address = key.toAddress(Constants.NETWORK_PARAMETERS);
 
-		return PaymentProtocol.createPaymentRequest(amountCalculatorLink.getAmount(), address,
-				includeLabelView.isChecked() ? AddressBookProvider.resolveLabel(activity, address.toString()) : null,
+		return PaymentProtocol.createPaymentRequest(amountCalculatorLink.getAmount(), address, null,
 				includeBluetoothMac && bluetoothMac != null ? "bt:" + bluetoothMac : null).toByteArray();
 	}
 }
