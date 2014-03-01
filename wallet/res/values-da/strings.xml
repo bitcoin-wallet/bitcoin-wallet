@@ -84,11 +84,9 @@
 	<string name="send_coins_address_context_clear_title">Skriv ny adresse</string>
 	<string name="request_coins_activity_title">Forespørg Dogecoins</string>
 	<string name="request_coins_fragment_address_label">Adresse, der skal forespørges til</string>
-	<string name="request_coins_fragment_include_address_label">inkludér etiket sammen med adresse</string>
 	<string name="request_coins_fragment_amount_label">Forespurgt beløb (valgfri)</string>
 	<string name="request_coins_fragment_initiate_request_qr">Få afsenderen til at scanne denne kode.</string>
 	<string name="request_coins_fragment_initiate_request_nfc">Eller berør en NFC-aktiveret enhed.</string>
-	<string name="request_coins_fragment_bluetooth_enabled">Accepterer betalinger via Bluetooth.</string>
 	<string name="request_coins_clipboard_msg">Dogecoin-forespørgsel kopieret til udklipsholderen</string>
 	<string name="request_coins_share_dialog_title">Del forespørgsel efter Dogecoins …</string>
 	<string name="request_coins_options_local_app_title">Forespørg fra lokal app</string>

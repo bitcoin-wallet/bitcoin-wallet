@@ -25,14 +25,16 @@ import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import android.app.AlertDialog;
 import de.langerhans.wallet.offline.DirectPaymentTask;
+import org.bitcoin.protocols.payments.Protos;
+import org.bitcoin.protocols.payments.Protos.Payment;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
+import android.content.ComponentName;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -84,6 +86,8 @@ import com.google.dogecoin.core.TransactionConfidence.ConfidenceType;
 import com.google.dogecoin.core.Wallet;
 import com.google.dogecoin.core.Wallet.BalanceType;
 import com.google.dogecoin.core.Wallet.SendRequest;
+import com.google.dogecoin.script.ScriptBuilder;
+import com.google.protobuf.ByteString;
 
 import de.langerhans.wallet.AddressBookProvider;
 import de.langerhans.wallet.Configuration;
@@ -91,6 +95,7 @@ import de.langerhans.wallet.Constants;
 import de.langerhans.wallet.ExchangeRatesProvider;
 import de.langerhans.wallet.ExchangeRatesProvider.ExchangeRate;
 import de.langerhans.wallet.PaymentIntent;
+import de.langerhans.wallet.PaymentIntent.Standard;
 import de.langerhans.wallet.WalletApplication;
 import de.langerhans.wallet.integration.android.BitcoinIntegration;
 import de.langerhans.wallet.ui.InputParser.BinaryInputParser;
@@ -442,15 +447,14 @@ public final class SendCoinsFragment extends SherlockFragment
 		amountCalculatorLink.setExchangeDirection(config.getLastExchangeDirection());
 
 		directPaymentEnableView = (CheckBox) view.findViewById(R.id.send_coins_direct_payment_enable);
-		directPaymentEnableView.setChecked(bluetoothAdapter != null && bluetoothAdapter.isEnabled());
 		directPaymentEnableView.setOnCheckedChangeListener(new OnCheckedChangeListener()
 		{
 			@Override
 			public void onCheckedChanged(final CompoundButton buttonView, final boolean isChecked)
 			{
-				if (isChecked && !bluetoothAdapter.isEnabled())
+				if (paymentIntent.isBluetoothPaymentUrl() && isChecked && !bluetoothAdapter.isEnabled())
 				{
-					// try to enable bluetooth
+					// ask for permission to enable bluetooth
 					startActivityForResult(new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE), REQUEST_CODE_ENABLE_BLUETOOTH);
 				}
 			}
@@ -518,9 +522,16 @@ public final class SendCoinsFragment extends SherlockFragment
 				final byte[] ndefMessagePayload = Nfc.extractMimePayload(Constants.MIMETYPE_PAYMENTREQUEST, ndefMessage);
 				initStateFromPaymentRequest(mimeType, ndefMessagePayload);
 			}
-			else if ((Intent.ACTION_VIEW.equals(action)) && intentUri != null && Constants.MIMETYPE_PAYMENTREQUEST.equals(mimeType))
+			else if ((Intent.ACTION_VIEW.equals(action)) && Constants.MIMETYPE_PAYMENTREQUEST.equals(mimeType))
 			{
-				initStateFromIntentUri(mimeType, intentUri);
+				final byte[] paymentRequest = BitcoinIntegration.paymentRequestFromIntent(intent);
+
+				if (intentUri != null)
+					initStateFromIntentUri(mimeType, intentUri);
+				else if (paymentRequest != null)
+					initStateFromPaymentRequest(mimeType, paymentRequest);
+				else
+					throw new IllegalArgumentException();
 			}
 			else if (intent.hasExtra(SendCoinsActivity.INTENT_EXTRA_PAYMENT_INTENT))
 			{
@@ -663,7 +674,8 @@ public final class SendCoinsFragment extends SherlockFragment
 		}
 		else if (requestCode == REQUEST_CODE_ENABLE_BLUETOOTH)
 		{
-			directPaymentEnableView.setChecked(resultCode == Activity.RESULT_OK);
+			if (paymentIntent.isBluetoothPaymentUrl())
+				directPaymentEnableView.setChecked(resultCode == Activity.RESULT_OK);
 		}
 	}
 
@@ -848,16 +860,26 @@ public final class SendCoinsFragment extends SherlockFragment
 
 				sentTransaction.getConfidence().addEventListener(sentTransactionConfidenceListener);
 
-				directPay(sentTransaction);
+				final Payment payment = createPaymentMessage(sentTransaction, returnAddress, finalAmount, null, paymentIntent.payeeData);
+
+				directPay(payment);
 
 				application.broadcastTransaction(sentTransaction);
 
-				final Intent result = new Intent();
-				BitcoinIntegration.transactionHashToResult(result, sentTransaction.getHashAsString());
-				activity.setResult(Activity.RESULT_OK, result);
+				final ComponentName callingActivity = activity.getCallingActivity();
+				if (callingActivity != null)
+				{
+					log.info("returning result to calling activity: {}", callingActivity.flattenToString());
+
+					final Intent result = new Intent();
+					BitcoinIntegration.transactionHashToResult(result, sentTransaction.getHashAsString());
+					if (paymentIntent.standard == Standard.BIP70)
+						BitcoinIntegration.paymentToResult(result, payment.toByteArray());
+					activity.setResult(Activity.RESULT_OK, result);
+				}
 			}
 
-			private void directPay(final Transaction transaction)
+			private void directPay(final Payment payment)
 			{
 				if (directPaymentEnableView.isChecked())
 				{
@@ -885,7 +907,7 @@ public final class SendCoinsFragment extends SherlockFragment
 								@Override
 								public void onClick(final DialogInterface dialog, final int which)
 								{
-									directPay(transaction);
+									directPay(payment);
 								}
 							});
 							dialog.setNegativeButton(R.string.button_dismiss, null);
@@ -896,12 +918,12 @@ public final class SendCoinsFragment extends SherlockFragment
 					if (paymentIntent.isHttpPaymentUrl())
 					{
 						new DirectPaymentTask.HttpPaymentTask(backgroundHandler, callback, paymentIntent.paymentUrl, application.httpUserAgent())
-								.send(paymentIntent.standard, transaction, returnAddress, finalAmount, paymentIntent.payeeData);
+								.send(paymentIntent.standard, payment);
 					}
 					else if (paymentIntent.isBluetoothPaymentUrl() && bluetoothAdapter != null && bluetoothAdapter.isEnabled())
 					{
 						new DirectPaymentTask.BluetoothPaymentTask(backgroundHandler, callback, bluetoothAdapter, paymentIntent.getBluetoothMac())
-								.send(paymentIntent.standard, transaction, returnAddress, finalAmount, paymentIntent.payeeData);
+								.send(paymentIntent.standard, payment);
 					}
 				}
 			}
@@ -1266,6 +1288,11 @@ public final class SendCoinsFragment extends SherlockFragment
 		if (paymentIntent.hasAmount())
 			amountCalculatorLink.setBtcAmount(paymentIntent.getAmount());
 
+		if (paymentIntent.isBluetoothPaymentUrl())
+			directPaymentEnableView.setChecked(bluetoothAdapter != null && bluetoothAdapter.isEnabled());
+		else if (paymentIntent.isHttpPaymentUrl())
+			directPaymentEnableView.setChecked(true);
+
 		directPaymentAck = null;
 
 		updateView();
@@ -1321,5 +1348,32 @@ public final class SendCoinsFragment extends SherlockFragment
 				dialog.show();
 			}
 		}, application.httpUserAgent()).requestPaymentRequest(paymentRequestUrl);
+	}
+
+	private static Payment createPaymentMessage(@Nonnull final Transaction transaction, @Nullable final Address refundAddress,
+			@Nullable final BigInteger refundAmount, @Nullable final String memo, @Nullable final byte[] merchantData)
+	{
+		final Protos.Payment.Builder builder = Protos.Payment.newBuilder();
+
+		builder.addTransactions(ByteString.copyFrom(transaction.unsafeBitcoinSerialize()));
+
+		if (refundAddress != null)
+		{
+			if (refundAmount.compareTo(BigInteger.valueOf(Long.MAX_VALUE)) > 0)
+				throw new IllegalArgumentException("refund amount too big for protobuf: " + refundAmount);
+
+			final Protos.Output.Builder refundOutput = Protos.Output.newBuilder();
+			refundOutput.setAmount(refundAmount.longValue());
+			refundOutput.setScript(ByteString.copyFrom(ScriptBuilder.createOutputScript(refundAddress).getProgram()));
+			builder.addRefundTo(refundOutput);
+		}
+
+		if (memo != null)
+			builder.setMemo(memo);
+
+		if (merchantData != null)
+			builder.setMerchantData(ByteString.copyFrom(merchantData));
+
+		return builder.build();
 	}
 }

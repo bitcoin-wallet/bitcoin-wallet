@@ -1,3 +1,8 @@
+v3.38
+
+* Supports BIP70 payment protocol for in-app payments.
+* Accepting direct payments via Bluetooth is now a supported feature.
+
 v3.37
 
 * New translation into Japanese.

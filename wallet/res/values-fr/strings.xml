@@ -85,11 +85,9 @@
 	<string name="send_coins_address_context_clear_title">Saisir une nouvelle adresse</string>
 	<string name="request_coins_activity_title">Demander des Dogecoins</string>
 	<string name="request_coins_fragment_address_label">Adresse à laquelle demander</string>
-	<string name="request_coins_fragment_include_address_label">inclure une étiquette avec l\'adresse</string>
 	<string name="request_coins_fragment_amount_label">Montant demandé (optionnel)</string>
 	<string name="request_coins_fragment_initiate_request_qr">Faites numériser ce code par l\'expéditeur.</string>
 	<string name="request_coins_fragment_initiate_request_nfc">Ou toucher un appareil ayant la NFC.</string>
-	<string name="request_coins_fragment_bluetooth_enabled">Les paiements par Bluetooth sont acceptés.</string>
 	<string name="request_coins_clipboard_msg">Demande de Dogecoins collée dans le presse-papier</string>
 	<string name="request_coins_share_dialog_title">Publier la demande de Dogecoin…</string>
 	<string name="request_coins_options_local_app_title">Demander à une appli locale</string>

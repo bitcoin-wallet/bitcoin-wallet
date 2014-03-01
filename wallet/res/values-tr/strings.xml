@@ -85,11 +85,9 @@
 	<string name="send_coins_address_context_clear_title">Yeni adres gir</string>
 	<string name="request_coins_activity_title">Dogecoin talebi</string>
 	<string name="request_coins_fragment_address_label">Talep için kullanılacak adres</string>
-	<string name="request_coins_fragment_include_address_label">adrese etiket iliştir</string>
 	<string name="request_coins_fragment_amount_label">Talep edilen miktar (seçime dayalı)</string>
 	<string name="request_coins_fragment_initiate_request_qr">Bu kodu gönderici tarafından taratın.</string>
 	<string name="request_coins_fragment_initiate_request_nfc">Ya da NFC destekli bir cihaz ile dokunun.</string>
-	<string name="request_coins_fragment_bluetooth_enabled">Bluetooth aracılığıyla ödemeler kabul ediliyor.</string>
 	<string name="request_coins_clipboard_msg">Dogecoin talebi panoya kopyalandı</string>
 	<string name="request_coins_share_dialog_title">Dogecoin talebini yayınla…</string>
 	<string name="request_coins_options_local_app_title">Yerel uygulamadan talep</string>

@@ -68,11 +68,9 @@
 	<string name="send_coins_address_context_clear_title">Entajpi novan adreson</string>
 	<string name="request_coins_activity_title">Peti Dogemonojn</string>
 	<string name="request_coins_fragment_address_label">Adreso por peti al</string>
-	<string name="request_coins_fragment_include_address_label">inkluzivi etikedon kun adreso</string>
 	<string name="request_coins_fragment_amount_label">Petita kvanto (fakultativa)</string>
 	<string name="request_coins_fragment_initiate_request_qr">Havas ĉi tiun kodon skanitan per la sendinto.</string>
 	<string name="request_coins_fragment_initiate_request_nfc">Aŭ frapetu NFC-eblan apararton.</string>
-	<string name="request_coins_fragment_bluetooth_enabled">Akceptante pagoj per Bluetooth.</string>
 	<string name="request_coins_clipboard_msg">Dogemona peto kopiita al tondujo</string>
 	<string name="request_coins_share_dialog_title">Kunhavigi peton por Dogemonoj…</string>
 	<string name="request_coins_options_local_app_title">Peti el loka aplikaĵo</string>

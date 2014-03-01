@@ -16,6 +16,8 @@
 
 package de.langerhans.wallet.integration.sample;
 
+import org.bitcoin.protocols.payments.Protos;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -25,8 +27,16 @@ import android.text.style.TypefaceSpan;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.dogecoin.core.Address;
+import com.google.dogecoin.core.AddressFormatException;
+import com.google.dogecoin.core.NetworkParameters;
+import com.google.dogecoin.script.ScriptBuilder;
+import com.google.protobuf.ByteString;
+
 import de.langerhans.wallet.integration.android.BitcoinIntegration;
 
 /**
@@ -34,65 +44,122 @@ import de.langerhans.wallet.integration.android.BitcoinIntegration;
  */
 public class SampleActivity extends Activity
 {
-	private static final String DONATION_ADDRESS = "DEwTHxztkSDUJEMywbPk5zVUGrupaNRqEy"; // prodnet
-	// private static final String DONATION_ADDRESS = "mwEacn7pYszzxfgcNaVUzYvzL6ypRJzB6A"; // testnet
-	private static final int REQUEST_CODE = 0;
+    private static final long AMOUNT = 500000;
+    private static final String[] DONATION_ADDRESSES_MAINNET = { "DLnvez7jBWz3iTvckeBVbGizMFCf5aaWGB", "DQr7Q7aPyyNXRL81xa9zinCaNjkyMsUZbF" };
+    private static final String[] DONATION_ADDRESSES_TESTNET = { "mkCLjaXncyw8eSWJBcBtnTgviU85z5PfwS", "mwEacn7pYszzxfgcNaVUzYvzL6ypRJzB6A" };
+    private static final String MEMO = "Sample donation";
+    private static final int REQUEST_CODE = 0;
 
-	private Button donateButton;
-	private TextView donateMessage;
+    private Button donateButton, requestButton;
+    private TextView donateMessage;
 
-	@Override
-	protected void onCreate(final Bundle savedInstanceState)
-	{
-		super.onCreate(savedInstanceState);
+    @Override
+    protected void onCreate(final Bundle savedInstanceState)
+    {
+        super.onCreate(savedInstanceState);
 
-		setContentView(R.layout.sample_activity);
+        setContentView(R.layout.sample_activity);
 
-		donateButton = (Button) findViewById(R.id.sample_donate_button);
+        donateButton = (Button) findViewById(R.id.sample_donate_button);
+        donateButton.setOnClickListener(new OnClickListener()
+        {
+            public void onClick(final View v)
+            {
+                handleDonate();
+            }
+        });
 
-		donateButton.setOnClickListener(new OnClickListener()
-		{
-			public void onClick(final View v)
-			{
-				BitcoinIntegration.requestForResult(SampleActivity.this, REQUEST_CODE, DONATION_ADDRESS);
-			}
-		});
+        requestButton = (Button) findViewById(R.id.sample_request_button);
+        requestButton.setOnClickListener(new OnClickListener()
+        {
+            public void onClick(final View v)
+            {
+                handleRequest();
+            }
+        });
 
-		donateMessage = (TextView) findViewById(R.id.sample_donate_message);
-	}
+        donateMessage = (TextView) findViewById(R.id.sample_donate_message);
+    }
 
-	@Override
-	protected void onActivityResult(final int requestCode, final int resultCode, final Intent data)
-	{
-		if (requestCode == REQUEST_CODE)
-		{
-			if (resultCode == Activity.RESULT_OK)
-			{
-				final String txHash = BitcoinIntegration.transactionHashFromResult(data);
-				if (txHash != null)
-				{
-					final SpannableStringBuilder messageBuilder = new SpannableStringBuilder("Transaction hash:\n");
-					messageBuilder.append(txHash);
-					messageBuilder.setSpan(new TypefaceSpan("monospace"), messageBuilder.length() - txHash.length(), messageBuilder.length(),
-							Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+    private String[] donationAddresses()
+    {
+        final boolean isMainnet = ((RadioButton) findViewById(R.id.sample_network_mainnet)).isChecked();
 
-					donateMessage.setText(messageBuilder);
-					donateMessage.setVisibility(View.VISIBLE);
-				}
+        return isMainnet ? DONATION_ADDRESSES_MAINNET : DONATION_ADDRESSES_TESTNET;
+    }
 
-				donateButton.setEnabled(false);
-				donateButton.setText("Already donated");
+    private void handleDonate()
+    {
+        final String[] addresses = donationAddresses();
 
-				Toast.makeText(this, "Thank you!", Toast.LENGTH_LONG).show();
-			}
-			else if (resultCode == Activity.RESULT_CANCELED)
-			{
-				Toast.makeText(this, "Cancelled.", Toast.LENGTH_LONG).show();
-			}
-			else
-			{
-				Toast.makeText(this, "Unknown result.", Toast.LENGTH_LONG).show();
-			}
-		}
-	}
+        BitcoinIntegration.requestForResult(SampleActivity.this, REQUEST_CODE, addresses[0]);
+    }
+
+    private void handleRequest()
+    {
+        try
+        {
+            final String[] addresses = donationAddresses();
+            final NetworkParameters params = Address.getParametersFromAddress(addresses[0]);
+
+            final Protos.Output.Builder output1 = Protos.Output.newBuilder();
+            output1.setAmount(AMOUNT);
+            output1.setScript(ByteString.copyFrom(ScriptBuilder.createOutputScript(new Address(params, addresses[0])).getProgram()));
+
+            final Protos.Output.Builder output2 = Protos.Output.newBuilder();
+            output2.setAmount(AMOUNT);
+            output2.setScript(ByteString.copyFrom(ScriptBuilder.createOutputScript(new Address(params, addresses[1])).getProgram()));
+
+            final Protos.PaymentDetails.Builder paymentDetails = Protos.PaymentDetails.newBuilder();
+            paymentDetails.setNetwork(params.getPaymentProtocolId());
+            paymentDetails.addOutputs(output1);
+            paymentDetails.addOutputs(output2);
+            paymentDetails.setMemo(MEMO);
+            paymentDetails.setTime(System.currentTimeMillis());
+
+            final Protos.PaymentRequest.Builder paymentRequest = Protos.PaymentRequest.newBuilder();
+            paymentRequest.setSerializedPaymentDetails(paymentDetails.build().toByteString());
+
+            BitcoinIntegration.requestForResult(SampleActivity.this, REQUEST_CODE, paymentRequest.build().toByteArray());
+        }
+        catch (final AddressFormatException x)
+        {
+            throw new RuntimeException(x);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(final int requestCode, final int resultCode, final Intent data)
+    {
+        if (requestCode == REQUEST_CODE)
+        {
+            if (resultCode == Activity.RESULT_OK)
+            {
+                final String txHash = BitcoinIntegration.transactionHashFromResult(data);
+                if (txHash != null)
+                {
+                    final SpannableStringBuilder messageBuilder = new SpannableStringBuilder("Transaction hash:\n");
+                    messageBuilder.append(txHash);
+                    messageBuilder.setSpan(new TypefaceSpan("monospace"), messageBuilder.length() - txHash.length(), messageBuilder.length(),
+                            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+                    if (BitcoinIntegration.paymentFromResult(data) != null)
+                        messageBuilder.append("\n(also a BIP70 payment message was received)");
+
+                    donateMessage.setText(messageBuilder);
+                    donateMessage.setVisibility(View.VISIBLE);
+                }
+
+                Toast.makeText(this, "Thank you!", Toast.LENGTH_LONG).show();
+            }
+            else if (resultCode == Activity.RESULT_CANCELED)
+            {
+                Toast.makeText(this, "Cancelled.", Toast.LENGTH_LONG).show();
+            }
+            else
+            {
+                Toast.makeText(this, "Unknown result.", Toast.LENGTH_LONG).show();
+            }
+        }
+    }
 }

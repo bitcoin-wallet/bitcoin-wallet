@@ -98,10 +98,9 @@
 	<string name="request_coins_activity_title">Dogecoins anfordern</string>
 	<string name="request_coins_fragment_amount_label">Angeforderter Betrag (optional)</string>
 	<string name="request_coins_fragment_address_label">Anfordernde Adresse</string>
-	<string name="request_coins_fragment_include_address_label">Name der Adresse beifügen</string>
+	<string name="request_coins_fragment_accept_bluetooth_payment">Zahlung zur zuverlässigeren Abwicklung per Bluetooth akzeptieren</string>
 	<string name="request_coins_fragment_initiate_request_qr">Laß diesen Code vom Sender scannen.</string>
 	<string name="request_coins_fragment_initiate_request_nfc">Oder berühr\'s mit einem NFC-fähigen Gerät.</string>
-	<string name="request_coins_fragment_bluetooth_enabled">Zahlungen via Bluetooth aktiviert.</string>
 	<string name="request_coins_clipboard_msg">Anforderung aufs Clipboard kopiert</string>
 	<string name="request_coins_share_dialog_title">Anforderung veröffentlichen…</string>
 	<string name="request_coins_options_local_app_title">Von lokaler App anfordern</string>
