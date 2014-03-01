@@ -24,6 +24,7 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.text.Html;
 
 /**
@@ -38,7 +39,13 @@ public final class HelpDialogFragment extends DialogFragment
 	public static void page(final FragmentManager fm, @Nonnull final int messageResId)
 	{
 		final DialogFragment newFragment = HelpDialogFragment.instance(messageResId);
-		newFragment.show(fm, FRAGMENT_TAG);
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.add(newFragment, FRAGMENT_TAG);
+        try {
+            ft.commit();
+        } catch (IllegalStateException ise) {
+            ft.commitAllowingStateLoss();
+        }
 	}
 
 	private static HelpDialogFragment instance(@Nonnull final int messageResId)
