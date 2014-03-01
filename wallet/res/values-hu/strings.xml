@@ -71,7 +71,6 @@
 	<string name="request_coins_fragment_amount_label">Igényelt összeg (opcionális)</string>
 	<string name="request_coins_fragment_initiate_request_qr">A kód a küldő által beolvasva.</string>
 	<string name="request_coins_fragment_initiate_request_nfc">Vagy válaszd ki az NFC-képes eszközt.</string>
-	<string name="request_coins_fragment_bluetooth_enabled">Kifizetések fogadása Bluetooth segítségével.</string>
 	<string name="request_coins_clipboard_msg">Bitcoin igény a vágólapra másolva</string>
 	<string name="request_coins_share_dialog_title">Igénylések megosztása…</string>
 	<string name="request_coins_options_local_app_title">Igénylés a helyi app-ból</string>

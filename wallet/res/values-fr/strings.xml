@@ -87,7 +87,6 @@
 	<string name="request_coins_fragment_amount_label">Montant demandé (optionnel)</string>
 	<string name="request_coins_fragment_initiate_request_qr">Faites numériser ce code par l\'expéditeur.</string>
 	<string name="request_coins_fragment_initiate_request_nfc">Ou toucher un appareil ayant la NFC.</string>
-	<string name="request_coins_fragment_bluetooth_enabled">Les paiements par Bluetooth sont acceptés.</string>
 	<string name="request_coins_clipboard_msg">Demande de bitcoins copiée dans le presse-papiers</string>
 	<string name="request_coins_share_dialog_title">Partager la demande de bitcoins…</string>
 	<string name="request_coins_options_local_app_title">Demander à une appli locale</string>

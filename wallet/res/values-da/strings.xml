@@ -87,7 +87,6 @@
 	<string name="request_coins_fragment_amount_label">Forespurgt beløb (valgfri)</string>
 	<string name="request_coins_fragment_initiate_request_qr">Få afsenderen til at scanne denne kode.</string>
 	<string name="request_coins_fragment_initiate_request_nfc">Eller berør en NFC-aktiveret enhed.</string>
-	<string name="request_coins_fragment_bluetooth_enabled">Accepterer betalinger via Bluetooth.</string>
 	<string name="request_coins_clipboard_msg">Bitcoin-forespørgsel kopieret til udklipsholderen</string>
 	<string name="request_coins_share_dialog_title">Del forespørgsel efter Bitcoins …</string>
 	<string name="request_coins_options_local_app_title">Forespørg fra lokal app</string>

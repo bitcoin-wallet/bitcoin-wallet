@@ -34,6 +34,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.nfc.NfcManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
@@ -47,6 +48,9 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -93,10 +97,12 @@ public final class RequestCoinsFragment extends SherlockFragment
 	private ImageView qrView;
 	private Bitmap qrCodeBitmap;
 	private Spinner addressView;
+	private CheckBox acceptBluetoothPaymentView;
 	private TextView initiateRequestView;
-	private View bluetoothEnabledView;
 
+	@CheckForNull
 	private String bluetoothMac;
+	@CheckForNull
 	private Intent bluetoothServiceIntent;
 
 	private static final int REQUEST_CODE_ENABLE_BLUETOOTH = 0;
@@ -104,6 +110,8 @@ public final class RequestCoinsFragment extends SherlockFragment
 	private CurrencyCalculatorLink amountCalculatorLink;
 
 	private static final int ID_RATE_LOADER = 0;
+
+	private static boolean ENABLE_BLUETOOTH_LISTENING = Build.VERSION.SDK_INT >= Constants.SDK_JELLY_BEAN_MR2;
 
 	private static final Logger log = LoggerFactory.getLogger(RequestCoinsFragment.class);
 
@@ -194,9 +202,36 @@ public final class RequestCoinsFragment extends SherlockFragment
 			}
 		}
 
-		initiateRequestView = (TextView) view.findViewById(R.id.request_coins_fragment_initiate_request);
+		acceptBluetoothPaymentView = (CheckBox) view.findViewById(R.id.request_coins_accept_bluetooth_payment);
+		acceptBluetoothPaymentView.setVisibility(ENABLE_BLUETOOTH_LISTENING && bluetoothAdapter != null ? View.VISIBLE : View.GONE);
+		acceptBluetoothPaymentView.setChecked(ENABLE_BLUETOOTH_LISTENING && bluetoothAdapter != null && bluetoothAdapter.isEnabled());
+		acceptBluetoothPaymentView.setOnCheckedChangeListener(new OnCheckedChangeListener()
+		{
+			@Override
+			public void onCheckedChanged(final CompoundButton buttonView, final boolean isChecked)
+			{
+				if (ENABLE_BLUETOOTH_LISTENING && bluetoothAdapter != null && isChecked)
+				{
+					if (bluetoothAdapter.isEnabled())
+					{
+						startBluetoothListening();
+					}
+					else
+					{
+						// ask for permission to enable bluetooth
+						startActivityForResult(new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE), REQUEST_CODE_ENABLE_BLUETOOTH);
+					}
+				}
+				else
+				{
+					stopBluetoothListening();
+				}
 
-		bluetoothEnabledView = view.findViewById(R.id.request_coins_fragment_bluetooth_enabled);
+				updateView();
+			}
+		});
+
+		initiateRequestView = (TextView) view.findViewById(R.id.request_coins_fragment_initiate_request);
 
 		return view;
 	}
@@ -254,9 +289,8 @@ public final class RequestCoinsFragment extends SherlockFragment
 
 		loaderManager.initLoader(ID_RATE_LOADER, null, rateLoaderCallbacks);
 
-		final boolean labsBluetoothOfflineTransactionsEnabled = config.getBluetoothOfflineTransactionsEnabled();
-		if (bluetoothAdapter != null && labsBluetoothOfflineTransactionsEnabled)
-			maybeInitBluetoothListening();
+		if (ENABLE_BLUETOOTH_LISTENING && bluetoothAdapter != null && bluetoothAdapter.isEnabled() && acceptBluetoothPaymentView.isChecked())
+			startBluetoothListening();
 
 		updateView();
 	}
@@ -286,29 +320,35 @@ public final class RequestCoinsFragment extends SherlockFragment
 	@Override
 	public void onActivityResult(final int requestCode, final int resultCode, final Intent data)
 	{
-		if (requestCode == REQUEST_CODE_ENABLE_BLUETOOTH && resultCode == Activity.RESULT_OK)
+		if (requestCode == REQUEST_CODE_ENABLE_BLUETOOTH)
 		{
-			maybeInitBluetoothListening();
+			acceptBluetoothPaymentView.setChecked(resultCode == Activity.RESULT_OK);
+
+			if (resultCode == Activity.RESULT_OK && bluetoothAdapter != null)
+				startBluetoothListening();
 
 			if (isResumed())
 				updateView();
 		}
 	}
 
-	private void maybeInitBluetoothListening()
+	private void startBluetoothListening()
 	{
-		if (!bluetoothAdapter.isEnabled())
-		{
-			// try to enable bluetooth
-			startActivityForResult(new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE), REQUEST_CODE_ENABLE_BLUETOOTH);
-		}
-		else
-		{
-			bluetoothMac = Bluetooth.compressMac(bluetoothAdapter.getAddress());
+		bluetoothMac = Bluetooth.compressMac(bluetoothAdapter.getAddress());
 
-			bluetoothServiceIntent = new Intent(activity, AcceptBluetoothService.class);
-			activity.startService(bluetoothServiceIntent);
+		bluetoothServiceIntent = new Intent(activity, AcceptBluetoothService.class);
+		activity.startService(bluetoothServiceIntent);
+	}
+
+	private void stopBluetoothListening()
+	{
+		if (bluetoothServiceIntent != null)
+		{
+			activity.stopService(bluetoothServiceIntent);
+			bluetoothServiceIntent = null;
 		}
+
+		bluetoothMac = null;
 	}
 
 	@Override
@@ -385,10 +425,6 @@ public final class RequestCoinsFragment extends SherlockFragment
 		if (nfcSuccess)
 			initiateText.append(' ').append(getString(R.string.request_coins_fragment_initiate_request_nfc));
 		initiateRequestView.setText(initiateText);
-
-		// update bluetooth message
-		final boolean serviceRunning = application.isServiceRunning(AcceptBluetoothService.class);
-		bluetoothEnabledView.setVisibility(bluetoothAdapter != null && bluetoothAdapter.isEnabled() && serviceRunning ? View.VISIBLE : View.GONE);
 
 		// focus linking
 		final int activeAmountViewId = amountCalculatorLink.activeTextView().getId();

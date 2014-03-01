@@ -71,7 +71,6 @@
 	<string name="request_coins_fragment_amount_label">Vyžadovaná suma (nepovinné)</string>
 	<string name="request_coins_fragment_initiate_request_qr">Dejte odosielateľovi oskenovať tento kód.</string>
 	<string name="request_coins_fragment_initiate_request_nfc">Alebo stlačte, ak vaše zariadenie podporuje NFC.</string>
-	<string name="request_coins_fragment_bluetooth_enabled">Prijímanie platieb cez Bluetooth.</string>
 	<string name="request_coins_clipboard_msg">Požiadavka na platbu skopírovaná do schránky</string>
 	<string name="request_coins_share_dialog_title">Zdieľať požiadavku na Bitcoiny…</string>
 	<string name="request_coins_options_local_app_title">Vyžiadať z lokálnej aplikácie</string>

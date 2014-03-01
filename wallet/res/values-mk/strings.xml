@@ -71,7 +71,6 @@
 	<string name="request_coins_fragment_amount_label">Побарувана сума (опционално)</string>
 	<string name="request_coins_fragment_initiate_request_qr">Испраќачот нека го скенира овој код.</string>
 	<string name="request_coins_fragment_initiate_request_nfc">Или допри уред кој има вклучен NFC.</string>
-	<string name="request_coins_fragment_bluetooth_enabled">Прифаќам плаќање преку Bluetooth.</string>
 	<string name="request_coins_clipboard_msg">Побарувањето за Биткони е копирано во склад</string>
 	<string name="request_coins_share_dialog_title">Сподели го побарувањето за Биткоини…</string>
 	<string name="request_coins_options_local_app_title">Побарај од локална апликација</string>
