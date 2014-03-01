@@ -26,6 +26,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 
 import com.actionbarsherlock.app.ActionBar;
@@ -68,6 +69,9 @@ public final class AddressBookActivity extends AbstractWalletActivity
 
 		final FragmentManager fm = getSupportFragmentManager();
 
+        walletAddressesFragment = new WalletAddressesFragment();
+        sendingAddressesFragment = new SendingAddressesFragment();
+
 		if (pager != null)
 		{
 			final ViewPagerTabs pagerTabs = (ViewPagerTabs) findViewById(R.id.address_book_pager_tabs);
@@ -84,14 +88,16 @@ public final class AddressBookActivity extends AbstractWalletActivity
 
 			pagerTabs.onPageSelected(position);
 			pagerTabs.onPageScrolled(position, 0, 0);
-
-			walletAddressesFragment = new WalletAddressesFragment();
-			sendingAddressesFragment = new SendingAddressesFragment();
 		}
 		else
 		{
-			walletAddressesFragment = (WalletAddressesFragment) fm.findFragmentById(R.id.wallet_addresses_fragment);
-			sendingAddressesFragment = (SendingAddressesFragment) fm.findFragmentById(R.id.sending_addresses_fragment);
+            FragmentTransaction ftxWallet = fm.beginTransaction();
+            ftxWallet.replace(R.id.wallet_addresses_fragment, walletAddressesFragment);
+            ftxWallet.commit();
+
+            FragmentTransaction ftxSending = fm.beginTransaction();
+            ftxSending.replace(R.id.sending_addresses_fragment, sendingAddressesFragment);
+            ftxSending.commit();
 		}
 
 		updateFragments();
