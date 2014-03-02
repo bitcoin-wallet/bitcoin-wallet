@@ -172,16 +172,13 @@ public final class SendingAddressesFragment extends SherlockListFragment impleme
 	@Override
 	public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater)
 	{
-        if (menu.findItem(R.id.sending_addresses_options_paste) == null && menu.findItem(R.id.sending_addresses_options_scan) == null)
-        {
-            inflater.inflate(R.menu.sending_addresses_fragment_options, menu);
+        inflater.inflate(R.menu.sending_addresses_fragment_options, menu);
 
-            final PackageManager pm = activity.getPackageManager();
-            menu.findItem(R.id.sending_addresses_options_scan).setVisible(
-                    pm.hasSystemFeature(PackageManager.FEATURE_CAMERA) || pm.hasSystemFeature(PackageManager.FEATURE_CAMERA_FRONT));
+        final PackageManager pm = activity.getPackageManager();
+        menu.findItem(R.id.sending_addresses_options_scan).setVisible(
+                pm.hasSystemFeature(PackageManager.FEATURE_CAMERA) || pm.hasSystemFeature(PackageManager.FEATURE_CAMERA_FRONT));
 
-            super.onCreateOptionsMenu(menu, inflater);
-        }
+        super.onCreateOptionsMenu(menu, inflater);
 	}
 
 	@Override

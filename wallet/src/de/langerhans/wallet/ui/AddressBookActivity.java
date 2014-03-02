@@ -25,10 +25,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 
+import android.view.View;
+import android.view.ViewGroup;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.MenuItem;
 import com.google.dogecoin.core.Address;
@@ -55,6 +57,9 @@ public final class AddressBookActivity extends AbstractWalletActivity
 	private WalletAddressesFragment walletAddressesFragment;
 	private SendingAddressesFragment sendingAddressesFragment;
 
+    private static final String TAG_LEFT = "walletAddress";
+    private static final String TAG_RIGHT = "sendingAddresses";
+
 	@Override
 	protected void onCreate(final Bundle savedInstanceState)
 	{
@@ -65,40 +70,48 @@ public final class AddressBookActivity extends AbstractWalletActivity
 		final ActionBar actionBar = getSupportActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
 
-		final ViewPager pager = (ViewPager) findViewById(R.id.address_book_pager);
+        FragmentManager fragmentManager = getSupportFragmentManager();
 
-		final FragmentManager fm = getSupportFragmentManager();
+        walletAddressesFragment = (WalletAddressesFragment) fragmentManager.findFragmentByTag(TAG_LEFT);
+        sendingAddressesFragment = (SendingAddressesFragment) fragmentManager.findFragmentByTag(TAG_RIGHT);
 
-        walletAddressesFragment = new WalletAddressesFragment();
-        sendingAddressesFragment = new SendingAddressesFragment();
+        FragmentTransaction remove = fragmentManager.beginTransaction();
+        if (walletAddressesFragment == null) {
+            walletAddressesFragment = new WalletAddressesFragment();
+        } else {
+            remove.remove(walletAddressesFragment);
+        }
+        if (sendingAddressesFragment == null) {
+            sendingAddressesFragment = new SendingAddressesFragment();
+        } else {
+            remove.remove(sendingAddressesFragment);
+        }
+        if (!remove.isEmpty()) {
+            remove.commit();
+            fragmentManager.executePendingTransactions();
+        }
 
-		if (pager != null)
-		{
-			final ViewPagerTabs pagerTabs = (ViewPagerTabs) findViewById(R.id.address_book_pager_tabs);
-			pagerTabs.addTabLabels(R.string.address_book_list_receiving_title, R.string.address_book_list_sending_title);
+        final ViewPager pager = (ViewPager) findViewById(R.id.address_book_pager);
+        if (pager != null) {
+            pager.setAdapter(new TwoFragmentAdapter(fragmentManager, walletAddressesFragment, sendingAddressesFragment));
 
-			final PagerAdapter pagerAdapter = new PagerAdapter(fm);
+            final ViewPagerTabs pagerTabs = (ViewPagerTabs) findViewById(R.id.address_book_pager_tabs);
+            pagerTabs.addTabLabels(R.string.address_book_list_receiving_title, R.string.address_book_list_sending_title);
 
-			pager.setAdapter(pagerAdapter);
-			pager.setOnPageChangeListener(pagerTabs);
-			final int position = getIntent().getBooleanExtra(EXTRA_SENDING, true) == true ? 1 : 0;
-			pager.setCurrentItem(position);
-			pager.setPageMargin(2);
-			pager.setPageMarginDrawable(R.color.bg_less_bright);
+            pager.setOnPageChangeListener(pagerTabs);
+            final int position = getIntent().getBooleanExtra(EXTRA_SENDING, true) ? 1 : 0;
+            pager.setCurrentItem(position);
+            pager.setPageMargin(2);
+            pager.setPageMarginDrawable(R.color.bg_less_bright);
 
-			pagerTabs.onPageSelected(position);
-			pagerTabs.onPageScrolled(position, 0, 0);
-		}
-		else
-		{
-            FragmentTransaction ftxWallet = fm.beginTransaction();
-            ftxWallet.replace(R.id.wallet_addresses_fragment, walletAddressesFragment);
-            ftxWallet.commit();
-
-            FragmentTransaction ftxSending = fm.beginTransaction();
-            ftxSending.replace(R.id.sending_addresses_fragment, sendingAddressesFragment);
-            ftxSending.commit();
-		}
+            pagerTabs.onPageSelected(position);
+            pagerTabs.onPageScrolled(position, 0, 0);
+        } else {
+            fragmentManager.beginTransaction()
+                    .add(R.id.wallet_addresses_fragment, walletAddressesFragment, TAG_LEFT)
+                    .add(R.id.sending_addresses_fragment, sendingAddressesFragment, TAG_RIGHT)
+                    .commit();
+        }
 
 		updateFragments();
 	}
@@ -130,26 +143,69 @@ public final class AddressBookActivity extends AbstractWalletActivity
 		sendingAddressesFragment.setWalletAddresses(addresses);
 	}
 
-	private class PagerAdapter extends FragmentStatePagerAdapter
-	{
-		public PagerAdapter(final FragmentManager fm)
-		{
-			super(fm);
-		}
+    private static class TwoFragmentAdapter extends PagerAdapter {
+        private final FragmentManager fragmentManager;
+        private final Fragment left;
+        private final Fragment right;
+        private FragmentTransaction currentTransaction = null;
+        private Fragment currentPrimaryItem = null;
 
-		@Override
-		public int getCount()
-		{
-			return 2;
-		}
+        public TwoFragmentAdapter(FragmentManager fragmentManager, Fragment left, Fragment right) {
+            this.fragmentManager = fragmentManager;
+            this.left = left;
+            this.right = right;
+        }
 
-		@Override
-		public Fragment getItem(final int position)
-		{
-			if (position == 0)
-				return walletAddressesFragment;
-			else
-				return sendingAddressesFragment;
-		}
-	}
+        @Override public int getCount() {
+            return 2;
+        }
+
+        @Override public Object instantiateItem(ViewGroup container, int position) {
+            if (currentTransaction == null) {
+                currentTransaction = fragmentManager.beginTransaction();
+            }
+
+            String tag = (position == 0) ? TAG_LEFT : TAG_RIGHT;
+            Fragment fragment = (position == 0) ? left : right;
+            currentTransaction.add(container.getId(), fragment, tag);
+            if (fragment != currentPrimaryItem) {
+                fragment.setMenuVisibility(false);
+                fragment.setUserVisibleHint(false);
+            }
+
+            return fragment;
+        }
+
+        @Override public void destroyItem(ViewGroup container, int position, Object object) {
+            // With right pages, fragments should never be destroyed.
+            throw new AssertionError();
+        }
+
+        @Override public void setPrimaryItem(ViewGroup container, int position, Object object) {
+            Fragment fragment = (Fragment) object;
+            if (fragment != currentPrimaryItem) {
+                if (currentPrimaryItem != null) {
+                    currentPrimaryItem.setMenuVisibility(false);
+                    currentPrimaryItem.setUserVisibleHint(false);
+                }
+                if (fragment != null) {
+                    fragment.setMenuVisibility(true);
+                    fragment.setUserVisibleHint(true);
+                }
+                currentPrimaryItem = fragment;
+            }
+        }
+
+        @Override public void finishUpdate(ViewGroup container) {
+            if (currentTransaction != null) {
+                currentTransaction.commitAllowingStateLoss();
+                currentTransaction = null;
+                fragmentManager.executePendingTransactions();
+            }
+        }
+
+        @Override public boolean isViewFromObject(View view, Object object) {
+            return ((Fragment) object).getView() == view;
+        }
+    }
 }

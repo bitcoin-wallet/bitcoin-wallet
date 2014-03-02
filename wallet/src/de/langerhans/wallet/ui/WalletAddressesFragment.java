@@ -126,12 +126,8 @@ public final class WalletAddressesFragment extends SherlockListFragment
 	@Override
 	public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater)
 	{
-        if (menu.findItem(R.id.wallet_addresses_options_add) == null)
-        {
-            inflater.inflate(R.menu.wallet_addresses_fragment_options, menu);
-
-            super.onCreateOptionsMenu(menu, inflater);
-        }
+        inflater.inflate(R.menu.wallet_addresses_fragment_options, menu);
+        super.onCreateOptionsMenu(menu, inflater);
 	}
 
 	@Override
