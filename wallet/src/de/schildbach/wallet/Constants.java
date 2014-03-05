@@ -61,6 +61,7 @@ public class Constants
 	public static final String MIMETYPE_PAYMENT = "application/bitcoin-payment"; // BIP 71
 	public static final String MIMETYPE_PAYMENTACK = "application/bitcoin-paymentack"; // BIP 71
 	public static final String MIMETYPE_TRANSACTION = "application/x-btctx";
+	public static final String MIMETYPE_BACKUP_PRIVATE_KEYS = "x-bitcoin/private-keys";
 
 	public static final int MAX_NUM_CONFIRMATIONS = 7;
 	public static final String USER_AGENT = "Bitcoin Wallet";
