@@ -139,6 +139,7 @@
 
 	<string name="import_keys_dialog_title">Private Schlüssel wiederherstellen</string>
 	<string name="import_keys_dialog_message">Wähle eine Sicherungsdatei mit privaten Schlüsseln vom externen oder app-privaten Speicher aus:</string>
+	<string name="import_keys_dialog_warning">Wichtig: Lade keine privaten Schlüssel aus dubiosen Quellen! Andere Personen können die Kontrolle über deine Bitcoins bekommen, wenn du das tust.</string>
 	<string name="import_keys_dialog_file_security_encrypted">mit Passwort verschlüsselt</string>
 	<string name="import_keys_dialog_file_security_unencrypted">unverschlüsselt</string>
 	<string name="import_keys_dialog_file_security_external">externer Speicher</string>
