@@ -104,8 +104,10 @@ public final class PaymentProtocol
 			final Protos.PaymentDetails paymentDetails = Protos.PaymentDetails.newBuilder().mergeFrom(paymentRequest.getSerializedPaymentDetails())
 					.build();
 
-			if (paymentDetails.hasExpires() && System.currentTimeMillis() / 1000 >= paymentDetails.getExpires())
-				throw new PaymentRequestException.Expired("payment details expired: " + paymentDetails.getExpires());
+			final long currentTimeSecs = System.currentTimeMillis() / 1000;
+			if (paymentDetails.hasExpires() && currentTimeSecs >= paymentDetails.getExpires())
+				throw new PaymentRequestException.Expired("payment details expired: current time " + currentTimeSecs + " after expiry time "
+						+ paymentDetails.getExpires());
 
 			if (!paymentDetails.getNetwork().equals(Constants.NETWORK_PARAMETERS.getPaymentProtocolId()))
 				throw new PaymentRequestException.InvalidNetwork("cannot handle payment request network: " + paymentDetails.getNetwork());
