@@ -208,7 +208,7 @@
 
 	<!-- generic buttons -->
 	<string name="button_ok">OK</string>
-	<string name="button_dismiss">Refuser</string>
+	<string name="button_dismiss">Fermer</string>
 	<string name="button_cancel">Annuler</string>
 	<string name="button_retry">Ressayer</string>
 	<string name="button_help">Aide</string>
