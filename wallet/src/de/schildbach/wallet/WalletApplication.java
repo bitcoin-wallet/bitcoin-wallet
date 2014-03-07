@@ -134,8 +134,6 @@ public class WalletApplication extends Application
 
 		walletFile = getFileStreamPath(Constants.WALLET_FILENAME_PROTOBUF);
 
-		migrateWalletToProtobuf();
-
 		loadWalletFromProtobuf();
 		wallet.autosaveToFile(walletFile, 1, TimeUnit.SECONDS, new WalletAutosaveEventListener());
 
@@ -226,36 +224,6 @@ public class WalletApplication extends Application
 	public Wallet getWallet()
 	{
 		return wallet;
-	}
-
-	private void migrateWalletToProtobuf()
-	{
-		final File oldWalletFile = getFileStreamPath(Constants.WALLET_FILENAME);
-
-		if (oldWalletFile.exists())
-		{
-			log.info("found wallet to migrate");
-
-			final long start = System.currentTimeMillis();
-
-			// read
-			wallet = restoreWalletFromBackup();
-
-			try
-			{
-				// write
-				protobufSerializeWallet(wallet);
-
-				// delete
-				oldWalletFile.delete();
-
-				log.info("wallet migrated: '" + oldWalletFile + "', took " + (System.currentTimeMillis() - start) + "ms");
-			}
-			catch (final IOException x)
-			{
-				throw new Error("cannot migrate wallet", x);
-			}
-		}
 	}
 
 	private void loadWalletFromProtobuf()
