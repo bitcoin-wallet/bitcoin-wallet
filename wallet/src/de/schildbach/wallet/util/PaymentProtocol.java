@@ -45,6 +45,10 @@ import de.schildbach.wallet.PaymentIntent;
  */
 public final class PaymentProtocol
 {
+	public static final String MIMETYPE_PAYMENTREQUEST = "application/bitcoin-paymentrequest"; // BIP 71
+	public static final String MIMETYPE_PAYMENT = "application/bitcoin-payment"; // BIP 71
+	public static final String MIMETYPE_PAYMENTACK = "application/bitcoin-paymentack"; // BIP 71
+
 	public static Protos.PaymentRequest createPaymentRequest(final BigInteger amount, @Nonnull final Address toAddress, final String memo,
 			final String paymentUrl)
 	{

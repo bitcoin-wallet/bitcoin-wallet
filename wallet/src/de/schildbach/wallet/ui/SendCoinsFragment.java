@@ -103,6 +103,7 @@ import de.schildbach.wallet.ui.InputParser.StreamInputParser;
 import de.schildbach.wallet.ui.InputParser.StringInputParser;
 import de.schildbach.wallet.util.GenericUtils;
 import de.schildbach.wallet.util.Nfc;
+import de.schildbach.wallet.util.PaymentProtocol;
 import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
 
@@ -516,13 +517,13 @@ public final class SendCoinsFragment extends SherlockFragment
 			{
 				initStateFromBitcoinUri(intentUri);
 			}
-			else if ((NfcAdapter.ACTION_NDEF_DISCOVERED.equals(action)) && Constants.MIMETYPE_PAYMENTREQUEST.equals(mimeType))
+			else if ((NfcAdapter.ACTION_NDEF_DISCOVERED.equals(action)) && PaymentProtocol.MIMETYPE_PAYMENTREQUEST.equals(mimeType))
 			{
 				final NdefMessage ndefMessage = (NdefMessage) intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES)[0];
-				final byte[] ndefMessagePayload = Nfc.extractMimePayload(Constants.MIMETYPE_PAYMENTREQUEST, ndefMessage);
+				final byte[] ndefMessagePayload = Nfc.extractMimePayload(PaymentProtocol.MIMETYPE_PAYMENTREQUEST, ndefMessage);
 				initStateFromPaymentRequest(mimeType, ndefMessagePayload);
 			}
-			else if ((Intent.ACTION_VIEW.equals(action)) && Constants.MIMETYPE_PAYMENTREQUEST.equals(mimeType))
+			else if ((Intent.ACTION_VIEW.equals(action)) && PaymentProtocol.MIMETYPE_PAYMENTREQUEST.equals(mimeType))
 			{
 				final byte[] paymentRequest = BitcoinIntegration.paymentRequestFromIntent(intent);
 

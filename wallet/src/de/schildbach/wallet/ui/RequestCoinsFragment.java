@@ -416,7 +416,7 @@ public final class RequestCoinsFragment extends SherlockFragment
 		// update nfc ndef message
 		final boolean nfcSuccess;
 		if (config.getNfcPaymentRequestEnabled())
-			nfcSuccess = Nfc.publishMimeObject(nfcManager, activity, Constants.MIMETYPE_PAYMENTREQUEST, paymentRequest, false);
+			nfcSuccess = Nfc.publishMimeObject(nfcManager, activity, PaymentProtocol.MIMETYPE_PAYMENTREQUEST, paymentRequest, false);
 		else
 			nfcSuccess = Nfc.publishUri(nfcManager, activity, bitcoinRequest);
 

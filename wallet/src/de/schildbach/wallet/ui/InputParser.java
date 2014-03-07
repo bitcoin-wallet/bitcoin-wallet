@@ -206,7 +206,7 @@ public abstract class InputParser
 					error(R.string.input_parser_invalid_transaction, x.getMessage());
 				}
 			}
-			else if (Constants.MIMETYPE_PAYMENTREQUEST.equals(inputType))
+			else if (PaymentProtocol.MIMETYPE_PAYMENTREQUEST.equals(inputType))
 			{
 				try
 				{
@@ -246,7 +246,7 @@ public abstract class InputParser
 		@Override
 		public void parse()
 		{
-			if (Constants.MIMETYPE_PAYMENTREQUEST.equals(inputType))
+			if (PaymentProtocol.MIMETYPE_PAYMENTREQUEST.equals(inputType))
 			{
 				ByteArrayOutputStream baos = null;
 

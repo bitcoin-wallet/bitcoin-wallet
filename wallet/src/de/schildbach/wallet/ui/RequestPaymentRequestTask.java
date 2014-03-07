@@ -37,6 +37,7 @@ import com.google.bitcoin.core.Transaction;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.PaymentIntent;
 import de.schildbach.wallet.offline.DirectPaymentTask;
+import de.schildbach.wallet.util.PaymentProtocol;
 import de.schildbach.wallet_test.R;
 
 /**
@@ -102,7 +103,7 @@ public abstract class RequestPaymentRequestTask
 						connection.setDoOutput(false);
 
 						connection.setRequestMethod("GET");
-						connection.setRequestProperty("Accept", Constants.MIMETYPE_PAYMENTREQUEST);
+						connection.setRequestProperty("Accept", PaymentProtocol.MIMETYPE_PAYMENTREQUEST);
 						if (userAgent != null)
 							connection.addRequestProperty("User-Agent", userAgent);
 						connection.connect();
