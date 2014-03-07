@@ -67,7 +67,6 @@
 	<string name="send_coins_options_empty">空錢包</string>
 	<string name="send_coins_address_context_clear_title">輸入新地址</string>
 	<string name="request_coins_activity_title">比特幣請款</string>
-	<string name="request_coins_fragment_address_label">請款地址</string>
 	<string name="request_coins_fragment_amount_label">請款金額(可不填)</string>
 	<string name="request_coins_fragment_initiate_request_qr">請付款人掃描QR二維條碼</string>
 	<string name="request_coins_fragment_initiate_request_nfc">或是使用 NFC 裝置付款。</string>

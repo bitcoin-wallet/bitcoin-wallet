@@ -67,7 +67,6 @@
 	<string name="send_coins_options_empty">Пустой бумажник</string>
 	<string name="send_coins_address_context_clear_title">Введите новый адрес</string>
 	<string name="request_coins_activity_title">Запросить Bitcoin-монеты</string>
-	<string name="request_coins_fragment_address_label">Адрес для запроса</string>
 	<string name="request_coins_fragment_amount_label">Запрашиваемая сумма (опционально)</string>
 	<string name="request_coins_fragment_initiate_request_qr">Пусть отправитель отсканирует этот код.</string>
 	<string name="request_coins_fragment_initiate_request_nfc">Или коснитесь устройства с поддержкой NFC.</string>

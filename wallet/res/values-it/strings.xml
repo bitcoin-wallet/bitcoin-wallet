@@ -67,7 +67,6 @@
 	<string name="send_coins_options_empty">Portafoglio vuoto</string>
 	<string name="send_coins_address_context_clear_title">Inserisci nuovo indirizzo</string>
 	<string name="request_coins_activity_title">Richiedi Bitcoins</string>
-	<string name="request_coins_fragment_address_label">Indirizzo da richiedere</string>
 	<string name="request_coins_fragment_amount_label">Importo richiesto (opzionale)</string>
 	<string name="request_coins_fragment_initiate_request_qr">Questo codice deve essere scansionato dal mittente.</string>
 	<string name="request_coins_fragment_initiate_request_nfc">Oppure tocca un dispositivo abilitato per NFC.</string>

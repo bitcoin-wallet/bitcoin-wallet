@@ -67,7 +67,6 @@
 	<string name="send_coins_options_empty">Vyprázdniť peňaženku</string>
 	<string name="send_coins_address_context_clear_title">Zadajte novú adresu</string>
 	<string name="request_coins_activity_title">Vyžiadať Bitcoiny</string>
-	<string name="request_coins_fragment_address_label">Vyžiadať na adresu</string>
 	<string name="request_coins_fragment_amount_label">Vyžadovaná suma (nepovinné)</string>
 	<string name="request_coins_fragment_initiate_request_qr">Dejte odosielateľovi oskenovať tento kód.</string>
 	<string name="request_coins_fragment_initiate_request_nfc">Alebo stlačte, ak vaše zariadenie podporuje NFC.</string>

@@ -49,7 +49,6 @@
 	<string name="send_coins_error_msg">Problem att skicka Bitcoins!</string>
 	<string name="send_coins_address_context_clear_title">Ange ny adress</string>
 	<string name="request_coins_activity_title">Ta emot Bitcoins</string>
-	<string name="request_coins_fragment_address_label">Adress att begära till</string>
 	<string name="request_coins_fragment_amount_label">Begärt belopp (frivilligt)</string>
 	<string name="request_coins_fragment_initiate_request_qr">Den som skickar dig Bitcoins ska scanna denna kod.</string>
 	<string name="request_coins_fragment_initiate_request_nfc">Eller skicka med en telefon som har NFC.</string>

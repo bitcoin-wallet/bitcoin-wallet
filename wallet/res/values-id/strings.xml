@@ -66,7 +66,6 @@
 	<string name="send_coins_options_empty">Dompet kosong</string>
 	<string name="send_coins_address_context_clear_title">Masukkan alamat baru</string>
 	<string name="request_coins_activity_title">Meminta BItcoin</string>
-	<string name="request_coins_fragment_address_label">Alamat untuk diminta ke</string>
 	<string name="request_coins_fragment_amount_label">Jumlah permintaan (pilihan)</string>
 	<string name="request_coins_fragment_initiate_request_qr">Berikan kode untuk dipindai oleh pengirim.</string>
 	<string name="request_coins_fragment_initiate_request_nfc">Atau tempelkan pada ponsel dgn NFC</string>
