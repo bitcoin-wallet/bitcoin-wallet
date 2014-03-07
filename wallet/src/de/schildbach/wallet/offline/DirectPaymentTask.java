@@ -106,6 +106,7 @@ public abstract class DirectPaymentTask
 					{
 						connection = (HttpURLConnection) new URL(url).openConnection();
 
+						connection.setInstanceFollowRedirects(false);
 						connection.setConnectTimeout(Constants.HTTP_TIMEOUT_MS);
 						connection.setReadTimeout(Constants.HTTP_TIMEOUT_MS);
 						connection.setUseCaches(false);

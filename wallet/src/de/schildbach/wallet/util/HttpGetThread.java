@@ -84,6 +84,7 @@ public abstract class HttpGetThread extends Thread
 				((HttpsURLConnection) connection).setSSLSocketFactory(sslContext.getSocketFactory());
 			}
 
+			connection.setInstanceFollowRedirects(false);
 			connection.setConnectTimeout(Constants.HTTP_TIMEOUT_MS);
 			connection.setReadTimeout(Constants.HTTP_TIMEOUT_MS);
 			connection.setRequestProperty("Accept-Charset", "utf-8");
