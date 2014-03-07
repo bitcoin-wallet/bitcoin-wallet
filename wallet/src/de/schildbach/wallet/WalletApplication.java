@@ -17,23 +17,18 @@
 
 package de.schildbach.wallet;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import javax.annotation.Nonnull;
 
+import org.bitcoinj.wallet.Protos;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -72,7 +67,6 @@ import de.schildbach.wallet.service.BlockchainServiceImpl;
 import de.schildbach.wallet.util.CrashReporter;
 import de.schildbach.wallet.util.Io;
 import de.schildbach.wallet.util.LinuxSecureRandom;
-import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
 
 /**
@@ -149,6 +143,8 @@ public class WalletApplication extends Application
 		}
 
 		ensureKey();
+
+		migrateBackup();
 	}
 
 	private void initLogging()
@@ -298,35 +294,44 @@ public class WalletApplication extends Application
 
 	private Wallet restoreWalletFromBackup()
 	{
+		InputStream is = null;
+
 		try
 		{
-			final Wallet wallet = readKeys(openFileInput(Constants.WALLET_KEY_BACKUP_BASE58));
+			is = openFileInput(Constants.WALLET_KEY_BACKUP_PROTOBUF);
+
+			final Wallet wallet = new WalletProtobufSerializer().readWallet(is);
+
+			if (!wallet.isConsistent())
+				throw new Error("inconsistent backup");
 
 			resetBlockchain();
 
 			Toast.makeText(this, R.string.toast_wallet_reset, Toast.LENGTH_LONG).show();
 
-			log.info("wallet restored from backup: '" + Constants.WALLET_KEY_BACKUP_BASE58 + "'");
+			log.info("wallet restored from backup: '" + Constants.WALLET_KEY_BACKUP_PROTOBUF + "'");
 
 			return wallet;
 		}
 		catch (final IOException x)
 		{
-			throw new RuntimeException(x);
+			throw new Error("cannot read backup", x);
 		}
-	}
-
-	private static Wallet readKeys(@Nonnull final InputStream is) throws IOException
-	{
-		final BufferedReader in = new BufferedReader(new InputStreamReader(is, Constants.UTF_8));
-		final List<ECKey> keys = WalletUtils.readKeys(in);
-		in.close();
-
-		final Wallet wallet = new Wallet(Constants.NETWORK_PARAMETERS);
-		for (final ECKey key : keys)
-			wallet.addKey(key);
-
-		return wallet;
+		catch (final UnreadableWalletException x)
+		{
+			throw new Error("cannot read backup", x);
+		}
+		finally
+		{
+			try
+			{
+				is.close();
+			}
+			catch (final IOException x)
+			{
+				// swallow
+			}
+		}
 	}
 
 	private void ensureKey()
@@ -343,7 +348,7 @@ public class WalletApplication extends Application
 	{
 		wallet.addKey(new ECKey());
 
-		backupKeys();
+		backupWallet();
 
 		config.armBackupReminder();
 	}
@@ -373,39 +378,78 @@ public class WalletApplication extends Application
 		log.debug("wallet saved to: '" + walletFile + "', took " + (System.currentTimeMillis() - start) + "ms");
 	}
 
-	private void backupKeys()
+	private void backupWallet()
 	{
+		final Protos.Wallet.Builder builder = new WalletProtobufSerializer().walletToProto(wallet).toBuilder();
+
+		// strip redundant
+		builder.clearTransaction();
+		builder.clearLastSeenBlockHash();
+		builder.setLastSeenBlockHeight(-1);
+		builder.clearLastSeenBlockTimeSecs();
+		final Protos.Wallet walletProto = builder.build();
+
+		OutputStream os = null;
+
 		try
 		{
-			writeKeys(openFileOutput(Constants.WALLET_KEY_BACKUP_BASE58, Context.MODE_PRIVATE));
+			os = openFileOutput(Constants.WALLET_KEY_BACKUP_PROTOBUF, Context.MODE_PRIVATE);
+			walletProto.writeTo(os);
 		}
 		catch (final IOException x)
 		{
 			log.error("problem writing key backup", x);
+		}
+		finally
+		{
+			try
+			{
+				os.close();
+			}
+			catch (final IOException x)
+			{
+				// swallow
+			}
 		}
 
 		try
 		{
-			final String filename = String.format(Locale.US, "%s.%02d", Constants.WALLET_KEY_BACKUP_BASE58,
+			final String filename = String.format(Locale.US, "%s.%02d", Constants.WALLET_KEY_BACKUP_PROTOBUF,
 					(System.currentTimeMillis() / DateUtils.DAY_IN_MILLIS) % 100l);
-			writeKeys(openFileOutput(filename, Context.MODE_PRIVATE));
+			os = openFileOutput(filename, Context.MODE_PRIVATE);
+			walletProto.writeTo(os);
 		}
 		catch (final IOException x)
 		{
 			log.error("problem writing key backup", x);
+		}
+		finally
+		{
+			try
+			{
+				os.close();
+			}
+			catch (final IOException x)
+			{
+				// swallow
+			}
 		}
 	}
 
-	private void writeKeys(@Nonnull final OutputStream os) throws IOException
+	private void migrateBackup()
 	{
-		final List<ECKey> keys = new LinkedList<ECKey>();
-		for (final ECKey key : wallet.getKeys())
-			if (!wallet.isKeyRotating(key))
-				keys.add(key);
+		if (!getFileStreamPath(Constants.WALLET_KEY_BACKUP_PROTOBUF).exists())
+		{
+			log.info("migrating automatic backup to protobuf");
 
-		final Writer out = new OutputStreamWriter(os, Constants.UTF_8);
-		WalletUtils.writeKeys(out, keys);
-		out.close();
+			// make sure there is at least one recent backup
+			backupWallet();
+
+			// remove old backups
+			for (final String filename : fileList())
+				if (filename.startsWith(Constants.WALLET_KEY_BACKUP_BASE58))
+					new File(getFilesDir(), filename).delete();
+		}
 	}
 
 	public Address determineSelectedAddress()
