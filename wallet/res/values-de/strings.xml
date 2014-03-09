@@ -135,8 +135,8 @@
 	<string name="peer_list_fragment_empty">Keine Peers verbinden</string>
 	<string name="peer_list_row_ping_time">⇆ %d&#x2009;ms</string>
 
-	<string name="import_keys_dialog_title">Private Schlüssel wiederherstellen</string>
-	<string name="import_keys_dialog_message">Wähle eine Sicherungsdatei mit privaten Schlüsseln vom externen oder app-privaten Speicher aus:</string>
+	<string name="import_keys_dialog_title">Wallet wiederherstellen</string>
+	<string name="import_keys_dialog_message">Wähle eine Sicherungsdatei vom externen oder app-privaten Speicher aus:</string>
 	<string name="import_keys_dialog_warning">Wichtig: Lade keine privaten Schlüssel aus dubiosen Quellen! Andere Personen können die Kontrolle über deine Bitcoins bekommen, wenn du das tust.</string>
 	<string name="import_keys_dialog_file_security_encrypted">mit Passwort verschlüsselt</string>
 	<string name="import_keys_dialog_file_security_unencrypted">unverschlüsselt</string>
@@ -148,22 +148,22 @@
 	<string name="import_keys_dialog_success_imported">Es wurden %d private Schlüssel wieder hergestellt.</string>
 	<string name="import_keys_dialog_success_existing">%d private Schlüssel wurden nicht wieder hergestellt, weil du sie schon im Wallet hast.</string>
 	<string name="import_keys_dialog_success_reset">Du musst Deine Blockchain zurücksetzen um dein Guthaben zu aktualisieren. Möchtest Du?</string>
-	<string name="import_keys_dialog_failure">Private Schlüssel konnten nicht wieder hergestellt werden:\n\n%s\n\nFalsches Passwort?</string>
+	<string name="import_keys_dialog_failure">Die Wallet konnte nicht wieder hergestellt werden:\n\n%s\n\nFalsches Passwort?</string>
 	<string name="import_keys_dialog_button_reset_blockchain">Zurücksetzen</string>
-	<string name="export_keys_dialog_title">Private Schlüssel sichern</string>
-	<string name="export_keys_dialog_message">Deine privaten Schlüssel werden mit dem gewählten Passwort verschlüsselt und auf den externen Speicher gesichert.</string>
+	<string name="export_keys_dialog_title">Wallet sichern</string>
+	<string name="export_keys_dialog_message">Deine Wallet wird mit dem gewählten Passwort verschlüsselt und auf den externen Speicher gesichert.</string>
 	<string name="export_keys_dialog_button_export">Exportieren</string>
-	<string name="export_keys_dialog_success">Deine privaten Schlüssel wurden nach\n\n%s\n\ngesichert. Verwahre sie sicher, und verwahre dein Passwort sicher!\n\nMöchtest du die Schlüssel mittels einer App archivieren?</string>
-	<string name="export_keys_dialog_failure">Deine privaten Schlüssel konnten nicht gesichert werden:\n%s</string>
+	<string name="export_keys_dialog_success">Deine Wallet wurde nach\n\n%s\n\ngesichert. Verwahre sie sicher, und verwahre dein Passwort sicher!\n\nMöchtest du die Wallet mittels einer App archivieren?</string>
+	<string name="export_keys_dialog_failure">Deine Wallet konnte nicht gesichert werden:\n%s</string>
 	<string name="export_keys_dialog_button_archive">Archivieren</string>
-	<string name="export_keys_dialog_mail_subject">Bitcoin Wallet Sicherung der privaten Schlüssel</string>
+	<string name="export_keys_dialog_mail_subject">Bitcoin Wallet Sicherung</string>
 	<string name="export_keys_dialog_mail_text">Die verschlüsselte Datei im Anhang enthält private Bitcoin-Schlüssel und sollte sicher verwahrt werden. Vergiss das Verschlüsselungs-Passwort nicht!</string>
-	<string name="export_keys_dialog_mail_intent_chooser">Schlüssel archivieren mit…</string>
-	<string name="export_keys_dialog_mail_intent_failed">Archivieren der Schlüssel fehlgeschlagen.</string>
+	<string name="export_keys_dialog_mail_intent_chooser">Wallet archivieren mit…</string>
+	<string name="export_keys_dialog_mail_intent_failed">Archivieren der Wallet fehlgeschlagen.</string>
 	<string name="import_export_keys_dialog_password">Passwort</string>
 	<string name="import_export_keys_dialog_show">Passwort zeigen</string>
 	<string name="import_export_keys_dialog_failure_title">Fehler</string>
-	<string name="import_keys_intent_filter_action">Wiederherstellung der Bitcoin-Schlüssel</string>
+	<string name="import_keys_intent_filter_action">Wallet wiederherstellen</string>
 
 	<string name="scan_camera_problem_dialog_title">Sorry</string>
 	<string name="scan_camera_problem_dialog_message">Die Kamera hat ein Problem. Evtl. musst du dein Gerät neu starten.</string>
