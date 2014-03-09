@@ -34,7 +34,6 @@
 	<string name="wallet_transactions_fragment_coinbase">narudarjeno</string>
 	<string name="wallet_transactions_fragment_internal">notranji</string>
 	<string name="wallet_transactions_context_show_qr_title">Prikazi QR-kodo</string>
-	<string name="wallet_options_backup">Rezervno kopiranje ključev</string>
 	<string name="wallet_options_safety">O varnosti</string>
 	<string name="wallet_options_donate">Donacije</string>
 	<string name="wallet_donate_address_label">Donacija za Bitcoin Wallet</string>

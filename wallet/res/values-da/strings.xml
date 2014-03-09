@@ -34,7 +34,6 @@
 	<string name="wallet_transactions_fragment_coinbase">mined</string>
 	<string name="wallet_transactions_fragment_internal">intern</string>
 	<string name="wallet_transactions_context_show_qr_title">Vis QR-kode</string>
-	<string name="wallet_options_backup">Sikkerhedskopiér nøgler</string>
 	<string name="wallet_options_safety">Sikkerhedsnoter</string>
 	<string name="wallet_options_donate">Giv drikkepenge / donér</string>
 	<string name="wallet_donate_address_label">Donér til Bitcoin Wallet</string>

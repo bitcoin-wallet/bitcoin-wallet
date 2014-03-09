@@ -34,7 +34,6 @@
 	<string name="wallet_transactions_fragment_coinbase">miné</string>
 	<string name="wallet_transactions_fragment_internal">Interne</string>
 	<string name="wallet_transactions_context_show_qr_title">Afficher le code QR</string>
-	<string name="wallet_options_backup">Sauvegarder les clefs</string>
 	<string name="wallet_options_safety">Notes de sécurité</string>
 	<string name="wallet_options_donate">Faire un don</string>
 	<string name="wallet_donate_address_label">Faire un don pour Bitcoin Wallet</string>

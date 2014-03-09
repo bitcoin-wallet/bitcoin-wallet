@@ -34,7 +34,6 @@
 	<string name="wallet_transactions_fragment_coinbase">נכרו</string>
 	<string name="wallet_transactions_fragment_internal">פנימי</string>
 	<string name="wallet_transactions_context_show_qr_title">הראה ברקוד</string>
-	<string name="wallet_options_backup">גבה את המפתחות</string>
 	<string name="wallet_options_safety">הוראות בטיחות</string>
 	<string name="wallet_options_donate">תרומה</string>
 	<string name="wallet_donate_address_label">תרום לארנק ביטקוין</string>

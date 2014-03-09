@@ -34,7 +34,6 @@
 	<string name="wallet_transactions_fragment_coinbase">minita</string>
 	<string name="wallet_transactions_fragment_internal">interna</string>
 	<string name="wallet_transactions_context_show_qr_title">Montru QRan kodon</string>
-	<string name="wallet_options_backup">Savkopi Ŝlosilojn</string>
 	<string name="wallet_options_safety">Sekurecaj notoj</string>
 	<string name="wallet_options_donate">Donacu</string>
 	<string name="wallet_donate_address_label">Donaco por BitmonMonujo</string>

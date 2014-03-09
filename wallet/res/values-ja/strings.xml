@@ -34,7 +34,6 @@
 	<string name="wallet_transactions_fragment_coinbase">鉱山</string>
 	<string name="wallet_transactions_fragment_internal">内部</string>
 	<string name="wallet_transactions_context_show_qr_title">QRコードを表示</string>
-	<string name="wallet_options_backup">バックアップキー</string>
 	<string name="wallet_options_safety">安全の注意事項</string>
 	<string name="wallet_options_donate">チップ / 寄付</string>
 	<string name="wallet_donate_address_label">ビットコインウォレットへ寄付する</string>

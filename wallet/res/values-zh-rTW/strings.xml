@@ -34,7 +34,6 @@
 	<string name="wallet_transactions_fragment_coinbase">已採礦</string>
 	<string name="wallet_transactions_fragment_internal">內部</string>
 	<string name="wallet_transactions_context_show_qr_title">展示QR二維條碼</string>
-	<string name="wallet_options_backup">備份錢包私人金鑰</string>
 	<string name="wallet_options_safety">安全提示</string>
 	<string name="wallet_options_donate">捐贈</string>
 	<string name="wallet_donate_address_label">捐贈給Bitcoin Wallet App</string>

@@ -34,7 +34,6 @@
 	<string name="wallet_transactions_fragment_coinbase">wykopany</string>
 	<string name="wallet_transactions_fragment_internal">wewnętrzny</string>
 	<string name="wallet_transactions_context_show_qr_title">Pokaż kod QR</string>
-	<string name="wallet_options_backup">Utwórz kopię zapasową kluczy</string>
 	<string name="wallet_options_safety">Wskazówki bezpieczeństwa</string>
 	<string name="wallet_options_donate">Podaruj</string>
 	<string name="wallet_donate_address_label">Dotacje dla Bitcoin Wallet</string>

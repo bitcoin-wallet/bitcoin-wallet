@@ -34,7 +34,6 @@
 	<string name="wallet_transactions_fragment_coinbase">محفور</string>
 	<string name="wallet_transactions_fragment_internal">داخلي</string>
 	<string name="wallet_transactions_context_show_qr_title">عرض رمز الاستجابة السريعة QR-code</string>
-	<string name="wallet_options_backup">حفظ احتياطي للمفاتيح</string>
 	<string name="wallet_options_safety">ملاحظات السلامة</string>
 	<string name="wallet_options_donate">التبرعات</string>
 	<string name="wallet_donate_address_label">تبرع للبرنامج</string>
