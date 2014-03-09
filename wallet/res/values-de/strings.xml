@@ -35,6 +35,8 @@
 	<string name="wallet_transactions_fragment_coinbase">geschürft</string>
 	<string name="wallet_transactions_fragment_internal">intern</string>
 	<string name="wallet_options_safety_menu">Sicherheit</string>
+	<string name="wallet_options_encrypt_keys_set">Ausgabe-PIN setzen</string>
+	<string name="wallet_options_encrypt_keys_change">Ausgabe-PIN ändern</string>
 	<string name="wallet_options_safety">Sicherheitshinweise</string>
 	<string name="wallet_options_donate">Spenden</string>
 	<string name="wallet_donate_address_label">Spende für Bitcoin Wallet</string>
@@ -75,12 +77,15 @@
 	<string name="send_coins_fragment_direct_payment_nack">Die Zahlung wurde über die direkte Verbindung abgelehnt.</string>
 	<string name="send_coins_fragment_direct_payment_failed_title">Direkte Zahlung fehlgeschlagen</string>
 	<string name="send_coins_fragment_direct_payment_failed_msg">Deine Zahlung wird trotzdem über das P2P-Netzwerk übertragen.</string>
+	<string name="send_coins_fragment_private_key_password">PIN</string>
+	<string name="send_coins_fragment_private_key_bad_password">falsche PIN!</string>
 	<string name="send_coins_fragment_button_send">Senden</string>
 	<string name="send_coins_fragment_button_back">Zurück</string>
 	<string name="send_coins_fragment_insufficient_money_title">Nicht genug verfügbare Bitcoins</string>
 	<string name="send_coins_fragment_insufficient_money_msg1">Dir fehlen %s.</string>
 	<string name="send_coins_fragment_insufficient_money_msg2">Möchtest du mit allem zahlen was du hast?</string>
 	<string name="send_coins_fragment_empty_wallet_failed_title">Entleerung der Wallet fehlgeschlagen</string>
+	<string name="send_coins_fragment_state_decrypting">Entschlüsselung…</string>
 	<string name="send_coins_preparation_msg">Signierung…</string>
 	<string name="send_coins_sending_msg">Versenden…</string>
 	<string name="send_coins_sent_msg">Versendet!</string>
@@ -166,6 +171,7 @@
 	<string name="import_keys_dialog_failure">Die Wallet konnte nicht wieder hergestellt werden:\n\n%s\n\nFalsches Passwort?</string>
 	<string name="export_keys_dialog_title">Wallet sichern</string>
 	<string name="backup_wallet_dialog_message">Dein Backup wird mit dem gewählten Passwort verschlüsselt und auf den externen Speicher gesichert.</string>
+	<string name="backup_wallet_dialog_warning_encrypted">Deine Wallet ist mit einer Ausgabe-PIN geschützt. Stelle sicher, daß du die PIN nicht vergisst (neben dem Backup-Passwort)!</string>
 	<string name="export_keys_dialog_button_export">Exportieren</string>
 	<string name="export_keys_dialog_success"><![CDATA[<p>Deine Wallet wurde nach <tt>%s</tt> gesichert.</p><p>Wenn die SD-Karte deines Geräts wechselbar ist, <i>sollte</i> deine Sicherung auf dieser Karte sein. Entferne und bewahre sie an einem sicheren Ort auf. Wenn die Karte <i>nicht</i> wechselbar ist, mußt du deine Sicherung an einem anderen Ort als dein Gerät archivieren.</p><p><b>Wenn der einzige Ort, an dem dein Backup existiert, dein Gerät bleibt, läufst du in Gefahr beide zusammen zu verlieren!</b></p><p>Verwahre in jedem Fall auch dein Backup-Passwort sicher. Möchtest du deine Wallet jetzt archivieren?</p>]]></string>
 	<string name="export_keys_dialog_failure">Deine Wallet konnte nicht gesichert werden:\n%s</string>
@@ -178,6 +184,21 @@
 	<string name="import_export_keys_dialog_show">Passwort zeigen</string>
 	<string name="import_export_keys_dialog_failure_title">Fehler</string>
 	<string name="import_keys_intent_filter_action">Wallet wiederherstellen</string>
+
+	<string name="encrypt_keys_dialog_title">Ausgabe-PIN</string>
+	<string name="encrypt_keys_dialog_message">Ausgaben von deiner Wallet werden durch die gewählte PIN geschützt.</string>
+	<string name="encrypt_keys_dialog_warning">Wichtig: Nutze keine oft verwendete Nummern (z.B. Geburtstage) in deiner PIN.</string>
+	<string name="encrypt_keys_dialog_password_old">Alte PIN</string>
+	<string name="encrypt_keys_dialog_password_new">PIN</string>
+	<string name="encrypt_keys_dialog_bad_password">falsche PIN!</string>
+	<string name="encrypt_keys_dialog_password_strength_weak">schwach</string>
+	<string name="encrypt_keys_dialog_password_strength_fair">mittel</string>
+	<string name="encrypt_keys_dialog_password_strength_good">gut</string>
+	<string name="encrypt_keys_dialog_password_strength_strong">stark</string>
+	<string name="encrypt_keys_dialog_show">PIN zeigen</string>
+	<string name="encrypt_keys_dialog_state_encrypting">Verschlüsselung…</string>
+	<string name="encrypt_keys_dialog_state_decrypting">Entschlüsselung…</string>
+	<string name="encrypt_keys_dialog_state_done">Fertig.</string>
 
 	<string name="scan_camera_problem_dialog_title">Sorry</string>
 	<string name="scan_camera_problem_dialog_message">Die Kamera hat ein Problem. Evtl. musst du dein Gerät neu starten.</string>
@@ -251,6 +272,8 @@
 	<string name="button_help">Hilfe</string>
 	<string name="button_add">Hinzufügen</string>
 	<string name="button_delete">Löschen</string>
+	<string name="button_set">Setzen</string>
+	<string name="button_remove">Entfernen</string>
 	<string name="button_edit">Ändern</string>
 	<string name="button_copy">Kopieren</string>
 	<string name="button_paste">Einfügen</string>

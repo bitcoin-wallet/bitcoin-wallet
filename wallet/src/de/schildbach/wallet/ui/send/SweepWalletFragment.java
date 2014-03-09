@@ -532,6 +532,12 @@ public class SweepWalletFragment extends Fragment
 				dialog.setNeutralButton(R.string.button_dismiss, null);
 				dialog.show();
 			}
+
+			@Override
+			protected void onInvalidKey()
+			{
+				throw new RuntimeException(); // cannot happen
+			}
 		}.sendCoinsOffline(sendRequest); // send asynchronously
 	}
 }

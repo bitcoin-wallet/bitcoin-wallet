@@ -26,6 +26,7 @@ import org.bitcoinj.core.Wallet;
 import org.bitcoinj.core.Wallet.CompletionException;
 import org.bitcoinj.core.Wallet.CouldNotAdjustDownwards;
 import org.bitcoinj.core.Wallet.SendRequest;
+import org.bitcoinj.crypto.KeyCrypterException;
 
 import android.os.Handler;
 import android.os.Looper;
@@ -77,6 +78,17 @@ public abstract class SendCoinsOfflineTask
 						}
 					});
 				}
+				catch (final KeyCrypterException x)
+				{
+					callbackHandler.post(new Runnable()
+					{
+						@Override
+						public void run()
+						{
+							onInvalidKey();
+						}
+					});
+				}
 				catch (final CouldNotAdjustDownwards x)
 				{
 					callbackHandler.post(new Runnable()
@@ -106,6 +118,8 @@ public abstract class SendCoinsOfflineTask
 	protected abstract void onSuccess(@Nonnull Transaction transaction);
 
 	protected abstract void onInsufficientMoney(@Nonnull Coin missing);
+
+	protected abstract void onInvalidKey();
 
 	protected void onEmptyWalletFailed()
 	{

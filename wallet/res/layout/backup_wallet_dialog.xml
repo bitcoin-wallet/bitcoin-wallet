@@ -47,6 +47,18 @@
 			android:checked="false"
 			android:text="@string/import_export_keys_dialog_show"
 			android:textSize="@dimen/font_size_normal" />
+
+		<TextView
+			android:id="@+id/backup_wallet_dialog_warning_encrypted"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginBottom="@dimen/list_entry_padding_vertical_lax"
+			android:layout_marginLeft="@dimen/list_entry_padding_horizontal_lax"
+			android:layout_marginRight="@dimen/list_entry_padding_horizontal_lax"
+			android:layout_marginTop="@dimen/list_entry_padding_vertical_lax"
+			android:text="@string/backup_wallet_dialog_warning_encrypted"
+			android:textColor="@color/fg_less_significant"
+			android:textSize="@dimen/font_size_small" />
 	</LinearLayout>
 
 </ScrollView>

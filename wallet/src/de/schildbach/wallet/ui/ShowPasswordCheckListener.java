@@ -29,17 +29,20 @@ import android.widget.EditText;
  */
 public final class ShowPasswordCheckListener implements OnCheckedChangeListener
 {
-	private EditText passwordView;
+	private int basicInputType;
+	private EditText[] passwordViews;
 
-	public ShowPasswordCheckListener(@Nonnull final EditText passwordView)
+	public ShowPasswordCheckListener(final boolean isNumeric, @Nonnull final EditText... passwordViews)
 	{
-		this.passwordView = passwordView;
+		this.basicInputType = isNumeric ? InputType.TYPE_CLASS_NUMBER : InputType.TYPE_CLASS_TEXT;
+		this.passwordViews = passwordViews;
 	}
 
 	@Override
 	public void onCheckedChanged(final CompoundButton buttonView, final boolean isChecked)
 	{
-		passwordView.setInputType(InputType.TYPE_CLASS_TEXT
-				| (isChecked ? InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD : InputType.TYPE_TEXT_VARIATION_PASSWORD));
+		for (final EditText passwordView : passwordViews)
+			passwordView.setInputType(basicInputType
+					| (isChecked ? InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD : InputType.TYPE_TEXT_VARIATION_PASSWORD));
 	}
 }

@@ -255,6 +255,8 @@ public final class WalletActivity extends AbstractWalletActivity
 		menu.findItem(R.id.wallet_options_restore_wallet).setEnabled(
 				Environment.MEDIA_MOUNTED.equals(externalStorageState) || Environment.MEDIA_MOUNTED_READ_ONLY.equals(externalStorageState));
 		menu.findItem(R.id.wallet_options_backup_wallet).setEnabled(Environment.MEDIA_MOUNTED.equals(externalStorageState));
+		menu.findItem(R.id.wallet_options_encrypt_keys).setTitle(
+				wallet.isEncrypted() ? R.string.wallet_options_encrypt_keys_change : R.string.wallet_options_encrypt_keys_set);
 
 		return true;
 	}
@@ -300,6 +302,10 @@ public final class WalletActivity extends AbstractWalletActivity
 				handleBackupWallet();
 				return true;
 
+			case R.id.wallet_options_encrypt_keys:
+				handleEncryptKeys();
+				return true;
+
 			case R.id.wallet_options_preferences:
 				startActivity(new Intent(this, PreferencesActivity.class));
 				return true;
@@ -342,6 +348,11 @@ public final class WalletActivity extends AbstractWalletActivity
 	public void handleBackupWallet()
 	{
 		showDialog(DIALOG_BACKUP_WALLET);
+	}
+
+	public void handleEncryptKeys()
+	{
+		EncryptKeysDialogFragment.show(getFragmentManager());
 	}
 
 	private void handleDonate()
@@ -522,7 +533,7 @@ public final class WalletActivity extends AbstractWalletActivity
 		fileView.setOnItemSelectedListener(dialogButtonEnabler);
 
 		final CheckBox showView = (CheckBox) alertDialog.findViewById(R.id.import_keys_from_storage_show);
-		showView.setOnCheckedChangeListener(new ShowPasswordCheckListener(passwordView));
+		showView.setOnCheckedChangeListener(new ShowPasswordCheckListener(false, passwordView));
 	}
 
 	private Dialog createBackupWalletDialog()
@@ -576,7 +587,10 @@ public final class WalletActivity extends AbstractWalletActivity
 		passwordView.addTextChangedListener(dialogButtonEnabler);
 
 		final CheckBox showView = (CheckBox) alertDialog.findViewById(R.id.export_keys_dialog_show);
-		showView.setOnCheckedChangeListener(new ShowPasswordCheckListener(passwordView));
+		showView.setOnCheckedChangeListener(new ShowPasswordCheckListener(false, passwordView));
+
+		final TextView warningView = (TextView) alertDialog.findViewById(R.id.backup_wallet_dialog_warning_encrypted);
+		warningView.setVisibility(wallet.isEncrypted() ? View.VISIBLE : View.GONE);
 	}
 
 	private void checkLowStorageAlert()

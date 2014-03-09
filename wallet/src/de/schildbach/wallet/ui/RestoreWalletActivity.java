@@ -168,7 +168,7 @@ public final class RestoreWalletActivity extends AbstractWalletActivity
 		passwordView.addTextChangedListener(dialogButtonEnabler);
 
 		final CheckBox showView = (CheckBox) alertDialog.findViewById(R.id.import_keys_from_content_dialog_show);
-		showView.setOnCheckedChangeListener(new ShowPasswordCheckListener(passwordView));
+		showView.setOnCheckedChangeListener(new ShowPasswordCheckListener(false, passwordView));
 	}
 
 	private void restoreWalletFromEncrypted(@Nonnull final InputStream cipher, @Nonnull final String password)

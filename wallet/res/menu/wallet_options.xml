@@ -42,6 +42,10 @@
 				android:id="@+id/wallet_options_restore_wallet"
 				android:showAsAction="never"
 				android:title="@string/import_keys_dialog_title"/>
+			<item
+				android:id="@+id/wallet_options_encrypt_keys"
+				android:showAsAction="never"
+				android:title="@string/encrypt_keys_dialog_title"/>
 		</menu>
 	</item>
 	<item

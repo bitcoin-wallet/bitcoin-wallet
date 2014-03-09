@@ -45,6 +45,7 @@ import org.bitcoinj.utils.MonetaryFormat;
 import org.bitcoinj.wallet.KeyChain.KeyPurpose;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.spongycastle.crypto.params.KeyParameter;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -87,6 +88,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.CursorAdapter;
+import android.widget.EditText;
 import android.widget.FilterQueryProvider;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -144,16 +146,18 @@ public final class SendCoinsFragment extends Fragment
 	private View receivingStaticView;
 	private TextView receivingStaticAddressView;
 	private TextView receivingStaticLabelView;
+	private CurrencyCalculatorLink amountCalculatorLink;
 	private CheckBox directPaymentEnableView;
 
 	private TextView hintView;
 	private TextView directPaymentMessageView;
 	private ListView sentTransactionView;
 	private TransactionsListAdapter sentTransactionListAdapter;
+	private View privateKeyPasswordViewGroup;
+	private EditText privateKeyPasswordView;
+	private View privateKeyBadPasswordView;
 	private Button viewGo;
 	private Button viewCancel;
-
-	private CurrencyCalculatorLink amountCalculatorLink;
 
 	private MenuItem scanAction;
 	private MenuItem emptyAction;
@@ -181,7 +185,7 @@ public final class SendCoinsFragment extends Fragment
 
 	private enum State
 	{
-		INPUT, PREPARATION, SENDING, SENT, FAILED
+		INPUT, DECRYPTING, SIGNING, SENDING, SENT, FAILED
 	}
 
 	private final class ReceivingAddressListener implements OnFocusChangeListener, TextWatcher
@@ -301,6 +305,26 @@ public final class SendCoinsFragment extends Fragment
 
 		@Override
 		public void focusChanged(final boolean hasFocus)
+		{
+		}
+	};
+
+	private final TextWatcher privateKeyPasswordListener = new TextWatcher()
+	{
+		@Override
+		public void onTextChanged(final CharSequence s, final int start, final int before, final int count)
+		{
+			privateKeyBadPasswordView.setVisibility(View.INVISIBLE);
+			updateView();
+		}
+
+		@Override
+		public void beforeTextChanged(final CharSequence s, final int start, final int count, final int after)
+		{
+		}
+
+		@Override
+		public void afterTextChanged(final Editable s)
 		{
 		}
 	};
@@ -606,6 +630,10 @@ public final class SendCoinsFragment extends Fragment
 		sentTransactionListAdapter = new TransactionsListAdapter(activity, wallet, application.maxConnectedPeers(), false);
 		sentTransactionView.setAdapter(sentTransactionListAdapter);
 
+		privateKeyPasswordViewGroup = view.findViewById(R.id.send_coins_private_key_password_group);
+		privateKeyPasswordView = (EditText) view.findViewById(R.id.send_coins_private_key_password);
+		privateKeyBadPasswordView = view.findViewById(R.id.send_coins_private_key_bad_password);
+
 		viewGo = (Button) view.findViewById(R.id.send_coins_go);
 		viewGo.setOnClickListener(new OnClickListener()
 		{
@@ -622,8 +650,6 @@ public final class SendCoinsFragment extends Fragment
 				updateView();
 			}
 		});
-
-		amountCalculatorLink.setNextFocusId(viewGo.getId());
 
 		viewCancel = (Button) view.findViewById(R.id.send_coins_cancel);
 		viewCancel.setOnClickListener(new OnClickListener()
@@ -654,6 +680,7 @@ public final class SendCoinsFragment extends Fragment
 		contentResolver.registerContentObserver(AddressBookProvider.contentUri(activity.getPackageName()), true, contentObserver);
 
 		amountCalculatorLink.setListener(amountsListener);
+		privateKeyPasswordView.addTextChangedListener(privateKeyPasswordListener);
 
 		loaderManager.initLoader(ID_RATE_LOADER, null, rateLoaderCallbacks);
 		loaderManager.initLoader(ID_RECEIVING_ADDRESS_LOADER, null, receivingAddressLoaderCallbacks);
@@ -668,6 +695,7 @@ public final class SendCoinsFragment extends Fragment
 		loaderManager.destroyLoader(ID_RECEIVING_ADDRESS_LOADER);
 		loaderManager.destroyLoader(ID_RATE_LOADER);
 
+		privateKeyPasswordView.removeTextChangedListener(privateKeyPasswordListener);
 		amountCalculatorLink.setListener(null);
 
 		contentResolver.unregisterContentObserver(contentObserver);
@@ -864,9 +892,17 @@ public final class SendCoinsFragment extends Fragment
 		return dryrunTransaction != null && dryrunException == null;
 	}
 
+	private boolean isPasswordValid()
+	{
+		if (!wallet.isEncrypted())
+			return true;
+
+		return !privateKeyPasswordView.getText().toString().trim().isEmpty();
+	}
+
 	private boolean everythingValid()
 	{
-		return state == State.INPUT && isOutputsValid() && isAmountValid();
+		return state == State.INPUT && isOutputsValid() && isAmountValid() && isPasswordValid();
 	}
 
 	private void requestFocusFirst()
@@ -883,7 +919,31 @@ public final class SendCoinsFragment extends Fragment
 
 	private void handleGo()
 	{
-		state = State.PREPARATION;
+		privateKeyBadPasswordView.setVisibility(View.INVISIBLE);
+
+		if (wallet.isEncrypted())
+		{
+			new DeriveKeyTask(backgroundHandler)
+			{
+				@Override
+				protected void onSuccess(@Nonnull KeyParameter encryptionKey)
+				{
+					signAndSendPayment(encryptionKey);
+				}
+			}.deriveKey(wallet.getKeyCrypter(), privateKeyPasswordView.getText().toString().trim());
+
+			state = State.DECRYPTING;
+			updateView();
+		}
+		else
+		{
+			signAndSendPayment(null);
+		}
+	}
+
+	private void signAndSendPayment(final KeyParameter encryptionKey)
+	{
+		state = State.SIGNING;
 		updateView();
 
 		// final payment intent
@@ -895,6 +955,7 @@ public final class SendCoinsFragment extends Fragment
 		final SendRequest sendRequest = finalPaymentIntent.toSendRequest();
 		sendRequest.emptyWallet = paymentIntent.mayEditAmount() && finalAmount.equals(wallet.getBalance(BalanceType.AVAILABLE));
 		sendRequest.memo = paymentIntent.memo;
+		sendRequest.aesKey = encryptionKey;
 
 		new SendCoinsOfflineTask(wallet, backgroundHandler)
 		{
@@ -1008,6 +1069,16 @@ public final class SendCoinsFragment extends Fragment
 				});
 				dialog.setNegativeButton(R.string.button_cancel, null);
 				dialog.show();
+			}
+
+			@Override
+			protected void onInvalidKey()
+			{
+				state = State.INPUT;
+				updateView();
+
+				privateKeyBadPasswordView.setVisibility(View.VISIBLE);
+				privateKeyPasswordView.requestFocus();
 			}
 
 			@Override
@@ -1221,7 +1292,7 @@ public final class SendCoinsFragment extends Fragment
 				directPaymentMessageView.setVisibility(View.GONE);
 			}
 
-			viewCancel.setEnabled(state != State.PREPARATION);
+			viewCancel.setEnabled(state != State.DECRYPTING && state != State.SIGNING);
 			viewGo.setEnabled(everythingValid());
 
 			if (state == State.INPUT)
@@ -1229,7 +1300,12 @@ public final class SendCoinsFragment extends Fragment
 				viewCancel.setText(R.string.button_cancel);
 				viewGo.setText(R.string.send_coins_fragment_button_send);
 			}
-			else if (state == State.PREPARATION)
+			else if (state == State.DECRYPTING)
+			{
+				viewCancel.setText(R.string.button_cancel);
+				viewGo.setText(R.string.send_coins_fragment_state_decrypting);
+			}
+			else if (state == State.SIGNING)
 			{
 				viewCancel.setText(R.string.button_cancel);
 				viewGo.setText(R.string.send_coins_preparation_msg);
@@ -1250,6 +1326,10 @@ public final class SendCoinsFragment extends Fragment
 				viewGo.setText(R.string.send_coins_failed_msg);
 			}
 
+			final boolean privateKeyPasswordViewVisible = (state == State.INPUT || state == State.DECRYPTING) && wallet.isEncrypted();
+			privateKeyPasswordViewGroup.setVisibility(privateKeyPasswordViewVisible ? View.VISIBLE : View.GONE);
+			privateKeyPasswordView.setEnabled(state == State.INPUT);
+
 			// enable actions
 			if (scanAction != null)
 				scanAction.setEnabled(state == State.INPUT);
@@ -1261,7 +1341,10 @@ public final class SendCoinsFragment extends Fragment
 			receivingAddressView.setNextFocusDownId(activeAmountViewId);
 			receivingAddressView.setNextFocusForwardId(activeAmountViewId);
 			receivingStaticView.setNextFocusDownId(activeAmountViewId);
-			viewGo.setNextFocusUpId(activeAmountViewId);
+			amountCalculatorLink.setNextFocusId(privateKeyPasswordViewVisible ? R.id.send_coins_private_key_password : R.id.send_coins_go);
+			privateKeyPasswordView.setNextFocusUpId(activeAmountViewId);
+			privateKeyPasswordView.setNextFocusDownId(R.id.send_coins_go);
+			viewGo.setNextFocusUpId(privateKeyPasswordViewVisible ? R.id.send_coins_private_key_password : activeAmountViewId);
 		}
 		else
 		{

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:fillViewport="true"
+	android:scrollbars="none" >
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:background="@color/bg_form"
+		android:orientation="vertical" >
+
+		<TextView
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="@dimen/list_entry_padding_horizontal_lax"
+			android:layout_marginRight="@dimen/list_entry_padding_horizontal_lax"
+			android:layout_marginTop="@dimen/list_entry_padding_vertical"
+			android:text="@string/encrypt_keys_dialog_message"
+			android:textSize="@dimen/font_size_normal" />
+
+		<LinearLayout
+			android:id="@+id/encrypt_keys_dialog_password_old_group"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="@dimen/list_entry_padding_horizontal"
+			android:layout_marginRight="@dimen/list_entry_padding_horizontal"
+			android:layout_marginTop="@dimen/list_entry_padding_vertical"
+			android:divider="@drawable/divider_field"
+			android:orientation="horizontal"
+			android:showDividers="middle" >
+
+			<EditText
+				android:id="@+id/encrypt_keys_dialog_password_old"
+				android:layout_width="0px"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:hint="@string/encrypt_keys_dialog_password_old"
+				android:imeOptions="flagNoExtractUi"
+				android:inputType="numberPassword"
+				android:singleLine="true"
+				android:textSize="@dimen/font_size_normal" />
+
+			<TextView
+				android:id="@+id/encrypt_keys_dialog_bad_password"
+				android:layout_width="0px"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:text="@string/encrypt_keys_dialog_bad_password"
+				android:textColor="@color/fg_error"
+				android:textSize="@dimen/font_size_normal"
+				android:textStyle="bold"
+				android:visibility="invisible" />
+		</LinearLayout>
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="@dimen/list_entry_padding_horizontal"
+			android:layout_marginRight="@dimen/list_entry_padding_horizontal"
+			android:layout_marginTop="@dimen/list_entry_padding_vertical"
+			android:divider="@drawable/divider_field"
+			android:orientation="horizontal"
+			android:showDividers="middle" >
+
+			<EditText
+				android:id="@+id/encrypt_keys_dialog_password_new"
+				android:layout_width="0px"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:hint="@string/encrypt_keys_dialog_password_new"
+				android:imeOptions="flagNoExtractUi"
+				android:inputType="numberPassword"
+				android:singleLine="true"
+				android:textSize="@dimen/font_size_normal" />
+
+			<TextView
+				android:id="@+id/encrypt_keys_dialog_password_strength"
+				android:layout_width="0px"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:textSize="@dimen/font_size_normal"
+				android:textStyle="bold" />
+		</LinearLayout>
+
+		<CheckBox
+			android:id="@+id/encrypt_keys_dialog_show"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginBottom="@dimen/list_entry_padding_vertical"
+			android:layout_marginLeft="@dimen/list_entry_padding_horizontal"
+			android:layout_marginRight="@dimen/list_entry_padding_horizontal"
+			android:layout_marginTop="@dimen/list_entry_padding_vertical"
+			android:checked="false"
+			android:text="@string/encrypt_keys_dialog_show"
+			android:textSize="@dimen/font_size_normal" />
+
+		<TextView
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginBottom="@dimen/list_entry_padding_vertical_lax"
+			android:layout_marginLeft="@dimen/list_entry_padding_horizontal_lax"
+			android:layout_marginRight="@dimen/list_entry_padding_horizontal_lax"
+			android:layout_marginTop="@dimen/list_entry_padding_vertical_lax"
+			android:text="@string/encrypt_keys_dialog_warning"
+			android:textColor="@color/fg_less_significant"
+			android:textSize="@dimen/font_size_small" />
+	</LinearLayout>
+
+</ScrollView>

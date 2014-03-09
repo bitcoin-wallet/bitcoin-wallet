@@ -28,7 +28,6 @@ import java.util.concurrent.TimeUnit;
 
 import javax.annotation.Nonnull;
 
-import org.bitcoinj.core.ECKey;
 import org.bitcoinj.core.Transaction;
 import org.bitcoinj.core.VerificationException;
 import org.bitcoinj.core.VersionMessage;
@@ -304,11 +303,6 @@ public class WalletApplication extends Application
 
 			log.info("new wallet created");
 		}
-
-		// this check is needed so encrypted wallets won't get their private keys removed accidently
-		for (final ECKey key : wallet.getImportedKeys())
-			if (key.isPubKeyOnly())
-				throw new Error("found read-only key, but wallet is likely an encrypted wallet from the future");
 	}
 
 	private Wallet restoreWalletFromBackup()

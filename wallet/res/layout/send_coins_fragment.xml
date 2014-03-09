@@ -155,6 +155,42 @@
 		android:layout_marginRight="@dimen/list_entry_padding_horizontal_lax"
 		android:textSize="@dimen/font_size_small" />
 
+	<LinearLayout
+		android:id="@+id/send_coins_private_key_password_group"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginBottom="@dimen/list_entry_padding_vertical"
+		android:layout_marginLeft="@dimen/list_entry_padding_horizontal"
+		android:layout_marginRight="@dimen/list_entry_padding_horizontal"
+		android:divider="@drawable/divider_field"
+		android:orientation="horizontal"
+		android:showDividers="middle"
+		android:visibility="gone" >
+
+		<EditText
+			android:id="@+id/send_coins_private_key_password"
+			android:layout_width="0px"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:hint="@string/send_coins_fragment_private_key_password"
+			android:imeOptions="flagNoExtractUi"
+			android:inputType="numberPassword"
+			android:singleLine="true"
+			android:textColor="#000"
+			android:textSize="@dimen/font_size_normal" />
+
+		<TextView
+			android:id="@+id/send_coins_private_key_bad_password"
+			android:layout_width="0px"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:text="@string/send_coins_fragment_private_key_bad_password"
+			android:textColor="@color/fg_error"
+			android:textSize="@dimen/font_size_normal"
+			android:textStyle="bold"
+			android:visibility="invisible" />
+	</LinearLayout>
+
 	<TextView
 		android:id="@+id/send_coins_direct_payment_message"
 		android:layout_width="match_parent"
