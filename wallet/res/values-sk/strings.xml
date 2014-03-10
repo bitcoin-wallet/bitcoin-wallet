@@ -203,5 +203,5 @@
 	<string name="button_settings">Nastavenia</string>
 	<string name="time_today">dnes</string>
 	<string name="address_unlabeled">(neoznačené)</string>
-
+    <string name="wallet_options_disconnect">Odpojiť</string>
 </resources>

@@ -218,5 +218,5 @@
 	<string name="button_settings">Configurações</string>
 	<string name="time_today">hoje</string>
 	<string name="address_unlabeled">(sem nome)</string>
-
+    <string name="wallet_options_disconnect">Desconectar</string>
 </resources>

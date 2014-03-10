@@ -210,5 +210,5 @@
 	<string name="button_settings">Impostazioni</string>
 	<string name="time_today">oggi</string>
 	<string name="address_unlabeled">(non etichettato)</string>
-
+    <string name="wallet_options_disconnect">Disconnetti</string>
 </resources>

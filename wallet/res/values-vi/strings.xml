@@ -190,5 +190,5 @@
 	<string name="button_settings">Thiết lập</string>
 	<string name="time_today">hôm nay</string>
 	<string name="address_unlabeled">(chưa có nhãn)</string>
-
+    <string name="wallet_options_disconnect">Ngắt kết nối</string>
 </resources>

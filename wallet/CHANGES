@@ -1,5 +1,13 @@
 digitalcoin Wallet
 -----------------
+v1.0.1.5
+* Fixed menu item doubling on rotate in address screen - langerhans (https://github.com/langerhans/dogecoin-wallet-new)
+* replaced block explorer with blockr.io instead of the apparently dead dgc.cryptocoinexplorer.com
+* Added BTER as a backup for getting exchange rates
+* added mBTC as an exchange rate.
+* added Disconnect feature back in
+* updated to bitcoin-wallet v3.38?
+
 v1.0.1.4
 * Updated to v3.31 (bitcoin-wallet)
 * Few bug fixes (import parser)

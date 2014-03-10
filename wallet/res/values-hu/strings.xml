@@ -209,5 +209,5 @@
 	<string name="button_settings">Beállítások</string>
 	<string name="time_today">ma</string>
 	<string name="address_unlabeled">(címke nélkül)</string>
-
+    <string name="wallet_options_disconnect">Szétkapcsolva</string>
 </resources>

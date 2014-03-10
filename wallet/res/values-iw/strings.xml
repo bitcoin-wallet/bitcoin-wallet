@@ -178,5 +178,5 @@
 	<string name="button_settings">הגדרות</string>
 	<string name="time_today">היום</string>
 	<string name="address_unlabeled">(לא מסומן)</string>
-
+    <string name="wallet_options_disconnect">מנותק</string>
 </resources>

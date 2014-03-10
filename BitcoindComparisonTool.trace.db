@@ -1,0 +1,3 @@
+03-07 22:47:05 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Table "SETTINGS" not found; SQL statement:
+SELECT * FROM settings WHERE 1 = 2 [42102-167]

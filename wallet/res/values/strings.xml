@@ -241,5 +241,5 @@
 	<string name="action_browse">Browse</string>
 	<string name="time_today">today</string>
 	<string name="address_unlabeled">(unlabeled)</string>
-
+    <string name="wallet_options_disconnect">Disconnect</string>
 </resources>

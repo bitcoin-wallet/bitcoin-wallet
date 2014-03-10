@@ -211,5 +211,5 @@
 	<string name="button_settings">Ayarlar</string>
 	<string name="time_today">bugün</string>
 	<string name="address_unlabeled">(etiketsiz)</string>
-
+    <string name="wallet_options_disconnect">Bağlantıyı kes</string>
 </resources>

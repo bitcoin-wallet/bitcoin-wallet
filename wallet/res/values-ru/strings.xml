@@ -206,5 +206,5 @@
 	<string name="button_settings">Настройки</string>
 	<string name="time_today">сегодня</string>
 	<string name="address_unlabeled">(без метки)</string>
-
+    <string name="wallet_options_disconnect">Отключиться</string>
 </resources>

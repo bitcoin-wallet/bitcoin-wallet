@@ -109,5 +109,5 @@
 	<string name="button_settings">Inställningar</string>
 	<string name="time_today">idag</string>
 	<string name="address_unlabeled">(saknar etikett)</string>
-
+    <string name="wallet_options_disconnect">Koppla från</string>
 </resources>

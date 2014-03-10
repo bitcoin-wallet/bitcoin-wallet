@@ -232,7 +232,7 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 		menu.findItem(R.id.wallet_options_import_keys).setEnabled(
 				Environment.MEDIA_MOUNTED.equals(externalStorageState) || Environment.MEDIA_MOUNTED_READ_ONLY.equals(externalStorageState));
 		menu.findItem(R.id.wallet_options_export_keys).setEnabled(Environment.MEDIA_MOUNTED.equals(externalStorageState));
-
+        menu.findItem(R.id.wallet_options_disconnect).setVisible(true);
 		return true;
 	}
 
@@ -272,6 +272,10 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 			case R.id.wallet_options_export_keys:
 				handleExportKeys();
 				return true;
+
+            case R.id.wallet_options_disconnect:
+                handleDisconnect();
+                return true;
 
 			case R.id.wallet_options_preferences:
 				startActivity(new Intent(this, PreferencesActivity.class));
@@ -318,6 +322,11 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 
 		config.disarmBackupReminder();
 	}
+    private void handleDisconnect()
+    {
+    	getWalletApplication().stopBlockchainService();
+    	finish();
+    }
 
 	private void handleDonate()
 	{

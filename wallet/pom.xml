@@ -39,7 +39,7 @@
 		<dependency>
 			<groupId>com.google.android</groupId>
 			<artifactId>support-v4</artifactId>
-			<version>r7</version>
+			<version>r13</version>
 		</dependency>
 
 		<!-- com.actionbarsherlock.* -->
