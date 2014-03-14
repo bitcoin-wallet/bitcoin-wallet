@@ -29,6 +29,8 @@ import android.widget.TextView;
 
 import com.google.bitcoin.core.NetworkParameters;
 
+import de.schildbach.wallet.Constants;
+
 /**
  * @author Andreas Schildbach
  */
@@ -104,6 +106,11 @@ public class GenericUtils
 		{
 			throw new IllegalArgumentException("cannot handle shift: " + shift);
 		}
+	}
+
+	public static String formatDebugValue(@Nonnull final BigInteger value)
+	{
+		return formatValue(value, Constants.BTC_MAX_PRECISION, 0);
 	}
 
 	public static BigInteger toNanoCoins(final String value, final int shift) throws ArithmeticException
