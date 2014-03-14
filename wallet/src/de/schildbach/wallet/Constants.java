@@ -69,6 +69,7 @@ public class Constants
 
 	public static final String CURRENCY_CODE_BTC = "BTC";
 	public static final String CURRENCY_CODE_MBTC = "mBTC";
+	public static final String CURRENCY_CODE_UBTC = "µBTC";
 	public static final char CHAR_HAIR_SPACE = '\u200a';
 	public static final char CHAR_THIN_SPACE = '\u2009';
 	public static final char CHAR_ALMOST_EQUAL_TO = '\u2248';
@@ -81,6 +82,7 @@ public class Constants
 
 	public static final int BTC_MAX_PRECISION = 8;
 	public static final int MBTC_MAX_PRECISION = 5;
+	public static final int UBTC_MAX_PRECISION = 2;
 	public static final int LOCAL_PRECISION = 4;
 
 	public static final String DONATION_ADDRESS = "18CK5k1gajRKKSC7yVSTXT9LUzbheh1XY4";

@@ -85,7 +85,14 @@ public class Configuration
 
 	public int getBtcMaxPrecision()
 	{
-		return getBtcShift() == 0 ? Constants.BTC_MAX_PRECISION : Constants.MBTC_MAX_PRECISION;
+		final int btcShift = getBtcShift();
+
+		if (btcShift == 0)
+			return Constants.BTC_MAX_PRECISION;
+		else if (btcShift == 3)
+			return Constants.MBTC_MAX_PRECISION;
+		else
+			return Constants.UBTC_MAX_PRECISION;
 	}
 
 	public int getBtcShift()
@@ -99,7 +106,14 @@ public class Configuration
 
 	public String getBtcPrefix()
 	{
-		return getBtcShift() == 0 ? Constants.CURRENCY_CODE_BTC : Constants.CURRENCY_CODE_MBTC;
+		final int btcShift = getBtcShift();
+
+		if (btcShift == 0)
+			return Constants.CURRENCY_CODE_BTC;
+		else if (btcShift == 3)
+			return Constants.CURRENCY_CODE_MBTC;
+		else
+			return Constants.CURRENCY_CODE_UBTC;
 	}
 
 	public boolean getConnectivityNotificationEnabled()

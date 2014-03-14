@@ -6,6 +6,7 @@
 		<item>BTC, 6位數</item>
 		<item>BTC, 4位數</item>
 		<item>mBTC, 2位數</item>
+		<item>µBTC, 0位數</item>
 	</string-array>
 
 </resources>

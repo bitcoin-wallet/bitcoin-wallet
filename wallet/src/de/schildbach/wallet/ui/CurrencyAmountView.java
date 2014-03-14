@@ -140,6 +140,10 @@ public final class CurrencyAmountView extends FrameLayout
 		{
 			currencySymbolDrawable = getResources().getDrawable(R.drawable.currency_symbol_mbtc);
 		}
+		else if (Constants.CURRENCY_CODE_UBTC.equals(currencyCode))
+		{
+			currencySymbolDrawable = getResources().getDrawable(R.drawable.currency_symbol_ubtc);
+		}
 		else if (currencyCode != null)
 		{
 			final String currencySymbol = currencySymbol(currencyCode);

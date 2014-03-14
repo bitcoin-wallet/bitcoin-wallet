@@ -38,9 +38,11 @@ public class GenericUtils
 {
 	public static final BigInteger ONE_BTC = new BigInteger("100000000", 10);
 	public static final BigInteger ONE_MBTC = new BigInteger("100000", 10);
+	public static final BigInteger ONE_UBTC = new BigInteger("100", 10);
 
 	private static final int ONE_BTC_INT = ONE_BTC.intValue();
 	private static final int ONE_MBTC_INT = ONE_MBTC.intValue();
+	private static final int ONE_UBTC_INT = ONE_UBTC.intValue();
 
 	public static String formatValue(@Nonnull final BigInteger value, final int precision, final int shift)
 	{
@@ -101,6 +103,24 @@ public class GenericUtils
 				return String.format(Locale.US, "%s%d.%04d", sign, coins, satoshis / 10);
 			else
 				return String.format(Locale.US, "%s%d.%05d", sign, coins, satoshis);
+		}
+		else if (shift == 6)
+		{
+			if (precision == 0)
+				longValue = longValue - longValue % 100 + longValue % 100 / 50 * 100;
+			else if (precision == 2)
+				;
+			else
+				throw new IllegalArgumentException("cannot handle precision/shift: " + precision + "/" + shift);
+
+			final long absValue = Math.abs(longValue);
+			final long coins = absValue / ONE_UBTC_INT;
+			final int satoshis = (int) (absValue % ONE_UBTC_INT);
+
+			if (satoshis % 100 == 0)
+				return String.format(Locale.US, "%s%d", sign, coins);
+			else
+				return String.format(Locale.US, "%s%d.%02d", sign, coins, satoshis);
 		}
 		else
 		{

@@ -6,6 +6,7 @@
 		<item>BTC, 6 decimaler</item>
 		<item>BTC, 4 decimaler</item>
 		<item>mBTC, 2 decimaler</item>
+		<item>µBTC, uden decimaler</item>
 	</string-array>
 
 </resources>
