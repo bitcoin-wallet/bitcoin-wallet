@@ -45,6 +45,7 @@
 	<string name="wallet_timeskew_dialog_msg">Your device time is off by %d minutes. You probably cannot send or receive Bitcoins due to this problem.\n\nYou should check and correct your time and timezone settings.</string>
 	<string name="wallet_version_dialog_title">A new version is available!</string>
 	<string name="wallet_version_dialog_msg">This version fixes important bugs. For details, see the change log on Google Play.</string>
+	<string name="wallet_version_dialog_msg_deprecated">If you don\'t see an update, this probably means your version of Android isn\'t supported any more.</string>
 	<string name="wallet_version_dialog_button_market">Google Play</string>
 	<string name="wallet_version_dialog_button_binary">Download</string>
 	<string name="wallet_precision_warning_dialog_title">Change of denomination</string>

@@ -20,6 +20,7 @@ package de.schildbach.wallet;
 import java.io.File;
 import java.nio.charset.Charset;
 
+import android.os.Build;
 import android.os.Environment;
 import android.text.format.DateUtils;
 
@@ -108,6 +109,8 @@ public class Constants
 
 	public static final int SDK_JELLY_BEAN = 16;
 	public static final int SDK_JELLY_BEAN_MR2 = 18;
+
+	public static final int SDK_DEPRECATED_BELOW = Build.VERSION_CODES.ICE_CREAM_SANDWICH;
 
 	public static final int MEMORY_CLASS_LOWEND = 48;
 

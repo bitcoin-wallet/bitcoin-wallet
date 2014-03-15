@@ -55,6 +55,7 @@ import android.content.res.Resources;
 import android.net.Uri;
 import android.nfc.NdefMessage;
 import android.nfc.NfcAdapter;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.text.format.DateUtils;
@@ -743,7 +744,10 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 		final Intent binaryIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.BINARY_URL));
 
 		final DialogBuilder dialog = DialogBuilder.warn(this, R.string.wallet_version_dialog_title);
-		dialog.setMessage(getString(R.string.wallet_version_dialog_msg));
+		final StringBuilder message = new StringBuilder(getString(R.string.wallet_version_dialog_msg));
+		if (Build.VERSION.SDK_INT < Constants.SDK_DEPRECATED_BELOW)
+			message.append("\n\n").append(getString(R.string.wallet_version_dialog_msg_deprecated));
+		dialog.setMessage(message);
 
 		if (pm.resolveActivity(marketIntent, 0) != null)
 		{
