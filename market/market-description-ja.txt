@@ -1,21 +1,25 @@
-ビットコインを持ち歩こう、いつでもあなたのポケットに！QRコードスキャンで素早く支払。バイヤーとしても、即座にかつ確実に支払を受取り。 ビットコインウォレットは初めてのモバイルビットコインアプリ、そして間違いなく最も安全なアプリでもあります！
+﻿ドージコインを持ち歩こう、いつでもあなたのポケットに！QRコードスキャンで素早く支払。バイヤーとしても、即座にかつ確実に支払を受取り。 ドージコインウォレットは初めてのモバイルドージコインアプリ、そして間違いなく最も安全なアプリでもあります！
 
 特徴:
 
 • 登録必要なし、ウェブサービスもクラウドもいりません！このウォレットは分散型P2Pです。
-• ビットコインの表示がBTCとmBTC。
+• ドージコインの表示がDOGEとmDOGE。
 • 自国通貨へ・からの変換表示。
-• NFC、QRコード、ビットコインURLでの送金や受取。
-• 良く使うビットコインアドレスのためのアドレスブック。
+• NFC、QRコード、ドージコインURLでの送金や受取。
+• 良く使うドージコインアドレスのためのアドレスブック。
 • オフラインの時、Bluetoothでも支払い可能。
 • コイン受取のシステム通知。
-• ビットコイン収支のためのヴィジット。
+• ドージコイン収支のためのヴィジット。
 
-ビットコインについての詳細は
-http://bitcoin.org
+ドージコインについての詳細は
+http://dogecoin.org
 
-もしビットコインウォレットへの開発協力をご希望なら、プロジェクトはこちら
-https://github.com/schildbach/bitcoin-wallet
+もしドージコインウォレットへの開発協力をご希望なら、プロジェクトはこちら
+https://github.com/langerhans/dogecoin-wallet-new
+
+This is a fork of the popular Bitcoin Wallet by Andreas Schildbach and was converted to Dogecoin by me.
+Find the original at
+https://play.google.com/store/apps/details?id=de.schildbach.wallet
 
 ライセンス: GPLv3
 自己責任でご利用ください！
