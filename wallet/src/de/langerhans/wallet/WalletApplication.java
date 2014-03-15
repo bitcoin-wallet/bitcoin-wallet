@@ -29,6 +29,7 @@ import java.util.concurrent.TimeUnit;
 import javax.annotation.Nonnull;
 
 import de.langerhans.wallet.service.AutosyncReceiver;
+import org.bitcoinj.wallet.Protos;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
