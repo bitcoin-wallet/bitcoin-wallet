@@ -1,3 +1,13 @@
+v1.06 DOGE
+
+* May 17th fork preperation
+* Lots of new exchange rates
+* BIP 70 Payment Protocol support
+* Better handling of not enough coins errors
+* Lots of internal bugfixes
+* Small UI tweaks
+* Translation: Japanese and Arabic
+
 v3.39
 
 * Usage of BIP70 when initiating payments via NFC (tap-to-pay) is now a supported feature.
