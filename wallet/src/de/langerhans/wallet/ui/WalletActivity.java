@@ -675,12 +675,12 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 			}
 		}.start();
 
-		if (!config.hasBtcPrecision()
+		/*if (!config.hasBtcPrecision()
 				&& config.changeLogVersionCodeCrossed(application.packageInfo().versionCode, DEFAULT_PRECISION_CHANGE_VERSION_CODE))
 		{
 			showDialog(DIALOG_CHANGELOG);
 		}
-		else if (CrashReporter.hasSavedCrashTrace())
+		else*/ if (CrashReporter.hasSavedCrashTrace())
 		{
 			final StringBuilder stackTrace = new StringBuilder();
 
