@@ -45,6 +45,10 @@ import de.langerhans.wallet.PaymentIntent;
  */
 public final class PaymentProtocol
 {
+	public static final String MIMETYPE_PAYMENTREQUEST = "application/bitcoin-paymentrequest"; // BIP 71
+	public static final String MIMETYPE_PAYMENT = "application/bitcoin-payment"; // BIP 71
+	public static final String MIMETYPE_PAYMENTACK = "application/bitcoin-paymentack"; // BIP 71
+
 	public static Protos.PaymentRequest createPaymentRequest(final BigInteger amount, @Nonnull final Address toAddress, final String memo,
 			final String paymentUrl)
 	{
@@ -104,8 +108,10 @@ public final class PaymentProtocol
 			final Protos.PaymentDetails paymentDetails = Protos.PaymentDetails.newBuilder().mergeFrom(paymentRequest.getSerializedPaymentDetails())
 					.build();
 
-			if (paymentDetails.hasExpires() && System.currentTimeMillis() / 1000 >= paymentDetails.getExpires())
-				throw new PaymentRequestException.Expired("payment details expired: " + paymentDetails.getExpires());
+			final long currentTimeSecs = System.currentTimeMillis() / 1000;
+			if (paymentDetails.hasExpires() && currentTimeSecs >= paymentDetails.getExpires())
+				throw new PaymentRequestException.Expired("payment details expired: current time " + currentTimeSecs + " after expiry time "
+						+ paymentDetails.getExpires());
 
 			if (!paymentDetails.getNetwork().equals(Constants.NETWORK_PARAMETERS.getPaymentProtocolId()))
 				throw new PaymentRequestException.InvalidNetwork("cannot handle payment request network: " + paymentDetails.getNetwork());

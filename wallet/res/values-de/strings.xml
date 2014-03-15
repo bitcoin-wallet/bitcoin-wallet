@@ -97,7 +97,6 @@
 
 	<string name="request_coins_activity_title">Dogecoins anfordern</string>
 	<string name="request_coins_fragment_amount_label">Angeforderter Betrag (optional)</string>
-	<string name="request_coins_fragment_address_label">Anfordernde Adresse</string>
 	<string name="request_coins_fragment_accept_bluetooth_payment">Zahlung zur zuverlässigeren Abwicklung per Bluetooth akzeptieren</string>
 	<string name="request_coins_fragment_initiate_request_qr">Laß diesen Code vom Sender scannen.</string>
 	<string name="request_coins_fragment_initiate_request_nfc">Oder berühr\'s mit einem NFC-fähigen Gerät.</string>
@@ -145,6 +144,7 @@
 
 	<string name="import_keys_dialog_title">Private Schlüssel wiederherstellen</string>
 	<string name="import_keys_dialog_message">Wähle eine Sicherungsdatei mit privaten Schlüsseln vom externen oder app-privaten Speicher aus:</string>
+	<string name="import_keys_dialog_warning">Wichtig: Lade keine privaten Schlüssel aus dubiosen Quellen! Andere Personen können die Kontrolle über deine Bitcoins bekommen, wenn du das tust.</string>
 	<string name="import_keys_dialog_file_security_encrypted">mit Passwort verschlüsselt</string>
 	<string name="import_keys_dialog_file_security_unencrypted">unverschlüsselt</string>
 	<string name="import_keys_dialog_file_security_external">externer Speicher</string>
@@ -216,7 +216,7 @@
 
 	<string name="report_issue_dialog_title_issue">Problem melden</string>
 	<string name="report_issue_dialog_title_crash">Absturz erkannt</string>
-	<string name="report_issue_dialog_message_issue">Bitte beschreibe dein Problem genau genug, daß ein Entwickler das Problem nachvollziehen kann.</string>
+	<string name="report_issue_dialog_message_issue">Bitte beschreibe dein Problem genau, so daß es nachvollzogen werden kann. Hänge den Dump der Wallet an, falls das Problem speziell deine Wallet betrifft.</string>
 	<string name="report_issue_dialog_message_crash">Möchtest du einen Fehlerbericht senden, um bei der Fehlerbehebung zu helfen?</string>
 	<string name="report_issue_dialog_description">Problembeschreibung</string>
 	<string name="report_issue_dialog_report">Senden</string>

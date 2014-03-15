@@ -32,10 +32,10 @@
 			android:foreground="@drawable/fragment_shadow_horizontal_light"
 			android:foregroundGravity="top|fill_horizontal" >
 
-            <FrameLayout
-                android:id="@+id/wallet_addresses_fragment"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"></FrameLayout>
+			<FrameLayout
+				android:id="@+id/wallet_addresses_fragment"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent" />
 		</FrameLayout>
 	</LinearLayout>
 
@@ -72,10 +72,10 @@
 			android:foreground="@drawable/fragment_shadow_horizontal_light"
 			android:foregroundGravity="top|fill_horizontal" >
 
-            <FrameLayout
-                android:id="@+id/sending_addresses_fragment"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"></FrameLayout>
+			<FrameLayout
+				android:id="@+id/sending_addresses_fragment"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent" />
 		</FrameLayout>
 	</LinearLayout>
 

@@ -292,6 +292,8 @@ public class ExchangeRatesProvider extends ContentProvider
 		try
 		{
 			connection = (HttpURLConnection) url.openConnection();
+
+			connection.setInstanceFollowRedirects(false);
 			connection.setConnectTimeout(Constants.HTTP_TIMEOUT_MS);
 			connection.setReadTimeout(Constants.HTTP_TIMEOUT_MS);
 			connection.addRequestProperty("User-Agent", userAgent);

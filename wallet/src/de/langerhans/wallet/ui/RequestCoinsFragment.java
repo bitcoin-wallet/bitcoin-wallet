@@ -18,8 +18,6 @@
 package de.langerhans.wallet.ui;
 
 import java.math.BigInteger;
-import java.util.LinkedList;
-import java.util.List;
 
 import javax.annotation.CheckForNull;
 
@@ -48,13 +46,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockFragment;
@@ -100,7 +95,6 @@ public final class RequestCoinsFragment extends SherlockFragment
 
 	private ImageView qrView;
 	private Bitmap qrCodeBitmap;
-	private Spinner addressView;
 	private CheckBox acceptBluetoothPaymentView;
 	private TextView initiateRequestView;
 
@@ -187,25 +181,6 @@ public final class RequestCoinsFragment extends SherlockFragment
 		localAmountView.setHintPrecision(Constants.LOCAL_PRECISION);
 		amountCalculatorLink = new CurrencyCalculatorLink(btcAmountView, localAmountView);
 
-		addressView = (Spinner) view.findViewById(R.id.request_coins_fragment_address);
-		final List<ECKey> keys = new LinkedList<ECKey>();
-		for (final ECKey key : application.getWallet().getKeys())
-			if (!wallet.isKeyRotating(key))
-				keys.add(key);
-		final WalletAddressesAdapter adapter = new WalletAddressesAdapter(activity, wallet, false);
-		adapter.replace(keys);
-		addressView.setAdapter(adapter);
-		final Address selectedAddress = application.determineSelectedAddress();
-		for (int i = 0; i < keys.size(); i++)
-		{
-			final Address address = keys.get(i).toAddress(Constants.NETWORK_PARAMETERS);
-			if (address.equals(selectedAddress))
-			{
-				addressView.setSelection(i);
-				break;
-			}
-		}
-
 		acceptBluetoothPaymentView = (CheckBox) view.findViewById(R.id.request_coins_accept_bluetooth_payment);
 		acceptBluetoothPaymentView.setVisibility(ENABLE_BLUETOOTH_LISTENING && bluetoothAdapter != null ? View.VISIBLE : View.GONE);
 		acceptBluetoothPaymentView.setChecked(ENABLE_BLUETOOTH_LISTENING && bluetoothAdapter != null && bluetoothAdapter.isEnabled());
@@ -272,25 +247,6 @@ public final class RequestCoinsFragment extends SherlockFragment
 			}
 		});
 
-		addressView.setOnItemSelectedListener(new OnItemSelectedListener()
-		{
-			@Override
-			public void onItemSelected(final AdapterView<?> parent, final View view, final int position, final long id)
-			{
-				// ignore layout operations
-				if (view == null)
-					return;
-
-				updateView();
-				updateShareIntent();
-			}
-
-			@Override
-			public void onNothingSelected(final AdapterView<?> parent)
-			{
-			}
-		});
-
 		loaderManager.initLoader(ID_RATE_LOADER, null, rateLoaderCallbacks);
 
 		if (ENABLE_BLUETOOTH_LISTENING && bluetoothAdapter != null && bluetoothAdapter.isEnabled() && acceptBluetoothPaymentView.isChecked())
@@ -315,8 +271,6 @@ public final class RequestCoinsFragment extends SherlockFragment
 		Nfc.unpublish(nfcManager, activity);
 
 		amountCalculatorLink.setListener(null);
-
-		addressView.setOnItemSelectedListener(null);
 
 		super.onPause();
 	}
@@ -428,11 +382,7 @@ public final class RequestCoinsFragment extends SherlockFragment
 		qrView.setImageBitmap(qrCodeBitmap);
 
 		// update nfc ndef message
-		final boolean nfcSuccess;
-		if (config.getNfcPaymentRequestEnabled())
-			nfcSuccess = Nfc.publishMimeObject(nfcManager, activity, Constants.MIMETYPE_PAYMENTREQUEST, paymentRequest, false);
-		else
-			nfcSuccess = Nfc.publishUri(nfcManager, activity, bitcoinRequest);
+		final boolean nfcSuccess = Nfc.publishMimeObject(nfcManager, activity, PaymentProtocol.MIMETYPE_PAYMENTREQUEST, paymentRequest, false);
 
 		// update initiate request message
 		final SpannableStringBuilder initiateText = new SpannableStringBuilder(getString(R.string.request_coins_fragment_initiate_request_qr));
@@ -442,7 +392,7 @@ public final class RequestCoinsFragment extends SherlockFragment
 
 		// focus linking
 		final int activeAmountViewId = amountCalculatorLink.activeTextView().getId();
-		addressView.setNextFocusUpId(activeAmountViewId);
+		acceptBluetoothPaymentView.setNextFocusUpId(activeAmountViewId);
 	}
 
 	private void updateShareIntent()
@@ -457,8 +407,7 @@ public final class RequestCoinsFragment extends SherlockFragment
 
 	private String determineBitcoinRequestStr(final boolean includeBluetoothMac)
 	{
-		final ECKey key = (ECKey) addressView.getSelectedItem();
-		final Address address = key.toAddress(Constants.NETWORK_PARAMETERS);
+		final Address address = application.determineSelectedAddress();
 		final BigInteger amount = amountCalculatorLink.getAmount();
 
 		final StringBuilder uri = new StringBuilder(BitcoinURI.convertToBitcoinURI(address, amount, null, null));
@@ -472,10 +421,10 @@ public final class RequestCoinsFragment extends SherlockFragment
 
 	private byte[] determinePaymentRequest(final boolean includeBluetoothMac)
 	{
-		final ECKey key = (ECKey) addressView.getSelectedItem();
-		final Address address = key.toAddress(Constants.NETWORK_PARAMETERS);
+		final Address address = application.determineSelectedAddress();
+		final BigInteger amount = amountCalculatorLink.getAmount();
 
-		return PaymentProtocol.createPaymentRequest(amountCalculatorLink.getAmount(), address, null,
-				includeBluetoothMac && bluetoothMac != null ? "bt:" + bluetoothMac : null).toByteArray();
+		return PaymentProtocol.createPaymentRequest(amount, address, null, includeBluetoothMac && bluetoothMac != null ? "bt:" + bluetoothMac : null)
+				.toByteArray();
 	}
 }

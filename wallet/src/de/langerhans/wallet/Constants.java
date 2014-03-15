@@ -42,6 +42,7 @@ public class Constants
 	public static final String WALLET_FILENAME_PROTOBUF = "wallet-protobuf" + FILENAME_NETWORK_SUFFIX;
 
 	public static final String WALLET_KEY_BACKUP_BASE58 = "key-backup-base58" + FILENAME_NETWORK_SUFFIX;
+	public static final String WALLET_KEY_BACKUP_PROTOBUF = "key-backup-protobuf" + FILENAME_NETWORK_SUFFIX;
 
 	public static final File EXTERNAL_WALLET_BACKUP_DIR = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
 	public static final String EXTERNAL_WALLET_KEY_BACKUP = "dogecoin-wallet-keys" + FILENAME_NETWORK_SUFFIX;
@@ -59,6 +60,7 @@ public class Constants
 	public static final String MIMETYPE_PAYMENT = "application/dogecoin-payment"; // BIP 71
 	public static final String MIMETYPE_PAYMENTACK = "application/dogecoin-paymentack"; // BIP 71
 	public static final String MIMETYPE_TRANSACTION = "application/x-dogetx";
+	public static final String MIMETYPE_BACKUP_PRIVATE_KEYS = "x-dogecoin/private-keys";
 
 	public static final int MAX_NUM_CONFIRMATIONS = 3;
 	public static final String USER_AGENT = "Dogecoin Wallet";

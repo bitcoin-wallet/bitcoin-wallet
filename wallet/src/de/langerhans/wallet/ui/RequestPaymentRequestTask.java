@@ -37,6 +37,7 @@ import com.google.dogecoin.core.Transaction;
 import de.langerhans.wallet.Constants;
 import de.langerhans.wallet.PaymentIntent;
 import de.langerhans.wallet.offline.DirectPaymentTask;
+import de.langerhans.wallet.util.PaymentProtocol;
 import de.langerhans.wallet.R;
 
 /**
@@ -94,6 +95,7 @@ public abstract class RequestPaymentRequestTask
 					{
 						connection = (HttpURLConnection) new URL(url).openConnection();
 
+						connection.setInstanceFollowRedirects(false);
 						connection.setConnectTimeout(Constants.HTTP_TIMEOUT_MS);
 						connection.setReadTimeout(Constants.HTTP_TIMEOUT_MS);
 						connection.setUseCaches(false);
@@ -101,7 +103,7 @@ public abstract class RequestPaymentRequestTask
 						connection.setDoOutput(false);
 
 						connection.setRequestMethod("GET");
-						connection.setRequestProperty("Accept", Constants.MIMETYPE_PAYMENTREQUEST);
+						connection.setRequestProperty("Accept", PaymentProtocol.MIMETYPE_PAYMENTREQUEST);
 						if (userAgent != null)
 							connection.addRequestProperty("User-Agent", userAgent);
 						connection.connect();

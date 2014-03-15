@@ -84,7 +84,6 @@
 	<string name="send_coins_options_empty">Vider le portefeuille</string>
 	<string name="send_coins_address_context_clear_title">Saisir une nouvelle adresse</string>
 	<string name="request_coins_activity_title">Demander des Dogecoins</string>
-	<string name="request_coins_fragment_address_label">Adresse à laquelle demander</string>
 	<string name="request_coins_fragment_amount_label">Montant demandé (optionnel)</string>
 	<string name="request_coins_fragment_initiate_request_qr">Faites numériser ce code par l\'expéditeur.</string>
 	<string name="request_coins_fragment_initiate_request_nfc">Ou toucher un appareil ayant la NFC.</string>

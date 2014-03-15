@@ -956,7 +956,7 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 		intent.putExtra(Intent.EXTRA_TEXT,
 				getString(R.string.export_keys_dialog_mail_text) + "\n\n" + String.format(Constants.WEBMARKET_APP_URL, getPackageName()) + "\n\n"
 						+ Constants.SOURCE_URL + '\n');
-		intent.setType("x-dogecoin/private-keys");
+		intent.setType(Constants.MIMETYPE_BACKUP_PRIVATE_KEYS);
 		intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file));
 
 		try

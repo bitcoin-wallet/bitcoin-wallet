@@ -1,3 +1,8 @@
+v3.39
+
+* Usage of BIP70 when initiating payments via NFC (tap-to-pay) is now a supported feature.
+* New translation into Arabic.
+
 v3.38
 
 * Supports BIP70 payment protocol for in-app payments.

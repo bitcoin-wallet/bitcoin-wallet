@@ -64,7 +64,6 @@
 	<string name="send_coins_error_msg">בעיה בשליחת מטבעות</string>
 	<string name="send_coins_address_context_clear_title">הקש כתובת חדשה</string>
 	<string name="request_coins_activity_title">בקש ביטקוין</string>
-	<string name="request_coins_fragment_address_label">כתובת לבקשה</string>
 	<string name="request_coins_fragment_amount_label">כמות לבקשה</string>
 	<string name="request_coins_fragment_initiate_request_qr">תן לשולח לסרוק ברקוד זה</string>
 	<string name="request_coins_fragment_initiate_request_nfc">או גע עם מכשיר  NFC</string>

@@ -68,7 +68,6 @@
 	<string name="send_coins_options_empty">Carteira vazia</string>
 	<string name="send_coins_address_context_clear_title">Inserir novo endereço</string>
 	<string name="request_coins_activity_title">Solicitar Dogecoins</string>
-	<string name="request_coins_fragment_address_label">Endereço para solicitação</string>
 	<string name="request_coins_fragment_amount_label">Quantidade solicitada (opcional)</string>
 	<string name="request_coins_fragment_initiate_request_qr">Tenha o código lido pelo emissor.</string>
 	<string name="request_coins_fragment_initiate_request_nfc">Ou toque em um dispositivo NFC habilitado.</string>

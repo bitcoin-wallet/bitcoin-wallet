@@ -109,6 +109,7 @@ public abstract class DirectPaymentTask
 					{
 						connection = (HttpURLConnection) new URL(url).openConnection();
 
+						connection.setInstanceFollowRedirects(false);
 						connection.setConnectTimeout(Constants.HTTP_TIMEOUT_MS);
 						connection.setReadTimeout(Constants.HTTP_TIMEOUT_MS);
 						connection.setUseCaches(false);
@@ -116,8 +117,8 @@ public abstract class DirectPaymentTask
 						connection.setDoOutput(true);
 
 						connection.setRequestMethod("POST");
-						connection.setRequestProperty("Content-Type", Constants.MIMETYPE_PAYMENT);
-						connection.setRequestProperty("Accept", Constants.MIMETYPE_PAYMENTACK);
+						connection.setRequestProperty("Content-Type", PaymentProtocol.MIMETYPE_PAYMENT);
+						connection.setRequestProperty("Accept", PaymentProtocol.MIMETYPE_PAYMENTACK);
 						connection.setRequestProperty("Content-Length", Integer.toString(payment.getSerializedSize()));
 						if (userAgent != null)
 							connection.addRequestProperty("User-Agent", userAgent);
