@@ -37,8 +37,6 @@ public class Constants
 	public static final NetworkParameters NETWORK_PARAMETERS = TEST ? TestNet3Params.get() : MainNetParams.get();
 	private static final String FILENAME_NETWORK_SUFFIX = NETWORK_PARAMETERS.getId().equals(NetworkParameters.ID_MAINNET) ? "" : "-testnet";
 
-	public static final String WALLET_FILENAME = "wallet" + FILENAME_NETWORK_SUFFIX;
-
 	public static final String WALLET_FILENAME_PROTOBUF = "wallet-protobuf" + FILENAME_NETWORK_SUFFIX;
 
 	public static final String WALLET_KEY_BACKUP_BASE58 = "key-backup-base58" + FILENAME_NETWORK_SUFFIX;
@@ -106,31 +104,9 @@ public class Constants
 	public static final String VERSION_URL = "http://parasprite.net:8081/version";
 	public static final int HTTP_TIMEOUT_MS = 15 * (int) DateUtils.SECOND_IN_MILLIS;
 
-	public static final String PREFS_KEY_LAST_VERSION = "last_version";
-	public static final String PREFS_KEY_LAST_USED = "last_used";
-	public static final String PREFS_KEY_BEST_CHAIN_HEIGHT_EVER = "best_chain_height_ever";
-	public static final String PREFS_KEY_ALERT_OLD_SDK_DISMISSED = "alert_old_sdk_dismissed";
-    public static final String PREFS_KEY_REMIND_BACKUP = "remind_backup";
-    public static final String PREFS_KEY_AUTOSYNC_SWITCH = "auto_sync_switch";
-    public static final String PREFS_KEY_AUTOSYNC_CHARGE = "auto_sync_charging";
-    public static final String PREFS_KEY_AUTOSYNC_WIFI = "auto_sync_wifi";
-    public static final String PREFS_KEY_EXCHANGE_PROVIDER = "exchange_provider";
-    public static final String PREFS_KEY_EXCHANGE_FORCE_REFRESH = "exchange_force";
-
-	public static final String PREFS_KEY_CONNECTIVITY_NOTIFICATION = "connectivity_notification";
-	public static final String PREFS_KEY_SELECTED_ADDRESS = "selected_address";
-	public static final String PREFS_KEY_EXCHANGE_CURRENCY = "exchange_currency";
-	public static final String PREFS_KEY_TRUSTED_PEER = "trusted_peer";
-	public static final String PREFS_KEY_TRUSTED_PEER_ONLY = "trusted_peer_only";
-	public static final String PREFS_KEY_LABS_BLUETOOTH_OFFLINE_TRANSACTIONS = "labs_bluetooth_offline_transactions";
-	public static final String PREFS_KEY_BTC_PRECISION = "btc_precision";
-	public static final String PREFS_DEFAULT_BTC_PRECISION = "4";
-	public static final String PREFS_KEY_DISCLAIMER = "disclaimer";
-
 	public static final long LAST_USAGE_THRESHOLD_JUST_MS = DateUtils.HOUR_IN_MILLIS;
 	public static final long LAST_USAGE_THRESHOLD_RECENTLY_MS = 2 * DateUtils.DAY_IN_MILLIS;
 
-	public static final int SDK_JELLY_BEAN = 16;
 	public static final int SDK_JELLY_BEAN_MR2 = 18;
 
 	public static final int MEMORY_CLASS_LOWEND = 48;

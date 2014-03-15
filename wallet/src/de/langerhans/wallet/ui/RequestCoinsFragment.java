@@ -18,6 +18,7 @@
 package de.langerhans.wallet.ui;
 
 import java.math.BigInteger;
+import java.util.List;
 
 import javax.annotation.CheckForNull;
 

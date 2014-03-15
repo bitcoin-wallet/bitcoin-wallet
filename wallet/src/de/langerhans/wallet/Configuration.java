@@ -49,13 +49,19 @@ public class Configuration
 	private static final String PREFS_KEY_LABS_QR_PAYMENT_REQUEST = "labs_qr_payment_request";
 
 	private static final String PREFS_KEY_LAST_VERSION = "last_version";
-	private static final String PREFS_KEY_LAST_USED = "last_used";
 	private static final String PREFS_KEY_BEST_CHAIN_HEIGHT_EVER = "best_chain_height_ever";
 	private static final String PREFS_KEY_CACHED_EXCHANGE_CURRENCY = "cached_exchange_currency";
 	private static final String PREFS_KEY_CACHED_EXCHANGE_RATE = "cached_exchange_rate";
 	private static final String PREFS_KEY_LAST_EXCHANGE_DIRECTION = "last_exchange_direction";
 	private static final String PREFS_KEY_CHANGE_LOG_VERSION = "change_log_version";
 	public static final String PREFS_KEY_REMIND_BACKUP = "remind_backup";
+
+    public static final String PREFS_KEY_LAST_USED = "last_used";
+    public static final String PREFS_KEY_AUTOSYNC_SWITCH = "auto_sync_switch";
+    public static final String PREFS_KEY_AUTOSYNC_CHARGE = "auto_sync_charging";
+    public static final String PREFS_KEY_AUTOSYNC_WIFI = "auto_sync_wifi";
+    public static final String PREFS_KEY_EXCHANGE_PROVIDER = "exchange_provider";
+    public static final String PREFS_KEY_EXCHANGE_FORCE_REFRESH = "exchange_force";
 
 	private static final String PREFS_DEFAULT_BTC_PRECISION = "4";
 

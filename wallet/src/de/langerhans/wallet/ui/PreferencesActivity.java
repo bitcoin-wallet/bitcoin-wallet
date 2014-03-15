@@ -187,9 +187,9 @@ public final class PreferencesActivity extends SherlockPreferenceActivity implem
 			dialog.show();
 
 			return true;
-		} else if (Constants.PREFS_KEY_EXCHANGE_PROVIDER.equals(key))
+		} else if (Configuration.PREFS_KEY_EXCHANGE_PROVIDER.equals(key))
         {
-            getPreferenceManager().getSharedPreferences().edit().putBoolean(Constants.PREFS_KEY_EXCHANGE_FORCE_REFRESH, true).commit();
+            getPreferenceManager().getSharedPreferences().edit().putBoolean(Configuration.PREFS_KEY_EXCHANGE_FORCE_REFRESH, true).commit();
         }
 
 		return false;

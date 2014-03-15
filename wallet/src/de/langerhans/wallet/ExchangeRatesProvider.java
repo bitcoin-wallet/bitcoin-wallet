@@ -47,7 +47,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.MatrixCursor;
 import android.net.Uri;
-import android.preference.PreferenceManager;
 import android.provider.BaseColumns;
 import android.text.format.DateUtils;
 import de.langerhans.wallet.util.GenericUtils;
@@ -149,10 +148,10 @@ public class ExchangeRatesProvider extends ContentProvider
 	{
 		final long now = System.currentTimeMillis();
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getContext());
-        int provider = Integer.parseInt(sp.getString(Constants.PREFS_KEY_EXCHANGE_PROVIDER, "0"));
-        boolean forceRefresh = sp.getBoolean(Constants.PREFS_KEY_EXCHANGE_FORCE_REFRESH, false);
+        int provider = Integer.parseInt(sp.getString(Configuration.PREFS_KEY_EXCHANGE_PROVIDER, "0"));
+        boolean forceRefresh = sp.getBoolean(Configuration.PREFS_KEY_EXCHANGE_FORCE_REFRESH, false);
         if (forceRefresh)
-            sp.edit().putBoolean(Constants.PREFS_KEY_EXCHANGE_FORCE_REFRESH, false).commit();
+            sp.edit().putBoolean(Configuration.PREFS_KEY_EXCHANGE_FORCE_REFRESH, false).commit();
 
 		if (lastUpdated == 0 || now - lastUpdated > UPDATE_FREQ_MS)
 		{
