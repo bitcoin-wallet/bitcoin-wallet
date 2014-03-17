@@ -28,6 +28,8 @@ public class YahooRateLookup extends RateLookup {
     }
 
     public Map<String, ExchangeRatesProvider.ExchangeRate> getRates(ExchangeRatesProvider.ExchangeRate usdRate) {
+        if(usdRate == null)
+            return null;
         final BigDecimal decUsdRate = GenericUtils.fromNanoCoins(usdRate.rate, 0);
         if(getData())
         {
