@@ -21,7 +21,6 @@ import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -31,22 +30,17 @@ import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map;
 import java.util.TreeMap;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
 
-import android.util.Log;
-import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.exchange.GoogleRateLookup;
+import de.schildbach.wallet.exchange.RateLookup;
+import de.schildbach.wallet.exchange.YahooRateLookup;
 import de.schildbach.wallet.util.GenericUtils;
 import de.schildbach.wallet.util.Io;
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import android.content.ContentProvider;
 import android.content.ContentValues;
 import android.database.Cursor;
@@ -94,8 +88,9 @@ public class ExchangeRatesProvider extends ContentProvider
     private static final String[] BTCE_FIELDS = new String[] { "avg" };
     private static final URL BTCE_EURO_URL;
     private static final String[] BTCE_EURO_FIELDS = new String[] { "avg" };
-	private static final URL VIRCUREX_URL;
-	private static final String[] VIRCUREX_FIELDS = new String[] { "value" };
+    private static final URL KRAKEN_URL;
+    private static final URL KRAKEN_EURO_URL;
+	private static final String[] KRAKEN_FIELDS = new String[] { "value" };
 
 	static
 	{
@@ -103,7 +98,8 @@ public class ExchangeRatesProvider extends ContentProvider
 		{
             BTCE_URL = new URL("https://btc-e.com/api/2/ltc_usd/ticker");
             BTCE_EURO_URL = new URL("https://btc-e.com/api/2/ltc_eur/ticker");
-            VIRCUREX_URL = new URL("https://api.vircurex.com/api/get_last_trade.json?base=LTC&alt=USD");
+            KRAKEN_URL = new URL("https://api.kraken.com/0/public/Ticker?pair=XLTCZUSD");
+            KRAKEN_EURO_URL = new URL("https://api.kraken.com/0/public/Ticker?pair=XLTCZEUR");
 		}
 		catch (final MalformedURLException x)
 		{
@@ -138,10 +134,12 @@ public class ExchangeRatesProvider extends ContentProvider
 			if (exchangeRates == null)
 				newExchangeRates = requestExchangeRates(BTCE_URL, "USD", BTCE_FIELDS);
 			if (exchangeRates == null && newExchangeRates == null)
-				newExchangeRates = requestExchangeRates(VIRCUREX_URL, "USD", VIRCUREX_FIELDS);
+				newExchangeRates = requestExchangeRates(KRAKEN_URL, "USD", KRAKEN_FIELDS);
 
             // Get Euro rates as a fallback if Yahoo! fails below
             Map<String, ExchangeRate> euroRate = requestExchangeRates(BTCE_EURO_URL, "EUR", BTCE_EURO_FIELDS);
+            if (euroRate == null)
+                euroRate = requestExchangeRates(KRAKEN_EURO_URL, "EUR", KRAKEN_FIELDS);
             if(euroRate != null) {
                 if(newExchangeRates != null)
                     newExchangeRates.putAll(euroRate);
@@ -151,16 +149,18 @@ public class ExchangeRatesProvider extends ContentProvider
 
             if (newExchangeRates != null)
 			{
-                // Get USD conversion exchange rates from Google
+                // Get USD conversion exchange rates from Google/Yahoo
                 ExchangeRate usdRate = newExchangeRates.get("USD");
-                RateProvider providers[] = {new GoogleRatesProvider(), new YahooRatesProvider()};
+                RateLookup providers[] = {new GoogleRateLookup(), new YahooRateLookup()};
                 Map<String, ExchangeRate> fiatRates;
-                for(RateProvider provider : providers) {
+                for(RateLookup provider : providers) {
                     fiatRates = provider.getRates(usdRate);
                     if(fiatRates != null) {
                         // Remove EUR if we have a better source above
                         if(euroRate != null)
                             fiatRates.remove("EUR");
+                        // Remove USD rate because we already have it
+                        fiatRates.remove("USD");
                         newExchangeRates.putAll(fiatRates);
                         break;
                     }
@@ -291,7 +291,7 @@ public class ExchangeRatesProvider extends ContentProvider
 							{
 								try
 								{
-									final BigInteger rate = GenericUtils.toNanoCoins(rateStr, 0);
+									final BigInteger rate = GenericUtils.toNanoCoinsRounded(rateStr, 0);
 
 									if (rate.signum() > 0)
 									{
@@ -341,198 +341,4 @@ public class ExchangeRatesProvider extends ContentProvider
 
 		return null;
 	}
-
-    abstract class RateProvider {
-        abstract Map<String, ExchangeRate> getRates(ExchangeRate usdRate);
-    }
-
-    class GoogleRatesProvider extends RateProvider {
-        public Map<String, ExchangeRate> getRates(ExchangeRate usdRate) {
-            URL url = null;
-            final BigDecimal decUsdRate = GenericUtils.fromNanoCoins(usdRate.rate, 0);
-            try {
-                url = new URL("http://spreadsheets.google.com/feeds/list/0Av2v4lMxiJ1AdE9laEZJdzhmMzdmcW90VWNfUTYtM2c/2/public/basic?alt=json");
-            } catch(MalformedURLException e) {
-                Log.i(ExchangeRatesProvider.TAG, "Failed to parse Google Spreadsheets URL");
-                return null;
-            }
-            HttpURLConnection connection = null;
-            Reader reader = null;
-
-            try
-            {
-                connection = (HttpURLConnection) url.openConnection();
-                connection.setConnectTimeout(Constants.HTTP_TIMEOUT_MS);
-                connection.setReadTimeout(Constants.HTTP_TIMEOUT_MS);
-                connection.connect();
-
-                final int responseCode = connection.getResponseCode();
-                if (responseCode == HttpURLConnection.HTTP_OK)
-                {
-                    reader = new InputStreamReader(new BufferedInputStream(connection.getInputStream(), 1024), Constants.UTF_8);
-                    final StringBuilder content = new StringBuilder();
-                    Io.copy(reader, content);
-
-                    final Map<String, ExchangeRate> rates = new TreeMap<String, ExchangeRate>();
-                    JSONObject head = new JSONObject(content.toString());
-                    JSONArray resultArray;
-
-                    try {
-                        head = head.getJSONObject("feed");
-                        resultArray = head.getJSONArray("entry");
-                        // Format: eg. _cpzh4: 3.673
-                        Pattern p = Pattern.compile("_cpzh4: ([\\d\\.]+)");
-                        for(int i = 0; i < resultArray.length(); ++i) {
-                            String currencyCd = resultArray.getJSONObject(i).getJSONObject("title").getString("$t");
-                            String rateStr = resultArray.getJSONObject(i).getJSONObject("content").getString("$t");
-                            Matcher m = p.matcher(rateStr);
-                            if(m.matches())
-                            {
-                                // Just get the good part
-                                rateStr = m.group(1);
-                                Log.d(ExchangeRatesProvider.TAG, "Currency: " + currencyCd);
-                                Log.d(ExchangeRatesProvider.TAG, "Rate: " + rateStr);
-                                Log.d(ExchangeRatesProvider.TAG, "USD Rate: " + decUsdRate.toString());
-                                BigDecimal rate = new BigDecimal(rateStr);
-                                Log.d(ExchangeRatesProvider.TAG, "Converted Rate: " + rate.toString());
-                                rate = decUsdRate.multiply(rate);
-                                Log.d(ExchangeRatesProvider.TAG, "Final Rate: " + rate.toString());
-                                if (rate.signum() > 0)
-                                {
-                                    rates.put(currencyCd, new ExchangeRate(currencyCd,
-                                            GenericUtils.toNanoCoins(rate.toString(), 0), url.getHost()));
-                                }
-                            }
-                        }
-                    } catch(JSONException e) {
-                        Log.i(ExchangeRatesProvider.TAG, "Bad JSON response from Google Spreadsheets!: " + content.toString());
-                        return null;
-                    }
-                    return rates;
-                } else {
-                    Log.i(ExchangeRatesProvider.TAG, "Bad response code from Google Spreadsheets!: " + responseCode);
-                }
-            }
-            catch (final Exception x)
-            {
-                Log.w(ExchangeRatesProvider.TAG, "Problem fetching exchange rates", x);
-            }
-            finally
-            {
-                if (reader != null)
-                {
-                    try
-                    {
-                        reader.close();
-                    }
-                    catch (final IOException x)
-                    {
-                        // swallow
-                    }
-                }
-
-                if (connection != null)
-                    connection.disconnect();
-            }
-            return null;
-        }
-    }
-
-    class YahooRatesProvider extends RateProvider{
-        public Map<String, ExchangeRate> getRates(ExchangeRate usdRate) {
-            // Fetch all the currencies from Yahoo!
-            URL url = null;
-            final BigDecimal decUsdRate = GenericUtils.fromNanoCoins(usdRate.rate, 0);
-            try {
-                // TODO: make this look less crappy and make it easier to add currencies.
-                url = new URL("http://query.yahooapis.com/v1/public/yql?q=select%20id%2C%20Rate%20from%20yahoo.finance.xchange" +
-                        "%20where%20pair%20in%20(%22USDEUR%22%2C%20%22USDJPY%22%2C%20%22USDBGN%22%2C%20%22USDCZK%22%2C%20" +
-                        "%22USDDKK%22%2C%20%22USDGBP%22%2C%20%22USDHUF%22%2C%20%22USDLTL%22%2C%20%22USDLVL%22%2C%20%22USDPLN" +
-                        "%22%2C%20%22USDRON%22%2C%20%22USDSEK%22%2C%20%22USDCHF%22%2C%20%22USDNOK%22%2C%20%22USDHRK%22%2C%20" +
-                        "%22USDRUB%22%2C%20%22USDTRY%22%2C%20%22USDAUD%22%2C%20%22USDBRL%22%2C%20%22USDCAD%22%2C%20%22USDCNY" +
-                        "%22%2C%20%22USDHKD%22%2C%20%22USDIDR%22%2C%20%22USDILS%22%2C%20%22USDINR%22%2C%20%22USDKRW%22%2C%20" +
-                        "%22USDMXN%22%2C%20%22USDMYR%22%2C%20%22USDNZD%22%2C%20%22USDPHP%22%2C%20%22USDSGD%22%2C%20%22USDTHB" +
-                        "%22%2C%20%22USDZAR%22%2C%20%22USDISK%22)&format=json&env=store%3A%2F%2Fdatatables.org" +
-                        "%2Falltableswithkeys&callback=");
-            } catch (MalformedURLException e) {
-                Log.i(ExchangeRatesProvider.TAG, "Failed to parse Yahoo! Finance URL");
-                return null;
-            }
-
-            HttpURLConnection connection = null;
-            Reader reader = null;
-
-            try
-            {
-                connection = (HttpURLConnection) url.openConnection();
-                connection.setConnectTimeout(Constants.HTTP_TIMEOUT_MS);
-                connection.setReadTimeout(Constants.HTTP_TIMEOUT_MS);
-                connection.connect();
-
-                final int responseCode = connection.getResponseCode();
-                if (responseCode == HttpURLConnection.HTTP_OK)
-                {
-                    reader = new InputStreamReader(new BufferedInputStream(connection.getInputStream(), 1024), Constants.UTF_8);
-                    final StringBuilder content = new StringBuilder();
-                    Io.copy(reader, content);
-
-                    final Map<String, ExchangeRate> rates = new TreeMap<String, ExchangeRate>();
-                    JSONObject head = new JSONObject(content.toString());
-                    JSONArray resultArray;
-                    try {
-                        head = head.getJSONObject("query");
-                        head = head.getJSONObject("results");
-                        resultArray = head.getJSONArray("rate");
-                    } catch(JSONException e) {
-                        Log.i(ExchangeRatesProvider.TAG, "Bad JSON response from Yahoo!: " + content.toString());
-                        return null;
-                    }
-                    for(int i = 0; i < resultArray.length(); ++i) {
-                        final JSONObject rateObj = resultArray.getJSONObject(i);
-                        String currencyCd = rateObj.getString("id").substring(3);
-                        Log.d(ExchangeRatesProvider.TAG, "Currency: " + currencyCd);
-                        String rateStr = rateObj.getString("Rate");
-                        Log.d(ExchangeRatesProvider.TAG, "Rate: " + rateStr);
-                        Log.d(ExchangeRatesProvider.TAG, "USD Rate: " + decUsdRate.toString());
-                        BigDecimal rate = new BigDecimal(rateStr);
-                        Log.d(ExchangeRatesProvider.TAG, "Converted Rate: " + rate.toString());
-                        rate = decUsdRate.multiply(rate);
-                        Log.d(ExchangeRatesProvider.TAG, "Final Rate: " + rate.toString());
-                        if (rate.signum() > 0)
-                        {
-                            rates.put(currencyCd, new ExchangeRate(currencyCd,
-                                    GenericUtils.toNanoCoins(rate.toString(), 0), url.getHost()));
-                        }
-                    }
-                    Log.i(ExchangeRatesProvider.TAG, "Fetched exchange rates from " + url);
-                    return rates;
-                } else {
-                    Log.i(ExchangeRatesProvider.TAG, "Bad response code from Yahoo!: " + responseCode);
-                }
-            }
-            catch (final Exception x)
-            {
-                Log.w(ExchangeRatesProvider.TAG, "Problem fetching exchange rates", x);
-            }
-            finally
-            {
-                if (reader != null)
-                {
-                    try
-                    {
-                        reader.close();
-                    }
-                    catch (final IOException x)
-                    {
-                        // swallow
-                    }
-                }
-
-                if (connection != null)
-                    connection.disconnect();
-            }
-
-            return null;
-        }
-    }
 }
