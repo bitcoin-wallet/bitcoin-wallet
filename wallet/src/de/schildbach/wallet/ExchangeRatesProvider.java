@@ -274,7 +274,7 @@ public class ExchangeRatesProvider extends ContentProvider
 
 				reader = new InputStreamReader(is, Constants.UTF_8);
 				final StringBuilder content = new StringBuilder();
-				Io.copy(reader, content);
+				final long length = Io.copy(reader, content);
 
 				final Map<String, ExchangeRate> rates = new TreeMap<String, ExchangeRate>();
 
@@ -311,7 +311,8 @@ public class ExchangeRatesProvider extends ContentProvider
 					}
 				}
 
-				log.info("fetched exchange rates from {} ({}), took {} ms", url, contentEncoding, (System.currentTimeMillis() - start));
+				log.info("fetched exchange rates from {} ({}), {} chars, took {} ms", url, contentEncoding, length, System.currentTimeMillis()
+						- start);
 
 				return rates;
 			}
