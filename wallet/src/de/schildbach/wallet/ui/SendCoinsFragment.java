@@ -25,7 +25,6 @@ import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import org.bitcoin.protocols.payments.Protos;
 import org.bitcoin.protocols.payments.Protos.Payment;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -85,8 +84,6 @@ import com.google.bitcoin.core.TransactionConfidence.ConfidenceType;
 import com.google.bitcoin.core.Wallet;
 import com.google.bitcoin.core.Wallet.BalanceType;
 import com.google.bitcoin.core.Wallet.SendRequest;
-import com.google.bitcoin.script.ScriptBuilder;
-import com.google.protobuf.ByteString;
 
 import de.schildbach.wallet.AddressBookProvider;
 import de.schildbach.wallet.Configuration;
@@ -847,7 +844,8 @@ public final class SendCoinsFragment extends SherlockFragment
 
 				sentTransaction.getConfidence().addEventListener(sentTransactionConfidenceListener);
 
-				final Payment payment = createPaymentMessage(sentTransaction, returnAddress, finalAmount, null, paymentIntent.payeeData);
+				final Payment payment = PaymentProtocol.createPaymentMessage(sentTransaction, returnAddress, finalAmount, null,
+						paymentIntent.payeeData);
 
 				directPay(payment);
 
@@ -1335,32 +1333,5 @@ public final class SendCoinsFragment extends SherlockFragment
 				dialog.show();
 			}
 		}, application.httpUserAgent()).requestPaymentRequest(paymentRequestUrl);
-	}
-
-	private static Payment createPaymentMessage(@Nonnull final Transaction transaction, @Nullable final Address refundAddress,
-			@Nullable final BigInteger refundAmount, @Nullable final String memo, @Nullable final byte[] merchantData)
-	{
-		final Protos.Payment.Builder builder = Protos.Payment.newBuilder();
-
-		builder.addTransactions(ByteString.copyFrom(transaction.unsafeBitcoinSerialize()));
-
-		if (refundAddress != null)
-		{
-			if (refundAmount.compareTo(BigInteger.valueOf(Long.MAX_VALUE)) > 0)
-				throw new IllegalArgumentException("refund amount too big for protobuf: " + refundAmount);
-
-			final Protos.Output.Builder refundOutput = Protos.Output.newBuilder();
-			refundOutput.setAmount(refundAmount.longValue());
-			refundOutput.setScript(ByteString.copyFrom(ScriptBuilder.createOutputScript(refundAddress).getProgram()));
-			builder.addRefundTo(refundOutput);
-		}
-
-		if (memo != null)
-			builder.setMemo(memo);
-
-		if (merchantData != null)
-			builder.setMerchantData(ByteString.copyFrom(merchantData));
-
-		return builder.build();
 	}
 }
