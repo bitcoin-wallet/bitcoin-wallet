@@ -33,6 +33,7 @@ import java.util.TreeMap;
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
 
+import android.util.Log;
 import de.schildbach.wallet.exchange.GoogleRateLookup;
 import de.schildbach.wallet.exchange.RateLookup;
 import de.schildbach.wallet.exchange.YahooRateLookup;
@@ -131,16 +132,34 @@ public class ExchangeRatesProvider extends ContentProvider
 		{
 			Map<String, ExchangeRate> newExchangeRates = null;
             // Attempt to get USD exchange rates from all providers.  Stop after first.
-			if (exchangeRates == null)
-				newExchangeRates = requestExchangeRates(BTCE_URL, "USD", BTCE_FIELDS);
-			if (exchangeRates == null && newExchangeRates == null)
+			newExchangeRates = requestExchangeRates(BTCE_URL, "USD", BTCE_FIELDS);
+
+			if (newExchangeRates == null)
+            {
+                Log.i(TAG, "Failed to fetch BTCE USD rates");
 				newExchangeRates = requestExchangeRates(KRAKEN_URL, "USD", KRAKEN_FIELDS);
+            }
+
+            if (newExchangeRates == null)
+            {
+                Log.i(TAG, "Failed to fetch KRAKEN USD rates");
+                // Continue without USD rate (shouldn't generally happen)
+            }
 
             // Get Euro rates as a fallback if Yahoo! fails below
             Map<String, ExchangeRate> euroRate = requestExchangeRates(BTCE_EURO_URL, "EUR", BTCE_EURO_FIELDS);
             if (euroRate == null)
+            {
+                Log.i(TAG, "Failed to fetch BTCE EUR rates");
                 euroRate = requestExchangeRates(KRAKEN_EURO_URL, "EUR", KRAKEN_FIELDS);
-            if(euroRate != null) {
+            }
+
+            if (euroRate == null)
+            {
+                Log.i(TAG, "Failed to fetch KRAKEN EUR rates");
+            }
+            else
+            {
                 if(newExchangeRates != null)
                     newExchangeRates.putAll(euroRate);
                 else
