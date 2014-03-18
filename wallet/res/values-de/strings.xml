@@ -24,7 +24,7 @@
 	<string name="exchange_rates_fragment_default">(Standard)</string>
 	<string name="exchange_rates_fragment_rate">Kurs</string>
 	<string name="exchange_rates_fragment_balance">Guthaben</string>
-	<string name="exchange_rates_fragment_source">Kurs von %s abgerufen</string>
+	<string name="exchange_rates_fragment_source">Kurs von %s</string>
 	<string name="exchange_rates_context_set_as_default_title">Als Standard-Fremdwährung setzen</string>
 	<string name="wallet_transactions_fragment_tab_received">Empfangen</string>
 	<string name="wallet_transactions_fragment_tab_all">Alle</string>

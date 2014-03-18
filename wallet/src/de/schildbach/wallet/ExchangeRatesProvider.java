@@ -90,8 +90,10 @@ public class ExchangeRatesProvider extends ContentProvider
 
 	private static final URL BITCOINAVERAGE_URL;
 	private static final String[] BITCOINAVERAGE_FIELDS = new String[] { "24h_avg", "last" };
+	private static final String BITCOINAVERAGE_SOURCE = "BitcoinAverage.com";
 	private static final URL BLOCKCHAININFO_URL;
 	private static final String[] BLOCKCHAININFO_FIELDS = new String[] { "15m" };
+	private static final String BLOCKCHAININFO_SOURCE = "blockchain.info";
 
 	// https://bitmarket.eu/api/ticker
 
@@ -145,9 +147,9 @@ public class ExchangeRatesProvider extends ContentProvider
 		{
 			Map<String, ExchangeRate> newExchangeRates = null;
 			if (newExchangeRates == null)
-				newExchangeRates = requestExchangeRates(BITCOINAVERAGE_URL, userAgent, BITCOINAVERAGE_FIELDS);
+				newExchangeRates = requestExchangeRates(BITCOINAVERAGE_URL, userAgent, BITCOINAVERAGE_SOURCE, BITCOINAVERAGE_FIELDS);
 			if (newExchangeRates == null)
-				newExchangeRates = requestExchangeRates(BLOCKCHAININFO_URL, userAgent, BLOCKCHAININFO_FIELDS);
+				newExchangeRates = requestExchangeRates(BLOCKCHAININFO_URL, userAgent, BLOCKCHAININFO_SOURCE, BLOCKCHAININFO_FIELDS);
 
 			if (newExchangeRates != null)
 			{
@@ -243,7 +245,7 @@ public class ExchangeRatesProvider extends ContentProvider
 		throw new UnsupportedOperationException();
 	}
 
-	private static Map<String, ExchangeRate> requestExchangeRates(final URL url, final String userAgent, final String... fields)
+	private static Map<String, ExchangeRate> requestExchangeRates(final URL url, final String userAgent, final String source, final String... fields)
 	{
 		final long start = System.currentTimeMillis();
 
@@ -296,7 +298,7 @@ public class ExchangeRatesProvider extends ContentProvider
 
 									if (rate.signum() > 0)
 									{
-										rates.put(currencyCode, new ExchangeRate(currencyCode, rate, url.getHost()));
+										rates.put(currencyCode, new ExchangeRate(currencyCode, rate, source));
 										break;
 									}
 								}

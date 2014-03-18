@@ -22,7 +22,7 @@
 	<string name="exchange_rates_fragment_default">(default)</string>
 	<string name="exchange_rates_fragment_rate">rate</string>
 	<string name="exchange_rates_fragment_balance">balance</string>
-	<string name="exchange_rates_fragment_source">Price fetched from %s</string>
+	<string name="exchange_rates_fragment_source">Price from %s</string>
 	<string name="exchange_rates_context_set_as_default_title">Set as default foreign currency</string>
 	<string name="wallet_transactions_fragment_tab_received">Received</string>
 	<string name="wallet_transactions_fragment_tab_all">Both</string>
