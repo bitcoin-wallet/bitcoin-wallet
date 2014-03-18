@@ -36,7 +36,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
-import android.support.v4.app.ShareCompat.IntentBuilder;
 import android.support.v4.content.Loader;
 import android.text.ClipboardManager;
 import android.text.SpannableStringBuilder;
@@ -54,7 +53,6 @@ import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
-import com.actionbarsherlock.widget.ShareActionProvider;
 import com.google.bitcoin.core.Address;
 import com.google.bitcoin.core.Wallet;
 import com.google.bitcoin.uri.BitcoinURI;
@@ -84,7 +82,6 @@ public final class RequestCoinsFragment extends SherlockFragment
 	private NfcManager nfcManager;
 	private LoaderManager loaderManager;
 	private ClipboardManager clipboardManager;
-	private ShareActionProvider shareActionProvider;
 	@CheckForNull
 	private BluetoothAdapter bluetoothAdapter;
 
@@ -233,7 +230,6 @@ public final class RequestCoinsFragment extends SherlockFragment
 			public void changed()
 			{
 				updateView();
-				updateShareIntent();
 			}
 
 			@Override
@@ -309,11 +305,6 @@ public final class RequestCoinsFragment extends SherlockFragment
 	{
 		inflater.inflate(R.menu.request_coins_fragment_options, menu);
 
-		final MenuItem shareItem = menu.findItem(R.id.request_coins_options_share);
-		shareActionProvider = (ShareActionProvider) shareItem.getActionProvider();
-
-		updateShareIntent();
-
 		super.onCreateOptionsMenu(menu, inflater);
 	}
 
@@ -324,6 +315,10 @@ public final class RequestCoinsFragment extends SherlockFragment
 		{
 			case R.id.request_coins_options_copy:
 				handleCopy();
+				return true;
+
+			case R.id.request_coins_options_share:
+				handleShare();
 				return true;
 
 			case R.id.request_coins_options_local_app:
@@ -339,6 +334,14 @@ public final class RequestCoinsFragment extends SherlockFragment
 		final String request = determineBitcoinRequestStr(false);
 		clipboardManager.setText(request);
 		activity.toast(R.string.request_coins_clipboard_msg);
+	}
+
+	private void handleShare()
+	{
+		final Intent intent = new Intent(Intent.ACTION_SEND);
+		intent.setType("text/plain");
+		intent.putExtra(Intent.EXTRA_TEXT, determineBitcoinRequestStr(false));
+		startActivity(Intent.createChooser(intent, getString(R.string.request_coins_share_dialog_title)));
 	}
 
 	private void handleLocalApp()
@@ -378,16 +381,6 @@ public final class RequestCoinsFragment extends SherlockFragment
 		// focus linking
 		final int activeAmountViewId = amountCalculatorLink.activeTextView().getId();
 		acceptBluetoothPaymentView.setNextFocusUpId(activeAmountViewId);
-	}
-
-	private void updateShareIntent()
-	{
-		// update share intent
-		final IntentBuilder builder = IntentBuilder.from(activity);
-		builder.setText(determineBitcoinRequestStr(false));
-		builder.setType("text/plain");
-		builder.setChooserTitle(R.string.request_coins_share_dialog_title);
-		shareActionProvider.setShareIntent(builder.getIntent());
 	}
 
 	private String determineBitcoinRequestStr(final boolean includeBluetoothMac)

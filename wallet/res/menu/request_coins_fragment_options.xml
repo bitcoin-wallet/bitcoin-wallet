@@ -8,7 +8,6 @@
 		android:title="@string/button_copy"/>
 	<item
 		android:id="@+id/request_coins_options_share"
-		android:actionProviderClass="com.actionbarsherlock.widget.ShareActionProvider"
 		android:icon="@drawable/ic_action_share"
 		android:showAsAction="always|withText"
 		android:title="@string/button_share"/>
