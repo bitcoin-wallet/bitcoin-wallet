@@ -19,6 +19,7 @@ package de.schildbach.wallet;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.math.BigInteger;
@@ -30,6 +31,7 @@ import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.zip.GZIPInputStream;
 
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
@@ -256,12 +258,19 @@ public class ExchangeRatesProvider extends ContentProvider
 			connection.setConnectTimeout(Constants.HTTP_TIMEOUT_MS);
 			connection.setReadTimeout(Constants.HTTP_TIMEOUT_MS);
 			connection.addRequestProperty("User-Agent", userAgent);
+			connection.addRequestProperty("Accept-Encoding", "gzip");
 			connection.connect();
 
 			final int responseCode = connection.getResponseCode();
 			if (responseCode == HttpURLConnection.HTTP_OK)
 			{
-				reader = new InputStreamReader(new BufferedInputStream(connection.getInputStream(), 1024), Constants.UTF_8);
+				final String contentEncoding = connection.getContentEncoding();
+
+				InputStream is = new BufferedInputStream(connection.getInputStream(), 1024);
+				if ("gzip".equalsIgnoreCase(contentEncoding))
+					is = new GZIPInputStream(is);
+
+				reader = new InputStreamReader(is, Constants.UTF_8);
 				final StringBuilder content = new StringBuilder();
 				Io.copy(reader, content);
 
@@ -293,14 +302,14 @@ public class ExchangeRatesProvider extends ContentProvider
 								}
 								catch (final ArithmeticException x)
 								{
-									log.warn("problem fetching {} exchange rate from {}: {}", new Object[] { currencyCode, url, x.getMessage() });
+									log.warn("problem fetching {} exchange rate from {} ({}): {}", currencyCode, url, contentEncoding, x.getMessage());
 								}
 							}
 						}
 					}
 				}
 
-				log.info("fetched exchange rates from {}, took {} ms", url, (System.currentTimeMillis() - start));
+				log.info("fetched exchange rates from {} ({}), took {} ms", url, contentEncoding, (System.currentTimeMillis() - start));
 
 				return rates;
 			}
