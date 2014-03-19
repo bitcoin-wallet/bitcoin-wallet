@@ -29,7 +29,6 @@ import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 
-import de.langerhans.wallet.Constants;
 import de.langerhans.wallet.WalletApplication;
 import de.langerhans.wallet.R;
 
@@ -49,6 +48,13 @@ public abstract class AbstractWalletActivity extends SherlockFragmentActivity
 
 		super.onCreate(savedInstanceState);
 	}
+
+    @Override
+    protected void onResume()
+    {
+        application.updateLocale();
+        super.onResume();
+    }
 
 	protected WalletApplication getWalletApplication()
 	{

@@ -63,6 +63,8 @@ public class Configuration
     public static final String PREFS_KEY_EXCHANGE_PROVIDER = "exchange_provider";
     public static final String PREFS_KEY_EXCHANGE_FORCE_REFRESH = "exchange_force";
 
+    public static final String PREFS_KEY_LOCALE_OVERRIDE = "locale_override";
+
     private static final int PREFS_DEFAULT_BTC_SHIFT = 3;
     private static final int PREFS_DEFAULT_BTC_PRECISION = 2;
 
@@ -121,6 +123,12 @@ public class Configuration
 		else
 			return Constants.CURRENCY_CODE_UBTC;
 	}
+
+    public String getLocale()
+    {
+        final String locale = prefs.getString(PREFS_KEY_LOCALE_OVERRIDE, null);
+        return locale == null ? "0" : locale;
+    }
 
 	public boolean getConnectivityNotificationEnabled()
 	{

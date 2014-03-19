@@ -576,4 +576,22 @@ public class WalletApplication extends Application
 		final long now = System.currentTimeMillis();
             alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, now + alarmInterval, alarmInterval, alarmIntent);
 	}
+
+    public void updateLocale()
+    {
+        final String locale = config.getLocale();
+        if (!locale.equals("0"))
+        {
+            Locale loc;
+            android.content.res.Configuration configuration = new android.content.res.Configuration();
+            if (locale.length() > 2)
+                loc = new Locale(locale.substring(0,1), locale.substring(3,4));
+            else
+                loc = new Locale(locale);
+
+            Locale.setDefault(loc);
+            configuration.locale = loc;
+            getBaseContext().getResources().updateConfiguration(configuration, getBaseContext().getResources().getDisplayMetrics());
+        }
+    }
 }

@@ -27,6 +27,14 @@
 			android:summary="@string/preferences_trusted_peer_only_summary"
 			android:title="@string/preferences_trusted_peer_only_title" />
 
+        <ListPreference
+            android:key="locale_override"
+            android:title="Language"
+            android:summary="Select your desired language. NOTE: Close app by removing from recent apps for changes to take effect!"
+            android:entries="@array/preferences_locale_labels"
+            android:entryValues="@array/preferences_locale_values"
+            android:defaultValue="0"/>
+
 		<Preference
 			android:key="data_usage"
 			android:summary="@string/preferences_data_usage_summary"

@@ -207,6 +207,10 @@ public final class PreferencesActivity extends SherlockPreferenceActivity implem
 		{
 			application.stopBlockchainService();
 		}
+        else if (preference.equals(Configuration.PREFS_KEY_LOCALE_OVERRIDE))
+        {
+            application.updateLocale();
+        }
 
 		return true;
 	}

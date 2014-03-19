@@ -27,4 +27,61 @@
         <item>Cryptsy</item>
         <item>Vircurex</item>
     </string-array>
+
+    <string-array name="preferences_locale_values">
+        <item>0</item>
+        <item>ar</item>
+        <item>zh</item>
+        <item>zh-TW</item>
+        <item>cs</item>
+        <item>da</item>
+        <item>nl</item>
+        <item>en</item>
+        <item>eo</item>
+        <item>fr</item>
+        <item>de</item>
+        <item>el</item>
+        <item>iw</item>
+        <item>hu</item>
+        <item>id</item>
+        <item>it</item>
+        <item>ja</item>
+        <item>mk</item>
+        <item>pl</item>
+        <item>pt-BR</item>
+        <item>ru</item>
+        <item>sk</item>
+        <item>es</item>
+        <item>sv</item>
+        <item>tr</item>
+        <item>vi</item>
+    </string-array>
+    <string-array name="preferences_locale_labels">
+        <item>System default</item>
+        <item>Arabic</item>
+        <item>Chinese (Simplified)</item>
+        <item>Chinese (Traditional)</item>
+        <item>Czech</item>
+        <item>Danish</item>
+        <item>Dutch</item>
+        <item>English</item>
+        <item>Esperanto</item>
+        <item>French</item>
+        <item>German</item>
+        <item>Greek</item>
+        <item>Hebrew</item>
+        <item>Hungarian</item>
+        <item>Indonesian</item>
+        <item>Italian</item>
+        <item>Japanese</item>
+        <item>Macedonian</item>
+        <item>Polish</item>
+        <item>Portuguese</item>
+        <item>Russian</item>
+        <item>Slovak</item>
+        <item>Spanish</item>
+        <item>Swedish</item>
+        <item>Turkish</item>
+        <item>Vietnamese</item>
+    </string-array>
 </resources>
