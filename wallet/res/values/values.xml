@@ -11,14 +11,12 @@
 		<item>6</item>
 		<item>4</item>
 		<item>2/3</item>
-		<item>0/6</item>
 	</string-array>
 	<string-array name="preferences_precision_labels">
 		<item>DOGE, 8 digits</item>
 		<item>DOGE, 6 digits</item>
 		<item>DOGE, 4 digits</item>
 		<item>mDOGE, 2 digits</item>
-		<item>µDOGE, no digits</item>
 	</string-array>
 
     <string-array name="preferences_exchange_values">
