@@ -48,18 +48,34 @@
 	<string name="wallet_version_dialog_msg">Táto verzia opravuje kritické chyby. Pre viac informácií navštívte Google Play.</string>
 	<string name="wallet_version_dialog_button_market">Google Play</string>
 	<string name="wallet_version_dialog_button_binary">Stiahnuť</string>
+	<string name="wallet_precision_warning_dialog_title">Zmena jednotky</string>
+	<string name="wallet_precision_warning_dialog_msg">Zobrazovaná jednotka bola zmenená z dogecoin (DOGE) na milidogecoin (mDOGE). Všetky sumy sú vynásobené 1000.\n\nTúto zmenu je možné vrátiť späť v nastaveniach.</string>
 	<string name="wallet_old_sdk_dialog_title">Verzia vášho Androidu je zastaralá</string>
 	<string name="wallet_old_sdk_dialog_message">Je možné, že v novších verziách Dogecoin Wallet už nebude podporované vaše zariadenie. V určitých prípadoch môže byť obtiažne minúť Dogecoiny z tohto zariadenia.\n\nJe odporúčané presunúť Dogecoiny z tohto zariadenia.</string>
 	<string name="send_coins_activity_title">Poslať Dogecoiny</string>
+	<string name="send_coins_fragment_request_payment_request_progress">Získavanie podpisu z %s...</string>
+	<string name="send_coins_fragment_request_payment_request_failed_title">Získavanie podpisu zlyhalo</string>
+	<string name="send_coins_fragment_request_payment_request_wrong_signature">Nesprávny podpis!</string>
+	<string name="send_coins_fragment_payee_verified_by">verifikované: %s</string>
+	<string name="send_coins_fragment_payee_verified_by_unknown">neznáme</string>
 	<string name="send_coins_fragment_receiving_address_label">Zaplatiť</string>
 	<string name="send_coins_fragment_receiving_address_hint">zadajte adresu alebo názov</string>
 	<string name="send_coins_fragment_receiving_address_error">Nesprávna Dogecoin adresa!</string>
 	<string name="send_coins_fragment_receiving_address_error_cross_network">Adresu %s nie je možné použiť s touto peňaženkou!</string>
 	<string name="send_coins_fragment_receiving_address_error_cross_network_unknown">Adresu z neznámej siete nie je možné použiť s touto peňaženkou!</string>
+	<string name="send_coins_fragment_receiving_address_complex">komplexná\nadresa</string>
 	<string name="send_coins_fragment_pending">(%s DOGE čaká na potvrdenie)</string>
 	<string name="send_coins_fragment_amount_label">Suma</string>
+	<string name="send_coins_fragment_direct_payment_enable">Odoslať platbu priamo príjemcovi.</string>
+	<string name="send_coins_fragment_direct_payment_ack">Platba bola úspešne odoslaná priamo príjemcovi.</string>
+	<string name="send_coins_fragment_direct_payment_nack">Platba cez priame spojenie bola zamietnutá.</string>
+	<string name="send_coins_fragment_direct_payment_failed_title">Priama platba zlyhala</string>
+	<string name="send_coins_fragment_direct_payment_failed_msg">Platba bude odoslaná cez P2P sieť.</string>
 	<string name="send_coins_fragment_button_send">Odoslať</string>
 	<string name="send_coins_fragment_button_back">Späť</string>
+	<string name="send_coins_fragment_insufficient_money_title">Nedostatočné množstvo dostupných Dogecoinov</string>
+	<string name="send_coins_fragment_insufficient_money_msg1">Chýba %s.</string>
+	<string name="send_coins_fragment_insufficient_money_msg2">Chcete zaplatiť všetkými dostupnými Dogecoinmi?</string>
 	<string name="send_coins_preparation_msg">Pripravujem…</string>
 	<string name="send_coins_sending_msg">Odosielam…</string>
 	<string name="send_coins_sent_msg">Odoslané!</string>
@@ -86,7 +102,9 @@
 	<string name="address_book_context_default_title">Nastaviť ako predvolenú adresu</string>
 	<string name="address_book_options_paste_from_clipboard_title">Prilepiť zo schránky</string>
 	<string name="address_book_options_paste_from_clipboard_empty">Schránka je prázdna</string>
+	<string name="address_book_options_paste_from_clipboard_invalid">Dáta zo schránky nebolo možné rozpoznať</string>
 	<string name="address_book_options_scan_title">Skenovať adresu</string>
+	<string name="address_book_options_scan_invalid">Skenované dáta nebolo možné rozpoznať</string>
 	<string name="address_book_row_message_compromised_key">Táto adresa môže byť ohrozená. Nemali by ste ju už používať na prijímanie Dogecoinov.</string>
 	<string name="edit_address_book_entry_dialog_title_add">Pridať adresu</string>
 	<string name="edit_address_book_entry_dialog_title_edit">Upraviť adresu</string>
@@ -95,6 +113,7 @@
 	<string name="edit_address_book_entry_dialog_button_edit">Uložiť</string>
 	<string name="transaction_row_message_purpose_key_rotation">Táto operácia zvyšuje ochranu proti vykradnutiu peňaženky. &lt;u>Viac informácií.&lt;/u></string>
 	<string name="transaction_row_message_own_unbroadcasted">Táto platba ešte nebola odoslaná.</string>
+	<string name="transaction_row_message_received_direct">Táto platba bola prijatá priamo. Existuje určité riziko, že sa nikdy nebude dať minúť.</string>
 	<string name="transaction_row_message_received_unconfirmed_unlocked">Táto platba by mala byť potvrdená za pár minút.</string>
 	<string name="transaction_row_message_received_unconfirmed_locked">Táto platba je podozrivá.</string>
 	<string name="transaction_row_message_received_dead">Táto platba bola zrušená odosielateľom.</string>
@@ -127,15 +146,18 @@
 	<string name="export_keys_dialog_mail_subject">Dogecoin Wallet - záloha privátnych kľúčov</string>
 	<string name="export_keys_dialog_mail_text">Príloha obsahuje zašifrované privátne kľúče, uchovajte ich v bezpečí. Nezabudnite vaše heslo!</string>
 	<string name="export_keys_dialog_mail_intent_chooser">Archivovať kľúče použitím…</string>
+	<string name="export_keys_dialog_mail_intent_failed">Archivácia kľúčov sa nepodarila.</string>
 	<string name="import_export_keys_dialog_password">heslo</string>
 	<string name="import_export_keys_dialog_show">Zobraziť heslo</string>
 	<string name="import_export_keys_dialog_failure_title">Chyba</string>
 	<string name="import_keys_intent_filter_action">Obnovenie kľúča</string>
 	<string name="scan_camera_problem_dialog_title">Ospravedlňujeme sa</string>
 	<string name="scan_camera_problem_dialog_message">Problém s fotoaparátom. Pravdepodobne je potrebný reštart zariadenia.</string>
+	<string name="input_parser_io_error">Nepodarilo sa prečítať:\n%s</string>
 	<string name="input_parser_cannot_classify">Nepodarilo sa zaradiť vstup:\n%s</string>
 	<string name="input_parser_invalid_bitcoin_uri">Neplatná Dogecoin URI:\n%s</string>
 	<string name="input_parser_invalid_address">Neplatná Dogecoin adresa!\n(Zamenené Mainnet/Testnet?)</string>
+	<string name="input_parser_invalid_paymentrequest">Neplatná žiadosť o platbu:\n%s</string>
 	<string name="input_parser_invalid_transaction">Neplatná transakcia:\n%s</string>
 	<string name="preferences_activity_title">Nastavenia</string>
 	<string name="preferences_category_main">Predvoľby</string>
@@ -168,6 +190,7 @@
 	<string name="report_issue_dialog_collect_application_log">Pripojiť aplikačný log</string>
 	<string name="report_issue_dialog_collect_wallet_dump">Pripojiť dáta peňaženky</string>
 	<string name="report_issue_dialog_mail_intent_chooser">Odoslať správu použitím…</string>
+	<string name="report_issue_dialog_mail_intent_failed">Odosielanie hlásenia zlyhalo.</string>
 	<string name="about_title">O aplikácií</string>
 	<string name="about_license_title">Licencia</string>
 	<string name="about_credits_bitcoinj_title">Táto aplikácia používa dogecoinj %s</string>
@@ -182,10 +205,12 @@
 	<string name="about_credits_market_publisher_title">Ďalšie aplikácie autora</string>
 	<string name="notification_coins_received_msg">Prijaté %s</string>
 	<string name="notification_peers_connected_msg">%d pripojených uzlov</string>
+
 	<!-- generic buttons -->
 	<string name="button_ok">OK</string>
 	<string name="button_dismiss">Zrušiť</string>
 	<string name="button_cancel">Zrušiť</string>
+	<string name="button_retry">Znova</string>
 	<string name="button_help">Nápoveda</string>
 	<string name="button_add">Pridať</string>
 	<string name="button_delete">Zmazať</string>
@@ -199,7 +224,12 @@
 	<string name="button_scan">Skenovať</string>
 	<string name="button_edit_address">Pridať/zmeniť adresu</string>
 	<string name="button_settings">Nastavenia</string>
+	<string name="action_browse">Otvoriť v prehliadači</string>
 	<string name="time_today">dnes</string>
 	<string name="address_unlabeled">(neoznačené)</string>
+
+	<!-- generic error messages -->
+	<string name="error_io">I/O chyba: %s</string>
+	<string name="error_http">HTTP chyba %1$s:\n%2$s</string>
 
 </resources>

@@ -1,3 +1,9 @@
+v3.40
+
+* Support for µBTC denomination, for people who are used to low valued currencies.
+* Always use BIP70 when sending payments directly via Bluetooth.
+* Small bugfixes.
+
 v1.06 DOGE
 
 * May 17th fork preperation

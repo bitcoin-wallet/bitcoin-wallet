@@ -166,6 +166,8 @@ public final class CurrencyCalculatorLink
 		else
 		{
 			localAmountView.setEnabled(false);
+			localAmountView.setHint(null);
+			btcAmountView.setHint(null);
 		}
 	}
 

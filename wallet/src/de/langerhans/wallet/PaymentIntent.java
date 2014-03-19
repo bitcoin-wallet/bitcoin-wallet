@@ -72,7 +72,7 @@ public final class PaymentIntent implements Parcelable
 
 			builder.append(getClass().getSimpleName());
 			builder.append('[');
-			builder.append(hasAmount() ? GenericUtils.formatValue(amount, Constants.BTC_MAX_PRECISION, 0) : "null");
+			builder.append(hasAmount() ? GenericUtils.formatDebugValue(amount) : "null");
 			builder.append(',');
 			if (script.isSentToAddress() || script.isSentToP2SH())
 				builder.append(script.getToAddress(Constants.NETWORK_PARAMETERS));

@@ -24,7 +24,7 @@
 	<string name="exchange_rates_fragment_default">(Standard)</string>
 	<string name="exchange_rates_fragment_rate">Kurs</string>
 	<string name="exchange_rates_fragment_balance">Guthaben</string>
-	<string name="exchange_rates_fragment_source">Kurs von %s abgerufen</string>
+	<string name="exchange_rates_fragment_source">Kurs von %s</string>
 	<string name="exchange_rates_context_set_as_default_title">Als Standard-Fremdwährung setzen</string>
 	<string name="wallet_transactions_fragment_tab_received">Empfangen</string>
 	<string name="wallet_transactions_fragment_tab_all">Alle</string>
@@ -51,6 +51,7 @@
 		oder empfangen.\n\nDu solltest Deine Zeit- und Zeitzoneneinstellungen überprüfen und korrigieren.</string>
 	<string name="wallet_version_dialog_title">Eine neue Version ist verfügbar!</string>
 	<string name="wallet_version_dialog_msg">Diese Version behebt wichtige Fehler. Die Einzelheiten stehen in der Liste der Änderungen auf Google Play.</string>
+	<string name="wallet_version_dialog_msg_deprecated">Wenn du kein Update siehst, heißt das vermutlich daß deine Android-Version nicht mehr unterstützt wird.</string>
 	<string name="wallet_version_dialog_button_market">Google Play</string>
 	<string name="wallet_version_dialog_button_binary">Herunterladen</string>
 	<string name="wallet_precision_warning_dialog_title">Änderung der Stückelung</string>

@@ -219,7 +219,7 @@ public abstract class DirectPaymentTask
 					if (payment.getTransactionsCount() != 1)
 						throw new IllegalArgumentException("wrong transactions count");
 
-					final byte[] serializedTx = payment.getTransactions(0).toByteArray();
+					final BluetoothDevice device = bluetoothAdapter.getRemoteDevice(Bluetooth.decompressMac(bluetoothMac));
 
 					BluetoothSocket socket = null;
 					DataOutputStream os = null;
@@ -227,53 +227,22 @@ public abstract class DirectPaymentTask
 
 					try
 					{
-						final BluetoothDevice device = bluetoothAdapter.getRemoteDevice(Bluetooth.decompressMac(bluetoothMac));
+						socket = device.createInsecureRfcommSocketToServiceRecord(Bluetooth.BLUETOOTH_UUID_PAYMENT_PROTOCOL);
+						socket.connect();
 
-						final boolean ack;
+						log.info("connected to payment protocol {}", bluetoothMac);
 
-						if (standard == PaymentIntent.Standard.BIP21)
-						{
-							socket = device.createInsecureRfcommSocketToServiceRecord(Bluetooth.BLUETOOTH_UUID_CLASSIC);
+						is = new DataInputStream(socket.getInputStream());
+						os = new DataOutputStream(socket.getOutputStream());
 
-							socket.connect();
-							log.info("connected to classic {}", bluetoothMac);
+						payment.writeDelimitedTo(os);
+						os.flush();
 
-							is = new DataInputStream(socket.getInputStream());
-							os = new DataOutputStream(socket.getOutputStream());
+						log.info("tx sent via bluetooth");
 
-							os.writeInt(1);
-							os.writeInt(serializedTx.length);
-							os.write(serializedTx);
+						final Protos.PaymentACK paymentAck = Protos.PaymentACK.parseDelimitedFrom(is);
 
-							os.flush();
-
-							log.info("tx sent via bluetooth");
-
-							ack = is.readBoolean();
-						}
-						else if (standard == PaymentIntent.Standard.BIP70)
-						{
-							socket = device.createInsecureRfcommSocketToServiceRecord(Bluetooth.BLUETOOTH_UUID_PAYMENT_PROTOCOL);
-
-							socket.connect();
-							log.info("connected to payment protocol {}", bluetoothMac);
-
-							is = new DataInputStream(socket.getInputStream());
-							os = new DataOutputStream(socket.getOutputStream());
-
-							payment.writeDelimitedTo(os);
-							os.flush();
-
-							log.info("tx sent via bluetooth");
-
-							final Protos.PaymentACK paymentAck = Protos.PaymentACK.parseDelimitedFrom(is);
-
-							ack = "ack".equals(PaymentProtocol.parsePaymentAck(paymentAck));
-						}
-						else
-						{
-							throw new IllegalArgumentException("cannot handle: " + standard);
-						}
+						final boolean ack = "ack".equals(PaymentProtocol.parsePaymentAck(paymentAck));
 
 						log.info("received {} via bluetooth", ack ? "ack" : "nack");
 
