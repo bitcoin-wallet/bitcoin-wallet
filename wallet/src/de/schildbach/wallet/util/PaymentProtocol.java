@@ -27,6 +27,7 @@ import javax.annotation.Nullable;
 import org.bitcoin.protocols.payments.Protos;
 
 import com.google.bitcoin.core.Address;
+import com.google.bitcoin.core.ScriptException;
 import com.google.bitcoin.core.Transaction;
 import com.google.bitcoin.protocols.payments.PaymentRequestException;
 import com.google.bitcoin.protocols.payments.PaymentSession;
@@ -118,11 +119,7 @@ public final class PaymentProtocol
 
 			final ArrayList<PaymentIntent.Output> outputs = new ArrayList<PaymentIntent.Output>(paymentDetails.getOutputsCount());
 			for (final Protos.Output output : paymentDetails.getOutputsList())
-			{
-				final BigInteger amount = BigInteger.valueOf(output.getAmount());
-				final Script script = new Script(output.getScript().toByteArray());
-				outputs.add(new PaymentIntent.Output(amount, script));
-			}
+				outputs.add(parseOutput(output));
 
 			final String memo = paymentDetails.hasMemo() ? paymentDetails.getMemo() : null;
 			final String paymentUrl = paymentDetails.hasPaymentUrl() ? paymentDetails.getPaymentUrl() : null;
@@ -143,6 +140,20 @@ public final class PaymentProtocol
 		catch (final UninitializedMessageException x)
 		{
 			throw new PaymentRequestException(x);
+		}
+	}
+
+	private static PaymentIntent.Output parseOutput(@Nonnull final Protos.Output output) throws PaymentRequestException.InvalidOutputs
+	{
+		try
+		{
+			final BigInteger amount = BigInteger.valueOf(output.getAmount());
+			final Script script = new Script(output.getScript().toByteArray());
+			return new PaymentIntent.Output(amount, script);
+		}
+		catch (final ScriptException x)
+		{
+			throw new PaymentRequestException.InvalidOutputs("unparseable script in output: " + output.toString());
 		}
 	}
 
