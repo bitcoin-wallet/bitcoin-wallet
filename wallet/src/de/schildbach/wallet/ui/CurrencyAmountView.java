@@ -64,8 +64,8 @@ public final class CurrencyAmountView extends FrameLayout
 	private int significantColor, lessSignificantColor, errorColor;
 	private Drawable deleteButtonDrawable, contextButtonDrawable;
 	private Drawable currencySymbolDrawable;
-	private int inputPrecision = 0;
-	private int hintPrecision = 0;
+	private int inputPrecision = 2;
+	private int hintPrecision = 2;
 	private int shift = 0;
 	private boolean amountSigned = false;
 	private boolean smallerInsignificant = true;
@@ -224,12 +224,8 @@ public final class CurrencyAmountView extends FrameLayout
 
 	public void setHint(@Nullable final BigInteger amount)
 	{
-		final SpannableStringBuilder hint;
-		if (amount != null)
-			hint = new SpannableStringBuilder(GenericUtils.formatValue(amount, hintPrecision, shift));
-		else
-			hint = new SpannableStringBuilder("0.00");
-
+		final SpannableStringBuilder hint = new SpannableStringBuilder(GenericUtils.formatValue(amount != null ? amount : BigInteger.ZERO,
+				hintPrecision, shift));
 		WalletUtils.formatSignificant(hint, smallerInsignificant ? WalletUtils.SMALLER_SPAN : null);
 		textView.setHint(hint);
 	}
