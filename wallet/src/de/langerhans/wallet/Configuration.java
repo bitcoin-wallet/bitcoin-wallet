@@ -64,6 +64,7 @@ public class Configuration
     public static final String PREFS_KEY_EXCHANGE_FORCE_REFRESH = "exchange_force";
 
     public static final String PREFS_KEY_LOCALE_OVERRIDE = "locale_override";
+    public static final String PREFS_KEY_LOCALE_REFRESH = "locale_refresh";
 
     private static final int PREFS_DEFAULT_BTC_SHIFT = 3;
     private static final int PREFS_DEFAULT_BTC_PRECISION = 2;

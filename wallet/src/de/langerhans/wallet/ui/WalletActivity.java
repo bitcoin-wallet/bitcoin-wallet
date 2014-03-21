@@ -58,6 +58,7 @@ import android.nfc.NfcAdapter;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.format.DateUtils;
@@ -128,6 +129,13 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 	@Override
 	protected void onResume()
 	{
+        if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean(Configuration.PREFS_KEY_LOCALE_REFRESH, false))
+        {
+            PreferenceManager.getDefaultSharedPreferences(this).edit().putBoolean(Configuration.PREFS_KEY_LOCALE_REFRESH, false).commit();
+            Intent intent = getIntent();
+            finish();
+            startActivity(intent);
+        }
 		super.onResume();
 
 		getWalletApplication().startBlockchainService(true);

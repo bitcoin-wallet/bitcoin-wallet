@@ -30,7 +30,7 @@
         <ListPreference
             android:key="locale_override"
             android:title="Language"
-            android:summary="Select your desired language. NOTE: Close app by removing from recent apps for changes to take effect!"
+            android:summary="Select your desired language. Will restart app to apply!"
             android:entries="@array/preferences_locale_labels"
             android:entryValues="@array/preferences_locale_values"
             android:defaultValue="0"/>

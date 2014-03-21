@@ -53,6 +53,7 @@ public final class PreferencesActivity extends SherlockPreferenceActivity implem
 	private WalletApplication application;
 	private Preference trustedPeerPreference;
 	private Preference trustedPeerOnlyPreference;
+    private Preference localeOverridePreference;
 
 	private static final String PREFS_KEY_REPORT_ISSUE = "report_issue";
 	private static final String PREFS_KEY_INITIATE_RESET = "initiate_reset";
@@ -80,6 +81,9 @@ public final class PreferencesActivity extends SherlockPreferenceActivity implem
 
 		trustedPeerOnlyPreference = findPreference(Configuration.PREFS_KEY_TRUSTED_PEER_ONLY);
 		trustedPeerOnlyPreference.setOnPreferenceChangeListener(this);
+
+        localeOverridePreference = findPreference(Configuration.PREFS_KEY_LOCALE_OVERRIDE);
+        localeOverridePreference.setOnPreferenceChangeListener(this);
 
 		final Preference dataUsagePreference = findPreference(PREFS_KEY_DATA_USAGE);
 		dataUsagePreference.setEnabled(getPackageManager().resolveActivity(dataUsageIntent, 0) != null);
@@ -207,9 +211,11 @@ public final class PreferencesActivity extends SherlockPreferenceActivity implem
 		{
 			application.stopBlockchainService();
 		}
-        else if (preference.equals(Configuration.PREFS_KEY_LOCALE_OVERRIDE))
+        else if (preference.equals(localeOverridePreference))
         {
             application.updateLocale();
+            getPreferenceManager().getSharedPreferences().edit().putBoolean(Configuration.PREFS_KEY_LOCALE_REFRESH, true).commit();
+            finish();
         }
 
 		return true;

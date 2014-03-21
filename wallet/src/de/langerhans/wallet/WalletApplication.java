@@ -28,6 +28,7 @@ import java.util.concurrent.TimeUnit;
 
 import javax.annotation.Nonnull;
 
+import android.content.res.Resources;
 import de.langerhans.wallet.service.AutosyncReceiver;
 import org.bitcoinj.wallet.Protos;
 import org.slf4j.Logger;
@@ -580,18 +581,21 @@ public class WalletApplication extends Application
     public void updateLocale()
     {
         final String locale = config.getLocale();
+        Locale loc;
+        android.content.res.Configuration configuration = new android.content.res.Configuration();
         if (!locale.equals("0"))
         {
-            Locale loc;
-            android.content.res.Configuration configuration = new android.content.res.Configuration();
             if (locale.length() > 2)
                 loc = new Locale(locale.substring(0,1), locale.substring(3,4));
             else
                 loc = new Locale(locale);
-
-            Locale.setDefault(loc);
-            configuration.locale = loc;
-            getBaseContext().getResources().updateConfiguration(configuration, getBaseContext().getResources().getDisplayMetrics());
         }
+        else
+        {
+            loc = Resources.getSystem().getConfiguration().locale;
+        }
+        Locale.setDefault(loc);
+        configuration.locale = loc;
+        getBaseContext().getResources().updateConfiguration(configuration, getBaseContext().getResources().getDisplayMetrics());
     }
 }
