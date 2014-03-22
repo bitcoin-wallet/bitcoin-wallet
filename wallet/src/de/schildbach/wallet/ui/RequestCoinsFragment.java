@@ -319,7 +319,9 @@ public final class RequestCoinsFragment extends SherlockFragment
 	{
 		bluetoothMac = Bluetooth.compressMac(bluetoothAdapter.getAddress());
 
-		bluetoothServiceIntent = new Intent(activity, AcceptBluetoothService.class);
+		bluetoothServiceIntent = new Intent(AcceptBluetoothService.ACTION_SERVE_PAYMENT_REQUEST, null, activity, AcceptBluetoothService.class);
+		bluetoothServiceIntent.putExtra(AcceptBluetoothService.ACTION_SERVE_PAYMENT_REQUEST, determinePaymentRequest(true));
+
 		activity.startService(bluetoothServiceIntent);
 	}
 
@@ -393,6 +395,13 @@ public final class RequestCoinsFragment extends SherlockFragment
 		final String bitcoinRequest = determineBitcoinRequestStr(true);
 		final byte[] paymentRequest = determinePaymentRequest(true);
 
+		// update bluetooth
+		if (bluetoothServiceIntent != null)
+		{
+			bluetoothServiceIntent.putExtra(AcceptBluetoothService.ACTION_SERVE_PAYMENT_REQUEST, paymentRequest);
+			activity.startService(bluetoothServiceIntent);
+		}
+
 		// update qr-code
 		final int size = (int) (256 * getResources().getDisplayMetrics().density);
 		final String qrContent;
@@ -426,7 +435,7 @@ public final class RequestCoinsFragment extends SherlockFragment
 		if (includeBluetoothMac && bluetoothMac != null)
 		{
 			uri.append(amount == null ? '?' : '&');
-			uri.append(Bluetooth.MAC_URI_PARAM).append('=').append(bluetoothMac);
+			uri.append("r=bt:").append(bluetoothMac);
 		}
 		return uri.toString();
 	}

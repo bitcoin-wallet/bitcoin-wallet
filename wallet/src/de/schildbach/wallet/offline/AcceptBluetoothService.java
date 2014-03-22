@@ -43,11 +43,14 @@ import de.schildbach.wallet.WalletApplication;
  */
 public final class AcceptBluetoothService extends Service
 {
+	public static final String ACTION_SERVE_PAYMENT_REQUEST = AcceptBluetoothService.class.getPackage().getName() + ".serve_payment_request";
+
 	private WalletApplication application;
 	private Wallet wallet;
 	private WakeLock wakeLock;
-	private AcceptBluetoothThread classicThread;
+	private ServeBluetoothThread paymentRequestsThread;
 	private AcceptBluetoothThread paymentProtocolThread;
+	private AcceptBluetoothThread classicThread;
 
 	private long serviceCreatedAt;
 
@@ -66,6 +69,12 @@ public final class AcceptBluetoothService extends Service
 	@Override
 	public int onStartCommand(final Intent intent, final int flags, final int startId)
 	{
+		if (ACTION_SERVE_PAYMENT_REQUEST.equals(intent.getAction()))
+		{
+			final byte[] paymentRequest = intent.getByteArrayExtra(ACTION_SERVE_PAYMENT_REQUEST);
+			paymentRequestsThread.setPaymentRequest(paymentRequest);
+		}
+
 		handler.removeCallbacks(timeoutRunnable);
 		handler.postDelayed(timeoutRunnable, TIMEOUT_MS);
 
@@ -91,15 +100,8 @@ public final class AcceptBluetoothService extends Service
 
 		registerReceiver(bluetoothStateChangeReceiver, new IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED));
 
-		classicThread = new AcceptBluetoothThread.ClassicBluetoothThread(bluetoothAdapter)
-		{
-			@Override
-			public boolean handleTx(final Transaction tx)
-			{
-				return AcceptBluetoothService.this.handleTx(tx);
-			}
-		};
-		classicThread.start();
+		paymentRequestsThread = new ServeBluetoothThread(bluetoothAdapter);
+		paymentRequestsThread.start();
 
 		paymentProtocolThread = new AcceptBluetoothThread.PaymentProtocolThread(bluetoothAdapter)
 		{
@@ -110,6 +112,16 @@ public final class AcceptBluetoothService extends Service
 			}
 		};
 		paymentProtocolThread.start();
+
+		classicThread = new AcceptBluetoothThread.ClassicBluetoothThread(bluetoothAdapter)
+		{
+			@Override
+			public boolean handleTx(final Transaction tx)
+			{
+				return AcceptBluetoothService.this.handleTx(tx);
+			}
+		};
+		classicThread.start();
 	}
 
 	private boolean handleTx(final Transaction tx)
@@ -149,8 +161,9 @@ public final class AcceptBluetoothService extends Service
 	@Override
 	public void onDestroy()
 	{
-		paymentProtocolThread.stopAccepting();
 		classicThread.stopAccepting();
+		paymentProtocolThread.stopAccepting();
+		paymentRequestsThread.stopAccepting();
 
 		unregisterReceiver(bluetoothStateChangeReceiver);
 
