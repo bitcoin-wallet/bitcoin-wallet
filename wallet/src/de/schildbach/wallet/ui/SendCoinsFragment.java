@@ -903,12 +903,12 @@ public final class SendCoinsFragment extends SherlockFragment
 					if (paymentIntent.isHttpPaymentUrl())
 					{
 						new DirectPaymentTask.HttpPaymentTask(backgroundHandler, callback, paymentIntent.paymentUrl, application.httpUserAgent())
-								.send(paymentIntent.standard, payment);
+								.send(payment);
 					}
 					else if (paymentIntent.isBluetoothPaymentUrl() && bluetoothAdapter != null && bluetoothAdapter.isEnabled())
 					{
 						new DirectPaymentTask.BluetoothPaymentTask(backgroundHandler, callback, bluetoothAdapter, paymentIntent.getBluetoothMac())
-								.send(paymentIntent.standard, payment);
+								.send(payment);
 					}
 				}
 			}
