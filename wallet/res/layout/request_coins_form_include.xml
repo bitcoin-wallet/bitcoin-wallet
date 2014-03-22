@@ -66,4 +66,15 @@
 		android:text="@string/request_coins_fragment_accept_bluetooth_payment"
 		android:textSize="@dimen/font_size_normal" />
 
+	<CheckBox
+		android:id="@+id/request_coins_sign"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginBottom="8dp"
+		android:layout_marginLeft="@dimen/list_entry_padding_horizontal"
+		android:layout_marginRight="@dimen/list_entry_padding_horizontal"
+		android:layout_marginTop="8dp"
+		android:text="Sign"
+		android:textSize="@dimen/font_size_normal" />
+
 </LinearLayout>

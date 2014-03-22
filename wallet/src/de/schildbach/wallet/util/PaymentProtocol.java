@@ -21,6 +21,8 @@ import java.io.FileNotFoundException;
 import java.math.BigInteger;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
+import java.security.PrivateKey;
+import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,7 +52,7 @@ import de.schildbach.wallet.PaymentIntent;
 public final class PaymentProtocol
 {
 	public static Protos.PaymentRequest createPaymentRequest(final BigInteger amount, @Nonnull final Address toAddress, final String memo,
-			final String paymentUrl)
+			final String paymentUrl, final X509Certificate[] certificateChain, final PrivateKey privateKey)
 	{
 		if (amount != null && amount.compareTo(BigInteger.valueOf(Long.MAX_VALUE)) > 0)
 			throw new IllegalArgumentException("amount too big for protobuf: " + amount);
@@ -70,6 +72,9 @@ public final class PaymentProtocol
 
 		final Protos.PaymentRequest.Builder paymentRequest = Protos.PaymentRequest.newBuilder();
 		paymentRequest.setSerializedPaymentDetails(paymentDetails.build().toByteString());
+
+		if (privateKey != null)
+			com.google.bitcoin.protocols.payments.PaymentProtocol.signPaymentRequestPki(paymentRequest, certificateChain, privateKey);
 
 		return paymentRequest.build();
 	}

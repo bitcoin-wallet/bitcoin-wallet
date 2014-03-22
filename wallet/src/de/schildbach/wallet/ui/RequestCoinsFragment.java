@@ -18,6 +18,8 @@
 package de.schildbach.wallet.ui;
 
 import java.math.BigInteger;
+import java.security.PrivateKey;
+import java.security.cert.X509Certificate;
 
 import javax.annotation.CheckForNull;
 
@@ -34,6 +36,9 @@ import android.net.Uri;
 import android.nfc.NfcManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.security.KeyChain;
+import android.security.KeyChainAliasCallback;
+import android.security.KeyChainException;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
@@ -88,12 +93,19 @@ public final class RequestCoinsFragment extends SherlockFragment
 	private ImageView qrView;
 	private Bitmap qrCodeBitmap;
 	private CheckBox acceptBluetoothPaymentView;
+	private CheckBox signView;
 	private TextView initiateRequestView;
 
 	@CheckForNull
 	private String bluetoothMac;
 	@CheckForNull
 	private Intent bluetoothServiceIntent;
+	@CheckForNull
+	private String signKeyAlias;
+	@CheckForNull
+	private PrivateKey privateKey;
+	@CheckForNull
+	private X509Certificate[] certificateChain;
 
 	private static final int REQUEST_CODE_ENABLE_BLUETOOTH = 0;
 
@@ -215,6 +227,49 @@ public final class RequestCoinsFragment extends SherlockFragment
 				}
 
 				updateView();
+			}
+		});
+
+		signView = (CheckBox) view.findViewById(R.id.request_coins_sign);
+		signView.setOnCheckedChangeListener(new OnCheckedChangeListener()
+		{
+			@Override
+			public void onCheckedChanged(final CompoundButton buttonView, final boolean isChecked)
+			{
+				if (isChecked)
+				{
+					// TODO API level 14+ !!!
+
+					KeyChain.choosePrivateKeyAlias(activity, new KeyChainAliasCallback()
+					{
+						@Override
+						public void alias(final String alias)
+						{
+							signKeyAlias = alias;
+
+							try
+							{
+								privateKey = KeyChain.getPrivateKey(activity, signKeyAlias);
+								certificateChain = KeyChain.getCertificateChain(activity, signKeyAlias);
+
+								if (privateKey == null)
+									throw new RuntimeException("Could not get private key for alias " + signKeyAlias);
+								if (certificateChain == null)
+									throw new RuntimeException("Could not get certificate chain for alias " + signKeyAlias);
+							}
+							catch (final KeyChainException x)
+							{
+								throw new RuntimeException(x);
+							}
+							catch (final InterruptedException x)
+							{
+								throw new RuntimeException(x);
+							}
+
+							updateView();
+						}
+					}, null, null, null, -1, signKeyAlias);
+				}
 			}
 		});
 
@@ -425,6 +480,11 @@ public final class RequestCoinsFragment extends SherlockFragment
 		// focus linking
 		final int activeAmountViewId = amountCalculatorLink.activeTextView().getId();
 		acceptBluetoothPaymentView.setNextFocusUpId(activeAmountViewId);
+
+		if (signKeyAlias == null)
+			signView.setText("Sign (pick key)");
+		else
+			signView.setText("Sign as " + signKeyAlias);
 	}
 
 	private String determineBitcoinRequestStr(final boolean includeBluetoothMac)
@@ -443,8 +503,8 @@ public final class RequestCoinsFragment extends SherlockFragment
 	private byte[] determinePaymentRequest(final boolean includeBluetoothMac)
 	{
 		final BigInteger amount = amountCalculatorLink.getAmount();
+		final String bluetoothPaymentUrl = includeBluetoothMac && bluetoothMac != null ? "bt:" + bluetoothMac : null;
 
-		return PaymentProtocol.createPaymentRequest(amount, address, null, includeBluetoothMac && bluetoothMac != null ? "bt:" + bluetoothMac : null)
-				.toByteArray();
+		return PaymentProtocol.createPaymentRequest(amount, address, null, bluetoothPaymentUrl, certificateChain, privateKey).toByteArray();
 	}
 }
