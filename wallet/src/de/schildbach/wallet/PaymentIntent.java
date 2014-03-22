@@ -327,15 +327,7 @@ public final class PaymentIntent implements Parcelable
 
 	public boolean isBluetoothPaymentUrl()
 	{
-		return paymentUrl != null && GenericUtils.startsWithIgnoreCase(paymentUrl, "bt:");
-	}
-
-	public String getBluetoothMac()
-	{
-		if (isBluetoothPaymentUrl())
-			return paymentUrl.substring(3);
-		else
-			throw new IllegalStateException();
+		return Bluetooth.isBluetoothUrl(paymentUrl);
 	}
 
 	public boolean hasPaymentRequestUrl()
@@ -345,13 +337,18 @@ public final class PaymentIntent implements Parcelable
 
 	public boolean isSupportedPaymentRequestUrl()
 	{
-		return isHttpPaymentRequestUrl();
+		return isHttpPaymentRequestUrl() || isBluetoothPaymentRequestUrl();
 	}
 
 	public boolean isHttpPaymentRequestUrl()
 	{
 		return paymentRequestUrl != null
 				&& (GenericUtils.startsWithIgnoreCase(paymentRequestUrl, "http:") || GenericUtils.startsWithIgnoreCase(paymentRequestUrl, "https:"));
+	}
+
+	public boolean isBluetoothPaymentRequestUrl()
+	{
+		return Bluetooth.isBluetoothUrl(paymentRequestUrl);
 	}
 
 	public boolean isSecurityExtendedBy(final PaymentIntent paymentIntent)

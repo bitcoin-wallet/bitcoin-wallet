@@ -98,6 +98,7 @@ import de.schildbach.wallet.offline.DirectPaymentTask;
 import de.schildbach.wallet.ui.InputParser.BinaryInputParser;
 import de.schildbach.wallet.ui.InputParser.StreamInputParser;
 import de.schildbach.wallet.ui.InputParser.StringInputParser;
+import de.schildbach.wallet.util.Bluetooth;
 import de.schildbach.wallet.util.GenericUtils;
 import de.schildbach.wallet.util.Nfc;
 import de.schildbach.wallet.util.PaymentProtocol;
@@ -158,7 +159,8 @@ public final class SendCoinsFragment extends SherlockFragment
 	private static final int ID_RATE_LOADER = 0;
 
 	private static final int REQUEST_CODE_SCAN = 0;
-	private static final int REQUEST_CODE_ENABLE_BLUETOOTH = 1;
+	private static final int REQUEST_CODE_ENABLE_BLUETOOTH_FOR_PAYMENT_REQUEST = 1;
+	private static final int REQUEST_CODE_ENABLE_BLUETOOTH_FOR_DIRECT_PAYMENT = 2;
 
 	private static final Logger log = LoggerFactory.getLogger(SendCoinsFragment.class);
 
@@ -501,7 +503,7 @@ public final class SendCoinsFragment extends SherlockFragment
 				if (paymentIntent.isBluetoothPaymentUrl() && isChecked && !bluetoothAdapter.isEnabled())
 				{
 					// ask for permission to enable bluetooth
-					startActivityForResult(new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE), REQUEST_CODE_ENABLE_BLUETOOTH);
+					startActivityForResult(new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE), REQUEST_CODE_ENABLE_BLUETOOTH_FOR_DIRECT_PAYMENT);
 				}
 			}
 		});
@@ -674,7 +676,12 @@ public final class SendCoinsFragment extends SherlockFragment
 				}.parse();
 			}
 		}
-		else if (requestCode == REQUEST_CODE_ENABLE_BLUETOOTH)
+		else if (requestCode == REQUEST_CODE_ENABLE_BLUETOOTH_FOR_PAYMENT_REQUEST)
+		{
+			if (paymentIntent.isBluetoothPaymentRequestUrl())
+				requestPaymentRequest(paymentIntent.paymentRequestUrl);
+		}
+		else if (requestCode == REQUEST_CODE_ENABLE_BLUETOOTH_FOR_DIRECT_PAYMENT)
 		{
 			if (paymentIntent.isBluetoothPaymentUrl())
 				directPaymentEnableView.setChecked(resultCode == Activity.RESULT_OK);
@@ -912,8 +919,8 @@ public final class SendCoinsFragment extends SherlockFragment
 					}
 					else if (paymentIntent.isBluetoothPaymentUrl() && bluetoothAdapter != null && bluetoothAdapter.isEnabled())
 					{
-						new DirectPaymentTask.BluetoothPaymentTask(backgroundHandler, callback, bluetoothAdapter, paymentIntent.getBluetoothMac())
-								.send(payment);
+						new DirectPaymentTask.BluetoothPaymentTask(backgroundHandler, callback, bluetoothAdapter,
+								Bluetooth.getBluetoothMac(paymentIntent.paymentUrl)).send(payment);
 					}
 				}
 			}
@@ -1305,18 +1312,37 @@ public final class SendCoinsFragment extends SherlockFragment
 					updateView();
 				}
 
-				if (paymentIntent.hasPaymentRequestUrl() && paymentIntent.isSupportedPaymentRequestUrl() && !Constants.BUG_OPENSSL_HEARTBLEED)
-					requestPaymentRequest(paymentIntent.paymentRequestUrl);
+				if (paymentIntent.hasPaymentRequestUrl())
+				{
+					if (paymentIntent.isBluetoothPaymentRequestUrl() && !Constants.BUG_OPENSSL_HEARTBLEED)
+					{
+						if (bluetoothAdapter.isEnabled())
+							requestPaymentRequest(paymentIntent.paymentRequestUrl);
+						else
+							// ask for permission to enable bluetooth
+							startActivityForResult(new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE),
+									REQUEST_CODE_ENABLE_BLUETOOTH_FOR_PAYMENT_REQUEST);
+					}
+					else if (paymentIntent.isHttpPaymentRequestUrl())
+					{
+						requestPaymentRequest(paymentIntent.paymentRequestUrl);
+					}
+				}
 			}
 		});
 	}
 
 	private void requestPaymentRequest(final String paymentRequestUrl)
 	{
-		final String host = Uri.parse(paymentRequestUrl).getHost();
+		final String host;
+		if (!Bluetooth.isBluetoothUrl(paymentRequestUrl))
+			host = Uri.parse(paymentRequestUrl).getHost();
+		else
+			host = Bluetooth.decompressMac(Bluetooth.getBluetoothMac(paymentRequestUrl));
+
 		ProgressDialogFragment.showProgress(fragmentManager, getString(R.string.send_coins_fragment_request_payment_request_progress, host));
 
-		new RequestPaymentRequestTask.HttpRequestTask(backgroundHandler, new RequestPaymentRequestTask.ResultCallback()
+		final RequestPaymentRequestTask.ResultCallback callback = new RequestPaymentRequestTask.ResultCallback()
 		{
 			@Override
 			public void onPaymentIntent(final PaymentIntent paymentIntent)
@@ -1355,6 +1381,13 @@ public final class SendCoinsFragment extends SherlockFragment
 				dialog.setNegativeButton(R.string.button_dismiss, null);
 				dialog.show();
 			}
-		}, application.httpUserAgent()).requestPaymentRequest(paymentRequestUrl);
+		};
+
+		if (!Bluetooth.isBluetoothUrl(paymentRequestUrl))
+			new RequestPaymentRequestTask.HttpRequestTask(backgroundHandler, callback, application.httpUserAgent())
+					.requestPaymentRequest(paymentRequestUrl);
+		else
+			new RequestPaymentRequestTask.BluetoothRequestTask(backgroundHandler, callback, bluetoothAdapter)
+					.requestPaymentRequest(paymentRequestUrl);
 	}
 }

@@ -252,5 +252,6 @@
 	<!-- generic error messages -->
 	<string name="error_io">I/O-Fehler: %s</string>
 	<string name="error_http">HTTP-Fehler %1$s:\n%2$s</string>
+	<string name="error_bluetooth">Bluetooth-Fehler %1$s</string>
 
 </resources>
