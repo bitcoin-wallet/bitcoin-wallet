@@ -19,7 +19,9 @@ package de.schildbach.wallet.ui;
 
 import java.math.BigInteger;
 import java.security.PrivateKey;
+import java.security.cert.TrustAnchor;
 import java.security.cert.X509Certificate;
+import java.util.Arrays;
 
 import javax.annotation.CheckForNull;
 
@@ -38,7 +40,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.security.KeyChain;
 import android.security.KeyChainAliasCallback;
-import android.security.KeyChainException;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
@@ -73,6 +74,7 @@ import de.schildbach.wallet.util.Bluetooth;
 import de.schildbach.wallet.util.Nfc;
 import de.schildbach.wallet.util.PaymentProtocol;
 import de.schildbach.wallet.util.Qr;
+import de.schildbach.wallet.util.X509;
 import de.schildbach.wallet_test.R;
 
 /**
@@ -101,11 +103,13 @@ public final class RequestCoinsFragment extends SherlockFragment
 	@CheckForNull
 	private Intent bluetoothServiceIntent;
 	@CheckForNull
-	private String signKeyAlias;
+	private String signingKeyAlias;
 	@CheckForNull
-	private PrivateKey privateKey;
+	private PrivateKey signingPrivateKey;
 	@CheckForNull
-	private X509Certificate[] certificateChain;
+	private X509Certificate[] signingCertificateChain;
+	@CheckForNull
+	private TrustAnchor signingTrustAnchor;
 
 	private static final int REQUEST_CODE_ENABLE_BLUETOOTH = 0;
 
@@ -245,30 +249,28 @@ public final class RequestCoinsFragment extends SherlockFragment
 						@Override
 						public void alias(final String alias)
 						{
-							signKeyAlias = alias;
+							signingKeyAlias = alias;
 
 							try
 							{
-								privateKey = KeyChain.getPrivateKey(activity, signKeyAlias);
-								certificateChain = KeyChain.getCertificateChain(activity, signKeyAlias);
+								signingPrivateKey = KeyChain.getPrivateKey(activity, signingKeyAlias);
+								signingCertificateChain = KeyChain.getCertificateChain(activity, signingKeyAlias);
 
-								if (privateKey == null)
-									throw new RuntimeException("Could not get private key for alias " + signKeyAlias);
-								if (certificateChain == null)
-									throw new RuntimeException("Could not get certificate chain for alias " + signKeyAlias);
+								if (signingPrivateKey == null)
+									throw new RuntimeException("Could not get private key for alias " + signingKeyAlias);
+								if (signingCertificateChain == null || signingCertificateChain.length == 0)
+									throw new RuntimeException("Could not get certificate chain for alias " + signingKeyAlias);
+
+								signingTrustAnchor = X509.trustAnchor(Arrays.asList(signingCertificateChain));
 							}
-							catch (final KeyChainException x)
-							{
-								throw new RuntimeException(x);
-							}
-							catch (final InterruptedException x)
+							catch (final Exception x)
 							{
 								throw new RuntimeException(x);
 							}
 
 							updateView();
 						}
-					}, null, null, null, -1, signKeyAlias);
+					}, null, null, null, -1, signingKeyAlias);
 				}
 			}
 		});
@@ -481,10 +483,11 @@ public final class RequestCoinsFragment extends SherlockFragment
 		final int activeAmountViewId = amountCalculatorLink.activeTextView().getId();
 		acceptBluetoothPaymentView.setNextFocusUpId(activeAmountViewId);
 
-		if (signKeyAlias == null)
+		if (signingKeyAlias == null)
 			signView.setText("Sign (pick key)");
 		else
-			signView.setText("Sign as " + signKeyAlias);
+			signView.setText("Sign as " + signingKeyAlias
+					+ (signingTrustAnchor != null ? " (verified by " + X509.nameFromCertificate(signingTrustAnchor.getTrustedCert()) + ")" : ""));
 	}
 
 	private String determineBitcoinRequestStr(final boolean includeBluetoothMac)
@@ -505,6 +508,7 @@ public final class RequestCoinsFragment extends SherlockFragment
 		final BigInteger amount = amountCalculatorLink.getAmount();
 		final String bluetoothPaymentUrl = includeBluetoothMac && bluetoothMac != null ? "bt:" + bluetoothMac : null;
 
-		return PaymentProtocol.createPaymentRequest(amount, address, null, bluetoothPaymentUrl, certificateChain, privateKey).toByteArray();
+		return PaymentProtocol.createPaymentRequest(amount, address, null, bluetoothPaymentUrl, signingCertificateChain, signingPrivateKey)
+				.toByteArray();
 	}
 }
