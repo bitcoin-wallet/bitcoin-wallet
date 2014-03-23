@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
+import java.security.PublicKey;
 import java.security.cert.CertPath;
 import java.security.cert.CertPathValidator;
 import java.security.cert.CertPathValidatorException;
@@ -32,6 +33,8 @@ import java.security.cert.TrustAnchor;
 import java.security.cert.X509Certificate;
 import java.util.List;
 
+import javax.annotation.Nullable;
+
 import org.spongycastle.asn1.ASN1ObjectIdentifier;
 import org.spongycastle.asn1.ASN1String;
 import org.spongycastle.asn1.x500.AttributeTypeAndValue;
@@ -39,6 +42,7 @@ import org.spongycastle.asn1.x500.RDN;
 import org.spongycastle.asn1.x500.X500Name;
 import org.spongycastle.asn1.x500.style.RFC4519Style;
 
+import com.google.bitcoin.protocols.payments.PaymentRequestException;
 import com.google.common.base.Joiner;
 
 /**
@@ -107,5 +111,35 @@ public class X509
 			return Joiner.on(", ").skipNulls().join(org, location, country);
 		else
 			return commonName;
+	}
+
+	/**
+	 * Information about the X509 signature's issuer and subject.
+	 */
+	public static class PkiVerificationData
+	{
+		/** Display name of the payment requestor, could be a domain name, email address, legal name, etc */
+		public final String name;
+		/** The "org" part of the payment requestors ID. */
+		public final String orgName;
+		/** An alternative name. */
+		public final String altName;
+		/** SSL public key that was used to sign. */
+		public final PublicKey merchantSigningKey;
+		/** Object representing the CA that verified the merchant's ID */
+		public final TrustAnchor rootAuthority;
+		/** String representing the display name of the CA that verified the merchant's ID */
+		public final String rootAuthorityName;
+
+		public PkiVerificationData(@Nullable String name, @Nullable String orgName, @Nullable String altName, PublicKey merchantSigningKey,
+				TrustAnchor rootAuthority) throws PaymentRequestException.PkiVerificationException
+		{
+			this.name = name;
+			this.orgName = orgName;
+			this.altName = altName;
+			this.merchantSigningKey = merchantSigningKey;
+			this.rootAuthority = rootAuthority;
+			this.rootAuthorityName = nameFromCertificate(rootAuthority.getTrustedCert());
+		}
 	}
 }
