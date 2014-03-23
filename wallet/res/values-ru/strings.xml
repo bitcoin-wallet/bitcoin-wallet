@@ -70,15 +70,14 @@
 	<string name="send_coins_error_msg">Проблема с отправкой монет!</string>
 	<string name="send_coins_options_empty">Пустой бумажник</string>
 	<string name="send_coins_address_context_clear_title">Введите новый адрес</string>
+
 	<string name="request_coins_activity_title">Запросить digitalcoin-монеты</string>
-	<string name="request_coins_fragment_address_label">Адрес для запроса</string>
-	<string name="request_coins_fragment_include_address_label">включить метку с адресом</string>
 	<string name="request_coins_fragment_amount_label">Запрашиваемая сумма (опционально)</string>
 	<string name="request_coins_fragment_initiate_request_qr">Пусть отправитель отсканирует этот код.</string>
 	<string name="request_coins_fragment_initiate_request_nfc">Или коснитесь устройства с поддержкой NFC.</string>
-	<string name="request_coins_fragment_bluetooth_enabled">Приём платежей через Bluetooth.</string>
 	<string name="request_coins_clipboard_msg">Запрос получения digitalcoin-монет скопирован</string>
 	<string name="request_coins_share_dialog_title">Поделиться запросом digitalcoin-монет…</string>
+
 	<string name="request_coins_options_local_app_title">Запрос от локального приложения</string>
 	<string name="address_book_activity_title">Адресная книга</string>
 	<string name="address_book_list_receiving_title">Ваши адреса</string>

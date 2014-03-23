@@ -58,16 +58,6 @@
 			android:key="labs_qr_payment_request"
 			android:summary="Use payment protocol for QR-code initiated payments"
 			android:title="BIP70 for scan-to-pay" />
-		<CheckBoxPreference
-			android:defaultValue="false"
-			android:key="labs_nfc_payment_request"
-			android:summary="Use payment protocol for NFC initiated payments"
-			android:title="BIP70 for tap-to-pay" />
-		<CheckBoxPreference
-			android:defaultValue="false"
-			android:key="labs_bluetooth_offline_transactions"
-			android:summary="Accept signed transactions via Bluetooth radio. Requires Android 4.3 or higher."
-			android:title="Bluetooth offline transactions" />
 	</PreferenceCategory>
 
 </PreferenceScreen>

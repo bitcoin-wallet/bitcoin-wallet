@@ -23,7 +23,6 @@ import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.MenuItem;
 import de.schildbach.wallet.digitalcoin.R;
 
-
 /**
  * @author Andreas Schildbach
  */

@@ -2,12 +2,10 @@
 <!-- Need to update this for the coin -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:tools="http://schemas.android.com/tools"
-
 	package="de.schildbach.wallet.digitalcoin"
 	android:installLocation="internalOnly"
-	android:versionCode="10026"
-	android:versionName="1.0.1.4" >
-
+	android:versionCode="10200"
+	android:versionName="1.0.2.0" >
 
 	<uses-sdk
 		android:minSdkVersion="10"

@@ -66,13 +66,12 @@
 	<string name="send_coins_error_msg">Problém pri odosielaní!</string>
 	<string name="send_coins_options_empty">Vyprázdniť peňaženku</string>
 	<string name="send_coins_address_context_clear_title">Zadajte novú adresu</string>
+
 	<string name="request_coins_activity_title">Vyžiadať digitalcoiny</string>
-	<string name="request_coins_fragment_address_label">Vyžiadať na adresu</string>
-	<string name="request_coins_fragment_include_address_label">spolu s adresou zahrnúť aj jej označenie</string>
+
 	<string name="request_coins_fragment_amount_label">Vyžadovaná suma (nepovinné)</string>
 	<string name="request_coins_fragment_initiate_request_qr">Dejte odosielateľovi oskenovať tento kód.</string>
 	<string name="request_coins_fragment_initiate_request_nfc">Alebo stlačte, ak vaše zariadenie podporuje NFC.</string>
-	<string name="request_coins_fragment_bluetooth_enabled">Prijímanie platieb cez Bluetooth.</string>
 	<string name="request_coins_clipboard_msg">Požiadavka na platbu skopírovaná do schránky</string>
 	<string name="request_coins_share_dialog_title">Zdieľať požiadavku na digitalcoiny…</string>
 	<string name="request_coins_options_local_app_title">Vyžiadať z lokálnej aplikácie</string>

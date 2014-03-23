@@ -21,8 +21,12 @@ import java.net.InetAddress;
 import java.util.List;
 import java.util.Map;
 import java.util.WeakHashMap;
+import java.util.concurrent.RejectedExecutionException;
 
 import javax.annotation.Nonnull;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;
@@ -72,6 +76,8 @@ public final class PeerListFragment extends SherlockListFragment
 	private static final int ID_REVERSE_DNS_LOADER = 1;
 
 	private final Map<InetAddress, String> hostnames = new WeakHashMap<InetAddress, String>();
+
+	private static final Logger log = LoggerFactory.getLogger(PeerListFragment.class);
 
 	@Override
 	public void onAttach(final Activity activity)
@@ -265,7 +271,14 @@ public final class PeerListFragment extends SherlockListFragment
 			@Override
 			public void onReceive(final Context context, final Intent intent)
 			{
-				forceLoad();
+				try
+				{
+					forceLoad();
+				}
+				catch (final RejectedExecutionException x)
+				{
+					log.info("rejected execution: " + PeerLoader.this.toString());
+				}
 			}
 		};
 	}

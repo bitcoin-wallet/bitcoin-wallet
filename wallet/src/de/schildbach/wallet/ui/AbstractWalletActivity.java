@@ -32,6 +32,7 @@ import com.actionbarsherlock.app.SherlockFragmentActivity;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.digitalcoin.R;
 
+
 /**
  * @author Andreas Schildbach
  */

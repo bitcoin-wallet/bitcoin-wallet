@@ -6,7 +6,6 @@
 
 	<artifactId>wallet</artifactId>
 	<packaging>apk</packaging>
-
 	<version>1.0.1.4</version>
 	<name>digitalcoin Wallet</name>
 
@@ -53,6 +52,7 @@
 		<!-- com.google.bitcoin.* -->
 		<dependency>
 			<groupId>com.google</groupId>
+
 			<artifactId>digitalcoinj</artifactId>
 			<version>0.12-SNAPSHOT</version>
 		</dependency>
@@ -61,7 +61,7 @@
 		<dependency>
 			<groupId>de.schildbach.wallet</groupId>
 			<artifactId>integration-android</artifactId>
-			<version>1.0</version>
+			<version>2.0</version>
 		</dependency>
 
 		<!-- com.google.zxing.* -->
@@ -75,21 +75,21 @@
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
-			<version>1.7.5</version>
+			<version>1.7.6</version>
 		</dependency>
 
 		<!-- ch.qos.logback.classic.* -->
 		<dependency>
 			<groupId>com.github.tony19</groupId>
 			<artifactId>logback-android-classic</artifactId>
-			<version>1.0.10-2</version>
+			<version>1.1.1-1</version>
 		</dependency>
 
 		<!-- ch.qos.logback.core.* -->
 		<dependency>
 			<groupId>com.github.tony19</groupId>
 			<artifactId>logback-android-core</artifactId>
-			<version>1.0.10-2</version>
+			<version>1.1.1-1</version>
 		</dependency>
 
 		<!-- javax.annotation.* -->

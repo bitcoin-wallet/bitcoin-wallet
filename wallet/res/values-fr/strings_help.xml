@@ -4,60 +4,80 @@
 	<string name="help_wallet">
 <![CDATA[
 		<p>
+<<<<<<< HEAD
 			La partie supérieure gauche de l\'écran affiche l\'adresse digitalcoin que vous avez choisie et que les gens doivent connaître pour vous envoyer des digitalcoins.
 			Tapez pour changer cette adresse.
 		</p>
 		<p>
 			Le QR code à droite contient votre adresse digitalcoin et peut être utilisée pour être scannée par un tiers.
 			Tapez sur le code QR pour l\'agrandir.
+=======
+			La partie supérieure gauche de l\'écran affiche votre adresse Bitcoin choisie et que d\'autres personnes doivent connaître pour vous envoyer des bitcoins.
+			Toquer pour changer cette adresse.
+		</p>
+		<p>
+			Le code QR à droite contient votre adresse bitcoin et peut être numérisée par un tiers.
+			Toquer le code QR pour l\'agrandir.
+>>>>>>> upstream/prod
 		</p>
 		<p>
 			Au milieu de l\'écran, votre solde est affiché.
-			La valeur de votre porte-monnaie est aussi affichée dans une devise locale que vous pouvez choisir.
-			Tapez sur le solde pour afficher la liste de toutes les devises locales et tapez sur l\'une d\'entre elles pour en faire la devise locale par défaut.
+			La valeur de votre portefeuille est aussi affichée dans une devise locale choisie.
+			Toquer sur le solde pour afficher la liste de toutes les devises locales et toquer sur l\'une d\'entre elles pour la choisir par défaut.
 		</p>
 		<p>
 			Le bas de l\'écran est couvert par votre liste de transactions, qui est vide initialement.
-			Les transactions en cours de traitement sont grisées jusqu\'à ce qu\'elles soient confirmées.
-			Tapez sur une transaction pour ajouter l\'adresse du destinataire ou de l\'envoyeur à votre carnet d\'adresses.
-			Balayer vers la gauche ou vers la droite pour appliquer des filtres à la liste.
+			Les transactions en attente sont grisées jusqu\'à ce qu\'elles soient confirmées.
+			Toquer sur une entrée pour ajouter l\'adresse du destinataire ou de l\'envoyeur au carnet d\'adresses.
+			Glisser vers la gauche ou vers la droite pour appliquer des filtres à la liste.
 		</p>
 		<p>
+<<<<<<< HEAD
 			Vous pouvez envoyer ou recevoir des digitalcoins en tapant les boutons dans la barre d\'action.
 			Plus d\'options sont disponibles dans le menu options.
+=======
+			Vous pouvez envoyer ou recevoir des bitcoins en toquant les boutons dans la barre des actions.
+			Plus d\'options sont disponibles dans le menu des options.
+>>>>>>> upstream/prod
 		</p>
 	]]>
 	</string>
 	<string name="help_request_coins">
 <![CDATA[
 		<p>
+<<<<<<< HEAD
 			La partie supérieure gauche de l\'écran affiche l\'adresse digitalcoin que vous avez choisie et que les gens doivent connaître pour vous envoyer des digitalcoins.
 			Tapez pour changer cette adresse.
 		</p>
 		<p>
 			Le QR code à droite contient votre adresse digitalcoin et peut être utilisée pour être scannée par un tiers.
 			Tapez sur le code QR pour l\'agrandir.
+=======
+			En utilisant cette zone de dialogue vous pouvez demander des pièces à une autre personne (qui devrait déjà avoir installé le Bitcoin Wallet).
 		</p>
 		<p>
-			Au milieu de l\'écran, votre solde est affiché.
-			La valeur de votre porte-monnaie est aussi affichée dans une devise locale que vous pouvez choisir.
-			Tapez sur le solde pour afficher la liste de toutes les devises locales et tapez sur l\'une d\'entre elles pour en faire la devise locale par défaut.
+			Vous pouvez d\'abord saisir un montant de bitcoins à demander.
+>>>>>>> upstream/prod
 		</p>
 		<p>
-			Le bas de l\'écran est couvert par votre liste de transactions, qui est vide initialement.
-			Les transactions en cours de traitement sont grisées jusqu\'à ce qu\'elles soient confirmées.
-			Tapez sur une transaction pour ajouter l\'adresse du destinataire ou de l\'envoyeur à votre carnet d\'adresses.
-			Balayer vers la gauche ou vers la droite pour appliquer des filtres à la liste.
+			Ensuite, soit l\'autre personne numérise le code QR généré, soit vous pouvez envoyer votre demande à une personne éloignée avec le bouton Partager de la barre des actions.
+			L\'autre personne devra cliquer sur l\'URL bitcoin.
 		</p>
 		<p>
+<<<<<<< HEAD
 			Vous pouvez envoyer ou recevoir des digitalcoins en tapant les boutons dans la barre d\'action.
 			Plus d\'options sont disponibles dans le menu options.
+=======
+			Dans les deux cas, l\'autre personne obtiendra une zone de dialogue pré-remplie pour envoyer les pièces.
+			Si elle accepte, elle n\'aura qu\'à envoyer le paiement.
+>>>>>>> upstream/prod
 		</p>
 	]]>
 	</string>
 	<string name="help_send_coins">
 <![CDATA[
 		<p>
+<<<<<<< HEAD
 			Vous avez commencé le processus d\'envoi de digitalcoins.
 			Vous êtes arivé ici depuis l\'écran principal ou en cliqunat une URL digitalcoin dans votre navigateur mobile.
 		</p>
@@ -69,51 +89,94 @@
 		<p>
 			Ensuite,vous pouvez voir combien de digitalcoins sont disponibles.
 			Tout écart avec le solde de l\'écran principal représente un montant qui n\'est pas encore confirmé et n\'est donc pas disponible.
+=======
+			Vous avez commencé le processus d\'envoi de bitcoins.
+			Vous êtes arrivé ici depuis l\'écran principal ou en cliquant sur une URL bitcoin dans votre navigateur.
 		</p>
 		<p>
-			Enfin, saisissez le montant à payer que vous proposez.
+			D\'abord, saisir l\'adresse bitcoin de destination.
+			L\'adresse sera auto-complétée pour les adresses enregistrées dans votre carnet.
+			Vous pouvez aussi numériser des codes QR avec des adresses bitcoin ou des demandes de bitcoins en pressant le bouton QR dans la barre des actions.
 		</p>
 		<p>
+			Ensuite, vous pouvez voir combien de bitcoins peuvent être dépensés actuellement.
+			Tout écart avec le solde de l\'écran principal n\'est pas encore confirmé et ne peut donc pas être dépensé.
+>>>>>>> upstream/prod
+		</p>
+		<p>
+			Enfin, saisir le montant à payer.
+		</p>
+		<p>
+<<<<<<< HEAD
 			Vous pouvez saisir un paiement hors-lighe.
 			Elle sera envoyée au prochain lancement de digitalcoin Wallet.
 			Si vous voulez le traitement le plus rapide possible de votre paiement, assurez vous d\'être bien connecté (c\'est à dire sur un WLAN).
+=======
+			Vous pouvez saisir un paiement hors-ligne.
+			Il sera envoyé au prochain lancement du Bitcoin Wallet.
+			Pour le traitement le plus rapide possible de votre paiement, assurez vous d\'être bien connecté (c.-à-d. sur un WLAN).
+>>>>>>> upstream/prod
 		</p>
 		<p>
-			Note:
-			Les paiements sont irréversibles!
-			Vérifiez toujours l\'adresse de destination.
+			Note :
+			Les paiements sont irréversibles !
+			Toujours vérifier l\'adresse de destination.
 		</p>
 	]]>
 	</string>
 	<string name="help_safety">
 <![CDATA[
 		<p>
+<<<<<<< HEAD
 			<b>Quelques mots sur la sécurité de vos digitalcoins:</b>
 		</p>
 		<p>
 			Les digitalcoins sont stockés sur l\'appareil avec digitalcoin Wallet.
 			<b>Si vous le perdez, vous perdez vos digitalcoins.</b>
+=======
+			<b>Notes de sécurité importantes :</b>
 		</p>
 		<p>
-			Cela signifie que vous avez besoin de <b>sauvegarder vos clés privées</b>!
-			Conservez-les dans un endroit sécurisé et souvenez-vous de votre mot de passe.
+			Les bitcoins sont stockés sur l\'appareil.
+			<b>Si vous le perdez, vous perdez vos bitcoins.</b>
+>>>>>>> upstream/prod
 		</p>
 		<p>
+			Cela signifie que vous devez <b>sauvegarder votre portefeuille</b>!
+			Utiliser la fonction de sauvegarde de l\'appli plutôt qu\'une appli de sauvegarde tierce.
+			Garder votre sauvegarde en sûreté et souvenez-vous de votre mot de passe.
+		</p>
+		<p>
+<<<<<<< HEAD
 			<b>Avant de désinstaller digitalcoin Wallet</b> (ou d\'effacer les données de l\'application/effacer les données de votre appareil), <b>transférez vos digitalcoins dans un autre porte-monnaie</b>.
 			Tout les digitalcoins restant seront perdus.
 		</p>
 		<p>
 			<b>Les paiements sont irréversibles</b>.
 			Si vous envoyez vos digitalcoins dans le vide, il n\'y a aucun moyen de les récupérer sauf si vous connaissez le destinataire et qu\'il est d\'accord pour vous les renvoyer.
+=======
+			<b>Avant de désinstaller Bitcoin Wallet</b> (ou d\'effacer les données de l\'appli/effacer les données de votre appareil), <b>transférer vos bitcoins vers un autre portefeuille</b>.
+			Les bitcoins restant seront perdus.
 		</p>
 		<p>
-			<b>Gardez votre appareil mobile en sécurité!</b>
-			N\'installez que des applications de confiance.
-			Des applications malveillantes pourraient essayer de voler votre porte-monnaie.
+			<b>Les paiements sont irréversibles</b>.
+			Si vous envoyez vos bitcoins dans le vide, il n\'y a presque aucun moyen de les récupérer.
+>>>>>>> upstream/prod
 		</p>
 		<p>
+			<b>Garder votre appareil mobile en sécurité !</b>
+			Ne pas rooter votre appareil.
+			N\'installer que des applications de confiance.
+			Des applications malveillantes pourraient essayer de voler votre portefeuille.
+		</p>
+		<p>
+<<<<<<< HEAD
 			Minimisez les risques!
 			<b>Utilisez digitalcoin Wallet seulement pour des petits montants</b> pour un usage quotidien.
+=======
+			Minimiser les risques !
+			<b>N\'utiliser que pour des petits montants</b> pour un usage quotidien.
+>>>>>>> upstream/prod
 		</p>
 	]]>
 	</string>

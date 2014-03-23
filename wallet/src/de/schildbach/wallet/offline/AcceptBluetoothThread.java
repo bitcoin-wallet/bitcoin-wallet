@@ -20,14 +20,10 @@ package de.schildbach.wallet.offline;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import com.google.bitcoin.core.CoinDefinition;
 import org.bitcoin.protocols.payments.Protos;
@@ -41,10 +37,10 @@ import android.bluetooth.BluetoothSocket;
 
 import com.google.bitcoin.core.ProtocolException;
 import com.google.bitcoin.core.Transaction;
-import com.google.protobuf.ByteString;
 
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.util.Bluetooth;
+import de.schildbach.wallet.util.PaymentProtocol;
 
 /**
  * @author Shahar Livne
@@ -63,9 +59,9 @@ public abstract class AcceptBluetoothThread extends Thread
 		this.listeningSocket = listeningSocket;
 	}
 
-	public static abstract class Classic extends AcceptBluetoothThread
+	public static abstract class ClassicBluetoothThread extends AcceptBluetoothThread
 	{
-		public Classic(@Nonnull final BluetoothAdapter adapter)
+		public ClassicBluetoothThread(@Nonnull final BluetoothAdapter adapter)
 		{
 			super(listen(adapter, Bluetooth.BLUETOOTH_UUID_CLASSIC));
 		}
@@ -161,9 +157,9 @@ public abstract class AcceptBluetoothThread extends Thread
 		}
 	}
 
-	public static abstract class PaymentProtocol extends AcceptBluetoothThread
+	public static abstract class PaymentProtocolThread extends AcceptBluetoothThread
 	{
-		public PaymentProtocol(@Nonnull final BluetoothAdapter adapter)
+		public PaymentProtocolThread(@Nonnull final BluetoothAdapter adapter)
 		{
 			super(listen(adapter, Bluetooth.BLUETOOTH_UUID_PAYMENT_PROTOCOL));
 		}
@@ -193,7 +189,7 @@ public abstract class AcceptBluetoothThread extends Thread
 
 					log.debug("got payment message");
 
-					for (final Transaction tx : parsePaymentMessage(payment))
+					for (final Transaction tx : PaymentProtocol.parsePaymentMessage(payment))
 					{
 						if (!handleTx(tx))
 							ack = false;
@@ -203,7 +199,8 @@ public abstract class AcceptBluetoothThread extends Thread
 
 					log.info("sending {} via bluetooth", memo);
 
-					writePaymentAck(os, payment, memo);
+					final PaymentACK paymentAck = PaymentProtocol.createPaymentAck(payment, memo);
+					paymentAck.writeDelimitedTo(os);
 				}
 				catch (final IOException x)
 				{
@@ -248,30 +245,6 @@ public abstract class AcceptBluetoothThread extends Thread
 					}
 				}
 			}
-		}
-
-		private List<Transaction> parsePaymentMessage(final Protos.Payment paymentMessage) throws IOException
-		{
-			final List<Transaction> transactions = new ArrayList<Transaction>(paymentMessage.getTransactionsCount());
-
-			for (final ByteString transaction : paymentMessage.getTransactionsList())
-				transactions.add(new Transaction(Constants.NETWORK_PARAMETERS, transaction.toByteArray()));
-
-			return transactions;
-		}
-
-		private PaymentACK writePaymentAck(@Nonnull final OutputStream os, @Nonnull final Protos.Payment paymentMessage, @Nullable final String memo)
-				throws IOException
-		{
-			final Protos.PaymentACK.Builder builder = Protos.PaymentACK.newBuilder();
-
-			builder.setPayment(paymentMessage);
-
-			builder.setMemo(memo);
-
-			final PaymentACK paymentAck = builder.build();
-			paymentAck.writeDelimitedTo(os);
-			return paymentAck;
 		}
 	}
 

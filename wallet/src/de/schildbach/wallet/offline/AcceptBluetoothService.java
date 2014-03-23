@@ -91,7 +91,7 @@ public final class AcceptBluetoothService extends Service
 
 		registerReceiver(bluetoothStateChangeReceiver, new IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED));
 
-		classicThread = new AcceptBluetoothThread.Classic(bluetoothAdapter)
+		classicThread = new AcceptBluetoothThread.ClassicBluetoothThread(bluetoothAdapter)
 		{
 			@Override
 			public boolean handleTx(final Transaction tx)
@@ -101,7 +101,7 @@ public final class AcceptBluetoothService extends Service
 		};
 		classicThread.start();
 
-		paymentProtocolThread = new AcceptBluetoothThread.PaymentProtocol(bluetoothAdapter)
+		paymentProtocolThread = new AcceptBluetoothThread.PaymentProtocolThread(bluetoothAdapter)
 		{
 			@Override
 			public boolean handleTx(final Transaction tx)

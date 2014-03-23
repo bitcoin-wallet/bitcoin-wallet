@@ -24,7 +24,9 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.security.KeyStore;
 
+import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManagerFactory;
@@ -42,13 +44,16 @@ public abstract class HttpGetThread extends Thread
 {
 	private final AssetManager assets;
 	private final String url;
+	@CheckForNull
+	private final String userAgent;
 
 	private static final Logger log = LoggerFactory.getLogger(HttpGetThread.class);
 
-	public HttpGetThread(@Nonnull final AssetManager assets, @Nonnull final String url)
+	public HttpGetThread(@Nonnull final AssetManager assets, @Nonnull final String url, @Nullable final String userAgent)
 	{
 		this.assets = assets;
 		this.url = url;
+		this.userAgent = userAgent;
 	}
 
 	@Override
@@ -79,9 +84,12 @@ public abstract class HttpGetThread extends Thread
 				((HttpsURLConnection) connection).setSSLSocketFactory(sslContext.getSocketFactory());
 			}
 
+			connection.setInstanceFollowRedirects(false);
 			connection.setConnectTimeout(Constants.HTTP_TIMEOUT_MS);
 			connection.setReadTimeout(Constants.HTTP_TIMEOUT_MS);
 			connection.setRequestProperty("Accept-Charset", "utf-8");
+			if (userAgent != null)
+				connection.addRequestProperty("User-Agent", userAgent);
 			connection.connect();
 
 			if (connection.getResponseCode() == HttpURLConnection.HTTP_OK)

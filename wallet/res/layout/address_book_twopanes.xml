@@ -32,9 +32,8 @@
 			android:foreground="@drawable/fragment_shadow_horizontal_light"
 			android:foregroundGravity="top|fill_horizontal" >
 
-			<fragment
+			<FrameLayout
 				android:id="@+id/wallet_addresses_fragment"
-				android:name="de.schildbach.wallet.ui.WalletAddressesFragment"
 				android:layout_width="match_parent"
 				android:layout_height="match_parent" />
 		</FrameLayout>
@@ -73,9 +72,8 @@
 			android:foreground="@drawable/fragment_shadow_horizontal_light"
 			android:foregroundGravity="top|fill_horizontal" >
 
-			<fragment
+			<FrameLayout
 				android:id="@+id/sending_addresses_fragment"
-				android:name="de.schildbach.wallet.ui.SendingAddressesFragment"
 				android:layout_width="match_parent"
 				android:layout_height="match_parent" />
 		</FrameLayout>

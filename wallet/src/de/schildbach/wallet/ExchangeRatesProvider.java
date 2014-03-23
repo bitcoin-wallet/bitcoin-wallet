@@ -40,6 +40,7 @@ import org.slf4j.LoggerFactory;
 
 import android.content.ContentProvider;
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.database.MatrixCursor;
 import android.net.Uri;
@@ -79,6 +80,7 @@ public class ExchangeRatesProvider extends ContentProvider
 	private static final String KEY_SOURCE = "source";
 
 	private Configuration config;
+	private String userAgent;
 
 	@CheckForNull
 	private Map<String, ExchangeRate> exchangeRates = null;
@@ -86,8 +88,6 @@ public class ExchangeRatesProvider extends ContentProvider
 
 	private static final URL BITCOINAVERAGE_URL;
 	private static final String[] BITCOINAVERAGE_FIELDS = new String[] { "24h_avg", "last" };
-	private static final URL BITCOINCHARTS_URL;
-	private static final String[] BITCOINCHARTS_FIELDS = new String[] { "24h", "7d", "30d" };
 	private static final URL BLOCKCHAININFO_URL;
 	private static final String[] BLOCKCHAININFO_FIELDS = new String[] { "15m" };
 
@@ -98,7 +98,6 @@ public class ExchangeRatesProvider extends ContentProvider
 		try
 		{
 			BITCOINAVERAGE_URL = new URL("https://api.bitcoinaverage.com/ticker/global/all");
-			BITCOINCHARTS_URL = new URL("http://api.bitcoincharts.com/v1/weighted_prices.json");
 			BLOCKCHAININFO_URL = new URL("https://blockchain.info/ticker");
 		}
 		catch (final MalformedURLException x)
@@ -114,7 +113,11 @@ public class ExchangeRatesProvider extends ContentProvider
 	@Override
 	public boolean onCreate()
 	{
-		this.config = new Configuration(PreferenceManager.getDefaultSharedPreferences(getContext()));
+		final Context context = getContext();
+
+		this.config = new Configuration(PreferenceManager.getDefaultSharedPreferences(context));
+
+		this.userAgent = WalletApplication.httpUserAgent(WalletApplication.packageInfoFromContext(context).versionName);
 
 		final ExchangeRate cachedExchangeRate = config.getCachedExchangeRate();
 		if (cachedExchangeRate != null)
@@ -140,11 +143,9 @@ public class ExchangeRatesProvider extends ContentProvider
 		{
 			Map<String, ExchangeRate> newExchangeRates = null;
 			if (newExchangeRates == null)
-				newExchangeRates = requestExchangeRates(BITCOINAVERAGE_URL, BITCOINAVERAGE_FIELDS);
+				newExchangeRates = requestExchangeRates(BITCOINAVERAGE_URL, userAgent, BITCOINAVERAGE_FIELDS);
 			if (newExchangeRates == null)
-				newExchangeRates = requestExchangeRates(BITCOINCHARTS_URL, BITCOINCHARTS_FIELDS);
-			if (newExchangeRates == null)
-				newExchangeRates = requestExchangeRates(BLOCKCHAININFO_URL, BLOCKCHAININFO_FIELDS);
+				newExchangeRates = requestExchangeRates(BLOCKCHAININFO_URL, userAgent, BLOCKCHAININFO_FIELDS);
 
 			if (newExchangeRates != null)
 			{
@@ -173,8 +174,8 @@ public class ExchangeRatesProvider extends ContentProvider
 		else if (selection.equals(KEY_CURRENCY_CODE))
 		{
 			final ExchangeRate rate = bestExchangeRate(selectionArgs[0]);
-
-			cursor.newRow().add(rate.currencyCode.hashCode()).add(rate.currencyCode).add(rate.rate.longValue()).add(rate.source);
+			if (rate != null)
+				cursor.newRow().add(rate.currencyCode.hashCode()).add(rate.currencyCode).add(rate.rate.longValue()).add(rate.source);
 		}
 
 		return cursor;
@@ -239,7 +240,6 @@ public class ExchangeRatesProvider extends ContentProvider
 	{
 		throw new UnsupportedOperationException();
 	}
-
 
     private static Object getCoinValueBTC()
     {
@@ -391,7 +391,7 @@ public class ExchangeRatesProvider extends ContentProvider
         return null;
     }
 
-	private static Map<String, ExchangeRate> requestExchangeRates(final URL url, final String... fields)
+	private static Map<String, ExchangeRate> requestExchangeRates(final URL url, final String userAgent, final String... fields)
 	{
 		final long start = System.currentTimeMillis();
 
@@ -418,8 +418,10 @@ public class ExchangeRatesProvider extends ContentProvider
 
 			connection = (HttpURLConnection) url.openConnection();
 
+			connection.setInstanceFollowRedirects(false);
 			connection.setConnectTimeout(Constants.HTTP_TIMEOUT_MS);
 			connection.setReadTimeout(Constants.HTTP_TIMEOUT_MS);
+			connection.addRequestProperty("User-Agent", userAgent);
 			connection.connect();
 
 			final int responseCode = connection.getResponseCode();

@@ -50,19 +50,38 @@
 	<string name="wallet_version_dialog_msg">Bu sürüm önemli hata düzeltmeleri içerir. Detaylar için Google Play\'de değişikliklere bakınız.</string>
 	<string name="wallet_version_dialog_button_market">Google Play</string>
 	<string name="wallet_version_dialog_button_binary">İndir</string>
+	<string name="wallet_precision_warning_dialog_title">İsimlendirme değişikliği</string>
+	<string name="wallet_precision_warning_dialog_msg">İsimlendirme bitcoin\'den (BTC) millibitcoin\'e (mBTC) değiştirilmiştir. Tüm miktarlar 1000 faktörü ile çarpılmıştır.\n\nBu değişikliği ayarlarda geri alabilirsiniz.</string>
 	<string name="wallet_old_sdk_dialog_title">Android sürümü eski</string>
-	<string name="wallet_old_sdk_dialog_message">Gelecek digitalcoin Wallet sürümünün cihazınızı desteklememesi mümkündür. Bazı durumlarda bu cihazla digitalcoin harcamak zor olabilir.\n\ndigitalcoinlerinizi güvenli bir yere aktarmanız tavsiye edilir.</string>
-	<string name="send_coins_activity_title">digitalcoin gönder</string>
+
+	<string name="wallet_old_sdk_dialog_message">Gelecek digitalcoin Wallet sürümünün cihazınızı desteklememesi mümkündür. Bazı durumlarda bu cihazla digitalcoin harcamak zor olabilir.\n\nBitcoinlerinizi güvenli bir yere aktarmanız tavsiye edilir.</string>
+	<string name="send_coins_activity_title">Bitcoin gönder</string>
+	<string name="send_coins_fragment_request_payment_request_progress">%s unsurundan imza alınıyor…</string>
+	<string name="send_coins_fragment_request_payment_request_failed_title">İmza alımı başarısız oldu</string>
+	<string name="send_coins_fragment_request_payment_request_wrong_signature">Yanlış imza!</string>
+	<string name="send_coins_fragment_payee_verified_by">şunun tarafından denetlenmiştir: %s</string>
+	<string name="send_coins_fragment_payee_verified_by_unknown">bilinmiyor</string>
+
 	<string name="send_coins_fragment_receiving_address_label">Şuna öde</string>
 	<string name="send_coins_fragment_receiving_address_hint">adını veya adresini giriniz</string>
 	<string name="send_coins_fragment_receiving_address_error">Geçersiz digitalcoin adresi!</string>
 	<string name="send_coins_fragment_receiving_address_error_cross_network">%s adresi bu cüzdanla kullanılamaz!</string>
 	<string name="send_coins_fragment_receiving_address_error_cross_network_unknown">Bilinmeyen bir şebekenin adresi bu cüzdanla kullanılamaz!</string>
+
+	<string name="send_coins_fragment_receiving_address_complex">karmaşık\nadres</string>
 	<string name="send_coins_fragment_pending">(%s DGC teyit bekliyor)</string>
 
 	<string name="send_coins_fragment_amount_label">Ödenecek miktar</string>
+	<string name="send_coins_fragment_direct_payment_enable">Ödemeyi doğrudan alacaklıya gönder.</string>
+	<string name="send_coins_fragment_direct_payment_ack">Ödemeniz başarıyla doğrudan gönderilmiştir.</string>
+	<string name="send_coins_fragment_direct_payment_nack">Ödemeniz doğrudan bağlantı vasıtasıyla reddedilmiştir.</string>
+	<string name="send_coins_fragment_direct_payment_failed_title">Doğrudan ödeme başarısız oldu</string>
+	<string name="send_coins_fragment_direct_payment_failed_msg">Ödemeniz yine de P2P ağı üzerinden yayınlanacaktır.</string>
 	<string name="send_coins_fragment_button_send">Gönder</string>
 	<string name="send_coins_fragment_button_back">Geri</string>
+	<string name="send_coins_fragment_insufficient_money_title">Mevcut para yeterli değil</string>
+	<string name="send_coins_fragment_insufficient_money_msg1">%s eksik.</string>
+	<string name="send_coins_fragment_insufficient_money_msg2">Mevcut bütün paranızla ödeme yapmak istiyor musunuz?</string>
 	<string name="send_coins_preparation_msg">İmzalanıyor…</string>
 	<string name="send_coins_sending_msg">Gönderiliyor…</string>
 	<string name="send_coins_sent_msg">Gönderildi!</string>
@@ -72,16 +91,16 @@
 	<string name="send_coins_options_empty">Boş cüzdan</string>
 
 	<string name="send_coins_address_context_clear_title">Yeni adres gir</string>
+
 	<string name="request_coins_activity_title">digitalcoin talebi</string>
-	<string name="request_coins_fragment_address_label">Talep için kullanılacak adres</string>
-	<string name="request_coins_fragment_include_address_label">adrese etiket iliştir</string>
 	<string name="request_coins_fragment_amount_label">Talep edilen miktar (seçime dayalı)</string>
 
 	<string name="request_coins_fragment_initiate_request_qr">Bu kodu gönderici tarafından taratın.</string>
 	<string name="request_coins_fragment_initiate_request_nfc">Ya da NFC destekli bir cihaz ile dokunun.</string>
-	<string name="request_coins_fragment_bluetooth_enabled">Bluetooth aracılığıyla ödemeler kabul ediliyor.</string>
+
 	<string name="request_coins_clipboard_msg">digitalcoin talebi panoya kopyalandı</string>
 	<string name="request_coins_share_dialog_title">digitalcoin talebini yayınla…</string>
+
 	<string name="request_coins_options_local_app_title">Yerel uygulamadan talep</string>
 
 	<string name="address_book_activity_title">Adres defteri</string>
@@ -96,8 +115,12 @@
 	<string name="address_book_context_default_title">Varsayılan adres olarak tanımla</string>
 	<string name="address_book_options_paste_from_clipboard_title">Panodan yapıştır</string>
 	<string name="address_book_options_paste_from_clipboard_empty">Pano boş</string>
+	<string name="address_book_options_paste_from_clipboard_invalid">Panodaki veriler tanınamadı</string>
 	<string name="address_book_options_scan_title">Adresi tara</string>
+
+	<string name="address_book_options_scan_invalid">Taranan veriler tanınamadı</string>
 	<string name="address_book_row_message_compromised_key">Bu adres tehlikededir. Onu artık digitalcoin almak için kullanmamalısınız.</string>
+
 	<string name="edit_address_book_entry_dialog_title_add">Adres ekle</string>
 	<string name="edit_address_book_entry_dialog_title_edit">Adres düzenle</string>
 	<string name="edit_address_book_entry_dialog_address_label">Adres</string>
@@ -105,6 +128,7 @@
 	<string name="edit_address_book_entry_dialog_button_edit">Kaydet</string>
 	<string name="transaction_row_message_purpose_key_rotation">Bu muamele cüzdanınızın çalınmaya karşı korunmasını güçlendirir. &lt;u>Daha fazla bilgi.&lt;/u></string>
 	<string name="transaction_row_message_own_unbroadcasted">Bu ödeme henüz aktarılmamıştır.</string>
+	<string name="transaction_row_message_received_direct">Bu ödeme doğrudan alındı. Asla harcanamayacak olması riski vardır.</string>
 	<string name="transaction_row_message_received_unconfirmed_unlocked">Bu ödeme muhtemelen birkaç dakika içinde harcanabilir hâle gelecektir.</string>
 	<string name="transaction_row_message_received_unconfirmed_locked">Bu ödeme standart değildir ve ona güvenilmemelidir.</string>
 	<string name="transaction_row_message_received_dead">Bu ödeme gönderici tarafından iptal edilmiştir.</string>
@@ -138,15 +162,20 @@
 	<string name="export_keys_dialog_mail_subject">digitalcoin Wallet özel anahtar yedeklemesi</string>
 	<string name="export_keys_dialog_mail_text">Eklenen şifreli dosya digitalcoin özel anahtarlarını içermektedir ve güvenli bir yerde saklanmalıdır. Şifreleme parolanızı unutmayınız!</string>
 	<string name="export_keys_dialog_mail_intent_chooser">Anahtarları şunu kullanarak arşivle…</string>
+	<string name="export_keys_dialog_mail_intent_failed">Anahtarların arşivlenmesi başarısız oldu.</string>
 	<string name="import_export_keys_dialog_password">parola</string>
 	<string name="import_export_keys_dialog_show">Parolayı göster</string>
 	<string name="import_export_keys_dialog_failure_title">Hata</string>
 	<string name="import_keys_intent_filter_action">digitalcoin anahtar geri yükleme</string>
 	<string name="scan_camera_problem_dialog_title">Üzgünüz</string>
 	<string name="scan_camera_problem_dialog_message">Fotoğraf makinesinde bir problem var. Muhtemelen cihazınızı yeniden başlatmanız gerekiyor.</string>
+	<string name="input_parser_io_error">Veriler okunamadı:\n%s</string>
 	<string name="input_parser_cannot_classify">Girdi sınıflandırılamadı:\n%s</string>
+
 	<string name="input_parser_invalid_bitcoin_uri">Geçersiz digitalcoin adresi:\n%s</string>
 	<string name="input_parser_invalid_address">Geçersiz bir digitalcoin adresi alındı!\n(Mainnet ve Testnet karışmış olmasın?)</string>
+	<string name="input_parser_invalid_paymentrequest">Geçersiz ödeme talebi:\n%s</string>
+
 	<string name="input_parser_invalid_transaction">Geçersiz muamele:\n%s</string>
 	<string name="preferences_activity_title">Ayarlar</string>
 	<string name="preferences_category_main">Tercihler</string>
@@ -179,22 +208,27 @@
 	<string name="report_issue_dialog_collect_application_log">Uygulama kütüğünü ilâve et</string>
 	<string name="report_issue_dialog_collect_wallet_dump">Cüzdan dökümü ilâve et</string>
 	<string name="report_issue_dialog_mail_intent_chooser">Raporu şununla gönder…</string>
-
+	<string name="report_issue_dialog_mail_intent_failed">Raporun yollanması başarısız oldu.</string>
 	<string name="about_title">Hakkında</string>
 	<string name="about_license_title">Lisans</string>
 	<string name="about_credits_bitcoinj_title">Bu uygulama digitalcoinj %s kullanmaktadır</string>
 	<string name="about_credits_zxing_title">Bu uygulama \'zxing\' kullanmaktadır</string>
 	<string name="about_credits_icon_title">Bu uygulama \'bitboy\' tarafından oluşturulan bir ikon kullanır</string>
+	<string name="about_community_googleplus_title">Google+ topluluğu</string>
+	<string name="about_community_googleplus_summary">Uygulama hakkında tartışmalar</string>
 	<string name="about_author_twitter_title">Geliştiricinin Twitter sayfası</string>
 	<string name="about_author_googleplus_title">Geliştiricinin Google+ sayfası</string>
-	<string name="about_market_app_title">Android Market uygulama sayfası</string>
+	<string name="about_market_app_title">Google Play sayfası</string>
+	<string name="about_market_app_summary">Uygulamayı değerlendir veya not ver</string>
 	<string name="about_credits_market_publisher_title">Geliştiricinin diğer uygulamaları</string>
- 	<string name="notification_coins_received_msg">%s alındı</string>
- 	<string name="notification_peers_connected_msg">%d eş bağlı</string>
+	<string name="notification_coins_received_msg">%s alındı</string>
+	<string name="notification_peers_connected_msg">%d eş bağlı</string>
+
 	<!-- generic buttons -->
 	<string name="button_ok">Tamam</string>
 	<string name="button_dismiss">Reddet</string>
 	<string name="button_cancel">İptal et</string>
+	<string name="button_retry">Tekrar dene</string>
 	<string name="button_help">Yardım</string>
 	<string name="button_add">Ekle</string>
 	<string name="button_delete">Sil</string>
@@ -209,7 +243,11 @@
 	<string name="button_scan">Tara</string>
 	<string name="button_edit_address">Adres ilâve et/düzenle</string>
 	<string name="button_settings">Ayarlar</string>
+	<string name="action_browse">Tara</string>
 	<string name="time_today">bugün</string>
 	<string name="address_unlabeled">(etiketsiz)</string>
     <string name="wallet_options_disconnect">Bağlantıyı kes</string>
+	<!-- generic error messages -->
+	<string name="error_io">G/Ç hatası: %s</string>
+	<string name="error_http">HTTP hatası %1$s:\n%2$s</string>
 </resources>

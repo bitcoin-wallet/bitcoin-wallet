@@ -70,14 +70,13 @@
 	<string name="send_coins_error_msg">Probléma merült fel a küldés során!</string>
 	<string name="send_coins_options_empty">Üres tárca</string>
 	<string name="send_coins_address_context_clear_title">Adj meg egy új címet</string>
+
 	<string name="request_coins_activity_title">digitalcoin kérés</string>
-	<string name="request_coins_fragment_address_label">Az igényléshez megadott cím</string>
-	<string name="request_coins_fragment_include_address_label">adj címkét a címhez</string>
 	<string name="request_coins_fragment_amount_label">Igényelt összeg (opcionális)</string>
 	<string name="request_coins_fragment_initiate_request_qr">A kód a küldő által beolvasva.</string>
 	<string name="request_coins_fragment_initiate_request_nfc">Vagy válaszd ki az NFC-képes eszközt.</string>
-	<string name="request_coins_fragment_bluetooth_enabled">Kifizetések fogadása Bluetooth segítségével.</string>
 	<string name="request_coins_clipboard_msg">digitalcoin igény a vágólapra másolva</string>
+
 	<string name="request_coins_share_dialog_title">Igénylések megosztása…</string>
 	<string name="request_coins_options_local_app_title">Igénylés a helyi app-ból</string>
 	<string name="address_book_activity_title">Címjegyzék</string>

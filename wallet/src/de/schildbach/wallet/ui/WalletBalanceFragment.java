@@ -302,7 +302,7 @@ public final class WalletBalanceFragment extends Fragment
 		@Override
 		public void onLoadFinished(final Loader<Cursor> loader, final Cursor data)
 		{
-			if (data != null)
+			if (data != null && data.getCount() > 0)
 			{
 				data.moveToFirst();
 				exchangeRate = ExchangeRatesProvider.getExchangeRate(data);

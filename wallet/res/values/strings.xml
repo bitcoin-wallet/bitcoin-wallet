@@ -51,9 +51,12 @@
 	<string name="wallet_precision_warning_dialog_title">Change of denomination</string>
 	<string name="wallet_precision_warning_dialog_msg">Denomination has been changed from digitalcoin (DGC) to millidigitalcoin (mDGC). All amounts are multiplied by a factor of 1000.\n\nYou can revert this change in the settings.</string>
 	<string name="wallet_old_sdk_dialog_title">Android version is out of date</string>
-
 	<string name="wallet_old_sdk_dialog_message">Chances are that one of the next releases of digitalcoin Wallet will not support your device any more. In some cases, it can get difficult to spend coins on this device.\n\nUnless you know what you are doing, it is recommended to move out your coins soon.</string>
 	<string name="send_coins_activity_title">Send digitalcoins</string>
+	<string name="send_coins_fragment_request_payment_request_progress">Fetching signature from %s…</string>
+	<string name="send_coins_fragment_request_payment_request_failed_title">Fetching signature failed</string>
+	<string name="send_coins_fragment_request_payment_request_wrong_signature">Wrong signature!</string>
+
 	<string name="send_coins_fragment_payee_verified_by">verified by: %s</string>
 	<string name="send_coins_fragment_payee_verified_by_unknown">unknown</string>
 
@@ -76,7 +79,7 @@
 	<string name="send_coins_fragment_button_back">Back</string>
 	<string name="send_coins_fragment_insufficient_money_title">Not enough available coins</string>
 	<string name="send_coins_fragment_insufficient_money_msg1">You\'re missing %s.</string>
-	<string name="send_coins_fragment_insufficient_money_msg2">Do you want to pay all you have?</string>
+	<string name="send_coins_fragment_insufficient_money_msg2">Do you want to pay with all you have?</string>
 	<string name="send_coins_preparation_msg">Signing…</string>
 	<string name="send_coins_sending_msg">Sending…</string>
 	<string name="send_coins_sent_msg">Sent!</string>
@@ -84,15 +87,17 @@
 	<string name="send_coins_error_msg">Problem sending coins!</string>
 	<string name="send_coins_options_empty">Empty wallet</string>
 	<string name="send_coins_address_context_clear_title">Enter new address</string>
+
 	<string name="request_coins_activity_title">Request digitalcoins</string>
-	<string name="request_coins_fragment_address_label">Address to request to</string>
-	<string name="request_coins_fragment_include_address_label">include label with address</string>
+
 	<string name="request_coins_fragment_amount_label">Requested amount (optional)</string>
+	<string name="request_coins_fragment_accept_bluetooth_payment">Accept payment via Bluetooth for more reliable processing</string>
 	<string name="request_coins_fragment_initiate_request_qr">Have this code scanned by the sender.</string>
 	<string name="request_coins_fragment_initiate_request_nfc">Or tap an NFC enabled device.</string>
-	<string name="request_coins_fragment_bluetooth_enabled">Accepting payments via Bluetooth.</string>
+
 	<string name="request_coins_clipboard_msg">digitalcoin request copied to clipboard</string>
 	<string name="request_coins_share_dialog_title">Share request for digitalcoins…</string>
+
 	<string name="request_coins_options_local_app_title">Request from local app</string>
 	<string name="address_book_activity_title">Address Book</string>
 	<string name="address_book_list_receiving_title">Your addresses</string>
@@ -129,6 +134,7 @@
 	<string name="peer_list_row_ping_time">⇆ %d&#x2009;ms</string>
 	<string name="import_keys_dialog_title">Restore private keys</string>
 	<string name="import_keys_dialog_message">Pick a private keys backup file from external or app-private storage:</string>
+	<string name="import_keys_dialog_warning">Important: Do not load private keys from dubious sources! Others can gain control over your funds if you do.</string>
 	<string name="import_keys_dialog_file_security_encrypted">password encrypted</string>
 	<string name="import_keys_dialog_file_security_unencrypted">unencrypted</string>
 	<string name="import_keys_dialog_file_security_external">external storage</string>
@@ -162,6 +168,8 @@
 
 	<string name="input_parser_invalid_bitcoin_uri">Invalid digitalcoin URI:\n%s</string>
 	<string name="input_parser_invalid_address">Got invalid digitalcoin address!\n(Mixing up Mainnet/Testnet?)</string>
+	<string name="input_parser_unverifyable_paymentrequest">Cannot verify payment request:\n%s</string>
+
 	<string name="input_parser_invalid_paymentrequest">Invalid payment request:\n%s</string>
 
 	<string name="input_parser_invalid_transaction">Invalid transaction:\n%s</string>
@@ -187,7 +195,7 @@
 	<string name="preferences_initiate_reset_dialog_positive">Reset</string>
 	<string name="report_issue_dialog_title_issue">Report issue</string>
 	<string name="report_issue_dialog_title_crash">Previous crash detected</string>
-	<string name="report_issue_dialog_message_issue">Please describe your issue precisely enough so a developer can reproduce.</string>
+	<string name="report_issue_dialog_message_issue">Please describe your issue precisely enough to be reproduced. If it is specific to your wallet, consider appending the dump.</string>
 	<string name="report_issue_dialog_message_crash">Would you like to send a crash report, helping to fix this issue in the future?</string>
 	<string name="report_issue_dialog_description">issue description</string>
 	<string name="report_issue_dialog_report">Report</string>
@@ -242,4 +250,9 @@
 	<string name="time_today">today</string>
 	<string name="address_unlabeled">(unlabeled)</string>
     <string name="wallet_options_disconnect">Disconnect</string>
+	<!-- generic error messages -->
+	<string name="error_io">I/O error: %s</string>
+	<string name="error_http">HTTP error %1$s:\n%2$s</string>
+
+
 </resources>

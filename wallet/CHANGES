@@ -6,7 +6,7 @@ v1.0.1.5
 * Added BTER as a backup for getting exchange rates
 * added mBTC as an exchange rate.
 * added Disconnect feature back in
-* updated to bitcoin-wallet v3.38?
+* updated to bitcoin-wallet v3.39
 
 v1.0.1.4
 * Updated to v3.31 (bitcoin-wallet)
@@ -30,6 +30,42 @@ v1.00
 
 Bitcoin Wallet
 -------------------
+
+v3.39
+
+* Usage of BIP70 when initiating payments via NFC (tap-to-pay) is now a supported feature.
+* New translation into Arabic.
+
+v3.38
+
+* Supports BIP70 payment protocol for in-app payments.
+* Accepting direct payments via Bluetooth is now a supported feature.
+
+v3.37
+
+* New translation into Japanese.
+
+v3.36
+
+* Small bugfix.
+
+v3.35
+
+* Protect wallet against dust spam.
+* Fixed some bugs in the payment protocol.
+
+v3.34
+
+* Small bugfix.
+
+v3.33
+
+* Small bugfixes.
+
+v3.32
+
+* Support for BIP72 URI extension for payment protocol.
+
 v3.31
 
 * Default denomination has changed to millibitcoin (mBTC).

@@ -61,6 +61,9 @@
 	<string name="wallet_old_sdk_dialog_message">Es ist möglich, daß eine der nächsten Versionen von digitalcoin Wallet dein Gerät nicht mehr unterstützt. In manchen Fällen kann es schwierig werden, Zahlungen zu tätigen.\n\nEs wird empfohlen, die enthaltenen digitalcoins bald zu verschieben, außer du weisst was du tust.</string>
 
 	<string name="send_coins_activity_title">digitalcoins senden</string>
+	<string name="send_coins_fragment_request_payment_request_progress">Rufe Signatur von %s ab…</string>
+	<string name="send_coins_fragment_request_payment_request_failed_title">Abrufen der Signatur fehlgeschlagen</string>
+	<string name="send_coins_fragment_request_payment_request_wrong_signature">Falsche Signatur!</string>
 	<string name="send_coins_fragment_payee_verified_by">verifiziert durch: %s</string>
 	<string name="send_coins_fragment_payee_verified_by_unknown">unbekannt</string>
 
@@ -84,7 +87,7 @@
 	<string name="send_coins_fragment_button_back">Zurück</string>
 	<string name="send_coins_fragment_insufficient_money_title">Nicht genug verfügbare digitalcoins</string>
 	<string name="send_coins_fragment_insufficient_money_msg1">Dir fehlen %s.</string>
-	<string name="send_coins_fragment_insufficient_money_msg2">Möchtest Du alles zahlen was Du hast?</string>
+	<string name="send_coins_fragment_insufficient_money_msg2">Möchtest Du mit allem zahlen was Du hast?</string>
 	<string name="send_coins_preparation_msg">Signierung…</string>
 	<string name="send_coins_sending_msg">Versenden…</string>
 	<string name="send_coins_sent_msg">Versendet!</string>
@@ -95,11 +98,9 @@
 
 	<string name="request_coins_activity_title">digitalcoins anfordern</string>
 	<string name="request_coins_fragment_amount_label">Angeforderter Betrag (optional)</string>
-	<string name="request_coins_fragment_address_label">Anfordernde Adresse</string>
-	<string name="request_coins_fragment_include_address_label">Name der Adresse beifügen</string>
+	<string name="request_coins_fragment_accept_bluetooth_payment">Zahlung zur zuverlässigeren Abwicklung per Bluetooth akzeptieren</string>
 	<string name="request_coins_fragment_initiate_request_qr">Laß diesen Code vom Sender scannen.</string>
 	<string name="request_coins_fragment_initiate_request_nfc">Oder berühr\'s mit einem NFC-fähigen Gerät.</string>
-	<string name="request_coins_fragment_bluetooth_enabled">Zahlungen via Bluetooth aktiviert.</string>
 	<string name="request_coins_clipboard_msg">Anforderung aufs Clipboard kopiert</string>
 	<string name="request_coins_share_dialog_title">Anforderung veröffentlichen…</string>
 	<string name="request_coins_options_local_app_title">Von lokaler App anfordern</string>
@@ -146,6 +147,7 @@
 
 	<string name="import_keys_dialog_title">Private Schlüssel wiederherstellen</string>
 	<string name="import_keys_dialog_message">Wähle eine Sicherungsdatei mit privaten Schlüsseln vom externen oder app-privaten Speicher aus:</string>
+	<string name="import_keys_dialog_warning">Wichtig: Lade keine privaten Schlüssel aus dubiosen Quellen! Andere Personen können die Kontrolle über deine Bitcoins bekommen, wenn du das tust.</string>
 	<string name="import_keys_dialog_file_security_encrypted">mit Passwort verschlüsselt</string>
 	<string name="import_keys_dialog_file_security_unencrypted">unverschlüsselt</string>
 	<string name="import_keys_dialog_file_security_external">externer Speicher</string>
@@ -179,6 +181,7 @@
 	<string name="input_parser_io_error">Kann Daten nicht lesen:\n%s</string>
 	<string name="input_parser_invalid_bitcoin_uri">Ungültige digitalcoin-URI:\n%s</string>
 	<string name="input_parser_invalid_address">Ungültige digitalcoin-Adresse gelesen!\n(Versuchst Du Mainnet/Testnet zu mischen?)</string>
+	<string name="input_parser_unverifyable_paymentrequest">Kann Zahlungsanforderung nicht verifizieren:\n%s</string>
 	<string name="input_parser_invalid_paymentrequest">Ungültige Zahlungsanforderung:\n%s</string>
 	<string name="input_parser_invalid_transaction">Ungültige Transaktion:\n%s</string>
 
@@ -205,7 +208,7 @@
 
 	<string name="report_issue_dialog_title_issue">Problem melden</string>
 	<string name="report_issue_dialog_title_crash">Absturz erkannt</string>
-	<string name="report_issue_dialog_message_issue">Bitte beschreibe dein Problem genau genug, daß ein Entwickler das Problem nachvollziehen kann.</string>
+	<string name="report_issue_dialog_message_issue">Bitte beschreibe dein Problem genau, so daß es nachvollzogen werden kann. Hänge den Dump der Wallet an, falls das Problem speziell deine Wallet betrifft.</string>
 	<string name="report_issue_dialog_message_crash">Möchtest du einen Fehlerbericht senden, um bei der Fehlerbehebung zu helfen?</string>
 	<string name="report_issue_dialog_description">Problembeschreibung</string>
 	<string name="report_issue_dialog_report">Senden</string>
@@ -256,5 +259,9 @@
 
 	<string name="time_today">heute</string>
 	<string name="address_unlabeled">(unbenannt)</string>
+
+	<!-- generic error messages -->
+	<string name="error_io">I/O-Fehler: %s</string>
+	<string name="error_http">HTTP-Fehler %1$s:\n%2$s</string>
 
 </resources>

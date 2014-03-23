@@ -40,7 +40,6 @@ import android.app.ActivityManager;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
@@ -195,61 +194,52 @@ public class CrashReporter
 
 	public static void appendApplicationInfo(@Nonnull final Appendable report, @Nonnull final WalletApplication application) throws IOException
 	{
-		try
+		final PackageInfo pi = application.packageInfo();
+		final long now = System.currentTimeMillis();
+
+		report.append("Version: " + pi.versionName + " (" + pi.versionCode + ")\n");
+		report.append("Package: " + pi.packageName + "\n");
+		report.append("Test/Prod: " + (Constants.TEST ? "test" : "prod") + "\n");
+		report.append("Time: " + String.format("%tF %tT %tz", now, now, now) + "\n");
+		report.append("Time of launch: " + String.format("%tF %tT %tz", TIME_CREATE_APPLICATION, TIME_CREATE_APPLICATION, TIME_CREATE_APPLICATION)
+				+ "\n");
+		report.append("Time of last update: " + String.format("%tF %tT %tz", pi.lastUpdateTime, pi.lastUpdateTime, pi.lastUpdateTime) + "\n");
+		report.append("Time of first install: " + String.format("%tF %tT %tz", pi.firstInstallTime, pi.firstInstallTime, pi.firstInstallTime) + "\n");
+		report.append("Network: " + Constants.NETWORK_PARAMETERS.getId() + "\n");
+		final Wallet wallet = application.getWallet();
+		report.append("Keychain size: " + wallet.getKeychainSize() + "\n");
+
+		final Set<Transaction> transactions = wallet.getTransactions(true);
+		int numInputs = 0;
+		int numOutputs = 0;
+		int numSpentOutputs = 0;
+		for (final Transaction tx : transactions)
 		{
-			final PackageManager pm = application.getPackageManager();
-			final PackageInfo pi = pm.getPackageInfo(application.getPackageName(), 0);
-			final long now = System.currentTimeMillis();
-
-			report.append("Version: " + pi.versionName + " (" + pi.versionCode + ")\n");
-			report.append("Package: " + pi.packageName + "\n");
-			report.append("Test/Prod: " + (Constants.TEST ? "test" : "prod") + "\n");
-			report.append("Time: " + String.format("%tF %tT %tz", now, now, now) + "\n");
-			report.append("Time of launch: "
-					+ String.format("%tF %tT %tz", TIME_CREATE_APPLICATION, TIME_CREATE_APPLICATION, TIME_CREATE_APPLICATION) + "\n");
-			report.append("Time of last update: " + String.format("%tF %tT %tz", pi.lastUpdateTime, pi.lastUpdateTime, pi.lastUpdateTime) + "\n");
-			report.append("Time of first install: " + String.format("%tF %tT %tz", pi.firstInstallTime, pi.firstInstallTime, pi.firstInstallTime)
-					+ "\n");
-			report.append("Network: " + Constants.NETWORK_PARAMETERS.getId() + "\n");
-			final Wallet wallet = application.getWallet();
-			report.append("Keychain size: " + wallet.getKeychainSize() + "\n");
-
-			final Set<Transaction> transactions = wallet.getTransactions(true);
-			int numInputs = 0;
-			int numOutputs = 0;
-			int numSpentOutputs = 0;
-			for (final Transaction tx : transactions)
+			numInputs += tx.getInputs().size();
+			final List<TransactionOutput> outputs = tx.getOutputs();
+			numOutputs += outputs.size();
+			for (final TransactionOutput txout : outputs)
 			{
-				numInputs += tx.getInputs().size();
-				final List<TransactionOutput> outputs = tx.getOutputs();
-				numOutputs += outputs.size();
-				for (final TransactionOutput txout : outputs)
-				{
-					if (!txout.isAvailableForSpending())
-						numSpentOutputs++;
-				}
+				if (!txout.isAvailableForSpending())
+					numSpentOutputs++;
 			}
-			report.append("Transactions: " + transactions.size() + "\n");
-			report.append("Inputs: " + numInputs + "\n");
-			report.append("Outputs: " + numOutputs + " (spent: " + numSpentOutputs + ")\n");
-			report.append("Last block seen: " + wallet.getLastBlockSeenHeight() + " (" + wallet.getLastBlockSeenHash() + ")\n");
-
-			report.append("Databases:");
-			for (final String db : application.databaseList())
-				report.append(" " + db);
-			report.append("\n");
-
-			final File filesDir = application.getFilesDir();
-			report.append("\nContents of FilesDir " + filesDir + ":\n");
-			appendDir(report, filesDir, 0);
-			final File logDir = application.getDir("log", Context.MODE_PRIVATE);
-			report.append("\nContents of LogDir " + logDir + ":\n");
-			appendDir(report, logDir, 0);
 		}
-		catch (final NameNotFoundException x)
-		{
-			throw new IOException(x);
-		}
+		report.append("Transactions: " + transactions.size() + "\n");
+		report.append("Inputs: " + numInputs + "\n");
+		report.append("Outputs: " + numOutputs + " (spent: " + numSpentOutputs + ")\n");
+		report.append("Last block seen: " + wallet.getLastBlockSeenHeight() + " (" + wallet.getLastBlockSeenHash() + ")\n");
+
+		report.append("Databases:");
+		for (final String db : application.databaseList())
+			report.append(" " + db);
+		report.append("\n");
+
+		final File filesDir = application.getFilesDir();
+		report.append("\nContents of FilesDir " + filesDir + ":\n");
+		appendDir(report, filesDir, 0);
+		final File logDir = application.getDir("log", Context.MODE_PRIVATE);
+		report.append("\nContents of LogDir " + logDir + ":\n");
+		appendDir(report, logDir, 0);
 	}
 
 	private static void appendDir(@Nonnull final Appendable report, @Nonnull final File file, final int indent) throws IOException
