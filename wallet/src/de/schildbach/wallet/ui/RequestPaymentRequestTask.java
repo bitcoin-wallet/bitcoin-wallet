@@ -36,7 +36,6 @@ import com.google.bitcoin.core.Transaction;
 
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.PaymentIntent;
-import de.schildbach.wallet.offline.DirectPaymentTask;
 import de.schildbach.wallet.util.PaymentProtocol;
 import de.schildbach.wallet_test.R;
 
@@ -49,7 +48,7 @@ public abstract class RequestPaymentRequestTask
 	private final Handler callbackHandler;
 	private final ResultCallback resultCallback;
 
-	private static final Logger log = LoggerFactory.getLogger(DirectPaymentTask.class);
+	private static final Logger log = LoggerFactory.getLogger(RequestPaymentRequestTask.class);
 
 	public interface ResultCallback
 	{
