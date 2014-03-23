@@ -28,7 +28,7 @@ import android.support.v4.app.FragmentManager;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
-import de.schildbach.wallet.digitalcoin.R;
+import hashengineering.digitalcoin.wallet.R;
 
 
 /**

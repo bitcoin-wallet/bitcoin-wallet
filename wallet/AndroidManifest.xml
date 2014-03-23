@@ -2,10 +2,10 @@
 <!-- Need to update this for the coin -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:tools="http://schemas.android.com/tools"
-	package="de.schildbach.wallet.digitalcoin"
+	package="hashengineering.digitalcoin.wallet"
 	android:installLocation="internalOnly"
-	android:versionCode="10200"
-	android:versionName="1.0.2.0" >
+	android:versionCode="10011"
+	android:versionName="0.1.1" >
 
 	<uses-sdk
 		android:minSdkVersion="10"
@@ -177,12 +177,12 @@
         <!-- Need to update this for the coin -->
 		<provider
 			android:name="de.schildbach.wallet.AddressBookProvider"
-			android:authorities="de.schildbach.wallet.digitalcoin.address_book"
+			android:authorities="hashengineering.digitalcoin.wallet.address_book"
 			android:exported="false" />
         <!-- Need to update this for the coin -->
 		<provider
 			android:name="de.schildbach.wallet.ExchangeRatesProvider"
-			android:authorities="de.schildbach.wallet.digitalcoin.exchange_rates"
+			android:authorities="hashengineering.digitalcoin.wallet.exchange_rates"
 			android:exported="false" />
 
 		<receiver
