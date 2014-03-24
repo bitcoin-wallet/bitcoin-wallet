@@ -30,7 +30,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.content.ComponentName;
 import android.content.ContentResolver;
@@ -48,6 +47,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Process;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
@@ -115,6 +115,7 @@ public final class SendCoinsFragment extends SherlockFragment
 	private Wallet wallet;
 	private ContentResolver contentResolver;
 	private LoaderManager loaderManager;
+	private FragmentManager fragmentManager;
 	@CheckForNull
 	private BluetoothAdapter bluetoothAdapter;
 
@@ -152,6 +153,8 @@ public final class SendCoinsFragment extends SherlockFragment
 
 	private State state = State.INPUT;
 	private Transaction sentTransaction = null;
+
+	private boolean firstUpdateViewSinceNewIntent = true;
 
 	private static final int ID_RATE_LOADER = 0;
 
@@ -251,7 +254,7 @@ public final class SendCoinsFragment extends SherlockFragment
 
 		private void handleEditAddress()
 		{
-			EditAddressBookEntryFragment.edit(getFragmentManager(), address.toString());
+			EditAddressBookEntryFragment.edit(fragmentManager, address.toString());
 		}
 
 		private void handleClear()
@@ -377,6 +380,7 @@ public final class SendCoinsFragment extends SherlockFragment
 		this.wallet = application.getWallet();
 		this.contentResolver = activity.getContentResolver();
 		this.loaderManager = getLoaderManager();
+		this.fragmentManager = getFragmentManager();
 	}
 
 	@Override
@@ -384,6 +388,7 @@ public final class SendCoinsFragment extends SherlockFragment
 	{
 		super.onCreate(savedInstanceState);
 
+		setRetainInstance(true);
 		setHasOptionsMenu(true);
 
 		bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
@@ -391,6 +396,50 @@ public final class SendCoinsFragment extends SherlockFragment
 		backgroundThread = new HandlerThread("backgroundThread", Process.THREAD_PRIORITY_BACKGROUND);
 		backgroundThread.start();
 		backgroundHandler = new Handler(backgroundThread.getLooper());
+
+		if (savedInstanceState != null)
+		{
+			restoreInstanceState(savedInstanceState);
+		}
+		else
+		{
+			final Intent intent = activity.getIntent();
+			final String action = intent.getAction();
+			final Uri intentUri = intent.getData();
+			final String scheme = intentUri != null ? intentUri.getScheme() : null;
+			final String mimeType = intent.getType();
+
+			if ((Intent.ACTION_VIEW.equals(action) || NfcAdapter.ACTION_NDEF_DISCOVERED.equals(action)) && intentUri != null
+					&& "bitcoin".equals(scheme))
+			{
+				initStateFromBitcoinUri(intentUri);
+			}
+			else if ((NfcAdapter.ACTION_NDEF_DISCOVERED.equals(action)) && PaymentProtocol.MIMETYPE_PAYMENTREQUEST.equals(mimeType))
+			{
+				final NdefMessage ndefMessage = (NdefMessage) intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES)[0];
+				final byte[] ndefMessagePayload = Nfc.extractMimePayload(PaymentProtocol.MIMETYPE_PAYMENTREQUEST, ndefMessage);
+				initStateFromPaymentRequest(mimeType, ndefMessagePayload);
+			}
+			else if ((Intent.ACTION_VIEW.equals(action)) && PaymentProtocol.MIMETYPE_PAYMENTREQUEST.equals(mimeType))
+			{
+				final byte[] paymentRequest = BitcoinIntegration.paymentRequestFromIntent(intent);
+
+				if (intentUri != null)
+					initStateFromIntentUri(mimeType, intentUri);
+				else if (paymentRequest != null)
+					initStateFromPaymentRequest(mimeType, paymentRequest);
+				else
+					throw new IllegalArgumentException();
+			}
+			else if (intent.hasExtra(SendCoinsActivity.INTENT_EXTRA_PAYMENT_INTENT))
+			{
+				initStateFromIntentExtras(intent.getExtras());
+			}
+			else
+			{
+				updateStateFrom(PaymentIntent.blank());
+			}
+		}
 	}
 
 	@Override
@@ -496,50 +545,6 @@ public final class SendCoinsFragment extends SherlockFragment
 		});
 
 		popupMessageView = (TextView) inflater.inflate(R.layout.send_coins_popup_message, container);
-
-		if (savedInstanceState != null)
-		{
-			restoreInstanceState(savedInstanceState);
-		}
-		else
-		{
-			final Intent intent = activity.getIntent();
-			final String action = intent.getAction();
-			final Uri intentUri = intent.getData();
-			final String scheme = intentUri != null ? intentUri.getScheme() : null;
-			final String mimeType = intent.getType();
-
-			if ((Intent.ACTION_VIEW.equals(action) || NfcAdapter.ACTION_NDEF_DISCOVERED.equals(action)) && intentUri != null
-					&& "bitcoin".equals(scheme))
-			{
-				initStateFromBitcoinUri(intentUri);
-			}
-			else if ((NfcAdapter.ACTION_NDEF_DISCOVERED.equals(action)) && PaymentProtocol.MIMETYPE_PAYMENTREQUEST.equals(mimeType))
-			{
-				final NdefMessage ndefMessage = (NdefMessage) intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES)[0];
-				final byte[] ndefMessagePayload = Nfc.extractMimePayload(PaymentProtocol.MIMETYPE_PAYMENTREQUEST, ndefMessage);
-				initStateFromPaymentRequest(mimeType, ndefMessagePayload);
-			}
-			else if ((Intent.ACTION_VIEW.equals(action)) && PaymentProtocol.MIMETYPE_PAYMENTREQUEST.equals(mimeType))
-			{
-				final byte[] paymentRequest = BitcoinIntegration.paymentRequestFromIntent(intent);
-
-				if (intentUri != null)
-					initStateFromIntentUri(mimeType, intentUri);
-				else if (paymentRequest != null)
-					initStateFromPaymentRequest(mimeType, paymentRequest);
-				else
-					throw new IllegalArgumentException();
-			}
-			else if (intent.hasExtra(SendCoinsActivity.INTENT_EXTRA_PAYMENT_INTENT))
-			{
-				initStateFromIntentExtras(intent.getExtras());
-			}
-			else
-			{
-				updateStateFrom(PaymentIntent.blank());
-			}
-		}
 
 		return view;
 	}
@@ -654,6 +659,7 @@ public final class SendCoinsFragment extends SherlockFragment
 					protected void handlePaymentIntent(final PaymentIntent paymentIntent)
 					{
 						updateStateFrom(paymentIntent);
+						updateView();
 					}
 
 					@Override
@@ -1017,9 +1023,6 @@ public final class SendCoinsFragment extends SherlockFragment
 
 	private void updateView()
 	{
-		if (paymentIntent == null)
-			return;
-
 		if (paymentIntent.hasPayee())
 		{
 			payeeNameView.setVisibility(View.VISIBLE);
@@ -1092,6 +1095,8 @@ public final class SendCoinsFragment extends SherlockFragment
 		receivingStaticView.setEnabled(state == State.INPUT);
 
 		amountCalculatorLink.setEnabled(state == State.INPUT && paymentIntent.mayEditAmount());
+		if (state == State.INPUT && firstUpdateViewSinceNewIntent)
+			amountCalculatorLink.setBtcAmount(paymentIntent.getAmount());
 
 		final boolean directPaymentVisible;
 		if (paymentIntent.hasPaymentUrl())
@@ -1107,6 +1112,13 @@ public final class SendCoinsFragment extends SherlockFragment
 		}
 		directPaymentEnableView.setVisibility(directPaymentVisible ? View.VISIBLE : View.GONE);
 		directPaymentEnableView.setEnabled(state == State.INPUT);
+		if (state == State.INPUT && firstUpdateViewSinceNewIntent)
+		{
+			if (paymentIntent.isBluetoothPaymentUrl())
+				directPaymentEnableView.setChecked(bluetoothAdapter != null && bluetoothAdapter.isEnabled());
+			else if (paymentIntent.isHttpPaymentUrl())
+				directPaymentEnableView.setChecked(true);
+		}
 
 		if (sentTransaction != null)
 		{
@@ -1172,6 +1184,11 @@ public final class SendCoinsFragment extends SherlockFragment
 		receivingStaticView.setNextFocusDownId(activeAmountViewId);
 		GenericUtils.setNextFocusForwardId(receivingAddressView, activeAmountViewId);
 		viewGo.setNextFocusUpId(activeAmountViewId);
+
+		if (firstUpdateViewSinceNewIntent)
+			requestFocusFirst();
+
+		firstUpdateViewSinceNewIntent = false;
 	}
 
 	private void initStateFromIntentExtras(@Nonnull final Bundle extras)
@@ -1270,19 +1287,9 @@ public final class SendCoinsFragment extends SherlockFragment
 
 		this.paymentIntent = paymentIntent;
 
-		if (paymentIntent.hasAmount())
-			amountCalculatorLink.setBtcAmount(paymentIntent.getAmount());
-
-		if (paymentIntent.isBluetoothPaymentUrl())
-			directPaymentEnableView.setChecked(bluetoothAdapter != null && bluetoothAdapter.isEnabled());
-		else if (paymentIntent.isHttpPaymentUrl())
-			directPaymentEnableView.setChecked(true);
-
 		directPaymentAck = null;
 
-		updateView();
-
-		requestFocusFirst();
+		firstUpdateViewSinceNewIntent = true;
 
 		if (paymentIntent.hasPaymentRequestUrl() && paymentIntent.isSupportedPaymentRequestUrl())
 			requestPaymentRequest(paymentIntent.paymentRequestUrl);
@@ -1291,19 +1298,19 @@ public final class SendCoinsFragment extends SherlockFragment
 	private void requestPaymentRequest(final String paymentRequestUrl)
 	{
 		final String host = Uri.parse(paymentRequestUrl).getHost();
-		final ProgressDialog progressDialog = ProgressDialog.show(activity, null,
-				getString(R.string.send_coins_fragment_request_payment_request_progress, host), true, true, null);
+		ProgressDialogFragment.showProgress(fragmentManager, getString(R.string.send_coins_fragment_request_payment_request_progress, host));
 
 		new RequestPaymentRequestTask.HttpRequestTask(backgroundHandler, new RequestPaymentRequestTask.ResultCallback()
 		{
 			@Override
 			public void onPaymentIntent(final PaymentIntent paymentIntent)
 			{
-				progressDialog.dismiss();
+				ProgressDialogFragment.dismissProgress(fragmentManager);
 
 				if (SendCoinsFragment.this.paymentIntent.isSecurityExtendedBy(paymentIntent))
 				{
 					updateStateFrom(paymentIntent);
+					updateView();
 				}
 				else
 				{
@@ -1317,7 +1324,7 @@ public final class SendCoinsFragment extends SherlockFragment
 			@Override
 			public void onFail(final int messageResId, final Object... messageArgs)
 			{
-				progressDialog.dismiss();
+				ProgressDialogFragment.dismissProgress(fragmentManager);
 
 				final DialogBuilder dialog = DialogBuilder.warn(activity, R.string.send_coins_fragment_request_payment_request_failed_title);
 				dialog.setMessage(getString(messageResId, messageArgs));

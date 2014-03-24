@@ -133,6 +133,11 @@ public final class CurrencyCalculatorLink
 		}
 	}
 
+	public boolean hasAmount()
+	{
+		return getAmount() != null;
+	}
+
 	private void update()
 	{
 		btcAmountView.setEnabled(enabled);
