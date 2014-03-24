@@ -1,5 +1,14 @@
 digitalcoin Wallet
 -----------------
+
+v0.1.2-beta
+* fixed checkpoints to work for the Version 1.0 blocks (between 476280 and 523800)
+* added two nodes from a list of addnodes from the bitcointalk topic
+
+v0.1.1-beta
+* renamed to hashengineering.digitalcoin.wallet
+* added support for importing Bitcoin Private Keys from first digitalcoin app (Crypto-Expert)
+
 v1.0.1.5
 * Fixed menu item doubling on rotate in address screen - langerhans (https://github.com/langerhans/dogecoin-wallet-new)
 * replaced block explorer with blockr.io instead of the apparently dead dgc.cryptocoinexplorer.com

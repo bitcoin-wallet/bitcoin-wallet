@@ -4,8 +4,8 @@
 	xmlns:tools="http://schemas.android.com/tools"
 	package="hashengineering.digitalcoin.wallet"
 	android:installLocation="internalOnly"
-	android:versionCode="10011"
-	android:versionName="0.1.1" >
+	android:versionCode="10012"
+	android:versionName="0.1.2" >
 
 	<uses-sdk
 		android:minSdkVersion="10"
