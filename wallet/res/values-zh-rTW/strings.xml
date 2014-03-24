@@ -22,7 +22,7 @@
 	<string name="exchange_rates_fragment_default">(預設)</string>
 	<string name="exchange_rates_fragment_rate">匯率</string>
 	<string name="exchange_rates_fragment_balance">餘額</string>
-	<string name="exchange_rates_fragment_source">價格由 %s 取得</string>
+	<string name="exchange_rates_fragment_source">價格由 %s 起</string>
 	<string name="exchange_rates_context_set_as_default_title">設定預設外幣</string>
 	<string name="wallet_transactions_fragment_tab_received">收到</string>
 	<string name="wallet_transactions_fragment_tab_all">全部</string>
@@ -45,20 +45,37 @@
 	<string name="wallet_timeskew_dialog_msg">你的裝置時間慢了 %d 分，你可能無法收付比特幣，\n\n你應該再確認你的時間與時區設定正確。</string>
 	<string name="wallet_version_dialog_title">有新版本!</string>
 	<string name="wallet_version_dialog_msg">這版本修正重要的錯誤，細節請參閱Google Play上說明。</string>
+	<string name="wallet_version_dialog_msg_deprecated">如果你看不到任何 App 更新，很可能你的 Android 版本已經不再支援。</string>
 	<string name="wallet_version_dialog_button_market">Google Play</string>
 	<string name="wallet_version_dialog_button_binary">下載</string>
+	<string name="wallet_precision_warning_dialog_title">更新面額</string>
+	<string name="wallet_precision_warning_dialog_msg">面額已由 bitcoin (BTC) 更換到 millibitcoin (mBTC)，所有顯示數量須乘上1000倍。\n\n你可以在設定改回來。</string>
 	<string name="wallet_old_sdk_dialog_title">Android 版本太舊</string>
 	<string name="wallet_old_sdk_dialog_message">很可能下個版本的 Bitcoin Wallet App 將不再支援你的裝置，某些狀況下可能導致難以付款，\n\n除非你確認其中風險，不然建議你儘快將錢包的錢轉出。</string>
 	<string name="send_coins_activity_title">比特幣付款</string>
+	<string name="send_coins_fragment_request_payment_request_progress">由 %s 讀取簽名...</string>
+	<string name="send_coins_fragment_request_payment_request_failed_title">讀取簽名失敗</string>
+	<string name="send_coins_fragment_request_payment_request_wrong_signature">簽名錯誤!</string>
+	<string name="send_coins_fragment_payee_verified_by">由 %s 驗證</string>
+	<string name="send_coins_fragment_payee_verified_by_unknown">不知名</string>
 	<string name="send_coins_fragment_receiving_address_label">付給</string>
 	<string name="send_coins_fragment_receiving_address_hint">輸入地址或是名稱</string>
 	<string name="send_coins_fragment_receiving_address_error">無效比特幣地址!</string>
 	<string name="send_coins_fragment_receiving_address_error_cross_network">錢包無法使用 %s 這個地址!</string>
 	<string name="send_coins_fragment_receiving_address_error_cross_network_unknown">錢包無法使用未知網路的比特幣地址!</string>
-	<string name="send_coins_fragment_pending">(%s 比特幣等待確認)</string>
+	<string name="send_coins_fragment_receiving_address_complex">複雜\n地址</string>
+	<string name="send_coins_fragment_pending">(%s 比特幣等待確認中)</string>
 	<string name="send_coins_fragment_amount_label">總金額</string>
+	<string name="send_coins_fragment_direct_payment_enable">直接付款給收款人</string>
+	<string name="send_coins_fragment_direct_payment_ack">你的付款已經直接傳送成功</string>
+	<string name="send_coins_fragment_direct_payment_nack">你的付款經直接連線被拒絕</string>
+	<string name="send_coins_fragment_direct_payment_failed_title">直接付款失效</string>
+	<string name="send_coins_fragment_direct_payment_failed_msg">你的付款將被廣播報點對點p2p網路</string>
 	<string name="send_coins_fragment_button_send">付款</string>
 	<string name="send_coins_fragment_button_back">退回</string>
+	<string name="send_coins_fragment_insufficient_money_title">餘額不足</string>
+	<string name="send_coins_fragment_insufficient_money_msg1">你少了 %s.</string>
+	<string name="send_coins_fragment_insufficient_money_msg2">你打算全額付款？</string>
 	<string name="send_coins_preparation_msg">簽署中…</string>
 	<string name="send_coins_sending_msg">付款中…</string>
 	<string name="send_coins_sent_msg">已付款!</string>
@@ -68,6 +85,7 @@
 	<string name="send_coins_address_context_clear_title">輸入新地址</string>
 	<string name="request_coins_activity_title">比特幣請款</string>
 	<string name="request_coins_fragment_amount_label">請款金額(可不填)</string>
+	<string name="request_coins_fragment_accept_bluetooth_payment">接受藍芽付款</string>
 	<string name="request_coins_fragment_initiate_request_qr">請付款人掃描QR二維條碼</string>
 	<string name="request_coins_fragment_initiate_request_nfc">或是使用 NFC 裝置付款。</string>
 	<string name="request_coins_clipboard_msg">比特幣請款已複製到剪貼簿</string>
@@ -85,7 +103,9 @@
 	<string name="address_book_context_default_title">設為預設地址</string>
 	<string name="address_book_options_paste_from_clipboard_title">從剪貼簿貼上</string>
 	<string name="address_book_options_paste_from_clipboard_empty">剪貼簿是空的。</string>
+	<string name="address_book_options_paste_from_clipboard_invalid">剪貼簿資料無法辨識</string>
 	<string name="address_book_options_scan_title">掃描地址</string>
+	<string name="address_book_options_scan_invalid">掃描資料無法辨識</string>
 	<string name="address_book_row_message_compromised_key">該地址可能已洩漏，你不應該再繼續使用來請款。</string>
 	<string name="edit_address_book_entry_dialog_title_add">新增地址</string>
 	<string name="edit_address_book_entry_dialog_title_edit">編輯地址</string>
@@ -94,14 +114,11 @@
 	<string name="edit_address_book_entry_dialog_button_edit">儲存</string>
 	<string name="transaction_row_message_purpose_key_rotation">這交易強化你的錢包防止被偷，&lt;u>更多資訊。&lt;/u></string>
 	<string name="transaction_row_message_own_unbroadcasted">付款尚未傳輸。</string>
+	<string name="transaction_row_message_received_direct">該付款已經被直接接收，這類付款存在可能無法花費的風險。</string>
 	<string name="transaction_row_message_received_unconfirmed_unlocked">付款應該在幾分鐘之後才可以使用。</string>
 	<string name="transaction_row_message_received_unconfirmed_locked">該付款並不符合標準，不應該被相信。</string>
 	<string name="transaction_row_message_received_dead">該付款已被付款人撤銷。</string>
 	<string name="transaction_row_message_received_dust">極小額付款可能無法有效支付</string>
-	<string name="amount_calculator_dialog_title">幣值計算</string>
-	<string name="amount_calculator_dialog_button_use">使用</string>
-	<string name="amount_calculator_dialog_exchange_rate">BTC 1 價值 %1$s %2$s\n價格由 %3$s 取得</string>
-	<string name="amount_calculator_dialog_exchange_rate_not_available">匯率無法取得</string>
 	<string name="network_monitor_activity_title">網路監視器</string>
 	<string name="network_monitor_peer_list_title">節點</string>
 	<string name="network_monitor_block_list_title">區塊</string>
@@ -109,6 +126,7 @@
 	<string name="peer_list_row_ping_time">⇆ %d&#x2009;ms</string>
 	<string name="import_keys_dialog_title">復原私人金鑰</string>
 	<string name="import_keys_dialog_message">從外部或app內部儲存空間選擇一個私人金鑰檔案:</string>
+	<string name="import_keys_dialog_warning">重要: 不要自不安全地方載入私鑰，可能導致你的錢包被控制。</string>
 	<string name="import_keys_dialog_file_security_encrypted">密碼加密</string>
 	<string name="import_keys_dialog_file_security_unencrypted">未加密</string>
 	<string name="import_keys_dialog_file_security_external">外部儲存空間</string>
@@ -130,15 +148,19 @@
 	<string name="export_keys_dialog_mail_subject">比特幣錢包私人金鑰備份</string>
 	<string name="export_keys_dialog_mail_text">附件加密檔案包含比特幣私人金鑰，請保持該檔案安全並記得你的密碼。</string>
 	<string name="export_keys_dialog_mail_intent_chooser">Archive keys using…</string>
+	<string name="export_keys_dialog_mail_intent_failed">歸檔金鑰失效。</string>
 	<string name="import_export_keys_dialog_password">密碼</string>
 	<string name="import_export_keys_dialog_show">顯示密碼</string>
 	<string name="import_export_keys_dialog_failure_title">錯誤</string>
 	<string name="import_keys_intent_filter_action">比特幣私人金鑰恢復</string>
 	<string name="scan_camera_problem_dialog_title">抱歉</string>
 	<string name="scan_camera_problem_dialog_message">照相機有問題，你可能需要重新啟動裝置</string>
+	<string name="input_parser_io_error">無法讀取資料:\n%s</string>
 	<string name="input_parser_cannot_classify">無法分類輸入:\n%s</string>
 	<string name="input_parser_invalid_bitcoin_uri">比特幣 URI 無效:\n%s</string>
 	<string name="input_parser_invalid_address">取得無效比特幣地址!\n(是否 Mainnet/Testnet 混用?)</string>
+	<string name="input_parser_unverifyable_paymentrequest">無法驗證付款請求:\n%s</string>
+	<string name="input_parser_invalid_paymentrequest">無效付款請求:\n%s</string>
 	<string name="input_parser_invalid_transaction">無效交易:\n%s</string>
 	<string name="preferences_activity_title">設定</string>
 	<string name="preferences_category_main">偏好</string>
@@ -162,7 +184,7 @@
 	<string name="preferences_initiate_reset_dialog_positive">重設</string>
 	<string name="report_issue_dialog_title_issue">問題報告</string>
 	<string name="report_issue_dialog_title_crash">發現前次當機</string>
-	<string name="report_issue_dialog_message_issue">請描述問題讓開發者可以重現問題來修復</string>
+	<string name="report_issue_dialog_message_issue">請明確描述你的問題讓這個問題容易重現，假設與你的錢包有關，可考慮附上dump資料。</string>
 	<string name="report_issue_dialog_message_crash">你是否要寄送當機報告幫助解決問題?</string>
 	<string name="report_issue_dialog_description">問題描述</string>
 	<string name="report_issue_dialog_report">報告</string>
@@ -171,11 +193,12 @@
 	<string name="report_issue_dialog_collect_application_log">附加應用程式日誌</string>
 	<string name="report_issue_dialog_collect_wallet_dump">附加錢包dump</string>
 	<string name="report_issue_dialog_mail_intent_chooser">寄送報告…</string>
+	<string name="report_issue_dialog_mail_intent_failed">寄送報告失敗。</string>
 	<string name="about_title">關於</string>
 	<string name="about_license_title">授權</string>
 	<string name="about_credits_bitcoinj_title">本 app 使用 bitcoinj %s</string>
-	<string name="about_credits_zxing_title">"本 app 使用 'zxing'"</string>
-	<string name="about_credits_icon_title">"本 app 使用圖標來自'bitboy'"</string>
+	<string name="about_credits_zxing_title">本 app 使用 \'zxing\'</string>
+	<string name="about_credits_icon_title">本 app 使用圖標來自\'bitboy\'</string>
 	<string name="about_community_googleplus_title">Google+ 社群</string>
 	<string name="about_community_googleplus_summary">討論本 app</string>
 	<string name="about_author_twitter_title">作者的 Twitter</string>
@@ -190,6 +213,7 @@
 	<string name="button_ok">OK</string>
 	<string name="button_dismiss">取消</string>
 	<string name="button_cancel">取消</string>
+	<string name="button_retry">重試</string>
 	<string name="button_help">幫助</string>
 	<string name="button_add">新增</string>
 	<string name="button_delete">刪除</string>
@@ -206,5 +230,9 @@
 	<string name="action_browse">瀏覽</string>
 	<string name="time_today">今天</string>
 	<string name="address_unlabeled">(無標籤)</string>
+
+	<!-- generic error messages -->
+	<string name="error_io">I/O錯誤: %s</string>
+	<string name="error_http">HTTP 錯誤 %1$s:\n%2$s</string>
 
 </resources>
