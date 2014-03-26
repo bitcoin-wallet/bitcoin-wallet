@@ -70,13 +70,6 @@ and unpack it to your workspace directory. Switch to that Android SDK directory,
 
 to download the necessary API level.
 
-Next, you need to build bitcoinj. In your workspace, use
-
-	# first time only
-	git clone -b release-0.11 https://code.google.com/r/bitcoinj/ bitcoinj
-	cd bitcoinj
-	mvn clean install
-
 Finally, you can build Bitcoin Wallet and sign it with your development key. Again in your workspace,
 use
 
