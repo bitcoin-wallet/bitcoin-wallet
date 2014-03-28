@@ -789,7 +789,7 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 			keyReader.close();
 
 			final int numKeysToImport = importedKeys.size();
-			final int numKeysImported = wallet.addKeys(importedKeys);
+			final int numKeysImported = wallet.importKeys(importedKeys);
 
 			final DialogBuilder dialog = new DialogBuilder(this);
 			final StringBuilder message = new StringBuilder();
@@ -859,7 +859,7 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 					+ dateFormat.format(new Date()));
 
 			final List<ECKey> keys = new LinkedList<ECKey>();
-			for (final ECKey key : wallet.getKeys())
+			for (final ECKey key : wallet.getImportedKeys())
 				if (!wallet.isKeyRotating(key))
 					keys.add(key);
 

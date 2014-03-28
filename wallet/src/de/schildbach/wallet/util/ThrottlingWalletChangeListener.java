@@ -134,7 +134,7 @@ public abstract class ThrottlingWalletChangeListener implements WalletEventListe
 	}
 
 	@Override
-	public void onKeysAdded(final Wallet wallet, final List<ECKey> keys)
+	public void onKeysAdded(final List<ECKey> keys)
 	{
 		// swallow
 	}

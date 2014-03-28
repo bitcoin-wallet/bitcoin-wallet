@@ -840,8 +840,6 @@ public final class SendCoinsFragment extends SherlockFragment
 
 		// prepare send request
 		final SendRequest sendRequest = finalPaymentIntent.toSendRequest();
-		final Address returnAddress = WalletUtils.pickOldestKey(wallet).toAddress(Constants.NETWORK_PARAMETERS);
-		sendRequest.changeAddress = returnAddress;
 		sendRequest.emptyWallet = paymentIntent.mayEditAmount() && finalAmount.equals(wallet.getBalance(BalanceType.AVAILABLE));
 
 		new SendCoinsOfflineTask(wallet, backgroundHandler)
@@ -856,7 +854,8 @@ public final class SendCoinsFragment extends SherlockFragment
 
 				sentTransaction.getConfidence().addEventListener(sentTransactionConfidenceListener);
 
-				final Payment payment = PaymentProtocol.createPaymentMessage(sentTransaction, returnAddress, finalAmount, null,
+				final Address refundAddress = wallet.freshReceiveKey().toAddress(Constants.NETWORK_PARAMETERS);
+				final Payment payment = PaymentProtocol.createPaymentMessage(sentTransaction, refundAddress, finalAmount, null,
 						paymentIntent.payeeData);
 
 				directPay(payment);

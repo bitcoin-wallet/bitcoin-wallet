@@ -182,7 +182,7 @@ public final class ImportKeysActivity extends AbstractWalletActivity
 			keyReader.close();
 
 			final int numKeysToImport = importedKeys.size();
-			final int numKeysImported = wallet.addKeys(importedKeys);
+			final int numKeysImported = wallet.importKeys(importedKeys);
 
 			final DialogBuilder dialog = new DialogBuilder(this);
 			final StringBuilder message = new StringBuilder();
