@@ -35,7 +35,6 @@ import android.app.Activity;
 import android.app.ListFragment;
 import android.content.ContentResolver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.ContentObserver;
 import android.net.Uri;
@@ -57,6 +56,7 @@ import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.util.BitmapFragment;
 import de.schildbach.wallet.util.Qr;
 import de.schildbach.wallet.util.WalletUtils;
+import de.schildbach.wallet.util.WholeStringBuilder;
 import de.schildbach.wallet_test.R;
 
 /**
@@ -93,10 +93,15 @@ public final class WalletAddressesFragment extends ListFragment
 
 		adapter = new WalletAddressesAdapter(activity, wallet);
 
-		final Address selectedAddress = application.determineSelectedAddress();
-		adapter.setSelectedAddress(selectedAddress.toString());
-
 		setListAdapter(adapter);
+	}
+
+	@Override
+	public void onViewCreated(final View view, final Bundle savedInstanceState)
+	{
+		super.onViewCreated(view, savedInstanceState);
+
+		setEmptyText(WholeStringBuilder.bold(getString(R.string.address_book_empty_text)));
 	}
 
 	@Override
@@ -128,38 +133,6 @@ public final class WalletAddressesFragment extends ListFragment
 		inflater.inflate(R.menu.wallet_addresses_fragment_options, menu);
 
 		super.onCreateOptionsMenu(menu, inflater);
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(final MenuItem item)
-	{
-		switch (item.getItemId())
-		{
-			case R.id.wallet_addresses_options_add:
-				handleAddAddress();
-				return true;
-		}
-
-		return super.onOptionsItemSelected(item);
-	}
-
-	private void handleAddAddress()
-	{
-		final DialogBuilder dialog = new DialogBuilder(activity);
-		dialog.setTitle(R.string.wallet_addresses_fragment_add_dialog_title);
-		dialog.setMessage(R.string.wallet_addresses_fragment_add_dialog_message);
-		dialog.setPositiveButton(R.string.button_add, new DialogInterface.OnClickListener()
-		{
-			@Override
-			public void onClick(final DialogInterface dialog, final int which)
-			{
-				application.addNewKeyToWallet();
-
-				activity.updateFragments();
-			}
-		});
-		dialog.setNegativeButton(R.string.button_cancel, null);
-		dialog.show();
 	}
 
 	@Override
@@ -211,12 +184,6 @@ public final class WalletAddressesFragment extends ListFragment
 						mode.finish();
 						return true;
 
-					case R.id.wallet_addresses_context_default:
-						handleDefault(getAddress(position));
-
-						mode.finish();
-						return true;
-
 					case R.id.wallet_addresses_context_browse:
 						startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.EXPLORE_BASE_URL + "address/"
 								+ getAddress(position).toString())));
@@ -260,13 +227,6 @@ public final class WalletAddressesFragment extends ListFragment
 				final ClipboardManager clipboardManager = (ClipboardManager) activity.getSystemService(Context.CLIPBOARD_SERVICE);
 				clipboardManager.setText(address.toString());
 				activity.toast(R.string.wallet_address_fragment_clipboard_msg);
-			}
-
-			private void handleDefault(@Nonnull final Address address)
-			{
-				final String addressStr = address.toString();
-				config.setSelectedAddress(addressStr);
-				adapter.setSelectedAddress(addressStr);
 			}
 		});
 	}

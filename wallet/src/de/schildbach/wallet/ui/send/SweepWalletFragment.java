@@ -16,6 +16,7 @@ import org.bitcoinj.core.Wallet;
 import org.bitcoinj.core.Wallet.BalanceType;
 import org.bitcoinj.core.Wallet.SendRequest;
 import org.bitcoinj.utils.MonetaryFormat;
+import org.bitcoinj.wallet.KeyChainGroup;
 import org.bitcoinj.wallet.WalletTransaction;
 import org.bitcoinj.wallet.WalletTransaction.Pool;
 
@@ -352,8 +353,10 @@ public class SweepWalletFragment extends Fragment
 
 	private void init(final ECKey key)
 	{
-		walletToSweep = new Wallet(Constants.NETWORK_PARAMETERS);
-		walletToSweep.addKey(key);
+		// create non-HD wallet
+		final KeyChainGroup group = new KeyChainGroup(Constants.NETWORK_PARAMETERS);
+		group.importKeys(key);
+		walletToSweep = new Wallet(Constants.NETWORK_PARAMETERS, group);
 
 		// delay these actions until fragment is resumed
 		handler.post(new Runnable()
@@ -484,7 +487,7 @@ public class SweepWalletFragment extends Fragment
 		state = State.PREPARATION;
 		updateView();
 
-		final SendRequest sendRequest = SendRequest.emptyWallet(application.determineSelectedAddress());
+		final SendRequest sendRequest = SendRequest.emptyWallet(application.getWallet().freshReceiveAddress());
 
 		new SendCoinsOfflineTask(walletToSweep, backgroundHandler)
 		{

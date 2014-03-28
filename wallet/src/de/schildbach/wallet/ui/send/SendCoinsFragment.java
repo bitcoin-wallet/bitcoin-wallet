@@ -43,6 +43,7 @@ import org.bitcoinj.core.Wallet.DustySendRequested;
 import org.bitcoinj.core.Wallet.SendRequest;
 import org.bitcoinj.protocols.payments.PaymentProtocol;
 import org.bitcoinj.utils.MonetaryFormat;
+import org.bitcoinj.wallet.KeyChain.KeyPurpose;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -873,8 +874,6 @@ public final class SendCoinsFragment extends Fragment
 
 		// prepare send request
 		final SendRequest sendRequest = finalPaymentIntent.toSendRequest();
-		final Address returnAddress = WalletUtils.pickOldestKey(wallet).toAddress(Constants.NETWORK_PARAMETERS);
-		sendRequest.changeAddress = returnAddress;
 		sendRequest.emptyWallet = paymentIntent.mayEditAmount() && finalAmount.equals(wallet.getBalance(BalanceType.AVAILABLE));
 
 		new SendCoinsOfflineTask(wallet, backgroundHandler)
@@ -889,8 +888,9 @@ public final class SendCoinsFragment extends Fragment
 
 				sentTransaction.getConfidence().addEventListener(sentTransactionConfidenceListener);
 
+				final Address refundAddress = wallet.freshAddress(KeyPurpose.REFUND);
 				final Payment payment = PaymentProtocol.createPaymentMessage(Arrays.asList(new Transaction[] { sentTransaction }), finalAmount,
-						returnAddress, null, paymentIntent.payeeData);
+						refundAddress, null, paymentIntent.payeeData);
 
 				directPay(payment);
 

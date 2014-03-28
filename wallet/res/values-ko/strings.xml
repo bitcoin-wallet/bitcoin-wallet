@@ -13,8 +13,6 @@
   <string name="blockchain_state_progress_problem_network">동기화 중 : 네트워크에 문제 발생</string>
   <string name="wallet_address_fragment_your">비트코인 주소 :</string>
   <string name="wallet_address_fragment_clipboard_msg">비트코인 주소가 클립보드에 복사되었습니다</string>
-  <string name="wallet_addresses_fragment_add_dialog_title">비트코인 주소 추가</string>
-  <string name="wallet_addresses_fragment_add_dialog_message">비트코인 주소는 삭제되지 않습니다. 지갑에 새로운 주소를 추가하시겠습니까?</string>
   <string name="wallet_balance_fragment_replaying">블럭체인 재실행 중 잔액 접근이 불가능합니다.</string>
   <string name="exchange_rates_activity_title">환율 목록</string>
   <string name="exchange_rates_fragment_empty_text">환율 정보를 불러오지 못했습니다.</string>
@@ -109,7 +107,6 @@
   <string name="address_book_context_edit_title">주소 수정</string>
   <string name="address_book_context_remove_title">주소 삭제</string>
   <string name="address_book_context_copy_to_clipboard_title">클립보드에 복사</string>
-  <string name="address_book_context_default_title">기본 주소로 설정</string>
   <string name="address_book_options_paste_from_clipboard_title">클립보드에서 붙여넣기</string>
   <string name="address_book_options_paste_from_clipboard_empty">클립보드가 비어 있습니다.</string>
   <string name="address_book_options_paste_from_clipboard_invalid">클립보드의 데이터가 알 수 없는 형식입니다.</string>

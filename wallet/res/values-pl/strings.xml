@@ -14,8 +14,6 @@
 	<string name="blockchain_state_progress_problem_network">Synchronizowanie: Problem z siecią</string>
 	<string name="wallet_address_fragment_your">Twój adres Bitcoin:</string>
 	<string name="wallet_address_fragment_clipboard_msg">Adres Bitcoin skopiowano do schowka</string>
-	<string name="wallet_addresses_fragment_add_dialog_title">Dodaj adres Bitcoin</string>
-	<string name="wallet_addresses_fragment_add_dialog_message">Adresy Bitcoin nie mogą zostać usunięte. Czy chcesz dodać nowy adres do portfela?</string>
 	<string name="wallet_balance_fragment_replaying">Saldo nie jest dostępne w trakcie odtwarzania.</string>
 	<string name="exchange_rates_activity_title">Kursy wymiany walut</string>
 	<string name="exchange_rates_fragment_empty_text">Załadowanie kursu wymiany walut nie powiodło się</string>
@@ -79,7 +77,6 @@
 	<string name="address_book_context_edit_title">Zmień adres</string>
 	<string name="address_book_context_remove_title">Usuń adres</string>
 	<string name="address_book_context_copy_to_clipboard_title">Skopiuj do schowka</string>
-	<string name="address_book_context_default_title">Ustaw jako domyślny adres</string>
 	<string name="address_book_options_paste_from_clipboard_title">Wklej ze schowka</string>
 	<string name="address_book_options_paste_from_clipboard_empty">Schowek jest pusty</string>
 	<string name="address_book_options_scan_title">Zeskanuj adres</string>

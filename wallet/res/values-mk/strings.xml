@@ -14,8 +14,6 @@
 	<string name="blockchain_state_progress_problem_network">Се синхронизира: Проблем со мрежата</string>
 	<string name="wallet_address_fragment_your">Твојата Биткоин адреса:</string>
 	<string name="wallet_address_fragment_clipboard_msg">Биткоин адресата е копирана во склад</string>
-	<string name="wallet_addresses_fragment_add_dialog_title">Додај Биткоин адреса</string>
-	<string name="wallet_addresses_fragment_add_dialog_message">Биткоин адресите не може да се избришат. Дали сакаш да додадеш нова адреса во твојот паричник?</string>
 	<string name="wallet_balance_fragment_replaying">Салдото е недостапно за време на повторена акција.</string>
 	<string name="exchange_rates_activity_title">Девизен курс</string>
 	<string name="exchange_rates_fragment_empty_text">Не може да го вчитам курсот на валутите</string>
@@ -79,7 +77,6 @@
 	<string name="address_book_context_edit_title">Уреди адреса</string>
 	<string name="address_book_context_remove_title">Отстрани адреса</string>
 	<string name="address_book_context_copy_to_clipboard_title">Копирај во склад</string>
-	<string name="address_book_context_default_title">Постави како главна адреса</string>
 	<string name="address_book_options_paste_from_clipboard_title">Внеси од склад</string>
 	<string name="address_book_options_paste_from_clipboard_empty">Складот е празен</string>
 	<string name="address_book_options_scan_title">Скенирај адреса</string>

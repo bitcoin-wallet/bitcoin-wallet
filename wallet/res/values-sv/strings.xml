@@ -13,8 +13,6 @@
 	<string name="blockchain_state_progress_problem_network">Blockkedjan laddas inte ner: Nätverksproblem</string>
 	<string name="wallet_address_fragment_your">Din Bitcoin adress:</string>
 	<string name="wallet_address_fragment_clipboard_msg">Bitcoin adressen kopierad till klippbordet</string>
-	<string name="wallet_addresses_fragment_add_dialog_title">Lägg till Bitcoin adress</string>
-	<string name="wallet_addresses_fragment_add_dialog_message">Bitcoin adresser kan inte tas bort. Vill du lägga till en ny adress till din plånbok?</string>
 	<string name="exchange_rates_fragment_empty_text">Kunde inte ladda ner växlingskurser</string>
 	<string name="exchange_rates_context_set_as_default_title">Ange som standard utländsk valuta</string>
 	<string name="wallet_transactions_fragment_tab_received">Mottagna</string>
@@ -62,7 +60,6 @@
 	<string name="address_book_context_edit_title">Ändra adress</string>
 	<string name="address_book_context_remove_title">Ta bort adressen</string>
 	<string name="address_book_context_copy_to_clipboard_title">Kopiera till urklipp</string>
-	<string name="address_book_context_default_title">Sätt som standardadress</string>
 	<string name="address_book_options_paste_from_clipboard_title">Klistra in från urklipp</string>
 	<string name="address_book_options_paste_from_clipboard_empty">Urklippet är tomt</string>
 	<string name="address_book_options_scan_title">Skanna adress</string>

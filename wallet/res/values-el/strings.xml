@@ -5,8 +5,6 @@
 	<string name="wallet_disclaimer_fragment_remind_safety">Χρησιμοποιήστε με δική σας ευθύνη. Διαβάστε τις οδηγίες ασφαλείας</string>
 	<string name="wallet_address_fragment_your">H Bitcoin διεύθυνή σας:</string>
 	<string name="wallet_address_fragment_clipboard_msg">H Bitcoin διεύθυνή αντιγράφικε στο clipboard</string>
-	<string name="wallet_addresses_fragment_add_dialog_title">Προσθήκη διεύθυνσης Bitcoin</string>
-	<string name="wallet_addresses_fragment_add_dialog_message">Οι Bitcoin διευθύνσεις δεν μπορούν να διαγραφούν. Θέλετε να προσθέσετε μια νέα διεύθυνση στο πορτοφόλι σας;</string>
 	<string name="exchange_rates_fragment_empty_text">Δεν ήταν δυνατή η φόρτωση των συναλλαγματικών ισοτιμιών</string>
 	<string name="wallet_transactions_fragment_tab_received">Ελήφθη</string>
 	<string name="wallet_transactions_fragment_tab_all">Και τα δύο</string>

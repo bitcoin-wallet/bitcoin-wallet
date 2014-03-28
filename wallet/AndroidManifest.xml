@@ -216,6 +216,10 @@
 				<data android:scheme="package" />
 			</intent-filter>
 		</receiver>
+
+		<service
+			android:name="de.schildbach.wallet.service.UpgradeWalletService"
+			android:exported="false" />
 	</application>
 
 </manifest>

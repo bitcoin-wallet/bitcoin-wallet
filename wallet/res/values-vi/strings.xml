@@ -13,8 +13,6 @@
 	<string name="blockchain_state_progress_problem_network">Đồng bộ hóa: Vấn đề về mạng lưới</string>
 	<string name="wallet_address_fragment_your">Địa chỉ Bitcoin của bạn:</string>
 	<string name="wallet_address_fragment_clipboard_msg">Địa chỉ Bitcoin đã được sao chép vào bộ nhớ ảo</string>
-	<string name="wallet_addresses_fragment_add_dialog_title">Thêm địa chỉ Bitcoin</string>
-	<string name="wallet_addresses_fragment_add_dialog_message">Địa chỉ Bitcoin không thể được xóa. Bạn có muốn thêm một địa chỉ mới vào ví tiền của mình không?</string>
 	<string name="wallet_balance_fragment_replaying">Tính năng cân bằng tài khoản không thể được thao tác trong quá trình replay.</string>
 	<string name="exchange_rates_activity_title">Tỉ lệ hoán đổi</string>
 	<string name="exchange_rates_fragment_empty_text">Không thể tải tỉ lệ hoán đổi</string>
@@ -76,7 +74,6 @@
 	<string name="address_book_context_edit_title">Chỉnh sửa địa chỉ</string>
 	<string name="address_book_context_remove_title">Loại bỏ địa chỉ</string>
 	<string name="address_book_context_copy_to_clipboard_title">Sao chép vào bộ nhớ ảo</string>
-	<string name="address_book_context_default_title">Thiết lập làm địa chỉ mặc định</string>
 	<string name="address_book_options_paste_from_clipboard_title">Lấy thông tin từ bộ nhớ ảo</string>
 	<string name="address_book_options_paste_from_clipboard_empty">Bộ nhớ ảo hiện không chứa dữ liệu</string>
 	<string name="address_book_options_scan_title">Quét địa chỉ</string>
