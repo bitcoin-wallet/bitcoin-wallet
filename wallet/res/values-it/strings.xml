@@ -106,7 +106,6 @@
   <string name="address_book_context_edit_title">Modifica indirizzo</string>
   <string name="address_book_context_remove_title">Rimuovi indirizzo</string>
   <string name="address_book_context_copy_to_clipboard_title">Copia negli appunti</string>
-  <string name="address_book_context_default_title">Imposta come indirizzo di default</string>
   <string name="address_book_options_paste_from_clipboard_title">Incolla dagli appunti</string>
   <string name="address_book_options_paste_from_clipboard_empty">La clipboard è vuota</string>
   <string name="address_book_options_paste_from_clipboard_invalid">Dati non riconoscibili</string>

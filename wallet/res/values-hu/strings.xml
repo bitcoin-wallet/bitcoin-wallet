@@ -79,7 +79,6 @@
 	<string name="address_book_context_edit_title">Cím szerkesztése</string>
 	<string name="address_book_context_remove_title">Cím eltávolítása</string>
 	<string name="address_book_context_copy_to_clipboard_title">Másolás</string>
-	<string name="address_book_context_default_title">Alapértelmezett cím</string>
 	<string name="address_book_options_paste_from_clipboard_title">Beillesztés</string>
 	<string name="address_book_options_paste_from_clipboard_empty">A vágólap üres</string>
 	<string name="address_book_options_scan_title">Cím szkennelése</string>

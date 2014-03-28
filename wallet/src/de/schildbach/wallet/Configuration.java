@@ -48,7 +48,6 @@ public class Configuration
 	public static final String PREFS_KEY_TRUSTED_PEER = "trusted_peer";
 	public static final String PREFS_KEY_TRUSTED_PEER_ONLY = "trusted_peer_only";
 	public static final String PREFS_KEY_DISCLAIMER = "disclaimer";
-	public static final String PREFS_KEY_SELECTED_ADDRESS = "selected_address";
 	private static final String PREFS_KEY_LABS_QR_PAYMENT_REQUEST = "labs_qr_payment_request";
 
 	private static final String PREFS_KEY_LAST_VERSION = "last_version";
@@ -143,16 +142,6 @@ public class Configuration
 	public boolean getDisclaimerEnabled()
 	{
 		return prefs.getBoolean(PREFS_KEY_DISCLAIMER, true);
-	}
-
-	public String getSelectedAddress()
-	{
-		return prefs.getString(PREFS_KEY_SELECTED_ADDRESS, null);
-	}
-
-	public void setSelectedAddress(final String address)
-	{
-		prefs.edit().putString(PREFS_KEY_SELECTED_ADDRESS, address).commit();
 	}
 
 	public String getExchangeCurrencyCode()

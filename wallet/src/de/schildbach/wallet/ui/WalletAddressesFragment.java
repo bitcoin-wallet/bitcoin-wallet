@@ -58,6 +58,7 @@ import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.util.BitmapFragment;
 import de.schildbach.wallet.util.Qr;
 import de.schildbach.wallet.util.WalletUtils;
+import de.schildbach.wallet.util.WholeStringBuilder;
 import de.schildbach.wallet_test.R;
 
 /**
@@ -94,10 +95,15 @@ public final class WalletAddressesFragment extends ListFragment
 
 		adapter = new WalletAddressesAdapter(activity, wallet);
 
-		final Address selectedAddress = application.determineSelectedAddress();
-		adapter.setSelectedAddress(selectedAddress.toString());
-
 		setListAdapter(adapter);
+	}
+
+	@Override
+	public void onViewCreated(final View view, final Bundle savedInstanceState)
+	{
+		super.onViewCreated(view, savedInstanceState);
+
+		setEmptyText(WholeStringBuilder.bold(getString(R.string.address_book_empty_text)));
 	}
 
 	@Override
@@ -212,12 +218,6 @@ public final class WalletAddressesFragment extends ListFragment
 						mode.finish();
 						return true;
 
-					case R.id.wallet_addresses_context_default:
-						handleDefault(getAddress(position));
-
-						mode.finish();
-						return true;
-
 					case R.id.wallet_addresses_context_browse:
 						startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.EXPLORE_BASE_URL + "address/"
 								+ getAddress(position).toString())));
@@ -261,13 +261,6 @@ public final class WalletAddressesFragment extends ListFragment
 				final ClipboardManager clipboardManager = (ClipboardManager) activity.getSystemService(Context.CLIPBOARD_SERVICE);
 				clipboardManager.setText(address.toString());
 				activity.toast(R.string.wallet_address_fragment_clipboard_msg);
-			}
-
-			private void handleDefault(@Nonnull final Address address)
-			{
-				final String addressStr = address.toString();
-				config.setSelectedAddress(addressStr);
-				adapter.setSelectedAddress(addressStr);
 			}
 		});
 	}

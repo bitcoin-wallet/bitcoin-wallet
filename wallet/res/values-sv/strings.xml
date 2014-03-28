@@ -62,7 +62,6 @@
 	<string name="address_book_context_edit_title">Ändra adress</string>
 	<string name="address_book_context_remove_title">Ta bort adressen</string>
 	<string name="address_book_context_copy_to_clipboard_title">Kopiera till urklipp</string>
-	<string name="address_book_context_default_title">Sätt som standardadress</string>
 	<string name="address_book_options_paste_from_clipboard_title">Klistra in från urklipp</string>
 	<string name="address_book_options_paste_from_clipboard_empty">Urklippet är tomt</string>
 	<string name="address_book_options_scan_title">Skanna adress</string>

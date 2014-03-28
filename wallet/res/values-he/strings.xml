@@ -106,7 +106,6 @@
   <string name="address_book_context_edit_title">ערוך כתובת</string>
   <string name="address_book_context_remove_title">הסר כתובת</string>
   <string name="address_book_context_copy_to_clipboard_title">העתק ללוח</string>
-  <string name="address_book_context_default_title">שמור ככתובת ברירת מחדל</string>
   <string name="address_book_options_paste_from_clipboard_title">הדבק מהלוח</string>
   <string name="address_book_options_paste_from_clipboard_empty">הלוח ריק</string>
   <string name="address_book_options_paste_from_clipboard_invalid">המידע מהלוח (clipboard) אינו ניתן לזיהוי</string>

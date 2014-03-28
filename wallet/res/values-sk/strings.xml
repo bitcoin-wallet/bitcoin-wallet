@@ -93,7 +93,6 @@
 	<string name="address_book_context_edit_title">Upraviť adresu</string>
 	<string name="address_book_context_remove_title">Odstrániť adresu</string>
 	<string name="address_book_context_copy_to_clipboard_title">Skopírovať do schránky</string>
-	<string name="address_book_context_default_title">Nastaviť ako predvolenú adresu</string>
 	<string name="address_book_options_paste_from_clipboard_title">Prilepiť zo schránky</string>
 	<string name="address_book_options_paste_from_clipboard_empty">Schránka je prázdna</string>
 	<string name="address_book_options_paste_from_clipboard_invalid">Dáta zo schránky nebolo možné rozpoznať</string>

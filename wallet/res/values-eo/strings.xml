@@ -79,7 +79,6 @@
 	<string name="address_book_context_edit_title">Redakti adreson</string>
 	<string name="address_book_context_remove_title">Forigi adreson</string>
 	<string name="address_book_context_copy_to_clipboard_title">Kopi al tondujo</string>
-	<string name="address_book_context_default_title">Ŝalti kiel defaŭltan adreson</string>
 	<string name="address_book_options_paste_from_clipboard_title">Alglui el tondujo</string>
 	<string name="address_book_options_paste_from_clipboard_empty">Tondujo malplenas</string>
 	<string name="address_book_options_scan_title">Skani adreson</string>

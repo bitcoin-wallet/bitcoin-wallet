@@ -14,12 +14,6 @@
 		android:title="@string/address_book_context_copy_to_clipboard_title"
 		android:titleCondensed="@string/button_copy"/>
 	<item
-		android:id="@+id/wallet_addresses_context_default"
-		android:icon="@drawable/ic_action_set_as_default"
-		android:showAsAction="ifRoom|withText"
-		android:title="@string/address_book_context_default_title"
-		android:titleCondensed="@string/button_set_as_default"/>
-	<item
 		android:id="@+id/wallet_addresses_context_show_qr"
 		android:icon="@drawable/ic_action_qr"
 		android:showAsAction="ifRoom|withText"

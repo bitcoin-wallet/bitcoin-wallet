@@ -100,6 +100,7 @@ public final class RequestCoinsFragment extends Fragment
 
 	private static final int REQUEST_CODE_ENABLE_BLUETOOTH = 0;
 
+	private Address address;
 	private CurrencyCalculatorLink amountCalculatorLink;
 
 	private static final int ID_RATE_LOADER = 0;
@@ -148,6 +149,21 @@ public final class RequestCoinsFragment extends Fragment
 		this.nfcManager = (NfcManager) activity.getSystemService(Context.NFC_SERVICE);
 		this.clipboardManager = (ClipboardManager) activity.getSystemService(Context.CLIPBOARD_SERVICE);
 		this.bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+	}
+
+	@Override
+	public void onCreate(final Bundle savedInstanceState)
+	{
+		super.onCreate(savedInstanceState);
+
+		if (savedInstanceState != null)
+		{
+			restoreInstanceState(savedInstanceState);
+		}
+		else
+		{
+			address = wallet.freshReceiveAddress();
+		}
 	}
 
 	@Override
@@ -266,6 +282,24 @@ public final class RequestCoinsFragment extends Fragment
 		amountCalculatorLink.setListener(null);
 
 		super.onPause();
+	}
+
+	@Override
+	public void onSaveInstanceState(final Bundle outState)
+	{
+		super.onSaveInstanceState(outState);
+
+		saveInstanceState(outState);
+	}
+
+	private void saveInstanceState(final Bundle outState)
+	{
+		outState.putByteArray("receive_address", address.getHash160());
+	}
+
+	private void restoreInstanceState(final Bundle savedInstanceState)
+	{
+		address = new Address(Constants.NETWORK_PARAMETERS, savedInstanceState.getByteArray("receive_address"));
 	}
 
 	@Override
@@ -404,7 +438,6 @@ public final class RequestCoinsFragment extends Fragment
 
 	private String determineBitcoinRequestStr(final boolean includeBluetoothMac)
 	{
-		final Address address = application.determineSelectedAddress();
 		final Coin amount = amountCalculatorLink.getAmount();
 
 		final StringBuilder uri = new StringBuilder(BitcoinURI.convertToBitcoinURI(address, amount, null, null));
@@ -418,7 +451,6 @@ public final class RequestCoinsFragment extends Fragment
 
 	private byte[] determinePaymentRequest(final boolean includeBluetoothMac)
 	{
-		final Address address = application.determineSelectedAddress();
 		final Coin amount = amountCalculatorLink.getAmount();
 		final String paymentUrl = includeBluetoothMac && bluetoothMac != null ? "bt:" + bluetoothMac : null;
 

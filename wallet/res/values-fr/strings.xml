@@ -108,7 +108,6 @@
   <string name="address_book_context_edit_title">Modifier l\'adresse</string>
   <string name="address_book_context_remove_title">Enlever l\'adresse</string>
   <string name="address_book_context_copy_to_clipboard_title">Copier dans le presse-papiers</string>
-  <string name="address_book_context_default_title">Définir en tant qu\'adresse par défaut</string>
   <string name="address_book_options_paste_from_clipboard_title">Coller depuis le presse-papiers</string>
   <string name="address_book_options_paste_from_clipboard_empty">Le presse-papiers est vide</string>
   <string name="address_book_options_paste_from_clipboard_invalid">Les données provenant du presse-papiers ne peuvent pas être reconnues.</string>

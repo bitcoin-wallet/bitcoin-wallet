@@ -37,8 +37,13 @@ public class AutosyncReceiver extends BroadcastReceiver
 	{
 		log.info("got broadcast: " + intent);
 
-		// make sure there is always an alarm scheduled
 		if (!Intent.ACTION_PACKAGE_REPLACED.equals(intent.getAction()) || intent.getDataString().equals("package:" + context.getPackageName()))
-			WalletApplication.scheduleStartBlockchainService(context);
+		{
+			// make sure wallet is upgraded to HD
+			UpgradeWalletService.startUpgrade(context);
+		}
+
+		// make sure there is always an alarm scheduled
+		WalletApplication.scheduleStartBlockchainService(context);
 	}
 }

@@ -17,11 +17,14 @@
 
 package de.schildbach.wallet.ui;
 
+import java.util.concurrent.RejectedExecutionException;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.graphics.Bitmap;
 import android.nfc.NfcManager;
 import android.os.Bundle;
@@ -33,14 +36,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.bitcoin.core.Address;
+import com.google.bitcoin.core.Wallet;
 import com.google.bitcoin.uri.BitcoinURI;
+import com.google.bitcoin.utils.Threading;
 
-import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.util.BitmapFragment;
 import de.schildbach.wallet.util.Nfc;
 import de.schildbach.wallet.util.Qr;
+import de.schildbach.wallet.util.ThrottlingWalletChangeListener;
 import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
 
@@ -51,7 +56,7 @@ public final class WalletAddressFragment extends Fragment
 {
 	private Activity activity;
 	private WalletApplication application;
-	private Configuration config;
+	private Wallet wallet;
 	private NfcManager nfcManager;
 
 	private View bitcoinAddressButton;
@@ -62,6 +67,8 @@ public final class WalletAddressFragment extends Fragment
 
 	private Bitmap qrCodeBitmap;
 
+	private static final Logger log = LoggerFactory.getLogger(WalletAddressFragment.class);
+
 	@Override
 	public void onAttach(final Activity activity)
 	{
@@ -69,7 +76,7 @@ public final class WalletAddressFragment extends Fragment
 
 		this.activity = activity;
 		this.application = (WalletApplication) activity.getApplication();
-		this.config = application.getConfiguration();
+		this.wallet = application.getWallet();
 		this.nfcManager = (NfcManager) activity.getSystemService(Context.NFC_SERVICE);
 	}
 
@@ -107,7 +114,7 @@ public final class WalletAddressFragment extends Fragment
 	{
 		super.onResume();
 
-		config.registerOnSharedPreferenceChangeListener(prefsListener);
+		wallet.addEventListener(walletChangeListener, Threading.SAME_THREAD);
 
 		updateView();
 	}
@@ -115,7 +122,7 @@ public final class WalletAddressFragment extends Fragment
 	@Override
 	public void onPause()
 	{
-		config.unregisterOnSharedPreferenceChangeListener(prefsListener);
+		wallet.removeEventListener(walletChangeListener);
 
 		Nfc.unpublish(nfcManager, getActivity());
 
@@ -124,16 +131,15 @@ public final class WalletAddressFragment extends Fragment
 
 	private void updateView()
 	{
-		final Address selectedAddress = application.determineSelectedAddress();
+		final Address address = wallet.currentReceiveAddress();
 
-		if (!selectedAddress.equals(lastSelectedAddress))
+		if (!address.equals(lastSelectedAddress))
 		{
-			lastSelectedAddress = selectedAddress;
+			lastSelectedAddress = address;
 
-			bitcoinAddressLabel.setText(WalletUtils.formatAddress(selectedAddress, Constants.ADDRESS_FORMAT_GROUP_SIZE,
-					Constants.ADDRESS_FORMAT_LINE_SIZE));
+			bitcoinAddressLabel.setText(WalletUtils.formatAddress(address, Constants.ADDRESS_FORMAT_GROUP_SIZE, Constants.ADDRESS_FORMAT_LINE_SIZE));
 
-			final String addressStr = BitcoinURI.convertToBitcoinURI(selectedAddress, null, null, null);
+			final String addressStr = BitcoinURI.convertToBitcoinURI(address, null, null, null);
 
 			final int size = (int) (256 * getResources().getDisplayMetrics().density);
 			qrCodeBitmap = Qr.bitmap(addressStr, size);
@@ -148,13 +154,19 @@ public final class WalletAddressFragment extends Fragment
 		BitmapFragment.show(getFragmentManager(), qrCodeBitmap);
 	}
 
-	private final OnSharedPreferenceChangeListener prefsListener = new OnSharedPreferenceChangeListener()
+	private final ThrottlingWalletChangeListener walletChangeListener = new ThrottlingWalletChangeListener()
 	{
 		@Override
-		public void onSharedPreferenceChanged(final SharedPreferences sharedPreferences, final String key)
+		public void onThrottledWalletChanged()
 		{
-			if (Configuration.PREFS_KEY_SELECTED_ADDRESS.equals(key))
+			try
+			{
 				updateView();
+			}
+			catch (final RejectedExecutionException x)
+			{
+				log.info("rejected execution: " + WalletAddressFragment.this.toString());
+			}
 		}
 	};
 }

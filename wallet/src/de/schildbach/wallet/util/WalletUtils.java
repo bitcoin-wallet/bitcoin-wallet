@@ -301,19 +301,6 @@ public class WalletUtils
 		}
 	};
 
-	@CheckForNull
-	public static ECKey pickOldestKey(@Nonnull final Wallet wallet)
-	{
-		ECKey oldestKey = null;
-
-		for (final ECKey key : wallet.getImportedKeys())
-			if (!wallet.isKeyRotating(key))
-				if (oldestKey == null || key.getCreationTimeSeconds() < oldestKey.getCreationTimeSeconds())
-					oldestKey = key;
-
-		return oldestKey;
-	}
-
 	public static byte[] walletToByteArray(@Nonnull final Wallet wallet)
 	{
 		try

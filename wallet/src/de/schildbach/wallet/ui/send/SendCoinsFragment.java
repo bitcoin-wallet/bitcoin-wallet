@@ -91,6 +91,7 @@ import com.google.bitcoin.core.Wallet.DustySendRequested;
 import com.google.bitcoin.core.Wallet.SendRequest;
 import com.google.bitcoin.protocols.payments.PaymentProtocol;
 import com.google.bitcoin.utils.MonetaryFormat;
+import com.google.bitcoin.wallet.KeyChain.KeyPurpose;
 
 import de.schildbach.wallet.AddressBookProvider;
 import de.schildbach.wallet.Configuration;
@@ -863,8 +864,6 @@ public final class SendCoinsFragment extends Fragment
 
 		// prepare send request
 		final SendRequest sendRequest = finalPaymentIntent.toSendRequest();
-		final Address returnAddress = WalletUtils.pickOldestKey(wallet).toAddress(Constants.NETWORK_PARAMETERS);
-		sendRequest.changeAddress = returnAddress;
 		sendRequest.emptyWallet = paymentIntent.mayEditAmount() && finalAmount.equals(wallet.getBalance(BalanceType.AVAILABLE));
 
 		new SendCoinsOfflineTask(wallet, backgroundHandler)
@@ -879,8 +878,9 @@ public final class SendCoinsFragment extends Fragment
 
 				sentTransaction.getConfidence().addEventListener(sentTransactionConfidenceListener);
 
+				final Address refundAddress = wallet.freshAddress(KeyPurpose.REFUND);
 				final Payment payment = PaymentProtocol.createPaymentMessage(Arrays.asList(new Transaction[] { sentTransaction }), finalAmount,
-						returnAddress, null, paymentIntent.payeeData);
+						refundAddress, null, paymentIntent.payeeData);
 
 				directPay(payment);
 
