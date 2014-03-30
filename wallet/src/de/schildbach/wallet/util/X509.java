@@ -17,11 +17,8 @@
 
 package de.schildbach.wallet.util;
 
-import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.security.KeyStore;
-import java.security.KeyStoreException;
-import java.security.PublicKey;
 import java.security.cert.CertPath;
 import java.security.cert.CertPathValidator;
 import java.security.cert.CertPathValidatorException;
@@ -30,47 +27,20 @@ import java.security.cert.CertificateFactory;
 import java.security.cert.PKIXCertPathValidatorResult;
 import java.security.cert.PKIXParameters;
 import java.security.cert.TrustAnchor;
-import java.security.cert.X509Certificate;
 import java.util.List;
-
-import javax.annotation.Nullable;
-
-import org.spongycastle.asn1.ASN1ObjectIdentifier;
-import org.spongycastle.asn1.ASN1String;
-import org.spongycastle.asn1.x500.AttributeTypeAndValue;
-import org.spongycastle.asn1.x500.RDN;
-import org.spongycastle.asn1.x500.X500Name;
-import org.spongycastle.asn1.x500.style.RFC4519Style;
-
-import com.google.bitcoin.protocols.payments.PaymentRequestException;
-import com.google.common.base.Joiner;
 
 /**
  * @author Andreas Schildbach
  */
 public class X509
 {
-	public static KeyStore trustedCaStore() throws GeneralSecurityException
-	{
-		try
-		{
-			// ICS only!
-			final KeyStore keystore = KeyStore.getInstance("AndroidCAStore");
-			keystore.load(null, null);
-			return keystore;
-		}
-		catch (final IOException x)
-		{
-			throw new KeyStoreException(x);
-		}
-	}
-
-	public static TrustAnchor trustAnchor(final List<? extends Certificate> certificateChain) throws GeneralSecurityException
+	public static TrustAnchor trustAnchor(final List<? extends Certificate> certificateChain, final KeyStore trustedKeyStore)
+			throws GeneralSecurityException
 	{
 		final CertificateFactory certificateFactory = CertificateFactory.getInstance("X.509");
 		final CertPath certificatePath = certificateFactory.generateCertPath(certificateChain);
 
-		final PKIXParameters pkixParams = new PKIXParameters(trustedCaStore());
+		final PKIXParameters pkixParams = new PKIXParameters(trustedKeyStore);
 		pkixParams.setRevocationEnabled(false);
 
 		final CertPathValidator pathValidator = CertPathValidator.getInstance("PKIX");
@@ -83,63 +53,6 @@ public class X509
 		catch (final CertPathValidatorException x)
 		{
 			return null;
-		}
-	}
-
-	public static String nameFromCertificate(final X509Certificate certificate)
-	{
-		final X500Name name = new X500Name(certificate.getSubjectX500Principal().getName());
-
-		String commonName = null, org = null, location = null, country = null;
-		for (final RDN rdn : name.getRDNs())
-		{
-			final AttributeTypeAndValue pair = rdn.getFirst();
-			final ASN1ObjectIdentifier type = pair.getType();
-			final String val = ((ASN1String) pair.getValue()).getString();
-
-			if (type.equals(RFC4519Style.cn))
-				commonName = val;
-			else if (type.equals(RFC4519Style.o))
-				org = val;
-			else if (type.equals(RFC4519Style.l))
-				location = val;
-			else if (type.equals(RFC4519Style.c))
-				country = val;
-		}
-
-		if (org != null)
-			return Joiner.on(", ").skipNulls().join(org, location, country);
-		else
-			return commonName;
-	}
-
-	/**
-	 * Information about the X509 signature's issuer and subject.
-	 */
-	public static class PkiVerificationData
-	{
-		/** Display name of the payment requestor, could be a domain name, email address, legal name, etc */
-		public final String name;
-		/** The "org" part of the payment requestors ID. */
-		public final String orgName;
-		/** An alternative name. */
-		public final String altName;
-		/** SSL public key that was used to sign. */
-		public final PublicKey merchantSigningKey;
-		/** Object representing the CA that verified the merchant's ID */
-		public final TrustAnchor rootAuthority;
-		/** String representing the display name of the CA that verified the merchant's ID */
-		public final String rootAuthorityName;
-
-		public PkiVerificationData(@Nullable String name, @Nullable String orgName, @Nullable String altName, PublicKey merchantSigningKey,
-				TrustAnchor rootAuthority) throws PaymentRequestException.PkiVerificationException
-		{
-			this.name = name;
-			this.orgName = orgName;
-			this.altName = altName;
-			this.merchantSigningKey = merchantSigningKey;
-			this.rootAuthority = rootAuthority;
-			this.rootAuthorityName = nameFromCertificate(rootAuthority.getTrustedCert());
 		}
 	}
 }

@@ -61,6 +61,8 @@ import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.google.bitcoin.core.Address;
 import com.google.bitcoin.core.Wallet;
+import com.google.bitcoin.crypto.TrustStoreLoader;
+import com.google.bitcoin.crypto.X509Utils;
 import com.google.bitcoin.uri.BitcoinURI;
 
 import de.schildbach.wallet.Configuration;
@@ -261,7 +263,8 @@ public final class RequestCoinsFragment extends SherlockFragment
 								if (signingCertificateChain == null || signingCertificateChain.length == 0)
 									throw new RuntimeException("Could not get certificate chain for alias " + signingKeyAlias);
 
-								signingTrustAnchor = X509.trustAnchor(Arrays.asList(signingCertificateChain));
+								signingTrustAnchor = X509.trustAnchor(Arrays.asList(signingCertificateChain),
+										new TrustStoreLoader.DefaultTrustStoreLoader().getKeyStore());
 							}
 							catch (final Exception x)
 							{
@@ -486,8 +489,10 @@ public final class RequestCoinsFragment extends SherlockFragment
 		if (signingKeyAlias == null)
 			signView.setText("Sign (pick key)");
 		else
-			signView.setText("Sign as " + signingKeyAlias
-					+ (signingTrustAnchor != null ? " (verified by " + X509.nameFromCertificate(signingTrustAnchor.getTrustedCert()) + ")" : ""));
+			signView.setText("Sign as "
+					+ signingKeyAlias
+					+ (signingTrustAnchor != null ? " (verified by "
+							+ X509Utils.getDisplayNameFromCertificate(signingTrustAnchor.getTrustedCert(), false) + ")" : ""));
 	}
 
 	private String determineBitcoinRequestStr(final boolean includeBluetoothMac)
