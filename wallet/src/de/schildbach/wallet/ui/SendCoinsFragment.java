@@ -154,8 +154,6 @@ public final class SendCoinsFragment extends SherlockFragment
 	private State state = State.INPUT;
 	private Transaction sentTransaction = null;
 
-	private boolean firstUpdateViewSinceNewIntent = true;
-
 	private static final int ID_RATE_LOADER = 0;
 
 	private static final int REQUEST_CODE_SCAN = 0;
@@ -659,7 +657,6 @@ public final class SendCoinsFragment extends SherlockFragment
 					protected void handlePaymentIntent(final PaymentIntent paymentIntent)
 					{
 						updateStateFrom(paymentIntent);
-						updateView();
 					}
 
 					@Override
@@ -1095,8 +1092,6 @@ public final class SendCoinsFragment extends SherlockFragment
 		receivingStaticView.setEnabled(state == State.INPUT);
 
 		amountCalculatorLink.setEnabled(state == State.INPUT && paymentIntent.mayEditAmount());
-		if (state == State.INPUT && firstUpdateViewSinceNewIntent)
-			amountCalculatorLink.setBtcAmount(paymentIntent.getAmount());
 
 		final boolean directPaymentVisible;
 		if (paymentIntent.hasPaymentUrl())
@@ -1112,13 +1107,6 @@ public final class SendCoinsFragment extends SherlockFragment
 		}
 		directPaymentEnableView.setVisibility(directPaymentVisible ? View.VISIBLE : View.GONE);
 		directPaymentEnableView.setEnabled(state == State.INPUT);
-		if (state == State.INPUT && firstUpdateViewSinceNewIntent)
-		{
-			if (paymentIntent.isBluetoothPaymentUrl())
-				directPaymentEnableView.setChecked(bluetoothAdapter != null && bluetoothAdapter.isEnabled());
-			else if (paymentIntent.isHttpPaymentUrl())
-				directPaymentEnableView.setChecked(true);
-		}
 
 		if (sentTransaction != null)
 		{
@@ -1184,11 +1172,6 @@ public final class SendCoinsFragment extends SherlockFragment
 		receivingStaticView.setNextFocusDownId(activeAmountViewId);
 		GenericUtils.setNextFocusForwardId(receivingAddressView, activeAmountViewId);
 		viewGo.setNextFocusUpId(activeAmountViewId);
-
-		if (firstUpdateViewSinceNewIntent)
-			requestFocusFirst();
-
-		firstUpdateViewSinceNewIntent = false;
 	}
 
 	private void initStateFromIntentExtras(@Nonnull final Bundle extras)
@@ -1289,10 +1272,28 @@ public final class SendCoinsFragment extends SherlockFragment
 
 		directPaymentAck = null;
 
-		firstUpdateViewSinceNewIntent = true;
+		// delay these actions until fragment is resumed
+		handler.post(new Runnable()
+		{
+			@Override
+			public void run()
+			{
+				if (state == State.INPUT)
+				{
+					amountCalculatorLink.setBtcAmount(paymentIntent.getAmount());
 
-		if (paymentIntent.hasPaymentRequestUrl() && paymentIntent.isSupportedPaymentRequestUrl())
-			requestPaymentRequest(paymentIntent.paymentRequestUrl);
+					if (paymentIntent.isBluetoothPaymentUrl())
+						directPaymentEnableView.setChecked(bluetoothAdapter != null && bluetoothAdapter.isEnabled());
+					else if (paymentIntent.isHttpPaymentUrl())
+						directPaymentEnableView.setChecked(true);
+
+					requestFocusFirst();
+				}
+
+				if (paymentIntent.hasPaymentRequestUrl() && paymentIntent.isSupportedPaymentRequestUrl())
+					requestPaymentRequest(paymentIntent.paymentRequestUrl);
+			}
+		});
 	}
 
 	private void requestPaymentRequest(final String paymentRequestUrl)
