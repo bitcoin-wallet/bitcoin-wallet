@@ -590,7 +590,7 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 		final String base = Constants.VERSION_URL + (versionNameSplit >= 0 ? packageInfo.versionName.substring(versionNameSplit) : "");
 		final String url = base + "?package=" + packageInfo.packageName + "&current=" + packageInfo.versionCode;
 
-		new HttpGetThread(getAssets(), url, application.httpUserAgent())
+		/*new HttpGetThread(getAssets(), url, application.httpUserAgent())
 		{
 			@Override
 			protected void handleLine(final String line, final long serverTime)
@@ -650,7 +650,7 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 					CrashReporter.saveBackgroundTrace(new RuntimeException(url, x), packageInfo);
 				}
 			}
-		}.start();
+		}.start();*/
 
 		if (!config.hasBtcPrecision() && CoinDefinition.coinPrecision != CoinDefinition.CoinPrecision.Coins
 				&& config.changeLogVersionCodeCrossed(application.packageInfo().versionCode, DEFAULT_PRECISION_CHANGE_VERSION_CODE))
