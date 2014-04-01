@@ -144,6 +144,7 @@ public final class SendCoinsFragment extends SherlockFragment
 	private CurrencyCalculatorLink amountCalculatorLink;
 
 	private MenuItem scanAction;
+	private MenuItem emptyAction;
 
 	private PaymentIntent paymentIntent;
 
@@ -686,6 +687,7 @@ public final class SendCoinsFragment extends SherlockFragment
 		inflater.inflate(R.menu.send_coins_fragment_options, menu);
 
 		scanAction = menu.findItem(R.id.send_coins_options_scan);
+		emptyAction = menu.findItem(R.id.send_coins_options_empty);
 
 		final PackageManager pm = activity.getPackageManager();
 		scanAction.setVisible(pm.hasSystemFeature(PackageManager.FEATURE_CAMERA) || pm.hasSystemFeature(PackageManager.FEATURE_CAMERA_FRONT));
@@ -1163,8 +1165,11 @@ public final class SendCoinsFragment extends SherlockFragment
 			viewGo.setText(R.string.send_coins_failed_msg);
 		}
 
+		// enable actions
 		if (scanAction != null)
 			scanAction.setEnabled(state == State.INPUT);
+		if (emptyAction != null)
+			emptyAction.setEnabled(state == State.INPUT);
 
 		// focus linking
 		final int activeAmountViewId = amountCalculatorLink.activeTextView().getId();
