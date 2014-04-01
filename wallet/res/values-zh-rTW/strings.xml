@@ -2,8 +2,8 @@
 <resources>
 
 	<string name="toast_wallet_reset">錢包已經重置，\n更新恢復需要一點時間完成。</string>
-	<string name="wallet_disclaimer_fragment_remind_safety">使用注意安全風險，請詳讀&lt;u>安全提示&lt;/u>。</string>
-	<string name="wallet_disclaimer_fragment_remind_backup">你需要&lt;u>備份你的錢包&lt;/u>!</string>
+	<string name="wallet_disclaimer_fragment_remind_safety">使用注意安全風險，請詳讀&lt;u&gt;安全提示&lt;/u&gt;。</string>
+	<string name="wallet_disclaimer_fragment_remind_backup">你需要&lt;u&gt;備份你的錢包&lt;/u&gt;!</string>
 	<string name="blockchain_state_progress_hours">%1$s, %2$d 小時延遲</string>
 	<string name="blockchain_state_progress_days">%1$s, %2$d 天延遲</string>
 	<string name="blockchain_state_progress_weeks">%1$s, %2$d 星期延遲</string>
@@ -30,7 +30,7 @@
 	<string name="wallet_transactions_fragment_empty_text_received">尚未收到比特幣</string>
 	<string name="wallet_transactions_fragment_empty_text_sent">尚未付出比特幣</string>
 	<string name="wallet_transactions_fragment_empty_text_howto">如何取得比特幣?\n\n用傳統貨幣交易,\n賣物品或是服務或\n線上挖掘。</string>
-	<string name="wallet_transactions_row_warning_backup">恭喜你收到第一筆付款! 你是否已經&lt;u>備份好你的錢包&lt;/u>來防止意外發生?</string>
+	<string name="wallet_transactions_row_warning_backup">恭喜你收到第一筆付款! 你是否已經&lt;u&gt;備份好你的錢包&lt;/u&gt;來防止意外發生?</string>
 	<string name="wallet_transactions_fragment_coinbase">已採礦</string>
 	<string name="wallet_transactions_fragment_internal">內部</string>
 	<string name="wallet_transactions_context_show_qr_title">展示QR二維條碼</string>
@@ -112,7 +112,7 @@
 	<string name="edit_address_book_entry_dialog_address_label">地址</string>
 	<string name="edit_address_book_entry_dialog_label_label">名稱</string>
 	<string name="edit_address_book_entry_dialog_button_edit">儲存</string>
-	<string name="transaction_row_message_purpose_key_rotation">這交易強化你的錢包防止被偷，&lt;u>更多資訊。&lt;/u></string>
+	<string name="transaction_row_message_purpose_key_rotation">這交易強化你的錢包防止被偷，&lt;u&gt;更多資訊。&lt;/u&gt;</string>
 	<string name="transaction_row_message_own_unbroadcasted">付款尚未傳輸。</string>
 	<string name="transaction_row_message_received_direct">該付款已經被直接接收，這類付款存在可能無法花費的風險。</string>
 	<string name="transaction_row_message_received_unconfirmed_unlocked">付款應該在幾分鐘之後才可以使用。</string>

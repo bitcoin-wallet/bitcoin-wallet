@@ -2,8 +2,8 @@
 <resources>
 
 	<string name="toast_wallet_reset">Tegnebog blev nulstillet,\ndet tager nogen tid at genoprette</string>
-	<string name="wallet_disclaimer_fragment_remind_safety">Brug for egen risiko. Læs &lt;u>sikkerhedsnoterne&lt;/u>.</string>
-	<string name="wallet_disclaimer_fragment_remind_backup">Du bør &lt;u>tage sikkerhedskopi af din tegnebog&lt;/u>!</string>
+	<string name="wallet_disclaimer_fragment_remind_safety">Brug for egen risiko. Læs &lt;u&gt;sikkerhedsnoterne&lt;/u&gt;.</string>
+	<string name="wallet_disclaimer_fragment_remind_backup">Du bør &lt;u&gt;tage sikkerhedskopi af din tegnebog&lt;/u&gt;!</string>
 	<string name="blockchain_state_progress_hours">%1$s, %2$d timer bagefter</string>
 	<string name="blockchain_state_progress_days">%1$s, %2$d dage bagefter</string>
 	<string name="blockchain_state_progress_weeks">%1$s, %2$d uger bagefter</string>
@@ -30,7 +30,7 @@
 	<string name="wallet_transactions_fragment_empty_text_received">Ingen Bitcoins modtaget endnu.</string>
 	<string name="wallet_transactions_fragment_empty_text_sent">Ingen Bitcoins sendt endnu.</string>
 	<string name="wallet_transactions_fragment_empty_text_howto">Hvordan får man Bitcoins?\n\nKøb for traditionelle penge,\nsælg varer eller ydelser eller\ntjen dem ved at arbejde.</string>
-	<string name="wallet_transactions_row_warning_backup">Tillykke, du har modtaget din første betaling! Har du &lt;u>taget en sikkerhedskopi af din tegnebog&lt;/u>, for at beskytte dig mod tab?</string>
+	<string name="wallet_transactions_row_warning_backup">Tillykke, du har modtaget din første betaling! Har du &lt;u&gt;taget en sikkerhedskopi af din tegnebog&lt;/u&gt;, for at beskytte dig mod tab?</string>
 	<string name="wallet_transactions_fragment_coinbase">mined</string>
 	<string name="wallet_transactions_fragment_internal">intern</string>
 	<string name="wallet_transactions_context_show_qr_title">Vis QR-kode</string>
@@ -112,7 +112,7 @@
 	<string name="edit_address_book_entry_dialog_address_label">Adresse</string>
 	<string name="edit_address_book_entry_dialog_label_label">Navn</string>
 	<string name="edit_address_book_entry_dialog_button_edit">Gem</string>
-	<string name="transaction_row_message_purpose_key_rotation">Denne transaktion styrker din tegnebog mod tyveri. &lt;u>Mere info.&lt;/u></string>
+	<string name="transaction_row_message_purpose_key_rotation">Denne transaktion styrker din tegnebog mod tyveri. &lt;u&gt;Mere info.&lt;/u&gt;</string>
 	<string name="transaction_row_message_own_unbroadcasted">Denne betaling er ikke sendt endnu.</string>
 	<string name="transaction_row_message_received_direct">Denne betaling er modtaget direkte. Der er en risiko for, at den aldrig bliver brugbar.</string>
 	<string name="transaction_row_message_received_unconfirmed_unlocked">Denne betaling bør blive brugbar om få minutter.</string>

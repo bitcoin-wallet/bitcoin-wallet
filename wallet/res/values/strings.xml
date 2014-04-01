@@ -2,8 +2,8 @@
 <resources>
 
 	<string name="toast_wallet_reset">Wallet was reset,\nwill take some time to recover</string>
-	<string name="wallet_disclaimer_fragment_remind_safety">Use at your own risk. Read the &lt;u>safety notes&lt;/u>.</string>
-	<string name="wallet_disclaimer_fragment_remind_backup">You need to &lt;u>back up your wallet&lt;/u>!</string>
+	<string name="wallet_disclaimer_fragment_remind_safety">Use at your own risk. Read the &lt;u&gt;safety notes&lt;/u&gt;.</string>
+	<string name="wallet_disclaimer_fragment_remind_backup">You need to &lt;u&gt;back up your wallet&lt;/u&gt;!</string>
 	<string name="blockchain_state_progress_hours">%1$s, %2$d hours behind</string>
 	<string name="blockchain_state_progress_days">%1$s, %2$d days behind</string>
 	<string name="blockchain_state_progress_weeks">%1$s, %2$d weeks behind</string>
@@ -30,7 +30,7 @@
 	<string name="wallet_transactions_fragment_empty_text_received">No Bitcoins received so far.</string>
 	<string name="wallet_transactions_fragment_empty_text_sent">No Bitcoins sent so far.</string>
 	<string name="wallet_transactions_fragment_empty_text_howto">How to get Bitcoins?\n\nTrade for traditional money,\nsell goods or services or\nearn by working.</string>
-	<string name="wallet_transactions_row_warning_backup">Congratulations, you received your first payment! Have you already &lt;u>backed up your wallet&lt;/u>, to protect against loss?</string>
+	<string name="wallet_transactions_row_warning_backup">Congratulations, you received your first payment! Have you already &lt;u&gt;backed up your wallet&lt;/u&gt;, to protect against loss?</string>
 	<string name="wallet_transactions_fragment_coinbase">mined</string>
 	<string name="wallet_transactions_fragment_internal">internal</string>
 	<string name="wallet_transactions_context_show_qr_title">Show QR code</string>
@@ -112,7 +112,7 @@
 	<string name="edit_address_book_entry_dialog_address_label">Address</string>
 	<string name="edit_address_book_entry_dialog_label_label">Name</string>
 	<string name="edit_address_book_entry_dialog_button_edit">Save</string>
-	<string name="transaction_row_message_purpose_key_rotation">This transaction strengthens your wallet against theft. &lt;u>More info.&lt;/u></string>
+	<string name="transaction_row_message_purpose_key_rotation">This transaction strengthens your wallet against theft. &lt;u&gt;More info.&lt;/u&gt;</string>
 	<string name="transaction_row_message_own_unbroadcasted">This payment has not been transmitted yet.</string>
 	<string name="transaction_row_message_received_direct">This payment has been received directly. There is a risk it might never become spendable.</string>
 	<string name="transaction_row_message_received_unconfirmed_unlocked">This payment should become spendable in a few minutes.</string>

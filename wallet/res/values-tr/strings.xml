@@ -2,8 +2,8 @@
 <resources>
 
 	<string name="toast_wallet_reset">Cüzdan sıfırlanmış,\ntamamlanması belli bir süre alacaktır.</string>
-	<string name="wallet_disclaimer_fragment_remind_safety">Tüm riski siz üstlenmiş olursunuz. &lt;u>Güvenlik notlarını&lt;/u> okuyunuz.</string>
-	<string name="wallet_disclaimer_fragment_remind_backup">&lt;u>Cüzdanınızı yedeklemeniz&lt;/u> gerekmektedir!</string>
+	<string name="wallet_disclaimer_fragment_remind_safety">Tüm riski siz üstlenmiş olursunuz. &lt;u&gt;Güvenlik notlarını&lt;/u&gt; okuyunuz.</string>
+	<string name="wallet_disclaimer_fragment_remind_backup">&lt;u&gt;Cüzdanınızı yedeklemeniz&lt;/u&gt; gerekmektedir!</string>
 	<string name="blockchain_state_progress_hours">%1$s, %2$d saat geride</string>
 	<string name="blockchain_state_progress_days">%1$s, %2$d gün geride</string>
 	<string name="blockchain_state_progress_weeks">%1$s, %2$d hafta geride</string>
@@ -30,7 +30,7 @@
 	<string name="wallet_transactions_fragment_empty_text_received">Şimdiye kadar hiçbir Bitcoin alınmadı</string>
 	<string name="wallet_transactions_fragment_empty_text_sent">Şimdiye kadar hiçbir Bitcoin gönderilmedi</string>
 	<string name="wallet_transactions_fragment_empty_text_howto">Bitcoin nasıl elde edilir?\n\nGeleneksel parayla alabilir,\nmal veya hizmet satabilir veya\nçalışarak kazanabilirsiniz.</string>
-	<string name="wallet_transactions_row_warning_backup">Tebrikler, ilk ödemenizi almış bulunuyorsunuz! Kayba karşı korunmak için &lt;u>cüzdanınızı yedeklediniz mi&lt;/u>?</string>
+	<string name="wallet_transactions_row_warning_backup">Tebrikler, ilk ödemenizi almış bulunuyorsunuz! Kayba karşı korunmak için &lt;u&gt;cüzdanınızı yedeklediniz mi&lt;/u&gt;?</string>
 	<string name="wallet_transactions_fragment_coinbase">oluşturulan</string>
 	<string name="wallet_transactions_fragment_internal">Dahili</string>
 	<string name="wallet_transactions_context_show_qr_title">QR kodu göster</string>
@@ -112,7 +112,7 @@
 	<string name="edit_address_book_entry_dialog_address_label">Adres</string>
 	<string name="edit_address_book_entry_dialog_label_label">İsim</string>
 	<string name="edit_address_book_entry_dialog_button_edit">Kaydet</string>
-	<string name="transaction_row_message_purpose_key_rotation">Bu muamele cüzdanınızın çalınmaya karşı korunmasını güçlendirir. &lt;u>Daha fazla bilgi.&lt;/u></string>
+	<string name="transaction_row_message_purpose_key_rotation">Bu muamele cüzdanınızın çalınmaya karşı korunmasını güçlendirir. &lt;u&gt;Daha fazla bilgi.&lt;/u&gt;</string>
 	<string name="transaction_row_message_own_unbroadcasted">Bu ödeme henüz aktarılmamıştır.</string>
 	<string name="transaction_row_message_received_direct">Bu ödeme doğrudan alındı. Asla harcanamayacak olması riski vardır.</string>
 	<string name="transaction_row_message_received_unconfirmed_unlocked">Bu ödeme muhtemelen birkaç dakika içinde harcanabilir hâle gelecektir.</string>

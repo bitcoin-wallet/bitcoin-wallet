@@ -2,8 +2,8 @@
 <resources>
 
 	<string name="toast_wallet_reset">Peňaženka zresetovaná,\nobnova chvíľu potrvá</string>
-	<string name="wallet_disclaimer_fragment_remind_safety">Použitie na vlastné riziko. Viac informácií v sekcii &lt;u>Bezpečnosť&lt;/u>.</string>
-	<string name="wallet_disclaimer_fragment_remind_backup">Je potrebné &lt;u>zálohovať peňaženku&lt;/u>!</string>
+	<string name="wallet_disclaimer_fragment_remind_safety">Použitie na vlastné riziko. Viac informácií v sekcii &lt;u&gt;Bezpečnosť&lt;/u&gt;.</string>
+	<string name="wallet_disclaimer_fragment_remind_backup">Je potrebné &lt;u&gt;zálohovať peňaženku&lt;/u&gt;!</string>
 	<string name="blockchain_state_progress_hours">%1$s, %2$d hodín pozadu</string>
 	<string name="blockchain_state_progress_days">%1$s, %2$d dní pozadu</string>
 	<string name="blockchain_state_progress_weeks">%1$s, %2$d týždňov pozadu</string>
@@ -30,7 +30,7 @@
 	<string name="wallet_transactions_fragment_empty_text_received">Zatiaľ neboli prijaté žiadne Bitcoiny</string>
 	<string name="wallet_transactions_fragment_empty_text_sent">Zatiaľ neboli odoslané žiadne Bitcoiny</string>
 	<string name="wallet_transactions_fragment_empty_text_howto">Ako získať Bitcoiny?\n\nVýmenou za tradičné peniaze,\npredajom tovarov a služieb,\nalebo prácou.</string>
-	<string name="wallet_transactions_row_warning_backup">Gratulujeme, obdržali ste svoju prvú platbu! Urobili ste &lt;u>zálohu peňaženky&lt;/u>, aby ste ju ochránili pred stratou?</string>
+	<string name="wallet_transactions_row_warning_backup">Gratulujeme, obdržali ste svoju prvú platbu! Urobili ste &lt;u&gt;zálohu peňaženky&lt;/u&gt;, aby ste ju ochránili pred stratou?</string>
 	<string name="wallet_transactions_fragment_coinbase">vyťažené</string>
 	<string name="wallet_transactions_fragment_internal">vnútorné</string>
 	<string name="wallet_transactions_context_show_qr_title">Ukáž QR kód</string>
@@ -110,7 +110,7 @@
 	<string name="edit_address_book_entry_dialog_address_label">Adresa</string>
 	<string name="edit_address_book_entry_dialog_label_label">Názov</string>
 	<string name="edit_address_book_entry_dialog_button_edit">Uložiť</string>
-	<string name="transaction_row_message_purpose_key_rotation">Táto operácia zvyšuje ochranu proti vykradnutiu peňaženky. &lt;u>Viac informácií.&lt;/u></string>
+	<string name="transaction_row_message_purpose_key_rotation">Táto operácia zvyšuje ochranu proti vykradnutiu peňaženky. &lt;u&gt;Viac informácií.&lt;/u&gt;</string>
 	<string name="transaction_row_message_own_unbroadcasted">Táto platba ešte nebola odoslaná.</string>
 	<string name="transaction_row_message_received_direct">Táto platba bola prijatá priamo. Existuje určité riziko, že sa nikdy nebude dať minúť.</string>
 	<string name="transaction_row_message_received_unconfirmed_unlocked">Táto platba by mala byť potvrdená za pár minút.</string>

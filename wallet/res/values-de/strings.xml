@@ -4,8 +4,8 @@
 
 	<string name="toast_wallet_reset">Wallet wurde zurückgesetzt,\nwird einige Zeit benötigen</string>
 
-	<string name="wallet_disclaimer_fragment_remind_safety">Nutzung auf eigene Gefahr. Lies die &lt;u>Sicherheitshinweise&lt;/u>.</string>
-	<string name="wallet_disclaimer_fragment_remind_backup">Bitte &lt;u>sichere deine Wallet&lt;/u>!</string>
+	<string name="wallet_disclaimer_fragment_remind_safety">Nutzung auf eigene Gefahr. Lies die &lt;u&gt;Sicherheitshinweise&lt;/u&gt;.</string>
+	<string name="wallet_disclaimer_fragment_remind_backup">Bitte &lt;u&gt;sichere deine Wallet&lt;/u&gt;!</string>
 	<string name="blockchain_state_progress_hours">%1$s, hinkt %2$d Stunden hinterher</string>
 	<string name="blockchain_state_progress_days">%1$s, hinkt %2$d Tage hinterher</string>
 	<string name="blockchain_state_progress_weeks">%1$s, hinkt %2$d Wochen hinterher</string>
@@ -32,7 +32,7 @@
 	<string name="wallet_transactions_fragment_empty_text_received">Noch keine Bitcoins empfangen.</string>
 	<string name="wallet_transactions_fragment_empty_text_sent">Noch keine Bitcoins gesendet.</string>
 	<string name="wallet_transactions_fragment_empty_text_howto">Wie komme ich an Bitcoins?\n\nHandle gegen traditionelles Geld,\nverkaufe Güter oder Dienstleistungen oder\nverdiene durch Arbeit.</string>
-	<string name="wallet_transactions_row_warning_backup">Gratulation, du hast deine erste Zahlung erhalten! Hast du deine Wallet bereits &lt;u>gesichert&lt;/u>, um dich gegen Verlust zu schützen?</string>
+	<string name="wallet_transactions_row_warning_backup">Gratulation, du hast deine erste Zahlung erhalten! Hast du deine Wallet bereits &lt;u&gt;gesichert&lt;/u&gt;, um dich gegen Verlust zu schützen?</string>
 	<string name="wallet_transactions_fragment_coinbase">geschürft</string>
 	<string name="wallet_transactions_fragment_internal">intern</string>
 	<string name="wallet_transactions_context_show_qr_title">QR-Code zeigen</string>
@@ -122,7 +122,7 @@
 	<string name="edit_address_book_entry_dialog_label_label">Name</string>
 	<string name="edit_address_book_entry_dialog_button_edit">Speichern</string>
 
-	<string name="transaction_row_message_purpose_key_rotation">Diese Transaktion stärkt deine Wallet gegen Diebstahl. &lt;u>Mehr Information.&lt;/u></string>
+	<string name="transaction_row_message_purpose_key_rotation">Diese Transaktion stärkt deine Wallet gegen Diebstahl. &lt;u&gt;Mehr Information.&lt;/u&gt;</string>
 	<string name="transaction_row_message_own_unbroadcasted">Diese Zahlung ist noch nicht übertragen.</string>
 	<string name="transaction_row_message_received_direct">Diese Zahlung wurde direkt empfangen. Es besteht das Risiko, daß sie niemals verfügbar wird.</string>
 	<string name="transaction_row_message_received_unconfirmed_unlocked">Diese Zahlung sollte in ein paar Minuten verfügbar werden.</string>
