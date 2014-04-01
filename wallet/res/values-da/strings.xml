@@ -197,8 +197,8 @@
 	<string name="about_title">Om</string>
 	<string name="about_license_title">Licens</string>
 	<string name="about_credits_bitcoinj_title">Denne app bruger bitcoinj %s</string>
-	<string name="about_credits_zxing_title">"Denne app bruger 'zxing'"</string>
-	<string name="about_credits_icon_title">"Denne app bruger et ikon af 'bitboy'"</string>
+	<string name="about_credits_zxing_title">Denne app bruger \'zxing\'</string>
+	<string name="about_credits_icon_title">Denne app bruger et ikon af \'bitboy\'</string>
 	<string name="about_community_googleplus_title">Google+-fællesskab</string>
 	<string name="about_community_googleplus_summary">Diskussioner om appen</string>
 	<string name="about_author_twitter_title">Forfatteren på Twitter</string>

@@ -56,8 +56,8 @@
 	<string name="about_title">O aplikaci</string>
 	<string name="about_license_title">Licence</string>
 	<string name="about_credits_bitcoinj_title">Aplikace používá bitcoinj %s</string>
-	<string name="about_credits_zxing_title">"Aplikace používá 'zxing'"</string>
-	<string name="about_credits_icon_title">"Aplikace používá ikonu od 'bitboy'"</string>
+	<string name="about_credits_zxing_title">Aplikace používá \'zxing\'</string>
+	<string name="about_credits_icon_title">Aplikace používá ikonu od \'bitboy\'</string>
 	<string name="about_author_twitter_title">Autor na Twitteru</string>
 	<string name="about_author_googleplus_title">Autor na Google+</string>
 	<string name="about_market_app_title">Aplikace na Google Play</string>
