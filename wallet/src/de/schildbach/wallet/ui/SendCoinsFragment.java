@@ -1022,161 +1022,170 @@ public final class SendCoinsFragment extends SherlockFragment
 
 	private void updateView()
 	{
-		if (paymentIntent.hasPayee())
+		if (paymentIntent != null)
 		{
-			payeeNameView.setVisibility(View.VISIBLE);
-			payeeNameView.setText(paymentIntent.payeeName);
+			getView().setVisibility(View.VISIBLE);
 
-			if (paymentIntent.payeeOrganization != null)
+			if (paymentIntent.hasPayee())
 			{
-				payeeOrganizationView.setVisibility(View.VISIBLE);
-				payeeOrganizationView.setText(paymentIntent.payeeOrganization);
+				payeeNameView.setVisibility(View.VISIBLE);
+				payeeNameView.setText(paymentIntent.payeeName);
+
+				if (paymentIntent.payeeOrganization != null)
+				{
+					payeeOrganizationView.setVisibility(View.VISIBLE);
+					payeeOrganizationView.setText(paymentIntent.payeeOrganization);
+				}
+				else
+				{
+					payeeOrganizationView.setVisibility(View.GONE);
+				}
+
+				payeeVerifiedByView.setVisibility(View.VISIBLE);
+				final String verifiedBy = paymentIntent.payeeVerifiedBy != null ? paymentIntent.payeeVerifiedBy
+						: getString(R.string.send_coins_fragment_payee_verified_by_unknown);
+				payeeVerifiedByView.setText(Constants.CHAR_CHECKMARK
+						+ String.format(getString(R.string.send_coins_fragment_payee_verified_by), verifiedBy));
 			}
 			else
 			{
+				payeeNameView.setVisibility(View.GONE);
 				payeeOrganizationView.setVisibility(View.GONE);
+				payeeVerifiedByView.setVisibility(View.GONE);
 			}
 
-			payeeVerifiedByView.setVisibility(View.VISIBLE);
-			final String verifiedBy = paymentIntent.payeeVerifiedBy != null ? paymentIntent.payeeVerifiedBy
-					: getString(R.string.send_coins_fragment_payee_verified_by_unknown);
-			payeeVerifiedByView.setText(Constants.CHAR_CHECKMARK
-					+ String.format(getString(R.string.send_coins_fragment_payee_verified_by), verifiedBy));
-		}
-		else
-		{
-			payeeNameView.setVisibility(View.GONE);
-			payeeOrganizationView.setVisibility(View.GONE);
-			payeeVerifiedByView.setVisibility(View.GONE);
-		}
+			if (paymentIntent.hasOutputs())
+			{
+				receivingAddressView.setVisibility(View.GONE);
+				receivingStaticView.setVisibility(View.VISIBLE);
 
-		if (paymentIntent.hasOutputs())
-		{
-			receivingAddressView.setVisibility(View.GONE);
-			receivingStaticView.setVisibility(View.VISIBLE);
+				receivingStaticLabelView.setText(paymentIntent.memo);
 
-			receivingStaticLabelView.setText(paymentIntent.memo);
+				if (paymentIntent.hasAddress())
+					receivingStaticAddressView.setText(WalletUtils.formatAddress(paymentIntent.getAddress(), Constants.ADDRESS_FORMAT_GROUP_SIZE,
+							Constants.ADDRESS_FORMAT_LINE_SIZE));
+				else
+					receivingStaticAddressView.setText(R.string.send_coins_fragment_receiving_address_complex);
+			}
+			else if (validatedAddress != null)
+			{
+				receivingAddressView.setVisibility(View.GONE);
 
-			if (paymentIntent.hasAddress())
-				receivingStaticAddressView.setText(WalletUtils.formatAddress(paymentIntent.getAddress(), Constants.ADDRESS_FORMAT_GROUP_SIZE,
+				receivingStaticView.setVisibility(View.VISIBLE);
+				receivingStaticAddressView.setText(WalletUtils.formatAddress(validatedAddress.address, Constants.ADDRESS_FORMAT_GROUP_SIZE,
 						Constants.ADDRESS_FORMAT_LINE_SIZE));
+				final String addressBookLabel = AddressBookProvider.resolveLabel(activity, validatedAddress.address.toString());
+				final String staticLabel;
+				if (addressBookLabel != null)
+					staticLabel = addressBookLabel;
+				else if (validatedAddress.label != null)
+					staticLabel = validatedAddress.label;
+				else
+					staticLabel = getString(R.string.address_unlabeled);
+				receivingStaticLabelView.setText(staticLabel);
+				receivingStaticLabelView.setTextColor(getResources().getColor(
+						validatedAddress.label != null ? R.color.fg_significant : R.color.fg_insignificant));
+			}
 			else
-				receivingStaticAddressView.setText(R.string.send_coins_fragment_receiving_address_complex);
-		}
-		else if (validatedAddress != null)
-		{
-			receivingAddressView.setVisibility(View.GONE);
+			{
+				receivingStaticView.setVisibility(View.GONE);
 
-			receivingStaticView.setVisibility(View.VISIBLE);
-			receivingStaticAddressView.setText(WalletUtils.formatAddress(validatedAddress.address, Constants.ADDRESS_FORMAT_GROUP_SIZE,
-					Constants.ADDRESS_FORMAT_LINE_SIZE));
-			final String addressBookLabel = AddressBookProvider.resolveLabel(activity, validatedAddress.address.toString());
-			final String staticLabel;
-			if (addressBookLabel != null)
-				staticLabel = addressBookLabel;
-			else if (validatedAddress.label != null)
-				staticLabel = validatedAddress.label;
+				receivingAddressView.setVisibility(View.VISIBLE);
+			}
+
+			receivingAddressView.setEnabled(state == State.INPUT);
+
+			receivingStaticView.setEnabled(state == State.INPUT);
+
+			amountCalculatorLink.setEnabled(state == State.INPUT && paymentIntent.mayEditAmount());
+
+			final boolean directPaymentVisible;
+			if (paymentIntent.hasPaymentUrl())
+			{
+				if (paymentIntent.isBluetoothPaymentUrl())
+					directPaymentVisible = bluetoothAdapter != null;
+				else
+					directPaymentVisible = true;
+			}
 			else
-				staticLabel = getString(R.string.address_unlabeled);
-			receivingStaticLabelView.setText(staticLabel);
-			receivingStaticLabelView.setTextColor(getResources().getColor(
-					validatedAddress.label != null ? R.color.fg_significant : R.color.fg_insignificant));
-		}
-		else
-		{
-			receivingStaticView.setVisibility(View.GONE);
+			{
+				directPaymentVisible = false;
+			}
+			directPaymentEnableView.setVisibility(directPaymentVisible ? View.VISIBLE : View.GONE);
+			directPaymentEnableView.setEnabled(state == State.INPUT);
 
-			receivingAddressView.setVisibility(View.VISIBLE);
-		}
+			if (sentTransaction != null)
+			{
+				final int btcPrecision = config.getBtcPrecision();
+				final int btcShift = config.getBtcShift();
 
-		receivingAddressView.setEnabled(state == State.INPUT);
-
-		receivingStaticView.setEnabled(state == State.INPUT);
-
-		amountCalculatorLink.setEnabled(state == State.INPUT && paymentIntent.mayEditAmount());
-
-		final boolean directPaymentVisible;
-		if (paymentIntent.hasPaymentUrl())
-		{
-			if (paymentIntent.isBluetoothPaymentUrl())
-				directPaymentVisible = bluetoothAdapter != null;
+				sentTransactionView.setVisibility(View.VISIBLE);
+				sentTransactionListAdapter.setPrecision(btcPrecision, btcShift);
+				sentTransactionListAdapter.replace(sentTransaction);
+			}
 			else
-				directPaymentVisible = true;
+			{
+				sentTransactionView.setVisibility(View.GONE);
+				sentTransactionListAdapter.clear();
+			}
+
+			if (directPaymentAck != null)
+			{
+				directPaymentMessageView.setVisibility(View.VISIBLE);
+				directPaymentMessageView.setText(directPaymentAck ? R.string.send_coins_fragment_direct_payment_ack
+						: R.string.send_coins_fragment_direct_payment_nack);
+			}
+			else
+			{
+				directPaymentMessageView.setVisibility(View.GONE);
+			}
+
+			viewCancel.setEnabled(state != State.PREPARATION);
+			viewGo.setEnabled(everythingValid());
+
+			if (state == State.INPUT)
+			{
+				viewCancel.setText(R.string.button_cancel);
+				viewGo.setText(R.string.send_coins_fragment_button_send);
+			}
+			else if (state == State.PREPARATION)
+			{
+				viewCancel.setText(R.string.button_cancel);
+				viewGo.setText(R.string.send_coins_preparation_msg);
+			}
+			else if (state == State.SENDING)
+			{
+				viewCancel.setText(R.string.send_coins_fragment_button_back);
+				viewGo.setText(R.string.send_coins_sending_msg);
+			}
+			else if (state == State.SENT)
+			{
+				viewCancel.setText(R.string.send_coins_fragment_button_back);
+				viewGo.setText(R.string.send_coins_sent_msg);
+			}
+			else if (state == State.FAILED)
+			{
+				viewCancel.setText(R.string.send_coins_fragment_button_back);
+				viewGo.setText(R.string.send_coins_failed_msg);
+			}
+
+			// enable actions
+			if (scanAction != null)
+				scanAction.setEnabled(state == State.INPUT);
+			if (emptyAction != null)
+				emptyAction.setEnabled(state == State.INPUT);
+
+			// focus linking
+			final int activeAmountViewId = amountCalculatorLink.activeTextView().getId();
+			receivingAddressView.setNextFocusDownId(activeAmountViewId);
+			receivingStaticView.setNextFocusDownId(activeAmountViewId);
+			GenericUtils.setNextFocusForwardId(receivingAddressView, activeAmountViewId);
+			viewGo.setNextFocusUpId(activeAmountViewId);
 		}
 		else
 		{
-			directPaymentVisible = false;
+			getView().setVisibility(View.GONE);
 		}
-		directPaymentEnableView.setVisibility(directPaymentVisible ? View.VISIBLE : View.GONE);
-		directPaymentEnableView.setEnabled(state == State.INPUT);
-
-		if (sentTransaction != null)
-		{
-			final int btcPrecision = config.getBtcPrecision();
-			final int btcShift = config.getBtcShift();
-
-			sentTransactionView.setVisibility(View.VISIBLE);
-			sentTransactionListAdapter.setPrecision(btcPrecision, btcShift);
-			sentTransactionListAdapter.replace(sentTransaction);
-		}
-		else
-		{
-			sentTransactionView.setVisibility(View.GONE);
-			sentTransactionListAdapter.clear();
-		}
-
-		if (directPaymentAck != null)
-		{
-			directPaymentMessageView.setVisibility(View.VISIBLE);
-			directPaymentMessageView.setText(directPaymentAck ? R.string.send_coins_fragment_direct_payment_ack
-					: R.string.send_coins_fragment_direct_payment_nack);
-		}
-		else
-		{
-			directPaymentMessageView.setVisibility(View.GONE);
-		}
-
-		viewCancel.setEnabled(state != State.PREPARATION);
-		viewGo.setEnabled(everythingValid());
-
-		if (state == State.INPUT)
-		{
-			viewCancel.setText(R.string.button_cancel);
-			viewGo.setText(R.string.send_coins_fragment_button_send);
-		}
-		else if (state == State.PREPARATION)
-		{
-			viewCancel.setText(R.string.button_cancel);
-			viewGo.setText(R.string.send_coins_preparation_msg);
-		}
-		else if (state == State.SENDING)
-		{
-			viewCancel.setText(R.string.send_coins_fragment_button_back);
-			viewGo.setText(R.string.send_coins_sending_msg);
-		}
-		else if (state == State.SENT)
-		{
-			viewCancel.setText(R.string.send_coins_fragment_button_back);
-			viewGo.setText(R.string.send_coins_sent_msg);
-		}
-		else if (state == State.FAILED)
-		{
-			viewCancel.setText(R.string.send_coins_fragment_button_back);
-			viewGo.setText(R.string.send_coins_failed_msg);
-		}
-
-		// enable actions
-		if (scanAction != null)
-			scanAction.setEnabled(state == State.INPUT);
-		if (emptyAction != null)
-			emptyAction.setEnabled(state == State.INPUT);
-
-		// focus linking
-		final int activeAmountViewId = amountCalculatorLink.activeTextView().getId();
-		receivingAddressView.setNextFocusDownId(activeAmountViewId);
-		receivingStaticView.setNextFocusDownId(activeAmountViewId);
-		GenericUtils.setNextFocusForwardId(receivingAddressView, activeAmountViewId);
-		viewGo.setNextFocusUpId(activeAmountViewId);
 	}
 
 	private void initStateFromIntentExtras(@Nonnull final Bundle extras)
