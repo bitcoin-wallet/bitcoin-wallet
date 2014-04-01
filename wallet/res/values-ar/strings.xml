@@ -205,7 +205,6 @@
 	<string name="about_credits_market_publisher_title">برامج أخرى للمؤلف</string>
 	<string name="notification_coins_received_msg">تم إستلام %s</string>
 	<string name="notification_peers_connected_msg">الأقران المتصلة peers %d </string>
-
 	<!-- generic buttons -->
 	<string name="button_ok">حسنا</string>
 	<string name="button_dismiss">إقالة</string>
@@ -227,7 +226,6 @@
 	<string name="action_browse">تصفح</string>
 	<string name="time_today">اليوم</string>
 	<string name="address_unlabeled">(غير مسمى)</string>
-
 	<!-- generic error messages -->
 	<string name="error_io">خطأ مدخلات/مخرجات: %s</string>
 	<string name="error_http">خطأ HTTP %1$s:\n%2$s</string>

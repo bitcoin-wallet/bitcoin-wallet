@@ -208,7 +208,6 @@
 	<string name="about_credits_market_publisher_title">Outros aplicativos do Autor</string>
 	<string name="notification_coins_received_msg">Recebido %s</string>
 	<string name="notification_peers_connected_msg">%d pares conectados</string>
-
 	<!-- generic buttons -->
 	<string name="button_ok">OK</string>
 	<string name="button_dismiss">Recusar</string>
@@ -230,7 +229,6 @@
 	<string name="action_browse">Navegar</string>
 	<string name="time_today">hoje</string>
 	<string name="address_unlabeled">(sem nome)</string>
-
 	<!-- generic error messages -->
 	<string name="error_io">Erro de I/O, leitura ou escrita: %s</string>
 	<string name="error_http">Erro HTTP %1$s:\n%2$s</string>

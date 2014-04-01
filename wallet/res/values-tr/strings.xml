@@ -208,7 +208,6 @@
 	<string name="about_credits_market_publisher_title">Geliştiricinin diğer uygulamaları</string>
 	<string name="notification_coins_received_msg">%s alındı</string>
 	<string name="notification_peers_connected_msg">%d eş bağlı</string>
-
 	<!-- generic buttons -->
 	<string name="button_ok">Tamam</string>
 	<string name="button_dismiss">Reddet</string>
@@ -230,7 +229,6 @@
 	<string name="action_browse">Tara</string>
 	<string name="time_today">bugün</string>
 	<string name="address_unlabeled">(etiketsiz)</string>
-
 	<!-- generic error messages -->
 	<string name="error_io">G/Ç hatası: %s</string>
 	<string name="error_http">HTTP hatası %1$s:\n%2$s</string>

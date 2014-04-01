@@ -1,9 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
-
 <resources>
 
 	<string name="toast_wallet_reset">Zresetováno,\nobnova chvilku potrvá</string>
-
 	<string name="wallet_disclaimer_fragment_remind_safety">Použití na vlastní riziko. Více v &lt;u&gt;nápovědě&lt;/u&gt;.</string>
 	<string name="wallet_address_fragment_your">Vaše Bitcoin Adresa:</string>
 	<string name="wallet_address_fragment_clipboard_msg">Adresa zkopírována do schránky</string>
@@ -21,7 +19,6 @@
 	<string name="wallet_low_storage_dialog_msg">Bitcoin Wallet používá vnitřní paměť zařízení pro ukládání transakcí a bloků. Pokud paměť dojde, aplikace
 		může přestat fungovat a můžete pozbýt Vaše Bitcoiny!\n\nChcete otevřít správce aplikací pro odinstalací nepotřebných aplikací?</string>
 	<string name="wallet_low_storage_dialog_button_apps">Spravovat aplikace</string>
-
 	<string name="send_coins_activity_title">Zaslat Bitcoiny</string>
 	<string name="send_coins_fragment_receiving_address_label">Zaplatit</string>
 	<string name="send_coins_fragment_receiving_address_hint">napište adresu či jméno</string>
@@ -31,14 +28,12 @@
 	<string name="send_coins_fragment_button_send">Poslat</string>
 	<string name="send_coins_sending_msg">Posílám…</string>
 	<string name="send_coins_error_msg">Problém při zasílání!</string>
-
 	<string name="request_coins_activity_title">Vyžádat Bitcoiny</string>
 	<string name="request_coins_fragment_amount_label">Vyžadovaná částka (volitelně)</string>
 	<string name="request_coins_fragment_initiate_request_qr">Dejte odesilateli oskenovat tento kód.</string>
 	<string name="request_coins_fragment_initiate_request_nfc">Nebo klepněte, pokud Vaše zařízení podporuje NFC.</string>
 	<string name="request_coins_clipboard_msg">Požadavek na platbu zkopírován do schránky</string>
 	<string name="request_coins_share_dialog_title">Sdílet požadavek na Bitcoiny…</string>
-
 	<string name="address_book_activity_title">Adresář</string>
 	<string name="address_book_empty_text">Žádný záznam v adresáři</string>
 	<string name="address_book_context_send_title">Poslat Bitcoiny na adresu</string>
@@ -46,13 +41,11 @@
 	<string name="address_book_context_remove_title">Odebrat adresu</string>
 	<string name="address_book_context_show_qr_title">Zobrazit QR kód</string>
 	<string name="address_book_context_copy_to_clipboard_title">Zkopírovat do schránky</string>
-
 	<string name="edit_address_book_entry_dialog_title_add">Přidat adresu</string>
 	<string name="edit_address_book_entry_dialog_title_edit">Změnit adresu</string>
 	<string name="edit_address_book_entry_dialog_address_label">Adresa</string>
 	<string name="edit_address_book_entry_dialog_label_label">Jméno</string>
 	<string name="edit_address_book_entry_dialog_button_edit">Uložit</string>
-
 	<string name="about_title">O aplikaci</string>
 	<string name="about_license_title">Licence</string>
 	<string name="about_credits_bitcoinj_title">Aplikace používá bitcoinj %s</string>
@@ -62,10 +55,8 @@
 	<string name="about_author_googleplus_title">Autor na Google+</string>
 	<string name="about_market_app_title">Aplikace na Google Play</string>
 	<string name="about_credits_market_publisher_title">Ostatní autorovy aplikace</string>
-
 	<string name="notification_coins_received_msg">Obdrženo %s</string>
 	<string name="notification_peers_connected_msg">%d peerů připojeno</string>
-
 	<!-- generic buttons -->
 	<string name="button_dismiss">Zrušit</string>
 	<string name="button_cancel">Zrušit</string>

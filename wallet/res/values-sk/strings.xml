@@ -204,7 +204,6 @@
 	<string name="about_credits_market_publisher_title">Ďalšie aplikácie autora</string>
 	<string name="notification_coins_received_msg">Prijaté %s</string>
 	<string name="notification_peers_connected_msg">%d pripojených uzlov</string>
-
 	<!-- generic buttons -->
 	<string name="button_ok">OK</string>
 	<string name="button_dismiss">Zrušiť</string>
@@ -226,7 +225,6 @@
 	<string name="action_browse">Otvoriť v prehliadači</string>
 	<string name="time_today">dnes</string>
 	<string name="address_unlabeled">(neoznačené)</string>
-
 	<!-- generic error messages -->
 	<string name="error_io">I/O chyba: %s</string>
 	<string name="error_http">HTTP chyba %1$s:\n%2$s</string>

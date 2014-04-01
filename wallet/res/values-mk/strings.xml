@@ -181,7 +181,6 @@
 	<string name="about_credits_market_publisher_title">Други апликации од Авторот</string>
 	<string name="notification_coins_received_msg">Примени %s</string>
 	<string name="notification_peers_connected_msg">%d поврзани точки</string>
-
 	<!-- generic buttons -->
 	<string name="button_ok">ОК</string>
 	<string name="button_dismiss">Отфрли</string>

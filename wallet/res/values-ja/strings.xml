@@ -204,7 +204,6 @@
 	<string name="about_credits_market_publisher_title">製作者のその他アプリ</string>
 	<string name="notification_coins_received_msg">受取済 %s</string>
 	<string name="notification_peers_connected_msg">%d のピアが接続</string>
-
 	<!-- generic buttons -->
 	<string name="button_ok">OK</string>
 	<string name="button_dismiss">閉じる</string>
@@ -226,7 +225,6 @@
 	<string name="action_browse">ブラウズ</string>
 	<string name="time_today">今日</string>
 	<string name="address_unlabeled">(ラベルなし)</string>
-
 	<!-- generic error messages -->
 	<string name="error_io">I/Oエラー: %s</string>
 	<string name="error_http">HTTPエラー %1$s:\n%2$s</string>

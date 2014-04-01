@@ -155,7 +155,6 @@
 	<string name="about_credits_market_publisher_title">Other Apps of Author</string>
 	<string name="notification_coins_received_msg">נתקבלו %s</string>
 	<string name="notification_peers_connected_msg">%d שכנים מחוברים</string>
-
 	<!-- generic buttons -->
 	<string name="button_ok">אישור</string>
 	<string name="button_dismiss">התעלם</string>

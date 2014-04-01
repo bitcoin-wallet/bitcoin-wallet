@@ -208,7 +208,6 @@
 	<string name="about_credits_market_publisher_title">Andre apps af forfatteren</string>
 	<string name="notification_coins_received_msg">Modtog %s</string>
 	<string name="notification_peers_connected_msg">%d peers forbundet</string>
-
 	<!-- generic buttons -->
 	<string name="button_ok">O.k.</string>
 	<string name="button_dismiss">Afvis</string>
@@ -230,7 +229,6 @@
 	<string name="action_browse">Gennemse</string>
 	<string name="time_today">i dag</string>
 	<string name="address_unlabeled">(uden etiket)</string>
-
 	<!-- generic error messages -->
 	<string name="error_io">I/O-fejl: %s</string>
 	<string name="error_http">HTTP-fejl %1$s:\n%2$s</string>
