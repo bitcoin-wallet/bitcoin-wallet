@@ -1302,6 +1302,7 @@ public final class SendCoinsFragment extends SherlockFragment
 						directPaymentEnableView.setChecked(true);
 
 					requestFocusFirst();
+					updateView();
 				}
 
 				if (paymentIntent.hasPaymentRequestUrl() && paymentIntent.isSupportedPaymentRequestUrl())
