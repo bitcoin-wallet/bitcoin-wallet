@@ -67,7 +67,6 @@ import com.google.bitcoin.core.CheckpointManager;
 import com.google.bitcoin.core.Peer;
 import com.google.bitcoin.core.PeerEventListener;
 import com.google.bitcoin.core.PeerGroup;
-import com.google.bitcoin.core.ScriptException;
 import com.google.bitcoin.core.Sha256Hash;
 import com.google.bitcoin.core.StoredBlock;
 import com.google.bitcoin.core.Transaction;
@@ -149,30 +148,23 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 
 			final int bestChainHeight = blockChain.getBestChainHeight();
 
-			try
-			{
-				final Address from = WalletUtils.getFirstFromAddress(tx);
-				final BigInteger amount = tx.getValue(wallet);
-				final ConfidenceType confidenceType = tx.getConfidence().getConfidenceType();
+			final Address from = WalletUtils.getFirstFromAddress(tx);
+			final BigInteger amount = tx.getValue(wallet);
+			final ConfidenceType confidenceType = tx.getConfidence().getConfidenceType();
 
-				handler.post(new Runnable()
+			handler.post(new Runnable()
+			{
+				@Override
+				public void run()
 				{
-					@Override
-					public void run()
-					{
-						final boolean isReceived = amount.signum() > 0;
-						final boolean replaying = bestChainHeight < bestChainHeightEver;
-						final boolean isReplayedTx = confidenceType == ConfidenceType.BUILDING && replaying;
+					final boolean isReceived = amount.signum() > 0;
+					final boolean replaying = bestChainHeight < bestChainHeightEver;
+					final boolean isReplayedTx = confidenceType == ConfidenceType.BUILDING && replaying;
 
-						if (isReceived && !isReplayedTx)
-							notifyCoinsReceived(from, amount);
-					}
-				});
-			}
-			catch (final ScriptException x)
-			{
-				throw new RuntimeException(x);
-			}
+					if (isReceived && !isReplayedTx)
+						notifyCoinsReceived(from, amount);
+				}
+			});
 		}
 
 		@Override

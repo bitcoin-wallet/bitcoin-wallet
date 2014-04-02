@@ -410,21 +410,14 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 			final Set<Transaction> transactions = wallet.getTransactions(true);
 			final List<Transaction> filteredTransactions = new ArrayList<Transaction>(transactions.size());
 
-			try
+			for (final Transaction tx : transactions)
 			{
-				for (final Transaction tx : transactions)
-				{
-					final boolean sent = tx.getValue(wallet).signum() < 0;
-					final boolean isInternal = WalletUtils.isInternal(tx);
+				final boolean sent = tx.getValue(wallet).signum() < 0;
+				final boolean isInternal = WalletUtils.isInternal(tx);
 
-					if ((direction == Direction.RECEIVED && !sent && !isInternal) || direction == null
-							|| (direction == Direction.SENT && sent && !isInternal))
-						filteredTransactions.add(tx);
-				}
-			}
-			catch (final ScriptException x)
-			{
-				throw new RuntimeException(x);
+				if ((direction == Direction.RECEIVED && !sent && !isInternal) || direction == null
+						|| (direction == Direction.SENT && sent && !isInternal))
+					filteredTransactions.add(tx);
 			}
 
 			Collections.sort(filteredTransactions, TRANSACTION_COMPARATOR);
