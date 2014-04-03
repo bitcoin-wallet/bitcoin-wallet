@@ -12,7 +12,7 @@ FEATURES:
 • App widget for Dogecoin balance.
 
 You can find more about Dogecoin at
-http://dogecoin.org
+http://dogecoin.com
 
 If you want to contribute to Dogecoin Wallet, the project is located at
 https://github.com/langerhans/dogecoin-wallet-new
