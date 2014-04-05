@@ -78,6 +78,13 @@
 			<version>2.5.0</version>
 		</dependency>
 
+		<!-- com.google.common.* -->
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>16.0.1</version>
+		</dependency>
+
 		<!-- com.google.zxing.* -->
 		<dependency>
 			<groupId>com.google.zxing</groupId>
