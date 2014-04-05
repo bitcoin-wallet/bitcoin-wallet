@@ -85,8 +85,6 @@ public class WalletApplication extends Application
 	private Wallet wallet;
 	private PackageInfo packageInfo;
 
-	private static final int KEY_ROTATION_VERSION_CODE = 135;
-
 	private static final Logger log = LoggerFactory.getLogger(WalletApplication.class);
 
 	@Override
@@ -135,12 +133,6 @@ public class WalletApplication extends Application
 		wallet.cleanup();
 
 		config.updateLastVersionCode(packageInfo.versionCode);
-
-		if (config.versionCodeCrossed(packageInfo.versionCode, KEY_ROTATION_VERSION_CODE))
-		{
-			log.info("detected version jump crossing key rotation");
-			wallet.setKeyRotationTime(System.currentTimeMillis() / 1000);
-		}
 
 		ensureKey();
 
