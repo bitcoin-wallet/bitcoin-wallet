@@ -132,6 +132,7 @@
 	<string name="import_keys_dialog_file_created_automatic">automatic backup %s</string>
 	<string name="import_keys_dialog_file_created_manual">manually backed up %s</string>
 	<string name="import_keys_dialog_button_import">Restore</string>
+	<string name="restore_wallet_dialog_success">Wallet was restored.</string>
 	<string name="import_keys_dialog_success_imported">%d private keys were restored.</string>
 	<string name="import_keys_dialog_success_existing">%d private keys were not restored, because you already have them in your wallet.</string>
 	<string name="import_keys_dialog_success_reset">You need to reset your blockchain in order to update your balance. Would you like to?</string>

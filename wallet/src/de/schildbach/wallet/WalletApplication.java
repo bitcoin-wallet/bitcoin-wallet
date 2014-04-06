@@ -127,12 +127,18 @@ public class WalletApplication extends Application
 		walletFile = getFileStreamPath(Constants.WALLET_FILENAME_PROTOBUF);
 
 		loadWalletFromProtobuf();
+
+		config.updateLastVersionCode(packageInfo.versionCode);
+
+		afterLoadWallet();
+	}
+
+	private void afterLoadWallet()
+	{
 		wallet.autosaveToFile(walletFile, 1, TimeUnit.SECONDS, new WalletAutosaveEventListener());
 
 		// clean up spam
 		wallet.cleanup();
-
-		config.updateLastVersionCode(packageInfo.versionCode);
 
 		ensureKey();
 
@@ -483,6 +489,15 @@ public class WalletApplication extends Application
 	{
 		// actually stops the service
 		startService(blockchainServiceResetBlockchainIntent);
+	}
+
+	public void replaceWallet(final Wallet newWallet)
+	{
+		resetBlockchain(); // implicitly stops blockchain service
+		wallet.shutdownAutosaveAndWait();
+
+		wallet = newWallet;
+		afterLoadWallet();
 	}
 
 	public void broadcastTransaction(@Nonnull final Transaction tx)

@@ -145,6 +145,7 @@
 	<string name="import_keys_dialog_file_created_automatic">automatisch gesichert %s</string>
 	<string name="import_keys_dialog_file_created_manual">manuell gesichert %s</string>
 	<string name="import_keys_dialog_button_import">Wiederherstellen</string>
+	<string name="restore_wallet_dialog_success">Wallet wurde wiederhergestellt.</string>
 	<string name="import_keys_dialog_success_imported">Es wurden %d private Schlüssel wieder hergestellt.</string>
 	<string name="import_keys_dialog_success_existing">%d private Schlüssel wurden nicht wieder hergestellt, weil du sie schon im Wallet hast.</string>
 	<string name="import_keys_dialog_success_reset">Du musst Deine Blockchain zurücksetzen um dein Guthaben zu aktualisieren. Möchtest Du?</string>

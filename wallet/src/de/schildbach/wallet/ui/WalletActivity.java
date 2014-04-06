@@ -18,15 +18,17 @@
 package de.schildbach.wallet.ui;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.io.StringReader;
-import java.io.StringWriter;
 import java.io.Writer;
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
@@ -40,6 +42,8 @@ import java.util.List;
 import java.util.TimeZone;
 
 import javax.annotation.Nonnull;
+
+import org.bitcoinj.wallet.Protos;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -72,6 +76,8 @@ import com.google.bitcoin.core.AddressFormatException;
 import com.google.bitcoin.core.ECKey;
 import com.google.bitcoin.core.Transaction;
 import com.google.bitcoin.core.Wallet;
+import com.google.bitcoin.store.UnreadableWalletException;
+import com.google.bitcoin.store.WalletProtobufSerializer;
 
 import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
@@ -367,7 +373,13 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 				final String password = passwordView.getText().toString().trim();
 				passwordView.setText(null); // get rid of it asap
 
-				importPrivateKeys(file, password);
+				final boolean isProtobuf = file.getName().startsWith(Constants.WALLET_KEY_BACKUP_PROTOBUF + '.')
+						|| file.getName().startsWith(Constants.EXTERNAL_WALLET_BACKUP + '-');
+
+				if (isProtobuf)
+					restoreWalletFromProtobuf(file, password);
+				else
+					importPrivateKeysFromBase58(file, password);
 			}
 		});
 		dialog.setNegativeButton(R.string.button_cancel, new OnClickListener()
@@ -433,12 +445,13 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 		// external storage
 		if (Constants.EXTERNAL_WALLET_BACKUP_DIR.exists() && Constants.EXTERNAL_WALLET_BACKUP_DIR.isDirectory())
 			for (final File file : Constants.EXTERNAL_WALLET_BACKUP_DIR.listFiles())
-				if (WalletUtils.KEYS_FILE_FILTER.accept(file) || Crypto.OPENSSL_FILE_FILTER.accept(file))
+				if (WalletUtils.BACKUP_FILE_FILTER.accept(file) || WalletUtils.KEYS_FILE_FILTER.accept(file)
+						|| Crypto.OPENSSL_FILE_FILTER.accept(file))
 					files.add(file);
 
 		// internal storage
 		for (final String filename : fileList())
-			if (filename.startsWith(Constants.WALLET_KEY_BACKUP_BASE58 + '.'))
+			if (filename.startsWith(Constants.WALLET_KEY_BACKUP_PROTOBUF + '.'))
 				files.add(new File(getFilesDir(), filename));
 
 		// sort
@@ -497,7 +510,7 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 				final String password = passwordView.getText().toString().trim();
 				passwordView.setText(null); // get rid of it asap
 
-				exportPrivateKeys(password);
+				backupWallet(password);
 
 				config.disarmBackupReminder();
 			}
@@ -753,7 +766,96 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 		return dialog.create();
 	}
 
-	private void importPrivateKeys(@Nonnull final File file, @Nonnull final String password)
+	private void restoreWalletFromProtobuf(@Nonnull final File file, @Nonnull final String password)
+	{
+		try
+		{
+			final InputStream is;
+			if (Crypto.OPENSSL_FILE_FILTER.accept(file))
+			{
+				final BufferedReader cipherIn = new BufferedReader(new InputStreamReader(new FileInputStream(file), Constants.UTF_8));
+				final StringBuilder cipherText = new StringBuilder();
+				while (true)
+				{
+					final String line = cipherIn.readLine();
+					if (line == null)
+						break;
+
+					cipherText.append(line);
+				}
+				cipherIn.close();
+
+				final byte[] plainText = Crypto.decryptBytes(cipherText.toString(), password.toCharArray());
+				is = new ByteArrayInputStream(plainText);
+			}
+			else
+			{
+				is = new FileInputStream(file);
+			}
+
+			final Wallet wallet = new WalletProtobufSerializer().readWallet(is);
+
+			application.replaceWallet(wallet);
+
+			config.disarmBackupReminder();
+
+			final DialogBuilder dialog = new DialogBuilder(this);
+			final StringBuilder message = new StringBuilder();
+			message.append(getString(R.string.restore_wallet_dialog_success));
+			message.append("\n\n");
+			message.append(getString(R.string.import_keys_dialog_success_reset));
+			dialog.setMessage(message);
+			dialog.setPositiveButton(R.string.import_keys_dialog_button_reset_blockchain, new DialogInterface.OnClickListener()
+			{
+				@Override
+				public void onClick(final DialogInterface dialog, final int id)
+				{
+					getWalletApplication().resetBlockchain();
+					finish();
+				}
+			});
+			dialog.setNegativeButton(R.string.button_dismiss, null);
+			dialog.show();
+
+			log.info("restored wallet from: '" + file + "'");
+		}
+		catch (final IOException x)
+		{
+			final DialogBuilder dialog = DialogBuilder.warn(this, R.string.import_export_keys_dialog_failure_title);
+			dialog.setMessage(getString(R.string.import_keys_dialog_failure, x.getMessage()));
+			dialog.setPositiveButton(R.string.button_dismiss, null);
+			dialog.setNegativeButton(R.string.button_retry, new DialogInterface.OnClickListener()
+			{
+				@Override
+				public void onClick(final DialogInterface dialog, final int id)
+				{
+					showDialog(DIALOG_IMPORT_KEYS);
+				}
+			});
+			dialog.show();
+
+			log.info("problem restoring wallet", x);
+		}
+		catch (final UnreadableWalletException x)
+		{
+			final DialogBuilder dialog = DialogBuilder.warn(this, R.string.import_export_keys_dialog_failure_title);
+			dialog.setMessage(getString(R.string.import_keys_dialog_failure, x.getMessage()));
+			dialog.setPositiveButton(R.string.button_dismiss, null);
+			dialog.setNegativeButton(R.string.button_retry, new DialogInterface.OnClickListener()
+			{
+				@Override
+				public void onClick(final DialogInterface dialog, final int id)
+				{
+					showDialog(DIALOG_IMPORT_KEYS);
+				}
+			});
+			dialog.show();
+
+			log.info("problem restoring wallet", x);
+		}
+	}
+
+	private void importPrivateKeysFromBase58(@Nonnull final File file, @Nonnull final String password)
 	{
 		try
 		{
@@ -848,31 +950,27 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 		}
 	}
 
-	private void exportPrivateKeys(@Nonnull final String password)
+	private void backupWallet(@Nonnull final String password)
 	{
+		Constants.EXTERNAL_WALLET_BACKUP_DIR.mkdirs();
+		final DateFormat dateFormat = Iso8601Format.newDateFormat();
+		dateFormat.setTimeZone(TimeZone.getDefault());
+		final File file = new File(Constants.EXTERNAL_WALLET_BACKUP_DIR, Constants.EXTERNAL_WALLET_BACKUP + "-" + dateFormat.format(new Date()));
+
+		final Protos.Wallet walletProto = new WalletProtobufSerializer().walletToProto(wallet);
+
+		Writer cipherOut = null;
+
 		try
 		{
-			Constants.EXTERNAL_WALLET_BACKUP_DIR.mkdirs();
-			final DateFormat dateFormat = Iso8601Format.newDateFormat();
-			dateFormat.setTimeZone(TimeZone.getDefault());
-			final File file = new File(Constants.EXTERNAL_WALLET_BACKUP_DIR, Constants.EXTERNAL_WALLET_KEY_BACKUP + "-"
-					+ dateFormat.format(new Date()));
+			final ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			walletProto.writeTo(baos);
+			baos.close();
+			final byte[] plainBytes = baos.toByteArray();
 
-			final List<ECKey> keys = new LinkedList<ECKey>();
-			for (final ECKey key : wallet.getKeys())
-				if (!wallet.isKeyRotating(key))
-					keys.add(key);
-
-			final StringWriter plainOut = new StringWriter();
-			WalletUtils.writeKeys(plainOut, keys);
-			plainOut.close();
-			final String plainText = plainOut.toString();
-
-			final String cipherText = Crypto.encrypt(plainText, password.toCharArray());
-
-			final Writer cipherOut = new OutputStreamWriter(new FileOutputStream(file), Constants.UTF_8);
-			cipherOut.write(cipherText);
-			cipherOut.close();
+			cipherOut = new OutputStreamWriter(new FileOutputStream(file), Constants.UTF_8);
+			cipherOut.write(Crypto.encrypt(plainBytes, password.toCharArray()));
+			cipherOut.flush();
 
 			final DialogBuilder dialog = new DialogBuilder(this);
 			dialog.setMessage(getString(R.string.export_keys_dialog_success, file));
@@ -887,7 +985,7 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 			dialog.setNegativeButton(R.string.button_dismiss, null);
 			dialog.show();
 
-			log.info("exported " + keys.size() + " private keys to " + file);
+			log.info("backed up wallet to: '" + file + "'");
 		}
 		catch (final IOException x)
 		{
@@ -896,7 +994,18 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 			dialog.singleDismissButton(null);
 			dialog.show();
 
-			log.error("problem writing private keys", x);
+			log.error("problem backing up wallet", x);
+		}
+		finally
+		{
+			try
+			{
+				cipherOut.close();
+			}
+			catch (final IOException x)
+			{
+				// swallow
+			}
 		}
 	}
 

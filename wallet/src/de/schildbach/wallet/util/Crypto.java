@@ -133,7 +133,22 @@ public class Crypto
 	{
 		final byte[] plainTextAsBytes = plainText.getBytes(UTF_8);
 
-		final byte[] encryptedBytes = encrypt(plainTextAsBytes, password);
+		return encrypt(plainTextAsBytes, password);
+	}
+
+	/**
+	 * Password based encryption using AES - CBC 256 bits.
+	 * 
+	 * @param plainTextAsBytes
+	 *            The bytes to encrypt
+	 * @param password
+	 *            The password to use for encryption
+	 * @return The encrypted string
+	 * @throws IOException
+	 */
+	public static String encrypt(@Nonnull final byte[] plainTextAsBytes, @Nonnull final char[] password) throws IOException
+	{
+		final byte[] encryptedBytes = encryptRaw(plainTextAsBytes, password);
 
 		// OpenSSL prefixes the salt bytes + encryptedBytes with Salted___ and then base64 encodes it
 		final byte[] encryptedBytesPlusSaltedText = concat(OPENSSL_SALTED_BYTES, encryptedBytes);
@@ -151,7 +166,7 @@ public class Crypto
 	 * @return SALT_LENGTH bytes of salt followed by the encrypted bytes.
 	 * @throws IOException
 	 */
-	private static byte[] encrypt(final byte[] plainTextAsBytes, final char[] password) throws IOException
+	private static byte[] encryptRaw(final byte[] plainTextAsBytes, final char[] password) throws IOException
 	{
 		try
 		{
@@ -193,6 +208,23 @@ public class Crypto
 	 */
 	public static String decrypt(@Nonnull final String textToDecode, @Nonnull final char[] password) throws IOException
 	{
+		final byte[] decryptedBytes = decryptBytes(textToDecode, password);
+
+		return new String(decryptedBytes, UTF_8).trim();
+	}
+
+	/**
+	 * Decrypt bytes previously encrypted with this class.
+	 * 
+	 * @param textToDecode
+	 *            The code to decrypt
+	 * @param password
+	 *            password to use for decryption
+	 * @return The decrypted bytes
+	 * @throws IOException
+	 */
+	public static byte[] decryptBytes(@Nonnull final String textToDecode, @Nonnull final char[] password) throws IOException
+	{
 		final byte[] decodeTextAsBytes = BASE64.decode(textToDecode);
 
 		if (decodeTextAsBytes.length < OPENSSL_SALTED_BYTES.length)
@@ -201,9 +233,9 @@ public class Crypto
 		final byte[] cipherBytes = new byte[decodeTextAsBytes.length - OPENSSL_SALTED_BYTES.length];
 		System.arraycopy(decodeTextAsBytes, OPENSSL_SALTED_BYTES.length, cipherBytes, 0, decodeTextAsBytes.length - OPENSSL_SALTED_BYTES.length);
 
-		final byte[] decryptedBytes = decrypt(cipherBytes, password);
+		final byte[] decryptedBytes = decryptRaw(cipherBytes, password);
 
-		return new String(decryptedBytes, UTF_8).trim();
+		return decryptedBytes;
 	}
 
 	/**
@@ -216,7 +248,7 @@ public class Crypto
 	 * @return The decrypted bytes
 	 * @throws IOException
 	 */
-	private static byte[] decrypt(final byte[] bytesToDecode, final char[] password) throws IOException
+	private static byte[] decryptRaw(final byte[] bytesToDecode, final char[] password) throws IOException
 	{
 		try
 		{
@@ -242,11 +274,11 @@ public class Crypto
 		}
 		catch (final InvalidCipherTextException x)
 		{
-			throw new IOException("Could not decrypt input string", x);
+			throw new IOException("Could not decrypt bytes", x);
 		}
 		catch (final DataLengthException x)
 		{
-			throw new IOException("Could not decrypt input string", x);
+			throw new IOException("Could not decrypt bytes", x);
 		}
 	}
 

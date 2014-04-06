@@ -17,7 +17,10 @@
 
 package de.schildbach.wallet.util;
 
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
+
+import java.io.ByteArrayOutputStream;
 
 import org.junit.Test;
 
@@ -27,6 +30,7 @@ import org.junit.Test;
 public class CryptoTest
 {
 	private static final String PLAIN_TEXT = "plain text";
+	private static final byte[] PLAIN_BYTES = PLAIN_TEXT.getBytes();
 	private static final char[] PASSWORD = "password".toCharArray();
 
 	@Test
@@ -47,6 +51,27 @@ public class CryptoTest
 			assertEquals(plainText, roundtrippedPlainText);
 
 			builder.append('x');
+		}
+	}
+
+	@Test
+	public void roundtripBytes() throws Exception
+	{
+		final byte[] plainBytes = Crypto.decryptBytes(Crypto.encrypt(PLAIN_BYTES, PASSWORD), PASSWORD);
+		assertArrayEquals(PLAIN_BYTES, plainBytes);
+	}
+
+	@Test
+	public void roundtripDifferentByteSizes() throws Exception
+	{
+		final ByteArrayOutputStream stream = new ByteArrayOutputStream(4096);
+		while (stream.toByteArray().length < 4096)
+		{
+			final byte[] plainBytes = stream.toByteArray();
+			final byte[] roundtrippedPlainBytes = Crypto.decryptBytes(Crypto.encrypt(plainBytes, PASSWORD), PASSWORD);
+			assertArrayEquals(plainBytes, roundtrippedPlainBytes);
+
+			stream.write(42);
 		}
 	}
 

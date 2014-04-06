@@ -22,6 +22,7 @@ import java.io.File;
 import java.io.FileFilter;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Writer;
 import java.math.BigInteger;
@@ -57,6 +58,7 @@ import com.google.bitcoin.core.TransactionInput;
 import com.google.bitcoin.core.TransactionOutput;
 import com.google.bitcoin.core.Wallet;
 import com.google.bitcoin.script.Script;
+import com.google.bitcoin.store.WalletProtobufSerializer;
 
 import de.schildbach.wallet.Constants;
 
@@ -284,6 +286,39 @@ public class WalletUtils
 					try
 					{
 						reader.close();
+					}
+					catch (final IOException x)
+					{
+						// swallow
+					}
+				}
+			}
+		}
+	};
+
+	public static final FileFilter BACKUP_FILE_FILTER = new FileFilter()
+	{
+		@Override
+		public boolean accept(final File file)
+		{
+			InputStream is = null;
+
+			try
+			{
+				is = new FileInputStream(file);
+				return WalletProtobufSerializer.isWallet(is);
+			}
+			catch (final IOException x)
+			{
+				return false;
+			}
+			finally
+			{
+				if (is != null)
+				{
+					try
+					{
+						is.close();
 					}
 					catch (final IOException x)
 					{
