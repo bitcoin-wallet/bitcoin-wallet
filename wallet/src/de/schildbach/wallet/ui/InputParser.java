@@ -18,13 +18,19 @@
 package de.schildbach.wallet.ui;
 
 import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.security.KeyStore;
+import java.security.KeyStoreException;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.regex.Pattern;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import org.bitcoin.protocols.payments.Protos;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -40,15 +46,19 @@ import com.google.bitcoin.core.NetworkParameters;
 import com.google.bitcoin.core.ProtocolException;
 import com.google.bitcoin.core.Transaction;
 import com.google.bitcoin.core.VerificationException;
+import com.google.bitcoin.crypto.TrustStoreLoader;
+import com.google.bitcoin.protocols.payments.PaymentProtocol;
+import com.google.bitcoin.protocols.payments.PaymentProtocol.PkiVerificationData;
 import com.google.bitcoin.protocols.payments.PaymentProtocolException;
-import com.google.bitcoin.protocols.payments.PaymentProtocolException.PkiVerificationException;
+import com.google.bitcoin.protocols.payments.PaymentSession;
 import com.google.bitcoin.uri.BitcoinURI;
 import com.google.bitcoin.uri.BitcoinURIParseException;
+import com.google.protobuf.InvalidProtocolBufferException;
+import com.google.protobuf.UninitializedMessageException;
 
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.data.PaymentIntent;
 import de.schildbach.wallet.util.Io;
-import de.schildbach.wallet.util.PaymentProtocol;
 import de.schildbach.wallet.util.Qr;
 import de.schildbach.wallet_test.R;
 
@@ -85,7 +95,7 @@ public abstract class InputParser
 
 					error(R.string.input_parser_io_error, x.getMessage());
 				}
-				catch (final PkiVerificationException x)
+				catch (final PaymentProtocolException.PkiVerificationException x)
 				{
 					log.info("got unverifyable payment request", x);
 
@@ -271,7 +281,7 @@ public abstract class InputParser
 
 					error(R.string.input_parser_io_error, x.getMessage());
 				}
-				catch (final PkiVerificationException x)
+				catch (final PaymentProtocolException.PkiVerificationException x)
 				{
 					log.info("got unverifyable payment request", x);
 
@@ -328,9 +338,78 @@ public abstract class InputParser
 
 	protected final void parseAndHandlePaymentRequest(@Nonnull final byte[] serializedPaymentRequest) throws PaymentProtocolException
 	{
-		final PaymentIntent paymentIntent = PaymentProtocol.parsePaymentRequest(serializedPaymentRequest);
+		final PaymentIntent paymentIntent = parsePaymentRequest(serializedPaymentRequest);
 
 		handlePaymentIntent(paymentIntent);
+	}
+
+	public static PaymentIntent parsePaymentRequest(@Nonnull final byte[] serializedPaymentRequest) throws PaymentProtocolException
+	{
+		try
+		{
+			if (serializedPaymentRequest.length > 50000)
+				throw new PaymentProtocolException("payment request too big: " + serializedPaymentRequest.length);
+
+			final Protos.PaymentRequest paymentRequest = Protos.PaymentRequest.parseFrom(serializedPaymentRequest);
+
+			final String pkiName;
+			final String pkiCaName;
+			if (!"none".equals(paymentRequest.getPkiType()))
+			{
+				final KeyStore keystore = new TrustStoreLoader.DefaultTrustStoreLoader().getKeyStore();
+				final PkiVerificationData verificationData = PaymentProtocol.verifyPaymentRequestPki(paymentRequest, keystore);
+				pkiName = verificationData.displayName;
+				pkiCaName = verificationData.rootAuthorityName;
+			}
+			else
+			{
+				pkiName = null;
+				pkiCaName = null;
+			}
+
+			final PaymentSession paymentSession = PaymentProtocol.parsePaymentRequest(paymentRequest);
+
+			if (paymentSession.isExpired())
+				throw new PaymentProtocolException.Expired("payment details expired: current time " + new Date() + " after expiry time "
+						+ paymentSession.getExpires());
+
+			if (!paymentSession.getNetworkParameters().equals(Constants.NETWORK_PARAMETERS))
+				throw new PaymentProtocolException.InvalidNetwork("cannot handle payment request network: " + paymentSession.getNetworkParameters());
+
+			final ArrayList<PaymentIntent.Output> outputs = new ArrayList<PaymentIntent.Output>(1);
+			for (final PaymentProtocol.Output output : paymentSession.getOutputs())
+				outputs.add(PaymentIntent.Output.valueOf(output));
+
+			final String memo = paymentSession.getMemo();
+
+			final String paymentUrl = paymentSession.getPaymentUrl();
+
+			final byte[] merchantData = paymentSession.getMerchantData();
+
+			final PaymentIntent paymentIntent = new PaymentIntent(PaymentIntent.Standard.BIP70, pkiName, pkiCaName,
+					outputs.toArray(new PaymentIntent.Output[0]), memo, paymentUrl, merchantData, null, null);
+
+			if (paymentIntent.hasPaymentUrl() && !paymentIntent.isSupportedPaymentUrl())
+				throw new PaymentProtocolException.InvalidPaymentURL("cannot handle payment url: " + paymentIntent.paymentUrl);
+
+			return paymentIntent;
+		}
+		catch (final InvalidProtocolBufferException x)
+		{
+			throw new PaymentProtocolException(x);
+		}
+		catch (final UninitializedMessageException x)
+		{
+			throw new PaymentProtocolException(x);
+		}
+		catch (final FileNotFoundException x)
+		{
+			throw new RuntimeException(x);
+		}
+		catch (final KeyStoreException x)
+		{
+			throw new RuntimeException(x);
+		}
 	}
 
 	protected abstract void handlePaymentIntent(@Nonnull PaymentIntent paymentIntent);

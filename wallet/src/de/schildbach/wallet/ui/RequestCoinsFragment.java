@@ -57,6 +57,7 @@ import android.widget.TextView;
 import com.google.bitcoin.core.Address;
 import com.google.bitcoin.core.Coin;
 import com.google.bitcoin.core.Wallet;
+import com.google.bitcoin.protocols.payments.PaymentProtocol;
 import com.google.bitcoin.uri.BitcoinURI;
 
 import de.schildbach.wallet.Configuration;
@@ -69,7 +70,6 @@ import de.schildbach.wallet.ui.send.SendCoinsActivity;
 import de.schildbach.wallet.util.BitmapFragment;
 import de.schildbach.wallet.util.Bluetooth;
 import de.schildbach.wallet.util.Nfc;
-import de.schildbach.wallet.util.PaymentProtocol;
 import de.schildbach.wallet.util.Qr;
 import de.schildbach.wallet_test.R;
 
@@ -421,8 +421,8 @@ public final class RequestCoinsFragment extends Fragment
 	{
 		final Address address = application.determineSelectedAddress();
 		final Coin amount = amountCalculatorLink.getAmount();
+		final String paymentUrl = includeBluetoothMac && bluetoothMac != null ? "bt:" + bluetoothMac : null;
 
-		return PaymentProtocol.createPaymentRequest(amount, address, null, includeBluetoothMac && bluetoothMac != null ? "bt:" + bluetoothMac : null)
-				.toByteArray();
+		return PaymentProtocol.createPaymentRequest(Constants.NETWORK_PARAMETERS, amount, address, null, paymentUrl, null).build().toByteArray();
 	}
 }

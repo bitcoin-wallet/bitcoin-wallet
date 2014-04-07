@@ -36,10 +36,10 @@ import android.bluetooth.BluetoothSocket;
 
 import com.google.bitcoin.core.ProtocolException;
 import com.google.bitcoin.core.Transaction;
+import com.google.bitcoin.protocols.payments.PaymentProtocol;
 
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.util.Bluetooth;
-import de.schildbach.wallet.util.PaymentProtocol;
 
 /**
  * @author Shahar Livne
@@ -187,7 +187,7 @@ public abstract class AcceptBluetoothThread extends Thread
 
 					log.debug("got payment message");
 
-					for (final Transaction tx : PaymentProtocol.parsePaymentMessage(payment))
+					for (final Transaction tx : PaymentProtocol.parseTransactionsFromPaymentMessage(Constants.NETWORK_PARAMETERS, payment))
 					{
 						if (!handleTx(tx))
 							ack = false;

@@ -39,9 +39,11 @@ import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.os.Handler;
 import android.os.Looper;
+
+import com.google.bitcoin.protocols.payments.PaymentProtocol;
+
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.util.Bluetooth;
-import de.schildbach.wallet.util.PaymentProtocol;
 import de.schildbach.wallet_test.R;
 
 /**
@@ -130,7 +132,7 @@ public abstract class DirectPaymentTask
 
 							final Protos.PaymentACK paymentAck = Protos.PaymentACK.parseFrom(is);
 
-							final boolean ack = !"nack".equals(PaymentProtocol.parsePaymentAck(paymentAck));
+							final boolean ack = !"nack".equals(PaymentProtocol.parsePaymentAck(paymentAck).getMemo());
 
 							log.info("received {} via http", ack ? "ack" : "nack");
 
@@ -235,7 +237,7 @@ public abstract class DirectPaymentTask
 
 						final Protos.PaymentACK paymentAck = Protos.PaymentACK.parseDelimitedFrom(is);
 
-						final boolean ack = "ack".equals(PaymentProtocol.parsePaymentAck(paymentAck));
+						final boolean ack = "ack".equals(PaymentProtocol.parsePaymentAck(paymentAck).getMemo());
 
 						log.info("received {} via bluetooth", ack ? "ack" : "nack");
 
