@@ -110,8 +110,8 @@ public abstract class DirectPaymentTask
 						connection.setDoOutput(true);
 
 						connection.setRequestMethod("POST");
-						connection.setRequestProperty("Content-Type", PaymentProtocol.MIMETYPE_PAYMENT);
-						connection.setRequestProperty("Accept", PaymentProtocol.MIMETYPE_PAYMENTACK);
+						connection.setRequestProperty("Content-Type", com.google.bitcoin.protocols.payments.PaymentProtocol.MIMETYPE_PAYMENT);
+						connection.setRequestProperty("Accept", com.google.bitcoin.protocols.payments.PaymentProtocol.MIMETYPE_PAYMENTACK);
 						connection.setRequestProperty("Content-Length", Integer.toString(payment.getSerializedSize()));
 						if (userAgent != null)
 							connection.addRequestProperty("User-Agent", userAgent);
