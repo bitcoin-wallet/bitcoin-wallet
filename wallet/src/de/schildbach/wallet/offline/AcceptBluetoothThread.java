@@ -29,6 +29,7 @@ import org.bitcoin.protocols.payments.Protos;
 import org.bitcoin.protocols.payments.Protos.PaymentACK;
 import org.bitcoinj.core.ProtocolException;
 import org.bitcoinj.core.Transaction;
+import org.bitcoinj.protocols.payments.PaymentProtocol;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -37,7 +38,6 @@ import android.bluetooth.BluetoothServerSocket;
 import android.bluetooth.BluetoothSocket;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.util.Bluetooth;
-import de.schildbach.wallet.util.PaymentProtocol;
 
 /**
  * @author Shahar Livne
@@ -185,7 +185,7 @@ public abstract class AcceptBluetoothThread extends Thread
 
 					log.debug("got payment message");
 
-					for (final Transaction tx : PaymentProtocol.parsePaymentMessage(payment))
+					for (final Transaction tx : PaymentProtocol.parseTransactionsFromPaymentMessage(Constants.NETWORK_PARAMETERS, payment))
 					{
 						if (!handleTx(tx))
 							ack = false;

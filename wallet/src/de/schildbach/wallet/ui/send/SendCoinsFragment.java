@@ -19,6 +19,7 @@ package de.schildbach.wallet.ui.send;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.Arrays;
 
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
@@ -38,6 +39,7 @@ import org.bitcoinj.core.VerificationException;
 import org.bitcoinj.core.Wallet;
 import org.bitcoinj.core.Wallet.BalanceType;
 import org.bitcoinj.core.Wallet.SendRequest;
+import org.bitcoinj.protocols.payments.PaymentProtocol;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -111,7 +113,6 @@ import de.schildbach.wallet.ui.TransactionsListAdapter;
 import de.schildbach.wallet.util.Bluetooth;
 import de.schildbach.wallet.util.GenericUtils;
 import de.schildbach.wallet.util.Nfc;
-import de.schildbach.wallet.util.PaymentProtocol;
 import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
 
@@ -135,7 +136,6 @@ public final class SendCoinsFragment extends Fragment
 	private Handler backgroundHandler;
 
 	private TextView payeeNameView;
-	private TextView payeeOrganizationView;
 	private TextView payeeVerifiedByView;
 	private AutoCompleteTextView receivingAddressView;
 	private View receivingStaticView;
@@ -459,7 +459,6 @@ public final class SendCoinsFragment extends Fragment
 		final View view = inflater.inflate(R.layout.send_coins_fragment, container);
 
 		payeeNameView = (TextView) view.findViewById(R.id.send_coins_payee_name);
-		payeeOrganizationView = (TextView) view.findViewById(R.id.send_coins_payee_organization);
 		payeeVerifiedByView = (TextView) view.findViewById(R.id.send_coins_payee_verified_by);
 
 		receivingAddressView = (AutoCompleteTextView) view.findViewById(R.id.send_coins_receiving_address);
@@ -883,8 +882,8 @@ public final class SendCoinsFragment extends Fragment
 
 				sentTransaction.getConfidence().addEventListener(sentTransactionConfidenceListener);
 
-				final Payment payment = PaymentProtocol.createPaymentMessage(sentTransaction, returnAddress, finalAmount, null,
-						paymentIntent.payeeData);
+				final Payment payment = PaymentProtocol.createPaymentMessage(Arrays.asList(new Transaction[] { sentTransaction }), finalAmount,
+						returnAddress, null, paymentIntent.payeeData);
 
 				directPay(payment);
 
@@ -1071,16 +1070,6 @@ public final class SendCoinsFragment extends Fragment
 				payeeNameView.setVisibility(View.VISIBLE);
 				payeeNameView.setText(paymentIntent.payeeName);
 
-				if (paymentIntent.payeeOrganization != null)
-				{
-					payeeOrganizationView.setVisibility(View.VISIBLE);
-					payeeOrganizationView.setText(paymentIntent.payeeOrganization);
-				}
-				else
-				{
-					payeeOrganizationView.setVisibility(View.GONE);
-				}
-
 				payeeVerifiedByView.setVisibility(View.VISIBLE);
 				final String verifiedBy = paymentIntent.payeeVerifiedBy != null ? paymentIntent.payeeVerifiedBy
 						: getString(R.string.send_coins_fragment_payee_verified_by_unknown);
@@ -1090,7 +1079,6 @@ public final class SendCoinsFragment extends Fragment
 			else
 			{
 				payeeNameView.setVisibility(View.GONE);
-				payeeOrganizationView.setVisibility(View.GONE);
 				payeeVerifiedByView.setVisibility(View.GONE);
 			}
 
