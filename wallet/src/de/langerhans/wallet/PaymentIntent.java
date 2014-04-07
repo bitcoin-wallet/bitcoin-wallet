@@ -137,9 +137,6 @@ public final class PaymentIntent implements Parcelable
 	public final String payeeName;
 
 	@CheckForNull
-	public final String payeeOrganization;
-
-	@CheckForNull
 	public final String payeeVerifiedBy;
 
 	@CheckForNull
@@ -157,13 +154,12 @@ public final class PaymentIntent implements Parcelable
 	@CheckForNull
 	public final String paymentRequestUrl;
 
-	public PaymentIntent(@Nullable final Standard standard, @Nullable final String payeeName, @Nullable final String payeeOrganization,
-			@Nullable final String payeeVerifiedBy, @Nullable final Output[] outputs, @Nullable final String memo, @Nullable final String paymentUrl,
-			@Nullable final byte[] payeeData, @Nullable final String paymentRequestUrl)
+	public PaymentIntent(@Nullable final Standard standard, @Nullable final String payeeName, @Nullable final String payeeVerifiedBy,
+			@Nullable final Output[] outputs, @Nullable final String memo, @Nullable final String paymentUrl, @Nullable final byte[] payeeData,
+			@Nullable final String paymentRequestUrl)
 	{
 		this.standard = standard;
 		this.payeeName = payeeName;
-		this.payeeOrganization = payeeOrganization;
 		this.payeeVerifiedBy = payeeVerifiedBy;
 		this.outputs = outputs;
 		this.memo = memo;
@@ -174,12 +170,12 @@ public final class PaymentIntent implements Parcelable
 
 	private PaymentIntent(@Nonnull final Address address, @Nullable final String addressLabel)
 	{
-		this(null, null, null, null, buildSimplePayTo(BigInteger.ZERO, address), addressLabel, null, null, null);
+		this(null, null, null, buildSimplePayTo(BigInteger.ZERO, address), addressLabel, null, null, null);
 	}
 
 	public static PaymentIntent blank()
 	{
-		return new PaymentIntent(null, null, null, null, null, null, null, null, null);
+		return new PaymentIntent(null, null, null, null, null, null, null, null);
 	}
 
 	public static PaymentIntent fromAddress(@Nonnull final Address address, @Nullable final String addressLabel)
@@ -198,7 +194,7 @@ public final class PaymentIntent implements Parcelable
 		final Output[] outputs = buildSimplePayTo(bitcoinUri.getAmount(), bitcoinUri.getAddress());
 		final String bluetoothMac = (String) bitcoinUri.getParameterByName(Bluetooth.MAC_URI_PARAM);
 
-		return new PaymentIntent(PaymentIntent.Standard.BIP21, null, null, null, outputs, bitcoinUri.getLabel(), bluetoothMac != null ? "bt:"
+		return new PaymentIntent(PaymentIntent.Standard.BIP21, null, null, outputs, bitcoinUri.getLabel(), bluetoothMac != null ? "bt:"
 				+ bluetoothMac : null, null, bitcoinUri.getPaymentRequestUrl());
 	}
 
@@ -225,7 +221,7 @@ public final class PaymentIntent implements Parcelable
 			outputs = buildSimplePayTo(editedAmount, editedAddress);
 		}
 
-		return new PaymentIntent(standard, payeeName, payeeOrganization, payeeVerifiedBy, outputs, memo, null, payeeData, null);
+		return new PaymentIntent(standard, payeeName, payeeVerifiedBy, outputs, memo, null, payeeData, null);
 	}
 
 	public SendRequest toSendRequest()
@@ -385,8 +381,6 @@ public final class PaymentIntent implements Parcelable
 		if (hasPayee())
 		{
 			builder.append(payeeName);
-			if (payeeOrganization != null)
-				builder.append("/").append(payeeOrganization);
 			if (payeeVerifiedBy != null)
 				builder.append("/").append(payeeVerifiedBy);
 			builder.append(',');
@@ -421,7 +415,6 @@ public final class PaymentIntent implements Parcelable
 		dest.writeSerializable(standard);
 
 		dest.writeString(payeeName);
-		dest.writeString(payeeOrganization);
 		dest.writeString(payeeVerifiedBy);
 
 		if (outputs != null)
@@ -471,7 +464,6 @@ public final class PaymentIntent implements Parcelable
 		standard = (Standard) in.readSerializable();
 
 		payeeName = in.readString();
-		payeeOrganization = in.readString();
 		payeeVerifiedBy = in.readString();
 
 		final int outputsLength = in.readInt();

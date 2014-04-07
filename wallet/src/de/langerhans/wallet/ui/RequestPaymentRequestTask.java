@@ -33,11 +33,11 @@ import android.os.Handler;
 import android.os.Looper;
 
 import com.google.dogecoin.core.Transaction;
+import com.google.dogecoin.protocols.payments.PaymentProtocol;
 
 import de.langerhans.wallet.Constants;
 import de.langerhans.wallet.PaymentIntent;
 import de.langerhans.wallet.offline.DirectPaymentTask;
-import de.langerhans.wallet.util.PaymentProtocol;
 import de.langerhans.wallet.R;
 
 /**
@@ -103,7 +103,7 @@ public abstract class RequestPaymentRequestTask
 						connection.setDoOutput(false);
 
 						connection.setRequestMethod("GET");
-						connection.setRequestProperty("Accept", PaymentProtocol.MIMETYPE_PAYMENTREQUEST);
+						connection.setRequestProperty("Accept", com.google.dogecoin.protocols.payments.PaymentProtocol.MIMETYPE_PAYMENTREQUEST);
 						if (userAgent != null)
 							connection.addRequestProperty("User-Agent", userAgent);
 						connection.connect();

@@ -126,7 +126,6 @@ public final class SendCoinsFragment extends SherlockFragment
 	private Handler backgroundHandler;
 
 	private TextView payeeNameView;
-	private TextView payeeOrganizationView;
 	private TextView payeeVerifiedByView;
 	private AutoCompleteTextView receivingAddressView;
 	private View receivingStaticView;
@@ -415,13 +414,16 @@ public final class SendCoinsFragment extends SherlockFragment
 			{
 				initStateFromBitcoinUri(intentUri);
 			}
-			else if ((NfcAdapter.ACTION_NDEF_DISCOVERED.equals(action)) && PaymentProtocol.MIMETYPE_PAYMENTREQUEST.equals(mimeType))
+			else if ((NfcAdapter.ACTION_NDEF_DISCOVERED.equals(action))
+					&& com.google.dogecoin.protocols.payments.PaymentProtocol.MIMETYPE_PAYMENTREQUEST.equals(mimeType))
 			{
 				final NdefMessage ndefMessage = (NdefMessage) intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES)[0];
-				final byte[] ndefMessagePayload = Nfc.extractMimePayload(PaymentProtocol.MIMETYPE_PAYMENTREQUEST, ndefMessage);
+				final byte[] ndefMessagePayload = Nfc.extractMimePayload(
+						com.google.dogecoin.protocols.payments.PaymentProtocol.MIMETYPE_PAYMENTREQUEST, ndefMessage);
 				initStateFromPaymentRequest(mimeType, ndefMessagePayload);
 			}
-			else if ((Intent.ACTION_VIEW.equals(action)) && PaymentProtocol.MIMETYPE_PAYMENTREQUEST.equals(mimeType))
+			else if ((Intent.ACTION_VIEW.equals(action))
+					&& com.google.dogecoin.protocols.payments.PaymentProtocol.MIMETYPE_PAYMENTREQUEST.equals(mimeType))
 			{
 				final byte[] paymentRequest = BitcoinIntegration.paymentRequestFromIntent(intent);
 
@@ -449,7 +451,6 @@ public final class SendCoinsFragment extends SherlockFragment
 		final View view = inflater.inflate(R.layout.send_coins_fragment, container);
 
 		payeeNameView = (TextView) view.findViewById(R.id.send_coins_payee_name);
-		payeeOrganizationView = (TextView) view.findViewById(R.id.send_coins_payee_organization);
 		payeeVerifiedByView = (TextView) view.findViewById(R.id.send_coins_payee_verified_by);
 
 		receivingAddressView = (AutoCompleteTextView) view.findViewById(R.id.send_coins_receiving_address);
@@ -1047,16 +1048,6 @@ public final class SendCoinsFragment extends SherlockFragment
 				payeeNameView.setVisibility(View.VISIBLE);
 				payeeNameView.setText(paymentIntent.payeeName);
 
-				if (paymentIntent.payeeOrganization != null)
-				{
-					payeeOrganizationView.setVisibility(View.VISIBLE);
-					payeeOrganizationView.setText(paymentIntent.payeeOrganization);
-				}
-				else
-				{
-					payeeOrganizationView.setVisibility(View.GONE);
-				}
-
 				payeeVerifiedByView.setVisibility(View.VISIBLE);
 				final String verifiedBy = paymentIntent.payeeVerifiedBy != null ? paymentIntent.payeeVerifiedBy
 						: getString(R.string.send_coins_fragment_payee_verified_by_unknown);
@@ -1066,7 +1057,6 @@ public final class SendCoinsFragment extends SherlockFragment
 			else
 			{
 				payeeNameView.setVisibility(View.GONE);
-				payeeOrganizationView.setVisibility(View.GONE);
 				payeeVerifiedByView.setVisibility(View.GONE);
 			}
 
