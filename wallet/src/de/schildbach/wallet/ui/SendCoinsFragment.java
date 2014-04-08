@@ -1105,7 +1105,7 @@ public final class SendCoinsFragment extends SherlockFragment
 				if (paymentIntent.isBluetoothPaymentUrl())
 					directPaymentVisible = bluetoothAdapter != null;
 				else
-					directPaymentVisible = true;
+					directPaymentVisible = !Constants.BUG_OPENSSL_HEARTBLEED;
 			}
 			else
 			{
@@ -1299,13 +1299,13 @@ public final class SendCoinsFragment extends SherlockFragment
 					if (paymentIntent.isBluetoothPaymentUrl())
 						directPaymentEnableView.setChecked(bluetoothAdapter != null && bluetoothAdapter.isEnabled());
 					else if (paymentIntent.isHttpPaymentUrl())
-						directPaymentEnableView.setChecked(true);
+						directPaymentEnableView.setChecked(!Constants.BUG_OPENSSL_HEARTBLEED);
 
 					requestFocusFirst();
 					updateView();
 				}
 
-				if (paymentIntent.hasPaymentRequestUrl() && paymentIntent.isSupportedPaymentRequestUrl())
+				if (paymentIntent.hasPaymentRequestUrl() && paymentIntent.isSupportedPaymentRequestUrl() && !Constants.BUG_OPENSSL_HEARTBLEED)
 					requestPaymentRequest(paymentIntent.paymentRequestUrl);
 			}
 		});

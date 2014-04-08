@@ -141,6 +141,9 @@ public class ExchangeRatesProvider extends ContentProvider
 	@Override
 	public Cursor query(final Uri uri, final String[] projection, final String selection, final String[] selectionArgs, final String sortOrder)
 	{
+		if (Constants.BUG_OPENSSL_HEARTBLEED)
+			return null;
+
 		final long now = System.currentTimeMillis();
 
 		if (lastUpdated == 0 || now - lastUpdated > UPDATE_FREQ_MS)
