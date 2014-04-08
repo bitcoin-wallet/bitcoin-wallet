@@ -47,8 +47,6 @@
 	<string name="wallet_version_dialog_msg">Esta versión corrige fallos importantes. Detalles en el historial de cambios de Google Play.</string>
 	<string name="wallet_version_dialog_button_market">Google Play</string>
 	<string name="wallet_version_dialog_button_binary">Descargar</string>
-	<string name="wallet_precision_warning_dialog_title">Cambio de denominación</string>
-	<string name="wallet_precision_warning_dialog_msg">La denominación predeterminada ha pasado de bitcoins (BTC) a milibitcoins (mBTC). Todas las cantidades pasan a estar multiplicadas por un factor 1000.\n\nPuedes deshacer este cambio en los ajustes.</string>
 	<string name="wallet_old_sdk_dialog_title">Versión de Android desactualizada</string>
 	<string name="wallet_old_sdk_dialog_message">Es muy posible que una próxima versión de Bitcoin Wallet ya no valga para su dispositivo. En tal caso, podría ser difícil gastar bitcoins en este dispositivo.\n\nA menos que domine lo que está haciendo, se le recomienda que transfiera sus bitcoins pronto.</string>
 	<string name="send_coins_activity_title">Enviar bitcoins</string>

@@ -47,8 +47,6 @@
 	<string name="wallet_version_dialog_msg">Táto verzia opravuje kritické chyby. Pre viac informácií navštívte Google Play.</string>
 	<string name="wallet_version_dialog_button_market">Google Play</string>
 	<string name="wallet_version_dialog_button_binary">Stiahnuť</string>
-	<string name="wallet_precision_warning_dialog_title">Zmena jednotky</string>
-	<string name="wallet_precision_warning_dialog_msg">Zobrazovaná jednotka bola zmenená z bitcoin (BTC) na milibitcoin (mBTC). Všetky sumy sú vynásobené 1000.\n\nTúto zmenu je možné vrátiť späť v nastaveniach.</string>
 	<string name="wallet_old_sdk_dialog_title">Verzia vášho Androidu je zastaralá</string>
 	<string name="wallet_old_sdk_dialog_message">Je možné, že v novších verziách Bitcoin Wallet už nebude podporované vaše zariadenie. V určitých prípadoch môže byť obtiažne minúť Bitcoiny z tohto zariadenia.\n\nJe odporúčané presunúť Bitcoiny z tohto zariadenia.</string>
 	<string name="send_coins_activity_title">Poslať Bitcoiny</string>

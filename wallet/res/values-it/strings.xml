@@ -48,8 +48,6 @@
 	<string name="wallet_version_dialog_msg_deprecated">Se non si vede un aggiornamento, questo probabilmente significa che la vostra versione di Android non è più supportata.</string>
 	<string name="wallet_version_dialog_button_market">Google Play</string>
 	<string name="wallet_version_dialog_button_binary">Scarica</string>
-	<string name="wallet_precision_warning_dialog_title">Cambio di taglio</string>
-	<string name="wallet_precision_warning_dialog_msg">Il taglio è stato cambiato da bitcoin (BTC) a millibitcoin (mBTC). Tutti gli importi sono moltiplicati per 1000.\n\nÈ possibile ripristinare il cambiamento nelle impostazioni.</string>
 	<string name="wallet_old_sdk_dialog_title">La versione Android non è aggiornata</string>
 	<string name="wallet_old_sdk_dialog_message">Ci sono possibilità che una delle prossime versioni di Bitcoin Wallet non supporterà più il tuo dispositivo. In alcuni casi, può essere difficile spendere denaro su questo dispositivo.\n\nA meno che tu sappia quello che stai facendo, è raccomandato di spostare il tuo denaro al più presto.</string>
 	<string name="send_coins_activity_title">Invia Bitcoins</string>

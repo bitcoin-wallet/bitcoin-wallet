@@ -48,8 +48,6 @@
 	<string name="wallet_version_dialog_msg_deprecated">Hvis du ikke ser en opdatering, betyder dette formodentlig, at din version af Android ikke understøttes længere.</string>
 	<string name="wallet_version_dialog_button_market">Google Play</string>
 	<string name="wallet_version_dialog_button_binary">Download</string>
-	<string name="wallet_precision_warning_dialog_title">Ændring af denominering</string>
-	<string name="wallet_precision_warning_dialog_msg">Denominering er ændret fra bitcoin (BTC) til millibitcoin (mBTC). Alle beløb ganges op med en faktor 1000.\n\nDu kan ændre dette tilbage i opsætningen.</string>
 	<string name="wallet_old_sdk_dialog_title">Android-version er uddateret</string>
 	<string name="wallet_old_sdk_dialog_message">Der er risiko for, at en af de næste udgivelser af Bitcoin Wallet ikke vil understøtte din enhed længere. I nogle tilfælde kan det være svært at bruge mønter på denne enhed.\n\nMed mindre du ved hvad du gør, anbefales det snart at flytte dine mønter væk.</string>
 	<string name="send_coins_activity_title">Send Bitcoins</string>

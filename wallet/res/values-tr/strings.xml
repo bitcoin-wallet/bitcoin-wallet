@@ -48,8 +48,6 @@
 	<string name="wallet_version_dialog_msg_deprecated">Eğer bir güncelleme görmüyorsanız, bu muhtemelen sizin Android sürümünüzün artık desteklenmediği anlamına gelir.</string>
 	<string name="wallet_version_dialog_button_market">Google Play</string>
 	<string name="wallet_version_dialog_button_binary">İndir</string>
-	<string name="wallet_precision_warning_dialog_title">İsimlendirme değişikliği</string>
-	<string name="wallet_precision_warning_dialog_msg">İsimlendirme bitcoin\'den (BTC) millibitcoin\'e (mBTC) değiştirilmiştir. Tüm miktarlar 1000 faktörü ile çarpılmıştır.\n\nBu değişikliği ayarlarda geri alabilirsiniz.</string>
 	<string name="wallet_old_sdk_dialog_title">Android sürümü eski</string>
 	<string name="wallet_old_sdk_dialog_message">Gelecek Bitcoin Wallet sürümünün cihazınızı desteklememesi mümkündür. Bazı durumlarda bu cihazla bitcoin harcamak zor olabilir.\n\nBitcoinlerinizi güvenli bir yere aktarmanız tavsiye edilir.</string>
 	<string name="send_coins_activity_title">Bitcoin gönder</string>

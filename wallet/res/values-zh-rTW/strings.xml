@@ -48,8 +48,6 @@
 	<string name="wallet_version_dialog_msg_deprecated">如果你看不到任何 App 更新，很可能你的 Android 版本已經不再支援。</string>
 	<string name="wallet_version_dialog_button_market">Google Play</string>
 	<string name="wallet_version_dialog_button_binary">下載</string>
-	<string name="wallet_precision_warning_dialog_title">更新面額</string>
-	<string name="wallet_precision_warning_dialog_msg">面額已由 bitcoin (BTC) 更換到 millibitcoin (mBTC)，所有顯示數量須乘上1000倍。\n\n你可以在設定改回來。</string>
 	<string name="wallet_old_sdk_dialog_title">Android 版本太舊</string>
 	<string name="wallet_old_sdk_dialog_message">很可能下個版本的 Bitcoin Wallet App 將不再支援你的裝置，某些狀況下可能導致難以付款，\n\n除非你確認其中風險，不然建議你儘快將錢包的錢轉出。</string>
 	<string name="send_coins_activity_title">比特幣付款</string>

@@ -94,18 +94,15 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 {
 	private static final int DIALOG_IMPORT_KEYS = 0;
 	private static final int DIALOG_EXPORT_KEYS = 1;
-	private static final int DIALOG_CHANGELOG = 2;
-	private static final int DIALOG_TIMESKEW_ALERT = 3;
-	private static final int DIALOG_VERSION_ALERT = 4;
-	private static final int DIALOG_LOW_STORAGE_ALERT = 5;
+	private static final int DIALOG_TIMESKEW_ALERT = 2;
+	private static final int DIALOG_VERSION_ALERT = 3;
+	private static final int DIALOG_LOW_STORAGE_ALERT = 4;
 
 	private WalletApplication application;
 	private Configuration config;
 	private Wallet wallet;
 
 	private static final int REQUEST_CODE_SCAN = 0;
-
-	private static final int DEFAULT_PRECISION_CHANGE_VERSION_CODE = 152;
 
 	@Override
 	protected void onCreate(final Bundle savedInstanceState)
@@ -335,8 +332,6 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 			return createImportKeysDialog();
 		else if (id == DIALOG_EXPORT_KEYS)
 			return createExportKeysDialog();
-		else if (id == DIALOG_CHANGELOG)
-			return createChangeLogDialog();
 		else if (id == DIALOG_TIMESKEW_ALERT)
 			return createTimeskewAlertDialog(args.getLong("diff_minutes"));
 		else if (id == DIALOG_VERSION_ALERT)
@@ -540,22 +535,6 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 		showView.setOnCheckedChangeListener(new ShowPasswordCheckListener(passwordView));
 	}
 
-	private Dialog createChangeLogDialog()
-	{
-		final DialogBuilder dialog = DialogBuilder.warn(this, R.string.wallet_precision_warning_dialog_title);
-		dialog.setMessage(R.string.wallet_precision_warning_dialog_msg);
-		dialog.setPositiveButton(R.string.button_dismiss, null);
-		dialog.setNegativeButton(R.string.button_settings, new DialogInterface.OnClickListener()
-		{
-			@Override
-			public void onClick(final DialogInterface dialog, final int id)
-			{
-				startActivity(new Intent(WalletActivity.this, PreferencesActivity.class));
-			}
-		});
-		return dialog.create();
-	}
-
 	private void checkLowStorageAlert()
 	{
 		final Intent stickyIntent = registerReceiver(null, new IntentFilter(Intent.ACTION_DEVICE_STORAGE_LOW));
@@ -649,12 +628,7 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 			}
 		}.start();
 
-		if (!config.hasBtcPrecision()
-				&& config.changeLogVersionCodeCrossed(application.packageInfo().versionCode, DEFAULT_PRECISION_CHANGE_VERSION_CODE))
-		{
-			showDialog(DIALOG_CHANGELOG);
-		}
-		else if (CrashReporter.hasSavedCrashTrace())
+		if (CrashReporter.hasSavedCrashTrace())
 		{
 			final StringBuilder stackTrace = new StringBuilder();
 
