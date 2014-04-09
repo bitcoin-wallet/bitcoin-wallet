@@ -69,11 +69,19 @@ public class ProgressDialogFragment extends DialogFragment
 	}
 
 	@Override
+	public void onCreate(final Bundle savedInstanceState)
+	{
+		super.onCreate(savedInstanceState);
+
+		setCancelable(false);
+	}
+
+	@Override
 	public Dialog onCreateDialog(final Bundle savedInstanceState)
 	{
 		final Bundle args = getArguments();
 		final String message = args.getString(KEY_MESSAGE);
 
-		return ProgressDialog.show(activity, null, message, true, true, null);
+		return ProgressDialog.show(activity, null, message, true);
 	}
 }
