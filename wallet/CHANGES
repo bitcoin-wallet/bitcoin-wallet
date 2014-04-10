@@ -1,6 +1,6 @@
-v3.44
+v3.44-v3.45
 
-* Due to OpenSSL "Heartbleed" vulnerability, removed all HTTPS network access on Android 4.1.1.
+* Due to the OpenSSL "Heartbleed" vulnerability, removed all HTTPS network access on Android 4.1.1.
   This means exchange rates will not be available, and the payment protocol cannot fetch
   signature and cannot pay directly via HTTPS. The chances of an actual exploitability on
   Android are very slim, but we want to stay on the safe side until things are clearer.
