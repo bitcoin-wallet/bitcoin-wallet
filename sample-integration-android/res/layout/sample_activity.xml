@@ -8,15 +8,9 @@
 	<LinearLayout
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
-<<<<<<< HEAD
-		android:layout_gravity="center"
-		android:layout_marginTop="32dp"
-		android:text="This demonstrates the integration of a &quot;Donate digitalcoins&quot; button in your app." />
-=======
 		android:layout_marginBottom="24dp"
 		android:layout_marginTop="24dp"
 		android:orientation="vertical" >
->>>>>>> upstream/prod
 
 		<RadioGroup
 			android:layout_width="256dp"

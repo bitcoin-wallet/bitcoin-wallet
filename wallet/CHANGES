@@ -1,6 +1,9 @@
 digitalcoin Wallet
 -----------------
 
+v0.1.3-beta
+* fixed several bugs relating to pausing activities
+
 v0.1.2-beta
 * fixed checkpoints to work for the Version 1.0 blocks (between 476280 and 523800)
 * added two nodes from a list of addnodes from the bitcointalk topic

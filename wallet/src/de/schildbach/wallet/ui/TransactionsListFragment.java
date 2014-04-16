@@ -201,7 +201,14 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 		wallet.removeEventListener(transactionChangeListener);
 		transactionChangeListener.removeCallbacks();
 
-		loaderManager.destroyLoader(0);
+		try
+        {
+            loaderManager.destroyLoader(0);
+        }
+        catch (NullPointerException x)
+        {
+            //swallow
+        }
 
 		config.unregisterOnSharedPreferenceChangeListener(this);
 
