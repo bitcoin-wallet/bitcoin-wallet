@@ -42,7 +42,7 @@ import com.google.dogecoin.core.Transaction;
 import com.google.dogecoin.protocols.payments.PaymentRequestException;
 import com.google.dogecoin.protocols.payments.PaymentRequestException.PkiVerificationException;
 import com.google.dogecoin.protocols.payments.PaymentSession;
-import com.google.dogecoin.protocols.payments.PaymentSession.PkiVerificationData;
+import com.google.dogecoin.protocols.payments.PaymentProtocol.PkiVerificationData;
 import com.google.dogecoin.script.Script;
 import com.google.dogecoin.uri.BitcoinURI;
 import com.google.dogecoin.uri.BitcoinURIParseException;

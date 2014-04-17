@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <resources>
 
 	<string name="toast_wallet_reset">Peňaženka zresetovaná,\nobnova chvíľu potrvá</string>
-	<string name="wallet_disclaimer_fragment_remind_safety">Použitie na vlastné riziko. Viac informácií v sekcii &lt;u>Bezpečnosť&lt;/u>.</string>
-	<string name="wallet_disclaimer_fragment_remind_backup">Je potrebné &lt;u>zálohovať peňaženku&lt;/u>!</string>
+	<string name="wallet_disclaimer_fragment_remind_safety">Použitie na vlastné riziko. Viac informácií v sekcii &lt;u&gt;Bezpečnosť&lt;/u&gt;.</string>
+	<string name="wallet_disclaimer_fragment_remind_backup">Je potrebné &lt;u&gt;zálohovať peňaženku&lt;/u&gt;!</string>
 	<string name="blockchain_state_progress_hours">%1$s, %2$d hodín pozadu</string>
 	<string name="blockchain_state_progress_days">%1$s, %2$d dní pozadu</string>
 	<string name="blockchain_state_progress_weeks">%1$s, %2$d týždňov pozadu</string>
@@ -30,7 +30,7 @@
 	<string name="wallet_transactions_fragment_empty_text_received">Zatiaľ neboli prijaté žiadne Dogecoiny</string>
 	<string name="wallet_transactions_fragment_empty_text_sent">Zatiaľ neboli odoslané žiadne Dogecoiny</string>
 	<string name="wallet_transactions_fragment_empty_text_howto">Ako získať Dogecoiny?\n\nVýmenou za tradičné peniaze,\npredajom tovarov a služieb,\nalebo prácou.</string>
-	<string name="wallet_transactions_row_warning_backup">Gratulujeme, obdržali ste svoju prvú platbu! Urobili ste &lt;u>zálohu peňaženky&lt;/u>, aby ste ju ochránili pred stratou?</string>
+	<string name="wallet_transactions_row_warning_backup">Gratulujeme, obdržali ste svoju prvú platbu! Urobili ste &lt;u&gt;zálohu peňaženky&lt;/u&gt;, aby ste ju ochránili pred stratou?</string>
 	<string name="wallet_transactions_fragment_coinbase">vyťažené</string>
 	<string name="wallet_transactions_fragment_internal">vnútorné</string>
 	<string name="wallet_transactions_context_show_qr_title">Ukáž QR kód</string>
@@ -48,8 +48,6 @@
 	<string name="wallet_version_dialog_msg">Táto verzia opravuje kritické chyby. Pre viac informácií navštívte Google Play.</string>
 	<string name="wallet_version_dialog_button_market">Google Play</string>
 	<string name="wallet_version_dialog_button_binary">Stiahnuť</string>
-	<string name="wallet_precision_warning_dialog_title">Zmena jednotky</string>
-	<string name="wallet_precision_warning_dialog_msg">Zobrazovaná jednotka bola zmenená z dogecoin (DOGE) na milidogecoin (mDOGE). Všetky sumy sú vynásobené 1000.\n\nTúto zmenu je možné vrátiť späť v nastaveniach.</string>
 	<string name="wallet_old_sdk_dialog_title">Verzia vášho Androidu je zastaralá</string>
 	<string name="wallet_old_sdk_dialog_message">Je možné, že v novších verziách Dogecoin Wallet už nebude podporované vaše zariadenie. V určitých prípadoch môže byť obtiažne minúť Dogecoiny z tohto zariadenia.\n\nJe odporúčané presunúť Dogecoiny z tohto zariadenia.</string>
 	<string name="send_coins_activity_title">Poslať Dogecoiny</string>
@@ -111,7 +109,7 @@
 	<string name="edit_address_book_entry_dialog_address_label">Adresa</string>
 	<string name="edit_address_book_entry_dialog_label_label">Názov</string>
 	<string name="edit_address_book_entry_dialog_button_edit">Uložiť</string>
-	<string name="transaction_row_message_purpose_key_rotation">Táto operácia zvyšuje ochranu proti vykradnutiu peňaženky. &lt;u>Viac informácií.&lt;/u></string>
+	<string name="transaction_row_message_purpose_key_rotation">Táto operácia zvyšuje ochranu proti vykradnutiu peňaženky. &lt;u&gt;Viac informácií.&lt;/u&gt;</string>
 	<string name="transaction_row_message_own_unbroadcasted">Táto platba ešte nebola odoslaná.</string>
 	<string name="transaction_row_message_received_direct">Táto platba bola prijatá priamo. Existuje určité riziko, že sa nikdy nebude dať minúť.</string>
 	<string name="transaction_row_message_received_unconfirmed_unlocked">Táto platba by mala byť potvrdená za pár minút.</string>
@@ -205,7 +203,6 @@
 	<string name="about_credits_market_publisher_title">Ďalšie aplikácie autora</string>
 	<string name="notification_coins_received_msg">Prijaté %s</string>
 	<string name="notification_peers_connected_msg">%d pripojených uzlov</string>
-
 	<!-- generic buttons -->
 	<string name="button_ok">OK</string>
 	<string name="button_dismiss">Zrušiť</string>
@@ -227,7 +224,6 @@
 	<string name="action_browse">Otvoriť v prehliadači</string>
 	<string name="time_today">dnes</string>
 	<string name="address_unlabeled">(neoznačené)</string>
-
 	<!-- generic error messages -->
 	<string name="error_io">I/O chyba: %s</string>
 	<string name="error_http">HTTP chyba %1$s:\n%2$s</string>

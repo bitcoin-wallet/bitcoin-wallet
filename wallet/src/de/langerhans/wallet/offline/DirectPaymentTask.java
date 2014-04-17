@@ -89,16 +89,13 @@ public abstract class DirectPaymentTask
 		}
 
 		@Override
-		public void send(@Nonnull final PaymentIntent.Standard standard, @Nonnull final Payment payment)
+		public void send(@Nonnull final Payment payment)
 		{
 			super.backgroundHandler.post(new Runnable()
 			{
 				@Override
 				public void run()
 				{
-					if (standard != PaymentIntent.Standard.BIP70)
-						throw new IllegalArgumentException("cannot handle: " + standard);
-
 					log.info("trying to send tx to {}", url);
 
 					HttpURLConnection connection = null;
@@ -207,14 +204,14 @@ public abstract class DirectPaymentTask
 		}
 
 		@Override
-		public void send(@Nonnull final PaymentIntent.Standard standard, @Nonnull final Payment payment)
+		public void send(@Nonnull final Payment payment)
 		{
 			super.backgroundHandler.post(new Runnable()
 			{
 				@Override
 				public void run()
 				{
-					log.info("trying to send tx via bluetooth {} using {} standard", bluetoothMac, standard);
+					log.info("trying to send tx via bluetooth {}", bluetoothMac);
 
 					if (payment.getTransactionsCount() != 1)
 						throw new IllegalArgumentException("wrong transactions count");
@@ -297,7 +294,7 @@ public abstract class DirectPaymentTask
 		}
 	}
 
-	public abstract void send(@Nonnull PaymentIntent.Standard standard, @Nonnull Payment payment);
+	public abstract void send(@Nonnull Payment payment);
 
 	protected void onResult(final boolean ack)
 	{

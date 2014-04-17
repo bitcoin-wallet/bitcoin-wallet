@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <resources>
 
 	<string name="toast_wallet_reset">Tegnebog blev nulstillet,\ndet tager nogen tid at genoprette</string>
-	<string name="wallet_disclaimer_fragment_remind_safety">Brug for egen risiko. Læs &lt;u>sikkerhedsnoterne&lt;/u>.</string>
-	<string name="wallet_disclaimer_fragment_remind_backup">Du bør &lt;u>tage sikkerhedskopi af din tegnebog&lt;/u>!</string>
+	<string name="wallet_disclaimer_fragment_remind_safety">Brug for egen risiko. Læs &lt;u&gt;sikkerhedsnoterne&lt;/u&gt;.</string>
+	<string name="wallet_disclaimer_fragment_remind_backup">Du bør &lt;u&gt;tage sikkerhedskopi af din tegnebog&lt;/u&gt;!</string>
 	<string name="blockchain_state_progress_hours">%1$s, %2$d timer bagefter</string>
 	<string name="blockchain_state_progress_days">%1$s, %2$d dage bagefter</string>
 	<string name="blockchain_state_progress_weeks">%1$s, %2$d uger bagefter</string>
@@ -22,7 +22,7 @@
 	<string name="exchange_rates_fragment_default">(standard)</string>
 	<string name="exchange_rates_fragment_rate">kurs</string>
 	<string name="exchange_rates_fragment_balance">saldo</string>
-	<string name="exchange_rates_fragment_source">Pris indhentet fra %s</string>
+	<string name="exchange_rates_fragment_source">Pris fra %s</string>
 	<string name="exchange_rates_context_set_as_default_title">Sæt som standard for fremmed valuta</string>
 	<string name="wallet_transactions_fragment_tab_received">Modtaget</string>
 	<string name="wallet_transactions_fragment_tab_all">Begge</string>
@@ -30,7 +30,7 @@
 	<string name="wallet_transactions_fragment_empty_text_received">Ingen Dogecoins modtaget endnu.</string>
 	<string name="wallet_transactions_fragment_empty_text_sent">Ingen Dogecoins sendt endnu.</string>
 	<string name="wallet_transactions_fragment_empty_text_howto">Hvordan får man Dogecoins?\n\nKøb for traditionelle penge,\nsælg varer eller ydelser eller\ntjen dem ved at arbejde.</string>
-	<string name="wallet_transactions_row_warning_backup">Tillykke, du har modtaget din første betaling! Har du &lt;u>taget en sikkerhedskopi af din tegnebog&lt;/u>, for at beskytte dig mod tab?</string>
+	<string name="wallet_transactions_row_warning_backup">Tillykke, du har modtaget din første betaling! Har du &lt;u&gt;taget en sikkerhedskopi af din tegnebog&lt;/u&gt;, for at beskytte dig mod tab?</string>
 	<string name="wallet_transactions_fragment_coinbase">mined</string>
 	<string name="wallet_transactions_fragment_internal">intern</string>
 	<string name="wallet_transactions_context_show_qr_title">Vis QR-kode</string>
@@ -45,10 +45,9 @@
 	<string name="wallet_timeskew_dialog_msg">Din enheds tid fraviger med %d minutter. Du kan sandsynligvis ikke sende eller modtage Dogecoins på grund af dette problem.\n\nDu bør tjekke og rette dine tids- og tidzoneindstillinger.</string>
 	<string name="wallet_version_dialog_title">En ny version er tilgængelig!</string>
 	<string name="wallet_version_dialog_msg">Denne version retter vigtige fejl. For detaljer, se ændringsloggen på Google Play.</string>
+	<string name="wallet_version_dialog_msg_deprecated">Hvis du ikke ser en opdatering, betyder dette formodentlig, at din version af Android ikke understøttes længere.</string>
 	<string name="wallet_version_dialog_button_market">Google Play</string>
 	<string name="wallet_version_dialog_button_binary">Download</string>
-	<string name="wallet_precision_warning_dialog_title">Ændring af denominering</string>
-	<string name="wallet_precision_warning_dialog_msg">Denominering er ændret fra dogecoin (DOGE) til millidogecoin (mDOGE). Alle beløb ganges op med en faktor 1000.\n\nDu kan ændre dette tilbage i opsætningen.</string>
 	<string name="wallet_old_sdk_dialog_title">Android-version er uddateret</string>
 	<string name="wallet_old_sdk_dialog_message">Der er risiko for, at en af de næste udgivelser af Dogecoin Wallet ikke vil understøtte din enhed længere. I nogle tilfælde kan det være svært at bruge mønter på denne enhed.\n\nMed mindre du ved hvad du gør, anbefales det snart at flytte dine mønter væk.</string>
 	<string name="send_coins_activity_title">Send Dogecoins</string>
@@ -84,6 +83,7 @@
 	<string name="send_coins_address_context_clear_title">Skriv ny adresse</string>
 	<string name="request_coins_activity_title">Forespørg Dogecoins</string>
 	<string name="request_coins_fragment_amount_label">Forespurgt beløb (valgfri)</string>
+	<string name="request_coins_fragment_accept_bluetooth_payment">Modtag betaling via Bluetooth for mere pålidelig bearbejdning</string>
 	<string name="request_coins_fragment_initiate_request_qr">Få afsenderen til at scanne denne kode.</string>
 	<string name="request_coins_fragment_initiate_request_nfc">Eller berør en NFC-aktiveret enhed.</string>
 	<string name="request_coins_clipboard_msg">Dogecoin-forespørgsel kopieret til udklipsholderen</string>
@@ -110,7 +110,7 @@
 	<string name="edit_address_book_entry_dialog_address_label">Adresse</string>
 	<string name="edit_address_book_entry_dialog_label_label">Navn</string>
 	<string name="edit_address_book_entry_dialog_button_edit">Gem</string>
-	<string name="transaction_row_message_purpose_key_rotation">Denne transaktion styrker din tegnebog mod tyveri. &lt;u>Mere info.&lt;/u></string>
+	<string name="transaction_row_message_purpose_key_rotation">Denne transaktion styrker din tegnebog mod tyveri. &lt;u&gt;Mere info.&lt;/u&gt;</string>
 	<string name="transaction_row_message_own_unbroadcasted">Denne betaling er ikke sendt endnu.</string>
 	<string name="transaction_row_message_received_direct">Denne betaling er modtaget direkte. Der er en risiko for, at den aldrig bliver brugbar.</string>
 	<string name="transaction_row_message_received_unconfirmed_unlocked">Denne betaling bør blive brugbar om få minutter.</string>
@@ -124,6 +124,7 @@
 	<string name="peer_list_row_ping_time">⇆ %d&#x2009;ms</string>
 	<string name="import_keys_dialog_title">Genopret private nøgler</string>
 	<string name="import_keys_dialog_message">Vælg en fil med sikkerhedskopi af private nøgler fra ekstern eller app-privat lager:</string>
+	<string name="import_keys_dialog_warning">Vigtigt: Indlæs ikke private nøgler fra tvivlsomme kilder! Andre kan opnå kontrol over dine midler, hvis du gør dette.</string>
 	<string name="import_keys_dialog_file_security_encrypted">kodeord krypteret</string>
 	<string name="import_keys_dialog_file_security_unencrypted">ukrypteret</string>
 	<string name="import_keys_dialog_file_security_external">ekstern lager</string>
@@ -156,6 +157,7 @@
 	<string name="input_parser_cannot_classify">Kan ikke klassificere input:\n%s</string>
 	<string name="input_parser_invalid_bitcoin_uri">Ugyldig Dogecoin-URI:\n%s</string>
 	<string name="input_parser_invalid_address">Modtog ugyldig dogecoin-adresse!\n(Blanding af Mainnet/Testnet?)</string>
+	<string name="input_parser_unverifyable_paymentrequest">Kan ikke verificere betalingsforespørgsel:\n%s</string>
 	<string name="input_parser_invalid_paymentrequest">Ugyldig betalingsforespørgsel:\n%s</string>
 	<string name="input_parser_invalid_transaction">Ugyldig transaktion:\n%s</string>
 	<string name="preferences_activity_title">Opsætning</string>
@@ -172,17 +174,17 @@
 	<string name="preferences_trusted_peer_only_summary">Forhindrer forbindelse til andre peers end den betroede.</string>
 	<string name="preferences_data_usage_title">Dataforbrug</string>
 	<string name="preferences_data_usage_summary">Vis indstillinger for restriktion på dataforbrug på mobile netværk.</string>
-	<string name="preferences_report_issue_title">Raportér fejl</string>
-	<string name="preferences_report_issue_summary">Saml information om fejlen og email din rapport til udviklerne.</string>
+	<string name="preferences_report_issue_title">Raportér problem</string>
+	<string name="preferences_report_issue_summary">Saml information om dit problem og email din rapport til udviklerne.</string>
 	<string name="preferences_initiate_reset_title">Nustil blockkæde</string>
 	<string name="preferences_initiate_reset_summary">Nulstil blokkæde, transaktioner og tegnebogssaldo. Genafspilning vil tage et stykke tid.</string>
 	<string name="preferences_initiate_reset_dialog_message">Vil du nulstille og genafspille blokkæden?\n\nDette vil midlertidigt skjule din tegnebogssaldo og fjerne transaktioner. Begge dele vil genskabes efterhånden som blokkæden synkroniseres.</string>
 	<string name="preferences_initiate_reset_dialog_positive">Nulstil</string>
-	<string name="report_issue_dialog_title_issue">Rapportér fejl</string>
+	<string name="report_issue_dialog_title_issue">Rapportér problem</string>
 	<string name="report_issue_dialog_title_crash">Tidligere programnedbrud opfanget</string>
-	<string name="report_issue_dialog_message_issue">Beskriv venligst fejlen så præcist, at en udvikler kan genskabe den.</string>
-	<string name="report_issue_dialog_message_crash">Vil du sende en nedbrudsrapport for at hjælpe med at rette op på fejlen i fremtiden?</string>
-	<string name="report_issue_dialog_description">fejlbeskrivelse</string>
+	<string name="report_issue_dialog_message_issue">Beskriv venligst problemet så præcist, at det kan genskabes af udviklerne. Hvis det er specifikt til din tegnebog, bør du overveje at vedhæfte dump.</string>
+	<string name="report_issue_dialog_message_crash">Vil du sende en nedbrudsrapport for at hjælpe med at rette op på problemet i fremtiden?</string>
+	<string name="report_issue_dialog_description">problembeskrivelse</string>
 	<string name="report_issue_dialog_report">Rapport</string>
 	<string name="report_issue_dialog_collect_device_info">Tilføj enhedsinformation</string>
 	<string name="report_issue_dialog_collect_installed_packages">Tilføj liste over installerede pakker</string>
@@ -193,7 +195,7 @@
 	<string name="about_title">Om</string>
 	<string name="about_license_title">Licens</string>
 	<string name="about_credits_bitcoinj_title">Denne app bruger bitcoinj %s</string>
-	<string name="about_credits_zxing_title">"Denne app bruger 'zxing'"</string>
+	<string name="about_credits_zxing_title">Denne app bruger \'zxing\'</string>
 	<string name="about_credits_icon_title">"Denne app bruger et ikon af 'dogecoin.com'"</string>
 	<string name="about_community_googleplus_title">Google+-fællesskab</string>
 	<string name="about_community_googleplus_summary">Diskussioner om appen</string>
@@ -204,7 +206,6 @@
 	<string name="about_credits_market_publisher_title">Andre apps af forfatteren</string>
 	<string name="notification_coins_received_msg">Modtog %s</string>
 	<string name="notification_peers_connected_msg">%d peers forbundet</string>
-
 	<!-- generic buttons -->
 	<string name="button_ok">O.k.</string>
 	<string name="button_dismiss">Afvis</string>
@@ -226,7 +227,6 @@
 	<string name="action_browse">Gennemse</string>
 	<string name="time_today">i dag</string>
 	<string name="address_unlabeled">(uden etiket)</string>
-
 	<!-- generic error messages -->
 	<string name="error_io">I/O-fejl: %s</string>
 	<string name="error_http">HTTP-fejl %1$s:\n%2$s</string>

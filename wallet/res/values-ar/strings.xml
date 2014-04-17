@@ -47,7 +47,6 @@
 	<string name="wallet_version_dialog_msg">يقوم هذ الإصدار بإصلاح أعطال مهمة. للمزيد من التفاصيل، يرجى مراجعة سجل التغييرات في متجر جوجل بلاي Google Play.</string>
 	<string name="wallet_version_dialog_button_market">متجر جوجل بلاي Google Play.</string>
 	<string name="wallet_version_dialog_button_binary">تنزيل</string>
-	<string name="wallet_precision_warning_dialog_title">تغيير وحدات القياس</string>
 	<string name="wallet_precision_warning_dialog_msg">تم تغيير وحدة القياس من بيتكوين (DOGE) إلى ميلليبيتكوين (mDOGE). يتم ضرب جميع المبالغ بعامل 1000.\n\nيمكنك التراجع عن هذا التغيير في إعدادات.</string>
 	<string name="wallet_old_sdk_dialog_title">إصدار نظام الأندرويد الخاص بك قديم أو غير محدث</string>
 	<string name="wallet_old_sdk_dialog_message">هناك احتمالات بأن واحدة من الإصدارات القادمة من محفظة البيتكوين Dogecoin Wallet لن تدعم جهازك. في بعض الحالات، سيصعب عليك إنفاق أو التعامل بالبيتكوين على هذا الجهاز.\n\nإذا كنت لا تعلم ما تقوم به، فإنه من المستحسن استخراج ونقل عملات البيتكوين الخاصة بك من هذه المحفظة إلى أخرى كإجراء أمني.</string>
@@ -205,7 +204,6 @@
 	<string name="about_credits_market_publisher_title">برامج أخرى للمؤلف</string>
 	<string name="notification_coins_received_msg">تم إستلام %s</string>
 	<string name="notification_peers_connected_msg">الأقران المتصلة peers %d </string>
-
 	<!-- generic buttons -->
 	<string name="button_ok">حسنا</string>
 	<string name="button_dismiss">إقالة</string>
@@ -227,7 +225,6 @@
 	<string name="action_browse">تصفح</string>
 	<string name="time_today">اليوم</string>
 	<string name="address_unlabeled">(غير مسمى)</string>
-
 	<!-- generic error messages -->
 	<string name="error_io">خطأ مدخلات/مخرجات: %s</string>
 	<string name="error_http">خطأ HTTP %1$s:\n%2$s</string>

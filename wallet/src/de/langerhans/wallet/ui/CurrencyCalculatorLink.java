@@ -133,6 +133,11 @@ public final class CurrencyCalculatorLink
 		}
 	}
 
+	public boolean hasAmount()
+	{
+		return getAmount() != null;
+	}
+
 	private void update()
 	{
 		btcAmountView.setEnabled(enabled);
@@ -198,7 +203,12 @@ public final class CurrencyCalculatorLink
 
 	public void setBtcAmount(@Nonnull final BigInteger amount)
 	{
+		final Listener listener = this.listener;
+		this.listener = null;
+
 		btcAmountView.setAmount(amount, true);
+
+		this.listener = listener;
 	}
 
 	public void setNextFocusId(final int nextFocusId)

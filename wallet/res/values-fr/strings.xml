@@ -49,8 +49,6 @@
         <string name="wallet_version_dialog_msg_deprecated">Si vous ne voyez pas une mise à jour, cela signifie probablement que votre version d\'Android n\'est plus prise en charge.</string>
         <string name="wallet_version_dialog_button_market">Google Play</string>
         <string name="wallet_version_dialog_button_binary">Télécharger</string>
-        <string name="wallet_precision_warning_dialog_title">Changement de coupure</string>
-        <string name="wallet_precision_warning_dialog_msg">La coupure a été changée de Dogecoin (DOGE) à milliDogecoin (mDOGE). Tous les montants sont multipliés par un facteur de 1000.\n\nVous pouvez rétablir ce changement dans les paramètres.</string>
         <string name="wallet_old_sdk_dialog_title">La version d\'Android est obsolète</string>
         <string name="wallet_old_sdk_dialog_message">Il est probable qu\'une prochaine version de Dogecoin Wallet ne prenne plus en charge votre appareil. Dans certains cas, il peut être difficile de dépenser des Dogecoins avec cet appareil.\n\nÀ moins que vous ne sachiez ce que vous faites, il est recommandé de déplacer vos Dogecoins bientôt.</string>
         <string name="send_coins_activity_title">Envoyer des Dogecoins</string>
@@ -225,7 +223,7 @@
         <string name="about_credits_market_publisher_title">Autres applis de l\'auteur</string>
         <string name="notification_coins_received_msg">%s reçu</string>
         <string name="notification_peers_connected_msg">%d pairs connectés</string>
- 
+
         <!-- generic buttons -->
         <string name="button_ok">OK</string>
         <string name="button_dismiss">Refuser</string>
@@ -247,7 +245,7 @@
         <string name="action_open_blockexplorer">Ouvrir dans dogechain.info</string>
         <string name="time_today">aujourd\'hui</string>
         <string name="address_unlabeled">(sans étiquette)</string>
- 
+
         <!-- generic error messages -->
         <string name="error_io">Erreur e/s : %s</string>
         <string name="error_http">Erreur HTTP %1$s :\n%2$s</string>

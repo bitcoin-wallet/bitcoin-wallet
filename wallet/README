@@ -53,11 +53,14 @@ is world readable/writeable. The goal is to be able to debug easily.
 
 You can probably skip some steps, especially if you built Android apps before.
 
-You'll need git, a Java SDK 6 (or later) and at least Maven 3 for this. I'll assume Ubuntu Linux
-for the package installs.
+You'll need git, a Java SDK 6 (or later) and Maven 3.0.4 for this. I'll assume Ubuntu Linux for
+the package installs.
 
 	# first time only
 	sudo apt-get install git maven openjdk-6-jdk
+
+If you want to use Maven 3.1.0 or later, you need edit pom.xml to use android-maven-plugin version
+3.8.2 or later.
 
 Get the Android SDK Tools from
 
@@ -70,11 +73,11 @@ and unpack it to your workspace directory. Switch to that Android SDK directory,
 
 to download the necessary API level.
 
-Next, you need to build bitcoinj. In your workspace, use
+Next, you need to build dogecoinj. In your workspace, use
 
 	# first time only
-	git clone -b release-0.11 https://code.google.com/r/bitcoinj/ bitcoinj
-	cd bitcoinj
+	git clone -b release-0.11 https://github.com/langerhans/dogecoinj-new.git dogecoinj
+	cd dogecoinj
 	mvn clean install
 
 Finally, you can build dogecoin Wallet and sign it with your development key. Again in your workspace,

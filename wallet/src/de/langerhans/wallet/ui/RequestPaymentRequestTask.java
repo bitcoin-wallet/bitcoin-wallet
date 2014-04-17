@@ -49,7 +49,7 @@ public abstract class RequestPaymentRequestTask
 	private final Handler callbackHandler;
 	private final ResultCallback resultCallback;
 
-	private static final Logger log = LoggerFactory.getLogger(DirectPaymentTask.class);
+	private static final Logger log = LoggerFactory.getLogger(RequestPaymentRequestTask.class);
 
 	public interface ResultCallback
 	{

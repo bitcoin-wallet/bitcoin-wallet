@@ -22,7 +22,7 @@
 	<string name="exchange_rates_fragment_default">(predefinito)</string>
 	<string name="exchange_rates_fragment_rate">tasso</string>
 	<string name="exchange_rates_fragment_balance">saldo</string>
-	<string name="exchange_rates_fragment_source">Prezzo prelevato da %s</string>
+	<string name="exchange_rates_fragment_source">Prezzo da %s</string>
 	<string name="exchange_rates_context_set_as_default_title">Imposta come valuta straniera predefinita</string>
 	<string name="wallet_transactions_fragment_tab_received">Ricevuto</string>
 	<string name="wallet_transactions_fragment_tab_all">Entrambi</string>
@@ -46,20 +46,35 @@
 	<string name="wallet_timeskew_dialog_msg">Il tuo dispositivo è spento da %d minuti. Probabilmente non puoi inviare o ricevere Dogecoin a causa di questo problema.\n\nDovresti controllare e correggere le tue impostazioni dell\'orario e del fuso orario.</string>
 	<string name="wallet_version_dialog_title">Una nuova versione è disponibile!</string>
 	<string name="wallet_version_dialog_msg">Questa versione ha corretto bug importanti. Per dettagli, guarda il change log su Google Play.</string>
+	<string name="wallet_version_dialog_msg_deprecated">Se non si vede un aggiornamento, questo probabilmente significa che la vostra versione di Android non è più supportata.</string>
 	<string name="wallet_version_dialog_button_market">Google Play</string>
 	<string name="wallet_version_dialog_button_binary">Scarica</string>
 	<string name="wallet_old_sdk_dialog_title">La versione Android non è aggiornata</string>
 	<string name="wallet_old_sdk_dialog_message">Ci sono possibilità che una delle prossime versioni di Dogecoin Wallet non supporterà più il tuo dispositivo. In alcuni casi, può essere difficile spendere denaro su questo dispositivo.\n\nA meno che tu sappia quello che stai facendo, è raccomandato di spostare il tuo denaro al più presto.</string>
 	<string name="send_coins_activity_title">Invia Dogecoins</string>
+	<string name="send_coins_fragment_request_payment_request_progress">Acquisizione firma da %s…</string>
+	<string name="send_coins_fragment_request_payment_request_failed_title">Acquisizione firma fallita</string>
+	<string name="send_coins_fragment_request_payment_request_wrong_signature">Firma errata!</string>
+	<string name="send_coins_fragment_payee_verified_by">confermato da: %s</string>
+	<string name="send_coins_fragment_payee_verified_by_unknown">sconosciuto</string>
 	<string name="send_coins_fragment_receiving_address_label">Paga a</string>
 	<string name="send_coins_fragment_receiving_address_hint">inserisci indirizzo o nome</string>
 	<string name="send_coins_fragment_receiving_address_error">Indirizzo Dogecoin invalido!</string>
 	<string name="send_coins_fragment_receiving_address_error_cross_network">Non puoi usare l\'indirizzo %s con questo portafoglio!</string>
 	<string name="send_coins_fragment_receiving_address_error_cross_network_unknown">Non puoi usare l\'indirizzo di una rete sconosciuta con questo portafoglio!</string>
+	<string name="send_coins_fragment_receiving_address_complex">complesso\nindirizzo</string>
 	<string name="send_coins_fragment_pending">(%s DOGE in attesa di conferma)</string>
 	<string name="send_coins_fragment_amount_label">Importo da pagare</string>
+	<string name="send_coins_fragment_direct_payment_enable">Invia il pagamento al beneficiario</string>
+	<string name="send_coins_fragment_direct_payment_ack">Il tuo pagamento è stato inviato con successo.</string>
+	<string name="send_coins_fragment_direct_payment_nack">Il tuo pagamento via connessione diretta è stato rifiutato.</string>
+	<string name="send_coins_fragment_direct_payment_failed_title">Pagamento diretto fallito</string>
+	<string name="send_coins_fragment_direct_payment_failed_msg">Il tuo pagamento sarà trasmesso tramite la rete P2P.</string>
 	<string name="send_coins_fragment_button_send">Invia</string>
 	<string name="send_coins_fragment_button_back">Indietro</string>
+	<string name="send_coins_fragment_insufficient_money_title">Non abbastanza monete disponibili</string>
+	<string name="send_coins_fragment_insufficient_money_msg1">Manca %s.</string>
+	<string name="send_coins_fragment_insufficient_money_msg2">Vuoi pagare con tutto quello che hai?</string>
 	<string name="send_coins_preparation_msg">Sottoscrittura…</string>
 	<string name="send_coins_sending_msg">Invio in corso…</string>
 	<string name="send_coins_sent_msg">Inviato!</string>
@@ -69,6 +84,7 @@
 	<string name="send_coins_address_context_clear_title">Inserisci nuovo indirizzo</string>
 	<string name="request_coins_activity_title">Richiedi Dogecoins</string>
 	<string name="request_coins_fragment_amount_label">Importo richiesto (opzionale)</string>
+	<string name="request_coins_fragment_accept_bluetooth_payment">Accettazione pagamento via Bluetooth per un procedimento più affidabile</string>
 	<string name="request_coins_fragment_initiate_request_qr">Questo codice deve essere scansionato dal mittente.</string>
 	<string name="request_coins_fragment_initiate_request_nfc">Oppure tocca un dispositivo abilitato per NFC.</string>
 	<string name="request_coins_clipboard_msg">Richiesta Dogecoin copiata negli appunti</string>
@@ -85,8 +101,10 @@
 	<string name="address_book_context_copy_to_clipboard_title">Copia negli appunti</string>
 	<string name="address_book_context_default_title">Imposta come indirizzo di default</string>
 	<string name="address_book_options_paste_from_clipboard_title">Incolla dagli appunti</string>
-	<string name="address_book_options_paste_from_clipboard_empty">Appunti pieni</string>
+	<string name="address_book_options_paste_from_clipboard_empty">La clipboard è vuota</string>
+	<string name="address_book_options_paste_from_clipboard_invalid">Dati non riconoscibili</string>
 	<string name="address_book_options_scan_title">Scansione indirizzo</string>
+	<string name="address_book_options_scan_invalid">Dati scannerizzati irriconoscibli</string>
 	<string name="address_book_row_message_compromised_key">Questo indirizzo potrebbe essere compromesso. Non dovresti usarlo più per ricevere denaro.</string>
 	<string name="edit_address_book_entry_dialog_title_add">Aggiungi indirizzo</string>
 	<string name="edit_address_book_entry_dialog_title_edit">Modifica indirizzo</string>
@@ -95,17 +113,19 @@
 	<string name="edit_address_book_entry_dialog_button_edit">Salva</string>
 	<string name="transaction_row_message_purpose_key_rotation">Questa transazione rinforza il tuo portafoglio contro i furti. &lt;u&gt;Maggiori dettagli.&lt;/u&gt;</string>
 	<string name="transaction_row_message_own_unbroadcasted">Questo pagamento non è ancora stato trasmesso.</string>
+	<string name="transaction_row_message_received_direct">Questo pagamento è stato ricevuto direttamente. C\'è il rischio che non diventi spendibile.</string>
 	<string name="transaction_row_message_received_unconfirmed_unlocked">Questo pagamento dovrebbe diventare spendibile entro pochi minuti.</string>
 	<string name="transaction_row_message_received_unconfirmed_locked">Questo pagamento non è standard e dovrebbe non bisognerebbe fidarsi.</string>
 	<string name="transaction_row_message_received_dead">Questo pagamento è stato revocato dal mittente.</string>
 	<string name="transaction_row_message_received_dust">Questo piccolo importo probabilmente non sarà mai speso economicamente.</string>
 	<string name="network_monitor_activity_title">Controllo della Rete</string>
-	<string name="network_monitor_peer_list_title">Peer</string>
+	<string name="network_monitor_peer_list_title">Peers</string>
 	<string name="network_monitor_block_list_title">Blocchi</string>
 	<string name="peer_list_fragment_empty">Nessun peer connesso</string>
 	<string name="peer_list_row_ping_time">⇆ %d ms</string>
 	<string name="import_keys_dialog_title">Ripristina le chiavi private</string>
 	<string name="import_keys_dialog_message">Scegli un file di backup delle chiavi private da una memoria esterna o app-privata:</string>
+	<string name="import_keys_dialog_warning">Importante: Non caricare chiavi private da dubbiose provenienze! Altri possono ottenere il controllo sui vostri fondi se lo fate.</string>
 	<string name="import_keys_dialog_file_security_encrypted">password criptata</string>
 	<string name="import_keys_dialog_file_security_unencrypted">non criptata</string>
 	<string name="import_keys_dialog_file_security_external">memoria esterna</string>
@@ -127,15 +147,19 @@
 	<string name="export_keys_dialog_mail_subject">Backup della chiave pubblica Dogecoin Wallet</string>
 	<string name="export_keys_dialog_mail_text">Il file cifrato allegato contiene chiavi private Dogecoin e dovrebbe essere mantenuto sicuro in ogni momento. Non dimenticarti la password per la crittografia!</string>
 	<string name="export_keys_dialog_mail_intent_chooser">Archiviazione delle chiavi…</string>
+	<string name="export_keys_dialog_mail_intent_failed">Archiviazione delle chiavi fallita.</string>
 	<string name="import_export_keys_dialog_password">password</string>
 	<string name="import_export_keys_dialog_show">Mostra password</string>
 	<string name="import_export_keys_dialog_failure_title">Errore</string>
 	<string name="import_keys_intent_filter_action">Ripristina la chiave Dogecoin</string>
 	<string name="scan_camera_problem_dialog_title">Scusa</string>
 	<string name="scan_camera_problem_dialog_message">La videocamera ha un problema. Probabilmente è necessario riavviare il dispositivo.</string>
+	<string name="input_parser_io_error">Impossibile leggere i dati:\n%s</string>
 	<string name="input_parser_cannot_classify">Impossibile classificare ingresso:\n%s</string>
 	<string name="input_parser_invalid_bitcoin_uri">URI Dogecoin non valido:\n%s</string>
 	<string name="input_parser_invalid_address">Ricevuto indirizzo dogecoin non valido!\n(Hai mescolato Mainnet/Testnet?)</string>
+	<string name="input_parser_unverifyable_paymentrequest">Impossibile verificare la richiesta di pagamento:\n%s</string>
+	<string name="input_parser_invalid_paymentrequest">Richiesta di pagamento invalida:\n%s</string>
 	<string name="input_parser_invalid_transaction">Transazione non valida:\n%s</string>
 	<string name="preferences_activity_title">Impostazioni</string>
 	<string name="preferences_category_main">Preferenze</string>
@@ -159,7 +183,7 @@
 	<string name="preferences_initiate_reset_dialog_positive">Reset</string>
 	<string name="report_issue_dialog_title_issue">Segnala un problema</string>
 	<string name="report_issue_dialog_title_crash">Crash precedente rilevato</string>
-	<string name="report_issue_dialog_message_issue">Per favore descrivi il tuo problema in modo preciso così che uno sviluppatore possa riprodurlo.</string>
+	<string name="report_issue_dialog_message_issue">Descrivi il problema abbastanza precisamente da riprodurre. Se è specifico per il portafoglio, considera di allegare il dump.</string>
 	<string name="report_issue_dialog_message_crash">Vorresti inviare una segnalazione di crash, aiutando a correggere questo problema nel futuro?</string>
 	<string name="report_issue_dialog_description">descrizione del problema</string>
 	<string name="report_issue_dialog_report">Segnala</string>
@@ -168,6 +192,7 @@
 	<string name="report_issue_dialog_collect_application_log">Allega il registro dell\'applicazione</string>
 	<string name="report_issue_dialog_collect_wallet_dump">Allega il dump del portafoglio</string>
 	<string name="report_issue_dialog_mail_intent_chooser">Invio della segnalazione…</string>
+	<string name="report_issue_dialog_mail_intent_failed">Invio della segnalazione non riuscito.</string>
 	<string name="about_title">Informazioni</string>
 	<string name="about_license_title">Licenza</string>
 	<string name="about_credits_bitcoinj_title">Questa applicazione fa uso di \'dogecoinj\'</string>
@@ -182,11 +207,11 @@
 	<string name="about_credits_market_publisher_title">Altre applicazioni dell\'autore</string>
 	<string name="notification_coins_received_msg">Ricevuti %s</string>
 	<string name="notification_peers_connected_msg">Connesso a %d peers</string>
-
 	<!-- generic buttons -->
 	<string name="button_ok">OK</string>
 	<string name="button_dismiss">Chiudi</string>
 	<string name="button_cancel">Annulla</string>
+	<string name="button_retry">Riprova</string>
 	<string name="button_help">Aiuto</string>
 	<string name="button_add">Aggiungi</string>
 	<string name="button_delete">Cancella</string>
@@ -199,7 +224,11 @@
 	<string name="button_send_coins">Invia Dogecoins</string>
 	<string name="button_scan">Analizza</string>
 	<string name="button_edit_address">Aggiungi/modifica indirizzo</string>
+	<string name="action_browse">Sfoglia</string>
 	<string name="time_today">oggi</string>
 	<string name="address_unlabeled">(non etichettato)</string>
+	<!-- generic error messages -->
+	<string name="error_io">I/O errore: %s</string>
+	<string name="error_http">errore HTTP %1$s:\n%2$s</string>
 
 </resources>

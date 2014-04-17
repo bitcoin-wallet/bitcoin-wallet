@@ -150,6 +150,9 @@ public class ExchangeRatesProvider extends ContentProvider
 	@Override
 	public Cursor query(final Uri uri, final String[] projection, final String selection, final String[] selectionArgs, final String sortOrder)
 	{
+		if (Constants.BUG_OPENSSL_HEARTBLEED)
+			return null;
+
 		final long now = System.currentTimeMillis();
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getContext());
         int provider = Integer.parseInt(sp.getString(Configuration.PREFS_KEY_EXCHANGE_PROVIDER, "0"));

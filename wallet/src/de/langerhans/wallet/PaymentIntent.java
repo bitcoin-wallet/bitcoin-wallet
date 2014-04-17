@@ -298,7 +298,10 @@ public final class PaymentIntent implements Parcelable
 				if (output.hasAmount())
 					amount = amount.add(output.amount);
 
-		return amount;
+		if (amount.signum() != 0)
+			return amount;
+		else
+			return null;
 	}
 
 	public boolean mayEditAmount()

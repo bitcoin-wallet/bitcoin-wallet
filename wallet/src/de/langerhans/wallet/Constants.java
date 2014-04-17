@@ -110,9 +110,13 @@ public class Constants
 	public static final long LAST_USAGE_THRESHOLD_JUST_MS = DateUtils.HOUR_IN_MILLIS;
 	public static final long LAST_USAGE_THRESHOLD_RECENTLY_MS = 2 * DateUtils.DAY_IN_MILLIS;
 
-	public static final int SDK_JELLY_BEAN_MR2 = 18;
+    public static final int SDK_JELLY_BEAN = 16;
+    public static final int SDK_JELLY_BEAN_MR2 = 18;
 
 	public static final int SDK_DEPRECATED_BELOW = Build.VERSION_CODES.ICE_CREAM_SANDWICH;
+
+	public static final boolean BUG_OPENSSL_HEARTBLEED = Build.VERSION.SDK_INT == Constants.SDK_JELLY_BEAN
+			&& Build.VERSION.RELEASE.startsWith("4.1.1");
 
 	public static final int MEMORY_CLASS_LOWEND = 48;
 

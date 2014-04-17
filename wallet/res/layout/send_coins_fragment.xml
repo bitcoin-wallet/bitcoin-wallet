@@ -75,6 +75,9 @@
 			android:layout_height="wrap_content"
 			android:layout_gravity="left"
 			android:layout_weight="1"
+			android:ellipsize="end"
+			android:maxLines="3"
+			android:singleLine="false"
 			android:textSize="@dimen/font_size_normal"
 			android:textStyle="bold" />
 

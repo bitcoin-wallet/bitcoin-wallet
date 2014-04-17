@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <resources>
 
 	<string name="toast_wallet_reset">הארנק אופס, האתחול יקח זמן מה</string>
@@ -149,15 +149,14 @@
 	<string name="about_title">על</string>
 	<string name="about_license_title">רישיון</string>
 	<string name="about_credits_bitcoinj_title">This app is using dogecoinj %s</string>
-	<string name="about_credits_zxing_title">"This app is using 'zxing'"</string>
-	<string name="about_credits_icon_title">"This app is using an icon by 'dogecoin'"</string>
+	<string name="about_credits_zxing_title">This app is using \'zxing\'</string>
+	<string name="about_credits_icon_title">This app is using an icon by \'dogecoin\'</string>
 	<string name="about_author_twitter_title">Author at Twitter</string>
 	<string name="about_author_googleplus_title">Author at Google+</string>
 	<string name="about_market_app_title">Google Play App Page</string>
 	<string name="about_credits_market_publisher_title">Other Apps of Author</string>
 	<string name="notification_coins_received_msg">נתקבלו %s</string>
 	<string name="notification_peers_connected_msg">%d שכנים מחוברים</string>
-
 	<!-- generic buttons -->
 	<string name="button_ok">אישור</string>
 	<string name="button_dismiss">התעלם</string>
