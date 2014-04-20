@@ -1,0 +1,109 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+
+	<string name="help_wallet">
+<![CDATA[
+		<p>
+			V zgornjem levem kotu zaslona je zapisan vaš bitcoin naslov. Oseba, ki vam pošilja novce, mora poznati na naslov.
+			Z dotikom ga lahko spremenite.
+		</p>
+		<p>
+			Desno od naslova je QR-koda, ki vsebuje ta naslov. Plačnik jo lahko prečita s kamero.
+			Z dotikom jo lahko povečate.
+		</p>
+		<p>
+			Na sredi zaslona vidite svoje stanje.
+			Stanje je spodaj prikazano tudi v izbrani lokalni valuti (npr. EUR).
+			Dotaknite se stanja za prikaz možnih lokalnih valut. Katerokoli valuto lahko potem izberete za privzeto: dotaknite se je in potem pritisnite risalni žebljiček zgoraj desno.
+		</p>
+		<p>
+			V spodnji polovici zaslona so prikazana vaša nakazila. Seznam nakazil je na začetku prazen.
+			Nova nakazila so prikazana v sivi, dokler niso potrjena.
+			Z dotikom nakazila lahko pošiljatelja oz. prejemnika dodate v imenik.
+			S potegom levo ali desno menjate med prikazi prejetih, poslanih in vseh nakazil.
+		</p>
+		<p>
+			Novce lahko pošiljate ali prejemate z gumbi v akcijski vrstici na dnu.
+		</p>
+		<p>
+			V aplikacijskem meniju imate na voljo še druge možnosti.
+		</p>
+	]]>
+	</string>
+	<string name="help_request_coins">
+<![CDATA[
+		<p>
+			S pomočjo tega pogovornega okna lahko drugi osebi, ki že ima nameščeno bitcoin denarnico, posredujete zahtevek za plačilo.
+		</p>
+		<p>
+			Najprej lahko vnesete znesek za plačilo.
+		</p>
+		<p>
+			Potem lahko plačniku pokažete prikazano QR-kodo, lahko pa mu zahtevek za plačilo pošljete z uporabo gumba za deljenje v vrstici z akcijami.
+		</p>
+		<p>
+			Ko bo plačnik prejel zahtevek za plačilo, mu bo prikazano pogovorno okno s plačilnimi podatki. Moral bo le še potrditi pošiljanje novcev.
+		</p>
+	]]>
+	</string>
+	<string name="help_send_coins">
+<![CDATA[
+		<p>
+			Začeli ste s postopkom pošiljanja novcev.
+			Sem ste prišli ali s klikom za pošiljanje na glavnem zaslonu, s prejetjem zahtevka za plačilo ali pa s klikom povezave za plačilo v brskalniku.
+		</p>
+		<p>
+			Vnesti je potrebno naslov za plačilo.
+			Naslov je že vnešen, če ste prejeli zahtevek za plačilo ali prečitali QR-kodo. Če še ni vnešen, lahko sedaj prečitate QR-kodo z naslovom ali zahtevkom za plačilo tako, da pritisnete ikono s fotoaparatom.
+			Lahko tudi začnete tipkati in naslov se bo samodejno dopolnil iz imenika, če ga uporabljate.
+		</p>
+		<p>
+			Preverite, koliko bitcoinov imate na voljo za potrošnjo.
+			Nepotrjenih prejetih novcev še ne morete potrošiti; počakati morate na potrditev iz omrežja.
+		</p>
+		<p>
+			Vnesite znesek za plačilo. Aplikacija vas bo opozorila, če ne boste imeli dovolj novcev za izbrani znesek.
+		</p>
+		<p>
+			Plačilo lahko vnesete tudi, če niste povezani v omrežje.
+			Plačilo bo poslano, ko naslednjič zaženete Bitcoin Wallet.
+			Če želite, da se plačilo izvede čim hitreje, poskrbite, da boste dobro povezani v omrežje (npr. prek lokalnega Wi-Fi omrežja).
+		</p>
+		<p>
+			Opozorilo: Vsako plačilo je dokončno in nepovratno! Pri vsakem plačilu preverite, da uporabljate pravi prejemni naslov.
+		</p>
+	]]>
+	</string>
+	<string name="help_safety">
+<![CDATA[
+		<p>
+			<b>Pomembna opozorila glede varnosti:</b>
+		</p>
+		<p>
+			Bitcoini so shranjeni na tej napravi.
+			<b>Če izgubite napravo, izgubite svoje bitcoine.</b>
+		</p>
+		<p>
+			Zato morate imeti <b>rezervno kopijo svoje denarnice</b>!
+			V ta namen uporabiti varnostno kopiranje v tej aplikaciji in ne varnostnega kopiranja z uporabo kake druge aplikacije.
+			Varnostno kopijo varno hranite in ne pozabite njenega gesla.
+		</p>
+		<p>
+			Če nameravate aplikacijo odstraniti z naprave (ali počistiti podatke z naprave), <b>prej prenesite svoje novce v denarnico na drugi napravi</b>.
+			Novci, ki ostanejo tu, bodo ob odstranitvi aplikacije izgubljeni.
+		</p>
+		<p>
+			<b>Vsa plačila so dokončna</b>.
+			Če pošljete svoje novce neznano kam, jih ni mogoče dobiti nazaj.
+		</p>
+		<p>
+			<b>Varno rokujte s svojo napravo!</b>
+			Ne uporabljate root-dostopa do naprave. Nameščajte samo aplikacije, ki jim zaupate. Zlonamerne aplikacije lahko poskusijo in uspejo ukrasti vaše novce.
+		</p>
+		<p>
+			Znižajte tveganje tako, da <b>v tej denarnici držite le nizke vsote</b> za vsakodnevno uporabo.
+		</p>
+	]]>
+	</string>
+
+</resources>
