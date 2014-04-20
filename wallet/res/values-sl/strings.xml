@@ -24,7 +24,7 @@
   <string name="exchange_rates_fragment_source">Vir cene: %s</string>
   <string name="exchange_rates_context_set_as_default_title">Nastavi kot privzeto tujo valuto</string>
   <string name="wallet_transactions_fragment_tab_received">Prejeto</string>
-  <string name="wallet_transactions_fragment_tab_all">Vse transakcije</string>
+  <string name="wallet_transactions_fragment_tab_all">Vsa nakazila</string>
   <string name="wallet_transactions_fragment_tab_sent">Poslano</string>
   <string name="wallet_transactions_fragment_empty_text_received">Prejeli niste še nobenih novcev.</string>
   <string name="wallet_transactions_fragment_empty_text_sent">Poslali niste še nobenih novcev.</string>
@@ -38,7 +38,7 @@
   <string name="wallet_options_donate">Donacije</string>
   <string name="wallet_donate_address_label">Donacija za Bitcoin Wallet</string>
   <string name="wallet_low_storage_dialog_title">Na notranjem pomnilniškem mediju zmanjkuje prostora!</string>
-  <string name="wallet_low_storage_dialog_msg">Bitcoin Wallet uporablja notranji pomnilnik, da si zapomni transakcije in bloke. Če tu zmanjka prostora, bo denarnica prenehala delovati in vaši novci bodo v nevarnosti!\n\nŽelite odpreti Application Manager, da boste lahko odstranili odvečne aplikacije?</string>
+  <string name="wallet_low_storage_dialog_msg">Bitcoin Wallet uporablja notranji pomnilnik, da si zapomni nakazila in bloke. Če tu zmanjka prostora, bo denarnica prenehala delovati in vaši novci bodo v nevarnosti!\n\nŽelite odpreti Application Manager, da boste lahko odstranili odvečne aplikacije?</string>
   <string name="wallet_low_storage_dialog_button_apps">Upravljanje z aplikacijami</string>
   <string name="wallet_timeskew_dialog_title">Preverite nastavitve časa!</string>
   <string name="wallet_timeskew_dialog_msg">Čas na vaši napravi prehiteva ali zaostaja za %d minut. Zaradi tega verjetno ne morete prejemati ali pošiljati bitcoinov.\n\nProsimo, preverite in popravite svoje časovne nastavitve.</string>
@@ -109,7 +109,7 @@
   <string name="edit_address_book_entry_dialog_address_label">Naslov</string>
   <string name="edit_address_book_entry_dialog_label_label">Ime</string>
   <string name="edit_address_book_entry_dialog_button_edit">Shrani</string>
-  <string name="transaction_row_message_purpose_key_rotation">Ta transakcija je namenjena zaščiti pred določeno vrsto kraje. &lt;u&gt;Več informacij.&lt;/u&gt;</string>
+  <string name="transaction_row_message_purpose_key_rotation">To nakazilo je namenjeno zaščiti pred določeno vrsto kraje. &lt;u&gt;Več informacij.&lt;/u&gt;</string>
   <string name="transaction_row_message_own_unbroadcasted">To plačilo še ni bilo oddano.</string>
   <string name="transaction_row_message_received_direct">To plačilo je bilo prejeto neposredno. Obstaja tveganje, da ga ne boste nikoli mogli potrošiti.</string>
   <string name="transaction_row_message_received_unconfirmed_unlocked">Te prejete novce boste predvidoma lahko uporabili v nekaj minutah.</string>
@@ -133,7 +133,7 @@
   <string name="import_keys_dialog_button_import">Obnovi</string>
   <string name="import_keys_dialog_success_imported">Število obnovljenih ključev: %d</string>
   <string name="import_keys_dialog_success_existing">%d zasebnih ključev ni bilo obnovljenih, ker so že prisotni v denarnici.</string>
-  <string name="import_keys_dialog_success_reset">Za osvežitev stanja morate ponovno prenesti transakcije. Želite to storiti zdaj?</string>
+  <string name="import_keys_dialog_success_reset">Za osvežitev stanja morate ponovno prenesti nakazila. Želite to storiti zdaj?</string>
   <string name="import_keys_dialog_failure">Zasebnih ključev ni bilo mogoče obnoviti:\n\n%s\n\nNapačno geslo?</string>
   <string name="import_keys_dialog_button_reset_blockchain">Ponastavi</string>
   <string name="export_keys_dialog_title">Rezervno kopiranje zasebnih ključev</string>
@@ -158,7 +158,7 @@
   <string name="input_parser_invalid_address">Neveljaven bitcoin naslov!\n(Zamenjava testnega in pravega omrežja?)</string>
   <string name="input_parser_unverifyable_paymentrequest">Ne morem preveriti zahtevka za plačilo:\n%s</string>
   <string name="input_parser_invalid_paymentrequest">Neveljavna prošnja za plačilo:\n%s</string>
-  <string name="input_parser_invalid_transaction">Neveljavna transakcija:\n%s</string>
+  <string name="input_parser_invalid_transaction">Neveljavno nakazilo:\n%s</string>
   <string name="preferences_activity_title">Nastavitve</string>
   <string name="preferences_category_main">Nastavitve</string>
   <string name="preferences_category_diagnostics">Diagnostika</string>
@@ -175,9 +175,9 @@
   <string name="preferences_data_usage_summary">Prikaži možnosti za omejitev porabe podatkov prek mobilnih omrežij.</string>
   <string name="preferences_report_issue_title">Prijavi težavo</string>
   <string name="preferences_report_issue_summary">Opišite težavo in jo sporočite po elektronski pošti razvijalcem aplikacije.</string>
-  <string name="preferences_initiate_reset_title">Ponastavi transakcije</string>
-  <string name="preferences_initiate_reset_summary">Ponovno prenesi transakcije in preračunaj stanje. To bo vzelo nekaj časa.</string>
-  <string name="preferences_initiate_reset_dialog_message">Želite ponovno prenesti in preračunati transakcije?\n\nZačasno ne boste mogli videti svojega stanja in transakcij ter izvajati plačil. Ti podatki se bodo spet prikazali tekom ponovnega usklajevanja.</string>
+  <string name="preferences_initiate_reset_title">Ponastavi nakazila</string>
+  <string name="preferences_initiate_reset_summary">Ponovno prenesi nakazila in preračunaj stanje. To bo vzelo nekaj časa.</string>
+  <string name="preferences_initiate_reset_dialog_message">Želite ponovno prenesti in preračunati nakazila?\n\nZačasno ne boste mogli videti svojega stanja in transakcij ter izvajati plačil. Ti podatki se bodo spet prikazali tekom ponovnega usklajevanja.</string>
   <string name="preferences_initiate_reset_dialog_positive">Ponastavi</string>
   <string name="report_issue_dialog_title_issue">Prijavi težavo</string>
   <string name="report_issue_dialog_title_crash">Zaznano sesutje v preteklosti</string>
