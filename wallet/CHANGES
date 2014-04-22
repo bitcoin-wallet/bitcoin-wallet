@@ -1,3 +1,11 @@
+v3.46
+
+* New translation into Slovenian.
+* Update Hebrew translation.
+* Fix missing transactions due to once dusty outputs which are standard as of Bitcoin Core 0.9.
+* Preparation for fetching payment requests via Bluetooth.
+* Based on bitcoinj 0.11.2.
+
 v3.44-v3.45
 
 * Due to the OpenSSL "Heartbleed" vulnerability, removed all HTTPS network access on Android 4.1.1.
@@ -38,6 +46,7 @@ v3.35
 
 * Protect wallet against dust spam.
 * Fixed some bugs in the payment protocol.
+* Based on bitcoinj 0.11.1.
 
 v3.34
 
