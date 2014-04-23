@@ -66,6 +66,25 @@ public final class BitcoinIntegration
 		start(context, intent);
 	}
 
+ 	/**
+	 * Request a URI, already obtained (i.e. from a weblink), without feedback from the app.
+	 * 
+	 * @param context
+	 *            Android context
+	 * @param Uri
+	 *            a Uri
+	 */
+	public static void request(final Context context, final Uri uri)
+	{
+		final Intent intent = makeBitcoinUriIntent(uri);
+
+		start(context, intent);
+	}
+
+
+
+
+
 	/**
 	 * Request payment from user, without feedback from the app.
 	 * 
@@ -239,6 +258,16 @@ public final class BitcoinIntegration
 
 		return intent;
 	}
+
+
+	private static Intent makeBitcoinUriIntent(final Uri uri)
+	{
+		final Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri.toString()));
+
+		return intent;
+	}
+
+
 
 	private static Intent makePaymentRequestIntent(final byte[] paymentRequest)
 	{
