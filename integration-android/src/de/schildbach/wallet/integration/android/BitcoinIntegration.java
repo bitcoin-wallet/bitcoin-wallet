@@ -66,6 +66,25 @@ public final class BitcoinIntegration
 		start(context, intent);
 	}
 
+ 	/**
+	 * Request a URI, already obtained (i.e. from a weblink), without feedback from the app.
+	 * 
+	 * @param context
+	 *            Android context
+	 * @param Uri
+	 *            a Uri
+	 */
+	public static void request(final Context context, final Uri uri)
+	{
+		final Intent intent = makeBitcoinUriIntent(uri);
+
+		start(context, intent);
+	}
+
+
+
+
+
 	/**
 	 * Request payment from user, without feedback from the app.
 	 * 
@@ -149,6 +168,31 @@ public final class BitcoinIntegration
 
 		startForResult(activity, requestCode, intent);
 	}
+
+
+	/**
+	 * Request Bitcoins from user, based on a provided URI, with feedback from the app. Result intent can be
+	 * received by overriding {@link android.app.Activity#onActivityResult()}. Result indicates either
+	 * {@link Activity#RESULT_OK} or {@link Activity#RESULT_CANCELED}. In the success case, use
+	 * {@link #transactionHashFromResult(Intent)} to read the transaction hash from the intent.
+	 * 
+	 * Warning: A success indication is no guarantee! To be on the safe side, you must drive your own Bitcoin
+	 * infrastructure and validate the transaction.
+	 * 
+	 * @param activity
+	 *            Calling Android activity
+	 * @param requestCode
+	 *            Code identifying the call when {@link android.app.Activity#onActivityResult()} is called back
+	 * @param Uri
+	 *            Bitcoin URI
+	 */
+	public static void requestForResult(final Activity activity, final int requestCode, final Uri uri)
+	{
+		final Intent intent = makeBitcoinUriIntent(uri);
+
+		startForResult(activity, requestCode, intent);
+	}
+
 
 	/**
 	 * Get payment request from intent. Meant for usage by applications accepting payment requests.
@@ -239,6 +283,16 @@ public final class BitcoinIntegration
 
 		return intent;
 	}
+
+
+	private static Intent makeBitcoinUriIntent(final Uri uri)
+	{
+		final Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri.toString()));
+
+		return intent;
+	}
+
+
 
 	private static Intent makePaymentRequestIntent(final byte[] paymentRequest)
 	{
