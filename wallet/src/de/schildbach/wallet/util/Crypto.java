@@ -22,6 +22,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.nio.charset.Charset;
 import java.security.SecureRandom;
 import java.util.Arrays;
 
@@ -38,8 +39,7 @@ import org.spongycastle.crypto.modes.CBCBlockCipher;
 import org.spongycastle.crypto.paddings.PaddedBufferedBlockCipher;
 import org.spongycastle.crypto.params.ParametersWithIV;
 
-import android.util.Base64;
-import de.schildbach.wallet.Constants;
+import com.google.common.io.BaseEncoding;
 
 /**
  * This class encrypts and decrypts a string in a manner that is compatible with OpenSSL.
@@ -56,6 +56,9 @@ import de.schildbach.wallet.Constants;
  */
 public class Crypto
 {
+	private static final BaseEncoding BASE64 = BaseEncoding.base64().omitPadding();
+	private static final Charset UTF_8 = Charset.forName("UTF-8");
+
 	/**
 	 * number of times the password & salt are hashed during key creation.
 	 */
@@ -84,13 +87,13 @@ public class Crypto
 	/**
 	 * OpenSSL salted prefix bytes - also used as magic number for encrypted key file.
 	 */
-	private static final byte[] OPENSSL_SALTED_BYTES = OPENSSL_SALTED_TEXT.getBytes(Constants.UTF_8);
+	private static final byte[] OPENSSL_SALTED_BYTES = OPENSSL_SALTED_TEXT.getBytes(UTF_8);
 
 	/**
 	 * Magic text that appears at the beginning of every OpenSSL encrypted file. Used in identifying encrypted key
 	 * files.
 	 */
-	private static final String OPENSSL_MAGIC_TEXT = new String(encodeBase64(Crypto.OPENSSL_SALTED_BYTES), Constants.UTF_8).substring(0,
+	private static final String OPENSSL_MAGIC_TEXT = BASE64.encode(Crypto.OPENSSL_SALTED_BYTES).substring(0,
 			Crypto.NUMBER_OF_CHARACTERS_TO_MATCH_IN_OPENSSL_MAGIC_TEXT);
 
 	private static final int NUMBER_OF_CHARACTERS_TO_MATCH_IN_OPENSSL_MAGIC_TEXT = 10;
@@ -128,14 +131,14 @@ public class Crypto
 	 */
 	public static String encrypt(@Nonnull final String plainText, @Nonnull final char[] password) throws IOException
 	{
-		final byte[] plainTextAsBytes = plainText.getBytes(Constants.UTF_8);
+		final byte[] plainTextAsBytes = plainText.getBytes(UTF_8);
 
 		final byte[] encryptedBytes = encrypt(plainTextAsBytes, password);
 
 		// OpenSSL prefixes the salt bytes + encryptedBytes with Salted___ and then base64 encodes it
 		final byte[] encryptedBytesPlusSaltedText = concat(OPENSSL_SALTED_BYTES, encryptedBytes);
 
-		return new String(encodeBase64(encryptedBytesPlusSaltedText), Constants.UTF_8);
+		return BASE64.encode(encryptedBytesPlusSaltedText);
 	}
 
 	/**
@@ -190,7 +193,7 @@ public class Crypto
 	 */
 	public static String decrypt(@Nonnull final String textToDecode, @Nonnull final char[] password) throws IOException
 	{
-		final byte[] decodeTextAsBytes = decodeBase64(textToDecode.getBytes(Constants.UTF_8));
+		final byte[] decodeTextAsBytes = BASE64.decode(textToDecode);
 
 		if (decodeTextAsBytes.length < OPENSSL_SALTED_BYTES.length)
 			throw new IOException("out of salt");
@@ -200,7 +203,7 @@ public class Crypto
 
 		final byte[] decryptedBytes = decrypt(cipherBytes, password);
 
-		return new String(decryptedBytes, Constants.UTF_8).trim();
+		return new String(decryptedBytes, UTF_8).trim();
 	}
 
 	/**
@@ -247,23 +250,6 @@ public class Crypto
 		}
 	}
 
-	private static byte[] encodeBase64(byte[] decoded)
-	{
-		return Base64.encode(decoded, Base64.DEFAULT);
-	}
-
-	private static byte[] decodeBase64(byte[] encoded) throws IOException
-	{
-		try
-		{
-			return Base64.decode(encoded, Base64.DEFAULT);
-		}
-		catch (final IllegalArgumentException x)
-		{
-			throw new IOException("illegal base64 padding", x);
-		}
-	}
-
 	/**
 	 * Concatenate two byte arrays.
 	 */
@@ -286,7 +272,7 @@ public class Crypto
 			Reader in = null;
 			try
 			{
-				in = new InputStreamReader(new FileInputStream(file), Constants.UTF_8);
+				in = new InputStreamReader(new FileInputStream(file), UTF_8);
 				if (in.read(buf) == -1)
 					return false;
 				final String str = new String(buf);

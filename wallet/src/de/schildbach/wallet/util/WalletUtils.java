@@ -55,7 +55,6 @@ import com.google.bitcoin.core.Sha256Hash;
 import com.google.bitcoin.core.Transaction;
 import com.google.bitcoin.core.TransactionInput;
 import com.google.bitcoin.core.TransactionOutput;
-import com.google.bitcoin.core.Wallet;
 import com.google.bitcoin.script.Script;
 
 import de.schildbach.wallet.Constants;
@@ -293,17 +292,4 @@ public class WalletUtils
 			}
 		}
 	};
-
-	@CheckForNull
-	public static ECKey pickOldestKey(@Nonnull final Wallet wallet)
-	{
-		ECKey oldestKey = null;
-
-		for (final ECKey key : wallet.getKeys())
-			if (!wallet.isKeyRotating(key))
-				if (oldestKey == null || key.getCreationTimeSeconds() < oldestKey.getCreationTimeSeconds())
-					oldestKey = key;
-
-		return oldestKey;
-	}
 }

@@ -17,7 +17,10 @@
 
 package de.schildbach.wallet.util;
 
+import java.io.FileNotFoundException;
 import java.math.BigInteger;
+import java.security.KeyStore;
+import java.security.KeyStoreException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,9 +32,9 @@ import org.bitcoin.protocols.payments.Protos;
 import com.google.bitcoin.core.Address;
 import com.google.bitcoin.core.ScriptException;
 import com.google.bitcoin.core.Transaction;
+import com.google.bitcoin.crypto.TrustStoreLoader;
+import com.google.bitcoin.protocols.payments.PaymentProtocol.PkiVerificationData;
 import com.google.bitcoin.protocols.payments.PaymentRequestException;
-import com.google.bitcoin.protocols.payments.PaymentSession;
-import com.google.bitcoin.protocols.payments.PaymentSession.PkiVerificationData;
 import com.google.bitcoin.script.Script;
 import com.google.bitcoin.script.ScriptBuilder;
 import com.google.protobuf.ByteString;
@@ -46,10 +49,6 @@ import de.schildbach.wallet.PaymentIntent;
  */
 public final class PaymentProtocol
 {
-	public static final String MIMETYPE_PAYMENTREQUEST = "application/bitcoin-paymentrequest"; // BIP 71
-	public static final String MIMETYPE_PAYMENT = "application/bitcoin-payment"; // BIP 71
-	public static final String MIMETYPE_PAYMENTACK = "application/bitcoin-paymentack"; // BIP 71
-
 	public static Protos.PaymentRequest createPaymentRequest(final BigInteger amount, @Nonnull final Address toAddress, final String memo,
 			final String paymentUrl)
 	{
@@ -85,20 +84,18 @@ public final class PaymentProtocol
 			final Protos.PaymentRequest paymentRequest = Protos.PaymentRequest.parseFrom(serializedPaymentRequest);
 
 			final String pkiName;
-			final String pkiOrgName;
 			final String pkiCaName;
 			if (!"none".equals(paymentRequest.getPkiType()))
 			{
-				// implicitly verify PKI signature
-				final PkiVerificationData verificationData = new PaymentSession(paymentRequest, true).pkiVerificationData;
-				pkiName = verificationData.name;
-				pkiOrgName = verificationData.orgName;
+				final KeyStore keystore = new TrustStoreLoader.DefaultTrustStoreLoader().getKeyStore();
+				final PkiVerificationData verificationData = com.google.bitcoin.protocols.payments.PaymentProtocol.verifyPaymentRequestPki(
+						paymentRequest, keystore);
+				pkiName = verificationData.displayName;
 				pkiCaName = verificationData.rootAuthorityName;
 			}
 			else
 			{
 				pkiName = null;
-				pkiOrgName = null;
 				pkiCaName = null;
 			}
 
@@ -125,7 +122,7 @@ public final class PaymentProtocol
 			final String paymentUrl = paymentDetails.hasPaymentUrl() ? paymentDetails.getPaymentUrl() : null;
 			final byte[] merchantData = paymentDetails.hasMerchantData() ? paymentDetails.getMerchantData().toByteArray() : null;
 
-			final PaymentIntent paymentIntent = new PaymentIntent(PaymentIntent.Standard.BIP70, pkiName, pkiOrgName, pkiCaName,
+			final PaymentIntent paymentIntent = new PaymentIntent(PaymentIntent.Standard.BIP70, pkiName, pkiCaName,
 					outputs.toArray(new PaymentIntent.Output[0]), memo, paymentUrl, merchantData, null);
 
 			if (paymentIntent.hasPaymentUrl() && !paymentIntent.isSupportedPaymentUrl())
@@ -140,6 +137,14 @@ public final class PaymentProtocol
 		catch (final UninitializedMessageException x)
 		{
 			throw new PaymentRequestException(x);
+		}
+		catch (final FileNotFoundException x)
+		{
+			throw new RuntimeException(x);
+		}
+		catch (final KeyStoreException x)
+		{
+			throw new RuntimeException(x);
 		}
 	}
 

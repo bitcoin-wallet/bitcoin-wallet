@@ -279,7 +279,7 @@ public class WalletApplication extends Application
 		}
 
 		// this check is needed so encrypted wallets won't get their private keys removed accidently
-		for (final ECKey key : wallet.getKeys())
+		for (final ECKey key : wallet.getImportedKeys())
 			if (key.getPrivKeyBytes() == null)
 				throw new Error("found read-only key, but wallet is likely an encrypted wallet from the future");
 	}
@@ -328,7 +328,7 @@ public class WalletApplication extends Application
 
 	private void ensureKey()
 	{
-		for (final ECKey key : wallet.getKeys())
+		for (final ECKey key : wallet.getImportedKeys())
 			if (!wallet.isKeyRotating(key))
 				return; // found
 
@@ -449,7 +449,7 @@ public class WalletApplication extends Application
 		final String selectedAddress = config.getSelectedAddress();
 
 		Address firstAddress = null;
-		for (final ECKey key : wallet.getKeys())
+		for (final ECKey key : wallet.getImportedKeys())
 		{
 			if (!wallet.isKeyRotating(key))
 			{
