@@ -1,5 +1,7 @@
 digitalcoin Wallet
 -----------------
+v0.1.4-beta
+* permanent fix for bugs relating to pause activities (removed temp fixes and support-v4r13)
 
 v0.1.3-beta
 * fixed several bugs relating to pausing activities
