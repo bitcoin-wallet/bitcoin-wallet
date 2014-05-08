@@ -32,7 +32,7 @@ public final class BitcoinIntegration
 	private static final String INTENT_EXTRA_PAYMENT = "payment";
 	private static final String INTENT_EXTRA_TRANSACTION_HASH = "transaction_hash";
 
-	private static final String MIMETYPE_PAYMENTREQUEST = "application/bitcoin-paymentrequest"; // BIP 71
+	private static final String MIMETYPE_PAYMENTREQUEST = "application/digitalcoin-paymentrequest"; // BIP 71
 
 	/**
 	 * Request any amount of Bitcoins (probably a donation) from user, without feedback from the app.
@@ -271,8 +271,8 @@ public final class BitcoinIntegration
 	{
 		Toast.makeText(context, "No digitalcoin application found.\nPlease install digitalcoin Wallet.", Toast.LENGTH_LONG).show();
 
-		final Intent marketIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=de.schildbach.wallet"));
-		final Intent binaryIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://code.google.com/p/bitcoin-wallet/downloads/list"));
+		final Intent marketIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=hashengineering.digitalcoin.wallet"));
+		final Intent binaryIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/HashEngineering/digitalcoin-wallet/releases"));
 
 		final PackageManager pm = context.getPackageManager();
 		if (pm.resolveActivity(marketIntent, 0) != null)
