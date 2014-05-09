@@ -61,7 +61,7 @@
 	<string name="send_coins_fragment_receiving_address_error_cross_network">Não é possível usar o endereço %s com esta carteira!</string>
 	<string name="send_coins_fragment_receiving_address_error_cross_network_unknown">Não é possível usar um endereço de rede desconhecido com esta carteira!</string>
 	<string name="send_coins_fragment_receiving_address_complex">complexo\nendereço</string>
-	<string name="send_coins_fragment_pending">(%s BTC esperando confirmação)</string>
+	<string name="send_coins_fragment_pending">(%s esperando confirmação)</string>
 	<string name="send_coins_fragment_amount_label">Quantidade a pagar</string>
 	<string name="send_coins_fragment_direct_payment_enable">Envia pagamento diretamente ao destinatário.</string>
 	<string name="send_coins_fragment_direct_payment_ack">Seu pagamento foi enviado diretamente com sucesso.</string>

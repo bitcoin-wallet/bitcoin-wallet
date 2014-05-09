@@ -61,7 +61,7 @@
 	<string name="send_coins_fragment_receiving_address_error_cross_network">Невозможно использовать адрес %s с этим бумажником!</string>
 	<string name="send_coins_fragment_receiving_address_error_cross_network_unknown">Невозможно использовать адрес неизвестной сети с этим бумажником</string>
 	<string name="send_coins_fragment_receiving_address_complex">комплекс\nадрес</string>
-	<string name="send_coins_fragment_pending">(BTC %s ожидают подтверждения)</string>
+	<string name="send_coins_fragment_pending">(%s ожидают подтверждения)</string>
 	<string name="send_coins_fragment_amount_label">Величина оплаты</string>
 	<string name="send_coins_fragment_direct_payment_enable">Отправить платеж непосредственно получателю.</string>
 	<string name="send_coins_fragment_direct_payment_ack">Платеж был успешно отправлен получателю.</string>

@@ -60,7 +60,7 @@
 	<string name="send_coins_fragment_receiving_address_error_cross_network">%s アドレスはこのウォレットでは使用できません！</string>
 	<string name="send_coins_fragment_receiving_address_error_cross_network_unknown">未知のネットワークのアドレスはこのウォレットでは使用できません！</string>
 	<string name="send_coins_fragment_receiving_address_complex">複雑な\nアドレス</string>
-	<string name="send_coins_fragment_pending">(BTC %s は確認を待っています)</string>
+	<string name="send_coins_fragment_pending">(%s は確認を待っています)</string>
 	<string name="send_coins_fragment_amount_label">合計支払</string>
 	<string name="send_coins_fragment_direct_payment_enable">受取人へダイレクト送金する。</string>
 	<string name="send_coins_fragment_direct_payment_ack">ダイレクト送金が成功しました。</string>

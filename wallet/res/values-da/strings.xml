@@ -61,7 +61,7 @@
 	<string name="send_coins_fragment_receiving_address_error_cross_network">Kan ikke bruge %s adresse med denne tegnebog!</string>
 	<string name="send_coins_fragment_receiving_address_error_cross_network_unknown">Kan ikke bruge adresse for ukendt netværk med denne tegnebog!</string>
 	<string name="send_coins_fragment_receiving_address_complex">kompleks\nadresse</string>
-	<string name="send_coins_fragment_pending">(BTC %s venter på bekræftelse)</string>
+	<string name="send_coins_fragment_pending">(%s venter på bekræftelse)</string>
 	<string name="send_coins_fragment_amount_label">Beløb at betale</string>
 	<string name="send_coins_fragment_direct_payment_enable">Send betaling direkte til modtageren.</string>
 	<string name="send_coins_fragment_direct_payment_ack">Din betaling blev sendt direkte med succes.</string>

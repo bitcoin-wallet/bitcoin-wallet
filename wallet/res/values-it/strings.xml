@@ -61,7 +61,7 @@
 	<string name="send_coins_fragment_receiving_address_error_cross_network">Non puoi usare l\'indirizzo %s con questo portafoglio!</string>
 	<string name="send_coins_fragment_receiving_address_error_cross_network_unknown">Non puoi usare l\'indirizzo di una rete sconosciuta con questo portafoglio!</string>
 	<string name="send_coins_fragment_receiving_address_complex">complesso\nindirizzo</string>
-	<string name="send_coins_fragment_pending">(%s BTC in attesa di conferma)</string>
+	<string name="send_coins_fragment_pending">(%s in attesa di conferma)</string>
 	<string name="send_coins_fragment_amount_label">Importo da pagare</string>
 	<string name="send_coins_fragment_direct_payment_enable">Invia il pagamento al beneficiario</string>
 	<string name="send_coins_fragment_direct_payment_ack">Il tuo pagamento è stato inviato con successo.</string>

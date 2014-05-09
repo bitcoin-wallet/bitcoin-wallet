@@ -60,7 +60,7 @@
 	<string name="send_coins_fragment_receiving_address_error_cross_network">¡No se puede usar la dirección %s con esta cartera!</string>
 	<string name="send_coins_fragment_receiving_address_error_cross_network_unknown">¡No se puede usar una dirección de red desconocida con esta cartera!</string>
 	<string name="send_coins_fragment_receiving_address_complex">dirección\ncompleja</string>
-	<string name="send_coins_fragment_pending">(%s BTC esperando confirmación)</string>
+	<string name="send_coins_fragment_pending">(%s esperando confirmación)</string>
 	<string name="send_coins_fragment_amount_label">Cantidad a pagar</string>
 	<string name="send_coins_fragment_direct_payment_enable">Enviar pago directamente al receptor.</string>
 	<string name="send_coins_fragment_direct_payment_ack">Tu pago se ha enviado directamente con éxito.</string>

@@ -54,7 +54,7 @@
 	<string name="send_coins_fragment_receiving_address_error">Невалидна Биткоин адреса!</string>
 	<string name="send_coins_fragment_receiving_address_error_cross_network">Не може да користиш %s адреса со овој паричник!</string>
 	<string name="send_coins_fragment_receiving_address_error_cross_network_unknown">Не може да користиш адреса на непозната мрежа со овој паричник!</string>
-	<string name="send_coins_fragment_pending">(BTC %s чека за потврда)</string>
+	<string name="send_coins_fragment_pending">(%s чека за потврда)</string>
 	<string name="send_coins_fragment_amount_label">Сума да се плати</string>
 	<string name="send_coins_fragment_button_send">Испрати</string>
 	<string name="send_coins_fragment_button_back">Назад</string>

@@ -61,7 +61,7 @@
 	<string name="send_coins_fragment_receiving_address_error_cross_network">Naslova %s ne morem uporabljati s to denarnico</string>
 	<string name="send_coins_fragment_receiving_address_error_cross_network_unknown">Naslova iz neznanega omrežja ne morem uporabljati s to denarnico!</string>
 	<string name="send_coins_fragment_receiving_address_complex">kompleksen\nnaslov</string>
-	<string name="send_coins_fragment_pending">(%s BTC čaka na potrditev)</string>
+	<string name="send_coins_fragment_pending">(%s čaka na potrditev)</string>
 	<string name="send_coins_fragment_amount_label">Znesek za plačilo</string>
 	<string name="send_coins_fragment_direct_payment_enable">Pošlji plačilo neposredno prejemniku</string>
 	<string name="send_coins_fragment_direct_payment_ack">Plačilo je bilo uspešno neposredno poslano.</string>

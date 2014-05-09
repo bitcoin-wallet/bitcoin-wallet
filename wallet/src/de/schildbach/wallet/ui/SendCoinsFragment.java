@@ -943,11 +943,12 @@ public final class SendCoinsFragment extends SherlockFragment
 				final StringBuilder msg = new StringBuilder();
 				if (missing != null)
 					msg.append(
-							String.format(getString(R.string.send_coins_fragment_insufficient_money_msg1),
+							getString(R.string.send_coins_fragment_insufficient_money_msg1,
 									btcPrefix + ' ' + GenericUtils.formatValue(missing, btcPrecision, btcShift))).append("\n\n");
 				if (pending.signum() > 0)
-					msg.append(getString(R.string.send_coins_fragment_pending, GenericUtils.formatValue(pending, btcPrecision, btcShift))).append(
-							"\n\n");
+					msg.append(
+							getString(R.string.send_coins_fragment_pending,
+									btcPrefix + ' ' + GenericUtils.formatValue(pending, btcPrecision, btcShift))).append("\n\n");
 				msg.append(getString(R.string.send_coins_fragment_insufficient_money_msg2));
 				dialog.setMessage(msg);
 				dialog.setPositiveButton(R.string.send_coins_options_empty, new DialogInterface.OnClickListener()
