@@ -3,7 +3,7 @@ Hav altid dine Bitcoins med dig i din lomme! Du betaler ved hurtigt at scanne en
 FUNKTIONER:
 
 • Ingen registrering, webservice eller sky behøves! Tegnebogen er decentraliseret og peer-to-peer.
-• Visning af Bitcoin-beløb i BTC og mBTC.
+• Visning af Bitcoin-beløb i BTC, mBTC og µBTC.
 • Konvertering til og fra lokale valutaer.
 • Afsendelse og modtagelse af Bitcoin via NFC, QR-koder eller Bitcoin-URLer.
 • Adressebog til ofte brugte Bitcoin-adresser.

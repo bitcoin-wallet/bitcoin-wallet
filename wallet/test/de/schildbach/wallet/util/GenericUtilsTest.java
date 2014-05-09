@@ -77,4 +77,26 @@ public class GenericUtilsTest
 
 		assertEquals("21000000000.00", GenericUtils.formatValue(NetworkParameters.MAX_MONEY, 5, 3));
 	}
+
+	@Test
+	public void formatUbtcValue() throws Exception
+	{
+		final BigInteger coin = new BigInteger("100000000");
+		assertEquals("1000000", GenericUtils.formatValue(coin, 0, 6));
+		assertEquals("1000000", GenericUtils.formatValue(coin, 2, 6));
+
+		final BigInteger justNot = new BigInteger("99999999");
+		assertEquals("1000000", GenericUtils.formatValue(justNot, 0, 6));
+		assertEquals("999999.99", GenericUtils.formatValue(justNot, 2, 6));
+
+		final BigInteger slightlyMore = new BigInteger("100000001");
+		assertEquals("1000000", GenericUtils.formatValue(slightlyMore, 0, 6));
+		assertEquals("1000000.01", GenericUtils.formatValue(slightlyMore, 2, 6));
+
+		final BigInteger value = new BigInteger("1122334455667788");
+		assertEquals("11223344556678", GenericUtils.formatValue(value, 0, 6));
+		assertEquals("11223344556677.88", GenericUtils.formatValue(value, 2, 6));
+
+		assertEquals("21000000000000", GenericUtils.formatValue(NetworkParameters.MAX_MONEY, 2, 6));
+	}
 }

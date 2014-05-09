@@ -1,5 +1,8 @@
 digitalcoin Wallet
 -----------------
+v0.1.5-beta
+* update to bitcoin-wallet 3.46
+
 v0.1.4-beta
 * permanent fix for bugs relating to pause activities (removed temp fixes and support-v4r13)
 
@@ -44,6 +47,31 @@ v1.00
 
 Bitcoin Wallet
 -------------------
+v3.46
+
+* New translation into Slovenian.
+* Update Hebrew translation.
+* Fix missing transactions due to once dusty outputs which are standard as of Bitcoin Core 0.9.
+* Preparation for fetching payment requests via Bluetooth.
+* Based on bitcoinj 0.11.2.
+
+v3.44-v3.45
+
+* Due to the OpenSSL "Heartbleed" vulnerability, removed all HTTPS network access on Android 4.1.1.
+  This means exchange rates will not be available, and the payment protocol cannot fetch
+  signature and cannot pay directly via HTTPS. The chances of an actual exploitability on
+  Android are very slim, but we want to stay on the safe side until things are clearer.
+  Also see http://heartbleed.com/
+
+v3.41-v3.43
+
+* Small bugfixes.
+
+v3.40
+
+* Support for µBTC denomination, for people who are used to low valued currencies.
+* Always use BIP70 when sending payments directly via Bluetooth.
+* Small bugfixes.
 
 v3.39
 
@@ -67,6 +95,7 @@ v3.35
 
 * Protect wallet against dust spam.
 * Fixed some bugs in the payment protocol.
+* Based on bitcoinj 0.11.1.
 
 v3.34
 

@@ -19,14 +19,21 @@ package de.schildbach.wallet;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.math.BigInteger;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLConnection;
-import java.util.*;
+
+import java.util.Currency;
+import java.util.Iterator;
+import java.util.Locale;
+import java.util.Map;
+import java.util.TreeMap;
+import java.util.zip.GZIPInputStream;
+
 
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
@@ -71,7 +78,7 @@ public class ExchangeRatesProvider extends ContentProvider
 		@Override
 		public String toString()
 		{
-			return getClass().getSimpleName() + '[' + currencyCode + ':' + GenericUtils.formatValue(rate, Constants.BTC_MAX_PRECISION, 0) + ']';
+			return getClass().getSimpleName() + '[' + currencyCode + ':' + GenericUtils.formatDebugValue(rate) + ']';
 		}
 	}
 
@@ -88,8 +95,10 @@ public class ExchangeRatesProvider extends ContentProvider
 
 	private static final URL BITCOINAVERAGE_URL;
 	private static final String[] BITCOINAVERAGE_FIELDS = new String[] { "24h_avg", "last" };
+	private static final String BITCOINAVERAGE_SOURCE = "BitcoinAverage.com";
 	private static final URL BLOCKCHAININFO_URL;
 	private static final String[] BLOCKCHAININFO_FIELDS = new String[] { "15m" };
+	private static final String BLOCKCHAININFO_SOURCE = "blockchain.info";
 
 	// https://bitmarket.eu/api/ticker
 
@@ -97,7 +106,7 @@ public class ExchangeRatesProvider extends ContentProvider
 	{
 		try
 		{
-			BITCOINAVERAGE_URL = new URL("https://api.bitcoinaverage.com/ticker/global/all");
+			BITCOINAVERAGE_URL = new URL("https://api.bitcoinaverage.com/custom/abw");
 			BLOCKCHAININFO_URL = new URL("https://blockchain.info/ticker");
 		}
 		catch (final MalformedURLException x)
@@ -137,15 +146,18 @@ public class ExchangeRatesProvider extends ContentProvider
 	@Override
 	public Cursor query(final Uri uri, final String[] projection, final String selection, final String[] selectionArgs, final String sortOrder)
 	{
+		if (Constants.BUG_OPENSSL_HEARTBLEED)
+			return null;
+
 		final long now = System.currentTimeMillis();
 
 		if (lastUpdated == 0 || now - lastUpdated > UPDATE_FREQ_MS)
 		{
 			Map<String, ExchangeRate> newExchangeRates = null;
 			if (newExchangeRates == null)
-				newExchangeRates = requestExchangeRates(BITCOINAVERAGE_URL, userAgent, BITCOINAVERAGE_FIELDS);
+				newExchangeRates = requestExchangeRates(BITCOINAVERAGE_URL, userAgent, BITCOINAVERAGE_SOURCE, BITCOINAVERAGE_FIELDS);
 			if (newExchangeRates == null)
-				newExchangeRates = requestExchangeRates(BLOCKCHAININFO_URL, userAgent, BLOCKCHAININFO_FIELDS);
+				newExchangeRates = requestExchangeRates(BLOCKCHAININFO_URL, userAgent, BLOCKCHAININFO_SOURCE, BLOCKCHAININFO_FIELDS);
 
 			if (newExchangeRates != null)
 			{
@@ -241,10 +253,10 @@ public class ExchangeRatesProvider extends ContentProvider
 		throw new UnsupportedOperationException();
 	}
 
+
     private static Object getCoinValueBTC()
     {
-        Date date = new Date();
-        long now = date.getTime();
+
 
 
 
@@ -260,7 +272,7 @@ public class ExchangeRatesProvider extends ContentProvider
         try {
             // final String currencyCode = currencies[i];
             final URL URLCryptsy = new URL(urlCryptsy);
-            final URLConnection connectionCryptsy = URLCryptsy.openConnection();
+            final HttpURLConnection connectionCryptsy = (HttpURLConnection)URLCryptsy.openConnection();
             connectionCryptsy.setConnectTimeout(Constants.HTTP_TIMEOUT_MS * 2);
             connectionCryptsy.setReadTimeout(Constants.HTTP_TIMEOUT_MS * 2);
             connectionCryptsy.connect();
@@ -329,11 +341,6 @@ public class ExchangeRatesProvider extends ContentProvider
 
     private static Object getCoinValueBTC_BTER()
     {
-        Date date = new Date();
-        long now = date.getTime();
-
-
-
         //final Map<String, ExchangeRate> rates = new TreeMap<String, ExchangeRate>();
         // Keep the LTC rate around for a bit
         Double btcRate = 0.0;
@@ -347,7 +354,7 @@ public class ExchangeRatesProvider extends ContentProvider
         try {
             // final String currencyCode = currencies[i];
             final URL URL_bter = new URL(url);
-            final URLConnection connection = URL_bter.openConnection();
+            final HttpURLConnection connection = (HttpURLConnection)URL_bter.openConnection();
             connection.setConnectTimeout(Constants.HTTP_TIMEOUT_MS * 2);
             connection.setReadTimeout(Constants.HTTP_TIMEOUT_MS * 2);
             connection.connect();
@@ -391,7 +398,8 @@ public class ExchangeRatesProvider extends ContentProvider
         return null;
     }
 
-	private static Map<String, ExchangeRate> requestExchangeRates(final URL url, final String userAgent, final String... fields)
+
+	private static Map<String, ExchangeRate> requestExchangeRates(final URL url, final String userAgent, final String source, final String... fields)
 	{
 		final long start = System.currentTimeMillis();
 
@@ -422,14 +430,21 @@ public class ExchangeRatesProvider extends ContentProvider
 			connection.setConnectTimeout(Constants.HTTP_TIMEOUT_MS);
 			connection.setReadTimeout(Constants.HTTP_TIMEOUT_MS);
 			connection.addRequestProperty("User-Agent", userAgent);
+			connection.addRequestProperty("Accept-Encoding", "gzip");
 			connection.connect();
 
 			final int responseCode = connection.getResponseCode();
 			if (responseCode == HttpURLConnection.HTTP_OK)
 			{
-				reader = new InputStreamReader(new BufferedInputStream(connection.getInputStream(), 1024), Constants.UTF_8);
+				final String contentEncoding = connection.getContentEncoding();
+
+				InputStream is = new BufferedInputStream(connection.getInputStream(), 1024);
+				if ("gzip".equalsIgnoreCase(contentEncoding))
+					is = new GZIPInputStream(is);
+
+				reader = new InputStreamReader(is, Constants.UTF_8);
 				final StringBuilder content = new StringBuilder();
-				Io.copy(reader, content);
+				final long length = Io.copy(reader, content);
 
 				final Map<String, ExchangeRate> rates = new TreeMap<String, ExchangeRate>();
 
@@ -461,13 +476,13 @@ public class ExchangeRatesProvider extends ContentProvider
 
 									if (rate.signum() > 0)
 									{
-										rates.put(currencyCode, new ExchangeRate(currencyCode, rate, url.getHost()));
+										rates.put(currencyCode, new ExchangeRate(currencyCode, rate, source));
 										break;
 									}
 								}
 								catch (final ArithmeticException x)
 								{
-									log.warn("problem fetching {} exchange rate from {}: {}", new Object[] { currencyCode, url, x.getMessage() });
+									log.warn("problem fetching {} exchange rate from {} ({}): {}", currencyCode, url, contentEncoding, x.getMessage());
 								}
 
 							}
@@ -475,7 +490,8 @@ public class ExchangeRatesProvider extends ContentProvider
 					}
 				}
 
-				log.info("fetched exchange rates from {}, took {} ms", url, (System.currentTimeMillis() - start));
+				log.info("fetched exchange rates from {} ({}), {} chars, took {} ms", url, contentEncoding, length, System.currentTimeMillis()
+						- start);
 
                 //Add Bitcoin information
                 if(rates.size() == 0)

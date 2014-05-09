@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <resources>
 
 	<string name="toast_wallet_reset">Ví tiền đã được thiết lập lại,\nsẽ tốn chút ít thời gian để hồi phục lại</string>
@@ -170,7 +170,6 @@
 	<string name="about_credits_market_publisher_title">Các tác giả khác</string>
     <string name="notification_coins_received_msg">đã nhận %s</string>
 	<string name="notification_peers_connected_msg">%d mạng ngang hàng đã kết nối</string>
-
 	<!-- generic buttons -->
 	<string name="button_ok">Đồng ý</string>
 	<string name="button_dismiss">Bỏ qua</string>

@@ -57,7 +57,8 @@ public class Configuration
 	private static final String PREFS_KEY_CHANGE_LOG_VERSION = "change_log_version";
 	public static final String PREFS_KEY_REMIND_BACKUP = "remind_backup";
 
-	private static final String PREFS_DEFAULT_BTC_PRECISION = "2/0";
+	private static final int PREFS_DEFAULT_BTC_SHIFT = 0;
+	private static final int PREFS_DEFAULT_BTC_PRECISION = 2;
 
 	private static final Logger log = LoggerFactory.getLogger(Configuration.class);
 
@@ -75,24 +76,44 @@ public class Configuration
 
 	public int getBtcPrecision()
 	{
-		final String precision = prefs.getString(PREFS_KEY_BTC_PRECISION, PREFS_DEFAULT_BTC_PRECISION);
-		return precision.charAt(0) - '0';
+		final String precision = prefs.getString(PREFS_KEY_BTC_PRECISION, null);
+		if (precision != null)
+			return precision.charAt(0) - '0';
+		else
+			return PREFS_DEFAULT_BTC_PRECISION;
 	}
 
 	public int getBtcMaxPrecision()
 	{
-		return getBtcShift() == 0 ? Constants.BTC_MAX_PRECISION : Constants.MBTC_MAX_PRECISION;
+		final int btcShift = getBtcShift();
+
+		if (btcShift == 0)
+			return Constants.BTC_MAX_PRECISION;
+		else if (btcShift == 3)
+			return Constants.MBTC_MAX_PRECISION;
+		else
+			return Constants.UBTC_MAX_PRECISION;
 	}
 
 	public int getBtcShift()
 	{
-		final String precision = prefs.getString(PREFS_KEY_BTC_PRECISION, PREFS_DEFAULT_BTC_PRECISION);
-		return precision.length() == 3 ? precision.charAt(2) - '0' : 0;
+		final String precision = prefs.getString(PREFS_KEY_BTC_PRECISION, null);
+		if (precision != null)
+			return precision.length() == 3 ? precision.charAt(2) - '0' : 0;
+		else
+			return PREFS_DEFAULT_BTC_SHIFT;
 	}
 
 	public String getBtcPrefix()
 	{
-		return getBtcShift() == 0 ? Constants.CURRENCY_CODE_BTC : Constants.CURRENCY_CODE_MBTC;
+		final int btcShift = getBtcShift();
+
+		if (btcShift == 0)
+			return Constants.CURRENCY_CODE_BTC;
+		else if (btcShift == 3)
+			return Constants.CURRENCY_CODE_MBTC;
+		else
+			return Constants.CURRENCY_CODE_UBTC;
 	}
 
 	public boolean getConnectivityNotificationEnabled()

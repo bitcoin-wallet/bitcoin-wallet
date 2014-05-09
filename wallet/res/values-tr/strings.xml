@@ -2,9 +2,8 @@
 <resources>
 
 	<string name="toast_wallet_reset">Cüzdan sıfırlanmış,\ntamamlanması belli bir süre alacaktır.</string>
-
-	<string name="wallet_disclaimer_fragment_remind_safety">Tüm riski siz üstlenmiş olursunuz. &lt;u>Güvenlik notlarını&lt;/u> okuyunuz.</string>
-	<string name="wallet_disclaimer_fragment_remind_backup">&lt;u>Cüzdanınızı yedeklemeniz&lt;/u> gerekmektedir!</string>
+	<string name="wallet_disclaimer_fragment_remind_safety">Tüm riski siz üstlenmiş olursunuz. &lt;u&gt;Güvenlik notlarını&lt;/u&gt; okuyunuz.</string>
+	<string name="wallet_disclaimer_fragment_remind_backup">&lt;u&gt;Cüzdanınızı yedeklemeniz&lt;/u&gt; gerekmektedir!</string>
 	<string name="blockchain_state_progress_hours">%1$s, %2$d saat geride</string>
 	<string name="blockchain_state_progress_days">%1$s, %2$d gün geride</string>
 	<string name="blockchain_state_progress_weeks">%1$s, %2$d hafta geride</string>
@@ -24,15 +23,17 @@
 	<string name="exchange_rates_fragment_default">(varsayılan)</string>
 	<string name="exchange_rates_fragment_rate">oran</string>
 	<string name="exchange_rates_fragment_balance">bakiye</string>
-	<string name="exchange_rates_fragment_source">Fiyatlar %s unsurundan alındı</string>
+	<string name="exchange_rates_fragment_source">%s unsurundan fiyat</string>
 	<string name="exchange_rates_context_set_as_default_title">Varsayılan döviz olarak ayarla</string>
 	<string name="wallet_transactions_fragment_tab_received">Alınan</string>
 	<string name="wallet_transactions_fragment_tab_all">İkisi</string>
 	<string name="wallet_transactions_fragment_tab_sent">Yollanan</string>
+
 	<string name="wallet_transactions_fragment_empty_text_received">Şimdiye kadar hiçbir digitalcoin alınmadı</string>
 	<string name="wallet_transactions_fragment_empty_text_sent">Şimdiye kadar hiçbir digitalcoin gönderilmedi</string>
-	<string name="wallet_transactions_fragment_empty_text_howto">digitalcoin nasıl elde edilir?\n\nGeleneksel parayla alabilir,\nmal veya hizmet satabilir veya\nçalışarak kazanabilirsiniz.</string>
-	<string name="wallet_transactions_row_warning_backup">Tebrikler, ilk ödemenizi almış bulunuyorsunuz! Kayba karşı korunmak için &lt;u>cüzdanınızı yedeklediniz mi&lt;/u>?</string>
+	<string name="wallet_transactions_fragment_empty_text_howto">Bitcoin nasıl elde edilir?\n\nGeleneksel parayla alabilir,\nmal veya hizmet satabilir veya\nçalışarak kazanabilirsiniz.</string>
+	<string name="wallet_transactions_row_warning_backup">Tebrikler, ilk ödemenizi almış bulunuyorsunuz! Kayba karşı korunmak için &lt;u&gt;cüzdanınızı yedeklediniz mi&lt;/u&gt;?</string>
+
 	<string name="wallet_transactions_fragment_coinbase">oluşturulan</string>
 	<string name="wallet_transactions_fragment_internal">Dahili</string>
 	<string name="wallet_transactions_context_show_qr_title">QR kodu göster</string>
@@ -48,10 +49,9 @@
 
 	<string name="wallet_version_dialog_title">Yeni bir sürüm mevcuttur!</string>
 	<string name="wallet_version_dialog_msg">Bu sürüm önemli hata düzeltmeleri içerir. Detaylar için Google Play\'de değişikliklere bakınız.</string>
+	<string name="wallet_version_dialog_msg_deprecated">Eğer bir güncelleme görmüyorsanız, bu muhtemelen sizin Android sürümünüzün artık desteklenmediği anlamına gelir.</string>
 	<string name="wallet_version_dialog_button_market">Google Play</string>
 	<string name="wallet_version_dialog_button_binary">İndir</string>
-	<string name="wallet_precision_warning_dialog_title">İsimlendirme değişikliği</string>
-	<string name="wallet_precision_warning_dialog_msg">İsimlendirme bitcoin\'den (BTC) millibitcoin\'e (mBTC) değiştirilmiştir. Tüm miktarlar 1000 faktörü ile çarpılmıştır.\n\nBu değişikliği ayarlarda geri alabilirsiniz.</string>
 	<string name="wallet_old_sdk_dialog_title">Android sürümü eski</string>
 
 	<string name="wallet_old_sdk_dialog_message">Gelecek digitalcoin Wallet sürümünün cihazınızı desteklememesi mümkündür. Bazı durumlarda bu cihazla digitalcoin harcamak zor olabilir.\n\nBitcoinlerinizi güvenli bir yere aktarmanız tavsiye edilir.</string>
@@ -94,7 +94,7 @@
 
 	<string name="request_coins_activity_title">digitalcoin talebi</string>
 	<string name="request_coins_fragment_amount_label">Talep edilen miktar (seçime dayalı)</string>
-
+	<string name="request_coins_fragment_accept_bluetooth_payment">Daha güvenilir işleme için ödemeyi Bluetooth vasıtasıyla kabul et</string>
 	<string name="request_coins_fragment_initiate_request_qr">Bu kodu gönderici tarafından taratın.</string>
 	<string name="request_coins_fragment_initiate_request_nfc">Ya da NFC destekli bir cihaz ile dokunun.</string>
 
@@ -126,7 +126,7 @@
 	<string name="edit_address_book_entry_dialog_address_label">Adres</string>
 	<string name="edit_address_book_entry_dialog_label_label">İsim</string>
 	<string name="edit_address_book_entry_dialog_button_edit">Kaydet</string>
-	<string name="transaction_row_message_purpose_key_rotation">Bu muamele cüzdanınızın çalınmaya karşı korunmasını güçlendirir. &lt;u>Daha fazla bilgi.&lt;/u></string>
+	<string name="transaction_row_message_purpose_key_rotation">Bu muamele cüzdanınızın çalınmaya karşı korunmasını güçlendirir. &lt;u&gt;Daha fazla bilgi.&lt;/u&gt;</string>
 	<string name="transaction_row_message_own_unbroadcasted">Bu ödeme henüz aktarılmamıştır.</string>
 	<string name="transaction_row_message_received_direct">Bu ödeme doğrudan alındı. Asla harcanamayacak olması riski vardır.</string>
 	<string name="transaction_row_message_received_unconfirmed_unlocked">Bu ödeme muhtemelen birkaç dakika içinde harcanabilir hâle gelecektir.</string>
@@ -141,6 +141,7 @@
 	<string name="peer_list_row_ping_time">⇆ %d ms</string>
 	<string name="import_keys_dialog_title">Özel anahtarları geri getir</string>
 	<string name="import_keys_dialog_message">Harici ya da uygulama-özel yedekleme alanından bir özel anahtar yedekleme dosyası seçin:</string>
+	<string name="import_keys_dialog_warning">Önemli: şüpheli kaynaklardan özel anahtar yüklemeyiniz! Bunu yaparsanız başkaları sizin paranızın kontrolünü ele geçirebilir.</string>
 	<string name="import_keys_dialog_file_security_encrypted">parola şifrelendi</string>
 	<string name="import_keys_dialog_file_security_unencrypted">şifresiz</string>
 	<string name="import_keys_dialog_file_security_external">harici depolama</string>
@@ -171,9 +172,9 @@
 	<string name="scan_camera_problem_dialog_message">Fotoğraf makinesinde bir problem var. Muhtemelen cihazınızı yeniden başlatmanız gerekiyor.</string>
 	<string name="input_parser_io_error">Veriler okunamadı:\n%s</string>
 	<string name="input_parser_cannot_classify">Girdi sınıflandırılamadı:\n%s</string>
-
 	<string name="input_parser_invalid_bitcoin_uri">Geçersiz digitalcoin adresi:\n%s</string>
 	<string name="input_parser_invalid_address">Geçersiz bir digitalcoin adresi alındı!\n(Mainnet ve Testnet karışmış olmasın?)</string>
+	<string name="input_parser_unverifyable_paymentrequest">Ödeme talebi kontrol edilemez:\n%s</string>
 	<string name="input_parser_invalid_paymentrequest">Geçersiz ödeme talebi:\n%s</string>
 
 	<string name="input_parser_invalid_transaction">Geçersiz muamele:\n%s</string>
@@ -199,7 +200,7 @@
 	<string name="preferences_initiate_reset_dialog_positive">Sıfırla</string>
 	<string name="report_issue_dialog_title_issue">Sorun rapor et</string>
 	<string name="report_issue_dialog_title_crash">Önceki çökme tespit edildi</string>
-	<string name="report_issue_dialog_message_issue">Lütfen problemi geliştiricilerin tekrarlamasına imkân verecek kadar detaylı olarak açıklayınız.</string>
+	<string name="report_issue_dialog_message_issue">Lütfen probleminizi tekrarlanmasına imkân verecek kadar detaylı olarak açıklayınız. Eğer sorun cüzdanınıza özgü ise dökümü eklemeyi değerlendiriniz.</string>
 	<string name="report_issue_dialog_message_crash">Bu problemin çözülmesine yardım etmek için çökme raporu göndermek ister misiniz?</string>
 	<string name="report_issue_dialog_description">problem açıklaması</string>
 	<string name="report_issue_dialog_report">Rapor et</string>
@@ -223,7 +224,6 @@
 	<string name="about_credits_market_publisher_title">Geliştiricinin diğer uygulamaları</string>
 	<string name="notification_coins_received_msg">%s alındı</string>
 	<string name="notification_peers_connected_msg">%d eş bağlı</string>
-
 	<!-- generic buttons -->
 	<string name="button_ok">Tamam</string>
 	<string name="button_dismiss">Reddet</string>

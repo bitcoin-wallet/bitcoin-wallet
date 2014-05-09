@@ -175,7 +175,6 @@
 	<string name="about_credits_market_publisher_title">Apl lain oleh Pembuat</string>
 	<string name="notification_coins_received_msg">Diterima %s</string>
 	<string name="notification_peers_connected_msg">%d peer terhubung</string>
-
 	<!-- generic buttons -->
 	<string name="button_ok">IYA</string>
 	<string name="button_dismiss">Tolak</string>

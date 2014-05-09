@@ -250,7 +250,7 @@ public final class ExchangeRatesFragment extends SherlockListFragment implements
 		{
 			final Cursor oldCursor = adapter.swapCursor(data);
 
-			if (oldCursor == null && defaultCurrency != null)
+			if (data != null && oldCursor == null && defaultCurrency != null)
 			{
 				final int defaultCurrencyPosition = findCurrencyCode(data, defaultCurrency);
 				if (defaultCurrencyPosition >= 0)

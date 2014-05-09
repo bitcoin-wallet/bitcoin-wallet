@@ -1,0 +1,22 @@
+Nosite svoje novce vedno s seboj v žepu. Plačila so hitra, le prečitate QR-kodo. Tudi prejemanje plačil je zanesljivo in takojšnje. Bitcoin Wallet je prva mobilna aplikacija za bitcoin in najbrž tudi najbolj varna!
+
+LASTNOSTI:
+
+• Potrebna ni nobena registracija, spletna storitev ali oblak! Ta denarnica deluje povsem decentralizirano in vrstniško.
+• Prikaz zneskov v BTC, mBTC ali µBTC.
+• Samodejna pretvorba v evre in druge lokalne valute.
+• Pošiljanje in prejemanje bitcoinov prek NFC, QR-kod ali bitcoin URL-jev.
+• Zasebni imenik bitcoin naslovov.
+• Z bitcoinom lahko plačujete tudi, če nimate povezave.
+• Sistemska obvestila ob prejetih novcih.
+• Widget, ki prikazuje stanje v denarnici.
+
+Več o bitcoinu lahko zveste na
+https://bitcoin.org/sl/
+
+Če želite prispevati k aplikaciji Bitcoin Wallet, se nam pridružite na
+https://github.com/schildbach/bitcoin-wallet
+
+Licenca: GPLv3
+Uporaba na lastno odgovornost!
+http://www.gnu.org/licenses/gpl-3.0.en.html

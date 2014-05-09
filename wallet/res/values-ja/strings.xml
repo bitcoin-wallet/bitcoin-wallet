@@ -47,8 +47,6 @@
 	<string name="wallet_version_dialog_msg">このバージョンには重要なバグフィックスがあります。詳細を見るには、Google プレイのチェンジログを見てください。</string>
 	<string name="wallet_version_dialog_button_market">Google プレイ</string>
 	<string name="wallet_version_dialog_button_binary">ダウンロード</string>
-	<string name="wallet_precision_warning_dialog_title">通貨の切り下げ</string>
-	<string name="wallet_precision_warning_dialog_msg">通貨の切り下げはビットコイン(BTC)をミリビットコイン(mBTC)へ変更します。総計は1000倍になります。\n\nこの変更は設定で戻せます。</string>
 	<string name="wallet_old_sdk_dialog_title">Androidのバージョンが古すぎます</string>
 	<string name="wallet_old_sdk_dialog_message">次のビットコインウォレットのリリースの際、このデバイスはこれ以上サポートされないかもしれません。場合によっては、このデバイスでコインを利用する事が困難になるでしょう。\n\nどうなったかわからない時は、あなたのコインをすぐにでも移動させることをおすすめします。</string>
 	<string name="send_coins_activity_title">ビットコイン送金</string>
@@ -204,7 +202,6 @@
 	<string name="about_credits_market_publisher_title">製作者のその他アプリ</string>
 	<string name="notification_coins_received_msg">受取済 %s</string>
 	<string name="notification_peers_connected_msg">%d のピアが接続</string>
-
 	<!-- generic buttons -->
 	<string name="button_ok">OK</string>
 	<string name="button_dismiss">閉じる</string>
@@ -226,7 +223,6 @@
 	<string name="action_browse">ブラウズ</string>
 	<string name="time_today">今日</string>
 	<string name="address_unlabeled">(ラベルなし)</string>
-
 	<!-- generic error messages -->
 	<string name="error_io">I/Oエラー: %s</string>
 	<string name="error_http">HTTPエラー %1$s:\n%2$s</string>

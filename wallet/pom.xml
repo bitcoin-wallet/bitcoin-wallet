@@ -6,14 +6,24 @@
 
 	<artifactId>wallet</artifactId>
 	<packaging>apk</packaging>
-	<version>1.0.1.4</version>
+
+	<version>0.1.5</version>
 	<name>digitalcoin Wallet</name>
+
 
 	<parent>
 		<groupId>de.schildbach.wallet</groupId>
 		<artifactId>base</artifactId>
 		<version>1</version>
 	</parent>
+
+	<licenses>
+		<license>
+			<name>GNU General Public License</name>
+			<url>http://www.gnu.org/licenses/gpl.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
 
 	<dependencies>
 
@@ -55,6 +65,7 @@
 
 			<artifactId>digitalcoinj</artifactId>
 			<version>0.12-SNAPSHOT</version>
+
 		</dependency>
 
 		<!-- de.schildbach.wallet.integration.android.* -->
@@ -64,11 +75,18 @@
 			<version>2.0</version>
 		</dependency>
 
+		<!-- com.google.protobuf.* -->
+		<dependency>
+			<groupId>com.google.protobuf</groupId>
+			<artifactId>protobuf-java</artifactId>
+			<version>2.5.0</version>
+		</dependency>
+
 		<!-- com.google.zxing.* -->
 		<dependency>
 			<groupId>com.google.zxing</groupId>
 			<artifactId>core</artifactId>
-			<version>2.2</version>
+			<version>3.0.1</version>
 		</dependency>
 
 		<!-- org.slf4j.* -->

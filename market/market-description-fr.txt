@@ -15,10 +15,14 @@ FONCTIONS :
 • Carnet d'adresse pour les adresses digitalcoin utilisées régulièrement.
 =======
 • Affichage du montant de bitcoin en BTC et mBTC.
-• Conversion de et vers des devises nationales.
+• Conversion vers et depuis des devises nationales.
 • Envoi et réception des bitcoins via NFC, codes QR ou des URLs bitcoin.
+<<<<<<< HEAD
 • Carnet d'adresses pour les adresses bitcoin utilisées régulièrement.
 >>>>>>> upstream/prod
+=======
+• Carnet d'adresses pour les adresses Bitcoin utilisées régulièrement.
+>>>>>>> upstream/master
 • Quand vous êtes hors-ligne vous pouvez quand même payez via Bluetooth.
 • Notification du système pour les pièces reçues.
 • Widget affichant le solde bitcoin.

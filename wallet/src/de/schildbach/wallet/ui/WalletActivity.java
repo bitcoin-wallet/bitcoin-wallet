@@ -60,6 +60,7 @@ import android.content.res.Resources;
 import android.net.Uri;
 import android.nfc.NdefMessage;
 import android.nfc.NfcAdapter;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.text.format.DateUtils;
@@ -100,15 +101,15 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 {
 	private static final int DIALOG_IMPORT_KEYS = 0;
 	private static final int DIALOG_EXPORT_KEYS = 1;
-	private static final int DIALOG_CHANGELOG = 2;
+	private static final int DIALOG_TIMESKEW_ALERT = 2;
+	private static final int DIALOG_VERSION_ALERT = 3;
+	private static final int DIALOG_LOW_STORAGE_ALERT = 4;
 
 	private WalletApplication application;
 	private Configuration config;
 	private Wallet wallet;
 
 	private static final int REQUEST_CODE_SCAN = 0;
-
-	private static final int DEFAULT_PRECISION_CHANGE_VERSION_CODE = 152;
 
 	@Override
 	protected void onCreate(final Bundle savedInstanceState)
@@ -318,8 +319,6 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 	public void handleExportKeys()
 	{
 		showDialog(DIALOG_EXPORT_KEYS);
-
-		config.disarmBackupReminder();
 	}
     private void handleDisconnect()
     {
@@ -341,14 +340,18 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 	}
 
 	@Override
-	protected Dialog onCreateDialog(final int id)
+	protected Dialog onCreateDialog(final int id, final Bundle args)
 	{
 		if (id == DIALOG_IMPORT_KEYS)
 			return createImportKeysDialog();
 		else if (id == DIALOG_EXPORT_KEYS)
 			return createExportKeysDialog();
-		else if (id == DIALOG_CHANGELOG)
-			return createChangeLogDialog();
+		else if (id == DIALOG_TIMESKEW_ALERT)
+			return createTimeskewAlertDialog(args.getLong("diff_minutes"));
+		else if (id == DIALOG_VERSION_ALERT)
+			return createVersionAlertDialog();
+		else if (id == DIALOG_LOW_STORAGE_ALERT)
+			return createLowStorageAlertDialog();
 		else
 			throw new IllegalArgumentException();
 	}
@@ -511,6 +514,8 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 				passwordView.setText(null); // get rid of it asap
 
 				exportPrivateKeys(password);
+
+				config.disarmBackupReminder();
 			}
 		});
 		dialog.setNegativeButton(R.string.button_cancel, new OnClickListener()
@@ -546,41 +551,28 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 		showView.setOnCheckedChangeListener(new ShowPasswordCheckListener(passwordView));
 	}
 
-	private Dialog createChangeLogDialog()
-	{
-		final DialogBuilder dialog = DialogBuilder.warn(this, R.string.wallet_precision_warning_dialog_title);
-		dialog.setMessage(R.string.wallet_precision_warning_dialog_msg);
-		dialog.setPositiveButton(R.string.button_dismiss, null);
-		dialog.setNegativeButton(R.string.button_settings, new DialogInterface.OnClickListener()
-		{
-			@Override
-			public void onClick(final DialogInterface dialog, final int id)
-			{
-				startActivity(new Intent(WalletActivity.this, PreferencesActivity.class));
-			}
-		});
-		return dialog.create();
-	}
-
 	private void checkLowStorageAlert()
 	{
 		final Intent stickyIntent = registerReceiver(null, new IntentFilter(Intent.ACTION_DEVICE_STORAGE_LOW));
 		if (stickyIntent != null)
+			showDialog(DIALOG_LOW_STORAGE_ALERT);
+	}
+
+	private Dialog createLowStorageAlertDialog()
+	{
+		final DialogBuilder dialog = DialogBuilder.warn(this, R.string.wallet_low_storage_dialog_title);
+		dialog.setMessage(R.string.wallet_low_storage_dialog_msg);
+		dialog.setPositiveButton(R.string.wallet_low_storage_dialog_button_apps, new DialogInterface.OnClickListener()
 		{
-			final DialogBuilder dialog = DialogBuilder.warn(this, R.string.wallet_low_storage_dialog_title);
-			dialog.setMessage(R.string.wallet_low_storage_dialog_msg);
-			dialog.setPositiveButton(R.string.wallet_low_storage_dialog_button_apps, new DialogInterface.OnClickListener()
+			@Override
+			public void onClick(final DialogInterface dialog, final int id)
 			{
-				@Override
-				public void onClick(final DialogInterface dialog, final int id)
-				{
-					startActivity(new Intent(android.provider.Settings.ACTION_MANAGE_APPLICATIONS_SETTINGS));
-					finish();
-				}
-			});
-			dialog.setNegativeButton(R.string.button_dismiss, null);
-			dialog.show();
-		}
+				startActivity(new Intent(android.provider.Settings.ACTION_MANAGE_APPLICATIONS_SETTINGS));
+				finish();
+			}
+		});
+		dialog.setNegativeButton(R.string.button_dismiss, null);
+		return dialog.create();
 	}
 
 	private void checkAlerts()
@@ -612,8 +604,9 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 							@Override
 							public void run()
 							{
-								if (!isFinishing())
-									timeskewAlert(diffMinutes);
+								final Bundle args = new Bundle();
+								args.putLong("diff_minutes", diffMinutes);
+								showDialog(DIALOG_TIMESKEW_ALERT, args);
 							}
 						});
 
@@ -628,8 +621,7 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 						@Override
 						public void run()
 						{
-							if (!isFinishing())
-								versionAlert(serverVersionCode);
+							showDialog(DIALOG_VERSION_ALERT);
 						}
 					});
 
@@ -652,12 +644,7 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 			}
 		}.start();*/
 
-		if (!config.hasBtcPrecision() && CoinDefinition.coinPrecision != CoinDefinition.CoinPrecision.Coins
-				&& config.changeLogVersionCodeCrossed(application.packageInfo().versionCode, DEFAULT_PRECISION_CHANGE_VERSION_CODE))
-		{
-			showDialog(DIALOG_CHANGELOG);
-		}
-		else if (CrashReporter.hasSavedCrashTrace())
+		if (CrashReporter.hasSavedCrashTrace())
 		{
 			final StringBuilder stackTrace = new StringBuilder();
 
@@ -715,7 +702,7 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 		}
 	}
 
-	private void timeskewAlert(final long diffMinutes)
+	private Dialog createTimeskewAlertDialog(final long diffMinutes)
 	{
 		final PackageManager pm = getPackageManager();
 		final Intent settingsIntent = new Intent(android.provider.Settings.ACTION_DATE_SETTINGS);
@@ -737,17 +724,20 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 		}
 
 		dialog.setNegativeButton(R.string.button_dismiss, null);
-		dialog.show();
+		return dialog.create();
 	}
 
-	private void versionAlert(final int serverVersionCode)
+	private Dialog createVersionAlertDialog()
 	{
 		final PackageManager pm = getPackageManager();
 		final Intent marketIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(String.format(Constants.MARKET_APP_URL, getPackageName())));
 		final Intent binaryIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.BINARY_URL));
 
 		final DialogBuilder dialog = DialogBuilder.warn(this, R.string.wallet_version_dialog_title);
-		dialog.setMessage(getString(R.string.wallet_version_dialog_msg));
+		final StringBuilder message = new StringBuilder(getString(R.string.wallet_version_dialog_msg));
+		if (Build.VERSION.SDK_INT < Constants.SDK_DEPRECATED_BELOW)
+			message.append("\n\n").append(getString(R.string.wallet_version_dialog_msg_deprecated));
+		dialog.setMessage(message);
 
 		if (pm.resolveActivity(marketIntent, 0) != null)
 		{
@@ -776,7 +766,7 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 		}
 
 		dialog.setNegativeButton(R.string.button_dismiss, null);
-		dialog.show();
+		return dialog.create();
 	}
 
 	private void importPrivateKeys(@Nonnull final File file, @Nonnull final String password)

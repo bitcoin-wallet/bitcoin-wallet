@@ -72,7 +72,7 @@ public final class PaymentIntent implements Parcelable
 
 			builder.append(getClass().getSimpleName());
 			builder.append('[');
-			builder.append(hasAmount() ? GenericUtils.formatValue(amount, Constants.BTC_MAX_PRECISION, 0) : "null");
+			builder.append(hasAmount() ? GenericUtils.formatDebugValue(amount) : "null");
 			builder.append(',');
 			if (script.isSentToAddress() || script.isSentToP2SH())
 				builder.append(script.getToAddress(Constants.NETWORK_PARAMETERS));
@@ -298,7 +298,10 @@ public final class PaymentIntent implements Parcelable
 				if (output.hasAmount())
 					amount = amount.add(output.amount);
 
-		return amount;
+		if (amount.signum() != 0)
+			return amount;
+		else
+			return null;
 	}
 
 	public boolean mayEditAmount()
@@ -324,15 +327,7 @@ public final class PaymentIntent implements Parcelable
 
 	public boolean isBluetoothPaymentUrl()
 	{
-		return paymentUrl != null && GenericUtils.startsWithIgnoreCase(paymentUrl, "bt:");
-	}
-
-	public String getBluetoothMac()
-	{
-		if (isBluetoothPaymentUrl())
-			return paymentUrl.substring(3);
-		else
-			throw new IllegalStateException();
+		return Bluetooth.isBluetoothUrl(paymentUrl);
 	}
 
 	public boolean hasPaymentRequestUrl()
@@ -342,13 +337,18 @@ public final class PaymentIntent implements Parcelable
 
 	public boolean isSupportedPaymentRequestUrl()
 	{
-		return isHttpPaymentRequestUrl();
+		return isHttpPaymentRequestUrl() || isBluetoothPaymentRequestUrl();
 	}
 
 	public boolean isHttpPaymentRequestUrl()
 	{
 		return paymentRequestUrl != null
 				&& (GenericUtils.startsWithIgnoreCase(paymentRequestUrl, "http:") || GenericUtils.startsWithIgnoreCase(paymentRequestUrl, "https:"));
+	}
+
+	public boolean isBluetoothPaymentRequestUrl()
+	{
+		return Bluetooth.isBluetoothUrl(paymentRequestUrl);
 	}
 
 	public boolean isSecurityExtendedBy(final PaymentIntent paymentIntent)

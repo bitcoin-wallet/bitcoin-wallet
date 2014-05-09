@@ -2,7 +2,7 @@
 <resources>
 
 	<string name="toast_wallet_reset">Plånboken nollställdes,\ndet kan ta ett tag innan den återställts</string>
-	<string name="wallet_disclaimer_fragment_remind_safety">Använd på egen risk. Läs &lt;u>säkerhetsråden&lt;/u>.</string>
+	<string name="wallet_disclaimer_fragment_remind_safety">Använd på egen risk. Läs &lt;u&gt;säkerhetsråden&lt;/u&gt;.</string>
 	<string name="blockchain_state_progress_hours">Blockkedjan %1$s, %2$d timmar efter</string>
 	<string name="blockchain_state_progress_days">Blockkedjan %1$s, %2$d dagar efter</string>
 	<string name="blockchain_state_progress_weeks">Blockkedjan %1$s, %2$d veckor efter</string>
@@ -90,7 +90,6 @@
 	<string name="about_credits_market_publisher_title">Andra appar från utvecklaren</string>
 	<string name="notification_coins_received_msg">Tagit emot %s</string>
 	<string name="notification_peers_connected_msg">Ansluten till %d noder</string>
-
 	<!-- generic buttons -->
 	<string name="button_dismiss">Avsluta</string>
 	<string name="button_cancel">Avbryt</string>

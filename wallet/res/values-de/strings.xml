@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 
 <resources>
 
 	<string name="toast_wallet_reset">Wallet wurde zurückgesetzt,\nwird einige Zeit benötigen</string>
 
-	<string name="wallet_disclaimer_fragment_remind_safety">Nutzung auf eigene Gefahr. Lies die &lt;u>Sicherheitshinweise&lt;/u>.</string>
-	<string name="wallet_disclaimer_fragment_remind_backup">Bitte &lt;u>sichere deine Wallet&lt;/u>!</string>
+	<string name="wallet_disclaimer_fragment_remind_safety">Nutzung auf eigene Gefahr. Lies die &lt;u&gt;Sicherheitshinweise&lt;/u&gt;.</string>
+	<string name="wallet_disclaimer_fragment_remind_backup">Bitte &lt;u&gt;sichere deine Wallet&lt;/u&gt;!</string>
 	<string name="blockchain_state_progress_hours">%1$s, hinkt %2$d Stunden hinterher</string>
 	<string name="blockchain_state_progress_days">%1$s, hinkt %2$d Tage hinterher</string>
 	<string name="blockchain_state_progress_weeks">%1$s, hinkt %2$d Wochen hinterher</string>
@@ -26,15 +26,17 @@
 	<string name="exchange_rates_fragment_default">(Standard)</string>
 	<string name="exchange_rates_fragment_rate">Kurs</string>
 	<string name="exchange_rates_fragment_balance">Guthaben</string>
-	<string name="exchange_rates_fragment_source">Kurs von %s abgerufen</string>
+	<string name="exchange_rates_fragment_source">Kurs von %s</string>
 	<string name="exchange_rates_context_set_as_default_title">Als Standard-Fremdwährung setzen</string>
 	<string name="wallet_transactions_fragment_tab_received">Empfangen</string>
 	<string name="wallet_transactions_fragment_tab_all">Alle</string>
 	<string name="wallet_transactions_fragment_tab_sent">Gesendet</string>
+
 	<string name="wallet_transactions_fragment_empty_text_received">Noch keine digitalcoins empfangen.</string>
 	<string name="wallet_transactions_fragment_empty_text_sent">Noch keine digitalcoins gesendet.</string>
 	<string name="wallet_transactions_fragment_empty_text_howto">Wie komme ich an digitalcoins?\n\nHandle gegen traditionelles Geld,\nverkaufe Güter oder Dienstleistungen oder\nverdiene durch Arbeit.</string>
-	<string name="wallet_transactions_row_warning_backup">Gratulation, du hast deine erste Zahlung erhalten! Hast du deine Wallet bereits &lt;u>gesichert&lt;/u>, um dich gegen Verlust zu schützen?</string>
+	<string name="wallet_transactions_row_warning_backup">Gratulation, du hast deine erste Zahlung erhalten! Hast du deine Wallet bereits &lt;u&gt;gesichert&lt;/u&gt;, um dich gegen Verlust zu schützen?</string>
+
 	<string name="wallet_transactions_fragment_coinbase">geschürft</string>
 	<string name="wallet_transactions_fragment_internal">intern</string>
 	<string name="wallet_transactions_context_show_qr_title">QR-Code zeigen</string>
@@ -53,10 +55,10 @@
 		oder empfangen.\n\nDu solltest Deine Zeit- und Zeitzoneneinstellungen überprüfen und korrigieren.</string>
 	<string name="wallet_version_dialog_title">Eine neue Version ist verfügbar!</string>
 	<string name="wallet_version_dialog_msg">Diese Version behebt wichtige Fehler. Die Einzelheiten stehen in der Liste der Änderungen auf Google Play.</string>
+	<string name="wallet_version_dialog_msg_deprecated">Wenn du kein Update siehst, heißt das vermutlich daß deine Android-Version nicht mehr unterstützt wird.</string>
 	<string name="wallet_version_dialog_button_market">Google Play</string>
 	<string name="wallet_version_dialog_button_binary">Herunterladen</string>
-	<string name="wallet_precision_warning_dialog_title">Änderung der Stückelung</string>
-	<string name="wallet_precision_warning_dialog_msg">Die Stückelung wurde von digitalcoin (DGC) auf Millidigitalcoin (mDGC) geändert. Alle Werte sind mit dem Faktor 1000 multipliziert.\n\nDiese Änderung kannst Du in den Einstellungen rückgängig machen.</string>
+
 	<string name="wallet_old_sdk_dialog_title">Android ist veraltet</string>
 	<string name="wallet_old_sdk_dialog_message">Es ist möglich, daß eine der nächsten Versionen von digitalcoin Wallet dein Gerät nicht mehr unterstützt. In manchen Fällen kann es schwierig werden, Zahlungen zu tätigen.\n\nEs wird empfohlen, die enthaltenen digitalcoins bald zu verschieben, außer du weisst was du tust.</string>
 
@@ -130,7 +132,7 @@
 	<string name="edit_address_book_entry_dialog_label_label">Name</string>
 	<string name="edit_address_book_entry_dialog_button_edit">Speichern</string>
 
-	<string name="transaction_row_message_purpose_key_rotation">Diese Transaktion stärkt deine Wallet gegen Diebstahl. &lt;u>Mehr Information.&lt;/u></string>
+	<string name="transaction_row_message_purpose_key_rotation">Diese Transaktion stärkt deine Wallet gegen Diebstahl. &lt;u&gt;Mehr Information.&lt;/u&gt;</string>
 	<string name="transaction_row_message_own_unbroadcasted">Diese Zahlung ist noch nicht übertragen.</string>
 	<string name="transaction_row_message_received_direct">Diese Zahlung wurde direkt empfangen. Es besteht das Risiko, daß sie niemals verfügbar wird.</string>
 	<string name="transaction_row_message_received_unconfirmed_unlocked">Diese Zahlung sollte in ein paar Minuten verfügbar werden.</string>
@@ -221,9 +223,11 @@
 
 	<string name="about_title">Über</string>
 	<string name="about_license_title">Lizenz</string>
+
 	<string name="about_credits_bitcoinj_title">Diese App nutzt digitalcoinj %s</string>
 	<string name="about_credits_zxing_title">"Diese App nutzt 'zxing'"</string>
 	<string name="about_credits_icon_title">"Diese App nutzt ein Icon von 'bitboy'"</string>
+
 	<string name="about_community_googleplus_title">Google+ Community</string>
 	<string name="about_community_googleplus_summary">Diskussionen über die App</string>
 	<string name="about_author_twitter_title">Autor bei Twitter</string>
@@ -263,5 +267,6 @@
 	<!-- generic error messages -->
 	<string name="error_io">I/O-Fehler: %s</string>
 	<string name="error_http">HTTP-Fehler %1$s:\n%2$s</string>
+	<string name="error_bluetooth">Bluetooth-Fehler %1$s</string>
 
 </resources>

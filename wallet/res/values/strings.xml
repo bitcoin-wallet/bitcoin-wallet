@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <resources>
 
 	<string name="toast_wallet_reset">Wallet was reset,\nwill take some time to recover</string>
-	<string name="wallet_disclaimer_fragment_remind_safety">Use at your own risk. Read the &lt;u>safety notes&lt;/u>.</string>
-	<string name="wallet_disclaimer_fragment_remind_backup">You need to &lt;u>back up your wallet&lt;/u>!</string>
+	<string name="wallet_disclaimer_fragment_remind_safety">Use at your own risk. Read the &lt;u&gt;safety notes&lt;/u&gt;.</string>
+	<string name="wallet_disclaimer_fragment_remind_backup">You need to &lt;u&gt;back up your wallet&lt;/u&gt;!</string>
 	<string name="blockchain_state_progress_hours">%1$s, %2$d hours behind</string>
 	<string name="blockchain_state_progress_days">%1$s, %2$d days behind</string>
 	<string name="blockchain_state_progress_weeks">%1$s, %2$d weeks behind</string>
@@ -22,15 +22,16 @@
 	<string name="exchange_rates_fragment_default">(default)</string>
 	<string name="exchange_rates_fragment_rate">rate</string>
 	<string name="exchange_rates_fragment_balance">balance</string>
-	<string name="exchange_rates_fragment_source">Price fetched from %s</string>
+	<string name="exchange_rates_fragment_source">Price from %s</string>
 	<string name="exchange_rates_context_set_as_default_title">Set as default foreign currency</string>
 	<string name="wallet_transactions_fragment_tab_received">Received</string>
 	<string name="wallet_transactions_fragment_tab_all">Both</string>
 	<string name="wallet_transactions_fragment_tab_sent">Sent</string>
+
 	<string name="wallet_transactions_fragment_empty_text_received">No digitalcoins received so far.</string>
 	<string name="wallet_transactions_fragment_empty_text_sent">No digitalcoins sent so far.</string>
 	<string name="wallet_transactions_fragment_empty_text_howto">How to get digitalcoins?\n\nTrade for traditional money,\nsell goods or services or\nearn by working.</string>
-	<string name="wallet_transactions_row_warning_backup">Congratulations, you received your first payment! Have you already &lt;u>backed up your wallet&lt;/u>, to protect against loss?</string>
+	<string name="wallet_transactions_row_warning_backup">Congratulations, you received your first payment! Have you already &lt;u&gt;backed up your wallet&lt;/u&gt;, to protect against loss?</string>
 	<string name="wallet_transactions_fragment_coinbase">mined</string>
 	<string name="wallet_transactions_fragment_internal">internal</string>
 	<string name="wallet_transactions_context_show_qr_title">Show QR code</string>
@@ -48,10 +49,10 @@
 
 	<string name="wallet_version_dialog_title">A new version is available!</string>
 	<string name="wallet_version_dialog_msg">This version fixes important bugs. For details, see the change log on Google Play.</string>
+	<string name="wallet_version_dialog_msg_deprecated">If you don\'t see an update, this probably means your version of Android isn\'t supported any more.</string>
 	<string name="wallet_version_dialog_button_market">Google Play</string>
 	<string name="wallet_version_dialog_button_binary">Download</string>
-	<string name="wallet_precision_warning_dialog_title">Change of denomination</string>
-	<string name="wallet_precision_warning_dialog_msg">Denomination has been changed from digitalcoin (DGC) to millidigitalcoin (mDGC). All amounts are multiplied by a factor of 1000.\n\nYou can revert this change in the settings.</string>
+
 	<string name="wallet_old_sdk_dialog_title">Android version is out of date</string>
 	<string name="wallet_old_sdk_dialog_message">Chances are that one of the next releases of digitalcoin Wallet will not support your device any more. In some cases, it can get difficult to spend coins on this device.\n\nUnless you know what you are doing, it is recommended to move out your coins soon.</string>
 	<string name="send_coins_activity_title">Send digitalcoins</string>
@@ -122,6 +123,7 @@
 	<string name="edit_address_book_entry_dialog_address_label">Address</string>
 	<string name="edit_address_book_entry_dialog_label_label">Name</string>
 	<string name="edit_address_book_entry_dialog_button_edit">Save</string>
+
     <string name="transaction_activity_title">Transaction</string>
     <string name="transaction_fragment_time_label">Date</string>
     <string name="transaction_fragment_amount_sent_label">Sent</string>
@@ -137,7 +139,8 @@
     <string name="transaction_fragment_hash_label">Hash</string>
     <string name="transaction_fragment_hash_clipboard_msg">Transaction hash copied to clipboard</string>
     <string name="transaction_fragment_length_label">Length</string>
-	<string name="transaction_row_message_purpose_key_rotation">This transaction strengthens your wallet against theft. &lt;u>More info.&lt;/u></string>
+	<string name="transaction_row_message_purpose_key_rotation">This transaction strengthens your wallet against theft. &lt;u&gt;More info.&lt;/u&gt;</string>
+
 	<string name="transaction_row_message_own_unbroadcasted">This payment has not been transmitted yet.</string>
 	<string name="transaction_row_message_received_direct">This payment has been received directly. There is a risk it might never become spendable.</string>
 	<string name="transaction_row_message_received_unconfirmed_unlocked">This payment should become spendable in a few minutes.</string>
@@ -231,6 +234,7 @@
     <string name="about_credits_website_title">"digitalcoin Website"</string>
     <string name="about_credits_forum_title">"digitalcoin Forum"</string>
 
+
 	<string name="about_community_googleplus_title">Google+ Community</string>
 	<string name="about_community_googleplus_summary">Discussions about the app</string>
 
@@ -270,6 +274,7 @@
 	<!-- generic error messages -->
 	<string name="error_io">I/O error: %s</string>
 	<string name="error_http">HTTP error %1$s:\n%2$s</string>
+	<string name="error_bluetooth">Bluetooth error %1$s</string>
 
 <string name="transaction_fragment_confirmations_label">Confirmations</string>
 

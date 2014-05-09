@@ -3,7 +3,11 @@ Have your digitalcoins always with you, in your pocket! You pay by quickly scann
 FEATURES:
 
 • No registration, web service or cloud needed! This wallet is de-centralized and peer to peer.
+<<<<<<< HEAD
 • Display of digitalcoin amount in DGC and mDGC.
+=======
+• Display of Bitcoin amount in BTC, mBTC and µBTC.
+>>>>>>> upstream/master
 • Conversion to and from national currencies.
 • Sending and receiving of digitalcoin via NFC, QR-codes or digitalcoin URLs.
 • Address book for regularly used digitalcoin addresses.

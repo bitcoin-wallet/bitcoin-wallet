@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <resources>
 
 	<string-array name="preferences_precision_labels">
@@ -6,6 +6,7 @@
 		<item>DGC, 6 dígitos</item>
 		<item>DGC, 4 dígitos</item>
 		<item>mDGC, 2 dígitos</item>
+		<item>µDGC, sin dígitos</item>
 	</string-array>
 
 </resources>
