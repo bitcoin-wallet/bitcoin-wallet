@@ -18,7 +18,6 @@
 package de.schildbach.wallet.ui;
 
 import java.math.BigInteger;
-import java.util.Currency;
 
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
@@ -146,7 +145,7 @@ public final class CurrencyAmountView extends FrameLayout
 		}
 		else if (currencyCode != null)
 		{
-			final String currencySymbol = currencySymbol(currencyCode);
+			final String currencySymbol = GenericUtils.currencySymbol(currencyCode);
 			final float textSize = textView.getTextSize();
 			final float smallerTextSize = textSize * (smallerInsignificant ? (20f / 24f) : 1);
 			currencySymbolDrawable = new CurrencySymbolDrawable(currencySymbol, smallerTextSize, lessSignificantColor, textSize * 0.37f);
@@ -414,19 +413,6 @@ public final class CurrencyAmountView extends FrameLayout
 
 			if (listener != null && fire)
 				listener.focusChanged(hasFocus);
-		}
-	}
-
-	private static String currencySymbol(@Nonnull final String currencyCode)
-	{
-		try
-		{
-			final Currency currency = Currency.getInstance(currencyCode);
-			return currency.getSymbol();
-		}
-		catch (final IllegalArgumentException x)
-		{
-			return currencyCode;
 		}
 	}
 }

@@ -20,6 +20,7 @@ package de.schildbach.wallet.util;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.Currency;
 import java.util.Locale;
 
 import javax.annotation.Nonnull;
@@ -164,6 +165,19 @@ public class GenericUtils
 		catch (final Exception x)
 		{
 			throw new RuntimeException(x);
+		}
+	}
+
+	public static String currencySymbol(@Nonnull final String currencyCode)
+	{
+		try
+		{
+			final Currency currency = Currency.getInstance(currencyCode);
+			return currency.getSymbol();
+		}
+		catch (final IllegalArgumentException x)
+		{
+			return currencyCode;
 		}
 	}
 }

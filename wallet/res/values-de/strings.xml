@@ -20,11 +20,13 @@
 	<string name="wallet_addresses_fragment_add_dialog_message">Bitcoin-Adressen können nicht gelöscht werden. Möchtest Du eine neue Adresse zu deiner Wallet hinzufügen?</string>
 	<string name="wallet_balance_fragment_replaying">Guthaben ist während des Replays nicht verfügbar.</string>
 	<string name="exchange_rates_activity_title">Wechselkurse</string>
-	<string name="exchange_rates_fragment_empty_text">Kann Wechselkurse nicht laden</string>
+	<string name="exchange_rates_fragment_empty_text">Kann Wechselkurse nicht laden.</string>
+	<string name="exchange_rates_fragment_empty_search">Kann Wechselkurs nicht finden.</string>
 	<string name="exchange_rates_fragment_default">(Standard)</string>
 	<string name="exchange_rates_fragment_rate">Kurs</string>
 	<string name="exchange_rates_fragment_balance">Guthaben</string>
 	<string name="exchange_rates_fragment_source">Kurs von %s</string>
+	<string name="exchange_rates_options_search">Wechselkurs suchen</string>
 	<string name="exchange_rates_context_set_as_default_title">Als Standard-Fremdwährung setzen</string>
 	<string name="wallet_transactions_fragment_tab_received">Empfangen</string>
 	<string name="wallet_transactions_fragment_tab_all">Alle</string>

@@ -81,6 +81,8 @@ public class ExchangeRatesProvider extends ContentProvider
 	private static final String KEY_RATE = "rate";
 	private static final String KEY_SOURCE = "source";
 
+	public static final String QUERY_PARAM_Q = "q";
+
 	private Configuration config;
 	private String userAgent;
 
@@ -175,9 +177,22 @@ public class ExchangeRatesProvider extends ContentProvider
 				cursor.newRow().add(rate.currencyCode.hashCode()).add(rate.currencyCode).add(rate.rate.longValue()).add(rate.source);
 			}
 		}
+		else if (selection.equals(QUERY_PARAM_Q))
+		{
+			final String selectionArg = selectionArgs[0].toLowerCase(Locale.US);
+			for (final Map.Entry<String, ExchangeRate> entry : exchangeRates.entrySet())
+			{
+				final ExchangeRate rate = entry.getValue();
+				final String currencyCode = rate.currencyCode;
+				final String currencySymbol = GenericUtils.currencySymbol(currencyCode);
+				if (currencyCode.toLowerCase(Locale.US).contains(selectionArg) || currencySymbol.toLowerCase(Locale.US).contains(selectionArg))
+					cursor.newRow().add(currencyCode.hashCode()).add(currencyCode).add(rate.rate.longValue()).add(rate.source);
+			}
+		}
 		else if (selection.equals(KEY_CURRENCY_CODE))
 		{
-			final ExchangeRate rate = bestExchangeRate(selectionArgs[0]);
+			final String selectionArg = selectionArgs[0];
+			final ExchangeRate rate = bestExchangeRate(selectionArg);
 			if (rate != null)
 				cursor.newRow().add(rate.currencyCode.hashCode()).add(rate.currencyCode).add(rate.rate.longValue()).add(rate.source);
 		}
