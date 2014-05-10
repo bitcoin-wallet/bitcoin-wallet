@@ -58,6 +58,7 @@ import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.service.BlockchainService;
 import de.schildbach.wallet.util.GenericUtils;
 import de.schildbach.wallet.util.WalletUtils;
+import de.schildbach.wallet.util.WholeStringBuilder;
 import de.schildbach.wallet_test.R;
 
 /**
@@ -270,7 +271,8 @@ public final class ExchangeRatesFragment extends SherlockListFragment implements
 
 	private void updateEmptyText()
 	{
-		setEmptyText(getString(query != null ? R.string.exchange_rates_fragment_empty_search : R.string.exchange_rates_fragment_empty_text));
+		setEmptyText(WholeStringBuilder.bold(getString(query != null ? R.string.exchange_rates_fragment_empty_search
+				: R.string.exchange_rates_fragment_empty_text)));
 	}
 
 	private final BlockchainBroadcastReceiver broadcastReceiver = new BlockchainBroadcastReceiver();
