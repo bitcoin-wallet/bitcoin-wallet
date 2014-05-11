@@ -137,7 +137,27 @@
 				android:textSize="@dimen/font_size_large"
 				tools:ignore="TextFields" />
 		</de.schildbach.wallet.ui.CurrencyAmountView>
+
 	</LinearLayout>
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/list_entry_padding_horizontal_lax"
+            android:layout_marginRight="@dimen/list_entry_padding_horizontal_lax"
+            android:layout_marginTop="8dp"
+            android:text="@string/send_coins_fragment_fee"
+            android:textSize="@dimen/font_size_small"
+            android:textStyle="bold" />
+    <TextView
+            android:id="@+id/send_coins_transaction_fee"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/list_entry_padding_horizontal_lax"
+            android:layout_marginRight="@dimen/list_entry_padding_horizontal_lax"
+            android:layout_marginTop="8dp"
+            android:textSize="@dimen/font_size_large"
+            android:textColor="@color/fg_significant"/>
 
 	<CheckBox
 		android:id="@+id/send_coins_direct_payment_enable"

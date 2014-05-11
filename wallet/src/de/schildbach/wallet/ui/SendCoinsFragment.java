@@ -135,6 +135,7 @@ public final class SendCoinsFragment extends SherlockFragment
 	private TextView receivingStaticAddressView;
 	private TextView receivingStaticLabelView;
 	private CheckBox directPaymentEnableView;
+    private TextView txFeeView;
 
 	private TextView directPaymentMessageView;
 	private ListView sentTransactionView;
@@ -497,6 +498,8 @@ public final class SendCoinsFragment extends SherlockFragment
 		amountCalculatorLink = new CurrencyCalculatorLink(btcAmountView, localAmountView);
 		amountCalculatorLink.setExchangeDirection(config.getLastExchangeDirection());
 
+        txFeeView = (TextView)view.findViewById(R.id.send_coins_transaction_fee);
+
 		directPaymentEnableView = (CheckBox) view.findViewById(R.id.send_coins_direct_payment_enable);
 		directPaymentEnableView.setOnCheckedChangeListener(new OnCheckedChangeListener()
 		{
@@ -549,57 +552,7 @@ public final class SendCoinsFragment extends SherlockFragment
 		});
 
 		popupMessageView = (TextView) inflater.inflate(R.layout.send_coins_popup_message, container);
-/*
-<<<<<<< HEAD
 
-		if (savedInstanceState != null)
-		{
-			restoreInstanceState(savedInstanceState);
-		}
-		else
-		{
-			final Intent intent = activity.getIntent();
-			final String action = intent.getAction();
-			final Uri intentUri = intent.getData();
-			final String scheme = intentUri != null ? intentUri.getScheme() : null;
-			final String mimeType = intent.getType();
-
-			if ((Intent.ACTION_VIEW.equals(action) || NfcAdapter.ACTION_NDEF_DISCOVERED.equals(action)) && intentUri != null
-					&& CoinDefinition.coinURIScheme.equals(scheme))
-			{
-
-				initStateFromBitcoinUri(intentUri);
-			}
-			else if ((NfcAdapter.ACTION_NDEF_DISCOVERED.equals(action)) && PaymentProtocol.MIMETYPE_PAYMENTREQUEST.equals(mimeType))
-			{
-				final NdefMessage ndefMessage = (NdefMessage) intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES)[0];
-				final byte[] ndefMessagePayload = Nfc.extractMimePayload(PaymentProtocol.MIMETYPE_PAYMENTREQUEST, ndefMessage);
-				initStateFromPaymentRequest(mimeType, ndefMessagePayload);
-			}
-			else if ((Intent.ACTION_VIEW.equals(action)) && PaymentProtocol.MIMETYPE_PAYMENTREQUEST.equals(mimeType))
-			{
-				final byte[] paymentRequest = BitcoinIntegration.paymentRequestFromIntent(intent);
-
-				if (intentUri != null)
-					initStateFromIntentUri(mimeType, intentUri);
-				else if (paymentRequest != null)
-					initStateFromPaymentRequest(mimeType, paymentRequest);
-				else
-					throw new IllegalArgumentException();
-			}
-			else if (intent.hasExtra(SendCoinsActivity.INTENT_EXTRA_PAYMENT_INTENT))
-			{
-				initStateFromIntentExtras(intent.getExtras());
-			}
-			else
-			{
-				updateStateFrom(PaymentIntent.blank());
-			}
-		}
-
-=======
->>>>>>> upstream/master
-            */
 		return view;
 	}
 
@@ -1202,6 +1155,10 @@ public final class SendCoinsFragment extends SherlockFragment
 
 			viewCancel.setEnabled(state != State.PREPARATION);
 			viewGo.setEnabled(everythingValid());
+
+            String str = String.format("%s %s", amountCalculatorLink.hasAmount() ? GenericUtils.formatValue(CoinDefinition.DEFAULT_MIN_TX_FEE, 8, 0) : String.format("%.1f", 0f), CoinDefinition.coinTicker);
+
+            txFeeView.setHint(str);
 
 			if (state == State.INPUT)
 			{

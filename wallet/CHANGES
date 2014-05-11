@@ -2,6 +2,9 @@ digitalcoin Wallet
 -----------------
 v0.1.5-beta
 * update to bitcoin-wallet 3.46
+* added Litecoin's PeerDBDiscovery System
+* added IRC bootstrap for more peers
+* Send Coins shows the transaction fee (currently the minimum fee)
 
 v0.1.4-beta
 * permanent fix for bugs relating to pause activities (removed temp fixes and support-v4r13)
