@@ -3,7 +3,7 @@ Miej swoje digitalcoiny zawsze w swojej kieszeni! Zapłacisz skanując kod QR. J
 WŁAŚCIWOŚCI:
 
 • Brak konieczności rejestracji, serwisu online lub chmury! Ten portfel używa zdecentralizowanej sieci peer-to-peer.
-• Wyświetl ilość kwotę w BTC i mBTC.
+• Wyświetl ilość kwotę w DGC i mDGC.
 • Zamiana z i na waluty narodowe
 • Wysyłąnie i odbieranie digitalcoin za pomocą NFC, kodów QR czy adresów digitalcoin URL.
 • Książka adresowa dla regularnie używanych adresów digitalcoin.

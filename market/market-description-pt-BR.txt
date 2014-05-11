@@ -3,13 +3,13 @@ Tenha os seus digitalcoins sempre com você, no seu bolso! Efetue pagamentos rap
 CARACTERÍSTICAS:
 
 • Sem necessidade de cadastro, serviço web ou hospedagem! Esta carteira é descentralizada e "peer to peer".
-• Exibe a quantidade de digitalcoins em BTC e mBTC.
+• Exibe a quantidade de digitalcoins em DGC e mDGC.
 • Conversão para moedas nacionais.
 • Envio e recebimento de digitalcoins via NFC, códigos QR ou endereços digitalcoin.
 • Catálogo para guardar os endereços mais utilizados.
 • Quando você estiver off-line, você ainda pode pagar via Bluetooth.
 • Notificações do sistema para moedas recebidas.
-• Widget para saldo de Bitcoins.
+• Widget para saldo de digitalcoins.
 
 Mais informações sobre digitalcoin em
 http://digitalcoin.co

@@ -1,4 +1,4 @@
-Tartsd a zsebedben Bitcoinjaidat! Egyszerűen, akár QR-kód leolvasásával is fizethetsz. Ha pedig termékeket, vagy szolgáltatást értékesítesz megbízható módon és gyorsan juthatsz a bevételeidhez. A Bitcoin Tárca az első Bitcoin app és kétségkívül a legbiztonságosabb is!
+Tartsd a zsebedben digitalcoinjaidat! Egyszerűen, akár QR-kód leolvasásával is fizethetsz. Ha pedig termékeket, vagy szolgáltatást értékesítesz megbízható módon és gyorsan juthatsz a bevételeidhez. A digitalcoin Tárca az első digitalcoin app és kétségkívül a legbiztonságosabb is!
 
 ELŐNYÖK:
 
@@ -8,8 +8,8 @@ ELŐNYÖK:
 • digitalcoin küldése és fogadása NFC, QR-kód vagy közvetlen URL segítségével.
 • Címtár a rendszeresen használt digitalcoin címek számára.
 • Offline állapotban is fizethetsz - Bluetooth segítségével.
-• Rendszerüzenet Bitcoin érkezésekor.
-• Widget a Bitcoin egyenlegről.
+• Rendszerüzenet digitalcoin érkezésekor.
+• Widget a digitalcoin egyenlegről.
 >>>>>>> upstream/prod
 
 Bővebben a digitalcoin-ról:

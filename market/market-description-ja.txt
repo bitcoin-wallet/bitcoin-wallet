@@ -3,7 +3,7 @@
 特徴:
 
 • 登録必要なし、ウェブサービスもクラウドもいりません！このウォレットは分散型P2Pです。
-• ビットコインの表示がBTCとmBTC。
+• ビットコインの表示がDGCとmDGC。
 • 自国通貨へ・からの変換表示。
 • NFC、QRコード、ビットコインURLでの送金や受取。
 • 良く使うビットコインアドレスのためのアドレスブック。
@@ -12,10 +12,10 @@
 • ビットコイン収支のためのヴィジット。
 
 ビットコインについての詳細は
-http://bitcoin.org
+http://digitalcoin.org
 
 もしビットコインウォレットへの開発協力をご希望なら、プロジェクトはこちら
-https://github.com/schildbach/bitcoin-wallet
+https://github.com/HashEngineering/digitalcoin-wallet
 
 ライセンス: GPLv3
 自己責任でご利用ください！

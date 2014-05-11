@@ -11,19 +11,11 @@ FEATURES:
 • התראות מערכת על קבלת מטבעות.
 • וידג'ט לבדיקת יתרת הביטקוין שלך
 
-<<<<<<< HEAD
-בהתקנה ראשונה עלול להיראות מסך לבן לזמן מה, הדבר תקין.
+אתה יכול למצוא יותר על ביטקוין בכתובת
 לפרטים נוספים : http://digitalcoin.co
 
-הארנק הוא פרויקט בקוד פתוח בגוגל, אם ברצונך לתרום:
-https://github.com/HashEngineering/digitalcoin-wallet
-=======
-אתה יכול למצוא יותר על ביטקוין בכתובת
-לפרטים נוספים : http://bitcoin.org
-
 אם אתה רוצה לתרום לפרויקט ארנק הביטקוין, הפרויקט ממוקם ב
-https://github.com/schildbach/bitcoin-wallet
->>>>>>> upstream/master
+https://github.com/HashEngineering/digitalcoin-wallet
 
 רישיון : GPLv3
 שים לב: השימוש הוא באחריות המשתמש.

@@ -77,7 +77,7 @@ Finally, you can build Bitcoin Wallet and sign it with your development key. Aga
 use
 
 	# first time only
-	git clone -b master https://github.com/schildbach/bitcoin-wallet.git bitcoin-wallet
+	git clone -b master https://github.com/HashEngineering/digitalcoin-wallet.git bitcoin-wallet
 
 	# each time
 	cd bitcoin-wallet
@@ -117,7 +117,7 @@ Make sure you've got Eclipse 3.7 (Indigo) with ADT 20 installed.
 Use Git to check out the project and an Android library dependency to your workspace:
 
 	# clone Bitcoin Wallet project
-	git clone -b master https://github.com/schildbach/bitcoin-wallet.git bitcoin-wallet
+	git clone -b master https://github.com/HashEngineering/digitalcoin-wallet.git bitcoin-wallet
 
 	# clone ActionBarSherlock library project
 	git clone https://github.com/JakeWharton/ActionBarSherlock.git action-bar-sherlock

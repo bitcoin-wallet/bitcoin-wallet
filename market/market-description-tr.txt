@@ -2,17 +2,10 @@ digitalcoin'leriniz daima cebinizde sizinle olsun! Herhangi bir QR kodunu okuyar
 
 İŞLEVLERİ:
 • Hiçbir oturuma, web ya da bulut hizmetine gerek yoktur. Bu cüzdan merkezsiz ve eşten eşedir.
-<<<<<<< HEAD
-• digitalcoin meblağlarının BTC ve mBTC olarak gösterilmesi.
-• Dövizlere ve dövizlerden dönüştürme.
+• digitalcoin meblağlarının DGC ve mDGC olarak gösterilmesi.
+• Ulusal para birimlerine ve bu para birimlerinden dönüştürme.
 • NFC, QR kodu veya digitalcoin bağlantıları ile digitalcoin gönderir ve alır.
 • Sık kullanılan digitalcoin adresleri için adres defteri içerir.
-=======
-• Bitcoin meblağlarının BTC ve mBTC olarak gösterilmesi.
-• Ulusal para birimlerine ve bu para birimlerinden dönüştürme.
-• NFC, QR kodu veya Bitcoin bağlantıları ile Bitcoin gönderir ve alır.
-• Sık kullanılan Bitcoin adresleri için adres defteri içerir.
->>>>>>> upstream/prod
 • Çevrimdışı olduğunuzda Bluetooth vasıtasıyla ödemeler.
 • Alınan digitalcoin'ler için sistem bildirimleri.
 • digitalcoin bakiyesini görüntüleyen widget.
