@@ -433,7 +433,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
         					{
 								log.info("Adding PeerDBDiscovery" );
 	                            dbPeerDiscovery = new LitecoinPeerDBDiscovery(Constants.NETWORK_PARAMETERS,
-	                                    getFileStreamPath("litecoin.peerdb"), peerGroup);
+	                                    getFileStreamPath(CoinDefinition.coinName.toLowerCase()+".peerdb"), peerGroup);
         					}
                         } catch(IllegalStateException e) {
                         	dbPeerDiscovery = null;
