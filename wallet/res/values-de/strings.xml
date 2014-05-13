@@ -134,7 +134,7 @@
 	<string name="network_monitor_peer_list_title">Peers</string>
 	<string name="network_monitor_block_list_title">Blöcke</string>
 
-	<string name="peer_list_fragment_empty">Keine Peers verbinden</string>
+	<string name="peer_list_fragment_empty">Keine Peers verbunden</string>
 	<string name="peer_list_row_ping_time">⇆ %d&#x2009;ms</string>
 
 	<string name="import_keys_dialog_title">Wallet wiederherstellen</string>
