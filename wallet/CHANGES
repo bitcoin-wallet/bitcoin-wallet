@@ -1,3 +1,8 @@
+v3.48
+
+* Get rid of all NFC Android application records. This will improve interoperability with other
+  Android wallets.
+
 v3.47
 
 * Manual wallet backups now back up the whole wallet, not just the private keys. It also means
