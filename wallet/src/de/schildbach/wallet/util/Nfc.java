@@ -47,7 +47,7 @@ public class Nfc
 			return false;
 
 		final NdefRecord uriRecord = wellKnownUriRecord(uri);
-		adapter.enableForegroundNdefPush(activity, ndefMessage(uriRecord, true, activity.getPackageName()));
+		adapter.enableForegroundNdefPush(activity, ndefMessage(uriRecord, false, activity.getPackageName()));
 
 		return true;
 	}
