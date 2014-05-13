@@ -76,6 +76,7 @@ import com.google.bitcoin.core.AddressFormatException;
 import com.google.bitcoin.core.ECKey;
 import com.google.bitcoin.core.Transaction;
 import com.google.bitcoin.core.Wallet;
+import com.google.bitcoin.core.Wallet.BalanceType;
 import com.google.bitcoin.store.UnreadableWalletException;
 import com.google.bitcoin.store.WalletProtobufSerializer;
 
@@ -463,6 +464,10 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 				return lhs.getName().compareToIgnoreCase(rhs.getName());
 			}
 		});
+
+		final View replaceWarningView = alertDialog.findViewById(R.id.restore_wallet_from_storage_dialog_replace_warning);
+		final boolean hasCoins = wallet.getBalance(BalanceType.ESTIMATED).signum() > 0;
+		replaceWarningView.setVisibility(hasCoins ? View.VISIBLE : View.GONE);
 
 		final Spinner fileView = (Spinner) alertDialog.findViewById(R.id.import_keys_from_storage_file);
 		final FileAdapter adapter = (FileAdapter) fileView.getAdapter();

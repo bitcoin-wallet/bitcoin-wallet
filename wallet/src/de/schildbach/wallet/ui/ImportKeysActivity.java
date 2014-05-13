@@ -39,6 +39,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 
 import com.google.bitcoin.core.Wallet;
+import com.google.bitcoin.core.Wallet.BalanceType;
 import com.google.bitcoin.store.UnreadableWalletException;
 import com.google.bitcoin.store.WalletProtobufSerializer;
 
@@ -57,6 +58,7 @@ public final class ImportKeysActivity extends AbstractWalletActivity
 
 	private WalletApplication application;
 	private Configuration config;
+	private Wallet wallet;
 	private ContentResolver contentResolver;
 
 	private Uri backupFileUri;
@@ -68,6 +70,7 @@ public final class ImportKeysActivity extends AbstractWalletActivity
 
 		application = getWalletApplication();
 		config = application.getConfiguration();
+		wallet = application.getWallet();
 		contentResolver = getContentResolver();
 
 		backupFileUri = getIntent().getData();
@@ -144,6 +147,10 @@ public final class ImportKeysActivity extends AbstractWalletActivity
 	private void prepareImportKeysDialog(final Dialog dialog)
 	{
 		final AlertDialog alertDialog = (AlertDialog) dialog;
+
+		final View replaceWarningView = alertDialog.findViewById(R.id.restore_wallet_from_content_dialog_replace_warning);
+		final boolean hasCoins = wallet.getBalance(BalanceType.ESTIMATED).signum() > 0;
+		replaceWarningView.setVisibility(hasCoins ? View.VISIBLE : View.GONE);
 
 		final EditText passwordView = (EditText) alertDialog.findViewById(R.id.import_keys_from_content_dialog_password);
 		passwordView.setText(null);
