@@ -978,7 +978,7 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 				@Override
 				public void onClick(final DialogInterface dialog, final int which)
 				{
-					mailPrivateKeys(file);
+					archiveWalletBackup(file);
 				}
 			});
 			dialog.setNegativeButton(R.string.button_dismiss, null);
@@ -1008,25 +1008,25 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 		}
 	}
 
-	private void mailPrivateKeys(@Nonnull final File file)
+	private void archiveWalletBackup(@Nonnull final File file)
 	{
 		final Intent intent = new Intent(Intent.ACTION_SEND);
 		intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.export_keys_dialog_mail_subject));
 		intent.putExtra(Intent.EXTRA_TEXT,
 				getString(R.string.export_keys_dialog_mail_text) + "\n\n" + String.format(Constants.WEBMARKET_APP_URL, getPackageName()) + "\n\n"
 						+ Constants.SOURCE_URL + '\n');
-		intent.setType(Constants.MIMETYPE_BACKUP_PRIVATE_KEYS);
+		intent.setType(Constants.MIMETYPE_WALLET_BACKUP);
 		intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file));
 
 		try
 		{
 			startActivity(Intent.createChooser(intent, getString(R.string.export_keys_dialog_mail_intent_chooser)));
-			log.info("invoked chooser for archiving private keys");
+			log.info("invoked chooser for archiving wallet backup");
 		}
 		catch (final Exception x)
 		{
 			longToast(R.string.export_keys_dialog_mail_intent_failed);
-			log.error("archiving private keys failed", x);
+			log.error("archiving wallet backup failed", x);
 		}
 	}
 }

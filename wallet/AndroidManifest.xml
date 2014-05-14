@@ -162,7 +162,7 @@
 
 				<category android:name="android.intent.category.DEFAULT" />
 
-				<data android:mimeType="x-bitcoin/private-keys" />
+				<data android:mimeType="application/x-bitcoin-wallet-backup" />
 				<data android:mimeType="application/octet-stream" />
 			</intent-filter>
 		</activity>

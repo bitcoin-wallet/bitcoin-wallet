@@ -59,7 +59,7 @@ public class Constants
 			: EXPLORE_BASE_URL_TEST;
 
 	public static final String MIMETYPE_TRANSACTION = "application/x-btctx";
-	public static final String MIMETYPE_BACKUP_PRIVATE_KEYS = "x-bitcoin/private-keys";
+	public static final String MIMETYPE_WALLET_BACKUP = "application/x-bitcoin-wallet-backup";
 
 	public static final int MAX_NUM_CONFIRMATIONS = 7;
 	public static final String USER_AGENT = "Bitcoin Wallet";
