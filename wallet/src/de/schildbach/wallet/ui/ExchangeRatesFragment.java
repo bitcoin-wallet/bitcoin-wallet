@@ -119,6 +119,7 @@ public final class ExchangeRatesFragment extends SherlockListFragment implements
 	{
 		super.onViewCreated(view, savedInstanceState);
 
+		getListView().setFastScrollEnabled(true);
 		updateEmptyText();
 	}
 
