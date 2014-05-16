@@ -158,7 +158,7 @@
 	<string name="scan_camera_problem_dialog_title">Sorry</string>
 	<string name="scan_camera_problem_dialog_message">The camera has a problem. You probably need to restart the device.</string>
 	<string name="input_parser_io_error">Cannot read data:\n%s</string>
-	<string name="input_parser_cannot_classify">Cannot classify input:\n%s</string>
+	<string name="input_parser_cannot_classify">Cannot recognize input:\n%s</string>
 	<string name="input_parser_invalid_bitcoin_uri">Invalid Bitcoin URI:\n%s</string>
 	<string name="input_parser_invalid_address">Got invalid bitcoin address!\n(Mixing up Mainnet/Testnet?)</string>
 	<string name="input_parser_unverifyable_paymentrequest">Cannot verify payment request:\n%s</string>

@@ -173,6 +173,7 @@
 	<string name="scan_camera_problem_dialog_message">Die Kamera hat ein Problem. Evtl. musst du dein Gerät neu starten.</string>
 
 	<string name="input_parser_io_error">Kann Daten nicht lesen:\n%s</string>
+	<string name="input_parser_cannot_classify">Eingabe nicht erkannt:\n%s</string>
 	<string name="input_parser_invalid_bitcoin_uri">Ungültige Bitcoin-URI:\n%s</string>
 	<string name="input_parser_invalid_address">Ungültige Bitcoin-Adresse gelesen!\n(Versuchst Du Mainnet/Testnet zu mischen?)</string>
 	<string name="input_parser_unverifyable_paymentrequest">Kann Zahlungsanforderung nicht verifizieren:\n%s</string>
