@@ -4,16 +4,16 @@
 	<PreferenceCategory android:title="@string/about_title" >
 		<Preference
 			android:key="about_version"
-			android:title="Version" />
+			android:title="@string/about_version_title" />
 		<Preference
 			android:summary="© 2011-2014, Andreas Schildbach"
-			android:title="Copyright" />
+			android:title="@string/about_copyright_title" />
 		<Preference
 			android:key="about_license"
 			android:title="@string/about_license_title" />
 		<Preference
 			android:key="about_source"
-			android:title="Source Code" />
+			android:title="@string/about_source_title" />
 		<Preference
 			android:key="about_market_app"
 			android:summary="@string/about_market_app_summary"

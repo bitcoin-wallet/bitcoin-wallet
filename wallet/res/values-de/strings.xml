@@ -214,7 +214,10 @@
 	<string name="report_issue_dialog_mail_intent_failed">Senden des Berichts fehlgeschlagen.</string>
 
 	<string name="about_title">Über</string>
+	<string name="about_version_title">Version</string>
+	<string name="about_copyright_title">Urheberrecht</string>
 	<string name="about_license_title">Lizenz</string>
+	<string name="about_source_title">Quellcode</string>
 	<string name="about_credits_bitcoinj_title">Diese App nutzt bitcoinj %s</string>
 	<string name="about_credits_zxing_title">Diese App nutzt \'zxing\'</string>
 	<string name="about_credits_icon_title">Diese App nutzt ein Icon von \'bitboy\'</string>
