@@ -3,7 +3,7 @@ Ayez vos bitcoins toujours avec vous dans votre poche ! Payez rapidement en num�
 FONCTIONS :
 
 • Pas d'inscription, de service Web ou de nuage de nécessaire ! Ce portefeuille est décentralisé et de pair-à-pair.
-• Affichage du montant de bitcoin en BTC et mBTC.
+• Affichage du montant de bitcoins en BTC, mBTC et µBTC.
 • Conversion vers et depuis des devises nationales.
 • Envoi et réception des bitcoins via NFC, codes QR ou des URLs bitcoin.
 • Carnet d'adresses pour les adresses Bitcoin utilisées régulièrement.
