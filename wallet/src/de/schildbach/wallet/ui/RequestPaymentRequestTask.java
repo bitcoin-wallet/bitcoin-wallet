@@ -36,7 +36,6 @@ import android.bluetooth.BluetoothSocket;
 import android.os.Handler;
 import android.os.Looper;
 
-import com.google.bitcoin.core.Transaction;
 import com.google.protobuf.CodedInputStream;
 import com.google.protobuf.CodedOutputStream;
 
@@ -127,13 +126,6 @@ public abstract class RequestPaymentRequestTask
 									log.info("received {} via http", paymentIntent);
 
 									onPaymentIntent(paymentIntent);
-								}
-
-								@Override
-								protected void handleDirectTransaction(@Nonnull final Transaction transaction)
-								{
-									throw new UnsupportedOperationException();
-
 								}
 
 								@Override
@@ -237,13 +229,6 @@ public abstract class RequestPaymentRequestTask
 									log.info("received {} via bluetooth", paymentIntent);
 
 									onPaymentIntent(paymentIntent);
-								}
-
-								@Override
-								protected void handleDirectTransaction(@Nonnull final Transaction transaction)
-								{
-									throw new UnsupportedOperationException();
-
 								}
 
 								@Override

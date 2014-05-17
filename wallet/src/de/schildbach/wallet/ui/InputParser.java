@@ -231,6 +231,12 @@ public abstract class InputParser
 				cannotClassify(inputType);
 			}
 		}
+
+		@Override
+		protected final void handleDirectTransaction(@Nonnull final Transaction transaction)
+		{
+			throw new UnsupportedOperationException();
+		}
 	}
 
 	public abstract static class StreamInputParser extends InputParser
@@ -301,6 +307,12 @@ public abstract class InputParser
 			{
 				cannotClassify(inputType);
 			}
+		}
+
+		@Override
+		protected final void handleDirectTransaction(@Nonnull final Transaction transaction)
+		{
+			throw new UnsupportedOperationException();
 		}
 	}
 

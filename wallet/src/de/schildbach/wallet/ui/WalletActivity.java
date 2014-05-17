@@ -165,12 +165,6 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 				}
 
 				@Override
-				protected void handleDirectTransaction(final Transaction transaction)
-				{
-					processDirectTransaction(transaction);
-				}
-
-				@Override
 				protected void error(final int messageResId, final Object... messageArgs)
 				{
 					dialog(WalletActivity.this, null, 0, messageResId, messageArgs);

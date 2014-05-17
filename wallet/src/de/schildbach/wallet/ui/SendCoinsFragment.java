@@ -1240,12 +1240,6 @@ public final class SendCoinsFragment extends SherlockFragment
 			}
 
 			@Override
-			protected void handleDirectTransaction(final Transaction transaction)
-			{
-				throw new UnsupportedOperationException();
-			}
-
-			@Override
 			protected void error(final int messageResId, final Object... messageArgs)
 			{
 				dialog(activity, activityDismissListener, 0, messageResId, messageArgs);
@@ -1265,12 +1259,6 @@ public final class SendCoinsFragment extends SherlockFragment
 				protected void handlePaymentIntent(final PaymentIntent paymentIntent)
 				{
 					updateStateFrom(paymentIntent);
-				}
-
-				@Override
-				protected void handleDirectTransaction(final Transaction transaction)
-				{
-					throw new UnsupportedOperationException();
 				}
 
 				@Override
