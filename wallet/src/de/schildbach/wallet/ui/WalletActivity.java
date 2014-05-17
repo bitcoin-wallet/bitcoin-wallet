@@ -82,8 +82,8 @@ import com.google.bitcoin.store.WalletProtobufSerializer;
 
 import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
-import de.schildbach.wallet.PaymentIntent;
 import de.schildbach.wallet.WalletApplication;
+import de.schildbach.wallet.data.PaymentIntent;
 import de.schildbach.wallet.ui.InputParser.BinaryInputParser;
 import de.schildbach.wallet.ui.InputParser.StringInputParser;
 import de.schildbach.wallet.util.CrashReporter;

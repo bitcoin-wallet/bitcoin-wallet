@@ -27,7 +27,7 @@ import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 
-import de.schildbach.wallet.PaymentIntent;
+import de.schildbach.wallet.data.PaymentIntent;
 import de.schildbach.wallet_test.R;
 
 /**

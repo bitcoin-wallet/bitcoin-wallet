@@ -25,7 +25,7 @@ import android.os.Bundle;
 
 import com.google.bitcoin.core.Transaction;
 
-import de.schildbach.wallet.PaymentIntent;
+import de.schildbach.wallet.data.PaymentIntent;
 import de.schildbach.wallet.ui.InputParser.StringInputParser;
 
 /**
