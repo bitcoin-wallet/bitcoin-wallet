@@ -76,6 +76,7 @@ import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.google.bitcoin.core.Address;
 import com.google.bitcoin.core.AddressFormatException;
+import com.google.bitcoin.core.ECKey;
 import com.google.bitcoin.core.NetworkParameters;
 import com.google.bitcoin.core.Sha256Hash;
 import com.google.bitcoin.core.Transaction;
@@ -1210,13 +1211,19 @@ public final class SendCoinsFragment extends SherlockFragment
 		new StringInputParser(input)
 		{
 			@Override
-			protected void handlePaymentIntent(final PaymentIntent paymentIntent)
+			protected void handlePaymentIntent(@Nonnull final PaymentIntent paymentIntent)
 			{
 				updateStateFrom(paymentIntent);
 			}
 
 			@Override
-			protected void handleDirectTransaction(final Transaction transaction)
+			protected void handlePrivateKey(@Nonnull final ECKey key)
+			{
+				throw new UnsupportedOperationException();
+			}
+
+			@Override
+			protected void handleDirectTransaction(@Nonnull final Transaction transaction)
 			{
 				cannotClassify(input);
 			}

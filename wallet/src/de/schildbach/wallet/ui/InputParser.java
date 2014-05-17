@@ -139,9 +139,8 @@ public abstract class InputParser
 				try
 				{
 					final ECKey key = new DumpedPrivateKey(Constants.NETWORK_PARAMETERS, input).getKey();
-					final Address address = new Address(Constants.NETWORK_PARAMETERS, key.getPubKeyHash());
 
-					handlePaymentIntent(PaymentIntent.fromAddress(address, null));
+					handlePrivateKey(key);
 				}
 				catch (final AddressFormatException x)
 				{
@@ -233,6 +232,12 @@ public abstract class InputParser
 		}
 
 		@Override
+		protected final void handlePrivateKey(@Nonnull final ECKey key)
+		{
+			throw new UnsupportedOperationException();
+		}
+
+		@Override
 		protected final void handleDirectTransaction(@Nonnull final Transaction transaction)
 		{
 			throw new UnsupportedOperationException();
@@ -310,6 +315,12 @@ public abstract class InputParser
 		}
 
 		@Override
+		protected final void handlePrivateKey(@Nonnull final ECKey key)
+		{
+			throw new UnsupportedOperationException();
+		}
+
+		@Override
 		protected final void handleDirectTransaction(@Nonnull final Transaction transaction)
 		{
 			throw new UnsupportedOperationException();
@@ -326,6 +337,13 @@ public abstract class InputParser
 	}
 
 	protected abstract void handlePaymentIntent(@Nonnull PaymentIntent paymentIntent);
+
+	protected void handlePrivateKey(@Nonnull final ECKey key)
+	{
+		final Address address = new Address(Constants.NETWORK_PARAMETERS, key.getPubKeyHash());
+
+		handlePaymentIntent(PaymentIntent.fromAddress(address, null));
+	}
 
 	protected abstract void handleDirectTransaction(@Nonnull Transaction transaction);
 
