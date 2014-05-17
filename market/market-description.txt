@@ -9,6 +9,7 @@ FEATURES:
 • Address book for regularly used Bitcoin addresses.
 • When you're offline, you can still pay via Bluetooth.
 • System notification for received coins.
+• Sweeping of paper wallets (e.g. those used for cold storage).
 • App widget for Bitcoin balance.
 
 You can find more about Bitcoin at

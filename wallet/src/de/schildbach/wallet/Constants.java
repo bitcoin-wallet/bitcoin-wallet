@@ -63,6 +63,11 @@ public final class Constants
 	public static final String EXPLORE_BASE_URL = NETWORK_PARAMETERS.getId().equals(NetworkParameters.ID_MAINNET) ? EXPLORE_BASE_URL_PROD
 			: EXPLORE_BASE_URL_TEST;
 
+	private static final String BITEASY_API_URL_PROD = "https://api.biteasy.com/blockchain/v1/";
+	private static final String BITEASY_API_URL_TEST = "https://api.biteasy.com/testnet/v1/";
+	public static final String BITEASY_API_URL = NETWORK_PARAMETERS.getId().equals(NetworkParameters.ID_MAINNET) ? BITEASY_API_URL_PROD
+			: BITEASY_API_URL_TEST;
+
 	public static final String MIMETYPE_TRANSACTION = "application/x-btctx";
 	public static final String MIMETYPE_WALLET_BACKUP = "application/x-bitcoin-wallet-backup";
 

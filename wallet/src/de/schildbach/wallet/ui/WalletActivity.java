@@ -89,6 +89,7 @@ import de.schildbach.wallet.data.PaymentIntent;
 import de.schildbach.wallet.ui.InputParser.BinaryInputParser;
 import de.schildbach.wallet.ui.InputParser.StringInputParser;
 import de.schildbach.wallet.ui.send.SendCoinsActivity;
+import de.schildbach.wallet.ui.send.SweepWalletActivity;
 import de.schildbach.wallet.util.CrashReporter;
 import de.schildbach.wallet.util.Crypto;
 import de.schildbach.wallet.util.HttpGetThread;
@@ -188,9 +189,15 @@ public final class WalletActivity extends AbstractWalletActivity
 			new StringInputParser(input)
 			{
 				@Override
-				protected void handlePaymentIntent(final PaymentIntent paymentIntent)
+				protected void handlePaymentIntent(@Nonnull final PaymentIntent paymentIntent)
 				{
 					SendCoinsActivity.start(WalletActivity.this, paymentIntent);
+				}
+
+				@Override
+				protected void handlePrivateKey(@Nonnull final ECKey key)
+				{
+					SweepWalletActivity.start(WalletActivity.this, key);
 				}
 
 				@Override
@@ -258,6 +265,10 @@ public final class WalletActivity extends AbstractWalletActivity
 
 			case R.id.wallet_options_exchange_rates:
 				startActivity(new Intent(this, ExchangeRatesActivity.class));
+				return true;
+
+			case R.id.wallet_options_sweep_wallet:
+				SweepWalletActivity.start(this);
 				return true;
 
 			case R.id.wallet_options_network_monitor:

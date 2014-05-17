@@ -90,6 +90,16 @@
 	<string name="send_coins_options_empty">Wallet entleeren</string>
 	<string name="send_coins_address_context_clear_title">Adresse neu eingeben</string>
 
+	<string name="sweep_wallet_activity_title">Paper-Wallet leeren</string>
+	<string name="sweep_wallet_fragment_intro">Du bist dabei eine Paper-Wallet oder Coupon zu leeren. Dies wird alle Bitcoins von diesem Papier in deine Wallet auf diesem Gerät verschieben. Sobald die Transaktion bestätigt ist, wird das Papier wertlos und sollte aus Sicherheitsgründen nicht wiederverwendet werden.</string>
+	<string name="sweep_wallet_fragment_hint">Paper-Wallets werden meist für Cold Storage genutzt. Einige Geldautomaten drucken sie auf das Quittungspapier, anstatt die Bitcoins direkt an das mobile Gerät zu versenden. Manchmal werden vorgeladene Paper-Wallets als Zahlungsmittel verwendet (nicht empfohlen).</string>
+	<string name="sweep_wallet_fragment_wallet_unknown">Beginne, indem Du den privaten Schlüssel eines Paper-Wallets scannst. Benutze dafür die Kamera-Schaltfläche.</string>
+	<string name="sweep_wallet_fragment_balance">Zu leerendes Guthaben</string>
+	<string name="sweep_wallet_fragment_button_sweep">Leeren</string>
+	<string name="sweep_wallet_fragment_request_wallet_balance_progress">Aktualisiere Guthaben…</string>
+	<string name="sweep_wallet_fragment_request_wallet_balance_failed_title">Guthabenanforderung fehlgeschlagen</string>
+	<string name="sweep_wallet_options_reload">Guthaben aktualisieren</string>
+
 	<string name="request_coins_activity_title">Bitcoins anfordern</string>
 	<string name="request_coins_fragment_amount_label">Angeforderter Betrag (optional)</string>
 	<string name="request_coins_fragment_accept_bluetooth_payment">Zahlung zur zuverlässigeren Abwicklung per Bluetooth akzeptieren</string>

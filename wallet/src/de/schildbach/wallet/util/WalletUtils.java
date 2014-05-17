@@ -18,6 +18,8 @@
 package de.schildbach.wallet.util;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.FileInputStream;
@@ -58,6 +60,7 @@ import com.google.bitcoin.core.TransactionInput;
 import com.google.bitcoin.core.TransactionOutput;
 import com.google.bitcoin.core.Wallet;
 import com.google.bitcoin.script.Script;
+import com.google.bitcoin.store.UnreadableWalletException;
 import com.google.bitcoin.store.WalletProtobufSerializer;
 
 import de.schildbach.wallet.Constants;
@@ -345,5 +348,39 @@ public class WalletUtils
 					oldestKey = key;
 
 		return oldestKey;
+	}
+
+	public static byte[] walletToByteArray(@Nonnull final Wallet wallet)
+	{
+		try
+		{
+			final ByteArrayOutputStream os = new ByteArrayOutputStream();
+			new WalletProtobufSerializer().writeWallet(wallet, os);
+			os.close();
+			return os.toByteArray();
+		}
+		catch (final IOException x)
+		{
+			throw new RuntimeException(x);
+		}
+	}
+
+	public static Wallet walletFromByteArray(@Nonnull final byte[] walletBytes)
+	{
+		try
+		{
+			final ByteArrayInputStream is = new ByteArrayInputStream(walletBytes);
+			final Wallet wallet = new WalletProtobufSerializer().readWallet(is);
+			is.close();
+			return wallet;
+		}
+		catch (final UnreadableWalletException x)
+		{
+			throw new RuntimeException(x);
+		}
+		catch (final IOException x)
+		{
+			throw new RuntimeException(x);
+		}
 	}
 }

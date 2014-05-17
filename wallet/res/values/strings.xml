@@ -83,6 +83,15 @@
 	<string name="send_coins_error_msg">Problem sending coins!</string>
 	<string name="send_coins_options_empty">Empty wallet</string>
 	<string name="send_coins_address_context_clear_title">Enter new address</string>
+	<string name="sweep_wallet_activity_title">Sweep paper wallet</string>
+	<string name="sweep_wallet_fragment_intro">You are about to sweep a paper wallet or coupon. This will move all coins from that paper to your wallet on this device. When the transaction is confirmed, the paper will be worthless and should not be re-used for safety reasons.</string>
+	<string name="sweep_wallet_fragment_hint">Paper wallets are most commonly used for cold storage. Some ATMs print them on their paper slip rather than sending the coins to your mobile device directly. People sometimes use pre-charged paper wallets to pass value around (not recommended).</string>
+	<string name="sweep_wallet_fragment_wallet_unknown">Start by scanning the private key of a paper wallet. Use the camera action button.</string>
+	<string name="sweep_wallet_fragment_balance">Balance to sweep</string>
+	<string name="sweep_wallet_fragment_button_sweep">Sweep</string>
+	<string name="sweep_wallet_fragment_request_wallet_balance_progress">Laoding balance…</string>
+	<string name="sweep_wallet_fragment_request_wallet_balance_failed_title">Loading wallet balance failed</string>
+	<string name="sweep_wallet_options_reload">Reload balance</string>
 	<string name="request_coins_activity_title">Request Bitcoins</string>
 	<string name="request_coins_fragment_amount_label">Requested amount (optional)</string>
 	<string name="request_coins_fragment_accept_bluetooth_payment">Accept payment via Bluetooth for more reliable processing</string>
@@ -238,6 +247,7 @@
 
 	<!-- generic error messages -->
 	<string name="error_io">I/O error: %s</string>
+	<string name="error_parse">Parse error: %s</string>
 	<string name="error_http">HTTP error %1$s:\n%2$s</string>
 	<string name="error_bluetooth">Bluetooth error %1$s</string>
 

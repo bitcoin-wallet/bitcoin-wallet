@@ -1241,7 +1241,7 @@ public final class SendCoinsFragment extends SherlockFragment
 			@Override
 			protected void handleDirectTransaction(@Nonnull final Transaction transaction) throws VerificationException
 			{
-				cannotClassify(input);
+				throw new UnsupportedOperationException();
 			}
 
 			@Override
