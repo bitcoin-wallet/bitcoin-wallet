@@ -1,35 +1,30 @@
 FILES
 
-Your wallet and your private keys are stored in app internal storage:
+Your wallet contains your private keys and various transaction related metadata. It is stored in app-private
+storage:
 
-/data/data/de.schildbach.wallet/files/wallet-protobuf (MODE_PRIVATE)
-	Wallet for Mainnet
+	Mainnet: /data/data/de.schildbach.wallet/files/wallet-protobuf (MODE_PRIVATE)
 
-/data/data/de.schildbach.wallet_test/files/wallet-protobuf-testnet (MODE_WORLD_READABLE | MODE_WORLD_WRITEABLE)
-	Wallet for Testnet
+	Testnet: /data/data/de.schildbach.wallet_test/files/wallet-protobuf-testnet (MODE_WORLD_READABLE | MODE_WORLD_WRITEABLE)
 
 The wallet file format is not compatible to wallet.dat (Satoshi client). Rather, it uses a custom protobuf format
 which should be compatible between clients using bitcoinj.
 
-Certain actions cause automatic rolling backups of your private keys to app-private storage:
+Certain actions cause automatic rolling backups of your wallet to app-private storage:
 
-/data/data/de.schildbach.wallet/files/key-backup-base58 (MODE_PRIVATE)
-	Automatic backups of private keys for Mainnet
+	Mainnet: /data/data/de.schildbach.wallet/files/key-backup-protobuf (MODE_PRIVATE)
 
-/data/data/de.schildbach.wallet_test/files/key-backup-base58-testnet (MODE_PRIVATE)
-	Automatic backups of private keys for Testnet
+	Testnet: /data/data/de.schildbach.wallet_test/files/key-backup-protobuf-testnet (MODE_PRIVATE)
 
-Private keys can be manually backed up to and restored from external storage:
+Your wallet can be manually backed up to and restored from external storage:
 
-/sdcard/Download/bitcoin-wallet-keys-<yyyy-MM-dd>
-	Manual backups of private keys for Mainnet
+	Mainnet: /sdcard/Download/bitcoin-wallet-backup-<yyyy-MM-dd>
 
-/sdcard/Download/bitcoin-wallet-keys-testnet-<yyyy-MM-dd>
-	Manual backups of private keys for Testnet
+	Testnet: /sdcard/Download/bitcoin-wallet-backup-testnet-<yyyy-MM-dd>
 
-The manual backup files are encrypted using your chosen password. You can use OpenSSL to decrypt:
+The manual backup files are encrypted using your chosen backup password. You can use OpenSSL to decrypt:
 
-openssl enc -d -aes-256-cbc -a -in <filename>
+	openssl enc -d -aes-256-cbc -a -in <filename>
 
 
 DEBUGGING
