@@ -18,11 +18,13 @@
 	<string name="wallet_addresses_fragment_add_dialog_message">Bitcoin adresleri silinemez. Cüzdanınıza yeni bir adres eklemek istediğinizden emin misiniz?</string>
 	<string name="wallet_balance_fragment_replaying">Tekrar sırasında bakiye kullanılamaz</string>
 	<string name="exchange_rates_activity_title">Döviz kurları</string>
-	<string name="exchange_rates_fragment_empty_text">Döviz kurları yüklenemedi</string>
+	<string name="exchange_rates_fragment_empty_text">Döviz kurları yüklenemedi.</string>
+	<string name="exchange_rates_fragment_empty_search">Değişim kuru bulunamadı.</string>
 	<string name="exchange_rates_fragment_default">(varsayılan)</string>
 	<string name="exchange_rates_fragment_rate">oran</string>
 	<string name="exchange_rates_fragment_balance">bakiye</string>
 	<string name="exchange_rates_fragment_source">%s unsurundan fiyat</string>
+	<string name="exchange_rates_options_search">Değişim kuru ara</string>
 	<string name="exchange_rates_context_set_as_default_title">Varsayılan döviz olarak ayarla</string>
 	<string name="wallet_transactions_fragment_tab_received">Alınan</string>
 	<string name="wallet_transactions_fragment_tab_all">İkisi</string>
@@ -34,6 +36,7 @@
 	<string name="wallet_transactions_fragment_coinbase">oluşturulan</string>
 	<string name="wallet_transactions_fragment_internal">Dahili</string>
 	<string name="wallet_transactions_context_show_qr_title">QR kodu göster</string>
+	<string name="wallet_options_safety_menu">Güvenlik</string>
 	<string name="wallet_options_safety">Güvenlik notları</string>
 	<string name="wallet_options_donate">Bağış</string>
 	<string name="wallet_donate_address_label">Bu yazılıma bağış yap</string>
@@ -121,8 +124,9 @@
 	<string name="network_monitor_block_list_title">Bloklar</string>
 	<string name="peer_list_fragment_empty">Hiçbir eş bağlı değil</string>
 	<string name="peer_list_row_ping_time">⇆ %d ms</string>
-	<string name="import_keys_dialog_title">Özel anahtarları geri getir</string>
-	<string name="import_keys_dialog_message">Harici ya da uygulama-özel yedekleme alanından bir özel anahtar yedekleme dosyası seçin:</string>
+	<string name="import_keys_dialog_title">Cüzdanı geri getir</string>
+	<string name="import_keys_dialog_message">Harici ya da uygulama-özel yedekleme alanından bir cüzdan yedekleme dosyası seçin:</string>
+	<string name="restore_wallet_dialog_replace_warning">Güncel cüzdanınızı başkasıyla değiştirmek üzeresiniz. Güncel cüzdanınızdaki Bitcoin\'ler bir yedeklemeniz yoksa kaybolacaktır.</string>
 	<string name="import_keys_dialog_warning">Önemli: şüpheli kaynaklardan özel anahtar yüklemeyiniz! Bunu yaparsanız başkaları sizin paranızın kontrolünü ele geçirebilir.</string>
 	<string name="import_keys_dialog_file_security_encrypted">parola şifrelendi</string>
 	<string name="import_keys_dialog_file_security_unencrypted">şifresiz</string>
@@ -131,29 +135,30 @@
 	<string name="import_keys_dialog_file_created_automatic">otomatik yedekleme %s</string>
 	<string name="import_keys_dialog_file_created_manual">%s elle yedeklendi</string>
 	<string name="import_keys_dialog_button_import">Geri al</string>
+	<string name="restore_wallet_dialog_success">Cüzdan geri getirildi.</string>
 	<string name="import_keys_dialog_success_imported">%d özel anahtar geri getirildi.</string>
 	<string name="import_keys_dialog_success_existing">%d anahtar geri getirilmedi çünkü zaten cüzdanınızda mevcutlar.</string>
 	<string name="import_keys_dialog_success_reset">Bakiyenizi güncellemek için blok zincirini sıfırlamanız gerekiyor. Bunu yapmak istiyor musunuz?</string>
-	<string name="import_keys_dialog_failure">Özel anahtarlar geri getirilemedi:\n\n%s\n\nYanlış parola olmasın?</string>
+	<string name="import_keys_dialog_failure">Cüzdan geri getirilemedi:\n\n%s\n\nParola yanlış olmasın?</string>
 	<string name="import_keys_dialog_button_reset_blockchain">Sıfırla</string>
-	<string name="export_keys_dialog_title">Özel anahtarları yedekle</string>
-	<string name="export_keys_dialog_message">Özel anahtarlarınız seçilen parolayla şifrelenecek ve harici depolamaya yedeklenecektir.</string>
+	<string name="export_keys_dialog_title">Cüzdanı yedekle</string>
+	<string name="export_keys_dialog_message">Cüzdanınız seçtiğiniz parola ile şifrelenip harici yedeklemeye yazılacaktır.</string>
 	<string name="export_keys_dialog_button_export">Yedekle</string>
-	<string name="export_keys_dialog_success">Özel anahtarlarınız şu konumda yedeklendi:\n\n%s\n\nHem onları hem de parolanızı güvenli bir şekilde saklayın!\n\nAnahtarlarınızı bir uygulama kullanarak arşivlemek istiyor musunuz?</string>
-	<string name="export_keys_dialog_failure">Özel anahtarlarınız yedeklenemedi:\n%s</string>
+	<string name="export_keys_dialog_success">Cüzdanınız şu konumda yedeklendi:\n\n%s\n\nOnu ve parolanızı güvenli bir şekilde muhafaza edin!\n\nCüzdanınızı bir uygulama ile arşivlemek istiyor musunuz?</string>
+	<string name="export_keys_dialog_failure">Cüzdanınız yedeklenemedi:\n%s</string>
 	<string name="export_keys_dialog_button_archive">Arşivle</string>
-	<string name="export_keys_dialog_mail_subject">Bitcoin Wallet özel anahtar yedeklemesi</string>
+	<string name="export_keys_dialog_mail_subject">Bitcoin Cüzdanı yedeklemesi</string>
 	<string name="export_keys_dialog_mail_text">Eklenen şifreli dosya Bitcoin özel anahtarlarını içermektedir ve güvenli bir yerde saklanmalıdır. Şifreleme parolanızı unutmayınız!</string>
-	<string name="export_keys_dialog_mail_intent_chooser">Anahtarları şunu kullanarak arşivle…</string>
-	<string name="export_keys_dialog_mail_intent_failed">Anahtarların arşivlenmesi başarısız oldu.</string>
+	<string name="export_keys_dialog_mail_intent_chooser">Cüzdanı şunu kullanarak arşivle…</string>
+	<string name="export_keys_dialog_mail_intent_failed">Cüzdanın arşivlenmesi başarısız oldu.</string>
 	<string name="import_export_keys_dialog_password">parola</string>
 	<string name="import_export_keys_dialog_show">Parolayı göster</string>
 	<string name="import_export_keys_dialog_failure_title">Hata</string>
-	<string name="import_keys_intent_filter_action">Bitcoin anahtar geri yükleme</string>
+	<string name="import_keys_intent_filter_action">Cüzdanı geri getir</string>
 	<string name="scan_camera_problem_dialog_title">Üzgünüz</string>
 	<string name="scan_camera_problem_dialog_message">Fotoğraf makinesinde bir problem var. Muhtemelen cihazınızı yeniden başlatmanız gerekiyor.</string>
 	<string name="input_parser_io_error">Veriler okunamadı:\n%s</string>
-	<string name="input_parser_cannot_classify">Girdi sınıflandırılamadı:\n%s</string>
+	<string name="input_parser_cannot_classify">Girdi tanınamadı:\n%s</string>
 	<string name="input_parser_invalid_bitcoin_uri">Geçersiz Bitcoin adresi:\n%s</string>
 	<string name="input_parser_invalid_address">Geçersiz bir bitcoin adresi alındı!\n(Mainnet ve Testnet karışmış olmasın?)</string>
 	<string name="input_parser_unverifyable_paymentrequest">Ödeme talebi kontrol edilemez:\n%s</string>
@@ -192,7 +197,10 @@
 	<string name="report_issue_dialog_mail_intent_chooser">Raporu şununla gönder…</string>
 	<string name="report_issue_dialog_mail_intent_failed">Raporun yollanması başarısız oldu.</string>
 	<string name="about_title">Hakkında</string>
+	<string name="about_version_title">Sürüm</string>
+	<string name="about_copyright_title">Telif hakkı</string>
 	<string name="about_license_title">Lisans</string>
+	<string name="about_source_title">Kaynak Kod</string>
 	<string name="about_credits_bitcoinj_title">Bu uygulama bitcoinj %s kullanmaktadır</string>
 	<string name="about_credits_zxing_title">Bu uygulama \'zxing\' kullanmaktadır</string>
 	<string name="about_credits_icon_title">Bu uygulama \'bitboy\' tarafından oluşturulan bir ikon kullanır</string>
@@ -229,5 +237,6 @@
 	<!-- generic error messages -->
 	<string name="error_io">G/Ç hatası: %s</string>
 	<string name="error_http">HTTP hatası %1$s:\n%2$s</string>
+	<string name="error_bluetooth">Bluetooth hatası %1$s</string>
 
 </resources>

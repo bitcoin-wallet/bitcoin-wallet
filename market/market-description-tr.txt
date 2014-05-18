@@ -3,7 +3,7 @@ Bitcoin'leriniz daima cebinizde sizinle olsun! Herhangi bir QR kodunu okuyarak �
 İŞLEVLERİ:
 
 • Hiçbir oturuma, web ya da bulut hizmetine gerek yoktur. Bu cüzdan merkezsiz ve eşten eşedir.
-• Bitcoin meblağlarının BTC ve mBTC olarak gösterilmesi.
+• Bitcoin meblağlarını BTC, mBTC ve µBTC olarak göster.
 • Ulusal para birimlerine ve bu para birimlerinden dönüştürme.
 • NFC, QR kodu veya Bitcoin bağlantıları ile Bitcoin gönderir ve alır.
 • Sık kullanılan Bitcoin adresleri için adres defteri içerir.
