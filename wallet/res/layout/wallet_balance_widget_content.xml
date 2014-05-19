@@ -3,16 +3,15 @@
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	android:background="@drawable/appwidget_dark_bg_clickable"
 	android:orientation="horizontal" >
 
 	<LinearLayout
 		android:id="@+id/widget_button_balance"
+		style="?android:attr/borderlessButtonStyle"
 		android:layout_width="0px"
 		android:layout_height="match_parent"
 		android:layout_gravity="center"
 		android:layout_weight="3"
-		android:background="@drawable/appwidget_button_left"
 		android:focusable="true"
 		android:gravity="left|center_vertical"
 		android:orientation="vertical" >
@@ -55,45 +54,30 @@
 			android:textSize="@dimen/font_size_normal" />
 	</LinearLayout>
 
-	<ImageView
-		android:layout_width="1dp"
-		android:layout_height="match_parent"
-		android:background="@drawable/appwidget_divider" />
-
 	<ImageButton
 		android:id="@+id/widget_button_request"
+		style="?android:attr/borderlessButtonStyle"
 		android:layout_width="0px"
 		android:layout_height="match_parent"
 		android:layout_weight="1"
-		android:background="@drawable/appwidget_button_center"
 		android:contentDescription="@string/button_request_coins"
 		android:src="@drawable/ic_action_receive" />
 
-	<ImageView
-		android:layout_width="1dp"
-		android:layout_height="match_parent"
-		android:background="@drawable/appwidget_divider" />
-
 	<ImageButton
 		android:id="@+id/widget_button_send"
+		style="?android:attr/borderlessButtonStyle"
 		android:layout_width="0px"
 		android:layout_height="match_parent"
 		android:layout_weight="1"
-		android:background="@drawable/appwidget_button_center"
 		android:contentDescription="@string/button_send_coins"
 		android:src="@drawable/ic_action_send" />
 
-	<ImageView
-		android:layout_width="1dp"
-		android:layout_height="match_parent"
-		android:background="@drawable/appwidget_divider" />
-
 	<ImageButton
 		android:id="@+id/widget_button_send_qr"
+		style="?android:attr/borderlessButtonStyle"
 		android:layout_width="0px"
 		android:layout_height="match_parent"
 		android:layout_weight="1"
-		android:background="@drawable/appwidget_button_right"
 		android:contentDescription="@string/button_scan"
 		android:src="@drawable/ic_action_camera" />
 
