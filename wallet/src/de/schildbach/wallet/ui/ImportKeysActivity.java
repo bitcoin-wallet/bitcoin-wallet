@@ -184,6 +184,9 @@ public final class ImportKeysActivity extends AbstractWalletActivity
 			final Wallet wallet = new WalletProtobufSerializer().readWallet(plainIs);
 			plainIs.close();
 
+			if (!wallet.getParams().equals(Constants.NETWORK_PARAMETERS))
+				throw new UnreadableWalletException("bad wallet network parameters: " + wallet.getParams().getId());
+
 			application.replaceWallet(wallet);
 
 			config.disarmBackupReminder();

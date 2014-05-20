@@ -234,6 +234,9 @@ public class WalletApplication extends Application
 
 				wallet = new WalletProtobufSerializer().readWallet(walletStream);
 
+				if (!wallet.getParams().equals(Constants.NETWORK_PARAMETERS))
+					throw new UnreadableWalletException("bad wallet network parameters: " + wallet.getParams().getId());
+
 				log.info("wallet loaded from: '" + walletFile + "', took " + (System.currentTimeMillis() - start) + "ms");
 			}
 			catch (final FileNotFoundException x)

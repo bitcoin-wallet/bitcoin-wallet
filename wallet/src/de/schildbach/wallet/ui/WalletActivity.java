@@ -788,6 +788,9 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 
 			final Wallet wallet = new WalletProtobufSerializer().readWallet(is);
 
+			if (!wallet.getParams().equals(Constants.NETWORK_PARAMETERS))
+				throw new UnreadableWalletException("bad wallet network parameters: " + wallet.getParams().getId());
+
 			application.replaceWallet(wallet);
 
 			config.disarmBackupReminder();
