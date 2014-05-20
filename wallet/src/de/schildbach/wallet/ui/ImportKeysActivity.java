@@ -47,6 +47,7 @@ import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.util.Crypto;
+import de.schildbach.wallet.util.Io;
 import de.schildbach.wallet_test.R;
 
 /**
@@ -175,14 +176,7 @@ public final class ImportKeysActivity extends AbstractWalletActivity
 		{
 			final BufferedReader cipherIn = new BufferedReader(new InputStreamReader(is, Constants.UTF_8));
 			final StringBuilder cipherText = new StringBuilder();
-			while (true)
-			{
-				final String line = cipherIn.readLine();
-				if (line == null)
-					break;
-
-				cipherText.append(line);
-			}
+			Io.copy(cipherIn, cipherText, Constants.BACKUP_MAX_CHARS);
 			cipherIn.close();
 
 			final byte[] plainText = Crypto.decryptBytes(cipherText.toString(), password.toCharArray());

@@ -89,6 +89,7 @@ import de.schildbach.wallet.ui.InputParser.StringInputParser;
 import de.schildbach.wallet.util.CrashReporter;
 import de.schildbach.wallet.util.Crypto;
 import de.schildbach.wallet.util.HttpGetThread;
+import de.schildbach.wallet.util.Io;
 import de.schildbach.wallet.util.Iso8601Format;
 import de.schildbach.wallet.util.Nfc;
 import de.schildbach.wallet.util.WalletUtils;
@@ -774,14 +775,7 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 			{
 				final BufferedReader cipherIn = new BufferedReader(new InputStreamReader(new FileInputStream(file), Constants.UTF_8));
 				final StringBuilder cipherText = new StringBuilder();
-				while (true)
-				{
-					final String line = cipherIn.readLine();
-					if (line == null)
-						break;
-
-					cipherText.append(line);
-				}
+				Io.copy(cipherIn, cipherText, Constants.BACKUP_MAX_CHARS);
 				cipherIn.close();
 
 				final byte[] plainText = Crypto.decryptBytes(cipherText.toString(), password.toCharArray());
@@ -863,14 +857,7 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 			{
 				final BufferedReader cipherIn = new BufferedReader(new InputStreamReader(new FileInputStream(file), Constants.UTF_8));
 				final StringBuilder cipherText = new StringBuilder();
-				while (true)
-				{
-					final String line = cipherIn.readLine();
-					if (line == null)
-						break;
-
-					cipherText.append(line);
-				}
+				Io.copy(cipherIn, cipherText, Constants.BACKUP_MAX_CHARS);
 				cipherIn.close();
 
 				final String plainText = Crypto.decrypt(cipherText.toString(), password.toCharArray());
