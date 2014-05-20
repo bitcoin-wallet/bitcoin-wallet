@@ -56,7 +56,7 @@ import com.google.common.io.BaseEncoding;
  */
 public class Crypto
 {
-	private static final BaseEncoding BASE64 = BaseEncoding.base64();
+	private static final BaseEncoding BASE64 = BaseEncoding.base64().withSeparator("\n", 76);
 	private static final Charset UTF_8 = Charset.forName("UTF-8");
 
 	/**
