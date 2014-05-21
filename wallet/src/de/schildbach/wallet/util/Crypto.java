@@ -225,7 +225,15 @@ public class Crypto
 	 */
 	public static byte[] decryptBytes(@Nonnull final String textToDecode, @Nonnull final char[] password) throws IOException
 	{
-		final byte[] decodeTextAsBytes = BASE64.decode(textToDecode);
+		final byte[] decodeTextAsBytes;
+		try
+		{
+			decodeTextAsBytes = BASE64.decode(textToDecode);
+		}
+		catch (final IllegalArgumentException x)
+		{
+			throw new IOException("invalid base64 encoding");
+		}
 
 		if (decodeTextAsBytes.length < OPENSSL_SALTED_BYTES.length)
 			throw new IOException("out of salt");
