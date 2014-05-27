@@ -81,7 +81,7 @@ public final class PaymentIntent implements Parcelable
 			builder.append('[');
 			builder.append(hasAmount() ? GenericUtils.formatDebugValue(amount) : "null");
 			builder.append(',');
-			if (script.isSentToAddress() || script.isSentToP2SH())
+			if (script.isSentToAddress() || script.isPayToScriptHash())
 				builder.append(script.getToAddress(Constants.NETWORK_PARAMETERS));
 			else if (script.isSentToRawPubKey())
 				for (final byte b : script.getPubKey())
@@ -293,7 +293,7 @@ public final class PaymentIntent implements Parcelable
 			return false;
 
 		final Script script = outputs[0].script;
-		return script.isSentToAddress() || script.isSentToP2SH() || script.isSentToRawPubKey();
+		return script.isSentToAddress() || script.isPayToScriptHash() || script.isSentToRawPubKey();
 	}
 
 	public Address getAddress()
@@ -302,7 +302,7 @@ public final class PaymentIntent implements Parcelable
 			throw new IllegalStateException();
 
 		final Script script = outputs[0].script;
-		if (script.isSentToAddress() || script.isSentToP2SH())
+		if (script.isSentToAddress() || script.isPayToScriptHash())
 			return script.getToAddress(Constants.NETWORK_PARAMETERS);
 		else if (script.isSentToRawPubKey())
 			return new Address(Constants.NETWORK_PARAMETERS, script.getPubKeyHash());
