@@ -443,7 +443,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 				});
 
 				// start peergroup
-				peerGroup.start();
+				peerGroup.startAsync();
 				peerGroup.startBlockChainDownload(blockchainDownloadListener);
 			}
 			else if (!impediments.isEmpty() && peerGroup != null)
@@ -451,7 +451,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 				log.info("stopping peergroup");
 				peerGroup.removeEventListener(peerConnectivityListener);
 				peerGroup.removeWallet(wallet);
-				peerGroup.stop();
+				peerGroup.stopAsync();
 				peerGroup = null;
 
 				log.debug("releasing wakelock");
@@ -723,7 +723,8 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 		{
 			peerGroup.removeEventListener(peerConnectivityListener);
 			peerGroup.removeWallet(application.getWallet());
-			peerGroup.stopAndWait();
+			peerGroup.stopAsync();
+			peerGroup.awaitTerminated();
 
 			log.info("peergroup stopped");
 		}
