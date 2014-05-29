@@ -74,7 +74,37 @@
 	</LinearLayout>
 
 	<LinearLayout
-		android:id="@+id/transaction_row_extend"
+		android:id="@+id/transaction_row_extend_fee"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="horizontal"
+		android:paddingTop="4dp" >
+
+		<View
+			android:layout_width="@dimen/symbol_size_normal"
+			android:layout_height="@dimen/symbol_size_normal"
+			android:layout_marginRight="8dp" />
+
+		<TextView
+			android:layout_width="0px"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:text="@string/transaction_row_fee"
+			android:textColor="@color/fg_insignificant"
+			android:textSize="@dimen/font_size_normal" />
+
+		<de.schildbach.wallet.ui.CurrencyTextView
+			android:id="@+id/transaction_row_fee"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="right"
+			android:layout_marginLeft="8dp"
+			android:textColor="@color/fg_insignificant"
+			android:textSize="@dimen/font_size_normal" />
+	</LinearLayout>
+
+	<LinearLayout
+		android:id="@+id/transaction_row_extend_message"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:orientation="horizontal"
