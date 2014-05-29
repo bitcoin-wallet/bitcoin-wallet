@@ -229,6 +229,8 @@ public class TransactionsListAdapter extends BaseAdapter
 
 		final Coin value = tx.getValue(wallet);
 		final boolean sent = value.signum() < 0;
+		final Coin fee = tx.getFee();
+		final boolean hasFee = fee != null;
 
 		final CircularProgressView rowConfidenceCircular = (CircularProgressView) row.findViewById(R.id.transaction_row_confidence_circular);
 		final TextView rowConfidenceTextual = (TextView) row.findViewById(R.id.transaction_row_confidence_textual);
@@ -320,60 +322,72 @@ public class TransactionsListAdapter extends BaseAdapter
 		rowAddress.setText(label != null ? label : address.toString());
 		rowAddress.setTypeface(label != null ? Typeface.DEFAULT : Typeface.MONOSPACE);
 
+		// fee
+		final View rowExtendFee = row.findViewById(R.id.transaction_row_extend_fee);
+		if (rowExtendFee != null)
+		{
+			final CurrencyTextView rowFee = (CurrencyTextView) row.findViewById(R.id.transaction_row_fee);
+			rowExtendFee.setVisibility(hasFee ? View.VISIBLE : View.GONE);
+			rowFee.setAlwaysSigned(true);
+			rowFee.setFormat(format);
+			if (hasFee)
+				rowFee.setAmount(fee.negate());
+		}
+
 		// value
 		final CurrencyTextView rowValue = (CurrencyTextView) row.findViewById(R.id.transaction_row_value);
 		rowValue.setTextColor(textColor);
 		rowValue.setAlwaysSigned(true);
 		rowValue.setFormat(format);
-		rowValue.setAmount(value);
+		rowValue.setAmount(hasFee && rowExtendFee != null ? value.add(fee) : value);
 
-		// extended message
-		final View rowExtend = row.findViewById(R.id.transaction_row_extend);
-		if (rowExtend != null)
+		// message
+		final View rowExtendMessage = row.findViewById(R.id.transaction_row_extend_message);
+		if (rowExtendMessage != null)
 		{
 			final TextView rowMessage = (TextView) row.findViewById(R.id.transaction_row_message);
 			final boolean isTimeLocked = tx.isTimeLocked();
-			rowExtend.setVisibility(View.GONE);
+			rowExtendMessage.setVisibility(View.GONE);
 
 			if (tx.getPurpose() == Purpose.KEY_ROTATION)
 			{
-				rowExtend.setVisibility(View.VISIBLE);
+				rowExtendMessage.setVisibility(View.VISIBLE);
 				rowMessage.setText(Html.fromHtml(context.getString(R.string.transaction_row_message_purpose_key_rotation)));
 				rowMessage.setTextColor(colorSignificant);
 			}
 			else if (isOwn && confidenceType == ConfidenceType.PENDING && confidence.numBroadcastPeers() == 0)
 			{
-				rowExtend.setVisibility(View.VISIBLE);
+				rowExtendMessage.setVisibility(View.VISIBLE);
 				rowMessage.setText(R.string.transaction_row_message_own_unbroadcasted);
 				rowMessage.setTextColor(colorInsignificant);
 			}
 			else if (!isOwn && confidenceType == ConfidenceType.PENDING && confidence.numBroadcastPeers() == 0)
 			{
-				rowExtend.setVisibility(View.VISIBLE);
+				rowExtendMessage.setVisibility(View.VISIBLE);
 				rowMessage.setText(R.string.transaction_row_message_received_direct);
 				rowMessage.setTextColor(colorInsignificant);
 			}
 			else if (!sent && value.compareTo(Transaction.MIN_NONDUST_OUTPUT) < 0)
 			{
-				rowExtend.setVisibility(View.VISIBLE);
+				rowExtendMessage.setVisibility(View.VISIBLE);
 				rowMessage.setText(R.string.transaction_row_message_received_dust);
 				rowMessage.setTextColor(colorInsignificant);
 			}
 			else if (!sent && confidenceType == ConfidenceType.PENDING && isTimeLocked)
 			{
-				rowExtend.setVisibility(View.VISIBLE);
+				rowExtendMessage.setVisibility(View.VISIBLE);
 				rowMessage.setText(R.string.transaction_row_message_received_unconfirmed_locked);
 				rowMessage.setTextColor(colorError);
 			}
 			else if (!sent && confidenceType == ConfidenceType.PENDING && !isTimeLocked)
 			{
-				rowExtend.setVisibility(View.VISIBLE);
+				rowExtendMessage.setVisibility(View.VISIBLE);
 				rowMessage.setText(R.string.transaction_row_message_received_unconfirmed_unlocked);
 				rowMessage.setTextColor(colorInsignificant);
 			}
 			else if (!sent && confidenceType == ConfidenceType.DEAD)
 			{
-				rowExtend.setVisibility(View.VISIBLE);
+				rowExtendMessage.setVisibility(View.VISIBLE);
 				rowMessage.setText(R.string.transaction_row_message_received_dead);
 				rowMessage.setTextColor(colorError);
 			}

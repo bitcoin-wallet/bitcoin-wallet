@@ -124,6 +124,7 @@
 	<string name="edit_address_book_entry_dialog_address_label">Address</string>
 	<string name="edit_address_book_entry_dialog_label_label">Name</string>
 	<string name="edit_address_book_entry_dialog_button_edit">Save</string>
+	<string name="transaction_row_fee">Network fee</string>
 	<string name="transaction_row_message_purpose_key_rotation">This transaction strengthens your wallet against theft. &lt;u&gt;More info.&lt;/u&gt;</string>
 	<string name="transaction_row_message_own_unbroadcasted">This payment has not been transmitted yet.</string>
 	<string name="transaction_row_message_received_direct">This payment has been received directly. There is a risk it might never become spendable.</string>
