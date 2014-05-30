@@ -21,7 +21,6 @@ import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.math.BigInteger;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Collection;
@@ -42,12 +41,12 @@ import android.os.Handler;
 import android.os.Looper;
 
 import com.google.bitcoin.core.Address;
+import com.google.bitcoin.core.Coin;
 import com.google.bitcoin.core.NetworkParameters;
 import com.google.bitcoin.core.Sha256Hash;
 import com.google.bitcoin.core.Transaction;
 import com.google.bitcoin.core.TransactionConfidence.ConfidenceType;
 import com.google.bitcoin.core.TransactionOutput;
-import com.google.bitcoin.core.Utils;
 import com.google.common.base.Charsets;
 import com.google.common.io.BaseEncoding;
 
@@ -154,7 +153,7 @@ public final class RequestWalletBalanceTask
 							final Sha256Hash uxtoHash = new Sha256Hash(jsonOutput.getString("transaction_hash"));
 							final int uxtoIndex = jsonOutput.getInt("transaction_index");
 							final byte[] uxtoScriptBytes = HEX.decode(jsonOutput.getString("script_pub_key"));
-							final BigInteger uxtoValue = new BigInteger(jsonOutput.getString("value"));
+							final Coin uxtoValue = Coin.valueOf(Long.parseLong(jsonOutput.getString("value")));
 
 							Transaction tx = transactions.get(uxtoHash);
 							if (tx == null)
@@ -170,7 +169,7 @@ public final class RequestWalletBalanceTask
 
 							// fill with dummies
 							while (tx.getOutputs().size() < uxtoIndex)
-								tx.addOutput(new TransactionOutput(Constants.NETWORK_PARAMETERS, tx, Utils.NEGATIVE_ONE, new byte[] {}));
+								tx.addOutput(new TransactionOutput(Constants.NETWORK_PARAMETERS, tx, Coin.NEGATIVE_SATOSHI, new byte[] {}));
 
 							// add the real output
 							final TransactionOutput output = new TransactionOutput(Constants.NETWORK_PARAMETERS, tx, uxtoValue, uxtoScriptBytes);

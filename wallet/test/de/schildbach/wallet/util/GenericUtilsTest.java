@@ -17,12 +17,13 @@
 
 package de.schildbach.wallet.util;
 
+import static com.google.bitcoin.core.Coin.COIN;
+import static com.google.bitcoin.core.Coin.SATOSHI;
 import static org.junit.Assert.assertEquals;
-
-import java.math.BigInteger;
 
 import org.junit.Test;
 
+import com.google.bitcoin.core.Coin;
 import com.google.bitcoin.core.NetworkParameters;
 
 /**
@@ -33,22 +34,21 @@ public class GenericUtilsTest
 	@Test
 	public void formatValue() throws Exception
 	{
-		final BigInteger coin = new BigInteger("100000000");
-		assertEquals("1.00", GenericUtils.formatValue(coin, 4, 0));
-		assertEquals("1.00", GenericUtils.formatValue(coin, 6, 0));
-		assertEquals("1.00", GenericUtils.formatValue(coin, 8, 0));
+		assertEquals("1.00", GenericUtils.formatValue(COIN, 4, 0));
+		assertEquals("1.00", GenericUtils.formatValue(COIN, 6, 0));
+		assertEquals("1.00", GenericUtils.formatValue(COIN, 8, 0));
 
-		final BigInteger justNot = new BigInteger("99999999");
+		final Coin justNot = COIN.subtract(SATOSHI);
 		assertEquals("1.00", GenericUtils.formatValue(justNot, 4, 0));
 		assertEquals("1.00", GenericUtils.formatValue(justNot, 6, 0));
 		assertEquals("0.99999999", GenericUtils.formatValue(justNot, 8, 0));
 
-		final BigInteger slightlyMore = new BigInteger("100000001");
+		final Coin slightlyMore = COIN.add(SATOSHI);
 		assertEquals("1.00", GenericUtils.formatValue(slightlyMore, 4, 0));
 		assertEquals("1.00", GenericUtils.formatValue(slightlyMore, 6, 0));
 		assertEquals("1.00000001", GenericUtils.formatValue(slightlyMore, 8, 0));
 
-		final BigInteger value = new BigInteger("1122334455667788");
+		final Coin value = Coin.valueOf(1122334455667788l);
 		assertEquals("11223344.5567", GenericUtils.formatValue(value, 4, 0));
 		assertEquals("11223344.556678", GenericUtils.formatValue(value, 6, 0));
 		assertEquals("11223344.55667788", GenericUtils.formatValue(value, 8, 0));
@@ -59,19 +59,18 @@ public class GenericUtilsTest
 	@Test
 	public void formatMbtcValue() throws Exception
 	{
-		final BigInteger coin = new BigInteger("100000000");
-		assertEquals("1000.00", GenericUtils.formatValue(coin, 2, 3));
-		assertEquals("1000.00", GenericUtils.formatValue(coin, 4, 3));
+		assertEquals("1000.00", GenericUtils.formatValue(COIN, 2, 3));
+		assertEquals("1000.00", GenericUtils.formatValue(COIN, 4, 3));
 
-		final BigInteger justNot = new BigInteger("99999990");
+		final Coin justNot = COIN.subtract(SATOSHI.multiply(10));
 		assertEquals("1000.00", GenericUtils.formatValue(justNot, 2, 3));
 		assertEquals("999.9999", GenericUtils.formatValue(justNot, 4, 3));
 
-		final BigInteger slightlyMore = new BigInteger("100000010");
+		final Coin slightlyMore = COIN.add(SATOSHI.multiply(10));
 		assertEquals("1000.00", GenericUtils.formatValue(slightlyMore, 2, 3));
 		assertEquals("1000.0001", GenericUtils.formatValue(slightlyMore, 4, 3));
 
-		final BigInteger value = new BigInteger("1122334455667788");
+		final Coin value = Coin.valueOf(1122334455667788l);
 		assertEquals("11223344556.68", GenericUtils.formatValue(value, 2, 3));
 		assertEquals("11223344556.6779", GenericUtils.formatValue(value, 4, 3));
 
@@ -81,19 +80,18 @@ public class GenericUtilsTest
 	@Test
 	public void formatUbtcValue() throws Exception
 	{
-		final BigInteger coin = new BigInteger("100000000");
-		assertEquals("1000000", GenericUtils.formatValue(coin, 0, 6));
-		assertEquals("1000000", GenericUtils.formatValue(coin, 2, 6));
+		assertEquals("1000000", GenericUtils.formatValue(COIN, 0, 6));
+		assertEquals("1000000", GenericUtils.formatValue(COIN, 2, 6));
 
-		final BigInteger justNot = new BigInteger("99999999");
+		final Coin justNot = COIN.subtract(SATOSHI);
 		assertEquals("1000000", GenericUtils.formatValue(justNot, 0, 6));
 		assertEquals("999999.99", GenericUtils.formatValue(justNot, 2, 6));
 
-		final BigInteger slightlyMore = new BigInteger("100000001");
+		final Coin slightlyMore = COIN.add(SATOSHI);
 		assertEquals("1000000", GenericUtils.formatValue(slightlyMore, 0, 6));
 		assertEquals("1000000.01", GenericUtils.formatValue(slightlyMore, 2, 6));
 
-		final BigInteger value = new BigInteger("1122334455667788");
+		final Coin value = Coin.valueOf(1122334455667788l);
 		assertEquals("11223344556678", GenericUtils.formatValue(value, 0, 6));
 		assertEquals("11223344556677.88", GenericUtils.formatValue(value, 2, 6));
 

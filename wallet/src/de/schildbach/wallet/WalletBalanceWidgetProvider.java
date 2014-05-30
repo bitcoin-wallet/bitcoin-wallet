@@ -17,8 +17,6 @@
 
 package de.schildbach.wallet;
 
-import java.math.BigInteger;
-
 import javax.annotation.Nonnull;
 
 import org.slf4j.Logger;
@@ -40,6 +38,7 @@ import android.text.style.RelativeSizeSpan;
 import android.view.View;
 import android.widget.RemoteViews;
 
+import com.google.bitcoin.core.Coin;
 import com.google.bitcoin.core.Wallet;
 import com.google.bitcoin.core.Wallet.BalanceType;
 
@@ -64,7 +63,7 @@ public class WalletBalanceWidgetProvider extends AppWidgetProvider
 	{
 		final WalletApplication application = (WalletApplication) context.getApplicationContext();
 		final Wallet wallet = application.getWallet();
-		final BigInteger balance = wallet.getBalance(BalanceType.ESTIMATED);
+		final Coin balance = wallet.getBalance(BalanceType.ESTIMATED);
 
 		updateWidgets(context, appWidgetManager, appWidgetIds, balance);
 	}
@@ -81,7 +80,7 @@ public class WalletBalanceWidgetProvider extends AppWidgetProvider
 
 			if (appWidgetIds.length > 0)
 			{
-				final BigInteger balance = wallet.getBalance(BalanceType.ESTIMATED);
+				final Coin balance = wallet.getBalance(BalanceType.ESTIMATED);
 
 				WalletBalanceWidgetProvider.updateWidgets(context, appWidgetManager, appWidgetIds, balance);
 			}
@@ -93,7 +92,7 @@ public class WalletBalanceWidgetProvider extends AppWidgetProvider
 	}
 
 	private static void updateWidgets(final Context context, @Nonnull final AppWidgetManager appWidgetManager, @Nonnull final int[] appWidgetIds,
-			@Nonnull final BigInteger balance)
+			@Nonnull final Coin balance)
 	{
 		final Configuration config = new Configuration(PreferenceManager.getDefaultSharedPreferences(context));
 
@@ -105,7 +104,7 @@ public class WalletBalanceWidgetProvider extends AppWidgetProvider
 			if (data.moveToFirst())
 			{
 				final ExchangeRate exchangeRate = ExchangeRatesProvider.getExchangeRate(data);
-				final BigInteger localBalance = WalletUtils.localValue(balance, exchangeRate.rate);
+				final Coin localBalance = WalletUtils.localValue(balance, exchangeRate.rate);
 				localBalanceStr = new SpannableStringBuilder(GenericUtils.formatValue(localBalance, Constants.LOCAL_PRECISION, 0));
 				WalletUtils.formatSignificant(localBalanceStr, new RelativeSizeSpan(0.85f));
 				final String prefix = Constants.PREFIX_ALMOST_EQUAL_TO + GenericUtils.currencySymbol(exchangeRate.currencyCode)

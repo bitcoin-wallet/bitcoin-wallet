@@ -1,6 +1,5 @@
 package de.schildbach.wallet.ui.send;
 
-import java.math.BigInteger;
 import java.util.Collection;
 
 import javax.annotation.Nonnull;
@@ -31,6 +30,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.bitcoin.core.Address;
+import com.google.bitcoin.core.Coin;
 import com.google.bitcoin.core.ECKey;
 import com.google.bitcoin.core.Sha256Hash;
 import com.google.bitcoin.core.Transaction;
@@ -509,7 +509,7 @@ public class SweepWalletFragment extends Fragment
 			}
 
 			@Override
-			protected void onInsufficientMoney(@Nullable final BigInteger missing)
+			protected void onInsufficientMoney(@Nullable final Coin missing)
 			{
 				state = State.FAILED;
 				updateView();

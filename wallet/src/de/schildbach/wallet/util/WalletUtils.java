@@ -51,6 +51,7 @@ import android.text.style.TypefaceSpan;
 
 import com.google.bitcoin.core.Address;
 import com.google.bitcoin.core.AddressFormatException;
+import com.google.bitcoin.core.Coin;
 import com.google.bitcoin.core.DumpedPrivateKey;
 import com.google.bitcoin.core.ECKey;
 import com.google.bitcoin.core.ScriptException;
@@ -138,14 +139,16 @@ public class WalletUtils
 		}
 	}
 
-	public static BigInteger localValue(@Nonnull final BigInteger btcValue, @Nonnull final BigInteger rate)
+	private static final BigInteger COIN_BI = BigInteger.valueOf(Coin.COIN.value);
+
+	public static Coin localValue(@Nonnull final Coin btcValue, final BigInteger rate)
 	{
-		return btcValue.multiply(rate).divide(GenericUtils.ONE_BTC);
+		return Coin.valueOf(BigInteger.valueOf(btcValue.value).multiply(rate).divide(COIN_BI).longValue());
 	}
 
-	public static BigInteger btcValue(@Nonnull final BigInteger localValue, @Nonnull final BigInteger rate)
+	public static Coin btcValue(@Nonnull final Coin localValue, final BigInteger rate)
 	{
-		return localValue.multiply(GenericUtils.ONE_BTC).divide(rate);
+		return Coin.valueOf(BigInteger.valueOf(localValue.value).multiply(COIN_BI).divide(rate).longValue());
 	}
 
 	@CheckForNull

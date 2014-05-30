@@ -17,14 +17,13 @@
 
 package de.schildbach.wallet.ui.send;
 
-import java.math.BigInteger;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import android.os.Handler;
 import android.os.Looper;
 
+import com.google.bitcoin.core.Coin;
 import com.google.bitcoin.core.InsufficientMoneyException;
 import com.google.bitcoin.core.Transaction;
 import com.google.bitcoin.core.Wallet;
@@ -94,7 +93,7 @@ public abstract class SendCoinsOfflineTask
 
 	protected abstract void onSuccess(@Nonnull Transaction transaction);
 
-	protected abstract void onInsufficientMoney(@Nullable BigInteger missing);
+	protected abstract void onInsufficientMoney(@Nullable Coin missing);
 
 	protected abstract void onFailure(@Nonnull Exception exception);
 }

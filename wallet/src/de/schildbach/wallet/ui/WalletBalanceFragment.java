@@ -17,7 +17,6 @@
 
 package de.schildbach.wallet.ui;
 
-import java.math.BigInteger;
 import java.util.Date;
 
 import javax.annotation.CheckForNull;
@@ -41,6 +40,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.google.bitcoin.core.Coin;
 import com.google.bitcoin.core.Wallet;
 
 import de.schildbach.wallet.Configuration;
@@ -72,7 +72,7 @@ public final class WalletBalanceFragment extends Fragment
 	private boolean showLocalBalance;
 
 	@CheckForNull
-	private BigInteger balance = null;
+	private Coin balance = null;
 	@CheckForNull
 	private ExchangeRate exchangeRate = null;
 
@@ -230,7 +230,7 @@ public final class WalletBalanceFragment extends Fragment
 				{
 					if (exchangeRate != null)
 					{
-						final BigInteger localValue = WalletUtils.localValue(balance, exchangeRate.rate);
+						final Coin localValue = WalletUtils.localValue(balance, exchangeRate.rate);
 						viewBalanceLocalFrame.setVisibility(View.VISIBLE);
 						viewBalanceLocal.setPrefix(Constants.PREFIX_ALMOST_EQUAL_TO + exchangeRate.currencyCode);
 						viewBalanceLocal.setAmount(localValue);
@@ -271,16 +271,16 @@ public final class WalletBalanceFragment extends Fragment
 		}
 	}
 
-	private final LoaderCallbacks<BigInteger> balanceLoaderCallbacks = new LoaderManager.LoaderCallbacks<BigInteger>()
+	private final LoaderCallbacks<Coin> balanceLoaderCallbacks = new LoaderManager.LoaderCallbacks<Coin>()
 	{
 		@Override
-		public Loader<BigInteger> onCreateLoader(final int id, final Bundle args)
+		public Loader<Coin> onCreateLoader(final int id, final Bundle args)
 		{
 			return new WalletBalanceLoader(activity, wallet);
 		}
 
 		@Override
-		public void onLoadFinished(final Loader<BigInteger> loader, final BigInteger balance)
+		public void onLoadFinished(final Loader<Coin> loader, final Coin balance)
 		{
 			WalletBalanceFragment.this.balance = balance;
 
@@ -288,7 +288,7 @@ public final class WalletBalanceFragment extends Fragment
 		}
 
 		@Override
-		public void onLoaderReset(final Loader<BigInteger> loader)
+		public void onLoaderReset(final Loader<Coin> loader)
 		{
 		}
 	};

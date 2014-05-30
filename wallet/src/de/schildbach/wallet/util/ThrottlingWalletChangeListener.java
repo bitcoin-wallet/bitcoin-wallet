@@ -17,13 +17,13 @@
 
 package de.schildbach.wallet.util;
 
-import java.math.BigInteger;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicLong;
 
 import android.os.Handler;
 
+import com.google.bitcoin.core.Coin;
 import com.google.bitcoin.core.ECKey;
 import com.google.bitcoin.core.Transaction;
 import com.google.bitcoin.core.Wallet;
@@ -106,14 +106,14 @@ public abstract class ThrottlingWalletChangeListener implements WalletEventListe
 	public abstract void onThrottledWalletChanged();
 
 	@Override
-	public void onCoinsReceived(final Wallet wallet, final Transaction tx, final BigInteger prevBalance, final BigInteger newBalance)
+	public void onCoinsReceived(final Wallet wallet, final Transaction tx, final Coin prevBalance, final Coin newBalance)
 	{
 		if (coinsRelevant)
 			relevant.set(true);
 	}
 
 	@Override
-	public void onCoinsSent(final Wallet wallet, final Transaction tx, final BigInteger prevBalance, final BigInteger newBalance)
+	public void onCoinsSent(final Wallet wallet, final Transaction tx, final Coin prevBalance, final Coin newBalance)
 	{
 		if (coinsRelevant)
 			relevant.set(true);

@@ -17,7 +17,6 @@
 
 package de.schildbach.wallet.ui;
 
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -40,6 +39,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.google.bitcoin.core.Address;
+import com.google.bitcoin.core.Coin;
 import com.google.bitcoin.core.Transaction;
 import com.google.bitcoin.core.Transaction.Purpose;
 import com.google.bitcoin.core.TransactionConfidence;
@@ -228,7 +228,7 @@ public class TransactionsListAdapter extends BaseAdapter
 		final boolean isCoinBase = tx.isCoinBase();
 		final boolean isInternal = WalletUtils.isInternal(tx);
 
-		final BigInteger value = tx.getValue(wallet);
+		final Coin value = tx.getValue(wallet);
 		final boolean sent = value.signum() < 0;
 
 		final CircularProgressView rowConfidenceCircular = (CircularProgressView) row.findViewById(R.id.transaction_row_confidence_circular);

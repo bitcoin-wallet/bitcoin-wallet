@@ -17,7 +17,6 @@
 
 package de.schildbach.wallet.util;
 
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +26,7 @@ import javax.annotation.Nullable;
 import org.bitcoin.protocols.payments.Protos;
 
 import com.google.bitcoin.core.Address;
+import com.google.bitcoin.core.Coin;
 import com.google.bitcoin.core.ScriptException;
 import com.google.bitcoin.core.Transaction;
 import com.google.bitcoin.protocols.payments.PaymentProtocol.PkiVerificationData;
@@ -51,12 +51,9 @@ public final class PaymentProtocol
 	public static final String MIMETYPE_PAYMENT = "application/bitcoin-payment"; // BIP 71
 	public static final String MIMETYPE_PAYMENTACK = "application/bitcoin-paymentack"; // BIP 71
 
-	public static Protos.PaymentRequest createPaymentRequest(final BigInteger amount, @Nonnull final Address toAddress, final String memo,
+	public static Protos.PaymentRequest createPaymentRequest(final Coin amount, @Nonnull final Address toAddress, final String memo,
 			final String paymentUrl)
 	{
-		if (amount != null && amount.compareTo(BigInteger.valueOf(Long.MAX_VALUE)) > 0)
-			throw new IllegalArgumentException("amount too big for protobuf: " + amount);
-
 		final Protos.Output.Builder output = Protos.Output.newBuilder();
 		output.setAmount(amount != null ? amount.longValue() : 0);
 		output.setScript(ByteString.copyFrom(ScriptBuilder.createOutputScript(toAddress).getProgram()));
@@ -150,7 +147,7 @@ public final class PaymentProtocol
 	{
 		try
 		{
-			final BigInteger amount = BigInteger.valueOf(output.getAmount());
+			final Coin amount = Coin.valueOf(output.getAmount());
 			final Script script = new Script(output.getScript().toByteArray());
 			return new PaymentIntent.Output(amount, script);
 		}
@@ -161,7 +158,7 @@ public final class PaymentProtocol
 	}
 
 	public static Protos.Payment createPaymentMessage(@Nonnull final Transaction transaction, @Nullable final Address refundAddress,
-			@Nullable final BigInteger refundAmount, @Nullable final String memo, @Nullable final byte[] merchantData)
+			@Nullable final Coin refundAmount, @Nullable final String memo, @Nullable final byte[] merchantData)
 	{
 		final Protos.Payment.Builder builder = Protos.Payment.newBuilder();
 
@@ -169,9 +166,6 @@ public final class PaymentProtocol
 
 		if (refundAddress != null)
 		{
-			if (refundAmount.compareTo(BigInteger.valueOf(Long.MAX_VALUE)) > 0)
-				throw new IllegalArgumentException("refund amount too big for protobuf: " + refundAmount);
-
 			final Protos.Output.Builder refundOutput = Protos.Output.newBuilder();
 			refundOutput.setAmount(refundAmount.longValue());
 			refundOutput.setScript(ByteString.copyFrom(ScriptBuilder.createOutputScript(refundAddress).getProgram()));
