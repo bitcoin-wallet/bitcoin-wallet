@@ -309,7 +309,7 @@ public class ExchangeRatesProvider extends ContentProvider
 							{
 								try
 								{
-									final BigInteger rate = GenericUtils.toNanoCoins(rateStr, 0);
+									final BigInteger rate = GenericUtils.parseCoin(rateStr, 0);
 
 									if (rate.signum() > 0)
 									{

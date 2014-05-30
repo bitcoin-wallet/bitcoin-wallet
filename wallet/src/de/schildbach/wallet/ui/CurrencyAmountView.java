@@ -205,7 +205,7 @@ public final class CurrencyAmountView extends FrameLayout
 	public BigInteger getAmount()
 	{
 		if (isValidAmount(false))
-			return GenericUtils.toNanoCoins(textView.getText().toString().trim(), shift);
+			return GenericUtils.parseCoin(textView.getText().toString().trim(), shift);
 		else
 			return null;
 	}
@@ -271,20 +271,20 @@ public final class CurrencyAmountView extends FrameLayout
 
 	private boolean isValidAmount(final boolean zeroIsValid)
 	{
-		final String amount = textView.getText().toString().trim();
+		final String str = textView.getText().toString().trim();
 
 		try
 		{
-			if (!amount.isEmpty())
+			if (!str.isEmpty())
 			{
-				final BigInteger nanoCoins = GenericUtils.toNanoCoins(amount, shift);
+				final BigInteger coin = GenericUtils.parseCoin(str, shift);
 
 				// exactly zero
-				if (zeroIsValid && nanoCoins.signum() == 0)
+				if (zeroIsValid && coin.signum() == 0)
 					return true;
 
 				// too small
-				if (nanoCoins.compareTo(Transaction.MIN_NONDUST_OUTPUT) < 0)
+				if (coin.compareTo(Transaction.MIN_NONDUST_OUTPUT) < 0)
 					return false;
 
 				return true;

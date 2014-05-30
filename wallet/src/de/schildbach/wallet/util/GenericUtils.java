@@ -134,16 +134,16 @@ public class GenericUtils
 		return formatValue(value, Constants.BTC_MAX_PRECISION, 0);
 	}
 
-	public static BigInteger toNanoCoins(final String value, final int shift) throws ArithmeticException
+	public static BigInteger parseCoin(final String str, final int shift) throws ArithmeticException
 	{
-		final BigInteger nanoCoins = new BigDecimal(value).movePointRight(8 - shift).toBigIntegerExact();
+		final BigInteger coin = new BigDecimal(str).movePointRight(8 - shift).toBigIntegerExact();
 
-		if (nanoCoins.signum() < 0)
-			throw new ArithmeticException("negative amount: " + value);
-		if (nanoCoins.compareTo(NetworkParameters.MAX_MONEY) > 0)
-			throw new ArithmeticException("amount too large: " + value);
+		if (coin.signum() < 0)
+			throw new ArithmeticException("negative amount: " + str);
+		if (coin.compareTo(NetworkParameters.MAX_MONEY) > 0)
+			throw new ArithmeticException("amount too large: " + str);
 
-		return nanoCoins;
+		return coin;
 	}
 
 	public static boolean startsWithIgnoreCase(final String string, final String prefix)
