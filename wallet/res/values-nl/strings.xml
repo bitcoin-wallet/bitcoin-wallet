@@ -12,7 +12,7 @@
 	<string name="wallet_transactions_fragment_tab_all">Beide</string>
 	<string name="wallet_transactions_fragment_tab_sent">Verzonden</string>
 	<string name="wallet_transactions_fragment_empty_text_received">Nog geen Bitcoins ontvangen</string>
-	<string name="wallet_transactions_fragment_empty_text_sent">Not geen Bitcoins verzonden</string>
+	<string name="wallet_transactions_fragment_empty_text_sent">Nog geen Bitcoins verzonden</string>
 	<string name="wallet_options_safety">Veiligheids voorschriften</string>
 	<string name="wallet_options_donate">Doneren</string>
 	<string name="wallet_low_storage_dialog_title">Interne opslagruimte van het apparaat is laag!</string>
@@ -23,7 +23,7 @@
 	<string name="send_coins_fragment_receiving_address_hint">typ adres of naam</string>
 	<string name="send_coins_fragment_receiving_address_error">Ongeldig Bitcoin Adres!</string>
 	<string name="send_coins_fragment_pending">(%s wachtend op bevestiging)</string>
-	<string name="send_coins_fragment_amount_label">Bedrag te betalen</string>
+	<string name="send_coins_fragment_amount_label">Te betalen bedrag</string>
 	<string name="send_coins_fragment_button_send">Verzenden</string>
 	<string name="send_coins_sending_msg">Bezig met verzenden…</string>
 	<string name="send_coins_error_msg">Probleem bij het versturen van Bitcoins!</string>
@@ -32,7 +32,7 @@
 	<string name="request_coins_fragment_initiate_request_qr">Laat deze code scannen door de zender.</string>
 	<string name="request_coins_fragment_initiate_request_nfc">of raak aan met een NFC gereed apparaat.</string>
 	<string name="request_coins_clipboard_msg">Bitcoin verzoek gekopieërd naar klembord</string>
-	<string name="request_coins_share_dialog_title">Deel verzoek voor Bitcoins…</string>
+	<string name="request_coins_share_dialog_title">Deel verzoek om Bitcoins…</string>
 	<string name="address_book_activity_title">Adresboek</string>
 	<string name="address_book_empty_text">Geen vermeldingen in het adresboek</string>
 	<string name="address_book_context_send_title">Verzend Bitcoins naar adres</string>
@@ -53,7 +53,7 @@
 	<string name="about_author_twitter_title">Auteur op Twitter</string>
 	<string name="about_author_googleplus_title">Auteur op Google+</string>
 	<string name="about_market_app_title">Google Play App Pagina</string>
-	<string name="about_credits_market_publisher_title">Andere Apps van Author</string>
+	<string name="about_credits_market_publisher_title">Andere Apps van Auteur</string>
 	<string name="notification_coins_received_msg">Ontvangen %s</string>
 	<string name="notification_peers_connected_msg">%d verbindingen</string>
 	<!-- generic buttons -->
