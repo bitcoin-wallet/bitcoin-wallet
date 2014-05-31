@@ -1,5 +1,12 @@
 digitalcoin Wallet
 -----------------
+v0.1.7-beta
+* updated checkpoints
+* added DNS nodes from Digitalcoin Core 2.0 source
+
+v0.1.6-beta
+* Bug fix associated with Peer Discovery
+
 v0.1.5-beta
 * update to bitcoin-wallet 3.46
 * added Litecoin's PeerDBDiscovery System

@@ -10,7 +10,6 @@ ELŐNYÖK:
 • Offline állapotban is fizethetsz - Bluetooth segítségével.
 • Rendszerüzenet digitalcoin érkezésekor.
 • Widget a digitalcoin egyenlegről.
->>>>>>> upstream/prod
 
 Bővebben a digitalcoin-ról:
 http://digitalcoin.co
