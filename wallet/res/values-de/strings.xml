@@ -157,7 +157,7 @@
 	<string name="export_keys_dialog_title">Wallet sichern</string>
 	<string name="export_keys_dialog_message">Deine Wallet wird mit dem gewählten Passwort verschlüsselt und auf den externen Speicher gesichert.</string>
 	<string name="export_keys_dialog_button_export">Exportieren</string>
-	<string name="export_keys_dialog_success">Deine Wallet wurde nach\n\n%s\n\ngesichert. Verwahre sie sicher, und verwahre dein Passwort sicher!\n\nMöchtest du die Wallet mittels einer App archivieren?</string>
+	<string name="export_keys_dialog_success"><![CDATA[<p>Deine Wallet wurde nach <tt>%s</tt> gesichert.</p><p>Wenn die SD-Karte deines Geräts wechselbar ist, <i>sollte</i> deine Sicherung auf dieser Karte sein. Entferne und bewahre sie an einem sicheren Ort auf. Wenn die Karte <i>nicht</i> wechselbar ist, mußt du deine Sicherung an einem anderen Ort als dein Gerät archivieren.</p><p><b>Wenn der einzige Ort, an dem dein Backup existiert, dein Gerät bleibt, läufst du in Gefahr beide zusammen zu verlieren!</b></p><p>Verwahre in jedem Fall auch dein Backup-Passwort sicher. Möchtest du deine Wallet jetzt archivieren?</p>]]></string>
 	<string name="export_keys_dialog_failure">Deine Wallet konnte nicht gesichert werden:\n%s</string>
 	<string name="export_keys_dialog_button_archive">Archivieren</string>
 	<string name="export_keys_dialog_mail_subject">Bitcoin Wallet Sicherung</string>

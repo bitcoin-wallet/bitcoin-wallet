@@ -62,6 +62,7 @@ import android.nfc.NfcAdapter;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.text.Html;
 import android.text.format.DateUtils;
 import android.view.View;
 import android.view.ViewGroup;
@@ -93,6 +94,7 @@ import de.schildbach.wallet.util.Io;
 import de.schildbach.wallet.util.Iso8601Format;
 import de.schildbach.wallet.util.Nfc;
 import de.schildbach.wallet.util.WalletUtils;
+import de.schildbach.wallet.util.WholeStringBuilder;
 import de.schildbach.wallet_test.R;
 
 /**
@@ -962,8 +964,8 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 			cipherOut.flush();
 
 			final DialogBuilder dialog = new DialogBuilder(this);
-			dialog.setMessage(getString(R.string.export_keys_dialog_success, file));
-			dialog.setPositiveButton(R.string.export_keys_dialog_button_archive, new OnClickListener()
+			dialog.setMessage(Html.fromHtml(getString(R.string.export_keys_dialog_success, file)));
+			dialog.setPositiveButton(WholeStringBuilder.bold(getString(R.string.export_keys_dialog_button_archive)), new OnClickListener()
 			{
 				@Override
 				public void onClick(final DialogInterface dialog, final int which)
