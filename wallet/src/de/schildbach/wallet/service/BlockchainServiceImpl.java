@@ -662,40 +662,47 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 	@Override
 	public int onStartCommand(final Intent intent, final int flags, final int startId)
 	{
-		log.info("service start command: " + intent
-				+ (intent.hasExtra(Intent.EXTRA_ALARM_COUNT) ? " (alarm count: " + intent.getIntExtra(Intent.EXTRA_ALARM_COUNT, 0) + ")" : ""));
-
-		final String action = intent.getAction();
-
-		if (BlockchainService.ACTION_CANCEL_COINS_RECEIVED.equals(action))
+		if (intent != null)
 		{
-			notificationCount = 0;
-			notificationAccumulatedAmount = BigInteger.ZERO;
-			notificationAddresses.clear();
+			log.info("service start command: " + intent
+					+ (intent.hasExtra(Intent.EXTRA_ALARM_COUNT) ? " (alarm count: " + intent.getIntExtra(Intent.EXTRA_ALARM_COUNT, 0) + ")" : ""));
 
-			nm.cancel(NOTIFICATION_ID_COINS_RECEIVED);
-		}
-		else if (BlockchainService.ACTION_RESET_BLOCKCHAIN.equals(action))
-		{
-			log.info("will remove blockchain on service shutdown");
+			final String action = intent.getAction();
 
-			resetBlockchainOnShutdown = true;
-			stopSelf();
-		}
-		else if (BlockchainService.ACTION_BROADCAST_TRANSACTION.equals(action))
-		{
-			final Sha256Hash hash = new Sha256Hash(intent.getByteArrayExtra(BlockchainService.ACTION_BROADCAST_TRANSACTION_HASH));
-			final Transaction tx = application.getWallet().getTransaction(hash);
-
-			if (peerGroup != null)
+			if (BlockchainService.ACTION_CANCEL_COINS_RECEIVED.equals(action))
 			{
-				log.info("broadcasting transaction " + tx.getHashAsString());
-				peerGroup.broadcastTransaction(tx);
+				notificationCount = 0;
+				notificationAccumulatedAmount = BigInteger.ZERO;
+				notificationAddresses.clear();
+
+				nm.cancel(NOTIFICATION_ID_COINS_RECEIVED);
 			}
-			else
+			else if (BlockchainService.ACTION_RESET_BLOCKCHAIN.equals(action))
 			{
-				log.info("peergroup not available, not broadcasting transaction " + tx.getHashAsString());
+				log.info("will remove blockchain on service shutdown");
+
+				resetBlockchainOnShutdown = true;
+				stopSelf();
 			}
+			else if (BlockchainService.ACTION_BROADCAST_TRANSACTION.equals(action))
+			{
+				final Sha256Hash hash = new Sha256Hash(intent.getByteArrayExtra(BlockchainService.ACTION_BROADCAST_TRANSACTION_HASH));
+				final Transaction tx = application.getWallet().getTransaction(hash);
+
+				if (peerGroup != null)
+				{
+					log.info("broadcasting transaction " + tx.getHashAsString());
+					peerGroup.broadcastTransaction(tx);
+				}
+				else
+				{
+					log.info("peergroup not available, not broadcasting transaction " + tx.getHashAsString());
+				}
+			}
+		}
+		else
+		{
+			log.warn("service restart, although it was started as non-sticky");
 		}
 
 		return START_NOT_STICKY;
