@@ -233,11 +233,15 @@ public class WalletUtils
 
 			final List<ECKey> keys = new LinkedList<ECKey>();
 
+			long charCount = 0;
 			while (true)
 			{
 				final String line = in.readLine();
 				if (line == null)
 					break; // eof
+				charCount += line.length();
+				if (charCount > Constants.BACKUP_MAX_CHARS)
+					throw new IOException("read more than the limit of " + Constants.BACKUP_MAX_CHARS + " characters");
 				if (line.trim().isEmpty() || line.charAt(0) == '#')
 					continue; // skip comment
 
