@@ -27,8 +27,8 @@ import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
 import android.preference.PreferenceManager;
-import android.text.Editable;
-import android.text.SpannableStringBuilder;
+import android.text.Spannable;
+import android.text.SpannableString;
 import android.widget.RemoteViews;
 
 import com.google.bitcoin.core.Wallet;
@@ -61,7 +61,7 @@ public class WalletBalanceWidgetProvider extends AppWidgetProvider
 			@Nonnull final BigInteger balance)
 	{
 		final Configuration config = new Configuration(PreferenceManager.getDefaultSharedPreferences(context));
-		final Editable balanceStr = new SpannableStringBuilder(GenericUtils.formatValue(balance, config.getBtcPrecision(), config.getBtcShift()));
+		final Spannable balanceStr = new SpannableString(GenericUtils.formatValue(balance, config.getBtcPrecision(), config.getBtcShift()));
 		WalletUtils.formatSignificant(balanceStr, WalletUtils.SMALLER_SPAN);
 
 		for (final int appWidgetId : appWidgetIds)

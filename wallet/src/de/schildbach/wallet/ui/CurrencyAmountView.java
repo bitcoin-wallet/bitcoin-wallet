@@ -31,7 +31,8 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.text.Editable;
 import android.text.InputType;
-import android.text.SpannableStringBuilder;
+import android.text.Spannable;
+import android.text.SpannableString;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.Gravity;
@@ -227,8 +228,7 @@ public final class CurrencyAmountView extends FrameLayout
 
 	public void setHint(@Nullable final BigInteger amount)
 	{
-		final SpannableStringBuilder hint = new SpannableStringBuilder(GenericUtils.formatValue(amount != null ? amount : BigInteger.ZERO,
-				hintPrecision, shift));
+		final Spannable hint = new SpannableString(GenericUtils.formatValue(amount != null ? amount : BigInteger.ZERO, hintPrecision, shift));
 		WalletUtils.formatSignificant(hint, smallerInsignificant ? WalletUtils.SMALLER_SPAN : null);
 		textView.setHint(hint);
 	}

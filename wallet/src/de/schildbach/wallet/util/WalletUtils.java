@@ -117,19 +117,19 @@ public class WalletUtils
 	private static final Object SIGNIFICANT_SPAN = new StyleSpan(Typeface.BOLD);
 	public static final RelativeSizeSpan SMALLER_SPAN = new RelativeSizeSpan(0.85f);
 
-	public static void formatSignificant(@Nonnull final Editable s, @Nullable final RelativeSizeSpan insignificantRelativeSizeSpan)
+	public static void formatSignificant(@Nonnull final Spannable spannable, @Nullable final RelativeSizeSpan insignificantRelativeSizeSpan)
 	{
-		s.removeSpan(SIGNIFICANT_SPAN);
+		spannable.removeSpan(SIGNIFICANT_SPAN);
 		if (insignificantRelativeSizeSpan != null)
-			s.removeSpan(insignificantRelativeSizeSpan);
+			spannable.removeSpan(insignificantRelativeSizeSpan);
 
-		final Matcher m = P_SIGNIFICANT.matcher(s);
+		final Matcher m = P_SIGNIFICANT.matcher(spannable);
 		if (m.find())
 		{
 			final int pivot = m.group().length();
-			s.setSpan(SIGNIFICANT_SPAN, 0, pivot, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-			if (s.length() > pivot && insignificantRelativeSizeSpan != null)
-				s.setSpan(insignificantRelativeSizeSpan, pivot, s.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+			spannable.setSpan(SIGNIFICANT_SPAN, 0, pivot, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+			if (spannable.length() > pivot && insignificantRelativeSizeSpan != null)
+				spannable.setSpan(insignificantRelativeSizeSpan, pivot, spannable.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 		}
 	}
 
