@@ -1,5 +1,5 @@
 /*
- * Copyright 2011-2014 the original author or authors.
+ * Copyright 2014 the original author or authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,30 +17,20 @@
 
 package de.schildbach.wallet.util;
 
-import java.util.Currency;
+import java.util.regex.Pattern;
 
-import javax.annotation.Nonnull;
+import de.schildbach.wallet.Constants;
 
 /**
  * @author Andreas Schildbach
  */
-public class GenericUtils
+public final class Formats
 {
-	public static boolean startsWithIgnoreCase(final String string, final String prefix)
-	{
-		return string.regionMatches(true, 0, prefix, 0, prefix.length());
-	}
+	public static final Pattern PATTERN_MONETARY_SPANNABLE = Pattern.compile("(?:([\\p{Alpha}\\p{Sc}]++)\\s?+)?" // prefix
+			+ "([\\+\\-" + Constants.CURRENCY_PLUS_SIGN + Constants.CURRENCY_MINUS_SIGN + "]?+(?:\\d*+\\.\\d{0,2}+|\\d++))" // significant
+			+ "(\\d++)?"); // insignificant
 
-	public static String currencySymbol(@Nonnull final String currencyCode)
-	{
-		try
-		{
-			final Currency currency = Currency.getInstance(currencyCode);
-			return currency.getSymbol();
-		}
-		catch (final IllegalArgumentException x)
-		{
-			return currencyCode;
-		}
-	}
+	public static int PATTERN_GROUP_PREFIX = 1; // optional
+	public static int PATTERN_GROUP_SIGNIFICANT = 2; // mandatory
+	public static int PATTERN_GROUP_INSIGNIFICANT = 3; // optional
 }

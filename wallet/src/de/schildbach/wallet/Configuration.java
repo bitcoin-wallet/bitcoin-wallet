@@ -21,6 +21,7 @@ import java.math.BigInteger;
 
 import javax.annotation.Nonnull;
 
+import org.bitcoinj.utils.MonetaryFormat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -69,30 +70,13 @@ public class Configuration
 		this.lastVersionCode = prefs.getInt(PREFS_KEY_LAST_VERSION, 0);
 	}
 
-	public boolean hasBtcPrecision()
-	{
-		return prefs.contains(PREFS_KEY_BTC_PRECISION);
-	}
-
-	public int getBtcPrecision()
+	private int getBtcPrecision()
 	{
 		final String precision = prefs.getString(PREFS_KEY_BTC_PRECISION, null);
 		if (precision != null)
 			return precision.charAt(0) - '0';
 		else
 			return PREFS_DEFAULT_BTC_PRECISION;
-	}
-
-	public int getBtcMaxPrecision()
-	{
-		final int btcShift = getBtcShift();
-
-		if (btcShift == 0)
-			return Constants.BTC_MAX_PRECISION;
-		else if (btcShift == 3)
-			return Constants.MBTC_MAX_PRECISION;
-		else
-			return Constants.UBTC_MAX_PRECISION;
 	}
 
 	public int getBtcShift()
@@ -104,16 +88,23 @@ public class Configuration
 			return PREFS_DEFAULT_BTC_SHIFT;
 	}
 
-	public String getBtcPrefix()
+	public MonetaryFormat getFormat()
 	{
-		final int btcShift = getBtcShift();
+		final int shift = getBtcShift();
+		final int minPrecision = shift <= 3 ? 2 : 0;
+		final int decimalRepetitions = (getBtcPrecision() - minPrecision) / 2;
+		return new MonetaryFormat().shift(shift).minDecimals(minPrecision).repeatOptionalDecimals(2, decimalRepetitions);
+	}
 
-		if (btcShift == 0)
-			return Constants.CURRENCY_CODE_BTC;
-		else if (btcShift == 3)
-			return Constants.CURRENCY_CODE_MBTC;
+	public MonetaryFormat getMaxPrecisionFormat()
+	{
+		final int shift = getBtcShift();
+		if (shift == 0)
+			return new MonetaryFormat().shift(0).minDecimals(2).optionalDecimals(2, 2, 2);
+		else if (shift == 3)
+			return new MonetaryFormat().shift(3).minDecimals(2).optionalDecimals(2, 1);
 		else
-			return Constants.CURRENCY_CODE_UBTC;
+			return new MonetaryFormat().shift(6).minDecimals(0).optionalDecimals(2);
 	}
 
 	public boolean getConnectivityNotificationEnabled()

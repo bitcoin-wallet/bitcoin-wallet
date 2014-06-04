@@ -22,6 +22,7 @@ import java.io.File;
 import org.bitcoinj.core.NetworkParameters;
 import org.bitcoinj.params.MainNetParams;
 import org.bitcoinj.params.TestNet3Params;
+import org.bitcoinj.utils.MonetaryFormat;
 
 import android.os.Build;
 import android.os.Environment;
@@ -100,15 +101,6 @@ public final class Constants
 	/** Default currency to use if all default mechanisms fail. */
 	public static final String DEFAULT_EXCHANGE_CURRENCY = "USD";
 
-	/** Currency code for base 1 Bitcoin. */
-	public static final String CURRENCY_CODE_BTC = "BTC";
-
-	/** Currency code for base 1/1000 Bitcoin. */
-	public static final String CURRENCY_CODE_MBTC = "mBTC";
-
-	/** Currency code for base 1/1000000 Bitcoin. */
-	public static final String CURRENCY_CODE_UBTC = "µBTC";
-
 	/** Donation address for tip/donate action. */
 	public static final String DONATION_ADDRESS = "18CK5k1gajRKKSC7yVSTXT9LUzbheh1XY4";
 
@@ -125,16 +117,13 @@ public final class Constants
 	public static final char CHAR_THIN_SPACE = '\u2009';
 	public static final char CHAR_ALMOST_EQUAL_TO = '\u2248';
 	public static final char CHAR_CHECKMARK = '\u2713';
-	public static final String CURRENCY_PLUS_SIGN = "+" + CHAR_THIN_SPACE;
-	public static final String CURRENCY_MINUS_SIGN = "-" + CHAR_THIN_SPACE;
+	public static final char CURRENCY_PLUS_SIGN = '\uff0b';
+	public static final char CURRENCY_MINUS_SIGN = '\uff0d';
 	public static final String PREFIX_ALMOST_EQUAL_TO = Character.toString(CHAR_ALMOST_EQUAL_TO) + CHAR_THIN_SPACE;
 	public static final int ADDRESS_FORMAT_GROUP_SIZE = 4;
 	public static final int ADDRESS_FORMAT_LINE_SIZE = 12;
 
-	public static final int BTC_MAX_PRECISION = 8;
-	public static final int MBTC_MAX_PRECISION = 5;
-	public static final int UBTC_MAX_PRECISION = 2;
-	public static final int LOCAL_PRECISION = 4;
+	public static final MonetaryFormat LOCAL_FORMAT = new MonetaryFormat().noCode().minDecimals(2).optionalDecimals();
 
 	public static final String LICENSE_URL = "http://www.gnu.org/licenses/gpl-3.0.txt";
 	public static final String SOURCE_URL = "https://github.com/schildbach/bitcoin-wallet";

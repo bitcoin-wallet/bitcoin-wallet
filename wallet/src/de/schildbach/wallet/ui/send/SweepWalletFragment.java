@@ -15,6 +15,7 @@ import org.bitcoinj.core.VerificationException;
 import org.bitcoinj.core.Wallet;
 import org.bitcoinj.core.Wallet.BalanceType;
 import org.bitcoinj.core.Wallet.SendRequest;
+import org.bitcoinj.utils.MonetaryFormat;
 import org.bitcoinj.wallet.WalletTransaction;
 import org.bitcoinj.wallet.WalletTransaction.Pool;
 
@@ -51,7 +52,7 @@ import de.schildbach.wallet.ui.InputParser.StringInputParser;
 import de.schildbach.wallet.ui.ProgressDialogFragment;
 import de.schildbach.wallet.ui.ScanActivity;
 import de.schildbach.wallet.ui.TransactionsListAdapter;
-import de.schildbach.wallet.util.GenericUtils;
+import de.schildbach.wallet.util.MonetarySpannable;
 import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
 
@@ -409,18 +410,14 @@ public class SweepWalletFragment extends Fragment
 
 	private void updateView()
 	{
+		final MonetaryFormat btcFormat = config.getFormat();
+
 		if (walletToSweep != null)
 		{
-			final int btcShift = config.getBtcShift();
-			final int btcPrecision = config.getBtcMaxPrecision();
-			final String btcPrefix = config.getBtcPrefix();
-
 			balanceView.setVisibility(View.VISIBLE);
-			final SpannableStringBuilder balance = new SpannableStringBuilder(GenericUtils.formatValue(
-					walletToSweep.getBalance(BalanceType.ESTIMATED), btcPrecision, btcShift));
-			WalletUtils.formatSignificant(balance, null);
-			balance.insert(0, " "); // insert backwards
-			balance.insert(0, btcPrefix);
+			final MonetarySpannable balanceSpannable = new MonetarySpannable(btcFormat, walletToSweep.getBalance(BalanceType.ESTIMATED));
+			balanceSpannable.applyMarkup(null, null, null);
+			final SpannableStringBuilder balance = new SpannableStringBuilder(balanceSpannable);
 			balance.insert(0, ": ");
 			balance.insert(0, getString(R.string.sweep_wallet_fragment_balance));
 			balanceView.setText(balance);
@@ -436,11 +433,8 @@ public class SweepWalletFragment extends Fragment
 
 		if (sentTransaction != null)
 		{
-			final int btcPrecision = config.getBtcPrecision();
-			final int btcShift = config.getBtcShift();
-
 			sweepTransactionView.setVisibility(View.VISIBLE);
-			sweepTransactionListAdapter.setPrecision(btcPrecision, btcShift);
+			sweepTransactionListAdapter.setFormat(btcFormat);
 			sweepTransactionListAdapter.replace(sentTransaction);
 		}
 		else

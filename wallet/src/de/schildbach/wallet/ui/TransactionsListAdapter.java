@@ -33,6 +33,7 @@ import org.bitcoinj.core.Transaction.Purpose;
 import org.bitcoinj.core.TransactionConfidence;
 import org.bitcoinj.core.TransactionConfidence.ConfidenceType;
 import org.bitcoinj.core.Wallet;
+import org.bitcoinj.utils.MonetaryFormat;
 import org.bitcoinj.wallet.DefaultCoinSelector;
 
 import android.content.Context;
@@ -63,8 +64,7 @@ public class TransactionsListAdapter extends BaseAdapter
 	private final int maxConnectedPeers;
 
 	private final List<Transaction> transactions = new ArrayList<Transaction>();
-	private int precision = 0;
-	private int shift = 0;
+	private MonetaryFormat format;
 	private boolean showEmptyText = false;
 	private boolean showBackupWarning = false;
 
@@ -101,10 +101,9 @@ public class TransactionsListAdapter extends BaseAdapter
 		textInternal = context.getString(R.string.wallet_transactions_fragment_internal);
 	}
 
-	public void setPrecision(final int precision, final int shift)
+	public void setFormat(final MonetaryFormat format)
 	{
-		this.precision = precision;
-		this.shift = shift;
+		this.format = format.noCode();
 
 		notifyDataSetChanged();
 	}
@@ -324,7 +323,7 @@ public class TransactionsListAdapter extends BaseAdapter
 		final CurrencyTextView rowValue = (CurrencyTextView) row.findViewById(R.id.transaction_row_value);
 		rowValue.setTextColor(textColor);
 		rowValue.setAlwaysSigned(true);
-		rowValue.setPrecision(precision, shift);
+		rowValue.setFormat(format);
 		rowValue.setAmount(value);
 
 		// extended message

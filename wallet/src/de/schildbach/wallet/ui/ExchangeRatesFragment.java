@@ -384,11 +384,11 @@ public final class ExchangeRatesFragment extends FancyListFragment implements On
 			currencyCodeView.setText(exchangeRate.currencyCode);
 
 			final CurrencyTextView rateView = (CurrencyTextView) view.findViewById(R.id.exchange_rate_row_rate);
-			rateView.setPrecision(Constants.LOCAL_PRECISION, 0);
+			rateView.setFormat(Constants.LOCAL_FORMAT);
 			rateView.setAmount(WalletUtils.localValue(rateBase, exchangeRate.rate));
 
 			final CurrencyTextView walletView = (CurrencyTextView) view.findViewById(R.id.exchange_rate_row_balance);
-			walletView.setPrecision(Constants.LOCAL_PRECISION, 0);
+			walletView.setFormat(Constants.LOCAL_FORMAT);
 			if (blockchainState == null || !blockchainState.replaying)
 			{
 				walletView.setAmount(WalletUtils.localValue(balance, exchangeRate.rate));

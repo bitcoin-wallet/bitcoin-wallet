@@ -95,7 +95,7 @@ public final class PaymentIntent implements Parcelable
 
 			builder.append(getClass().getSimpleName());
 			builder.append('[');
-			builder.append(hasAmount() ? GenericUtils.formatDebugValue(amount) : "null");
+			builder.append(hasAmount() ? amount.toPlainString() : "null");
 			builder.append(',');
 			if (script.isSentToAddress() || script.isPayToScriptHash())
 				builder.append(script.getToAddress(Constants.NETWORK_PARAMETERS));

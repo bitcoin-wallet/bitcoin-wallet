@@ -58,6 +58,7 @@ import org.bitcoinj.net.discovery.PeerDiscoveryException;
 import org.bitcoinj.store.BlockStore;
 import org.bitcoinj.store.BlockStoreException;
 import org.bitcoinj.store.SPVBlockStore;
+import org.bitcoinj.utils.MonetaryFormat;
 import org.bitcoinj.utils.Threading;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -90,7 +91,6 @@ import de.schildbach.wallet.WalletBalanceWidgetProvider;
 import de.schildbach.wallet.service.BlockchainState.Impediment;
 import de.schildbach.wallet.ui.WalletActivity;
 import de.schildbach.wallet.util.CrashReporter;
-import de.schildbach.wallet.util.GenericUtils;
 import de.schildbach.wallet.util.ThrottlingWalletChangeListener;
 import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
@@ -187,20 +187,13 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 		if (from != null && !notificationAddresses.contains(from))
 			notificationAddresses.add(from);
 
-		final int btcPrecision = config.getBtcPrecision();
-		final int btcShift = config.getBtcShift();
-		final String btcPrefix = config.getBtcPrefix();
+		final MonetaryFormat btcFormat = config.getFormat();
 
 		final String packageFlavor = application.applicationPackageFlavor();
 		final String msgSuffix = packageFlavor != null ? " [" + packageFlavor + "]" : "";
 
-		final String tickerMsg = getString(R.string.notification_coins_received_msg,
-				btcPrefix + ' ' + GenericUtils.formatValue(amount, btcPrecision, btcShift))
-				+ msgSuffix;
-
-		final String msg = getString(R.string.notification_coins_received_msg,
-				btcPrefix + ' ' + GenericUtils.formatValue(notificationAccumulatedAmount, btcPrecision, btcShift))
-				+ msgSuffix;
+		final String tickerMsg = getString(R.string.notification_coins_received_msg, btcFormat.format(amount)) + msgSuffix;
+		final String msg = getString(R.string.notification_coins_received_msg, btcFormat.format(notificationAccumulatedAmount)) + msgSuffix;
 
 		final StringBuilder text = new StringBuilder();
 		for (final Address address : notificationAddresses)
