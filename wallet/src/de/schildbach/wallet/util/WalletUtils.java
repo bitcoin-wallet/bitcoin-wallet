@@ -33,20 +33,15 @@ import java.text.ParseException;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import android.graphics.Typeface;
 import android.text.Editable;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.format.DateUtils;
-import android.text.style.RelativeSizeSpan;
-import android.text.style.StyleSpan;
 import android.text.style.TypefaceSpan;
 
 import com.google.bitcoin.core.Address;
@@ -116,27 +111,6 @@ public class WalletUtils
 		}
 
 		return builder;
-	}
-
-	private static final Pattern P_SIGNIFICANT = Pattern.compile("^([-+]" + Constants.CHAR_THIN_SPACE + ")?\\d*(\\.\\d{0,2})?");
-	private static final Object SIGNIFICANT_SPAN = new StyleSpan(Typeface.BOLD);
-	public static final RelativeSizeSpan SMALLER_SPAN = new RelativeSizeSpan(0.85f);
-
-	public static void formatSignificant(@Nonnull final Spannable spannable, @Nullable final RelativeSizeSpan insignificantRelativeSizeSpan)
-	{
-		spannable.removeSpan(SIGNIFICANT_SPAN);
-		if (insignificantRelativeSizeSpan != null)
-			spannable.removeSpan(insignificantRelativeSizeSpan);
-
-		final Matcher m = P_SIGNIFICANT.matcher(spannable);
-		if (m.find())
-		{
-			final int pivot = m.group().length();
-			if (pivot > 0)
-				spannable.setSpan(SIGNIFICANT_SPAN, 0, pivot, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-			if (spannable.length() > pivot && insignificantRelativeSizeSpan != null)
-				spannable.setSpan(insignificantRelativeSizeSpan, pivot, spannable.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-		}
 	}
 
 	private static final BigInteger COIN_BI = BigInteger.valueOf(Coin.COIN.value);

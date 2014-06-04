@@ -30,7 +30,6 @@ import android.os.Parcelable;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.Spannable;
-import android.text.SpannableString;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.Gravity;
@@ -42,10 +41,10 @@ import android.widget.TextView;
 
 import com.google.bitcoin.core.Coin;
 import com.google.bitcoin.core.Transaction;
+import com.google.bitcoin.utils.MonetaryFormat;
 
-import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.util.GenericUtils;
-import de.schildbach.wallet.util.WalletUtils;
+import de.schildbach.wallet.util.MonetarySpannable;
 import de.schildbach.wallet_test.R;
 
 /**
@@ -63,9 +62,9 @@ public final class CurrencyAmountView extends FrameLayout
 	private int significantColor, lessSignificantColor, errorColor;
 	private Drawable deleteButtonDrawable, contextButtonDrawable;
 	private Drawable currencySymbolDrawable;
-	private int inputPrecision = 2;
-	private int hintPrecision = 2;
-	private int shift = 0;
+	private MonetaryFormat inputFormat;
+	private Coin hint = null;
+	private MonetaryFormat hintFormat = new MonetaryFormat().noCode();
 	private boolean amountSigned = false;
 	private boolean validateAmount = true;
 
@@ -107,7 +106,6 @@ public final class CurrencyAmountView extends FrameLayout
 		textView.setHintTextColor(lessSignificantColor);
 		textView.setHorizontalFadingEdgeEnabled(true);
 		textView.setSingleLine();
-		setHint(null);
 		setValidateAmount(textView instanceof EditText);
 		textView.addTextChangedListener(textViewListener);
 		textView.setOnFocusChangeListener(textViewListener);
@@ -130,15 +128,15 @@ public final class CurrencyAmountView extends FrameLayout
 
 	public void setCurrencySymbol(@Nullable final String currencyCode)
 	{
-		if (Constants.CURRENCY_CODE_BTC.equals(currencyCode))
+		if (MonetaryFormat.CODE_BTC.equals(currencyCode))
 		{
 			currencySymbolDrawable = getResources().getDrawable(R.drawable.currency_symbol_btc);
 		}
-		else if (Constants.CURRENCY_CODE_MBTC.equals(currencyCode))
+		else if (MonetaryFormat.CODE_MBTC.equals(currencyCode))
 		{
 			currencySymbolDrawable = getResources().getDrawable(R.drawable.currency_symbol_mbtc);
 		}
-		else if (Constants.CURRENCY_CODE_UBTC.equals(currencyCode))
+		else if (MonetaryFormat.CODE_UBTC.equals(currencyCode))
 		{
 			currencySymbolDrawable = getResources().getDrawable(R.drawable.currency_symbol_ubtc);
 		}
@@ -157,19 +155,21 @@ public final class CurrencyAmountView extends FrameLayout
 		updateAppearance();
 	}
 
-	public void setInputPrecision(final int inputPrecision)
+	public void setInputFormat(final MonetaryFormat inputFormat)
 	{
-		this.inputPrecision = inputPrecision;
+		this.inputFormat = inputFormat.noCode();
 	}
 
-	public void setHintPrecision(final int hintPrecision)
+	public void setHintFormat(final MonetaryFormat hintFormat)
 	{
-		this.hintPrecision = hintPrecision;
+		this.hintFormat = hintFormat.noCode();
+		updateAppearance();
 	}
 
-	public void setShift(final int shift)
+	public void setHint(@Nullable final Coin hint)
 	{
-		this.shift = shift;
+		this.hint = hint;
+		updateAppearance();
 	}
 
 	public void setAmountSigned(final boolean amountSigned)
@@ -199,7 +199,7 @@ public final class CurrencyAmountView extends FrameLayout
 	public Coin getAmount()
 	{
 		if (isValidAmount(false))
-			return GenericUtils.parseCoin(textView.getText().toString().trim(), shift);
+			return inputFormat.parse(textView.getText().toString().trim());
 		else
 			return null;
 	}
@@ -210,20 +210,12 @@ public final class CurrencyAmountView extends FrameLayout
 			textViewListener.setFire(false);
 
 		if (amount != null)
-			textView.setText(amountSigned ? GenericUtils.formatValue(amount, Constants.CURRENCY_PLUS_SIGN, Constants.CURRENCY_MINUS_SIGN,
-					inputPrecision, shift) : GenericUtils.formatValue(amount, inputPrecision, shift));
+			textView.setText(new MonetarySpannable(inputFormat, amountSigned, amount));
 		else
 			textView.setText(null);
 
 		if (!fireListener)
 			textViewListener.setFire(true);
-	}
-
-	public void setHint(@Nullable final Coin amount)
-	{
-		final Spannable hint = new SpannableString(GenericUtils.formatValue(amount != null ? amount : Coin.ZERO, hintPrecision, shift));
-		WalletUtils.formatSignificant(hint, WalletUtils.SMALLER_SPAN);
-		textView.setHint(hint);
 	}
 
 	@Override
@@ -270,7 +262,7 @@ public final class CurrencyAmountView extends FrameLayout
 		{
 			if (!str.isEmpty())
 			{
-				final Coin coin = GenericUtils.parseCoin(str, shift);
+				final Coin coin = inputFormat.parse(str);
 
 				// exactly zero
 				if (zeroIsValid && coin.signum() == 0)
@@ -327,6 +319,10 @@ public final class CurrencyAmountView extends FrameLayout
 		contextButton.requestLayout();
 
 		textView.setTextColor(!validateAmount || isValidAmount(true) ? significantColor : errorColor);
+
+		final Spannable hintSpannable = new MonetarySpannable(hintFormat, hint != null ? hint : Coin.ZERO).applyMarkup(null, null,
+				MonetarySpannable.SMALLER_SPAN);
+		textView.setHint(hintSpannable);
 	}
 
 	@Override
@@ -378,7 +374,7 @@ public final class CurrencyAmountView extends FrameLayout
 				s.append(replaced);
 			}
 
-			WalletUtils.formatSignificant(s, WalletUtils.SMALLER_SPAN);
+			MonetarySpannable.applyMarkup(s, null, null, MonetarySpannable.BOLD_SPAN, MonetarySpannable.SMALLER_SPAN);
 		}
 
 		@Override

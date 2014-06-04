@@ -45,6 +45,7 @@ import com.google.bitcoin.core.Transaction.Purpose;
 import com.google.bitcoin.core.TransactionConfidence;
 import com.google.bitcoin.core.TransactionConfidence.ConfidenceType;
 import com.google.bitcoin.core.Wallet;
+import com.google.bitcoin.utils.MonetaryFormat;
 import com.google.bitcoin.wallet.DefaultCoinSelector;
 
 import de.schildbach.wallet.AddressBookProvider;
@@ -64,8 +65,7 @@ public class TransactionsListAdapter extends BaseAdapter
 	private final int maxConnectedPeers;
 
 	private final List<Transaction> transactions = new ArrayList<Transaction>();
-	private int precision = 0;
-	private int shift = 0;
+	private MonetaryFormat format;
 	private boolean showEmptyText = false;
 	private boolean showBackupWarning = false;
 
@@ -102,10 +102,9 @@ public class TransactionsListAdapter extends BaseAdapter
 		textInternal = context.getString(R.string.wallet_transactions_fragment_internal);
 	}
 
-	public void setPrecision(final int precision, final int shift)
+	public void setFormat(final MonetaryFormat format)
 	{
-		this.precision = precision;
-		this.shift = shift;
+		this.format = format.noCode();
 
 		notifyDataSetChanged();
 	}
@@ -325,7 +324,7 @@ public class TransactionsListAdapter extends BaseAdapter
 		final CurrencyTextView rowValue = (CurrencyTextView) row.findViewById(R.id.transaction_row_value);
 		rowValue.setTextColor(textColor);
 		rowValue.setAlwaysSigned(true);
-		rowValue.setPrecision(precision, shift);
+		rowValue.setFormat(format);
 		rowValue.setAmount(value);
 
 		// extended message

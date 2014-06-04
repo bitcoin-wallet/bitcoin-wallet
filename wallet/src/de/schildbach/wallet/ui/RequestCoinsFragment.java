@@ -166,14 +166,13 @@ public final class RequestCoinsFragment extends Fragment
 		});
 
 		final CurrencyAmountView btcAmountView = (CurrencyAmountView) view.findViewById(R.id.request_coins_amount_btc);
-		btcAmountView.setCurrencySymbol(config.getBtcPrefix());
-		btcAmountView.setInputPrecision(config.getBtcMaxPrecision());
-		btcAmountView.setHintPrecision(config.getBtcPrecision());
-		btcAmountView.setShift(config.getBtcShift());
+		btcAmountView.setCurrencySymbol(config.getFormat().code());
+		btcAmountView.setInputFormat(config.getMaxPrecisionFormat());
+		btcAmountView.setHintFormat(config.getFormat());
 
 		final CurrencyAmountView localAmountView = (CurrencyAmountView) view.findViewById(R.id.request_coins_amount_local);
-		localAmountView.setInputPrecision(Constants.LOCAL_PRECISION);
-		localAmountView.setHintPrecision(Constants.LOCAL_PRECISION);
+		localAmountView.setInputFormat(Constants.LOCAL_FORMAT);
+		localAmountView.setHintFormat(Constants.LOCAL_FORMAT);
 		amountCalculatorLink = new CurrencyCalculatorLink(btcAmountView, localAmountView);
 
 		acceptBluetoothPaymentView = (CheckBox) view.findViewById(R.id.request_coins_accept_bluetooth_payment);

@@ -88,6 +88,7 @@ import com.google.bitcoin.core.Wallet;
 import com.google.bitcoin.core.Wallet.BalanceType;
 import com.google.bitcoin.core.Wallet.SendRequest;
 import com.google.bitcoin.protocols.payments.PaymentProtocol;
+import com.google.bitcoin.utils.MonetaryFormat;
 
 import de.schildbach.wallet.AddressBookProvider;
 import de.schildbach.wallet.Configuration;
@@ -494,14 +495,13 @@ public final class SendCoinsFragment extends Fragment
 		});
 
 		final CurrencyAmountView btcAmountView = (CurrencyAmountView) view.findViewById(R.id.send_coins_amount_btc);
-		btcAmountView.setCurrencySymbol(config.getBtcPrefix());
-		btcAmountView.setInputPrecision(config.getBtcMaxPrecision());
-		btcAmountView.setHintPrecision(config.getBtcPrecision());
-		btcAmountView.setShift(config.getBtcShift());
+		btcAmountView.setCurrencySymbol(config.getFormat().code());
+		btcAmountView.setInputFormat(config.getMaxPrecisionFormat());
+		btcAmountView.setHintFormat(config.getFormat());
 
 		final CurrencyAmountView localAmountView = (CurrencyAmountView) view.findViewById(R.id.send_coins_amount_local);
-		localAmountView.setInputPrecision(Constants.LOCAL_PRECISION);
-		localAmountView.setHintPrecision(Constants.LOCAL_PRECISION);
+		localAmountView.setInputFormat(Constants.LOCAL_FORMAT);
+		localAmountView.setHintFormat(Constants.LOCAL_FORMAT);
 		amountCalculatorLink = new CurrencyCalculatorLink(btcAmountView, localAmountView);
 		amountCalculatorLink.setExchangeDirection(config.getLastExchangeDirection());
 
@@ -951,20 +951,14 @@ public final class SendCoinsFragment extends Fragment
 				final Coin available = wallet.getBalance(BalanceType.AVAILABLE);
 				final Coin pending = estimated.subtract(available);
 
-				final int btcShift = config.getBtcShift();
-				final int btcPrecision = config.getBtcMaxPrecision();
-				final String btcPrefix = config.getBtcPrefix();
+				final MonetaryFormat btcFormat = config.getFormat();
 
 				final DialogBuilder dialog = DialogBuilder.warn(activity, R.string.send_coins_fragment_insufficient_money_title);
 				final StringBuilder msg = new StringBuilder();
 				if (missing != null)
-					msg.append(
-							getString(R.string.send_coins_fragment_insufficient_money_msg1,
-									btcPrefix + ' ' + GenericUtils.formatValue(missing, btcPrecision, btcShift))).append("\n\n");
+					msg.append(getString(R.string.send_coins_fragment_insufficient_money_msg1, btcFormat.format(missing))).append("\n\n");
 				if (pending.signum() > 0)
-					msg.append(
-							getString(R.string.send_coins_fragment_pending,
-									btcPrefix + ' ' + GenericUtils.formatValue(pending, btcPrecision, btcShift))).append("\n\n");
+					msg.append(getString(R.string.send_coins_fragment_pending, btcFormat.format(pending))).append("\n\n");
 				msg.append(getString(R.string.send_coins_fragment_insufficient_money_msg2));
 				dialog.setMessage(msg);
 				dialog.setPositiveButton(R.string.send_coins_options_empty, new DialogInterface.OnClickListener()
@@ -1134,11 +1128,8 @@ public final class SendCoinsFragment extends Fragment
 
 			if (sentTransaction != null)
 			{
-				final int btcPrecision = config.getBtcPrecision();
-				final int btcShift = config.getBtcShift();
-
 				sentTransactionView.setVisibility(View.VISIBLE);
-				sentTransactionListAdapter.setPrecision(btcPrecision, btcShift);
+				sentTransactionListAdapter.setFormat(config.getFormat());
 				sentTransactionListAdapter.replace(sentTransaction);
 			}
 			else

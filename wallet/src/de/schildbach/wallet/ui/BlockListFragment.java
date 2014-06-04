@@ -306,10 +306,7 @@ public final class BlockListFragment extends ListFragment
 
 			if (transactions != null)
 			{
-				final int btcPrecision = config.getBtcPrecision();
-				final int btcShift = config.getBtcShift();
-
-				transactionsAdapter.setPrecision(btcPrecision, btcShift);
+				transactionsAdapter.setFormat(config.getFormat());
 
 				for (final Transaction tx : transactions)
 				{
