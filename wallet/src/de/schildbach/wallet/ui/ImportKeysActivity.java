@@ -206,7 +206,7 @@ public final class ImportKeysActivity extends AbstractWalletActivity
 					finish();
 				}
 			});
-			dialog.setNegativeButton(R.string.button_dismiss, null);
+			dialog.setNegativeButton(R.string.button_dismiss, finishListener).setOnCancelListener(finishListener);
 			dialog.show();
 
 			log.info("restored wallet from external source");
@@ -215,7 +215,7 @@ public final class ImportKeysActivity extends AbstractWalletActivity
 		{
 			final DialogBuilder dialog = DialogBuilder.warn(this, R.string.import_export_keys_dialog_failure_title);
 			dialog.setMessage(getString(R.string.import_keys_dialog_failure, x.getMessage()));
-			dialog.setPositiveButton(R.string.button_dismiss, null);
+			dialog.setPositiveButton(R.string.button_dismiss, finishListener).setOnCancelListener(finishListener);
 			dialog.setNegativeButton(R.string.button_retry, new DialogInterface.OnClickListener()
 			{
 				@Override
@@ -232,7 +232,7 @@ public final class ImportKeysActivity extends AbstractWalletActivity
 		{
 			final DialogBuilder dialog = DialogBuilder.warn(this, R.string.import_export_keys_dialog_failure_title);
 			dialog.setMessage(getString(R.string.import_keys_dialog_failure, x.getMessage()));
-			dialog.setPositiveButton(R.string.button_dismiss, null);
+			dialog.setPositiveButton(R.string.button_dismiss, finishListener).setOnCancelListener(finishListener);
 			dialog.setNegativeButton(R.string.button_retry, new DialogInterface.OnClickListener()
 			{
 				@Override
