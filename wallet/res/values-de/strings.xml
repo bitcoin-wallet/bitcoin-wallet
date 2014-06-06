@@ -80,7 +80,9 @@
 	<string name="send_coins_fragment_button_back">Zurück</string>
 	<string name="send_coins_fragment_insufficient_money_title">Nicht genug verfügbare Bitcoins</string>
 	<string name="send_coins_fragment_insufficient_money_msg1">Dir fehlen %s.</string>
-	<string name="send_coins_fragment_insufficient_money_msg2">Möchtest Du mit allem zahlen was Du hast?</string>
+	<string name="send_coins_fragment_insufficient_money_msg2">Möchtest du mit allem zahlen was du hast?</string>
+	<string name="send_coins_fragment_empty_wallet_failed_title">Entleerung der Wallet fehlgeschlagen</string>
+	<string name="send_coins_fragment_empty_wallet_failed_msg">Der Summe an winzigen Zahlungen in deiner Wallet ist zu klein, um verschickt zu werden.</string>
 	<string name="send_coins_preparation_msg">Signierung…</string>
 	<string name="send_coins_sending_msg">Versenden…</string>
 	<string name="send_coins_sent_msg">Versendet!</string>

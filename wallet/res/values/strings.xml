@@ -75,6 +75,8 @@
 	<string name="send_coins_fragment_insufficient_money_title">Not enough available coins</string>
 	<string name="send_coins_fragment_insufficient_money_msg1">You\'re missing %s.</string>
 	<string name="send_coins_fragment_insufficient_money_msg2">Do you want to pay with all you have?</string>
+	<string name="send_coins_fragment_empty_wallet_failed_title">Emptying of wallet failed</string>
+	<string name="send_coins_fragment_empty_wallet_failed_msg">The amount of tiny payments in your wallet doesn\'t add up to sendable value.</string>
 	<string name="send_coins_preparation_msg">Signing…</string>
 	<string name="send_coins_sending_msg">Sending…</string>
 	<string name="send_coins_sent_msg">Sent!</string>
