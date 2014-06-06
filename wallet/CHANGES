@@ -1,3 +1,10 @@
+v3.50
+
+* Update Chinese, Danish, Italian and Japanese translations.
+* Update QR-code scanner to ZXing 3.1.0.
+* Small bugfixes.
+* Based on bitcoinj 0.11.3.
+
 v3.49
 
 * Update French and Turkish translations.
