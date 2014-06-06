@@ -3,7 +3,7 @@ Porta i tuoi Bitcoin sempre con te, in tasca! Paghi velocemente scansionando un 
 CARATTERISTICHE:
 
 • Non è necessaria alcuna registrazione, servizio web o cloud! Questo portafoglio è de-centralizzato e peer to peer.
-• Mostra l'ammontare di Bitcoin in BTC e mBTC.
+• Mostra l'ammontare di Bitcoin in BTC, mBTC e µBTC.
 • Conversione verso e dalle monete nazionali.
 • Invio e ricevimento di Bitcoin tramite NFC, codici QR o URL Bitcoin.
 • Rubrica degli indirizzi per usare indirizzi Bitcoin regolarmente.

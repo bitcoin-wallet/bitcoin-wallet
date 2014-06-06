@@ -18,11 +18,13 @@
 	<string name="wallet_addresses_fragment_add_dialog_message">Gli indirizzi Bitcoin non possono essere cancellati. Ne vuoi aggiungere uno nuovo?</string>
 	<string name="wallet_balance_fragment_replaying">Il conto non è disponibile durante la ripetizione.</string>
 	<string name="exchange_rates_activity_title">Tassi di cambio</string>
-	<string name="exchange_rates_fragment_empty_text">Impossibile acquisire quotazioni di cambio</string>
+	<string name="exchange_rates_fragment_empty_text">Impossibile caricare tassi di cambio.</string>
+	<string name="exchange_rates_fragment_empty_search">Impossibile trovare il tasso di cambio.</string>
 	<string name="exchange_rates_fragment_default">(predefinito)</string>
 	<string name="exchange_rates_fragment_rate">tasso</string>
 	<string name="exchange_rates_fragment_balance">saldo</string>
 	<string name="exchange_rates_fragment_source">Prezzo da %s</string>
+	<string name="exchange_rates_options_search">Ricerca tasso di cambio</string>
 	<string name="exchange_rates_context_set_as_default_title">Imposta come valuta straniera predefinita</string>
 	<string name="wallet_transactions_fragment_tab_received">Ricevuto</string>
 	<string name="wallet_transactions_fragment_tab_all">Entrambi</string>
@@ -34,6 +36,7 @@
 	<string name="wallet_transactions_fragment_coinbase">minato</string>
 	<string name="wallet_transactions_fragment_internal">Interna</string>
 	<string name="wallet_transactions_context_show_qr_title">Mostra codice QR</string>
+	<string name="wallet_options_safety_menu">Salvataggio</string>
 	<string name="wallet_options_safety">Note di sicurezza</string>
 	<string name="wallet_options_donate">Donazioni</string>
 	<string name="wallet_donate_address_label">Donazione per Bitcoin Wallet</string>
@@ -121,8 +124,9 @@
 	<string name="network_monitor_block_list_title">Blocchi</string>
 	<string name="peer_list_fragment_empty">Nessun peer connesso</string>
 	<string name="peer_list_row_ping_time">⇆ %d ms</string>
-	<string name="import_keys_dialog_title">Ripristina le chiavi private</string>
-	<string name="import_keys_dialog_message">Scegli un file di backup delle chiavi private da una memoria esterna o app-privata:</string>
+	<string name="import_keys_dialog_title">Ripristina portafoglio</string>
+	<string name="import_keys_dialog_message">Scegli il file di backup di un portafoglio dalla memoria di app-privata o esterna:</string>
+	<string name="restore_wallet_dialog_replace_warning">Stai per sostituire il tuo attuale portafoglio. Se non hai un backup tutte le monete nell\' attuale portafoglio andranno perse.</string>
 	<string name="import_keys_dialog_warning">Importante: Non caricare chiavi private da dubbiose provenienze! Altri possono ottenere il controllo sui vostri fondi se lo fate.</string>
 	<string name="import_keys_dialog_file_security_encrypted">password criptata</string>
 	<string name="import_keys_dialog_file_security_unencrypted">non criptata</string>
@@ -131,25 +135,26 @@
 	<string name="import_keys_dialog_file_created_automatic">backup automatico %s</string>
 	<string name="import_keys_dialog_file_created_manual">Eseguito il backup manualmente %s</string>
 	<string name="import_keys_dialog_button_import">Ripristina</string>
+	<string name="restore_wallet_dialog_success">Il portafoglio è stato recuperato.</string>
 	<string name="import_keys_dialog_success_imported">%d chiavi private sono state ripristinate</string>
 	<string name="import_keys_dialog_success_existing">%d chiavi private non sono state ripristinate, perché ce le hai già nel tuo portafoglio.</string>
 	<string name="import_keys_dialog_success_reset">Hai bisogno di riavviare il tuo blockchain per aggiornare il tuo conto. Desideri farlo?</string>
-	<string name="import_keys_dialog_failure">Le chiavi private potrebbero non essere ripristinate:\n\n%s\n\nPassword errata?</string>
+	<string name="import_keys_dialog_failure">Non è stato possibile recuperare il portafoglio:\n\n%s\n\nPassword sbagliata?</string>
 	<string name="import_keys_dialog_button_reset_blockchain">Reset</string>
-	<string name="export_keys_dialog_title">Backup delle chiavi private</string>
-	<string name="export_keys_dialog_message">Le tue chiavi private saranno crittografate con la password scelta e scritte in una memoria esterna</string>
+	<string name="export_keys_dialog_title">Backup portafoglio</string>
+	<string name="export_keys_dialog_message">Il tuo portafoglio sarà criptato con la password scelta e salvato in una memoria esterna.</string>
 	<string name="export_keys_dialog_button_export">Backup</string>
 	<string name="export_keys_dialog_success">Le tue chiavi private sono state salvate con un backup a\n\n%s\n\nMantienile sicure, e mantieni sicura anche la tua password!\n\nVuoi archiviare le tue chiavi usando un\'app?</string>
-	<string name="export_keys_dialog_failure">Le tue chiavi private potrebbero non essere salvate con il backup:\n%s</string>
+	<string name="export_keys_dialog_failure">Non è stato possibile fare il backup del tuo portafoglio:\n%s</string>
 	<string name="export_keys_dialog_button_archive">Archivio</string>
-	<string name="export_keys_dialog_mail_subject">Backup della chiave pubblica Bitcoin Wallet</string>
+	<string name="export_keys_dialog_mail_subject">Bitcoin Wallet backup</string>
 	<string name="export_keys_dialog_mail_text">Il file cifrato allegato contiene chiavi private Bitcoin e dovrebbe essere mantenuto sicuro in ogni momento. Non dimenticarti la password per la crittografia!</string>
-	<string name="export_keys_dialog_mail_intent_chooser">Archiviazione delle chiavi…</string>
-	<string name="export_keys_dialog_mail_intent_failed">Archiviazione delle chiavi fallita.</string>
+	<string name="export_keys_dialog_mail_intent_chooser">Archiviare portafoglio usando…</string>
+	<string name="export_keys_dialog_mail_intent_failed">Archiviazione portafoglio non riuscita.</string>
 	<string name="import_export_keys_dialog_password">password</string>
 	<string name="import_export_keys_dialog_show">Mostra password</string>
 	<string name="import_export_keys_dialog_failure_title">Errore</string>
-	<string name="import_keys_intent_filter_action">Ripristina la chiave Bitcoin</string>
+	<string name="import_keys_intent_filter_action">Ripristina portafoglio</string>
 	<string name="scan_camera_problem_dialog_title">Scusa</string>
 	<string name="scan_camera_problem_dialog_message">La videocamera ha un problema. Probabilmente è necessario riavviare il dispositivo.</string>
 	<string name="input_parser_io_error">Impossibile leggere i dati:\n%s</string>
@@ -192,7 +197,10 @@
 	<string name="report_issue_dialog_mail_intent_chooser">Invio della segnalazione…</string>
 	<string name="report_issue_dialog_mail_intent_failed">Invio della segnalazione non riuscito.</string>
 	<string name="about_title">Informazioni</string>
+	<string name="about_version_title">Versione</string>
+	<string name="about_copyright_title">Copyright</string>
 	<string name="about_license_title">Licenza</string>
+	<string name="about_source_title">Codice Sorgente</string>
 	<string name="about_credits_bitcoinj_title">Questa applicazione fa uso di \'bitcoinj\'</string>
 	<string name="about_credits_zxing_title">Questa applicazione fa uso di \'zxing\'</string>
 	<string name="about_credits_icon_title">Questa applicazione fa uso di una icona di \'bitboy\'</string>
@@ -200,9 +208,9 @@
 	<string name="about_community_googleplus_summary">Discussioni sull\'app</string>
 	<string name="about_author_twitter_title">L\'autore su Twitter</string>
 	<string name="about_author_googleplus_title">L\'autore su Google+</string>
-	<string name="about_market_app_title">Pagina Google Play</string>
+	<string name="about_market_app_title">Pagina su Google Play</string>
 	<string name="about_market_app_summary">Recensire o votare l\'app</string>
-	<string name="about_credits_market_publisher_title">Altre applicazioni dell\'autore</string>
+	<string name="about_credits_market_publisher_title">Altre app dall\'autore</string>
 	<string name="notification_coins_received_msg">Ricevuti %s</string>
 	<string name="notification_peers_connected_msg">Connesso a %d peers</string>
 	<!-- generic buttons -->
@@ -229,5 +237,6 @@
 	<!-- generic error messages -->
 	<string name="error_io">I/O errore: %s</string>
 	<string name="error_http">errore HTTP %1$s:\n%2$s</string>
+	<string name="error_bluetooth">Errore bluetooth %1$s</string>
 
 </resources>
