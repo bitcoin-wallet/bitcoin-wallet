@@ -985,6 +985,8 @@ public final class SendCoinsFragment extends SherlockFragment
 		final BigInteger available = wallet.getBalance(BalanceType.AVAILABLE);
 
 		amountCalculatorLink.setBtcAmount(available);
+
+		updateView();
 	}
 
 	public class AutoCompleteAddressAdapter extends CursorAdapter
