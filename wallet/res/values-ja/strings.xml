@@ -18,11 +18,13 @@
 	<string name="wallet_addresses_fragment_add_dialog_message">ビットコインアドレスは削除できません。 ウォレットに新しいアドレスを追加しますか？</string>
 	<string name="wallet_balance_fragment_replaying">応答の間の収支は正確ではありません。</string>
 	<string name="exchange_rates_activity_title">交換レート</string>
-	<string name="exchange_rates_fragment_empty_text">交換レートをロードできません。</string>
+	<string name="exchange_rates_fragment_empty_text">交換レートを読み込めません。</string>
+	<string name="exchange_rates_fragment_empty_search">交換レートを見つけられません。</string>
 	<string name="exchange_rates_fragment_default">(初期値)</string>
 	<string name="exchange_rates_fragment_rate">レート</string>
 	<string name="exchange_rates_fragment_balance">収支</string>
-	<string name="exchange_rates_fragment_source">%s から取った値段</string>
+	<string name="exchange_rates_fragment_source">%s からの値段</string>
+	<string name="exchange_rates_options_search">交換レートの検索</string>
 	<string name="exchange_rates_context_set_as_default_title">既定の外貨に設定する</string>
 	<string name="wallet_transactions_fragment_tab_received">受取</string>
 	<string name="wallet_transactions_fragment_tab_all">両方</string>
@@ -34,6 +36,7 @@
 	<string name="wallet_transactions_fragment_coinbase">鉱山</string>
 	<string name="wallet_transactions_fragment_internal">内部</string>
 	<string name="wallet_transactions_context_show_qr_title">QRコードを表示</string>
+	<string name="wallet_options_safety_menu">安全対策</string>
 	<string name="wallet_options_safety">安全の注意事項</string>
 	<string name="wallet_options_donate">チップ / 寄付</string>
 	<string name="wallet_donate_address_label">ビットコインウォレットへ寄付する</string>
@@ -44,6 +47,7 @@
 	<string name="wallet_timeskew_dialog_msg">デバイスの時間が %d 分ずれてます。 この問題の為、ビットコインのやり取りが出来なくなるでしょう。\n\n正確な時間とタイムゾーンを設定してください。</string>
 	<string name="wallet_version_dialog_title">新バージョンが利用可能です！</string>
 	<string name="wallet_version_dialog_msg">このバージョンには重要なバグフィックスがあります。詳細を見るには、Google プレイのチェンジログを見てください。</string>
+	<string name="wallet_version_dialog_msg_deprecated">アップデートを見ない場合、これはおそらくあなたのアンドロイドのバージョンがそれ以上サポートされない事を意味します。</string>
 	<string name="wallet_version_dialog_button_market">Google プレイ</string>
 	<string name="wallet_version_dialog_button_binary">ダウンロード</string>
 	<string name="wallet_old_sdk_dialog_title">Androidのバージョンが古すぎます</string>
@@ -60,7 +64,7 @@
 	<string name="send_coins_fragment_receiving_address_error_cross_network">%s アドレスはこのウォレットでは使用できません！</string>
 	<string name="send_coins_fragment_receiving_address_error_cross_network_unknown">未知のネットワークのアドレスはこのウォレットでは使用できません！</string>
 	<string name="send_coins_fragment_receiving_address_complex">複雑な\nアドレス</string>
-	<string name="send_coins_fragment_pending">(%s は確認を待っています)</string>
+	<string name="send_coins_fragment_pending">(%s 確認待ち)</string>
 	<string name="send_coins_fragment_amount_label">合計支払</string>
 	<string name="send_coins_fragment_direct_payment_enable">受取人へダイレクト送金する。</string>
 	<string name="send_coins_fragment_direct_payment_ack">ダイレクト送金が成功しました。</string>
@@ -81,6 +85,7 @@
 	<string name="send_coins_address_context_clear_title">新しいアドレスを入力</string>
 	<string name="request_coins_activity_title">ビットコインをリクエスト</string>
 	<string name="request_coins_fragment_amount_label">総額のリクエスト（オプション）</string>
+	<string name="request_coins_fragment_accept_bluetooth_payment">より信頼できる手順としてBluetooth経由での支払いを許可</string>
 	<string name="request_coins_fragment_initiate_request_qr">このコードは送金者によってスキャンされました。</string>
 	<string name="request_coins_fragment_initiate_request_nfc">または、NFC使用可能なようにタップしてください。</string>
 	<string name="request_coins_clipboard_msg">ビットコインのリクエストはクリップボードにコピーされました</string>
@@ -119,8 +124,10 @@
 	<string name="network_monitor_block_list_title">ブロック</string>
 	<string name="peer_list_fragment_empty">接続しているピアはありません</string>
 	<string name="peer_list_row_ping_time">⇆ %d ms</string>
-	<string name="import_keys_dialog_title">プライベートキーの復元</string>
-	<string name="import_keys_dialog_message">外部またはアプリ専用のストレージから秘密鍵のバックアップファイルを選択してください:</string>
+	<string name="import_keys_dialog_title">ウォレットのリストア</string>
+	<string name="import_keys_dialog_message">外部またはアプリ専用のストレージからウォレットのバックアップファイルを選択してください:</string>
+	<string name="restore_wallet_dialog_replace_warning">現在のウォレットのリプレースを中断。現在のウォレットの全コインは別個のそれらのバックアップが無いかぎりは失われます。</string>
+	<string name="import_keys_dialog_warning">重要: 不審な出所からのプライベートキーを読込まないでください！もしそうした場合他人があなたの資産を操作できてしまいます。</string>
 	<string name="import_keys_dialog_file_security_encrypted">パスワードを暗号化</string>
 	<string name="import_keys_dialog_file_security_unencrypted">復号化</string>
 	<string name="import_keys_dialog_file_security_external">外部ストレージ</string>
@@ -128,31 +135,33 @@
 	<string name="import_keys_dialog_file_created_automatic">自動バックアップ %s</string>
 	<string name="import_keys_dialog_file_created_manual">手動バックアップ %s</string>
 	<string name="import_keys_dialog_button_import">リストア</string>
+	<string name="restore_wallet_dialog_success">ウォレットは復元されました。</string>
 	<string name="import_keys_dialog_success_imported">%d 秘密鍵は復元されました。</string>
 	<string name="import_keys_dialog_success_existing">%d すでにウォレットに秘密鍵がある為、秘密鍵は復元されませんでした。</string>
 	<string name="import_keys_dialog_success_reset">収支のアップデートの為、Blockchainアカウントをリセットする必要があります。実行しますか？</string>
-	<string name="import_keys_dialog_failure">秘密鍵が復元できませんでした:\n\n%s\n\nパスワード間違い？</string>
+	<string name="import_keys_dialog_failure">ウォレットが復元できませんでした:\n\n%s\n\nパスワード間違い？</string>
 	<string name="import_keys_dialog_button_reset_blockchain">リセット</string>
-	<string name="export_keys_dialog_title">秘密鍵のバックアップ</string>
-	<string name="export_keys_dialog_message">選択したパスワードで秘密鍵を暗号化し、外部ストレージへ書出しました。</string>
+	<string name="export_keys_dialog_title">ウォレットのバックアップ</string>
+	<string name="export_keys_dialog_message">選択したパスワードでウォレットを暗号化し、外部ストレージへ書き出します。</string>
 	<string name="export_keys_dialog_button_export">バックアップ</string>
 	<string name="export_keys_dialog_success">以下に秘密鍵をバックアップしました。\n\n%s\n\nパスワードも個別に安全に保管してください\n\nアプリで使用する為にアーカイブしますか？</string>
-	<string name="export_keys_dialog_failure">以下に秘密鍵をバックアップできませんでした:\n%s</string>
+	<string name="export_keys_dialog_failure">ウォレットをバックアップできませんでした:\n%s</string>
 	<string name="export_keys_dialog_button_archive">アーカイブ</string>
-	<string name="export_keys_dialog_mail_subject">ビットコインウォレット秘密鍵バックアップ</string>
+	<string name="export_keys_dialog_mail_subject">ビットコインウォレットのバックアップ</string>
 	<string name="export_keys_dialog_mail_text">添付した暗号化ファイルにはビットコイン秘密鍵が含まれています、いかなる時でも安全に保管してくだしさい。暗号化パスワードを忘れないようにしてください！</string>
-	<string name="export_keys_dialog_mail_intent_chooser">アーカイブした鍵を使用しています…</string>
-	<string name="export_keys_dialog_mail_intent_failed">鍵のアーカイブに失敗しました。</string>
+	<string name="export_keys_dialog_mail_intent_chooser">アーカイブウォレットを使用しています…</string>
+	<string name="export_keys_dialog_mail_intent_failed">ウォレットのアーカイブに失敗しました。</string>
 	<string name="import_export_keys_dialog_password">パスワード</string>
 	<string name="import_export_keys_dialog_show">パスワードを表示</string>
 	<string name="import_export_keys_dialog_failure_title">エラー</string>
-	<string name="import_keys_intent_filter_action">ビットコイン鍵復元</string>
+	<string name="import_keys_intent_filter_action">ウォレットのリストア</string>
 	<string name="scan_camera_problem_dialog_title">申し訳ありません</string>
 	<string name="scan_camera_problem_dialog_message">カメラに問題があります。デバイスを再起動する必要があるかもしれません。</string>
 	<string name="input_parser_io_error">データを読込めませんでした:\n%s</string>
-	<string name="input_parser_cannot_classify">入力を選別できませんでした:\n%s</string>
+	<string name="input_parser_cannot_classify">入力を認識できません:\n%s</string>
 	<string name="input_parser_invalid_bitcoin_uri">無効なビットコインのURI:\n%s</string>
 	<string name="input_parser_invalid_address">無効なビットコインアドレスを入手しました！\n(メインネット/テストネットの混同？)</string>
+	<string name="input_parser_unverifyable_paymentrequest">支払いリクエストの認証が出来ません\n%s</string>
 	<string name="input_parser_invalid_paymentrequest">無効な支払のリクエスト:\n%s</string>
 	<string name="input_parser_invalid_transaction">無効なトランザクション:\n%s</string>
 	<string name="preferences_activity_title">設定</string>
@@ -177,7 +186,7 @@
 	<string name="preferences_initiate_reset_dialog_positive">リセット</string>
 	<string name="report_issue_dialog_title_issue">レポート</string>
 	<string name="report_issue_dialog_title_crash">直前のクラッシュを検知</string>
-	<string name="report_issue_dialog_message_issue">開発者が状況を再現するのに十分なように的確に説明してください。</string>
+	<string name="report_issue_dialog_message_issue">状況を再現するのに十分なように的確に説明してください。もしあなたのウォレットに固有の問題であれば、ダンプを追記することを考慮してください。</string>
 	<string name="report_issue_dialog_message_crash">今後、この問題を修正する手助けとして、クラッシュレポートを送信しますか？</string>
 	<string name="report_issue_dialog_description">説明</string>
 	<string name="report_issue_dialog_report">レポート</string>
@@ -188,7 +197,10 @@
 	<string name="report_issue_dialog_mail_intent_chooser">レポート送信中…</string>
 	<string name="report_issue_dialog_mail_intent_failed">レポート送信失敗。</string>
 	<string name="about_title">アプリについて</string>
+	<string name="about_version_title">バージョン</string>
+	<string name="about_copyright_title">コピーライト</string>
 	<string name="about_license_title">ライセンス</string>
+	<string name="about_source_title">ソースコード</string>
 	<string name="about_credits_bitcoinj_title">このアプリはbitcoinj %s を使用しています。</string>
 	<string name="about_credits_zxing_title">このアプリは\'zxing\'を使用しています。</string>
 	<string name="about_credits_icon_title">このアプリは\'bitboy\'によるアイコンを使用しています。</string>
@@ -225,5 +237,6 @@
 	<!-- generic error messages -->
 	<string name="error_io">I/Oエラー: %s</string>
 	<string name="error_http">HTTPエラー %1$s:\n%2$s</string>
+	<string name="error_bluetooth">Bluetoothエラー %1$s</string>
 
 </resources>
