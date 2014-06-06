@@ -23,7 +23,6 @@ import java.util.Arrays;
 
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import org.bitcoin.protocols.payments.Protos.Payment;
 import org.slf4j.Logger;
@@ -941,7 +940,7 @@ public final class SendCoinsFragment extends Fragment
 			}
 
 			@Override
-			protected void onInsufficientMoney(@Nullable final Coin missing)
+			protected void onInsufficientMoney(@Nonnull final Coin missing)
 			{
 				state = State.INPUT;
 				updateView();
@@ -954,8 +953,8 @@ public final class SendCoinsFragment extends Fragment
 
 				final DialogBuilder dialog = DialogBuilder.warn(activity, R.string.send_coins_fragment_insufficient_money_title);
 				final StringBuilder msg = new StringBuilder();
-				if (missing != null)
-					msg.append(getString(R.string.send_coins_fragment_insufficient_money_msg1, btcFormat.format(missing))).append("\n\n");
+				msg.append(getString(R.string.send_coins_fragment_insufficient_money_msg1, btcFormat.format(missing)));
+				msg.append("\n\n");
 				if (pending.signum() > 0)
 					msg.append(getString(R.string.send_coins_fragment_pending, btcFormat.format(pending))).append("\n\n");
 				msg.append(getString(R.string.send_coins_fragment_insufficient_money_msg2));
@@ -969,6 +968,18 @@ public final class SendCoinsFragment extends Fragment
 					}
 				});
 				dialog.setNegativeButton(R.string.button_cancel, null);
+				dialog.show();
+			}
+
+			@Override
+			protected void onEmptyWalletFailed()
+			{
+				state = State.INPUT;
+				updateView();
+
+				final DialogBuilder dialog = DialogBuilder.warn(activity, R.string.send_coins_fragment_empty_wallet_failed_title);
+				dialog.setMessage(R.string.send_coins_fragment_empty_wallet_failed_msg);
+				dialog.setNeutralButton(R.string.button_dismiss, null);
 				dialog.show();
 			}
 
