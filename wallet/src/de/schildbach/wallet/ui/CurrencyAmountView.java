@@ -68,7 +68,6 @@ public final class CurrencyAmountView extends FrameLayout
 	private int hintPrecision = 2;
 	private int shift = 0;
 	private boolean amountSigned = false;
-	private boolean smallerInsignificant = true;
 	private boolean validateAmount = true;
 
 	private TextView textView;
@@ -148,7 +147,7 @@ public final class CurrencyAmountView extends FrameLayout
 		{
 			final String currencySymbol = GenericUtils.currencySymbol(currencyCode);
 			final float textSize = textView.getTextSize();
-			final float smallerTextSize = textSize * (smallerInsignificant ? (20f / 24f) : 1);
+			final float smallerTextSize = textSize * (20f / 24f);
 			currencySymbolDrawable = new CurrencySymbolDrawable(currencySymbol, smallerTextSize, lessSignificantColor, textSize * 0.37f);
 		}
 		else
@@ -177,11 +176,6 @@ public final class CurrencyAmountView extends FrameLayout
 	public void setAmountSigned(final boolean amountSigned)
 	{
 		this.amountSigned = amountSigned;
-	}
-
-	public void setSmallerInsignificant(final boolean smallerInsignificant)
-	{
-		this.smallerInsignificant = smallerInsignificant;
 	}
 
 	public void setValidateAmount(final boolean validateAmount)
@@ -229,7 +223,7 @@ public final class CurrencyAmountView extends FrameLayout
 	public void setHint(@Nullable final BigInteger amount)
 	{
 		final Spannable hint = new SpannableString(GenericUtils.formatValue(amount != null ? amount : BigInteger.ZERO, hintPrecision, shift));
-		WalletUtils.formatSignificant(hint, smallerInsignificant ? WalletUtils.SMALLER_SPAN : null);
+		WalletUtils.formatSignificant(hint, WalletUtils.SMALLER_SPAN);
 		textView.setHint(hint);
 	}
 
@@ -385,7 +379,7 @@ public final class CurrencyAmountView extends FrameLayout
 				s.append(replaced);
 			}
 
-			WalletUtils.formatSignificant(s, smallerInsignificant ? WalletUtils.SMALLER_SPAN : null);
+			WalletUtils.formatSignificant(s, WalletUtils.SMALLER_SPAN);
 		}
 
 		@Override
