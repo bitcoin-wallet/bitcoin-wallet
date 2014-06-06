@@ -127,7 +127,8 @@ public class WalletUtils
 		if (m.find())
 		{
 			final int pivot = m.group().length();
-			spannable.setSpan(SIGNIFICANT_SPAN, 0, pivot, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+			if (pivot > 0)
+				spannable.setSpan(SIGNIFICANT_SPAN, 0, pivot, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 			if (spannable.length() > pivot && insignificantRelativeSizeSpan != null)
 				spannable.setSpan(insignificantRelativeSizeSpan, pivot, spannable.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 		}
