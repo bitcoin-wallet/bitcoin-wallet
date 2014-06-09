@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.schildbach.wallet.ui;
+package de.schildbach.wallet.ui.send;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -96,9 +96,19 @@ import de.schildbach.wallet.data.PaymentIntent;
 import de.schildbach.wallet.data.PaymentIntent.Standard;
 import de.schildbach.wallet.integration.android.BitcoinIntegration;
 import de.schildbach.wallet.offline.DirectPaymentTask;
+import de.schildbach.wallet.ui.AbstractBindServiceActivity;
+import de.schildbach.wallet.ui.AddressAndLabel;
+import de.schildbach.wallet.ui.CurrencyAmountView;
+import de.schildbach.wallet.ui.CurrencyCalculatorLink;
+import de.schildbach.wallet.ui.DialogBuilder;
+import de.schildbach.wallet.ui.EditAddressBookEntryFragment;
+import de.schildbach.wallet.ui.ExchangeRateLoader;
 import de.schildbach.wallet.ui.InputParser.BinaryInputParser;
 import de.schildbach.wallet.ui.InputParser.StreamInputParser;
 import de.schildbach.wallet.ui.InputParser.StringInputParser;
+import de.schildbach.wallet.ui.ProgressDialogFragment;
+import de.schildbach.wallet.ui.ScanActivity;
+import de.schildbach.wallet.ui.TransactionsListAdapter;
 import de.schildbach.wallet.util.Bluetooth;
 import de.schildbach.wallet.util.GenericUtils;
 import de.schildbach.wallet.util.Nfc;

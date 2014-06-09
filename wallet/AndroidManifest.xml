@@ -84,7 +84,7 @@
 		</activity-alias>
 
 		<activity
-			android:name="de.schildbach.wallet.ui.SendCoinsActivity"
+			android:name="de.schildbach.wallet.ui.send.SendCoinsActivity"
 			android:configChanges="keyboard|keyboardHidden"
 			android:label="@string/send_coins_activity_title"
 			android:screenOrientation="behind"

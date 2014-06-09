@@ -27,6 +27,7 @@ import com.google.bitcoin.core.Transaction;
 
 import de.schildbach.wallet.data.PaymentIntent;
 import de.schildbach.wallet.ui.InputParser.StringInputParser;
+import de.schildbach.wallet.ui.send.SendCoinsActivity;
 
 /**
  * @author Andreas Schildbach

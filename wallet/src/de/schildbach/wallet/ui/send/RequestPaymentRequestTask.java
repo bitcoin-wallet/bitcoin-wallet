@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.schildbach.wallet.ui;
+package de.schildbach.wallet.ui.send;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -41,6 +41,7 @@ import com.google.protobuf.CodedOutputStream;
 
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.data.PaymentIntent;
+import de.schildbach.wallet.ui.InputParser;
 import de.schildbach.wallet.util.Bluetooth;
 import de.schildbach.wallet.util.PaymentProtocol;
 import de.schildbach.wallet_test.R;
