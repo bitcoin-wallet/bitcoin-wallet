@@ -965,12 +965,15 @@ public final class SendCoinsFragment extends SherlockFragment
 			}
 
 			@Override
-			protected void onFailure()
+			protected void onFailure(@Nonnull Exception exception)
 			{
 				state = State.FAILED;
 				updateView();
 
-				activity.longToast(R.string.send_coins_error_msg);
+				final DialogBuilder dialog = DialogBuilder.warn(activity, R.string.send_coins_error_msg);
+				dialog.setMessage(exception.toString());
+				dialog.setNeutralButton(R.string.button_dismiss, null);
+				dialog.show();
 			}
 		}.sendCoinsOffline(sendRequest); // send asynchronously
 	}

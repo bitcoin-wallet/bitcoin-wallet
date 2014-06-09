@@ -84,7 +84,7 @@ public abstract class SendCoinsOfflineTask
 						@Override
 						public void run()
 						{
-							onFailure();
+							onFailure(x);
 						}
 					});
 				}
@@ -96,5 +96,5 @@ public abstract class SendCoinsOfflineTask
 
 	protected abstract void onInsufficientMoney(@Nullable BigInteger missing);
 
-	protected abstract void onFailure();
+	protected abstract void onFailure(@Nonnull Exception exception);
 }
