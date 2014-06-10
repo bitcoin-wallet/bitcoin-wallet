@@ -94,7 +94,10 @@ public abstract class SendCoinsOfflineTask
 
 	protected abstract void onSuccess(@Nonnull Transaction transaction);
 
-	protected abstract void onInsufficientMoney(@Nullable BigInteger missing);
+	protected void onInsufficientMoney(@Nullable BigInteger missing)
+	{
+		onFailure(new InsufficientMoneyException(missing));
+	}
 
 	protected abstract void onFailure(@Nonnull Exception exception);
 }
