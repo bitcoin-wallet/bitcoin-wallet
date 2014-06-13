@@ -1360,7 +1360,7 @@ public final class SendCoinsFragment extends SherlockFragment
 			{
 				ProgressDialogFragment.dismissProgress(fragmentManager);
 
-				if (SendCoinsFragment.this.paymentIntent.isSecurityExtendedBy(paymentIntent))
+				if (SendCoinsFragment.this.paymentIntent.isExtendedBy(paymentIntent))
 				{
 					updateStateFrom(paymentIntent);
 					updateView();

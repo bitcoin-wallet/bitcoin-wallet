@@ -352,20 +352,28 @@ public final class PaymentIntent implements Parcelable
 		return Bluetooth.isBluetoothUrl(paymentRequestUrl);
 	}
 
-	public boolean isSecurityExtendedBy(final PaymentIntent paymentIntent)
+	/**
+	 * Check if given payment intent is only extending on <i>this</i> one, that is it does not alter any of the fields.
+	 * Address and amount fields must be equal, respectively (non-existence included).
+	 * 
+	 * @param other
+	 *            payment intent that is checked if it extends this one
+	 * @return true if it extends
+	 */
+	public boolean isExtendedBy(final PaymentIntent other)
 	{
 		// check address
 		final boolean hasAddress = hasAddress();
-		if (hasAddress != paymentIntent.hasAddress())
+		if (hasAddress != other.hasAddress())
 			return false;
-		if (hasAddress && !getAddress().equals(paymentIntent.getAddress()))
+		if (hasAddress && !getAddress().equals(other.getAddress()))
 			return false;
 
 		// check amount
 		final boolean hasAmount = hasAmount();
-		if (hasAmount != paymentIntent.hasAmount())
+		if (hasAmount != other.hasAmount())
 			return false;
-		if (hasAmount && !getAmount().equals(paymentIntent.getAmount()))
+		if (hasAmount && !getAmount().equals(other.getAmount()))
 			return false;
 
 		return true;
