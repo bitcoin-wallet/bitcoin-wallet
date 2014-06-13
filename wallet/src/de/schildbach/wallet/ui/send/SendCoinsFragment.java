@@ -1367,10 +1367,20 @@ public final class SendCoinsFragment extends SherlockFragment
 				}
 				else
 				{
+					final StringBuilder reasons = new StringBuilder();
+					if (!SendCoinsFragment.this.paymentIntent.equalsAddress(paymentIntent))
+						reasons.append("address");
+					if (!SendCoinsFragment.this.paymentIntent.equalsAmount(paymentIntent))
+						reasons.append(reasons.length() == 0 ? "" : ", ").append("amount");
+					if (reasons.length() == 0)
+						reasons.append("unknown");
+
 					final DialogBuilder dialog = DialogBuilder.warn(activity, R.string.send_coins_fragment_request_payment_request_failed_title);
-					dialog.setMessage(getString(R.string.send_coins_fragment_request_payment_request_wrong_signature));
+					dialog.setMessage(getString(R.string.send_coins_fragment_request_payment_request_wrong_signature) + "\n\n" + reasons);
 					dialog.singleDismissButton(null);
 					dialog.show();
+
+					log.info("BIP72 trust check failed: {}", reasons);
 				}
 			}
 

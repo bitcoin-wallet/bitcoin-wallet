@@ -362,20 +362,27 @@ public final class PaymentIntent implements Parcelable
 	 */
 	public boolean isExtendedBy(final PaymentIntent other)
 	{
-		// check address
-		final boolean hasAddress = hasAddress();
-		if (hasAddress != other.hasAddress())
-			return false;
-		if (hasAddress && !getAddress().equals(other.getAddress()))
-			return false;
+		// TODO memo
+		return equalsAmount(other) && equalsAddress(other);
+	}
 
-		// check amount
+	public boolean equalsAmount(final PaymentIntent other)
+	{
 		final boolean hasAmount = hasAmount();
 		if (hasAmount != other.hasAmount())
 			return false;
 		if (hasAmount && !getAmount().equals(other.getAmount()))
 			return false;
+		return true;
+	}
 
+	public boolean equalsAddress(final PaymentIntent other)
+	{
+		final boolean hasAddress = hasAddress();
+		if (hasAddress != other.hasAddress())
+			return false;
+		if (hasAddress && !getAddress().equals(other.getAddress()))
+			return false;
 		return true;
 	}
 
