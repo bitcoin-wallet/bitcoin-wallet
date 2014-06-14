@@ -76,6 +76,7 @@ import com.actionbarsherlock.view.MenuItem;
 import com.google.bitcoin.core.AddressFormatException;
 import com.google.bitcoin.core.ECKey;
 import com.google.bitcoin.core.Transaction;
+import com.google.bitcoin.core.VerificationException;
 import com.google.bitcoin.core.Wallet;
 import com.google.bitcoin.core.Wallet.BalanceType;
 import com.google.bitcoin.store.UnreadableWalletException;
@@ -101,7 +102,7 @@ import de.schildbach.wallet_test.R;
 /**
  * @author Andreas Schildbach
  */
-public final class WalletActivity extends AbstractOnDemandServiceActivity
+public final class WalletActivity extends AbstractWalletActivity
 {
 	private static final int DIALOG_IMPORT_KEYS = 0;
 	private static final int DIALOG_EXPORT_KEYS = 1;
@@ -193,9 +194,9 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 				}
 
 				@Override
-				protected void handleDirectTransaction(final Transaction tx)
+				protected void handleDirectTransaction(final Transaction tx) throws VerificationException
 				{
-					processDirectTransaction(tx);
+					application.processDirectTransaction(tx);
 				}
 
 				@Override

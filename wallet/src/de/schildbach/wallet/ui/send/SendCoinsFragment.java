@@ -82,6 +82,7 @@ import com.google.bitcoin.core.Sha256Hash;
 import com.google.bitcoin.core.Transaction;
 import com.google.bitcoin.core.TransactionConfidence;
 import com.google.bitcoin.core.TransactionConfidence.ConfidenceType;
+import com.google.bitcoin.core.VerificationException;
 import com.google.bitcoin.core.Wallet;
 import com.google.bitcoin.core.Wallet.BalanceType;
 import com.google.bitcoin.core.Wallet.SendRequest;
@@ -674,7 +675,7 @@ public final class SendCoinsFragment extends SherlockFragment
 					}
 
 					@Override
-					protected void handleDirectTransaction(final Transaction transaction)
+					protected void handleDirectTransaction(final Transaction transaction) throws VerificationException
 					{
 						cannotClassify(input);
 					}
@@ -1238,7 +1239,7 @@ public final class SendCoinsFragment extends SherlockFragment
 			}
 
 			@Override
-			protected void handleDirectTransaction(@Nonnull final Transaction transaction)
+			protected void handleDirectTransaction(@Nonnull final Transaction transaction) throws VerificationException
 			{
 				cannotClassify(input);
 			}

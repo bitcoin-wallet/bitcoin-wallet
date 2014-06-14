@@ -47,6 +47,7 @@ import com.actionbarsherlock.view.MenuItem;
 import com.google.bitcoin.core.Address;
 import com.google.bitcoin.core.AddressFormatException;
 import com.google.bitcoin.core.Transaction;
+import com.google.bitcoin.core.VerificationException;
 import com.google.bitcoin.uri.BitcoinURI;
 
 import de.schildbach.wallet.AddressBookProvider;
@@ -157,7 +158,7 @@ public final class SendingAddressesFragment extends SherlockListFragment impleme
 				}
 
 				@Override
-				protected void handleDirectTransaction(final Transaction transaction)
+				protected void handleDirectTransaction(final Transaction transaction) throws VerificationException
 				{
 					cannotClassify(input);
 				}
@@ -219,7 +220,7 @@ public final class SendingAddressesFragment extends SherlockListFragment impleme
 				}
 
 				@Override
-				protected void handleDirectTransaction(final Transaction transaction)
+				protected void handleDirectTransaction(final Transaction transaction) throws VerificationException
 				{
 					cannotClassify(input);
 				}

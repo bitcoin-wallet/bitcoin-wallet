@@ -55,6 +55,7 @@ import ch.qos.logback.core.rolling.TimeBasedRollingPolicy;
 import com.google.bitcoin.core.Address;
 import com.google.bitcoin.core.ECKey;
 import com.google.bitcoin.core.Transaction;
+import com.google.bitcoin.core.VerificationException;
 import com.google.bitcoin.core.VersionMessage;
 import com.google.bitcoin.core.Wallet;
 import com.google.bitcoin.store.UnreadableWalletException;
@@ -501,6 +502,15 @@ public class WalletApplication extends Application
 
 		wallet = newWallet;
 		afterLoadWallet();
+	}
+
+	public void processDirectTransaction(@Nonnull final Transaction tx) throws VerificationException
+	{
+		if (wallet.isTransactionRelevant(tx))
+		{
+			wallet.receivePending(tx, null);
+			broadcastTransaction(tx);
+		}
 	}
 
 	public void broadcastTransaction(@Nonnull final Transaction tx)

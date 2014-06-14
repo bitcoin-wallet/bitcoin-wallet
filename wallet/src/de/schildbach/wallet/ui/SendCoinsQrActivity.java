@@ -24,7 +24,9 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.bitcoin.core.Transaction;
+import com.google.bitcoin.core.VerificationException;
 
+import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.data.PaymentIntent;
 import de.schildbach.wallet.ui.InputParser.StringInputParser;
 import de.schildbach.wallet.ui.send.SendCoinsActivity;
@@ -32,7 +34,7 @@ import de.schildbach.wallet.ui.send.SendCoinsActivity;
 /**
  * @author Andreas Schildbach
  */
-public final class SendCoinsQrActivity extends AbstractOnDemandServiceActivity
+public final class SendCoinsQrActivity extends AbstractWalletActivity
 {
 	private static final int REQUEST_CODE_SCAN = 0;
 
@@ -62,9 +64,10 @@ public final class SendCoinsQrActivity extends AbstractOnDemandServiceActivity
 				}
 
 				@Override
-				protected void handleDirectTransaction(final Transaction transaction)
+				protected void handleDirectTransaction(final Transaction transaction) throws VerificationException
 				{
-					processDirectTransaction(transaction);
+					final WalletApplication application = getWalletApplication();
+					application.processDirectTransaction(transaction);
 
 					SendCoinsQrActivity.this.finish();
 				}

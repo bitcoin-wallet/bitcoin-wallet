@@ -39,6 +39,7 @@ import com.google.bitcoin.core.ECKey;
 import com.google.bitcoin.core.NetworkParameters;
 import com.google.bitcoin.core.ProtocolException;
 import com.google.bitcoin.core.Transaction;
+import com.google.bitcoin.core.VerificationException;
 import com.google.bitcoin.protocols.payments.PaymentRequestException;
 import com.google.bitcoin.protocols.payments.PaymentRequestException.PkiVerificationException;
 import com.google.bitcoin.uri.BitcoinURI;
@@ -199,7 +200,7 @@ public abstract class InputParser
 
 					handleDirectTransaction(tx);
 				}
-				catch (final ProtocolException x)
+				catch (final VerificationException x)
 				{
 					log.info("got invalid transaction", x);
 
@@ -238,7 +239,7 @@ public abstract class InputParser
 		}
 
 		@Override
-		protected final void handleDirectTransaction(@Nonnull final Transaction transaction)
+		protected final void handleDirectTransaction(@Nonnull final Transaction transaction) throws VerificationException
 		{
 			throw new UnsupportedOperationException();
 		}
@@ -321,7 +322,7 @@ public abstract class InputParser
 		}
 
 		@Override
-		protected final void handleDirectTransaction(@Nonnull final Transaction transaction)
+		protected final void handleDirectTransaction(@Nonnull final Transaction transaction) throws VerificationException
 		{
 			throw new UnsupportedOperationException();
 		}
@@ -345,7 +346,7 @@ public abstract class InputParser
 		handlePaymentIntent(PaymentIntent.fromAddress(address, null));
 	}
 
-	protected abstract void handleDirectTransaction(@Nonnull Transaction transaction);
+	protected abstract void handleDirectTransaction(@Nonnull Transaction transaction) throws VerificationException;
 
 	protected abstract void error(int messageResId, Object... messageArgs);
 
