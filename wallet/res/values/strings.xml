@@ -65,6 +65,7 @@
 	<string name="send_coins_fragment_receiving_address_complex">complex\naddress</string>
 	<string name="send_coins_fragment_pending">(%s waiting for confirmation)</string>
 	<string name="send_coins_fragment_amount_label">Amount to pay</string>
+	<string name="send_coins_fragment_hint_fee">A small network fee of %s will be paid.</string>
 	<string name="send_coins_fragment_direct_payment_enable">Send payment directly to the payee.</string>
 	<string name="send_coins_fragment_direct_payment_ack">Your payment was successfully sent directly.</string>
 	<string name="send_coins_fragment_direct_payment_nack">Your payment was rejected via direct connection.</string>
