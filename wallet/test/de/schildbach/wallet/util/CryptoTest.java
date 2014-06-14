@@ -19,10 +19,19 @@ package de.schildbach.wallet.util;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 import org.junit.Test;
+
+import com.google.bitcoin.store.WalletProtobufSerializer;
+
+import de.schildbach.wallet.Constants;
 
 /**
  * @author Andreas Schildbach
@@ -87,5 +96,25 @@ public class CryptoTest
 
 			builder.append('x');
 		}
+	}
+
+	@Test
+	public void backups() throws Exception
+	{
+		final byte[] backup = Crypto.decryptBytes(readBackupFromResource("bitcoin-wallet-backup-testnet-3.50"), PASSWORD);
+		assertTrue(WalletProtobufSerializer.isWallet(new ByteArrayInputStream(backup)));
+
+		final byte[] backupCrLf = Crypto.decryptBytes(readBackupFromResource("bitcoin-wallet-backup-testnet-3.50-crlf"), PASSWORD);
+		assertTrue(WalletProtobufSerializer.isWallet(new ByteArrayInputStream(backupCrLf)));
+	}
+
+	private String readBackupFromResource(final String filename) throws IOException
+	{
+		final BufferedReader reader = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream(filename), Constants.UTF_8));
+		final StringBuilder backup = new StringBuilder();
+		Io.copy(reader, backup);
+		reader.close();
+
+		return backup.toString();
 	}
 }

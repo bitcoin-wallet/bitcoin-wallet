@@ -57,7 +57,8 @@ import de.schildbach.wallet.Constants;
  */
 public class Crypto
 {
-	private static final BaseEncoding BASE64 = BaseEncoding.base64().withSeparator("\n", 76);
+	private static final BaseEncoding BASE64_ENCRYPT = BaseEncoding.base64().withSeparator("\n", 76);
+	private static final BaseEncoding BASE64_DECRYPT = BaseEncoding.base64().withSeparator("\r\n", 76);
 
 	/**
 	 * number of times the password & salt are hashed during key creation.
@@ -93,7 +94,7 @@ public class Crypto
 	 * Magic text that appears at the beginning of every OpenSSL encrypted file. Used in identifying encrypted key
 	 * files.
 	 */
-	private static final String OPENSSL_MAGIC_TEXT = BASE64.encode(Crypto.OPENSSL_SALTED_BYTES).substring(0,
+	private static final String OPENSSL_MAGIC_TEXT = BASE64_ENCRYPT.encode(Crypto.OPENSSL_SALTED_BYTES).substring(0,
 			Crypto.NUMBER_OF_CHARACTERS_TO_MATCH_IN_OPENSSL_MAGIC_TEXT);
 
 	private static final int NUMBER_OF_CHARACTERS_TO_MATCH_IN_OPENSSL_MAGIC_TEXT = 10;
@@ -153,7 +154,7 @@ public class Crypto
 		// OpenSSL prefixes the salt bytes + encryptedBytes with Salted___ and then base64 encodes it
 		final byte[] encryptedBytesPlusSaltedText = concat(OPENSSL_SALTED_BYTES, encryptedBytes);
 
-		return BASE64.encode(encryptedBytesPlusSaltedText);
+		return BASE64_ENCRYPT.encode(encryptedBytesPlusSaltedText);
 	}
 
 	/**
@@ -228,7 +229,7 @@ public class Crypto
 		final byte[] decodeTextAsBytes;
 		try
 		{
-			decodeTextAsBytes = BASE64.decode(textToDecode);
+			decodeTextAsBytes = BASE64_DECRYPT.decode(textToDecode);
 		}
 		catch (final IllegalArgumentException x)
 		{
