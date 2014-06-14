@@ -17,6 +17,8 @@
 
 package de.schildbach.wallet.data;
 
+import static com.google.common.base.Preconditions.checkArgument;
+
 import java.math.BigInteger;
 import java.util.Arrays;
 
@@ -211,6 +213,8 @@ public final class PaymentIntent implements Parcelable
 		{
 			if (mayEditAmount())
 			{
+				checkArgument(editedAmount != null);
+
 				// put all coins on first output, skip the others
 				outputs = new Output[] { new Output(editedAmount, this.outputs[0].script) };
 			}
@@ -222,6 +226,9 @@ public final class PaymentIntent implements Parcelable
 		}
 		else
 		{
+			checkArgument(editedAmount != null);
+			checkArgument(editedAddress != null);
+
 			// custom output
 			outputs = buildSimplePayTo(editedAmount, editedAddress);
 		}
