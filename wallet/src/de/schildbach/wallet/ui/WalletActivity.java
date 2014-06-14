@@ -372,8 +372,8 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 				final String password = passwordView.getText().toString().trim();
 				passwordView.setText(null); // get rid of it asap
 
-				final boolean isProtobuf = file.getName().startsWith(Constants.WALLET_KEY_BACKUP_PROTOBUF + '.')
-						|| file.getName().startsWith(Constants.EXTERNAL_WALLET_BACKUP + '-');
+				final boolean isProtobuf = file.getName().startsWith(Constants.Files.WALLET_KEY_BACKUP_PROTOBUF + '.')
+						|| file.getName().startsWith(Constants.Files.EXTERNAL_WALLET_BACKUP + '-');
 
 				if (isProtobuf)
 					restoreWalletFromProtobuf(file, password);
@@ -404,7 +404,7 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 			public View getDropDownView(final int position, View row, final ViewGroup parent)
 			{
 				final File file = getItem(position);
-				final boolean isExternal = Constants.EXTERNAL_WALLET_BACKUP_DIR.equals(file.getParentFile());
+				final boolean isExternal = Constants.Files.EXTERNAL_WALLET_BACKUP_DIR.equals(file.getParentFile());
 				final boolean isEncrypted = Crypto.OPENSSL_FILE_FILTER.accept(file);
 
 				if (row == null)
@@ -442,15 +442,15 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 		final List<File> files = new LinkedList<File>();
 
 		// external storage
-		if (Constants.EXTERNAL_WALLET_BACKUP_DIR.exists() && Constants.EXTERNAL_WALLET_BACKUP_DIR.isDirectory())
-			for (final File file : Constants.EXTERNAL_WALLET_BACKUP_DIR.listFiles())
+		if (Constants.Files.EXTERNAL_WALLET_BACKUP_DIR.exists() && Constants.Files.EXTERNAL_WALLET_BACKUP_DIR.isDirectory())
+			for (final File file : Constants.Files.EXTERNAL_WALLET_BACKUP_DIR.listFiles())
 				if (WalletUtils.BACKUP_FILE_FILTER.accept(file) || WalletUtils.KEYS_FILE_FILTER.accept(file)
 						|| Crypto.OPENSSL_FILE_FILTER.accept(file))
 					files.add(file);
 
 		// internal storage
 		for (final String filename : fileList())
-			if (filename.startsWith(Constants.WALLET_KEY_BACKUP_PROTOBUF + '.'))
+			if (filename.startsWith(Constants.Files.WALLET_KEY_BACKUP_PROTOBUF + '.'))
 				files.add(new File(getFilesDir(), filename));
 
 		// sort
@@ -944,10 +944,11 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 
 	private void backupWallet(@Nonnull final String password)
 	{
-		Constants.EXTERNAL_WALLET_BACKUP_DIR.mkdirs();
+		Constants.Files.EXTERNAL_WALLET_BACKUP_DIR.mkdirs();
 		final DateFormat dateFormat = Iso8601Format.newDateFormat();
 		dateFormat.setTimeZone(TimeZone.getDefault());
-		final File file = new File(Constants.EXTERNAL_WALLET_BACKUP_DIR, Constants.EXTERNAL_WALLET_BACKUP + "-" + dateFormat.format(new Date()));
+		final File file = new File(Constants.Files.EXTERNAL_WALLET_BACKUP_DIR, Constants.Files.EXTERNAL_WALLET_BACKUP + "-"
+				+ dateFormat.format(new Date()));
 
 		final Protos.Wallet walletProto = new WalletProtobufSerializer().walletToProto(wallet);
 

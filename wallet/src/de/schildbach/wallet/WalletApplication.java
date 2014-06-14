@@ -124,7 +124,7 @@ public class WalletApplication extends Application
 				BlockchainServiceImpl.class);
 		blockchainServiceResetBlockchainIntent = new Intent(BlockchainService.ACTION_RESET_BLOCKCHAIN, null, this, BlockchainServiceImpl.class);
 
-		walletFile = getFileStreamPath(Constants.WALLET_FILENAME_PROTOBUF);
+		walletFile = getFileStreamPath(Constants.Files.WALLET_FILENAME_PROTOBUF);
 
 		loadWalletFromProtobuf();
 
@@ -299,7 +299,7 @@ public class WalletApplication extends Application
 
 		try
 		{
-			is = openFileInput(Constants.WALLET_KEY_BACKUP_PROTOBUF);
+			is = openFileInput(Constants.Files.WALLET_KEY_BACKUP_PROTOBUF);
 
 			final Wallet wallet = new WalletProtobufSerializer().readWallet(is);
 
@@ -310,7 +310,7 @@ public class WalletApplication extends Application
 
 			Toast.makeText(this, R.string.toast_wallet_reset, Toast.LENGTH_LONG).show();
 
-			log.info("wallet restored from backup: '" + Constants.WALLET_KEY_BACKUP_PROTOBUF + "'");
+			log.info("wallet restored from backup: '" + Constants.Files.WALLET_KEY_BACKUP_PROTOBUF + "'");
 
 			return wallet;
 		}
@@ -394,7 +394,7 @@ public class WalletApplication extends Application
 
 		try
 		{
-			os = openFileOutput(Constants.WALLET_KEY_BACKUP_PROTOBUF, Context.MODE_PRIVATE);
+			os = openFileOutput(Constants.Files.WALLET_KEY_BACKUP_PROTOBUF, Context.MODE_PRIVATE);
 			walletProto.writeTo(os);
 		}
 		catch (final IOException x)
@@ -415,7 +415,7 @@ public class WalletApplication extends Application
 
 		try
 		{
-			final String filename = String.format(Locale.US, "%s.%02d", Constants.WALLET_KEY_BACKUP_PROTOBUF,
+			final String filename = String.format(Locale.US, "%s.%02d", Constants.Files.WALLET_KEY_BACKUP_PROTOBUF,
 					(System.currentTimeMillis() / DateUtils.DAY_IN_MILLIS) % 100l);
 			os = openFileOutput(filename, Context.MODE_PRIVATE);
 			walletProto.writeTo(os);
@@ -439,7 +439,7 @@ public class WalletApplication extends Application
 
 	private void migrateBackup()
 	{
-		if (!getFileStreamPath(Constants.WALLET_KEY_BACKUP_PROTOBUF).exists())
+		if (!getFileStreamPath(Constants.Files.WALLET_KEY_BACKUP_PROTOBUF).exists())
 		{
 			log.info("migrating automatic backup to protobuf");
 
@@ -448,7 +448,7 @@ public class WalletApplication extends Application
 
 			// remove old backups
 			for (final String filename : fileList())
-				if (filename.startsWith(Constants.WALLET_KEY_BACKUP_BASE58))
+				if (filename.startsWith(Constants.Files.WALLET_KEY_BACKUP_BASE58))
 					new File(getFilesDir(), filename).delete();
 		}
 	}
