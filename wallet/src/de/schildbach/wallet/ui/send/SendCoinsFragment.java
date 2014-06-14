@@ -142,6 +142,7 @@ public final class SendCoinsFragment extends Fragment
 	private TextView receivingStaticLabelView;
 	private CheckBox directPaymentEnableView;
 
+	private TextView hintView;
 	private TextView directPaymentMessageView;
 	private ListView sentTransactionView;
 	private TransactionsListAdapter sentTransactionListAdapter;
@@ -159,6 +160,8 @@ public final class SendCoinsFragment extends Fragment
 	private PaymentIntent paymentIntent;
 
 	private AddressAndLabel validatedAddress = null;
+
+	private Transaction dryrunTransaction;
 
 	private Boolean directPaymentAck = null;
 
@@ -285,6 +288,7 @@ public final class SendCoinsFragment extends Fragment
 		@Override
 		public void changed()
 		{
+			executeDryrun();
 			updateView();
 		}
 
@@ -515,6 +519,8 @@ public final class SendCoinsFragment extends Fragment
 			}
 		});
 
+		hintView = (TextView) view.findViewById(R.id.send_coins_hint);
+
 		directPaymentMessageView = (TextView) view.findViewById(R.id.send_coins_direct_payment_message);
 
 		sentTransactionView = (ListView) view.findViewById(R.id.send_coins_sent_transaction);
@@ -573,6 +579,7 @@ public final class SendCoinsFragment extends Fragment
 
 		loaderManager.initLoader(ID_RATE_LOADER, null, rateLoaderCallbacks);
 
+		executeDryrun();
 		updateView();
 	}
 
@@ -1018,6 +1025,7 @@ public final class SendCoinsFragment extends Fragment
 
 		amountCalculatorLink.setBtcAmount(available);
 
+		executeDryrun();
 		updateView();
 	}
 
@@ -1063,10 +1071,39 @@ public final class SendCoinsFragment extends Fragment
 		}
 	}
 
+	private void executeDryrun()
+	{
+		if (state != State.INPUT)
+			return;
+
+		dryrunTransaction = null;
+
+		final Coin amount = amountCalculatorLink.getAmount();
+		if (amount != null)
+		{
+			try
+			{
+				final Address dummy = wallet.currentReceiveAddress(); // won't be used, tx is never committed
+				final SendRequest sendRequest = paymentIntent.mergeWithEditedValues(amount, dummy).toSendRequest();
+				sendRequest.signInputs = false;
+				sendRequest.emptyWallet = paymentIntent.mayEditAmount() && amount.equals(wallet.getBalance(BalanceType.AVAILABLE));
+				wallet.completeTx(sendRequest);
+				dryrunTransaction = sendRequest.tx;
+			}
+			catch (final Exception x)
+			{
+				log.info("exception during dry run of transaction", x);
+				// swallow
+			}
+		}
+	}
+
 	private void updateView()
 	{
 		if (paymentIntent != null)
 		{
+			final MonetaryFormat btcFormat = config.getFormat();
+
 			getView().setVisibility(View.VISIBLE);
 
 			if (paymentIntent.hasPayee())
@@ -1146,10 +1183,24 @@ public final class SendCoinsFragment extends Fragment
 			directPaymentEnableView.setVisibility(directPaymentVisible ? View.VISIBLE : View.GONE);
 			directPaymentEnableView.setEnabled(state == State.INPUT);
 
+			hintView.setVisibility(View.GONE);
+			if (state == State.INPUT)
+			{
+				if (dryrunTransaction != null)
+				{
+					final Coin previewFee = dryrunTransaction.getFee();
+					if (previewFee != null)
+					{
+						hintView.setText(getString(R.string.send_coins_fragment_hint_fee, btcFormat.format(previewFee)));
+						hintView.setVisibility(View.VISIBLE);
+					}
+				}
+			}
+
 			if (sentTransaction != null)
 			{
 				sentTransactionView.setVisibility(View.VISIBLE);
-				sentTransactionListAdapter.setFormat(config.getFormat());
+				sentTransactionListAdapter.setFormat(btcFormat);
 				sentTransactionListAdapter.replace(sentTransaction);
 			}
 			else
@@ -1325,6 +1376,7 @@ public final class SendCoinsFragment extends Fragment
 						directPaymentEnableView.setChecked(!Constants.BUG_OPENSSL_HEARTBLEED);
 
 					requestFocusFirst();
+					executeDryrun();
 					updateView();
 				}
 
@@ -1369,6 +1421,7 @@ public final class SendCoinsFragment extends Fragment
 				{
 					// success
 					updateStateFrom(paymentIntent);
+					executeDryrun();
 					updateView();
 				}
 				else
