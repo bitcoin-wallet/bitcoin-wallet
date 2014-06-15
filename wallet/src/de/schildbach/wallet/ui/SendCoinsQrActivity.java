@@ -34,7 +34,7 @@ import de.schildbach.wallet.ui.send.SendCoinsActivity;
 /**
  * @author Andreas Schildbach
  */
-public final class SendCoinsQrActivity extends AbstractWalletActivity
+public final class SendCoinsQrActivity extends Activity
 {
 	private static final int REQUEST_CODE_SCAN = 0;
 
@@ -66,7 +66,7 @@ public final class SendCoinsQrActivity extends AbstractWalletActivity
 				@Override
 				protected void handleDirectTransaction(final Transaction transaction) throws VerificationException
 				{
-					final WalletApplication application = getWalletApplication();
+					final WalletApplication application = (WalletApplication) getApplication();
 					application.processDirectTransaction(transaction);
 
 					SendCoinsQrActivity.this.finish();
