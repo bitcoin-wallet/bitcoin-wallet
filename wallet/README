@@ -107,7 +107,7 @@ separate 'prod' branch that gets rebased against master with each released versi
 
 SETTING UP FOR DEVELOPMENT
 
-Make sure you've got Eclipse 3.7 (Indigo) with ADT 20 installed.
+Make sure you've got Eclipse Kepler with ADT 22 installed.
 
 Use Git to check out the project and an Android library dependency to your workspace:
 
@@ -122,7 +122,7 @@ Use Git to check out the project and an Android library dependency to your works
 Use the maven-eclipse-plugin to create Eclipse project files:
 
 	cd bitcoin-wallet
-	mvn eclipse:eclipse
+	mvn clean install eclipse:eclipse
 
 Optional: In the generated .classpath, remove the org.eclipse.jdt.launching.JRE_CONTAINER
 classpath entry. It does not belong there, but cannot be excluded from being generated currently.
