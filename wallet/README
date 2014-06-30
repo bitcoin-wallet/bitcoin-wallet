@@ -133,6 +133,35 @@ If you see loads of "should be tagged with @Override" errors, set Project -> Pro
 Java Compiler -> Errors/Warnings -> Annotations -> Missing @Override annotation to 'Warning'
 
 
+TRANSLATIONS
+
+The source language is English. Translations for all languages except German happen on Transifex:
+
+	https://www.transifex.com/projects/p/bitcoin-wallet/
+
+The english resources are pushed to Transifex. Changes are pulled and committed to the git
+repository from time to time. It can be done by manually downloading the files, but using the "tx"
+command line client is more convenient:
+
+	# first time only
+	sudo apt-get install transifex-client
+
+If strings resources are added or changed, the source language files need to be pushed to
+Transifex. This step will probably only be executed by the maintainer of the project, as special
+permission is needed:
+
+	# push source files to Transifex
+	tx push -s
+
+As soon as a translation is ready, it can be pulled:
+
+	# pull translation from Transifex
+	tx pull -f -l <language code>
+
+Note that after pulling, any bugs introduced by either translators or Transifex itself need to be
+corrected manually.
+
+
 NFC (Near field communication)
 
 Bitcoin Wallet supports reading Bitcoin requests via NFC, either from a passive NFC tag or from
