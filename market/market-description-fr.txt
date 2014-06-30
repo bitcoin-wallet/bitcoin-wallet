@@ -9,6 +9,7 @@ FONCTIONS :
 • Carnet d'adresses pour les adresses Bitcoin utilisées régulièrement.
 • Quand vous êtes hors-ligne vous pouvez quand même payez via Bluetooth.
 • Notification du système pour les pièces reçues.
+• Balayage de portefeuilles papier (c.-à-d. ceux utilisés pour le stockage à froid).
 • Widget affichant le solde bitcoin.
 
 Vous pouvez en apprendre plus au sujet de bitcoin sur
