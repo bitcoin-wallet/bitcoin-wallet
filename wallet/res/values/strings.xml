@@ -89,7 +89,7 @@
 	<string name="sweep_wallet_fragment_wallet_unknown">Start by scanning the private key of a paper wallet. Use the camera action button.</string>
 	<string name="sweep_wallet_fragment_balance">Balance to sweep</string>
 	<string name="sweep_wallet_fragment_button_sweep">Sweep</string>
-	<string name="sweep_wallet_fragment_request_wallet_balance_progress">Laoding balance…</string>
+	<string name="sweep_wallet_fragment_request_wallet_balance_progress">Loading balance…</string>
 	<string name="sweep_wallet_fragment_request_wallet_balance_failed_title">Loading wallet balance failed</string>
 	<string name="sweep_wallet_options_reload">Reload balance</string>
 	<string name="request_coins_activity_title">Request Bitcoins</string>
