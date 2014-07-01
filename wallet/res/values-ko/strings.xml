@@ -2,7 +2,7 @@
 <resources>
 
 	<string name="toast_wallet_reset">지갑이 재설치되었습니다. \n완전한 복구를 위해 잠시만 기다려 주세요.</string>
-	<string name="wallet_disclaimer_fragment_remind_safety">위험성을 충분히 숙지하고 사용하세요. &lt;u&gt;안전 이슈 참조&lt;/u&gt;를 읽어보시기 바랍니다.</string>
+	<string name="wallet_disclaimer_fragment_remind_safety">&lt;u&gt;안전 이슈 참조&lt;/u&gt;를 먼저 읽어보신 후 위험성을 충분히 숙지하고 사용하시기 바랍니다.</string>
 	<string name="wallet_disclaimer_fragment_remind_backup">&lt;u&gt;전자 지갑 백업&lt;/u&gt;이 필요합니다.!</string>
 	<string name="blockchain_state_progress_hours">%1$s, %2$d시간 이전으로부터 동기화 중</string>
 	<string name="blockchain_state_progress_days">%1$s, %2$d일 이전으로부터 동기화 중</string>
@@ -26,11 +26,11 @@
 	<string name="exchange_rates_fragment_source">가격 출처  %s</string>
 	<string name="exchange_rates_options_search">환율 검색</string>
 	<string name="exchange_rates_context_set_as_default_title">기준 통화로 설정</string>
-	<string name="wallet_transactions_fragment_tab_received">수취 내용</string>
-	<string name="wallet_transactions_fragment_tab_all">모든 거래 내용</string>
-	<string name="wallet_transactions_fragment_tab_sent">송금 내용</string>
-	<string name="wallet_transactions_fragment_empty_text_received">비트코인 수취 내역이 아직 없습니다.</string>
-	<string name="wallet_transactions_fragment_empty_text_sent">비트코인 송금 내역이 아직 없습니다.</string>
+	<string name="wallet_transactions_fragment_tab_received">받은 내역</string>
+	<string name="wallet_transactions_fragment_tab_all">모든 거래 내역</string>
+	<string name="wallet_transactions_fragment_tab_sent">보낸 내역</string>
+	<string name="wallet_transactions_fragment_empty_text_received">아직 비트코인을 받은 적이 없습니다.</string>
+	<string name="wallet_transactions_fragment_empty_text_sent">아직 비트코인을 보낸 적이 없습니다.</string>
 	<string name="wallet_transactions_fragment_empty_text_howto">비트코인 획득 방법\n\n1. 로컬 통화로 비트코인 구매\n2. 상품이나 서비스 판매\n3. 용역 대가로 획득</string>
 	<string name="wallet_transactions_row_warning_backup">축하드립니다. 첫번째 결제를 받았습니다. 분실에 대비하기 위해 &lt;u&gt;전자 지갑 백업&lt;/u&gt;을 수행하신 적이 있나요? </string>
 	<string name="wallet_transactions_fragment_coinbase">신규 채굴 코인</string>
@@ -40,7 +40,7 @@
 	<string name="wallet_options_safety">안전 이슈 참조</string>
 	<string name="wallet_options_donate">팁/기부하기</string>
 	<string name="wallet_donate_address_label">Bitcoin Wallet 앱의 기부 주소</string>
-	<string name="wallet_low_storage_dialog_title">장치의 내부 저장 공간 부족</string>
+	<string name="wallet_low_storage_dialog_title">장치의 저장 공간 부족</string>
 	<string name="wallet_low_storage_dialog_msg">비트코인 지갑은 거래 기록과 블록을 기억하기 위해 내부 저장 공간을 사용합니다. 저장 공간이 부족할 경우 앱의 작동이 중단될 수 있으며 비트코인 보관과 거래에 문제가 있을 수 있습니다. 불필요한 앱 정리를 위해 어플리케이션 매니저를 여시겠습니까?</string>
 	<string name="wallet_low_storage_dialog_button_apps">앱 정리</string>
 	<string name="wallet_timeskew_dialog_title">장치 기기의 시간 설정 확인</string>
@@ -87,7 +87,7 @@
 	<string name="request_coins_fragment_amount_label">요구 금액 (선택 사항)</string>
 	<string name="request_coins_fragment_accept_bluetooth_payment">결제 과정에서의 신뢰성 강화를 위해 블루투스를 통해 승인합니다.</string>
 	<string name="request_coins_fragment_initiate_request_qr">비트코인 송금자에게 이 QR 코드를 읽게 하세요.</string>
-	<string name="request_coins_fragment_initiate_request_nfc">NFC 지원 기기를 두드려 주세요.</string>
+	<string name="request_coins_fragment_initiate_request_nfc">또는 NFC 지원 기기라면 서로 갖다 대주세요.</string>
 	<string name="request_coins_clipboard_msg">비트코인 전송 요청이 클립보드에 복사되었습니다</string>
 	<string name="request_coins_share_dialog_title">비트코인 전송 요청의 공유</string>
 	<string name="request_coins_options_local_app_title">설치된 앱에서 내 주소로 송금</string>
@@ -112,7 +112,7 @@
 	<string name="edit_address_book_entry_dialog_address_label">비트코인 주소</string>
 	<string name="edit_address_book_entry_dialog_label_label">주소 이름</string>
 	<string name="edit_address_book_entry_dialog_button_edit">저장</string>
-	<string name="transaction_row_message_purpose_key_rotation">이 거래 방식은 만일의 경우 절도에 대비하기 위한 전자 지갑의 보안성을 증대시킵니다. &lt;u&gt;자세히 보기&lt;/u&gt;</string>
+	<string name="transaction_row_message_purpose_key_rotation">이 거래 방식은 절도에 대비하기 위한 전자 지갑의 보안성을 증대시킵니다. &lt;u&gt;자세히 보기&lt;/u&gt;</string>
 	<string name="transaction_row_message_own_unbroadcasted">이 결제 건은 비트코인 네트워크로 전파 승인되지 않았습니다.</string>
 	<string name="transaction_row_message_received_direct">해당 결제는 직접 연결로부터 수령했습니다. 사용이 영구적으로 불가능한 승인되지 않은 비트코인일 수 있습니다.</string>
 	<string name="transaction_row_message_received_unconfirmed_unlocked">이 결제 내역은 승인 과정을 통해 몇 분 후에 사용할 수 있습니다.</string>
@@ -125,15 +125,15 @@
 	<string name="peer_list_fragment_empty">피어(Peer)에 연결되지 않은 상태입니다.</string>
 	<string name="peer_list_row_ping_time">⇆ %d ms (단위 1/1000 초)</string>
 	<string name="import_keys_dialog_title">전자 지갑 복구</string>
-	<string name="import_keys_dialog_message">외부 장치 또는 앱 내 저장 공간에 보관된 전자 지갑의 백업 파일을 골라주세요.</string>
+	<string name="import_keys_dialog_message">저장 장치 또는 앱 안의 저장 공간에 보관된 전자 지갑의 백업 파일을 선택해 주세요.</string>
 	<string name="restore_wallet_dialog_replace_warning">경고 : 현재 설치된 전자 지갑이 새 지갑으로 대체됩니다. 별도의 백업 파일을 보유하고 있지 않다면 현재 설치된 전자 지갑의 비트코인이 사라질 수 있습니다.</string>
 	<string name="import_keys_dialog_warning">경고 : 조심하세요! 불확실한 출처로부터 개인키를 불러올 경우 그 개인키를 알고 있는 곳에서 비트코인 입출금에 대한 통제권을 가질 수 있습니다.</string>
 	<string name="import_keys_dialog_file_security_encrypted">패스워드 암호화됨</string>
 	<string name="import_keys_dialog_file_security_unencrypted">암호화되지 않음</string>
-	<string name="import_keys_dialog_file_security_external">외부 저장 장치</string>
-	<string name="import_keys_dialog_file_security_internal">앱 내 저장 공간</string>
-	<string name="import_keys_dialog_file_created_automatic">자동 백업 실행.  백업 날짜 : %s</string>
-	<string name="import_keys_dialog_file_created_manual">수동 백업 실행.  백업 날짜 : %s</string>
+	<string name="import_keys_dialog_file_security_external">저장 장치</string>
+	<string name="import_keys_dialog_file_security_internal">앱 안의 저장 공간</string>
+	<string name="import_keys_dialog_file_created_automatic">자동 백업 실행.  백업 시간 : %s</string>
+	<string name="import_keys_dialog_file_created_manual">수동 백업 실행.  백업 시간 : %s</string>
 	<string name="import_keys_dialog_button_import">복구</string>
 	<string name="restore_wallet_dialog_success">전자 지갑이 복구되었습니다.</string>
 	<string name="import_keys_dialog_success_imported">%d 개인키가 복구되었습니다.</string>
@@ -142,9 +142,9 @@
 	<string name="import_keys_dialog_failure">전자 지갑이 복구될 수 없습니다.:\n\n%s\n\n패스워드 오류?</string>
 	<string name="import_keys_dialog_button_reset_blockchain">재동기화</string>
 	<string name="export_keys_dialog_title">전자 지갑 백업</string>
-	<string name="export_keys_dialog_message">전자 지갑이 선택된 패스워드로 암호화되고 외부 저장 장치에 백업됩니다.</string>
+	<string name="export_keys_dialog_message">전자 지갑이 선택된 패스워드로 암호화되고 기기의 저장 장치에 백업됩니다.</string>
 	<string name="export_keys_dialog_button_export">백업</string>
-	<string name="export_keys_dialog_success"><![CDATA[<p>전자 지갑이 아래 위치에 백업됩니다. <tt>%s</tt></p><p>사용하시는 장치 기기가 이동식 SD 카드를 가지고 있다면 해당 카드에 저장됩니다. 전자 지갑 백업 후 SD 카드를 제거하고 안전한 장소에 보관하세요. 만약 SD 카드가 이동형이 아니라면 현재의 저장 장치보다는 이동 가능한 다른 곳에 백업을 수행하는 것이 좋습니다.</p><p><b>만약 SD 카드가 이 장치 기기의 유일한 백업 가능 장소라면 SD 카드 분실에 따른 전자 지갑의 분실 위험 또한 숙지하셔야 합니다.</b></p><p>백업시의 패스워드를 반드시 기억하고 있어야 추후 백업 파일을 이용할 수 있습니다. 전자 지갑 백업을 지금 수행하시겠습니까?</p>]]></string>
+	<string name="export_keys_dialog_success"><![CDATA[<p>전자 지갑이 아래 위치에 백업됩니다. <tt>%s</tt></p><p>사용하시는 장치 기기가 이동식 SD 카드를 가지고 있다면 해당 카드에 저장됩니다. 전자 지갑 백업 후 SD 카드를 제거하고 안전한 장소에 보관하세요. 만약 SD 카드가 이동형이 아니라면 현재의 저장 장치보다는 이동 가능한 다른 곳에 백업을 수행하는 것이 좋습니다.</p><p><b>만약 SD 카드가 이 장치 기기의 유일한 백업 가능 장소라면 SD 카드 분실에 따른 전자 지갑의 분실 위험 또한 숙지하셔야 합니다.</b></p><p>백업할 때의 패스워드를 반드시 기억하고 있어야 추후 백업 파일을 이용할 수 있습니다. 지금 전자 지갑 백업을 수행하시겠습니까?</p>]]></string>
 	<string name="export_keys_dialog_failure">전자 지갑이 백업될 수 없습니다.:\n%s</string>
 	<string name="export_keys_dialog_button_archive">백업 실행</string>
 	<string name="export_keys_dialog_mail_subject">비트코인 전자 지갑 백업</string>
@@ -182,11 +182,11 @@
 	<string name="preferences_report_issue_summary">오류에 대한 정보를 수집 후 오류 보고서를 개발자에게 전달합니다.</string>
 	<string name="preferences_initiate_reset_title">블럭체인 재동기화</string>
 	<string name="preferences_initiate_reset_summary">블럭체인 헤더와의 동기화를 통해 거래 내역, 지갑 잔액 데이터를 다시 받습니다. 이 동기화에 일정 시간이 소요될 수 있습니다.</string>
-	<string name="preferences_initiate_reset_dialog_message">블럭체인 재동기화 후 새로 로드하시겠습니까?\n\n일시적으로 지갑 잔액이 표시되지 않으며 거래 내역을 삭제하게 됩니다. 잔액과 거래내역은 블럭체인 재동기화 과정이 완료된 후에 복구됩니다.</string>
+	<string name="preferences_initiate_reset_dialog_message">블럭체인 재동기화 후 새로 로딩하시겠습니까?\n\n일시적으로 지갑 잔액이 표시되지 않으며 거래 내역을 삭제하게 됩니다. 잔액과 거래내역은 블럭체인 재동기화 과정이 완료된 후에 자동으로 복구됩니다.</string>
 	<string name="preferences_initiate_reset_dialog_positive">재동기화</string>
 	<string name="report_issue_dialog_title_issue">오류 보고</string>
 	<string name="report_issue_dialog_title_crash">로드 중 에러 발생</string>
-	<string name="report_issue_dialog_message_issue">문제점이 개발자에 의해 재현될 수 있게 정확하게 묘사해 주십시요. 현재 보유하고 있는 지갑에만 나타나는 특수 상황이라면 덤프(Dump)를 첨부하시면 더 좋습니다.</string>
+	<string name="report_issue_dialog_message_issue">오류를 보고하려고 하는 문제점이 개발자에 의해 재현될 수 있도록 정확하게 묘사해 주시면 좋습니다. 현재 보유하고 있는 지갑에만 나타나는 특수 상황이라면 덤프(Dump) 파일을 첨부해서 보내주세요.</string>
 	<string name="report_issue_dialog_message_crash">이 문제점을 고치기 위해 추후 비정상 종료에 대한 보고서를 보내겠습니까?</string>
 	<string name="report_issue_dialog_description">오류 내용 입력</string>
 	<string name="report_issue_dialog_report">전송</string>
@@ -208,8 +208,8 @@
 	<string name="about_community_googleplus_summary">이 앱에 대한 토론장</string>
 	<string name="about_author_twitter_title">개발자 트위터</string>
 	<string name="about_author_googleplus_title">개발자 Google+</string>
-	<string name="about_market_app_title">구글 플레이 해당 페이지</string>
-	<string name="about_market_app_summary">앱 리뷰나 등급 점수 매기기</string>
+	<string name="about_market_app_title">구글 플레이의 앱 페이지</string>
+	<string name="about_market_app_summary">앱 리뷰 또는 등급 점수 매기러 가기</string>
 	<string name="about_credits_market_publisher_title">개발자의 다른 앱</string>
 	<string name="notification_coins_received_msg">비트코인 수취 알림 : %s</string>
 	<string name="notification_peers_connected_msg">피어 연결 개수 알림 : %d</string>
