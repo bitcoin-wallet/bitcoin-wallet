@@ -49,6 +49,9 @@ import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.provider.BaseColumns;
 import android.text.format.DateUtils;
+
+import com.google.common.base.Charsets;
+
 import de.schildbach.wallet.util.GenericUtils;
 import de.schildbach.wallet.util.Io;
 
@@ -287,7 +290,7 @@ public class ExchangeRatesProvider extends ContentProvider
 				if ("gzip".equalsIgnoreCase(contentEncoding))
 					is = new GZIPInputStream(is);
 
-				reader = new InputStreamReader(is, Constants.UTF_8);
+				reader = new InputStreamReader(is, Charsets.UTF_8);
 				final StringBuilder content = new StringBuilder();
 				final long length = Io.copy(reader, content);
 

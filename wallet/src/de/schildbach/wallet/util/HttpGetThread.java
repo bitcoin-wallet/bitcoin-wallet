@@ -35,6 +35,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import android.content.res.AssetManager;
+
+import com.google.common.base.Charsets;
+
 import de.schildbach.wallet.Constants;
 
 /**
@@ -97,7 +100,7 @@ public abstract class HttpGetThread extends Thread
 				final long serverTime = connection.getDate();
 				// TODO parse connection.getContentType() for charset
 
-				final BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream(), Constants.UTF_8), 64);
+				final BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream(), Charsets.UTF_8), 64);
 				final String line = reader.readLine().trim();
 				reader.close();
 

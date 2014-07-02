@@ -130,6 +130,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 	private static final int IDLE_TRANSACTION_TIMEOUT_MIN = 9;
 	private static final int MAX_HISTORY_SIZE = Math.max(IDLE_TRANSACTION_TIMEOUT_MIN, IDLE_BLOCK_TIMEOUT_MIN);
 	private static final long APPWIDGET_THROTTLE_MS = DateUtils.SECOND_IN_MILLIS;
+	private static final long BLOCKCHAIN_STATE_BROADCAST_THROTTLE_MS = DateUtils.SECOND_IN_MILLIS;
 
 	private static final Logger log = LoggerFactory.getLogger(BlockchainServiceImpl.class);
 
@@ -312,10 +313,10 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 
 			final long now = System.currentTimeMillis();
 
-			if (now - lastMessageTime.get() > Constants.BLOCKCHAIN_STATE_BROADCAST_THROTTLE_MS)
+			if (now - lastMessageTime.get() > BLOCKCHAIN_STATE_BROADCAST_THROTTLE_MS)
 				delayHandler.post(runnable);
 			else
-				delayHandler.postDelayed(runnable, Constants.BLOCKCHAIN_STATE_BROADCAST_THROTTLE_MS);
+				delayHandler.postDelayed(runnable, BLOCKCHAIN_STATE_BROADCAST_THROTTLE_MS);
 		}
 
 		private final Runnable runnable = new Runnable()

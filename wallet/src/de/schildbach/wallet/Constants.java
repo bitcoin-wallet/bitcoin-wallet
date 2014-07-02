@@ -18,7 +18,6 @@
 package de.schildbach.wallet;
 
 import java.io.File;
-import java.nio.charset.Charset;
 
 import android.os.Build;
 import android.os.Environment;
@@ -37,50 +36,92 @@ public final class Constants
 {
 	public static final boolean TEST = R.class.getPackage().getName().contains("_test");
 
+	/** Network this wallet is on (e.g. testnet or mainnet). */
 	public static final NetworkParameters NETWORK_PARAMETERS = TEST ? TestNet3Params.get() : MainNetParams.get();
-	private static final String FILENAME_NETWORK_SUFFIX = NETWORK_PARAMETERS.getId().equals(NetworkParameters.ID_MAINNET) ? "" : "-testnet";
 
 	public final static class Files
 	{
+		private static final String FILENAME_NETWORK_SUFFIX = NETWORK_PARAMETERS.getId().equals(NetworkParameters.ID_MAINNET) ? "" : "-testnet";
+
+		/** Filename of the wallet. */
 		public static final String WALLET_FILENAME_PROTOBUF = "wallet-protobuf" + FILENAME_NETWORK_SUFFIX;
 
+		/** Filename of the automatic key backup (old format, can only be read). */
 		public static final String WALLET_KEY_BACKUP_BASE58 = "key-backup-base58" + FILENAME_NETWORK_SUFFIX;
+
+		/** Filename of the automatic wallet backup. */
 		public static final String WALLET_KEY_BACKUP_PROTOBUF = "key-backup-protobuf" + FILENAME_NETWORK_SUFFIX;
 
+		/** Manual backups go here. */
 		public static final File EXTERNAL_WALLET_BACKUP_DIR = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+
+		/** Filename of the manual key backup (old format, can only be read). */
 		public static final String EXTERNAL_WALLET_KEY_BACKUP = "bitcoin-wallet-keys" + FILENAME_NETWORK_SUFFIX;
+
+		/** Filename of the manual wallet backup. */
 		public static final String EXTERNAL_WALLET_BACKUP = "bitcoin-wallet-backup" + FILENAME_NETWORK_SUFFIX;
 
+		/** Filename of the block store for storing the chain. */
 		public static final String BLOCKCHAIN_FILENAME = "blockchain" + FILENAME_NETWORK_SUFFIX;
 
+		/** Filename of the block checkpoints file. */
 		public static final String CHECKPOINTS_FILENAME = "checkpoints" + FILENAME_NETWORK_SUFFIX;
 	}
 
+	/** Maximum size of backups. Files larger will be rejected. */
 	public static final long BACKUP_MAX_CHARS = 5000000;
 
 	private static final String EXPLORE_BASE_URL_PROD = "https://www.biteasy.com/";
 	private static final String EXPLORE_BASE_URL_TEST = "https://www.biteasy.com/testnet/";
+	/** Base URL for browsing transactions, blocks or addresses. */
 	public static final String EXPLORE_BASE_URL = NETWORK_PARAMETERS.getId().equals(NetworkParameters.ID_MAINNET) ? EXPLORE_BASE_URL_PROD
 			: EXPLORE_BASE_URL_TEST;
 
 	private static final String BITEASY_API_URL_PROD = "https://api.biteasy.com/blockchain/v1/";
 	private static final String BITEASY_API_URL_TEST = "https://api.biteasy.com/testnet/v1/";
+	/** Base URL for blockchain API. */
 	public static final String BITEASY_API_URL = NETWORK_PARAMETERS.getId().equals(NetworkParameters.ID_MAINNET) ? BITEASY_API_URL_PROD
 			: BITEASY_API_URL_TEST;
 
+	/** URL to fetch version alerts from. */
+	public static final String VERSION_URL = "http://wallet.schildbach.de/version";
+
+	/** MIME type used for transmitting single transactions. */
 	public static final String MIMETYPE_TRANSACTION = "application/x-btctx";
+
+	/** MIME type used for transmitting wallet backups. */
 	public static final String MIMETYPE_WALLET_BACKUP = "application/x-bitcoin-wallet-backup";
 
+	/** Number of confirmations until a transaction is fully confirmed. */
 	public static final int MAX_NUM_CONFIRMATIONS = 7;
-	public static final String USER_AGENT = "Bitcoin Wallet";
-	public static final String DEFAULT_EXCHANGE_CURRENCY = "USD";
-	public static final int WALLET_OPERATION_STACK_SIZE = 256 * 1024;
-	public static final long BLOCKCHAIN_STATE_BROADCAST_THROTTLE_MS = DateUtils.SECOND_IN_MILLIS;
-	public static final long BLOCKCHAIN_UPTODATE_THRESHOLD_MS = DateUtils.HOUR_IN_MILLIS;
 
+	/** User-agent to use for network access. */
+	public static final String USER_AGENT = "Bitcoin Wallet";
+
+	/** Default currency to use if all default mechanisms fail. */
+	public static final String DEFAULT_EXCHANGE_CURRENCY = "USD";
+
+	/** Currency code for base 1 Bitcoin. */
 	public static final String CURRENCY_CODE_BTC = "BTC";
+
+	/** Currency code for base 1/1000 Bitcoin. */
 	public static final String CURRENCY_CODE_MBTC = "mBTC";
+
+	/** Currency code for base 1/1000000 Bitcoin. */
 	public static final String CURRENCY_CODE_UBTC = "µBTC";
+
+	/** Donation address for tip/donate action. */
+	public static final String DONATION_ADDRESS = "18CK5k1gajRKKSC7yVSTXT9LUzbheh1XY4";
+
+	/** Recipient e-mail address for reports. */
+	public static final String REPORT_EMAIL = "wallet@schildbach.de";
+
+	/** Subject line for manually reported issues. */
+	public static final String REPORT_SUBJECT_ISSUE = "Reported issue";
+
+	/** Subject line for crash reports. */
+	public static final String REPORT_SUBJECT_CRASH = "Crash report";
+
 	public static final char CHAR_HAIR_SPACE = '\u200a';
 	public static final char CHAR_THIN_SPACE = '\u2009';
 	public static final char CHAR_ALMOST_EQUAL_TO = '\u2248';
@@ -96,11 +137,6 @@ public final class Constants
 	public static final int UBTC_MAX_PRECISION = 2;
 	public static final int LOCAL_PRECISION = 4;
 
-	public static final String DONATION_ADDRESS = "18CK5k1gajRKKSC7yVSTXT9LUzbheh1XY4";
-	public static final String REPORT_EMAIL = "wallet@schildbach.de";
-	public static final String REPORT_SUBJECT_ISSUE = "Reported issue";
-	public static final String REPORT_SUBJECT_CRASH = "Crash report";
-
 	public static final String LICENSE_URL = "http://www.gnu.org/licenses/gpl-3.0.txt";
 	public static final String SOURCE_URL = "https://github.com/schildbach/bitcoin-wallet";
 	public static final String BINARY_URL = "https://github.com/schildbach/bitcoin-wallet/releases";
@@ -114,7 +150,6 @@ public final class Constants
 	public static final String WEBMARKET_APP_URL = "https://play.google.com/store/apps/details?id=%s";
 	public static final String MARKET_PUBLISHER_URL = "market://search?q=pub:\"Andreas Schildbach\"";
 
-	public static final String VERSION_URL = "http://wallet.schildbach.de/version";
 	public static final int HTTP_TIMEOUT_MS = 15 * (int) DateUtils.SECOND_IN_MILLIS;
 
 	public static final long LAST_USAGE_THRESHOLD_JUST_MS = DateUtils.HOUR_IN_MILLIS;
@@ -129,7 +164,4 @@ public final class Constants
 			&& Build.VERSION.RELEASE.startsWith("4.1.1");
 
 	public static final int MEMORY_CLASS_LOWEND = 48;
-
-	public static final Charset UTF_8 = Charset.forName("UTF-8");
-	public static final Charset US_ASCII = Charset.forName("US-ASCII");
 }

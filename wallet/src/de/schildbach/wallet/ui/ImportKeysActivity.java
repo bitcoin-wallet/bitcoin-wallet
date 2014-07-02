@@ -42,6 +42,7 @@ import com.google.bitcoin.core.Wallet;
 import com.google.bitcoin.core.Wallet.BalanceType;
 import com.google.bitcoin.store.UnreadableWalletException;
 import com.google.bitcoin.store.WalletProtobufSerializer;
+import com.google.common.base.Charsets;
 
 import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
@@ -174,7 +175,7 @@ public final class ImportKeysActivity extends AbstractWalletActivity
 	{
 		try
 		{
-			final BufferedReader cipherIn = new BufferedReader(new InputStreamReader(is, Constants.UTF_8));
+			final BufferedReader cipherIn = new BufferedReader(new InputStreamReader(is, Charsets.UTF_8));
 			final StringBuilder cipherText = new StringBuilder();
 			Io.copy(cipherIn, cipherText, Constants.BACKUP_MAX_CHARS);
 			cipherIn.close();

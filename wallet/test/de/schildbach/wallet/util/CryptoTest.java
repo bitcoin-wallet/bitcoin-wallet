@@ -30,8 +30,7 @@ import java.io.InputStreamReader;
 import org.junit.Test;
 
 import com.google.bitcoin.store.WalletProtobufSerializer;
-
-import de.schildbach.wallet.Constants;
+import com.google.common.base.Charsets;
 
 /**
  * @author Andreas Schildbach
@@ -110,7 +109,7 @@ public class CryptoTest
 
 	private String readBackupFromResource(final String filename) throws IOException
 	{
-		final BufferedReader reader = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream(filename), Constants.UTF_8));
+		final BufferedReader reader = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream(filename), Charsets.UTF_8));
 		final StringBuilder backup = new StringBuilder();
 		Io.copy(reader, backup);
 		reader.close();

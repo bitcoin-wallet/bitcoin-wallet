@@ -62,6 +62,7 @@ import com.google.bitcoin.core.Wallet;
 import com.google.bitcoin.script.Script;
 import com.google.bitcoin.store.UnreadableWalletException;
 import com.google.bitcoin.store.WalletProtobufSerializer;
+import com.google.common.base.Charsets;
 
 import de.schildbach.wallet.Constants;
 
@@ -278,7 +279,7 @@ public class WalletUtils
 
 			try
 			{
-				reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), Constants.UTF_8));
+				reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), Charsets.UTF_8));
 				WalletUtils.readKeys(reader);
 
 				return true;

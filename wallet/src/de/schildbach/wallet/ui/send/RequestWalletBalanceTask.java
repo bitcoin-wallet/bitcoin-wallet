@@ -48,6 +48,7 @@ import com.google.bitcoin.core.Transaction;
 import com.google.bitcoin.core.TransactionConfidence.ConfidenceType;
 import com.google.bitcoin.core.TransactionOutput;
 import com.google.bitcoin.core.Utils;
+import com.google.common.base.Charsets;
 import com.google.common.io.BaseEncoding;
 
 import de.schildbach.wallet.Constants;
@@ -120,7 +121,7 @@ public final class RequestWalletBalanceTask
 					final int responseCode = connection.getResponseCode();
 					if (responseCode == HttpURLConnection.HTTP_OK)
 					{
-						reader = new InputStreamReader(new BufferedInputStream(connection.getInputStream(), 1024), Constants.UTF_8);
+						reader = new InputStreamReader(new BufferedInputStream(connection.getInputStream(), 1024), Charsets.UTF_8);
 						final StringBuilder content = new StringBuilder();
 						Io.copy(reader, content);
 

@@ -81,6 +81,7 @@ import com.google.bitcoin.core.Wallet;
 import com.google.bitcoin.core.Wallet.BalanceType;
 import com.google.bitcoin.store.UnreadableWalletException;
 import com.google.bitcoin.store.WalletProtobufSerializer;
+import com.google.common.base.Charsets;
 
 import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
@@ -788,7 +789,7 @@ public final class WalletActivity extends AbstractWalletActivity
 			final InputStream is;
 			if (Crypto.OPENSSL_FILE_FILTER.accept(file))
 			{
-				final BufferedReader cipherIn = new BufferedReader(new InputStreamReader(new FileInputStream(file), Constants.UTF_8));
+				final BufferedReader cipherIn = new BufferedReader(new InputStreamReader(new FileInputStream(file), Charsets.UTF_8));
 				final StringBuilder cipherText = new StringBuilder();
 				Io.copy(cipherIn, cipherText, Constants.BACKUP_MAX_CHARS);
 				cipherIn.close();
@@ -873,7 +874,7 @@ public final class WalletActivity extends AbstractWalletActivity
 			final Reader plainReader;
 			if (Crypto.OPENSSL_FILE_FILTER.accept(file))
 			{
-				final BufferedReader cipherIn = new BufferedReader(new InputStreamReader(new FileInputStream(file), Constants.UTF_8));
+				final BufferedReader cipherIn = new BufferedReader(new InputStreamReader(new FileInputStream(file), Charsets.UTF_8));
 				final StringBuilder cipherText = new StringBuilder();
 				Io.copy(cipherIn, cipherText, Constants.BACKUP_MAX_CHARS);
 				cipherIn.close();
@@ -883,7 +884,7 @@ public final class WalletActivity extends AbstractWalletActivity
 			}
 			else if (WalletUtils.KEYS_FILE_FILTER.accept(file))
 			{
-				plainReader = new InputStreamReader(new FileInputStream(file), Constants.UTF_8);
+				plainReader = new InputStreamReader(new FileInputStream(file), Charsets.UTF_8);
 			}
 			else
 			{
@@ -973,7 +974,7 @@ public final class WalletActivity extends AbstractWalletActivity
 			baos.close();
 			final byte[] plainBytes = baos.toByteArray();
 
-			cipherOut = new OutputStreamWriter(new FileOutputStream(file), Constants.UTF_8);
+			cipherOut = new OutputStreamWriter(new FileOutputStream(file), Charsets.UTF_8);
 			cipherOut.write(Crypto.encrypt(plainBytes, password.toCharArray()));
 			cipherOut.flush();
 

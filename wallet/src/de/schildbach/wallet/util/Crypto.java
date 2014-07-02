@@ -38,9 +38,8 @@ import org.spongycastle.crypto.modes.CBCBlockCipher;
 import org.spongycastle.crypto.paddings.PaddedBufferedBlockCipher;
 import org.spongycastle.crypto.params.ParametersWithIV;
 
+import com.google.common.base.Charsets;
 import com.google.common.io.BaseEncoding;
-
-import de.schildbach.wallet.Constants;
 
 /**
  * This class encrypts and decrypts a string in a manner that is compatible with OpenSSL.
@@ -88,7 +87,7 @@ public class Crypto
 	/**
 	 * OpenSSL salted prefix bytes - also used as magic number for encrypted key file.
 	 */
-	private static final byte[] OPENSSL_SALTED_BYTES = OPENSSL_SALTED_TEXT.getBytes(Constants.UTF_8);
+	private static final byte[] OPENSSL_SALTED_BYTES = OPENSSL_SALTED_TEXT.getBytes(Charsets.UTF_8);
 
 	/**
 	 * Magic text that appears at the beginning of every OpenSSL encrypted file. Used in identifying encrypted key
@@ -132,7 +131,7 @@ public class Crypto
 	 */
 	public static String encrypt(@Nonnull final String plainText, @Nonnull final char[] password) throws IOException
 	{
-		final byte[] plainTextAsBytes = plainText.getBytes(Constants.UTF_8);
+		final byte[] plainTextAsBytes = plainText.getBytes(Charsets.UTF_8);
 
 		return encrypt(plainTextAsBytes, password);
 	}
@@ -211,7 +210,7 @@ public class Crypto
 	{
 		final byte[] decryptedBytes = decryptBytes(textToDecode, password);
 
-		return new String(decryptedBytes, Constants.UTF_8).trim();
+		return new String(decryptedBytes, Charsets.UTF_8).trim();
 	}
 
 	/**
@@ -313,7 +312,7 @@ public class Crypto
 			Reader in = null;
 			try
 			{
-				in = new InputStreamReader(new FileInputStream(file), Constants.UTF_8);
+				in = new InputStreamReader(new FileInputStream(file), Charsets.UTF_8);
 				if (in.read(buf) == -1)
 					return false;
 				final String str = new String(buf);
