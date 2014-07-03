@@ -1,20 +1,23 @@
-Tato aplikace je peněženka s Bitcoiny pro systém Android. Můžete posílat Bitcoiny mezi telefony prostým naskenováním QR kódu, který je zobrazen aplikací, nebo pomocí NFC (Near Field Communication).
+Mějte vaše Bitcoiny vždy u sebe ve vaší kapse! Platit můžete naskenováním QR-kódu. A jako prodejce můžete přijímat platby spolehlivě a hned. Bitcoin Wallet je první mobilní Bitcoin applikace a jedna z nejbezpečnějších!
 
-VLASTNOSTI:
+FUNKCE
 
-• Zobrazení zůstatku peněženky v Bitcoinech a několika jiných měnách.
-• Odesílání a přijímání Bitcoinů pomocí NFC, QR-kódů, nebo Bitcoin adres.
-• Adresář pro často používané adresy.
-• Možnost zadávání transakcí v offline režimu, k jejich zpracování dojde po připojení.
-• Oznamování v liště při synchronizaci a při přijetí Bitcoinů.
-• Widget s celkovým zůstatkem.
+• Žádná registrace, žádná webová služba ani cloud není potřeba! Tato peněženka je de-centralizovaná a peer to peer.
+• Zobrazení Bitcoin částek v BTC, mBTC a µBTC.
+• Přepočet z a do národních měn.
+• Odesílání a přijímání Bitcoinů přes NFC, QR-kódy nebo Bitcoin URL.
+• Adresář pro často používané Bitcoin adresy.
+• Pokud jste offline, stále můžete platit přes Bluetooth.
+• Systémové notifikace při přijaté platbě
+• Načítání papírových peněženek (např. ty co se používají u cold storage).
+• Widget pro zborazení Bitcoin bilance.
 
-Více informací o Bitcoinech
+Více o Bitcoin se dozvíte na
 http://bitcoin.org
 
-Pokud chcete přispět do projektu Bitcoin Wallet, naleznete jej na adrese
+Pokud chcete přispět do Bitcoin Wallet, tak projekt naleznete zde
 https://github.com/schildbach/bitcoin-wallet
 
 License: GPLv3
-Použití pouze na vlastní riziko!
+Použití na vlastní riziko!
 http://www.gnu.org/licenses/gpl-3.0.en.html
