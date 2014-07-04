@@ -3,12 +3,13 @@ Ten tus Bitcoins siempre contigo, en tu bolsillo! Paga rápidamente escaneando u
 CARACTERÍSTICAS:
 
 • ¡No requiere registro, servidor en la nube o servicio web! Este monedero es auténticamente entre pares (peer-to-peer).
-• Muestra la cantidad de Bitcoins en BTC y mBTC
+• Despliegue la cantidad de Bitcoin en BTC, mBTC, y µBTC.
 • Conversión a divisas nacionales.
 • Envío y recepción de bitcoins vía NFC, códigos QR o URL de Bitcoin.
 • Libreta de direcciones para guardar las direcciones Bitcoin más utilizadas.
 • Cuando no tengas conexión, puedes seguir pagando via Bluetooth.
 • Notificación al recibir monedas.
+• Barrido de carteras de papel (como ejemplo aquellos usado para el almacenamiento frio).
 • Widget para el saldo de bitcoins.
 
 Puedes descubrir más sobre Bitcoin en
