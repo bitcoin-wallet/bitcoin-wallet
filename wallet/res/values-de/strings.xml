@@ -100,8 +100,13 @@
 	<string name="sweep_wallet_fragment_intro">Du bist dabei eine Paper-Wallet oder Coupon zu leeren. Dies wird alle Bitcoins von diesem Papier in deine Wallet auf diesem Gerät verschieben. Sobald die Transaktion bestätigt ist, wird das Papier wertlos und sollte aus Sicherheitsgründen nicht wiederverwendet werden.</string>
 	<string name="sweep_wallet_fragment_hint">Paper-Wallets werden meist für Cold Storage genutzt. Einige Geldautomaten drucken sie auf das Quittungspapier, anstatt die Bitcoins direkt an das mobile Gerät zu versenden. Manchmal werden vorgeladene Paper-Wallets als Zahlungsmittel verwendet (nicht empfohlen).</string>
 	<string name="sweep_wallet_fragment_wallet_unknown">Beginne, indem Du den privaten Schlüssel eines Paper-Wallets scannst. Benutze dafür die Kamera-Schaltfläche.</string>
+	<string name="sweep_wallet_fragment_encrypted">Dieser private Schlüssel ist mit einem Passwort geschützt.</string>
+	<string name="sweep_wallet_fragment_password">Passwort</string>
+	<string name="sweep_wallet_fragment_bad_password">falsches Passwort!</string>
 	<string name="sweep_wallet_fragment_balance">Zu leerendes Guthaben</string>
+	<string name="sweep_wallet_fragment_button_decrypt">Entschlüsseln</string>
 	<string name="sweep_wallet_fragment_button_sweep">Leeren</string>
+	<string name="sweep_wallet_fragment_decrypt_progress">Entschlüsselung…\nDauert bis zu 2 Minuten.</string>
 	<string name="sweep_wallet_fragment_request_wallet_balance_progress">Aktualisiere Guthaben…</string>
 	<string name="sweep_wallet_fragment_request_wallet_balance_failed_title">Guthabenanforderung fehlgeschlagen</string>
 	<string name="sweep_wallet_fragment_insufficient_money_title">Nicht genug Bitcoins</string>

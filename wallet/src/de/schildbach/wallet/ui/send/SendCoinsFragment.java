@@ -28,13 +28,13 @@ import org.bitcoin.protocols.payments.Protos.Payment;
 import org.bitcoinj.core.Address;
 import org.bitcoinj.core.AddressFormatException;
 import org.bitcoinj.core.Coin;
-import org.bitcoinj.core.DumpedPrivateKey;
 import org.bitcoinj.core.InsufficientMoneyException;
 import org.bitcoinj.core.Sha256Hash;
 import org.bitcoinj.core.Transaction;
 import org.bitcoinj.core.TransactionConfidence;
 import org.bitcoinj.core.TransactionConfidence.ConfidenceType;
 import org.bitcoinj.core.VerificationException;
+import org.bitcoinj.core.VersionedChecksummedBytes;
 import org.bitcoinj.core.Wallet;
 import org.bitcoinj.core.Wallet.BalanceType;
 import org.bitcoinj.core.Wallet.CouldNotAdjustDownwards;
@@ -1392,7 +1392,7 @@ public final class SendCoinsFragment extends Fragment
 			}
 
 			@Override
-			protected void handlePrivateKey(@Nonnull final DumpedPrivateKey key)
+			protected void handlePrivateKey(@Nonnull final VersionedChecksummedBytes key)
 			{
 				throw new UnsupportedOperationException();
 			}
