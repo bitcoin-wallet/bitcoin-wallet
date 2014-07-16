@@ -234,8 +234,8 @@
   <string name="button_paste">Liitä</string>
   <string name="button_share">Jaa</string>
   <string name="button_set_as_default">Aseta oletukseksi</string>
-  <string name="button_request_coins">Pyydä Bitcoinseja</string>
-  <string name="button_send_coins">Lähetä Bitcoinseja</string>
+  <string name="button_request_coins">Pyydä Bitcoineja</string>
+  <string name="button_send_coins">Lähetä Bitcoineja</string>
   <string name="button_scan">Hae</string>
   <string name="button_edit_address">Lisää/muokkaa osoitetta</string>
   <string name="button_settings">Asetukset</string>
