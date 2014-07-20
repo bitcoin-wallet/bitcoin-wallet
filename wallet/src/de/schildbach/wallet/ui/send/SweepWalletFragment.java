@@ -1,8 +1,10 @@
 package de.schildbach.wallet.ui.send;
 
+import java.math.BigInteger;
 import java.util.Collection;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import android.app.Activity;
 import android.content.DialogInterface;
@@ -504,6 +506,18 @@ public class SweepWalletFragment extends SherlockFragment
 				sentTransaction.getConfidence().addEventListener(sentTransactionConfidenceListener);
 
 				application.processDirectTransaction(sentTransaction);
+			}
+
+			@Override
+			protected void onInsufficientMoney(@Nullable final BigInteger missing)
+			{
+				state = State.FAILED;
+				updateView();
+
+				final DialogBuilder dialog = DialogBuilder.warn(activity, R.string.sweep_wallet_fragment_insufficient_money_title);
+				dialog.setMessage(R.string.sweep_wallet_fragment_insufficient_money_msg);
+				dialog.setNeutralButton(R.string.button_dismiss, null);
+				dialog.show();
 			}
 
 			@Override

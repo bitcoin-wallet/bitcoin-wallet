@@ -98,6 +98,8 @@
 	<string name="sweep_wallet_fragment_button_sweep">Leeren</string>
 	<string name="sweep_wallet_fragment_request_wallet_balance_progress">Aktualisiere Guthaben…</string>
 	<string name="sweep_wallet_fragment_request_wallet_balance_failed_title">Guthabenanforderung fehlgeschlagen</string>
+	<string name="sweep_wallet_fragment_insufficient_money_title">Nicht genug Bitcoins</string>
+	<string name="sweep_wallet_fragment_insufficient_money_msg">Das zu leerende Guthaben ist zu gering zum Entleeren.</string>
 	<string name="sweep_wallet_options_reload">Guthaben aktualisieren</string>
 
 	<string name="request_coins_activity_title">Bitcoins anfordern</string>
