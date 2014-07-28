@@ -150,6 +150,21 @@ public abstract class InputParser
 					error(R.string.input_parser_invalid_address);
 				}
 			}
+			else if (PATTERN_PRIVATE_KEY_COMPRESSED.matcher(input).matches())
+			{
+				try
+				{
+					final ECKey key = new DumpedPrivateKey(Constants.NETWORK_PARAMETERS, input).getKey();
+
+					handlePrivateKey(key);
+				}
+				catch (final AddressFormatException x)
+				{
+					log.info("got invalid address", x);
+
+					error(R.string.input_parser_invalid_address);
+				}
+			}
 			else if (PATTERN_TRANSACTION.matcher(input).matches())
 			{
 				try
@@ -370,5 +385,6 @@ public abstract class InputParser
 	private static final Pattern PATTERN_PRIVATE_KEY = Pattern
 			.compile((Constants.NETWORK_PARAMETERS.getId().equals(NetworkParameters.ID_MAINNET) ? "5" : "9") + "[" + new String(Base58.ALPHABET)
 					+ "]{50}");
+	private static final Pattern PATTERN_PRIVATE_KEY_COMPRESSED = Pattern.compile("[" + new String(Base58.ALPHABET)+ "]{50}");
 	private static final Pattern PATTERN_TRANSACTION = Pattern.compile("[0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ$\\*\\+\\-\\.\\/\\:]{100,}");
 }
