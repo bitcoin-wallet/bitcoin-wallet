@@ -47,26 +47,38 @@ import de.schildbach.wallet.util.PaymentProtocol;
  */
 public abstract class AcceptBluetoothThread extends Thread
 {
-	protected final BluetoothServerSocket listeningSocket;
+	protected final BluetoothAdapter adapter;
 	protected final AtomicBoolean running = new AtomicBoolean(true);
+	
+	protected BluetoothServerSocket listeningSocket = null;
 
 	protected static final Logger log = LoggerFactory.getLogger(AcceptBluetoothThread.class);
 
-	private AcceptBluetoothThread(final BluetoothServerSocket listeningSocket)
+	private AcceptBluetoothThread(@Nonnull final BluetoothAdapter adapter)
 	{
-		this.listeningSocket = listeningSocket;
+		this.adapter = adapter;
 	}
 
 	public static abstract class ClassicBluetoothThread extends AcceptBluetoothThread
 	{
 		public ClassicBluetoothThread(@Nonnull final BluetoothAdapter adapter)
 		{
-			super(listen(adapter, Bluetooth.CLASSIC_PAYMENT_PROTOCOL_NAME, Bluetooth.CLASSIC_PAYMENT_PROTOCOL_UUID));
+			super(adapter);
 		}
 
 		@Override
 		public void run()
 		{
+			try
+			{
+				listeningSocket = listen(adapter, Bluetooth.CLASSIC_PAYMENT_PROTOCOL_NAME, Bluetooth.CLASSIC_PAYMENT_PROTOCOL_UUID);
+			}
+			catch (IOException x)
+			{
+				log.info("exception while creating a listening socket for classic bluetooth service", x);
+				running.set(false);
+			}
+			
 			while (running.get())
 			{
 				BluetoothSocket socket = null;
@@ -159,12 +171,22 @@ public abstract class AcceptBluetoothThread extends Thread
 	{
 		public PaymentProtocolThread(@Nonnull final BluetoothAdapter adapter)
 		{
-			super(listen(adapter, Bluetooth.BIP70_PAYMENT_PROTOCOL_NAME, Bluetooth.BIP70_PAYMENT_PROTOCOL_UUID));
+			super(adapter);
 		}
 
 		@Override
 		public void run()
 		{
+			try
+			{
+				listeningSocket = listen(adapter, Bluetooth.BIP70_PAYMENT_PROTOCOL_NAME, Bluetooth.BIP70_PAYMENT_PROTOCOL_UUID);
+			}
+			catch (IOException x)
+			{
+				log.info("exception while creating a listening socket for payment protocol bluetooth service", x);
+				running.set(false);
+			}
+			
 			while (running.get())
 			{
 				BluetoothSocket socket = null;
@@ -252,7 +274,8 @@ public abstract class AcceptBluetoothThread extends Thread
 
 		try
 		{
-			listeningSocket.close();
+			if (listeningSocket != null)
+				listeningSocket.close();
 		}
 		catch (final IOException x)
 		{
@@ -260,16 +283,9 @@ public abstract class AcceptBluetoothThread extends Thread
 		}
 	}
 
-	protected static BluetoothServerSocket listen(final BluetoothAdapter adapter, final String serviceName, final UUID serviceUuid)
+	protected static BluetoothServerSocket listen(final BluetoothAdapter adapter, final String serviceName, final UUID serviceUuid) throws IOException
 	{
-		try
-		{
-			return adapter.listenUsingInsecureRfcommWithServiceRecord(serviceName, serviceUuid);
-		}
-		catch (final IOException x)
-		{
-			throw new RuntimeException(x);
-		}
+		return adapter.listenUsingInsecureRfcommWithServiceRecord(serviceName, serviceUuid);
 	}
 
 	protected abstract boolean handleTx(@Nonnull Transaction tx);
