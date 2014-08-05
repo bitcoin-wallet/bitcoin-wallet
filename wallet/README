@@ -188,6 +188,13 @@ Instructions for preparing an NFC tag with your address:
   could overwrite the tag with his own Bitcoin address.
 
 
+BITCOINJ
+
+Bitcoin Wallet uses bitcoinj for Bitcoin specific logic:
+
+	https://bitcoinj.github.io/
+
+
 EXCHANGE RATES
 
 Bitcoin Wallet reads this feed from "BitcoinAverage" for getting exchange rates:
@@ -201,10 +208,3 @@ time).
 If the above feed is not available, the feed from "Blockchain.info" is fetched instead:
 
 	https://blockchain.info/ticker
-
-
-BITCOINJ
-
-Bitcoin Wallet uses bitcoinj for Bitcoin specific logic:
-
-http://code.google.com/p/bitcoinj/
