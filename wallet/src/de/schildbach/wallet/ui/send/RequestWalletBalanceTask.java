@@ -68,6 +68,8 @@ public final class RequestWalletBalanceTask
 
 	private static final Logger log = LoggerFactory.getLogger(RequestWalletBalanceTask.class);
 
+	private final BaseEncoding HEX = BaseEncoding.base16().lowerCase();
+
 	public interface ResultCallback
 	{
 		void onResult(Collection<Transaction> transactions);
@@ -151,7 +153,7 @@ public final class RequestWalletBalanceTask
 
 							final Sha256Hash uxtoHash = new Sha256Hash(jsonOutput.getString("transaction_hash"));
 							final int uxtoIndex = jsonOutput.getInt("transaction_index");
-							final byte[] uxtoScriptBytes = BaseEncoding.base16().lowerCase().decode(jsonOutput.getString("script_pub_key"));
+							final byte[] uxtoScriptBytes = HEX.decode(jsonOutput.getString("script_pub_key"));
 							final BigInteger uxtoValue = new BigInteger(jsonOutput.getString("value"));
 
 							Transaction tx = transactions.get(uxtoHash);
