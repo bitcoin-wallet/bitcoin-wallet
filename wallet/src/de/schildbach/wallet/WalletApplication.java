@@ -594,4 +594,10 @@ public class WalletApplication extends Application
 		final long now = System.currentTimeMillis();
 		alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, now + alarmInterval, AlarmManager.INTERVAL_DAY, alarmIntent);
 	}
+
+	@Override
+	public void onTrimMemory(final int level)
+	{
+		log.info("trim memory to level {} requested", level);
+	}
 }

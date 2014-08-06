@@ -769,13 +769,6 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 	}
 
 	@Override
-	public void onLowMemory()
-	{
-		log.warn("low memory detected, stopping service");
-		stopSelf();
-	}
-
-	@Override
 	public List<Peer> getConnectedPeers()
 	{
 		if (peerGroup != null)
@@ -884,5 +877,18 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 				wallet.setKeyRotationEnabled(!replaying);
 			}
 		}.start();
+	}
+
+	@Override
+	public void onTrimMemory(final int level)
+	{
+		log.info("trim memory to level {} requested", level);
+	}
+
+	@Override
+	public void onLowMemory()
+	{
+		log.warn("low memory detected, stopping service");
+		stopSelf();
 	}
 }
