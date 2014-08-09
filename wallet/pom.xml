@@ -170,6 +170,68 @@
 		</testResources>
 		<plugins>
 			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>batik-maven-plugin</artifactId>
+				<executions>
+					<!-- need to bind to initialize phase because aapt runs in generate-sources already -->
+					<execution>
+						<id>hdpi</id>
+						<phase>initialize</phase>
+						<configuration>
+							<srcDir>graphics</srcDir>
+							<srcIncludes>app_icon.svg</srcIncludes>
+							<destDir>${basedir}/res/drawable-hdpi/</destDir>
+							<width>72</width>
+							<height>72</height>
+						</configuration>
+						<goals>
+							<goal>rasterize</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>xhdpi</id>
+						<phase>initialize</phase>
+						<configuration>
+							<srcDir>graphics</srcDir>
+							<srcIncludes>app_icon.svg</srcIncludes>
+							<destDir>${basedir}/res/drawable-xhdpi/</destDir>
+							<width>96</width>
+							<height>96</height>
+						</configuration>
+						<goals>
+							<goal>rasterize</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>xxhdpi</id>
+						<phase>initialize</phase>
+						<configuration>
+							<srcDir>graphics</srcDir>
+							<srcIncludes>app_icon.svg</srcIncludes>
+							<destDir>${basedir}/res/drawable-xxhdpi/</destDir>
+							<width>144</width>
+							<height>144</height>
+						</configuration>
+						<goals>
+							<goal>rasterize</goal>
+						</goals>
+					</execution>
+				</executions>
+				<dependencies>
+					<dependency>
+						<groupId>batik</groupId>
+						<artifactId>batik-transcoder</artifactId>
+						<version>1.6-1</version>
+						<exclusions>
+							<exclusion>
+								<artifactId>fop</artifactId>
+								<groupId>fop</groupId>
+							</exclusion>
+						</exclusions>
+					</dependency>
+				</dependencies>
+			</plugin>
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
