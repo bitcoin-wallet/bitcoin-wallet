@@ -404,7 +404,7 @@ public class SweepWalletFragment extends Fragment
 			}
 		};
 
-		final Address address = walletToSweep.getKeys().iterator().next().toAddress(Constants.NETWORK_PARAMETERS);
+		final Address address = walletToSweep.getImportedKeys().iterator().next().toAddress(Constants.NETWORK_PARAMETERS);
 		new RequestWalletBalanceTask(backgroundHandler, callback, application.httpUserAgent()).requestWalletBalance(address);
 	}
 

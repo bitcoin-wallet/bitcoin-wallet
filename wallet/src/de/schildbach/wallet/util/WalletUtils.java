@@ -343,7 +343,7 @@ public class WalletUtils
 	{
 		ECKey oldestKey = null;
 
-		for (final ECKey key : wallet.getKeys())
+		for (final ECKey key : wallet.getImportedKeys())
 			if (!wallet.isKeyRotating(key))
 				if (oldestKey == null || key.getCreationTimeSeconds() < oldestKey.getCreationTimeSeconds())
 					oldestKey = key;

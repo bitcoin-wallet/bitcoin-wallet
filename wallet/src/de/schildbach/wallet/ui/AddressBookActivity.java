@@ -134,7 +134,7 @@ public final class AddressBookActivity extends AbstractWalletActivity
 
 	/* private */void updateFragments()
 	{
-		final List<ECKey> keys = getWalletApplication().getWallet().getKeys();
+		final List<ECKey> keys = getWalletApplication().getWallet().getImportedKeys();
 		final ArrayList<Address> addresses = new ArrayList<Address>(keys.size());
 
 		for (final ECKey key : keys)

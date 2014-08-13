@@ -295,7 +295,7 @@ public final class WalletAddressesFragment extends ListFragment
 		@Override
 		public void onKeysAdded(final Wallet w, final List<ECKey> keysAdded)
 		{
-			final List<ECKey> keys = wallet.getKeys();
+			final List<ECKey> keys = wallet.getImportedKeys();
 
 			Collections.sort(keys, new Comparator<ECKey>()
 			{
