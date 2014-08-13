@@ -108,7 +108,7 @@ public final class WalletAddressesFragment extends ListFragment
 		contentResolver.registerContentObserver(AddressBookProvider.contentUri(activity.getPackageName()), true, contentObserver);
 
 		wallet.addEventListener(walletListener, Threading.SAME_THREAD);
-		walletListener.onKeysAdded(null, null); // trigger initial load of keys
+		walletListener.onKeysAdded(null); // trigger initial load of keys
 
 		updateView();
 	}
@@ -293,7 +293,7 @@ public final class WalletAddressesFragment extends ListFragment
 	private final WalletEventListener walletListener = new AbstractWalletEventListener()
 	{
 		@Override
-		public void onKeysAdded(final Wallet w, final List<ECKey> keysAdded)
+		public void onKeysAdded(final List<ECKey> keysAdded)
 		{
 			final List<ECKey> keys = wallet.getImportedKeys();
 
