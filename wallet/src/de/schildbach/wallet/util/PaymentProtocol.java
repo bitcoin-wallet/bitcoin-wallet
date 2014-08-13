@@ -29,7 +29,7 @@ import org.bitcoin.protocols.payments.Protos;
 import com.google.bitcoin.core.Address;
 import com.google.bitcoin.core.ScriptException;
 import com.google.bitcoin.core.Transaction;
-import com.google.bitcoin.protocols.payments.PaymentRequestException;
+import com.google.bitcoin.protocols.payments.PaymentProtocolException;
 import com.google.bitcoin.protocols.payments.PaymentSession;
 import com.google.bitcoin.protocols.payments.PaymentSession.PkiVerificationData;
 import com.google.bitcoin.script.Script;
@@ -76,12 +76,12 @@ public final class PaymentProtocol
 		return paymentRequest.build();
 	}
 
-	public static PaymentIntent parsePaymentRequest(@Nonnull final byte[] serializedPaymentRequest) throws PaymentRequestException
+	public static PaymentIntent parsePaymentRequest(@Nonnull final byte[] serializedPaymentRequest) throws PaymentProtocolException
 	{
 		try
 		{
 			if (serializedPaymentRequest.length > 50000)
-				throw new PaymentRequestException("payment request too big: " + serializedPaymentRequest.length);
+				throw new PaymentProtocolException("payment request too big: " + serializedPaymentRequest.length);
 
 			final Protos.PaymentRequest paymentRequest = Protos.PaymentRequest.parseFrom(serializedPaymentRequest);
 
@@ -104,7 +104,7 @@ public final class PaymentProtocol
 			}
 
 			if (paymentRequest.getPaymentDetailsVersion() != 1)
-				throw new PaymentRequestException.InvalidVersion("cannot handle payment details version: "
+				throw new PaymentProtocolException.InvalidVersion("cannot handle payment details version: "
 						+ paymentRequest.getPaymentDetailsVersion());
 
 			final Protos.PaymentDetails paymentDetails = Protos.PaymentDetails.newBuilder().mergeFrom(paymentRequest.getSerializedPaymentDetails())
@@ -112,11 +112,11 @@ public final class PaymentProtocol
 
 			final long currentTimeSecs = System.currentTimeMillis() / 1000;
 			if (paymentDetails.hasExpires() && currentTimeSecs >= paymentDetails.getExpires())
-				throw new PaymentRequestException.Expired("payment details expired: current time " + currentTimeSecs + " after expiry time "
+				throw new PaymentProtocolException.Expired("payment details expired: current time " + currentTimeSecs + " after expiry time "
 						+ paymentDetails.getExpires());
 
 			if (!paymentDetails.getNetwork().equals(Constants.NETWORK_PARAMETERS.getPaymentProtocolId()))
-				throw new PaymentRequestException.InvalidNetwork("cannot handle payment request network: " + paymentDetails.getNetwork());
+				throw new PaymentProtocolException.InvalidNetwork("cannot handle payment request network: " + paymentDetails.getNetwork());
 
 			final ArrayList<PaymentIntent.Output> outputs = new ArrayList<PaymentIntent.Output>(paymentDetails.getOutputsCount());
 			for (final Protos.Output output : paymentDetails.getOutputsList())
@@ -132,21 +132,21 @@ public final class PaymentProtocol
 					outputs.toArray(new PaymentIntent.Output[0]), memo, paymentUrl, merchantData, null, paymentRequestHash);
 
 			if (paymentIntent.hasPaymentUrl() && !paymentIntent.isSupportedPaymentUrl())
-				throw new PaymentRequestException.InvalidPaymentURL("cannot handle payment url: " + paymentIntent.paymentUrl);
+				throw new PaymentProtocolException.InvalidPaymentURL("cannot handle payment url: " + paymentIntent.paymentUrl);
 
 			return paymentIntent;
 		}
 		catch (final InvalidProtocolBufferException x)
 		{
-			throw new PaymentRequestException(x);
+			throw new PaymentProtocolException(x);
 		}
 		catch (final UninitializedMessageException x)
 		{
-			throw new PaymentRequestException(x);
+			throw new PaymentProtocolException(x);
 		}
 	}
 
-	private static PaymentIntent.Output parseOutput(@Nonnull final Protos.Output output) throws PaymentRequestException.InvalidOutputs
+	private static PaymentIntent.Output parseOutput(@Nonnull final Protos.Output output) throws PaymentProtocolException.InvalidOutputs
 	{
 		try
 		{
@@ -156,7 +156,7 @@ public final class PaymentProtocol
 		}
 		catch (final ScriptException x)
 		{
-			throw new PaymentRequestException.InvalidOutputs("unparseable script in output: " + output.toString());
+			throw new PaymentProtocolException.InvalidOutputs("unparseable script in output: " + output.toString());
 		}
 	}
 
