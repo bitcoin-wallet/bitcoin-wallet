@@ -253,7 +253,7 @@ public final class RequestWalletBalanceTask
 
 		public FakeTransaction(final NetworkParameters params, final Sha256Hash hash)
 		{
-			super(params, 1, hash);
+			super(params);
 			this.hash = hash;
 		}
 
