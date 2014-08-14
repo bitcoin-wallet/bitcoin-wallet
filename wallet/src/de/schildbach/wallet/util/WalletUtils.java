@@ -27,7 +27,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Writer;
-import java.math.BigInteger;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.Date;
@@ -46,7 +45,6 @@ import android.text.style.TypefaceSpan;
 
 import com.google.bitcoin.core.Address;
 import com.google.bitcoin.core.AddressFormatException;
-import com.google.bitcoin.core.Coin;
 import com.google.bitcoin.core.DumpedPrivateKey;
 import com.google.bitcoin.core.ECKey;
 import com.google.bitcoin.core.ScriptException;
@@ -111,18 +109,6 @@ public class WalletUtils
 		}
 
 		return builder;
-	}
-
-	private static final BigInteger COIN_BI = BigInteger.valueOf(Coin.COIN.value);
-
-	public static Coin localValue(@Nonnull final Coin btcValue, final BigInteger rate)
-	{
-		return Coin.valueOf(BigInteger.valueOf(btcValue.value).multiply(rate).divide(COIN_BI).longValue());
-	}
-
-	public static Coin btcValue(@Nonnull final Coin localValue, final BigInteger rate)
-	{
-		return Coin.valueOf(BigInteger.valueOf(localValue.value).multiply(COIN_BI).divide(rate).longValue());
 	}
 
 	@CheckForNull

@@ -38,6 +38,7 @@ import android.widget.RemoteViews;
 import com.google.bitcoin.core.Coin;
 import com.google.bitcoin.core.Wallet;
 import com.google.bitcoin.core.Wallet.BalanceType;
+import com.google.bitcoin.utils.Fiat;
 import com.google.bitcoin.utils.MonetaryFormat;
 
 import de.schildbach.wallet.ExchangeRatesProvider.ExchangeRate;
@@ -47,7 +48,6 @@ import de.schildbach.wallet.ui.WalletActivity;
 import de.schildbach.wallet.ui.send.SendCoinsActivity;
 import de.schildbach.wallet.util.GenericUtils;
 import de.schildbach.wallet.util.MonetarySpannable;
-import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
 
 /**
@@ -103,9 +103,9 @@ public class WalletBalanceWidgetProvider extends AppWidgetProvider
 			if (data.moveToFirst())
 			{
 				final ExchangeRate exchangeRate = ExchangeRatesProvider.getExchangeRate(data);
-				final Coin localBalance = WalletUtils.localValue(balance, exchangeRate.rate);
+				final Fiat localBalance = exchangeRate.rate.coinToFiat(balance);
 				final MonetaryFormat localFormat = Constants.LOCAL_FORMAT.code(0,
-						Constants.PREFIX_ALMOST_EQUAL_TO + GenericUtils.currencySymbol(exchangeRate.currencyCode));
+						Constants.PREFIX_ALMOST_EQUAL_TO + GenericUtils.currencySymbol(exchangeRate.getCurrencyCode()));
 				localBalanceStr = new MonetarySpannable(localFormat, localBalance).applyMarkup(MonetarySpannable.SMALLER_SPAN,
 						new ForegroundColorSpan(context.getResources().getColor(R.color.fg_less_significant)), MonetarySpannable.SMALLER_SPAN);
 			}

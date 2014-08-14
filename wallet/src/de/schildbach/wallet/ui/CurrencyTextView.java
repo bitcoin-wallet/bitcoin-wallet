@@ -26,7 +26,7 @@ import android.text.style.RelativeSizeSpan;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
-import com.google.bitcoin.core.Coin;
+import com.google.bitcoin.core.Monetary;
 import com.google.bitcoin.utils.MonetaryFormat;
 
 import de.schildbach.wallet.Constants;
@@ -38,7 +38,7 @@ import de.schildbach.wallet_test.R;
  */
 public final class CurrencyTextView extends TextView
 {
-	private Coin amount = null;
+	private Monetary amount = null;
 	private MonetaryFormat format = null;
 	private boolean alwaysSigned = false;
 	private RelativeSizeSpan prefixRelativeSizeSpan = null;
@@ -55,7 +55,7 @@ public final class CurrencyTextView extends TextView
 		super(context, attrs);
 	}
 
-	public void setAmount(@Nonnull final Coin amount)
+	public void setAmount(@Nonnull final Monetary amount)
 	{
 		this.amount = amount;
 		updateView();

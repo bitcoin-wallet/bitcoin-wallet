@@ -124,7 +124,7 @@ public final class RequestCoinsFragment extends Fragment
 				data.moveToFirst();
 				final ExchangeRate exchangeRate = ExchangeRatesProvider.getExchangeRate(data);
 
-				amountCalculatorLink.setExchangeRate(exchangeRate);
+				amountCalculatorLink.setExchangeRate(exchangeRate.rate);
 				updateView();
 			}
 		}

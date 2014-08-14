@@ -364,7 +364,7 @@ public final class SendCoinsFragment extends Fragment
 				final ExchangeRate exchangeRate = ExchangeRatesProvider.getExchangeRate(data);
 
 				if (state == State.INPUT)
-					amountCalculatorLink.setExchangeRate(exchangeRate);
+					amountCalculatorLink.setExchangeRate(exchangeRate.rate);
 			}
 		}
 

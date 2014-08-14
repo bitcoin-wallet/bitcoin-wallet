@@ -22,7 +22,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.math.BigInteger;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -51,6 +50,7 @@ import android.provider.BaseColumns;
 import android.text.format.DateUtils;
 
 import com.google.bitcoin.core.Coin;
+import com.google.bitcoin.utils.Fiat;
 import com.google.common.base.Charsets;
 
 import de.schildbach.wallet.util.GenericUtils;
@@ -63,26 +63,30 @@ public class ExchangeRatesProvider extends ContentProvider
 {
 	public static class ExchangeRate
 	{
-		public ExchangeRate(@Nonnull final String currencyCode, @Nonnull final BigInteger rate, final String source)
+		public ExchangeRate(@Nonnull final com.google.bitcoin.utils.ExchangeRate rate, final String source)
 		{
-			this.currencyCode = currencyCode;
 			this.rate = rate;
 			this.source = source;
 		}
 
-		public final String currencyCode;
-		public final BigInteger rate;
+		public final com.google.bitcoin.utils.ExchangeRate rate;
 		public final String source;
+
+		public String getCurrencyCode()
+		{
+			return rate.fiat.currencyCode;
+		}
 
 		@Override
 		public String toString()
 		{
-			return getClass().getSimpleName() + '[' + currencyCode + ':' + Coin.valueOf(rate.longValue()).toPlainString() + ']';
+			return getClass().getSimpleName() + '[' + rate.fiat + ']';
 		}
 	}
 
 	public static final String KEY_CURRENCY_CODE = "currency_code";
-	private static final String KEY_RATE = "rate";
+	private static final String KEY_RATE_COIN = "rate_coin";
+	private static final String KEY_RATE_FIAT = "rate_fiat";
 	private static final String KEY_SOURCE = "source";
 
 	public static final String QUERY_PARAM_Q = "q";
@@ -134,7 +138,7 @@ public class ExchangeRatesProvider extends ContentProvider
 		if (cachedExchangeRate != null)
 		{
 			exchangeRates = new TreeMap<String, ExchangeRate>();
-			exchangeRates.put(cachedExchangeRate.currencyCode, cachedExchangeRate);
+			exchangeRates.put(cachedExchangeRate.getCurrencyCode(), cachedExchangeRate);
 		}
 
 		return true;
@@ -177,14 +181,16 @@ public class ExchangeRatesProvider extends ContentProvider
 		if (exchangeRates == null)
 			return null;
 
-		final MatrixCursor cursor = new MatrixCursor(new String[] { BaseColumns._ID, KEY_CURRENCY_CODE, KEY_RATE, KEY_SOURCE });
+		final MatrixCursor cursor = new MatrixCursor(new String[] { BaseColumns._ID, KEY_CURRENCY_CODE, KEY_RATE_COIN, KEY_RATE_FIAT, KEY_SOURCE });
 
 		if (selection == null)
 		{
 			for (final Map.Entry<String, ExchangeRate> entry : exchangeRates.entrySet())
 			{
-				final ExchangeRate rate = entry.getValue();
-				cursor.newRow().add(rate.currencyCode.hashCode()).add(rate.currencyCode).add(rate.rate.longValue()).add(rate.source);
+				final ExchangeRate exchangeRate = entry.getValue();
+				final com.google.bitcoin.utils.ExchangeRate rate = exchangeRate.rate;
+				final String currencyCode = exchangeRate.getCurrencyCode();
+				cursor.newRow().add(currencyCode.hashCode()).add(currencyCode).add(rate.coin.value).add(rate.fiat.value).add(exchangeRate.source);
 			}
 		}
 		else if (selection.equals(QUERY_PARAM_Q))
@@ -192,19 +198,24 @@ public class ExchangeRatesProvider extends ContentProvider
 			final String selectionArg = selectionArgs[0].toLowerCase(Locale.US);
 			for (final Map.Entry<String, ExchangeRate> entry : exchangeRates.entrySet())
 			{
-				final ExchangeRate rate = entry.getValue();
-				final String currencyCode = rate.currencyCode;
+				final ExchangeRate exchangeRate = entry.getValue();
+				final com.google.bitcoin.utils.ExchangeRate rate = exchangeRate.rate;
+				final String currencyCode = exchangeRate.getCurrencyCode();
 				final String currencySymbol = GenericUtils.currencySymbol(currencyCode);
 				if (currencyCode.toLowerCase(Locale.US).contains(selectionArg) || currencySymbol.toLowerCase(Locale.US).contains(selectionArg))
-					cursor.newRow().add(currencyCode.hashCode()).add(currencyCode).add(rate.rate.longValue()).add(rate.source);
+					cursor.newRow().add(currencyCode.hashCode()).add(currencyCode).add(rate.coin.value).add(rate.fiat.value).add(exchangeRate.source);
 			}
 		}
 		else if (selection.equals(KEY_CURRENCY_CODE))
 		{
 			final String selectionArg = selectionArgs[0];
-			final ExchangeRate rate = bestExchangeRate(selectionArg);
-			if (rate != null)
-				cursor.newRow().add(rate.currencyCode.hashCode()).add(rate.currencyCode).add(rate.rate.longValue()).add(rate.source);
+			final ExchangeRate exchangeRate = bestExchangeRate(selectionArg);
+			if (exchangeRate != null)
+			{
+				final com.google.bitcoin.utils.ExchangeRate rate = exchangeRate.rate;
+				final String currencyCode = exchangeRate.getCurrencyCode();
+				cursor.newRow().add(currencyCode.hashCode()).add(currencyCode).add(rate.coin.value).add(rate.fiat.value).add(exchangeRate.source);
+			}
 		}
 
 		return cursor;
@@ -240,10 +251,11 @@ public class ExchangeRatesProvider extends ContentProvider
 	public static ExchangeRate getExchangeRate(@Nonnull final Cursor cursor)
 	{
 		final String currencyCode = cursor.getString(cursor.getColumnIndexOrThrow(ExchangeRatesProvider.KEY_CURRENCY_CODE));
-		final BigInteger rate = BigInteger.valueOf(cursor.getLong(cursor.getColumnIndexOrThrow(ExchangeRatesProvider.KEY_RATE)));
+		final Coin rateCoin = Coin.valueOf(cursor.getLong(cursor.getColumnIndexOrThrow(ExchangeRatesProvider.KEY_RATE_COIN)));
+		final Fiat rateFiat = Fiat.valueOf(currencyCode, cursor.getLong(cursor.getColumnIndexOrThrow(ExchangeRatesProvider.KEY_RATE_FIAT)));
 		final String source = cursor.getString(cursor.getColumnIndexOrThrow(ExchangeRatesProvider.KEY_SOURCE));
 
-		return new ExchangeRate(currencyCode, rate, source);
+		return new ExchangeRate(new com.google.bitcoin.utils.ExchangeRate(rateCoin, rateFiat), source);
 	}
 
 	@Override
@@ -319,11 +331,11 @@ public class ExchangeRatesProvider extends ContentProvider
 							{
 								try
 								{
-									final BigInteger rate = BigInteger.valueOf((long) (Double.parseDouble(rateStr) * Coin.COIN.value));
+									final Fiat rate = Fiat.parseFiat(currencyCode, rateStr);
 
 									if (rate.signum() > 0)
 									{
-										rates.put(currencyCode, new ExchangeRate(currencyCode, rate, source));
+										rates.put(currencyCode, new ExchangeRate(new com.google.bitcoin.utils.ExchangeRate(rate), source));
 										break;
 									}
 								}
