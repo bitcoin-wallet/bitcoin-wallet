@@ -53,7 +53,6 @@ import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.WalletBalanceWidgetProvider;
 import de.schildbach.wallet.service.BlockchainState;
 import de.schildbach.wallet.service.BlockchainStateLoader;
-import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet.util.WholeStringBuilder;
 import de.schildbach.wallet_test.R;
 
@@ -202,7 +201,7 @@ public final class ExchangeRatesFragment extends FancyListFragment implements On
 			@Override
 			public boolean onPrepareActionMode(final ActionMode mode, final Menu menu)
 			{
-				mode.setTitle(exchangeRate.currencyCode);
+				mode.setTitle(exchangeRate.getCurrencyCode());
 				mode.setSubtitle(getString(R.string.exchange_rates_fragment_source, exchangeRate.source));
 
 				return true;
@@ -214,7 +213,7 @@ public final class ExchangeRatesFragment extends FancyListFragment implements On
 				switch (item.getItemId())
 				{
 					case R.id.exchange_rates_context_set_as_default:
-						handleSetAsDefault(exchangeRate.currencyCode);
+						handleSetAsDefault(exchangeRate.getCurrencyCode());
 
 						mode.finish();
 						return true;
@@ -373,7 +372,7 @@ public final class ExchangeRatesFragment extends FancyListFragment implements On
 		public void bindView(final View view, final Context context, final Cursor cursor)
 		{
 			final ExchangeRate exchangeRate = ExchangeRatesProvider.getExchangeRate(cursor);
-			final boolean isDefaultCurrency = exchangeRate.currencyCode.equals(defaultCurrency);
+			final boolean isDefaultCurrency = exchangeRate.getCurrencyCode().equals(defaultCurrency);
 
 			view.setBackgroundResource(isDefaultCurrency ? R.color.bg_list_selected : R.color.bg_list);
 
@@ -381,17 +380,17 @@ public final class ExchangeRatesFragment extends FancyListFragment implements On
 			defaultView.setVisibility(isDefaultCurrency ? View.VISIBLE : View.INVISIBLE);
 
 			final TextView currencyCodeView = (TextView) view.findViewById(R.id.exchange_rate_row_currency_code);
-			currencyCodeView.setText(exchangeRate.currencyCode);
+			currencyCodeView.setText(exchangeRate.getCurrencyCode());
 
 			final CurrencyTextView rateView = (CurrencyTextView) view.findViewById(R.id.exchange_rate_row_rate);
 			rateView.setFormat(Constants.LOCAL_FORMAT);
-			rateView.setAmount(WalletUtils.localValue(rateBase, exchangeRate.rate));
+			rateView.setAmount(exchangeRate.rate.coinToFiat(rateBase));
 
 			final CurrencyTextView walletView = (CurrencyTextView) view.findViewById(R.id.exchange_rate_row_balance);
 			walletView.setFormat(Constants.LOCAL_FORMAT);
 			if (blockchainState == null || !blockchainState.replaying)
 			{
-				walletView.setAmount(WalletUtils.localValue(balance, exchangeRate.rate));
+				walletView.setAmount(exchangeRate.rate.coinToFiat(balance));
 				walletView.setStrikeThru(Constants.TEST);
 			}
 			else

@@ -24,7 +24,7 @@ import java.util.regex.Matcher;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import org.bitcoinj.core.Coin;
+import org.bitcoinj.core.Monetary;
 import org.bitcoinj.utils.MonetaryFormat;
 
 import android.graphics.Typeface;
@@ -39,27 +39,27 @@ import de.schildbach.wallet.Constants;
  */
 public final class MonetarySpannable extends SpannableString
 {
-	public MonetarySpannable(final MonetaryFormat format, final boolean signed, @Nullable final Coin coin)
+	public MonetarySpannable(final MonetaryFormat format, final boolean signed, @Nullable final Monetary monetary)
 	{
-		super(format(format, signed, coin));
+		super(format(format, signed, monetary));
 	}
 
-	public MonetarySpannable(final MonetaryFormat format, @Nullable final Coin coin)
+	public MonetarySpannable(final MonetaryFormat format, @Nullable final Monetary monetary)
 	{
-		super(format(format, false, coin));
+		super(format(format, false, monetary));
 	}
 
-	private static CharSequence format(final MonetaryFormat format, final boolean signed, final Coin coin)
+	private static CharSequence format(final MonetaryFormat format, final boolean signed, final Monetary monetary)
 	{
-		if (coin == null)
+		if (monetary == null)
 			return "";
 
-		checkArgument(coin.signum() >= 0 || signed);
+		checkArgument(monetary.signum() >= 0 || signed);
 
 		if (signed)
-			return format.negativeSign(Constants.CURRENCY_MINUS_SIGN).positiveSign(Constants.CURRENCY_PLUS_SIGN).format(coin);
+			return format.negativeSign(Constants.CURRENCY_MINUS_SIGN).positiveSign(Constants.CURRENCY_PLUS_SIGN).format(monetary);
 		else
-			return format.format(coin);
+			return format.format(monetary);
 	}
 
 	public MonetarySpannable applyMarkup(@Nullable final Object prefixSpan1, @Nullable final Object prefixSpan2,

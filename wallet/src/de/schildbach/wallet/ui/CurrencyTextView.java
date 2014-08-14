@@ -19,7 +19,7 @@ package de.schildbach.wallet.ui;
 
 import javax.annotation.Nonnull;
 
-import org.bitcoinj.core.Coin;
+import org.bitcoinj.core.Monetary;
 import org.bitcoinj.utils.MonetaryFormat;
 
 import android.content.Context;
@@ -37,7 +37,7 @@ import de.schildbach.wallet_test.R;
  */
 public final class CurrencyTextView extends TextView
 {
-	private Coin amount = null;
+	private Monetary amount = null;
 	private MonetaryFormat format = null;
 	private boolean alwaysSigned = false;
 	private RelativeSizeSpan prefixRelativeSizeSpan = null;
@@ -54,7 +54,7 @@ public final class CurrencyTextView extends TextView
 		super(context, attrs);
 	}
 
-	public void setAmount(@Nonnull final Coin amount)
+	public void setAmount(@Nonnull final Monetary amount)
 	{
 		this.amount = amount;
 		updateView();

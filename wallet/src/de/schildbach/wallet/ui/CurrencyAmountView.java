@@ -22,6 +22,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.bitcoinj.core.Coin;
+import org.bitcoinj.core.Monetary;
 import org.bitcoinj.core.Transaction;
 import org.bitcoinj.utils.MonetaryFormat;
 
@@ -61,8 +62,9 @@ public final class CurrencyAmountView extends FrameLayout
 	private int significantColor, lessSignificantColor, errorColor;
 	private Drawable deleteButtonDrawable, contextButtonDrawable;
 	private Drawable currencySymbolDrawable;
+	private String localCurrencyCode = null;
 	private MonetaryFormat inputFormat;
-	private Coin hint = null;
+	private Monetary hint = null;
 	private MonetaryFormat hintFormat = new MonetaryFormat().noCode();
 	private boolean amountSigned = false;
 	private boolean validateAmount = true;
@@ -130,25 +132,30 @@ public final class CurrencyAmountView extends FrameLayout
 		if (MonetaryFormat.CODE_BTC.equals(currencyCode))
 		{
 			currencySymbolDrawable = getResources().getDrawable(R.drawable.currency_symbol_btc);
+			localCurrencyCode = null;
 		}
 		else if (MonetaryFormat.CODE_MBTC.equals(currencyCode))
 		{
 			currencySymbolDrawable = getResources().getDrawable(R.drawable.currency_symbol_mbtc);
+			localCurrencyCode = null;
 		}
 		else if (MonetaryFormat.CODE_UBTC.equals(currencyCode))
 		{
 			currencySymbolDrawable = getResources().getDrawable(R.drawable.currency_symbol_ubtc);
+			localCurrencyCode = null;
 		}
-		else if (currencyCode != null)
+		else if (currencyCode != null) // fiat
 		{
 			final String currencySymbol = GenericUtils.currencySymbol(currencyCode);
 			final float textSize = textView.getTextSize();
 			final float smallerTextSize = textSize * (20f / 24f);
 			currencySymbolDrawable = new CurrencySymbolDrawable(currencySymbol, smallerTextSize, lessSignificantColor, textSize * 0.37f);
+			localCurrencyCode = currencyCode;
 		}
 		else
 		{
 			currencySymbolDrawable = null;
+			localCurrencyCode = null;
 		}
 
 		updateAppearance();
@@ -165,7 +172,7 @@ public final class CurrencyAmountView extends FrameLayout
 		updateAppearance();
 	}
 
-	public void setHint(@Nullable final Coin hint)
+	public void setHint(@Nullable final Monetary hint)
 	{
 		this.hint = hint;
 		updateAppearance();
@@ -195,15 +202,19 @@ public final class CurrencyAmountView extends FrameLayout
 	}
 
 	@CheckForNull
-	public Coin getAmount()
+	public Monetary getAmount()
 	{
-		if (isValidAmount(false))
-			return inputFormat.parse(textView.getText().toString().trim());
-		else
+		if (!isValidAmount(false))
 			return null;
+
+		final String amountStr = textView.getText().toString().trim();
+		if (localCurrencyCode == null)
+			return inputFormat.parse(amountStr);
+		else
+			return inputFormat.parseFiat(localCurrencyCode, amountStr);
 	}
 
-	public void setAmount(@Nullable final Coin amount, final boolean fireListener)
+	public void setAmount(@Nullable final Monetary amount, final boolean fireListener)
 	{
 		if (!fireListener)
 			textViewListener.setFire(false);
@@ -261,15 +272,22 @@ public final class CurrencyAmountView extends FrameLayout
 		{
 			if (!str.isEmpty())
 			{
-				final Coin coin = inputFormat.parse(str);
+				final Monetary amount;
+				if (localCurrencyCode == null)
+					amount = inputFormat.parse(str);
+				else
+					amount = inputFormat.parseFiat(localCurrencyCode, str);
 
 				// exactly zero
-				if (zeroIsValid && coin.signum() == 0)
+				if (zeroIsValid && amount.signum() == 0)
 					return true;
 
-				// too small
-				if (coin.compareTo(Transaction.MIN_NONDUST_OUTPUT) < 0)
-					return false;
+				if (amount instanceof Coin)
+				{
+					// too small
+					if (((Coin) amount).compareTo(Transaction.MIN_NONDUST_OUTPUT) < 0)
+						return false;
+				}
 
 				return true;
 			}
@@ -342,7 +360,7 @@ public final class CurrencyAmountView extends FrameLayout
 			final Bundle bundle = (Bundle) state;
 			super.onRestoreInstanceState(bundle.getParcelable("super_state"));
 			textView.onRestoreInstanceState(bundle.getParcelable("child_textview"));
-			setAmount((Coin) bundle.getSerializable("amount"), false);
+			setAmount((Monetary) bundle.getSerializable("amount"), false);
 		}
 		else
 		{
@@ -394,7 +412,7 @@ public final class CurrencyAmountView extends FrameLayout
 		{
 			if (!hasFocus)
 			{
-				final Coin amount = getAmount();
+				final Monetary amount = getAmount();
 				if (amount != null)
 					setAmount(amount, false);
 			}

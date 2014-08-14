@@ -22,6 +22,7 @@ import javax.annotation.Nonnull;
 import org.bitcoinj.core.Coin;
 import org.bitcoinj.core.Wallet;
 import org.bitcoinj.core.Wallet.BalanceType;
+import org.bitcoinj.utils.Fiat;
 import org.bitcoinj.utils.MonetaryFormat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,7 +46,6 @@ import de.schildbach.wallet.ui.WalletActivity;
 import de.schildbach.wallet.ui.send.SendCoinsActivity;
 import de.schildbach.wallet.util.GenericUtils;
 import de.schildbach.wallet.util.MonetarySpannable;
-import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
 
 /**
@@ -101,9 +101,9 @@ public class WalletBalanceWidgetProvider extends AppWidgetProvider
 			if (data.moveToFirst())
 			{
 				final ExchangeRate exchangeRate = ExchangeRatesProvider.getExchangeRate(data);
-				final Coin localBalance = WalletUtils.localValue(balance, exchangeRate.rate);
+				final Fiat localBalance = exchangeRate.rate.coinToFiat(balance);
 				final MonetaryFormat localFormat = Constants.LOCAL_FORMAT.code(0,
-						Constants.PREFIX_ALMOST_EQUAL_TO + GenericUtils.currencySymbol(exchangeRate.currencyCode));
+						Constants.PREFIX_ALMOST_EQUAL_TO + GenericUtils.currencySymbol(exchangeRate.getCurrencyCode()));
 				localBalanceStr = new MonetarySpannable(localFormat, localBalance).applyMarkup(MonetarySpannable.SMALLER_SPAN,
 						new ForegroundColorSpan(context.getResources().getColor(R.color.fg_less_significant)), MonetarySpannable.SMALLER_SPAN);
 			}

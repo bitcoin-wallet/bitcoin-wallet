@@ -21,6 +21,7 @@ import javax.annotation.CheckForNull;
 
 import org.bitcoinj.core.Coin;
 import org.bitcoinj.core.Wallet;
+import org.bitcoinj.utils.Fiat;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -45,7 +46,6 @@ import de.schildbach.wallet.ExchangeRatesProvider.ExchangeRate;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.service.BlockchainState;
 import de.schildbach.wallet.service.BlockchainStateLoader;
-import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
 
 /**
@@ -222,9 +222,9 @@ public final class WalletBalanceFragment extends Fragment
 				{
 					if (exchangeRate != null)
 					{
-						final Coin localValue = WalletUtils.localValue(balance, exchangeRate.rate);
+						final Fiat localValue = exchangeRate.rate.coinToFiat(balance);
 						viewBalanceLocalFrame.setVisibility(View.VISIBLE);
-						viewBalanceLocal.setFormat(Constants.LOCAL_FORMAT.code(0, Constants.PREFIX_ALMOST_EQUAL_TO + exchangeRate.currencyCode));
+						viewBalanceLocal.setFormat(Constants.LOCAL_FORMAT.code(0, Constants.PREFIX_ALMOST_EQUAL_TO + exchangeRate.getCurrencyCode()));
 						viewBalanceLocal.setAmount(localValue);
 						viewBalanceLocal.setTextColor(getResources().getColor(R.color.fg_less_significant));
 					}

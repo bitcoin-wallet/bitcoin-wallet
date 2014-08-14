@@ -27,7 +27,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Writer;
-import java.math.BigInteger;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.Date;
@@ -40,7 +39,6 @@ import javax.annotation.Nullable;
 
 import org.bitcoinj.core.Address;
 import org.bitcoinj.core.AddressFormatException;
-import org.bitcoinj.core.Coin;
 import org.bitcoinj.core.DumpedPrivateKey;
 import org.bitcoinj.core.ECKey;
 import org.bitcoinj.core.ScriptException;
@@ -112,18 +110,6 @@ public class WalletUtils
 		}
 
 		return builder;
-	}
-
-	private static final BigInteger COIN_BI = BigInteger.valueOf(Coin.COIN.value);
-
-	public static Coin localValue(@Nonnull final Coin btcValue, final BigInteger rate)
-	{
-		return Coin.valueOf(BigInteger.valueOf(btcValue.value).multiply(rate).divide(COIN_BI).longValue());
-	}
-
-	public static Coin btcValue(@Nonnull final Coin localValue, final BigInteger rate)
-	{
-		return Coin.valueOf(BigInteger.valueOf(localValue.value).multiply(COIN_BI).divide(rate).longValue());
 	}
 
 	@CheckForNull

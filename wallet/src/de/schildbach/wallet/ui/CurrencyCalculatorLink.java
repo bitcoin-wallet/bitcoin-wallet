@@ -22,11 +22,11 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.bitcoinj.core.Coin;
+import org.bitcoinj.utils.ExchangeRate;
+import org.bitcoinj.utils.Fiat;
 
 import android.view.View;
-import de.schildbach.wallet.ExchangeRatesProvider.ExchangeRate;
 import de.schildbach.wallet.ui.CurrencyAmountView.Listener;
-import de.schildbach.wallet.util.WalletUtils;
 
 /**
  * @author Andreas Schildbach
@@ -120,12 +120,12 @@ public final class CurrencyCalculatorLink
 	{
 		if (exchangeDirection)
 		{
-			return btcAmountView.getAmount();
+			return (Coin) btcAmountView.getAmount();
 		}
 		else if (exchangeRate != null)
 		{
-			final Coin localAmount = localAmountView.getAmount();
-			return localAmount != null ? WalletUtils.btcValue(localAmount, exchangeRate.rate) : null;
+			final Fiat localAmount = (Fiat) localAmountView.getAmount();
+			return localAmount != null ? exchangeRate.fiatToCoin(localAmount) : null;
 		}
 		else
 		{
@@ -145,25 +145,25 @@ public final class CurrencyCalculatorLink
 		if (exchangeRate != null)
 		{
 			localAmountView.setEnabled(enabled);
-			localAmountView.setCurrencySymbol(exchangeRate.currencyCode);
+			localAmountView.setCurrencySymbol(exchangeRate.fiat.currencyCode);
 
 			if (exchangeDirection)
 			{
-				final Coin btcAmount = btcAmountView.getAmount();
+				final Coin btcAmount = (Coin) btcAmountView.getAmount();
 				if (btcAmount != null)
 				{
 					localAmountView.setAmount(null, false);
-					localAmountView.setHint(WalletUtils.localValue(btcAmount, exchangeRate.rate));
+					localAmountView.setHint(exchangeRate.coinToFiat(btcAmount));
 					btcAmountView.setHint(null);
 				}
 			}
 			else
 			{
-				final Coin localAmount = localAmountView.getAmount();
+				final Fiat localAmount = (Fiat) localAmountView.getAmount();
 				if (localAmount != null)
 				{
 					btcAmountView.setAmount(null, false);
-					btcAmountView.setHint(WalletUtils.btcValue(localAmount, exchangeRate.rate));
+					btcAmountView.setHint(exchangeRate.fiatToCoin(localAmount));
 					localAmountView.setHint(null);
 				}
 			}
