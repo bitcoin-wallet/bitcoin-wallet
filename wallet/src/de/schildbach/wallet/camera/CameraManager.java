@@ -138,7 +138,15 @@ public final class CameraManager
 	{
 		if (camera != null)
 		{
-			camera.stopPreview();
+			try
+			{
+				camera.stopPreview();
+			}
+			catch (final RuntimeException x)
+			{
+				log.warn("something went wrong while stopping camera preview", x);
+			}
+
 			camera.release();
 		}
 	}
