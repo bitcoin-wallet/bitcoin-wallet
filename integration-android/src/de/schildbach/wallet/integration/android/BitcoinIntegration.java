@@ -57,7 +57,7 @@ public final class BitcoinIntegration
 	 * @param address
 	 *            Bitcoin address
 	 * @param amount
-	 *            Bitcoin amount in nanocoins
+	 *            Bitcoin amount in satoshis
 	 */
 	public static void request(final Context context, final String address, final long amount)
 	{
@@ -225,7 +225,7 @@ public final class BitcoinIntegration
 		return txHash;
 	}
 
-	private static final int NANOCOINS_PER_COIN = 100000000;
+	private static final int SATOSHIS_PER_COIN = 100000000;
 
 	private static Intent makeBitcoinUriIntent(final String address, final Long amount)
 	{
@@ -233,7 +233,7 @@ public final class BitcoinIntegration
 		if (address != null)
 			uri.append(address);
 		if (amount != null)
-			uri.append("?amount=").append(String.format("%d.%08d", amount / NANOCOINS_PER_COIN, amount % NANOCOINS_PER_COIN));
+			uri.append("?amount=").append(String.format("%d.%08d", amount / SATOSHIS_PER_COIN, amount % SATOSHIS_PER_COIN));
 
 		final Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri.toString()));
 
