@@ -1,0 +1,20 @@
+language: android
+jdk: openjdk6
+android:
+  components:
+    - tools
+    - platform-tools
+    - build-tools-20.0.0
+    - android-10
+    - android-14
+before_install:
+  - sudo rm -rf /usr/local/maven*
+  - sudo sed -ie '/M2_HOME/d' /etc/mavenrc
+  - sudo apt-get update -qq
+install:
+  - sudo apt-get install maven openjdk-6-jre-headless openjdk-6-jdk icedtea-6-plugin
+  - jdk_switcher use openjdk6
+before_script:
+  - javac -version
+  - mvn --version
+script: mvn clean install
