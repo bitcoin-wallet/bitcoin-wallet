@@ -41,7 +41,6 @@ import android.widget.TextView;
 
 import com.google.bitcoin.core.Coin;
 import com.google.bitcoin.core.Monetary;
-import com.google.bitcoin.core.Transaction;
 import com.google.bitcoin.utils.MonetaryFormat;
 
 import de.schildbach.wallet.util.GenericUtils;
@@ -280,17 +279,7 @@ public final class CurrencyAmountView extends FrameLayout
 					amount = inputFormat.parseFiat(localCurrencyCode, str);
 
 				// exactly zero
-				if (zeroIsValid && amount.signum() == 0)
-					return true;
-
-				if (amount instanceof Coin)
-				{
-					// too small
-					if (((Coin) amount).compareTo(Transaction.MIN_NONDUST_OUTPUT) < 0)
-						return false;
-				}
-
-				return true;
+				return zeroIsValid || amount.signum() > 0;
 			}
 		}
 		catch (final Exception x)
