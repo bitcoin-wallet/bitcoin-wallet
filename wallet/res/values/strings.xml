@@ -66,6 +66,9 @@
 	<string name="send_coins_fragment_pending">(%s waiting for confirmation)</string>
 	<string name="send_coins_fragment_amount_label">Amount to pay</string>
 	<string name="send_coins_fragment_hint_fee">A small network fee of %s will be paid.</string>
+	<string name="send_coins_fragment_hint_dusty_send">The amount is too small to send.</string>
+	<string name="send_coins_fragment_hint_insufficient_money">Not enough available coins. You\'re missing %s.</string>
+	<string name="send_coins_fragment_hint_empty_wallet_failed">The amount of tiny payments in your wallet doesn\'t add up to sendable value.</string>
 	<string name="send_coins_fragment_direct_payment_enable">Send payment directly to the payee.</string>
 	<string name="send_coins_fragment_direct_payment_ack">Your payment was successfully sent directly.</string>
 	<string name="send_coins_fragment_direct_payment_nack">Your payment was rejected via direct connection.</string>

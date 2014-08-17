@@ -23,7 +23,6 @@ import javax.annotation.Nullable;
 
 import org.bitcoinj.core.Coin;
 import org.bitcoinj.core.Monetary;
-import org.bitcoinj.core.Transaction;
 import org.bitcoinj.utils.MonetaryFormat;
 
 import android.content.Context;
@@ -279,17 +278,7 @@ public final class CurrencyAmountView extends FrameLayout
 					amount = inputFormat.parseFiat(localCurrencyCode, str);
 
 				// exactly zero
-				if (zeroIsValid && amount.signum() == 0)
-					return true;
-
-				if (amount instanceof Coin)
-				{
-					// too small
-					if (((Coin) amount).compareTo(Transaction.MIN_NONDUST_OUTPUT) < 0)
-						return false;
-				}
-
-				return true;
+				return zeroIsValid || amount.signum() > 0;
 			}
 		}
 		catch (final Exception x)

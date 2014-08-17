@@ -29,6 +29,7 @@ import org.bitcoinj.core.Address;
 import org.bitcoinj.core.AddressFormatException;
 import org.bitcoinj.core.Coin;
 import org.bitcoinj.core.ECKey;
+import org.bitcoinj.core.InsufficientMoneyException;
 import org.bitcoinj.core.NetworkParameters;
 import org.bitcoinj.core.Sha256Hash;
 import org.bitcoinj.core.Transaction;
@@ -37,6 +38,8 @@ import org.bitcoinj.core.TransactionConfidence.ConfidenceType;
 import org.bitcoinj.core.VerificationException;
 import org.bitcoinj.core.Wallet;
 import org.bitcoinj.core.Wallet.BalanceType;
+import org.bitcoinj.core.Wallet.CouldNotAdjustDownwards;
+import org.bitcoinj.core.Wallet.DustySendRequested;
 import org.bitcoinj.core.Wallet.SendRequest;
 import org.bitcoinj.protocols.payments.PaymentProtocol;
 import org.bitcoinj.utils.MonetaryFormat;
@@ -162,6 +165,7 @@ public final class SendCoinsFragment extends Fragment
 	private AddressAndLabel validatedAddress = null;
 
 	private Transaction dryrunTransaction;
+	private Exception dryrunException;
 
 	private Boolean directPaymentAck = null;
 
@@ -807,9 +811,7 @@ public final class SendCoinsFragment extends Fragment
 
 	private boolean isAmountValid()
 	{
-		final Coin amount = paymentIntent.mayEditAmount() ? amountCalculatorLink.getAmount() : paymentIntent.getAmount();
-
-		return amount != null && amount.signum() > 0;
+		return dryrunTransaction != null && dryrunException == null;
 	}
 
 	private boolean everythingValid()
@@ -1077,6 +1079,7 @@ public final class SendCoinsFragment extends Fragment
 			return;
 
 		dryrunTransaction = null;
+		dryrunException = null;
 
 		final Coin amount = amountCalculatorLink.getAmount();
 		if (amount != null)
@@ -1092,8 +1095,7 @@ public final class SendCoinsFragment extends Fragment
 			}
 			catch (final Exception x)
 			{
-				log.info("exception during dry run of transaction", x);
-				// swallow
+				dryrunException = x;
 			}
 		}
 	}
@@ -1186,12 +1188,27 @@ public final class SendCoinsFragment extends Fragment
 			hintView.setVisibility(View.GONE);
 			if (state == State.INPUT)
 			{
-				if (dryrunTransaction != null)
+				if (dryrunException != null)
+				{
+					hintView.setTextColor(getResources().getColor(R.color.fg_error));
+					hintView.setVisibility(View.VISIBLE);
+					if (dryrunException instanceof DustySendRequested)
+						hintView.setText(getString(R.string.send_coins_fragment_hint_dusty_send));
+					else if (dryrunException instanceof InsufficientMoneyException)
+						hintView.setText(getString(R.string.send_coins_fragment_hint_insufficient_money,
+								btcFormat.format(((InsufficientMoneyException) dryrunException).missing)));
+					else if (dryrunException instanceof CouldNotAdjustDownwards)
+						hintView.setText(getString(R.string.send_coins_fragment_hint_empty_wallet_failed));
+					else
+						hintView.setText(dryrunException.toString());
+				}
+				else if (dryrunTransaction != null)
 				{
 					final Coin previewFee = dryrunTransaction.getFee();
 					if (previewFee != null)
 					{
 						hintView.setText(getString(R.string.send_coins_fragment_hint_fee, btcFormat.format(previewFee)));
+						hintView.setTextColor(getResources().getColor(R.color.fg_insignificant));
 						hintView.setVisibility(View.VISIBLE);
 					}
 				}
