@@ -90,6 +90,8 @@
   <string name="sweep_wallet_fragment_button_sweep">Tara</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_progress">Bakiye yükleniyor…</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_failed_title">Cüzdan bakiyesinin yüklenmesi başarısız oldu</string>
+  <string name="sweep_wallet_fragment_insufficient_money_title">Para kafi değil</string>
+  <string name="sweep_wallet_fragment_insufficient_money_msg">Cüzdandaki Bitcoin miktarı işlenmek için çok düşük.</string>
   <string name="sweep_wallet_options_reload">Bakiyeyi tekrar yükle</string>
   <string name="request_coins_activity_title">Bitcoin talebi</string>
   <string name="request_coins_fragment_amount_label">Talep edilen miktar (seçime dayalı)</string>
