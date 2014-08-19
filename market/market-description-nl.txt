@@ -1,20 +1,35 @@
-Dit is een standalone Bitcoin Wallet voor uw Android apparaat. U kan direct Bitcoins versturen tussen telefoons door simpelweg de QR-code te scannen die de app weergeeft of via NFC (Near Field Communication).
+<b>Draag je Bitcoins altijd bij je, in je broekzak!</b> Je kunt vlot betalen door een QR-code te scannen. Als handelaar ontvang je je betalingen betrouwbaar en onmiddelijk. Bitcoin Wallet is de eerste mobiele Bitcoin-app, en misschien wel de veiligste!
 
-FUNCTIES:
 
-• Weergeven van het wallet saldo in Bitcoin en verschillende andere valuta.
-• Verzenden en ontvangen van Bitcoin via NFC, QR-codes of Bitcoin URLs.
-• Adresboek voor veelgebruikte Bitcoin adressen.
-• Transacties ingeven tijdens het offline zijn, deze zullen worden uitgevoerd wanneer u online komt.
-• Systeem melding over Bitcoin connectiviteit en ontvangen bitcoins.
-• Widget voor Bitcoin saldo.
+<b>FEATURES</b>
 
-Voor meer informatie over Bitcoin kunt u terecht op
-http://bitcoin.org
+• Geen registratie, webservice of cloud vereist! De portemonnee is decentraal en peer-to-peer.
+• Geef het Bitcoin-bedrag weer in BTC, mBTC en µBTC.
+• Conversie van en naar nationale valuta.
+* Verzend en ontvang Bitcoin via NFC, QR-codes of Bitcoin-URL's
+• Adresboek voor regelmatig gebruikte Bitcoin-adressen.
+• Ook offline toch betalen via Bluetooth
+• Systeemmelding wanneer je Bitcoins ontvangt
+• App widget voor Bitcoin saldo.
 
-Als u een bijdrage wil leveren aan Bitcoin Wallet, het project is te vinden op 
+
+<b>HELP MEE</b>
+
+Bitcoin Wallet is <b>open source</b> en <b>free software</b>. Licentie: GPLv3
+https://www.gnu.org/licenses/gpl-3.0.en.html
+
+Onze broncode is beschikbaar op GitHub:
 https://github.com/schildbach/bitcoin-wallet
 
-Licentie: GPLv3
-Gebruik op eigen risico!
-http://www.gnu.org/licenses/gpl-3.0.en.html
+Alle vertalingen worden geregeld via Transifex:
+https://www.transifex.com/projects/p/bitcoin-wallet/
+
+
+<b>TESTIMONIALS</b>
+
+* Veel mobiele portemonnees gebruiken Bitcoin Wallet als basis, bijvoorbeeld: blockchain.info, Hive en KnC.
+* Aanbevolen mobiele portemonnee op https://bitcoin.org
+* Aangeraden door BitPay.
+
+
+<i>Gebruik op eigen risico!</i>

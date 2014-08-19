@@ -1,8 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-
-	<string name="help_wallet">
-<![CDATA[
+  <string name="help_wallet">\n<![CDATA[
 		<p>
 			Het deel van het scherm links boven geeft uw geselecteerde Bitcoin adres weer, deze hebben andere mensen nodig om u Bitcoins te kunnen sturen.
 			Tik aan om het adres te wijzigen.
@@ -26,10 +24,8 @@
 			U kunt Bitcoins verzenden of verzoeken door de knoppen in de actie-balk aan te klikken.
 			Meer opties zijn beschikbaar in het opties-menu.
 		</p>
-	]]>
-	</string>
-	<string name="help_request_coins">
-<![CDATA[
+	]]>\n\t</string>
+  <string name="help_request_coins">\n<![CDATA[
 		<p>
 			Deze dialoog kunt u gebruiken om Bitcoins te verzoeken van iemand anders (die ook Bitcoin Wallet of een andere Bitcoin client geinstalleerd heeft).
 		</p>
@@ -45,10 +41,8 @@
 			De andere persoon zal nu de dialoog te zien krijgen voor het verzenden van Bitcoins waarin alle velden ingevuld zijn.
 			Als er akkoord gegaan word met de transactie hoeft deze alleen nog verzonden te worden.
 		</p>
-	]]>
-	</string>
-	<string name="help_send_coins">
-<![CDATA[
+	]]>\n\t</string>
+  <string name="help_send_coins">\n<![CDATA[
 		<p>
 			U heeft het dialoog gestart om Bitcoins te verzenden.
 			U bent hier terecht gekomen via het hoofd scherm of door het klikken op een Bitcoin URL in uw browser.
@@ -75,10 +69,8 @@
 			Transcaties kunnen niet ongedaan gemaakt worden!
 			Controleer altijd het ontvangst adres.
 		</p>
-	]]>
-	</string>
-	<string name="help_safety">
-<![CDATA[
+	]]>\n\t</string>
+  <string name="help_safety">\n<![CDATA[
 		<p>
 			<b>Enkele woorden over de veiligheid van uw Bitcoins:</b>
 		</p>
@@ -104,7 +96,5 @@
 			Houd het risico laag!
 			<b>Gebruik Bitcoin Wallet alleen voor kleine bedragen</b> voor dagelijks gebruik.
 		</p>
-	]]>
-	</string>
-
+	]]>\n\t</string>
 </resources>
