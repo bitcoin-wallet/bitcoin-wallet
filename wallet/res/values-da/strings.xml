@@ -88,7 +88,10 @@
   <string name="sweep_wallet_fragment_wallet_unknown">Start ved at scanne papirtegnebogens private nøgle. Brug kamera-knappen.</string>
   <string name="sweep_wallet_fragment_balance">Saldo der skal ryddes</string>
   <string name="sweep_wallet_fragment_button_sweep">Ryd</string>
+  <string name="sweep_wallet_fragment_request_wallet_balance_progress">Indlæser saldo …</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_failed_title">Indlæsning af tegnebogens saldo mislykkedes</string>
+  <string name="sweep_wallet_fragment_insufficient_money_title">Ikke nok bitcoin</string>
+  <string name="sweep_wallet_fragment_insufficient_money_msg">Mængden af bitcoin i tegnebogen er for lille til rydning.</string>
   <string name="sweep_wallet_options_reload">Genindlæs saldo</string>
   <string name="request_coins_activity_title">Forespørg Bitcoins</string>
   <string name="request_coins_fragment_amount_label">Forespurgt beløb (valgfri)</string>

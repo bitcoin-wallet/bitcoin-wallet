@@ -1,6 +1,7 @@
-Hav altid dine Bitcoins med dig i din lomme! Du betaler ved hurtigt at scanne en QR-kode. Som handlende kan du modtage betalinger pålideligt og øjeblikkeligt. Bitcoin Wallet er den første mobile Bitcoin-app, og muligvis også den mest sikre!
+<b>Hav altid dine Bitcoins med dig i din lomme!</b> Du betaler ved hurtigt at scanne en QR-kode. Som handlende kan du modtage betalinger pålideligt og øjeblikkeligt. Bitcoin Wallet er den første mobile Bitcoin-app, og muligvis også den mest sikre!
 
-FUNKTIONER:
+
+<b>FUNKTIONER</b>
 
 • Ingen registrering, webservice eller sky behøves! Tegnebogen er decentraliseret og peer-to-peer.
 • Visning af Bitcoin-beløb i BTC, mBTC og µBTC.
@@ -12,12 +13,24 @@ FUNKTIONER:
 • Rydning af papirtegnebøger (fx de der bruges til kold opbevaring).
 • App-widget for Bitcoin-saldo.
 
-Du kan finde mere om Bitcoin på
-http://bitcoin.org
 
-Hvis du vil bidrage til Bitcoin Wallet, kan projektet findes på
+<b>BIDRAG</b>
+
+Bitcoin Wallet er <b>fri software</b> med <b>åben kildekode</b>. Licens: GPLv3
+https://www.gnu.org/licenses/gpl-3.0.en.html
+
+Vores kildekode er tilgængelig på GitHub:
 https://github.com/schildbach/bitcoin-wallet
 
-Licens: GPLv3
-Brug for egen risiko!
-http://www.gnu.org/licenses/gpl-3.0.en.html
+Alle oversættelser håndteres via Transifex:
+https://www.transifex.com/projects/p/bitcoin-wallet/
+
+
+<b>ANBEFALINGER</b>
+
+• Mange mobile tegnebøger baserer deres kode på Bitcoin Wallet. Eksempler: blockchain.info, Hive og KnC.
+• Anbefalet mobil-tegnebog af https://bitcoin.org
+• Anbefalet af BitPay.
+
+
+<i>Brug for egen risiko!</i>
