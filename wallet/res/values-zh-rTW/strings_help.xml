@@ -1,8 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-
-	<string name="help_wallet">
-<![CDATA[
+  <string name="help_wallet">\n<![CDATA[
 		<p>
 			左上方顯示你的比特幣地址用來支付比特幣，可點選修改。
 		</p>
@@ -18,10 +16,8 @@
 		<p>
 			你可以點選下方請款或付款，更多選項請點選options menu.
 		</p>
-	]]>
-	</string>
-	<string name="help_request_coins">
-<![CDATA[
+	]]>\n\t</string>
+  <string name="help_request_coins">\n<![CDATA[
 		<p>
 			使用這個頁面，你可以對他人請款，他人需要先安裝支援比特幣付款 app。
 		</p>
@@ -34,10 +30,8 @@
 		<p>
 			付款人只要確認請款金額欄位無誤，點選付款就能完成交易。
 		</p>
-	]]>
-	</string>
-	<string name="help_send_coins">
-<![CDATA[
+	]]>\n\t</string>
+  <string name="help_send_coins">\n<![CDATA[
 		<p>
 			你已發起預備比特幣付款的動作，你開啟這個頁面可能是由首頁連結進入，或是點選瀏覽器的比特幣URL進入。
 		</p>
@@ -57,10 +51,8 @@
 			注意:
 			付款之後無法取消收回!請再三確認付款地址與金額無誤。
 		</p>
-	]]>
-	</string>
-	<string name="help_safety">
-<![CDATA[
+	]]>\n\t</string>
+  <string name="help_safety">\n<![CDATA[
 		<p>
 			<b>重要安全注意事項:</b>
 		</p>
@@ -86,7 +78,5 @@
 			保持低風險!
 			只留<b>小金額</b>在錢包裡夠日常使用。
 		</p>
-	]]>
-	</string>
-
+	]]>\n\t</string>
 </resources>
