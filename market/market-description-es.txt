@@ -1,23 +1,36 @@
-Ten tus Bitcoins siempre contigo, en tu bolsillo! Paga rápidamente escaneando un código QR. Como comerciante, recibes los pagos de forma fiable e instantáneamente. Bitcoin Wallet es la primera Bitcoin app para movil, e incluso la mas segura!
+<b>Tenga sus Bitcoins siempre con usted, en su bolsillo!</b> Usted paga con un rápido escaneo a un código QR. Como comerciante, usted recibe pagos de forma fiable e instantánea. Bitcoin Wallet es la primera aplicación Bitcon móvil, y posiblemente también la mas segura!
 
-CARACTERÍSTICAS:
+
+<b>CARACTERISTICAS</b>
 
 • ¡No requiere registro, servidor en la nube o servicio web! Este monedero es auténticamente entre pares (peer-to-peer).
 • Despliegue la cantidad de Bitcoin en BTC, mBTC, y µBTC.
 • Conversión a divisas nacionales.
-• Envío y recepción de bitcoins vía NFC, códigos QR o URL de Bitcoin.
+• Envio y recepcion de Bitcoins mediante NFC, codigos QR o URLs Bitcoin.
 • Libreta de direcciones para guardar las direcciones Bitcoin más utilizadas.
 • Cuando no tengas conexión, puedes seguir pagando via Bluetooth.
 • Notificación al recibir monedas.
 • Barrido de carteras de papel (como ejemplo aquellos usado para el almacenamiento frio).
 • Widget para el saldo de bitcoins.
 
-Puedes descubrir más sobre Bitcoin en
-http://bitcoin.org
 
-Si quieres contribuir a Bitcoin Wallet, el proyecto se encuentra en
+<b>CONTRIBUIR</b>
+
+Bitcoin Wallet es <b>codigo abierto</b> y <b>software libre</b>. Licencia: GPLv3
+https://www.gnu.org/licenses/gpl-3.0.en.html
+
+Nuestro código fuente esta disponible en GitHub:
 https://github.com/schildbach/bitcoin-wallet
 
-Licencia: GPLv3
-¡Úsalo bajo tu propio riesgo!
-http://www.gnu.org/licenses/gpl-3.0.en.html
+Todas las traducciones son gestionados a través de Transifex:
+https://www.transifex.com/projects/p/bitcoin-wallet/
+
+
+<b>TESTIMONIOS</b>
+
+• Muchas billeteras móviles basan su código en Bitcoin Wallet. Ejemplos: blockchain.info, Hive and KnC.
+• Billetera móvil recomendada por https://bitcoin.org
+• Recomendado por BitPay.
+
+
+<i>Utilice bajo su propio riesgo!</i>
