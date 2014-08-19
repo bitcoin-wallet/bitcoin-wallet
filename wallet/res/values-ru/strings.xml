@@ -63,7 +63,7 @@
   <string name="send_coins_fragment_receiving_address_error_cross_network">Невозможно использовать адрес %s с этим кошельком!</string>
   <string name="send_coins_fragment_receiving_address_error_cross_network_unknown">Невозможно использовать адрес неизвестной сети с этим кошельком</string>
   <string name="send_coins_fragment_receiving_address_complex">комплекс\nадрес</string>
-  <string name="send_coins_fragment_pending">(%s ожидание подтверждения) </string>
+  <string name="send_coins_fragment_pending">(%s ожидание подтверждения)</string>
   <string name="send_coins_fragment_amount_label">Величина оплаты</string>
   <string name="send_coins_fragment_direct_payment_enable">Отправить платеж непосредственно получателю.</string>
   <string name="send_coins_fragment_direct_payment_ack">Платеж был успешно отправлен получателю.</string>
@@ -83,13 +83,15 @@
   <string name="send_coins_options_empty">Пустой кошелек</string>
   <string name="send_coins_address_context_clear_title">Введите новый адрес</string>
   <string name="sweep_wallet_activity_title">Отсканировать бумажный кошелек</string>
-  <string name="sweep_wallet_fragment_intro">Вы собираетесь отсканировать бумажный кошелек или купон. Это перенесет все монеты с бумаги на ваш кошелек на этом устройстве. Когда эта трансакция пройдет, бумажный носитель будет бесполезен и  не должен быть повторно использованы в целях безопасности. </string>
+  <string name="sweep_wallet_fragment_intro">Вы собираетесь отсканировать бумажный кошелек или купон. Это перенесет все монеты с бумаги на ваш кошелек на этом устройстве. Когда эта трансакция пройдет, бумажный носитель будет бесполезен и не должен быть повторно использован в целях безопасности.</string>
   <string name="sweep_wallet_fragment_hint">Бумажные кошельки наиболее часто используются для холодного хранения. Некоторые банкоматы печатают их на бумаге, а не посылают монеты на мобильное устройство напрямую. Некоторые люди используют предварительно заряженные бумажные кошельки чтобы передавать монеты. (это не рекомендуется)</string>
-  <string name="sweep_wallet_fragment_wallet_unknown">Для начала отсканируйте частный ключ напечатанный на бумажном кошельке. Используйте кнопку \"Камера\" </string>
+  <string name="sweep_wallet_fragment_wallet_unknown">Для начала отсканируйте частный ключ напечатанный на бумажном кошельке. Используйте кнопку \"Камера\"</string>
   <string name="sweep_wallet_fragment_balance">Баланс для сканирования</string>
   <string name="sweep_wallet_fragment_button_sweep">Сканировать</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_progress">Загружаю баланс…</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_failed_title">Загрузка баланса кошелька прошла с ошибкой</string>
+  <string name="sweep_wallet_fragment_insufficient_money_title">Недостаточно монет</string>
+  <string name="sweep_wallet_fragment_insufficient_money_msg">Количество монет слишком мало для сканирования этого кошелька.</string>
   <string name="sweep_wallet_options_reload">Перезагрузить баланс</string>
   <string name="request_coins_activity_title">Запросить Bitcoin-монеты</string>
   <string name="request_coins_fragment_amount_label">Запрашиваемая сумма (опционально)</string>
