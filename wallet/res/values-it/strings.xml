@@ -82,6 +82,11 @@
   <string name="send_coins_error_msg">Problemi durante l\'invio dei Bitcoins!</string>
   <string name="send_coins_options_empty">Portafoglio vuoto</string>
   <string name="send_coins_address_context_clear_title">Inserisci nuovo indirizzo</string>
+  <string name="sweep_wallet_activity_title">Spazzola portafoglio cartaceo</string>
+  <string name="sweep_wallet_fragment_intro">Stai per spazzolare un portamonete carteceo o coupon. Questo sposterà tutte le monete dal foglio al tuo portamonete su questo dispositivo. Quando la transazione è confermata, il foglio non avrà più alcun valore e non dovrebbe essere ri-utilizzato per ragioni di sicurezza.</string>
+  <string name="sweep_wallet_fragment_hint">I portafogli cartacei sono per lo più comunemente utilizzzati come cold storage. Alcuni ATM li stampano sui loro scontrini invece che inviare le monete al vostro dispositivo mobile. La gente a volte usano portafogli cartacei pre-caricati per spostare valore in giro (non raccomandato)</string>
+  <string name="sweep_wallet_fragment_wallet_unknown">Inizia scannerizzando la chiave privata di un portafoglio cartaceo. Usa il pulsante di azione della fotocamera.</string>
+  <string name="sweep_wallet_fragment_balance">Quantità da spostare</string>
   <string name="sweep_wallet_fragment_button_sweep">Svuota</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_progress">Caricamento saldo…</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_failed_title">Caricamento saldo del portafoglio fallito</string>
@@ -239,6 +244,7 @@
   <string name="address_unlabeled">(non etichettato)</string>
   <!--generic error messages-->
   <string name="error_io">I/O errore: %s</string>
+  <string name="error_parse">Errore di analisi: %s</string>
   <string name="error_http">errore HTTP %1$s:\n%2$s</string>
   <string name="error_bluetooth">Errore bluetooth %1$s</string>
 </resources>

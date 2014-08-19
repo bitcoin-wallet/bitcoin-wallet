@@ -1,6 +1,7 @@
-Porta i tuoi Bitcoin sempre con te, in tasca! Paghi velocemente scansionando un QR-code. Come un commerciante, riceverai i pagamenti sicuri e istantanei. Bitcoin Wallet è la prima Bitcoin app mobile, e probabilmente anche la più sicura!
+<b>Porta i tuoi Bitcoin sempre con te, in tasca!</b>  Paghi velocemente scansionando un QR-code. Come un commerciante, riceverai i pagamenti sicuri e istantanei. Bitcoin Wallet è la prima Bitcoin app mobile, e probabilmente anche la più sicura!
 
-CARATTERISTICHE:
+
+<b>CARATTERISTICHE</b>
 
 • Non è necessaria alcuna registrazione, servizio web o cloud! Questo portafoglio è de-centralizzato e peer to peer.
 • Mostra l'ammontare di Bitcoin in BTC, mBTC e µBTC.
@@ -12,12 +13,24 @@ CARATTERISTICHE:
 • Svuotamento di portafogli cartacei (es: quelli utilizzati come depositi offline)
 • App Widget per il saldo Bitcoin
 
-Puoi trovare altri dettagli su Bitcoin su
-http://bitcoin.org
 
-Se vuoi contribuire a Bitcoin Wallet, il progetto si trova su
+<b>CONTRIBUIRE</b>
+
+Bitcoin Wallet è <b>open source</b> e <b>software libero</b>. Licenza: GPLv3
+https://www.gnu.org/licenses/gpl-3.0.en.html
+
+Il nostro codice sorgente è disponibile su GitHub
 https://github.com/schildbach/bitcoin-wallet
 
-Licenza: GPLv3
-Usalo a tuo rischio!
-http://www.gnu.org/licenses/gpl-3.0.en.html
+Tutte le traduzzioni sono gestite tramite Transifex:
+https://www.transifex.com/projects/p/bitcoin-wallet/
+
+
+<b>TESTIMONIANZE</b>
+
+• Molti portafogli mobile basano il loro codice basato su Bitcoin Wallet. Esempi: blockchain.info, Hive e KnC.
+• Portafoglio mobile raccomandato da https://bitcoin.org
+• Raccomandato da BitPay.
+
+
+<i>Usa a tuo rischio!</i>
