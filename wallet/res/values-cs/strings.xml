@@ -16,7 +16,7 @@
   <string name="wallet_addresses_fragment_add_dialog_title">Přidat Bitcoin adresu</string>
   <string name="wallet_addresses_fragment_add_dialog_message">Bitcoin adresa se nedá smazat. Chcete přidat do peněženky novou adresu?</string>
   <string name="wallet_balance_fragment_replaying">Bilance je nedostupná během synchronizace.</string>
-  <string name="exchange_rates_activity_title">Směné Kurzy</string>
+  <string name="exchange_rates_activity_title">Směné kurzy</string>
   <string name="exchange_rates_fragment_empty_text">Nepodařilo se nahrát směné kurzy.</string>
   <string name="exchange_rates_fragment_empty_search">Nelze najít směný kurz.</string>
   <string name="exchange_rates_fragment_default">(výchozí)</string>
@@ -26,7 +26,7 @@
   <string name="exchange_rates_options_search">Vyhledat směnný kurz</string>
   <string name="exchange_rates_context_set_as_default_title">Nastavit jako výchozí cizí měnnu</string>
   <string name="wallet_transactions_fragment_tab_received">Obdrženo</string>
-  <string name="wallet_transactions_fragment_tab_all">Oba</string>
+  <string name="wallet_transactions_fragment_tab_all">Oboje</string>
   <string name="wallet_transactions_fragment_tab_sent">Zasláno</string>
   <string name="wallet_transactions_fragment_empty_text_received">Zatím žádné bitcoiny neobdrženy</string>
   <string name="wallet_transactions_fragment_empty_text_sent">Zatím žádné bitcoiny neodeslány</string>
@@ -90,6 +90,8 @@
   <string name="sweep_wallet_fragment_button_sweep">Načtení</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_progress">Načítám bilanci…</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_failed_title">Načtení bilance peněženky selhalo</string>
+  <string name="sweep_wallet_fragment_insufficient_money_title">Nemáte dostatek mincí</string>
+  <string name="sweep_wallet_fragment_insufficient_money_msg">Počet mincí v peněžence je příliš nízký pro načtení.</string>
   <string name="sweep_wallet_options_reload">Znovu načíst bilanci</string>
   <string name="request_coins_activity_title">Vyžádat Bitcoiny</string>
   <string name="request_coins_fragment_amount_label">Vyžadovaná částka (volitelně)</string>
@@ -101,7 +103,7 @@
   <string name="request_coins_options_local_app_title">Požadavek z lokální aplikace</string>
   <string name="address_book_activity_title">Adresář</string>
   <string name="address_book_list_receiving_title">Vaše adresy</string>
-  <string name="address_book_list_sending_title">Odeslání adres</string>
+  <string name="address_book_list_sending_title">Odchozí adresy</string>
   <string name="address_book_empty_text">Žádný záznam v adresáři</string>
   <string name="address_book_context_send_title">Poslat Bitcoiny na adresu</string>
   <string name="address_book_context_edit_title">Změnit adresu</string>
@@ -127,7 +129,7 @@
   <string name="transaction_row_message_received_unconfirmed_locked">Tato platba je nestandardní a nemělo by se jí věřit.</string>
   <string name="transaction_row_message_received_dead">Tato platba byla odvolána odesílatelem.</string>
   <string name="transaction_row_message_received_dust">Takto malá částka pravděpodobně nikdy nebude utracena ekonomicky.</string>
-  <string name="network_monitor_activity_title">Monitor Sítě</string>
+  <string name="network_monitor_activity_title">Monitor sítě</string>
   <string name="network_monitor_peer_list_title">Peeři</string>
   <string name="network_monitor_block_list_title">Bloky</string>
   <string name="peer_list_fragment_empty">Žádný peer připojen.</string>
@@ -154,7 +156,7 @@
   <string name="export_keys_dialog_button_export">Zálohovat</string>
   <string name="export_keys_dialog_success"><![CDATA[<p>Vaše peněženka byla zazálohována do <tt>%s</tt></p><p>Pokud vaše zařízení má vyměnitelnou SD kartu, tak záloha <i>by měla </i> být na této kartě. Vyndejte ji a uschovejte ji na bezpečném místě. Pokud karta <i>není</i> vyměnitelná, bude potřeba aby jste přesunuly zálohu na jiné zařízení.</p><p><b>Pokud je záloha pouze na vašem zařízení tak se vystavujete riziku že ztratíte oboje zároveň!</b></p><p>Každopádně se ujistěte, že si zapamatujete heslo. Přejete si zazálohovat peněženku nyní?</p>]]></string>
   <string name="export_keys_dialog_failure">Vaše peněženka nebyla zazálohována\n%s</string>
-  <string name="export_keys_dialog_button_archive">Archív</string>
+  <string name="export_keys_dialog_button_archive">Archivovat</string>
   <string name="export_keys_dialog_mail_subject">Bitcoin Wallet záloha</string>
   <string name="export_keys_dialog_mail_text">Připojený zašifrovaný soubor obsahuje Bitcoin privátní klíče a měl by být vždy na bezpečném místě. Nezapomeňte šifrovací heslo!</string>
   <string name="export_keys_dialog_mail_intent_chooser">Archivuj peněženku pomocí…</string>
@@ -239,7 +241,7 @@
   <string name="button_scan">Skenovat</string>
   <string name="button_edit_address">Přidat/upravit adresu</string>
   <string name="button_settings">Nastavení</string>
-  <string name="action_browse">Prohlížet</string>
+  <string name="action_browse">Prohlídnout</string>
   <string name="time_today">dnes</string>
   <string name="address_unlabeled">(nepojmenováno)</string>
   <!--generic error messages-->

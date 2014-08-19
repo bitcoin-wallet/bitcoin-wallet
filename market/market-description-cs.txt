@@ -1,23 +1,36 @@
-Mějte vaše Bitcoiny vždy u sebe ve vaší kapse! Platit můžete naskenováním QR-kódu. A jako prodejce můžete přijímat platby spolehlivě a hned. Bitcoin Wallet je první mobilní Bitcoin applikace a jedna z nejbezpečnějších!
+<b>Mějte své Bitcoiny vždy s sebou ve své kapse!</b> Plaťte rychým oskenováním QR kódu. A jako prodejce můžete přijímat platby spolehlivě a rychle. Bitcoin Wallet je mobilní Bitcoin aplikace číslo jedna a jedna z nejbezpečnějších!
 
-FUNKCE
+
+<b>FUNKCE</b>
 
 • Žádná registrace, žádná webová služba ani cloud není potřeba! Tato peněženka je de-centralizovaná a peer to peer.
 • Zobrazení Bitcoin částek v BTC, mBTC a µBTC.
 • Přepočet z a do národních měn.
-• Odesílání a přijímání Bitcoinů přes NFC, QR-kódy nebo Bitcoin URL.
+• Odesílání a přijímání plateb přes NFC, QR kódy nebo Bitcoin URL.
 • Adresář pro často používané Bitcoin adresy.
 • Pokud jste offline, stále můžete platit přes Bluetooth.
 • Systémové notifikace při přijaté platbě
 • Načítání papírových peněženek (např. ty co se používají u cold storage).
 • Widget pro zborazení Bitcoin bilance.
 
-Více o Bitcoin se dozvíte na
-http://bitcoin.org
 
-Pokud chcete přispět do Bitcoin Wallet, tak projekt naleznete zde
+<b>PŘISPĚJTE</b>
+
+Bitcoin Wallet je <b>open source</b> a <b>svobodný software</b>. Licence: GPLv3
+https://www.gnu.org/licenses/gpl-3.0.en.html
+
+Náš zdrojový kód je k dispozici na GitHubu:
 https://github.com/schildbach/bitcoin-wallet
 
-License: GPLv3
-Použití na vlastní riziko!
-http://www.gnu.org/licenses/gpl-3.0.en.html
+Veškeré překlady jsou tvořeny pomocí Transflex.
+https://www.transifex.com/projects/p/bitcoin-wallet/
+
+
+<b>UZNÁNÍ</b>
+
+• Mnoho mobilních peněženek využívá zdrojový kód Bitcoin Wallet. Například: blockchain.info, Hive a KnC.
+• Doporučená mobilní peněženka stránkou https://bitcoin.org
+• Doporučeno službou BitPay.
+
+
+<i>Použití na vlastní riziko!</i>
