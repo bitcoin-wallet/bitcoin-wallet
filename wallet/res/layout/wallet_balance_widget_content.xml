@@ -51,6 +51,12 @@
 			android:singleLine="true"
 			android:textColor="#eee"
 			android:textSize="30sp" />
+			
+			<TextView
+					android:id="@+id/widget_wallet_balance_local"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:textSize="@dimen/font_size_small" />			
 	</LinearLayout>
 
 	<ImageView

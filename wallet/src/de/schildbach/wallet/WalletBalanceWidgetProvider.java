@@ -42,6 +42,13 @@ import de.schildbach.wallet.util.GenericUtils;
 import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
 
+import de.schildbach.wallet.ui.CurrencyTextView;
+import android.preference.PreferenceManager;
+import android.text.SpannableStringBuilder;
+import android.text.Editable;
+import android.net.Uri;
+
+
 /**
  * @author Andreas Schildbach
  */
@@ -64,11 +71,34 @@ public class WalletBalanceWidgetProvider extends AppWidgetProvider
 		final Spannable balanceStr = new SpannableString(GenericUtils.formatValue(balance, config.getBtcPrecision(), config.getBtcShift()));
 		WalletUtils.formatSignificant(balanceStr, WalletUtils.SMALLER_SPAN);
 
+		final boolean showLocalBalance = context.getResources().getBoolean(R.bool.show_local_balance);
+		boolean isCachedExchangeRate = false;
+		Editable balanceLocStr = null;
+		if(showLocalBalance){
+			Uri uri = ExchangeRatesProvider.contentUri(context.getPackageName());
+			String[] selectionArgs = {config.getExchangeCurrencyCode()};
+			context.getContentResolver().query(uri,null,ExchangeRatesProvider.KEY_CURRENCY_CODE,selectionArgs,null);
+			final ExchangeRatesProvider.ExchangeRate cachedExchangeRate = config.getCachedExchangeRate();
+			final BigInteger localValue;
+			if (cachedExchangeRate != null)
+			{
+				isCachedExchangeRate = true;
+				localValue = WalletUtils.localValue(balance, cachedExchangeRate.rate);			
+				balanceLocStr = new SpannableStringBuilder(GenericUtils.formatValue(localValue, Constants.LOCAL_PRECISION, 0));		
+				WalletUtils.formatSignificant(balanceLocStr,null);
+				balanceLocStr.insert(0, Constants.CHAR_ALMOST_EQUAL_TO+cachedExchangeRate.currencyCode);
+			}
+		}	
+
 		for (final int appWidgetId : appWidgetIds)
 		{
 			final RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.wallet_balance_widget_content);
 			views.setTextViewText(R.id.widget_wallet_prefix, config.getBtcPrefix());
 			views.setTextViewText(R.id.widget_wallet_balance, balanceStr);
+			
+			if(showLocalBalance && isCachedExchangeRate)
+				views.setTextViewText(R.id.widget_wallet_balance_local,balanceLocStr);
+			
 			views.setOnClickPendingIntent(R.id.widget_button_balance,
 					PendingIntent.getActivity(context, 0, new Intent(context, WalletActivity.class), 0));
 			views.setOnClickPendingIntent(R.id.widget_button_request,
