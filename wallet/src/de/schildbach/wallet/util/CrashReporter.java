@@ -310,6 +310,8 @@ public class CrashReporter
 		@Override
 		public synchronized void uncaughtException(final Thread t, final Throwable exception)
 		{
+			log.warn("crashing because of uncaught exception", exception);
+
 			try
 			{
 				saveCrashTrace(exception);
