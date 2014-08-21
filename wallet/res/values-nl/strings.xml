@@ -51,7 +51,7 @@
   <string name="wallet_version_dialog_button_binary">Download</string>
   <string name="wallet_old_sdk_dialog_title">Android-versie is verouderd</string>
   <string name="wallet_old_sdk_dialog_message">Er is een kans dat een van de volgende releases van digitalcoin Wallet uw apparaat niet meer zal ondersteunen. Soms kan het moeilijk gaan worden om coins uit te geven op dit apparaat.\n\nTenzij u weet waar u mee bezig bent, is het aanbevolen om uw coins hier binnenkort uit weg te halen.</string>
-  <string name="send_coins_activity_title">Verzend BTC</string>
+  <string name="send_coins_activity_title">Verzend DGC</string>
   <string name="send_coins_fragment_request_payment_request_progress">Handtekening van %s ophalen…</string>
   <string name="send_coins_fragment_request_payment_request_failed_title">Handtekening ophalen mislukt</string>
   <string name="send_coins_fragment_request_payment_request_wrong_signature">Verkeerde handtekening!</string>
@@ -85,7 +85,7 @@
   <string name="sweep_wallet_fragment_request_wallet_balance_failed_title">Saldo laden mislukt.</string>
   <string name="sweep_wallet_fragment_insufficient_money_title">Niet genoeg saldo</string>
   <string name="sweep_wallet_options_reload">Saldo verversen</string>
-  <string name="request_coins_activity_title">Verzoek BTC</string>
+  <string name="request_coins_activity_title">Verzoek DGC</string>
   <string name="request_coins_fragment_amount_label">Verzocht bedrag (optioneel)</string>
   <string name="request_coins_fragment_accept_bluetooth_payment">Bluetooth-betalingen accepteren voor betrouwbaardere verwerking</string>
   <string name="request_coins_fragment_initiate_request_qr">Laat de verzender deze code scannen.</string>

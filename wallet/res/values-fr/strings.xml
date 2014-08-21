@@ -236,8 +236,8 @@
   <string name="button_paste">Coller</string>
   <string name="button_share">Partager</string>
   <string name="button_set_as_default">Définir par défaut</string>
-  <string name="button_request_coins">Demande de BTC</string>
-  <string name="button_send_coins">Envoi de BTC</string>
+  <string name="button_request_coins">Demande de DGC</string>
+  <string name="button_send_coins">Envoi de DGC</string>
   <string name="button_scan">Numériser</string>
   <string name="button_edit_address">Ajouter/modifier une adresse</string>
   <string name="button_settings">Paramètres</string>
