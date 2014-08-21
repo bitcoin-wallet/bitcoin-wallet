@@ -84,6 +84,8 @@ public final class WalletBalanceFragment extends Fragment
 	private static final int ID_BALANCE_LOADER = 0;
 	private static final int ID_RATE_LOADER = 1;
 
+	private static final long BLOCKCHAIN_UPTODATE_THRESHOLD_MS = DateUtils.HOUR_IN_MILLIS;
+
 	@Override
 	public void onAttach(final Activity activity)
 	{
@@ -176,7 +178,7 @@ public final class WalletBalanceFragment extends Fragment
 		if (bestChainDate != null)
 		{
 			final long blockchainLag = System.currentTimeMillis() - bestChainDate.getTime();
-			final boolean blockchainUptodate = blockchainLag < Constants.BLOCKCHAIN_UPTODATE_THRESHOLD_MS;
+			final boolean blockchainUptodate = blockchainLag < BLOCKCHAIN_UPTODATE_THRESHOLD_MS;
 			final boolean downloadOk = download == BlockchainService.ACTION_BLOCKCHAIN_STATE_DOWNLOAD_OK;
 
 			showProgress = !(blockchainUptodate || !replaying);

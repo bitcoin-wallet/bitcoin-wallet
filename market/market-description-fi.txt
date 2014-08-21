@@ -1,0 +1,36 @@
+<b>Pidä Bitcoinisi aina mukana taskussasi!</b> Voit maksaa nopeasti skannaamalla QR-koodin. Kauppiaana saat maksut turvallisesti ja välittömästi. Bitcoin Wallet on ensimmäinen Bitcoin-mobiilisovellus, ja kenties myös kaikista turvallisin!
+
+
+<b>OMINAISUUDET</b>
+
+• Ei vaadi rekisteröintiä, verkkopalveluja tai pilvitallennusta! Tämä lompakko on hajautettu ja suorayhteyksinen.
+• Mahdollisuus näyttää Bitcoin-varat määrissä BTC, mBTC ja µBTC.
+• Yksikkömuunnos valtioiden valuuttojen välillä.
+• Bitcoinien lähettäminen ja vastaanottaminen NFC, QR-koodien tai Bitcoin-URL-osotteiden avulla.
+• Osoitekirja säännöllisesti käytettyjä Bitcoin-osoitteita varten.
+• Kun et ole verkkoyhteyden ulottuvilla, voit silti maksaa Bluetoothin välityksellä.
+• Järjestelmän ilmoitus vastaanotetuille Bitcoineille.
+• Paperisen lompakon pyyhkäisymahdollisuus (esim. näitä käytetään "kylmissä varastoissa").
+• Android-sovellus Bitcoin-varojen hallintaan.
+
+
+<b>OSALLISTU</b>
+
+Bitcoin Wallet on <b>avointa lähdekoodia</b> ja <b>vapaa ohjelmisto</b>. Lisenssi: GPLv3
+https://www.gnu.org/licenses/gpl-3.0.en.html
+
+Lähdekoodi saatavilla GitHub:sta:
+https://github.com/schildbach/bitcoin-wallet
+
+Kaikki käännökset Transifex:n kautta:
+https://www.transifex.com/projects/p/bitcoin-wallet/
+
+
+<b>SUOSITTELUT</b>
+
+• Useat mobiililompakot perustuvat Bitcoin Wallet-ohjelman lähdekoodiin, esimerkiksi: blockchain.info, Hive and KnC.
+• https://bitcoin.org: suosittelema mobiililompakko
+• BitPay:n suosittelema
+
+
+<i>Käytä omalla vastuulla!</i>

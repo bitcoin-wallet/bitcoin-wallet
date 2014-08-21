@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.schildbach.wallet.ui;
+package de.schildbach.wallet.ui.send;
 
 import java.math.BigInteger;
 
@@ -86,7 +86,7 @@ public abstract class SendCoinsOfflineTask
 						@Override
 						public void run()
 						{
-							onFailure();
+							onFailure(x);
 						}
 					});
 				}
@@ -98,5 +98,5 @@ public abstract class SendCoinsOfflineTask
 
 	protected abstract void onInsufficientMoney(@Nullable BigInteger missing);
 
-	protected abstract void onFailure();
+	protected abstract void onFailure(@Nonnull Exception exception);
 }

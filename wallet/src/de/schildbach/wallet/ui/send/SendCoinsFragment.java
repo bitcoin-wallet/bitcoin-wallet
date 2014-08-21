@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.schildbach.wallet.ui;
+package de.schildbach.wallet.ui.send;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -75,7 +75,17 @@ import com.actionbarsherlock.view.ActionMode;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
+
+import com.google.bitcoin.core.Address;
+import com.google.bitcoin.core.AddressFormatException;
+import com.google.bitcoin.core.ECKey;
+import com.google.bitcoin.core.NetworkParameters;
+import com.google.bitcoin.core.Sha256Hash;
+import com.google.bitcoin.core.Transaction;
+import com.google.bitcoin.core.TransactionConfidence;
 import com.google.bitcoin.core.TransactionConfidence.ConfidenceType;
+import com.google.bitcoin.core.VerificationException;
+import com.google.bitcoin.core.Wallet;
 import com.google.bitcoin.core.Wallet.BalanceType;
 import com.google.bitcoin.core.Wallet.SendRequest;
 
@@ -93,14 +103,24 @@ import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.ExchangeRatesProvider;
 import de.schildbach.wallet.ExchangeRatesProvider.ExchangeRate;
-import de.schildbach.wallet.PaymentIntent;
-import de.schildbach.wallet.PaymentIntent.Standard;
 import de.schildbach.wallet.WalletApplication;
+import de.schildbach.wallet.data.PaymentIntent;
+import de.schildbach.wallet.data.PaymentIntent.Standard;
 import de.schildbach.wallet.integration.android.BitcoinIntegration;
 import de.schildbach.wallet.offline.DirectPaymentTask;
+import de.schildbach.wallet.ui.AbstractBindServiceActivity;
+import de.schildbach.wallet.ui.AddressAndLabel;
+import de.schildbach.wallet.ui.CurrencyAmountView;
+import de.schildbach.wallet.ui.CurrencyCalculatorLink;
+import de.schildbach.wallet.ui.DialogBuilder;
+import de.schildbach.wallet.ui.EditAddressBookEntryFragment;
+import de.schildbach.wallet.ui.ExchangeRateLoader;
 import de.schildbach.wallet.ui.InputParser.BinaryInputParser;
 import de.schildbach.wallet.ui.InputParser.StreamInputParser;
 import de.schildbach.wallet.ui.InputParser.StringInputParser;
+import de.schildbach.wallet.ui.ProgressDialogFragment;
+import de.schildbach.wallet.ui.ScanActivity;
+import de.schildbach.wallet.ui.TransactionsListAdapter;
 import de.schildbach.wallet.util.Bluetooth;
 import de.schildbach.wallet.util.GenericUtils;
 import de.schildbach.wallet.util.Nfc;
@@ -669,7 +689,7 @@ public final class SendCoinsFragment extends SherlockFragment
 					}
 
 					@Override
-					protected void handleDirectTransaction(final Transaction transaction)
+					protected void handleDirectTransaction(final Transaction transaction) throws VerificationException
 					{
 						cannotClassify(input);
 					}
@@ -949,11 +969,12 @@ public final class SendCoinsFragment extends SherlockFragment
 				final StringBuilder msg = new StringBuilder();
 				if (missing != null)
 					msg.append(
-							String.format(getString(R.string.send_coins_fragment_insufficient_money_msg1),
+							getString(R.string.send_coins_fragment_insufficient_money_msg1,
 									btcPrefix + ' ' + GenericUtils.formatValue(missing, btcPrecision, btcShift))).append("\n\n");
 				if (pending.signum() > 0)
-					msg.append(getString(R.string.send_coins_fragment_pending, GenericUtils.formatValue(pending, btcPrecision, btcShift))).append(
-							"\n\n");
+					msg.append(
+							getString(R.string.send_coins_fragment_pending,
+									btcPrefix + ' ' + GenericUtils.formatValue(pending, btcPrecision, btcShift))).append("\n\n");
 				msg.append(getString(R.string.send_coins_fragment_insufficient_money_msg2));
 				dialog.setMessage(msg);
 				dialog.setPositiveButton(R.string.send_coins_options_empty, new DialogInterface.OnClickListener()
@@ -969,12 +990,15 @@ public final class SendCoinsFragment extends SherlockFragment
 			}
 
 			@Override
-			protected void onFailure()
+			protected void onFailure(@Nonnull Exception exception)
 			{
 				state = State.FAILED;
 				updateView();
 
-				activity.longToast(R.string.send_coins_error_msg);
+				final DialogBuilder dialog = DialogBuilder.warn(activity, R.string.send_coins_error_msg);
+				dialog.setMessage(exception.toString());
+				dialog.setNeutralButton(R.string.button_dismiss, null);
+				dialog.show();
 			}
 		}.sendCoinsOffline(sendRequest); // send asynchronously
 	}
@@ -989,6 +1013,8 @@ public final class SendCoinsFragment extends SherlockFragment
 		final BigInteger available = wallet.getBalance(BalanceType.AVAILABLE);
 
 		amountCalculatorLink.setBtcAmount(available);
+
+		updateView();
 	}
 
 	public class AutoCompleteAddressAdapter extends CursorAdapter
@@ -1219,15 +1245,21 @@ public final class SendCoinsFragment extends SherlockFragment
 		new StringInputParser(input)
 		{
 			@Override
-			protected void handlePaymentIntent(final PaymentIntent paymentIntent)
+			protected void handlePaymentIntent(@Nonnull final PaymentIntent paymentIntent)
 			{
 				updateStateFrom(paymentIntent);
 			}
 
 			@Override
-			protected void handleDirectTransaction(final Transaction transaction)
+			protected void handlePrivateKey(@Nonnull final ECKey key)
 			{
-				cannotClassify(input);
+				throw new UnsupportedOperationException();
+			}
+
+			@Override
+			protected void handleDirectTransaction(@Nonnull final Transaction transaction) throws VerificationException
+			{
+				throw new UnsupportedOperationException();
 			}
 
 			@Override
@@ -1246,12 +1278,6 @@ public final class SendCoinsFragment extends SherlockFragment
 			protected void handlePaymentIntent(final PaymentIntent paymentIntent)
 			{
 				updateStateFrom(paymentIntent);
-			}
-
-			@Override
-			protected void handleDirectTransaction(final Transaction transaction)
-			{
-				throw new UnsupportedOperationException();
 			}
 
 			@Override
@@ -1274,12 +1300,6 @@ public final class SendCoinsFragment extends SherlockFragment
 				protected void handlePaymentIntent(final PaymentIntent paymentIntent)
 				{
 					updateStateFrom(paymentIntent);
-				}
-
-				@Override
-				protected void handleDirectTransaction(final Transaction transaction)
-				{
-					throw new UnsupportedOperationException();
 				}
 
 				@Override
@@ -1359,17 +1379,27 @@ public final class SendCoinsFragment extends SherlockFragment
 			{
 				ProgressDialogFragment.dismissProgress(fragmentManager);
 
-				if (SendCoinsFragment.this.paymentIntent.isSecurityExtendedBy(paymentIntent))
+				if (SendCoinsFragment.this.paymentIntent.isExtendedBy(paymentIntent))
 				{
 					updateStateFrom(paymentIntent);
 					updateView();
 				}
 				else
 				{
+					final StringBuilder reasons = new StringBuilder();
+					if (!SendCoinsFragment.this.paymentIntent.equalsAddress(paymentIntent))
+						reasons.append("address");
+					if (!SendCoinsFragment.this.paymentIntent.equalsAmount(paymentIntent))
+						reasons.append(reasons.length() == 0 ? "" : ", ").append("amount");
+					if (reasons.length() == 0)
+						reasons.append("unknown");
+
 					final DialogBuilder dialog = DialogBuilder.warn(activity, R.string.send_coins_fragment_request_payment_request_failed_title);
-					dialog.setMessage(getString(R.string.send_coins_fragment_request_payment_request_wrong_signature));
+					dialog.setMessage(getString(R.string.send_coins_fragment_request_payment_request_wrong_signature) + "\n\n" + reasons);
 					dialog.singleDismissButton(null);
 					dialog.show();
+
+					log.info("BIP72 trust check failed: {}", reasons);
 				}
 			}
 

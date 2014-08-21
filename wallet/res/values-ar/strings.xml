@@ -29,12 +29,11 @@
 	<string name="wallet_transactions_fragment_tab_sent">تم الارسال</string>
 	<string name="wallet_transactions_fragment_empty_text_received">لم يتم استلام مبالغ بيتكوين إلى الآن</string>
 	<string name="wallet_transactions_fragment_empty_text_sent">لم يتم ارسال مبالغ بيتكوين إلى الآن</string>
-	<string name="wallet_transactions_fragment_empty_text_howto">كيفية الحصول على البيتكوين Bitcoins؟\n\nالتجارة التقليدية مقابل المال،\nبيع السلع أو الخدمات أو\nالكسب من خلال العمل.</string>
+	<string name="wallet_transactions_fragment_empty_text_howto">كيفية الحصول على البيتكوين digitalcoins؟\n\nالتجارة التقليدية مقابل المال،\nبيع السلع أو الخدمات أو\nالكسب من خلال العمل.</string>
 	<string name="wallet_transactions_row_warning_backup">تهانينا، لقد تلقيت أول دفعة خاصة بك! قل قمت بحفظ احتياطي لمحفظتك لحمايتها من الضياع؟</string>
 	<string name="wallet_transactions_fragment_coinbase">محفور</string>
 	<string name="wallet_transactions_fragment_internal">داخلي</string>
 	<string name="wallet_transactions_context_show_qr_title">عرض رمز الاستجابة السريعة QR-code</string>
-	<string name="wallet_options_backup">حفظ احتياطي للمفاتيح</string>
 	<string name="wallet_options_safety">ملاحظات السلامة</string>
 	<string name="wallet_options_donate">التبرعات</string>
 	<string name="wallet_donate_address_label">تبرع للبرنامج</string>
@@ -48,7 +47,7 @@
 	<string name="wallet_version_dialog_button_market">متجر جوجل بلاي Google Play.</string>
 	<string name="wallet_version_dialog_button_binary">تنزيل</string>
 	<string name="wallet_old_sdk_dialog_title">إصدار نظام الأندرويد الخاص بك قديم أو غير محدث</string>
-	<string name="wallet_old_sdk_dialog_message">هناك احتمالات بأن واحدة من الإصدارات القادمة من محفظة البيتكوين Bitcoin Wallet لن تدعم جهازك. في بعض الحالات، سيصعب عليك إنفاق أو التعامل بالبيتكوين على هذا الجهاز.\n\nإذا كنت لا تعلم ما تقوم به، فإنه من المستحسن استخراج ونقل عملات البيتكوين الخاصة بك من هذه المحفظة إلى أخرى كإجراء أمني.</string>
+	<string name="wallet_old_sdk_dialog_message">هناك احتمالات بأن واحدة من الإصدارات القادمة من محفظة البيتكوين digitalcoin Wallet لن تدعم جهازك. في بعض الحالات، سيصعب عليك إنفاق أو التعامل بالبيتكوين على هذا الجهاز.\n\nإذا كنت لا تعلم ما تقوم به، فإنه من المستحسن استخراج ونقل عملات البيتكوين الخاصة بك من هذه المحفظة إلى أخرى كإجراء أمني.</string>
 	<string name="send_coins_activity_title">أرسل بيتكوين</string>
 	<string name="send_coins_fragment_request_payment_request_progress">جلب التوقيع من %s…</string>
 	<string name="send_coins_fragment_request_payment_request_failed_title">فشل جلب التوقيع</string>
@@ -61,7 +60,7 @@
 	<string name="send_coins_fragment_receiving_address_error_cross_network">لا يمكنك استخدام عنوان  %s مع هذه المحفظة!</string>
 	<string name="send_coins_fragment_receiving_address_error_cross_network_unknown">لا يمكنك استخدام عنوان من شبكة مجهولة مع هذه المحفظة!</string>
 	<string name="send_coins_fragment_receiving_address_complex">مركب\nعنوان</string>
-	<string name="send_coins_fragment_pending">(جاري تأكيد مبلغ BTC %s)</string>
+	<string name="send_coins_fragment_pending">(جاري تأكيد مبلغ %s)</string>
 	<string name="send_coins_fragment_amount_label">المبلغ المطلوب دفعه</string>
 	<string name="send_coins_fragment_direct_payment_enable">إرسال الدفعة مباشرة إلى المستفيد.</string>
 	<string name="send_coins_fragment_direct_payment_ack">تم بنجاح إرسال الدفعة مباشرة.</string>
@@ -191,7 +190,7 @@
 	<string name="report_issue_dialog_mail_intent_failed">فشل إرسال التقرير.</string>
 	<string name="about_title">تعليمات</string>
 	<string name="about_license_title">رخصة</string>
-	<string name="about_credits_bitcoinj_title">هذا البرنامج يستخدم bitcoinj %s</string>
+	<string name="about_credits_bitcoinj_title">هذا البرنامج يستخدم digitalcoinj %s</string>
 	<string name="about_credits_zxing_title">هذا البرنامج يستخدم ’zxing’</string>
 	<string name="about_credits_icon_title">هذا البرنامج يستخدم أيقونة من إعداد ’bitboy’</string>
 	<string name="about_community_googleplus_title">مجتمع جوجل بلس +Google</string>

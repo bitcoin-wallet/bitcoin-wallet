@@ -1,8 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-
-	<string name="help_wallet">
-<![CDATA[
+  <string name="help_wallet">\n<![CDATA[
 		<p>
 			Horní levá část obrazovky zobrazuje Vaši aktuální digitalcoin adresu, kterou druhá strana potřebuje znát, aby Vám mohla zaslat platbu.
 			Kliknutím na adresu ji změníte.
@@ -26,10 +24,8 @@
 			Můžete poslat nebo si vyžádat digitalcoiny klepnutím na patřičné tlačítko v akční nabídce.
 			Více možností je v nabídce nastavení.
 		</p>
-	]]>
-	</string>
-	<string name="help_request_coins">
-<![CDATA[
+	]]>\n\t</string>
+  <string name="help_request_coins">\n<![CDATA[
 		<p>
 			Pomocí tohoto dialogu můžete vyžádat digitalcoiny od někoho jiného (kdo by měl také mít nainstalovanou aplikaci digitalcoin Wallet).
 		</p>
@@ -45,10 +41,8 @@
 			V obou případech bude odesílatel uvidí dialog na zasílání digitalcoinů s předvzplněnými údaji.
 			Pokud souhlasí, potvrdí zadané informace a dojde k transakci.
 		</p>
-	]]>
-	</string>
-	<string name="help_send_coins">
-<![CDATA[
+	]]>\n\t</string>
+  <string name="help_send_coins">\n<![CDATA[
 		<p>
 			Právě jste zahájil zasílání digitalcoinů.
 			Sem jste se musel dostat buď přes hlavní obrazovku aplikace, nebo pomocí klepnutí na speciální adresu v prohlížeči.
@@ -75,10 +69,8 @@
 			Transakce nemohou být zrušeny!
 			Vždy zkontrolujte adresu příjemce.
 		</p>
-	]]>
-	</string>
-	<string name="help_safety">
-<![CDATA[
+	]]>\n\t</string>
+  <string name="help_safety">\n<![CDATA[
 		<p>
 			Několik slov o bezpečnosti vašich digitalcoinů:
 		</p>
@@ -104,7 +96,5 @@
 			Neriskujte zbytečně!
 			<b>V aplikaci digitalcoin Wallet mějte pouze malé částky</b> pro rychlé použití.
 		</p>
-	]]>
-	</string>
-
+	]]>\n\t</string>
 </resources>

@@ -31,7 +31,6 @@
 	<string name="wallet_transactions_fragment_empty_text_howto">Làm cách nào để nhận được digitalcoins?\n\nSử dụng cho các giao dịch bằng tiền như truyền thống,\nbán các sản phẩm hoặc dịch vụ hoặc\ndùng cho việc nhận thanh toán.</string>
 	<string name="wallet_transactions_row_warning_backup">Chúc mừng, bạn đã nhận được phần thanh toán đầu tiên của mình! Bạn đã &lt;u&gt;sao lưu ví tiền của mình&lt;/u&gt;, để tránh việc thất thoát hay chưa?</string>
 	<string name="wallet_transactions_fragment_coinbase">đã khai thác</string>
-	<string name="wallet_options_backup">Sao lưu khóa</string>
 	<string name="wallet_options_safety">Ghi chú an toàn</string>
 	<string name="wallet_options_donate">Gợi ý / Ủng hộ</string>
 	<string name="wallet_donate_address_label">Ủng hộ </string>
@@ -53,8 +52,7 @@
 	<string name="send_coins_fragment_receiving_address_error">Địa chỉ digitalcoin không hợp lệ!</string>
 	<string name="send_coins_fragment_receiving_address_error_cross_network">Không thể sử dụng địa chỉ %s với ví tiền này!</string>
 	<string name="send_coins_fragment_receiving_address_error_cross_network_unknown">Không thể sử dụng địa chỉ của những mạng chưa rõ thông tin với ví tiền này!</string>
-	<string name="send_coins_fragment_pending">(DGC %s đợi xác nhận)</string>
-
+	<string name="send_coins_fragment_pending">(%s đợi xác nhận)</string>
 	<string name="send_coins_fragment_amount_label">Số lượng chi trả</string>
 	<string name="send_coins_fragment_button_send">Gửi</string>
 	<string name="send_coins_fragment_button_back">Quay lại</string>

@@ -34,7 +34,6 @@
 	<string name="wallet_transactions_fragment_coinbase">ископани</string>
 	<string name="wallet_transactions_fragment_internal">внатрешен</string>
 	<string name="wallet_transactions_context_show_qr_title">Прикажи QR код</string>
-	<string name="wallet_options_backup">Направи резервна копија од клучевите</string>
 	<string name="wallet_options_safety">Безбедносни белешки</string>
 	<string name="wallet_options_donate">Бакшиш / Донирај</string>
 	<string name="wallet_donate_address_label">Донација за Биткоин Паричник</string>
@@ -55,7 +54,7 @@
 	<string name="send_coins_fragment_receiving_address_error">Невалидна Биткоин адреса!</string>
 	<string name="send_coins_fragment_receiving_address_error_cross_network">Не може да користиш %s адреса со овој паричник!</string>
 	<string name="send_coins_fragment_receiving_address_error_cross_network_unknown">Не може да користиш адреса на непозната мрежа со овој паричник!</string>
-	<string name="send_coins_fragment_pending">(DGC %s чека за потврда)</string>
+	<string name="send_coins_fragment_pending">(%s чека за потврда)</string>
 	<string name="send_coins_fragment_amount_label">Сума да се плати</string>
 	<string name="send_coins_fragment_button_send">Испрати</string>
 	<string name="send_coins_fragment_button_back">Назад</string>

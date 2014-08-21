@@ -34,7 +34,6 @@
 	<string name="wallet_transactions_fragment_coinbase">minita</string>
 	<string name="wallet_transactions_fragment_internal">interna</string>
 	<string name="wallet_transactions_context_show_qr_title">Montru QRan kodon</string>
-	<string name="wallet_options_backup">Savkopi Ŝlosilojn</string>
 	<string name="wallet_options_safety">Sekurecaj notoj</string>
 	<string name="wallet_options_donate">Donacu</string>
 	<string name="wallet_donate_address_label">Donaco por BitmonMonujo</string>
@@ -55,7 +54,7 @@
 	<string name="send_coins_fragment_receiving_address_error">Malvalida Bitmonadreso!</string>
 	<string name="send_coins_fragment_receiving_address_error_cross_network">Ne eblas uzi %s adreson kun ĉi tiu monujo!</string>
 	<string name="send_coins_fragment_receiving_address_error_cross_network_unknown">Ne eblas uzi adreson de nekonata reto kun ĉi tiu monujo!</string>
-	<string name="send_coins_fragment_pending">(DGC %s atendadi konfirmon)</string>
+	<string name="send_coins_fragment_pending">(%s atendadi konfirmon)</string>
 	<string name="send_coins_fragment_amount_label">Kvanto pagi</string>
 	<string name="send_coins_fragment_button_send">Sendu</string>
 	<string name="send_coins_fragment_button_back">Reen</string>

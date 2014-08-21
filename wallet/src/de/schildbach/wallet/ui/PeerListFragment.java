@@ -55,6 +55,8 @@ import com.google.bitcoin.core.VersionMessage;
 
 import de.schildbach.wallet.service.BlockchainService;
 import de.schildbach.wallet.service.BlockchainServiceImpl;
+
+import de.schildbach.wallet.util.WholeStringBuilder;
 import hashengineering.digitalcoin.wallet.R;
 
 /**
@@ -101,7 +103,7 @@ public final class PeerListFragment extends SherlockListFragment
 	{
 		super.onViewCreated(view, savedInstanceState);
 
-		setEmptyText(getString(R.string.peer_list_fragment_empty));
+		setEmptyText(WholeStringBuilder.bold(getString(R.string.peer_list_fragment_empty)));
 	}
 
 	@Override

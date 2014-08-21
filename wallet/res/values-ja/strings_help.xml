@@ -1,8 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-
-	<string name="help_wallet">
-<![CDATA[
+  <string name="help_wallet">\n<![CDATA[
 		<p>
 			画面の左上部分は選択された送金を受取るのに必要なビットコインのアドレスを表示しています。
 			アドレスを変更するにはタップしてください。
@@ -26,10 +24,8 @@
 			アクションバーにあるボタンをタップする事で、送金したり、請求したりできます。
 			オプションメニューでは、より多くのオプションが利用できます。
 		</p>
-	]]>
-	</string>
-	<string name="help_request_coins">
-<![CDATA[
+	]]>\n\t</string>
+  <string name="help_request_coins">\n<![CDATA[
 		<p>
 			このダイアログを使用する事で、(すでにビットコインウォレットを利用している)誰かにコインを請求できます。
 		</p>
@@ -45,10 +41,8 @@
 			どちらの方法についても、請求を受けた人には、コインを送金する為の全項目が事前入力されたダイアログが表示されるでしょう。
 			それを承諾するだけで、支払の送金が行われます。
 		</p>
-	]]>
-	</string>
-	<string name="help_send_coins">
-<![CDATA[
+	]]>\n\t</string>
+  <string name="help_send_coins">\n<![CDATA[
 		<p>
 			コイン送金の手順を初期します。
 			メインスクリーンを開くかもしくはモバイルのブラウザでビットコインURLをクリックします。
@@ -75,10 +69,8 @@
 			支払は返金不可能です！
 			常に受取人のアドレスを確認してください。
 		</p>
-	]]>
-	</string>
-	<string name="help_safety">
-<![CDATA[
+	]]>\n\t</string>
+  <string name="help_safety">\n<![CDATA[
 		<p>
 			<b>安全に関する重要な注意:</b>
 		</p>
@@ -109,7 +101,5 @@
 			リスクを低く抑えましょう！
 			日常での利用では<b>少額でのみ利用しましょう</b>。
 		</p>
-	]]>
-	</string>
-
+	]]>\n\t</string>
 </resources>

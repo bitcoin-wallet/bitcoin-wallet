@@ -36,15 +36,17 @@ import com.google.bitcoin.core.AddressFormatException;
 import com.google.bitcoin.core.Base58;
 import com.google.bitcoin.core.DumpedPrivateKey;
 import com.google.bitcoin.core.ECKey;
+import com.google.bitcoin.core.NetworkParameters;
 import com.google.bitcoin.core.ProtocolException;
 import com.google.bitcoin.core.Transaction;
+import com.google.bitcoin.core.VerificationException;
 import com.google.bitcoin.protocols.payments.PaymentRequestException;
 import com.google.bitcoin.protocols.payments.PaymentRequestException.PkiVerificationException;
 import com.google.bitcoin.uri.BitcoinURI;
 import com.google.bitcoin.uri.BitcoinURIParseException;
 
 import de.schildbach.wallet.Constants;
-import de.schildbach.wallet.PaymentIntent;
+import de.schildbach.wallet.data.PaymentIntent;
 import de.schildbach.wallet.util.Io;
 import de.schildbach.wallet.util.PaymentProtocol;
 import de.schildbach.wallet.util.Qr;
@@ -109,7 +111,7 @@ public abstract class InputParser
 					if (address == null)
 						throw new BitcoinURIParseException("missing address");
 
-					if (address.getParameters().equals(Constants.NETWORK_PARAMETERS))
+					if (Constants.NETWORK_PARAMETERS.equals(address.getParameters()))
 						handlePaymentIntent(PaymentIntent.fromBitcoinUri(bitcoinUri));
 					else
 						error(R.string.input_parser_invalid_address, input);
@@ -136,14 +138,13 @@ public abstract class InputParser
 					error(R.string.input_parser_invalid_address);
 				}
 			}
-			else if (PATTERN_PRIVATE_KEY.matcher(input).matches())
+			else if (PATTERN_PRIVATE_KEY_UNCOMPRESSED.matcher(input).matches() || PATTERN_PRIVATE_KEY_COMPRESSED.matcher(input).matches())
 			{
 				try
 				{
 					final ECKey key = new DumpedPrivateKey(Constants.NETWORK_PARAMETERS, input).getKey();
-					final Address address = new Address(Constants.NETWORK_PARAMETERS, key.getPubKeyHash());
 
-					handlePaymentIntent(PaymentIntent.fromAddress(address, null));
+					handlePrivateKey(key);
 				}
 				catch (final AddressFormatException x)
 				{
@@ -202,7 +203,7 @@ public abstract class InputParser
 
 					handleDirectTransaction(tx);
 				}
-				catch (final ProtocolException x)
+				catch (final VerificationException x)
 				{
 					log.info("got invalid transaction", x);
 
@@ -232,6 +233,18 @@ public abstract class InputParser
 			{
 				cannotClassify(inputType);
 			}
+		}
+
+		@Override
+		protected final void handlePrivateKey(@Nonnull final ECKey key)
+		{
+			throw new UnsupportedOperationException();
+		}
+
+		@Override
+		protected final void handleDirectTransaction(@Nonnull final Transaction transaction) throws VerificationException
+		{
+			throw new UnsupportedOperationException();
 		}
 	}
 
@@ -304,6 +317,18 @@ public abstract class InputParser
 				cannotClassify(inputType);
 			}
 		}
+
+		@Override
+		protected final void handlePrivateKey(@Nonnull final ECKey key)
+		{
+			throw new UnsupportedOperationException();
+		}
+
+		@Override
+		protected final void handleDirectTransaction(@Nonnull final Transaction transaction) throws VerificationException
+		{
+			throw new UnsupportedOperationException();
+		}
 	}
 
 	public abstract void parse();
@@ -317,7 +342,14 @@ public abstract class InputParser
 
 	protected abstract void handlePaymentIntent(@Nonnull PaymentIntent paymentIntent);
 
-	protected abstract void handleDirectTransaction(@Nonnull Transaction transaction);
+	protected void handlePrivateKey(@Nonnull final ECKey key)
+	{
+		final Address address = new Address(Constants.NETWORK_PARAMETERS, key.getPubKeyHash());
+
+		handlePaymentIntent(PaymentIntent.fromAddress(address, null));
+	}
+
+	protected abstract void handleDirectTransaction(@Nonnull Transaction transaction) throws VerificationException;
 
 	protected abstract void error(int messageResId, Object... messageArgs);
 
@@ -338,6 +370,13 @@ public abstract class InputParser
 	}
 
 	private static final Pattern PATTERN_BITCOIN_ADDRESS = Pattern.compile("[" + new String(Base58.ALPHABET) + "]{20,40}");
-	private static final Pattern PATTERN_PRIVATE_KEY = Pattern.compile(CoinDefinition.PATTERN_PRIVATE_KEY_START + "[" + new String(Base58.ALPHABET) + "]{50,51}");
+
+	private static final Pattern PATTERN_PRIVATE_KEY_UNCOMPRESSED = Pattern.compile((Constants.NETWORK_PARAMETERS.getId().equals(
+			NetworkParameters.ID_MAINNET) ? CoinDefinition.PATTERN_PRIVATE_KEY_START : CoinDefinition.PATTERN_PRIVATE_KEY_START_TESTNET)
+			+ "[" + new String(Base58.ALPHABET) + "]{50}");
+	private static final Pattern PATTERN_PRIVATE_KEY_COMPRESSED = Pattern.compile((Constants.NETWORK_PARAMETERS.getId().equals(
+			NetworkParameters.ID_MAINNET) ? CoinDefinition.PATTERN_PRIVATE_KEY_START_COMPRESSED : CoinDefinition.PATTERN_PRIVATE_KEY_START_COMPRESSED_TESTNET)
+			+ "[" + new String(Base58.ALPHABET) + "]{51}");
+
 	private static final Pattern PATTERN_TRANSACTION = Pattern.compile("[0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ$\\*\\+\\-\\.\\/\\:]{100,}");
 }

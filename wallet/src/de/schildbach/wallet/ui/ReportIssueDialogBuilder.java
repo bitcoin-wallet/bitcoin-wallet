@@ -43,6 +43,9 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.common.base.Charsets;
+
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.util.CrashReporter;
 import de.schildbach.wallet.util.Io;
@@ -200,7 +203,7 @@ public abstract class ReportIssueDialogBuilder extends DialogBuilder implements 
 				{
 					final File file = File.createTempFile("wallet-dump.", ".txt", cacheDir);
 
-					final Writer writer = new OutputStreamWriter(new FileOutputStream(file), Constants.UTF_8);
+					final Writer writer = new OutputStreamWriter(new FileOutputStream(file), Charsets.UTF_8);
 					writer.write(walletDump.toString());
 					writer.close();
 

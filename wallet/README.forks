@@ -4,7 +4,19 @@ Source:  https://github.com/schildbach/bitcoin-wallet
 Install: https://play.google.com/store/apps/details?id=de.schildbach.wallet
 
 
-List of known forks:
+=== FORKS THAT ADD FEATURES ===
+
+
+KnC Bitcoin Wallet
+Forked in February 2014. KnC added the ability to send Bitcoins to your phone book contacts.
+ Source:  https://github.com/kncgroup/bitcoin-wallet
+ Install: https://play.google.com/store/apps/details?id=com.kncwallet.wallet
+
+
+Hive Bitcoin Wallet
+Forked in February 2014. Hive added a marketplace and a contacts feature.
+ Source:  https://github.com/hivewallet/hive-android
+ Install: https://play.google.com/store/apps/details?id=com.hivewallet.androidclient.wallet
 
 
 Blockchain Wallet
@@ -12,6 +24,15 @@ Forked at an early stage and replaced the SPV paradigm by a proprietary server b
 blockchain.info. Guess its source is pretty much un-mergable.
  Source:  https://github.com/blockchain/My-Wallet-Android
  Install: https://play.google.com/store/apps/details?id=piuk.blockchain.android
+
+
+Bitcoin Wallet Li
+The only added feature seems to be a sliding menu, but it fails to show any screenshots. Source is un-mergable.
+ Source:  https://code.google.com/p/bitcoin-wallet-li/
+ Install: https://play.google.com/store/apps/details?id=com.mypgwali
+
+
+=== FORKS THAT SUPPORT AN ALTCOIN ===
 
 
 Litecoin Wallet (old)
@@ -24,13 +45,6 @@ Feathercoin Wallet
 Forked in March 2013 in order to replace Bitcoin by Feathercoin.
  Source:  https://github.com/hank/feathercoin-wallet
  Install: https://play.google.com/store/apps/details?id=de.schildbach.wallet.feathercoin
-
-
-ארנק ביטקוין
-Forked in April 2013 in order to add a Hebrew translation.
- Source:  The source was never released, but I talked the author into submitting the
-          Hebrew translation.
- Install: https://play.google.com/store/apps/details?id=com.bitcoin_wallet.com
 
 
 DigiByte Wallet
@@ -51,12 +65,6 @@ Forked in January 2014 in order to replace Bitcoin by Dogecoin.
  Install: https://play.google.com/store/apps/details?id=de.langerhans.wallet
 
 
-Bitcoin Wallet Li
-The only added feature seems to be a sliding menu, but it fails to show any screenshots. Source is un-mergable.
- Source:  https://code.google.com/p/bitcoin-wallet-li/
- Install: https://play.google.com/store/apps/details?id=com.mypgwali
-
-
 Litecoin Wallet
 Forked in January 2014 in order to replace Bitcoin by Litecoin.
  Source:  https://github.com/Litecoin-Java/bitcoin-wallet
@@ -71,8 +79,8 @@ Forked in January 2014 in order to replace Bitcoin by Frankos.
 
 Digitalcoin Wallet
 Forked in January 2014 in order to replace Bitcoin by Digitalcoin.
- Source:  https://github.com/Crypto-Expert/digitalcoin-wallet
- Install: Not released.
+ Source:  https://github.com/HashEngineering/digitalcoin-wallet
+ Install: https://play.google.com/store/apps/details?id=hashengineering.digitalcoin.wallet
 
 
 Megacoin Wallet
@@ -85,12 +93,6 @@ Infinitecoin Wallet
 Forked in January 2014 in order to replace Bitcoin by Infinitecoin.
  Source:  https://github.com/HashEngineering/infinitecoin-wallet
  Install: https://play.google.com/store/apps/details?id=de.schildbach.wallet.infinitecoin
-
-
-KnC Bitcoin Wallet
-Forked in February 2014. KnC added the ability to send Bitcoins to your phone book contacts.
- Source:  https://github.com/kncgroup/bitcoin-wallet
- Install: https://play.google.com/store/apps/details?id=com.kncwallet.wallet
 
 
 Quark Wallet
@@ -151,3 +153,21 @@ Zetacoin Wallet
 Forked in January 2014 in order to replace Bitcoin by Zetacoin.
  Source:  https://github.com/zbad405/zetacoin-wallet
  Install: https://play.google.com/store/apps/details?id=cc.zetacoin.wallet
+
+
+Defcoin Wallet
+Forked in March 2014 in order to replace Bitcoin by Defcoin.
+ Source:  https://github.com/jjculber/defcoin-wallet
+ Install: https://play.google.com/store/apps/details?id=com.jculb.wallet
+
+
+Myriadcoin Wallet
+Forked in April 2014 in order to replace Bitcoin by Myriadcoin.
+ Source:  https://github.com/HashEngineering/myriadcoin-wallet
+ Install: https://play.google.com/store/apps/details?id=hashengineering.myriadcoin.wallet
+
+
+Darkcoin Wallet
+Forked in April 2014 in order to replace Bitcoin by Darkcoin.
+ Source:  https://github.com/HashEngineering/darkcoin-wallet
+ Install: https://play.google.com/store/apps/details?id=hashengineering.darkcoin.wallet

@@ -1,8 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-
-	<string name="help_wallet">
-<![CDATA[
+  <string name="help_wallet">\n<![CDATA[
 		<p>
 			Ekranın üst sol köşesi diğer kişilerin size digitalcoin yollayabilmek için bilmeleri seçilen sizin digitalcoin adresinizi gösterir.
 			Adresi değiştirmek için dokunmak yeterlidir.
@@ -26,10 +24,8 @@
 			digitalcoin yollamak ya da talep etmek için etkinlik çubuğunda düğmelere dokunabilirsiniz.
 			Tercihler menüsünde daha fazla seçenek bulabilirsiniz.
 		</p>
-	]]>
-	</string>
-	<string name="help_request_coins">
-<![CDATA[
+	]]>\n\t</string>
+  <string name="help_request_coins">\n<![CDATA[
 		<p>
 			Bu diyaloğu kullanarak başka bir kişiden digitalcoin talep edebilirsiniz (bu kişinin digitalcoin Wallet uygulamasını cihazında kurmuş olması gerekir).
 		</p>
@@ -45,10 +41,8 @@
 			Her durumda diğer kişiye digitalcoin göndermesi için tüm seçenekleri doldurulmuş bir diyalog gösterilecektir.
 			Kabul ederse tüm yapması gereken muameleyi yollamaktır.
 		</p>
-	]]>
-	</string>
-	<string name="help_send_coins">
-<![CDATA[
+	]]>\n\t</string>
+  <string name="help_send_coins">\n<![CDATA[
 		<p>
 			digitalcoin gönderme prosedürünü başlattınız.
 			Buraya ya ana ekrandan ya da mobil ağ tarayıcınızda bir digitalcoin bağlantısına tıklayarak geldiniz.
@@ -75,10 +69,8 @@
 			Muameleler geri alınamaz!
 			Alıcı adresini daima kontrol ediniz.
 		</p>
-	]]>
-	</string>
-	<string name="help_safety">
-<![CDATA[
+	]]>\n\t</string>
+  <string name="help_safety">\n<![CDATA[
 		<p>
 			<b>digitalcoinlerinizin güvenliği hakkında önemli noktalar:</b>
 		</p>
@@ -104,7 +96,5 @@
 			Riski sınırlayın!
 			<b>digitalcoin Wallet uygulamasını sadece küçük tutarlar için kullanınız</b>.
 		</p>
-	]]>
-	</string>
-
+	]]>\n\t</string>
 </resources>

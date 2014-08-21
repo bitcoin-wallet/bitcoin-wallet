@@ -18,10 +18,13 @@
 package de.schildbach.wallet.util;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Writer;
 import java.math.BigInteger;
@@ -59,6 +62,9 @@ import com.google.bitcoin.core.TransactionOutput;
 import com.google.bitcoin.core.Wallet;
 
 import com.google.bitcoin.script.Script;
+import com.google.bitcoin.store.UnreadableWalletException;
+import com.google.bitcoin.store.WalletProtobufSerializer;
+import com.google.common.base.Charsets;
 
 import de.schildbach.wallet.Constants;
 
@@ -117,19 +123,20 @@ public class WalletUtils
 	private static final Object SIGNIFICANT_SPAN = new StyleSpan(Typeface.BOLD);
 	public static final RelativeSizeSpan SMALLER_SPAN = new RelativeSizeSpan(0.85f);
 
-	public static void formatSignificant(@Nonnull final Editable s, @Nullable final RelativeSizeSpan insignificantRelativeSizeSpan)
+	public static void formatSignificant(@Nonnull final Spannable spannable, @Nullable final RelativeSizeSpan insignificantRelativeSizeSpan)
 	{
-		s.removeSpan(SIGNIFICANT_SPAN);
+		spannable.removeSpan(SIGNIFICANT_SPAN);
 		if (insignificantRelativeSizeSpan != null)
-			s.removeSpan(insignificantRelativeSizeSpan);
+			spannable.removeSpan(insignificantRelativeSizeSpan);
 
-		final Matcher m = P_SIGNIFICANT.matcher(s);
+		final Matcher m = P_SIGNIFICANT.matcher(spannable);
 		if (m.find())
 		{
 			final int pivot = m.group().length();
-			s.setSpan(SIGNIFICANT_SPAN, 0, pivot, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-			if (s.length() > pivot && insignificantRelativeSizeSpan != null)
-				s.setSpan(insignificantRelativeSizeSpan, pivot, s.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+			if (pivot > 0)
+				spannable.setSpan(SIGNIFICANT_SPAN, 0, pivot, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+			if (spannable.length() > pivot && insignificantRelativeSizeSpan != null)
+				spannable.setSpan(insignificantRelativeSizeSpan, pivot, spannable.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 		}
 	}
 
@@ -233,11 +240,15 @@ public class WalletUtils
 
 			final List<ECKey> keys = new LinkedList<ECKey>();
 
+			long charCount = 0;
 			while (true)
 			{
 				final String line = in.readLine();
 				if (line == null)
 					break; // eof
+				charCount += line.length();
+				if (charCount > Constants.BACKUP_MAX_CHARS)
+					throw new IOException("read more than the limit of " + Constants.BACKUP_MAX_CHARS + " characters");
 				if (line.trim().isEmpty() || line.charAt(0) == '#')
 					continue; // skip comment
 
@@ -270,7 +281,7 @@ public class WalletUtils
 
 			try
 			{
-				reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), Constants.UTF_8));
+				reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), Charsets.UTF_8));
 				WalletUtils.readKeys(reader);
 
 				return true;
@@ -296,6 +307,39 @@ public class WalletUtils
 		}
 	};
 
+	public static final FileFilter BACKUP_FILE_FILTER = new FileFilter()
+	{
+		@Override
+		public boolean accept(final File file)
+		{
+			InputStream is = null;
+
+			try
+			{
+				is = new FileInputStream(file);
+				return WalletProtobufSerializer.isWallet(is);
+			}
+			catch (final IOException x)
+			{
+				return false;
+			}
+			finally
+			{
+				if (is != null)
+				{
+					try
+					{
+						is.close();
+					}
+					catch (final IOException x)
+					{
+						// swallow
+					}
+				}
+			}
+		}
+	};
+
 	@CheckForNull
 	public static ECKey pickOldestKey(@Nonnull final Wallet wallet)
 	{
@@ -307,5 +351,39 @@ public class WalletUtils
 					oldestKey = key;
 
 		return oldestKey;
+	}
+
+	public static byte[] walletToByteArray(@Nonnull final Wallet wallet)
+	{
+		try
+		{
+			final ByteArrayOutputStream os = new ByteArrayOutputStream();
+			new WalletProtobufSerializer().writeWallet(wallet, os);
+			os.close();
+			return os.toByteArray();
+		}
+		catch (final IOException x)
+		{
+			throw new RuntimeException(x);
+		}
+	}
+
+	public static Wallet walletFromByteArray(@Nonnull final byte[] walletBytes)
+	{
+		try
+		{
+			final ByteArrayInputStream is = new ByteArrayInputStream(walletBytes);
+			final Wallet wallet = new WalletProtobufSerializer().readWallet(is);
+			is.close();
+			return wallet;
+		}
+		catch (final UnreadableWalletException x)
+		{
+			throw new RuntimeException(x);
+		}
+		catch (final IOException x)
+		{
+			throw new RuntimeException(x);
+		}
 	}
 }

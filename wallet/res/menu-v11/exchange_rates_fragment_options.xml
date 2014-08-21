@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+	<item
+		android:id="@+id/exchange_rates_options_search"
+		android:actionViewClass="android.widget.SearchView"
+		android:icon="@drawable/ic_action_search"
+		android:showAsAction="collapseActionView|ifRoom"
+		android:title="@string/exchange_rates_options_search"/>
+
+</menu>

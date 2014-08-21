@@ -1,5 +1,9 @@
 digitalcoin Wallet
 -----------------
+v0.2.0-beta
+* updated checkpoints
+* updated to Bitcoin Wallet 3.55 code
+
 v0.1.7-beta
 * updated checkpoints
 * added DNS nodes from Digitalcoin Core 2.0 source
@@ -57,6 +61,58 @@ v1.00
 
 Bitcoin Wallet
 -------------------
+v3.55
+
+* New translation into Ukrainian. Update many other translations.
+* Small bugfixes.
+
+v3.54
+
+* Support compressed keys when sweeping a wallet.
+* Update Russian translation.
+
+v3.53
+
+* New translation into Finnish.
+* Update Czech, Korean, Turkish, Spanish, Japanese, Hebrew and Italian translations.
+
+v3.52
+
+* Update French, Danish and Korean translations.
+
+v3.51
+
+* Sweeping of paper wallets (e.g. those used for cold storage).
+* New translation into Korean.
+* Small bugfixes.
+
+v3.50
+
+* Update Chinese, Danish, Italian and Japanese translations.
+* Update QR-code scanner to ZXing 3.1.0.
+* Small bugfixes.
+* Based on bitcoinj 0.11.3.
+
+v3.49
+
+* Update French and Turkish translations.
+* Small bugfixes.
+
+v3.48
+
+* Get rid of all NFC Android application records. This will improve interoperability with other
+  Android wallets.
+
+v3.47
+
+* Manual wallet backups now back up the whole wallet, not just the private keys. It also means
+  when restoring your wallet, the current (hopefully empty) wallet is thrown away. This change
+  is a requirement for (future) encrypted wallets, HD wallets and more.
+* Filter exchange rates by a search query.
+* Update Russian translation.
+* Update QR-code scanner to ZXing 3.0.1.
+* Small bugfixes.
+
 v3.46
 
 * New translation into Slovenian.

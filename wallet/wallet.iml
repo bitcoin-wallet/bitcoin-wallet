@@ -50,7 +50,7 @@
     <orderEntry type="module" module-name="orchid" />
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.6" level="project" />
     <orderEntry type="module" module-name="integration-android" />
-    <orderEntry type="library" name="Maven: com.google.zxing:core:3.0.1" level="project" />
+    <orderEntry type="library" name="Maven: com.google.zxing:core:3.1.0" level="project" />
     <orderEntry type="library" name="Maven: com.github.tony19:logback-android-classic:1.1.1-1" level="project" />
     <orderEntry type="library" name="Maven: com.github.tony19:apktool-lib:1.4.4-3" level="project" />
     <orderEntry type="library" name="Maven: com.github.tony19:logback-android-core:1.1.1-1" level="project" />

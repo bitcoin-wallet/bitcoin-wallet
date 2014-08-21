@@ -17,21 +17,28 @@
 
 package de.schildbach.wallet.ui;
 
+import javax.annotation.Nonnull;
+
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.google.bitcoin.core.ECKey;
 import com.google.bitcoin.core.Transaction;
+import com.google.bitcoin.core.VerificationException;
 
-import de.schildbach.wallet.PaymentIntent;
+import de.schildbach.wallet.WalletApplication;
+import de.schildbach.wallet.data.PaymentIntent;
 import de.schildbach.wallet.ui.InputParser.StringInputParser;
+import de.schildbach.wallet.ui.send.SendCoinsActivity;
+import de.schildbach.wallet.ui.send.SweepWalletActivity;
 
 /**
  * @author Andreas Schildbach
  */
-public final class SendCoinsQrActivity extends AbstractOnDemandServiceActivity
+public final class SendCoinsQrActivity extends Activity
 {
 	private static final int REQUEST_CODE_SCAN = 0;
 
@@ -53,7 +60,7 @@ public final class SendCoinsQrActivity extends AbstractOnDemandServiceActivity
 			new StringInputParser(input)
 			{
 				@Override
-				protected void handlePaymentIntent(final PaymentIntent paymentIntent)
+				protected void handlePaymentIntent(@Nonnull final PaymentIntent paymentIntent)
 				{
 					SendCoinsActivity.start(SendCoinsQrActivity.this, paymentIntent);
 
@@ -61,9 +68,18 @@ public final class SendCoinsQrActivity extends AbstractOnDemandServiceActivity
 				}
 
 				@Override
-				protected void handleDirectTransaction(final Transaction transaction)
+				protected void handlePrivateKey(@Nonnull final ECKey key)
 				{
-					processDirectTransaction(transaction);
+					SweepWalletActivity.start(SendCoinsQrActivity.this, key);
+
+					SendCoinsQrActivity.this.finish();
+				}
+
+				@Override
+				protected void handleDirectTransaction(final Transaction transaction) throws VerificationException
+				{
+					final WalletApplication application = (WalletApplication) getApplication();
+					application.processDirectTransaction(transaction);
 
 					SendCoinsQrActivity.this.finish();
 				}

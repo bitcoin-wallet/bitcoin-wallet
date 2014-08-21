@@ -281,7 +281,7 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 
 					menu.findItem(R.id.wallet_transactions_context_show_qr).setVisible(serializedTx.length < SHOW_QR_THRESHOLD_BYTES);
 
-					Nfc.publishMimeObject(nfcManager, activity, Constants.MIMETYPE_TRANSACTION, serializedTx, false);
+					Nfc.publishMimeObject(nfcManager, activity, Constants.MIMETYPE_TRANSACTION, serializedTx);
 
 					return true;
 				}

@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.schildbach.wallet.ui;
+package de.schildbach.wallet.ui.send;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -36,12 +36,12 @@ import android.bluetooth.BluetoothSocket;
 import android.os.Handler;
 import android.os.Looper;
 
-import com.google.bitcoin.core.Transaction;
 import com.google.protobuf.CodedInputStream;
 import com.google.protobuf.CodedOutputStream;
 
 import de.schildbach.wallet.Constants;
-import de.schildbach.wallet.PaymentIntent;
+import de.schildbach.wallet.data.PaymentIntent;
+import de.schildbach.wallet.ui.InputParser;
 import de.schildbach.wallet.util.Bluetooth;
 import de.schildbach.wallet.util.PaymentProtocol;
 import hashengineering.digitalcoin.wallet.R;
@@ -127,13 +127,6 @@ public abstract class RequestPaymentRequestTask
 									log.info("received {} via http", paymentIntent);
 
 									onPaymentIntent(paymentIntent);
-								}
-
-								@Override
-								protected void handleDirectTransaction(@Nonnull final Transaction transaction)
-								{
-									throw new UnsupportedOperationException();
-
 								}
 
 								@Override
@@ -237,13 +230,6 @@ public abstract class RequestPaymentRequestTask
 									log.info("received {} via bluetooth", paymentIntent);
 
 									onPaymentIntent(paymentIntent);
-								}
-
-								@Override
-								protected void handleDirectTransaction(@Nonnull final Transaction transaction)
-								{
-									throw new UnsupportedOperationException();
-
 								}
 
 								@Override

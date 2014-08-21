@@ -29,12 +29,15 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.database.Cursor;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v4.widget.ResourceCursorAdapter;
+import android.support.v4.widget.SearchViewCompat;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -56,6 +59,7 @@ import de.schildbach.wallet.service.BlockchainService;
 import de.schildbach.wallet.util.GenericUtils;
 import de.schildbach.wallet.util.WalletUtils;
 import hashengineering.digitalcoin.wallet.R;
+import de.schildbach.wallet.util.WholeStringBuilder;
 
 /**
  * @author Andreas Schildbach
@@ -66,9 +70,11 @@ public final class ExchangeRatesFragment extends SherlockListFragment implements
 	private WalletApplication application;
 	private Configuration config;
 	private Wallet wallet;
+	private Uri contentUri;
 	private LoaderManager loaderManager;
 
 	private ExchangeRatesAdapter adapter;
+	private String query = null;
 
 	private BigInteger balance = null;
 	private boolean replaying = false;
@@ -87,6 +93,7 @@ public final class ExchangeRatesFragment extends SherlockListFragment implements
 		this.application = (WalletApplication) activity.getApplication();
 		this.config = application.getConfiguration();
 		this.wallet = application.getWallet();
+		this.contentUri = ExchangeRatesProvider.contentUri(activity.getPackageName());
 		this.loaderManager = getLoaderManager();
 	}
 
@@ -96,6 +103,7 @@ public final class ExchangeRatesFragment extends SherlockListFragment implements
 		super.onCreate(savedInstanceState);
 
 		setRetainInstance(true);
+		setHasOptionsMenu(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB);
 
 		adapter = new ExchangeRatesAdapter(activity);
 		setListAdapter(adapter);
@@ -111,7 +119,8 @@ public final class ExchangeRatesFragment extends SherlockListFragment implements
 	{
 		super.onViewCreated(view, savedInstanceState);
 
-		setEmptyText(getString(R.string.exchange_rates_fragment_empty_text));
+		getListView().setFastScrollEnabled(true);
+		updateEmptyText();
 	}
 
 	@Override
@@ -144,6 +153,43 @@ public final class ExchangeRatesFragment extends SherlockListFragment implements
 		loaderManager.destroyLoader(ID_RATE_LOADER);
 
 		super.onDestroy();
+	}
+
+	@Override
+	public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater)
+	{
+		inflater.inflate(R.menu.exchange_rates_fragment_options, menu);
+
+		final View searchView = menu.findItem(R.id.exchange_rates_options_search).getActionView();
+		if (searchView != null)
+		{
+			SearchViewCompat.setOnQueryTextListener(searchView, new SearchViewCompat.OnQueryTextListenerCompat()
+			{
+				@Override
+				public boolean onQueryTextChange(final String newText)
+				{
+					query = newText.trim();
+					if (query.isEmpty())
+						query = null;
+
+					updateEmptyText();
+
+					getLoaderManager().restartLoader(ID_RATE_LOADER, null, rateLoaderCallbacks);
+
+					return true;
+				}
+
+				@Override
+				public boolean onQueryTextSubmit(final String query)
+				{
+					searchView.clearFocus();
+
+					return true;
+				}
+			});
+		}
+
+		super.onCreateOptionsMenu(menu, inflater);
 	}
 
 	@Override
@@ -224,6 +270,12 @@ public final class ExchangeRatesFragment extends SherlockListFragment implements
 		}
 	}
 
+	private void updateEmptyText()
+	{
+		setEmptyText(WholeStringBuilder.bold(getString(query != null ? R.string.exchange_rates_fragment_empty_search
+				: R.string.exchange_rates_fragment_empty_text)));
+	}
+
 	private final BlockchainBroadcastReceiver broadcastReceiver = new BlockchainBroadcastReceiver();
 
 	private final class BlockchainBroadcastReceiver extends BroadcastReceiver
@@ -242,7 +294,10 @@ public final class ExchangeRatesFragment extends SherlockListFragment implements
 		@Override
 		public Loader<Cursor> onCreateLoader(final int id, final Bundle args)
 		{
-			return new CursorLoader(activity, ExchangeRatesProvider.contentUri(activity.getPackageName()), null, null, null, null);
+			if (query == null)
+				return new CursorLoader(activity, contentUri, null, null, null, null);
+			else
+				return new CursorLoader(activity, contentUri, null, ExchangeRatesProvider.QUERY_PARAM_Q, new String[] { query }, null);
 		}
 
 		@Override

@@ -47,15 +47,18 @@ import com.actionbarsherlock.view.MenuItem;
 import com.google.bitcoin.core.Address;
 import com.google.bitcoin.core.AddressFormatException;
 import com.google.bitcoin.core.Transaction;
+import com.google.bitcoin.core.VerificationException;
 import com.google.bitcoin.uri.BitcoinURI;
 
 import de.schildbach.wallet.AddressBookProvider;
 import de.schildbach.wallet.Constants;
-import de.schildbach.wallet.PaymentIntent;
+import de.schildbach.wallet.data.PaymentIntent;
 import de.schildbach.wallet.ui.InputParser.StringInputParser;
+import de.schildbach.wallet.ui.send.SendCoinsActivity;
 import de.schildbach.wallet.util.BitmapFragment;
 import de.schildbach.wallet.util.Qr;
 import de.schildbach.wallet.util.WalletUtils;
+import de.schildbach.wallet.util.WholeStringBuilder;
 import hashengineering.digitalcoin.wallet.R;
 
 /**
@@ -117,7 +120,7 @@ public final class SendingAddressesFragment extends SherlockListFragment impleme
 	{
 		super.onViewCreated(view, savedInstanceState);
 
-		setEmptyText(getString(R.string.address_book_empty_text));
+		setEmptyText(WholeStringBuilder.bold(getString(R.string.address_book_empty_text)));
 	}
 
 	@Override
@@ -155,7 +158,7 @@ public final class SendingAddressesFragment extends SherlockListFragment impleme
 				}
 
 				@Override
-				protected void handleDirectTransaction(final Transaction transaction)
+				protected void handleDirectTransaction(final Transaction transaction) throws VerificationException
 				{
 					cannotClassify(input);
 				}
@@ -221,7 +224,7 @@ public final class SendingAddressesFragment extends SherlockListFragment impleme
 				}
 
 				@Override
-				protected void handleDirectTransaction(final Transaction transaction)
+				protected void handleDirectTransaction(final Transaction transaction) throws VerificationException
 				{
 					cannotClassify(input);
 				}

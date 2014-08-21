@@ -28,13 +28,12 @@
 	<string name="wallet_transactions_fragment_tab_all">Mindkettő</string>
 	<string name="wallet_transactions_fragment_tab_sent">Küldött</string>
 	<string name="wallet_transactions_fragment_empty_text_received">Nem érkezett digitalcoin eddig.</string>
-	<string name="wallet_transactions_fragment_empty_text_sent">Bitcoin küldés nem történt eddig.</string>
+	<string name="wallet_transactions_fragment_empty_text_sent">digitalcoin küldés nem történt eddig.</string>
 	<string name="wallet_transactions_fragment_empty_text_howto">Hogy szerezz digitalcoin-t?\n\nVásárolj hagyományos pénzért,\nárusíts termékeket, kínálj szolgáltatásokat vagy\nkeress munkával.</string>
 	<string name="wallet_transactions_row_warning_backup">Gratulálunk, megérkezett az első kifizetésed! Ugye rendszeresen &lt;u&gt;elmented a tárcád&lt;/u&gt;, tartalmát, hogy biztonságban legyen?</string>
 	<string name="wallet_transactions_fragment_coinbase">bányászott</string>
 	<string name="wallet_transactions_fragment_internal">belső</string>
 	<string name="wallet_transactions_context_show_qr_title">QR-kód megtekintése</string>
-	<string name="wallet_options_backup">Kulcsok mentése</string>
 	<string name="wallet_options_safety">Biztonsági megjegyzések</string>
 	<string name="wallet_options_donate">Támogatás / Donate</string>
 	<string name="wallet_donate_address_label">Támogasd a digitalcoin Wallet létrehozóit</string>
@@ -55,8 +54,7 @@
 	<string name="send_coins_fragment_receiving_address_error">Érvénytelen digitalcoin cím!</string>
 	<string name="send_coins_fragment_receiving_address_error_cross_network">a %s cím nem használható ezzel a tárcával!</string>
 	<string name="send_coins_fragment_receiving_address_error_cross_network_unknown">Ismeretlen hálózat címzettje nem használható ezzel a tárcával!</string>
-
-	<string name="send_coins_fragment_pending">(%s DGC várakozik jóváhagyásra)</string>
+	<string name="send_coins_fragment_pending">(%s várakozik jóváhagyásra)</string>
 
 	<string name="send_coins_fragment_amount_label">Fizetendő összeg</string>
 	<string name="send_coins_fragment_button_send">Küldés</string>

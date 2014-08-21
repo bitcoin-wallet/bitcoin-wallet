@@ -1,14 +1,12 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-
-	<string name="help_wallet">
-<![CDATA[
+  <string name="help_wallet">\n<![CDATA[
 		<p>
-			La partie supérieure gauche de l\'écran affiche votre adresse Bitcoin choisie et que d\'autres personnes doivent connaître pour vous envoyer des bitcoins.
+			La partie supérieure gauche de l\'écran affiche votre adresse digitalcoin choisie et que d\'autres personnes doivent connaître pour vous envoyer des digitalcoins.
 			Toquer pour changer cette adresse.
 		</p>
 		<p>
-			Le code QR à droite contient votre adresse Bitcoin et peut être numérisée par un tiers.
+			Le code QR à droite contient votre adresse digitalcoin et peut être numérisée par un tiers.
 			Toquer le code QR pour l\'agrandir.
 		</p>
 		<p>
@@ -23,42 +21,38 @@
 			Glisser vers la gauche ou vers la droite pour appliquer des filtres à la liste.
 		</p>
 		<p>
-			Vous pouvez envoyer ou recevoir des bitcoins en toquant les boutons dans la barre des actions.
+			Vous pouvez envoyer ou recevoir des digitalcoins en toquant les boutons dans la barre des actions.
 			Plus d\'options sont disponibles dans le menu des options.
 		</p>
-	]]>
-	</string>
-	<string name="help_request_coins">
-<![CDATA[
+	]]>\n\t</string>
+  <string name="help_request_coins">\n<![CDATA[
 		<p>
-			En utilisant cette zone de dialogue vous pouvez demander des pièces à une autre personne (qui devrait déjà avoir installé le Bitcoin Wallet).
+			En utilisant cette zone de dialogue vous pouvez demander des pièces à une autre personne (qui devrait déjà avoir installé le digitalcoin Wallet).
 		</p>
 		<p>
-			Vous pouvez d\'abord saisir un montant de bitcoins à demander.
+			Vous pouvez d\'abord saisir un montant de digitalcoins à demander.
 		</p>
 		<p>
 			Ensuite, soit l\'autre personne numérise le code QR généré, soit vous pouvez envoyer votre demande à une personne éloignée avec le bouton Partager de la barre des actions.
-			L\'autre personne devra cliquer sur l\'URL bitcoin.
+			L\'autre personne devra cliquer sur l\'URL digitalcoin.
 		</p>
 		<p>
 			Dans les deux cas, l\'autre personne obtiendra une zone de dialogue pré-remplie pour envoyer les pièces.
 			Si elle accepte, elle n\'aura qu\'à envoyer le paiement.
 		</p>
-	]]>
-	</string>
-	<string name="help_send_coins">
-<![CDATA[
+	]]>\n\t</string>
+  <string name="help_send_coins">\n<![CDATA[
 		<p>
-			Vous avez commencé le processus d\'envoi de bitcoins.
-			Vous êtes arrivé ici depuis l\'écran principal ou en cliquant sur une URL bitcoin dans votre navigateur.
+			Vous avez commencé le processus d\'envoi de digitalcoins.
+			Vous êtes arrivé ici depuis l\'écran principal ou en cliquant sur une URL digitalcoin dans votre navigateur.
 		</p>
 		<p>
-			D\'abord, saisir l\'adresse Bitcoin de destination.
+			D\'abord, saisir l\'adresse digitalcoin de destination.
 			L\'adresse sera complétée automatiquement pour les adresses enregistrées dans votre carnet.
-			Vous pouvez aussi numériser des codes QR avec des adresses bitcoin ou des demandes de bitcoins en pressant le bouton QR dans la barre des actions.
+			Vous pouvez aussi numériser des codes QR avec des adresses digitalcoin ou des demandes de digitalcoins en pressant le bouton QR dans la barre des actions.
 		</p>
 		<p>
-			Ensuite, vous pouvez voir combien de bitcoins peuvent être dépensés actuellement.
+			Ensuite, vous pouvez voir combien de digitalcoins peuvent être dépensés actuellement.
 			Tout écart avec le solde de l\'écran principal n\'est pas encore confirmé et ne peut donc pas être dépensé.
 		</p>
 		<p>
@@ -66,7 +60,7 @@
 		</p>
 		<p>
 			Vous pouvez saisir un paiement hors-ligne.
-			Il sera envoyé au prochain lancement du Bitcoin Wallet.
+			Il sera envoyé au prochain lancement du digitalcoin Wallet.
 			Pour le traitement le plus rapide possible de votre paiement, assurez vous d\'être bien connecté (c.-à-d. sur un WLAN).
 		</p>
 		<p>
@@ -74,41 +68,37 @@
 			Les paiements sont irréversibles !
 			Toujours vérifier l\'adresse de destination.
 		</p>
-	]]>
-	</string>
-	<string name="help_safety">
-<![CDATA[
+	]]>\n\t</string>
+  <string name="help_safety">\n<![CDATA[
 		<p>
 			<b>Notes de sécurité importantes :</b>
 		</p>
 		<p>
-			Les bitcoins sont stockés sur l\'appareil.
-			<b>Si vous le perdez, vous perdez vos bitcoins.</b>
+			Les digitalcoins sont stockés sur l\'appareil.
+			<b>Si vous le perdez, vous perdez vos digitalcoins.</b>
 		</p>
 		<p>
-			Cela signifie que vous devez <b>sauvegarder votre portefeuille</b>!
-			Utiliser la fonction de sauvegarde de l\'appli plutôt qu\'une appli de sauvegarde tierce.
-			Garder votre sauvegarde en sûreté et souvenez-vous de votre mot de passe.
+			Cela signifie que vous devez <b>sauvegarder votre portefeuille</b> !
+			Utilisez la fonction de sauvegarde de l\'appli plutôt qu\'une appli de sauvegarde tierce.
+			Gardez votre sauvegarde en sûreté et souvenez-vous de votre mot de passe.
 		</p>
 		<p>
-			<b>Avant de désinstaller Bitcoin Wallet</b> (ou d\'effacer les données de l\'appli/effacer les données de votre appareil), <b>transférer vos bitcoins vers un autre portefeuille</b>.
-			Les bitcoins restant seront perdus.
+			<b>Avant de désinstaller digitalcoin Wallet</b> (ou d\'effacer les données de l\'appli/effacer les données de votre appareil), <b>transférez vos digitalcoins vers un autre portefeuille</b>.
+			Les digitalcoins restants seront perdus.
 		</p>
 		<p>
 			<b>Les paiements sont irréversibles</b>.
-			Si vous envoyez vos bitcoins dans le vide, il n\'y a presque aucun moyen de les récupérer.
+			Si vous envoyez vos digitalcoins dans le vide, il n\'y a presque aucun moyen de les récupérer.
 		</p>
 		<p>
-			<b>Garder votre appareil mobile en sécurité !</b>
-			Ne pas rooter votre appareil.
-			N\'installer que des applications de confiance.
+			<b>Assurez la sécurité de votre appareil mobile !</b>
+			Ne rootez pas votre appareil.
+			N\'installez que des applications de confiance.
 			Des applications malveillantes pourraient essayer de voler votre portefeuille.
 		</p>
 		<p>
-			Minimiser les risques !
-			<b>N\'utiliser que pour des petits montants</b> pour un usage quotidien.
+			Minimisez les risques !
+			<b>N\'utilisez que pour des petits montants,</b> pour un usage quotidien.
 		</p>
-	]]>
-	</string>
-
+	]]>\n\t</string>
 </resources>

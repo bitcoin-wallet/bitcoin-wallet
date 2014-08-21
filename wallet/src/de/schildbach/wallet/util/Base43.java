@@ -16,9 +16,9 @@
 
 package de.schildbach.wallet.util;
 
-import java.nio.charset.Charset;
-
 import javax.annotation.Nonnull;
+
+import com.google.common.base.Charsets;
 
 /**
  * Base43, derived from bitcoinj Base58
@@ -74,7 +74,7 @@ public class Base43
 
 		final byte[] output = copyOfRange(temp, j, temp.length);
 
-		return new String(output, Charset.forName("US-ASCII"));
+		return new String(output, Charsets.US_ASCII);
 	}
 
 	public static byte[] decode(@Nonnull final String input) throws IllegalArgumentException

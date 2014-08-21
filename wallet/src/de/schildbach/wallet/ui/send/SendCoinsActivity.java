@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.schildbach.wallet.ui;
+package de.schildbach.wallet.ui.send;
 
 import javax.annotation.Nonnull;
 
@@ -26,9 +26,11 @@ import android.os.Bundle;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
+import de.schildbach.wallet.data.PaymentIntent;
+import de.schildbach.wallet.ui.AbstractBindServiceActivity;
+import de.schildbach.wallet.ui.HelpDialogFragment;
 import hashengineering.digitalcoin.wallet.R;
-import de.schildbach.wallet.PaymentIntent;
-import hashengineering.digitalcoin.wallet.R;
+
 /**
  * @author Andreas Schildbach
  */

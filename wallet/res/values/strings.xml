@@ -18,11 +18,13 @@
 	<string name="wallet_addresses_fragment_add_dialog_message">digitalcoin addresses cannot be deleted. Do you want to add a new address to your wallet?</string>
 	<string name="wallet_balance_fragment_replaying">Balance is unavailable during replay.</string>
 	<string name="exchange_rates_activity_title">Exchange Rates</string>
-	<string name="exchange_rates_fragment_empty_text">Could not load exchange rates</string>
+	<string name="exchange_rates_fragment_empty_text">Could not load exchange rates.</string>
+	<string name="exchange_rates_fragment_empty_search">Could not find exchange rate.</string>
 	<string name="exchange_rates_fragment_default">(default)</string>
 	<string name="exchange_rates_fragment_rate">rate</string>
 	<string name="exchange_rates_fragment_balance">balance</string>
 	<string name="exchange_rates_fragment_source">Price from %s</string>
+	<string name="exchange_rates_options_search">Search exchange rate</string>
 	<string name="exchange_rates_context_set_as_default_title">Set as default foreign currency</string>
 	<string name="wallet_transactions_fragment_tab_received">Received</string>
 	<string name="wallet_transactions_fragment_tab_all">Both</string>
@@ -35,9 +37,12 @@
 	<string name="wallet_transactions_fragment_coinbase">mined</string>
 	<string name="wallet_transactions_fragment_internal">internal</string>
 	<string name="wallet_transactions_context_show_qr_title">Show QR code</string>
+
     <string name="wallet_transactions_context_browse">Explorer</string>
     <string name="wallet_transactions_context_show_transaction_title">Transaction details</string>
 	<string name="wallet_options_backup">Back up Keys</string>
+	<string name="wallet_options_safety_menu">Safety</string>
+
 	<string name="wallet_options_safety">Safety notes</string>
 	<string name="wallet_options_donate">Tip / Donate</string>
 	<string name="wallet_donate_address_label">Donation for digitalcoin Wallet</string>
@@ -70,8 +75,7 @@
 	<string name="send_coins_fragment_receiving_address_error_cross_network_unknown">Cannot use address of unknown network with this wallet!</string>
 
 	<string name="send_coins_fragment_receiving_address_complex">complex\naddress</string>
-	<string name="send_coins_fragment_pending">(DGC %s waiting for confirmation)</string>
-
+	<string name="send_coins_fragment_pending">(%s waiting for confirmation)</string>
 	<string name="send_coins_fragment_amount_label">Amount to pay</string>
 	<string name="send_coins_fragment_direct_payment_enable">Send payment directly to the payee.</string>
 	<string name="send_coins_fragment_direct_payment_ack">Your payment was successfully sent directly.</string>
@@ -90,9 +94,18 @@
 	<string name="send_coins_error_msg">Problem sending coins!</string>
 	<string name="send_coins_options_empty">Empty wallet</string>
 	<string name="send_coins_address_context_clear_title">Enter new address</string>
-
+	<string name="sweep_wallet_activity_title">Sweep paper wallet</string>
+	<string name="sweep_wallet_fragment_intro">You are about to sweep a paper wallet or coupon. This will move all coins from that paper to your wallet on this device. When the transaction is confirmed, the paper will be worthless and should not be re-used for safety reasons.</string>
+	<string name="sweep_wallet_fragment_hint">Paper wallets are most commonly used for cold storage. Some ATMs print them on their paper slip rather than sending the coins to your mobile device directly. People sometimes use pre-charged paper wallets to pass value around (not recommended).</string>
+	<string name="sweep_wallet_fragment_wallet_unknown">Start by scanning the private key of a paper wallet. Use the camera action button.</string>
+	<string name="sweep_wallet_fragment_balance">Balance to sweep</string>
+	<string name="sweep_wallet_fragment_button_sweep">Sweep</string>
+	<string name="sweep_wallet_fragment_request_wallet_balance_progress">Loading balance…</string>
+	<string name="sweep_wallet_fragment_request_wallet_balance_failed_title">Loading wallet balance failed</string>
+	<string name="sweep_wallet_fragment_insufficient_money_title">Not enough coins</string>
+	<string name="sweep_wallet_fragment_insufficient_money_msg">The amount of coins in the wallet is too small for sweeping.</string>
+	<string name="sweep_wallet_options_reload">Reload balance</string>
 	<string name="request_coins_activity_title">Request digitalcoins</string>
-
 	<string name="request_coins_fragment_amount_label">Requested amount (optional)</string>
 	<string name="request_coins_fragment_accept_bluetooth_payment">Accept payment via Bluetooth for more reliable processing</string>
 	<string name="request_coins_fragment_initiate_request_qr">Have this code scanned by the sender.</string>
@@ -152,8 +165,9 @@
 	<string name="network_monitor_block_list_title">Blocks</string>
 	<string name="peer_list_fragment_empty">No peers connected</string>
 	<string name="peer_list_row_ping_time">⇆ %d&#x2009;ms</string>
-	<string name="import_keys_dialog_title">Restore private keys</string>
-	<string name="import_keys_dialog_message">Pick a private keys backup file from external or app-private storage:</string>
+	<string name="import_keys_dialog_title">Restore wallet</string>
+	<string name="import_keys_dialog_message">Pick a wallet backup file from external or app-private storage:</string>
+	<string name="restore_wallet_dialog_replace_warning">You are about to replace your current wallet. Any coins in the current wallet will be lost unless you\'ve got a separate backup of that.</string>
 	<string name="import_keys_dialog_warning">Important: Do not load private keys from dubious sources! Others can gain control over your funds if you do.</string>
 	<string name="import_keys_dialog_file_security_encrypted">password encrypted</string>
 	<string name="import_keys_dialog_file_security_unencrypted">unencrypted</string>
@@ -162,16 +176,17 @@
 	<string name="import_keys_dialog_file_created_automatic">automatic backup %s</string>
 	<string name="import_keys_dialog_file_created_manual">manually backed up %s</string>
 	<string name="import_keys_dialog_button_import">Restore</string>
+	<string name="restore_wallet_dialog_success">Wallet was restored.</string>
 	<string name="import_keys_dialog_success_imported">%d private keys were restored.</string>
 	<string name="import_keys_dialog_success_existing">%d private keys were not restored, because you already have them in your wallet.</string>
 	<string name="import_keys_dialog_success_reset">You need to reset your blockchain in order to update your balance. Would you like to?</string>
-	<string name="import_keys_dialog_failure">Private keys could not be restored:\n\n%s\n\nBad password?</string>
+	<string name="import_keys_dialog_failure">Wallet could not be restored:\n\n%s\n\nBad password?</string>
 	<string name="import_keys_dialog_button_reset_blockchain">Reset</string>
-	<string name="export_keys_dialog_title">Back up private keys</string>
-	<string name="export_keys_dialog_message">Your private keys will be encrypted with the chosen password and written to external storage.</string>
+	<string name="export_keys_dialog_title">Back up wallet</string>
+	<string name="export_keys_dialog_message">Your wallet will be encrypted with the chosen password and written to external storage.</string>
 	<string name="export_keys_dialog_button_export">Back up</string>
-	<string name="export_keys_dialog_success">Your private keys have been backed up to\n\n%s\n\nKeep them safe, and keep your password safe!\n\nDo you want to archive your keys using an app?</string>
-	<string name="export_keys_dialog_failure">Your private keys could not be backed up:\n%s</string>
+	<string name="export_keys_dialog_success"><![CDATA[<p>Your wallet has been backed up to <tt>%s</tt></p><p>If your device has a removable SD card, your backup <i>should</i> be on that card. Remove it and keep it at a safe place. If the card is <i>not</i> removable, you need to archive your backup to some other place than your device.</p><p><b>If the only place your backup exists is on your device, you run the risk of losing both at the same time!</b></p><p>In any case, make sure you remember your backup password. Do you want to archive your wallet now?</p>]]></string>
+	<string name="export_keys_dialog_failure">Your wallet could not be backed up:\n%s</string>
 	<string name="export_keys_dialog_button_archive">Archive</string>
 	<string name="export_keys_dialog_mail_subject">digitalcoin Wallet private key backup</string>
 	<string name="export_keys_dialog_mail_text">The attached encrypted file contains digitalcoin private keys and should be kept safe at all times. Don\'t forget the encryption password!</string>
@@ -185,8 +200,7 @@
 	<string name="scan_camera_problem_dialog_message">The camera has a problem. You probably need to restart the device.</string>
 	<string name="input_parser_io_error">Cannot read data:\n%s</string>
 	<string name="input_parser_cannot_classify">Cannot classify input:\n%s</string>
-
-	<string name="input_parser_invalid_bitcoin_uri">Invalid digitalcoin URI:\n%s</string>
+	<string name="input_parser_invalid_digitalcoin_uri">Invalid digitalcoin URI:\n%s</string>
 	<string name="input_parser_invalid_address">Got invalid digitalcoin address!\n(Mixing up Mainnet/Testnet?)</string>
 	<string name="input_parser_unverifyable_paymentrequest">Cannot verify payment request:\n%s</string>
 
@@ -226,7 +240,11 @@
 	<string name="report_issue_dialog_mail_intent_chooser">Send report using…</string>
 	<string name="report_issue_dialog_mail_intent_failed">Sending report failed.</string>
 	<string name="about_title">About</string>
+	<string name="about_version_title">Version</string>
+	<string name="about_copyright_title">Copyright</string>
 	<string name="about_license_title">License</string>
+
+    <string name="about_source_title">Source Code</string>
 	<string name="about_credits_bitcoinj_title">This app is using digitalcoinj %s</string>
 	<string name="about_credits_zxing_title">"This app is using 'zxing'"</string>
 
@@ -234,16 +252,14 @@
     <string name="about_credits_website_title">"digitalcoin Website"</string>
     <string name="about_credits_forum_title">"digitalcoin Forum"</string>
 
-
 	<string name="about_community_googleplus_title">Google+ Community</string>
 	<string name="about_community_googleplus_summary">Discussions about the app</string>
 
 	<string name="about_author_twitter_title">Author at Twitter</string>
 	<string name="about_author_googleplus_title">Author at Google+</string>
-	<string name="about_market_app_title">Google Play Page</string>
+	<string name="about_market_app_title">Google Play page</string>
 	<string name="about_market_app_summary">Review or rate the app</string>
-	<string name="about_credits_market_publisher_title">Other Apps of Author</string>
-
+	<string name="about_credits_market_publisher_title">Other apps from the author</string>
 	<string name="notification_coins_received_msg">Received %s</string>
 
 	<string name="notification_peers_connected_msg">%d peers connected</string>
@@ -274,6 +290,7 @@
     <string name="send_coins_fragment_fee">Transaction Fee</string>
 	<!-- generic error messages -->
 	<string name="error_io">I/O error: %s</string>
+	<string name="error_parse">Parse error: %s</string>
 	<string name="error_http">HTTP error %1$s:\n%2$s</string>
 	<string name="error_bluetooth">Bluetooth error %1$s</string>
 

@@ -28,8 +28,10 @@ import org.slf4j.LoggerFactory;
 
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -65,6 +67,7 @@ import de.schildbach.wallet.ExchangeRatesProvider;
 import de.schildbach.wallet.ExchangeRatesProvider.ExchangeRate;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.offline.AcceptBluetoothService;
+import de.schildbach.wallet.ui.send.SendCoinsActivity;
 import de.schildbach.wallet.util.BitmapFragment;
 import de.schildbach.wallet.util.Bluetooth;
 import de.schildbach.wallet.util.Nfc;
@@ -348,8 +351,15 @@ public final class RequestCoinsFragment extends SherlockFragment
 
 	private void handleLocalApp()
 	{
+		final ComponentName component = new ComponentName(activity, SendCoinsActivity.class);
+		final PackageManager pm = activity.getPackageManager();
 		final Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(determineBitcoinRequestStr(false)));
+
+		// launch intent chooser with ourselves excluded
+		pm.setComponentEnabledSetting(component, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
 		startActivity(intent);
+		pm.setComponentEnabledSetting(component, PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);
+
 		activity.finish();
 	}
 
@@ -372,7 +382,7 @@ public final class RequestCoinsFragment extends SherlockFragment
 		qrView.setImageBitmap(qrCodeBitmap);
 
 		// update nfc ndef message
-		final boolean nfcSuccess = Nfc.publishMimeObject(nfcManager, activity, PaymentProtocol.MIMETYPE_PAYMENTREQUEST, paymentRequest, false);
+		final boolean nfcSuccess = Nfc.publishMimeObject(nfcManager, activity, PaymentProtocol.MIMETYPE_PAYMENTREQUEST, paymentRequest);
 
 		// update initiate request message
 		final SpannableStringBuilder initiateText = new SpannableStringBuilder(getString(R.string.request_coins_fragment_initiate_request_qr));

@@ -34,7 +34,6 @@
 	<string name="wallet_transactions_fragment_coinbase">wykopany</string>
 	<string name="wallet_transactions_fragment_internal">wewnętrzny</string>
 	<string name="wallet_transactions_context_show_qr_title">Pokaż kod QR</string>
-	<string name="wallet_options_backup">Utwórz kopię zapasową kluczy</string>
 	<string name="wallet_options_safety">Wskazówki bezpieczeństwa</string>
 	<string name="wallet_options_donate">Podaruj</string>
 	<string name="wallet_donate_address_label">Dotacje dla digitalcoin Wallet</string>
@@ -55,8 +54,7 @@
 	<string name="send_coins_fragment_receiving_address_error">Nieprawidłowy adres digitalcoin!</string>
 	<string name="send_coins_fragment_receiving_address_error_cross_network">W tym portfelu nie można użyć adresu %s!</string>
 	<string name="send_coins_fragment_receiving_address_error_cross_network_unknown">W tym portfelu nie można użyć adresu z nieznanej sieci!</string>
-	<string name="send_coins_fragment_pending">(%s DGC oczekuje na potwierdzenie)</string>
-
+	<string name="send_coins_fragment_pending">(%s oczekuje na potwierdzenie)</string>
 	<string name="send_coins_fragment_amount_label">Kwota do zapłacenia</string>
 	<string name="send_coins_fragment_button_send">Wyślij</string>
 	<string name="send_coins_fragment_button_back">Cofnij</string>

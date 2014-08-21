@@ -33,7 +33,6 @@
 	<string name="wallet_transactions_row_warning_backup">Selamat, Anda menerima pembayaran pertama Anda! Sudahkah Anda &lt;u&gt;mencadangkan dompet Anda&lt;/u&gt;, utk hindari kehilangan?</string>
 	<string name="wallet_transactions_fragment_coinbase">ditambang</string>
 	<string name="wallet_transactions_fragment_internal">Internal</string>
-	<string name="wallet_options_backup">Cadangkan Kunci</string>
 	<string name="wallet_options_safety">Nota keamanan</string>
 	<string name="wallet_options_donate">Tip / Donasi</string>
 	<string name="wallet_donate_address_label">Donasi untuk digitalcoin Wallet</string>
@@ -56,8 +55,7 @@
 	<string name="send_coins_fragment_receiving_address_error">Alamat digitalcoin Salah!</string>
 	<string name="send_coins_fragment_receiving_address_error_cross_network">Tidak dapat menggunakan %s dgn dompet ini!</string>
 	<string name="send_coins_fragment_receiving_address_error_cross_network_unknown">Tidak dapat menggunakan alamat dari jaringan tak diketahui dgn dompet ini!</string>
-	<string name="send_coins_fragment_pending">(DGC %s menunggu konfirmasi)</string>
-
+	<string name="send_coins_fragment_pending">(%s menunggu konfirmasi)</string>
 	<string name="send_coins_fragment_amount_label">Jumlah pembayaran</string>
 	<string name="send_coins_fragment_button_send">Kirim</string>
 	<string name="send_coins_fragment_button_back">Kembali</string>

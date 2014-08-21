@@ -15,7 +15,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.schildbach.wallet;
+package de.schildbach.wallet.data;
+
+import static com.google.common.base.Preconditions.checkArgument;
 
 import java.math.BigInteger;
 import java.util.Arrays;
@@ -36,6 +38,7 @@ import com.google.bitcoin.script.Script;
 import com.google.bitcoin.script.ScriptBuilder;
 import com.google.bitcoin.uri.BitcoinURI;
 
+import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.util.Bluetooth;
 import de.schildbach.wallet.util.GenericUtils;
 
@@ -210,6 +213,8 @@ public final class PaymentIntent implements Parcelable
 		{
 			if (mayEditAmount())
 			{
+				checkArgument(editedAmount != null);
+
 				// put all coins on first output, skip the others
 				outputs = new Output[] { new Output(editedAmount, this.outputs[0].script) };
 			}
@@ -221,6 +226,9 @@ public final class PaymentIntent implements Parcelable
 		}
 		else
 		{
+			checkArgument(editedAmount != null);
+			checkArgument(editedAddress != null);
+
 			// custom output
 			outputs = buildSimplePayTo(editedAmount, editedAddress);
 		}
@@ -351,22 +359,37 @@ public final class PaymentIntent implements Parcelable
 		return Bluetooth.isBluetoothUrl(paymentRequestUrl);
 	}
 
-	public boolean isSecurityExtendedBy(final PaymentIntent paymentIntent)
+	/**
+	 * Check if given payment intent is only extending on <i>this</i> one, that is it does not alter any of the fields.
+	 * Address and amount fields must be equal, respectively (non-existence included).
+	 * 
+	 * @param other
+	 *            payment intent that is checked if it extends this one
+	 * @return true if it extends
+	 */
+	public boolean isExtendedBy(final PaymentIntent other)
 	{
-		// check address
-		final boolean hasAddress = hasAddress();
-		if (hasAddress != paymentIntent.hasAddress())
-			return false;
-		if (hasAddress && !getAddress().equals(paymentIntent.getAddress()))
-			return false;
+		// TODO memo
+		return equalsAmount(other) && equalsAddress(other);
+	}
 
-		// check amount
+	public boolean equalsAmount(final PaymentIntent other)
+	{
 		final boolean hasAmount = hasAmount();
-		if (hasAmount != paymentIntent.hasAmount())
+		if (hasAmount != other.hasAmount())
 			return false;
-		if (hasAmount && !getAmount().equals(paymentIntent.getAmount()))
+		if (hasAmount && !getAmount().equals(other.getAmount()))
 			return false;
+		return true;
+	}
 
+	public boolean equalsAddress(final PaymentIntent other)
+	{
+		final boolean hasAddress = hasAddress();
+		if (hasAddress != other.hasAddress())
+			return false;
+		if (hasAddress && !getAddress().equals(other.getAddress()))
+			return false;
 		return true;
 	}
 

@@ -34,7 +34,6 @@
 	<string name="wallet_transactions_fragment_coinbase">vyťažené</string>
 	<string name="wallet_transactions_fragment_internal">vnútorné</string>
 	<string name="wallet_transactions_context_show_qr_title">Ukáž QR kód</string>
-	<string name="wallet_options_backup">Zálohovať kľúče</string>
 	<string name="wallet_options_safety">Bezpečnosť</string>
 	<string name="wallet_options_donate">Prispieť</string>
 	<string name="wallet_donate_address_label">Prispieť na digitalcoin Wallet</string>
@@ -61,8 +60,8 @@
 	<string name="send_coins_fragment_receiving_address_error">Nesprávna digitalcoin adresa!</string>
 	<string name="send_coins_fragment_receiving_address_error_cross_network">Adresu %s nie je možné použiť s touto peňaženkou!</string>
 	<string name="send_coins_fragment_receiving_address_error_cross_network_unknown">Adresu z neznámej siete nie je možné použiť s touto peňaženkou!</string>
-	<string name="send_coins_fragment_pending">(%s DGC čaká na potvrdenie)</string>
 	<string name="send_coins_fragment_receiving_address_complex">komplexná\nadresa</string>
+	<string name="send_coins_fragment_pending">(%s čaká na potvrdenie)</string>
 	<string name="send_coins_fragment_amount_label">Suma</string>
 	<string name="send_coins_fragment_direct_payment_enable">Odoslať platbu priamo príjemcovi.</string>
 	<string name="send_coins_fragment_direct_payment_ack">Platba bola úspešne odoslaná priamo príjemcovi.</string>
@@ -71,9 +70,9 @@
 	<string name="send_coins_fragment_direct_payment_failed_msg">Platba bude odoslaná cez P2P sieť.</string>
 	<string name="send_coins_fragment_button_send">Odoslať</string>
 	<string name="send_coins_fragment_button_back">Späť</string>
-	<string name="send_coins_fragment_insufficient_money_title">Nedostatočné množstvo dostupných Bitcoinov</string>
+	<string name="send_coins_fragment_insufficient_money_title">Nedostatočné množstvo dostupných digitalcoinov</string>
 	<string name="send_coins_fragment_insufficient_money_msg1">Chýba %s.</string>
-	<string name="send_coins_fragment_insufficient_money_msg2">Chcete zaplatiť všetkými dostupnými Bitcoinmi?</string>
+	<string name="send_coins_fragment_insufficient_money_msg2">Chcete zaplatiť všetkými dostupnými digitalcoinmi?</string>
 	<string name="send_coins_preparation_msg">Pripravujem…</string>
 	<string name="send_coins_sending_msg">Odosielam…</string>
 	<string name="send_coins_sent_msg">Odoslané!</string>
@@ -105,7 +104,7 @@
 	<string name="address_book_options_paste_from_clipboard_invalid">Dáta zo schránky nebolo možné rozpoznať</string>
 	<string name="address_book_options_scan_title">Skenovať adresu</string>
 	<string name="address_book_options_scan_invalid">Skenované dáta nebolo možné rozpoznať</string>
-	<string name="address_book_row_message_compromised_key">Táto adresa môže byť ohrozená. Nemali by ste ju už používať na prijímanie Bitcoinov.</string>
+	<string name="address_book_row_message_compromised_key">Táto adresa môže byť ohrozená. Nemali by ste ju už používať na prijímanie digitalcoinov.</string>
 	<string name="edit_address_book_entry_dialog_title_add">Pridať adresu</string>
 	<string name="edit_address_book_entry_dialog_title_edit">Upraviť adresu</string>
 	<string name="edit_address_book_entry_dialog_address_label">Adresa</string>

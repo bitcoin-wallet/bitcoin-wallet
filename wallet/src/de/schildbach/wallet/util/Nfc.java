@@ -28,15 +28,14 @@ import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
 import android.nfc.NfcManager;
-import de.schildbach.wallet.Constants;
+
+import com.google.common.base.Charsets;
 
 /**
  * @author Andreas Schildbach
  */
 public class Nfc
 {
-	private static final byte[] RTD_ANDROID_APP = "android.com:pkg".getBytes(Constants.US_ASCII);
-
 	public static boolean publishUri(@Nullable final NfcManager nfcManager, final Activity activity, @Nonnull final String uri)
 	{
 		if (nfcManager == null)
@@ -47,13 +46,13 @@ public class Nfc
 			return false;
 
 		final NdefRecord uriRecord = wellKnownUriRecord(uri);
-		adapter.enableForegroundNdefPush(activity, ndefMessage(uriRecord, true, activity.getPackageName()));
+		adapter.enableForegroundNdefPush(activity, ndefMessage(uriRecord));
 
 		return true;
 	}
 
 	public static boolean publishMimeObject(@Nullable final NfcManager nfcManager, final Activity activity, @Nonnull final String mimeType,
-			@Nonnull final byte[] payload, final boolean includeApplicationRecord)
+			@Nonnull final byte[] payload)
 	{
 		if (nfcManager == null)
 			return false;
@@ -63,7 +62,7 @@ public class Nfc
 			return false;
 
 		final NdefRecord mimeRecord = mimeRecord(mimeType, payload);
-		adapter.enableForegroundNdefPush(activity, ndefMessage(mimeRecord, includeApplicationRecord, activity.getPackageName()));
+		adapter.enableForegroundNdefPush(activity, ndefMessage(mimeRecord));
 
 		return true;
 	}
@@ -80,27 +79,19 @@ public class Nfc
 		adapter.disableForegroundNdefPush(activity);
 	}
 
-	private static NdefMessage ndefMessage(@Nonnull final NdefRecord record, final boolean includeApplicationRecord, final String packageName)
+	private static NdefMessage ndefMessage(@Nonnull final NdefRecord record)
 	{
-		if (includeApplicationRecord)
-		{
-			final NdefRecord appRecord = androidApplicationRecord(packageName);
-			return new NdefMessage(new NdefRecord[] { record, appRecord });
-		}
-		else
-		{
-			return new NdefMessage(new NdefRecord[] { record });
-		}
+		return new NdefMessage(new NdefRecord[] { record });
 	}
 
 	private static NdefRecord absoluteUriRecord(@Nonnull final String uri)
 	{
-		return new NdefRecord(NdefRecord.TNF_ABSOLUTE_URI, NdefRecord.RTD_URI, new byte[0], uri.getBytes(Constants.UTF_8));
+		return new NdefRecord(NdefRecord.TNF_ABSOLUTE_URI, NdefRecord.RTD_URI, new byte[0], uri.getBytes(Charsets.UTF_8));
 	}
 
 	private static NdefRecord wellKnownUriRecord(@Nonnull final String uri)
 	{
-		final byte[] uriBytes = uri.getBytes(Constants.UTF_8);
+		final byte[] uriBytes = uri.getBytes(Charsets.UTF_8);
 		final byte[] recordBytes = new byte[uriBytes.length + 1];
 		recordBytes[0] = (byte) 0x0; // prefix, alway 0 for bitcoin scheme
 		System.arraycopy(uriBytes, 0, recordBytes, 1, uriBytes.length);
@@ -109,20 +100,15 @@ public class Nfc
 
 	private static NdefRecord mimeRecord(@Nonnull final String mimeType, @Nonnull final byte[] payload)
 	{
-		final byte[] mimeBytes = mimeType.getBytes(Constants.US_ASCII);
+		final byte[] mimeBytes = mimeType.getBytes(Charsets.US_ASCII);
 		final NdefRecord mimeRecord = new NdefRecord(NdefRecord.TNF_MIME_MEDIA, mimeBytes, new byte[0], payload);
 		return mimeRecord;
-	}
-
-	private static NdefRecord androidApplicationRecord(@Nonnull final String packageName)
-	{
-		return new NdefRecord(NdefRecord.TNF_EXTERNAL_TYPE, RTD_ANDROID_APP, new byte[0], packageName.getBytes(Constants.US_ASCII));
 	}
 
 	@CheckForNull
 	public static byte[] extractMimePayload(@Nonnull final String mimeType, @Nonnull final NdefMessage message)
 	{
-		final byte[] mimeBytes = mimeType.getBytes(Constants.US_ASCII);
+		final byte[] mimeBytes = mimeType.getBytes(Charsets.US_ASCII);
 
 		for (final NdefRecord record : message.getRecords())
 		{

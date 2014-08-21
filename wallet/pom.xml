@@ -6,8 +6,7 @@
 
 	<artifactId>wallet</artifactId>
 	<packaging>apk</packaging>
-
-	<version>0.1.5</version>
+	<version>0.2.0</version>
 	<name>digitalcoin Wallet</name>
 
 
@@ -82,11 +81,18 @@
 			<version>2.5.0</version>
 		</dependency>
 
+		<!-- com.google.common.* -->
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>16.0.1</version>
+		</dependency>
+
 		<!-- com.google.zxing.* -->
 		<dependency>
 			<groupId>com.google.zxing</groupId>
 			<artifactId>core</artifactId>
-			<version>3.0.1</version>
+			<version>3.1.0</version>
 		</dependency>
 
 		<!-- org.slf4j.* -->
@@ -153,6 +159,14 @@
 	<build>
 		<sourceDirectory>src</sourceDirectory>
 		<testSourceDirectory>test</testSourceDirectory>
+		<testResources>
+			<testResource>
+				<directory>test</directory>
+				<excludes>
+					<exclude>**/*.java</exclude>
+				</excludes>
+			</testResource>
+		</testResources>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

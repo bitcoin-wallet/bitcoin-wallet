@@ -34,7 +34,6 @@
 	<string name="wallet_transactions_fragment_coinbase">minados</string>
 	<string name="wallet_transactions_fragment_internal">interno</string>
 	<string name="wallet_transactions_context_show_qr_title">Mostrar Código QR</string>
-	<string name="wallet_options_backup">Backup de chaves</string>
 	<string name="wallet_options_safety">Indicações de segurança</string>
 	<string name="wallet_options_donate">Doações</string>
 	<string name="wallet_donate_address_label">Doação para digitalcoin Wallet</string>
@@ -64,7 +63,7 @@
 	<string name="send_coins_fragment_receiving_address_error_cross_network">Não é possível usar o endereço %s com esta carteira!</string>
 	<string name="send_coins_fragment_receiving_address_error_cross_network_unknown">Não é possível usar um endereço de rede desconhecido com esta carteira!</string>
 	<string name="send_coins_fragment_receiving_address_complex">complexo\nendereço</string>
-	<string name="send_coins_fragment_pending">(%s DGC esperando confirmação)</string>
+	<string name="send_coins_fragment_pending">(%s esperando confirmação)</string>
 	<string name="send_coins_fragment_amount_label">Quantidade a pagar</string>
 	<string name="send_coins_fragment_direct_payment_enable">Envia pagamento diretamente ao destinatário.</string>
 	<string name="send_coins_fragment_direct_payment_ack">Seu pagamento foi enviado diretamente com sucesso.</string>

@@ -1,0 +1,106 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+  <string name="help_wallet">\n<![CDATA[
+		<p>
+			Ruudun vasemmassa ylänurkassa näkyy sinun valittu digitalcoin-osoite, joka muiden täytyy tietää lähettääkseen sinulle digitalcoineja.
+			Napsauta vaihtaaksesi osoitetta.
+		</p>
+		<p>
+			QR koodi oikealla sisältää digitalcoin-osoitteesi, jonka toinen osapuoli voi skannata.
+			Napsauta QR koodia saadaksesi suuremman kuvan siitä.
+		</p>
+		<p>
+			Ruudun keskellä näkyy saldosi.
+			Lompakkosi arvo näkyy myös yhdellä valitulla paikallisella rahayksiköllä.
+			Napsauta saldoa saadaksesi listan kaikista paikallisista rahayksiköistä. Napsauta yhtä rahayksikköä asettaaksesi sen vakiovaluutaksi.
+		</p>
+		<p>
+			Ruudun alareuna sisältää tilitapahtumat, mutta se näyttää tyhjää aluksi.
+			Vireillä olevat tapahtumat näkyy harmaana, kunnes ne vahvistetaan.
+			Napsauta yhtä tapahtumaa lisätäksesi lähettäjän tai vastaanottajan osoitteen osoitekirjaasi.
+			Vetäise oikealle tai vasemmalle asettaaksesi suodattimia listaan.
+		</p>
+		<p>
+			Voit lähettää tai pyytää digitalcoineja napsauttamalla näppäimiä toimintapalkissa.
+			Lisää valintoja löydät asetukset -valikosta.
+		</p>
+	]]>\n\t</string>
+  <string name="help_request_coins">\n<![CDATA[
+		<p>
+			Käyttämällä tätä dialogia, voit pyytää digitalcoineja toiselta henkilöltä, jolla pitäisi jo olla digitalcoin Wallet asennettuna.
+		</p>
+		<p>
+			Ensiksi, voit syöttää jonkun määrän digitalcoineja, joita pyydät.
+		</p>
+		<p>
+			Sen jälkeen jonkun toisen on skannattava luotu QR koodi.
+			Tai voit lähettää pyynnön etäiselle henkilölle \'jaa\' näppäimellä toimintapalkissa.
+			Toisen henkilön täytyy napsauttaa digitalcoin-URL-osoitetta.
+			
+		</p>
+		<p>
+			Joka tapauksessa toiselle henkilölle esitetään dialogi digitalcoinien lähettämisestä, jossa kaikki kentät on jo täytetty.
+			Jos hän hyväksyy sen, hänen täytyy vain lähettää maksu.
+		</p>
+	]]>\n\t</string>
+  <string name="help_send_coins">\n<![CDATA[
+		<p>
+			Olet käynnistänyt digitalcoinien lähetysprosessin.
+			Päädyit tänne joko päänäkymän kautta tai napsauttamalla digitalcoin-URL-osoitetta mobiiliselaimellasi.
+		</p>
+		<p>
+			Ensiksi syötät digitalcoin-osoitteen, jonne on maksettava.
+			Osoite tulee automaattisesti loppuunkirjoitetuksi tallennetuista tiedoista osoitekirjasta.
+			Voit myös skannata QR koodeja, joissa on digitalcoin osoite tai digitalcoin pyyntöjä napsauttamalla QR näppäintä toimintavalikossa.
+		</p>
+		<p>
+			Seuraavaksi näet, kuinka paljon sinulla on digitalcoineja käytettävissä tällä hetkellä.
+			Muutos päänäkymän saldoon ei ole vielä vahvistettu, eikä niitä rahoja voi vielä käyttää.
+		</p>
+		<p>
+			Lopuksi, ilmoitat maksettavan summan.
+		</p>
+		<p>
+			Voit asettaa maksun olematta verkossa, eli ollessasi offline.
+			Se lähetetään käynnistäessäsi digitalcoin Wallet:in uudestaan seuraavan kerran.
+			Jos haluat maksun menevän mahdollisimman nopeasti, varmista, että sinulla on hyvä yhteys (kuten WLAN).
+		</p>
+		<p>
+			Huomio:
+			Maksuja ei voi peruuttaa!
+			Aina varmista vastaanottajan osoite!
+		</p>
+	]]>\n\t</string>
+  <string name="help_safety">\n<![CDATA[
+		<p>
+			<b>Tärkeitä turvallisuus huomioita:</b>
+		</p>
+		<p>
+			digitalcoinit sijaitsevat laitteessasi.
+			<b>Jos hukkaat sen, menetät digitalcoinisi.</b>
+		</p>
+		<p>
+			Tämä tarkoittaa, että <b>sinun on varmuuskopioitava lompakkosi</b>!
+			Käytä sovelluksessa olevaa varmuuskopiointitoimintoa 3. osapuolen sovelluksen sijaan.
+			Pidä varmuuskopiosi turvassa ja muista salasana.
+		</p>
+		<p>
+			<b>Ennen poistamista</b> (tai ennen sovellusdatan poistamista/laitteen tyhjentämistä), <b>siirrä digitalcoinisi toiseen lompakkoon</b>.
+			Jäljelle jäävät digitalcoinit katoavat.
+		</p>
+		<p>
+			<b>Maksuja ei voi peruuttaa</b>.
+			Jos lähetät digitalcoinisi tyhjyyteen, ei ole käytännössä mitään keinoa saada niitä takaisin.
+		</p>
+		<p>
+			<b>Pidä mobiililaitteesi turvassa!</b>
+			Älä hanki pääkäyttäjän oikeuksia (root).
+			Asenna vain sovelluksia, joihin luotat.
+			Ei-kunnolliset sovellukset voivat yrittää varastaa lompakkosi.
+		</p>
+		<p>
+			Älä tee suuria riskejä!
+			<b>Käytä vain pieniä summia varten</b> päiväkäytössä.
+		</p>
+	]]>\n\t</string>
+</resources>

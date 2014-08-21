@@ -34,7 +34,6 @@
 	<string name="wallet_transactions_fragment_coinbase">נכרו</string>
 	<string name="wallet_transactions_fragment_internal">פנימי</string>
 	<string name="wallet_transactions_context_show_qr_title">הראה ברקוד</string>
-	<string name="wallet_options_backup">גבה את המפתחות</string>
 	<string name="wallet_options_safety">הוראות בטיחות</string>
 	<string name="wallet_options_donate">תרומה</string>
 	<string name="wallet_donate_address_label">תרום לארנק ביטקוין</string>
@@ -195,7 +194,7 @@
 	<string name="about_title">על אודות</string>
 	<string name="about_license_title">רישיון</string>
 
-	<string name="about_credits_bitcoinj_title">digitalcoinj זו משתמשת בbitcoinj %s</string>
+	<string name="about_credits_bitcoinj_title">digitalcoinj זו משתמשת בdigitalcoinj %s</string>
 	<string name="about_credits_zxing_title">אפליקציה זו משתמש ב\'zxing\'</string>
 	<string name="about_credits_icon_title">אפליקציה זו משתמשת בסמליל של \'bitboy\'</string>
 	<string name="about_community_googleplus_title">קהילת גוגל+</string>

@@ -1,8 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-
-	<string name="help_wallet">
-<![CDATA[
+  <string name="help_wallet">\n<![CDATA[
 		<p>
 			Den øverste venstre del af skærmen viser din valgte digitalcoin-adresse, som andre har brug for at vide for at sende
 			dig digitalcoins.
@@ -28,10 +26,8 @@
 			Du kan sende eller forespørge mønter ved at berøre knapperne i action-bjælken.
 			Flere indstillinger kan findes i menuen Opsætning.
 		</p>
-	]]>
-	</string>
-	<string name="help_request_coins">
-<![CDATA[
+	]]>\n\t</string>
+  <string name="help_request_coins">\n<![CDATA[
 		<p>
 			Ved at bruge denne dialog kan du forespørge mønter fra en anden person (som allerede skal have installeret digitalcoin Wallet).
 		</p>
@@ -47,10 +43,8 @@
 			Den anden person vil præsenteres for en dialog for afsendelse af mønter med alle felter forudfyldt.
 			Hvis hun accepterer, er alt hun behøver at gøre, at sende betalingen.
 		</p>
-	]]>
-	</string>
-	<string name="help_send_coins">
-<![CDATA[
+	]]>\n\t</string>
+  <string name="help_send_coins">\n<![CDATA[
 		<p>
 			Du har startet processen for at sende mønter.
 			Du kom hertil enten via hovedsskærmen eller ved at klikke på en digitalcoin-URL i din molbilbrowser.
@@ -77,10 +71,8 @@
 			Betalinger kan ikke fortrydes!
 			Tjek altid modtageradressen.
 		</p>
-	]]>
-	</string>
-	<string name="help_safety">
-<![CDATA[
+	]]>\n\t</string>
+  <string name="help_safety">\n<![CDATA[
 		<p>
 			<b>Vigtige bemærkninger om sikkerhed:</b>
 		</p>
@@ -111,7 +103,5 @@
 			Hold risikoen lav!
 			<b>Brug kun med små beløb</b> til daglig brug.
 		</p>
-	]]>
-	</string>
-
+	]]>\n\t</string>
 </resources>

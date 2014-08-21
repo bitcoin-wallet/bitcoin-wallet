@@ -54,6 +54,9 @@ import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.provider.BaseColumns;
 import android.text.format.DateUtils;
+
+import com.google.common.base.Charsets;
+
 import de.schildbach.wallet.util.GenericUtils;
 import de.schildbach.wallet.util.Io;
 
@@ -85,6 +88,8 @@ public class ExchangeRatesProvider extends ContentProvider
 	public static final String KEY_CURRENCY_CODE = "currency_code";
 	private static final String KEY_RATE = "rate";
 	private static final String KEY_SOURCE = "source";
+
+	public static final String QUERY_PARAM_Q = "q";
 
 	private Configuration config;
 	private String userAgent;
@@ -146,9 +151,6 @@ public class ExchangeRatesProvider extends ContentProvider
 	@Override
 	public Cursor query(final Uri uri, final String[] projection, final String selection, final String[] selectionArgs, final String sortOrder)
 	{
-		if (Constants.BUG_OPENSSL_HEARTBLEED)
-			return null;
-
 		final long now = System.currentTimeMillis();
 
 		if (lastUpdated == 0 || now - lastUpdated > UPDATE_FREQ_MS)
@@ -183,9 +185,22 @@ public class ExchangeRatesProvider extends ContentProvider
 				cursor.newRow().add(rate.currencyCode.hashCode()).add(rate.currencyCode).add(rate.rate.longValue()).add(rate.source);
 			}
 		}
+		else if (selection.equals(QUERY_PARAM_Q))
+		{
+			final String selectionArg = selectionArgs[0].toLowerCase(Locale.US);
+			for (final Map.Entry<String, ExchangeRate> entry : exchangeRates.entrySet())
+			{
+				final ExchangeRate rate = entry.getValue();
+				final String currencyCode = rate.currencyCode;
+				final String currencySymbol = GenericUtils.currencySymbol(currencyCode);
+				if (currencyCode.toLowerCase(Locale.US).contains(selectionArg) || currencySymbol.toLowerCase(Locale.US).contains(selectionArg))
+					cursor.newRow().add(currencyCode.hashCode()).add(currencyCode).add(rate.rate.longValue()).add(rate.source);
+			}
+		}
 		else if (selection.equals(KEY_CURRENCY_CODE))
 		{
-			final ExchangeRate rate = bestExchangeRate(selectionArgs[0]);
+			final String selectionArg = selectionArgs[0];
+			final ExchangeRate rate = bestExchangeRate(selectionArg);
 			if (rate != null)
 				cursor.newRow().add(rate.currencyCode.hashCode()).add(rate.currencyCode).add(rate.rate.longValue()).add(rate.source);
 		}
@@ -442,7 +457,7 @@ public class ExchangeRatesProvider extends ContentProvider
 				if ("gzip".equalsIgnoreCase(contentEncoding))
 					is = new GZIPInputStream(is);
 
-				reader = new InputStreamReader(is, Constants.UTF_8);
+				reader = new InputStreamReader(is, Charsets.UTF_8);
 				final StringBuilder content = new StringBuilder();
 				final long length = Io.copy(reader, content);
 
@@ -472,7 +487,7 @@ public class ExchangeRatesProvider extends ContentProvider
 
                                     rateStr = String.format("%.8f", rateForBTC * btcRate).replace(",", ".");
 
-									final BigInteger rate = GenericUtils.toNanoCoins(rateStr, 0);
+									final BigInteger rate = GenericUtils.parseCoin(rateStr, 0);
 
 									if (rate.signum() > 0)
 									{
@@ -501,8 +516,8 @@ public class ExchangeRatesProvider extends ContentProvider
                 }
                 else
                 {
-                    rates.put(CoinDefinition.cryptsyMarketCurrency, new ExchangeRate(CoinDefinition.cryptsyMarketCurrency, GenericUtils.toNanoCoins(String.format("%.8f", btcRate).replace(",", "."), 0), cryptsyValue ? "pubapi.cryptsy.com" : "data.bter.com"));
-                    rates.put("m" + CoinDefinition.cryptsyMarketCurrency, new ExchangeRate("m" + CoinDefinition.cryptsyMarketCurrency, GenericUtils.toNanoCoins(String.format("%.5f", btcRate*1000).replace(",", "."), 0), cryptsyValue ? "pubapi.cryptsy.com" : "data.bter.com"));
+                    rates.put(CoinDefinition.cryptsyMarketCurrency, new ExchangeRate(CoinDefinition.cryptsyMarketCurrency, GenericUtils.parseCoin(String.format("%.8f", btcRate).replace(",", "."), 0), cryptsyValue ? "pubapi.cryptsy.com" : "data.bter.com"));
+                    rates.put("m" + CoinDefinition.cryptsyMarketCurrency, new ExchangeRate("m" + CoinDefinition.cryptsyMarketCurrency, GenericUtils.parseCoin(String.format("%.5f", btcRate*1000).replace(",", "."), 0), cryptsyValue ? "pubapi.cryptsy.com" : "data.bter.com"));
                 }
 
 
@@ -510,7 +525,7 @@ public class ExchangeRatesProvider extends ContentProvider
 			}
 			else
 			{
-				log.warn("http status {} when fetching {}", responseCode, url);
+				log.warn("http status {} when fetching exchange rates from {}", responseCode, url);
 			}
 		}
 		catch (final Exception x)

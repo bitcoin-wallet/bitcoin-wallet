@@ -5,8 +5,8 @@
 	package="hashengineering.digitalcoin.wallet"
 	android:installLocation="internalOnly"
 
-	android:versionCode="10017"
-	android:versionName="0.1.7" >
+	android:versionCode="10020"
+	android:versionName="0.2.0" >
 
 
 	<uses-sdk
@@ -87,7 +87,7 @@
 		</activity-alias>
 
 		<activity
-			android:name="de.schildbach.wallet.ui.SendCoinsActivity"
+			android:name="de.schildbach.wallet.ui.send.SendCoinsActivity"
 			android:configChanges="keyboard|keyboardHidden"
 			android:label="@string/send_coins_activity_title"
 			android:screenOrientation="behind"
@@ -107,7 +107,7 @@
 
 				<category android:name="android.intent.category.DEFAULT" />
 			</intent-filter>
-			<intent-filter android:label="@string/send_coins_activity_title">
+			<intent-filter android:label="@string/send_coins_activity_title" >
 				<action android:name="android.intent.action.VIEW" />
 
 				<data android:mimeType="application/digitalcoin-paymentrequest" />
@@ -179,7 +179,7 @@
 
 				<category android:name="android.intent.category.DEFAULT" />
 
-				<data android:mimeType="x-digitalcoin/private-keys" />
+				<data android:mimeType="application/x-digitalcoin-wallet-backup" />
 				<data android:mimeType="application/octet-stream" />
 			</intent-filter>
 		</activity>
@@ -190,7 +190,14 @@
 			android:stateNotNeeded="true"
 			android:theme="@style/My.Theme.Fullscreen"
 			android:windowSoftInputMode="stateAlwaysHidden" />
-        <!-- Need to update this for the coin -->
+
+		<activity
+			android:name="de.schildbach.wallet.ui.send.SweepWalletActivity"
+			android:configChanges="keyboard|keyboardHidden"
+			android:label="@string/sweep_wallet_activity_title"
+			android:screenOrientation="behind"
+			android:windowSoftInputMode="adjustResize" />
+
 		<provider
 			android:name="de.schildbach.wallet.AddressBookProvider"
 			android:authorities="hashengineering.digitalcoin.wallet.address_book"

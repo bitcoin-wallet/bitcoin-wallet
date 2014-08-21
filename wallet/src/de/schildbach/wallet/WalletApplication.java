@@ -56,6 +56,7 @@ import ch.qos.logback.core.rolling.TimeBasedRollingPolicy;
 import com.google.bitcoin.core.Address;
 import com.google.bitcoin.core.ECKey;
 import com.google.bitcoin.core.Transaction;
+import com.google.bitcoin.core.VerificationException;
 import com.google.bitcoin.core.VersionMessage;
 import com.google.bitcoin.core.Wallet;
 import com.google.bitcoin.core.CoinDefinition;
@@ -126,15 +127,21 @@ public class WalletApplication extends Application
 				BlockchainServiceImpl.class);
 		blockchainServiceResetBlockchainIntent = new Intent(BlockchainService.ACTION_RESET_BLOCKCHAIN, null, this, BlockchainServiceImpl.class);
 
-		walletFile = getFileStreamPath(Constants.WALLET_FILENAME_PROTOBUF);
+		walletFile = getFileStreamPath(Constants.Files.WALLET_FILENAME_PROTOBUF);
 
 		loadWalletFromProtobuf();
+
+		config.updateLastVersionCode(packageInfo.versionCode);
+
+		afterLoadWallet();
+	}
+
+	private void afterLoadWallet()
+	{
 		wallet.autosaveToFile(walletFile, 1, TimeUnit.SECONDS, new WalletAutosaveEventListener());
 
 		// clean up spam
 		wallet.cleanup();
-
-		config.updateLastVersionCode(packageInfo.versionCode);
 
 		ensureKey();
 
@@ -230,6 +237,9 @@ public class WalletApplication extends Application
 
 				wallet = new WalletProtobufSerializer().readWallet(walletStream);
 
+				if (!wallet.getParams().equals(Constants.NETWORK_PARAMETERS))
+					throw new UnreadableWalletException("bad wallet network parameters: " + wallet.getParams().getId());
+
 				log.info("wallet loaded from: '" + walletFile + "', took " + (System.currentTimeMillis() - start) + "ms");
 			}
 			catch (final FileNotFoundException x)
@@ -292,7 +302,7 @@ public class WalletApplication extends Application
 
 		try
 		{
-			is = openFileInput(Constants.WALLET_KEY_BACKUP_PROTOBUF);
+			is = openFileInput(Constants.Files.WALLET_KEY_BACKUP_PROTOBUF);
 
 			final Wallet wallet = new WalletProtobufSerializer().readWallet(is);
 
@@ -303,7 +313,7 @@ public class WalletApplication extends Application
 
 			Toast.makeText(this, R.string.toast_wallet_reset, Toast.LENGTH_LONG).show();
 
-			log.info("wallet restored from backup: '" + Constants.WALLET_KEY_BACKUP_PROTOBUF + "'");
+			log.info("wallet restored from backup: '" + Constants.Files.WALLET_KEY_BACKUP_PROTOBUF + "'");
 
 			return wallet;
 		}
@@ -387,7 +397,7 @@ public class WalletApplication extends Application
 
 		try
 		{
-			os = openFileOutput(Constants.WALLET_KEY_BACKUP_PROTOBUF, Context.MODE_PRIVATE);
+			os = openFileOutput(Constants.Files.WALLET_KEY_BACKUP_PROTOBUF, Context.MODE_PRIVATE);
 			walletProto.writeTo(os);
 		}
 		catch (final IOException x)
@@ -408,7 +418,7 @@ public class WalletApplication extends Application
 
 		try
 		{
-			final String filename = String.format(Locale.US, "%s.%02d", Constants.WALLET_KEY_BACKUP_PROTOBUF,
+			final String filename = String.format(Locale.US, "%s.%02d", Constants.Files.WALLET_KEY_BACKUP_PROTOBUF,
 					(System.currentTimeMillis() / DateUtils.DAY_IN_MILLIS) % 100l);
 			os = openFileOutput(filename, Context.MODE_PRIVATE);
 			walletProto.writeTo(os);
@@ -432,7 +442,7 @@ public class WalletApplication extends Application
 
 	private void migrateBackup()
 	{
-		if (!getFileStreamPath(Constants.WALLET_KEY_BACKUP_PROTOBUF).exists())
+		if (!getFileStreamPath(Constants.Files.WALLET_KEY_BACKUP_PROTOBUF).exists())
 		{
 			log.info("migrating automatic backup to protobuf");
 
@@ -441,7 +451,7 @@ public class WalletApplication extends Application
 
 			// remove old backups
 			for (final String filename : fileList())
-				if (filename.startsWith(Constants.WALLET_KEY_BACKUP_BASE58))
+				if (filename.startsWith(Constants.Files.WALLET_KEY_BACKUP_BASE58))
 					new File(getFilesDir(), filename).delete();
 		}
 	}
@@ -485,6 +495,24 @@ public class WalletApplication extends Application
 	{
 		// actually stops the service
 		startService(blockchainServiceResetBlockchainIntent);
+	}
+
+	public void replaceWallet(final Wallet newWallet)
+	{
+		resetBlockchain(); // implicitly stops blockchain service
+		wallet.shutdownAutosaveAndWait();
+
+		wallet = newWallet;
+		afterLoadWallet();
+	}
+
+	public void processDirectTransaction(@Nonnull final Transaction tx) throws VerificationException
+	{
+		if (wallet.isTransactionRelevant(tx))
+		{
+			wallet.receivePending(tx, null);
+			broadcastTransaction(tx);
+		}
 	}
 
 	public void broadcastTransaction(@Nonnull final Transaction tx)

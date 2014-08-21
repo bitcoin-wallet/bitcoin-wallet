@@ -17,8 +17,6 @@
 
 package de.schildbach.wallet.ui;
 
-import javax.annotation.Nonnull;
-
 import android.app.Activity;
 import android.app.Dialog;
 import android.os.Bundle;
@@ -36,13 +34,13 @@ public final class HelpDialogFragment extends DialogFragment
 
 	private static final String KEY_MESSAGE = "message";
 
-	public static void page(final FragmentManager fm, @Nonnull final int messageResId)
+	public static void page(final FragmentManager fm, final int messageResId)
 	{
 		final DialogFragment newFragment = HelpDialogFragment.instance(messageResId);
 		newFragment.show(fm, FRAGMENT_TAG);
 	}
 
-	private static HelpDialogFragment instance(@Nonnull final int messageResId)
+	private static HelpDialogFragment instance(final int messageResId)
 	{
 		final HelpDialogFragment fragment = new HelpDialogFragment();
 

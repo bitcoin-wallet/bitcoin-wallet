@@ -1,8 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-
-	<string name="help_wallet">
-<![CDATA[
+  <string name="help_wallet">\n<![CDATA[
 		<p>
 			La parte in alto a sinistra dello schermo mostra gli indirizzo digitalcoin che le altre persone hanno bisogno per poterti inviare dei digitalcoin.
 			Premi per cambiare l\'indirizzo.
@@ -26,10 +24,8 @@
 			Puoi inviare o ricevere digitalcoins premendo i tasti nella barra delle azioni.
 			Sono disponibili ulteriori comandi nel menù opzioni.
 		</p>
-	]]>
-	</string>
-	<string name="help_request_coins">
-<![CDATA[
+	]]>\n\t</string>
+  <string name="help_request_coins">\n<![CDATA[
 		<p>
 			Utilizzando questa finestra puoi richiedere dei digitalcoin ad un\'altra persona
 			(che dovrebbe aver già installato digitalcoin Wallet).
@@ -46,10 +42,8 @@
 			In ogni modo alla persona ricevente verrà presentata un modulo precompilato per inviare i digitalcoin.
 			Per confermare l\'invio dovrà solo accettare la transazione.
 		</p>
-	]]>
-	</string>
-	<string name="help_send_coins">
-<![CDATA[
+	]]>\n\t</string>
+  <string name="help_send_coins">\n<![CDATA[
 		<p>
 			Hai iniziato il processo per inviare digitalcoins.
 			Sei giunto qui a partire dalla schermata principale o cliccando su di un URL digitalcoin dal tuo browser.
@@ -76,10 +70,8 @@
 			I pagamenti non possono essere annullate!
 			Controlla sempre la correttezza degli indirizzi di destinazione.
 		</p>
-	]]>
-	</string>
-	<string name="help_safety">
-<![CDATA[
+	]]>\n\t</string>
+  <string name="help_safety">\n<![CDATA[
 		<p>
 			<b>Alcune informazioni riguardo la sicurezza relativa ai vostri digitalcoins:</b>
 		</p>
@@ -106,7 +98,5 @@
 			Tieni basso il rischio!
 			<b>Usa digitalcoin Wallet solo con piccoli importi</b> sufficienti per l\'uso quotidiano.
 		</p>
-	]]>
-	</string>
-
+	]]>\n\t</string>
 </resources>

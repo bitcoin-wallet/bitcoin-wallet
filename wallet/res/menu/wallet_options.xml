@@ -27,17 +27,13 @@
 		android:showAsAction="ifRoom|withText"
 		android:title="@string/address_book_activity_title"/>
 	<item
-		android:id="@+id/wallet_options_exchange_rates"
 		android:showAsAction="never"
-		android:title="@string/exchange_rates_activity_title"/>
-	<item
-		android:id="@+id/wallet_options_network_monitor"
-		android:showAsAction="never"
-		android:title="@string/network_monitor_activity_title"/>
-	<item
-		android:showAsAction="never"
-		android:title="@string/wallet_options_backup">
+		android:title="@string/wallet_options_safety_menu">
 		<menu>
+			<item
+				android:id="@+id/wallet_options_safety"
+				android:showAsAction="never"
+				android:title="@string/wallet_options_safety"/>
 			<item
 				android:id="@+id/wallet_options_export_keys"
 				android:showAsAction="never"
@@ -48,11 +44,24 @@
 				android:title="@string/import_keys_dialog_title"/>
 		</menu>
 	</item>
+
     <item
     		android:id="@+id/wallet_options_disconnect"
     		android:showAsAction="never"
     		android:title="@string/wallet_options_disconnect"/>
-    <item
+	<item
+		android:id="@+id/wallet_options_exchange_rates"
+		android:showAsAction="never"
+		android:title="@string/exchange_rates_activity_title"/>
+	<item
+		android:id="@+id/wallet_options_sweep_wallet"
+		android:showAsAction="never"
+		android:title="@string/sweep_wallet_activity_title"/>
+	<item
+		android:id="@+id/wallet_options_network_monitor"
+		android:showAsAction="never"
+		android:title="@string/network_monitor_activity_title"/>
+	<item
 		android:id="@+id/wallet_options_preferences"
 		android:showAsAction="never"
 		android:title="@string/preferences_activity_title"/>
@@ -60,10 +69,6 @@
 		android:id="@+id/wallet_options_about"
 		android:showAsAction="never"
 		android:title="@string/about_title"/>
-	<item
-		android:id="@+id/wallet_options_safety"
-		android:showAsAction="never"
-		android:title="@string/wallet_options_safety"/>
 	<item
 		android:id="@+id/wallet_options_donate"
 		android:showAsAction="never"
