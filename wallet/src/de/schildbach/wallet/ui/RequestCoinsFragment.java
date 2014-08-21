@@ -26,6 +26,7 @@ import org.slf4j.LoggerFactory;
 
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
+import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -47,6 +48,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.Toast;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -353,10 +355,20 @@ public final class RequestCoinsFragment extends SherlockFragment
 		final PackageManager pm = activity.getPackageManager();
 		final Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(determineBitcoinRequestStr(false)));
 
-		// launch intent chooser with ourselves excluded
-		pm.setComponentEnabledSetting(component, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
-		startActivity(intent);
-		pm.setComponentEnabledSetting(component, PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);
+		try
+		{
+			// launch intent chooser with ourselves excluded
+			pm.setComponentEnabledSetting(component, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
+			startActivity(intent);
+		}
+		catch (final ActivityNotFoundException x)
+		{
+			activity.toast(R.string.request_coins_no_local_app_msg);
+		}
+		finally
+		{
+			pm.setComponentEnabledSetting(component, PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);
+		}
 
 		activity.finish();
 	}
