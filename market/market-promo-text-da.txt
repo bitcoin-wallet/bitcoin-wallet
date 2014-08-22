@@ -1,5 +1,1 @@
-<<<<<<< HEAD
 Dine egne digitalcoins i din egen lomme!
-=======
-Dine egne Bitcoins i din egen lomme!
->>>>>>> upstream/master

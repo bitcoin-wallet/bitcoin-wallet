@@ -3,7 +3,7 @@
 特点:
 
 • 无需注册,需要 web 服务以及云计算! 这是个去中心化点对点的钱包.
-• BTC、mBTC、µBTC都是显示比特币数量的单位。
+• DGC、mDGC、µDGC都是显示比特币数量的单位。
 • 转换成国家货币单位。
 • 发送和接受比特币可以通过 NFC，二维码或者比特币地址。
 • 地址薄，经常使用的比特币地址。
@@ -11,16 +11,11 @@
 • 系统收到货币的通知。
 • 比特币余额的应用程式。
 
-<<<<<<< HEAD
-更多关于比特币的信息请点击：http://digitalcoin.co
-如果你想赞助比特币钱包软件开发项目，该项目位于：https://github.com/HashEngineering/digitalcoin-wallet
-=======
 你可以找到更多关于比特币的
-http://bitcoin.org
->>>>>>> upstream/master
+http://digitalcoin.co
 
 如果你想参与比特币钱包维护，该项目位于
-https://github.com/schildbach/bitcoin-wallet
+https://github.com/HashEngineering/digitalcoin-wallet
 
 授权: GPLv3
 您使用的风险!

@@ -1,7 +1,7 @@
 <<<<<<< HEAD
 Hab deine digitalcoins immer dabei, in deiner Hosentasche! Du zahlst, indem du rasch einen QR-Code scannst. Als Händler empfängst du Zahlungen zuverlässig und sofort. digitalcoin Wallet ist die erste mobile digitalcoin app, und wohl auch die sicherste!
 =======
-<b>Hab deine Bitcoins immer dabei, in deiner Hosentasche!</b> Du zahlst, indem du rasch einen QR-Code scannst. Als Händler empfängst du Zahlungen zuverlässig und sofort. Bitcoin Wallet ist die erste mobile Bitcoin app, und wohl auch die sicherste!
+<b>Hab deine digitalcoins immer dabei, in deiner Hosentasche!</b> Du zahlst, indem du rasch einen QR-Code scannst. Als Händler empfängst du Zahlungen zuverlässig und sofort. digitalcoin Wallet ist die erste mobile digitalcoin app, und wohl auch die sicherste!
 >>>>>>> upstream/master
 
 
@@ -24,16 +24,16 @@ Wenn Du zu digitalcoin Wallet beitragen willst, das Projekt befindet sich auf
 https://github.com/HashEngineering/digitalcoin-wallet
 =======
 • Entleeren von Paper-Wallets (die z.B. für Cold-Storage genutzt wurden).
-• App-Widget zeigt Bitcoin-Guthaben an.
+• App-Widget zeigt digitalcoin-Guthaben an.
 
 
 <b>MITWIRKEN</b>
 
-Bitcoin Wallet ist <b>Open Source</b> und <b>Freie Software</b>. Lizenz: GPLv3
+digitalcoin Wallet ist <b>Open Source</b> und <b>Freie Software</b>. Lizenz: GPLv3
 https://www.gnu.org/licenses/gpl-3.0.de.html
 
 Unser Source Code ist auf GitHub verfügbar:
-https://github.com/schildbach/bitcoin-wallet
+https://github.com/HashEngineering/digitalcoin-wallet
 >>>>>>> upstream/master
 
 Alle Übersetzungen werden auf Transifex organisiert:
@@ -42,8 +42,8 @@ https://www.transifex.com/projects/p/bitcoin-wallet/
 
 <b>EMPFEHLUNGEN</b>
 
-• Viele mobile Wallets basieren auf Bitcoin Wallet. Beispiele: blockchain.info, Hive and KnC.
-• Von https://bitcoin.org empfohlenes mobiles Wallet.
+• Viele mobile Wallets basieren auf digitalcoin Wallet. Beispiele: blockchain.info, Hive and KnC.
+• Von http://digitalcoin.co empfohlenes mobiles Wallet.
 • Von BitPay empfohlen.
 
 

@@ -1,7 +1,7 @@
 <<<<<<< HEAD
 Ayez vos digitalcoins toujours avec vous dans votre poche ! Payez rapidement en numérisant un code-QR. En tant que marchant vous recevez les paiements de manière fiable et instantanée. digitalcoin Wallet est la première appli digitalcoin mobile et sans doute aussi la plus sécuritaire !
 =======
-<b>Ayez vos bitcoins toujours avec vous dans votre poche !<b> Payez rapidement en balayant un code QR. En tant que marchant, vous recevez les paiements de manière fiable et instantanée. Bitcoin Wallet est la première appli Bitcoin mobile et sans doute aussi la plus sécuritaire !
+<b>Ayez vos bitcoins toujours avec vous dans votre poche !<b> Payez rapidement en balayant un code QR. En tant que marchant, vous recevez les paiements de manière fiable et instantanée. digitalcoin Wallet est la première appli digitalcoin mobile et sans doute aussi la plus sécuritaire !
 >>>>>>> upstream/master
 
 
@@ -24,10 +24,10 @@ http://digitalcoin.co
 Si vous voulez contribuer á digitalcoin Wallet, le projet se trouve sur
 https://github.com/schildbach/digitalcoin-wallet
 =======
-• Affichage du montant de bitcoins en BTC, mBTC et µBTC.
+• Affichage du montant de bitcoins en DGC, mDGC et µDGC.
 • Conversion vers et depuis des devises nationales.
-• Envoi et réception de bitcoins par NFC, codes QR ou URL Bitcoin
-• Carnet d'adresses pour les adresses Bitcoin utilisées régulièrement.
+• Envoi et réception de bitcoins par NFC, codes QR ou URL digitalcoin
+• Carnet d'adresses pour les adresses digitalcoin utilisées régulièrement.
 • Quand vous êtes hors-ligne vous pouvez quand même payez via Bluetooth.
 • Notification du système pour les pièces reçues.
 • Balayage de portefeuilles papier (c.-à-d. ceux utilisés pour le stockage à froid).
@@ -36,11 +36,11 @@ https://github.com/schildbach/digitalcoin-wallet
 
 <b>CONTRIBUER</b>
 
-Bitcoin Wallet est un<b>logiciel à code source libre</b> et <b>ouvert</b>. Licence : GPLv3
+digitalcoin Wallet est un<b>logiciel à code source libre</b> et <b>ouvert</b>. Licence : GPLv3
 https://www.gnu.org/licenses/gpl-3.0.fr.html
 
 Notre code source est disponible sur GutHub :
-https://github.com/schildbach/bitcoin-wallet
+https://github.com/HashEngineering/digitalcoin-wallet
 >>>>>>> upstream/master
 
 Toutes les traductions sont gérées sur Transifex :
@@ -49,8 +49,8 @@ https://www.transifex.com/projects/p/bitcoin-wallet/
 
 <b>TÉMOIGNAGES</b>
 
-• De nombreux portefeuilles basent leur code sur Bitcoin Wallet. Par exemples : blockchain.info, Hive et KnC.
-• Portefeuille mobile recommandé par https://bitcoin.org
+• De nombreux portefeuilles basent leur code sur digitalcoin Wallet. Par exemples : blockchain.info, Hive et KnC.
+• Portefeuille mobile recommandé par http://digitalcoin.co
 • Recommandé par BitPay.
 
 

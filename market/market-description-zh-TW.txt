@@ -4,11 +4,7 @@
 <b>功能</b>
 
 • 不需註冊，不需登記網路服務或是任何雲端服務! 這個錢包App完全去中心化並利用點對點節點來服務。
-<<<<<<< HEAD
-• 可以顯示不同比特幣單位 DGC 與 mDGC。
-=======
-• 可顯示不同比特幣單位如 BTC、 mBTC 與 µBTC。
->>>>>>> upstream/master
+• 可顯示不同比特幣單位如 DGC、 mDGC 與 µDGC。
 • 自動轉換各國貨幣。
 • 可以藉由藍芽/NFC/QR二維條碼或是比特幣網址來接收或是支付比特幣。
 • 提供地址簿供常用比特幣地址使用。
@@ -17,22 +13,13 @@
 • 紙錢包移轉(例如冷存放使用)
 • 比特幣餘額桌面小工具。
 
-<<<<<<< HEAD
-關於比特幣你可以查閱
-http://digitalcoin.org
-
-如果要貢獻幫助給 digitalcoin Wallet，請到專案網頁查閱
-https://github.com/schildbach/digitalcoin-wallet
-=======
-
 <b>貢獻</b>
 
-Bitcoin Wallet is <b>open source</b> and <b>free software</b>. License: GPLv3
+digitalcoin Wallet is <b>open source</b> and <b>free software</b>. License: GPLv3
 https://www.gnu.org/licenses/gpl-3.0.en.html
 
 Our source code is available at GitHub:
-https://github.com/schildbach/bitcoin-wallet
->>>>>>> upstream/master
+https://github.com/HashEngineering/digitalcoin-wallet
 
 All translations are managed via Transifex:
 https://www.transifex.com/projects/p/bitcoin-wallet/

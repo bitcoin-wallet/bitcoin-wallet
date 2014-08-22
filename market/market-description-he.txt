@@ -13,10 +13,10 @@
 • וידג'ט לבדיקת יתרת הביטקוין שלך
 
 אתה יכול למצוא יותר על ביטקוין בכתובת
-לפרטים נוספים : http://bitcoin.org
+לפרטים נוספים : http://digitalcoin.co
 
 אם אתה רוצה לתרום לפרויקט ארנק הביטקוין, הפרויקט ממוקם ב
-https://github.com/schildbach/bitcoin-wallet
+https://github.com/HashEngineering/digitalcoin-wallet
 
 רישיון : GPLv3
 שים לב: השימוש הוא באחריות המשתמש.

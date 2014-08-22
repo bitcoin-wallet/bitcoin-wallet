@@ -1,5 +1,1 @@
-<<<<<<< HEAD
-Uw eigen digitalcoins, in uw eigen zak!
-=======
-Je eigen Bitcoins, in je eigen portemonnee!
->>>>>>> upstream/master
+Je eigen digitalcoins, in je eigen portemonnee!

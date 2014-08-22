@@ -1,5 +1,1 @@
-<<<<<<< HEAD
-Vaše vlastní digitalcoiny ve Vaší vlastní kapse!
-=======
-Vaše vlastní Bitcoiny ve vaší vlastní kapse!
->>>>>>> upstream/master
+Vaše vlastní digitalcoiny ve vaší vlastní kapse!

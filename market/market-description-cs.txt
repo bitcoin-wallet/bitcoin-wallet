@@ -1,45 +1,25 @@
-<<<<<<< HEAD
-Tato aplikace je peněženka s digitalcoiny pro systém Android. Můžete posílat digitalcoiny mezi telefony prostým naskenováním QR kódu, který je zobrazen aplikací, nebo pomocí NFC (Near Field Communication).
-=======
-<b>Mějte své Bitcoiny vždy s sebou ve své kapse!</b> Plaťte rychým oskenováním QR kódu. A jako prodejce můžete přijímat platby spolehlivě a rychle. Bitcoin Wallet je mobilní Bitcoin aplikace číslo jedna a jedna z nejbezpečnějších!
->>>>>>> upstream/master
+<b>Mějte své digitalcoiny vždy s sebou ve své kapse!</b> Plaťte rychým oskenováním QR kódu. A jako prodejce můžete přijímat platby spolehlivě a rychle. digitalcoin Wallet je mobilní digitalcoin aplikace číslo jedna a jedna z nejbezpečnějších!
 
-
-<<<<<<< HEAD
-• Zobrazení zůstatku peněženky v digitalcoinech a několika jiných měnách.
-• Odesílání a přijímání digitalcoinů pomocí NFC, QR-kódů, nebo digitalcoin adres.
-• Adresář pro často používané adresy.
-• Možnost zadávání transakcí v offline režimu, k jejich zpracování dojde po připojení.
-• Oznamování v liště při synchronizaci a při přijetí digitalcoinů.
-• Widget s celkovým zůstatkem.
-
-Více informací o digitalcoinech
-http://digitalcoin.co
-
-Pokud chcete přispět do projektu digitalcoin Wallet, naleznete jej na adrese
-https://github.com/HashEngineering/digitalcoin-wallet
-=======
 <b>FUNKCE</b>
 
 • Žádná registrace, žádná webová služba ani cloud není potřeba! Tato peněženka je de-centralizovaná a peer to peer.
-• Zobrazení Bitcoin částek v BTC, mBTC a µBTC.
+• Zobrazení digitalcoin částek v DGC, mDGC a µDGC.
 • Přepočet z a do národních měn.
-• Odesílání a přijímání plateb přes NFC, QR kódy nebo Bitcoin URL.
-• Adresář pro často používané Bitcoin adresy.
+• Odesílání a přijímání plateb přes NFC, QR kódy nebo digitalcoin URL.
+• Adresář pro často používané digitalcoin adresy.
 • Pokud jste offline, stále můžete platit přes Bluetooth.
 • Systémové notifikace při přijaté platbě
 • Načítání papírových peněženek (např. ty co se používají u cold storage).
-• Widget pro zborazení Bitcoin bilance.
+• Widget pro zborazení digitalcoin bilance.
 
 
 <b>PŘISPĚJTE</b>
 
-Bitcoin Wallet je <b>open source</b> a <b>svobodný software</b>. Licence: GPLv3
+digitalcoin Wallet je <b>open source</b> a <b>svobodný software</b>. Licence: GPLv3
 https://www.gnu.org/licenses/gpl-3.0.en.html
 
 Náš zdrojový kód je k dispozici na GitHubu:
-https://github.com/schildbach/bitcoin-wallet
->>>>>>> upstream/master
+https://github.com/HashEngineering/digitalcoin-wallet
 
 Veškeré překlady jsou tvořeny pomocí Transflex.
 https://www.transifex.com/projects/p/bitcoin-wallet/
@@ -47,9 +27,8 @@ https://www.transifex.com/projects/p/bitcoin-wallet/
 
 <b>UZNÁNÍ</b>
 
-• Mnoho mobilních peněženek využívá zdrojový kód Bitcoin Wallet. Například: blockchain.info, Hive a KnC.
-• Doporučená mobilní peněženka stránkou https://bitcoin.org
-• Doporučeno službou BitPay.
+• Doporučená mobilní peněženka stránkou http://digitalcoin.co
+
 
 
 <i>Použití na vlastní riziko!</i>

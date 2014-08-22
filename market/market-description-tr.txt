@@ -1,49 +1,26 @@
-<<<<<<< HEAD
-digitalcoin'leriniz daima cebinizde sizinle olsun! Herhangi bir QR kodunu okuyarak çabuk ödeme yapabilirsiniz. Bir tüccar olarak ödemeleri güvenilir ve anında alabilirsiniz. digitalcoin cüzdanı ilk mobil digitalcoin uygulamasıdır ve muhtemelen en güvenli digitalcoin uygulamasıdır!
-
-İŞLEVLERİ:
-• Hiçbir oturuma, web ya da bulut hizmetine gerek yoktur. Bu cüzdan merkezsiz ve eşten eşedir.
-• digitalcoin meblağlarının DGC ve mDGC olarak gösterilmesi.
-• Ulusal para birimlerine ve bu para birimlerinden dönüştürme.
-• NFC, QR kodu veya digitalcoin bağlantıları ile digitalcoin gönderir ve alır.
-• Sık kullanılan digitalcoin adresleri için adres defteri içerir.
-• Çevrimdışı olduğunuzda Bluetooth vasıtasıyla ödemeler.
-• Alınan digitalcoin'ler için sistem bildirimleri.
-• digitalcoin bakiyesini görüntüleyen widget.
-
-digitalcoin hakkında daha fazla bilgi için şu siteyi ziyaret edebilirsiniz:
-http://digitalcoin.co
-
-digitalcoin Wallet uygulamasına katkıda bulunmak istiyorsanız proje sayfasını ziyaret ediniz:
-https://github.com/HashEngineering/digitalcoin-wallet
-
-Lisans: GPLv3
-Tüm riski siz üstlenmiş olursunuz.
-http://www.gnu.org/licenses/gpl-3.0.en.html
-=======
-<b>Bitcoin'leriniz daima cebinizde sizinle olsun!</b> Herhangi bir QR kodunu okuyarak çabuk ödeme yapabilirsiniz. Bir tüccar olarak ödemeleri güvenilir ve anında alabilirsiniz. Bitcoin Wallet ilk mobil Bitcoin uygulamasıdır ve muhtemelen en güvenli Bitcoin uygulamasıdır!
+<b>digitalcoin'leriniz daima cebinizde sizinle olsun!</b> Herhangi bir QR kodunu okuyarak çabuk ödeme yapabilirsiniz. Bir tüccar olarak ödemeleri güvenilir ve anında alabilirsiniz. digitalcoin Wallet ilk mobil digitalcoin uygulamasıdır ve muhtemelen en güvenli digitalcoin uygulamasıdır!
 
 
 <b>ÖZELLİKLER</b>
 
 • Hiçbir oturuma, web ya da bulut hizmetine gerek yoktur. Bu cüzdan merkezsiz ve eşten eşedir.
-• Bitcoin meblağlarını BTC, mBTC ve µBTC olarak göster.
+• digitalcoin meblağlarını DGC, mDGC ve µDGC olarak göster.
 • Ulusal para birimlerine ve bu para birimlerinden dönüştürme.
-• QR kodları, Bitcoin bağlantıları ve yakın alan iletişimi ile Bitcoin alımı ve gönderilmesi.
-• Sık kullanılan Bitcoin adresleri için adres defteri içerir.
+• QR kodları, digitalcoin bağlantıları ve yakın alan iletişimi ile digitalcoin alımı ve gönderilmesi.
+• Sık kullanılan digitalcoin adresleri için adres defteri içerir.
 • Çevrimdışı olduğunuzda Bluetooth vasıtasıyla ödemeler.
 • Alınan bitcoin'ler için sistem bildirimleri.
 • Kağıt cüzdanların taranması (mesela soğuk depolama için kullanılanlar).
-• Bitcoin bakiyesini görüntüleyen widget.
+• digitalcoin bakiyesini görüntüleyen widget.
 
 
 <b>İŞTİRAK EDİN</b>
 
-Bitcoin Wallet <b>açık kaynak</b> ve <b>özgür yazılımdır</b>. Lisans: GPLv3
+digitalcoin Wallet <b>açık kaynak</b> ve <b>özgür yazılımdır</b>. Lisans: GPLv3
 https://www.gnu.org/licenses/gpl-3.0.en.html
 
 Kaynak kodumuz GitHub'da mevcuttur:
-https://github.com/schildbach/bitcoin-wallet
+https://github.com/HashEngineering/digitalcoin-wallet
 
 Tüm tercümeler Transifex üzerinde yönetilir:
 https://www.transifex.com/projects/p/bitcoin-wallet/
@@ -51,10 +28,9 @@ https://www.transifex.com/projects/p/bitcoin-wallet/
 
 <b>REFERANSLAR</b>
 
-• Birçok mobil cüzdan kodları için Bitcoin Wallet'i temel alırlar. Mesela blockchain.info, Hive ve KnC.
-• https://bitcoin.org tarafından tavsiye edilen mobil cüzdan.
+• Birçok mobil cüzdan kodları için digitalcoin Wallet'i temel alırlar. Mesela blockchain.info, Hive ve KnC.
+• http://digitalcoin.co tarafından tavsiye edilen mobil cüzdan.
 • BitPay tarafından tavsiye edilir.
 
 
 <i>Tüm riski siz üstlenmiş olursunuz!</i>
->>>>>>> upstream/master
