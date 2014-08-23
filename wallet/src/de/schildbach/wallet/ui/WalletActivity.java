@@ -62,6 +62,7 @@ import android.nfc.NfcAdapter;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.text.Html;
 import android.text.format.DateUtils;
 import android.view.Menu;
@@ -116,6 +117,8 @@ public final class WalletActivity extends AbstractWalletActivity
 	private Configuration config;
 	private Wallet wallet;
 
+	private Handler handler = new Handler();
+
 	private static final int REQUEST_CODE_SCAN = 0;
 
 	@Override
@@ -142,9 +145,25 @@ public final class WalletActivity extends AbstractWalletActivity
 	{
 		super.onResume();
 
-		getWalletApplication().startBlockchainService(true);
+		handler.postDelayed(new Runnable()
+		{
+			@Override
+			public void run()
+			{
+				// delayed start so that UI has enough time to initialize
+				getWalletApplication().startBlockchainService(true);
+			}
+		}, 1000);
 
 		checkLowStorageAlert();
+	}
+
+	@Override
+	protected void onPause()
+	{
+		handler.removeCallbacksAndMessages(null);
+
+		super.onPause();
 	}
 
 	@Override
