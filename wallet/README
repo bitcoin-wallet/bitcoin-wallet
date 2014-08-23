@@ -68,7 +68,7 @@ and switch to it. Use
 	tools/android update sdk --no-ui --force --filter tools
 
 	# fetch required android dependencies
-	tools/android update sdk --no-ui --force --filter build-tools-20.0.0,android-10,android-15,extra-android-m2repository
+	tools/android update sdk --no-ui --force --filter build-tools-20.0.0,android-10,android-16,extra-android-m2repository
 
 to download the necessary API level.
 
