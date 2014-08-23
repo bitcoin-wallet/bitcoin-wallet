@@ -1,11 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
-	<item
-		android:id="@+id/wallet_addresses_options_add"
-		android:icon="@drawable/ic_action_add"
-		android:showAsAction="always|withText"
-		android:title="@string/wallet_addresses_fragment_add_dialog_title"
-		android:titleCondensed="@string/button_add"/>
-
 </menu>

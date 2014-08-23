@@ -13,8 +13,6 @@
   <string name="blockchain_state_progress_problem_network">동기화 중 : 네트워크에 문제 발생</string>
   <string name="wallet_address_fragment_your">내 비트코인 주소 :</string>
   <string name="wallet_address_fragment_clipboard_msg">비트코인 주소가 클립보드에 복사되었습니다</string>
-  <string name="wallet_addresses_fragment_add_dialog_title">비트코인 주소 추가</string>
-  <string name="wallet_addresses_fragment_add_dialog_message">비트코인 주소는 삭제되지 않습니다. 지갑에 새로운 주소를 추가하시겠습니까?</string>
   <string name="wallet_balance_fragment_replaying">블럭체인 재실행 중 잔액 접근이 불가능합니다.</string>
   <string name="exchange_rates_activity_title">비트코인 환율</string>
   <string name="exchange_rates_fragment_empty_text">환율 정보를 불러오지 못했습니다.</string>

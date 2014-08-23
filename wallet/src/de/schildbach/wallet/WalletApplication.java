@@ -352,11 +352,6 @@ public class WalletApplication extends Application
 		}
 	}
 
-	public void addNewKeyToWallet()
-	{
-		wallet.importKey(wallet.freshReceiveKey());
-	}
-
 	public void saveWallet()
 	{
 		try

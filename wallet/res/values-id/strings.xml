@@ -14,8 +14,6 @@
 	<string name="blockchain_state_progress_problem_network">Sinkronisasi: Masalah jaringan</string>
 	<string name="wallet_address_fragment_your">Alamat Bitcoin Anda:</string>
 	<string name="wallet_address_fragment_clipboard_msg">Alamat Bitcoin disalin</string>
-	<string name="wallet_addresses_fragment_add_dialog_title">Tambahkan alamat Bitcoin</string>
-	<string name="wallet_addresses_fragment_add_dialog_message">Alamat Bitcoin tidak dapat dihapus. Apakah Anda ingin menambahkan alamat baru?</string>
 	<string name="wallet_balance_fragment_replaying">Saldo tidak tersedia saat pengulangan.</string>
 	<string name="exchange_rates_activity_title">Nilai Tukar</string>
 	<string name="exchange_rates_fragment_empty_text">Tidak dapat memuat nilai tukar</string>

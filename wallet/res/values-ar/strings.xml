@@ -14,8 +14,6 @@
 	<string name="blockchain_state_progress_problem_network">مزامنة بيانات: توجد مشكلة بالشبكة</string>
 	<string name="wallet_address_fragment_your">عنوان محفظة البيتكوين الخاصة بك:</string>
 	<string name="wallet_address_fragment_clipboard_msg">تم نسخ عنوان محفظتك إلى الحافظة</string>
-	<string name="wallet_addresses_fragment_add_dialog_title">أضف عنوان محفظة بيتكوين</string>
-	<string name="wallet_addresses_fragment_add_dialog_message">لا يمكنك مسح عناوين محفظات البيتكوين، هل تود إضافة عنوان بيتكوين جديد لمحفظتك؟</string>
 	<string name="wallet_balance_fragment_replaying">الرصيد غير متاح في حالة إعادة التشغيل.</string>
 	<string name="exchange_rates_activity_title">أسعار صرف العملات</string>
 	<string name="exchange_rates_fragment_empty_text">تعذر تحميل أسعار صرف العملات</string>

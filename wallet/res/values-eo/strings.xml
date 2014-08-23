@@ -14,8 +14,6 @@
 	<string name="blockchain_state_progress_problem_network">Sinkronigado: Reta problemo</string>
 	<string name="wallet_address_fragment_your">Via Bitmona Adreso:</string>
 	<string name="wallet_address_fragment_clipboard_msg">Bitmonadreso kopiita al tondujo</string>
-	<string name="wallet_addresses_fragment_add_dialog_title">Aldoni Bitmonadreson</string>
-	<string name="wallet_addresses_fragment_add_dialog_message">Bitmonadresoj ne povas esti forigitaj. Ĉu vi volas aldoni novan adreson al via monujo?</string>
 	<string name="wallet_balance_fragment_replaying">Saldo nedisponeblas dum ripeto.</string>
 	<string name="exchange_rates_activity_title">Kurzoj</string>
 	<string name="exchange_rates_fragment_empty_text">Ne eblis ŝargi kurzojn.</string>

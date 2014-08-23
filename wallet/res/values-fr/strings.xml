@@ -13,8 +13,6 @@
   <string name="blockchain_state_progress_problem_network">Synchronisation : problème de réseau</string>
   <string name="wallet_address_fragment_your">Votre adresse Bitcoin :</string>
   <string name="wallet_address_fragment_clipboard_msg">Adresse Bitcoin copiée dans le presse-papiers</string>
-  <string name="wallet_addresses_fragment_add_dialog_title">Ajouter une adresse Bitcoin</string>
-  <string name="wallet_addresses_fragment_add_dialog_message">Les adresses Bitcoin ne peuvent pas être effacées. Voulez-vous ajouter une nouvelle adresse à votre portefeuille ?</string>
   <string name="wallet_balance_fragment_replaying">Le solde est indisponible durant la reprise.</string>
   <string name="exchange_rates_activity_title">Taux de change</string>
   <string name="exchange_rates_fragment_empty_text">Impossible de charger les taux de change</string>

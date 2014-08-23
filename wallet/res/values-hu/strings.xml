@@ -14,8 +14,6 @@
 	<string name="blockchain_state_progress_problem_network">Szinkronizálás: Hálózati probléma</string>
 	<string name="wallet_address_fragment_your">Bitcoin címed:</string>
 	<string name="wallet_address_fragment_clipboard_msg">Bitcoin cím a vágólapra másolva</string>
-	<string name="wallet_addresses_fragment_add_dialog_title">Új Bitcoin cím</string>
-	<string name="wallet_addresses_fragment_add_dialog_message">A Bitcoin címek nem törölhetők. Új címet akarsz hozzáadni a tárcádhoz?</string>
 	<string name="wallet_balance_fragment_replaying">A frissítés során az egyenleg nem elérhető.</string>
 	<string name="exchange_rates_activity_title">Árfolyamok</string>
 	<string name="exchange_rates_fragment_empty_text">Az árfolyamok betöltése sikertelen</string>

@@ -13,8 +13,6 @@
   <string name="blockchain_state_progress_problem_network">Synchronisatie: Probleem met het netwerk</string>
   <string name="wallet_address_fragment_your">Uw Bitcoin Adres:</string>
   <string name="wallet_address_fragment_clipboard_msg">Bitcoin adres gekopieërd naar klembord</string>
-  <string name="wallet_addresses_fragment_add_dialog_title">Voeg Bitcoin Adres toe</string>
-  <string name="wallet_addresses_fragment_add_dialog_message">Bitcoin adres kan niet verwijderd worden. Wilt je een nieuw adres toevoegen aan je portemonnee?</string>
   <string name="wallet_balance_fragment_replaying">Balans is onbeschikbaar tijdens opnieuw spelen.</string>
   <string name="exchange_rates_activity_title">Wisselkoers</string>
   <string name="exchange_rates_fragment_empty_text">Kan geen wisselkoersen laden.</string>

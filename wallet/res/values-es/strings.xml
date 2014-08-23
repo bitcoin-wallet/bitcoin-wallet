@@ -13,8 +13,6 @@
   <string name="blockchain_state_progress_problem_network">Sincronización: Problema de red</string>
   <string name="wallet_address_fragment_your">Su dirección Bitcoin:</string>
   <string name="wallet_address_fragment_clipboard_msg">Dirección Bitcoin copiada al portapapeles</string>
-  <string name="wallet_addresses_fragment_add_dialog_title">Añadir dirección Bitcoin</string>
-  <string name="wallet_addresses_fragment_add_dialog_message">Las direcciones Bitcoin no pueden eliminarse. ¿Desea añadir una nueva dirección a su monedero?</string>
   <string name="wallet_balance_fragment_replaying">Saldo no disponible durante la reevaluación.</string>
   <string name="exchange_rates_activity_title">Tipos de cambio</string>
   <string name="exchange_rates_fragment_empty_text">No se pueden cargar las tasas de cambio.</string>

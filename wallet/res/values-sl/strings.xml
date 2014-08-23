@@ -14,8 +14,6 @@
 	<string name="blockchain_state_progress_problem_network">Usklajevanje: težava z omrežjem</string>
 	<string name="wallet_address_fragment_your">Vaš bitcoin naslov:</string>
 	<string name="wallet_address_fragment_clipboard_msg">Naslov kopiran na odložišče</string>
-	<string name="wallet_addresses_fragment_add_dialog_title">Ustvari nov naslov</string>
-	<string name="wallet_addresses_fragment_add_dialog_message">Bitcoin naslovov se ne da izbrisati. Želite ustvariti nov naslov v denarnici?</string>
 	<string name="wallet_balance_fragment_replaying">Pregled stanja med ponastavitvijo ni mogoč.</string>
 	<string name="exchange_rates_activity_title">Menjalni tečaji</string>
 	<string name="exchange_rates_fragment_empty_text">Nimam dostopa do menjalnih tečajev</string>

@@ -13,8 +13,6 @@
   <string name="blockchain_state_progress_problem_network">Синхронизация: проблема с сетью</string>
   <string name="wallet_address_fragment_your">Ваш Bitcoin-адрес:</string>
   <string name="wallet_address_fragment_clipboard_msg">Адрес скопирован в буфер обмена</string>
-  <string name="wallet_addresses_fragment_add_dialog_title">Добавить Bitcoin-адрес</string>
-  <string name="wallet_addresses_fragment_add_dialog_message">Bitcoin-адреса не могут быть удалены. Хотите добавить новый адрес в Ваш кошелек?</string>
   <string name="wallet_balance_fragment_replaying">Во время воспроизведения баланс недоступен.</string>
   <string name="exchange_rates_activity_title">Обменные курсы</string>
   <string name="exchange_rates_fragment_empty_text">Не удалось загрузить курсы валют.</string>

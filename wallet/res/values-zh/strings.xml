@@ -14,8 +14,6 @@
 	<string name="blockchain_state_progress_problem_network">同步: 检查网络</string>
 	<string name="wallet_address_fragment_your">您的比特币地址：</string>
 	<string name="wallet_address_fragment_clipboard_msg">比特币地址已复制到剪贴板</string>
-	<string name="wallet_addresses_fragment_add_dialog_title">添加比特币地址</string>
-	<string name="wallet_addresses_fragment_add_dialog_message">不能删除比特币地址，或许你想要一个新地址？</string>
 	<string name="wallet_balance_fragment_replaying">回档过程中的余额不可用。</string>
 	<string name="exchange_rates_activity_title">汇率</string>
 	<string name="exchange_rates_fragment_empty_text">无法加载汇率。</string>

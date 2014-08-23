@@ -13,8 +13,6 @@
   <string name="blockchain_state_progress_problem_network">同步中: 出現網路問題</string>
   <string name="wallet_address_fragment_your">你的比特幣地址:</string>
   <string name="wallet_address_fragment_clipboard_msg">比特幣地址已經複製到剪貼簿</string>
-  <string name="wallet_addresses_fragment_add_dialog_title">新增比特幣地址</string>
-  <string name="wallet_addresses_fragment_add_dialog_message">比特幣地址無法刪除。是否要新增新的地址到你的錢包?</string>
   <string name="wallet_balance_fragment_replaying">重播中餘額無法展示</string>
   <string name="exchange_rates_activity_title">匯率</string>
   <string name="exchange_rates_fragment_empty_text">無法讀取匯率</string>

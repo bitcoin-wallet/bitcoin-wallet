@@ -14,8 +14,6 @@
 	<string name="blockchain_state_progress_problem_network">Sincronizando: Problema na rede</string>
 	<string name="wallet_address_fragment_your">Seu Endereço Bitcoin:</string>
 	<string name="wallet_address_fragment_clipboard_msg">Endereço Bitcoin copiado</string>
-	<string name="wallet_addresses_fragment_add_dialog_title">Adicionar endereço Bitcoin</string>
-	<string name="wallet_addresses_fragment_add_dialog_message">Os endereços Bitcoin não podem ser excluidos. Você deseja adicionar um novo endereço à sua carteira?</string>
 	<string name="wallet_balance_fragment_replaying">Saldo indisponível durante a reavaliação.</string>
 	<string name="exchange_rates_activity_title">Taxas de Câmbio</string>
 	<string name="exchange_rates_fragment_empty_text">Não é possível carregar as taxas de câmbio</string>

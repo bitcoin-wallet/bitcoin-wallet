@@ -13,8 +13,6 @@
   <string name="blockchain_state_progress_problem_network">Synkroniserer: Netærksproblem</string>
   <string name="wallet_address_fragment_your">Din Bitcoin-adresse:</string>
   <string name="wallet_address_fragment_clipboard_msg">Bitcoin-adresse kopieret til udklipsholder</string>
-  <string name="wallet_addresses_fragment_add_dialog_title">Tilføj Bitcoin-adresse</string>
-  <string name="wallet_addresses_fragment_add_dialog_message">Bitcoin-adresser kan ikke slettes. Vil du tilføje en ny adresse til din tegnebog?</string>
   <string name="wallet_balance_fragment_replaying">Saldo er ikke tilgængelig under genafspilning.</string>
   <string name="exchange_rates_activity_title">Vekselkurser</string>
   <string name="exchange_rates_fragment_empty_text">Kunne ikke indlæse vekselkurser.</string>

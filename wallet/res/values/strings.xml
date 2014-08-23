@@ -14,8 +14,6 @@
 	<string name="blockchain_state_progress_problem_network">Synchronizing: Network problem</string>
 	<string name="wallet_address_fragment_your">Your Bitcoin address:</string>
 	<string name="wallet_address_fragment_clipboard_msg">Bitcoin address copied to clipboard</string>
-	<string name="wallet_addresses_fragment_add_dialog_title">Add Bitcoin address</string>
-	<string name="wallet_addresses_fragment_add_dialog_message">Bitcoin addresses cannot be deleted. Do you want to add a new address to your wallet?</string>
 	<string name="wallet_balance_fragment_replaying">Balance is unavailable during replay.</string>
 	<string name="exchange_rates_activity_title">Exchange rates</string>
 	<string name="exchange_rates_fragment_empty_text">Could not load exchange rates.</string>

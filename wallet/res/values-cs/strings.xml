@@ -13,8 +13,6 @@
   <string name="blockchain_state_progress_problem_network">Synchronizace: Problém se sítí</string>
   <string name="wallet_address_fragment_your">Vaše Bitcoin Adresa:</string>
   <string name="wallet_address_fragment_clipboard_msg">Adresa zkopírována do schránky</string>
-  <string name="wallet_addresses_fragment_add_dialog_title">Přidat Bitcoin adresu</string>
-  <string name="wallet_addresses_fragment_add_dialog_message">Bitcoin adresa se nedá smazat. Chcete přidat do peněženky novou adresu?</string>
   <string name="wallet_balance_fragment_replaying">Bilance je nedostupná během synchronizace.</string>
   <string name="exchange_rates_activity_title">Směné kurzy</string>
   <string name="exchange_rates_fragment_empty_text">Nepodařilo se nahrát směné kurzy.</string>

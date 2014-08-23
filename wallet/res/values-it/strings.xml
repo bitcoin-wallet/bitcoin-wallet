@@ -13,8 +13,6 @@
   <string name="blockchain_state_progress_problem_network">Sincronizzazione: problema di Rete</string>
   <string name="wallet_address_fragment_your">Il tuo indirizzo Bitcoin:</string>
   <string name="wallet_address_fragment_clipboard_msg">Indirizzo Bitcoin copiato negli appunti</string>
-  <string name="wallet_addresses_fragment_add_dialog_title">Aggiungi un indirizzo Bitcoin</string>
-  <string name="wallet_addresses_fragment_add_dialog_message">Gli indirizzi Bitcoin non possono essere cancellati. Ne vuoi aggiungere uno nuovo?</string>
   <string name="wallet_balance_fragment_replaying">Il conto non è disponibile durante la ripetizione.</string>
   <string name="exchange_rates_activity_title">Tassi di cambio</string>
   <string name="exchange_rates_fragment_empty_text">Impossibile caricare tassi di cambio.</string>
