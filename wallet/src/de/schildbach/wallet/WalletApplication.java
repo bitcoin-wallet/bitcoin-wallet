@@ -290,7 +290,7 @@ public class WalletApplication extends Application
 
 		// this check is needed so encrypted wallets won't get their private keys removed accidently
 		for (final ECKey key : wallet.getImportedKeys())
-			if (key.getPrivKeyBytes() == null)
+			if (key.isPubKeyOnly())
 				throw new Error("found read-only key, but wallet is likely an encrypted wallet from the future");
 	}
 
