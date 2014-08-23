@@ -2,7 +2,7 @@ digitalcoin Wallet
 -----------------
 v0.2.0-beta
 * updated checkpoints
-* updated to Bitcoin Wallet 3.55 code
+* updated to Bitcoin Wallet 3.56 code (sweep, fixes, translations)
 
 v0.1.7-beta
 * updated checkpoints
