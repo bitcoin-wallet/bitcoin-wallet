@@ -36,7 +36,6 @@
 		<dependency>
 			<groupId>com.google.android</groupId>
 			<artifactId>android</artifactId>
-			<!-- 4.1.3 not available on central -->
 			<version>4.1.1.4</version>
 			<scope>provided</scope>
 		</dependency>
@@ -186,7 +185,7 @@
 						<excludeJarResource>.*\.jar$</excludeJarResource>
 					</excludeJarResources>
 					<sdk>
-						<platform>15</platform>
+						<platform>16</platform>
 					</sdk>
 					<sign>
 						<debug>both</debug>
