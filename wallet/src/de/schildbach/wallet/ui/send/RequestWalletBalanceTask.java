@@ -188,7 +188,7 @@ public final class RequestWalletBalanceTask
                                 uxtoHash = new Sha256Hash(jsonOutput.getString("tx"));
                                 uxtoIndex = jsonOutput.getInt("n");
                                 uxtoScriptBytes = HEX.decode(jsonOutput.getString("script"));
-                                uxtoValue = BigInteger.valueOf((long)(Double.parseDouble(String.format("%.08f", jsonOutput.getDouble("amount")).replace(",", "."))) *100000000);
+                                uxtoValue = BigInteger.valueOf((long)(Double.parseDouble(String.format("%.08f", jsonOutput.getDouble("amount")).replace(",", ".")) *100000000));
                                 //jsonOutput.getInt("confirmations");
                             }
 
