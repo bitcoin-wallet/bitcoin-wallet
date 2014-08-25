@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="toast_wallet_reset">La cartera se ha reiniciado,\ntardará un poco en reactivarse</string>
+  <string name="toast_wallet_reset">La billetera se ha reiniciado,\ntardará un poco en reactivarse</string>
   <string name="wallet_disclaimer_fragment_remind_safety">Utilízalo bajo tu propio riesgo. Lee las &lt;u&gt;notas de seguridad&lt;/u&gt;.</string>
   <string name="wallet_disclaimer_fragment_remind_backup">¡Necesitas hacer una &lt;u&gt;copia de seguridad de tu monedero&lt;/u&gt;!</string>
   <string name="blockchain_state_progress_hours">%1$s, %2$d horas atrás</string>
@@ -60,8 +60,8 @@
   <string name="send_coins_fragment_receiving_address_label">Pagar a</string>
   <string name="send_coins_fragment_receiving_address_hint">escriba dirección o nombre</string>
   <string name="send_coins_fragment_receiving_address_error">¡Dirección Bitcoin inválida!</string>
-  <string name="send_coins_fragment_receiving_address_error_cross_network">¡No se puede usar la dirección %s con esta cartera!</string>
-  <string name="send_coins_fragment_receiving_address_error_cross_network_unknown">¡No se puede usar una dirección de red desconocida con esta cartera!</string>
+  <string name="send_coins_fragment_receiving_address_error_cross_network">¡No se puede usar la dirección %s con esta billetera!</string>
+  <string name="send_coins_fragment_receiving_address_error_cross_network_unknown">¡No se puede usar una dirección de red desconocida con esta billetera!</string>
   <string name="send_coins_fragment_receiving_address_complex">dirección\ncompleja</string>
   <string name="send_coins_fragment_pending">(%s esperando confirmación)</string>
   <string name="send_coins_fragment_amount_label">Cantidad a pagar</string>
@@ -80,18 +80,18 @@
   <string name="send_coins_sent_msg">¡Enviado!</string>
   <string name="send_coins_failed_msg">¡Error!</string>
   <string name="send_coins_error_msg">¡Problema enviando bitcoins!</string>
-  <string name="send_coins_options_empty">Vaciar cartera</string>
+  <string name="send_coins_options_empty">Vaciar billetera</string>
   <string name="send_coins_address_context_clear_title">Introducir nueva dirección</string>
   <string name="sweep_wallet_activity_title">Barrer billetera de papel</string>
-  <string name="sweep_wallet_fragment_intro">Usted esta apunto de barrer una billetera de papel o cupón. Esto moverá todas las monedas del papel a tu billetera en este dispositivo. Cuando la transacion es confirmada, el papel ya no tendrá valor no deberá ser reusado por razones de seguridad.</string>
-  <string name="sweep_wallet_fragment_hint">Billeteras de papel son mas commun usados para almacenamiento frio. Algunos ATMs los imprimen en su papel enves de mandar las moneras a su despositivo movil directamente. A veses las personas usan papel pre-cargados para passar el valor a otros (no recomendado)</string>
-  <string name="sweep_wallet_fragment_wallet_unknown">Comiense por escaniando la llave privada de la billetera de papel. Use el botton de action de la camara.</string>
+  <string name="sweep_wallet_fragment_intro">Usted está a punto de barrer una billetera de papel o cupón. Esto moverá todas las monedas del papel a tu billetera en este dispositivo. Cuando la transación es confirmada, el papel ya no tendrá valor y no deberá ser reusado por razones de seguridad.</string>
+  <string name="sweep_wallet_fragment_hint">Las billeteras de papel son comunmente usadas para almacenamiento frío. Algunos ATMs imprimen en papel en vez de mandar las monedas a su despositivo móvil directamente. A veces las personas usan billeteras de papel pre-cargadas para passar el valor a otros (no recomendado)</string>
+  <string name="sweep_wallet_fragment_wallet_unknown">Comience escaneando la clave privada de la billetera de papel. Use el botón de acción de la cámara.</string>
   <string name="sweep_wallet_fragment_balance">Balance para barrer</string>
   <string name="sweep_wallet_fragment_button_sweep">Barre</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_progress">Cargando balance…</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_failed_title">cargameinto de ballance de billetera fallado</string>
   <string name="sweep_wallet_fragment_insufficient_money_title">No hay suficientes monedas</string>
-  <string name="sweep_wallet_fragment_insufficient_money_msg">La cantidad de moneda en su cartera es muy pequeña para barrer.</string>
+  <string name="sweep_wallet_fragment_insufficient_money_msg">La cantidad de moneda en su billetera es muy pequeña para barrer.</string>
   <string name="sweep_wallet_options_reload">recarge balance</string>
   <string name="request_coins_activity_title">Pedir Bitcoins</string>
   <string name="request_coins_fragment_amount_label">Cantidad solicitada (opcional)</string>
@@ -192,11 +192,11 @@
   <string name="preferences_report_issue_summary">Recabar información de la incidencia y enviarla a los desarrolladores.</string>
   <string name="preferences_initiate_reset_title">Reevaluar cadena de bloques</string>
   <string name="preferences_initiate_reset_summary">Reevaluar cadena de bloques, transacciones y saldo del monedero. La recarga se demorará algún tiempo.</string>
-  <string name="preferences_initiate_reset_dialog_message">¿Deseas reiniciar y reevaluar la cadena de bloques?\n\nEsto ocultará temporalmente  el saldo de tu cartera y las transacciones. Reaparecerán según vaya progresando la sincronización de la cadena.</string>
+  <string name="preferences_initiate_reset_dialog_message">¿Deseas reiniciar y reevaluar la cadena de bloques?\n\nEsto ocultará temporalmente el saldo de tu billetera y las transacciones. Reaparecerán según vaya progresando la sincronización de la cadena.</string>
   <string name="preferences_initiate_reset_dialog_positive">Restaurar</string>
   <string name="report_issue_dialog_title_issue">Informar de incidencia</string>
   <string name="report_issue_dialog_title_crash">Detectado error grave previo</string>
-  <string name="report_issue_dialog_message_issue">Por favor describa su problema lo suficientemente preciso para que pueda ser reproducido. Si es especifico de su cartera, considere adjuntar el dump.</string>
+  <string name="report_issue_dialog_message_issue">Por favor describa su problema lo suficientemente preciso para que pueda ser reproducido. Si es especifico de su billetera, considere adjuntar el dump.</string>
   <string name="report_issue_dialog_message_crash">¿Deseas enviar un informe de error para ayudar a resolver la incidencia en el futuro?</string>
   <string name="report_issue_dialog_description">Descripción de la incidencia</string>
   <string name="report_issue_dialog_report">Informe</string>
