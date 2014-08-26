@@ -1,36 +1,36 @@
-<b>Tenga sus Bitcoins siempre con usted, en su bolsillo!</b> Usted paga con un rápido escaneo a un código QR. Como comerciante, usted recibe pagos de forma fiable e instantánea. Bitcoin Wallet es la primera aplicación Bitcon móvil, y posiblemente también la mas segura!
+<b>Ten tus bitcoins siempre contigo, ¡en tu bolsillo!</b> Puedes pagar con una rápida exploración de código QR. Como comerciante, puedes recibir pagos de forma fiable e instantánea. Bitcoin Wallet es la primera aplicación móvil Bitcoin. ¡Y posiblemente también la más segura!
 
 
-<b>CARACTERISTICAS</b>
+<b>CARACTERÍSTICAS</b>
 
-• ¡No requiere registro, servidor en la nube o servicio web! Este monedero es auténticamente entre pares (peer-to-peer).
-• Despliegue la cantidad de Bitcoin en BTC, mBTC, y µBTC.
-• Conversión a divisas nacionales.
-• Envio y recepcion de Bitcoins mediante NFC, codigos QR o URLs Bitcoin.
+• ¡No requiere registro, servidor en la nube o servicio web! Este monedero es auténticamente descentralizado y entre pares (peer-to-peer).
+• Muestra la cantidad de bitcoins en BTC, mBTC, y µBTC.
+• Conversión hacia y desde divisas nacionales.
+• Envío y recepción de bitcoins mediante NFC, códigos QR o identificadores URL Bitcoin.
 • Libreta de direcciones para guardar las direcciones Bitcoin más utilizadas.
 • Cuando no tengas conexión, puedes seguir pagando via Bluetooth.
-• Notificación al recibir monedas.
-• Barrido de carteras de papel (como ejemplo aquellos usado para el almacenamiento frio).
+• Notificación de sistema al recibir bitcoins.
+• Barrido de monederos de papel (por ejemplo, los que se utilizan para custodia en frio).
 • Widget para el saldo de bitcoins.
 
 
 <b>CONTRIBUIR</b>
 
-Bitcoin Wallet es <b>codigo abierto</b> y <b>software libre</b>. Licencia: GPLv3
+Bitcoin Wallet es <b>código abierto</b> y <b>software libre</b>. Licencia: GPLv3
 https://www.gnu.org/licenses/gpl-3.0.en.html
 
-Nuestro código fuente esta disponible en GitHub:
+Nuestro código fuente está disponible en GitHub:
 https://github.com/schildbach/bitcoin-wallet
 
-Todas las traducciones son gestionados a través de Transifex:
+Todas las traducciones son gestionadas a través de Transifex:
 https://www.transifex.com/projects/p/bitcoin-wallet/
 
 
 <b>TESTIMONIOS</b>
 
-• Muchas billeteras móviles basan su código en Bitcoin Wallet. Ejemplos: blockchain.info, Hive and KnC.
-• Billetera móvil recomendada por https://bitcoin.org
+• Muchos monederos móviles basan su código en Bitcoin Wallet. Ejemplos: blockchain.info, Hive y KnC.
+• Monedero móvil recomendado por https://bitcoin.org
 • Recomendado por BitPay.
 
 
-<i>Utilice bajo su propio riesgo!</i>
+<i>¡Úsalo bajo tu propio riesgo!</i>
