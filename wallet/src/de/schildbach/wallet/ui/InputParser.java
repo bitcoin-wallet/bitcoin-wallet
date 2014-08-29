@@ -103,15 +103,11 @@ public abstract class InputParser
 				try
 				{
 					final BitcoinURI bitcoinUri = new BitcoinURI(null, input);
-
 					final Address address = bitcoinUri.getAddress();
-					if (address == null)
-						throw new BitcoinURIParseException("missing address");
+					if (address != null && !Constants.NETWORK_PARAMETERS.equals(address.getParameters()))
+						throw new BitcoinURIParseException("mismatched network");
 
-					if (Constants.NETWORK_PARAMETERS.equals(address.getParameters()))
-						handlePaymentIntent(PaymentIntent.fromBitcoinUri(bitcoinUri));
-					else
-						error(R.string.input_parser_invalid_address, input);
+					handlePaymentIntent(PaymentIntent.fromBitcoinUri(bitcoinUri));
 				}
 				catch (final BitcoinURIParseException x)
 				{
