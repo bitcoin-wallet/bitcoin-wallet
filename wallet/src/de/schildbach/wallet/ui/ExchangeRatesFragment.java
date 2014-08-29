@@ -37,7 +37,6 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.widget.SearchViewCompat;
 import android.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -45,6 +44,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.ResourceCursorAdapter;
+import android.widget.SearchView;
+import android.widget.SearchView.OnQueryTextListener;
 import android.widget.TextView;
 
 import com.google.bitcoin.core.Wallet;
@@ -160,32 +161,29 @@ public final class ExchangeRatesFragment extends ListFragment implements OnShare
 	{
 		inflater.inflate(R.menu.exchange_rates_fragment_options, menu);
 
-		final View searchView = menu.findItem(R.id.exchange_rates_options_search).getActionView();
-		if (searchView != null)
+		final SearchView searchView = (SearchView) menu.findItem(R.id.exchange_rates_options_search).getActionView();
+		searchView.setOnQueryTextListener(new OnQueryTextListener()
 		{
-			SearchViewCompat.setOnQueryTextListener(searchView, new SearchViewCompat.OnQueryTextListenerCompat()
+			@Override
+			public boolean onQueryTextChange(final String newText)
 			{
-				@Override
-				public boolean onQueryTextChange(final String newText)
-				{
-					query = newText.trim();
-					if (query.isEmpty())
-						query = null;
+				query = newText.trim();
+				if (query.isEmpty())
+					query = null;
 
-					getLoaderManager().restartLoader(ID_RATE_LOADER, null, rateLoaderCallbacks);
+				getLoaderManager().restartLoader(ID_RATE_LOADER, null, rateLoaderCallbacks);
 
-					return true;
-				}
+				return true;
+			}
 
-				@Override
-				public boolean onQueryTextSubmit(final String query)
-				{
-					searchView.clearFocus();
+			@Override
+			public boolean onQueryTextSubmit(final String query)
+			{
+				searchView.clearFocus();
 
-					return true;
-				}
-			});
-		}
+				return true;
+			}
+		});
 
 		super.onCreateOptionsMenu(menu, inflater);
 	}
