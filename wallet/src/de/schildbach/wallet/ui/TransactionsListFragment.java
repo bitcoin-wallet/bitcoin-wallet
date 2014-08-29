@@ -151,7 +151,7 @@ public class TransactionsListFragment extends ListFragment implements LoaderCall
 	{
 		super.onCreate(savedInstanceState);
 
-		setRetainInstance(true);
+		setRetainInstance(false);
 
 		this.direction = (Direction) getArguments().getSerializable(KEY_DIRECTION);
 
