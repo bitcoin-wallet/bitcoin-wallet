@@ -8,6 +8,15 @@
 	android:orientation="horizontal"
 	android:showDividers="middle" >
 
+	<ImageView
+		android:id="@+id/widget_app_icon"
+		android:layout_width="wrap_content"
+		android:layout_height="match_parent"
+		android:layout_marginLeft="12dp"
+		android:contentDescription="@string/app_name"
+		android:src="@drawable/app_icon"
+		android:visibility="gone" />
+
 	<LinearLayout
 		android:id="@+id/widget_button_balance"
 		android:layout_width="0px"
