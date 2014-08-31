@@ -75,9 +75,6 @@ public class WalletBalanceWidgetProvider extends AppWidgetProvider
 		boolean isCachedExchangeRate = false;
 		Editable balanceLocStr = null;
 		if(showLocalBalance){
-			Uri uri = ExchangeRatesProvider.contentUri(context.getPackageName());
-			String[] selectionArgs = {config.getExchangeCurrencyCode()};
-			context.getContentResolver().query(uri,null,ExchangeRatesProvider.KEY_CURRENCY_CODE,selectionArgs,null);
 			final ExchangeRatesProvider.ExchangeRate cachedExchangeRate = config.getCachedExchangeRate();
 			final BigInteger localValue;
 			if (cachedExchangeRate != null)
