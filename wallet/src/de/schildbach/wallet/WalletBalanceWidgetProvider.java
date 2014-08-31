@@ -21,9 +21,13 @@ import java.math.BigInteger;
 
 import javax.annotation.Nonnull;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.preference.PreferenceManager;
@@ -47,6 +51,8 @@ import de.schildbach.wallet_test.R;
  */
 public class WalletBalanceWidgetProvider extends AppWidgetProvider
 {
+	private static final Logger log = LoggerFactory.getLogger(WalletBalanceWidgetProvider.class);
+
 	@Override
 	public void onUpdate(final Context context, final AppWidgetManager appWidgetManager, final int[] appWidgetIds)
 	{
@@ -57,7 +63,30 @@ public class WalletBalanceWidgetProvider extends AppWidgetProvider
 		updateWidgets(context, appWidgetManager, appWidgetIds, balance);
 	}
 
-	public static void updateWidgets(final Context context, @Nonnull final AppWidgetManager appWidgetManager, @Nonnull final int[] appWidgetIds,
+	public static void updateWidgets(final Context context, final Wallet wallet)
+	{
+		final AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+
+		final ComponentName providerName = new ComponentName(context, WalletBalanceWidgetProvider.class);
+
+		try
+		{
+			final int[] appWidgetIds = appWidgetManager.getAppWidgetIds(providerName);
+
+			if (appWidgetIds.length > 0)
+			{
+				final BigInteger balance = wallet.getBalance(BalanceType.ESTIMATED);
+
+				WalletBalanceWidgetProvider.updateWidgets(context, appWidgetManager, appWidgetIds, balance);
+			}
+		}
+		catch (final RuntimeException x) // system server dead?
+		{
+			log.warn("cannot update app widgets", x);
+		}
+	}
+
+	private static void updateWidgets(final Context context, @Nonnull final AppWidgetManager appWidgetManager, @Nonnull final int[] appWidgetIds,
 			@Nonnull final BigInteger balance)
 	{
 		final Configuration config = new Configuration(PreferenceManager.getDefaultSharedPreferences(context));

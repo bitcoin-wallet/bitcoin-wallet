@@ -41,9 +41,7 @@ import org.slf4j.LoggerFactory;
 import android.annotation.SuppressLint;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.appwidget.AppWidgetManager;
 import android.content.BroadcastReceiver;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -72,7 +70,6 @@ import com.google.bitcoin.core.StoredBlock;
 import com.google.bitcoin.core.Transaction;
 import com.google.bitcoin.core.TransactionConfidence.ConfidenceType;
 import com.google.bitcoin.core.Wallet;
-import com.google.bitcoin.core.Wallet.BalanceType;
 import com.google.bitcoin.core.WalletEventListener;
 import com.google.bitcoin.net.discovery.DnsDiscovery;
 import com.google.bitcoin.net.discovery.PeerDiscovery;
@@ -139,7 +136,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 		@Override
 		public void onThrottledWalletChanged()
 		{
-			notifyWidgets();
+			WalletBalanceWidgetProvider.updateWidgets(BlockchainServiceImpl.this, application.getWallet());
 		}
 
 		@Override
@@ -841,30 +838,6 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 	private void removeBroadcastBlockchainState()
 	{
 		removeStickyBroadcast(new Intent(ACTION_BLOCKCHAIN_STATE));
-	}
-
-	public void notifyWidgets()
-	{
-		final AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
-
-		final ComponentName providerName = new ComponentName(this, WalletBalanceWidgetProvider.class);
-
-		try
-		{
-			final int[] appWidgetIds = appWidgetManager.getAppWidgetIds(providerName);
-
-			if (appWidgetIds.length > 0)
-			{
-				final Wallet wallet = application.getWallet();
-				final BigInteger balance = wallet.getBalance(BalanceType.ESTIMATED);
-
-				WalletBalanceWidgetProvider.updateWidgets(this, appWidgetManager, appWidgetIds, balance);
-			}
-		}
-		catch (final RuntimeException x) // system server dead?
-		{
-			log.warn("cannot update app widgets", x);
-		}
 	}
 
 	private void maybeRotateKeys()

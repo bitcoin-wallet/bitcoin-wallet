@@ -31,6 +31,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceScreen;
@@ -42,6 +43,7 @@ import com.actionbarsherlock.view.MenuItem;
 import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
+import de.schildbach.wallet.WalletBalanceWidgetProvider;
 import de.schildbach.wallet.util.CrashReporter;
 import de.schildbach.wallet_test.R;
 
@@ -51,6 +53,10 @@ import de.schildbach.wallet_test.R;
 public final class PreferencesActivity extends SherlockPreferenceActivity implements OnPreferenceChangeListener
 {
 	private WalletApplication application;
+
+	private Handler handler = new Handler();
+
+	private Preference btcPrecisionPreference;
 	private Preference trustedPeerPreference;
 	private Preference trustedPeerOnlyPreference;
 
@@ -75,6 +81,9 @@ public final class PreferencesActivity extends SherlockPreferenceActivity implem
 		application = (WalletApplication) getApplication();
 		addPreferencesFromResource(R.xml.preferences);
 
+		btcPrecisionPreference = findPreference(Configuration.PREFS_KEY_BTC_PRECISION);
+		btcPrecisionPreference.setOnPreferenceChangeListener(this);
+
 		trustedPeerPreference = findPreference(Configuration.PREFS_KEY_TRUSTED_PEER);
 		trustedPeerPreference.setOnPreferenceChangeListener(this);
 
@@ -95,7 +104,9 @@ public final class PreferencesActivity extends SherlockPreferenceActivity implem
 	@Override
 	protected void onDestroy()
 	{
+		trustedPeerOnlyPreference.setOnPreferenceChangeListener(null);
 		trustedPeerPreference.setOnPreferenceChangeListener(null);
+		btcPrecisionPreference.setOnPreferenceChangeListener(null);
 
 		super.onDestroy();
 	}
@@ -195,15 +206,27 @@ public final class PreferencesActivity extends SherlockPreferenceActivity implem
 	@Override
 	public boolean onPreferenceChange(final Preference preference, final Object newValue)
 	{
-		if (preference.equals(trustedPeerPreference))
+		// delay action because preference isn't persisted until after this method returns
+		handler.post(new Runnable()
 		{
-			application.stopBlockchainService();
-			updateTrustedPeer((String) newValue);
-		}
-		else if (preference.equals(trustedPeerOnlyPreference))
-		{
-			application.stopBlockchainService();
-		}
+			@Override
+			public void run()
+			{
+				if (preference.equals(btcPrecisionPreference))
+				{
+					WalletBalanceWidgetProvider.updateWidgets(PreferencesActivity.this, application.getWallet());
+				}
+				else if (preference.equals(trustedPeerPreference))
+				{
+					application.stopBlockchainService();
+					updateTrustedPeer((String) newValue);
+				}
+				else if (preference.equals(trustedPeerOnlyPreference))
+				{
+					application.stopBlockchainService();
+				}
+			}
+		});
 
 		return true;
 	}
