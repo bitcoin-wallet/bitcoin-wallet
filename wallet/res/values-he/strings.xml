@@ -34,7 +34,6 @@
   <string name="wallet_transactions_row_warning_backup">ברכותי, קיבלת את התשלום הראשון! האם כבר &lt;u&gt;גיבית את הארנק&lt;/u&gt; כדי להגן מפני אבדן?</string>
   <string name="wallet_transactions_fragment_coinbase">נכרו</string>
   <string name="wallet_transactions_fragment_internal">פנימי</string>
-  <string name="wallet_transactions_context_show_qr_title">הראה ברקוד</string>
   <string name="wallet_options_safety_menu">בטיחות</string>
   <string name="wallet_options_safety">הוראות בטיחות</string>
   <string name="wallet_options_donate">תרומה</string>
@@ -106,7 +105,6 @@
   <string name="address_book_context_send_title">שלח ביטקוינים לכתובת</string>
   <string name="address_book_context_edit_title">ערוך כתובת</string>
   <string name="address_book_context_remove_title">הסר כתובת</string>
-  <string name="address_book_context_show_qr_title">הראה קוד QR</string>
   <string name="address_book_context_copy_to_clipboard_title">העתק ללוח</string>
   <string name="address_book_context_default_title">שמור ככתובת ברירת מחדל</string>
   <string name="address_book_options_paste_from_clipboard_title">הדבק מהלוח</string>
@@ -239,6 +237,7 @@
   <string name="button_scan">סרוק</string>
   <string name="button_edit_address">הוסף או ערוך כתובת</string>
   <string name="button_settings">הגדרות</string>
+  <string name="action_show_qr">הראה ברקוד</string>
   <string name="action_browse">גלוש</string>
   <string name="time_today">היום</string>
   <string name="address_unlabeled">(לא מסומן)</string>

@@ -33,7 +33,6 @@
 	<string name="wallet_transactions_row_warning_backup">تهانينا، لقد تلقيت أول دفعة خاصة بك! قل قمت بحفظ احتياطي لمحفظتك لحمايتها من الضياع؟</string>
 	<string name="wallet_transactions_fragment_coinbase">محفور</string>
 	<string name="wallet_transactions_fragment_internal">داخلي</string>
-	<string name="wallet_transactions_context_show_qr_title">عرض رمز الاستجابة السريعة QR-code</string>
 	<string name="wallet_options_safety">ملاحظات السلامة</string>
 	<string name="wallet_options_donate">التبرعات</string>
 	<string name="wallet_donate_address_label">تبرع للبرنامج</string>
@@ -93,7 +92,6 @@
 	<string name="address_book_context_send_title">أرسل بيتكوين إلى عنوان</string>
 	<string name="address_book_context_edit_title">تحرير العنوان</string>
 	<string name="address_book_context_remove_title">حذف العنوان</string>
-	<string name="address_book_context_show_qr_title">عرض رمز الاستجابة السريعة QR-code</string>
 	<string name="address_book_context_copy_to_clipboard_title">نسخ إلى الحافظة</string>
 	<string name="address_book_context_default_title">تعيين كعنوان افتراضي</string>
 	<string name="address_book_options_paste_from_clipboard_title">لصق من الحافظة</string>
@@ -220,6 +218,7 @@
 	<string name="button_scan">مسح بصري</string>
 	<string name="button_edit_address">إضافة/تحرير عنوان</string>
 	<string name="button_settings">الإعدادات</string>
+	<string name="action_show_qr">عرض رمز الاستجابة السريعة QR-code</string>
 	<string name="action_browse">تصفح</string>
 	<string name="time_today">اليوم</string>
 	<string name="address_unlabeled">(غير مسمى)</string>

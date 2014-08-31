@@ -33,7 +33,6 @@
 	<string name="wallet_transactions_row_warning_backup">Gratulálunk, megérkezett az első kifizetésed! Ugye rendszeresen &lt;u&gt;elmented a tárcád&lt;/u&gt;, tartalmát, hogy biztonságban legyen?</string>
 	<string name="wallet_transactions_fragment_coinbase">bányászott</string>
 	<string name="wallet_transactions_fragment_internal">belső</string>
-	<string name="wallet_transactions_context_show_qr_title">QR-kód megtekintése</string>
 	<string name="wallet_options_safety">Biztonsági megjegyzések</string>
 	<string name="wallet_options_donate">Támogatás / Donate</string>
 	<string name="wallet_donate_address_label">Támogasd a Bitcoin Wallet létrehozóit</string>
@@ -79,7 +78,6 @@
 	<string name="address_book_context_send_title">Bitcoin küldése megadott címre</string>
 	<string name="address_book_context_edit_title">Cím szerkesztése</string>
 	<string name="address_book_context_remove_title">Cím eltávolítása</string>
-	<string name="address_book_context_show_qr_title">QR-kód megtekintése</string>
 	<string name="address_book_context_copy_to_clipboard_title">Másolás</string>
 	<string name="address_book_context_default_title">Alapértelmezett cím</string>
 	<string name="address_book_options_paste_from_clipboard_title">Beillesztés</string>
@@ -197,6 +195,7 @@
 	<string name="button_scan">Szkennelés</string>
 	<string name="button_edit_address">Cím hozzáadása/szerkesztése</string>
 	<string name="button_settings">Beállítások</string>
+	<string name="action_show_qr">QR-kód megtekintése</string>
 	<string name="time_today">ma</string>
 	<string name="address_unlabeled">(címke nélkül)</string>
 

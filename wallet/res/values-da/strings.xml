@@ -34,7 +34,6 @@
   <string name="wallet_transactions_row_warning_backup">Tillykke, du har modtaget din første betaling! Har du &lt;u&gt;taget en sikkerhedskopi af din tegnebog&lt;/u&gt;, for at beskytte dig mod tab?</string>
   <string name="wallet_transactions_fragment_coinbase">mined</string>
   <string name="wallet_transactions_fragment_internal">intern</string>
-  <string name="wallet_transactions_context_show_qr_title">Vis QR-kode</string>
   <string name="wallet_options_safety_menu">Sikkerhed</string>
   <string name="wallet_options_safety">Sikkerhedsnoter</string>
   <string name="wallet_options_donate">Giv drikkepenge / donér</string>
@@ -108,7 +107,6 @@
   <string name="address_book_context_send_title">Send Bitcoins til adresse</string>
   <string name="address_book_context_edit_title">Redigér adresse</string>
   <string name="address_book_context_remove_title">Fjern adresse</string>
-  <string name="address_book_context_show_qr_title">Vis QR-kode</string>
   <string name="address_book_context_copy_to_clipboard_title">Kopiér til udklipsholder</string>
   <string name="address_book_context_default_title">Sæt som standardadresse</string>
   <string name="address_book_options_paste_from_clipboard_title">Indsæt fra udklipsholder</string>
@@ -241,6 +239,7 @@
   <string name="button_scan">Scan</string>
   <string name="button_edit_address">Tilføj/redigér adresse</string>
   <string name="button_settings">Opsætning</string>
+  <string name="action_show_qr">Vis QR-kode</string>
   <string name="action_browse">Gennemse</string>
   <string name="time_today">i dag</string>
   <string name="address_unlabeled">(uden etikette)</string>

@@ -33,7 +33,6 @@
 	<string name="wallet_transactions_row_warning_backup">Честитки, ја доби твојата прва исплата! Дали веќе направи &lt;u&gt;резервна копија од паричникот&lt;/u&gt;, во случај да го загубиш?</string>
 	<string name="wallet_transactions_fragment_coinbase">ископани</string>
 	<string name="wallet_transactions_fragment_internal">внатрешен</string>
-	<string name="wallet_transactions_context_show_qr_title">Прикажи QR код</string>
 	<string name="wallet_options_safety">Безбедносни белешки</string>
 	<string name="wallet_options_donate">Бакшиш / Донирај</string>
 	<string name="wallet_donate_address_label">Донација за Биткоин Паричник</string>
@@ -79,7 +78,6 @@
 	<string name="address_book_context_send_title">Испрати Биткоини до адреса</string>
 	<string name="address_book_context_edit_title">Уреди адреса</string>
 	<string name="address_book_context_remove_title">Отстрани адреса</string>
-	<string name="address_book_context_show_qr_title">Прикажи QR код</string>
 	<string name="address_book_context_copy_to_clipboard_title">Копирај во склад</string>
 	<string name="address_book_context_default_title">Постави како главна адреса</string>
 	<string name="address_book_options_paste_from_clipboard_title">Внеси од склад</string>
@@ -197,6 +195,7 @@
 	<string name="button_scan">Скенирај</string>
 	<string name="button_edit_address">Додај/уреди адреса</string>
 	<string name="button_settings">Поставувања</string>
+	<string name="action_show_qr">Прикажи QR код</string>
 	<string name="action_browse">Прегледај</string>
 	<string name="time_today">денес</string>
 	<string name="address_unlabeled">(без ознака)</string>

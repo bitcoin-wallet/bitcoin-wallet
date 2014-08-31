@@ -45,6 +45,7 @@
 		android:layout_gravity="center"
 		android:layout_marginLeft="16dp"
 		android:background="@drawable/qrcode_frame"
+		android:contentDescription="@string/action_show_qr"
 		android:focusable="true"
 		android:scaleType="centerInside" />
 

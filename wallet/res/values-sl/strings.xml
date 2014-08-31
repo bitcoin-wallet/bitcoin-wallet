@@ -33,7 +33,6 @@
 	<string name="wallet_transactions_row_warning_backup">Čestitke, prejeli ste prvo plačilo! Ste že napravili &lt;u&gt;rezervno kopijo ključev&lt;/u&gt; za zaščito pred izgubo novcev?</string>
 	<string name="wallet_transactions_fragment_coinbase">narudarjeno</string>
 	<string name="wallet_transactions_fragment_internal">notranji</string>
-	<string name="wallet_transactions_context_show_qr_title">Prikazi QR-kodo</string>
 	<string name="wallet_options_safety">O varnosti</string>
 	<string name="wallet_options_donate">Donacije</string>
 	<string name="wallet_donate_address_label">Donacija za Bitcoin Wallet</string>
@@ -95,7 +94,6 @@
 	<string name="address_book_context_send_title">Pošlji novce na naslov</string>
 	<string name="address_book_context_edit_title">Uredi naslov</string>
 	<string name="address_book_context_remove_title">Odstrani naslov</string>
-	<string name="address_book_context_show_qr_title">Prikaži QR-kodo</string>
 	<string name="address_book_context_copy_to_clipboard_title">Kopiraj na odložišče</string>
 	<string name="address_book_context_default_title">Nastavi za privzeti naslov</string>
 	<string name="address_book_options_paste_from_clipboard_title">Prilepi z odložišča</string>
@@ -223,6 +221,7 @@
 	<string name="button_scan">Prečitaj</string>
 	<string name="button_edit_address">Dodaj/uredi naslov</string>
 	<string name="button_settings">Nastavitve</string>
+	<string name="action_show_qr">Prikazi QR-kodo</string>
 	<string name="action_browse">Ogled v brskalniku</string>
 	<string name="time_today">danes</string>
 	<string name="address_unlabeled">(neoznačen)</string>

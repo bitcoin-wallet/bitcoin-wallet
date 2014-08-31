@@ -34,7 +34,6 @@
   <string name="wallet_transactions_row_warning_backup">Вітаємо, ви отримали перший платіж! Ви вже &lt;u&gt;зробили резервну копію гаманця&lt;/u&gt;, щоб убезпечитись від втрат?</string>
   <string name="wallet_transactions_fragment_coinbase">добуто</string>
   <string name="wallet_transactions_fragment_internal">внутрішній</string>
-  <string name="wallet_transactions_context_show_qr_title">Показати QR код</string>
   <string name="wallet_options_safety_menu">Безпека</string>
   <string name="wallet_options_safety">Примітки по безпеці</string>
   <string name="wallet_options_donate">Пожертвувати</string>
@@ -108,7 +107,6 @@
   <string name="address_book_context_send_title">Відправити монеты на адресу</string>
   <string name="address_book_context_edit_title">Змінити адресу</string>
   <string name="address_book_context_remove_title">Видалити адресу</string>
-  <string name="address_book_context_show_qr_title">Показати QR код</string>
   <string name="address_book_context_copy_to_clipboard_title">Скопіювати в буфер обміну</string>
   <string name="address_book_context_default_title">Встановити як адресу за замовчуванням</string>
   <string name="address_book_options_paste_from_clipboard_title">Вставити з буфера обміну</string>
@@ -241,6 +239,7 @@
   <string name="button_scan">Сканувати</string>
   <string name="button_edit_address">Додати/змінити адресу</string>
   <string name="button_settings">Налаштування</string>
+  <string name="action_show_qr">Показати QR код</string>
   <string name="action_browse">Огляд</string>
   <string name="time_today">сьогодні</string>
   <string name="address_unlabeled">(без мітки)</string>

@@ -34,7 +34,6 @@
   <string name="wallet_transactions_row_warning_backup">恭喜你收到第一筆付款! 你是否已經&lt;u&gt;備份好你的錢包&lt;/u&gt;來防止意外發生?</string>
   <string name="wallet_transactions_fragment_coinbase">已採礦</string>
   <string name="wallet_transactions_fragment_internal">內部</string>
-  <string name="wallet_transactions_context_show_qr_title">展示QR二維條碼</string>
   <string name="wallet_options_safety_menu">安全性</string>
   <string name="wallet_options_safety">安全提示</string>
   <string name="wallet_options_donate">捐贈</string>
@@ -108,7 +107,6 @@
   <string name="address_book_context_send_title">付款到該地址</string>
   <string name="address_book_context_edit_title">編輯地址</string>
   <string name="address_book_context_remove_title">移除地址</string>
-  <string name="address_book_context_show_qr_title">顯示 QR 二維條碼</string>
   <string name="address_book_context_copy_to_clipboard_title">複製到剪貼簿</string>
   <string name="address_book_context_default_title">設為預設地址</string>
   <string name="address_book_options_paste_from_clipboard_title">從剪貼簿貼上</string>
@@ -241,6 +239,7 @@
   <string name="button_scan">掃描</string>
   <string name="button_edit_address">新增/編輯地址</string>
   <string name="button_settings">設定</string>
+  <string name="action_show_qr">展示QR二維條碼</string>
   <string name="action_browse">瀏覽</string>
   <string name="time_today">今天</string>
   <string name="address_unlabeled">(無標籤)</string>

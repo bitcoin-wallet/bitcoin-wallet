@@ -34,7 +34,6 @@
   <string name="wallet_transactions_row_warning_backup">축하드립니다. 첫번째 결제를 받았습니다. 분실에 대비하기 위해 &lt;u&gt;전자 지갑 백업&lt;/u&gt;을 수행하신 적이 있나요? </string>
   <string name="wallet_transactions_fragment_coinbase">신규 채굴 코인</string>
   <string name="wallet_transactions_fragment_internal">내부 오류</string>
-  <string name="wallet_transactions_context_show_qr_title">QR코드 보기</string>
   <string name="wallet_options_safety_menu">안전 보관</string>
   <string name="wallet_options_safety">안전 이슈 참조</string>
   <string name="wallet_options_donate">팁/기부하기</string>
@@ -106,7 +105,6 @@
   <string name="address_book_context_send_title">주소로 비트코인 보내기</string>
   <string name="address_book_context_edit_title">주소 수정</string>
   <string name="address_book_context_remove_title">주소 삭제</string>
-  <string name="address_book_context_show_qr_title">QR코드 보기</string>
   <string name="address_book_context_copy_to_clipboard_title">클립보드에 복사</string>
   <string name="address_book_context_default_title">기본 주소로 설정</string>
   <string name="address_book_options_paste_from_clipboard_title">클립보드에서 붙여넣기</string>
@@ -239,6 +237,7 @@
   <string name="button_scan">QR 읽기</string>
   <string name="button_edit_address">주소 추가/수정</string>
   <string name="button_settings">설정</string>
+  <string name="action_show_qr">QR코드 보기</string>
   <string name="action_browse">블럭체인 탐색</string>
   <string name="time_today">오늘</string>
   <string name="address_unlabeled">(이름 없음)</string>

@@ -34,7 +34,6 @@
   <string name="wallet_transactions_row_warning_backup">Congratulazioni, hai ricevuto i tuoi primi pagamenti! Hai già &lt;u&gt;eseguito un backup del tuo portafoglio &lt;/u&gt;, per proteggerlo dai danni?</string>
   <string name="wallet_transactions_fragment_coinbase">minato</string>
   <string name="wallet_transactions_fragment_internal">Interna</string>
-  <string name="wallet_transactions_context_show_qr_title">Mostra codice QR</string>
   <string name="wallet_options_safety_menu">Salvataggio</string>
   <string name="wallet_options_safety">Note di sicurezza</string>
   <string name="wallet_options_donate">Donazioni</string>
@@ -106,7 +105,6 @@
   <string name="address_book_context_send_title">Invia Bitcoins all\'indirizzo</string>
   <string name="address_book_context_edit_title">Modifica indirizzo</string>
   <string name="address_book_context_remove_title">Rimuovi indirizzo</string>
-  <string name="address_book_context_show_qr_title">Mostra codice QR</string>
   <string name="address_book_context_copy_to_clipboard_title">Copia negli appunti</string>
   <string name="address_book_context_default_title">Imposta come indirizzo di default</string>
   <string name="address_book_options_paste_from_clipboard_title">Incolla dagli appunti</string>
@@ -239,6 +237,7 @@
   <string name="button_scan">Analizza</string>
   <string name="button_edit_address">Aggiungi/modifica indirizzo</string>
   <string name="button_settings">Impostazioni</string>
+  <string name="action_show_qr">Mostra codice QR</string>
   <string name="action_browse">Sfoglia</string>
   <string name="time_today">oggi</string>
   <string name="address_unlabeled">(non etichettato)</string>

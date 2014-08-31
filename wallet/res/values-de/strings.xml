@@ -37,7 +37,6 @@
 	<string name="wallet_transactions_row_warning_backup">Gratulation, du hast deine erste Zahlung erhalten! Hast du deine Wallet bereits &lt;u&gt;gesichert&lt;/u&gt;, um dich gegen Verlust zu schützen?</string>
 	<string name="wallet_transactions_fragment_coinbase">geschürft</string>
 	<string name="wallet_transactions_fragment_internal">intern</string>
-	<string name="wallet_transactions_context_show_qr_title">QR-Code zeigen</string>
 	<string name="wallet_options_safety_menu">Sicherheit</string>
 	<string name="wallet_options_safety">Sicherheitshinweise</string>
 	<string name="wallet_options_donate">Spenden</string>
@@ -120,7 +119,6 @@
 	<string name="address_book_context_edit_title">Adresse ändern</string>
 	<string name="address_book_context_remove_title">Adresse entfernen</string>
 	<string name="address_book_context_default_title">Als Standardadresse setzen</string>
-	<string name="address_book_context_show_qr_title">QR-Code zeigen</string>
 	<string name="address_book_context_copy_to_clipboard_title">Ins Clipboard kopieren</string>
 	<string name="address_book_options_paste_from_clipboard_title">Aus dem Clipboard einfügen</string>
 	<string name="address_book_options_paste_from_clipboard_empty">Clipboard ist leer</string>
@@ -265,6 +263,7 @@
 	<string name="button_edit_address">Adresse hinzufügen/ändern</string>
 	<string name="button_settings">Einstellungen</string>
 
+	<string name="action_show_qr">QR-Code zeigen</string>
 	<string name="action_browse">Im Browser öffnen</string>
 
 	<string name="time_today">heute</string>

@@ -34,7 +34,6 @@
   <string name="wallet_transactions_row_warning_backup">Félicitations, vous avez reçu votre premier paiement ! Avez-vous déjà &lt;u&gt;sauvegardé votre portefeuille&lt;/u&gt; afin de vous protéger contre une perte ?</string>
   <string name="wallet_transactions_fragment_coinbase">miné</string>
   <string name="wallet_transactions_fragment_internal">Interne</string>
-  <string name="wallet_transactions_context_show_qr_title">Afficher le code QR</string>
   <string name="wallet_options_safety_menu">Sécurité</string>
   <string name="wallet_options_safety">Notes de sécurité</string>
   <string name="wallet_options_donate">Faire un don</string>
@@ -108,7 +107,6 @@
   <string name="address_book_context_send_title">Envoyer des bitcoins à une adresse</string>
   <string name="address_book_context_edit_title">Modifier l\'adresse</string>
   <string name="address_book_context_remove_title">Enlever l\'adresse</string>
-  <string name="address_book_context_show_qr_title">Afficher le code QR</string>
   <string name="address_book_context_copy_to_clipboard_title">Copier dans le presse-papiers</string>
   <string name="address_book_context_default_title">Définir en tant qu\'adresse par défaut</string>
   <string name="address_book_options_paste_from_clipboard_title">Coller depuis le presse-papiers</string>
@@ -241,6 +239,7 @@
   <string name="button_scan">Numériser</string>
   <string name="button_edit_address">Ajouter/modifier une adresse</string>
   <string name="button_settings">Paramètres</string>
+  <string name="action_show_qr">Afficher le code QR</string>
   <string name="action_browse">Parcourir</string>
   <string name="time_today">aujourd\'hui</string>
   <string name="address_unlabeled">(sans étiquette)</string>

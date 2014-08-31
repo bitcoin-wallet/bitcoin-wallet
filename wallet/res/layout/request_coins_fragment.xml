@@ -56,6 +56,7 @@
 				android:layout_height="@dimen/wallet_address_qr_size_large"
 				android:layout_gravity="center"
 				android:background="@drawable/qrcode_frame"
+				android:contentDescription="@string/action_show_qr"
 				android:padding="8dp"
 				android:scaleType="centerInside" />
 		</FrameLayout>

@@ -34,7 +34,6 @@
   <string name="wallet_transactions_row_warning_backup">Enhorabuena. ¡Has recibido tu primer pago! ¿Has hecho ya una &lt;u&gt;copia de seguridad de tu monedero&lt;/u&gt; como protección frente a pérdidas?</string>
   <string name="wallet_transactions_fragment_coinbase">minados</string>
   <string name="wallet_transactions_fragment_internal">interno</string>
-  <string name="wallet_transactions_context_show_qr_title">Mostrar código QR</string>
   <string name="wallet_options_safety_menu">Seguridad</string>
   <string name="wallet_options_safety">Notas de seguridad</string>
   <string name="wallet_options_donate">Sugerencia / donar</string>
@@ -109,7 +108,6 @@
   <string name="address_book_context_send_title">Enviar bitcoins a la dirección</string>
   <string name="address_book_context_edit_title">Editar dirección</string>
   <string name="address_book_context_remove_title">Eliminar dirección</string>
-  <string name="address_book_context_show_qr_title">Mostrar código QR</string>
   <string name="address_book_context_copy_to_clipboard_title">Copiar al portapapeles</string>
   <string name="address_book_context_default_title">Establecer como dirección predeterminada</string>
   <string name="address_book_options_paste_from_clipboard_title">Pegar desde el portapapeles</string>
@@ -242,6 +240,7 @@
   <string name="button_scan">Explorar</string>
   <string name="button_edit_address">Añadir/modificar dirección</string>
   <string name="button_settings">Ajustes</string>
+  <string name="action_show_qr">Mostrar código QR</string>
   <string name="action_browse">Navegar</string>
   <string name="time_today">hoy</string>
   <string name="address_unlabeled">(sin nombre)</string>

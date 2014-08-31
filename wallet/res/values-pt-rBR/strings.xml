@@ -33,7 +33,6 @@
 	<string name="wallet_transactions_row_warning_backup">Parabéns, você recebeu o seu primeiro pagamento! Deseja efetuar o &lt;u&gt;backup de sua carteira&lt;/u&gt;, para proteger seus Bitcoins?</string>
 	<string name="wallet_transactions_fragment_coinbase">minados</string>
 	<string name="wallet_transactions_fragment_internal">interno</string>
-	<string name="wallet_transactions_context_show_qr_title">Mostrar Código QR</string>
 	<string name="wallet_options_safety">Indicações de segurança</string>
 	<string name="wallet_options_donate">Doações</string>
 	<string name="wallet_donate_address_label">Doação para Bitcoin Wallet</string>
@@ -95,7 +94,6 @@
 	<string name="address_book_context_send_title">Enviar Bitcoins ao endereço</string>
 	<string name="address_book_context_edit_title">Editar endereço</string>
 	<string name="address_book_context_remove_title">Remover endereço</string>
-	<string name="address_book_context_show_qr_title">Mostrar código QR</string>
 	<string name="address_book_context_copy_to_clipboard_title">Copiar para o clipboard</string>
 	<string name="address_book_context_default_title">Definir como endereço padrão</string>
 	<string name="address_book_options_paste_from_clipboard_title">Colar</string>
@@ -223,6 +221,7 @@
 	<string name="button_scan">Escanear</string>
 	<string name="button_edit_address">Adicionar/editar endereço</string>
 	<string name="button_settings">Configurações</string>
+	<string name="action_show_qr">Mostrar Código QR</string>
 	<string name="action_browse">Navegar</string>
 	<string name="time_today">hoje</string>
 	<string name="address_unlabeled">(sem nome)</string>

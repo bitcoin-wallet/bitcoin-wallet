@@ -78,7 +78,6 @@
 	<string name="address_book_context_send_title">Kirim Bitcoin ke alamat</string>
 	<string name="address_book_context_edit_title">Mengubah alamat</string>
 	<string name="address_book_context_remove_title">Hapus alamat</string>
-	<string name="address_book_context_show_qr_title">Tampilkan kode QR</string>
 	<string name="address_book_context_copy_to_clipboard_title">Salin</string>
 	<string name="address_book_context_default_title">Tetapkan sebagai alamat standar</string>
 	<string name="address_book_options_paste_from_clipboard_title">Tempelkan</string>
@@ -188,6 +187,7 @@
 	<string name="button_scan">Pindai</string>
 	<string name="button_edit_address">Tambah/ubah alamat</string>
 	<string name="button_settings">Pengaturan</string>
+	<string name="action_show_qr">Tampilkan kode QR</string>
 	<string name="time_today">hari ini</string>
 	<string name="address_unlabeled">(tak berlabel)</string>
 

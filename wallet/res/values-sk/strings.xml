@@ -33,7 +33,6 @@
 	<string name="wallet_transactions_row_warning_backup">Gratulujeme, obdržali ste svoju prvú platbu! Urobili ste &lt;u&gt;zálohu peňaženky&lt;/u&gt;, aby ste ju ochránili pred stratou?</string>
 	<string name="wallet_transactions_fragment_coinbase">vyťažené</string>
 	<string name="wallet_transactions_fragment_internal">vnútorné</string>
-	<string name="wallet_transactions_context_show_qr_title">Ukáž QR kód</string>
 	<string name="wallet_options_safety">Bezpečnosť</string>
 	<string name="wallet_options_donate">Prispieť</string>
 	<string name="wallet_donate_address_label">Prispieť na Bitcoin Wallet</string>
@@ -93,7 +92,6 @@
 	<string name="address_book_context_send_title">Odoslať Bitcoiny na adresu</string>
 	<string name="address_book_context_edit_title">Upraviť adresu</string>
 	<string name="address_book_context_remove_title">Odstrániť adresu</string>
-	<string name="address_book_context_show_qr_title">Zobraziť QR kód</string>
 	<string name="address_book_context_copy_to_clipboard_title">Skopírovať do schránky</string>
 	<string name="address_book_context_default_title">Nastaviť ako predvolenú adresu</string>
 	<string name="address_book_options_paste_from_clipboard_title">Prilepiť zo schránky</string>
@@ -219,6 +217,7 @@
 	<string name="button_scan">Skenovať</string>
 	<string name="button_edit_address">Pridať/zmeniť adresu</string>
 	<string name="button_settings">Nastavenia</string>
+	<string name="action_show_qr">Ukáž QR kód</string>
 	<string name="action_browse">Otvoriť v prehliadači</string>
 	<string name="time_today">dnes</string>
 	<string name="address_unlabeled">(neoznačené)</string>

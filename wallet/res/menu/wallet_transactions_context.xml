@@ -11,7 +11,7 @@
 		android:id="@+id/wallet_transactions_context_show_qr"
 		android:icon="@drawable/ic_action_qr"
 		android:showAsAction="ifRoom|withText"
-		android:title="@string/wallet_transactions_context_show_qr_title"/>
+		android:title="@string/action_show_qr"/>
 	<item
 		android:id="@+id/wallet_transactions_context_browse"
 		android:showAsAction="never"

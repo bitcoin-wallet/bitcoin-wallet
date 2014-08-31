@@ -33,7 +33,6 @@
 	<string name="wallet_transactions_row_warning_backup">Gratulon, vi ricevis vian unuan pagon! Ĉu vi jam &lt;u&gt;savkopiis vian monujon&lt;/u&gt;, por protekti kontraŭ perdo?</string>
 	<string name="wallet_transactions_fragment_coinbase">minita</string>
 	<string name="wallet_transactions_fragment_internal">interna</string>
-	<string name="wallet_transactions_context_show_qr_title">Montru QRan kodon</string>
 	<string name="wallet_options_safety">Sekurecaj notoj</string>
 	<string name="wallet_options_donate">Donacu</string>
 	<string name="wallet_donate_address_label">Donaco por BitmonMonujo</string>
@@ -79,7 +78,6 @@
 	<string name="address_book_context_send_title">Sendu Bitmonojn al adreso</string>
 	<string name="address_book_context_edit_title">Redakti adreson</string>
 	<string name="address_book_context_remove_title">Forigi adreson</string>
-	<string name="address_book_context_show_qr_title">Montru QR-an kodon</string>
 	<string name="address_book_context_copy_to_clipboard_title">Kopi al tondujo</string>
 	<string name="address_book_context_default_title">Ŝalti kiel defaŭltan adreson</string>
 	<string name="address_book_options_paste_from_clipboard_title">Alglui el tondujo</string>
@@ -197,6 +195,7 @@
 	<string name="button_scan">Skani</string>
 	<string name="button_edit_address">Aldoni/redakti adreson</string>
 	<string name="button_settings">Agordoj</string>
+	<string name="action_show_qr">Montru QRan kodon</string>
 	<string name="action_browse">Esplori</string>
 	<string name="time_today">hodiaŭ</string>
 	<string name="address_unlabeled">(sen nomo)</string>
