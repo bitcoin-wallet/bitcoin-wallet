@@ -55,6 +55,7 @@ import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.ExchangeRatesProvider;
 import de.schildbach.wallet.ExchangeRatesProvider.ExchangeRate;
 import de.schildbach.wallet.WalletApplication;
+import de.schildbach.wallet.WalletBalanceWidgetProvider;
 import de.schildbach.wallet.service.BlockchainService;
 import de.schildbach.wallet.util.GenericUtils;
 import de.schildbach.wallet.util.WalletUtils;
@@ -93,7 +94,7 @@ public final class ExchangeRatesFragment extends SherlockListFragment implements
 		this.application = (WalletApplication) activity.getApplication();
 		this.config = application.getConfiguration();
 		this.wallet = application.getWallet();
-		this.contentUri = ExchangeRatesProvider.contentUri(activity.getPackageName());
+		this.contentUri = ExchangeRatesProvider.contentUri(activity.getPackageName(), false);
 		this.loaderManager = getLoaderManager();
 	}
 
@@ -241,6 +242,8 @@ public final class ExchangeRatesFragment extends SherlockListFragment implements
 			private void handleSetAsDefault(final String currencyCode)
 			{
 				config.setExchangeCurrencyCode(currencyCode);
+
+				WalletBalanceWidgetProvider.updateWidgets(activity, wallet);
 			}
 		});
 	}

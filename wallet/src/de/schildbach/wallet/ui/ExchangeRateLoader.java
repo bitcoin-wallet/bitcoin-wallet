@@ -33,7 +33,7 @@ public final class ExchangeRateLoader extends CursorLoader implements OnSharedPr
 
 	public ExchangeRateLoader(final Context context, final Configuration config)
 	{
-		super(context, ExchangeRatesProvider.contentUri(context.getPackageName()), null, ExchangeRatesProvider.KEY_CURRENCY_CODE,
+		super(context, ExchangeRatesProvider.contentUri(context.getPackageName(), false), null, ExchangeRatesProvider.KEY_CURRENCY_CODE,
 				new String[] { null }, null);
 
 		this.config = config;
