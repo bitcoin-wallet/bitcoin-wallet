@@ -30,6 +30,7 @@
 		<TableRow>
 
 			<FrameLayout
+				android:layout_height="match_parent"
 				android:layout_weight="1"
 				android:background="#efefef"
 				android:foreground="@drawable/fragment_shadow_horizontal_light"
@@ -39,11 +40,11 @@
 					android:id="@+id/exchange_rates_fragment"
 					android:name="de.schildbach.wallet.ui.ExchangeRatesFragment"
 					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:layout_gravity="bottom|center_horizontal" />
+					android:layout_height="match_parent" />
 			</FrameLayout>
 
 			<FrameLayout
+				android:layout_height="match_parent"
 				android:layout_span="2"
 				android:layout_weight="4"
 				android:background="@android:color/white"
@@ -54,8 +55,7 @@
 					android:id="@+id/wallet_transactions_fragment"
 					android:name="de.schildbach.wallet.ui.WalletTransactionsFragment"
 					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:layout_gravity="bottom|center_horizontal" />
+					android:layout_height="match_parent" />
 			</FrameLayout>
 		</TableRow>
 	</TableLayout>
