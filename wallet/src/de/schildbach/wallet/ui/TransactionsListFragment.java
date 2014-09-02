@@ -178,21 +178,6 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 	}
 
 	@Override
-	public void onViewCreated(final View view, final Bundle savedInstanceState)
-	{
-		super.onViewCreated(view, savedInstanceState);
-
-		final SpannableStringBuilder emptyText = new SpannableStringBuilder(
-				getString(direction == Direction.SENT ? R.string.wallet_transactions_fragment_empty_text_sent
-						: R.string.wallet_transactions_fragment_empty_text_received));
-		emptyText.setSpan(new StyleSpan(Typeface.BOLD), 0, emptyText.length(), SpannableStringBuilder.SPAN_POINT_MARK);
-		if (direction != Direction.SENT)
-			emptyText.append("\n\n").append(getString(R.string.wallet_transactions_fragment_empty_text_howto));
-
-		setEmptyText(emptyText);
-	}
-
-	@Override
 	public void onPause()
 	{
 		wallet.removeEventListener(transactionChangeListener);
@@ -353,6 +338,15 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 	public void onLoadFinished(final Loader<List<Transaction>> loader, final List<Transaction> transactions)
 	{
 		adapter.replace(transactions);
+
+		final SpannableStringBuilder emptyText = new SpannableStringBuilder(
+				getString(direction == Direction.SENT ? R.string.wallet_transactions_fragment_empty_text_sent
+						: R.string.wallet_transactions_fragment_empty_text_received));
+		emptyText.setSpan(new StyleSpan(Typeface.BOLD), 0, emptyText.length(), SpannableStringBuilder.SPAN_POINT_MARK);
+		if (direction != Direction.SENT)
+			emptyText.append("\n\n").append(getString(R.string.wallet_transactions_fragment_empty_text_howto));
+
+		setEmptyText(emptyText);
 	}
 
 	@Override

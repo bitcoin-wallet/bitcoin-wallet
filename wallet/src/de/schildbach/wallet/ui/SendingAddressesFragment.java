@@ -116,14 +116,6 @@ public final class SendingAddressesFragment extends SherlockListFragment impleme
 	}
 
 	@Override
-	public void onViewCreated(View view, Bundle savedInstanceState)
-	{
-		super.onViewCreated(view, savedInstanceState);
-
-		setEmptyText(WholeStringBuilder.bold(getString(R.string.address_book_empty_text)));
-	}
-
-	@Override
 	public void onDestroy()
 	{
 		loaderManager.destroyLoader(0);
@@ -369,6 +361,8 @@ public final class SendingAddressesFragment extends SherlockListFragment impleme
 	public void onLoadFinished(final Loader<Cursor> loader, final Cursor data)
 	{
 		adapter.swapCursor(data);
+
+		setEmptyText(WholeStringBuilder.bold(getString(R.string.address_book_empty_text)));
 	}
 
 	@Override

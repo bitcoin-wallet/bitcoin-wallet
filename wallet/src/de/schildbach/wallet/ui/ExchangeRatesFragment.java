@@ -121,7 +121,6 @@ public final class ExchangeRatesFragment extends SherlockListFragment implements
 		super.onViewCreated(view, savedInstanceState);
 
 		getListView().setFastScrollEnabled(true);
-		updateEmptyText();
 	}
 
 	@Override
@@ -172,8 +171,6 @@ public final class ExchangeRatesFragment extends SherlockListFragment implements
 					query = newText.trim();
 					if (query.isEmpty())
 						query = null;
-
-					updateEmptyText();
 
 					getLoaderManager().restartLoader(ID_RATE_LOADER, null, rateLoaderCallbacks);
 
@@ -273,12 +270,6 @@ public final class ExchangeRatesFragment extends SherlockListFragment implements
 		}
 	}
 
-	private void updateEmptyText()
-	{
-		setEmptyText(WholeStringBuilder.bold(getString(query != null ? R.string.exchange_rates_fragment_empty_search
-				: R.string.exchange_rates_fragment_empty_text)));
-	}
-
 	private final BlockchainBroadcastReceiver broadcastReceiver = new BlockchainBroadcastReceiver();
 
 	private final class BlockchainBroadcastReceiver extends BroadcastReceiver
@@ -314,6 +305,9 @@ public final class ExchangeRatesFragment extends SherlockListFragment implements
 				if (defaultCurrencyPosition >= 0)
 					getListView().setSelection(defaultCurrencyPosition); // scroll to selection
 			}
+
+			setEmptyText(WholeStringBuilder.bold(getString(query != null ? R.string.exchange_rates_fragment_empty_search
+					: R.string.exchange_rates_fragment_empty_text)));
 		}
 
 		@Override

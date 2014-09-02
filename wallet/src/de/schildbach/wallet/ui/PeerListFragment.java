@@ -98,14 +98,6 @@ public final class PeerListFragment extends SherlockListFragment
 	}
 
 	@Override
-	public void onViewCreated(final View view, final Bundle savedInstanceState)
-	{
-		super.onViewCreated(view, savedInstanceState);
-
-		setEmptyText(WholeStringBuilder.bold(getString(R.string.peer_list_fragment_empty)));
-	}
-
-	@Override
 	public void onCreate(final Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
@@ -300,6 +292,8 @@ public final class PeerListFragment extends SherlockListFragment
 			if (peers != null)
 				for (final Peer peer : peers)
 					adapter.add(peer);
+
+			setEmptyText(WholeStringBuilder.bold(getString(R.string.peer_list_fragment_empty)));
 		}
 
 		@Override
