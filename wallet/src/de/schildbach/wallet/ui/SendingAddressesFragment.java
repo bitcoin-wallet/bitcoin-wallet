@@ -22,7 +22,6 @@ import java.util.ArrayList;
 import javax.annotation.Nonnull;
 
 import android.app.Activity;
-import android.app.ListFragment;
 import android.app.LoaderManager;
 import android.content.Context;
 import android.content.CursorLoader;
@@ -64,7 +63,7 @@ import de.schildbach.wallet_test.R;
 /**
  * @author Andreas Schildbach
  */
-public final class SendingAddressesFragment extends ListFragment implements LoaderManager.LoaderCallbacks<Cursor>
+public final class SendingAddressesFragment extends FancyListFragment implements LoaderManager.LoaderCallbacks<Cursor>
 {
 	private AbstractWalletActivity activity;
 	private ClipboardManager clipboardManager;

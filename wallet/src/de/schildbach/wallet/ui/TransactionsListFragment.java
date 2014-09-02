@@ -35,7 +35,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import android.app.Activity;
-import android.app.ListFragment;
 import android.app.LoaderManager;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.AsyncTaskLoader;
@@ -84,7 +83,7 @@ import de.schildbach.wallet_test.R;
 /**
  * @author Andreas Schildbach
  */
-public class TransactionsListFragment extends ListFragment implements LoaderCallbacks<List<Transaction>>, OnSharedPreferenceChangeListener
+public class TransactionsListFragment extends FancyListFragment implements LoaderCallbacks<List<Transaction>>, OnSharedPreferenceChangeListener
 {
 	public enum Direction
 	{
