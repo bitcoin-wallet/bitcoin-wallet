@@ -22,7 +22,6 @@ import java.math.BigInteger;
 import javax.annotation.CheckForNull;
 
 import android.app.Activity;
-import android.app.ListFragment;
 import android.app.LoaderManager;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.BroadcastReceiver;
@@ -66,7 +65,7 @@ import de.schildbach.wallet_test.R;
 /**
  * @author Andreas Schildbach
  */
-public final class ExchangeRatesFragment extends ListFragment implements OnSharedPreferenceChangeListener
+public final class ExchangeRatesFragment extends FancyListFragment implements OnSharedPreferenceChangeListener
 {
 	private AbstractWalletActivity activity;
 	private WalletApplication application;

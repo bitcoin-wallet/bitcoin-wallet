@@ -29,7 +29,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import android.app.Activity;
-import android.app.ListFragment;
 import android.app.LoaderManager;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.AsyncTaskLoader;
@@ -62,7 +61,7 @@ import de.schildbach.wallet_test.R;
 /**
  * @author Andreas Schildbach
  */
-public final class PeerListFragment extends ListFragment
+public final class PeerListFragment extends FancyListFragment
 {
 	private AbstractWalletActivity activity;
 	private LoaderManager loaderManager;
