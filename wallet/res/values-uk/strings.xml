@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
   <string name="toast_wallet_reset">Гаманець був скинутий,\nвідновлення займе трохи часу</string>
-  <string name="wallet_disclaimer_fragment_remind_safety">Використовуйте на власний ризик. Прочитайте &lt;u&gt;примітки по безпеці&lt;/u&gt;.</string>
+  <string name="wallet_disclaimer_fragment_remind_safety">Використовуйте на власний страх та ризик. Прочитайте &lt;u&gt;примітки по безпеці&lt;/u&gt;.</string>
   <string name="wallet_disclaimer_fragment_remind_backup">Вам необхідно &lt;u&gt;зробити резервну копію вашого гаманця&lt;/u&gt;!</string>
   <string name="blockchain_state_progress_hours">%1$s, %2$d годин відставання</string>
   <string name="blockchain_state_progress_days">%1$s, %2$d днів відставання</string>
@@ -11,7 +11,7 @@
   <string name="blockchain_state_progress_stalled">Синхронізація зависла</string>
   <string name="blockchain_state_progress_problem_storage">Синхронізація: проблема з сховищем</string>
   <string name="blockchain_state_progress_problem_network">Синхронізація: проблема з мережею</string>
-  <string name="wallet_address_fragment_your">Ваша Bitcoin-адреса:</string>
+  <string name="wallet_address_fragment_your">Ваша Bitcoin адреса:</string>
   <string name="wallet_address_fragment_clipboard_msg">Адреса скопійована в буфер обміну</string>
   <string name="wallet_addresses_fragment_add_dialog_title">Додати Bitcoin-адресу</string>
   <string name="wallet_addresses_fragment_add_dialog_message">Bitcoin-адреси не можна видаляти. Хочете додати нову адресу в ваш гаманець?</string>
@@ -99,6 +99,7 @@
   <string name="request_coins_fragment_initiate_request_nfc">Або торкніться пристрою з підтримкою NFC.</string>
   <string name="request_coins_clipboard_msg">Запит отримання Bitcoin-монет скопійований</string>
   <string name="request_coins_share_dialog_title">Поділитись запитом Bitcoin-монет…</string>
+  <string name="request_coins_no_local_app_msg">Немає жодних інших Bitcoin додатків</string>
   <string name="request_coins_options_local_app_title">Запит від локального пристрою</string>
   <string name="address_book_activity_title">Адресна книга</string>
   <string name="address_book_list_receiving_title">Ваші адреси</string>
@@ -147,7 +148,7 @@
   <string name="import_keys_dialog_success_imported">%d приватних ключів відновлено.</string>
   <string name="import_keys_dialog_success_existing">%d приватних ключів не були відновлені, через те що вони вже є в вашому гаманці.</string>
   <string name="import_keys_dialog_success_reset">Вам необхідно скинути ланцюжок блоків, щоб оновити баланс. Хочете це зробити?</string>
-  <string name="import_keys_dialog_failure">Гаманець не може бути відновлений:\n\n%s\n\nНеправильний пароль</string>
+  <string name="import_keys_dialog_failure">Гаманець не можливо відновити:\n\n%s\n\Неправильний пароль?</string>
   <string name="import_keys_dialog_button_reset_blockchain">Скидання</string>
   <string name="export_keys_dialog_title">Резервна копія гаманця</string>
   <string name="export_keys_dialog_message">Ваш гаманець буде зашифрований за допомогою пароля і будет записаний на зовнішній накопичувач.</string>
@@ -212,7 +213,7 @@
   <string name="about_credits_bitcoinj_title">Цей додаток використовує bitcoinj %s</string>
   <string name="about_credits_zxing_title">Цей додаток використовує \'zxing\'</string>
   <string name="about_credits_icon_title">Цей додаток використовує іконку від \'bitboy\'</string>
-  <string name="about_community_googleplus_title">Група Google+</string>
+  <string name="about_community_googleplus_title">Спільнота в Google+</string>
   <string name="about_community_googleplus_summary">Обговорення додатка</string>
   <string name="about_author_twitter_title">Автор в Twitter</string>
   <string name="about_author_googleplus_title">Автор в Google+</string>
@@ -246,6 +247,6 @@
   <!--generic error messages-->
   <string name="error_io">Помилка I/O: %s</string>
   <string name="error_parse">Помилка обробки: %s</string>
-  <string name="error_http">Помилка HTTP: %1$s\n%2$s</string>
+  <string name="error_http">HTTP помилка %1$s:\n%2$s</string>
   <string name="error_bluetooth">Помилка Bluetooth: %1$s</string>
 </resources>
