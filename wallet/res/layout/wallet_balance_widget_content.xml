@@ -37,7 +37,7 @@
 				android:fadingEdge="horizontal"
 				android:fadingEdgeLength="12dp"
 				android:singleLine="true"
-				android:textColor="#eee"
+				android:textColor="#fc9"
 				android:textSize="@dimen/font_size_large" />
 		</LinearLayout>
 
@@ -50,7 +50,7 @@
 			android:fadingEdge="horizontal"
 			android:fadingEdgeLength="12dp"
 			android:singleLine="true"
-			android:textColor="#aaa"
+			android:textColor="#da7"
 			android:textSize="@dimen/font_size_normal" />
 	</LinearLayout>
 
