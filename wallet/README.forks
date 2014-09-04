@@ -36,138 +36,153 @@ The only added feature seems to be a sliding menu, but it fails to show any scre
 
 
 Litecoin Wallet (old)
-Forked in March 2013 in order to replace Bitcoin by Litecoin.
  Source:  https://github.com/hank/litecoin-wallet
  Install: https://play.google.com/store/apps/details?id=de.schildbach.wallet.litecoin
 
 
 Feathercoin Wallet
-Forked in March 2013 in order to replace Bitcoin by Feathercoin.
  Source:  https://github.com/hank/feathercoin-wallet
  Install: https://play.google.com/store/apps/details?id=de.schildbach.wallet.feathercoin
 
 
 DigiByte Wallet
-Forked in November 2013 in order to replace Bitcoin by DigiByte.
  Source:  https://github.com/digibyte/DigiByteAndroid
  Install: https://play.google.com/store/apps/details?id=de.schildbach.wallet.digibyte
 
 
 GoldCoin Wallet
-Forked in December 2013 in order to replace Bitcoin by GoldCoin.
  Source:  https://github.com/goldcoin/goldcoin-android/
  Install: https://play.google.com/store/apps/details?id=de.schildbach.wallet.goldcoin
 
 
 Dogecoin Wallet
-Forked in January 2014 in order to replace Bitcoin by Dogecoin.
  Source:  https://github.com/langerhans/dogecoin-wallet-new
  Install: https://play.google.com/store/apps/details?id=de.langerhans.wallet
 
 
 Litecoin Wallet
-Forked in January 2014 in order to replace Bitcoin by Litecoin.
  Source:  https://github.com/Litecoin-Java/bitcoin-wallet
  Install: https://play.google.com/store/apps/details?id=de.schildbach.wallet_ltc
 
 
 Franko Wallet
-Forked in January 2014 in order to replace Bitcoin by Frankos.
  Source:  https://github.com/HashEngineering/franko-wallet
  Install: https://play.google.com/store/apps/details?id=hashengineering.franko.wallet
 
 
 Digitalcoin Wallet
-Forked in January 2014 in order to replace Bitcoin by Digitalcoin.
  Source:  https://github.com/HashEngineering/digitalcoin-wallet
  Install: https://play.google.com/store/apps/details?id=hashengineering.digitalcoin.wallet
 
 
 Megacoin Wallet
-Forked in January 2014 in order to replace Bitcoin by Megacoin.
  Source:  https://github.com/HashEngineering/Megacoin-wallet
  Install: https://play.google.com/store/apps/details?id=de.schildbach.wallet.megacoin
 
 
 Infinitecoin Wallet
-Forked in January 2014 in order to replace Bitcoin by Infinitecoin.
  Source:  https://github.com/HashEngineering/infinitecoin-wallet
  Install: https://play.google.com/store/apps/details?id=de.schildbach.wallet.infinitecoin
 
 
 Quark Wallet
-Forked in Febuary 2014 in order to replace Bitcoin by Quark.
  Source:  https://github.com/HashEngineering/quarkcoin-wallet
  Install: https://play.google.com/store/apps/details?id=hashengineering.quarkcoin.wallet
 
 
 Premine Wallet
-Forked in Febuary 2014 in order to replace Bitcoin by Preminecoin.
  Source:  https://github.com/ecuamobi/preminer
  Install: https://play.google.com/store/apps/details?id=com.preminer
 
 
 Leafcoin Wallet
-Forked in Febuary 2014 in order to replace Bitcoin by Leafcoin.
  Source:  https://github.com/leafcoin/leafcoin-android-wallet
  Install: https://play.google.com/store/apps/details?id=in.leafco.wallet
 
 
 Einsteinium Wallet
-Forked in January 2014 in order to replace Bitcoin by Einsteinium.
  Source:  https://github.com/einsteinium/einsteinium-wallet
  Install: https://play.google.com/store/apps/details?id=com.einsteinium.wallet
 
 
 Fedoracoin Wallet
-Forked in January 2014 in order to replace Bitcoin by Fedoracoin.
  Source:  https://github.com/denwaotoko/fedoracoin-wallet-new
  Install: https://play.google.com/store/apps/details?id=de.denwaotoko.wallet
 
 
 Earthcoin Wallet
-Forked in January 2014 in order to replace Bitcoin by Earthcoin.
  Source:  https://github.com/l0rdicon/EarthcoinAndroid
  Install: https://play.google.com/store/apps/details?id=de.schildbach.wallet.earthcoin
 
 
 Reddcoin Wallet
-Forked in March 2014 in order to replace Bitcoin by Reddcoin.
  Source:  https://github.com/Blu3F1re/reddcoin-wallet
  Install: https://play.google.com/store/apps/details?id=com.blu3f1re.reddwallet
 
 
 DopeCoin Wallet
-Forked in March 2014 in order to replace Bitcoin by Dopecoin.
  Source:  https://github.com/dopecoin-dev/dopecoin-android-wallet
  Install: https://play.google.com/store/apps/details?id=com.dopecoin.wallet
 
 
 Vertcoin Wallet
-Forked in January 2014 in order to replace Bitcoin by Vertcoin.
  Source:  https://github.com/dayreiner/vertcoin-wallet
  Install: https://play.google.com/store/apps/details?id=de.schildbach.wallet.vertcoin
 
 
 Zetacoin Wallet
-Forked in January 2014 in order to replace Bitcoin by Zetacoin.
  Source:  https://github.com/zbad405/zetacoin-wallet
  Install: https://play.google.com/store/apps/details?id=cc.zetacoin.wallet
 
 
 Defcoin Wallet
-Forked in March 2014 in order to replace Bitcoin by Defcoin.
  Source:  https://github.com/jjculber/defcoin-wallet
  Install: https://play.google.com/store/apps/details?id=com.jculb.wallet
 
 
 Myriadcoin Wallet
-Forked in April 2014 in order to replace Bitcoin by Myriadcoin.
  Source:  https://github.com/HashEngineering/myriadcoin-wallet
  Install: https://play.google.com/store/apps/details?id=hashengineering.myriadcoin.wallet
 
 
 Darkcoin Wallet
-Forked in April 2014 in order to replace Bitcoin by Darkcoin.
  Source:  https://github.com/HashEngineering/darkcoin-wallet
  Install: https://play.google.com/store/apps/details?id=hashengineering.darkcoin.wallet
+
+
+Casinocoin Wallet
+ Source:  https://github.com/ajochems/casinocoin-android-wallet
+ Install: https://play.google.com/store/apps/details?id=org.casinocoin.wallet
+
+
+Machinecoin Wallet
+ Source:  https://github.com/Gitju/bitcoin-wallet
+ Install: https://play.google.com/store/apps/details?id=de.schildbach.wallet_mac
+
+
+Monacoin Wallet
+ Source:  https://github.com/altcoins-tools/monacoin-wallet-new
+ Install: https://play.google.com/store/apps/details?id=org.monaco_ex.wallet.mona
+
+
+Worldcoin Wallet
+ Source:  https://github.com/worldcoinproject/android-worldcoin-wallet
+ Install: https://play.google.com/store/apps/details?id=info.coinfit.wdcwallet
+
+
+Rimbit Wallet
+ Source:  https://github.com/Rimbit/AndroidWallet
+ Install: https://play.google.com/store/apps/details?id=com.rimbit.android_wallet
+
+
+Lemurcoin Wallet
+ Source:  https://github.com/esotericizm/Lemurcoin-wallet
+ Install: https://play.google.com/store/apps/details?id=lemurcoin.lemurcoin.wallet
+
+
+=== FORKS THAT DON'T ADD ANYTHING? ===
+
+
+Green Bitcoin Wallet
+ Source:  https://github.com/markbhinstein/green-bitcoin-wallet
+ Install: https://play.google.com/store/apps/details?id=org.gbnwarowemarkbit
