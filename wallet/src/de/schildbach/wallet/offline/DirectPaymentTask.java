@@ -220,7 +220,7 @@ public abstract class DirectPaymentTask
 
 					try
 					{
-						socket = device.createInsecureRfcommSocketToServiceRecord(Bluetooth.BLUETOOTH_UUID_PAYMENT_PROTOCOL);
+						socket = device.createInsecureRfcommSocketToServiceRecord(Bluetooth.BIP70_PAYMENT_PROTOCOL_UUID);
 						socket.connect();
 
 						log.info("connected to payment protocol {}", bluetoothMac);

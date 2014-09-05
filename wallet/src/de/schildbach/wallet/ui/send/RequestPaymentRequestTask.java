@@ -203,7 +203,7 @@ public abstract class RequestPaymentRequestTask
 
 					try
 					{
-						socket = device.createInsecureRfcommSocketToServiceRecord(Bluetooth.BLUETOOTH_UUID_PAYMENT_REQUESTS);
+						socket = device.createInsecureRfcommSocketToServiceRecord(Bluetooth.PAYMENT_REQUESTS_UUID);
 						socket.connect();
 
 						log.info("connected to {}", url);

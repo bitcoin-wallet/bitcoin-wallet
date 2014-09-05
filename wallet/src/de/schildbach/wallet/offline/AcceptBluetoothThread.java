@@ -61,7 +61,7 @@ public abstract class AcceptBluetoothThread extends Thread
 	{
 		public ClassicBluetoothThread(@Nonnull final BluetoothAdapter adapter)
 		{
-			super(listen(adapter, Bluetooth.BLUETOOTH_UUID_CLASSIC));
+			super(listen(adapter, Bluetooth.CLASSIC_PAYMENT_PROTOCOL_NAME, Bluetooth.CLASSIC_PAYMENT_PROTOCOL_UUID));
 		}
 
 		@Override
@@ -159,7 +159,7 @@ public abstract class AcceptBluetoothThread extends Thread
 	{
 		public PaymentProtocolThread(@Nonnull final BluetoothAdapter adapter)
 		{
-			super(listen(adapter, Bluetooth.BLUETOOTH_UUID_PAYMENT_PROTOCOL));
+			super(listen(adapter, Bluetooth.BIP70_PAYMENT_PROTOCOL_NAME, Bluetooth.BIP70_PAYMENT_PROTOCOL_UUID));
 		}
 
 		@Override
@@ -260,11 +260,11 @@ public abstract class AcceptBluetoothThread extends Thread
 		}
 	}
 
-	protected static BluetoothServerSocket listen(final BluetoothAdapter adapter, final UUID uuid)
+	protected static BluetoothServerSocket listen(final BluetoothAdapter adapter, final String serviceName, final UUID serviceUuid)
 	{
 		try
 		{
-			return adapter.listenUsingInsecureRfcommWithServiceRecord("Bitcoin Transaction Submission", uuid);
+			return adapter.listenUsingInsecureRfcommWithServiceRecord(serviceName, serviceUuid);
 		}
 		catch (final IOException x)
 		{
