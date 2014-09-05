@@ -451,12 +451,10 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 				final Date updateTime2 = tx2.getUpdateTime();
 				final long time2 = updateTime2 != null ? updateTime2.getTime() : 0;
 
-				if (time1 > time2)
-					return -1;
-				else if (time1 < time2)
-					return 1;
-				else
-					return 0;
+				if (time1 != time2)
+					return time1 > time2 ? -1 : 1;
+
+				return tx1.getHash().compareTo(tx2.getHash());
 			}
 		};
 	}
