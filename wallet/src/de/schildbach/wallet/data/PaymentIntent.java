@@ -314,12 +314,7 @@ public final class PaymentIntent implements Parcelable
 			throw new IllegalStateException();
 
 		final Script script = outputs[0].script;
-		if (script.isSentToAddress() || script.isPayToScriptHash())
-			return script.getToAddress(Constants.NETWORK_PARAMETERS);
-		else if (script.isSentToRawPubKey())
-			return new Address(Constants.NETWORK_PARAMETERS, script.getPubKeyHash());
-		else
-			throw new IllegalStateException();
+		return script.getToAddress(Constants.NETWORK_PARAMETERS, true);
 	}
 
 	public boolean mayEditAddress()
