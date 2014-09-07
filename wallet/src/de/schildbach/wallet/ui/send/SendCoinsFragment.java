@@ -114,7 +114,6 @@ import de.schildbach.wallet.ui.ProgressDialogFragment;
 import de.schildbach.wallet.ui.ScanActivity;
 import de.schildbach.wallet.ui.TransactionsListAdapter;
 import de.schildbach.wallet.util.Bluetooth;
-import de.schildbach.wallet.util.GenericUtils;
 import de.schildbach.wallet.util.Nfc;
 import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
@@ -1187,8 +1186,8 @@ public final class SendCoinsFragment extends Fragment
 			// focus linking
 			final int activeAmountViewId = amountCalculatorLink.activeTextView().getId();
 			receivingAddressView.setNextFocusDownId(activeAmountViewId);
+			receivingAddressView.setNextFocusForwardId(activeAmountViewId);
 			receivingStaticView.setNextFocusDownId(activeAmountViewId);
-			GenericUtils.setNextFocusForwardId(receivingAddressView, activeAmountViewId);
 			viewGo.setNextFocusUpId(activeAmountViewId);
 		}
 		else

@@ -17,13 +17,9 @@
 
 package de.schildbach.wallet.util;
 
-import java.lang.reflect.Method;
 import java.util.Currency;
 
 import javax.annotation.Nonnull;
-
-import android.view.View;
-import android.widget.TextView;
 
 /**
  * @author Andreas Schildbach
@@ -33,23 +29,6 @@ public class GenericUtils
 	public static boolean startsWithIgnoreCase(final String string, final String prefix)
 	{
 		return string.regionMatches(true, 0, prefix, 0, prefix.length());
-	}
-
-	public static void setNextFocusForwardId(final View view, final int nextFocusForwardId)
-	{
-		try
-		{
-			final Method setNextFocusForwardId = TextView.class.getMethod("setNextFocusForwardId", Integer.TYPE);
-			setNextFocusForwardId.invoke(view, nextFocusForwardId);
-		}
-		catch (final NoSuchMethodException x)
-		{
-			// expected on API levels below 11
-		}
-		catch (final Exception x)
-		{
-			throw new RuntimeException(x);
-		}
 	}
 
 	public static String currencySymbol(@Nonnull final String currencyCode)
