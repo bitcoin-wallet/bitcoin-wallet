@@ -162,9 +162,8 @@
 	<string name="restore_wallet_dialog_success">Wallet wurde wiederhergestellt.</string>
 	<string name="import_keys_dialog_success_imported">Es wurden %d private Schlüssel wieder hergestellt.</string>
 	<string name="import_keys_dialog_success_existing">%d private Schlüssel wurden nicht wieder hergestellt, weil du sie schon im Wallet hast.</string>
-	<string name="import_keys_dialog_success_reset">Du musst deine Blockchain zurücksetzen um dein Guthaben zu aktualisieren. Möchtest Du?</string>
+	<string name="restore_wallet_dialog_success_replay">Deine Wallet wurde erfolgreich wiederhergestellt. Jetzt wird das Guthaben ermittelt. Das wird einige Zeit dauern.</string>
 	<string name="import_keys_dialog_failure">Die Wallet konnte nicht wieder hergestellt werden:\n\n%s\n\nFalsches Passwort?</string>
-	<string name="import_keys_dialog_button_reset_blockchain">Zurücksetzen</string>
 	<string name="export_keys_dialog_title">Wallet sichern</string>
 	<string name="export_keys_dialog_message">Deine Wallet wird mit dem gewählten Passwort verschlüsselt und auf den externen Speicher gesichert.</string>
 	<string name="export_keys_dialog_button_export">Exportieren</string>

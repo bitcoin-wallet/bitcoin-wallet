@@ -144,9 +144,7 @@
   <string name="restore_wallet_dialog_success">ארנק שוחזר.</string>
   <string name="import_keys_dialog_success_imported">%d מפתחות פרטיים יובאו</string>
   <string name="import_keys_dialog_success_existing">%d מפתחות פרטיים לא יובאו מכיוון שהם כבר בארנק</string>
-  <string name="import_keys_dialog_success_reset">עליך לאפס את שרשת הבלוקים כדי לראות את מאזנך, האם לאפס ?</string>
   <string name="import_keys_dialog_failure">לא ניתן לשחזר ארנק:\n\n%s\n\nסיסמא שגויה?</string>
-  <string name="import_keys_dialog_button_reset_blockchain">איפוס</string>
   <string name="export_keys_dialog_title">גבה ארנק</string>
   <string name="export_keys_dialog_message">הארנק שלך יהיה מוצפן עם הסיסמא הנבחרת ומועתק לאחסון חיצוני</string>
   <string name="export_keys_dialog_button_export">ייצוא</string>

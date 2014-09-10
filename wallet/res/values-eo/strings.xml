@@ -111,9 +111,7 @@
 	<string name="import_keys_dialog_button_import">Restaŭri</string>
 	<string name="import_keys_dialog_success_imported">%d privataj ŝlosiloj estis restaŭritaj</string>
 	<string name="import_keys_dialog_success_existing">%d privataj ŝlosiloj ne estis restaŭritaj, ĉar vi jam havas ilin en via monujo.</string>
-	<string name="import_keys_dialog_success_reset">Vi bezonas reŝargi vian blokĉenon por ĝisdatigi vian saldon. Ĉu vi volas?</string>
 	<string name="import_keys_dialog_failure">Privataj ŝlosiloj ne povis esti restaŭritaj\n\n%s\n\nMalbona pasvorto?</string>
-	<string name="import_keys_dialog_button_reset_blockchain">Reŝargi</string>
 	<string name="export_keys_dialog_title">Savkopi privatajn ŝlosilojn</string>
 	<string name="export_keys_dialog_message">Viaj privataj ŝlosiloj estos ĉifritaj kun l\'elektita pasvorto kaj skribitaj al ekstera storo.</string>
 	<string name="export_keys_dialog_button_export">Savkopi</string>

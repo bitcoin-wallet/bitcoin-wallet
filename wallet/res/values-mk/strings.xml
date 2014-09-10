@@ -111,9 +111,7 @@
 	<string name="import_keys_dialog_button_import">Поврати</string>
 	<string name="import_keys_dialog_success_imported">%d приватни клучеви беа повратени.</string>
 	<string name="import_keys_dialog_success_existing">%d приватни клучеви не беа повратени, бидејќи веќе ги имаш во твојот паричник.</string>
-	<string name="import_keys_dialog_success_reset">Треба да го ресетираш blockchain за да го ажурираш твоето салдо. Сакаш да го направиш тоа?</string>
 	<string name="import_keys_dialog_failure">Приватните клучеви не може да се повратат:\n\n%s\n\nГрешна лозинка?</string>
-	<string name="import_keys_dialog_button_reset_blockchain">Ресетирај</string>
 	<string name="export_keys_dialog_title">Направи резервна копија од приватните клучеви</string>
 	<string name="export_keys_dialog_message">Твоите приватни клучеви ќе бидат шифрирани со одбраната лозинка и зачувани во надворешен склад.</string>
 	<string name="export_keys_dialog_button_export">Направи резервна копија</string>

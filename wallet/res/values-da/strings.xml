@@ -146,9 +146,7 @@
   <string name="restore_wallet_dialog_success">Tegnebog blev genoprettet.</string>
   <string name="import_keys_dialog_success_imported">%d private nøgler blev genoprettet.</string>
   <string name="import_keys_dialog_success_existing">%d private nøgler blev ikke genoprettet, fordi du allerede har dem i din tegnebog.</string>
-  <string name="import_keys_dialog_success_reset">Du skal nulstille din blokkæde for at opdatere din saldo. Vil du gøre dette?</string>
   <string name="import_keys_dialog_failure">Tegnebog kunne ikke genoprettes:\n\n%s\n\nForkert kodeord?</string>
-  <string name="import_keys_dialog_button_reset_blockchain">Nulstil</string>
   <string name="export_keys_dialog_title">Lav sikkerhedskopi af tegnebog</string>
   <string name="export_keys_dialog_message">Din tegnebog vil blive krypteret med det valgte kodeord og skrevet til eksternt lager.</string>
   <string name="export_keys_dialog_button_export">Sikkerskopiér</string>

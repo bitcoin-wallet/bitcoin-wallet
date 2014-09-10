@@ -146,9 +146,7 @@
   <string name="restore_wallet_dialog_success">Le portefeuille a été restauré.</string>
   <string name="import_keys_dialog_success_imported">%d clefs privées ont été restaurées.</string>
   <string name="import_keys_dialog_success_existing">%d clefs privées n\'ont pas été restaurées car vous les avez déjà dans votre portefeuille.</string>
-  <string name="import_keys_dialog_success_reset">Vous devez réinitialiser la chaîne de blocs pour mettre à jour votre solde. Voulez-vous le faire ?</string>
   <string name="import_keys_dialog_failure">Impossible de restaurer le portefeuille :\n\n%s\n\nMot de passe erroné ?</string>
-  <string name="import_keys_dialog_button_reset_blockchain">Réinitialiser</string>
   <string name="export_keys_dialog_title">Sauvegarder le portefeuille</string>
   <string name="export_keys_dialog_message">Votre portefeuille sera chiffré avec le mot de passe choisi et écrit sur le stockage externe.</string>
   <string name="export_keys_dialog_button_export">Sauvegarder</string>

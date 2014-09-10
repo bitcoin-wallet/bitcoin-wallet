@@ -144,9 +144,7 @@
   <string name="restore_wallet_dialog_success">Il portafoglio è stato recuperato.</string>
   <string name="import_keys_dialog_success_imported">%d chiavi private sono state ripristinate</string>
   <string name="import_keys_dialog_success_existing">%d chiavi private non sono state ripristinate, perché ce le hai già nel tuo portafoglio.</string>
-  <string name="import_keys_dialog_success_reset">Hai bisogno di riavviare il tuo blockchain per aggiornare il tuo conto. Desideri farlo?</string>
   <string name="import_keys_dialog_failure">Non è stato possibile recuperare il portafoglio:\n\n%s\n\nPassword sbagliata?</string>
-  <string name="import_keys_dialog_button_reset_blockchain">Reset</string>
   <string name="export_keys_dialog_title">Backup portafoglio</string>
   <string name="export_keys_dialog_message">Il tuo portafoglio sarà criptato con la password scelta e salvato in una memoria esterna.</string>
   <string name="export_keys_dialog_button_export">Backup</string>

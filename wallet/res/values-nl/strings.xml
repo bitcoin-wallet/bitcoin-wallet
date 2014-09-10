@@ -137,9 +137,7 @@
   <string name="restore_wallet_dialog_success">Portemonnee is hersteld.</string>
   <string name="import_keys_dialog_success_imported">%d privésleutels zijn hersteld.</string>
   <string name="import_keys_dialog_success_existing">%d privésleutels zijn niet hersteld, omdat u ze al heeft in uw portemonnee.</string>
-  <string name="import_keys_dialog_success_reset">U dient uw blokketen te resetten om u saldo te updaten. Wilt u dit doen?</string>
   <string name="import_keys_dialog_failure">Portemonnee kon niet hersteld worden:\n\n%s\n\nVerkeerd wachtwoord?</string>
-  <string name="import_keys_dialog_button_reset_blockchain">Reset</string>
   <string name="export_keys_dialog_title">Backup portemonnee</string>
   <string name="export_keys_dialog_message">Uw portemonnee zal gecodeerd worden met het gekozen wachtwoord en geschreven worden naar externe opslag.</string>
   <string name="export_keys_dialog_button_export">Backup</string>

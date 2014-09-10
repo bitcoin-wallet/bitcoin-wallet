@@ -106,9 +106,7 @@
 	<string name="import_keys_dialog_button_import">Nhập dữ liệu</string>
 	<string name="import_keys_dialog_success_imported">đã nhập %d khóa cá nhân.</string>
 	<string name="import_keys_dialog_success_existing">vẫn chưa nhập được %d khóa cá nhân, vì trong ví tiền của bạn đã có những khóa này.</string>
-	<string name="import_keys_dialog_success_reset">Bạn cần phải thiết đặt lại blockchain để cập nhật trạng thái cân bằng tài khoản. Bạn có muốn thực hiện không?</string>
 	<string name="import_keys_dialog_failure">Khóa cá nhân không thể được nhập vào:\n\n%s\n\nDo sai mật khẩu?</string>
-	<string name="import_keys_dialog_button_reset_blockchain">Thiết đặt lại</string>
 	<string name="export_keys_dialog_title">Xuất dữ liệu từ các khóa cá nhân</string>
 	<string name="export_keys_dialog_message">Các khóa cá nhân của bạn sẽ được mã hóa với một mật khẩu do bạn chọn và sau đó ghi dữ liệu mã hóa vào thẻ nhớ.</string>
 	<string name="export_keys_dialog_button_export">Xuất dữ liệu</string>

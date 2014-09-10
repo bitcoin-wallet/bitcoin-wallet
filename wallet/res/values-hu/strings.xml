@@ -111,9 +111,7 @@
 	<string name="import_keys_dialog_button_import">Visszaállítás</string>
 	<string name="import_keys_dialog_success_imported">%d privát kulcs került visszaállításra.</string>
 	<string name="import_keys_dialog_success_existing">%d privát kulcs nem került visszaállításra, mert azokat már használod a tárcádban.</string>
-	<string name="import_keys_dialog_success_reset">Az egyenleged frissítéséhez újra kell tölteni a blokkláncot. Szeretnéd újratölteni?</string>
 	<string name="import_keys_dialog_failure">Az alábbi privát kulcsok visszaállítása nem sikerült:\n\n%s\n\nRossz a jelszó esetleg?</string>
-	<string name="import_keys_dialog_button_reset_blockchain">Visszaállítás/újratöltés</string>
 	<string name="export_keys_dialog_title">Privát kulcsok mentése</string>
 	<string name="export_keys_dialog_message">A privát kulcsaid a választott titkosított jelszóval kerülnek mentésre a külső tárolóra.</string>
 	<string name="export_keys_dialog_button_export">Mentés</string>

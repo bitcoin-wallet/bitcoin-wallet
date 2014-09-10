@@ -146,9 +146,7 @@
   <string name="restore_wallet_dialog_success">Cüzdan geri getirildi.</string>
   <string name="import_keys_dialog_success_imported">%d özel anahtar geri getirildi.</string>
   <string name="import_keys_dialog_success_existing">%d anahtar geri getirilmedi çünkü zaten cüzdanınızda mevcutlar.</string>
-  <string name="import_keys_dialog_success_reset">Bakiyenizi güncellemek için blok zincirini sıfırlamanız gerekiyor. Bunu yapmak istiyor musunuz?</string>
   <string name="import_keys_dialog_failure">Cüzdan geri getirilemedi:\n\n%s\n\nParola yanlış olmasın?</string>
-  <string name="import_keys_dialog_button_reset_blockchain">Sıfırla</string>
   <string name="export_keys_dialog_title">Cüzdanı yedekle</string>
   <string name="export_keys_dialog_message">Cüzdanınız seçtiğiniz parola ile şifrelenip harici yedeklemeye yazılacaktır.</string>
   <string name="export_keys_dialog_button_export">Yedekle</string>

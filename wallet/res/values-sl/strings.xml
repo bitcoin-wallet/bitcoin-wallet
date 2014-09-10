@@ -131,9 +131,7 @@
 	<string name="import_keys_dialog_button_import">Obnovi</string>
 	<string name="import_keys_dialog_success_imported">Število obnovljenih ključev: %d</string>
 	<string name="import_keys_dialog_success_existing">%d zasebnih ključev ni bilo obnovljenih, ker so že prisotni v denarnici.</string>
-	<string name="import_keys_dialog_success_reset">Za osvežitev stanja morate ponovno prenesti nakazila. Želite to storiti zdaj?</string>
 	<string name="import_keys_dialog_failure">Zasebnih ključev ni bilo mogoče obnoviti:\n\n%s\n\nNapačno geslo?</string>
-	<string name="import_keys_dialog_button_reset_blockchain">Ponastavi</string>
 	<string name="export_keys_dialog_title">Rezervno kopiranje zasebnih ključev</string>
 	<string name="export_keys_dialog_message">Vaši zasebni ključi bodo šifrirani z izbranim geslom in zapisani na zunanji pomnilnik.</string>
 	<string name="export_keys_dialog_button_export">Rezervno kopiraj</string>

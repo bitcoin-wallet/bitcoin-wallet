@@ -196,9 +196,9 @@ public final class ImportKeysActivity extends AbstractWalletActivity
 			final StringBuilder message = new StringBuilder();
 			message.append(getString(R.string.restore_wallet_dialog_success));
 			message.append("\n\n");
-			message.append(getString(R.string.import_keys_dialog_success_reset));
+			message.append(getString(R.string.restore_wallet_dialog_success_replay));
 			dialog.setMessage(message);
-			dialog.setPositiveButton(R.string.import_keys_dialog_button_reset_blockchain, new DialogInterface.OnClickListener()
+			dialog.setNeutralButton(R.string.button_ok, new DialogInterface.OnClickListener()
 			{
 				@Override
 				public void onClick(final DialogInterface dialog, final int id)
@@ -207,7 +207,6 @@ public final class ImportKeysActivity extends AbstractWalletActivity
 					finish();
 				}
 			});
-			dialog.setNegativeButton(R.string.button_dismiss, finishListener).setOnCancelListener(finishListener);
 			dialog.show();
 
 			log.info("restored wallet from external source");

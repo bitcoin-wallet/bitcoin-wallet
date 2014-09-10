@@ -815,9 +815,9 @@ public final class WalletActivity extends AbstractWalletActivity
 			final StringBuilder message = new StringBuilder();
 			message.append(getString(R.string.restore_wallet_dialog_success));
 			message.append("\n\n");
-			message.append(getString(R.string.import_keys_dialog_success_reset));
+			message.append(getString(R.string.restore_wallet_dialog_success_replay));
 			dialog.setMessage(message);
-			dialog.setPositiveButton(R.string.import_keys_dialog_button_reset_blockchain, new DialogInterface.OnClickListener()
+			dialog.setNeutralButton(R.string.button_ok, new DialogInterface.OnClickListener()
 			{
 				@Override
 				public void onClick(final DialogInterface dialog, final int id)
@@ -826,7 +826,6 @@ public final class WalletActivity extends AbstractWalletActivity
 					finish();
 				}
 			});
-			dialog.setNegativeButton(R.string.button_dismiss, null);
 			dialog.show();
 
 			log.info("restored wallet from: '" + file + "'");
@@ -912,12 +911,12 @@ public final class WalletActivity extends AbstractWalletActivity
 			{
 				if (message.length() > 0)
 					message.append("\n\n");
-				message.append(getString(R.string.import_keys_dialog_success_reset));
+				message.append(getString(R.string.restore_wallet_dialog_success_replay));
 			}
 			dialog.setMessage(message);
 			if (numKeysImported > 0)
 			{
-				dialog.setPositiveButton(R.string.import_keys_dialog_button_reset_blockchain, new DialogInterface.OnClickListener()
+				dialog.setNeutralButton(R.string.button_ok, new DialogInterface.OnClickListener()
 				{
 					@Override
 					public void onClick(final DialogInterface dialog, final int id)
@@ -926,7 +925,6 @@ public final class WalletActivity extends AbstractWalletActivity
 						finish();
 					}
 				});
-				dialog.setNegativeButton(R.string.button_dismiss, null);
 			}
 			else
 			{

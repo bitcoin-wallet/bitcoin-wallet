@@ -131,9 +131,7 @@
 	<string name="import_keys_dialog_button_import">Importar</string>
 	<string name="import_keys_dialog_success_imported">%d chaves privadas foram restauradas.</string>
 	<string name="import_keys_dialog_success_existing">%d chaves privadas não foram restauradas porque já estavam em sua carteira.</string>
-	<string name="import_keys_dialog_success_reset">Você precisa reiniciar seu blockchain para atualizar seu saldo. Deseja continuar?</string>
 	<string name="import_keys_dialog_failure">Não foi possível importar as chaves privadas:\n\n%s\n\nSenha incorreta?</string>
-	<string name="import_keys_dialog_button_reset_blockchain">Reiniciar</string>
 	<string name="export_keys_dialog_title">Exportar chaves privadas</string>
 	<string name="export_keys_dialog_message">Suas chaves privadas serão criptografadas com a senha escolhida e gravadas no armazenamento externo.</string>
 	<string name="export_keys_dialog_button_export">Exportar</string>
