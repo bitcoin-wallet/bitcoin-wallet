@@ -60,3 +60,77 @@ dependencies {
     compile 'com.github.tony19:logback-android-core:1.1.1-1'
     compile 'com.google.code.findbugs:jsr305:2.0.1'
 }
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'batik:batik-awt-util:1.6-1'
+        classpath 'batik:batik-dom:1.6-1'
+        classpath 'batik:batik-rasterizer-ext:1.6-1'
+    }
+}
+
+import org.apache.batik.apps.rasterizer.DestinationType;
+import org.apache.batik.apps.rasterizer.SVGConverterController
+import org.apache.batik.apps.rasterizer.SVGConverterSource
+import org.apache.batik.apps.rasterizer.SVGConverter
+import org.apache.batik.transcoder.Transcoder
+import org.gradle.api.logging.Logger
+
+public class Rasterize
+        implements SVGConverterController
+{
+    Logger logger
+
+    Rasterize(Logger logger) {
+        this.logger = logger
+    }
+
+    @Override
+    boolean proceedWithComputedTask(Transcoder transcoder, Map map, Vector vector, Vector vector2) {
+        return true
+    }
+
+    @Override
+    boolean proceedWithSourceTranscoding(SVGConverterSource svgConverterSource, File file) {
+        return true
+    }
+
+    @Override
+    boolean proceedOnSourceTranscodingFailure(SVGConverterSource source, File file, String error) {
+        logger.error("failed to transcode " + source.getName() + " " + error)
+        return false
+    }
+
+    @Override
+    void onSourceTranscodingSuccess(SVGConverterSource source, File file) {
+        logger.info("transcoded " + source.getName())
+    }
+
+    void execute(String src, String prefix) {
+        convert(src, "$prefix/res/drawable-hdpi", 72, 72)
+        convert(src, "$prefix/res/drawable-xhdpi", 96, 96)
+        convert(src, "$prefix/res/drawable-xxhdpi", 144, 144)
+    }
+
+    private void convert(String src, String destDir, int width, int height) {
+        String[] srcs = [new File(src).absolutePath]
+        SVGConverter converter = new SVGConverter(this)
+        converter.setSources(srcs)
+        converter.setDst(new File(destDir))
+        converter.setDestinationType(DestinationType.PNG)
+        converter.setWidth(width)
+        converter.setHeight(height)
+        converter.execute()
+    }
+}
+
+task appicon << {
+    def Rasterize rasterizer = new Rasterize(logger)
+    rasterizer.execute("$projectDir/graphics/app_icon.svg", "$projectDir")
+}
+
+project.tasks.getByName("preBuild").dependsOn "appicon"
