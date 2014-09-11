@@ -16,3 +16,5 @@ This project contains several sub-projects:
 You can build all sub-projects at once using Maven:
 
 `mvn clean install`
+
+You can also import this project into Android Studio.  Please run `mvn clean compile` once in order to generate the application icon, then use `File -> Import Project...`.

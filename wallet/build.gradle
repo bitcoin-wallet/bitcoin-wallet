@@ -1,0 +1,62 @@
+apply plugin: 'com.android.application'
+
+android {
+    packagingOptions {
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/NOTICE'
+    }
+    compileSdkVersion 20
+    buildToolsVersion "20.0.0"
+
+    sourceSets {
+        main {
+            manifest.srcFile 'AndroidManifest.xml'
+                java.srcDirs = ['src']
+                resources.srcDirs = ['src']
+                aidl.srcDirs = ['src']
+                renderscript.srcDirs = ['src']
+                res.srcDirs = ['res']
+                assets.srcDirs = ['assets']
+        }
+
+        instrumentTest.setRoot('tests')
+    }
+
+    defaultConfig {
+        applicationId "de.schildbach.wallet_test"
+        minSdkVersion 15
+        targetSdkVersion 16
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            runProguard false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            runProguard true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard.cfg'
+        }
+    }
+}
+
+repositories {
+    // For local SNAPSHOT dependencies
+    mavenLocal()
+}
+
+dependencies {
+    compile 'com.actionbarsherlock:actionbarsherlock:4.4.0@aar'
+    compile 'com.android.support:support-v4:19.1.0'
+    compile 'com.android.support:support-v13:19.1.0'
+    compile 'com.google:bitcoinj:0.12-SNAPSHOT'
+    compile 'de.schildbach.wallet:integration-android:2.0'
+    compile 'com.google.protobuf:protobuf-java:2.5.0'
+    compile 'com.google.guava:guava:16.0.1'
+    compile 'com.google.zxing:core:3.1.0'
+    compile 'org.slf4j:slf4j-api:1.7.6'
+    compile 'com.github.tony19:logback-android-classic:1.1.1-1'
+    compile 'com.github.tony19:logback-android-core:1.1.1-1'
+    compile 'com.google.code.findbugs:jsr305:2.0.1'
+}
