@@ -22,10 +22,7 @@ import java.math.BigInteger;
 import javax.annotation.CheckForNull;
 
 import android.app.Activity;
-import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.database.Cursor;
@@ -56,7 +53,8 @@ import de.schildbach.wallet.ExchangeRatesProvider;
 import de.schildbach.wallet.ExchangeRatesProvider.ExchangeRate;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.WalletBalanceWidgetProvider;
-import de.schildbach.wallet.service.BlockchainService;
+import de.schildbach.wallet.service.BlockchainState;
+import de.schildbach.wallet.service.BlockchainStateLoader;
 import de.schildbach.wallet.util.GenericUtils;
 import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet.util.WholeStringBuilder;
@@ -78,12 +76,14 @@ public final class ExchangeRatesFragment extends SherlockListFragment implements
 	private String query = null;
 
 	private BigInteger balance = null;
-	private boolean replaying = false;
+	@CheckForNull
+	private BlockchainState blockchainState = null;
 	@CheckForNull
 	private String defaultCurrency = null;
 
 	private static final int ID_BALANCE_LOADER = 0;
 	private static final int ID_RATE_LOADER = 1;
+	private static final int ID_BLOCKCHAIN_STATE_LOADER = 2;
 
 	@Override
 	public void onAttach(final Activity activity)
@@ -128,9 +128,8 @@ public final class ExchangeRatesFragment extends SherlockListFragment implements
 	{
 		super.onResume();
 
-		activity.registerReceiver(broadcastReceiver, new IntentFilter(BlockchainService.ACTION_BLOCKCHAIN_STATE));
-
 		loaderManager.initLoader(ID_BALANCE_LOADER, null, balanceLoaderCallbacks);
+		loaderManager.initLoader(ID_BLOCKCHAIN_STATE_LOADER, null, blockchainStateLoaderCallbacks);
 
 		updateView();
 	}
@@ -139,8 +138,7 @@ public final class ExchangeRatesFragment extends SherlockListFragment implements
 	public void onPause()
 	{
 		loaderManager.destroyLoader(ID_BALANCE_LOADER);
-
-		activity.unregisterReceiver(broadcastReceiver);
+		loaderManager.destroyLoader(ID_BLOCKCHAIN_STATE_LOADER);
 
 		super.onPause();
 	}
@@ -270,19 +268,6 @@ public final class ExchangeRatesFragment extends SherlockListFragment implements
 		}
 	}
 
-	private final BlockchainBroadcastReceiver broadcastReceiver = new BlockchainBroadcastReceiver();
-
-	private final class BlockchainBroadcastReceiver extends BroadcastReceiver
-	{
-		@Override
-		public void onReceive(final Context context, final Intent intent)
-		{
-			replaying = intent.getBooleanExtra(BlockchainService.ACTION_BLOCKCHAIN_STATE_REPLAYING, false);
-
-			updateView();
-		}
-	}
-
 	private final LoaderCallbacks<Cursor> rateLoaderCallbacks = new LoaderManager.LoaderCallbacks<Cursor>()
 	{
 		@Override
@@ -352,6 +337,28 @@ public final class ExchangeRatesFragment extends SherlockListFragment implements
 		}
 	};
 
+	private final LoaderCallbacks<BlockchainState> blockchainStateLoaderCallbacks = new LoaderManager.LoaderCallbacks<BlockchainState>()
+	{
+		@Override
+		public Loader<BlockchainState> onCreateLoader(final int id, final Bundle args)
+		{
+			return new BlockchainStateLoader(activity);
+		}
+
+		@Override
+		public void onLoadFinished(final Loader<BlockchainState> loader, final BlockchainState blockchainState)
+		{
+			ExchangeRatesFragment.this.blockchainState = blockchainState;
+
+			updateView();
+		}
+
+		@Override
+		public void onLoaderReset(final Loader<BlockchainState> loader)
+		{
+		}
+	};
+
 	private final class ExchangeRatesAdapter extends ResourceCursorAdapter
 	{
 		private BigInteger rateBase = GenericUtils.ONE_BTC;
@@ -388,7 +395,7 @@ public final class ExchangeRatesFragment extends SherlockListFragment implements
 
 			final CurrencyTextView walletView = (CurrencyTextView) view.findViewById(R.id.exchange_rate_row_balance);
 			walletView.setPrecision(Constants.LOCAL_PRECISION, 0);
-			if (!replaying)
+			if (blockchainState == null || !blockchainState.replaying)
 			{
 				walletView.setAmount(WalletUtils.localValue(balance, exchangeRate.rate));
 				walletView.setStrikeThru(Constants.TEST);

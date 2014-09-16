@@ -43,6 +43,7 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
+import android.support.v4.content.LocalBroadcastManager;
 import android.text.format.DateUtils;
 import android.view.View;
 import android.view.ViewGroup;
@@ -226,14 +227,14 @@ public final class PeerListFragment extends SherlockListFragment
 
 	private static class PeerLoader extends AsyncTaskLoader<List<Peer>>
 	{
-		private Context context;
+		private LocalBroadcastManager broadcastManager;
 		private BlockchainService service;
 
 		private PeerLoader(final Context context, @Nonnull final BlockchainService service)
 		{
 			super(context);
 
-			this.context = context.getApplicationContext();
+			this.broadcastManager = LocalBroadcastManager.getInstance(context.getApplicationContext());
 			this.service = service;
 		}
 
@@ -242,13 +243,15 @@ public final class PeerListFragment extends SherlockListFragment
 		{
 			super.onStartLoading();
 
-			context.registerReceiver(broadcastReceiver, new IntentFilter(BlockchainService.ACTION_PEER_STATE));
+			broadcastManager.registerReceiver(broadcastReceiver, new IntentFilter(BlockchainService.ACTION_PEER_STATE));
+
+			forceLoad();
 		}
 
 		@Override
 		protected void onStopLoading()
 		{
-			context.unregisterReceiver(broadcastReceiver);
+			broadcastManager.unregisterReceiver(broadcastReceiver);
 
 			super.onStopLoading();
 		}
