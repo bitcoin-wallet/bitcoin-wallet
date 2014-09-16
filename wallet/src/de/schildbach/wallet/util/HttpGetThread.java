@@ -29,6 +29,7 @@ import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManagerFactory;
 
+import android.util.Log;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -56,15 +57,16 @@ public abstract class HttpGetThread extends Thread
 	{
 		HttpURLConnection connection = null;
 
-		log.debug("querying \"" + url + "\"...");
+		Log.d("HTTPGetThread", "querying \"" + url + "\"...");
 
 		try
 		{
+            Log.d("HTTPGetThread", "Requesting " + url);
 			connection = (HttpURLConnection) new URL(url).openConnection();
 
 			if (connection instanceof HttpsURLConnection)
 			{
-				final InputStream keystoreInputStream = assets.open("ssl-keystore");
+				final InputStream keystoreInputStream = assets.open("ssl-keystore-litecoin");
 
 				final KeyStore keystore = KeyStore.getInstance("BKS");
 				keystore.load(keystoreInputStream, "password".toCharArray());
@@ -86,6 +88,7 @@ public abstract class HttpGetThread extends Thread
 
 			if (connection.getResponseCode() == HttpURLConnection.HTTP_OK)
 			{
+                Log.d("HTTPGetThread", "HTTP OK, processing...");
 				final long serverTime = connection.getDate();
 				// TODO parse connection.getContentType() for charset
 
@@ -95,6 +98,10 @@ public abstract class HttpGetThread extends Thread
 
 				handleLine(line, serverTime);
 			}
+            else
+            {
+                Log.d("HTTPGetThread", "Server returned " + connection.getResponseCode());
+            }
 		}
 		catch (final Exception x)
 		{

@@ -111,6 +111,7 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 	protected void onCreate(final Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
+        Log.i("WalletActivity", "onCreate");
 
 		application = getWalletApplication();
 		wallet = application.getWallet();
@@ -119,7 +120,7 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 		setContentView(R.layout.wallet_content);
 
 		if (savedInstanceState == null)
-			checkAlerts();
+		    checkAlerts();
 
 		touchLastUsed();
 
@@ -630,8 +631,8 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 	{
 		final PackageInfo packageInfo = getWalletApplication().packageInfo();
 		final int versionNameSplit = packageInfo.versionName.indexOf('-');
-		final String base = Constants.VERSION_URL + (versionNameSplit >= 0 ? packageInfo.versionName.substring(versionNameSplit) : "");
-		final String url = base + "?current=" + packageInfo.versionCode;
+		final String url = Constants.VERSION_URL;
+        Log.i("Alerts", "Checking alerts");
 
 		new HttpGetThread(getAssets(), url)
 		{
@@ -683,10 +684,10 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
 			@Override
 			protected void handleException(final Exception x)
 			{
+                Log.d("HTTPGetThread", "problem reading " + x);
 				if (x instanceof UnknownHostException || x instanceof SocketException || x instanceof SocketTimeoutException)
 				{
 					// swallow
-					log.debug("problem reading", x);
 				}
 				else
 				{
