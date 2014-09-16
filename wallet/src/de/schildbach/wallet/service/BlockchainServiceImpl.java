@@ -734,7 +734,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 	{
 		log.debug(".onDestroy()");
 
-		WalletApplication.scheduleStartBlockchainService(this);
+		// WalletApplication.scheduleStartBlockchainService(this);
 
 		unregisterReceiver(tickReceiver);
 
