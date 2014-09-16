@@ -46,6 +46,7 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
+import android.content.ComponentCallbacks2;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -766,10 +767,15 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 	}
 
 	@Override
-	public void onLowMemory()
+	public void onTrimMemory(final int level)
 	{
-		log.warn("low memory detected, stopping service");
-		stopSelf();
+		log.info("onTrimMemory({}) called", level);
+
+		if (level >= ComponentCallbacks2.TRIM_MEMORY_BACKGROUND)
+		{
+			log.warn("low memory detected, stopping service");
+			stopSelf();
+		}
 	}
 
 	@Override
