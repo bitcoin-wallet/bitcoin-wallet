@@ -459,6 +459,11 @@ public final class PaymentIntent implements Parcelable
 			builder.append(",paymentRequestUrl=");
 			builder.append(paymentRequestUrl);
 		}
+		if (paymentRequestHash != null)
+		{
+			builder.append(",paymentRequestHash=");
+			builder.append(BaseEncoding.base16().lowerCase().encode(paymentRequestHash));
+		}
 		builder.append(']');
 
 		return builder.toString();
