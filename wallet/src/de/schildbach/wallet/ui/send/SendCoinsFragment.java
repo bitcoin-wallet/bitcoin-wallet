@@ -657,6 +657,18 @@ public final class SendCoinsFragment extends SherlockFragment
 	@Override
 	public void onActivityResult(final int requestCode, final int resultCode, final Intent intent)
 	{
+		handler.post(new Runnable()
+		{
+			@Override
+			public void run()
+			{
+				onActivityResultResumed(requestCode, resultCode, intent);
+			}
+		});
+	}
+
+	private void onActivityResultResumed(final int requestCode, final int resultCode, final Intent intent)
+	{
 		if (requestCode == REQUEST_CODE_SCAN)
 		{
 			if (resultCode == Activity.RESULT_OK)
