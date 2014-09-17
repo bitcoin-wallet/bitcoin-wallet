@@ -1,6 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="help_wallet">\n<![CDATA[
+  <string name="help_wallet">
+<![CDATA[
 		<p>
 			Ekranın üst sol köşesi diğer kişilerin size Bitcoin yollayabilmek için bilmeleri seçilen sizin Bitcoin adresinizi gösterir.
 			Adresi değiştirmek için dokunmak yeterlidir.
@@ -24,8 +25,10 @@
 			Bitcoin yollamak ya da talep etmek için etkinlik çubuğunda düğmelere dokunabilirsiniz.
 			Tercihler menüsünde daha fazla seçenek bulabilirsiniz.
 		</p>
-	]]>\n\t</string>
-  <string name="help_request_coins">\n<![CDATA[
+	]]>
+	</string>
+  <string name="help_request_coins">
+<![CDATA[
 		<p>
 			Bu diyaloğu kullanarak başka bir kişiden Bitcoin talep edebilirsiniz (bu kişinin Bitcoin Wallet uygulamasını cihazında kurmuş olması gerekir).
 		</p>
@@ -41,8 +44,10 @@
 			Her durumda diğer kişiye Bitcoin göndermesi için tüm seçenekleri doldurulmuş bir diyalog gösterilecektir.
 			Kabul ederse tüm yapması gereken muameleyi yollamaktır.
 		</p>
-	]]>\n\t</string>
-  <string name="help_send_coins">\n<![CDATA[
+	]]>
+	</string>
+  <string name="help_send_coins">
+<![CDATA[
 		<p>
 			Bitcoin gönderme prosedürünü başlattınız.
 			Buraya ya ana ekrandan ya da mobil ağ tarayıcınızda bir Bitcoin bağlantısına tıklayarak geldiniz.
@@ -69,8 +74,10 @@
 			Muameleler geri alınamaz!
 			Alıcı adresini daima kontrol ediniz.
 		</p>
-	]]>\n\t</string>
-  <string name="help_safety">\n<![CDATA[
+	]]>
+	</string>
+  <string name="help_safety">
+<![CDATA[
 		<p>
 			<b>Bitcoinlerinizin güvenliği hakkında önemli noktalar:</b>
 		</p>
@@ -96,5 +103,6 @@
 			Riski sınırlayın!
 			<b>Bitcoin Wallet uygulamasını sadece küçük tutarlar için kullanınız</b>.
 		</p>
-	]]>\n\t</string>
+	]]>
+	</string>
 </resources>
