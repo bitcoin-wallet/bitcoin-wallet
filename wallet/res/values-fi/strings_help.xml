@@ -1,6 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="help_wallet">\n<![CDATA[
+  <string name="help_wallet">
+<![CDATA[
 		<p>
 			Ruudun vasemmassa ylänurkassa näkyy sinun valittu bitcoin-osoite, joka muiden täytyy tietää lähettääkseen sinulle bitcoineja.
 			Napsauta vaihtaaksesi osoitetta.
@@ -24,8 +25,10 @@
 			Voit lähettää tai pyytää bitcoineja napsauttamalla näppäimiä toimintapalkissa.
 			Lisää valintoja löydät asetukset -valikosta.
 		</p>
-	]]>\n\t</string>
-  <string name="help_request_coins">\n<![CDATA[
+	]]>
+	</string>
+  <string name="help_request_coins">
+<![CDATA[
 		<p>
 			Käyttämällä tätä dialogia, voit pyytää bitcoineja toiselta henkilöltä, jolla pitäisi jo olla Bitcoin Wallet asennettuna.
 		</p>
@@ -42,8 +45,10 @@
 			Joka tapauksessa toiselle henkilölle esitetään dialogi bitcoinien lähettämisestä, jossa kaikki kentät on jo täytetty.
 			Jos hän hyväksyy sen, hänen täytyy vain lähettää maksu.
 		</p>
-	]]>\n\t</string>
-  <string name="help_send_coins">\n<![CDATA[
+	]]>
+	</string>
+  <string name="help_send_coins">
+<![CDATA[
 		<p>
 			Olet käynnistänyt bitcoinien lähetysprosessin.
 			Päädyit tänne joko päänäkymän kautta tai napsauttamalla bitcoin-URL-osoitetta mobiiliselaimellasi.
@@ -70,8 +75,10 @@
 			Maksuja ei voi peruuttaa!
 			Aina varmista vastaanottajan osoite!
 		</p>
-	]]>\n\t</string>
-  <string name="help_safety">\n<![CDATA[
+	]]>
+	</string>
+  <string name="help_safety">
+<![CDATA[
 		<p>
 			<b>Tärkeitä turvallisuus huomioita:</b>
 		</p>
@@ -102,5 +109,6 @@
 			Älä tee suuria riskejä!
 			<b>Käytä vain pieniä summia varten</b> päiväkäytössä.
 		</p>
-	]]>\n\t</string>
+	]]>
+	</string>
 </resources>
