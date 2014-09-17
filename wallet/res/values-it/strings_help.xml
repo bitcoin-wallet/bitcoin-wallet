@@ -1,6 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="help_wallet">\n<![CDATA[
+  <string name="help_wallet">
+<![CDATA[
 		<p>
 			La parte in alto a sinistra dello schermo mostra gli indirizzo Bitcoin che le altre persone hanno bisogno per poterti inviare dei Bitcoin.
 			Premi per cambiare l\'indirizzo.
@@ -24,8 +25,10 @@
 			Puoi inviare o ricevere Bitcoins premendo i tasti nella barra delle azioni.
 			Sono disponibili ulteriori comandi nel menù opzioni.
 		</p>
-	]]>\n\t</string>
-  <string name="help_request_coins">\n<![CDATA[
+	]]>
+	</string>
+  <string name="help_request_coins">
+<![CDATA[
 		<p>
 			Utilizzando questa finestra puoi richiedere dei Bitcoin ad un\'altra persona
 			(che dovrebbe aver già installato Bitcoin Wallet).
@@ -35,15 +38,17 @@
 		</p>
 		<p>
 			Poi puoi generare dei codici QR da far acquisire all\'altra persona.
-			Oppure puoi inviare la richiesta con il tasto "condividi" nella barra azioni.
+			Oppure puoi inviare la richiesta con il tasto \"condividi\" nella barra azioni.
 			La persona che riceve la richiesta dovrà cliccare l\'URL Bitcoin.
 		</p>
 		<p>
 			In ogni modo alla persona ricevente verrà presentata un modulo precompilato per inviare i Bitcoin.
 			Per confermare l\'invio dovrà solo accettare la transazione.
 		</p>
-	]]>\n\t</string>
-  <string name="help_send_coins">\n<![CDATA[
+	]]>
+	</string>
+  <string name="help_send_coins">
+<![CDATA[
 		<p>
 			Hai iniziato il processo per inviare Bitcoins.
 			Sei giunto qui a partire dalla schermata principale o cliccando su di un URL Bitcoin dal tuo browser.
@@ -70,8 +75,10 @@
 			I pagamenti non possono essere annullate!
 			Controlla sempre la correttezza degli indirizzi di destinazione.
 		</p>
-	]]>\n\t</string>
-  <string name="help_safety">\n<![CDATA[
+	]]>
+	</string>
+  <string name="help_safety">
+<![CDATA[
 		<p>
 			<b>Alcune informazioni riguardo la sicurezza relativa ai vostri Bitcoins:</b>
 		</p>
@@ -98,5 +105,6 @@
 			Tieni basso il rischio!
 			<b>Usa Bitcoin Wallet solo con piccoli importi</b> sufficienti per l\'uso quotidiano.
 		</p>
-	]]>\n\t</string>
+	]]>
+	</string>
 </resources>
