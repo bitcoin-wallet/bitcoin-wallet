@@ -23,6 +23,7 @@ import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.util.Log;
 import android.widget.Toast;
@@ -850,7 +851,8 @@ public final class SendCoinsFragment extends SherlockFragment
 		contentView.measure(MeasureSpec.makeMeasureSpec(MeasureSpec.UNSPECIFIED, 0), MeasureSpec.makeMeasureSpec(MeasureSpec.UNSPECIFIED, 0));
 
 		popupWindow = new PopupWindow(contentView, contentView.getMeasuredWidth(), contentView.getMeasuredHeight(), false);
-		popupWindow.showAsDropDown(anchor);
+        contentView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        popupWindow.showAsDropDown(anchor);
 
 		// hack
 		contentView.setBackgroundResource(popupWindow.isAboveAnchor() ? R.drawable.popup_frame_above : R.drawable.popup_frame_below);
