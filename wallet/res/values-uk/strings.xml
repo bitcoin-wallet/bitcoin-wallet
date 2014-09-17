@@ -16,7 +16,7 @@
   <string name="wallet_addresses_fragment_add_dialog_title">Додати Bitcoin-адресу</string>
   <string name="wallet_addresses_fragment_add_dialog_message">Bitcoin-адреси не можна видаляти. Хочете додати нову адресу в ваш гаманець?</string>
   <string name="wallet_balance_fragment_replaying">Під час відтворення баланс недоступний.</string>
-  <string name="exchange_rates_activity_title">Обмінні курси</string>
+  <string name="exchange_rates_activity_title">Курси валют</string>
   <string name="exchange_rates_fragment_empty_text">Не вдалося завантажити курси валют.</string>
   <string name="exchange_rates_fragment_empty_search">Не вдалося знайти обмінний курс.</string>
   <string name="exchange_rates_fragment_default">(за замовчуванням)</string>
@@ -40,7 +40,7 @@
   <string name="wallet_donate_address_label">Пожертвування для Bitcoin Wallet</string>
   <string name="wallet_low_storage_dialog_title">Недостатньо внутрішньої пам\'яті на пристрої!</string>
   <string name="wallet_low_storage_dialog_msg">Bitcoin Wallet використовує внутрішю пам\'ять для збереження транзакцій і блоків. Якщо вона закінчиться, додаток перестане працювати, що загрожуватиме вмісту Bitcoin-гаманця!\n\nВідкрити «Управління додатками», щоб видалити непотрібні додатки?</string>
-  <string name="wallet_low_storage_dialog_button_apps">Управління додатками</string>
+  <string name="wallet_low_storage_dialog_button_apps">Керування додатками</string>
   <string name="wallet_timeskew_dialog_title">Перевірте налаштування часу!</string>
   <string name="wallet_timeskew_dialog_msg">Час на вашому пристрої відстає на %d хвилин.  Можливо, через це вам не вдасться відправляти или отримувати Bitcoin.\n\nПеревірте та виправте час, а також параметри часового поясу.</string>
   <string name="wallet_version_dialog_title">Доступна нова версія!</string>
@@ -58,10 +58,10 @@
   <string name="send_coins_fragment_payee_verified_by_unknown">невідомо</string>
   <string name="send_coins_fragment_receiving_address_label">Оплатити</string>
   <string name="send_coins_fragment_receiving_address_hint">введіть адресу чи ім\'я</string>
-  <string name="send_coins_fragment_receiving_address_error">Некоректна Bitcoin-адреса!</string>
+  <string name="send_coins_fragment_receiving_address_error">Неправильна Bitcoin адреса!</string>
   <string name="send_coins_fragment_receiving_address_error_cross_network">Неможливо використовувати адресу %s з цим гаманцем!</string>
   <string name="send_coins_fragment_receiving_address_error_cross_network_unknown">Неможливо використовувати адресу невідомої мережі з цим гаманцем</string>
-  <string name="send_coins_fragment_receiving_address_complex">комплекс\nадреса</string>
+  <string name="send_coins_fragment_receiving_address_complex">коплекс\nадресу</string>
   <string name="send_coins_fragment_pending">(%s очікування підтвердження) </string>
   <string name="send_coins_fragment_amount_label">Сума платежу</string>
   <string name="send_coins_fragment_direct_payment_enable">Відправити платіж безпосередньо отримувачу.</string>
@@ -128,7 +128,7 @@
   <string name="transaction_row_message_received_unconfirmed_locked">Цей платіж нестандартний, йому не варто довіряти.</string>
   <string name="transaction_row_message_received_dead">Цей платіж був скасований відправником.</string>
   <string name="transaction_row_message_received_dust">Настільки мала сума, скоріш за все, ніколи не буде витрачена економічно.</string>
-  <string name="network_monitor_activity_title">Мережий монітор</string>
+  <string name="network_monitor_activity_title">Мережевий монітор</string>
   <string name="network_monitor_peer_list_title">Вузли</string>
   <string name="network_monitor_block_list_title">Блоки</string>
   <string name="peer_list_fragment_empty">Немає підключень</string>
@@ -145,6 +145,7 @@
   <string name="import_keys_dialog_file_created_manual">ручна резервна копія %s</string>
   <string name="import_keys_dialog_button_import">Відновити</string>
   <string name="restore_wallet_dialog_success">Гаманець був відновлений.</string>
+  <string name="restore_wallet_dialog_success_replay">Ваш гаманець був успішно відновлений. Його баланс визначиться згодом. Це займе трохи часу.</string>
   <string name="import_keys_dialog_failure">Гаманець не можливо відновити:\n\n%s\n\Неправильний пароль?</string>
   <string name="export_keys_dialog_title">Резервна копія гаманця</string>
   <string name="export_keys_dialog_message">Ваш гаманець буде зашифрований за допомогою пароля і будет записаний на зовнішній накопичувач.</string>
@@ -164,8 +165,8 @@
   <string name="scan_camera_problem_dialog_message">Проблема з камерою. Можливо, вам потрібо перезавантажити пристрій.</string>
   <string name="input_parser_io_error">Не вдається прочитати дані:\n%s</string>
   <string name="input_parser_cannot_classify">Не вдається розпізнати вхід:\n%s</string>
-  <string name="input_parser_invalid_bitcoin_uri">Неправильний Bitcoin URI:\n%s</string>
-  <string name="input_parser_invalid_address">Отримано неправильну адресу біткоїн!\n(переплутані Testnet/Mainnet?)</string>
+  <string name="input_parser_invalid_bitcoin_uri">Некоректна Bitcoin-адреса:\n%s</string>
+  <string name="input_parser_invalid_address">Отримано некоректну Bitcoin адесу!\n(Переплутані mainnet/testnet?)</string>
   <string name="input_parser_unverifyable_paymentrequest">Не вдається перевірити запит на оплату:\n%s</string>
   <string name="input_parser_invalid_paymentrequest">Недопустимий запит на оплату:\n%s</string>
   <string name="input_parser_invalid_transaction">Помилкова транзакція:\n%s</string>
