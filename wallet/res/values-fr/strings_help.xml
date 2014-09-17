@@ -1,6 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="help_wallet">\n<![CDATA[
+  <string name="help_wallet">
+<![CDATA[
 		<p>
 			La partie supérieure gauche de l\'écran affiche votre adresse Bitcoin choisie et que d\'autres personnes doivent connaître pour vous envoyer des bitcoins.
 			Toquer pour changer cette adresse.
@@ -24,8 +25,10 @@
 			Vous pouvez envoyer ou recevoir des bitcoins en toquant les boutons dans la barre des actions.
 			Plus d\'options sont disponibles dans le menu des options.
 		</p>
-	]]>\n\t</string>
-  <string name="help_request_coins">\n<![CDATA[
+	]]>
+	</string>
+  <string name="help_request_coins">
+<![CDATA[
 		<p>
 			En utilisant cette zone de dialogue vous pouvez demander des pièces à une autre personne (qui devrait déjà avoir installé le Bitcoin Wallet).
 		</p>
@@ -40,8 +43,10 @@
 			Dans les deux cas, l\'autre personne obtiendra une zone de dialogue pré-remplie pour envoyer les pièces.
 			Si elle accepte, elle n\'aura qu\'à envoyer le paiement.
 		</p>
-	]]>\n\t</string>
-  <string name="help_send_coins">\n<![CDATA[
+	]]>
+	</string>
+  <string name="help_send_coins">
+<![CDATA[
 		<p>
 			Vous avez commencé le processus d\'envoi de bitcoins.
 			Vous êtes arrivé ici depuis l\'écran principal ou en cliquant sur une URL bitcoin dans votre navigateur.
@@ -68,8 +73,10 @@
 			Les paiements sont irréversibles !
 			Toujours vérifier l\'adresse de destination.
 		</p>
-	]]>\n\t</string>
-  <string name="help_safety">\n<![CDATA[
+	]]>
+	</string>
+  <string name="help_safety">
+<![CDATA[
 		<p>
 			<b>Notes de sécurité importantes :</b>
 		</p>
@@ -100,5 +107,6 @@
 			Minimisez les risques !
 			<b>N\'utilisez que pour des petits montants,</b> pour un usage quotidien.
 		</p>
-	]]>\n\t</string>
+	]]>
+	</string>
 </resources>

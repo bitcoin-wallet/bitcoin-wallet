@@ -16,7 +16,7 @@
 
 <b>CONTRIBUER</b>
 
-Bitcoin Wallet est un<b>logiciel à code source libre</b> et <b>ouvert</b>. Licence : GPLv3
+Bitcoin Wallet est un <b>logiciel à code source libre</b> et <b>ouvert</b>. Licence : GPLv3
 https://www.gnu.org/licenses/gpl-3.0.fr.html
 
 Notre code source est disponible sur GutHub :
