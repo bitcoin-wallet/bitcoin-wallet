@@ -27,8 +27,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.io.Reader;
-import java.io.StringReader;
 import java.io.Writer;
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
@@ -79,7 +77,6 @@ import com.google.bitcoin.core.Transaction;
 import com.google.bitcoin.core.VerificationException;
 import com.google.bitcoin.core.Wallet;
 import com.google.bitcoin.core.Wallet.BalanceType;
-import com.google.bitcoin.store.UnreadableWalletException;
 import com.google.bitcoin.store.WalletProtobufSerializer;
 import com.google.common.base.Charsets;
 
@@ -385,13 +382,12 @@ public final class WalletActivity extends AbstractWalletActivity
 				final String password = passwordView.getText().toString().trim();
 				passwordView.setText(null); // get rid of it asap
 
-				final boolean isProtobuf = file.getName().startsWith(Constants.Files.WALLET_KEY_BACKUP_PROTOBUF + '.')
-						|| file.getName().startsWith(Constants.Files.EXTERNAL_WALLET_BACKUP + '-');
-
-				if (isProtobuf)
-					restoreWalletFromProtobuf(file, password);
-				else
-					importPrivateKeysFromBase58(file, password);
+				if (WalletUtils.BACKUP_FILE_FILTER.accept(file))
+					restoreWalletFromProtobuf(file);
+				else if (WalletUtils.KEYS_FILE_FILTER.accept(file))
+					restorePrivateKeysFromBase58(file);
+				else if (Crypto.OPENSSL_FILE_FILTER.accept(file))
+					restoreWalletFromEncrypted(file, password);
 			}
 		});
 		dialog.setNegativeButton(R.string.button_cancel, new OnClickListener()
@@ -782,72 +778,23 @@ public final class WalletActivity extends AbstractWalletActivity
 		return dialog.create();
 	}
 
-	private void restoreWalletFromProtobuf(@Nonnull final File file, @Nonnull final String password)
+	private void restoreWalletFromEncrypted(@Nonnull final File file, @Nonnull final String password)
 	{
 		try
 		{
-			final InputStream is;
-			if (Crypto.OPENSSL_FILE_FILTER.accept(file))
-			{
-				final BufferedReader cipherIn = new BufferedReader(new InputStreamReader(new FileInputStream(file), Charsets.UTF_8));
-				final StringBuilder cipherText = new StringBuilder();
-				Io.copy(cipherIn, cipherText, Constants.BACKUP_MAX_CHARS);
-				cipherIn.close();
+			final BufferedReader cipherIn = new BufferedReader(new InputStreamReader(new FileInputStream(file), Charsets.UTF_8));
+			final StringBuilder cipherText = new StringBuilder();
+			Io.copy(cipherIn, cipherText, Constants.BACKUP_MAX_CHARS);
+			cipherIn.close();
 
-				final byte[] plainText = Crypto.decryptBytes(cipherText.toString(), password.toCharArray());
-				is = new ByteArrayInputStream(plainText);
-			}
-			else
-			{
-				is = new FileInputStream(file);
-			}
+			final byte[] plainText = Crypto.decryptBytes(cipherText.toString(), password.toCharArray());
+			final InputStream is = new ByteArrayInputStream(plainText);
 
-			final Wallet wallet = new WalletProtobufSerializer().readWallet(is);
+			restoreWallet(WalletUtils.restoreWalletFromProtobufOrBase58(is));
 
-			if (!wallet.getParams().equals(Constants.NETWORK_PARAMETERS))
-				throw new UnreadableWalletException("bad wallet network parameters: " + wallet.getParams().getId());
-
-			application.replaceWallet(wallet);
-
-			config.disarmBackupReminder();
-
-			final DialogBuilder dialog = new DialogBuilder(this);
-			final StringBuilder message = new StringBuilder();
-			message.append(getString(R.string.restore_wallet_dialog_success));
-			message.append("\n\n");
-			message.append(getString(R.string.restore_wallet_dialog_success_replay));
-			dialog.setMessage(message);
-			dialog.setNeutralButton(R.string.button_ok, new DialogInterface.OnClickListener()
-			{
-				@Override
-				public void onClick(final DialogInterface dialog, final int id)
-				{
-					getWalletApplication().resetBlockchain();
-					finish();
-				}
-			});
-			dialog.show();
-
-			log.info("restored wallet from: '" + file + "'");
+			log.info("successfully restored encrypted wallet: {}", file);
 		}
 		catch (final IOException x)
-		{
-			final DialogBuilder dialog = DialogBuilder.warn(this, R.string.import_export_keys_dialog_failure_title);
-			dialog.setMessage(getString(R.string.import_keys_dialog_failure, x.getMessage()));
-			dialog.setPositiveButton(R.string.button_dismiss, null);
-			dialog.setNegativeButton(R.string.button_retry, new DialogInterface.OnClickListener()
-			{
-				@Override
-				public void onClick(final DialogInterface dialog, final int id)
-				{
-					showDialog(DIALOG_IMPORT_KEYS);
-				}
-			});
-			dialog.show();
-
-			log.info("problem restoring wallet", x);
-		}
-		catch (final UnreadableWalletException x)
 		{
 			final DialogBuilder dialog = DialogBuilder.warn(this, R.string.import_export_keys_dialog_failure_title);
 			dialog.setMessage(getString(R.string.import_keys_dialog_failure, x.getMessage()));
@@ -866,73 +813,15 @@ public final class WalletActivity extends AbstractWalletActivity
 		}
 	}
 
-	private void importPrivateKeysFromBase58(@Nonnull final File file, @Nonnull final String password)
+	private void restoreWalletFromProtobuf(@Nonnull final File file)
 	{
+		FileInputStream is = null;
 		try
 		{
-			final Reader plainReader;
-			if (Crypto.OPENSSL_FILE_FILTER.accept(file))
-			{
-				final BufferedReader cipherIn = new BufferedReader(new InputStreamReader(new FileInputStream(file), Charsets.UTF_8));
-				final StringBuilder cipherText = new StringBuilder();
-				Io.copy(cipherIn, cipherText, Constants.BACKUP_MAX_CHARS);
-				cipherIn.close();
+			is = new FileInputStream(file);
+			restoreWallet(WalletUtils.restoreWalletFromProtobuf(is));
 
-				final String plainText = Crypto.decrypt(cipherText.toString(), password.toCharArray());
-				plainReader = new StringReader(plainText);
-			}
-			else if (WalletUtils.KEYS_FILE_FILTER.accept(file))
-			{
-				plainReader = new InputStreamReader(new FileInputStream(file), Charsets.UTF_8);
-			}
-			else
-			{
-				throw new IllegalStateException(file.getAbsolutePath());
-			}
-
-			final BufferedReader keyReader = new BufferedReader(plainReader);
-			final List<ECKey> importedKeys = WalletUtils.readKeys(keyReader);
-			keyReader.close();
-
-			final int numKeysToImport = importedKeys.size();
-			final int numKeysImported = wallet.addKeys(importedKeys);
-
-			final DialogBuilder dialog = new DialogBuilder(this);
-			final StringBuilder message = new StringBuilder();
-			if (numKeysImported > 0)
-				message.append(getString(R.string.import_keys_dialog_success_imported, numKeysImported));
-			if (numKeysImported < numKeysToImport)
-			{
-				if (message.length() > 0)
-					message.append('\n');
-				message.append(getString(R.string.import_keys_dialog_success_existing, numKeysToImport - numKeysImported));
-			}
-			if (numKeysImported > 0)
-			{
-				if (message.length() > 0)
-					message.append("\n\n");
-				message.append(getString(R.string.restore_wallet_dialog_success_replay));
-			}
-			dialog.setMessage(message);
-			if (numKeysImported > 0)
-			{
-				dialog.setNeutralButton(R.string.button_ok, new DialogInterface.OnClickListener()
-				{
-					@Override
-					public void onClick(final DialogInterface dialog, final int id)
-					{
-						getWalletApplication().resetBlockchain();
-						finish();
-					}
-				});
-			}
-			else
-			{
-				dialog.singleDismissButton(null);
-			}
-			dialog.show();
-
-			log.info("imported " + numKeysImported + " of " + numKeysToImport + " private keys");
+			log.info("successfully restored unencrypted wallet: {}", file);
 		}
 		catch (final IOException x)
 		{
@@ -949,8 +838,85 @@ public final class WalletActivity extends AbstractWalletActivity
 			});
 			dialog.show();
 
-			log.info("problem reading private keys", x);
+			log.info("problem restoring wallet", x);
 		}
+		finally
+		{
+			try
+			{
+				if (is != null)
+					is.close();
+			}
+			catch (final IOException x2)
+			{
+				// swallow
+			}
+		}
+	}
+
+	private void restorePrivateKeysFromBase58(@Nonnull final File file)
+	{
+		FileInputStream is = null;
+		try
+		{
+			is = new FileInputStream(file);
+			restoreWallet(WalletUtils.restorePrivateKeysFromBase58(is));
+
+			log.info("successfully restored unencrypted private keys: {}", file);
+		}
+		catch (final IOException x)
+		{
+			final DialogBuilder dialog = DialogBuilder.warn(this, R.string.import_export_keys_dialog_failure_title);
+			dialog.setMessage(getString(R.string.import_keys_dialog_failure, x.getMessage()));
+			dialog.setPositiveButton(R.string.button_dismiss, null);
+			dialog.setNegativeButton(R.string.button_retry, new DialogInterface.OnClickListener()
+			{
+				@Override
+				public void onClick(final DialogInterface dialog, final int id)
+				{
+					showDialog(DIALOG_IMPORT_KEYS);
+				}
+			});
+			dialog.show();
+
+			log.info("problem restoring private keys", x);
+		}
+		finally
+		{
+			try
+			{
+				if (is != null)
+					is.close();
+			}
+			catch (final IOException x2)
+			{
+				// swallow
+			}
+		}
+	}
+
+	private void restoreWallet(final Wallet wallet) throws IOException
+	{
+		application.replaceWallet(wallet);
+
+		config.disarmBackupReminder();
+
+		final DialogBuilder dialog = new DialogBuilder(this);
+		final StringBuilder message = new StringBuilder();
+		message.append(getString(R.string.restore_wallet_dialog_success));
+		message.append("\n\n");
+		message.append(getString(R.string.restore_wallet_dialog_success_replay));
+		dialog.setMessage(message);
+		dialog.setNeutralButton(R.string.button_ok, new DialogInterface.OnClickListener()
+		{
+			@Override
+			public void onClick(final DialogInterface dialog, final int id)
+			{
+				getWalletApplication().resetBlockchain();
+				finish();
+			}
+		});
+		dialog.show();
 	}
 
 	private void backupWallet(@Nonnull final String password)

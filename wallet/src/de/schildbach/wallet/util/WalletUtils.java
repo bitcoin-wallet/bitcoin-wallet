@@ -212,6 +212,53 @@ public class WalletUtils
 		}
 	}
 
+	public static Wallet restoreWalletFromProtobufOrBase58(final InputStream is) throws IOException
+	{
+		is.mark((int) Constants.BACKUP_MAX_CHARS);
+
+		try
+		{
+			return restoreWalletFromProtobuf(is);
+		}
+		catch (final IOException x)
+		{
+			try
+			{
+				is.reset();
+				return restorePrivateKeysFromBase58(is);
+			}
+			catch (final IOException x2)
+			{
+				throw new IOException("cannot read protobuf (" + x.getMessage() + ") or base58 (" + x2.getMessage() + ")", x);
+			}
+		}
+	}
+
+	public static Wallet restoreWalletFromProtobuf(final InputStream is) throws IOException
+	{
+		try
+		{
+			final Wallet wallet = new WalletProtobufSerializer().readWallet(is);
+
+			if (!wallet.getParams().equals(Constants.NETWORK_PARAMETERS))
+				throw new IOException("bad wallet network parameters: " + wallet.getParams().getId());
+
+			return wallet;
+		}
+		catch (final UnreadableWalletException x)
+		{
+			throw new IOException("unreadable wallet", x);
+		}
+	}
+
+	public static Wallet restorePrivateKeysFromBase58(final InputStream is) throws IOException
+	{
+		final BufferedReader keyReader = new BufferedReader(new InputStreamReader(is, Charsets.UTF_8));
+		final Wallet wallet = new Wallet(Constants.NETWORK_PARAMETERS);
+		wallet.addKeys(WalletUtils.readKeys(keyReader));
+		return wallet;
+	}
+
 	public static void writeKeys(@Nonnull final Writer out, @Nonnull final List<ECKey> keys) throws IOException
 	{
 		final DateFormat format = Iso8601Format.newDateTimeFormatT();

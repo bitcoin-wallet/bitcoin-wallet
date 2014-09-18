@@ -144,8 +144,6 @@
   <string name="import_keys_dialog_file_created_manual">manuaalisesti varmuuskopioitu %s</string>
   <string name="import_keys_dialog_button_import">Palauta</string>
   <string name="restore_wallet_dialog_success">Lompakko palautettiin.</string>
-  <string name="import_keys_dialog_success_imported">%d yksityiset avaimesi palautettiin.</string>
-  <string name="import_keys_dialog_success_existing">%d yksityisiä avaimia ei voitu palauttaa, koska sinulla on ne jo lompakossasi.</string>
   <string name="import_keys_dialog_failure">Lompakkoa ei voitu palauttaa:\n\n%s\n\nVäärä salasana?</string>
   <string name="export_keys_dialog_title">Varmuuskopioi lompakko</string>
   <string name="export_keys_dialog_message">Lompakkosi salataan valitsemallasi salasanalla ja kirjoitetaan erilliselle tallennustilalle.</string>

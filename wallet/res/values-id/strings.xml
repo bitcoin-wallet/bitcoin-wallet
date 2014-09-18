@@ -109,8 +109,6 @@
 	<string name="import_keys_dialog_file_created_automatic">pencadangan otomatis %s</string>
 	<string name="import_keys_dialog_file_created_manual">dicadangkan manual %s</string>
 	<string name="import_keys_dialog_button_import">Pulihkan</string>
-	<string name="import_keys_dialog_success_imported">%d kunci pribadi telah dipulihkan.</string>
-	<string name="import_keys_dialog_success_existing">%d kunci pribadi tidak dipulihkan, karena Anda telah mempunyainya di dompet.</string>
 	<string name="import_keys_dialog_failure">Kunci pribadi tidak dpt dipulihkan:\n\n%s\n\nKata sandi salah?</string>
 	<string name="export_keys_dialog_title">Cadangkan kunci pribadi</string>
 	<string name="export_keys_dialog_message">Kunci pribadi Anda akan dienkripsi dgn kata sandi terpilih dan akan disimpan ke penyimpanan eksternal.</string>

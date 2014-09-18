@@ -104,8 +104,6 @@
 	<string name="import_keys_dialog_file_created_automatic">tự động sao lưu %s</string>
 	<string name="import_keys_dialog_file_created_manual">dữ liệu do người dùng xuất %s</string>
 	<string name="import_keys_dialog_button_import">Nhập dữ liệu</string>
-	<string name="import_keys_dialog_success_imported">đã nhập %d khóa cá nhân.</string>
-	<string name="import_keys_dialog_success_existing">vẫn chưa nhập được %d khóa cá nhân, vì trong ví tiền của bạn đã có những khóa này.</string>
 	<string name="import_keys_dialog_failure">Khóa cá nhân không thể được nhập vào:\n\n%s\n\nDo sai mật khẩu?</string>
 	<string name="export_keys_dialog_title">Xuất dữ liệu từ các khóa cá nhân</string>
 	<string name="export_keys_dialog_message">Các khóa cá nhân của bạn sẽ được mã hóa với một mật khẩu do bạn chọn và sau đó ghi dữ liệu mã hóa vào thẻ nhớ.</string>

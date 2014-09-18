@@ -144,8 +144,6 @@
   <string name="import_keys_dialog_file_created_manual">zálohováno manuálně %s</string>
   <string name="import_keys_dialog_button_import">Obnovit</string>
   <string name="restore_wallet_dialog_success">Peněženka obnovena.</string>
-  <string name="import_keys_dialog_success_imported">%d privátních klíčů bylo obnoveno.</string>
-  <string name="import_keys_dialog_success_existing">%d privátních klíčů nebylo obnoveno, protože je již máte ve své peněžence.</string>
   <string name="import_keys_dialog_failure">Peněženka nemohla být obnovena\n\n%s\n\nŠpatné heslo?</string>
   <string name="export_keys_dialog_title">Zálohovat peněženku</string>
   <string name="export_keys_dialog_message">Vaše peněženka bude zašifrována zvoleným heslem a zapsána do externího úložiště.</string>

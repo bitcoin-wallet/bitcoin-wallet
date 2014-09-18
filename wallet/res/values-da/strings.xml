@@ -144,8 +144,6 @@
   <string name="import_keys_dialog_file_created_manual">manuel sikkerhedskopi %s</string>
   <string name="import_keys_dialog_button_import">Genopret</string>
   <string name="restore_wallet_dialog_success">Tegnebog blev genoprettet.</string>
-  <string name="import_keys_dialog_success_imported">%d private nøgler blev genoprettet.</string>
-  <string name="import_keys_dialog_success_existing">%d private nøgler blev ikke genoprettet, fordi du allerede har dem i din tegnebog.</string>
   <string name="import_keys_dialog_failure">Tegnebog kunne ikke genoprettes:\n\n%s\n\nForkert kodeord?</string>
   <string name="export_keys_dialog_title">Lav sikkerhedskopi af tegnebog</string>
   <string name="export_keys_dialog_message">Din tegnebog vil blive krypteret med det valgte kodeord og skrevet til eksternt lager.</string>

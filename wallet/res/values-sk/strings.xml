@@ -126,8 +126,6 @@
 	<string name="import_keys_dialog_file_created_automatic">automaticky zálohované %s</string>
 	<string name="import_keys_dialog_file_created_manual">manuálne zálohované %s</string>
 	<string name="import_keys_dialog_button_import">Obnoviť</string>
-	<string name="import_keys_dialog_success_imported">%d privátne kľúče boli obnovené.</string>
-	<string name="import_keys_dialog_success_existing">%d privátne kľúče neboli obnovené, pretože tieto kľúče už existujú v peňaženke.</string>
 	<string name="import_keys_dialog_failure">Privátne kľúče sa nepodarilo obnoviť:\n\n%s\n\nNesprávne heslo?</string>
 	<string name="export_keys_dialog_title">Zálohovať privátne kľúče</string>
 	<string name="export_keys_dialog_message">Privátne kľúče budú zašifrované zvoleným heslom a uložené na externú pamäť.</string>

@@ -40,8 +40,6 @@ import android.widget.EditText;
 
 import com.google.bitcoin.core.Wallet;
 import com.google.bitcoin.core.Wallet.BalanceType;
-import com.google.bitcoin.store.UnreadableWalletException;
-import com.google.bitcoin.store.WalletProtobufSerializer;
 import com.google.common.base.Charsets;
 
 import de.schildbach.wallet.Configuration;
@@ -49,6 +47,7 @@ import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.util.Crypto;
 import de.schildbach.wallet.util.Io;
+import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
 
 /**
@@ -115,7 +114,7 @@ public final class ImportKeysActivity extends AbstractWalletActivity
 				try
 				{
 					final InputStream is = contentResolver.openInputStream(backupFileUri);
-					restoreWalletFromProtobuf(is, password);
+					restoreWalletFromEncrypted(is, password);
 				}
 				catch (final FileNotFoundException x)
 				{
@@ -171,45 +170,21 @@ public final class ImportKeysActivity extends AbstractWalletActivity
 		showView.setOnCheckedChangeListener(new ShowPasswordCheckListener(passwordView));
 	}
 
-	private void restoreWalletFromProtobuf(@Nonnull final InputStream is, @Nonnull final String password)
+	private void restoreWalletFromEncrypted(@Nonnull final InputStream cipher, @Nonnull final String password)
 	{
 		try
 		{
-			final BufferedReader cipherIn = new BufferedReader(new InputStreamReader(is, Charsets.UTF_8));
+			final BufferedReader cipherIn = new BufferedReader(new InputStreamReader(cipher, Charsets.UTF_8));
 			final StringBuilder cipherText = new StringBuilder();
 			Io.copy(cipherIn, cipherText, Constants.BACKUP_MAX_CHARS);
 			cipherIn.close();
 
 			final byte[] plainText = Crypto.decryptBytes(cipherText.toString(), password.toCharArray());
-			final InputStream plainIs = new ByteArrayInputStream(plainText);
-			final Wallet wallet = new WalletProtobufSerializer().readWallet(plainIs);
-			plainIs.close();
+			final InputStream is = new ByteArrayInputStream(plainText);
 
-			if (!wallet.getParams().equals(Constants.NETWORK_PARAMETERS))
-				throw new UnreadableWalletException("bad wallet network parameters: " + wallet.getParams().getId());
+			restoreWallet(WalletUtils.restoreWalletFromProtobufOrBase58(is));
 
-			application.replaceWallet(wallet);
-
-			config.disarmBackupReminder();
-
-			final DialogBuilder dialog = new DialogBuilder(this);
-			final StringBuilder message = new StringBuilder();
-			message.append(getString(R.string.restore_wallet_dialog_success));
-			message.append("\n\n");
-			message.append(getString(R.string.restore_wallet_dialog_success_replay));
-			dialog.setMessage(message);
-			dialog.setNeutralButton(R.string.button_ok, new DialogInterface.OnClickListener()
-			{
-				@Override
-				public void onClick(final DialogInterface dialog, final int id)
-				{
-					getWalletApplication().resetBlockchain();
-					finish();
-				}
-			});
-			dialog.show();
-
-			log.info("restored wallet from external source");
+			log.info("successfully restored encrypted wallet from external source");
 		}
 		catch (final IOException x)
 		{
@@ -228,23 +203,30 @@ public final class ImportKeysActivity extends AbstractWalletActivity
 
 			log.info("problem restoring wallet", x);
 		}
-		catch (final UnreadableWalletException x)
-		{
-			final DialogBuilder dialog = DialogBuilder.warn(this, R.string.import_export_keys_dialog_failure_title);
-			dialog.setMessage(getString(R.string.import_keys_dialog_failure, x.getMessage()));
-			dialog.setPositiveButton(R.string.button_dismiss, finishListener).setOnCancelListener(finishListener);
-			dialog.setNegativeButton(R.string.button_retry, new DialogInterface.OnClickListener()
-			{
-				@Override
-				public void onClick(final DialogInterface dialog, final int id)
-				{
-					showDialog(DIALOG_IMPORT_KEYS);
-				}
-			});
-			dialog.show();
+	}
 
-			log.info("problem restoring wallet", x);
-		}
+	private void restoreWallet(final Wallet wallet) throws IOException
+	{
+		application.replaceWallet(wallet);
+
+		config.disarmBackupReminder();
+
+		final DialogBuilder dialog = new DialogBuilder(this);
+		final StringBuilder message = new StringBuilder();
+		message.append(getString(R.string.restore_wallet_dialog_success));
+		message.append("\n\n");
+		message.append(getString(R.string.restore_wallet_dialog_success_replay));
+		dialog.setMessage(message);
+		dialog.setNeutralButton(R.string.button_ok, new DialogInterface.OnClickListener()
+		{
+			@Override
+			public void onClick(final DialogInterface dialog, final int id)
+			{
+				getWalletApplication().resetBlockchain();
+				finish();
+			}
+		});
+		dialog.show();
 	}
 
 	private class FinishListener implements DialogInterface.OnClickListener, DialogInterface.OnCancelListener

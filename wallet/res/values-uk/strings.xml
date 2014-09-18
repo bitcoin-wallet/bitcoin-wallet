@@ -145,8 +145,6 @@
   <string name="import_keys_dialog_file_created_manual">ручна резервна копія %s</string>
   <string name="import_keys_dialog_button_import">Відновити</string>
   <string name="restore_wallet_dialog_success">Гаманець був відновлений.</string>
-  <string name="import_keys_dialog_success_imported">%d приватних ключів відновлено.</string>
-  <string name="import_keys_dialog_success_existing">%d приватних ключів не були відновлені, через те що вони вже є в вашому гаманці.</string>
   <string name="import_keys_dialog_failure">Гаманець не можливо відновити:\n\n%s\n\Неправильний пароль?</string>
   <string name="export_keys_dialog_title">Резервна копія гаманця</string>
   <string name="export_keys_dialog_message">Ваш гаманець буде зашифрований за допомогою пароля і будет записаний на зовнішній накопичувач.</string>

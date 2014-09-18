@@ -142,8 +142,6 @@
   <string name="import_keys_dialog_file_created_manual">수동 백업 실행.  백업 시간 : %s</string>
   <string name="import_keys_dialog_button_import">복구</string>
   <string name="restore_wallet_dialog_success">전자 지갑이 복구되었습니다.</string>
-  <string name="import_keys_dialog_success_imported">%d 개인키가 복구되었습니다.</string>
-  <string name="import_keys_dialog_success_existing">이미 전자 지갑에 동일한 개인키를 가지고 있기 때문에 %d 개인키가 복구되지 않았습니다.</string>
   <string name="import_keys_dialog_failure">전자 지갑이 복구될 수 없습니다.:\n\n%s\n\n패스워드 오류?</string>
   <string name="export_keys_dialog_title">전자 지갑 백업</string>
   <string name="export_keys_dialog_message">전자 지갑이 선택된 패스워드로 암호화되고 기기의 저장 장치에 백업됩니다.</string>

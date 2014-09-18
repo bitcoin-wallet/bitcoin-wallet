@@ -144,8 +144,6 @@
   <string name="import_keys_dialog_file_created_manual">ручная резервная копия %s</string>
   <string name="import_keys_dialog_button_import">Восстановить</string>
   <string name="restore_wallet_dialog_success">Кошелек был восстановлен.</string>
-  <string name="import_keys_dialog_success_imported">%d приватных ключей восстановлено.</string>
-  <string name="import_keys_dialog_success_existing">%d приватных ключей не были восстановлены, так как они уже имеются в вашем кошельке.</string>
   <string name="import_keys_dialog_failure">Кошелек не может быть восстановлен:\n\n%s\n\nНеверный пароль</string>
   <string name="export_keys_dialog_title">Резервная копия кошелька</string>
   <string name="export_keys_dialog_message">Ваш кошелек будет зашифрован с помощью пароля и будет записан на внешний накопитель.</string>

@@ -142,8 +142,6 @@
   <string name="import_keys_dialog_file_created_manual">手動バックアップ %s</string>
   <string name="import_keys_dialog_button_import">リストア</string>
   <string name="restore_wallet_dialog_success">ウォレットは復元されました。</string>
-  <string name="import_keys_dialog_success_imported">%d 秘密鍵は復元されました。</string>
-  <string name="import_keys_dialog_success_existing">%d すでにウォレットに秘密鍵がある為、秘密鍵は復元されませんでした。</string>
   <string name="import_keys_dialog_failure">ウォレットが復元できませんでした:\n\n%s\n\nパスワード間違い？</string>
   <string name="export_keys_dialog_title">ウォレットのバックアップ</string>
   <string name="export_keys_dialog_message">選択したパスワードでウォレットを暗号化し、外部ストレージへ書き出します。</string>

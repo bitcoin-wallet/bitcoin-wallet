@@ -144,8 +144,6 @@
   <string name="import_keys_dialog_file_created_manual">手動備份 %s</string>
   <string name="import_keys_dialog_button_import">復原</string>
   <string name="restore_wallet_dialog_success">錢包已經回覆</string>
-  <string name="import_keys_dialog_success_imported">%d 私人金鑰已經復原</string>
-  <string name="import_keys_dialog_success_existing">%d 私人金鑰因為已經存在錢包中無法復原。</string>
   <string name="import_keys_dialog_failure">錢包無法回復:\n\n%s\n\n密碼錯誤?</string>
   <string name="export_keys_dialog_title">備份錢包</string>
   <string name="export_keys_dialog_message">你的錢包將依照選取密碼加密並存到外部存放</string>

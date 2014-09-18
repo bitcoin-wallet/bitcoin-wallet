@@ -109,8 +109,6 @@
 	<string name="import_keys_dialog_file_created_automatic">automatyczna kopia bezpieczeństwa %s</string>
 	<string name="import_keys_dialog_file_created_manual">Ręcznie zapisano %s</string>
 	<string name="import_keys_dialog_button_import">Odzyskaj</string>
-	<string name="import_keys_dialog_success_imported">Odzyskano %d kluczy prywatnych</string>
-	<string name="import_keys_dialog_success_existing">Nie zaimportowano %d prywatnych kluczy, ponieważ już znajdują się w Twoim portfelu.</string>
 	<string name="import_keys_dialog_failure">Nie udało się zaimportować kluczy prywatnych:\n\n%s\n\nBłędne hasło?</string>
 	<string name="export_keys_dialog_title">Eksportuj prywatne klucze</string>
 	<string name="export_keys_dialog_message">Twoje prywatne klucze zostaną zaszyfrowane wybranym hasłem a następnie zapisane na zewnętrznym nośniku.</string>

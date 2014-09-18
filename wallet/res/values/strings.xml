@@ -146,8 +146,6 @@
 	<string name="import_keys_dialog_file_created_manual">manually backed up %s</string>
 	<string name="import_keys_dialog_button_import">Restore</string>
 	<string name="restore_wallet_dialog_success">Wallet was restored.</string>
-	<string name="import_keys_dialog_success_imported">%d private keys were restored.</string>
-	<string name="import_keys_dialog_success_existing">%d private keys were not restored, because you already have them in your wallet.</string>
 	<string name="restore_wallet_dialog_success_replay">Your wallet was successfully restored. Its balance will be determined next. This will take some time.</string>
 	<string name="import_keys_dialog_failure">Wallet could not be restored:\n\n%s\n\nBad password?</string>
 	<string name="export_keys_dialog_title">Back up wallet</string>

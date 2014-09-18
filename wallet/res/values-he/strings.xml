@@ -142,8 +142,6 @@
   <string name="import_keys_dialog_file_created_manual">ייצוא ידני %s</string>
   <string name="import_keys_dialog_button_import">ייבא</string>
   <string name="restore_wallet_dialog_success">ארנק שוחזר.</string>
-  <string name="import_keys_dialog_success_imported">%d מפתחות פרטיים יובאו</string>
-  <string name="import_keys_dialog_success_existing">%d מפתחות פרטיים לא יובאו מכיוון שהם כבר בארנק</string>
   <string name="import_keys_dialog_failure">לא ניתן לשחזר ארנק:\n\n%s\n\nסיסמא שגויה?</string>
   <string name="export_keys_dialog_title">גבה ארנק</string>
   <string name="export_keys_dialog_message">הארנק שלך יהיה מוצפן עם הסיסמא הנבחרת ומועתק לאחסון חיצוני</string>

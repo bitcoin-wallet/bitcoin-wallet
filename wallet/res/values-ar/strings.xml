@@ -126,8 +126,6 @@
 	<string name="import_keys_dialog_file_created_automatic">حفظ احتياطي تلقائي %s</string>
 	<string name="import_keys_dialog_file_created_manual">حفظ احتياطي يدوي  %s</string>
 	<string name="import_keys_dialog_button_import">استعادة</string>
-	<string name="import_keys_dialog_success_imported">تم استعادة %d مفاتيح خاصة.</string>
-	<string name="import_keys_dialog_success_existing">لم تم استعادة %d مفاتيح خاصة، لأنها موجودة مسبقا في محفظتك.</string>
 	<string name="import_keys_dialog_failure">لم تم استعادة المفاتيح خاصة:\n\n%s\n\nيحتمل وجود خطأ في كلمة المرور</string>
 	<string name="export_keys_dialog_title">حفظ احتياطي للمفاتيح الخاصة</string>
 	<string name="export_keys_dialog_message">سيتم تشفير مفاتيحك الخاصة مع كلمة المرور الخاصة  بك  وتسجيلها في وحدة تخزين خارجية.</string>

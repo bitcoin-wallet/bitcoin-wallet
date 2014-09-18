@@ -145,8 +145,6 @@
   <string name="import_keys_dialog_file_created_manual">se ha respaldado manualmente %s</string>
   <string name="import_keys_dialog_button_import">Restaurar</string>
   <string name="restore_wallet_dialog_success">El monedero ha sido restaurado.</string>
-  <string name="import_keys_dialog_success_imported">Se han restaurado %d claves privadas.</string>
-  <string name="import_keys_dialog_success_existing">%d claves privadas no se han restaurado porque ya las tienes en tu monedero.</string>
   <string name="import_keys_dialog_failure">No se ha podido restaurar el monedero:\n\n%s\n\n¿Contraseña errónea?</string>
   <string name="export_keys_dialog_title">Hacer copia de seguridad del monedero</string>
   <string name="export_keys_dialog_message">Su monedero se encriptará con la contraseña elegida y se guardará en un almacenamiento externo.</string>
