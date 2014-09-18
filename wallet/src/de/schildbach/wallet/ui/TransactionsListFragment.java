@@ -325,7 +325,7 @@ public class TransactionsListFragment extends SherlockListFragment implements Lo
 
 	private void handleBackupWarningClick()
 	{
-		((WalletActivity) activity).handleExportKeys();
+		((WalletActivity) activity).handleBackupWallet();
 	}
 
 	@Override

@@ -103,8 +103,8 @@ import de.schildbach.wallet_test.R;
  */
 public final class WalletActivity extends AbstractWalletActivity
 {
-	private static final int DIALOG_IMPORT_KEYS = 0;
-	private static final int DIALOG_EXPORT_KEYS = 1;
+	private static final int DIALOG_RESTORE_WALLET = 0;
+	private static final int DIALOG_BACKUP_WALLET = 1;
 	private static final int DIALOG_TIMESKEW_ALERT = 2;
 	private static final int DIALOG_VERSION_ALERT = 3;
 	private static final int DIALOG_LOW_STORAGE_ALERT = 4;
@@ -233,9 +233,9 @@ public final class WalletActivity extends AbstractWalletActivity
 		final String externalStorageState = Environment.getExternalStorageState();
 
 		menu.findItem(R.id.wallet_options_exchange_rates).setVisible(res.getBoolean(R.bool.show_exchange_rates_option));
-		menu.findItem(R.id.wallet_options_import_keys).setEnabled(
+		menu.findItem(R.id.wallet_options_restore_wallet).setEnabled(
 				Environment.MEDIA_MOUNTED.equals(externalStorageState) || Environment.MEDIA_MOUNTED_READ_ONLY.equals(externalStorageState));
-		menu.findItem(R.id.wallet_options_export_keys).setEnabled(Environment.MEDIA_MOUNTED.equals(externalStorageState));
+		menu.findItem(R.id.wallet_options_backup_wallet).setEnabled(Environment.MEDIA_MOUNTED.equals(externalStorageState));
 
 		return true;
 	}
@@ -273,12 +273,12 @@ public final class WalletActivity extends AbstractWalletActivity
 				startActivity(new Intent(this, NetworkMonitorActivity.class));
 				return true;
 
-			case R.id.wallet_options_import_keys:
-				showDialog(DIALOG_IMPORT_KEYS);
+			case R.id.wallet_options_restore_wallet:
+				showDialog(DIALOG_RESTORE_WALLET);
 				return true;
 
-			case R.id.wallet_options_export_keys:
-				handleExportKeys();
+			case R.id.wallet_options_backup_wallet:
+				handleBackupWallet();
 				return true;
 
 			case R.id.wallet_options_preferences:
@@ -320,9 +320,9 @@ public final class WalletActivity extends AbstractWalletActivity
 		startActivityForResult(new Intent(this, ScanActivity.class), REQUEST_CODE_SCAN);
 	}
 
-	public void handleExportKeys()
+	public void handleBackupWallet()
 	{
-		showDialog(DIALOG_EXPORT_KEYS);
+		showDialog(DIALOG_BACKUP_WALLET);
 	}
 
 	private void handleDonate()
@@ -341,10 +341,10 @@ public final class WalletActivity extends AbstractWalletActivity
 	@Override
 	protected Dialog onCreateDialog(final int id, final Bundle args)
 	{
-		if (id == DIALOG_IMPORT_KEYS)
-			return createImportKeysDialog();
-		else if (id == DIALOG_EXPORT_KEYS)
-			return createExportKeysDialog();
+		if (id == DIALOG_RESTORE_WALLET)
+			return createRestoreWalletDialog();
+		else if (id == DIALOG_BACKUP_WALLET)
+			return createBackupWalletDialog();
 		else if (id == DIALOG_TIMESKEW_ALERT)
 			return createTimeskewAlertDialog(args.getLong("diff_minutes"));
 		else if (id == DIALOG_VERSION_ALERT)
@@ -358,15 +358,15 @@ public final class WalletActivity extends AbstractWalletActivity
 	@Override
 	protected void onPrepareDialog(final int id, final Dialog dialog)
 	{
-		if (id == DIALOG_IMPORT_KEYS)
-			prepareImportKeysDialog(dialog);
-		else if (id == DIALOG_EXPORT_KEYS)
-			prepareExportKeysDialog(dialog);
+		if (id == DIALOG_RESTORE_WALLET)
+			prepareRestoreWalletDialog(dialog);
+		else if (id == DIALOG_BACKUP_WALLET)
+			prepareBackupWalletDialog(dialog);
 	}
 
-	private Dialog createImportKeysDialog()
+	private Dialog createRestoreWalletDialog()
 	{
-		final View view = getLayoutInflater().inflate(R.layout.import_keys_from_storage_dialog, null);
+		final View view = getLayoutInflater().inflate(R.layout.restore_wallet_dialog, null);
 		final Spinner fileView = (Spinner) view.findViewById(R.id.import_keys_from_storage_file);
 		final EditText passwordView = (EditText) view.findViewById(R.id.import_keys_from_storage_password);
 
@@ -417,7 +417,7 @@ public final class WalletActivity extends AbstractWalletActivity
 				final boolean isEncrypted = Crypto.OPENSSL_FILE_FILTER.accept(file);
 
 				if (row == null)
-					row = inflater.inflate(R.layout.wallet_import_keys_file_row, null);
+					row = inflater.inflate(R.layout.restore_wallet_file_row, null);
 
 				final TextView filenameView = (TextView) row.findViewById(R.id.wallet_import_keys_file_row_filename);
 				filenameView.setText(file.getName());
@@ -444,7 +444,7 @@ public final class WalletActivity extends AbstractWalletActivity
 		return dialog.create();
 	}
 
-	private void prepareImportKeysDialog(final Dialog dialog)
+	private void prepareRestoreWalletDialog(final Dialog dialog)
 	{
 		final AlertDialog alertDialog = (AlertDialog) dialog;
 
@@ -506,9 +506,9 @@ public final class WalletActivity extends AbstractWalletActivity
 		showView.setOnCheckedChangeListener(new ShowPasswordCheckListener(passwordView));
 	}
 
-	private Dialog createExportKeysDialog()
+	private Dialog createBackupWalletDialog()
 	{
-		final View view = getLayoutInflater().inflate(R.layout.export_keys_dialog, null);
+		final View view = getLayoutInflater().inflate(R.layout.backup_wallet_dialog, null);
 		final EditText passwordView = (EditText) view.findViewById(R.id.export_keys_dialog_password);
 
 		final DialogBuilder dialog = new DialogBuilder(this);
@@ -546,7 +546,7 @@ public final class WalletActivity extends AbstractWalletActivity
 		return dialog.create();
 	}
 
-	private void prepareExportKeysDialog(final Dialog dialog)
+	private void prepareBackupWalletDialog(final Dialog dialog)
 	{
 		final AlertDialog alertDialog = (AlertDialog) dialog;
 
@@ -804,7 +804,7 @@ public final class WalletActivity extends AbstractWalletActivity
 				@Override
 				public void onClick(final DialogInterface dialog, final int id)
 				{
-					showDialog(DIALOG_IMPORT_KEYS);
+					showDialog(DIALOG_RESTORE_WALLET);
 				}
 			});
 			dialog.show();
@@ -833,7 +833,7 @@ public final class WalletActivity extends AbstractWalletActivity
 				@Override
 				public void onClick(final DialogInterface dialog, final int id)
 				{
-					showDialog(DIALOG_IMPORT_KEYS);
+					showDialog(DIALOG_RESTORE_WALLET);
 				}
 			});
 			dialog.show();
@@ -874,7 +874,7 @@ public final class WalletActivity extends AbstractWalletActivity
 				@Override
 				public void onClick(final DialogInterface dialog, final int id)
 				{
-					showDialog(DIALOG_IMPORT_KEYS);
+					showDialog(DIALOG_RESTORE_WALLET);
 				}
 			});
 			dialog.show();

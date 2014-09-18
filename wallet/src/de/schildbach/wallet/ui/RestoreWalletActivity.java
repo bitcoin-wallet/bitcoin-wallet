@@ -53,9 +53,9 @@ import de.schildbach.wallet_test.R;
 /**
  * @author Andreas Schildbach
  */
-public final class ImportKeysActivity extends AbstractWalletActivity
+public final class RestoreWalletActivity extends AbstractWalletActivity
 {
-	private static final int DIALOG_IMPORT_KEYS = 0;
+	private static final int DIALOG_RESTORE_WALLET = 0;
 
 	private WalletApplication application;
 	private Configuration config;
@@ -76,14 +76,14 @@ public final class ImportKeysActivity extends AbstractWalletActivity
 
 		backupFileUri = getIntent().getData();
 
-		showDialog(DIALOG_IMPORT_KEYS);
+		showDialog(DIALOG_RESTORE_WALLET);
 	}
 
 	@Override
 	protected Dialog onCreateDialog(final int id)
 	{
-		if (id == DIALOG_IMPORT_KEYS)
-			return createImportKeysDialog();
+		if (id == DIALOG_RESTORE_WALLET)
+			return createRestoreWalletDialog();
 		else
 			throw new IllegalArgumentException();
 	}
@@ -91,13 +91,13 @@ public final class ImportKeysActivity extends AbstractWalletActivity
 	@Override
 	protected void onPrepareDialog(final int id, final Dialog dialog)
 	{
-		if (id == DIALOG_IMPORT_KEYS)
-			prepareImportKeysDialog(dialog);
+		if (id == DIALOG_RESTORE_WALLET)
+			prepareRestoreWalletDialog(dialog);
 	}
 
-	private Dialog createImportKeysDialog()
+	private Dialog createRestoreWalletDialog()
 	{
-		final View view = getLayoutInflater().inflate(R.layout.import_keys_from_content_dialog, null);
+		final View view = getLayoutInflater().inflate(R.layout.restore_wallet_from_external_dialog, null);
 		final EditText passwordView = (EditText) view.findViewById(R.id.import_keys_from_content_dialog_password);
 
 		final DialogBuilder dialog = new DialogBuilder(this);
@@ -145,7 +145,7 @@ public final class ImportKeysActivity extends AbstractWalletActivity
 		return dialog.create();
 	}
 
-	private void prepareImportKeysDialog(final Dialog dialog)
+	private void prepareRestoreWalletDialog(final Dialog dialog)
 	{
 		final AlertDialog alertDialog = (AlertDialog) dialog;
 
@@ -196,7 +196,7 @@ public final class ImportKeysActivity extends AbstractWalletActivity
 				@Override
 				public void onClick(final DialogInterface dialog, final int id)
 				{
-					showDialog(DIALOG_IMPORT_KEYS);
+					showDialog(DIALOG_RESTORE_WALLET);
 				}
 			});
 			dialog.show();
