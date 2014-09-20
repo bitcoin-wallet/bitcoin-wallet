@@ -1,3 +1,9 @@
+v3.59
+
+* Resolve issue with restoring backups that have been renamed.
+* Update Turkish, Korean, Ukrainian, Russian, Italian, French, Finnish and Danish translations.
+* Remove BROADCAST_STICKY permission.
+
 v3.58
 
 * Small bugfixes.
