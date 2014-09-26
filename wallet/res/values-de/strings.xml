@@ -144,6 +144,7 @@
 	<string name="network_monitor_activity_title">Netzwerk-Monitor</string>
 	<string name="network_monitor_peer_list_title">Peers</string>
 	<string name="network_monitor_block_list_title">Blöcke</string>
+	<string name="block_row_now">gerade eben</string>
 
 	<string name="peer_list_fragment_empty">Keine Peers verbunden</string>
 	<string name="peer_list_row_ping_time">⇆ %d&#x2009;ms</string>

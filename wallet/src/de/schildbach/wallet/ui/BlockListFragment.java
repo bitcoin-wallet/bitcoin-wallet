@@ -295,7 +295,10 @@ public final class BlockListFragment extends SherlockListFragment
 
 			final TextView rowTime = (TextView) row.findViewById(R.id.block_list_row_time);
 			final long timeMs = header.getTimeSeconds() * DateUtils.SECOND_IN_MILLIS;
-			rowTime.setText(DateUtils.getRelativeDateTimeString(activity, timeMs, DateUtils.MINUTE_IN_MILLIS, DateUtils.WEEK_IN_MILLIS, 0));
+			if (timeMs < System.currentTimeMillis())
+				rowTime.setText(DateUtils.getRelativeDateTimeString(activity, timeMs, DateUtils.MINUTE_IN_MILLIS, DateUtils.WEEK_IN_MILLIS, 0));
+			else
+				rowTime.setText(R.string.block_row_now);
 
 			final TextView rowHash = (TextView) row.findViewById(R.id.block_list_row_hash);
 			rowHash.setText(WalletUtils.formatHash(null, header.getHashAsString(), 8, 0, ' '));
