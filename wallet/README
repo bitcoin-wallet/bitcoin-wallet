@@ -107,7 +107,7 @@ separate 'prod' branch that gets rebased against master with each released versi
 
 SETTING UP FOR DEVELOPMENT
 
-Make sure you've got Eclipse Kepler with ADT 22 installed.
+Make sure you've got Eclipse Luna with ADT 23 installed.
 
 Use Git to check out the project and an Android library dependency to your workspace:
 
