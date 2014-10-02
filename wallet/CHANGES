@@ -1,3 +1,21 @@
+v4.0
+
+* All Bitcoin addresses are now deterministically derived from one single secret,
+  which was created when you installed the app for the first time. So from now on,
+  only one backup is needed to recover all your future funds in that wallet.
+* The app does its best to not reuse addresses any more. "Request coins" will use a
+  fresh address on each invocation. The current address in the QR code on the main
+  page changes as soon as coins are received on it.
+* When sending coins, the fee is shown while you type and before you press "Send".
+  After sending, you'll see the paid fee in the transaction list.
+* When sending coins, most errors are now shown already before you press Send.
+* The app now requires Android 4.0.3 or higher. This makes UI development much
+  easier in future.
+* The app has a fresher, sharper looking app icon. The icon for the testnet version
+  is now entirely grey.
+* On Android 4.1 or higher, the app-widget is now horizontally resizable.
+* Based on bitcoinj 0.12.
+
 v3.59
 
 * Resolve issue with restoring backups that have been renamed.
