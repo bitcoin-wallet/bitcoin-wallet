@@ -65,7 +65,7 @@ public final class Constants
 		public static final String BLOCKCHAIN_FILENAME = "blockchain" + FILENAME_NETWORK_SUFFIX;
 
 		/** Filename of the block checkpoints file. */
-		public static final String CHECKPOINTS_FILENAME = "checkpoints" + FILENAME_NETWORK_SUFFIX;
+		public static final String CHECKPOINTS_FILENAME = "checkpoints" + FILENAME_NETWORK_SUFFIX + ".txt";
 	}
 
 	/** Maximum size of backups. Files larger will be rejected. */
