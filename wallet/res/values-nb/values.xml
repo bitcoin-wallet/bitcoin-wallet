@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <string name="symbol_to">→</string>
+  <string name="symbol_from">←</string>
+  <string name="symbol_internal">⇄</string>
+  <string name="app_name">Testnet3</string>
+
+  <string-array name="preferences_precision_values">
+    <item>8</item>
+    <item>6</item>
+    <item>4</item>
+    <item>2/3</item>
+    <item>0/6</item>
+  </string-array>
+  <string-array name="preferences_precision_labels">
+    <item>BTC, 8 desimaler</item>
+    <item>BTC, 6 desimaler</item>
+    <item>BTC, 4 desimaler</item>
+    <item>mBTC, 2 desimaler</item>
+    <item>µBTC, ingen desimaler</item>
+    </string-array>
+
+</resources>
