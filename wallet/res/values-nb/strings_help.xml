@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+  <string name="help_wallet">
+<![CDATA[
+    <p>
+      Den øvre venstre delen av skjermen viser din valgte Bitcoin-adresse, som andre folk trenger å vite for å sende deg bitcoins.
+      Trykk for å endre adressen.
+    </p>
+    <p>
+      QR-koden til høyre inneholder din Bitcoin-adresse og kan skannes av noen andre.
+      Trykk på QR-koden for å få en større versjon av den.
+    </p>
+    <p>
+      I midten av skjermen kan du se saldoen din.
+      Saldoen i lommeboken vises også i en valgt lokal valuta.
+      Trykk på saldoen for å vise listen over alle lokale valutaer, og trykk på en av valutaene for å velge den som standard.
+    </p>
+    <p>
+      Bunnen av skjermen inneholder din transaksjonsliste, som er tom i begynnelsen.
+      Ventende transaksjoner er grå til de er bekreftet.
+      Trykk på en oppføring for å legge til avsenderens eller mottakerens adresse i adresseboken.
+      Sveip til venstre eller høyre for å bruke filtre på listen.
+    </p>
+    <p>
+      Du kan sende eller be om mynter ved å trykke på knappene i handlingsfeltet.
+      Flere alternativer er tilgjengelige i menyen for alternativer.
+    </p>
+  ]]>
+  </string>
+  <string name="help_request_coins">
+<![CDATA[
+    <p>
+      Ved å bruke denne dialogen kan du be om mynter fra en annen person (som allerede har installert Bitcoin Wallet).
+    </p>
+    <p>
+      Først kan du legge inn et beløp på antall bitcoins som skal forespørres.
+    </p>
+    <p>
+      Etterpå får du enten QR-koden skannet av den andre personen,
+      eller så kan du sende en forespørsel til en person langt unna med del-knappen i handlingsfeltet.
+      Den andre personen skal klikke på Bitcoin-URLen.
+    </p>
+    <p>
+      Den andre personen vil bli presentert en dialog for å sende mynter med alle felt forhåndsutfylt.
+      Hvis hun aksepterer, er alt hun trenger å gjøre å sende betalingen.
+    </p>
+  ]]>
+  </string>
+  <string name="help_send_coins">
+<![CDATA[
+    <p>
+      Du har startet prosessen med å sende mynter.
+      Du kom hit enten via hovedskjermen eller ved å klikke på en Bitcoin-URL i nettleseren på mobilen.
+    </p>
+    <p>
+      Først skriver du inn den Bitcoin-adressen du vil betale til.
+      Adressen vil automatisk fylles ut fra kjente oppføringer i adresseboken din.
+      Du kan også skanne QR-koder med Bitcoin-adresser eller Bitcoin-forespørsler ved å trykke på QR-knappen i handlingsfeltet.
+    </p>
+    <p>
+      Deretter kan du se hvor mange bitcoins du kan bruke for øyeblikket.
+      En eventuell forskjell i saldoen fra hovedskjermen er fortsatt ubekreftet, og kan dermed ikke brukes.
+    </p>
+    <p>
+      Til slutt fører du inn beløpet som skal betales.
+    </p>
+    <p>
+      Du kan legge inn en betaling mens du er offline.
+      Den vil bli sendt når Bitcoin Wallet startes på nytt.
+      Hvis du ønsker at en betaling går igjennom så raskt som mulig, sørg for at du er godt tilkoblet (dvs. på et WLAN).
+    </p>
+    <p>
+      OBS:
+      Betalinger er irreversible!
+      Sjekk alltid mottakeradresse.
+    </p>
+  ]]>
+  </string>
+  <string name="help_safety">
+<![CDATA[
+    <p>
+      <b>Viktige sikkerhetsmerknader:</b>
+    </p>
+    <p>
+      Bitcoins er lagret på enheten.
+      <b>Hvis du mister den, mister du dine bitcoins.</b>
+    </p>
+    <p>
+      Dette betyr at du må <b>sikkerhetskopiere lommeboken din</b>!
+      Bruk funksjonen for sikkerhetskopiering i appen for dette, snarere enn en tredjepartsapp for sikkerhetskopiering.
+      Oppbevar sikkerhetskopien sikkert og husk passordet.
+    </p>
+    <p>
+      <b>Før avinstallering</b> (eller sletting av appdata/nullstilling av enheten til fabrikkinnstillinger), <b>overfør dine bitcoins til en annen lommebok</b>.
+      Resterende bitcoins vil gå tapt.
+    </p>
+    <p>
+      <b>Betalinger er irreversible</b>.
+      Hvis du sender dine bitcoins ut i det blå, er det stort sett ikke mulig å få dem tilbake.
+    </p>
+    <p>
+      <b>Oppbevar din mobile enhet sikkert!</b>
+      Utfør ikke root på enheten.
+      Installer kun apps du stoler helt på.
+      Skadelige apper kan prøve å stjele lommeboken din.
+    </p>
+    <p>
+      Hold risikoen lav!
+      <b>Bruk kun med små beløp</b> til daglig bruk.
+    </p>
+  ]]>
+  </string>
+</resources>
