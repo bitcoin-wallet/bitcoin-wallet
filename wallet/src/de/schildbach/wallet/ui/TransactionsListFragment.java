@@ -235,7 +235,7 @@ public class TransactionsListFragment extends FancyListFragment implements Loade
 					final Coin value = tx.getValue(wallet);
 					final boolean sent = value.signum() < 0;
 
-					address = sent ? WalletUtils.getFirstToAddress(tx) : WalletUtils.getFirstFromAddress(tx);
+					address = sent ? WalletUtils.getWalletAddressOfReceived(tx, wallet) : WalletUtils.getFirstFromAddress(tx);
 
 					final String label;
 					if (tx.isCoinBase())
