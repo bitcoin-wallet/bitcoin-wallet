@@ -1,3 +1,8 @@
+v4.01
+
+* New translation into Norwegian Bokmål.
+* Small bugfix.
+
 v4.0
 
 * All Bitcoin addresses are now deterministically derived from one single secret,
