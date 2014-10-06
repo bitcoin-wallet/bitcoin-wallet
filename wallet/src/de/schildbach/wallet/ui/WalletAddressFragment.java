@@ -57,7 +57,6 @@ public final class WalletAddressFragment extends Fragment
 	private Wallet wallet;
 	private NfcManager nfcManager;
 
-	private View bitcoinAddressButton;
 	private TextView bitcoinAddressLabel;
 	private ImageView bitcoinAddressQrView;
 
@@ -82,18 +81,8 @@ public final class WalletAddressFragment extends Fragment
 	public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState)
 	{
 		final View view = inflater.inflate(R.layout.wallet_address_fragment, container, false);
-		bitcoinAddressButton = view.findViewById(R.id.bitcoin_address_button);
 		bitcoinAddressLabel = (TextView) view.findViewById(R.id.bitcoin_address_label);
 		bitcoinAddressQrView = (ImageView) view.findViewById(R.id.bitcoin_address_qr);
-
-		bitcoinAddressButton.setOnClickListener(new OnClickListener()
-		{
-			@Override
-			public void onClick(final View v)
-			{
-				AddressBookActivity.start(activity, false);
-			}
-		});
 
 		bitcoinAddressQrView.setOnClickListener(new OnClickListener()
 		{

@@ -44,14 +44,10 @@ import de.schildbach.wallet_test.R;
  */
 public final class AddressBookActivity extends AbstractWalletActivity
 {
-	public static void start(final Context context, final boolean sending)
+	public static void start(final Context context)
 	{
-		final Intent intent = new Intent(context, AddressBookActivity.class);
-		intent.putExtra(EXTRA_SENDING, sending);
-		context.startActivity(intent);
+		context.startActivity(new Intent(context, AddressBookActivity.class));
 	}
-
-	private static final String EXTRA_SENDING = "sending";
 
 	private WalletAddressesFragment walletAddressesFragment;
 	private SendingAddressesFragment sendingAddressesFragment;
@@ -101,7 +97,7 @@ public final class AddressBookActivity extends AbstractWalletActivity
 			pagerTabs.addTabLabels(R.string.address_book_list_receiving_title, R.string.address_book_list_sending_title);
 
 			pager.setOnPageChangeListener(pagerTabs);
-			final int position = getIntent().getBooleanExtra(EXTRA_SENDING, true) ? 1 : 0;
+			final int position = 1;
 			pager.setCurrentItem(position);
 			pager.setPageMargin(2);
 			pager.setPageMarginDrawable(R.color.bg_less_bright);

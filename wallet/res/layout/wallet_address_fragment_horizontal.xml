@@ -8,6 +8,7 @@
 		android:layout_width="0px"
 		android:layout_height="match_parent"
 		android:layout_gravity="left|center_vertical"
+		android:layout_marginLeft="8dp"
 		android:layout_weight="1"
 		android:orientation="vertical" >
 
@@ -16,26 +17,15 @@
 			android:layout_height="0px"
 			android:layout_gravity="top"
 			android:layout_weight="1"
-			android:paddingLeft="8dp"
 			android:text="@string/wallet_address_fragment_your"
 			android:textSize="@dimen/font_size_small" />
 
-		<FrameLayout
-			android:id="@+id/bitcoin_address_button"
-			style="@style/My.Widget.Button.Borderless"
+		<TextView
+			android:id="@+id/bitcoin_address_label"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_gravity="bottom"
-			android:focusable="true"
-			android:foreground="@drawable/dropdown_ic_arrow"
-			android:foregroundGravity="bottom|right" >
-
-			<TextView
-				android:id="@+id/bitcoin_address_label"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:textSize="@dimen/font_size_normal" />
-		</FrameLayout>
+			android:textSize="@dimen/font_size_normal" />
 	</LinearLayout>
 
 	<ImageView

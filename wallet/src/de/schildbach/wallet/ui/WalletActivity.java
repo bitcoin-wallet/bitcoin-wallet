@@ -277,7 +277,7 @@ public final class WalletActivity extends AbstractWalletActivity
 				return true;
 
 			case R.id.wallet_options_address_book:
-				AddressBookActivity.start(this, true);
+				AddressBookActivity.start(this);
 				return true;
 
 			case R.id.wallet_options_exchange_rates:
