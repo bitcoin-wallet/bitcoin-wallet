@@ -229,7 +229,7 @@ public class TransactionsListAdapter extends BaseAdapter
 		final Coin value = tx.getValue(wallet);
 		final boolean sent = value.signum() < 0;
 		final Coin fee = tx.getFee();
-		final boolean hasFee = fee != null;
+		final boolean hasFee = fee != null && !fee.isZero();
 
 		final CircularProgressView rowConfidenceCircular = (CircularProgressView) row.findViewById(R.id.transaction_row_confidence_circular);
 		final TextView rowConfidenceTextual = (TextView) row.findViewById(R.id.transaction_row_confidence_textual);
