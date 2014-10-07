@@ -69,6 +69,9 @@ public class WalletBalanceWidgetProvider extends AppWidgetProvider
 	public void onAppWidgetOptionsChanged(final Context context, final AppWidgetManager appWidgetManager, final int appWidgetId,
 			final Bundle newOptions)
 	{
+		if (newOptions != null)
+			log.info("app widget {} options changed: minWidth={}", appWidgetId, newOptions.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_WIDTH));
+
 		final WalletApplication application = (WalletApplication) context.getApplicationContext();
 		final Coin balance = application.getWallet().getBalance(BalanceType.ESTIMATED);
 
