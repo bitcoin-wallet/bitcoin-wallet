@@ -28,7 +28,7 @@ import org.bitcoin.protocols.payments.Protos.Payment;
 import org.bitcoinj.core.Address;
 import org.bitcoinj.core.AddressFormatException;
 import org.bitcoinj.core.Coin;
-import org.bitcoinj.core.ECKey;
+import org.bitcoinj.core.DumpedPrivateKey;
 import org.bitcoinj.core.InsufficientMoneyException;
 import org.bitcoinj.core.NetworkParameters;
 import org.bitcoinj.core.Sha256Hash;
@@ -1305,7 +1305,7 @@ public final class SendCoinsFragment extends Fragment
 			}
 
 			@Override
-			protected void handlePrivateKey(@Nonnull final ECKey key)
+			protected void handlePrivateKey(@Nonnull final DumpedPrivateKey key)
 			{
 				throw new UnsupportedOperationException();
 			}

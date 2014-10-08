@@ -19,7 +19,7 @@ package de.schildbach.wallet.ui;
 
 import javax.annotation.Nonnull;
 
-import org.bitcoinj.core.ECKey;
+import org.bitcoinj.core.DumpedPrivateKey;
 import org.bitcoinj.core.Transaction;
 import org.bitcoinj.core.VerificationException;
 
@@ -67,7 +67,7 @@ public final class SendCoinsQrActivity extends Activity
 				}
 
 				@Override
-				protected void handlePrivateKey(@Nonnull final ECKey key)
+				protected void handlePrivateKey(@Nonnull final DumpedPrivateKey key)
 				{
 					SweepWalletActivity.start(SendCoinsQrActivity.this, key);
 

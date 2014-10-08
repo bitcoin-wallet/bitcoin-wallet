@@ -7,6 +7,7 @@ import javax.annotation.Nullable;
 
 import org.bitcoinj.core.Address;
 import org.bitcoinj.core.Coin;
+import org.bitcoinj.core.DumpedPrivateKey;
 import org.bitcoinj.core.ECKey;
 import org.bitcoinj.core.Sha256Hash;
 import org.bitcoinj.core.Transaction;
@@ -59,6 +60,7 @@ import de.schildbach.wallet_test.R;
 
 /**
  * @author Maximilian Keller
+ * @author Andreas Schildbach
  */
 public class SweepWalletFragment extends Fragment
 {
@@ -127,8 +129,8 @@ public class SweepWalletFragment extends Fragment
 
 			if (intent.hasExtra(SweepWalletActivity.INTENT_EXTRA_KEY))
 			{
-				final ECKey key = (ECKey) intent.getSerializableExtra(SweepWalletActivity.INTENT_EXTRA_KEY);
-				init(key);
+				final DumpedPrivateKey key = (DumpedPrivateKey) intent.getSerializableExtra(SweepWalletActivity.INTENT_EXTRA_KEY);
+				init(key.getKey());
 			}
 			else
 			{
@@ -238,9 +240,9 @@ public class SweepWalletFragment extends Fragment
 				new StringInputParser(input)
 				{
 					@Override
-					protected void handlePrivateKey(@Nonnull final ECKey key)
+					protected void handlePrivateKey(@Nonnull final DumpedPrivateKey key)
 					{
-						init(key);
+						init(key.getKey());
 					}
 
 					@Override

@@ -35,7 +35,6 @@ import org.bitcoinj.core.Address;
 import org.bitcoinj.core.AddressFormatException;
 import org.bitcoinj.core.Base58;
 import org.bitcoinj.core.DumpedPrivateKey;
-import org.bitcoinj.core.ECKey;
 import org.bitcoinj.core.NetworkParameters;
 import org.bitcoinj.core.ProtocolException;
 import org.bitcoinj.core.Transaction;
@@ -146,7 +145,7 @@ public abstract class InputParser
 			{
 				try
 				{
-					final ECKey key = new DumpedPrivateKey(Constants.NETWORK_PARAMETERS, input).getKey();
+					final DumpedPrivateKey key = new DumpedPrivateKey(Constants.NETWORK_PARAMETERS, input);
 
 					handlePrivateKey(key);
 				}
@@ -240,7 +239,7 @@ public abstract class InputParser
 		}
 
 		@Override
-		protected final void handlePrivateKey(@Nonnull final ECKey key)
+		protected final void handlePrivateKey(@Nonnull final DumpedPrivateKey key)
 		{
 			throw new UnsupportedOperationException();
 		}
@@ -323,7 +322,7 @@ public abstract class InputParser
 		}
 
 		@Override
-		protected final void handlePrivateKey(@Nonnull final ECKey key)
+		protected final void handlePrivateKey(@Nonnull final DumpedPrivateKey key)
 		{
 			throw new UnsupportedOperationException();
 		}
@@ -417,9 +416,9 @@ public abstract class InputParser
 
 	protected abstract void handlePaymentIntent(@Nonnull PaymentIntent paymentIntent);
 
-	protected void handlePrivateKey(@Nonnull final ECKey key)
+	protected void handlePrivateKey(@Nonnull final DumpedPrivateKey key)
 	{
-		final Address address = new Address(Constants.NETWORK_PARAMETERS, key.getPubKeyHash());
+		final Address address = new Address(Constants.NETWORK_PARAMETERS, key.getKey().getPubKeyHash());
 
 		handlePaymentIntent(PaymentIntent.fromAddress(address, null));
 	}

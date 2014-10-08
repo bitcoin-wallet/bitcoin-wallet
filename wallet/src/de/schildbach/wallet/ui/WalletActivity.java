@@ -42,7 +42,7 @@ import java.util.TimeZone;
 import javax.annotation.Nonnull;
 
 import org.bitcoinj.core.AddressFormatException;
-import org.bitcoinj.core.ECKey;
+import org.bitcoinj.core.DumpedPrivateKey;
 import org.bitcoinj.core.Transaction;
 import org.bitcoinj.core.VerificationException;
 import org.bitcoinj.core.Wallet;
@@ -212,7 +212,7 @@ public final class WalletActivity extends AbstractWalletActivity
 				}
 
 				@Override
-				protected void handlePrivateKey(@Nonnull final ECKey key)
+				protected void handlePrivateKey(@Nonnull final DumpedPrivateKey key)
 				{
 					SweepWalletActivity.start(WalletActivity.this, key);
 				}
