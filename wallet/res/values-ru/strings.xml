@@ -62,6 +62,10 @@
   <string name="send_coins_fragment_receiving_address_complex">сложный\nадрес</string>
   <string name="send_coins_fragment_pending">(%s ожидание подтверждения)</string>
   <string name="send_coins_fragment_amount_label">Величина оплаты</string>
+  <string name="send_coins_fragment_hint_fee">Комиссия сети составит %s.</string>
+  <string name="send_coins_fragment_hint_dusty_send">Сумма слишком мала для отправки.</string>
+  <string name="send_coins_fragment_hint_insufficient_money">Недостаточно монет. Не хватает %s.</string>
+  <string name="send_coins_fragment_hint_empty_wallet_failed">Содержимого кошелька недостаточно для нормального платежа.</string>
   <string name="send_coins_fragment_direct_payment_enable">Отправить платеж непосредственно получателю.</string>
   <string name="send_coins_fragment_direct_payment_ack">Платеж был успешно отправлен получателю.</string>
   <string name="send_coins_fragment_direct_payment_nack">Ваш платеж через прямое подключение был отклонен.</string>
@@ -72,6 +76,8 @@
   <string name="send_coins_fragment_insufficient_money_title">Недостаточно монет</string>
   <string name="send_coins_fragment_insufficient_money_msg1">Вы упускаете %s.</string>
   <string name="send_coins_fragment_insufficient_money_msg2">Вы хотите оплатить всем, что у вас есть?</string>
+  <string name="send_coins_fragment_empty_wallet_failed_title">Не удалось очистить кошелек</string>
+  <string name="send_coins_fragment_empty_wallet_failed_msg">Содержимое кошелька не удалось собрать в сумму, которую можно отправить.</string>
   <string name="send_coins_preparation_msg">Подписываю…</string>
   <string name="send_coins_sending_msg">Отправка…</string>
   <string name="send_coins_sent_msg">Отправлено!</string>
@@ -118,6 +124,7 @@
   <string name="edit_address_book_entry_dialog_address_label">Адрес</string>
   <string name="edit_address_book_entry_dialog_label_label">Имя</string>
   <string name="edit_address_book_entry_dialog_button_edit">Сохранить</string>
+  <string name="transaction_row_fee">Комиссия сети</string>
   <string name="transaction_row_message_purpose_key_rotation">Эта транзакция защищает ваш кошелек от воровства. &lt;u&gt;Подробнее.&lt;/u&gt;</string>
   <string name="transaction_row_message_own_unbroadcasted">Этот платёж ещё не был передан в сеть.</string>
   <string name="transaction_row_message_received_direct">Этот платеж был проведен напрямую. Существует риск того, что вы никогда не сможете потратить полученные средства.</string>
@@ -128,6 +135,7 @@
   <string name="network_monitor_activity_title">Сетевой монитор</string>
   <string name="network_monitor_peer_list_title">Узлы</string>
   <string name="network_monitor_block_list_title">Блоки</string>
+  <string name="block_row_now">сейчас</string>
   <string name="peer_list_fragment_empty">Нет подключений</string>
   <string name="peer_list_row_ping_time">⇆ %d&#x2009;мс</string>
   <string name="import_keys_dialog_title">Восстановить кошелек</string>
