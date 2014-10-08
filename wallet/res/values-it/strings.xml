@@ -62,6 +62,10 @@
   <string name="send_coins_fragment_receiving_address_complex">completo\nindirizzo</string>
   <string name="send_coins_fragment_pending">(%s in attesa di conferma)</string>
   <string name="send_coins_fragment_amount_label">Importo da pagare</string>
+  <string name="send_coins_fragment_hint_fee">Sarà pagata una piccola commissione di rete di %s.</string>
+  <string name="send_coins_fragment_hint_dusty_send">L\'importo è troppo piccolo per l\'invio.</string>
+  <string name="send_coins_fragment_hint_insufficient_money">Non ci sono abbastanza monete disponibili. Ne mancano %s.</string>
+  <string name="send_coins_fragment_hint_empty_wallet_failed">La quantità di piccoli pagamenti nel vostro portamonete non è abbastanza per essere un valore inviabile.</string>
   <string name="send_coins_fragment_direct_payment_enable">Invia il pagamento al beneficiario</string>
   <string name="send_coins_fragment_direct_payment_ack">Il tuo pagamento è stato inviato con successo.</string>
   <string name="send_coins_fragment_direct_payment_nack">Il tuo pagamento via connessione diretta è stato rifiutato.</string>
@@ -72,6 +76,8 @@
   <string name="send_coins_fragment_insufficient_money_title">Non abbastanza monete disponibili</string>
   <string name="send_coins_fragment_insufficient_money_msg1">Manca %s.</string>
   <string name="send_coins_fragment_insufficient_money_msg2">Vuoi pagare con tutto quello che hai?</string>
+  <string name="send_coins_fragment_empty_wallet_failed_title">Svuotamento del portafoglio fallito</string>
+  <string name="send_coins_fragment_empty_wallet_failed_msg">La quantità di piccoli pagamenti nel vostro portamonete non è abbastanza per essere un valore inviabile.</string>
   <string name="send_coins_preparation_msg">Sottoscrittura…</string>
   <string name="send_coins_sending_msg">Invio in corso…</string>
   <string name="send_coins_sent_msg">Inviato!</string>
@@ -118,6 +124,7 @@
   <string name="edit_address_book_entry_dialog_address_label">Indirizzo</string>
   <string name="edit_address_book_entry_dialog_label_label">Nome</string>
   <string name="edit_address_book_entry_dialog_button_edit">Salva</string>
+  <string name="transaction_row_fee">Commissione di rete</string>
   <string name="transaction_row_message_purpose_key_rotation">Questa transazione rinforza il tuo portafoglio contro i furti. &lt;u&gt;Maggiori dettagli.&lt;/u&gt;</string>
   <string name="transaction_row_message_own_unbroadcasted">Questo pagamento non è ancora stato trasmesso.</string>
   <string name="transaction_row_message_received_direct">Questo pagamento è stato ricevuto direttamente. C\'è il rischio che non diventi spendibile.</string>
@@ -128,6 +135,7 @@
   <string name="network_monitor_activity_title">Controllo della rete</string>
   <string name="network_monitor_peer_list_title">Peers</string>
   <string name="network_monitor_block_list_title">Blocchi</string>
+  <string name="block_row_now">proprio ora</string>
   <string name="peer_list_fragment_empty">Nessun peer connesso</string>
   <string name="peer_list_row_ping_time">⇆ %d&#x2009;ms</string>
   <string name="import_keys_dialog_title">Ripristina portafoglio</string>
