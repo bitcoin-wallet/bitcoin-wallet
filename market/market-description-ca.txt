@@ -1,0 +1,36 @@
+<b>Tingues els teus Bitcoins sempre amb tu, a la teva butxaca!.<b> Per pagar ràpidament escanejant un codi QR. Com a comerciant, pots rebre pagaments amb confiança i instantàniament. La Cartera Bitcoin es la primera aplicació mòbil de Bitcoin i possiblement també la més segura!.
+
+
+<b>CARACTERÍSTIQUES</b>
+
+• Sense enregistrar-se, ni necessitat de servici web o nuvol!. Aquesta cartera és descentralitzada i de parell a parell.
+• Mostra l'import de Bitcoin en BTC, mBTC i µBTC.
+• Conversió cap a i des de divises nacionals.
+• Enviar i rebre Bitcoins a través d'NFC, codis QR i adreces Bitcoin.
+• Llibreta d'adreces per a les adreces utilitzades regularment.
+• Quan ets fora de línia, encara pots pagar a través de Bluetooth.
+• Notificació del sistema quan reps monedes.
+• Possibilitat d'agregar carteres de paper (per ex. les utilitzades per emmagatzematge en fred)
+• Widget d'aplicació per al balanç de Bitcoin.
+
+
+<b>COL·LABORAR</b>
+
+La Cartera de Bitcoin és <b>codi obert</b> i <b>programari lliure</b>. Llicència: GPLv3
+https://www.gnu.org/licenses/gpl-3.0.ca.html
+
+El nostre codi està disponible a GitHub:
+https://github.com/schildbach/bitcoin-wallet
+
+Totes les traduccions estan gestionades a través de Transifex:
+https://www.transifex.com/projects/p/bitcoin-wallet/
+
+
+<b>TESTIMONIS</b>
+
+• Moltes carters mòbils basen el seu codi en la Cartera Bitcoin. Exemples: blockchain.info, Hive i KnC.
+• Cartera mòbil recomanada per https://bitcoin.org
+• Recomanada per BitPay.
+
+
+<i>Utilitza-la sota la teva responsabilitat!</i>

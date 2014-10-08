@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+  <string name="help_wallet">
+<![CDATA[
+		<p>
+			La part superior esquerra de la pantalla mostra l\'adreça Bitcoin que has seleccionat, que és la que ha de conèixer l\'altra gent per a poder enviar-te Bitcoins.
+			Prem per canviar l\'adreça.
+		</p>
+		<p>
+			El codi QR de la dreta conté la teva adreça bitcoin i pot ser utilitzada si es escanejada per l\'altra persona.
+			Prem sobre el codi QR per obtenir-ne una versió més gran.
+		</p>
+		<p>
+			Al mig de la pantalla, és mostra el teu balanç.
+			El valor de la teva cartera també és mostrat amb la teva divisa local.
+			Prem sobre balanç per a mostrar la llista de totes les divises locals, seguidament prem una de les divises per a seleccionar-la per defecte.
+		</p>
+		<p>
+			A la part baixa de la pantalla és on es mostra la teva llista de transaccions, la qual estarà buida al principi.
+			Les transaccions pendents es mantenen grisenques fins que estiguin confirmades.
+			Prem sobre una entrada per afegir l\'adreça del que envia o rep a la llibrera d\'adreces.
+			Llisca a l\'esquerra o a la dreta per aplicar filtres a la llista.
+		</p>
+		<p>
+			Pots enviar o demanar monedes premen els botons de la barra d\'accions.
+			Al menú d\'opcions hi ha disponibles més opcions.
+		</p>
+	]]>
+	</string>
+  <string name="help_request_coins">
+<![CDATA[
+		<p>
+			Utilitzant aquest guió, pots demanar monedes a una altra persona (que també ha de tenir la Cartera Bitcoin instal·lada).
+		</p>
+		<p>
+			Primer, hauràs d\'anotar la quantitat de Bitcoins a sol·licitar.
+		</p>
+		<p>
+			Llavors, els dos tindreu el codi QR que haurà d\'escanejar l\'altra persona.
+			O bé, pots enviar la teva sol·licitud a una persona que es troba lluny, mitjançant el botó de compartir a la barra d\'accions.
+			L\'altra persona tindrà que prémer l\'enllaç Bitcoin.
+		</p>
+		<p>
+			De totes dos maneres, l\'altra persona rebrà un diàleg per a enviar monedes amb tots els camps pre-omplerts.
+			Si accepta, tot el que haurà de fer es enviar el pagament.
+		</p>
+	]]>
+	</string>
+  <string name="help_send_coins">
+<![CDATA[
+		<p>
+			Has començat el procés per a enviar monedes.
+			Has arribat aquí a través de la pantalla principal o premen una adreça Bitcoin del navegador del mòbil.
+		</p>
+		<p>
+			Primerament, entra l\'adreça Bitcoin a la que vols pagar.
+			L\'adreça es completarà automàticament si ja hi ha entrades coincidents a la teva llibreta d\'adreces.
+			També pots escanejar codis QR que continguen adreces Bitcoin o demanar Bitcoins premen el botó QR de la barra d\'acció.
+		</p>
+		<p>
+			Seguidament, pots veure quants Bitcoins pots gastar en aquest moment.
+			Qualsevol diferencia de balanç sobre la pantalla principal, significa que no està confirmat i per això encara no pot ser gastat.
+		</p>
+		<p>
+			Per últim, introdueix la quantitat a pagar.
+		</p>
+		<p>
+			Pots introduir un pagament mentre estigues fora de línia.
+			S\'enviarà la següent vegada que s\'inicie la Cartera Bitcoin.
+			Si vols que un pagament sigui processat tant ràpid com sigui possible, assegurat que estas ben connectat. (per ex. en una WLAN)
+		</p>
+		<p>
+			Avís:
+			Els pagaments són irreversibles!
+			Comprova sempre l\'adreça de recepció.
+		</p>
+	]]>
+	</string>
+  <string name="help_safety">
+<![CDATA[
+		<p>
+			<b>Avisos importants de seguretat:</b>
+		</p>
+		<p>
+			Els Bitcoins estan emmagatzemats al dispositiu.
+			<b>Si el perds, perdràs tots els teus Bitcoins.</b>
+		</p>
+		<p>
+			Això vol dir que necessites <b>fer una còpia de seguretat de la teva cartera</b>!
+			Utilitza el servei de còpia de seguretat de l\'aplicació per fer-la, en comptes de una aplicació de còpies de seguretat de tercers.
+			Conserva la teva còpia de seguretat segura i recorda la teva paraula de pas.
+		</p>
+		<p>
+			<b>Abans de desinstal·lar</b> (o esborrar les dades de l\'aplicació/formatar el teu dispositiu), <b>transfereix els teus Bitcoins cap a una altra cartera</b>.
+			Els Bitcoins que es queden es perdran.
+		</p>
+		<p>
+			<b>Els pagaments són irreversibles</b>.
+			Si envies els teus Bitcoins al buit, no hi ha forma de fer-los tornar.
+		</p>
+		<p>
+			<b>Conserva el teu dispositiu mòbil segur!</b>
+			No facis un root al teu dispositiu.
+			Instal·la solament aplicacions en que confiïs totalment.
+			Les aplicacions malicioses poden intentar robar la teva cartera.
+		</p>
+		<p>
+			Mantingues el risc baix!
+			<b>Utilitza solament petites quantitats </b> per al dia a dia.
+		</p>
+	]]>
+	</string>
+</resources>
