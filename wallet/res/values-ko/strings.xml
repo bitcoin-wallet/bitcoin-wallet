@@ -62,6 +62,9 @@
   <string name="send_coins_fragment_receiving_address_complex">이해할 수 없는\n주소</string>
   <string name="send_coins_fragment_pending">(승인을 위해 기다는 중 : %s)</string>
   <string name="send_coins_fragment_amount_label">송금액</string>
+  <string name="send_coins_fragment_hint_fee">소량의 네트워크 비용 %s가 부과될 예정입니다.</string>
+  <string name="send_coins_fragment_hint_dusty_send">송금액이 너무 적어 전송 할 수 없습니다.</string>
+  <string name="send_coins_fragment_hint_insufficient_money">보유하고 있는 금액이 %s 부족합니다.</string>
   <string name="send_coins_fragment_direct_payment_enable">비트코인이 수신인에게 바로 송금됩니다.</string>
   <string name="send_coins_fragment_direct_payment_ack">수신인에게 송금이 완료되었습니다.</string>
   <string name="send_coins_fragment_direct_payment_nack">송금 시도가 직접 연결된 곳으로부터 거부되었습니다.</string>
@@ -72,6 +75,7 @@
   <string name="send_coins_fragment_insufficient_money_title">보유 금액 부족</string>
   <string name="send_coins_fragment_insufficient_money_msg1">보유하고 있는 금액이 %s 부족합니다.</string>
   <string name="send_coins_fragment_insufficient_money_msg2">보유하고 있는 모든 비트코인 금액을 보내시겠습니까?</string>
+  <string name="send_coins_fragment_empty_wallet_failed_title">지갑 비우기 실패!</string>
   <string name="send_coins_preparation_msg">전자 서명 중...</string>
   <string name="send_coins_sending_msg">보내는 중...</string>
   <string name="send_coins_sent_msg">송금 완료!</string>
@@ -118,6 +122,7 @@
   <string name="edit_address_book_entry_dialog_address_label">비트코인 주소</string>
   <string name="edit_address_book_entry_dialog_label_label">주소 이름</string>
   <string name="edit_address_book_entry_dialog_button_edit">저장</string>
+  <string name="transaction_row_fee">네트워크 비용</string>
   <string name="transaction_row_message_purpose_key_rotation">이 거래 방식은 절도에 대비하기 위한 전자 지갑의 보안성을 증대시킵니다. &lt;u&gt;자세히 보기&lt;/u&gt;</string>
   <string name="transaction_row_message_own_unbroadcasted">이 결제 건은 비트코인 네트워크로 전파 승인되지 않았습니다.</string>
   <string name="transaction_row_message_received_direct">해당 결제는 직접 연결로부터 수령했습니다. 사용이 영구적으로 불가능한 승인되지 않은 비트코인일 수 있습니다.</string>
@@ -128,6 +133,7 @@
   <string name="network_monitor_activity_title">블럭체인 모니터링</string>
   <string name="network_monitor_peer_list_title">피어(Peer) 현황</string>
   <string name="network_monitor_block_list_title">블럭</string>
+  <string name="block_row_now">바로 지금</string>
   <string name="peer_list_fragment_empty">피어(Peer)에 연결되지 않은 상태입니다.</string>
   <string name="peer_list_row_ping_time">⇆ %d&#x2009;ms (단위 1/1000 초)</string>
   <string name="import_keys_dialog_title">전자 지갑 복구</string>
@@ -142,6 +148,7 @@
   <string name="import_keys_dialog_file_created_manual">수동 백업 실행.  백업 시간 : %s</string>
   <string name="import_keys_dialog_button_import">복구</string>
   <string name="restore_wallet_dialog_success">전자 지갑이 복구되었습니다.</string>
+  <string name="restore_wallet_dialog_success_replay">지갑이 성공적으로 복구되었습니다. 지갑의 잔액 갱신에 시간이 조금 걸릴 수 있습니다.</string>
   <string name="import_keys_dialog_failure">전자 지갑이 복구될 수 없습니다. :\n\n%s\n\n암호 오류 또는 다른 문제가 있는 것으로 보여집니다.</string>
   <string name="export_keys_dialog_title">전자 지갑 백업</string>
   <string name="export_keys_dialog_message">전자 지갑이 선택된 패스워드로 암호화되고 기기의 저장 장치에 백업됩니다.</string>
