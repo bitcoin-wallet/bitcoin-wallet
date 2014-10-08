@@ -97,7 +97,7 @@ public class WalletApplication extends Application
 
 		Threading.throwOnLockCycles();
 
-		log.info("configuration: " + (Constants.TEST ? "test" : "prod") + ", " + Constants.NETWORK_PARAMETERS.getId());
+		log.info("=== starting app using configuration: {}, {}", Constants.TEST ? "test" : "prod", Constants.NETWORK_PARAMETERS.getId());
 
 		super.onCreate();
 
