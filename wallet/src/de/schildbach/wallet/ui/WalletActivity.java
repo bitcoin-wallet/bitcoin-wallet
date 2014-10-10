@@ -991,7 +991,7 @@ public final class WalletActivity extends AbstractWalletActivity
 			{
 				cipherOut.close();
 			}
-			catch (final IOException x)
+			catch (final Exception x)
 			{
 				// swallow
 			}
