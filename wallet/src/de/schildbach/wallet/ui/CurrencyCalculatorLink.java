@@ -125,7 +125,14 @@ public final class CurrencyCalculatorLink
 		else if (exchangeRate != null)
 		{
 			final Fiat localAmount = (Fiat) localAmountView.getAmount();
-			return localAmount != null ? exchangeRate.fiatToCoin(localAmount) : null;
+			try
+			{
+				return localAmount != null ? exchangeRate.fiatToCoin(localAmount) : null;
+			}
+			catch (ArithmeticException x)
+			{
+				return null;
+			}
 		}
 		else
 		{
@@ -162,9 +169,16 @@ public final class CurrencyCalculatorLink
 				final Fiat localAmount = (Fiat) localAmountView.getAmount();
 				if (localAmount != null)
 				{
-					btcAmountView.setAmount(null, false);
-					btcAmountView.setHint(exchangeRate.fiatToCoin(localAmount));
 					localAmountView.setHint(null);
+					btcAmountView.setAmount(null, false);
+					try
+					{
+						btcAmountView.setHint(exchangeRate.fiatToCoin(localAmount));
+					}
+					catch (final ArithmeticException x)
+					{
+						btcAmountView.setHint(null);
+					}
 				}
 			}
 		}
