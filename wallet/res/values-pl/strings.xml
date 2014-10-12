@@ -12,7 +12,6 @@
 	<string name="blockchain_state_progress_stalled">Synchronizacja wstrzymana</string>
 	<string name="blockchain_state_progress_problem_storage">Synchronizowanie: Problem z pamięcią</string>
 	<string name="blockchain_state_progress_problem_network">Synchronizowanie: Problem z siecią</string>
-	<string name="wallet_address_fragment_your">Twój adres Bitcoin:</string>
 	<string name="wallet_address_fragment_clipboard_msg">Adres Bitcoin skopiowano do schowka</string>
 	<string name="wallet_balance_fragment_replaying">Saldo nie jest dostępne w trakcie odtwarzania.</string>
 	<string name="exchange_rates_activity_title">Kursy wymiany walut</string>

@@ -2,6 +2,5 @@
 <resources>
 
 	<item name="wallet_content" type="layout">@layout/wallet_activity_onepane_horizontal</item>
-	<item name="wallet_address_fragment" type="layout">@layout/wallet_address_fragment_vertical</item>
 
 </resources>

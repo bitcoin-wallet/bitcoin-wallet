@@ -11,7 +11,6 @@
   <string name="blockchain_state_progress_stalled">Synchronisatie tot stilstand gekomen</string>
   <string name="blockchain_state_progress_problem_storage">Synchronisatie: Probleem met opslaan</string>
   <string name="blockchain_state_progress_problem_network">Synchronisatie: Probleem met het netwerk</string>
-  <string name="wallet_address_fragment_your">Uw Bitcoin Adres:</string>
   <string name="wallet_address_fragment_clipboard_msg">Bitcoin adres gekopieërd naar klembord</string>
   <string name="wallet_balance_fragment_replaying">Balans is onbeschikbaar tijdens opnieuw spelen.</string>
   <string name="exchange_rates_activity_title">Wisselkoers</string>

@@ -37,14 +37,11 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
-import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.util.BitmapFragment;
 import de.schildbach.wallet.util.Nfc;
 import de.schildbach.wallet.util.Qr;
 import de.schildbach.wallet.util.ThrottlingWalletChangeListener;
-import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
 
 /**
@@ -57,7 +54,6 @@ public final class WalletAddressFragment extends Fragment
 	private Wallet wallet;
 	private NfcManager nfcManager;
 
-	private TextView bitcoinAddressLabel;
 	private ImageView bitcoinAddressQrView;
 
 	private Address lastSelectedAddress;
@@ -81,7 +77,6 @@ public final class WalletAddressFragment extends Fragment
 	public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState)
 	{
 		final View view = inflater.inflate(R.layout.wallet_address_fragment, container, false);
-		bitcoinAddressLabel = (TextView) view.findViewById(R.id.bitcoin_address_label);
 		bitcoinAddressQrView = (ImageView) view.findViewById(R.id.bitcoin_address_qr);
 
 		bitcoinAddressQrView.setOnClickListener(new OnClickListener()
@@ -111,7 +106,7 @@ public final class WalletAddressFragment extends Fragment
 	{
 		wallet.removeEventListener(walletChangeListener);
 
-		Nfc.unpublish(nfcManager, getActivity());
+		Nfc.unpublish(nfcManager, activity);
 
 		super.onPause();
 	}
@@ -124,15 +119,13 @@ public final class WalletAddressFragment extends Fragment
 		{
 			lastSelectedAddress = address;
 
-			bitcoinAddressLabel.setText(WalletUtils.formatAddress(address, Constants.ADDRESS_FORMAT_GROUP_SIZE, Constants.ADDRESS_FORMAT_LINE_SIZE));
-
 			final String addressStr = BitcoinURI.convertToBitcoinURI(address, null, null, null);
 
 			final int size = (int) (256 * getResources().getDisplayMetrics().density);
 			qrCodeBitmap = Qr.bitmap(addressStr, size);
 			bitcoinAddressQrView.setImageBitmap(qrCodeBitmap);
 
-			Nfc.publishUri(nfcManager, getActivity(), addressStr);
+			Nfc.publishUri(nfcManager, activity, addressStr);
 		}
 	}
 

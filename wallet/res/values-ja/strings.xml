@@ -11,7 +11,6 @@
   <string name="blockchain_state_progress_stalled">同期を停止</string>
   <string name="blockchain_state_progress_problem_storage">同期：ストレージの問題</string>
   <string name="blockchain_state_progress_problem_network">同期：ネットワークの問題</string>
-  <string name="wallet_address_fragment_your">あなたのビットコインアドレス:</string>
   <string name="wallet_address_fragment_clipboard_msg">ビットコインアドレスはクリップボードにコピーされました</string>
   <string name="wallet_balance_fragment_replaying">再生中は残高情報は利用できません。</string>
   <string name="exchange_rates_activity_title">為替レート</string>

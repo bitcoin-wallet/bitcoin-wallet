@@ -11,7 +11,6 @@
 	<string name="blockchain_state_progress_stalled">Tiến trình đồng bộ hóa đã ngưng lại</string>
 	<string name="blockchain_state_progress_problem_storage">Đồng bộ hóa: Gặp vấn đề về dung lượng lưu trữ</string>
 	<string name="blockchain_state_progress_problem_network">Đồng bộ hóa: Vấn đề về mạng lưới</string>
-	<string name="wallet_address_fragment_your">Địa chỉ Bitcoin của bạn:</string>
 	<string name="wallet_address_fragment_clipboard_msg">Địa chỉ Bitcoin đã được sao chép vào bộ nhớ ảo</string>
 	<string name="wallet_balance_fragment_replaying">Tính năng cân bằng tài khoản không thể được thao tác trong quá trình replay.</string>
 	<string name="exchange_rates_activity_title">Tỉ lệ hoán đổi</string>

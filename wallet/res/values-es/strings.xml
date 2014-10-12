@@ -11,7 +11,6 @@
   <string name="blockchain_state_progress_stalled">Sincronización atascada</string>
   <string name="blockchain_state_progress_problem_storage">Sincronización: Problema de almacenamiento</string>
   <string name="blockchain_state_progress_problem_network">Sincronización: Problema de red</string>
-  <string name="wallet_address_fragment_your">Su dirección Bitcoin:</string>
   <string name="wallet_address_fragment_clipboard_msg">Dirección Bitcoin copiada al portapapeles</string>
   <string name="wallet_balance_fragment_replaying">Saldo no disponible durante la reevaluación.</string>
   <string name="exchange_rates_activity_title">Tipos de cambio</string>

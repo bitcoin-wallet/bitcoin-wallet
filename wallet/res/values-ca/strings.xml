@@ -11,7 +11,6 @@
   <string name="blockchain_state_progress_stalled">Sincronització encallada</string>
   <string name="blockchain_state_progress_problem_storage">Sincronitzant: problema d\'emmagatzematge</string>
   <string name="blockchain_state_progress_problem_network">Sincronitzant: problema de xarxa</string>
-  <string name="wallet_address_fragment_your">La teva adreça Bitcoin:</string>
   <string name="wallet_address_fragment_clipboard_msg">L\'adreça Bitcoin s\'ha copiat al porta-retalls.</string>
   <string name="wallet_balance_fragment_replaying">El balança no està disponible mentre s\'escaneja.</string>
   <string name="exchange_rates_activity_title">Preus de canvi</string>

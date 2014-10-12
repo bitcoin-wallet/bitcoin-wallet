@@ -12,7 +12,6 @@
 	<string name="blockchain_state_progress_stalled">Sinkronisasi terhenti</string>
 	<string name="blockchain_state_progress_problem_storage">Sinkronisasi: Masalah penyimpanan</string>
 	<string name="blockchain_state_progress_problem_network">Sinkronisasi: Masalah jaringan</string>
-	<string name="wallet_address_fragment_your">Alamat Bitcoin Anda:</string>
 	<string name="wallet_address_fragment_clipboard_msg">Alamat Bitcoin disalin</string>
 	<string name="wallet_balance_fragment_replaying">Saldo tidak tersedia saat pengulangan.</string>
 	<string name="exchange_rates_activity_title">Nilai Tukar</string>

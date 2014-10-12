@@ -12,7 +12,6 @@
 	<string name="blockchain_state_progress_stalled">同步停滞</string>
 	<string name="blockchain_state_progress_problem_storage">同步: 检查存储</string>
 	<string name="blockchain_state_progress_problem_network">同步: 检查网络</string>
-	<string name="wallet_address_fragment_your">您的比特币地址：</string>
 	<string name="wallet_address_fragment_clipboard_msg">比特币地址已复制到剪贴板</string>
 	<string name="wallet_balance_fragment_replaying">回档过程中的余额不可用。</string>
 	<string name="exchange_rates_activity_title">汇率</string>

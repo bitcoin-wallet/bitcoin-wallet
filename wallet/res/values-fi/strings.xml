@@ -11,7 +11,6 @@
   <string name="blockchain_state_progress_stalled">Synkronointi pysäytetty</string>
   <string name="blockchain_state_progress_problem_storage">Synkronointi: Tilaongelma</string>
   <string name="blockchain_state_progress_problem_network">Synkronointi: Verkko-ongelma</string>
-  <string name="wallet_address_fragment_your">Bitcoin-osoitteesi:</string>
   <string name="wallet_address_fragment_clipboard_msg">Bitcoin-osoite on kopioitu leikepöydälle</string>
   <string name="wallet_balance_fragment_replaying">Saldo ei ole saatavilla uusinnan aikaan.</string>
   <string name="exchange_rates_activity_title">Vaihtokurssit:</string>

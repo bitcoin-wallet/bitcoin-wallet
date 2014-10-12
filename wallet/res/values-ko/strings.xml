@@ -11,7 +11,6 @@
   <string name="blockchain_state_progress_stalled">동기화 멈춤</string>
   <string name="blockchain_state_progress_problem_storage">동기화 중 : 저장 공간 문제 발생</string>
   <string name="blockchain_state_progress_problem_network">동기화 중 : 네트워크에 문제 발생</string>
-  <string name="wallet_address_fragment_your">비트코인 주소 :</string>
   <string name="wallet_address_fragment_clipboard_msg">비트코인 주소가 클립보드에 복사되었습니다</string>
   <string name="wallet_balance_fragment_replaying">블럭체인 재실행 중 잔액 접근이 불가능합니다.</string>
   <string name="exchange_rates_activity_title">환율 목록</string>

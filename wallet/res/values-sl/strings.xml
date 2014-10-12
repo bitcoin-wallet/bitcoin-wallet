@@ -12,7 +12,6 @@
 	<string name="blockchain_state_progress_stalled">Usklajevanje zaustavljeno</string>
 	<string name="blockchain_state_progress_problem_storage">Usklajevanje: težava s hrambo podatkov</string>
 	<string name="blockchain_state_progress_problem_network">Usklajevanje: težava z omrežjem</string>
-	<string name="wallet_address_fragment_your">Vaš bitcoin naslov:</string>
 	<string name="wallet_address_fragment_clipboard_msg">Naslov kopiran na odložišče</string>
 	<string name="wallet_balance_fragment_replaying">Pregled stanja med ponastavitvijo ni mogoč.</string>
 	<string name="exchange_rates_activity_title">Menjalni tečaji</string>

@@ -12,7 +12,6 @@
 	<string name="blockchain_state_progress_stalled">مزامنة البيانات متوقفة</string>
 	<string name="blockchain_state_progress_problem_storage">مزامنة بيانات: توجد مشكلة بوحدة التخزين</string>
 	<string name="blockchain_state_progress_problem_network">مزامنة بيانات: توجد مشكلة بالشبكة</string>
-	<string name="wallet_address_fragment_your">عنوان محفظة البيتكوين الخاصة بك:</string>
 	<string name="wallet_address_fragment_clipboard_msg">تم نسخ عنوان محفظتك إلى الحافظة</string>
 	<string name="wallet_balance_fragment_replaying">الرصيد غير متاح في حالة إعادة التشغيل.</string>
 	<string name="exchange_rates_activity_title">أسعار صرف العملات</string>

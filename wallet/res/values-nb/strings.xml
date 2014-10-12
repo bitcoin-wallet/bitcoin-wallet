@@ -11,7 +11,6 @@
   <string name="blockchain_state_progress_stalled">Synkronisering står stille</string>
   <string name="blockchain_state_progress_problem_storage">Synkroniserer: Plassproblem</string>
   <string name="blockchain_state_progress_problem_network">Synkroniserer: Nettverksproblem</string>
-  <string name="wallet_address_fragment_your">Din Bitcoin-adresse:</string>
   <string name="wallet_address_fragment_clipboard_msg">Bitcoin-adresse kopieret til utklippstavlen</string>
   <string name="wallet_balance_fragment_replaying">Saldo er ikke tilgjengelig under avspilling.</string>
   <string name="exchange_rates_activity_title">valutakurser</string>
