@@ -129,6 +129,7 @@
 	<string name="transaction_row_message_received_unconfirmed_locked">This payment is not standard and should not be trusted.</string>
 	<string name="transaction_row_message_received_dead">This payment has been reversed by the sender.</string>
 	<string name="transaction_row_message_received_dust">This small amount can probably never be spent economically.</string>
+	<string name="transaction_row_message_received_pay_to_many">This payment pays to many wallets besides yours, which makes the app slow down over time. If you can, try receiving payments which pay only to you.</string>
 	<string name="network_monitor_activity_title">Network monitor</string>
 	<string name="network_monitor_peer_list_title">Peers</string>
 	<string name="network_monitor_block_list_title">Blocks</string>
