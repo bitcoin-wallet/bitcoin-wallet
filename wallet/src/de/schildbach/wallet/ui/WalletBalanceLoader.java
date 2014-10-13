@@ -68,6 +68,15 @@ public final class WalletBalanceLoader extends AsyncTaskLoader<Coin>
 	}
 
 	@Override
+	protected void onReset()
+	{
+		wallet.removeEventListener(walletChangeListener);
+		walletChangeListener.removeCallbacks();
+
+		super.onReset();
+	}
+
+	@Override
 	public Coin loadInBackground()
 	{
 		return wallet.getBalance(BalanceType.ESTIMATED);

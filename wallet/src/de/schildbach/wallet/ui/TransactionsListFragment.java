@@ -396,6 +396,15 @@ public class TransactionsListFragment extends FancyListFragment implements Loade
 		}
 
 		@Override
+		protected void onReset()
+		{
+			wallet.removeEventListener(transactionAddRemoveListener);
+			transactionAddRemoveListener.removeCallbacks();
+
+			super.onReset();
+		}
+
+		@Override
 		public List<Transaction> loadInBackground()
 		{
 			final Set<Transaction> transactions = wallet.getTransactions(true);
