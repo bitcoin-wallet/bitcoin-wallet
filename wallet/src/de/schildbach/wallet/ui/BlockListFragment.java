@@ -122,24 +122,36 @@ public final class BlockListFragment extends ListFragment
 		setListAdapter(adapter);
 	}
 
+	private boolean resumed = false;
+
 	@Override
 	public void onResume()
 	{
 		super.onResume();
 
 		activity.registerReceiver(tickReceiver, new IntentFilter(Intent.ACTION_TIME_TICK));
-
 		loaderManager.initLoader(ID_TRANSACTION_LOADER, null, transactionLoaderCallbacks);
 
 		adapter.notifyDataSetChanged();
+
+		resumed = true;
 	}
 
 	@Override
 	public void onPause()
 	{
-		loaderManager.destroyLoader(ID_TRANSACTION_LOADER);
+		// workaround: under high load, it can happen that onPause() is called twice (recursively via destroyLoader)
+		if (resumed)
+		{
+			loaderManager.destroyLoader(ID_TRANSACTION_LOADER);
+			activity.unregisterReceiver(tickReceiver);
 
-		activity.unregisterReceiver(tickReceiver);
+			resumed = false;
+		}
+		else
+		{
+			log.warn("onPause() called without onResume(), appending stack trace", new RuntimeException());
+		}
 
 		super.onPause();
 	}
