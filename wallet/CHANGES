@@ -1,3 +1,10 @@
+v4.03
+
+* Remove textual Bitcoin address from main screen.
+* Warning for users with pay-to-many transactions. Those will slow down their
+  wallet.
+* Workaround for crash in the network monitor.
+
 v4.02
 
 * Fix crash when sweeping wallets.
