@@ -143,10 +143,10 @@ public final class BlockListFragment extends ListFragment
 		// workaround: under high load, it can happen that onPause() is called twice (recursively via destroyLoader)
 		if (resumed)
 		{
+			resumed = false;
+
 			loaderManager.destroyLoader(ID_TRANSACTION_LOADER);
 			activity.unregisterReceiver(tickReceiver);
-
-			resumed = false;
 		}
 		else
 		{
