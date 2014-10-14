@@ -1355,6 +1355,7 @@ public final class SendCoinsFragment extends Fragment
 
 		this.paymentIntent = paymentIntent;
 
+		validatedAddress = null;
 		directPaymentAck = null;
 
 		// delay these actions until fragment is resumed
@@ -1365,6 +1366,7 @@ public final class SendCoinsFragment extends Fragment
 			{
 				if (state == State.INPUT)
 				{
+					receivingAddressView.setText(null);
 					amountCalculatorLink.setBtcAmount(paymentIntent.getAmount());
 
 					if (paymentIntent.isBluetoothPaymentUrl())
