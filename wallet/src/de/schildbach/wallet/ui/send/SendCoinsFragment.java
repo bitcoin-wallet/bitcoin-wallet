@@ -56,6 +56,7 @@ import android.bluetooth.BluetoothAdapter;
 import android.content.ComponentName;
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.CursorLoader;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
@@ -88,6 +89,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.CursorAdapter;
+import android.widget.FilterQueryProvider;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
@@ -141,6 +143,7 @@ public final class SendCoinsFragment extends Fragment
 	private TextView payeeNameView;
 	private TextView payeeVerifiedByView;
 	private AutoCompleteTextView receivingAddressView;
+	private ReceivingAddressViewAdapter receivingAddressViewAdapter;
 	private View receivingStaticView;
 	private TextView receivingStaticAddressView;
 	private TextView receivingStaticLabelView;
@@ -174,6 +177,7 @@ public final class SendCoinsFragment extends Fragment
 	private Transaction sentTransaction = null;
 
 	private static final int ID_RATE_LOADER = 0;
+	private static final int ID_RECEIVING_ADDRESS_LOADER = 1;
 
 	private static final int REQUEST_CODE_SCAN = 0;
 	private static final int REQUEST_CODE_ENABLE_BLUETOOTH_FOR_PAYMENT_REQUEST = 1;
@@ -379,6 +383,74 @@ public final class SendCoinsFragment extends Fragment
 		}
 	};
 
+	private final LoaderCallbacks<Cursor> receivingAddressLoaderCallbacks = new LoaderManager.LoaderCallbacks<Cursor>()
+	{
+		@Override
+		public Loader<Cursor> onCreateLoader(final int id, final Bundle args)
+		{
+			final String constraint = args != null ? args.getString("constraint") : null;
+			return new CursorLoader(activity, AddressBookProvider.contentUri(activity.getPackageName()), null, AddressBookProvider.SELECTION_QUERY,
+					new String[] { constraint != null ? constraint : "" }, null);
+		}
+
+		@Override
+		public void onLoadFinished(final Loader<Cursor> cursor, final Cursor data)
+		{
+			receivingAddressViewAdapter.swapCursor(data);
+		}
+
+		@Override
+		public void onLoaderReset(final Loader<Cursor> cursor)
+		{
+			receivingAddressViewAdapter.swapCursor(null);
+		}
+	};
+
+	private final class ReceivingAddressViewAdapter extends CursorAdapter implements FilterQueryProvider
+	{
+		public ReceivingAddressViewAdapter(final Context context)
+		{
+			super(context, null, false);
+			setFilterQueryProvider(this);
+		}
+
+		@Override
+		public View newView(final Context context, final Cursor cursor, final ViewGroup parent)
+		{
+			final LayoutInflater inflater = LayoutInflater.from(context);
+			return inflater.inflate(R.layout.address_book_row, parent, false);
+		}
+
+		@Override
+		public void bindView(final View view, final Context context, final Cursor cursor)
+		{
+			final String label = cursor.getString(cursor.getColumnIndexOrThrow(AddressBookProvider.KEY_LABEL));
+			final String address = cursor.getString(cursor.getColumnIndexOrThrow(AddressBookProvider.KEY_ADDRESS));
+
+			final ViewGroup viewGroup = (ViewGroup) view;
+			final TextView labelView = (TextView) viewGroup.findViewById(R.id.address_book_row_label);
+			labelView.setText(label);
+			final TextView addressView = (TextView) viewGroup.findViewById(R.id.address_book_row_address);
+			addressView.setText(WalletUtils.formatHash(address, Constants.ADDRESS_FORMAT_GROUP_SIZE, Constants.ADDRESS_FORMAT_LINE_SIZE));
+		}
+
+		@Override
+		public CharSequence convertToString(final Cursor cursor)
+		{
+			return cursor.getString(cursor.getColumnIndexOrThrow(AddressBookProvider.KEY_ADDRESS));
+		}
+
+		@Override
+		public Cursor runQuery(final CharSequence constraint)
+		{
+			final Bundle args = new Bundle();
+			if (constraint != null)
+				args.putString("constraint", constraint.toString());
+			loaderManager.restartLoader(ID_RECEIVING_ADDRESS_LOADER, args, receivingAddressLoaderCallbacks);
+			return getCursor();
+		}
+	}
+
 	private final DialogInterface.OnClickListener activityDismissListener = new DialogInterface.OnClickListener()
 	{
 		@Override
@@ -470,7 +542,8 @@ public final class SendCoinsFragment extends Fragment
 		payeeVerifiedByView = (TextView) view.findViewById(R.id.send_coins_payee_verified_by);
 
 		receivingAddressView = (AutoCompleteTextView) view.findViewById(R.id.send_coins_receiving_address);
-		receivingAddressView.setAdapter(new AutoCompleteAddressAdapter(activity, null));
+		receivingAddressViewAdapter = new ReceivingAddressViewAdapter(activity);
+		receivingAddressView.setAdapter(receivingAddressViewAdapter);
 		receivingAddressView.setOnFocusChangeListener(receivingAddressListener);
 		receivingAddressView.addTextChangedListener(receivingAddressListener);
 
@@ -583,6 +656,7 @@ public final class SendCoinsFragment extends Fragment
 		amountCalculatorLink.setListener(amountsListener);
 
 		loaderManager.initLoader(ID_RATE_LOADER, null, rateLoaderCallbacks);
+		loaderManager.initLoader(ID_RECEIVING_ADDRESS_LOADER, null, receivingAddressLoaderCallbacks);
 
 		executeDryrun();
 		updateView();
@@ -591,6 +665,7 @@ public final class SendCoinsFragment extends Fragment
 	@Override
 	public void onPause()
 	{
+		loaderManager.destroyLoader(ID_RECEIVING_ADDRESS_LOADER);
 		loaderManager.destroyLoader(ID_RATE_LOADER);
 
 		amountCalculatorLink.setListener(null);
@@ -1029,48 +1104,6 @@ public final class SendCoinsFragment extends Fragment
 
 		executeDryrun();
 		updateView();
-	}
-
-	public class AutoCompleteAddressAdapter extends CursorAdapter
-	{
-		public AutoCompleteAddressAdapter(final Context context, final Cursor c)
-		{
-			super(context, c);
-		}
-
-		@Override
-		public View newView(final Context context, final Cursor cursor, final ViewGroup parent)
-		{
-			final LayoutInflater inflater = LayoutInflater.from(context);
-			return inflater.inflate(R.layout.address_book_row, parent, false);
-		}
-
-		@Override
-		public void bindView(final View view, final Context context, final Cursor cursor)
-		{
-			final String label = cursor.getString(cursor.getColumnIndexOrThrow(AddressBookProvider.KEY_LABEL));
-			final String address = cursor.getString(cursor.getColumnIndexOrThrow(AddressBookProvider.KEY_ADDRESS));
-
-			final ViewGroup viewGroup = (ViewGroup) view;
-			final TextView labelView = (TextView) viewGroup.findViewById(R.id.address_book_row_label);
-			labelView.setText(label);
-			final TextView addressView = (TextView) viewGroup.findViewById(R.id.address_book_row_address);
-			addressView.setText(WalletUtils.formatHash(address, Constants.ADDRESS_FORMAT_GROUP_SIZE, Constants.ADDRESS_FORMAT_LINE_SIZE));
-		}
-
-		@Override
-		public CharSequence convertToString(final Cursor cursor)
-		{
-			return cursor.getString(cursor.getColumnIndexOrThrow(AddressBookProvider.KEY_ADDRESS));
-		}
-
-		@Override
-		public Cursor runQueryOnBackgroundThread(final CharSequence constraint)
-		{
-			final Cursor cursor = activity.managedQuery(AddressBookProvider.contentUri(activity.getPackageName()), null,
-					AddressBookProvider.SELECTION_QUERY, new String[] { constraint.toString() }, null);
-			return cursor;
-		}
 	}
 
 	private void executeDryrun()
