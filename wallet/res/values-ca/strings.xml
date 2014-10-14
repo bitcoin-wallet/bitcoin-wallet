@@ -56,8 +56,6 @@
   <string name="send_coins_fragment_receiving_address_label">Pagar a</string>
   <string name="send_coins_fragment_receiving_address_hint">escriu l\'adreça o nom</string>
   <string name="send_coins_fragment_receiving_address_error">Adreça Bitcoin no vàlida!</string>
-  <string name="send_coins_fragment_receiving_address_error_cross_network">No es pot utilitzar l\'adreça %s en aquesta cartera!</string>
-  <string name="send_coins_fragment_receiving_address_error_cross_network_unknown">No es pot utilitzar l\'adreça de xarxa desconeguda en aquesta cartera!</string>
   <string name="send_coins_fragment_receiving_address_complex">complex\nadreça</string>
   <string name="send_coins_fragment_pending">(%s esperant confirmació)</string>
   <string name="send_coins_fragment_amount_label">Total a pagar</string>

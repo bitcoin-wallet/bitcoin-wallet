@@ -56,8 +56,6 @@
   <string name="send_coins_fragment_receiving_address_label">支払う</string>
   <string name="send_coins_fragment_receiving_address_hint">アドレスもしくは名前の入力</string>
   <string name="send_coins_fragment_receiving_address_error">無効なビットコインアドレスです！</string>
-  <string name="send_coins_fragment_receiving_address_error_cross_network">%s アドレスはこのウォレットでは使用できません！</string>
-  <string name="send_coins_fragment_receiving_address_error_cross_network_unknown">未知のネットワークのアドレスはこのウォレットでは使用できません！</string>
   <string name="send_coins_fragment_receiving_address_complex">複雑な\nアドレス</string>
   <string name="send_coins_fragment_pending">(%s 確認待ち)</string>
   <string name="send_coins_fragment_amount_label">合計支払</string>

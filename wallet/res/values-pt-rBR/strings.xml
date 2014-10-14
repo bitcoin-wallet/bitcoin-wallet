@@ -54,8 +54,6 @@
 	<string name="send_coins_fragment_receiving_address_label">Pagar a</string>
 	<string name="send_coins_fragment_receiving_address_hint">insira o endereço ou nome</string>
 	<string name="send_coins_fragment_receiving_address_error">Endereço Bitcoin inválido!</string>
-	<string name="send_coins_fragment_receiving_address_error_cross_network">Não é possível usar o endereço %s com esta carteira!</string>
-	<string name="send_coins_fragment_receiving_address_error_cross_network_unknown">Não é possível usar um endereço de rede desconhecido com esta carteira!</string>
 	<string name="send_coins_fragment_receiving_address_complex">complexo\nendereço</string>
 	<string name="send_coins_fragment_pending">(%s esperando confirmação)</string>
 	<string name="send_coins_fragment_amount_label">Quantidade a pagar</string>

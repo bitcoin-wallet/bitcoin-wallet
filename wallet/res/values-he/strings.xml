@@ -56,8 +56,6 @@
   <string name="send_coins_fragment_receiving_address_label">שלם ל</string>
   <string name="send_coins_fragment_receiving_address_hint">הקש כתובת או שם</string>
   <string name="send_coins_fragment_receiving_address_error">כתובת ביטקוין לא חוקית!</string>
-  <string name="send_coins_fragment_receiving_address_error_cross_network">לא ניתן להשתמש בכתובת %s בארנק זה</string>
-  <string name="send_coins_fragment_receiving_address_error_cross_network_unknown">לא ניתן להשתמש בכתובת  זו ברשת לא ידועה</string>
   <string name="send_coins_fragment_receiving_address_complex">כתובת\nמסובכת</string>
   <string name="send_coins_fragment_pending">(%s ממתין לאישור)</string>
   <string name="send_coins_fragment_amount_label">סכום לתשלום</string>

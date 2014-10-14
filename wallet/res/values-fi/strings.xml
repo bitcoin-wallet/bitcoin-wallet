@@ -56,8 +56,6 @@
   <string name="send_coins_fragment_receiving_address_label">Vastaanottaja</string>
   <string name="send_coins_fragment_receiving_address_hint">kirjoita osoite tai nimi</string>
   <string name="send_coins_fragment_receiving_address_error">Epäkelpo Bitcoin-osoite!</string>
-  <string name="send_coins_fragment_receiving_address_error_cross_network">%s osoitetta ei voida käyttää tällä lompakolla!</string>
-  <string name="send_coins_fragment_receiving_address_error_cross_network_unknown">Tuntematonta verkon osoitetta ei voida käyttää tällä lompakolla!</string>
   <string name="send_coins_fragment_receiving_address_complex">monimutkainen\nosoite</string>
   <string name="send_coins_fragment_pending">(%s odottaa vahvistusta)</string>
   <string name="send_coins_fragment_amount_label">Maksettava määrä</string>

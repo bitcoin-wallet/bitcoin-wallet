@@ -56,8 +56,6 @@
   <string name="send_coins_fragment_receiving_address_label">Betalen aan</string>
   <string name="send_coins_fragment_receiving_address_hint">typ adres of naam</string>
   <string name="send_coins_fragment_receiving_address_error">Ongeldig Bitcoin Adres!</string>
-  <string name="send_coins_fragment_receiving_address_error_cross_network">Kan %s adres niet gebruiken met deze portemonnee!</string>
-  <string name="send_coins_fragment_receiving_address_error_cross_network_unknown">Kan geen adres van onbekend netwerk gebruiken met deze portemonnee!</string>
   <string name="send_coins_fragment_pending">(%s wachten op bevestiging)</string>
   <string name="send_coins_fragment_amount_label">Te betalen bedrag</string>
   <string name="send_coins_fragment_direct_payment_enable">Betaal direct aan begunstigde.</string>

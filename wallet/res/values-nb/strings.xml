@@ -56,8 +56,6 @@
   <string name="send_coins_fragment_receiving_address_label">Betal til</string>
   <string name="send_coins_fragment_receiving_address_hint">skriv adresse eller navn</string>
   <string name="send_coins_fragment_receiving_address_error">Ugyldig Bitcoin-adresse!</string>
-  <string name="send_coins_fragment_receiving_address_error_cross_network">Kan ikke bruke %s adresse med denne lommeboken!</string>
-  <string name="send_coins_fragment_receiving_address_error_cross_network_unknown">Kan ikke bruke adresse for ukjent nettverk med denne lommeboken!</string>
   <string name="send_coins_fragment_receiving_address_complex">kompleks\nadresse</string>
   <string name="send_coins_fragment_pending">(%s venter på bekreftelse)</string>
   <string name="send_coins_fragment_amount_label">Beløp å betale</string>

@@ -53,8 +53,6 @@
 	<string name="send_coins_fragment_receiving_address_label">Zaplatiť</string>
 	<string name="send_coins_fragment_receiving_address_hint">zadajte adresu alebo názov</string>
 	<string name="send_coins_fragment_receiving_address_error">Nesprávna Bitcoin adresa!</string>
-	<string name="send_coins_fragment_receiving_address_error_cross_network">Adresu %s nie je možné použiť s touto peňaženkou!</string>
-	<string name="send_coins_fragment_receiving_address_error_cross_network_unknown">Adresu z neznámej siete nie je možné použiť s touto peňaženkou!</string>
 	<string name="send_coins_fragment_receiving_address_complex">komplexná\nadresa</string>
 	<string name="send_coins_fragment_pending">(%s čaká na potvrdenie)</string>
 	<string name="send_coins_fragment_amount_label">Suma</string>

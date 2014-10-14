@@ -57,8 +57,6 @@
 	<string name="send_coins_fragment_receiving_address_label">发送给</string>
 	<string name="send_coins_fragment_receiving_address_hint">输入地址或姓名</string>
 	<string name="send_coins_fragment_receiving_address_error">地址错误！</string>
-	<string name="send_coins_fragment_receiving_address_error_cross_network">对这个钱包无法使用%s地址</string>
-	<string name="send_coins_fragment_receiving_address_error_cross_network_unknown">钱包現時无法使用未知网络地址</string>
 	<string name="send_coins_fragment_receiving_address_complex">综合\n地址</string>
 	<string name="send_coins_fragment_pending">(%s 的等待确认)</string>
 	<string name="send_coins_fragment_amount_label">总量</string>

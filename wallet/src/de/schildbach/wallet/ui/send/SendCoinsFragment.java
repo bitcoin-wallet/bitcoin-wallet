@@ -30,7 +30,6 @@ import org.bitcoinj.core.AddressFormatException;
 import org.bitcoinj.core.Coin;
 import org.bitcoinj.core.DumpedPrivateKey;
 import org.bitcoinj.core.InsufficientMoneyException;
-import org.bitcoinj.core.NetworkParameters;
 import org.bitcoinj.core.Sha256Hash;
 import org.bitcoinj.core.Transaction;
 import org.bitcoinj.core.TransactionConfidence;
@@ -79,7 +78,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.MeasureSpec;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
 import android.view.ViewGroup;
@@ -91,7 +89,6 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.CursorAdapter;
 import android.widget.FilterQueryProvider;
 import android.widget.ListView;
-import android.widget.PopupWindow;
 import android.widget.TextView;
 import de.schildbach.wallet.AddressBookProvider;
 import de.schildbach.wallet.Configuration;
@@ -156,9 +153,6 @@ public final class SendCoinsFragment extends Fragment
 	private Button viewGo;
 	private Button viewCancel;
 
-	private TextView popupMessageView;
-	private PopupWindow popupWindow;
-
 	private CurrencyCalculatorLink amountCalculatorLink;
 
 	private MenuItem scanAction;
@@ -196,15 +190,19 @@ public final class SendCoinsFragment extends Fragment
 		public void onFocusChange(final View v, final boolean hasFocus)
 		{
 			if (!hasFocus)
-				validateReceivingAddress(true);
+			{
+				validateReceivingAddress();
+				updateView();
+			}
 		}
 
 		@Override
 		public void afterTextChanged(final Editable s)
 		{
-			dismissPopup();
-
-			validateReceivingAddress(false);
+			if (s.length() > 0)
+				validateReceivingAddress();
+			else
+				updateView();
 		}
 
 		@Override
@@ -611,13 +609,14 @@ public final class SendCoinsFragment extends Fragment
 			@Override
 			public void onClick(final View v)
 			{
-				validateReceivingAddress(true);
-				isAmountValid();
+				validateReceivingAddress();
 
 				if (everythingValid())
 					handleGo();
 				else
 					requestFocusFirst();
+
+				updateView();
 			}
 		});
 
@@ -632,8 +631,6 @@ public final class SendCoinsFragment extends Fragment
 				handleCancel();
 			}
 		});
-
-		popupMessageView = (TextView) inflater.inflate(R.layout.send_coins_popup_message, container);
 
 		return view;
 	}
@@ -822,48 +819,22 @@ public final class SendCoinsFragment extends Fragment
 		return super.onOptionsItemSelected(item);
 	}
 
-	private void validateReceivingAddress(final boolean popups)
+	private void validateReceivingAddress()
 	{
 		try
 		{
 			final String addressStr = receivingAddressView.getText().toString().trim();
-			if (!addressStr.isEmpty())
+			if (!addressStr.isEmpty() && Constants.NETWORK_PARAMETERS.equals(Address.getParametersFromAddress(addressStr)))
 			{
-				final NetworkParameters addressParams = Address.getParametersFromAddress(addressStr);
-				if (addressParams != null && !addressParams.equals(Constants.NETWORK_PARAMETERS))
-				{
-					// address is valid, but from different known network
-					if (popups)
-						popupMessage(receivingAddressView,
-								getString(R.string.send_coins_fragment_receiving_address_error_cross_network, addressParams.getId()));
-				}
-				else if (addressParams == null)
-				{
-					// address is valid, but from different unknown network
-					if (popups)
-						popupMessage(receivingAddressView, getString(R.string.send_coins_fragment_receiving_address_error_cross_network_unknown));
-				}
-				else
-				{
-					// valid address
-					final String label = AddressBookProvider.resolveLabel(activity, addressStr);
-					validatedAddress = new AddressAndLabel(Constants.NETWORK_PARAMETERS, addressStr, label);
-					receivingAddressView.setText(null);
-				}
-			}
-			else
-			{
-				// empty field should not raise error message
+				final String label = AddressBookProvider.resolveLabel(activity, addressStr);
+				validatedAddress = new AddressAndLabel(Constants.NETWORK_PARAMETERS, addressStr, label);
+				receivingAddressView.setText(null);
 			}
 		}
 		catch (final AddressFormatException x)
 		{
-			// could not decode address at all
-			if (popups)
-				popupMessage(receivingAddressView, getString(R.string.send_coins_fragment_receiving_address_error));
+			// swallow
 		}
-
-		updateView();
 	}
 
 	private void handleCancel()
@@ -905,36 +876,6 @@ public final class SendCoinsFragment extends Fragment
 			viewGo.requestFocus();
 		else
 			log.warn("unclear focus");
-	}
-
-	private void popupMessage(@Nonnull final View anchor, @Nonnull final String message)
-	{
-		dismissPopup();
-
-		popupMessageView.setText(message);
-		popupMessageView.setMaxWidth(getView().getWidth());
-
-		popup(anchor, popupMessageView);
-	}
-
-	private void popup(@Nonnull final View anchor, @Nonnull final View contentView)
-	{
-		contentView.measure(MeasureSpec.makeMeasureSpec(MeasureSpec.UNSPECIFIED, 0), MeasureSpec.makeMeasureSpec(MeasureSpec.UNSPECIFIED, 0));
-
-		popupWindow = new PopupWindow(contentView, contentView.getMeasuredWidth(), contentView.getMeasuredHeight(), false);
-		popupWindow.showAsDropDown(anchor);
-
-		// hack
-		contentView.setBackgroundResource(popupWindow.isAboveAnchor() ? R.drawable.popup_frame_above : R.drawable.popup_frame_below);
-	}
-
-	private void dismissPopup()
-	{
-		if (popupWindow != null)
-		{
-			popupWindow.dismiss();
-			popupWindow = null;
-		}
 	}
 
 	private void handleGo()
@@ -1221,7 +1162,13 @@ public final class SendCoinsFragment extends Fragment
 			hintView.setVisibility(View.GONE);
 			if (state == State.INPUT)
 			{
-				if (dryrunException != null)
+				if (paymentIntent.mayEditAddress() && validatedAddress == null && !receivingAddressView.getText().toString().trim().isEmpty())
+				{
+					hintView.setTextColor(getResources().getColor(R.color.fg_error));
+					hintView.setVisibility(View.VISIBLE);
+					hintView.setText(R.string.send_coins_fragment_receiving_address_error);
+				}
+				else if (dryrunException != null)
 				{
 					hintView.setTextColor(getResources().getColor(R.color.fg_error));
 					hintView.setVisibility(View.VISIBLE);

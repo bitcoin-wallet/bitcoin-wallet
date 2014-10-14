@@ -56,8 +56,6 @@
   <string name="send_coins_fragment_receiving_address_label">Оплатить</string>
   <string name="send_coins_fragment_receiving_address_hint">введите адрес или имя</string>
   <string name="send_coins_fragment_receiving_address_error">Неправильный Bitcoin-адрес!</string>
-  <string name="send_coins_fragment_receiving_address_error_cross_network">Невозможно использовать адрес %s с этим кошельком!</string>
-  <string name="send_coins_fragment_receiving_address_error_cross_network_unknown">Невозможно использовать адрес неизвестной сети с этим кошельком</string>
   <string name="send_coins_fragment_receiving_address_complex">сложный\nадрес</string>
   <string name="send_coins_fragment_pending">(%s ожидание подтверждения)</string>
   <string name="send_coins_fragment_amount_label">Величина оплаты</string>

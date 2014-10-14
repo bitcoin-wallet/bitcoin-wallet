@@ -56,8 +56,6 @@
   <string name="send_coins_fragment_receiving_address_label">Paga a</string>
   <string name="send_coins_fragment_receiving_address_hint">inserisci indirizzo o nome</string>
   <string name="send_coins_fragment_receiving_address_error">Indirizzo Bitcoin errato!</string>
-  <string name="send_coins_fragment_receiving_address_error_cross_network">Non puoi usare l\'indirizzo %s con questo portafoglio!</string>
-  <string name="send_coins_fragment_receiving_address_error_cross_network_unknown">Non puoi usare l\'indirizzo di una rete sconosciuta con questo portafoglio!</string>
   <string name="send_coins_fragment_receiving_address_complex">completo\nindirizzo</string>
   <string name="send_coins_fragment_pending">(%s in attesa di conferma)</string>
   <string name="send_coins_fragment_amount_label">Importo da pagare</string>

@@ -56,8 +56,6 @@
   <string name="send_coins_fragment_receiving_address_label">Оплатити</string>
   <string name="send_coins_fragment_receiving_address_hint">введіть адресу чи ім\'я</string>
   <string name="send_coins_fragment_receiving_address_error">Неправильна Bitcoin адреса!</string>
-  <string name="send_coins_fragment_receiving_address_error_cross_network">Неможливо використовувати адресу %s з цим гаманцем!</string>
-  <string name="send_coins_fragment_receiving_address_error_cross_network_unknown">Неможливо використовувати адресу невідомої мережі з цим гаманцем</string>
   <string name="send_coins_fragment_receiving_address_complex">коплекс\nадресу</string>
   <string name="send_coins_fragment_pending">(%s очікування підтвердження) </string>
   <string name="send_coins_fragment_amount_label">Сума платежу</string>

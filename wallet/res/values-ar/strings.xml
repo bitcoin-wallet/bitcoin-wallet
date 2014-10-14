@@ -53,8 +53,6 @@
 	<string name="send_coins_fragment_receiving_address_label">إدفع إلى</string>
 	<string name="send_coins_fragment_receiving_address_hint">أكتب العنوان أو الاسم</string>
 	<string name="send_coins_fragment_receiving_address_error">عنوان بيتكوين غير صحيح!</string>
-	<string name="send_coins_fragment_receiving_address_error_cross_network">لا يمكنك استخدام عنوان  %s مع هذه المحفظة!</string>
-	<string name="send_coins_fragment_receiving_address_error_cross_network_unknown">لا يمكنك استخدام عنوان من شبكة مجهولة مع هذه المحفظة!</string>
 	<string name="send_coins_fragment_receiving_address_complex">مركب\nعنوان</string>
 	<string name="send_coins_fragment_pending">(جاري تأكيد مبلغ %s)</string>
 	<string name="send_coins_fragment_amount_label">المبلغ المطلوب دفعه</string>

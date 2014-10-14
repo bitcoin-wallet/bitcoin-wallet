@@ -56,8 +56,6 @@
   <string name="send_coins_fragment_receiving_address_label">받는 곳</string>
   <string name="send_coins_fragment_receiving_address_hint">주소 또는 주소의 이름을 입력하세요</string>
   <string name="send_coins_fragment_receiving_address_error">유효하지 않은 비트코인 주소입니다.</string>
-  <string name="send_coins_fragment_receiving_address_error_cross_network">전자지갑에서 %s 주소를 사용할 수 없습니다.</string>
-  <string name="send_coins_fragment_receiving_address_error_cross_network_unknown">이 지갑 주소는 알려지지 않은 네트워크에서 생성되었기 때문에 사용할 수 없습니다.</string>
   <string name="send_coins_fragment_receiving_address_complex">이해할 수 없는\n주소</string>
   <string name="send_coins_fragment_pending">(승인을 위해 기다는 중 : %s)</string>
   <string name="send_coins_fragment_amount_label">송금액</string>

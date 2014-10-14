@@ -48,8 +48,6 @@
 	<string name="send_coins_fragment_receiving_address_label">Pagu al</string>
 	<string name="send_coins_fragment_receiving_address_hint">tajpu adreson aŭ nomon</string>
 	<string name="send_coins_fragment_receiving_address_error">Malvalida Bitmonadreso!</string>
-	<string name="send_coins_fragment_receiving_address_error_cross_network">Ne eblas uzi %s adreson kun ĉi tiu monujo!</string>
-	<string name="send_coins_fragment_receiving_address_error_cross_network_unknown">Ne eblas uzi adreson de nekonata reto kun ĉi tiu monujo!</string>
 	<string name="send_coins_fragment_pending">(%s atendadi konfirmon)</string>
 	<string name="send_coins_fragment_amount_label">Kvanto pagi</string>
 	<string name="send_coins_fragment_button_send">Sendu</string>

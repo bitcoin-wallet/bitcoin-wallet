@@ -56,8 +56,6 @@
   <string name="send_coins_fragment_receiving_address_label">Şuna öde</string>
   <string name="send_coins_fragment_receiving_address_hint">adını veya adresini giriniz</string>
   <string name="send_coins_fragment_receiving_address_error">Geçersiz Bitcoin adresi!</string>
-  <string name="send_coins_fragment_receiving_address_error_cross_network">%s adresi bu cüzdanla kullanılamaz!</string>
-  <string name="send_coins_fragment_receiving_address_error_cross_network_unknown">Bilinmeyen bir şebekenin adresi bu cüzdanla kullanılamaz!</string>
   <string name="send_coins_fragment_receiving_address_complex">karmaşık\nadres</string>
   <string name="send_coins_fragment_pending">(%s teyit bekliyor)</string>
   <string name="send_coins_fragment_amount_label">Ödenecek miktar</string>
