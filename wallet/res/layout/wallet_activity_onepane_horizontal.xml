@@ -15,7 +15,8 @@
 			android:id="@+id/wallet_address_fragment"
 			android:name="de.schildbach.wallet.ui.WalletAddressFragment"
 			android:layout_width="wrap_content"
-			android:layout_height="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_gravity="top"
 			android:layout_margin="12dp" />
 
 		<FrameLayout
