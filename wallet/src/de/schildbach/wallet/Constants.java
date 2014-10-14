@@ -69,7 +69,7 @@ public final class Constants
 	}
 
 	/** Maximum size of backups. Files larger will be rejected. */
-	public static final long BACKUP_MAX_CHARS = 5000000;
+	public static final long BACKUP_MAX_CHARS = 10000000;
 
 	private static final String EXPLORE_BASE_URL_PROD = "https://www.biteasy.com/";
 	private static final String EXPLORE_BASE_URL_TEST = "https://www.biteasy.com/testnet/";
