@@ -32,16 +32,19 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.nfc.NfcManager;
 import android.os.Bundle;
+import android.text.Spanned;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.util.BitmapFragment;
 import de.schildbach.wallet.util.Nfc;
 import de.schildbach.wallet.util.Qr;
 import de.schildbach.wallet.util.ThrottlingWalletChangeListener;
+import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
 
 /**
@@ -59,6 +62,7 @@ public final class WalletAddressFragment extends Fragment
 	private Address lastSelectedAddress;
 
 	private Bitmap qrCodeBitmap;
+	private Spanned qrCodeLabel;
 
 	private static final Logger log = LoggerFactory.getLogger(WalletAddressFragment.class);
 
@@ -125,13 +129,15 @@ public final class WalletAddressFragment extends Fragment
 			qrCodeBitmap = Qr.bitmap(addressStr, size);
 			bitcoinAddressQrView.setImageBitmap(qrCodeBitmap);
 
+			qrCodeLabel = WalletUtils.formatAddress(address, Constants.ADDRESS_FORMAT_GROUP_SIZE, Constants.ADDRESS_FORMAT_LINE_SIZE);
+
 			Nfc.publishUri(nfcManager, activity, addressStr);
 		}
 	}
 
 	private void handleShowQRCode()
 	{
-		BitmapFragment.show(getFragmentManager(), qrCodeBitmap);
+		BitmapFragment.show(getFragmentManager(), qrCodeBitmap, qrCodeLabel);
 	}
 
 	private final ThrottlingWalletChangeListener walletChangeListener = new ThrottlingWalletChangeListener()
