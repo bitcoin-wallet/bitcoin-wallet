@@ -1013,7 +1013,7 @@ public final class SendCoinsFragment extends Fragment
 				updateView();
 
 				final DialogBuilder dialog = DialogBuilder.warn(activity, R.string.send_coins_fragment_empty_wallet_failed_title);
-				dialog.setMessage(R.string.send_coins_fragment_empty_wallet_failed_msg);
+				dialog.setMessage(R.string.send_coins_fragment_hint_empty_wallet_failed);
 				dialog.setNeutralButton(R.string.button_dismiss, null);
 				dialog.show();
 			}

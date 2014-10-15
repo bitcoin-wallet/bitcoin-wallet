@@ -74,7 +74,6 @@
   <string name="send_coins_fragment_insufficient_money_msg1">Manca %s.</string>
   <string name="send_coins_fragment_insufficient_money_msg2">Vuoi pagare con tutto quello che hai?</string>
   <string name="send_coins_fragment_empty_wallet_failed_title">Svuotamento del portafoglio fallito</string>
-  <string name="send_coins_fragment_empty_wallet_failed_msg">La quantità di piccoli pagamenti nel vostro portamonete non è abbastanza per essere un valore inviabile.</string>
   <string name="send_coins_preparation_msg">Sottoscrittura…</string>
   <string name="send_coins_sending_msg">Invio in corso…</string>
   <string name="send_coins_sent_msg">Inviato!</string>

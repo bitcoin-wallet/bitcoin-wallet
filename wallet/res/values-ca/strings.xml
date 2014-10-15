@@ -74,7 +74,6 @@
   <string name="send_coins_fragment_insufficient_money_msg1">Et falten %s.</string>
   <string name="send_coins_fragment_insufficient_money_msg2">Vols pagar amb tot el que tens?</string>
   <string name="send_coins_fragment_empty_wallet_failed_title">Fallada en el buidament de la cartera.</string>
-  <string name="send_coins_fragment_empty_wallet_failed_msg">L\'import dels petits pagaments de la teva cartera no es sumen a la quantitat que es pot enviar.</string>
   <string name="send_coins_preparation_msg">Signant…</string>
   <string name="send_coins_sending_msg">Enviant…</string>
   <string name="send_coins_sent_msg">Enviat!</string>

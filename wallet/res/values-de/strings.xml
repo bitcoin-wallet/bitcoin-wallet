@@ -69,7 +69,7 @@
 	<string name="send_coins_fragment_hint_fee">Eine geringe Netzwerk-Gebühr von %s wird gezahlt.</string>
 	<string name="send_coins_fragment_hint_dusty_send">Der Betrag ist zu klein zum Senden.</string>
 	<string name="send_coins_fragment_hint_insufficient_money">Nicht genug verfügbare Bitcoins. Dir fehlen %s.</string>
-	<string name="send_coins_fragment_hint_empty_wallet_failed">Der Summe an winzigen Zahlungen in deiner Wallet ist zu klein, um verschickt zu werden.</string>
+	<string name="send_coins_fragment_hint_empty_wallet_failed">Die Summe an winzigen Zahlungen in deiner Wallet ist zu klein, um verschickt zu werden.</string>
 	<string name="send_coins_fragment_direct_payment_enable">Zahlung auch direkt senden</string>
 	<string name="send_coins_fragment_direct_payment_ack">Die Zahlung wurde erfolgreich direkt gesendet.</string>
 	<string name="send_coins_fragment_direct_payment_nack">Die Zahlung wurde über die direkte Verbindung abgelehnt.</string>
@@ -81,7 +81,6 @@
 	<string name="send_coins_fragment_insufficient_money_msg1">Dir fehlen %s.</string>
 	<string name="send_coins_fragment_insufficient_money_msg2">Möchtest du mit allem zahlen was du hast?</string>
 	<string name="send_coins_fragment_empty_wallet_failed_title">Entleerung der Wallet fehlgeschlagen</string>
-	<string name="send_coins_fragment_empty_wallet_failed_msg">Der Summe an winzigen Zahlungen in deiner Wallet ist zu klein, um verschickt zu werden.</string>
 	<string name="send_coins_preparation_msg">Signierung…</string>
 	<string name="send_coins_sending_msg">Versenden…</string>
 	<string name="send_coins_sent_msg">Versendet!</string>

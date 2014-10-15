@@ -74,7 +74,6 @@
   <string name="send_coins_fragment_insufficient_money_msg1">Du mangler %s.</string>
   <string name="send_coins_fragment_insufficient_money_msg2">Vil du betale alt hva du har?</string>
   <string name="send_coins_fragment_empty_wallet_failed_title">Tømming av lommebok mislyktes</string>
-  <string name="send_coins_fragment_empty_wallet_failed_msg">Summen av små betalinger i lommeboken er ikke en verdi som kan sendes.</string>
   <string name="send_coins_preparation_msg">Signerer…</string>
   <string name="send_coins_sending_msg">Sender…</string>
   <string name="send_coins_sent_msg">Sendt!</string>

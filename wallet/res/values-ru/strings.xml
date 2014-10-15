@@ -74,7 +74,6 @@
   <string name="send_coins_fragment_insufficient_money_msg1">Вы упускаете %s.</string>
   <string name="send_coins_fragment_insufficient_money_msg2">Вы хотите оплатить всем, что у вас есть?</string>
   <string name="send_coins_fragment_empty_wallet_failed_title">Не удалось очистить кошелек</string>
-  <string name="send_coins_fragment_empty_wallet_failed_msg">Содержимое кошелька не удалось собрать в сумму, которую можно отправить.</string>
   <string name="send_coins_preparation_msg">Подписываю…</string>
   <string name="send_coins_sending_msg">Отправка…</string>
   <string name="send_coins_sent_msg">Отправлено!</string>

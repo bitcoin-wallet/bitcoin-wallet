@@ -74,7 +74,6 @@
   <string name="send_coins_fragment_insufficient_money_msg1">Du mangler %s.</string>
   <string name="send_coins_fragment_insufficient_money_msg2">Vil du betale alt hvad du har?</string>
   <string name="send_coins_fragment_empty_wallet_failed_title">Tømning af tegnebog mislykkedes</string>
-  <string name="send_coins_fragment_empty_wallet_failed_msg">Det samlede beløb for bittesmå betalinger i din tegnebog er ikke nok til at være et beløb, der kan sendes.</string>
   <string name="send_coins_preparation_msg">Signerer …</string>
   <string name="send_coins_sending_msg">Sender …</string>
   <string name="send_coins_sent_msg">Sendt!</string>
