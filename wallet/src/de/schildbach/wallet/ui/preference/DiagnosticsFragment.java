@@ -158,7 +158,8 @@ public final class DiagnosticsFragment extends PreferenceFragment
 	private void handleExtendedPublicKey()
 	{
 		final DeterministicKey extendedKey = application.getWallet().getWatchingKey();
-		final String xpub = String.format(Locale.US, "%s?c=%d&h=bip32", extendedKey.serializePubB58(), extendedKey.getCreationTimeSeconds());
+		final String xpub = String.format(Locale.US, "%s?c=%d&h=bip32", extendedKey.serializePubB58(Constants.NETWORK_PARAMETERS),
+				extendedKey.getCreationTimeSeconds());
 		ExtendedPublicKeyFragment.show(getFragmentManager(), (CharSequence) xpub);
 	}
 }

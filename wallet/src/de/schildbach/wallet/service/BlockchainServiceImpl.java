@@ -41,6 +41,7 @@ import org.bitcoinj.core.Block;
 import org.bitcoinj.core.BlockChain;
 import org.bitcoinj.core.CheckpointManager;
 import org.bitcoinj.core.Coin;
+import org.bitcoinj.core.FilteredBlock;
 import org.bitcoinj.core.Peer;
 import org.bitcoinj.core.PeerEventListener;
 import org.bitcoinj.core.PeerGroup;
@@ -297,7 +298,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 		private final AtomicLong lastMessageTime = new AtomicLong(0);
 
 		@Override
-		public void onBlocksDownloaded(final Peer peer, final Block block, final int blocksLeft)
+		public void onBlocksDownloaded(final Peer peer, final Block block, final FilteredBlock filteredBlock, final int blocksLeft)
 		{
 			config.maybeIncrementBestChainHeightEver(blockChain.getChainHead().getHeight());
 

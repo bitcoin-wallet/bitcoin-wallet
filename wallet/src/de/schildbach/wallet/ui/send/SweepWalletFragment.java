@@ -350,7 +350,7 @@ public class SweepWalletFragment extends Fragment
 	private final TransactionConfidence.Listener sentTransactionConfidenceListener = new TransactionConfidence.Listener()
 	{
 		@Override
-		public void onConfidenceChanged(final Transaction tx, final TransactionConfidence.Listener.ChangeReason reason)
+		public void onConfidenceChanged(final TransactionConfidence confidence, final TransactionConfidence.Listener.ChangeReason reason)
 		{
 			activity.runOnUiThread(new Runnable()
 			{
