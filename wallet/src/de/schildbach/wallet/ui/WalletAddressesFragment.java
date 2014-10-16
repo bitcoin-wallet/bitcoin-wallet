@@ -21,13 +21,12 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import org.bitcoinj.core.AbstractWalletEventListener;
 import org.bitcoinj.core.Address;
 import org.bitcoinj.core.ECKey;
-import org.bitcoinj.core.Wallet;
-import org.bitcoinj.core.WalletEventListener;
 import org.bitcoinj.uri.BitcoinURI;
 import org.bitcoinj.utils.Threading;
+import org.bitcoinj.wallet.Wallet;
+import org.bitcoinj.wallet.listeners.KeyChainEventListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -116,7 +115,7 @@ public final class WalletAddressesFragment extends FancyListFragment
 
 		contentResolver.registerContentObserver(AddressBookProvider.contentUri(activity.getPackageName()), true, contentObserver);
 
-		wallet.addEventListener(walletListener, Threading.SAME_THREAD);
+		wallet.addKeyChainEventListener(Threading.SAME_THREAD, walletListener);
 		walletListener.onKeysAdded(null); // trigger initial load of keys
 
 		updateView();
@@ -125,7 +124,7 @@ public final class WalletAddressesFragment extends FancyListFragment
 	@Override
 	public void onPause()
 	{
-		wallet.removeEventListener(walletListener);
+		wallet.removeKeyChainEventListener(walletListener);
 
 		contentResolver.unregisterContentObserver(contentObserver);
 
@@ -254,7 +253,7 @@ public final class WalletAddressesFragment extends FancyListFragment
 		}
 	};
 
-	private final WalletEventListener walletListener = new AbstractWalletEventListener()
+	private final KeyChainEventListener walletListener = new KeyChainEventListener()
 	{
 		@Override
 		public void onKeysAdded(final List<ECKey> keysAdded)
