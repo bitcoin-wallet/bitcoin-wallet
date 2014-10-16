@@ -282,7 +282,7 @@ public final class RequestCoinsFragment extends Fragment {
 
     private void restoreInstanceState(final Bundle savedInstanceState) {
         if (savedInstanceState.containsKey(KEY_RECEIVE_ADDRESS))
-            viewModel.freshReceiveAddress.setValue(Address.fromBase58(Constants.NETWORK_PARAMETERS,
+            viewModel.freshReceiveAddress.setValue(Address.fromString(Constants.NETWORK_PARAMETERS,
                     savedInstanceState.getString(KEY_RECEIVE_ADDRESS)));
     }
 

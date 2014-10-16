@@ -17,8 +17,8 @@
 
 package de.schildbach.wallet.ui.send;
 
+import org.bitcoinj.core.PrefixedChecksummedBytes;
 import org.bitcoinj.core.Transaction;
-import org.bitcoinj.core.VersionedChecksummedBytes;
 import org.bitcoinj.wallet.Wallet;
 
 import de.schildbach.wallet.WalletApplication;
@@ -44,7 +44,7 @@ public class SweepWalletViewModel extends AndroidViewModel {
     public final MutableLiveData<String> progress = new MutableLiveData<>();
 
     public State state = State.DECODE_KEY;
-    public @Nullable VersionedChecksummedBytes privateKeyToSweep = null;
+    public @Nullable PrefixedChecksummedBytes privateKeyToSweep = null;
     public @Nullable Wallet walletToSweep = null;
     public @Nullable Transaction sentTransaction = null;
 

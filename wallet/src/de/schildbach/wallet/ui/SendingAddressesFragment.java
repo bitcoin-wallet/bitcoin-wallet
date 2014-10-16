@@ -168,7 +168,7 @@ public final class SendingAddressesFragment extends FancyListFragment {
                             if (paymentIntent.hasAddress()) {
                                 final Wallet wallet = viewModel.wallet.getValue();
                                 final Address address = paymentIntent.getAddress();
-                                if (!wallet.isPubKeyHashMine(address.getHash160()))
+                                if (!wallet.isPubKeyHashMine(address.getHash()))
                                     viewModel.showEditAddressBookEntryDialog.setValue(new Event<>(address));
                                 else
                                     dialog(activity, null, R.string.address_book_options_scan_title,
@@ -236,7 +236,7 @@ public final class SendingAddressesFragment extends FancyListFragment {
             dialog.setMessage(R.string.address_book_options_paste_from_clipboard_invalid);
             dialog.singleDismissButton(null);
             dialog.show();
-        } else if (!wallet.isPubKeyHashMine(address.getHash160())) {
+        } else if (!wallet.isPubKeyHashMine(address.getHash())) {
             viewModel.showEditAddressBookEntryDialog.setValue(new Event<>(address));
         } else {
             final DialogBuilder dialog = new DialogBuilder(activity);
@@ -276,7 +276,7 @@ public final class SendingAddressesFragment extends FancyListFragment {
                     return true;
 
                 case R.id.sending_addresses_context_edit:
-                    final Address address = Address.fromBase58(Constants.NETWORK_PARAMETERS, getAddress(position));
+                    final Address address = Address.fromString(Constants.NETWORK_PARAMETERS, getAddress(position));
                     viewModel.showEditAddressBookEntryDialog.setValue(new Event<>(address));
 
                     mode.finish();
@@ -346,7 +346,7 @@ public final class SendingAddressesFragment extends FancyListFragment {
                 return null;
 
             try {
-                return Address.fromBase58(Constants.NETWORK_PARAMETERS, clipText.toString().trim());
+                return Address.fromString(Constants.NETWORK_PARAMETERS, clipText.toString().trim());
             } catch (final AddressFormatException x) {
                 return null;
             }

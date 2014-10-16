@@ -26,12 +26,12 @@ import java.io.OutputStream;
 
 import org.bitcoinj.core.Address;
 import org.bitcoinj.core.NetworkParameters;
-import org.bitcoinj.core.ScriptException;
 import org.bitcoinj.core.Sha256Hash;
 import org.bitcoinj.core.Transaction;
 import org.bitcoinj.core.TransactionInput;
 import org.bitcoinj.core.TransactionOutput;
 import org.bitcoinj.script.Script;
+import org.bitcoinj.script.ScriptException;
 import org.bitcoinj.wallet.Protos;
 import org.bitcoinj.wallet.UnreadableWalletException;
 import org.bitcoinj.wallet.Wallet;
@@ -59,12 +59,12 @@ public class WalletUtils {
     private static final Logger log = LoggerFactory.getLogger(WalletUtils.class);
 
     public static Spanned formatAddress(final Address address, final int groupSize, final int lineSize) {
-        return formatHash(address.toBase58(), groupSize, lineSize);
+        return formatHash(address.toString(), groupSize, lineSize);
     }
 
     public static Spanned formatAddress(@Nullable final String prefix, final Address address, final int groupSize,
             final int lineSize) {
-        return formatHash(prefix, address.toBase58(), groupSize, lineSize, Constants.CHAR_THIN_SPACE);
+        return formatHash(prefix, address.toString(), groupSize, lineSize, Constants.CHAR_THIN_SPACE);
     }
 
     public static Spanned formatHash(final String address, final int groupSize, final int lineSize) {

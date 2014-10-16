@@ -227,7 +227,7 @@ public class BlockListAdapter extends ListAdapter<BlockListAdapter.ListItem, Blo
 
         // address
         final TextView rowAddress = (TextView) row.findViewById(R.id.block_row_transaction_address);
-        rowAddress.setText(tx.label != null ? tx.label : tx.address.toBase58());
+        rowAddress.setText(tx.label != null ? tx.label : tx.address.toString());
         rowAddress.setTypeface(tx.label != null ? Typeface.DEFAULT : Typeface.MONOSPACE);
 
         // value

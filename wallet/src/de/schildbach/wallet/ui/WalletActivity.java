@@ -17,9 +17,9 @@
 
 package de.schildbach.wallet.ui;
 
+import org.bitcoinj.core.PrefixedChecksummedBytes;
 import org.bitcoinj.core.Transaction;
 import org.bitcoinj.core.VerificationException;
-import org.bitcoinj.core.VersionedChecksummedBytes;
 
 import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
@@ -342,7 +342,7 @@ public final class WalletActivity extends AbstractWalletActivity {
                     }
 
                     @Override
-                    protected void handlePrivateKey(final VersionedChecksummedBytes key) {
+                    protected void handlePrivateKey(final PrefixedChecksummedBytes key) {
                         if (Constants.ENABLE_SWEEP_WALLET)
                             SweepWalletActivity.start(WalletActivity.this, key);
                         else

@@ -1,6 +1,10 @@
 apply plugin: 'com.android.application'
 apply plugin: 'androidsvgdrawable'
 
+repositories {
+    mavenLocal()
+}
+
 configurations {
     all*.exclude group: 'com.google.android', module: 'android'
     all*.exclude group: 'androidx.legacy', module: 'legacy-support-core-ui'
@@ -21,7 +25,7 @@ dependencies {
     compile "androidx.sqlite:sqlite:2.0.0"
     compile "androidx.room:room-runtime:2.0.0"
     annotationProcessor "androidx.room:room-compiler:2.0.0"
-    compile 'org.bitcoinj:bitcoinj-core:0.14.7'
+    compile 'org.bitcoinj:bitcoinj-core:0.15'
     compile 'com.google.protobuf:protobuf-java:3.6.1'
     compile 'com.google.guava:guava:25.1-android'
     compile 'com.google.zxing:core:3.3.3'

@@ -21,10 +21,10 @@ import java.util.List;
 import java.util.Set;
 
 import org.bitcoinj.core.Address;
-import org.bitcoinj.core.ScriptException;
 import org.bitcoinj.core.Sha256Hash;
 import org.bitcoinj.core.Transaction;
 import org.bitcoinj.core.Transaction.Purpose;
+import org.bitcoinj.script.ScriptException;
 import org.bitcoinj.wallet.Wallet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -280,8 +280,8 @@ public class WalletTransactionsFragment extends Fragment implements Transactions
                 .findItem(R.id.wallet_transactions_context_edit_address);
         if (!txRotation && txAddress != null) {
             editAddressMenuItem.setVisible(true);
-            final boolean isAdd = addressBookDao.resolveLabel(txAddress.toBase58()) == null;
-            final boolean isOwn = wallet.isPubKeyHashMine(txAddress.getHash160());
+            final boolean isAdd = addressBookDao.resolveLabel(txAddress.toString()) == null;
+            final boolean isOwn = wallet.isPubKeyHashMine(txAddress.getHash());
 
             if (isOwn)
                 editAddressMenuItem.setTitle(isAdd ? R.string.edit_address_book_entry_dialog_title_add_receive

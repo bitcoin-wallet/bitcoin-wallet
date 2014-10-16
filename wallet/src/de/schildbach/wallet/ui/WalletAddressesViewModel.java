@@ -24,6 +24,7 @@ import java.util.List;
 
 import org.bitcoinj.core.Address;
 import org.bitcoinj.core.ECKey;
+import org.bitcoinj.core.LegacyAddress;
 import org.bitcoinj.utils.Threading;
 import org.bitcoinj.wallet.Wallet;
 import org.bitcoinj.wallet.listeners.KeyChainEventListener;
@@ -142,7 +143,7 @@ public class WalletAddressesViewModel extends AndroidViewModel {
                     });
                     final List<Address> importedAddresses = new ArrayList<>();
                     for (final ECKey key : importedKeys)
-                        importedAddresses.add(key.toAddress(Constants.NETWORK_PARAMETERS));
+                        importedAddresses.add(LegacyAddress.fromKey(Constants.NETWORK_PARAMETERS, key));
                     postValue(importedAddresses);
                 }
             });

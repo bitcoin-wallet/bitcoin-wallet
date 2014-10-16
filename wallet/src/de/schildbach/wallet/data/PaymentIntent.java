@@ -24,12 +24,13 @@ import java.util.Arrays;
 import org.bitcoinj.core.Address;
 import org.bitcoinj.core.AddressFormatException;
 import org.bitcoinj.core.Coin;
-import org.bitcoinj.core.ScriptException;
 import org.bitcoinj.core.Transaction;
 import org.bitcoinj.protocols.payments.PaymentProtocol;
 import org.bitcoinj.protocols.payments.PaymentProtocolException;
 import org.bitcoinj.script.Script;
 import org.bitcoinj.script.ScriptBuilder;
+import org.bitcoinj.script.ScriptException;
+import org.bitcoinj.script.ScriptPattern;
 import org.bitcoinj.uri.BitcoinURI;
 import org.bitcoinj.wallet.SendRequest;
 import org.slf4j.Logger;
@@ -88,7 +89,7 @@ public final class PaymentIntent implements Parcelable {
             if (script.isSentToAddress() || script.isPayToScriptHash())
                 builder.append(script.getToAddress(Constants.NETWORK_PARAMETERS));
             else if (script.isSentToRawPubKey())
-                builder.append(Constants.HEX.encode(script.getPubKey()));
+                builder.append(Constants.HEX.encode(ScriptPattern.extractKeyFromP2PK(script)));
             else if (script.isSentToMultiSig())
                 builder.append("multisig");
             else
@@ -192,13 +193,13 @@ public final class PaymentIntent implements Parcelable {
 
     public static PaymentIntent fromAddress(final String address, @Nullable final String addressLabel)
             throws AddressFormatException {
-        return new PaymentIntent(Address.fromBase58(Constants.NETWORK_PARAMETERS, address), addressLabel);
+        return new PaymentIntent(Address.fromString(Constants.NETWORK_PARAMETERS, address), addressLabel);
     }
 
     public static PaymentIntent from(final String address, @Nullable final String addressLabel,
             @Nullable final Coin amount) throws AddressFormatException {
         return new PaymentIntent(null, null, null,
-                buildSimplePayTo(amount, Address.fromBase58(Constants.NETWORK_PARAMETERS, address)), addressLabel, null,
+                buildSimplePayTo(amount, Address.fromString(Constants.NETWORK_PARAMETERS, address)), addressLabel, null,
                 null, null, null);
     }
 

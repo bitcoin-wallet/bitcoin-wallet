@@ -24,6 +24,7 @@ import java.util.Set;
 
 import org.bitcoinj.core.Address;
 import org.bitcoinj.core.ECKey;
+import org.bitcoinj.core.LegacyAddress;
 import org.bitcoinj.crypto.DeterministicKey;
 import org.bitcoinj.wallet.Wallet;
 
@@ -87,7 +88,7 @@ public class SendingAddressesViewModel extends AndroidViewModel {
 
                     final Set<String> addresses = new HashSet<>(derivedKeys.size() + randomKeys.size());
                     for (final ECKey key : Iterables.concat(derivedKeys, randomKeys))
-                        addresses.add(key.toAddress(Constants.NETWORK_PARAMETERS).toBase58());
+                        addresses.add(LegacyAddress.fromKey(Constants.NETWORK_PARAMETERS, key).toString());
                     postValue(addresses);
                 }
             });

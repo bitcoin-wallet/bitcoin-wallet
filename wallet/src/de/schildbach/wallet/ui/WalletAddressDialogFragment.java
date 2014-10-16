@@ -60,7 +60,7 @@ public class WalletAddressDialogFragment extends DialogFragment {
         final WalletAddressDialogFragment fragment = new WalletAddressDialogFragment();
 
         final Bundle args = new Bundle();
-        args.putString(KEY_ADDRESS, address.toBase58());
+        args.putString(KEY_ADDRESS, address.toString());
         if (addressLabel != null)
             args.putString(KEY_ADDRESS_LABEL, addressLabel);
         fragment.setArguments(args);
@@ -85,8 +85,8 @@ public class WalletAddressDialogFragment extends DialogFragment {
     @Override
     public Dialog onCreateDialog(final Bundle savedInstanceState) {
         final Bundle args = getArguments();
-        final Address address = Address.fromBase58(Constants.NETWORK_PARAMETERS, args.getString(KEY_ADDRESS));
-        final String addressStr = address.toBase58();
+        final Address address = Address.fromString(Constants.NETWORK_PARAMETERS, args.getString(KEY_ADDRESS));
+        final String addressStr = address.toString();
         final String addressLabel = args.getString(KEY_ADDRESS_LABEL);
 
         final Dialog dialog = new Dialog(activity);

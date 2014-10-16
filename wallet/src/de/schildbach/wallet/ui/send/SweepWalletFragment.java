@@ -29,6 +29,7 @@ import org.bitcoinj.core.Coin;
 import org.bitcoinj.core.DumpedPrivateKey;
 import org.bitcoinj.core.ECKey;
 import org.bitcoinj.core.NetworkParameters;
+import org.bitcoinj.core.PrefixedChecksummedBytes;
 import org.bitcoinj.core.Sha256Hash;
 import org.bitcoinj.core.Transaction;
 import org.bitcoinj.core.TransactionConfidence;
@@ -38,10 +39,8 @@ import org.bitcoinj.core.TransactionOutPoint;
 import org.bitcoinj.core.TransactionOutput;
 import org.bitcoinj.core.UTXO;
 import org.bitcoinj.core.VerificationException;
-import org.bitcoinj.core.VersionedChecksummedBytes;
 import org.bitcoinj.crypto.BIP38PrivateKey;
 import org.bitcoinj.utils.MonetaryFormat;
-import org.bitcoinj.wallet.KeyChainGroup;
 import org.bitcoinj.wallet.SendRequest;
 import org.bitcoinj.wallet.Wallet;
 import org.bitcoinj.wallet.Wallet.BalanceType;
@@ -160,7 +159,7 @@ public class SweepWalletFragment extends Fragment {
             final Intent intent = activity.getIntent();
 
             if (intent.hasExtra(SweepWalletActivity.INTENT_EXTRA_KEY)) {
-                viewModel.privateKeyToSweep = (VersionedChecksummedBytes) intent
+                viewModel.privateKeyToSweep = (PrefixedChecksummedBytes) intent
                         .getSerializableExtra(SweepWalletActivity.INTENT_EXTRA_KEY);
 
                 // delay until fragment is resumed
@@ -229,7 +228,7 @@ public class SweepWalletFragment extends Fragment {
 
                 new StringInputParser(input) {
                     @Override
-                    protected void handlePrivateKey(final VersionedChecksummedBytes key) {
+                    protected void handlePrivateKey(final PrefixedChecksummedBytes key) {
                         viewModel.privateKeyToSweep = key;
                         setState(SweepWalletViewModel.State.DECODE_KEY);
                         maybeDecodeKey();
@@ -380,10 +379,8 @@ public class SweepWalletFragment extends Fragment {
     }
 
     private void askConfirmSweep(final ECKey key) {
-        // create non-HD wallet
-        final KeyChainGroup group = new KeyChainGroup(Constants.NETWORK_PARAMETERS);
-        group.importKeys(key);
-        viewModel.walletToSweep = new Wallet(Constants.NETWORK_PARAMETERS, group);
+        viewModel.walletToSweep = Wallet.createBasic(Constants.NETWORK_PARAMETERS);
+        viewModel.walletToSweep.importKey(key);
 
         setState(SweepWalletViewModel.State.CONFIRM_SWEEP);
 

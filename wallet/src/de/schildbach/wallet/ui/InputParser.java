@@ -31,11 +31,11 @@ import org.bitcoin.protocols.payments.Protos;
 import org.bitcoinj.core.Address;
 import org.bitcoinj.core.AddressFormatException;
 import org.bitcoinj.core.DumpedPrivateKey;
+import org.bitcoinj.core.LegacyAddress;
+import org.bitcoinj.core.PrefixedChecksummedBytes;
 import org.bitcoinj.core.ProtocolException;
 import org.bitcoinj.core.Transaction;
 import org.bitcoinj.core.VerificationException;
-import org.bitcoinj.core.VersionedChecksummedBytes;
-import org.bitcoinj.core.WrongNetworkException;
 import org.bitcoinj.crypto.BIP38PrivateKey;
 import org.bitcoinj.crypto.TrustStoreLoader;
 import org.bitcoinj.protocols.payments.PaymentProtocol;
@@ -131,9 +131,9 @@ public abstract class InputParser {
                     } catch (final AddressFormatException x2) {
                         try {
                             handlePaymentIntent(PaymentIntent
-                                    .fromAddress(Address.fromBase58(Constants.NETWORK_PARAMETERS, input), null));
-                        } catch (WrongNetworkException x3) {
-                            log.info("detected address, but wrong network: " + x3.verCode, x3);
+                                    .fromAddress(Address.fromString(Constants.NETWORK_PARAMETERS, input), null));
+                        } catch (AddressFormatException.WrongNetwork x3) {
+                            log.info("detected address, but wrong network", x3);
                             error(R.string.input_parser_invalid_address);
                         } catch (AddressFormatException x3) {
                             cannotClassify(input);
@@ -143,9 +143,9 @@ public abstract class InputParser {
             }
         }
 
-        protected void handlePrivateKey(final VersionedChecksummedBytes key) {
-            final Address address = new Address(Constants.NETWORK_PARAMETERS,
-                    ((DumpedPrivateKey) key).getKey().getPubKeyHash());
+        protected void handlePrivateKey(final PrefixedChecksummedBytes key) {
+            final Address address = LegacyAddress.fromKey(Constants.NETWORK_PARAMETERS,
+                    ((DumpedPrivateKey) key).getKey());
 
             handlePaymentIntent(PaymentIntent.fromAddress(address, null));
         }

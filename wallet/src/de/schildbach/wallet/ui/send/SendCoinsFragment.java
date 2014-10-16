@@ -30,11 +30,11 @@ import org.bitcoinj.core.Address;
 import org.bitcoinj.core.AddressFormatException;
 import org.bitcoinj.core.Coin;
 import org.bitcoinj.core.InsufficientMoneyException;
+import org.bitcoinj.core.PrefixedChecksummedBytes;
 import org.bitcoinj.core.Transaction;
 import org.bitcoinj.core.TransactionConfidence;
 import org.bitcoinj.core.TransactionConfidence.ConfidenceType;
 import org.bitcoinj.core.VerificationException;
-import org.bitcoinj.core.VersionedChecksummedBytes;
 import org.bitcoinj.protocols.payments.PaymentProtocol;
 import org.bitcoinj.utils.MonetaryFormat;
 import org.bitcoinj.wallet.KeyChain.KeyPurpose;
@@ -43,9 +43,9 @@ import org.bitcoinj.wallet.Wallet;
 import org.bitcoinj.wallet.Wallet.BalanceType;
 import org.bitcoinj.wallet.Wallet.CouldNotAdjustDownwards;
 import org.bitcoinj.wallet.Wallet.DustySendRequested;
+import org.bouncycastle.crypto.params.KeyParameter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.spongycastle.crypto.params.KeyParameter;
 
 import com.google.common.base.Joiner;
 
@@ -676,10 +676,11 @@ public final class SendCoinsFragment extends Fragment {
     private void validateReceivingAddress() {
         try {
             final String addressStr = receivingAddressView.getText().toString().trim();
-            if (!addressStr.isEmpty()
-                    && Constants.NETWORK_PARAMETERS.equals(Address.getParametersFromAddress(addressStr))) {
-                final String label = addressBookDao.resolveLabel(addressStr);
-                viewModel.validatedAddress = new AddressAndLabel(Constants.NETWORK_PARAMETERS, addressStr, label);
+            if (!addressStr.isEmpty()) {
+                final Address address = Address.fromString(Constants.NETWORK_PARAMETERS, addressStr);
+                final String label = addressBookDao.resolveLabel(address.toString());
+                viewModel.validatedAddress = new AddressAndLabel(Constants.NETWORK_PARAMETERS, address.toString(),
+                        label);
                 receivingAddressView.setText(null);
                 log.info("Locked to valid address: {}", viewModel.validatedAddress);
             }
@@ -1049,7 +1050,7 @@ public final class SendCoinsFragment extends Fragment {
                 receivingStaticAddressView.setText(WalletUtils.formatAddress(viewModel.validatedAddress.address,
                         Constants.ADDRESS_FORMAT_GROUP_SIZE, Constants.ADDRESS_FORMAT_LINE_SIZE));
                 final String addressBookLabel = addressBookDao
-                        .resolveLabel(viewModel.validatedAddress.address.toBase58());
+                        .resolveLabel(viewModel.validatedAddress.address.toString());
                 final String staticLabel;
                 if (addressBookLabel != null)
                     staticLabel = addressBookLabel;
@@ -1128,7 +1129,7 @@ public final class SendCoinsFragment extends Fragment {
                     hintView.setTextColor(getResources().getColor(colorResId));
                     hintView.setText(getString(hintResId, btcFormat.format(viewModel.dryrunTransaction.getFee())));
                 } else if (viewModel.paymentIntent.mayEditAddress() && viewModel.validatedAddress != null
-                        && wallet != null && wallet.isPubKeyHashMine(viewModel.validatedAddress.address.getHash160())) {
+                        && wallet != null && wallet.isPubKeyHashMine(viewModel.validatedAddress.address.getHash())) {
                     hintView.setTextColor(getResources().getColor(R.color.fg_insignificant));
                     hintView.setVisibility(View.VISIBLE);
                     hintView.setText(R.string.send_coins_fragment_receiving_address_own);
@@ -1227,7 +1228,7 @@ public final class SendCoinsFragment extends Fragment {
             }
 
             @Override
-            protected void handlePrivateKey(final VersionedChecksummedBytes key) {
+            protected void handlePrivateKey(final PrefixedChecksummedBytes key) {
                 throw new UnsupportedOperationException();
             }
 

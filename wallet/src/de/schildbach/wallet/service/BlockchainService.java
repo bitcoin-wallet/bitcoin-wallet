@@ -274,7 +274,7 @@ public class BlockchainService extends LifecycleService {
             for (final Address notificationAddress : notificationAddresses) {
                 if (text.length() > 0)
                     text.append(", ");
-                final String addressStr = notificationAddress.toBase58();
+                final String addressStr = notificationAddress.toString();
                 final String label = addressBookDao.resolveLabel(addressStr);
                 text.append(label != null ? label : addressStr);
             }
@@ -295,7 +295,7 @@ public class BlockchainService extends LifecycleService {
         childNotification.setTicker(msg);
         childNotification.setContentTitle(msg);
         if (address != null) {
-            final String addressStr = address.toBase58();
+            final String addressStr = address.toString();
             final String addressLabel = addressBookDao.resolveLabel(addressStr);
             if (addressLabel != null)
                 childNotification.setContentText(addressLabel);

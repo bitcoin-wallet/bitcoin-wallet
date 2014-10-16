@@ -65,7 +65,7 @@ public final class EditAddressBookEntryFragment extends DialogFragment {
         final EditAddressBookEntryFragment fragment = new EditAddressBookEntryFragment();
 
         final Bundle args = new Bundle();
-        args.putString(KEY_ADDRESS, address.toBase58());
+        args.putString(KEY_ADDRESS, address.toString());
         args.putString(KEY_SUGGESTED_ADDRESS_LABEL, suggestedAddressLabel);
         fragment.setArguments(args);
 
@@ -96,15 +96,15 @@ public final class EditAddressBookEntryFragment extends DialogFragment {
     @Override
     public Dialog onCreateDialog(final Bundle savedInstanceState) {
         final Bundle args = getArguments();
-        final Address address = Address.fromBase58(Constants.NETWORK_PARAMETERS, args.getString(KEY_ADDRESS));
+        final Address address = Address.fromString(Constants.NETWORK_PARAMETERS, args.getString(KEY_ADDRESS));
         final String suggestedAddressLabel = args.getString(KEY_SUGGESTED_ADDRESS_LABEL);
 
         final LayoutInflater inflater = LayoutInflater.from(activity);
 
-        final String label = addressBookDao.resolveLabel(address.toBase58());
+        final String label = addressBookDao.resolveLabel(address.toString());
 
         final boolean isAdd = label == null;
-        final boolean isOwn = wallet.isPubKeyHashMine(address.getHash160());
+        final boolean isOwn = wallet.isPubKeyHashMine(address.getHash());
 
         final DialogBuilder dialog = new DialogBuilder(activity);
 
@@ -132,11 +132,11 @@ public final class EditAddressBookEntryFragment extends DialogFragment {
                 if (which == DialogInterface.BUTTON_POSITIVE) {
                     final String newLabel = viewLabel.getText().toString().trim();
                     if (!newLabel.isEmpty())
-                        addressBookDao.insertOrUpdate(new AddressBookEntry(address.toBase58(), newLabel));
+                        addressBookDao.insertOrUpdate(new AddressBookEntry(address.toString(), newLabel));
                     else if (!isAdd)
-                        addressBookDao.delete(address.toBase58());
+                        addressBookDao.delete(address.toString());
                 } else if (which == DialogInterface.BUTTON_NEUTRAL) {
-                    addressBookDao.delete(address.toBase58());
+                    addressBookDao.delete(address.toString());
                 }
 
                 dismiss();
