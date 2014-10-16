@@ -23,8 +23,8 @@ import java.util.List;
 
 import org.bitcoinj.core.Address;
 import org.bitcoinj.core.ECKey;
-import org.bitcoinj.core.Wallet;
 import org.bitcoinj.crypto.DeterministicKey;
+import org.bitcoinj.wallet.Wallet;
 
 import android.app.Fragment;
 import android.app.FragmentManager;

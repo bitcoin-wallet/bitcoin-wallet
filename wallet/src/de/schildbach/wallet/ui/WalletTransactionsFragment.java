@@ -31,8 +31,8 @@ import org.bitcoinj.core.Address;
 import org.bitcoinj.core.Transaction;
 import org.bitcoinj.core.Transaction.Purpose;
 import org.bitcoinj.core.TransactionConfidence.ConfidenceType;
-import org.bitcoinj.core.Wallet;
 import org.bitcoinj.utils.Threading;
+import org.bitcoinj.wallet.Wallet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -207,7 +207,10 @@ public class WalletTransactionsFragment extends Fragment implements LoaderCallba
 		args.putSerializable(ARG_DIRECTION, direction);
 		loaderManager.initLoader(ID_TRANSACTION_LOADER, args, this);
 
-		wallet.addEventListener(transactionChangeListener, Threading.SAME_THREAD);
+		wallet.addCoinsReceivedEventListener(Threading.SAME_THREAD, transactionChangeListener);
+		wallet.addCoinsSentEventListener(Threading.SAME_THREAD, transactionChangeListener);
+		wallet.addChangeEventListener(Threading.SAME_THREAD, transactionChangeListener);
+		wallet.addTransactionConfidenceEventListener(Threading.SAME_THREAD, transactionChangeListener);
 
 		updateView();
 	}
@@ -215,7 +218,10 @@ public class WalletTransactionsFragment extends Fragment implements LoaderCallba
 	@Override
 	public void onPause()
 	{
-		wallet.removeEventListener(transactionChangeListener);
+		wallet.removeTransactionConfidenceEventListener(transactionChangeListener);
+		wallet.removeChangeEventListener(transactionChangeListener);
+		wallet.removeCoinsSentEventListener(transactionChangeListener);
+		wallet.removeCoinsReceivedEventListener(transactionChangeListener);
 		transactionChangeListener.removeCallbacks();
 
 		loaderManager.destroyLoader(ID_TRANSACTION_LOADER);
@@ -435,7 +441,9 @@ public class WalletTransactionsFragment extends Fragment implements LoaderCallba
 		{
 			super.onStartLoading();
 
-			wallet.addEventListener(transactionAddRemoveListener, Threading.SAME_THREAD);
+			wallet.addCoinsReceivedEventListener(Threading.SAME_THREAD, transactionAddRemoveListener);
+			wallet.addCoinsSentEventListener(Threading.SAME_THREAD, transactionAddRemoveListener);
+			wallet.addChangeEventListener(Threading.SAME_THREAD, transactionAddRemoveListener);
 			broadcastManager.registerReceiver(walletChangeReceiver, new IntentFilter(WalletApplication.ACTION_WALLET_REFERENCE_CHANGED));
 			transactionAddRemoveListener.onReorganize(null); // trigger at least one reload
 
@@ -446,7 +454,9 @@ public class WalletTransactionsFragment extends Fragment implements LoaderCallba
 		protected void onStopLoading()
 		{
 			broadcastManager.unregisterReceiver(walletChangeReceiver);
-			wallet.removeEventListener(transactionAddRemoveListener);
+			wallet.removeChangeEventListener(transactionAddRemoveListener);
+			wallet.removeCoinsSentEventListener(transactionAddRemoveListener);
+			wallet.removeCoinsReceivedEventListener(transactionAddRemoveListener);
 			transactionAddRemoveListener.removeCallbacks();
 
 			super.onStopLoading();
@@ -456,7 +466,9 @@ public class WalletTransactionsFragment extends Fragment implements LoaderCallba
 		protected void onReset()
 		{
 			broadcastManager.unregisterReceiver(walletChangeReceiver);
-			wallet.removeEventListener(transactionAddRemoveListener);
+			wallet.removeChangeEventListener(transactionAddRemoveListener);
+			wallet.removeCoinsSentEventListener(transactionAddRemoveListener);
+			wallet.removeCoinsReceivedEventListener(transactionAddRemoveListener);
 			transactionAddRemoveListener.removeCallbacks();
 
 			super.onReset();

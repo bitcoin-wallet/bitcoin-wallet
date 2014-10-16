@@ -17,7 +17,7 @@
 
 package de.schildbach.wallet.service;
 
-import org.bitcoinj.core.Wallet;
+import org.bitcoinj.wallet.Wallet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

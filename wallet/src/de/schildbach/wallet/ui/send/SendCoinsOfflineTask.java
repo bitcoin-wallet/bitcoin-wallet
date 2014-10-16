@@ -21,11 +21,11 @@ import org.bitcoinj.core.Coin;
 import org.bitcoinj.core.ECKey;
 import org.bitcoinj.core.InsufficientMoneyException;
 import org.bitcoinj.core.Transaction;
-import org.bitcoinj.core.Wallet;
-import org.bitcoinj.core.Wallet.CompletionException;
-import org.bitcoinj.core.Wallet.CouldNotAdjustDownwards;
-import org.bitcoinj.core.Wallet.SendRequest;
 import org.bitcoinj.crypto.KeyCrypterException;
+import org.bitcoinj.wallet.SendRequest;
+import org.bitcoinj.wallet.Wallet;
+import org.bitcoinj.wallet.Wallet.CompletionException;
+import org.bitcoinj.wallet.Wallet.CouldNotAdjustDownwards;
 
 import de.schildbach.wallet.Constants;
 
