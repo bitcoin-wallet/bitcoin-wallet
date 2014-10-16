@@ -168,7 +168,7 @@ public final class SendingAddressesFragment extends FancyListFragment {
                             if (paymentIntent.hasAddress()) {
                                 final Wallet wallet = viewModel.wallet.getValue();
                                 final Address address = paymentIntent.getAddress();
-                                if (!wallet.isPubKeyHashMine(address.getHash()))
+                                if (!wallet.isAddressMine(address))
                                     viewModel.showEditAddressBookEntryDialog.setValue(new Event<>(address));
                                 else
                                     dialog(activity, null, R.string.address_book_options_scan_title,
@@ -236,7 +236,7 @@ public final class SendingAddressesFragment extends FancyListFragment {
             dialog.setMessage(R.string.address_book_options_paste_from_clipboard_invalid);
             dialog.singleDismissButton(null);
             dialog.show();
-        } else if (!wallet.isPubKeyHashMine(address.getHash())) {
+        } else if (!wallet.isAddressMine(address)) {
             viewModel.showEditAddressBookEntryDialog.setValue(new Event<>(address));
         } else {
             final DialogBuilder dialog = new DialogBuilder(activity);

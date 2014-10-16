@@ -281,7 +281,7 @@ public class WalletTransactionsFragment extends Fragment implements Transactions
         if (!txRotation && txAddress != null) {
             editAddressMenuItem.setVisible(true);
             final boolean isAdd = addressBookDao.resolveLabel(txAddress.toString()) == null;
-            final boolean isOwn = wallet.isPubKeyHashMine(txAddress.getHash());
+            final boolean isOwn = wallet.isAddressMine(txAddress);
 
             if (isOwn)
                 editAddressMenuItem.setTitle(isAdd ? R.string.edit_address_book_entry_dialog_title_add_receive

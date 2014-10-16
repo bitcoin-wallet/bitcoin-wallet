@@ -104,7 +104,7 @@ public final class EditAddressBookEntryFragment extends DialogFragment {
         final String label = addressBookDao.resolveLabel(address.toString());
 
         final boolean isAdd = label == null;
-        final boolean isOwn = wallet.isPubKeyHashMine(address.getHash());
+        final boolean isOwn = wallet.isAddressMine(address);
 
         final DialogBuilder dialog = new DialogBuilder(activity);
 

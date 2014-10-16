@@ -1129,7 +1129,7 @@ public final class SendCoinsFragment extends Fragment {
                     hintView.setTextColor(getResources().getColor(colorResId));
                     hintView.setText(getString(hintResId, btcFormat.format(viewModel.dryrunTransaction.getFee())));
                 } else if (viewModel.paymentIntent.mayEditAddress() && viewModel.validatedAddress != null
-                        && wallet != null && wallet.isPubKeyHashMine(viewModel.validatedAddress.address.getHash())) {
+                        && wallet != null && wallet.isAddressMine(viewModel.validatedAddress.address)) {
                     hintView.setTextColor(getResources().getColor(R.color.fg_insignificant));
                     hintView.setVisibility(View.VISIBLE);
                     hintView.setText(R.string.send_coins_fragment_receiving_address_own);
