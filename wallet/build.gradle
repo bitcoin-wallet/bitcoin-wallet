@@ -10,7 +10,7 @@ dependencies {
     compile 'com.android.support:support-v13:23.1.1'
     compile 'com.android.support:recyclerview-v7:23.1.1'
     compile 'com.android.support:cardview-v7:23.1.1'
-    compile 'org.bitcoinj:bitcoinj-core:0.13.6'
+    compile 'org.bitcoinj:bitcoinj-core:0.14'
     compile 'com.google.protobuf:protobuf-java:2.5.0'
     compile 'com.google.guava:guava:16.0.1'
     compile 'com.google.zxing:core:3.2.1'
@@ -67,8 +67,8 @@ android {
         exclude 'com/google/thirdparty/publicsuffix/PublicSuffixType.gwt.xml'
         exclude 'org/bitcoinj/crypto/mnemonic/wordlist/english.txt'
         exclude 'org/bitcoinj/crypto/cacerts'
-        exclude 'org.bitcoin.production.checkpoints'
-        exclude 'org.bitcoin.test.checkpoints'
+        exclude 'org.bitcoin.production.checkpoints.txt'
+        exclude 'org.bitcoin.test.checkpoints.txt'
     }
 }
 

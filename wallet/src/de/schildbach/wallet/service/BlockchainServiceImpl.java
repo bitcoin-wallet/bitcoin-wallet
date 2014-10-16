@@ -35,7 +35,6 @@ import java.util.concurrent.atomic.AtomicLong;
 
 import javax.annotation.Nullable;
 
-import org.bitcoinj.core.AbstractPeerEventListener;
 import org.bitcoinj.core.Address;
 import org.bitcoinj.core.Block;
 import org.bitcoinj.core.BlockChain;
@@ -43,14 +42,15 @@ import org.bitcoinj.core.CheckpointManager;
 import org.bitcoinj.core.Coin;
 import org.bitcoinj.core.FilteredBlock;
 import org.bitcoinj.core.Peer;
-import org.bitcoinj.core.PeerEventListener;
 import org.bitcoinj.core.PeerGroup;
 import org.bitcoinj.core.Sha256Hash;
 import org.bitcoinj.core.StoredBlock;
 import org.bitcoinj.core.Transaction;
 import org.bitcoinj.core.TransactionConfidence.ConfidenceType;
-import org.bitcoinj.core.Wallet;
-import org.bitcoinj.core.WalletEventListener;
+import org.bitcoinj.core.listeners.AbstractPeerDataEventListener;
+import org.bitcoinj.core.listeners.PeerConnectedEventListener;
+import org.bitcoinj.core.listeners.PeerDataEventListener;
+import org.bitcoinj.core.listeners.PeerDisconnectedEventListener;
 import org.bitcoinj.net.discovery.DnsDiscovery;
 import org.bitcoinj.net.discovery.PeerDiscovery;
 import org.bitcoinj.net.discovery.PeerDiscoveryException;
@@ -59,6 +59,7 @@ import org.bitcoinj.store.BlockStoreException;
 import org.bitcoinj.store.SPVBlockStore;
 import org.bitcoinj.utils.MonetaryFormat;
 import org.bitcoinj.utils.Threading;
+import org.bitcoinj.wallet.Wallet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -131,7 +132,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 
 	private static final Logger log = LoggerFactory.getLogger(BlockchainServiceImpl.class);
 
-	private final WalletEventListener walletEventListener = new ThrottlingWalletChangeListener(APPWIDGET_THROTTLE_MS)
+	private final ThrottlingWalletChangeListener walletEventListener = new ThrottlingWalletChangeListener(APPWIDGET_THROTTLE_MS)
 	{
 		@Override
 		public void onThrottledWalletChanged()
@@ -214,7 +215,8 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 		nm.notify(Constants.NOTIFICATION_ID_COINS_RECEIVED, notification.getNotification());
 	}
 
-	private final class PeerConnectivityListener extends AbstractPeerEventListener implements OnSharedPreferenceChangeListener
+	private final class PeerConnectivityListener
+			implements PeerConnectedEventListener, PeerDisconnectedEventListener, OnSharedPreferenceChangeListener
 	{
 		private int peerCount;
 		private AtomicBoolean stopped = new AtomicBoolean(false);
@@ -290,7 +292,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 		}
 	}
 
-	private final PeerEventListener blockchainDownloadListener = new AbstractPeerEventListener()
+	private final PeerDataEventListener blockchainDownloadListener = new AbstractPeerDataEventListener()
 	{
 		private final AtomicLong lastMessageTime = new AtomicLong(0);
 
@@ -375,10 +377,11 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 
 				log.info("starting peergroup");
 				peerGroup = new PeerGroup(Constants.NETWORK_PARAMETERS, blockChain);
-				peerGroup.setDownloadTxDependencies(false); // recursive implementation causes StackOverflowError
+				peerGroup.setDownloadTxDependencies(0); // recursive implementation causes StackOverflowError
 				peerGroup.addWallet(wallet);
 				peerGroup.setUserAgent(Constants.USER_AGENT, application.packageInfo().versionName);
-				peerGroup.addEventListener(peerConnectivityListener);
+				peerGroup.addConnectedEventListener(peerConnectivityListener);
+				peerGroup.addDisconnectedEventListener(peerConnectivityListener);
 
 				final int maxConnectedPeers = application.maxConnectedPeers();
 
@@ -395,7 +398,8 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 					private final PeerDiscovery normalPeerDiscovery = new DnsDiscovery(Constants.NETWORK_PARAMETERS);
 
 					@Override
-					public InetSocketAddress[] getPeers(final long timeoutValue, final TimeUnit timeoutUnit) throws PeerDiscoveryException
+					public InetSocketAddress[] getPeers(final long services, final long timeoutValue, final TimeUnit timeoutUnit)
+							throws PeerDiscoveryException
 					{
 						final List<InetSocketAddress> peers = new LinkedList<InetSocketAddress>();
 
@@ -414,7 +418,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 						}
 
 						if (!connectTrustedPeerOnly)
-							peers.addAll(Arrays.asList(normalPeerDiscovery.getPeers(timeoutValue, timeoutUnit)));
+							peers.addAll(Arrays.asList(normalPeerDiscovery.getPeers(services, timeoutValue, timeoutUnit)));
 
 						// workaround because PeerGroup will shuffle peers
 						if (needsTrimPeersWorkaround)
@@ -438,7 +442,8 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 			else if (!impediments.isEmpty() && peerGroup != null)
 			{
 				log.info("stopping peergroup");
-				peerGroup.removeEventListener(peerConnectivityListener);
+				peerGroup.removeDisconnectedEventListener(peerConnectivityListener);
+				peerGroup.removeConnectedEventListener(peerConnectivityListener);
 				peerGroup.removeWallet(wallet);
 				peerGroup.stopAsync();
 				peerGroup = null;
@@ -636,7 +641,9 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 		intentFilter.addAction(Intent.ACTION_DEVICE_STORAGE_OK);
 		registerReceiver(connectivityReceiver, intentFilter); // implicitly start PeerGroup
 
-		application.getWallet().addEventListener(walletEventListener, Threading.SAME_THREAD);
+		application.getWallet().addCoinsReceivedEventListener(Threading.SAME_THREAD, walletEventListener);
+		application.getWallet().addCoinsSentEventListener(Threading.SAME_THREAD, walletEventListener);
+		application.getWallet().addChangeEventListener(Threading.SAME_THREAD, walletEventListener);
 
 		registerReceiver(tickReceiver, new IntentFilter(Intent.ACTION_TIME_TICK));
 	}
@@ -699,13 +706,16 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 
 		unregisterReceiver(tickReceiver);
 
-		application.getWallet().removeEventListener(walletEventListener);
+		application.getWallet().removeChangeEventListener(walletEventListener);
+		application.getWallet().removeCoinsSentEventListener(walletEventListener);
+		application.getWallet().removeCoinsReceivedEventListener(walletEventListener);
 
 		unregisterReceiver(connectivityReceiver);
 
 		if (peerGroup != null)
 		{
-			peerGroup.removeEventListener(peerConnectivityListener);
+			peerGroup.removeDisconnectedEventListener(peerConnectivityListener);
+			peerGroup.removeConnectedEventListener(peerConnectivityListener);
 			peerGroup.removeWallet(application.getWallet());
 			peerGroup.stop();
 
