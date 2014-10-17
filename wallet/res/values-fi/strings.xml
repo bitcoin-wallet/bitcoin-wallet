@@ -142,7 +142,7 @@
   <string name="restore_wallet_dialog_success_replay">Lompakko palautettiin onnistuneesti. Tilin saldo määritetään seuraavaksi. Tämä toiminto vie hetken.</string>
   <string name="import_keys_dialog_failure">Lompakkoa ei voitu palauttaa:\n\n%s\n\nVäärä salasana?</string>
   <string name="export_keys_dialog_title">Varmuuskopioi lompakko</string>
-  <string name="export_keys_dialog_message">Lompakkosi salataan valitsemallasi salasanalla ja kirjoitetaan erilliselle tallennustilalle.</string>
+  <string name="backup_wallet_dialog_message">Lompakkosi salataan valitsemallasi salasanalla ja kirjoitetaan erilliselle tallennustilalle.</string>
   <string name="export_keys_dialog_button_export">Varmuuskopioi</string>
   <string name="export_keys_dialog_success"><![CDATA[<p>Lompakkosi on varmuuskopioitu <tt>%s</tt></p><p>Jos laitteessasi on muistikortti, varmuuskopiosi <i>pitäisi</i> olla kyseisellä kortilla. Poista kortti laitteesta ja pidä sitä turvallisessa paikassa. Jos kortti <i>ei ole</i> irroitettava, sinun tulee arkistoida varmuuskopiosi johonkin toiseen paikkaan kuin tähän laitteeseen.</p><p><b>Jos ainoa paikka jossa varmuuskopiosi sijaitsee on laitteesi, sinulla on vaara menettää molemmat samaan aikaan!</b></p><p>Joka tapauksessa, varmista, että muistat varmuuskopiosi salasanan. Haluatko arkistoida lompakkosi nyt?</p>]]></string>
   <string name="export_keys_dialog_failure">Lompakkoasi ei voitu varmuuskopioida:\n%s</string>

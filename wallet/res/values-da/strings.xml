@@ -149,7 +149,7 @@
   <string name="restore_wallet_dialog_success_replay">Din tegnebog blev genoprettet med succes. Dens saldo vil blive beregnet som det næste. Dette vil tage nogen tid.</string>
   <string name="import_keys_dialog_failure">Tegnebog kunne ikke genoprettes:\n\n%s\n\nForkert kodeord?</string>
   <string name="export_keys_dialog_title">Lav sikkerhedskopi af tegnebog</string>
-  <string name="export_keys_dialog_message">Din tegnebog vil blive krypteret med det valgte kodeord og skrevet til eksternt lager.</string>
+  <string name="backup_wallet_dialog_message">Din tegnebog vil blive krypteret med det valgte kodeord og skrevet til eksternt lager.</string>
   <string name="export_keys_dialog_button_export">Sikkerskopiér</string>
   <string name="export_keys_dialog_success"><![CDATA[<p>Din tegnebog er blevet sikkerhedskopieret til <tt>%s</tt></p><p>Hvis din enhed har et SD-kort, der kan fjernes, <i>burde</i> sikkerhedskopien være på det kort. Fjern det og opbevar det et sikkert sted. Hvis kortet <i>ikke</i> kan fjernes, er du nødt til at arkivere sin sikkerhedskopi et andet sted end på din enhed.</p><p><b>Hvis din sikkerhedskopi kun findes på din enhed, løber du risikoen at miste begge dele på samme tid!</b></p><p>Uanset hvad, så vær sikker på, at du kan huske dit kodeord til sikkerhedskopien. Vil du arkivere din tegnebog nu?</p>]]></string>
   <string name="export_keys_dialog_failure">Din tegnebog kunne ikke sikkerhedskopieres:\n%s</string>

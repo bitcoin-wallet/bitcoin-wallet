@@ -105,7 +105,7 @@
 	<string name="import_keys_dialog_button_import">Pulihkan</string>
 	<string name="import_keys_dialog_failure">Kunci pribadi tidak dpt dipulihkan:\n\n%s\n\nKata sandi salah?</string>
 	<string name="export_keys_dialog_title">Cadangkan kunci pribadi</string>
-	<string name="export_keys_dialog_message">Kunci pribadi Anda akan dienkripsi dgn kata sandi terpilih dan akan disimpan ke penyimpanan eksternal.</string>
+	<string name="backup_wallet_dialog_message">Kunci pribadi Anda akan dienkripsi dgn kata sandi terpilih dan akan disimpan ke penyimpanan eksternal.</string>
 	<string name="export_keys_dialog_button_export">Cadangkan</string>
 	<string name="export_keys_dialog_success">Kunci pribadi Anda telah dicadangkan ke\n\n%s\n\nAmankan, dan jagalah kata sandi Anda!\n\nApakah Anda ingin arsipkan dgn apl?</string>
 	<string name="export_keys_dialog_failure">Kunci pribadi Anda tidak dpt dicadangkan:\n%s</string>

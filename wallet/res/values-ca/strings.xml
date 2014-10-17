@@ -149,7 +149,7 @@
   <string name="restore_wallet_dialog_success_replay">La teva cartera s\'ha restaurat correctament. El balanç es determinara seguidament. Pot trigar una estona.</string>
   <string name="import_keys_dialog_failure">La cartera no es pot restaurar:\n\n%s\n\nClau de pas errònia?</string>
   <string name="export_keys_dialog_title">Còpia de seguretat de la cartera</string>
-  <string name="export_keys_dialog_message">La teva cartera s\'encriptarà amb la clau de pas triada i es desarà en un emmagatzematge extern.</string>
+  <string name="backup_wallet_dialog_message">La teva cartera s\'encriptarà amb la clau de pas triada i es desarà en un emmagatzematge extern.</string>
   <string name="export_keys_dialog_button_export">Còpia de seguretat.</string>
   <string name="export_keys_dialog_success"><![CDATA[<p>S\'ha fet una còpia de seguretat de la cartera<tt>%s</tt></p><p>Si el teu dispositiu te una targeta SD extraïble, la còpia<i>deuria</i> estar a la targeta. Extreu-la i guarda-la en un lloc segur. Si la targeta <i>no</i> es extraïble, necessites desar el la teva còpia de seguretat en un altre lloc que no sigui el teu dispositiu.</p><p><b>Si l\'únic lloc on és la teva còpia de seguretat és el teu dispositiu, corres el risc de perdre ambdues al mateix temps!</b></p><p>En qualsevol cas, assegurat de recordar la clau de pas de la còpia de seguretat. Vols desar la teva cartera ara?</p>]]></string>
   <string name="export_keys_dialog_failure">La cartera no pot ser bloquejada:\n%s</string>

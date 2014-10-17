@@ -148,7 +148,7 @@
   <string name="restore_wallet_dialog_success_replay">지갑이 성공적으로 복구되었습니다. 지갑의 잔액 갱신에 시간이 조금 걸릴 수 있습니다.</string>
   <string name="import_keys_dialog_failure">전자 지갑이 복구될 수 없습니다. :\n\n%s\n\n암호 오류 또는 다른 문제가 있는 것으로 보여집니다.</string>
   <string name="export_keys_dialog_title">전자 지갑 백업</string>
-  <string name="export_keys_dialog_message">전자 지갑이 선택된 패스워드로 암호화되고 기기의 저장 장치에 백업됩니다.</string>
+  <string name="backup_wallet_dialog_message">전자 지갑이 선택된 패스워드로 암호화되고 기기의 저장 장치에 백업됩니다.</string>
   <string name="export_keys_dialog_button_export">백업</string>
   <string name="export_keys_dialog_success"><![CDATA[<p>전자 지갑이 아래 위치에 백업됩니다. <tt>%s</tt></p><p>사용하시는 장치 기기가 이동식 SD 카드를 가지고 있다면 해당 카드에 저장됩니다. 전자 지갑 백업 후 SD 카드를 제거하고 안전한 장소에 보관하세요. 만약 SD 카드가 이동형이 아니라면 현재의 저장 장치보다는 이동 가능한 다른 곳에 백업을 수행하는 것이 좋습니다.</p><p><b>만약 SD 카드가 이 장치 기기의 유일한 백업 가능 장소라면 SD 카드 분실에 따른 전자 지갑의 분실 위험 또한 숙지하셔야 합니다.</b></p><p>백업할 때의 패스워드를 반드시 기억하고 있어야 추후 백업 파일을 이용할 수 있습니다. 지금 전자 지갑 백업을 수행하시겠습니까?</p>]]></string>
   <string name="export_keys_dialog_failure">전자 지갑이 백업에 실패했습니다. : \n%s</string>

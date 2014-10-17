@@ -142,7 +142,7 @@
   <string name="restore_wallet_dialog_success_replay">Votre portefeuille a été restauré avec succès. Son solde sera maintenant déterminé. Ceci prendra du temps.</string>
   <string name="import_keys_dialog_failure">Impossible de restaurer le portefeuille :\n\n%s\n\nMot de passe erroné ?</string>
   <string name="export_keys_dialog_title">Sauvegarder le portefeuille</string>
-  <string name="export_keys_dialog_message">Votre portefeuille sera chiffré avec le mot de passe choisi et écrit sur le stockage externe.</string>
+  <string name="backup_wallet_dialog_message">Votre portefeuille sera chiffré avec le mot de passe choisi et écrit sur le stockage externe.</string>
   <string name="export_keys_dialog_button_export">Sauvegarder</string>
   <string name="export_keys_dialog_success"><![CDATA[<p>Votre portefeuille a été sauvegardé vers <tt>%s</tt></p><p>Si votre appareil a une carte SD amovible, votre sauvegarde <i>devrait</i> être sur cette carte. Enlevez-la et conservez-la dans un endroit sûr. Si la carte n\'est <i>pas</i> amovible, vous devez archiver votre sauvegarde dans un endroit autre que votre appareil.</p><p><b>Si votre sauvegarde existe seulement sur votre appareil, vous courez le risque de perdre les deux en même temps !</b></p><p>Dans tous les cas, assurez-vous de vous souvenir du mot de passe de votre sauvegarde. Voulez-vous archiver votre portefeuille maintenant ?</p>]]></string>
   <string name="export_keys_dialog_failure">Votre portefeuille n\'a pas pu être exporté :\n%s</string>

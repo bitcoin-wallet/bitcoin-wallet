@@ -122,7 +122,7 @@
 	<string name="import_keys_dialog_button_import">Obnoviť</string>
 	<string name="import_keys_dialog_failure">Privátne kľúče sa nepodarilo obnoviť:\n\n%s\n\nNesprávne heslo?</string>
 	<string name="export_keys_dialog_title">Zálohovať privátne kľúče</string>
-	<string name="export_keys_dialog_message">Privátne kľúče budú zašifrované zvoleným heslom a uložené na externú pamäť.</string>
+	<string name="backup_wallet_dialog_message">Privátne kľúče budú zašifrované zvoleným heslom a uložené na externú pamäť.</string>
 	<string name="export_keys_dialog_button_export">Zálohovať</string>
 	<string name="export_keys_dialog_success">Privátne kľúče boli zálohované do \n\n%s\n\nDržte ich v bezpečí, a taktiež držte v bezpečí vaše heslo!\n\nChcete archivovať kľúče použitím aplikácie?</string>
 	<string name="export_keys_dialog_failure">Vaše privátne kľúče sa nepodarilo zálohovať:\n%s</string>

@@ -18,7 +18,7 @@
 			android:layout_marginLeft="@dimen/list_entry_padding_horizontal_lax"
 			android:layout_marginRight="@dimen/list_entry_padding_horizontal_lax"
 			android:layout_marginTop="@dimen/list_entry_padding_vertical"
-			android:text="@string/export_keys_dialog_message"
+			android:text="@string/backup_wallet_dialog_message"
 			android:textSize="@dimen/font_size_normal" />
 
 		<EditText

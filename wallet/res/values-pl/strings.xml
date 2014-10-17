@@ -105,7 +105,7 @@
 	<string name="import_keys_dialog_button_import">Odzyskaj</string>
 	<string name="import_keys_dialog_failure">Nie udało się zaimportować kluczy prywatnych:\n\n%s\n\nBłędne hasło?</string>
 	<string name="export_keys_dialog_title">Eksportuj prywatne klucze</string>
-	<string name="export_keys_dialog_message">Twoje prywatne klucze zostaną zaszyfrowane wybranym hasłem a następnie zapisane na zewnętrznym nośniku.</string>
+	<string name="backup_wallet_dialog_message">Twoje prywatne klucze zostaną zaszyfrowane wybranym hasłem a następnie zapisane na zewnętrznym nośniku.</string>
 	<string name="export_keys_dialog_button_export">Kopia zapasowa</string>
 	<string name="export_keys_dialog_success">Twoje klucze prywatne zostały eksportowane do\n\n%s\n\nZabezpiecz je wraz z hasłem!\n\nCzy chcesz zabezpieczyć Twoje klucze za pomocą tej aplikacji?</string>
 	<string name="export_keys_dialog_failure">Twoje prywatne klucze nie mogły być wyeksportowane:\n%s</string>

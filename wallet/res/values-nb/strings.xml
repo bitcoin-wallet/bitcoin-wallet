@@ -149,7 +149,7 @@
   <string name="restore_wallet_dialog_success_replay">Din lommebok ble gjenopprettet. Saldoen vil nå bli bestemt. Dette vil ta litt tid.</string>
   <string name="import_keys_dialog_failure">Lommeboken kunne ikke gjenopprettes:\n\n%s\n\nFeil passord?</string>
   <string name="export_keys_dialog_title">Ta sikkerhetskopi av lommeboken</string>
-  <string name="export_keys_dialog_message">Din lommebok vil bli kryptert med det valgte passord og skrevet til eksternt lager.</string>
+  <string name="backup_wallet_dialog_message">Din lommebok vil bli kryptert med det valgte passord og skrevet til eksternt lager.</string>
   <string name="export_keys_dialog_button_export">Sikkerhetskopier</string>
   <string name="export_keys_dialog_success"><![CDATA[<p>Din lommebok er blitt sikkerhetskopieret til <tt>%s</tt></p><p>Hvis din enhet har et SD-kort, som kan fjernes, <i>burde</i> sikkerhetskopien være på det kortet. Fjern det og behold det et sikkert sted. Hvis kortet <i>ikke</i> kan fjernes, er du nødt til å arkivere sin sikkerhetskopi et annet sted enn på din enhet.</p><p><b>Hvis din sikkerhetskopi kun finnes på din enhet, løper du risikoen å miste begge deler på samme tid!</b></p><p>Uansett hva, så vær sikker på at du kan huske ditt passord til sikkerhetskopien. Vil du arkivere din lommebok nå?</p>]]></string>
   <string name="export_keys_dialog_failure">Din lommebok kunne ikke sikkerhetskopieres:\n%s</string>

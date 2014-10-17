@@ -140,7 +140,7 @@
   <string name="restore_wallet_dialog_success">Peněženka obnovena.</string>
   <string name="import_keys_dialog_failure">Peněženka nemohla být obnovena\n\n%s\n\nŠpatné heslo?</string>
   <string name="export_keys_dialog_title">Zálohovat peněženku</string>
-  <string name="export_keys_dialog_message">Vaše peněženka bude zašifrována zvoleným heslem a zapsána do externího úložiště.</string>
+  <string name="backup_wallet_dialog_message">Vaše peněženka bude zašifrována zvoleným heslem a zapsána do externího úložiště.</string>
   <string name="export_keys_dialog_button_export">Zálohovat</string>
   <string name="export_keys_dialog_success"><![CDATA[<p>Vaše peněženka byla zazálohována do <tt>%s</tt></p><p>Pokud vaše zařízení má vyměnitelnou SD kartu, tak záloha <i>by měla </i> být na této kartě. Vyndejte ji a uschovejte ji na bezpečném místě. Pokud karta <i>není</i> vyměnitelná, bude potřeba aby jste přesunuly zálohu na jiné zařízení.</p><p><b>Pokud je záloha pouze na vašem zařízení tak se vystavujete riziku že ztratíte oboje zároveň!</b></p><p>Každopádně se ujistěte, že si zapamatujete heslo. Přejete si zazálohovat peněženku nyní?</p>]]></string>
   <string name="export_keys_dialog_failure">Vaše peněženka nebyla zazálohována\n%s</string>

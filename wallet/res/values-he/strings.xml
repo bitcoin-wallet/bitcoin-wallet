@@ -138,7 +138,7 @@
   <string name="restore_wallet_dialog_success">ארנק שוחזר.</string>
   <string name="import_keys_dialog_failure">לא ניתן לשחזר ארנק:\n\n%s\n\nסיסמא שגויה?</string>
   <string name="export_keys_dialog_title">גבה ארנק</string>
-  <string name="export_keys_dialog_message">הארנק שלך יהיה מוצפן עם הסיסמא הנבחרת ומועתק לאחסון חיצוני</string>
+  <string name="backup_wallet_dialog_message">הארנק שלך יהיה מוצפן עם הסיסמא הנבחרת ומועתק לאחסון חיצוני</string>
   <string name="export_keys_dialog_button_export">ייצוא</string>
   <string name="export_keys_dialog_success"><![CDATA[<p>ארנקך גובה אל <tt>%s</tt></p><p>אם במכשירך קיים כרטיס SD נייד הגיבוי שלך <i>אמור</i> להיות על הכרטיס. הסר אותו ושמור במקום בטוח. במידה והכרטיס <i>אינו</i> נייד, אתה צריך לאחסן את הגיבוי מחוץ למכשירך.</p><p><b>אם המקום היחיד בו קיים הגיבוי הוא במכשירך, אתה מסתכן באיבוד שניהם בו-זמנית!</b></p><p>בכל מקרה וודא שאתה זוכר את סיסמאת הגיבוי שלך. האם אתה מעוניין לגבות את ארנקך כעת?</p>]]></string>
   <string name="export_keys_dialog_failure">לא ניתן היה לגבות את ארנקך:\n%s</string>

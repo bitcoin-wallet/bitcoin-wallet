@@ -125,7 +125,7 @@
 	<string name="import_keys_dialog_button_import">Importar</string>
 	<string name="import_keys_dialog_failure">Não foi possível importar as chaves privadas:\n\n%s\n\nSenha incorreta?</string>
 	<string name="export_keys_dialog_title">Exportar chaves privadas</string>
-	<string name="export_keys_dialog_message">Suas chaves privadas serão criptografadas com a senha escolhida e gravadas no armazenamento externo.</string>
+	<string name="backup_wallet_dialog_message">Suas chaves privadas serão criptografadas com a senha escolhida e gravadas no armazenamento externo.</string>
 	<string name="export_keys_dialog_button_export">Exportar</string>
 	<string name="export_keys_dialog_success">Suas chaves privadas foram exportadas\n\n%s\n\nMantenha sua senha e chaves privadas em segurança!\n\nDeseja utilizar um aplicativo para arquivar suas chaves?</string>
 	<string name="export_keys_dialog_failure">Não foi possível exportar suas chaves privadas:\n%s</string>

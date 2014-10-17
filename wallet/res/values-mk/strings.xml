@@ -105,7 +105,7 @@
 	<string name="import_keys_dialog_button_import">Поврати</string>
 	<string name="import_keys_dialog_failure">Приватните клучеви не може да се повратат:\n\n%s\n\nГрешна лозинка?</string>
 	<string name="export_keys_dialog_title">Направи резервна копија од приватните клучеви</string>
-	<string name="export_keys_dialog_message">Твоите приватни клучеви ќе бидат шифрирани со одбраната лозинка и зачувани во надворешен склад.</string>
+	<string name="backup_wallet_dialog_message">Твоите приватни клучеви ќе бидат шифрирани со одбраната лозинка и зачувани во надворешен склад.</string>
 	<string name="export_keys_dialog_button_export">Направи резервна копија</string>
 	<string name="export_keys_dialog_success">Твоите приватни клучеви имаат резервна копија во\n\n%s\n\nЧувај ги на безбедно место и чувај ја твојата лозинка тајна!\n\nДали сакаш да ги архивираш твоите клучеви преку апликација?</string>
 	<string name="export_keys_dialog_failure">Не може да се креира резервна копија од твоите приватни клучеви:\n%s</string>

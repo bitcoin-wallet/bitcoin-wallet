@@ -122,7 +122,7 @@
 	<string name="import_keys_dialog_button_import">استعادة</string>
 	<string name="import_keys_dialog_failure">لم تم استعادة المفاتيح خاصة:\n\n%s\n\nيحتمل وجود خطأ في كلمة المرور</string>
 	<string name="export_keys_dialog_title">حفظ احتياطي للمفاتيح الخاصة</string>
-	<string name="export_keys_dialog_message">سيتم تشفير مفاتيحك الخاصة مع كلمة المرور الخاصة  بك  وتسجيلها في وحدة تخزين خارجية.</string>
+	<string name="backup_wallet_dialog_message">سيتم تشفير مفاتيحك الخاصة مع كلمة المرور الخاصة  بك  وتسجيلها في وحدة تخزين خارجية.</string>
 	<string name="export_keys_dialog_button_export">حفظ احتياطي</string>
 	<string name="export_keys_dialog_success">تم الحفظ الاحتياطي للمفاتيح الخاصة بك إلى\n\n%s\n \nيرجى الاحتفاظ بها بشكل آمن، والحفاظ على كلمة المرور الخاصة بك بشكل آمن!\n \nهل تريد أرشفة المفاتيح الخاصة بك باستخدام تطبيق؟</string>
 	<string name="export_keys_dialog_failure">تعذر الحفظ الاحتياطي للمفاتيح الخاصة بك:\n%s</string>

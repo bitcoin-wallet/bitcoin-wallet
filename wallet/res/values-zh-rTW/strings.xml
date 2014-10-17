@@ -140,7 +140,7 @@
   <string name="restore_wallet_dialog_success">錢包已經回覆</string>
   <string name="import_keys_dialog_failure">錢包無法回復:\n\n%s\n\n密碼錯誤?</string>
   <string name="export_keys_dialog_title">備份錢包</string>
-  <string name="export_keys_dialog_message">你的錢包將依照選取密碼加密並存到外部存放</string>
+  <string name="backup_wallet_dialog_message">你的錢包將依照選取密碼加密並存到外部存放</string>
   <string name="export_keys_dialog_button_export">備份</string>
   <string name="export_keys_dialog_success"><![CDATA[<p>你的錢包已被備份到 <tt>%s</tt></p><p>如果你的裝置裡有可移除 SD 記憶卡，你的備份<i>應該</i>在卡裡面。移除該卡片並保管到安全地方。如果該卡片為<i>不可移除</i> ，你需要將該檔案歸檔取出到其他地方。</p><p><b>如果你只將備份放裝置裡面，你裝置遺失時一起遺失備份!</b></p><p>無論如何，請記得你的備份密碼，現在你確認要歸檔你的錢包 嗎？</p>]]></string>
   <string name="export_keys_dialog_failure">你的錢包無法備份 :\n%s</string>

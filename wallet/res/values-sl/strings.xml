@@ -125,7 +125,7 @@
 	<string name="import_keys_dialog_button_import">Obnovi</string>
 	<string name="import_keys_dialog_failure">Zasebnih ključev ni bilo mogoče obnoviti:\n\n%s\n\nNapačno geslo?</string>
 	<string name="export_keys_dialog_title">Rezervno kopiranje zasebnih ključev</string>
-	<string name="export_keys_dialog_message">Vaši zasebni ključi bodo šifrirani z izbranim geslom in zapisani na zunanji pomnilnik.</string>
+	<string name="backup_wallet_dialog_message">Vaši zasebni ključi bodo šifrirani z izbranim geslom in zapisani na zunanji pomnilnik.</string>
 	<string name="export_keys_dialog_button_export">Rezervno kopiraj</string>
 	<string name="export_keys_dialog_success">Vaši zasebni ključi so bili rezervno kopirani v datoteko:\n\n%s\n\nVarno jih hranite in pazite na geslo!\n\nŽelite rezervno kopijo arhivirati z drugo aplikacijo?</string>
 	<string name="export_keys_dialog_failure">Zasebnih ključev ni bilo mogoče rezervno kopirati:\n%s</string>

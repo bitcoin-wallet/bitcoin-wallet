@@ -141,7 +141,7 @@
   <string name="restore_wallet_dialog_success">Cüzdan geri getirildi.</string>
   <string name="import_keys_dialog_failure">Cüzdan geri alınamadı:\n\n%s\n\nParola yanlış olmasın?</string>
   <string name="export_keys_dialog_title">Cüzdanı yedekle</string>
-  <string name="export_keys_dialog_message">Cüzdanınız seçtiğiniz parola ile şifrelenip harici yedeklemeye yazılacaktır.</string>
+  <string name="backup_wallet_dialog_message">Cüzdanınız seçtiğiniz parola ile şifrelenip harici yedeklemeye yazılacaktır.</string>
   <string name="export_keys_dialog_button_export">Yedekle</string>
   <string name="export_keys_dialog_success"><![CDATA[<p>Cüzdanınız <tt>%s</tt> konumunda yedeklendi.</p><p>Eğer cihazınızın çıkarılabilir SD kartı varsa, yedeklemenizin o kartta olması <i>gerekir</i>. Onu çıkarıp güvenli bir yerde saklayın. Eğer kart çıkarılabilir <i>değilse</i>, yedeklemenizi cihazınızın dışında başka bir yere arşivlemeniz gerekir.</p><p><b>Yedeklemenizin bulunduğu tek yer cihazınız ise hem cihazı hem de yedeklemeyi aynı zamanda kaybetme riskini almış olursunuz!</b></p><p>Her durumda yedekleme parolanızı hatırlayacağınızdan emin olunuz. Cüzdanınızı şimdi arşivlemek istiyor musunuz?</p>]]></string>
   <string name="export_keys_dialog_failure">Cüzdanınız yedeklenemedi:\n%s</string>

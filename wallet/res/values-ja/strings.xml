@@ -138,7 +138,7 @@
   <string name="restore_wallet_dialog_success">ウォレットは復元されました。</string>
   <string name="import_keys_dialog_failure">ウォレットが復元できませんでした:\n\n%s\n\nパスワード間違い？</string>
   <string name="export_keys_dialog_title">ウォレットのバックアップ</string>
-  <string name="export_keys_dialog_message">選択したパスワードでウォレットを暗号化し、外部ストレージへ書き出します。</string>
+  <string name="backup_wallet_dialog_message">選択したパスワードでウォレットを暗号化し、外部ストレージへ書き出します。</string>
   <string name="export_keys_dialog_button_export">バックアップ</string>
   <string name="export_keys_dialog_success"><![CDATA[<p>あなたのウォレットは<tt>%s</tt>にバックアップされました。</p><p>もしSDカードが利用できる機種であれば、SDカードに<i>バックアップすべきです</i>。そしてSDカードを取り出し、安全な場所へ保管してください。もしSDカードが<i>取り出せない</i>場合、そのデバイス以外へバックアップを移す必要があります。</p><p><b>もしそのデバイスのみにバックアップがある場合、同時に両方を失ってしまうかもしれません!</b></p><p>どのような場合であれ、バックアップパスワードは覚えておいてください。今すぐウォレットをアーカイブしますか?</p>]]></string>
   <string name="export_keys_dialog_failure">ウォレットをバックアップできませんでした:\n%s</string>
