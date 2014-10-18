@@ -45,9 +45,11 @@ import android.app.Activity;
 import android.app.LoaderManager;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.AsyncTaskLoader;
+import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.Loader;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
@@ -58,6 +60,7 @@ import android.net.Uri;
 import android.nfc.NfcManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.content.LocalBroadcastManager;
 import android.text.SpannableStringBuilder;
 import android.text.format.DateUtils;
 import android.text.style.StyleSpan;
@@ -363,6 +366,7 @@ public class TransactionsListFragment extends FancyListFragment implements Loade
 
 	private static class TransactionsLoader extends AsyncTaskLoader<List<Transaction>>
 	{
+		private LocalBroadcastManager broadcastManager;
 		private final Wallet wallet;
 		@CheckForNull
 		private final Direction direction;
@@ -371,6 +375,7 @@ public class TransactionsListFragment extends FancyListFragment implements Loade
 		{
 			super(context);
 
+			this.broadcastManager = LocalBroadcastManager.getInstance(context.getApplicationContext());
 			this.wallet = wallet;
 			this.direction = direction;
 		}
@@ -381,14 +386,16 @@ public class TransactionsListFragment extends FancyListFragment implements Loade
 			super.onStartLoading();
 
 			wallet.addEventListener(transactionAddRemoveListener, Threading.SAME_THREAD);
+			broadcastManager.registerReceiver(walletChangeReceiver, new IntentFilter(WalletApplication.ACTION_WALLET_CHANGED));
 			transactionAddRemoveListener.onReorganize(null); // trigger at least one reload
 
-			forceLoad();
+			safeForceLoad();
 		}
 
 		@Override
 		protected void onStopLoading()
 		{
+			broadcastManager.unregisterReceiver(walletChangeReceiver);
 			wallet.removeEventListener(transactionAddRemoveListener);
 			transactionAddRemoveListener.removeCallbacks();
 
@@ -398,6 +405,7 @@ public class TransactionsListFragment extends FancyListFragment implements Loade
 		@Override
 		protected void onReset()
 		{
+			broadcastManager.unregisterReceiver(walletChangeReceiver);
 			wallet.removeEventListener(transactionAddRemoveListener);
 			transactionAddRemoveListener.removeCallbacks();
 
@@ -430,16 +438,30 @@ public class TransactionsListFragment extends FancyListFragment implements Loade
 			@Override
 			public void onThrottledWalletChanged()
 			{
-				try
-				{
-					forceLoad();
-				}
-				catch (final RejectedExecutionException x)
-				{
-					log.info("rejected execution: " + TransactionsLoader.this.toString());
-				}
+				safeForceLoad();
 			}
 		};
+
+		private final BroadcastReceiver walletChangeReceiver = new BroadcastReceiver()
+		{
+			@Override
+			public void onReceive(final Context context, final Intent intent)
+			{
+				safeForceLoad();
+			}
+		};
+
+		private void safeForceLoad()
+		{
+			try
+			{
+				forceLoad();
+			}
+			catch (final RejectedExecutionException x)
+			{
+				log.info("rejected execution: " + TransactionsLoader.this.toString());
+			}
+		}
 
 		private static final Comparator<Transaction> TRANSACTION_COMPARATOR = new Comparator<Transaction>()
 		{

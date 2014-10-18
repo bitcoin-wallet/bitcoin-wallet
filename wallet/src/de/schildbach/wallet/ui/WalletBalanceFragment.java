@@ -31,7 +31,6 @@ import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.support.v4.content.LocalBroadcastManager;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -58,7 +57,6 @@ public final class WalletBalanceFragment extends Fragment
 	private Configuration config;
 	private Wallet wallet;
 	private LoaderManager loaderManager;
-	private LocalBroadcastManager broadcastManager;
 
 	private View viewBalance;
 	private CurrencyTextView viewBalanceBtc;
@@ -91,7 +89,6 @@ public final class WalletBalanceFragment extends Fragment
 		this.config = application.getConfiguration();
 		this.wallet = application.getWallet();
 		this.loaderManager = getLoaderManager();
-		this.broadcastManager = LocalBroadcastManager.getInstance(activity);
 
 		showLocalBalance = getResources().getBoolean(R.bool.show_local_balance);
 	}

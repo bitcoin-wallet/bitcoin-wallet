@@ -52,6 +52,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.StrictMode;
 import android.preference.PreferenceManager;
+import android.support.v4.content.LocalBroadcastManager;
 import android.text.format.DateUtils;
 import android.widget.Toast;
 import ch.qos.logback.classic.Level;
@@ -83,6 +84,8 @@ public class WalletApplication extends Application
 	private File walletFile;
 	private Wallet wallet;
 	private PackageInfo packageInfo;
+
+	public static final String ACTION_WALLET_CHANGED = WalletApplication.class.getPackage().getName() + ".wallet_changed";
 
 	private static final Logger log = LoggerFactory.getLogger(WalletApplication.class);
 
@@ -464,17 +467,30 @@ public class WalletApplication extends Application
 
 	public void resetBlockchain()
 	{
+		internalResetBlockchain();
+
+		final Intent broadcast = new Intent(ACTION_WALLET_CHANGED);
+		broadcast.setPackage(getPackageName());
+		LocalBroadcastManager.getInstance(this).sendBroadcast(broadcast);
+	}
+
+	private void internalResetBlockchain()
+	{
 		// actually stops the service
 		startService(blockchainServiceResetBlockchainIntent);
 	}
 
 	public void replaceWallet(final Wallet newWallet)
 	{
-		resetBlockchain(); // implicitly stops blockchain service
+		internalResetBlockchain(); // implicitly stops blockchain service
 		wallet.shutdownAutosaveAndWait();
 
 		wallet = newWallet;
 		afterLoadWallet();
+
+		final Intent broadcast = new Intent(ACTION_WALLET_CHANGED);
+		broadcast.setPackage(getPackageName());
+		LocalBroadcastManager.getInstance(this).sendBroadcast(broadcast);
 	}
 
 	public void processDirectTransaction(@Nonnull final Transaction tx) throws VerificationException

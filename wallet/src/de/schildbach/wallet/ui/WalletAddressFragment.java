@@ -24,10 +24,14 @@ import org.bitcoinj.utils.Threading;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.nfc.NfcManager;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.text.Spanned;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -52,6 +56,7 @@ public final class WalletAddressFragment extends Fragment
 	private WalletApplication application;
 	private Wallet wallet;
 	private NfcManager nfcManager;
+	private LocalBroadcastManager broadcastManager;
 
 	private ImageView bitcoinAddressQrView;
 
@@ -69,6 +74,7 @@ public final class WalletAddressFragment extends Fragment
 		this.application = (WalletApplication) activity.getApplication();
 		this.wallet = application.getWallet();
 		this.nfcManager = (NfcManager) activity.getSystemService(Context.NFC_SERVICE);
+		this.broadcastManager = LocalBroadcastManager.getInstance(activity.getApplicationContext());
 	}
 
 	@Override
@@ -95,6 +101,7 @@ public final class WalletAddressFragment extends Fragment
 		super.onResume();
 
 		wallet.addEventListener(walletChangeListener, Threading.SAME_THREAD);
+		broadcastManager.registerReceiver(walletChangeReceiver, new IntentFilter(WalletApplication.ACTION_WALLET_CHANGED));
 
 		updateView();
 	}
@@ -102,6 +109,7 @@ public final class WalletAddressFragment extends Fragment
 	@Override
 	public void onPause()
 	{
+		broadcastManager.unregisterReceiver(walletChangeReceiver);
 		wallet.removeEventListener(walletChangeListener);
 
 		Nfc.unpublish(nfcManager, activity);
@@ -133,6 +141,15 @@ public final class WalletAddressFragment extends Fragment
 	{
 		BitmapFragment.show(getFragmentManager(), qrCodeBitmap, qrCodeLabel);
 	}
+
+	private final BroadcastReceiver walletChangeReceiver = new BroadcastReceiver()
+	{
+		@Override
+		public void onReceive(final Context context, final Intent intent)
+		{
+			updateView();
+		}
+	};
 
 	private final ThrottlingWalletChangeListener walletChangeListener = new ThrottlingWalletChangeListener()
 	{
