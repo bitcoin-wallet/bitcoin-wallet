@@ -323,6 +323,9 @@ public class SweepWalletFragment extends Fragment
 				@Override
 				public void run()
 				{
+					if (isResumed())
+						return;
+
 					sweepTransactionListAdapter.notifyDataSetChanged();
 
 					final TransactionConfidence confidence = sentTransaction.getConfidence();

@@ -324,6 +324,9 @@ public final class SendCoinsFragment extends Fragment
 				@Override
 				public void run()
 				{
+					if (isResumed())
+						return;
+
 					sentTransactionListAdapter.notifyDataSetChanged();
 
 					final TransactionConfidence confidence = sentTransaction.getConfidence();
