@@ -17,14 +17,10 @@
 
 package de.schildbach.wallet.ui;
 
-import java.util.concurrent.RejectedExecutionException;
-
 import org.bitcoinj.core.Address;
 import org.bitcoinj.core.Wallet;
 import org.bitcoinj.uri.BitcoinURI;
 import org.bitcoinj.utils.Threading;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -63,8 +59,6 @@ public final class WalletAddressFragment extends Fragment
 
 	private Bitmap qrCodeBitmap;
 	private Spanned qrCodeLabel;
-
-	private static final Logger log = LoggerFactory.getLogger(WalletAddressFragment.class);
 
 	@Override
 	public void onAttach(final Activity activity)
@@ -145,14 +139,7 @@ public final class WalletAddressFragment extends Fragment
 		@Override
 		public void onThrottledWalletChanged()
 		{
-			try
-			{
-				updateView();
-			}
-			catch (final RejectedExecutionException x)
-			{
-				log.info("rejected execution: " + WalletAddressFragment.this.toString());
-			}
+			updateView();
 		}
 	};
 }
