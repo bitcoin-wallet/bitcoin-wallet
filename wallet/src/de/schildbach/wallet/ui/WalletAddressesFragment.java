@@ -32,7 +32,6 @@ import org.bitcoinj.uri.BitcoinURI;
 import org.bitcoinj.utils.Threading;
 
 import android.app.Activity;
-import android.app.ListFragment;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
@@ -50,7 +49,6 @@ import android.widget.BaseAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import de.schildbach.wallet.AddressBookProvider;
-import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.util.BitmapFragment;
@@ -62,11 +60,10 @@ import de.schildbach.wallet_test.R;
 /**
  * @author Andreas Schildbach
  */
-public final class WalletAddressesFragment extends ListFragment
+public final class WalletAddressesFragment extends FancyListFragment
 {
 	private AddressBookActivity activity;
 	private WalletApplication application;
-	private Configuration config;
 	private Wallet wallet;
 	private ContentResolver contentResolver;
 
@@ -79,7 +76,6 @@ public final class WalletAddressesFragment extends ListFragment
 
 		this.activity = (AddressBookActivity) activity;
 		this.application = (WalletApplication) activity.getApplication();
-		this.config = application.getConfiguration();
 		this.wallet = application.getWallet();
 		this.contentResolver = activity.getContentResolver();
 	}
