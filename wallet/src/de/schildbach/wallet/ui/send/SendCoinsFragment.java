@@ -891,6 +891,7 @@ public final class SendCoinsFragment extends Fragment
 		// prepare send request
 		final SendRequest sendRequest = finalPaymentIntent.toSendRequest();
 		sendRequest.emptyWallet = paymentIntent.mayEditAmount() && finalAmount.equals(wallet.getBalance(BalanceType.AVAILABLE));
+		sendRequest.memo = paymentIntent.memo;
 
 		new SendCoinsOfflineTask(wallet, backgroundHandler)
 		{

@@ -396,6 +396,12 @@ public class TransactionsListAdapter extends BaseAdapter
 				rowMessage.setText(R.string.transaction_row_message_received_pay_to_many);
 				rowMessage.setTextColor(colorInsignificant);
 			}
+			else if (tx.getMemo() != null)
+			{
+				rowExtendMessage.setVisibility(View.VISIBLE);
+				rowMessage.setText(tx.getMemo());
+				rowMessage.setTextColor(colorInsignificant);
+			}
 		}
 	}
 
