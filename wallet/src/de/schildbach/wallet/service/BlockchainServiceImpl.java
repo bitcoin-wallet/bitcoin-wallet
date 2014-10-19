@@ -588,12 +588,6 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 
 		broadcastPeerState(0);
 
-		final IntentFilter intentFilter = new IntentFilter();
-		intentFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
-		intentFilter.addAction(Intent.ACTION_DEVICE_STORAGE_LOW);
-		intentFilter.addAction(Intent.ACTION_DEVICE_STORAGE_OK);
-		registerReceiver(connectivityReceiver, intentFilter);
-
 		blockChainFile = new File(getDir("blockstore", Context.MODE_PRIVATE), Constants.Files.BLOCKCHAIN_FILENAME);
 		final boolean blockChainFileExists = blockChainFile.exists();
 
@@ -635,8 +629,6 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 			throw new Error(msg, x);
 		}
 
-		log.info("using " + blockStore.getClass().getName());
-
 		try
 		{
 			blockChain = new BlockChain(Constants.NETWORK_PARAMETERS, wallet, blockStore);
@@ -645,6 +637,12 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 		{
 			throw new Error("blockchain cannot be created", x);
 		}
+
+		final IntentFilter intentFilter = new IntentFilter();
+		intentFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
+		intentFilter.addAction(Intent.ACTION_DEVICE_STORAGE_LOW);
+		intentFilter.addAction(Intent.ACTION_DEVICE_STORAGE_OK);
+		registerReceiver(connectivityReceiver, intentFilter); // implicitly start PeerGroup
 
 		application.getWallet().addEventListener(walletEventListener, Threading.SAME_THREAD);
 
@@ -713,6 +711,8 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 
 		application.getWallet().removeEventListener(walletEventListener);
 
+		unregisterReceiver(connectivityReceiver);
+
 		if (peerGroup != null)
 		{
 			peerGroup.removeEventListener(peerConnectivityListener);
@@ -724,8 +724,6 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 		}
 
 		peerConnectivityListener.stop();
-
-		unregisterReceiver(connectivityReceiver);
 
 		config.setBestChainHeightEver(bestChainHeightEver);
 
