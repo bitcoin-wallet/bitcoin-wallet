@@ -1,3 +1,8 @@
+v4.06
+
+* The wallet can be protected by a spending PIN.
+* Record memos read from payment requests.
+
 v4.05
 
 * Re-add textual Bitcoin address to enlarged QR code.
