@@ -55,7 +55,8 @@ public class WalletAddressesAdapter extends BaseAdapter
 	private final int colorLessSignificant;
 	private final LayoutInflater inflater;
 
-	private final List<ECKey> keys = new ArrayList<ECKey>();
+	private final List<ECKey> derivedKeys = new ArrayList<ECKey>();
+	private final List<ECKey> randomKeys = new ArrayList<ECKey>();
 
 	public WalletAddressesAdapter(final Context context, @Nonnull final Wallet wallet)
 	{
@@ -70,10 +71,18 @@ public class WalletAddressesAdapter extends BaseAdapter
 		inflater = LayoutInflater.from(context);
 	}
 
-	public void replace(@Nonnull final Collection<ECKey> keys)
+	public void replaceDerivedKeys(@Nonnull final Collection<ECKey> keys)
 	{
-		this.keys.clear();
-		this.keys.addAll(keys);
+		this.derivedKeys.clear();
+		this.derivedKeys.addAll(keys);
+
+		notifyDataSetChanged();
+	}
+
+	public void replaceRandomKeys(@Nonnull final Collection<ECKey> keys)
+	{
+		this.randomKeys.clear();
+		this.randomKeys.addAll(keys);
 
 		notifyDataSetChanged();
 	}
@@ -81,19 +90,47 @@ public class WalletAddressesAdapter extends BaseAdapter
 	@Override
 	public int getCount()
 	{
-		return keys.size();
+		int count = derivedKeys.size();
+		if (!randomKeys.isEmpty())
+			count += randomKeys.size() + 1;
+		return count;
 	}
 
 	@Override
 	public Object getItem(final int position)
 	{
-		return keys.get(position);
+		final int numDerivedKeys = derivedKeys.size();
+		if (position < numDerivedKeys)
+			return derivedKeys.get(position);
+		else if (position == numDerivedKeys)
+			return null;
+		else
+			return randomKeys.get(position - numDerivedKeys - 1);
 	}
 
 	@Override
 	public long getItemId(final int position)
 	{
-		return keys.get(position).hashCode();
+		final Object key = getItem(position);
+		return key != null ? key.hashCode() : 0;
+	}
+
+	@Override
+	public int getViewTypeCount()
+	{
+		return 2;
+	}
+
+	@Override
+	public int getItemViewType(final int position)
+	{
+		final int numDerivedKeys = derivedKeys.size();
+		if (position < numDerivedKeys)
+			return 0;
+		else if (position == numDerivedKeys)
+			return 1;
+		else
+			return 0;
 	}
 
 	@Override
@@ -103,7 +140,15 @@ public class WalletAddressesAdapter extends BaseAdapter
 	}
 
 	@Override
-	public View getView(final int position, View row, final ViewGroup parent)
+	public View getView(final int position, final View convertView, final ViewGroup parent)
+	{
+		if (getItemViewType(position) == 0)
+			return rowKey(position, convertView);
+		else
+			return rowSeparator(convertView);
+	}
+
+	private View rowKey(final int position, View row)
 	{
 		final ECKey key = (ECKey) getItem(position);
 		final Address address = key.toAddress(Constants.NETWORK_PARAMETERS);
@@ -143,6 +188,17 @@ public class WalletAddressesAdapter extends BaseAdapter
 
 		final TextView messageView = (TextView) row.findViewById(R.id.address_book_row_message);
 		messageView.setVisibility(isRotateKey ? View.VISIBLE : View.GONE);
+
+		return row;
+	}
+
+	private View rowSeparator(View row)
+	{
+		if (row == null)
+			row = inflater.inflate(R.layout.row_separator, null);
+
+		final TextView textView = (TextView) row.findViewById(android.R.id.text1);
+		textView.setText(R.string.address_book_list_receiving_random);
 
 		return row;
 	}

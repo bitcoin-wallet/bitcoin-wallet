@@ -258,9 +258,10 @@ public final class WalletAddressesFragment extends FancyListFragment
 		@Override
 		public void onKeysAdded(final List<ECKey> keysAdded)
 		{
-			final List<ECKey> keys = wallet.getImportedKeys();
+			final List<ECKey> derivedKeys = wallet.getIssuedReceiveKeys();
+			final List<ECKey> randomKeys = wallet.getImportedKeys();
 
-			Collections.sort(keys, new Comparator<ECKey>()
+			Collections.sort(randomKeys, new Comparator<ECKey>()
 			{
 				@Override
 				public int compare(final ECKey lhs, final ECKey rhs)
@@ -283,7 +284,8 @@ public final class WalletAddressesFragment extends FancyListFragment
 				@Override
 				public void run()
 				{
-					adapter.replace(keys);
+					adapter.replaceDerivedKeys(derivedKeys);
+					adapter.replaceRandomKeys(randomKeys);
 				}
 			});
 		}
