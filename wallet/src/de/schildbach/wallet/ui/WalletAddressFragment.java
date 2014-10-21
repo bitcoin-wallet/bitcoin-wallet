@@ -29,6 +29,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Bitmap;
+import android.nfc.NdefRecord;
 import android.nfc.NfcManager;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
@@ -133,7 +134,7 @@ public final class WalletAddressFragment extends Fragment
 
 			qrCodeLabel = WalletUtils.formatAddress(address, Constants.ADDRESS_FORMAT_GROUP_SIZE, Constants.ADDRESS_FORMAT_LINE_SIZE);
 
-			Nfc.publishUri(nfcManager, activity, addressStr);
+			Nfc.publish(nfcManager, activity, NdefRecord.createUri(addressStr));
 		}
 	}
 

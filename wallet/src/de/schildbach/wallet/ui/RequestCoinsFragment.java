@@ -421,7 +421,7 @@ public final class RequestCoinsFragment extends Fragment
 		qrView.setImageBitmap(qrCodeBitmap);
 
 		// update nfc ndef message
-		final boolean nfcSuccess = Nfc.publishMimeObject(nfcManager, activity, PaymentProtocol.MIMETYPE_PAYMENTREQUEST, paymentRequest);
+		final boolean nfcSuccess = Nfc.publish(nfcManager, activity, Nfc.createMime(PaymentProtocol.MIMETYPE_PAYMENTREQUEST, paymentRequest));
 
 		// update initiate request message
 		final SpannableStringBuilder initiateText = new SpannableStringBuilder(getString(R.string.request_coins_fragment_initiate_request_qr));
