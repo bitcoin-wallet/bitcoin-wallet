@@ -28,6 +28,7 @@ import javax.annotation.Nonnull;
 
 import org.bitcoinj.core.Address;
 import org.bitcoinj.core.Coin;
+import org.bitcoinj.core.Sha256Hash;
 import org.bitcoinj.core.Transaction;
 import org.bitcoinj.core.Transaction.Purpose;
 import org.bitcoinj.core.TransactionConfidence;
@@ -218,6 +219,22 @@ public class TransactionsListAdapter extends BaseAdapter
 		return row;
 	}
 
+	private class TransactionCacheEntry
+	{
+		public TransactionCacheEntry(final Coin value, final boolean sent, final Address address)
+		{
+			this.value = value;
+			this.sent = sent;
+			this.address = address;
+		}
+
+		public final Coin value;
+		public final boolean sent;
+		public final Address address;
+	}
+
+	private Map<Sha256Hash, TransactionCacheEntry> transactionCache = new HashMap<Sha256Hash, TransactionCacheEntry>();
+
 	public void bindView(@Nonnull final View row, @Nonnull final Transaction tx)
 	{
 		final TransactionConfidence confidence = tx.getConfidence();
@@ -225,11 +242,19 @@ public class TransactionsListAdapter extends BaseAdapter
 		final boolean isOwn = confidence.getSource().equals(TransactionConfidence.Source.SELF);
 		final boolean isCoinBase = tx.isCoinBase();
 		final boolean isInternal = WalletUtils.isInternal(tx);
-
-		final Coin value = tx.getValue(wallet);
-		final boolean sent = value.signum() < 0;
 		final Coin fee = tx.getFee();
 		final boolean hasFee = fee != null && !fee.isZero();
+
+		TransactionCacheEntry txCache = transactionCache.get(tx.getHash());
+		if (txCache == null)
+		{
+			final Coin value = tx.getValue(wallet);
+			final boolean sent = value.signum() < 0;
+			final Address address = sent ? WalletUtils.getWalletAddressOfReceived(tx, wallet) : WalletUtils.getFirstFromAddress(tx);
+			txCache = new TransactionCacheEntry(value, sent, address);
+
+			transactionCache.put(tx.getHash(), txCache);
+		}
 
 		final CircularProgressView rowConfidenceCircular = (CircularProgressView) row.findViewById(R.id.transaction_row_confidence_circular);
 		final TextView rowConfidenceTextual = (TextView) row.findViewById(R.id.transaction_row_confidence_textual);
@@ -295,7 +320,7 @@ public class TransactionsListAdapter extends BaseAdapter
 		final TextView rowFromTo = (TextView) row.findViewById(R.id.transaction_row_fromto);
 		if (isInternal)
 			rowFromTo.setText(R.string.symbol_internal);
-		else if (sent)
+		else if (txCache.sent)
 			rowFromTo.setText(R.string.symbol_to);
 		else
 			rowFromTo.setText(R.string.symbol_from);
@@ -307,18 +332,17 @@ public class TransactionsListAdapter extends BaseAdapter
 
 		// address
 		final TextView rowAddress = (TextView) row.findViewById(R.id.transaction_row_address);
-		final Address address = sent ? WalletUtils.getWalletAddressOfReceived(tx, wallet) : WalletUtils.getFirstFromAddress(tx);
 		final String label;
 		if (isCoinBase)
 			label = textCoinBase;
 		else if (isInternal)
 			label = textInternal;
-		else if (address != null)
-			label = resolveLabel(address.toString());
+		else if (txCache.address != null)
+			label = resolveLabel(txCache.address.toString());
 		else
 			label = "?";
 		rowAddress.setTextColor(textColor);
-		rowAddress.setText(label != null ? label : address.toString());
+		rowAddress.setText(label != null ? label : txCache.address.toString());
 		rowAddress.setTypeface(label != null ? Typeface.DEFAULT : Typeface.MONOSPACE);
 
 		// fee
@@ -338,7 +362,7 @@ public class TransactionsListAdapter extends BaseAdapter
 		rowValue.setTextColor(textColor);
 		rowValue.setAlwaysSigned(true);
 		rowValue.setFormat(format);
-		rowValue.setAmount(hasFee && rowExtendFee != null ? value.add(fee) : value);
+		rowValue.setAmount(hasFee && rowExtendFee != null ? txCache.value.add(fee) : txCache.value);
 
 		// message
 		final View rowExtendMessage = row.findViewById(R.id.transaction_row_extend_message);
@@ -366,31 +390,31 @@ public class TransactionsListAdapter extends BaseAdapter
 				rowMessage.setText(R.string.transaction_row_message_received_direct);
 				rowMessage.setTextColor(colorInsignificant);
 			}
-			else if (!sent && value.compareTo(Transaction.MIN_NONDUST_OUTPUT) < 0)
+			else if (!txCache.sent && txCache.value.compareTo(Transaction.MIN_NONDUST_OUTPUT) < 0)
 			{
 				rowExtendMessage.setVisibility(View.VISIBLE);
 				rowMessage.setText(R.string.transaction_row_message_received_dust);
 				rowMessage.setTextColor(colorInsignificant);
 			}
-			else if (!sent && confidenceType == ConfidenceType.PENDING && isTimeLocked)
+			else if (!txCache.sent && confidenceType == ConfidenceType.PENDING && isTimeLocked)
 			{
 				rowExtendMessage.setVisibility(View.VISIBLE);
 				rowMessage.setText(R.string.transaction_row_message_received_unconfirmed_locked);
 				rowMessage.setTextColor(colorError);
 			}
-			else if (!sent && confidenceType == ConfidenceType.PENDING && !isTimeLocked)
+			else if (!txCache.sent && confidenceType == ConfidenceType.PENDING && !isTimeLocked)
 			{
 				rowExtendMessage.setVisibility(View.VISIBLE);
 				rowMessage.setText(R.string.transaction_row_message_received_unconfirmed_unlocked);
 				rowMessage.setTextColor(colorInsignificant);
 			}
-			else if (!sent && confidenceType == ConfidenceType.DEAD)
+			else if (!txCache.sent && confidenceType == ConfidenceType.DEAD)
 			{
 				rowExtendMessage.setVisibility(View.VISIBLE);
 				rowMessage.setText(R.string.transaction_row_message_received_dead);
 				rowMessage.setTextColor(colorError);
 			}
-			else if (!sent && tx.getOutputs().size() > 20)
+			else if (!txCache.sent && tx.getOutputs().size() > 20)
 			{
 				rowExtendMessage.setVisibility(View.VISIBLE);
 				rowMessage.setText(R.string.transaction_row_message_received_pay_to_many);
