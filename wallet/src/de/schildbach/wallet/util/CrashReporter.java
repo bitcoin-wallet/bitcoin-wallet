@@ -208,6 +208,7 @@ public class CrashReporter
 		report.append("Time of first install: " + String.format("%tF %tT %tz", pi.firstInstallTime, pi.firstInstallTime, pi.firstInstallTime) + "\n");
 		report.append("Network: " + Constants.NETWORK_PARAMETERS.getId() + "\n");
 		final Wallet wallet = application.getWallet();
+		report.append("Encrypted: " + wallet.isEncrypted() + "\n");
 		report.append("Keychain size: " + wallet.getKeychainSize() + "\n");
 
 		final Set<Transaction> transactions = wallet.getTransactions(true);
