@@ -78,5 +78,22 @@ public final class UpgradeWalletService extends IntentService
 			// let other service pre-generate look-ahead keys
 			application.startBlockchainService(false);
 		}
+
+		maybeUpgradeToSecureChain(wallet);
+	}
+
+	private void maybeUpgradeToSecureChain(final Wallet wallet)
+	{
+		try
+		{
+			wallet.doMaintenance(null, false);
+
+			// let other service pre-generate look-ahead keys
+			application.startBlockchainService(false);
+		}
+		catch (final Exception x)
+		{
+			log.error("failed doing wallet maintenance", x);
+		}
 	}
 }

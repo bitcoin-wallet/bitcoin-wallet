@@ -135,6 +135,8 @@ public final class WalletActivity extends AbstractWalletActivity
 		config.touchLastUsed();
 
 		handleIntent(getIntent());
+
+		MaybeMaintenanceFragment.add(getFragmentManager());
 	}
 
 	@Override
