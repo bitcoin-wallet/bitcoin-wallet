@@ -644,8 +644,6 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 		application.getWallet().addEventListener(walletEventListener, Threading.SAME_THREAD);
 
 		registerReceiver(tickReceiver, new IntentFilter(Intent.ACTION_TIME_TICK));
-
-		maybeRotateKeys();
 	}
 
 	@Override
@@ -826,24 +824,5 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 		broadcast.setPackage(getPackageName());
 		getBlockchainState().putExtras(broadcast);
 		LocalBroadcastManager.getInstance(this).sendBroadcast(broadcast);
-	}
-
-	private void maybeRotateKeys()
-	{
-		final Wallet wallet = application.getWallet();
-		wallet.setKeyRotationEnabled(false);
-
-		final StoredBlock chainHead = blockChain.getChainHead();
-
-		new Thread()
-		{
-			@Override
-			public void run()
-			{
-				final boolean replaying = chainHead.getHeight() < config.getBestChainHeightEver(); // checking again
-
-				wallet.setKeyRotationEnabled(!replaying);
-			}
-		}.start();
 	}
 }
