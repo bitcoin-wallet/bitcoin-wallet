@@ -1,3 +1,7 @@
+v3.60 (v3 maintenance)
+
+* Add v3 flavor, to separate new version alerts from the master branch.
+
 v3.59
 
 * Resolve issue with restoring backups that have been renamed.
