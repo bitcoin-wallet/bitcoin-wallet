@@ -533,7 +533,7 @@ public final class WalletActivity extends AbstractWalletActivity
 		fileView.setOnItemSelectedListener(dialogButtonEnabler);
 
 		final CheckBox showView = (CheckBox) alertDialog.findViewById(R.id.import_keys_from_storage_show);
-		showView.setOnCheckedChangeListener(new ShowPasswordCheckListener(false, passwordView));
+		showView.setOnCheckedChangeListener(new ShowPasswordCheckListener(passwordView));
 	}
 
 	private Dialog createBackupWalletDialog()
@@ -587,7 +587,7 @@ public final class WalletActivity extends AbstractWalletActivity
 		passwordView.addTextChangedListener(dialogButtonEnabler);
 
 		final CheckBox showView = (CheckBox) alertDialog.findViewById(R.id.export_keys_dialog_show);
-		showView.setOnCheckedChangeListener(new ShowPasswordCheckListener(false, passwordView));
+		showView.setOnCheckedChangeListener(new ShowPasswordCheckListener(passwordView));
 
 		final TextView warningView = (TextView) alertDialog.findViewById(R.id.backup_wallet_dialog_warning_encrypted);
 		warningView.setVisibility(wallet.isEncrypted() ? View.VISIBLE : View.GONE);

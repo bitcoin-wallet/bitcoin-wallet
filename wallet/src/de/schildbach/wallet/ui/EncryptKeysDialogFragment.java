@@ -191,7 +191,7 @@ public class EncryptKeysDialogFragment extends DialogFragment
 				newPasswordView.addTextChangedListener(textWatcher);
 
 				showView = (CheckBox) dialog.findViewById(R.id.encrypt_keys_dialog_show);
-				showView.setOnCheckedChangeListener(new ShowPasswordCheckListener(true, newPasswordView, oldPasswordView));
+				showView.setOnCheckedChangeListener(new ShowPasswordCheckListener(newPasswordView, oldPasswordView));
 
 				EncryptKeysDialogFragment.this.dialog = dialog;
 				updateView();
