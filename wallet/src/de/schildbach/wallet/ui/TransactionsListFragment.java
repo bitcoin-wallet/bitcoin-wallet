@@ -421,7 +421,7 @@ public class TransactionsListFragment extends FancyListFragment implements Loade
 			for (final Transaction tx : transactions)
 			{
 				final boolean sent = tx.getValue(wallet).signum() < 0;
-				final boolean isInternal = WalletUtils.isInternal(tx);
+				final boolean isInternal = tx.getPurpose() == Purpose.KEY_ROTATION;
 
 				if ((direction == Direction.RECEIVED && !sent && !isInternal) || direction == null
 						|| (direction == Direction.SENT && sent && !isInternal))

@@ -241,7 +241,7 @@ public class TransactionsListAdapter extends BaseAdapter
 		final ConfidenceType confidenceType = confidence.getConfidenceType();
 		final boolean isOwn = confidence.getSource().equals(TransactionConfidence.Source.SELF);
 		final boolean isCoinBase = tx.isCoinBase();
-		final boolean isInternal = WalletUtils.isInternal(tx);
+		final boolean isInternal = tx.getPurpose() == Purpose.KEY_ROTATION;
 		final Coin fee = tx.getFee();
 		final boolean hasFee = fee != null && !fee.isZero();
 
@@ -372,7 +372,7 @@ public class TransactionsListAdapter extends BaseAdapter
 			final boolean isTimeLocked = tx.isTimeLocked();
 			rowExtendMessage.setVisibility(View.GONE);
 
-			if (tx.getPurpose() == Purpose.KEY_ROTATION)
+			if (isInternal)
 			{
 				rowExtendMessage.setVisibility(View.VISIBLE);
 				rowMessage.setText(Html.fromHtml(context.getString(R.string.transaction_row_message_purpose_key_rotation)));

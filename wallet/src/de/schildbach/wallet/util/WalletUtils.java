@@ -156,30 +156,6 @@ public class WalletUtils
 		}
 	}
 
-	public static boolean isInternal(@Nonnull final Transaction tx)
-	{
-		if (tx.isCoinBase())
-			return false;
-
-		final List<TransactionOutput> outputs = tx.getOutputs();
-		if (outputs.size() != 1)
-			return false;
-
-		try
-		{
-			final TransactionOutput output = outputs.get(0);
-			final Script scriptPubKey = output.getScriptPubKey();
-			if (!scriptPubKey.isSentToRawPubKey())
-				return false;
-
-			return true;
-		}
-		catch (final ScriptException x)
-		{
-			return false;
-		}
-	}
-
 	public static Wallet restoreWalletFromProtobufOrBase58(final InputStream is) throws IOException
 	{
 		is.mark((int) Constants.BACKUP_MAX_CHARS);
