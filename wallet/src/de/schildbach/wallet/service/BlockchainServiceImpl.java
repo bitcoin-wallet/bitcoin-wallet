@@ -123,7 +123,6 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 	private Coin notificationAccumulatedAmount = Coin.ZERO;
 	private final List<Address> notificationAddresses = new LinkedList<Address>();
 	private AtomicInteger transactionsReceived = new AtomicInteger();
-	private int bestChainHeightEver;
 	private long serviceCreatedAt;
 	private boolean resetBlockchainOnShutdown = false;
 
@@ -161,7 +160,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 				public void run()
 				{
 					final boolean isReceived = amount.signum() > 0;
-					final boolean replaying = bestChainHeight < bestChainHeightEver;
+					final boolean replaying = bestChainHeight < config.getBestChainHeightEver();
 					final boolean isReplayedTx = confidenceType == ConfidenceType.BUILDING && replaying;
 
 					if (isReceived && !isReplayedTx)
@@ -302,7 +301,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 		@Override
 		public void onBlocksDownloaded(final Peer peer, final Block block, final int blocksLeft)
 		{
-			bestChainHeightEver = Math.max(bestChainHeightEver, blockChain.getChainHead().getHeight());
+			config.maybeIncrementBestChainHeightEver(blockChain.getChainHead().getHeight());
 
 			delayHandler.removeCallbacksAndMessages(null);
 
@@ -582,8 +581,6 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 		config = application.getConfiguration();
 		final Wallet wallet = application.getWallet();
 
-		bestChainHeightEver = config.getBestChainHeightEver();
-
 		peerConnectivityListener = new PeerConnectivityListener();
 
 		broadcastPeerState(0);
@@ -725,8 +722,6 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 
 		peerConnectivityListener.stop();
 
-		config.setBestChainHeightEver(bestChainHeightEver);
-
 		delayHandler.removeCallbacksAndMessages(null);
 
 		try
@@ -775,7 +770,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 		final StoredBlock chainHead = blockChain.getChainHead();
 		final Date bestChainDate = chainHead.getHeader().getTime();
 		final int bestChainHeight = chainHead.getHeight();
-		final boolean replaying = chainHead.getHeight() < bestChainHeightEver;
+		final boolean replaying = chainHead.getHeight() < config.getBestChainHeightEver();
 
 		return new BlockchainState(bestChainDate, bestChainHeight, replaying, impediments);
 	}
@@ -845,7 +840,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 			@Override
 			public void run()
 			{
-				final boolean replaying = chainHead.getHeight() < bestChainHeightEver; // checking again
+				final boolean replaying = chainHead.getHeight() < config.getBestChainHeightEver(); // checking again
 
 				wallet.setKeyRotationEnabled(!replaying);
 			}

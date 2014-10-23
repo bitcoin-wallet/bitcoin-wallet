@@ -197,9 +197,10 @@ public class Configuration
 		return prefs.getInt(PREFS_KEY_BEST_CHAIN_HEIGHT_EVER, 0);
 	}
 
-	public void setBestChainHeightEver(final int bestChainHeightEver)
+	public void maybeIncrementBestChainHeightEver(final int bestChainHeightEver)
 	{
-		prefs.edit().putInt(PREFS_KEY_BEST_CHAIN_HEIGHT_EVER, bestChainHeightEver).commit();
+		if (bestChainHeightEver > getBestChainHeightEver())
+			prefs.edit().putInt(PREFS_KEY_BEST_CHAIN_HEIGHT_EVER, bestChainHeightEver).commit();
 	}
 
 	public ExchangeRate getCachedExchangeRate()

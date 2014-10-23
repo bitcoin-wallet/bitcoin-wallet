@@ -480,6 +480,7 @@ public class WalletApplication extends Application
 		wallet.shutdownAutosaveAndWait();
 
 		wallet = newWallet;
+		config.maybeIncrementBestChainHeightEver(newWallet.getLastBlockSeenHeight());
 		afterLoadWallet();
 
 		final Intent broadcast = new Intent(ACTION_WALLET_CHANGED);
