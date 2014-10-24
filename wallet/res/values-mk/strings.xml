@@ -167,11 +167,8 @@
 	<string name="about_credits_icon_title">Оваа апликација користи икона од \'bitboy\'</string>
 	<string name="about_community_googleplus_title">Google+ заедница</string>
 	<string name="about_community_googleplus_summary">Дискусија за апликацијата</string>
-	<string name="about_author_twitter_title">Авторот на Twitter</string>
-	<string name="about_author_googleplus_title">Авторот на Google+</string>
 	<string name="about_market_app_title">Google Play страница</string>
 	<string name="about_market_app_summary">Напиши мислење или оцени ја апликацијата</string>
-	<string name="about_credits_market_publisher_title">Други апликации од Авторот</string>
 	<string name="notification_coins_received_msg">Примени %s</string>
 	<string name="notification_peers_connected_msg">%d поврзани точки</string>
 	<!-- generic buttons -->

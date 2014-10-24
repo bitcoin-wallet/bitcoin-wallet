@@ -212,11 +212,8 @@
   <string name="about_credits_icon_title">Tämä sovellus käyttää ikonia \'bitboy\'</string>
   <string name="about_community_googleplus_title">Google+-yhteisö</string>
   <string name="about_community_googleplus_summary">Keskustelua ohjelmasta</string>
-  <string name="about_author_twitter_title">Kehittäjä Twitterissä</string>
-  <string name="about_author_googleplus_title">Kehittäjän Google+</string>
   <string name="about_market_app_title">Google Play-sivusto</string>
   <string name="about_market_app_summary">Arvostele tai tee arvio ohjelmasta</string>
-  <string name="about_credits_market_publisher_title">Muita ohjelmia kehittäjältä</string>
   <string name="notification_coins_received_msg">Vastaanotettu %s</string>
   <string name="notification_peers_connected_msg">%d vertaiseen yhdistetty</string>
   <!--generic buttons-->

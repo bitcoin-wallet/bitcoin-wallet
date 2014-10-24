@@ -212,11 +212,8 @@
   <string name="about_credits_icon_title">Это приложение использует иконку от \'bitboy\'</string>
   <string name="about_community_googleplus_title">Сообщество Google+</string>
   <string name="about_community_googleplus_summary">Обсуждение приложения</string>
-  <string name="about_author_twitter_title">Автор в Twitter</string>
-  <string name="about_author_googleplus_title">Автор в Google+</string>
   <string name="about_market_app_title">Страница Google Play</string>
   <string name="about_market_app_summary">Напишите отзыв или оцените приложение</string>
-  <string name="about_credits_market_publisher_title">Другие приложения от автора</string>
   <string name="notification_coins_received_msg">Получено %s</string>
   <string name="notification_peers_connected_msg">подключено %d участников</string>
   <!--generic buttons-->

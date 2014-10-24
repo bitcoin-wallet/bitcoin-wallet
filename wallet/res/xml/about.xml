@@ -6,7 +6,7 @@
 			android:key="about_version"
 			android:title="@string/about_version_title" />
 		<Preference
-			android:summary="© 2011-2014, Andreas Schildbach"
+			android:summary="© 2011-2014, the Bitcoin Wallet developers"
 			android:title="@string/about_copyright_title" />
 		<Preference
 			android:key="about_license"
@@ -23,16 +23,9 @@
 			android:summary="@string/about_community_googleplus_summary"
 			android:title="@string/about_community_googleplus_title" />
 		<Preference
-			android:key="about_author_twitter"
+			android:key="about_twitter"
 			android:summary="\@bitcoin_wallet"
-			android:title="@string/about_author_twitter_title" />
-		<Preference
-			android:key="about_author_googleplus"
-			android:summary="+Andreas Schildbach"
-			android:title="@string/about_author_googleplus_title" />
-		<Preference
-			android:key="about_market_publisher"
-			android:title="@string/about_credits_market_publisher_title" />
+			android:title="Twitter" />
 		<Preference android:key="about_credits_bitcoinj" />
 		<Preference
 			android:key="about_credits_zxing"

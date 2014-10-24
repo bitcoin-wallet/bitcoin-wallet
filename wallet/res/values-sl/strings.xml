@@ -192,11 +192,8 @@
 	<string name="about_credits_icon_title">Ta apl. uporablja ikono avtorja bitboy</string>
 	<string name="about_community_googleplus_title">Skupnost na Google+</string>
 	<string name="about_community_googleplus_summary">Razprave o aplikaciji</string>
-	<string name="about_author_twitter_title">Avtor na Twitterju</string>
-	<string name="about_author_googleplus_title">Avtor na Google+</string>
 	<string name="about_market_app_title">Stran na Google Play</string>
 	<string name="about_market_app_summary">Oceni aplikacijo</string>
-	<string name="about_credits_market_publisher_title">Druge aplikacije istega avtorja</string>
 	<string name="notification_coins_received_msg">Prejeto: %s</string>
 	<string name="notification_peers_connected_msg">Število povezanih vrstnikov: %d</string>
 	<!-- generic buttons -->

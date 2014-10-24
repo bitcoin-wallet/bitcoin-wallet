@@ -200,11 +200,8 @@
 	<string name="about_credits_icon_title">本程序使用 \'bitboy\' 制作的图标</string>
 	<string name="about_community_googleplus_title">Google+ 社区</string>
 	<string name="about_community_googleplus_summary">有关此应用程序的讨论</string>
-	<string name="about_author_twitter_title">作者Twitter</string>
-	<string name="about_author_googleplus_title">作者Google+</string>
 	<string name="about_market_app_title">谷歌商店页面</string>
 	<string name="about_market_app_summary">给应用程式评价</string>
-	<string name="about_credits_market_publisher_title">与作者相关的应用程式</string>
 	<string name="notification_coins_received_msg">收到 %s</string>
 	<string name="notification_peers_connected_msg">%d连接已建立</string>
 	<!-- generic buttons -->

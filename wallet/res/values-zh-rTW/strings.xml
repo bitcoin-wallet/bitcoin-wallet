@@ -210,11 +210,8 @@
   <string name="about_credits_icon_title">本 app 使用圖標來自\'bitboy\'</string>
   <string name="about_community_googleplus_title">Google+ 社群</string>
   <string name="about_community_googleplus_summary">討論本 app</string>
-  <string name="about_author_twitter_title">作者的 Twitter</string>
-  <string name="about_author_googleplus_title">作者的 Google+</string>
   <string name="about_market_app_title">Google Play 商店頁面</string>
   <string name="about_market_app_summary">app評分</string>
-  <string name="about_credits_market_publisher_title">該作者其他app</string>
   <string name="notification_coins_received_msg">收到 %s</string>
   <string name="notification_peers_connected_msg">%d 節點連線</string>
   <!--generic buttons-->

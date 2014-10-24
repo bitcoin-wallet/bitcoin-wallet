@@ -212,11 +212,8 @@
   <string name="about_credits_icon_title">Denne app bruger et ikon af \'bitboy\'</string>
   <string name="about_community_googleplus_title">Google+-fællesskab</string>
   <string name="about_community_googleplus_summary">Diskussioner om appen</string>
-  <string name="about_author_twitter_title">Forfatteren på Twitter</string>
-  <string name="about_author_googleplus_title">Forfatteren på Google+</string>
   <string name="about_market_app_title">Google Play-side</string>
   <string name="about_market_app_summary">Anmeld eller bedøm appen</string>
-  <string name="about_credits_market_publisher_title">Andre apps fra denne udvikler</string>
   <string name="notification_coins_received_msg">Modtog %s</string>
   <string name="notification_peers_connected_msg">%d peers forbundet</string>
   <!--generic buttons-->

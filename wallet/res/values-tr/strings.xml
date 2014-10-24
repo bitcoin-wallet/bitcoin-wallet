@@ -211,11 +211,8 @@
   <string name="about_credits_icon_title">Bu uygulama \'bitboy\' tarafından oluşturulan bir ikon kullanır</string>
   <string name="about_community_googleplus_title">Google+ topluluğu</string>
   <string name="about_community_googleplus_summary">Uygulama hakkında tartışmalar</string>
-  <string name="about_author_twitter_title">Geliştiricinin Twitter sayfası</string>
-  <string name="about_author_googleplus_title">Geliştiricinin Google+ sayfası</string>
   <string name="about_market_app_title">Google Play sayfası</string>
   <string name="about_market_app_summary">Uygulamayı değerlendir veya not ver</string>
-  <string name="about_credits_market_publisher_title">Geliştiricinin diğer uygulamaları</string>
   <string name="notification_coins_received_msg">%s alındı</string>
   <string name="notification_peers_connected_msg">%d eş bağlı</string>
   <!--generic buttons-->

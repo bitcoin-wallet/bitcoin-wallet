@@ -212,11 +212,8 @@
   <string name="about_credits_icon_title">Cette appli utilise une icône par « bitboy »</string>
   <string name="about_community_googleplus_title">Communauté Google+</string>
   <string name="about_community_googleplus_summary">Discussions à propos de cette appli</string>
-  <string name="about_author_twitter_title">Auteur sur Twitter</string>
-  <string name="about_author_googleplus_title">Auteur sur Google+</string>
   <string name="about_market_app_title">Page Google Play</string>
   <string name="about_market_app_summary">Critiquer ou évaluer cette appli</string>
-  <string name="about_credits_market_publisher_title">Autres applications de l\'auteur</string>
   <string name="notification_coins_received_msg">%s reçu</string>
   <string name="notification_peers_connected_msg">%d pairs connectés</string>
   <!--generic buttons-->
