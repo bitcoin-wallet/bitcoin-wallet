@@ -213,11 +213,8 @@
   <string name="about_credits_icon_title">Aquesta aplicació utilitza una icona de \'bitboy\'</string>
   <string name="about_community_googleplus_title">Comunitat Google+</string>
   <string name="about_community_googleplus_summary">Debats sobre l\'aplicació</string>
-  <string name="about_author_twitter_title">L\'autor a Twitter</string>
-  <string name="about_author_googleplus_title">L\'autor a Google+</string>
   <string name="about_market_app_title">Pàgina de Google Play</string>
   <string name="about_market_app_summary">Analitza o puntua l\'aplicació</string>
-  <string name="about_credits_market_publisher_title">Altres aplicacions de l\'autor</string>
   <string name="notification_coins_received_msg">Rebuts%s</string>
   <string name="notification_peers_connected_msg">%d parells connectats</string>
   <!--generic buttons-->

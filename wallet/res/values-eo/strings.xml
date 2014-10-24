@@ -161,11 +161,8 @@
 	<string name="about_credits_icon_title">Ĉi tiu aplikaĵo uzas bildsimbolon per \'bitboy\'</string>
 	<string name="about_community_googleplus_title">\"Google+\" Komunumo</string>
 	<string name="about_community_googleplus_summary">Diskutoj pri l\'aplikaĵo</string>
-	<string name="about_author_twitter_title">Aŭtoro ĉe Twitter</string>
-	<string name="about_author_googleplus_title">Aŭtoro ĉe Google+</string>
 	<string name="about_market_app_title">\"Google Play\" Paĝo</string>
 	<string name="about_market_app_summary">Revui aŭ gradi l\'aplikaĵon</string>
-	<string name="about_credits_market_publisher_title">Aliaj aplikaĵoj de Aŭtoro</string>
 	<string name="notification_coins_received_msg">Ricevita %s</string>
 	<string name="notification_peers_connected_msg">%d pajroj konektitaj</string>
 	<!-- generic buttons -->

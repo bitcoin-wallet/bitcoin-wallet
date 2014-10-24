@@ -193,11 +193,8 @@
   <string name="about_credits_icon_title">Deze app gebruikt een icoon door \'bitboy\'</string>
   <string name="about_community_googleplus_title">Google+ Gemeenschap</string>
   <string name="about_community_googleplus_summary">Discussies over de app</string>
-  <string name="about_author_twitter_title">Auteur op Twitter</string>
-  <string name="about_author_googleplus_title">Auteur op Google+</string>
   <string name="about_market_app_title">Google Play Pagina</string>
   <string name="about_market_app_summary">schrijf een recensie of beoordeel de app</string>
-  <string name="about_credits_market_publisher_title">Andere apps van auteur</string>
   <string name="notification_coins_received_msg">Ontvangen %s</string>
   <string name="notification_peers_connected_msg">%d actieve verbindingen</string>
   <!--generic buttons-->

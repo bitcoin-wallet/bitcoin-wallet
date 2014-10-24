@@ -202,11 +202,8 @@
   <string name="about_credits_icon_title">このアプリは\'bitboy\'によるアイコンを使用しています。</string>
   <string name="about_community_googleplus_title">Google+ コミュニティ</string>
   <string name="about_community_googleplus_summary">アプリについてのディスカッション</string>
-  <string name="about_author_twitter_title">Twitterの製作者</string>
-  <string name="about_author_googleplus_title">Google+の製作者</string>
   <string name="about_market_app_title">Googleプレイのページ</string>
   <string name="about_market_app_summary">アプリのレビューと評価</string>
-  <string name="about_credits_market_publisher_title">製作者のその他アプリ</string>
   <string name="notification_coins_received_msg">受取済 %s</string>
   <string name="notification_peers_connected_msg">%d のピアが接続</string>
   <!--generic buttons-->

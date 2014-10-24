@@ -213,11 +213,8 @@
   <string name="about_credits_icon_title">Denne appen bruker ett ikon av \'bitboy\'</string>
   <string name="about_community_googleplus_title">Google+ samfunnet</string>
   <string name="about_community_googleplus_summary">Diskusjon om appen</string>
-  <string name="about_author_twitter_title">Forfatteren på Twitter</string>
-  <string name="about_author_googleplus_title">Forfatteren på Google+</string>
   <string name="about_market_app_title">Google Play-siden</string>
   <string name="about_market_app_summary">Anmeld eller bedøm appen</string>
-  <string name="about_credits_market_publisher_title">Andre apps fra denne utvikleren</string>
   <string name="notification_coins_received_msg">Mottok %s</string>
   <string name="notification_peers_connected_msg">%d peers tilkoblet</string>
   <!--generic buttons-->

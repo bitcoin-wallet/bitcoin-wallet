@@ -105,7 +105,7 @@ public final class Constants
 	public static final String DONATION_ADDRESS = "18CK5k1gajRKKSC7yVSTXT9LUzbheh1XY4";
 
 	/** Recipient e-mail address for reports. */
-	public static final String REPORT_EMAIL = "wallet@schildbach.de";
+	public static final String REPORT_EMAIL = "bitcoin.wallet.developers@gmail.com";
 
 	/** Subject line for manually reported issues. */
 	public static final String REPORT_SUBJECT_ISSUE = "Reported issue";
@@ -131,12 +131,10 @@ public final class Constants
 	public static final String CREDITS_BITCOINJ_URL = "http://code.google.com/p/bitcoinj/";
 	public static final String CREDITS_ZXING_URL = "https://github.com/zxing/zxing";
 	public static final String CREDITS_ICON_URL = "https://bitcointalk.org/index.php?action=profile;u=2062";
-	public static final String AUTHOR_TWITTER_URL = "https://twitter.com/#!/bitcoin_wallet";
-	public static final String AUTHOR_GOOGLEPLUS_URL = "https://profiles.google.com/andreas.schildbach";
+	public static final String TWITTER_URL = "https://twitter.com/#!/bitcoin_wallet";
 	public static final String COMMUNITY_GOOGLEPLUS_URL = "https://plus.google.com/communities/105515929887248493912";
 	public static final String MARKET_APP_URL = "market://details?id=%s";
 	public static final String WEBMARKET_APP_URL = "https://play.google.com/store/apps/details?id=%s";
-	public static final String MARKET_PUBLISHER_URL = "market://search?q=pub:\"Andreas Schildbach\"";
 
 	public static final int HTTP_TIMEOUT_MS = 15 * (int) DateUtils.SECOND_IN_MILLIS;
 

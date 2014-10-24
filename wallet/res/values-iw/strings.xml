@@ -186,11 +186,8 @@
 	<string name="about_credits_icon_title">אפליקציה זו משתמשת בסמליל של \'bitboy\'</string>
 	<string name="about_community_googleplus_title">קהילת גוגל+</string>
 	<string name="about_community_googleplus_summary">דיונים על אודות האפליקציה</string>
-	<string name="about_author_twitter_title">המחבר בטוויטר</string>
-	<string name="about_author_googleplus_title">המחבר בגוגל+</string>
 	<string name="about_market_app_title">Google Play App Page</string>
 	<string name="about_market_app_summary">כתוב ביקורת או דרג את האפליקציה</string>
-	<string name="about_credits_market_publisher_title">אפליקציות אחרות של המחבר</string>
 	<string name="notification_coins_received_msg">נתקבלו %s</string>
 	<string name="notification_peers_connected_msg">%d עמיתים מחוברים</string>
 	<!-- generic buttons -->
