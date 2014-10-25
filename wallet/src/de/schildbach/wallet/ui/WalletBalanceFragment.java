@@ -60,6 +60,7 @@ public final class WalletBalanceFragment extends Fragment
 
 	private View viewBalance;
 	private CurrencyTextView viewBalanceBtc;
+	private View viewBalanceTooMuch;
 	private FrameLayout viewBalanceLocalFrame;
 	private CurrencyTextView viewBalanceLocal;
 	private TextView viewProgress;
@@ -124,6 +125,8 @@ public final class WalletBalanceFragment extends Fragment
 		}
 
 		viewBalanceBtc = (CurrencyTextView) view.findViewById(R.id.wallet_balance_btc);
+
+		viewBalanceTooMuch = view.findViewById(R.id.wallet_balance_too_much);
 
 		viewBalanceLocalFrame = (FrameLayout) view.findViewById(R.id.wallet_balance_local_frame);
 		if (showExchangeRatesOption)
@@ -214,6 +217,10 @@ public final class WalletBalanceFragment extends Fragment
 				viewBalanceBtc.setVisibility(View.VISIBLE);
 				viewBalanceBtc.setFormat(config.getFormat());
 				viewBalanceBtc.setAmount(balance);
+
+				final boolean tooMuch = balance.isGreaterThan(Coin.COIN);
+
+				viewBalanceTooMuch.setVisibility(tooMuch ? View.VISIBLE : View.GONE);
 
 				if (showLocalBalance)
 				{

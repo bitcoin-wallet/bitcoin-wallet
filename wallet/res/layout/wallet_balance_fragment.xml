@@ -17,6 +17,17 @@
 			android:layout_height="wrap_content"
 			android:textSize="@dimen/font_size_huge" />
 
+		<TextView
+			android:id="@+id/wallet_balance_too_much"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginBottom="8dp"
+			android:layout_marginLeft="@dimen/list_entry_padding_horizontal"
+			android:text="@string/wallet_balance_fragment_too_much"
+			android:textColor="@color/fg_less_significant"
+			android:textSize="@dimen/font_size_tiny"
+			android:visibility="gone" />
+
 		<FrameLayout
 			android:id="@+id/wallet_balance_local_frame"
 			android:layout_width="wrap_content"
