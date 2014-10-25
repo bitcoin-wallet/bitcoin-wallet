@@ -57,6 +57,7 @@ public class Configuration
 	private static final String PREFS_KEY_LAST_EXCHANGE_DIRECTION = "last_exchange_direction";
 	private static final String PREFS_KEY_CHANGE_LOG_VERSION = "change_log_version";
 	public static final String PREFS_KEY_REMIND_BACKUP = "remind_backup";
+	private static final String PREFS_KEY_LAST_BACKUP = "last_backup";
 
 	private static final int PREFS_DEFAULT_BTC_SHIFT = 3;
 	private static final int PREFS_DEFAULT_BTC_PRECISION = 2;
@@ -127,6 +128,11 @@ public class Configuration
 		return prefs.getBoolean(PREFS_KEY_REMIND_BACKUP, true);
 	}
 
+	public long getLastBackupTime()
+	{
+		return prefs.getLong(PREFS_KEY_LAST_BACKUP, 0);
+	}
+
 	public void armBackupReminder()
 	{
 		prefs.edit().putBoolean(PREFS_KEY_REMIND_BACKUP, true).commit();
@@ -134,7 +140,7 @@ public class Configuration
 
 	public void disarmBackupReminder()
 	{
-		prefs.edit().putBoolean(PREFS_KEY_REMIND_BACKUP, false).commit();
+		prefs.edit().putBoolean(PREFS_KEY_REMIND_BACKUP, false).putLong(PREFS_KEY_LAST_BACKUP, System.currentTimeMillis()).commit();
 	}
 
 	public boolean getDisclaimerEnabled()
