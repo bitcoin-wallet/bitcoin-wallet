@@ -1,3 +1,10 @@
+v4.07
+
+* Performance improvements.
+* Drop network fee by factor of 10.
+* Support rotation for HD key chains.
+* Based on bitcoinj 0.12.1.
+
 v4.06
 
 * The wallet can be protected by a spending PIN.
