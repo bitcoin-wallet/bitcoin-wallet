@@ -1,4 +1,4 @@
-<b>Ten tus bitcoins siempre contigo, ¡en tu bolsillo!</b> Puedes pagar con una rápida exploración de código QR. Como comerciante, puedes recibir pagos de forma fiable e instantánea. Bitcoin Wallet es la primera aplicación móvil Bitcoin. ¡Y posiblemente también la más segura!
+<b>Ten tus bitcoins siempre contigo, ¡en tu bolsillo!</b> Puedes pagar leyendo rápidamente el código QR. Como comerciante, puedes recibir pagos de forma fiable e instantánea. Bitcoin Wallet es la primera aplicación móvil Bitcoin. ¡Y posiblemente también la más segura!
 
 
 <b>CARACTERÍSTICAS</b>
@@ -22,7 +22,7 @@ https://www.gnu.org/licenses/gpl-3.0.en.html
 Nuestro código fuente está disponible en GitHub:
 https://github.com/schildbach/bitcoin-wallet
 
-Todas las traducciones son gestionadas a través de Transifex:
+Todas las traducciones son administradas a través de Transifex:
 https://www.transifex.com/projects/p/bitcoin-wallet/
 
 
