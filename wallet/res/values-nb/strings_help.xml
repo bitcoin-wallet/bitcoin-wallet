@@ -2,31 +2,26 @@
 <resources>
   <string name="help_wallet">
 <![CDATA[
-    <p>
-      Den øvre venstre delen av skjermen viser din valgte Bitcoin-adresse, som andre folk trenger å vite for å sende deg bitcoins.
-      Trykk for å endre adressen.
-    </p>
-    <p>
-      QR-koden til høyre inneholder din Bitcoin-adresse og kan skannes av noen andre.
-      Trykk på QR-koden for å få en større versjon av den.
-    </p>
-    <p>
-      I midten av skjermen kan du se saldoen din.
-      Saldoen i lommeboken vises også i en valgt lokal valuta.
-      Trykk på saldoen for å vise listen over alle lokale valutaer, og trykk på en av valutaene for å velge den som standard.
-    </p>
-    <p>
-      Bunnen av skjermen inneholder din transaksjonsliste, som er tom i begynnelsen.
-      Ventende transaksjoner er grå til de er bekreftet.
-      Trykk på en oppføring for å legge til avsenderens eller mottakerens adresse i adresseboken.
-      Sveip til venstre eller høyre for å bruke filtre på listen.
-    </p>
-    <p>
-      Du kan sende eller be om mynter ved å trykke på knappene i handlingsfeltet.
-      Flere alternativer er tilgjengelige i menyen for alternativer.
-    </p>
-  ]]>
-  </string>
+		<p>
+			Den øvre venstre delen av skjermen viser balansen i bitcoins og en valgt nasjonal valuta.
+			Trykk for å gå til listen over nasjonale valutaer, og trykk på en av valutaene for å velge den som standard.
+		</p>
+		<p>
+			QR-koden til høyre inneholder din Bitcoin-adresse og kan brukes til skanning av noen andre.
+			Trykk på QR-koden for å få en større versjon av den.
+		</p>
+		<p>
+			Bunnen av skjermen inneholder din transaksjonsliste, som er tom til å begynne med.
+			Ventende transaksjoner er i grått til de er bekreftet.
+			Trykk på en oppføring for å legge til avsenderen eller mottakeren i adresseboken.
+			Sveip til venstre eller høyre for å bruke filtre på listen.
+		</p>
+		<p>
+			Du kan sende eller be om mynter ved å trykke på knappene i handlingsfeltet.
+			Flere alternativer er tilgjengelige i menyen for alternativer.
+		</p>
+	]]>
+	</string>
   <string name="help_request_coins">
 <![CDATA[
     <p>
