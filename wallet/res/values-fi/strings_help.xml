@@ -7,8 +7,8 @@
 			Napsauta vaihtaaksesi osoitetta.
 		</p>
 		<p>
-			QR koodi oikealla sisältää bitcoin-osoitteesi, jonka toinen osapuoli voi skannata.
-			Napsauta QR koodia saadaksesi suuremman kuvan siitä.
+			QR-koodi oikealla sisältää bitcoin-osoitteesi, jonka toinen osapuoli voi skannata.
+			Napsauta QR-koodia saadaksesi suuremman kuvan siitä.
 		</p>
 		<p>
 			Ruudun keskellä näkyy saldosi.
@@ -56,17 +56,17 @@
 		<p>
 			Ensiksi syötät bitcoin-osoitteen, jonne on maksettava.
 			Osoite tulee automaattisesti loppuunkirjoitetuksi tallennetuista tiedoista osoitekirjasta.
-			Voit myös skannata QR koodeja, joissa on bitcoin osoite tai bitcoin pyyntöjä napsauttamalla QR näppäintä toimintavalikossa.
+			Voit myös skannata QR-koodeja, joissa on bitcoin osoite tai bitcoin pyyntöjä napsauttamalla QR-näppäintä toimintavalikossa.
 		</p>
 		<p>
-			Seuraavaksi näet, kuinka paljon sinulla on bitcoineja käytettävissä tällä hetkellä.
+			Seuraavaksi näet kuinka paljon sinulla on bitcoineja käytettävissä tällä hetkellä.
 			Muutos päänäkymän saldoon ei ole vielä vahvistettu, eikä niitä rahoja voi vielä käyttää.
 		</p>
 		<p>
-			Lopuksi, ilmoitat maksettavan summan.
+			Lopuksi ilmoitat maksettavan summan.
 		</p>
 		<p>
-			Voit asettaa maksun olematta verkossa, eli ollessasi offline.
+			Voit asettaa maksun olematta verkossa, eli ollessasi offlinessa.
 			Se lähetetään käynnistäessäsi Bitcoin Wallet:in uudestaan seuraavan kerran.
 			Jos haluat maksun menevän mahdollisimman nopeasti, varmista, että sinulla on hyvä yhteys (kuten WLAN).
 		</p>
