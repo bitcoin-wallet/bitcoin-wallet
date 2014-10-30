@@ -3,27 +3,22 @@
   <string name="help_wallet">
 <![CDATA[
 		<p>
-			Ekranın üst sol köşesi diğer kişilerin size Bitcoin yollayabilmek için bilmeleri seçilen sizin Bitcoin adresinizi gösterir.
-			Adresi değiştirmek için dokunmak yeterlidir.
+			Ekranın sol üst köşesi bakiyenizi Bitcoin olarak ve seçilen bir para biriminde gösterir.
+			Milli para birimleri listesine gitmek için dokununuz ve ardından herhangi bir para birimini varsayılan olarak seçmek için yine dokununuz.
 		</p>
 		<p>
-			Sağdaki QR code Bitcoin adresinizi içerir ve diğer kişiler tarafından taranmak için kullanılabilir.
-			Daha büyük bir QR code görüntülemek için koda dokununuz.
+			Sağ taraftaki QR kodu bitcoin adresinizi içerir ve başka birisinin ödeme yapmak için onu taraması mümkündür.
+			Daha büyük bir sürümünü elde etmek için QR koduna dokununuz.
 		</p>
 		<p>
-			Ekranın ortasında bakiyeniz görüntülenir.
-			Cüzdanınızın seçilen yerel dövizde değeri de sunulur.
-			Tüm yerel dövizlerin listesini görüntülemek için bakiyenize dokununuz, herhangi bir dövizi varsayılan olarak seçmek içinse listedeki bir dövize dokununuz.
+			Ekranın alt kesimi muamele listenizi gösterir ve başlangıçta boştur.
+			Beklemedeki muameleler teyit edilinceye kadar gri olarak gösterilir.
+			Gönderici ya da alıcı adresini adres defterine eklemek için bir unsura dokununuz.
+			Listeye filtre uygulamak için sağa ya da sola doğru kaydırınız.
 		</p>
 		<p>
-			Ekranın alt kısmı başlangıçta boş olan muamele listenizi içerir.
-			Bekleyen muameleler teyit edilene dek gri olarak görüntülenirler.
-			Herhangi bir unsura dokunarak alıcı ya da gönderici adresini adres defterine ilâve edebilirsiniz.
-			Listeye filtre uygulamak için sağa ya da sola kaydırabilirsiniz.
-		</p>
-		<p>
-			Bitcoin yollamak ya da talep etmek için etkinlik çubuğunda düğmelere dokunabilirsiniz.
-			Tercihler menüsünde daha fazla seçenek bulabilirsiniz.
+			Bitcoin göndermek ya da talepte bulunmak için eylem çubuğundaki düğmelere dokunabilirsiniz.
+			Seçenekler menüsünde daha fazla seçenek bulabilirsiniz.
 		</p>
 	]]>
 	</string>
