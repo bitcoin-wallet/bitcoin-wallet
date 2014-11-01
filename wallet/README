@@ -22,9 +22,8 @@ Your wallet can be manually backed up to and restored from external storage:
 
 	Testnet: /sdcard/Download/bitcoin-wallet-backup-testnet-<yyyy-MM-dd>
 
-The manual backup files are encrypted using your chosen backup password. You can use OpenSSL to decrypt:
-
-	openssl enc -d -aes-256-cbc -a -in <filename>
+If you want to recover coins from manual backups and for whatever reason you cannot use the app
+itself to restore from the backup, see the separate README.recover guide.
 
 
 DEBUGGING
