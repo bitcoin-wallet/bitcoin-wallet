@@ -165,7 +165,6 @@
   <string name="input_parser_invalid_paymentrequest">Недопустимий запит на оплату:\n%s</string>
   <string name="input_parser_invalid_transaction">Помилкова транзакція:\n%s</string>
   <string name="preferences_activity_title">Налаштування</string>
-  <string name="preferences_category_main">Параметри</string>
   <string name="preferences_category_diagnostics">Діагностика</string>
   <string name="preferences_category_labs">Лабораторія</string>
   <string name="preferences_precision_title">Деномінація і точність</string>

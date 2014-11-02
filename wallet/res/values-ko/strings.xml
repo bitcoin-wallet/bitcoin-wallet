@@ -171,7 +171,6 @@
   <string name="input_parser_invalid_paymentrequest">유효하지 않은 결제 요청입니다. :\n%s</string>
   <string name="input_parser_invalid_transaction">유효하지 않은 거래입니다. :\n%s</string>
   <string name="preferences_activity_title">설정</string>
-  <string name="preferences_category_main">선택 메뉴</string>
   <string name="preferences_category_diagnostics">오류 진단</string>
   <string name="preferences_category_labs">실험실</string>
   <string name="preferences_precision_title">액면 변경 및 표시할 자리수 </string>

@@ -124,7 +124,6 @@
 	<string name="input_parser_invalid_address">Невалидна биткоин адреса!\n(Згреши со Mainnet/Testnet?)</string>
 	<string name="input_parser_invalid_transaction">Невалидна трансакција:\n%s</string>
 	<string name="preferences_activity_title">Поставувања</string>
-	<string name="preferences_category_main">Параметри</string>
 	<string name="preferences_category_diagnostics">Дијагностицирање</string>
 	<string name="preferences_category_labs">Лабораторија</string>
 	<string name="preferences_precision_title">Деноминација и прецизност</string>

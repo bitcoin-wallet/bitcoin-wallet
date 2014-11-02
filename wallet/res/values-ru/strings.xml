@@ -197,7 +197,6 @@
   <string name="input_parser_invalid_paymentrequest">Неверный платежный запрос:\n%s</string>
   <string name="input_parser_invalid_transaction">Некорректная транзакция:\n%s</string>
   <string name="preferences_activity_title">Настройки</string>
-  <string name="preferences_category_main">Параметры</string>
   <string name="preferences_category_diagnostics">Диагностика</string>
   <string name="preferences_category_labs">Лаборатория</string>
   <string name="preferences_precision_title">Деноминация и точность</string>

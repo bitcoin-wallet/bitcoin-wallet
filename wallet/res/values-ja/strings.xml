@@ -201,7 +201,6 @@
   <string name="input_parser_invalid_paymentrequest">無効な支払のリクエスト:\n%s</string>
   <string name="input_parser_invalid_transaction">無効なトランザクション:\n%s</string>
   <string name="preferences_activity_title">設定</string>
-  <string name="preferences_category_main">詳細設定</string>
   <string name="preferences_category_diagnostics">診断</string>
   <string name="preferences_category_labs">ラボ</string>
   <string name="preferences_precision_title">通貨単位の切り下げと切り上げ</string>

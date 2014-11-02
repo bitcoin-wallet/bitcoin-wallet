@@ -124,7 +124,6 @@
 	<string name="input_parser_invalid_address">Otrzymano niepoprawny adres Bitcoin!\n(Pomylono Testnet z Prodnet?)</string>
 	<string name="input_parser_invalid_transaction">Transakcja nie powiodła się:\n%s</string>
 	<string name="preferences_activity_title">Ustawienia</string>
-	<string name="preferences_category_main">Preferencje</string>
 	<string name="preferences_category_diagnostics">Diagnostyka</string>
 	<string name="preferences_category_labs">Eksperymentalne</string>
 	<string name="preferences_precision_title">Waluta i precyzja</string>

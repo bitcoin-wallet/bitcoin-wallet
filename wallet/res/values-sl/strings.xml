@@ -148,7 +148,6 @@
 	<string name="input_parser_invalid_paymentrequest">Neveljavna prošnja za plačilo:\n%s</string>
 	<string name="input_parser_invalid_transaction">Neveljavno nakazilo:\n%s</string>
 	<string name="preferences_activity_title">Nastavitve</string>
-	<string name="preferences_category_main">Nastavitve</string>
 	<string name="preferences_category_diagnostics">Diagnostika</string>
 	<string name="preferences_category_labs">V razvoju</string>
 	<string name="preferences_precision_title">Enota in prikaz številk</string>

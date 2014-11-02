@@ -201,7 +201,6 @@
   <string name="input_parser_invalid_paymentrequest">Petició de pagament no vàlida:\n%s</string>
   <string name="input_parser_invalid_transaction">Transacció no vàlida:\n%s</string>
   <string name="preferences_activity_title">Ajustaments</string>
-  <string name="preferences_category_main">Preferències</string>
   <string name="preferences_category_diagnostics">Diagnosis</string>
   <string name="preferences_category_labs">Laboratoris</string>
   <string name="preferences_precision_title">Denominació i exactitud</string>

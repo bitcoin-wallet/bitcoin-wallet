@@ -201,7 +201,6 @@
   <string name="input_parser_invalid_paymentrequest">Ugyldig betalingsforespørsel:\n%s</string>
   <string name="input_parser_invalid_transaction">Ugyldig transaksjon:\n%s</string>
   <string name="preferences_activity_title">Innstillinger</string>
-  <string name="preferences_category_main">Alternativer</string>
   <string name="preferences_category_diagnostics">Diagnostikk</string>
   <string name="preferences_category_labs">Laboratoriet</string>
   <string name="preferences_precision_title">Benevnelse og presisjon</string>

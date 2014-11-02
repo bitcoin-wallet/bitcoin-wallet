@@ -117,7 +117,6 @@
 	<string name="input_parser_invalid_bitcoin_uri">Bitcoin URI không hợp lệ:\n%s</string>
 	<string name="input_parser_invalid_address">Đã nhận được địa chỉ bitcoin không hợp lệ!\n(Nhầm lẫn giữa Mainnet/Testnet?)</string>
 	<string name="preferences_activity_title">Thiết lập</string>
-	<string name="preferences_category_main">Tùy biến</string>
 	<string name="preferences_category_diagnostics">Chẩn đoán</string>
 	<string name="preferences_category_labs">Thí nghiệm</string>
 	<string name="preferences_connectivity_notification_title">Chỉ định kết nối</string>

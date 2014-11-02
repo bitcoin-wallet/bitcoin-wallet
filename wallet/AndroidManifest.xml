@@ -144,12 +144,8 @@
 			android:label="@string/network_monitor_activity_title"
 			android:screenOrientation="behind" />
 		<activity
-			android:name="de.schildbach.wallet.ui.PreferencesActivity"
+			android:name="de.schildbach.wallet.ui.preference.PreferenceActivity"
 			android:label="@string/preferences_activity_title"
-			android:screenOrientation="behind" />
-		<activity
-			android:name="de.schildbach.wallet.ui.AboutActivity"
-			android:label="@string/about_title"
 			android:screenOrientation="behind" />
 		<activity
 			android:name="de.schildbach.wallet.ui.RestoreWalletActivity"

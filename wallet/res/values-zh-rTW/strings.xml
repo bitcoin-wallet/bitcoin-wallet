@@ -163,7 +163,6 @@
   <string name="input_parser_invalid_paymentrequest">無效付款請求:\n%s</string>
   <string name="input_parser_invalid_transaction">無效交易:\n%s</string>
   <string name="preferences_activity_title">設定</string>
-  <string name="preferences_category_main">偏好</string>
   <string name="preferences_category_diagnostics">診斷</string>
   <string name="preferences_category_labs">實驗室功能</string>
   <string name="preferences_precision_title">顯示單位</string>

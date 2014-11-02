@@ -152,7 +152,6 @@
   <string name="input_parser_invalid_paymentrequest">Ongeldig betalingsverzoek.\n%s</string>
   <string name="input_parser_invalid_transaction">Ongeldige transactie:\n%s</string>
   <string name="preferences_activity_title">Instellingen</string>
-  <string name="preferences_category_main">Voorkeuren</string>
   <string name="preferences_category_diagnostics">Diagnostiek</string>
   <string name="preferences_category_labs">Labs</string>
   <string name="preferences_precision_title">Waarde en precisie</string>

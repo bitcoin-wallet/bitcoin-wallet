@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+	<Preference
+		android:key="report_issue"
+		android:summary="@string/preferences_report_issue_summary"
+		android:title="@string/preferences_report_issue_title" />
+	<Preference
+		android:key="initiate_reset"
+		android:summary="@string/preferences_initiate_reset_summary"
+		android:title="@string/preferences_initiate_reset_title" />
+
+</PreferenceScreen>

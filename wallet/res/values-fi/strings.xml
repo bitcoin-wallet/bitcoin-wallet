@@ -197,7 +197,6 @@
   <string name="input_parser_invalid_paymentrequest">Epäkelpo maksupyyntö:\n%s</string>
   <string name="input_parser_invalid_transaction">Epäkelpo rahansiirto:\n%s</string>
   <string name="preferences_activity_title">Asetukset</string>
-  <string name="preferences_category_main">Lisäasetukset</string>
   <string name="preferences_category_diagnostics">Diagnostiikka</string>
   <string name="preferences_category_labs">Labrat</string>
   <string name="preferences_precision_title">Nimellisarvo ja tarkkuus</string>

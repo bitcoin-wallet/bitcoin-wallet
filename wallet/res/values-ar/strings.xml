@@ -145,7 +145,6 @@
 	<string name="input_parser_invalid_paymentrequest">طلب دفع غير صالح:\n%s</string>
 	<string name="input_parser_invalid_transaction">معاملة غير صالحة:\n%s</string>
 	<string name="preferences_activity_title">الإعدادات</string>
-	<string name="preferences_category_main">التفضيلات</string>
 	<string name="preferences_category_diagnostics">التشخيصات</string>
 	<string name="preferences_category_labs">المختبرات</string>
 	<string name="preferences_precision_title">وحدات القياس والدقة</string>

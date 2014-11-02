@@ -161,7 +161,6 @@
   <string name="input_parser_invalid_paymentrequest">בקשת תשלום לא חוקית:\n%s</string>
   <string name="input_parser_invalid_transaction">עסקה לא חוקית:\n%s</string>
   <string name="preferences_activity_title">הגדרות</string>
-  <string name="preferences_category_main">העדפות</string>
   <string name="preferences_category_diagnostics">בדיקה</string>
   <string name="preferences_category_labs">מעבדות</string>
   <string name="preferences_precision_title">מטבע ודיוק</string>

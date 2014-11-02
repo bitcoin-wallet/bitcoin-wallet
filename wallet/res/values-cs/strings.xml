@@ -163,7 +163,6 @@
   <string name="input_parser_invalid_paymentrequest">Nevalidní požadavek na platbu:\n%s</string>
   <string name="input_parser_invalid_transaction">Nevalidní transakce:\n%s</string>
   <string name="preferences_activity_title">Nastavení</string>
-  <string name="preferences_category_main">Nastavení</string>
   <string name="preferences_category_diagnostics">Diagnostika</string>
   <string name="preferences_category_labs">Laboratoř</string>
   <string name="preferences_precision_title">Denominace a přesnost</string>

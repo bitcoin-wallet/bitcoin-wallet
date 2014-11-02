@@ -197,7 +197,6 @@
   <string name="input_parser_invalid_paymentrequest">Solicitud inválida de pago:\n%s</string>
   <string name="input_parser_invalid_transaction">Transacción invalida: \n%s</string>
   <string name="preferences_activity_title">Ajustes</string>
-  <string name="preferences_category_main">Preferencias</string>
   <string name="preferences_category_diagnostics">Diagnóstico</string>
   <string name="preferences_category_labs">Laboratorio</string>
   <string name="preferences_precision_title">Denominación y precisión</string>

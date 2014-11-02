@@ -148,7 +148,6 @@
 	<string name="input_parser_invalid_paymentrequest">Cobrança inválida:\n%s</string>
 	<string name="input_parser_invalid_transaction">Transação inválida:\n%s</string>
 	<string name="preferences_activity_title">Configurações</string>
-	<string name="preferences_category_main">Preferências</string>
 	<string name="preferences_category_diagnostics">Diagnósticos</string>
 	<string name="preferences_category_labs">Labs</string>
 	<string name="preferences_precision_title">Denominação e precisão</string>

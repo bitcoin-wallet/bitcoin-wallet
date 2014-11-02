@@ -65,10 +65,6 @@
 		android:showAsAction="never"
 		android:title="@string/preferences_activity_title"/>
 	<item
-		android:id="@+id/wallet_options_about"
-		android:showAsAction="never"
-		android:title="@string/about_title"/>
-	<item
 		android:id="@+id/wallet_options_donate"
 		android:showAsAction="never"
 		android:title="@string/wallet_options_donate"/>

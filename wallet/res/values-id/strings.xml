@@ -122,7 +122,6 @@
 	<string name="input_parser_invalid_bitcoin_uri">Tautan Bitcoin Salah:\n%s</string>
 	<string name="input_parser_invalid_address">Alamat bitcoin salah!\n(Keliru dgn Mainet/Testnet?)</string>
 	<string name="preferences_activity_title">Pengaturan</string>
-	<string name="preferences_category_main">Preferensi</string>
 	<string name="preferences_category_diagnostics">Diagnosa</string>
 	<string name="preferences_category_labs">Lab</string>
 	<string name="preferences_connectivity_notification_title">Indikator Konetivitas</string>

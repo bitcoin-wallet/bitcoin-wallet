@@ -172,7 +172,6 @@
   <string name="input_parser_invalid_paymentrequest">Richiesta di pagamento invalida:\n%s</string>
   <string name="input_parser_invalid_transaction">Transazione non valida:\n%s</string>
   <string name="preferences_activity_title">Impostazioni</string>
-  <string name="preferences_category_main">Preferenze</string>
   <string name="preferences_category_diagnostics">Diagnostica</string>
   <string name="preferences_category_labs">Laboratori</string>
   <string name="preferences_precision_title">Denominazione e precisione</string>

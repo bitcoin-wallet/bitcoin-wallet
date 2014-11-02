@@ -124,7 +124,6 @@
 	<string name="input_parser_invalid_address">Havas malvalidan bitmonadreson!\n(Uzante testreto anstataŭ ĉefreto?)</string>
 	<string name="input_parser_invalid_transaction">Malvalida transakcio:\n%s</string>
 	<string name="preferences_activity_title">Agoroj</string>
-	<string name="preferences_category_main">Pli d\'Agordoj</string>
 	<string name="preferences_category_diagnostics">Diagnozo</string>
 	<string name="preferences_category_labs">Labs</string>
 	<string name="preferences_precision_title">Nomado kaj precizeco</string>

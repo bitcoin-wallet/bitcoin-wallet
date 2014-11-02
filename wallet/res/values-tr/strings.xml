@@ -200,7 +200,6 @@
   <string name="input_parser_invalid_paymentrequest">Geçersiz ödeme talebi:\n%s</string>
   <string name="input_parser_invalid_transaction">Geçersiz muamele:\n%s</string>
   <string name="preferences_activity_title">Ayarlar</string>
-  <string name="preferences_category_main">Tercihler</string>
   <string name="preferences_category_diagnostics">Teşhisler</string>
   <string name="preferences_category_labs">Laboratuvarlar</string>
   <string name="preferences_precision_title">İsimlendirme ve hassasiyet</string>

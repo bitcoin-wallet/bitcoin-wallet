@@ -153,7 +153,6 @@
 	<string name="input_parser_invalid_paymentrequest">无效的付款要求：\n%s</string>
 	<string name="input_parser_invalid_transaction">无效交易：\n%s</string>
 	<string name="preferences_activity_title">设置</string>
-	<string name="preferences_category_main">设置</string>
 	<string name="preferences_category_diagnostics">诊断</string>
 	<string name="preferences_category_labs">实验室</string>
 	<string name="preferences_precision_title">面额和精度</string>
