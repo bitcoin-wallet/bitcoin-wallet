@@ -18,7 +18,9 @@
 package de.schildbach.wallet.ui;
 
 import java.util.concurrent.RejectedExecutionException;
+import java.util.concurrent.atomic.AtomicReference;
 
+import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
 
 import org.bitcoinj.core.Address;
@@ -39,7 +41,10 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.Loader;
 import android.graphics.Bitmap;
+import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
+import android.nfc.NfcAdapter;
+import android.nfc.NfcEvent;
 import android.nfc.NfcManager;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
@@ -52,7 +57,6 @@ import android.widget.ImageView;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.util.BitmapFragment;
-import de.schildbach.wallet.util.Nfc;
 import de.schildbach.wallet.util.Qr;
 import de.schildbach.wallet.util.ThrottlingWalletChangeListener;
 import de.schildbach.wallet.util.WalletUtils;
@@ -61,19 +65,20 @@ import de.schildbach.wallet_test.R;
 /**
  * @author Andreas Schildbach
  */
-public final class WalletAddressFragment extends Fragment
+public final class WalletAddressFragment extends Fragment implements NfcAdapter.CreateNdefMessageCallback
 {
 	private Activity activity;
 	private WalletApplication application;
 	private Wallet wallet;
-	private NfcManager nfcManager;
 	private LoaderManager loaderManager;
+	@CheckForNull
+	private NfcAdapter nfcAdapter;
 
 	private ImageView currentAddressQrView;
 
-	private NdefRecord currentAddressNdefRecord;
 	private Bitmap currentAddressQrBitmap;
 	private Spanned currentAddressQrLabel;
+	private AtomicReference<String> currentAddressUriRef = new AtomicReference<String>();
 
 	private static final int ID_ADDRESS_LOADER = 0;
 
@@ -85,8 +90,18 @@ public final class WalletAddressFragment extends Fragment
 		this.activity = activity;
 		this.application = (WalletApplication) activity.getApplication();
 		this.wallet = application.getWallet();
-		this.nfcManager = (NfcManager) activity.getSystemService(Context.NFC_SERVICE);
 		this.loaderManager = getLoaderManager();
+		final NfcManager nfcManager = (NfcManager) activity.getSystemService(Context.NFC_SERVICE);
+		this.nfcAdapter = nfcManager.getDefaultAdapter();
+	}
+
+	@Override
+	public void onCreate(final Bundle savedInstanceState)
+	{
+		super.onCreate(savedInstanceState);
+
+		if (nfcAdapter != null && nfcAdapter.isEnabled())
+			nfcAdapter.setNdefPushMessageCallback(this, activity);
 	}
 
 	@Override
@@ -122,17 +137,12 @@ public final class WalletAddressFragment extends Fragment
 	{
 		loaderManager.destroyLoader(ID_ADDRESS_LOADER);
 
-		Nfc.unpublish(nfcManager, activity);
-
 		super.onPause();
 	}
 
 	private void updateView()
 	{
 		currentAddressQrView.setImageBitmap(currentAddressQrBitmap);
-
-		if (currentAddressNdefRecord != null)
-			Nfc.publish(nfcManager, activity, currentAddressNdefRecord);
 	}
 
 	private void handleShowQRCode()
@@ -247,7 +257,7 @@ public final class WalletAddressFragment extends Fragment
 				currentAddressQrLabel = WalletUtils.formatAddress(currentAddress, Constants.ADDRESS_FORMAT_GROUP_SIZE,
 						Constants.ADDRESS_FORMAT_LINE_SIZE);
 
-				currentAddressNdefRecord = NdefRecord.createUri(addressStr);
+				currentAddressUriRef.set(addressStr);
 
 				updateView();
 			}
@@ -258,4 +268,14 @@ public final class WalletAddressFragment extends Fragment
 		{
 		}
 	};
+
+	@Override
+	public NdefMessage createNdefMessage(final NfcEvent event)
+	{
+		final String uri = currentAddressUriRef.get();
+		if (uri != null)
+			return new NdefMessage(new NdefRecord[] { NdefRecord.createUri(uri) });
+		else
+			return null;
+	}
 }

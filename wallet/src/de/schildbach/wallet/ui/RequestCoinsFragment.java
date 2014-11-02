@@ -17,6 +17,8 @@
 
 package de.schildbach.wallet.ui;
 
+import java.util.concurrent.atomic.AtomicReference;
+
 import javax.annotation.CheckForNull;
 
 import org.bitcoinj.core.Address;
@@ -41,6 +43,10 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.nfc.NdefMessage;
+import android.nfc.NdefRecord;
+import android.nfc.NfcAdapter;
+import android.nfc.NfcEvent;
 import android.nfc.NfcManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -74,17 +80,18 @@ import de.schildbach.wallet_test.R;
 /**
  * @author Andreas Schildbach
  */
-public final class RequestCoinsFragment extends Fragment
+public final class RequestCoinsFragment extends Fragment implements NfcAdapter.CreateNdefMessageCallback
 {
 	private AbstractBindServiceActivity activity;
 	private WalletApplication application;
 	private Configuration config;
 	private Wallet wallet;
-	private NfcManager nfcManager;
 	private LoaderManager loaderManager;
 	private ClipboardManager clipboardManager;
 	@CheckForNull
 	private BluetoothAdapter bluetoothAdapter;
+	@CheckForNull
+	private NfcAdapter nfcAdapter;
 
 	private ImageView qrView;
 	private Bitmap qrCodeBitmap;
@@ -95,6 +102,7 @@ public final class RequestCoinsFragment extends Fragment
 	private String bluetoothMac;
 	@CheckForNull
 	private Intent bluetoothServiceIntent;
+	private AtomicReference<byte[]> paymentRequestRef = new AtomicReference<byte[]>();
 
 	private static final int REQUEST_CODE_ENABLE_BLUETOOTH = 0;
 
@@ -144,15 +152,19 @@ public final class RequestCoinsFragment extends Fragment
 		this.config = application.getConfiguration();
 		this.wallet = application.getWallet();
 		this.loaderManager = getLoaderManager();
-		this.nfcManager = (NfcManager) activity.getSystemService(Context.NFC_SERVICE);
 		this.clipboardManager = (ClipboardManager) activity.getSystemService(Context.CLIPBOARD_SERVICE);
 		this.bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+		final NfcManager nfcManager = (NfcManager) activity.getSystemService(Context.NFC_SERVICE);
+		this.nfcAdapter = nfcManager.getDefaultAdapter();
 	}
 
 	@Override
 	public void onCreate(final Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
+
+		if (nfcAdapter != null && nfcAdapter.isEnabled())
+			nfcAdapter.setNdefPushMessageCallback(this, activity);
 
 		if (savedInstanceState != null)
 		{
@@ -274,8 +286,6 @@ public final class RequestCoinsFragment extends Fragment
 	public void onPause()
 	{
 		loaderManager.destroyLoader(ID_RATE_LOADER);
-
-		Nfc.unpublish(nfcManager, activity);
 
 		amountCalculatorLink.setListener(null);
 
@@ -420,18 +430,17 @@ public final class RequestCoinsFragment extends Fragment
 		qrCodeBitmap = Qr.bitmap(qrContent, size);
 		qrView.setImageBitmap(qrCodeBitmap);
 
-		// update nfc ndef message
-		final boolean nfcSuccess = Nfc.publish(nfcManager, activity, Nfc.createMime(PaymentProtocol.MIMETYPE_PAYMENTREQUEST, paymentRequest));
-
 		// update initiate request message
 		final SpannableStringBuilder initiateText = new SpannableStringBuilder(getString(R.string.request_coins_fragment_initiate_request_qr));
-		if (nfcSuccess)
+		if (nfcAdapter != null && nfcAdapter.isEnabled())
 			initiateText.append(' ').append(getString(R.string.request_coins_fragment_initiate_request_nfc));
 		initiateRequestView.setText(initiateText);
 
 		// focus linking
 		final int activeAmountViewId = amountCalculatorLink.activeTextView().getId();
 		acceptBluetoothPaymentView.setNextFocusUpId(activeAmountViewId);
+
+		paymentRequestRef.set(paymentRequest);
 	}
 
 	private String determineBitcoinRequestStr(final boolean includeBluetoothMac)
@@ -453,5 +462,15 @@ public final class RequestCoinsFragment extends Fragment
 		final String paymentUrl = includeBluetoothMac && bluetoothMac != null ? "bt:" + bluetoothMac : null;
 
 		return PaymentProtocol.createPaymentRequest(Constants.NETWORK_PARAMETERS, amount, address, null, paymentUrl, null).build().toByteArray();
+	}
+
+	@Override
+	public NdefMessage createNdefMessage(final NfcEvent event)
+	{
+		final byte[] paymentRequest = paymentRequestRef.get();
+		if (paymentRequest != null)
+			return new NdefMessage(new NdefRecord[] { Nfc.createMime(PaymentProtocol.MIMETYPE_PAYMENTREQUEST, paymentRequest) });
+		else
+			return null;
 	}
 }

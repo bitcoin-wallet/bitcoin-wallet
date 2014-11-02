@@ -57,7 +57,6 @@ import android.database.ContentObserver;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.net.Uri;
-import android.nfc.NfcManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.content.LocalBroadcastManager;
@@ -75,7 +74,6 @@ import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.util.BitmapFragment;
-import de.schildbach.wallet.util.Nfc;
 import de.schildbach.wallet.util.Qr;
 import de.schildbach.wallet.util.ThrottlingWalletChangeListener;
 import de.schildbach.wallet.util.WalletUtils;
@@ -95,7 +93,6 @@ public class TransactionsListFragment extends FancyListFragment implements Loade
 	private WalletApplication application;
 	private Configuration config;
 	private Wallet wallet;
-	private NfcManager nfcManager;
 	private ContentResolver resolver;
 	private LoaderManager loaderManager;
 
@@ -141,7 +138,6 @@ public class TransactionsListFragment extends FancyListFragment implements Loade
 		this.application = (WalletApplication) activity.getApplication();
 		this.config = application.getConfiguration();
 		this.wallet = application.getWallet();
-		this.nfcManager = (NfcManager) activity.getSystemService(Context.NFC_SERVICE);
 		this.resolver = activity.getContentResolver();
 		this.loaderManager = getLoaderManager();
 	}
@@ -262,8 +258,6 @@ public class TransactionsListFragment extends FancyListFragment implements Loade
 
 					menu.findItem(R.id.wallet_transactions_context_show_qr).setVisible(serializedTx.length < SHOW_QR_THRESHOLD_BYTES);
 
-					Nfc.publish(nfcManager, activity, Nfc.createMime(Constants.MIMETYPE_TRANSACTION, serializedTx));
-
 					return true;
 				}
 				catch (final ScriptException x)
@@ -301,7 +295,6 @@ public class TransactionsListFragment extends FancyListFragment implements Loade
 			@Override
 			public void onDestroyActionMode(final ActionMode mode)
 			{
-				Nfc.unpublish(nfcManager, activity);
 			}
 
 			private void handleEditAddress(@Nonnull final Transaction tx)

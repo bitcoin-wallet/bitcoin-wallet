@@ -21,13 +21,9 @@ import java.util.Arrays;
 
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
-import android.app.Activity;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
-import android.nfc.NfcAdapter;
-import android.nfc.NfcManager;
 
 import com.google.common.base.Charsets;
 
@@ -36,33 +32,6 @@ import com.google.common.base.Charsets;
  */
 public class Nfc
 {
-	public static boolean publish(@Nullable final NfcManager nfcManager, final Activity activity, @Nonnull final NdefRecord record)
-	{
-		if (nfcManager == null)
-			return false;
-
-		final NfcAdapter adapter = nfcManager.getDefaultAdapter();
-		if (adapter == null)
-			return false;
-
-		final NdefMessage message = new NdefMessage(new NdefRecord[] { record });
-		adapter.enableForegroundNdefPush(activity, message);
-
-		return true;
-	}
-
-	public static void unpublish(@Nullable final NfcManager nfcManager, final Activity activity)
-	{
-		if (nfcManager == null)
-			return;
-
-		final NfcAdapter adapter = nfcManager.getDefaultAdapter();
-		if (adapter == null)
-			return;
-
-		adapter.disableForegroundNdefPush(activity);
-	}
-
 	public static NdefRecord createMime(@Nonnull final String mimeType, @Nonnull final byte[] payload)
 	{
 		final byte[] mimeBytes = mimeType.getBytes(Charsets.US_ASCII);
