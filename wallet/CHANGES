@@ -1,3 +1,7 @@
+v4.09
+
+* Migrate preferences and NFC to use Android 4 API.
+
 v4.08
 
 * Update Norwegian Bokmål, Japanese, Danish, Finnish, Spanish, Catalan and Russian translations.
