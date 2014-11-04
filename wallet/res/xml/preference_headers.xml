@@ -3,7 +3,7 @@
 
 	<header
 		android:fragment="de.schildbach.wallet.ui.preference.SettingsFragment"
-		android:title="Settings" />
+		android:title="@string/preferences_activity_title" />
 	<header
 		android:fragment="de.schildbach.wallet.ui.preference.DiagnosticsFragment"
 		android:title="@string/preferences_category_diagnostics" />
