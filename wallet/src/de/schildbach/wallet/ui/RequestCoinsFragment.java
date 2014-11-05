@@ -35,6 +35,8 @@ import android.app.LoaderManager;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.bluetooth.BluetoothAdapter;
 import android.content.ActivityNotFoundException;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -50,7 +52,6 @@ import android.nfc.NfcEvent;
 import android.nfc.NfcManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.text.ClipboardManager;
 import android.text.SpannableStringBuilder;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -375,8 +376,9 @@ public final class RequestCoinsFragment extends Fragment implements NfcAdapter.C
 
 	private void handleCopy()
 	{
-		final String request = determineBitcoinRequestStr(false);
-		clipboardManager.setText(request);
+		final Uri request = Uri.parse(determineBitcoinRequestStr(false));
+		clipboardManager.setPrimaryClip(ClipData.newRawUri("Bitcoin payment request", request));
+		log.info("payment request copied to clipboard: {}", request);
 		activity.toast(R.string.request_coins_clipboard_msg);
 	}
 

@@ -30,8 +30,12 @@ import org.bitcoinj.core.Wallet;
 import org.bitcoinj.core.WalletEventListener;
 import org.bitcoinj.uri.BitcoinURI;
 import org.bitcoinj.utils.Threading;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import android.app.Activity;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
@@ -39,7 +43,6 @@ import android.database.ContentObserver;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.text.ClipboardManager;
 import android.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -65,9 +68,12 @@ public final class WalletAddressesFragment extends FancyListFragment
 	private AddressBookActivity activity;
 	private WalletApplication application;
 	private Wallet wallet;
+	private ClipboardManager clipboardManager;
 	private ContentResolver contentResolver;
 
 	private WalletAddressesAdapter adapter;
+
+	private static final Logger log = LoggerFactory.getLogger(WalletAddressesFragment.class);
 
 	@Override
 	public void onAttach(final Activity activity)
@@ -77,6 +83,7 @@ public final class WalletAddressesFragment extends FancyListFragment
 		this.activity = (AddressBookActivity) activity;
 		this.application = (WalletApplication) activity.getApplication();
 		this.wallet = application.getWallet();
+		this.clipboardManager = (ClipboardManager) activity.getSystemService(Context.CLIPBOARD_SERVICE);
 		this.contentResolver = activity.getContentResolver();
 	}
 
@@ -220,8 +227,8 @@ public final class WalletAddressesFragment extends FancyListFragment
 
 			private void handleCopyToClipboard(@Nonnull final Address address)
 			{
-				final ClipboardManager clipboardManager = (ClipboardManager) activity.getSystemService(Context.CLIPBOARD_SERVICE);
-				clipboardManager.setText(address.toString());
+				clipboardManager.setPrimaryClip(ClipData.newPlainText("Bitcoin address", address.toString()));
+				log.info("address copied to clipboard: {}", address.toString());
 				activity.toast(R.string.wallet_address_fragment_clipboard_msg);
 			}
 		});
