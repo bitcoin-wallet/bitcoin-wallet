@@ -323,7 +323,7 @@ public class SweepWalletFragment extends Fragment
 				@Override
 				public void run()
 				{
-					if (isResumed())
+					if (!isResumed())
 						return;
 
 					sweepTransactionListAdapter.notifyDataSetChanged();

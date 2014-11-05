@@ -348,7 +348,7 @@ public final class SendCoinsFragment extends Fragment
 				@Override
 				public void run()
 				{
-					if (isResumed())
+					if (!isResumed())
 						return;
 
 					sentTransactionListAdapter.notifyDataSetChanged();
