@@ -182,6 +182,11 @@
 			android:name="de.schildbach.wallet.ExchangeRatesProvider"
 			android:authorities="de.schildbach.wallet_test.exchange_rates"
 			android:exported="false" />
+		<provider
+			android:name="de.schildbach.wallet.FileAttachmentProvider"
+			android:authorities="de.schildbach.wallet_test.file_attachment"
+			android:exported="false"
+			android:grantUriPermissions="true" />
 
 		<receiver
 			android:name="de.schildbach.wallet.WalletBalanceWidgetProvider"

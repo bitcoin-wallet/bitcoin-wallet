@@ -47,6 +47,7 @@ import android.widget.Toast;
 import com.google.common.base.Charsets;
 
 import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.FileAttachmentProvider;
 import de.schildbach.wallet.util.CrashReporter;
 import de.schildbach.wallet.util.Io;
 import de.schildbach.wallet_test.R;
@@ -182,9 +183,7 @@ public abstract class ReportIssueDialogBuilder extends DialogBuilder implements 
 					os.close();
 					is.close();
 
-					Io.chmod(file, 0777);
-
-					attachments.add(Uri.fromFile(file));
+					attachments.add(FileAttachmentProvider.contentUri(context.getPackageName(), file));
 				}
 			}
 			catch (final IOException x)
@@ -207,9 +206,7 @@ public abstract class ReportIssueDialogBuilder extends DialogBuilder implements 
 					writer.write(walletDump.toString());
 					writer.close();
 
-					Io.chmod(file, 0777);
-
-					attachments.add(Uri.fromFile(file));
+					attachments.add(FileAttachmentProvider.contentUri(context.getPackageName(), file));
 				}
 			}
 			catch (final IOException x)
@@ -263,6 +260,8 @@ public abstract class ReportIssueDialogBuilder extends DialogBuilder implements 
 		if (subject != null)
 			intent.putExtra(Intent.EXTRA_SUBJECT, subject);
 		intent.putExtra(Intent.EXTRA_TEXT, text);
+
+		intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
 		try
 		{
