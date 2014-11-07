@@ -12,6 +12,7 @@
 		<item>4</item>
 		<item>2/3</item>
 		<item>0/6</item>
+		<item>2/6</item>
 	</string-array>
 	<string-array name="preferences_precision_labels">
 		<item>BTC, 8 digits</item>
@@ -19,6 +20,7 @@
 		<item>BTC, 4 digits</item>
 		<item>mBTC, 2 digits</item>
 		<item>µBTC, no digits</item>
+		<item>bit, 2 digits</item>
 	</string-array>
 
 </resources>
