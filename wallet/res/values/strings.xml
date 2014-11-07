@@ -29,7 +29,6 @@
 	<string name="wallet_transactions_fragment_tab_received">Received</string>
 	<string name="wallet_transactions_fragment_tab_all">Both</string>
 	<string name="wallet_transactions_fragment_tab_sent">Sent</string>
-
 	<string name="wallet_transactions_fragment_empty_text_received">No digitalcoins received so far.</string>
 	<string name="wallet_transactions_fragment_empty_text_sent">No digitalcoins sent so far.</string>
 	<string name="wallet_transactions_fragment_empty_text_howto">How to get digitalcoins?\n\nTrade for traditional money,\nsell goods or services or\nearn by working.</string>
@@ -37,12 +36,7 @@
 	<string name="wallet_transactions_fragment_coinbase">mined</string>
 	<string name="wallet_transactions_fragment_internal">internal</string>
 	<string name="wallet_transactions_context_show_qr_title">Show QR code</string>
-
-    <string name="wallet_transactions_context_browse">Explorer</string>
-    <string name="wallet_transactions_context_show_transaction_title">Transaction details</string>
-	<string name="wallet_options_backup">Back up Keys</string>
 	<string name="wallet_options_safety_menu">Safety</string>
-
 	<string name="wallet_options_safety">Safety notes</string>
 	<string name="wallet_options_donate">Tip / Donate</string>
 	<string name="wallet_donate_address_label">Donation for digitalcoin Wallet</string>
@@ -50,30 +44,25 @@
 	<string name="wallet_low_storage_dialog_msg">digitalcoin Wallet uses internal storage for remembering transactions and blocks. If it runs out of space, it will stop working and your digitalcoins will be at risk!\n\nDo you want to open the Application Manager to uninstall unneeded apps?</string>
 	<string name="wallet_low_storage_dialog_button_apps">Manage Apps</string>
 	<string name="wallet_timeskew_dialog_title">Check your time settings!</string>
-	<string name="wallet_timeskew_dialog_msg">Your device time is off by %d minutes. You probably cannot send or receive digitalcoins due to this problem.\n\nYou should check and correct your time and timezone settings.</string>
-
+	<string name="wallet_timeskew_dialog_msg">Your device time is off by %d minutes. You probably cannot send or receive Bitcoins due to this problem.\n\nYou should check and correct your time and timezone settings.</string>
 	<string name="wallet_version_dialog_title">A new version is available!</string>
 	<string name="wallet_version_dialog_msg">This version fixes important bugs. For details, see the change log on Google Play.</string>
 	<string name="wallet_version_dialog_msg_deprecated">If you don\'t see an update, this probably means your version of Android isn\'t supported any more.</string>
 	<string name="wallet_version_dialog_button_market">Google Play</string>
 	<string name="wallet_version_dialog_button_binary">Download</string>
-
 	<string name="wallet_old_sdk_dialog_title">Android version is out of date</string>
 	<string name="wallet_old_sdk_dialog_message">Chances are that one of the next releases of digitalcoin Wallet will not support your device any more. In some cases, it can get difficult to spend coins on this device.\n\nUnless you know what you are doing, it is recommended to move out your coins soon.</string>
 	<string name="send_coins_activity_title">Send digitalcoins</string>
 	<string name="send_coins_fragment_request_payment_request_progress">Fetching signature from %s…</string>
 	<string name="send_coins_fragment_request_payment_request_failed_title">Fetching signature failed</string>
 	<string name="send_coins_fragment_request_payment_request_wrong_signature">Wrong signature!</string>
-
 	<string name="send_coins_fragment_payee_verified_by">verified by: %s</string>
 	<string name="send_coins_fragment_payee_verified_by_unknown">unknown</string>
-
 	<string name="send_coins_fragment_receiving_address_label">Pay to</string>
 	<string name="send_coins_fragment_receiving_address_hint">type address or name</string>
 	<string name="send_coins_fragment_receiving_address_error">Invalid digitalcoin Address!</string>
 	<string name="send_coins_fragment_receiving_address_error_cross_network">Cannot use %s address with this wallet!</string>
 	<string name="send_coins_fragment_receiving_address_error_cross_network_unknown">Cannot use address of unknown network with this wallet!</string>
-
 	<string name="send_coins_fragment_receiving_address_complex">complex\naddress</string>
 	<string name="send_coins_fragment_pending">(%s waiting for confirmation)</string>
 	<string name="send_coins_fragment_amount_label">Amount to pay</string>
@@ -113,7 +102,6 @@
 
 	<string name="request_coins_clipboard_msg">digitalcoin request copied to clipboard</string>
 	<string name="request_coins_share_dialog_title">Share request for digitalcoins…</string>
-
 	<string name="request_coins_options_local_app_title">Request from local app</string>
 	<string name="address_book_activity_title">Address Book</string>
 	<string name="address_book_list_receiving_title">Your addresses</string>
@@ -136,31 +124,14 @@
 	<string name="edit_address_book_entry_dialog_address_label">Address</string>
 	<string name="edit_address_book_entry_dialog_label_label">Name</string>
 	<string name="edit_address_book_entry_dialog_button_edit">Save</string>
-
-    <string name="transaction_activity_title">Transaction</string>
-    <string name="transaction_fragment_time_label">Date</string>
-    <string name="transaction_fragment_amount_sent_label">Sent</string>
-    <string name="transaction_fragment_amount_received_label">Received</string>
-    <string name="transaction_fragment_from_label">Sender</string>
-    <string name="transaction_fragment_to_label">Receiver</string>
-    <string name="transaction_fragment_you">you</string>
-    <string name="transaction_fragment_status_label">Status</string>
-    <string name="transaction_fragment_status_unknown">unknown</string>
-    <string name="transaction_fragment_status_pending">waiting for confirmation</string>
-    <string name="transaction_fragment_status_confirmed">confirmed</string>
-    <string name="transaction_fragment_status_dead">dead</string>
-    <string name="transaction_fragment_hash_label">Hash</string>
-    <string name="transaction_fragment_hash_clipboard_msg">Transaction hash copied to clipboard</string>
-    <string name="transaction_fragment_length_label">Length</string>
 	<string name="transaction_row_message_purpose_key_rotation">This transaction strengthens your wallet against theft. &lt;u&gt;More info.&lt;/u&gt;</string>
-
 	<string name="transaction_row_message_own_unbroadcasted">This payment has not been transmitted yet.</string>
 	<string name="transaction_row_message_received_direct">This payment has been received directly. There is a risk it might never become spendable.</string>
 	<string name="transaction_row_message_received_unconfirmed_unlocked">This payment should become spendable in a few minutes.</string>
 	<string name="transaction_row_message_received_unconfirmed_locked">This payment is not standard and should not be trusted.</string>
 	<string name="transaction_row_message_received_dead">This payment has been reversed by the sender.</string>
 	<string name="transaction_row_message_received_dust">This small amount can probably never be spent economically.</string>
-	<string name="network_monitor_activity_title">Network Monitor</string>
+	<string name="network_monitor_activity_title">Network monitor</string>
 	<string name="network_monitor_peer_list_title">Peers</string>
 	<string name="network_monitor_block_list_title">Blocks</string>
 	<string name="peer_list_fragment_empty">No peers connected</string>
@@ -203,9 +174,7 @@
 	<string name="input_parser_invalid_digitalcoin_uri">Invalid digitalcoin URI:\n%s</string>
 	<string name="input_parser_invalid_address">Got invalid digitalcoin address!\n(Mixing up Mainnet/Testnet?)</string>
 	<string name="input_parser_unverifyable_paymentrequest">Cannot verify payment request:\n%s</string>
-
 	<string name="input_parser_invalid_paymentrequest">Invalid payment request:\n%s</string>
-
 	<string name="input_parser_invalid_transaction">Invalid transaction:\n%s</string>
 	<string name="preferences_activity_title">Settings</string>
 	<string name="preferences_category_main">Preferences</string>
@@ -221,9 +190,9 @@
 	<string name="preferences_trusted_peer_only_summary">Prevents connecting to any peers besides the trusted peer.</string>
 	<string name="preferences_data_usage_title">Data usage</string>
 	<string name="preferences_data_usage_summary">Show options to restrict data usage on mobile networks.</string>
-	<string name="preferences_report_issue_title">Report Issue</string>
+	<string name="preferences_report_issue_title">Report issue</string>
 	<string name="preferences_report_issue_summary">Collect information about your issue and email your report to the developers.</string>
-	<string name="preferences_initiate_reset_title">Reset Blockchain</string>
+	<string name="preferences_initiate_reset_title">Reset blockchain</string>
 	<string name="preferences_initiate_reset_summary">Reset blockchain, transactions and wallet balance. Replay will take a while.</string>
 	<string name="preferences_initiate_reset_dialog_message">Would you like to reset and replay the blockchain?\n\nThis will temporarily hide your wallet balance and remove transactions. Both will recover as blockchain sync progresses.</string>
 	<string name="preferences_initiate_reset_dialog_positive">Reset</string>
@@ -243,25 +212,18 @@
 	<string name="about_version_title">Version</string>
 	<string name="about_copyright_title">Copyright</string>
 	<string name="about_license_title">License</string>
-
     <string name="about_source_title">Source Code</string>
 	<string name="about_credits_bitcoinj_title">This app is using digitalcoinj %s</string>
 	<string name="about_credits_zxing_title">"This app is using 'zxing'"</string>
-
 	<string name="about_credits_icon_title">"This app is using an icon by 'tjb0607'"</string>
-    <string name="about_credits_website_title">"digitalcoin Website"</string>
-    <string name="about_credits_forum_title">"digitalcoin Forum"</string>
-
 	<string name="about_community_googleplus_title">Google+ Community</string>
 	<string name="about_community_googleplus_summary">Discussions about the app</string>
-
 	<string name="about_author_twitter_title">Author at Twitter</string>
 	<string name="about_author_googleplus_title">Author at Google+</string>
 	<string name="about_market_app_title">Google Play page</string>
 	<string name="about_market_app_summary">Review or rate the app</string>
 	<string name="about_credits_market_publisher_title">Other apps from the author</string>
 	<string name="notification_coins_received_msg">Received %s</string>
-
 	<string name="notification_peers_connected_msg">%d peers connected</string>
 
 	<!-- generic buttons -->
@@ -282,18 +244,14 @@
 	<string name="button_scan">Scan</string>
 	<string name="button_edit_address">Add/edit address</string>
 	<string name="button_settings">Settings</string>
-
 	<string name="action_browse">Browse</string>
 	<string name="time_today">today</string>
 	<string name="address_unlabeled">(unlabeled)</string>
-    <string name="wallet_options_disconnect">Disconnect</string>
-    <string name="send_coins_fragment_fee">Transaction Fee</string>
+
 	<!-- generic error messages -->
 	<string name="error_io">I/O error: %s</string>
 	<string name="error_parse">Parse error: %s</string>
 	<string name="error_http">HTTP error %1$s:\n%2$s</string>
 	<string name="error_bluetooth">Bluetooth error %1$s</string>
-
-<string name="transaction_fragment_confirmations_label">Confirmations</string>
 
 </resources>

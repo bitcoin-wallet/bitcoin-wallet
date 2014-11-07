@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+    <string name="wallet_options_disconnect">Disconnect</string>
+    <string name="send_coins_fragment_fee">Transaction Fee</string>
+
+    <string name="wallet_transactions_context_show_transaction_title">Transaction details</string>
+    <string name="wallet_transactions_context_browse">Explorer</string>
+
+    <string name="transaction_activity_title">Transaction</string>
+    <string name="transaction_fragment_time_label">Date</string>
+    <string name="transaction_fragment_amount_sent_label">Sent</string>
+    <string name="transaction_fragment_amount_received_label">Received</string>
+    <string name="transaction_fragment_from_label">Sender</string>
+    <string name="transaction_fragment_to_label">Receiver</string>
+    <string name="transaction_fragment_you">you</string>
+    <string name="transaction_fragment_status_label">Status</string>
+    <string name="transaction_fragment_status_unknown">unknown</string>
+    <string name="transaction_fragment_status_pending">waiting for confirmation</string>
+    <string name="transaction_fragment_status_confirmed">confirmed</string>
+    <string name="transaction_fragment_status_dead">dead</string>
+    <string name="transaction_fragment_hash_label">Hash</string>
+    <string name="transaction_fragment_hash_clipboard_msg">Transaction hash copied to clipboard</string>
+    <string name="transaction_fragment_length_label">Length</string>
+    <string name="transaction_fragment_confirmations_label">Confirmations</string>
+
+    <string name="about_credits_website_title">"digitalcoin Website"</string>
+    <string name="about_credits_forum_title">"digitalcoin Forum"</string>
+</resources>

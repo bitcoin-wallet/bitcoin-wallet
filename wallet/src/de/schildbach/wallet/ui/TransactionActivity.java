@@ -97,7 +97,7 @@ public final class TransactionActivity extends AbstractWalletActivity
 			final Wallet wallet = ((WalletApplication) getApplication()).getWallet();
 			tx = wallet.getTransaction((Sha256Hash) intent.getSerializableExtra(INTENT_EXTRA_TRANSACTION_HASH));
 		}
-		else if (intentUri != null && "ltctx".equals(scheme))
+		else if (intentUri != null && (CoinDefinition.coinTicker.toLowerCase()+"tx").equals(scheme))
 		{
 			try
 			{
