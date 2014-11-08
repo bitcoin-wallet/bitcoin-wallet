@@ -97,10 +97,12 @@
   <string name="sweep_wallet_fragment_insufficient_money_title">Ei tarpeeksi valuuttaa.</string>
   <string name="sweep_wallet_fragment_insufficient_money_msg">Lompakon valuutan määrä on liian alhainen tyhjentämiseen.</string>
   <string name="sweep_wallet_options_reload">Uudelleenlataa saldo</string>
+  <string name="maintenance_dialog_title">Huoltoa suositellaan</string>
   <string name="maintenance_dialog_private_key_password">PIN</string>
   <string name="maintenance_dialog_private_key_bad_password">väärä PIN!</string>
   <string name="maintenance_dialog_state_decrypting">Puretaan salausta…</string>
   <string name="maintenance_dialog_state_done">Valmis.</string>
+  <string name="maintenance_dialog_button_move">Siirrä</string>
   <string name="request_coins_activity_title">Vastaanota Bitcoineja</string>
   <string name="request_coins_fragment_amount_label">Vastaanotettava määrä (valinnainen)</string>
   <string name="request_coins_fragment_accept_bluetooth_payment">Hyväksy maksu Bluetoothin välityksellä luotettavamman siirron takaamiseksi</string>
