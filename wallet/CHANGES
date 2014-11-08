@@ -1,3 +1,9 @@
+v4.10
+
+* Fix sent transaction not updating on send coins screen.
+* Fix compatibility issue to GMail 5 app when sending report attachments.
+* Migrate clipboard to use Android 4 API.
+
 v4.09
 
 * Migrate preferences and NFC to use Android 4 API.
