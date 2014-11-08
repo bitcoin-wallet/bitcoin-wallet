@@ -65,7 +65,7 @@
   <string name="send_coins_fragment_hint_fee">Et lite gebyr til nettverket på %s vil bli betalt.</string>
   <string name="send_coins_fragment_hint_dusty_send">Beløpet er for lite til å sende.</string>
   <string name="send_coins_fragment_hint_insufficient_money">Ikke nok tilgjengelige mynter. Du mangler %s.</string>
-  <string name="send_coins_fragment_hint_empty_wallet_failed">Summen av små betalinger i lommeboken er ikke en verdi som kan sendes.</string>
+  <string name="send_coins_fragment_hint_empty_wallet_failed">Summen av små betalinger i lommeboken er ikke en verdi stor nok til å sendes.</string>
   <string name="send_coins_fragment_direct_payment_enable">Send betaling direkte til mottakeren.</string>
   <string name="send_coins_fragment_direct_payment_ack">Din betaling ble sendt direkte med suksess.</string>
   <string name="send_coins_fragment_direct_payment_nack">Din betaling ble avvist via direkte forbindelse.</string>
