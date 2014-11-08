@@ -12,6 +12,7 @@
   <string name="blockchain_state_progress_problem_storage">Synkroniserer: Pladsproblem</string>
   <string name="blockchain_state_progress_problem_network">Synkroniserer: Netærksproblem</string>
   <string name="wallet_address_fragment_clipboard_msg">Bitcoin-adresse kopieret til udklipsholder</string>
+  <string name="wallet_balance_fragment_too_much">Dette beløb er ret stort at gå rundt med i din lomme. Du bør flytte noget af det til et mere sikkert sted.</string>
   <string name="wallet_balance_fragment_replaying">Saldo er ikke tilgængelig under genafspilning.</string>
   <string name="exchange_rates_activity_title">Valutakurser</string>
   <string name="exchange_rates_fragment_empty_text">Kunne ikke indlæse vekselkurser.</string>
@@ -64,7 +65,7 @@
   <string name="send_coins_fragment_hint_fee">Et lille netværksgebyr på %s vil blive betalt.</string>
   <string name="send_coins_fragment_hint_dusty_send">Beløbet er for lille til at blive sendt.</string>
   <string name="send_coins_fragment_hint_insufficient_money">Ikke nok tilgængelige bitcoin. Du mangler %s.</string>
-  <string name="send_coins_fragment_hint_empty_wallet_failed">Det samlede beløb for bittesmå betalinger i din tegnebog er ikke nok til at være et beløb, der kan sendes.</string>
+  <string name="send_coins_fragment_hint_empty_wallet_failed">Det samlede beløb af bittesmå betalinger i din tegnebog er ikke nok til at kunne sendes.</string>
   <string name="send_coins_fragment_direct_payment_enable">Send betaling direkte til modtageren.</string>
   <string name="send_coins_fragment_direct_payment_ack">Din betaling blev sendt direkte med succes.</string>
   <string name="send_coins_fragment_direct_payment_nack">Din betaling blev afvist via direkte forbindelse.</string>
@@ -97,10 +98,13 @@
   <string name="sweep_wallet_fragment_insufficient_money_title">Ikke nok bitcoin</string>
   <string name="sweep_wallet_fragment_insufficient_money_msg">Mængden af bitcoin i tegnebogen er for lille til rydning.</string>
   <string name="sweep_wallet_options_reload">Genindlæs saldo</string>
+  <string name="maintenance_dialog_title">Vedligeholdelse anbefales</string>
+  <string name="maintenance_dialog_message">Du har modtaget %1$s til usikre adresser. Vil du flytte disse til sikre adresser? Et lille netværksgebyr på %2$s vil opkræves.</string>
   <string name="maintenance_dialog_private_key_password">PIN</string>
   <string name="maintenance_dialog_private_key_bad_password">dårlig PIN!</string>
   <string name="maintenance_dialog_state_decrypting">Afkrypterer …</string>
   <string name="maintenance_dialog_state_done">Færdig.</string>
+  <string name="maintenance_dialog_button_move">Flyt</string>
   <string name="request_coins_activity_title">Forespørg Bitcoins</string>
   <string name="request_coins_fragment_amount_label">Forespurgt beløb (valgfri)</string>
   <string name="request_coins_fragment_accept_bluetooth_payment">Modtag betaling via Bluetooth for mere pålidelig bearbejdning</string>
