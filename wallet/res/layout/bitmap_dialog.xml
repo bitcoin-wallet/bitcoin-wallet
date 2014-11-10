@@ -8,8 +8,8 @@
 
 	<ImageView
 		android:id="@+id/bitmap_dialog_image"
-		android:layout_width="256dp"
-		android:layout_height="256dp"
+		android:layout_width="@dimen/bitmap_dialog_qr_size"
+		android:layout_height="@dimen/bitmap_dialog_qr_size"
 		android:background="@color/bg_bright"
 		android:keepScreenOn="true"
 		android:padding="4dp"

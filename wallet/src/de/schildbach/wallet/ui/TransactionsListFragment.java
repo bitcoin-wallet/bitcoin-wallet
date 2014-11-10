@@ -304,7 +304,7 @@ public class TransactionsListFragment extends FancyListFragment implements Loade
 
 			private void handleShowQr()
 			{
-				final int size = (int) (384 * getResources().getDisplayMetrics().density);
+				final int size = getResources().getDimensionPixelSize(R.dimen.bitmap_dialog_qr_size);
 				final Bitmap qrCodeBitmap = Qr.bitmap(Qr.encodeCompressBinary(serializedTx), size);
 				BitmapFragment.show(getFragmentManager(), qrCodeBitmap);
 			}

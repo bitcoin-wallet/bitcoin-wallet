@@ -9,6 +9,7 @@
 	<dimen name="font_size_huge">46sp</dimen>
 	<dimen name="symbol_size_normal">15sp</dimen>
 	<dimen name="wallet_address_qr_size">112dp</dimen>
-	<dimen name="wallet_address_qr_size_large">160dp</dimen>
+	<dimen name="request_coins_qr_size">160dp</dimen>
+	<dimen name="bitmap_dialog_qr_size">288dp</dimen>
 
 </resources>
