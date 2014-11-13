@@ -401,6 +401,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 
 				final boolean connectTrustedPeerOnly = hasTrustedPeer && config.getTrustedPeerOnly();
 				peerGroup.setMaxConnections(connectTrustedPeerOnly ? 1 : maxConnectedPeers);
+				peerGroup.setConnectTimeoutMillis(Constants.PEER_TIMEOUT_MS);
 
 				peerGroup.addPeerDiscovery(new PeerDiscovery()
 				{
