@@ -160,6 +160,7 @@ public final class SendCoinsFragment extends Fragment
 	private Button viewCancel;
 
 	private MenuItem scanAction;
+	private MenuItem priorityAction;
 	private MenuItem emptyAction;
 
 	private PaymentIntent paymentIntent;
@@ -825,6 +826,7 @@ public final class SendCoinsFragment extends Fragment
 		inflater.inflate(R.menu.send_coins_fragment_options, menu);
 
 		scanAction = menu.findItem(R.id.send_coins_options_scan);
+		priorityAction = menu.findItem(R.id.send_coins_options_priority);
 		emptyAction = menu.findItem(R.id.send_coins_options_empty);
 
 		final PackageManager pm = activity.getPackageManager();
@@ -840,6 +842,10 @@ public final class SendCoinsFragment extends Fragment
 		{
 			case R.id.send_coins_options_scan:
 				handleScan();
+				return true;
+
+			case R.id.send_coins_options_priority:
+				handlePriority();
 				return true;
 
 			case R.id.send_coins_options_empty:
@@ -954,6 +960,7 @@ public final class SendCoinsFragment extends Fragment
 		// prepare send request
 		final SendRequest sendRequest = finalPaymentIntent.toSendRequest();
 		sendRequest.emptyWallet = paymentIntent.mayEditAmount() && finalAmount.equals(wallet.getBalance(BalanceType.AVAILABLE));
+		sendRequest.feePerKb = priorityAction.isChecked() ? SendRequest.DEFAULT_FEE_PER_KB.multiply(10) : SendRequest.DEFAULT_FEE_PER_KB;
 		sendRequest.memo = paymentIntent.memo;
 		sendRequest.aesKey = encryptionKey;
 
@@ -1112,6 +1119,13 @@ public final class SendCoinsFragment extends Fragment
 		startActivityForResult(new Intent(activity, ScanActivity.class), REQUEST_CODE_SCAN);
 	}
 
+	private void handlePriority()
+	{
+		priorityAction.setChecked(!priorityAction.isChecked());
+		executeDryrun();
+		updateView();
+	}
+
 	private void handleEmpty()
 	{
 		final Coin available = wallet.getBalance(BalanceType.AVAILABLE);
@@ -1139,6 +1153,7 @@ public final class SendCoinsFragment extends Fragment
 				final SendRequest sendRequest = paymentIntent.mergeWithEditedValues(amount, dummy).toSendRequest();
 				sendRequest.signInputs = false;
 				sendRequest.emptyWallet = paymentIntent.mayEditAmount() && amount.equals(wallet.getBalance(BalanceType.AVAILABLE));
+				sendRequest.feePerKb = priorityAction.isChecked() ? SendRequest.DEFAULT_FEE_PER_KB.multiply(10) : SendRequest.DEFAULT_FEE_PER_KB;
 				wallet.completeTx(sendRequest);
 				dryrunTransaction = sendRequest.tx;
 			}

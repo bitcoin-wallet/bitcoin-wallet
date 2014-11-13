@@ -92,6 +92,7 @@
 	<string name="send_coins_sent_msg">Versendet!</string>
 	<string name="send_coins_failed_msg">Fehlgeschlagen!</string>
 	<string name="send_coins_error_msg">Problem beim Versenden der Bitcoins!</string>
+	<string name="send_coins_options_priority">Schnelle Bestätigung, höhere Gebühr</string>
 	<string name="send_coins_options_empty">Wallet entleeren</string>
 	<string name="send_coins_address_context_clear_title">Adresse neu eingeben</string>
 
