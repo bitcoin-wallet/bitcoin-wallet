@@ -1,3 +1,10 @@
+v4.11
+
+* When sending coins, there is a "quick confirm" option which pays the old higher fee.
+* Fix white/black screen that prevents some users from starting the app.
+* Fix reuse of change address in some cases.
+* Based on bitcoinj 0.12.2.
+
 v4.10
 
 * Fix sent transaction not updating on send coins screen.
