@@ -976,11 +976,12 @@ public final class SendCoinsFragment extends Fragment
 
 				sentTransaction.getConfidence().addEventListener(sentTransactionConfidenceListener);
 
-				final Address refundAddress = wallet.freshAddress(KeyPurpose.REFUND);
+				final Address refundAddress = paymentIntent.standard == Standard.BIP70 ? wallet.freshAddress(KeyPurpose.REFUND) : null;
 				final Payment payment = PaymentProtocol.createPaymentMessage(Arrays.asList(new Transaction[] { sentTransaction }), finalAmount,
 						refundAddress, null, paymentIntent.payeeData);
 
-				directPay(payment);
+				if (directPaymentEnableView.isChecked())
+					directPay(payment);
 
 				application.broadcastTransaction(sentTransaction);
 
@@ -999,50 +1000,47 @@ public final class SendCoinsFragment extends Fragment
 
 			private void directPay(final Payment payment)
 			{
-				if (directPaymentEnableView.isChecked())
+				final DirectPaymentTask.ResultCallback callback = new DirectPaymentTask.ResultCallback()
 				{
-					final DirectPaymentTask.ResultCallback callback = new DirectPaymentTask.ResultCallback()
+					@Override
+					public void onResult(final boolean ack)
 					{
-						@Override
-						public void onResult(final boolean ack)
+						directPaymentAck = ack;
+
+						if (state == State.SENDING)
+							state = State.SENT;
+
+						updateView();
+					}
+
+					@Override
+					public void onFail(final int messageResId, final Object... messageArgs)
+					{
+						final DialogBuilder dialog = DialogBuilder.warn(activity, R.string.send_coins_fragment_direct_payment_failed_title);
+						dialog.setMessage(paymentIntent.paymentUrl + "\n" + getString(messageResId, messageArgs) + "\n\n"
+								+ getString(R.string.send_coins_fragment_direct_payment_failed_msg));
+						dialog.setPositiveButton(R.string.button_retry, new DialogInterface.OnClickListener()
 						{
-							directPaymentAck = ack;
-
-							if (state == State.SENDING)
-								state = State.SENT;
-
-							updateView();
-						}
-
-						@Override
-						public void onFail(final int messageResId, final Object... messageArgs)
-						{
-							final DialogBuilder dialog = DialogBuilder.warn(activity, R.string.send_coins_fragment_direct_payment_failed_title);
-							dialog.setMessage(paymentIntent.paymentUrl + "\n" + getString(messageResId, messageArgs) + "\n\n"
-									+ getString(R.string.send_coins_fragment_direct_payment_failed_msg));
-							dialog.setPositiveButton(R.string.button_retry, new DialogInterface.OnClickListener()
+							@Override
+							public void onClick(final DialogInterface dialog, final int which)
 							{
-								@Override
-								public void onClick(final DialogInterface dialog, final int which)
-								{
-									directPay(payment);
-								}
-							});
-							dialog.setNegativeButton(R.string.button_dismiss, null);
-							dialog.show();
-						}
-					};
+								directPay(payment);
+							}
+						});
+						dialog.setNegativeButton(R.string.button_dismiss, null);
+						dialog.show();
+					}
+				};
 
-					if (paymentIntent.isHttpPaymentUrl())
-					{
-						new DirectPaymentTask.HttpPaymentTask(backgroundHandler, callback, paymentIntent.paymentUrl, application.httpUserAgent())
-								.send(payment);
-					}
-					else if (paymentIntent.isBluetoothPaymentUrl() && bluetoothAdapter != null && bluetoothAdapter.isEnabled())
-					{
-						new DirectPaymentTask.BluetoothPaymentTask(backgroundHandler, callback, bluetoothAdapter,
-								Bluetooth.getBluetoothMac(paymentIntent.paymentUrl)).send(payment);
-					}
+				if (paymentIntent.isHttpPaymentUrl())
+				{
+					new DirectPaymentTask.HttpPaymentTask(backgroundHandler, callback, paymentIntent.paymentUrl, application.httpUserAgent())
+							.send(payment);
+				}
+				else if (paymentIntent.isBluetoothPaymentUrl() && bluetoothAdapter != null && bluetoothAdapter.isEnabled())
+				{
+					new DirectPaymentTask.BluetoothPaymentTask(backgroundHandler, callback, bluetoothAdapter,
+							Bluetooth.getBluetoothMac(paymentIntent.paymentUrl)).send(payment);
 				}
 			}
 
