@@ -56,7 +56,7 @@ a good chance the backup is on-device. Use
 
 It will list any backup files present. Pick one and use
 
-    adb pull /sdcard/Download/bitcoin-wallet-backup-testnet-2014-11-01
+	adb pull /sdcard/Download/bitcoin-wallet-backup-testnet-2014-11-01
 
 to copy the file to your PC.
 
@@ -111,7 +111,7 @@ shell prompt if its finished synching. Have a look at the wallet:
 Does the balance look right? You can see all transactions that ever touched your wallet. Now empty
 your entire wallet to the desired destination wallet:
 
-	./wallet-tool send --wallet=/tmp/bitcoin-wallet-decrypted-backup --output=<receiving address of destination wallet>:<balance>
+	./wallet-tool send --wallet=/tmp/bitcoin-wallet-decrypted-backup --output=<receiving address of destination wallet>:ALL
 
 If your wallet was protected by a spending PIN, you need to supply that PIN using the
 --password=<PIN> option. Be extra careful with this command to get all parameters right. If it
