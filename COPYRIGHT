@@ -1,0 +1,96 @@
+sour - a bitcoin wallet for android
+Copyright (C) 2014 J. Maurice <j@wiz.biz>
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+This software was originally derived in part from the following works,
+as licensed under their respective free software licenses. Please see
+the AUTHORS file for a complete list of the original contributors to
+each open source project:
+
+Schildbach Bitcoin Wallet, a standalone android wallet app
+Copyright (C) 2013-2014 Andreas Schildbach <andreas@schildbach.de>
+Licensed under the GNU General Public License, Version 3
+Web: http://wallet.schildbach.de
+Git: https://github.com/schildbach/bitcoin-wallet
+
+BitcoinJ, a library for working with Bitcoin
+Copyright (C) 2012-2014 Google Inc.
+Licensed under the Apache License, Version 2.0
+Web: http://www.bitcoinj.org
+Git: https://github.com/bitcoinj/bitcoinj
+
+The Bouncy Castle Crypto Package, a Java crypto implementation
+Copyright (c) 2000-2014 The Legion of the Bouncy Castle Inc.
+Licensed under the MIT License
+Web: http://www.bouncycastle.org
+Git: http://git.bouncycastle.org/repositories/bc-java
+
+Guava Libraries, Google Core Libraries for Java 6+
+Copyright (C) 2012 Google Inc.
+Licensed under the Apache License, Version 2.0
+Web: https://code.google.com/p/guava-libraries/
+Git: https://github.com/google/guava
+
+Protocol Buffers, Google's data interchange format
+Copyright (C) 2008 Google Inc.
+Licensed under the Apache License, Version 2.0
+Web: https://developers.google.com/protocol-buffers/
+Git: https://github.com/google/protobuf
+
+Zebra Crossing, a multi-format 1D/2D barcode processing library
+Copyright (C) 2012 ZXing authors
+Licensed under the Apache License, Version 2.0
+Web: https://zxing.github.io/zxing/
+Git: https://github.com/zxing/zxing
+
+Colin Percival's scrypt, a password-based key derivation function
+Copyright (C) 2009 Colin Percival
+Licensed under the 2-clause BSD License
+Web: https://www.tarsnap.com/scrypt/
+Svn: http://scrypt.googlecode.com/svn/trunk/ scrypt-read-only
+
+wg/scrypt, a Java implementation of scrypt
+Copyright (C) 2011 Will Glozer
+Licensed under the Apache License, Version 2.0
+Web: http://groups.google.com/group/lambdaworks-oss
+Git: https://github.com/wg/scrypt
+
+Orchid, a Tor client implementation and library written in Java
+Copyright (C) 2009-2011 Bruce Leidl
+Licensed under the 3-clause BSD License
+Web: https://subgraph.com/orchid/index.en.html
+Git: https://github.com/subgraph/Orchid
+
+SLF4J, a Simple Logging Facade for Java
+Copyright (c) 2004-2013 QOS.ch
+Licensed under the MIT License
+Web: http://www.slf4j.org/
+Git: https://github.com/qos-ch/slf4j
+
+Spongy Castle, a repackage of The Bouncy Castle Crypto Package
+Copyright (c) 2000-2014 The Legion of the Bouncy Castle Inc.
+Licensed under the MIT License
+Web: http://rtyley.github.io/spongycastle/
+Git: https://github.com/rtyley/spongycastle
+
+jcip-annotations, a clean room implementation of JCIP Annotations
+Copyright (C) 2013 Stephen Connolly
+Licensed under the Apache License, Version 2.0
+Web: http://stephenc.github.com/jcip-annotations/
+Git: https://github.com/stephenc/jcip-annotations
+
+Java Specification Request 305
+Copyright (c) 2007-2009, JSR305 expert group
+

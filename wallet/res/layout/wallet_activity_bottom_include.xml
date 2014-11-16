@@ -9,13 +9,7 @@
 
 	<fragment
 		android:id="@+id/wallet_actions_fragment"
-		android:name="de.schildbach.wallet.ui.WalletActionsFragment"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content" />
-
-	<fragment
-		android:id="@+id/wallet_disclaimer_fragment"
-		android:name="de.schildbach.wallet.ui.WalletDisclaimerFragment"
+		android:name="biz.wiz.android.wallet.ui.WalletActionsFragment"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content" />
 

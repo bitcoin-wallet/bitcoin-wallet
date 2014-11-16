@@ -15,7 +15,7 @@
 http://bitcoin.org
 
 如果你想参与比特币钱包维护，该项目位于
-https://github.com/schildbach/bitcoin-wallet
+https://github.com/jmaurice/sour
 
 授权: GPLv3
 您使用的风险!

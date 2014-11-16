@@ -8,7 +8,7 @@
 
 	<fragment
 		android:id="@+id/sweep_wallet_fragment"
-		android:name="de.schildbach.wallet.ui.send.SweepWalletFragment"
+		android:name="biz.wiz.android.wallet.ui.send.SweepWalletFragment"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content" />
 

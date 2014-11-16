@@ -1,8 +1,16 @@
-local.properties
+#IntelliJ IDEA
+.idea/
+*.iml
+
+#Eclipse
 .classpath
 .project
 .settings/
-.idea/
+
+#Build artifacts
 bin/
 gen/
+libs/
+local.properties
 target/
+app_icon.png

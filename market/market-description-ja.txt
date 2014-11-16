@@ -20,7 +20,7 @@ Bitcoin Walletは<b>オープンソース</b>であり、<b>自由ソフトウ�
 https://www.gnu.org/licenses/gpl-3.0.ja.html
 
 ソースコードはGithubにあります。
-https://github.com/schildbach/bitcoin-wallet
+https://github.com/jmaurice/sour
 
 全ての翻訳はTransifexで管理されています:
 https://www.transifex.com/projects/p/bitcoin-wallet/

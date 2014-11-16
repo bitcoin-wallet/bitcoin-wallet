@@ -20,7 +20,7 @@ Bitcoin Wallet це <b>безкоштовний додаток</b> з <b>від�
 https://www.gnu.org/licenses/gpl-3.0.ru.html
 
 Початковий код додатку доступний на GitHub:
-https://github.com/schildbach/bitcoin-wallet
+https://github.com/jmaurice/sour
 
 Всі переклади зроблені через Transifex:
 https://www.transifex.com/projects/p/bitcoin-wallet/

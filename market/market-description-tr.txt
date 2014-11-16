@@ -20,7 +20,7 @@ Bitcoin Wallet <b>açık kaynak</b> ve <b>özgür yazılımdır</b>. Lisans: GPL
 https://www.gnu.org/licenses/gpl-3.0.en.html
 
 Kaynak kodumuz GitHub'da mevcuttur:
-https://github.com/schildbach/bitcoin-wallet
+https://github.com/jmaurice/sour
 
 Tüm tercümeler Transifex üzerinde yönetilir:
 https://www.transifex.com/projects/p/bitcoin-wallet/

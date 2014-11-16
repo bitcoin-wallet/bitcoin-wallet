@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:tools="http://schemas.android.com/tools"
-	package="de.schildbach.wallet_test"
+	package="biz.wiz.android.wallet_test"
 	android:installLocation="internalOnly"
-	android:versionCode="202"
-	android:versionName="4.12-test" >
+	android:versionCode="1"
+	android:versionName="0.1-alpha" >
 
 	<uses-sdk
 		android:minSdkVersion="15"
@@ -54,19 +54,19 @@
 		android:xlargeScreens="true" />
 
 	<application
-		android:name="de.schildbach.wallet.WalletApplication"
+		android:name="biz.wiz.android.wallet.WalletApplication"
 		android:allowBackup="false"
 		android:icon="@drawable/app_icon"
 		android:label="@string/app_name"
 		android:theme="@style/My.Theme" >
 		<activity
-			android:name="de.schildbach.wallet.ui.WalletActivity"
+			android:name="biz.wiz.android.wallet.ui.WalletActivity"
 			android:configChanges="keyboard|keyboardHidden"
 			android:launchMode="singleTask" />
 
 		<activity-alias
-			android:name="de.schildbach.wallet.WalletActivity"
-			android:targetActivity="de.schildbach.wallet.ui.WalletActivity" >
+			android:name="biz.wiz.android.wallet.WalletActivity"
+			android:targetActivity="biz.wiz.android.wallet.ui.WalletActivity" >
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
 
@@ -82,7 +82,7 @@
 		</activity-alias>
 
 		<activity
-			android:name="de.schildbach.wallet.ui.send.SendCoinsActivity"
+			android:name="biz.wiz.android.wallet.ui.send.SendCoinsActivity"
 			android:configChanges="keyboard|keyboardHidden"
 			android:label="@string/send_coins_activity_title"
 			android:screenOrientation="behind"
@@ -118,37 +118,37 @@
 			</intent-filter>
 		</activity>
 		<activity
-			android:name="de.schildbach.wallet.ui.SendCoinsQrActivity"
+			android:name="biz.wiz.android.wallet.ui.SendCoinsQrActivity"
 			android:configChanges="keyboard|keyboardHidden"
 			android:theme="@android:style/Theme.Translucent.NoTitleBar" >
 		</activity>
 		<activity
-			android:name="de.schildbach.wallet.ui.RequestCoinsActivity"
+			android:name="biz.wiz.android.wallet.ui.RequestCoinsActivity"
 			android:configChanges="keyboard|keyboardHidden"
 			android:label="@string/request_coins_activity_title"
 			android:screenOrientation="behind"
 			android:windowSoftInputMode="adjustResize" />
 		<activity
-			android:name="de.schildbach.wallet.ui.AddressBookActivity"
+			android:name="biz.wiz.android.wallet.ui.AddressBookActivity"
 			android:configChanges="keyboard|keyboardHidden"
 			android:label="@string/address_book_activity_title"
 			android:screenOrientation="behind" />
 		<activity
-			android:name="de.schildbach.wallet.ui.ExchangeRatesActivity"
+			android:name="biz.wiz.android.wallet.ui.ExchangeRatesActivity"
 			android:configChanges="keyboard|keyboardHidden"
 			android:label="@string/exchange_rates_activity_title"
 			android:screenOrientation="behind" />
 		<activity
-			android:name="de.schildbach.wallet.ui.NetworkMonitorActivity"
+			android:name="biz.wiz.android.wallet.ui.NetworkMonitorActivity"
 			android:configChanges="keyboard|keyboardHidden"
 			android:label="@string/network_monitor_activity_title"
 			android:screenOrientation="behind" />
 		<activity
-			android:name="de.schildbach.wallet.ui.preference.PreferenceActivity"
+			android:name="biz.wiz.android.wallet.ui.preference.PreferenceActivity"
 			android:label="@string/preferences_activity_title"
 			android:screenOrientation="behind" />
 		<activity
-			android:name="de.schildbach.wallet.ui.RestoreWalletActivity"
+			android:name="biz.wiz.android.wallet.ui.RestoreWalletActivity"
 			android:configChanges="orientation|keyboard|keyboardHidden"
 			android:theme="@style/My.Theme.Dialog" >
 			<intent-filter android:label="@string/import_keys_intent_filter_action" >
@@ -161,35 +161,35 @@
 			</intent-filter>
 		</activity>
 		<activity
-			android:name="de.schildbach.wallet.ui.ScanActivity"
+			android:name="biz.wiz.android.wallet.ui.ScanActivity"
 			android:configChanges="orientation|keyboard|keyboardHidden"
 			android:screenOrientation="landscape"
 			android:stateNotNeeded="true"
 			android:theme="@style/My.Theme.Fullscreen"
 			android:windowSoftInputMode="stateAlwaysHidden" />
 		<activity
-			android:name="de.schildbach.wallet.ui.send.SweepWalletActivity"
+			android:name="biz.wiz.android.wallet.ui.send.SweepWalletActivity"
 			android:configChanges="keyboard|keyboardHidden"
 			android:label="@string/sweep_wallet_activity_title"
 			android:screenOrientation="behind"
 			android:windowSoftInputMode="adjustResize" />
 
 		<provider
-			android:name="de.schildbach.wallet.AddressBookProvider"
-			android:authorities="de.schildbach.wallet_test.address_book"
+			android:name="biz.wiz.android.wallet.AddressBookProvider"
+			android:authorities="biz.wiz.android.wallet_test.address_book"
 			android:exported="false" />
 		<provider
-			android:name="de.schildbach.wallet.ExchangeRatesProvider"
-			android:authorities="de.schildbach.wallet_test.exchange_rates"
+			android:name="biz.wiz.android.wallet.ExchangeRatesProvider"
+			android:authorities="biz.wiz.android.wallet_test.exchange_rates"
 			android:exported="false" />
 		<provider
-			android:name="de.schildbach.wallet.FileAttachmentProvider"
-			android:authorities="de.schildbach.wallet_test.file_attachment"
+			android:name="biz.wiz.android.wallet.FileAttachmentProvider"
+			android:authorities="biz.wiz.android.wallet_test.file_attachment"
 			android:exported="false"
 			android:grantUriPermissions="true" />
 
 		<receiver
-			android:name="de.schildbach.wallet.WalletBalanceWidgetProvider"
+			android:name="biz.wiz.android.wallet.WalletBalanceWidgetProvider"
 			android:label="Bitcoin Wallet Balance" >
 			<intent-filter>
 				<action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
@@ -201,13 +201,13 @@
 		</receiver>
 
 		<service
-			android:name="de.schildbach.wallet.service.BlockchainServiceImpl"
+			android:name="biz.wiz.android.wallet.service.BlockchainServiceImpl"
 			android:exported="false" />
 		<service
-			android:name="de.schildbach.wallet.offline.AcceptBluetoothService"
+			android:name="biz.wiz.android.wallet.offline.AcceptBluetoothService"
 			android:exported="false" />
 
-		<receiver android:name="de.schildbach.wallet.service.AutosyncReceiver" >
+		<receiver android:name="biz.wiz.android.wallet.service.AutosyncReceiver" >
 			<intent-filter>
 				<action android:name="android.intent.action.BOOT_COMPLETED" />
 			</intent-filter>
@@ -217,7 +217,7 @@
 		</receiver>
 
 		<service
-			android:name="de.schildbach.wallet.service.UpgradeWalletService"
+			android:name="biz.wiz.android.wallet.service.UpgradeWalletService"
 			android:exported="false" />
 
 		<meta-data

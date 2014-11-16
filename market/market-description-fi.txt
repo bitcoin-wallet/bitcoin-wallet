@@ -20,7 +20,7 @@ Bitcoin Wallet on <b>avointa lähdekoodia</b> ja <b>vapaa ohjelmisto</b>. Lisens
 https://www.gnu.org/licenses/gpl-3.0.en.html
 
 Lähdekoodi saatavilla GitHub:sta:
-https://github.com/schildbach/bitcoin-wallet
+https://github.com/jmaurice/sour
 
 Kaikki käännökset on hallinnoitu Transifex:n kautta:
 https://www.transifex.com/projects/p/bitcoin-wallet/

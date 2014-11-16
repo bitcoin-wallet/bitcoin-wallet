@@ -20,7 +20,7 @@ Bitcoin Wallet er <b>fri software</b> med <b>åben kildekode</b>. Licens: GPLv3
 https://www.gnu.org/licenses/gpl-3.0.en.html
 
 Vores kildekode er tilgængelig på GitHub:
-https://github.com/schildbach/bitcoin-wallet
+https://github.com/jmaurice/sour
 
 Alle oversættelser håndteres via Transifex:
 https://www.transifex.com/projects/p/bitcoin-wallet/

@@ -20,7 +20,7 @@ Bitcoin Wallet je <b>open source</b> a <b>svobodný software</b>. Licence: GPLv3
 https://www.gnu.org/licenses/gpl-3.0.en.html
 
 Náš zdrojový kód je k dispozici na GitHubu:
-https://github.com/schildbach/bitcoin-wallet
+https://github.com/jmaurice/sour
 
 Veškeré překlady jsou tvořeny pomocí Transflex.
 https://www.transifex.com/projects/p/bitcoin-wallet/

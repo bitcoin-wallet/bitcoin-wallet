@@ -1,18 +1,17 @@
-Welcome to _Bitcoin Wallet_, a standalone Bitcoin payment app for your Android device!
+# sour
+bitcoin/crypto app for android
 
-This project contains several sub-projects:
+# ingredients
+- [schildbach wallet]: android wallet base
+- [bouncy castle crypto]: java crypto library
+- [bitcoinj]: google bitcoin library
+- [guava]: google core libraries
+- [protobuf]: google's data interchange format
+- [zxing]: barcode processing library
 
- * __wallet__:
-     The Android app itself. This is probably what you're searching for.
- * __market__:
-     App description and promo material for the Google Play app store.
- * __integration-android__:
-     A tiny library for integrating Bitcoin payments into your own Android app
-     (e.g. donations, in-app purchases).
- * __sample-integration-android__:
-     A minimal example app to demonstrate integration of Bitcoin payments into
-     your Android app.
-
-You can build all sub-projects at once using Maven:
-
-`mvn clean install`
+[schildbach wallet]:https://github.com/schildbach/bitcoin-wallet
+[bouncy castle crypto]:https://github.com/bcgit/bc-java
+[bitcoinj]:https://github.com/bitcoinj/bitcoinj
+[guava]:https://github.com/google/guava
+[protobuf]:https://github.com/google/protobuf
+[zxing]:https://github.com/zxing/zxing
