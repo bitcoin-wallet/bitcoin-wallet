@@ -159,9 +159,7 @@ public final class SendCoinsFragment extends Fragment
 	private Button viewGo;
 	private Button viewCancel;
 
-	private MenuItem scanAction;
 	private MenuItem priorityAction;
-	private MenuItem emptyAction;
 
 	private PaymentIntent paymentIntent;
 
@@ -361,11 +359,9 @@ public final class SendCoinsFragment extends Fragment
 					if (state == State.SENDING)
 					{
 						if (confidenceType == ConfidenceType.DEAD)
-							state = State.FAILED;
+							setState(State.FAILED);
 						else if (numBroadcastPeers > 1 || confidenceType == ConfidenceType.BUILDING)
-							state = State.SENT;
-
-						updateView();
+							setState(State.SENT);
 					}
 
 					if (reason == ChangeReason.SEEN_PEERS && confidenceType == ConfidenceType.PENDING)
@@ -825,14 +821,25 @@ public final class SendCoinsFragment extends Fragment
 	{
 		inflater.inflate(R.menu.send_coins_fragment_options, menu);
 
-		scanAction = menu.findItem(R.id.send_coins_options_scan);
 		priorityAction = menu.findItem(R.id.send_coins_options_priority);
-		emptyAction = menu.findItem(R.id.send_coins_options_empty);
-
-		final PackageManager pm = activity.getPackageManager();
-		scanAction.setVisible(pm.hasSystemFeature(PackageManager.FEATURE_CAMERA) || pm.hasSystemFeature(PackageManager.FEATURE_CAMERA_FRONT));
 
 		super.onCreateOptionsMenu(menu, inflater);
+	}
+
+	@Override
+	public void onPrepareOptionsMenu(final Menu menu)
+	{
+		final MenuItem scanAction = menu.findItem(R.id.send_coins_options_scan);
+		final PackageManager pm = activity.getPackageManager();
+		scanAction.setVisible(pm.hasSystemFeature(PackageManager.FEATURE_CAMERA) || pm.hasSystemFeature(PackageManager.FEATURE_CAMERA_FRONT));
+		scanAction.setEnabled(state == State.INPUT);
+
+		final MenuItem emptyAction = menu.findItem(R.id.send_coins_options_empty);
+		emptyAction.setEnabled(state == State.INPUT);
+
+		priorityAction.setEnabled(state == State.INPUT);
+
+		super.onPrepareOptionsMenu(menu);
 	}
 
 	@Override
@@ -938,8 +945,7 @@ public final class SendCoinsFragment extends Fragment
 				}
 			}.deriveKey(wallet.getKeyCrypter(), privateKeyPasswordView.getText().toString().trim());
 
-			state = State.DECRYPTING;
-			updateView();
+			setState(State.DECRYPTING);
 		}
 		else
 		{
@@ -949,8 +955,7 @@ public final class SendCoinsFragment extends Fragment
 
 	private void signAndSendPayment(final KeyParameter encryptionKey)
 	{
-		state = State.SIGNING;
-		updateView();
+		setState(State.SIGNING);
 
 		// final payment intent
 		final PaymentIntent finalPaymentIntent = paymentIntent.mergeWithEditedValues(amountCalculatorLink.getAmount(),
@@ -971,8 +976,7 @@ public final class SendCoinsFragment extends Fragment
 			{
 				sentTransaction = transaction;
 
-				state = State.SENDING;
-				updateView();
+				setState(State.SENDING);
 
 				sentTransaction.getConfidence().addEventListener(sentTransactionConfidenceListener);
 
@@ -1008,7 +1012,7 @@ public final class SendCoinsFragment extends Fragment
 						directPaymentAck = ack;
 
 						if (state == State.SENDING)
-							state = State.SENT;
+							setState(State.SENT);
 
 						updateView();
 					}
@@ -1047,8 +1051,7 @@ public final class SendCoinsFragment extends Fragment
 			@Override
 			protected void onInsufficientMoney(@Nonnull final Coin missing)
 			{
-				state = State.INPUT;
-				updateView();
+				setState(State.INPUT);
 
 				final Coin estimated = wallet.getBalance(BalanceType.ESTIMATED);
 				final Coin available = wallet.getBalance(BalanceType.AVAILABLE);
@@ -1079,8 +1082,7 @@ public final class SendCoinsFragment extends Fragment
 			@Override
 			protected void onInvalidKey()
 			{
-				state = State.INPUT;
-				updateView();
+				setState(State.INPUT);
 
 				privateKeyBadPasswordView.setVisibility(View.VISIBLE);
 				privateKeyPasswordView.requestFocus();
@@ -1089,8 +1091,7 @@ public final class SendCoinsFragment extends Fragment
 			@Override
 			protected void onEmptyWalletFailed()
 			{
-				state = State.INPUT;
-				updateView();
+				setState(State.INPUT);
 
 				final DialogBuilder dialog = DialogBuilder.warn(activity, R.string.send_coins_fragment_empty_wallet_failed_title);
 				dialog.setMessage(R.string.send_coins_fragment_hint_empty_wallet_failed);
@@ -1101,8 +1102,7 @@ public final class SendCoinsFragment extends Fragment
 			@Override
 			protected void onFailure(@Nonnull Exception exception)
 			{
-				state = State.FAILED;
-				updateView();
+				setState(State.FAILED);
 
 				final DialogBuilder dialog = DialogBuilder.warn(activity, R.string.send_coins_error_msg);
 				dialog.setMessage(exception.toString());
@@ -1160,6 +1160,14 @@ public final class SendCoinsFragment extends Fragment
 				dryrunException = x;
 			}
 		}
+	}
+
+	private void setState(final State state)
+	{
+		this.state = state;
+
+		activity.invalidateOptionsMenu();
+		updateView();
 	}
 
 	private void updateView()
@@ -1342,12 +1350,6 @@ public final class SendCoinsFragment extends Fragment
 			final boolean privateKeyPasswordViewVisible = (state == State.INPUT || state == State.DECRYPTING) && wallet.isEncrypted();
 			privateKeyPasswordViewGroup.setVisibility(privateKeyPasswordViewVisible ? View.VISIBLE : View.GONE);
 			privateKeyPasswordView.setEnabled(state == State.INPUT);
-
-			// enable actions
-			if (scanAction != null)
-				scanAction.setEnabled(state == State.INPUT);
-			if (emptyAction != null)
-				emptyAction.setEnabled(state == State.INPUT);
 
 			// focus linking
 			final int activeAmountViewId = amountCalculatorLink.activeTextView().getId();
