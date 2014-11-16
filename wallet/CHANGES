@@ -1,3 +1,7 @@
+v4.12
+
+* Small bugfixes.
+
 v4.11
 
 * When sending coins, there is a "quick confirm" option which pays the old higher fee.
