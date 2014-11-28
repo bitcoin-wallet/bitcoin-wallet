@@ -1,3 +1,10 @@
+v4.13
+
+* Support sweeping of password-protected paper wallets (BIP38).
+* Update Swedish translation.
+* Update android-maven-plugin to 4.0.0, so the build should now be compatible to newer Maven versions.
+* Update to ProGuard 5.1, making it possible to build with a Java 8 compiler.
+
 v4.12
 
 * Small bugfixes.
