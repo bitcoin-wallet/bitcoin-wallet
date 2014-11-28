@@ -1,20 +1,36 @@
-Detta är en fristående Bitcoin plånbok för Android. Du kan skicka Bitcoins mellan telefoner genom att scanna den QR kod som visas på skärmen. Eller använda NFC (Near Field Communication).
+<b>Ha alltid dina bitcoin med dig i fickan!</b> Du gör betalningar genom att snabbt scanna en QR-kod. Handlare får betalningar tillförlitligt och omedelbart. Bitcoin Wallet är den första mobila bitcoin-appen, och utan tvekan den mest säkra!
 
-FUNKTIONER:
 
-• Visa plånbokens värde i Bitcoins och andra valutor.
-• Skicka och ta emot Bitcoins via NFC, QR-koder eller en Bitcoin URL.
-• Adressbok för de Bitcoin adresser man använder ofta.
-• Påbörja transaktioner medan du är offline, de utförs när du kommer online.
-• Systemnotifikationer när Bitcoins skickats till dig, och när plånboken kommunicerar med nätverket.
-• App widget som visar plånbokens värde.
+<b>FUNKTIONER</b>
 
-Du kan lära dig mer om Bitcoin genom att besöka
-http://bitcoin.org
+• Ingen registrering, web- eller molntjänst behövs! Bitcoin Wallet är decentraliserad och peer-to-peer.
+• Visa summa bitcoin i BTC, mBTC eller µBTC.
+• Konventering till och från nationell valuta.
+• Skicka och ta emot bitcoin via NFC, QR-koder eller en Bitcoin-URL.
+• Adressbok för de Bitcoinadresser man använder ofta.
+• När du är nedkopplad kan du fortfarande betala via Bluetooth.
+• Meddelande om mottagna bitcoin.
+• Inläsning av papperswallet (tex. sådan som används för permanent lagring).
+• App widget som visar ditt saldo.
 
-Om du vill hjälpa till med utvecklingen av Bitcoin Wallet så kan du hitta projektet här
+
+<b>BIDRA</b>
+
+Bitcoin Wallet är <b>öppen mjukvara</b> och <b>fri mjukvara</b>. Licens: GPLv3
+https://www.gnu.org/licenses/gpl-3.0.en.html
+
+Vår källkod finns tillgänglig på GitHub:
 https://github.com/schildbach/bitcoin-wallet
 
-Licens: GPLv3
-Använd på egen risk!
-http://www.gnu.org/licenses/gpl-3.0.en.html
+All översättning hanteras via Transifex:
+https://www.transifex.com/projects/p/bitcoin-wallet/
+
+
+<b>REKOMMENDATIONER</b>
+
+• Många mobila wallets baserar sin kod på Bitcoin Wallet. Så som: blockchain.info, Hive och KnC.
+• Rekommenderad mobil wallet av https://bitcoin.org
+• Rekommenderad av BitPay.
+
+
+<i>Används på egen risk!</i>
