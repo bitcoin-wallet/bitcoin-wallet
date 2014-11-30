@@ -19,7 +19,7 @@ package biz.wiz.android.wallet.ui.send;
 
 import javax.annotation.Nonnull;
 
-import org.bitcoinj.core.DumpedPrivateKey;
+import org.bitcoinj.core.VersionedChecksummedBytes;
 
 import android.app.ActionBar;
 import android.content.Context;
@@ -41,7 +41,7 @@ public final class SweepWalletActivity extends AbstractBindServiceActivity
 		context.startActivity(new Intent(context, SweepWalletActivity.class));
 	}
 
-	public static void start(final Context context, @Nonnull final DumpedPrivateKey key)
+	public static void start(final Context context, @Nonnull final VersionedChecksummedBytes key)
 	{
 		final Intent intent = new Intent(context, SweepWalletActivity.class);
 		intent.putExtra(INTENT_EXTRA_KEY, key);

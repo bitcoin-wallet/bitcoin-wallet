@@ -195,11 +195,15 @@ public class WalletApplication extends Application
 		log.setLevel(Level.INFO);
 	}
 
+	private static final String BIP39_WORDLIST_FILENAME = "bip39-wordlist.txt";
+
 	private void initMnemonicCode()
 	{
 		try
 		{
-			MnemonicCode.INSTANCE = new MnemonicCode(getAssets().open("bip39-wordlist.txt"), null);
+			final long start = System.currentTimeMillis();
+			MnemonicCode.INSTANCE = new MnemonicCode(getAssets().open(BIP39_WORDLIST_FILENAME), null);
+			log.info("BIP39 wordlist loaded from: '" + BIP39_WORDLIST_FILENAME + "', took " + (System.currentTimeMillis() - start) + "ms");
 		}
 		catch (final IOException x)
 		{

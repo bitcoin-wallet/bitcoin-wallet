@@ -39,6 +39,8 @@ import org.bitcoinj.core.NetworkParameters;
 import org.bitcoinj.core.ProtocolException;
 import org.bitcoinj.core.Transaction;
 import org.bitcoinj.core.VerificationException;
+import org.bitcoinj.core.VersionedChecksummedBytes;
+import org.bitcoinj.crypto.BIP38PrivateKey;
 import org.bitcoinj.crypto.TrustStoreLoader;
 import org.bitcoinj.protocols.payments.PaymentProtocol;
 import org.bitcoinj.protocols.payments.PaymentProtocol.PkiVerificationData;
@@ -141,11 +143,27 @@ public abstract class InputParser
 					error(R.string.input_parser_invalid_address);
 				}
 			}
-			else if (PATTERN_PRIVATE_KEY_UNCOMPRESSED.matcher(input).matches() || PATTERN_PRIVATE_KEY_COMPRESSED.matcher(input).matches())
+			else if (PATTERN_DUMPED_PRIVATE_KEY_UNCOMPRESSED.matcher(input).matches()
+					|| PATTERN_DUMPED_PRIVATE_KEY_COMPRESSED.matcher(input).matches())
 			{
 				try
 				{
-					final DumpedPrivateKey key = new DumpedPrivateKey(Constants.NETWORK_PARAMETERS, input);
+					final VersionedChecksummedBytes key = new DumpedPrivateKey(Constants.NETWORK_PARAMETERS, input);
+
+					handlePrivateKey(key);
+				}
+				catch (final AddressFormatException x)
+				{
+					log.info("got invalid address", x);
+
+					error(R.string.input_parser_invalid_address);
+				}
+			}
+			else if (PATTERN_BIP38_PRIVATE_KEY.matcher(input).matches())
+			{
+				try
+				{
+					final VersionedChecksummedBytes key = new BIP38PrivateKey(Constants.NETWORK_PARAMETERS, input);
 
 					handlePrivateKey(key);
 				}
@@ -181,6 +199,13 @@ public abstract class InputParser
 			{
 				cannotClassify(input);
 			}
+		}
+
+		protected void handlePrivateKey(@Nonnull final VersionedChecksummedBytes key)
+		{
+			final Address address = new Address(Constants.NETWORK_PARAMETERS, ((DumpedPrivateKey) key).getKey().getPubKeyHash());
+
+			handlePaymentIntent(PaymentIntent.fromAddress(address, null));
 		}
 	}
 
@@ -236,12 +261,6 @@ public abstract class InputParser
 			{
 				cannotClassify(inputType);
 			}
-		}
-
-		@Override
-		protected final void handlePrivateKey(@Nonnull final DumpedPrivateKey key)
-		{
-			throw new UnsupportedOperationException();
 		}
 
 		@Override
@@ -319,12 +338,6 @@ public abstract class InputParser
 			{
 				cannotClassify(inputType);
 			}
-		}
-
-		@Override
-		protected final void handlePrivateKey(@Nonnull final DumpedPrivateKey key)
-		{
-			throw new UnsupportedOperationException();
 		}
 
 		@Override
@@ -416,13 +429,6 @@ public abstract class InputParser
 
 	protected abstract void handlePaymentIntent(@Nonnull PaymentIntent paymentIntent);
 
-	protected void handlePrivateKey(@Nonnull final DumpedPrivateKey key)
-	{
-		final Address address = new Address(Constants.NETWORK_PARAMETERS, key.getKey().getPubKeyHash());
-
-		handlePaymentIntent(PaymentIntent.fromAddress(address, null));
-	}
-
 	protected abstract void handleDirectTransaction(@Nonnull Transaction transaction) throws VerificationException;
 
 	protected abstract void error(int messageResId, Object... messageArgs);
@@ -444,11 +450,12 @@ public abstract class InputParser
 	}
 
 	private static final Pattern PATTERN_BITCOIN_ADDRESS = Pattern.compile("[" + new String(Base58.ALPHABET) + "]{20,40}");
-	private static final Pattern PATTERN_PRIVATE_KEY_UNCOMPRESSED = Pattern.compile((Constants.NETWORK_PARAMETERS.getId().equals(
+	private static final Pattern PATTERN_DUMPED_PRIVATE_KEY_UNCOMPRESSED = Pattern.compile((Constants.NETWORK_PARAMETERS.getId().equals(
 			NetworkParameters.ID_MAINNET) ? "5" : "9")
 			+ "[" + new String(Base58.ALPHABET) + "]{50}");
-	private static final Pattern PATTERN_PRIVATE_KEY_COMPRESSED = Pattern.compile((Constants.NETWORK_PARAMETERS.getId().equals(
+	private static final Pattern PATTERN_DUMPED_PRIVATE_KEY_COMPRESSED = Pattern.compile((Constants.NETWORK_PARAMETERS.getId().equals(
 			NetworkParameters.ID_MAINNET) ? "[KL]" : "c")
 			+ "[" + new String(Base58.ALPHABET) + "]{51}");
+	private static final Pattern PATTERN_BIP38_PRIVATE_KEY = Pattern.compile("6P" + "[" + new String(Base58.ALPHABET) + "]{56}");
 	private static final Pattern PATTERN_TRANSACTION = Pattern.compile("[0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ$\\*\\+\\-\\.\\/\\:]{100,}");
 }

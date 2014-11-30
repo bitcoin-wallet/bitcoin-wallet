@@ -8,7 +8,7 @@
 	<TextView
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:layout_marginBottom="16dp"
+		android:layout_marginBottom="12dp"
 		android:layout_marginLeft="@dimen/list_entry_padding_horizontal_lax"
 		android:layout_marginRight="@dimen/list_entry_padding_horizontal_lax"
 		android:layout_marginTop="8dp"
@@ -16,16 +16,49 @@
 		android:textSize="@dimen/font_size_normal" />
 
 	<TextView
-		android:id="@+id/sweep_wallet_fragment_wallet_unknown"
+		android:id="@+id/sweep_wallet_fragment_message"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:layout_marginBottom="16dp"
+		android:layout_marginBottom="12dp"
 		android:layout_marginLeft="@dimen/list_entry_padding_horizontal_lax"
 		android:layout_marginRight="@dimen/list_entry_padding_horizontal_lax"
-		android:layout_marginTop="8dp"
-		android:text="@string/sweep_wallet_fragment_wallet_unknown"
+		android:layout_marginTop="0dp"
 		android:textSize="@dimen/font_size_normal"
 		android:textStyle="bold" />
+
+	<LinearLayout
+		android:id="@+id/sweep_wallet_fragment_password_group"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginBottom="12dp"
+		android:layout_marginLeft="@dimen/list_entry_padding_horizontal"
+		android:layout_marginRight="@dimen/list_entry_padding_horizontal"
+		android:layout_marginTop="0dp"
+		android:divider="@drawable/divider_field"
+		android:orientation="horizontal"
+		android:showDividers="middle" >
+
+		<EditText
+			android:id="@+id/sweep_wallet_fragment_password"
+			android:layout_width="0px"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:hint="@string/sweep_wallet_fragment_password"
+			android:inputType="textPassword"
+			android:singleLine="true"
+			android:textSize="@dimen/font_size_normal" />
+
+		<TextView
+			android:id="@+id/sweep_wallet_fragment_bad_password"
+			android:layout_width="0px"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:text="@string/sweep_wallet_fragment_bad_password"
+			android:textColor="@color/fg_error"
+			android:textSize="@dimen/font_size_normal"
+			android:textStyle="bold"
+			android:visibility="invisible" />
+	</LinearLayout>
 
 	<TextView
 		android:id="@+id/sweep_wallet_fragment_balance"

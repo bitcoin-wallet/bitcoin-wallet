@@ -22,6 +22,7 @@ https://www.gnu.org/licenses/gpl-3.0.en.html
 Vår källkod finns tillgänglig på GitHub:
 https://github.com/jmaurice/sour
 
+>>>>>>> v4.13
 All översättning hanteras via Transifex:
 https://www.transifex.com/projects/p/bitcoin-wallet/
 
