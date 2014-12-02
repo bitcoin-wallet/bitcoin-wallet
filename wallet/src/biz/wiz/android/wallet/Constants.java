@@ -125,8 +125,8 @@ public final class Constants
 
 	public static final MonetaryFormat LOCAL_FORMAT = new MonetaryFormat().noCode().minDecimals(2).optionalDecimals();
 
-	public static final String SOURCE_URL = "https://github.com/jmaurice/sour";
-	public static final String BINARY_URL = "https://github.com/jmaurice/sour/releases";
+	public static final String SOURCE_URL = "https://github.com/wizsec/piggybank";
+	public static final String BINARY_URL = "https://github.com/wizsec/piggybank/releases";
 	public static final String MARKET_APP_URL = "market://details?id=%s";
 	public static final String WEBMARKET_APP_URL = "https://play.google.com/store/apps/details?id=%s";
 

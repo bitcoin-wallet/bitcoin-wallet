@@ -15,7 +15,7 @@
 http://bitcoin.org
 
 إذا أردت المساهمة في مشروع محفظة البيتكوين Bitcoin Wallet، قم بزيارة
-https://github.com/jmaurice/sour
+https://github.com/wizsec/piggybank
 
 الرخصة رقم GPLv3
 استخدم البرنامج على مسؤوليتك الخاصة!

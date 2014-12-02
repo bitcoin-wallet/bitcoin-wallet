@@ -15,7 +15,7 @@ Dowiedz się więcej o Bitcoin
 http://bitcoin.org
 
 Jeśli chcesz przyczynić się do rozwoju Bitcoin Wallet to projekt znajduje się pod adresem
-https://github.com/jmaurice/sour
+https://github.com/wizsec/piggybank
 
 Licencja: GPLv3
 Używasz na własne ryzyko!

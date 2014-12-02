@@ -15,7 +15,7 @@
 http://bitcoin.org
 
 Ако сакаш да придонесеш за Биткоин Паричник, проектот е лоциран на
-https://github.com/jmaurice/sour
+https://github.com/wizsec/piggybank
 
 License: GPLv3
 Користи на сопствен ризик!

@@ -15,7 +15,7 @@ Vi povas trovi pli pri Bitmono ĉe
 http://bitcoin.org
 
 Se vi volas kontribui al Bitcoin Wallet, la projekto lokas ĉe
-https://github.com/jmaurice/sour
+https://github.com/wizsec/piggybank
 
 Licenco: GPLv3
 Uzu je via propra risko!

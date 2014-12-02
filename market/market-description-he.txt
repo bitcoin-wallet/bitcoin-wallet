@@ -16,7 +16,7 @@
 לפרטים נוספים : http://bitcoin.org
 
 אם אתה רוצה לתרום לפרויקט ארנק הביטקוין, הפרויקט ממוקם ב
-https://github.com/jmaurice/sour
+https://github.com/wizsec/piggybank
 
 רישיון : GPLv3
 שים לב: השימוש הוא באחריות המשתמש.

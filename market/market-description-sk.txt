@@ -15,7 +15,7 @@ Viac informácií o Bitcoine
 http://bitcoin.org
 
 Ak chcete prispieť do projektu Bitcoin Wallet nájdete ho na adrese
-https://github.com/jmaurice/sour
+https://github.com/wizsec/piggybank
 
 Licencia: GPLv3
 Použitie len na vlastné riziko!

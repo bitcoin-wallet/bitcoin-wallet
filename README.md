@@ -1,5 +1,5 @@
-# sour
-bitcoin/crypto app for android
+# piggybank
+a bitcoin wallet for android
 
 # ingredients
 - [schildbach wallet]: android wallet base

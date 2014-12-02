@@ -15,7 +15,7 @@ Več o bitcoinu lahko zveste na
 https://bitcoin.org/sl/
 
 Če želite prispevati k aplikaciji Bitcoin Wallet, se nam pridružite na
-https://github.com/jmaurice/sour
+https://github.com/wizsec/piggybank
 
 Licenca: GPLv3
 Uporaba na lastno odgovornost!

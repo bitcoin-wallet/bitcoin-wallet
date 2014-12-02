@@ -20,7 +20,7 @@
 https://www.gnu.org/licenses/gpl-3.0.en.html
 
 소스 코드는 짓허브(GitHub)에서 볼 수 있습니다.
-https://github.com/jmaurice/sour
+https://github.com/wizsec/piggybank
 
 모든 로컬라이제이션은 Transifex 웹사이트에서 이루어집니다:
 https://www.transifex.com/projects/p/bitcoin-wallet/

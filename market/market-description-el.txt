@@ -13,7 +13,7 @@
 http://bitcoin.org
 
 Αν θέλετε να συμβάλει στη τη χρήση του Bitcoin Wallet, το έργο βρίσκεται εδώ:
-https://github.com/jmaurice/sour
+https://github.com/wizsec/piggybank
 
 Άδεια: GPLv3
 Χρησιμοποιήστε με δική σας ευθύνη!

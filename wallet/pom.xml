@@ -7,7 +7,7 @@
 	<artifactId>wallet</artifactId>
 	<packaging>apk</packaging>
 	<version>${env.BUILD_NUMBER}</version>
-	<name>sour-wallet</name>
+	<name>piggybank-wallet</name>
 
 	<parent>
 		<groupId>biz.wiz.android.wallet</groupId>
@@ -177,11 +177,14 @@
 			</testResource>
 		</testResources>
 		<plugins>
+			<!--
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>batik-maven-plugin</artifactId>
 				<executions>
+			-->
 					<!-- need to bind to initialize phase because aapt runs in generate-sources already -->
+			<!--
 					<execution>
 						<id>hdpi</id>
 						<phase>initialize</phase>
@@ -239,6 +242,7 @@
 					</dependency>
 				</dependencies>
 			</plugin>
+			-->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>

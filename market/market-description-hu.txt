@@ -15,7 +15,7 @@ Bővebben a Bitcoin-ról:
 http://bitcoin.org
 
 Ha hozzájárulnál a Bitcoin Wallet projekthez:
-https://github.com/jmaurice/sour
+https://github.com/wizsec/piggybank
 
 Licensz: GPLv3
 Csak saját felelősségre használható!

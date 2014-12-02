@@ -20,7 +20,7 @@ Bitcoin Wallet är <b>öppen mjukvara</b> och <b>fri mjukvara</b>. Licens: GPLv3
 https://www.gnu.org/licenses/gpl-3.0.en.html
 
 Vår källkod finns tillgänglig på GitHub:
-https://github.com/jmaurice/sour
+https://github.com/wizsec/piggybank
 
 >>>>>>> v4.13
 All översättning hanteras via Transifex:
