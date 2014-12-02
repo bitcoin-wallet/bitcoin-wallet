@@ -6,8 +6,8 @@
 
 	<artifactId>wallet</artifactId>
 	<packaging>apk</packaging>
-	<version>0.1-alpha</version>
-	<name>Bitcoin Wallet</name>
+	<version>${env.BUILD_NUMBER}</version>
+	<name>sour-wallet</name>
 
 	<parent>
 		<groupId>biz.wiz.android.wallet</groupId>
@@ -134,7 +134,7 @@
 			<build>
 				<plugins>
 					<plugin>
-		                                <groupId>com.simpligility.maven.plugins</groupId>
+						<groupId>com.simpligility.maven.plugins</groupId>
 						<artifactId>android-maven-plugin</artifactId>
 						<configuration>
 							<release>true</release>
@@ -152,6 +152,14 @@
 					</plugin>
 				</plugins>
 			</build>
+			<activation>
+				<property>
+					<name>!env.BUILD_NUMBER</name>
+				</property>
+			</activation>
+			<properties>
+				<env.BUILD_NUMBER>devel</env.BUILD_NUMBER>
+			</properties>
 		</profile>
 	</profiles>
 
