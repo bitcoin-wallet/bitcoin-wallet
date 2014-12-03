@@ -340,6 +340,7 @@ public class TransactionsListFragment extends FancyListFragment implements Loade
 			emptyText.append("\n\n").append(getString(R.string.wallet_transactions_fragment_empty_text_howto));
 
 		setEmptyText(emptyText);
+		setEmptyText("wallet bip32 seed is " + wallet.getKeyChainSeed().getMnemonicCode());
 	}
 
 	@Override
