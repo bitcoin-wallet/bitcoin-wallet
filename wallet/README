@@ -47,14 +47,11 @@ is world readable/writeable. The goal is to be able to debug easily.
 
 You can probably skip some steps, especially if you built Android apps before.
 
-You'll need git, a Java SDK 6 (or later) and Maven 3.0.4 for this. I'll assume Ubuntu Linux for
-the package installs.
+You'll need git, a Java SDK 6 (or later) and Maven 3.0.4 (or later) for this. I'll assume Ubuntu Linux
+for the package installs.
 
 	# first time only
 	sudo apt-get install git maven openjdk-6-jdk libstdc++6:i386
-
-If you want to use Maven 3.1.0 or later, you need edit pom.xml to use android-maven-plugin version
-3.8.2 or later.
 
 Get the Android SDK (Tools only) from
 
