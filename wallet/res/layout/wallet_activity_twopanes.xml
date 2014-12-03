@@ -27,7 +27,6 @@
 			android:layout_width="0px"
 			android:layout_height="match_parent"
 			android:layout_weight="1"
-			android:foreground="@drawable/fragment_shadow_vertical"
 			android:foregroundGravity="left|fill_vertical" >
 
 			<LinearLayout
@@ -63,7 +62,6 @@
 					android:layout_height="0px"
 					android:layout_weight="1"
 					android:background="@android:color/white"
-					android:foreground="@drawable/fragment_shadow_horizontal_light"
 					android:foregroundGravity="top|fill_horizontal" >
 
 					<fragment
