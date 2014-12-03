@@ -255,9 +255,8 @@ public final class WalletActivity extends AbstractWalletActivity
 		final String externalStorageState = Environment.getExternalStorageState();
 
 		menu.findItem(R.id.wallet_options_exchange_rates).setVisible(res.getBoolean(R.bool.show_exchange_rates_option));
-		menu.findItem(R.id.wallet_options_restore_wallet).setEnabled(
-				Environment.MEDIA_MOUNTED.equals(externalStorageState) || Environment.MEDIA_MOUNTED_READ_ONLY.equals(externalStorageState));
-		menu.findItem(R.id.wallet_options_backup_wallet).setEnabled(Environment.MEDIA_MOUNTED.equals(externalStorageState));
+		menu.findItem(R.id.wallet_options_restore_wallet).setEnabled(true);
+		menu.findItem(R.id.wallet_options_backup_wallet).setEnabled(true);
 		menu.findItem(R.id.wallet_options_encrypt_keys).setTitle(
 				wallet.isEncrypted() ? R.string.wallet_options_encrypt_keys_change : R.string.wallet_options_encrypt_keys_set);
 
