@@ -93,6 +93,7 @@ import android.widget.FilterQueryProvider;
 import android.widget.ListView;
 import android.widget.TextView;
 import biz.wiz.android.wallet.AddressBookProvider;
+import biz.wiz.android.wallet.BitcoinIntegration;
 import biz.wiz.android.wallet.Configuration;
 import biz.wiz.android.wallet.Constants;
 import biz.wiz.android.wallet.ExchangeRatesProvider;
@@ -529,6 +530,17 @@ public final class SendCoinsFragment extends Fragment
 				final NdefMessage ndefMessage = (NdefMessage) intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES)[0];
 				final byte[] ndefMessagePayload = Nfc.extractMimePayload(PaymentProtocol.MIMETYPE_PAYMENTREQUEST, ndefMessage);
 				initStateFromPaymentRequest(mimeType, ndefMessagePayload);
+			}
+			else if ((Intent.ACTION_VIEW.equals(action)) && PaymentProtocol.MIMETYPE_PAYMENTREQUEST.equals(mimeType))
+			{
+				final byte[] paymentRequest = BitcoinIntegration.paymentRequestFromIntent(intent);
+
+				if (intentUri != null)
+					initStateFromIntentUri(mimeType, intentUri);
+				else if (paymentRequest != null)
+					initStateFromPaymentRequest(mimeType, paymentRequest);
+				else
+					throw new IllegalArgumentException();
 			}
 			else if (intent.hasExtra(SendCoinsActivity.INTENT_EXTRA_PAYMENT_INTENT))
 			{
