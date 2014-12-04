@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:tools="http://schemas.android.com/tools"
-	package="de.schildbach.wallet_test"
+	package="se.btcx.wallet"
 	android:installLocation="internalOnly"
 	android:versionCode="248"
-	android:versionName="4.58-test" >
+	android:versionName="4.58-btcx" >
 
 	<uses-sdk
 		android:minSdkVersion="15"
@@ -183,15 +183,15 @@
 
 		<provider
 			android:name="de.schildbach.wallet.AddressBookProvider"
-			android:authorities="de.schildbach.wallet_test.address_book"
+			android:authorities="se.btcx.wallet.address_book"
 			android:exported="false" />
 		<provider
 			android:name="de.schildbach.wallet.ExchangeRatesProvider"
-			android:authorities="de.schildbach.wallet_test.exchange_rates"
+			android:authorities="se.btcx.wallet.exchange_rates"
 			android:exported="false" />
 		<provider
 			android:name="de.schildbach.wallet.FileAttachmentProvider"
-			android:authorities="de.schildbach.wallet_test.file_attachment"
+			android:authorities="se.btcx.wallet.file_attachment"
 			android:exported="false"
 			android:grantUriPermissions="true" />
 

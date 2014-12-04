@@ -44,7 +44,7 @@ import android.widget.TextView;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.util.GenericUtils;
 import de.schildbach.wallet.util.MonetarySpannable;
-import de.schildbach.wallet_test.R;
+import se.btcx.wallet.R;
 
 /**
  * @author Andreas Schildbach

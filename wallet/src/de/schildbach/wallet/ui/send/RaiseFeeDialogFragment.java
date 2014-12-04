@@ -59,7 +59,7 @@ import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.ui.AbstractWalletActivity;
 import de.schildbach.wallet.ui.DialogBuilder;
 import de.schildbach.wallet.util.WalletUtils;
-import de.schildbach.wallet_test.R;
+import se.btcx.wallet.R;
 
 /**
  * @author Andreas Schildbach

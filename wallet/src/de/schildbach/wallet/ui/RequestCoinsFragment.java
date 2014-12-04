@@ -77,7 +77,7 @@ import de.schildbach.wallet.util.Bluetooth;
 import de.schildbach.wallet.util.Nfc;
 import de.schildbach.wallet.util.Qr;
 import de.schildbach.wallet.util.Toast;
-import de.schildbach.wallet_test.R;
+import se.btcx.wallet.R;
 
 /**
  * @author Andreas Schildbach

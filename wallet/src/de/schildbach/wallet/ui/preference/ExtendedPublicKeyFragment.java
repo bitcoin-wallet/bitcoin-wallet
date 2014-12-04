@@ -35,7 +35,7 @@ import org.slf4j.LoggerFactory;
 
 import de.schildbach.wallet.ui.DialogBuilder;
 import de.schildbach.wallet.util.Qr;
-import de.schildbach.wallet_test.R;
+import se.btcx.wallet.R;
 
 /**
  * @author Andreas Schildbach

@@ -50,7 +50,7 @@ import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.FileAttachmentProvider;
 import de.schildbach.wallet.util.CrashReporter;
 import de.schildbach.wallet.util.Io;
-import de.schildbach.wallet_test.R;
+import se.btcx.wallet.R;
 
 /**
  * @author Andreas Schildbach

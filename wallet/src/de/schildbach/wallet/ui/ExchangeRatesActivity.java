@@ -19,7 +19,7 @@ package de.schildbach.wallet.ui;
 
 import android.os.Bundle;
 import android.view.MenuItem;
-import de.schildbach.wallet_test.R;
+import se.btcx.wallet.R;
 
 /**
  * @author Andreas Schildbach
