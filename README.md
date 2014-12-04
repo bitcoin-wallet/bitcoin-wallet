@@ -41,10 +41,10 @@ mvn clean install eclipse:eclipse
 ```
 
 How to Fix Unbound Classpath Variable Error in Eclipse?
--Open the Eclipse Preferences [Window - Preferences]
--Go to [Java - Build Path - Classpath Variables]
--Click New and set its name as M2_REPO
--Click Folder and select your Maven repository folder. For example, /home/magicaltux/.m2/repository
+- Open the Eclipse Preferences [Window - Preferences]
+- Go to [Java - Build Path - Classpath Variables]
+- Click New and set its name as M2_REPO
+- Click Folder and select your Maven repository folder. For example, /home/magicaltux/.m2/repository
 
 
 debug build
