@@ -19,6 +19,7 @@ package de.schildbach.wallet.ui.preference;
 
 import java.io.IOException;
 
+import org.bitcoinj.crypto.DeterministicKey;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -46,6 +47,7 @@ public final class DiagnosticsFragment extends PreferenceFragment
 
 	private static final String PREFS_KEY_REPORT_ISSUE = "report_issue";
 	private static final String PREFS_KEY_INITIATE_RESET = "initiate_reset";
+	private static final String PREFS_KEY_EXTENDED_PUBLIC_KEY = "extended_public_key";
 
 	private static final Logger log = LoggerFactory.getLogger(DiagnosticsFragment.class);
 
@@ -81,11 +83,16 @@ public final class DiagnosticsFragment extends PreferenceFragment
 			handleInitiateReset();
 			return true;
 		}
+		else if (PREFS_KEY_EXTENDED_PUBLIC_KEY.equals(key))
+		{
+			handleExtendedPublicKey();
+			return true;
+		}
 
 		return false;
 	}
 
-	public void handleReportIssue()
+	private void handleReportIssue()
 	{
 		final ReportIssueDialogBuilder dialog = new ReportIssueDialogBuilder(activity, R.string.report_issue_dialog_title_issue,
 				R.string.report_issue_dialog_message_issue)
@@ -127,7 +134,7 @@ public final class DiagnosticsFragment extends PreferenceFragment
 		dialog.show();
 	}
 
-	public void handleInitiateReset()
+	private void handleInitiateReset()
 	{
 		final DialogBuilder dialog = new DialogBuilder(activity);
 		dialog.setTitle(R.string.preferences_initiate_reset_title);
@@ -145,5 +152,12 @@ public final class DiagnosticsFragment extends PreferenceFragment
 		});
 		dialog.setNegativeButton(R.string.button_dismiss, null);
 		dialog.show();
+	}
+
+	private void handleExtendedPublicKey()
+	{
+		final DeterministicKey extendedKey = application.getWallet().getWatchingKey();
+		final String xpub = String.format("%s?c=%d&h=bip32", extendedKey.serializePubB58(), extendedKey.getCreationTimeSeconds());
+		ExtendedPublicKeyFragment.show(getFragmentManager(), (CharSequence) xpub);
 	}
 }
