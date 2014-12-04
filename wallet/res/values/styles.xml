@@ -27,7 +27,6 @@
 		<item name="android:background">@drawable/action_bar_background</item>
 		<item name="android:titleTextStyle">@style/My.TextAppearance.Widget.ActionBar.Title</item>
 		<item name="android:subtitleTextStyle">@style/My.TextAppearance.Widget.ActionBar.Subtitle</item>
-		<item name="android:displayOptions">showTitle</item>
 	</style>
 
 	<style name="My.Widget.ActionBar.ChildActivity" parent="@style/My.Widget.ActionBar">
