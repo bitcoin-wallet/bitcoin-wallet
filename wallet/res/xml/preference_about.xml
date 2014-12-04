@@ -28,22 +28,6 @@
 		android:summary="@string/about_market_app_summary"
 		android:title="@string/about_market_app_title" />
 	<Preference
-		android:key="about_community_googleplus"
-		android:summary="@string/about_community_googleplus_summary"
-		android:title="@string/about_community_googleplus_title" >
-		<intent
-			android:action="android.intent.action.VIEW"
-			android:data="https://plus.google.com/communities/105515929887248493912" />
-	</Preference>
-	<Preference
-		android:key="about_twitter"
-		android:summary="\@bitcoin_wallet"
-		android:title="Twitter" >
-		<intent
-			android:action="android.intent.action.VIEW"
-			android:data="https://twitter.com/#!/bitcoin_wallet" />
-	</Preference>
-	<Preference
 		android:key="about_credits_bitcoinj"
 		android:summary="https://bitcoinj.github.io" >
 		<intent
