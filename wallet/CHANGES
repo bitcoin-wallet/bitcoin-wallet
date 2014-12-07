@@ -1,5 +1,9 @@
 digitalcoin Wallet
 -----------------
+v3.01.3550
+* updated for Digitalcoin Core 3.0.1
+* Raised Transaction Fee's to 0.1 DGC to support miners
+
 v0.2.1-beta
 * updated checkpoints
 * turned off bloom filters

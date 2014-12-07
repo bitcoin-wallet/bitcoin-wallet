@@ -7,10 +7,10 @@
 			android:title="@string/about_version_title" />
 		<Preference
 
-			android:summary="© 2011-2014, Andreas Schildbach\n© 2013-2014, HashEngineering Solutions"
+			android:summary="© 2011-2014, Andreas Schildbach\n© 2013-2014, Hash Engineering Solutions"
 			android:title="@string/about_copyright_title" />
         <Preference
-                android:summary="Version 1.1 (v1.0.1.0-g3aaa7ba-beta) and above"
+                android:summary="Version 3.0 (v3.0.1.0-unk-MultiAlgo) and above"
                 android:title="digitalcoin Compatibility" />
 
 		<Preference
