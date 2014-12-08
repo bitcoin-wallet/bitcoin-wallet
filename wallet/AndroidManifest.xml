@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:tools="http://schemas.android.com/tools"
 	package="biz.wiz.android.wallet_test"
-	android:installLocation="internalOnly"
+	android:installLocation="auto"
 	android:versionCode="1"
 	android:versionName="0.1-alpha" >
 
@@ -12,6 +12,10 @@
 		tools:ignore="OldTargetApi" />
 
 	<uses-permission android:name="android.permission.INTERNET" />
+	<uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+	<uses-permission android:name="android.permission.GET_ACCOUNTS" />
+	<uses-permission android:name="biz.wiz.android.wallet.permission.C2D_MESSAGE" />
+	<uses-permission android:name="com.google.android.c2dm.intent.RECEIVE" />
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 	<uses-permission android:name="android.permission.NFC" />
@@ -20,6 +24,11 @@
 	<uses-permission android:name="android.permission.WAKE_LOCK" />
 	<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 	<uses-permission android:name="android.permission.BLUETOOTH" />
+	
+	<permission android:name="biz.wiz.android.wallet.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+    <uses-permission android:name="biz.wiz.android.wallet.permission.C2D_MESSAGE" />
+	
 
 	<uses-feature
 		android:name="android.hardware.touchscreen"
@@ -215,6 +224,17 @@
 				<action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
 			</intent-filter>
 		</receiver>
+		
+		<receiver
+            android:name=".GcmBroadcastReceiver"
+            android:permission="com.google.android.c2dm.permission.SEND" >
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <category android:name="biz.wiz.android.walle" />
+            </intent-filter>
+        </receiver>
+        
+		<service android:name=".GcmIntentService" />
 
 		<service
 			android:name="biz.wiz.android.wallet.service.UpgradeWalletService"
