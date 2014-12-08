@@ -126,6 +126,12 @@
 			<scope>test</scope>
 		</dependency>
 
+<dependency>
+  <groupId>com.google.android.gms</groupId>
+  <artifactId>google-play-services</artifactId>
+  <version>13</version>
+  <type>apklib</type>
+</dependency>
 	</dependencies>
 
 	<profiles>
