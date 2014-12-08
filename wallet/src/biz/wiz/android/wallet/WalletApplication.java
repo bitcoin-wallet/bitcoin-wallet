@@ -41,6 +41,9 @@ import org.bitcoinj.wallet.WalletFiles;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
+
 import android.app.ActivityManager;
 import android.app.AlarmManager;
 import android.app.Application;
@@ -83,6 +86,8 @@ public class WalletApplication extends Application
 	private File walletFile;
 	private Wallet wallet;
 	private PackageInfo packageInfo;
+	
+	private final static int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
 
 	public static final String ACTION_WALLET_CHANGED = WalletApplication.class.getPackage().getName() + ".wallet_changed";
 
@@ -583,5 +588,21 @@ public class WalletApplication extends Application
 		// workaround for no inexact set() before KitKat
 		final long now = System.currentTimeMillis();
 		alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, now + alarmInterval, AlarmManager.INTERVAL_DAY, alarmIntent);
+	}
+	
+	private boolean checkPlayServices() {
+	    int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
+	    if (resultCode != ConnectionResult.SUCCESS) {
+	        if (GooglePlayServicesUtil.isUserRecoverableError(resultCode)) {
+	        	
+	            // GooglePlayServicesUtil.getErrorDialog(resultCode, this, PLAY_SERVICES_RESOLUTION_REQUEST).show();
+	            
+	        } else {
+	            // Log.i(TAG, "This device is not supported.");
+	           //  finish();
+	        }
+	        return false;
+	    }
+	    return true;
 	}
 }
