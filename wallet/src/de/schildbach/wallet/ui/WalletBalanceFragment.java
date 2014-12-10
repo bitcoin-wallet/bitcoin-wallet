@@ -125,6 +125,7 @@ public final class WalletBalanceFragment extends Fragment
 		}
 
 		viewBalanceBtc = (CurrencyTextView) view.findViewById(R.id.wallet_balance_btc);
+		viewBalanceBtc.setPrefixScaleX(0.9f);
 
 		viewBalanceTooMuch = view.findViewById(R.id.wallet_balance_too_much);
 

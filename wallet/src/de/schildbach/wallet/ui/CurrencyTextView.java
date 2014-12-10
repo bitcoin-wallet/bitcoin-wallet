@@ -26,6 +26,7 @@ import android.content.Context;
 import android.graphics.Paint;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
+import android.text.style.ScaleXSpan;
 import android.util.AttributeSet;
 import android.widget.TextView;
 import de.schildbach.wallet.Constants;
@@ -41,6 +42,7 @@ public final class CurrencyTextView extends TextView
 	private MonetaryFormat format = null;
 	private boolean alwaysSigned = false;
 	private RelativeSizeSpan prefixRelativeSizeSpan = null;
+	private ScaleXSpan prefixScaleXSpan = null;
 	private ForegroundColorSpan prefixColorSpan = null;
 	private RelativeSizeSpan insignificantRelativeSizeSpan = null;
 
@@ -100,12 +102,19 @@ public final class CurrencyTextView extends TextView
 		updateView();
 	}
 
+	public void setPrefixScaleX(final float prefixScaleX)
+	{
+		this.prefixScaleXSpan = new ScaleXSpan(prefixScaleX);
+		updateView();
+	}
+
 	@Override
 	protected void onFinishInflate()
 	{
 		super.onFinishInflate();
 
 		setPrefixColor(getResources().getColor(R.color.fg_less_significant));
+		setPrefixScaleX(1);
 		setInsignificantRelativeSize(0.85f);
 		setSingleLine();
 	}
@@ -115,8 +124,8 @@ public final class CurrencyTextView extends TextView
 		final MonetarySpannable text;
 
 		if (amount != null)
-			text = new MonetarySpannable(format, alwaysSigned, amount).applyMarkup(new Object[] { prefixRelativeSizeSpan, prefixColorSpan },
-					new Object[] { insignificantRelativeSizeSpan });
+			text = new MonetarySpannable(format, alwaysSigned, amount).applyMarkup(new Object[] { prefixRelativeSizeSpan, prefixScaleXSpan,
+					prefixColorSpan }, new Object[] { insignificantRelativeSizeSpan });
 		else
 			text = null;
 
