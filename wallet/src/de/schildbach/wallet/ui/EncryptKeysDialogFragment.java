@@ -268,6 +268,8 @@ public class EncryptKeysDialogFragment extends DialogFragment
 							if (newKey != null)
 								wallet.encrypt(keyCrypter, newKey);
 
+							application.backupWallet();
+
 							state = State.DONE;
 							updateView();
 
