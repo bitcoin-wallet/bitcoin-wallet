@@ -133,6 +133,8 @@ public class WalletApplication extends Application
 		config.updateLastVersionCode(packageInfo.versionCode);
 
 		afterLoadWallet();
+
+		cleanupFiles();
 	}
 
 	private void afterLoadWallet()
@@ -418,11 +420,20 @@ public class WalletApplication extends Application
 
 			// make sure there is at least one recent backup
 			backupWallet();
+		}
+	}
 
-			// remove old backups
-			for (final String filename : fileList())
-				if (filename.startsWith(Constants.Files.WALLET_KEY_BACKUP_BASE58))
-					new File(getFilesDir(), filename).delete();
+	private void cleanupFiles()
+	{
+		for (final String filename : fileList())
+		{
+			if (filename.startsWith(Constants.Files.WALLET_KEY_BACKUP_BASE58)
+					|| filename.startsWith(Constants.Files.WALLET_KEY_BACKUP_PROTOBUF + '.') || filename.endsWith(".tmp"))
+			{
+				final File file = new File(getFilesDir(), filename);
+				log.info("removing obsolete file: '{}'", file);
+				file.delete();
+			}
 		}
 	}
 
