@@ -62,27 +62,30 @@ public final class MonetarySpannable extends SpannableString
 			return format.format(monetary);
 	}
 
-	public MonetarySpannable applyMarkup(@Nullable final Object prefixSpan1, @Nullable final Object prefixSpan2,
-			@Nullable final Object insignificantSpan)
+	public MonetarySpannable applyMarkup(@Nullable final Object[] prefixSpans, @Nullable final Object[] insignificantSpans)
 	{
-		applyMarkup(this, prefixSpan1, prefixSpan2, BOLD_SPAN, insignificantSpan);
+		applyMarkup(this, prefixSpans, STANDARD_SIGNIFICANT_SPANS, insignificantSpans);
 		return this;
 	}
 
 	public static final Object BOLD_SPAN = new StyleSpan(Typeface.BOLD);
 	public static final RelativeSizeSpan SMALLER_SPAN = new RelativeSizeSpan(0.85f);
 
-	public static void applyMarkup(@Nonnull final Spannable spannable, @Nullable final Object prefixSpan1, @Nullable final Object prefixSpan2,
-			@Nullable final Object significantSpan, @Nullable final Object insignificantSpan)
+	public static final Object[] STANDARD_SIGNIFICANT_SPANS = new Object[] { BOLD_SPAN };
+	public static final Object[] STANDARD_INSIGNIFICANT_SPANS = new Object[] { MonetarySpannable.SMALLER_SPAN };
+
+	public static void applyMarkup(@Nonnull final Spannable spannable, @Nullable final Object[] prefixSpans,
+			@Nullable final Object[] significantSpans, @Nullable final Object[] insignificantSpans)
 	{
-		if (prefixSpan1 != null)
-			spannable.removeSpan(prefixSpan1);
-		if (prefixSpan2 != null)
-			spannable.removeSpan(prefixSpan2);
-		if (significantSpan != null)
-			spannable.removeSpan(significantSpan);
-		if (insignificantSpan != null)
-			spannable.removeSpan(insignificantSpan);
+		if (prefixSpans != null)
+			for (final Object span : prefixSpans)
+				spannable.removeSpan(span);
+		if (significantSpans != null)
+			for (final Object span : significantSpans)
+				spannable.removeSpan(span);
+		if (insignificantSpans != null)
+			for (final Object span : insignificantSpans)
+				spannable.removeSpan(span);
 
 		final Matcher m = Formats.PATTERN_MONETARY_SPANNABLE.matcher(spannable);
 		if (m.find())
@@ -92,26 +95,27 @@ public final class MonetarySpannable extends SpannableString
 			if (m.group(Formats.PATTERN_GROUP_PREFIX) != null)
 			{
 				final int end = m.end(Formats.PATTERN_GROUP_PREFIX);
-				if (prefixSpan1 != null)
-					spannable.setSpan(prefixSpan1, i, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-				if (prefixSpan2 != null)
-					spannable.setSpan(prefixSpan2, i, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+				if (prefixSpans != null)
+					for (final Object span : prefixSpans)
+						spannable.setSpan(span, i, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 				i = end;
 			}
 
 			if (m.group(Formats.PATTERN_GROUP_SIGNIFICANT) != null)
 			{
 				final int end = m.end(Formats.PATTERN_GROUP_SIGNIFICANT);
-				if (significantSpan != null)
-					spannable.setSpan(significantSpan, i, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+				if (significantSpans != null)
+					for (final Object span : significantSpans)
+						spannable.setSpan(span, i, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 				i = end;
 			}
 
 			if (m.group(Formats.PATTERN_GROUP_INSIGNIFICANT) != null)
 			{
 				final int end = m.end(Formats.PATTERN_GROUP_INSIGNIFICANT);
-				if (insignificantSpan != null)
-					spannable.setSpan(insignificantSpan, i, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+				if (insignificantSpans != null)
+					for (final Object span : insignificantSpans)
+						spannable.setSpan(span, i, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 				i = end;
 			}
 		}

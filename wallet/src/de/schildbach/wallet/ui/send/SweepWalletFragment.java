@@ -522,7 +522,7 @@ public class SweepWalletFragment extends Fragment
 		{
 			balanceView.setVisibility(View.VISIBLE);
 			final MonetarySpannable balanceSpannable = new MonetarySpannable(btcFormat, walletToSweep.getBalance(BalanceType.ESTIMATED));
-			balanceSpannable.applyMarkup(null, null, null);
+			balanceSpannable.applyMarkup(null, null);
 			final SpannableStringBuilder balance = new SpannableStringBuilder(balanceSpannable);
 			balance.insert(0, ": ");
 			balance.insert(0, getString(R.string.sweep_wallet_fragment_balance));

@@ -326,8 +326,8 @@ public final class CurrencyAmountView extends FrameLayout
 
 		textView.setTextColor(!validateAmount || isValidAmount(true) ? significantColor : errorColor);
 
-		final Spannable hintSpannable = new MonetarySpannable(hintFormat, hint != null ? hint : Coin.ZERO).applyMarkup(null, null,
-				MonetarySpannable.SMALLER_SPAN);
+		final Spannable hintSpannable = new MonetarySpannable(hintFormat, hint != null ? hint : Coin.ZERO).applyMarkup(null,
+				MonetarySpannable.STANDARD_INSIGNIFICANT_SPANS);
 		textView.setHint(hintSpannable);
 	}
 
@@ -380,7 +380,7 @@ public final class CurrencyAmountView extends FrameLayout
 				s.append(replaced);
 			}
 
-			MonetarySpannable.applyMarkup(s, null, null, MonetarySpannable.BOLD_SPAN, MonetarySpannable.SMALLER_SPAN);
+			MonetarySpannable.applyMarkup(s, null, MonetarySpannable.STANDARD_SIGNIFICANT_SPANS, MonetarySpannable.STANDARD_INSIGNIFICANT_SPANS);
 		}
 
 		@Override

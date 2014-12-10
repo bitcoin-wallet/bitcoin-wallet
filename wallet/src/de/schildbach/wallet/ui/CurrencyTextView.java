@@ -115,8 +115,8 @@ public final class CurrencyTextView extends TextView
 		final MonetarySpannable text;
 
 		if (amount != null)
-			text = new MonetarySpannable(format, alwaysSigned, amount).applyMarkup(prefixRelativeSizeSpan, prefixColorSpan,
-					insignificantRelativeSizeSpan);
+			text = new MonetarySpannable(format, alwaysSigned, amount).applyMarkup(new Object[] { prefixRelativeSizeSpan, prefixColorSpan },
+					new Object[] { insignificantRelativeSizeSpan });
 		else
 			text = null;
 
