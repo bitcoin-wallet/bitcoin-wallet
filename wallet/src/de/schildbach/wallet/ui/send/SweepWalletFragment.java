@@ -643,10 +643,16 @@ public class SweepWalletFragment extends Fragment
 				state = State.FAILED;
 				updateView();
 
-				final DialogBuilder dialog = DialogBuilder.warn(activity, R.string.sweep_wallet_fragment_insufficient_money_title);
-				dialog.setMessage(R.string.sweep_wallet_fragment_insufficient_money_msg);
-				dialog.setNeutralButton(R.string.button_dismiss, null);
-				dialog.show();
+				showInsufficientMoneyDialog();
+			}
+
+			@Override
+			protected void onEmptyWalletFailed()
+			{
+				state = State.FAILED;
+				updateView();
+
+				showInsufficientMoneyDialog();
 			}
 
 			@Override
@@ -665,6 +671,14 @@ public class SweepWalletFragment extends Fragment
 			protected void onInvalidKey()
 			{
 				throw new RuntimeException(); // cannot happen
+			}
+
+			private void showInsufficientMoneyDialog()
+			{
+				final DialogBuilder dialog = DialogBuilder.warn(activity, R.string.sweep_wallet_fragment_insufficient_money_title);
+				dialog.setMessage(R.string.sweep_wallet_fragment_insufficient_money_msg);
+				dialog.setNeutralButton(R.string.button_dismiss, null);
+				dialog.show();
 			}
 		}.sendCoinsOffline(sendRequest); // send asynchronously
 	}
