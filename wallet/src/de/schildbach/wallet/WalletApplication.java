@@ -23,7 +23,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import javax.annotation.Nonnull;
@@ -392,29 +391,6 @@ public class WalletApplication extends Application
 		try
 		{
 			os = openFileOutput(Constants.Files.WALLET_KEY_BACKUP_PROTOBUF, Context.MODE_PRIVATE);
-			walletProto.writeTo(os);
-		}
-		catch (final IOException x)
-		{
-			log.error("problem writing key backup", x);
-		}
-		finally
-		{
-			try
-			{
-				os.close();
-			}
-			catch (final IOException x)
-			{
-				// swallow
-			}
-		}
-
-		try
-		{
-			final String filename = String.format(Locale.US, "%s.%02d", Constants.Files.WALLET_KEY_BACKUP_PROTOBUF,
-					(System.currentTimeMillis() / DateUtils.DAY_IN_MILLIS) % 100l);
-			os = openFileOutput(filename, Context.MODE_PRIVATE);
 			walletProto.writeTo(os);
 		}
 		catch (final IOException x)
