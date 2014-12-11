@@ -119,7 +119,9 @@ public class SweepWalletFragment extends Fragment
 
 	private enum State
 	{
-		DECODE_KEY, CONFIRM_SWEEP, PREPARATION, SENDING, SENT, FAILED
+		DECODE_KEY, // ask for password
+		CONFIRM_SWEEP, // displays balance and asks for confirmation
+		PREPARATION, SENDING, SENT, FAILED // sending states
 	}
 
 	private static final Logger log = LoggerFactory.getLogger(SweepWalletFragment.class);
@@ -274,7 +276,7 @@ public class SweepWalletFragment extends Fragment
 					protected void handlePrivateKey(@Nonnull final VersionedChecksummedBytes key)
 					{
 						privateKeyToSweep = key;
-						state = State.DECODE_KEY;
+						setState(State.DECODE_KEY);
 						maybeDecodeKey();
 					}
 
@@ -298,8 +300,6 @@ public class SweepWalletFragment extends Fragment
 				}.parse();
 			}
 		}
-
-		updateView();
 	}
 
 	@Override
@@ -368,11 +368,9 @@ public class SweepWalletFragment extends Fragment
 					if (state == State.SENDING)
 					{
 						if (confidenceType == TransactionConfidence.ConfidenceType.DEAD)
-							state = State.FAILED;
+							setState(State.FAILED);
 						else if (numBroadcastPeers > 1 || confidenceType == TransactionConfidence.ConfidenceType.BUILDING)
-							state = State.SENT;
-
-						updateView();
+							setState(State.SENT);
 					}
 
 					if (reason == ChangeReason.SEEN_PEERS && confidenceType == TransactionConfidence.ConfidenceType.PENDING)
@@ -457,7 +455,7 @@ public class SweepWalletFragment extends Fragment
 		group.importKeys(key);
 		walletToSweep = new Wallet(Constants.NETWORK_PARAMETERS, group);
 
-		state = State.CONFIRM_SWEEP;
+		setState(State.CONFIRM_SWEEP);
 
 		// delay until fragment is resumed
 		handler.post(requestWalletBalanceRunnable);
@@ -512,6 +510,13 @@ public class SweepWalletFragment extends Fragment
 
 		final Address address = walletToSweep.getImportedKeys().iterator().next().toAddress(Constants.NETWORK_PARAMETERS);
 		new RequestWalletBalanceTask(backgroundHandler, callback, application.httpUserAgent()).requestWalletBalance(address);
+	}
+
+	private void setState(final State state)
+	{
+		this.state = state;
+
+		updateView();
 	}
 
 	private void updateView()
@@ -617,8 +622,7 @@ public class SweepWalletFragment extends Fragment
 
 	private void handleSweep()
 	{
-		state = State.PREPARATION;
-		updateView();
+		setState(State.PREPARATION);
 
 		final SendRequest sendRequest = SendRequest.emptyWallet(application.getWallet().freshReceiveAddress());
 
@@ -629,8 +633,7 @@ public class SweepWalletFragment extends Fragment
 			{
 				sentTransaction = transaction;
 
-				state = State.SENDING;
-				updateView();
+				setState(State.SENDING);
 
 				sentTransaction.getConfidence().addEventListener(sentTransactionConfidenceListener);
 
@@ -640,8 +643,7 @@ public class SweepWalletFragment extends Fragment
 			@Override
 			protected void onInsufficientMoney(@Nullable final Coin missing)
 			{
-				state = State.FAILED;
-				updateView();
+				setState(State.FAILED);
 
 				showInsufficientMoneyDialog();
 			}
@@ -649,8 +651,7 @@ public class SweepWalletFragment extends Fragment
 			@Override
 			protected void onEmptyWalletFailed()
 			{
-				state = State.FAILED;
-				updateView();
+				setState(State.FAILED);
 
 				showInsufficientMoneyDialog();
 			}
@@ -658,8 +659,7 @@ public class SweepWalletFragment extends Fragment
 			@Override
 			protected void onFailure(final Exception exception)
 			{
-				state = State.FAILED;
-				updateView();
+				setState(State.FAILED);
 
 				final DialogBuilder dialog = DialogBuilder.warn(activity, R.string.send_coins_error_msg);
 				dialog.setMessage(exception.toString());
