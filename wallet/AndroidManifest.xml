@@ -5,8 +5,8 @@
 	package="hashengineering.digitalcoin.wallet"
 	android:installLocation="internalOnly"
 
-	android:versionCode="3003550"
-	android:versionName="3.01.3550" >
+	android:versionCode="3003561"
+	android:versionName="3.01.3561" >
 
 
 	<uses-sdk
