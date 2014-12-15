@@ -1,3 +1,8 @@
+v4.14
+
+* Update Turkish, Norwegian Bokmål, Japanese, French and Danish translations.
+* Small bugfixes.
+
 v4.13
 
 * Support sweeping of password-protected paper wallets (BIP38).
