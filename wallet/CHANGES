@@ -1,3 +1,9 @@
+v4.15
+
+* Important fix for how old pre-version-3.47 wallet backups are restored.
+* We're showing the backup warning for users with old wallets. If you see it, please refresh your
+  backup! It's time everybody is in possession of a backup using the current format.
+
 v4.14
 
 * Update Turkish, Norwegian Bokmål, Japanese, French and Danish translations.
