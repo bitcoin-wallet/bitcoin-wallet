@@ -50,6 +50,7 @@ import org.bitcoinj.core.Wallet;
 import org.bitcoinj.script.Script;
 import org.bitcoinj.store.UnreadableWalletException;
 import org.bitcoinj.store.WalletProtobufSerializer;
+import org.bitcoinj.wallet.KeyChainGroup;
 
 import android.text.Editable;
 import android.text.Spannable;
@@ -198,9 +199,11 @@ public class WalletUtils
 	public static Wallet restorePrivateKeysFromBase58(final InputStream is) throws IOException
 	{
 		final BufferedReader keyReader = new BufferedReader(new InputStreamReader(is, Charsets.UTF_8));
-		final Wallet wallet = new Wallet(Constants.NETWORK_PARAMETERS);
-		wallet.importKeys(WalletUtils.readKeys(keyReader));
-		return wallet;
+
+		// create non-HD wallet
+		final KeyChainGroup group = new KeyChainGroup(Constants.NETWORK_PARAMETERS);
+		group.importKeys(WalletUtils.readKeys(keyReader));
+		return new Wallet(Constants.NETWORK_PARAMETERS, group);
 	}
 
 	public static void writeKeys(@Nonnull final Writer out, @Nonnull final List<ECKey> keys) throws IOException
