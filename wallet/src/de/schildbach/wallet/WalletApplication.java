@@ -85,6 +85,8 @@ public class WalletApplication extends Application
 
 	public static final String ACTION_WALLET_CHANGED = WalletApplication.class.getPackage().getName() + ".wallet_changed";
 
+	public static final int VERSION_CODE_SHOW_BACKUP_REMINDER = 205;
+
 	private static final Logger log = LoggerFactory.getLogger(WalletApplication.class);
 
 	@Override
@@ -129,6 +131,12 @@ public class WalletApplication extends Application
 		walletFile = getFileStreamPath(Constants.Files.WALLET_FILENAME_PROTOBUF);
 
 		loadWalletFromProtobuf();
+
+		if (config.versionCodeCrossed(packageInfo.versionCode, VERSION_CODE_SHOW_BACKUP_REMINDER) && !wallet.getImportedKeys().isEmpty())
+		{
+			log.info("showing backup reminder once, because of imported keys being present");
+			config.armBackupReminder();
+		}
 
 		config.updateLastVersionCode(packageInfo.versionCode);
 
