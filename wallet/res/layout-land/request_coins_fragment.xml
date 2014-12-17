@@ -28,7 +28,7 @@
 		android:paddingTop="@dimen/list_entry_padding_vertical" >
 
 		<LinearLayout
-			android:layout_width="@dimen/wallet_address_qr_size_large"
+			android:layout_width="@dimen/request_coins_qr_size"
 			android:layout_height="match_parent"
 			android:orientation="vertical" >
 
@@ -41,9 +41,10 @@
 
 				<ImageView
 					android:id="@+id/request_coins_qr"
-					android:layout_width="@dimen/wallet_address_qr_size_large"
-					android:layout_height="@dimen/wallet_address_qr_size_large"
+					android:layout_width="@dimen/request_coins_qr_size"
+					android:layout_height="@dimen/request_coins_qr_size"
 					android:background="@drawable/qrcode_frame"
+					android:contentDescription="@string/action_show_qr"
 					android:padding="8dp"
 					android:scaleType="centerInside" />
 			</FrameLayout>

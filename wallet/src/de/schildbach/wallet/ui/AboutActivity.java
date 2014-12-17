@@ -21,22 +21,18 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.Preference;
+import android.preference.PreferenceActivity;
 import android.preference.PreferenceScreen;
-
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockPreferenceActivity;
-import com.actionbarsherlock.view.MenuItem;
-import com.google.bitcoin.core.VersionMessage;
-
+import android.view.MenuItem;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
-import hashengineering.digitalcoin.wallet.R;
+import hashengineering.groestlcoin.wallet.R;
 
 
 /**
  * @author Andreas Schildbach
  */
-public final class AboutActivity extends SherlockPreferenceActivity
+public final class AboutActivity extends PreferenceActivity
 {
 	private static final String KEY_ABOUT_VERSION = "about_version";
 	private static final String KEY_ABOUT_LICENSE = "about_license";
@@ -59,8 +55,8 @@ public final class AboutActivity extends SherlockPreferenceActivity
 
 		addPreferencesFromResource(R.xml.about);
 
-		final ActionBar actionBar = getSupportActionBar();
-		actionBar.setDisplayHomeAsUpEnabled(true);
+		//final ActionBar actionBar = getSupportActionBar();
+		//actionBar.setDisplayHomeAsUpEnabled(true);
 
 		findPreference(KEY_ABOUT_VERSION).setSummary(((WalletApplication) getApplication()).packageInfo().versionName);
 		findPreference(KEY_ABOUT_LICENSE).setSummary(Constants.LICENSE_URL);
@@ -68,7 +64,7 @@ public final class AboutActivity extends SherlockPreferenceActivity
 
 		findPreference(KEY_ABOUT_MARKET_PUBLISHER).setSummary(Constants.MARKET_PUBLISHER_URL);
 
-		findPreference(KEY_ABOUT_CREDITS_BITCOINJ).setTitle(getString(R.string.about_credits_bitcoinj_title, VersionMessage.BITCOINJ_VERSION));
+		//findPreference(KEY_ABOUT_CREDITS_BITCOINJ).setTitle(getString(R.string.about_credits_bitcoinj_title, VersionMessage.BITCOINJ_VERSION));
 		findPreference(KEY_ABOUT_CREDITS_BITCOINJ).setSummary(Constants.FORKED_FROM_SOURCE_BITCOINJ+Constants.CREDITS_BITCOINJ_URL);
 		findPreference(KEY_ABOUT_CREDITS_ZXING).setSummary(Constants.CREDITS_ZXING_URL);
 

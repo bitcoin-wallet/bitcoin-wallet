@@ -21,35 +21,39 @@ import java.util.ArrayList;
 
 import javax.annotation.Nonnull;
 
+import org.bitcoinj.core.Address;
+import org.bitcoinj.core.AddressFormatException;
+import org.bitcoinj.core.Transaction;
+import org.bitcoinj.core.VerificationException;
+import org.bitcoinj.uri.BitcoinURI;
+import org.bitcoinj.uri.BitcoinURIParseException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import android.app.Activity;
+import android.app.LoaderManager;
+import android.content.ClipData;
+import android.content.ClipDescription;
+import android.content.ClipboardManager;
+import android.content.ClipboardManager.OnPrimaryClipChangedListener;
 import android.content.Context;
+import android.content.CursorLoader;
 import android.content.Intent;
+import android.content.Loader;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.CursorLoader;
-import android.support.v4.content.Loader;
-import android.support.v4.widget.SimpleCursorAdapter;
-import android.support.v4.widget.SimpleCursorAdapter.ViewBinder;
-import android.text.ClipboardManager;
+import android.view.ActionMode;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
+import android.widget.SimpleCursorAdapter.ViewBinder;
 import android.widget.TextView;
-
-import com.actionbarsherlock.app.SherlockListFragment;
-import com.actionbarsherlock.view.ActionMode;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
-import com.actionbarsherlock.view.MenuItem;
-import com.google.bitcoin.core.Address;
-import com.google.bitcoin.core.AddressFormatException;
-import com.google.bitcoin.core.Transaction;
-import com.google.bitcoin.core.VerificationException;
-import com.google.bitcoin.uri.BitcoinURI;
-
 import de.schildbach.wallet.AddressBookProvider;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.data.PaymentIntent;
@@ -59,12 +63,12 @@ import de.schildbach.wallet.util.BitmapFragment;
 import de.schildbach.wallet.util.Qr;
 import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet.util.WholeStringBuilder;
-import hashengineering.digitalcoin.wallet.R;
+import hashengineering.groestlcoin.wallet.R;
 
 /**
  * @author Andreas Schildbach
  */
-public final class SendingAddressesFragment extends SherlockListFragment implements LoaderManager.LoaderCallbacks<Cursor>
+public final class SendingAddressesFragment extends FancyListFragment implements LoaderManager.LoaderCallbacks<Cursor>, OnPrimaryClipChangedListener
 {
 	private AbstractWalletActivity activity;
 	private ClipboardManager clipboardManager;
@@ -72,10 +76,13 @@ public final class SendingAddressesFragment extends SherlockListFragment impleme
 
 	private SimpleCursorAdapter adapter;
 	private String walletAddressesSelection;
+	private MenuItem pasteMenuItem;
 
 	private final Handler handler = new Handler();
 
 	private static final int REQUEST_CODE_SCAN = 0;
+
+	private static final Logger log = LoggerFactory.getLogger(SendingAddressesFragment.class);
 
 	@Override
 	public void onAttach(final Activity activity)
@@ -116,11 +123,19 @@ public final class SendingAddressesFragment extends SherlockListFragment impleme
 	}
 
 	@Override
-	public void onViewCreated(View view, Bundle savedInstanceState)
+	public void onResume()
 	{
-		super.onViewCreated(view, savedInstanceState);
+		super.onResume();
 
-		setEmptyText(WholeStringBuilder.bold(getString(R.string.address_book_empty_text)));
+		clipboardManager.addPrimaryClipChangedListener(this);
+	}
+
+	@Override
+	public void onPause()
+	{
+		clipboardManager.removePrimaryClipChangedListener(this);
+
+		super.onPause();
 	}
 
 	@Override
@@ -189,6 +204,14 @@ public final class SendingAddressesFragment extends SherlockListFragment impleme
 	}
 
 	@Override
+	public void onPrepareOptionsMenu(final Menu menu)
+	{
+		menu.findItem(R.id.sending_addresses_options_paste).setEnabled(getAddressFromPrimaryClip() != null);
+
+		super.onPrepareOptionsMenu(menu);
+	}
+
+	@Override
 	public boolean onOptionsItemSelected(final MenuItem item)
 	{
 		switch (item.getItemId())
@@ -207,38 +230,19 @@ public final class SendingAddressesFragment extends SherlockListFragment impleme
 
 	private void handlePasteClipboard()
 	{
-		if (clipboardManager.hasText())
+		final Address address = getAddressFromPrimaryClip();
+		if (address != null)
 		{
-			final String input = clipboardManager.getText().toString().trim();
-
-			new StringInputParser(input)
-			{
-				@Override
-				protected void handlePaymentIntent(final PaymentIntent paymentIntent)
-				{
-					if (paymentIntent.hasAddress())
-						EditAddressBookEntryFragment.edit(getFragmentManager(), paymentIntent.getAddress().toString());
-					else
-						dialog(activity, null, R.string.address_book_options_paste_from_clipboard_title,
-								R.string.address_book_options_paste_from_clipboard_invalid);
-				}
-
-				@Override
-				protected void handleDirectTransaction(final Transaction transaction) throws VerificationException
-				{
-					cannotClassify(input);
-				}
-
-				@Override
-				protected void error(final int messageResId, final Object... messageArgs)
-				{
-					dialog(activity, null, R.string.address_book_options_paste_from_clipboard_title, messageResId, messageArgs);
-				}
-			}.parse();
+			EditAddressBookEntryFragment.edit(getFragmentManager(), address.toString());
 		}
 		else
 		{
-			activity.toast(R.string.address_book_options_paste_from_clipboard_empty);
+			// should currently not be reached since menu item is disabled
+			final DialogBuilder dialog = new DialogBuilder(activity);
+			dialog.setTitle(R.string.address_book_options_paste_from_clipboard_title);
+			dialog.setMessage(R.string.address_book_options_paste_from_clipboard_invalid);
+			dialog.singleDismissButton(null);
+			dialog.show();
 		}
 	}
 
@@ -350,13 +354,14 @@ public final class SendingAddressesFragment extends SherlockListFragment impleme
 	private void handleShowQr(final String address)
 	{
 		final String uri = BitcoinURI.convertToBitcoinURI(address, null, null, null);
-		final int size = (int) (256 * getResources().getDisplayMetrics().density);
+		final int size = getResources().getDimensionPixelSize(R.dimen.bitmap_dialog_qr_size);
 		BitmapFragment.show(getFragmentManager(), Qr.bitmap(uri, size));
 	}
 
 	private void handleCopyToClipboard(final String address)
 	{
-		clipboardManager.setText(address);
+		clipboardManager.setPrimaryClip(ClipData.newPlainText("Bitcoin address", address));
+		log.info("address copied to clipboard: {}", address.toString());
 		activity.toast(R.string.wallet_address_fragment_clipboard_msg);
 	}
 
@@ -373,6 +378,8 @@ public final class SendingAddressesFragment extends SherlockListFragment impleme
 	public void onLoadFinished(final Loader<Cursor> loader, final Cursor data)
 	{
 		adapter.swapCursor(data);
+
+		setEmptyText(WholeStringBuilder.bold(getString(R.string.address_book_empty_text)));
 	}
 
 	@Override
@@ -390,5 +397,54 @@ public final class SendingAddressesFragment extends SherlockListFragment impleme
 			builder.setLength(builder.length() - 1);
 
 		walletAddressesSelection = builder.toString();
+	}
+
+	private Address getAddressFromPrimaryClip()
+	{
+		if (!clipboardManager.hasPrimaryClip())
+			return null;
+
+		final ClipData clip = clipboardManager.getPrimaryClip();
+		final ClipDescription clipDescription = clip.getDescription();
+
+		if (clipDescription.hasMimeType(ClipDescription.MIMETYPE_TEXT_PLAIN))
+		{
+			final CharSequence clipText = clip.getItemAt(0).getText();
+			if (clipText == null)
+				return null;
+
+			try
+			{
+				return new Address(Constants.NETWORK_PARAMETERS, clipText.toString().trim());
+			}
+			catch (final AddressFormatException x)
+			{
+				return null;
+			}
+		}
+		else if (clipDescription.hasMimeType(ClipDescription.MIMETYPE_TEXT_URILIST))
+		{
+			final Uri clipUri = clip.getItemAt(0).getUri();
+			if (clipUri == null)
+				return null;
+			try
+			{
+				return new BitcoinURI(clipUri.toString()).getAddress();
+			}
+			catch (final BitcoinURIParseException x)
+			{
+				return null;
+			}
+		}
+		else
+		{
+			return null;
+		}
+	}
+
+	@Override
+	public void onPrimaryClipChanged()
+	{
+		activity.invalidateOptionsMenu();
 	}
 }

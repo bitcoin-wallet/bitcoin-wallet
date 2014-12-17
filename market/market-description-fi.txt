@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 <b>Pidä digitalcoinisi aina mukana taskussasi!</b> Voit maksaa nopeasti skannaamalla QR-koodin. Kauppiaana saat maksut turvallisesti ja välittömästi. digitalcoin Wallet on ensimmäinen digitalcoin-mobiilisovellus, ja kenties myös kaikista turvallisin!
+=======
+<b>Pidä Bitcoinisi aina mukana taskussasi!</b> Voit maksaa nopeasti skannaamalla QR-koodin. Kauppiaana saat maksut turvallisesti ja välittömästi. Bitcoin Wallet on ensimmäinen Bitcoin-mobiilisovellus ja luultavimmin myös kaikista turvallisin!
+>>>>>>> origin/master
 
 
 <b>OMINAISUUDET</b>
@@ -22,15 +26,21 @@ https://www.gnu.org/licenses/gpl-3.0.en.html
 Lähdekoodi saatavilla GitHub:sta:
 https://github.com/HashEngineering/digitalcoin-wallet
 
-Kaikki käännökset Transifex:n kautta:
+Kaikki käännökset on hallinnoitu Transifex:n kautta:
 https://www.transifex.com/projects/p/bitcoin-wallet/
 
 
-<b>SUOSITTELUT</b>
+<b>SUOSITTELUMME</b>
 
+<<<<<<< HEAD
 • Useat mobiililompakot perustuvat digitalcoin Wallet-ohjelman lähdekoodiin, esimerkiksi: blockchain.info, Hive and KnC.
 • http://digitalcoin.co: suosittelema mobiililompakko
 • BitPay:n suosittelema
+=======
+• Useat mobiililompakot perustuvat Bitcoin Wallet-ohjelman lähdekoodiin, esimerkiksi: blockchain.info, Hive and KnC.
+• https://bitcoin.org: suosittelema mobiililompakko
+• BitPay:n suosittelema.
+>>>>>>> origin/master
 
 
 <i>Käytä omalla vastuulla!</i>

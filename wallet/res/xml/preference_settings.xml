@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+	<ListPreference
+		android:defaultValue="2/3"
+		android:entries="@array/preferences_precision_labels"
+		android:entryValues="@array/preferences_precision_values"
+		android:key="btc_precision"
+		android:summary="@string/preferences_precision_summary"
+		android:title="@string/preferences_precision_title" />
+
+	<CheckBoxPreference
+		android:defaultValue="false"
+		android:key="connectivity_notification"
+		android:summary="@string/preferences_connectivity_notification_summary"
+		android:title="@string/preferences_connectivity_notification_title" />
+
+	<EditTextPreference
+		android:key="trusted_peer"
+		android:summary="@string/preferences_trusted_peer_summary"
+		android:title="@string/preferences_trusted_peer_title" />
+
+	<CheckBoxPreference
+		android:defaultValue="false"
+		android:key="trusted_peer_only"
+		android:summary="@string/preferences_trusted_peer_only_summary"
+		android:title="@string/preferences_trusted_peer_only_title" />
+
+	<Preference
+		android:key="data_usage"
+		android:summary="@string/preferences_data_usage_summary"
+		android:title="@string/preferences_data_usage_title" >
+		<intent
+			android:targetClass="com.android.settings.Settings$DataUsageSummaryActivity"
+			android:targetPackage="com.android.settings" />
+	</Preference>
+
+	<PreferenceCategory android:title="@string/preferences_category_labs" >
+		<Preference
+			android:icon="@drawable/ic_menu_warning"
+			android:summary="This is all unfinished stuff. Use at your own risk!"
+			android:title="Warning" />
+
+		<CheckBoxPreference
+			android:defaultValue="true"
+			android:key="disclaimer"
+			android:summary="Have you really read the safety notes? Did you already back up your private keys to a safe place?"
+			android:title="Show disclaimer" />
+		<CheckBoxPreference
+			android:defaultValue="false"
+			android:key="labs_qr_payment_request"
+			android:summary="Use payment protocol for QR-code initiated payments"
+			android:title="BIP70 for scan-to-pay" />
+	</PreferenceCategory>
+
+</PreferenceScreen>

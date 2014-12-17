@@ -17,16 +17,15 @@
 
 package de.schildbach.wallet.ui;
 
-import java.math.BigInteger;
+import android.view.View;
+import de.schildbach.wallet.ui.CurrencyAmountView.Listener;
+import org.bitcoinj.core.Coin;
+import org.bitcoinj.utils.ExchangeRate;
+import org.bitcoinj.utils.Fiat;
 
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
-import android.view.View;
-import de.schildbach.wallet.ExchangeRatesProvider.ExchangeRate;
-import de.schildbach.wallet.ui.CurrencyAmountView.Listener;
-import de.schildbach.wallet.util.WalletUtils;
 
 /**
  * @author Andreas Schildbach
@@ -116,16 +115,23 @@ public final class CurrencyCalculatorLink
 	}
 
 	@CheckForNull
-	public BigInteger getAmount()
+	public Coin getAmount()
 	{
 		if (exchangeDirection)
 		{
-			return btcAmountView.getAmount();
+			return (Coin) btcAmountView.getAmount();
 		}
 		else if (exchangeRate != null)
 		{
-			final BigInteger localAmount = localAmountView.getAmount();
-			return localAmount != null ? WalletUtils.btcValue(localAmount, exchangeRate.rate) : null;
+			final Fiat localAmount = (Fiat) localAmountView.getAmount();
+			try
+			{
+				return localAmount != null ? exchangeRate.fiatToCoin(localAmount) : null;
+			}
+			catch (ArithmeticException x)
+			{
+				return null;
+			}
 		}
 		else
 		{
@@ -145,26 +151,33 @@ public final class CurrencyCalculatorLink
 		if (exchangeRate != null)
 		{
 			localAmountView.setEnabled(enabled);
-			localAmountView.setCurrencySymbol(exchangeRate.currencyCode);
+			localAmountView.setCurrencySymbol(exchangeRate.fiat.currencyCode);
 
 			if (exchangeDirection)
 			{
-				final BigInteger btcAmount = btcAmountView.getAmount();
+				final Coin btcAmount = (Coin) btcAmountView.getAmount();
 				if (btcAmount != null)
 				{
 					localAmountView.setAmount(null, false);
-					localAmountView.setHint(WalletUtils.localValue(btcAmount, exchangeRate.rate));
+					localAmountView.setHint(exchangeRate.coinToFiat(btcAmount));
 					btcAmountView.setHint(null);
 				}
 			}
 			else
 			{
-				final BigInteger localAmount = localAmountView.getAmount();
+				final Fiat localAmount = (Fiat) localAmountView.getAmount();
 				if (localAmount != null)
 				{
-					btcAmountView.setAmount(null, false);
-					btcAmountView.setHint(WalletUtils.btcValue(localAmount, exchangeRate.rate));
 					localAmountView.setHint(null);
+					btcAmountView.setAmount(null, false);
+					try
+					{
+						btcAmountView.setHint(exchangeRate.fiatToCoin(localAmount));
+					}
+					catch (final ArithmeticException x)
+					{
+						btcAmountView.setHint(null);
+					}
 				}
 			}
 		}
@@ -201,7 +214,7 @@ public final class CurrencyCalculatorLink
 		activeTextView().requestFocus();
 	}
 
-	public void setBtcAmount(@Nonnull final BigInteger amount)
+	public void setBtcAmount(@Nonnull final Coin amount)
 	{
 		final Listener listener = this.listener;
 		this.listener = null;

@@ -1,20 +1,20 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="help_wallet">\n<![CDATA[
+  <string name="help_wallet">
+<![CDATA[
 		<p>
-			Den øverste venstre del af skærmen viser din valgte digitalcoin-adresse, som andre har brug for at vide for at sende
-			dig digitalcoins.
+<<<<<<< HEAD
+			Den øverste venstre del af skærmen viser din valgte GroestlCoin-adresse, som andre har brug for at vide for at sende
+			dig GroestlCoins.
 			Berør for at ændre adresse.
+=======
+			Den øverste venstre del af skærmen viser din saldo i GroestlCoin og én valgt national valuta.
+			Berør for at gå til listen over nationale valutaer og berør en af disse valutaer for at sætte den som standard.
+>>>>>>> origin/master
 		</p>
 		<p>
-			QR-koden til højre indeholder din digitalcoin-adresse og kan scannes af en anden person.
+			QR-koden til højre indeholder din GroestlCoin-adresse og kan scannes af en anden person.
 			Berør QR-koden for at få en større version af den.
-		</p>
-		<p>
-			I midten af skærmen vises din saldo.
-			Din tegnebogs saldo vises også i en valgt lokal valutaenhed.
-			Berør saldoen for at få vist en liste over alle lokale valutaenheder, og berør en af valutaerne for at vælge den
-			som standard.
 		</p>
 		<p>
 			Bunden af skærmen indeholder din transaktionsliste, som i begyndelsen er tom.
@@ -23,39 +23,43 @@
 			Swipe venstre eller højre for at anvende filtre på listen.
 		</p>
 		<p>
-			Du kan sende eller forespørge mønter ved at berøre knapperne i action-bjælken.
+			Du kan sende eller anmode om GroestlCoin ved at berøre knapperne i handlingsbjælken.
 			Flere indstillinger kan findes i menuen Opsætning.
 		</p>
-	]]>\n\t</string>
-  <string name="help_request_coins">\n<![CDATA[
+	]]>
+	</string>
+  <string name="help_request_coins">
+<![CDATA[
 		<p>
-			Ved at bruge denne dialog kan du forespørge mønter fra en anden person (som allerede skal have installeret digitalcoin Wallet).
+			Ved at bruge denne dialog kan du forespørge mønter fra en anden person (som allerede skal have installeret GroestlCoin Wallet).
 		</p>
 		<p>
-			First kan du indtaste et antal digitalcoins til forespørgslen.
+			First kan du indtaste et antal GroestlCoins til forespørgslen.
 		</p>
 		<p>
 			Bagefter får du enten QR-koden scannet af den anden person,
 			eller du kan sende din forespørgsel til en person over længere afstand med Del-knappen i action-bjælken.
-			Den anden person skal klikke på digitalcoin-URL\'en.
+			Den anden person skal klikke på GroestlCoin-URL\'en.
 		</p>
 		<p>
 			Den anden person vil præsenteres for en dialog for afsendelse af mønter med alle felter forudfyldt.
 			Hvis hun accepterer, er alt hun behøver at gøre, at sende betalingen.
 		</p>
-	]]>\n\t</string>
-  <string name="help_send_coins">\n<![CDATA[
+	]]>
+	</string>
+  <string name="help_send_coins">
+<![CDATA[
 		<p>
 			Du har startet processen for at sende mønter.
-			Du kom hertil enten via hovedsskærmen eller ved at klikke på en digitalcoin-URL i din molbilbrowser.
+			Du kom hertil enten via hovedsskærmen eller ved at klikke på en GroestlCoin-URL i din molbilbrowser.
 		</p>
 		<p>
-			Først skriver du den digitalcoin-adresse, du vil betale til.
+			Først skriver du den GroestlCoin-adresse, du vil betale til.
 			Adressen vil autoudfyldes ud fra kendte indgange i din adressebog.
-			Du kan også scanne QR-koder med digitalcoin-adresser eller digitalcoin-forespørgsler ved at klikke på QR-knappen i action-bjælken.
+			Du kan også scanne QR-koder med GroestlCoin-adresser eller GroestlCoin-forespørgsler ved at klikke på QR-knappen i action-bjælken.
 		</p>
 		<p>
-			Dernæst kan du se, hvor mange digitalcoins du kan bruge i øjeblikket.
+			Dernæst kan du se, hvor mange GroestlCoins du kan bruge i øjeblikket.
 			En evt. difference til saldoen fra hovedskærmen er stadig ubekræftet og kan dermed ikke bruges.
 		</p>
 		<p>
@@ -63,7 +67,7 @@
 		</p>
 		<p>
 			Du kan indtaste et beløb, mens du er offline.
-			Det vil blive sendt, næste gang digitalcoin Wallet genstartes.
+			Det vil blive sendt, næste gang GroestlCoin Wallet genstartes.
 			Hvis du vil have, at en betaling går igennem så hurtigt som muligt, så vær sikker på, at du er ordentligt forbundet (dvs. på et WLAN).
 		</p>
 		<p>
@@ -71,14 +75,16 @@
 			Betalinger kan ikke fortrydes!
 			Tjek altid modtageradressen.
 		</p>
-	]]>\n\t</string>
-  <string name="help_safety">\n<![CDATA[
+	]]>
+	</string>
+  <string name="help_safety">
+<![CDATA[
 		<p>
 			<b>Vigtige bemærkninger om sikkerhed:</b>
 		</p>
 		<p>
-			digitalcoins gemmes på enheden.
-			<b>Hvis du mister den, mister du dine digitalcoins.</b>
+			GroestlCoins gemmes på enheden.
+			<b>Hvis du mister den, mister du dine GroestlCoins.</b>
 		</p>
 		<p>
 			Dette betyder, at du er nødt til at <b>sikkerhedskopiere din tegnebog</b>!
@@ -86,12 +92,12 @@
 			Opbevar din sikkerhedskopi sikkert og husk kodeordet.
 		</p>
 		<p>
-			<b>Før afinstallering</b> (eller sletning af appdata/nulstilling af enheden til fabriksindstillinger), <b>overfør dine digitalcoins til en anden tegnebog</b>.
-			Tilbageværende digitalcoins mistes.
+			<b>Før afinstallering</b> (eller sletning af appdata/nulstilling af enheden til fabriksindstillinger), <b>overfør dine GroestlCoins til en anden tegnebog</b>.
+			Tilbageværende GroestlCoins mistes.
 		</p>
 		<p>
 			<b>Betalinger kan ikke fortrydes</b>.
-			Hvis du sender dine digitalcoins ud i det blå, er der stort set ingen måde at få dem tilbage.
+			Hvis du sender dine GroestlCoins ud i det blå, er der stort set ingen måde at få dem tilbage.
 		</p>
 		<p>
 			<b>Opbevar din mobile enhed sikkert!</b>
@@ -103,5 +109,6 @@
 			Hold risikoen lav!
 			<b>Brug kun med små beløb</b> til daglig brug.
 		</p>
-	]]>\n\t</string>
+	]]>
+	</string>
 </resources>

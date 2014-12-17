@@ -1,9 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ImageView xmlns:android="http://schemas.android.com/apk/res/android"
-	android:id="@+id/bitmap_dialog_image"
-	android:layout_width="256dp"
-	android:layout_height="256dp"
-	android:background="@android:color/white"
-	android:keepScreenOn="true"
-	android:padding="4dp"
-	android:scaleType="centerInside" />
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/bitmap_dialog_group"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:background="@color/bg_less_bright"
+	android:orientation="vertical" >
+
+	<ImageView
+		android:id="@+id/bitmap_dialog_image"
+		android:layout_width="@dimen/bitmap_dialog_qr_size"
+		android:layout_height="@dimen/bitmap_dialog_qr_size"
+		android:background="@color/bg_bright"
+		android:keepScreenOn="true"
+		android:padding="4dp"
+		android:scaleType="centerInside" />
+
+	<TextView
+		android:id="@+id/bitmap_dialog_label"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_gravity="center_horizontal"
+		android:layout_margin="8dp"
+		android:textSize="@dimen/font_size_normal" />
+
+</LinearLayout>

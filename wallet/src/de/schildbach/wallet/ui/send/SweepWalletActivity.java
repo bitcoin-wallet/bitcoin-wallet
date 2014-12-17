@@ -19,16 +19,15 @@ package de.schildbach.wallet.ui.send;
 
 import javax.annotation.Nonnull;
 
+import org.bitcoinj.core.VersionedChecksummedBytes;
+
+import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.view.MenuItem;
-import com.google.bitcoin.core.ECKey;
-
+import android.view.MenuItem;
 import de.schildbach.wallet.ui.AbstractBindServiceActivity;
-import hashengineering.digitalcoin.wallet.R;
+import hashengineering.groestlcoin.wallet.R;
 
 /**
  * @author Andreas Schildbach
@@ -42,7 +41,7 @@ public final class SweepWalletActivity extends AbstractBindServiceActivity
 		context.startActivity(new Intent(context, SweepWalletActivity.class));
 	}
 
-	public static void start(final Context context, @Nonnull final ECKey key)
+	public static void start(final Context context, @Nonnull final VersionedChecksummedBytes key)
 	{
 		final Intent intent = new Intent(context, SweepWalletActivity.class);
 		intent.putExtra(INTENT_EXTRA_KEY, key);
@@ -58,7 +57,7 @@ public final class SweepWalletActivity extends AbstractBindServiceActivity
 
 		getWalletApplication().startBlockchainService(false);
 
-		final ActionBar actionBar = getSupportActionBar();
+		final ActionBar actionBar = getActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
 	}
 

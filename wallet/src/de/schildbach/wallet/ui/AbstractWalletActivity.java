@@ -17,26 +17,23 @@
 
 package de.schildbach.wallet.ui;
 
-import javax.annotation.Nonnull;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.actionbarsherlock.app.SherlockFragmentActivity;
-
 import de.schildbach.wallet.WalletApplication;
-import hashengineering.digitalcoin.wallet.R;
+import hashengineering.groestlcoin.wallet.R;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import javax.annotation.Nonnull;
 
 
 /**
  * @author Andreas Schildbach
  */
-public abstract class AbstractWalletActivity extends SherlockFragmentActivity
+public abstract class AbstractWalletActivity extends Activity
 {
 	private WalletApplication application;
 

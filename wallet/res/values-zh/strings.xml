@@ -12,10 +12,7 @@
 	<string name="blockchain_state_progress_stalled">同步停滞</string>
 	<string name="blockchain_state_progress_problem_storage">同步: 检查存储</string>
 	<string name="blockchain_state_progress_problem_network">同步: 检查网络</string>
-	<string name="wallet_address_fragment_your">您的比特币地址：</string>
 	<string name="wallet_address_fragment_clipboard_msg">比特币地址已复制到剪贴板</string>
-	<string name="wallet_addresses_fragment_add_dialog_title">添加比特币地址</string>
-	<string name="wallet_addresses_fragment_add_dialog_message">不能删除比特币地址，或许你想要一个新地址？</string>
 	<string name="wallet_balance_fragment_replaying">回档过程中的余额不可用。</string>
 	<string name="exchange_rates_activity_title">汇率</string>
 	<string name="exchange_rates_fragment_empty_text">无法加载汇率。</string>
@@ -35,11 +32,10 @@
 	<string name="wallet_transactions_row_warning_backup">恭喜你，你收到你的首次付款！ 你已经 &lt;u&gt;备份你的钱包&lt;/u&gt;, 以防止损失？</string>
 	<string name="wallet_transactions_fragment_coinbase">已挖掘的</string>
 	<string name="wallet_transactions_fragment_internal">內部</string>
-	<string name="wallet_transactions_context_show_qr_title">显示QR二维码</string>
 	<string name="wallet_options_safety_menu">安全</string>
 	<string name="wallet_options_safety">安全及风险提示</string>
 	<string name="wallet_options_donate">捐赠</string>
-	<string name="wallet_donate_address_label">捐款予digitalcoin錢包</string>
+	<string name="wallet_donate_address_label">捐款予GroestlCoin錢包</string>
 	<string name="wallet_low_storage_dialog_title">内部存储空间不足！！</string>
 	<string name="wallet_low_storage_dialog_msg">比特币钱包使用内部存储记忆的交易和块块。如果它运行的空间不够，它就会停止工作，你的比特币将处于危险之中！\n\n你要打开的应用程序管理器卸载不需要的应用程序？</string>
 	<string name="wallet_low_storage_dialog_button_apps">管理应用程序</string>
@@ -61,8 +57,6 @@
 	<string name="send_coins_fragment_receiving_address_label">发送给</string>
 	<string name="send_coins_fragment_receiving_address_hint">输入地址或姓名</string>
 	<string name="send_coins_fragment_receiving_address_error">地址错误！</string>
-	<string name="send_coins_fragment_receiving_address_error_cross_network">对这个钱包无法使用%s地址</string>
-	<string name="send_coins_fragment_receiving_address_error_cross_network_unknown">钱包現時无法使用未知网络地址</string>
 	<string name="send_coins_fragment_receiving_address_complex">综合\n地址</string>
 	<string name="send_coins_fragment_pending">(%s 的等待确认)</string>
 	<string name="send_coins_fragment_amount_label">总量</string>
@@ -98,9 +92,7 @@
 	<string name="address_book_context_send_title">支付给本地址</string>
 	<string name="address_book_context_edit_title">编辑地址</string>
 	<string name="address_book_context_remove_title">删除地址</string>
-	<string name="address_book_context_show_qr_title">显示QR二维码</string>
 	<string name="address_book_context_copy_to_clipboard_title">复制到剪切板</string>
-	<string name="address_book_context_default_title">设置为缺省比特币地址</string>
 	<string name="address_book_options_paste_from_clipboard_title">從剪貼板上粘貼</string>
 	<string name="address_book_options_paste_from_clipboard_empty">剪切板为空</string>
 	<string name="address_book_options_paste_from_clipboard_invalid">无法识别剪切板的数据</string>
@@ -136,13 +128,9 @@
 	<string name="import_keys_dialog_file_created_manual">手动备份 %s</string>
 	<string name="import_keys_dialog_button_import">恢复</string>
 	<string name="restore_wallet_dialog_success">钱包被恢复。</string>
-	<string name="import_keys_dialog_success_imported">%d 的私钥进行恢复。</string>
-	<string name="import_keys_dialog_success_existing">%d 的私钥未恢复，因为他们已经在你的钱包。</string>
-	<string name="import_keys_dialog_success_reset">你需要重置blockchain以更新您的余额。你想？</string>
 	<string name="import_keys_dialog_failure">钱包无法还原:\n\n%s\n\n密码错误？</string>
-	<string name="import_keys_dialog_button_reset_blockchain">复位</string>
 	<string name="export_keys_dialog_title">备份钱包</string>
-	<string name="export_keys_dialog_message">你的钱包所选择的密码将被加密，并写入到外部存储。</string>
+	<string name="backup_wallet_dialog_message">你的钱包所选择的密码将被加密，并写入到外部存储。</string>
 	<string name="export_keys_dialog_button_export">备份</string>
 	<string name="export_keys_dialog_success"><![CDATA[<p>您的钱包已经被备份到 <tt>%s</tt></p><p>如果您的设备有一个可移动SD卡，备份<i>应该</i> 是该卡上。 将其删除，并保持在一个安全的地方。如果卡 <i>不是</i> 可移动的，你需要归档备份到您的其他的设备。</p><p><b>如果只把你的备份存在是您的设备上，您运行的同时失去两个风险！</b></p><p>在任何情况下，请一定要记住您的备份密码。你现在要封存你的钱包？</p>]]></string>
 	<string name="export_keys_dialog_failure">你的钱包可能无法备份:\n%s</string>
@@ -165,7 +153,6 @@
 	<string name="input_parser_invalid_paymentrequest">无效的付款要求：\n%s</string>
 	<string name="input_parser_invalid_transaction">无效交易：\n%s</string>
 	<string name="preferences_activity_title">设置</string>
-	<string name="preferences_category_main">设置</string>
 	<string name="preferences_category_diagnostics">诊断</string>
 	<string name="preferences_category_labs">实验室</string>
 	<string name="preferences_precision_title">面额和精度</string>
@@ -201,16 +188,13 @@
 	<string name="about_copyright_title">版权</string>
 	<string name="about_license_title">授权</string>
     <string name="about_source_title">源代码</string>
-	<string name="about_credits_bitcoinj_title">本程序使用 digitalcoinj %s</string>
+	<string name="about_credits_bitcoinj_title">本程序使用 groestlcoinj %s</string>
 	<string name="about_credits_zxing_title">"本程序使用 'zxing'"</string>
 	<string name="about_credits_icon_title">"本程序使用 'bitboy' 制作的图标"</string>
 	<string name="about_community_googleplus_title">Google+ 社区</string>
 	<string name="about_community_googleplus_summary">有关此应用程序的讨论</string>
-	<string name="about_author_twitter_title">作者Twitter</string>
-	<string name="about_author_googleplus_title">作者Google+</string>
 	<string name="about_market_app_title">谷歌商店页面</string>
 	<string name="about_market_app_summary">给应用程式评价</string>
-	<string name="about_credits_market_publisher_title">与作者相关的应用程式</string>
 	<string name="notification_coins_received_msg">收到 %s</string>
 	<string name="notification_peers_connected_msg">%d连接已建立</string>
 	<!-- generic buttons -->
@@ -231,6 +215,7 @@
 	<string name="button_scan">掃描</string>
 	<string name="button_edit_address">添加/编辑地址</string>
 	<string name="button_settings">设置</string>
+	<string name="action_show_qr">显示QR二维码</string>
 	<string name="action_browse">浏览</string>
 	<string name="time_today">今天</string>
 	<string name="address_unlabeled">(无标签)</string>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
 
-	<PreferenceCategory android:title="@string/preferences_category_main" >
+	<PreferenceCategory android:title="prefs" >
 		<ListPreference
 			android:defaultValue="2/0"
 			android:entries="@array/preferences_precision_labels"

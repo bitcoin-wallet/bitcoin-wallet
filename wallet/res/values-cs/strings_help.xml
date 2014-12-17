@@ -1,18 +1,22 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="help_wallet">\n<![CDATA[
+  <string name="help_wallet">
+<![CDATA[
 		<p>
-			Horní levá část obrazovky zobrazuje Vaši aktuální digitalcoin adresu, kterou druhá strana potřebuje znát, aby Vám mohla zaslat platbu.
+<<<<<<< HEAD
+			Horní levá část obrazovky zobrazuje Vaši aktuální GroestlCoin adresu, kterou druhá strana potřebuje znát, aby Vám mohla zaslat platbu.
 			Kliknutím na adresu ji změníte.
 		</p>
 		<p>
-			QR kód na pravé straně obsahuje Vaši digitalcoin adresu a může být použit pro naskenování druhou stranou.
-			Klepněte na QR kód pro zobrazení větší verze.
+			QR kód na pravé straně obsahuje Vaši GroestlCoin adresu a může být použit pro naskenování druhou stranou.
+=======
+			Horní levá část obrazovky zobrazuje Vaši aktuální GroestlCoin bilanci včetně odpovídající částky ve vaší lokální měně.
+			Kliknutím na částku přejdete do seznamu lokálních měn, kde si můžete vybrat jinou.
 		</p>
 		<p>
-			Ve středu obrazovky je zobrazen aktuální zůstatek.
-			Hodnota zůstatků je zobrazena i v jiné zvolené měně.
-			Klepnutím na zůstatek zobrazíte seznam možných jiných měn, vybráním konkrétní měny tuto potom nastavíte jako výchozí.
+			QR kód na pravé straně obsahuje Vaši GroestlCoin adresu a může být použita pro naskenování druhou stranou.
+>>>>>>> origin/master
+			Klepněte na QR kód pro zobrazení větší verze.
 		</p>
 		<p>
 			Ve spodní části obrazovky je seznam transakcí, který bude samozřejmě na začátku používání aplikace prázdný.
@@ -21,16 +25,18 @@
 			Táhnutím vlevo či vpravo je možné aplikovat na seznam filtr.
 		</p>
 		<p>
-			Můžete poslat nebo si vyžádat digitalcoiny klepnutím na patřičné tlačítko v akční nabídce.
+			Můžete poslat nebo si vyžádat GroestlCoiny klepnutím na patřičné tlačítko v akční nabídce.
 			Více možností je v nabídce nastavení.
 		</p>
-	]]>\n\t</string>
-  <string name="help_request_coins">\n<![CDATA[
+	]]>
+	</string>
+  <string name="help_request_coins">
+<![CDATA[
 		<p>
-			Pomocí tohoto dialogu můžete vyžádat digitalcoiny od někoho jiného (kdo by měl také mít nainstalovanou aplikaci digitalcoin Wallet).
+			Pomocí tohoto dialogu můžete vyžádat GroestlCoiny od někoho jiného (kdo by měl také mít nainstalovanou aplikaci GroestlCoin Wallet).
 		</p>
 		<p>
-			Nejprve zadejte množství digitalcoinů, které chcete vyžádat.
+			Nejprve zadejte množství GroestlCoinů, které chcete vyžádat.
 		</p>
 		<p>
 			Potom můžete protistraně nabídnout vygenerovaný QR kód k oskenování,
@@ -38,13 +44,15 @@
 			Druhá strana potom klikne na získanou adresu.
 		</p>
 		<p>
-			V obou případech bude odesílatel uvidí dialog na zasílání digitalcoinů s předvzplněnými údaji.
+			V obou případech bude odesílatel uvidí dialog na zasílání GroestlCoinů s předvzplněnými údaji.
 			Pokud souhlasí, potvrdí zadané informace a dojde k transakci.
 		</p>
-	]]>\n\t</string>
-  <string name="help_send_coins">\n<![CDATA[
+	]]>
+	</string>
+  <string name="help_send_coins">
+<![CDATA[
 		<p>
-			Právě jste zahájil zasílání digitalcoinů.
+			Právě jste zahájil zasílání GroestlCoinů.
 			Sem jste se musel dostat buď přes hlavní obrazovku aplikace, nebo pomocí klepnutí na speciální adresu v prohlížeči.
 		</p>
 		<p>
@@ -53,7 +61,7 @@
 			Můžete také naskenovat QR kód s adresou peněženky nebo požadavek na zaplacení stisknutím tlačítka s QR kódem.
 		</p>
 		<p>
-			V dalším kroku uvidíte, kolik digitalcoinů můžete momentálně utratit.
+			V dalším kroku uvidíte, kolik GroestlCoinů můžete momentálně utratit.
 			Jakýkoliv rozdíl vůči zůstatku zobrazenému na výchozí obrazovce je stále nepotvrzen a tudíž nemůže být utracen.
 		</p>
 		<p>
@@ -61,7 +69,7 @@
 		</p>
 		<p>
 			Transakce můžete provádět, i když jste právě offline.
-			Budou provedeny při dalším spuštění aplikace digitalcoin Wallet.
+			Budou provedeny při dalším spuštění aplikace GroestlCoin Wallet.
 			Pokud chcete transakci provést co nejrychleji, ujistěte se, že máte rychlé připojení (například jste připojeni pomocí bezdrátové sítě).
 		</p>
 		<p>
@@ -69,32 +77,35 @@
 			Transakce nemohou být zrušeny!
 			Vždy zkontrolujte adresu příjemce.
 		</p>
-	]]>\n\t</string>
-  <string name="help_safety">\n<![CDATA[
+	]]>
+	</string>
+  <string name="help_safety">
+<![CDATA[
 		<p>
-			Několik slov o bezpečnosti vašich digitalcoinů:
+			Několik slov o bezpečnosti vašich GroestlCoinů:
 		</p>
 		<p>
-			digitalcoiny v aplikaci digitalcoin Wallet jsou uloženy ve vašem zařízení.
-			<b>Pokud o zařízení přijdete, přijdete i o digitalcoiny v něm.</b>
+			GroestlCoiny v aplikaci GroestlCoin Wallet jsou uloženy ve vašem zařízení.
+			<b>Pokud o zařízení přijdete, přijdete i o GroestlCoiny v něm.</b>
 			Stejně jako při ztrátě normální peněženky.
 		</p>
 		<p>
-			<b>Před odinstalací aplikace digitalcoin Wallet</b> (nebo při odstraňování dat/wipe), <b> si přepošlete zůstatek do jiné peněženky</b>.
+			<b>Před odinstalací aplikace GroestlCoin Wallet</b> (nebo při odstraňování dat/wipe), <b> si přepošlete zůstatek do jiné peněženky</b>.
 			Jakékoliv zůstavší Bitcony budou nenávratně ztraceny.
 		</p>
 		<p>
 			<b>Transakce nemohou být zrušeny</b>.
-			Pokud pošlete digitalcoiny někam neznámo kam, neexistuje možnost, jak je získat zpět, jedině byste znali příjemce a on měl zrovna náladu je poctivě vrátit.
+			Pokud pošlete GroestlCoiny někam neznámo kam, neexistuje možnost, jak je získat zpět, jedině byste znali příjemce a on měl zrovna náladu je poctivě vrátit.
 		</p>
 		<p>
 			<b>Udržujte vašeho Androida v bezpečí!</b>
 			Instalujte pouze aplikace, kterým plně důvěřujete.
-			Existují škodlivé aplikace, které vás mohou o vaše digitalcoiny připravit.
+			Existují škodlivé aplikace, které vás mohou o vaše GroestlCoiny připravit.
 		</p>
 		<p>
 			Neriskujte zbytečně!
-			<b>V aplikaci digitalcoin Wallet mějte pouze malé částky</b> pro rychlé použití.
+			<b>V aplikaci GroestlCoin Wallet mějte pouze malé částky</b> pro rychlé použití.
 		</p>
-	]]>\n\t</string>
+	]]>
+	</string>
 </resources>

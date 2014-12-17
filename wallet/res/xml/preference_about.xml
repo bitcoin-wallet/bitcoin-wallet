@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+	<Preference
+		android:key="about_version"
+		android:title="@string/about_version_title" />
+	<Preference
+		android:summary="© 2011-2014, the GroestlCoin Wallet developers"
+		android:title="@string/about_copyright_title" />
+	<Preference
+		android:key="about_license"
+		android:summary="https://www.gnu.org/licenses/gpl-3.0.txt"
+		android:title="@string/about_license_title" >
+		<intent
+			android:action="android.intent.action.VIEW"
+			android:data="https://www.gnu.org/licenses/gpl-3.0.txt" />
+	</Preference>
+	<Preference
+		android:key="about_source"
+		android:summary="https://github.com/schildbach/GroestlCoin-wallet"
+		android:title="@string/about_source_title" >
+		<intent
+			android:action="android.intent.action.VIEW"
+			android:data="https://github.com/schildbach/GroestlCoin-wallet" />
+	</Preference>
+	<Preference
+		android:key="about_market_app"
+		android:summary="@string/about_market_app_summary"
+		android:title="@string/about_market_app_title" />
+	<Preference
+		android:key="about_community_googleplus"
+		android:summary="@string/about_community_googleplus_summary"
+		android:title="@string/about_community_googleplus_title" >
+		<intent
+			android:action="android.intent.action.VIEW"
+			android:data="https://plus.google.com/communities/105515929887248493912" />
+	</Preference>
+	<Preference
+		android:key="about_twitter"
+		android:summary="\@GroestlCoin_wallet"
+		android:title="Twitter" >
+		<intent
+			android:action="android.intent.action.VIEW"
+			android:data="https://twitter.com/#!/GroestlCoin_wallet" />
+	</Preference>
+	<Preference
+		android:key="about_credits_bitcoinj"
+		android:summary="https://bitcoinj.github.io" >
+		<intent
+			android:action="android.intent.action.VIEW"
+			android:data="https://bitcoinj.github.io" />
+	</Preference>
+	<Preference
+		android:key="about_credits_zxing"
+		android:summary="https://github.com/zxing/zxing"
+		android:title="@string/about_credits_zxing_title" >
+		<intent
+			android:action="android.intent.action.VIEW"
+			android:data="https://github.com/zxing/zxing" />
+	</Preference>
+	<Preference
+		android:key="about_credits_icon"
+		android:summary="https://GroestlCointalk.org/index.php?action=profile;u=2062"
+		android:title="@string/about_credits_icon_title" >
+		<intent
+			android:action="android.intent.action.VIEW"
+			android:data="https://GroestlCointalk.org/index.php?action=profile;u=2062" />
+	</Preference>
+
+</PreferenceScreen>

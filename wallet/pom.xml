@@ -6,9 +6,8 @@
 
 	<artifactId>wallet</artifactId>
 	<packaging>apk</packaging>
-	<version>0.2.0</version>
-	<name>digitalcoin Wallet</name>
-
+	<version>4.14-test</version>
+	<name>Bitcoin Wallet</name>
 
 	<parent>
 		<groupId>de.schildbach.wallet</groupId>
@@ -24,13 +23,20 @@
 		</license>
 	</licenses>
 
+	<repositories>
+		<repository>
+			<id>android-support</id>
+			<url>file://${env.ANDROID_HOME}/extras/android/m2repository</url>
+		</repository>
+	</repositories>
+
 	<dependencies>
 
 		<!-- android.*, java.*, javax.* -->
 		<dependency>
 			<groupId>com.google.android</groupId>
 			<artifactId>android</artifactId>
-			<version>4.0.1.2</version>
+			<version>4.1.1.4</version>
 			<scope>provided</scope>
 		</dependency>
 
@@ -38,33 +44,29 @@
 		<dependency>
 			<groupId>com.google.android</groupId>
 			<artifactId>annotations</artifactId>
-			<!-- version should match android artifact, but not available on maven central -->
 			<version>4.1.1.4</version>
 			<scope>provided</scope>
 		</dependency>
 
-		<!-- android.support.v4.* -->
+		<!-- android.support.v4.*, provided by android-support -->
 		<dependency>
-			<groupId>com.google.android</groupId>
+			<groupId>com.android.support</groupId>
 			<artifactId>support-v4</artifactId>
-			<version>r7</version>
+			<version>19.1.0</version>
 		</dependency>
 
-		<!-- com.actionbarsherlock.* -->
+		<!-- android.support.v13.*, provided by android-support -->
 		<dependency>
-			<groupId>com.actionbarsherlock</groupId>
-			<artifactId>library</artifactId>
-			<version>4.1.0</version>
-			<type>apklib</type>
+			<groupId>com.android.support</groupId>
+			<artifactId>support-v13</artifactId>
+			<version>19.1.0</version>
 		</dependency>
 
 		<!-- com.google.bitcoin.* -->
 		<dependency>
-			<groupId>com.google</groupId>
-
-			<artifactId>digitalcoinj</artifactId>
-			<version>0.12-SNAPSHOT</version>
-
+			<groupId>org.bitcoinj</groupId>
+			<artifactId>bitcoinj-core</artifactId>
+			<version>0.12.2</version>
 		</dependency>
 
 		<!-- de.schildbach.wallet.integration.android.* -->
@@ -99,21 +101,21 @@
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
-			<version>1.7.6</version>
+			<version>1.7.7</version>
 		</dependency>
 
 		<!-- ch.qos.logback.classic.* -->
 		<dependency>
 			<groupId>com.github.tony19</groupId>
 			<artifactId>logback-android-classic</artifactId>
-			<version>1.1.1-1</version>
+			<version>1.1.1-3</version>
 		</dependency>
 
 		<!-- ch.qos.logback.core.* -->
 		<dependency>
 			<groupId>com.github.tony19</groupId>
 			<artifactId>logback-android-core</artifactId>
-			<version>1.1.1-1</version>
+			<version>1.1.1-3</version>
 		</dependency>
 
 		<!-- javax.annotation.* -->
@@ -140,7 +142,7 @@
 			<build>
 				<plugins>
 					<plugin>
-						<groupId>com.jayway.maven.plugins.android.generation2</groupId>
+		                                <groupId>com.simpligility.maven.plugins</groupId>
 						<artifactId>android-maven-plugin</artifactId>
 						<configuration>
 							<release>true</release>
@@ -148,6 +150,13 @@
 								<skip>false</skip>
 							</proguard>
 						</configuration>
+						<dependencies>
+							<dependency>
+								<groupId>net.sf.proguard</groupId>
+								<artifactId>proguard-base</artifactId>
+								<version>5.1</version>
+							</dependency>
+						</dependencies>
 					</plugin>
 				</plugins>
 			</build>
@@ -169,6 +178,68 @@
 		</testResources>
 		<plugins>
 			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>batik-maven-plugin</artifactId>
+				<executions>
+					<!-- need to bind to initialize phase because aapt runs in generate-sources already -->
+					<execution>
+						<id>hdpi</id>
+						<phase>initialize</phase>
+						<configuration>
+							<srcDir>graphics</srcDir>
+							<srcIncludes>app_icon.svg</srcIncludes>
+							<destDir>${basedir}/res/drawable-hdpi/</destDir>
+							<width>72</width>
+							<height>72</height>
+						</configuration>
+						<goals>
+							<goal>rasterize</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>xhdpi</id>
+						<phase>initialize</phase>
+						<configuration>
+							<srcDir>graphics</srcDir>
+							<srcIncludes>app_icon.svg</srcIncludes>
+							<destDir>${basedir}/res/drawable-xhdpi/</destDir>
+							<width>96</width>
+							<height>96</height>
+						</configuration>
+						<goals>
+							<goal>rasterize</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>xxhdpi</id>
+						<phase>initialize</phase>
+						<configuration>
+							<srcDir>graphics</srcDir>
+							<srcIncludes>app_icon.svg</srcIncludes>
+							<destDir>${basedir}/res/drawable-xxhdpi/</destDir>
+							<width>144</width>
+							<height>144</height>
+						</configuration>
+						<goals>
+							<goal>rasterize</goal>
+						</goals>
+					</execution>
+				</executions>
+				<dependencies>
+					<dependency>
+						<groupId>batik</groupId>
+						<artifactId>batik-transcoder</artifactId>
+						<version>1.6-1</version>
+						<exclusions>
+							<exclusion>
+								<artifactId>fop</artifactId>
+								<groupId>fop</groupId>
+							</exclusion>
+						</exclusions>
+					</dependency>
+				</dependencies>
+			</plugin>
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
@@ -178,14 +249,17 @@
 
 			</plugin>
 			<plugin>
-				<groupId>com.jayway.maven.plugins.android.generation2</groupId>
+				<groupId>com.simpligility.maven.plugins</groupId>
 				<artifactId>android-maven-plugin</artifactId>
 				<configuration>
+					<androidManifestFile>AndroidManifest.xml</androidManifestFile>
+					<resourceDirectory>res</resourceDirectory>
+					<assetsDirectory>assets</assetsDirectory>
 					<excludeJarResources>
 						<excludeJarResource>.*\.jar$</excludeJarResource>
 					</excludeJarResources>
 					<sdk>
-						<platform>14</platform>
+						<platform>16</platform>
 					</sdk>
 					<sign>
 						<debug>both</debug>

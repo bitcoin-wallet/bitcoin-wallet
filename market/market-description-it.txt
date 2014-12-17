@@ -31,7 +31,7 @@ https://github.com/HashEngineering/digitalcoin-wallet
 • App Widget per il saldo digitalcoin
 
 
-<b>CONTRIBUIRE</b>
+<b>CONTRIBUISCI</b>
 
 digitalcoin Wallet è <b>open source</b> e <b>software libero</b>. Licenza: GPLv3
 https://www.gnu.org/licenses/gpl-3.0.en.html
@@ -40,7 +40,7 @@ Il nostro codice sorgente è disponibile su GitHub
 https://github.com/HashEngineering/digitalcoin-wallet
 >>>>>>> upstream/master
 
-Tutte le traduzzioni sono gestite tramite Transifex:
+Tutte le traduzioni sono gestite attraverso Transifex:
 https://www.transifex.com/projects/p/bitcoin-wallet/
 
 
@@ -51,4 +51,8 @@ https://www.transifex.com/projects/p/bitcoin-wallet/
 • Raccomandato da BitPay.
 
 
+<<<<<<< HEAD
 <i>Usa a tuo rischio!</i>
+=======
+<i>Usala a tuo rischio!</i>
+>>>>>>> origin/master

@@ -12,10 +12,7 @@
 	<string name="blockchain_state_progress_stalled">סינכרון עוקב</string>
 	<string name="blockchain_state_progress_problem_storage">סינכרון: בעיית אחסון</string>
 	<string name="blockchain_state_progress_problem_network">סינכרון:בעיית רשת</string>
-	<string name="wallet_address_fragment_your">כתובת ארנק הביטקוין שלך:</string>
 	<string name="wallet_address_fragment_clipboard_msg">כתובת הביטקוין הועתקה ללוח</string>
-	<string name="wallet_addresses_fragment_add_dialog_title">הוסף כתובת ביטקוין</string>
-	<string name="wallet_addresses_fragment_add_dialog_message">לא ניתן למחוק כתובת ביטקוין, האם להוסיף כתובת חדשה לארנק?</string>
 	<string name="wallet_balance_fragment_replaying">היתרה אינה זמינה במהלך שחזור</string>
 	<string name="exchange_rates_activity_title">שערי המרה</string>
 	<string name="exchange_rates_fragment_empty_text">לא ניתן לטעון שערי המרה</string>
@@ -33,7 +30,6 @@
 	<string name="wallet_transactions_row_warning_backup">ברכותי, קיבלת את התשלום הראשון! האם כבר &lt;u&gt;גיבית את הארנק&lt;/u&gt; כדי להגן מפני אבדן?</string>
 	<string name="wallet_transactions_fragment_coinbase">נכרו</string>
 	<string name="wallet_transactions_fragment_internal">פנימי</string>
-	<string name="wallet_transactions_context_show_qr_title">הראה ברקוד</string>
 	<string name="wallet_options_safety">הוראות בטיחות</string>
 	<string name="wallet_options_donate">תרומה</string>
 	<string name="wallet_donate_address_label">תרום לארנק ביטקוין</string>
@@ -58,8 +54,6 @@
 	<string name="send_coins_fragment_receiving_address_label">שלם ל</string>
 	<string name="send_coins_fragment_receiving_address_hint">הקש כתובת או שם</string>
 	<string name="send_coins_fragment_receiving_address_error">כתובת ביטקוין לא חוקית!</string>
-	<string name="send_coins_fragment_receiving_address_error_cross_network">לא ניתן להשתמש בכתובת %s בארנק זה</string>
-	<string name="send_coins_fragment_receiving_address_error_cross_network_unknown">לא ניתן להשתמש בכתובת  זו ברשת לא ידועה</string>
 	<string name="send_coins_fragment_receiving_address_complex">כתובת\nמסובכת</string>
 	<string name="send_coins_fragment_pending">(%s ביטקוין מחכים לאישור)</string>
 	<string name="send_coins_fragment_amount_label">סכום לתשלום</string>
@@ -95,9 +89,7 @@
 	<string name="address_book_context_send_title">שלח ביטקוינים לכתובת</string>
 	<string name="address_book_context_edit_title">ערוך כתובת</string>
 	<string name="address_book_context_remove_title">הסר כתובת</string>
-	<string name="address_book_context_show_qr_title">הראה קוד QR</string>
 	<string name="address_book_context_copy_to_clipboard_title">העתק ללוח</string>
-	<string name="address_book_context_default_title">שמור ככתובת ברירת מחדל</string>
 	<string name="address_book_options_paste_from_clipboard_title">הדבק מהלוח</string>
 	<string name="address_book_options_paste_from_clipboard_empty">הלוח ריק</string>
 	<string name="address_book_options_paste_from_clipboard_invalid">המידע מהלוח (clipboard) אינו ניתן לזיהוי</string>
@@ -131,13 +123,9 @@
 	<string name="import_keys_dialog_file_created_automatic">גיבוי אוטומאטי %s</string>
 	<string name="import_keys_dialog_file_created_manual">ייצוא ידני %s</string>
 	<string name="import_keys_dialog_button_import">ייבא</string>
-	<string name="import_keys_dialog_success_imported">%d מפתחות פרטיים יובאו</string>
-	<string name="import_keys_dialog_success_existing">%d מפתחות פרטיים לא יובאו מכיוון שהם כבר בארנק</string>
-	<string name="import_keys_dialog_success_reset">עליך לאפס את שרשת הבלוקים כדי לראות את מאזנך, האם לאפס ?</string>
 	<string name="import_keys_dialog_failure">לא ניתן לייבא מפתחות פרטיים, בדקת סיסמא ?</string>
-	<string name="import_keys_dialog_button_reset_blockchain">איפוס</string>
 	<string name="export_keys_dialog_title">ייצא מפתחות פרטיים</string>
-	<string name="export_keys_dialog_message">המפתחות שלך יוצפנו בעזרת הסיסמא ויאוחסנו בהתקן החיצוני</string>
+	<string name="backup_wallet_dialog_message">המפתחות שלך יוצפנו בעזרת הסיסמא ויאוחסנו בהתקן החיצוני</string>
 	<string name="export_keys_dialog_button_export">ייצוא</string>
 	<string name="export_keys_dialog_success">המפתחות שלך יוצאו ל\n\n%s\n\nשמור עליהם בבטחה, ושמור על הססמא בטוחה!\n\nהאם אתה רוצה לארכב את המפתחות באמצעות אפליקציה?</string>
 	<string name="export_keys_dialog_failure">לא ניתן לייצא מפתחות פרטיים:\n%s</string>
@@ -160,7 +148,6 @@
 	<string name="input_parser_invalid_paymentrequest">בקשת תשלום לא חוקית:\n%s</string>
 	<string name="input_parser_invalid_transaction">עסקה לא חוקית:\n%s</string>
 	<string name="preferences_activity_title">הגדרות</string>
-	<string name="preferences_category_main">העדפות</string>
 	<string name="preferences_category_diagnostics">בדיקה</string>
 	<string name="preferences_category_labs">מעבדות</string>
 	<string name="preferences_precision_title">מטבע ודיוק</string>
@@ -194,17 +181,13 @@
 	<string name="about_title">על אודות</string>
 	<string name="about_license_title">רישיון</string>
 
-	<string name="about_credits_bitcoinj_title">digitalcoinj זו משתמשת בdigitalcoinj %s</string>
+	<string name="about_credits_bitcoinj_title">groestlcoinj זו משתמשת בgroestlcoinj %s</string>
 	<string name="about_credits_zxing_title">אפליקציה זו משתמש ב\'zxing\'</string>
 	<string name="about_credits_icon_title">אפליקציה זו משתמשת בסמליל של \'bitboy\'</string>
 	<string name="about_community_googleplus_title">קהילת גוגל+</string>
 	<string name="about_community_googleplus_summary">דיונים על אודות האפליקציה</string>
-	<string name="about_author_twitter_title">המחבר בטוויטר</string>
-	<string name="about_author_googleplus_title">המחבר בגוגל+</string>
-
 	<string name="about_market_app_title">Google Play App Page</string>
 	<string name="about_market_app_summary">כתוב ביקורת או דרג את האפליקציה</string>
-	<string name="about_credits_market_publisher_title">אפליקציות אחרות של המחבר</string>
 	<string name="notification_coins_received_msg">נתקבלו %s</string>
 	<string name="notification_peers_connected_msg">%d עמיתים מחוברים</string>
 	<!-- generic buttons -->
@@ -225,6 +208,7 @@
 	<string name="button_scan">סרוק</string>
 	<string name="button_edit_address">הוסף או ערוך כתובת</string>
 	<string name="button_settings">הגדרות</string>
+	<string name="action_show_qr">הראה ברקוד</string>
 	<string name="action_browse">גלוש</string>
 	<string name="time_today">היום</string>
 	<string name="address_unlabeled">(לא מסומן)</string>

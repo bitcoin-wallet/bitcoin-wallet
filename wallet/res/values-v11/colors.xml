@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-
-	<color name="bg_form">@android:color/white</color>
-	<color name="bg_dialog_title">@android:color/transparent</color>
-
-</resources>

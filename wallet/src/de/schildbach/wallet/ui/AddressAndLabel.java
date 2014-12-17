@@ -20,13 +20,13 @@ package de.schildbach.wallet.ui;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import org.bitcoinj.core.Address;
+import org.bitcoinj.core.AddressFormatException;
+import org.bitcoinj.core.NetworkParameters;
+import org.bitcoinj.core.WrongNetworkException;
+
 import android.os.Parcel;
 import android.os.Parcelable;
-
-import com.google.bitcoin.core.Address;
-import com.google.bitcoin.core.AddressFormatException;
-import com.google.bitcoin.core.NetworkParameters;
-import com.google.bitcoin.core.WrongNetworkException;
 
 /**
  * @author Andreas Schildbach

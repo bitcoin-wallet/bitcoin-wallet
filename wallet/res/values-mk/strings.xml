@@ -12,10 +12,7 @@
 	<string name="blockchain_state_progress_stalled">Синхронизацијата застана</string>
 	<string name="blockchain_state_progress_problem_storage">Се синхронизира: Проблем со простор за складирање</string>
 	<string name="blockchain_state_progress_problem_network">Се синхронизира: Проблем со мрежата</string>
-	<string name="wallet_address_fragment_your">Твојата Биткоин адреса:</string>
 	<string name="wallet_address_fragment_clipboard_msg">Биткоин адресата е копирана во склад</string>
-	<string name="wallet_addresses_fragment_add_dialog_title">Додај Биткоин адреса</string>
-	<string name="wallet_addresses_fragment_add_dialog_message">Биткоин адресите не може да се избришат. Дали сакаш да додадеш нова адреса во твојот паричник?</string>
 	<string name="wallet_balance_fragment_replaying">Салдото е недостапно за време на повторена акција.</string>
 	<string name="exchange_rates_activity_title">Девизен курс</string>
 	<string name="exchange_rates_fragment_empty_text">Не може да го вчитам курсот на валутите</string>
@@ -33,7 +30,6 @@
 	<string name="wallet_transactions_row_warning_backup">Честитки, ја доби твојата прва исплата! Дали веќе направи &lt;u&gt;резервна копија од паричникот&lt;/u&gt;, во случај да го загубиш?</string>
 	<string name="wallet_transactions_fragment_coinbase">ископани</string>
 	<string name="wallet_transactions_fragment_internal">внатрешен</string>
-	<string name="wallet_transactions_context_show_qr_title">Прикажи QR код</string>
 	<string name="wallet_options_safety">Безбедносни белешки</string>
 	<string name="wallet_options_donate">Бакшиш / Донирај</string>
 	<string name="wallet_donate_address_label">Донација за Биткоин Паричник</string>
@@ -52,8 +48,6 @@
 	<string name="send_coins_fragment_receiving_address_label">Плати на</string>
 	<string name="send_coins_fragment_receiving_address_hint">впиши адреса или име</string>
 	<string name="send_coins_fragment_receiving_address_error">Невалидна Биткоин адреса!</string>
-	<string name="send_coins_fragment_receiving_address_error_cross_network">Не може да користиш %s адреса со овој паричник!</string>
-	<string name="send_coins_fragment_receiving_address_error_cross_network_unknown">Не може да користиш адреса на непозната мрежа со овој паричник!</string>
 	<string name="send_coins_fragment_pending">(%s чека за потврда)</string>
 	<string name="send_coins_fragment_amount_label">Сума да се плати</string>
 	<string name="send_coins_fragment_button_send">Испрати</string>
@@ -79,9 +73,7 @@
 	<string name="address_book_context_send_title">Испрати Биткоини до адреса</string>
 	<string name="address_book_context_edit_title">Уреди адреса</string>
 	<string name="address_book_context_remove_title">Отстрани адреса</string>
-	<string name="address_book_context_show_qr_title">Прикажи QR код</string>
 	<string name="address_book_context_copy_to_clipboard_title">Копирај во склад</string>
-	<string name="address_book_context_default_title">Постави како главна адреса</string>
 	<string name="address_book_options_paste_from_clipboard_title">Внеси од склад</string>
 	<string name="address_book_options_paste_from_clipboard_empty">Складот е празен</string>
 	<string name="address_book_options_scan_title">Скенирај адреса</string>
@@ -111,13 +103,9 @@
 	<string name="import_keys_dialog_file_created_automatic">автоматска резервна копија %s</string>
 	<string name="import_keys_dialog_file_created_manual">рачна резервна копија %s</string>
 	<string name="import_keys_dialog_button_import">Поврати</string>
-	<string name="import_keys_dialog_success_imported">%d приватни клучеви беа повратени.</string>
-	<string name="import_keys_dialog_success_existing">%d приватни клучеви не беа повратени, бидејќи веќе ги имаш во твојот паричник.</string>
-	<string name="import_keys_dialog_success_reset">Треба да го ресетираш blockchain за да го ажурираш твоето салдо. Сакаш да го направиш тоа?</string>
 	<string name="import_keys_dialog_failure">Приватните клучеви не може да се повратат:\n\n%s\n\nГрешна лозинка?</string>
-	<string name="import_keys_dialog_button_reset_blockchain">Ресетирај</string>
 	<string name="export_keys_dialog_title">Направи резервна копија од приватните клучеви</string>
-	<string name="export_keys_dialog_message">Твоите приватни клучеви ќе бидат шифрирани со одбраната лозинка и зачувани во надворешен склад.</string>
+	<string name="backup_wallet_dialog_message">Твоите приватни клучеви ќе бидат шифрирани со одбраната лозинка и зачувани во надворешен склад.</string>
 	<string name="export_keys_dialog_button_export">Направи резервна копија</string>
 	<string name="export_keys_dialog_success">Твоите приватни клучеви имаат резервна копија во\n\n%s\n\nЧувај ги на безбедно место и чувај ја твојата лозинка тајна!\n\nДали сакаш да ги архивираш твоите клучеви преку апликација?</string>
 	<string name="export_keys_dialog_failure">Не може да се креира резервна копија од твоите приватни клучеви:\n%s</string>
@@ -136,7 +124,6 @@
 	<string name="input_parser_invalid_address">Невалидна биткоин адреса!\n(Згреши со Mainnet/Testnet?)</string>
 	<string name="input_parser_invalid_transaction">Невалидна трансакција:\n%s</string>
 	<string name="preferences_activity_title">Поставувања</string>
-	<string name="preferences_category_main">Параметри</string>
 	<string name="preferences_category_diagnostics">Дијагностицирање</string>
 	<string name="preferences_category_labs">Лабораторија</string>
 	<string name="preferences_precision_title">Деноминација и прецизност</string>
@@ -168,16 +155,13 @@
 	<string name="report_issue_dialog_mail_intent_chooser">Испрати извештај со…</string>
 	<string name="about_title">За апликацијата</string>
 	<string name="about_license_title">Лиценца</string>
-	<string name="about_credits_bitcoinj_title">Оваа апликација користи digitalcoinj %s</string>
+	<string name="about_credits_bitcoinj_title">Оваа апликација користи groestlcoinj %s</string>
 	<string name="about_credits_zxing_title">Оваа апликација користи \'zxing\'</string>
 	<string name="about_credits_icon_title">Оваа апликација користи икона од \'bitboy\'</string>
 	<string name="about_community_googleplus_title">Google+ заедница</string>
 	<string name="about_community_googleplus_summary">Дискусија за апликацијата</string>
-	<string name="about_author_twitter_title">Авторот на Twitter</string>
-	<string name="about_author_googleplus_title">Авторот на Google+</string>
 	<string name="about_market_app_title">Google Play страница</string>
 	<string name="about_market_app_summary">Напиши мислење или оцени ја апликацијата</string>
-	<string name="about_credits_market_publisher_title">Други апликации од Авторот</string>
 	<string name="notification_coins_received_msg">Примени %s</string>
 	<string name="notification_peers_connected_msg">%d поврзани точки</string>
 	<!-- generic buttons -->
@@ -197,6 +181,7 @@
 	<string name="button_scan">Скенирај</string>
 	<string name="button_edit_address">Додај/уреди адреса</string>
 	<string name="button_settings">Поставувања</string>
+	<string name="action_show_qr">Прикажи QR код</string>
 	<string name="action_browse">Прегледај</string>
 	<string name="time_today">денес</string>
 	<string name="address_unlabeled">(без ознака)</string>

@@ -18,7 +18,7 @@
 package de.schildbach.wallet.ui;
 
 import android.app.Activity;
-import android.content.Context;
+import android.app.Fragment;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -29,29 +29,28 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import com.actionbarsherlock.app.SherlockFragment;
-import com.google.bitcoin.core.*;
 import de.schildbach.wallet.AddressBookProvider;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
-import de.schildbach.wallet.util.*;
-import hashengineering.digitalcoin.wallet.R;
+import de.schildbach.wallet.util.AbstractClipboardManager;
+import de.schildbach.wallet.util.Base43;
+import de.schildbach.wallet.util.BitmapFragment;
+import de.schildbach.wallet.util.Qr;
+import hashengineering.groestlcoin.wallet.R;
+import org.bitcoinj.core.*;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.math.BigInteger;
 import java.text.DateFormat;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.Locale;
-import java.util.Map;
 import java.util.zip.GZIPOutputStream;
 
 /**
  * @author Andreas Schildbach, Litecoin Dev Team
  */
 
-public final class TransactionFragment extends SherlockFragment
+public final class TransactionFragment extends Fragment
 {
 	public static final String FRAGMENT_TAG = TransactionFragment.class.getName();
 
@@ -126,12 +125,12 @@ public final class TransactionFragment extends SherlockFragment
 
 		try
 		{
-			final BigInteger amountSent = tx.getValueSentFromMe(wallet);
+			final Coin amountSent = tx.getValueSentFromMe(wallet);
 			view.findViewById(R.id.transaction_fragment_amount_sent_row).setVisibility(amountSent.signum() != 0 ? View.VISIBLE : View.GONE);
 			if (amountSent.signum() != 0)
 			{
 				final TextView viewAmountSent = (TextView) view.findViewById(R.id.transaction_fragment_amount_sent);
-				viewAmountSent.setText(Constants.CURRENCY_MINUS_SIGN + GenericUtils.formatValue(amountSent, Constants.BTC_MAX_PRECISION, 0));
+				viewAmountSent.setText(Constants.CURRENCY_MINUS_SIGN + amountSent.toFriendlyString());
 			}
 		}
 		catch (final ScriptException x)
@@ -139,12 +138,12 @@ public final class TransactionFragment extends SherlockFragment
 			x.printStackTrace();
 		}
 
-		final BigInteger amountReceived = tx.getValueSentToMe(wallet);
+		final Coin amountReceived = tx.getValueSentToMe(wallet);
 		view.findViewById(R.id.transaction_fragment_amount_received_row).setVisibility(amountReceived.signum() != 0 ? View.VISIBLE : View.GONE);
 		if (amountReceived.signum() != 0)
 		{
 			final TextView viewAmountReceived = (TextView) view.findViewById(R.id.transaction_fragment_amount_received);
-			viewAmountReceived.setText(Constants.CURRENCY_PLUS_SIGN + GenericUtils.formatValue(amountReceived, Constants.BTC_MAX_PRECISION, 0));
+			viewAmountReceived.setText(Constants.CURRENCY_PLUS_SIGN + amountReceived.toFriendlyString());
 		}
 
 		final View viewFromButton = view.findViewById(R.id.transaction_fragment_from_button);

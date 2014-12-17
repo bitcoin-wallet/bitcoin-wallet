@@ -4,7 +4,18 @@
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
 	android:background="@drawable/appwidget_dark_bg_clickable"
-	android:orientation="horizontal" >
+	android:divider="@drawable/appwidget_divider"
+	android:orientation="horizontal"
+	android:showDividers="middle" >
+
+	<ImageView
+		android:id="@+id/widget_app_icon"
+		android:layout_width="wrap_content"
+		android:layout_height="match_parent"
+		android:layout_marginLeft="12dp"
+		android:contentDescription="@string/app_name"
+		android:src="@drawable/app_icon"
+		android:visibility="gone" />
 
 	<LinearLayout
 		android:id="@+id/widget_button_balance"
@@ -24,26 +35,28 @@
 			android:orientation="horizontal" >
 
 			<ImageView
-				android:layout_width="32dp"
-				android:layout_height="32dp"
-				android:layout_gravity="center"
-				android:src="@drawable/app_icon" />
-
-			<TextView
 				android:id="@+id/widget_wallet_prefix"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:layout_marginLeft="12dp"
+				android:layout_gravity="center_vertical" />
+
+			<TextView
+				android:id="@+id/widget_wallet_balance_btc"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="4sp"
+				android:ellipsize="none"
+				android:fadingEdge="horizontal"
+				android:fadingEdgeLength="12dp"
 				android:singleLine="true"
 
-				android:text="DGC"
-				android:textColor="#bbb"
-				android:textSize="24sp"
-				tools:ignore="HardcodedText" />
+				android:textColor="#eee"
+				android:textSize="@dimen/font_size_large" />
+
 		</LinearLayout>
 
 		<TextView
-			android:id="@+id/widget_wallet_balance"
+			android:id="@+id/widget_wallet_balance_local"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:layout_marginLeft="12dp"
@@ -51,14 +64,9 @@
 			android:fadingEdge="horizontal"
 			android:fadingEdgeLength="12dp"
 			android:singleLine="true"
-			android:textColor="#eee"
-			android:textSize="30sp" />
+			android:textColor="#aaa"
+			android:textSize="@dimen/font_size_normal" />
 	</LinearLayout>
-
-	<ImageView
-		android:layout_width="1dp"
-		android:layout_height="match_parent"
-		android:background="@drawable/appwidget_divider" />
 
 	<ImageButton
 		android:id="@+id/widget_button_request"
@@ -66,12 +74,8 @@
 		android:layout_height="match_parent"
 		android:layout_weight="1"
 		android:background="@drawable/appwidget_button_center"
+		android:contentDescription="@string/button_request_coins"
 		android:src="@drawable/ic_action_receive" />
-
-	<ImageView
-		android:layout_width="1dp"
-		android:layout_height="match_parent"
-		android:background="@drawable/appwidget_divider" />
 
 	<ImageButton
 		android:id="@+id/widget_button_send"
@@ -79,12 +83,8 @@
 		android:layout_height="match_parent"
 		android:layout_weight="1"
 		android:background="@drawable/appwidget_button_center"
+		android:contentDescription="@string/button_send_coins"
 		android:src="@drawable/ic_action_send" />
-
-	<ImageView
-		android:layout_width="1dp"
-		android:layout_height="match_parent"
-		android:background="@drawable/appwidget_divider" />
 
 	<ImageButton
 		android:id="@+id/widget_button_send_qr"
@@ -92,6 +92,7 @@
 		android:layout_height="match_parent"
 		android:layout_weight="1"
 		android:background="@drawable/appwidget_button_right"
+		android:contentDescription="@string/button_scan"
 		android:src="@drawable/ic_action_camera" />
 
 </LinearLayout>

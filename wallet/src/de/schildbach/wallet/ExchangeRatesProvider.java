@@ -17,34 +17,6 @@
 
 package de.schildbach.wallet;
 
-import java.io.BufferedInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.math.BigInteger;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-
-import java.util.Currency;
-import java.util.Iterator;
-import java.util.Locale;
-import java.util.Map;
-import java.util.TreeMap;
-import java.util.zip.GZIPInputStream;
-
-
-import javax.annotation.CheckForNull;
-import javax.annotation.Nonnull;
-
-import com.google.bitcoin.core.CoinDefinition;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import android.content.ContentProvider;
 import android.content.ContentValues;
 import android.content.Context;
@@ -54,11 +26,26 @@ import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.provider.BaseColumns;
 import android.text.format.DateUtils;
-
 import com.google.common.base.Charsets;
-
 import de.schildbach.wallet.util.GenericUtils;
 import de.schildbach.wallet.util.Io;
+import org.bitcoinj.core.Coin;
+import org.bitcoinj.core.CoinDefinition;
+import org.bitcoinj.utils.Fiat;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import javax.annotation.CheckForNull;
+import javax.annotation.Nonnull;
+import java.io.*;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.*;
+import java.util.zip.GZIPInputStream;
 
 /**
  * @author Andreas Schildbach
@@ -67,29 +54,34 @@ public class ExchangeRatesProvider extends ContentProvider
 {
 	public static class ExchangeRate
 	{
-		public ExchangeRate(@Nonnull final String currencyCode, @Nonnull final BigInteger rate, final String source)
+		public ExchangeRate(@Nonnull final org.bitcoinj.utils.ExchangeRate rate, final String source)
 		{
-			this.currencyCode = currencyCode;
 			this.rate = rate;
 			this.source = source;
 		}
 
-		public final String currencyCode;
-		public final BigInteger rate;
+		public final org.bitcoinj.utils.ExchangeRate rate;
 		public final String source;
+
+		public String getCurrencyCode()
+		{
+			return rate.fiat.currencyCode;
+		}
 
 		@Override
 		public String toString()
 		{
-			return getClass().getSimpleName() + '[' + currencyCode + ':' + GenericUtils.formatDebugValue(rate) + ']';
+			return getClass().getSimpleName() + '[' + rate.fiat + ']';
 		}
 	}
 
 	public static final String KEY_CURRENCY_CODE = "currency_code";
-	private static final String KEY_RATE = "rate";
+	private static final String KEY_RATE_COIN = "rate_coin";
+	private static final String KEY_RATE_FIAT = "rate_fiat";
 	private static final String KEY_SOURCE = "source";
 
 	public static final String QUERY_PARAM_Q = "q";
+	private static final String QUERY_PARAM_OFFLINE = "offline";
 
 	private Configuration config;
 	private String userAgent;
@@ -137,15 +129,18 @@ public class ExchangeRatesProvider extends ContentProvider
 		if (cachedExchangeRate != null)
 		{
 			exchangeRates = new TreeMap<String, ExchangeRate>();
-			exchangeRates.put(cachedExchangeRate.currencyCode, cachedExchangeRate);
+			exchangeRates.put(cachedExchangeRate.getCurrencyCode(), cachedExchangeRate);
 		}
 
 		return true;
 	}
 
-	public static Uri contentUri(@Nonnull final String packageName)
+	public static Uri contentUri(@Nonnull final String packageName, final boolean offline)
 	{
-		return Uri.parse("content://" + packageName + '.' + "exchange_rates");
+		final Uri.Builder uri = Uri.parse("content://" + packageName + '.' + "exchange_rates").buildUpon();
+		if (offline)
+			uri.appendQueryParameter(QUERY_PARAM_OFFLINE, "1");
+		return uri.build();
 	}
 
 	@Override
@@ -153,7 +148,9 @@ public class ExchangeRatesProvider extends ContentProvider
 	{
 		final long now = System.currentTimeMillis();
 
-		if (lastUpdated == 0 || now - lastUpdated > UPDATE_FREQ_MS)
+		final boolean offline = uri.getQueryParameter(QUERY_PARAM_OFFLINE) != null;
+
+		if (!offline && (lastUpdated == 0 || now - lastUpdated > UPDATE_FREQ_MS))
 		{
 			Map<String, ExchangeRate> newExchangeRates = null;
 			if (newExchangeRates == null)
@@ -175,14 +172,16 @@ public class ExchangeRatesProvider extends ContentProvider
 		if (exchangeRates == null)
 			return null;
 
-		final MatrixCursor cursor = new MatrixCursor(new String[] { BaseColumns._ID, KEY_CURRENCY_CODE, KEY_RATE, KEY_SOURCE });
+		final MatrixCursor cursor = new MatrixCursor(new String[] { BaseColumns._ID, KEY_CURRENCY_CODE, KEY_RATE_COIN, KEY_RATE_FIAT, KEY_SOURCE });
 
 		if (selection == null)
 		{
 			for (final Map.Entry<String, ExchangeRate> entry : exchangeRates.entrySet())
 			{
-				final ExchangeRate rate = entry.getValue();
-				cursor.newRow().add(rate.currencyCode.hashCode()).add(rate.currencyCode).add(rate.rate.longValue()).add(rate.source);
+				final ExchangeRate exchangeRate = entry.getValue();
+				final org.bitcoinj.utils.ExchangeRate rate = exchangeRate.rate;
+				final String currencyCode = exchangeRate.getCurrencyCode();
+				cursor.newRow().add(currencyCode.hashCode()).add(currencyCode).add(rate.coin.value).add(rate.fiat.value).add(exchangeRate.source);
 			}
 		}
 		else if (selection.equals(QUERY_PARAM_Q))
@@ -190,19 +189,24 @@ public class ExchangeRatesProvider extends ContentProvider
 			final String selectionArg = selectionArgs[0].toLowerCase(Locale.US);
 			for (final Map.Entry<String, ExchangeRate> entry : exchangeRates.entrySet())
 			{
-				final ExchangeRate rate = entry.getValue();
-				final String currencyCode = rate.currencyCode;
+				final ExchangeRate exchangeRate = entry.getValue();
+				final org.bitcoinj.utils.ExchangeRate rate = exchangeRate.rate;
+				final String currencyCode = exchangeRate.getCurrencyCode();
 				final String currencySymbol = GenericUtils.currencySymbol(currencyCode);
 				if (currencyCode.toLowerCase(Locale.US).contains(selectionArg) || currencySymbol.toLowerCase(Locale.US).contains(selectionArg))
-					cursor.newRow().add(currencyCode.hashCode()).add(currencyCode).add(rate.rate.longValue()).add(rate.source);
+					cursor.newRow().add(currencyCode.hashCode()).add(currencyCode).add(rate.coin.value).add(rate.fiat.value).add(exchangeRate.source);
 			}
 		}
 		else if (selection.equals(KEY_CURRENCY_CODE))
 		{
 			final String selectionArg = selectionArgs[0];
-			final ExchangeRate rate = bestExchangeRate(selectionArg);
-			if (rate != null)
-				cursor.newRow().add(rate.currencyCode.hashCode()).add(rate.currencyCode).add(rate.rate.longValue()).add(rate.source);
+			final ExchangeRate exchangeRate = bestExchangeRate(selectionArg);
+			if (exchangeRate != null)
+			{
+				final org.bitcoinj.utils.ExchangeRate rate = exchangeRate.rate;
+				final String currencyCode = exchangeRate.getCurrencyCode();
+				cursor.newRow().add(currencyCode.hashCode()).add(currencyCode).add(rate.coin.value).add(rate.fiat.value).add(exchangeRate.source);
+			}
 		}
 
 		return cursor;
@@ -238,10 +242,11 @@ public class ExchangeRatesProvider extends ContentProvider
 	public static ExchangeRate getExchangeRate(@Nonnull final Cursor cursor)
 	{
 		final String currencyCode = cursor.getString(cursor.getColumnIndexOrThrow(ExchangeRatesProvider.KEY_CURRENCY_CODE));
-		final BigInteger rate = BigInteger.valueOf(cursor.getLong(cursor.getColumnIndexOrThrow(ExchangeRatesProvider.KEY_RATE)));
+		final Coin rateCoin = Coin.valueOf(cursor.getLong(cursor.getColumnIndexOrThrow(ExchangeRatesProvider.KEY_RATE_COIN)));
+		final Fiat rateFiat = Fiat.valueOf(currencyCode, cursor.getLong(cursor.getColumnIndexOrThrow(ExchangeRatesProvider.KEY_RATE_FIAT)));
 		final String source = cursor.getString(cursor.getColumnIndexOrThrow(ExchangeRatesProvider.KEY_SOURCE));
 
-		return new ExchangeRate(currencyCode, rate, source);
+		return new ExchangeRate(new org.bitcoinj.utils.ExchangeRate(rateCoin, rateFiat), source);
 	}
 
 	@Override
@@ -487,15 +492,16 @@ public class ExchangeRatesProvider extends ContentProvider
 
                                     rateStr = String.format("%.8f", rateForBTC * btcRate).replace(",", ".");
 
-									final BigInteger rate = GenericUtils.parseCoin(rateStr, 0);
+									final Fiat rate = Fiat.parseFiat(currencyCode, rateStr);
+
 
 									if (rate.signum() > 0)
 									{
-										rates.put(currencyCode, new ExchangeRate(currencyCode, rate, source));
+										rates.put(currencyCode, new ExchangeRate(new org.bitcoinj.utils.ExchangeRate(rate), source));
 										break;
 									}
 								}
-								catch (final ArithmeticException x)
+								catch (final NumberFormatException x)
 								{
 									log.warn("problem fetching {} exchange rate from {} ({}): {}", currencyCode, url, contentEncoding, x.getMessage());
 								}
@@ -516,8 +522,10 @@ public class ExchangeRatesProvider extends ContentProvider
                 }
                 else
                 {
-                    rates.put(CoinDefinition.cryptsyMarketCurrency, new ExchangeRate(CoinDefinition.cryptsyMarketCurrency, GenericUtils.parseCoin(String.format("%.8f", btcRate).replace(",", "."), 0), cryptsyValue ? "pubapi.cryptsy.com" : "data.bter.com"));
-                    rates.put("m" + CoinDefinition.cryptsyMarketCurrency, new ExchangeRate("m" + CoinDefinition.cryptsyMarketCurrency, GenericUtils.parseCoin(String.format("%.5f", btcRate*1000).replace(",", "."), 0), cryptsyValue ? "pubapi.cryptsy.com" : "data.bter.com"));
+                    Fiat fiat = Fiat.parseFiat(CoinDefinition.cryptsyMarketCurrency, String.format("%.8f", btcRate).replace(",", "."));
+                    ExchangeRate BTCrate = new ExchangeRate(new org.bitcoinj.utils.ExchangeRate(fiat), "pubapi.cryptsy.com");
+                    rates.put(CoinDefinition.cryptsyMarketCurrency, BTCrate);
+                    //rates.put("m" + CoinDefinition.cryptsyMarketCurrency, new ExchangeRate("m" + CoinDefinition.cryptsyMarketCurrency, GenericUtils.parseCoin(String.format("%.5f", btcRate*1000).replace(",", "."), 0), cryptsyValue ? "pubapi.cryptsy.com" : "data.bter.com"));
                 }
 
 

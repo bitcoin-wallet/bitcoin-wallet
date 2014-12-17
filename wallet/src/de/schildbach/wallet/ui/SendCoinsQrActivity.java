@@ -19,16 +19,15 @@ package de.schildbach.wallet.ui;
 
 import javax.annotation.Nonnull;
 
+import org.bitcoinj.core.Transaction;
+import org.bitcoinj.core.VerificationException;
+import org.bitcoinj.core.VersionedChecksummedBytes;
+
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.os.Bundle;
-
-import com.google.bitcoin.core.ECKey;
-import com.google.bitcoin.core.Transaction;
-import com.google.bitcoin.core.VerificationException;
-
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.data.PaymentIntent;
 import de.schildbach.wallet.ui.InputParser.StringInputParser;
@@ -68,7 +67,7 @@ public final class SendCoinsQrActivity extends Activity
 				}
 
 				@Override
-				protected void handlePrivateKey(@Nonnull final ECKey key)
+				protected void handlePrivateKey(@Nonnull final VersionedChecksummedBytes key)
 				{
 					SweepWalletActivity.start(SendCoinsQrActivity.this, key);
 

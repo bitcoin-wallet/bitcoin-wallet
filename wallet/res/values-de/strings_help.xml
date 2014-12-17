@@ -4,19 +4,27 @@
 	<string name="help_wallet">
 <![CDATA[
 		<p>
-			Im linken oberen Teil des Bildschirms wird Deine digitalcoin-Adresse angezeigt, mit der Du Zahlungen von anderen Teilnehmern empfangen kannst.
+<<<<<<< HEAD
+			Im linken oberen Teil des Bildschirms wird Deine GroestlCoin-Adresse angezeigt, mit der Du Zahlungen von anderen Teilnehmern empfangen kannst.
 			Mit einem Tap auf die Adresse wird eine neue Adresse generiert.
+=======
+			Im linken oberen Teil des Bildschirms wird dein aktuelles Guthaben in GroestlCoin und einer ausgewählten Währung angezeigt.
+			Mit einem Tap darauf gelangst du in die Liste der verfügbaren Währungen, ein weiterer Tap auf eine der Währungen setzt sie als Standardwährung.
+>>>>>>> origin/master
 		</p>
 		<p>
-			Der QR-Code auf dem oberen rechten Teil des Displays enthält ebenfalls Deine digitalcoin-Adresse und kann von einem anderen Teilnehmer eingescannt werden.
+			Der QR-Code auf dem oberen rechten Teil des Displays enthält ebenfalls Deine GroestlCoin-Adresse und kann von einem anderen Teilnehmer eingescannt werden.
 			Mit einem Tap auf den QR-Code wird dieser vergrößert.
 		</p>
 		<p>
-			In der Mitte des Bildschirms wird Dein aktuelles digitalcoin-Guthaben angezeigt.
+<<<<<<< HEAD
+			In der Mitte des Bildschirms wird Dein aktuelles GroestlCoin-Guthaben angezeigt.
 			Außerdem wird der entsprechende Wert in einer ausgewählten Währung angezeigt.
 			Ein Tap auf die Guthabenanzeige öffnet eine Liste mit allen verfügbaren Währungen, ein weiterer Tap auf eine der verfügbaren Währungen setzt die ausgewählte Währung als Standardwährung.
 		</p>
 		<p>
+=======
+>>>>>>> origin/master
 			Im unteren Teil des Bildschirms wird die Transaktionsliste angezeigt, die anfangs leer ist.
 			Unbestätigte Transaktionen werden grau angezeigt, bis sie bestätigt sind.
 			Mit einem Tap auf einen Eintrag kann man die Sender- oder Empfängeradresse zum Adressbuch hinzufügen.
@@ -31,7 +39,7 @@
 	<string name="help_request_coins">
 <![CDATA[
 		<p>
-			In diesem Dialogfeld kann eine Zahlung von einem anderen Teilnehmer angefordert werden, der dafür digitalcoin Wallet auf seinem Gerät installiert haben sollte.
+			In diesem Dialogfeld kann eine Zahlung von einem anderen Teilnehmer angefordert werden, der dafür GroestlCoin Wallet auf seinem Gerät installiert haben sollte.
 		</p>
 		<p>
 			Dafür muss der angeforderte Betrag eingegeben werden.
@@ -51,15 +59,15 @@
 <![CDATA[
 		<p>
 			Dieses Dialogfeld wird geöffnet, wenn der Zahlungsprozess initiiert wurde.
-			Dies geschieht entweder durch einen Tap auf "Zahlung senden" auf der Startseite oder einen Tap auf eine digitalcoin-URL im mobilen Browser.
+			Dies geschieht entweder durch einen Tap auf "Zahlung senden" auf der Startseite oder einen Tap auf eine GroestlCoin-URL im mobilen Browser.
 		</p>
 		<p>
 			Im ersten Feld muss die Empfängeradresse eingegeben werden.
 			Wenn eine Adresse im Adressbuch gespeichert wurde, wird diese automatisch vervollständigt.
-			Es kann ebenfalls ein QR-Code mit digitalcoin-Adressen oder Zahlungsanforderungen eingescannt werden, indem man den QR-Button in der Aktionsleiste tappt.
+			Es kann ebenfalls ein QR-Code mit GroestlCoin-Adressen oder Zahlungsanforderungen eingescannt werden, indem man den QR-Button in der Aktionsleiste tappt.
 		</p>
 		<p>
-			Im nächsten Feld wird das verschickbare digitalcoin-Guthaben angezeigt.
+			Im nächsten Feld wird das verschickbare GroestlCoin-Guthaben angezeigt.
 			Falls dieses Guthaben vom angezeigten Guthaben auf der Hauptseite abweicht, sind noch nicht alle Transaktionen bestätigt.
 		</p>
 		<p>
@@ -67,7 +75,7 @@
 		</p>
 		<p>
 			Eine Zahlung kann auch offline eingegeben werden.
-			Sie wird bei einem Neustart von digitalcoin Wallet ausgeführt.
+			Sie wird bei einem Neustart von GroestlCoin Wallet ausgeführt.
 			Wenn eine Zahlung so schnell wie möglich bestätigt werden soll, ist eine gute Verbindung (z.B. über WLAN) vonnöten.
 		</p>
 		<p>
@@ -83,8 +91,8 @@
 			<b>Wichtige Sicherheitshinweise:</b>
 		</p>
 		<p>
-			digitalcoins werden lokal auf dem Gerät gespeichert.
-			<b>Wenn das Gerät verloren geht, gehen alle digitalcoins verloren.</b>
+			GroestlCoins werden lokal auf dem Gerät gespeichert.
+			<b>Wenn das Gerät verloren geht, gehen alle GroestlCoins verloren.</b>
 		</p>
 		<p>
 			Das bedeutet, <b>du musst deine Wallet sichern</b>!
@@ -92,18 +100,18 @@
 			Hebe deine Sicherung gut auf und vergiß das Passwort nicht.
 		</p>
 		<p>
-			<b>Vor der Deinstallation</b> (oder dem Löschen der App-Daten/Formatierung des Geräts), <b>müssen alle digitalcoins auf eine andere Wallet übertragen werden</b>.
-			Auf dem Gerät verbleibende digitalcoins gehen verloren.
+			<b>Vor der Deinstallation</b> (oder dem Löschen der App-Daten/Formatierung des Geräts), <b>müssen alle GroestlCoins auf eine andere Wallet übertragen werden</b>.
+			Auf dem Gerät verbleibende GroestlCoins gehen verloren.
 		</p>
 		<p>
 			<b>Zahlungen können nicht rückgängig gemacht werden</b>.
-			Wenn digitalcoins ins Unbekannte geschickt werden, gibt es kaum Möglichkeit, sie zurückzuholen.
+			Wenn GroestlCoins ins Unbekannte geschickt werden, gibt es kaum Möglichkeit, sie zurückzuholen.
 		</p>
 		<p>
 			<b>Halte dein Mobilgerät sicher!</b>
 			Roote dein Gerät nicht.
 			Installiere nur Apps, denen du vollkommen vertraust.
-			Bösartige Apps könnten versuchen, die in der Wallet gespeicherten digitalcoins zu stehlen.
+			Bösartige Apps könnten versuchen, die in der Wallet gespeicherten GroestlCoins zu stehlen.
 		</p>
 		<p>
 			Minimiere das Risiko!

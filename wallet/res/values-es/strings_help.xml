@@ -1,59 +1,68 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="help_wallet">\n<![CDATA[
+  <string name="help_wallet">
+<![CDATA[
 		<p>
-			La parte superior izquierda de la pantalla muestra tu dirección digitalcoin seleccionada, que tendrán que conocer quienes te envíen digitalcoins.
+<<<<<<< HEAD
+			La parte superior izquierda de la pantalla muestra tu dirección GroestlCoin seleccionada, que tendrán que conocer quienes te envíen GroestlCoins.
 			Pulsar para cambiar la dirección.
 		</p>
 		<p>
-			El código QR a la derecha contiene tu dirección digitalcoin y puede utilizarse para que otras personas lo exploren.
+			El código QR a la derecha contiene tu dirección GroestlCoin y puede utilizarse para que otras personas lo exploren.
 			Pulsa sobre el código QR para obtener una versión mayor.
+=======
+			La parte superior izquierda de la pantalla muestra su balance en GroestlCoins y en una moneda nacional que elija.
+			Toque para ir a la lista de monedas nacionales, y toque en una de las monedas para seleccionarla como predeterminada.
 		</p>
 		<p>
-			En el centro de la pantalla se muestra tu saldo.
-			El valor de tu cartera se muestra también en la moneda local elegida.
-			Pulsa sobre el saldo para mostrar la lista de todas las monedas. Pulsa sobre una de ellas para establecerla como preferida.
+			El código QR en la derecha contiene su dirección de GroestlCoin y se puede usar para ser escaneada por alguien más.
+			Toque en el código QR para ver una versión más grande.
+>>>>>>> origin/master
 		</p>
 		<p>
-			La parte inferior de la pantalla está ocupada por tu lista de transacciones, que está inicialmente vacía.
-			Las transacciones pendientes permanecerán en gris hasta que estén confirmadas.
-			Pulsa sobre una entrada para añadir direcciones de envío o recepción a la libreta de direcciones.
-			Desliza hacia la izquierda o derecha para aplicar filtros a la lista.
+			La parte inferior de la pantalla está cubierta por la lista de sus transacciones, la cual está vacía al principio.
+			Las transacciones pendientes están en gris hasta que sean confirmadas.
+			Toque en una entrada para añadir las direcciones de los remitentes o destinatarios a su lista de contactos.
+			Deslice hacia la derecha o izquierda para aplicar filtros a la lista.
 		</p>
 		<p>
-			Puedes enviar o solicitar monedas pulsando los botones en la barra de acciones.
-			Hay más funcionalidad disponible en el menú de opciones.
+			Puede enviar o solicitar GroestlCoins al tocar los botones en la barra de acción.
+			Más opciones están disponibles en el menú de opciones.
 		</p>
-	]]>\n\t</string>
-  <string name="help_request_coins">\n<![CDATA[
+	]]>
+	</string>
+  <string name="help_request_coins">
+<![CDATA[
 		<p>
-			Mediante este cuadro de diálogo puedes solicitar digitalcoins de otra persona (que debería tener instalada digitalcoin Wallet).
+			Mediante este cuadro de diálogo puedes solicitar GroestlCoins de otra persona (que debería tener instalada GroestlCoin Wallet).
 		</p>
 		<p>
-			En primer lugar, puedes introducir la cantidad de digitalcoins que se desea solicitar.
+			En primer lugar, puedes introducir la cantidad de GroestlCoins que se desea solicitar.
 		</p>
 		<p>
 			A continuación, puedes hacer que la otra persona explore el código QR generado,
 			o bien enviar tu solicitud a una persona remota mediante el botón de compartir de la barra de acciones.
-			La otra persona tendrá que acceder a la URL de digitalcoin.
+			La otra persona tendrá que acceder a la URL de GroestlCoin.
 		</p>
 		<p>
-			En ambos casos, a la otra persona se le mostrará un cuadro de diálogo para enviar digitalcoins con todos los campos completados.
+			En ambos casos, a la otra persona se le mostrará un cuadro de diálogo para enviar GroestlCoins con todos los campos completados.
 			Si está de acuerdo, bastará con que acepte la transacción.
 		</p>
-	]]>\n\t</string>
-  <string name="help_send_coins">\n<![CDATA[
+	]]>
+	</string>
+  <string name="help_send_coins">
+<![CDATA[
 		<p>
-			Has iniciado el proceso de enviar digitalcoins.
-			Has llegado aquí bien a través de la pantalla principal o bien al acceder a una URL digitalcoin en tu navegador móvil.
+			Has iniciado el proceso de enviar GroestlCoins.
+			Has llegado aquí bien a través de la pantalla principal o bien al acceder a una URL GroestlCoin en tu navegador móvil.
 		</p>
 		<p>
-			En primer lugar, debes introducir la dirección digitalcoin receptora del pago.
+			En primer lugar, debes introducir la dirección GroestlCoin receptora del pago.
 			La dirección se irá autocompletando con las entradas conocidas de la libreta de direcciones.
-			También puedes explorar códigos QR con direcciones digitalcoin o solicitudes de digitalcoins pulsando el botón QR de la barra de acciones.
+			También puedes explorar códigos QR con direcciones GroestlCoin o solicitudes de GroestlCoins pulsando el botón QR de la barra de acciones.
 		</p>
 		<p>
-			A continuación, podrás ver cuántos digitalcoins puedes gastar en este momento.
+			A continuación, podrás ver cuántos GroestlCoins puedes gastar en este momento.
 			Cualquier discrepancia que haya con el saldo de la pantalla principal se debe a cantidades no confirmadas que aún no pueden gastarse.
 		</p>
 		<p>
@@ -61,7 +70,7 @@
 		</p>
 		<p>
 			Puedes llevar a cabo una transacción sin conexión.
-			Se enviará la siguiente vez que se reinicie digitalcoin Wallet.
+			Se enviará la siguiente vez que se reinicie GroestlCoin Wallet.
 			Si quieres que se procese una transacción lo más rápido posible, asegúrate de tener una buena conexión (WLAN).
 		</p>
 		<p>
@@ -69,23 +78,25 @@
 			¡Las transacciones no pueden revertirse!
 			Verifica siempre la dirección de recepción.
 		</p>
-	]]>\n\t</string>
-  <string name="help_safety">\n<![CDATA[
+	]]>
+	</string>
+  <string name="help_safety">
+<![CDATA[
 		<p>
-			<b>Algunos comentarios sobre la seguridad de tus digitalcoins:</b>
+			<b>Algunos comentarios sobre la seguridad de tus GroestlCoins:</b>
 		</p>
 		<p>
-			Los digitalcoins en digitalcoin Wallet se almacenan en el dispositivo.
-			<b>Si pierdes tu dispositivo, pierdes tus digitalcoins.</b>
+			Los GroestlCoins en GroestlCoin Wallet se almacenan en el dispositivo.
+			<b>Si pierdes tu dispositivo, pierdes tus GroestlCoins.</b>
 			Esto es lo mismo que ocurriría con tu dinero en una cartera convencional.
 		</p>
 		<p>
-			<b>Antes de desinstalar digitalcoin Wallet</b> (o de eliminar los datos de aplicación o el almacenamiento del dispositivo), <b>transfiere tus digitalcoins a otra cartera</b>.
-			Los digitalcoins que queden en el dispositivo se perderán.
+			<b>Antes de desinstalar GroestlCoin Wallet</b> (o de eliminar los datos de aplicación o el almacenamiento del dispositivo), <b>transfiere tus GroestlCoins a otra cartera</b>.
+			Los GroestlCoins que queden en el dispositivo se perderán.
 		</p>
 		<p>
 			<b>Las transacciones no se pueden deshacer</b>.
-			Si envías digitalcoins por error, no hay manera de recuperarlos a menos que conozcas al receptor y acepte devolvértelos.
+			Si envías GroestlCoins por error, no hay manera de recuperarlos a menos que conozcas al receptor y acepte devolvértelos.
 		</p>
 		<p>
 			<b>¡Mantén seguro tu dispositivo Android!</b>
@@ -94,7 +105,8 @@
 		</p>
 		<p>
 			¡Minimiza el riesgo!
-			<b>Utiliza digitalcoin Wallet solamente para cantidades pequeñas</b> de uso diario.
+			<b>Utiliza GroestlCoin Wallet solamente para cantidades pequeñas</b> de uso diario.
 		</p>
-	]]>\n\t</string>
+	]]>
+	</string>
 </resources>

@@ -17,18 +17,19 @@
 
 package de.schildbach.wallet.ui.send;
 
-import java.math.BigInteger;
-
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+
+import org.bitcoinj.core.Coin;
+import org.bitcoinj.core.InsufficientMoneyException;
+import org.bitcoinj.core.Transaction;
+import org.bitcoinj.core.Wallet;
+import org.bitcoinj.core.Wallet.CompletionException;
+import org.bitcoinj.core.Wallet.CouldNotAdjustDownwards;
+import org.bitcoinj.core.Wallet.SendRequest;
+import org.bitcoinj.crypto.KeyCrypterException;
 
 import android.os.Handler;
 import android.os.Looper;
-
-import com.google.bitcoin.core.InsufficientMoneyException;
-import com.google.bitcoin.core.Transaction;
-import com.google.bitcoin.core.Wallet;
-import com.google.bitcoin.core.Wallet.SendRequest;
 
 /**
  * @author Andreas Schildbach
@@ -79,7 +80,29 @@ public abstract class SendCoinsOfflineTask
 						}
 					});
 				}
-				catch (final IllegalArgumentException x)
+				catch (final KeyCrypterException x)
+				{
+					callbackHandler.post(new Runnable()
+					{
+						@Override
+						public void run()
+						{
+							onInvalidKey();
+						}
+					});
+				}
+				catch (final CouldNotAdjustDownwards x)
+				{
+					callbackHandler.post(new Runnable()
+					{
+						@Override
+						public void run()
+						{
+							onEmptyWalletFailed();
+						}
+					});
+				}
+				catch (final CompletionException x)
 				{
 					callbackHandler.post(new Runnable()
 					{
@@ -96,7 +119,14 @@ public abstract class SendCoinsOfflineTask
 
 	protected abstract void onSuccess(@Nonnull Transaction transaction);
 
-	protected abstract void onInsufficientMoney(@Nullable BigInteger missing);
+	protected abstract void onInsufficientMoney(@Nonnull Coin missing);
+
+	protected abstract void onInvalidKey();
+
+	protected void onEmptyWalletFailed()
+	{
+		onFailure(new CouldNotAdjustDownwards());
+	}
 
 	protected abstract void onFailure(@Nonnull Exception exception);
 }

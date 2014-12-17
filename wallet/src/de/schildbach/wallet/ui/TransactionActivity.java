@@ -21,15 +21,13 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.view.MenuItem;
-import com.google.bitcoin.core.*;
+import android.view.MenuItem;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.util.Base43;
-import hashengineering.digitalcoin.wallet.R;
+import hashengineering.groestlcoin.wallet.R;
+import org.bitcoinj.core.*;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -67,8 +65,8 @@ public final class TransactionActivity extends AbstractWalletActivity
 		setContentView(R.layout.transaction_content);
 
 
-		final ActionBar actionBar = getSupportActionBar();
-		actionBar.setDisplayHomeAsUpEnabled(true);
+		//final ActionBar actionBar = getSupportActionBar();
+		//actionBar.setDisplayHomeAsUpEnabled(true);
 
 		handleIntent(getIntent());
 	}
@@ -151,9 +149,9 @@ public final class TransactionActivity extends AbstractWalletActivity
 
 	private void updateView()
 	{
-		final TransactionFragment transactionFragment = (TransactionFragment) getSupportFragmentManager().findFragmentById(R.id.transaction_fragment);
+		/*final TransactionFragment transactionFragment = (TransactionFragment) getSupportFragmentManager().findFragmentById(R.id.transaction_fragment);
 
-		transactionFragment.update(tx);
+		transactionFragment.update(tx);*/
 	}
 
 	private void processPendingTransaction(final Transaction tx)

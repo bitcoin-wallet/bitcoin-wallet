@@ -27,54 +27,54 @@ import java.util.concurrent.RejectedExecutionException;
 
 import javax.annotation.Nonnull;
 
+import org.bitcoinj.core.Block;
+import org.bitcoinj.core.Sha256Hash;
+import org.bitcoinj.core.StoredBlock;
+import org.bitcoinj.core.Transaction;
+import org.bitcoinj.core.Wallet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import android.app.Activity;
+import android.app.ListFragment;
+import android.app.LoaderManager;
+import android.app.LoaderManager.LoaderCallbacks;
+import android.content.AsyncTaskLoader;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.Loader;
 import android.content.ServiceConnection;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.app.LoaderManager.LoaderCallbacks;
-import android.support.v4.content.AsyncTaskLoader;
-import android.support.v4.content.Loader;
+import android.support.v4.content.LocalBroadcastManager;
 import android.text.format.DateUtils;
+import android.view.ActionMode;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-
-import com.actionbarsherlock.app.SherlockListFragment;
-import com.actionbarsherlock.view.ActionMode;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
-import com.actionbarsherlock.view.MenuItem;
-import com.google.bitcoin.core.Block;
-import com.google.bitcoin.core.Sha256Hash;
-import com.google.bitcoin.core.StoredBlock;
-import com.google.bitcoin.core.Transaction;
-import com.google.bitcoin.core.Wallet;
-
 import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.service.BlockchainService;
 import de.schildbach.wallet.service.BlockchainServiceImpl;
 import de.schildbach.wallet.util.WalletUtils;
-import hashengineering.digitalcoin.wallet.R;
+import hashengineering.groestlcoin.wallet.R;
 
 
 /**
  * @author Andreas Schildbach
  */
-public final class BlockListFragment extends SherlockListFragment
+public final class BlockListFragment extends ListFragment
 {
 	private AbstractWalletActivity activity;
 	private WalletApplication application;
@@ -123,24 +123,36 @@ public final class BlockListFragment extends SherlockListFragment
 		setListAdapter(adapter);
 	}
 
+	private boolean resumed = false;
+
 	@Override
 	public void onResume()
 	{
 		super.onResume();
 
 		activity.registerReceiver(tickReceiver, new IntentFilter(Intent.ACTION_TIME_TICK));
-
 		loaderManager.initLoader(ID_TRANSACTION_LOADER, null, transactionLoaderCallbacks);
 
 		adapter.notifyDataSetChanged();
+
+		resumed = true;
 	}
 
 	@Override
 	public void onPause()
 	{
-		loaderManager.destroyLoader(ID_TRANSACTION_LOADER);
+		// workaround: under high load, it can happen that onPause() is called twice (recursively via destroyLoader)
+		if (resumed)
+		{
+			resumed = false;
 
-  	    activity.unregisterReceiver(tickReceiver);
+			loaderManager.destroyLoader(ID_TRANSACTION_LOADER);
+			activity.unregisterReceiver(tickReceiver);
+		}
+		else
+		{
+			log.warn("onPause() called without onResume(), appending stack trace", new RuntimeException());
+		}
 
 		super.onPause();
 	}
@@ -235,6 +247,7 @@ public final class BlockListFragment extends SherlockListFragment
 		private static final int ROW_INSERT_INDEX = 1;
 		private final TransactionsListAdapter transactionsAdapter = new TransactionsListAdapter(activity, wallet, application.maxConnectedPeers(),
 				false);
+		private final LayoutInflater inflater = LayoutInflater.from(activity);
 
 		private final List<StoredBlock> blocks = new ArrayList<StoredBlock>(MAX_BLOCKS);
 
@@ -282,7 +295,7 @@ public final class BlockListFragment extends SherlockListFragment
 		{
 			final ViewGroup row;
 			if (convertView == null)
-				row = (ViewGroup) getLayoutInflater(null).inflate(R.layout.block_row, null);
+				row = (ViewGroup) inflater.inflate(R.layout.block_row, null);
 			else
 				row = (ViewGroup) convertView;
 
@@ -295,7 +308,10 @@ public final class BlockListFragment extends SherlockListFragment
 
 			final TextView rowTime = (TextView) row.findViewById(R.id.block_list_row_time);
 			final long timeMs = header.getTimeSeconds() * DateUtils.SECOND_IN_MILLIS;
-			rowTime.setText(DateUtils.getRelativeDateTimeString(activity, timeMs, DateUtils.MINUTE_IN_MILLIS, DateUtils.WEEK_IN_MILLIS, 0));
+			if (timeMs < System.currentTimeMillis())
+				rowTime.setText(DateUtils.getRelativeDateTimeString(activity, timeMs, DateUtils.MINUTE_IN_MILLIS, DateUtils.WEEK_IN_MILLIS, 0));
+			else
+				rowTime.setText(R.string.block_row_now);
 
 			final TextView rowHash = (TextView) row.findViewById(R.id.block_list_row_hash);
 			rowHash.setText(WalletUtils.formatHash(null, header.getHashAsString(), 8, 0, ' '));
@@ -305,10 +321,7 @@ public final class BlockListFragment extends SherlockListFragment
 
 			if (transactions != null)
 			{
-				final int btcPrecision = config.getBtcPrecision();
-				final int btcShift = config.getBtcShift();
-
-				transactionsAdapter.setPrecision(btcPrecision, btcShift);
+				transactionsAdapter.setFormat(config.getFormat());
 
 				for (final Transaction tx : transactions)
 				{
@@ -321,7 +334,7 @@ public final class BlockListFragment extends SherlockListFragment
 						}
 						else
 						{
-							view = getLayoutInflater(null).inflate(R.layout.transaction_row_oneline, null);
+							view = inflater.inflate(R.layout.transaction_row_oneline, null);
 							row.addView(view, ROW_INSERT_INDEX + iTransactionView);
 						}
 
@@ -342,14 +355,14 @@ public final class BlockListFragment extends SherlockListFragment
 
 	private static class BlockLoader extends AsyncTaskLoader<List<StoredBlock>>
 	{
-		private Context context;
+		private LocalBroadcastManager broadcastManager;
 		private BlockchainService service;
 
 		private BlockLoader(final Context context, final BlockchainService service)
 		{
 			super(context);
 
-			this.context = context.getApplicationContext();
+			this.broadcastManager = LocalBroadcastManager.getInstance(context.getApplicationContext());
 			this.service = service;
 		}
 
@@ -358,13 +371,15 @@ public final class BlockListFragment extends SherlockListFragment
 		{
 			super.onStartLoading();
 
-			context.registerReceiver(broadcastReceiver, new IntentFilter(BlockchainService.ACTION_BLOCKCHAIN_STATE));
+			broadcastManager.registerReceiver(broadcastReceiver, new IntentFilter(BlockchainService.ACTION_BLOCKCHAIN_STATE));
+
+			forceLoad();
 		}
 
 		@Override
 		protected void onStopLoading()
 		{
-			context.unregisterReceiver(broadcastReceiver);
+			broadcastManager.unregisterReceiver(broadcastReceiver);
 
 			super.onStopLoading();
 		}

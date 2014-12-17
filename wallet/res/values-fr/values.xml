@@ -2,11 +2,11 @@
 <resources>
 
 	<string-array name="preferences_precision_labels">
-		<item>DGC, 8 décimales</item>
-		<item>DGC, 6 décimales</item>
-		<item>DGC, 4 décimales</item>
-		<item>mDGC, 2 décimales</item>
-		<item>µDGC, 0 décimale</item>
+		<item>GRS, 8 décimales</item>
+		<item>GRS, 6 décimales</item>
+		<item>GRS, 4 décimales</item>
+		<item>mGRS, 2 décimales</item>
+		<item>µGRS, 0 décimale</item>
 	</string-array>
 
 </resources>

@@ -12,10 +12,7 @@
 	<string name="blockchain_state_progress_stalled">Sinkronigo stagnis</string>
 	<string name="blockchain_state_progress_problem_storage">Sinkronigado: Stokante problemo</string>
 	<string name="blockchain_state_progress_problem_network">Sinkronigado: Reta problemo</string>
-	<string name="wallet_address_fragment_your">Via Bitmona Adreso:</string>
 	<string name="wallet_address_fragment_clipboard_msg">Bitmonadreso kopiita al tondujo</string>
-	<string name="wallet_addresses_fragment_add_dialog_title">Aldoni Bitmonadreson</string>
-	<string name="wallet_addresses_fragment_add_dialog_message">Bitmonadresoj ne povas esti forigitaj. Ĉu vi volas aldoni novan adreson al via monujo?</string>
 	<string name="wallet_balance_fragment_replaying">Saldo nedisponeblas dum ripeto.</string>
 	<string name="exchange_rates_activity_title">Kurzoj</string>
 	<string name="exchange_rates_fragment_empty_text">Ne eblis ŝargi kurzojn.</string>
@@ -33,7 +30,6 @@
 	<string name="wallet_transactions_row_warning_backup">Gratulon, vi ricevis vian unuan pagon! Ĉu vi jam &lt;u&gt;savkopiis vian monujon&lt;/u&gt;, por protekti kontraŭ perdo?</string>
 	<string name="wallet_transactions_fragment_coinbase">minita</string>
 	<string name="wallet_transactions_fragment_internal">interna</string>
-	<string name="wallet_transactions_context_show_qr_title">Montru QRan kodon</string>
 	<string name="wallet_options_safety">Sekurecaj notoj</string>
 	<string name="wallet_options_donate">Donacu</string>
 	<string name="wallet_donate_address_label">Donaco por BitmonMonujo</string>
@@ -52,8 +48,6 @@
 	<string name="send_coins_fragment_receiving_address_label">Pagu al</string>
 	<string name="send_coins_fragment_receiving_address_hint">tajpu adreson aŭ nomon</string>
 	<string name="send_coins_fragment_receiving_address_error">Malvalida Bitmonadreso!</string>
-	<string name="send_coins_fragment_receiving_address_error_cross_network">Ne eblas uzi %s adreson kun ĉi tiu monujo!</string>
-	<string name="send_coins_fragment_receiving_address_error_cross_network_unknown">Ne eblas uzi adreson de nekonata reto kun ĉi tiu monujo!</string>
 	<string name="send_coins_fragment_pending">(%s atendadi konfirmon)</string>
 	<string name="send_coins_fragment_amount_label">Kvanto pagi</string>
 	<string name="send_coins_fragment_button_send">Sendu</string>
@@ -79,9 +73,7 @@
 	<string name="address_book_context_send_title">Sendu Bitmonojn al adreso</string>
 	<string name="address_book_context_edit_title">Redakti adreson</string>
 	<string name="address_book_context_remove_title">Forigi adreson</string>
-	<string name="address_book_context_show_qr_title">Montru QR-an kodon</string>
 	<string name="address_book_context_copy_to_clipboard_title">Kopi al tondujo</string>
-	<string name="address_book_context_default_title">Ŝalti kiel defaŭltan adreson</string>
 	<string name="address_book_options_paste_from_clipboard_title">Alglui el tondujo</string>
 	<string name="address_book_options_paste_from_clipboard_empty">Tondujo malplenas</string>
 	<string name="address_book_options_scan_title">Skani adreson</string>
@@ -111,13 +103,9 @@
 	<string name="import_keys_dialog_file_created_automatic">aŭtomata savkopio %s</string>
 	<string name="import_keys_dialog_file_created_manual">permane savokopiita %s</string>
 	<string name="import_keys_dialog_button_import">Restaŭri</string>
-	<string name="import_keys_dialog_success_imported">%d privataj ŝlosiloj estis restaŭritaj</string>
-	<string name="import_keys_dialog_success_existing">%d privataj ŝlosiloj ne estis restaŭritaj, ĉar vi jam havas ilin en via monujo.</string>
-	<string name="import_keys_dialog_success_reset">Vi bezonas reŝargi vian blokĉenon por ĝisdatigi vian saldon. Ĉu vi volas?</string>
 	<string name="import_keys_dialog_failure">Privataj ŝlosiloj ne povis esti restaŭritaj\n\n%s\n\nMalbona pasvorto?</string>
-	<string name="import_keys_dialog_button_reset_blockchain">Reŝargi</string>
 	<string name="export_keys_dialog_title">Savkopi privatajn ŝlosilojn</string>
-	<string name="export_keys_dialog_message">Viaj privataj ŝlosiloj estos ĉifritaj kun l\'elektita pasvorto kaj skribitaj al ekstera storo.</string>
+	<string name="backup_wallet_dialog_message">Viaj privataj ŝlosiloj estos ĉifritaj kun l\'elektita pasvorto kaj skribitaj al ekstera storo.</string>
 	<string name="export_keys_dialog_button_export">Savkopi</string>
 	<string name="export_keys_dialog_success">Viaj privataj ŝlosiloj estas savkopiitaj ĝis\n\n%s\n\nKonservu ilin sekurajn, kaj konservu vian pasvorton sekuran!\n\nĈu vi volas arkivi viajn ŝlosilojn uzante aplikaĵo?</string>
 	<string name="export_keys_dialog_failure">Viaj privataj ŝlosiloj ne povis esti savkopiitaj:\n%s</string>
@@ -136,7 +124,6 @@
 	<string name="input_parser_invalid_address">Havas malvalidan bitmonadreson!\n(Uzante testreto anstataŭ ĉefreto?)</string>
 	<string name="input_parser_invalid_transaction">Malvalida transakcio:\n%s</string>
 	<string name="preferences_activity_title">Agoroj</string>
-	<string name="preferences_category_main">Pli d\'Agordoj</string>
 	<string name="preferences_category_diagnostics">Diagnozo</string>
 	<string name="preferences_category_labs">Labs</string>
 	<string name="preferences_precision_title">Nomado kaj precizeco</string>
@@ -168,16 +155,13 @@
 	<string name="report_issue_dialog_mail_intent_chooser">Sendi reporton uzante…</string>
 	<string name="about_title">Pri</string>
 	<string name="about_license_title">Licenco</string>
-	<string name="about_credits_bitcoinj_title">Ĉi tiu aplikaĵo uzas digitalcoinj-n %s</string>
+	<string name="about_credits_bitcoinj_title">Ĉi tiu aplikaĵo uzas groestlcoinj-n %s</string>
 	<string name="about_credits_zxing_title">Ĉi tiu aplikaĵo uzas \'zxing\'-n</string>
 	<string name="about_credits_icon_title">Ĉi tiu aplikaĵo uzas bildsimbolon per \'bitboy\'</string>
 	<string name="about_community_googleplus_title">\"Google+\" Komunumo</string>
 	<string name="about_community_googleplus_summary">Diskutoj pri l\'aplikaĵo</string>
-	<string name="about_author_twitter_title">Aŭtoro ĉe Twitter</string>
-	<string name="about_author_googleplus_title">Aŭtoro ĉe Google+</string>
 	<string name="about_market_app_title">\"Google Play\" Paĝo</string>
 	<string name="about_market_app_summary">Revui aŭ gradi l\'aplikaĵon</string>
-	<string name="about_credits_market_publisher_title">Aliaj aplikaĵoj de Aŭtoro</string>
 	<string name="notification_coins_received_msg">Ricevita %s</string>
 	<string name="notification_peers_connected_msg">%d pajroj konektitaj</string>
 	<!-- generic buttons -->
@@ -197,6 +181,7 @@
 	<string name="button_scan">Skani</string>
 	<string name="button_edit_address">Aldoni/redakti adreson</string>
 	<string name="button_settings">Agordoj</string>
+	<string name="action_show_qr">Montru QRan kodon</string>
 	<string name="action_browse">Esplori</string>
 	<string name="time_today">hodiaŭ</string>
 	<string name="address_unlabeled">(sen nomo)</string>

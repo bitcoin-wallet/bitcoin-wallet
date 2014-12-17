@@ -25,6 +25,10 @@ import java.util.List;
 
 import javax.annotation.Nonnull;
 
+import org.bitcoinj.core.Address;
+import org.bitcoinj.core.ECKey;
+import org.bitcoinj.core.Wallet;
+
 import android.content.Context;
 import android.content.res.Resources;
 import android.text.format.DateUtils;
@@ -33,15 +37,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
-
-import com.google.bitcoin.core.Address;
-import com.google.bitcoin.core.ECKey;
-import com.google.bitcoin.core.Wallet;
-
 import de.schildbach.wallet.AddressBookProvider;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.util.WalletUtils;
-import hashengineering.digitalcoin.wallet.R;
+import hashengineering.groestlcoin.wallet.R;
 
 /**
  * @author Andreas Schildbach
@@ -57,7 +56,6 @@ public class WalletAddressesAdapter extends BaseAdapter
 	private final LayoutInflater inflater;
 
 	private final List<ECKey> keys = new ArrayList<ECKey>();
-	private String selectedAddress = null;
 
 	public WalletAddressesAdapter(final Context context, @Nonnull final Wallet wallet)
 	{
@@ -76,13 +74,6 @@ public class WalletAddressesAdapter extends BaseAdapter
 	{
 		this.keys.clear();
 		this.keys.addAll(keys);
-
-		notifyDataSetChanged();
-	}
-
-	public void setSelectedAddress(final String selectedAddress)
-	{
-		this.selectedAddress = selectedAddress;
 
 		notifyDataSetChanged();
 	}
@@ -120,10 +111,6 @@ public class WalletAddressesAdapter extends BaseAdapter
 
 		if (row == null)
 			row = inflater.inflate(R.layout.address_book_row, null);
-
-		final boolean isDefaultAddress = address.toString().equals(selectedAddress);
-
-		row.setBackgroundResource(isDefaultAddress ? R.color.bg_list_selected : R.color.bg_list);
 
 		final TextView addressView = (TextView) row.findViewById(R.id.address_book_row_address);
 		addressView.setText(WalletUtils.formatAddress(address, Constants.ADDRESS_FORMAT_GROUP_SIZE, Constants.ADDRESS_FORMAT_LINE_SIZE));

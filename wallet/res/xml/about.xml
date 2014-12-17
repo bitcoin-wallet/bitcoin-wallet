@@ -11,7 +11,7 @@
 			android:title="@string/about_copyright_title" />
         <Preference
                 android:summary="Version 3.0 (v3.0.1.0-unk-MultiAlgo) and above"
-                android:title="digitalcoin Compatibility" />
+                android:title="GroestlCoin Compatibility" />
 
 		<Preference
 			android:key="about_license"
@@ -38,15 +38,15 @@
 			android:title="@string/about_community_googleplus_title" />
 		<Preference
 			android:key="about_author_twitter"
-			android:summary="\@bitcoin_wallet"
+			android:summary="\@GroestlCoin_wallet"
 			android:title="@string/about_author_twitter_title" /-->
 		<!--Preference
 			android:key="about_author_googleplus"
 			android:summary="+Andreas Schildbach"
 			android:title="@string/about_author_googleplus_title" /-->
-		<Preference
+		<!--Preference
 			android:key="about_market_publisher"
-			android:title="@string/about_credits_market_publisher_title" />
+			android:title="@string/about_credits_market_publisher_title" /-->
 		<Preference android:key="about_credits_bitcoinj" />
 		<Preference
 			android:key="about_credits_zxing"

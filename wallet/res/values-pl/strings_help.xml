@@ -4,11 +4,11 @@
 	<string name="help_wallet">
 <![CDATA[
 		<p>
-			Po lewej górnej stronie ekranu wyświetlany jest Twój aktualnie wybrany adres digitalcoin, który inne osoby muszą znać żeby wysłać Ci digitalcoin.
+			Po lewej górnej stronie ekranu wyświetlany jest Twój aktualnie wybrany adres GroestlCoin, który inne osoby muszą znać żeby wysłać Ci GroestlCoin.
 			Naciśnij żeby, go zmienić.
 		</p>
 		<p>
-			Kod QR po prawej zawiera Twój adres digitalcoin i może zeskanowany przez inną osobę.
+			Kod QR po prawej zawiera Twój adres GroestlCoin i może zeskanowany przez inną osobę.
 			Naciśnij na kod QR żeby otrzymać jego większą wersje.
 		</p>
 		<p>
@@ -31,18 +31,18 @@
 	<string name="help_request_coins">
 <![CDATA[
 		<p>
-			Przy pomocy tego dialogu, możesz wysłać prośbę o digitalcoiny do innej osoby, tak jakbyś wystawił jej rachunek do zapłacenia. Osoba ta powinna mieć zainstalowany digitalcoin Wallet.
+			Przy pomocy tego dialogu, możesz wysłać prośbę o GroestlCoiny do innej osoby, tak jakbyś wystawił jej rachunek do zapłacenia. Osoba ta powinna mieć zainstalowany GroestlCoin Wallet.
 		</p>
 		<p>
-			U góry, wpisz kwotę digitalcoin, o którą chcesz zapytać.
+			U góry, wpisz kwotę GroestlCoin, o którą chcesz zapytać.
 		</p>
 		<p>
 			Potem osoba wczyta wytworzony kod QR,
 			albo Ty możesz wysłać rachunek za pomocą guzika Opublikuj na listwie menu.
-			Odbiorca będzie musiał otworzyć digitalcoin URL zawarty w wysłanej wiadomości.
+			Odbiorca będzie musiał otworzyć GroestlCoin URL zawarty w wysłanej wiadomości.
 		</p>
 		<p>
-			Osoba, która otrzymała wysłane zapytanie otrzyma gotowy i wypełniony formularz wysyłania digitalcoinów.
+			Osoba, która otrzymała wysłane zapytanie otrzyma gotowy i wypełniony formularz wysyłania GroestlCoinów.
 			Jedyne co będzie musiała zrobić to potwierdzenie transakcji.
 		</p>
 	]]>
@@ -51,15 +51,15 @@
 <![CDATA[
 		<p>
 			Zainicjowałeś proces wysyłania monet.
-			Przyszedłeś tutaj przez główny ekran albo naciskając na digitalcoin URL w Twojej mobilnej przeglądarce.
+			Przyszedłeś tutaj przez główny ekran albo naciskając na GroestlCoin URL w Twojej mobilnej przeglądarce.
 		</p>
 		<p>
-			Wpisz adres digitalcoin na który ma wpłynąć zapłata.
+			Wpisz adres GroestlCoin na który ma wpłynąć zapłata.
 			Wyświetlone zostaną podpowiedzi adresu z danych Twojej książki adresowej.
-			Możesz też skanować kody QR z adresami digitalcoin albo zapytaniami digitalcoin naciskając guzik QR w menu.
+			Możesz też skanować kody QR z adresami GroestlCoin albo zapytaniami GroestlCoin naciskając guzik QR w menu.
 		</p>
 		<p>
-			Poniżej widzisz ile digitalcoin możesz wydać w tym momencie.
+			Poniżej widzisz ile GroestlCoin możesz wydać w tym momencie.
 			Rożnica ze stanem konta na głównym ekranie wynika z jeszcze nie potwierdzonych monet, które nie mogą jeszcze zostać wydane.
 		</p>
 		<p>
@@ -80,20 +80,20 @@
 	<string name="help_safety">
 <![CDATA[
 		<p>
-			<b>Pare słów o bezpieczeństwie twoich digitalcoin:</b>
+			<b>Pare słów o bezpieczeństwie twoich GroestlCoin:</b>
 		</p>
 		<p>
-			digitalcoin w digitalcoin Wallet są magazynowane na urządzeniu.
-			<b>Jak zgubisz swoje urządzenie, zgubisz też swój portfel i digitalcoiny.</b>
+			GroestlCoin w GroestlCoin Wallet są magazynowane na urządzeniu.
+			<b>Jak zgubisz swoje urządzenie, zgubisz też swój portfel i GroestlCoiny.</b>
 			Zupełnie jak pieniądze w Twoim fizycznym portfelu.
 		</p>
 		<p>
-			<b>Zanim odinstalujesz digitalcoin Wallet</b> (albo wymażesz dane aplikacji/wyczyścisz swoje urządzenie), <b>przetransferuj twoje digitalcoin na inny portfel</b>.
-			Każdy pozostały digitalcoin będzie stracony.
+			<b>Zanim odinstalujesz GroestlCoin Wallet</b> (albo wymażesz dane aplikacji/wyczyścisz swoje urządzenie), <b>przetransferuj twoje GroestlCoin na inny portfel</b>.
+			Każdy pozostały GroestlCoin będzie stracony.
 		</p>
 		<p>
 			<b>Żadne transakcje nie mogą zostać cofnięte</b>.
-			Jeżeli wyślesz swoje digitalcoiny, nie będzie już możliwości żeby je odzyskać, dopóki nie znasz odbiorcy, który musi godzić się na ich odesłanie.
+			Jeżeli wyślesz swoje GroestlCoiny, nie będzie już możliwości żeby je odzyskać, dopóki nie znasz odbiorcy, który musi godzić się na ich odesłanie.
 		</p>
 		<p>
 			<b>Uważaj na swoje urządzenie Android!</b>
@@ -102,7 +102,7 @@
 		</p>
 		<p>
 			Utrzymuj niskie ryzyko!
-			<b>Używaj digitalcoin Wallet do przetrzymywania jedynie małych ilości digitalcoin</b> do użytku codziennego.
+			<b>Używaj GroestlCoin Wallet do przetrzymywania jedynie małych ilości GroestlCoin</b> do użytku codziennego.
 		</p>
 	]]>
 	</string>

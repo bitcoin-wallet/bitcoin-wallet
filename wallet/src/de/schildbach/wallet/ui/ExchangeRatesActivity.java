@@ -17,11 +17,10 @@
 
 package de.schildbach.wallet.ui;
 
+import android.app.ActionBar;
 import android.os.Bundle;
-
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.view.MenuItem;
-import hashengineering.digitalcoin.wallet.R;
+import android.view.MenuItem;
+import hashengineering.groestlcoin.wallet.R;
 
 /**
  * @author Andreas Schildbach
@@ -35,7 +34,7 @@ public final class ExchangeRatesActivity extends AbstractWalletActivity
 
 		setContentView(R.layout.exchange_rates_content);
 
-		final ActionBar actionBar = getSupportActionBar();
+		final ActionBar actionBar = getActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
 	}
 

@@ -19,17 +19,17 @@ package de.schildbach.wallet.ui.send;
 
 import javax.annotation.Nonnull;
 
+import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuItem;
 import de.schildbach.wallet.data.PaymentIntent;
 import de.schildbach.wallet.ui.AbstractBindServiceActivity;
 import de.schildbach.wallet.ui.HelpDialogFragment;
-import hashengineering.digitalcoin.wallet.R;
+import hashengineering.groestlcoin.wallet.R;
 
 /**
  * @author Andreas Schildbach
@@ -54,14 +54,14 @@ public final class SendCoinsActivity extends AbstractBindServiceActivity
 
 		getWalletApplication().startBlockchainService(false);
 
-		final ActionBar actionBar = getSupportActionBar();
+		final ActionBar actionBar = getActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(final Menu menu)
 	{
-		getSupportMenuInflater().inflate(R.menu.send_coins_activity_options, menu);
+		getMenuInflater().inflate(R.menu.send_coins_activity_options, menu);
 
 		return super.onCreateOptionsMenu(menu);
 	}
@@ -76,7 +76,7 @@ public final class SendCoinsActivity extends AbstractBindServiceActivity
 				return true;
 
 			case R.id.send_coins_options_help:
-				HelpDialogFragment.page(getSupportFragmentManager(), R.string.help_send_coins);
+				HelpDialogFragment.page(getFragmentManager(), R.string.help_send_coins);
 				return true;
 		}
 

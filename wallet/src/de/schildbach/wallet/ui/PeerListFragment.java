@@ -25,44 +25,43 @@ import java.util.concurrent.RejectedExecutionException;
 
 import javax.annotation.Nonnull;
 
+import org.bitcoinj.core.Peer;
+import org.bitcoinj.core.VersionMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import android.app.Activity;
+import android.app.LoaderManager;
+import android.app.LoaderManager.LoaderCallbacks;
+import android.content.AsyncTaskLoader;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.Loader;
 import android.content.ServiceConnection;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.app.LoaderManager.LoaderCallbacks;
-import android.support.v4.content.AsyncTaskLoader;
-import android.support.v4.content.Loader;
+import android.support.v4.content.LocalBroadcastManager;
 import android.text.format.DateUtils;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
-
-import com.actionbarsherlock.app.SherlockListFragment;
-import com.google.bitcoin.core.Peer;
-import com.google.bitcoin.core.VersionMessage;
-
 import de.schildbach.wallet.service.BlockchainService;
 import de.schildbach.wallet.service.BlockchainServiceImpl;
 
 import de.schildbach.wallet.util.WholeStringBuilder;
-import hashengineering.digitalcoin.wallet.R;
+import hashengineering.groestlcoin.wallet.R;
 
 /**
  * @author Andreas Schildbach
  */
-public final class PeerListFragment extends SherlockListFragment
+public final class PeerListFragment extends FancyListFragment
 {
 	private AbstractWalletActivity activity;
 	private LoaderManager loaderManager;
@@ -99,25 +98,19 @@ public final class PeerListFragment extends SherlockListFragment
 	}
 
 	@Override
-	public void onViewCreated(final View view, final Bundle savedInstanceState)
-	{
-		super.onViewCreated(view, savedInstanceState);
-
-		setEmptyText(WholeStringBuilder.bold(getString(R.string.peer_list_fragment_empty)));
-	}
-
-	@Override
 	public void onCreate(final Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 
 		adapter = new ArrayAdapter<Peer>(activity, 0)
 		{
+			private final LayoutInflater inflater = LayoutInflater.from(activity);
+
 			@Override
 			public View getView(final int position, View row, final ViewGroup parent)
 			{
 				if (row == null)
-					row = getLayoutInflater(null).inflate(R.layout.peer_list_row, null);
+					row = inflater.inflate(R.layout.peer_list_row, null);
 
 				final Peer peer = getItem(position);
 				final VersionMessage versionMessage = peer.getPeerVersionMessage();
@@ -235,14 +228,14 @@ public final class PeerListFragment extends SherlockListFragment
 
 	private static class PeerLoader extends AsyncTaskLoader<List<Peer>>
 	{
-		private Context context;
+		private LocalBroadcastManager broadcastManager;
 		private BlockchainService service;
 
 		private PeerLoader(final Context context, @Nonnull final BlockchainService service)
 		{
 			super(context);
 
-			this.context = context.getApplicationContext();
+			this.broadcastManager = LocalBroadcastManager.getInstance(context.getApplicationContext());
 			this.service = service;
 		}
 
@@ -251,13 +244,15 @@ public final class PeerListFragment extends SherlockListFragment
 		{
 			super.onStartLoading();
 
-			context.registerReceiver(broadcastReceiver, new IntentFilter(BlockchainService.ACTION_PEER_STATE));
+			broadcastManager.registerReceiver(broadcastReceiver, new IntentFilter(BlockchainService.ACTION_PEER_STATE));
+
+			forceLoad();
 		}
 
 		@Override
 		protected void onStopLoading()
 		{
-			context.unregisterReceiver(broadcastReceiver);
+			broadcastManager.unregisterReceiver(broadcastReceiver);
 
 			super.onStopLoading();
 		}
@@ -301,6 +296,8 @@ public final class PeerListFragment extends SherlockListFragment
 			if (peers != null)
 				for (final Peer peer : peers)
 					adapter.add(peer);
+
+			setEmptyText(WholeStringBuilder.bold(getString(R.string.peer_list_fragment_empty)));
 		}
 
 		@Override

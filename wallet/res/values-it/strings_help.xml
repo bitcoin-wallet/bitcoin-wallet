@@ -1,12 +1,13 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="help_wallet">\n<![CDATA[
+  <string name="help_wallet">
+<![CDATA[
 		<p>
-			La parte in alto a sinistra dello schermo mostra gli indirizzo digitalcoin che le altre persone hanno bisogno per poterti inviare dei digitalcoin.
+			La parte in alto a sinistra dello schermo mostra gli indirizzo GroestlCoin che le altre persone hanno bisogno per poterti inviare dei GroestlCoin.
 			Premi per cambiare l\'indirizzo.
 		</p>
 		<p>
-			Il codice QR sulla destra contiene il tuo indirizzo digitalcoin e può essere usato per farlo leggere ad altri.
+			Il codice QR sulla destra contiene il tuo indirizzo GroestlCoin e può essere usato per farlo leggere ad altri.
 			Premi sul codice per visualizzarne una versione più grande.
 		</p>
 		<p>
@@ -21,48 +22,57 @@
 			Trascina a destra o sinistra per impostare dei filtri alla lista.
 		</p>
 		<p>
-			Puoi inviare o ricevere digitalcoins premendo i tasti nella barra delle azioni.
+			Puoi inviare o ricevere GroestlCoins premendo i tasti nella barra delle azioni.
 			Sono disponibili ulteriori comandi nel menù opzioni.
 		</p>
-	]]>\n\t</string>
-  <string name="help_request_coins">\n<![CDATA[
+	]]>
+	</string>
+  <string name="help_request_coins">
+<![CDATA[
 		<p>
-			Utilizzando questa finestra puoi richiedere dei digitalcoin ad un\'altra persona
-			(che dovrebbe aver già installato digitalcoin Wallet).
+			Utilizzando questa finestra puoi richiedere dei GroestlCoin ad un\'altra persona
+			(che dovrebbe aver già installato GroestlCoin Wallet).
 		</p>
 		<p>
-			Come prima cosa puoi inserire il numero di digitalcoin da richiedere.
+			Come prima cosa puoi inserire il numero di GroestlCoin da richiedere.
 		</p>
 		<p>
 			Poi puoi generare dei codici QR da far acquisire all\'altra persona.
+<<<<<<< HEAD
 			Oppure puoi inviare la richiesta con il tasto "condividi" nella barra azioni.
-			La persona che riceve la richiesta dovrà cliccare l\'URL digitalcoin.
+			La persona che riceve la richiesta dovrà cliccare l\'URL GroestlCoin.
+=======
+			Oppure puoi inviare la richiesta con il tasto \"condividi\" nella barra azioni.
+			La persona che riceve la richiesta dovrà cliccare l\'URL GroestlCoin.
+>>>>>>> origin/master
 		</p>
 		<p>
-			In ogni modo alla persona ricevente verrà presentata un modulo precompilato per inviare i digitalcoin.
+			In ogni modo alla persona ricevente verrà presentata un modulo precompilato per inviare i GroestlCoin.
 			Per confermare l\'invio dovrà solo accettare la transazione.
 		</p>
-	]]>\n\t</string>
-  <string name="help_send_coins">\n<![CDATA[
+	]]>
+	</string>
+  <string name="help_send_coins">
+<![CDATA[
 		<p>
-			Hai iniziato il processo per inviare digitalcoins.
-			Sei giunto qui a partire dalla schermata principale o cliccando su di un URL digitalcoin dal tuo browser.
+			Hai iniziato il processo per inviare GroestlCoins.
+			Sei giunto qui a partire dalla schermata principale o cliccando su di un URL GroestlCoin dal tuo browser.
 		</p>
 		<p>
-			Come prima cosa è necessario inserire l\'indirizzo digitalcoin a cui inviare.
+			Come prima cosa è necessario inserire l\'indirizzo GroestlCoin a cui inviare.
 			L\'indirizzo si autocompleterà in base al contenuto della tua rubrica.
-			Puoi anche acquisire un codice QR che contiene indirizzi digitalcoin o richieste digitalcoin premendo il tasto QR sulla barra azioni.
+			Puoi anche acquisire un codice QR che contiene indirizzi GroestlCoin o richieste GroestlCoin premendo il tasto QR sulla barra azioni.
 		</p>
 		<p>
-			Ti è poi possibile visualizzare quanti digitalcoin puoi spendere.
+			Ti è poi possibile visualizzare quanti GroestlCoin puoi spendere.
 			Eventuali differenze con il saldo visualizzato sulla schermata principale fanno parte di transazioni
 			non ancora confermate il cui importo non può quindi essere ancora utilizzato.
 		</p>
 		<p>
-			Puoi infine inserire il numero di digitalcoin da inviare.
+			Puoi infine inserire il numero di GroestlCoin da inviare.
 		</p>
 		<p>
-			Puoi inserire una transazione anche senza collegamento ad Internet, verrà inviata alla prossima esecuzione di digitalcoin Wallet.
+			Puoi inserire una transazione anche senza collegamento ad Internet, verrà inviata alla prossima esecuzione di GroestlCoin Wallet.
 			Se vuoi che la transazione venga processata il prima possibile assicurati di avere un buon collegamento ad Internet.
 		</p>
 		<p>
@@ -70,23 +80,25 @@
 			I pagamenti non possono essere annullate!
 			Controlla sempre la correttezza degli indirizzi di destinazione.
 		</p>
-	]]>\n\t</string>
-  <string name="help_safety">\n<![CDATA[
+	]]>
+	</string>
+  <string name="help_safety">
+<![CDATA[
 		<p>
-			<b>Alcune informazioni riguardo la sicurezza relativa ai vostri digitalcoins:</b>
+			<b>Alcune informazioni riguardo la sicurezza relativa ai vostri GroestlCoins:</b>
 		</p>
 		<p>
-			I digitalcoins di digitalcoin Wallet vengono memorizzati sul dispositivo.
-			<b>Se perdi il dispositivo, perdi i tuoi digitalcoin.</b>
+			I GroestlCoins di GroestlCoin Wallet vengono memorizzati sul dispositivo.
+			<b>Se perdi il dispositivo, perdi i tuoi GroestlCoin.</b>
 			Esattamente come denaro nel tuo vero portafoglio.
 		</p>
 		<p>
-			<b>Prima di disinstallare digitalcoin Wallet</b> (o cancellare i dati dell\'applicazione o del dispositivo), <b>trasferisci i tuoi digitalcoins ad un altro portafoglio</b>.
-			Eventuali digitalcoin non trasferiti saranno persi per sempre.
+			<b>Prima di disinstallare GroestlCoin Wallet</b> (o cancellare i dati dell\'applicazione o del dispositivo), <b>trasferisci i tuoi GroestlCoins ad un altro portafoglio</b>.
+			Eventuali GroestlCoin non trasferiti saranno persi per sempre.
 		</p>
 		<p>
 			<b>I pagamenti non possono essere annullate</b>.
-			Se invi i tuoi digitalcoin ad indirizzi errati non c\'è modo di riaverli indietro
+			Se invi i tuoi GroestlCoin ad indirizzi errati non c\'è modo di riaverli indietro
 			a meno che tu non conosca il ricevente e che sia disponibile a restituirli.
 		</p>
 		<p>
@@ -96,7 +108,8 @@
 		</p>
 		<p>
 			Tieni basso il rischio!
-			<b>Usa digitalcoin Wallet solo con piccoli importi</b> sufficienti per l\'uso quotidiano.
+			<b>Usa GroestlCoin Wallet solo con piccoli importi</b> sufficienti per l\'uso quotidiano.
 		</p>
-	]]>\n\t</string>
+	]]>
+	</string>
 </resources>

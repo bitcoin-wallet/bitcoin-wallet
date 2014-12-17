@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+	<string-array name="preferences_precision_labels">
+		<item>GRS, 8 desimaler</item>
+		<item>GRS, 6 desimaler</item>
+		<item>GRS, 4 desimaler</item>
+		<item>mGRS, 2 desimaler</item>
+		<item>µGRS, ingen desimaler</item>
+	</string-array>
+
+</resources>

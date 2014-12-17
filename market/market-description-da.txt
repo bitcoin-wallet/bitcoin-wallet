@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-Hav altid dine digitalcoins med dig i din lomme! Du betaler ved hurtigt at scanne en QR-kode. Som handlende kan du modtage betalinger pålideligt og øjeblikkeligt. digitalcoin Wallet er den første mobile digitalcoin-app, og muligvis også den mest sikre!
-=======
 <b>Hav altid dine digitalcoins med dig i din lomme!</b> Du betaler ved hurtigt at scanne en QR-kode. Som handlende kan du modtage betalinger pålideligt og øjeblikkeligt. digitalcoin Wallet er den første mobile digitalcoin-app, og muligvis også den mest sikre!
->>>>>>> upstream/master
 
 
 <b>FUNKTIONER</b>

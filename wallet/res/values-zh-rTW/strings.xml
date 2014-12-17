@@ -11,10 +11,7 @@
   <string name="blockchain_state_progress_stalled">同步停滯</string>
   <string name="blockchain_state_progress_problem_storage">同步中: 出現儲存問題</string>
   <string name="blockchain_state_progress_problem_network">同步中: 出現網路問題</string>
-  <string name="wallet_address_fragment_your">你的比特幣地址:</string>
   <string name="wallet_address_fragment_clipboard_msg">比特幣地址已經複製到剪貼簿</string>
-  <string name="wallet_addresses_fragment_add_dialog_title">新增比特幣地址</string>
-  <string name="wallet_addresses_fragment_add_dialog_message">比特幣地址無法刪除。是否要新增新的地址到你的錢包?</string>
   <string name="wallet_balance_fragment_replaying">重播中餘額無法展示</string>
   <string name="exchange_rates_activity_title">匯率</string>
   <string name="exchange_rates_fragment_empty_text">無法讀取匯率</string>
@@ -34,13 +31,12 @@
   <string name="wallet_transactions_row_warning_backup">恭喜你收到第一筆付款! 你是否已經&lt;u&gt;備份好你的錢包&lt;/u&gt;來防止意外發生?</string>
   <string name="wallet_transactions_fragment_coinbase">已採礦</string>
   <string name="wallet_transactions_fragment_internal">內部</string>
-  <string name="wallet_transactions_context_show_qr_title">展示QR二維條碼</string>
   <string name="wallet_options_safety_menu">安全性</string>
   <string name="wallet_options_safety">安全提示</string>
   <string name="wallet_options_donate">捐贈</string>
-  <string name="wallet_donate_address_label">捐贈給digitalcoin Wallet App</string>
+  <string name="wallet_donate_address_label">捐贈給GroestlCoin Wallet App</string>
   <string name="wallet_low_storage_dialog_title">儲存空間不足!</string>
-  <string name="wallet_low_storage_dialog_msg">digitalcoin Wallet App 使用手機內部儲存空間來紀錄交易，如果空間不足該 App 無法正常運作而且可能導致你的比特幣不安全!\n\n你是否需要開啟應用程式頁來刪除一些較少使用 app?</string>
+  <string name="wallet_low_storage_dialog_msg">GroestlCoin Wallet App 使用手機內部儲存空間來紀錄交易，如果空間不足該 App 無法正常運作而且可能導致你的比特幣不安全!\n\n你是否需要開啟應用程式頁來刪除一些較少使用 app?</string>
   <string name="wallet_low_storage_dialog_button_apps">管理App</string>
   <string name="wallet_timeskew_dialog_title">確認你的時間設定!</string>
   <string name="wallet_timeskew_dialog_msg">你的裝置時間慢了 %d 分，你可能無法收付比特幣，\n\n你應該再確認你的時間與時區設定正確。</string>
@@ -50,7 +46,7 @@
   <string name="wallet_version_dialog_button_market">Google Play</string>
   <string name="wallet_version_dialog_button_binary">下載</string>
   <string name="wallet_old_sdk_dialog_title">Android 版本太舊</string>
-  <string name="wallet_old_sdk_dialog_message">很可能下個版本的 digitalcoin Wallet App 將不再支援你的裝置，某些狀況下可能導致難以付款，\n\n除非你確認其中風險，不然建議你儘快將錢包的錢轉出。</string>
+  <string name="wallet_old_sdk_dialog_message">很可能下個版本的 GroestlCoin Wallet App 將不再支援你的裝置，某些狀況下可能導致難以付款，\n\n除非你確認其中風險，不然建議你儘快將錢包的錢轉出。</string>
   <string name="send_coins_activity_title">比特幣付款</string>
   <string name="send_coins_fragment_request_payment_request_progress">由 %s 讀取簽名…</string>
   <string name="send_coins_fragment_request_payment_request_failed_title">讀取簽名失敗</string>
@@ -60,8 +56,6 @@
   <string name="send_coins_fragment_receiving_address_label">付給</string>
   <string name="send_coins_fragment_receiving_address_hint">輸入地址或是名稱</string>
   <string name="send_coins_fragment_receiving_address_error">無效比特幣地址!</string>
-  <string name="send_coins_fragment_receiving_address_error_cross_network">錢包無法使用 %s 這個地址!</string>
-  <string name="send_coins_fragment_receiving_address_error_cross_network_unknown">錢包無法使用未知網路的比特幣地址!</string>
   <string name="send_coins_fragment_receiving_address_complex">複雜\n地址</string>
   <string name="send_coins_fragment_pending">(%s 等候確認)</string>
   <string name="send_coins_fragment_amount_label">總金額</string>
@@ -108,9 +102,7 @@
   <string name="address_book_context_send_title">付款到該地址</string>
   <string name="address_book_context_edit_title">編輯地址</string>
   <string name="address_book_context_remove_title">移除地址</string>
-  <string name="address_book_context_show_qr_title">顯示 QR 二維條碼</string>
   <string name="address_book_context_copy_to_clipboard_title">複製到剪貼簿</string>
-  <string name="address_book_context_default_title">設為預設地址</string>
   <string name="address_book_options_paste_from_clipboard_title">從剪貼簿貼上</string>
   <string name="address_book_options_paste_from_clipboard_empty">剪貼簿是空的。</string>
   <string name="address_book_options_paste_from_clipboard_invalid">剪貼簿資料無法辨識</string>
@@ -146,13 +138,9 @@
   <string name="import_keys_dialog_file_created_manual">手動備份 %s</string>
   <string name="import_keys_dialog_button_import">復原</string>
   <string name="restore_wallet_dialog_success">錢包已經回覆</string>
-  <string name="import_keys_dialog_success_imported">%d 私人金鑰已經復原</string>
-  <string name="import_keys_dialog_success_existing">%d 私人金鑰因為已經存在錢包中無法復原。</string>
-  <string name="import_keys_dialog_success_reset">更新你的餘額需要將區塊鏈重建，是否進行?</string>
   <string name="import_keys_dialog_failure">錢包無法回復:\n\n%s\n\n密碼錯誤?</string>
-  <string name="import_keys_dialog_button_reset_blockchain">重設</string>
   <string name="export_keys_dialog_title">備份錢包</string>
-  <string name="export_keys_dialog_message">你的錢包將依照選取密碼加密並存到外部存放</string>
+  <string name="backup_wallet_dialog_message">你的錢包將依照選取密碼加密並存到外部存放</string>
   <string name="export_keys_dialog_button_export">備份</string>
   <string name="export_keys_dialog_success"><![CDATA[<p>你的錢包已被備份到 <tt>%s</tt></p><p>如果你的裝置裡有可移除 SD 記憶卡，你的備份<i>應該</i>在卡裡面。移除該卡片並保管到安全地方。如果該卡片為<i>不可移除</i> ，你需要將該檔案歸檔取出到其他地方。</p><p><b>如果你只將備份放裝置裡面，你裝置遺失時一起遺失備份!</b></p><p>無論如何，請記得你的備份密碼，現在你確認要歸檔你的錢包 嗎？</p>]]></string>
   <string name="export_keys_dialog_failure">你的錢包無法備份 :\n%s</string>
@@ -175,7 +163,6 @@
   <string name="input_parser_invalid_paymentrequest">無效付款請求:\n%s</string>
   <string name="input_parser_invalid_transaction">無效交易:\n%s</string>
   <string name="preferences_activity_title">設定</string>
-  <string name="preferences_category_main">偏好</string>
   <string name="preferences_category_diagnostics">診斷</string>
   <string name="preferences_category_labs">實驗室功能</string>
   <string name="preferences_precision_title">顯示單位</string>
@@ -211,16 +198,13 @@
   <string name="about_copyright_title">著作權</string>
   <string name="about_license_title">授權</string>
   <string name="about_source_title">原始碼</string>
-  <string name="about_credits_bitcoinj_title">本 app 使用 digitalcoinj %s</string>
+  <string name="about_credits_bitcoinj_title">本 app 使用 groestlcoinj %s</string>
   <string name="about_credits_zxing_title">本 app 使用 \'zxing\'</string>
   <string name="about_credits_icon_title">本 app 使用圖標來自\'bitboy\'</string>
   <string name="about_community_googleplus_title">Google+ 社群</string>
   <string name="about_community_googleplus_summary">討論本 app</string>
-  <string name="about_author_twitter_title">作者的 Twitter</string>
-  <string name="about_author_googleplus_title">作者的 Google+</string>
   <string name="about_market_app_title">Google Play 商店頁面</string>
   <string name="about_market_app_summary">app評分</string>
-  <string name="about_credits_market_publisher_title">該作者其他app</string>
   <string name="notification_coins_received_msg">收到 %s</string>
   <string name="notification_peers_connected_msg">%d 節點連線</string>
   <!--generic buttons-->
@@ -241,6 +225,7 @@
   <string name="button_scan">掃描</string>
   <string name="button_edit_address">新增/編輯地址</string>
   <string name="button_settings">設定</string>
+  <string name="action_show_qr">展示QR二維條碼</string>
   <string name="action_browse">瀏覽</string>
   <string name="time_today">今天</string>
   <string name="address_unlabeled">(無標籤)</string>

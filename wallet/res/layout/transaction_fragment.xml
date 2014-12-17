@@ -81,7 +81,7 @@
 			android:layout_height="wrap_content"
 			android:layout_gravity="bottom"
 			android:focusable="true"
-			android:foreground="@drawable/dropdown_ic_arrow"
+			android:foreground="@drawable/dropdown_ic_arrow_small"
 			android:foregroundGravity="bottom|right" >
 
 			<TextView
@@ -111,7 +111,7 @@
 			android:layout_height="wrap_content"
 			android:layout_gravity="bottom"
 			android:focusable="true"
-			android:foreground="@drawable/dropdown_ic_arrow"
+			android:foreground="@drawable/dropdown_ic_arrow_small"
 			android:foregroundGravity="bottom|right" >
 
 			<TextView
@@ -179,7 +179,7 @@
 			android:layout_height="wrap_content"
 			android:layout_gravity="bottom"
 			android:focusable="true"
-			android:foreground="@drawable/dropdown_ic_arrow"
+			android:foreground="@drawable/dropdown_ic_arrow_small"
 			android:foregroundGravity="bottom|right" >
 
 			<TextView

@@ -18,9 +18,9 @@
 package de.schildbach.wallet.ui;
 
 import android.content.Context;
+import android.content.CursorLoader;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
-import android.support.v4.content.CursorLoader;
 import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.ExchangeRatesProvider;
 
@@ -33,7 +33,7 @@ public final class ExchangeRateLoader extends CursorLoader implements OnSharedPr
 
 	public ExchangeRateLoader(final Context context, final Configuration config)
 	{
-		super(context, ExchangeRatesProvider.contentUri(context.getPackageName()), null, ExchangeRatesProvider.KEY_CURRENCY_CODE,
+		super(context, ExchangeRatesProvider.contentUri(context.getPackageName(), false), null, ExchangeRatesProvider.KEY_CURRENCY_CODE,
 				new String[] { null }, null);
 
 		this.config = config;

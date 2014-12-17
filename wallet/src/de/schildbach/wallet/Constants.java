@@ -19,15 +19,18 @@ package de.schildbach.wallet;
 
 import java.io.File;
 
+import org.bitcoinj.core.NetworkParameters;
+import org.bitcoinj.params.MainNetParams;
+import org.bitcoinj.params.TestNet3Params;
+import org.bitcoinj.utils.MonetaryFormat;
+
 import android.os.Build;
 import android.os.Environment;
 import android.text.format.DateUtils;
 
-import com.google.bitcoin.core.NetworkParameters;
-import com.google.bitcoin.params.MainNetParams;
-import com.google.bitcoin.params.TestNet3Params;
-import com.google.bitcoin.core.CoinDefinition;
-import hashengineering.digitalcoin.wallet.R;
+
+import org.bitcoinj.core.CoinDefinition;
+import hashengineering.groestlcoin.wallet.R;
 
 /**
  * @author Andreas Schildbach
@@ -65,11 +68,11 @@ public final class Constants
 		public static final String BLOCKCHAIN_FILENAME = "blockchain" + FILENAME_NETWORK_SUFFIX;
 
 		/** Filename of the block checkpoints file. */
-		public static final String CHECKPOINTS_FILENAME = "checkpoints" + FILENAME_NETWORK_SUFFIX;
+		public static final String CHECKPOINTS_FILENAME = "checkpoints" + FILENAME_NETWORK_SUFFIX + ".txt";
 	}
 
 	/** Maximum size of backups. Files larger will be rejected. */
-	public static final long BACKUP_MAX_CHARS = 5000000;
+	public static final long BACKUP_MAX_CHARS = 10000000;
 
 	private static final String EXPLORE_BASE_URL_PROD = CoinDefinition.BLOCKEXPLORER_BASE_URL_PROD;
 	private static final String EXPLORE_BASE_URL_TEST = CoinDefinition.BLOCKEXPLORER_BASE_URL_TEST;
@@ -112,7 +115,6 @@ public final class Constants
 
 	public static final String DEFAULT_EXCHANGE_CURRENCY = "USD";
 
-
     /** Currency code for base 1 Bitcoin. */
 	public static final String CURRENCY_CODE_BTC = CoinDefinition.coinTicker;
 
@@ -137,25 +139,19 @@ public final class Constants
 	public static final char CHAR_THIN_SPACE = '\u2009';
 	public static final char CHAR_ALMOST_EQUAL_TO = '\u2248';
 	public static final char CHAR_CHECKMARK = '\u2713';
-	public static final String CURRENCY_PLUS_SIGN = "+" + CHAR_THIN_SPACE;
-	public static final String CURRENCY_MINUS_SIGN = "-" + CHAR_THIN_SPACE;
+	public static final char CURRENCY_PLUS_SIGN = '\uff0b';
+	public static final char CURRENCY_MINUS_SIGN = '\uff0d';
 	public static final String PREFIX_ALMOST_EQUAL_TO = Character.toString(CHAR_ALMOST_EQUAL_TO) + CHAR_THIN_SPACE;
 	public static final int ADDRESS_FORMAT_GROUP_SIZE = 4;
 	public static final int ADDRESS_FORMAT_LINE_SIZE = 12;
 
+//<<<<<<< HEAD
 	public static final int BTC_MAX_PRECISION = 8;
-	public static final int MBTC_MAX_PRECISION = 5;
-
-	public static final int LOCAL_PRECISION = 8;        //altcoins need more digits in BTC
-
-	public static final int UBTC_MAX_PRECISION = 2;
 
 	public static final String LICENSE_URL = "http://www.gnu.org/licenses/gpl-3.0.txt";
 
-    public static final String FORKED_FROM_SOURCE = "based on bitcoin-wallet 3.55\n";
+    public static final String FORKED_FROM_SOURCE = "based on bitcoin-wallet 4.14\n";
     public static final String FORKED_FROM_SOURCE_BITCOINJ = "based on bitcoinj 0.12\n";
-	public static final String SOURCE_URL = "https://github.com/HashEngineering/" + CoinDefinition.coinName.toLowerCase() + "-wallet";
-	public static final String BINARY_URL = "https://github.com/HashEngineering/"+ CoinDefinition.coinName.toLowerCase() +"-wallet/releases";
 	public static final String CREDITS_BITCOINJ_URL = "https://github.com/HashEngineering/" + CoinDefinition.coinName.toLowerCase() + "j";
 	public static final String CREDITS_ZXING_URL = "http://code.google.com/p/zxing/";
     public static final String CREDITS_WEBSITE_URL = "http://digitalcoin.co/";
@@ -168,11 +164,19 @@ public final class Constants
 
 	public static final String COMMUNITY_GOOGLEPLUS_URL = "https://plus.google.com/communities/105515929887248493912";
 
-	public static final String MARKET_APP_URL = "market://details?id=%s";
-	public static final String WEBMARKET_APP_URL = "https://play.google.com/store/apps/details?id=%s";
+
 	public static final String MARKET_PUBLISHER_URL = "market://search?q=pub:\"Hash Engineering Solutions\"";
+//=======
+	public static final MonetaryFormat LOCAL_FORMAT = new MonetaryFormat().noCode().minDecimals(2).optionalDecimals();
+
+    public static final String SOURCE_URL = "https://github.com/HashEngineering/" + CoinDefinition.coinName.toLowerCase() + "-wallet";
+    public static final String BINARY_URL = "https://github.com/HashEngineering/"+ CoinDefinition.coinName.toLowerCase() +"-wallet/releases";
+
+    public static final String MARKET_APP_URL = "market://details?id=%s";
+    public static final String WEBMARKET_APP_URL = "https://play.google.com/store/apps/details?id=%s";//>>>>>>> origin/master
 
 	public static final int HTTP_TIMEOUT_MS = 15 * (int) DateUtils.SECOND_IN_MILLIS;
+	public static final int PEER_TIMEOUT_MS = 15 * (int) DateUtils.SECOND_IN_MILLIS;
 
 	public static final long LAST_USAGE_THRESHOLD_JUST_MS = DateUtils.HOUR_IN_MILLIS;
 	public static final long LAST_USAGE_THRESHOLD_RECENTLY_MS = 2 * DateUtils.DAY_IN_MILLIS;

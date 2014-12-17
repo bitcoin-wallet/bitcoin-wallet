@@ -17,18 +17,18 @@
 
 package de.schildbach.wallet;
 
-import java.math.BigInteger;
-
-import javax.annotation.Nonnull;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.text.format.DateUtils;
 import de.schildbach.wallet.ExchangeRatesProvider.ExchangeRate;
+import org.bitcoinj.core.Coin;
+import org.bitcoinj.utils.Fiat;
+import org.bitcoinj.utils.MonetaryFormat;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import javax.annotation.Nonnull;
 
 /**
  * @author Andreas Schildbach
@@ -45,17 +45,18 @@ public class Configuration
 	public static final String PREFS_KEY_TRUSTED_PEER = "trusted_peer";
 	public static final String PREFS_KEY_TRUSTED_PEER_ONLY = "trusted_peer_only";
 	public static final String PREFS_KEY_DISCLAIMER = "disclaimer";
-	public static final String PREFS_KEY_SELECTED_ADDRESS = "selected_address";
 	private static final String PREFS_KEY_LABS_QR_PAYMENT_REQUEST = "labs_qr_payment_request";
 
 	private static final String PREFS_KEY_LAST_VERSION = "last_version";
 	private static final String PREFS_KEY_LAST_USED = "last_used";
 	private static final String PREFS_KEY_BEST_CHAIN_HEIGHT_EVER = "best_chain_height_ever";
 	private static final String PREFS_KEY_CACHED_EXCHANGE_CURRENCY = "cached_exchange_currency";
-	private static final String PREFS_KEY_CACHED_EXCHANGE_RATE = "cached_exchange_rate";
+	private static final String PREFS_KEY_CACHED_EXCHANGE_RATE_COIN = "cached_exchange_rate_coin";
+	private static final String PREFS_KEY_CACHED_EXCHANGE_RATE_FIAT = "cached_exchange_rate_fiat";
 	private static final String PREFS_KEY_LAST_EXCHANGE_DIRECTION = "last_exchange_direction";
 	private static final String PREFS_KEY_CHANGE_LOG_VERSION = "change_log_version";
 	public static final String PREFS_KEY_REMIND_BACKUP = "remind_backup";
+	private static final String PREFS_KEY_LAST_BACKUP = "last_backup";
 
 	private static final int PREFS_DEFAULT_BTC_SHIFT = 0;
 	private static final int PREFS_DEFAULT_BTC_PRECISION = 2;
@@ -69,30 +70,13 @@ public class Configuration
 		this.lastVersionCode = prefs.getInt(PREFS_KEY_LAST_VERSION, 0);
 	}
 
-	public boolean hasBtcPrecision()
-	{
-		return prefs.contains(PREFS_KEY_BTC_PRECISION);
-	}
-
-	public int getBtcPrecision()
+	private int getBtcPrecision()
 	{
 		final String precision = prefs.getString(PREFS_KEY_BTC_PRECISION, null);
 		if (precision != null)
 			return precision.charAt(0) - '0';
 		else
 			return PREFS_DEFAULT_BTC_PRECISION;
-	}
-
-	public int getBtcMaxPrecision()
-	{
-		final int btcShift = getBtcShift();
-
-		if (btcShift == 0)
-			return Constants.BTC_MAX_PRECISION;
-		else if (btcShift == 3)
-			return Constants.MBTC_MAX_PRECISION;
-		else
-			return Constants.UBTC_MAX_PRECISION;
 	}
 
 	public int getBtcShift()
@@ -104,16 +88,23 @@ public class Configuration
 			return PREFS_DEFAULT_BTC_SHIFT;
 	}
 
-	public String getBtcPrefix()
+	public MonetaryFormat getFormat()
 	{
-		final int btcShift = getBtcShift();
+		final int shift = getBtcShift();
+		final int minPrecision = shift <= 3 ? 2 : 0;
+		final int decimalRepetitions = (getBtcPrecision() - minPrecision) / 2;
+		return new MonetaryFormat().shift(shift).minDecimals(minPrecision).repeatOptionalDecimals(2, decimalRepetitions);
+	}
 
-		if (btcShift == 0)
-			return Constants.CURRENCY_CODE_BTC;
-		else if (btcShift == 3)
-			return Constants.CURRENCY_CODE_MBTC;
+	public MonetaryFormat getMaxPrecisionFormat()
+	{
+		final int shift = getBtcShift();
+		if (shift == 0)
+			return new MonetaryFormat().shift(0).minDecimals(2).optionalDecimals(2, 2, 2);
+		else if (shift == 3)
+			return new MonetaryFormat().shift(3).minDecimals(2).optionalDecimals(2, 1);
 		else
-			return Constants.CURRENCY_CODE_UBTC;
+			return new MonetaryFormat().shift(6).minDecimals(0).optionalDecimals(2);
 	}
 
 	public boolean getConnectivityNotificationEnabled()
@@ -136,6 +127,11 @@ public class Configuration
 		return prefs.getBoolean(PREFS_KEY_REMIND_BACKUP, true);
 	}
 
+	public long getLastBackupTime()
+	{
+		return prefs.getLong(PREFS_KEY_LAST_BACKUP, 0);
+	}
+
 	public void armBackupReminder()
 	{
 		prefs.edit().putBoolean(PREFS_KEY_REMIND_BACKUP, true).commit();
@@ -143,22 +139,12 @@ public class Configuration
 
 	public void disarmBackupReminder()
 	{
-		prefs.edit().putBoolean(PREFS_KEY_REMIND_BACKUP, false).commit();
+		prefs.edit().putBoolean(PREFS_KEY_REMIND_BACKUP, false).putLong(PREFS_KEY_LAST_BACKUP, System.currentTimeMillis()).commit();
 	}
 
 	public boolean getDisclaimerEnabled()
 	{
 		return prefs.getBoolean(PREFS_KEY_DISCLAIMER, true);
-	}
-
-	public String getSelectedAddress()
-	{
-		return prefs.getString(PREFS_KEY_SELECTED_ADDRESS, null);
-	}
-
-	public void setSelectedAddress(final String address)
-	{
-		prefs.edit().putString(PREFS_KEY_SELECTED_ADDRESS, address).commit();
 	}
 
 	public String getExchangeCurrencyCode()
@@ -216,18 +202,21 @@ public class Configuration
 		return prefs.getInt(PREFS_KEY_BEST_CHAIN_HEIGHT_EVER, 0);
 	}
 
-	public void setBestChainHeightEver(final int bestChainHeightEver)
+	public void maybeIncrementBestChainHeightEver(final int bestChainHeightEver)
 	{
-		prefs.edit().putInt(PREFS_KEY_BEST_CHAIN_HEIGHT_EVER, bestChainHeightEver).commit();
+		if (bestChainHeightEver > getBestChainHeightEver())
+			prefs.edit().putInt(PREFS_KEY_BEST_CHAIN_HEIGHT_EVER, bestChainHeightEver).commit();
 	}
 
 	public ExchangeRate getCachedExchangeRate()
 	{
-		if (prefs.contains(PREFS_KEY_CACHED_EXCHANGE_CURRENCY) && prefs.contains(PREFS_KEY_CACHED_EXCHANGE_RATE))
+		if (prefs.contains(PREFS_KEY_CACHED_EXCHANGE_CURRENCY) && prefs.contains(PREFS_KEY_CACHED_EXCHANGE_RATE_COIN)
+				&& prefs.contains(PREFS_KEY_CACHED_EXCHANGE_RATE_FIAT))
 		{
 			final String cachedExchangeCurrency = prefs.getString(PREFS_KEY_CACHED_EXCHANGE_CURRENCY, null);
-			final BigInteger cachedExchangeRate = BigInteger.valueOf(prefs.getLong(PREFS_KEY_CACHED_EXCHANGE_RATE, 0));
-			return new ExchangeRate(cachedExchangeCurrency, cachedExchangeRate, null);
+			final Coin cachedExchangeRateCoin = Coin.valueOf(prefs.getLong(PREFS_KEY_CACHED_EXCHANGE_RATE_COIN, 0));
+			final Fiat cachedExchangeRateFiat = Fiat.valueOf(cachedExchangeCurrency, prefs.getLong(PREFS_KEY_CACHED_EXCHANGE_RATE_FIAT, 0));
+			return new ExchangeRate(new org.bitcoinj.utils.ExchangeRate(cachedExchangeRateCoin, cachedExchangeRateFiat), null);
 		}
 		else
 		{
@@ -238,8 +227,9 @@ public class Configuration
 	public void setCachedExchangeRate(final ExchangeRate cachedExchangeRate)
 	{
 		final Editor edit = prefs.edit();
-		edit.putString(PREFS_KEY_CACHED_EXCHANGE_CURRENCY, cachedExchangeRate.currencyCode);
-		edit.putLong(PREFS_KEY_CACHED_EXCHANGE_RATE, cachedExchangeRate.rate.longValue());
+		edit.putString(PREFS_KEY_CACHED_EXCHANGE_CURRENCY, cachedExchangeRate.getCurrencyCode());
+		edit.putLong(PREFS_KEY_CACHED_EXCHANGE_RATE_COIN, cachedExchangeRate.rate.coin.value);
+		edit.putLong(PREFS_KEY_CACHED_EXCHANGE_RATE_FIAT, cachedExchangeRate.rate.fiat.value);
 		edit.commit();
 	}
 

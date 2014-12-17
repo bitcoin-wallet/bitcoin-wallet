@@ -6,14 +6,15 @@
 	<dimen name="font_size_normal">18sp</dimen>
 	<dimen name="font_size_large">24sp</dimen>
 	<dimen name="font_size_xlarge">28sp</dimen>
-	<dimen name="font_size_huge">42sp</dimen>
+	<dimen name="font_size_huge">36sp</dimen>
 	<dimen name="symbol_size_normal">14sp</dimen>
 	<dimen name="list_entry_padding_horizontal">12dp</dimen>
 	<dimen name="list_entry_padding_horizontal_lax">20dp</dimen>
 	<dimen name="list_entry_padding_vertical">6dp</dimen>
 	<dimen name="list_entry_padding_vertical_lax">10dp</dimen>
 	<dimen name="divider_currency_padding">0dp</dimen>
-	<dimen name="wallet_address_qr_size">96dp</dimen>
-	<dimen name="wallet_address_qr_size_large">128dp</dimen>
+	<dimen name="wallet_address_qr_size">80dp</dimen>
+	<dimen name="request_coins_qr_size">128dp</dimen>
+	<dimen name="bitmap_dialog_qr_size">256dp</dimen>
 
 </resources>

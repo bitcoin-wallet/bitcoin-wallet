@@ -21,7 +21,6 @@ import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.math.BigInteger;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Collection;
@@ -32,7 +31,15 @@ import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import com.google.bitcoin.core.*;
+import org.bitcoinj.core.CoinDefinition;
+import org.bitcoinj.core.Address;
+import org.bitcoinj.core.Coin;
+import org.bitcoinj.core.NetworkParameters;
+import org.bitcoinj.core.Sha256Hash;
+import org.bitcoinj.core.Transaction;
+import org.bitcoinj.core.TransactionConfidence.ConfidenceType;
+import org.bitcoinj.core.TransactionOutput;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -42,13 +49,13 @@ import org.slf4j.LoggerFactory;
 import android.os.Handler;
 import android.os.Looper;
 
-import com.google.bitcoin.core.TransactionConfidence.ConfidenceType;
+
 import com.google.common.base.Charsets;
 import com.google.common.io.BaseEncoding;
 
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.util.Io;
-import hashengineering.digitalcoin.wallet.R;
+import hashengineering.groestlcoin.wallet.R;
 
 /**
  * @author Andreas Schildbach
@@ -172,7 +179,7 @@ public final class RequestWalletBalanceTask
                             Sha256Hash uxtoHash = null;
                             int uxtoIndex = 0;
                             byte[] uxtoScriptBytes = null;
-                            BigInteger uxtoValue = null;
+                            Coin uxtoValue = null;
 
                             if(CoinDefinition.UnspentAPI != CoinDefinition.UnspentAPIType.Blockr)
                             {
@@ -181,16 +188,25 @@ public final class RequestWalletBalanceTask
                                 uxtoHash = new Sha256Hash(jsonOutput.getString("transaction_hash"));
                                 uxtoIndex = jsonOutput.getInt("transaction_index");
                                 uxtoScriptBytes = HEX.decode(jsonOutput.getString("script_pub_key"));
-                                uxtoValue = new BigInteger(jsonOutput.getString("value"));
+                                uxtoValue = Coin.valueOf(jsonOutput.getLong("value"));
                             }
                             else
                             {
                                 uxtoHash = new Sha256Hash(jsonOutput.getString("tx"));
                                 uxtoIndex = jsonOutput.getInt("n");
                                 uxtoScriptBytes = HEX.decode(jsonOutput.getString("script"));
-                                uxtoValue = BigInteger.valueOf((long)(Double.parseDouble(String.format("%.08f", jsonOutput.getDouble("amount")).replace(",", ".")) *100000000));
+                                uxtoValue = Coin.valueOf((long)(Double.parseDouble(String.format("%.08f", jsonOutput.getDouble("amount")).replace(",", ".")) *100000000));
                                 //jsonOutput.getInt("confirmations");
                             }
+/*=======
+							if (jsonOutput.getInt("is_spent") != 0)
+								throw new IllegalStateException("UXTO not spent");
+
+							final Sha256Hash uxtoHash = new Sha256Hash(jsonOutput.getString("transaction_hash"));
+							final int uxtoIndex = jsonOutput.getInt("transaction_index");
+							final byte[] uxtoScriptBytes = HEX.decode(jsonOutput.getString("script_pub_key"));
+							final Coin uxtoValue = Coin.valueOf(Long.parseLong(jsonOutput.getString("value")));
+*/
 
 							Transaction tx = transactions.get(uxtoHash);
 							if (tx == null)
@@ -206,7 +222,7 @@ public final class RequestWalletBalanceTask
 
 							// fill with dummies
 							while (tx.getOutputs().size() < uxtoIndex)
-								tx.addOutput(new TransactionOutput(Constants.NETWORK_PARAMETERS, tx, Utils.NEGATIVE_ONE, new byte[] {}));
+								tx.addOutput(new TransactionOutput(Constants.NETWORK_PARAMETERS, tx, Coin.NEGATIVE_SATOSHI, new byte[] {}));
 
 							// add the real output
 							final TransactionOutput output = new TransactionOutput(Constants.NETWORK_PARAMETERS, tx, uxtoValue, uxtoScriptBytes);
@@ -289,7 +305,7 @@ public final class RequestWalletBalanceTask
 
 		public FakeTransaction(final NetworkParameters params, final Sha256Hash hash)
 		{
-			super(params, 1, hash);
+			super(params);
 			this.hash = hash;
 		}
 

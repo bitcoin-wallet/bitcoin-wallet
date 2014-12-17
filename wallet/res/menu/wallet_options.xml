@@ -35,13 +35,17 @@
 				android:showAsAction="never"
 				android:title="@string/wallet_options_safety"/>
 			<item
-				android:id="@+id/wallet_options_export_keys"
+				android:id="@+id/wallet_options_backup_wallet"
 				android:showAsAction="never"
 				android:title="@string/export_keys_dialog_title"/>
 			<item
-				android:id="@+id/wallet_options_import_keys"
+				android:id="@+id/wallet_options_restore_wallet"
 				android:showAsAction="never"
 				android:title="@string/import_keys_dialog_title"/>
+			<item
+				android:id="@+id/wallet_options_encrypt_keys"
+				android:showAsAction="never"
+				android:title="@string/encrypt_keys_dialog_title"/>
 		</menu>
 	</item>
 
@@ -65,10 +69,6 @@
 		android:id="@+id/wallet_options_preferences"
 		android:showAsAction="never"
 		android:title="@string/preferences_activity_title"/>
-	<item
-		android:id="@+id/wallet_options_about"
-		android:showAsAction="never"
-		android:title="@string/about_title"/>
 	<item
 		android:id="@+id/wallet_options_donate"
 		android:showAsAction="never"

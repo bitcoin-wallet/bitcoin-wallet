@@ -2,16 +2,15 @@
 <!-- Need to update this for the coin -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:tools="http://schemas.android.com/tools"
-	package="hashengineering.digitalcoin.wallet"
+	package="hashengineering.groestlcoin.wallet"
 	android:installLocation="internalOnly"
 
-	android:versionCode="3003561"
-	android:versionName="3.01.3561" >
-
+	android:versionCode="204"
+	android:versionName="0.14-test" >
 
 	<uses-sdk
-		android:minSdkVersion="10"
-		android:targetSdkVersion="11"
+		android:minSdkVersion="15"
+		android:targetSdkVersion="16"
 		tools:ignore="OldTargetApi" />
 
 	<uses-permission android:name="android.permission.INTERNET" />
@@ -21,7 +20,6 @@
 	<uses-permission android:name="android.permission.CAMERA" />
 	<uses-permission android:name="android.permission.VIBRATE" />
 	<uses-permission android:name="android.permission.WAKE_LOCK" />
-	<uses-permission android:name="android.permission.BROADCAST_STICKY" />
 	<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 	<uses-permission android:name="android.permission.BLUETOOTH" />
 
@@ -60,7 +58,6 @@
 	<application
 		android:name="de.schildbach.wallet.WalletApplication"
 		android:allowBackup="false"
-		android:hardwareAccelerated="true"
 		android:icon="@drawable/app_icon"
 		android:label="@string/app_name"
 		android:theme="@style/My.Theme" >
@@ -95,7 +92,7 @@
 			<intent-filter android:label="@string/send_coins_activity_title" >
 				<action android:name="android.intent.action.VIEW" />
 
-				<data android:scheme="digitalcoin" />
+				<data android:scheme="groestlcoin" />
 
 				<category android:name="android.intent.category.DEFAULT" />
 				<category android:name="android.intent.category.BROWSABLE" />
@@ -103,21 +100,21 @@
 			<intent-filter android:label="@string/send_coins_activity_title" >
 				<action android:name="android.nfc.action.NDEF_DISCOVERED" />
 
-				<data android:scheme="digitalcoin" />
+				<data android:scheme="groestlcoin" />
 
 				<category android:name="android.intent.category.DEFAULT" />
 			</intent-filter>
 			<intent-filter android:label="@string/send_coins_activity_title" >
 				<action android:name="android.intent.action.VIEW" />
 
-				<data android:mimeType="application/digitalcoin-paymentrequest" />
+				<data android:mimeType="application/groestlcoin-paymentrequest" />
 
 				<category android:name="android.intent.category.DEFAULT" />
 			</intent-filter>
 			<intent-filter android:label="@string/send_coins_activity_title" >
 				<action android:name="android.nfc.action.NDEF_DISCOVERED" />
 
-				<data android:mimeType="application/digitalcoin-paymentrequest" />
+				<data android:mimeType="application/groestlcoin-paymentrequest" />
 
 				<category android:name="android.intent.category.DEFAULT" />
 			</intent-filter>
@@ -163,15 +160,11 @@
 			android:label="@string/network_monitor_activity_title"
 			android:screenOrientation="behind" />
 		<activity
-			android:name="de.schildbach.wallet.ui.PreferencesActivity"
+			android:name="de.schildbach.wallet.ui.preference.PreferenceActivity"
 			android:label="@string/preferences_activity_title"
 			android:screenOrientation="behind" />
 		<activity
-			android:name="de.schildbach.wallet.ui.AboutActivity"
-			android:label="@string/about_title"
-			android:screenOrientation="behind" />
-		<activity
-			android:name="de.schildbach.wallet.ui.ImportKeysActivity"
+			android:name="de.schildbach.wallet.ui.RestoreWalletActivity"
 			android:configChanges="orientation|keyboard|keyboardHidden"
 			android:theme="@style/My.Theme.Dialog" >
 			<intent-filter android:label="@string/import_keys_intent_filter_action" >
@@ -179,7 +172,7 @@
 
 				<category android:name="android.intent.category.DEFAULT" />
 
-				<data android:mimeType="application/x-digitalcoin-wallet-backup" />
+				<data android:mimeType="application/x-groestlcoin-wallet-backup" />
 				<data android:mimeType="application/octet-stream" />
 			</intent-filter>
 		</activity>
@@ -200,17 +193,22 @@
 
 		<provider
 			android:name="de.schildbach.wallet.AddressBookProvider"
-			android:authorities="hashengineering.digitalcoin.wallet.address_book"
+			android:authorities="hashengineering.groestlcoin.wallet.address_book"
 			android:exported="false" />
         <!-- Need to update this for the coin -->
 		<provider
 			android:name="de.schildbach.wallet.ExchangeRatesProvider"
-			android:authorities="hashengineering.digitalcoin.wallet.exchange_rates"
+			android:authorities="hashengineering.groestlcoin.wallet.exchange_rates"
 			android:exported="false" />
+		<provider
+			android:name="de.schildbach.wallet.FileAttachmentProvider"
+			android:authorities="de.schildbach.wallet_test.file_attachment"
+			android:exported="false"
+			android:grantUriPermissions="true" />
 
 		<receiver
 			android:name="de.schildbach.wallet.WalletBalanceWidgetProvider"
-			android:label="digitalcoin Wallet Balance" >
+			android:label="Groestlcoin Wallet Balance" >
 			<intent-filter>
 				<action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
 			</intent-filter>
@@ -232,11 +230,17 @@
 				<action android:name="android.intent.action.BOOT_COMPLETED" />
 			</intent-filter>
 			<intent-filter>
-				<action android:name="android.intent.action.PACKAGE_REPLACED" />
-
-				<data android:scheme="package" />
+				<action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
 			</intent-filter>
 		</receiver>
+
+		<service
+			android:name="de.schildbach.wallet.service.UpgradeWalletService"
+			android:exported="false" />
+
+		<meta-data
+			android:name="android.nfc.disable_beam_default"
+			android:value="true" />
 	</application>
 
 </manifest>

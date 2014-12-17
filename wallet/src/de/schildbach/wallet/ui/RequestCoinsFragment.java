@@ -17,33 +17,48 @@
 
 package de.schildbach.wallet.ui;
 
-import java.math.BigInteger;
+import java.util.concurrent.atomic.AtomicReference;
 
 import javax.annotation.CheckForNull;
 
+import org.bitcoinj.core.CoinDefinition;
+import org.bitcoinj.core.Address;
+import org.bitcoinj.core.Coin;
+import org.bitcoinj.core.Wallet;
+import org.bitcoinj.protocols.payments.PaymentProtocol;
+import org.bitcoinj.uri.BitcoinURI;
 
-import com.google.bitcoin.core.CoinDefinition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import android.app.Activity;
+import android.app.Fragment;
+import android.app.LoaderManager;
+import android.app.LoaderManager.LoaderCallbacks;
 import android.bluetooth.BluetoothAdapter;
+import android.content.ActivityNotFoundException;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.Loader;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.nfc.NdefMessage;
+import android.nfc.NdefRecord;
+import android.nfc.NfcAdapter;
+import android.nfc.NfcEvent;
 import android.nfc.NfcManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.app.LoaderManager.LoaderCallbacks;
-import android.support.v4.content.Loader;
-import android.text.ClipboardManager;
 import android.text.SpannableStringBuilder;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -52,15 +67,6 @@ import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.actionbarsherlock.app.SherlockFragment;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
-import com.actionbarsherlock.view.MenuItem;
-import com.google.bitcoin.core.Address;
-import com.google.bitcoin.core.Wallet;
-import com.google.bitcoin.uri.BitcoinURI;
-
 import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.ExchangeRatesProvider;
@@ -71,24 +77,24 @@ import de.schildbach.wallet.ui.send.SendCoinsActivity;
 import de.schildbach.wallet.util.BitmapFragment;
 import de.schildbach.wallet.util.Bluetooth;
 import de.schildbach.wallet.util.Nfc;
-import de.schildbach.wallet.util.PaymentProtocol;
 import de.schildbach.wallet.util.Qr;
-import hashengineering.digitalcoin.wallet.R;
+import hashengineering.groestlcoin.wallet.R;
 
 /**
  * @author Andreas Schildbach
  */
-public final class RequestCoinsFragment extends SherlockFragment
+public final class RequestCoinsFragment extends Fragment implements NfcAdapter.CreateNdefMessageCallback
 {
 	private AbstractBindServiceActivity activity;
 	private WalletApplication application;
 	private Configuration config;
 	private Wallet wallet;
-	private NfcManager nfcManager;
 	private LoaderManager loaderManager;
 	private ClipboardManager clipboardManager;
 	@CheckForNull
 	private BluetoothAdapter bluetoothAdapter;
+	@CheckForNull
+	private NfcAdapter nfcAdapter;
 
 	private ImageView qrView;
 	private Bitmap qrCodeBitmap;
@@ -99,9 +105,11 @@ public final class RequestCoinsFragment extends SherlockFragment
 	private String bluetoothMac;
 	@CheckForNull
 	private Intent bluetoothServiceIntent;
+	private AtomicReference<byte[]> paymentRequestRef = new AtomicReference<byte[]>();
 
 	private static final int REQUEST_CODE_ENABLE_BLUETOOTH = 0;
 
+	private Address address;
 	private CurrencyCalculatorLink amountCalculatorLink;
 
 	private static final int ID_RATE_LOADER = 0;
@@ -126,7 +134,7 @@ public final class RequestCoinsFragment extends SherlockFragment
 				data.moveToFirst();
 				final ExchangeRate exchangeRate = ExchangeRatesProvider.getExchangeRate(data);
 
-				amountCalculatorLink.setExchangeRate(exchangeRate);
+				amountCalculatorLink.setExchangeRate(exchangeRate.rate);
 				updateView();
 			}
 		}
@@ -147,9 +155,28 @@ public final class RequestCoinsFragment extends SherlockFragment
 		this.config = application.getConfiguration();
 		this.wallet = application.getWallet();
 		this.loaderManager = getLoaderManager();
-		this.nfcManager = (NfcManager) activity.getSystemService(Context.NFC_SERVICE);
 		this.clipboardManager = (ClipboardManager) activity.getSystemService(Context.CLIPBOARD_SERVICE);
 		this.bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+		final NfcManager nfcManager = (NfcManager) activity.getSystemService(Context.NFC_SERVICE);
+		this.nfcAdapter = nfcManager.getDefaultAdapter();
+	}
+
+	@Override
+	public void onCreate(final Bundle savedInstanceState)
+	{
+		super.onCreate(savedInstanceState);
+
+		if (nfcAdapter != null && nfcAdapter.isEnabled())
+			nfcAdapter.setNdefPushMessageCallback(this, activity);
+
+		if (savedInstanceState != null)
+		{
+			restoreInstanceState(savedInstanceState);
+		}
+		else
+		{
+			address = wallet.freshReceiveAddress();
+		}
 	}
 
 	@Override
@@ -168,14 +195,13 @@ public final class RequestCoinsFragment extends SherlockFragment
 		});
 
 		final CurrencyAmountView btcAmountView = (CurrencyAmountView) view.findViewById(R.id.request_coins_amount_btc);
-		btcAmountView.setCurrencySymbol(config.getBtcPrefix());
-		btcAmountView.setInputPrecision(config.getBtcMaxPrecision());
-		btcAmountView.setHintPrecision(config.getBtcPrecision());
-		btcAmountView.setShift(config.getBtcShift());
+		btcAmountView.setCurrencySymbol(config.getFormat().code());
+		btcAmountView.setInputFormat(config.getMaxPrecisionFormat());
+		btcAmountView.setHintFormat(config.getFormat());
 
 		final CurrencyAmountView localAmountView = (CurrencyAmountView) view.findViewById(R.id.request_coins_amount_local);
-		localAmountView.setInputPrecision(Constants.LOCAL_PRECISION);
-		localAmountView.setHintPrecision(Constants.LOCAL_PRECISION);
+		localAmountView.setInputFormat(Constants.LOCAL_FORMAT);
+		localAmountView.setHintFormat(Constants.LOCAL_FORMAT);
 		amountCalculatorLink = new CurrencyCalculatorLink(btcAmountView, localAmountView);
 
 		acceptBluetoothPaymentView = (CheckBox) view.findViewById(R.id.request_coins_accept_bluetooth_payment);
@@ -264,11 +290,27 @@ public final class RequestCoinsFragment extends SherlockFragment
 	{
 		loaderManager.destroyLoader(ID_RATE_LOADER);
 
-		Nfc.unpublish(nfcManager, activity);
-
 		amountCalculatorLink.setListener(null);
 
 		super.onPause();
+	}
+
+	@Override
+	public void onSaveInstanceState(final Bundle outState)
+	{
+		super.onSaveInstanceState(outState);
+
+		saveInstanceState(outState);
+	}
+
+	private void saveInstanceState(final Bundle outState)
+	{
+		outState.putByteArray("receive_address", address.getHash160());
+	}
+
+	private void restoreInstanceState(final Bundle savedInstanceState)
+	{
+		address = new Address(Constants.NETWORK_PARAMETERS, savedInstanceState.getByteArray("receive_address"));
 	}
 
 	@Override
@@ -336,8 +378,9 @@ public final class RequestCoinsFragment extends SherlockFragment
 
 	private void handleCopy()
 	{
-		final String request = determineBitcoinRequestStr(false);
-		clipboardManager.setText(request);
+		final Uri request = Uri.parse(determineBitcoinRequestStr(false));
+		clipboardManager.setPrimaryClip(ClipData.newRawUri("Bitcoin payment request", request));
+		log.info("payment request copied to clipboard: {}", request);
 		activity.toast(R.string.request_coins_clipboard_msg);
 	}
 
@@ -355,10 +398,20 @@ public final class RequestCoinsFragment extends SherlockFragment
 		final PackageManager pm = activity.getPackageManager();
 		final Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(determineBitcoinRequestStr(false)));
 
-		// launch intent chooser with ourselves excluded
-		pm.setComponentEnabledSetting(component, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
-		startActivity(intent);
-		pm.setComponentEnabledSetting(component, PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);
+		try
+		{
+			// launch intent chooser with ourselves excluded
+			pm.setComponentEnabledSetting(component, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
+			startActivity(intent);
+		}
+		catch (final ActivityNotFoundException x)
+		{
+			activity.toast(R.string.request_coins_no_local_app_msg);
+		}
+		finally
+		{
+			pm.setComponentEnabledSetting(component, PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);
+		}
 
 		activity.finish();
 	}
@@ -372,7 +425,7 @@ public final class RequestCoinsFragment extends SherlockFragment
 		final byte[] paymentRequest = determinePaymentRequest(true);
 
 		// update qr-code
-		final int size = (int) (256 * getResources().getDisplayMetrics().density);
+		final int size = getResources().getDimensionPixelSize(R.dimen.bitmap_dialog_qr_size);
 		final String qrContent;
 		if (config.getQrPaymentRequestEnabled())
 			qrContent = CoinDefinition.coinURIScheme.toUpperCase() + ":-" + Qr.encodeBinary(paymentRequest);
@@ -381,24 +434,22 @@ public final class RequestCoinsFragment extends SherlockFragment
 		qrCodeBitmap = Qr.bitmap(qrContent, size);
 		qrView.setImageBitmap(qrCodeBitmap);
 
-		// update nfc ndef message
-		final boolean nfcSuccess = Nfc.publishMimeObject(nfcManager, activity, PaymentProtocol.MIMETYPE_PAYMENTREQUEST, paymentRequest);
-
 		// update initiate request message
 		final SpannableStringBuilder initiateText = new SpannableStringBuilder(getString(R.string.request_coins_fragment_initiate_request_qr));
-		if (nfcSuccess)
+		if (nfcAdapter != null && nfcAdapter.isEnabled())
 			initiateText.append(' ').append(getString(R.string.request_coins_fragment_initiate_request_nfc));
 		initiateRequestView.setText(initiateText);
 
 		// focus linking
 		final int activeAmountViewId = amountCalculatorLink.activeTextView().getId();
 		acceptBluetoothPaymentView.setNextFocusUpId(activeAmountViewId);
+
+		paymentRequestRef.set(paymentRequest);
 	}
 
 	private String determineBitcoinRequestStr(final boolean includeBluetoothMac)
 	{
-		final Address address = application.determineSelectedAddress();
-		final BigInteger amount = amountCalculatorLink.getAmount();
+		final Coin amount = amountCalculatorLink.getAmount();
 
 		final StringBuilder uri = new StringBuilder(BitcoinURI.convertToBitcoinURI(address, amount, null, null));
 		if (includeBluetoothMac && bluetoothMac != null)
@@ -411,10 +462,19 @@ public final class RequestCoinsFragment extends SherlockFragment
 
 	private byte[] determinePaymentRequest(final boolean includeBluetoothMac)
 	{
-		final Address address = application.determineSelectedAddress();
-		final BigInteger amount = amountCalculatorLink.getAmount();
+		final Coin amount = amountCalculatorLink.getAmount();
+		final String paymentUrl = includeBluetoothMac && bluetoothMac != null ? "bt:" + bluetoothMac : null;
 
-		return PaymentProtocol.createPaymentRequest(amount, address, null, includeBluetoothMac && bluetoothMac != null ? "bt:" + bluetoothMac : null)
-				.toByteArray();
+		return PaymentProtocol.createPaymentRequest(Constants.NETWORK_PARAMETERS, amount, address, null, paymentUrl, null).build().toByteArray();
+	}
+
+	@Override
+	public NdefMessage createNdefMessage(final NfcEvent event)
+	{
+		final byte[] paymentRequest = paymentRequestRef.get();
+		if (paymentRequest != null)
+			return new NdefMessage(new NdefRecord[] { Nfc.createMime(PaymentProtocol.MIMETYPE_PAYMENTREQUEST, paymentRequest) });
+		else
+			return null;
 	}
 }

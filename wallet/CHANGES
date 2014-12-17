@@ -1,3 +1,4 @@
+
 digitalcoin Wallet
 -----------------
 v3.01.3561
@@ -72,8 +73,115 @@ v1.00
 * Forked bitcoin-wallet v3.23 for digitalcoin V1.00 (http://digitalcoin.co)
 
 Bitcoin Wallet
--------------------
-v3.55
+=======
+v4.14
+
+* Update Turkish, Norwegian Bokmål, Japanese, French and Danish translations.
+* Small bugfixes.
+
+v4.13
+
+* Support sweeping of password-protected paper wallets (BIP38).
+* Update Swedish translation.
+* Update android-maven-plugin to 4.0.0, so the build should now be compatible to newer Maven versions.
+* Update to ProGuard 5.1, making it possible to build with a Java 8 compiler.
+
+v4.12
+
+* Small bugfixes.
+
+v4.11
+
+* When sending coins, there is a "quick confirm" option which pays the old higher fee.
+* Fix white/black screen that prevents some users from starting the app.
+* Fix reuse of change address in some cases.
+* Based on bitcoinj 0.12.2.
+
+v4.10
+
+* Fix sent transaction not updating on send coins screen.
+* Fix compatibility issue to GMail 5 app when sending report attachments.
+* Migrate clipboard to use Android 4 API.
+
+v4.09
+
+* Migrate preferences and NFC to use Android 4 API.
+
+v4.08
+
+* Update Norwegian Bokmål, Japanese, Danish, Finnish, Spanish, Catalan and Russian translations.
+
+v4.07
+
+* Performance improvements.
+* Drop network fee by factor of 10.
+* Support rotation for HD key chains.
+* Based on bitcoinj 0.12.1.
+
+v4.06
+
+* The wallet can be protected by a spending PIN.
+* Record memos read from payment requests.
+
+v4.05
+
+* Re-add textual Bitcoin address to enlarged QR code.
+
+v4.04
+
+* Small bugfixes.
+
+v4.03
+
+* Remove textual Bitcoin address from main screen.
+* Warning for users with pay-to-many transactions. Those will slow down their
+  wallet.
+* Workaround for crash in the network monitor.
+
+v4.02
+
+* Fix crash when sweeping wallets.
+* New translation into Catalan.
+* Update Korean, Russian, Italian and Danish translations.
+
+v4.01
+
+* New translation into Norwegian Bokmål.
+* Small bugfix.
+
+v4.0
+
+* All Bitcoin addresses are now deterministically derived from one single secret,
+  which was created when you installed the app for the first time. So from now on,
+  only one backup is needed to recover all your future funds in that wallet.
+* The app does its best to not reuse addresses any more. "Request coins" will use a
+  fresh address on each invocation. The current address in the QR code on the main
+  page changes as soon as coins are received on it.
+* When sending coins, the fee is shown while you type and before you press "Send".
+  After sending, you'll see the paid fee in the transaction list.
+* When sending coins, most errors are now shown already before you press Send.
+* The app now requires Android 4.0.3 or higher. This makes UI development much
+  easier in future.
+* The app has a fresher, sharper looking app icon. The icon for the testnet version
+  is now entirely grey.
+* On Android 4.1 or higher, the app-widget is now horizontally resizable.
+* Based on bitcoinj 0.12.
+
+v3.59
+
+* Resolve issue with restoring backups that have been renamed.
+* Update Turkish, Korean, Ukrainian, Russian, Italian, French, Finnish and Danish translations.
+* Remove BROADCAST_STICKY permission.
+
+v3.58
+
+* Small bugfixes.
+
+v3.57
+
+* App-widget: show approximate balance in local currency.
+
+v3.55-v3.56
 
 * New translation into Ukrainian. Update many other translations.
 * Small bugfixes.

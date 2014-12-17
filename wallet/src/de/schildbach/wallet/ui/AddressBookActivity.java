@@ -17,28 +17,26 @@
 
 package de.schildbach.wallet.ui;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import android.app.ActionBar;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.view.MenuItem;
-import com.google.bitcoin.core.Address;
-import com.google.bitcoin.core.ECKey;
-
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.util.ViewPagerTabs;
-import hashengineering.digitalcoin.wallet.R;
+import hashengineering.groestlcoin.wallet.R;
+import org.bitcoinj.core.Address;
+import org.bitcoinj.core.ECKey;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -46,14 +44,10 @@ import hashengineering.digitalcoin.wallet.R;
  */
 public final class AddressBookActivity extends AbstractWalletActivity
 {
-	public static void start(final Context context, final boolean sending)
+	public static void start(final Context context)
 	{
-		final Intent intent = new Intent(context, AddressBookActivity.class);
-		intent.putExtra(EXTRA_SENDING, sending);
-		context.startActivity(intent);
+		context.startActivity(new Intent(context, AddressBookActivity.class));
 	}
-
-	private static final String EXTRA_SENDING = "sending";
 
 	private WalletAddressesFragment walletAddressesFragment;
 	private SendingAddressesFragment sendingAddressesFragment;
@@ -68,10 +62,10 @@ public final class AddressBookActivity extends AbstractWalletActivity
 
 		setContentView(R.layout.address_book_content);
 
-		final ActionBar actionBar = getSupportActionBar();
+		final ActionBar actionBar = getActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
 
-		final FragmentManager fragmentManager = getSupportFragmentManager();
+		final FragmentManager fragmentManager = getFragmentManager();
 
 		walletAddressesFragment = (WalletAddressesFragment) fragmentManager.findFragmentByTag(TAG_LEFT);
 		sendingAddressesFragment = (SendingAddressesFragment) fragmentManager.findFragmentByTag(TAG_RIGHT);
@@ -103,7 +97,7 @@ public final class AddressBookActivity extends AbstractWalletActivity
 			pagerTabs.addTabLabels(R.string.address_book_list_receiving_title, R.string.address_book_list_sending_title);
 
 			pager.setOnPageChangeListener(pagerTabs);
-			final int position = getIntent().getBooleanExtra(EXTRA_SENDING, true) ? 1 : 0;
+			final int position = 1;
 			pager.setCurrentItem(position);
 			pager.setPageMargin(2);
 			pager.setPageMarginDrawable(R.color.bg_less_bright);
@@ -135,7 +129,7 @@ public final class AddressBookActivity extends AbstractWalletActivity
 
 	/* private */void updateFragments()
 	{
-		final List<ECKey> keys = getWalletApplication().getWallet().getKeys();
+		final List<ECKey> keys = getWalletApplication().getWallet().getImportedKeys();
 		final ArrayList<Address> addresses = new ArrayList<Address>(keys.size());
 
 		for (final ECKey key : keys)
