@@ -369,7 +369,7 @@ public class TransactionsListAdapter extends BaseAdapter
 		if (rowExtendMessage != null)
 		{
 			final TextView rowMessage = (TextView) row.findViewById(R.id.transaction_row_message);
-			final boolean isTimeLocked = tx.isTimeLocked();
+			final boolean isTimeLocked = tx.isTimeLocked() && !tx.isFinal(wallet.getLastBlockSeenHeight() + 1, wallet.getLastBlockSeenTimeSecs());
 			rowExtendMessage.setVisibility(View.GONE);
 
 			if (isInternal)
