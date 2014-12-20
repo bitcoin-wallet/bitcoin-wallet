@@ -134,7 +134,6 @@
   <string name="transaction_row_message_own_unbroadcasted">Этот платёж ещё не был передан в сеть.</string>
   <string name="transaction_row_message_received_direct">Этот платеж был проведен напрямую. Существует риск того, что вы никогда не сможете потратить полученные средства.</string>
   <string name="transaction_row_message_received_unconfirmed_unlocked">Этот платёж должен стать доступным через несколько минут.</string>
-  <string name="transaction_row_message_received_unconfirmed_locked">Этот платёж нестандартный, ему не следует доверять.</string>
   <string name="transaction_row_message_received_dead">Этот платёж был отменён отправителем.</string>
   <string name="transaction_row_message_received_dust">Столь малая сумма, скорее всего, никогда не будет потрачена экономически.</string>
   <string name="transaction_row_message_received_pay_to_many">Этот платеж посылает средства на много кошельков, что затрудняет его обработку. По возможности, платеж должны идти только на ваш адрес.</string>

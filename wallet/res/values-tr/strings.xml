@@ -144,7 +144,6 @@
   <string name="transaction_row_message_own_unbroadcasted">Bu ödeme henüz aktarılmamıştır.</string>
   <string name="transaction_row_message_received_direct">Bu ödeme doğrudan alındı. Asla harcanamayacak olması riski vardır.</string>
   <string name="transaction_row_message_received_unconfirmed_unlocked">Bu ödeme muhtemelen birkaç dakika içinde harcanabilir hâle gelecektir.</string>
-  <string name="transaction_row_message_received_unconfirmed_locked">Bu ödeme standart değildir ve ona güvenilmemelidir.</string>
   <string name="transaction_row_message_received_dead">Bu ödeme gönderici tarafından iptal edilmiştir.</string>
   <string name="transaction_row_message_received_dust">Bu düşük meblağ muhtemelen hiçbir koşulda ekonomik olarak harcanamaz.</string>
   <string name="transaction_row_message_received_pay_to_many">Bu ödeme sizinkiyle beraber birçok cüzdana ödeme yapmaktadır ve bu uygulamanın zamanla yavaşlamasına yol açar. Mümkünse sadece size ödeme yapan ödeme almaya çalışın.</string>

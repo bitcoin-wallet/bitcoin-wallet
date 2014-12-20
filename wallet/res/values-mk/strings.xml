@@ -86,7 +86,6 @@
 	<string name="transaction_row_message_purpose_key_rotation">Оваа трансакција го заштитува твојот паричник против кражби. &lt;u&gt;More info.&lt;/u&gt;</string>
 	<string name="transaction_row_message_own_unbroadcasted">Ова плаќање сѐ уште не е испратено.</string>
 	<string name="transaction_row_message_received_unconfirmed_unlocked">Ова плаќање ќе можеш да го трошиш за неколку минути.</string>
-	<string name="transaction_row_message_received_unconfirmed_locked">Ова плаќање не е стандардно и не треба да му веруваш.</string>
 	<string name="transaction_row_message_received_dead">Ова плаќање е преиначено од испраќачот.</string>
 	<string name="transaction_row_message_received_dust">Оваа мала сума најверојатно никогаш нема да можеш да ја потрошиш економично.</string>
 	<string name="network_monitor_activity_title">Набљудувач на мрежата</string>

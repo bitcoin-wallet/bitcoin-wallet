@@ -138,7 +138,6 @@
   <string name="transaction_row_message_own_unbroadcasted">Tato platba nebyla ještě odeslána.</string>
   <string name="transaction_row_message_received_direct">Tato platba byla přijata přímo. Je tu riziko že nikdy ji nepůjde utratit.</string>
   <string name="transaction_row_message_received_unconfirmed_unlocked">Tuto platbu bude možné utratit během několika minut.</string>
-  <string name="transaction_row_message_received_unconfirmed_locked">Tato platba je nestandardní a nemělo by se jí věřit.</string>
   <string name="transaction_row_message_received_dead">Tato platba byla odvolána odesílatelem.</string>
   <string name="transaction_row_message_received_dust">Takto malá částka pravděpodobně nikdy nebude utracena ekonomicky.</string>
   <string name="transaction_row_message_received_pay_to_many">Tato platba je pro více peněženek než jen pro vás. To může zpomalit běh této aplikace. Pokud to půjde pokuste se přijímat platby, které jsou pouze pro vás.</string>

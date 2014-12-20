@@ -86,7 +86,6 @@
 	<string name="transaction_row_message_purpose_key_rotation">Transaksi ini memperkuat dompet Anda terhadap pencurian. &lt;u&gt;Rincian.&lt;/u&gt;</string>
 	<string name="transaction_row_message_own_unbroadcasted">Pembayaran ini belum disiarkan.</string>
 	<string name="transaction_row_message_received_unconfirmed_unlocked">Pembayaran ini bisa digunakan dalam beberapa menit.</string>
-	<string name="transaction_row_message_received_unconfirmed_locked">Pembayaran ini tidak standar dan tidak dpt dipercayai.</string>
 	<string name="transaction_row_message_received_dead">Pembayaran ini dibatalkan oleh pengirim.</string>
 	<string name="transaction_row_message_received_dust">Jumlah kecil ini tidak akan pernah bisa digunakan secara ekonomis.</string>
 	<string name="network_monitor_activity_title">Monitor Jaringan</string>

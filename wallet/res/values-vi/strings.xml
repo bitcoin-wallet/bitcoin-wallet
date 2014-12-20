@@ -81,7 +81,6 @@
 	<string name="edit_address_book_entry_dialog_button_edit">Lưu</string>
 	<string name="transaction_row_message_own_unbroadcasted">Phần chi trả này vẫn chưa được thực hiện.</string>
 	<string name="transaction_row_message_received_unconfirmed_unlocked">Phần chi trả này nên trở thành dạng có thể gửi đi trong vài phút nữa.</string>
-	<string name="transaction_row_message_received_unconfirmed_locked">Phần chi trả này không theo đúng tiêu chuẩn và bởi thế không đáng tin cậy</string>
 	<string name="transaction_row_message_received_dead">Phần chi trả này đã được chuyển ngược về phía người gửi.</string>
 	<string name="transaction_row_message_received_dust">Số lượng nhỏ này có thể không mang tính kinh tế cho lắm khi dành cho chi tiêu.</string>
 	<string name="network_monitor_activity_title">Giám sát mạng</string>

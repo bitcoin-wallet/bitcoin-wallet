@@ -110,7 +110,6 @@
   <string name="transaction_row_message_own_unbroadcasted">Deze betaling is nog niet verzonden.</string>
   <string name="transaction_row_message_received_direct">Deze betaling is direct ontvangen. Het risico bestaat dat het nooit uitgegeven kan worden.</string>
   <string name="transaction_row_message_received_unconfirmed_unlocked">Deze betaling wordt besteedbaar in een paar minuten.</string>
-  <string name="transaction_row_message_received_unconfirmed_locked">Deze betaling is niet standaard en moet niet vertrouwd worden.</string>
   <string name="transaction_row_message_received_dead">Deze betaling is omgekeerd door de verzender.</string>
   <string name="transaction_row_message_received_dust">Dit kleine beetje kan waarschijnlijk nooit economisch worden besteed.</string>
   <string name="network_monitor_activity_title">Netwerk Monitor</string>

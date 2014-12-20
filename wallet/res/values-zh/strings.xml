@@ -108,7 +108,6 @@
 	<string name="transaction_row_message_own_unbroadcasted">此款项还没有被发送呢。</string>
 	<string name="transaction_row_message_received_direct">此款项已经接受。但风险存在，可能不能作为发送支出的款项。</string>
 	<string name="transaction_row_message_received_unconfirmed_unlocked">此款项几分钟后成为可支配。</string>
-	<string name="transaction_row_message_received_unconfirmed_locked">此款项不标准，不应该被信任。</string>
 	<string name="transaction_row_message_received_dead">此款项已由发送人逆转。</string>
 	<string name="transaction_row_message_received_dust">这少量的应该或许永远不会在经济上消费的。</string>
 	<string name="network_monitor_activity_title">网络监视器</string>

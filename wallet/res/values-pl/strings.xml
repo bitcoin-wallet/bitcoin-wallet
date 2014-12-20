@@ -86,7 +86,6 @@
 	<string name="transaction_row_message_purpose_key_rotation">Ta transakcja wzmocni Twój portfel przed kradzieżą. &lt;u&gt;Więcej informacji&lt;/u&gt;</string>
 	<string name="transaction_row_message_own_unbroadcasted">Ta płatność nie została jeszcze przesłana.</string>
 	<string name="transaction_row_message_received_unconfirmed_unlocked">Ta płatność powinna stać się dostępna za kilka minut.</string>
-	<string name="transaction_row_message_received_unconfirmed_locked">Ta płatność nie jest standardowa i nie powinno się jej ufać.</string>
 	<string name="transaction_row_message_received_dead">Ta płatność została cofnięta przez nadawcę.</string>
 	<string name="transaction_row_message_received_dust">Tak mała kwota prawdopodobnie nigdy nie zostanie wydana ekonomicznie.</string>
 	<string name="network_monitor_activity_title">Monitor sieci</string>

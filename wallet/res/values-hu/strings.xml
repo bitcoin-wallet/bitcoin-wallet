@@ -86,7 +86,6 @@
 	<string name="transaction_row_message_purpose_key_rotation">A művelet megerősíti a tárcád védelmét a lopások ellen. &lt;u&gt;Bővebb információ&lt;/u&gt;</string>
 	<string name="transaction_row_message_own_unbroadcasted">Ez a kifizetés még nem került elküldésre.</string>
 	<string name="transaction_row_message_received_unconfirmed_unlocked">Ez a kifizetés perceken belül hozzáférhetővé válik.</string>
-	<string name="transaction_row_message_received_unconfirmed_locked">Ez nem egy hagyományos fizetés, nem megbízható.</string>
 	<string name="transaction_row_message_received_dead">A kifizetés visszafordítva a küldő által.</string>
 	<string name="transaction_row_message_received_dust">Ilyen kis összeg felhasználása -valószínűleg- nem történhet meg gazdaságosan.</string>
 	<string name="network_monitor_activity_title">Hálózati állapot</string>

@@ -134,7 +134,6 @@
   <string name="transaction_row_message_own_unbroadcasted">Este pago aún no se ha transmitido.</string>
   <string name="transaction_row_message_received_direct">Este pago se ha recibido directamente. Existe el riesgo de que no llegue a validarse.</string>
   <string name="transaction_row_message_received_unconfirmed_unlocked">Este pago debería estar disponible en unos minutos.</string>
-  <string name="transaction_row_message_received_unconfirmed_locked">Este pago no es estándar y no ofrece confianza.</string>
   <string name="transaction_row_message_received_dead">Este pago ha sido anulado por el pagador.</string>
   <string name="transaction_row_message_received_dust">Esta cantidad pequeña probablemente no pueda gastarse económicamente.</string>
   <string name="transaction_row_message_received_pay_to_many">Este pago paga a muchos monederos además del suyo, lo que hace que la aplicación se alente con el tiempo. Si puede, intente recibiendo pagos que sólo paguen a usted.</string>

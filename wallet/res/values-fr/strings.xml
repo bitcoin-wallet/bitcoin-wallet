@@ -144,7 +144,6 @@
   <string name="transaction_row_message_own_unbroadcasted">Ce paiement n\'a pas encore été transmis.</string>
   <string name="transaction_row_message_received_direct">Ce paiement a été reçu directement. Il y a un risque qu\'il ne puisse jamais être dépensé.</string>
   <string name="transaction_row_message_received_unconfirmed_unlocked">Ce paiement devrait pouvoir être dépensé dans quelques minutes.</string>
-  <string name="transaction_row_message_received_unconfirmed_locked">Ce paiement n\'est pas standard et vous ne devriez pas lui faire confiance.</string>
   <string name="transaction_row_message_received_dead">Ce paiement a été renversé par son expéditeur.</string>
   <string name="transaction_row_message_received_dust">Ce faible montant ne pourra probablement jamais être dépensé de façon économique.</string>
   <string name="transaction_row_message_received_pay_to_many">Ce paiement paie de nombreux portefeuilles en plus du vôtre, ce qui ralentira l\'application au fil du temps. Si vous le pouvez, essayez de recevoir des paiements qui ne paient que vous.</string>

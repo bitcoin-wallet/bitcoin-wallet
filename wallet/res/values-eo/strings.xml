@@ -86,7 +86,6 @@
 	<string name="transaction_row_message_purpose_key_rotation">Ĉi tiu transakcio fortigas vian monujon kontraŭ ŝtelo. &lt;u&gt;Pli da informoj.&lt;/u&gt;</string>
 	<string name="transaction_row_message_own_unbroadcasted">Tiu pago ne estis transdonita jam.</string>
 	<string name="transaction_row_message_received_unconfirmed_unlocked">Tiu pago devus esti spendable en kelkaj minutoj.</string>
-	<string name="transaction_row_message_received_unconfirmed_locked">Tiu pago ne estas norma, kaj devus ne esti fidinda.</string>
 	<string name="transaction_row_message_received_dead">Tiu pago renversis per la sendinto. </string>
 	<string name="transaction_row_message_received_dust">Ĉi tiu malgranda sumo povas probable neniam elspeziĝos ekonomie.</string>
 	<string name="network_monitor_activity_title">Reta Monitoro</string>

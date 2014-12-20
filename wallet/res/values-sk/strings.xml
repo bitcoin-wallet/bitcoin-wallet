@@ -103,7 +103,6 @@
 	<string name="transaction_row_message_own_unbroadcasted">Táto platba ešte nebola odoslaná.</string>
 	<string name="transaction_row_message_received_direct">Táto platba bola prijatá priamo. Existuje určité riziko, že sa nikdy nebude dať minúť.</string>
 	<string name="transaction_row_message_received_unconfirmed_unlocked">Táto platba by mala byť potvrdená za pár minút.</string>
-	<string name="transaction_row_message_received_unconfirmed_locked">Táto platba je podozrivá.</string>
 	<string name="transaction_row_message_received_dead">Táto platba bola zrušená odosielateľom.</string>
 	<string name="transaction_row_message_received_dust">Takéto malé množstvo zrejme nebude možné minúť.</string>
 	<string name="network_monitor_activity_title">Stav siete</string>

@@ -144,7 +144,6 @@
   <string name="transaction_row_message_own_unbroadcasted">この支払はまだ送信されていません。</string>
   <string name="transaction_row_message_received_direct">この支払は直接届きました。利用可能とならないリスクがあります。</string>
   <string name="transaction_row_message_received_unconfirmed_unlocked">この支払は数分程度で利用可能となります。</string>
-  <string name="transaction_row_message_received_unconfirmed_locked">この支払は標準的ではなく、信頼すべきでありません。</string>
   <string name="transaction_row_message_received_dead">この支払は送金者により、引き戻されました。</string>
   <string name="transaction_row_message_received_dust">少額すぎて、通常の支払等には使用できないでしょう。</string>
   <string name="transaction_row_message_received_pay_to_many">この支払いはあなた以外にも多くのウォレットに支払っており、徐々にアプリを遅くする可能性があります。可能であればあなただけに支払う支払いを受けてください。</string>

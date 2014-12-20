@@ -138,7 +138,6 @@
   <string name="transaction_row_message_own_unbroadcasted">Aquest pagament encara no s\'ha transferit.</string>
   <string name="transaction_row_message_received_direct">Aquest pagament s\'ha rebut directament. Hi ha risc de que mai es pugui gastar.</string>
   <string name="transaction_row_message_received_unconfirmed_unlocked">Aquest pagament deuria estar disponible en pocs minuts.</string>
-  <string name="transaction_row_message_received_unconfirmed_locked">Aquest no és un pagament estàndard i no hauries de confiar-hi.</string>
   <string name="transaction_row_message_received_dead">Aquest pagament ha sigut revertit per qui l\'ha enviat.</string>
   <string name="transaction_row_message_received_dust">Aquesta petita quantitat probablement mai podrà ser econòmicament gastada.</string>
   <string name="transaction_row_message_received_pay_to_many">Aquest pagament es realitza a molts moneders a part del teu el qual fa que l\'aplicació vagi cada vegada més lenta. Si pots, intenta rebre pagaments només dirigits a tu.</string>

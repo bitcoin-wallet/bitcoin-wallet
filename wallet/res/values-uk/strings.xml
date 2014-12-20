@@ -119,7 +119,6 @@
   <string name="transaction_row_message_own_unbroadcasted">Цей платіж ще не був переданий в мережу.</string>
   <string name="transaction_row_message_received_direct">Цей платіж був проведений напряму. Існує ризик того, що ви ніколи не зможете витратити отримані засоби.</string>
   <string name="transaction_row_message_received_unconfirmed_unlocked">Цей платіж повинен стати доступним через кілька хвилин.</string>
-  <string name="transaction_row_message_received_unconfirmed_locked">Цей платіж нестандартний, йому не варто довіряти.</string>
   <string name="transaction_row_message_received_dead">Цей платіж був скасований відправником.</string>
   <string name="transaction_row_message_received_dust">Настільки мала сума, скоріш за все, ніколи не буде витрачена економічно.</string>
   <string name="network_monitor_activity_title">Мережевий монітор</string>

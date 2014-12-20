@@ -103,7 +103,6 @@
 	<string name="transaction_row_message_own_unbroadcasted">لم يتم إرسال هذه الدفعة بعد.</string>
 	<string name="transaction_row_message_received_direct">تم استلام هذه الدفعة مباشرة. توجد خطورة عدم القدرة على إنفاقها.</string>
 	<string name="transaction_row_message_received_unconfirmed_unlocked">سيمكنك دفع هذه الدفعة في غضون دقائق.</string>
-	<string name="transaction_row_message_received_unconfirmed_locked">لا يجدر عليك الوثوق بهذه الدفعة كونها غير قياسية.</string>
 	<string name="transaction_row_message_received_dead">تم إرجاع هذه الدفعة من قبل المرسل.</string>
 	<string name="transaction_row_message_received_dust">قد لايمكن  إنفاق هذا المبلغ صغير اقتصاديا.</string>
 	<string name="network_monitor_activity_title">مراقب الشبكة</string>

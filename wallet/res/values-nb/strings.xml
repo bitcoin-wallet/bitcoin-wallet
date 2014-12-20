@@ -144,7 +144,6 @@
   <string name="transaction_row_message_own_unbroadcasted">Denne betalingen er ikke sendt ennå.</string>
   <string name="transaction_row_message_received_direct">Denne betalingen er mottatt direkte. Det er en risiko for at den aldri blir brukbar.</string>
   <string name="transaction_row_message_received_unconfirmed_unlocked">Denne betalingen bør bli brukbar om få minutter.</string>
-  <string name="transaction_row_message_received_unconfirmed_locked">Denne betalingen er ikke standard og kan ikke stoles på.</string>
   <string name="transaction_row_message_received_dead">Denne betalingen er blitt reversert av avsenderen.</string>
   <string name="transaction_row_message_received_dust">Dette lille beløpet kan økonomisk sett sannsynligvis aldri brukes.</string>
   <string name="transaction_row_message_received_pay_to_many">Denne betalingen går til mange flere enn deg, og dette gjør at appen går tregere over tid. Hvis du kan, prøv å motta betalinger som kun går til deg.</string>

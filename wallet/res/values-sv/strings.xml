@@ -139,7 +139,6 @@
   <string name="transaction_row_message_own_unbroadcasted">Denna betalning har inte skickats ännu.</string>
   <string name="transaction_row_message_received_direct">Denna betalning har mottagits direkt. Det finns en risk att den aldrig kommer att kunna användas.</string>
   <string name="transaction_row_message_received_unconfirmed_unlocked">Den här betalningen borde bli spenderbar inom några minuter.</string>
-  <string name="transaction_row_message_received_unconfirmed_locked">Den här betalningen är inte standard och bör inte litas på.</string>
   <string name="transaction_row_message_received_dead">Denna betalning har återförts av avsändaren.</string>
   <string name="transaction_row_message_received_dust">En så låg summa kan förmodligen aldrig användas ekonomiskt.</string>
   <string name="transaction_row_message_received_pay_to_many">Denna betalning skickas till många olika användare samtidigt, vilket kan göra appen långsam över tid. Om du kan, försök att bara ta emot betalningar som är riktade till dig enbart.</string>

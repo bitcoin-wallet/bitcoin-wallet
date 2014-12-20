@@ -116,7 +116,6 @@
   <string name="transaction_row_message_own_unbroadcasted">התשלום עדיין לא שודר</string>
   <string name="transaction_row_message_received_direct">התשלום התקבל ישירות. יש סיכון שהוא לעולם לא יהיה ניתן לניצול.</string>
   <string name="transaction_row_message_received_unconfirmed_unlocked">התשלום יהיה זמין בעוד מספר דקות</string>
-  <string name="transaction_row_message_received_unconfirmed_locked">לא ניתן לבטוח בתשלום זה</string>
   <string name="transaction_row_message_received_dead">תשלום זה בוטל על ידי השולח</string>
   <string name="transaction_row_message_received_dust">כמות זעירה כזו ככל הנראה לא תוכל להיות בשימוש לעולם.</string>
   <string name="network_monitor_activity_title">מוניטור רשת</string>

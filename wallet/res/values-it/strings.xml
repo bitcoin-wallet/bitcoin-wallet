@@ -125,7 +125,6 @@
   <string name="transaction_row_message_own_unbroadcasted">Questo pagamento non è ancora stato trasmesso.</string>
   <string name="transaction_row_message_received_direct">Questo pagamento è stato ricevuto direttamente. C\'è il rischio che non diventi spendibile.</string>
   <string name="transaction_row_message_received_unconfirmed_unlocked">Questo pagamento dovrebbe diventare spendibile entro pochi minuti.</string>
-  <string name="transaction_row_message_received_unconfirmed_locked">Questo pagamento non è standard e dovrebbe non bisognerebbe fidarsi.</string>
   <string name="transaction_row_message_received_dead">Questo pagamento è stato revocato dal mittente.</string>
   <string name="transaction_row_message_received_dust">Questo piccolo importo probabilmente non sarà mai speso economicamente.</string>
   <string name="network_monitor_activity_title">Controllo della rete</string>
