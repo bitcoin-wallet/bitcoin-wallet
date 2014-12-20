@@ -17,6 +17,24 @@
 
 package de.schildbach.wallet.ui.send;
 
+import android.os.Handler;
+import android.os.Looper;
+import com.google.common.base.Charsets;
+import com.google.common.io.BaseEncoding;
+import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.util.Io;
+import hashengineering.groestlcoin.wallet.R;
+import org.bitcoinj.core.*;
+import org.bitcoinj.core.TransactionConfidence.ConfidenceType;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import javax.annotation.CheckForNull;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -26,36 +44,6 @@ import java.net.URL;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-
-import javax.annotation.CheckForNull;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import org.bitcoinj.core.CoinDefinition;
-import org.bitcoinj.core.Address;
-import org.bitcoinj.core.Coin;
-import org.bitcoinj.core.NetworkParameters;
-import org.bitcoinj.core.Sha256Hash;
-import org.bitcoinj.core.Transaction;
-import org.bitcoinj.core.TransactionConfidence.ConfidenceType;
-import org.bitcoinj.core.TransactionOutput;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import android.os.Handler;
-import android.os.Looper;
-
-
-import com.google.common.base.Charsets;
-import com.google.common.io.BaseEncoding;
-
-import de.schildbach.wallet.Constants;
-import de.schildbach.wallet.util.Io;
-import hashengineering.groestlcoin.wallet.R;
 
 /**
  * @author Andreas Schildbach
@@ -96,14 +84,19 @@ public final class RequestWalletBalanceTask
 			public void run()
 			{
 				final StringBuilder url = new StringBuilder(Constants.BITEASY_API_URL);
-                if(CoinDefinition.UnspentAPI != CoinDefinition.UnspentAPIType.Blockr)
+                if(CoinDefinition.UnspentAPI == CoinDefinition.UnspentAPIType.BitEasy)
                 {
                     url.append("unspent-outputs");
 				    url.append("?per_page=MAX");
 				    for (final Address address : addresses)
 					    url.append("&address[]=").append(address.toString());
                 }
-                else
+                else if(CoinDefinition.UnspentAPI == CoinDefinition.UnspentAPIType.Cryptoid)
+                {
+                   url.append("&key=d47da926b82e");    //Cryptoid API key
+                   url.append("&address=").append(addresses[0].toString());
+                }
+                else if(CoinDefinition.UnspentAPI == CoinDefinition.UnspentAPIType.Blockr)
                 {
                     int i = 0;
                     for (final Address address : addresses)
@@ -144,7 +137,7 @@ public final class RequestWalletBalanceTask
 
 						final JSONObject json = new JSONObject(content.toString());
                         JSONArray jsonOutputs = null;
-                        if(CoinDefinition.UnspentAPI != CoinDefinition.UnspentAPIType.Blockr)
+                        if(CoinDefinition.UnspentAPI != CoinDefinition.UnspentAPIType.BitEasy)
                         {
                             final int status = json.getInt("status");
                             if (status != 200)
@@ -159,7 +152,7 @@ public final class RequestWalletBalanceTask
 
                             jsonOutputs = jsonData.getJSONArray("outputs");
                         }
-                        else
+                        else if(CoinDefinition.UnspentAPI != CoinDefinition.UnspentAPIType.Blockr)
                         {
                             String success = json.getString("status");
 
@@ -168,6 +161,16 @@ public final class RequestWalletBalanceTask
 
                             JSONObject dataJson = json.getJSONObject("data");
                             jsonOutputs = dataJson.getJSONArray("unspent");
+                        }
+                        else if(CoinDefinition.UnspentAPI != CoinDefinition.UnspentAPIType.Cryptoid)
+                        {
+                            //String success = json.getString("status");
+
+                            //if (!success.equals(success))
+                            //    throw new IOException("api status " + "not successful" + " when fetching unspent outputs");
+
+                            //JSONObject dataJson = json.getJSONObject("data");
+                            jsonOutputs = json.getJSONArray("unspent_outputs");
                         }
 
 						final Map<Sha256Hash, Transaction> transactions = new HashMap<Sha256Hash, Transaction>(jsonOutputs.length());
@@ -181,7 +184,7 @@ public final class RequestWalletBalanceTask
                             byte[] uxtoScriptBytes = null;
                             Coin uxtoValue = null;
 
-                            if(CoinDefinition.UnspentAPI != CoinDefinition.UnspentAPIType.Blockr)
+                            if(CoinDefinition.UnspentAPI != CoinDefinition.UnspentAPIType.BitEasy)
                             {
                                 if (jsonOutput.getInt("is_spent") != 0)
                                     throw new IllegalStateException("UXTO not spent");
@@ -190,13 +193,22 @@ public final class RequestWalletBalanceTask
                                 uxtoScriptBytes = HEX.decode(jsonOutput.getString("script_pub_key"));
                                 uxtoValue = Coin.valueOf(jsonOutput.getLong("value"));
                             }
-                            else
+                            else if(CoinDefinition.UnspentAPI != CoinDefinition.UnspentAPIType.Blockr)
                             {
                                 uxtoHash = new Sha256Hash(jsonOutput.getString("tx"));
                                 uxtoIndex = jsonOutput.getInt("n");
                                 uxtoScriptBytes = HEX.decode(jsonOutput.getString("script"));
                                 uxtoValue = Coin.valueOf((long)(Double.parseDouble(String.format("%.08f", jsonOutput.getDouble("amount")).replace(",", ".")) *100000000));
                                 //jsonOutput.getInt("confirmations");
+                            }
+                            if(CoinDefinition.UnspentAPI != CoinDefinition.UnspentAPIType.Cryptoid)
+                            {
+                               //if (jsonOutput.getInt("is_spent") != 0)
+                               //     throw new IllegalStateException("UXTO not spent");
+                                uxtoHash = new Sha256Hash(jsonOutput.getString("tx_hash"));
+                                uxtoIndex = jsonOutput.getInt("tx_ouput_n");
+                                uxtoScriptBytes = HEX.decode(jsonOutput.getString("script_pub_key"));
+                                uxtoValue = Coin.valueOf(jsonOutput.getLong("value"));
                             }
 /*=======
 							if (jsonOutput.getInt("is_spent") != 0)
