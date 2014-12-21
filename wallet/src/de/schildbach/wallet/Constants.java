@@ -19,6 +19,7 @@ package de.schildbach.wallet;
 
 import java.io.File;
 
+import de.schildbach.wallet_test.BuildConfig;
 import org.bitcoinj.core.NetworkParameters;
 import org.bitcoinj.params.MainNetParams;
 import org.bitcoinj.params.TestNet3Params;
@@ -34,7 +35,7 @@ import de.schildbach.wallet_test.R;
  */
 public final class Constants
 {
-	public static final boolean TEST = R.class.getPackage().getName().contains("_test");
+	public static final boolean TEST = BuildConfig.APPLICATION_ID.contains("_test");
 
 	/** Network this wallet is on (e.g. testnet or mainnet). */
 	public static final NetworkParameters NETWORK_PARAMETERS = TEST ? TestNet3Params.get() : MainNetParams.get();
