@@ -52,10 +52,10 @@ android {
             applicationIdSuffix '.wallet_test'
         }
         prod {
-            debuggable true
-            signingConfig signingConfigs.debug
+            debuggable false
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard.cfg'
+            signingConfig signingConfigs.prod
             applicationIdSuffix '.wallet'
         }
     }
