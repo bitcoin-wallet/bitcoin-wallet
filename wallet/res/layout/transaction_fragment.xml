@@ -2,7 +2,6 @@
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
-	android:background="@android:color/black"
 	android:paddingLeft="12dp"
 	android:paddingRight="12dp" >
 
@@ -13,7 +12,6 @@
 			android:layout_height="wrap_content"
 			android:paddingRight="16dp"
 			android:text="@string/transaction_fragment_time_label"
-			android:textColor="@android:color/white"
 			android:textSize="20sp"
 			android:textStyle="bold" />
 
@@ -21,7 +19,6 @@
 			android:id="@+id/transaction_fragment_time"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:textColor="@android:color/white"
 			android:textSize="20sp" />
 	</TableRow>
 
@@ -32,7 +29,6 @@
 			android:layout_height="wrap_content"
 			android:paddingRight="16dp"
 			android:text="@string/transaction_fragment_amount_sent_label"
-			android:textColor="@android:color/white"
 			android:textSize="20sp"
 			android:textStyle="bold" />
 
@@ -40,7 +36,6 @@
 			android:id="@+id/transaction_fragment_amount_sent"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:textColor="@android:color/white"
 			android:textSize="20sp" />
 	</TableRow>
 
@@ -51,7 +46,6 @@
 			android:layout_height="wrap_content"
 			android:paddingRight="16dp"
 			android:text="@string/transaction_fragment_amount_received_label"
-			android:textColor="@android:color/white"
 			android:textSize="20sp"
 			android:textStyle="bold" />
 
@@ -59,7 +53,6 @@
 			android:id="@+id/transaction_fragment_amount_received"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:textColor="@android:color/white"
 			android:textSize="20sp" />
 	</TableRow>
 
@@ -70,7 +63,6 @@
 			android:layout_height="wrap_content"
 			android:paddingRight="16dp"
 			android:text="@string/transaction_fragment_from_label"
-			android:textColor="@android:color/white"
 			android:textSize="20sp"
 			android:textStyle="bold" />
 
@@ -88,7 +80,6 @@
 				android:id="@+id/transaction_fragment_from_label"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:textColor="@android:color/white"
 				android:textSize="20sp" />
 		</FrameLayout>
 	</TableRow>
@@ -100,7 +91,6 @@
 			android:layout_height="wrap_content"
 			android:paddingRight="16dp"
 			android:text="@string/transaction_fragment_to_label"
-			android:textColor="@android:color/white"
 			android:textSize="20sp"
 			android:textStyle="bold" />
 
@@ -118,7 +108,6 @@
 				android:id="@+id/transaction_fragment_to_label"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:textColor="@android:color/white"
 				android:textSize="20sp" />
 		</FrameLayout>
 	</TableRow>
@@ -130,7 +119,6 @@
 			android:layout_height="wrap_content"
 			android:paddingRight="16dp"
 			android:text="@string/transaction_fragment_status_label"
-			android:textColor="@android:color/white"
 			android:textSize="20sp"
 			android:textStyle="bold" />
 
@@ -138,7 +126,7 @@
 			android:id="@+id/transaction_fragment_status"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:textColor="@android:color/white"
+
 			android:textSize="20sp" />
 	</TableRow>
 
@@ -149,7 +137,6 @@
                 android:layout_height="wrap_content"
                 android:paddingRight="16dp"
                 android:text="@string/transaction_fragment_confirmations_label"
-                android:textColor="@android:color/white"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
@@ -157,7 +144,6 @@
                 android:id="@+id/transaction_fragment_confirmations"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@android:color/white"
                 android:textSize="20sp" />
     </TableRow>
 
@@ -168,7 +154,6 @@
 			android:layout_height="wrap_content"
 			android:paddingRight="16dp"
 			android:text="@string/transaction_fragment_hash_label"
-			android:textColor="@android:color/white"
 			android:textSize="20sp"
 			android:textStyle="bold" />
 
@@ -186,7 +171,6 @@
 				android:id="@+id/transaction_fragment_hash"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:textColor="@android:color/white"
 				android:textSize="20sp"
 				android:typeface="monospace" />
 		</FrameLayout>
@@ -199,7 +183,6 @@
 			android:layout_height="wrap_content"
 			android:paddingRight="16dp"
 			android:text="@string/transaction_fragment_length_label"
-			android:textColor="@android:color/white"
 			android:textSize="20sp"
 			android:textStyle="bold" />
 
@@ -207,7 +190,6 @@
 			android:id="@+id/transaction_fragment_length"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:textColor="@android:color/white"
 			android:textSize="20sp" />
 	</TableRow>
 

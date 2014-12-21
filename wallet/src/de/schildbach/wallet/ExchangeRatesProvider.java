@@ -273,7 +273,84 @@ public class ExchangeRatesProvider extends ContentProvider
 		throw new UnsupportedOperationException();
 	}
 
+    private static Object getCoinValueBTC_poloniex()
+    {
 
+
+
+
+        //final Map<String, ExchangeRate> rates = new TreeMap<String, ExchangeRate>();
+        // Keep the LTC rate around for a bit
+        Double btcRate = 0.0;
+        String currencyCryptsy = CoinDefinition.cryptsyMarketCurrency;
+        String urlCryptsy =  "https://poloniex.com/public?command=returnTradeHistory&currencyPair="+CoinDefinition.cryptsyMarketCurrency +"_" + CoinDefinition.coinTicker;
+
+
+
+
+        try {
+            // final String currencyCode = currencies[i];
+            final URL URLCryptsy = new URL(urlCryptsy);
+            final HttpURLConnection connectionCryptsy = (HttpURLConnection)URLCryptsy.openConnection();
+            connectionCryptsy.setConnectTimeout(Constants.HTTP_TIMEOUT_MS * 2);
+            connectionCryptsy.setReadTimeout(Constants.HTTP_TIMEOUT_MS * 2);
+            connectionCryptsy.connect();
+
+            final StringBuilder contentCryptsy = new StringBuilder();
+
+            Reader reader = null;
+            try
+            {
+                reader = new InputStreamReader(new BufferedInputStream(connectionCryptsy.getInputStream(), 1024));
+                Io.copy(reader, contentCryptsy);
+                //final JSONObject head = new JSONObject(contentCryptsy.toString());
+                //JSONObject returnObject = head.getJSONObject("return");
+                //JSONObject markets = returnObject.getJSONObject("markets");
+                //JSONObject coinInfo = head.getJSONObject(CoinDefinition.cryptsyMarketCurrency +"_" + CoinDefinition.coinTicker);
+
+
+
+
+
+                JSONArray recenttrades = new JSONArray(contentCryptsy.toString());//coinInfo.getJSONArray("recenttrades");
+
+                double btcTraded = 0.0;
+                double coinTraded = 0.0;
+
+                for(int i = 0; i < recenttrades.length(); ++i)
+                {
+                    JSONObject trade = (JSONObject)recenttrades.get(i);
+
+                    btcTraded += trade.getDouble("total");
+                    coinTraded += trade.getDouble("amount");
+
+                }
+
+                Double averageTrade = btcTraded / coinTraded;
+
+
+
+                if(currencyCryptsy.equalsIgnoreCase("BTC")) btcRate = averageTrade;
+
+            }
+            finally
+            {
+                if (reader != null)
+                    reader.close();
+            }
+            return btcRate;
+        }
+        catch (final IOException x)
+        {
+            x.printStackTrace();
+        }
+        catch (final JSONException x)
+        {
+            x.printStackTrace();
+        }
+
+        return null;
+    }
     private static Object getCoinValueBTC()
     {
 
@@ -431,13 +508,13 @@ public class ExchangeRatesProvider extends ContentProvider
 
             Double btcRate = 0.0;
             boolean cryptsyValue = true;
-            Object result = getCoinValueBTC();
+            Object result = getCoinValueBTC_poloniex();
 
             if(result == null)
             {
-                result = getCoinValueBTC_BTER();
-                cryptsyValue = false;
-                if(result == null)
+               // result = getCoinValueBTC_BTER();
+                //cryptsyValue = false;
+                //if(result == null)
                     return null;
             }
 
@@ -492,7 +569,11 @@ public class ExchangeRatesProvider extends ContentProvider
 
                                     rateStr = String.format("%.8f", rateForBTC * btcRate).replace(",", ".");
 
+
+
 									final Fiat rate = Fiat.parseFiat(currencyCode, rateStr);
+
+                                    //Fiat newRate = rate.multiply((long)(rateForBTC* 100000000L)).divide(10000000L);
 
 
 									if (rate.signum() > 0)
@@ -522,9 +603,9 @@ public class ExchangeRatesProvider extends ContentProvider
                 }
                 else
                 {
-                    Fiat fiat = Fiat.parseFiat(CoinDefinition.cryptsyMarketCurrency, String.format("%.8f", btcRate).replace(",", "."));
-                    ExchangeRate BTCrate = new ExchangeRate(new org.bitcoinj.utils.ExchangeRate(fiat), "pubapi.cryptsy.com");
-                    rates.put(CoinDefinition.cryptsyMarketCurrency, BTCrate);
+                    //Fiat fiat = Fiat.parseFiat(CoinDefinition.cryptsyMarketCurrency, String.format("%.8f", btcRate).replace(",", "."));
+                    //ExchangeRate BTCrate = new ExchangeRate(new org.bitcoinj.utils.ExchangeRate(fiat), "pubapi.cryptsy.com");
+                    //rates.put(CoinDefinition.cryptsyMarketCurrency, BTCrate);
                     //rates.put("m" + CoinDefinition.cryptsyMarketCurrency, new ExchangeRate("m" + CoinDefinition.cryptsyMarketCurrency, GenericUtils.parseCoin(String.format("%.5f", btcRate*1000).replace(",", "."), 0), cryptsyValue ? "pubapi.cryptsy.com" : "data.bter.com"));
                 }
 

@@ -17,20 +17,17 @@
 
 package de.schildbach.wallet;
 
-import java.io.File;
-
+import android.os.Build;
+import android.os.Environment;
+import android.text.format.DateUtils;
+import hashengineering.groestlcoin.wallet.R;
+import org.bitcoinj.core.CoinDefinition;
 import org.bitcoinj.core.NetworkParameters;
 import org.bitcoinj.params.MainNetParams;
 import org.bitcoinj.params.TestNet3Params;
 import org.bitcoinj.utils.MonetaryFormat;
 
-import android.os.Build;
-import android.os.Environment;
-import android.text.format.DateUtils;
-
-
-import org.bitcoinj.core.CoinDefinition;
-import hashengineering.groestlcoin.wallet.R;
+import java.io.File;
 
 /**
  * @author Andreas Schildbach
@@ -167,7 +164,7 @@ public final class Constants
 
 	public static final String MARKET_PUBLISHER_URL = "market://search?q=pub:\"Hash Engineering Solutions\"";
 //=======
-	public static final MonetaryFormat LOCAL_FORMAT = new MonetaryFormat().noCode().minDecimals(2).optionalDecimals();
+	public static final MonetaryFormat LOCAL_FORMAT = new MonetaryFormat().noCode().minDecimals(6).optionalDecimals();
 
     public static final String SOURCE_URL = "https://github.com/HashEngineering/" + CoinDefinition.coinName.toLowerCase() + "-wallet";
     public static final String BINARY_URL = "https://github.com/HashEngineering/"+ CoinDefinition.coinName.toLowerCase() +"-wallet/releases";

@@ -64,9 +64,7 @@ public final class TransactionActivity extends AbstractWalletActivity
 
 		setContentView(R.layout.transaction_content);
 
-
-		//final ActionBar actionBar = getSupportActionBar();
-		//actionBar.setDisplayHomeAsUpEnabled(true);
+        this.getActionBar().setDisplayHomeAsUpEnabled(true);
 
 		handleIntent(getIntent());
 	}
@@ -149,9 +147,9 @@ public final class TransactionActivity extends AbstractWalletActivity
 
 	private void updateView()
 	{
-		/*final TransactionFragment transactionFragment = (TransactionFragment) getSupportFragmentManager().findFragmentById(R.id.transaction_fragment);
+		final TransactionFragment transactionFragment = (TransactionFragment) getFragmentManager().findFragmentById(R.id.transaction_fragment);
 
-		transactionFragment.update(tx);*/
+		transactionFragment.update(tx);
 	}
 
 	private void processPendingTransaction(final Transaction tx)
