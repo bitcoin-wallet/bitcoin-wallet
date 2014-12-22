@@ -1,3 +1,8 @@
+v4.16
+
+* Important fix for when a wallet is restored via an external app, the QR code on the main screen
+  can still show an old address for a while.
+
 v4.15
 
 * Important fix for how old pre-version-3.47 wallet backups are restored.
