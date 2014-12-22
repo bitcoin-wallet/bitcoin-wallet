@@ -69,16 +69,15 @@ public final class WalletAddressFragment extends Fragment implements NfcAdapter.
 {
 	private Activity activity;
 	private WalletApplication application;
-	private Wallet wallet;
 	private LoaderManager loaderManager;
 	@CheckForNull
 	private NfcAdapter nfcAdapter;
 
 	private ImageView currentAddressQrView;
 
-	private Bitmap currentAddressQrBitmap;
-	private Spanned currentAddressQrLabel;
-	private AtomicReference<String> currentAddressUriRef = new AtomicReference<String>();
+	private Bitmap currentAddressQrBitmap = null;
+	private Spanned currentAddressQrLabel = null;
+	private final AtomicReference<String> currentAddressUriRef = new AtomicReference<String>();
 
 	private static final int ID_ADDRESS_LOADER = 0;
 
@@ -89,7 +88,6 @@ public final class WalletAddressFragment extends Fragment implements NfcAdapter.
 
 		this.activity = activity;
 		this.application = (WalletApplication) activity.getApplication();
-		this.wallet = application.getWallet();
 		this.loaderManager = getLoaderManager();
 		final NfcManager nfcManager = (NfcManager) activity.getSystemService(Context.NFC_SERVICE);
 		this.nfcAdapter = nfcManager.getDefaultAdapter();
@@ -240,7 +238,7 @@ public final class WalletAddressFragment extends Fragment implements NfcAdapter.
 		@Override
 		public Loader<Address> onCreateLoader(final int id, final Bundle args)
 		{
-			return new CurrentAddressLoader(activity, wallet);
+			return new CurrentAddressLoader(activity, application.getWallet());
 		}
 
 		@Override
