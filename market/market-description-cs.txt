@@ -1,21 +1,21 @@
-<b>Mějte své digitalcoiny vždy s sebou ve své kapse!</b> Plaťte rychým oskenováním QR kódu. A jako prodejce můžete přijímat platby spolehlivě a rychle. digitalcoin Wallet je mobilní digitalcoin aplikace číslo jedna a jedna z nejbezpečnějších!
+<b>Mějte své GroestlCoiny vždy s sebou ve své kapse!</b> Plaťte rychým oskenováním QR kódu. A jako prodejce můžete přijímat platby spolehlivě a rychle. GroestlCoin Wallet je mobilní GroestlCoin aplikace číslo jedna a jedna z nejbezpečnějších!
 
 <b>FUNKCE</b>
 
 • Žádná registrace, žádná webová služba ani cloud není potřeba! Tato peněženka je de-centralizovaná a peer to peer.
-• Zobrazení digitalcoin částek v DGC, mDGC a µDGC.
+• Zobrazení GroestlCoin částek v DGC, mDGC a µDGC.
 • Přepočet z a do národních měn.
-• Odesílání a přijímání plateb přes NFC, QR kódy nebo digitalcoin URL.
-• Adresář pro často používané digitalcoin adresy.
+• Odesílání a přijímání plateb přes NFC, QR kódy nebo GroestlCoin URL.
+• Adresář pro často používané GroestlCoin adresy.
 • Pokud jste offline, stále můžete platit přes Bluetooth.
 • Systémové notifikace při přijaté platbě
 • Načítání papírových peněženek (např. ty co se používají u cold storage).
-• Widget pro zborazení digitalcoin bilance.
+• Widget pro zborazení GroestlCoin bilance.
 
 
 <b>PŘISPĚJTE</b>
 
-digitalcoin Wallet je <b>open source</b> a <b>svobodný software</b>. Licence: GPLv3
+GroestlCoin Wallet je <b>open source</b> a <b>svobodný software</b>. Licence: GPLv3
 https://www.gnu.org/licenses/gpl-3.0.en.html
 
 Náš zdrojový kód je k dispozici na GitHubu:

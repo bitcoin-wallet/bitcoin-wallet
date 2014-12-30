@@ -3,29 +3,29 @@ Have your digitalcoins always with you, in your pocket! You pay by quickly scann
 <b>FEATURES</b>
 
 • No registration, web service or cloud needed! This wallet is de-centralized and peer to peer.
-• Display of digitalcoin amount in DGC, mDGC and µDGC.
+• Display of GroestlCoin amount in GRS, mGRS and µGRS.
 • Conversion to and from national currencies.
-• Sending and receiving of digitalcoin via NFC, QR-codes or digitalcoin URLs.
-• Address book for regularly used digitalcoin addresses.
+• Sending and receiving of GroestlCoin via NFC, QR-codes or GroestlCoin URLs.
+• Address book for regularly used GroestlCoin addresses.
 • When you're offline, you can still pay via Bluetooth.
 • System notification for received coins.
 • Sweeping of paper wallets (e.g. those used for cold storage).
-• App widget for digitalcoin balance.
+• App widget for GroestlCoin balance.
 
 <b>CONTRIBUTE</b>
 
-digitalcoin Wallet is <b>open source</b> and <b>free software</b>. License: GPLv3
+GroestlCoin Wallet is <b>open source</b> and <b>free software</b>. License: GPLv3
 https://www.gnu.org/licenses/gpl-3.0.en.html
 
 Our source code is available at GitHub:
-https://github.com/HashEngineering/digitalcoin-wallet
+https://github.com/HashEngineering/GroestlCoin-wallet
 
 All translations are managed via Transifex:
 https://www.transifex.com/projects/p/bitcoin-wallet/
 
 <b>TESTIMONIALS</b>
 
-• Recommended mobile wallet by http://digitalcoin.co
+• Recommended mobile wallet by http://www.groestlcoin.org/
 
 
 
