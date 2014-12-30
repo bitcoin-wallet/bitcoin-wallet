@@ -28,7 +28,7 @@
     <orderEntry type="library" scope="PROVIDED" name="Maven: com.google.android:annotations:4.1.1.4" level="project" />
     <orderEntry type="library" name="Maven: com.android.support:support-v4:19.1.0" level="project" />
     <orderEntry type="library" name="Maven: com.android.support:support-v13:19.1.0" level="project" />
-    <orderEntry type="module" module-name="core" />
+    <orderEntry type="module" module-name="bitcoinj-core" />
     <orderEntry type="library" name="Maven: com.madgag.spongycastle:core:1.51.0.0" level="project" />
     <orderEntry type="library" name="Maven: com.google.protobuf:protobuf-java:2.5.0" level="project" />
     <orderEntry type="library" name="Maven: com.google.guava:guava:16.0.1" level="project" />
