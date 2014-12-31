@@ -28,22 +28,19 @@
     <orderEntry type="library" scope="PROVIDED" name="Maven: com.google.android:annotations:4.1.1.4" level="project" />
     <orderEntry type="library" name="Maven: com.android.support:support-v4:19.1.0" level="project" />
     <orderEntry type="library" name="Maven: com.android.support:support-v13:19.1.0" level="project" />
-    <orderEntry type="module" module-name="bitcoinj-core" />
-    <orderEntry type="library" name="Maven: com.madgag.spongycastle:core:1.51.0.0" level="project" />
+    <orderEntry type="module" module-name="integration-android" />
     <orderEntry type="library" name="Maven: com.google.protobuf:protobuf-java:2.5.0" level="project" />
     <orderEntry type="library" name="Maven: com.google.guava:guava:16.0.1" level="project" />
-    <orderEntry type="library" name="Maven: com.google.code.findbugs:jsr305:2.0.1" level="project" />
-    <orderEntry type="library" name="Maven: net.jcip:jcip-annotations:1.0" level="project" />
-    <orderEntry type="library" name="Maven: com.lambdaworks:scrypt:1.4.0" level="project" />
-    <orderEntry type="library" name="Maven: org.bitcoinj:orchid:1.0" level="project" />
-    <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.7" level="project" />
-    <orderEntry type="module" module-name="integration-android" />
     <orderEntry type="library" name="Maven: com.google.zxing:core:3.1.0" level="project" />
+    <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.7" level="project" />
     <orderEntry type="library" name="Maven: com.github.tony19:logback-android-classic:1.1.1-3" level="project" />
     <orderEntry type="library" name="Maven: com.github.tony19:apktool-lib:1.4.4-3" level="project" />
     <orderEntry type="library" name="Maven: com.github.tony19:logback-android-core:1.1.1-3" level="project" />
+    <orderEntry type="library" name="Maven: com.google.code.findbugs:jsr305:2.0.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: junit:junit:4.11" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.hamcrest:hamcrest-core:1.3" level="project" />
+    <orderEntry type="module" module-name="bitcoinj-core" />
+    <orderEntry type="library" name="Maven: com.madgag.spongycastle:core:1.51.0.0" level="project" />
   </component>
 </module>
 
