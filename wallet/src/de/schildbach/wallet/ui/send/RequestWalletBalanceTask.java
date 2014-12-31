@@ -26,6 +26,7 @@ import de.schildbach.wallet.util.Io;
 import hashengineering.groestlcoin.wallet.R;
 import org.bitcoinj.core.*;
 import org.bitcoinj.core.TransactionConfidence.ConfidenceType;
+import org.bitcoinj.script.ScriptBuilder;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -208,7 +209,7 @@ public final class RequestWalletBalanceTask
                                 uxtoHash = new Sha256Hash(jsonOutput.getString("tx_hash"));
                                 uxtoIndex = jsonOutput.getInt("tx_ouput_n");
                                 //uxtoScriptBytes = HEX.decode(jsonOutput.getString("script_pub_key"));
-                                uxtoScriptBytes = addresses[0].getHash160();
+                                uxtoScriptBytes = ScriptBuilder.createOutputScript(addresses[0]).getProgram();
                                 uxtoValue = Coin.valueOf(jsonOutput.getLong("value"));
                             }
 /*=======
