@@ -26,6 +26,7 @@ import de.schildbach.wallet.util.Io;
 import hashengineering.groestlcoin.wallet.R;
 import org.bitcoinj.core.*;
 import org.bitcoinj.core.TransactionConfidence.ConfidenceType;
+import org.bitcoinj.script.ScriptBuilder;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -94,7 +95,7 @@ public final class RequestWalletBalanceTask
                 else if(CoinDefinition.UnspentAPI == CoinDefinition.UnspentAPIType.Cryptoid)
                 {
                    url.append("&key=d47da926b82e");    //Cryptoid API key
-                   url.append("&address=").append(addresses[0].toString());
+                   url.append("&active=").append(addresses[0].toString());
                 }
                 else if(CoinDefinition.UnspentAPI == CoinDefinition.UnspentAPIType.Blockr)
                 {
@@ -137,7 +138,7 @@ public final class RequestWalletBalanceTask
 
 						final JSONObject json = new JSONObject(content.toString());
                         JSONArray jsonOutputs = null;
-                        if(CoinDefinition.UnspentAPI != CoinDefinition.UnspentAPIType.BitEasy)
+                        if(CoinDefinition.UnspentAPI == CoinDefinition.UnspentAPIType.BitEasy)
                         {
                             final int status = json.getInt("status");
                             if (status != 200)
@@ -152,7 +153,7 @@ public final class RequestWalletBalanceTask
 
                             jsonOutputs = jsonData.getJSONArray("outputs");
                         }
-                        else if(CoinDefinition.UnspentAPI != CoinDefinition.UnspentAPIType.Blockr)
+                        else if(CoinDefinition.UnspentAPI == CoinDefinition.UnspentAPIType.Blockr)
                         {
                             String success = json.getString("status");
 
@@ -162,7 +163,7 @@ public final class RequestWalletBalanceTask
                             JSONObject dataJson = json.getJSONObject("data");
                             jsonOutputs = dataJson.getJSONArray("unspent");
                         }
-                        else if(CoinDefinition.UnspentAPI != CoinDefinition.UnspentAPIType.Cryptoid)
+                        else if(CoinDefinition.UnspentAPI == CoinDefinition.UnspentAPIType.Cryptoid)
                         {
                             //String success = json.getString("status");
 
@@ -184,7 +185,7 @@ public final class RequestWalletBalanceTask
                             byte[] uxtoScriptBytes = null;
                             Coin uxtoValue = null;
 
-                            if(CoinDefinition.UnspentAPI != CoinDefinition.UnspentAPIType.BitEasy)
+                            if(CoinDefinition.UnspentAPI == CoinDefinition.UnspentAPIType.BitEasy)
                             {
                                 if (jsonOutput.getInt("is_spent") != 0)
                                     throw new IllegalStateException("UXTO not spent");
@@ -193,7 +194,7 @@ public final class RequestWalletBalanceTask
                                 uxtoScriptBytes = HEX.decode(jsonOutput.getString("script_pub_key"));
                                 uxtoValue = Coin.valueOf(jsonOutput.getLong("value"));
                             }
-                            else if(CoinDefinition.UnspentAPI != CoinDefinition.UnspentAPIType.Blockr)
+                            else if(CoinDefinition.UnspentAPI == CoinDefinition.UnspentAPIType.Blockr)
                             {
                                 uxtoHash = new Sha256Hash(jsonOutput.getString("tx"));
                                 uxtoIndex = jsonOutput.getInt("n");
@@ -201,13 +202,14 @@ public final class RequestWalletBalanceTask
                                 uxtoValue = Coin.valueOf((long)(Double.parseDouble(String.format("%.08f", jsonOutput.getDouble("amount")).replace(",", ".")) *100000000));
                                 //jsonOutput.getInt("confirmations");
                             }
-                            if(CoinDefinition.UnspentAPI != CoinDefinition.UnspentAPIType.Cryptoid)
+                            if(CoinDefinition.UnspentAPI == CoinDefinition.UnspentAPIType.Cryptoid)
                             {
                                //if (jsonOutput.getInt("is_spent") != 0)
                                //     throw new IllegalStateException("UXTO not spent");
                                 uxtoHash = new Sha256Hash(jsonOutput.getString("tx_hash"));
                                 uxtoIndex = jsonOutput.getInt("tx_ouput_n");
-                                uxtoScriptBytes = HEX.decode(jsonOutput.getString("script_pub_key"));
+                                //uxtoScriptBytes = HEX.decode(jsonOutput.getString("script_pub_key"));
+                                uxtoScriptBytes = ScriptBuilder.createOutputScript(addresses[0]).getProgram();
                                 uxtoValue = Coin.valueOf(jsonOutput.getLong("value"));
                             }
 /*=======

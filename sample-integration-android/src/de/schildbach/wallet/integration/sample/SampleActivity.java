@@ -31,10 +31,10 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.bitcoin.core.Address;
-import com.google.bitcoin.core.AddressFormatException;
-import com.google.bitcoin.core.NetworkParameters;
-import com.google.bitcoin.script.ScriptBuilder;
+import org.bitcoinj.core.Address;
+import org.bitcoinj.core.AddressFormatException;
+import org.bitcoinj.core.NetworkParameters;
+import org.bitcoinj.script.ScriptBuilder;
 import com.google.protobuf.ByteString;
 
 import de.schildbach.wallet.integration.android.BitcoinIntegration;
