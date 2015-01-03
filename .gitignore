@@ -10,3 +10,4 @@ Thumbs.db
 production/
 lib/
 out/
+.iml
