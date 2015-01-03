@@ -10,4 +10,6 @@ Thumbs.db
 production/
 lib/
 out/
-.iml
+*.iml
+*.bak
+gen-external-apklibs
