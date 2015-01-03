@@ -1,40 +1,25 @@
-<<<<<<< HEAD
-Hab deine digitalcoins immer dabei, in deiner Hosentasche! Du zahlst, indem du rasch einen QR-Code scannst. Als Händler empfängst du Zahlungen zuverlässig und sofort. digitalcoin Wallet ist die erste mobile digitalcoin app, und wohl auch die sicherste!
-=======
-<b>Hab deine digitalcoins immer dabei, in deiner Hosentasche!</b> Du zahlst, indem du rasch einen QR-Code scannst. Als Händler empfängst du Zahlungen zuverlässig und sofort. digitalcoin Wallet ist die erste mobile digitalcoin app, und wohl auch die sicherste!
->>>>>>> upstream/master
-
+<b>Hab deine GroestlCoins immer dabei, in deiner Hosentasche!</b> Du zahlst, indem du rasch einen QR-Code scannst. Als Händler empfängst du Zahlungen zuverlässig und sofort. GroestlCoin Wallet ist die erste mobile GroestlCoin app, und wohl auch die sicherste!
 
 <b>FEATURES</b>
 
 • Keine Registrierung, Web-Dienst oder Cloud nötig! Diese Wallet ist dezentral und Peer to Peer.
-• Anzeige von digitalcoin-Werten in DGC, mDGC und µDGC.
+• Anzeige von GroestlCoin-Werten in GRS, mGRS und µGRS.
 • Umrechnung von und zu den nationalen Währungen.
-• Senden und Empfangen von digitalcoin via NFC, QR-Codes oder digitalcoin URLs.
+• Senden und Empfangen von GroestlCoin via NFC, QR-Codes oder GroestlCoin URLs.
 • Adressbuch für regelmäßig genutzte Empfänger.
 • Wenn du offline bist, kannst du trotzdem über Bluetooth zahlen.
 • System-Benachrichtigung für den Empfang von Zahlungen.
-<<<<<<< HEAD
-• App-Widget zeigt digitalcoin-Guthaben an.
-
-Weitere Informationen zu digitalcoin findest Du unter
-http://digitalcoin.co
-
-Wenn Du zu digitalcoin Wallet beitragen willst, das Projekt befindet sich auf
-https://github.com/HashEngineering/digitalcoin-wallet
-=======
 • Entleeren von Paper-Wallets (die z.B. für Cold-Storage genutzt wurden).
-• App-Widget zeigt digitalcoin-Guthaben an.
+• App-Widget zeigt GroestlCoin-Guthaben an.
 
 
 <b>MITWIRKEN</b>
 
-digitalcoin Wallet ist <b>Open Source</b> und <b>Freie Software</b>. Lizenz: GPLv3
+GroestlCoin Wallet ist <b>Open Source</b> und <b>Freie Software</b>. Lizenz: GPLv3
 https://www.gnu.org/licenses/gpl-3.0.de.html
 
 Unser Source Code ist auf GitHub verfügbar:
-https://github.com/HashEngineering/digitalcoin-wallet
->>>>>>> upstream/master
+https://github.com/HashEngineering/groestlcoin-wallet
 
 Alle Übersetzungen werden auf Transifex organisiert:
 https://www.transifex.com/projects/p/bitcoin-wallet/
@@ -42,8 +27,8 @@ https://www.transifex.com/projects/p/bitcoin-wallet/
 
 <b>EMPFEHLUNGEN</b>
 
-• Viele mobile Wallets basieren auf digitalcoin Wallet. Beispiele: blockchain.info, Hive and KnC.
-• Von http://digitalcoin.co empfohlenes mobiles Wallet.
+• Viele mobile Wallets basieren auf GroestlCoin Wallet. Beispiele: blockchain.info, Hive and KnC.
+• Von http://www.groestlcoin.org empfohlenes mobiles Wallet.
 • Von BitPay empfohlen.
 
 

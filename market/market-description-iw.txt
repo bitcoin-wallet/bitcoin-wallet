@@ -12,10 +12,10 @@ FEATURES:
 • וידג'ט לבדיקת יתרת הביטקוין שלך
 
 אתה יכול למצוא יותר על ביטקוין בכתובת
-לפרטים נוספים : http://digitalcoin.co
+לפרטים נוספים : http://www.groestlcoin.org
 
 אם אתה רוצה לתרום לפרויקט ארנק הביטקוין, הפרויקט ממוקם ב
-https://github.com/HashEngineering/digitalcoin-wallet
+https://github.com/HashEngineering/groestlcoin-wallet
 
 רישיון : GPLv3
 שים לב: השימוש הוא באחריות המשתמש.

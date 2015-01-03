@@ -1,45 +1,13 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-Ten tus digitalcoins siempre contigo, en tu bolsillo! Paga rápidamente escaneando un código QR. Como comerciante, recibes los pagos de forma fiable e instantáneamente. digitalcoin Wallet es la primera digitalcoin app para movil, e incluso la mas segura!
-=======
-<b>Tenga sus digitalcoins siempre con usted, en su bolsillo!</b> Usted paga con un rápido escaneo a un código QR. Como comerciante, usted recibe pagos de forma fiable e instantánea. digitalcoin Wallet es la primera aplicación Bitcon móvil, y posiblemente también la mas segura!
->>>>>>> upstream/master
-=======
-<b>Ten tus bitcoins siempre contigo, ¡en tu bolsillo!</b> Puedes pagar leyendo rápidamente el código QR. Como comerciante, puedes recibir pagos de forma fiable e instantánea. Bitcoin Wallet es la primera aplicación móvil Bitcoin. ¡Y posiblemente también la más segura!
->>>>>>> origin/master
+<b>Ten tus bitcoins siempre contigo, ¡en tu bolsillo!</b> Puedes pagar leyendo rápidamente el código QR. Como comerciante, puedes recibir pagos de forma fiable e instantánea. GroestlCoin Wallet es la primera aplicación móvil GroestlCoin. ¡Y posiblemente también la más segura!
 
 
 <b>CARACTERÍSTICAS</b>
 
-<<<<<<< HEAD
-• ¡No requiere registro, servidor en la nube o servicio web! Este monedero es auténticamente entre pares (peer-to-peer).
-<<<<<<< HEAD
-• Muestra la cantidad de digitalcoins en DGC y mDGC
-• Conversión a divisas nacionales.
-• Envío y recepción de digitalcoins vía NFC, códigos QR o URL de digitalcoin.
-• Libreta de direcciones para guardar las direcciones digitalcoin más utilizadas.
-• Cuando no tengas conexión, puedes seguir pagando via Bluetooth.
-• Notificación al recibir monedas.
-• Widget para el saldo de digitalcoins.
-
-Puedes descubrir más sobre digitalcoin en
-http://digitalcoin.co
-
-Si quieres contribuir a digitalcoin Wallet, el proyecto se encuentra en
-https://github.com/HashEngineering/digitalcoin-wallet
-
-=======
-• Despliegue la cantidad de digitalcoin en DGC, mDGC, y µDGC.
-• Conversión a divisas nacionales.
-• Envio y recepcion de digitalcoins mediante NFC, codigos QR o URLs digitalcoin.
-• Libreta de direcciones para guardar las direcciones digitalcoin más utilizadas.
-=======
 • ¡No requiere registro, servidor en la nube o servicio web! Este monedero es auténticamente descentralizado y entre pares (peer-to-peer).
 • Muestra la cantidad de bitcoins en GRS, mGRS, y µGRS.
 • Conversión hacia y desde divisas nacionales.
-• Envío y recepción de bitcoins mediante NFC, códigos QR o identificadores URL Bitcoin.
-• Libreta de direcciones para guardar las direcciones Bitcoin más utilizadas.
->>>>>>> origin/master
+• Envío y recepción de bitcoins mediante NFC, códigos QR o identificadores URL GroestlCoin.
+• Libreta de direcciones para guardar las direcciones GroestlCoin más utilizadas.
 • Cuando no tengas conexión, puedes seguir pagando via Bluetooth.
 • Notificación de sistema al recibir bitcoins.
 • Barrido de monederos de papel (por ejemplo, los que se utilizan para custodia en frio).
@@ -48,20 +16,11 @@ https://github.com/HashEngineering/digitalcoin-wallet
 
 <b>CONTRIBUIR</b>
 
-<<<<<<< HEAD
-digitalcoin Wallet es <b>codigo abierto</b> y <b>software libre</b>. Licencia: GPLv3
-https://www.gnu.org/licenses/gpl-3.0.en.html
-
-Nuestro código fuente esta disponible en GitHub:
-https://github.com/HashEngineering/digitalcoin-wallet
->>>>>>> upstream/master
-=======
-Bitcoin Wallet es <b>código abierto</b> y <b>software libre</b>. Licencia: GPLv3
+GroestlCoin Wallet es <b>código abierto</b> y <b>software libre</b>. Licencia: GPLv3
 https://www.gnu.org/licenses/gpl-3.0.en.html
 
 Nuestro código fuente está disponible en GitHub:
-https://github.com/schildbach/bitcoin-wallet
->>>>>>> origin/master
+https://github.com/HashEngineering/groestlcoin-wallet
 
 Todas las traducciones son administradas a través de Transifex:
 https://www.transifex.com/projects/p/bitcoin-wallet/
@@ -69,18 +28,7 @@ https://www.transifex.com/projects/p/bitcoin-wallet/
 
 <b>TESTIMONIOS</b>
 
-<<<<<<< HEAD
-• Muchas billeteras móviles basan su código en digitalcoin Wallet. Ejemplos: blockchain.info, Hive and KnC.
-• Billetera móvil recomendada por http://digitalcoin.co
-• Recomendado por BitPay.
-
-
-<i>Utilice bajo su propio riesgo!</i>
-=======
-• Muchos monederos móviles basan su código en Bitcoin Wallet. Ejemplos: blockchain.info, Hive y KnC.
-• Monedero móvil recomendado por https://bitcoin.org
-• Recomendado por BitPay.
+• Monedero móvil recomendado por http://www.groestlcoin.org
 
 
 <i>¡Úsalo bajo tu propio riesgo!</i>
->>>>>>> origin/master

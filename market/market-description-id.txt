@@ -1,20 +1,20 @@
-Dengan aplikasi ini Anda selalu mempunyai digitalcoin dengan Anda, dalam saku Anda! Anda dapat mengirim pembayaran hanya dengan memindai kode-QR atau mendekatkan dua ponsel bersama (NFC). digitalcoin Wallet dirancang untuk mudah digunakan dan diandalkan, sementara juga menjadi lebih aman dan cepat.
+Dengan aplikasi ini Anda selalu mempunyai GroestlCoin dengan Anda, dalam saku Anda! Anda dapat mengirim pembayaran hanya dengan memindai kode-QR atau mendekatkan dua ponsel bersama (NFC). GroestlCoin Wallet dirancang untuk mudah digunakan dan diandalkan, sementara juga menjadi lebih aman dan cepat.
 
 FITUR:
 
 • Tidak diperlukan server awan atau layanan web! Dompet ini benar-benar peer ke peer.
-• Tampilkan saldo dompet dalam digitalcoin dan mata uang lainnya.
-• Mengirim dan menerima digitalcoin via NFC, kode-QR atau Tautan digitalcoin.
-• Buku alamat untuk alamat penggunaan digitalcoin secara reguler.
+• Tampilkan saldo dompet dalam GroestlCoin dan mata uang lainnya.
+• Mengirim dan menerima GroestlCoin via NFC, kode-QR atau Tautan GroestlCoin.
+• Buku alamat untuk alamat penggunaan GroestlCoin secara reguler.
 • Masukkan transaksi saat offline, akan dilaksanakan ketika online.
-• Notifikasi sistem untuk konektivitas digitalcoin dan menerima koin.
-• Widget Apl untuk saldo digitalcoin.
+• Notifikasi sistem untuk konektivitas GroestlCoin dan menerima koin.
+• Widget Apl untuk saldo GroestlCoin.
 
-Anda dapat mengetahui lebih mengenai digitalcoin di
-http://digitalcoin.co
+Anda dapat mengetahui lebih mengenai GroestlCoin di
+http://www.groestlcoin.org
 
-Jika Anda ingin berkontribusi kepada digitalcoin Wallet, proyeknya berada di
-https://github.com/HashEngineering/digitalcoin-wallet
+Jika Anda ingin berkontribusi kepada GroestlCoin Wallet, proyeknya berada di
+https://github.com/HashEngineering/groestlcoin-wallet
 
 Lisensi: GPLv3
 Gunakan dengan resiko Anda!

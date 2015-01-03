@@ -1,21 +1,21 @@
-Tartsd a zsebedben digitalcoinjaidat! Egyszerűen, akár QR-kód leolvasásával is fizethetsz. Ha pedig termékeket, vagy szolgáltatást értékesítesz megbízható módon és gyorsan juthatsz a bevételeidhez. A digitalcoin Tárca az első digitalcoin app és kétségkívül a legbiztonságosabb is!
+Tartsd a zsebedben GroestlCoinjaidat! Egyszerűen, akár QR-kód leolvasásával is fizethetsz. Ha pedig termékeket, vagy szolgáltatást értékesítesz megbízható módon és gyorsan juthatsz a bevételeidhez. A GroestlCoin Tárca az első GroestlCoin app és kétségkívül a legbiztonságosabb is!
 
 ELŐNYÖK:
 
 • Nincs regisztráció és nem szükséges semmiféle háttéralkalmazás futtatása (web, vagy cloud)! Decentralizált és közvetlen (P2P).
-• A digitalcoinjaid mennyiségét DGC és mDGC formában is láthatod.
+• A GroestlCoinjaid mennyiségét GRS és mGRS formában is láthatod.
 • Átváltás a saját valutádra, oda-vissza.
-• digitalcoin küldése és fogadása NFC, QR-kód vagy közvetlen URL segítségével.
-• Címtár a rendszeresen használt digitalcoin címek számára.
+• GroestlCoin küldése és fogadása NFC, QR-kód vagy közvetlen URL segítségével.
+• Címtár a rendszeresen használt GroestlCoin címek számára.
 • Offline állapotban is fizethetsz - Bluetooth segítségével.
-• Rendszerüzenet digitalcoin érkezésekor.
-• Widget a digitalcoin egyenlegről.
+• Rendszerüzenet GroestlCoin érkezésekor.
+• Widget a GroestlCoin egyenlegről.
 
-Bővebben a digitalcoin-ról:
-http://digitalcoin.co
+Bővebben a GroestlCoin-ról:
+http://www.groestlcoin.org
 
-Ha hozzájárulnál a digitalcoin Wallet projekthez:
-https://github.com/HashEngineering/digitalcoin-wallet
+Ha hozzájárulnál a GroestlCoin Wallet projekthez:
+https://github.com/HashEngineering/groestlcoin-wallet
 
 
 

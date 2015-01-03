@@ -1,30 +1,25 @@
-<<<<<<< HEAD
-<b>Pidä digitalcoinisi aina mukana taskussasi!</b> Voit maksaa nopeasti skannaamalla QR-koodin. Kauppiaana saat maksut turvallisesti ja välittömästi. digitalcoin Wallet on ensimmäinen digitalcoin-mobiilisovellus, ja kenties myös kaikista turvallisin!
-=======
-<b>Pidä Bitcoinisi aina mukana taskussasi!</b> Voit maksaa nopeasti skannaamalla QR-koodin. Kauppiaana saat maksut turvallisesti ja välittömästi. Bitcoin Wallet on ensimmäinen Bitcoin-mobiilisovellus ja luultavimmin myös kaikista turvallisin!
->>>>>>> origin/master
-
+<b>Pidä GroestlCoinisi aina mukana taskussasi!</b> Voit maksaa nopeasti skannaamalla QR-koodin. Kauppiaana saat maksut turvallisesti ja välittömästi. GroestlCoin Wallet on ensimmäinen GroestlCoin-mobiilisovellus ja luultavimmin myös kaikista turvallisin!
 
 <b>OMINAISUUDET</b>
 
 • Ei vaadi rekisteröintiä, verkkopalveluja tai pilvitallennusta! Tämä lompakko on hajautettu ja suorayhteyksinen.
-• Mahdollisuus näyttää digitalcoin-varat määrissä DGC, mDGC ja µDGC.
+• Mahdollisuus näyttää GroestlCoin-varat määrissä GRS, mGRS ja µGRS.
 • Yksikkömuunnos valtioiden valuuttojen välillä.
-• digitalcoinien lähettäminen ja vastaanottaminen NFC, QR-koodien tai digitalcoin-URL-osotteiden avulla.
-• Osoitekirja säännöllisesti käytettyjä digitalcoin-osoitteita varten.
+• GroestlCoinien lähettäminen ja vastaanottaminen NFC, QR-koodien tai GroestlCoin-URL-osotteiden avulla.
+• Osoitekirja säännöllisesti käytettyjä GroestlCoin-osoitteita varten.
 • Kun et ole verkkoyhteyden ulottuvilla, voit silti maksaa Bluetoothin välityksellä.
-• Järjestelmän ilmoitus vastaanotetuille digitalcoineille.
+• Järjestelmän ilmoitus vastaanotetuille GroestlCoineille.
 • Paperisen lompakon pyyhkäisymahdollisuus (esim. näitä käytetään "kylmissä varastoissa").
-• Android-sovellus digitalcoin-varojen hallintaan.
+• Android-sovellus GroestlCoin-varojen hallintaan.
 
 
 <b>OSALLISTU</b>
 
-digitalcoin Wallet on <b>avointa lähdekoodia</b> ja <b>vapaa ohjelmisto</b>. Lisenssi: GPLv3
+GroestlCoin Wallet on <b>avointa lähdekoodia</b> ja <b>vapaa ohjelmisto</b>. Lisenssi: GPLv3
 https://www.gnu.org/licenses/gpl-3.0.en.html
 
 Lähdekoodi saatavilla GitHub:sta:
-https://github.com/HashEngineering/digitalcoin-wallet
+https://github.com/HashEngineering/groestlcoin-wallet
 
 Kaikki käännökset on hallinnoitu Transifex:n kautta:
 https://www.transifex.com/projects/p/bitcoin-wallet/
@@ -32,15 +27,7 @@ https://www.transifex.com/projects/p/bitcoin-wallet/
 
 <b>SUOSITTELUMME</b>
 
-<<<<<<< HEAD
-• Useat mobiililompakot perustuvat digitalcoin Wallet-ohjelman lähdekoodiin, esimerkiksi: blockchain.info, Hive and KnC.
-• http://digitalcoin.co: suosittelema mobiililompakko
-• BitPay:n suosittelema
-=======
-• Useat mobiililompakot perustuvat Bitcoin Wallet-ohjelman lähdekoodiin, esimerkiksi: blockchain.info, Hive and KnC.
-• https://bitcoin.org: suosittelema mobiililompakko
-• BitPay:n suosittelema.
->>>>>>> origin/master
+• http://www.groestlcoin.org: suosittelema mobiililompakko
 
 
 <i>Käytä omalla vastuulla!</i>

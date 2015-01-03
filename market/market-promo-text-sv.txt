@@ -1,5 +1,1 @@
-<<<<<<< HEAD
-Dina digitalcoins, i din ficka!
-=======
-Dina egna bitcoin, i din egen ficka!
->>>>>>> origin/master
+Dina egna GroestlCoin, i din egen ficka!

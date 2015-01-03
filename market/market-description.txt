@@ -1,4 +1,4 @@
-Have your digitalcoins always with you, in your pocket! You pay by quickly scanning a QR-code. As a merchant, you receive payments reliably and instantly. digitalcoin Wallet is the first mobile digitalcoin app, and arguably also the most secure!
+Have your GroestlCoins always with you, in your pocket! You pay by quickly scanning a QR-code. As a merchant, you receive payments reliably and instantly. GroestlCoin Wallet is the first mobile GroestlCoin app, and arguably also the most secure!
 
 <b>FEATURES</b>
 
@@ -18,7 +18,7 @@ GroestlCoin Wallet is <b>open source</b> and <b>free software</b>. License: GPLv
 https://www.gnu.org/licenses/gpl-3.0.en.html
 
 Our source code is available at GitHub:
-https://github.com/HashEngineering/GroestlCoin-wallet
+https://github.com/HashEngineering/groestlcoin-wallet
 
 All translations are managed via Transifex:
 https://www.transifex.com/projects/p/bitcoin-wallet/

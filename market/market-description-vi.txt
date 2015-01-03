@@ -1,20 +1,20 @@
-Với ứng dụng này thì các digitalcoin sẽ luôn trong tầm kiểm soát của riêng bạn! Bạn có thể gửi các khoản chi trả thông qua thao tác cực kỳ đơn giản đó là quét mã dạng QR hoặc bằng cách chạm hai điện thoại vào nhau (NFC). digitalcoin Wallet được thiết với nguyên lý dễ dàng, tiện lợi, đáng tin tưởng, cũng như cực kỳ nhanh lẹ và đảm bảo an toàn cho người dùng.
+Với ứng dụng này thì các GroestlCoin sẽ luôn trong tầm kiểm soát của riêng bạn! Bạn có thể gửi các khoản chi trả thông qua thao tác cực kỳ đơn giản đó là quét mã dạng QR hoặc bằng cách chạm hai điện thoại vào nhau (NFC). GroestlCoin Wallet được thiết với nguyên lý dễ dàng, tiện lợi, đáng tin tưởng, cũng như cực kỳ nhanh lẹ và đảm bảo an toàn cho người dùng.
 
 TÍNH NĂNG:
 
 • Không cần có cloud server hoặc dịch vụ web bổ sung nào cả! Ví tiền của bạn được kết nối thông qua sự lựa chọn của bạn trong kết nối mang ngang hàng lẫn nhau.
-• Hiển thị trạng thái cân bằng tài khoản giữa digitalcoin và các loại tiền tệ khác.
-• Gửi và nhận digitalcoin thông qua NFC, mã dạng QR hoặc đường dẫn liên kết dạng digitalcoin.
-• Sổ địa chỉ đối với các địa chỉ digitalcoin thường sử dụng.
+• Hiển thị trạng thái cân bằng tài khoản giữa GroestlCoin và các loại tiền tệ khác.
+• Gửi và nhận GroestlCoin thông qua NFC, mã dạng QR hoặc đường dẫn liên kết dạng GroestlCoin.
+• Sổ địa chỉ đối với các địa chỉ GroestlCoin thường sử dụng.
 • Tham gia tiến trình giao dịch ngay khi không có kết nối mạng, và sẽ thực hiện kết nối ngay khi có mạng.
-• Thông báo trong hệ thống theo tính nhanh gọn về số lượng digitalcoin nhận và gửi đi.
-• Tiện ích dành riêng cho digitalcoin.
+• Thông báo trong hệ thống theo tính nhanh gọn về số lượng GroestlCoin nhận và gửi đi.
+• Tiện ích dành riêng cho GroestlCoin.
 
-Bạn có thể tìm hiểu thêm về digitalcoin tại
-http://digitalcoin.co
+Bạn có thể tìm hiểu thêm về GroestlCoin tại
+http://www.groestlcoin.org
 
-Nếu bạn có ý tưởng đóng góp cho digitalcoin Wallet, hãy truy cập vào trang web
-https://github.com/HashEngineering/digitalcoin-wallet
+Nếu bạn có ý tưởng đóng góp cho GroestlCoin Wallet, hãy truy cập vào trang web
+https://github.com/HashEngineering/groestlcoin-wallet
 
 Giấy phép: GPLv3
 Sử dụng với sự cẩn trọng của riêng bạn!

@@ -1,24 +1,24 @@
-<b>Draag je digitalcoins altijd bij je, in je broekzak!</b> Je kunt vlot betalen door een QR-code te scannen. Als handelaar ontvang je je betalingen betrouwbaar en onmiddelijk. digitalcoin Wallet is de eerste mobiele digitalcoin-app, en misschien wel de veiligste!
+<b>Draag je GroestlCoins altijd bij je, in je broekzak!</b> Je kunt vlot betalen door een QR-code te scannen. Als handelaar ontvang je je betalingen betrouwbaar en onmiddelijk. GroestlCoin Wallet is de eerste mobiele GroestlCoin-app, en misschien wel de veiligste!
 
 <b>FEATURES</b>
 
 • Geen registratie, webservice of cloud vereist! De portemonnee is decentraal en peer-to-peer.
-• Geef het digitalcoin-bedrag weer in DGC, mDGC en µDGC.
+• Geef het GroestlCoin-bedrag weer in GRS, mGRS en µGRS.
 • Conversie van en naar nationale valuta.
-* Verzend en ontvang digitalcoin via NFC, QR-codes of digitalcoin-URL's
-• Adresboek voor regelmatig gebruikte digitalcoin-adressen.
+* Verzend en ontvang GroestlCoin via NFC, QR-codes of GroestlCoin-URL's
+• Adresboek voor regelmatig gebruikte GroestlCoin-adressen.
 • Ook offline toch betalen via Bluetooth
-• Systeemmelding wanneer je digitalcoins ontvangt
-• App widget voor digitalcoin saldo.
+• Systeemmelding wanneer je GroestlCoins ontvangt
+• App widget voor GroestlCoin saldo.
 
 
 <b>HELP MEE</b>
 
-digitalcoin Wallet is <b>open source</b> en <b>free software</b>. Licentie: GPLv3
+GroestlCoin Wallet is <b>open source</b> en <b>free software</b>. Licentie: GPLv3
 https://www.gnu.org/licenses/gpl-3.0.en.html
 
 Onze broncode is beschikbaar op GitHub:
-https://github.com/HashEngineering/digitalcoin-wallet
+https://github.com/HashEngineering/groestlcoin-wallet
 
 Alle vertalingen worden geregeld via Transifex:
 https://www.transifex.com/projects/p/bitcoin-wallet/
@@ -26,7 +26,7 @@ https://www.transifex.com/projects/p/bitcoin-wallet/
 
 <b>TESTIMONIALS</b>
 
-* Aanbevolen mobiele portemonnee op http://digitalcoin.co
+* Aanbevolen mobiele portemonnee op http://www.groestlcoin.org
 
 
 <i>Gebruik op eigen risico!</i>

@@ -3,7 +3,7 @@
 <b>FUNKCE</b>
 
 • Žádná registrace, žádná webová služba ani cloud není potřeba! Tato peněženka je de-centralizovaná a peer to peer.
-• Zobrazení GroestlCoin částek v DGC, mDGC a µDGC.
+• Zobrazení GroestlCoin částek v GRS, mGRS a µGRS.
 • Přepočet z a do národních měn.
 • Odesílání a přijímání plateb přes NFC, QR kódy nebo GroestlCoin URL.
 • Adresář pro často používané GroestlCoin adresy.
@@ -19,7 +19,7 @@ GroestlCoin Wallet je <b>open source</b> a <b>svobodný software</b>. Licence: G
 https://www.gnu.org/licenses/gpl-3.0.en.html
 
 Náš zdrojový kód je k dispozici na GitHubu:
-https://github.com/HashEngineering/digitalcoin-wallet
+https://github.com/HashEngineering/groestlcoin-wallet
 
 Veškeré překlady jsou tvořeny pomocí Transflex.
 https://www.transifex.com/projects/p/bitcoin-wallet/
@@ -27,8 +27,7 @@ https://www.transifex.com/projects/p/bitcoin-wallet/
 
 <b>UZNÁNÍ</b>
 
-• Doporučená mobilní peněženka stránkou http://digitalcoin.co
-
+• Doporučená mobilní peněženka stránkou http://www.groestlcoin.org
 
 
 <i>Použití na vlastní riziko!</i>

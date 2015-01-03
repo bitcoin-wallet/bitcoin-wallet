@@ -1,21 +1,21 @@
-Tenha os seus digitalcoins sempre com você, no seu bolso! Efetue pagamentos rapidamente apenas escaneando um código QR​​. Como comerciante, você pode receber pagamentos de forma confiável e instantaneamente. O digitalcoin Wallet é o primeiro aplicativo digitalcoin móvel, e, possivelmente, o mais seguro!
+Tenha os seus GroestlCoins sempre com você, no seu bolso! Efetue pagamentos rapidamente apenas escaneando um código QR​​. Como comerciante, você pode receber pagamentos de forma confiável e instantaneamente. O GroestlCoin Wallet é o primeiro aplicativo GroestlCoin móvel, e, possivelmente, o mais seguro!
 
 CARACTERÍSTICAS:
 
 • Sem necessidade de cadastro, serviço web ou hospedagem! Esta carteira é descentralizada e "peer to peer".
-• Exibe a quantidade de digitalcoins em DGC e mDGC.
+• Exibe a quantidade de GroestlCoins em GRS e mGRS.
 • Conversão para moedas nacionais.
-• Envio e recebimento de digitalcoins via NFC, códigos QR ou endereços digitalcoin.
+• Envio e recebimento de GroestlCoins via NFC, códigos QR ou endereços GroestlCoin.
 • Catálogo para guardar os endereços mais utilizados.
 • Quando você estiver off-line, você ainda pode pagar via Bluetooth.
 • Notificações do sistema para moedas recebidas.
-• Widget para saldo de digitalcoins.
+• Widget para saldo de GroestlCoins.
 
-Mais informações sobre digitalcoin em
-http://digitalcoin.co
+Mais informações sobre GroestlCoin em
+http://www.groestlcoin.org
 
-Se você deseja contribuir com o digitalcoin Wallet, o projeto encontra-se em
-https://github.com/HashEngineering/digitalcoin-wallet
+Se você deseja contribuir com o GroestlCoin Wallet, o projeto encontra-se em
+https://github.com/HashEngineering/groestlcoin-wallet
 
 Licença: GPLv3
 Use por sua conta e risco!

@@ -1,5 +1,1 @@
-<<<<<<< HEAD
-Omat digitalcoinisi, omassa taskussasi!
-=======
-Omat Bitcoinit, omassa taskussasi!
->>>>>>> origin/master
+Omat GroestlCoinit, omassa taskussasi!

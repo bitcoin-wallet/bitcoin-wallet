@@ -1,21 +1,21 @@
-Nosite svoje novce vedno s seboj v žepu. Plačila so hitra, le prečitate QR-kodo. Tudi prejemanje plačil je zanesljivo in takojšnje. digitalcoin Wallet je prva mobilna aplikacija za digitalcoin in najbrž tudi najbolj varna!
+Nosite svoje novce vedno s seboj v žepu. Plačila so hitra, le prečitate QR-kodo. Tudi prejemanje plačil je zanesljivo in takojšnje. GroestlCoin Wallet je prva mobilna aplikacija za GroestlCoin in najbrž tudi najbolj varna!
 
 LASTNOSTI:
 
 • Potrebna ni nobena registracija, spletna storitev ali oblak! Ta denarnica deluje povsem decentralizirano in vrstniško.
-• Prikaz zneskov v DGC, mDGC ali µDGC.
+• Prikaz zneskov v GRS, mGRS ali µGRS.
 • Samodejna pretvorba v evre in druge lokalne valute.
-• Pošiljanje in prejemanje digitalcoinov prek NFC, QR-kod ali digitalcoin URL-jev.
-• Zasebni imenik digitalcoin naslovov.
-• Z digitalcoinom lahko plačujete tudi, če nimate povezave.
+• Pošiljanje in prejemanje GroestlCoinov prek NFC, QR-kod ali GroestlCoin URL-jev.
+• Zasebni imenik GroestlCoin naslovov.
+• Z GroestlCoinom lahko plačujete tudi, če nimate povezave.
 • Sistemska obvestila ob prejetih novcih.
 • Widget, ki prikazuje stanje v denarnici.
 
-Več o digitalcoinu lahko zveste na
-https://digitalcoin.org/sl/
+Več o GroestlCoinu lahko zveste na
+https://GroestlCoin.org/sl/
 
-Če želite prispevati k aplikaciji digitalcoin Wallet, se nam pridružite na
-https://github.com/schildbach/digitalcoin-wallet
+Če želite prispevati k aplikaciji GroestlCoin Wallet, se nam pridružite na
+https://github.com/schildbach/GroestlCoin-wallet
 
 Licenca: GPLv3
 Uporaba na lastno odgovornost!
