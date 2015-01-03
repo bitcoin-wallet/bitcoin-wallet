@@ -16,7 +16,7 @@
 		android:normalScreens="true"
 		android:smallScreens="true" />
 
-	<application android:label="digitalcoin in-app payment sample" >
+	<application android:label="GroestlCoin in-app payment sample" >
 
 		<activity
 			android:name="de.schildbach.wallet.integration.sample.SampleActivity"

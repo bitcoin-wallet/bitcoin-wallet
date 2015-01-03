@@ -32,7 +32,7 @@ public final class BitcoinIntegration
 	private static final String INTENT_EXTRA_PAYMENT = "payment";
 	private static final String INTENT_EXTRA_TRANSACTION_HASH = "transaction_hash";
 
-	private static final String MIMETYPE_PAYMENTREQUEST = "application/digitalcoin-paymentrequest"; // BIP 71
+	private static final String MIMETYPE_PAYMENTREQUEST = "application/groestlcoin-paymentrequest"; // BIP 71
 
 	/**
 	 * Request any amount of Bitcoins (probably a donation) from user, without feedback from the app.
@@ -229,7 +229,7 @@ public final class BitcoinIntegration
 
 	private static Intent makeBitcoinUriIntent(final String address, final Long amount)
 	{
-		final StringBuilder uri = new StringBuilder("digitalcoin:");
+		final StringBuilder uri = new StringBuilder("groestlcoin:");
 		if (address != null)
 			uri.append(address);
 		if (amount != null)
@@ -269,10 +269,10 @@ public final class BitcoinIntegration
 
 	private static void redirectToDownload(final Context context)
 	{
-		Toast.makeText(context, "No digitalcoin application found.\nPlease install digitalcoin Wallet.", Toast.LENGTH_LONG).show();
+		Toast.makeText(context, "No GroestlCoin application found.\nPlease install GroestlCoin Wallet.", Toast.LENGTH_LONG).show();
 
-		final Intent marketIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=hashengineering.digitalcoin.wallet"));
-		final Intent binaryIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/HashEngineering/digitalcoin-wallet/releases"));
+		final Intent marketIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=hashengineering.groestlcoin.wallet"));
+		final Intent binaryIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/HashEngineering/groestlcoin-wallet/releases"));
 
 
 		final PackageManager pm = context.getPackageManager();

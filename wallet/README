@@ -69,11 +69,11 @@ and switch to it. Use
 
 to download the necessary API level.
 
-Finally, you can build digitalcoin Wallet and sign it with your development key. Again in your workspace,
+Finally, you can build GroestlCoin Wallet and sign it with your development key. Again in your workspace,
 use
 
 	# first time only
-	git clone -b master https://github.com/HashEngineering/digitalcoin-wallet.git digitalcoin-wallet
+	git clone -b master https://github.com/HashEngineering/groestlcoin-wallet.git digitalcoin-wallet
 
 	# each time
 	cd digitalcoin-wallet
@@ -112,8 +112,8 @@ Make sure you've got Eclipse Luna with ADT 23 installed.
 
 Use Git to check out the project and an Android library dependency to your workspace:
 
-	# clone digitalcoin Wallet project
-	git clone -b master https://github.com/HashEngineering/digitalcoin-wallet.git digitalcoin-wallet
+	# clone GroestlCoin Wallet project
+	git clone -b master https://github.com/HashEngineering/groestlcoin-wallet.git digitalcoin-wallet
 
 Use the maven-eclipse-plugin to create Eclipse project files:
 

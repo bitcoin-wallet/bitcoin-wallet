@@ -151,8 +151,8 @@ public final class Constants
     public static final String FORKED_FROM_SOURCE_BITCOINJ = "based on bitcoinj 0.12\n";
 	public static final String CREDITS_BITCOINJ_URL = "https://github.com/HashEngineering/" + CoinDefinition.coinName.toLowerCase() + "j";
 	public static final String CREDITS_ZXING_URL = "http://code.google.com/p/zxing/";
-    public static final String CREDITS_WEBSITE_URL = "http://digitalcoin.co/";
-    public static final String CREDITS_FORUM_URL = "http://digitalcoin.co/forums/";
+    public static final String CREDITS_WEBSITE_URL = "http://www.groestlcoin.org/";
+    public static final String CREDITS_FORUM_URL = "http://www.groestlcoin.org/forum/";
 
 	public static final String CREDITS_ICON_URL = "https://bitcointalk.org/index.php?action=profile;u=2062";
 
