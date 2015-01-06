@@ -5,8 +5,8 @@
 	package="hashengineering.groestlcoin.wallet"
 	android:installLocation="internalOnly"
 
-	android:versionCode="209"
-	android:versionName="0.22-beta" >
+	android:versionCode="210"
+	android:versionName="0.23-beta" >
 
 	<uses-sdk
 		android:minSdkVersion="15"
