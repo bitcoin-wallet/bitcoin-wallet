@@ -77,7 +77,7 @@
 			<intent-filter>
 				<action android:name="android.nfc.action.NDEF_DISCOVERED" />
 
-				<data android:mimeType="application/x-dgctx" />
+				<data android:mimeType="application/x-grstx" />
 
 				<category android:name="android.intent.category.DEFAULT" />
 			</intent-filter>
@@ -138,7 +138,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
-                <data android:scheme="ltctx" />
+                <data android:scheme="x-grstx" />
 
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
@@ -202,7 +202,7 @@
 			android:exported="false" />
 		<provider
 			android:name="de.schildbach.wallet.FileAttachmentProvider"
-			android:authorities="de.schildbach.wallet_test.file_attachment"
+			android:authorities="hashengineering.groestlcoin.wallet.file_attachment"
 			android:exported="false"
 			android:grantUriPermissions="true" />
 
