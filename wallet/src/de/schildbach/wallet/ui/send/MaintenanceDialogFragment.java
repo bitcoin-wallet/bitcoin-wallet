@@ -314,12 +314,13 @@ public class MaintenanceDialogFragment extends DialogFragment
 		if (dialog == null)
 			return;
 
-		passwordGroup.setVisibility(wallet.isEncrypted() ? View.VISIBLE : View.GONE);
+		final boolean needsPassword = wallet.isEncrypted();
+		passwordGroup.setVisibility(needsPassword ? View.VISIBLE : View.GONE);
 
 		if (state == State.INPUT)
 		{
 			positiveButton.setText(R.string.maintenance_dialog_button_move);
-			positiveButton.setEnabled(true);
+			positiveButton.setEnabled(!needsPassword || passwordView.getText().toString().trim().length() > 0);
 			negativeButton.setEnabled(true);
 		}
 		else if (state == State.DECRYPTING)
