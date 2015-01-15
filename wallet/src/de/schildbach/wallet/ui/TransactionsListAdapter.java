@@ -362,7 +362,9 @@ public class TransactionsListAdapter extends BaseAdapter
 		rowValue.setTextColor(textColor);
 		rowValue.setAlwaysSigned(true);
 		rowValue.setFormat(format);
-		rowValue.setAmount(hasFee && rowExtendFee != null ? txCache.value.add(fee) : txCache.value);
+		final Coin value = hasFee && rowExtendFee != null ? txCache.value.add(fee) : txCache.value;
+		rowValue.setAmount(value);
+		rowValue.setVisibility(!value.isZero() ? View.VISIBLE : View.GONE);
 
 		// message
 		final View rowExtendMessage = row.findViewById(R.id.transaction_row_extend_message);
