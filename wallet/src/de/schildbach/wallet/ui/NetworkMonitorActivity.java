@@ -17,7 +17,6 @@
 
 package de.schildbach.wallet.ui;
 
-import android.app.ActionBar;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.os.Bundle;
@@ -41,9 +40,6 @@ public final class NetworkMonitorActivity extends AbstractWalletActivity
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.network_monitor_content);
-
-		final ActionBar actionBar = getActionBar();
-		actionBar.setDisplayHomeAsUpEnabled(true);
 
 		final ViewPager pager = (ViewPager) findViewById(R.id.network_monitor_pager);
 

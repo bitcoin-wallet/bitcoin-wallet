@@ -21,7 +21,6 @@ import javax.annotation.Nonnull;
 
 import org.bitcoinj.core.VersionedChecksummedBytes;
 
-import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -56,9 +55,6 @@ public final class SweepWalletActivity extends AbstractBindServiceActivity
 		setContentView(R.layout.sweep_wallet_content);
 
 		getWalletApplication().startBlockchainService(false);
-
-		final ActionBar actionBar = getActionBar();
-		actionBar.setDisplayHomeAsUpEnabled(true);
 	}
 
 	@Override

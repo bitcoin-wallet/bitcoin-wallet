@@ -52,9 +52,6 @@ public final class SendCoinsActivity extends AbstractBindServiceActivity
 		setContentView(R.layout.send_coins_content);
 
 		getWalletApplication().startBlockchainService(false);
-
-		final ActionBar actionBar = getActionBar();
-		actionBar.setDisplayHomeAsUpEnabled(true);
 	}
 
 	@Override

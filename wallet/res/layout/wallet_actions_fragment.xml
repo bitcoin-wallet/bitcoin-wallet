@@ -11,7 +11,7 @@
 		style="@style/My.Widget.Button.Borderless"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:drawableLeft="@drawable/ic_action_receive"
+		android:drawableLeft="@drawable/ic_send_flipped_white_24dp"
 		android:singleLine="true"
 		android:text="@string/button_request_coins"
 		android:textAllCaps="true"
@@ -29,7 +29,7 @@
 		style="@style/My.Widget.Button.Borderless"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:drawableRight="@drawable/ic_action_send"
+		android:drawableRight="@drawable/ic_send_white_24dp"
 		android:singleLine="true"
 		android:text="@string/button_send_coins"
 		android:textAllCaps="true"
@@ -43,6 +43,6 @@
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:contentDescription="@string/button_scan"
-		android:src="@drawable/ic_action_camera" />
+		android:src="@drawable/ic_photo_camera_white_24dp" />
 
 </LinearLayout>

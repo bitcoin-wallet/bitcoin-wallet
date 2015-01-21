@@ -19,8 +19,6 @@ package de.schildbach.wallet.ui.preference;
 
 import java.util.List;
 
-import android.app.ActionBar;
-import android.os.Bundle;
 import android.view.MenuItem;
 import de.schildbach.wallet_test.R;
 
@@ -29,15 +27,6 @@ import de.schildbach.wallet_test.R;
  */
 public final class PreferenceActivity extends android.preference.PreferenceActivity
 {
-	@Override
-	protected void onCreate(final Bundle savedInstanceState)
-	{
-		super.onCreate(savedInstanceState);
-
-		final ActionBar actionBar = getActionBar();
-		actionBar.setDisplayHomeAsUpEnabled(true);
-	}
-
 	@Override
 	public void onBuildHeaders(final List<Header> target)
 	{

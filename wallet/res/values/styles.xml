@@ -4,6 +4,12 @@
 	<style name="My.Theme" parent="@android:style/Theme.Holo.Light.DarkActionBar">
 		<item name="android:actionBarStyle">@style/My.Widget.ActionBar</item>
 		<item name="android:actionModeStyle">@style/My.Widget.ActionMode</item>
+		<item name="android:actionOverflowButtonStyle">@style/My.Widget.ActionButton.Overflow</item>
+	</style>
+
+	<style name="My.Theme.ChildActivity" parent="@style/My.Theme">
+		<item name="android:actionBarStyle">@style/My.Widget.ActionBar.ChildActivity</item>
+		<item name="android:homeAsUpIndicator">@drawable/action_bar_up_indicator</item>
 	</style>
 
 	<style name="My.Theme.Fullscreen" parent="@android:style/Theme.Holo.NoActionBar.Fullscreen" />
@@ -14,6 +20,11 @@
 		<item name="android:background">@drawable/action_bar_background</item>
 		<item name="android:titleTextStyle">@style/My.TextAppearance.Widget.ActionBar.Title</item>
 		<item name="android:subtitleTextStyle">@style/My.TextAppearance.Widget.ActionBar.Subtitle</item>
+		<item name="android:displayOptions">showHome|showTitle</item>
+	</style>
+
+	<style name="My.Widget.ActionBar.ChildActivity" parent="@style/My.Widget.ActionBar">
+		<item name="android:displayOptions">homeAsUp|showTitle</item>
 	</style>
 
 	<style name="My.TextAppearance.Widget.ActionBar.Title" parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Title">
@@ -26,6 +37,10 @@
 	<style name="My.TextAppearance.Widget.ActionBar.Subtitle" parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Subtitle">
 		<item name="android:textColor">@android:color/white</item>
 		<item name="android:textStyle">normal</item>
+	</style>
+
+	<style name="My.Widget.ActionButton.Overflow" parent="@android:style/Widget.Holo.ActionButton.Overflow">
+		<item name="android:src">@drawable/ic_more_vert_white_24dp</item>
 	</style>
 
 	<style name="My.Widget.ActionMode" parent="@android:style/Widget.Holo.Light.ActionMode.Inverse">

@@ -3,27 +3,27 @@
 
 	<item
 		android:id="@+id/wallet_options_request"
-		android:icon="@drawable/ic_action_receive"
+		android:icon="@drawable/ic_send_flipped_white_24dp"
 		android:showAsAction="always|withText"
 		android:title="@string/request_coins_activity_title"
 		android:titleCondensed="@string/button_request_coins"
 		android:visible="@bool/wallet_actions_top"/>
 	<item
 		android:id="@+id/wallet_options_send"
-		android:icon="@drawable/ic_action_send"
+		android:icon="@drawable/ic_send_white_24dp"
 		android:showAsAction="always|withText"
 		android:title="@string/send_coins_activity_title"
 		android:titleCondensed="@string/button_send_coins"
 		android:visible="@bool/wallet_actions_top"/>
 	<item
 		android:id="@+id/wallet_options_scan"
-		android:icon="@drawable/ic_action_camera"
+		android:icon="@drawable/ic_photo_camera_white_24dp"
 		android:showAsAction="always|withText"
 		android:title="@string/button_scan"
 		android:visible="@bool/wallet_actions_top"/>
 	<item
 		android:id="@+id/wallet_options_address_book"
-		android:icon="@drawable/ic_action_labels"
+		android:icon="@drawable/ic_local_offer_white_24dp"
 		android:showAsAction="ifRoom|withText"
 		android:title="@string/address_book_activity_title"/>
 	<item

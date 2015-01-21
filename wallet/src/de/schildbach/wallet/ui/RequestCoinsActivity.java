@@ -17,7 +17,6 @@
 
 package de.schildbach.wallet.ui;
 
-import android.app.ActionBar;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -34,9 +33,6 @@ public final class RequestCoinsActivity extends AbstractBindServiceActivity
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.request_coins_content);
-
-		final ActionBar actionBar = getActionBar();
-		actionBar.setDisplayHomeAsUpEnabled(true);
 	}
 
 	@Override
