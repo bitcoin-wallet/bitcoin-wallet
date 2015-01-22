@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
   <string name="toast_wallet_reset">La cartera s\'ha reiniciat,\ntrigarà una estona a recuperar-se</string>
-  <string name="wallet_disclaimer_fragment_remind_safety">Utilitzar baix la teva responsabilitat. Llegeix les &lt;u&gt;advertències de seguretat&lt;/u&gt;.</string>
+  <string name="wallet_disclaimer_fragment_remind_safety">Utilitzar sota la teva responsabilitat. Llegeix les &lt;u&gt;advertències de seguretat&lt;/u&gt;.</string>
   <string name="wallet_disclaimer_fragment_remind_backup">Necessites &lt;u&gt;fer una còpia de seguretat de la cartera&lt;/u&gt;!</string>
   <string name="blockchain_state_progress_hours">%1$s, %2$d hores restants</string>
   <string name="blockchain_state_progress_days">%1$s, %2$d dies restants</string>
@@ -91,6 +91,7 @@
   <string name="sweep_wallet_fragment_intro">Estàs a punt d\'incorporar una cartera de paper o un cupó. Això mourà totes les monedes d\'aquest paper a la cartera del dispositiu. Quant la transacció es confirmi, el paper no valdrà res i no deurà ser reutilitzat per qüestions de seguretat.</string>
   <string name="sweep_wallet_fragment_hint">Les carteres de paper són utilitzades normalment per a un emmagatzematge en fred. Alguns caixers les imprimeixen en un paperet en comptes d\'enviar les monedes directament al teu dispositiu. La gent a vegades, utilitza carteres de paper per donar-li valor (no es recomana).</string>
   <string name="sweep_wallet_fragment_wallet_unknown">Comença escanejant la clau privada de la cartera de paper. Utilitza el botó d\'acció de la càmera.</string>
+  <string name="sweep_wallet_fragment_password">paraula de pas</string>
   <string name="sweep_wallet_fragment_balance">Balanç a incorporar</string>
   <string name="sweep_wallet_fragment_button_sweep">Incorpora</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_progress">Carregant balanç…</string>
