@@ -1,4 +1,4 @@
-<b>Mějte své Bitcoiny vždy s sebou ve své kapse!</b> Plaťte rychým oskenováním QR kódu. A jako prodejce můžete přijímat platby spolehlivě a rychle. Bitcoin Wallet je mobilní Bitcoin aplikace číslo jedna a jedna z nejbezpečnějších!
+<b>Mějte své Bitcoiny vždy s sebou ve své kapse!</b> Plaťte rychlým oskenováním QR kódu. A jako prodejce můžete přijímat platby spolehlivě a rychle. Bitcoin Wallet je mobilní Bitcoin aplikace číslo jedna a jedna z nejbezpečnějších!
 
 
 <b>FUNKCE</b>
@@ -11,7 +11,7 @@
 • Pokud jste offline, stále můžete platit přes Bluetooth.
 • Systémové notifikace při přijaté platbě
 • Načítání papírových peněženek (např. ty co se používají u cold storage).
-• Widget pro zborazení Bitcoin bilance.
+• Widget pro zobrazení Bitcoin bilance.
 
 
 <b>PŘISPĚJTE</b>
