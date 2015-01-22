@@ -90,6 +90,7 @@
   <string name="sweep_wallet_fragment_intro">Olet pyykäisemässä paperista lompakkoa tai kuponkia. Tämä siirtää kaikki varat paperisesta lompakosta omaan lompakkoosi tässä laitteessa. Kun rahansiirto on vahvistettu, paperinen versio on mitätön eikä sitä pidä käyttää uudelleen turvallisuussyistä.</string>
   <string name="sweep_wallet_fragment_hint">Paperisia lompakoita käytetään yleensä kylmää varastoa varten. Jotkut automaatit tulostavat suoraan paperille eivätkä lähetä varoja suoraan mobiililaitteeseesi. Ihmiset joskus käyttävät esiladattuja paperilompakoita kiertääkseen rahan arvoa (ei suositeltu).</string>
   <string name="sweep_wallet_fragment_wallet_unknown">Aloita skannaamalla yksityisavain paperisesta lompakosta. Käytä kameran laukaisinta.</string>
+  <string name="sweep_wallet_fragment_password">Salasana</string>
   <string name="sweep_wallet_fragment_balance">Pyyhkäistävä varojen määrä</string>
   <string name="sweep_wallet_fragment_button_sweep">Pyyhkäise</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_progress">Ladataan varoja…</string>
