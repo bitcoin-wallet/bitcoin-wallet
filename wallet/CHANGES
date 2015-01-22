@@ -1,3 +1,9 @@
+v4.17
+
+* Update action buttons to material design.
+* Update Finnish, Catalan, Swedish, Brazilian Portuguese, Italian, Spanish, Russian, French,
+  Dutch, Czech and Chinese translations.
+
 v4.16
 
 * Important fix for when a wallet is restored via an external app, the QR code on the main screen
