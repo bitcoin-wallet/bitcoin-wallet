@@ -92,6 +92,7 @@
   <string name="sweep_wallet_fragment_intro">Du är på väg att läsa av en papperswallet eller kupong. Detta kommer att flytta alla tillgångar från papperet till din wallet på den här enheten. När transaktionen är bekräftad, kommer papperet att vara värdelöst och bör inte återanvändas av säkerhetsskäl.</string>
   <string name="sweep_wallet_fragment_hint">En papperswallet används oftast för säker långtidsförvaring. Vissa bitcoinbankomater skriver ut en sådan på ett papperskvitto istället för att skicka medel till din mobila enhet direkt. Vissa använder ibland en förladdad papperswallet för att byta och skicka medel med varandra (rekommenderas inte).</string>
   <string name="sweep_wallet_fragment_wallet_unknown">Börja genom att läsa av papperswalletens privata nyckel med din mobilkamera.</string>
+  <string name="sweep_wallet_fragment_password">lösenord</string>
   <string name="sweep_wallet_fragment_balance">Summa att läsa av</string>
   <string name="sweep_wallet_fragment_button_sweep">Läs av</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_progress">Läser in saldo…</string>
