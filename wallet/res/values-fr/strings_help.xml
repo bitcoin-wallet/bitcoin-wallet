@@ -3,22 +3,22 @@
   <string name="help_wallet">
 <![CDATA[
 		<p>
-			La partie supérieure gauche de l\'écran affiche votre solde en Bitcoins ainsi qu\'une devise locale sélectionnée.
-			Tapez sur le solde pour afficher la liste de toutes les devises locales et tapez sur l\'une d\'entre elles pour en faire la devise locale par défaut.
+			La partie supérieure gauche de l\'écran affiche votre solde en bitcoins ainsi qu\'une monnaie nationale choisie.
+			Toquez pour vous rendre vers la liste des monnaies nationales et tapez sur l\'une d\'elles pour la choisir par défaut.
 		</p>
 		 <p>
-			Le QR code à droite contient votre adresse bitcoin et peut être utilisée pour être scannée par un tiers.
-			Tapez sur le code QR pour l\'agrandir.
+			Le QR code à droite contient votre adresse Bitcoin et peut être balayé par un tiers.
+			Toquez sur le code QR pour l\'agrandir.
 		</p>
 		<p>
 			Le bas de l\'écran est couvert par votre liste de transactions, qui est vide initialement.
-			Les transactions en cours de traitement sont grisées jusqu\'à ce qu\'elles soient confirmées.
-			Tapez sur une transaction pour ajouter l\'adresse du destinataire ou de l\'envoyeur à votre carnet d\'adresses.
-			Balayer vers la gauche ou vers la droite pour appliquer des filtres à la liste.
+			Les transactions en attente sont grisées jusqu\'à ce qu\'elles soient confirmées.
+			Toquez sur une transaction pour ajouter l\'adresse du destinataire ou de l\'envoyeur à votre carnet d\'adresses.
+			Glissez vers la gauche ou vers la droite pour appliquer des filtres à la liste.
 		</p>
 		<p>
-			Vous pouvez envoyer ou recevoir des bitcoins en tapant les boutons dans la barre d\'action.
-			Plus d\'options sont disponibles dans le menu options.
+			Vous pouvez envoyer ou recevoir des bitcoins en toquant les boutons dans la barre d\'action.
+			Plus d\'options sont disponibles dans le menu des options.
 		</p>
 	]]>
 	</string>
