@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+  <string name="help_wallet">
+<![CDATA[
+		<p>
+			A parte superior esquerda da tela exibe o seu endereço de Bitcoin selecionado, para que outras pessoas possam enviar-lhe Bitcoins. 
+			Toque para trocar o endereço.
+		</p>
+		<p>
+			O código QR na direita contém o seu endereço bitcoin e pode ser usado para ser lido por outro dispositivo.
+			Toque no código QR para obter uma versão ampliada.
+		</p>
+		<p>
+			No meio da tela, o seu saldo é exibido.
+			O valor da sua carteira também é mostrado na moeda local selecionada.
+			Toque no saldo para mostrar a lista de todas as moedas locais e toque em uma das moedas para selecioná-la como padrão.
+		</p>
+		<p>
+			A parte inferior da tela é preenchida com sua lista de transações, que está vazia no início.
+			Transações pendentes ficam na cor cinza até que sejam confirmadas.
+			Toque em uma entrada para adicionar o endereço de remetentes ou destinatários para a agenda de endereços.
+			Deslize para a esquerda ou direita para aplicar filtros para a lista.
+		</p>
+		<p>
+			Você pode enviar ou requisitar moedas tocando os botões na barra de ações.
+			Mais opções estão disponíveis no menu de opções.
+		</p>
+	]]>
+	</string>
+</resources>

@@ -1,22 +1,36 @@
-Tenha os seus Bitcoins sempre com você, no seu bolso! Efetue pagamentos rapidamente apenas escaneando um código QR​​. Como comerciante, você pode receber pagamentos de forma confiável e instantaneamente. O Bitcoin Wallet é o primeiro aplicativo Bitcoin móvel, e, possivelmente, o mais seguro!
+<b>Tenha os seus Bitcoins sempre com você, no seu bolso!</b> Efetue pagamentos rapidamente apenas escaneando um código QR. Como comerciante, você pode receber pagamentos de forma confiável e instantaneamente. O Bitcoin Wallet é o primeiro aplicativo Bitcoin móvel, e, possivelmente, o mais seguro!
 
-CARACTERÍSTICAS:
+
+<b>CARACTERÍSTICAS</b>
 
 • Sem necessidade de cadastro, serviço web ou hospedagem! Esta carteira é descentralizada e "peer to peer".
-• Exibe a quantidade de Bitcoins em BTC e mBTC.
+• Exibe a quantidade de Bitcoins em BTC, mBTC e µBTC.
 • Conversão para moedas nacionais.
 • Envio e recebimento de Bitcoins via NFC, códigos QR ou endereços Bitcoin.
 • Catálogo para guardar os endereços mais utilizados.
 • Quando você estiver off-line, você ainda pode pagar via Bluetooth.
 • Notificações do sistema para moedas recebidas.
+• Varrer de carteiras de papel (por exemplo, aqueles usados para o armazenamento a frio).
 • Widget para saldo de Bitcoins.
 
-Mais informações sobre Bitcoin em
-http://bitcoin.org
 
-Se você deseja contribuir com o Bitcoin Wallet, o projeto encontra-se em
+<b>CONTRIBUA</b>
+
+Bitcoin Wallet é <b>open source</ b> e <b>software livre</ b>. Licença: GPLv3
+https://www.gnu.org/licenses/gpl-3.0.en.html
+
+Nosso código fonte está disponível no GitHub:
 https://github.com/schildbach/bitcoin-wallet
 
-Licença: GPLv3
-Use por sua conta e risco!
-http://www.gnu.org/licenses/gpl-3.0.en.html
+Todas as traduções são gerenciadas via Transifex:
+https://www.transifex.com/projects/p/bitcoin-wallet/
+
+
+<b>TESTEMUNHOS</b>
+
+• Muitas carteiras móveis baseiam seu código em Bitcoin Wallet. Exemplos: blockchain.info, colmeia e KNC.
+• Carteira mobile recomendada por https://bitcoin.org
+• Recomendado por BitPay.
+
+
+<i>Use por sua conta e risco!</i>
