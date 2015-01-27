@@ -254,7 +254,7 @@
 
 	<!-- generic buttons -->
 	<string name="button_ok">OK</string>
-	<string name="button_dismiss">Dismiss</string>
+	<string name="button_dismiss">Close</string>
 	<string name="button_cancel">Cancel</string>
 	<string name="button_retry">Retry</string>
 	<string name="button_help">Help</string>
