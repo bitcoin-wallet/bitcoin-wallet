@@ -80,7 +80,7 @@
 		android:orientation="horizontal"
 		android:paddingTop="4dp" >
 
-		<View
+		<Space
 			android:layout_width="@dimen/symbol_size_normal"
 			android:layout_height="@dimen/symbol_size_normal"
 			android:layout_marginRight="8dp" />
@@ -110,7 +110,7 @@
 		android:orientation="horizontal"
 		android:paddingTop="4dp" >
 
-		<View
+		<Space
 			android:layout_width="@dimen/symbol_size_normal"
 			android:layout_height="@dimen/symbol_size_normal"
 			android:layout_marginRight="8dp" />

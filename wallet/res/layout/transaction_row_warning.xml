@@ -10,7 +10,7 @@
 	android:paddingRight="@dimen/list_entry_padding_horizontal"
 	android:paddingTop="@dimen/list_entry_padding_vertical" >
 
-	<View
+	<Space
 		android:layout_width="@dimen/symbol_size_normal"
 		android:layout_height="@dimen/symbol_size_normal"
 		android:layout_marginRight="8dp" />
