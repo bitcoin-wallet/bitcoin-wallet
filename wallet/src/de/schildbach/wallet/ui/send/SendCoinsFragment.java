@@ -963,6 +963,7 @@ public final class SendCoinsFragment extends Fragment
 		sendRequest.emptyWallet = paymentIntent.mayEditAmount() && finalAmount.equals(wallet.getBalance(BalanceType.AVAILABLE));
 		sendRequest.feePerKb = priority ? SendRequest.DEFAULT_FEE_PER_KB.multiply(10) : SendRequest.DEFAULT_FEE_PER_KB;
 		sendRequest.memo = paymentIntent.memo;
+		sendRequest.exchangeRate = amountCalculatorLink.getExchangeRate();
 		sendRequest.aesKey = encryptionKey;
 
 		new SendCoinsOfflineTask(wallet, backgroundHandler)

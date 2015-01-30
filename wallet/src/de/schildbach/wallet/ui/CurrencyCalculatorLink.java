@@ -115,6 +115,11 @@ public final class CurrencyCalculatorLink
 		update();
 	}
 
+	public ExchangeRate getExchangeRate()
+	{
+		return exchangeRate;
+	}
+
 	@CheckForNull
 	public Coin getAmount()
 	{
