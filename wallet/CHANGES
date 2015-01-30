@@ -1,3 +1,9 @@
+v4.18
+
+* Show and share extended public key. This can be used to grant read-only access to your wallet.
+  The new option is available in the diagnostics settings.
+* Record fiat amount for sent payments.
+
 v4.17
 
 * Update action buttons to material design.
