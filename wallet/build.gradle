@@ -17,6 +17,7 @@ android {
     }
     signingConfigs {
         debug
+        prod
     }
     compileSdkVersion 20
     buildToolsVersion "20.0.0"
