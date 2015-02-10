@@ -1,3 +1,7 @@
+v4.19
+
+* Remove donate action.
+
 v4.18
 
 * Show and share extended public key. This can be used to grant read-only access to your wallet.
