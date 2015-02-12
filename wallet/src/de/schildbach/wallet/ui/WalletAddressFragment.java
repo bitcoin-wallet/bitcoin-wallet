@@ -45,7 +45,6 @@ import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
 import android.nfc.NfcEvent;
-import android.nfc.NfcManager;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
 import android.text.Spanned;
@@ -89,8 +88,7 @@ public final class WalletAddressFragment extends Fragment implements NfcAdapter.
 		this.activity = activity;
 		this.application = (WalletApplication) activity.getApplication();
 		this.loaderManager = getLoaderManager();
-		final NfcManager nfcManager = (NfcManager) activity.getSystemService(Context.NFC_SERVICE);
-		this.nfcAdapter = nfcManager.getDefaultAdapter();
+		this.nfcAdapter = NfcAdapter.getDefaultAdapter(activity);
 	}
 
 	@Override
