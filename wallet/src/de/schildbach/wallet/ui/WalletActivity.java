@@ -874,14 +874,16 @@ public final class WalletActivity extends AbstractWalletActivity
 		}
 		finally
 		{
-			try
+			if (is != null)
 			{
-				if (is != null)
+				try
+				{
 					is.close();
-			}
-			catch (final IOException x2)
-			{
-				// swallow
+				}
+				catch (final IOException x2)
+				{
+					// swallow
+				}
 			}
 		}
 	}
@@ -915,14 +917,16 @@ public final class WalletActivity extends AbstractWalletActivity
 		}
 		finally
 		{
-			try
+			if (is != null)
 			{
-				if (is != null)
+				try
+				{
 					is.close();
-			}
-			catch (final IOException x2)
-			{
-				// swallow
+				}
+				catch (final IOException x2)
+				{
+					// swallow
+				}
 			}
 		}
 	}
@@ -1000,13 +1004,16 @@ public final class WalletActivity extends AbstractWalletActivity
 		}
 		finally
 		{
-			try
+			if (cipherOut != null)
 			{
-				cipherOut.close();
-			}
-			catch (final IOException x)
-			{
-				// swallow
+				try
+				{
+					cipherOut.close();
+				}
+				catch (final IOException x)
+				{
+					// swallow
+				}
 			}
 		}
 	}
