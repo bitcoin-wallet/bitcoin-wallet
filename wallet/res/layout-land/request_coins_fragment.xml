@@ -53,8 +53,7 @@
 				android:id="@+id/request_coins_fragment_initiate_request"
 				android:layout_width="match_parent"
 				android:layout_height="0px"
-				android:layout_weight="1"
-				android:textSize="@dimen/font_size_normal" />
+				android:layout_weight="1" />
 		</LinearLayout>
 	</FrameLayout>
 

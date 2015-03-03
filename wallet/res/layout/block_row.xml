@@ -21,21 +21,18 @@
 			android:layout_width="0px"
 			android:layout_height="wrap_content"
 			android:layout_weight="1"
-			android:textSize="@dimen/font_size_normal"
 			android:textStyle="bold" />
 
 		<TextView
 			android:id="@+id/block_list_row_time"
 			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:textSize="@dimen/font_size_normal" />
+			android:layout_height="wrap_content" />
 	</LinearLayout>
 
 	<TextView
 		android:id="@+id/block_list_row_hash"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:paddingTop="2dp"
-		android:textSize="@dimen/font_size_normal" />
+		android:paddingTop="2dp" />
 
 </LinearLayout>

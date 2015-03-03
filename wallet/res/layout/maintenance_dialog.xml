@@ -17,8 +17,7 @@
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:layout_marginBottom="@dimen/list_entry_padding_vertical"
-			android:layout_marginTop="@dimen/list_entry_padding_vertical"
-			android:textSize="@dimen/font_size_normal" />
+			android:layout_marginTop="@dimen/list_entry_padding_vertical" />
 
 		<LinearLayout
 			android:id="@+id/maintenance_dialog_password_group"
@@ -48,7 +47,6 @@
 				android:layout_weight="1"
 				android:text="@string/maintenance_dialog_private_key_bad_password"
 				android:textColor="@color/fg_error"
-				android:textSize="@dimen/font_size_normal"
 				android:textStyle="bold"
 				android:visibility="invisible" />
 		</LinearLayout>

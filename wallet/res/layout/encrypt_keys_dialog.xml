@@ -16,8 +16,7 @@
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:layout_marginTop="@dimen/list_entry_padding_vertical"
-			android:text="@string/encrypt_keys_dialog_message"
-			android:textSize="@dimen/font_size_normal" />
+			android:text="@string/encrypt_keys_dialog_message" />
 
 		<LinearLayout
 			android:id="@+id/encrypt_keys_dialog_password_old_group"
@@ -46,7 +45,6 @@
 				android:layout_weight="1"
 				android:text="@string/encrypt_keys_dialog_bad_password"
 				android:textColor="@color/fg_error"
-				android:textSize="@dimen/font_size_normal"
 				android:textStyle="bold"
 				android:visibility="invisible" />
 		</LinearLayout>
@@ -75,7 +73,6 @@
 				android:layout_width="0px"
 				android:layout_height="wrap_content"
 				android:layout_weight="1"
-				android:textSize="@dimen/font_size_normal"
 				android:textStyle="bold" />
 		</LinearLayout>
 

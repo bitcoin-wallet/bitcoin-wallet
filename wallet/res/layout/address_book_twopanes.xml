@@ -21,7 +21,6 @@
 			android:shadowColor="@color/bg_bright"
 			android:shadowRadius="1"
 			android:text="@string/address_book_list_receiving_title"
-			android:textSize="@dimen/font_size_normal"
 			android:textStyle="bold" />
 
 		<FrameLayout
@@ -61,7 +60,6 @@
 			android:shadowColor="@color/bg_bright"
 			android:shadowRadius="1"
 			android:text="@string/address_book_list_sending_title"
-			android:textSize="@dimen/font_size_normal"
 			android:textStyle="bold" />
 
 		<FrameLayout

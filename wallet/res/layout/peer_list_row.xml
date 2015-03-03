@@ -13,7 +13,6 @@
 		android:id="@+id/peer_list_row_ip"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:textSize="@dimen/font_size_normal"
 		android:textStyle="bold" />
 
 	<LinearLayout
@@ -25,14 +24,12 @@
 			android:id="@+id/peer_list_row_version"
 			android:layout_width="0px"
 			android:layout_height="wrap_content"
-			android:layout_weight="1"
-			android:textSize="@dimen/font_size_normal" />
+			android:layout_weight="1" />
 
 		<TextView
 			android:id="@+id/peer_list_row_height"
 			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:textSize="@dimen/font_size_normal" />
+			android:layout_height="wrap_content" />
 	</LinearLayout>
 
 	<LinearLayout
@@ -44,14 +41,12 @@
 			android:id="@+id/peer_list_row_protocol"
 			android:layout_width="0px"
 			android:layout_height="wrap_content"
-			android:layout_weight="1"
-			android:textSize="@dimen/font_size_normal" />
+			android:layout_weight="1" />
 
 		<TextView
 			android:id="@+id/peer_list_row_ping"
 			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:textSize="@dimen/font_size_normal" />
+			android:layout_height="wrap_content" />
 	</LinearLayout>
 
 </LinearLayout>
