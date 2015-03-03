@@ -6,6 +6,7 @@
 		<item name="android:actionModeStyle">@style/My.Widget.ActionMode</item>
 		<item name="android:actionOverflowButtonStyle">@style/My.Widget.ActionButton.Overflow</item>
 		<item name="android:textViewStyle">@style/My.Widget.TextView</item>
+		<item name="android:editTextStyle">@style/My.Widget.EditText</item>
 	</style>
 
 	<style name="My.Theme.ChildActivity" parent="@style/My.Theme">
@@ -63,6 +64,11 @@
 	</style>
 
 	<style name="My.Widget.TextView" parent="@android:style/Widget.Holo.Light.TextView">
+		<item name="android:textColor">@color/fg_significant</item>
+		<item name="android:textSize">@dimen/font_size_normal</item>
+	</style>
+
+	<style name="My.Widget.EditText" parent="@android:style/Widget.Holo.Light.EditText">
 		<item name="android:textColor">@color/fg_significant</item>
 		<item name="android:textSize">@dimen/font_size_normal</item>
 	</style>

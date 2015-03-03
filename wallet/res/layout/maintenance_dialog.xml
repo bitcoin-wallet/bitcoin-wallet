@@ -37,8 +37,7 @@
 				android:hint="@string/maintenance_dialog_private_key_password"
 				android:imeOptions="flagNoExtractUi"
 				android:inputType="numberPassword"
-				android:singleLine="true"
-				android:textSize="@dimen/font_size_normal" />
+				android:singleLine="true" />
 
 			<TextView
 				android:id="@+id/maintenance_dialog_bad_password"

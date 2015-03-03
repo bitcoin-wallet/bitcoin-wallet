@@ -26,8 +26,7 @@
 			android:layout_marginTop="@dimen/list_entry_padding_vertical"
 			android:hint="@string/import_export_keys_dialog_password"
 			android:inputType="textPassword"
-			android:singleLine="true"
-			android:textSize="@dimen/font_size_normal" >
+			android:singleLine="true" >
 
 			<requestFocus />
 		</EditText>

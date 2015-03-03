@@ -43,8 +43,7 @@
 			android:layout_weight="1"
 			android:hint="@string/sweep_wallet_fragment_password"
 			android:inputType="textPassword"
-			android:singleLine="true"
-			android:textSize="@dimen/font_size_normal" />
+			android:singleLine="true" />
 
 		<TextView
 			android:id="@+id/sweep_wallet_fragment_bad_password"

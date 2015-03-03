@@ -30,8 +30,7 @@
 			android:focusable="false"
 			android:imeOptions="flagNoExtractUi"
 			android:inputType="none"
-			android:textColor="@color/fg_less_significant"
-			android:textSize="@dimen/font_size_normal" />
+			android:textColor="@color/fg_less_significant" />
 
 		<TextView
 			android:layout_width="match_parent"
@@ -49,8 +48,7 @@
 			android:layout_marginTop="8dp"
 			android:imeOptions="flagNoExtractUi"
 			android:inputType="textPersonName"
-			android:singleLine="true"
-			android:textSize="@dimen/font_size_normal" >
+			android:singleLine="true" >
 
 			<requestFocus />
 		</EditText>
