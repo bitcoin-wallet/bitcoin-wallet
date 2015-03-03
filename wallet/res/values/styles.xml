@@ -9,6 +9,7 @@
 		<item name="android:editTextStyle">@style/My.Widget.EditText</item>
 		<item name="android:autoCompleteTextViewStyle">@style/My.Widget.AutoCompleteTextView</item>
 		<item name="android:checkboxStyle">@style/My.Widget.CompoundButton.CheckBox</item>
+		<item name="android:spinnerStyle">@style/My.Widget.Spinner</item>
 	</style>
 
 	<style name="My.Theme.ChildActivity" parent="@style/My.Theme">
@@ -87,6 +88,11 @@
 	</style>
 
 	<style name="My.Widget.CompoundButton.CheckBox" parent="@android:style/Widget.Holo.Light.CompoundButton.CheckBox">
+		<item name="android:textColor">@color/fg_significant</item>
+		<item name="android:textSize">@dimen/font_size_normal</item>
+	</style>
+
+	<style name="My.Widget.Spinner" parent="@android:style/Widget.Holo.Light.Spinner">
 		<item name="android:textColor">@color/fg_significant</item>
 		<item name="android:textSize">@dimen/font_size_normal</item>
 	</style>
