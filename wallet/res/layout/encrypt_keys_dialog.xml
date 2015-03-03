@@ -8,14 +8,13 @@
 	<LinearLayout
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:background="@color/bg_form"
+		android:layout_marginLeft="@dimen/list_entry_padding_horizontal_lax"
+		android:layout_marginRight="@dimen/list_entry_padding_horizontal_lax"
 		android:orientation="vertical" >
 
 		<TextView
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:layout_marginLeft="@dimen/list_entry_padding_horizontal_lax"
-			android:layout_marginRight="@dimen/list_entry_padding_horizontal_lax"
 			android:layout_marginTop="@dimen/list_entry_padding_vertical"
 			android:text="@string/encrypt_keys_dialog_message"
 			android:textSize="@dimen/font_size_normal" />
@@ -24,8 +23,6 @@
 			android:id="@+id/encrypt_keys_dialog_password_old_group"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:layout_marginLeft="@dimen/list_entry_padding_horizontal"
-			android:layout_marginRight="@dimen/list_entry_padding_horizontal"
 			android:layout_marginTop="@dimen/list_entry_padding_vertical"
 			android:divider="@drawable/divider_field"
 			android:orientation="horizontal"
@@ -57,8 +54,6 @@
 		<LinearLayout
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:layout_marginLeft="@dimen/list_entry_padding_horizontal"
-			android:layout_marginRight="@dimen/list_entry_padding_horizontal"
 			android:layout_marginTop="@dimen/list_entry_padding_vertical"
 			android:divider="@drawable/divider_field"
 			android:orientation="horizontal"
@@ -89,8 +84,6 @@
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:layout_marginBottom="@dimen/list_entry_padding_vertical"
-			android:layout_marginLeft="@dimen/list_entry_padding_horizontal"
-			android:layout_marginRight="@dimen/list_entry_padding_horizontal"
 			android:layout_marginTop="@dimen/list_entry_padding_vertical"
 			android:checked="false"
 			android:text="@string/encrypt_keys_dialog_show"
@@ -100,8 +93,6 @@
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:layout_marginBottom="@dimen/list_entry_padding_vertical_lax"
-			android:layout_marginLeft="@dimen/list_entry_padding_horizontal_lax"
-			android:layout_marginRight="@dimen/list_entry_padding_horizontal_lax"
 			android:layout_marginTop="@dimen/list_entry_padding_vertical_lax"
 			android:text="@string/encrypt_keys_dialog_warning"
 			android:textColor="@color/fg_less_significant"

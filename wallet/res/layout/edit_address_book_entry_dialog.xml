@@ -8,13 +8,13 @@
 	<LinearLayout
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
+		android:layout_marginLeft="@dimen/list_entry_padding_horizontal_lax"
+		android:layout_marginRight="@dimen/list_entry_padding_horizontal_lax"
 		android:orientation="vertical" >
 
 		<TextView
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:layout_marginLeft="@dimen/list_entry_padding_horizontal_lax"
-			android:layout_marginRight="@dimen/list_entry_padding_horizontal_lax"
 			android:layout_marginTop="8dp"
 			android:text="@string/edit_address_book_entry_dialog_address_label"
 			android:textSize="@dimen/font_size_small"
@@ -25,8 +25,6 @@
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:layout_marginBottom="8dp"
-			android:layout_marginLeft="@dimen/list_entry_padding_horizontal"
-			android:layout_marginRight="@dimen/list_entry_padding_horizontal"
 			android:layout_marginTop="8dp"
 			android:enabled="false"
 			android:focusable="false"
@@ -38,8 +36,6 @@
 		<TextView
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:layout_marginLeft="@dimen/list_entry_padding_horizontal_lax"
-			android:layout_marginRight="@dimen/list_entry_padding_horizontal_lax"
 			android:layout_marginTop="8dp"
 			android:text="@string/edit_address_book_entry_dialog_label_label"
 			android:textSize="@dimen/font_size_small"
@@ -50,8 +46,6 @@
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:layout_marginBottom="8dp"
-			android:layout_marginLeft="@dimen/list_entry_padding_horizontal"
-			android:layout_marginRight="@dimen/list_entry_padding_horizontal"
 			android:layout_marginTop="8dp"
 			android:imeOptions="flagNoExtractUi"
 			android:inputType="textPersonName"

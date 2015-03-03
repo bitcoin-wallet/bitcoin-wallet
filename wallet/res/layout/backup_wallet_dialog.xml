@@ -8,15 +8,14 @@
 	<LinearLayout
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:background="@color/bg_form"
+		android:layout_marginLeft="@dimen/list_entry_padding_horizontal_lax"
+		android:layout_marginRight="@dimen/list_entry_padding_horizontal_lax"
 		android:orientation="vertical" >
 
 		<TextView
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:layout_marginBottom="@dimen/list_entry_padding_vertical"
-			android:layout_marginLeft="@dimen/list_entry_padding_horizontal_lax"
-			android:layout_marginRight="@dimen/list_entry_padding_horizontal_lax"
 			android:layout_marginTop="@dimen/list_entry_padding_vertical"
 			android:text="@string/backup_wallet_dialog_message"
 			android:textSize="@dimen/font_size_normal" />
@@ -25,8 +24,6 @@
 			android:id="@+id/export_keys_dialog_password"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:layout_marginLeft="@dimen/list_entry_padding_horizontal"
-			android:layout_marginRight="@dimen/list_entry_padding_horizontal"
 			android:layout_marginTop="@dimen/list_entry_padding_vertical"
 			android:hint="@string/import_export_keys_dialog_password"
 			android:inputType="textPassword"
@@ -41,8 +38,6 @@
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:layout_marginBottom="@dimen/list_entry_padding_vertical"
-			android:layout_marginLeft="@dimen/list_entry_padding_horizontal"
-			android:layout_marginRight="@dimen/list_entry_padding_horizontal"
 			android:layout_marginTop="@dimen/list_entry_padding_vertical"
 			android:checked="false"
 			android:text="@string/import_export_keys_dialog_show"
@@ -53,8 +48,6 @@
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:layout_marginBottom="@dimen/list_entry_padding_vertical_lax"
-			android:layout_marginLeft="@dimen/list_entry_padding_horizontal_lax"
-			android:layout_marginRight="@dimen/list_entry_padding_horizontal_lax"
 			android:layout_marginTop="@dimen/list_entry_padding_vertical_lax"
 			android:text="@string/backup_wallet_dialog_warning_encrypted"
 			android:textColor="@color/fg_less_significant"
