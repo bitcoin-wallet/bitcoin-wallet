@@ -8,6 +8,7 @@
 		<item name="android:textViewStyle">@style/My.Widget.TextView</item>
 		<item name="android:editTextStyle">@style/My.Widget.EditText</item>
 		<item name="android:autoCompleteTextViewStyle">@style/My.Widget.AutoCompleteTextView</item>
+		<item name="android:checkboxStyle">@style/My.Widget.CompoundButton.CheckBox</item>
 	</style>
 
 	<style name="My.Theme.ChildActivity" parent="@style/My.Theme">
@@ -83,6 +84,11 @@
 		<item name="android:paddingLeft">8dp</item>
 		<item name="android:paddingRight">8dp</item>
 		<item name="android:drawablePadding">8dp</item>
+	</style>
+
+	<style name="My.Widget.CompoundButton.CheckBox" parent="@android:style/Widget.Holo.Light.CompoundButton.CheckBox">
+		<item name="android:textColor">@color/fg_significant</item>
+		<item name="android:textSize">@dimen/font_size_normal</item>
 	</style>
 
 </resources>

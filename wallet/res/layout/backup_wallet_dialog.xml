@@ -38,8 +38,7 @@
 			android:layout_marginBottom="@dimen/list_entry_padding_vertical"
 			android:layout_marginTop="@dimen/list_entry_padding_vertical"
 			android:checked="false"
-			android:text="@string/import_export_keys_dialog_show"
-			android:textSize="@dimen/font_size_normal" />
+			android:text="@string/import_export_keys_dialog_show" />
 
 		<TextView
 			android:id="@+id/backup_wallet_dialog_warning_encrypted"

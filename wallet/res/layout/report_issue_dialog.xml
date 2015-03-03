@@ -35,8 +35,7 @@
 			android:layout_marginBottom="@dimen/list_entry_padding_vertical"
 			android:layout_marginTop="@dimen/list_entry_padding_vertical"
 			android:checked="true"
-			android:text="@string/report_issue_dialog_collect_device_info"
-			android:textSize="@dimen/font_size_normal" />
+			android:text="@string/report_issue_dialog_collect_device_info" />
 
 		<CheckBox
 			android:id="@+id/report_issue_dialog_collect_application_log"
@@ -45,8 +44,7 @@
 			android:layout_marginBottom="@dimen/list_entry_padding_vertical"
 			android:layout_marginTop="@dimen/list_entry_padding_vertical"
 			android:checked="true"
-			android:text="@string/report_issue_dialog_collect_application_log"
-			android:textSize="@dimen/font_size_normal" />
+			android:text="@string/report_issue_dialog_collect_application_log" />
 
 		<CheckBox
 			android:id="@+id/report_issue_dialog_collect_wallet_dump"
@@ -55,8 +53,7 @@
 			android:layout_marginBottom="@dimen/list_entry_padding_vertical"
 			android:layout_marginTop="@dimen/list_entry_padding_vertical"
 			android:checked="false"
-			android:text="@string/report_issue_dialog_collect_wallet_dump"
-			android:textSize="@dimen/font_size_normal" />
+			android:text="@string/report_issue_dialog_collect_wallet_dump" />
 
 		<CheckBox
 			android:id="@+id/report_issue_dialog_collect_installed_packages"
@@ -65,8 +62,7 @@
 			android:layout_marginBottom="@dimen/list_entry_padding_vertical"
 			android:layout_marginTop="@dimen/list_entry_padding_vertical"
 			android:checked="false"
-			android:text="@string/report_issue_dialog_collect_installed_packages"
-			android:textSize="@dimen/font_size_normal" />
+			android:text="@string/report_issue_dialog_collect_installed_packages" />
 	</LinearLayout>
 
 </ScrollView>
