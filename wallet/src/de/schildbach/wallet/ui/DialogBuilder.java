@@ -23,10 +23,12 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface.OnClickListener;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import de.schildbach.wallet.Constants;
 import de.schildbach.wallet_test.R;
 
 /**
@@ -48,9 +50,7 @@ public class DialogBuilder extends AlertDialog.Builder
 
 	public DialogBuilder(final Context context)
 	{
-		super(context);
-
-		setInverseBackgroundForced(true);
+		super(context, Build.VERSION.SDK_INT < Constants.SDK_LOLLIPOP ? AlertDialog.THEME_HOLO_LIGHT : AlertDialog.THEME_DEVICE_DEFAULT_LIGHT);
 
 		this.customTitle = LayoutInflater.from(context).inflate(R.layout.dialog_title, null);
 		this.iconView = (ImageView) customTitle.findViewById(android.R.id.icon);
