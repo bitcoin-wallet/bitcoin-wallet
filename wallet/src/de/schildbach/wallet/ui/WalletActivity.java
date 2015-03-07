@@ -96,6 +96,7 @@ import de.schildbach.wallet.util.HttpGetThread;
 import de.schildbach.wallet.util.Io;
 import de.schildbach.wallet.util.Iso8601Format;
 import de.schildbach.wallet.util.Nfc;
+import de.schildbach.wallet.util.Toast;
 import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet.util.WholeStringBuilder;
 import de.schildbach.wallet_test.R;
@@ -1035,7 +1036,7 @@ public final class WalletActivity extends AbstractWalletActivity
 		}
 		catch (final Exception x)
 		{
-			longToast(R.string.export_keys_dialog_mail_intent_failed);
+			new Toast(this).longToast(R.string.export_keys_dialog_mail_intent_failed);
 			log.error("archiving wallet backup failed", x);
 		}
 	}

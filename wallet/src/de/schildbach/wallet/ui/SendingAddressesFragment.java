@@ -61,6 +61,7 @@ import de.schildbach.wallet.ui.InputParser.StringInputParser;
 import de.schildbach.wallet.ui.send.SendCoinsActivity;
 import de.schildbach.wallet.util.BitmapFragment;
 import de.schildbach.wallet.util.Qr;
+import de.schildbach.wallet.util.Toast;
 import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet.util.WholeStringBuilder;
 import de.schildbach.wallet_test.R;
@@ -358,7 +359,7 @@ public final class SendingAddressesFragment extends FancyListFragment implements
 	{
 		clipboardManager.setPrimaryClip(ClipData.newPlainText("Bitcoin address", address));
 		log.info("address copied to clipboard: {}", address.toString());
-		activity.toast(R.string.wallet_address_fragment_clipboard_msg);
+		new Toast(activity).toast(R.string.wallet_address_fragment_clipboard_msg);
 	}
 
 	@Override

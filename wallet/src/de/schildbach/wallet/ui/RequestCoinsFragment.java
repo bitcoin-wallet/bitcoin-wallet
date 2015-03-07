@@ -75,6 +75,7 @@ import de.schildbach.wallet.util.BitmapFragment;
 import de.schildbach.wallet.util.Bluetooth;
 import de.schildbach.wallet.util.Nfc;
 import de.schildbach.wallet.util.Qr;
+import de.schildbach.wallet.util.Toast;
 import de.schildbach.wallet_test.R;
 
 /**
@@ -377,7 +378,7 @@ public final class RequestCoinsFragment extends Fragment implements NfcAdapter.C
 		final Uri request = Uri.parse(determineBitcoinRequestStr(false));
 		clipboardManager.setPrimaryClip(ClipData.newRawUri("Bitcoin payment request", request));
 		log.info("payment request copied to clipboard: {}", request);
-		activity.toast(R.string.request_coins_clipboard_msg);
+		new Toast(activity).toast(R.string.request_coins_clipboard_msg);
 	}
 
 	private void handleShare()
@@ -402,7 +403,7 @@ public final class RequestCoinsFragment extends Fragment implements NfcAdapter.C
 		}
 		catch (final ActivityNotFoundException x)
 		{
-			activity.toast(R.string.request_coins_no_local_app_msg);
+			new Toast(activity).longToast(R.string.request_coins_no_local_app_msg);
 		}
 		finally
 		{
