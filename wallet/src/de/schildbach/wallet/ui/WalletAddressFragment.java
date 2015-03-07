@@ -76,6 +76,7 @@ public final class WalletAddressFragment extends Fragment implements NfcAdapter.
 
 	private Bitmap currentAddressQrBitmap = null;
 	private Spanned currentAddressQrLabel = null;
+	private CharSequence currentAddressQrAddress = null;
 	private final AtomicReference<String> currentAddressUriRef = new AtomicReference<String>();
 
 	private static final int ID_ADDRESS_LOADER = 0;
@@ -143,7 +144,7 @@ public final class WalletAddressFragment extends Fragment implements NfcAdapter.
 
 	private void handleShowQRCode()
 	{
-		BitmapFragment.show(getFragmentManager(), currentAddressQrBitmap, currentAddressQrLabel);
+		BitmapFragment.show(getFragmentManager(), currentAddressQrBitmap, currentAddressQrLabel, currentAddressQrAddress);
 	}
 
 	public static class CurrentAddressLoader extends AsyncTaskLoader<Address>
@@ -252,6 +253,7 @@ public final class WalletAddressFragment extends Fragment implements NfcAdapter.
 				currentAddressQrBitmap = Qr.bitmap(addressStr, size);
 				currentAddressQrLabel = WalletUtils.formatAddress(currentAddress, Constants.ADDRESS_FORMAT_GROUP_SIZE,
 						Constants.ADDRESS_FORMAT_LINE_SIZE);
+				currentAddressQrAddress = currentAddress.toString();
 
 				currentAddressUriRef.set(addressStr);
 

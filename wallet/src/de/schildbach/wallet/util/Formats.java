@@ -37,12 +37,12 @@ public final class Formats
 
 	private static final Pattern PATTERN_OUTER_HTML_PARAGRAPH = Pattern.compile("<p[^>]*>(.*)</p>\n?", Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
 
-	public static String maybeRemoveOuterHtmlParagraph(final String html)
+	public static String maybeRemoveOuterHtmlParagraph(final CharSequence html)
 	{
 		final Matcher m = PATTERN_OUTER_HTML_PARAGRAPH.matcher(html);
 		if (m.matches())
 			return m.group(1);
 		else
-			return html;
+			return html.toString();
 	}
 }
