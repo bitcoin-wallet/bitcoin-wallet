@@ -88,8 +88,9 @@ public class BackupWalletDialogFragment extends DialogFragment
 	@CheckForNull
 	private AlertDialog dialog;
 
-	private EditText passwordView;
+	private EditText passwordView, passwordAgainView;
 	private TextView passwordStrengthView;
+	private View passwordMismatchView;
 	private CheckBox showView;
 	private Button positiveButton;
 
@@ -100,6 +101,7 @@ public class BackupWalletDialogFragment extends DialogFragment
 		@Override
 		public void onTextChanged(final CharSequence s, final int start, final int before, final int count)
 		{
+			passwordMismatchView.setVisibility(View.INVISIBLE);
 			updateView();
 		}
 
@@ -132,7 +134,12 @@ public class BackupWalletDialogFragment extends DialogFragment
 		passwordView = (EditText) view.findViewById(R.id.backup_wallet_dialog_password);
 		passwordView.setText(null);
 
+		passwordAgainView = (EditText) view.findViewById(R.id.backup_wallet_dialog_password_again);
+		passwordAgainView.setText(null);
+
 		passwordStrengthView = (TextView) view.findViewById(R.id.backup_wallet_dialog_password_strength);
+
+		passwordMismatchView = view.findViewById(R.id.backup_wallet_dialog_password_mismatch);
 
 		showView = (CheckBox) view.findViewById(R.id.backup_wallet_dialog_show);
 
@@ -165,8 +172,9 @@ public class BackupWalletDialogFragment extends DialogFragment
 				});
 
 				passwordView.addTextChangedListener(textWatcher);
+				passwordAgainView.addTextChangedListener(textWatcher);
 
-				showView.setOnCheckedChangeListener(new ShowPasswordCheckListener(passwordView));
+				showView.setOnCheckedChangeListener(new ShowPasswordCheckListener(passwordView, passwordAgainView));
 
 				BackupWalletDialogFragment.this.dialog = dialog;
 				updateView();
@@ -184,6 +192,7 @@ public class BackupWalletDialogFragment extends DialogFragment
 		this.dialog = null;
 
 		passwordView.removeTextChangedListener(textWatcher);
+		passwordAgainView.removeTextChangedListener(textWatcher);
 
 		showView.setOnCheckedChangeListener(null);
 
@@ -193,13 +202,23 @@ public class BackupWalletDialogFragment extends DialogFragment
 	private void handleGo()
 	{
 		final String password = passwordView.getText().toString().trim();
-		passwordView.setText(null); // get rid of it asap
+		final String passwordAgain = passwordAgainView.getText().toString().trim();
 
-		backupWallet(password);
+		if (passwordAgain.equals(password))
+		{
+			passwordView.setText(null); // get rid of it asap
+			passwordAgainView.setText(null);
 
-		dismiss();
+			backupWallet(password);
 
-		application.getConfiguration().disarmBackupReminder();
+			dismiss();
+
+			application.getConfiguration().disarmBackupReminder();
+		}
+		else
+		{
+			passwordMismatchView.setVisibility(View.VISIBLE);
+		}
 	}
 
 	private void wipePasswords()
@@ -236,7 +255,9 @@ public class BackupWalletDialogFragment extends DialogFragment
 		}
 
 		final boolean hasPassword = !passwordView.getText().toString().trim().isEmpty();
-		positiveButton.setEnabled(hasPassword);
+		final boolean hasPasswordAgain = !passwordAgainView.getText().toString().trim().isEmpty();
+
+		positiveButton.setEnabled(hasPassword && hasPasswordAgain);
 	}
 
 	private void backupWallet(@Nonnull final String password)

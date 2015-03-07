@@ -195,6 +195,8 @@
 	<string name="export_keys_dialog_mail_intent_chooser">Wallet archivieren mit…</string>
 	<string name="export_keys_dialog_mail_intent_failed">Archivieren der Wallet fehlgeschlagen.</string>
 	<string name="import_export_keys_dialog_password">Passwort</string>
+	<string name="backup_wallet_dialog_password_again">Wiederholung</string>
+	<string name="backup_wallet_dialog_password_mismatch">Diskrepanz!</string>
 	<string name="import_export_keys_dialog_show">Passwort zeigen</string>
 	<string name="import_export_keys_dialog_failure_title">Fehler</string>
 	<string name="import_keys_intent_filter_action">Wallet wiederherstellen</string>

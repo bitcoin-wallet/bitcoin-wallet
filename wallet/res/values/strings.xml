@@ -180,6 +180,8 @@
 	<string name="export_keys_dialog_mail_intent_chooser">Archive wallet using…</string>
 	<string name="export_keys_dialog_mail_intent_failed">Archiving wallet failed.</string>
 	<string name="import_export_keys_dialog_password">password</string>
+	<string name="backup_wallet_dialog_password_again">again</string>
+	<string name="backup_wallet_dialog_password_mismatch">mismatch!</string>
 	<string name="import_export_keys_dialog_show">Show password</string>
 	<string name="import_export_keys_dialog_failure_title">Error</string>
 	<string name="import_keys_intent_filter_action">Restore wallet</string>

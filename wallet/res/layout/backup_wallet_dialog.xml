@@ -45,6 +45,33 @@
 				android:visibility="invisible" />
 		</LinearLayout>
 
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:divider="@drawable/divider_field"
+			android:orientation="horizontal"
+			android:showDividers="middle" >
+
+			<EditText
+				android:id="@+id/backup_wallet_dialog_password_again"
+				android:layout_width="0px"
+				android:layout_height="wrap_content"
+				android:layout_weight="3"
+				android:hint="@string/backup_wallet_dialog_password_again"
+				android:inputType="textPassword"
+				android:singleLine="true" />
+
+			<TextView
+				android:id="@+id/backup_wallet_dialog_password_mismatch"
+				android:layout_width="0px"
+				android:layout_height="wrap_content"
+				android:layout_weight="2"
+				android:text="@string/backup_wallet_dialog_password_mismatch"
+				android:textColor="@color/fg_error"
+				android:textStyle="bold"
+				android:visibility="invisible" />
+		</LinearLayout>
+
 		<CheckBox
 			android:id="@+id/backup_wallet_dialog_show"
 			android:layout_width="match_parent"
