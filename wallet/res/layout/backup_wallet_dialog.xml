@@ -20,7 +20,7 @@
 			android:text="@string/backup_wallet_dialog_message" />
 
 		<EditText
-			android:id="@+id/export_keys_dialog_password"
+			android:id="@+id/backup_wallet_dialog_password"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:layout_marginTop="@dimen/list_entry_padding_vertical"
@@ -32,7 +32,7 @@
 		</EditText>
 
 		<CheckBox
-			android:id="@+id/export_keys_dialog_show"
+			android:id="@+id/backup_wallet_dialog_show"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:layout_marginBottom="@dimen/list_entry_padding_vertical"
