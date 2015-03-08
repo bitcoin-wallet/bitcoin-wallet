@@ -19,17 +19,31 @@
 			android:layout_marginTop="@dimen/list_entry_padding_vertical"
 			android:text="@string/backup_wallet_dialog_message" />
 
-		<EditText
-			android:id="@+id/backup_wallet_dialog_password"
+		<LinearLayout
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:layout_marginTop="@dimen/list_entry_padding_vertical"
-			android:hint="@string/import_export_keys_dialog_password"
-			android:inputType="textPassword"
-			android:singleLine="true" >
+			android:divider="@drawable/divider_field"
+			android:orientation="horizontal"
+			android:showDividers="middle" >
 
-			<requestFocus />
-		</EditText>
+			<EditText
+				android:id="@+id/backup_wallet_dialog_password"
+				android:layout_width="0px"
+				android:layout_height="wrap_content"
+				android:layout_weight="3"
+				android:hint="@string/import_export_keys_dialog_password"
+				android:inputType="textPassword"
+				android:singleLine="true" />
+
+			<TextView
+				android:id="@+id/backup_wallet_dialog_password_strength"
+				android:layout_width="0px"
+				android:layout_height="wrap_content"
+				android:layout_weight="2"
+				android:textStyle="bold"
+				android:visibility="invisible" />
+		</LinearLayout>
 
 		<CheckBox
 			android:id="@+id/backup_wallet_dialog_show"
