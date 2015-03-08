@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="toast_wallet_reset">Zresetováno,\nobnova chvilku potrvá</string>
+  <string name="toast_wallet_reset">Vaše peněženka byla zresetována!\nObnova chvíli potrvá.</string>
   <string name="wallet_disclaimer_fragment_remind_safety">Použití na vlastní riziko. Čtěte &lt;u&gt;bezpečnostní instrukce&lt;/u&gt;.</string>
   <string name="wallet_disclaimer_fragment_remind_backup">Musíte si &lt;u&gt;zazálohovat vaši peněženku&lt;/u&gt;!</string>
   <string name="blockchain_state_progress_hours">%1$s, %2$d hodin pozadu</string>
@@ -12,7 +12,7 @@
   <string name="blockchain_state_progress_problem_storage">Synchronizace: Problém úložiště</string>
   <string name="blockchain_state_progress_problem_network">Synchronizace: Problém se sítí</string>
   <string name="wallet_address_fragment_clipboard_msg">Adresa zkopírována do schránky</string>
-  <string name="wallet_balance_fragment_too_much">Tato částka je poměrně vysoká na nošení v kapse, převeďte ji prosím na bezpečnější místo.</string>
+  <string name="wallet_balance_fragment_too_much">Tato částka je poměrně vysoká na nosení v kapse. Převeďte ji prosím na bezpečnější místo.</string>
   <string name="wallet_balance_fragment_replaying">Bilance je nedostupná během synchronizace.</string>
   <string name="exchange_rates_activity_title">Směnné kurzy</string>
   <string name="exchange_rates_fragment_empty_text">Nepodařilo se nahrát směnné kurzy.</string>
@@ -224,6 +224,10 @@
   <string name="preferences_initiate_reset_summary">Vyresetovat blockchain, transakce a bilanci peněženky. Znovunačtení bude nějakou dobu trvat.</string>
   <string name="preferences_initiate_reset_dialog_message">Přejete si vyresetovat a znovu načíst blockchain?\n\nTato akce dočasně schová bilanci vaší peněženky a odstraní transakce. Obojí se postupně obnoví s průběhem synchronizace.</string>
   <string name="preferences_initiate_reset_dialog_positive">Obnovit</string>
+  <string name="preferences_extended_public_key_title">Zobrazit xpub</string>
+  <string name="preferences_extended_public_key_summary">Zobrazit rozšířený veřejný klíč Vaší peněženky za účelem importování do jiných aplikací a služeb. Buďte opatrní: tímro sdílíte Vaše peněžní soukromí s danou aplikaci.</string>
+  <string name="extended_public_key_fragment_title">Rozšířený veřejný klíč</string>
+  <string name="extended_public_key_fragment_share">Sdílet xpub…</string>
   <string name="report_issue_dialog_title_issue">Nahlásit problém</string>
   <string name="report_issue_dialog_title_crash">Detekován předchozí pád aplikace</string>
   <string name="report_issue_dialog_message_issue">Popište prosím problém tak přesně aby se dal zopakovat. Pokud je specifický pro vaši peněženku, zvažte připojení dumpu.</string>
