@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="toast_wallet_reset">Lommeboken ble nullstilt,\ndet tar litt tid å gjenopprette</string>
+  <string name="toast_wallet_reset">Lommeboken ble nullstilt!\nDet vil ta litt tid å gjenopprette.</string>
   <string name="wallet_disclaimer_fragment_remind_safety">Bruk på egen risiko. Les &lt;u&gt;sikkerhetsnotatene&lt;/u&gt;.</string>
   <string name="wallet_disclaimer_fragment_remind_backup">Du bør &lt;u&gt;ta sikkerhetskopi av din lommebok&lt;/u&gt;!</string>
   <string name="blockchain_state_progress_hours">%1$s, %2$d timer bak</string>
@@ -12,9 +12,9 @@
   <string name="blockchain_state_progress_problem_storage">Synkroniserer: Plassproblem</string>
   <string name="blockchain_state_progress_problem_network">Synkroniserer: Nettverksproblem</string>
   <string name="wallet_address_fragment_clipboard_msg">Bitcoin-adresse kopieret til utklippstavlen</string>
-  <string name="wallet_balance_fragment_too_much">Dette beløpet er ganske høyt for å ha i lommen. Kan du flytte noe til et tryggere sted?</string>
+  <string name="wallet_balance_fragment_too_much">Dette beløpet er ganske høyt for å bære rundt i lommen din. Vennligst flytt noe til et tryggere sted.</string>
   <string name="wallet_balance_fragment_replaying">Saldo er ikke tilgjengelig under avspilling.</string>
-  <string name="exchange_rates_activity_title">valutakurser</string>
+  <string name="exchange_rates_activity_title">Valutakurser</string>
   <string name="exchange_rates_fragment_empty_text">Kunne ikke laste valutakurser.</string>
   <string name="exchange_rates_fragment_empty_search">Kunne ikke finne valutakurser.</string>
   <string name="exchange_rates_fragment_default">(standard)</string>
@@ -224,6 +224,10 @@
   <string name="preferences_initiate_reset_summary">Nullstill blokkjeden, transaksjoner og lommeboksaldo. Gjennomgangen vil ta litt tid.</string>
   <string name="preferences_initiate_reset_dialog_message">Vil du nullstille og ta ny gjennomgangen av blokkjeden?\n\nDette vil midlertidig skjule din lommeboksaldo og fjerne transaksjoner. Begge deler vil gjenskapes etter hvert som blokkjeden synkroniseres.</string>
   <string name="preferences_initiate_reset_dialog_positive">Nullstill</string>
+  <string name="preferences_extended_public_key_title">Vis xpub</string>
+  <string name="preferences_extended_public_key_summary">Vis den utvidede offentlige nøkkelen til lommeboken din, slik at den kan importeres i andre programmer og tjenester. Vær forsiktig: dette vil utlevere dine transaksjoner og privatliv til det programmet.</string>
+  <string name="extended_public_key_fragment_title">Utvidet Offentlig Nøkkel</string>
+  <string name="extended_public_key_fragment_share">Del xpub…</string>
   <string name="report_issue_dialog_title_issue">Rapporter problem</string>
   <string name="report_issue_dialog_title_crash">Tidligere krasj oppdaget</string>
   <string name="report_issue_dialog_message_issue">Beskriv problemet presist nok til at det kan reproduseres. Hvis det er spesifikt for lommeboken din, bør du vurdere å vedlegge dumpen.</string>
@@ -252,7 +256,7 @@
   <string name="notification_peers_connected_msg">%d peers tilkoblet</string>
   <!--generic buttons-->
   <string name="button_ok">OK</string>
-  <string name="button_dismiss">Avvis</string>
+  <string name="button_dismiss">Lukk</string>
   <string name="button_cancel">Avbryt</string>
   <string name="button_retry">Prøv igjen</string>
   <string name="button_help">Hjelp</string>
