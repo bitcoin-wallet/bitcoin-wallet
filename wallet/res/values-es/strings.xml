@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="toast_wallet_reset">La cartera se ha reiniciado y tardará un poco en reactivarse</string>
+  <string name="toast_wallet_reset">¡Tu monedero se ha reiniciado!\nTardará un tiempo en recuperarse.</string>
   <string name="wallet_disclaimer_fragment_remind_safety">Utilízalo bajo tu propio riesgo. Lee las &lt;u&gt;notas de seguridad&lt;/u&gt;.</string>
   <string name="wallet_disclaimer_fragment_remind_backup">¡Necesitas hacer una &lt;u&gt;copia de seguridad de tu monedero&lt;/u&gt;!</string>
   <string name="blockchain_state_progress_hours">%1$s, %2$d horas atrás</string>
