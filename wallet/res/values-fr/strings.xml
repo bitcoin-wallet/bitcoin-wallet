@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="toast_wallet_reset">Le portefeuille a été réinitialisé\net prendra du temps pour récupérer</string>
+  <string name="toast_wallet_reset">Votre portefeuille a été réinitialisé\net prendra du temps pour récupérer.</string>
   <string name="wallet_disclaimer_fragment_remind_safety">Utilisez à vos propres risques. Lire les &lt;u&gt;notes de sécurité&lt;/u&gt;.</string>
   <string name="wallet_disclaimer_fragment_remind_backup">Vous devez &lt;u&gt;sauvegarder votre portefeuille&lt;/u&gt; !</string>
   <string name="blockchain_state_progress_hours">%1$s, %2$d heures en retard</string>
@@ -12,7 +12,7 @@
   <string name="blockchain_state_progress_problem_storage">Synchronisation : problème de stockage</string>
   <string name="blockchain_state_progress_problem_network">Synchronisation : problème de réseau</string>
   <string name="wallet_address_fragment_clipboard_msg">Adresse Bitcoin copiée dans le presse-papiers</string>
-  <string name="wallet_balance_fragment_too_much">Ce montant est plutôt élevé pour garder dans votre poche. Veuillez en déplacer une partie vers un endroit plus sûr.</string>
+  <string name="wallet_balance_fragment_too_much">Ce montant est plutôt élevé pour être gardé dans votre poche, veuillez en déplacer un peu dans un endroit plus sûr.</string>
   <string name="wallet_balance_fragment_replaying">Le solde est indisponible durant la reprise.</string>
   <string name="exchange_rates_activity_title">Taux de change</string>
   <string name="exchange_rates_fragment_empty_text">Impossible de charger les taux de change</string>
@@ -43,7 +43,7 @@
   <string name="wallet_low_storage_dialog_button_apps">Gérer les applis</string>
   <string name="wallet_timeskew_dialog_title">Vérifiez les réglages de votre horloge !</string>
   <string name="wallet_timeskew_dialog_msg">L\'horloge de votre appareil est déréglée de %d minutes. Vous ne pouvez probablement pas envoyer ou recevoir de bitcoins à cause de ce problème.\n\nVous devriez vérifier et corriger votre horloge et vos paramètres de fuseau horaire.</string>
-  <string name="wallet_version_dialog_title">Une nouvelle version est disponible !</string>
+  <string name="wallet_version_dialog_title">Une nouvelle version est proposée !</string>
   <string name="wallet_version_dialog_msg">Cette version corrige des bogues importants. Pour plus de détails, voir le journal des changements sur Google Play Store.</string>
   <string name="wallet_version_dialog_msg_deprecated">Si vous ne voyez pas de mise à jour, ceci signifie probablement que votre version d\'Android n\'est plus prise en charge.</string>
   <string name="wallet_version_dialog_button_market">Google Play</string>
@@ -224,6 +224,10 @@
   <string name="preferences_initiate_reset_summary">Réinitialiser la chaîne de blocs, les transactions et le solde du portefeuille. La resynchronisation prendra du temps.</string>
   <string name="preferences_initiate_reset_dialog_message">Voudriez-vous réinitialiser la chaîne de blocs et la resynchroniser ?\n\nCeci cachera temporairement votre solde et enlèvera les transactions. Ces deux éléments reviendront à la normale au fur et à mesure que la synchronisation progressera.</string>
   <string name="preferences_initiate_reset_dialog_positive">Réinitialiser</string>
+  <string name="preferences_extended_public_key_title">Montrer la xpub</string>
+  <string name="preferences_extended_public_key_summary">Visualisez la clef privée étendue de votre portefeuille afin qu\'elle puisse être importée dans d\'autres applis et services. Attention : ceci divulguera vos informations monétaires à cette appli.</string>
+  <string name="extended_public_key_fragment_title">Clef privée étendue</string>
+  <string name="extended_public_key_fragment_share">Partager la xpub…</string>
   <string name="report_issue_dialog_title_issue">Signaler un problème</string>
   <string name="report_issue_dialog_title_crash">Un plantage précédent a été détecté</string>
   <string name="report_issue_dialog_message_issue">Veuillez décrire votre problème avec assez de précisions pour qu\'il soit reproduit. S\'il est spécifique à votre portefeuille, pensez à joindre le vidage.</string>
