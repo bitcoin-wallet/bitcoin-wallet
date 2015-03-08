@@ -1,3 +1,12 @@
+v4.20
+
+* Improve entry of password in backup wallet dialog.
+* Share current wallet address by tapping on it.
+* Update dialogs to material theme on Lollipop devices.
+* New translations into Albanian and Swahill.
+* Update Spanish, Turkish, Russian, Brazilian Portuguese, Norwegian Bokmål, Japanese, Italian,
+  French, Finnish, Danish, Czech and Catalan translations.
+
 v4.19
 
 * Remove donate action.
