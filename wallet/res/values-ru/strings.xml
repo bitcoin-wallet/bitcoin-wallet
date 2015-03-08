@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="toast_wallet_reset">Кошелёк был сброшен,\nна восстановление требуется какое-то время</string>
+  <string name="toast_wallet_reset">Ваш кошелёк был сброшен!\nВосстановление займёт некоторое время.</string>
   <string name="wallet_disclaimer_fragment_remind_safety">Используйте на свой страх и риск. Прочитайте &lt;u&gt;заметки по безопасности&lt;/u&gt;.</string>
   <string name="wallet_disclaimer_fragment_remind_backup">Вам необходимо &lt;u&gt;сделать резервную копию вашего кошелька&lt;/u&gt;!</string>
   <string name="blockchain_state_progress_hours">%1$s, %2$d часов отставания</string>
@@ -12,7 +12,7 @@
   <string name="blockchain_state_progress_problem_storage">Синхронизация: проблема с хранилищем</string>
   <string name="blockchain_state_progress_problem_network">Синхронизация: проблема с сетью</string>
   <string name="wallet_address_fragment_clipboard_msg">Адрес скопирован в буфер обмена</string>
-  <string name="wallet_balance_fragment_too_much">Сумма в вашем кошельке довольно существенная, пожалуйста, переместите её часть в более безопасное место.</string>
+  <string name="wallet_balance_fragment_too_much">Сумма монет довольно существенная для карманного бумажника. Пожалуйста, перенесите её часть в более безопасное хранение.</string>
   <string name="wallet_balance_fragment_replaying">Во время воспроизведения баланс недоступен.</string>
   <string name="exchange_rates_activity_title">Обменный курс</string>
   <string name="exchange_rates_fragment_empty_text">Не удалось загрузить курсы валют.</string>
@@ -78,7 +78,7 @@
   <string name="send_coins_fragment_insufficient_money_title">Недостаточно монет</string>
   <string name="send_coins_fragment_insufficient_money_msg1">Вы упускаете %s.</string>
   <string name="send_coins_fragment_insufficient_money_msg2">Вы хотите оплатить всем, что у вас есть?</string>
-  <string name="send_coins_fragment_empty_wallet_failed_title">Не удалось очистить кошелек</string>
+  <string name="send_coins_fragment_empty_wallet_failed_title">Не удалось опустошить кошелек</string>
   <string name="send_coins_fragment_state_decrypting">Расшифровка…</string>
   <string name="send_coins_preparation_msg">Подписываю…</string>
   <string name="send_coins_sending_msg">Отправка…</string>
@@ -86,10 +86,10 @@
   <string name="send_coins_failed_msg">Не удалось!</string>
   <string name="send_coins_error_msg">Проблема с отправкой монет!</string>
   <string name="send_coins_options_priority">Быстрее, но выше комиссия</string>
-  <string name="send_coins_options_empty">Пустой кошелек</string>
+  <string name="send_coins_options_empty">Опустошить кошелёк</string>
   <string name="send_coins_address_context_clear_title">Введите новый адрес</string>
-  <string name="sweep_wallet_activity_title">Отсканировать бумажный кошелек</string>
-  <string name="sweep_wallet_fragment_intro">Вы собираетесь отсканировать бумажный кошелек или купон. Это перенесет все монеты с бумаги на ваш кошелек на этом устройстве. Когда эта транзакция пройдет, бумажный носитель будет бесполезен и не должен быть повторно использован в целях безопасности.</string>
+  <string name="sweep_wallet_activity_title">Забрать с бумажного кошелька</string>
+  <string name="sweep_wallet_fragment_intro">Вы собираетесь забрать с бумажного кошелька или купона. Это перенесет все монеты с бумаги на ваш кошелек на этом устройстве. Когда эта транзакция пройдет, бумажный носитель будет бесполезен и не должен быть повторно использован в целях безопасности.</string>
   <string name="sweep_wallet_fragment_hint">Бумажные кошельки наиболее часто используются для холодного хранения. Некоторые банкоматы печатают их на бумаге, а не посылают монеты на мобильное устройство напрямую. Некоторые люди используют предварительно заряженные бумажные кошельки чтобы передавать монеты. (это не рекомендуется)</string>
   <string name="sweep_wallet_fragment_wallet_unknown">Для начала отсканируйте частный ключ напечатанный на бумажном кошельке. Используйте кнопку \"Камера\"</string>
   <string name="sweep_wallet_fragment_encrypted">Этот личный ключ защищён паролем.</string>
@@ -224,6 +224,10 @@
   <string name="preferences_initiate_reset_summary">Сбросить цепочку блоков, транзакции и баланс кошелька. Повторная загрузка займёт некоторое время и трафик.</string>
   <string name="preferences_initiate_reset_dialog_message">Хотите загрузить блокчейн заново?\n\nЭто временно скроет баланс вашего кошелька и транзакции. Все восстановится по мере повторной синхронизации блокчейна.</string>
   <string name="preferences_initiate_reset_dialog_positive">Сброс</string>
+  <string name="preferences_extended_public_key_title">Показать xpub</string>
+  <string name="preferences_extended_public_key_summary">Просмотр расширенного открытого ключа вашего кошелька может быть полезен для импортирования в другие приложения и услуги. Будьте осторожны: делая так вы раскрываете ваш приватный счет.</string>
+  <string name="extended_public_key_fragment_title">Расширенный  публичный ключ</string>
+  <string name="extended_public_key_fragment_share">Поделиться xpub…</string>
   <string name="report_issue_dialog_title_issue">Сообщить о проблеме</string>
   <string name="report_issue_dialog_title_crash">Обнаружено аварийное завершение</string>
   <string name="report_issue_dialog_message_issue">Пожалуйста, опишите вашу проблему достаточно точно. Если она специфична для вашего кошелька, приложите дамп.</string>
