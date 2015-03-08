@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="toast_wallet_reset">Lompakko nollattiin,\npalautus kestää jonkin aikaa</string>
+  <string name="toast_wallet_reset">Lompakko nollattiin!\nPalautus kestää jonkin aikaa.</string>
   <string name="wallet_disclaimer_fragment_remind_safety">Käytä omalla vastuulla. Lue &lt;u&gt;turvallisuusohjeet&lt;/u&gt;.</string>
   <string name="wallet_disclaimer_fragment_remind_backup">Sinun täytyy &lt;u&gt;varmuuskopioida lompakkosi&lt;/u&gt;!</string>
   <string name="blockchain_state_progress_hours">%1$s, %2$d tuntia takana</string>
@@ -12,6 +12,7 @@
   <string name="blockchain_state_progress_problem_storage">Synkronointi: Tilaongelma</string>
   <string name="blockchain_state_progress_problem_network">Synkronointi: Verkko-ongelma</string>
   <string name="wallet_address_fragment_clipboard_msg">Bitcoin-osoite on kopioitu leikepöydälle</string>
+  <string name="wallet_balance_fragment_too_much">Tämä määrä on melko suuri kannettavaksi taskussasi. Siirrä se johonkin turvallisempaan paikkaan.</string>
   <string name="wallet_balance_fragment_replaying">Saldo ei ole saatavilla uusinnan aikaan.</string>
   <string name="exchange_rates_activity_title">Vaihtokurssit:</string>
   <string name="exchange_rates_fragment_empty_text">Ei voitu ladata kurssien arvoja.</string>
@@ -84,21 +85,27 @@
   <string name="send_coins_sent_msg">Lähetetty!</string>
   <string name="send_coins_failed_msg">Epäonnistui!</string>
   <string name="send_coins_error_msg">Ongelma kolikoita lähetettäessä!</string>
+  <string name="send_coins_options_priority">Pikavahvistus, korkeampi palkkio</string>
   <string name="send_coins_options_empty">Tyhjä lompakko</string>
   <string name="send_coins_address_context_clear_title">Syötä uusi osoite</string>
   <string name="sweep_wallet_activity_title">Pyyhkäise paperinen lompakko</string>
   <string name="sweep_wallet_fragment_intro">Olet pyykäisemässä paperista lompakkoa tai kuponkia. Tämä siirtää kaikki varat paperisesta lompakosta omaan lompakkoosi tässä laitteessa. Kun rahansiirto on vahvistettu, paperinen versio on mitätön eikä sitä pidä käyttää uudelleen turvallisuussyistä.</string>
   <string name="sweep_wallet_fragment_hint">Paperisia lompakoita käytetään yleensä kylmää varastoa varten. Jotkut automaatit tulostavat suoraan paperille eivätkä lähetä varoja suoraan mobiililaitteeseesi. Ihmiset joskus käyttävät esiladattuja paperilompakoita kiertääkseen rahan arvoa (ei suositeltu).</string>
   <string name="sweep_wallet_fragment_wallet_unknown">Aloita skannaamalla yksityisavain paperisesta lompakosta. Käytä kameran laukaisinta.</string>
+  <string name="sweep_wallet_fragment_encrypted">Tämä yksityinen avain on salasanasuojattu.</string>
   <string name="sweep_wallet_fragment_password">Salasana</string>
+  <string name="sweep_wallet_fragment_bad_password">huono salasana!</string>
   <string name="sweep_wallet_fragment_balance">Pyyhkäistävä varojen määrä</string>
+  <string name="sweep_wallet_fragment_button_decrypt">Pura salaus</string>
   <string name="sweep_wallet_fragment_button_sweep">Pyyhkäise</string>
+  <string name="sweep_wallet_fragment_decrypt_progress">Puretaan salausta…\nVie enintään 2 minuuttia.</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_progress">Ladataan varoja…</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_failed_title">Lompakon varojen lataaminen epäonnistui</string>
   <string name="sweep_wallet_fragment_insufficient_money_title">Ei tarpeeksi valuuttaa.</string>
   <string name="sweep_wallet_fragment_insufficient_money_msg">Lompakon valuutan määrä on liian alhainen tyhjentämiseen.</string>
   <string name="sweep_wallet_options_reload">Uudelleenlataa saldo</string>
   <string name="maintenance_dialog_title">Huoltoa suositellaan</string>
+  <string name="maintenance_dialog_message">Vastaanotit %1$s turvattomiin osoitteisiin. Haluaisitko siirtää nämä kolikot turvallisiin osoitteisiin? Kustantaa pienen %2$s verkkopalkkion.</string>
   <string name="maintenance_dialog_private_key_password">PIN</string>
   <string name="maintenance_dialog_private_key_bad_password">väärä PIN!</string>
   <string name="maintenance_dialog_state_decrypting">Puretaan salausta…</string>
@@ -217,6 +224,10 @@
   <string name="preferences_initiate_reset_summary">Nollaa lohkoketju, varainsiirrot ja lompakon varat. Jälkipäivitys kestää hetken.</string>
   <string name="preferences_initiate_reset_dialog_message">Haluatko nollata ja uudelleenladata lohkoketjun?\n\nTämä piilottaa väliaikaisesti varasi ja poistaa varainsiirrot. Molemmat palautuvat kun lohkoketjun synkronisointi edistyy.</string>
   <string name="preferences_initiate_reset_dialog_positive">Nollaa</string>
+  <string name="preferences_extended_public_key_title">Näytä xpub</string>
+  <string name="preferences_extended_public_key_summary">Näytä lompakkosi laajennettu julkinen avain, jotta se voidaan tuoda toisiin sovelluksiin ja palveluihin. Ole varovainen: tekemällä näin, luovutat rahallisen yksityisyytesi tälle sovellukselle.</string>
+  <string name="extended_public_key_fragment_title">Laajennettu julkinen avain</string>
+  <string name="extended_public_key_fragment_share">Jaa xpub…</string>
   <string name="report_issue_dialog_title_issue">Ilmoita ongelma</string>
   <string name="report_issue_dialog_title_crash">Havaittiin viimekertainen kaaatuminen</string>
   <string name="report_issue_dialog_message_issue">Kuvaile ongelmasi tarpeeksi tarkasti, että kehittäjät voivat uudelleentuottaa sen. Jos se on lompakkoosi liittyvää, harkitse vedostiedoston liittämistä.</string>
