@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="toast_wallet_reset">Tegnebog blev nulstillet,\ndet tager nogen tid at genoprette</string>
+  <string name="toast_wallet_reset">Din tegnebog blev nulstillet!\nDet tager nogen tid at genoprette.</string>
   <string name="wallet_disclaimer_fragment_remind_safety">Brug for egen risiko. Læs &lt;u&gt;sikkerhedsnoterne&lt;/u&gt;.</string>
   <string name="wallet_disclaimer_fragment_remind_backup">Du bør &lt;u&gt;tage sikkerhedskopi af din tegnebog&lt;/u&gt;!</string>
   <string name="blockchain_state_progress_hours">%1$s, %2$d timer bagefter</string>
@@ -224,6 +224,10 @@
   <string name="preferences_initiate_reset_summary">Nulstil blokkæde, transaktioner og tegnebogssaldo. Genafspilning vil tage et stykke tid.</string>
   <string name="preferences_initiate_reset_dialog_message">Vil du nulstille og genafspille blokkæden?\n\nDette vil midlertidigt skjule din tegnebogssaldo og fjerne transaktioner. Begge dele vil genskabes efterhånden som blokkæden synkroniseres.</string>
   <string name="preferences_initiate_reset_dialog_positive">Nulstil</string>
+  <string name="preferences_extended_public_key_title">Vis xpub</string>
+  <string name="preferences_extended_public_key_summary">Vis din tegnebogs udvidede offentlige nøgle så den kan importeres til andre apps og tjenester. Vær forsigtig: Du vil afsløre dit økonomiske privatliv til pågældende app, hvis du gør dette.</string>
+  <string name="extended_public_key_fragment_title">Udvidet offentlig nøgle</string>
+  <string name="extended_public_key_fragment_share">Del xpub …</string>
   <string name="report_issue_dialog_title_issue">Rapportér problem</string>
   <string name="report_issue_dialog_title_crash">Tidligere programnedbrud opfanget</string>
   <string name="report_issue_dialog_message_issue">Beskriv venligst problemet så præcist, at det kan genskabes af udviklerne. Hvis det er specifikt til din tegnebog, bør du overveje at vedhæfte dump.</string>
