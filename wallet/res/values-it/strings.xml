@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="toast_wallet_reset">Il portafoglio è stato reinizializzato,\noccorrerà del tempo per ripristinarlo</string>
+  <string name="toast_wallet_reset">Il portafoglio è stato reinizializzato!\nOccorrerà del tempo per ripristinarlo.</string>
   <string name="wallet_disclaimer_fragment_remind_safety">Usalo a tuo rischio. Leggi le &lt;u&gt;avvertenze per la sicurezza&lt;/u&gt;.</string>
   <string name="wallet_disclaimer_fragment_remind_backup">Hai bisogno di &lt;u&gt;eseguire un backup del tuo portafoglio&lt;/u&gt;!</string>
   <string name="blockchain_state_progress_hours">%1$s, %2$d ore indietro</string>
@@ -12,7 +12,7 @@
   <string name="blockchain_state_progress_problem_storage">Sincronizzazione: problema di Memorizzazione</string>
   <string name="blockchain_state_progress_problem_network">Sincronizzazione: problema di Rete</string>
   <string name="wallet_address_fragment_clipboard_msg">Indirizzo Bitcoin copiato negli appunti</string>
-  <string name="wallet_balance_fragment_too_much">Questo importo è abbastanza grande per essere portato nella tua tasca, considera l\'idea di spostarlo in un posto più sicuro.</string>
+  <string name="wallet_balance_fragment_too_much">Questo importo è alto per essere portato con se. Si prega di spostarne alcuni in un luogo più sicuro.</string>
   <string name="wallet_balance_fragment_replaying">Il conto non è disponibile durante la ripetizione.</string>
   <string name="exchange_rates_activity_title">Tasso di cambio</string>
   <string name="exchange_rates_fragment_empty_text">Impossibile caricare tassi di cambio.</string>
@@ -224,6 +224,10 @@
   <string name="preferences_initiate_reset_summary">Riavvia blockchain, transazioni e il conto del portafoglio. Per la ripetizione ci vorrà un po\'.</string>
   <string name="preferences_initiate_reset_dialog_message">Vorresti riavviare e ripetere il blockchain?\n\nQuesto nasconderà temporaneamente il tuo bilancio dal portafoglio, e rimuoverà le transazioni. Entrambi saranno recuperati con la sincronizzazione del blockchain.</string>
   <string name="preferences_initiate_reset_dialog_positive">Reset</string>
+  <string name="preferences_extended_public_key_title">Mostra xpub</string>
+  <string name="preferences_extended_public_key_summary">Mostra la chiave pubblica estesa del tuo portafoglio, in modo tale che possa essere importata su altre applicazioni e servizi. Fai attenzione: facendo ciò ti priverai della tua privacy monetaria nei confronti dell\'applicazione.</string>
+  <string name="extended_public_key_fragment_title">Chiave pubblica estesa</string>
+  <string name="extended_public_key_fragment_share">Condividi xpub…</string>
   <string name="report_issue_dialog_title_issue">Segnala un problema</string>
   <string name="report_issue_dialog_title_crash">Crash precedente rilevato</string>
   <string name="report_issue_dialog_message_issue">Descrivi il problema abbastanza precisamente da riprodurre. Se è specifico per il portafoglio, considera di allegare il dump.</string>
