@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="toast_wallet_reset">Carteira zerada,\nlevará um tempo até recuperar</string>
+  <string name="toast_wallet_reset">Sua carteira foi reiniciada!\nA recuperação levará um tempo.</string>
   <string name="wallet_disclaimer_fragment_remind_safety">Use por sua conta e risco. Leia as &lt;u&gt;indicações de segurança&lt;/u&gt;.</string>
   <string name="wallet_disclaimer_fragment_remind_backup">Você precisa fazer um &lt;u&gt;back up de sua carteira&lt;/u&gt;!</string>
   <string name="blockchain_state_progress_hours">%1$s, %2$d horas atrás</string>
@@ -12,7 +12,7 @@
   <string name="blockchain_state_progress_problem_storage">Sincronizando: Problema de armazenamento</string>
   <string name="blockchain_state_progress_problem_network">Sincronizando: Problema na rede</string>
   <string name="wallet_address_fragment_clipboard_msg">Endereço Bitcoin copiado</string>
-  <string name="wallet_balance_fragment_too_much">Esse valor é bem alto para carregá-lo no bolso, por favor mova-o para um lugar mais seguro.</string>
+  <string name="wallet_balance_fragment_too_much">Este valor é bastante alto para transportar no seu bolso. Por favor, envie um pouco para um lugar mais seguro.</string>
   <string name="wallet_balance_fragment_replaying">Saldo indisponível durante a reavaliação.</string>
   <string name="exchange_rates_activity_title">as taxas de câmbio</string>
   <string name="exchange_rates_fragment_empty_text">Não é possível carregar as taxas de câmbio.</string>
@@ -224,6 +224,10 @@
   <string name="preferences_initiate_reset_summary">Reiniciar blockchain, transações e saldo da carteira. Pode levar algum tempo.</string>
   <string name="preferences_initiate_reset_dialog_message">Deseja reiniciar e repetir o blockchain?\n\nIsto ocultará temporariamente o saldo de sua carteira e transações. Ambos reaparecerão conforme a atualização dos blockchains.</string>
   <string name="preferences_initiate_reset_dialog_positive">Reiniciar</string>
+  <string name="preferences_extended_public_key_title">Mostrar xpub</string>
+  <string name="preferences_extended_public_key_summary">Ver a chave pública estendida de sua carteira, para que possa ser importada para outros aplicativos e serviços. Tenha cuidado: isso irá divulgar a sua privacidade monetária para o app.</string>
+  <string name="extended_public_key_fragment_title">Chave Pública Estendida</string>
+  <string name="extended_public_key_fragment_share">Compartilhar xpub…</string>
   <string name="report_issue_dialog_title_issue">Informar problema</string>
   <string name="report_issue_dialog_title_crash">Detectado problema grave anteriormente</string>
   <string name="report_issue_dialog_message_issue">Por favor descreva o seu problema de forma exata o suficiente para ser reproduzido. Se for específico da sua carteira, considere anexar o dump.</string>
