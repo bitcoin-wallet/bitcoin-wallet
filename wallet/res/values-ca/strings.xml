@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="toast_wallet_reset">La cartera s\'ha reiniciat,\ntrigarà una estona a recuperar-se</string>
+  <string name="toast_wallet_reset">La teva cartera s\'ha reiniciat, traigarà uns instants a tornar a recuperar-se</string>
   <string name="wallet_disclaimer_fragment_remind_safety">Utilitzar sota la teva responsabilitat. Llegeix les &lt;u&gt;advertències de seguretat&lt;/u&gt;.</string>
   <string name="wallet_disclaimer_fragment_remind_backup">Necessites &lt;u&gt;fer una còpia de seguretat de la cartera&lt;/u&gt;!</string>
   <string name="blockchain_state_progress_hours">%1$s, %2$d hores restants</string>
@@ -12,7 +12,7 @@
   <string name="blockchain_state_progress_problem_storage">Sincronitzant: problema d\'emmagatzematge</string>
   <string name="blockchain_state_progress_problem_network">Sincronitzant: problema de xarxa</string>
   <string name="wallet_address_fragment_clipboard_msg">L\'adreça Bitcoin s\'ha copiat al porta-retalls.</string>
-  <string name="wallet_balance_fragment_too_much">Aquesta quantitat és alta per portar-la a la butxaca, si et plau mou-ne una part a un lloc segur.</string>
+  <string name="wallet_balance_fragment_too_much">Aquesta quantitat de diners és molt elevada per portar-la a la butxaca, mou una part a un lloc segur.</string>
   <string name="wallet_balance_fragment_replaying">El saldo no està disponible durant la repetició.</string>
   <string name="exchange_rates_activity_title">Preus de canvi</string>
   <string name="exchange_rates_fragment_empty_text">No es poden carregar el preus de canvi.</string>
@@ -85,15 +85,20 @@
   <string name="send_coins_sent_msg">Enviat!</string>
   <string name="send_coins_failed_msg">Fallada!</string>
   <string name="send_coins_error_msg">Hi ha un problema enviant les monedes!</string>
+  <string name="send_coins_options_priority">S\'ha confirmat rapid, la taxa és més elevada</string>
   <string name="send_coins_options_empty">Cartera buida</string>
   <string name="send_coins_address_context_clear_title">Afegeix una nova adreça</string>
   <string name="sweep_wallet_activity_title">Incorpora una cartera de paper</string>
   <string name="sweep_wallet_fragment_intro">Estàs a punt d\'incorporar una cartera de paper o un cupó. Això mourà totes les monedes d\'aquest paper a la cartera del dispositiu. Quant la transacció es confirmi, el paper no valdrà res i no deurà ser reutilitzat per qüestions de seguretat.</string>
   <string name="sweep_wallet_fragment_hint">Les carteres de paper són utilitzades normalment per a un emmagatzematge en fred. Alguns caixers les imprimeixen en un paperet en comptes d\'enviar les monedes directament al teu dispositiu. La gent a vegades, utilitza carteres de paper per donar-li valor (no es recomana).</string>
   <string name="sweep_wallet_fragment_wallet_unknown">Comença escanejant la clau privada de la cartera de paper. Utilitza el botó d\'acció de la càmera.</string>
+  <string name="sweep_wallet_fragment_encrypted">Aquesta clau esta protegida amb una paraula de pas</string>
   <string name="sweep_wallet_fragment_password">paraula de pas</string>
+  <string name="sweep_wallet_fragment_bad_password">Paraula de pas incorrecte!</string>
   <string name="sweep_wallet_fragment_balance">Balanç a incorporar</string>
+  <string name="sweep_wallet_fragment_button_decrypt">Desencriptació</string>
   <string name="sweep_wallet_fragment_button_sweep">Incorpora</string>
+  <string name="sweep_wallet_fragment_decrypt_progress">La desencriptació \nTrigarà uns 2 minuts aproximadament</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_progress">Carregant balanç…</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_failed_title">Carregant balanç de la cartera fallat</string>
   <string name="sweep_wallet_fragment_insufficient_money_title">No hi ha suficients monedes</string>
@@ -219,6 +224,10 @@
   <string name="preferences_initiate_reset_summary">Reinicialitza la cadena de blocs, les transaccions i el balanç de la cartera. Re-escanejar trigara una mica.</string>
   <string name="preferences_initiate_reset_dialog_message">Voldries reiniciar i re-escanejar la cadena de blocs?\n\nAixò amagara el saldo de la teva cartera temporalment i esborrara les transaccions. Ambdues es recuperaran mentre es sincronitza.</string>
   <string name="preferences_initiate_reset_dialog_positive">Reinicia</string>
+  <string name="preferences_extended_public_key_title">Mostra xpub</string>
+  <string name="preferences_extended_public_key_summary">Visualitza la clau pública extesa de la teva butxaca, per poder ser importades per altes aplicacions o serveis. Tingues cuidado: Si ho fa, revelar la seva privacitat monetària per a aquesta aplicació.</string>
+  <string name="extended_public_key_fragment_title">Clau pública extesa</string>
+  <string name="extended_public_key_fragment_share">Comparteix xpub</string>
   <string name="report_issue_dialog_title_issue">Reportar problema</string>
   <string name="report_issue_dialog_title_crash">Bloqueig previ detectat.</string>
   <string name="report_issue_dialog_message_issue">Per favor descriu el teu problema de manera suficientment precisa per a ser reproduït. Si es especific de la teva cartera, considera d\'adjuntar el buidat de dades.</string>
