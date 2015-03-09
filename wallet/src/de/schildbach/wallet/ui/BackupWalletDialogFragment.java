@@ -43,12 +43,9 @@ import android.app.DialogFragment;
 import android.app.FragmentManager;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnShowListener;
-import android.content.Intent;
 import android.graphics.Typeface;
-import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
-import android.text.Html;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -64,8 +61,6 @@ import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.util.Crypto;
 import de.schildbach.wallet.util.Iso8601Format;
-import de.schildbach.wallet.util.Toast;
-import de.schildbach.wallet.util.WholeStringBuilder;
 import de.schildbach.wallet_test.R;
 
 /**
@@ -187,14 +182,14 @@ public class BackupWalletDialogFragment extends DialogFragment
 	@Override
 	public void onDismiss(final DialogInterface dialog)
 	{
-		wipePasswords();
-
 		this.dialog = null;
 
 		passwordView.removeTextChangedListener(textWatcher);
 		passwordAgainView.removeTextChangedListener(textWatcher);
 
 		showView.setOnCheckedChangeListener(null);
+
+		wipePasswords();
 
 		super.onDismiss(dialog);
 	}
@@ -283,21 +278,9 @@ public class BackupWalletDialogFragment extends DialogFragment
 			cipherOut.write(Crypto.encrypt(plainBytes, password.toCharArray()));
 			cipherOut.flush();
 
-			final DialogBuilder dialog = new DialogBuilder(activity);
-			dialog.setMessage(Html.fromHtml(getString(R.string.export_keys_dialog_success, file)));
-			dialog.setPositiveButton(WholeStringBuilder.bold(getString(R.string.export_keys_dialog_button_archive)),
-					new DialogInterface.OnClickListener()
-					{
-						@Override
-						public void onClick(final DialogInterface dialog, final int which)
-						{
-							archiveWalletBackup(file);
-						}
-					});
-			dialog.setNegativeButton(R.string.button_dismiss, null);
-			dialog.show();
-
 			log.info("backed up wallet to: '" + file + "'");
+
+			ArchiveBackupDialogFragment.show(getFragmentManager(), file);
 		}
 		catch (final IOException x)
 		{
@@ -321,28 +304,6 @@ public class BackupWalletDialogFragment extends DialogFragment
 					// swallow
 				}
 			}
-		}
-	}
-
-	private void archiveWalletBackup(@Nonnull final File file)
-	{
-		final Intent intent = new Intent(Intent.ACTION_SEND);
-		intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.export_keys_dialog_mail_subject));
-		intent.putExtra(Intent.EXTRA_TEXT,
-				getString(R.string.export_keys_dialog_mail_text) + "\n\n" + String.format(Constants.WEBMARKET_APP_URL, activity.getPackageName())
-						+ "\n\n" + Constants.SOURCE_URL + '\n');
-		intent.setType(Constants.MIMETYPE_WALLET_BACKUP);
-		intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file));
-
-		try
-		{
-			startActivity(Intent.createChooser(intent, getString(R.string.export_keys_dialog_mail_intent_chooser)));
-			log.info("invoked chooser for archiving wallet backup");
-		}
-		catch (final Exception x)
-		{
-			new Toast(activity).longToast(R.string.export_keys_dialog_mail_intent_failed);
-			log.error("archiving wallet backup failed", x);
 		}
 	}
 }
