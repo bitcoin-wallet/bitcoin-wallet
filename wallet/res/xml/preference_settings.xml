@@ -38,19 +38,19 @@
 	<PreferenceCategory android:title="@string/preferences_category_labs" >
 		<Preference
 			android:icon="@drawable/ic_menu_warning"
-			android:summary="This is all unfinished stuff. Use at your own risk!"
-			android:title="Warning" />
+			android:summary="@string/preferences_labs_warning_summary"
+			android:title="@string/preferences_labs_warning_title" />
 
 		<CheckBoxPreference
 			android:defaultValue="true"
 			android:key="disclaimer"
-			android:summary="Have you really read the safety notes? Did you already back up your private keys to a safe place?"
-			android:title="Show disclaimer" />
+			android:summary="@string/preferences_labs_disclaimer_summary"
+			android:title="@string/preferences_labs_disclaimer_title" />
 		<CheckBoxPreference
 			android:defaultValue="false"
 			android:key="labs_qr_payment_request"
-			android:summary="Use payment protocol for QR-code initiated payments"
-			android:title="BIP70 for scan-to-pay" />
+			android:summary="@string/preferences_labs_pay_summary"
+			android:title="@string/preferences_labs_pay_title" />
 	</PreferenceCategory>
 
 </PreferenceScreen>
