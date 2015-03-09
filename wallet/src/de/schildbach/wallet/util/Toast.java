@@ -58,9 +58,6 @@ public class Toast
 
 	private void customToast(final CharSequence text, final int duration)
 	{
-		final android.widget.Toast toast = new android.widget.Toast(context);
-		toast.setText(text);
-		toast.setDuration(duration);
-		toast.show();
+		android.widget.Toast.makeText(context, text, duration).show();
 	}
 }
