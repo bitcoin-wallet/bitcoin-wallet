@@ -180,6 +180,11 @@
 			android:screenOrientation="behind"
 			android:theme="@style/My.Theme.ChildActivity"
 			android:windowSoftInputMode="adjustResize" />
+		<activity
+			android:name="de.schildbach.wallet.ui.FetchPaymentRequestActivity"
+			android:configChanges="keyboard|keyboardHidden"
+			android:exported="true"
+			android:theme="@style/My.Theme.Dialog" />
 
 		<provider
 			android:name="de.schildbach.wallet.AddressBookProvider"
