@@ -19,6 +19,8 @@ package de.schildbach.wallet.integration.sample;
 import org.bitcoin.protocols.payments.Protos;
 
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Spannable;
@@ -48,9 +50,10 @@ public class SampleActivity extends Activity
 	private static final String[] DONATION_ADDRESSES_MAINNET = { "18CK5k1gajRKKSC7yVSTXT9LUzbheh1XY4", "1PZmMahjbfsTy6DsaRyfStzoWTPppWwDnZ" };
 	private static final String[] DONATION_ADDRESSES_TESTNET = { "mkCLjaXncyw8eSWJBcBtnTgviU85z5PfwS", "mwEacn7pYszzxfgcNaVUzYvzL6ypRJzB6A" };
 	private static final String MEMO = "Sample donation";
-	private static final int REQUEST_CODE = 0;
+	private static final int REQUEST_CODE_REQUEST = 0;
+	private static final int REQUEST_CODE_FETCH_PAYMENT_REQUEST = 1;
 
-	private Button donateButton, requestButton;
+	private Button donateButton, requestButton, fetchPaymentRequestButton;
 	private TextView donateMessage;
 
 	@Override
@@ -78,21 +81,33 @@ public class SampleActivity extends Activity
 			}
 		});
 
+		fetchPaymentRequestButton = (Button) findViewById(R.id.sample_fetch_payment_request_button);
+		fetchPaymentRequestButton.setOnClickListener(new OnClickListener()
+		{
+			public void onClick(final View v)
+			{
+				handleFetchPaymentRequest();
+			}
+		});
+
 		donateMessage = (TextView) findViewById(R.id.sample_donate_message);
+	}
+
+	private boolean isMainNet()
+	{
+		return ((RadioButton) findViewById(R.id.sample_network_mainnet)).isChecked();
 	}
 
 	private String[] donationAddresses()
 	{
-		final boolean isMainnet = ((RadioButton) findViewById(R.id.sample_network_mainnet)).isChecked();
-
-		return isMainnet ? DONATION_ADDRESSES_MAINNET : DONATION_ADDRESSES_TESTNET;
+		return isMainNet() ? DONATION_ADDRESSES_MAINNET : DONATION_ADDRESSES_TESTNET;
 	}
 
 	private void handleDonate()
 	{
 		final String[] addresses = donationAddresses();
 
-		BitcoinIntegration.requestForResult(SampleActivity.this, REQUEST_CODE, addresses[0]);
+		BitcoinIntegration.requestForResult(SampleActivity.this, REQUEST_CODE_REQUEST, addresses[0]);
 	}
 
 	private void handleRequest()
@@ -120,7 +135,7 @@ public class SampleActivity extends Activity
 			final Protos.PaymentRequest.Builder paymentRequest = Protos.PaymentRequest.newBuilder();
 			paymentRequest.setSerializedPaymentDetails(paymentDetails.build().toByteString());
 
-			BitcoinIntegration.requestForResult(SampleActivity.this, REQUEST_CODE, paymentRequest.build().toByteArray());
+			BitcoinIntegration.requestForResult(SampleActivity.this, REQUEST_CODE_REQUEST, paymentRequest.build().toByteArray());
 		}
 		catch (final AddressFormatException x)
 		{
@@ -128,12 +143,29 @@ public class SampleActivity extends Activity
 		}
 	}
 
+	private void handleFetchPaymentRequest()
+	{
+		final Intent intent = new Intent();
+		intent.setComponent(new ComponentName(isMainNet() ? "de.schildbach.wallet" : "de.schildbach.wallet_test",
+				"de.schildbach.wallet.ui.FetchPaymentRequestActivity"));
+		intent.putExtra("sender_name", "Mister X");
+
+		try
+		{
+			startActivityForResult(intent, REQUEST_CODE_FETCH_PAYMENT_REQUEST);
+		}
+		catch (final ActivityNotFoundException x)
+		{
+			Toast.makeText(this, "Cannot find wallet app: " + intent.getComponent(), Toast.LENGTH_LONG).show();
+		}
+	}
+
 	@Override
 	protected void onActivityResult(final int requestCode, final int resultCode, final Intent data)
 	{
-		if (requestCode == REQUEST_CODE)
+		if (resultCode == Activity.RESULT_OK)
 		{
-			if (resultCode == Activity.RESULT_OK)
+			if (requestCode == REQUEST_CODE_REQUEST)
 			{
 				final String txHash = BitcoinIntegration.transactionHashFromResult(data);
 				if (txHash != null)
@@ -152,14 +184,19 @@ public class SampleActivity extends Activity
 
 				Toast.makeText(this, "Thank you!", Toast.LENGTH_LONG).show();
 			}
-			else if (resultCode == Activity.RESULT_CANCELED)
+			else if (requestCode == REQUEST_CODE_FETCH_PAYMENT_REQUEST)
 			{
-				Toast.makeText(this, "Cancelled.", Toast.LENGTH_LONG).show();
+				final byte[] paymentRequest = data.getByteArrayExtra("payment_request");
+				Toast.makeText(this, "Got " + paymentRequest.length + " bytes of payment request.", Toast.LENGTH_LONG).show();
 			}
-			else
-			{
-				Toast.makeText(this, "Unknown result.", Toast.LENGTH_LONG).show();
-			}
+		}
+		else if (resultCode == Activity.RESULT_CANCELED)
+		{
+			Toast.makeText(this, "Cancelled.", Toast.LENGTH_LONG).show();
+		}
+		else
+		{
+			Toast.makeText(this, "Unknown result.", Toast.LENGTH_LONG).show();
 		}
 	}
 }
