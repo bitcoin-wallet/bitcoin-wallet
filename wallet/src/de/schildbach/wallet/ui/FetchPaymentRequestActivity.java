@@ -126,6 +126,7 @@ public class FetchPaymentRequestActivity extends AbstractWalletActivity
 					final Intent result = new Intent();
 					result.putExtra(INTENT_EXTRA_PAYMENT_REQUEST, paymentRequest);
 					activity.setResult(Activity.RESULT_OK, result);
+					activity.finish();
 
 					application.startBlockchainService(false);
 				}
@@ -136,6 +137,7 @@ public class FetchPaymentRequestActivity extends AbstractWalletActivity
 				public void onClick(final DialogInterface dialog, final int which)
 				{
 					activity.setResult(Activity.RESULT_CANCELED);
+					activity.finish();
 				}
 			});
 
