@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/wallet_address_dialog_group"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:orientation="vertical" >
+
+	<ImageView
+		android:id="@+id/wallet_address_dialog_image"
+		android:layout_width="@dimen/bitmap_dialog_qr_size"
+		android:layout_height="@dimen/bitmap_dialog_qr_size"
+		android:background="@color/bg_bright"
+		android:contentDescription="@null"
+		android:keepScreenOn="true"
+		android:padding="4dp"
+		android:scaleType="centerInside" />
+
+</LinearLayout>

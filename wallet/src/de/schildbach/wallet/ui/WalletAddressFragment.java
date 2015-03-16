@@ -47,18 +47,14 @@ import android.nfc.NfcAdapter;
 import android.nfc.NfcEvent;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
-import android.text.Spanned;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
-import de.schildbach.wallet.util.BitmapFragment;
 import de.schildbach.wallet.util.Qr;
 import de.schildbach.wallet.util.ThrottlingWalletChangeListener;
-import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
 
 /**
@@ -75,8 +71,7 @@ public final class WalletAddressFragment extends Fragment implements NfcAdapter.
 	private ImageView currentAddressQrView;
 
 	private Bitmap currentAddressQrBitmap = null;
-	private Spanned currentAddressQrLabel = null;
-	private CharSequence currentAddressQrAddress = null;
+	private Address currentAddressQrAddress = null;
 	private final AtomicReference<String> currentAddressUriRef = new AtomicReference<String>();
 
 	private static final int ID_ADDRESS_LOADER = 0;
@@ -144,7 +139,7 @@ public final class WalletAddressFragment extends Fragment implements NfcAdapter.
 
 	private void handleShowQRCode()
 	{
-		BitmapFragment.show(getFragmentManager(), currentAddressQrBitmap, currentAddressQrLabel, currentAddressQrAddress);
+		WalletAddressDialogFragment.show(getFragmentManager(), currentAddressQrBitmap, currentAddressQrAddress);
 	}
 
 	public static class CurrentAddressLoader extends AsyncTaskLoader<Address>
@@ -232,8 +227,6 @@ public final class WalletAddressFragment extends Fragment implements NfcAdapter.
 
 	private final LoaderCallbacks<Address> addressLoaderCallbacks = new LoaderManager.LoaderCallbacks<Address>()
 	{
-		private Address lastAddress;
-
 		@Override
 		public Loader<Address> onCreateLoader(final int id, final Bundle args)
 		{
@@ -243,17 +236,14 @@ public final class WalletAddressFragment extends Fragment implements NfcAdapter.
 		@Override
 		public void onLoadFinished(final Loader<Address> loader, final Address currentAddress)
 		{
-			if (!currentAddress.equals(lastAddress))
+			if (!currentAddress.equals(currentAddressQrAddress))
 			{
-				lastAddress = currentAddress;
+				currentAddressQrAddress = currentAddress;
 
 				final String addressStr = BitcoinURI.convertToBitcoinURI(currentAddress, null, null, null);
 
 				final int size = getResources().getDimensionPixelSize(R.dimen.bitmap_dialog_qr_size);
 				currentAddressQrBitmap = Qr.bitmap(addressStr, size);
-				currentAddressQrLabel = WalletUtils.formatAddress(currentAddress, Constants.ADDRESS_FORMAT_GROUP_SIZE,
-						Constants.ADDRESS_FORMAT_LINE_SIZE);
-				currentAddressQrAddress = currentAddress.toString();
 
 				currentAddressUriRef.set(addressStr);
 
