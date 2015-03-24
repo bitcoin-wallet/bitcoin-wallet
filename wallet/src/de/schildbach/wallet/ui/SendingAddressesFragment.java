@@ -19,10 +19,13 @@ package de.schildbach.wallet.ui;
 
 import java.util.ArrayList;
 
+import javax.annotation.Nonnull;
+
 import org.bitcoinj.core.Address;
 import org.bitcoinj.core.AddressFormatException;
 import org.bitcoinj.core.Transaction;
 import org.bitcoinj.core.VerificationException;
+import org.bitcoinj.core.Wallet;
 import org.bitcoinj.uri.BitcoinURI;
 import org.bitcoinj.uri.BitcoinURIParseException;
 import org.slf4j.Logger;
@@ -54,6 +57,7 @@ import android.widget.SimpleCursorAdapter.ViewBinder;
 import android.widget.TextView;
 import de.schildbach.wallet.AddressBookProvider;
 import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.data.PaymentIntent;
 import de.schildbach.wallet.ui.InputParser.StringInputParser;
 import de.schildbach.wallet.ui.send.SendCoinsActivity;
@@ -70,6 +74,7 @@ import de.schildbach.wallet_test.R;
 public final class SendingAddressesFragment extends FancyListFragment implements LoaderManager.LoaderCallbacks<Cursor>, OnPrimaryClipChangedListener
 {
 	private AbstractWalletActivity activity;
+	private Wallet wallet;
 	private ClipboardManager clipboardManager;
 	private LoaderManager loaderManager;
 
@@ -88,6 +93,8 @@ public final class SendingAddressesFragment extends FancyListFragment implements
 		super.onAttach(activity);
 
 		this.activity = (AbstractWalletActivity) activity;
+		final WalletApplication application = (WalletApplication) activity.getApplication();
+		this.wallet = application.getWallet();
 		this.clipboardManager = (ClipboardManager) activity.getSystemService(Context.CLIPBOARD_SERVICE);
 		this.loaderManager = getLoaderManager();
 	}
@@ -163,9 +170,17 @@ public final class SendingAddressesFragment extends FancyListFragment implements
 						public void run()
 						{
 							if (paymentIntent.hasAddress())
-								EditAddressBookEntryFragment.edit(getFragmentManager(), paymentIntent.getAddress().toString());
+							{
+								final Address address = paymentIntent.getAddress();
+								if (!wallet.isPubKeyHashMine(address.getHash160()))
+									EditAddressBookEntryFragment.edit(getFragmentManager(), address.toString());
+								else
+									dialog(activity, null, R.string.address_book_options_scan_title, R.string.address_book_options_scan_own_address);
+							}
 							else
+							{
 								dialog(activity, null, R.string.address_book_options_scan_title, R.string.address_book_options_scan_invalid);
+							}
 						}
 					}, 500);
 				}
@@ -225,16 +240,23 @@ public final class SendingAddressesFragment extends FancyListFragment implements
 	private void handlePasteClipboard()
 	{
 		final Address address = getAddressFromPrimaryClip();
-		if (address != null)
+		if (address == null)
+		{
+			final DialogBuilder dialog = new DialogBuilder(activity);
+			dialog.setTitle(R.string.address_book_options_paste_from_clipboard_title);
+			dialog.setMessage(R.string.address_book_options_paste_from_clipboard_invalid);
+			dialog.singleDismissButton(null);
+			dialog.show();
+		}
+		else if (!wallet.isPubKeyHashMine(address.getHash160()))
 		{
 			EditAddressBookEntryFragment.edit(getFragmentManager(), address.toString());
 		}
 		else
 		{
-			// should currently not be reached since menu item is disabled
 			final DialogBuilder dialog = new DialogBuilder(activity);
 			dialog.setTitle(R.string.address_book_options_paste_from_clipboard_title);
-			dialog.setMessage(R.string.address_book_options_paste_from_clipboard_invalid);
+			dialog.setMessage(R.string.address_book_options_paste_from_clipboard_own_address);
 			dialog.singleDismissButton(null);
 			dialog.show();
 		}
@@ -382,7 +404,7 @@ public final class SendingAddressesFragment extends FancyListFragment implements
 		adapter.swapCursor(null);
 	}
 
-	public void setWalletAddresses(final ArrayList<Address> addresses)
+	public void setWalletAddresses(@Nonnull final ArrayList<Address> addresses)
 	{
 		final StringBuilder builder = new StringBuilder();
 		for (final Address address : addresses)

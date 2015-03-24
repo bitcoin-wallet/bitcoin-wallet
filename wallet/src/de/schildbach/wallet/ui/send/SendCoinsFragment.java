@@ -239,6 +239,7 @@ public final class SendCoinsFragment extends Fragment
 		@Override
 		public boolean onPrepareActionMode(final ActionMode mode, final Menu menu)
 		{
+			menu.findItem(R.id.send_coins_address_context_edit_address).setVisible(!wallet.isPubKeyHashMine(address.getHash160()));
 			menu.findItem(R.id.send_coins_address_context_clear).setVisible(paymentIntent.mayEditAddress());
 
 			return true;
