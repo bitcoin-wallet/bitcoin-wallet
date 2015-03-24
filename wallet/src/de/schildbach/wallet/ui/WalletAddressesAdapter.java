@@ -17,10 +17,8 @@
 
 package de.schildbach.wallet.ui;
 
-import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Nonnull;
@@ -31,7 +29,6 @@ import org.bitcoinj.core.Wallet;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,7 +46,6 @@ public class WalletAddressesAdapter extends BaseAdapter
 {
 	private final Context context;
 	private final Wallet wallet;
-	private final DateFormat dateFormat;
 	private final int colorSignificant;
 	private final int colorInsignificant;
 	private final int colorLessSignificant;
@@ -64,7 +60,6 @@ public class WalletAddressesAdapter extends BaseAdapter
 
 		this.context = context;
 		this.wallet = wallet;
-		dateFormat = android.text.format.DateFormat.getDateFormat(context);
 		colorSignificant = res.getColor(R.color.fg_significant);
 		colorInsignificant = res.getColor(R.color.fg_insignificant);
 		colorLessSignificant = res.getColor(R.color.fg_less_significant);
@@ -172,18 +167,6 @@ public class WalletAddressesAdapter extends BaseAdapter
 		{
 			labelView.setText(R.string.address_unlabeled);
 			labelView.setTextColor(colorInsignificant);
-		}
-
-		final TextView createdView = (TextView) row.findViewById(R.id.address_book_row_created);
-		final long createdMs = key.getCreationTimeSeconds() * DateUtils.SECOND_IN_MILLIS;
-		if (createdMs != 0)
-		{
-			createdView.setText(dateFormat.format(new Date(createdMs)));
-			createdView.setVisibility(View.VISIBLE);
-		}
-		else
-		{
-			createdView.setVisibility(View.GONE);
 		}
 
 		final TextView messageView = (TextView) row.findViewById(R.id.address_book_row_message);
