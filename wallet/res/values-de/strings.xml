@@ -15,7 +15,7 @@
 	<string name="blockchain_state_progress_problem_storage">Synchronisation: Speicherplatz-Problem</string>
 	<string name="blockchain_state_progress_problem_network">Synchronisation: Netzwerk-Problem</string>
 	<string name="wallet_address_fragment_clipboard_msg">Bitcoin-Adresse ins Clipboard kopiert</string>
-	<string name="wallet_balance_fragment_too_much">Diese Wert ist recht hoch, um in der Tasche getragen zu werden. Bitte verschiebe etwas an einen sichereren Ort.</string>
+	<string name="wallet_balance_fragment_too_much">Dieser Wert ist recht hoch, um in der Tasche getragen zu werden. Bitte verschiebe etwas an einen sichereren Ort.</string>
 	<string name="wallet_balance_fragment_replaying">Guthaben ist während des Replays nicht verfügbar.</string>
 	<string name="exchange_rates_activity_title">Wechselkurse</string>
 	<string name="exchange_rates_fragment_empty_text">Kann Wechselkurse nicht laden.</string>
