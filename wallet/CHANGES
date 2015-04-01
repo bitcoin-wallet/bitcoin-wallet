@@ -1,3 +1,10 @@
+v4.22
+
+* Show derived addresses in address book under "your addresses".
+* Show "to addresses" of received payments, rather than "from addresses".
+* Speed up blockchain sync.
+* Based on bitcoinj 0.12.3.
+
 v4.21
 
 * Bugfixes.
