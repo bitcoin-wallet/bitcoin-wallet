@@ -25,8 +25,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.RejectedExecutionException;
 
-import javax.annotation.Nonnull;
-
 import org.bitcoinj.core.Block;
 import org.bitcoinj.core.Sha256Hash;
 import org.bitcoinj.core.StoredBlock;
@@ -257,7 +255,7 @@ public final class BlockListFragment extends ListFragment
 			adapter.notifyDataSetChanged();
 		}
 
-		public void replace(@Nonnull final Collection<StoredBlock> blocks)
+		public void replace(final Collection<StoredBlock> blocks)
 		{
 			this.blocks.clear();
 			this.blocks.addAll(blocks);

@@ -24,8 +24,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-import javax.annotation.Nonnull;
-
 import org.bitcoinj.core.Wallet;
 import org.bitcoinj.core.Wallet.BalanceType;
 
@@ -171,7 +169,7 @@ public final class RestoreWalletActivity extends AbstractWalletActivity
 		showView.setOnCheckedChangeListener(new ShowPasswordCheckListener(passwordView));
 	}
 
-	private void restoreWalletFromEncrypted(@Nonnull final InputStream cipher, @Nonnull final String password)
+	private void restoreWalletFromEncrypted(final InputStream cipher, final String password)
 	{
 		try
 		{

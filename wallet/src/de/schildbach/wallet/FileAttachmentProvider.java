@@ -20,8 +20,6 @@ package de.schildbach.wallet;
 import java.io.File;
 import java.io.FileNotFoundException;
 
-import javax.annotation.Nonnull;
-
 import android.content.ContentProvider;
 import android.content.ContentValues;
 import android.database.Cursor;
@@ -36,7 +34,7 @@ import android.provider.MediaStore;
  */
 public final class FileAttachmentProvider extends ContentProvider
 {
-	public static Uri contentUri(@Nonnull final String packageName, final File file)
+	public static Uri contentUri(final String packageName, final File file)
 	{
 		return Uri.parse("content://" + packageName + ".file_attachment" + file.getAbsolutePath());
 	}

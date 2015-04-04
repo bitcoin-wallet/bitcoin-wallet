@@ -17,9 +17,6 @@
 
 package de.schildbach.wallet.ui.send;
 
-import javax.annotation.Nonnull;
-
-import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -37,7 +34,7 @@ public final class SendCoinsActivity extends AbstractBindServiceActivity
 {
 	public static final String INTENT_EXTRA_PAYMENT_INTENT = "payment_intent";
 
-	public static void start(final Context context, @Nonnull PaymentIntent paymentIntent)
+	public static void start(final Context context, PaymentIntent paymentIntent)
 	{
 		final Intent intent = new Intent(context, SendCoinsActivity.class);
 		intent.putExtra(INTENT_EXTRA_PAYMENT_INTENT, paymentIntent);

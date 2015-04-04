@@ -32,8 +32,6 @@ import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
-import javax.annotation.Nonnull;
-
 import org.bitcoinj.core.AddressFormatException;
 import org.bitcoinj.core.Transaction;
 import org.bitcoinj.core.VerificationException;
@@ -159,7 +157,7 @@ public final class WalletActivity extends AbstractWalletActivity
 		handleIntent(intent);
 	}
 
-	private void handleIntent(@Nonnull final Intent intent)
+	private void handleIntent(final Intent intent)
 	{
 		final String action = intent.getAction();
 
@@ -196,13 +194,13 @@ public final class WalletActivity extends AbstractWalletActivity
 			new StringInputParser(input)
 			{
 				@Override
-				protected void handlePaymentIntent(@Nonnull final PaymentIntent paymentIntent)
+				protected void handlePaymentIntent(final PaymentIntent paymentIntent)
 				{
 					SendCoinsActivity.start(WalletActivity.this, paymentIntent);
 				}
 
 				@Override
-				protected void handlePrivateKey(@Nonnull final VersionedChecksummedBytes key)
+				protected void handlePrivateKey(final VersionedChecksummedBytes key)
 				{
 					SweepWalletActivity.start(WalletActivity.this, key);
 				}
@@ -736,7 +734,7 @@ public final class WalletActivity extends AbstractWalletActivity
 		return dialog.create();
 	}
 
-	private void restoreWalletFromEncrypted(@Nonnull final File file, @Nonnull final String password)
+	private void restoreWalletFromEncrypted(final File file, final String password)
 	{
 		try
 		{
@@ -771,7 +769,7 @@ public final class WalletActivity extends AbstractWalletActivity
 		}
 	}
 
-	private void restoreWalletFromProtobuf(@Nonnull final File file)
+	private void restoreWalletFromProtobuf(final File file)
 	{
 		FileInputStream is = null;
 		try
@@ -814,7 +812,7 @@ public final class WalletActivity extends AbstractWalletActivity
 		}
 	}
 
-	private void restorePrivateKeysFromBase58(@Nonnull final File file)
+	private void restorePrivateKeysFromBase58(final File file)
 	{
 		FileInputStream is = null;
 		try

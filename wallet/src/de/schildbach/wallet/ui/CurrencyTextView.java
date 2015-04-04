@@ -17,8 +17,6 @@
 
 package de.schildbach.wallet.ui;
 
-import javax.annotation.Nonnull;
-
 import org.bitcoinj.core.Monetary;
 import org.bitcoinj.utils.MonetaryFormat;
 
@@ -56,13 +54,13 @@ public final class CurrencyTextView extends TextView
 		super(context, attrs);
 	}
 
-	public void setAmount(@Nonnull final Monetary amount)
+	public void setAmount(final Monetary amount)
 	{
 		this.amount = amount;
 		updateView();
 	}
 
-	public void setFormat(@Nonnull final MonetaryFormat format)
+	public void setFormat(final MonetaryFormat format)
 	{
 		this.format = format.codeSeparator(Constants.CHAR_HAIR_SPACE);
 		updateView();

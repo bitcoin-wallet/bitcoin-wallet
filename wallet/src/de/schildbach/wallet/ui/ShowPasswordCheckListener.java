@@ -17,8 +17,6 @@
 
 package de.schildbach.wallet.ui;
 
-import javax.annotation.Nonnull;
-
 import android.text.method.PasswordTransformationMethod;
 import android.text.method.TransformationMethod;
 import android.widget.CompoundButton;
@@ -32,7 +30,7 @@ public final class ShowPasswordCheckListener implements OnCheckedChangeListener
 {
 	private EditText[] passwordViews;
 
-	public ShowPasswordCheckListener(@Nonnull final EditText... passwordViews)
+	public ShowPasswordCheckListener(final EditText... passwordViews)
 	{
 		this.passwordViews = passwordViews;
 	}

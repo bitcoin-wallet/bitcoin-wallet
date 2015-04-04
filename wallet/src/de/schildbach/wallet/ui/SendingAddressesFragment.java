@@ -19,8 +19,6 @@ package de.schildbach.wallet.ui;
 
 import java.util.ArrayList;
 
-import javax.annotation.Nonnull;
-
 import org.bitcoinj.core.Address;
 import org.bitcoinj.core.AddressFormatException;
 import org.bitcoinj.core.Transaction;
@@ -384,7 +382,7 @@ public final class SendingAddressesFragment extends FancyListFragment implements
 		adapter.swapCursor(null);
 	}
 
-	public void setWalletAddresses(@Nonnull final ArrayList<Address> addresses)
+	public void setWalletAddresses(final ArrayList<Address> addresses)
 	{
 		final StringBuilder builder = new StringBuilder();
 		for (final Address address : addresses)

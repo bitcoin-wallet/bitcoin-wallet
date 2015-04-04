@@ -17,8 +17,6 @@
 
 package de.schildbach.wallet.ui.preference;
 
-import javax.annotation.Nonnull;
-
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.DialogFragment;
@@ -44,12 +42,12 @@ public class ExtendedPublicKeyFragment extends DialogFragment
 
 	private static final String KEY_XPUB = "xpub";
 
-	public static void show(final FragmentManager fm, @Nonnull final CharSequence xpub)
+	public static void show(final FragmentManager fm, final CharSequence xpub)
 	{
 		instance(xpub).show(fm, FRAGMENT_TAG);
 	}
 
-	private static ExtendedPublicKeyFragment instance(@Nonnull final CharSequence xpub)
+	private static ExtendedPublicKeyFragment instance(final CharSequence xpub)
 	{
 		final ExtendedPublicKeyFragment fragment = new ExtendedPublicKeyFragment();
 

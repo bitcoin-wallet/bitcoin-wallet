@@ -25,7 +25,6 @@ import java.net.URL;
 import java.security.KeyStore;
 
 import javax.annotation.CheckForNull;
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
@@ -52,7 +51,7 @@ public abstract class HttpGetThread extends Thread
 
 	private static final Logger log = LoggerFactory.getLogger(HttpGetThread.class);
 
-	public HttpGetThread(@Nonnull final AssetManager assets, @Nonnull final String url, @Nullable final String userAgent)
+	public HttpGetThread(final AssetManager assets, final String url, @Nullable final String userAgent)
 	{
 		this.assets = assets;
 		this.url = url;
@@ -118,7 +117,7 @@ public abstract class HttpGetThread extends Thread
 		}
 	}
 
-	protected abstract void handleLine(@Nonnull String line, long serverTime);
+	protected abstract void handleLine(String line, long serverTime);
 
-	protected abstract void handleException(@Nonnull Exception x);
+	protected abstract void handleException(Exception x);
 }

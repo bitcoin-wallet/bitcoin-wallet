@@ -19,8 +19,6 @@ package de.schildbach.wallet.ui;
 
 import java.util.concurrent.RejectedExecutionException;
 
-import javax.annotation.Nonnull;
-
 import org.bitcoinj.core.Coin;
 import org.bitcoinj.core.Wallet;
 import org.bitcoinj.core.Wallet.BalanceType;
@@ -47,7 +45,7 @@ public final class WalletBalanceLoader extends AsyncTaskLoader<Coin>
 
 	private static final Logger log = LoggerFactory.getLogger(WalletBalanceLoader.class);
 
-	public WalletBalanceLoader(final Context context, @Nonnull final Wallet wallet)
+	public WalletBalanceLoader(final Context context, final Wallet wallet)
 	{
 		super(context);
 

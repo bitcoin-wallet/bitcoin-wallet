@@ -21,8 +21,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import javax.annotation.Nonnull;
-
 import org.bitcoinj.core.Address;
 import org.bitcoinj.core.ECKey;
 import org.bitcoinj.core.Wallet;
@@ -54,7 +52,7 @@ public class WalletAddressesAdapter extends BaseAdapter
 	private final List<ECKey> derivedKeys = new ArrayList<ECKey>();
 	private final List<ECKey> randomKeys = new ArrayList<ECKey>();
 
-	public WalletAddressesAdapter(final Context context, @Nonnull final Wallet wallet)
+	public WalletAddressesAdapter(final Context context, final Wallet wallet)
 	{
 		final Resources res = context.getResources();
 
@@ -66,7 +64,7 @@ public class WalletAddressesAdapter extends BaseAdapter
 		inflater = LayoutInflater.from(context);
 	}
 
-	public void replaceDerivedKeys(@Nonnull final Collection<ECKey> keys)
+	public void replaceDerivedKeys(final Collection<ECKey> keys)
 	{
 		this.derivedKeys.clear();
 		this.derivedKeys.addAll(keys);
@@ -74,7 +72,7 @@ public class WalletAddressesAdapter extends BaseAdapter
 		notifyDataSetChanged();
 	}
 
-	public void replaceRandomKeys(@Nonnull final Collection<ECKey> keys)
+	public void replaceRandomKeys(final Collection<ECKey> keys)
 	{
 		this.randomKeys.clear();
 		this.randomKeys.addAll(keys);

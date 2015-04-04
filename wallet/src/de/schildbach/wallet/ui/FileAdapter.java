@@ -20,8 +20,6 @@ package de.schildbach.wallet.ui;
 import java.io.File;
 import java.util.List;
 
-import javax.annotation.Nonnull;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,7 +44,7 @@ public abstract class FileAdapter extends ArrayAdapter<File>
 		inflater = LayoutInflater.from(context);
 	}
 
-	public void setFiles(@Nonnull final List<File> files)
+	public void setFiles(final List<File> files)
 	{
 		clear();
 		for (final File file : files)

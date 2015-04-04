@@ -17,8 +17,6 @@
 
 package de.schildbach.wallet.service;
 
-import javax.annotation.Nonnull;
-
 import org.bitcoinj.core.Wallet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,7 +36,7 @@ import de.schildbach.wallet.WalletApplication;
  */
 public final class UpgradeWalletService extends IntentService
 {
-	public static void startUpgrade(@Nonnull final Context context)
+	public static void startUpgrade(final Context context)
 	{
 		context.startService(new Intent(context, UpgradeWalletService.class));
 	}

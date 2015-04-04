@@ -16,8 +16,6 @@
 
 package de.schildbach.wallet.util;
 
-import javax.annotation.Nonnull;
-
 import com.google.common.base.Charsets;
 
 /**
@@ -41,7 +39,7 @@ public class Base43
 			INDEXES[ALPHABET[i]] = i;
 	}
 
-	public static String encode(@Nonnull byte[] input)
+	public static String encode(byte[] input)
 	{
 		if (input.length == 0)
 			return "";
@@ -79,7 +77,7 @@ public class Base43
 		return new String(output, Charsets.US_ASCII);
 	}
 
-	public static byte[] decode(@Nonnull final String input) throws IllegalArgumentException
+	public static byte[] decode(final String input) throws IllegalArgumentException
 	{
 		if (input.length() == 0)
 			return new byte[0];

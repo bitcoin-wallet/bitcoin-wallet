@@ -17,8 +17,6 @@
 
 package de.schildbach.wallet.ui.preference;
 
-import javax.annotation.Nonnull;
-
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -113,7 +111,7 @@ public final class SettingsFragment extends PreferenceFragment implements OnPref
 		return true;
 	}
 
-	private void updateTrustedPeer(@Nonnull final String trustedPeer)
+	private void updateTrustedPeer(final String trustedPeer)
 	{
 		if (trustedPeer.isEmpty())
 		{

@@ -21,7 +21,6 @@ import static com.google.common.base.Preconditions.checkState;
 
 import java.util.Collection;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.bitcoinj.core.Address;
@@ -273,7 +272,7 @@ public class SweepWalletFragment extends Fragment
 				new StringInputParser(input)
 				{
 					@Override
-					protected void handlePrivateKey(@Nonnull final VersionedChecksummedBytes key)
+					protected void handlePrivateKey(final VersionedChecksummedBytes key)
 					{
 						privateKeyToSweep = key;
 						setState(State.DECODE_KEY);
@@ -420,7 +419,7 @@ public class SweepWalletFragment extends Fragment
 				new DecodePrivateKeyTask(backgroundHandler)
 				{
 					@Override
-					protected void onSuccess(@Nonnull ECKey decryptedKey)
+					protected void onSuccess(ECKey decryptedKey)
 					{
 						log.info("successfully decoded BIP38 private key");
 

@@ -23,8 +23,6 @@ import java.io.IOException;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import javax.annotation.Nonnull;
-
 import org.bitcoin.protocols.payments.Protos;
 import org.bitcoin.protocols.payments.Protos.PaymentACK;
 import org.bitcoinj.core.ProtocolException;
@@ -57,7 +55,7 @@ public abstract class AcceptBluetoothThread extends Thread
 
 	public static abstract class ClassicBluetoothThread extends AcceptBluetoothThread
 	{
-		public ClassicBluetoothThread(@Nonnull final BluetoothAdapter adapter)
+		public ClassicBluetoothThread(final BluetoothAdapter adapter)
 		{
 			super(listen(adapter, Bluetooth.CLASSIC_PAYMENT_PROTOCOL_NAME, Bluetooth.CLASSIC_PAYMENT_PROTOCOL_UUID));
 		}
@@ -155,7 +153,7 @@ public abstract class AcceptBluetoothThread extends Thread
 
 	public static abstract class PaymentProtocolThread extends AcceptBluetoothThread
 	{
-		public PaymentProtocolThread(@Nonnull final BluetoothAdapter adapter)
+		public PaymentProtocolThread(final BluetoothAdapter adapter)
 		{
 			super(listen(adapter, Bluetooth.BIP70_PAYMENT_PROTOCOL_NAME, Bluetooth.BIP70_PAYMENT_PROTOCOL_UUID));
 		}
@@ -270,5 +268,5 @@ public abstract class AcceptBluetoothThread extends Thread
 		}
 	}
 
-	protected abstract boolean handleTx(@Nonnull Transaction tx);
+	protected abstract boolean handleTx(Transaction tx);
 }

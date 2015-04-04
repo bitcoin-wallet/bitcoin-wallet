@@ -17,8 +17,6 @@
 
 package de.schildbach.wallet.ui;
 
-import javax.annotation.Nonnull;
-
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.text.Editable;
@@ -37,7 +35,7 @@ public class ImportDialogButtonEnablerListener implements TextWatcher, OnItemSel
 	private final TextView passwordView;
 	private final AlertDialog dialog;
 
-	public ImportDialogButtonEnablerListener(@Nonnull final TextView passwordView, @Nonnull final AlertDialog dialog)
+	public ImportDialogButtonEnablerListener(final TextView passwordView, final AlertDialog dialog)
 	{
 		this.passwordView = passwordView;
 		this.dialog = dialog;

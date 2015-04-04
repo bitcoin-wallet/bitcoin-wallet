@@ -27,7 +27,6 @@ import java.util.Set;
 import java.util.concurrent.RejectedExecutionException;
 
 import javax.annotation.CheckForNull;
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.bitcoinj.core.Address;
@@ -201,7 +200,7 @@ public class TransactionsListFragment extends FancyListFragment implements Loade
 			handleTransactionClick(tx);
 	}
 
-	private void handleTransactionClick(@Nonnull final Transaction tx)
+	private void handleTransactionClick(final Transaction tx)
 	{
 		activity.startActionMode(new ActionMode.Callback()
 		{
@@ -300,7 +299,7 @@ public class TransactionsListFragment extends FancyListFragment implements Loade
 			{
 			}
 
-			private void handleEditAddress(@Nonnull final Transaction tx)
+			private void handleEditAddress(final Transaction tx)
 			{
 				EditAddressBookEntryFragment.edit(getFragmentManager(), address.toString());
 			}
@@ -367,7 +366,7 @@ public class TransactionsListFragment extends FancyListFragment implements Loade
 		@CheckForNull
 		private final Direction direction;
 
-		private TransactionsLoader(final Context context, @Nonnull final Wallet wallet, @Nullable final Direction direction)
+		private TransactionsLoader(final Context context, final Wallet wallet, @Nullable final Direction direction)
 		{
 			super(context);
 

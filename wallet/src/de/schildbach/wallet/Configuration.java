@@ -17,8 +17,6 @@
 
 package de.schildbach.wallet;
 
-import javax.annotation.Nonnull;
-
 import org.bitcoinj.core.Coin;
 import org.bitcoinj.utils.Fiat;
 import org.bitcoinj.utils.MonetaryFormat;
@@ -64,7 +62,7 @@ public class Configuration
 
 	private static final Logger log = LoggerFactory.getLogger(Configuration.class);
 
-	public Configuration(@Nonnull final SharedPreferences prefs)
+	public Configuration(final SharedPreferences prefs)
 	{
 		this.prefs = prefs;
 

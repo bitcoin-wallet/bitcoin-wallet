@@ -34,7 +34,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
 import javax.annotation.CheckForNull;
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.bitcoinj.core.AbstractPeerEventListener;
@@ -176,7 +175,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 		}
 	};
 
-	private void notifyCoinsReceived(@Nullable final Address address, @Nonnull final Coin amount)
+	private void notifyCoinsReceived(@Nullable final Address address, final Coin amount)
 	{
 		if (notificationCount == 1)
 			nm.cancel(NOTIFICATION_ID_COINS_RECEIVED);

@@ -19,8 +19,6 @@ package de.schildbach.wallet.util;
 
 import java.util.Currency;
 
-import javax.annotation.Nonnull;
-
 /**
  * @author Andreas Schildbach
  */
@@ -31,7 +29,7 @@ public class GenericUtils
 		return string.regionMatches(true, 0, prefix, 0, prefix.length());
 	}
 
-	public static String currencySymbol(@Nonnull final String currencyCode)
+	public static String currencySymbol(final String currencyCode)
 	{
 		try
 		{

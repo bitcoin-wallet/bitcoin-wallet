@@ -25,8 +25,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.concurrent.TimeUnit;
 
-import javax.annotation.Nonnull;
-
 import org.bitcoinj.core.Transaction;
 import org.bitcoinj.core.VerificationException;
 import org.bitcoinj.core.VersionMessage;
@@ -372,7 +370,7 @@ public class WalletApplication extends Application
 		}
 	}
 
-	private void protobufSerializeWallet(@Nonnull final Wallet wallet) throws IOException
+	private void protobufSerializeWallet(final Wallet wallet) throws IOException
 	{
 		final long start = System.currentTimeMillis();
 
@@ -487,7 +485,7 @@ public class WalletApplication extends Application
 		LocalBroadcastManager.getInstance(this).sendBroadcast(broadcast);
 	}
 
-	public void processDirectTransaction(@Nonnull final Transaction tx) throws VerificationException
+	public void processDirectTransaction(final Transaction tx) throws VerificationException
 	{
 		if (wallet.isTransactionRelevant(tx))
 		{
@@ -496,7 +494,7 @@ public class WalletApplication extends Application
 		}
 	}
 
-	public void broadcastTransaction(@Nonnull final Transaction tx)
+	public void broadcastTransaction(final Transaction tx)
 	{
 		final Intent intent = new Intent(BlockchainService.ACTION_BROADCAST_TRANSACTION, null, this, BlockchainServiceImpl.class);
 		intent.putExtra(BlockchainService.ACTION_BROADCAST_TRANSACTION_HASH, tx.getHash().getBytes());
@@ -552,7 +550,7 @@ public class WalletApplication extends Application
 			return 6;
 	}
 
-	public static void scheduleStartBlockchainService(@Nonnull final Context context)
+	public static void scheduleStartBlockchainService(final Context context)
 	{
 		final Configuration config = new Configuration(PreferenceManager.getDefaultSharedPreferences(context));
 		final long lastUsedAgo = config.getLastUsedAgo();

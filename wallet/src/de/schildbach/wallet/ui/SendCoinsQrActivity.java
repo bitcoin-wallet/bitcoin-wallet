@@ -17,8 +17,6 @@
 
 package de.schildbach.wallet.ui;
 
-import javax.annotation.Nonnull;
-
 import org.bitcoinj.core.Transaction;
 import org.bitcoinj.core.VerificationException;
 import org.bitcoinj.core.VersionedChecksummedBytes;
@@ -59,7 +57,7 @@ public final class SendCoinsQrActivity extends Activity
 			new StringInputParser(input)
 			{
 				@Override
-				protected void handlePaymentIntent(@Nonnull final PaymentIntent paymentIntent)
+				protected void handlePaymentIntent(final PaymentIntent paymentIntent)
 				{
 					SendCoinsActivity.start(SendCoinsQrActivity.this, paymentIntent);
 
@@ -67,7 +65,7 @@ public final class SendCoinsQrActivity extends Activity
 				}
 
 				@Override
-				protected void handlePrivateKey(@Nonnull final VersionedChecksummedBytes key)
+				protected void handlePrivateKey(final VersionedChecksummedBytes key)
 				{
 					SweepWalletActivity.start(SendCoinsQrActivity.this, key);
 

@@ -17,8 +17,6 @@
 
 package de.schildbach.wallet.ui.send;
 
-import javax.annotation.Nonnull;
-
 import org.bitcoinj.crypto.KeyCrypter;
 import org.spongycastle.crypto.params.KeyParameter;
 
@@ -33,13 +31,13 @@ public abstract class DeriveKeyTask
 	private final Handler backgroundHandler;
 	private final Handler callbackHandler;
 
-	public DeriveKeyTask(@Nonnull final Handler backgroundHandler)
+	public DeriveKeyTask(final Handler backgroundHandler)
 	{
 		this.backgroundHandler = backgroundHandler;
 		this.callbackHandler = new Handler(Looper.myLooper());
 	}
 
-	public final void deriveKey(@Nonnull final KeyCrypter keyCrypter, @Nonnull final String password)
+	public final void deriveKey(final KeyCrypter keyCrypter, final String password)
 	{
 		backgroundHandler.post(new Runnable()
 		{
@@ -60,5 +58,5 @@ public abstract class DeriveKeyTask
 		});
 	}
 
-	protected abstract void onSuccess(@Nonnull KeyParameter encryptionKey);
+	protected abstract void onSuccess(KeyParameter encryptionKey);
 }

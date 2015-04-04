@@ -21,7 +21,6 @@ import static com.google.common.base.Preconditions.checkArgument;
 
 import java.util.regex.Matcher;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.bitcoinj.core.Monetary;
@@ -74,8 +73,8 @@ public final class MonetarySpannable extends SpannableString
 	public static final Object[] STANDARD_SIGNIFICANT_SPANS = new Object[] { BOLD_SPAN };
 	public static final Object[] STANDARD_INSIGNIFICANT_SPANS = new Object[] { MonetarySpannable.SMALLER_SPAN };
 
-	public static void applyMarkup(@Nonnull final Spannable spannable, @Nullable final Object[] prefixSpans,
-			@Nullable final Object[] significantSpans, @Nullable final Object[] insignificantSpans)
+	public static void applyMarkup(final Spannable spannable, @Nullable final Object[] prefixSpans, @Nullable final Object[] significantSpans,
+			@Nullable final Object[] insignificantSpans)
 	{
 		if (prefixSpans != null)
 			for (final Object span : prefixSpans)

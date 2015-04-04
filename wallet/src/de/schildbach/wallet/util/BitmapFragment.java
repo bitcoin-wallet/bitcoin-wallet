@@ -17,7 +17,6 @@
 
 package de.schildbach.wallet.util;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import android.app.Activity;
@@ -47,17 +46,17 @@ public class BitmapFragment extends DialogFragment
 	private static final String KEY_ADDRESS = "address";
 	private static final String KEY_LABEL = "label";
 
-	public static void show(final FragmentManager fm, @Nonnull final Bitmap bitmap)
+	public static void show(final FragmentManager fm, final Bitmap bitmap)
 	{
 		instance(bitmap, null, null).show(fm, FRAGMENT_TAG);
 	}
 
-	public static void show(final FragmentManager fm, @Nonnull final Bitmap bitmap, @Nonnull final Spanned label, @Nullable final CharSequence address)
+	public static void show(final FragmentManager fm, final Bitmap bitmap, final Spanned label, @Nullable final CharSequence address)
 	{
 		instance(bitmap, label, address).show(fm, FRAGMENT_TAG);
 	}
 
-	private static BitmapFragment instance(@Nonnull final Bitmap bitmap, @Nullable final Spanned label, @Nullable final CharSequence address)
+	private static BitmapFragment instance(final Bitmap bitmap, @Nullable final Spanned label, @Nullable final CharSequence address)
 	{
 		final BitmapFragment fragment = new BitmapFragment();
 

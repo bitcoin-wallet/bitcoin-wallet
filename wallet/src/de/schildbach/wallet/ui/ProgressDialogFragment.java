@@ -17,8 +17,6 @@
 
 package de.schildbach.wallet.ui;
 
-import javax.annotation.Nonnull;
-
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.DialogFragment;
@@ -35,7 +33,7 @@ public class ProgressDialogFragment extends DialogFragment
 
 	private static final String KEY_MESSAGE = "message";
 
-	public static void showProgress(final FragmentManager fm, @Nonnull final String message)
+	public static void showProgress(final FragmentManager fm, final String message)
 	{
 		final ProgressDialogFragment fragment = instance(message);
 		fragment.show(fm, FRAGMENT_TAG);
@@ -47,7 +45,7 @@ public class ProgressDialogFragment extends DialogFragment
 		fragment.dismiss();
 	}
 
-	private static ProgressDialogFragment instance(@Nonnull final String message)
+	private static ProgressDialogFragment instance(final String message)
 	{
 		final ProgressDialogFragment fragment = new ProgressDialogFragment();
 

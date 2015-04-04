@@ -23,8 +23,6 @@ import java.util.Map;
 import java.util.WeakHashMap;
 import java.util.concurrent.RejectedExecutionException;
 
-import javax.annotation.Nonnull;
-
 import org.bitcoinj.core.Peer;
 import org.bitcoinj.core.VersionMessage;
 import org.slf4j.Logger;
@@ -230,7 +228,7 @@ public final class PeerListFragment extends FancyListFragment
 		private LocalBroadcastManager broadcastManager;
 		private BlockchainService service;
 
-		private PeerLoader(final Context context, @Nonnull final BlockchainService service)
+		private PeerLoader(final Context context, final BlockchainService service)
 		{
 			super(context);
 
@@ -310,7 +308,7 @@ public final class PeerListFragment extends FancyListFragment
 	{
 		public final InetAddress address;
 
-		public ReverseDnsLoader(final Context context, @Nonnull final InetAddress address)
+		public ReverseDnsLoader(final Context context, final InetAddress address)
 		{
 			super(context);
 

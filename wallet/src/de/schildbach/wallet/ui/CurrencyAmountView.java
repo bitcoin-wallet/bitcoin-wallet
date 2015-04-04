@@ -18,7 +18,6 @@
 package de.schildbach.wallet.ui;
 
 import javax.annotation.CheckForNull;
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.bitcoinj.core.Coin;
@@ -187,7 +186,7 @@ public final class CurrencyAmountView extends FrameLayout
 		this.validateAmount = validateAmount;
 	}
 
-	public void setContextButton(final int contextButtonResId, @Nonnull final OnClickListener contextButtonClickListener)
+	public void setContextButton(final int contextButtonResId, final OnClickListener contextButtonClickListener)
 	{
 		this.contextButtonDrawable = getContext().getResources().getDrawable(contextButtonResId);
 		this.contextButtonClickListener = contextButtonClickListener;
@@ -195,7 +194,7 @@ public final class CurrencyAmountView extends FrameLayout
 		updateAppearance();
 	}
 
-	public void setListener(@Nonnull final Listener listener)
+	public void setListener(final Listener listener)
 	{
 		this.listener = listener;
 	}

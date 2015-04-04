@@ -33,7 +33,6 @@ import java.util.TreeMap;
 import java.util.zip.GZIPInputStream;
 
 import javax.annotation.CheckForNull;
-import javax.annotation.Nonnull;
 
 import org.bitcoinj.core.Coin;
 import org.bitcoinj.utils.Fiat;
@@ -63,7 +62,7 @@ public class ExchangeRatesProvider extends ContentProvider
 {
 	public static class ExchangeRate
 	{
-		public ExchangeRate(@Nonnull final org.bitcoinj.utils.ExchangeRate rate, final String source)
+		public ExchangeRate(final org.bitcoinj.utils.ExchangeRate rate, final String source)
 		{
 			this.rate = rate;
 			this.source = source;
@@ -144,7 +143,7 @@ public class ExchangeRatesProvider extends ContentProvider
 		return true;
 	}
 
-	public static Uri contentUri(@Nonnull final String packageName, final boolean offline)
+	public static Uri contentUri(final String packageName, final boolean offline)
 	{
 		final Uri.Builder uri = Uri.parse("content://" + packageName + '.' + "exchange_rates").buildUpon();
 		if (offline)
@@ -248,7 +247,7 @@ public class ExchangeRatesProvider extends ContentProvider
 		}
 	}
 
-	public static ExchangeRate getExchangeRate(@Nonnull final Cursor cursor)
+	public static ExchangeRate getExchangeRate(final Cursor cursor)
 	{
 		final String currencyCode = cursor.getString(cursor.getColumnIndexOrThrow(ExchangeRatesProvider.KEY_CURRENCY_CODE));
 		final Coin rateCoin = Coin.valueOf(cursor.getLong(cursor.getColumnIndexOrThrow(ExchangeRatesProvider.KEY_RATE_COIN)));
