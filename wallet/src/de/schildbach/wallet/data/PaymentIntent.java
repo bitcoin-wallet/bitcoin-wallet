@@ -21,7 +21,6 @@ import static com.google.common.base.Preconditions.checkArgument;
 
 import java.util.Arrays;
 
-import javax.annotation.CheckForNull;
 import javax.annotation.Nullable;
 
 import org.bitcoinj.core.Address;
@@ -152,31 +151,31 @@ public final class PaymentIntent implements Parcelable
 		}
 	}
 
-	@CheckForNull
+	@Nullable
 	public final Standard standard;
 
-	@CheckForNull
+	@Nullable
 	public final String payeeName;
 
-	@CheckForNull
+	@Nullable
 	public final String payeeVerifiedBy;
 
-	@CheckForNull
+	@Nullable
 	public final Output[] outputs;
 
-	@CheckForNull
+	@Nullable
 	public final String memo;
 
-	@CheckForNull
+	@Nullable
 	public final String paymentUrl;
 
-	@CheckForNull
+	@Nullable
 	public final byte[] payeeData;
 
-	@CheckForNull
+	@Nullable
 	public final String paymentRequestUrl;
 
-	@CheckForNull
+	@Nullable
 	public final byte[] paymentRequestHash;
 
 	private static final Logger log = LoggerFactory.getLogger(PaymentIntent.class);

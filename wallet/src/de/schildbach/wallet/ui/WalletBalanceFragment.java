@@ -17,7 +17,7 @@
 
 package de.schildbach.wallet.ui;
 
-import javax.annotation.CheckForNull;
+import javax.annotation.Nullable;
 
 import org.bitcoinj.core.Coin;
 import org.bitcoinj.core.Wallet;
@@ -67,11 +67,11 @@ public final class WalletBalanceFragment extends Fragment
 
 	private boolean showLocalBalance;
 
-	@CheckForNull
+	@Nullable
 	private Coin balance = null;
-	@CheckForNull
+	@Nullable
 	private ExchangeRate exchangeRate = null;
-	@CheckForNull
+	@Nullable
 	private BlockchainState blockchainState = null;
 
 	private static final int ID_BALANCE_LOADER = 0;

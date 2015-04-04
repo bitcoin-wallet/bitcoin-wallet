@@ -19,7 +19,7 @@ package de.schildbach.wallet.util;
 
 import java.util.Arrays;
 
-import javax.annotation.CheckForNull;
+import javax.annotation.Nullable;
 
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
@@ -38,7 +38,7 @@ public class Nfc
 		return mimeRecord;
 	}
 
-	@CheckForNull
+	@Nullable
 	public static byte[] extractMimePayload(final String mimeType, final NdefMessage message)
 	{
 		final byte[] mimeBytes = mimeType.getBytes(Charsets.US_ASCII);

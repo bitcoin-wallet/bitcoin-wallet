@@ -20,7 +20,7 @@ package de.schildbach.wallet.ui.send;
 import java.util.Collections;
 import java.util.List;
 
-import javax.annotation.CheckForNull;
+import javax.annotation.Nullable;
 
 import org.bitcoinj.core.Coin;
 import org.bitcoinj.core.Transaction;
@@ -82,7 +82,7 @@ public class MaintenanceDialogFragment extends DialogFragment
 	private WalletApplication application;
 	private Wallet wallet;
 
-	@CheckForNull
+	@Nullable
 	private AlertDialog dialog;
 
 	private View passwordGroup;

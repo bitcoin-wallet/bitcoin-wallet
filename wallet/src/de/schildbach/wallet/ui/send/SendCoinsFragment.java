@@ -21,7 +21,7 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.Arrays;
 
-import javax.annotation.CheckForNull;
+import javax.annotation.Nullable;
 
 import org.bitcoin.protocols.payments.Protos.Payment;
 import org.bitcoinj.core.Address;
@@ -131,7 +131,7 @@ public final class SendCoinsFragment extends Fragment
 	private ContentResolver contentResolver;
 	private LoaderManager loaderManager;
 	private FragmentManager fragmentManager;
-	@CheckForNull
+	@Nullable
 	private BluetoothAdapter bluetoothAdapter;
 
 	private final Handler handler = new Handler();

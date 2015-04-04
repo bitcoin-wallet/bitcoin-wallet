@@ -17,7 +17,6 @@
 
 package de.schildbach.wallet.ui;
 
-import javax.annotation.CheckForNull;
 import javax.annotation.Nullable;
 
 import org.bitcoinj.core.Coin;
@@ -119,7 +118,7 @@ public final class CurrencyCalculatorLink
 		return exchangeRate;
 	}
 
-	@CheckForNull
+	@Nullable
 	public Coin getAmount()
 	{
 		if (exchangeDirection)

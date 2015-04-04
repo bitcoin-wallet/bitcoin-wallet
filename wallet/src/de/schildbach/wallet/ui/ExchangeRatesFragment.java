@@ -17,7 +17,7 @@
 
 package de.schildbach.wallet.ui;
 
-import javax.annotation.CheckForNull;
+import javax.annotation.Nullable;
 
 import org.bitcoinj.core.Coin;
 import org.bitcoinj.core.Wallet;
@@ -72,9 +72,9 @@ public final class ExchangeRatesFragment extends FancyListFragment implements On
 	private String query = null;
 
 	private Coin balance = null;
-	@CheckForNull
+	@Nullable
 	private BlockchainState blockchainState = null;
-	@CheckForNull
+	@Nullable
 	private String defaultCurrency = null;
 
 	private static final int ID_BALANCE_LOADER = 0;

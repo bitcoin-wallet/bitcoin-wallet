@@ -19,7 +19,7 @@ package de.schildbach.wallet.ui;
 
 import java.util.Set;
 
-import javax.annotation.CheckForNull;
+import javax.annotation.Nullable;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -54,7 +54,7 @@ public final class WalletDisclaimerFragment extends Fragment implements OnShared
 	private Configuration config;
 	private LoaderManager loaderManager;
 
-	@CheckForNull
+	@Nullable
 	private BlockchainState blockchainState = null;
 
 	private TextView messageView;

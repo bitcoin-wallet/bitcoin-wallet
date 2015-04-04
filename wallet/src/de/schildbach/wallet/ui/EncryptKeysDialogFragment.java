@@ -19,7 +19,7 @@ package de.schildbach.wallet.ui;
 
 import java.security.SecureRandom;
 
-import javax.annotation.CheckForNull;
+import javax.annotation.Nullable;
 
 import org.bitcoinj.core.Wallet;
 import org.bitcoinj.crypto.KeyCrypter;
@@ -76,7 +76,7 @@ public class EncryptKeysDialogFragment extends DialogFragment
 	private WalletApplication application;
 	private Wallet wallet;
 
-	@CheckForNull
+	@Nullable
 	private AlertDialog dialog;
 
 	private View oldPasswordGroup;

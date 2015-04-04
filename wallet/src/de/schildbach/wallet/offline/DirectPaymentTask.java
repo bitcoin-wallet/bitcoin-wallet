@@ -25,7 +25,6 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import javax.annotation.CheckForNull;
 import javax.annotation.Nullable;
 
 import org.bitcoin.protocols.payments.Protos;
@@ -71,7 +70,7 @@ public abstract class DirectPaymentTask
 	public final static class HttpPaymentTask extends DirectPaymentTask
 	{
 		private final String url;
-		@CheckForNull
+		@Nullable
 		private final String userAgent;
 
 		public HttpPaymentTask(final Handler backgroundHandler, final ResultCallback resultCallback, final String url,

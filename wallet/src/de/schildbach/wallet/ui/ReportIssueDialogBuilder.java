@@ -27,7 +27,7 @@ import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.util.ArrayList;
 
-import javax.annotation.CheckForNull;
+import javax.annotation.Nullable;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -275,18 +275,18 @@ public abstract class ReportIssueDialogBuilder extends DialogBuilder implements 
 		}
 	}
 
-	@CheckForNull
+	@Nullable
 	protected abstract CharSequence subject();
 
-	@CheckForNull
+	@Nullable
 	protected abstract CharSequence collectApplicationInfo() throws IOException;
 
-	@CheckForNull
+	@Nullable
 	protected abstract CharSequence collectStackTrace() throws IOException;
 
-	@CheckForNull
+	@Nullable
 	protected abstract CharSequence collectDeviceInfo() throws IOException;
 
-	@CheckForNull
+	@Nullable
 	protected abstract CharSequence collectWalletDump() throws IOException;
 }

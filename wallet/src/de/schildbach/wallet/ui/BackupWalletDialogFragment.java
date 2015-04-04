@@ -27,7 +27,7 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.util.TimeZone;
 
-import javax.annotation.CheckForNull;
+import javax.annotation.Nullable;
 
 import org.bitcoinj.core.Wallet;
 import org.bitcoinj.store.WalletProtobufSerializer;
@@ -79,7 +79,7 @@ public class BackupWalletDialogFragment extends DialogFragment
 	private WalletApplication application;
 	private Wallet wallet;
 
-	@CheckForNull
+	@Nullable
 	private AlertDialog dialog;
 
 	private EditText passwordView, passwordAgainView;

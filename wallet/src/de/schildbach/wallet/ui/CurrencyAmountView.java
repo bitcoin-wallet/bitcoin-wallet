@@ -17,7 +17,6 @@
 
 package de.schildbach.wallet.ui;
 
-import javax.annotation.CheckForNull;
 import javax.annotation.Nullable;
 
 import org.bitcoinj.core.Coin;
@@ -199,7 +198,7 @@ public final class CurrencyAmountView extends FrameLayout
 		this.listener = listener;
 	}
 
-	@CheckForNull
+	@Nullable
 	public Monetary getAmount()
 	{
 		if (!isValidAmount(false))

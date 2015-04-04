@@ -23,7 +23,6 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import javax.annotation.CheckForNull;
 import javax.annotation.Nullable;
 
 import org.bitcoinj.protocols.payments.PaymentProtocol;
@@ -72,7 +71,7 @@ public abstract class RequestPaymentRequestTask
 
 	public final static class HttpRequestTask extends RequestPaymentRequestTask
 	{
-		@CheckForNull
+		@Nullable
 		private final String userAgent;
 
 		public HttpRequestTask(final Handler backgroundHandler, final ResultCallback resultCallback, @Nullable final String userAgent)

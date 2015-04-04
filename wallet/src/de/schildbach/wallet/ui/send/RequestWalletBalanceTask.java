@@ -27,7 +27,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.annotation.CheckForNull;
 import javax.annotation.Nullable;
 
 import org.bitcoinj.core.Address;
@@ -61,7 +60,7 @@ public final class RequestWalletBalanceTask
 	private final Handler backgroundHandler;
 	private final Handler callbackHandler;
 	private final ResultCallback resultCallback;
-	@CheckForNull
+	@Nullable
 	private final String userAgent;
 
 	private static final Logger log = LoggerFactory.getLogger(RequestWalletBalanceTask.class);

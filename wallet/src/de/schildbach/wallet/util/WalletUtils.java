@@ -33,7 +33,6 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
-import javax.annotation.CheckForNull;
 import javax.annotation.Nullable;
 
 import org.bitcoinj.core.Address;
@@ -111,7 +110,7 @@ public class WalletUtils
 		return builder;
 	}
 
-	@CheckForNull
+	@Nullable
 	public static Address getToAddressOfSent(final Transaction tx, final Wallet wallet)
 	{
 		for (final TransactionOutput output : tx.getOutputs())
@@ -133,7 +132,7 @@ public class WalletUtils
 		return null;
 	}
 
-	@CheckForNull
+	@Nullable
 	public static Address getWalletAddressOfReceived(final Transaction tx, final Wallet wallet)
 	{
 		for (final TransactionOutput output : tx.getOutputs())

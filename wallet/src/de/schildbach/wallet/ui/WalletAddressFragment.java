@@ -20,7 +20,7 @@ package de.schildbach.wallet.ui;
 import java.util.concurrent.RejectedExecutionException;
 import java.util.concurrent.atomic.AtomicReference;
 
-import javax.annotation.CheckForNull;
+import javax.annotation.Nullable;
 
 import org.bitcoinj.core.Address;
 import org.bitcoinj.core.Wallet;
@@ -64,7 +64,7 @@ public final class WalletAddressFragment extends Fragment implements NfcAdapter.
 	private Activity activity;
 	private WalletApplication application;
 	private LoaderManager loaderManager;
-	@CheckForNull
+	@Nullable
 	private NfcAdapter nfcAdapter;
 
 	private ImageView currentAddressQrView;

@@ -19,7 +19,7 @@ package de.schildbach.wallet.ui;
 
 import java.util.concurrent.atomic.AtomicReference;
 
-import javax.annotation.CheckForNull;
+import javax.annotation.Nullable;
 
 import org.bitcoinj.core.Address;
 import org.bitcoinj.core.Coin;
@@ -89,9 +89,9 @@ public final class RequestCoinsFragment extends Fragment implements NfcAdapter.C
 	private Wallet wallet;
 	private LoaderManager loaderManager;
 	private ClipboardManager clipboardManager;
-	@CheckForNull
+	@Nullable
 	private BluetoothAdapter bluetoothAdapter;
-	@CheckForNull
+	@Nullable
 	private NfcAdapter nfcAdapter;
 
 	private ImageView qrView;
@@ -99,9 +99,9 @@ public final class RequestCoinsFragment extends Fragment implements NfcAdapter.C
 	private CheckBox acceptBluetoothPaymentView;
 	private TextView initiateRequestView;
 
-	@CheckForNull
+	@Nullable
 	private String bluetoothMac;
-	@CheckForNull
+	@Nullable
 	private Intent bluetoothServiceIntent;
 	private AtomicReference<byte[]> paymentRequestRef = new AtomicReference<byte[]>();
 

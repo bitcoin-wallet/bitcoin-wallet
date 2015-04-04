@@ -32,7 +32,7 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.zip.GZIPInputStream;
 
-import javax.annotation.CheckForNull;
+import javax.annotation.Nullable;
 
 import org.bitcoinj.core.Coin;
 import org.bitcoinj.utils.Fiat;
@@ -94,7 +94,7 @@ public class ExchangeRatesProvider extends ContentProvider
 	private Configuration config;
 	private String userAgent;
 
-	@CheckForNull
+	@Nullable
 	private Map<String, ExchangeRate> exchangeRates = null;
 	private long lastUpdated = 0;
 

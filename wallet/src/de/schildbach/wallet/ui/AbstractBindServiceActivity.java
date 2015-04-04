@@ -17,7 +17,7 @@
 
 package de.schildbach.wallet.ui;
 
-import javax.annotation.CheckForNull;
+import javax.annotation.Nullable;
 
 import android.content.ComponentName;
 import android.content.Context;
@@ -32,7 +32,7 @@ import de.schildbach.wallet.service.BlockchainServiceImpl;
  */
 public abstract class AbstractBindServiceActivity extends AbstractWalletActivity
 {
-	@CheckForNull
+	@Nullable
 	private BlockchainService blockchainService;
 
 	private final ServiceConnection serviceConnection = new ServiceConnection()
