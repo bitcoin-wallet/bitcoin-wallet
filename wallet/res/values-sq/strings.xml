@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
+  <string name="toast_wallet_reset">Kuleta juaj është resetuar!\nDo të duhet pak kohë derisa të rikthehet.</string>
   <string name="wallet_disclaimer_fragment_remind_safety">Përdoreni me përgjegjësinë tuaj, Lexoni &lt;u&gt;safety notes&lt;/u&gt;.</string>
   <string name="wallet_disclaimer_fragment_remind_backup">Ju duhet të &lt;u&gt;back kuletën tuaj&lt;/u&gt;!</string>
   <string name="blockchain_state_progress_hours">%1$s, %2$d orë mbrapa</string>
@@ -11,6 +12,8 @@
   <string name="blockchain_state_progress_problem_storage">Sinkronizimi: Problem në ruajtje</string>
   <string name="blockchain_state_progress_problem_network">Sinkronizimi: Problem me rrjetin</string>
   <string name="wallet_address_fragment_clipboard_msg">Adresa juaj e Bitcoin u kopjua</string>
+  <string name="wallet_address_dialog_fragment_hint">Për të ruajtur privaticitetin, adresa juaj do të ndërrohet çdo herë që pranoni një pages.</string>
+  <string name="wallet_balance_fragment_too_much">Kjo shumë është e madhe për tu mbajtur nê xhep. Ju lutem zhvendosni disa monedha në një vend më të sigurt.</string>
   <string name="wallet_balance_fragment_replaying">Bilanci nuk mund të shikohet gjatë përseritjes.</string>
   <string name="exchange_rates_activity_title">Kursi i këmbimit</string>
   <string name="exchange_rates_fragment_empty_text">Nuk mund të ngarkohet kursi i këmbimit.</string>
@@ -96,6 +99,7 @@
   <string name="sweep_wallet_fragment_request_wallet_balance_progress">Duke ngarkuar bilancin…</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_failed_title">Ngarkimi i bilancit dështoi</string>
   <string name="sweep_wallet_fragment_insufficient_money_title">Nuk keni mjaft monedha</string>
+  <string name="sweep_wallet_fragment_insufficient_money_msg">Shuma e monedhave në kulet është tepër e vogël për tu shpenzuar.</string>
   <string name="sweep_wallet_options_reload">Rimbusheni bilancin</string>
   <string name="maintenance_dialog_title">Rekomandohet mirëmbajtja</string>
   <string name="maintenance_dialog_message">Ju keni pranuar %1$s në nje adres jo të sigurt. Deshironi t\'i zhvendosni ketë monedha në një adres të sigurt? Një tarif të vogël prej %2$s duhet të paguhet.</string>
@@ -115,6 +119,7 @@
   <string name="request_coins_options_local_app_title">Kërkes nga program lokal</string>
   <string name="address_book_activity_title">Libri i adresave</string>
   <string name="address_book_list_receiving_title">Adresa juaj</string>
+  <string name="address_book_list_receiving_random">Adresat e vjetra</string>
   <string name="address_book_list_sending_title">Duke dërguar adresat</string>
   <string name="address_book_empty_text">Nuk ka asnjë shënim në librin e adresave</string>
   <string name="address_book_context_send_title">Dërgo Bitcoins tek adresa</string>
@@ -144,6 +149,7 @@
   <string name="network_monitor_block_list_title">Blloqet</string>
   <string name="block_row_now">tash</string>
   <string name="import_keys_dialog_title">Rikthe kuletën</string>
+  <string name="import_keys_dialog_message">Zgjedhni një kopje rezervë të kuletës nga disku i jashtëm:</string>
   <string name="restore_wallet_dialog_replace_warning">Jeni duke zëvendësuar kuletën aktuale. Te gjitha monedhat që keni në kuletën aktuale do t\'i humisni përveҫ nëse keni një kopje rezerv të kuletës aktuale.</string>
   <string name="import_keys_dialog_warning">Kujdes: Mos ngarkoni ҫelësa privat nga burime të dyshimta! Të tjerët mund të marrin nën kontroll fondet tuaja.</string>
   <string name="import_keys_dialog_file_security_encrypted">fjalëkalimi i enkriptuar</string>
@@ -152,11 +158,20 @@
   <string name="import_keys_dialog_file_security_internal">magazinim privat i aplikacionit</string>
   <string name="import_keys_dialog_button_import">Rikthe</string>
   <string name="restore_wallet_dialog_success">Kuleta është rikthyer.</string>
+  <string name="restore_wallet_dialog_success_replay">Kuleta juaj është rikthyer me sukses. Tani do të shfaqet bilanci. Kjo merr pak kohë.</string>
   <string name="import_keys_dialog_failure">Kuleta nuk u rikthye:\n\n%s\n\nFjalëkalim i gabuar?</string>
   <string name="backup_wallet_dialog_message">Kuleta juaj do të enkriptohet me fjalëkalimin që caktoni dhe do të ruhet në magazinimin e jashtëm.</string>
+  <string name="backup_wallet_dialog_warning_encrypted">Kulaeta juaj është i mbrojtur nga një PIN. Sigurohuni që këtë PIN ta mbani në mend përveç fjalëkalimit të kopjes rezervë!</string>
+  <string name="export_keys_dialog_button_export">Krijo kopje rezervë</string>
+  <string name="export_keys_dialog_failure">Kuleta juaj nuk mund të krijohet njê kopje rezervë.</string>
+  <string name="export_keys_dialog_button_archive">Arkivi</string>
+  <string name="export_keys_dialog_mail_subject">Kopja rezervë e Bitcoin kuletës</string>
+  <string name="export_keys_dialog_mail_text">Skedari i bashkangjitur përmban çelësat privat të Bitcoin dhe duhet të ruhet sigurt gjatë gjithë kohës. Mos harroni fjalëkalimin e enkriptimit!</string>
   <string name="export_keys_dialog_mail_intent_chooser">Duke arkivuar kuletën duke përdorur…</string>
   <string name="export_keys_dialog_mail_intent_failed">Arkivimi i kuletës dështoj</string>
   <string name="import_export_keys_dialog_password">fjalëkalimi</string>
+  <string name="backup_wallet_dialog_password_again">prapë</string>
+  <string name="backup_wallet_dialog_password_mismatch">mospërputhje</string>
   <string name="import_export_keys_dialog_show">Trego fjalëkalimin</string>
   <string name="import_export_keys_dialog_failure_title">Gabim</string>
   <string name="import_keys_intent_filter_action">Rikthe kuletën</string>
@@ -178,10 +193,13 @@
   <string name="input_parser_io_error">Nuk mund të lexojë: \n%s</string>
   <string name="input_parser_cannot_classify">Nuk mund të njoh hyrjen:\n%s</string>
   <string name="input_parser_invalid_bitcoin_uri">Jovalid Bitcoin URI:\n%s</string>
+  <string name="input_parser_invalid_address">Bitcoin adresë jovalide!\(Keni ngatërruar mainnet/testnet?)</string>
   <string name="input_parser_unverifyable_paymentrequest">Nuk mund të verifikohet kërkesa për pages:\n%s</string>
   <string name="input_parser_invalid_paymentrequest">Kërkes jo valide për pages:\n%s</string>
   <string name="input_parser_invalid_transaction">Transaksion jo valid:\n%s</string>
   <string name="preferences_activity_title">Rregullat</string>
+  <string name="preferences_category_diagnostics">Diagnoza</string>
+  <string name="preferences_precision_summary">Njësit që shfaqin shumën. Kjo nuk ndikon në përllogaritjet.</string>
   <string name="preferences_connectivity_notification_title">Indikatori i lidhjes</string>
   <string name="preferences_report_issue_title">Raporto problem</string>
   <string name="preferences_report_issue_summary">Mbledh informatat rreth këtij problemi dhe dergo raportin me e-mail tek programerët.</string>
@@ -189,7 +207,11 @@
   <string name="preferences_initiate_reset_summary">Resetoni blockchain, transaksionet dhe bilancin e kuletës. Ky proces merr pak kohë.</string>
   <string name="preferences_initiate_reset_dialog_message">Deshironi të resetoni dhe ri-shkarkoni blockchain-in?\n\nKy proces përkohësisht do të fsheh bilancin e kuletës dhe heq transaksionet. Të dyjat rikthehen gjatë sinkronizimit të blocchain-it.</string>
   <string name="preferences_initiate_reset_dialog_positive">Reseto</string>
+  <string name="preferences_extended_public_key_title">Trego xpub</string>
+  <string name="bitmap_fragment_share">Ndaje…</string>
+  <string name="extended_public_key_fragment_title">Çelësi publik i zgjeruar</string>
   <string name="report_issue_dialog_title_issue">Raporto problem</string>
+  <string name="report_issue_dialog_title_crash">Është detektuar një dështim i mëhershëm</string>
   <string name="report_issue_dialog_message_crash">Dëshironi të dërgoni një raport për këtë problem, për të përmirësuar këtë problem në të ardhmen?</string>
   <string name="report_issue_dialog_description">Përshkrimi i problemit</string>
   <string name="report_issue_dialog_report">Raporti</string>
@@ -235,5 +257,6 @@
   <string name="time_today">sot</string>
   <string name="address_unlabeled">(paetiketuar)</string>
   <!-- generic error messages -->
+  <string name="error_io">I/O gabim: %s</string>
   <string name="error_bluetooth">Gabim me Bluetooth %1$s</string>
 </resources>
