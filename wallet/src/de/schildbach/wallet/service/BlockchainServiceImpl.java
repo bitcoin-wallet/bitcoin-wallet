@@ -590,10 +590,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 		if (!blockChainFileExists)
 		{
 			log.info("blockchain does not exist, resetting wallet");
-
-			wallet.clearTransactions(0);
-			wallet.setLastBlockSeenHeight(-1); // magic value
-			wallet.setLastBlockSeenHash(null);
+			wallet.reset();
 		}
 
 		try

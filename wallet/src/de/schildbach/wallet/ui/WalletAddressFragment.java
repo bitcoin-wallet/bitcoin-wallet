@@ -162,7 +162,7 @@ public final class WalletAddressFragment extends Fragment implements NfcAdapter.
 			super.onStartLoading();
 
 			wallet.addEventListener(walletChangeListener, Threading.SAME_THREAD);
-			broadcastManager.registerReceiver(walletChangeReceiver, new IntentFilter(WalletApplication.ACTION_WALLET_CHANGED));
+			broadcastManager.registerReceiver(walletChangeReceiver, new IntentFilter(WalletApplication.ACTION_WALLET_REFERENCE_CHANGED));
 
 			safeForceLoad();
 		}

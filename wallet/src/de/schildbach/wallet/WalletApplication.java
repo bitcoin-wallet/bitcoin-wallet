@@ -81,7 +81,7 @@ public class WalletApplication extends Application
 	private Wallet wallet;
 	private PackageInfo packageInfo;
 
-	public static final String ACTION_WALLET_CHANGED = WalletApplication.class.getPackage().getName() + ".wallet_changed";
+	public static final String ACTION_WALLET_REFERENCE_CHANGED = WalletApplication.class.getPackage().getName() + ".wallet_reference_changed";
 
 	public static final int VERSION_CODE_SHOW_BACKUP_REMINDER = 205;
 
@@ -458,29 +458,20 @@ public class WalletApplication extends Application
 
 	public void resetBlockchain()
 	{
-		internalResetBlockchain();
-
-		final Intent broadcast = new Intent(ACTION_WALLET_CHANGED);
-		broadcast.setPackage(getPackageName());
-		LocalBroadcastManager.getInstance(this).sendBroadcast(broadcast);
-	}
-
-	private void internalResetBlockchain()
-	{
-		// actually stops the service
+		// implicitly stops blockchain service
 		startService(blockchainServiceResetBlockchainIntent);
 	}
 
 	public void replaceWallet(final Wallet newWallet)
 	{
-		internalResetBlockchain(); // implicitly stops blockchain service
+		resetBlockchain();
 		wallet.shutdownAutosaveAndWait();
 
 		wallet = newWallet;
 		config.maybeIncrementBestChainHeightEver(newWallet.getLastBlockSeenHeight());
 		afterLoadWallet();
 
-		final Intent broadcast = new Intent(ACTION_WALLET_CHANGED);
+		final Intent broadcast = new Intent(ACTION_WALLET_REFERENCE_CHANGED);
 		broadcast.setPackage(getPackageName());
 		LocalBroadcastManager.getInstance(this).sendBroadcast(broadcast);
 	}

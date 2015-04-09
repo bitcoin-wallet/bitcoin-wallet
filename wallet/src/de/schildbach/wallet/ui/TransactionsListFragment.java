@@ -370,7 +370,7 @@ public class TransactionsListFragment extends FancyListFragment implements Loade
 			super.onStartLoading();
 
 			wallet.addEventListener(transactionAddRemoveListener, Threading.SAME_THREAD);
-			broadcastManager.registerReceiver(walletChangeReceiver, new IntentFilter(WalletApplication.ACTION_WALLET_CHANGED));
+			broadcastManager.registerReceiver(walletChangeReceiver, new IntentFilter(WalletApplication.ACTION_WALLET_REFERENCE_CHANGED));
 			transactionAddRemoveListener.onReorganize(null); // trigger at least one reload
 
 			safeForceLoad();
