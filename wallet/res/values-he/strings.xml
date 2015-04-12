@@ -22,9 +22,9 @@
   <string name="exchange_rates_fragment_source">המחיר נתקבל מ: %s</string>
   <string name="exchange_rates_options_search">חפש שער חליפין</string>
   <string name="exchange_rates_context_set_as_default_title">שמור כמטבע ברירת מחדל</string>
-  <string name="wallet_transactions_fragment_tab_received">נתקבל</string>
-  <string name="wallet_transactions_fragment_tab_all">נשלח/נתקבל</string>
-  <string name="wallet_transactions_fragment_tab_sent">נשלח</string>
+  <string name="wallet_transactions_options_filter_received">נתקבל</string>
+  <string name="wallet_transactions_options_filter_all">נשלח/נתקבל</string>
+  <string name="wallet_transactions_options_filter_sent">נשלח</string>
   <string name="wallet_transactions_fragment_empty_text_received">לא נתקבלו ביטקוינים עד כה.</string>
   <string name="wallet_transactions_fragment_empty_text_sent">לא נשלחו ביטקוינים עד כה.</string>
   <string name="wallet_transactions_fragment_empty_text_howto">איך להשיג ביטקוין ?\n\nהמר תמורת כסף פיאט,\nמכור סחורות או שירותים או\nהשג על ידי עבודה.</string>

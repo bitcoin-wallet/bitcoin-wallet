@@ -24,9 +24,9 @@
   <string name="exchange_rates_fragment_source">Prijs van %s</string>
   <string name="exchange_rates_options_search">Zoek wisselkoers</string>
   <string name="exchange_rates_context_set_as_default_title">Stel in als standaard valuta</string>
-  <string name="wallet_transactions_fragment_tab_received">Ontvangen</string>
-  <string name="wallet_transactions_fragment_tab_all">Beide</string>
-  <string name="wallet_transactions_fragment_tab_sent">Verzonden</string>
+  <string name="wallet_transactions_options_filter_received">Ontvangen</string>
+  <string name="wallet_transactions_options_filter_all">Beide</string>
+  <string name="wallet_transactions_options_filter_sent">Verzonden</string>
   <string name="wallet_transactions_fragment_empty_text_received">Nog geen Bitcoins ontvangen</string>
   <string name="wallet_transactions_fragment_empty_text_sent">Nog geen Bitcoins verzonden</string>
   <string name="wallet_transactions_fragment_empty_text_howto">Hoe komt U aan bitcoins?\n\nWissel traditionele munteenheden om voor bitcoins,\nverkoop goederen of diensten of\nVerdien ze met uw werk.</string>

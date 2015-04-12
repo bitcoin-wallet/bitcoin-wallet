@@ -24,9 +24,9 @@
   <string name="exchange_rates_fragment_source">Çmimi nga %s</string>
   <string name="exchange_rates_options_search">Kërko kursin e këmbimit</string>
   <string name="exchange_rates_context_set_as_default_title">Vëndoseni si valutë të huaj të rëndomtë</string>
-  <string name="wallet_transactions_fragment_tab_received">Pranuar</string>
-  <string name="wallet_transactions_fragment_tab_all">Të dyjat</string>
-  <string name="wallet_transactions_fragment_tab_sent">Dërguar</string>
+  <string name="wallet_transactions_options_filter_received">Pranuar</string>
+  <string name="wallet_transactions_options_filter_all">Të dyjat</string>
+  <string name="wallet_transactions_options_filter_sent">Dërguar</string>
   <string name="wallet_transactions_fragment_empty_text_received">Nuk keni pranuar asnjë Bitcoin deri më tani</string>
   <string name="wallet_transactions_fragment_empty_text_sent">Nuk keni dërguar asnjë Bitcoin deri me tani</string>
   <string name="wallet_transactions_fragment_empty_text_howto">Si të merrni Bitcoins?\n\nKëmbeni me para tradicionale,\shitni gjëra apo shërbime ose\nfito duke punuar.</string>

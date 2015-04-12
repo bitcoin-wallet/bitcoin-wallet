@@ -21,9 +21,9 @@
 	<string name="exchange_rates_fragment_balance">saldo</string>
 	<string name="exchange_rates_fragment_source">Harga diambil dari %s</string>
 	<string name="exchange_rates_context_set_as_default_title">Tetapkan sebagai mata uang asing standar</string>
-	<string name="wallet_transactions_fragment_tab_received">Diterima</string>
-	<string name="wallet_transactions_fragment_tab_all">Keduanya</string>
-	<string name="wallet_transactions_fragment_tab_sent">Dikirim</string>
+	<string name="wallet_transactions_options_filter_received">Diterima</string>
+	<string name="wallet_transactions_options_filter_all">Keduanya</string>
+	<string name="wallet_transactions_options_filter_sent">Dikirim</string>
 	<string name="wallet_transactions_fragment_empty_text_received">Tidak ada Bitcoin yg diterima.</string>
 	<string name="wallet_transactions_fragment_empty_text_sent">Tidak ada Bitcoin yg dikirim.</string>
 	<string name="wallet_transactions_fragment_empty_text_howto">Bagaimana mendapatkan Bitcoin?\n\nTukar dgn uang tradisional,\njual barang atau jasa atau\ndengan bekerja.</string>

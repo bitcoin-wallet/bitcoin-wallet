@@ -23,9 +23,9 @@
   <string name="exchange_rates_fragment_source">Prix de %s</string>
   <string name="exchange_rates_options_search">Chercher le taux de change</string>
   <string name="exchange_rates_context_set_as_default_title">Définir comme devise étrangère par défaut</string>
-  <string name="wallet_transactions_fragment_tab_received">Reçus</string>
-  <string name="wallet_transactions_fragment_tab_all">Envoyés/reçus</string>
-  <string name="wallet_transactions_fragment_tab_sent">Envoyés</string>
+  <string name="wallet_transactions_options_filter_received">Reçus</string>
+  <string name="wallet_transactions_options_filter_all">Envoyés/reçus</string>
+  <string name="wallet_transactions_options_filter_sent">Envoyés</string>
   <string name="wallet_transactions_fragment_empty_text_received">Aucun bitcoin reçu jusqu\'à présent</string>
   <string name="wallet_transactions_fragment_empty_text_sent">Aucun bitcoin envoyé jusqu\'à présent</string>
   <string name="wallet_transactions_fragment_empty_text_howto">Comment obtenir des bitcoins ?\n\nÉchangez-en contre de l\'argent traditionnel,\nvendez des biens ou des services ou\ngagnez-en en travaillant.</string>

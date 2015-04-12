@@ -22,9 +22,9 @@
   <string name="exchange_rates_fragment_source">價格由 %s 起</string>
   <string name="exchange_rates_options_search">搜尋匯率</string>
   <string name="exchange_rates_context_set_as_default_title">設定預設外幣</string>
-  <string name="wallet_transactions_fragment_tab_received">收到</string>
-  <string name="wallet_transactions_fragment_tab_all">全部</string>
-  <string name="wallet_transactions_fragment_tab_sent">付出</string>
+  <string name="wallet_transactions_options_filter_received">收到</string>
+  <string name="wallet_transactions_options_filter_all">全部</string>
+  <string name="wallet_transactions_options_filter_sent">付出</string>
   <string name="wallet_transactions_fragment_empty_text_received">尚未收到比特幣</string>
   <string name="wallet_transactions_fragment_empty_text_sent">尚未付出比特幣</string>
   <string name="wallet_transactions_fragment_empty_text_howto">如何取得比特幣?\n\n用傳統貨幣交易,\n賣物品或是服務或\n線上挖掘。</string>

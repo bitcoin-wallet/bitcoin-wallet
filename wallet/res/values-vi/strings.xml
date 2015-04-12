@@ -20,9 +20,9 @@
 	<string name="exchange_rates_fragment_balance">cân bằng</string>
 	<string name="exchange_rates_fragment_source">Giá được tải về từ %s</string>
 	<string name="exchange_rates_context_set_as_default_title">Đặc làm đơn vị ngoại tệ mặc định</string>
-	<string name="wallet_transactions_fragment_tab_received">Đã nhận</string>
-	<string name="wallet_transactions_fragment_tab_all">Cả hai</string>
-	<string name="wallet_transactions_fragment_tab_sent">Đã gửi</string>
+	<string name="wallet_transactions_options_filter_received">Đã nhận</string>
+	<string name="wallet_transactions_options_filter_all">Cả hai</string>
+	<string name="wallet_transactions_options_filter_sent">Đã gửi</string>
 	<string name="wallet_transactions_fragment_empty_text_received">Hiện vẫn chưa nhận được Bitcoin nào.</string>
 	<string name="wallet_transactions_fragment_empty_text_sent">Hiện vẫn chưa gửi Bitcoin nào.</string>
 	<string name="wallet_transactions_fragment_empty_text_howto">Làm cách nào để nhận được Bitcoins?\n\nSử dụng cho các giao dịch bằng tiền như truyền thống,\nbán các sản phẩm hoặc dịch vụ hoặc\ndùng cho việc nhận thanh toán.</string>

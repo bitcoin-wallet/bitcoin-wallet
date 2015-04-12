@@ -22,9 +22,9 @@
   <string name="exchange_rates_fragment_source">가격 출처  %s</string>
   <string name="exchange_rates_options_search">환율 검색</string>
   <string name="exchange_rates_context_set_as_default_title">기준 통화로 설정</string>
-  <string name="wallet_transactions_fragment_tab_received">받은 내역</string>
-  <string name="wallet_transactions_fragment_tab_all">모든 거래 내역</string>
-  <string name="wallet_transactions_fragment_tab_sent">보낸 내역</string>
+  <string name="wallet_transactions_options_filter_received">받은 내역</string>
+  <string name="wallet_transactions_options_filter_all">모든 거래 내역</string>
+  <string name="wallet_transactions_options_filter_sent">보낸 내역</string>
   <string name="wallet_transactions_fragment_empty_text_received">아직 비트코인을 받은 내역이 없습니다.</string>
   <string name="wallet_transactions_fragment_empty_text_sent">아직 비트코인을 보낸 내역이 없습니다.</string>
   <string name="wallet_transactions_fragment_empty_text_howto">비트코인 획득 방법\n\n1. 로컬 통화로 비트코인 구매\n2. 상품이나 서비스 판매\n3. 용역 대가로 획득</string>

@@ -21,9 +21,9 @@
 	<string name="exchange_rates_fragment_balance">zostatok</string>
 	<string name="exchange_rates_fragment_source">Cena získaná z %s</string>
 	<string name="exchange_rates_context_set_as_default_title">Nastaviť ako predvolenú cudziu menu</string>
-	<string name="wallet_transactions_fragment_tab_received">Prijaté</string>
-	<string name="wallet_transactions_fragment_tab_all">Všetky</string>
-	<string name="wallet_transactions_fragment_tab_sent">Odoslané</string>
+	<string name="wallet_transactions_options_filter_received">Prijaté</string>
+	<string name="wallet_transactions_options_filter_all">Všetky</string>
+	<string name="wallet_transactions_options_filter_sent">Odoslané</string>
 	<string name="wallet_transactions_fragment_empty_text_received">Zatiaľ neboli prijaté žiadne Bitcoiny</string>
 	<string name="wallet_transactions_fragment_empty_text_sent">Zatiaľ neboli odoslané žiadne Bitcoiny</string>
 	<string name="wallet_transactions_fragment_empty_text_howto">Ako získať Bitcoiny?\n\nVýmenou za tradičné peniaze,\npredajom tovarov a služieb,\nalebo prácou.</string>

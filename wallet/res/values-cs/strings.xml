@@ -23,9 +23,9 @@
   <string name="exchange_rates_fragment_source">Cena z %s</string>
   <string name="exchange_rates_options_search">Vyhledat směnný kurz</string>
   <string name="exchange_rates_context_set_as_default_title">Nastavit jako výchozí cizí měnu</string>
-  <string name="wallet_transactions_fragment_tab_received">Obdrženo</string>
-  <string name="wallet_transactions_fragment_tab_all">Oboje</string>
-  <string name="wallet_transactions_fragment_tab_sent">Zasláno</string>
+  <string name="wallet_transactions_options_filter_received">Obdrženo</string>
+  <string name="wallet_transactions_options_filter_all">Oboje</string>
+  <string name="wallet_transactions_options_filter_sent">Zasláno</string>
   <string name="wallet_transactions_fragment_empty_text_received">Zatím žádné bitcoiny neobdrženy</string>
   <string name="wallet_transactions_fragment_empty_text_sent">Zatím žádné bitcoiny neodeslány</string>
   <string name="wallet_transactions_fragment_empty_text_howto">Jak získat Bitcoiny?\n\nSměnou za klasické peníze,\nprodejem zboží nebo služeb\nnebo vyděláním prací.</string>

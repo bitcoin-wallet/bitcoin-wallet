@@ -84,14 +84,13 @@ public class TransactionsListAdapter extends BaseAdapter
 	private static final int VIEW_TYPE_TRANSACTION = 0;
 	private static final int VIEW_TYPE_WARNING = 1;
 
-	public TransactionsListAdapter(final Context context, final Wallet wallet, final int maxConnectedPeers, final boolean showBackupWarning)
+	public TransactionsListAdapter(final Context context, final Wallet wallet, final int maxConnectedPeers)
 	{
 		this.context = context;
 		inflater = LayoutInflater.from(context);
 
 		this.wallet = wallet;
 		this.maxConnectedPeers = maxConnectedPeers;
-		this.showBackupWarning = showBackupWarning;
 
 		final Resources resources = context.getResources();
 		colorSignificant = resources.getColor(R.color.fg_significant);
@@ -104,6 +103,13 @@ public class TransactionsListAdapter extends BaseAdapter
 	public void setFormat(final MonetaryFormat format)
 	{
 		this.format = format.noCode();
+
+		notifyDataSetChanged();
+	}
+
+	public void setShowBackupWarning(final boolean showBackupWarning)
+	{
+		this.showBackupWarning = showBackupWarning;
 
 		notifyDataSetChanged();
 	}

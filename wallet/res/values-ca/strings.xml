@@ -23,9 +23,9 @@
   <string name="exchange_rates_fragment_source">Preu des de %s</string>
   <string name="exchange_rates_options_search">Cercar preu de canvi</string>
   <string name="exchange_rates_context_set_as_default_title">Desar com a moneda estrangera per defecte</string>
-  <string name="wallet_transactions_fragment_tab_received">Rebut</string>
-  <string name="wallet_transactions_fragment_tab_all">Ambdós</string>
-  <string name="wallet_transactions_fragment_tab_sent">Enviats</string>
+  <string name="wallet_transactions_options_filter_received">Rebut</string>
+  <string name="wallet_transactions_options_filter_all">Ambdós</string>
+  <string name="wallet_transactions_options_filter_sent">Enviats</string>
   <string name="wallet_transactions_fragment_empty_text_received">Cap Bitcoin rebut fins ara.</string>
   <string name="wallet_transactions_fragment_empty_text_sent">Cap Bitcoin enviat fins ara.</string>
   <string name="wallet_transactions_fragment_empty_text_howto">Com aconseguir Bitcoins?\n\nCanvia\'ls per diner tradicional,\nven bens o serveis o bé\nguanyen treballant.</string>

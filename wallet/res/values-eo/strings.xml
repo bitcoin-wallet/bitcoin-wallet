@@ -21,9 +21,9 @@
 	<string name="exchange_rates_fragment_balance">saldo</string>
 	<string name="exchange_rates_fragment_source">Prezo prenis de %s</string>
 	<string name="exchange_rates_context_set_as_default_title">Ŝalti kiel defaŭltan eksterlandan valuton</string>
-	<string name="wallet_transactions_fragment_tab_received">Ricevita</string>
-	<string name="wallet_transactions_fragment_tab_all">Ambaŭ</string>
-	<string name="wallet_transactions_fragment_tab_sent">Sendita</string>
+	<string name="wallet_transactions_options_filter_received">Ricevita</string>
+	<string name="wallet_transactions_options_filter_all">Ambaŭ</string>
+	<string name="wallet_transactions_options_filter_sent">Sendita</string>
 	<string name="wallet_transactions_fragment_empty_text_received">Neniom da Bitmonoj tamen ricevitaj.</string>
 	<string name="wallet_transactions_fragment_empty_text_sent">Neniom da Bitmonoj tamen senditaj.</string>
 	<string name="wallet_transactions_fragment_empty_text_howto">Kiel obteni Bitmonojn?\n\nNegocu por tradicia mono,\nvendu varojn aŭ servojn aŭ\ngajnu per laborado.</string>

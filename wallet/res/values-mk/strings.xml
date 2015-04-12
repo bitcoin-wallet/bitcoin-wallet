@@ -21,9 +21,9 @@
 	<string name="exchange_rates_fragment_balance">салдо</string>
 	<string name="exchange_rates_fragment_source">Цената е преземена од %s</string>
 	<string name="exchange_rates_context_set_as_default_title">Постави како главна странска валута</string>
-	<string name="wallet_transactions_fragment_tab_received">Примено</string>
-	<string name="wallet_transactions_fragment_tab_all">Двете</string>
-	<string name="wallet_transactions_fragment_tab_sent">Испратено</string>
+	<string name="wallet_transactions_options_filter_received">Примено</string>
+	<string name="wallet_transactions_options_filter_all">Двете</string>
+	<string name="wallet_transactions_options_filter_sent">Испратено</string>
 	<string name="wallet_transactions_fragment_empty_text_received">Нема примени Биткоини досега.</string>
 	<string name="wallet_transactions_fragment_empty_text_sent">Нема испратени Биткоини досега.</string>
 	<string name="wallet_transactions_fragment_empty_text_howto">Како да дојдеш до Биткоини?\n\nРазмени за традиционални пари,\nпродавај продукти или сервиси, или \nзаработи со работење.</string>

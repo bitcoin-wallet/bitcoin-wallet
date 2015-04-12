@@ -23,9 +23,9 @@
   <string name="exchange_rates_fragment_source">%s による価格</string>
   <string name="exchange_rates_options_search">為替レートの検索</string>
   <string name="exchange_rates_context_set_as_default_title">既定の外貨に設定する</string>
-  <string name="wallet_transactions_fragment_tab_received">受金</string>
-  <string name="wallet_transactions_fragment_tab_all">双方</string>
-  <string name="wallet_transactions_fragment_tab_sent">送金</string>
+  <string name="wallet_transactions_options_filter_received">受金</string>
+  <string name="wallet_transactions_options_filter_all">双方</string>
+  <string name="wallet_transactions_options_filter_sent">送金</string>
   <string name="wallet_transactions_fragment_empty_text_received">まだビットコインを受け取っていません。</string>
   <string name="wallet_transactions_fragment_empty_text_sent">まだビットコインを送っていません。</string>
   <string name="wallet_transactions_fragment_empty_text_howto">ビットコインを入手するには?\n\n通常通貨と交換するか、\nグッズやサービスを販売するか\nまたは働いて稼ぎましょう</string>

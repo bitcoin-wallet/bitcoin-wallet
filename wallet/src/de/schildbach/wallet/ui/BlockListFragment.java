@@ -242,8 +242,7 @@ public final class BlockListFragment extends ListFragment
 	{
 		private static final int ROW_BASE_CHILD_COUNT = 2;
 		private static final int ROW_INSERT_INDEX = 1;
-		private final TransactionsListAdapter transactionsAdapter = new TransactionsListAdapter(activity, wallet, application.maxConnectedPeers(),
-				false);
+		private final TransactionsListAdapter transactionsAdapter = new TransactionsListAdapter(activity, wallet, application.maxConnectedPeers());
 		private final LayoutInflater inflater = LayoutInflater.from(activity);
 
 		private final List<StoredBlock> blocks = new ArrayList<StoredBlock>(MAX_BLOCKS);

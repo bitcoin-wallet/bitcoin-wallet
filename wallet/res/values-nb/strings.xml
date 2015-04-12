@@ -23,9 +23,9 @@
   <string name="exchange_rates_fragment_source">Pris fra %s</string>
   <string name="exchange_rates_options_search">Søk i valutakurser</string>
   <string name="exchange_rates_context_set_as_default_title">Sett som standard for fremmed valuta</string>
-  <string name="wallet_transactions_fragment_tab_received">Mottatt</string>
-  <string name="wallet_transactions_fragment_tab_all">Begge</string>
-  <string name="wallet_transactions_fragment_tab_sent">Sendt</string>
+  <string name="wallet_transactions_options_filter_received">Mottatt</string>
+  <string name="wallet_transactions_options_filter_all">Begge</string>
+  <string name="wallet_transactions_options_filter_sent">Sendt</string>
   <string name="wallet_transactions_fragment_empty_text_received">Ingen bitcoins mottatt ennå.</string>
   <string name="wallet_transactions_fragment_empty_text_sent">Ingen bitcoins sendt ennå.</string>
   <string name="wallet_transactions_fragment_empty_text_howto">Hvordan får man bitcoins?\n\nKjøp for tradisjonelle penger,\nselg varer eller tjenester eller\ntjen dem ved å arbeide.</string>

@@ -21,9 +21,9 @@
 	<string name="exchange_rates_fragment_balance">egyenleg</string>
 	<string name="exchange_rates_fragment_source">Ár letöltve innen: %s</string>
 	<string name="exchange_rates_context_set_as_default_title">Alapértelmezett külföldi pénznem beállítása</string>
-	<string name="wallet_transactions_fragment_tab_received">Fogadott</string>
-	<string name="wallet_transactions_fragment_tab_all">Mindkettő</string>
-	<string name="wallet_transactions_fragment_tab_sent">Küldött</string>
+	<string name="wallet_transactions_options_filter_received">Fogadott</string>
+	<string name="wallet_transactions_options_filter_all">Mindkettő</string>
+	<string name="wallet_transactions_options_filter_sent">Küldött</string>
 	<string name="wallet_transactions_fragment_empty_text_received">Nem érkezett Bitcoin eddig.</string>
 	<string name="wallet_transactions_fragment_empty_text_sent">Bitcoin küldés nem történt eddig.</string>
 	<string name="wallet_transactions_fragment_empty_text_howto">Hogy szerezz Bitcoin-t?\n\nVásárolj hagyományos pénzért,\nárusíts termékeket, kínálj szolgáltatásokat vagy\nkeress munkával.</string>

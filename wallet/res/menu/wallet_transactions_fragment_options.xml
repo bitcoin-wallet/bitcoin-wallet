@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+	<item
+		android:id="@+id/wallet_transactions_options_filter"
+		android:icon="@drawable/ic_filter_list_white_24dp"
+		android:showAsAction="always|withText"
+		android:title="@string/wallet_transactions_options_filter">
+		<menu>
+			<group android:checkableBehavior="single" >
+				<item
+					android:id="@+id/wallet_transactions_options_filter_all"
+					android:title="@string/wallet_transactions_options_filter_all"/>
+				<item
+					android:id="@+id/wallet_transactions_options_filter_received"
+					android:title="@string/wallet_transactions_options_filter_received"/>
+				<item
+					android:id="@+id/wallet_transactions_options_filter_sent"
+					android:title="@string/wallet_transactions_options_filter_sent"/>
+			</group>
+		</menu>
+	</item>
+
+</menu>

@@ -183,7 +183,7 @@ public class SweepWalletFragment extends Fragment
 		hintView = view.findViewById(R.id.sweep_wallet_fragment_hint);
 
 		sweepTransactionView = (ListView) view.findViewById(R.id.sweep_wallet_fragment_sent_transaction);
-		sweepTransactionListAdapter = new TransactionsListAdapter(activity, application.getWallet(), application.maxConnectedPeers(), false);
+		sweepTransactionListAdapter = new TransactionsListAdapter(activity, application.getWallet(), application.maxConnectedPeers());
 		sweepTransactionView.setAdapter(sweepTransactionListAdapter);
 
 		viewGo = (Button) view.findViewById(R.id.send_coins_go);

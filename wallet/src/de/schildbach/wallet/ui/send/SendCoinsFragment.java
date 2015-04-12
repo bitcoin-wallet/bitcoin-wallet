@@ -621,7 +621,7 @@ public final class SendCoinsFragment extends Fragment
 		directPaymentMessageView = (TextView) view.findViewById(R.id.send_coins_direct_payment_message);
 
 		sentTransactionView = (ListView) view.findViewById(R.id.send_coins_sent_transaction);
-		sentTransactionListAdapter = new TransactionsListAdapter(activity, wallet, application.maxConnectedPeers(), false);
+		sentTransactionListAdapter = new TransactionsListAdapter(activity, wallet, application.maxConnectedPeers());
 		sentTransactionView.setAdapter(sentTransactionListAdapter);
 
 		privateKeyPasswordViewGroup = view.findViewById(R.id.send_coins_private_key_password_group);
