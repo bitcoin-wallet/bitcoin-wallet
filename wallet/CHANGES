@@ -1,3 +1,9 @@
+v4.24
+
+* Use action bar submenu for filtering wallet transactions, rather than a ViewPager.
+* Speed up transactions list.
+* Update QR-code scanner to ZXing 3.2.0.
+
 v4.23
 
 * Update Dutch and Albanian translations.
