@@ -12,7 +12,7 @@
 • Апликациски виџет за Биткоин салдо.
 
 Можеш да дознаеш повеќе за Биткоин на
-http://bitcoin.org
+https://bitcoin.org
 
 Ако сакаш да придонесеш за Биткоин Паричник, проектот е лоциран на
 https://github.com/schildbach/bitcoin-wallet

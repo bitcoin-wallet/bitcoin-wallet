@@ -11,7 +11,7 @@ FITUR:
 • Widget Apl untuk saldo Bitcoin.
 
 Anda dapat mengetahui lebih mengenai Bitcoin di
-http://bitcoin.org
+https://bitcoin.org
 
 Jika Anda ingin berkontribusi kepada Bitcoin Wallet, proyeknya berada di
 https://github.com/schildbach/bitcoin-wallet

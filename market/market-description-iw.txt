@@ -12,7 +12,7 @@ FEATURES:
 • וידג'ט לבדיקת יתרת הביטקוין שלך
 
 אתה יכול למצוא יותר על ביטקוין בכתובת
-לפרטים נוספים : http://bitcoin.org
+לפרטים נוספים : https://bitcoin.org
 
 אם אתה רוצה לתרום לפרויקט ארנק הביטקוין, הפרויקט ממוקם ב
 https://github.com/schildbach/bitcoin-wallet

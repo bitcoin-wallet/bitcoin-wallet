@@ -104,7 +104,7 @@ public class WalletTransactionsFragment extends FancyListFragment implements Loa
 	private static final String ARG_DIRECTION = "direction";
 
 	private static final long THROTTLE_MS = DateUtils.SECOND_IN_MILLIS;
-	private static final Uri KEY_ROTATION_URI = Uri.parse("http://bitcoin.org/en/alert/2013-08-11-android");
+	private static final Uri KEY_ROTATION_URI = Uri.parse("https://bitcoin.org/en/alert/2013-08-11-android");
 
 	private static final Logger log = LoggerFactory.getLogger(WalletTransactionsFragment.class);
 

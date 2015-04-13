@@ -12,7 +12,7 @@ ELŐNYÖK:
 • Widget a Bitcoin egyenlegről.
 
 Bővebben a Bitcoin-ról:
-http://bitcoin.org
+https://bitcoin.org
 
 Ha hozzájárulnál a Bitcoin Wallet projekthez:
 https://github.com/schildbach/bitcoin-wallet

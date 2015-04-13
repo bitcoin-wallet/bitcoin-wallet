@@ -12,7 +12,7 @@ WŁAŚCIWOŚCI:
 • Widget aplikacji dla stanu konta.
 
 Dowiedz się więcej o Bitcoin
-http://bitcoin.org
+https://bitcoin.org
 
 Jeśli chcesz przyczynić się do rozwoju Bitcoin Wallet to projekt znajduje się pod adresem
 https://github.com/schildbach/bitcoin-wallet

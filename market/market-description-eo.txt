@@ -12,7 +12,7 @@ TRAJTOJ:
 • Aplikaĵa fenestraĵo por Bitmona saldo.
 
 Vi povas trovi pli pri Bitmono ĉe
-http://bitcoin.org
+https://bitcoin.org
 
 Se vi volas kontribui al Bitcoin Wallet, la projekto lokas ĉe
 https://github.com/schildbach/bitcoin-wallet

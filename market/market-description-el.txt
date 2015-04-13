@@ -10,7 +10,7 @@
 • App widget για το υπόλοιπο των Bitcoin.
 
 Μπορείτε να βρείτε περισσότερα για τη χρήση Bitcoin στο
-http://bitcoin.org
+https://bitcoin.org
 
 Αν θέλετε να συμβάλει στη τη χρήση του Bitcoin Wallet, το έργο βρίσκεται εδώ:
 https://github.com/schildbach/bitcoin-wallet

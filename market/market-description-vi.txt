@@ -11,7 +11,7 @@ TÍNH NĂNG:
 • Tiện ích dành riêng cho Bitcoin.
 
 Bạn có thể tìm hiểu thêm về Bitcoin tại
-http://bitcoin.org
+https://bitcoin.org
 
 Nếu bạn có ý tưởng đóng góp cho Bitcoin Wallet, hãy truy cập vào trang web
 https://github.com/schildbach/bitcoin-wallet

@@ -12,7 +12,7 @@
 • عرض رصيدك الحالي من البيتكوين باستخدام التطبيقات المصغرة App Widget.
 
 يمكنك الحصول على معلومات أكثر عن البيتكوين في الموقع التالي
-http://bitcoin.org
+https://bitcoin.org
 
 إذا أردت المساهمة في مشروع محفظة البيتكوين Bitcoin Wallet، قم بزيارة
 https://github.com/schildbach/bitcoin-wallet
