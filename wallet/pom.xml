@@ -52,14 +52,16 @@
 		<dependency>
 			<groupId>com.android.support</groupId>
 			<artifactId>support-v4</artifactId>
-			<version>19.1.0</version>
+			<version>22.0.0</version>
+			<type>aar</type>
 		</dependency>
 
 		<!-- android.support.v13.*, provided by android-support -->
 		<dependency>
 			<groupId>com.android.support</groupId>
 			<artifactId>support-v13</artifactId>
-			<version>19.1.0</version>
+			<version>22.0.0</version>
+			<type>aar</type>
 		</dependency>
 
 		<!-- com.google.bitcoin.* -->
