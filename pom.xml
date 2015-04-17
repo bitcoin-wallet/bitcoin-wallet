@@ -90,7 +90,7 @@
 				<plugin>
 					<groupId>com.simpligility.maven.plugins</groupId>
 					<artifactId>android-maven-plugin</artifactId>
-					<version>4.0.0</version>
+					<version>4.2.0</version>
 					<configuration>
 						<genDirectory>${basedir}/gen</genDirectory>
 					</configuration>
