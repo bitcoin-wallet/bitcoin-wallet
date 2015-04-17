@@ -19,6 +19,7 @@ package de.schildbach.wallet.ui.preference;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.Preference;
@@ -36,6 +37,7 @@ public final class SettingsFragment extends PreferenceFragment implements OnPref
 {
 	private Activity activity;
 	private WalletApplication application;
+	private PackageManager pm;
 
 	private final Handler handler = new Handler();
 
@@ -50,6 +52,7 @@ public final class SettingsFragment extends PreferenceFragment implements OnPref
 
 		this.activity = activity;
 		this.application = (WalletApplication) activity.getApplication();
+		this.pm = activity.getPackageManager();
 	}
 
 	@Override
@@ -67,6 +70,9 @@ public final class SettingsFragment extends PreferenceFragment implements OnPref
 
 		trustedPeerOnlyPreference = findPreference(Configuration.PREFS_KEY_TRUSTED_PEER_ONLY);
 		trustedPeerOnlyPreference.setOnPreferenceChangeListener(this);
+
+		final Preference dataUsagePreference = findPreference(Configuration.PREFS_KEY_DATA_USAGE);
+		dataUsagePreference.setEnabled(pm.resolveActivity(dataUsagePreference.getIntent(), 0) != null);
 
 		final SharedPreferences prefs = getPreferenceManager().getSharedPreferences();
 		final String trustedPeer = prefs.getString(Configuration.PREFS_KEY_TRUSTED_PEER, "").trim();
