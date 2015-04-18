@@ -1283,15 +1283,17 @@ public final class SendCoinsFragment extends Fragment
 					else
 						hintView.setText(dryrunException.toString());
 				}
-				else if (dryrunTransaction != null)
+				else if (dryrunTransaction != null && dryrunTransaction.getFee() != null)
 				{
-					final Coin previewFee = dryrunTransaction.getFee();
-					if (previewFee != null)
-					{
-						hintView.setText(getString(R.string.send_coins_fragment_hint_fee, btcFormat.format(previewFee)));
-						hintView.setTextColor(getResources().getColor(R.color.fg_insignificant));
-						hintView.setVisibility(View.VISIBLE);
-					}
+					hintView.setTextColor(getResources().getColor(R.color.fg_insignificant));
+					hintView.setVisibility(View.VISIBLE);
+					hintView.setText(getString(R.string.send_coins_fragment_hint_fee, btcFormat.format(dryrunTransaction.getFee())));
+				}
+				else if (paymentIntent.mayEditAddress() && validatedAddress != null && wallet.isPubKeyHashMine(validatedAddress.address.getHash160()))
+				{
+					hintView.setTextColor(getResources().getColor(R.color.fg_insignificant));
+					hintView.setVisibility(View.VISIBLE);
+					hintView.setText(R.string.send_coins_fragment_receiving_address_own);
 				}
 			}
 

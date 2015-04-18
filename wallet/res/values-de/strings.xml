@@ -68,6 +68,7 @@
 	<string name="send_coins_fragment_receiving_address_label">Empfänger</string>
 	<string name="send_coins_fragment_receiving_address_hint">Adresse oder Namen</string>
 	<string name="send_coins_fragment_receiving_address_error">Ungültige Bitcoin-Adresse!</string>
+	<string name="send_coins_fragment_receiving_address_own">Du bist dabei, an dich selbst zu schicken!</string>
 	<string name="send_coins_fragment_receiving_address_complex">komplexe\nAdresse</string>
 	<string name="send_coins_fragment_pending">(%s warten auf Bestätigung)</string>
 	<string name="send_coins_fragment_amount_label">Betrag</string>
