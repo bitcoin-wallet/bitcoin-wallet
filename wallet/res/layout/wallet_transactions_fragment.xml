@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ViewAnimator xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/wallet_transactions_group"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent" >
+
+	<ProgressBar
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_gravity="center" />
+
+	<TextView
+		android:id="@+id/wallet_transactions_empty"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:background="@color/bg_bright"
+		android:gravity="center"
+		android:textSize="@dimen/font_size_small" />
+
+	<android.support.v7.widget.RecyclerView
+		android:id="@+id/wallet_transactions_list"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:scrollbars="vertical" />
+
+</ViewAnimator>

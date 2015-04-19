@@ -39,6 +39,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.app.LoaderManager;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.AsyncTaskLoader;
@@ -57,15 +58,20 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.content.LocalBroadcastManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.SpannableStringBuilder;
 import android.text.format.DateUtils;
 import android.text.style.StyleSpan;
 import android.view.ActionMode;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ListView;
+import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.ViewAnimator;
 import de.schildbach.wallet.AddressBookProvider;
 import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
@@ -79,7 +85,8 @@ import de.schildbach.wallet_test.R;
 /**
  * @author Andreas Schildbach
  */
-public class WalletTransactionsFragment extends FancyListFragment implements LoaderCallbacks<List<Transaction>>, OnSharedPreferenceChangeListener
+public class WalletTransactionsFragment extends Fragment implements LoaderCallbacks<List<Transaction>>, TransactionsAdapter.OnClickListener,
+		OnSharedPreferenceChangeListener
 {
 	public enum Direction
 	{
@@ -93,7 +100,10 @@ public class WalletTransactionsFragment extends FancyListFragment implements Loa
 	private ContentResolver resolver;
 	private LoaderManager loaderManager;
 
-	private TransactionsListAdapter adapter;
+	private ViewAnimator viewGroup;
+	private TextView emptyView;
+	private RecyclerView recyclerView;
+	private TransactionsAdapter adapter;
 
 	@Nullable
 	private Direction direction;
@@ -140,8 +150,24 @@ public class WalletTransactionsFragment extends FancyListFragment implements Loa
 
 		this.direction = null;
 
-		adapter = new TransactionsListAdapter(activity, wallet, application.maxConnectedPeers());
-		setListAdapter(adapter);
+		adapter = new TransactionsAdapter(activity, wallet, application.maxConnectedPeers(), this);
+	}
+
+	@Override
+	public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState)
+	{
+		final View view = inflater.inflate(R.layout.wallet_transactions_fragment, container, false);
+
+		viewGroup = (ViewAnimator) view.findViewById(R.id.wallet_transactions_group);
+
+		emptyView = (TextView) view.findViewById(R.id.wallet_transactions_empty);
+
+		recyclerView = (RecyclerView) view.findViewById(R.id.wallet_transactions_list);
+		recyclerView.setHasFixedSize(true);
+		recyclerView.setLayoutManager(new LinearLayoutManager(activity));
+		recyclerView.setAdapter(adapter);
+
+		return view;
 	}
 
 	@Override
@@ -221,16 +247,18 @@ public class WalletTransactionsFragment extends FancyListFragment implements Loa
 	}
 
 	@Override
-	public void onListItemClick(final ListView l, final View v, final int position, final long id)
+	public void onTransactionClick(final Transaction tx)
 	{
-		final Transaction tx = (Transaction) adapter.getItem(position);
-
-		if (tx == null)
-			handleBackupWarningClick();
-		else if (tx.getPurpose() == Purpose.KEY_ROTATION)
+		if (tx.getPurpose() == Purpose.KEY_ROTATION)
 			handleKeyRotationClick();
 		else
 			handleTransactionClick(tx);
+	}
+
+	@Override
+	public void onWarningClick()
+	{
+		((WalletActivity) activity).handleBackupWallet();
 	}
 
 	private void handleTransactionClick(final Transaction tx)
@@ -342,11 +370,6 @@ public class WalletTransactionsFragment extends FancyListFragment implements Loa
 		startActivity(new Intent(Intent.ACTION_VIEW, KEY_ROTATION_URI));
 	}
 
-	private void handleBackupWarningClick()
-	{
-		((WalletActivity) activity).handleBackupWallet();
-	}
-
 	@Override
 	public Loader<List<Transaction>> onCreateLoader(final int id, final Bundle args)
 	{
@@ -361,14 +384,22 @@ public class WalletTransactionsFragment extends FancyListFragment implements Loa
 		adapter.replace(transactions);
 		adapter.setShowBackupWarning(direction == null || direction == Direction.RECEIVED);
 
-		final SpannableStringBuilder emptyText = new SpannableStringBuilder(
-				getString(direction == Direction.SENT ? R.string.wallet_transactions_fragment_empty_text_sent
-						: R.string.wallet_transactions_fragment_empty_text_received));
-		emptyText.setSpan(new StyleSpan(Typeface.BOLD), 0, emptyText.length(), SpannableStringBuilder.SPAN_POINT_MARK);
-		if (direction != Direction.SENT)
-			emptyText.append("\n\n").append(getString(R.string.wallet_transactions_fragment_empty_text_howto));
+		if (transactions.isEmpty())
+		{
+			viewGroup.setDisplayedChild(1);
 
-		setEmptyText(emptyText);
+			final SpannableStringBuilder emptyText = new SpannableStringBuilder(
+					getString(direction == Direction.SENT ? R.string.wallet_transactions_fragment_empty_text_sent
+							: R.string.wallet_transactions_fragment_empty_text_received));
+			emptyText.setSpan(new StyleSpan(Typeface.BOLD), 0, emptyText.length(), SpannableStringBuilder.SPAN_POINT_MARK);
+			if (direction != Direction.SENT)
+				emptyText.append("\n\n").append(getString(R.string.wallet_transactions_fragment_empty_text_howto));
+			emptyView.setText(emptyText);
+		}
+		else
+		{
+			viewGroup.setDisplayedChild(2);
+		}
 	}
 
 	@Override

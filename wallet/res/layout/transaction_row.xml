@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	style="@android:style/Widget.Holo.Button.Borderless"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
-	android:background="@color/bg_list"
 	android:orientation="vertical"
 	android:paddingBottom="8dp"
 	android:paddingLeft="@dimen/list_entry_padding_horizontal"

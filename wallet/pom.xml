@@ -64,6 +64,14 @@
 			<type>aar</type>
 		</dependency>
 
+		<!-- android.support.v7.recyclerview.*, provided by android-support -->
+		<dependency>
+			<groupId>com.android.support</groupId>
+			<artifactId>recyclerview-v7</artifactId>
+			<version>22.0.0</version>
+			<type>aar</type>
+		</dependency>
+
 		<!-- com.google.bitcoin.* -->
 		<dependency>
 			<groupId>org.bitcoinj</groupId>

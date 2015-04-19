@@ -70,6 +70,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Process;
+import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.ActionMode;
@@ -89,7 +90,7 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.CursorAdapter;
 import android.widget.EditText;
 import android.widget.FilterQueryProvider;
-import android.widget.ListView;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import de.schildbach.wallet.AddressBookProvider;
 import de.schildbach.wallet.Configuration;
@@ -113,7 +114,7 @@ import de.schildbach.wallet.ui.InputParser.StreamInputParser;
 import de.schildbach.wallet.ui.InputParser.StringInputParser;
 import de.schildbach.wallet.ui.ProgressDialogFragment;
 import de.schildbach.wallet.ui.ScanActivity;
-import de.schildbach.wallet.ui.TransactionsListAdapter;
+import de.schildbach.wallet.ui.TransactionsAdapter;
 import de.schildbach.wallet.util.Bluetooth;
 import de.schildbach.wallet.util.Nfc;
 import de.schildbach.wallet.util.WalletUtils;
@@ -150,8 +151,9 @@ public final class SendCoinsFragment extends Fragment
 
 	private TextView hintView;
 	private TextView directPaymentMessageView;
-	private ListView sentTransactionView;
-	private TransactionsListAdapter sentTransactionListAdapter;
+	private FrameLayout sentTransactionView;
+	private TransactionsAdapter sentTransactionAdapter;
+	private RecyclerView.ViewHolder sentTransactionViewHolder;
 	private View privateKeyPasswordViewGroup;
 	private EditText privateKeyPasswordView;
 	private View privateKeyBadPasswordView;
@@ -348,7 +350,7 @@ public final class SendCoinsFragment extends Fragment
 					if (!isResumed())
 						return;
 
-					sentTransactionListAdapter.notifyDataSetChanged();
+					sentTransactionAdapter.notifyDataSetChanged();
 
 					final TransactionConfidence confidence = sentTransaction.getConfidence();
 					final ConfidenceType confidenceType = confidence.getConfidenceType();
@@ -621,9 +623,11 @@ public final class SendCoinsFragment extends Fragment
 
 		directPaymentMessageView = (TextView) view.findViewById(R.id.send_coins_direct_payment_message);
 
-		sentTransactionView = (ListView) view.findViewById(R.id.send_coins_sent_transaction);
-		sentTransactionListAdapter = new TransactionsListAdapter(activity, wallet, application.maxConnectedPeers());
-		sentTransactionView.setAdapter(sentTransactionListAdapter);
+		sentTransactionView = (FrameLayout) view.findViewById(R.id.send_coins_sent_transaction);
+		sentTransactionAdapter = new TransactionsAdapter(activity, wallet, application.maxConnectedPeers(), null);
+		sentTransactionViewHolder = sentTransactionAdapter.createTransactionViewHolder(sentTransactionView);
+		sentTransactionView.addView(sentTransactionViewHolder.itemView, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+				ViewGroup.LayoutParams.WRAP_CONTENT));
 
 		privateKeyPasswordViewGroup = view.findViewById(R.id.send_coins_private_key_password_group);
 		privateKeyPasswordView = (EditText) view.findViewById(R.id.send_coins_private_key_password);
@@ -1301,13 +1305,13 @@ public final class SendCoinsFragment extends Fragment
 			if (sentTransaction != null)
 			{
 				sentTransactionView.setVisibility(View.VISIBLE);
-				sentTransactionListAdapter.setFormat(btcFormat);
-				sentTransactionListAdapter.replace(sentTransaction);
+				sentTransactionAdapter.setFormat(btcFormat);
+				sentTransactionAdapter.replace(sentTransaction);
+				sentTransactionAdapter.bindViewHolder(sentTransactionViewHolder, 0);
 			}
 			else
 			{
 				sentTransactionView.setVisibility(View.GONE);
-				sentTransactionListAdapter.clear();
 			}
 
 			if (directPaymentAck != null)

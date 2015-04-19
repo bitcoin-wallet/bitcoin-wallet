@@ -187,7 +187,7 @@
 		android:layout_marginRight="@dimen/list_entry_padding_horizontal_lax"
 		android:visibility="gone" />
 
-	<ListView
+	<FrameLayout
 		android:id="@+id/send_coins_sent_transaction"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
