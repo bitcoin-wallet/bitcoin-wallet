@@ -1,3 +1,8 @@
+v4.25
+
+* Update android-maven-plugin to 4.2.0, so we can use AARs.
+* Bugfixes.
+
 v4.24
 
 * Use action bar submenu for filtering wallet transactions, rather than a ViewPager.
