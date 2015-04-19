@@ -214,7 +214,7 @@ public final class WalletAddressesFragment extends FancyListFragment
 
 			private void handleEdit(final Address address)
 			{
-				EditAddressBookEntryFragment.edit(getFragmentManager(), address.toString());
+				EditAddressBookEntryFragment.edit(getFragmentManager(), address);
 			}
 
 			private void handleShowQr(final Address address)

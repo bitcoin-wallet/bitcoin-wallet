@@ -173,7 +173,7 @@ public final class SendingAddressesFragment extends FancyListFragment implements
 							{
 								final Address address = paymentIntent.getAddress();
 								if (!wallet.isPubKeyHashMine(address.getHash160()))
-									EditAddressBookEntryFragment.edit(getFragmentManager(), address.toString());
+									EditAddressBookEntryFragment.edit(getFragmentManager(), address);
 								else
 									dialog(activity, null, R.string.address_book_options_scan_title, R.string.address_book_options_scan_own_address);
 							}
@@ -250,7 +250,7 @@ public final class SendingAddressesFragment extends FancyListFragment implements
 		}
 		else if (!wallet.isPubKeyHashMine(address.getHash160()))
 		{
-			EditAddressBookEntryFragment.edit(getFragmentManager(), address.toString());
+			EditAddressBookEntryFragment.edit(getFragmentManager(), address);
 		}
 		else
 		{

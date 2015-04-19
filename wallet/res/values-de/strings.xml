@@ -152,8 +152,10 @@
 	<string name="address_book_options_scan_own_address">Die gescannte Adresse ist eine deiner eigenen.</string>
 	<string name="address_book_row_message_compromised_key">Diese Adresse ist vielleicht kompromittiert. Du solltest sie nicht mehr zum Empfang von Bitcoins nutzen.</string>
 
-	<string name="edit_address_book_entry_dialog_title_add">Adresse hinzufügen</string>
-	<string name="edit_address_book_entry_dialog_title_edit">Adresse ändern</string>
+	<string name="edit_address_book_entry_dialog_title_add">Sendeadresse hinzufügen</string>
+	<string name="edit_address_book_entry_dialog_title_edit">Name von Sendeadresse ändern</string>
+	<string name="edit_address_book_entry_dialog_title_add_receive">Name zu eigener Adresse hinzufügen</string>
+	<string name="edit_address_book_entry_dialog_title_edit_receive">Name von eigener Adresse ändern</string>
 	<string name="edit_address_book_entry_dialog_address_label">Adresse</string>
 	<string name="edit_address_book_entry_dialog_label_label">Name</string>
 	<string name="edit_address_book_entry_dialog_button_edit">Speichern</string>

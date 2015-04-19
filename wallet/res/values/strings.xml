@@ -141,10 +141,12 @@
 	<string name="address_book_options_scan_invalid">Scanned data is unrecognizable</string>
 	<string name="address_book_options_scan_own_address">The scanned address is your own.</string>
 	<string name="address_book_row_message_compromised_key">This address might be compromised. You should not use it any more for receiving coins.</string>
-	<string name="edit_address_book_entry_dialog_title_add">Add address</string>
-	<string name="edit_address_book_entry_dialog_title_edit">Edit address</string>
+	<string name="edit_address_book_entry_dialog_title_add">Add sending address</string>
+	<string name="edit_address_book_entry_dialog_title_edit">Edit label of sending address</string>
+	<string name="edit_address_book_entry_dialog_title_add_receive">Add label to your address</string>
+	<string name="edit_address_book_entry_dialog_title_edit_receive">Edit label of your address</string>
 	<string name="edit_address_book_entry_dialog_address_label">Address</string>
-	<string name="edit_address_book_entry_dialog_label_label">Name</string>
+	<string name="edit_address_book_entry_dialog_label_label">Label</string>
 	<string name="edit_address_book_entry_dialog_button_edit">Save</string>
 	<string name="transaction_row_fee">Network fee</string>
 	<string name="transaction_row_message_purpose_key_rotation">This transaction strengthens your wallet against theft. &lt;u&gt;More info.&lt;/u&gt;</string>

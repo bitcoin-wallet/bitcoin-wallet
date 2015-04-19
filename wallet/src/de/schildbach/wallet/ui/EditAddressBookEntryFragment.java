@@ -19,6 +19,10 @@ package de.schildbach.wallet.ui;
 
 import javax.annotation.Nullable;
 
+import org.bitcoinj.core.Address;
+import org.bitcoinj.core.AddressFormatException;
+import org.bitcoinj.core.Wallet;
+
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.DialogFragment;
@@ -33,6 +37,7 @@ import android.view.View;
 import android.widget.TextView;
 import de.schildbach.wallet.AddressBookProvider;
 import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
 
@@ -48,21 +53,33 @@ public final class EditAddressBookEntryFragment extends DialogFragment
 
 	public static void edit(final FragmentManager fm, final String address)
 	{
+		try
+		{
+			edit(fm, new Address(Constants.NETWORK_PARAMETERS, address), null);
+		}
+		catch (final AddressFormatException x)
+		{
+			throw new IllegalArgumentException(x);
+		}
+	}
+
+	public static void edit(final FragmentManager fm, final Address address)
+	{
 		edit(fm, address, null);
 	}
 
-	public static void edit(final FragmentManager fm, final String address, @Nullable final String suggestedAddressLabel)
+	public static void edit(final FragmentManager fm, final Address address, @Nullable final String suggestedAddressLabel)
 	{
 		final DialogFragment newFragment = EditAddressBookEntryFragment.instance(address, suggestedAddressLabel);
 		newFragment.show(fm, FRAGMENT_TAG);
 	}
 
-	private static EditAddressBookEntryFragment instance(final String address, @Nullable final String suggestedAddressLabel)
+	private static EditAddressBookEntryFragment instance(final Address address, @Nullable final String suggestedAddressLabel)
 	{
 		final EditAddressBookEntryFragment fragment = new EditAddressBookEntryFragment();
 
 		final Bundle args = new Bundle();
-		args.putString(KEY_ADDRESS, address);
+		args.putSerializable(KEY_ADDRESS, address);
 		args.putString(KEY_SUGGESTED_ADDRESS_LABEL, suggestedAddressLabel);
 		fragment.setArguments(args);
 
@@ -70,6 +87,7 @@ public final class EditAddressBookEntryFragment extends DialogFragment
 	}
 
 	private Activity activity;
+	private Wallet wallet;
 	private ContentResolver contentResolver;
 
 	@Override
@@ -78,6 +96,8 @@ public final class EditAddressBookEntryFragment extends DialogFragment
 		super.onAttach(activity);
 
 		this.activity = activity;
+		final WalletApplication application = (WalletApplication) activity.getApplication();
+		this.wallet = application.getWallet();
 		this.contentResolver = activity.getContentResolver();
 	}
 
@@ -85,25 +105,30 @@ public final class EditAddressBookEntryFragment extends DialogFragment
 	public Dialog onCreateDialog(final Bundle savedInstanceState)
 	{
 		final Bundle args = getArguments();
-		final String address = args.getString(KEY_ADDRESS);
+		final Address address = (Address) args.getSerializable(KEY_ADDRESS);
 		final String suggestedAddressLabel = args.getString(KEY_SUGGESTED_ADDRESS_LABEL);
 
 		final LayoutInflater inflater = LayoutInflater.from(activity);
 
-		final Uri uri = AddressBookProvider.contentUri(activity.getPackageName()).buildUpon().appendPath(address).build();
+		final Uri uri = AddressBookProvider.contentUri(activity.getPackageName()).buildUpon().appendPath(address.toString()).build();
 
-		final String label = AddressBookProvider.resolveLabel(activity, address);
+		final String label = AddressBookProvider.resolveLabel(activity, address.toString());
 
 		final boolean isAdd = label == null;
+		final boolean isOwn = wallet.isPubKeyHashMine(address.getHash160());
 
 		final DialogBuilder dialog = new DialogBuilder(activity);
 
-		dialog.setTitle(isAdd ? R.string.edit_address_book_entry_dialog_title_add : R.string.edit_address_book_entry_dialog_title_edit);
+		if (isOwn)
+			dialog.setTitle(isAdd ? R.string.edit_address_book_entry_dialog_title_add_receive
+					: R.string.edit_address_book_entry_dialog_title_edit_receive);
+		else
+			dialog.setTitle(isAdd ? R.string.edit_address_book_entry_dialog_title_add : R.string.edit_address_book_entry_dialog_title_edit);
 
 		final View view = inflater.inflate(R.layout.edit_address_book_entry_dialog, null);
 
 		final TextView viewAddress = (TextView) view.findViewById(R.id.edit_address_book_entry_address);
-		viewAddress.setText(WalletUtils.formatHash(address, Constants.ADDRESS_FORMAT_GROUP_SIZE, Constants.ADDRESS_FORMAT_LINE_SIZE));
+		viewAddress.setText(WalletUtils.formatAddress(address, Constants.ADDRESS_FORMAT_GROUP_SIZE, Constants.ADDRESS_FORMAT_LINE_SIZE));
 
 		final TextView viewLabel = (TextView) view.findViewById(R.id.edit_address_book_entry_label);
 		viewLabel.setText(label != null ? label : suggestedAddressLabel);

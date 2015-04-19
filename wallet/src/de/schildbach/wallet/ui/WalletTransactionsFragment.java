@@ -325,7 +325,7 @@ public class WalletTransactionsFragment extends FancyListFragment implements Loa
 
 			private void handleEditAddress(final Transaction tx)
 			{
-				EditAddressBookEntryFragment.edit(getFragmentManager(), txAddress.toString());
+				EditAddressBookEntryFragment.edit(getFragmentManager(), txAddress);
 			}
 
 			private void handleShowQr()
