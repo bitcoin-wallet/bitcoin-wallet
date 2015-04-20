@@ -224,18 +224,20 @@ public class TransactionsListAdapter extends BaseAdapter
 		return row;
 	}
 
-	private class TransactionCacheEntry
+	private static class TransactionCacheEntry
 	{
-		public TransactionCacheEntry(final Coin value, final boolean sent, final Address address)
+		private final Coin value;
+		private final boolean sent;
+		private final boolean showFee;
+		private final Address address;
+
+		private TransactionCacheEntry(final Coin value, final boolean sent, final boolean showFee, final Address address)
 		{
 			this.value = value;
 			this.sent = sent;
+			this.showFee = showFee;
 			this.address = address;
 		}
-
-		public final Coin value;
-		public final boolean sent;
-		public final Address address;
 	}
 
 	private Map<Sha256Hash, TransactionCacheEntry> transactionCache = new HashMap<Sha256Hash, TransactionCacheEntry>();
@@ -248,19 +250,19 @@ public class TransactionsListAdapter extends BaseAdapter
 		final boolean isCoinBase = tx.isCoinBase();
 		final boolean isInternal = tx.getPurpose() == Purpose.KEY_ROTATION;
 		final Coin fee = tx.getFee();
-		final boolean hasFee = fee != null && !fee.isZero();
 
 		TransactionCacheEntry txCache = transactionCache.get(tx.getHash());
 		if (txCache == null)
 		{
 			final Coin value = tx.getValue(wallet);
 			final boolean sent = value.signum() < 0;
+			final boolean showFee = sent && fee != null && !fee.isZero();
 			final Address address;
 			if (sent)
 				address = WalletUtils.getToAddressOfSent(tx, wallet);
 			else
 				address = WalletUtils.getWalletAddressOfReceived(tx, wallet);
-			txCache = new TransactionCacheEntry(value, sent, address);
+			txCache = new TransactionCacheEntry(value, sent, showFee, address);
 
 			transactionCache.put(tx.getHash(), txCache);
 		}
@@ -354,10 +356,10 @@ public class TransactionsListAdapter extends BaseAdapter
 		// fee
 		final View rowExtendFee = row.findViewById(R.id.transaction_row_extend_fee);
 		final CurrencyTextView rowFee = (CurrencyTextView) row.findViewById(R.id.transaction_row_fee);
-		rowExtendFee.setVisibility(hasFee ? View.VISIBLE : View.GONE);
+		rowExtendFee.setVisibility(txCache.showFee ? View.VISIBLE : View.GONE);
 		rowFee.setAlwaysSigned(true);
 		rowFee.setFormat(format);
-		if (hasFee)
+		if (txCache.showFee)
 			rowFee.setAmount(fee.negate());
 
 		// value
@@ -365,7 +367,7 @@ public class TransactionsListAdapter extends BaseAdapter
 		rowValue.setTextColor(textColor);
 		rowValue.setAlwaysSigned(true);
 		rowValue.setFormat(format);
-		final Coin value = hasFee ? txCache.value.add(fee) : txCache.value;
+		final Coin value = txCache.showFee ? txCache.value.add(fee) : txCache.value;
 		rowValue.setAmount(value);
 		rowValue.setVisibility(!value.isZero() ? View.VISIBLE : View.GONE);
 
