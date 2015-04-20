@@ -203,7 +203,7 @@ public class TransactionsListAdapter extends BaseAdapter
 		if (type == VIEW_TYPE_TRANSACTION)
 		{
 			if (row == null)
-				row = inflater.inflate(R.layout.transaction_row_extended, null);
+				row = inflater.inflate(R.layout.transaction_row, null);
 
 			final Transaction tx = getItem(position);
 			bindView(row, tx);
@@ -240,7 +240,7 @@ public class TransactionsListAdapter extends BaseAdapter
 
 	private Map<Sha256Hash, TransactionCacheEntry> transactionCache = new HashMap<Sha256Hash, TransactionCacheEntry>();
 
-	public void bindView(final View row, final Transaction tx)
+	private void bindView(final View row, final Transaction tx)
 	{
 		final TransactionConfidence confidence = tx.getConfidence();
 		final ConfidenceType confidenceType = confidence.getConfidenceType();
@@ -318,12 +318,9 @@ public class TransactionsListAdapter extends BaseAdapter
 
 		// time
 		final TextView rowTime = (TextView) row.findViewById(R.id.transaction_row_time);
-		if (rowTime != null)
-		{
-			final Date time = tx.getUpdateTime();
-			rowTime.setText(time != null ? (DateUtils.getRelativeTimeSpanString(context, time.getTime())) : null);
-			rowTime.setTextColor(textColor);
-		}
+		final Date time = tx.getUpdateTime();
+		rowTime.setText(time != null ? (DateUtils.getRelativeTimeSpanString(context, time.getTime())) : null);
+		rowTime.setTextColor(textColor);
 
 		// receiving or sending
 		final TextView rowFromTo = (TextView) row.findViewById(R.id.transaction_row_fromto);
@@ -356,100 +353,91 @@ public class TransactionsListAdapter extends BaseAdapter
 
 		// fee
 		final View rowExtendFee = row.findViewById(R.id.transaction_row_extend_fee);
-		if (rowExtendFee != null)
-		{
-			final CurrencyTextView rowFee = (CurrencyTextView) row.findViewById(R.id.transaction_row_fee);
-			rowExtendFee.setVisibility(hasFee ? View.VISIBLE : View.GONE);
-			rowFee.setAlwaysSigned(true);
-			rowFee.setFormat(format);
-			if (hasFee)
-				rowFee.setAmount(fee.negate());
-		}
+		final CurrencyTextView rowFee = (CurrencyTextView) row.findViewById(R.id.transaction_row_fee);
+		rowExtendFee.setVisibility(hasFee ? View.VISIBLE : View.GONE);
+		rowFee.setAlwaysSigned(true);
+		rowFee.setFormat(format);
+		if (hasFee)
+			rowFee.setAmount(fee.negate());
 
 		// value
 		final CurrencyTextView rowValue = (CurrencyTextView) row.findViewById(R.id.transaction_row_value);
 		rowValue.setTextColor(textColor);
 		rowValue.setAlwaysSigned(true);
 		rowValue.setFormat(format);
-		final Coin value = hasFee && rowExtendFee != null ? txCache.value.add(fee) : txCache.value;
+		final Coin value = hasFee ? txCache.value.add(fee) : txCache.value;
 		rowValue.setAmount(value);
 		rowValue.setVisibility(!value.isZero() ? View.VISIBLE : View.GONE);
 
 		// fiat value
 		final View rowExtendFiat = row.findViewById(R.id.transaction_row_extend_fiat);
-		if (rowExtendFiat != null)
+		final ExchangeRate exchangeRate = tx.getExchangeRate();
+		if (exchangeRate != null)
 		{
-			final ExchangeRate exchangeRate = tx.getExchangeRate();
-			if (exchangeRate != null)
-			{
-				rowExtendFiat.setVisibility(View.VISIBLE);
-				final CurrencyTextView rowFiat = (CurrencyTextView) row.findViewById(R.id.transaction_row_fiat);
-				rowFiat.setAlwaysSigned(true);
-				rowFiat.setPrefixColor(colorInsignificant);
-				rowFiat.setFormat(Constants.LOCAL_FORMAT.code(0, Constants.PREFIX_ALMOST_EQUAL_TO + exchangeRate.fiat.getCurrencyCode()));
-				rowFiat.setAmount(exchangeRate.coinToFiat(txCache.value));
-			}
-			else
-			{
-				rowExtendFiat.setVisibility(View.GONE);
-			}
+			rowExtendFiat.setVisibility(View.VISIBLE);
+			final CurrencyTextView rowFiat = (CurrencyTextView) row.findViewById(R.id.transaction_row_fiat);
+			rowFiat.setAlwaysSigned(true);
+			rowFiat.setPrefixColor(colorInsignificant);
+			rowFiat.setFormat(Constants.LOCAL_FORMAT.code(0, Constants.PREFIX_ALMOST_EQUAL_TO + exchangeRate.fiat.getCurrencyCode()));
+			rowFiat.setAmount(exchangeRate.coinToFiat(txCache.value));
+		}
+		else
+		{
+			rowExtendFiat.setVisibility(View.GONE);
 		}
 
 		// message
 		final View rowExtendMessage = row.findViewById(R.id.transaction_row_extend_message);
-		if (rowExtendMessage != null)
-		{
-			final TextView rowMessage = (TextView) row.findViewById(R.id.transaction_row_message);
-			rowExtendMessage.setVisibility(View.GONE);
+		final TextView rowMessage = (TextView) row.findViewById(R.id.transaction_row_message);
+		rowExtendMessage.setVisibility(View.GONE);
 
-			if (isInternal)
-			{
-				rowExtendMessage.setVisibility(View.VISIBLE);
-				rowMessage.setText(Html.fromHtml(context.getString(R.string.transaction_row_message_purpose_key_rotation)));
-				rowMessage.setTextColor(colorSignificant);
-			}
-			else if (isOwn && confidenceType == ConfidenceType.PENDING && confidence.numBroadcastPeers() == 0)
-			{
-				rowExtendMessage.setVisibility(View.VISIBLE);
-				rowMessage.setText(R.string.transaction_row_message_own_unbroadcasted);
-				rowMessage.setTextColor(colorInsignificant);
-			}
-			else if (!isOwn && confidenceType == ConfidenceType.PENDING && confidence.numBroadcastPeers() == 0)
-			{
-				rowExtendMessage.setVisibility(View.VISIBLE);
-				rowMessage.setText(R.string.transaction_row_message_received_direct);
-				rowMessage.setTextColor(colorInsignificant);
-			}
-			else if (!txCache.sent && txCache.value.compareTo(Transaction.MIN_NONDUST_OUTPUT) < 0)
-			{
-				rowExtendMessage.setVisibility(View.VISIBLE);
-				rowMessage.setText(R.string.transaction_row_message_received_dust);
-				rowMessage.setTextColor(colorInsignificant);
-			}
-			else if (!txCache.sent && confidenceType == ConfidenceType.PENDING)
-			{
-				rowExtendMessage.setVisibility(View.VISIBLE);
-				rowMessage.setText(R.string.transaction_row_message_received_unconfirmed_unlocked);
-				rowMessage.setTextColor(colorInsignificant);
-			}
-			else if (!txCache.sent && confidenceType == ConfidenceType.DEAD)
-			{
-				rowExtendMessage.setVisibility(View.VISIBLE);
-				rowMessage.setText(R.string.transaction_row_message_received_dead);
-				rowMessage.setTextColor(colorError);
-			}
-			else if (!txCache.sent && tx.getOutputs().size() > 20)
-			{
-				rowExtendMessage.setVisibility(View.VISIBLE);
-				rowMessage.setText(R.string.transaction_row_message_received_pay_to_many);
-				rowMessage.setTextColor(colorInsignificant);
-			}
-			else if (tx.getMemo() != null)
-			{
-				rowExtendMessage.setVisibility(View.VISIBLE);
-				rowMessage.setText(tx.getMemo());
-				rowMessage.setTextColor(colorInsignificant);
-			}
+		if (isInternal)
+		{
+			rowExtendMessage.setVisibility(View.VISIBLE);
+			rowMessage.setText(Html.fromHtml(context.getString(R.string.transaction_row_message_purpose_key_rotation)));
+			rowMessage.setTextColor(colorSignificant);
+		}
+		else if (isOwn && confidenceType == ConfidenceType.PENDING && confidence.numBroadcastPeers() == 0)
+		{
+			rowExtendMessage.setVisibility(View.VISIBLE);
+			rowMessage.setText(R.string.transaction_row_message_own_unbroadcasted);
+			rowMessage.setTextColor(colorInsignificant);
+		}
+		else if (!isOwn && confidenceType == ConfidenceType.PENDING && confidence.numBroadcastPeers() == 0)
+		{
+			rowExtendMessage.setVisibility(View.VISIBLE);
+			rowMessage.setText(R.string.transaction_row_message_received_direct);
+			rowMessage.setTextColor(colorInsignificant);
+		}
+		else if (!txCache.sent && txCache.value.compareTo(Transaction.MIN_NONDUST_OUTPUT) < 0)
+		{
+			rowExtendMessage.setVisibility(View.VISIBLE);
+			rowMessage.setText(R.string.transaction_row_message_received_dust);
+			rowMessage.setTextColor(colorInsignificant);
+		}
+		else if (!txCache.sent && confidenceType == ConfidenceType.PENDING)
+		{
+			rowExtendMessage.setVisibility(View.VISIBLE);
+			rowMessage.setText(R.string.transaction_row_message_received_unconfirmed_unlocked);
+			rowMessage.setTextColor(colorInsignificant);
+		}
+		else if (!txCache.sent && confidenceType == ConfidenceType.DEAD)
+		{
+			rowExtendMessage.setVisibility(View.VISIBLE);
+			rowMessage.setText(R.string.transaction_row_message_received_dead);
+			rowMessage.setTextColor(colorError);
+		}
+		else if (!txCache.sent && tx.getOutputs().size() > 20)
+		{
+			rowExtendMessage.setVisibility(View.VISIBLE);
+			rowMessage.setText(R.string.transaction_row_message_received_pay_to_many);
+			rowMessage.setTextColor(colorInsignificant);
+		}
+		else if (tx.getMemo() != null)
+		{
+			rowExtendMessage.setVisibility(View.VISIBLE);
+			rowMessage.setText(tx.getMemo());
+			rowMessage.setTextColor(colorInsignificant);
 		}
 	}
 

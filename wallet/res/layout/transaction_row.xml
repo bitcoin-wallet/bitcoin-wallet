@@ -27,6 +27,7 @@
 			android:layout_height="wrap_content"
 			android:layout_marginRight="8dp"
 			android:gravity="center_horizontal"
+			android:singleLine="true"
 			android:textStyle="bold" />
 
 		<TextView

@@ -25,11 +25,15 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.RejectedExecutionException;
 
+import org.bitcoinj.core.Address;
 import org.bitcoinj.core.Block;
+import org.bitcoinj.core.Coin;
 import org.bitcoinj.core.Sha256Hash;
 import org.bitcoinj.core.StoredBlock;
 import org.bitcoinj.core.Transaction;
+import org.bitcoinj.core.Transaction.Purpose;
 import org.bitcoinj.core.Wallet;
+import org.bitcoinj.utils.MonetaryFormat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -45,6 +49,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.Loader;
 import android.content.ServiceConnection;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
@@ -60,6 +65,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import de.schildbach.wallet.AddressBookProvider;
 import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
@@ -242,10 +248,13 @@ public final class BlockListFragment extends ListFragment
 	{
 		private static final int ROW_BASE_CHILD_COUNT = 2;
 		private static final int ROW_INSERT_INDEX = 1;
-		private final TransactionsListAdapter transactionsAdapter = new TransactionsListAdapter(activity, wallet, application.maxConnectedPeers());
-		private final LayoutInflater inflater = LayoutInflater.from(activity);
 
 		private final List<StoredBlock> blocks = new ArrayList<StoredBlock>(MAX_BLOCKS);
+
+		private final LayoutInflater inflater = LayoutInflater.from(activity);
+		private final String textCoinBase = activity.getString(R.string.wallet_transactions_fragment_coinbase);
+		private final String textInternal = activity.getString(R.string.wallet_transactions_fragment_internal);
+		private final MonetaryFormat format = config.getFormat().noCode();
 
 		public void clear()
 		{
@@ -317,8 +326,6 @@ public final class BlockListFragment extends ListFragment
 
 			if (transactions != null)
 			{
-				transactionsAdapter.setFormat(config.getFormat());
-
 				for (final Transaction tx : transactions)
 				{
 					if (tx.getAppearsInHashes().containsKey(header.getHash()))
@@ -330,11 +337,11 @@ public final class BlockListFragment extends ListFragment
 						}
 						else
 						{
-							view = inflater.inflate(R.layout.transaction_row_oneline, null);
+							view = inflater.inflate(R.layout.block_row_transaction, null);
 							row.addView(view, ROW_INSERT_INDEX + iTransactionView);
 						}
 
-						transactionsAdapter.bindView(view, tx);
+						bindView(view, tx);
 
 						iTransactionView++;
 					}
@@ -346,6 +353,53 @@ public final class BlockListFragment extends ListFragment
 				row.removeViews(ROW_INSERT_INDEX + iTransactionView, leftoverTransactionViews);
 
 			return row;
+		}
+
+		public void bindView(final View row, final Transaction tx)
+		{
+			final boolean isCoinBase = tx.isCoinBase();
+			final boolean isInternal = tx.getPurpose() == Purpose.KEY_ROTATION;
+
+			final Coin value = tx.getValue(wallet);
+			final boolean sent = value.signum() < 0;
+			final Address address;
+			if (sent)
+				address = WalletUtils.getToAddressOfSent(tx, wallet);
+			else
+				address = WalletUtils.getWalletAddressOfReceived(tx, wallet);
+
+			// receiving or sending
+			final TextView rowFromTo = (TextView) row.findViewById(R.id.block_row_transaction_fromto);
+			if (isInternal)
+				rowFromTo.setText(R.string.symbol_internal);
+			else if (sent)
+				rowFromTo.setText(R.string.symbol_to);
+			else
+				rowFromTo.setText(R.string.symbol_from);
+
+			// coinbase
+			final View rowCoinbase = row.findViewById(R.id.block_row_transaction_coinbase);
+			rowCoinbase.setVisibility(isCoinBase ? View.VISIBLE : View.GONE);
+
+			// address
+			final TextView rowAddress = (TextView) row.findViewById(R.id.block_row_transaction_address);
+			final String label;
+			if (isCoinBase)
+				label = textCoinBase;
+			else if (isInternal)
+				label = textInternal;
+			else if (address != null)
+				label = AddressBookProvider.resolveLabel(activity, address.toString());
+			else
+				label = "?";
+			rowAddress.setText(label != null ? label : address.toString());
+			rowAddress.setTypeface(label != null ? Typeface.DEFAULT : Typeface.MONOSPACE);
+
+			// value
+			final CurrencyTextView rowValue = (CurrencyTextView) row.findViewById(R.id.block_row_transaction_value);
+			rowValue.setAlwaysSigned(true);
+			rowValue.setFormat(format);
+			rowValue.setAmount(value);
 		}
 	}
 
