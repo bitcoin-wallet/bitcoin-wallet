@@ -12,6 +12,8 @@
 	<dimen name="list_entry_padding_horizontal_lax">20dp</dimen>
 	<dimen name="list_entry_padding_vertical">6dp</dimen>
 	<dimen name="list_entry_padding_vertical_lax">10dp</dimen>
+	<dimen name="card_padding_horizontal">6dp</dimen>
+	<dimen name="card_padding_vertical">2dp</dimen>
 	<dimen name="divider_currency_padding">0dp</dimen>
 	<dimen name="wallet_address_qr_size">80dp</dimen>
 	<dimen name="request_coins_qr_size">128dp</dimen>

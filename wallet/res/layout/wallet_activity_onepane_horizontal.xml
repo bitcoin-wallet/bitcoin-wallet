@@ -48,7 +48,6 @@
 					android:layout_width="match_parent"
 					android:layout_height="0px"
 					android:layout_weight="1"
-					android:background="@android:color/white"
 					android:foreground="@drawable/fragment_shadow_horizontal_light"
 					android:foregroundGravity="top|fill_horizontal" >
 

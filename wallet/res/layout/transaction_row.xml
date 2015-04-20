@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	style="@android:style/Widget.Holo.Button.Borderless"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
 	android:orientation="vertical"
@@ -74,7 +73,7 @@
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:orientation="horizontal"
-		android:paddingTop="4dp" >
+		android:paddingTop="2dp" >
 
 		<Space
 			android:layout_width="@dimen/symbol_size_normal"
@@ -102,7 +101,7 @@
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:orientation="horizontal"
-		android:paddingTop="4dp"
+		android:paddingTop="2dp"
 		android:visibility="gone" >
 
 		<Space
@@ -125,7 +124,7 @@
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:orientation="horizontal"
-		android:paddingTop="4dp" >
+		android:paddingTop="2dp" >
 
 		<Space
 			android:layout_width="@dimen/symbol_size_normal"

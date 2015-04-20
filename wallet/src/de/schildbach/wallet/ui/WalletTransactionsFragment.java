@@ -53,6 +53,7 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.database.ContentObserver;
 import android.graphics.Bitmap;
+import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
@@ -60,6 +61,7 @@ import android.os.Handler;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.RecyclerView.State;
 import android.text.SpannableStringBuilder;
 import android.text.format.DateUtils;
 import android.text.style.StyleSpan;
@@ -148,9 +150,9 @@ public class WalletTransactionsFragment extends Fragment implements LoaderCallba
 		setRetainInstance(true);
 		setHasOptionsMenu(true);
 
-		this.direction = null;
+		adapter = new TransactionsAdapter(activity, wallet, true, application.maxConnectedPeers(), this);
 
-		adapter = new TransactionsAdapter(activity, wallet, application.maxConnectedPeers(), this);
+		this.direction = null;
 	}
 
 	@Override
@@ -166,6 +168,22 @@ public class WalletTransactionsFragment extends Fragment implements LoaderCallba
 		recyclerView.setHasFixedSize(true);
 		recyclerView.setLayoutManager(new LinearLayoutManager(activity));
 		recyclerView.setAdapter(adapter);
+		recyclerView.addItemDecoration(new RecyclerView.ItemDecoration()
+		{
+			private final int PADDING = 2 * activity.getResources().getDimensionPixelOffset(R.dimen.card_padding_vertical);
+
+			@Override
+			public void getItemOffsets(final Rect outRect, final View view, final RecyclerView parent, final State state)
+			{
+				super.getItemOffsets(outRect, view, parent, state);
+
+				final int position = parent.getChildAdapterPosition(view);
+				if (position == 0)
+					outRect.top += PADDING;
+				else if (position == parent.getAdapter().getItemCount() - 1)
+					outRect.bottom += PADDING;
+			}
+		});
 
 		return view;
 	}

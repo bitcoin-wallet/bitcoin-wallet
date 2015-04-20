@@ -42,6 +42,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.text.format.DateUtils;
@@ -62,6 +63,8 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 {
 	private final Context context;
 	private final LayoutInflater inflater;
+
+	private final boolean useCards;
 	private final Wallet wallet;
 	private final int maxConnectedPeers;
 	@Nullable
@@ -71,6 +74,7 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 	private MonetaryFormat format;
 	private boolean showBackupWarning = false;
 
+	private final int colorBackground;
 	private final int colorSignificant;
 	private final int colorInsignificant;
 	private final int colorError;
@@ -105,20 +109,22 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 		}
 	}
 
-	public TransactionsAdapter(final Context context, final Wallet wallet, final int maxConnectedPeers,
+	public TransactionsAdapter(final Context context, final Wallet wallet, final boolean useCards, final int maxConnectedPeers,
 			final @Nullable OnClickListener onClickListener)
 	{
 		this.context = context;
 		inflater = LayoutInflater.from(context);
 
+		this.useCards = useCards;
 		this.wallet = wallet;
 		this.maxConnectedPeers = maxConnectedPeers;
 		this.onClickListener = onClickListener;
 
-		final Resources resources = context.getResources();
-		colorSignificant = resources.getColor(R.color.fg_significant);
-		colorInsignificant = resources.getColor(R.color.fg_insignificant);
-		colorError = resources.getColor(R.color.fg_error);
+		final Resources res = context.getResources();
+		colorBackground = res.getColor(R.color.bg_bright);
+		colorSignificant = res.getColor(R.color.fg_significant);
+		colorInsignificant = res.getColor(R.color.fg_insignificant);
+		colorError = res.getColor(R.color.fg_error);
 		textCoinBase = context.getString(R.string.wallet_transactions_fragment_coinbase);
 		textInternal = context.getString(R.string.wallet_transactions_fragment_internal);
 
@@ -200,11 +206,28 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 	public RecyclerView.ViewHolder onCreateViewHolder(final ViewGroup parent, final int viewType)
 	{
 		if (viewType == VIEW_TYPE_TRANSACTION)
-			return new TransactionViewHolder(inflater.inflate(R.layout.transaction_row, parent, false));
+		{
+			if (useCards)
+			{
+				final CardView cardView = (CardView) inflater.inflate(R.layout.transaction_row_card, parent, false);
+				cardView.setCardBackgroundColor(colorBackground);
+				cardView.setPreventCornerOverlap(false);
+				cardView.setUseCompatPadding(true);
+				return new TransactionViewHolder(cardView);
+			}
+			else
+			{
+				return new TransactionViewHolder(inflater.inflate(R.layout.transaction_row, parent, false));
+			}
+		}
 		else if (viewType == VIEW_TYPE_WARNING)
+		{
 			return new WarningViewHolder(inflater.inflate(R.layout.transaction_row_warning, parent, false));
+		}
 		else
+		{
 			throw new IllegalStateException("unknown type: " + viewType);
+		}
 	}
 
 	@Override
