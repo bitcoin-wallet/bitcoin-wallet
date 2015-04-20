@@ -131,9 +131,7 @@
 		android:layout_marginTop="8dp"
 		android:text="@string/send_coins_fragment_direct_payment_enable" />
 
-	<!-- stretch dummy -->
-
-	<ImageView
+	<Space
 		android:layout_width="0px"
 		android:layout_height="0px"
 		android:layout_weight="1" />

@@ -64,9 +64,7 @@
 		android:layout_marginRight="@dimen/list_entry_padding_horizontal_lax"
 		android:layout_marginTop="8dp" />
 
-	<!-- stretch dummy -->
-
-	<ImageView
+	<Space
 		android:layout_width="0px"
 		android:layout_height="0px"
 		android:layout_weight="1" />
