@@ -61,7 +61,6 @@ import android.os.Handler;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.RecyclerView.State;
 import android.text.SpannableStringBuilder;
 import android.text.format.DateUtils;
 import android.text.style.StyleSpan;
@@ -173,7 +172,7 @@ public class WalletTransactionsFragment extends Fragment implements LoaderCallba
 			private final int PADDING = 2 * activity.getResources().getDimensionPixelOffset(R.dimen.card_padding_vertical);
 
 			@Override
-			public void getItemOffsets(final Rect outRect, final View view, final RecyclerView parent, final State state)
+			public void getItemOffsets(final Rect outRect, final View view, final RecyclerView parent, final RecyclerView.State state)
 			{
 				super.getItemOffsets(outRect, view, parent, state);
 

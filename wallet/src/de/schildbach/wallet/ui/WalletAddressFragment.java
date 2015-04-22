@@ -40,12 +40,14 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.Loader;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
 import android.nfc.NfcEvent;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
+import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -101,7 +103,10 @@ public final class WalletAddressFragment extends Fragment implements NfcAdapter.
 		final View view = inflater.inflate(R.layout.wallet_address_fragment, container, false);
 		currentAddressQrView = (ImageView) view.findViewById(R.id.bitcoin_address_qr);
 
-		currentAddressQrView.setOnClickListener(new OnClickListener()
+		final CardView currentAddressQrCardView = (CardView) view.findViewById(R.id.bitcoin_address_qr_card);
+		currentAddressQrCardView.setCardBackgroundColor(Color.WHITE);
+		currentAddressQrCardView.setPreventCornerOverlap(false);
+		currentAddressQrCardView.setOnClickListener(new OnClickListener()
 		{
 			@Override
 			public void onClick(final View v)

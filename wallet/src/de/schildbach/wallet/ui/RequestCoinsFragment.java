@@ -44,6 +44,7 @@ import android.content.Loader;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.net.Uri;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
@@ -51,6 +52,7 @@ import android.nfc.NfcAdapter;
 import android.nfc.NfcEvent;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.text.SpannableStringBuilder;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -182,7 +184,11 @@ public final class RequestCoinsFragment extends Fragment implements NfcAdapter.C
 		final View view = inflater.inflate(R.layout.request_coins_fragment, container, false);
 
 		qrView = (ImageView) view.findViewById(R.id.request_coins_qr);
-		qrView.setOnClickListener(new OnClickListener()
+
+		final CardView qrCardView = (CardView) view.findViewById(R.id.request_coins_qr_card);
+		qrCardView.setCardBackgroundColor(Color.WHITE);
+		qrCardView.setPreventCornerOverlap(false);
+		qrCardView.setOnClickListener(new OnClickListener()
 		{
 			@Override
 			public void onClick(final View v)
