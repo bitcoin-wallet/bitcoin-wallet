@@ -9,7 +9,7 @@
 		android:layout_width="0px"
 		android:layout_height="match_parent"
 		android:layout_weight="1"
-		android:foreground="@drawable/fragment_shadow_vertical_flip"
+		android:foreground="@drawable/view_shadow_left"
 		android:foregroundGravity="right|fill_vertical" >
 
 		<include
@@ -21,7 +21,7 @@
 	<FrameLayout
 		android:layout_width="wrap_content"
 		android:layout_height="match_parent"
-		android:background="@color/bg_panel"
+		android:background="@color/bg_less_bright"
 		android:paddingBottom="@dimen/list_entry_padding_vertical"
 		android:paddingLeft="@dimen/list_entry_padding_horizontal"
 		android:paddingRight="@dimen/list_entry_padding_horizontal"
