@@ -91,6 +91,13 @@
 					<groupId>com.simpligility.maven.plugins</groupId>
 					<artifactId>android-maven-plugin</artifactId>
 					<version>4.2.0</version>
+					<dependencies>
+						<dependency>
+							<groupId>net.sf.proguard</groupId>
+							<artifactId>proguard-base</artifactId>
+							<version>5.1</version>
+						</dependency>
+					</dependencies>
 					<configuration>
 						<genDirectory>${basedir}/gen</genDirectory>
 					</configuration>
