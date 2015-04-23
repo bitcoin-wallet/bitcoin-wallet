@@ -47,7 +47,7 @@ is world readable/writeable. The goal is to be able to debug easily.
 
 You can probably skip some steps, especially if you built Android apps before.
 
-You'll need git, a Java SDK 6 (or later) and Maven 3.0.4 (or later) for this. I'll assume Ubuntu Linux
+You'll need git, a Java SDK 6 (or later) and Maven 3.0.5 (or later) for this. I'll assume Ubuntu Linux
 for the package installs.
 
 	# first time only
@@ -64,7 +64,7 @@ and switch to it. Use
 	tools/android update sdk --no-ui --force --filter tools
 
 	# fetch required android dependencies
-	tools/android update sdk --no-ui --force --filter build-tools-20.0.0,android-10,android-16,extra-android-m2repository
+	tools/android update sdk --no-ui --force --filter build-tools-22.0.1,android-15,android-16,extra-android-m2repository
 
 to download the necessary API level.
 
