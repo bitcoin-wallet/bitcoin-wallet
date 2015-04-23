@@ -74,7 +74,9 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 	private MonetaryFormat format;
 	private boolean showBackupWarning = false;
 
-	private final int colorBackground;
+	private long selectedItemId = RecyclerView.NO_ID;
+
+	private final int colorBackground, colorBackgroundSelected;
 	private final int colorSignificant;
 	private final int colorInsignificant;
 	private final int colorError;
@@ -122,6 +124,7 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
 		final Resources res = context.getResources();
 		colorBackground = res.getColor(R.color.bg_bright);
+		colorBackgroundSelected = res.getColor(R.color.bg_panel);
 		colorSignificant = res.getColor(R.color.fg_significant);
 		colorInsignificant = res.getColor(R.color.fg_insignificant);
 		colorError = res.getColor(R.color.fg_error);
@@ -168,6 +171,13 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 		notifyDataSetChanged();
 	}
 
+	public void setSelectedItemId(final long itemId)
+	{
+		selectedItemId = itemId;
+
+		notifyDataSetChanged();
+	}
+
 	@Override
 	public int getItemCount()
 	{
@@ -182,6 +192,9 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 	@Override
 	public long getItemId(final int position)
 	{
+		if (position == RecyclerView.NO_POSITION)
+			return RecyclerView.NO_ID;
+
 		if (position == transactions.size() && showBackupWarning)
 			return 0;
 
@@ -210,7 +223,6 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 			if (useCards)
 			{
 				final CardView cardView = (CardView) inflater.inflate(R.layout.transaction_row_card, parent, false);
-				cardView.setCardBackgroundColor(colorBackground);
 				cardView.setPreventCornerOverlap(false);
 				cardView.setUseCompatPadding(true);
 				return new TransactionViewHolder(cardView);
@@ -236,6 +248,10 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 		if (holder instanceof TransactionViewHolder)
 		{
 			final TransactionViewHolder transactionHolder = (TransactionViewHolder) holder;
+
+			final long itemId = getItemId(position);
+			transactionHolder.itemView.setActivated(itemId == selectedItemId);
+
 			final Transaction tx = transactions.get(position);
 			transactionHolder.bind(tx);
 
@@ -246,6 +262,7 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 					@Override
 					public void onClick(final View v)
 					{
+						setSelectedItemId(getItemId(transactionHolder.getAdapterPosition()));
 						onClickListener.onTransactionClick(tx);
 					}
 				});
@@ -297,6 +314,9 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
 		private void bind(final Transaction tx)
 		{
+			if (itemView instanceof CardView)
+				((CardView) itemView).setCardBackgroundColor(itemView.isActivated() ? colorBackgroundSelected : colorBackground);
+
 			final TransactionConfidence confidence = tx.getConfidence();
 			final ConfidenceType confidenceType = confidence.getConfidenceType();
 			final boolean isOwn = confidence.getSource().equals(TransactionConfidence.Source.SELF);
@@ -400,7 +420,7 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 			addressView.setTypeface(label != null ? Typeface.DEFAULT : Typeface.MONOSPACE);
 
 			// fee
-			extendFeeView.setVisibility(txCache.showFee ? View.VISIBLE : View.GONE);
+			extendFeeView.setVisibility(itemView.isActivated() && txCache.showFee ? View.VISIBLE : View.GONE);
 			feeView.setAlwaysSigned(true);
 			feeView.setFormat(format);
 			if (txCache.showFee)
