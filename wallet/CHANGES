@@ -1,3 +1,9 @@
+v4.26
+
+* Material design for list of transactions.
+* Update Albanian, Turkish, Finnish, Spanish, Russian, Norwegian Bokmål, Japanese, Italian,
+  French, Danish, Czech and Catalan translations.
+
 v4.25
 
 * Update android-maven-plugin to 4.2.0, so we can use AARs.
