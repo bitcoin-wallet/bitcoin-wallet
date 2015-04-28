@@ -17,7 +17,6 @@
 
 package de.schildbach.wallet.ui;
 
-import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -29,7 +28,6 @@ import java.util.concurrent.RejectedExecutionException;
 import javax.annotation.Nullable;
 
 import org.bitcoinj.core.Address;
-import org.bitcoinj.core.ScriptException;
 import org.bitcoinj.core.Transaction;
 import org.bitcoinj.core.Transaction.Purpose;
 import org.bitcoinj.core.TransactionConfidence.ConfidenceType;
@@ -64,13 +62,14 @@ import android.support.v7.widget.RecyclerView;
 import android.text.SpannableStringBuilder;
 import android.text.format.DateUtils;
 import android.text.style.StyleSpan;
-import android.view.ActionMode;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.PopupMenu;
+import android.widget.PopupMenu.OnMenuItemClickListener;
 import android.widget.TextView;
 import android.widget.ViewAnimator;
 import de.schildbach.wallet.AddressBookProvider;
@@ -116,6 +115,7 @@ public class WalletTransactionsFragment extends Fragment implements LoaderCallba
 
 	private static final long THROTTLE_MS = DateUtils.SECOND_IN_MILLIS;
 	private static final Uri KEY_ROTATION_URI = Uri.parse("https://bitcoin.org/en/alert/2013-08-11-android");
+	private static final int SHOW_QR_THRESHOLD_BYTES = 2500;
 
 	private static final Logger log = LoggerFactory.getLogger(WalletTransactionsFragment.class);
 
@@ -264,108 +264,41 @@ public class WalletTransactionsFragment extends Fragment implements LoaderCallba
 	}
 
 	@Override
-	public void onTransactionClick(final Transaction tx)
+	public void onTransactionMenuClick(final View view, final Transaction tx)
 	{
-		if (tx.getPurpose() == Purpose.KEY_ROTATION)
-			handleKeyRotationClick();
-		else
-			handleTransactionClick(tx);
-	}
+		final boolean txSent = tx.getValue(wallet).signum() < 0;
+		final Address txAddress = txSent ? WalletUtils.getToAddressOfSent(tx, wallet) : WalletUtils.getWalletAddressOfReceived(tx, wallet);
+		final byte[] txSerialized = tx.unsafeBitcoinSerialize();
+		final boolean txRotation = tx.getPurpose() == Purpose.KEY_ROTATION;
 
-	@Override
-	public void onWarningClick()
-	{
-		((WalletActivity) activity).handleBackupWallet();
-	}
-
-	private void handleTransactionClick(final Transaction tx)
-	{
-		activity.startActionMode(new ActionMode.Callback()
+		final PopupMenu popupMenu = new PopupMenu(activity, view);
+		popupMenu.inflate(R.menu.wallet_transactions_context);
+		popupMenu.getMenu().findItem(R.id.wallet_transactions_context_edit_address).setVisible(!txRotation && txAddress != null);
+		popupMenu.getMenu().findItem(R.id.wallet_transactions_context_show_qr)
+				.setVisible(!txRotation && txSerialized.length < SHOW_QR_THRESHOLD_BYTES);
+		popupMenu.setOnMenuItemClickListener(new OnMenuItemClickListener()
 		{
-			private final boolean txSent = tx.getValue(wallet).signum() < 0;
-			private final Address txAddress = txSent ? WalletUtils.getToAddressOfSent(tx, wallet) : WalletUtils
-					.getWalletAddressOfReceived(tx, wallet);
-			private final byte[] txSerialized = tx.unsafeBitcoinSerialize();
-
-			private static final int SHOW_QR_THRESHOLD_BYTES = 2500;
-
 			@Override
-			public boolean onCreateActionMode(final ActionMode mode, final Menu menu)
-			{
-				final MenuInflater inflater = mode.getMenuInflater();
-				inflater.inflate(R.menu.wallet_transactions_context, menu);
-
-				return true;
-			}
-
-			@Override
-			public boolean onPrepareActionMode(final ActionMode mode, final Menu menu)
-			{
-				try
-				{
-					final Date time = tx.getUpdateTime();
-					final DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(activity);
-					final DateFormat timeFormat = android.text.format.DateFormat.getTimeFormat(activity);
-
-					mode.setTitle(time != null ? (DateUtils.isToday(time.getTime()) ? getString(R.string.time_today) : dateFormat.format(time))
-							+ ", " + timeFormat.format(time) : null);
-
-					final String label;
-					if (tx.isCoinBase())
-						label = getString(R.string.wallet_transactions_fragment_coinbase);
-					else if (txAddress != null)
-						label = AddressBookProvider.resolveLabel(activity, txAddress.toString());
-					else
-						label = "?";
-
-					final String prefix = getString(txSent ? R.string.symbol_to : R.string.symbol_from) + " ";
-
-					if (tx.getPurpose() != Purpose.KEY_ROTATION)
-						mode.setSubtitle(label != null ? prefix + label : WalletUtils.formatAddress(prefix, txAddress,
-								Constants.ADDRESS_FORMAT_GROUP_SIZE, Constants.ADDRESS_FORMAT_LINE_SIZE));
-					else
-						mode.setSubtitle(null);
-
-					menu.findItem(R.id.wallet_transactions_context_edit_address).setVisible(txAddress != null);
-					menu.findItem(R.id.wallet_transactions_context_show_qr).setVisible(txSerialized.length < SHOW_QR_THRESHOLD_BYTES);
-
-					return true;
-				}
-				catch (final ScriptException x)
-				{
-					return false;
-				}
-			}
-
-			@Override
-			public boolean onActionItemClicked(final ActionMode mode, final MenuItem item)
+			public boolean onMenuItemClick(final MenuItem item)
 			{
 				switch (item.getItemId())
 				{
 					case R.id.wallet_transactions_context_edit_address:
 						handleEditAddress(tx);
-
-						mode.finish();
 						return true;
 
 					case R.id.wallet_transactions_context_show_qr:
 						handleShowQr();
-
-						mode.finish();
 						return true;
 
 					case R.id.wallet_transactions_context_browse:
-						startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.EXPLORE_BASE_URL + "tx/" + tx.getHashAsString())));
-
-						mode.finish();
+						if (!txRotation)
+							startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.EXPLORE_BASE_URL + "tx/" + tx.getHashAsString())));
+						else
+							startActivity(new Intent(Intent.ACTION_VIEW, KEY_ROTATION_URI));
 						return true;
 				}
 				return false;
-			}
-
-			@Override
-			public void onDestroyActionMode(final ActionMode mode)
-			{
 			}
 
 			private void handleEditAddress(final Transaction tx)
@@ -380,11 +313,13 @@ public class WalletTransactionsFragment extends Fragment implements LoaderCallba
 				BitmapFragment.show(getFragmentManager(), qrCodeBitmap);
 			}
 		});
+		popupMenu.show();
 	}
 
-	private void handleKeyRotationClick()
+	@Override
+	public void onWarningClick()
 	{
-		startActivity(new Intent(Intent.ACTION_VIEW, KEY_ROTATION_URI));
+		((WalletActivity) activity).handleBackupWallet();
 	}
 
 	@Override

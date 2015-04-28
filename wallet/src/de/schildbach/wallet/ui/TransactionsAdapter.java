@@ -49,6 +49,7 @@ import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import de.schildbach.wallet.AddressBookProvider;
 import de.schildbach.wallet.Constants;
@@ -255,15 +256,23 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 			final Transaction tx = transactions.get(position);
 			transactionHolder.bind(tx);
 
+			transactionHolder.itemView.setOnClickListener(new View.OnClickListener()
+			{
+				@Override
+				public void onClick(final View v)
+				{
+					setSelectedItemId(getItemId(transactionHolder.getAdapterPosition()));
+				}
+			});
+
 			if (onClickListener != null)
 			{
-				transactionHolder.itemView.setOnClickListener(new View.OnClickListener()
+				transactionHolder.menuView.setOnClickListener(new View.OnClickListener()
 				{
 					@Override
 					public void onClick(final View v)
 					{
-						setSelectedItemId(getItemId(transactionHolder.getAdapterPosition()));
-						onClickListener.onTransactionClick(tx);
+						onClickListener.onTransactionMenuClick(v, tx);
 					}
 				});
 			}
@@ -272,13 +281,14 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
 	public interface OnClickListener
 	{
-		void onTransactionClick(Transaction tx);
+		void onTransactionMenuClick(View view, Transaction tx);
 
 		void onWarningClick();
 	}
 
 	private class TransactionViewHolder extends RecyclerView.ViewHolder
 	{
+		private final View contentView;
 		private final CircularProgressView confidenceCircularView;
 		private final TextView confidenceTextualView;
 		private final TextView timeView;
@@ -292,11 +302,14 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 		private final CurrencyTextView fiatView;
 		private final View extendMessageView;
 		private final TextView messageView;
+		private final View extendMenuView;
+		private final ImageButton menuView;
 
 		private TransactionViewHolder(final View itemView)
 		{
 			super(itemView);
 
+			contentView = itemView.findViewById(R.id.transaction_row_content);
 			confidenceCircularView = (CircularProgressView) itemView.findViewById(R.id.transaction_row_confidence_circular);
 			confidenceTextualView = (TextView) itemView.findViewById(R.id.transaction_row_confidence_textual);
 			timeView = (TextView) itemView.findViewById(R.id.transaction_row_time);
@@ -310,6 +323,8 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 			fiatView = (CurrencyTextView) itemView.findViewById(R.id.transaction_row_fiat);
 			extendMessageView = itemView.findViewById(R.id.transaction_row_extend_message);
 			messageView = (TextView) itemView.findViewById(R.id.transaction_row_message);
+			extendMenuView = itemView.findViewById(R.id.transaction_row_extend_menu);
+			menuView = (ImageButton) itemView.findViewById(R.id.transaction_row_menu);
 		}
 
 		private void bind(final Transaction tx)
@@ -500,6 +515,11 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 				messageView.setText(tx.getMemo());
 				messageView.setTextColor(colorInsignificant);
 			}
+
+			// menu
+			contentView.setPadding(contentView.getPaddingLeft(), contentView.getPaddingTop(), itemView.isActivated() ? 0 : context.getResources()
+					.getDimensionPixelOffset(R.dimen.list_entry_padding_horizontal), contentView.getPaddingBottom());
+			extendMenuView.setVisibility(itemView.isActivated() ? View.VISIBLE : View.GONE);
 		}
 	}
 
