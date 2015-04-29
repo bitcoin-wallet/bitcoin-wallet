@@ -12,6 +12,7 @@
   <string name="blockchain_state_progress_problem_storage">Sincronización: Problema de almacenamiento</string>
   <string name="blockchain_state_progress_problem_network">Sincronización: Problema de red</string>
   <string name="wallet_address_fragment_clipboard_msg">Dirección Bitcoin copiada al portapapeles</string>
+  <string name="wallet_address_dialog_fragment_hint">Para proteger su privacidad, su dirección cambiará una vez reciba un pago.</string>
   <string name="wallet_balance_fragment_too_much">Esta cantidad es demasiado grande para llevar en tu bolsillo, por favor, muévela a un lugar más seguro.</string>
   <string name="wallet_balance_fragment_replaying">Saldo no disponible durante la reevaluación.</string>
   <string name="exchange_rates_activity_title">Tasas de cambio</string>
@@ -41,7 +42,7 @@
   <string name="wallet_low_storage_dialog_title">Espacio de almacenamiento interno de dispositivo bajo!</string>
   <string name="wallet_low_storage_dialog_msg">Bitcoin Wallet usa la memoria interna para recordar transacciones y bloques. Si te quedas sin espacio, dejará de funcionar y tus Bitcoins estarán en riesgo.\n\n¿Quieres abrir el administrador de aplicaciones para desinstalar apps innecesarias?</string>
   <string name="wallet_low_storage_dialog_button_apps">Gestionar aplicaciones</string>
-  <string name="wallet_timeskew_dialog_title">¡Compruebe la hora del sistema! </string>
+  <string name="wallet_timeskew_dialog_title">¡Compruebe la hora del sistema!</string>
   <string name="wallet_timeskew_dialog_msg">La hora de tu dispositivo es errónea por %d minutos. Probablemente no puedes enviar ni recibir Bitcoins debido a este problema.\n\nDebes revisar y corregir tu hora y ajustes de huso horario.</string>
   <string name="wallet_version_dialog_title">¡Hay una nueva versión disponible!</string>
   <string name="wallet_version_dialog_msg">Esta versión corrige fallos importantes. Más detalles en el historial de cambios de Google Play.</string>
@@ -122,6 +123,7 @@
   <string name="request_coins_options_local_app_title">Petición desde aplicación local</string>
   <string name="address_book_activity_title">Libreta de direcciones</string>
   <string name="address_book_list_receiving_title">Sus direcciones</string>
+  <string name="address_book_list_receiving_random">Direcciones antiguas</string>
   <string name="address_book_list_sending_title">Direcciones para envíos</string>
   <string name="address_book_empty_text">No hay entradas en la libreta de direcciones</string>
   <string name="address_book_context_send_title">Enviar bitcoins a la dirección</string>
@@ -179,6 +181,8 @@
   <string name="export_keys_dialog_mail_intent_chooser">Archivar cartera usando…</string>
   <string name="export_keys_dialog_mail_intent_failed">Archivo de cartera fallido.</string>
   <string name="import_export_keys_dialog_password">Contraseña</string>
+  <string name="backup_wallet_dialog_password_again">otra vez</string>
+  <string name="backup_wallet_dialog_password_mismatch">incorrecta!</string>
   <string name="import_export_keys_dialog_show">Mostrar contraseña</string>
   <string name="import_export_keys_dialog_failure_title">Error</string>
   <string name="import_keys_intent_filter_action">Restaurar cartera</string>
@@ -224,6 +228,11 @@
   <string name="preferences_initiate_reset_summary">Reiniciar cadena de bloques, transacciones y saldo de la cartera. La reevaluación tardará un tiempo.</string>
   <string name="preferences_initiate_reset_dialog_message">¿Le gustaría reiniciar y recargar la cadena de bloques?\n\nEsto esconderá temporalmente el balance de su cartera y eliminará las transacciones. Ambos se recuperarán durante el progreso de la sincronización de la cadena de bloques.</string>
   <string name="preferences_initiate_reset_dialog_positive">Reiniciar</string>
+  <string name="preferences_extended_public_key_title">Mostrar xpub</string>
+  <string name="preferences_extended_public_key_summary">Ve la llave publica extendida de tu billetera, para que pueda ser importada hacia otras apps y servicios ten cuidado: hacer esto dara a conocer tu privacidad monetaria a esa app.</string>
+  <string name="bitmap_fragment_share">Comparte…</string>
+  <string name="extended_public_key_fragment_title">Extender llave publica</string>
+  <string name="extended_public_key_fragment_share">Comparte xpub…</string>
   <string name="report_issue_dialog_title_issue">Informar de incidencia</string>
   <string name="report_issue_dialog_title_crash">Detectado error grave anterior</string>
   <string name="report_issue_dialog_message_issue">Por favor, describa su problema con suficientes detalles para que pueda ser identificado. Si ocurre concretamente en su cartera, intente adjuntar el volcado de datos.</string>
