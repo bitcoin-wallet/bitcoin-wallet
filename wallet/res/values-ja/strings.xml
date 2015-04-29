@@ -12,6 +12,7 @@
   <string name="blockchain_state_progress_problem_storage">同期: ストレージに問題があります</string>
   <string name="blockchain_state_progress_problem_network">同期: ネットワークに問題があります</string>
   <string name="wallet_address_fragment_clipboard_msg">ビットコインアドレスをクリップボードにコピーしました</string>
+  <string name="wallet_address_dialog_fragment_hint">プライバシー保護のため、アドレスは支払いを受け取るごとに変化します。</string>
   <string name="wallet_balance_fragment_too_much">この額はポケットに入れて運ぶには多すぎます。一部をもっと安全な場所に移してください。</string>
   <string name="wallet_balance_fragment_replaying">再生中は残高情報は利用できません。</string>
   <string name="exchange_rates_activity_title">為替レート</string>
@@ -122,6 +123,7 @@
   <string name="request_coins_options_local_app_title">ローカルアプリからのリクエスト</string>
   <string name="address_book_activity_title">アドレスブック</string>
   <string name="address_book_list_receiving_title">あなたのアドレス</string>
+  <string name="address_book_list_receiving_random">古いアドレス</string>
   <string name="address_book_list_sending_title">送金先アドレス</string>
   <string name="address_book_empty_text">アドレスブックにエントリーがありません</string>
   <string name="address_book_context_send_title">アドレスへビットコインを送金</string>
@@ -179,6 +181,8 @@
   <string name="export_keys_dialog_mail_intent_chooser">ウォレットのアーカイブに利用するアプリケーション…</string>
   <string name="export_keys_dialog_mail_intent_failed">ウォレットのアーカイブに失敗しました。</string>
   <string name="import_export_keys_dialog_password">パスワード</string>
+  <string name="backup_wallet_dialog_password_again">もう一度</string>
+  <string name="backup_wallet_dialog_password_mismatch">一致しません！</string>
   <string name="import_export_keys_dialog_show">パスワードを表示</string>
   <string name="import_export_keys_dialog_failure_title">エラー</string>
   <string name="import_keys_intent_filter_action">ウォレットのリストア</string>
@@ -226,6 +230,7 @@
   <string name="preferences_initiate_reset_dialog_positive">リセット</string>
   <string name="preferences_extended_public_key_title">xpubを表示</string>
   <string name="preferences_extended_public_key_summary">他のアプリやサービスにインポートできるように、ウォレットの拡張公開鍵を表示します。注意: その場合そのアプリに金銭的なプライバシー情報を公開することになります。</string>
+  <string name="bitmap_fragment_share">共有…</string>
   <string name="extended_public_key_fragment_title">拡張公開鍵</string>
   <string name="extended_public_key_fragment_share">xpubを共有……</string>
   <string name="report_issue_dialog_title_issue">問題を報告</string>
