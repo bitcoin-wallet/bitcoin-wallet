@@ -12,6 +12,7 @@
   <string name="blockchain_state_progress_problem_storage">Synkroniserer: Plassproblem</string>
   <string name="blockchain_state_progress_problem_network">Synkroniserer: Nettverksproblem</string>
   <string name="wallet_address_fragment_clipboard_msg">Bitcoin-adresse kopieret til utklippstavlen</string>
+  <string name="wallet_address_dialog_fragment_hint">For å beskytte ditt privatliv, vil adressen din endre seg når den mottar en betaling.</string>
   <string name="wallet_balance_fragment_too_much">Dette beløpet er ganske høyt for å bære rundt i lommen din. Vennligst flytt noe til et tryggere sted.</string>
   <string name="wallet_balance_fragment_replaying">Saldo er ikke tilgjengelig under avspilling.</string>
   <string name="exchange_rates_activity_title">Valutakurser</string>
@@ -122,6 +123,7 @@
   <string name="request_coins_options_local_app_title">Forespørsel fra lokal app</string>
   <string name="address_book_activity_title">Adressebok</string>
   <string name="address_book_list_receiving_title">Dine adresser</string>
+  <string name="address_book_list_receiving_random">Gamle adresser</string>
   <string name="address_book_list_sending_title">Sender adresser</string>
   <string name="address_book_empty_text">Ingen elementer i adressebok</string>
   <string name="address_book_context_send_title">Send bitcoins til adresse</string>
@@ -179,6 +181,8 @@
   <string name="export_keys_dialog_mail_intent_chooser">Arkiver lommebok ved hjelp av…</string>
   <string name="export_keys_dialog_mail_intent_failed">Arkivering av lommebok mislyktes.</string>
   <string name="import_export_keys_dialog_password">passord</string>
+  <string name="backup_wallet_dialog_password_again">igjen</string>
+  <string name="backup_wallet_dialog_password_mismatch">uoverensstemmelse!</string>
   <string name="import_export_keys_dialog_show">Vis passeord</string>
   <string name="import_export_keys_dialog_failure_title">Feil</string>
   <string name="import_keys_intent_filter_action">Gjenopprett lommebok</string>
@@ -226,6 +230,7 @@
   <string name="preferences_initiate_reset_dialog_positive">Nullstill</string>
   <string name="preferences_extended_public_key_title">Vis xpub</string>
   <string name="preferences_extended_public_key_summary">Vis den utvidede offentlige nøkkelen til lommeboken din, slik at den kan importeres i andre programmer og tjenester. Vær forsiktig: dette vil utlevere dine transaksjoner og privatliv til det programmet.</string>
+  <string name="bitmap_fragment_share">Del…</string>
   <string name="extended_public_key_fragment_title">Utvidet Offentlig Nøkkel</string>
   <string name="extended_public_key_fragment_share">Del xpub…</string>
   <string name="report_issue_dialog_title_issue">Rapporter problem</string>
