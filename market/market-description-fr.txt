@@ -1,4 +1,4 @@
-<b>Ayez vos bitcoins toujours avec vous dans votre poche !<b> Payez rapidement en balayant un code QR. En tant que marchant, vous recevez les paiements de manière fiable et instantanée. Bitcoin Wallet est la première appli Bitcoin mobile et sans doute aussi la plus sécuritaire !
+<b>Ayez vos bitcoins toujours avec vous dans votre poche !<b> Payez rapidement en numérisant un code QR. En tant que marchand, vous recevez les paiements de manière fiable et instantanée. Bitcoin Wallet est la première appli Bitcoin mobile et sans doute aussi la plus sûre !
 
 
 <b>CARACTÉRISTIQUES</b>
@@ -11,12 +11,12 @@
 • Quand vous êtes hors-ligne vous pouvez quand même payez via Bluetooth.
 • Notification du système pour les pièces reçues.
 • Balayage de portefeuilles papier (c.-à-d. ceux utilisés pour le stockage à froid).
-• Widget affichant le solde bitcoin.
+• Widget applicatif pour le solde en bitcoin.
 
 
 <b>CONTRIBUER</b>
 
-Bitcoin Wallet est un <b>logiciel à code source libre</b> et <b>ouvert</b>. Licence : GPLv3
+Bitcoin Wallet est un <b>logiciel à code source ouvert</b> et <b>libre</b>. Licence : GPLv3
 https://www.gnu.org/licenses/gpl-3.0.fr.html
 
 Notre code source est proposée sur GutHub :

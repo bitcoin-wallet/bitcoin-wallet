@@ -12,6 +12,7 @@
   <string name="blockchain_state_progress_problem_storage">Synchronisation : problème de stockage</string>
   <string name="blockchain_state_progress_problem_network">Synchronisation : problème de réseau</string>
   <string name="wallet_address_fragment_clipboard_msg">Adresse Bitcoin copiée dans le presse-papiers</string>
+  <string name="wallet_address_dialog_fragment_hint">Par souci de confidentialité, votre adresse changera après avoir reçu un paiement.</string>
   <string name="wallet_balance_fragment_too_much">Ce montant est plutôt élevé pour être gardé dans votre poche, veuillez en déplacer un peu dans un endroit plus sûr.</string>
   <string name="wallet_balance_fragment_replaying">Le solde est indisponible durant la reprise.</string>
   <string name="exchange_rates_activity_title">Taux de change</string>
@@ -91,7 +92,7 @@
   <string name="sweep_wallet_activity_title">Balayer un portefeuille papier</string>
   <string name="sweep_wallet_fragment_intro">Vous allez balayer un portefeuille papier ou un coupon. Ceci déplacera toutes les pièces de ce papier vers votre portefeuille sur cet appareil. Quand la transaction sera confirmée, le papier sera sans valeur et ne devrait pas être réutilisé pour des raisons de sécurité.</string>
   <string name="sweep_wallet_fragment_hint">Les portefeuilles papier sont habituellement utilisés pour le stockage à froid. Certains GAB les imprimes sur le reçu papier plutôt que d\'envoyer les pièces directement vers votre appareil mobile. Certaines personnes utilisent des portefeuilles papier préchargés pour passer des valeurs (non recommandé).</string>
-  <string name="sweep_wallet_fragment_wallet_unknown">Commencez par balayer la clef privé d\'un portefeuille papier. Utilisez le bouton d\'action de l\'appareil photo.</string>
+  <string name="sweep_wallet_fragment_wallet_unknown">Commencez par numériser la clef privée d\'un portefeuille papier. Utilisez le bouton d\'action de l\'appareil photo.</string>
   <string name="sweep_wallet_fragment_encrypted">La clef privée est protégée par un mot de passe.</string>
   <string name="sweep_wallet_fragment_password">mot de passe</string>
   <string name="sweep_wallet_fragment_bad_password">mot de passe erroné !</string>
@@ -114,7 +115,7 @@
   <string name="request_coins_activity_title">Demander des bitcoins</string>
   <string name="request_coins_fragment_amount_label">Montant demandé (optionnel)</string>
   <string name="request_coins_fragment_accept_bluetooth_payment">Accepter les paiements par Bluetooth pour un traitement plus fiable.</string>
-  <string name="request_coins_fragment_initiate_request_qr">Faites balayer ce code par l\'expéditeur.</string>
+  <string name="request_coins_fragment_initiate_request_qr">Faites numériser ce code par l\'expéditeur.</string>
   <string name="request_coins_fragment_initiate_request_nfc">Ou touchez un appareil ayant la NFC.</string>
   <string name="request_coins_clipboard_msg">Demande de bitcoins copiée dans le presse-papiers</string>
   <string name="request_coins_share_dialog_title">Partager la demande de bitcoins…</string>
@@ -122,6 +123,7 @@
   <string name="request_coins_options_local_app_title">Demander à une appli locale</string>
   <string name="address_book_activity_title">Carnet d\'adresses</string>
   <string name="address_book_list_receiving_title">Vos adresses</string>
+  <string name="address_book_list_receiving_random">Anciennes adresses</string>
   <string name="address_book_list_sending_title">Adresses d\'envoi</string>
   <string name="address_book_empty_text">Carnet d\'adresses vide</string>
   <string name="address_book_context_send_title">Envoyer des bitcoins à une adresse</string>
@@ -132,7 +134,7 @@
   <string name="address_book_options_paste_from_clipboard_empty">Le presse-papiers est vide</string>
   <string name="address_book_options_paste_from_clipboard_invalid">Les données provenant du presse-papiers ne peuvent pas être reconnues.</string>
   <string name="address_book_options_scan_title">Numériser l\'adresse</string>
-  <string name="address_book_options_scan_invalid">Les données balayées ne peuvent pas être reconnues</string>
+  <string name="address_book_options_scan_invalid">Les données numérisées ne peuvent pas être reconnues</string>
   <string name="address_book_row_message_compromised_key">Cette adresse peut-être compromise. Vous ne devriez plus l\'utiliser pour recevoir des bitcoins.</string>
   <string name="edit_address_book_entry_dialog_title_add">Ajouter l\'adresse</string>
   <string name="edit_address_book_entry_dialog_title_edit">Modifier l\'adresse</string>
@@ -175,10 +177,12 @@
   <string name="export_keys_dialog_failure">Votre portefeuille n\'a pas pu être exporté :\n%s</string>
   <string name="export_keys_dialog_button_archive">Archiver</string>
   <string name="export_keys_dialog_mail_subject">Sauvegarde du portefeuille Bitcoin</string>
-  <string name="export_keys_dialog_mail_text">Le fichier chiffré attaché contient les clefs privées bitcoin et doit être gardé en lieu sûr en tout temps. N\'oubliez pas le mot de passe de chiffrement !</string>
+  <string name="export_keys_dialog_mail_text">Le fichier chiffré attaché contient les clefs privées Bitcoin et doit être gardé en lieu sûr en tout temps. N\'oubliez pas le mot de passe de chiffrement !</string>
   <string name="export_keys_dialog_mail_intent_chooser">Archiver le portefeuille en utilisant…</string>
   <string name="export_keys_dialog_mail_intent_failed">Échec lors de l\'archivage du portefeuille.</string>
   <string name="import_export_keys_dialog_password">mot de passe</string>
+  <string name="backup_wallet_dialog_password_again">de nouveau</string>
+  <string name="backup_wallet_dialog_password_mismatch">différence !</string>
   <string name="import_export_keys_dialog_show">Montrer le mot de passe</string>
   <string name="import_export_keys_dialog_failure_title">Erreur</string>
   <string name="import_keys_intent_filter_action">Restaurer le portefeuille</string>
@@ -226,6 +230,7 @@
   <string name="preferences_initiate_reset_dialog_positive">Réinitialiser</string>
   <string name="preferences_extended_public_key_title">Montrer la xpub</string>
   <string name="preferences_extended_public_key_summary">Visualisez la clef privée étendue de votre portefeuille afin qu\'elle puisse être importée dans d\'autres applis et services. Attention : ceci divulguera vos informations monétaires à cette appli.</string>
+  <string name="bitmap_fragment_share">Partager…</string>
   <string name="extended_public_key_fragment_title">Clef privée étendue</string>
   <string name="extended_public_key_fragment_share">Partager la xpub…</string>
   <string name="report_issue_dialog_title_issue">Signaler un problème</string>

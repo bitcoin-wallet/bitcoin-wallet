@@ -7,7 +7,7 @@
 			Toquez pour vous rendre vers la liste des monnaies nationales et tapez sur l\'une d\'elles pour la choisir par défaut.
 		</p>
 		 <p>
-			Le QR code à droite contient votre adresse Bitcoin et peut être balayé par un tiers.
+			Le QR code à droite contient votre adresse Bitcoin et peut être numérisé par un tiers.
 			Toquez sur le code QR pour l\'agrandir.
 		</p>
 		<p>
@@ -31,11 +31,12 @@
 			Vous pouvez d\'abord saisir un montant de bitcoins à demander.
 		</p>
 		<p>
-			Ensuite, soit l\'autre personne numérise le code QR généré, soit vous pouvez envoyer votre demande à une personne éloignée avec le bouton Partager de la barre des actions.
-			L\'autre personne devra cliquer sur l\'URL bitcoin.
+			Ensuite, l\'autre personne peut numériser le code QR généré.
+			Vous pouvez aussi envoyer votre demande à une personne éloignée avec le bouton Partager de la barre de menu.
+			L\'autre personne devra cliquer sur l\'URL Bitcoin.
 		</p>
 		<p>
-			Dans les deux cas, l\'autre personne obtiendra une zone de dialogue pré-remplie pour envoyer les pièces.
+			Dans les deux cas, l\'autre personne obtiendra une zone de dialogue préremplie pour envoyer les pièces.
 			Si elle accepte, elle n\'aura qu\'à envoyer le paiement.
 		</p>
 	]]>
@@ -44,12 +45,12 @@
 <![CDATA[
 		<p>
 			Vous avez commencé le processus d\'envoi de bitcoins.
-			Vous êtes arrivé ici depuis l\'écran principal ou en cliquant sur une URL bitcoin dans votre navigateur.
+			Vous êtes arrivé ici depuis l\'écran principal ou en cliquant sur une URL Bitcoin dans votre navigateur.
 		</p>
 		<p>
 			D\'abord, saisir l\'adresse Bitcoin de destination.
 			L\'adresse sera complétée automatiquement pour les adresses enregistrées dans votre carnet.
-			Vous pouvez aussi numériser des codes QR avec des adresses bitcoin ou des demandes de bitcoins en pressant le bouton QR dans la barre des actions.
+			Vous pouvez aussi numériser des codes QR avec des adresses Bitcoin ou des demandes de bitcoins en pressant le bouton QR dans la barre d\'actions.
 		</p>
 		<p>
 			Ensuite, vous pouvez voir combien de bitcoins peuvent être dépensés actuellement.
