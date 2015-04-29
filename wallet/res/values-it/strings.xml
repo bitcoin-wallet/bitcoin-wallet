@@ -12,6 +12,7 @@
   <string name="blockchain_state_progress_problem_storage">Sincronizzazione: problema di Memorizzazione</string>
   <string name="blockchain_state_progress_problem_network">Sincronizzazione: problema di Rete</string>
   <string name="wallet_address_fragment_clipboard_msg">Indirizzo Bitcoin copiato negli appunti</string>
+  <string name="wallet_address_dialog_fragment_hint">Per proteggere la tua privacy, il tuo indirizzo cambierà alla ricezione di un pagamento.</string>
   <string name="wallet_balance_fragment_too_much">Questo importo è alto per essere portato con se. Si prega di spostarne alcuni in un luogo più sicuro.</string>
   <string name="wallet_balance_fragment_replaying">Il conto non è disponibile durante la ripetizione.</string>
   <string name="exchange_rates_activity_title">Tasso di cambio</string>
@@ -122,6 +123,7 @@
   <string name="request_coins_options_local_app_title">Richiesta dall\'app locale</string>
   <string name="address_book_activity_title">Rubrica</string>
   <string name="address_book_list_receiving_title">I tuoi indirizzi</string>
+  <string name="address_book_list_receiving_random">Vecchi indirizzi</string>
   <string name="address_book_list_sending_title">Invio di indirizzi</string>
   <string name="address_book_empty_text">Nessun indirizzo in rubrica</string>
   <string name="address_book_context_send_title">Invia Bitcoins all\'indirizzo</string>
@@ -179,6 +181,8 @@
   <string name="export_keys_dialog_mail_intent_chooser">Archiviare portafoglio usando…</string>
   <string name="export_keys_dialog_mail_intent_failed">Archiviazione portafoglio non riuscita.</string>
   <string name="import_export_keys_dialog_password">password</string>
+  <string name="backup_wallet_dialog_password_again">ancora</string>
+  <string name="backup_wallet_dialog_password_mismatch">sbagliata!</string>
   <string name="import_export_keys_dialog_show">Mostra password</string>
   <string name="import_export_keys_dialog_failure_title">Errore</string>
   <string name="import_keys_intent_filter_action">Ripristina portafoglio</string>
@@ -226,6 +230,7 @@
   <string name="preferences_initiate_reset_dialog_positive">Reset</string>
   <string name="preferences_extended_public_key_title">Mostra xpub</string>
   <string name="preferences_extended_public_key_summary">Mostra la chiave pubblica estesa del tuo portafoglio, in modo tale che possa essere importata su altre applicazioni e servizi. Fai attenzione: facendo ciò ti priverai della tua privacy monetaria nei confronti dell\'applicazione.</string>
+  <string name="bitmap_fragment_share">Condividi…</string>
   <string name="extended_public_key_fragment_title">Chiave pubblica estesa</string>
   <string name="extended_public_key_fragment_share">Condividi xpub…</string>
   <string name="report_issue_dialog_title_issue">Segnala un problema</string>
