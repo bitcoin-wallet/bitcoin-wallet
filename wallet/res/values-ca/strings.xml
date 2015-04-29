@@ -12,6 +12,7 @@
   <string name="blockchain_state_progress_problem_storage">Sincronitzant: problema d\'emmagatzematge</string>
   <string name="blockchain_state_progress_problem_network">Sincronitzant: problema de xarxa</string>
   <string name="wallet_address_fragment_clipboard_msg">L\'adreça Bitcoin s\'ha copiat al porta-retalls.</string>
+  <string name="wallet_address_dialog_fragment_hint">Per protegir la teva privacitat, la teva adreça canviarà quan rebi un pagament.</string>
   <string name="wallet_balance_fragment_too_much">Aquesta quantitat de diners és molt elevada per portar-la a la butxaca, mou una part a un lloc segur.</string>
   <string name="wallet_balance_fragment_replaying">El saldo no està disponible durant la repetició.</string>
   <string name="exchange_rates_activity_title">Preus de canvi</string>
@@ -122,6 +123,7 @@
   <string name="request_coins_options_local_app_title">Sol·licitud des de aplicació local</string>
   <string name="address_book_activity_title">Llibreta d\'adreces</string>
   <string name="address_book_list_receiving_title">La teva adreça</string>
+  <string name="address_book_list_receiving_random">Adreces antigues</string>
   <string name="address_book_list_sending_title">Enviant adreces</string>
   <string name="address_book_empty_text">Sense entrades a la llibreta d\'adreces</string>
   <string name="address_book_context_send_title">Envia Bitcoins a l\'adreça</string>
@@ -179,6 +181,8 @@
   <string name="export_keys_dialog_mail_intent_chooser">Desa la cartera utilitzant…</string>
   <string name="export_keys_dialog_mail_intent_failed">Desament de cartera fallat. </string>
   <string name="import_export_keys_dialog_password">paraula de pas</string>
+  <string name="backup_wallet_dialog_password_again">una altra vegada</string>
+  <string name="backup_wallet_dialog_password_mismatch">desajust!</string>
   <string name="import_export_keys_dialog_show">Mostra paraula de pas.</string>
   <string name="import_export_keys_dialog_failure_title">Error</string>
   <string name="import_keys_intent_filter_action">Recuperar cartera</string>
@@ -226,6 +230,7 @@
   <string name="preferences_initiate_reset_dialog_positive">Reinicia</string>
   <string name="preferences_extended_public_key_title">Mostra xpub</string>
   <string name="preferences_extended_public_key_summary">Visualitza la clau pública extesa de la teva butxaca, per poder ser importades per altes aplicacions o serveis. Tingues cuidado: Si ho fa, revelar la seva privacitat monetària per a aquesta aplicació.</string>
+  <string name="bitmap_fragment_share">Compartir…</string>
   <string name="extended_public_key_fragment_title">Clau pública extesa</string>
   <string name="extended_public_key_fragment_share">Comparteix xpub</string>
   <string name="report_issue_dialog_title_issue">Reportar problema</string>
