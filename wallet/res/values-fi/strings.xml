@@ -179,6 +179,8 @@
   <string name="export_keys_dialog_mail_intent_chooser">Arkistoi lompakko käyttäen…</string>
   <string name="export_keys_dialog_mail_intent_failed">Lompakon arkistointi epäonnistui.</string>
   <string name="import_export_keys_dialog_password">Salasana</string>
+  <string name="backup_wallet_dialog_password_again">uudelleen</string>
+  <string name="backup_wallet_dialog_password_mismatch">ei täsmää!</string>
   <string name="import_export_keys_dialog_show">Näytä salasana</string>
   <string name="import_export_keys_dialog_failure_title">Virhe</string>
   <string name="import_keys_intent_filter_action">Palauta lompakko</string>
@@ -226,6 +228,7 @@
   <string name="preferences_initiate_reset_dialog_positive">Nollaa</string>
   <string name="preferences_extended_public_key_title">Näytä xpub</string>
   <string name="preferences_extended_public_key_summary">Näytä lompakkosi laajennettu julkinen avain, jotta se voidaan tuoda toisiin sovelluksiin ja palveluihin. Ole varovainen: tekemällä näin, luovutat rahallisen yksityisyytesi tälle sovellukselle.</string>
+  <string name="bitmap_fragment_share">Jaa…</string>
   <string name="extended_public_key_fragment_title">Laajennettu julkinen avain</string>
   <string name="extended_public_key_fragment_share">Jaa xpub…</string>
   <string name="report_issue_dialog_title_issue">Ilmoita ongelma</string>
