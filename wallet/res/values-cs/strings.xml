@@ -12,6 +12,7 @@
   <string name="blockchain_state_progress_problem_storage">Synchronizace: Problém úložiště</string>
   <string name="blockchain_state_progress_problem_network">Synchronizace: Problém se sítí</string>
   <string name="wallet_address_fragment_clipboard_msg">Adresa zkopírována do schránky</string>
+  <string name="wallet_address_dialog_fragment_hint">Z důvodu ochrany vašeho soukromí dojde ke změně vaší adresy pokaždé po přijetí platby.</string>
   <string name="wallet_balance_fragment_too_much">Tato částka je poměrně vysoká na nosení v kapse. Převeďte ji prosím na bezpečnější místo.</string>
   <string name="wallet_balance_fragment_replaying">Bilance je nedostupná během synchronizace.</string>
   <string name="exchange_rates_activity_title">Směnné kurzy</string>
@@ -122,6 +123,7 @@
   <string name="request_coins_options_local_app_title">Požadavek z lokální aplikace</string>
   <string name="address_book_activity_title">Adresář</string>
   <string name="address_book_list_receiving_title">Vaše adresy</string>
+  <string name="address_book_list_receiving_random">Staré adresy</string>
   <string name="address_book_list_sending_title">Odchozí adresy</string>
   <string name="address_book_empty_text">Žádný záznam v adresáři</string>
   <string name="address_book_context_send_title">Poslat Bitcoiny na adresu</string>
@@ -179,6 +181,8 @@
   <string name="export_keys_dialog_mail_intent_chooser">Archivovat peněženku pomocí…</string>
   <string name="export_keys_dialog_mail_intent_failed">Archivace peněženky selhala.</string>
   <string name="import_export_keys_dialog_password">heslo</string>
+  <string name="backup_wallet_dialog_password_again">znovu</string>
+  <string name="backup_wallet_dialog_password_mismatch">nesouhlasí!</string>
   <string name="import_export_keys_dialog_show">Ukázat heslo</string>
   <string name="import_export_keys_dialog_failure_title">Chyba</string>
   <string name="import_keys_intent_filter_action">Obnovit peněženku</string>
@@ -226,6 +230,7 @@
   <string name="preferences_initiate_reset_dialog_positive">Obnovit</string>
   <string name="preferences_extended_public_key_title">Zobrazit xpub</string>
   <string name="preferences_extended_public_key_summary">Zobrazit rozšířený veřejný klíč Vaší peněženky za účelem importování do jiných aplikací a služeb. Buďte opatrní: tímro sdílíte Vaše peněžní soukromí s danou aplikaci.</string>
+  <string name="bitmap_fragment_share">Sdílet…</string>
   <string name="extended_public_key_fragment_title">Rozšířený veřejný klíč</string>
   <string name="extended_public_key_fragment_share">Sdílet xpub…</string>
   <string name="report_issue_dialog_title_issue">Nahlásit problém</string>
