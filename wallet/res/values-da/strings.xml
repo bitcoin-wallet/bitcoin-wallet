@@ -12,6 +12,7 @@
   <string name="blockchain_state_progress_problem_storage">Synkroniserer: Pladsproblem</string>
   <string name="blockchain_state_progress_problem_network">Synkroniserer: Netærksproblem</string>
   <string name="wallet_address_fragment_clipboard_msg">Bitcoin-adresse kopieret til udklipsholder</string>
+  <string name="wallet_address_dialog_fragment_hint">For at beskytte dit privatliv vil din adresse ændres, så snart den modtager en betaling.</string>
   <string name="wallet_balance_fragment_too_much">Dette beløb er ret stort at gå rundt med i din lomme. Du bør flytte noget af det til et mere sikkert sted.</string>
   <string name="wallet_balance_fragment_replaying">Saldo er ikke tilgængelig under genafspilning.</string>
   <string name="exchange_rates_activity_title">Valutakurser</string>
@@ -122,6 +123,7 @@
   <string name="request_coins_options_local_app_title">Forespørg fra lokal app</string>
   <string name="address_book_activity_title">Adressebog</string>
   <string name="address_book_list_receiving_title">Dine adresser</string>
+  <string name="address_book_list_receiving_random">Gamle adresser</string>
   <string name="address_book_list_sending_title">Sender adresser</string>
   <string name="address_book_empty_text">Ingen elementer i adressebog</string>
   <string name="address_book_context_send_title">Send Bitcoins til adresse</string>
@@ -179,6 +181,8 @@
   <string name="export_keys_dialog_mail_intent_chooser">Arkivér tegnebog ved hjælp af…</string>
   <string name="export_keys_dialog_mail_intent_failed">Arkivering af tegnebog mislykkedes.</string>
   <string name="import_export_keys_dialog_password">kodeord</string>
+  <string name="backup_wallet_dialog_password_again">igen</string>
+  <string name="backup_wallet_dialog_password_mismatch">uoverensstemmelse!</string>
   <string name="import_export_keys_dialog_show">Vis kodeord</string>
   <string name="import_export_keys_dialog_failure_title">Fejl</string>
   <string name="import_keys_intent_filter_action">Genopret tegnebog</string>
@@ -226,6 +230,7 @@
   <string name="preferences_initiate_reset_dialog_positive">Nulstil</string>
   <string name="preferences_extended_public_key_title">Vis xpub</string>
   <string name="preferences_extended_public_key_summary">Vis din tegnebogs udvidede offentlige nøgle så den kan importeres til andre apps og tjenester. Vær forsigtig: Du vil afsløre dit økonomiske privatliv til pågældende app, hvis du gør dette.</string>
+  <string name="bitmap_fragment_share">Del …</string>
   <string name="extended_public_key_fragment_title">Udvidet offentlig nøgle</string>
   <string name="extended_public_key_fragment_share">Del xpub …</string>
   <string name="report_issue_dialog_title_issue">Rapportér problem</string>
