@@ -54,6 +54,7 @@ import android.widget.TextView;
 import de.schildbach.wallet.AddressBookProvider;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.util.CircularProgressView;
+import de.schildbach.wallet.util.Formats;
 import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
 
@@ -529,7 +530,7 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 			else if (tx.getMemo() != null)
 			{
 				extendMessageView.setVisibility(View.VISIBLE);
-				messageView.setText(tx.getMemo());
+				messageView.setText(Formats.sanitizeMemo(tx.getMemo()));
 				messageView.setTextColor(colorInsignificant);
 				messageView.setSingleLine(!itemView.isActivated());
 			}

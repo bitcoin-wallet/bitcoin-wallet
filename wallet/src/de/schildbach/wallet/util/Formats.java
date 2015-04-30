@@ -45,4 +45,15 @@ public final class Formats
 		else
 			return html.toString();
 	}
+
+	private static final Pattern PATTERN_MEMO = Pattern.compile("Payment request for Coinbase order code: (.+)", Pattern.CASE_INSENSITIVE);
+
+	public static String sanitizeMemo(final String memo)
+	{
+		final Matcher m = PATTERN_MEMO.matcher(memo);
+		if (m.matches())
+			return m.group(1) + " (via Coinbase)";
+		else
+			return memo;
+	}
 }
