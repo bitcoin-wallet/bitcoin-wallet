@@ -29,20 +29,13 @@
 			android:textSize="@dimen/font_size_tiny"
 			android:visibility="gone" />
 
-		<FrameLayout
-			android:id="@+id/wallet_balance_local_frame"
+		<de.schildbach.wallet.ui.CurrencyTextView
+			android:id="@+id/wallet_balance_local"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_marginBottom="8dp"
-			android:foregroundGravity="bottom|right"
-			android:paddingRight="8dp" >
-
-			<de.schildbach.wallet.ui.CurrencyTextView
-				android:id="@+id/wallet_balance_local"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:textSize="@dimen/font_size_small" />
-		</FrameLayout>
+			android:paddingRight="8dp"
+			android:textSize="@dimen/font_size_small" />
 	</LinearLayout>
 
 	<TextView
