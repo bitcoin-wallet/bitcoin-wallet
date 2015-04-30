@@ -466,7 +466,8 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 			addressView.setSingleLine(!itemView.isActivated());
 
 			// fee
-			extendFeeView.setVisibility(itemView.isActivated() && txCache.showFee ? View.VISIBLE : View.GONE);
+			extendFeeView.setVisibility((itemView.isActivated() || confidenceType == ConfidenceType.PENDING) && txCache.showFee ? View.VISIBLE
+					: View.GONE);
 			feeView.setAlwaysSigned(true);
 			feeView.setFormat(format);
 			if (txCache.showFee)
