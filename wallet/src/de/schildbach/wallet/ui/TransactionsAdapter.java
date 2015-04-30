@@ -131,7 +131,7 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 		colorValueNegative = res.getColor(R.color.fg_value_negative);
 		colorError = res.getColor(R.color.fg_error);
 		textCoinBase = context.getString(R.string.wallet_transactions_fragment_coinbase);
-		textInternal = context.getString(R.string.wallet_transactions_fragment_internal);
+		textInternal = context.getString(R.string.symbol_internal) + " " + context.getString(R.string.wallet_transactions_fragment_internal);
 
 		setHasStableIds(true);
 	}
@@ -295,7 +295,6 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 		private final CircularProgressView confidenceCircularView;
 		private final TextView confidenceTextualView;
 		private final TextView timeView;
-		private final TextView fromToView;
 		private final View coinbaseView;
 		private final TextView addressView;
 		private final View extendFeeView;
@@ -318,7 +317,6 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 			confidenceCircularView = (CircularProgressView) itemView.findViewById(R.id.transaction_row_confidence_circular);
 			confidenceTextualView = (TextView) itemView.findViewById(R.id.transaction_row_confidence_textual);
 			timeView = (TextView) itemView.findViewById(R.id.transaction_row_time);
-			fromToView = (TextView) itemView.findViewById(R.id.transaction_row_fromto);
 			coinbaseView = itemView.findViewById(R.id.transaction_row_coinbase);
 			addressView = (TextView) itemView.findViewById(R.id.transaction_row_address);
 			extendFeeView = itemView.findViewById(R.id.transaction_row_extend_fee);
@@ -436,15 +434,6 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
 				timeView.setVisibility(View.GONE);
 			}
-
-			// receiving or sending
-			if (isInternal)
-				fromToView.setText(R.string.symbol_internal);
-			else if (txCache.sent)
-				fromToView.setText(R.string.symbol_to);
-			else
-				fromToView.setText(R.string.symbol_from);
-			fromToView.setTextColor(textColor);
 
 			// coinbase
 			coinbaseView.setVisibility(isCoinBase ? View.VISIBLE : View.GONE);
