@@ -61,8 +61,7 @@
 				android:id="@+id/transaction_row_time"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:layout_marginRight="8dp"
-				android:textStyle="bold" />
+				android:layout_marginRight="8dp" />
 
 			<TextView
 				android:id="@+id/transaction_row_fromto"
@@ -86,7 +85,8 @@
 				android:layout_gravity="left"
 				android:layout_weight="1"
 				android:gravity="left"
-				android:singleLine="true" />
+				android:singleLine="true"
+				android:textStyle="bold" />
 
 			<de.schildbach.wallet.ui.CurrencyTextView
 				android:id="@+id/transaction_row_value"
