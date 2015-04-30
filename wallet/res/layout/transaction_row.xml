@@ -42,6 +42,12 @@
 			android:baselineAligned="true"
 			android:orientation="horizontal" >
 
+			<!-- leading textview needed for baseline alignment -->
+
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content" />
+
 			<de.schildbach.wallet.util.CircularProgressView
 				android:id="@+id/transaction_row_confidence_circular"
 				android:layout_width="@dimen/symbol_size_normal"
