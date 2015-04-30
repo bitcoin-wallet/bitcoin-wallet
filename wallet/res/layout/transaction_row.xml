@@ -61,16 +61,7 @@
 				android:id="@+id/transaction_row_time"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:layout_marginRight="8dp" />
-
-			<ImageView
-				android:id="@+id/transaction_row_coinbase"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_marginRight="6dp"
-				android:baselineAlignBottom="true"
-				android:src="@drawable/coinbase"
-				android:visibility="gone" />
+				android:layout_marginRight="10dp" />
 
 			<TextView
 				android:id="@+id/transaction_row_address"

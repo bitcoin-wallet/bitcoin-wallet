@@ -377,10 +377,6 @@ public final class BlockListFragment extends ListFragment
 			else
 				rowFromTo.setText(R.string.symbol_from);
 
-			// coinbase
-			final View rowCoinbase = row.findViewById(R.id.block_row_transaction_coinbase);
-			rowCoinbase.setVisibility(isCoinBase ? View.VISIBLE : View.GONE);
-
 			// address
 			final TextView rowAddress = (TextView) row.findViewById(R.id.block_row_transaction_address);
 			final String label;

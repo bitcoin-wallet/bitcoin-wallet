@@ -295,7 +295,6 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 		private final CircularProgressView confidenceCircularView;
 		private final TextView confidenceTextualView;
 		private final TextView timeView;
-		private final View coinbaseView;
 		private final TextView addressView;
 		private final View extendFeeView;
 		private final CurrencyTextView feeView;
@@ -317,7 +316,6 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 			confidenceCircularView = (CircularProgressView) itemView.findViewById(R.id.transaction_row_confidence_circular);
 			confidenceTextualView = (TextView) itemView.findViewById(R.id.transaction_row_confidence_textual);
 			timeView = (TextView) itemView.findViewById(R.id.transaction_row_time);
-			coinbaseView = itemView.findViewById(R.id.transaction_row_coinbase);
 			addressView = (TextView) itemView.findViewById(R.id.transaction_row_address);
 			extendFeeView = itemView.findViewById(R.id.transaction_row_extend_fee);
 			feeView = (CurrencyTextView) itemView.findViewById(R.id.transaction_row_fee);
@@ -434,9 +432,6 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
 				timeView.setVisibility(View.GONE);
 			}
-
-			// coinbase
-			coinbaseView.setVisibility(isCoinBase ? View.VISIBLE : View.GONE);
 
 			// address
 			final String label;

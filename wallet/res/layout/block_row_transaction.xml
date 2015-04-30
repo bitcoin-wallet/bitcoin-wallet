@@ -14,15 +14,6 @@
 		android:layout_height="wrap_content"
 		android:layout_marginRight="8dp" />
 
-	<ImageView
-		android:id="@+id/block_row_transaction_coinbase"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_marginRight="6dp"
-		android:baselineAlignBottom="true"
-		android:src="@drawable/coinbase"
-		android:visibility="gone" />
-
 	<TextView
 		android:id="@+id/block_row_transaction_address"
 		android:layout_width="0px"
