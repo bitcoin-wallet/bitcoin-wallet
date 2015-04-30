@@ -4,6 +4,7 @@
 	<style name="My.Theme" parent="@android:style/Theme.Holo.Light.DarkActionBar">
 		<item name="android:actionBarStyle">@style/My.Widget.ActionBar</item>
 		<item name="android:actionModeStyle">@style/My.Widget.ActionMode</item>
+		<item name="android:actionMenuTextColor">@color/fg_network_significant</item>
 		<item name="android:actionOverflowButtonStyle">@style/My.Widget.ActionButton.Overflow</item>
 		<item name="android:textViewStyle">@style/My.Widget.TextView</item>
 		<item name="android:editTextStyle">@style/My.Widget.EditText</item>
@@ -33,14 +34,14 @@
 	</style>
 
 	<style name="My.TextAppearance.Widget.ActionBar.Title" parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Title">
-		<item name="android:textColor">@android:color/white</item>
+		<item name="android:textColor">@color/fg_network_significant</item>
 		<item name="android:textStyle">bold</item>
 		<item name="android:shadowColor">@android:color/black</item>
 		<item name="android:shadowRadius">1</item>
 	</style>
 
 	<style name="My.TextAppearance.Widget.ActionBar.Subtitle" parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Subtitle">
-		<item name="android:textColor">@android:color/white</item>
+		<item name="android:textColor">@color/fg_network_insignificant</item>
 		<item name="android:textStyle">normal</item>
 	</style>
 
