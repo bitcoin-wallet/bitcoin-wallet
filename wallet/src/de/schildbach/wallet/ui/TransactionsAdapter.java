@@ -363,8 +363,8 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 			final int textColor, valueColor;
 			if (confidenceType == ConfidenceType.DEAD)
 			{
-				textColor = Color.RED;
-				valueColor = Color.RED;
+				textColor = colorError;
+				valueColor = colorError;
 			}
 			else if (DefaultCoinSelector.isSelectable(tx))
 			{
@@ -407,7 +407,7 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 				confidenceTextualView.setVisibility(View.VISIBLE);
 
 				confidenceTextualView.setText(CONFIDENCE_SYMBOL_DEAD);
-				confidenceTextualView.setTextColor(Color.RED);
+				confidenceTextualView.setTextColor(colorError);
 			}
 			else
 			{
