@@ -79,7 +79,7 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 	private long selectedItemId = RecyclerView.NO_ID;
 
 	private final int colorBackground, colorBackgroundSelected;
-	private final int colorSignificant, colorInsignificant;
+	private final int colorSignificant, colorLessSignificant, colorInsignificant;
 	private final int colorValuePositve, colorValueNegative;
 	private final int colorError;
 	private final String textCoinBase;
@@ -129,6 +129,7 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 		colorBackground = res.getColor(R.color.bg_bright);
 		colorBackgroundSelected = res.getColor(R.color.bg_panel);
 		colorSignificant = res.getColor(R.color.fg_significant);
+		colorLessSignificant = res.getColor(R.color.fg_less_significant);
 		colorInsignificant = res.getColor(R.color.fg_insignificant);
 		colorValuePositve = res.getColor(R.color.fg_value_positive);
 		colorValueNegative = res.getColor(R.color.fg_value_negative);
@@ -367,20 +368,23 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 				transactionCache.put(tx.getHash(), txCache);
 			}
 
-			final int textColor, valueColor;
+			final int textColor, lessSignificantColor, valueColor;
 			if (confidenceType == ConfidenceType.DEAD)
 			{
 				textColor = colorError;
+				lessSignificantColor = colorError;
 				valueColor = colorError;
 			}
 			else if (DefaultCoinSelector.isSelectable(tx))
 			{
 				textColor = colorSignificant;
+				lessSignificantColor = colorLessSignificant;
 				valueColor = txCache.sent ? colorValueNegative : colorValuePositve;
 			}
 			else
 			{
 				textColor = colorInsignificant;
+				lessSignificantColor = colorInsignificant;
 				valueColor = colorInsignificant;
 			}
 
@@ -445,19 +449,37 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 			}
 
 			// address
-			final String label;
 			if (isCoinBase)
-				label = textCoinBase;
+			{
+				addressView.setTextColor(textColor);
+				addressView.setTypeface(Typeface.DEFAULT_BOLD);
+				addressView.setText(textCoinBase);
+			}
 			else if (isInternal)
-				label = textInternal;
+			{
+				addressView.setTextColor(textColor);
+				addressView.setTypeface(Typeface.DEFAULT_BOLD);
+				addressView.setText(textInternal);
+			}
+			else if (txCache.addressLabel != null)
+			{
+				addressView.setTextColor(textColor);
+				addressView.setTypeface(Typeface.DEFAULT_BOLD);
+				addressView.setText(txCache.addressLabel);
+			}
 			else if (txCache.address != null)
-				label = txCache.addressLabel;
+			{
+				addressView.setTextColor(lessSignificantColor);
+				addressView.setTypeface(Typeface.DEFAULT);
+				addressView.setText(WalletUtils.formatAddress(txCache.address, Constants.ADDRESS_FORMAT_GROUP_SIZE,
+						Constants.ADDRESS_FORMAT_LINE_SIZE));
+			}
 			else
-				label = "?";
-			addressView.setTextColor(textColor);
-			addressView.setText(label != null ? label : WalletUtils.formatAddress(txCache.address, Constants.ADDRESS_FORMAT_GROUP_SIZE,
-					Constants.ADDRESS_FORMAT_LINE_SIZE));
-			addressView.setTypeface(label != null ? Typeface.DEFAULT_BOLD : Typeface.DEFAULT);
+			{
+				addressView.setTextColor(lessSignificantColor);
+				addressView.setTypeface(Typeface.DEFAULT);
+				addressView.setText("?");
+			}
 			addressView.setSingleLine(!itemView.isActivated());
 
 			// fee
