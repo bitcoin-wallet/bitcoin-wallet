@@ -78,10 +78,9 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 	private long selectedItemId = RecyclerView.NO_ID;
 
 	private final int colorBackground, colorBackgroundSelected;
-	private final int colorSignificant;
-	private final int colorInsignificant;
+	private final int colorSignificant, colorInsignificant;
+	private final int colorValuePositve, colorValueNegative;
 	private final int colorError;
-	private final int colorCircularBuilding = Color.parseColor("#44ff44");
 	private final String textCoinBase;
 	private final String textInternal;
 
@@ -128,6 +127,8 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 		colorBackgroundSelected = res.getColor(R.color.bg_panel);
 		colorSignificant = res.getColor(R.color.fg_significant);
 		colorInsignificant = res.getColor(R.color.fg_insignificant);
+		colorValuePositve = res.getColor(R.color.fg_value_positive);
+		colorValueNegative = res.getColor(R.color.fg_value_negative);
 		colorError = res.getColor(R.color.fg_error);
 		textCoinBase = context.getString(R.string.wallet_transactions_fragment_coinbase);
 		textInternal = context.getString(R.string.wallet_transactions_fragment_internal);
@@ -359,6 +360,23 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 				transactionCache.put(tx.getHash(), txCache);
 			}
 
+			final int textColor, valueColor;
+			if (confidenceType == ConfidenceType.DEAD)
+			{
+				textColor = Color.RED;
+				valueColor = Color.RED;
+			}
+			else if (DefaultCoinSelector.isSelectable(tx))
+			{
+				textColor = colorSignificant;
+				valueColor = txCache.sent ? colorValueNegative : colorValuePositve;
+			}
+			else
+			{
+				textColor = colorInsignificant;
+				valueColor = colorInsignificant;
+			}
+
 			// confidence
 			if (confidenceType == ConfidenceType.PENDING)
 			{
@@ -369,7 +387,7 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 				confidenceCircularView.setMaxProgress(1);
 				confidenceCircularView.setSize(confidence.numBroadcastPeers());
 				confidenceCircularView.setMaxSize(maxConnectedPeers / 2); // magic value
-				confidenceCircularView.setColors(colorInsignificant, colorInsignificant);
+				confidenceCircularView.setColors(colorInsignificant, Color.TRANSPARENT);
 			}
 			else if (confidenceType == ConfidenceType.BUILDING)
 			{
@@ -381,7 +399,7 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 						: Constants.MAX_NUM_CONFIRMATIONS);
 				confidenceCircularView.setSize(1);
 				confidenceCircularView.setMaxSize(1);
-				confidenceCircularView.setColors(colorCircularBuilding, Color.DKGRAY);
+				confidenceCircularView.setColors(valueColor, Color.TRANSPARENT);
 			}
 			else if (confidenceType == ConfidenceType.DEAD)
 			{
@@ -399,13 +417,6 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 				confidenceTextualView.setText(CONFIDENCE_SYMBOL_UNKNOWN);
 				confidenceTextualView.setTextColor(colorInsignificant);
 			}
-
-			// spendability
-			final int textColor;
-			if (confidenceType == ConfidenceType.DEAD)
-				textColor = Color.RED;
-			else
-				textColor = DefaultCoinSelector.isSelectable(tx) ? colorSignificant : colorInsignificant;
 
 			// time
 			final Date time = tx.getUpdateTime();
@@ -462,7 +473,7 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 				feeView.setAmount(fee.negate());
 
 			// value
-			valueView.setTextColor(textColor);
+			valueView.setTextColor(valueColor);
 			valueView.setAlwaysSigned(true);
 			valueView.setFormat(format);
 			final Coin value = txCache.showFee ? txCache.value.add(fee) : txCache.value;
