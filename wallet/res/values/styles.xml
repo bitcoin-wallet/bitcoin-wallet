@@ -47,7 +47,7 @@
 	</style>
 
 	<style name="My.Widget.ActionButton" parent="@android:style/Widget.Holo.ActionButton">
-		<item name="android:drawablePadding">4dp</item>
+		<item name="android:drawablePadding">6dp</item>
 	</style>
 
 	<style name="My.Widget.ActionButton.Overflow" parent="@android:style/Widget.Holo.ActionButton.Overflow">
