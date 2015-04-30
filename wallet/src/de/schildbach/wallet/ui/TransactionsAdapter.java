@@ -289,6 +289,8 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 	private class TransactionViewHolder extends RecyclerView.ViewHolder
 	{
 		private final View contentView;
+		private final View extendTimeView;
+		private final TextView fullTimeView;
 		private final CircularProgressView confidenceCircularView;
 		private final TextView confidenceTextualView;
 		private final TextView timeView;
@@ -310,6 +312,8 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 			super(itemView);
 
 			contentView = itemView.findViewById(R.id.transaction_row_content);
+			extendTimeView = itemView.findViewById(R.id.transaction_row_extend_time);
+			fullTimeView = (TextView) itemView.findViewById(R.id.transaction_row_full_time);
 			confidenceCircularView = (CircularProgressView) itemView.findViewById(R.id.transaction_row_confidence_circular);
 			confidenceTextualView = (TextView) itemView.findViewById(R.id.transaction_row_confidence_textual);
 			timeView = (TextView) itemView.findViewById(R.id.transaction_row_time);
@@ -405,8 +409,22 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
 			// time
 			final Date time = tx.getUpdateTime();
-			timeView.setText(time != null ? (DateUtils.getRelativeTimeSpanString(context, time.getTime())) : null);
-			timeView.setTextColor(textColor);
+			if (!itemView.isActivated())
+			{
+				extendTimeView.setVisibility(View.GONE);
+
+				timeView.setVisibility(View.VISIBLE);
+				timeView.setText(DateUtils.getRelativeTimeSpanString(context, time.getTime()));
+				timeView.setTextColor(textColor);
+			}
+			else
+			{
+				extendTimeView.setVisibility(View.VISIBLE);
+				fullTimeView.setText(DateUtils.formatDateTime(context, time.getTime(), DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_TIME));
+				fullTimeView.setTextColor(textColor);
+
+				timeView.setVisibility(View.GONE);
+			}
 
 			// receiving or sending
 			if (isInternal)
