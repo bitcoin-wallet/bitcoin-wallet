@@ -163,7 +163,9 @@
 				android:id="@+id/transaction_row_message"
 				android:layout_width="0px"
 				android:layout_height="wrap_content"
+				android:layout_gravity="left"
 				android:layout_weight="1"
+				android:singleLine="true"
 				android:textColor="@color/fg_error"
 				android:textSize="@dimen/font_size_small" />
 		</LinearLayout>

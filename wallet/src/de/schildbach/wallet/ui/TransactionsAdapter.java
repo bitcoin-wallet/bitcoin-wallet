@@ -485,6 +485,7 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
 			// message
 			extendMessageView.setVisibility(View.GONE);
+			messageView.setSingleLine(false);
 
 			if (isInternal)
 			{
@@ -533,6 +534,7 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 				extendMessageView.setVisibility(View.VISIBLE);
 				messageView.setText(tx.getMemo());
 				messageView.setTextColor(colorInsignificant);
+				messageView.setSingleLine(!itemView.isActivated());
 			}
 
 			// menu
