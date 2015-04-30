@@ -451,6 +451,7 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 			addressView.setTextColor(textColor);
 			addressView.setText(label != null ? label : txCache.address.toString());
 			addressView.setTypeface(label != null ? Typeface.DEFAULT : Typeface.MONOSPACE);
+			addressView.setSingleLine(!itemView.isActivated());
 
 			// fee
 			extendFeeView.setVisibility(itemView.isActivated() && txCache.showFee ? View.VISIBLE : View.GONE);
