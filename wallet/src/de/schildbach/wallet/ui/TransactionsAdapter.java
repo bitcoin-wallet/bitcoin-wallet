@@ -41,7 +41,6 @@ import org.bitcoinj.wallet.DefaultCoinSelector;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
@@ -449,8 +448,8 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 			else
 				label = "?";
 			addressView.setTextColor(textColor);
-			addressView.setText(label != null ? label : txCache.address.toString());
-			addressView.setTypeface(label != null ? Typeface.DEFAULT : Typeface.MONOSPACE);
+			addressView.setText(label != null ? label : WalletUtils.formatAddress(txCache.address, Constants.ADDRESS_FORMAT_GROUP_SIZE,
+					Constants.ADDRESS_FORMAT_LINE_SIZE));
 			addressView.setSingleLine(!itemView.isActivated());
 
 			// fee
