@@ -15,7 +15,7 @@
 		android:singleLine="true"
 		android:text="@string/button_request_coins"
 		android:textAllCaps="true"
-		android:textColor="@color/fg_network_significant"
+		android:textColor="@color/fg_network"
 		android:textSize="@dimen/font_size_tiny"
 		android:textStyle="bold" />
 
@@ -33,7 +33,7 @@
 		android:singleLine="true"
 		android:text="@string/button_send_coins"
 		android:textAllCaps="true"
-		android:textColor="@color/fg_network_significant"
+		android:textColor="@color/fg_network"
 		android:textSize="@dimen/font_size_tiny"
 		android:textStyle="bold" />
 

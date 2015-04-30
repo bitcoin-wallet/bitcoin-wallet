@@ -4,7 +4,7 @@
 	<style name="My.Theme" parent="@android:style/Theme.Holo.Light.DarkActionBar">
 		<item name="android:actionBarStyle">@style/My.Widget.ActionBar</item>
 		<item name="android:actionModeStyle">@style/My.Widget.ActionMode</item>
-		<item name="android:actionMenuTextColor">@color/fg_network_significant</item>
+		<item name="android:actionMenuTextColor">@color/fg_network</item>
 		<item name="android:actionButtonStyle">@style/My.Widget.ActionButton</item>
 		<item name="android:actionOverflowButtonStyle">@style/My.Widget.ActionButton.Overflow</item>
 		<item name="android:textViewStyle">@style/My.Widget.TextView</item>
