@@ -87,7 +87,6 @@
   <string name="send_coins_error_msg">Bitcoin gönderimi sırasında problem oluştu!</string>
   <string name="send_coins_options_priority">Çabuk teyit, daha yüksek ücret</string>
   <string name="send_coins_options_empty">Boş cüzdan</string>
-  <string name="send_coins_address_context_clear_title">Yeni adres gir</string>
   <string name="sweep_wallet_activity_title">Kağıt cüzdanı tara</string>
   <string name="sweep_wallet_fragment_intro">Bir kupon ya da kağıt cüzdan taramak üzeresiniz. Bunu yapmanız bu kağıttaki tüm bitcoinleri cihazınızdaki cüzdana taşıyacaktır. Muamele teyit edildiğinde kağıdın hiçbir değeri kalmayacaktır ve güvenlik nedenleriyle tekrar kullanılmamalıdır.</string>
   <string name="sweep_wallet_fragment_hint">Kağıt cüzdanlar en sık soğuk depolama için kullanılır. Bazı bankamatikler doğrudan mobil cihazınıza bitcoin yollamaktan ziyade bunu kağıt çıktısına yazarlar. Bazı kişiler de bazen ön yüklü kağıt cüzdanları para değeri aktarmak için kullanırlar (tavsiye edilmez).</string>

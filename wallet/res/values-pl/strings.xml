@@ -58,7 +58,6 @@
 	<string name="send_coins_failed_msg">Niepowodzenie!</string>
 	<string name="send_coins_error_msg">Problem z wysłaniem monet!</string>
 	<string name="send_coins_options_empty">Opróżnij portfel</string>
-	<string name="send_coins_address_context_clear_title">Podaj nowy adres</string>
 	<string name="request_coins_activity_title">Poproś o Bitcoiny</string>
 	<string name="request_coins_fragment_amount_label">Żądana kwota (opcjonalnie)</string>
 	<string name="request_coins_fragment_initiate_request_qr">Niech nadawca zeskanuje ten kod QR</string>

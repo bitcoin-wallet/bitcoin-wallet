@@ -58,7 +58,6 @@
 	<string name="send_coins_failed_msg">Malsukcesis!</string>
 	<string name="send_coins_error_msg">Sendada promlemo!</string>
 	<string name="send_coins_options_empty">Malplena monujo</string>
-	<string name="send_coins_address_context_clear_title">Entajpi novan adreson</string>
 	<string name="request_coins_activity_title">Peti Bitmonojn</string>
 	<string name="request_coins_fragment_amount_label">Petita kvanto (fakultativa)</string>
 	<string name="request_coins_fragment_initiate_request_qr">Havas ĉi tiun kodon skanitan per la sendinto.</string>

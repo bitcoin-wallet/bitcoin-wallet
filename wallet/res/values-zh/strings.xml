@@ -87,7 +87,6 @@
   <string name="send_coins_error_msg">支付比特币时出现了问题！</string>
   <string name="send_coins_options_priority">快速确认，需要更高的费率</string>
   <string name="send_coins_options_empty">清空钱包</string>
-  <string name="send_coins_address_context_clear_title">输入新的地址</string>
   <string name="sweep_wallet_activity_title">交换纸钱包上的比特币</string>
   <string name="sweep_wallet_fragment_intro">您将要扫描纸质的钱包或者coupon。这会将纸钱上的所有比特币转移到您的当前设备上。当交易被确认后，那张纸将会分文不值，而且将不能作为安全措施重新使用该纸钱包。</string>
   <string name="sweep_wallet_fragment_hint">纸钱包常常用于进行冷存储。一些 ATM 机经常会将比特币打印在纸上，而不是直接发送到您的移动设备上。人们有时候会使用已经预付的 (pre-charged) 纸钱包来互相转移金额（不推荐）。</string>

@@ -87,7 +87,6 @@
   <string name="send_coins_error_msg">Problem att skicka bitcoin!</string>
   <string name="send_coins_options_priority">Snabbare bekräftelse, högre avgift</string>
   <string name="send_coins_options_empty">Tom wallet</string>
-  <string name="send_coins_address_context_clear_title">Ange ny adress</string>
   <string name="sweep_wallet_activity_title">Läs av papperswallet</string>
   <string name="sweep_wallet_fragment_intro">Du är på väg att läsa av en papperswallet eller kupong. Detta kommer att flytta alla tillgångar från papperet till din wallet på den här enheten. När transaktionen är bekräftad, kommer papperet att vara värdelöst och bör inte återanvändas av säkerhetsskäl.</string>
   <string name="sweep_wallet_fragment_hint">En papperswallet används oftast för säker långtidsförvaring. Vissa bitcoinbankomater skriver ut en sådan på ett papperskvitto istället för att skicka medel till din mobila enhet direkt. Vissa använder ibland en förladdad papperswallet för att byta och skicka medel med varandra (rekommenderas inte).</string>

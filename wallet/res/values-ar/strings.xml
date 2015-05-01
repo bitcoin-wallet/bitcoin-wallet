@@ -72,7 +72,6 @@
 	<string name="send_coins_failed_msg">فشلت العملية!</string>
 	<string name="send_coins_error_msg">تمت مواجهة مشكلة خلال الإرسال!</string>
 	<string name="send_coins_options_empty">تفريغ المحفظة</string>
-	<string name="send_coins_address_context_clear_title">أدخل عنوان جديد</string>
 	<string name="request_coins_activity_title">طلب مبلغ بيتكوين</string>
 	<string name="request_coins_fragment_amount_label">المبلغ المطلوب (اختياري)</string>
 	<string name="request_coins_fragment_initiate_request_qr">اطلب من المرسل بمسح لهذا الرمز بصريا Scan.</string>

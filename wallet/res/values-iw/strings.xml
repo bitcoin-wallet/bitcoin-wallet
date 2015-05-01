@@ -73,7 +73,6 @@
 	<string name="send_coins_failed_msg">נכשל!</string>
 	<string name="send_coins_error_msg">בעיה בשליחת מטבעות</string>
 	<string name="send_coins_options_empty">ארנק ריק</string>
-	<string name="send_coins_address_context_clear_title">הקש כתובת חדשה</string>
 	<string name="request_coins_activity_title">בקש ביטקוין</string>
 	<string name="request_coins_fragment_amount_label">כמות לבקשה</string>
 	<string name="request_coins_fragment_accept_bluetooth_payment">קבל תשלום באמצעות Bluetooth לעיבוד מאובטח יותר</string>

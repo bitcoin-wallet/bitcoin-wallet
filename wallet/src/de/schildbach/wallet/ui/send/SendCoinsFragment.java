@@ -73,7 +73,6 @@ import android.os.Process;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.ActionMode;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -107,7 +106,6 @@ import de.schildbach.wallet.ui.AddressAndLabel;
 import de.schildbach.wallet.ui.CurrencyAmountView;
 import de.schildbach.wallet.ui.CurrencyCalculatorLink;
 import de.schildbach.wallet.ui.DialogBuilder;
-import de.schildbach.wallet.ui.EditAddressBookEntryFragment;
 import de.schildbach.wallet.ui.ExchangeRateLoader;
 import de.schildbach.wallet.ui.InputParser.BinaryInputParser;
 import de.schildbach.wallet.ui.InputParser.StreamInputParser;
@@ -219,79 +217,6 @@ public final class SendCoinsFragment extends Fragment
 	}
 
 	private final ReceivingAddressListener receivingAddressListener = new ReceivingAddressListener();
-
-	private final class ReceivingAddressActionMode implements ActionMode.Callback
-	{
-		private final Address address;
-
-		public ReceivingAddressActionMode(final Address address)
-		{
-			this.address = address;
-		}
-
-		@Override
-		public boolean onCreateActionMode(final ActionMode mode, final Menu menu)
-		{
-			final MenuInflater inflater = mode.getMenuInflater();
-			inflater.inflate(R.menu.send_coins_address_context, menu);
-
-			return true;
-		}
-
-		@Override
-		public boolean onPrepareActionMode(final ActionMode mode, final Menu menu)
-		{
-			menu.findItem(R.id.send_coins_address_context_edit_address).setVisible(!wallet.isPubKeyHashMine(address.getHash160()));
-			menu.findItem(R.id.send_coins_address_context_clear).setVisible(paymentIntent.mayEditAddress());
-
-			return true;
-		}
-
-		@Override
-		public boolean onActionItemClicked(final ActionMode mode, final MenuItem item)
-		{
-			switch (item.getItemId())
-			{
-				case R.id.send_coins_address_context_edit_address:
-					handleEditAddress();
-
-					mode.finish();
-					return true;
-
-				case R.id.send_coins_address_context_clear:
-					handleClear();
-
-					mode.finish();
-					return true;
-			}
-
-			return false;
-		}
-
-		@Override
-		public void onDestroyActionMode(final ActionMode mode)
-		{
-			if (receivingStaticView.hasFocus())
-				requestFocusFirst();
-		}
-
-		private void handleEditAddress()
-		{
-			EditAddressBookEntryFragment.edit(fragmentManager, address);
-		}
-
-		private void handleClear()
-		{
-			// switch from static to input
-			validatedAddress = null;
-			receivingAddressView.setText(null);
-			receivingStaticAddressView.setText(null);
-
-			updateView();
-
-			requestFocusFirst();
-		}
-	}
 
 	private final CurrencyAmountView.Listener amountsListener = new CurrencyAmountView.Listener()
 	{
@@ -572,27 +497,6 @@ public final class SendCoinsFragment extends Fragment
 		receivingStaticView = view.findViewById(R.id.send_coins_receiving_static);
 		receivingStaticAddressView = (TextView) view.findViewById(R.id.send_coins_receiving_static_address);
 		receivingStaticLabelView = (TextView) view.findViewById(R.id.send_coins_receiving_static_label);
-
-		receivingStaticView.setOnFocusChangeListener(new OnFocusChangeListener()
-		{
-			private ActionMode actionMode;
-
-			@Override
-			public void onFocusChange(final View v, final boolean hasFocus)
-			{
-				if (hasFocus)
-				{
-					final Address address = paymentIntent.hasAddress() ? paymentIntent.getAddress()
-							: (validatedAddress != null ? validatedAddress.address : null);
-					if (address != null)
-						actionMode = activity.startActionMode(new ReceivingAddressActionMode(address));
-				}
-				else
-				{
-					actionMode.finish();
-				}
-			}
-		});
 
 		final CurrencyAmountView btcAmountView = (CurrencyAmountView) view.findViewById(R.id.send_coins_amount_btc);
 		btcAmountView.setCurrencySymbol(config.getFormat().code());

@@ -88,7 +88,6 @@
   <string name="send_coins_error_msg">¡Problema enviando bitcoins!</string>
   <string name="send_coins_options_priority">Confirmación rápida, tarifa superior</string>
   <string name="send_coins_options_empty">Cartera vacía</string>
-  <string name="send_coins_address_context_clear_title">Introducir nueva dirección</string>
   <string name="sweep_wallet_activity_title">Barrer cartera de papel</string>
   <string name="sweep_wallet_fragment_intro">Vas a barrer una cartera de papel. Esto transferirá todos los bitcoins del papel a tu cartera en este dispositivo. Cuando la transacción esté confirmada, el papel ya no tendrá valor y, por razones de seguridad, no debería ser reutilizado.</string>
   <string name="sweep_wallet_fragment_hint">Las carteras de papel normalmente se utilizan para la el depósito offline. Algunos cajeros ATM los imprimen en el recibo de papel en lugar de enviar los bitcoins directamente al dispositivo móvil. A veces se usan carteras de papel prepago para enviar valores a otras personas (no recomendado).</string>

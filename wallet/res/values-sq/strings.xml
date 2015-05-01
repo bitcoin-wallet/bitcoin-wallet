@@ -88,7 +88,6 @@
   <string name="send_coins_error_msg">Problem gjatë dërgimit të monedhave!</string>
   <string name="send_coins_options_priority">Konfirmim i shpejtë, tarifë më e lartë</string>
   <string name="send_coins_options_empty">Kuleta bosh</string>
-  <string name="send_coins_address_context_clear_title">Shënoni një adresë të re</string>
   <string name="sweep_wallet_activity_title">Shpenzo kuletën në letër</string>
   <string name="sweep_wallet_fragment_intro">Jeni duke shpenzuar një kuletë në letër apo kupon. Kjo do t\'i zhvendos të gjitha monedhat nga kuleta ne letër ne kuletën tuaj në këtë pajisje. Kur transaksioni konfirmohet, letra do të bëhet e pavlefshme dhe nuk duhet të përdoret prap për shkaqe sigurie.</string>
   <string name="sweep_wallet_fragment_hint">Kuletat në letër përdoren më së shpeshti për \'cold storage\'. Disa ATM i printojnë ato në vend që të ju dërgojn monedhat direkt në telefonin tuaj. Ndonjëherë njerëzit përdorin kuleta në letër të para-ngarkuara me monedha (nuk rekomandohet).</string>

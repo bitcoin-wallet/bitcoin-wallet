@@ -88,7 +88,6 @@
   <string name="send_coins_error_msg">Hi ha un problema enviant les monedes!</string>
   <string name="send_coins_options_priority">S\'ha confirmat rapid, la taxa és més elevada</string>
   <string name="send_coins_options_empty">Cartera buida</string>
-  <string name="send_coins_address_context_clear_title">Afegeix una nova adreça</string>
   <string name="sweep_wallet_activity_title">Incorpora una cartera de paper</string>
   <string name="sweep_wallet_fragment_intro">Estàs a punt d\'incorporar una cartera de paper o un cupó. Això mourà totes les monedes d\'aquest paper a la cartera del dispositiu. Quant la transacció es confirmi, el paper no valdrà res i no deurà ser reutilitzat per qüestions de seguretat.</string>
   <string name="sweep_wallet_fragment_hint">Les carteres de paper són utilitzades normalment per a un emmagatzematge en fred. Alguns caixers les imprimeixen en un paperet en comptes d\'enviar les monedes directament al teu dispositiu. La gent a vegades, utilitza carteres de paper per donar-li valor (no es recomana).</string>

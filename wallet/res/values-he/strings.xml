@@ -75,7 +75,6 @@
   <string name="send_coins_failed_msg">נכשל!</string>
   <string name="send_coins_error_msg">בעיה בשליחת מטבעות</string>
   <string name="send_coins_options_empty">ארנק ריק</string>
-  <string name="send_coins_address_context_clear_title">הקש כתובת חדשה</string>
   <string name="sweep_wallet_activity_title">גרוף ארנק נייר</string>
   <string name="sweep_wallet_fragment_intro">אתה עומד לגרוף ארנק נייר או קופון. זה יעביר את כל המטבעות מהנייר לארנקך במכשיר זה. כאשר התנועה מאושרת, הנייר יהפוך חסר ערך ואין להשתמש בו שנית מסיבות אבטחה.</string>
   <string name="sweep_wallet_fragment_hint">ארנקי נייר משמשים בעיקר לאחסון קר. כספומטים מסוימים מדפיסים אותם על פיסת נייר בניגוד ללשלוח אותם ישירות למכשירך. אנשים לפעמים משתמשים בארנקי נייר טעונים מראש כדי להעביר ערך (לא מומלץ).</string>

@@ -79,7 +79,6 @@
   <string name="send_coins_failed_msg">비트코인 송금 실패!</string>
   <string name="send_coins_error_msg">송금 중 알 수 없는 문제가 발생했습니다!</string>
   <string name="send_coins_options_empty">입력한 금액 지우기</string>
-  <string name="send_coins_address_context_clear_title">새 주소 입력</string>
   <string name="sweep_wallet_activity_title">종이 지폐로부터 이체</string>
   <string name="sweep_wallet_fragment_intro">종이 지폐나 쿠폰과 같은 인쇄물 또는 필사본에서 개인키를 읽어 비트코인을 전송합니다. 인쇄물의 개인키 정보에서 보관 중인 모든 비트코인이 현재 이 비트코인 지갑 앱으로 이전됩니다. 이 거래가 비트코인 네트워크에서 승인되면 해당 인쇄물은 더 이상 가치가 없으며, 비트코인 사용자간 혼란을 방지하기 위해서는 그 인쇄물을 거래 용도로 다시 사용하지 않는 것이 좋습니다.</string>
   <string name="sweep_wallet_fragment_hint">비트코인 개인키 정보를 가지고 있는 종이 지폐나 쿠폰과 같은 인쇄물은 주로 오프라인에서 비트코인을 보관하기 위한 용도로 사용합니다. 일부 비트코인 ATM 기기는 모바일 장치로 비트코인을 직접 보내는 대신 종이 지폐를 이용하기도 합니다. 또는 가치의 이전이나 교환을 위해 미리 충전된 종이 지폐를 사용하기도 합니다. (유통 주체의 신뢰성 여부와 보안상의 문제로 비추천)</string>

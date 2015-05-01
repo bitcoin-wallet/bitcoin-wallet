@@ -58,7 +58,6 @@
 	<string name="send_coins_failed_msg">Gagal!</string>
 	<string name="send_coins_error_msg">Gagal mengirim koin!</string>
 	<string name="send_coins_options_empty">Dompet kosong</string>
-	<string name="send_coins_address_context_clear_title">Masukkan alamat baru</string>
 	<string name="request_coins_activity_title">Meminta BItcoin</string>
 	<string name="request_coins_fragment_amount_label">Jumlah permintaan (pilihan)</string>
 	<string name="request_coins_fragment_initiate_request_qr">Berikan kode untuk dipindai oleh pengirim.</string>

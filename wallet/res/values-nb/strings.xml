@@ -88,7 +88,6 @@
   <string name="send_coins_error_msg">Problem under sending av mynter!</string>
   <string name="send_coins_options_priority">Hurtig bekreftelse, høyere gebyr</string>
   <string name="send_coins_options_empty">Tøm lommebok</string>
-  <string name="send_coins_address_context_clear_title">Skriv ny adresse</string>
   <string name="sweep_wallet_activity_title">Sveip en papirlommebok</string>
   <string name="sweep_wallet_fragment_intro">Du er i ferd med å sveipe en papirlommebok eller kupong. Dette vil flytte alle myntene fra dette papiret til din lommebok på denne enheten. Når transaksjonen er bekreftet, vil papiret være verdiløst og bør ikke brukes om igjen av sikkerhetsmessige grunner.</string>
   <string name="sweep_wallet_fragment_hint">Papirlommebøker er mest brukt til kaldlagring. Noen minibanker skriver dem ut på papir fremfor å sende myntene til den mobile enheten direkte. Folk bruker noen ganger forhåndslastede papirlommebøker for å utveksle verdier (anbefales ikke).</string>

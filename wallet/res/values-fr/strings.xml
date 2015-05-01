@@ -88,7 +88,6 @@
   <string name="send_coins_error_msg">Problème durant l\'envoi des pièces !</string>
   <string name="send_coins_options_priority">Confirmation rapide, frais plus élevés</string>
   <string name="send_coins_options_empty">Vider le portefeuille</string>
-  <string name="send_coins_address_context_clear_title">Saisir une nouvelle adresse</string>
   <string name="sweep_wallet_activity_title">Balayer un portefeuille papier</string>
   <string name="sweep_wallet_fragment_intro">Vous allez balayer un portefeuille papier ou un coupon. Ceci déplacera toutes les pièces de ce papier vers votre portefeuille sur cet appareil. Quand la transaction sera confirmée, le papier sera sans valeur et ne devrait pas être réutilisé pour des raisons de sécurité.</string>
   <string name="sweep_wallet_fragment_hint">Les portefeuilles papier sont habituellement utilisés pour le stockage à froid. Certains GAB les imprimes sur le reçu papier plutôt que d\'envoyer les pièces directement vers votre appareil mobile. Certaines personnes utilisent des portefeuilles papier préchargés pour passer des valeurs (non recommandé).</string>

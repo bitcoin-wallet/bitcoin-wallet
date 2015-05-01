@@ -55,7 +55,6 @@
 	<string name="send_coins_sent_msg">Đã gửi!</string>
 	<string name="send_coins_failed_msg">Thất bại!</string>
 	<string name="send_coins_error_msg">Xảy ra vấn đề khi gửi coin!</string>
-	<string name="send_coins_address_context_clear_title">Điền vào giá trị mới</string>
 	<string name="request_coins_activity_title">Yêu cầu Bitcoin</string>
 	<string name="request_coins_fragment_amount_label">Số lượng đã yêu cầu (tùy chọn)</string>
 	<string name="request_coins_fragment_initiate_request_qr">Đã nhận được mã này được quét từ người gửi.</string>

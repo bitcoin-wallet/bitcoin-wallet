@@ -58,7 +58,6 @@
 	<string name="send_coins_failed_msg">Sikertelen!</string>
 	<string name="send_coins_error_msg">Probléma merült fel a küldés során!</string>
 	<string name="send_coins_options_empty">Üres tárca</string>
-	<string name="send_coins_address_context_clear_title">Adj meg egy új címet</string>
 	<string name="request_coins_activity_title">Bitcoin kérés</string>
 	<string name="request_coins_fragment_amount_label">Igényelt összeg (opcionális)</string>
 	<string name="request_coins_fragment_initiate_request_qr">A kód a küldő által beolvasva.</string>

@@ -88,7 +88,6 @@
   <string name="send_coins_error_msg">Problem under afsendelse af bitcoin!</string>
   <string name="send_coins_options_priority">Hurtig bekræftelse, højere gebyr</string>
   <string name="send_coins_options_empty">Tøm tegnebog</string>
-  <string name="send_coins_address_context_clear_title">Skriv ny adresse</string>
   <string name="sweep_wallet_activity_title">Ryd papirtegnebog</string>
   <string name="sweep_wallet_fragment_intro">Du er ved at rydde en papirtegnebog eller kupon. Dette vil flytte alle bitcoin fra dette stykke papir til din tegnebog på denne enhed. Når transaktionen er bekræftet, vil papiret være værdiløst og bør ikke genanvendes af sikkerhedsgrunde.</string>
   <string name="sweep_wallet_fragment_hint">Papirtegnebøger bruges oftest som kold opbevaring. Nogle hæveautomater udskriver dem på deres papirbon\'er frem for at sende bitcoins direkte til din mobile enhed. Folk bruger nogle gange papirtegnebøger til at sende værdier omkring (anbefales ikke).</string>

@@ -88,7 +88,6 @@
   <string name="send_coins_error_msg">Problemi durante l\'invio dei Bitcoins!</string>
   <string name="send_coins_options_priority">Conferma veloce, tasse alte</string>
   <string name="send_coins_options_empty">Portafoglio vuoto</string>
-  <string name="send_coins_address_context_clear_title">Inserisci nuovo indirizzo</string>
   <string name="sweep_wallet_activity_title">Spazzola portafoglio cartaceo</string>
   <string name="sweep_wallet_fragment_intro">Stai per spazzolare un portamonete carteceo o coupon. Questo sposterà tutte le monete dal foglio al tuo portamonete su questo dispositivo. Quando la transazione è confermata, il foglio non avrà più alcun valore e non dovrebbe essere ri-utilizzato per ragioni di sicurezza.</string>
   <string name="sweep_wallet_fragment_hint">I portafogli cartacei sono per lo più comunemente utilizzzati come cold storage. Alcuni ATM li stampano sui loro scontrini invece che inviare le monete al vostro dispositivo mobile. La gente a volte usano portafogli cartacei pre-caricati per spostare valore in giro (non raccomandato)</string>

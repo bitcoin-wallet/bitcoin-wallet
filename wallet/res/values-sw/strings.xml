@@ -87,7 +87,6 @@
   <string name="send_coins_error_msg">Tatizo katika malipwo!</string>
   <string name="send_coins_options_priority">Kusainiwa kwanza, lipa zaidi.</string>
   <string name="send_coins_options_empty">Kuwa sota.</string>
-  <string name="send_coins_address_context_clear_title">Aina anwani mpya</string>
   <string name="sweep_wallet_activity_title">Kulipa kutoka pochi ya karatasi.</string>
   <string name="sweep_wallet_fragment_intro">Wewe ni kuhusu kulipa kutoka pochi ya karatasi. Hii kufanya za pochi sota. Kwa sababu ya kiusalama, tafadhali usitumie za pochi ya karatasi tena.</string>
   <string name="sweep_wallet_fragment_hint">Pochi ya karatasi ya kawaida ni kutumika za kuweka pesa. Baadi ya mashine magazeti juu ya karatasi badala ya kulipa wewe moja kwa moja. Wakati mwingine watu kulipa na pochi ya karatasi. Hii haifai.</string>

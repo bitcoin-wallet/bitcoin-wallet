@@ -73,7 +73,6 @@
 	<string name="send_coins_failed_msg">Spodletelo!\n</string>
 	<string name="send_coins_error_msg">Težava pri pošiljanju novcev!</string>
 	<string name="send_coins_options_empty">Izprazni denarnico</string>
-	<string name="send_coins_address_context_clear_title">Vnesi nov naslov</string>
 	<string name="request_coins_activity_title">Zahtevaj novce</string>
 	<string name="request_coins_fragment_amount_label">Znesek za plačilo (neobvezno)</string>
 	<string name="request_coins_fragment_accept_bluetooth_payment">Sprejmi plačilo prek Bluetootha za bolj zanesljivo procesiranje</string>

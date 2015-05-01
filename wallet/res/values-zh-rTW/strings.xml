@@ -75,7 +75,6 @@
   <string name="send_coins_failed_msg">失敗!</string>
   <string name="send_coins_error_msg">付款出現問題!</string>
   <string name="send_coins_options_empty">空錢包</string>
-  <string name="send_coins_address_context_clear_title">輸入新地址</string>
   <string name="sweep_wallet_activity_title">移轉只錢包</string>
   <string name="sweep_wallet_fragment_intro">你將移轉一個紙錢包或點卷，這將把紙錢包裡的所有幣一次轉到目前裝置錢包裡，當交易完成確認，該紙錢包變無價值，同時為了安全性，請勿再次使用。</string>
   <string name="sweep_wallet_fragment_hint">紙錢包常用於冷存放，一些比特幣提款機印出紙錢包而不是直接轉帳到你手機，人們有時用預付紙錢包方式來傳遞比特幣(不建議)。</string>

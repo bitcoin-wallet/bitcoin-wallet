@@ -75,7 +75,6 @@
   <string name="send_coins_failed_msg">Не вдалося!</string>
   <string name="send_coins_error_msg">Проблема з відправкою монет!</string>
   <string name="send_coins_options_empty">Порожній гаманець</string>
-  <string name="send_coins_address_context_clear_title">Введіть нову адресу</string>
   <string name="sweep_wallet_activity_title">Відсканувати паперовий гаманець</string>
   <string name="sweep_wallet_fragment_intro">Ви збираєтесь відсканувати паперовий гаманець або купон. Це перенесе всі монети з паперу у ваш гаманець на цьому пристрої. Коли ця транзакція пройде, паперовий носій буде не дійсним і не повинен повторно використаний з метою безпеки. </string>
   <string name="sweep_wallet_fragment_hint">Паперові гаманці найчастіше використовуються для холодного зберігання. Деякі банкомати друкують їх на папері, а не посилають монети на мобільний пристрій напряму. Деякі люди використовують попередньо заряджені паперові гаманці щоб передавати монети. (це не рекомендуєтся)</string>

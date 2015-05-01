@@ -58,7 +58,6 @@
 	<string name="send_coins_failed_msg">Не успеа!</string>
 	<string name="send_coins_error_msg">Проблем при праќање на Биткоини!</string>
 	<string name="send_coins_options_empty">Испразни го паричникот</string>
-	<string name="send_coins_address_context_clear_title">Внеси нова адреса</string>
 	<string name="request_coins_activity_title">Побарај Биткоини</string>
 	<string name="request_coins_fragment_amount_label">Побарувана сума (опционално)</string>
 	<string name="request_coins_fragment_initiate_request_qr">Испраќачот нека го скенира овој код.</string>
