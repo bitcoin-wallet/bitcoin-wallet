@@ -1,0 +1,35 @@
+<b>Imaj svoje Bitcoin-e uvijek sa sobom, u svom džepu.</b> Plaćaj brzim skeniranjem QR koda. Kao trgovac, primaj uplate sigurno i brzo. Bitcoin Wallet je prva mobilna Bitcoin aplikacija, i ne porecivo najsigurnija!
+
+
+<b>ZNAČAJKE</b>
+
+• Bez registracije, web servis ili cloud potreban! Ovaj novčanik je de-centraliziran i klijent prema klijentu.
+• Prikaži Bitcoin iznos u BTC, mBTC i uBTC.
+• Pretvorba u ili iz nacionalnih valuta.
+• Slanje i primanje Bitcoina s NFC, QR kodom ili Bitcoin URL-om.
+• Adresar za često korištene Bitcoin adrese.
+• Kada si izvan mreže, možete još uvijek preko Bluetooth-a.
+• Sistemske obavjesti za primljene coin-ove.
+• Widgeti aplikacije za balansiranje Bitcoin-ova.
+
+
+<b>DOPRINOS</b>
+
+Bitcoin Wallet je <b>javno dostupan kod</b> i <b>besplatna aplikacija</b>. Licencirana pod GPLv3.
+https://www.gnu.org/licenses/gpl-3.0.en.html
+
+Naš izvorni kod je dostušan na GitHub-u:
+https://github.com/schildbach/bitcoin-wallet
+
+Sve transakcije se provode preko Transifex-a:
+https://www.transifex.com/projects/p/bitcoin-wallet/
+
+
+<b>IZJAVE</b>
+
+• Mnoge  mobilne aplikacije temelje svoj kod na Bitcoin Wallet. Primjer: blockchain.info, Hive i KnC.
+• Preporučeni pokretni novčanik od https://bitcoin.org
+• Preporučava BitPay.
+
+
+<i>Koristi na svoj vlastiti rizik.</i>
