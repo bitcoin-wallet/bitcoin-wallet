@@ -1,0 +1,36 @@
+<>Mbani Bitcoin-at e juaj gjithmonë me ju, në xhepin tuaj!</b> Paguani shpejt duke skanuar një QR kod. Si tregtar, pranoni pagesat lehtë dhe menjëherë. Bitcoin Wallet është Bitcoin aplikacioni i parë mobil, dhe gjithashtu më i sigurti!
+
+
+<b>VEÇORIT</b>
+
+• Nuk kërkohet regjistrim, ueb shërbim apo cloud! Kjo kulet është e de-centralizuar dhe 'peer to peer'.
+• Shfaq shumën e Bitcoins në BTC, mBTC dhe µBTC.
+• Konvertimi nga monedhat nacionale.
+• Dërgimi dhe pranimi i Bitcoin-ave me anë të NFC, QR kodeve ose Bircoin URL-ve.
+• Libri i adresave të cilat i përdorni rregullisht për monedha.
+• Kur jeni offline, ju prap mund të paguani përmes Bluetooth.
+• Sistemi i lajmërimit për pranimin e monedhave.
+• Shpenzimi i kuletave në letër (p.sh. ato të cilat përdoren për 'cold storage').
+• Shtesa e programit për bilancin e monedhave.
+
+
+<b>KONTRIBUOJ</b>
+
+Bitcoin Wallet është <b>kod i hapur</b> dhe <b>softuer i lirë</b>. Licenca: GPLv3
+https://www.gnu.org/licenses/gpl-3.0.en.html
+
+Kodi jonë burimor është i hapur në GitHub:
+https://github.com/schildbach/bitcoin-wallet
+
+Të gjitha përkthimet menagjohen nga Transifex:
+https://www.transifex.com/projects/p/bitcoin-wallet/
+
+
+<b>DЁSHMIT</b>
+
+• Shumë kuleta mobile bazohen ne kodin e Bitcoin Wallet. Shembuj: blockchain.info, Hive dhe KnC.
+• Kulet mobile e rekomanduar nga https://bitcoin.org
+• Rekomanduar nga BitPay.
+
+
+<i>Përdoreni në përgjegjësin tuaj!<i>

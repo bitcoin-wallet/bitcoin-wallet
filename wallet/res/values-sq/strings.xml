@@ -24,15 +24,16 @@
   <string name="exchange_rates_fragment_source">Çmimi nga %s</string>
   <string name="exchange_rates_options_search">Kërko kursin e këmbimit</string>
   <string name="exchange_rates_context_set_as_default_title">Vëndoseni si valutë të huaj të rëndomtë</string>
-  <string name="wallet_transactions_options_filter_received">Pranuar</string>
-  <string name="wallet_transactions_options_filter_all">Të dyjat</string>
-  <string name="wallet_transactions_options_filter_sent">Dërguar</string>
   <string name="wallet_transactions_fragment_empty_text_received">Nuk keni pranuar asnjë Bitcoin deri më tani</string>
   <string name="wallet_transactions_fragment_empty_text_sent">Nuk keni dërguar asnjë Bitcoin deri me tani</string>
   <string name="wallet_transactions_fragment_empty_text_howto">Si të merrni Bitcoins?\n\nKëmbeni me para tradicionale,\shitni gjëra apo shërbime ose\nfito duke punuar.</string>
   <string name="wallet_transactions_row_warning_backup">Urime, ju sapo keni pranuar pagesën e parë! E keni &lt;u&gt;ruajtur një kopje rezervë të kuletës suaj tashmë, për ta mbrojutur ne rast humbjeje? </string>
   <string name="wallet_transactions_fragment_coinbase">të minuara</string>
   <string name="wallet_transactions_fragment_internal">interne</string>
+  <string name="wallet_transactions_options_filter">Filtro</string>
+  <string name="wallet_transactions_options_filter_all">Të gjitha pagesat</string>
+  <string name="wallet_transactions_options_filter_received">Pagesat e pranuara</string>
+  <string name="wallet_transactions_options_filter_sent">Pagesat e dërguata</string>
   <string name="wallet_options_safety_menu">Siguria</string>
   <string name="wallet_options_encrypt_keys_set">Caktoni PIN-in</string>
   <string name="wallet_options_encrypt_keys_change">Ndryshoni PIN-in</string>
@@ -60,6 +61,7 @@
   <string name="send_coins_fragment_receiving_address_label">Paguani tek</string>
   <string name="send_coins_fragment_receiving_address_hint">shënoni adresën ose emrin</string>
   <string name="send_coins_fragment_receiving_address_error">Adresa e Bitcoin e gabuar!</string>
+  <string name="send_coins_fragment_receiving_address_own">Jeni duke dërguar te vetëvetja!</string>
   <string name="send_coins_fragment_receiving_address_complex">kompleks\nadresa</string>
   <string name="send_coins_fragment_pending">(%s pret konfirmimin)</string>
   <string name="send_coins_fragment_amount_label">Shuma për të paguar</string>
@@ -132,13 +134,17 @@
   <string name="address_book_options_paste_from_clipboard_title">Fute nga klipbordi</string>
   <string name="address_book_options_paste_from_clipboard_empty">Klipbordi është bosh</string>
   <string name="address_book_options_paste_from_clipboard_invalid">Të dhënat nga memorja është e pakuptueshme</string>
+  <string name="address_book_options_paste_from_clipboard_own_address">Adresa në memorje është e juaja.</string>
   <string name="address_book_options_scan_title">Skanoni adresën</string>
   <string name="address_book_options_scan_invalid">Të dhënat e skanuara janë të pakuptueshme</string>
+  <string name="address_book_options_scan_own_address">Adresa e skanuar është e juaja.</string>
   <string name="address_book_row_message_compromised_key">Kjo adres mund të jetë e komprometuar. Nuk duhet ta perdorni për të pranuar monedha.</string>
-  <string name="edit_address_book_entry_dialog_title_add">Shto një adresë</string>
-  <string name="edit_address_book_entry_dialog_title_edit">Ndrysho adresën</string>
+  <string name="edit_address_book_entry_dialog_title_add">Shto adresën dërguese</string>
+  <string name="edit_address_book_entry_dialog_title_edit">Ndrysho etiketimin e adresës dërguese</string>
+  <string name="edit_address_book_entry_dialog_title_add_receive">Shto etiketim në adresën tuaj</string>
+  <string name="edit_address_book_entry_dialog_title_edit_receive">Ndrysho etiketën e adresës suaj</string>
   <string name="edit_address_book_entry_dialog_address_label">Adresa</string>
-  <string name="edit_address_book_entry_dialog_label_label">Emri</string>
+  <string name="edit_address_book_entry_dialog_label_label">Etiketa</string>
   <string name="edit_address_book_entry_dialog_button_edit">Ruaj</string>
   <string name="transaction_row_fee">Tarifa e rrjetit</string>
   <string name="transaction_row_message_purpose_key_rotation">Ky transaksion e përforcon kuletën tuaj kunder vjedhjes. &lt;u&gt;Më shumë info.&lt;/u&gt;</string>
@@ -257,7 +263,7 @@
   <string name="about_market_app_summary">Shqyrtoni apo vlersoni aplikacionin</string>
   <string name="notification_coins_received_msg">Pranuar %s</string>
   <string name="notification_peers_connected_msg">%d përdorues të lidhur</string>
-  <!-- generic buttons -->
+  <!--generic buttons-->
   <string name="button_ok">Në rregull</string>
   <string name="button_dismiss">Shpërfille</string>
   <string name="button_cancel">Anulo</string>
@@ -281,7 +287,7 @@
   <string name="action_browse">Shfleto</string>
   <string name="time_today">sot</string>
   <string name="address_unlabeled">(paetiketuar)</string>
-  <!-- generic error messages -->
+  <!--generic error messages-->
   <string name="error_io">I/O gabim: %s</string>
   <string name="error_parse">Parse gabim: %s</string>
   <string name="error_http">HTTP gabim %1$s:\n%2$s</string>
