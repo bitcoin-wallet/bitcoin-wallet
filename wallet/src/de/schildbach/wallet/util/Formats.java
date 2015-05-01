@@ -20,6 +20,8 @@ package de.schildbach.wallet.util;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.annotation.Nullable;
+
 import de.schildbach.wallet.Constants;
 
 /**
@@ -46,14 +48,21 @@ public final class Formats
 			return html.toString();
 	}
 
-	private static final Pattern PATTERN_MEMO = Pattern.compile("Payment request for Coinbase order code: (.+)", Pattern.CASE_INSENSITIVE);
+	private static final Pattern PATTERN_MEMO = Pattern.compile(
+			"(?:Payment request for Coinbase order code: (.+)|Payment request for BitPay invoice (.+) for merchant (.+))", Pattern.CASE_INSENSITIVE);
 
-	public static String sanitizeMemo(final String memo)
+	@Nullable
+	public static String[] sanitizeMemo(final @Nullable String memo)
 	{
+		if (memo == null)
+			return null;
+
 		final Matcher m = PATTERN_MEMO.matcher(memo);
-		if (m.matches())
-			return m.group(1) + " (via Coinbase)";
+		if (m.matches() && m.group(1) != null)
+			return new String[] { m.group(1) + " (via Coinbase)" };
+		else if (m.matches() && m.group(2) != null)
+			return new String[] { m.group(2) + " (via BitPay)", m.group(3) };
 		else
-			return memo;
+			return new String[] { memo };
 	}
 }

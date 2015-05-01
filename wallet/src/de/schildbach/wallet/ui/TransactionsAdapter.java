@@ -350,6 +350,7 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 			final boolean isCoinBase = tx.isCoinBase();
 			final boolean isInternal = tx.getPurpose() == Purpose.KEY_ROTATION;
 			final Coin fee = tx.getFee();
+			final String[] memo = Formats.sanitizeMemo(tx.getMemo());
 
 			TransactionCacheEntry txCache = transactionCache.get(tx.getHash());
 			if (txCache == null)
@@ -467,6 +468,12 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 				addressView.setTypeface(Typeface.DEFAULT_BOLD);
 				addressView.setText(txCache.addressLabel);
 			}
+			else if (memo != null && memo.length >= 2)
+			{
+				addressView.setTextColor(textColor);
+				addressView.setTypeface(Typeface.DEFAULT_BOLD);
+				addressView.setText(memo[1]);
+			}
 			else if (txCache.address != null)
 			{
 				addressView.setTextColor(lessSignificantColor);
@@ -559,10 +566,10 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 				messageView.setText(R.string.transaction_row_message_received_pay_to_many);
 				messageView.setTextColor(colorInsignificant);
 			}
-			else if (tx.getMemo() != null)
+			else if (memo != null)
 			{
 				extendMessageView.setVisibility(View.VISIBLE);
-				messageView.setText(Formats.sanitizeMemo(tx.getMemo()));
+				messageView.setText(memo[0]);
 				messageView.setTextColor(colorInsignificant);
 				messageView.setSingleLine(!itemView.isActivated());
 			}
