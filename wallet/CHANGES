@@ -1,3 +1,8 @@
+v4.28
+
+* Add Hindi and Croatian translations. Update Greek and Albanian.
+* Design bugfixes.
+
 v4.27
 
 * Tint incoming transactions in green, outgoing in red.
