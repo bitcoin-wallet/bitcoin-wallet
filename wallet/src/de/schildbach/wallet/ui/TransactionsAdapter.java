@@ -300,7 +300,6 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
 	private class TransactionViewHolder extends RecyclerView.ViewHolder
 	{
-		private final View contentView;
 		private final View extendTimeView;
 		private final TextView fullTimeView;
 		private final CircularProgressView confidenceCircularView;
@@ -314,14 +313,12 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 		private final CurrencyTextView fiatView;
 		private final View extendMessageView;
 		private final TextView messageView;
-		private final View extendMenuView;
 		private final ImageButton menuView;
 
 		private TransactionViewHolder(final View itemView)
 		{
 			super(itemView);
 
-			contentView = itemView.findViewById(R.id.transaction_row_content);
 			extendTimeView = itemView.findViewById(R.id.transaction_row_extend_time);
 			fullTimeView = (TextView) itemView.findViewById(R.id.transaction_row_full_time);
 			confidenceCircularView = (CircularProgressView) itemView.findViewById(R.id.transaction_row_confidence_circular);
@@ -335,7 +332,6 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 			fiatView = (CurrencyTextView) itemView.findViewById(R.id.transaction_row_fiat);
 			extendMessageView = itemView.findViewById(R.id.transaction_row_extend_message);
 			messageView = (TextView) itemView.findViewById(R.id.transaction_row_message);
-			extendMenuView = itemView.findViewById(R.id.transaction_row_extend_menu);
 			menuView = (ImageButton) itemView.findViewById(R.id.transaction_row_menu);
 		}
 
@@ -575,9 +571,7 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 			}
 
 			// menu
-			contentView.setPadding(contentView.getPaddingLeft(), contentView.getPaddingTop(), itemView.isActivated() ? 0 : context.getResources()
-					.getDimensionPixelOffset(R.dimen.list_entry_padding_horizontal), contentView.getPaddingBottom());
-			extendMenuView.setVisibility(itemView.isActivated() ? View.VISIBLE : View.GONE);
+			menuView.setVisibility(itemView.isActivated() ? View.VISIBLE : View.GONE);
 		}
 	}
 
