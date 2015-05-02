@@ -302,8 +302,8 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 	{
 		private final View extendTimeView;
 		private final TextView fullTimeView;
-		private final CircularProgressView confidenceCircularView;
-		private final TextView confidenceTextualView;
+		private final CircularProgressView confidenceCircularNormalView, confidenceCircularSelectedView;
+		private final TextView confidenceTextualNormalView, confidenceTextualSelectedView;
 		private final TextView timeView;
 		private final TextView addressView;
 		private final View extendFeeView;
@@ -321,8 +321,10 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
 			extendTimeView = itemView.findViewById(R.id.transaction_row_extend_time);
 			fullTimeView = (TextView) itemView.findViewById(R.id.transaction_row_full_time);
-			confidenceCircularView = (CircularProgressView) itemView.findViewById(R.id.transaction_row_confidence_circular);
-			confidenceTextualView = (TextView) itemView.findViewById(R.id.transaction_row_confidence_textual);
+			confidenceCircularNormalView = (CircularProgressView) itemView.findViewById(R.id.transaction_row_confidence_circular);
+			confidenceCircularSelectedView = (CircularProgressView) itemView.findViewById(R.id.transaction_row_confidence_circular_selected);
+			confidenceTextualNormalView = (TextView) itemView.findViewById(R.id.transaction_row_confidence_textual);
+			confidenceTextualSelectedView = (TextView) itemView.findViewById(R.id.transaction_row_confidence_textual_selected);
 			timeView = (TextView) itemView.findViewById(R.id.transaction_row_time);
 			addressView = (TextView) itemView.findViewById(R.id.transaction_row_address);
 			extendFeeView = itemView.findViewById(R.id.transaction_row_extend_fee);
@@ -386,6 +388,11 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 			}
 
 			// confidence
+			final CircularProgressView confidenceCircularView = itemView.isActivated() ? confidenceCircularSelectedView
+					: confidenceCircularNormalView;
+			final TextView confidenceTextualView = itemView.isActivated() ? confidenceTextualSelectedView : confidenceTextualNormalView;
+			(itemView.isActivated() ? confidenceCircularNormalView : confidenceCircularSelectedView).setVisibility(View.INVISIBLE);
+			(itemView.isActivated() ? confidenceTextualNormalView : confidenceTextualSelectedView).setVisibility(View.GONE);
 			if (confidenceType == ConfidenceType.PENDING)
 			{
 				confidenceCircularView.setVisibility(View.VISIBLE);

@@ -21,10 +21,20 @@
 			android:paddingBottom="2dp"
 			android:visibility="gone" >
 
-			<Space
+			<de.schildbach.wallet.util.CircularProgressView
+				android:id="@+id/transaction_row_confidence_circular_selected"
 				android:layout_width="@dimen/symbol_size_normal"
 				android:layout_height="@dimen/symbol_size_normal"
 				android:layout_marginRight="8dp" />
+
+			<TextView
+				android:id="@+id/transaction_row_confidence_textual_selected"
+				android:layout_width="@dimen/symbol_size_normal"
+				android:layout_height="wrap_content"
+				android:layout_marginRight="8dp"
+				android:gravity="center_horizontal|top"
+				android:singleLine="true"
+				android:textStyle="bold" />
 
 			<TextView
 				android:id="@+id/transaction_row_full_time"
