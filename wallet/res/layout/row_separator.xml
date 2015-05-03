@@ -6,7 +6,6 @@
 	android:paddingLeft="@dimen/list_entry_padding_horizontal"
 	android:paddingRight="@dimen/list_entry_padding_horizontal"
 	android:paddingTop="3dp"
-	android:shadowColor="@color/bg_bright"
-	android:shadowRadius="1"
+	android:textColor="@color/fg_less_significant"
 	android:textSize="@dimen/font_size_small"
 	android:textStyle="bold" />
