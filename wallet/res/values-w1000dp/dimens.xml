@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+	<dimen name="card_padding_horizontal">24dp</dimen>
+	<dimen name="exchange_rate_pane_width">448dp</dimen>
+
+</resources>

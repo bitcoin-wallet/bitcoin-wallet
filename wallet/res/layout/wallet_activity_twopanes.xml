@@ -12,7 +12,7 @@
 		android:orientation="horizontal" >
 
 		<FrameLayout
-			android:layout_width="352sp"
+			android:layout_width="@dimen/exchange_rate_pane_width"
 			android:layout_height="match_parent"
 			android:background="@color/bg_less_bright" >
 
