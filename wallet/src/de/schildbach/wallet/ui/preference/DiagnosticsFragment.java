@@ -18,6 +18,7 @@
 package de.schildbach.wallet.ui.preference;
 
 import java.io.IOException;
+import java.util.Locale;
 
 import org.bitcoinj.crypto.DeterministicKey;
 import org.slf4j.Logger;
@@ -157,7 +158,7 @@ public final class DiagnosticsFragment extends PreferenceFragment
 	private void handleExtendedPublicKey()
 	{
 		final DeterministicKey extendedKey = application.getWallet().getWatchingKey();
-		final String xpub = String.format("%s?c=%d&h=bip32", extendedKey.serializePubB58(), extendedKey.getCreationTimeSeconds());
+		final String xpub = String.format(Locale.US, "%s?c=%d&h=bip32", extendedKey.serializePubB58(), extendedKey.getCreationTimeSeconds());
 		ExtendedPublicKeyFragment.show(getFragmentManager(), (CharSequence) xpub);
 	}
 }
