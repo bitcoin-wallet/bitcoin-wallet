@@ -124,7 +124,7 @@ public class WalletTransactionsFragment extends Fragment implements LoaderCallba
 		@Override
 		public void onChange(final boolean selfChange)
 		{
-			adapter.clearLabelCache();
+			adapter.clearCacheAndNotifyDataSetChanged();
 		}
 	};
 
@@ -507,6 +507,6 @@ public class WalletTransactionsFragment extends Fragment implements LoaderCallba
 	private void updateView()
 	{
 		adapter.setFormat(config.getFormat());
-		adapter.clearLabelCache();
+		adapter.notifyDataSetChanged();
 	}
 }

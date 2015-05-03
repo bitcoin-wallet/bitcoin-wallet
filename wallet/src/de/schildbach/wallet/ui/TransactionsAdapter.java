@@ -85,9 +85,6 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 	private final String textCoinBase;
 	private final String textInternal;
 
-	private final Map<String, String> labelCache = new HashMap<String, String>();
-	private final static String CACHE_NULL_MARKER = "";
-
 	private static final String CONFIDENCE_SYMBOL_DEAD = "\u271D"; // latin cross
 	private static final String CONFIDENCE_SYMBOL_UNKNOWN = "?";
 
@@ -101,14 +98,19 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 		private final Coin value;
 		private final boolean sent;
 		private final boolean showFee;
+		@Nullable
 		private final Address address;
+		@Nullable
+		private final String addressLabel;
 
-		private TransactionCacheEntry(final Coin value, final boolean sent, final boolean showFee, final Address address)
+		private TransactionCacheEntry(final Coin value, final boolean sent, final boolean showFee, final @Nullable Address address,
+				final @Nullable String addressLabel)
 		{
 			this.value = value;
 			this.sent = sent;
 			this.showFee = showFee;
 			this.address = address;
+			this.addressLabel = addressLabel;
 		}
 	}
 
@@ -177,6 +179,13 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 	public void setSelectedItemId(final long itemId)
 	{
 		selectedItemId = itemId;
+
+		notifyDataSetChanged();
+	}
+
+	public void clearCacheAndNotifyDataSetChanged()
+	{
+		transactionCache.clear();
 
 		notifyDataSetChanged();
 	}
@@ -352,8 +361,9 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 					address = WalletUtils.getToAddressOfSent(tx, wallet);
 				else
 					address = WalletUtils.getWalletAddressOfReceived(tx, wallet);
-				txCache = new TransactionCacheEntry(value, sent, showFee, address);
+				final String addressLabel = address != null ? AddressBookProvider.resolveLabel(context, address.toString()) : null;
 
+				txCache = new TransactionCacheEntry(value, sent, showFee, address, addressLabel);
 				transactionCache.put(tx.getHash(), txCache);
 			}
 
@@ -441,7 +451,7 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 			else if (isInternal)
 				label = textInternal;
 			else if (txCache.address != null)
-				label = resolveLabel(txCache.address.toString());
+				label = txCache.addressLabel;
 			else
 				label = "?";
 			addressView.setTextColor(textColor);
@@ -565,30 +575,5 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 				});
 			}
 		}
-	}
-
-	private String resolveLabel(final String address)
-	{
-		final String cachedLabel = labelCache.get(address);
-		if (cachedLabel == null)
-		{
-			final String label = AddressBookProvider.resolveLabel(context, address);
-			if (label != null)
-				labelCache.put(address, label);
-			else
-				labelCache.put(address, CACHE_NULL_MARKER);
-			return label;
-		}
-		else
-		{
-			return cachedLabel != CACHE_NULL_MARKER ? cachedLabel : null;
-		}
-	}
-
-	public void clearLabelCache()
-	{
-		labelCache.clear();
-
-		notifyDataSetChanged();
 	}
 }
