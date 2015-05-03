@@ -60,6 +60,7 @@
 		android:label="@string/app_name" >
 		<activity
 			android:name="de.schildbach.wallet.ui.WalletActivity"
+			android:exported="true"
 			android:configChanges="keyboard|keyboardHidden"
 			android:launchMode="singleTask"
 			android:theme="@style/My.Theme" />
