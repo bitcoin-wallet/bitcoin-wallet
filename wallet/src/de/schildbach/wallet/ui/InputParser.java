@@ -434,6 +434,8 @@ public abstract class InputParser
 
 	protected void cannotClassify(final String input)
 	{
+		log.info("cannot classify: '{}'", input);
+
 		error(R.string.input_parser_cannot_classify, input);
 	}
 
