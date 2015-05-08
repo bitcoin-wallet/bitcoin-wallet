@@ -13,11 +13,11 @@
 		android:orientation="vertical" >
 
 		<TextView
+			android:id="@+id/restore_wallet_dialog_message"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:layout_marginBottom="@dimen/list_entry_padding_vertical"
-			android:layout_marginTop="@dimen/list_entry_padding_vertical_lax"
-			android:text="@string/import_keys_dialog_message" />
+			android:layout_marginTop="@dimen/list_entry_padding_vertical_lax" />
 
 		<Spinner
 			android:id="@+id/import_keys_from_storage_file"

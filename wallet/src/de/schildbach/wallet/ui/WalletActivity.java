@@ -377,6 +377,7 @@ public final class WalletActivity extends AbstractWalletActivity
 	private Dialog createRestoreWalletDialog()
 	{
 		final View view = getLayoutInflater().inflate(R.layout.restore_wallet_dialog, null);
+		final TextView messageView = (TextView) view.findViewById(R.id.restore_wallet_dialog_message);
 		final Spinner fileView = (Spinner) view.findViewById(R.id.import_keys_from_storage_file);
 		final EditText passwordView = (EditText) view.findViewById(R.id.import_keys_from_storage_password);
 
@@ -448,6 +449,8 @@ public final class WalletActivity extends AbstractWalletActivity
 				return row;
 			}
 		};
+
+		messageView.setText(getString(R.string.import_keys_dialog_message, Constants.Files.EXTERNAL_WALLET_BACKUP_DIR));
 
 		fileView.setAdapter(adapter);
 
