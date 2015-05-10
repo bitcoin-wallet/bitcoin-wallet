@@ -81,7 +81,6 @@ public class ExtendedPublicKeyFragment extends DialogFragment
 		imageView.setImageBitmap(bitmap);
 
 		final DialogBuilder dialog = new DialogBuilder(activity);
-		dialog.setTitle(R.string.extended_public_key_fragment_title);
 		dialog.setView(view);
 		dialog.setNegativeButton(R.string.button_dismiss, null);
 		dialog.setPositiveButton(R.string.button_share, new OnClickListener()
