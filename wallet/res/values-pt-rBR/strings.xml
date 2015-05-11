@@ -12,10 +12,11 @@
   <string name="blockchain_state_progress_problem_storage">Sincronizando: Problema de armazenamento</string>
   <string name="blockchain_state_progress_problem_network">Sincronizando: Problema na rede</string>
   <string name="wallet_address_fragment_clipboard_msg">Endereço Bitcoin copiado</string>
+  <string name="wallet_address_dialog_fragment_hint">Para proteger a sua privacidade, seu endereço irá mudar assim que você receber um pagamento.</string>
   <string name="wallet_balance_fragment_too_much">Este valor é bastante alto para transportar no seu bolso. Por favor, envie um pouco para um lugar mais seguro.</string>
   <string name="wallet_balance_fragment_replaying">Saldo indisponível durante a reavaliação.</string>
-  <string name="exchange_rates_activity_title">as taxas de câmbio</string>
-  <string name="exchange_rates_fragment_empty_text">Não é possível carregar as taxas de câmbio.</string>
+  <string name="exchange_rates_activity_title">Cotações</string>
+  <string name="exchange_rates_fragment_empty_text">Não é possível carregar as cotações.</string>
   <string name="exchange_rates_fragment_empty_search">Não foi possível encontrar a taxa de câmbio</string>
   <string name="exchange_rates_fragment_default">(padrão)</string>
   <string name="exchange_rates_fragment_rate">tipo</string>
@@ -23,18 +24,19 @@
   <string name="exchange_rates_fragment_source">Preço de %s</string>
   <string name="exchange_rates_options_search">Pesquisa da taxa de câmbio</string>
   <string name="exchange_rates_context_set_as_default_title">Definir como moeda padrão</string>
-  <string name="wallet_transactions_options_filter_received">Recebidos</string>
-  <string name="wallet_transactions_options_filter_all">Todos</string>
-  <string name="wallet_transactions_options_filter_sent">Enviados</string>
   <string name="wallet_transactions_fragment_empty_text_received">Nenhum Bitcoin recebido até o momento.</string>
   <string name="wallet_transactions_fragment_empty_text_sent">Nenhum Bitcoin enviado até o momento.</string>
   <string name="wallet_transactions_fragment_empty_text_howto">Como conseguir Bitcoins?\n\nTroque por dinheiro tradicional,\nvenda bens ou serviços ou\nganhe trabalhando.</string>
   <string name="wallet_transactions_row_warning_backup">Parabéns, você recebeu o seu primeiro pagamento! Deseja efetuar o &lt;u&gt;backup de sua carteira&lt;/u&gt;, para proteger seus Bitcoins?</string>
   <string name="wallet_transactions_fragment_coinbase">minados</string>
   <string name="wallet_transactions_fragment_internal">interno</string>
+  <string name="wallet_transactions_options_filter">Filtro</string>
+  <string name="wallet_transactions_options_filter_all">Todos pagamentos</string>
+  <string name="wallet_transactions_options_filter_received">Pagamentos recebidos</string>
+  <string name="wallet_transactions_options_filter_sent">Pagamentos enviados</string>
   <string name="wallet_options_safety_menu">Segurança</string>
-  <string name="wallet_options_encrypt_keys_set">Definir PIN de gasto</string>
-  <string name="wallet_options_encrypt_keys_change">Mudar PIN de gasto</string>
+  <string name="wallet_options_encrypt_keys_set">Definir PIN</string>
+  <string name="wallet_options_encrypt_keys_change">Mudar PIN</string>
   <string name="wallet_options_safety">Indicações de segurança</string>
   <string name="wallet_options_donate">Dica / doar</string>
   <string name="wallet_donate_address_label">Doação pra Bitcoin carteira</string>
@@ -59,6 +61,7 @@
   <string name="send_coins_fragment_receiving_address_label">Pagar a</string>
   <string name="send_coins_fragment_receiving_address_hint">insira o endereço ou nome</string>
   <string name="send_coins_fragment_receiving_address_error">Endereço Bitcoin inválido</string>
+  <string name="send_coins_fragment_receiving_address_own">Você está prestes a enviar para si mesmo!</string>
   <string name="send_coins_fragment_receiving_address_complex">complexo\nendereço</string>
   <string name="send_coins_fragment_pending">(%s esperando confirmação)</string>
   <string name="send_coins_fragment_amount_label">Quantidade a pagar</string>
@@ -121,6 +124,7 @@
   <string name="request_coins_options_local_app_title">Pedido de aplicação local</string>
   <string name="address_book_activity_title">livro de endereços</string>
   <string name="address_book_list_receiving_title">Seus endereços</string>
+  <string name="address_book_list_receiving_random">Endereços antigos</string>
   <string name="address_book_list_sending_title">Endereços para envio</string>
   <string name="address_book_empty_text">Nenhum endereço no catálogo</string>
   <string name="address_book_context_send_title">Enviar Bitcoins ao endereço</string>
@@ -130,13 +134,17 @@
   <string name="address_book_options_paste_from_clipboard_title">Colar</string>
   <string name="address_book_options_paste_from_clipboard_empty">Área de transferência vazia</string>
   <string name="address_book_options_paste_from_clipboard_invalid">Dados da área de transferência irreconhecíveis</string>
+  <string name="address_book_options_paste_from_clipboard_own_address">O endereço na área de transferência é o seu próprio.</string>
   <string name="address_book_options_scan_title">Escanear endereço</string>
   <string name="address_book_options_scan_invalid">Os dados digitalizados estão irreconhecíveis</string>
+  <string name="address_book_options_scan_own_address">O endereço escaneado é o seu próprio.</string>
   <string name="address_book_row_message_compromised_key">Este endereço pode ser comprometido. Você não deve mais usá-lo para receber moedas.</string>
-  <string name="edit_address_book_entry_dialog_title_add">Adicionar endereço</string>
-  <string name="edit_address_book_entry_dialog_title_edit">Editar endereço</string>
+  <string name="edit_address_book_entry_dialog_title_add">Adicionar endereços de envio</string>
+  <string name="edit_address_book_entry_dialog_title_edit">Editar etiqueta para o endereço de envio</string>
+  <string name="edit_address_book_entry_dialog_title_add_receive">Adicionar etiqueta para o seu endereço</string>
+  <string name="edit_address_book_entry_dialog_title_edit_receive">Editar etiqueta para o seu endereço</string>
   <string name="edit_address_book_entry_dialog_address_label">Endereço</string>
-  <string name="edit_address_book_entry_dialog_label_label">Nome</string>
+  <string name="edit_address_book_entry_dialog_label_label">Etiqueta</string>
   <string name="edit_address_book_entry_dialog_button_edit">Salvar</string>
   <string name="transaction_row_fee">Taxa da rede</string>
   <string name="transaction_row_message_purpose_key_rotation">Esta transação fortalece sua carteira contra roubo. &lt;u&gt;More info.&lt;/u&gt;</string>
@@ -147,13 +155,13 @@
   <string name="transaction_row_message_received_dust">Esta pequena quantidade pode provavelmente nunca ser gasto economicamente.</string>
   <string name="transaction_row_message_received_pay_to_many">Essa transferência é feita para muitas carteiras além da sua, o que torna o app lento. Se você puder, tente receber pagamentos que pagam somente você.</string>
   <string name="network_monitor_activity_title">Monitor de rede</string>
-  <string name="network_monitor_peer_list_title">Pares</string>
+  <string name="network_monitor_peer_list_title">Pontos</string>
   <string name="network_monitor_block_list_title">Blocos</string>
   <string name="block_row_now">agora</string>
-  <string name="peer_list_fragment_empty">Sem pares conectados</string>
+  <string name="peer_list_fragment_empty">Sem pontos conectados</string>
   <string name="peer_list_row_ping_time">⇆ %d&#x2009;ms</string>
-  <string name="import_keys_dialog_title">restaurar carteira</string>
-  <string name="import_keys_dialog_message">Escolha um arquivo de backup carteira de armazenamento externo ou app-privada:</string>
+  <string name="import_keys_dialog_title">Restaurar carteira</string>
+  <string name="import_keys_dialog_message">Escolha um arquivo de backup de carteira no armazenamento externo (%s):</string>
   <string name="restore_wallet_dialog_replace_warning">Você está prestes a substituir sua carteira atual. Quaisquer moedas na carteira atual serão perdidas a menos que você tem um backup separado do que isso.</string>
   <string name="import_keys_dialog_warning">Importante: Não carregue chaves privadas de fontes duvidosas! Outros podem ganhar controle sobre o seu saldo antes de você.</string>
   <string name="import_keys_dialog_file_security_encrypted">senha criptografada</string>
@@ -166,7 +174,7 @@
   <string name="restore_wallet_dialog_success">Carteira foi restaurada.</string>
   <string name="restore_wallet_dialog_success_replay">Sua carteira foi restaurada com sucesso. O saldo será determinado em seguida. Isso poderá levar algum tempo.</string>
   <string name="import_keys_dialog_failure">A carteira não pôde ser restaurada:\n\n%s\n\nSenha ruim?</string>
-  <string name="export_keys_dialog_title">carteira Cópia de segurança</string>
+  <string name="export_keys_dialog_title">Fazer back up da carteira</string>
   <string name="backup_wallet_dialog_message">Seu backup será criptografado com a senha escolhida e será salvo no armazenamento externo.</string>
   <string name="backup_wallet_dialog_warning_encrypted">Sua carteira é protegida por um PIN de gastos. Certifique-se de que você se lembra do PIN, além da senha de backup!</string>
   <string name="export_keys_dialog_button_export">Exportar</string>
@@ -178,11 +186,13 @@
   <string name="export_keys_dialog_mail_intent_chooser">Carteira Arquivo usando…</string>
   <string name="export_keys_dialog_mail_intent_failed">Arquivamento carteira falhou.</string>
   <string name="import_export_keys_dialog_password">senha</string>
+  <string name="backup_wallet_dialog_password_again">repita a senha</string>
+  <string name="backup_wallet_dialog_password_mismatch">não coincide!</string>
   <string name="import_export_keys_dialog_show">Mostrar senha</string>
   <string name="import_export_keys_dialog_failure_title">Erro</string>
   <string name="import_keys_intent_filter_action">restaurar carteira</string>
-  <string name="encrypt_keys_dialog_title">PIN de gasto</string>
-  <string name="encrypt_keys_dialog_message">Os gastos de sua carteira serão protegidos com o PIN escolhido.</string>
+  <string name="encrypt_keys_dialog_title">PIN</string>
+  <string name="encrypt_keys_dialog_message">O PIN escolhido será exigido para gastar o dinheiro da sua carteira.</string>
   <string name="encrypt_keys_dialog_warning">Importante: Não use números comuns (como datas de aniversários) em seu PIN.</string>
   <string name="encrypt_keys_dialog_password_old">PIN antigo</string>
   <string name="encrypt_keys_dialog_password_new">PIN</string>
@@ -210,11 +220,11 @@
   <string name="preferences_precision_title">Denominação e precisão</string>
   <string name="preferences_precision_summary">Unidade para mostrar valores. Isso não afeta os cálculos.</string>
   <string name="preferences_connectivity_notification_title">Indicador de conectividade</string>
-  <string name="preferences_connectivity_notification_summary">Mostrar número atual de pares conectados na área de transferência.</string>
-  <string name="preferences_trusted_peer_title">Pares confiáveis</string>
-  <string name="preferences_trusted_peer_summary">IP ou hostname de um par para conectar.</string>
-  <string name="preferences_trusted_peer_only_title">Ignorar descoberta de pares comuns</string>
-  <string name="preferences_trusted_peer_only_summary">Impede a conexão com outros pares que não sejam de confiança.</string>
+  <string name="preferences_connectivity_notification_summary">Mostrar número atual de pontos conectados na área de notificação.</string>
+  <string name="preferences_trusted_peer_title">Pontos confiáveis</string>
+  <string name="preferences_trusted_peer_summary">IP ou hostname de um ponto para conectar.</string>
+  <string name="preferences_trusted_peer_only_title">Ignorar descoberta de pontos comuns</string>
+  <string name="preferences_trusted_peer_only_summary">Impede a conexão com outros pontos que não sejam de confiança.</string>
   <string name="preferences_data_usage_title">Uso de dados</string>
   <string name="preferences_data_usage_summary">Mostrar opções para restringir o uso de dados em redes móveis.</string>
   <string name="preferences_report_issue_title">Informar problema</string>
@@ -225,6 +235,7 @@
   <string name="preferences_initiate_reset_dialog_positive">Reiniciar</string>
   <string name="preferences_extended_public_key_title">Mostrar xpub</string>
   <string name="preferences_extended_public_key_summary">Ver a chave pública estendida de sua carteira, para que possa ser importada para outros aplicativos e serviços. Tenha cuidado: isso irá divulgar a sua privacidade monetária para o app.</string>
+  <string name="bitmap_fragment_share">Compartilhar…</string>
   <string name="extended_public_key_fragment_title">Chave Pública Estendida</string>
   <string name="extended_public_key_fragment_share">Compartilhar xpub…</string>
   <string name="report_issue_dialog_title_issue">Informar problema</string>
@@ -252,8 +263,8 @@
   <string name="about_market_app_title">Página no Google Play</string>
   <string name="about_market_app_summary">Comente ou classifique o aplicativo</string>
   <string name="notification_coins_received_msg">Recebido %s</string>
-  <string name="notification_peers_connected_msg">%d pares conectados</string>
-  <!-- generic buttons -->
+  <string name="notification_peers_connected_msg">%d pontos conectados</string>
+  <!--generic buttons-->
   <string name="button_ok">OK</string>
   <string name="button_dismiss">Recusar</string>
   <string name="button_cancel">Cancelar</string>
@@ -277,7 +288,7 @@
   <string name="action_browse">Navegar</string>
   <string name="time_today">hoje</string>
   <string name="address_unlabeled">(sem nome)</string>
-  <!-- generic error messages -->
+  <!--generic error messages-->
   <string name="error_io">Erro de I/O, leitura ou escrita: %s</string>
   <string name="error_parse">Erro de análise:%s</string>
   <string name="error_http">Erro HTTP %1$s:\n%2$s</string>
