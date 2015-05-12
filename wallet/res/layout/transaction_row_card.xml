@@ -6,6 +6,7 @@
 	android:layout_marginLeft="@dimen/card_padding_horizontal"
 	android:layout_marginRight="@dimen/card_padding_horizontal"
 	android:layout_marginTop="@dimen/card_padding_vertical"
+	android:focusable="true"
 	android:foreground="?android:attr/selectableItemBackground" >
 
 	<include layout="@layout/transaction_row" />
