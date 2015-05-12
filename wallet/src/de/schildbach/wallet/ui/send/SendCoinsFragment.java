@@ -1163,8 +1163,6 @@ public final class SendCoinsFragment extends Fragment
 
 			receivingAddressView.setEnabled(state == State.INPUT);
 
-			receivingStaticView.setEnabled(state == State.INPUT);
-
 			amountCalculatorLink.setEnabled(state == State.INPUT && paymentIntent.mayEditAmount());
 
 			final boolean directPaymentVisible;
@@ -1289,10 +1287,10 @@ public final class SendCoinsFragment extends Fragment
 			final int activeAmountViewId = amountCalculatorLink.activeTextView().getId();
 			receivingAddressView.setNextFocusDownId(activeAmountViewId);
 			receivingAddressView.setNextFocusForwardId(activeAmountViewId);
-			receivingStaticView.setNextFocusDownId(activeAmountViewId);
 			amountCalculatorLink.setNextFocusId(privateKeyPasswordViewVisible ? R.id.send_coins_private_key_password : R.id.send_coins_go);
 			privateKeyPasswordView.setNextFocusUpId(activeAmountViewId);
 			privateKeyPasswordView.setNextFocusDownId(R.id.send_coins_go);
+			privateKeyPasswordView.setNextFocusForwardId(R.id.send_coins_go);
 			viewGo.setNextFocusUpId(privateKeyPasswordViewVisible ? R.id.send_coins_private_key_password : activeAmountViewId);
 		}
 		else
