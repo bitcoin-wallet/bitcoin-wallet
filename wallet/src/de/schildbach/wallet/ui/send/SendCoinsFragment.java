@@ -1139,7 +1139,7 @@ public final class SendCoinsFragment extends Fragment
 			{
 				payeeGroup.setVisibility(View.VISIBLE);
 				receivingAddressView.setVisibility(View.GONE);
-				receivingStaticView.setVisibility(View.VISIBLE);
+				receivingStaticView.setVisibility(!paymentIntent.hasPayee() || paymentIntent.payeeVerifiedBy == null ? View.VISIBLE : View.GONE);
 
 				receivingStaticLabelView.setText(paymentIntent.memo);
 
