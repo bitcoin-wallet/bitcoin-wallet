@@ -158,7 +158,8 @@ public final class SendCoinsFragment extends Fragment
 	private Button viewGo;
 	private Button viewCancel;
 
-	private State state = State.INPUT;
+	@Nullable
+	private State state = null;
 
 	private PaymentIntent paymentIntent = null;
 	private boolean priority = false;
@@ -181,7 +182,9 @@ public final class SendCoinsFragment extends Fragment
 
 	private enum State
 	{
-		INPUT, DECRYPTING, SIGNING, SENDING, SENT, FAILED
+		REQUEST_PAYMENT_REQUEST, //
+		INPUT, // asks for confirmation
+		DECRYPTING, SIGNING, SENDING, SENT, FAILED // sending states
 	}
 
 	private final class ReceivingAddressListener implements OnFocusChangeListener, TextWatcher
@@ -319,7 +322,7 @@ public final class SendCoinsFragment extends Fragment
 				data.moveToFirst();
 				final ExchangeRate exchangeRate = ExchangeRatesProvider.getExchangeRate(data);
 
-				if (state == State.INPUT)
+				if (state == null || state.compareTo(State.INPUT) <= 0)
 					amountCalculatorLink.setExchangeRate(exchangeRate.rate);
 			}
 		}
@@ -691,6 +694,8 @@ public final class SendCoinsFragment extends Fragment
 					@Override
 					protected void handlePaymentIntent(final PaymentIntent paymentIntent)
 					{
+						setState(null);
+
 						updateStateFrom(paymentIntent);
 					}
 
@@ -787,7 +792,7 @@ public final class SendCoinsFragment extends Fragment
 
 	private void handleCancel()
 	{
-		if (state == State.INPUT)
+		if (state == null || state.compareTo(State.INPUT) <= 0)
 			activity.setResult(Activity.RESULT_CANCELED);
 
 		activity.finish();
@@ -1237,10 +1242,15 @@ public final class SendCoinsFragment extends Fragment
 				directPaymentMessageView.setVisibility(View.GONE);
 			}
 
-			viewCancel.setEnabled(state != State.DECRYPTING && state != State.SIGNING);
+			viewCancel.setEnabled(state != State.REQUEST_PAYMENT_REQUEST && state != State.DECRYPTING && state != State.SIGNING);
 			viewGo.setEnabled(everythingValid());
 
-			if (state == State.INPUT)
+			if (state == null || state == State.REQUEST_PAYMENT_REQUEST)
+			{
+				viewCancel.setText(R.string.button_cancel);
+				viewGo.setText(null);
+			}
+			else if (state == State.INPUT)
 			{
 				viewCancel.setText(R.string.button_cancel);
 				viewGo.setText(R.string.send_coins_fragment_button_send);
@@ -1390,8 +1400,22 @@ public final class SendCoinsFragment extends Fragment
 			@Override
 			public void run()
 			{
-				if (state == State.INPUT)
+				if (paymentIntent.hasPaymentRequestUrl() && paymentIntent.isBluetoothPaymentRequestUrl())
 				{
+					if (bluetoothAdapter.isEnabled())
+						requestPaymentRequest();
+					else
+						// ask for permission to enable bluetooth
+						startActivityForResult(new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE), REQUEST_CODE_ENABLE_BLUETOOTH_FOR_PAYMENT_REQUEST);
+				}
+				else if (paymentIntent.hasPaymentRequestUrl() && paymentIntent.isHttpPaymentRequestUrl() && !Constants.BUG_OPENSSL_HEARTBLEED)
+				{
+					requestPaymentRequest();
+				}
+				else
+				{
+					setState(State.INPUT);
+
 					receivingAddressView.setText(null);
 					amountCalculatorLink.setBtcAmount(paymentIntent.getAmount());
 
@@ -1403,23 +1427,6 @@ public final class SendCoinsFragment extends Fragment
 					requestFocusFirst();
 					updateView();
 					handler.post(dryrunRunnable);
-				}
-
-				if (paymentIntent.hasPaymentRequestUrl())
-				{
-					if (paymentIntent.isBluetoothPaymentRequestUrl())
-					{
-						if (bluetoothAdapter.isEnabled())
-							requestPaymentRequest();
-						else
-							// ask for permission to enable bluetooth
-							startActivityForResult(new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE),
-									REQUEST_CODE_ENABLE_BLUETOOTH_FOR_PAYMENT_REQUEST);
-					}
-					else if (paymentIntent.isHttpPaymentRequestUrl() && !Constants.BUG_OPENSSL_HEARTBLEED)
-					{
-						requestPaymentRequest();
-					}
 				}
 			}
 		});
@@ -1434,6 +1441,7 @@ public final class SendCoinsFragment extends Fragment
 			host = Bluetooth.decompressMac(Bluetooth.getBluetoothMac(paymentIntent.paymentRequestUrl));
 
 		ProgressDialogFragment.showProgress(fragmentManager, getString(R.string.send_coins_fragment_request_payment_request_progress, host));
+		setState(State.REQUEST_PAYMENT_REQUEST);
 
 		final RequestPaymentRequestTask.ResultCallback callback = new RequestPaymentRequestTask.ResultCallback()
 		{
@@ -1445,6 +1453,7 @@ public final class SendCoinsFragment extends Fragment
 				if (SendCoinsFragment.this.paymentIntent.isExtendedBy(paymentIntent))
 				{
 					// success
+					setState(State.INPUT);
 					updateStateFrom(paymentIntent);
 					updateView();
 					handler.post(dryrunRunnable);
@@ -1461,7 +1470,14 @@ public final class SendCoinsFragment extends Fragment
 
 					final DialogBuilder dialog = DialogBuilder.warn(activity, R.string.send_coins_fragment_request_payment_request_failed_title);
 					dialog.setMessage(getString(R.string.send_coins_fragment_request_payment_request_wrong_signature) + "\n\n" + reasons);
-					dialog.singleDismissButton(null);
+					dialog.singleDismissButton(new DialogInterface.OnClickListener()
+					{
+						@Override
+						public void onClick(final DialogInterface dialog, final int which)
+						{
+							handleCancel();
+						}
+					});
 					dialog.show();
 
 					log.info("BIP72 trust check failed: {}", reasons);
@@ -1490,6 +1506,8 @@ public final class SendCoinsFragment extends Fragment
 					{
 						if (!paymentIntent.hasOutputs())
 							handleCancel();
+						else
+							setState(State.INPUT);
 					}
 				});
 				dialog.show();
