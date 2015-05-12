@@ -137,6 +137,7 @@ public final class SendCoinsFragment extends Fragment
 	private HandlerThread backgroundThread;
 	private Handler backgroundHandler;
 
+	private View payeeGroup;
 	private TextView payeeNameView;
 	private TextView payeeVerifiedByView;
 	private AutoCompleteTextView receivingAddressView;
@@ -488,6 +489,8 @@ public final class SendCoinsFragment extends Fragment
 	public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState)
 	{
 		final View view = inflater.inflate(R.layout.send_coins_fragment, container);
+
+		payeeGroup = view.findViewById(R.id.send_coins_payee_group);
 
 		payeeNameView = (TextView) view.findViewById(R.id.send_coins_payee_name);
 		payeeVerifiedByView = (TextView) view.findViewById(R.id.send_coins_payee_verified_by);
@@ -1134,6 +1137,7 @@ public final class SendCoinsFragment extends Fragment
 
 			if (paymentIntent.hasOutputs())
 			{
+				payeeGroup.setVisibility(View.VISIBLE);
 				receivingAddressView.setVisibility(View.GONE);
 				receivingStaticView.setVisibility(View.VISIBLE);
 
@@ -1147,9 +1151,10 @@ public final class SendCoinsFragment extends Fragment
 			}
 			else if (validatedAddress != null)
 			{
+				payeeGroup.setVisibility(View.VISIBLE);
 				receivingAddressView.setVisibility(View.GONE);
-
 				receivingStaticView.setVisibility(View.VISIBLE);
+
 				receivingStaticAddressView.setText(WalletUtils.formatAddress(validatedAddress.address, Constants.ADDRESS_FORMAT_GROUP_SIZE,
 						Constants.ADDRESS_FORMAT_LINE_SIZE));
 				final String addressBookLabel = AddressBookProvider.resolveLabel(activity, validatedAddress.address.toString());
@@ -1164,11 +1169,15 @@ public final class SendCoinsFragment extends Fragment
 				receivingStaticLabelView.setTextColor(getResources().getColor(
 						validatedAddress.label != null ? R.color.fg_significant : R.color.fg_insignificant));
 			}
+			else if (paymentIntent.standard == null)
+			{
+				payeeGroup.setVisibility(View.VISIBLE);
+				receivingStaticView.setVisibility(View.GONE);
+				receivingAddressView.setVisibility(View.VISIBLE);
+			}
 			else
 			{
-				receivingStaticView.setVisibility(View.GONE);
-
-				receivingAddressView.setVisibility(View.VISIBLE);
+				payeeGroup.setVisibility(View.GONE);
 			}
 
 			receivingAddressView.setEnabled(state == State.INPUT);
