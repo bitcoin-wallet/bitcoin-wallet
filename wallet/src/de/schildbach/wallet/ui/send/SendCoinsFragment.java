@@ -737,7 +737,7 @@ public final class SendCoinsFragment extends Fragment
 		scanAction.setEnabled(state == State.INPUT);
 
 		final MenuItem emptyAction = menu.findItem(R.id.send_coins_options_empty);
-		emptyAction.setEnabled(state == State.INPUT);
+		emptyAction.setEnabled(state == State.INPUT && paymentIntent.mayEditAmount());
 
 		final MenuItem priorityAction = menu.findItem(R.id.send_coins_options_priority);
 		priorityAction.setChecked(priority);
@@ -967,20 +967,28 @@ public final class SendCoinsFragment extends Fragment
 				final DialogBuilder dialog = DialogBuilder.warn(activity, R.string.send_coins_fragment_insufficient_money_title);
 				final StringBuilder msg = new StringBuilder();
 				msg.append(getString(R.string.send_coins_fragment_insufficient_money_msg1, btcFormat.format(missing)));
-				msg.append("\n\n");
+
 				if (pending.signum() > 0)
-					msg.append(getString(R.string.send_coins_fragment_pending, btcFormat.format(pending))).append("\n\n");
-				msg.append(getString(R.string.send_coins_fragment_insufficient_money_msg2));
+					msg.append("\n\n").append(getString(R.string.send_coins_fragment_pending, btcFormat.format(pending)));
+				if (paymentIntent.mayEditAmount())
+					msg.append("\n\n").append(getString(R.string.send_coins_fragment_insufficient_money_msg2));
 				dialog.setMessage(msg);
-				dialog.setPositiveButton(R.string.send_coins_options_empty, new DialogInterface.OnClickListener()
+				if (paymentIntent.mayEditAmount())
 				{
-					@Override
-					public void onClick(final DialogInterface dialog, final int which)
+					dialog.setPositiveButton(R.string.send_coins_options_empty, new DialogInterface.OnClickListener()
 					{
-						handleEmpty();
-					}
-				});
-				dialog.setNegativeButton(R.string.button_cancel, null);
+						@Override
+						public void onClick(final DialogInterface dialog, final int which)
+						{
+							handleEmpty();
+						}
+					});
+					dialog.setNegativeButton(R.string.button_cancel, null);
+				}
+				else
+				{
+					dialog.setNeutralButton(R.string.button_dismiss, null);
+				}
 				dialog.show();
 			}
 
