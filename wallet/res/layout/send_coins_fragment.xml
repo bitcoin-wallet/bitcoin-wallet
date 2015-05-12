@@ -191,6 +191,7 @@
 		android:id="@+id/send_coins_sent_transaction"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
+		android:layoutAnimation="@anim/transaction_layout_anim"
 		android:visibility="gone" />
 
 	<include layout="@layout/send_coins_buttons_include" />
