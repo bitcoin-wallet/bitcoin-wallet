@@ -72,54 +72,61 @@
 			android:layout_marginLeft="@dimen/list_entry_padding_horizontal" />
 	</LinearLayout>
 
-	<TextView
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:layout_marginLeft="@dimen/list_entry_padding_horizontal_lax"
-		android:layout_marginRight="@dimen/list_entry_padding_horizontal_lax"
-		android:layout_marginTop="8dp"
-		android:text="@string/send_coins_fragment_amount_label"
-		android:textSize="@dimen/font_size_small"
-		android:textStyle="bold" />
-
 	<LinearLayout
+		android:id="@+id/send_coins_amount_group"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:layout_marginLeft="@dimen/list_entry_padding_horizontal"
-		android:layout_marginRight="@dimen/list_entry_padding_horizontal"
-		android:divider="@drawable/divider_currency"
-		android:orientation="horizontal"
-		android:showDividers="middle" >
+		android:layout_marginTop="8dp"
+		android:orientation="vertical" >
 
-		<de.schildbach.wallet.ui.CurrencyAmountView
-			android:id="@+id/send_coins_amount_btc"
-			android:layout_width="0px"
+		<TextView
+			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:layout_weight="1" >
+			android:layout_marginLeft="@dimen/list_entry_padding_horizontal_lax"
+			android:layout_marginRight="@dimen/list_entry_padding_horizontal_lax"
+			android:text="@string/send_coins_fragment_amount_label"
+			android:textSize="@dimen/font_size_small"
+			android:textStyle="bold" />
 
-			<EditText
-				android:id="@+id/send_coins_amount_btc_edittext"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:imeOptions="flagNoExtractUi"
-				android:textSize="@dimen/font_size_large"
-				tools:ignore="TextFields" />
-		</de.schildbach.wallet.ui.CurrencyAmountView>
-
-		<de.schildbach.wallet.ui.CurrencyAmountView
-			android:id="@+id/send_coins_amount_local"
-			android:layout_width="0px"
+		<LinearLayout
+			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:layout_weight="1" >
+			android:layout_marginLeft="@dimen/list_entry_padding_horizontal"
+			android:layout_marginRight="@dimen/list_entry_padding_horizontal"
+			android:divider="@drawable/divider_currency"
+			android:orientation="horizontal"
+			android:showDividers="middle" >
 
-			<EditText
-				android:id="@+id/send_coins_amount_local_edittext"
-				android:layout_width="match_parent"
+			<de.schildbach.wallet.ui.CurrencyAmountView
+				android:id="@+id/send_coins_amount_btc"
+				android:layout_width="0px"
 				android:layout_height="wrap_content"
-				android:imeOptions="flagNoExtractUi"
-				android:textSize="@dimen/font_size_large"
-				tools:ignore="TextFields" />
-		</de.schildbach.wallet.ui.CurrencyAmountView>
+				android:layout_weight="1" >
+
+				<EditText
+					android:id="@+id/send_coins_amount_btc_edittext"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:imeOptions="flagNoExtractUi"
+					android:textSize="@dimen/font_size_large"
+					tools:ignore="TextFields" />
+			</de.schildbach.wallet.ui.CurrencyAmountView>
+
+			<de.schildbach.wallet.ui.CurrencyAmountView
+				android:id="@+id/send_coins_amount_local"
+				android:layout_width="0px"
+				android:layout_height="wrap_content"
+				android:layout_weight="1" >
+
+				<EditText
+					android:id="@+id/send_coins_amount_local_edittext"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:imeOptions="flagNoExtractUi"
+					android:textSize="@dimen/font_size_large"
+					tools:ignore="TextFields" />
+			</de.schildbach.wallet.ui.CurrencyAmountView>
+		</LinearLayout>
 	</LinearLayout>
 
 	<CheckBox

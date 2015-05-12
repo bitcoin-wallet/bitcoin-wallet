@@ -144,6 +144,7 @@ public final class SendCoinsFragment extends Fragment
 	private View receivingStaticView;
 	private TextView receivingStaticAddressView;
 	private TextView receivingStaticLabelView;
+	private View amountGroup;
 	private CurrencyCalculatorLink amountCalculatorLink;
 	private CheckBox directPaymentEnableView;
 
@@ -500,6 +501,8 @@ public final class SendCoinsFragment extends Fragment
 		receivingStaticView = view.findViewById(R.id.send_coins_receiving_static);
 		receivingStaticAddressView = (TextView) view.findViewById(R.id.send_coins_receiving_static_address);
 		receivingStaticLabelView = (TextView) view.findViewById(R.id.send_coins_receiving_static_label);
+
+		amountGroup = view.findViewById(R.id.send_coins_amount_group);
 
 		final CurrencyAmountView btcAmountView = (CurrencyAmountView) view.findViewById(R.id.send_coins_amount_btc);
 		btcAmountView.setCurrencySymbol(config.getFormat().code());
@@ -1170,6 +1173,7 @@ public final class SendCoinsFragment extends Fragment
 
 			receivingAddressView.setEnabled(state == State.INPUT);
 
+			amountGroup.setVisibility(paymentIntent.hasAmount() || (state != null && state.compareTo(State.INPUT) >= 0) ? View.VISIBLE : View.GONE);
 			amountCalculatorLink.setEnabled(state == State.INPUT && paymentIntent.mayEditAmount());
 
 			final boolean directPaymentVisible;
