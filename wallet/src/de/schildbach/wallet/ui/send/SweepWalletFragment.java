@@ -362,8 +362,6 @@ public class SweepWalletFragment extends Fragment
 					if (!isResumed())
 						return;
 
-					sweepTransactionAdapter.notifyDataSetChanged();
-
 					final TransactionConfidence confidence = sentTransaction.getConfidence();
 					final TransactionConfidence.ConfidenceType confidenceType = confidence.getConfidenceType();
 					final int numBroadcastPeers = confidence.numBroadcastPeers();
@@ -385,6 +383,8 @@ public class SweepWalletFragment extends Fragment
 							RingtoneManager.getRingtone(activity, Uri.parse("android.resource://" + activity.getPackageName() + "/" + soundResId))
 									.play();
 					}
+
+					updateView();
 				}
 			});
 		}

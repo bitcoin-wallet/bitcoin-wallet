@@ -275,8 +275,6 @@ public final class SendCoinsFragment extends Fragment
 					if (!isResumed())
 						return;
 
-					sentTransactionAdapter.notifyDataSetChanged();
-
 					final TransactionConfidence confidence = sentTransaction.getConfidence();
 					final ConfidenceType confidenceType = confidence.getConfidenceType();
 					final int numBroadcastPeers = confidence.numBroadcastPeers();
@@ -298,6 +296,8 @@ public final class SendCoinsFragment extends Fragment
 							RingtoneManager.getRingtone(activity, Uri.parse("android.resource://" + activity.getPackageName() + "/" + soundResId))
 									.play();
 					}
+
+					updateView();
 				}
 			});
 		}
