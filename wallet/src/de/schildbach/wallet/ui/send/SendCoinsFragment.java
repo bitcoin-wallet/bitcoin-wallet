@@ -548,7 +548,7 @@ public final class SendCoinsFragment extends Fragment
 			{
 				validateReceivingAddress();
 
-				if (everythingValid())
+				if (everythingPlausible())
 					handleGo();
 				else
 					requestFocusFirst();
@@ -798,7 +798,7 @@ public final class SendCoinsFragment extends Fragment
 		activity.finish();
 	}
 
-	private boolean isOutputsValid()
+	private boolean isPayerPlausible()
 	{
 		if (paymentIntent.hasOutputs())
 			return true;
@@ -809,12 +809,17 @@ public final class SendCoinsFragment extends Fragment
 		return false;
 	}
 
-	private boolean isAmountValid()
+	private boolean isAmountPlausible()
 	{
-		return dryrunTransaction != null && dryrunException == null;
+		if (dryrunTransaction != null)
+			return dryrunException == null;
+		else if (paymentIntent.mayEditAmount())
+			return amountCalculatorLink.hasAmount();
+		else
+			return paymentIntent.hasAmount();
 	}
 
-	private boolean isPasswordValid()
+	private boolean isPasswordPlausible()
 	{
 		if (!wallet.isEncrypted())
 			return true;
@@ -822,18 +827,20 @@ public final class SendCoinsFragment extends Fragment
 		return !privateKeyPasswordView.getText().toString().trim().isEmpty();
 	}
 
-	private boolean everythingValid()
+	private boolean everythingPlausible()
 	{
-		return state == State.INPUT && isOutputsValid() && isAmountValid() && isPasswordValid();
+		return state == State.INPUT && isPayerPlausible() && isAmountPlausible() && isPasswordPlausible();
 	}
 
 	private void requestFocusFirst()
 	{
-		if (!isOutputsValid())
+		if (!isPayerPlausible())
 			receivingAddressView.requestFocus();
-		else if (!isAmountValid())
+		else if (!isAmountPlausible())
 			amountCalculatorLink.requestFocus();
-		else if (everythingValid())
+		else if (!isPasswordPlausible())
+			privateKeyPasswordView.requestFocus();
+		else if (everythingPlausible())
 			viewGo.requestFocus();
 		else
 			log.warn("unclear focus");
@@ -1241,7 +1248,7 @@ public final class SendCoinsFragment extends Fragment
 			}
 
 			viewCancel.setEnabled(state != State.REQUEST_PAYMENT_REQUEST && state != State.DECRYPTING && state != State.SIGNING);
-			viewGo.setEnabled(everythingValid());
+			viewGo.setEnabled(everythingPlausible() && dryrunTransaction != null);
 
 			if (state == null || state == State.REQUEST_PAYMENT_REQUEST)
 			{
