@@ -292,5 +292,5 @@
   <string name="error_io">入出力エラー: %s</string>
   <string name="error_parse">パースエラー:%s</string>
   <string name="error_http">HTTPエラー %1$s:\n%2$s</string>
-  <string name="error_bluetooth">Bluetoothエラー %1$s</string>
+  <string name="error_bluetooth">Bluetoothエラー: %1$s</string>
 </resources>

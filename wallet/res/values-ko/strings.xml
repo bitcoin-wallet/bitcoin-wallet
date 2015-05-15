@@ -239,5 +239,5 @@
   <string name="error_io">I/O 오류: %s</string>
   <string name="error_parse">파싱 오류: %s</string>
   <string name="error_http">HTTP 오류 %1$s:\n%2$s</string>
-  <string name="error_bluetooth">블루투스 오류 %1$s</string>
+  <string name="error_bluetooth">블루투스 오류: %1$s</string>
 </resources>

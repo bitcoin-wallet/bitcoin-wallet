@@ -231,5 +231,5 @@
   <string name="error_io">I/O錯誤: %s</string>
   <string name="error_parse">解析錯誤 : %s</string>
   <string name="error_http">HTTP 錯誤 %1$s:\n%2$s</string>
-  <string name="error_bluetooth">藍芽錯誤 %1$s</string>
+  <string name="error_bluetooth">藍芽錯誤: %1$s</string>
 </resources>

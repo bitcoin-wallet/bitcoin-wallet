@@ -286,5 +286,5 @@
   <string name="error_io">I/O errore: %s</string>
   <string name="error_parse">Errore di analisi: %s</string>
   <string name="error_http">Errore HTTP %1$s:\n%2$s</string>
-  <string name="error_bluetooth">Errore bluetooth %1$s</string>
+  <string name="error_bluetooth">Errore bluetooth: %1$s</string>
 </resources>

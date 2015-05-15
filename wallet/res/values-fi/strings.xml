@@ -284,5 +284,5 @@
   <string name="error_io">I/O-virhe: %s</string>
   <string name="error_parse">Jäsennysvirhe: %s</string>
   <string name="error_http">HTTP-virhe %1$s:\n%2$s</string>
-  <string name="error_bluetooth">Bluetooth-virhe %1$s</string>
+  <string name="error_bluetooth">Bluetooth-virhe: %1$s</string>
 </resources>

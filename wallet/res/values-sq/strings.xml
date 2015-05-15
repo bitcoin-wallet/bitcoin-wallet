@@ -291,5 +291,5 @@
   <string name="error_io">I/O gabim: %s</string>
   <string name="error_parse">Parse gabim: %s</string>
   <string name="error_http">HTTP gabim %1$s:\n%2$s</string>
-  <string name="error_bluetooth">Gabim me Bluetooth %1$s</string>
+  <string name="error_bluetooth">Gabim me Bluetooth: %1$s</string>
 </resources>

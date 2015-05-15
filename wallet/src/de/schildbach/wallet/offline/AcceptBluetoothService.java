@@ -17,6 +17,8 @@
 
 package de.schildbach.wallet.offline;
 
+import java.io.IOException;
+
 import org.bitcoinj.core.Transaction;
 import org.bitcoinj.core.VerificationException;
 import org.bitcoinj.core.Wallet;
@@ -35,6 +37,9 @@ import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
 import android.text.format.DateUtils;
 import de.schildbach.wallet.WalletApplication;
+import de.schildbach.wallet.util.CrashReporter;
+import de.schildbach.wallet.util.Toast;
+import de.schildbach.wallet_test.R;
 
 /**
  * @author Andreas Schildbach
@@ -89,25 +94,33 @@ public final class AcceptBluetoothService extends Service
 
 		registerReceiver(bluetoothStateChangeReceiver, new IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED));
 
-		classicThread = new AcceptBluetoothThread.ClassicBluetoothThread(bluetoothAdapter)
+		try
 		{
-			@Override
-			public boolean handleTx(final Transaction tx)
+			classicThread = new AcceptBluetoothThread.ClassicBluetoothThread(bluetoothAdapter)
 			{
-				return AcceptBluetoothService.this.handleTx(tx);
-			}
-		};
-		classicThread.start();
+				@Override
+				public boolean handleTx(final Transaction tx)
+				{
+					return AcceptBluetoothService.this.handleTx(tx);
+				}
+			};
+			paymentProtocolThread = new AcceptBluetoothThread.PaymentProtocolThread(bluetoothAdapter)
+			{
+				@Override
+				public boolean handleTx(final Transaction tx)
+				{
+					return AcceptBluetoothService.this.handleTx(tx);
+				}
+			};
 
-		paymentProtocolThread = new AcceptBluetoothThread.PaymentProtocolThread(bluetoothAdapter)
+			classicThread.start();
+			paymentProtocolThread.start();
+		}
+		catch (final IOException x)
 		{
-			@Override
-			public boolean handleTx(final Transaction tx)
-			{
-				return AcceptBluetoothService.this.handleTx(tx);
-			}
-		};
-		paymentProtocolThread.start();
+			new Toast(this).longToast(R.string.error_bluetooth, x.getMessage());
+			CrashReporter.saveBackgroundTrace(x, application.packageInfo());
+		}
 	}
 
 	private boolean handleTx(final Transaction tx)

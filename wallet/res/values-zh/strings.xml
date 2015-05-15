@@ -277,5 +277,5 @@
   <string name="error_io">I/O 错误: %s</string>
   <string name="error_parse">解析错误: %s</string>
   <string name="error_http">HTTP 错误 %1$s:\n%2$s</string>
-  <string name="error_bluetooth">蓝牙错误 %1$s</string>
+  <string name="error_bluetooth">蓝牙错误: %1$s</string>
 </resources>
