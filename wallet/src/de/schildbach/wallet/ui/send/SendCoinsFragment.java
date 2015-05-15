@@ -1399,7 +1399,7 @@ public final class SendCoinsFragment extends Fragment
 
 				if (paymentIntent.hasPaymentRequestUrl())
 				{
-					if (paymentIntent.isBluetoothPaymentRequestUrl() && !Constants.BUG_OPENSSL_HEARTBLEED)
+					if (paymentIntent.isBluetoothPaymentRequestUrl())
 					{
 						if (bluetoothAdapter.isEnabled())
 							requestPaymentRequest();
@@ -1408,7 +1408,7 @@ public final class SendCoinsFragment extends Fragment
 							startActivityForResult(new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE),
 									REQUEST_CODE_ENABLE_BLUETOOTH_FOR_PAYMENT_REQUEST);
 					}
-					else if (paymentIntent.isHttpPaymentRequestUrl())
+					else if (paymentIntent.isHttpPaymentRequestUrl() && !Constants.BUG_OPENSSL_HEARTBLEED)
 					{
 						requestPaymentRequest();
 					}
