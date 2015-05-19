@@ -164,7 +164,7 @@ public final class SendCoinsFragment extends Fragment
 	private State state = null;
 
 	private PaymentIntent paymentIntent = null;
-	private boolean priority = false;
+	private FeeCategory feeCategory = FeeCategory.NORMAL;
 	private AddressAndLabel validatedAddress = null;
 
 	private Transaction sentTransaction = null;
@@ -187,6 +187,11 @@ public final class SendCoinsFragment extends Fragment
 		REQUEST_PAYMENT_REQUEST, //
 		INPUT, // asks for confirmation
 		DECRYPTING, SIGNING, SENDING, SENT, FAILED // sending states
+	}
+
+	private enum FeeCategory
+	{
+		ECONOMIC, NORMAL, PRIORITY
 	}
 
 	private final class ReceivingAddressListener implements OnFocusChangeListener, TextWatcher
@@ -647,7 +652,7 @@ public final class SendCoinsFragment extends Fragment
 		outState.putSerializable("state", state);
 
 		outState.putParcelable("payment_intent", paymentIntent);
-		outState.putBoolean("priority", priority);
+		outState.putSerializable("fee_category", feeCategory);
 		if (validatedAddress != null)
 			outState.putParcelable("validated_address", validatedAddress);
 
@@ -662,7 +667,7 @@ public final class SendCoinsFragment extends Fragment
 		state = (State) savedInstanceState.getSerializable("state");
 
 		paymentIntent = (PaymentIntent) savedInstanceState.getParcelable("payment_intent");
-		priority = savedInstanceState.getBoolean("priority");
+		feeCategory = (FeeCategory) savedInstanceState.getSerializable("fee_category");
 		validatedAddress = savedInstanceState.getParcelable("validated_address");
 
 		if (savedInstanceState.containsKey("sent_transaction_hash"))
@@ -750,9 +755,14 @@ public final class SendCoinsFragment extends Fragment
 		final MenuItem emptyAction = menu.findItem(R.id.send_coins_options_empty);
 		emptyAction.setEnabled(state == State.INPUT && paymentIntent.mayEditAmount());
 
-		final MenuItem priorityAction = menu.findItem(R.id.send_coins_options_priority);
-		priorityAction.setChecked(priority);
-		priorityAction.setEnabled(state == State.INPUT);
+		final MenuItem feeCategoryAction = menu.findItem(R.id.send_coins_options_fee_category);
+		feeCategoryAction.setEnabled(state == State.INPUT);
+		if (feeCategory == FeeCategory.ECONOMIC)
+			menu.findItem(R.id.send_coins_options_fee_category_economic).setChecked(true);
+		else if (feeCategory == FeeCategory.NORMAL)
+			menu.findItem(R.id.send_coins_options_fee_category_normal).setChecked(true);
+		else if (feeCategory == FeeCategory.PRIORITY)
+			menu.findItem(R.id.send_coins_options_fee_category_priority).setChecked(true);
 
 		super.onPrepareOptionsMenu(menu);
 	}
@@ -766,8 +776,14 @@ public final class SendCoinsFragment extends Fragment
 				handleScan();
 				return true;
 
-			case R.id.send_coins_options_priority:
-				handlePriority();
+			case R.id.send_coins_options_fee_category_economic:
+				handleFeeCategory(FeeCategory.ECONOMIC);
+				return true;
+			case R.id.send_coins_options_fee_category_normal:
+				handleFeeCategory(FeeCategory.NORMAL);
+				return true;
+			case R.id.send_coins_options_fee_category_priority:
+				handleFeeCategory(FeeCategory.PRIORITY);
 				return true;
 
 			case R.id.send_coins_options_empty:
@@ -887,7 +903,7 @@ public final class SendCoinsFragment extends Fragment
 		// prepare send request
 		final SendRequest sendRequest = finalPaymentIntent.toSendRequest();
 		sendRequest.emptyWallet = paymentIntent.mayEditAmount() && finalAmount.equals(wallet.getBalance(BalanceType.AVAILABLE));
-		sendRequest.feePerKb = priority ? SendRequest.DEFAULT_FEE_PER_KB.multiply(10) : SendRequest.DEFAULT_FEE_PER_KB;
+		sendRequest.feePerKb = feePerKb();
 		sendRequest.memo = paymentIntent.memo;
 		sendRequest.exchangeRate = amountCalculatorLink.getExchangeRate();
 		sendRequest.aesKey = encryptionKey;
@@ -1043,14 +1059,26 @@ public final class SendCoinsFragment extends Fragment
 		}.sendCoinsOffline(sendRequest); // send asynchronously
 	}
 
+	private Coin feePerKb()
+	{
+		if (feeCategory == FeeCategory.ECONOMIC)
+			return SendRequest.DEFAULT_FEE_PER_KB;
+		else if (feeCategory == FeeCategory.NORMAL)
+			return SendRequest.DEFAULT_FEE_PER_KB.multiply(2);
+		else if (feeCategory == FeeCategory.PRIORITY)
+			return SendRequest.DEFAULT_FEE_PER_KB.multiply(10);
+		else
+			throw new IllegalStateException("cannot handle: " + feeCategory);
+	}
+
 	private void handleScan()
 	{
 		startActivityForResult(new Intent(activity, ScanActivity.class), REQUEST_CODE_SCAN);
 	}
 
-	private void handlePriority()
+	private void handleFeeCategory(final FeeCategory feeCategory)
 	{
-		priority = !priority;
+		this.feeCategory = feeCategory;
 
 		updateView();
 		handler.post(dryrunRunnable);
@@ -1090,7 +1118,7 @@ public final class SendCoinsFragment extends Fragment
 					final SendRequest sendRequest = paymentIntent.mergeWithEditedValues(amount, dummy).toSendRequest();
 					sendRequest.signInputs = false;
 					sendRequest.emptyWallet = paymentIntent.mayEditAmount() && amount.equals(wallet.getBalance(BalanceType.AVAILABLE));
-					sendRequest.feePerKb = priority ? SendRequest.DEFAULT_FEE_PER_KB.multiply(10) : SendRequest.DEFAULT_FEE_PER_KB;
+					sendRequest.feePerKb = feePerKb();
 					wallet.completeTx(sendRequest);
 					dryrunTransaction = sendRequest.tx;
 				}

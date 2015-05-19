@@ -89,7 +89,10 @@
 	<string name="send_coins_sent_msg">Sent!</string>
 	<string name="send_coins_failed_msg">Failed!</string>
 	<string name="send_coins_error_msg">Problem sending coins!</string>
-	<string name="send_coins_options_priority">Quick confirm, higher fee</string>
+	<string name="send_coins_options_fee_category">Fee</string>
+	<string name="send_coins_options_fee_category_economic">Economic</string>
+	<string name="send_coins_options_fee_category_normal">Normal</string>
+	<string name="send_coins_options_fee_category_priority">Priority</string>
 	<string name="send_coins_options_empty">Empty wallet</string>
 	<string name="sweep_wallet_activity_title">Sweep paper wallet</string>
 	<string name="sweep_wallet_fragment_intro">You are about to sweep a paper wallet or coupon. This will move all coins from that paper to your wallet on this device. When the transaction is confirmed, the paper will be worthless and should not be re-used for safety reasons.</string>

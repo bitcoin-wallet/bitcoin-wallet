@@ -95,7 +95,10 @@
 	<string name="send_coins_sent_msg">Versendet!</string>
 	<string name="send_coins_failed_msg">Fehlgeschlagen!</string>
 	<string name="send_coins_error_msg">Problem beim Versenden der Bitcoins!</string>
-	<string name="send_coins_options_priority">Schnelle Bestätigung, höhere Gebühr</string>
+	<string name="send_coins_options_fee_category">Netzwerk-Gebühr</string>
+	<string name="send_coins_options_fee_category_economic">Kostengünstig</string>
+	<string name="send_coins_options_fee_category_normal">Normal</string>
+	<string name="send_coins_options_fee_category_priority">Express</string>
 	<string name="send_coins_options_empty">Wallet entleeren</string>
 
 	<string name="sweep_wallet_activity_title">Paper-Wallet leeren</string>
