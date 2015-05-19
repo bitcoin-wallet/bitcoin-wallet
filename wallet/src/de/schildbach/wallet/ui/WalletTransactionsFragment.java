@@ -334,7 +334,6 @@ public class WalletTransactionsFragment extends Fragment implements LoaderCallba
 		final Direction direction = ((TransactionsLoader) loader).getDirection();
 
 		adapter.replace(transactions);
-		adapter.setShowBackupWarning(direction == null || direction == Direction.RECEIVED);
 
 		if (transactions.isEmpty())
 		{
@@ -500,13 +499,13 @@ public class WalletTransactionsFragment extends Fragment implements LoaderCallba
 	@Override
 	public void onSharedPreferenceChanged(final SharedPreferences sharedPreferences, final String key)
 	{
-		if (Configuration.PREFS_KEY_BTC_PRECISION.equals(key))
+		if (Configuration.PREFS_KEY_BTC_PRECISION.equals(key) || Configuration.PREFS_KEY_REMIND_BACKUP.equals(key))
 			updateView();
 	}
 
 	private void updateView()
 	{
 		adapter.setFormat(config.getFormat());
-		adapter.notifyDataSetChanged();
+		adapter.setShowBackupWarning(config.remindBackup());
 	}
 }

@@ -82,11 +82,7 @@ public final class WalletDisclaimerFragment extends Fragment implements OnShared
 			@Override
 			public void onClick(final View v)
 			{
-				final boolean showBackup = config.remindBackup();
-				if (showBackup)
-					((WalletActivity) activity).handleBackupWallet();
-				else
-					HelpDialogFragment.page(getFragmentManager(), R.string.help_safety);
+				HelpDialogFragment.page(getFragmentManager(), R.string.help_safety);
 			}
 		});
 
@@ -118,7 +114,7 @@ public final class WalletDisclaimerFragment extends Fragment implements OnShared
 	@Override
 	public void onSharedPreferenceChanged(final SharedPreferences sharedPreferences, final String key)
 	{
-		if (Configuration.PREFS_KEY_DISCLAIMER.equals(key) || Configuration.PREFS_KEY_REMIND_BACKUP.equals(key))
+		if (Configuration.PREFS_KEY_DISCLAIMER.equals(key))
 			updateView();
 	}
 
@@ -127,7 +123,6 @@ public final class WalletDisclaimerFragment extends Fragment implements OnShared
 		if (!isResumed())
 			return;
 
-		final boolean showBackup = config.remindBackup();
 		final boolean showDisclaimer = config.getDisclaimerEnabled();
 
 		int progressResId = 0;
@@ -143,11 +138,7 @@ public final class WalletDisclaimerFragment extends Fragment implements OnShared
 		final SpannableStringBuilder text = new SpannableStringBuilder();
 		if (progressResId != 0)
 			text.append(Html.fromHtml("<b>" + getString(progressResId) + "</b>"));
-		if (progressResId != 0 && (showBackup || showDisclaimer))
-			text.append('\n');
-		if (showBackup)
-			text.append(Html.fromHtml(getString(R.string.wallet_disclaimer_fragment_remind_backup)));
-		if (showBackup && showDisclaimer)
+		if (progressResId != 0 && showDisclaimer)
 			text.append('\n');
 		if (showDisclaimer)
 			text.append(Html.fromHtml(getString(R.string.wallet_disclaimer_fragment_remind_safety)));

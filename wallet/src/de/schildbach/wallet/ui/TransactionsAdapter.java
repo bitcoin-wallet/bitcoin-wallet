@@ -196,20 +196,25 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 	{
 		int count = transactions.size();
 
-		if (count == 1 && showBackupWarning)
+		if (showBackupWarning)
 			count++;
 
 		return count;
 	}
 
 	@Override
-	public long getItemId(final int position)
+	public long getItemId(int position)
 	{
 		if (position == RecyclerView.NO_POSITION)
 			return RecyclerView.NO_ID;
 
-		if (position == transactions.size() && showBackupWarning)
-			return 0;
+		if (showBackupWarning)
+		{
+			if (position == 0)
+				return 0;
+			else
+				position--;
+		}
 
 		return WalletUtils.longHash(transactions.get(position).getHash());
 	}
@@ -217,7 +222,7 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 	@Override
 	public int getItemViewType(final int position)
 	{
-		if (position == transactions.size() && showBackupWarning)
+		if (position == 0 && showBackupWarning)
 			return VIEW_TYPE_WARNING;
 		else
 			return VIEW_TYPE_TRANSACTION;
@@ -265,7 +270,7 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 			final long itemId = getItemId(position);
 			transactionHolder.itemView.setActivated(itemId == selectedItemId);
 
-			final Transaction tx = transactions.get(position);
+			final Transaction tx = transactions.get(position - (showBackupWarning ? 1 : 0));
 			transactionHolder.bind(tx);
 
 			transactionHolder.itemView.setOnClickListener(new View.OnClickListener()
@@ -288,6 +293,15 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 					}
 				});
 			}
+		}
+		else if (holder instanceof WarningViewHolder)
+		{
+			final WarningViewHolder warningHolder = (WarningViewHolder) holder;
+
+			if (transactions.size() == 1)
+				warningHolder.messageView.setText(Html.fromHtml(context.getString(R.string.wallet_transactions_row_warning_backup)));
+			else
+				warningHolder.messageView.setText(Html.fromHtml(context.getString(R.string.wallet_disclaimer_fragment_remind_backup)));
 		}
 	}
 
@@ -591,7 +605,6 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 			super(itemView);
 
 			messageView = (TextView) itemView.findViewById(R.id.transaction_row_warning_message);
-			messageView.setText(Html.fromHtml(context.getString(R.string.wallet_transactions_row_warning_backup)));
 
 			if (onClickListener != null)
 			{
