@@ -4,6 +4,7 @@
 	style="@android:style/Widget.Holo.Button.Borderless"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
+	android:drawablePadding="@dimen/list_entry_padding_vertical_lax"
 	android:gravity="left|center_vertical"
 	android:paddingBottom="@dimen/list_entry_padding_vertical_lax"
 	android:paddingLeft="@dimen/list_entry_padding_horizontal_lax"

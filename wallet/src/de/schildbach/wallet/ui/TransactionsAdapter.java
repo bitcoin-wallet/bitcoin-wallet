@@ -299,9 +299,15 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 			final WarningViewHolder warningHolder = (WarningViewHolder) holder;
 
 			if (transactions.size() == 1)
+			{
+				warningHolder.messageView.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
 				warningHolder.messageView.setText(Html.fromHtml(context.getString(R.string.wallet_transactions_row_warning_backup)));
+			}
 			else
+			{
+				warningHolder.messageView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_warning_grey600_24dp, 0, 0, 0);
 				warningHolder.messageView.setText(Html.fromHtml(context.getString(R.string.wallet_disclaimer_fragment_remind_backup)));
+			}
 		}
 	}
 

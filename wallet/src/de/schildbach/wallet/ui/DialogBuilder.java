@@ -43,7 +43,7 @@ public class DialogBuilder extends AlertDialog.Builder
 	public static DialogBuilder warn(final Context context, final int titleResId)
 	{
 		final DialogBuilder builder = new DialogBuilder(context);
-		builder.setIcon(R.drawable.ic_menu_warning);
+		builder.setIcon(R.drawable.ic_warning_grey600_24dp);
 		builder.setTitle(titleResId);
 		return builder;
 	}
