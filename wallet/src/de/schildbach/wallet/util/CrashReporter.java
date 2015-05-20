@@ -29,6 +29,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Formatter;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 
 import org.bitcoinj.core.Transaction;
@@ -188,7 +189,8 @@ public class CrashReporter
 		});
 
 		for (final PackageInfo p : installedPackages)
-			report.append(String.format("%s %s (%d) - %tF %tF\n", p.packageName, p.versionName, p.versionCode, p.firstInstallTime, p.lastUpdateTime));
+			report.append(String.format(Locale.US, "%s %s (%d) - %tF %tF\n", p.packageName, p.versionName, p.versionCode, p.firstInstallTime,
+					p.lastUpdateTime));
 	}
 
 	public static void appendApplicationInfo(final Appendable report, final WalletApplication application) throws IOException
@@ -200,14 +202,16 @@ public class CrashReporter
 		report.append("Version: " + pi.versionName + " (" + pi.versionCode + ")\n");
 		report.append("Package: " + pi.packageName + "\n");
 		report.append("Test/Prod: " + (Constants.TEST ? "test" : "prod") + "\n");
-		report.append("Time: " + String.format("%tF %tT %tz", now, now, now) + "\n");
-		report.append("Time of launch: " + String.format("%tF %tT %tz", TIME_CREATE_APPLICATION, TIME_CREATE_APPLICATION, TIME_CREATE_APPLICATION)
+		report.append("Time: " + String.format(Locale.US, "%tF %tT %tz", now, now, now) + "\n");
+		report.append("Time of launch: "
+				+ String.format(Locale.US, "%tF %tT %tz", TIME_CREATE_APPLICATION, TIME_CREATE_APPLICATION, TIME_CREATE_APPLICATION) + "\n");
+		report.append("Time of last update: " + String.format(Locale.US, "%tF %tT %tz", pi.lastUpdateTime, pi.lastUpdateTime, pi.lastUpdateTime)
 				+ "\n");
-		report.append("Time of last update: " + String.format("%tF %tT %tz", pi.lastUpdateTime, pi.lastUpdateTime, pi.lastUpdateTime) + "\n");
-		report.append("Time of first install: " + String.format("%tF %tT %tz", pi.firstInstallTime, pi.firstInstallTime, pi.firstInstallTime) + "\n");
+		report.append("Time of first install: "
+				+ String.format(Locale.US, "%tF %tT %tz", pi.firstInstallTime, pi.firstInstallTime, pi.firstInstallTime) + "\n");
 		final long lastBackupTime = configuration.getLastBackupTime();
 		report.append("Time of backup: "
-				+ (lastBackupTime > 0 ? String.format("%tF %tT %tz", lastBackupTime, lastBackupTime, lastBackupTime) : "none") + "\n");
+				+ (lastBackupTime > 0 ? String.format(Locale.US, "%tF %tT %tz", lastBackupTime, lastBackupTime, lastBackupTime) : "none") + "\n");
 		report.append("Network: " + Constants.NETWORK_PARAMETERS.getId() + "\n");
 		final Wallet wallet = application.getWallet();
 		report.append("Encrypted: " + wallet.isEncrypted() + "\n");
@@ -271,7 +275,7 @@ public class CrashReporter
 				writer = new PrintWriter(new OutputStreamWriter(new FileOutputStream(backgroundTracesFile, true), Charsets.UTF_8));
 
 				final long now = System.currentTimeMillis();
-				writer.println(String.format("\n--- collected at %tF %tT %tz on version %s (%d)", now, now, now, packageInfo.versionName,
+				writer.println(String.format(Locale.US, "\n--- collected at %tF %tT %tz on version %s (%d)", now, now, now, packageInfo.versionName,
 						packageInfo.versionCode));
 				appendTrace(writer, throwable);
 			}
