@@ -98,8 +98,7 @@ public final class PaymentIntent implements Parcelable
 			if (script.isSentToAddress() || script.isPayToScriptHash())
 				builder.append(script.getToAddress(Constants.NETWORK_PARAMETERS));
 			else if (script.isSentToRawPubKey())
-				for (final byte b : script.getPubKey())
-					builder.append(String.format("%02x", b));
+				builder.append(Constants.HEX.encode(script.getPubKey()));
 			else if (script.isSentToMultiSig())
 				builder.append("multisig");
 			else

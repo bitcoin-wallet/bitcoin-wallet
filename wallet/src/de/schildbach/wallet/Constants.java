@@ -24,6 +24,8 @@ import org.bitcoinj.params.MainNetParams;
 import org.bitcoinj.params.TestNet3Params;
 import org.bitcoinj.utils.MonetaryFormat;
 
+import com.google.common.io.BaseEncoding;
+
 import android.os.Build;
 import android.os.Environment;
 import android.text.format.DateUtils;
@@ -124,6 +126,8 @@ public final class Constants
 	public static final int ADDRESS_FORMAT_LINE_SIZE = 12;
 
 	public static final MonetaryFormat LOCAL_FORMAT = new MonetaryFormat().noCode().minDecimals(2).optionalDecimals();
+
+	public static final BaseEncoding HEX = BaseEncoding.base16().lowerCase();
 
 	public static final String SOURCE_URL = "https://github.com/schildbach/bitcoin-wallet";
 	public static final String BINARY_URL = "https://github.com/schildbach/bitcoin-wallet/releases";
