@@ -256,11 +256,7 @@ public class BackupWalletDialogFragment extends DialogFragment
 
 	private void backupWallet(final String password)
 	{
-		Constants.Files.EXTERNAL_WALLET_BACKUP_DIR.mkdirs();
-		final DateFormat dateFormat = Iso8601Format.newDateFormat();
-		dateFormat.setTimeZone(TimeZone.getDefault());
-		final File file = new File(Constants.Files.EXTERNAL_WALLET_BACKUP_DIR, Constants.Files.EXTERNAL_WALLET_BACKUP + "-"
-				+ dateFormat.format(new Date()));
+		final File file = determineBackupFile();
 
 		final Protos.Wallet walletProto = new WalletProtobufSerializer().walletToProto(wallet);
 
@@ -303,6 +299,26 @@ public class BackupWalletDialogFragment extends DialogFragment
 					// swallow
 				}
 			}
+		}
+	}
+
+	private File determineBackupFile()
+	{
+		Constants.Files.EXTERNAL_WALLET_BACKUP_DIR.mkdirs();
+		final DateFormat dateFormat = Iso8601Format.newDateFormat();
+		dateFormat.setTimeZone(TimeZone.getDefault());
+
+		for (int i = 0; true; i++)
+		{
+			final StringBuilder filename = new StringBuilder(Constants.Files.EXTERNAL_WALLET_BACKUP);
+			filename.append('-');
+			filename.append(dateFormat.format(new Date()));
+			if (i > 0)
+				filename.append(" (").append(i).append(')');
+
+			final File file = new File(Constants.Files.EXTERNAL_WALLET_BACKUP_DIR, filename.toString());
+			if (!file.exists())
+				return file;
 		}
 	}
 }
