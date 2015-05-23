@@ -1,3 +1,9 @@
+v4.30
+
+* Upwards-adjust default fee, because transactions at the old fee level have become a bit slow.
+  You can switch back to 'economic' in the send coins options menu.
+* Small bugfixes.
+
 v4.29
 
 * Nice slide-in animation for sent payment.
