@@ -275,7 +275,6 @@
   <string name="button_request_coins">Verzoek Bitcoins</string>
   <string name="button_send_coins">Verzend Bitcoins</string>
   <string name="button_scan">Zoeken</string>
-  <string name="button_edit_address">Adres toevoegen/aanpassen</string>
   <string name="button_settings">Instellingen</string>
   <string name="action_show_qr">Geef QR-code weer</string>
   <string name="action_browse">Bladeren</string>

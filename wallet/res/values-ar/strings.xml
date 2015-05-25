@@ -200,7 +200,6 @@
 	<string name="button_request_coins">طلب بيتكوين</string>
 	<string name="button_send_coins">إرسال بيتكوين</string>
 	<string name="button_scan">مسح بصري</string>
-	<string name="button_edit_address">إضافة/تحرير عنوان</string>
 	<string name="button_settings">الإعدادات</string>
 	<string name="action_show_qr">عرض رمز الاستجابة السريعة QR-code</string>
 	<string name="action_browse">تصفح</string>

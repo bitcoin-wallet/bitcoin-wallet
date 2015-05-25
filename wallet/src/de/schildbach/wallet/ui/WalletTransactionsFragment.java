@@ -273,7 +273,25 @@ public class WalletTransactionsFragment extends Fragment implements LoaderCallba
 
 		final PopupMenu popupMenu = new PopupMenu(activity, view);
 		popupMenu.inflate(R.menu.wallet_transactions_context);
-		popupMenu.getMenu().findItem(R.id.wallet_transactions_context_edit_address).setVisible(!txRotation && txAddress != null);
+		final MenuItem editAddressMenuItem = popupMenu.getMenu().findItem(R.id.wallet_transactions_context_edit_address);
+		if (!txRotation && txAddress != null)
+		{
+			editAddressMenuItem.setVisible(true);
+			final boolean isAdd = AddressBookProvider.resolveLabel(activity, txAddress.toString()) == null;
+			final boolean isOwn = wallet.isPubKeyHashMine(txAddress.getHash160());
+
+			if (isOwn)
+				editAddressMenuItem.setTitle(isAdd ? R.string.edit_address_book_entry_dialog_title_add_receive
+						: R.string.edit_address_book_entry_dialog_title_edit_receive);
+			else
+				editAddressMenuItem.setTitle(isAdd ? R.string.edit_address_book_entry_dialog_title_add
+						: R.string.edit_address_book_entry_dialog_title_edit);
+		}
+		else
+		{
+			editAddressMenuItem.setVisible(false);
+		}
+
 		popupMenu.getMenu().findItem(R.id.wallet_transactions_context_show_qr)
 				.setVisible(!txRotation && txSerialized.length < SHOW_QR_THRESHOLD_BYTES);
 		popupMenu.setOnMenuItemClickListener(new OnMenuItemClickListener()

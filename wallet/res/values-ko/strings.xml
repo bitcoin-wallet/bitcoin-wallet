@@ -229,7 +229,6 @@
   <string name="button_request_coins">비트코인 요청 보내기</string>
   <string name="button_send_coins">송금하기</string>
   <string name="button_scan">QR 읽기</string>
-  <string name="button_edit_address">주소 추가/수정</string>
   <string name="button_settings">설정</string>
   <string name="action_show_qr">QR코드 보기</string>
   <string name="action_browse">블럭체인 탐색</string>

@@ -281,7 +281,6 @@
   <string name="button_request_coins">Kërko monedha</string>
   <string name="button_send_coins">Dërgo monedha</string>
   <string name="button_scan">Skano</string>
-  <string name="button_edit_address">Shto/ndrysho adresën</string>
   <string name="button_settings">Rregullat</string>
   <string name="action_show_qr">Shfaq kodin QR</string>
   <string name="action_browse">Shfleto</string>

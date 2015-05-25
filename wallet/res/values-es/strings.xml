@@ -276,7 +276,6 @@
   <string name="button_request_coins">Pedir bitcoins</string>
   <string name="button_send_coins">Enviar</string>
   <string name="button_scan">Explorar</string>
-  <string name="button_edit_address">Añadir/modificar dirección</string>
   <string name="button_settings">Ajustes</string>
   <string name="action_show_qr">Mostrar código QR</string>
   <string name="action_browse">Navegar</string>

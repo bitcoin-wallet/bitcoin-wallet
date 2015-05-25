@@ -177,7 +177,6 @@
 	<string name="button_request_coins">Poproś o monety</string>
 	<string name="button_send_coins">Wyślij monety</string>
 	<string name="button_scan">Skanuj</string>
-	<string name="button_edit_address">Dodaj/zmień adres</string>
 	<string name="button_settings">Ustawienia</string>
 	<string name="action_show_qr">Pokaż kod QR</string>
 	<string name="action_browse">Przeglądaj</string>

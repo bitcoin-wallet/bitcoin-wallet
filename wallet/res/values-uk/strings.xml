@@ -223,7 +223,6 @@
   <string name="button_request_coins">Попросити</string>
   <string name="button_send_coins">Відправити</string>
   <string name="button_scan">Сканувати</string>
-  <string name="button_edit_address">Додати/змінити адресу</string>
   <string name="button_settings">Налаштування</string>
   <string name="action_show_qr">Показати QR код</string>
   <string name="action_browse">Огляд</string>

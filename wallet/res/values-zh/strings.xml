@@ -267,7 +267,6 @@
   <string name="button_request_coins">索取比特币</string>
   <string name="button_send_coins">发送比特币</string>
   <string name="button_scan">扫描</string>
-  <string name="button_edit_address">添加/编辑地址</string>
   <string name="button_settings">设置</string>
   <string name="action_show_qr">显示二维码</string>
   <string name="action_browse">浏览</string>

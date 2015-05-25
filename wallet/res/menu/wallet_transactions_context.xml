@@ -5,7 +5,7 @@
 		android:id="@+id/wallet_transactions_context_edit_address"
 		android:icon="@drawable/ic_create_white_24dp"
 		android:showAsAction="ifRoom|withText"
-		android:title="@string/button_edit_address"
+		android:title="@null"
 		android:titleCondensed="@string/button_edit"/>
 	<item
 		android:id="@+id/wallet_transactions_context_show_qr"

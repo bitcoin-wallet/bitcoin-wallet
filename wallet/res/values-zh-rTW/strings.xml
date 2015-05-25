@@ -221,7 +221,6 @@
   <string name="button_request_coins">收比特幣</string>
   <string name="button_send_coins">付比特幣</string>
   <string name="button_scan">掃描</string>
-  <string name="button_edit_address">新增/編輯地址</string>
   <string name="button_settings">設定</string>
   <string name="action_show_qr">展示QR二維條碼</string>
   <string name="action_browse">瀏覽</string>

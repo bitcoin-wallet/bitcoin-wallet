@@ -282,7 +282,6 @@
   <string name="button_request_coins">Modtag bitcoin</string>
   <string name="button_send_coins">Send bitcoin</string>
   <string name="button_scan">Scan</string>
-  <string name="button_edit_address">Tilføj/redigér adresse</string>
   <string name="button_settings">Opsætning</string>
   <string name="action_show_qr">Vis QR-kode</string>
   <string name="action_browse">Gennemse</string>

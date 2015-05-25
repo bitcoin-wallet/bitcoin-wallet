@@ -263,7 +263,6 @@
   <string name="button_request_coins">Ta emot Bitcoins</string>
   <string name="button_send_coins">Skicka Bitcoins</string>
   <string name="button_scan">Skanna</string>
-  <string name="button_edit_address">Lägg till/ändra adress</string>
   <string name="button_settings">Inställningar</string>
   <string name="action_show_qr">Visa QR-kod</string>
   <string name="action_browse">Bläddra</string>

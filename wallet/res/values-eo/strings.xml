@@ -177,7 +177,6 @@
 	<string name="button_request_coins">Peti monerojn</string>
 	<string name="button_send_coins">Sendu monon</string>
 	<string name="button_scan">Skani</string>
-	<string name="button_edit_address">Aldoni/redakti adreson</string>
 	<string name="button_settings">Agordoj</string>
 	<string name="action_show_qr">Montru QRan kodon</string>
 	<string name="action_browse">Esplori</string>

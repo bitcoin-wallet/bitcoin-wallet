@@ -199,7 +199,6 @@
 	<string name="button_request_coins">Vyžiadať Bitcoiny</string>
 	<string name="button_send_coins">Odoslať Bitcoiny</string>
 	<string name="button_scan">Skenovať</string>
-	<string name="button_edit_address">Pridať/zmeniť adresu</string>
 	<string name="button_settings">Nastavenia</string>
 	<string name="action_show_qr">Ukáž QR kód</string>
 	<string name="action_browse">Otvoriť v prehliadači</string>

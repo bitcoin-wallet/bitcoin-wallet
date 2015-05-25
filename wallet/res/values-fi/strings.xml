@@ -274,7 +274,6 @@
   <string name="button_request_coins">Vastaanota</string>
   <string name="button_send_coins">Lähetä</string>
   <string name="button_scan">Hae</string>
-  <string name="button_edit_address">Lisää/muokkaa osoitetta</string>
   <string name="button_settings">Asetukset</string>
   <string name="action_show_qr">Näytä QR-koodi</string>
   <string name="action_browse">Selaa</string>

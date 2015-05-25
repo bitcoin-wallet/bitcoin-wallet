@@ -282,7 +282,6 @@
   <string name="button_request_coins">Bitcoin talep et</string>
   <string name="button_send_coins">Bitcoin gönder</string>
   <string name="button_scan">Tara</string>
-  <string name="button_edit_address">Adres ilâve et/düzenle</string>
   <string name="button_settings">Ayarlar</string>
   <string name="action_show_qr">QR kodu göster</string>
   <string name="action_browse">Tara</string>

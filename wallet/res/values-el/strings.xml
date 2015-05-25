@@ -151,7 +151,6 @@
   <string name="button_request_coins">Ζητήστε νομίσματα</string>
   <string name="button_send_coins">Αποστολή νομισμάτων</string>
   <string name="button_scan">Ανίχνευση</string>
-  <string name="button_edit_address">Προσθήκη/Επεξεργασία διεύθυνσης</string>
   <string name="button_settings">Ρυθμίσεις</string>
   <string name="action_show_qr">Εμφάνιση QR κώδικα</string>
   <string name="action_browse">Πλοήγηση</string>
