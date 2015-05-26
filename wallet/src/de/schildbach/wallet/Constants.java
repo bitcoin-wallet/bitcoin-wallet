@@ -24,11 +24,12 @@ import org.bitcoinj.params.MainNetParams;
 import org.bitcoinj.params.TestNet3Params;
 import org.bitcoinj.utils.MonetaryFormat;
 
-import com.google.common.io.BaseEncoding;
-
 import android.os.Build;
 import android.os.Environment;
 import android.text.format.DateUtils;
+
+import com.google.common.io.BaseEncoding;
+
 import de.schildbach.wallet_test.R;
 
 /**
