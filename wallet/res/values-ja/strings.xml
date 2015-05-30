@@ -88,6 +88,10 @@
   <string name="send_coins_sent_msg">送金完了!</string>
   <string name="send_coins_failed_msg">失敗!</string>
   <string name="send_coins_error_msg">送金に問題が発生しました！</string>
+  <string name="send_coins_options_fee_category">手数料</string>
+  <string name="send_coins_options_fee_category_economic">節約</string>
+  <string name="send_coins_options_fee_category_normal">通常</string>
+  <string name="send_coins_options_fee_category_priority">優先</string>
   <string name="send_coins_options_empty">ウォレットが空です</string>
   <string name="sweep_wallet_activity_title">ペーパーウォレットをスウィープする</string>
   <string name="sweep_wallet_fragment_intro">ペーパーウォレットもしくはクーポンをスィープしようとしています。全てのコインがそのペーパーからあなたのデバイス上のウォレットへ移動します。トランザクションが確定した際にそのペーパーは無効になります。セキュリティ上の理由からペーパーは再利用すべきではないでしょう。</string>
