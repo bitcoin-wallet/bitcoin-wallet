@@ -85,7 +85,6 @@
   <string name="send_coins_sent_msg">已发送！</string>
   <string name="send_coins_failed_msg">失败！</string>
   <string name="send_coins_error_msg">支付比特币时出现了问题！</string>
-  <string name="send_coins_options_priority">快速确认，需要更高的费率</string>
   <string name="send_coins_options_empty">清空钱包</string>
   <string name="sweep_wallet_activity_title">交换纸钱包上的比特币</string>
   <string name="sweep_wallet_fragment_intro">您将要扫描纸质的钱包或者coupon。这会将纸钱上的所有比特币转移到您的当前设备上。当交易被确认后，那张纸将会分文不值，而且将不能作为安全措施重新使用该纸钱包。</string>

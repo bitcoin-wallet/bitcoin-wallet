@@ -86,7 +86,6 @@
   <string name="send_coins_sent_msg">Odesláno!</string>
   <string name="send_coins_failed_msg">Chyba!</string>
   <string name="send_coins_error_msg">Problém při zasílání!</string>
-  <string name="send_coins_options_priority">Rychlé potvrzení, vyšší poplatky</string>
   <string name="send_coins_options_empty">Prázdná peněženka</string>
   <string name="sweep_wallet_activity_title">Načíst papírovou peněženku</string>
   <string name="sweep_wallet_fragment_intro">Chystáte se načíst papírovou peněženku nebo kupón. Tato akce přemístí veškeré mince z papíru do vaší peněženky na tomto zařízení. Poté co bude transakce potvrzena už papír nepotřebujete a neměl by být z bezpečnostních důvodů dále používán.</string>

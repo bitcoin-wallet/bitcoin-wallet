@@ -86,7 +86,6 @@
   <string name="send_coins_sent_msg">Enviat!</string>
   <string name="send_coins_failed_msg">Fallada!</string>
   <string name="send_coins_error_msg">Hi ha un problema enviant les monedes!</string>
-  <string name="send_coins_options_priority">S\'ha confirmat rapid, la taxa és més elevada</string>
   <string name="send_coins_options_empty">Cartera buida</string>
   <string name="sweep_wallet_activity_title">Incorpora una cartera de paper</string>
   <string name="sweep_wallet_fragment_intro">Estàs a punt d\'incorporar una cartera de paper o un cupó. Això mourà totes les monedes d\'aquest paper a la cartera del dispositiu. Quant la transacció es confirmi, el paper no valdrà res i no deurà ser reutilitzat per qüestions de seguretat.</string>

@@ -88,7 +88,6 @@
   <string name="send_coins_sent_msg">Gönderildi!</string>
   <string name="send_coins_failed_msg">Başarısız oldu!</string>
   <string name="send_coins_error_msg">Bitcoin gönderimi sırasında problem oluştu!</string>
-  <string name="send_coins_options_priority">Çabuk teyit, daha yüksek ücret</string>
   <string name="send_coins_options_empty">Boş cüzdan</string>
   <string name="sweep_wallet_activity_title">Kağıt cüzdanı tara</string>
   <string name="sweep_wallet_fragment_intro">Bir kupon ya da kağıt cüzdan taramak üzeresiniz. Bunu yapmanız bu kağıttaki tüm bitcoinleri cihazınızdaki cüzdana taşıyacaktır. Muamele teyit edildiğinde kağıdın hiçbir değeri kalmayacaktır ve güvenlik nedenleriyle tekrar kullanılmamalıdır.</string>

@@ -86,7 +86,6 @@
   <string name="send_coins_sent_msg">Отправлено!</string>
   <string name="send_coins_failed_msg">Не удалось!</string>
   <string name="send_coins_error_msg">Проблема с отправкой монет!</string>
-  <string name="send_coins_options_priority">Быстрее, но выше комиссия</string>
   <string name="send_coins_options_empty">Опустошить кошелёк</string>
   <string name="sweep_wallet_activity_title">Забрать с бумажного кошелька</string>
   <string name="sweep_wallet_fragment_intro">Вы собираетесь забрать с бумажного кошелька или купона. Это перенесет все монеты с бумаги на ваш кошелек на этом устройстве. Когда эта транзакция пройдет, бумажный носитель будет бесполезен и не должен быть повторно использован в целях безопасности.</string>

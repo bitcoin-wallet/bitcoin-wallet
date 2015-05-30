@@ -85,7 +85,6 @@
   <string name="send_coins_sent_msg">Kulipwa!</string>
   <string name="send_coins_failed_msg">Alisindwa!</string>
   <string name="send_coins_error_msg">Tatizo katika malipwo!</string>
-  <string name="send_coins_options_priority">Kusainiwa kwanza, lipa zaidi.</string>
   <string name="send_coins_options_empty">Kuwa sota.</string>
   <string name="sweep_wallet_activity_title">Kulipa kutoka pochi ya karatasi.</string>
   <string name="sweep_wallet_fragment_intro">Wewe ni kuhusu kulipa kutoka pochi ya karatasi. Hii kufanya za pochi sota. Kwa sababu ya kiusalama, tafadhali usitumie za pochi ya karatasi tena.</string>
