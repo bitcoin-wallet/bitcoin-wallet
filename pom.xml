@@ -90,7 +90,7 @@
 				<plugin>
 					<groupId>com.simpligility.maven.plugins</groupId>
 					<artifactId>android-maven-plugin</artifactId>
-					<version>4.2.0</version>
+					<version>4.2.1</version>
 					<dependencies>
 						<dependency>
 							<groupId>net.sf.proguard</groupId>
