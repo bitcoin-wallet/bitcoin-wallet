@@ -1,3 +1,7 @@
+v4.31
+
+* Update Italian, Spanish, Finnish and Japanese translations.
+
 v4.30
 
 * Upwards-adjust default fee, because transactions at the old fee level have become a bit slow.
