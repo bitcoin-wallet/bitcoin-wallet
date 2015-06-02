@@ -8,6 +8,7 @@
 	<dimen name="font_size_xlarge">34sp</dimen>
 	<dimen name="font_size_huge">50sp</dimen>
 	<dimen name="symbol_size_normal">19sp</dimen>
+	<dimen name="list_entry_padding_horizontal_cram">8dp</dimen>
 	<dimen name="list_entry_padding_horizontal">16dp</dimen>
 	<dimen name="list_entry_padding_horizontal_lax">25dp</dimen>
 	<dimen name="list_entry_padding_vertical">12dp</dimen>

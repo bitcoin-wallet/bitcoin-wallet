@@ -6,7 +6,7 @@
 	<dimen name="font_size_normal">20sp</dimen>
 	<dimen name="font_size_large">26sp</dimen>
 	<dimen name="font_size_xlarge">31sp</dimen>
-	<dimen name="font_size_huge">46sp</dimen>
+	<dimen name="font_size_huge">42sp</dimen>
 	<dimen name="symbol_size_normal">17sp</dimen>
 	<dimen name="wallet_address_qr_size">112dp</dimen>
 	<dimen name="request_coins_qr_size">160dp</dimen>
