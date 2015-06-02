@@ -18,11 +18,13 @@
 package de.schildbach.wallet.ui;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.bitcoinj.core.Address;
 import org.bitcoinj.core.ECKey;
 import org.bitcoinj.core.Wallet;
+import org.bitcoinj.crypto.DeterministicKey;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -131,6 +133,7 @@ public final class AddressBookActivity extends AbstractWalletActivity
 	{
 		final Wallet wallet = getWalletApplication().getWallet();
 		final List<ECKey> derivedKeys = wallet.getIssuedReceiveKeys();
+		Collections.sort(derivedKeys, DeterministicKey.CHILDNUM_ORDER);
 		final List<ECKey> randomKeys = wallet.getImportedKeys();
 		final ArrayList<Address> addresses = new ArrayList<Address>(derivedKeys.size() + randomKeys.size());
 
