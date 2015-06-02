@@ -207,9 +207,9 @@ public class MaintenanceDialogFragment extends DialogFragment
 	@Override
 	public void onDismiss(final DialogInterface dialog)
 	{
-		wipePasswords();
-
 		this.dialog = null;
+
+		wipePasswords();
 
 		super.onDismiss(dialog);
 	}

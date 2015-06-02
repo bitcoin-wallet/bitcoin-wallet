@@ -212,14 +212,14 @@ public class EncryptKeysDialogFragment extends DialogFragment
 	@Override
 	public void onDismiss(final DialogInterface dialog)
 	{
-		wipePasswords();
-
 		this.dialog = null;
 
 		oldPasswordView.removeTextChangedListener(textWatcher);
 		newPasswordView.removeTextChangedListener(textWatcher);
 
 		showView.setOnCheckedChangeListener(null);
+
+		wipePasswords();
 
 		super.onDismiss(dialog);
 	}
