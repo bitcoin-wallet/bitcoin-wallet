@@ -7,6 +7,7 @@
 	<artifactId>integration-android</artifactId>
 	<version>2.0</version>
 	<name>Bitcoin Integration for Android</name>
+	<description>Library for integrating Bitcoin into other apps.</description>
 
 	<parent>
 		<groupId>de.schildbach.wallet</groupId>
@@ -33,6 +34,20 @@
 		</dependency>
 
 	</dependencies>
+
+	<profiles>
+		<profile>
+			<id>release</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-gpg-plugin</artifactId>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 
 	<build>
 		<sourceDirectory>src</sourceDirectory>

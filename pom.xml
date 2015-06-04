@@ -6,15 +6,37 @@
 
 	<groupId>de.schildbach.wallet</groupId>
 	<artifactId>base</artifactId>
-	<name>base</name>
 	<version>1</version>
 	<packaging>pom</packaging>
+
+	<name>base</name>
+	<description>Provides common configuration for Bitcoin Wallet sub-projects.</description>
+	<url>https://wallet.schildbach.de</url>
 
 	<modules>
 		<module>wallet</module>
 		<module>integration-android</module>
 		<module>sample-integration-android</module>
 	</modules>
+
+	<developers>
+		<developer>
+			<name>Bitcoin Wallet developers</name>
+			<email>bitcoin.wallet.developers@gmail.com</email>
+		</developer>
+	</developers>
+
+	<licenses>
+		<license>
+			<name>Various</name>
+			<comments>See individual subprojects</comments>
+		</license>
+	</licenses>
+
+	<scm>
+		<connection>scm:git:https://github.com/schildbach/bitcoin-wallet.git</connection>
+		<url>https://github.com/schildbach/bitcoin-wallet</url>
+	</scm>
 
 	<repositories>
 		<repository>
@@ -164,5 +186,12 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
+
+	<distributionManagement>
+		<repository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+		</repository>
+	</distributionManagement>
 
 </project>
