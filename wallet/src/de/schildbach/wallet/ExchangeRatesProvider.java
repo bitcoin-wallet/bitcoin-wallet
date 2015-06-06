@@ -17,6 +17,8 @@
 
 package de.schildbach.wallet;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -36,6 +38,7 @@ import javax.annotation.Nullable;
 
 import org.bitcoinj.core.Coin;
 import org.bitcoinj.utils.Fiat;
+import org.bitcoinj.utils.MonetaryFormat;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,6 +54,7 @@ import android.provider.BaseColumns;
 import android.text.format.DateUtils;
 
 import com.google.common.base.Charsets;
+import com.google.common.base.Strings;
 
 import de.schildbach.wallet.util.GenericUtils;
 import de.schildbach.wallet.util.Io;
@@ -64,6 +68,8 @@ public class ExchangeRatesProvider extends ContentProvider
 	{
 		public ExchangeRate(final org.bitcoinj.utils.ExchangeRate rate, final String source)
 		{
+			checkNotNull(rate.fiat.currencyCode);
+
 			this.rate = rate;
 			this.source = source;
 		}
@@ -317,8 +323,9 @@ public class ExchangeRatesProvider extends ContentProvider
 				final JSONObject head = new JSONObject(content.toString());
 				for (final Iterator<String> i = head.keys(); i.hasNext();)
 				{
-					final String currencyCode = i.next();
-					if (!"timestamp".equals(currencyCode))
+					final String currencyCode = Strings.emptyToNull(i.next());
+					if (currencyCode != null && !"timestamp".equals(currencyCode) && !MonetaryFormat.CODE_BTC.equals(currencyCode)
+							&& !MonetaryFormat.CODE_MBTC.equals(currencyCode) && !MonetaryFormat.CODE_UBTC.equals(currencyCode))
 					{
 						final JSONObject o = head.getJSONObject(currencyCode);
 
