@@ -12,7 +12,7 @@
 		android:layout_gravity="center"
 		android:contentDescription="@string/action_show_qr"
 		android:focusable="true"
-		android:padding="1dp"
+		android:padding="3dp"
 		android:scaleType="centerInside" />
 
 </android.support.v7.widget.CardView>

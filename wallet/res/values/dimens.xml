@@ -19,6 +19,6 @@
 	<dimen name="divider_currency_padding">0dp</dimen>
 	<dimen name="wallet_address_qr_size">80dp</dimen>
 	<dimen name="request_coins_qr_size">128dp</dimen>
-	<dimen name="bitmap_dialog_qr_size">256dp</dimen>
+	<dimen name="bitmap_dialog_qr_size">224dp</dimen>
 
 </resources>

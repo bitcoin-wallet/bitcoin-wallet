@@ -89,23 +89,23 @@ public class WalletAddressDialogFragment extends DialogFragment
 
 		final View labelButtonView = dialog.findViewById(R.id.wallet_address_dialog_label_button);
 		final TextView labelView = (TextView) dialog.findViewById(R.id.wallet_address_dialog_label);
-		if (labelView != null)
+		final CharSequence label = WalletUtils.formatAddress(address, Constants.ADDRESS_FORMAT_GROUP_SIZE, Constants.ADDRESS_FORMAT_LINE_SIZE);
+		labelView.setText(label);
+		labelButtonView.setVisibility(View.VISIBLE);
+		labelButtonView.setOnClickListener(new OnClickListener()
 		{
-			final CharSequence label = WalletUtils.formatAddress(address, Constants.ADDRESS_FORMAT_GROUP_SIZE, Constants.ADDRESS_FORMAT_LINE_SIZE);
-			labelView.setText(label);
-			labelButtonView.setVisibility(View.VISIBLE);
-			labelButtonView.setOnClickListener(new OnClickListener()
+			@Override
+			public void onClick(final View v)
 			{
-				@Override
-				public void onClick(final View v)
-				{
-					final Intent intent = new Intent(Intent.ACTION_SEND);
-					intent.setType("text/plain");
-					intent.putExtra(Intent.EXTRA_TEXT, address.toString());
-					startActivity(Intent.createChooser(intent, getString(R.string.bitmap_fragment_share)));
-				}
-			});
-		}
+				final Intent intent = new Intent(Intent.ACTION_SEND);
+				intent.setType("text/plain");
+				intent.putExtra(Intent.EXTRA_TEXT, address.toString());
+				startActivity(Intent.createChooser(intent, getString(R.string.bitmap_fragment_share)));
+			}
+		});
+
+		final View hintView = dialog.findViewById(R.id.wallet_address_dialog_hint);
+		hintView.setVisibility(getResources().getBoolean(R.bool.show_wallet_address_dialog_hint) ? View.VISIBLE : View.GONE);
 
 		final View dialogView = dialog.findViewById(R.id.wallet_address_dialog_group);
 		dialogView.setOnClickListener(new View.OnClickListener()

@@ -12,7 +12,37 @@
 		android:background="@color/bg_bright"
 		android:contentDescription="@null"
 		android:keepScreenOn="true"
-		android:padding="4dp"
+		android:padding="8dp"
 		android:scaleType="centerInside" />
+
+	<LinearLayout
+		android:id="@+id/wallet_address_dialog_label_button"
+		style="?android:attr/borderlessButtonStyle"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="vertical" >
+
+		<TextView
+			android:id="@+id/wallet_address_dialog_label"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center"
+			android:layout_marginBottom="@dimen/list_entry_padding_vertical_lax"
+			android:layout_marginTop="@dimen/list_entry_padding_vertical_lax"
+			android:gravity="left"
+			android:textSize="@dimen/font_size_normal" />
+
+		<TextView
+			android:id="@+id/wallet_address_dialog_hint"
+			android:layout_width="@dimen/bitmap_dialog_qr_size"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center_horizontal"
+			android:layout_marginBottom="@dimen/list_entry_padding_vertical"
+			android:paddingLeft="@dimen/list_entry_padding_horizontal"
+			android:paddingRight="@dimen/list_entry_padding_horizontal"
+			android:text="@string/wallet_address_dialog_fragment_hint"
+			android:textColor="@color/fg_less_significant"
+			android:textSize="@dimen/font_size_tiny" />
+	</LinearLayout>
 
 </LinearLayout>
