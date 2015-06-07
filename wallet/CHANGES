@@ -1,3 +1,9 @@
+v4.32
+
+* Bugfixes.
+* In-app payments integration (integration-android) now available on Maven Central and jCenter.
+  Also see: https://github.com/schildbach/bitcoin-wallet/wiki/InAppPayments
+
 v4.31
 
 * Update Italian, Spanish, Finnish and Japanese translations.
