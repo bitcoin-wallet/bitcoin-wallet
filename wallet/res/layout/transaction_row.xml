@@ -32,6 +32,7 @@
 				android:layout_width="@dimen/symbol_size_normal"
 				android:layout_height="wrap_content"
 				android:layout_marginRight="8dp"
+				android:ellipsize="none"
 				android:gravity="center_horizontal|top"
 				android:singleLine="true"
 				android:textStyle="bold" />
@@ -59,6 +60,7 @@
 				android:layout_width="@dimen/symbol_size_normal"
 				android:layout_height="wrap_content"
 				android:layout_marginRight="8dp"
+				android:ellipsize="none"
 				android:gravity="center_horizontal|top"
 				android:singleLine="true"
 				android:textStyle="bold" />
