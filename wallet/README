@@ -47,11 +47,13 @@ is world readable/writeable. The goal is to be able to debug easily.
 
 You can probably skip some steps, especially if you built Android apps before.
 
-You'll need git, a Java SDK 6 (or later) and Maven 3.0.5 (or later) for this. I'll assume Ubuntu Linux
+You'll need git, a Java SDK 6 (or later) and Gradle 2.4 (or later) for this. I'll assume Ubuntu Linux
 for the package installs.
 
 	# first time only
-	sudo apt-get install git maven openjdk-6-jdk libstdc++6:i386
+	sudo add-apt-repository ppa:cwchien/gradle
+	sudo apt-get update
+	sudo apt-get install git gradle openjdk-6-jdk libstdc++6:i386
 
 Get the Android SDK (Tools only) from
 
@@ -77,7 +79,7 @@ use
 	# each time
 	cd bitcoin-wallet
 	git pull
-	mvn clean install
+	gradle clean build
 
 To upload the app to your Android device, use
 
@@ -85,7 +87,7 @@ To upload the app to your Android device, use
 	sudo apt-get install android-tools-adb
 
 	# each time
-	adb install wallet/target/wallet-*-test.apk
+	adb install wallet/build/outputs/apk/bitcoin-wallet-debug.apk
 
 
 BUILDING THE PRODUCTIVE VERSION
@@ -102,30 +104,12 @@ separate 'prod' branch that gets rebased against master with each released versi
 	cd bitcoin-wallet
 	git fetch origin
 	git checkout origin/prod
-	mvn clean install -Prelease -Dandroid.sdk.path=<path to your android sdk>
+	gradle clean build
 
 
 SETTING UP FOR DEVELOPMENT
 
-Make sure you've got Eclipse Luna with ADT 23 installed.
-
-Use Git to check out the project and an Android library dependency to your workspace:
-
-	# clone Bitcoin Wallet project
-	git clone -b master https://github.com/schildbach/bitcoin-wallet.git bitcoin-wallet
-
-Use the maven-eclipse-plugin to create Eclipse project files:
-
-	cd bitcoin-wallet
-	mvn clean install eclipse:eclipse
-
-Optional: In the generated .classpath, remove the org.eclipse.jdt.launching.JRE_CONTAINER
-classpath entry. It does not belong there, but cannot be excluded from being generated currently.
-
-In Eclipse, use File -> Import -> General -> Existing Project into Workspace to import project.
-
-If you see loads of "should be tagged with @Override" errors, set Project -> Properties ->
-Java Compiler -> Errors/Warnings -> Annotations -> Missing @Override annotation to 'Warning'
+You should be able to import the project into Android Studio, as it uses Gradle for building.
 
 
 TRANSLATIONS

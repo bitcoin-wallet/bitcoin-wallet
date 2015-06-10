@@ -1,3 +1,5 @@
+.gradle/
+build/
 local.properties
 .classpath
 .project
@@ -5,4 +7,3 @@ local.properties
 .idea/
 bin/
 gen/
-target/

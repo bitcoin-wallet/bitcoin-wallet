@@ -1,0 +1,23 @@
+apply plugin: 'java'
+
+dependencies {
+    compile('com.google.android:android:2.3.3') {
+        transitive false
+    }
+}
+
+sourceSets {
+    main {
+        java {
+            srcDir 'src'
+        }
+        resources {
+            srcDir 'src'
+        }
+    }
+}
+
+compileJava {
+    sourceCompatibility '1.5'
+    targetCompatibility '1.5'
+}
