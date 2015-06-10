@@ -55,6 +55,9 @@ public final class Constants
 		/** Filename of the automatic wallet backup. */
 		public static final String WALLET_KEY_BACKUP_PROTOBUF = "key-backup-protobuf" + FILENAME_NETWORK_SUFFIX;
 
+		/** Path to external storage */
+		public static final File EXTERNAL_STORAGE_DIR = Environment.getExternalStorageDirectory();
+
 		/** Manual backups go here. */
 		public static final File EXTERNAL_WALLET_BACKUP_DIR = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
 

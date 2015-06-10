@@ -80,8 +80,16 @@ public class ArchiveBackupDialogFragment extends DialogFragment
 		final Bundle args = getArguments();
 		final File backupFile = (File) args.getSerializable(KEY_FILE);
 
+		final String path;
+		final String backupPath = backupFile.getAbsolutePath();
+		final String storagePath = Constants.Files.EXTERNAL_STORAGE_DIR.getAbsolutePath();
+		if (backupPath.startsWith(storagePath))
+			path = backupPath.substring(storagePath.length());
+		else
+			path = backupPath;
+
 		final DialogBuilder dialog = new DialogBuilder(activity);
-		dialog.setMessage(Html.fromHtml(getString(R.string.export_keys_dialog_success, backupFile)));
+		dialog.setMessage(Html.fromHtml(getString(R.string.export_keys_dialog_success, path)));
 		dialog.setPositiveButton(WholeStringBuilder.bold(getString(R.string.export_keys_dialog_button_archive)),
 				new DialogInterface.OnClickListener()
 				{

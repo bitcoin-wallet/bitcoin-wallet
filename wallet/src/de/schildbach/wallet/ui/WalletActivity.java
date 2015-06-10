@@ -450,7 +450,14 @@ public final class WalletActivity extends AbstractWalletActivity
 			}
 		};
 
-		messageView.setText(getString(R.string.import_keys_dialog_message, Constants.Files.EXTERNAL_WALLET_BACKUP_DIR));
+		final String path;
+		final String backupPath = Constants.Files.EXTERNAL_WALLET_BACKUP_DIR.getAbsolutePath();
+		final String storagePath = Constants.Files.EXTERNAL_STORAGE_DIR.getAbsolutePath();
+		if (backupPath.startsWith(storagePath))
+			path = backupPath.substring(storagePath.length());
+		else
+			path = backupPath;
+		messageView.setText(getString(R.string.import_keys_dialog_message, path));
 
 		fileView.setAdapter(adapter);
 
