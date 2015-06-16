@@ -10,7 +10,7 @@
 • Adressbok för de Bitcoinadresser man använder ofta.
 • När du är nedkopplad kan du fortfarande betala via Bluetooth.
 • Meddelande om mottagna bitcoin.
-• Inläsning av papperswallet (tex. sådan som används för permanent lagring).
+• Inläsning av pappersplånbok (tex. sådan som används för permanent lagring).
 • App widget som visar ditt saldo.
 
 

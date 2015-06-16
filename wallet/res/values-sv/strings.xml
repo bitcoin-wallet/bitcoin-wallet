@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="toast_wallet_reset">Din wallet nollställdes,\ndet kan ta ett tag innan den återställts</string>
+  <string name="toast_wallet_reset">Din plånbok är nollställd!\nDet tar en stund för att återställa.</string>
   <string name="wallet_disclaimer_fragment_remind_safety">Använd på egen risk. Läs &lt;u&gt;säkerhetsråden&lt;/u&gt;.</string>
   <string name="wallet_disclaimer_fragment_remind_backup">Du behöver &lt;u&gt;säkerhetskopiera din plånbok&lt;/u&gt;!</string>
   <string name="blockchain_state_progress_hours">%1$s, %2$d timmar efter</string>
@@ -12,7 +12,8 @@
   <string name="blockchain_state_progress_problem_storage">Synkronisering: Lagringsproblem</string>
   <string name="blockchain_state_progress_problem_network">Synkronisering: Nätverksproblem</string>
   <string name="wallet_address_fragment_clipboard_msg">Bitcoinadressen kopierades</string>
-  <string name="wallet_balance_fragment_too_much">Det här är ett väldigt stort belopp att bära runt på i fickan, överväg att flytta över lite till en säkrare plats.</string>
+  <string name="wallet_address_dialog_fragment_hint">För att skydda din integritet ändras din adress varje gång du mottager en betalning.</string>
+  <string name="wallet_balance_fragment_too_much">Det här är ett stort belopp att bära omkring på i fickan. Flytta gärna över en del till en säkrare plats.</string>
   <string name="wallet_balance_fragment_replaying">Saldot är inte tillgängligt under reprisen.</string>
   <string name="exchange_rates_activity_title">Växlingskurser</string>
   <string name="exchange_rates_fragment_empty_text">Kunde inte hämta växlingskurser.</string>
@@ -23,15 +24,16 @@
   <string name="exchange_rates_fragment_source">Pris från %s</string>
   <string name="exchange_rates_options_search">Sök växlingskurs</string>
   <string name="exchange_rates_context_set_as_default_title">Ange som utländsk standardvaluta</string>
-  <string name="wallet_transactions_options_filter_received">Mottagna</string>
-  <string name="wallet_transactions_options_filter_all">Båda</string>
-  <string name="wallet_transactions_options_filter_sent">Skickade</string>
   <string name="wallet_transactions_fragment_empty_text_received">Inga bitcoin har hittills mottagits</string>
   <string name="wallet_transactions_fragment_empty_text_sent">Inga bitcoin har hittills skickats</string>
   <string name="wallet_transactions_fragment_empty_text_howto">Hur får man tag i bitcoin?\n\nKöp för svenska kronor,\nsälj varor eller tjänster eller\ntjäna genom att arbeta.</string>
   <string name="wallet_transactions_row_warning_backup">Grattis, fick du din första betalning! Har du redan &lt;u&gt;säkerhetskopierat din plånbok&lt;/u&gt;, för att skydda mot förlust?</string>
   <string name="wallet_transactions_fragment_coinbase">genererade</string>
   <string name="wallet_transactions_fragment_internal">intern</string>
+  <string name="wallet_transactions_options_filter">Filter</string>
+  <string name="wallet_transactions_options_filter_all">Alla betalningar</string>
+  <string name="wallet_transactions_options_filter_received">Mottagna betalningar</string>
+  <string name="wallet_transactions_options_filter_sent">Skickade betalningar</string>
   <string name="wallet_options_safety_menu">Säkerhet</string>
   <string name="wallet_options_encrypt_keys_set">Ställ in PIN-kod</string>
   <string name="wallet_options_encrypt_keys_change">Ändra PIN-kod</string>
@@ -59,6 +61,7 @@
   <string name="send_coins_fragment_receiving_address_label">Skicka till</string>
   <string name="send_coins_fragment_receiving_address_hint">skriv adress eller namn</string>
   <string name="send_coins_fragment_receiving_address_error">Ogiltig bitcoinadress!</string>
+  <string name="send_coins_fragment_receiving_address_own">Du skickar till dig själv!</string>
   <string name="send_coins_fragment_receiving_address_complex">Komplex\nadress</string>
   <string name="send_coins_fragment_pending">(%s väntar på bekräftelse)</string>
   <string name="send_coins_fragment_amount_label">Belopp att skicka</string>
@@ -85,14 +88,22 @@
   <string name="send_coins_sent_msg">Skickat!</string>
   <string name="send_coins_failed_msg">Misslyckades!</string>
   <string name="send_coins_error_msg">Problem att skicka bitcoin!</string>
+  <string name="send_coins_options_fee_category">Avgift</string>
+  <string name="send_coins_options_fee_category_economic">Ekonomi</string>
+  <string name="send_coins_options_fee_category_normal">Normal</string>
+  <string name="send_coins_options_fee_category_priority">Prioritet</string>
   <string name="send_coins_options_empty">Tom wallet</string>
   <string name="sweep_wallet_activity_title">Läs av papperswallet</string>
   <string name="sweep_wallet_fragment_intro">Du är på väg att läsa av en papperswallet eller kupong. Detta kommer att flytta alla tillgångar från papperet till din wallet på den här enheten. När transaktionen är bekräftad, kommer papperet att vara värdelöst och bör inte återanvändas av säkerhetsskäl.</string>
   <string name="sweep_wallet_fragment_hint">En papperswallet används oftast för säker långtidsförvaring. Vissa bitcoinbankomater skriver ut en sådan på ett papperskvitto istället för att skicka medel till din mobila enhet direkt. Vissa använder ibland en förladdad papperswallet för att byta och skicka medel med varandra (rekommenderas inte).</string>
   <string name="sweep_wallet_fragment_wallet_unknown">Börja genom att läsa av papperswalletens privata nyckel med din mobilkamera.</string>
+  <string name="sweep_wallet_fragment_encrypted">Denna privata nyckel är skyddad med ett lösenord.</string>
   <string name="sweep_wallet_fragment_password">lösenord</string>
+  <string name="sweep_wallet_fragment_bad_password">Fel lösenord!</string>
   <string name="sweep_wallet_fragment_balance">Summa att läsa av</string>
+  <string name="sweep_wallet_fragment_button_decrypt">Avkryptera</string>
   <string name="sweep_wallet_fragment_button_sweep">Läs av</string>
+  <string name="sweep_wallet_fragment_decrypt_progress">Avkrypterar…\nTar upp till 2 minuter.</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_progress">Läser in saldo…</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_failed_title">Inläsning av saldo misslyckades</string>
   <string name="sweep_wallet_fragment_insufficient_money_title">Du saknar tillräckliga medel</string>
@@ -116,7 +127,8 @@
   <string name="request_coins_options_local_app_title">Begäran från lokal app</string>
   <string name="address_book_activity_title">Adressbok</string>
   <string name="address_book_list_receiving_title">Dina adresser</string>
-  <string name="address_book_list_sending_title">Sändningsadresser</string>
+  <string name="address_book_list_receiving_random">Gammla adresser</string>
+  <string name="address_book_list_sending_title">Mottagaradresser</string>
   <string name="address_book_empty_text">Din adressbok är tom</string>
   <string name="address_book_context_send_title">Skicka bitcoin till adressen</string>
   <string name="address_book_context_edit_title">Ändra adress</string>
@@ -125,13 +137,17 @@
   <string name="address_book_options_paste_from_clipboard_title">Klistra in från urklipp</string>
   <string name="address_book_options_paste_from_clipboard_empty">Urklippet är tomt</string>
   <string name="address_book_options_paste_from_clipboard_invalid">Inklippt data är oigenkännlig</string>
+  <string name="address_book_options_paste_from_clipboard_own_address">Adressen i urklippet är din egen.</string>
   <string name="address_book_options_scan_title">Scanna adress</string>
   <string name="address_book_options_scan_invalid">Avläst data är oigenkännlig</string>
+  <string name="address_book_options_scan_own_address">Den skannade adressen är din egen.</string>
   <string name="address_book_row_message_compromised_key">Denna adress kanske har komprometterats. Du bör inte använda den för att ta emot bitcoin igen.</string>
-  <string name="edit_address_book_entry_dialog_title_add">Lägg till adress</string>
-  <string name="edit_address_book_entry_dialog_title_edit">Ändra adress</string>
+  <string name="edit_address_book_entry_dialog_title_add">Lägg till mottagaradress</string>
+  <string name="edit_address_book_entry_dialog_title_edit">Redigera etikett av motagaradressen</string>
+  <string name="edit_address_book_entry_dialog_title_add_receive">Lägg till etikett till din adress</string>
+  <string name="edit_address_book_entry_dialog_title_edit_receive">Redigera etikett av din adress</string>
   <string name="edit_address_book_entry_dialog_address_label">Adress</string>
-  <string name="edit_address_book_entry_dialog_label_label">Namn</string>
+  <string name="edit_address_book_entry_dialog_label_label">Etikett</string>
   <string name="edit_address_book_entry_dialog_button_edit">Spara</string>
   <string name="transaction_row_fee">Nätverksavgift</string>
   <string name="transaction_row_message_purpose_key_rotation">Den här transaktionen stärker din plånbok mot stöld. &lt;u&gt;Mer info.&lt;/u&gt;</string>
@@ -148,7 +164,7 @@
   <string name="peer_list_fragment_empty">Inga peers anslutna</string>
   <string name="peer_list_row_ping_time">⇆ %d&#x2009;ms</string>
   <string name="import_keys_dialog_title">Återställ plånbok</string>
-  <string name="import_keys_dialog_message">Välj en säkerhetskopia från en extern plats eller från en annan app:</string>
+  <string name="import_keys_dialog_message">Välj en plånboksbackup från extern källa (%s):</string>
   <string name="restore_wallet_dialog_replace_warning">Du är på väg att byta ut din nuvarande wallet. Eventuella tillgångar i din nuvarande wallet kommer att förloras för alltid om du inte har gjort en separat säkerhetskopia.</string>
   <string name="import_keys_dialog_warning">Viktigt: Ladda inte privata nycklar från tvivelaktiga källor! Om du gör det kan andra få kontroll över dina tillgångar.</string>
   <string name="import_keys_dialog_file_security_encrypted">lösenordet är krypterat</string>
@@ -173,6 +189,8 @@
   <string name="export_keys_dialog_mail_intent_chooser">Arkivering av wallet med…</string>
   <string name="export_keys_dialog_mail_intent_failed">Arkivering av wallet misslyckades.</string>
   <string name="import_export_keys_dialog_password">lösenord</string>
+  <string name="backup_wallet_dialog_password_again">igen</string>
+  <string name="backup_wallet_dialog_password_mismatch">Felmatchning!</string>
   <string name="import_export_keys_dialog_show">Visa lösenord</string>
   <string name="import_export_keys_dialog_failure_title">Fel</string>
   <string name="import_keys_intent_filter_action">Återställ wallet</string>
@@ -214,10 +232,15 @@
   <string name="preferences_data_usage_summary">Visa alternativ för att begränsa dataanvändning över mobila nätverk.</string>
   <string name="preferences_report_issue_title">Rapportera problem</string>
   <string name="preferences_report_issue_summary">Samla information om ditt problem och maila rapporten till utvecklarna.</string>
-  <string name="preferences_initiate_reset_title">Nollställ blockchain</string>
-  <string name="preferences_initiate_reset_summary">Nollställ Blockkedjan, transaktioner och walletsaldo. Nollställningen kommer att ta ett tag.</string>
-  <string name="preferences_initiate_reset_dialog_message">Vill du återställa och spola tillbaka blockchain?\n\nDet kommer att tillfälligt dölja din balans och även dölja transaktionerna. Båda kommer att återställas när blockchain synkroniserats.</string>
+  <string name="preferences_initiate_reset_title">Återställ blockkedjan</string>
+  <string name="preferences_initiate_reset_summary">Återställer blockkedjan, transaktioner och plånboksbalansen, det tar en stund.</string>
+  <string name="preferences_initiate_reset_dialog_message">Vill du återställa och återsynkronisera blockkedjan? Detta kommer att tillfälligt dölja plånbokens saldo och radera genomförda transaktioner. Båda dessa kommer att återställas när blockkedjans synkronisering fortsätter.</string>
   <string name="preferences_initiate_reset_dialog_positive">Återställ</string>
+  <string name="preferences_extended_public_key_title">Visa xpub</string>
+  <string name="preferences_extended_public_key_summary">Visa din plånboks publika huvudnyckel så den kan importeras till andra program och tjänster. Men var försiktig: Detta kommer att avslöja dina kontouppgifter för det program som importerar nyckeln.</string>
+  <string name="bitmap_fragment_share">Dela…</string>
+  <string name="extended_public_key_fragment_title">Publik huvudnyckel</string>
+  <string name="extended_public_key_fragment_share">Dela xpub…</string>
   <string name="report_issue_dialog_title_issue">Rapportera problem</string>
   <string name="report_issue_dialog_title_crash">Tidigare krasch upptäckt</string>
   <string name="report_issue_dialog_message_issue">Var vänlig beskriv exakt problemet för att kunna efterkonstrueras. Om det är specifikt för din wallet, överväg att bifoga en skärmdump/-bild.</string>
@@ -271,5 +294,5 @@
   <string name="error_io">I/O error: %s</string>
   <string name="error_parse">Parse error: %s</string>
   <string name="error_http">HTTP error %1$s:\n%2$s</string>
-  <string name="error_bluetooth">Bluetooth error: %1$s</string>
+  <string name="error_bluetooth">Bluetoothfel: %1$s</string>
 </resources>
