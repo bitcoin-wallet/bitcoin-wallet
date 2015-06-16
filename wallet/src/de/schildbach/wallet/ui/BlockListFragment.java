@@ -313,7 +313,7 @@ public final class BlockListFragment extends ListFragment
 
 			final TextView rowTime = (TextView) row.findViewById(R.id.block_list_row_time);
 			final long timeMs = header.getTimeSeconds() * DateUtils.SECOND_IN_MILLIS;
-			if (timeMs < System.currentTimeMillis())
+			if (timeMs < System.currentTimeMillis() - DateUtils.MINUTE_IN_MILLIS)
 				rowTime.setText(DateUtils.getRelativeDateTimeString(activity, timeMs, DateUtils.MINUTE_IN_MILLIS, DateUtils.WEEK_IN_MILLIS, 0));
 			else
 				rowTime.setText(R.string.block_row_now);
