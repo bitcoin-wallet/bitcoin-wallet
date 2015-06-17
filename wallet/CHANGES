@@ -1,3 +1,11 @@
+v4.33
+
+* Upwards-adjust default network fee again. We're still way below estimated fee.
+* Small bugfixes.
+* Update Greek and Swedish translations.
+* Migrate build from Maven to Gradle. This should make things easier for Android Studio users.
+  See README for building the app.
+
 v4.32
 
 * Bugfixes.
