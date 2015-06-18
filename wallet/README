@@ -79,7 +79,7 @@ use
 	# each time
 	cd bitcoin-wallet
 	git pull
-	gradle clean build
+	gradle clean test build
 
 To upload the app to your Android device, use
 
@@ -104,7 +104,7 @@ separate 'prod' branch that gets rebased against master with each released versi
 	cd bitcoin-wallet
 	git fetch origin
 	git checkout origin/prod
-	gradle clean build
+	gradle clean test build
 
 
 SETTING UP FOR DEVELOPMENT
