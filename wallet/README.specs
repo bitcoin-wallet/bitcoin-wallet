@@ -27,6 +27,9 @@ https://github.com/bitcoin/bips/blob/master/bip-0038.mediawiki
 BIP-43: Purpose field for deterministic wallets
 https://github.com/bitcoin/bips/blob/master/bip-0043.mediawiki
 
+BIP-66: Strict DER signatures
+https://github.com/bitcoin/bips/blob/master/bip-0066.mediawiki
+
 BIP-70: Payment protocol
 https://github.com/bitcoin/bips/blob/master/bip-0070.mediawiki
 
