@@ -243,7 +243,7 @@
   <string name="extended_public_key_fragment_share">Dela xpub…</string>
   <string name="report_issue_dialog_title_issue">Rapportera problem</string>
   <string name="report_issue_dialog_title_crash">Tidigare krasch upptäckt</string>
-  <string name="report_issue_dialog_message_issue">Var vänlig beskriv exakt problemet för att kunna efterkonstrueras. Om det är specifikt för din wallet, överväg att bifoga en skärmdump/-bild.</string>
+  <string name="report_issue_dialog_message_issue">Var vänlig beskriv exakt problemet för att kunna efterkonstrueras.</string>
   <string name="report_issue_dialog_message_crash">Vill du skicka en krasch rapport och hjälpa att fixa det här problemet i framtiden?</string>
   <string name="report_issue_dialog_description">problembeskrivning</string>
   <string name="report_issue_dialog_report">Rapportera</string>

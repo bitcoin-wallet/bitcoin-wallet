@@ -239,7 +239,7 @@
   <string name="extended_public_key_fragment_share">Jaa xpub…</string>
   <string name="report_issue_dialog_title_issue">Ilmoita ongelma</string>
   <string name="report_issue_dialog_title_crash">Havaittiin viimekertainen kaaatuminen</string>
-  <string name="report_issue_dialog_message_issue">Kuvaile ongelmasi tarpeeksi tarkasti, että kehittäjät voivat uudelleentuottaa sen. Jos se on lompakkoosi liittyvää, harkitse vedostiedoston liittämistä.</string>
+  <string name="report_issue_dialog_message_issue">Kuvaile ongelmasi tarpeeksi tarkasti, että kehittäjät voivat uudelleentuottaa sen.</string>
   <string name="report_issue_dialog_message_crash">Haluaisitko lähettää kaatumisilmoituksen, auttaaksesi tämän ongelman korjaamista?</string>
   <string name="report_issue_dialog_description">Ongelman kuvaus</string>
   <string name="report_issue_dialog_report">Ilmoita</string>

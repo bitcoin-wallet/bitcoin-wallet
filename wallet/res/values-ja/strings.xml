@@ -243,7 +243,7 @@
   <string name="extended_public_key_fragment_share">xpubを共有……</string>
   <string name="report_issue_dialog_title_issue">問題を報告</string>
   <string name="report_issue_dialog_title_crash">直前のクラッシュを検知しました</string>
-  <string name="report_issue_dialog_message_issue">状況を再現するのに十分なように的確に説明してください。もしあなたのウォレットに固有の問題であれば、ダンプを追記することを考慮してください。</string>
+  <string name="report_issue_dialog_message_issue">状況を再現するのに十分なように的確に説明してください。</string>
   <string name="report_issue_dialog_message_crash">今後、この問題を修正する手助けとして、クラッシュレポートを送信しますか?</string>
   <string name="report_issue_dialog_description">説明</string>
   <string name="report_issue_dialog_report">報告</string>

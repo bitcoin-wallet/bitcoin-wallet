@@ -166,7 +166,7 @@
 	<string name="preferences_initiate_reset_dialog_positive">איפוס</string>
 	<string name="report_issue_dialog_title_issue">דווח תקלה</string>
 	<string name="report_issue_dialog_title_crash">תקלה קודמת נתגלתה</string>
-	<string name="report_issue_dialog_message_issue">אנא תאר את הבעיה בה נתקלת בצורה שניתנת לשחזור. אם היא ספציפית לארנק שלך, שקול להוסיף dump.</string>
+	<string name="report_issue_dialog_message_issue">אנא תאר את הבעיה בה נתקלת בצורה שניתנת לשחזור.</string>
 	<string name="report_issue_dialog_message_crash">האם לשלוח דיווח תקלה? עדכון כזה יעזור לנו למנוע מתקלות להשנות בעתיד.</string>
 	<string name="report_issue_dialog_description">תיאור הבעיה</string>
 	<string name="report_issue_dialog_report">דיווח</string>

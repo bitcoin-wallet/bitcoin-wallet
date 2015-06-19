@@ -239,7 +239,7 @@
   <string name="extended_public_key_fragment_share">Del xpub…</string>
   <string name="report_issue_dialog_title_issue">Rapporter problem</string>
   <string name="report_issue_dialog_title_crash">Tidligere krasj oppdaget</string>
-  <string name="report_issue_dialog_message_issue">Beskriv problemet presist nok til at det kan reproduseres. Hvis det er spesifikt for lommeboken din, bør du vurdere å vedlegge dumpen.</string>
+  <string name="report_issue_dialog_message_issue">Beskriv problemet presist nok til at det kan reproduseres.</string>
   <string name="report_issue_dialog_message_crash">Har du lyst til å sende en krasjrapport som vil bidra til å løse dette problemet i fremtiden?</string>
   <string name="report_issue_dialog_description">problembeskrivelse</string>
   <string name="report_issue_dialog_report">Rapport</string>

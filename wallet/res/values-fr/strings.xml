@@ -239,7 +239,7 @@
   <string name="extended_public_key_fragment_share">Partager la xpub…</string>
   <string name="report_issue_dialog_title_issue">Signaler un problème</string>
   <string name="report_issue_dialog_title_crash">Un plantage précédent a été détecté</string>
-  <string name="report_issue_dialog_message_issue">Veuillez décrire votre problème avec assez de précisions pour qu\'il soit reproduit. S\'il est spécifique à votre portefeuille, pensez à joindre le vidage.</string>
+  <string name="report_issue_dialog_message_issue">Veuillez décrire votre problème avec assez de précisions pour qu\'il soit reproduit.</string>
   <string name="report_issue_dialog_message_crash">Voudriez-vous envoyer un rapport de plantage pour aider à corriger ce problème dans le futur ?</string>
   <string name="report_issue_dialog_description">description du problème</string>
   <string name="report_issue_dialog_report">Signaler</string>

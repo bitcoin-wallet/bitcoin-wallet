@@ -227,7 +227,7 @@
   <string name="extended_public_key_fragment_share">Shiriki xpub…</string>
   <string name="report_issue_dialog_title_issue">Ripoti tatizo</string>
   <string name="report_issue_dialog_title_crash">Kupatikana ajali uliopita</string>
-  <string name="report_issue_dialog_message_issue">Tafadhali eleza tatizo lako kama just kama unaweza. Kama ni unasababishwa na pochi wako, fikiria ikiwa ni pamoja na habari.</string>
+  <string name="report_issue_dialog_message_issue">Tafadhali eleza tatizo lako kama just kama unaweza.</string>
   <string name="report_issue_dialog_message_crash">Je, ungependa kutuma ripoti ya kukwama? Hii inaweza kusaidia kurekebisha tatizo katika siku zijazo.</string>
   <string name="report_issue_dialog_description">Kuelezea tatizo lako, tafadhali</string>
   <string name="report_issue_dialog_report">Ripoti</string>

@@ -239,7 +239,7 @@
   <string name="extended_public_key_fragment_share">xpub\'ı paylaş…</string>
   <string name="report_issue_dialog_title_issue">Sorun rapor et</string>
   <string name="report_issue_dialog_title_crash">Önceki çökme tespit edildi</string>
-  <string name="report_issue_dialog_message_issue">Lütfen probleminizi tekrarlanmasına imkân verecek kadar detaylı olarak açıklayınız. Eğer sorun cüzdanınıza özgü ise dökümü eklemeyi değerlendiriniz.</string>
+  <string name="report_issue_dialog_message_issue">Lütfen probleminizi tekrarlanmasına imkân verecek kadar detaylı olarak açıklayınız.</string>
   <string name="report_issue_dialog_message_crash">Bu problemin çözülmesine yardım etmek için çökme raporu göndermek ister misiniz?</string>
   <string name="report_issue_dialog_description">problem açıklaması</string>
   <string name="report_issue_dialog_report">Rapor et</string>

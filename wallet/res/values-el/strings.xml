@@ -195,7 +195,7 @@
   <string name="extended_public_key_fragment_title">Εκτεταμένο Δημόσιο Κλειδί</string>
   <string name="report_issue_dialog_title_issue">Αναφέρετε το πρόβλημα</string>
   <string name="report_issue_dialog_title_crash">Ανιχνεύθηκε προηγηθείσα κατάρρευση</string>
-  <string name="report_issue_dialog_message_issue">Παρακαλούμε περιγράψτε το πρόβλημά σας με αρκετή ακρίβεια για να το αναπαράξουμε. Αν είναι ειδικά για το πορτοφόλι σας, εξετάστε το ενδεχόμενο να αφερέσεται το dump.</string>
+  <string name="report_issue_dialog_message_issue">Παρακαλούμε περιγράψτε το πρόβλημά σας με αρκετή ακρίβεια για να το αναπαράξουμε.</string>
   <string name="report_issue_dialog_message_crash">Θα θέλατε να στείλετε μια αναφορά κατάρρευσης, βοηθώντας να επιδιορθώσουμε αυτό το πρόβλημα στο μέλλον;</string>
   <string name="report_issue_dialog_description">περιγραφή ζητήματος</string>
   <string name="report_issue_dialog_report">Αναφορά</string>

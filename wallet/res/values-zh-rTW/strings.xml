@@ -181,7 +181,7 @@
   <string name="preferences_initiate_reset_dialog_positive">重設</string>
   <string name="report_issue_dialog_title_issue">問題報告</string>
   <string name="report_issue_dialog_title_crash">發現前次當機</string>
-  <string name="report_issue_dialog_message_issue">請明確描述你的問題讓這個問題容易重現，假設與你的錢包有關，可考慮附上dump資料。</string>
+  <string name="report_issue_dialog_message_issue">請明確描述你的問題讓這個問題容易重現。</string>
   <string name="report_issue_dialog_message_crash">你是否要寄送當機報告幫助解決問題?</string>
   <string name="report_issue_dialog_description">問題描述</string>
   <string name="report_issue_dialog_report">報告</string>

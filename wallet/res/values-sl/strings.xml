@@ -166,7 +166,7 @@
 	<string name="preferences_initiate_reset_dialog_positive">Ponastavi</string>
 	<string name="report_issue_dialog_title_issue">Prijavi težavo</string>
 	<string name="report_issue_dialog_title_crash">Zaznano sesutje v preteklosti</string>
-	<string name="report_issue_dialog_message_issue">Prosimo, opišite težavo tako natančno, da jo bomo lahko ponovili. Če je težava vezana na vašo denarnico, premislite o pripenjanju kopije denarnice.</string>
+	<string name="report_issue_dialog_message_issue">Prosimo, opišite težavo tako natančno, da jo bomo lahko ponovili.</string>
 	<string name="report_issue_dialog_message_crash">Želite poslati razvijalcem poročilo o sesutju, da bomo težavo lažje odpravili?</string>
 	<string name="report_issue_dialog_description">opis težave</string>
 	<string name="report_issue_dialog_report">Prijavi</string>

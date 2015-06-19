@@ -183,7 +183,7 @@
   <string name="preferences_initiate_reset_dialog_positive">Скидання</string>
   <string name="report_issue_dialog_title_issue">Повідомити про проблему</string>
   <string name="report_issue_dialog_title_crash">Виявлено аварійне завершення</string>
-  <string name="report_issue_dialog_message_issue">Будь ласка, опишіть вашу проблему як найточніше. Якщо вона специфічна для вашого гаманця, додайте дамп.</string>
+  <string name="report_issue_dialog_message_issue">Будь ласка, опишіть вашу проблему як найточніше.</string>
   <string name="report_issue_dialog_message_crash">Хочете відправити звіт про помилку? Цим ви допоможете виправити цю проблему в майбутньому.</string>
   <string name="report_issue_dialog_description">опис проблеми</string>
   <string name="report_issue_dialog_report">Звіт</string>

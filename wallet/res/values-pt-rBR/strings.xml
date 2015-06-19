@@ -239,7 +239,7 @@
   <string name="extended_public_key_fragment_share">Compartilhar xpub…</string>
   <string name="report_issue_dialog_title_issue">Informar problema</string>
   <string name="report_issue_dialog_title_crash">Detectado problema grave anteriormente</string>
-  <string name="report_issue_dialog_message_issue">Por favor descreva o seu problema de forma exata o suficiente para ser reproduzido. Se for específico da sua carteira, considere anexar o dump.</string>
+  <string name="report_issue_dialog_message_issue">Por favor descreva o seu problema de forma exata o suficiente para ser reproduzido.</string>
   <string name="report_issue_dialog_message_crash">Você gostaria de enviar um relatório de problemas para ajudar a resolvê-los no futuro?</string>
   <string name="report_issue_dialog_description">descrição do problema</string>
   <string name="report_issue_dialog_report">Reportar</string>

@@ -233,7 +233,7 @@
   <string name="extended_public_key_fragment_share">Sdílet xpub…</string>
   <string name="report_issue_dialog_title_issue">Nahlásit problém</string>
   <string name="report_issue_dialog_title_crash">Detekován předchozí pád aplikace</string>
-  <string name="report_issue_dialog_message_issue">Popište prosím problém tak přesně aby se dal zopakovat. Pokud je specifický pro vaši peněženku, zvažte připojení dumpu.</string>
+  <string name="report_issue_dialog_message_issue">Popište prosím problém tak přesně aby se dal zopakovat.</string>
   <string name="report_issue_dialog_message_crash">Přejete si odeslat report o pádu aplikace a tím pomoct opravě tohoto problému v budoucnosti?</string>
   <string name="report_issue_dialog_description">popis problému</string>
   <string name="report_issue_dialog_report">Nahlásit</string>

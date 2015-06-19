@@ -243,7 +243,7 @@
   <string name="extended_public_key_fragment_share">Condividi xpub…</string>
   <string name="report_issue_dialog_title_issue">Segnala un problema</string>
   <string name="report_issue_dialog_title_crash">Crash precedente rilevato</string>
-  <string name="report_issue_dialog_message_issue">Descrivi il problema abbastanza precisamente da riprodurre. Se è specifico per il portafoglio, considera di allegare il dump.</string>
+  <string name="report_issue_dialog_message_issue">Descrivi il problema abbastanza precisamente da riprodurre.</string>
   <string name="report_issue_dialog_message_crash">Vorresti inviare una segnalazione di crash, aiutando a correggere questo problema nel futuro?</string>
   <string name="report_issue_dialog_description">descrizione del problema</string>
   <string name="report_issue_dialog_report">Segnala</string>

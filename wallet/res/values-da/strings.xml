@@ -239,7 +239,7 @@
   <string name="extended_public_key_fragment_share">Del xpub …</string>
   <string name="report_issue_dialog_title_issue">Rapportér problem</string>
   <string name="report_issue_dialog_title_crash">Tidligere programnedbrud opfanget</string>
-  <string name="report_issue_dialog_message_issue">Beskriv venligst problemet så præcist, at det kan genskabes af udviklerne. Hvis det er specifikt til din tegnebog, bør du overveje at vedhæfte dump.</string>
+  <string name="report_issue_dialog_message_issue">Beskriv venligst problemet så præcist, at det kan genskabes af udviklerne.</string>
   <string name="report_issue_dialog_message_crash">Vil du sende en nedbrudsrapport for at hjælpe med at rette op på problemet i fremtiden?</string>
   <string name="report_issue_dialog_description">problembeskrivelse</string>
   <string name="report_issue_dialog_report">Rapport</string>

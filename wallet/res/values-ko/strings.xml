@@ -189,7 +189,7 @@
   <string name="preferences_initiate_reset_dialog_positive">재동기화</string>
   <string name="report_issue_dialog_title_issue">오류 보고</string>
   <string name="report_issue_dialog_title_crash">로드 중 에러 발생</string>
-  <string name="report_issue_dialog_message_issue">오류를 보고하려고 하는 문제점이 개발자에 의해 재현될 수 있도록 정확하게 묘사해 주시면 좋습니다. 현재 보유하고 있는 지갑에만 나타나는 특수 상황이라면 덤프(Dump) 파일을 첨부해서 보내주세요.</string>
+  <string name="report_issue_dialog_message_issue">오류를 보고하려고 하는 문제점이 개발자에 의해 재현될 수 있도록 정확하게 묘사해 주시면 좋습니다.</string>
   <string name="report_issue_dialog_message_crash">이 문제점을 고치기 위해 추후 비정상 종료에 대한 보고서를 보내겠습니까?</string>
   <string name="report_issue_dialog_description">오류 내용 입력</string>
   <string name="report_issue_dialog_report">전송</string>

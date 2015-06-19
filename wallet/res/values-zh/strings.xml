@@ -224,7 +224,7 @@
   <string name="preferences_initiate_reset_dialog_positive">重置</string>
   <string name="report_issue_dialog_title_issue">报告问题</string>
   <string name="report_issue_dialog_title_crash">检测到了之前的一次奔溃</string>
-  <string name="report_issue_dialog_message_issue">请描述您的问题予以重现。如果是具体到你的钱包，考虑追加转储。</string>
+  <string name="report_issue_dialog_message_issue">请描述您的问题予以重现。</string>
   <string name="report_issue_dialog_message_crash">你想发送崩溃报告，在未来帮助解决这个问题？</string>
   <string name="report_issue_dialog_description">问题描述</string>
   <string name="report_issue_dialog_report">报告</string>

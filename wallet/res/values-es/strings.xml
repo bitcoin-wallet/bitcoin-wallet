@@ -240,7 +240,7 @@
   <string name="extended_public_key_fragment_share">Comparte xpub…</string>
   <string name="report_issue_dialog_title_issue">Informar de incidencia</string>
   <string name="report_issue_dialog_title_crash">Detectado error grave anterior</string>
-  <string name="report_issue_dialog_message_issue">Por favor, describa su problema con suficientes detalles para que pueda ser identificado. Si ocurre concretamente en su cartera, intente adjuntar el volcado de datos.</string>
+  <string name="report_issue_dialog_message_issue">Por favor, describa su problema con suficientes detalles para que pueda ser identificado.</string>
   <string name="report_issue_dialog_message_crash">¿Deseas enviar un informe de error para ayudar a resolver la incidencia en un futuro?</string>
   <string name="report_issue_dialog_description">Descripción de la incidencia</string>
   <string name="report_issue_dialog_report">Informe</string>

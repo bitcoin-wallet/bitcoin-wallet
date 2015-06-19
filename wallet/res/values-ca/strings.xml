@@ -233,7 +233,7 @@
   <string name="extended_public_key_fragment_share">Comparteix xpub</string>
   <string name="report_issue_dialog_title_issue">Reportar problema</string>
   <string name="report_issue_dialog_title_crash">Bloqueig previ detectat.</string>
-  <string name="report_issue_dialog_message_issue">Per favor descriu el teu problema de manera suficientment precisa per a ser reproduït. Si es especific de la teva cartera, considera d\'adjuntar el buidat de dades.</string>
+  <string name="report_issue_dialog_message_issue">Per favor descriu el teu problema de manera suficientment precisa per a ser reproduït.</string>
   <string name="report_issue_dialog_message_crash">T\'agradaria enviar un report de bloqueig, ajudant a reparar aquest problema en el futur?</string>
   <string name="report_issue_dialog_description">descripció del problema</string>
   <string name="report_issue_dialog_report">Reportar</string>
