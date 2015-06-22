@@ -1066,7 +1066,7 @@ public final class SendCoinsFragment extends Fragment
 		else if (feeCategory == FeeCategory.NORMAL)
 			return SendRequest.DEFAULT_FEE_PER_KB.multiply(5);
 		else if (feeCategory == FeeCategory.PRIORITY)
-			return SendRequest.DEFAULT_FEE_PER_KB.multiply(10);
+			return SendRequest.DEFAULT_FEE_PER_KB.multiply(20);
 		else
 			throw new IllegalStateException("cannot handle: " + feeCategory);
 	}
