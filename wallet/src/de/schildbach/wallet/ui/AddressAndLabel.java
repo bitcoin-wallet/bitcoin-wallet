@@ -27,6 +27,8 @@ import org.bitcoinj.core.WrongNetworkException;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.common.base.Objects;
+
 /**
  * @author Andreas Schildbach
  */
@@ -35,11 +37,33 @@ public class AddressAndLabel implements Parcelable
 	public final Address address;
 	public final String label;
 
+	public AddressAndLabel(final Address address, @Nullable final String label)
+	{
+		this.address = address;
+		this.label = label;
+	}
+
 	public AddressAndLabel(final NetworkParameters addressParams, final String address, @Nullable final String label) throws WrongNetworkException,
 			AddressFormatException
 	{
-		this.address = new Address(addressParams, address);
-		this.label = label;
+		this(new Address(addressParams, address), label);
+	}
+
+	@Override
+	public boolean equals(final Object o)
+	{
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
+		final AddressAndLabel other = (AddressAndLabel) o;
+		return Objects.equal(this.address, other.address) && Objects.equal(this.label, other.label);
+	}
+
+	@Override
+	public int hashCode()
+	{
+		return Objects.hashCode(address, label);
 	}
 
 	@Override

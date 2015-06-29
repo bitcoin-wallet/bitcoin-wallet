@@ -27,6 +27,9 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.text.format.DateUtils;
+
+import com.google.common.base.Strings;
+
 import de.schildbach.wallet.ExchangeRatesProvider.ExchangeRate;
 
 /**
@@ -39,6 +42,7 @@ public class Configuration
 	private final SharedPreferences prefs;
 
 	public static final String PREFS_KEY_BTC_PRECISION = "btc_precision";
+	public static final String PREFS_KEY_OWN_NAME = "own_name";
 	public static final String PREFS_KEY_CONNECTIVITY_NOTIFICATION = "connectivity_notification";
 	public static final String PREFS_KEY_EXCHANGE_CURRENCY = "exchange_currency";
 	public static final String PREFS_KEY_TRUSTED_PEER = "trusted_peer";
@@ -105,6 +109,11 @@ public class Configuration
 			return new MonetaryFormat().shift(3).minDecimals(2).optionalDecimals(2, 1);
 		else
 			return new MonetaryFormat().shift(6).minDecimals(0).optionalDecimals(2);
+	}
+
+	public String getOwnName()
+	{
+		return Strings.emptyToNull(prefs.getString(PREFS_KEY_OWN_NAME, "").trim());
 	}
 
 	public boolean getConnectivityNotificationEnabled()
