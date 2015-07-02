@@ -80,7 +80,6 @@
 			android:layout_height="wrap_content"
 			android:layout_marginBottom="@dimen/list_entry_padding_vertical"
 			android:layout_marginTop="@dimen/list_entry_padding_vertical"
-			android:checked="false"
 			android:text="@string/encrypt_keys_dialog_show" />
 
 		<TextView
