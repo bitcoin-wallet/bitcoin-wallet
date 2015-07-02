@@ -213,7 +213,7 @@
 
 	<string name="encrypt_keys_dialog_title">Ausgabe-PIN</string>
 	<string name="encrypt_keys_dialog_message">Ausgaben von deiner Wallet werden durch die gewählte PIN geschützt.</string>
-	<string name="encrypt_keys_dialog_warning">Wichtig: Nutze keine oft verwendete Nummern (z.B. Geburtstage) in deiner PIN.</string>
+	<string name="encrypt_keys_dialog_warning">Wichtig: Vergiss deine PIN nicht! Nutze keine oft verwendete Nummern (z.B. Geburtstage).</string>
 	<string name="encrypt_keys_dialog_password_old">Alte PIN</string>
 	<string name="encrypt_keys_dialog_password_new">PIN</string>
 	<string name="encrypt_keys_dialog_bad_password">falsche PIN!</string>

@@ -197,7 +197,7 @@
 	<string name="import_keys_intent_filter_action">Restore wallet</string>
 	<string name="encrypt_keys_dialog_title">Spending PIN</string>
 	<string name="encrypt_keys_dialog_message">Spending from your wallet will be protected with the chosen PIN.</string>
-	<string name="encrypt_keys_dialog_warning">Important: Do not use common numbers (like birthdates) in your PIN.</string>
+	<string name="encrypt_keys_dialog_warning">Important: You need to remember your PIN! Do not use common numbers (like birthdates).</string>
 	<string name="encrypt_keys_dialog_password_old">Old PIN</string>
 	<string name="encrypt_keys_dialog_password_new">PIN</string>
 	<string name="encrypt_keys_dialog_bad_password">bad PIN!</string>
