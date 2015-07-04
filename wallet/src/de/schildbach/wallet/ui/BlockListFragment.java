@@ -48,13 +48,12 @@ import android.os.IBinder;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.ActionMode;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.PopupMenu;
+import android.widget.PopupMenu.OnMenuItemClickListener;
 import android.widget.ViewAnimator;
 import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
@@ -173,30 +172,15 @@ public final class BlockListFragment extends Fragment implements BlockListAdapte
 	}
 
 	@Override
-	public void onClick(final StoredBlock block)
+	public void onBlockMenuClick(final View view, final StoredBlock block)
 	{
-		activity.startActionMode(new ActionMode.Callback()
+		final PopupMenu popupMenu = new PopupMenu(activity, view);
+		popupMenu.inflate(R.menu.blocks_context);
+
+		popupMenu.setOnMenuItemClickListener(new OnMenuItemClickListener()
 		{
 			@Override
-			public boolean onCreateActionMode(final ActionMode mode, final Menu menu)
-			{
-				final MenuInflater inflater = mode.getMenuInflater();
-				inflater.inflate(R.menu.blocks_context, menu);
-
-				return true;
-			}
-
-			@Override
-			public boolean onPrepareActionMode(final ActionMode mode, final Menu menu)
-			{
-				mode.setTitle(Integer.toString(block.getHeight()));
-				mode.setSubtitle(block.getHeader().getHashAsString());
-
-				return true;
-			}
-
-			@Override
-			public boolean onActionItemClicked(final ActionMode mode, final MenuItem item)
+			public boolean onMenuItemClick(final MenuItem item)
 			{
 				switch (item.getItemId())
 				{
@@ -204,18 +188,12 @@ public final class BlockListFragment extends Fragment implements BlockListAdapte
 						startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.EXPLORE_BASE_URL + "block/"
 								+ block.getHeader().getHashAsString())));
 
-						mode.finish();
 						return true;
 				}
-
 				return false;
 			}
-
-			@Override
-			public void onDestroyActionMode(final ActionMode mode)
-			{
-			}
 		});
+		popupMenu.show();
 	}
 
 	private final ServiceConnection serviceConnection = new ServiceConnection()

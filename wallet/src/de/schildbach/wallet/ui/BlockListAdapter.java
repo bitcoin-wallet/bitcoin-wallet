@@ -40,6 +40,7 @@ import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import de.schildbach.wallet.AddressBookProvider;
 import de.schildbach.wallet.util.WalletUtils;
@@ -189,12 +190,12 @@ public class BlockListAdapter extends RecyclerView.Adapter<BlockListAdapter.Bloc
 
 		if (onClickListener != null)
 		{
-			holder.itemView.setOnClickListener(new View.OnClickListener()
+			holder.menuView.setOnClickListener(new View.OnClickListener()
 			{
 				@Override
 				public void onClick(final View v)
 				{
-					onClickListener.onClick(storedBlock);
+					onClickListener.onBlockMenuClick(v, storedBlock);
 				}
 			});
 		}
@@ -245,7 +246,7 @@ public class BlockListAdapter extends RecyclerView.Adapter<BlockListAdapter.Bloc
 
 	public interface OnClickListener
 	{
-		void onClick(StoredBlock block);
+		void onBlockMenuClick(View view, StoredBlock block);
 	}
 
 	public static class BlockViewHolder extends RecyclerView.ViewHolder
@@ -254,6 +255,7 @@ public class BlockListAdapter extends RecyclerView.Adapter<BlockListAdapter.Bloc
 		private final TextView heightView;
 		private final TextView timeView;
 		private final TextView hashView;
+		private final ImageButton menuView;
 
 		private BlockViewHolder(final View itemView)
 		{
@@ -263,6 +265,7 @@ public class BlockListAdapter extends RecyclerView.Adapter<BlockListAdapter.Bloc
 			heightView = (TextView) itemView.findViewById(R.id.block_list_row_height);
 			timeView = (TextView) itemView.findViewById(R.id.block_list_row_time);
 			hashView = (TextView) itemView.findViewById(R.id.block_list_row_hash);
+			menuView = (ImageButton) itemView.findViewById(R.id.block_list_row_menu);
 		}
 	}
 }

@@ -32,6 +32,10 @@
 				android:id="@+id/block_list_row_time"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content" />
+
+			<Space
+				android:layout_width="24dp"
+				android:layout_height="0px" />
 		</LinearLayout>
 
 		<TextView
@@ -40,6 +44,14 @@
 			android:layout_height="wrap_content"
 			android:paddingTop="2dp" />
 	</LinearLayout>
+
+	<ImageButton
+		android:id="@+id/block_list_row_menu"
+		style="@style/My.Widget.Button.Borderless.Small"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_gravity="top|right"
+		android:src="@drawable/ic_more_vert_grey600_18dp" />
 
 	<View
 		android:layout_width="match_parent"
