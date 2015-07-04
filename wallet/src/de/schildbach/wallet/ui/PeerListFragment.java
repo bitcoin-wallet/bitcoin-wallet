@@ -18,6 +18,7 @@
 package de.schildbach.wallet.ui;
 
 import java.net.InetAddress;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.WeakHashMap;
@@ -29,6 +30,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.app.LoaderManager;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.AsyncTaskLoader;
@@ -44,27 +46,31 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.support.v4.content.LocalBroadcastManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.TextView;
+import android.widget.ViewAnimator;
 import de.schildbach.wallet.service.BlockchainService;
 import de.schildbach.wallet.service.BlockchainServiceImpl;
-import de.schildbach.wallet.util.WholeStringBuilder;
 import de.schildbach.wallet_test.R;
 
 /**
  * @author Andreas Schildbach
  */
-public final class PeerListFragment extends FancyListFragment
+public final class PeerListFragment extends Fragment
 {
 	private AbstractWalletActivity activity;
 	private LoaderManager loaderManager;
 
 	private BlockchainService service;
-	private ArrayAdapter<Peer> adapter;
+
+	private ViewAnimator viewGroup;
+	private RecyclerView recyclerView;
+	private PeerViewAdapter adapter;
 
 	private final Handler handler = new Handler();
 
@@ -99,53 +105,21 @@ public final class PeerListFragment extends FancyListFragment
 	{
 		super.onCreate(savedInstanceState);
 
-		adapter = new ArrayAdapter<Peer>(activity, 0)
-		{
-			private final LayoutInflater inflater = LayoutInflater.from(activity);
+		adapter = new PeerViewAdapter();
+	}
 
-			@Override
-			public View getView(final int position, View row, final ViewGroup parent)
-			{
-				if (row == null)
-					row = inflater.inflate(R.layout.peer_list_row, null);
+	@Override
+	public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState)
+	{
+		final View view = inflater.inflate(R.layout.peer_list_fragment, container, false);
 
-				final Peer peer = getItem(position);
-				final VersionMessage versionMessage = peer.getPeerVersionMessage();
-				final boolean isDownloading = peer.getDownloadData();
+		viewGroup = (ViewAnimator) view.findViewById(R.id.peer_list_group);
 
-				final TextView rowIp = (TextView) row.findViewById(R.id.peer_list_row_ip);
-				final InetAddress address = peer.getAddress().getAddr();
-				final String hostname = hostnames.get(address);
-				rowIp.setText(hostname != null ? hostname : address.getHostAddress());
+		recyclerView = (RecyclerView) view.findViewById(R.id.peer_list);
+		recyclerView.setLayoutManager(new LinearLayoutManager(activity));
+		recyclerView.setAdapter(adapter);
 
-				final TextView rowHeight = (TextView) row.findViewById(R.id.peer_list_row_height);
-				final long bestHeight = peer.getBestHeight();
-				rowHeight.setText(bestHeight > 0 ? bestHeight + " blocks" : null);
-				rowHeight.setTypeface(isDownloading ? Typeface.DEFAULT_BOLD : Typeface.DEFAULT);
-
-				final TextView rowVersion = (TextView) row.findViewById(R.id.peer_list_row_version);
-				rowVersion.setText(versionMessage.subVer);
-				rowVersion.setTypeface(isDownloading ? Typeface.DEFAULT_BOLD : Typeface.DEFAULT);
-
-				final TextView rowProtocol = (TextView) row.findViewById(R.id.peer_list_row_protocol);
-				rowProtocol.setText("protocol: " + versionMessage.clientVersion);
-				rowProtocol.setTypeface(isDownloading ? Typeface.DEFAULT_BOLD : Typeface.DEFAULT);
-
-				final TextView rowPing = (TextView) row.findViewById(R.id.peer_list_row_ping);
-				final long pingTime = peer.getPingTime();
-				rowPing.setText(pingTime < Long.MAX_VALUE ? getString(R.string.peer_list_row_ping_time, pingTime) : null);
-				rowPing.setTypeface(isDownloading ? Typeface.DEFAULT_BOLD : Typeface.DEFAULT);
-
-				return row;
-			}
-
-			@Override
-			public boolean isEnabled(final int position)
-			{
-				return false;
-			}
-		};
-		setListAdapter(adapter);
+		return view;
 	}
 
 	@Override
@@ -165,7 +139,7 @@ public final class PeerListFragment extends FancyListFragment
 
 				if (!loaderRunning)
 				{
-					for (int i = 0; i < adapter.getCount(); i++)
+					for (int i = 0; i < adapter.getItemCount(); i++)
 					{
 						final Peer peer = adapter.getItem(i);
 						final InetAddress address = peer.getAddress().getAddr();
@@ -222,6 +196,101 @@ public final class PeerListFragment extends FancyListFragment
 			service = null;
 		}
 	};
+
+	private class PeerViewAdapter extends RecyclerView.Adapter<PeerViewHolder>
+	{
+		private final LayoutInflater inflater = LayoutInflater.from(activity);
+		private final List<Peer> peers = new LinkedList<Peer>();
+
+		public PeerViewAdapter()
+		{
+			setHasStableIds(true);
+		}
+
+		public void clear()
+		{
+			peers.clear();
+
+			notifyDataSetChanged();
+		}
+
+		public void replace(final List<Peer> peers)
+		{
+			this.peers.clear();
+			this.peers.addAll(peers);
+
+			notifyDataSetChanged();
+		}
+
+		public Peer getItem(final int position)
+		{
+			return peers.get(position);
+		}
+
+		@Override
+		public int getItemCount()
+		{
+			return peers.size();
+		}
+
+		@Override
+		public long getItemId(final int position)
+		{
+			return peers.get(position).getAddress().hashCode();
+		}
+
+		@Override
+		public PeerViewHolder onCreateViewHolder(final ViewGroup parent, final int viewType)
+		{
+			return new PeerViewHolder(inflater.inflate(R.layout.peer_list_row, parent, false));
+		}
+
+		@Override
+		public void onBindViewHolder(final PeerViewHolder holder, final int position)
+		{
+			final Peer peer = getItem(position);
+			final VersionMessage versionMessage = peer.getPeerVersionMessage();
+			final boolean isDownloading = peer.getDownloadData();
+
+			final InetAddress address = peer.getAddress().getAddr();
+			final String hostname = hostnames.get(address);
+			holder.ipView.setText(hostname != null ? hostname : address.getHostAddress());
+
+			final long bestHeight = peer.getBestHeight();
+			holder.heightView.setText(bestHeight > 0 ? bestHeight + " blocks" : null);
+			holder.heightView.setTypeface(isDownloading ? Typeface.DEFAULT_BOLD : Typeface.DEFAULT);
+
+			holder.versionView.setText(versionMessage.subVer);
+			holder.versionView.setTypeface(isDownloading ? Typeface.DEFAULT_BOLD : Typeface.DEFAULT);
+
+			holder.protocolView.setText("protocol: " + versionMessage.clientVersion);
+			holder.protocolView.setTypeface(isDownloading ? Typeface.DEFAULT_BOLD : Typeface.DEFAULT);
+
+			final long pingTime = peer.getPingTime();
+			holder.pingView.setText(pingTime < Long.MAX_VALUE ? getString(R.string.peer_list_row_ping_time, pingTime) : null);
+			holder.pingView.setTypeface(isDownloading ? Typeface.DEFAULT_BOLD : Typeface.DEFAULT);
+		}
+	}
+
+	private static class PeerViewHolder extends RecyclerView.ViewHolder
+	{
+		private final TextView ipView;
+		private final TextView heightView;
+		private final TextView versionView;
+		private final TextView protocolView;
+		private final TextView pingView;
+
+		private PeerViewHolder(final View itemView)
+		{
+			super(itemView);
+
+			ipView = (TextView) itemView.findViewById(R.id.peer_list_row_ip);
+			heightView = (TextView) itemView.findViewById(R.id.peer_list_row_height);
+			versionView = (TextView) itemView.findViewById(R.id.peer_list_row_version);
+			protocolView = (TextView) itemView.findViewById(R.id.peer_list_row_protocol);
+			pingView = (TextView) itemView.findViewById(R.id.peer_list_row_ping);
+		}
+	}
 
 	private static class PeerLoader extends AsyncTaskLoader<List<Peer>>
 	{
@@ -288,13 +357,16 @@ public final class PeerListFragment extends FancyListFragment
 		@Override
 		public void onLoadFinished(final Loader<List<Peer>> loader, final List<Peer> peers)
 		{
-			adapter.clear();
-
-			if (peers != null)
-				for (final Peer peer : peers)
-					adapter.add(peer);
-
-			setEmptyText(WholeStringBuilder.bold(getString(R.string.peer_list_fragment_empty)));
+			if (peers == null || peers.isEmpty())
+			{
+				viewGroup.setDisplayedChild(1);
+				adapter.clear();
+			}
+			else
+			{
+				viewGroup.setDisplayedChild(2);
+				adapter.replace(peers);
+			}
 		}
 
 		@Override

@@ -1,52 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
-	android:background="@color/bg_list"
-	android:orientation="vertical"
-	android:paddingBottom="@dimen/list_entry_padding_vertical"
-	android:paddingLeft="@dimen/list_entry_padding_horizontal"
-	android:paddingRight="@dimen/list_entry_padding_horizontal"
-	android:paddingTop="@dimen/list_entry_padding_vertical" >
-
-	<TextView
-		android:id="@+id/peer_list_row_ip"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:textStyle="bold" />
+	android:background="@color/bg_list" >
 
 	<LinearLayout
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:orientation="horizontal" >
+		android:orientation="vertical"
+		android:paddingBottom="@dimen/list_entry_padding_vertical"
+		android:paddingLeft="@dimen/list_entry_padding_horizontal"
+		android:paddingRight="@dimen/list_entry_padding_horizontal"
+		android:paddingTop="@dimen/list_entry_padding_vertical" >
 
 		<TextView
-			android:id="@+id/peer_list_row_version"
-			android:layout_width="0px"
+			android:id="@+id/peer_list_row_ip"
+			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:layout_weight="1" />
+			android:textStyle="bold" />
 
-		<TextView
-			android:id="@+id/peer_list_row_height"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content" />
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="horizontal" >
+
+			<TextView
+				android:id="@+id/peer_list_row_version"
+				android:layout_width="0px"
+				android:layout_height="wrap_content"
+				android:layout_weight="1" />
+
+			<TextView
+				android:id="@+id/peer_list_row_height"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content" />
+		</LinearLayout>
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="horizontal" >
+
+			<TextView
+				android:id="@+id/peer_list_row_protocol"
+				android:layout_width="0px"
+				android:layout_height="wrap_content"
+				android:layout_weight="1" />
+
+			<TextView
+				android:id="@+id/peer_list_row_ping"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content" />
+		</LinearLayout>
 	</LinearLayout>
 
-	<LinearLayout
+	<View
 		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:orientation="horizontal" >
+		android:layout_height="1dp"
+		android:layout_gravity="bottom"
+		android:background="@color/bg_less_bright" />
 
-		<TextView
-			android:id="@+id/peer_list_row_protocol"
-			android:layout_width="0px"
-			android:layout_height="wrap_content"
-			android:layout_weight="1" />
-
-		<TextView
-			android:id="@+id/peer_list_row_ping"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content" />
-	</LinearLayout>
-
-</LinearLayout>
+</FrameLayout>
