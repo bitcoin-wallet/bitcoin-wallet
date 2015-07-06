@@ -72,6 +72,9 @@ public final class Constants
 
 		/** Filename of the block checkpoints file. */
 		public static final String CHECKPOINTS_FILENAME = "checkpoints" + FILENAME_NETWORK_SUFFIX + ".txt";
+
+		/** Filename of the CSV-output. */
+		public static final String CSV_FILENAME = "bitcoin-wallet-transactions" + FILENAME_NETWORK_SUFFIX +".csv";
 	}
 
 	/** Maximum size of backups. Files larger will be rejected. */
