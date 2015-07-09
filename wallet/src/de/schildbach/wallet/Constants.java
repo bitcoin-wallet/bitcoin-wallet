@@ -90,7 +90,7 @@ public final class Constants
 			: BITEASY_API_URL_TEST;
 
 	/** URL to fetch version alerts from. */
-	public static final String VERSION_URL = "http://wallet.schildbach.de/version";
+	public static final String VERSION_URL = "https://wallet.schildbach.de/version";
 
 	/** MIME type used for transmitting single transactions. */
 	public static final String MIMETYPE_TRANSACTION = "application/x-btctx";
