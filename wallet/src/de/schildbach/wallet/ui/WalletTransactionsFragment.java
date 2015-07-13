@@ -76,6 +76,7 @@ import de.schildbach.wallet.AddressBookProvider;
 import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
+import de.schildbach.wallet.ui.send.RaiseFeeDialogFragment;
 import de.schildbach.wallet.util.BitmapFragment;
 import de.schildbach.wallet.util.Qr;
 import de.schildbach.wallet.util.ThrottlingWalletChangeListener;
@@ -294,6 +295,7 @@ public class WalletTransactionsFragment extends Fragment implements LoaderCallba
 
 		popupMenu.getMenu().findItem(R.id.wallet_transactions_context_show_qr)
 				.setVisible(!txRotation && txSerialized.length < SHOW_QR_THRESHOLD_BYTES);
+		popupMenu.getMenu().findItem(R.id.wallet_transactions_context_raise_fee).setVisible(RaiseFeeDialogFragment.feeCanBeRaised(wallet, tx));
 		popupMenu.setOnMenuItemClickListener(new OnMenuItemClickListener()
 		{
 			@Override
@@ -315,7 +317,12 @@ public class WalletTransactionsFragment extends Fragment implements LoaderCallba
 						else
 							startActivity(new Intent(Intent.ACTION_VIEW, KEY_ROTATION_URI));
 						return true;
+
+					case R.id.wallet_transactions_context_raise_fee:
+						RaiseFeeDialogFragment.show(getFragmentManager(), tx);
+						return true;
 				}
+
 				return false;
 			}
 

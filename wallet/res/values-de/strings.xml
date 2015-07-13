@@ -99,6 +99,12 @@
 	<string name="send_coins_options_fee_category_priority">Express</string>
 	<string name="send_coins_options_empty">Wallet entleeren</string>
 
+	<string name="raise_fee_dialog_title">Netzwerk-Gebühr erhöhen</string>
+	<string name="raise_fee_dialog_message">Willst du die Netzwerk-Gebühr für diese Zahlung um %s anheben? Das beschleunigt die Bestätigung der Zahlung.</string>
+	<string name="raise_fee_dialog_state_decrypting">Entschlüsselung…</string>
+	<string name="raise_fee_dialog_state_done">Fertig.</string>
+	<string name="raise_fee_dialog_button_raise">Erhöhen</string>
+
 	<string name="sweep_wallet_activity_title">Paper-Wallet leeren</string>
 	<string name="sweep_wallet_fragment_intro">Du bist dabei eine Paper-Wallet oder Coupon zu leeren. Dies wird alle Bitcoins von diesem Papier in deine Wallet auf diesem Gerät verschieben. Sobald die Transaktion bestätigt ist, wird das Papier wertlos und sollte aus Sicherheitsgründen nicht wiederverwendet werden.</string>
 	<string name="sweep_wallet_fragment_hint">Paper-Wallets werden meist für Cold Storage genutzt. Einige Geldautomaten drucken sie auf das Quittungspapier, anstatt die Bitcoins direkt an das mobile Gerät zu versenden. Manchmal werden vorgeladene Paper-Wallets als Zahlungsmittel verwendet (nicht empfohlen).</string>

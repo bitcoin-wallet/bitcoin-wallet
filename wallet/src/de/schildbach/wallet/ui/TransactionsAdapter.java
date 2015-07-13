@@ -520,12 +520,19 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 			extendAddressView.setVisibility(!itemView.isActivated() || purpose != Purpose.RAISE_FEE ? View.VISIBLE : View.GONE);
 
 			// fee
-			extendFeeView.setVisibility((itemView.isActivated() || confidenceType == ConfidenceType.PENDING) && txCache.showFee ? View.VISIBLE
-					: View.GONE);
-			feeView.setAlwaysSigned(true);
-			feeView.setFormat(format);
 			if (txCache.showFee)
+			{
+				extendFeeView
+						.setVisibility(itemView.isActivated() || (confidenceType == ConfidenceType.PENDING && purpose != Purpose.RAISE_FEE) ? View.VISIBLE
+								: View.GONE);
+				feeView.setAlwaysSigned(true);
+				feeView.setFormat(format);
 				feeView.setAmount(fee.negate());
+			}
+			else
+			{
+				extendFeeView.setVisibility(View.GONE);
+			}
 
 			// value
 			valueView.setAlwaysSigned(true);
@@ -605,7 +612,7 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 				messageView.setText(R.string.transaction_row_message_received_dead);
 				messageView.setTextColor(colorError);
 			}
-			else if (!txCache.sent && tx.getOutputs().size() > 20)
+			else if (!txCache.sent && WalletUtils.isPayToManyTransaction(tx))
 			{
 				extendMessageView.setVisibility(View.VISIBLE);
 				messageView.setText(R.string.transaction_row_message_received_pay_to_many);

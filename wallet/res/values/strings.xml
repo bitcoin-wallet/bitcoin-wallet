@@ -92,6 +92,11 @@
 	<string name="send_coins_options_fee_category_normal">Normal</string>
 	<string name="send_coins_options_fee_category_priority">Priority</string>
 	<string name="send_coins_options_empty">Empty wallet</string>
+	<string name="raise_fee_dialog_title">Raise network fee</string>
+	<string name="raise_fee_dialog_message">Do you want to raise the fee of this payment by %s? It will make the payment confirm quicker.</string>
+	<string name="raise_fee_dialog_state_decrypting">Decrypting…</string>
+	<string name="raise_fee_dialog_state_done">Done.</string>
+	<string name="raise_fee_dialog_button_raise">Raise</string>
 	<string name="sweep_wallet_activity_title">Sweep paper wallet</string>
 	<string name="sweep_wallet_fragment_intro">You are about to sweep a paper wallet or coupon. This will move all coins from that paper to your wallet on this device. When the transaction is confirmed, the paper will be worthless and should not be re-used for safety reasons.</string>
 	<string name="sweep_wallet_fragment_hint">Paper wallets are most commonly used for cold storage. Some ATMs print them on their paper slip rather than sending the coins to your mobile device directly. People sometimes use pre-charged paper wallets to pass value around (not recommended).</string>

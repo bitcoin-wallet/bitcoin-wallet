@@ -375,4 +375,9 @@ public class WalletUtils
 			throw new IllegalArgumentException(x);
 		}
 	}
+
+	public static boolean isPayToManyTransaction(final Transaction transaction)
+	{
+		return transaction.getOutputs().size() > 20;
+	}
 }
