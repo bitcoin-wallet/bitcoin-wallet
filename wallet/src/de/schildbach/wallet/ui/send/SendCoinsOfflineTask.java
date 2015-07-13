@@ -18,6 +18,7 @@
 package de.schildbach.wallet.ui.send;
 
 import org.bitcoinj.core.Coin;
+import org.bitcoinj.core.ECKey;
 import org.bitcoinj.core.InsufficientMoneyException;
 import org.bitcoinj.core.Transaction;
 import org.bitcoinj.core.Wallet;
@@ -73,6 +74,17 @@ public abstract class SendCoinsOfflineTask
 						public void run()
 						{
 							onInsufficientMoney(x.missing);
+						}
+					});
+				}
+				catch (final ECKey.KeyIsEncryptedException x)
+				{
+					callbackHandler.post(new Runnable()
+					{
+						@Override
+						public void run()
+						{
+							onFailure(x);
 						}
 					});
 				}
