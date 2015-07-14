@@ -55,7 +55,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Process;
-import android.preference.PreferenceManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.SpannableStringBuilder;
 import android.view.LayoutInflater;
@@ -135,7 +134,6 @@ public class SweepWalletFragment extends Fragment
 		this.activity = (AbstractBindServiceActivity) activity;
 		this.application = (WalletApplication) activity.getApplication();
 		this.config = application.getConfiguration();
-		this.config = new Configuration(PreferenceManager.getDefaultSharedPreferences(activity));
 		this.fragmentManager = getFragmentManager();
 	}
 
