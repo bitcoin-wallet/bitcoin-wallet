@@ -196,7 +196,7 @@
   <string name="import_keys_intent_filter_action">ウォレットのリストア</string>
   <string name="encrypt_keys_dialog_title">送金用PIN</string>
   <string name="encrypt_keys_dialog_message">あなたのウォレットからの送金はこのPINによって防止されます。</string>
-  <string name="encrypt_keys_dialog_warning">重要: (誕生日などの)平凡な番号をPINとして使わないでください。</string>
+  <string name="encrypt_keys_dialog_warning">重要: PINを忘れないようにしてください! 他人が知っている番号を使わないでください(誕生日など)。</string>
   <string name="encrypt_keys_dialog_password_old">古いPIN</string>
   <string name="encrypt_keys_dialog_password_new">PIN</string>
   <string name="encrypt_keys_dialog_bad_password">間違ったPINです!</string>
@@ -222,6 +222,8 @@
   <string name="preferences_category_labs">ラボ</string>
   <string name="preferences_precision_title">通貨単位の切り下げと切り上げ</string>
   <string name="preferences_precision_summary">総額の表示単位。これは計算に影響しません。</string>
+  <string name="preferences_own_name_title">自身の名前</string>
+  <string name="preferences_own_name_summary">支払いリクエストに含める、あなた自身の名前。短いものにしてください。</string>
   <string name="preferences_connectivity_notification_title">接続インジゲーター</string>
   <string name="preferences_connectivity_notification_summary">通知エリア内に現在の接続ピア数を表示する。</string>
   <string name="preferences_trusted_peer_title">信頼されたピア</string>
@@ -243,7 +245,7 @@
   <string name="extended_public_key_fragment_share">xpubを共有……</string>
   <string name="report_issue_dialog_title_issue">問題を報告</string>
   <string name="report_issue_dialog_title_crash">直前のクラッシュを検知しました</string>
-  <string name="report_issue_dialog_message_issue">状況を再現するのに十分なように的確に説明してください。</string>
+  <string name="report_issue_dialog_message_issue">発生した問題について、再現するのに十分なぐらい性格に記述してください。</string>
   <string name="report_issue_dialog_message_crash">今後、この問題を修正する手助けとして、クラッシュレポートを送信しますか?</string>
   <string name="report_issue_dialog_description">説明</string>
   <string name="report_issue_dialog_report">報告</string>
