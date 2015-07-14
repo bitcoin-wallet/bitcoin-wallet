@@ -1,0 +1,108 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+  <string name="help_wallet">
+<![CDATA[
+		<p>
+			A bal felső része a kijelzőnek megjeleníti az egyenleged Bitcoin-ban és egy választott nemzeti valutát.
+			Érints meg a nemzeti valutákhoz való ugráshoz, és érints meg egy valutát az alapértelmezett választásához.
+		</p>
+		<p>
+			A QR kód a jobb oldalon tartalmazza a bitcoin címed és használható másik fél általi beolvasásra.
+			Érintsd meg a QR kódot, hogy nagyobb verziót kapjál belőle.
+		</p>
+		<p>
+			A képernyő alját a tranzakcióid listája fedi, ami kezdésnél üres.
+			A függő tranzakciók szürkék a megerősítésig.
+			Érints meg egy bejegyzést, hogy hozzáadj küldők vagy fogadók címét a címjegyzékhez.
+			Lapozz balra vagy jobbra szűrő alkalmazásához a listán.
+		</p>
+		<p>
+			Küldhetsz vagy kérhetsz érméket a gombok megérintésével az akciósávon.
+			További opciók elérhetőek az opciók menüben..
+		</p>
+	]]>
+	</string>
+  <string name="help_request_coins">
+<![CDATA[
+		<p>
+			Ezt a dialógot használva kérhetsz érméket másik személytől (akinek már fel van telepítve a Bitcoin Wallet).
+		</p>
+		<p>
+			Először adj meg egy összeget Bitcoin-ból a kéréshez.
+		</p>
+		<p>
+			Aztán egyikőtöknek megvan a generált QR kód a másik személy által beolvasva.
+			Vagy elküldheted a kérésed egy irányító személynek az akciósávban a megosztás gombbal.
+			A másik személynek rá kell kattintania a Bitcoin URL-re.
+		</p>
+		<p>
+			Akárhogy is, de a másik személy bemutat egy dialógot az érmeküldésről minden mezővel előre kitöltve.
+			Ha elfogadja, akkor csak annyit kell tennie, hogy küldi a fizetést.
+		</p>
+	]]>
+	</string>
+  <string name="help_send_coins">
+<![CDATA[
+		<p>
+			Érmeküldési folyamatot kezdeményeztél.
+			Vagy a főképernyőn keresztül jöttél ide, vagy rákattintottál a Bitcoin URL-re a mobil böngésződben.
+		</p>
+		<p>
+			Először írd be a Bitcoin címet a fizetéshez.
+			A cím automatikusan kitöltődik a címjegyzékedből ismert bejegyzésekből.
+			Be is olvashatsz QR kódokat Bitcoin címekkel vagy Bitcoin kéréseket az akciósávon a QR gomb megnyomásával.
+		</p>
+		<p>
+			Következőként láthatod, hogy mennyi Bitcoin-t tudsz ebben a pillanatban elkölteni.
+			Bármilyen különbség a főképernyőn lévő egyenleghez képest még nincs megerősítve és így még nem lehet elkölteni.
+		</p>
+		<p>
+			Utoljára beírod a fizetés összegét.
+		</p>
+		<p>
+			Adhatsz meg kifizetést amíg offline vagy.
+			A Bitcoin Wallet következő újraindításánál lesz elküldve.
+			Ha azt szeretnéd, hogy a fizetés olyan gyorsan legyen feldolgozva, amennyire csak lehet, akkor bizonyosodj meg róla, hogy jól kapcsolódsz (azaz egy WLAN-on).
+		</p>
+		<p>
+			Megjegyzés:
+			A kifizetések visszavonhatatlanok!
+			Mindig ellenőrizd a fogadó címét.
+		</p>
+	]]>
+	</string>
+  <string name="help_safety">
+<![CDATA[
+		<p>
+			<b>Fontos biztonsági tudnivalók:</b>
+		</p>
+		<p>
+			A Bitcoin-ok a készüléken vannak tárolva.
+			<b>Ha elveszted, akkor elveszted a Bitcoin-jaidat is.</b>
+		</p>
+		<p>
+			Ez azt jelenti, hogy kell csinálnod <b>biztonsági mentést a tárcádról</b>!
+			Inkább használd az alkalmazáson belüli biztonsági mentés lehetőséget erre, mint egy harmadik fél biztonsági mentés alkalmazását.
+			Tartsd a biztonsági mentésed biztonságban és emlékezz a jelszóra.
+		</p>
+		<p>
+			<b>Eltávolítás előtt</b> (vagy alkalmazás adatainak törlése/készüléked törlése előttl), <b>utald át a Bitcoin-jaidat másik tárcába</b>.
+			A fennmaradó Bitcoin-ok elvesznek.
+		</p>
+		<p>
+			<b>A kifizetések visszafordíthatatlanok</b>.
+			Ha elküldöd a Bitcoin-jaidat a semmibe, szinte nincs rá mód, hogy visszakapd.
+		</p>
+		<p>
+			<b>Tartsd a mobilkészülékedet biztonságban!</b>
+			Ne root-old a készüléked.
+			Csak olyan alkalmazásokat telepíts, amikben teljesen megbízol..
+			A rosszindulatú alkalmazások megpróbálhatják ellopni a tárcádat.
+		</p>
+		<p>
+			Tartsd alacsonyan a kockázatot!
+			<b>Csak kicsi összegeket használj</b> napi használatra.
+		</p>
+	]]>
+	</string>
+</resources>

@@ -1,22 +1,36 @@
-Tartsd a zsebedben Bitcoinjaidat! Egyszerűen, akár QR-kód leolvasásával is fizethetsz. Ha pedig termékeket, vagy szolgáltatást értékesítesz megbízható módon és gyorsan juthatsz a bevételeidhez. A Bitcoin Tárca az első Bitcoin app és kétségkívül a legbiztonságosabb is!
+<b>Mindig legyenek nálad a Bitcoin-jaid a zsebedben!</b> Úgy tudsz fizetni, hogy gyorsan beolvasol egy QR kódot. Kereskedőként megkapod a fizetséget megbízhatóan és azonnal. A Bitcoin Wallet az első mobil Bitcoin alkalmazás és vitathatatlanul a legbiztonságosabb is!
 
-ELŐNYÖK:
+
+<b>JELLEMZŐK</b>
 
 • Nincs regisztráció és nem szükséges semmiféle háttéralkalmazás futtatása (web, vagy cloud)! Decentralizált és közvetlen (P2P).
-• A Bitcoinjaid mennyiségét BTC és mBTC formában is láthatod.
+• Bitcoin összeg megjelenítési módok: BTC, mBTC és µBTC.
 • Átváltás a saját valutádra, oda-vissza.
-• Bitcoin küldése és fogadása NFC, QR-kód vagy közvetlen URL segítségével.
+• Bitcoin küldés és fogadás NFC-n, QR kódokon vagy Bitcoin URL-eken keresztül.
 • Címtár a rendszeresen használt Bitcoin címek számára.
 • Offline állapotban is fizethetsz - Bluetooth segítségével.
 • Rendszerüzenet Bitcoin érkezésekor.
+• Papírtárcák besöprése (pl. amik hűtőháznak vannak használva).
 • Widget a Bitcoin egyenlegről.
 
-Bővebben a Bitcoin-ról:
-https://bitcoin.org
 
-Ha hozzájárulnál a Bitcoin Wallet projekthez:
+<b>HOZZÁJÁRULÁS</b>
+
+A Bitcoin Wallet <b>nyílt forráskódú</b> és <b>ingyenes szoftver</b>. Licenc: GPLv3
+https://www.gnu.org/licenses/gpl-3.0.en.html
+
+A forráskódunk elérhető a GitHub-on:
 https://github.com/schildbach/bitcoin-wallet
 
-Licensz: GPLv3
-Csak saját felelősségre használható!
-http://www.gnu.org/licenses/gpl-3.0.en.html
+Minden fordítást a Transifex kezelt:
+https://www.transifex.com/projects/p/bitcoin-wallet/
+
+
+<b>AJÁNLÓLEVELEK</b>
+
+• Sok mobiltárca a Bitcoin Wallet-re alapozza a kódját. Például: blockchain.info, Hive és KnC.
+• Ajánlott mobiltárca a https://bitcoin.org által
+• Ajánlva a BitPay által.
+
+
+<i>Saját felelősségedre használd!</i>
