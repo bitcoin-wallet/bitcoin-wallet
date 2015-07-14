@@ -196,7 +196,7 @@
   <string name="import_keys_intent_filter_action">Ripristina portafoglio</string>
   <string name="encrypt_keys_dialog_title">PIN di sicurezza</string>
   <string name="encrypt_keys_dialog_message">La spesa dal tuo wallet verrà protetta con il PIN scelto.</string>
-  <string name="encrypt_keys_dialog_warning">Importante: Non usare numeri scontati (ex. il tuo compleanno) come PIN.</string>
+  <string name="encrypt_keys_dialog_warning">Importante: Dovrai ricordarti il tuo PIN! Non usare numeri comuni (come il tuo compleanno).</string>
   <string name="encrypt_keys_dialog_password_old">Vecchio PIN</string>
   <string name="encrypt_keys_dialog_password_new">PIN</string>
   <string name="encrypt_keys_dialog_bad_password">PIN errato!</string>
@@ -222,6 +222,8 @@
   <string name="preferences_category_labs">Laboratori</string>
   <string name="preferences_precision_title">Denominazione e precisione</string>
   <string name="preferences_precision_summary">Unità per mostrare gli importi. Questo non influisce calcoli.</string>
+  <string name="preferences_own_name_title">Nome</string>
+  <string name="preferences_own_name_summary">Il tuo nome da aggiungere alle richieste di pagamento. Prova a mantenerlo corto.</string>
   <string name="preferences_connectivity_notification_title">Indicatore di connettività</string>
   <string name="preferences_connectivity_notification_summary">Mostra il numero corrente di peer connessi nell\'area di notifica.</string>
   <string name="preferences_trusted_peer_title">Peer attendibili</string>
@@ -232,8 +234,8 @@
   <string name="preferences_data_usage_summary">Mostra le opzioni per restringere l\'utilizzo dei dati su reti mobili.</string>
   <string name="preferences_report_issue_title">Segnala un problema</string>
   <string name="preferences_report_issue_summary">Colleziona informazioni sul tuo problema e invia tramite email la tua segnalazione agli sviluppatori.</string>
-  <string name="preferences_initiate_reset_title">Riavvia il Blockchain</string>
-  <string name="preferences_initiate_reset_summary">Riavvia blockchain, transazioni e il conto del portafoglio. Per la ripetizione ci vorrà un po\'.</string>
+  <string name="preferences_initiate_reset_title">Reinizializza il blockchain</string>
+  <string name="preferences_initiate_reset_summary">Reinizializza il blockchain, transazioni e conto del portafoglio. Il processo impiegherà un po\'.</string>
   <string name="preferences_initiate_reset_dialog_message">Vorresti riavviare e ripetere il blockchain?\n\nQuesto nasconderà temporaneamente il tuo bilancio dal portafoglio, e rimuoverà le transazioni. Entrambi saranno recuperati con la sincronizzazione del blockchain.</string>
   <string name="preferences_initiate_reset_dialog_positive">Reset</string>
   <string name="preferences_extended_public_key_title">Mostra xpub</string>
@@ -243,7 +245,7 @@
   <string name="extended_public_key_fragment_share">Condividi xpub…</string>
   <string name="report_issue_dialog_title_issue">Segnala un problema</string>
   <string name="report_issue_dialog_title_crash">Crash precedente rilevato</string>
-  <string name="report_issue_dialog_message_issue">Descrivi il problema abbastanza precisamente da riprodurre.</string>
+  <string name="report_issue_dialog_message_issue">Descrivi il problema in modo specifico da poter essere riprodotto.</string>
   <string name="report_issue_dialog_message_crash">Vorresti inviare una segnalazione di crash, aiutando a correggere questo problema nel futuro?</string>
   <string name="report_issue_dialog_description">descrizione del problema</string>
   <string name="report_issue_dialog_report">Segnala</string>
