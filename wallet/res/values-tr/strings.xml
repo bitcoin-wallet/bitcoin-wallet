@@ -88,6 +88,10 @@
   <string name="send_coins_sent_msg">Gönderildi!</string>
   <string name="send_coins_failed_msg">Başarısız oldu!</string>
   <string name="send_coins_error_msg">Bitcoin gönderimi sırasında problem oluştu!</string>
+  <string name="send_coins_options_fee_category">Ücret</string>
+  <string name="send_coins_options_fee_category_economic">Ekonomik</string>
+  <string name="send_coins_options_fee_category_normal">Normal</string>
+  <string name="send_coins_options_fee_category_priority">Öncelikli</string>
   <string name="send_coins_options_empty">Boş cüzdan</string>
   <string name="sweep_wallet_activity_title">Kağıt cüzdanı tara</string>
   <string name="sweep_wallet_fragment_intro">Bir kupon ya da kağıt cüzdan taramak üzeresiniz. Bunu yapmanız bu kağıttaki tüm bitcoinleri cihazınızdaki cüzdana taşıyacaktır. Muamele teyit edildiğinde kağıdın hiçbir değeri kalmayacaktır ve güvenlik nedenleriyle tekrar kullanılmamalıdır.</string>
@@ -192,7 +196,7 @@
   <string name="import_keys_intent_filter_action">Cüzdanı geri getir</string>
   <string name="encrypt_keys_dialog_title">Harcama PIN\'i</string>
   <string name="encrypt_keys_dialog_message">Cüzdanınızdan harcama yapmak seçilen PIN ile korunacaktır.</string>
-  <string name="encrypt_keys_dialog_warning">Mühim: PIN kodunuz içinde (doğum günleri gibi) yaygın numaraları kullanmayın.</string>
+  <string name="encrypt_keys_dialog_warning">Önemli: PIN kodunuzu hatırlamanız gerekir! Doğum tarihleri gibi genel sayılar kullanmayın.</string>
   <string name="encrypt_keys_dialog_password_old">Eski PIN</string>
   <string name="encrypt_keys_dialog_password_new">PIN</string>
   <string name="encrypt_keys_dialog_bad_password">Yanlış PIN!</string>
@@ -218,6 +222,8 @@
   <string name="preferences_category_labs">Laboratuvarlar</string>
   <string name="preferences_precision_title">İsimlendirme ve hassasiyet</string>
   <string name="preferences_precision_summary">Meblağların gösterileceği ünite. Hesaplalamaları etkilemez.</string>
+  <string name="preferences_own_name_title">Kendi isminiz</string>
+  <string name="preferences_own_name_summary">Ödeme taleplerine eklenecek isminiz. Kısa tutmaya çalışın.</string>
   <string name="preferences_connectivity_notification_title">Bağlantı göstergesi</string>
   <string name="preferences_connectivity_notification_summary">Bağlı eş sayısını bildirim alanında göster.</string>
   <string name="preferences_trusted_peer_title">Güvenilen eş</string>
@@ -229,8 +235,8 @@
   <string name="preferences_report_issue_title">Sorun rapor et</string>
   <string name="preferences_report_issue_summary">Problem hakkında bilgi topla ve raporu geliştiricilere e-posta ile yolla.</string>
   <string name="preferences_initiate_reset_title">Blok zincirini sıfırla</string>
-  <string name="preferences_initiate_reset_summary">Blok zincirini, muameleleri ve cüzdan bakiyesini sıfırla. Tekrar eşleşme süre alacaktır.</string>
-  <string name="preferences_initiate_reset_dialog_message">Blok zincirini sıfırlayıp analizinin tekrarının yapılmasını istiyor musunuz?\n\nBu, geçici olarak cüzdan bakiyenizi saklayıp muameleleri kaldıracaktır. Blok zincirinin eşleşmesi ilerledikçe bu iki unsur normale dönecektir.</string>
+  <string name="preferences_initiate_reset_summary">Muameleleri, blok zincirini ve bakiyeyi sıfırla. Normale dönüş belli bir süre alacaktır.</string>
+  <string name="preferences_initiate_reset_dialog_message">Blok zincirini sıfırlayıp tekrar eşleştirmek istiyor musunuz?\n\nBu geçici olarak bakiyenizin değerini sıfırlayacak ve muameleleri silecektir. Bu iki unsur blok zincirinin eşleşmesi ilerledikçe normale dönecektir.</string>
   <string name="preferences_initiate_reset_dialog_positive">Sıfırla</string>
   <string name="preferences_extended_public_key_title">xpub\'ı göster</string>
   <string name="preferences_extended_public_key_summary">Cüzdanınızın genişletilmiş kamu anahtarını başka uygulama ve servislere aktarılabilmesi için göster. Dikkatli olun: bunu yapmanız parasal gizliliğinizi o uygulamaya ifşa edecektir.</string>
@@ -239,7 +245,7 @@
   <string name="extended_public_key_fragment_share">xpub\'ı paylaş…</string>
   <string name="report_issue_dialog_title_issue">Sorun rapor et</string>
   <string name="report_issue_dialog_title_crash">Önceki çökme tespit edildi</string>
-  <string name="report_issue_dialog_message_issue">Lütfen probleminizi tekrarlanmasına imkân verecek kadar detaylı olarak açıklayınız.</string>
+  <string name="report_issue_dialog_message_issue">Lütfen sorunu tekrar edilebilecek kadar ayrıntılı olarak açıklayın.</string>
   <string name="report_issue_dialog_message_crash">Bu problemin çözülmesine yardım etmek için çökme raporu göndermek ister misiniz?</string>
   <string name="report_issue_dialog_description">problem açıklaması</string>
   <string name="report_issue_dialog_report">Rapor et</string>
