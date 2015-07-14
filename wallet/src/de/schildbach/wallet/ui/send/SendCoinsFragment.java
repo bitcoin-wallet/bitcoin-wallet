@@ -189,11 +189,6 @@ public final class SendCoinsFragment extends Fragment
 		DECRYPTING, SIGNING, SENDING, SENT, FAILED // sending states
 	}
 
-	private enum FeeCategory
-	{
-		ECONOMIC, NORMAL, PRIORITY
-	}
-
 	private final class ReceivingAddressListener implements OnFocusChangeListener, TextWatcher
 	{
 		@Override
@@ -903,7 +898,7 @@ public final class SendCoinsFragment extends Fragment
 		// prepare send request
 		final SendRequest sendRequest = finalPaymentIntent.toSendRequest();
 		sendRequest.emptyWallet = paymentIntent.mayEditAmount() && finalAmount.equals(wallet.getBalance(BalanceType.AVAILABLE));
-		sendRequest.feePerKb = feePerKb();
+		sendRequest.feePerKb = feeCategory.feePerKb;
 		sendRequest.memo = paymentIntent.memo;
 		sendRequest.exchangeRate = amountCalculatorLink.getExchangeRate();
 		sendRequest.aesKey = encryptionKey;
@@ -1059,18 +1054,6 @@ public final class SendCoinsFragment extends Fragment
 		}.sendCoinsOffline(sendRequest); // send asynchronously
 	}
 
-	private Coin feePerKb()
-	{
-		if (feeCategory == FeeCategory.ECONOMIC)
-			return SendRequest.DEFAULT_FEE_PER_KB;
-		else if (feeCategory == FeeCategory.NORMAL)
-			return SendRequest.DEFAULT_FEE_PER_KB.multiply(10);
-		else if (feeCategory == FeeCategory.PRIORITY)
-			return SendRequest.DEFAULT_FEE_PER_KB.multiply(20);
-		else
-			throw new IllegalStateException("cannot handle: " + feeCategory);
-	}
-
 	private void handleScan()
 	{
 		startActivityForResult(new Intent(activity, ScanActivity.class), REQUEST_CODE_SCAN);
@@ -1118,7 +1101,7 @@ public final class SendCoinsFragment extends Fragment
 					final SendRequest sendRequest = paymentIntent.mergeWithEditedValues(amount, dummy).toSendRequest();
 					sendRequest.signInputs = false;
 					sendRequest.emptyWallet = paymentIntent.mayEditAmount() && amount.equals(wallet.getBalance(BalanceType.AVAILABLE));
-					sendRequest.feePerKb = feePerKb();
+					sendRequest.feePerKb = feeCategory.feePerKb;
 					wallet.completeTx(sendRequest);
 					dryrunTransaction = sendRequest.tx;
 				}
