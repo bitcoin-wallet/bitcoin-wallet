@@ -628,6 +628,7 @@ public class SweepWalletFragment extends Fragment
 		setState(State.PREPARATION);
 
 		final SendRequest sendRequest = SendRequest.emptyWallet(application.getWallet().freshReceiveAddress());
+		sendRequest.feePerKb = FeeCategory.NORMAL.feePerKb;
 
 		new SendCoinsOfflineTask(walletToSweep, backgroundHandler)
 		{
