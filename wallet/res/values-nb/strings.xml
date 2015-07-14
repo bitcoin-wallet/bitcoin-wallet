@@ -12,7 +12,7 @@
   <string name="blockchain_state_progress_problem_storage">Synkroniserer: Plassproblem</string>
   <string name="blockchain_state_progress_problem_network">Synkroniserer: Nettverksproblem</string>
   <string name="wallet_address_fragment_clipboard_msg">Bitcoin-adresse kopieret til utklippstavlen</string>
-  <string name="wallet_address_dialog_fragment_hint">For å beskytte ditt privatliv, vil adressen din endre seg når den mottar en betaling.</string>
+  <string name="wallet_address_dialog_fragment_hint">For å beskytte ditt privatliv, vil en ny adresse bli generert når denne mottar en betaling.</string>
   <string name="wallet_balance_fragment_too_much">Dette beløpet er ganske høyt for å bære rundt i lommen din. Vennligst flytt noe til et tryggere sted.</string>
   <string name="wallet_balance_fragment_replaying">Saldo er ikke tilgjengelig under avspilling.</string>
   <string name="exchange_rates_activity_title">Valutakurser</string>
@@ -88,6 +88,10 @@
   <string name="send_coins_sent_msg">Sendt!</string>
   <string name="send_coins_failed_msg">Mislyktes!</string>
   <string name="send_coins_error_msg">Problem under sending av mynter!</string>
+  <string name="send_coins_options_fee_category">Gebyr</string>
+  <string name="send_coins_options_fee_category_economic">Økonomisk</string>
+  <string name="send_coins_options_fee_category_normal">Normal</string>
+  <string name="send_coins_options_fee_category_priority">Prioritert</string>
   <string name="send_coins_options_empty">Tøm lommebok</string>
   <string name="sweep_wallet_activity_title">Sveip en papirlommebok</string>
   <string name="sweep_wallet_fragment_intro">Du er i ferd med å sveipe en papirlommebok eller kupong. Dette vil flytte alle myntene fra dette papiret til din lommebok på denne enheten. Når transaksjonen er bekreftet, vil papiret være verdiløst og bør ikke brukes om igjen av sikkerhetsmessige grunner.</string>
@@ -192,7 +196,7 @@
   <string name="import_keys_intent_filter_action">Gjenopprett lommebok</string>
   <string name="encrypt_keys_dialog_title">PIN for betaling</string>
   <string name="encrypt_keys_dialog_message">Betalinger fra lommeboken din vil være beskyttet med den valgte PIN-koden.</string>
-  <string name="encrypt_keys_dialog_warning">Viktig: Ikke bruk vanlige tall (som fødselsdato) i PIN-koden.</string>
+  <string name="encrypt_keys_dialog_warning">Viktig: Du må huske PIN-koden din! Ikke bruk vanlige tall (som fødselsdato).</string>
   <string name="encrypt_keys_dialog_password_old">Gammel PIN</string>
   <string name="encrypt_keys_dialog_password_new">PIN</string>
   <string name="encrypt_keys_dialog_bad_password">feil PIN!</string>
@@ -218,6 +222,8 @@
   <string name="preferences_category_labs">Laboratoriet</string>
   <string name="preferences_precision_title">Benevnelse og presisjon</string>
   <string name="preferences_precision_summary">Enhet som beløp vises i. Dette påvirker ikke beregninger.</string>
+  <string name="preferences_own_name_title">Ditt navn</string>
+  <string name="preferences_own_name_summary">Ditt navn, som skal legges til betalingsforespørsler. Prøv å holde det kort.</string>
   <string name="preferences_connectivity_notification_title">Tilkoblingsindikator</string>
   <string name="preferences_connectivity_notification_summary">Vis nåværende antall tilkoblede peers i systemstatusfeltet.</string>
   <string name="preferences_trusted_peer_title">Klarert peer</string>
@@ -228,9 +234,9 @@
   <string name="preferences_data_usage_summary">Vis innstillinger for restriksjon for dataforbruk på mobile nettverk.</string>
   <string name="preferences_report_issue_title">Rapporter problem</string>
   <string name="preferences_report_issue_summary">Samle inn informasjon om problemet ditt og send rapporten din på e-post til utviklerne.</string>
-  <string name="preferences_initiate_reset_title">Nullstill blokkjeden</string>
-  <string name="preferences_initiate_reset_summary">Nullstill blokkjeden, transaksjoner og lommeboksaldo. Gjennomgangen vil ta litt tid.</string>
-  <string name="preferences_initiate_reset_dialog_message">Vil du nullstille og ta ny gjennomgangen av blokkjeden?\n\nDette vil midlertidig skjule din lommeboksaldo og fjerne transaksjoner. Begge deler vil gjenskapes etter hvert som blokkjeden synkroniseres.</string>
+  <string name="preferences_initiate_reset_title">Tilbakestill blokkjeden</string>
+  <string name="preferences_initiate_reset_summary">Tilbakestill blokkjeden, transaksjoner og lommeboken sin balanse. Gjennomgangen vil ta litt tid.</string>
+  <string name="preferences_initiate_reset_dialog_message">Ønsker du å tilbakestille og gjennomgå blokkjeden?\n\nDette vil midlertidig skjule din lommebok sin balanse og fjerne transaksjoner. Begge vil gjenopprettes under gjennomgangen av blokkjeden.</string>
   <string name="preferences_initiate_reset_dialog_positive">Nullstill</string>
   <string name="preferences_extended_public_key_title">Vis xpub</string>
   <string name="preferences_extended_public_key_summary">Vis den utvidede offentlige nøkkelen til lommeboken din, slik at den kan importeres i andre programmer og tjenester. Vær forsiktig: dette vil utlevere dine transaksjoner og privatliv til det programmet.</string>
@@ -239,7 +245,7 @@
   <string name="extended_public_key_fragment_share">Del xpub…</string>
   <string name="report_issue_dialog_title_issue">Rapporter problem</string>
   <string name="report_issue_dialog_title_crash">Tidligere krasj oppdaget</string>
-  <string name="report_issue_dialog_message_issue">Beskriv problemet presist nok til at det kan reproduseres.</string>
+  <string name="report_issue_dialog_message_issue">Beskriv problemet presist nok, slik at det kan gjenskapes.</string>
   <string name="report_issue_dialog_message_crash">Har du lyst til å sende en krasjrapport som vil bidra til å løse dette problemet i fremtiden?</string>
   <string name="report_issue_dialog_description">problembeskrivelse</string>
   <string name="report_issue_dialog_report">Rapport</string>
@@ -290,5 +296,5 @@
   <string name="error_io">I/O-feil: %s</string>
   <string name="error_parse">Syntaksfeil: %s</string>
   <string name="error_http">HTTP-feil %1$s:\n%2$s</string>
-  <string name="error_bluetooth">Bluetooth-feil: %1$s</string>
+  <string name="error_bluetooth">Blåtann-feil: %1$s</string>
 </resources>
