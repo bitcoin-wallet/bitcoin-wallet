@@ -1,3 +1,10 @@
+v4.36
+
+* Pay the default fee for sweeping paper wallets.
+* Update Turkish, Swedish, Norwegian Bokmål, Japanese, Italian, Hungarian, French and Danish
+  translations.
+* Based on bitcoinj 0.13.1.
+
 v4.35
 
 * Upwards-adjust default network fee again. We're forced to do this due to the high number of
