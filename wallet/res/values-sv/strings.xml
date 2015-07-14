@@ -142,10 +142,10 @@
   <string name="address_book_options_scan_invalid">Avläst data är oigenkännlig</string>
   <string name="address_book_options_scan_own_address">Den skannade adressen är din egen.</string>
   <string name="address_book_row_message_compromised_key">Denna adress kanske har komprometterats. Du bör inte använda den för att ta emot bitcoin igen.</string>
-  <string name="edit_address_book_entry_dialog_title_add">Lägg till mottagaradress</string>
-  <string name="edit_address_book_entry_dialog_title_edit">Redigera etikett av motagaradressen</string>
-  <string name="edit_address_book_entry_dialog_title_add_receive">Lägg till etikett till din adress</string>
-  <string name="edit_address_book_entry_dialog_title_edit_receive">Redigera etikett av din adress</string>
+  <string name="edit_address_book_entry_dialog_title_add">Skapa adressetikett</string>
+  <string name="edit_address_book_entry_dialog_title_edit">Redigera adressetikett</string>
+  <string name="edit_address_book_entry_dialog_title_add_receive">Skapa din adressetikett</string>
+  <string name="edit_address_book_entry_dialog_title_edit_receive">Redigera din adressetikett</string>
   <string name="edit_address_book_entry_dialog_address_label">Adress</string>
   <string name="edit_address_book_entry_dialog_label_label">Etikett</string>
   <string name="edit_address_book_entry_dialog_button_edit">Spara</string>
@@ -196,7 +196,7 @@
   <string name="import_keys_intent_filter_action">Återställ wallet</string>
   <string name="encrypt_keys_dialog_title">Betalnings-PIN</string>
   <string name="encrypt_keys_dialog_message">Betalning från din wallet kommer att skyddas av en vald PIN-kod.</string>
-  <string name="encrypt_keys_dialog_warning">Viktigt: Använd inte vanliga siffror (som födelsedag) som din PIN.</string>
+  <string name="encrypt_keys_dialog_warning">Viktigt: Du behöver komma ihåg din PIN-kod! Använt inte vanliga nummer så som födelsedatum.</string>
   <string name="encrypt_keys_dialog_password_old">Gammal PIN</string>
   <string name="encrypt_keys_dialog_password_new">PIN</string>
   <string name="encrypt_keys_dialog_bad_password">Felaktig PIN</string>
@@ -222,6 +222,8 @@
   <string name="preferences_category_labs">Labb</string>
   <string name="preferences_precision_title">Valör och precision</string>
   <string name="preferences_precision_summary">Enhet för att visa belopp i. Det här påverkar inte uträkningar.</string>
+  <string name="preferences_own_name_title">Ditt namn</string>
+  <string name="preferences_own_name_summary">Skriv ditt namn för att användas vid betalningsmottagande. Gärna kort.</string>
   <string name="preferences_connectivity_notification_title">Anslutningsindikator</string>
   <string name="preferences_connectivity_notification_summary">Visa aktuellt antal anslutna peers i notifikationsområdet.</string>
   <string name="preferences_trusted_peer_title">Säkra noder</string>
@@ -243,7 +245,7 @@
   <string name="extended_public_key_fragment_share">Dela xpub…</string>
   <string name="report_issue_dialog_title_issue">Rapportera problem</string>
   <string name="report_issue_dialog_title_crash">Tidigare krasch upptäckt</string>
-  <string name="report_issue_dialog_message_issue">Var vänlig beskriv exakt problemet för att kunna efterkonstrueras.</string>
+  <string name="report_issue_dialog_message_issue">Beskriv felet så utförligt som möjligt så att det går att återskapa händelsen.</string>
   <string name="report_issue_dialog_message_crash">Vill du skicka en krasch rapport och hjälpa att fixa det här problemet i framtiden?</string>
   <string name="report_issue_dialog_description">problembeskrivning</string>
   <string name="report_issue_dialog_report">Rapportera</string>
