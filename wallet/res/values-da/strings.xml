@@ -14,7 +14,7 @@
   <string name="wallet_address_fragment_clipboard_msg">Bitcoin-adresse kopieret til udklipsholder</string>
   <string name="wallet_address_dialog_fragment_hint">For at beskytte dit privatliv vil din adresse ændres, så snart den modtager en betaling.</string>
   <string name="wallet_balance_fragment_too_much">Dette beløb er ret stort at gå rundt med i din lomme. Du bør flytte noget af det til et mere sikkert sted.</string>
-  <string name="wallet_balance_fragment_replaying">Saldo er ikke tilgængelig under genafspilning.</string>
+  <string name="wallet_balance_fragment_replaying">Saldo er ikke tilgængelig under gennemløb af blokkæden.</string>
   <string name="exchange_rates_activity_title">Valutakurser</string>
   <string name="exchange_rates_fragment_empty_text">Kunne ikke indlæse vekselkurser.</string>
   <string name="exchange_rates_fragment_empty_search">Kunne ikke finde vekselkurs.</string>
@@ -88,6 +88,10 @@
   <string name="send_coins_sent_msg">Sendt!</string>
   <string name="send_coins_failed_msg">Mislykkedes!</string>
   <string name="send_coins_error_msg">Problem under afsendelse af bitcoin!</string>
+  <string name="send_coins_options_fee_category">Gebyr</string>
+  <string name="send_coins_options_fee_category_economic">Økonomisk</string>
+  <string name="send_coins_options_fee_category_normal">Normal</string>
+  <string name="send_coins_options_fee_category_priority">Prioriteret</string>
   <string name="send_coins_options_empty">Tøm tegnebog</string>
   <string name="sweep_wallet_activity_title">Ryd papirtegnebog</string>
   <string name="sweep_wallet_fragment_intro">Du er ved at rydde en papirtegnebog eller kupon. Dette vil flytte alle bitcoin fra dette stykke papir til din tegnebog på denne enhed. Når transaktionen er bekræftet, vil papiret være værdiløst og bør ikke genanvendes af sikkerhedsgrunde.</string>
@@ -177,7 +181,7 @@
   <string name="backup_wallet_dialog_message">Din sikkerhedskopi vil blive krypteret med det valgte kodeord og skrevet til eksternt lager.</string>
   <string name="backup_wallet_dialog_warning_encrypted">Din tegnebog beskyttes af en spenderings-PIN. Vær sikker på, at du kan huske din PIN udover dit kodeord til sikkerhedskopien!</string>
   <string name="export_keys_dialog_button_export">Sikkerskopiér</string>
-  <string name="export_keys_dialog_success"><![CDATA[<p>Din tegnebog er blevet sikkerhedskopieret til <tt>%s</tt></p><p>Hvis din enhed har et SD-kort, der kan fjernes, <i>burde</i> sikkerhedskopien være på det kort. Fjern det og opbevar det et sikkert sted. Hvis kortet <i>ikke</i> kan fjernes, er du nødt til at arkivere sin sikkerhedskopi et andet sted end på din enhed.</p><p><b>Hvis din sikkerhedskopi kun findes på din enhed, løber du risikoen at miste begge dele på samme tid!</b></p><p>Uanset hvad, så vær sikker på, at du kan huske dit kodeord til sikkerhedskopien. Vil du arkivere din tegnebog nu?</p>]]></string>
+  <string name="export_keys_dialog_success"><![CDATA[<p>Din tegnebog er blevet sikkerhedskopieret til <tt>%s</tt></p><p>Hvis din enhed har et SD-kort, der kan fjernes, <i>burde</i> sikkerhedskopien være på det kort. Fjern det og opbevar det et sikkert sted. Hvis kortet <i>ikke</i> kan fjernes, er du nødt til at arkivere din sikkerhedskopi et andet sted end på din enhed.</p><p><b>Hvis din sikkerhedskopi kun findes på din enhed, løber du risikoen at miste begge dele på én gang!</b></p><p>Uanset hvad, så vær sikker på, at du kan huske dit kodeord til sikkerhedskopien. Vil du arkivere din tegnebog nu?</p>]]></string>
   <string name="export_keys_dialog_failure">Din tegnebog kunne ikke sikkerhedskopieres:\n%s</string>
   <string name="export_keys_dialog_button_archive">Arkivér</string>
   <string name="export_keys_dialog_mail_subject">Sikkerhedskopi af Bitcoin-tegnebog</string>
@@ -192,7 +196,7 @@
   <string name="import_keys_intent_filter_action">Genopret tegnebog</string>
   <string name="encrypt_keys_dialog_title">Spenderings-PIN</string>
   <string name="encrypt_keys_dialog_message">Spendering fra din tegnebog vil blive beskyttet med den valgte PIN.</string>
-  <string name="encrypt_keys_dialog_warning">Vigtigt: Brug ikke almindelige tal (som fx fødselsdage) i din PIN.</string>
+  <string name="encrypt_keys_dialog_warning">Vigtigt: Du er nødt til at huske din PIN! Brug ikke almindelige tal (som fx fødselsdage).</string>
   <string name="encrypt_keys_dialog_password_old">Gammel PIN</string>
   <string name="encrypt_keys_dialog_password_new">PIN</string>
   <string name="encrypt_keys_dialog_bad_password">dårlig PIN!</string>
@@ -218,6 +222,8 @@
   <string name="preferences_category_labs">Laboratoriet</string>
   <string name="preferences_precision_title">Denominering og præcision</string>
   <string name="preferences_precision_summary">Enhed som beløb vises i. Dette påvirker ikke beregninger.</string>
+  <string name="preferences_own_name_title">Eget navn</string>
+  <string name="preferences_own_name_summary">Dit eget navn, som skal føjes til betalingsforespørgsler. Prøv at holde det kort.</string>
   <string name="preferences_connectivity_notification_title">Forbindelsesindikator</string>
   <string name="preferences_connectivity_notification_summary">Vis aktuelt antal af forbundne peers i notifikationsområdet.</string>
   <string name="preferences_trusted_peer_title">Betroet peer</string>
@@ -229,8 +235,8 @@
   <string name="preferences_report_issue_title">Rapportér problem</string>
   <string name="preferences_report_issue_summary">Saml information om dit problem og email din rapport til udviklerne.</string>
   <string name="preferences_initiate_reset_title">Nulstil blokkæde</string>
-  <string name="preferences_initiate_reset_summary">Nulstil blokkæde, transaktioner og tegnebogssaldo. Genafspilning vil tage et stykke tid.</string>
-  <string name="preferences_initiate_reset_dialog_message">Vil du nulstille og genafspille blokkæden?\n\nDette vil midlertidigt skjule din tegnebogssaldo og fjerne transaktioner. Begge dele vil genskabes efterhånden som blokkæden synkroniseres.</string>
+  <string name="preferences_initiate_reset_summary">Nulstil blokkæde, transaktioner og saldo for tegnebogen. Gennemløb af blokkæden vil tage et stykke tid.</string>
+  <string name="preferences_initiate_reset_dialog_message">Vil du nulstille og gennemløbe blokkæden igen?\n\nDette vil midlertidigt skjule din saldo og fjerne transaktioner. Begge dele vil dukke op igen, efterhånden som der synkroniseres med blokkæden.</string>
   <string name="preferences_initiate_reset_dialog_positive">Nulstil</string>
   <string name="preferences_extended_public_key_title">Vis xpub</string>
   <string name="preferences_extended_public_key_summary">Vis din tegnebogs udvidede offentlige nøgle så den kan importeres til andre apps og tjenester. Vær forsigtig: Du vil afsløre dit økonomiske privatliv til pågældende app, hvis du gør dette.</string>
@@ -239,7 +245,7 @@
   <string name="extended_public_key_fragment_share">Del xpub …</string>
   <string name="report_issue_dialog_title_issue">Rapportér problem</string>
   <string name="report_issue_dialog_title_crash">Tidligere programnedbrud opfanget</string>
-  <string name="report_issue_dialog_message_issue">Beskriv venligst problemet så præcist, at det kan genskabes af udviklerne.</string>
+  <string name="report_issue_dialog_message_issue">Beskriv venligst dit problem præcist nok til, at det kan genskabes.</string>
   <string name="report_issue_dialog_message_crash">Vil du sende en nedbrudsrapport for at hjælpe med at rette op på problemet i fremtiden?</string>
   <string name="report_issue_dialog_description">problembeskrivelse</string>
   <string name="report_issue_dialog_report">Rapport</string>
