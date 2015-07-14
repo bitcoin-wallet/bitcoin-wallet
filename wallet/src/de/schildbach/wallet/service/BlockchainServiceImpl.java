@@ -672,7 +672,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 			}
 			else if (BlockchainService.ACTION_BROADCAST_TRANSACTION.equals(action))
 			{
-				final Sha256Hash hash = new Sha256Hash(intent.getByteArrayExtra(BlockchainService.ACTION_BROADCAST_TRANSACTION_HASH));
+				final Sha256Hash hash = Sha256Hash.wrap(intent.getByteArrayExtra(BlockchainService.ACTION_BROADCAST_TRANSACTION_HASH));
 				final Transaction tx = application.getWallet().getTransaction(hash);
 
 				if (peerGroup != null)
@@ -711,8 +711,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 		{
 			peerGroup.removeEventListener(peerConnectivityListener);
 			peerGroup.removeWallet(application.getWallet());
-			peerGroup.stopAsync();
-			peerGroup.awaitTerminated();
+			peerGroup.stop();
 
 			log.info("peergroup stopped");
 		}
