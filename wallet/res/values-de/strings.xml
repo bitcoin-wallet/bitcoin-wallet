@@ -243,6 +243,11 @@
 	<string name="preferences_category_labs">Labor</string>
 	<string name="preferences_precision_title">Stückelung und Genauigkeit</string>
 	<string name="preferences_precision_summary">Maßeinheit für die Anzeige von Werten. Dies beeinflußt keine Berechnungen.</string>
+	<string name="preferences_precision_labels_8">BTC, 8 Dezimalen</string>
+	<string name="preferences_precision_labels_6">BTC, 6 Dezimalen</string>
+	<string name="preferences_precision_labels_4">BTC, 4 Dezimalen</string>
+	<string name="preferences_precision_labels_2_3">mBTC, 2 Dezimalen</string>
+	<string name="preferences_precision_labels_0_6">µBTC, keine Dezimalen</string>
 	<string name="preferences_own_name_title">Eigener Name</string>
 	<string name="preferences_own_name_summary">Dein eigener Name, der zu Zahlungsanforderungen hinzugefügt wird. Versuch ihn kurz zu halten.</string>
 	<string name="preferences_connectivity_notification_title">Konnektivitäts-Anzeige</string>
