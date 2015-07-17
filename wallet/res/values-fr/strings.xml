@@ -74,8 +74,6 @@
   <string name="send_coins_fragment_direct_payment_nack">Votre paiement par connexion directe a été rejeté.</string>
   <string name="send_coins_fragment_direct_payment_failed_title">Échec du paiement direct</string>
   <string name="send_coins_fragment_direct_payment_failed_msg">Votre paiement sera quand même diffusé par le réseau P2P.</string>
-  <string name="send_coins_fragment_private_key_password">NIP</string>
-  <string name="send_coins_fragment_private_key_bad_password">NIP erroné !</string>
   <string name="send_coins_fragment_button_send">Envoyer</string>
   <string name="send_coins_fragment_button_back">Retour</string>
   <string name="send_coins_fragment_insufficient_money_title">Pas assez de pièces disponibles</string>
@@ -111,8 +109,6 @@
   <string name="sweep_wallet_options_reload">Recharger le solde</string>
   <string name="maintenance_dialog_title">Maintenance recommandée</string>
   <string name="maintenance_dialog_message">Vous avez reçu %1$s à des adresses non sécurisées. Voulez-vous déplacer ces pièces vers des adresses sécurisées ? Des petits frais de réseau de %2$s seront payés.</string>
-  <string name="maintenance_dialog_private_key_password">NIP</string>
-  <string name="maintenance_dialog_private_key_bad_password">NIP erroné !</string>
   <string name="maintenance_dialog_state_decrypting">Déchiffrement…</string>
   <string name="maintenance_dialog_state_done">Terminé.</string>
   <string name="maintenance_dialog_button_move">Déplacer</string>
@@ -198,8 +194,6 @@
   <string name="encrypt_keys_dialog_message">Les dépenses de votre portefeuille seront protégées par le NIP choisi.</string>
   <string name="encrypt_keys_dialog_warning">Important : vous devez mémoriser votre NIP ! N\'utilisez pas de nombre commun (comme une date de naissance).</string>
   <string name="encrypt_keys_dialog_password_old">Ancien NIP</string>
-  <string name="encrypt_keys_dialog_password_new">NIP</string>
-  <string name="encrypt_keys_dialog_bad_password">NIP erroné !</string>
   <string name="encrypt_keys_dialog_password_strength_weak">faible</string>
   <string name="encrypt_keys_dialog_password_strength_fair">correct</string>
   <string name="encrypt_keys_dialog_password_strength_good">bon</string>
@@ -297,6 +291,8 @@
   <string name="action_browse">Parcourir</string>
   <string name="time_today">aujourd\'hui</string>
   <string name="address_unlabeled">(sans étiquette)</string>
+  <string name="private_key_password">NIP</string>
+  <string name="private_key_bad_password">NIP erroné !</string>
   <!--generic error messages-->
   <string name="error_io">Erreur E/S : %s</string>
   <string name="error_parse">Erreur d\'analyse : %s</string>

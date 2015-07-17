@@ -42,7 +42,7 @@
 				android:layout_width="0px"
 				android:layout_height="wrap_content"
 				android:layout_weight="1"
-				android:text="@string/encrypt_keys_dialog_bad_password"
+				android:text="@string/private_key_bad_password"
 				android:textColor="@color/fg_error"
 				android:textStyle="bold"
 				android:visibility="invisible" />
@@ -61,7 +61,7 @@
 				android:layout_width="0px"
 				android:layout_height="wrap_content"
 				android:layout_weight="1"
-				android:hint="@string/encrypt_keys_dialog_password_new"
+				android:hint="@string/private_key_password"
 				android:imeOptions="flagNoExtractUi"
 				android:inputType="numberPassword"
 				android:singleLine="true" />

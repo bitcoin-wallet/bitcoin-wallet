@@ -74,8 +74,6 @@
   <string name="send_coins_fragment_direct_payment_nack">直接的な接続による送金での支払いは拒否されました。</string>
   <string name="send_coins_fragment_direct_payment_failed_title">直接的な送金が失敗しました</string>
   <string name="send_coins_fragment_direct_payment_failed_msg">支払情報はP2Pネットワークを通じて拡散中です。</string>
-  <string name="send_coins_fragment_private_key_password">PIN</string>
-  <string name="send_coins_fragment_private_key_bad_password">間違ったPINです!</string>
   <string name="send_coins_fragment_button_send">送金</string>
   <string name="send_coins_fragment_button_back">戻る</string>
   <string name="send_coins_fragment_insufficient_money_title">コインが不足しています</string>
@@ -111,8 +109,6 @@
   <string name="sweep_wallet_options_reload">残高のリロード</string>
   <string name="maintenance_dialog_title">補修をお勧めします</string>
   <string name="maintenance_dialog_message">安全でないアドレス宛てに %1$s を受け取りました。このコインを安全なアドレスに移動しますか? 少額ですがネットワーク代として %2$s が支払われます。</string>
-  <string name="maintenance_dialog_private_key_password">PIN</string>
-  <string name="maintenance_dialog_private_key_bad_password">間違ったPINです!</string>
   <string name="maintenance_dialog_state_decrypting">復号中……</string>
   <string name="maintenance_dialog_state_done">完了</string>
   <string name="maintenance_dialog_button_move">移動</string>
@@ -198,8 +194,6 @@
   <string name="encrypt_keys_dialog_message">あなたのウォレットからの送金はこのPINによって防止されます。</string>
   <string name="encrypt_keys_dialog_warning">重要: PINを忘れないようにしてください! 他人が知っている番号を使わないでください(誕生日など)。</string>
   <string name="encrypt_keys_dialog_password_old">古いPIN</string>
-  <string name="encrypt_keys_dialog_password_new">PIN</string>
-  <string name="encrypt_keys_dialog_bad_password">間違ったPINです!</string>
   <string name="encrypt_keys_dialog_password_strength_weak">弱い</string>
   <string name="encrypt_keys_dialog_password_strength_fair">そこそこ</string>
   <string name="encrypt_keys_dialog_password_strength_good">良い</string>
@@ -292,6 +286,8 @@
   <string name="action_browse">ブラウズ</string>
   <string name="time_today">今日</string>
   <string name="address_unlabeled">(ラベルなし)</string>
+  <string name="private_key_password">PIN</string>
+  <string name="private_key_bad_password">間違ったPINです!</string>
   <!--generic error messages-->
   <string name="error_io">入出力エラー: %s</string>
   <string name="error_parse">パースエラー:%s</string>

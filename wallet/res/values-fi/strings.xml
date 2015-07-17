@@ -74,8 +74,6 @@
   <string name="send_coins_fragment_direct_payment_nack">Suoran yhteyden välityksellä luotu maksusi hylättiin.</string>
   <string name="send_coins_fragment_direct_payment_failed_title">Suorayhteydellä maksaminen epäonnistui</string>
   <string name="send_coins_fragment_direct_payment_failed_msg">Maksusi tullaan julkaisemaan silti P2P-verkkoon.</string>
-  <string name="send_coins_fragment_private_key_password">PIN</string>
-  <string name="send_coins_fragment_private_key_bad_password">väärä PIN!</string>
   <string name="send_coins_fragment_button_send">Lähetä</string>
   <string name="send_coins_fragment_button_back">Takaisin</string>
   <string name="send_coins_fragment_insufficient_money_title">Käytettäviä varoja ei ole tarpeeksi</string>
@@ -107,8 +105,6 @@
   <string name="sweep_wallet_options_reload">Uudelleenlataa saldo</string>
   <string name="maintenance_dialog_title">Huoltoa suositellaan</string>
   <string name="maintenance_dialog_message">Vastaanotit %1$s turvattomiin osoitteisiin. Haluaisitko siirtää nämä kolikot turvallisiin osoitteisiin? Kustantaa pienen %2$s verkkopalkkion.</string>
-  <string name="maintenance_dialog_private_key_password">PIN</string>
-  <string name="maintenance_dialog_private_key_bad_password">väärä PIN!</string>
   <string name="maintenance_dialog_state_decrypting">Puretaan salausta…</string>
   <string name="maintenance_dialog_state_done">Valmis.</string>
   <string name="maintenance_dialog_button_move">Siirrä</string>
@@ -194,8 +190,6 @@
   <string name="encrypt_keys_dialog_message">Lompakon varojen käyttö suojataan valitulla PIN-koodilla.</string>
   <string name="encrypt_keys_dialog_warning">Tärkeää: Älä käytä yleisiä numeroita (kuten syntymäaikoja) PIN-koodissasi.</string>
   <string name="encrypt_keys_dialog_password_old">Vanha PIN</string>
-  <string name="encrypt_keys_dialog_password_new">PIN</string>
-  <string name="encrypt_keys_dialog_bad_password">väärä PIN!</string>
   <string name="encrypt_keys_dialog_password_strength_weak">heikko</string>
   <string name="encrypt_keys_dialog_password_strength_fair">kohtalainen</string>
   <string name="encrypt_keys_dialog_password_strength_good">hyvä</string>
@@ -286,6 +280,8 @@
   <string name="action_browse">Selaa</string>
   <string name="time_today">tänään</string>
   <string name="address_unlabeled">(nimeämätön)</string>
+  <string name="private_key_password">PIN</string>
+  <string name="private_key_bad_password">väärä PIN!</string>
   <!--generic error messages-->
   <string name="error_io">I/O-virhe: %s</string>
   <string name="error_parse">Jäsennysvirhe: %s</string>

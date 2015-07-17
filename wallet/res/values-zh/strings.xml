@@ -71,8 +71,6 @@
   <string name="send_coins_fragment_direct_payment_nack">您的直接付款已被拒绝。</string>
   <string name="send_coins_fragment_direct_payment_failed_title">直接付款失败</string>
   <string name="send_coins_fragment_direct_payment_failed_msg">您的付款将将会继续通过 P2P 网络进行广播。</string>
-  <string name="send_coins_fragment_private_key_password">PIN</string>
-  <string name="send_coins_fragment_private_key_bad_password">错误的 PIN！</string>
   <string name="send_coins_fragment_button_send">发送</string>
   <string name="send_coins_fragment_button_back">返回</string>
   <string name="send_coins_fragment_insufficient_money_title">比特币余额不足</string>
@@ -104,8 +102,6 @@
   <string name="sweep_wallet_options_reload">重新载入金额</string>
   <string name="maintenance_dialog_title">建议进行维护</string>
   <string name="maintenance_dialog_message">您收到了 %1$s 到不安全的比特币地址。您想将这些比特币转移到安全的地址吗？您需要支付 %2$s 的小额网络费用。</string>
-  <string name="maintenance_dialog_private_key_password">PIN</string>
-  <string name="maintenance_dialog_private_key_bad_password">错误的 PIN！</string>
   <string name="maintenance_dialog_state_decrypting">正在解密…</string>
   <string name="maintenance_dialog_state_done">已完成。</string>
   <string name="maintenance_dialog_button_move">转移</string>
@@ -184,8 +180,6 @@
   <string name="encrypt_keys_dialog_message">从您的钱包对外付款将会受到该PIN码的保护。</string>
   <string name="encrypt_keys_dialog_warning">重要：请不要使用简单数字（比如生日）作为PIN码。</string>
   <string name="encrypt_keys_dialog_password_old">旧 PIN</string>
-  <string name="encrypt_keys_dialog_password_new">PIN</string>
-  <string name="encrypt_keys_dialog_bad_password">错误的 PIN！</string>
   <string name="encrypt_keys_dialog_password_strength_weak">弱</string>
   <string name="encrypt_keys_dialog_password_strength_fair">一般</string>
   <string name="encrypt_keys_dialog_password_strength_good">好</string>
@@ -271,6 +265,8 @@
   <string name="action_browse">浏览</string>
   <string name="time_today">今天</string>
   <string name="address_unlabeled">(无标签)</string>
+  <string name="private_key_password">PIN</string>
+  <string name="private_key_bad_password">错误的 PIN！</string>
   <!--generic error messages-->
   <string name="error_io">I/O 错误: %s</string>
   <string name="error_parse">解析错误: %s</string>

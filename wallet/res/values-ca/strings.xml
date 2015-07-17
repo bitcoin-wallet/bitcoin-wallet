@@ -72,8 +72,6 @@
   <string name="send_coins_fragment_direct_payment_nack">El teu pagament ha segut refusat durant la connexió directa.</string>
   <string name="send_coins_fragment_direct_payment_failed_title">Pagament directe fallat</string>
   <string name="send_coins_fragment_direct_payment_failed_msg">El teu pagament encarà ha de ser retransmès a través de la xarxa P2P.</string>
-  <string name="send_coins_fragment_private_key_password">PIN</string>
-  <string name="send_coins_fragment_private_key_bad_password">PIN incorrecte!</string>
   <string name="send_coins_fragment_button_send">Envia</string>
   <string name="send_coins_fragment_button_back">Enrere</string>
   <string name="send_coins_fragment_insufficient_money_title">No hi ha suficients monedes disponibles</string>
@@ -105,8 +103,6 @@
   <string name="sweep_wallet_options_reload">Recarrega el balanç</string>
   <string name="maintenance_dialog_title">Es recomana manteniment</string>
   <string name="maintenance_dialog_message">Has rebut %1$s a una adreça no segura. Vols moure aquests monedes a una adreça segura? Es pagarà una comissió de xarxa de %2$s.</string>
-  <string name="maintenance_dialog_private_key_password">PIN</string>
-  <string name="maintenance_dialog_private_key_bad_password">PIN Incorrecte!</string>
   <string name="maintenance_dialog_state_decrypting">Desencriptant…</string>
   <string name="maintenance_dialog_state_done">Fet.</string>
   <string name="maintenance_dialog_button_move">Moure</string>
@@ -188,8 +184,6 @@
   <string name="encrypt_keys_dialog_message">Gastar des del teu moneder estarà protegit amb el PIN triat.</string>
   <string name="encrypt_keys_dialog_warning">Important: No utilitzis número comuns (com dates d\'aniversari) als teus PINs.</string>
   <string name="encrypt_keys_dialog_password_old">PIN Antic</string>
-  <string name="encrypt_keys_dialog_password_new">PIN</string>
-  <string name="encrypt_keys_dialog_bad_password">PIN Incorrecte!</string>
   <string name="encrypt_keys_dialog_password_strength_weak">fluix</string>
   <string name="encrypt_keys_dialog_password_strength_fair">justet</string>
   <string name="encrypt_keys_dialog_password_strength_good">bo</string>
@@ -280,6 +274,8 @@
   <string name="action_browse">Navega</string>
   <string name="time_today">avui</string>
   <string name="address_unlabeled">(no etiquetat)</string>
+  <string name="private_key_password">PIN</string>
+  <string name="private_key_bad_password">PIN incorrecte!</string>
   <!--generic error messages-->
   <string name="error_io">Error I/O: %s</string>
   <string name="error_parse">Anàlisis d\'errors: %s</string>

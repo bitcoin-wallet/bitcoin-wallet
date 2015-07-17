@@ -75,8 +75,6 @@
 	<string name="send_coins_fragment_direct_payment_nack">Your payment was rejected via direct connection.</string>
 	<string name="send_coins_fragment_direct_payment_failed_title">Direct payment failed</string>
 	<string name="send_coins_fragment_direct_payment_failed_msg">Your payment will still be broadcasted via the P2P network.</string>
-	<string name="send_coins_fragment_private_key_password">PIN</string>
-	<string name="send_coins_fragment_private_key_bad_password">bad PIN!</string>
 	<string name="send_coins_fragment_button_send">Send</string>
 	<string name="send_coins_fragment_button_back">Back</string>
 	<string name="send_coins_fragment_insufficient_money_title">Not enough available coins</string>
@@ -112,8 +110,6 @@
 	<string name="sweep_wallet_options_reload">Reload balance</string>
 	<string name="maintenance_dialog_title">Maintenance recommended</string>
 	<string name="maintenance_dialog_message">You received %1$s to unsecure addresses. Would you like to move these coins to secure addresses? A small network fee of %2$s will be paid.</string>
-	<string name="maintenance_dialog_private_key_password">PIN</string>
-	<string name="maintenance_dialog_private_key_bad_password">bad PIN!</string>
 	<string name="maintenance_dialog_state_decrypting">Decrypting…</string>
 	<string name="maintenance_dialog_state_done">Done.</string>
 	<string name="maintenance_dialog_button_move">Move</string>
@@ -200,8 +196,6 @@
 	<string name="encrypt_keys_dialog_message">Spending from your wallet will be protected with the chosen PIN.</string>
 	<string name="encrypt_keys_dialog_warning">Important: You need to remember your PIN! Do not use common numbers (like birthdates).</string>
 	<string name="encrypt_keys_dialog_password_old">Old PIN</string>
-	<string name="encrypt_keys_dialog_password_new">PIN</string>
-	<string name="encrypt_keys_dialog_bad_password">bad PIN!</string>
 	<string name="encrypt_keys_dialog_password_strength_weak">weak</string>
 	<string name="encrypt_keys_dialog_password_strength_fair">fair</string>
 	<string name="encrypt_keys_dialog_password_strength_good">good</string>
@@ -298,8 +292,12 @@
 	<string name="button_settings">Settings</string>
 	<string name="action_show_qr">Show QR code</string>
 	<string name="action_browse">Browse</string>
+
+	<!-- generic strings -->
 	<string name="time_today">today</string>
 	<string name="address_unlabeled">(unlabeled)</string>
+	<string name="private_key_password">PIN</string>
+	<string name="private_key_bad_password">bad PIN!</string>
 
 	<!-- generic error messages -->
 	<string name="error_io">I/O error: %s</string>

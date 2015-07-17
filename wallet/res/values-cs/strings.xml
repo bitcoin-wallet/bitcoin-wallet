@@ -72,8 +72,6 @@
   <string name="send_coins_fragment_direct_payment_nack">Vaše platba byla odmítnuta přímým spojením.</string>
   <string name="send_coins_fragment_direct_payment_failed_title">Přímá platba selhala</string>
   <string name="send_coins_fragment_direct_payment_failed_msg">Vaše platba bude stejně odeslána pomocí P2P sítě.</string>
-  <string name="send_coins_fragment_private_key_password">PIN</string>
-  <string name="send_coins_fragment_private_key_bad_password">špatný PIN!</string>
   <string name="send_coins_fragment_button_send">Poslat</string>
   <string name="send_coins_fragment_button_back">Zpět</string>
   <string name="send_coins_fragment_insufficient_money_title">Nedostatek mincí.</string>
@@ -105,8 +103,6 @@
   <string name="sweep_wallet_options_reload">Znovu načíst bilanci</string>
   <string name="maintenance_dialog_title">Údržba doporučena.</string>
   <string name="maintenance_dialog_message">Přijal jste %1$s na nezabezpečenou adresu. Přejete si převést tyto mince na zabezpečenou adresu? Malý poplatek síti %2$s bude zaplacen.</string>
-  <string name="maintenance_dialog_private_key_password">PIN</string>
-  <string name="maintenance_dialog_private_key_bad_password">špatný PIN!</string>
   <string name="maintenance_dialog_state_decrypting">Dešifruji…</string>
   <string name="maintenance_dialog_state_done">Hotovo.</string>
   <string name="maintenance_dialog_button_move">Přemístit</string>
@@ -188,8 +184,6 @@
   <string name="encrypt_keys_dialog_message">Útrata z vaší peněženky bude chráněna zvoleným PINem.</string>
   <string name="encrypt_keys_dialog_warning">Důležité: Nepoužívejte běžná čísla (jako je např. rok narození) jako váš PIN.</string>
   <string name="encrypt_keys_dialog_password_old">Starý PIN</string>
-  <string name="encrypt_keys_dialog_password_new">PIN</string>
-  <string name="encrypt_keys_dialog_bad_password">špatný PIN!</string>
   <string name="encrypt_keys_dialog_password_strength_weak">slabé</string>
   <string name="encrypt_keys_dialog_password_strength_fair">ujde</string>
   <string name="encrypt_keys_dialog_password_strength_good">dobré</string>
@@ -280,6 +274,8 @@
   <string name="action_browse">Prohlédnout</string>
   <string name="time_today">dnes</string>
   <string name="address_unlabeled">(nepojmenováno)</string>
+  <string name="private_key_password">PIN</string>
+  <string name="private_key_bad_password">špatný PIN!</string>
   <!--generic error messages-->
   <string name="error_io">I/O chyba: %s</string>
   <string name="error_parse">Chyba při načítání: %s</string>

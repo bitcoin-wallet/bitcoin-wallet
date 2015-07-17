@@ -71,8 +71,6 @@
   <string name="send_coins_fragment_direct_payment_nack">Malipo yako moja kwa moja na mpokeaji ilikataliwa.</string>
   <string name="send_coins_fragment_direct_payment_failed_title">Malipo yako moja kwa moja na mpokeaji alishindwa.</string>
   <string name="send_coins_fragment_direct_payment_failed_msg">Malipo yako moja kwa moja na mpokeaji bado ni kuwa broadcasted na P2P.</string>
-  <string name="send_coins_fragment_private_key_password">PIN</string>
-  <string name="send_coins_fragment_private_key_bad_password">PIN mbaya</string>
   <string name="send_coins_fragment_button_send">Lipa!</string>
   <string name="send_coins_fragment_button_back">Rudisha</string>
   <string name="send_coins_fragment_insufficient_money_title">Haitoshi usawa.</string>
@@ -104,8 +102,6 @@
   <string name="sweep_wallet_options_reload">Kubamba usawa tena</string>
   <string name="maintenance_dialog_title">Matengenezo ilipendekeza</string>
   <string name="maintenance_dialog_message">Wewe walilipwa %1$s kwa anwani uhaba. Je, ungependa kuchukua pesa hii ya kupata anwani? Mtandao ada ndogo ya %2$s atalipwa.</string>
-  <string name="maintenance_dialog_private_key_password">PIN</string>
-  <string name="maintenance_dialog_private_key_bad_password">PIN mbaya</string>
   <string name="maintenance_dialog_state_decrypting">Akieleza siri yako…</string>
   <string name="maintenance_dialog_state_done">Sawa!</string>
   <string name="maintenance_dialog_button_move">Enda</string>
@@ -183,8 +179,6 @@
   <string name="encrypt_keys_dialog_message">Malipo kwa pochi yako watalindwa na PIN hii.</string>
   <string name="encrypt_keys_dialog_warning">Onyo! Je, si kutumia namba ya kawaida kama birthdates katika PIN yako.</string>
   <string name="encrypt_keys_dialog_password_old">PIN mzee</string>
-  <string name="encrypt_keys_dialog_password_new">PIN</string>
-  <string name="encrypt_keys_dialog_bad_password">PIN mbaya</string>
   <string name="encrypt_keys_dialog_password_strength_weak">dhaifu</string>
   <string name="encrypt_keys_dialog_password_strength_fair">haki</string>
   <string name="encrypt_keys_dialog_password_strength_good">halali</string>
@@ -273,4 +267,6 @@
   <string name="action_show_qr">Soma QR code</string>
   <string name="action_browse">Vinjari</string>
   <string name="time_today">leo</string>
+  <string name="private_key_password">PIN</string>
+  <string name="private_key_bad_password">PIN mbaya</string>
 </resources>

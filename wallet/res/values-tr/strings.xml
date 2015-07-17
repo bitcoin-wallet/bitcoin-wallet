@@ -74,8 +74,6 @@
   <string name="send_coins_fragment_direct_payment_nack">Ödemeniz doğrudan bağlantı vasıtasıyla reddedilmiştir.</string>
   <string name="send_coins_fragment_direct_payment_failed_title">Doğrudan ödeme başarısız oldu</string>
   <string name="send_coins_fragment_direct_payment_failed_msg">Ödemeniz yine de P2P ağı üzerinden yayınlanacaktır.</string>
-  <string name="send_coins_fragment_private_key_password">PIN</string>
-  <string name="send_coins_fragment_private_key_bad_password">Yanlış PIN!</string>
   <string name="send_coins_fragment_button_send">Gönder</string>
   <string name="send_coins_fragment_button_back">Geri</string>
   <string name="send_coins_fragment_insufficient_money_title">Mevcut para yeterli değil</string>
@@ -111,8 +109,6 @@
   <string name="sweep_wallet_options_reload">Bakiyeyi tekrar yükle</string>
   <string name="maintenance_dialog_title">Bakım tavsiye edilir</string>
   <string name="maintenance_dialog_message">Güvensiz adreslere %1$s aldınız. Bu bitcoinleri güvenli adreslere taşımak ister misiniz? %2$s tutarında düşük bir şebeke ücreti ödenecektir.</string>
-  <string name="maintenance_dialog_private_key_password">PIN</string>
-  <string name="maintenance_dialog_private_key_bad_password">Yanlış PIN!</string>
   <string name="maintenance_dialog_state_decrypting">Şifre çözülüyor…</string>
   <string name="maintenance_dialog_state_done">Tamamlandı.</string>
   <string name="maintenance_dialog_button_move">Taşı</string>
@@ -198,8 +194,6 @@
   <string name="encrypt_keys_dialog_message">Cüzdanınızdan harcama yapmak seçilen PIN ile korunacaktır.</string>
   <string name="encrypt_keys_dialog_warning">Önemli: PIN kodunuzu hatırlamanız gerekir! Doğum tarihleri gibi genel sayılar kullanmayın.</string>
   <string name="encrypt_keys_dialog_password_old">Eski PIN</string>
-  <string name="encrypt_keys_dialog_password_new">PIN</string>
-  <string name="encrypt_keys_dialog_bad_password">Yanlış PIN!</string>
   <string name="encrypt_keys_dialog_password_strength_weak">zayıf</string>
   <string name="encrypt_keys_dialog_password_strength_fair">idare eder</string>
   <string name="encrypt_keys_dialog_password_strength_good">iyi</string>
@@ -292,6 +286,8 @@
   <string name="action_browse">Tara</string>
   <string name="time_today">bugün</string>
   <string name="address_unlabeled">(etiketsiz)</string>
+  <string name="private_key_password">PIN</string>
+  <string name="private_key_bad_password">Yanlış PIN!</string>
   <!--generic error messages-->
   <string name="error_io">G/Ç hatası: %s</string>
   <string name="error_parse">Ayrıştırma hatası: %s</string>

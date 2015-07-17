@@ -74,8 +74,6 @@
   <string name="send_coins_fragment_direct_payment_nack">Seu pagamento foi rejeitado utilizando a conexão direta.</string>
   <string name="send_coins_fragment_direct_payment_failed_title">Pagamento direto falhou</string>
   <string name="send_coins_fragment_direct_payment_failed_msg">Seu pagamento ainda será disseminado na rede P2P.</string>
-  <string name="send_coins_fragment_private_key_password">PIN</string>
-  <string name="send_coins_fragment_private_key_bad_password">PIN ruim!</string>
   <string name="send_coins_fragment_button_send">Enviar</string>
   <string name="send_coins_fragment_button_back">Voltar</string>
   <string name="send_coins_fragment_insufficient_money_title">Saldo insuficiente</string>
@@ -107,8 +105,6 @@
   <string name="sweep_wallet_options_reload">equilíbrio Recarregar</string>
   <string name="maintenance_dialog_title">Manutenção recomendada</string>
   <string name="maintenance_dialog_message">Você recebeu %1$s em um endereço não seguro, Gostaria de mover essas moedas para um endereço seguro? Uma pequena taxa de rede de %2$s será cobrada.</string>
-  <string name="maintenance_dialog_private_key_password">PIN</string>
-  <string name="maintenance_dialog_private_key_bad_password">PIN ruim!</string>
   <string name="maintenance_dialog_state_decrypting">Desencriptando…</string>
   <string name="maintenance_dialog_state_done">Concluído.</string>
   <string name="maintenance_dialog_button_move">Mover</string>
@@ -194,8 +190,6 @@
   <string name="encrypt_keys_dialog_message">O PIN escolhido será exigido para gastar o dinheiro da sua carteira.</string>
   <string name="encrypt_keys_dialog_warning">Importante: Não use números comuns (como datas de aniversários) em seu PIN.</string>
   <string name="encrypt_keys_dialog_password_old">PIN antigo</string>
-  <string name="encrypt_keys_dialog_password_new">PIN</string>
-  <string name="encrypt_keys_dialog_bad_password">PIN ruim!</string>
   <string name="encrypt_keys_dialog_password_strength_weak">fraco</string>
   <string name="encrypt_keys_dialog_password_strength_fair">razoável</string>
   <string name="encrypt_keys_dialog_password_strength_good">bom</string>
@@ -286,6 +280,8 @@
   <string name="action_browse">Navegar</string>
   <string name="time_today">hoje</string>
   <string name="address_unlabeled">(sem nome)</string>
+  <string name="private_key_password">PIN</string>
+  <string name="private_key_bad_password">PIN ruim!</string>
   <!--generic error messages-->
   <string name="error_io">Erro de I/O, leitura ou escrita: %s</string>
   <string name="error_parse">Erro de análise:%s</string>

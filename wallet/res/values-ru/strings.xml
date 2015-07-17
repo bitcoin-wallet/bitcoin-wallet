@@ -72,8 +72,6 @@
   <string name="send_coins_fragment_direct_payment_nack">Ваш платеж через прямое подключение был отклонен.</string>
   <string name="send_coins_fragment_direct_payment_failed_title">Возникла ошибка при проведении прямой оплаты</string>
   <string name="send_coins_fragment_direct_payment_failed_msg">Ваш платеж будет транслироваться через P2P-сети.</string>
-  <string name="send_coins_fragment_private_key_password">ПИН</string>
-  <string name="send_coins_fragment_private_key_bad_password">ПИН не подходит!</string>
   <string name="send_coins_fragment_button_send">Отправить</string>
   <string name="send_coins_fragment_button_back">Назад</string>
   <string name="send_coins_fragment_insufficient_money_title">Недостаточно монет</string>
@@ -105,8 +103,6 @@
   <string name="sweep_wallet_options_reload">Перезагрузить баланс</string>
   <string name="maintenance_dialog_title">Поддержка рекомендуется</string>
   <string name="maintenance_dialog_message">Вы приняли %1$s на небезопасные адреса. Хотите переместить монеты на безопасные адреса? Будет уплачена небольшая комиссия - %2$s.</string>
-  <string name="maintenance_dialog_private_key_password">ПИН</string>
-  <string name="maintenance_dialog_private_key_bad_password">ПИН не подходит!</string>
   <string name="maintenance_dialog_state_decrypting">Расшифровка…</string>
   <string name="maintenance_dialog_state_done">Готово.</string>
   <string name="maintenance_dialog_button_move">Переместить</string>
@@ -188,8 +184,6 @@
   <string name="encrypt_keys_dialog_message">Отправка денег из вашего кошелька будет защищена выбранным вами ПИН кодом.</string>
   <string name="encrypt_keys_dialog_warning">Важно: Не используйте в качестве ПИНа легко вычисляемое сочетание (дни рождения и т.п.)</string>
   <string name="encrypt_keys_dialog_password_old">Старый ПИН</string>
-  <string name="encrypt_keys_dialog_password_new">ПИН</string>
-  <string name="encrypt_keys_dialog_bad_password">ПИН не подходит!</string>
   <string name="encrypt_keys_dialog_password_strength_weak">слабый</string>
   <string name="encrypt_keys_dialog_password_strength_fair">так себе</string>
   <string name="encrypt_keys_dialog_password_strength_good">нормальный</string>
@@ -280,6 +274,8 @@
   <string name="action_browse">Обзор</string>
   <string name="time_today">сегодня</string>
   <string name="address_unlabeled">(без метки)</string>
+  <string name="private_key_password">ПИН</string>
+  <string name="private_key_bad_password">ПИН не подходит!</string>
   <!--generic error messages-->
   <string name="error_io">Ошибка I/O: %s</string>
   <string name="error_parse">Ошибка обработки: %s</string>

@@ -74,8 +74,6 @@
   <string name="send_coins_fragment_direct_payment_nack">Il tuo pagamento via connessione diretta è stato rifiutato.</string>
   <string name="send_coins_fragment_direct_payment_failed_title">Pagamento diretto fallito</string>
   <string name="send_coins_fragment_direct_payment_failed_msg">Il tuo pagamento sarà trasmesso tramite la rete P2P.</string>
-  <string name="send_coins_fragment_private_key_password">PIN</string>
-  <string name="send_coins_fragment_private_key_bad_password">PIN errato!</string>
   <string name="send_coins_fragment_button_send">Invia</string>
   <string name="send_coins_fragment_button_back">Indietro</string>
   <string name="send_coins_fragment_insufficient_money_title">Non abbastanza monete disponibili</string>
@@ -111,8 +109,6 @@
   <string name="sweep_wallet_options_reload">Ricarica saldo</string>
   <string name="maintenance_dialog_title">Manutenzione raccomandata</string>
   <string name="maintenance_dialog_message">Hai ricevuto %1$s su indirizzi insicuri. Vorresti muovere queste monete su indirizzi sicuri? Si pagherà una piccola commissione di rete di %2$s.</string>
-  <string name="maintenance_dialog_private_key_password">PIN</string>
-  <string name="maintenance_dialog_private_key_bad_password">PIN errato!</string>
   <string name="maintenance_dialog_state_decrypting">Decrittazione in corso…</string>
   <string name="maintenance_dialog_state_done">Fatto.</string>
   <string name="maintenance_dialog_button_move">Sposta</string>
@@ -198,8 +194,6 @@
   <string name="encrypt_keys_dialog_message">La spesa dal tuo wallet verrà protetta con il PIN scelto.</string>
   <string name="encrypt_keys_dialog_warning">Importante: Dovrai ricordarti il tuo PIN! Non usare numeri comuni (come il tuo compleanno).</string>
   <string name="encrypt_keys_dialog_password_old">Vecchio PIN</string>
-  <string name="encrypt_keys_dialog_password_new">PIN</string>
-  <string name="encrypt_keys_dialog_bad_password">PIN errato!</string>
   <string name="encrypt_keys_dialog_password_strength_weak">debole</string>
   <string name="encrypt_keys_dialog_password_strength_fair">giusta</string>
   <string name="encrypt_keys_dialog_password_strength_good">buono</string>
@@ -292,6 +286,8 @@
   <string name="action_browse">Sfoglia</string>
   <string name="time_today">oggi</string>
   <string name="address_unlabeled">(non etichettato)</string>
+  <string name="private_key_password">PIN</string>
+  <string name="private_key_bad_password">PIN errato!</string>
   <!--generic error messages-->
   <string name="error_io">I/O errore: %s</string>
   <string name="error_parse">Errore di analisi: %s</string>

@@ -74,8 +74,6 @@
   <string name="send_coins_fragment_direct_payment_nack">Din betaling ble avvist via direkte forbindelse.</string>
   <string name="send_coins_fragment_direct_payment_failed_title">Direkte betaling mislyktes</string>
   <string name="send_coins_fragment_direct_payment_failed_msg">Din betaling vil fortsatt bli sendt ut på P2P-nettverket.</string>
-  <string name="send_coins_fragment_private_key_password">PIN</string>
-  <string name="send_coins_fragment_private_key_bad_password">feil PIN!</string>
   <string name="send_coins_fragment_button_send">Send</string>
   <string name="send_coins_fragment_button_back">Tilbake</string>
   <string name="send_coins_fragment_insufficient_money_title">Ikke nok tilgjengelige mynter</string>
@@ -111,8 +109,6 @@
   <string name="sweep_wallet_options_reload">Last inn saldo på nytt</string>
   <string name="maintenance_dialog_title">Vedlikehold anbefales</string>
   <string name="maintenance_dialog_message">Du har mottatt %1$s til usikre adresser. Har du lyst til å flytte disse myntene til sikre adresser? Et lite nettverksgebyr på %2$s vil bli betalt.</string>
-  <string name="maintenance_dialog_private_key_password">PIN</string>
-  <string name="maintenance_dialog_private_key_bad_password">feil PIN!</string>
   <string name="maintenance_dialog_state_decrypting">Dekrypterer…</string>
   <string name="maintenance_dialog_state_done">Ferdig.</string>
   <string name="maintenance_dialog_button_move">Flytt</string>
@@ -198,8 +194,6 @@
   <string name="encrypt_keys_dialog_message">Betalinger fra lommeboken din vil være beskyttet med den valgte PIN-koden.</string>
   <string name="encrypt_keys_dialog_warning">Viktig: Du må huske PIN-koden din! Ikke bruk vanlige tall (som fødselsdato).</string>
   <string name="encrypt_keys_dialog_password_old">Gammel PIN</string>
-  <string name="encrypt_keys_dialog_password_new">PIN</string>
-  <string name="encrypt_keys_dialog_bad_password">feil PIN!</string>
   <string name="encrypt_keys_dialog_password_strength_weak">svak</string>
   <string name="encrypt_keys_dialog_password_strength_fair">tilfredsstillende</string>
   <string name="encrypt_keys_dialog_password_strength_good">god</string>
@@ -297,6 +291,8 @@
   <string name="action_browse">Se gjennom</string>
   <string name="time_today">i dag</string>
   <string name="address_unlabeled">(ingen merkelapp)</string>
+  <string name="private_key_password">PIN</string>
+  <string name="private_key_bad_password">feil PIN!</string>
   <!--generic error messages-->
   <string name="error_io">I/O-feil: %s</string>
   <string name="error_parse">Syntaksfeil: %s</string>

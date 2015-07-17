@@ -72,8 +72,6 @@
   <string name="send_coins_fragment_direct_payment_nack">Je betaling is afgewezen via de directe verbinding.</string>
   <string name="send_coins_fragment_direct_payment_failed_title">Directe betaling is mislukt</string>
   <string name="send_coins_fragment_direct_payment_failed_msg">Je betaling zal alsong via het P2P-netwerk verzonden worden.</string>
-  <string name="send_coins_fragment_private_key_password">PIN code</string>
-  <string name="send_coins_fragment_private_key_bad_password">PIN code niet correct!</string>
   <string name="send_coins_fragment_button_send">Verzenden</string>
   <string name="send_coins_fragment_button_back">Terug</string>
   <string name="send_coins_fragment_insufficient_money_title">Niet genoeg bruikbare munten</string>
@@ -105,8 +103,6 @@
   <string name="sweep_wallet_options_reload">Saldo verversen</string>
   <string name="maintenance_dialog_title">Onderhoud aanbevolen</string>
   <string name="maintenance_dialog_message">U ontving %1$s op onveilige adressen. Wilt U deze bitcoins overbrengen naar veilige adressen? Een kleine netwerk onkostenvergoeding ter grootte van %2$s zal worden afgedragen.</string>
-  <string name="maintenance_dialog_private_key_password">PIN code</string>
-  <string name="maintenance_dialog_private_key_bad_password">PIN code onjuist!</string>
   <string name="maintenance_dialog_state_decrypting">Versleuteling opheffen…</string>
   <string name="maintenance_dialog_state_done">Klaar.</string>
   <string name="maintenance_dialog_button_move">Verplaats</string>
@@ -187,8 +183,6 @@
   <string name="encrypt_keys_dialog_message">Om te kunnen betalen met uw wallet zal als extra bescherming om uw gekozen PIN code gevraagd worden.</string>
   <string name="encrypt_keys_dialog_warning">Belangrijk: gebruik geen makkelijk te raden nummers (zoals geboortedatum) in uw PIN code.</string>
   <string name="encrypt_keys_dialog_password_old">Oude PIN code</string>
-  <string name="encrypt_keys_dialog_password_new">PIN code</string>
-  <string name="encrypt_keys_dialog_bad_password">PIN code onjuist!</string>
   <string name="encrypt_keys_dialog_password_strength_weak">zwak</string>
   <string name="encrypt_keys_dialog_password_strength_fair">redelijk</string>
   <string name="encrypt_keys_dialog_password_strength_good">goed</string>
@@ -279,6 +273,8 @@
   <string name="action_browse">Bladeren</string>
   <string name="time_today">vandaag</string>
   <string name="address_unlabeled">(niet-gemerkt)</string>
+  <string name="private_key_password">PIN code</string>
+  <string name="private_key_bad_password">PIN code niet correct!</string>
   <!--generic error messages-->
   <string name="error_io">I/O-fout: %s</string>
   <string name="error_parse">Parseerfout: %s</string>

@@ -74,8 +74,6 @@
   <string name="send_coins_fragment_direct_payment_nack">A fizetésed vissza lett utasítva közvetlen kapcsolaton.</string>
   <string name="send_coins_fragment_direct_payment_failed_title">Közvetlen fizetés sikertelen</string>
   <string name="send_coins_fragment_direct_payment_failed_msg">A fizetésed közvetítve lesz a P2P hálózattal.</string>
-  <string name="send_coins_fragment_private_key_password">PIN</string>
-  <string name="send_coins_fragment_private_key_bad_password">rossz PIN!</string>
   <string name="send_coins_fragment_button_send">Küldés</string>
   <string name="send_coins_fragment_button_back">Vissza</string>
   <string name="send_coins_fragment_insufficient_money_title">Nincs elég elérhető érme</string>
@@ -111,8 +109,6 @@
   <string name="sweep_wallet_options_reload">Egyenleg újratöltése</string>
   <string name="maintenance_dialog_title">Karbantartás ajánlott</string>
   <string name="maintenance_dialog_message">Kaptál %1$s-t nem biztonságos címekre. Szeretnéd áthelyezni ezeket az érmeket biztonságos címekre? Egy kis hálózati díj, %2$s kerül kifizetésre.</string>
-  <string name="maintenance_dialog_private_key_password">PIN</string>
-  <string name="maintenance_dialog_private_key_bad_password">rossz PIN!</string>
   <string name="maintenance_dialog_state_decrypting">Visszafejtés…</string>
   <string name="maintenance_dialog_state_done">Kész.</string>
   <string name="maintenance_dialog_button_move">Áthelyezés</string>
@@ -198,8 +194,6 @@
   <string name="encrypt_keys_dialog_message">A tárcádból való költés a választott PIN-nel lesz védve.</string>
   <string name="encrypt_keys_dialog_warning">Fontos: Emlékezned kell a PIN-edre! Ne használj gyakori számokat (mint születésnapok).</string>
   <string name="encrypt_keys_dialog_password_old">Régi PIN</string>
-  <string name="encrypt_keys_dialog_password_new">PIN</string>
-  <string name="encrypt_keys_dialog_bad_password">rossz PIN!</string>
   <string name="encrypt_keys_dialog_password_strength_weak">gyenge</string>
   <string name="encrypt_keys_dialog_password_strength_fair">kielégítő</string>
   <string name="encrypt_keys_dialog_password_strength_good">jó</string>
@@ -292,6 +286,8 @@
   <string name="action_browse">Böngészés</string>
   <string name="time_today">ma</string>
   <string name="address_unlabeled">(címke nélkül)</string>
+  <string name="private_key_password">PIN</string>
+  <string name="private_key_bad_password">rossz PIN!</string>
   <!--generic error messages-->
   <string name="error_io">I/O hiba: %s</string>
   <string name="error_parse">Elemzés hiba: %s</string>

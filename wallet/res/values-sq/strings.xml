@@ -74,8 +74,6 @@
   <string name="send_coins_fragment_direct_payment_nack">Pagesa juaj e drejtpërdrejt është refuzuar.</string>
   <string name="send_coins_fragment_direct_payment_failed_title">Pagesa e drejtpërdrejt dështoi</string>
   <string name="send_coins_fragment_direct_payment_failed_msg">Pagesa juaj prapë do të transmetohet nga rrjeti P2P.</string>
-  <string name="send_coins_fragment_private_key_password">PIN-i</string>
-  <string name="send_coins_fragment_private_key_bad_password">PIN i gabuar!</string>
   <string name="send_coins_fragment_button_send">Dërgo</string>
   <string name="send_coins_fragment_button_back">Mbrapa</string>
   <string name="send_coins_fragment_insufficient_money_title">Nuk keni mjaft monedha</string>
@@ -107,8 +105,6 @@
   <string name="sweep_wallet_options_reload">Rimbusheni bilancin</string>
   <string name="maintenance_dialog_title">Rekomandohet mirëmbajtja</string>
   <string name="maintenance_dialog_message">Ju keni pranuar %1$s në nje adres jo të sigurt. Deshironi t\'i zhvendosni ketë monedha në një adres të sigurt? Një tarif të vogël prej %2$s duhet të paguhet.</string>
-  <string name="maintenance_dialog_private_key_password">PIN-i</string>
-  <string name="maintenance_dialog_private_key_bad_password">PIN i gabuar!</string>
   <string name="maintenance_dialog_state_decrypting">Duke dekriptuar…</string>
   <string name="maintenance_dialog_state_done">I përfunduar.</string>
   <string name="maintenance_dialog_button_move">Lëviz</string>
@@ -193,8 +189,6 @@
   <string name="encrypt_keys_dialog_message">Shpenzimi nga kuleta juaj do të mbrohet me PIN-in qe caktoni.</string>
   <string name="encrypt_keys_dialog_warning">Kujdes: Mos përdorni numra të zakonshëm (si psh datëlindje) në PIN-in tuaj.</string>
   <string name="encrypt_keys_dialog_password_old">PIN i vjetër</string>
-  <string name="encrypt_keys_dialog_password_new">PIN-i</string>
-  <string name="encrypt_keys_dialog_bad_password">PIN i gabuar!</string>
   <string name="encrypt_keys_dialog_password_strength_weak">i lehtë</string>
   <string name="encrypt_keys_dialog_password_strength_fair">mesatar</string>
   <string name="encrypt_keys_dialog_password_strength_good">i mirë</string>
@@ -285,6 +279,8 @@
   <string name="action_browse">Shfleto</string>
   <string name="time_today">sot</string>
   <string name="address_unlabeled">(paetiketuar)</string>
+  <string name="private_key_password">PIN-i</string>
+  <string name="private_key_bad_password">PIN i gabuar!</string>
   <!--generic error messages-->
   <string name="error_io">I/O gabim: %s</string>
   <string name="error_parse">Parse gabim: %s</string>

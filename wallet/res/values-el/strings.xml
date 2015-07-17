@@ -49,8 +49,6 @@
   <string name="send_coins_fragment_pending">(%s αναμονή για επιβεβαίωση)</string>
   <string name="send_coins_fragment_amount_label">Ποσό να πληρωθεί</string>
   <string name="send_coins_fragment_direct_payment_failed_title">Η άμεση πληρωμή απέτυχε</string>
-  <string name="send_coins_fragment_private_key_password">PIN</string>
-  <string name="send_coins_fragment_private_key_bad_password">λάθος PIN</string>
   <string name="send_coins_fragment_button_send">Αποστολή</string>
   <string name="send_coins_fragment_button_back">Πίσω</string>
   <string name="send_coins_fragment_insufficient_money_title">Ανεπαρκή διαθέσιμα νομίσματα</string>
@@ -79,8 +77,6 @@
   <string name="sweep_wallet_fragment_insufficient_money_msg">Το ποσό των νομισμάτων στο πορτοφόλι είναι πολύ μικρό για το σάρωση.</string>
   <string name="sweep_wallet_options_reload">Ανανέωση υπολοίπου</string>
   <string name="maintenance_dialog_title">Συνιστάται συντήρηση</string>
-  <string name="maintenance_dialog_private_key_password">PIN</string>
-  <string name="maintenance_dialog_private_key_bad_password">λάθος PIN</string>
   <string name="maintenance_dialog_state_decrypting">Αποκρυπτογράφηση…</string>
   <string name="maintenance_dialog_state_done">Ολοκληρώθηκε.</string>
   <string name="maintenance_dialog_button_move">Μετακίνηση</string>
@@ -156,8 +152,6 @@
   <string name="encrypt_keys_dialog_message">Οι δαπάνες από το πορτοφόλι σας θα πρέπει να προστατεύονται με το επιλεγμένη PIN.</string>
   <string name="encrypt_keys_dialog_warning">Σημαντικό: Μη χρησιμοποιείτε κοινούς αριθμούς (όπως ημερομηνίες γέννησης) στο PIN σας.</string>
   <string name="encrypt_keys_dialog_password_old">Παλιό PIN</string>
-  <string name="encrypt_keys_dialog_password_new">PIN</string>
-  <string name="encrypt_keys_dialog_bad_password">κακό PIN!</string>
   <string name="encrypt_keys_dialog_password_strength_weak">αδύναμο</string>
   <string name="encrypt_keys_dialog_password_strength_fair">μέτριο</string>
   <string name="encrypt_keys_dialog_password_strength_good">καλό</string>
@@ -242,6 +236,8 @@
   <string name="action_browse">Πλοήγηση</string>
   <string name="time_today">σήμερα</string>
   <string name="address_unlabeled">(χωρίς ετικέτα)</string>
+  <string name="private_key_password">PIN</string>
+  <string name="private_key_bad_password">λάθος PIN</string>
   <!--generic error messages-->
   <string name="error_parse">Λάθος εισαγωγή: %s</string>
   <string name="error_http">HTTP σφάλμα %1$s:\n%2$s</string>
