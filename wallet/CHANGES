@@ -1,3 +1,8 @@
+v4.37
+
+* Allow raising the fee of an unconfirmed transaction. Uses child-pays-for-parent (CPFP).
+* Fix crash when sharing address.
+
 v4.36
 
 * Pay the default fee for sweeping paper wallets.
