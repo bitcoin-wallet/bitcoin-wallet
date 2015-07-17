@@ -79,7 +79,7 @@ public final class EditAddressBookEntryFragment extends DialogFragment
 		final EditAddressBookEntryFragment fragment = new EditAddressBookEntryFragment();
 
 		final Bundle args = new Bundle();
-		args.putSerializable(KEY_ADDRESS, address);
+		args.putString(KEY_ADDRESS, address.toString());
 		args.putString(KEY_SUGGESTED_ADDRESS_LABEL, suggestedAddressLabel);
 		fragment.setArguments(args);
 
@@ -105,7 +105,7 @@ public final class EditAddressBookEntryFragment extends DialogFragment
 	public Dialog onCreateDialog(final Bundle savedInstanceState)
 	{
 		final Bundle args = getArguments();
-		final Address address = (Address) args.getSerializable(KEY_ADDRESS);
+		final Address address = WalletUtils.newAddressOrThrow(Constants.NETWORK_PARAMETERS, args.getString(KEY_ADDRESS));
 		final String suggestedAddressLabel = args.getString(KEY_SUGGESTED_ADDRESS_LABEL);
 
 		final LayoutInflater inflater = LayoutInflater.from(activity);
