@@ -29,6 +29,9 @@ import android.os.Parcelable;
 
 import com.google.common.base.Objects;
 
+import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.util.WalletUtils;
+
 /**
  * @author Andreas Schildbach
  */
@@ -75,9 +78,7 @@ public class AddressAndLabel implements Parcelable
 	@Override
 	public void writeToParcel(final Parcel dest, final int flags)
 	{
-		dest.writeSerializable(address.getParameters());
-		dest.writeByteArray(address.getHash160());
-
+		dest.writeString(address.toString());
 		dest.writeString(label);
 	}
 
@@ -98,11 +99,7 @@ public class AddressAndLabel implements Parcelable
 
 	private AddressAndLabel(final Parcel in)
 	{
-		final NetworkParameters addressParameters = (NetworkParameters) in.readSerializable();
-		final byte[] addressHash = new byte[Address.LENGTH];
-		in.readByteArray(addressHash);
-		address = new Address(addressParameters, addressHash);
-
+		address = WalletUtils.newAddressOrThrow(Constants.NETWORK_PARAMETERS, in.readString());
 		label = in.readString();
 	}
 }
