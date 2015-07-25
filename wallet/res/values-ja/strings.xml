@@ -65,7 +65,7 @@
   <string name="send_coins_fragment_receiving_address_complex">複雑な\nアドレス</string>
   <string name="send_coins_fragment_pending">(%sが確認待ちです)</string>
   <string name="send_coins_fragment_amount_label">合計支払</string>
-  <string name="send_coins_fragment_hint_fee">%sの少額のネットワーク料金が課金されます。</string>
+  <string name="send_coins_fragment_hint_fee">%sの少額のネットワーク手数料が課金されます。</string>
   <string name="send_coins_fragment_hint_dusty_send">送金額小さすぎます</string>
   <string name="send_coins_fragment_hint_insufficient_money">ご利用できるコインが足りません。%sが不足です。</string>
   <string name="send_coins_fragment_hint_empty_wallet_failed">ウォレット中の少額の支払いを合計しても送信可能な額には足りませんでした。</string>
@@ -91,6 +91,11 @@
   <string name="send_coins_options_fee_category_normal">通常</string>
   <string name="send_coins_options_fee_category_priority">優先</string>
   <string name="send_coins_options_empty">ウォレットが空です</string>
+  <string name="raise_fee_dialog_title">ネットワーク手数料の増額</string>
+  <string name="raise_fee_dialog_message">この支払いの手数料を%sだけ増やしますか? これにより支払いの承認が早くなります。</string>
+  <string name="raise_fee_dialog_state_decrypting">復号中……</string>
+  <string name="raise_fee_dialog_state_done">完了。</string>
+  <string name="raise_fee_dialog_button_raise">増額</string>
   <string name="sweep_wallet_activity_title">ペーパーウォレットをスウィープする</string>
   <string name="sweep_wallet_fragment_intro">ペーパーウォレットもしくはクーポンをスィープしようとしています。全てのコインがそのペーパーからあなたのデバイス上のウォレットへ移動します。トランザクションが確定した際にそのペーパーは無効になります。セキュリティ上の理由からペーパーは再利用すべきではないでしょう。</string>
   <string name="sweep_wallet_fragment_hint">ペーパーウォレットは主にコールドストレージ用に利用されています。一部のATMでは、直接デバイスへコインを送るのではなく、紙片にそれを印刷します。時折、あらかじめチャージしたペーパーウォレットを対価として渡す人もいます(お勧めはしません)。</string>
@@ -108,7 +113,7 @@
   <string name="sweep_wallet_fragment_insufficient_money_msg">ウォレット内のコインがスイープするには不十分です。</string>
   <string name="sweep_wallet_options_reload">残高のリロード</string>
   <string name="maintenance_dialog_title">補修をお勧めします</string>
-  <string name="maintenance_dialog_message">安全でないアドレス宛てに %1$s を受け取りました。このコインを安全なアドレスに移動しますか? 少額ですがネットワーク代として %2$s が支払われます。</string>
+  <string name="maintenance_dialog_message">安全でないアドレス宛てに %1$s を受け取りました。このコインを安全なアドレスに移動しますか? 少額ですがネットワーク手数料として %2$s が支払われます。</string>
   <string name="maintenance_dialog_state_decrypting">復号中……</string>
   <string name="maintenance_dialog_state_done">完了</string>
   <string name="maintenance_dialog_button_move">移動</string>
@@ -145,8 +150,9 @@
   <string name="edit_address_book_entry_dialog_address_label">アドレス</string>
   <string name="edit_address_book_entry_dialog_label_label">ラベル</string>
   <string name="edit_address_book_entry_dialog_button_edit">保存</string>
-  <string name="transaction_row_fee">ネットワーク料金</string>
+  <string name="transaction_row_fee">ネットワーク手数料</string>
   <string name="transaction_row_message_purpose_key_rotation">このトランザクションはウォレットの窃盗に対する強度を上げます。&lt;u&gt;より詳細な情報。&lt;/u&gt;</string>
+  <string name="transaction_row_message_purpose_raise_fee">このトランザクションは前の支払いのネットワーク手数料を増額します。</string>
   <string name="transaction_row_message_own_unbroadcasted">この支払はまだ送信されていません。</string>
   <string name="transaction_row_message_received_direct">この支払は直接届きました。利用可能とならないリスクがあります。</string>
   <string name="transaction_row_message_received_unconfirmed_unlocked">この支払は数分程度で利用可能となります。</string>
@@ -216,6 +222,11 @@
   <string name="preferences_category_labs">ラボ</string>
   <string name="preferences_precision_title">通貨単位の切り下げと切り上げ</string>
   <string name="preferences_precision_summary">総額の表示単位。これは計算に影響しません。</string>
+  <string name="preferences_precision_labels_8">BTC、小数点以下8桁</string>
+  <string name="preferences_precision_labels_6">BTC、小数点以下6桁</string>
+  <string name="preferences_precision_labels_4">BTC、小数点以下4桁</string>
+  <string name="preferences_precision_labels_2_3">mBTC、小数点以下2桁</string>
+  <string name="preferences_precision_labels_0_6">µBTC、小数点無し</string>
   <string name="preferences_own_name_title">自身の名前</string>
   <string name="preferences_own_name_summary">支払いリクエストに含める、あなた自身の名前。短いものにしてください。</string>
   <string name="preferences_connectivity_notification_title">接続インジゲーター</string>
@@ -284,10 +295,11 @@
   <string name="button_settings">設定</string>
   <string name="action_show_qr">QRコードを表示</string>
   <string name="action_browse">ブラウズ</string>
+  <!--generic strings-->
   <string name="time_today">今日</string>
   <string name="address_unlabeled">(ラベルなし)</string>
   <string name="private_key_password">PIN</string>
-  <string name="private_key_bad_password">間違ったPINです!</string>
+  <string name="private_key_bad_password">PINが違います!</string>
   <!--generic error messages-->
   <string name="error_io">入出力エラー: %s</string>
   <string name="error_parse">パースエラー:%s</string>
