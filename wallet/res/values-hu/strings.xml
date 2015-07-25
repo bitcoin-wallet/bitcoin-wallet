@@ -91,6 +91,11 @@
   <string name="send_coins_options_fee_category_normal">Normál</string>
   <string name="send_coins_options_fee_category_priority">Elsőbbségi</string>
   <string name="send_coins_options_empty">Üres tárca</string>
+  <string name="raise_fee_dialog_title">Hálózati díj emelése</string>
+  <string name="raise_fee_dialog_message">Meg akarod emelni ennek a fizetésnek a díját ennyivel: %s? Ez a fizetés megerősítést gyorsabbá teszi.</string>
+  <string name="raise_fee_dialog_state_decrypting">Visszafejtés…</string>
+  <string name="raise_fee_dialog_state_done">Kész.</string>
+  <string name="raise_fee_dialog_button_raise">Emelés</string>
   <string name="sweep_wallet_activity_title">Papírtárca söprése</string>
   <string name="sweep_wallet_fragment_intro">Arra készülsz, hogy söpörj egy papírtárcát vagy kupont. Ez áthelyezi az összes érmét arról a papírról az ezen az eszközön lévő tárcádba. Amennyiben a tranzakció megerősített, a papír értéktelen lesz és nem kéne újra használni biztonsági okokból.</string>
   <string name="sweep_wallet_fragment_hint">A papírtárcák leggyakrabban hűtőháznak vannak használva. Néhány ATM a saját papírfecnijére nyomtatja inkább, minthogy elküldje az érmeket a mobileszközödre közvetlenül. Az emberek néha előre feltöltött papírtárcát használnak, hogy értéket mozgósítsanak (nem ajánlott).</string>
@@ -147,6 +152,7 @@
   <string name="edit_address_book_entry_dialog_button_edit">Mentés</string>
   <string name="transaction_row_fee">Hálózati díj</string>
   <string name="transaction_row_message_purpose_key_rotation">A művelet megerősíti a tárcád védelmét a lopások ellen. &lt;u&gt;Bővebb információ&lt;/u&gt;</string>
+  <string name="transaction_row_message_purpose_raise_fee">Ez a tranzakció felemeli a hálózati díjat egy korábbi fizetésért.</string>
   <string name="transaction_row_message_own_unbroadcasted">Ez a kifizetés még nem került elküldésre.</string>
   <string name="transaction_row_message_received_direct">Ez a fizetés közvetlenül érkezett. Fennáll a veszélye, hogy talán soha nem lesz elkölthető.</string>
   <string name="transaction_row_message_received_unconfirmed_unlocked">Ez a kifizetés perceken belül hozzáférhetővé válik.</string>
@@ -216,6 +222,11 @@
   <string name="preferences_category_labs">Labs</string>
   <string name="preferences_precision_title">Pontosítás és egyszerűsítés</string>
   <string name="preferences_precision_summary">Egység, amelyben mutatja a mennyiséget. Ez nem érinti a számításokat.</string>
+  <string name="preferences_precision_labels_8">BTC, 8 tizedeshely</string>
+  <string name="preferences_precision_labels_6">BTC, 6 tizedeshely</string>
+  <string name="preferences_precision_labels_4">BTC, 4 tizedeshely</string>
+  <string name="preferences_precision_labels_2_3">mBTC, 2 tizedeshely</string>
+  <string name="preferences_precision_labels_0_6">µBTC, nincs tizedeshely</string>
   <string name="preferences_own_name_title">Saját név</string>
   <string name="preferences_own_name_summary">Saját elnevezésed, ami a fizetési kérelemhez adódik. Próbáld rövidre.</string>
   <string name="preferences_connectivity_notification_title">Kapcsolódás jelző</string>
@@ -284,6 +295,7 @@
   <string name="button_settings">Beállítások</string>
   <string name="action_show_qr">QR-kód megtekintése</string>
   <string name="action_browse">Böngészés</string>
+  <!--generic strings-->
   <string name="time_today">ma</string>
   <string name="address_unlabeled">(címke nélkül)</string>
   <string name="private_key_password">PIN</string>
