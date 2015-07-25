@@ -91,6 +91,11 @@
   <string name="send_coins_options_fee_category_normal">Normal</string>
   <string name="send_coins_options_fee_category_priority">Prioritert</string>
   <string name="send_coins_options_empty">Tøm lommebok</string>
+  <string name="raise_fee_dialog_title">Øk nettverksgebyret</string>
+  <string name="raise_fee_dialog_message">Ønsker du å øke gebyret for denne betalingen med %s? Det vil gjøre at betalingen godkjennes raskere.</string>
+  <string name="raise_fee_dialog_state_decrypting">Dekrypterer…</string>
+  <string name="raise_fee_dialog_state_done">Ferdig.</string>
+  <string name="raise_fee_dialog_button_raise">Øk</string>
   <string name="sweep_wallet_activity_title">Sveip en papirlommebok</string>
   <string name="sweep_wallet_fragment_intro">Du er i ferd med å sveipe en papirlommebok eller kupong. Dette vil flytte alle myntene fra dette papiret til din lommebok på denne enheten. Når transaksjonen er bekreftet, vil papiret være verdiløst og bør ikke brukes om igjen av sikkerhetsmessige grunner.</string>
   <string name="sweep_wallet_fragment_hint">Papirlommebøker er mest brukt til kaldlagring. Noen minibanker skriver dem ut på papir fremfor å sende myntene til den mobile enheten direkte. Folk bruker noen ganger forhåndslastede papirlommebøker for å utveksle verdier (anbefales ikke).</string>
@@ -147,6 +152,7 @@
   <string name="edit_address_book_entry_dialog_button_edit">Lagre</string>
   <string name="transaction_row_fee">Nettverksgebyr</string>
   <string name="transaction_row_message_purpose_key_rotation">Denne transaksjonen styrker din lommebok mot tyveri. &lt;u&gt;Mer info.&lt;/u&gt;</string>
+  <string name="transaction_row_message_purpose_raise_fee">Denne transaksjonen øker nettverksgebyret for en tidligere betaling.</string>
   <string name="transaction_row_message_own_unbroadcasted">Denne betalingen er ikke sendt ennå.</string>
   <string name="transaction_row_message_received_direct">Denne betalingen er mottatt direkte. Det er en risiko for at den aldri blir brukbar.</string>
   <string name="transaction_row_message_received_unconfirmed_unlocked">Denne betalingen bør bli brukbar om få minutter.</string>
@@ -289,6 +295,7 @@
   <string name="button_settings">Innstillinger</string>
   <string name="action_show_qr">Vis QR-kode</string>
   <string name="action_browse">Se gjennom</string>
+  <!--generic strings-->
   <string name="time_today">i dag</string>
   <string name="address_unlabeled">(ingen merkelapp)</string>
   <string name="private_key_password">PIN</string>
