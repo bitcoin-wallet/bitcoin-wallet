@@ -1,3 +1,8 @@
+v4.38
+
+* Bugfixes.
+* Update Korean translation.
+
 v4.37
 
 * Allow raising the fee of an unconfirmed transaction. Uses child-pays-for-parent (CPFP).
