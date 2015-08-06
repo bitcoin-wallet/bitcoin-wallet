@@ -815,7 +815,7 @@ public final class SendCoinsFragment extends Fragment
 		activity.finish();
 	}
 
-	private boolean isPayerPlausible()
+	private boolean isPayeePlausible()
 	{
 		if (paymentIntent.hasOutputs())
 			return true;
@@ -846,12 +846,12 @@ public final class SendCoinsFragment extends Fragment
 
 	private boolean everythingPlausible()
 	{
-		return state == State.INPUT && isPayerPlausible() && isAmountPlausible() && isPasswordPlausible();
+		return state == State.INPUT && isPayeePlausible() && isAmountPlausible() && isPasswordPlausible();
 	}
 
 	private void requestFocusFirst()
 	{
-		if (!isPayerPlausible())
+		if (!isPayeePlausible())
 			receivingAddressView.requestFocus();
 		else if (!isAmountPlausible())
 			amountCalculatorLink.requestFocus();
