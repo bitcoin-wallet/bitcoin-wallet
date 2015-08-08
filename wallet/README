@@ -85,6 +85,7 @@ To install the app on your Android device, use
 
 	# first time only
 	sudo apt-get install android-tools-adb
+	Make sure "Developer options" and "USB debugging" are enabled on your Android device.
 
 	# each time
 	adb install wallet/build/outputs/apk/bitcoin-wallet-debug.apk
