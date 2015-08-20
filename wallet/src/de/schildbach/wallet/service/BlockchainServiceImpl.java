@@ -646,18 +646,23 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 			blockStore.getChainHead(); // detect corruptions as early as possible
 
 			final long earliestKeyCreationTime = wallet.getEarliestKeyCreationTime();
-
-			if (!blockChainFileExists && earliestKeyCreationTime > 0)
+			try
 			{
-				try
+				final InputStream checkpointsInputStream = getAssets().open(Constants.CHECKPOINTS_FILENAME);
+				final CheckpointManager checkpointManager = new CheckpointManager(Constants.NETWORK_PARAMETERS, checkpointsInputStream);
+				log.info("Earliest creation time: " + wallet.getEarliestKeyCreationTime());
+
+				if (!blockChainFileExists && earliestKeyCreationTime > 0)
 				{
-					final InputStream checkpointsInputStream = getAssets().open(Constants.CHECKPOINTS_FILENAME);
-					CheckpointManager.checkpoint(Constants.NETWORK_PARAMETERS, checkpointsInputStream, blockStore, earliestKeyCreationTime);
+					final StoredBlock checkpoint = checkpointManager.getCheckpointBefore(earliestKeyCreationTime);
+					blockStore.put(checkpoint);
+					blockStore.setChainHead(checkpoint);
+
 				}
-				catch (final IOException x)
-				{
-					log.error("problem reading checkpoints, continuing without", x);
-				}
+			}
+			catch (final IOException x)
+			{
+				log.error("problem reading checkpoints, continuing without", x);
 			}
 		}
 		catch (final BlockStoreException x)

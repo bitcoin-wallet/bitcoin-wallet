@@ -224,15 +224,16 @@ public final class WalletActivity extends AbstractOnDemandServiceActivity
             @Override
             protected void handlePrivateKey(@Nonnull final ECKey key) {
                 // We actually want to add this key to the wallet here.
-                // Set the creation time to now
-                key.setCreationTimeSeconds(System.currentTimeMillis() / 1000);
+                // Set the creation time to the beginning of time so reset picks up
+				// blocks that contain transactions
+                key.setCreationTimeSeconds(0);
                 final Address address = new Address(Constants.NETWORK_PARAMETERS, key.getPubKeyHash());
                 new AlertDialog.Builder(WalletActivity.this)
                         .setTitle("Import Private Key")
                         .setMessage("Would you like to add " +
                                 address.toString() +
                                 " to your wallet?  If there are currently funds on it, they will only be accessible " +
-                                "by resetting the blockchain, which can take a very long time.  If it is a new " +
+                                "by resetting the blockchain completely, which can take a very long time.  If it is a new " +
                                 "empty address, everything should work fine.")
                         .setCancelable(true)
                         .setNeutralButton(android.R.string.cancel,
