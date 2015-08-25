@@ -31,7 +31,10 @@ android {
     compileSdkVersion 'android-16'
     buildToolsVersion '22.0.1'
 
-    lintOptions { abortOnError false }
+    lintOptions {
+        abortOnError false
+        disable 'MissingTranslation'
+    }
 
     buildTypes {
         all {
