@@ -252,13 +252,7 @@ public final class ExchangeRatesFragment extends FancyListFragment implements On
 		balance = application.getWallet().getBalance(BalanceType.ESTIMATED);
 
 		if (adapter != null)
-		{
-			final int btcShift = config.getBtcShift();
-
-			final Coin base = btcShift == 0 ? Coin.COIN : Coin.MILLICOIN;
-
-			adapter.setRateBase(base);
-		}
+			adapter.setRateBase(config.getBtcBase());
 	}
 
 	private final LoaderCallbacks<Cursor> rateLoaderCallbacks = new LoaderManager.LoaderCallbacks<Cursor>()

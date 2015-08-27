@@ -92,6 +92,19 @@ public class Configuration
 			return PREFS_DEFAULT_BTC_SHIFT;
 	}
 
+	public Coin getBtcBase()
+	{
+		final int shift = getBtcShift();
+		if (shift == 0)
+			return Coin.COIN;
+		else if (shift == 3)
+			return Coin.MILLICOIN;
+		else if (shift == 6)
+			return Coin.MICROCOIN;
+		else
+			throw new IllegalStateException("cannot handle shift: " + shift);
+	}
+
 	public MonetaryFormat getFormat()
 	{
 		final int shift = getBtcShift();
