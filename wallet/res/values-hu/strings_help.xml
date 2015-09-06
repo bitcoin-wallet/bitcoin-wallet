@@ -4,7 +4,7 @@
 <![CDATA[
 		<p>
 			A bal felső része a kijelzőnek megjeleníti az egyenleged Bitcoin-ban és egy választott nemzeti valutát.
-			Érints meg a nemzeti valutákhoz való ugráshoz, és érints meg egy valutát az alapértelmezett választásához.
+			Érintsd meg a nemzeti valutákhoz való ugráshoz, és érints meg egy valutát az alapértelmezett választásához.
 		</p>
 		<p>
 			A QR kód a jobb oldalon tartalmazza a bitcoin címed és használható másik fél általi beolvasásra.
@@ -28,7 +28,7 @@
 			Ezt a dialógot használva kérhetsz érméket másik személytől (akinek már fel van telepítve a Bitcoin Wallet).
 		</p>
 		<p>
-			Először adj meg egy összeget Bitcoin-ból a kéréshez.
+			Először adj meg egy Bitcoin összeget a kéréshez.
 		</p>
 		<p>
 			Aztán egyikőtöknek megvan a generált QR kód a másik személy által beolvasva.
@@ -81,12 +81,12 @@
 			<b>Ha elveszted, akkor elveszted a Bitcoin-jaidat is.</b>
 		</p>
 		<p>
-			Ez azt jelenti, hogy kell csinálnod <b>biztonsági mentést a tárcádról</b>!
-			Inkább használd az alkalmazáson belüli biztonsági mentés lehetőséget erre, mint egy harmadik fél biztonsági mentés alkalmazását.
+			Ez azt jelenti, hogy készítened kell <b>biztonsági mentést a tárcádról</b>!
+			Erre inkább az alkalmazáson belüli biztonsági mentés lehetőséget használd, mint egy harmadik fél biztonsági mentés alkalmazását.
 			Tartsd a biztonsági mentésed biztonságban és emlékezz a jelszóra.
 		</p>
 		<p>
-			<b>Eltávolítás előtt</b> (vagy alkalmazás adatainak törlése/készüléked törlése előttl), <b>utald át a Bitcoin-jaidat másik tárcába</b>.
+			<b>Eltávolítás előtt</b> (vagy alkalmazás adatainak törlése/készüléked törlése előtt), <b>utald át a Bitcoin-jaidat másik tárcába</b>.
 			A fennmaradó Bitcoin-ok elvesznek.
 		</p>
 		<p>
@@ -96,7 +96,7 @@
 		<p>
 			<b>Tartsd a mobilkészülékedet biztonságban!</b>
 			Ne root-old a készüléked.
-			Csak olyan alkalmazásokat telepíts, amikben teljesen megbízol..
+			Csak olyan alkalmazásokat telepíts, amikben teljesen megbízol.
 			A rosszindulatú alkalmazások megpróbálhatják ellopni a tárcádat.
 		</p>
 		<p>
