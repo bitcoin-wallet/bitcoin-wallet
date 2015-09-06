@@ -91,6 +91,11 @@
   <string name="send_coins_options_fee_category_normal">Normal</string>
   <string name="send_coins_options_fee_category_priority">Prioritet</string>
   <string name="send_coins_options_empty">Tom wallet</string>
+  <string name="raise_fee_dialog_title">Höj nätverksavgift</string>
+  <string name="raise_fee_dialog_message">Vill du höja avgiften på den här betalningen med %s? Det kommer göra att betalningen bekräftas snabbare.</string>
+  <string name="raise_fee_dialog_state_decrypting">Dekrypterar…</string>
+  <string name="raise_fee_dialog_state_done">Klar.</string>
+  <string name="raise_fee_dialog_button_raise">Höj</string>
   <string name="sweep_wallet_activity_title">Läs av papperswallet</string>
   <string name="sweep_wallet_fragment_intro">Du är på väg att läsa av en papperswallet eller kupong. Detta kommer att flytta alla tillgångar från papperet till din wallet på den här enheten. När transaktionen är bekräftad, kommer papperet att vara värdelöst och bör inte återanvändas av säkerhetsskäl.</string>
   <string name="sweep_wallet_fragment_hint">En papperswallet används oftast för säker långtidsförvaring. Vissa bitcoinbankomater skriver ut en sådan på ett papperskvitto istället för att skicka medel till din mobila enhet direkt. Vissa använder ibland en förladdad papperswallet för att byta och skicka medel med varandra (rekommenderas inte).</string>
@@ -147,6 +152,7 @@
   <string name="edit_address_book_entry_dialog_button_edit">Spara</string>
   <string name="transaction_row_fee">Nätverksavgift</string>
   <string name="transaction_row_message_purpose_key_rotation">Den här transaktionen stärker din plånbok mot stöld. &lt;u&gt;Mer info.&lt;/u&gt;</string>
+  <string name="transaction_row_message_purpose_raise_fee">Den här transaktionen höjer nätverksavgiften för en tidigare betalning.</string>
   <string name="transaction_row_message_own_unbroadcasted">Denna betalning har inte skickats ännu.</string>
   <string name="transaction_row_message_received_direct">Denna betalning har mottagits direkt. Det finns en risk att den aldrig kommer att kunna användas.</string>
   <string name="transaction_row_message_received_unconfirmed_unlocked">Den här betalningen borde bli spenderbar inom några minuter.</string>
@@ -216,6 +222,11 @@
   <string name="preferences_category_labs">Labb</string>
   <string name="preferences_precision_title">Valör och precision</string>
   <string name="preferences_precision_summary">Enhet för att visa belopp i. Det här påverkar inte uträkningar.</string>
+  <string name="preferences_precision_labels_8">BTC, 8 decimaler</string>
+  <string name="preferences_precision_labels_6">BTC, 6 decimaler</string>
+  <string name="preferences_precision_labels_4">BTC, 4 decimaler</string>
+  <string name="preferences_precision_labels_2_3">mBTC, 2 decimaler</string>
+  <string name="preferences_precision_labels_0_6">µBTC, inga decimaler</string>
   <string name="preferences_own_name_title">Ditt namn</string>
   <string name="preferences_own_name_summary">Skriv ditt namn för att användas vid betalningsmottagande. Gärna kort.</string>
   <string name="preferences_connectivity_notification_title">Anslutningsindikator</string>
@@ -284,10 +295,11 @@
   <string name="button_settings">Inställningar</string>
   <string name="action_show_qr">Visa QR-kod</string>
   <string name="action_browse">Bläddra</string>
+  <!--generic strings-->
   <string name="time_today">idag</string>
   <string name="address_unlabeled">(saknar etikett)</string>
   <string name="private_key_password">PIN</string>
-  <string name="private_key_bad_password">Felaktig PIN</string>
+  <string name="private_key_bad_password">fel PIN!</string>
   <!--generic error messages-->
   <string name="error_io">I/O error: %s</string>
   <string name="error_parse">Parse error: %s</string>
