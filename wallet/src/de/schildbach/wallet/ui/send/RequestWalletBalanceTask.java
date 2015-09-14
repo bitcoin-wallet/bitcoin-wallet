@@ -131,7 +131,7 @@ public final class RequestWalletBalanceTask
 						final JSONObject jsonPagination = jsonData.getJSONObject("pagination");
 
 						if (!"false".equals(jsonPagination.getString("next_page")))
-							throw new IllegalStateException("result set too big");
+							throw new IOException("result set too big");
 
 						final JSONArray jsonOutputs = jsonData.getJSONArray("outputs");
 
