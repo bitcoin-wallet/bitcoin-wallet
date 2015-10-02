@@ -226,7 +226,8 @@ public final class WalletActivity extends AbstractWalletActivity
 		super.onCreateOptionsMenu(menu);
 
 		getMenuInflater().inflate(R.menu.wallet_options, menu);
-		menu.findItem(R.id.wallet_options_donate).setVisible(false);
+		final boolean installedFromGooglePlay = "com.android.vending".equals(getPackageManager().getInstallerPackageName(getPackageName()));
+		menu.findItem(R.id.wallet_options_donate).setVisible(!Constants.TEST && !installedFromGooglePlay);
 
 		return true;
 	}
