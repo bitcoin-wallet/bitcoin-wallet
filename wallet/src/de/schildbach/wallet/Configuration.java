@@ -26,11 +26,14 @@ import org.slf4j.LoggerFactory;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
+import android.content.res.Resources;
+import android.net.Uri;
 import android.text.format.DateUtils;
 
 import com.google.common.base.Strings;
 
 import de.schildbach.wallet.ExchangeRatesProvider.ExchangeRate;
+import de.schildbach.wallet_test.R;
 
 /**
  * @author Andreas Schildbach
@@ -40,6 +43,7 @@ public class Configuration
 	public final int lastVersionCode;
 
 	private final SharedPreferences prefs;
+	private final Resources res;
 
 	public static final String PREFS_KEY_BTC_PRECISION = "btc_precision";
 	public static final String PREFS_KEY_OWN_NAME = "own_name";
@@ -47,6 +51,7 @@ public class Configuration
 	public static final String PREFS_KEY_EXCHANGE_CURRENCY = "exchange_currency";
 	public static final String PREFS_KEY_TRUSTED_PEER = "trusted_peer";
 	public static final String PREFS_KEY_TRUSTED_PEER_ONLY = "trusted_peer_only";
+	public static final String PREFS_KEY_BLOCK_EXPLORER = "block_explorer";
 	public static final String PREFS_KEY_DATA_USAGE = "data_usage";
 	public static final String PREFS_KEY_DISCLAIMER = "disclaimer";
 	private static final String PREFS_KEY_LABS_QR_PAYMENT_REQUEST = "labs_qr_payment_request";
@@ -67,9 +72,10 @@ public class Configuration
 
 	private static final Logger log = LoggerFactory.getLogger(Configuration.class);
 
-	public Configuration(final SharedPreferences prefs)
+	public Configuration(final SharedPreferences prefs, final Resources res)
 	{
 		this.prefs = prefs;
+		this.res = res;
 
 		this.lastVersionCode = prefs.getInt(PREFS_KEY_LAST_VERSION, 0);
 	}
@@ -142,6 +148,11 @@ public class Configuration
 	public boolean getTrustedPeerOnly()
 	{
 		return prefs.getBoolean(PREFS_KEY_TRUSTED_PEER_ONLY, false);
+	}
+
+	public Uri getBlockExplorer()
+	{
+		return Uri.parse(prefs.getString(PREFS_KEY_BLOCK_EXPLORER, res.getStringArray(R.array.preferences_block_explorer_values)[0]));
 	}
 
 	public boolean remindBackup()

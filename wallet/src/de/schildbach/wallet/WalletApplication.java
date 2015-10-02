@@ -118,7 +118,7 @@ public class WalletApplication extends Application
 
 		initMnemonicCode();
 
-		config = new Configuration(PreferenceManager.getDefaultSharedPreferences(this));
+		config = new Configuration(PreferenceManager.getDefaultSharedPreferences(this), getResources());
 		activityManager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
 
 		blockchainServiceIntent = new Intent(this, BlockchainServiceImpl.class);
@@ -551,7 +551,7 @@ public class WalletApplication extends Application
 
 	public static void scheduleStartBlockchainService(final Context context)
 	{
-		final Configuration config = new Configuration(PreferenceManager.getDefaultSharedPreferences(context));
+		final Configuration config = new Configuration(PreferenceManager.getDefaultSharedPreferences(context), context.getResources());
 		final long lastUsedAgo = config.getLastUsedAgo();
 
 		// apply some backoff

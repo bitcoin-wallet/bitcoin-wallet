@@ -135,7 +135,7 @@ public class ExchangeRatesProvider extends ContentProvider
 	{
 		final Context context = getContext();
 
-		this.config = new Configuration(PreferenceManager.getDefaultSharedPreferences(context));
+		this.config = new Configuration(PreferenceManager.getDefaultSharedPreferences(context), context.getResources());
 
 		this.userAgent = WalletApplication.httpUserAgent(WalletApplication.packageInfoFromContext(context).versionName);
 
