@@ -21,8 +21,8 @@
 		<item>@string/preferences_precision_labels_0_6</item>
 	</string-array>
 	<string-array name="preferences_block_explorer_values">
-		<item>https://testnet.blockexplorer.com/</item>
-		<item>https://www.biteasy.com/testnet/</item>
+		<item>https://blockexplorer.com/</item>
+		<item>https://www.biteasy.com/</item>
 	</string-array>
 	<string-array name="preferences_block_explorer_labels">
 		<item>blockexplorer.com</item>
