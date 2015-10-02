@@ -22,12 +22,14 @@
         <item>@string/preferences_precision_labels_0_6</item>
     </string-array>
     <string-array name="preferences_block_explorer_values">
-        <item>https://www.blockchain.com/btctest/</item>
-        <item>https://live.blockcypher.com/btc-testnet/</item>
+        <item>https://www.blockchain.com/btc/</item>
+        <item>https://live.blockcypher.com/btc/</item>
+        <item>https://coin.cz/btc/</item>
     </string-array>
     <string-array name="preferences_block_explorer_labels">
         <item>blockchain.info</item>
         <item>live.blockcypher.com</item>
+        <item>coin.cz</item>
     </string-array>
 
 </resources>
