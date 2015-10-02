@@ -24,15 +24,16 @@
   <string name="exchange_rates_fragment_source">Цена получена с %s</string>
   <string name="exchange_rates_options_search">Поиск обменного курса</string>
   <string name="exchange_rates_context_set_as_default_title">Установить как валюту по умолчанию</string>
-  <string name="wallet_transactions_options_filter_received">Получено</string>
-  <string name="wallet_transactions_options_filter_all">Все</string>
-  <string name="wallet_transactions_options_filter_sent">Отправлено</string>
   <string name="wallet_transactions_fragment_empty_text_received">Ещё не получено Bitcoin-монет</string>
   <string name="wallet_transactions_fragment_empty_text_sent">Ещё не отправлено Bitcoin-монет</string>
   <string name="wallet_transactions_fragment_empty_text_howto">Как получить монеты?\n\nОбменяйте обычные деньги,\nпродайте товары и услуги или\nзаработайте.</string>
   <string name="wallet_transactions_row_warning_backup">Поздравляем, вы получили первый платёж! Вы уже &lt;u&gt;сделали резервную копию кошелька&lt;/u&gt;, чтобы обезопаситься от потерь?</string>
   <string name="wallet_transactions_fragment_coinbase">добыто</string>
   <string name="wallet_transactions_fragment_internal">внутренний</string>
+  <string name="wallet_transactions_options_filter">Фильтр</string>
+  <string name="wallet_transactions_options_filter_all">Все выплаты</string>
+  <string name="wallet_transactions_options_filter_received">Полученные выплаты</string>
+  <string name="wallet_transactions_options_filter_sent">Отправленные выплаты</string>
   <string name="wallet_options_safety_menu">Безопасность</string>
   <string name="wallet_options_encrypt_keys_set">Установить ПИН</string>
   <string name="wallet_options_encrypt_keys_change">Изменить ПИН</string>
@@ -84,6 +85,10 @@
   <string name="send_coins_sent_msg">Отправлено!</string>
   <string name="send_coins_failed_msg">Не удалось!</string>
   <string name="send_coins_error_msg">Проблема с отправкой монет!</string>
+  <string name="send_coins_options_fee_category">Взнос</string>
+  <string name="send_coins_options_fee_category_economic">Экономный</string>
+  <string name="send_coins_options_fee_category_normal">Нормальный</string>
+  <string name="send_coins_options_fee_category_priority">Приоритетный</string>
   <string name="send_coins_options_empty">Опустошить кошелёк</string>
   <string name="sweep_wallet_activity_title">Забрать с бумажного кошелька</string>
   <string name="sweep_wallet_fragment_intro">Вы собираетесь забрать с бумажного кошелька или купона. Это перенесет все монеты с бумаги на ваш кошелек на этом устройстве. Когда эта транзакция пройдет, бумажный носитель будет бесполезен и не должен быть повторно использован в целях безопасности.</string>
@@ -272,6 +277,7 @@
   <string name="button_settings">Настройки</string>
   <string name="action_show_qr">Показать QR код</string>
   <string name="action_browse">Обзор</string>
+  <!--generic strings-->
   <string name="time_today">сегодня</string>
   <string name="address_unlabeled">(без метки)</string>
   <string name="private_key_password">ПИН</string>
