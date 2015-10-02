@@ -22,9 +22,11 @@
 	</string-array>
 	<string-array name="preferences_block_explorer_values">
 		<item>https://www.biteasy.com/testnet/</item>
+		<item>https://testnet.blockexplorer.com/</item>
 	</string-array>
 	<string-array name="preferences_block_explorer_labels">
 		<item>BitEasy</item>
+		<item>blockexplorer.com</item>
 	</string-array>
 
 </resources>
