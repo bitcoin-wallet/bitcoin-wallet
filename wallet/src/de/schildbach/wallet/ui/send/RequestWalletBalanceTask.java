@@ -87,8 +87,10 @@ public final class RequestWalletBalanceTask
 			public void run()
 			{
 				final StringBuilder url = new StringBuilder(Constants.BITEASY_API_URL);
-				url.append("unspent-outputs");
+				url.append("outputs");
 				url.append("?per_page=MAX");
+				url.append("&operator=AND");
+				url.append("&spent_state=UNSPENT");
 				for (final Address address : addresses)
 					url.append("&address[]=").append(address.toString());
 
@@ -140,9 +142,6 @@ public final class RequestWalletBalanceTask
 						for (int i = 0; i < jsonOutputs.length(); i++)
 						{
 							final JSONObject jsonOutput = jsonOutputs.getJSONObject(i);
-
-							if (jsonOutput.getInt("is_spent") != 0)
-								throw new IllegalStateException("UXTO not spent");
 
 							final Sha256Hash uxtoHash = Sha256Hash.wrap(jsonOutput.getString("transaction_hash"));
 							final int uxtoIndex = jsonOutput.getInt("transaction_index");
