@@ -155,20 +155,20 @@ public class WalletUtils
 		return null;
 	}
 
-	public static Wallet restoreWalletFromProtobufOrBase58(final InputStream is) throws IOException
+	public static Wallet restoreWalletFromProtobufOrBase58(final InputStream is, final NetworkParameters expectedNetworkParameters) throws IOException
 	{
 		is.mark((int) Constants.BACKUP_MAX_CHARS);
 
 		try
 		{
-			return restoreWalletFromProtobuf(is);
+			return restoreWalletFromProtobuf(is, expectedNetworkParameters);
 		}
 		catch (final IOException x)
 		{
 			try
 			{
 				is.reset();
-				return restorePrivateKeysFromBase58(is);
+				return restorePrivateKeysFromBase58(is, expectedNetworkParameters);
 			}
 			catch (final IOException x2)
 			{
@@ -177,13 +177,13 @@ public class WalletUtils
 		}
 	}
 
-	public static Wallet restoreWalletFromProtobuf(final InputStream is) throws IOException
+	public static Wallet restoreWalletFromProtobuf(final InputStream is, final NetworkParameters expectedNetworkParameters) throws IOException
 	{
 		try
 		{
 			final Wallet wallet = new WalletProtobufSerializer().readWallet(is);
 
-			if (!wallet.getParams().equals(Constants.NETWORK_PARAMETERS))
+			if (!wallet.getParams().equals(expectedNetworkParameters))
 				throw new IOException("bad wallet network parameters: " + wallet.getParams().getId());
 
 			return wallet;
@@ -194,14 +194,14 @@ public class WalletUtils
 		}
 	}
 
-	public static Wallet restorePrivateKeysFromBase58(final InputStream is) throws IOException
+	public static Wallet restorePrivateKeysFromBase58(final InputStream is, final NetworkParameters expectedNetworkParameters) throws IOException
 	{
 		final BufferedReader keyReader = new BufferedReader(new InputStreamReader(is, Charsets.UTF_8));
 
 		// create non-HD wallet
-		final KeyChainGroup group = new KeyChainGroup(Constants.NETWORK_PARAMETERS);
-		group.importKeys(WalletUtils.readKeys(keyReader));
-		return new Wallet(Constants.NETWORK_PARAMETERS, group);
+		final KeyChainGroup group = new KeyChainGroup(expectedNetworkParameters);
+		group.importKeys(WalletUtils.readKeys(keyReader, expectedNetworkParameters));
+		return new Wallet(expectedNetworkParameters, group);
 	}
 
 	public static void writeKeys(final Writer out, final List<ECKey> keys) throws IOException
@@ -222,7 +222,7 @@ public class WalletUtils
 		}
 	}
 
-	public static List<ECKey> readKeys(final BufferedReader in) throws IOException
+	public static List<ECKey> readKeys(final BufferedReader in, final NetworkParameters expectedNetworkParameters) throws IOException
 	{
 		try
 		{
@@ -244,7 +244,7 @@ public class WalletUtils
 
 				final String[] parts = line.split(" ");
 
-				final ECKey key = new DumpedPrivateKey(Constants.NETWORK_PARAMETERS, parts[0]).getKey();
+				final ECKey key = new DumpedPrivateKey(expectedNetworkParameters, parts[0]).getKey();
 				key.setCreationTimeSeconds(parts.length >= 2 ? format.parse(parts[1]).getTime() / DateUtils.SECOND_IN_MILLIS : 0);
 
 				keys.add(key);
@@ -272,7 +272,7 @@ public class WalletUtils
 			try
 			{
 				reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), Charsets.UTF_8));
-				WalletUtils.readKeys(reader);
+				WalletUtils.readKeys(reader, Constants.NETWORK_PARAMETERS);
 
 				return true;
 			}

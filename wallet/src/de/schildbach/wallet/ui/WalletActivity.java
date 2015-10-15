@@ -756,7 +756,7 @@ public final class WalletActivity extends AbstractWalletActivity
 			final byte[] plainText = Crypto.decryptBytes(cipherText.toString(), password.toCharArray());
 			final InputStream is = new ByteArrayInputStream(plainText);
 
-			restoreWallet(WalletUtils.restoreWalletFromProtobufOrBase58(is));
+			restoreWallet(WalletUtils.restoreWalletFromProtobufOrBase58(is, Constants.NETWORK_PARAMETERS));
 
 			log.info("successfully restored encrypted wallet: {}", file);
 		}
@@ -785,7 +785,7 @@ public final class WalletActivity extends AbstractWalletActivity
 		try
 		{
 			is = new FileInputStream(file);
-			restoreWallet(WalletUtils.restoreWalletFromProtobuf(is));
+			restoreWallet(WalletUtils.restoreWalletFromProtobuf(is, Constants.NETWORK_PARAMETERS));
 
 			log.info("successfully restored unencrypted wallet: {}", file);
 		}
@@ -828,7 +828,7 @@ public final class WalletActivity extends AbstractWalletActivity
 		try
 		{
 			is = new FileInputStream(file);
-			restoreWallet(WalletUtils.restorePrivateKeysFromBase58(is));
+			restoreWallet(WalletUtils.restorePrivateKeysFromBase58(is, Constants.NETWORK_PARAMETERS));
 
 			log.info("successfully restored unencrypted private keys: {}", file);
 		}
