@@ -167,12 +167,12 @@ public class Configuration
 
 	public void armBackupReminder()
 	{
-		prefs.edit().putBoolean(PREFS_KEY_REMIND_BACKUP, true).commit();
+		prefs.edit().putBoolean(PREFS_KEY_REMIND_BACKUP, true).apply();
 	}
 
 	public void disarmBackupReminder()
 	{
-		prefs.edit().putBoolean(PREFS_KEY_REMIND_BACKUP, false).putLong(PREFS_KEY_LAST_BACKUP, System.currentTimeMillis()).commit();
+		prefs.edit().putBoolean(PREFS_KEY_REMIND_BACKUP, false).putLong(PREFS_KEY_LAST_BACKUP, System.currentTimeMillis()).apply();
 	}
 
 	public boolean getDisclaimerEnabled()
@@ -187,7 +187,7 @@ public class Configuration
 
 	public void setExchangeCurrencyCode(final String exchangeCurrencyCode)
 	{
-		prefs.edit().putString(PREFS_KEY_EXCHANGE_CURRENCY, exchangeCurrencyCode).commit();
+		prefs.edit().putString(PREFS_KEY_EXCHANGE_CURRENCY, exchangeCurrencyCode).apply();
 	}
 
 	public boolean getQrPaymentRequestEnabled()
@@ -206,7 +206,7 @@ public class Configuration
 
 	public void updateLastVersionCode(final int currentVersionCode)
 	{
-		prefs.edit().putInt(PREFS_KEY_LAST_VERSION, currentVersionCode).commit();
+		prefs.edit().putInt(PREFS_KEY_LAST_VERSION, currentVersionCode).apply();
 
 		if (currentVersionCode > lastVersionCode)
 			log.info("detected app upgrade: " + lastVersionCode + " -> " + currentVersionCode);
@@ -225,7 +225,7 @@ public class Configuration
 	{
 		final long prefsLastUsed = prefs.getLong(PREFS_KEY_LAST_USED, 0);
 		final long now = System.currentTimeMillis();
-		prefs.edit().putLong(PREFS_KEY_LAST_USED, now).commit();
+		prefs.edit().putLong(PREFS_KEY_LAST_USED, now).apply();
 
 		log.info("just being used - last used {} minutes ago", (now - prefsLastUsed) / DateUtils.MINUTE_IN_MILLIS);
 	}
@@ -238,7 +238,7 @@ public class Configuration
 	public void maybeIncrementBestChainHeightEver(final int bestChainHeightEver)
 	{
 		if (bestChainHeightEver > getBestChainHeightEver())
-			prefs.edit().putInt(PREFS_KEY_BEST_CHAIN_HEIGHT_EVER, bestChainHeightEver).commit();
+			prefs.edit().putInt(PREFS_KEY_BEST_CHAIN_HEIGHT_EVER, bestChainHeightEver).apply();
 	}
 
 	public ExchangeRate getCachedExchangeRate()
@@ -263,7 +263,7 @@ public class Configuration
 		edit.putString(PREFS_KEY_CACHED_EXCHANGE_CURRENCY, cachedExchangeRate.getCurrencyCode());
 		edit.putLong(PREFS_KEY_CACHED_EXCHANGE_RATE_COIN, cachedExchangeRate.rate.coin.value);
 		edit.putLong(PREFS_KEY_CACHED_EXCHANGE_RATE_FIAT, cachedExchangeRate.rate.fiat.value);
-		edit.commit();
+		edit.apply();
 	}
 
 	public boolean getLastExchangeDirection()
@@ -273,7 +273,7 @@ public class Configuration
 
 	public void setLastExchangeDirection(final boolean exchangeDirection)
 	{
-		prefs.edit().putBoolean(PREFS_KEY_LAST_EXCHANGE_DIRECTION, exchangeDirection).commit();
+		prefs.edit().putBoolean(PREFS_KEY_LAST_EXCHANGE_DIRECTION, exchangeDirection).apply();
 	}
 
 	public boolean changeLogVersionCodeCrossed(final int currentVersionCode, final int triggeringVersionCode)
@@ -284,7 +284,7 @@ public class Configuration
 		final boolean wasUsedBefore = changeLogVersion > 0;
 		final boolean isNowAbove = currentVersionCode >= triggeringVersionCode;
 
-		prefs.edit().putInt(PREFS_KEY_CHANGE_LOG_VERSION, currentVersionCode).commit();
+		prefs.edit().putInt(PREFS_KEY_CHANGE_LOG_VERSION, currentVersionCode).apply();
 
 		return /* wasUsedBefore && */wasBelow && isNowAbove;
 	}
