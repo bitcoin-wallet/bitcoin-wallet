@@ -1,3 +1,8 @@
+v4.42
+
+* Optimizations & bugfixes.
+* Based on bitcoinj 0.13.3.
+
 v4.41
 
 * Add blockexplorer.com to block explorers used for browsing transactions, addresses and blocks.
