@@ -279,14 +279,6 @@ public class WalletApplication extends Application
 
 				wallet = restoreWalletFromBackup();
 			}
-			catch (final IllegalArgumentException x)
-			{
-				log.error("problem loading wallet", x);
-
-				Toast.makeText(WalletApplication.this, x.getClass().getName(), Toast.LENGTH_LONG).show();
-
-				wallet = restoreWalletFromBackup();
-			}
 			finally
 			{
 				if (walletStream != null)
