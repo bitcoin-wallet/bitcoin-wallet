@@ -39,6 +39,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import android.app.ActivityManager;
+import android.app.admin.DevicePolicyManager;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -215,6 +216,8 @@ public class CrashReporter
 		final Wallet wallet = application.getWallet();
 		report.append("Encrypted: " + wallet.isEncrypted() + "\n");
 		report.append("Keychain size: " + wallet.getKeychainSize() + "\n");
+		final DevicePolicyManager devicePolicyManager = (DevicePolicyManager) application.getSystemService(Context.DEVICE_POLICY_SERVICE);
+		report.append("Storage Encryption Status: " + devicePolicyManager.getStorageEncryptionStatus());
 
 		final Set<Transaction> transactions = wallet.getTransactions(true);
 		int numInputs = 0;
