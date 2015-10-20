@@ -100,7 +100,7 @@ public final class ExchangeRatesFragment extends FancyListFragment implements On
 		super.onCreate(savedInstanceState);
 
 		setRetainInstance(true);
-		setHasOptionsMenu(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB);
+		setHasOptionsMenu(true);
 
 		adapter = new ExchangeRatesAdapter(activity);
 		setListAdapter(adapter);

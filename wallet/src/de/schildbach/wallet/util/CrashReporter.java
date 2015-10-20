@@ -157,8 +157,7 @@ public class CrashReporter
 		report.append("Screen Layout: size " + (config.screenLayout & android.content.res.Configuration.SCREENLAYOUT_SIZE_MASK) + " long "
 				+ (config.screenLayout & android.content.res.Configuration.SCREENLAYOUT_LONG_MASK) + "\n");
 		report.append("Display Metrics: " + res.getDisplayMetrics() + "\n");
-		report.append("Memory Class: " + activityManager.getMemoryClass()
-				+ (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB ? "/" + largeMemoryClass(activityManager) : "") + "\n");
+		report.append("Memory Class: " + activityManager.getMemoryClass() + "/" + largeMemoryClass(activityManager) + "\n");
 	}
 
 	private static int largeMemoryClass(final ActivityManager activityManager)
