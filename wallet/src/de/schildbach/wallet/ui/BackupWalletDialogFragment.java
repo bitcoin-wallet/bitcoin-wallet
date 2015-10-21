@@ -17,6 +17,8 @@
 
 package de.schildbach.wallet.ui;
 
+import static com.google.common.base.Preconditions.checkState;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -305,6 +307,8 @@ public class BackupWalletDialogFragment extends DialogFragment
 	private File determineBackupFile()
 	{
 		Constants.Files.EXTERNAL_WALLET_BACKUP_DIR.mkdirs();
+		checkState(Constants.Files.EXTERNAL_WALLET_BACKUP_DIR.isDirectory());
+
 		final DateFormat dateFormat = Iso8601Format.newDateFormat();
 		dateFormat.setTimeZone(TimeZone.getDefault());
 
