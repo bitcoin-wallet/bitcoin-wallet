@@ -180,7 +180,29 @@
 			android:screenOrientation="behind"
 			android:theme="@style/My.Theme.ChildActivity"
 			android:windowSoftInputMode="adjustResize" />
+		<activity
+			android:name="de.schildbach.wallet.ui.pop.PopActivity"
+			android:configChanges="keyboard|keyboardHidden"
+			android:label="@string/pop_activity_title"
+			android:screenOrientation="behind"
+			android:theme="@style/My.Theme.ChildActivity"
+			android:windowSoftInputMode="adjustResize" >
+			<intent-filter android:label="@string/pop_activity_title" >
+				<action android:name="android.intent.action.VIEW" />
 
+				<data android:scheme="btcpop" />
+
+				<category android:name="android.intent.category.DEFAULT" />
+				<category android:name="android.intent.category.BROWSABLE" />
+			</intent-filter>
+			<intent-filter android:label="@string/pop_activity_title" >
+				<action android:name="android.nfc.action.NDEF_DISCOVERED" />
+
+				<data android:scheme="btcpop" />
+
+				<category android:name="android.intent.category.DEFAULT" />
+			</intent-filter>
+		</activity>
 		<provider
 			android:name="de.schildbach.wallet.AddressBookProvider"
 			android:authorities="de.schildbach.wallet_test.address_book"
