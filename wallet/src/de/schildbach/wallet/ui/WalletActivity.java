@@ -32,6 +32,8 @@ import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
+import de.schildbach.wallet.data.PopIntent;
+import de.schildbach.wallet.ui.pop.PopActivity;
 import org.bitcoinj.core.Transaction;
 import org.bitcoinj.core.VerificationException;
 import org.bitcoinj.core.VersionedChecksummedBytes;
@@ -208,6 +210,11 @@ public final class WalletActivity extends AbstractWalletActivity
 				protected void handleDirectTransaction(final Transaction tx) throws VerificationException
 				{
 					application.processDirectTransaction(tx);
+				}
+
+				@Override
+				protected void handlePopIntent(PopIntent popIntent) {
+					PopActivity.start(WalletActivity.this, popIntent);
 				}
 
 				@Override
