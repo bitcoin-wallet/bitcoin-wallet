@@ -71,6 +71,25 @@
 		</p>
 	]]>
 	</string>
+	<string name="help_pop">
+		<![CDATA[
+		<p>
+			You have initiated the process of proving a payment, Proof of Payment.
+			You came here either through the QR code scanner or by clicking on a bitpop: URI in your mobile browser.
+		</p>
+		<p>
+			Blablabla
+		</p>
+		<p>
+		</p>
+		<p>
+		</p>
+		<p>
+		</p>
+		<p>
+		</p>
+	]]>
+	</string>
 	<string name="help_safety">
 <![CDATA[
 		<p>
