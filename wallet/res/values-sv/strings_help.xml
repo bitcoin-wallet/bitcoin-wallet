@@ -3,21 +3,21 @@
   <string name="help_wallet">
 <![CDATA[
 		<p>
-			I den övre delen av skärmen visas ditt saldo i bitcoin samt värdet i en vald nationell valuta.
-			Tryck för att lista nationella valutor, och välj en av valutorna för att visa den som standard.
+			Den övre halvan av skärmen visar ditt saldo i Bitcoin och en vald valuta.
+			Klicka för att gå till listan över valutor, och klicka på en valuta för att sätta den som standard.
 		</p>
 		<p>
-			QR-koden till höger inehåller din bitcoinaddress och kan scannas av den som vill skicka bitcoin till dig.
-			Tryck med fingret på QR-koden för att få en större version av den.
+			QR-koden till höger innehåller din bitcoin-adress och kan användas för att en annan part ska skanna den.
+			Klicka på QR-koden för att få en större version av den.
 		</p>
 		<p>
-			Nedre delen av skärmen visar en lista med dina transaktioner, och från början är den naturligtvis tom.
-			Pågående transaktioner är gråa tills de är bekräftande.
-			Tryck med fingret på en transaktion så kan du spara avsändarens eller mottagarens adress till din adressbok.
+			Botten av skärmen täcks av din transaktionslista, vilken är tom från början.
+			Väntande transaktioner är utgråade tills de är bekräftade.
+			Klicka på en post för att lägga till avsändaren eller mottagaren i adressboken.
 		</p>
 		<p>
-			Du kan skicka eller ta emot bitcoin genom att trycka på knapparna i aktivitetslistan.
-			Fler val är möjliga i menyn.
+			Du kan skicka en myntbegäran genom att klicka på knapparna i åtgärdsfältet.
+			Fler alternativ finns under alternativmenyn.
 		</p>
 	]]>
 	</string>

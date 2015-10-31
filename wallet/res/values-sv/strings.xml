@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="toast_wallet_reset">Din plånbok är nollställd!\nDet tar en stund för att återställa.</string>
+  <string name="toast_wallet_reset">Din plånbok återställdes!\nDet kommer ta ett tag att återhämta.</string>
   <string name="wallet_disclaimer_fragment_remind_safety">Använd på egen risk. Läs &lt;u&gt;säkerhetsråden&lt;/u&gt;.</string>
   <string name="wallet_disclaimer_fragment_remind_backup">Du behöver &lt;u&gt;säkerhetskopiera din plånbok&lt;/u&gt;!</string>
   <string name="blockchain_state_progress_hours">%1$s, %2$d timmar efter</string>
@@ -12,9 +12,9 @@
   <string name="blockchain_state_progress_problem_storage">Synkronisering: Lagringsproblem</string>
   <string name="blockchain_state_progress_problem_network">Synkronisering: Nätverksproblem</string>
   <string name="wallet_address_fragment_clipboard_msg">Bitcoinadressen kopierades</string>
-  <string name="wallet_address_dialog_fragment_hint">För att skydda din integritet ändras din adress varje gång du mottager en betalning.</string>
+  <string name="wallet_address_dialog_fragment_hint">För att skydda din integritet ändras din adress varje gång du mottar en betalning.</string>
   <string name="wallet_balance_fragment_too_much">Det här är ett stort belopp att bära omkring på i fickan. Flytta gärna över en del till en säkrare plats.</string>
-  <string name="wallet_balance_fragment_replaying">Saldot är inte tillgängligt under reprisen.</string>
+  <string name="wallet_balance_fragment_replaying">Saldot är otillgängligt under reprisen.</string>
   <string name="exchange_rates_activity_title">Växlingskurser</string>
   <string name="exchange_rates_fragment_empty_text">Kunde inte hämta växlingskurser.</string>
   <string name="exchange_rates_fragment_empty_search">Kunde inte hitta växlingskurs</string>
@@ -24,10 +24,10 @@
   <string name="exchange_rates_fragment_source">Pris från %s</string>
   <string name="exchange_rates_options_search">Sök växlingskurs</string>
   <string name="exchange_rates_context_set_as_default_title">Ange som utländsk standardvaluta</string>
-  <string name="wallet_transactions_fragment_empty_text_received">Inga bitcoin har hittills mottagits</string>
-  <string name="wallet_transactions_fragment_empty_text_sent">Inga bitcoin har hittills skickats</string>
-  <string name="wallet_transactions_fragment_empty_text_howto">Hur får man tag i bitcoin?\n\nKöp för svenska kronor,\nsälj varor eller tjänster eller\ntjäna genom att arbeta.</string>
-  <string name="wallet_transactions_row_warning_backup">Grattis, fick du din första betalning! Har du redan &lt;u&gt;säkerhetskopierat din plånbok&lt;/u&gt;, för att skydda mot förlust?</string>
+  <string name="wallet_transactions_fragment_empty_text_received">Inga Bitcoins har mottagits hittills</string>
+  <string name="wallet_transactions_fragment_empty_text_sent">Inga Bitcoins har skickats hittills</string>
+  <string name="wallet_transactions_fragment_empty_text_howto">Hur får man tag i Bitcoins?\n\nKöp för svenska kronor,\nsälj varor eller tjänster eller\ntjäna genom att arbeta.</string>
+  <string name="wallet_transactions_row_warning_backup">Grattis, du fick din första betalning! Har du redan &lt;u&gt;säkerhetskopierat din plånbok&lt;/u&gt;, för att skydda mot förlust?</string>
   <string name="wallet_transactions_fragment_coinbase">genererade</string>
   <string name="wallet_transactions_fragment_internal">intern</string>
   <string name="wallet_transactions_options_filter">Filter</string>
@@ -47,12 +47,12 @@
   <string name="wallet_timeskew_dialog_msg">Din enhets tidsinställning avviker med %d minuter. Du kan förmodligen inte skicka och ta emot bitcoin grund av detta problem.\n\nDu bör kontrollera och korrigera dina tids- och tidszoninställningar.</string>
   <string name="wallet_version_dialog_title">En ny version är tillgänglig!</string>
   <string name="wallet_version_dialog_msg">Denna version löser viktiga buggar. För mer information, se ändringsloggen på Google Play.</string>
-  <string name="wallet_version_dialog_msg_deprecated">Om du inte ser en uppdatering så beror det förmodligen på att din version av Android inte stöds längre.</string>
+  <string name="wallet_version_dialog_msg_deprecated">Om du inte ser en uppdatering så beror det förmodligen på att din version av Android inte längre stöds.</string>
   <string name="wallet_version_dialog_button_market">Google Play</string>
   <string name="wallet_version_dialog_button_binary">Ladda ner</string>
   <string name="wallet_old_sdk_dialog_title">Android-versionen är inaktuell</string>
   <string name="wallet_old_sdk_dialog_message">Chansen är stor att någon av de kommande releaserna av Bitcoin Wallet inte kommer att fungera på din enhet längre. I vissa fall kan det bli svårt att spendera dina tillgångar med den här enheten.\n\nSåvida du inte vet vad du gör, rekommenderas att du flyttar dina bitcoin snart.</string>
-  <string name="send_coins_activity_title">Skicka bitcoin</string>
+  <string name="send_coins_activity_title">Skicka Bitcoins</string>
   <string name="send_coins_fragment_request_payment_request_progress">Hämtar signatur från %s</string>
   <string name="send_coins_fragment_request_payment_request_failed_title">Hämtning av signatur misslyckades</string>
   <string name="send_coins_fragment_request_payment_request_wrong_signature">Felaktig signatur!</string>
@@ -235,6 +235,8 @@
   <string name="preferences_trusted_peer_summary">IP eller värdnamn hos enskild peer att ansluta till.</string>
   <string name="preferences_trusted_peer_only_title">Hoppa över ordinarie Peer-upptäckt</string>
   <string name="preferences_trusted_peer_only_summary">Förhindrar anslutning till någon peer annat än den peer du litar på.</string>
+  <string name="preferences_block_explorer_title">Block-utforskare</string>
+  <string name="preferences_block_explorer_summary">Extern block-utforskare för att leta efter transaktioner, adresser och block.</string>
   <string name="preferences_data_usage_title">Dataanvändning</string>
   <string name="preferences_data_usage_summary">Visa alternativ för att begränsa dataanvändning över mobila nätverk.</string>
   <string name="preferences_report_issue_title">Rapportera problem</string>
