@@ -87,6 +87,9 @@
   <string name="send_coins_failed_msg">¡Error!</string>
   <string name="send_coins_error_msg">¡Problema enviando bitcoins!</string>
   <string name="send_coins_options_fee_category">Comisión</string>
+  <string name="send_coins_options_fee_category_economic">Económico</string>
+  <string name="send_coins_options_fee_category_normal">Normal</string>
+  <string name="send_coins_options_fee_category_priority">Prioridad</string>
   <string name="send_coins_options_empty">Cartera vacía</string>
   <string name="sweep_wallet_activity_title">Barrer cartera de papel</string>
   <string name="sweep_wallet_fragment_intro">Vas a barrer una cartera de papel. Esto transferirá todos los bitcoins del papel a tu cartera en este dispositivo. Cuando la transacción esté confirmada, el papel ya no tendrá valor y, por razones de seguridad, no debería ser reutilizado.</string>
@@ -144,6 +147,7 @@
   <string name="edit_address_book_entry_dialog_button_edit">Guardar</string>
   <string name="transaction_row_fee">Comisión de red</string>
   <string name="transaction_row_message_purpose_key_rotation">Esta transacción fortalece tu monedero frente a robos. &lt;u&gt;Más información.&lt;/u&gt;</string>
+  <string name="transaction_row_message_purpose_raise_fee">Esta transacción incrementa la cuota de red para un pago previo.</string>
   <string name="transaction_row_message_own_unbroadcasted">Este pago aún no se ha transmitido.</string>
   <string name="transaction_row_message_received_direct">Este pago se ha recibido directamente. Existe el riesgo de que no llegue a validarse.</string>
   <string name="transaction_row_message_received_unconfirmed_unlocked">Este pago debería estar disponible en unos minutos.</string>
@@ -189,7 +193,7 @@
   <string name="import_keys_intent_filter_action">Restaurar cartera</string>
   <string name="encrypt_keys_dialog_title">PIN de pagos</string>
   <string name="encrypt_keys_dialog_message">La función de efectuar pagos desde su cartera estará protegido con el PIN que elija.</string>
-  <string name="encrypt_keys_dialog_warning">Importante: no use números comunes (como fechas de cumpleaños) en su PIN.</string>
+  <string name="encrypt_keys_dialog_warning">Importante: Necesitará recordar su PIN! No utilice números comunes (como fechas de cumpleaños).</string>
   <string name="encrypt_keys_dialog_password_old">Antiguo PIN</string>
   <string name="encrypt_keys_dialog_password_strength_weak">débil</string>
   <string name="encrypt_keys_dialog_password_strength_fair">regular</string>
@@ -213,17 +217,21 @@
   <string name="preferences_category_labs">Laboratorio</string>
   <string name="preferences_precision_title">Denominación y precisión</string>
   <string name="preferences_precision_summary">Unidad para mostrar cantidad. No afecta a los cálculos.</string>
-  <string name="preferences_precision_labels_8">BTC, 8 dígitos</string>
-  <string name="preferences_precision_labels_6">BTC, 6 dígitos</string>
-  <string name="preferences_precision_labels_4">BTC, 4 dígitos</string>
-  <string name="preferences_precision_labels_2_3">mBTC, 2 dígitos</string>
-  <string name="preferences_precision_labels_0_6">µBTC, sin dígitos</string>
+  <string name="preferences_precision_labels_8">BTC, 8 lugares decimales</string>
+  <string name="preferences_precision_labels_6">BTC, 6 lugares decimales</string>
+  <string name="preferences_precision_labels_4">BTC, 4 lugares decimales</string>
+  <string name="preferences_precision_labels_2_3">mBTC, 2 lugares decimales</string>
+  <string name="preferences_precision_labels_0_6">µBTC, sin decimales</string>
+  <string name="preferences_own_name_title">Su nombre</string>
+  <string name="preferences_own_name_summary">Ponte un nombre, que será añadido a las solicitudes de pago. Trata de que sea corto.</string>
   <string name="preferences_connectivity_notification_title">Indicador de conectividad</string>
   <string name="preferences_connectivity_notification_summary">Mostrar número actual de pares conectados en el área de notificaciones.</string>
   <string name="preferences_trusted_peer_title">Par de confianza</string>
   <string name="preferences_trusted_peer_summary">IP o nombre de host del par individual al que conectarse.</string>
   <string name="preferences_trusted_peer_only_title">Saltar descubrimiento de pares regulares</string>
   <string name="preferences_trusted_peer_only_summary">Evita las conexiones a todo par que no sea el de confianza.</string>
+  <string name="preferences_block_explorer_title">Explorador de bloque</string>
+  <string name="preferences_block_explorer_summary">Explorador externo de bloques, para navegar por las transacciones, direcciones y bloques.</string>
   <string name="preferences_data_usage_title">Uso de datos</string>
   <string name="preferences_data_usage_summary">Mostrar opciones para limitar el uso de datos en redes móviles.</string>
   <string name="preferences_report_issue_title">Informar de incidencia</string>
@@ -239,7 +247,7 @@
   <string name="extended_public_key_fragment_share">Comparte xpub…</string>
   <string name="report_issue_dialog_title_issue">Informar de incidencia</string>
   <string name="report_issue_dialog_title_crash">Detectado error grave anterior</string>
-  <string name="report_issue_dialog_message_issue">Por favor, describa su problema con suficientes detalles para que pueda ser identificado.</string>
+  <string name="report_issue_dialog_message_issue">Por favor, su problema con detalle suficiente para que pueda ser reproducido.</string>
   <string name="report_issue_dialog_message_crash">¿Deseas enviar un informe de error para ayudar a resolver la incidencia en un futuro?</string>
   <string name="report_issue_dialog_description">Descripción de la incidencia</string>
   <string name="report_issue_dialog_report">Informe</string>
@@ -284,6 +292,7 @@
   <string name="button_settings">Ajustes</string>
   <string name="action_show_qr">Mostrar código QR</string>
   <string name="action_browse">Navegar</string>
+  <!--generic strings-->
   <string name="time_today">hoy</string>
   <string name="address_unlabeled">(sin nombre)</string>
   <string name="private_key_password">PIN</string>

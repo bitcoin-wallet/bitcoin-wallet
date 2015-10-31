@@ -7,7 +7,7 @@
 			Toque para ir a la lista de monedas nacionales, y toque en una de las monedas para seleccionarla como predeterminada.
 		</p>
 		<p>
-			El código QR en la derecha contiene su dirección de Bitcoin y se puede usar para ser escaneada por alguien más.
+			El código QR de la derecha contiene su dirección de Bitcoin, y se puede usar para ser escaneado por un tercero.
 			Toque en el código QR para ver una versión más grande.
 		</p>
 		<p>
@@ -16,8 +16,8 @@
 			Toque en una entrada para añadir las direcciones de los remitentes o destinatarios a su lista de contactos.
 		</p>
 		<p>
-			Puede enviar o solicitar bitcoins al tocar los botones en la barra de acción.
-			Más opciones están disponibles en el menú de opciones.
+			Puede enviar o solicitar bitcoins tocando los botones en la barra de acción.
+			Más opciones disponibles en el menú de opciones.
 		</p>
 	]]>
 	</string>
