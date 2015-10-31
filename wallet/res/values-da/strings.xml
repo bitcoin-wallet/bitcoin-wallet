@@ -235,6 +235,8 @@
   <string name="preferences_trusted_peer_summary">IP eller værtsnavn for forbindelse til en enkelt peer.</string>
   <string name="preferences_trusted_peer_only_title">Spring normal peer-søgning over</string>
   <string name="preferences_trusted_peer_only_summary">Forhindrer forbindelse til andre peers end den betroede.</string>
+  <string name="preferences_block_explorer_title">Blokudforsker</string>
+  <string name="preferences_block_explorer_summary">Ekstern blokudforsker, der skal bruges til at gennemse transaktioner, adresser og blokke.</string>
   <string name="preferences_data_usage_title">Dataforbrug</string>
   <string name="preferences_data_usage_summary">Vis indstillinger for restriktion på dataforbrug på mobile netværk.</string>
   <string name="preferences_report_issue_title">Rapportér problem</string>

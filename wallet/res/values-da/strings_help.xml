@@ -3,21 +3,21 @@
   <string name="help_wallet">
 <![CDATA[
 		<p>
-			Den øverste venstre del af skærmen viser din saldo i bitcoin og én valgt national valuta.
-			Berør for at gå til listen over nationale valutaer og berør en af disse valutaer for at sætte den som standard.
+			Den øverste, venstre del af skærmen viser din saldo i Bitcoin og en valgt national valuta.
+			Berør skærmen for at gå til listen over nationale valutaer, og berør en af valutaerne for at vælge den som standard.
 		</p>
 		<p>
 			QR-koden til højre indeholder din bitcoin-adresse og kan scannes af en anden person.
 			Berør QR-koden for at få en større version af den.
 		</p>
 		<p>
-			Bunden af skærmen indeholder din transaktionsliste, som i begyndelsen er tom.
-			Ventende transaktioner er grå, indtil de er bekræftet.
-			Berør en linie for at føje afsenderens eller modtagerens adresse til adressebogen.
+			Den nederste del af skærmen viser din transaktionsliste, som er tom tilat begynde med.
+			Afventende transaktioner er grå, inden de er bekræftet.
+			Berør en transaktion i listen for at føje afsenderens eller modtagerens adresse til adressebogen.
 		</p>
 		<p>
 			Du kan sende eller anmode om bitcoin ved at berøre knapperne i handlingsbjælken.
-			Flere indstillinger kan findes i menuen Opsætning.
+			Flere muligheder er tilgængelige i opsætningsmenuen.
 		</p>
 	]]>
 	</string>
