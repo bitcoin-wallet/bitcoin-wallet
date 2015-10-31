@@ -3,21 +3,21 @@
   <string name="help_wallet">
 <![CDATA[
 		<p>
-			A bal felső része a kijelzőnek megjeleníti az egyenleged Bitcoin-ban és egy választott nemzeti valutát.
-			Érintsd meg a nemzeti valutákhoz való ugráshoz, és érints meg egy valutát az alapértelmezett választásához.
+			A bal felső része a képernyőnek megjeleníti az egyenleged Bitcoin-ban és egy választott nemzeti valutát.
+			Érintsd meg a nemzeti valuták listájához, és érints meg egy valutát az alapértelmezettként választáshoz.
 		</p>
 		<p>
-			A QR kód a jobb oldalon tartalmazza a bitcoin címed és használható másik fél általi beolvasásra.
-			Érintsd meg a QR kódot, hogy nagyobb verziót kapjál belőle.
+			A QR a jobb oldalon tartalmazza a bitcoin címed és használható másik fél általi beolvasásra.
+			Érintsd meg a QR kódot, hogy megkapd nagyobb verzióban.
 		</p>
 		<p>
-			A képernyő alját a tranzakcióid listája fedi, ami kezdésnél üres.
-			A függő tranzakciók szürkék a megerősítésig.
-			Érints meg egy bejegyzést, hogy hozzáadj küldők vagy fogadók címét a címjegyzékhez.
+			A képernyő alja a tranzakciós listáddal van fedve, ami kezdetben üres.
+			A függő tranzakciók ki vannak szürkülve,  amíg nincsenek megerősítve.
+			Érints meg egy bejegyzést, hogy hozzáadd a küldők vagy fogadók címét a címjegyzékbe.
 		</p>
 		<p>
-			Küldhetsz vagy kérhetsz érméket a gombok megérintésével az akciósávon.
-			További opciók elérhetőek az opciók menüben..
+			Küldhetsz vagy kérhetsz érméket a gombok megérintésével az akciósávban.
+			További lehetőségek elérhetők az opciók menüben.
 		</p>
 	]]>
 	</string>
