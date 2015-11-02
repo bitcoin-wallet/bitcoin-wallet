@@ -21,6 +21,7 @@ import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -29,9 +30,11 @@ import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.bitcoinj.core.Address;
 import org.bitcoinj.core.AddressFormatException;
 import org.bitcoinj.core.Transaction;
 import org.bitcoinj.core.VerificationException;
@@ -57,6 +60,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
+import android.text.format.DateFormat;
 import android.text.format.DateUtils;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -69,6 +73,7 @@ import android.widget.TextView;
 
 import com.google.common.base.Charsets;
 
+import de.schildbach.wallet.AddressBookProvider;
 import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
@@ -303,6 +308,10 @@ public final class WalletActivity extends AbstractWalletActivity
 				HelpDialogFragment.page(getFragmentManager(), R.string.help_safety);
 				return true;
 
+			case R.id.wallet_options_csvexport:
+				handleCSVexport();
+				return true;
+
 			case R.id.wallet_options_donate:
 				handleDonate();
 				return true;
@@ -338,6 +347,66 @@ public final class WalletActivity extends AbstractWalletActivity
 	public void handleEncryptKeys()
 	{
 		EncryptKeysDialogFragment.show(getFragmentManager());
+	}
+
+	private void handleCSVexport() {
+        String fulloutput = "\n"+android.text.format.DateFormat.format("dd MMM yyyy hh:mm:ss", new Date())+",SOLD,"+wallet.getBalance().toPlainString();
+		List<Transaction> transactionlist = wallet.getTransactionsByTime();
+        for(int i=0;i<transactionlist.size();i++){
+            Transaction tx = transactionlist.get(i);
+            String output= android.text.format.DateFormat.format("dd MMM yyyy hh:mm:ss", tx.getUpdateTime().getTime())+",";
+
+            Address address;
+            String adresslabel;
+            if (tx.getValue(wallet).signum()<0) {
+                address = WalletUtils.getToAddressOfSent(tx, wallet);
+                output += "Sent to ";
+            }else {
+                address = WalletUtils.getWalletAddressOfReceived(tx, wallet);
+                output += "Received with ";
+            }
+            if(address!=null) {
+                adresslabel = AddressBookProvider.resolveLabel(getApplicationContext(), address.toString());
+                if(adresslabel != null){
+                    output+="\""+adresslabel+"\" ("+address.toString()+"),";
+                }else{
+                    output+=address.toString()+",";
+                }
+            }else {
+                output += "?,";
+            }
+
+            output+=tx.getValue(wallet).toPlainString()+",";
+            if(tx.getExchangeRate()!=null){
+                output+=tx.getExchangeRate().coinToFiat(tx.getValue(wallet)).toPlainString()+",";
+            }else {
+                output+="-----,";
+            }
+            if(tx.getHashAsString()!=null){ output+=tx.getHashAsString()+",";          }else{ output+="--,"; }
+            if(tx.getConfidence()!=null){   output+=tx.getConfidence().toString().replace(',','_')+","; }else{ output+="--,"; }
+            if(tx.getFee()!=null) {         output+=tx.getFee().toPlainString()+",";   }else{ output+="--,"; }
+            if(tx.getMemo()!=null) {
+                output+=tx.getMemo().replace(',', '_').replace(';', '_') + "\n";
+            }else{
+                output+="--\n";
+            }
+            fulloutput=output+fulloutput;
+        }
+        fulloutput="Date,Description,Amount (BTC),Amount ("+config.getExchangeCurrencyCode()+"),Transaction Hash,Confidence,Fee,Memo\n"+fulloutput;
+		Constants.Files.EXTERNAL_WALLET_BACKUP_DIR.mkdirs();
+		File file = new File(Constants.Files.EXTERNAL_WALLET_BACKUP_DIR, Constants.Files.CSV_FILENAME);
+		FileWriter os = null;
+		try {
+			os = new FileWriter(file.getAbsolutePath());
+			os.write(fulloutput);
+			os.close();
+			Intent sendIntent = new Intent(Intent.ACTION_SEND);
+			sendIntent.setType("text/plain");
+			sendIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file));
+			startActivity(Intent.createChooser(sendIntent, "Send CSV-file..."));
+		} catch (IOException e) {
+			log.info("problem writing CSV-File output!");
+		}
 	}
 
 	private void handleDonate()
