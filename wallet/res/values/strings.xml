@@ -328,5 +328,6 @@
 	<string name="pop_send_pop">Prove</string>
 	<string name="pop_sent">Sent...</string>
 	<string name="pop_proven">Proven!</string>
+	<string name="pop_verify_transaction_to_prove">Please check the transaction to prove is the one you expect</string>
 
 </resources>
