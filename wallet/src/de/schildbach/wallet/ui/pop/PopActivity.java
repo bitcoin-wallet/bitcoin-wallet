@@ -145,6 +145,13 @@ public class PopActivity extends AbstractWalletActivity {
             return;
         }
         setText(R.id.pop_destination, url.getHost());
+        TextView destinationView = getView(R.id.pop_destination);
+        String protocol = url.getProtocol();
+        if ("https".equals(protocol)) {
+            destinationView.setCompoundDrawablesWithIntrinsicBounds(android.R.drawable.ic_secure, 0, 0, 0);
+        } else {
+            destinationView.setCompoundDrawablesWithIntrinsicBounds(android.R.drawable.ic_partial_secure, 0, 0, 0);
+        }
 
         TextView viewCancel = (Button)findViewById(R.id.send_coins_cancel);
         viewCancel.setText(R.string.button_cancel);
@@ -288,7 +295,6 @@ public class PopActivity extends AbstractWalletActivity {
         protected void onPostExecute(Outcome outcome) {
             Exception exception = outcome.exception;
             if (exception != null) {
-                toast(exception.getMessage());
                 if (exception instanceof KeyCrypterException
                         || (exception instanceof PopSigningException && ((PopSigningException)exception).isBadDecryptionKey())) {
                     updateState(State.INPUT);
@@ -298,6 +304,8 @@ public class PopActivity extends AbstractWalletActivity {
 
                     TextView privateKeyPasswordView = (TextView) findViewById(R.id.send_coins_private_key_password);
                     privateKeyPasswordView.requestFocus();
+                } else {
+                    toast(exception.getMessage());
                 }
                 return;
             }
