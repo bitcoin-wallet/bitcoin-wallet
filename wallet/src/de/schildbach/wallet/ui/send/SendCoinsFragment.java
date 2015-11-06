@@ -23,6 +23,8 @@ import java.util.Arrays;
 
 import javax.annotation.Nullable;
 
+import de.schildbach.wallet.data.PopIntent;
+import de.schildbach.wallet.ui.pop.PopActivity;
 import org.bitcoin.protocols.payments.Protos.Payment;
 import org.bitcoinj.core.Address;
 import org.bitcoinj.core.AddressFormatException;
@@ -709,6 +711,11 @@ public final class SendCoinsFragment extends Fragment
 					protected void handleDirectTransaction(final Transaction transaction) throws VerificationException
 					{
 						cannotClassify(input);
+					}
+
+					@Override
+					protected void handlePopIntent(PopIntent popIntent) {
+						PopActivity.start(activity, popIntent);
 					}
 
 					@Override
