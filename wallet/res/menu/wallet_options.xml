@@ -65,12 +65,9 @@
 		android:showAsAction="never"
 		android:title="@string/preferences_activity_title"/>
 	<item
-		android:id="@+id/wallet_options_donate"
-		android:showAsAction="never"
-		android:title="@string/wallet_options_donate"/>
-	<item
 		android:id="@+id/wallet_options_help"
 		android:showAsAction="never"
+		android:orderInCategory="999"
 		android:title="@string/button_help"/>
 
 </menu>

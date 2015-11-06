@@ -32,7 +32,6 @@ import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.bitcoinj.core.AddressFormatException;
 import org.bitcoinj.core.Transaction;
 import org.bitcoinj.core.VerificationException;
 import org.bitcoinj.core.VersionedChecksummedBytes;
@@ -226,8 +225,6 @@ public final class WalletActivity extends AbstractWalletActivity
 		super.onCreateOptionsMenu(menu);
 
 		getMenuInflater().inflate(R.menu.wallet_options, menu);
-		final boolean installedFromGooglePlay = "com.android.vending".equals(getPackageManager().getInstallerPackageName(getPackageName()));
-		menu.findItem(R.id.wallet_options_donate).setVisible(!Constants.TEST && !installedFromGooglePlay);
 
 		return true;
 	}
@@ -303,10 +300,6 @@ public final class WalletActivity extends AbstractWalletActivity
 				HelpDialogFragment.page(getFragmentManager(), R.string.help_safety);
 				return true;
 
-			case R.id.wallet_options_donate:
-				handleDonate();
-				return true;
-
 			case R.id.wallet_options_help:
 				HelpDialogFragment.page(getFragmentManager(), R.string.help_wallet);
 				return true;
@@ -338,19 +331,6 @@ public final class WalletActivity extends AbstractWalletActivity
 	public void handleEncryptKeys()
 	{
 		EncryptKeysDialogFragment.show(getFragmentManager());
-	}
-
-	private void handleDonate()
-	{
-		try
-		{
-			SendCoinsActivity.start(this, PaymentIntent.fromAddress(Constants.DONATION_ADDRESS, getString(R.string.wallet_donate_address_label)));
-		}
-		catch (final AddressFormatException x)
-		{
-			// cannot happen, address is hardcoded
-			throw new RuntimeException(x);
-		}
 	}
 
 	@Override
