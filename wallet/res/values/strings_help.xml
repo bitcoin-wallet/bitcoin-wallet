@@ -86,7 +86,7 @@
 			You also need to verify that the recipient of the proof is the one you expect. Typically it should
 			be the same server as the one that initiated this Proof of Payment request. If the proof is sent over
 			an insecure connection, make sure that understand the risks in sending the proof. Typically, servers
-			that care about its users' security should always use secure connections.
+			that care about its users\' security should always use secure connections.
 		</p>
 		<p>
 			If your wallet is protected by a PIN, then you also need to enter your PIN code. This is because your
