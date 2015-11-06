@@ -45,8 +45,8 @@
 	<string name="wallet_low_storage_dialog_title">Internal device storage space low!</string>
 	<string name="wallet_low_storage_dialog_msg">Bitcoin Wallet uses internal storage for remembering transactions and blocks. If it runs out of space, it will stop working and your Bitcoins will be at risk!\n\nDo you want to open the Application Manager to uninstall unneeded apps?</string>
 	<string name="wallet_low_storage_dialog_button_apps">Manage apps</string>
-	<string name="wallet_timeskew_dialog_title">Check your time settings!</string>
-	<string name="wallet_timeskew_dialog_msg">Your device time is off by %d minutes. You probably cannot send or receive Bitcoins due to this problem.\n\nYou should check and correct your time and timezone settings.</string>
+	<string name="wallet_timeskew_dialog_title">Check date &amp; time settings</string>
+	<string name="wallet_timeskew_dialog_msg">Your device time is off by %d minutes. You probably cannot send or receive Bitcoins due to this problem.\n\nYou should check and if necessary correct your date, time and timezone settings.</string>
 	<string name="wallet_version_dialog_title">A new version is available!</string>
 	<string name="wallet_version_dialog_msg">This version fixes important bugs. For details, see the change log on Google Play.</string>
 	<string name="wallet_version_dialog_msg_deprecated">If you don\'t see an update, this probably means your version of Android isn\'t supported any more.</string>
