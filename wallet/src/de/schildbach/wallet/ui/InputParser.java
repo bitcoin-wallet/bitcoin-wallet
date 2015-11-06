@@ -63,7 +63,6 @@ import de.schildbach.wallet.data.PaymentIntent;
 import de.schildbach.wallet.util.Io;
 import de.schildbach.wallet.util.Qr;
 import de.schildbach.wallet_test.R;
-import se.rosenbaum.jpop.PopRequest;
 import se.rosenbaum.jpop.PopRequestURI;
 
 /**
@@ -137,7 +136,7 @@ public abstract class InputParser
 					handlePopIntent(PopIntent.fromPopRequestURI(popRequestURI));
 				} catch (IllegalArgumentException e) {
 					log.info("Got invalid btcpop uri: '" + input + "'", e);
-					error(R.string.input_parser_invalid_btcpop_uri, input);
+					error(R.string.pop_input_parser_invalid_btcpop_uri, input);
 				}
 			}
 			else if (PATTERN_BITCOIN_ADDRESS.matcher(input).matches())
