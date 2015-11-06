@@ -15,7 +15,6 @@ import android.widget.TextView;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.data.PopIntent;
 import de.schildbach.wallet.ui.AbstractWalletActivity;
-import de.schildbach.wallet.ui.CurrencyTextView;
 import de.schildbach.wallet.ui.HelpDialogFragment;
 import de.schildbach.wallet.ui.TransactionsAdapter;
 import de.schildbach.wallet.util.Toast;
@@ -95,7 +94,7 @@ public class PopActivity extends AbstractWalletActivity {
                 popIntent = PopIntent.fromPopRequestURI(new PopRequestURI(input));
             } catch (IllegalArgumentException e) {
                 log.info("Got invalid btcpop uri: '" + input + "'", e);
-                toast(R.string.pop_input_parser_invalid_btcpop_uri, input);
+                resultMessage(false, R.string.pop_input_parser_invalid_btcpop_uri, input);
                 finish();
                 return;
             }
@@ -146,8 +145,10 @@ public class PopActivity extends AbstractWalletActivity {
         String protocol = url.getProtocol();
         if ("https".equals(protocol)) {
             destinationView.setCompoundDrawablesWithIntrinsicBounds(android.R.drawable.ic_secure, 0, 0, 0);
+            findViewById(R.id.pop_insecure_warning).setVisibility(View.GONE);
         } else {
             destinationView.setCompoundDrawablesWithIntrinsicBounds(android.R.drawable.ic_partial_secure, 0, 0, 0);
+            findViewById(R.id.pop_insecure_warning).setVisibility(View.VISIBLE);
         }
 
         TextView viewCancel = (Button)findViewById(R.id.send_coins_cancel);
@@ -242,15 +243,26 @@ public class PopActivity extends AbstractWalletActivity {
         sendPopTask.execute(popRequestURI);
     }
 
-    public void toast(final int resId, final Object... formatArgs) {
-        Toast toast = new Toast(this);
-        toast.longToast(resId, formatArgs);
+    public void resultMessage(boolean success, final int resId, final Object... formatArgs) {
+        TextView popMessage = getView(R.id.pop_message);
+
+        if (success) {
+            Toast toast = new Toast(this);
+            toast.longToast(resId, formatArgs);
+            finish();
+        } else {
+            popMessage.setTextColor(getResources().getColor(R.color.fg_error));
+            popMessage.setVisibility(View.VISIBLE);
+            popMessage.setText(getString(resId, formatArgs));
+        }
     }
 
+    public void resultMessage(final String message) {
+        TextView popMessage = getView(R.id.pop_message);
 
-    public void toast(final String message) {
-        Toast toast = new Toast(this);
-        toast.longToast(message);
+        popMessage.setTextColor(getResources().getColor(R.color.fg_error));
+        popMessage.setVisibility(View.VISIBLE);
+        popMessage.setText(message);
     }
 
     private void updateState(State newState) {
@@ -307,7 +319,7 @@ public class PopActivity extends AbstractWalletActivity {
                     TextView privateKeyPasswordView = (TextView) findViewById(R.id.send_coins_private_key_password);
                     privateKeyPasswordView.requestFocus();
                 } else {
-                    toast(exception.getMessage());
+                    resultMessage(exception.getMessage());
                 }
                 return;
             }
@@ -316,14 +328,13 @@ public class PopActivity extends AbstractWalletActivity {
             PopSender.Result result = popSender.getResult();
             if (result == PopSender.Result.OK) {
                 updateState(State.SUCCESS);
-                toast(R.string.pop_sent_success);
+                resultMessage(true, R.string.pop_sent_success);
             } else {
                 updateState(State.FAILED);
                 String errorMessage = popSender.errorMessage();
-                toast(result == PopSender.Result.INVALID_POP ? R.string.pop_send_invalid_pop : R.string.pop_send_failed,
+                resultMessage(false, result == PopSender.Result.INVALID_POP ? R.string.pop_send_invalid_pop : R.string.pop_send_failed,
                         errorMessage == null ? "No message" : errorMessage);
             }
-            finish();
         }
 
         private Outcome sendPop(PopRequestURI popRequestURI) {

@@ -1,90 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:background="@color/bg_form"
-              android:orientation="vertical">
-
-    <TextView
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginLeft="@dimen/list_entry_padding_horizontal_lax"
-            android:layout_marginRight="@dimen/list_entry_padding_horizontal_lax"
-            android:textSize="@dimen/font_size_large"
-            android:text="@string/pop_verify_transaction_to_prove"/>
+            android:layout_height="match_parent"
+            android:background="@color/bg_form"
+            android:fillViewport="true"
+            android:scrollbars="none">
 
-    <FrameLayout
-            android:id="@+id/pop_transaction_to_prove"
-            android:layout_marginTop="8dp"
-            android:layout_marginLeft="@dimen/list_entry_padding_horizontal_lax"
-            android:layout_marginRight="@dimen/list_entry_padding_horizontal_lax"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layoutAnimation="@anim/transaction_layout_anim" />
-
-    <Space
-            android:layout_width="0px"
-            android:layout_height="0px"
-            android:layout_weight="1"/>
-    <TextView
-            android:layout_marginLeft="@dimen/list_entry_padding_horizontal_lax"
-            android:layout_marginRight="@dimen/list_entry_padding_horizontal_lax"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:text="@string/pop_destination"/>
-    <TextView
-            android:id="@+id/pop_destination"
-            android:textSize="@dimen/font_size_large"
-            android:layout_marginTop="8dp"
-            android:layout_marginLeft="@dimen/list_entry_padding_horizontal_lax"
-            android:layout_marginRight="@dimen/list_entry_padding_horizontal_lax"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
-    <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/ic_warning_grey600_24dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginLeft="@dimen/list_entry_padding_horizontal_lax"
-            android:layout_marginRight="@dimen/list_entry_padding_horizontal_lax"
-            android:text="@string/pop_insecure_warning"/>
-
-    <LinearLayout
-            android:id="@+id/send_coins_private_key_password_group"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-            android:layout_marginLeft="@dimen/list_entry_padding_horizontal_lax"
-            android:layout_marginRight="@dimen/list_entry_padding_horizontal_lax"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:divider="@drawable/divider_field"
-            android:orientation="horizontal"
-            android:showDividers="middle">
-
-        <EditText
-                android:id="@+id/send_coins_private_key_password"
-                android:layout_width="0px"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="@string/private_key_password"
-                android:imeOptions="flagNoExtractUi"
-                android:inputType="numberPassword"
-                android:singleLine="true"/>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:orientation="vertical">
 
         <TextView
-                android:id="@+id/send_coins_private_key_bad_password"
-                android:layout_width="0px"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/private_key_bad_password"
-                android:textColor="@color/fg_error"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="@dimen/list_entry_padding_horizontal_lax"
+                android:layout_marginRight="@dimen/list_entry_padding_horizontal_lax"
+                android:textSize="@dimen/font_size_large"
+                android:text="@string/pop_verify_transaction_to_prove"/>
+
+        <FrameLayout
+                android:id="@+id/pop_transaction_to_prove"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="@dimen/list_entry_padding_horizontal_lax"
+                android:layout_marginRight="@dimen/list_entry_padding_horizontal_lax"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layoutAnimation="@anim/transaction_layout_anim"/>
+
+        <Space
+                android:layout_width="0px"
+                android:layout_height="0px"
+                android:layout_weight="1"/>
+        <TextView
+                android:layout_marginLeft="@dimen/list_entry_padding_horizontal_lax"
+                android:layout_marginRight="@dimen/list_entry_padding_horizontal_lax"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:textStyle="bold"
-                android:visibility="invisible"/>
+                android:text="@string/pop_destination"/>
+        <TextView
+                android:id="@+id/pop_destination"
+                android:textSize="@dimen/font_size_large"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="@dimen/list_entry_padding_horizontal_lax"
+                android:layout_marginRight="@dimen/list_entry_padding_horizontal_lax"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        <TextView
+                android:id="@+id/pop_insecure_warning"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_warning_grey600_24dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="@dimen/list_entry_padding_horizontal_lax"
+                android:layout_marginRight="@dimen/list_entry_padding_horizontal_lax"
+                android:text="@string/pop_insecure_warning"/>
+
+        <LinearLayout
+                android:id="@+id/send_coins_private_key_password_group"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginLeft="@dimen/list_entry_padding_horizontal_lax"
+                android:layout_marginRight="@dimen/list_entry_padding_horizontal_lax"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:divider="@drawable/divider_field"
+                android:orientation="horizontal"
+                android:showDividers="middle">
+
+            <EditText
+                    android:id="@+id/send_coins_private_key_password"
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="@string/private_key_password"
+                    android:imeOptions="flagNoExtractUi"
+                    android:inputType="numberPassword"
+                    android:singleLine="true"/>
+
+            <TextView
+                    android:id="@+id/send_coins_private_key_bad_password"
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/private_key_bad_password"
+                    android:textColor="@color/fg_error"
+                    android:textStyle="bold"
+                    android:visibility="invisible"/>
+        </LinearLayout>
+
+
+        <TextView
+                android:id="@+id/pop_message"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/list_entry_padding_vertical"
+                android:layout_marginLeft="@dimen/list_entry_padding_horizontal_lax"
+                android:layout_marginRight="@dimen/list_entry_padding_horizontal_lax"
+                android:textSize="@dimen/font_size_small"
+                android:visibility="gone"/>
+
+        <include layout="@layout/send_coins_buttons_include"/>
+
     </LinearLayout>
-
-    <include layout="@layout/send_coins_buttons_include"/>
-
-</LinearLayout>
+</ScrollView>
