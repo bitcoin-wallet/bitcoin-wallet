@@ -320,14 +320,15 @@
 	<string name="pop_transaction_amount">Amount</string>
 	<string name="pop_transaction_memo">Memo</string>
 	<string name="pop_destination">Prove to</string>
+	<string name="pop_insecure_warning">The proof will be sent over an unencrypted connection.</string>
 	<string name="pop_no_matching_transaction">No transaction found matching hints: %s</string>
 	<string name="pop_sent_success">Proof sent successfully</string>
 	<string name="pop_send_invalid_pop">Proof is not valid: %s</string>
 	<string name="pop_send_failed">Failed to send Proof: %s</string>
-	<string name="input_parser_invalid_btcpop_uri">Invalid Proof of Payment URI: %s</string>
+	<string name="pop_input_parser_invalid_btcpop_uri">Invalid Proof of Payment URI: %s</string>
 	<string name="pop_send_pop">Prove</string>
 	<string name="pop_sent">Sent...</string>
 	<string name="pop_proven">Proven!</string>
-	<string name="pop_verify_transaction_to_prove">Please check the transaction to prove is the one you expect</string>
+	<string name="pop_verify_transaction_to_prove">Please check the transaction to prove</string>
 
 </resources>

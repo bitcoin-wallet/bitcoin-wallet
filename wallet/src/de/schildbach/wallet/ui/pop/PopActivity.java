@@ -4,16 +4,20 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.text.format.DateUtils;
+import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.TextView;
+import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.data.PopIntent;
 import de.schildbach.wallet.ui.AbstractWalletActivity;
 import de.schildbach.wallet.ui.CurrencyTextView;
 import de.schildbach.wallet.ui.HelpDialogFragment;
+import de.schildbach.wallet.ui.TransactionsAdapter;
 import de.schildbach.wallet.util.Toast;
 import de.schildbach.wallet_test.R;
 import org.bitcoinj.core.Coin;
@@ -91,14 +95,15 @@ public class PopActivity extends AbstractWalletActivity {
                 popIntent = PopIntent.fromPopRequestURI(new PopRequestURI(input));
             } catch (IllegalArgumentException e) {
                 log.info("Got invalid btcpop uri: '" + input + "'", e);
-                toast(R.string.input_parser_invalid_btcpop_uri, input);
+                toast(R.string.pop_input_parser_invalid_btcpop_uri, input);
                 finish();
                 return;
             }
         }
         popRequestURI = popIntent.getPopRequestURI();
 
-        Wallet wallet = getWalletApplication().getWallet();
+        WalletApplication walletApplication = getWalletApplication();
+        Wallet wallet = walletApplication.getWallet();
 
         List<Transaction> transactions = wallet.getTransactionsByTime();
         for (Transaction transaction : transactions) {
@@ -132,14 +137,6 @@ public class PopActivity extends AbstractWalletActivity {
             return;
         }
 
-        long time = transactionToProve.getUpdateTime().getTime();
-        String dateString = DateUtils.formatDateTime(this, time, DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_TIME);
-        setText(R.id.pop_transaction_date, dateString);
-
-        setAmount(R.id.pop_transaction_amount, transactionToProve.getValue(wallet));
-
-        setText(R.id.pop_transaction_memo, transactionToProve.getMemo());
-
         URL url = getUrl(popRequestURI.getP());
         if (url == null) {
             return;
@@ -171,14 +168,19 @@ public class PopActivity extends AbstractWalletActivity {
                 sendPop(v);
             }
         });
-        updateState(State.INPUT);
-    }
 
-    private void setAmount(int resourceId, Coin amount) {
-        CurrencyTextView currencyTextView = (CurrencyTextView) getView(resourceId);
-        currencyTextView.setAlwaysSigned(true);
-        currencyTextView.setFormat(getWalletApplication().getConfiguration().getFormat());
-        currencyTextView.setAmount(amount);
+        FrameLayout sentTransactionView = (FrameLayout) findViewById(R.id.pop_transaction_to_prove);
+        TransactionsAdapter adapter = new TransactionsAdapter(this, wallet, false, walletApplication.maxConnectedPeers(), null);
+        adapter.replace(transactionToProve);
+        RecyclerView.ViewHolder sentTransactionViewHolder = adapter.createTransactionViewHolder(sentTransactionView);
+        sentTransactionView.addView(sentTransactionViewHolder.itemView, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT));
+
+
+        adapter.setFormat(getWalletApplication().getConfiguration().getFormat());
+        adapter.bindViewHolder(sentTransactionViewHolder, 0);
+
+        updateState(State.INPUT);
     }
 
     private void setText(int resourceId, String text) {
