@@ -315,7 +315,7 @@
 
 	<!-- Pop related strings -->
 	<string name="pop_activity_title">Proof of Payment</string>
-	<string name="pop_destination">Prove to</string>
+	<string name="pop_destination">Prove to:</string>
 	<string name="pop_insecure_warning">The proof will be sent over an unencrypted connection.</string>
 	<string name="pop_no_matching_transaction">No transaction found matching the PoP request URI: %s</string>
 	<string name="pop_sent_success">Proof sent successfully</string>
@@ -329,7 +329,7 @@
 	<string name="pop_state_sent">Sent…</string>
 	<string name="pop_state_success">Proven!</string>
 	<string name="pop_state_failed">Failed!</string>
-	<string name="pop_verify_transaction_to_prove">Check the payment to prove</string>
+	<string name="pop_verify_transaction_to_prove">Payment to prove:</string>
 	<string name="pop_error">Can\'t create proof</string>
 
 </resources>
