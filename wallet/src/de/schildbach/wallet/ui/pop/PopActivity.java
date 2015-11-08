@@ -1,5 +1,5 @@
 /*
- * Copyright 2011-2015 the original author or authors.
+ * Copyright 2015 the original author or authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,6 +18,7 @@
 package de.schildbach.wallet.ui.pop;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -30,14 +31,18 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import de.schildbach.wallet.WalletApplication;
+import de.schildbach.wallet.data.PaymentIntent;
 import de.schildbach.wallet.data.PopIntent;
 import de.schildbach.wallet.ui.AbstractWalletActivity;
+import de.schildbach.wallet.ui.DialogBuilder;
 import de.schildbach.wallet.ui.HelpDialogFragment;
+import de.schildbach.wallet.ui.InputParser;
 import de.schildbach.wallet.ui.TransactionsAdapter;
 import de.schildbach.wallet.util.Toast;
 import de.schildbach.wallet_test.R;
 import org.bitcoinj.core.Coin;
 import org.bitcoinj.core.Transaction;
+import org.bitcoinj.core.VerificationException;
 import org.bitcoinj.core.Wallet;
 import org.bitcoinj.crypto.KeyCrypter;
 import org.bitcoinj.crypto.KeyCrypterException;
@@ -52,6 +57,7 @@ import se.rosenbaum.jpop.generate.PopGenerator;
 import se.rosenbaum.jpop.generate.PopSender;
 import se.rosenbaum.jpop.generate.PopSigningException;
 
+import javax.annotation.Nullable;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
@@ -68,18 +74,15 @@ public class PopActivity extends AbstractWalletActivity
 	private PopRequestURI popRequestURI;
 	private Transaction transactionToProve;
 	private Button proveButton;
-	private State currentState = null;
 
 	private enum State
 	{
-		INPUT(R.string.pop_send_pop), // asks for confirmation
-		DECRYPTING(R.string.send_coins_fragment_state_decrypting),
-		SIGNING(R.string.send_coins_preparation_msg),
-		SENDING(R.string.send_coins_sending_msg),
-		SENT(R.string.pop_sent),
-		SUCCESS(R.string.pop_proven),
-		FAILED(R.string.send_coins_failed_msg); // sending
-																																	// states
+		INPUT(R.string.pop_send_pop),
+		DECRYPTING(R.string.pop_state_decrypting),
+		SIGNING(R.string.pop_state_signing),
+		SENDING(R.string.pop_state_sending),
+		SUCCESS(R.string.pop_state_success),
+		FAILED(R.string.pop_state_failed);
 		private final int resId;
 
 		State(final int resId)
@@ -104,70 +107,21 @@ public class PopActivity extends AbstractWalletActivity
 	protected void onCreate(final Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-
 		setContentView(R.layout.pop_content);
 
-		// We can come here either from an intent filter in AndroidManifest.xml or from
-		// WalletActivity.onActivityResult after scanning
-		// If from intent filter, we have a Uri. If from WalletActivity, we have a PopIntent.
-		PopIntent popIntent = getIntent().getParcelableExtra(INTENT_EXTRA_POP_INTENT);
-		if (popIntent == null)
+		popRequestURI = getPopRequestURI();
+		if (popRequestURI == null)
 		{
-			// We are started from the intent filter
-			String input = getIntent().getData().toString();
-			try
-			{
-				popIntent = PopIntent.fromPopRequestURI(new PopRequestURI(input));
-			}
-			catch (IllegalArgumentException e)
-			{
-				log.info("Got invalid btcpop uri: '" + input + "'", e);
-				resultMessage(false, R.string.pop_input_parser_invalid_btcpop_uri, input);
-				finish();
-				return;
-			}
+			return;
 		}
-		popRequestURI = popIntent.getPopRequestURI();
 
 		WalletApplication walletApplication = getWalletApplication();
-		Wallet wallet = walletApplication.getWallet();
 
-		List<Transaction> transactions = wallet.getTransactionsByTime();
-		for (Transaction transaction : transactions)
-		{
-			if (popRequestURI.getTxid() != null && !transaction.getHash().equals(popRequestURI.getTxid()))
-			{
-				continue;
-			}
-			Coin value = transaction.getValue(wallet);
-			if (popRequestURI.getAmountSatoshis() != null && value.longValue() != popRequestURI.getAmountSatoshis())
-			{
-				continue;
-			}
-			if (popRequestURI.getLabel() != null && !popRequestURI.getLabel().equals(transaction.getMemo()))
-			{
-				continue;
-			}
-			transactionToProve = transaction;
-			break;
-		}
+		transactionToProve = findMatchingTransactionToProve(walletApplication);
 
 		if (transactionToProve == null)
 		{
-			de.schildbach.wallet.util.Toast toast = new de.schildbach.wallet.util.Toast(this);
-			// This wallet doesn't have a transaction with m
-			StringBuilder stringBuilder = new StringBuilder(popRequestURI.getTxid() != null ? "txid=" + popRequestURI.getTxid() + ", " : "");
-			stringBuilder.append(popRequestURI.getTxid() != null ? "txid=" + popRequestURI.getTxid() + ", " : "");
-			stringBuilder.append(popRequestURI.getLabel() != null ? "label=" + popRequestURI.getLabel() + ", " : "");
-			stringBuilder.append(popRequestURI.getMessage() != null ? "message=" + popRequestURI.getMessage() + ", " : "");
-			stringBuilder.append(popRequestURI.getAmountSatoshis() != null ? "amount="
-					+ Coin.valueOf(popRequestURI.getAmountSatoshis()).toPlainString() + ", " : "");
-			if (stringBuilder.length() > 1)
-			{
-				stringBuilder.delete(stringBuilder.length() - 2, stringBuilder.length());
-			}
-			toast.longToast(R.string.pop_no_matching_transaction, stringBuilder.toString());
-			finish();
+			dialog(this, new FinishDismissListener(), R.string.pop_activity_title, R.string.pop_no_matching_transaction, popRequestURI.toURIString());
 			return;
 		}
 
@@ -176,20 +130,29 @@ public class PopActivity extends AbstractWalletActivity
 		{
 			return;
 		}
-		setText(R.id.pop_destination, url.getHost());
-		TextView destinationView = getView(R.id.pop_destination);
-		String protocol = url.getProtocol();
-		if ("https".equals(protocol))
-		{
-			destinationView.setCompoundDrawablesWithIntrinsicBounds(android.R.drawable.ic_secure, 0, 0, 0);
-			findViewById(R.id.pop_insecure_warning).setVisibility(View.GONE);
-		}
-		else
-		{
-			destinationView.setCompoundDrawablesWithIntrinsicBounds(android.R.drawable.ic_partial_secure, 0, 0, 0);
-			findViewById(R.id.pop_insecure_warning).setVisibility(View.VISIBLE);
-		}
 
+		setPopDestination(url);
+
+		bindButtons();
+
+		displayTransaction(walletApplication);
+
+		updateState(State.INPUT);
+	}
+
+	private void displayTransaction(WalletApplication walletApplication) {
+		FrameLayout sentTransactionView = (FrameLayout) findViewById(R.id.pop_transaction_to_prove);
+		TransactionsAdapter adapter = new TransactionsAdapter(this, walletApplication.getWallet(), false, walletApplication.maxConnectedPeers(), null);
+		adapter.replace(transactionToProve);
+		RecyclerView.ViewHolder sentTransactionViewHolder = adapter.createTransactionViewHolder(sentTransactionView);
+		sentTransactionView.addView(sentTransactionViewHolder.itemView, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+				ViewGroup.LayoutParams.WRAP_CONTENT));
+
+		adapter.setFormat(walletApplication.getConfiguration().getFormat());
+		adapter.bindViewHolder(sentTransactionViewHolder, 0);
+	}
+
+	private void bindButtons() {
 		TextView viewCancel = (Button) findViewById(R.id.send_coins_cancel);
 		viewCancel.setText(R.string.button_cancel);
 		viewCancel.setOnClickListener(new View.OnClickListener()
@@ -210,18 +173,79 @@ public class PopActivity extends AbstractWalletActivity
 				sendPop(v);
 			}
 		});
+	}
 
-		FrameLayout sentTransactionView = (FrameLayout) findViewById(R.id.pop_transaction_to_prove);
-		TransactionsAdapter adapter = new TransactionsAdapter(this, wallet, false, walletApplication.maxConnectedPeers(), null);
-		adapter.replace(transactionToProve);
-		RecyclerView.ViewHolder sentTransactionViewHolder = adapter.createTransactionViewHolder(sentTransactionView);
-		sentTransactionView.addView(sentTransactionViewHolder.itemView, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-				ViewGroup.LayoutParams.WRAP_CONTENT));
+	private void setPopDestination(URL url) {
+		setText(R.id.pop_destination, url.getHost());
+		TextView destinationView = getView(R.id.pop_destination);
+		String protocol = url.getProtocol();
+		if ("https".equals(protocol))
+		{
+			destinationView.setCompoundDrawablesWithIntrinsicBounds(android.R.drawable.ic_secure, 0, 0, 0);
+			findViewById(R.id.pop_insecure_warning).setVisibility(View.GONE);
+		}
+		else
+		{
+			destinationView.setCompoundDrawablesWithIntrinsicBounds(android.R.drawable.ic_partial_secure, 0, 0, 0);
+			findViewById(R.id.pop_insecure_warning).setVisibility(View.VISIBLE);
+		}
+	}
 
-		adapter.setFormat(getWalletApplication().getConfiguration().getFormat());
-		adapter.bindViewHolder(sentTransactionViewHolder, 0);
+	private Transaction findMatchingTransactionToProve(WalletApplication walletApplication) {
+		Wallet wallet = walletApplication.getWallet();
+		List<Transaction> transactions = wallet.getTransactionsByTime();
+		for (Transaction transaction : transactions)
+		{
+			if (popRequestURI.getTxid() != null && !transaction.getHash().equals(popRequestURI.getTxid()))
+			{
+				continue;
+			}
+			Coin value = transaction.getValue(wallet);
+			if (popRequestURI.getAmountSatoshis() != null && value.longValue() != popRequestURI.getAmountSatoshis())
+			{
+				continue;
+			}
+			if (popRequestURI.getLabel() != null && !popRequestURI.getLabel().equals(transaction.getMemo()))
+			{
+				continue;
+			}
+			return transaction;
+		}
+		return null;
+	}
 
-		updateState(State.INPUT);
+	private PopRequestURI getPopRequestURI() {
+		// We can come here either from an intent filter in AndroidManifest.xml or from
+		// WalletActivity.onActivityResult after scanning
+		// If from intent filter, we have a URI string. If from WalletActivity, we have a PopIntent.
+		PopIntent popIntent = getIntent().getParcelableExtra(INTENT_EXTRA_POP_INTENT);
+		if (popIntent == null)
+		{
+			// We are started from the intent filter
+			final String input = getIntent().getData().toString();
+			try
+			{
+				popIntent = PopIntent.fromPopRequestURI(new PopRequestURI(input));
+			}
+			catch (IllegalArgumentException e)
+			{
+				log.info("Got invalid btcpop uri: '" + input + "'", e);
+				dialog(this, new FinishDismissListener(), R.string.pop_activity_title, R.string.pop_input_parser_invalid_btcpop_uri, input);
+				return null;
+			}
+		}
+		return popIntent.getPopRequestURI();
+	}
+
+	protected void dialog(final Context context, @Nullable final DialogInterface.OnClickListener dismissListener, final int titleResId, final int messageResId,
+						  final Object... messageArgs)
+	{
+		final DialogBuilder dialog = new DialogBuilder(context);
+		if (titleResId != 0)
+			dialog.setTitle(titleResId);
+		dialog.setMessage(context.getString(messageResId, messageArgs));
+		dialog.singleDismissButton(dismissListener);
+		dialog.show();
 	}
 
 	private void setText(final int resourceId, final String text)
@@ -260,7 +284,7 @@ public class PopActivity extends AbstractWalletActivity
 	@Override
 	public boolean onCreateOptionsMenu(final Menu menu)
 	{
-		getMenuInflater().inflate(R.menu.send_coins_activity_options, menu);
+		getMenuInflater().inflate(R.menu.pop_activity_options, menu);
 
 		return super.onCreateOptionsMenu(menu);
 	}
@@ -274,7 +298,7 @@ public class PopActivity extends AbstractWalletActivity
 				finish();
 				return true;
 
-			case R.id.send_coins_options_help:
+			case R.id.pop_options_help:
 				HelpDialogFragment.page(getFragmentManager(), R.string.help_pop);
 				return true;
 		}
@@ -284,7 +308,7 @@ public class PopActivity extends AbstractWalletActivity
 
 	public void sendPop(final View view)
 	{
-		View privateKeyBadPasswordView = findViewById(R.id.send_coins_private_key_bad_password);
+		View privateKeyBadPasswordView = findViewById(R.id.pop_private_key_bad_password);
 		privateKeyBadPasswordView.setVisibility(View.INVISIBLE);
 
 		SendPopTask sendPopTask = new SendPopTask();
@@ -322,9 +346,9 @@ public class PopActivity extends AbstractWalletActivity
 	{
 		proveButton.setText(newState.getResId());
 		final boolean privateKeyPasswordViewVisible = getWalletApplication().getWallet().isEncrypted();
-		View pinGroup = findViewById(R.id.send_coins_private_key_password_group);
+		View pinGroup = findViewById(R.id.pop_private_key_password_group);
 		pinGroup.setVisibility(privateKeyPasswordViewVisible ? View.VISIBLE : View.GONE);
-		View privateKeyPasswordView = findViewById(R.id.send_coins_private_key_password);
+		View privateKeyPasswordView = findViewById(R.id.pop_private_key_password);
 		privateKeyPasswordView.setEnabled(newState == State.INPUT);
 	}
 
@@ -355,7 +379,7 @@ public class PopActivity extends AbstractWalletActivity
 			{
 				return null;
 			}
-			TextView privateKeyPasswordView = (TextView) findViewById(R.id.send_coins_private_key_password);
+			TextView privateKeyPasswordView = (TextView) findViewById(R.id.pop_private_key_password);
 			return keyCrypter.deriveKey(privateKeyPasswordView.getText().toString().trim());
 		}
 
@@ -378,10 +402,10 @@ public class PopActivity extends AbstractWalletActivity
 				{
 					updateState(State.INPUT);
 
-					View privateKeyBadPasswordView = findViewById(R.id.send_coins_private_key_bad_password);
+					View privateKeyBadPasswordView = findViewById(R.id.pop_private_key_bad_password);
 					privateKeyBadPasswordView.setVisibility(View.VISIBLE);
 
-					TextView privateKeyPasswordView = (TextView) findViewById(R.id.send_coins_private_key_password);
+					TextView privateKeyPasswordView = (TextView) findViewById(R.id.pop_private_key_password);
 					privateKeyPasswordView.requestFocus();
 				}
 				else
@@ -441,6 +465,13 @@ public class PopActivity extends AbstractWalletActivity
 				outcome.exception = e;
 			}
 			return outcome;
+		}
+	}
+
+	private class FinishDismissListener implements DialogInterface.OnClickListener {
+		@Override
+		public void onClick(DialogInterface dialog, int which) {
+			PopActivity.this.finish();
 		}
 	}
 }
