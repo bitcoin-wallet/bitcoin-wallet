@@ -6,9 +6,8 @@
             android:fillViewport="true"
             android:scrollbars="none">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="fill_parent"
                   android:orientation="vertical">
 
         <TextView
@@ -60,7 +59,7 @@
                 android:text="@string/pop_insecure_warning"/>
 
         <LinearLayout
-                android:id="@+id/send_coins_private_key_password_group"
+                android:id="@+id/pop_private_key_password_group"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
                 android:layout_marginLeft="@dimen/list_entry_padding_horizontal_lax"
@@ -72,7 +71,7 @@
                 android:showDividers="middle">
 
             <EditText
-                    android:id="@+id/send_coins_private_key_password"
+                    android:id="@+id/pop_private_key_password"
                     android:layout_width="0px"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -82,7 +81,7 @@
                     android:singleLine="true"/>
 
             <TextView
-                    android:id="@+id/send_coins_private_key_bad_password"
+                    android:id="@+id/pop_private_key_bad_password"
                     android:layout_width="0px"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -91,7 +90,6 @@
                     android:textStyle="bold"
                     android:visibility="invisible"/>
         </LinearLayout>
-
 
         <TextView
                 android:id="@+id/pop_message"
