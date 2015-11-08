@@ -714,7 +714,7 @@ public final class SendCoinsFragment extends Fragment
 					}
 
 					@Override
-					protected void handlePopIntent(PopIntent popIntent) {
+					protected void handlePopIntent(final PopIntent popIntent) {
 						PopActivity.start(activity, popIntent);
 					}
 

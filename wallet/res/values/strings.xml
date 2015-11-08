@@ -315,20 +315,21 @@
 
 	<!-- Pop related strings -->
 	<string name="pop_activity_title">Proof of Payment</string>
-	<string name="pop_transaction_information">Prove transaction</string>
-	<string name="pop_transaction_date">Date</string>
-	<string name="pop_transaction_amount">Amount</string>
-	<string name="pop_transaction_memo">Memo</string>
 	<string name="pop_destination">Prove to</string>
 	<string name="pop_insecure_warning">The proof will be sent over an unencrypted connection.</string>
-	<string name="pop_no_matching_transaction">No transaction found matching hints: %s</string>
+	<string name="pop_no_matching_transaction">No transaction found matching the PoP request URI: %s</string>
 	<string name="pop_sent_success">Proof sent successfully</string>
 	<string name="pop_send_invalid_pop">Proof is not valid: %s</string>
-	<string name="pop_send_failed">Failed to send Proof: %s</string>
+	<string name="pop_send_failed">Failed to send proof: %s</string>
 	<string name="pop_input_parser_invalid_btcpop_uri">Invalid Proof of Payment URI: %s</string>
 	<string name="pop_send_pop">Prove</string>
-	<string name="pop_sent">Sent...</string>
-	<string name="pop_proven">Proven!</string>
-	<string name="pop_verify_transaction_to_prove">Please check the transaction to prove</string>
+	<string name="pop_state_decrypting">Decrypting…</string>
+	<string name="pop_state_signing">Signing…</string>
+	<string name="pop_state_sending">Sending…</string>
+	<string name="pop_state_sent">Sent…</string>
+	<string name="pop_state_success">Proven!</string>
+	<string name="pop_state_failed">Failed!</string>
+	<string name="pop_verify_transaction_to_prove">Check the payment to prove</string>
+	<string name="pop_error">Can\'t create proof</string>
 
 </resources>

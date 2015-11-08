@@ -36,6 +36,12 @@ https://github.com/bitcoin/bips/blob/master/bip-0070.mediawiki
 BIP-71: Payment protocol MIME types
 https://github.com/bitcoin/bips/blob/master/bip-0071.mediawiki
 
+BIP-120: Proof of Payment
+https://github.com/bitcoin/bips/blob/master/bip-0120.mediawiki
+
+BIP-121: Proof of Payment URI scheme
+https://github.com/bitcoin/bips/blob/master/bip-0121.mediawiki
+
 RFC 6979: Deterministic usage of ECDSA
 https://tools.ietf.org/html/rfc6979
 
