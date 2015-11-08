@@ -20,7 +20,6 @@ package de.schildbach.wallet.ui.pop;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
@@ -31,29 +30,20 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import de.schildbach.wallet.WalletApplication;
-import de.schildbach.wallet.data.PaymentIntent;
 import de.schildbach.wallet.data.PopIntent;
 import de.schildbach.wallet.ui.AbstractWalletActivity;
 import de.schildbach.wallet.ui.DialogBuilder;
 import de.schildbach.wallet.ui.HelpDialogFragment;
-import de.schildbach.wallet.ui.InputParser;
 import de.schildbach.wallet.ui.TransactionsAdapter;
 import de.schildbach.wallet.util.Toast;
 import de.schildbach.wallet_test.R;
 import org.bitcoinj.core.Coin;
 import org.bitcoinj.core.Transaction;
-import org.bitcoinj.core.VerificationException;
 import org.bitcoinj.core.Wallet;
-import org.bitcoinj.crypto.KeyCrypter;
 import org.bitcoinj.crypto.KeyCrypterException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.spongycastle.crypto.params.KeyParameter;
-import se.rosenbaum.jpop.Pop;
 import se.rosenbaum.jpop.PopRequestURI;
-import se.rosenbaum.jpop.generate.HttpPopSender;
-import se.rosenbaum.jpop.generate.PopGenerationException;
-import se.rosenbaum.jpop.generate.PopGenerator;
 import se.rosenbaum.jpop.generate.PopSender;
 import se.rosenbaum.jpop.generate.PopSigningException;
 
@@ -75,7 +65,7 @@ public class PopActivity extends AbstractWalletActivity
 	private Transaction transactionToProve;
 	private Button proveButton;
 
-	private enum State
+	enum State
 	{
 		INPUT(R.string.pop_send_pop),
 		DECRYPTING(R.string.pop_state_decrypting),
@@ -311,8 +301,54 @@ public class PopActivity extends AbstractWalletActivity
 		View privateKeyBadPasswordView = findViewById(R.id.pop_private_key_bad_password);
 		privateKeyBadPasswordView.setVisibility(View.INVISIBLE);
 
-		SendPopTask sendPopTask = new SendPopTask();
-		sendPopTask.execute(popRequestURI);
+		TextView privateKeyPasswordView = (TextView) findViewById(R.id.pop_private_key_password);
+		String pin = privateKeyPasswordView.getText().toString().trim();
+		SendPopTask popTask = new SendPopTask(getWalletApplication(), popRequestURI, pin, transactionToProve) {
+			@Override
+			protected void onProgressUpdate(State value) {
+				updateState(value);
+			}
+
+			@Override
+			protected void onPostExecute(Outcome outcome) {
+				Exception exception = outcome.exception;
+				if (exception != null)
+				{
+					if (exception instanceof KeyCrypterException
+							|| (exception instanceof PopSigningException && ((PopSigningException) exception).isBadDecryptionKey()))
+					{
+						updateState(State.INPUT);
+
+						View privateKeyBadPasswordView = findViewById(R.id.pop_private_key_bad_password);
+						privateKeyBadPasswordView.setVisibility(View.VISIBLE);
+
+						TextView privateKeyPasswordView = (TextView) findViewById(R.id.pop_private_key_password);
+						privateKeyPasswordView.requestFocus();
+					}
+					else
+					{
+						resultMessage(exception.getMessage());
+					}
+					return;
+				}
+
+				PopSender popSender = outcome.popSender;
+				PopSender.Result result = popSender.getResult();
+				if (result == PopSender.Result.OK)
+				{
+					updateState(State.SUCCESS);
+					resultMessage(true, R.string.pop_sent_success);
+				}
+				else
+				{
+					updateState(State.FAILED);
+					String errorMessage = popSender.errorMessage();
+					resultMessage(false, result == PopSender.Result.INVALID_POP ? R.string.pop_send_invalid_pop : R.string.pop_send_failed,
+							errorMessage == null ? "No message" : errorMessage);
+				}
+			}
+		};
+		popTask.sendPop();
 	}
 
 	public void resultMessage(final boolean success, final int resId, final Object... formatArgs)
@@ -352,120 +388,10 @@ public class PopActivity extends AbstractWalletActivity
 		privateKeyPasswordView.setEnabled(newState == State.INPUT);
 	}
 
-	private class Outcome
+	static class Outcome
 	{
 		PopSender popSender;
 		Exception exception;
-	}
-
-	private class SendPopTask extends AsyncTask<PopRequestURI, State, Outcome>
-	{
-
-		@Override
-		protected Outcome doInBackground(final PopRequestURI... popRequestURIs)
-		{
-			return sendPop(popRequestURIs[0]);
-		}
-
-		private KeyParameter getKeyParameter()
-		{
-			Wallet wallet = getWalletApplication().getWallet();
-			if (!wallet.isEncrypted())
-			{
-				return null;
-			}
-			KeyCrypter keyCrypter = wallet.getKeyCrypter();
-			if (keyCrypter == null)
-			{
-				return null;
-			}
-			TextView privateKeyPasswordView = (TextView) findViewById(R.id.pop_private_key_password);
-			return keyCrypter.deriveKey(privateKeyPasswordView.getText().toString().trim());
-		}
-
-		@Override
-		protected void onProgressUpdate(final State... values)
-		{
-			for (State value : values)
-			{
-				updateState(value);
-			}
-		}
-
-		protected void onPostExecute(final Outcome outcome)
-		{
-			Exception exception = outcome.exception;
-			if (exception != null)
-			{
-				if (exception instanceof KeyCrypterException
-						|| (exception instanceof PopSigningException && ((PopSigningException) exception).isBadDecryptionKey()))
-				{
-					updateState(State.INPUT);
-
-					View privateKeyBadPasswordView = findViewById(R.id.pop_private_key_bad_password);
-					privateKeyBadPasswordView.setVisibility(View.VISIBLE);
-
-					TextView privateKeyPasswordView = (TextView) findViewById(R.id.pop_private_key_password);
-					privateKeyPasswordView.requestFocus();
-				}
-				else
-				{
-					resultMessage(exception.getMessage());
-				}
-				return;
-			}
-
-			PopSender popSender = outcome.popSender;
-			PopSender.Result result = popSender.getResult();
-			if (result == PopSender.Result.OK)
-			{
-				updateState(State.SUCCESS);
-				resultMessage(true, R.string.pop_sent_success);
-			}
-			else
-			{
-				updateState(State.FAILED);
-				String errorMessage = popSender.errorMessage();
-				resultMessage(false, result == PopSender.Result.INVALID_POP ? R.string.pop_send_invalid_pop : R.string.pop_send_failed,
-						errorMessage == null ? "No message" : errorMessage);
-			}
-		}
-
-		private Outcome sendPop(final PopRequestURI popRequestURI)
-		{
-			Outcome outcome = new Outcome();
-			try
-			{
-				publishProgress(State.DECRYPTING);
-				final KeyParameter encryptionKey = getKeyParameter();
-				PopGenerator popGenerator = new PopGenerator();
-				Pop pop = popGenerator.createPop(transactionToProve, popRequestURI.getN());
-				publishProgress(State.SIGNING);
-				popGenerator.signPop(pop, getWalletApplication().getWallet(), encryptionKey);
-				HttpPopSender popSender = new HttpPopSender(popRequestURI);
-				publishProgress(State.SENDING);
-				popSender.sendPop(pop);
-				outcome.popSender = popSender;
-			}
-			catch (PopGenerationException e)
-			{
-				publishProgress(State.FAILED);
-				log.debug("Couldn't create PoP", e);
-				outcome.exception = e;
-			}
-			catch (PopSigningException e)
-			{
-				publishProgress(State.FAILED);
-				log.debug("Couldn't sign PoP", e);
-				outcome.exception = e;
-			}
-			catch (KeyCrypterException e)
-			{
-				publishProgress(State.INPUT);
-				outcome.exception = e;
-			}
-			return outcome;
-		}
 	}
 
 	private class FinishDismissListener implements DialogInterface.OnClickListener {
