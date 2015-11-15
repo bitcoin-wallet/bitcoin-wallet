@@ -1,3 +1,7 @@
+v4.44
+
+* Fix problem with sweeping paper wallets.
+
 v4.43
 
 * Switch default block explorer to blockexplorer.com.
