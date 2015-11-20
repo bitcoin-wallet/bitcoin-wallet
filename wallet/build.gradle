@@ -43,6 +43,10 @@ android {
         disable 'MissingTranslation'
     }
 
+    defaultConfig {
+        generatedDensities = ['hdpi', 'xhdpi']
+    }
+
     buildTypes {
         all {
             minifyEnabled true

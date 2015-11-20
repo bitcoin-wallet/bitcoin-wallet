@@ -2,9 +2,8 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <item
+        android:drawable="@drawable/ic_arrow_back_white_24dp"
         android:left="8dp"
-        android:right="8dp">
-        <bitmap android:src="@drawable/ic_arrow_back_white_24dp" />
-    </item>
+        android:right="8dp"/>
 
 </layer-list>

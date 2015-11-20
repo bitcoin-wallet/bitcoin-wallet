@@ -21,7 +21,7 @@
         android:titleCondensed="@string/button_delete"/>
     <item
         android:id="@+id/sending_addresses_context_show_qr"
-        android:icon="@drawable/ic_action_qr"
+        android:icon="@drawable/ic_qrcode_white_24dp"
         android:showAsAction="ifRoom|withText"
         android:title="@string/action_show_qr"/>
     <item
