@@ -28,7 +28,7 @@ ext {
 }
 
 android {
-    compileSdkVersion 'android-16'
+    compileSdkVersion 'android-21'
     buildToolsVersion '23.0.2'
 
     lintOptions {
