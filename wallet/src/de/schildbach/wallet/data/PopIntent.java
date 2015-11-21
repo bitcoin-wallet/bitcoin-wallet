@@ -42,11 +42,13 @@ public class PopIntent implements Parcelable
 
 	public static final Parcelable.Creator<PopIntent> CREATOR = new Parcelable.Creator<PopIntent>()
 	{
+		@Override
 		public PopIntent createFromParcel(final Parcel in)
 		{
 			return new PopIntent(in);
 		}
 
+		@Override
 		public PopIntent[] newArray(final int size)
 		{
 			return new PopIntent[size];
