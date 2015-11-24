@@ -1,7 +1,7 @@
 apply plugin: 'java'
 
 dependencies {
-    compile('com.google.android:android:2.3.3') {
+    compile('com.google.android:android:4.0.1.2') {
         transitive false
     }
 }
