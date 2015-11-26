@@ -51,7 +51,7 @@ You'll need git, a Java SDK 6 (or later) and Gradle 2.4 (or later) for this. I'l
 for the package installs, which comes with slightly more recent versions.
 
 	# first time only
-	sudo apt-get install git gradle openjdk-7-jdk libstdc++6:i386
+	sudo apt-get install git gradle openjdk-7-jdk libstdc++6:i386 zlib1g:i386
 
 Get the Android SDK (Tools only) from
 
