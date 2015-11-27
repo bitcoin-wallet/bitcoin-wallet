@@ -66,6 +66,7 @@ public final class AddressBookActivity extends AbstractWalletActivity
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.address_book_content);
+		setDisplayHomeAsUpEnabled(true);
 
 		final FragmentManager fragmentManager = getFragmentManager();
 

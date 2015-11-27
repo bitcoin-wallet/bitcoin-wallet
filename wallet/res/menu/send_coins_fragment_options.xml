@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+	  xmlns:app="http://schemas.android.com/apk/res-auto">
 
 	<item
 		android:id="@+id/send_coins_options_scan"
 		android:icon="@drawable/ic_photo_camera_white_24dp"
-		android:showAsAction="always|withText"
+		app:showAsAction="always|withText"
 		android:title="@string/button_scan"/>
 	<item
 		android:id="@+id/send_coins_options_fee_category"
-		android:showAsAction="never"
+		app:showAsAction="never"
 		android:title="@string/send_coins_options_fee_category">
 		<menu>
 			<group android:checkableBehavior="single" >

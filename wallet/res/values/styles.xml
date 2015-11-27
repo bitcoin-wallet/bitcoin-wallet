@@ -1,114 +1,121 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-	<style name="My.Theme" parent="@android:style/Theme.Holo.Light.DarkActionBar">
-		<item name="android:actionBarStyle">@style/My.Widget.ActionBar</item>
-		<item name="android:actionModeStyle">@style/My.Widget.ActionMode</item>
-		<item name="android:actionMenuTextColor">@color/fg_network</item>
-		<item name="android:actionButtonStyle">@style/My.Widget.ActionButton</item>
-		<item name="android:actionOverflowButtonStyle">@style/My.Widget.ActionButton.Overflow</item>
+	<style name="My.Theme" parent="@style/Theme.AppCompat.Light">
+		<item name="colorAccent">@color/theme_accent</item>
+		<item name="windowActionBar">false</item>
+		<item name="windowNoTitle">true</item>
+		<item name="windowActionModeOverlay">true</item>
+		<item name="homeAsUpIndicator">@drawable/action_bar_up_indicator</item>
+		<item name="actionBarPopupTheme">@style/ThemeOverlay.AppCompat.Light</item>
+		<item name="actionModeStyle">@style/My.Widget.ActionMode</item>
+		<item name="actionMenuTextColor">@color/fg_network</item>
+		<item name="actionButtonStyle">@style/My.Widget.ActionButton</item>
+		<item name="actionOverflowButtonStyle">@style/My.Widget.ActionButton.Overflow</item>
+
 		<item name="android:textViewStyle">@style/My.Widget.TextView</item>
 		<item name="android:editTextStyle">@style/My.Widget.EditText</item>
-		<item name="android:autoCompleteTextViewStyle">@style/My.Widget.AutoCompleteTextView</item>
-		<item name="android:checkboxStyle">@style/My.Widget.CompoundButton.CheckBox</item>
-		<item name="android:spinnerStyle">@style/My.Widget.Spinner</item>
+		<item name="autoCompleteTextViewStyle">@style/My.Widget.AutoCompleteTextView</item>
+		<item name="checkboxStyle">@style/My.Widget.CompoundButton.CheckBox</item>
+		<item name="spinnerStyle">@style/My.Widget.Spinner</item>
+		<item name="alertDialogTheme">@style/My.Theme.Alert</item>
 	</style>
 
-	<style name="My.Theme.ChildActivity" parent="@style/My.Theme">
-		<item name="android:actionBarStyle">@style/My.Widget.ActionBar.ChildActivity</item>
-		<item name="android:homeAsUpIndicator">@drawable/action_bar_up_indicator</item>
-	</style>
-
-	<style name="My.Theme.Fullscreen" parent="@android:style/Theme.Holo.NoActionBar.Fullscreen" />
-
-	<style name="My.Theme.Dialog" parent="@android:style/Theme.Holo.Light.Dialog" />
-
-	<style name="My.Widget.ActionBar" parent="@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse">
+	<style name="My.Widget.Toolbar" parent="@style/Widget.AppCompat.Light.ActionBar">
 		<item name="android:background">@drawable/action_bar_background</item>
-		<item name="android:titleTextStyle">@style/My.TextAppearance.Widget.ActionBar.Title</item>
-		<item name="android:subtitleTextStyle">@style/My.TextAppearance.Widget.ActionBar.Subtitle</item>
-		<item name="android:displayOptions">showTitle</item>
+		<item name="titleTextAppearance">@style/My.TextAppearance.Widget.ActionBar.Title</item>
+		<item name="subtitleTextStyle">@style/My.TextAppearance.Widget.ActionBar.Subtitle</item>
 	</style>
 
-	<style name="My.Widget.ActionBar.ChildActivity" parent="@style/My.Widget.ActionBar">
-		<item name="android:displayOptions">homeAsUp|showTitle</item>
+	<style name="My.Theme.Fullscreen" parent="@style/Theme.AppCompat.Light">
+		<item name="windowNoTitle">true</item>
+		<item name="windowActionBar">false</item>
+		<item name="android:windowFullscreen">true</item>
+		<item name="android:windowContentOverlay">@null</item>
 	</style>
 
-	<style name="My.TextAppearance.Widget.ActionBar.Title" parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Title">
+	<style name="My.Theme.Dialog" parent="@style/Theme.AppCompat.Light.Dialog" />
+
+	<style name="My.Theme.Alert" parent="@style/Theme.AppCompat.Light.Dialog.Alert">
+		<item name="colorAccent">@color/theme_accent</item>
+	</style>
+
+	<style name="My.TextAppearance.Widget.ActionBar.Title" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
 		<item name="android:textColor">@color/fg_network_significant</item>
 		<item name="android:textStyle">bold</item>
 		<item name="android:shadowColor">@android:color/black</item>
 		<item name="android:shadowRadius">1</item>
 	</style>
 
-	<style name="My.TextAppearance.Widget.ActionBar.Subtitle" parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Subtitle">
+	<style name="My.TextAppearance.Widget.ActionBar.Subtitle" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle">
 		<item name="android:textColor">@color/fg_network_insignificant</item>
 		<item name="android:textStyle">normal</item>
 	</style>
 
-	<style name="My.Widget.ActionButton" parent="@android:style/Widget.Holo.ActionButton">
+	<style name="My.Widget.ActionButton" parent="@style/Widget.AppCompat.ActionButton">
 		<item name="android:drawablePadding">6dp</item>
 	</style>
 
-	<style name="My.Widget.ActionButton.Overflow" parent="@android:style/Widget.Holo.ActionButton.Overflow">
+	<style name="My.Widget.ActionButton.Overflow" parent="@style/Widget.AppCompat.ActionButton.Overflow">
 		<item name="android:src">@drawable/ic_more_vert_white_24dp</item>
 	</style>
 
-	<style name="My.Widget.ActionMode" parent="@android:style/Widget.Holo.Light.ActionMode.Inverse">
-		<item name="android:background">@drawable/action_mode_background</item>
-		<item name="android:titleTextStyle">@style/My.TextAppearance.Widget.ActionMode.Title</item>
-		<item name="android:subtitleTextStyle">@style/My.TextAppearance.Widget.ActionMode.Subtitle</item>
+	<style name="My.Widget.ActionMode" parent="@style/Widget.AppCompat.ActionMode">
+		<item name="background">@drawable/action_mode_background</item>
+		<item name="titleTextStyle">@style/My.TextAppearance.Widget.ActionMode.Title</item>
+		<item name="subtitleTextStyle">@style/My.TextAppearance.Widget.ActionMode.Subtitle</item>
 	</style>
 
-	<style name="My.TextAppearance.Widget.ActionMode.Title" parent="@android:style/TextAppearance.Holo.Widget.ActionMode.Title">
+	<style name="My.TextAppearance.Widget.ActionMode.Title" parent="@style/TextAppearance.AppCompat.Widget.ActionMode.Title">
 		<item name="android:textColor">@android:color/white</item>
 		<item name="android:textStyle">bold</item>
 		<item name="android:shadowColor">@android:color/black</item>
 		<item name="android:shadowRadius">1</item>
 	</style>
 
-	<style name="My.TextAppearance.Widget.ActionMode.Subtitle" parent="@android:style/TextAppearance.Holo.Widget.ActionMode.Subtitle">
+	<style name="My.TextAppearance.Widget.ActionMode.Subtitle" parent="@style/TextAppearance.AppCompat.Widget.ActionMode.Subtitle">
 		<item name="android:textColor">@android:color/white</item>
 		<item name="android:textStyle">normal</item>
 	</style>
 
-	<style name="My.Widget.TextView" parent="@android:style/Widget.Holo.Light.TextView">
+	<style name="My.Widget.TextView" parent="@android:style/Widget.TextView">
 		<item name="android:textColor">@color/fg_significant</item>
 		<item name="android:textSize">@dimen/font_size_normal</item>
 	</style>
 
-	<style name="My.Widget.EditText" parent="@android:style/Widget.Holo.Light.EditText">
+	<style name="My.Widget.EditText" parent="@style/Widget.AppCompat.EditText">
 		<item name="android:textColor">@color/fg_significant</item>
 		<item name="android:textSize">@dimen/font_size_normal</item>
 	</style>
 
-	<style name="My.Widget.AutoCompleteTextView" parent="@android:style/Widget.Holo.Light.AutoCompleteTextView">
+	<style name="My.Widget.AutoCompleteTextView" parent="@style/Widget.AppCompat.Light.AutoCompleteTextView">
 		<item name="android:textColor">@color/fg_significant</item>
 		<item name="android:textSize">@dimen/font_size_normal</item>
 	</style>
 
-	<style name="My.Widget.Button.Borderless" parent="@android:style/Widget.Holo.Button.Borderless">
+	<style name="My.Widget.Button.Borderless" parent="@style/Widget.AppCompat.Button.Borderless">
 		<item name="android:paddingLeft">8dp</item>
 		<item name="android:paddingRight">8dp</item>
 		<item name="android:drawablePadding">8dp</item>
 	</style>
 
-	<style name="My.Widget.Button.Borderless.Unpadded" parent="@android:style/Widget.Holo.Button.Borderless">
+	<style name="My.Widget.Button.Borderless.Unpadded" parent="@style/Widget.AppCompat.Button.Borderless">
 		<item name="android:padding">0px</item>
 		<item name="android:drawablePadding">0px</item>
 	</style>
 
-	<style name="My.Widget.Button.Borderless.Small" parent="@android:style/Widget.Holo.Button.Borderless.Small">
+	<style name="My.Widget.Button.Borderless.Small" parent="@style/Widget.AppCompat.Button.Borderless">
 		<item name="android:minWidth">40dp</item>
 		<item name="android:minHeight">40dp</item>
+		<item name="android:textSize">@dimen/font_size_borderless_button</item>
 	</style>
 
-	<style name="My.Widget.CompoundButton.CheckBox" parent="@android:style/Widget.Holo.Light.CompoundButton.CheckBox">
+	<style name="My.Widget.CompoundButton.CheckBox" parent="@style/Widget.AppCompat.CompoundButton.CheckBox">
 		<item name="android:textColor">@color/fg_significant</item>
 		<item name="android:textSize">@dimen/font_size_normal</item>
 	</style>
 
-	<style name="My.Widget.Spinner" parent="@android:style/Widget.Holo.Light.Spinner">
+	<style name="My.Widget.Spinner" parent="@style/Widget.AppCompat.Spinner">
 		<item name="android:textColor">@color/fg_significant</item>
 		<item name="android:textSize">@dimen/font_size_normal</item>
 	</style>

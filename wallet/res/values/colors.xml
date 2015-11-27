@@ -11,6 +11,9 @@
 	<color name="fg_network_significant">#ffffffff</color>
 	<color name="fg_network_insignificant">#ffa0a0a0</color>
 
+	<!-- Theme -->
+	<color name="theme_accent">#3f51b5</color>
+
 	<!-- background -->
 	<color name="bg_bright">#ffffffff</color>
 	<color name="bg_less_bright">#ffe8e8f0</color>

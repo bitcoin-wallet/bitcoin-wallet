@@ -32,18 +32,19 @@ import android.content.Loader;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.view.ActionMode;
+import android.support.v4.view.MenuItemCompat;
+import android.support.v7.view.ActionMode;
+import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ResourceCursorAdapter;
-import android.widget.SearchView;
-import android.widget.SearchView.OnQueryTextListener;
 import android.widget.TextView;
 import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
@@ -154,8 +155,9 @@ public final class ExchangeRatesFragment extends FancyListFragment implements On
 	{
 		inflater.inflate(R.menu.exchange_rates_fragment_options, menu);
 
-		final SearchView searchView = (SearchView) menu.findItem(R.id.exchange_rates_options_search).getActionView();
-		searchView.setOnQueryTextListener(new OnQueryTextListener()
+		final SearchView searchView = (SearchView) MenuItemCompat.getActionView(menu.findItem(R.id.exchange_rates_options_search));
+		((EditText)searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text)).setTextColor(Color.WHITE);
+		searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener()
 		{
 			@Override
 			public boolean onQueryTextChange(final String newText)
@@ -187,7 +189,7 @@ public final class ExchangeRatesFragment extends FancyListFragment implements On
 		final Cursor cursor = (Cursor) adapter.getItem(position);
 		final ExchangeRate exchangeRate = ExchangeRatesProvider.getExchangeRate(cursor);
 
-		activity.startActionMode(new ActionMode.Callback()
+		activity.startSupportActionMode(new ActionMode.Callback()
 		{
 			@Override
 			public boolean onCreateActionMode(final ActionMode mode, final Menu menu)

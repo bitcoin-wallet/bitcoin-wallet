@@ -33,6 +33,7 @@ public final class RequestCoinsActivity extends AbstractBindServiceActivity
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.request_coins_content);
+		setDisplayHomeAsUpEnabled(true);
 	}
 
 	@Override
