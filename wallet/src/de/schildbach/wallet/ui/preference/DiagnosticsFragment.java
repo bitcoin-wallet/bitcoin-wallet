@@ -28,9 +28,9 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
-import android.preference.Preference;
-import android.preference.PreferenceFragment;
-import android.preference.PreferenceScreen;
+import android.support.v7.preference.Preference;
+import android.support.v7.preference.PreferenceFragmentCompat;
+
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.ui.DialogBuilder;
@@ -41,7 +41,7 @@ import de.schildbach.wallet_test.R;
 /**
  * @author Andreas Schildbach
  */
-public final class DiagnosticsFragment extends PreferenceFragment
+public final class DiagnosticsFragment extends PreferenceFragmentCompat
 {
 	private Activity activity;
 	private WalletApplication application;
@@ -62,15 +62,12 @@ public final class DiagnosticsFragment extends PreferenceFragment
 	}
 
 	@Override
-	public void onCreate(final Bundle savedInstanceState)
-	{
-		super.onCreate(savedInstanceState);
-
+	public void onCreatePreferences(Bundle bundle, String s) {
 		addPreferencesFromResource(R.xml.preference_diagnostics);
 	}
 
 	@Override
-	public boolean onPreferenceTreeClick(final PreferenceScreen preferenceScreen, final Preference preference)
+	public boolean onPreferenceTreeClick(final Preference preference)
 	{
 		final String key = preference.getKey();
 
@@ -160,6 +157,6 @@ public final class DiagnosticsFragment extends PreferenceFragment
 		final DeterministicKey extendedKey = application.getWallet().getWatchingKey();
 		final String xpub = String.format(Locale.US, "%s?c=%d&h=bip32", extendedKey.serializePubB58(Constants.NETWORK_PARAMETERS),
 				extendedKey.getCreationTimeSeconds());
-		ExtendedPublicKeyFragment.show(getFragmentManager(), (CharSequence) xpub);
+		ExtendedPublicKeyFragment.show(getChildFragmentManager(), (CharSequence) xpub);
 	}
 }

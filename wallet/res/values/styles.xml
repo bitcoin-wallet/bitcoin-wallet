@@ -19,6 +19,8 @@
 		<item name="checkboxStyle">@style/My.Widget.CompoundButton.CheckBox</item>
 		<item name="spinnerStyle">@style/My.Widget.Spinner</item>
 		<item name="alertDialogTheme">@style/My.Theme.Alert</item>
+		<item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
+		<item name="android:listSeparatorTextViewStyle">@style/My.TextAppearance.ListSeparatorTextView</item>
 	</style>
 
 	<style name="My.Widget.Toolbar" parent="@style/Widget.AppCompat.Light.ActionBar">
@@ -38,6 +40,14 @@
 
 	<style name="My.Theme.Alert" parent="@style/Theme.AppCompat.Light.Dialog.Alert">
 		<item name="colorAccent">@color/theme_accent</item>
+	</style>
+
+	<style name="My.TextAppearance.ListSeparatorTextView" parent="">
+		<item name="android:textSize">14sp</item>
+		<item name="android:textStyle">bold</item>
+		<item name="android:textColor">@color/theme_accent</item>
+		<item name="android:paddingTop">16dp</item>
+		<item name="android:layout_marginBottom">16dp</item>
 	</style>
 
 	<style name="My.TextAppearance.Widget.ActionBar.Title" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">

@@ -22,9 +22,9 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
-import android.preference.Preference;
-import android.preference.Preference.OnPreferenceChangeListener;
-import android.preference.PreferenceFragment;
+import android.support.v7.preference.Preference;
+import android.support.v7.preference.PreferenceFragmentCompat;
+
 import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.WalletBalanceWidgetProvider;
@@ -33,7 +33,7 @@ import de.schildbach.wallet_test.R;
 /**
  * @author Andreas Schildbach
  */
-public final class SettingsFragment extends PreferenceFragment implements OnPreferenceChangeListener
+public final class SettingsFragment extends PreferenceFragmentCompat implements Preference.OnPreferenceChangeListener
 {
 	private Activity activity;
 	private WalletApplication application;
@@ -56,10 +56,7 @@ public final class SettingsFragment extends PreferenceFragment implements OnPref
 	}
 
 	@Override
-	public void onCreate(final Bundle savedInstanceState)
-	{
-		super.onCreate(savedInstanceState);
-
+	public void onCreatePreferences(Bundle bundle, String s) {
 		addPreferencesFromResource(R.xml.preference_settings);
 
 		btcPrecisionPreference = findPreference(Configuration.PREFS_KEY_BTC_PRECISION);
