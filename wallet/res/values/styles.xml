@@ -21,6 +21,7 @@
 		<item name="alertDialogTheme">@style/My.Theme.Alert</item>
 		<item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
 		<item name="android:listSeparatorTextViewStyle">@style/My.TextAppearance.ListSeparatorTextView</item>
+		<item name="buttonBarButtonStyle">@style/Widget.AppCompat.Button.Borderless</item>
 	</style>
 
 	<style name="My.Widget.Toolbar" parent="@style/Widget.AppCompat.Light.ActionBar">
