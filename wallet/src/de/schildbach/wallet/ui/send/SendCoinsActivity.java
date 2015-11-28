@@ -47,6 +47,7 @@ public final class SendCoinsActivity extends AbstractBindServiceActivity
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.send_coins_content);
+		setDisplayHomeAsUpEnabled(true);
 
 		getWalletApplication().startBlockchainService(false);
 	}

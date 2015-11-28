@@ -40,6 +40,7 @@ public final class NetworkMonitorActivity extends AbstractWalletActivity
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.network_monitor_content);
+		setDisplayHomeAsUpEnabled(true);
 
 		final ViewPager pager = (ViewPager) findViewById(R.id.network_monitor_pager);
 

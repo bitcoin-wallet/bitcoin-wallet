@@ -39,7 +39,6 @@ import org.bitcoinj.core.Wallet;
 import org.bitcoinj.core.Wallet.BalanceType;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
@@ -56,6 +55,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
+import android.support.v7.app.AlertDialog;
 import android.text.format.DateUtils;
 import android.view.Menu;
 import android.view.MenuItem;

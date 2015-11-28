@@ -19,19 +19,31 @@ package de.schildbach.wallet.ui.preference;
 
 import java.util.List;
 
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+
+import de.schildbach.wallet.ui.AbstractWalletActivity;
 import de.schildbach.wallet_test.R;
 
 /**
  * @author Andreas Schildbach
  */
-public final class PreferenceActivity extends android.preference.PreferenceActivity
+public final class PreferenceActivity extends AbstractWalletActivity
 {
-	@Override
-	public void onBuildHeaders(final List<Header> target)
-	{
-		loadHeadersFromResource(R.xml.preference_headers, target);
+	private static final String TAG_PREF_FRAGMENT = "pref_fragment";
+
+	protected void onCreate(@Nullable Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.preference_activity);
+		setDisplayHomeAsUpEnabled(true);
+
+		FragmentManager fm = getSupportFragmentManager();
+		fm.beginTransaction().replace(R.id.preference_fragment_container, new PreferenceFragment(), TAG_PREF_FRAGMENT).commit();
 	}
+
 
 	@Override
 	public boolean onOptionsItemSelected(final MenuItem item)

@@ -46,7 +46,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.view.ActionMode;
+import android.support.v7.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -270,7 +270,7 @@ public final class SendingAddressesFragment extends FancyListFragment implements
 	@Override
 	public void onListItemClick(final ListView l, final View v, final int position, final long id)
 	{
-		activity.startActionMode(new ActionMode.Callback()
+		activity.startSupportActionMode(new ActionMode.Callback()
 		{
 			@Override
 			public boolean onCreateActionMode(final ActionMode mode, final Menu menu)

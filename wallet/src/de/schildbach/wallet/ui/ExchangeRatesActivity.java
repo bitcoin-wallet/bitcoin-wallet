@@ -32,6 +32,7 @@ public final class ExchangeRatesActivity extends AbstractWalletActivity
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.exchange_rates_content);
+		setDisplayHomeAsUpEnabled(true);
 	}
 
 	@Override

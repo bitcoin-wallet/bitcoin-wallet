@@ -51,6 +51,7 @@ public final class SweepWalletActivity extends AbstractBindServiceActivity
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.sweep_wallet_content);
+		setDisplayHomeAsUpEnabled(true);
 
 		getWalletApplication().startBlockchainService(false);
 	}

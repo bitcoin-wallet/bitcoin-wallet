@@ -24,7 +24,8 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.preference.PreferenceFragment;
+import android.support.v7.preference.PreferenceFragmentCompat;
+
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet_test.R;
@@ -32,7 +33,7 @@ import de.schildbach.wallet_test.R;
 /**
  * @author Andreas Schildbach
  */
-public final class AboutFragment extends PreferenceFragment
+public final class AboutFragment extends PreferenceFragmentCompat
 {
 	private Activity activity;
 	private WalletApplication application;
@@ -53,10 +54,7 @@ public final class AboutFragment extends PreferenceFragment
 	}
 
 	@Override
-	public void onCreate(final Bundle savedInstanceState)
-	{
-		super.onCreate(savedInstanceState);
-
+	public void onCreatePreferences(Bundle bundle, String s) {
 		addPreferencesFromResource(R.xml.preference_about);
 
 		findPreference(KEY_ABOUT_VERSION).setSummary(application.packageInfo().versionName);
