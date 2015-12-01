@@ -1197,17 +1197,12 @@ public final class SendCoinsFragment extends Fragment
 			amountCalculatorLink.setEnabled(state == State.INPUT && paymentIntent.mayEditAmount());
 
 			final boolean directPaymentVisible;
-			if (paymentIntent.hasPaymentUrl())
-			{
-				if (paymentIntent.isBluetoothPaymentUrl())
-					directPaymentVisible = bluetoothAdapter != null;
-				else
-					directPaymentVisible = !Constants.BUG_OPENSSL_HEARTBLEED;
-			}
+			if (paymentIntent.isBluetoothPaymentUrl())
+				directPaymentVisible = bluetoothAdapter != null;
+			else if (paymentIntent.isHttpPaymentUrl())
+				directPaymentVisible = true;
 			else
-			{
 				directPaymentVisible = false;
-			}
 			directPaymentEnableView.setVisibility(directPaymentVisible ? View.VISIBLE : View.GONE);
 			directPaymentEnableView.setEnabled(state == State.INPUT);
 
@@ -1437,7 +1432,7 @@ public final class SendCoinsFragment extends Fragment
 						// ask for permission to enable bluetooth
 						startActivityForResult(new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE), REQUEST_CODE_ENABLE_BLUETOOTH_FOR_PAYMENT_REQUEST);
 				}
-				else if (paymentIntent.hasPaymentRequestUrl() && paymentIntent.isHttpPaymentRequestUrl() && !Constants.BUG_OPENSSL_HEARTBLEED)
+				else if (paymentIntent.hasPaymentRequestUrl() && paymentIntent.isHttpPaymentRequestUrl())
 				{
 					requestPaymentRequest();
 				}
@@ -1451,7 +1446,7 @@ public final class SendCoinsFragment extends Fragment
 					if (paymentIntent.isBluetoothPaymentUrl())
 						directPaymentEnableView.setChecked(bluetoothAdapter != null && bluetoothAdapter.isEnabled());
 					else if (paymentIntent.isHttpPaymentUrl())
-						directPaymentEnableView.setChecked(!Constants.BUG_OPENSSL_HEARTBLEED);
+						directPaymentEnableView.setChecked(true);
 
 					requestFocusFirst();
 					updateView();
