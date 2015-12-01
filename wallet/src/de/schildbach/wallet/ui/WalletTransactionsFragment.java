@@ -55,7 +55,6 @@ import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
@@ -77,7 +76,6 @@ import android.widget.TextView;
 import android.widget.ViewAnimator;
 import de.schildbach.wallet.AddressBookProvider;
 import de.schildbach.wallet.Configuration;
-import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.ui.TransactionsAdapter.Warning;
 import de.schildbach.wallet.ui.send.RaiseFeeDialogFragment;
@@ -554,8 +552,7 @@ public class WalletTransactionsFragment extends Fragment implements LoaderCallba
 	{
 		if (config.remindBackup())
 			return Warning.BACKUP;
-		else if (Build.VERSION.SDK_INT >= Constants.SDK_LOLLIPOP
-				&& devicePolicyManager.getStorageEncryptionStatus() != DevicePolicyManager.ENCRYPTION_STATUS_ACTIVE)
+		else if (devicePolicyManager.getStorageEncryptionStatus() != DevicePolicyManager.ENCRYPTION_STATUS_ACTIVE)
 			return Warning.STORAGE_ENCRYPTION;
 		else
 			return null;
