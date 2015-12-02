@@ -125,6 +125,7 @@ public final class BlockListFragment extends Fragment implements BlockListAdapte
 		recyclerView = (RecyclerView) view.findViewById(R.id.block_list);
 		recyclerView.setLayoutManager(new LinearLayoutManager(activity));
 		recyclerView.setAdapter(adapter);
+		recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL_LIST));
 
 		return view;
 	}

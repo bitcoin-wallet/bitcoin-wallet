@@ -118,6 +118,7 @@ public final class PeerListFragment extends Fragment
 		recyclerView = (RecyclerView) view.findViewById(R.id.peer_list);
 		recyclerView.setLayoutManager(new LinearLayoutManager(activity));
 		recyclerView.setAdapter(adapter);
+		recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL_LIST));
 
 		return view;
 	}

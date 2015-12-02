@@ -83,12 +83,6 @@
 			android:layout_height="wrap_content"
 			android:layout_gravity="top|right"
 			android:src="@drawable/ic_more_vert_grey600_18dp" />
-
-		<View
-			android:layout_width="match_parent"
-			android:layout_height="1dp"
-			android:layout_gravity="bottom"
-			android:background="@color/bg_less_bright" />
 	</FrameLayout>
 
 </LinearLayout>
