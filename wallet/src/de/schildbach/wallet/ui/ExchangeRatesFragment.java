@@ -32,6 +32,7 @@ import android.content.Loader;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -40,6 +41,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ResourceCursorAdapter;
 import android.widget.SearchView;
@@ -155,6 +157,11 @@ public final class ExchangeRatesFragment extends FancyListFragment implements On
 		inflater.inflate(R.menu.exchange_rates_fragment_options, menu);
 
 		final SearchView searchView = (SearchView) menu.findItem(R.id.exchange_rates_options_search).getActionView();
+		final int id = searchView.getContext().getResources().getIdentifier("android:id/search_src_text", null, null);
+		final View searchInput = searchView.findViewById(id);
+		if (searchInput instanceof EditText) {
+			((EditText)searchInput).setTextColor(Color.WHITE);
+		}
 		searchView.setOnQueryTextListener(new OnQueryTextListener()
 		{
 			@Override
