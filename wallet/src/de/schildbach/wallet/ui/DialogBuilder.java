@@ -48,7 +48,7 @@ public class DialogBuilder extends AlertDialog.Builder
 
 	public DialogBuilder(final Context context)
 	{
-		super(context, AlertDialog.THEME_DEVICE_DEFAULT_LIGHT);
+		super(context);
 
 		this.customTitle = LayoutInflater.from(context).inflate(R.layout.dialog_title, null);
 		this.iconView = (ImageView) customTitle.findViewById(android.R.id.icon);

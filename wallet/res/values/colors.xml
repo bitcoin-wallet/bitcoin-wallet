@@ -32,4 +32,8 @@
 	<color name="scan_result_view">#b0000000</color>
 	<color name="scan_result_dots">#c099cc00</color>
 
+	<!-- Theme -->
+	<color name="accent_material_light">#3f51b5</color>
+	<color name="primary_material_dark">#1a1a1a</color>
+
 </resources>
