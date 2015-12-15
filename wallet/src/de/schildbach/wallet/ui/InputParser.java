@@ -29,6 +29,7 @@ import java.util.regex.Pattern;
 
 import javax.annotation.Nullable;
 
+import de.schildbach.wallet.data.PopIntent;
 import org.bitcoin.protocols.payments.Protos;
 import org.bitcoinj.core.Address;
 import org.bitcoinj.core.AddressFormatException;
@@ -61,7 +62,8 @@ import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.data.PaymentIntent;
 import de.schildbach.wallet.util.Io;
 import de.schildbach.wallet.util.Qr;
-import de.schildbach.wallet_test.R;
+import de.schildbach.wallet.R;
+import se.rosenbaum.jpop.PopRequestURI;
 
 /**
  * @author Andreas Schildbach
@@ -125,6 +127,16 @@ public abstract class InputParser
 					log.info("got invalid bitcoin uri: '" + input + "'", x);
 
 					error(R.string.input_parser_invalid_bitcoin_uri, input);
+				}
+			}
+			else if (input.startsWith("btcpop:")) {
+				try {
+					final PopRequestURI popRequestURI = new PopRequestURI(input);
+
+					handlePopIntent(PopIntent.fromPopRequestURI(popRequestURI));
+				} catch (IllegalArgumentException e) {
+					log.info("Got invalid btcpop uri: '" + input + "'", e);
+					error(R.string.pop_input_parser_invalid_btcpop_uri, input);
 				}
 			}
 			else if (PATTERN_BITCOIN_ADDRESS.matcher(input).matches())
@@ -429,6 +441,10 @@ public abstract class InputParser
 	protected abstract void handlePaymentIntent(PaymentIntent paymentIntent);
 
 	protected abstract void handleDirectTransaction(Transaction transaction) throws VerificationException;
+
+	protected void handlePopIntent(PopIntent popIntent) {
+		cannotClassify(popIntent.getPopRequestURI().toURIString());
+	}
 
 	protected abstract void error(int messageResId, Object... messageArgs);
 
