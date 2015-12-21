@@ -3,20 +3,20 @@
   <string name="help_wallet">
 <![CDATA[
 		<p>
-			La parte superior izquierda de la pantalla muestra su balance en Bitcoins y en una moneda nacional que elija.
+			La parte superior izquierda de la pantalla muestra su balance entre Bitcoins y la moneda nacional que elija.
 			Toque para ir a la lista de monedas nacionales, y toque en una de las monedas para seleccionarla como predeterminada.
 		</p>
 		<p>
 			El código QR de la derecha contiene su dirección de Bitcoin, y se puede usar para ser escaneado por un tercero.
-			Toque en el código QR para ver una versión más grande.
+			Toque el código QR para ver la versión más grande.
 		</p>
 		<p>
 			La parte inferior de la pantalla está cubierta por la lista de sus transacciones, la cual está vacía al principio.
 			Las transacciones pendientes están en gris hasta que sean confirmadas.
-			Toque en una entrada para añadir las direcciones de los remitentes o destinatarios a su lista de contactos.
+			Toque en la entrada para añadir las direcciones de los remitentes o destinatarios a su lista de contactos.
 		</p>
 		<p>
-			Puede enviar o solicitar bitcoins tocando los botones en la barra de acción.
+			Puede enviar o solicitar Bitcoins tocando los botones en la barra de acción.
 			Más opciones disponibles en el menú de opciones.
 		</p>
 	]]>
@@ -73,15 +73,15 @@
   <string name="help_safety">
 <![CDATA[
 		<p>
-			<b>Algunos comentarios sobre la seguridad de tus bitcoins:</b>
+			<b>Algunos comentarios sobre la seguridad de tus Bitcoins:</b>
 		</p>
 		<p>
 			Los bitcoins en Bitcoin Wallet se almacenan en el dispositivo.
-			<b>Si pierdes tu dispositivo, pierdes tus bitcoins.</b>
+			<b>Si pierdes tu dispositivo, pierdes tus Bitcoins.</b>
 			Esto es lo mismo que ocurriría con tu dinero en una cartera convencional.
 		</p>
 		<p>
-			<b>Antes de desinstalar Bitcoin Wallet</b> (o de eliminar los datos de aplicación o el almacenamiento del dispositivo), <b>transfiere tus bitcoins a otra cartera</b>.
+			<b>Antes de desinstalar Bitcoin Wallet</b> (o de eliminar los datos de aplicación o el almacenamiento del dispositivo), <b>transfiere tus Bitcoins a otra cartera</b>.
 			Los bitcoins que queden en el dispositivo se perderán.
 		</p>
 		<p>
