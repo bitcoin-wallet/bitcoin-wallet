@@ -28,6 +28,7 @@
   <string name="wallet_transactions_fragment_empty_text_sent">Eddig nem lett küldve Bitcoin.</string>
   <string name="wallet_transactions_fragment_empty_text_howto">Hogyan szerezz Bitcoin-t?\n\nVásárolj hagyományos pénzért,\nadj el termékeket vagy szolgáltatásokat, vagy\nkeress munkával.</string>
   <string name="wallet_transactions_row_warning_backup">Gratulálunk, megérkezett az első kifizetésed! Már készítettél &lt;u&gt;biztonsági mentést a tárcádról&lt;/u&gt;, hogy megóvd a veszteségtől?</string>
+  <string name="wallet_transactions_row_warning_storage_encryption">Tipp: a tárcája biztonságának növeléséhez &lt;u&gt;titkosíthatja a készülékét&lt;/u&gt;. Ez más alkalmazások adatait is védi.</string>
   <string name="wallet_transactions_fragment_coinbase">bányászott</string>
   <string name="wallet_transactions_fragment_internal">belső</string>
   <string name="wallet_transactions_options_filter">Szűrő</string>
@@ -43,8 +44,8 @@
   <string name="wallet_low_storage_dialog_title">Kevés a hely a készülék belső tárolóján!</string>
   <string name="wallet_low_storage_dialog_msg">A Bitcoin Wallet belső tárhelyet használ a tranzakciók és blokkok megjegyzéséhez. Ha kifogy a helyből, leáll a működése és a Bitcoin-jaid veszélyben lesznek!\n\nMeg akarod nyitni az Alkalmazáskezelőt, hogy eltávolítsd a szükségtelen alkalmazásokat?</string>
   <string name="wallet_low_storage_dialog_button_apps">Alkalmazások kezelése</string>
-  <string name="wallet_timeskew_dialog_title">Ellenőrizd az időbeállításaidat!</string>
-  <string name="wallet_timeskew_dialog_msg">A készülékidőd késik %d percet. Valószínűleg nem tudsz küldeni és fogadni Bitcoin-t e probléma miatt.\n\nEllenőrizd és javítsd az idő és időzóna beállításaidat.</string>
+  <string name="wallet_timeskew_dialog_title">Dátum &amp; időbeállítások ellenőrzése</string>
+  <string name="wallet_timeskew_dialog_msg">A készülék időd késik %d percet. Valószínűleg nem tudsz küldeni és fogadni Bitcoin-okat ezen probléma miatt.\n\nLe kellene ellenőrizned, és ha szükséges, akkor javítanod a dátum, idő és időzóna beállításaidat.</string>
   <string name="wallet_version_dialog_title">Egy új verzió elérhető!</string>
   <string name="wallet_version_dialog_msg">Ez a verzió fontos hibákat javít. A részletekért nézd meg a változásokat a Google Play-en.</string>
   <string name="wallet_version_dialog_msg_deprecated">Ha nem látsz egy frissítést, az valószínűleg azt jelenti, hogy az Androidod verziója többé nem támogatott.</string>
