@@ -3,26 +3,21 @@
   <string name="help_wallet">
 <![CDATA[
 		<p>
-			Ruudun vasemmassa ylänurkassa näkyy sinun valittu bitcoin-osoite, joka muiden täytyy tietää lähettääkseen sinulle bitcoineja.
-			Napsauta vaihtaaksesi osoitetta.
+			Ylempi vasen osa näytöstä näyttää saldosi Bitcoineissa ja yhden valitusta valtiollisesta valuutasta.
+			Napauta siirtyäksesi valtiollisten valuuttojen listaan sekä napauta yhtä valuutoista valitaksesi sen oletetuksi.
 		</p>
 		<p>
-			QR-koodi oikealla sisältää bitcoin-osoitteesi, jonka toinen osapuoli voi skannata.
-			Napsauta QR-koodia saadaksesi suuremman kuvan siitä.
+			QR-koodi oikealla sisältää bitcoin-osoitteesi ja sitä voidaan käyttää toisen osapuolen skannattavaksi.
+			Napauta QR-koodia jotta saat siitä suurempikokoisen version.
 		</p>
 		<p>
-			Ruudun keskellä näkyy saldosi.
-			Lompakkosi arvo näkyy myös yhdellä valitulla paikallisella rahayksiköllä.
-			Napsauta saldoa saadaksesi listan kaikista paikallisista rahayksiköistä. Napsauta yhtä rahayksikköä asettaaksesi sen vakiovaluutaksi.
+			Näytön alaosan käyttää rahansiirtojen lista, joka on tyhjä alussa.
+			Odottavat rahansiirrot ovat merkitty harmaiksi kunnes ne ovat vahvistettu.
+			Napauta merkintää lisätäksesi lähettäjien tai vastaanottajien osoitteita osoitekirjaan.
 		</p>
 		<p>
-			Ruudun alareuna sisältää tilitapahtumat, mutta se näyttää tyhjää aluksi.
-			Vireillä olevat tapahtumat näkyy harmaana, kunnes ne vahvistetaan.
-			Napsauta yhtä tapahtumaa lisätäksesi lähettäjän tai vastaanottajan osoitteen osoitekirjaasi.
-		</p>
-		<p>
-			Voit lähettää tai pyytää bitcoineja napsauttamalla näppäimiä toimintapalkissa.
-			Lisää valintoja löydät asetukset -valikosta.
+			Voit lähettää tai pyytää kolikoita napauttamalla painikkeita toimintopalkissa.
+			Lisää asetuksia on saatavilla asetusvalikossa.
 		</p>
 	]]>
 	</string>

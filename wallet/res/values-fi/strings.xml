@@ -8,13 +8,13 @@
   <string name="blockchain_state_progress_weeks">%1$s, %2$d viikkoa takana</string>
   <string name="blockchain_state_progress_months">%1$s, %2$d kuukautta takana</string>
   <string name="blockchain_state_progress_downloading">Synkronoidaan verkon kanssa</string>
-  <string name="blockchain_state_progress_stalled">Synkronointi pysäytetty</string>
+  <string name="blockchain_state_progress_stalled">Synkronointi kaatunut</string>
   <string name="blockchain_state_progress_problem_storage">Synkronointi: Tilaongelma</string>
   <string name="blockchain_state_progress_problem_network">Synkronointi: Verkko-ongelma</string>
   <string name="wallet_address_fragment_clipboard_msg">Bitcoin-osoite on kopioitu leikepöydälle</string>
   <string name="wallet_address_dialog_fragment_hint">Suojellaksesi yksityisyyttäsi, osoitteesi vaihtuu aina kerran kun se vastaanottaa maksun.</string>
   <string name="wallet_balance_fragment_too_much">Tämä määrä on melko suuri kannettavaksi taskussasi. Siirrä se johonkin turvallisempaan paikkaan.</string>
-  <string name="wallet_balance_fragment_replaying">Saldo ei ole saatavilla uusinnan aikaan.</string>
+  <string name="wallet_balance_fragment_replaying">Saldo ei ole saatavilla uusinnan aikana.</string>
   <string name="exchange_rates_activity_title">Vaihtokurssit:</string>
   <string name="exchange_rates_fragment_empty_text">Kurssien arvoja ei saatu ladattua.</string>
   <string name="exchange_rates_fragment_empty_search">Rahanvaihtokurssia ei löytynyt.</string>
@@ -28,6 +28,7 @@
   <string name="wallet_transactions_fragment_empty_text_sent">Bitcoineja ei ole vielä lähetetty.</string>
   <string name="wallet_transactions_fragment_empty_text_howto">Kuinka saada Bitcoineja?\nVaihda perinteiseen rahaan,\nmyy tuotteita tai palveluita\ntai tienaa työskentelemällä.</string>
   <string name="wallet_transactions_row_warning_backup">Onnittelut, olet vastaanottanut ensimmäisen rahansiirtosi! Onko sinulla jo &lt;u&gt;varmuuskopio lompakostasi&lt;/u&gt; suojataksesi sitä katoamiselta?</string>
+  <string name="wallet_transactions_row_warning_storage_encryption">Vinkki: parantaaksesi lompakkosi turvallisuutta, voit &lt;u&gt;salata laitteesi&lt;/u&gt;. Tämä myös suojaa muiden ohjelmien dataa.</string>
   <string name="wallet_transactions_fragment_coinbase">louhittu</string>
   <string name="wallet_transactions_fragment_internal">sisäinen</string>
   <string name="wallet_transactions_options_filter">Suodata</string>
@@ -43,8 +44,8 @@
   <string name="wallet_low_storage_dialog_title">Sisäinen tallennustila on vähissä!</string>
   <string name="wallet_low_storage_dialog_msg">Bitcoin Wallet käyttää sisäistä tallennustilaa muistaakseen varainsiirrot ja lohkot. Jos se ei saa tarpeeksi tallennustilaa, se lakkaa toimimasta ja Bitcoinisi ovat silloin vaarassa!\n\nHaluatko avata ohjelmien hallinan poistaaksesi tarpeettomia ohjelmia?</string>
   <string name="wallet_low_storage_dialog_button_apps">Hallitse ohjelmia</string>
-  <string name="wallet_timeskew_dialog_title">Tarkista järjestelmäsi aika-asetukset!</string>
-  <string name="wallet_timeskew_dialog_msg">Laitteesi kello heittää %d minuuttia. Et välttämättä voi lähettää tai vastaanottaa Bitcoineja tämän ongelman johdosta.\n\nSinun tulisi tarkistaa ja päivittää aikasi sekä aikavyöhykeasetuksesi.</string>
+  <string name="wallet_timeskew_dialog_title">Tarkista päivämäärä &amp; ajan asetukset</string>
+  <string name="wallet_timeskew_dialog_msg">Laitteesi aika on jäljessä %d minuuttia. Et ehkä voi lähettää tai vastaanottaa Bitcoineja tämän ongelman takia.\n\nSinun tulisi tarkistaa ja tarvittaessa oikaista päivämäärän, ajan ja aikavyöhykkeen asetukset.</string>
   <string name="wallet_version_dialog_title">Uusi versio saatavilla!</string>
   <string name="wallet_version_dialog_msg">Tämä versio korjaa tärkeitä ongelmia. Lisätietoja saadaksesi katso muutosloki Google Play:ssa.</string>
   <string name="wallet_version_dialog_msg_deprecated">Jos et näe päivitystä, se ehkä tarkoittaa että laitteesi Androidin versio ei ole enää tuettu.</string>
@@ -235,6 +236,8 @@
   <string name="preferences_trusted_peer_summary">Yhdistettävän vertaisverkon IP tai ylläpitäjän nimi.</string>
   <string name="preferences_trusted_peer_only_title">Ohita tavanomainen vertaisten haku</string>
   <string name="preferences_trusted_peer_only_summary">Estää yhdistämisen kaikkiin muihin paitsi luotettuihin vertaisverkkoihin.</string>
+  <string name="preferences_block_explorer_title">Lohkoketjuselain</string>
+  <string name="preferences_block_explorer_summary">Erillinen lohkoketjuselain jota käytetään rahansiirtojen, osoitteiden ja lohkojen selaamiseen.</string>
   <string name="preferences_data_usage_title">Tietojen käyttö</string>
   <string name="preferences_data_usage_summary">Näytä asetukset rajoittaaksesi datan käyttöä mobiiliverkoissa.</string>
   <string name="preferences_report_issue_title">Ilmoita ongelma</string>
