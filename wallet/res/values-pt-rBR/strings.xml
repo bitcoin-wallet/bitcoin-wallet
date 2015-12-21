@@ -86,6 +86,9 @@
   <string name="send_coins_sent_msg">Enviado!</string>
   <string name="send_coins_failed_msg">Erro!</string>
   <string name="send_coins_error_msg">Erro ao enviar Bitcoins!</string>
+  <string name="send_coins_options_fee_category_economic">Economico</string>
+  <string name="send_coins_options_fee_category_normal">Normal</string>
+  <string name="send_coins_options_fee_category_priority">Prioridade</string>
   <string name="send_coins_options_empty">Carteira vazia</string>
   <string name="sweep_wallet_activity_title">Varrer papel carteira</string>
   <string name="sweep_wallet_fragment_intro">Você está prestes a varrer uma carteira de papel ou cupom. Isto irá mover todas as moedas do que o papel de sua carteira neste dispositivo. Quando a transação for confirmada, o papel será inútil e não deve ser re-utilizado por razões de segurança.</string>
@@ -278,6 +281,7 @@
   <string name="button_settings">Configurações</string>
   <string name="action_show_qr">Mostrar Código QR</string>
   <string name="action_browse">Navegar</string>
+  <!--generic strings-->
   <string name="time_today">hoje</string>
   <string name="address_unlabeled">(sem nome)</string>
   <string name="private_key_password">PIN</string>
