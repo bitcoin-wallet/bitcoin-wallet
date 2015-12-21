@@ -3,21 +3,21 @@
   <string name="help_wallet">
 <![CDATA[
 		<p>
-			Ekranın sol üst köşesi bakiyenizi Bitcoin olarak ve seçilen bir para biriminde gösterir.
-			Milli para birimleri listesine gitmek için dokununuz ve ardından herhangi bir para birimini varsayılan olarak seçmek için yine dokununuz.
+			Ekranın üst kısmı Bitcoin ve seçilen milli para birimi olarak bakiyenizi gösterir.
+			Para birimleri listesine gitmek için dokununuz, ve varsayılan olarak seçmek için dövizlerden birine dokununuz
 		</p>
 		<p>
-			Sağ taraftaki QR kodu bitcoin adresinizi içerir ve başka birisinin ödeme yapmak için onu taraması mümkündür.
+			Sağdaki QR kodu bitcoin adresinizi içerir ve başka birisinin taraması için kullanılabilir.
 			Daha büyük bir sürümünü elde etmek için QR koduna dokununuz.
 		</p>
 		<p>
-			Ekranın alt kesimi muamele listenizi gösterir ve başlangıçta boştur.
-			Beklemedeki muameleler teyit edilinceye kadar gri olarak gösterilir.
-			Gönderici ya da alıcı adresini adres defterine eklemek için bir unsura dokununuz.
+			Ekranın alt kısmı muamele listenizi gösterir ve başlangıçta boştur.
+			Beklemedeki muameleler teyit edilene dek gri olarak gösterilir.
+			Gönderici ve alıcıları adres defterine eklemek için herhangi bir unsura dokununuz.
 		</p>
 		<p>
-			Bitcoin göndermek ya da talepte bulunmak için eylem çubuğundaki düğmelere dokunabilirsiniz.
-			Seçenekler menüsünde daha fazla seçenek bulabilirsiniz.
+			Eylem çubuğundaki düğmelere dokunarak bitcoin talep edebilir ya da gönderebilirsiniz.
+			Seçenekler menüsünde daha fazla seçenek mevcuttur.
 		</p>
 	]]>
 	</string>
