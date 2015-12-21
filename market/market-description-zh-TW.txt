@@ -1,29 +1,36 @@
-讓你的比特幣只放在自己的口袋裡! 你可以利用QR二維條碼快速進行比特幣付款，商家可以更快速安全的完成比特幣請款，Bitcoin Wallet 是第一個在移動裝置可以使用的比特幣 App，並自認為是最安全的比特幣 App!
+<b>隨身攜帶你的 Bitcoin，就在你的口袋中！<b>你可以掃描 QR 條碼快速付款。商家也可以安全又快速的完成請款。Bitcoin Wallet 是第一個可以在行動設備使用的 Bitcoin app，並自認為是最安全的一個！
 
 
-<b>功能</b>
+<b>特點</b>
 
-• 不需註冊，不需登記網路服務或是任何雲端服務! 這個錢包App完全去中心化並利用點對點節點來服務。
-• 可顯示不同比特幣單位如 BTC、 mBTC 與 µBTC。
-• 自動轉換各國貨幣。
-• 可以藉由藍芽/NFC/QR二維條碼或是比特幣網址來接收或是支付比特幣。
-• 提供地址簿供常用比特幣地址使用。
-• 離線中仍然可以使用藍芽付款。
-• 收到比特幣會通知提醒。
-• 紙錢包移轉(例如冷存放使用)
-• 比特幣餘額桌面小工具。
+• 不需要註冊、不用登記網路服務、也不使用任何雲端服務！這個錢包 app 完全去中心，並使用對等網路(P2P)來服務。
+• 可以顯示不同 Bitcoin 金額單位，如 BTC、mBTC 與 µBTC。
+• 可以轉換各國貨幣。
+• 可以透過 NFC、QR 條碼、或是 Bitcoin 付款網址來付款及收款。
+• 可以用位址簿管理常用的 Bitcoin 位址。
+• 可以在離線時使用藍芽付款。
+• 可以在收到款項時通知提醒。
+• 可以兌現紙錢包(及其他冷儲存的媒介)。
+• Bitcoin 餘額桌面小工具。
 
 
-<b>貢獻</b>
+<b>出力</b>
 
-Bitcoin Wallet is <b>open source</b> and <b>free software</b>. License: GPLv3
+Bitcoin Wallet 既是<b>開放源碼</b>也是<b>自由軟體</b>。授權條款: GPLv3
 https://www.gnu.org/licenses/gpl-3.0.en.html
 
-Our source code is available at GitHub:
+我們的原始碼位在 GitHub:
 https://github.com/schildbach/bitcoin-wallet
 
-All translations are managed via Transifex:
+所有的翻譯工作都用 Transifex 管理:
 https://www.transifex.com/projects/p/bitcoin-wallet/
 
 
-<i>注意使用風險!</i>
+<b>大推</b>
+
+• 很多行動錢包的程式都從 Bitcoin Wallet 發展而來。比如說: blockchain.info、Hive、以及 KnC。
+• https://bitcoin.org 推薦的行動錢包
+• BitPay 推薦使用。
+
+
+<i>請自負使用風險！</i>
