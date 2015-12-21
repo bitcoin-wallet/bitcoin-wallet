@@ -28,6 +28,7 @@
   <string name="wallet_transactions_fragment_empty_text_sent">まだビットコインを送っていません。</string>
   <string name="wallet_transactions_fragment_empty_text_howto">ビットコインを入手するには?\n\n通常通貨と交換するか、\nグッズやサービスを販売するか\nまたは働いて稼ぎましょう</string>
   <string name="wallet_transactions_row_warning_backup">おめでとうございます、初めて支払いを受け取りました。遺失を防ぐために&lt;u&gt;ウォレットをバックアップ&lt;/u&gt;していますか?</string>
+  <string name="wallet_transactions_row_warning_storage_encryption">ヒント: ウォレットの安全性を向上させる方法として、&lt;u&gt;デバイスの暗号化&lt;/u&gt;もあります。その場合、他のアプリのデータも保護されます。</string>
   <string name="wallet_transactions_fragment_coinbase">採掘</string>
   <string name="wallet_transactions_fragment_internal">内部</string>
   <string name="wallet_transactions_options_filter">絞り込み</string>
@@ -43,8 +44,8 @@
   <string name="wallet_low_storage_dialog_title">内部デバイスのストレージ容量が残りわずかです!</string>
   <string name="wallet_low_storage_dialog_msg">Bitcoin Walletはトランザクションやブロックを記憶するのに内部ストレージを使用します。もし容量が不足した場合、動作しなくなりあなたのビットコインが危機にさらされるでしょう!\n\n不要なアプリを削除するためにアプリケーションマネージャを開きますか?</string>
   <string name="wallet_low_storage_dialog_button_apps">アプリの管理</string>
-  <string name="wallet_timeskew_dialog_title">時刻の設定を確認してください!</string>
-  <string name="wallet_timeskew_dialog_msg">デバイスの時間が%d分ずれてます。 この問題の為、ビットコインのやり取りが出来なくなる可能性があります。\n\n正確な時間とタイムゾーンを設定してください。</string>
+  <string name="wallet_timeskew_dialog_title">日付と時刻の設定を確認してください</string>
+  <string name="wallet_timeskew_dialog_msg">デバイスの時刻が%d分ずれています。この問題のためビットコインのやり取りができなくなる可能性があります。\n\n日付と時刻とタイムゾーンの設定を確認し、必要であれば修正してください。</string>
   <string name="wallet_version_dialog_title">新バージョンが利用可能です!</string>
   <string name="wallet_version_dialog_msg">このバージョンには重要なバグフィックスがあります。詳細を見るには、Google Playの最新情報を見てください。</string>
   <string name="wallet_version_dialog_msg_deprecated">アップデートが表示されない場合、それはおそらくあなたのバージョンのAndroidはもうサポートされないということです。</string>
