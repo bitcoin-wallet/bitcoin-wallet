@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="toast_wallet_reset">Din plånbok återställdes!\nDet kommer ta ett tag att återhämta.</string>
+  <string name="toast_wallet_reset">Din plånbok nollställdes!\nDet kan ta ett tag innan den återställts</string>
   <string name="wallet_disclaimer_fragment_remind_safety">Använd på egen risk. Läs &lt;u&gt;säkerhetsråden&lt;/u&gt;.</string>
   <string name="wallet_disclaimer_fragment_remind_backup">Du behöver &lt;u&gt;säkerhetskopiera din plånbok&lt;/u&gt;!</string>
   <string name="blockchain_state_progress_hours">%1$s, %2$d timmar efter</string>
@@ -43,8 +43,8 @@
   <string name="wallet_low_storage_dialog_title">Lagringsutrymme snart slut</string>
   <string name="wallet_low_storage_dialog_msg">Bitcoin Wallet använder intern lagring för att komma ihåg transaktioner och block. Om lagringsutrymmet tar slut kommer den att sluta fungera och dina bitcoin hamnar i riskzonen!\n\nVill du öppna Application Manager för att avinstallera onödiga appar?</string>
   <string name="wallet_low_storage_dialog_button_apps">Hantera appar</string>
-  <string name="wallet_timeskew_dialog_title">Kontrollera dina tidsinställningar!</string>
-  <string name="wallet_timeskew_dialog_msg">Din enhets tidsinställning avviker med %d minuter. Du kan förmodligen inte skicka och ta emot bitcoin grund av detta problem.\n\nDu bör kontrollera och korrigera dina tids- och tidszoninställningar.</string>
+  <string name="wallet_timeskew_dialog_title">Kontrollera inställningar för datum &amp; tid</string>
+  <string name="wallet_timeskew_dialog_msg">Enhetens tid är fel med %d minuter. Du kan förmodligen inte skicka eller ta emot Bitcoin på grund av detta.\n\nDu bör kontrollera och korrigera tiden och tidszonen.</string>
   <string name="wallet_version_dialog_title">En ny version är tillgänglig!</string>
   <string name="wallet_version_dialog_msg">Denna version löser viktiga buggar. För mer information, se ändringsloggen på Google Play.</string>
   <string name="wallet_version_dialog_msg_deprecated">Om du inte ser en uppdatering så beror det förmodligen på att din version av Android inte längre stöds.</string>
