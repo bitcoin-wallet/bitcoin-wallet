@@ -28,6 +28,7 @@
   <string name="wallet_transactions_fragment_empty_text_sent">Nog geen Bitcoins verzonden</string>
   <string name="wallet_transactions_fragment_empty_text_howto">Hoe verkrijg je bitcoins?\n\nVerhandel voor traditioneel geld,\nverkoop goederen of diensten of\nverdien ze met uw werk.</string>
   <string name="wallet_transactions_row_warning_backup">Gefeliciteerd, u heeft uw eerste betaling ontvangen! Heeft u al een&lt;u&gt;back-up gemaakt van uw portemonnee&lt;/u&gt;, om verlies tegen te gaan?</string>
+  <string name="wallet_transactions_row_warning_storage_encryption">Tip: om de veiligheid van je portemonnee te vergroten, kun je &lt;u&gt;je apparaat versleutelen&lt;/u&gt;. Dit beschermt ook de gegevens van andere apps.</string>
   <string name="wallet_transactions_fragment_coinbase">gemijnd</string>
   <string name="wallet_transactions_fragment_internal">intern</string>
   <string name="wallet_transactions_options_filter">Filter</string>
@@ -43,8 +44,8 @@
   <string name="wallet_low_storage_dialog_title">Interne opslag bijna vol!</string>
   <string name="wallet_low_storage_dialog_msg">Bitcoin Wallet gebruikt interne opslag voor transacties en blocks. Wanneer er te weinig opslag beschikbaar is zal het stoppen met werken en lopen uw bitcoins gevaar!\n\nWilt u de Applicatie beheer instellingen openen om ongebruikte apps te verwijderen?</string>
   <string name="wallet_low_storage_dialog_button_apps">Beheer apps</string>
-  <string name="wallet_timeskew_dialog_title">Controleer tijdsinstellingen!</string>
-  <string name="wallet_timeskew_dialog_msg">De tijd op uw apparaat wijkt %d minuten af. Waarschijnlijk kunt u hierdoor geen Bitcoins verzenden of ontvangen. \n\nControleer en corrigeer de tijd- en tijdzone-instellingen op uw apparaat.</string>
+  <string name="wallet_timeskew_dialog_title">Check je datum- en tijdsinstellingen</string>
+  <string name="wallet_timeskew_dialog_msg">De tijd van je apparaat wijkt af met %d minuten. Hierdoor kun je waarschijnlijk geen Bitcoins verzenden of ontvangen.\n\nCheck je instellingen voor datum, tijd en tijdzone en pas die indien nodig aan.</string>
   <string name="wallet_version_dialog_title">Een nieuwe versie is beschikbaar!</string>
   <string name="wallet_version_dialog_msg">Deze versie lost belangrijke problemen op. Kijk voor details bij nieuwe functies op Google Play.</string>
   <string name="wallet_version_dialog_msg_deprecated">Wanneer je geen update ziet wordt jouw Android-versie waarschijnlijk niet meer ondersteund.</string>
@@ -96,9 +97,9 @@
   <string name="raise_fee_dialog_state_decrypting">Decoderen…</string>
   <string name="raise_fee_dialog_state_done">Klaar.</string>
   <string name="raise_fee_dialog_button_raise">Verhoog</string>
-  <string name="sweep_wallet_activity_title">Opnemen vanaf papieren wallet</string>
-  <string name="sweep_wallet_fragment_intro">U staat op het punt geld op te nemen vanaf een papieren wallet of coupon. Hierbij worden alle bitcoins van dat papier overgebracht naar uw apparaat. Zodra deze transactie bevestigd wordt zal het papier zijn waarde verloren hebben en om veiligheidsredenen niet meer opnieuw gebruikt moeten worden.</string>
-  <string name="sweep_wallet_fragment_hint">Papieren wallets worden gewoonlijk gebruikt als niet-apparaat gebonden, zogenaamd koude, opslag plaats. Sommige geldautomaten printen ze uit op een bon in plaats van de bitcoins direct naar uw mobiele apparaat te versturen. Van te voren met bitcoins opgewaardeerde papieren wallets worden door sommige mensne gebruikt om waarde aan elkaar door te geven (niet aanbevolen).</string>
+  <string name="sweep_wallet_activity_title">Importeer papieren wallet</string>
+  <string name="sweep_wallet_fragment_intro">U staat op het punt een papieren wallet of coupon te scannen. Dit verplaatst alle coins van dat papier naar de portemonnee op dit apparaat. Zodra deze transactie is bevestigd zal het papier zijn waarde hebben verloren en om veiligheidsredenen niet meer opnieuw gebruikt moeten worden.</string>
+  <string name="sweep_wallet_fragment_hint">Papieren wallets worden meestal gebruikt voor offline opslag. Sommige geldautomaten printen ze uit op een bon in plaats van de coins direct naar uw mobiele apparaat te versturen. Van te voren met bitcoins opgewaardeerde papieren wallets worden door sommige mensen gebruikt om waarde aan elkaar door te geven (niet aanbevolen).</string>
   <string name="sweep_wallet_fragment_wallet_unknown">Begin met het scannen van de geheime sleutel van de papieren portemonnee. Gebruik de camera actieknop.</string>
   <string name="sweep_wallet_fragment_encrypted">Deze privé-sleutel is met een wachtwoord beveiligd.</string>
   <string name="sweep_wallet_fragment_password">wachtwoord</string>
