@@ -28,6 +28,7 @@
   <string name="wallet_transactions_fragment_empty_text_sent">Ingen bitcoins sendt ennå.</string>
   <string name="wallet_transactions_fragment_empty_text_howto">Hvordan får man bitcoins?\n\nKjøp for tradisjonelle penger,\nselg varer eller tjenester eller\ntjen dem ved å arbeide.</string>
   <string name="wallet_transactions_row_warning_backup">Gratulerer, du har mottatt din første betaling! Har du &lt;u&gt;tatt en sikkerhetskopi av din lommebok&lt;/u&gt;, for å beskytte deg mot tap?</string>
+  <string name="wallet_transactions_row_warning_storage_encryption">Tips: For å øke sikkerheten for lommeboka, kan du &lt;u&gt;kryptere enheten&lt;/u&gt;. Dette beskytter også andre apper sine data.</string>
   <string name="wallet_transactions_fragment_coinbase">utgravd</string>
   <string name="wallet_transactions_fragment_internal">intern</string>
   <string name="wallet_transactions_options_filter">Filter</string>
@@ -43,8 +44,8 @@
   <string name="wallet_low_storage_dialog_title">Enhetens interne lagringsplass er lav!</string>
   <string name="wallet_low_storage_dialog_msg">Bitcoin Wallet bruker lagring internt for å huske transaksjoner og blokker. Hvis den løper tom for plass, vil den stoppe å virke og dine bitcoins vil være under risiko!\n\nVil du åpne app-håndteringen for å avinstallere ubrukte apps?</string>
   <string name="wallet_low_storage_dialog_button_apps">Håndter apps</string>
-  <string name="wallet_timeskew_dialog_title">Sjekk dine tidsinnstillinger!</string>
-  <string name="wallet_timeskew_dialog_msg">Din enhets tid fraviker med %d minutter. Du kan sannsynligvis ikke sende eller motta bitcoins på grunn av dette problemet.\n\nDu bør sjekke og rette dine tids- og tidssoneinnstillinger.</string>
+  <string name="wallet_timeskew_dialog_title">Sjekk dato- og tidsinnstillinger</string>
+  <string name="wallet_timeskew_dialog_msg">Din enhets tid fraviker med %d minutter. Du kan sannsynligvis ikke sende eller motta bitcoin på grunn av dette problemet.\n\nDu bør sjekke og eventuelt korrigere innstillingene for dato, klokkeslett og tidssone.</string>
   <string name="wallet_version_dialog_title">En ny versjon er tilgjengelig!</string>
   <string name="wallet_version_dialog_msg">Denne versjonen retter viktige feil. For detaljer, se endringsloggen på Google Play.</string>
   <string name="wallet_version_dialog_msg_deprecated">Hvis du ikke ser en oppdatering, betyr dette sannsynligvis at din versjon av Android ikke støttes lenger.</string>
@@ -119,7 +120,7 @@
   <string name="maintenance_dialog_button_move">Flytt</string>
   <string name="request_coins_activity_title">Forespør bitcoins</string>
   <string name="request_coins_fragment_amount_label">Forespurt beløp (valgfri)</string>
-  <string name="request_coins_fragment_accept_bluetooth_payment">Motta betaling via Bluetooth for mere pålitelig prosessering</string>
+  <string name="request_coins_fragment_accept_bluetooth_payment">Motta betaling via blåtann for mer pålitelig prosessering</string>
   <string name="request_coins_fragment_initiate_request_qr">Få avsenderen til å skanne denne koden.</string>
   <string name="request_coins_fragment_initiate_request_nfc">Eller berør en NFC-aktivert enhet.</string>
   <string name="request_coins_clipboard_msg">Bitcoin-forespørsel kopieret til utklippstavlen</string>
@@ -235,6 +236,8 @@
   <string name="preferences_trusted_peer_summary">IP eller vertsnavn for forbindelse til en enkelt peer.</string>
   <string name="preferences_trusted_peer_only_title">Hopp over vanlig søk etter peers</string>
   <string name="preferences_trusted_peer_only_summary">Forhindrer tilkobling til andre peers enn den klarerte.</string>
+  <string name="preferences_block_explorer_title">Blokkleser</string>
+  <string name="preferences_block_explorer_summary">Ekstern blokkleser som kan brukes til å se gjennom transaksjoner, adresser og blokker.</string>
   <string name="preferences_data_usage_title">Dataforbruk</string>
   <string name="preferences_data_usage_summary">Vis innstillinger for restriksjon for dataforbruk på mobile nettverk.</string>
   <string name="preferences_report_issue_title">Rapporter problem</string>
@@ -265,9 +268,9 @@
   <string name="about_copyright_title">Opphavsrett</string>
   <string name="about_license_title">Lisens</string>
   <string name="about_source_title">Kildekode</string>
-  <string name="about_credits_bitcoinj_title">Denne appen bruker bitcoinj %s</string>
-  <string name="about_credits_zxing_title">Denne appen bruker \'zxing\'</string>
-  <string name="about_credits_icon_title">Denne appen bruker ett ikon av \'bitboy\'</string>
+  <string name="about_credits_bitcoinj_title">Appen bruker bitcoinj %s</string>
+  <string name="about_credits_zxing_title">Appen bruker \'zxing\'</string>
+  <string name="about_credits_icon_title">Appen bruker ett ikon av \'bitboy\'</string>
   <string name="about_community_googleplus_title">Google+ samfunnet</string>
   <string name="about_community_googleplus_summary">Diskusjon om appen</string>
   <string name="about_market_app_title">Google Play-siden</string>

@@ -3,8 +3,8 @@
   <string name="help_wallet">
 <![CDATA[
 		<p>
-			Den øvre venstre delen av skjermen viser balansen i bitcoins og en valgt nasjonal valuta.
-			Trykk for å gå til listen over nasjonale valutaer, og trykk på en av valutaene for å velge den som standard.
+			Den øvre venstre delen av skjermen viser balansen i bitcoin og en valgt nasjonal valuta.
+			Trykk for å gå til listen over nasjonale valutaer, og trykk så på en av valutaene for å velge den som standard.
 		</p>
 		<p>
 			QR-koden til høyre inneholder din Bitcoin-adresse og kan brukes til skanning av noen andre.
