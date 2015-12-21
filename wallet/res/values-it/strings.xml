@@ -28,6 +28,7 @@
   <string name="wallet_transactions_fragment_empty_text_sent">Nessun Bitcoin ancora inviato</string>
   <string name="wallet_transactions_fragment_empty_text_howto">Come ottenere Bitcoins?\n\nBarattali per soldi reali,\nvendi beni o servizi oppure\nricavali lavorando.</string>
   <string name="wallet_transactions_row_warning_backup">Congratulazioni, hai ricevuto i tuoi primi pagamenti! Hai già &lt;u&gt;eseguito un backup del tuo portafoglio &lt;/u&gt;, per proteggerlo dai danni?</string>
+  <string name="wallet_transactions_row_warning_storage_encryption">Suggerimento: per incrementare la sicurezza del tuo portafoglio, puoi &lt;u&gt;criptare il tuo dispositivo&lt;/u&gt;. Questo protegge i dati anche delle altre applicazioni.</string>
   <string name="wallet_transactions_fragment_coinbase">minato</string>
   <string name="wallet_transactions_fragment_internal">Interna</string>
   <string name="wallet_transactions_options_filter">Filtro</string>
@@ -235,6 +236,8 @@
   <string name="preferences_trusted_peer_summary">Indirizzo IP o hostname di un singolo peer a cui connettersi.</string>
   <string name="preferences_trusted_peer_only_title">Salta il regolare rilevamento dei peer</string>
   <string name="preferences_trusted_peer_only_summary">Impedisce il collegamento a qualsiasi peer oltre che ai peer affidabili.</string>
+  <string name="preferences_block_explorer_title">Analizzatore di blocchi</string>
+  <string name="preferences_block_explorer_summary">Analizzatore di blocchi esterno da utilizzare per esaminare transazioni, indirizzi e blocchi.</string>
   <string name="preferences_data_usage_title">Utilizzo dei dati</string>
   <string name="preferences_data_usage_summary">Mostra le opzioni per restringere l\'utilizzo dei dati su reti mobili.</string>
   <string name="preferences_report_issue_title">Segnala un problema</string>

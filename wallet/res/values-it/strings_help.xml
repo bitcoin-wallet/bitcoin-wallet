@@ -3,26 +3,21 @@
   <string name="help_wallet">
 <![CDATA[
 		<p>
-			La parte in alto a sinistra dello schermo mostra gli indirizzo Bitcoin che le altre persone hanno bisogno per poterti inviare dei Bitcoin.
-			Premi per cambiare l\'indirizzo.
+			La parte in alto a sinistra dello schermo mostra il tuo saldo in Bitcoins e nella valuta nazionale selezionata.
+			Toccare per visualizzare la lista delle valute nazionali, e toccare una valuta per sceglierla come predefinita.
 		</p>
 		<p>
-			Il codice QR sulla destra contiene il tuo indirizzo Bitcoin e può essere usato per farlo leggere ad altri.
-			Premi sul codice per visualizzarne una versione più grande.
+			Il codice QR sulla destra contiene il vostro indirizzo bitcoin e può essere utilizzato per la scansione da parte di un altro soggetto.
+			Toccare il codice QR per ingrandirlo.
 		</p>
 		<p>
-			Il tuo saldo viene visualizzato al centro dello schermo.
-			Il valore del tuo portafoglio viene anche mostrato nella tua valuta locale.
-			Premi sul saldo per visualizzare la lista di tutte le valute e scegliere quella di default.
+			La parte inferiore dello schermo è occupata dalla lista delle transazioni, inizialmente è vuota.
+			Le operazioni in sospeso sono visualizzate in grigio finché non vengono confermate.
+			Toccare un elemento della lista per aggiungere l\'indirizzo del mittente o del destinatario nella rubrica degli indirizzi.
 		</p>
 		<p>
-			In fondo allo schermo troverai la lista delle tue transazioni, inizialmente vuota.
-			Le transazioni da confermare saranno visualizzate in grigio finchè non confermate.
-			Premi su una di esse per aggiungere gli indirizzi mittente o destinazione nella rubrica.
-		</p>
-		<p>
-			Puoi inviare o ricevere Bitcoins premendo i tasti nella barra delle azioni.
-			Sono disponibili ulteriori comandi nel menù opzioni.
+			È possibile inviare o ricevere Bitcoins toccando i pulsanti nella barra delle azioni.
+			Ulteriori opzioni sono disponibili nel menu delle opzioni.
 		</p>
 	]]>
 	</string>
