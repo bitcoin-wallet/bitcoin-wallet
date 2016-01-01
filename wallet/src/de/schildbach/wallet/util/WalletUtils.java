@@ -184,7 +184,9 @@ public class WalletUtils
 			final Wallet wallet = new WalletProtobufSerializer().readWallet(is);
 
 			if (!wallet.getParams().equals(expectedNetworkParameters))
-				throw new IOException("bad wallet network parameters: " + wallet.getParams().getId());
+				throw new IOException("bad wallet backup network parameters: " + wallet.getParams().getId());
+			if (!wallet.isConsistent())
+				throw new IOException("inconsistent wallet backup");
 
 			return wallet;
 		}
