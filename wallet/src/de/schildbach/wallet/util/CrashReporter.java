@@ -258,7 +258,7 @@ public class CrashReporter
 			report.append("  - ");
 
 		final Formatter formatter = new Formatter(report);
-		formatter.format("%tF %tT %8d  %s\n", file.lastModified(), file.lastModified(), file.length(), file.getName());
+		formatter.format(Locale.US, "%tF %tT %8d  %s\n", file.lastModified(), file.lastModified(), file.length(), file.getName());
 		formatter.close();
 
 		if (file.isDirectory())
