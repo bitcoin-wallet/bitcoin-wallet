@@ -181,7 +181,7 @@ public class WalletUtils
 	{
 		try
 		{
-			final Wallet wallet = new WalletProtobufSerializer().readWallet(is);
+			final Wallet wallet = new WalletProtobufSerializer().readWallet(is, true, null);
 
 			if (!wallet.getParams().equals(expectedNetworkParameters))
 				throw new IOException("bad wallet backup network parameters: " + wallet.getParams().getId());
