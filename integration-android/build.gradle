@@ -1,4 +1,4 @@
-apply plugin: 'java'
+apply plugin: 'com.android.library'
 
 dependencies {
     compile('com.google.android:android:4.0.1.2') {
@@ -6,18 +6,29 @@ dependencies {
     }
 }
 
-sourceSets {
-    main {
-        java {
-            srcDir 'src'
+android {
+    compileSdkVersion 'android-21'
+    buildToolsVersion '23.0.2'
+
+    lintOptions {
+        abortOnError false
+        disable 'MissingTranslation'
+    }
+
+    buildTypes {
+        all {
         }
-        resources {
-            srcDir 'src'
+        debug {
+            debuggable true
         }
     }
-}
 
-compileJava {
-    sourceCompatibility '1.5'
-    targetCompatibility '1.5'
+    sourceSets {
+        main {
+            manifest.srcFile 'AndroidManifest.xml'
+            java.srcDirs = ['src']
+            res.srcDirs = ['res']
+            aidl.srcDirs = [rootProject.file('aidl')]
+        }
+    }
 }

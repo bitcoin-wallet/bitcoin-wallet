@@ -17,17 +17,18 @@
 
 package de.schildbach.wallet.service;
 
+import org.bitcoinj.core.Peer;
+import org.bitcoinj.core.StoredBlock;
+import org.bitcoinj.core.TransactionBroadcaster;
+
 import java.util.List;
 
 import javax.annotation.Nullable;
 
-import org.bitcoinj.core.Peer;
-import org.bitcoinj.core.StoredBlock;
-
 /**
  * @author Andreas Schildbach
  */
-public interface BlockchainService
+public interface BlockchainService extends TransactionBroadcaster
 {
 	public static final String ACTION_PEER_STATE = BlockchainService.class.getPackage().getName() + ".peer_state";
 	public static final String ACTION_PEER_STATE_NUM_PEERS = "num_peers";

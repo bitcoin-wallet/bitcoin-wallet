@@ -17,51 +17,6 @@
 
 package de.schildbach.wallet.service;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.InetSocketAddress;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.EnumSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.atomic.AtomicLong;
-
-import javax.annotation.Nullable;
-
-import org.bitcoinj.core.Address;
-import org.bitcoinj.core.Block;
-import org.bitcoinj.core.BlockChain;
-import org.bitcoinj.core.CheckpointManager;
-import org.bitcoinj.core.Coin;
-import org.bitcoinj.core.FilteredBlock;
-import org.bitcoinj.core.Peer;
-import org.bitcoinj.core.PeerGroup;
-import org.bitcoinj.core.Sha256Hash;
-import org.bitcoinj.core.StoredBlock;
-import org.bitcoinj.core.Transaction;
-import org.bitcoinj.core.TransactionConfidence.ConfidenceType;
-import org.bitcoinj.core.Wallet;
-import org.bitcoinj.core.listeners.AbstractPeerEventListener;
-import org.bitcoinj.core.listeners.PeerDataEventListener;
-import org.bitcoinj.core.listeners.WalletEventListener;
-import org.bitcoinj.net.discovery.DnsDiscovery;
-import org.bitcoinj.net.discovery.PeerDiscovery;
-import org.bitcoinj.net.discovery.PeerDiscoveryException;
-import org.bitcoinj.store.BlockStore;
-import org.bitcoinj.store.BlockStoreException;
-import org.bitcoinj.store.SPVBlockStore;
-import org.bitcoinj.utils.MonetaryFormat;
-import org.bitcoinj.utils.Threading;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -82,6 +37,53 @@ import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
 import android.support.v4.content.LocalBroadcastManager;
 import android.text.format.DateUtils;
+
+import org.bitcoinj.core.Address;
+import org.bitcoinj.core.Block;
+import org.bitcoinj.core.BlockChain;
+import org.bitcoinj.core.CheckpointManager;
+import org.bitcoinj.core.Coin;
+import org.bitcoinj.core.FilteredBlock;
+import org.bitcoinj.core.Peer;
+import org.bitcoinj.core.PeerGroup;
+import org.bitcoinj.core.Sha256Hash;
+import org.bitcoinj.core.StoredBlock;
+import org.bitcoinj.core.Transaction;
+import org.bitcoinj.core.TransactionBroadcast;
+import org.bitcoinj.core.TransactionConfidence.ConfidenceType;
+import org.bitcoinj.core.Wallet;
+import org.bitcoinj.core.listeners.AbstractPeerEventListener;
+import org.bitcoinj.core.listeners.PeerDataEventListener;
+import org.bitcoinj.core.listeners.WalletEventListener;
+import org.bitcoinj.net.discovery.DnsDiscovery;
+import org.bitcoinj.net.discovery.PeerDiscovery;
+import org.bitcoinj.net.discovery.PeerDiscoveryException;
+import org.bitcoinj.store.BlockStore;
+import org.bitcoinj.store.BlockStoreException;
+import org.bitcoinj.store.SPVBlockStore;
+import org.bitcoinj.utils.MonetaryFormat;
+import org.bitcoinj.utils.Threading;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.InetSocketAddress;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.EnumSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
+
+import javax.annotation.Nullable;
+
 import de.schildbach.wallet.AddressBookProvider;
 import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
@@ -804,6 +806,15 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 		}
 
 		return blocks;
+	}
+
+	@Override
+	public TransactionBroadcast broadcastTransaction(final Transaction tx) {
+		if (peerGroup == null) {
+			// TODO: @w-shackleton do something nicer here
+			throw new RuntimeException("PeerGroup not running");
+		}
+		return peerGroup.broadcastTransaction(tx);
 	}
 
 	private void broadcastPeerState(final int numPeers)
