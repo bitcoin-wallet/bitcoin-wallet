@@ -87,6 +87,9 @@ public final class Constants
 	public static final String BITEASY_API_URL = NETWORK_PARAMETERS.getId().equals(NetworkParameters.ID_MAINNET) ? BITEASY_API_URL_PROD
 			: BITEASY_API_URL_TEST;
 
+	/** Currency code for the wallet name resolver. */
+	public static final String WALLET_NAME_CURRENCY_CODE = NETWORK_PARAMETERS.getId().equals(NetworkParameters.ID_MAINNET) ? "btc" : "tbtc";
+
 	/** URL to fetch version alerts from. */
 	public static final String VERSION_URL = "https://wallet.schildbach.de/version";
 
