@@ -19,7 +19,7 @@ import de.schildbach.wallet.channels.IPaymentChannels;
  * Manages a connection to a Bitcoin wallet via its exposed remote service for processing
  * micropayments.
  */
-public abstract class PaymentChannelConnector implements Closeable {
+public class PaymentChannelConnector implements Closeable {
     private static final Intent SERVICE_INTENT =
             new Intent("de.schildbach.wallet.channels.PaymentChannelService");
 

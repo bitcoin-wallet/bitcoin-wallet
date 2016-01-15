@@ -72,7 +72,11 @@ public class PaymentChannelClientInstanceBinder extends IPaymentChannelClientIns
 
             @Override
             public void destroyConnection(PaymentChannelCloseException.CloseReason reason) {
-
+                try {
+                    callbacks.closeConnection();
+                } catch (RemoteException e) {
+                    log.info("closeConnection() failed", e);
+                }
             }
 
             @Override
@@ -86,6 +90,8 @@ public class PaymentChannelClientInstanceBinder extends IPaymentChannelClientIns
 
             }
         });
+
+        paymentChannelClient.connectionOpen();
     }
 
     @Override
@@ -115,5 +121,10 @@ public class PaymentChannelClientInstanceBinder extends IPaymentChannelClientIns
             log.info("Increment requested by server was out of range", e);
             return false;
         }
+    }
+
+    @Override
+    public void closeConnection() throws RemoteException {
+        paymentChannelClient.connectionClosed();
     }
 }

@@ -24,4 +24,10 @@ interface IPaymentChannelClientInstance {
     void sendMessage(in byte[] message);
 
     boolean requestIncrement(in long satoshis);
+
+    /**
+     * Closes this payment channel's connection - calling this function is equivalent to closing the
+     * TCP stream under a TCP-transported channel.
+     */
+    void closeConnection();
 }

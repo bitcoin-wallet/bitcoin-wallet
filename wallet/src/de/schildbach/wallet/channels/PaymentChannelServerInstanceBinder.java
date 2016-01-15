@@ -63,7 +63,11 @@ public class PaymentChannelServerInstanceBinder extends IPaymentChannelServerIns
 
             @Override
             public void destroyConnection(PaymentChannelCloseException.CloseReason reason) {
-
+                try {
+                    callbacks.closeConnection();
+                } catch (RemoteException e) {
+                    log.info("closeConnection() failed", e);
+                }
             }
 
             @Override
@@ -93,5 +97,10 @@ public class PaymentChannelServerInstanceBinder extends IPaymentChannelServerIns
             log.warn("Received an invalid message from service client");
             paymentChannelServer.connectionClosed();
         }
+    }
+
+    @Override
+    public void closeConnection() throws RemoteException {
+        paymentChannelServer.connectionClosed();
     }
 }

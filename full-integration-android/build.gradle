@@ -1,0 +1,34 @@
+apply plugin: 'com.android.library'
+
+dependencies {
+    compile(project(':integration-android')) {
+        exclude(group: 'com.google.android', module: 'android')
+    }
+    compile 'org.bitcoinj:bitcoinj-core:0.13.4'
+}
+
+android {
+    compileSdkVersion 'android-21'
+    buildToolsVersion '23.0.2'
+
+    lintOptions {
+        abortOnError false
+        disable 'MissingTranslation'
+    }
+
+    buildTypes {
+        all {
+        }
+        debug {
+            debuggable true
+        }
+    }
+
+    sourceSets {
+        main {
+            manifest.srcFile 'AndroidManifest.xml'
+            java.srcDirs = ['src']
+            res.srcDirs = ['res']
+        }
+    }
+}

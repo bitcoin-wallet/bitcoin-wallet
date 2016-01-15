@@ -22,4 +22,10 @@ interface IPaymentChannelCallbacks {
      * by bitcoinj.
      */
     void sendMessage(in byte[] message);
+
+    /**
+     * Closes this payment channel's connection - calling this function is equivalent to closing the
+     * TCP stream under a TCP-transported channel.
+     */
+    void closeConnection();
 }

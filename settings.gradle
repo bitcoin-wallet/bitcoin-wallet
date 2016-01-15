@@ -1,3 +1,4 @@
 include 'wallet'
 include 'integration-android'
+include 'full-integration-android'
 include 'sample-integration-android'
