@@ -1,3 +1,7 @@
+v4.46
+
+* Speculative fix for ANR.
+
 v4.45
 
 * Adjusts to the new network fee rules imposed by Bitcoin Core.
