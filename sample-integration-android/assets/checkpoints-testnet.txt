@@ -1,0 +1,1 @@
+../../wallet/assets/checkpoints-testnet.txt

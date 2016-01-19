@@ -120,6 +120,12 @@ public class PaymentChannelConnector implements Closeable {
                 }
             }
         }
+
+        // Masquerade null ID as empty array
+        if (serverId == null) {
+            serverId = new byte[0];
+        }
+
         return boundService.createChannelFromWallet(
                 callbacks,
                 requestedMaxValue,

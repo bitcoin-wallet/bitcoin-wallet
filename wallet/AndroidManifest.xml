@@ -215,7 +215,11 @@
 			android:exported="false" />
 		<service
 			android:name="de.schildbach.wallet.channels.PaymentChannelService"
-			android:exported="true" />
+			android:exported="true">
+			<intent-filter>
+				<action android:name="de.schildbach.wallet.channels.PaymentChannelService" />
+			</intent-filter>
+		</service>
 
 		<receiver android:name="de.schildbach.wallet.service.AutosyncReceiver" >
 			<intent-filter>

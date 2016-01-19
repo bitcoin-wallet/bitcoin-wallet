@@ -10,6 +10,8 @@
 		android:name="android.hardware.touchscreen"
 		android:required="false" />
 
+	<uses-permission android:name="android.permission.INTERNET" />
+
 	<supports-screens
 		android:anyDensity="true"
 		android:largeScreens="true"
@@ -19,13 +21,23 @@
 	<application android:label="Bitcoin in-app payment sample" >
 		<activity
 			android:name="de.schildbach.wallet.integration.sample.SampleActivity"
-			android:theme="@android:style/Theme.Light" >
+			android:theme="@android:style/Theme.DeviceDefault.Light" >
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
 
 				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
 		</activity>
+		<service android:name="de.schildbach.wallet.integration.sample.channels.PaymentChannelService" />
+		<activity
+			android:name="de.schildbach.wallet.integration.sample.channels.PaymentChannelServerActivity"
+			android:theme="@style/Theme.AppCompat.Light"
+			android:label="Payment Channel Server"/>
+		<activity
+			android:name="de.schildbach.wallet.integration.sample.channels.PaymentChannelActivity"
+			android:theme="@android:style/Theme.DeviceDefault.Light"
+			android:screenOrientation="portrait"
+			android:label="Payment Channel examples" />
 	</application>
 
 </manifest>

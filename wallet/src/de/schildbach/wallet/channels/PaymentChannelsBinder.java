@@ -22,23 +22,44 @@ import org.bitcoinj.core.Coin;
 import org.bitcoinj.core.Sha256Hash;
 import org.bitcoinj.core.TransactionBroadcaster;
 import org.bitcoinj.core.Wallet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 /**
  * Binder for the IPaymentChannels interface.
  */
 public class PaymentChannelsBinder extends IPaymentChannels.Stub {
 
-    private final Wallet wallet;
-    private final TransactionBroadcaster transactionBroadcaster;
+    private static final Logger log = LoggerFactory.getLogger(PaymentChannelsBinder.class);
 
-    public PaymentChannelsBinder(Wallet wallet, TransactionBroadcaster transactionBroadcaster) {
+    private final Wallet wallet;
+    private final Future<? extends TransactionBroadcaster> transactionBroadcaster;
+
+    public PaymentChannelsBinder(Wallet wallet, Future<? extends TransactionBroadcaster> transactionBroadcaster) {
         this.wallet = wallet;
         this.transactionBroadcaster = transactionBroadcaster;
     }
 
     @Override
     public IPaymentChannelServerInstance createChannelToWallet(IPaymentChannelCallbacks callbacks) throws RemoteException {
-        return new PaymentChannelServerInstanceBinder(wallet, transactionBroadcaster, callbacks);
+        try {
+            return new PaymentChannelServerInstanceBinder(
+                    wallet,
+                    transactionBroadcaster.get(2, TimeUnit.SECONDS),
+                    callbacks);
+        } catch (InterruptedException e) {
+            log.warn("Failed to connect to blockchain service", e);
+        } catch (ExecutionException e) {
+            log.warn("Failed to connect to blockchain service", e);
+        } catch (TimeoutException e) {
+            log.warn("Failed to connect to blockchain service", e);
+        }
+        return null;
     }
 
     @Override
@@ -47,11 +68,13 @@ public class PaymentChannelsBinder extends IPaymentChannels.Stub {
             long requestedMaxValue,
             byte[] serverId,
             long requestedTimeWindow) throws RemoteException {
+        // Null ID was masqueraded as an empty array
+        Sha256Hash serverIdHash = serverId.length == 0 ? null : Sha256Hash.wrap(serverId);
         return new PaymentChannelClientInstanceBinder(
                 wallet,
                 callbacks,
                 Coin.valueOf(requestedMaxValue),
-                Sha256Hash.wrap(serverId),
+                serverIdHash,
                 requestedTimeWindow);
     }
 

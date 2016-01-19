@@ -16,12 +16,6 @@
 
 package de.schildbach.wallet.integration.sample;
 
-import org.bitcoin.protocols.payments.Protos;
-import org.bitcoinj.core.Address;
-import org.bitcoinj.core.AddressFormatException;
-import org.bitcoinj.core.NetworkParameters;
-import org.bitcoinj.script.ScriptBuilder;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -37,7 +31,14 @@ import android.widget.Toast;
 
 import com.google.protobuf.ByteString;
 
+import org.bitcoin.protocols.payments.Protos;
+import org.bitcoinj.core.Address;
+import org.bitcoinj.core.AddressFormatException;
+import org.bitcoinj.core.NetworkParameters;
+import org.bitcoinj.script.ScriptBuilder;
+
 import de.schildbach.wallet.integration.android.BitcoinIntegration;
+import de.schildbach.wallet.integration.sample.channels.PaymentChannelActivity;
 
 /**
  * @author Andreas Schildbach
@@ -50,7 +51,6 @@ public class SampleActivity extends Activity
 	private static final String MEMO = "Sample donation";
 	private static final int REQUEST_CODE = 0;
 
-	private Button donateButton, requestButton;
 	private TextView donateMessage;
 
 	@Override
@@ -60,7 +60,7 @@ public class SampleActivity extends Activity
 
 		setContentView(R.layout.sample_activity);
 
-		donateButton = (Button) findViewById(R.id.sample_donate_button);
+		Button donateButton = (Button) findViewById(R.id.sample_donate_button);
 		donateButton.setOnClickListener(new OnClickListener()
 		{
 			public void onClick(final View v)
@@ -69,12 +69,23 @@ public class SampleActivity extends Activity
 			}
 		});
 
-		requestButton = (Button) findViewById(R.id.sample_request_button);
+		Button requestButton = (Button) findViewById(R.id.sample_request_button);
 		requestButton.setOnClickListener(new OnClickListener()
 		{
 			public void onClick(final View v)
 			{
 				handleRequest();
+			}
+		});
+
+		Button paymentChannelsButton = (Button)findViewById(R.id.payment_channels_button);
+		paymentChannelsButton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				final boolean isTestnet = !((RadioButton) findViewById(R.id.sample_network_mainnet)).isChecked();
+				Intent intent = new Intent(SampleActivity.this, PaymentChannelActivity.class);
+				intent.putExtra(PaymentChannelActivity.INTENT_TESTNET, isTestnet);
+				startActivity(intent);
 			}
 		});
 

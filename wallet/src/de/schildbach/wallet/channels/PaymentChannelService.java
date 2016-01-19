@@ -28,10 +28,6 @@ import com.google.common.util.concurrent.SettableFuture;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
-
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.service.BlockchainService;
 import de.schildbach.wallet.service.BlockchainServiceImpl;
@@ -49,9 +45,13 @@ public class PaymentChannelService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        blockchainServiceFuture = SettableFuture.create();
         Intent blockchainServiceIntent = new Intent(this, BlockchainServiceImpl.class);
-        bindService(blockchainServiceIntent, blockchainServiceConn, BIND_AUTO_CREATE);
+        if (bindService(blockchainServiceIntent, blockchainServiceConn, BIND_AUTO_CREATE)) {
+            log.debug("Binding to blockchain service");
+            blockchainServiceFuture = SettableFuture.create();
+        } else {
+            log.warn("Failed to connect to blockchain service");
+        }
     }
 
     @Override
@@ -63,12 +63,14 @@ public class PaymentChannelService extends Service {
     private ServiceConnection blockchainServiceConn = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName componentName, IBinder binder) {
+            log.debug("Bound to blockchain service");
             blockchainServiceFuture.set(((BlockchainServiceImpl.LocalBinder) binder).getService());
         }
 
         @Override
         public void onServiceDisconnected(ComponentName componentName) {
             blockchainServiceFuture = null;
+            log.debug("Disconnecting from blockchain service");
         }
     };
 
@@ -79,20 +81,12 @@ public class PaymentChannelService extends Service {
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
+        log.debug("onBind()");
         if (blockchainServiceFuture == null) {
             return null;
         }
-        try {
-            return new PaymentChannelsBinder(
-                    getWalletApplication().getWallet(),
-                    blockchainServiceFuture.get(2, TimeUnit.SECONDS));
-        } catch (InterruptedException e) {
-            log.warn("Failed to connect to blockchain service", e);
-        } catch (ExecutionException e) {
-            log.warn("Failed to connect to blockchain service", e);
-        } catch (TimeoutException e) {
-            log.warn("Failed to connect to blockchain service", e);
-        }
-        return null;
+        return new PaymentChannelsBinder(
+                getWalletApplication().getWallet(),
+                blockchainServiceFuture);
     }
 }
