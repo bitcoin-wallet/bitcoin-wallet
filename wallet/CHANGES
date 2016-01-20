@@ -354,7 +354,6 @@ v3.24
 
 * fixed issue with stuck outgoing transactions
 
->>>>>>> upstream/prod
 v3.23
 
 * fixed issue with detecting online state
