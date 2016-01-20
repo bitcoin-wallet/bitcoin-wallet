@@ -114,7 +114,7 @@ public final class RequestCoinsFragment extends Fragment implements NfcAdapter.C
 
 	private static final int ID_RATE_LOADER = 0;
 
-	private static boolean ENABLE_BLUETOOTH_LISTENING = Build.VERSION.SDK_INT >= Constants.SDK_JELLY_BEAN_MR2;
+	private static boolean ENABLE_BLUETOOTH_LISTENING = Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2;
 
 	private static final Logger log = LoggerFactory.getLogger(RequestCoinsFragment.class);
 
