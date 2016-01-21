@@ -15,7 +15,7 @@ Viac informácií o GroestlCoine
 http://www.groestlcoin.org
 
 Ak chcete prispieť do projektu GroestlCoin Wallet nájdete ho na adrese
-https://github.com/HashEngineering/groestlcoin-wallet
+https://github.com/GroestlCoin/groestlcoin-wallet
 
 Licencia: GPLv3
 Použitie len na vlastné riziko!

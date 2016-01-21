@@ -14,6 +14,8 @@
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
 		android:gravity="center"
-		android:textAppearance="?android:attr/textAppearanceSmall" />
+		android:textColor="@color/fg_less_significant"
+		android:textSize="@dimen/font_size_small"
+		android:textStyle="bold" />
 
 </FrameLayout>

@@ -15,7 +15,7 @@ Vi povas trovi pli pri Bitmono ĉe
 http://www.groestlcoin.org
 
 Se vi volas kontribui al GroestlCoin Wallet, la projekto lokas ĉe
-https://github.com/HashEngineering/groestlcoin-wallet
+https://github.com/GroestlCoin/groestlcoin-wallet
 
 Licenco: GPLv3
 Uzu je via propra risko!

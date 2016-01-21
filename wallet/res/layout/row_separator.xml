@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@android:id/text1"
+	android:background="@color/bg_less_bright"
+	android:paddingBottom="3dp"
+	android:paddingLeft="@dimen/list_entry_padding_horizontal"
+	android:paddingRight="@dimen/list_entry_padding_horizontal"
+	android:paddingTop="3dp"
+	android:textColor="@color/fg_less_significant"
+	android:textSize="@dimen/font_size_small"
+	android:textStyle="bold" />

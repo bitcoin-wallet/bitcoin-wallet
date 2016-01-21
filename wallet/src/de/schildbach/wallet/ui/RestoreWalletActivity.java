@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2014 the original author or authors.
+ * Copyright 2013-2015 the original author or authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,8 +23,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-
-import javax.annotation.Nonnull;
 
 import org.bitcoinj.core.Wallet;
 import org.bitcoinj.core.Wallet.BalanceType;
@@ -172,7 +170,7 @@ public final class RestoreWalletActivity extends AbstractWalletActivity
 		showView.setOnCheckedChangeListener(new ShowPasswordCheckListener(passwordView));
 	}
 
-	private void restoreWalletFromEncrypted(@Nonnull final InputStream cipher, @Nonnull final String password)
+	private void restoreWalletFromEncrypted(final InputStream cipher, final String password)
 	{
 		try
 		{
@@ -184,7 +182,7 @@ public final class RestoreWalletActivity extends AbstractWalletActivity
 			final byte[] plainText = Crypto.decryptBytes(cipherText.toString(), password.toCharArray());
 			final InputStream is = new ByteArrayInputStream(plainText);
 
-			restoreWallet(WalletUtils.restoreWalletFromProtobufOrBase58(is));
+			restoreWallet(WalletUtils.restoreWalletFromProtobufOrBase58(is, Constants.NETWORK_PARAMETERS));
 
 			log.info("successfully restored encrypted wallet from external source");
 		}

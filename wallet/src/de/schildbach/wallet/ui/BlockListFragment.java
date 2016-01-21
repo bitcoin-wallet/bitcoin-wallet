@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2014 the original author or authors.
+ * Copyright 2013-2015 the original author or authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,17 +17,12 @@
 
 package de.schildbach.wallet.ui;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.RejectedExecutionException;
 
-import javax.annotation.Nonnull;
-
-import org.bitcoinj.core.Block;
 import org.bitcoinj.core.Sha256Hash;
 import org.bitcoinj.core.StoredBlock;
 import org.bitcoinj.core.Transaction;
@@ -36,7 +31,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import android.app.Activity;
-import android.app.ListFragment;
+import android.app.Fragment;
 import android.app.LoaderManager;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.AsyncTaskLoader;
@@ -51,30 +46,27 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.v4.content.LocalBroadcastManager;
-import android.text.format.DateUtils;
-import android.view.ActionMode;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.ListView;
-import android.widget.TextView;
+import android.widget.PopupMenu;
+import android.widget.PopupMenu.OnMenuItemClickListener;
+import android.widget.ViewAnimator;
 import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.service.BlockchainService;
 import de.schildbach.wallet.service.BlockchainServiceImpl;
-import de.schildbach.wallet.util.WalletUtils;
 import hashengineering.groestlcoin.wallet.R;
 
 
 /**
  * @author Andreas Schildbach
  */
-public final class BlockListFragment extends ListFragment
+public final class BlockListFragment extends Fragment implements BlockListAdapter.OnClickListener
 {
 	private AbstractWalletActivity activity;
 	private WalletApplication application;
@@ -84,8 +76,9 @@ public final class BlockListFragment extends ListFragment
 
 	private BlockchainService service;
 
+	private ViewAnimator viewGroup;
+	private RecyclerView recyclerView;
 	private BlockListAdapter adapter;
-	private Set<Transaction> transactions;
 
 	private static final int ID_BLOCK_LOADER = 0;
 	private static final int ID_TRANSACTION_LOADER = 1;
@@ -119,8 +112,22 @@ public final class BlockListFragment extends ListFragment
 	{
 		super.onCreate(savedInstanceState);
 
-		adapter = new BlockListAdapter();
-		setListAdapter(adapter);
+		adapter = new BlockListAdapter(activity, wallet, this);
+		adapter.setFormat(config.getFormat());
+	}
+
+	@Override
+	public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState)
+	{
+		final View view = inflater.inflate(R.layout.block_list_fragment, container, false);
+
+		viewGroup = (ViewAnimator) view.findViewById(R.id.block_list_group);
+
+		recyclerView = (RecyclerView) view.findViewById(R.id.block_list);
+		recyclerView.setLayoutManager(new LinearLayoutManager(activity));
+		recyclerView.setAdapter(adapter);
+
+		return view;
 	}
 
 	private boolean resumed = false;
@@ -166,51 +173,27 @@ public final class BlockListFragment extends ListFragment
 	}
 
 	@Override
-	public void onListItemClick(final ListView l, final View v, final int position, final long id)
+	public void onBlockMenuClick(final View view, final StoredBlock block)
 	{
-		final StoredBlock storedBlock = adapter.getItem(position);
+		final PopupMenu popupMenu = new PopupMenu(activity, view);
+		popupMenu.inflate(R.menu.blocks_context);
 
-		activity.startActionMode(new ActionMode.Callback()
+		popupMenu.setOnMenuItemClickListener(new OnMenuItemClickListener()
 		{
 			@Override
-			public boolean onCreateActionMode(final ActionMode mode, final Menu menu)
-			{
-				final MenuInflater inflater = mode.getMenuInflater();
-				inflater.inflate(R.menu.blocks_context, menu);
-
-				return true;
-			}
-
-			@Override
-			public boolean onPrepareActionMode(final ActionMode mode, final Menu menu)
-			{
-				mode.setTitle(Integer.toString(storedBlock.getHeight()));
-				mode.setSubtitle(storedBlock.getHeader().getHashAsString());
-
-				return true;
-			}
-
-			@Override
-			public boolean onActionItemClicked(final ActionMode mode, final MenuItem item)
+			public boolean onMenuItemClick(final MenuItem item)
 			{
 				switch (item.getItemId())
 				{
 					case R.id.blocks_context_browse:
-						startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.EXPLORE_BASE_URL + Constants.EXPLORE_BLOCK_PATH
-								+ storedBlock.getHeader().getHashAsString())));
-
-						mode.finish();
+						startActivity(new Intent(Intent.ACTION_VIEW,
+								Uri.withAppendedPath(config.getBlockExplorer(), Constants.EXPLORE_BLOCK_PATH + block.getHeader().getHashAsString())));
 						return true;
 				}
-
 				return false;
 			}
-
-			@Override
-			public void onDestroyActionMode(final ActionMode mode)
-			{
-			}
 		});
+		popupMenu.show();
 	}
 
 	private final ServiceConnection serviceConnection = new ServiceConnection()
@@ -240,118 +223,6 @@ public final class BlockListFragment extends ListFragment
 			adapter.notifyDataSetChanged();
 		}
 	};
-
-	private final class BlockListAdapter extends BaseAdapter
-	{
-		private static final int ROW_BASE_CHILD_COUNT = 2;
-		private static final int ROW_INSERT_INDEX = 1;
-		private final TransactionsListAdapter transactionsAdapter = new TransactionsListAdapter(activity, wallet, application.maxConnectedPeers(),
-				false);
-		private final LayoutInflater inflater = LayoutInflater.from(activity);
-
-		private final List<StoredBlock> blocks = new ArrayList<StoredBlock>(MAX_BLOCKS);
-
-		public void clear()
-		{
-			blocks.clear();
-
-			adapter.notifyDataSetChanged();
-		}
-
-		public void replace(@Nonnull final Collection<StoredBlock> blocks)
-		{
-			this.blocks.clear();
-			this.blocks.addAll(blocks);
-
-			notifyDataSetChanged();
-		}
-
-		@Override
-		public int getCount()
-		{
-			return blocks.size();
-		}
-
-		@Override
-		public StoredBlock getItem(final int position)
-		{
-			return blocks.get(position);
-		}
-
-		@Override
-		public long getItemId(final int position)
-		{
-			return WalletUtils.longHash(blocks.get(position).getHeader().getHash());
-		}
-
-		@Override
-		public boolean hasStableIds()
-		{
-			return true;
-		}
-
-		@Override
-		public View getView(final int position, final View convertView, final ViewGroup parent)
-		{
-			final ViewGroup row;
-			if (convertView == null)
-				row = (ViewGroup) inflater.inflate(R.layout.block_row, null);
-			else
-				row = (ViewGroup) convertView;
-
-			final StoredBlock storedBlock = getItem(position);
-			final Block header = storedBlock.getHeader();
-
-			final TextView rowHeight = (TextView) row.findViewById(R.id.block_list_row_height);
-			final int height = storedBlock.getHeight();
-			rowHeight.setText(Integer.toString(height));
-
-			final TextView rowTime = (TextView) row.findViewById(R.id.block_list_row_time);
-			final long timeMs = header.getTimeSeconds() * DateUtils.SECOND_IN_MILLIS;
-			if (timeMs < System.currentTimeMillis())
-				rowTime.setText(DateUtils.getRelativeDateTimeString(activity, timeMs, DateUtils.MINUTE_IN_MILLIS, DateUtils.WEEK_IN_MILLIS, 0));
-			else
-				rowTime.setText(R.string.block_row_now);
-
-			final TextView rowHash = (TextView) row.findViewById(R.id.block_list_row_hash);
-			rowHash.setText(WalletUtils.formatHash(null, header.getHashAsString(), 8, 0, ' '));
-
-			final int transactionChildCount = row.getChildCount() - ROW_BASE_CHILD_COUNT;
-			int iTransactionView = 0;
-
-			if (transactions != null)
-			{
-				transactionsAdapter.setFormat(config.getFormat());
-
-				for (final Transaction tx : transactions)
-				{
-					if (tx.getAppearsInHashes().containsKey(header.getHash()))
-					{
-						final View view;
-						if (iTransactionView < transactionChildCount)
-						{
-							view = row.getChildAt(ROW_INSERT_INDEX + iTransactionView);
-						}
-						else
-						{
-							view = inflater.inflate(R.layout.transaction_row_oneline, null);
-							row.addView(view, ROW_INSERT_INDEX + iTransactionView);
-						}
-
-						transactionsAdapter.bindView(view, tx);
-
-						iTransactionView++;
-					}
-				}
-			}
-
-			final int leftoverTransactionViews = transactionChildCount - iTransactionView;
-			if (leftoverTransactionViews > 0)
-				row.removeViews(ROW_INSERT_INDEX + iTransactionView, leftoverTransactionViews);
-
-			return row;
-		}
-	}
 
 	private static class BlockLoader extends AsyncTaskLoader<List<StoredBlock>>
 	{
@@ -419,6 +290,7 @@ public final class BlockListFragment extends ListFragment
 		public void onLoadFinished(final Loader<List<StoredBlock>> loader, final List<StoredBlock> blocks)
 		{
 			adapter.replace(blocks);
+			viewGroup.setDisplayedChild(1);
 
 			final Loader<Set<Transaction>> transactionLoader = loaderManager.getLoader(ID_TRANSACTION_LOADER);
 			if (transactionLoader != null && transactionLoader.isStarted())
@@ -471,18 +343,13 @@ public final class BlockListFragment extends ListFragment
 		@Override
 		public void onLoadFinished(final Loader<Set<Transaction>> loader, final Set<Transaction> transactions)
 		{
-			BlockListFragment.this.transactions = transactions;
-
-			adapter.notifyDataSetChanged();
+			adapter.replaceTransactions(transactions);
 		}
 
 		@Override
 		public void onLoaderReset(final Loader<Set<Transaction>> loader)
 		{
-			BlockListFragment.this.transactions.clear(); // be nice
-			BlockListFragment.this.transactions = null;
-
-			adapter.notifyDataSetChanged();
+			adapter.clearTransactions();
 		}
 	};
 }

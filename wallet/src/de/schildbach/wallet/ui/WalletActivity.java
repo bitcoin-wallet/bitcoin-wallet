@@ -1,5 +1,5 @@
 /*
- * Copyright 2011-2014 the original author or authors.
+ * Copyright 2011-2015 the original author or authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,37 +19,24 @@ package de.schildbach.wallet.ui;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
-import java.text.DateFormat;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.TimeZone;
 
-import javax.annotation.Nonnull;
-
-import org.bitcoinj.core.AddressFormatException;
 import org.bitcoinj.core.Transaction;
 import org.bitcoinj.core.VerificationException;
 import org.bitcoinj.core.VersionedChecksummedBytes;
 import org.bitcoinj.core.Wallet;
 import org.bitcoinj.core.Wallet.BalanceType;
-import org.bitcoinj.store.WalletProtobufSerializer;
-
-import org.bitcoinj.wallet.Protos;
 
 
 import android.app.Activity;
@@ -70,7 +57,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
-import android.text.Html;
 import android.text.format.DateUtils;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -96,14 +82,9 @@ import de.schildbach.wallet.util.CrashReporter;
 import de.schildbach.wallet.util.Crypto;
 import de.schildbach.wallet.util.HttpGetThread;
 import de.schildbach.wallet.util.Io;
-import de.schildbach.wallet.util.Iso8601Format;
 import de.schildbach.wallet.util.Nfc;
 import de.schildbach.wallet.util.WalletUtils;
-
-//import com.google.bitcoin.core.CoinDefinition;
-import de.schildbach.wallet.util.WholeStringBuilder;
 import hashengineering.groestlcoin.wallet.R;
-
 
 /**
  * @author Andreas Schildbach
@@ -111,10 +92,9 @@ import hashengineering.groestlcoin.wallet.R;
 public final class WalletActivity extends AbstractWalletActivity
 {
 	private static final int DIALOG_RESTORE_WALLET = 0;
-	private static final int DIALOG_BACKUP_WALLET = 1;
-	private static final int DIALOG_TIMESKEW_ALERT = 2;
-	private static final int DIALOG_VERSION_ALERT = 3;
-	private static final int DIALOG_LOW_STORAGE_ALERT = 4;
+	private static final int DIALOG_TIMESKEW_ALERT = 1;
+	private static final int DIALOG_VERSION_ALERT = 2;
+	private static final int DIALOG_LOW_STORAGE_ALERT = 3;
 
 	private WalletApplication application;
 	private Configuration config;
@@ -177,7 +157,7 @@ public final class WalletActivity extends AbstractWalletActivity
 		handleIntent(intent);
 	}
 
-	private void handleIntent(@Nonnull final Intent intent)
+	private void handleIntent(final Intent intent)
 	{
 		final String action = intent.getAction();
 
@@ -214,13 +194,13 @@ public final class WalletActivity extends AbstractWalletActivity
 			new StringInputParser(input)
 			{
 				@Override
-				protected void handlePaymentIntent(@Nonnull final PaymentIntent paymentIntent)
+				protected void handlePaymentIntent(final PaymentIntent paymentIntent)
 				{
 					SendCoinsActivity.start(WalletActivity.this, paymentIntent);
 				}
 
 				@Override
-				protected void handlePrivateKey(@Nonnull final VersionedChecksummedBytes key)
+				protected void handlePrivateKey(final VersionedChecksummedBytes key)
 				{
 					SweepWalletActivity.start(WalletActivity.this, key);
 				}
@@ -246,7 +226,6 @@ public final class WalletActivity extends AbstractWalletActivity
 		super.onCreateOptionsMenu(menu);
 
 		getMenuInflater().inflate(R.menu.wallet_options, menu);
-		menu.findItem(R.id.wallet_options_donate).setVisible(!Constants.TEST);
 
 		return true;
 	}
@@ -328,10 +307,6 @@ public final class WalletActivity extends AbstractWalletActivity
 				HelpDialogFragment.page(getFragmentManager(), R.string.help_safety);
 				return true;
 
-			case R.id.wallet_options_donate:
-				handleDonate();
-				return true;
-
 			case R.id.wallet_options_help:
 				HelpDialogFragment.page(getFragmentManager(), R.string.help_wallet);
 				return true;
@@ -357,7 +332,7 @@ public final class WalletActivity extends AbstractWalletActivity
 
 	public void handleBackupWallet()
 	{
-		showDialog(DIALOG_BACKUP_WALLET);
+		BackupWalletDialogFragment.show(getFragmentManager());
 	}
 
 	public void handleEncryptKeys()
@@ -370,26 +345,11 @@ public final class WalletActivity extends AbstractWalletActivity
     	finish();
     }
 
-	private void handleDonate()
-	{
-		try
-		{
-			SendCoinsActivity.start(this, PaymentIntent.fromAddress(Constants.DONATION_ADDRESS, getString(R.string.wallet_donate_address_label)));
-		}
-		catch (final AddressFormatException x)
-		{
-			// cannot happen, address is hardcoded
-			throw new RuntimeException(x);
-		}
-	}
-
 	@Override
 	protected Dialog onCreateDialog(final int id, final Bundle args)
 	{
 		if (id == DIALOG_RESTORE_WALLET)
 			return createRestoreWalletDialog();
-		else if (id == DIALOG_BACKUP_WALLET)
-			return createBackupWalletDialog();
 		else if (id == DIALOG_TIMESKEW_ALERT)
 			return createTimeskewAlertDialog(args.getLong("diff_minutes"));
 		else if (id == DIALOG_VERSION_ALERT)
@@ -405,13 +365,12 @@ public final class WalletActivity extends AbstractWalletActivity
 	{
 		if (id == DIALOG_RESTORE_WALLET)
 			prepareRestoreWalletDialog(dialog);
-		else if (id == DIALOG_BACKUP_WALLET)
-			prepareBackupWalletDialog(dialog);
 	}
 
 	private Dialog createRestoreWalletDialog()
 	{
 		final View view = getLayoutInflater().inflate(R.layout.restore_wallet_dialog, null);
+		final TextView messageView = (TextView) view.findViewById(R.id.restore_wallet_dialog_message);
 		final Spinner fileView = (Spinner) view.findViewById(R.id.import_keys_from_storage_file);
 		final EditText passwordView = (EditText) view.findViewById(R.id.import_keys_from_storage_password);
 
@@ -484,6 +443,15 @@ public final class WalletActivity extends AbstractWalletActivity
 			}
 		};
 
+		final String path;
+		final String backupPath = Constants.Files.EXTERNAL_WALLET_BACKUP_DIR.getAbsolutePath();
+		final String storagePath = Constants.Files.EXTERNAL_STORAGE_DIR.getAbsolutePath();
+		if (backupPath.startsWith(storagePath))
+			path = backupPath.substring(storagePath.length());
+		else
+			path = backupPath;
+		messageView.setText(getString(R.string.import_keys_dialog_message, path));
+
 		fileView.setAdapter(adapter);
 
 		return dialog.create();
@@ -498,8 +466,7 @@ public final class WalletActivity extends AbstractWalletActivity
 		// external storage
 		if (Constants.Files.EXTERNAL_WALLET_BACKUP_DIR.exists() && Constants.Files.EXTERNAL_WALLET_BACKUP_DIR.isDirectory())
 			for (final File file : Constants.Files.EXTERNAL_WALLET_BACKUP_DIR.listFiles())
-				if (WalletUtils.BACKUP_FILE_FILTER.accept(file) || WalletUtils.KEYS_FILE_FILTER.accept(file)
-						|| Crypto.OPENSSL_FILE_FILTER.accept(file))
+				if (Crypto.OPENSSL_FILE_FILTER.accept(file))
 					files.add(file);
 
 		// internal storage
@@ -549,63 +516,6 @@ public final class WalletActivity extends AbstractWalletActivity
 
 		final CheckBox showView = (CheckBox) alertDialog.findViewById(R.id.import_keys_from_storage_show);
 		showView.setOnCheckedChangeListener(new ShowPasswordCheckListener(passwordView));
-	}
-
-	private Dialog createBackupWalletDialog()
-	{
-		final View view = getLayoutInflater().inflate(R.layout.backup_wallet_dialog, null);
-		final EditText passwordView = (EditText) view.findViewById(R.id.export_keys_dialog_password);
-
-		final DialogBuilder dialog = new DialogBuilder(this);
-		dialog.setTitle(R.string.export_keys_dialog_title);
-		dialog.setView(view);
-		dialog.setPositiveButton(R.string.export_keys_dialog_button_export, new OnClickListener()
-		{
-			@Override
-			public void onClick(final DialogInterface dialog, final int which)
-			{
-				final String password = passwordView.getText().toString().trim();
-				passwordView.setText(null); // get rid of it asap
-
-				backupWallet(password);
-
-				config.disarmBackupReminder();
-			}
-		});
-		dialog.setNegativeButton(R.string.button_cancel, new OnClickListener()
-		{
-			@Override
-			public void onClick(final DialogInterface dialog, final int which)
-			{
-				passwordView.setText(null); // get rid of it asap
-			}
-		});
-		dialog.setOnCancelListener(new OnCancelListener()
-		{
-			@Override
-			public void onCancel(final DialogInterface dialog)
-			{
-				passwordView.setText(null); // get rid of it asap
-			}
-		});
-		return dialog.create();
-	}
-
-	private void prepareBackupWalletDialog(final Dialog dialog)
-	{
-		final AlertDialog alertDialog = (AlertDialog) dialog;
-
-		final EditText passwordView = (EditText) alertDialog.findViewById(R.id.export_keys_dialog_password);
-		passwordView.setText(null);
-
-		final ImportDialogButtonEnablerListener dialogButtonEnabler = new ImportDialogButtonEnablerListener(passwordView, alertDialog);
-		passwordView.addTextChangedListener(dialogButtonEnabler);
-
-		final CheckBox showView = (CheckBox) alertDialog.findViewById(R.id.export_keys_dialog_show);
-		showView.setOnCheckedChangeListener(new ShowPasswordCheckListener(passwordView));
-
-		final TextView warningView = (TextView) alertDialog.findViewById(R.id.backup_wallet_dialog_warning_encrypted);
-		warningView.setVisibility(wallet.isEncrypted() ? View.VISIBLE : View.GONE);
 	}
 
 	private void checkLowStorageAlert()
@@ -826,7 +736,7 @@ public final class WalletActivity extends AbstractWalletActivity
 		return dialog.create();
 	}
 
-	private void restoreWalletFromEncrypted(@Nonnull final File file, @Nonnull final String password)
+	private void restoreWalletFromEncrypted(final File file, final String password)
 	{
 		try
 		{
@@ -838,7 +748,7 @@ public final class WalletActivity extends AbstractWalletActivity
 			final byte[] plainText = Crypto.decryptBytes(cipherText.toString(), password.toCharArray());
 			final InputStream is = new ByteArrayInputStream(plainText);
 
-			restoreWallet(WalletUtils.restoreWalletFromProtobufOrBase58(is));
+			restoreWallet(WalletUtils.restoreWalletFromProtobufOrBase58(is, Constants.NETWORK_PARAMETERS));
 
 			log.info("successfully restored encrypted wallet: {}", file);
 		}
@@ -861,13 +771,13 @@ public final class WalletActivity extends AbstractWalletActivity
 		}
 	}
 
-	private void restoreWalletFromProtobuf(@Nonnull final File file)
+	private void restoreWalletFromProtobuf(final File file)
 	{
 		FileInputStream is = null;
 		try
 		{
 			is = new FileInputStream(file);
-			restoreWallet(WalletUtils.restoreWalletFromProtobuf(is));
+			restoreWallet(WalletUtils.restoreWalletFromProtobuf(is, Constants.NETWORK_PARAMETERS));
 
 			log.info("successfully restored unencrypted wallet: {}", file);
 		}
@@ -890,25 +800,27 @@ public final class WalletActivity extends AbstractWalletActivity
 		}
 		finally
 		{
-			try
+			if (is != null)
 			{
-				if (is != null)
+				try
+				{
 					is.close();
-			}
-			catch (final IOException x2)
-			{
-				// swallow
+				}
+				catch (final IOException x2)
+				{
+					// swallow
+				}
 			}
 		}
 	}
 
-	private void restorePrivateKeysFromBase58(@Nonnull final File file)
+	private void restorePrivateKeysFromBase58(final File file)
 	{
 		FileInputStream is = null;
 		try
 		{
 			is = new FileInputStream(file);
-			restoreWallet(WalletUtils.restorePrivateKeysFromBase58(is));
+			restoreWallet(WalletUtils.restorePrivateKeysFromBase58(is, Constants.NETWORK_PARAMETERS));
 
 			log.info("successfully restored unencrypted private keys: {}", file);
 		}
@@ -931,14 +843,16 @@ public final class WalletActivity extends AbstractWalletActivity
 		}
 		finally
 		{
-			try
+			if (is != null)
 			{
-				if (is != null)
+				try
+				{
 					is.close();
-			}
-			catch (final IOException x2)
-			{
-				// swallow
+				}
+				catch (final IOException x2)
+				{
+					// swallow
+				}
 			}
 		}
 	}
@@ -965,88 +879,5 @@ public final class WalletActivity extends AbstractWalletActivity
 			}
 		});
 		dialog.show();
-	}
-
-	private void backupWallet(@Nonnull final String password)
-	{
-		Constants.Files.EXTERNAL_WALLET_BACKUP_DIR.mkdirs();
-		final DateFormat dateFormat = Iso8601Format.newDateFormat();
-		dateFormat.setTimeZone(TimeZone.getDefault());
-		final File file = new File(Constants.Files.EXTERNAL_WALLET_BACKUP_DIR, Constants.Files.EXTERNAL_WALLET_BACKUP + "-"
-				+ dateFormat.format(new Date()));
-
-		final Protos.Wallet walletProto = new WalletProtobufSerializer().walletToProto(wallet);
-
-		Writer cipherOut = null;
-
-		try
-		{
-			final ByteArrayOutputStream baos = new ByteArrayOutputStream();
-			walletProto.writeTo(baos);
-			baos.close();
-			final byte[] plainBytes = baos.toByteArray();
-
-			cipherOut = new OutputStreamWriter(new FileOutputStream(file), Charsets.UTF_8);
-			cipherOut.write(Crypto.encrypt(plainBytes, password.toCharArray()));
-			cipherOut.flush();
-
-			final DialogBuilder dialog = new DialogBuilder(this);
-			dialog.setMessage(Html.fromHtml(getString(R.string.export_keys_dialog_success, file)));
-			dialog.setPositiveButton(WholeStringBuilder.bold(getString(R.string.export_keys_dialog_button_archive)), new OnClickListener()
-			{
-				@Override
-				public void onClick(final DialogInterface dialog, final int which)
-				{
-					archiveWalletBackup(file);
-				}
-			});
-			dialog.setNegativeButton(R.string.button_dismiss, null);
-			dialog.show();
-
-			log.info("backed up wallet to: '" + file + "'");
-		}
-		catch (final IOException x)
-		{
-			final DialogBuilder dialog = DialogBuilder.warn(this, R.string.import_export_keys_dialog_failure_title);
-			dialog.setMessage(getString(R.string.export_keys_dialog_failure, x.getMessage()));
-			dialog.singleDismissButton(null);
-			dialog.show();
-
-			log.error("problem backing up wallet", x);
-		}
-		finally
-		{
-			try
-			{
-				cipherOut.close();
-			}
-			catch (final IOException x)
-			{
-				// swallow
-			}
-		}
-	}
-
-	private void archiveWalletBackup(@Nonnull final File file)
-	{
-		final Intent intent = new Intent(Intent.ACTION_SEND);
-		intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.export_keys_dialog_mail_subject));
-		intent.putExtra(Intent.EXTRA_TEXT,
-				getString(R.string.export_keys_dialog_mail_text) + "\n\n" + String.format(Constants.WEBMARKET_APP_URL, getPackageName()) + "\n\n"
-						+ Constants.SOURCE_URL + '\n');
-
-		intent.setType(Constants.MIMETYPE_WALLET_BACKUP);
-		intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file));
-
-		try
-		{
-			startActivity(Intent.createChooser(intent, getString(R.string.export_keys_dialog_mail_intent_chooser)));
-			log.info("invoked chooser for archiving wallet backup");
-		}
-		catch (final Exception x)
-		{
-			longToast(R.string.export_keys_dialog_mail_intent_failed);
-			log.error("archiving wallet backup failed", x);
-		}
 	}
 }

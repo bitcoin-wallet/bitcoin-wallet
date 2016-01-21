@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2014 the original author or authors.
+ * Copyright 2013-2015 the original author or authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -140,7 +140,7 @@ public abstract class ThrottlingWalletChangeListener implements WalletEventListe
 	}
 
 	@Override
-	public void onScriptsAdded(final Wallet wallet, final List<Script> scripts)
+	public void onScriptsChanged(final Wallet wallet, final List<Script> scripts, final boolean isAddingScripts)
 	{
 		// swallow
 	}

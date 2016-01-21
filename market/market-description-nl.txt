@@ -1,14 +1,16 @@
 <b>Draag je GroestlCoins altijd bij je, in je broekzak!</b> Je kunt vlot betalen door een QR-code te scannen. Als handelaar ontvang je je betalingen betrouwbaar en onmiddelijk. GroestlCoin Wallet is de eerste mobiele GroestlCoin-app, en misschien wel de veiligste!
 
+
 <b>FEATURES</b>
 
 • Geen registratie, webservice of cloud vereist! De portemonnee is decentraal en peer-to-peer.
-• Geef het GroestlCoin-bedrag weer in GRS, mGRS en µGRS.
+• Toon GroestlCoin bedrag in GRS, mGRS en µGRS.
 • Conversie van en naar nationale valuta.
 * Verzend en ontvang GroestlCoin via NFC, QR-codes of GroestlCoin-URL's
 • Adresboek voor regelmatig gebruikte GroestlCoin-adressen.
-• Ook offline toch betalen via Bluetooth
+• Offline kun je nog steeds betalen via Bluetooth.
 • Systeemmelding wanneer je GroestlCoins ontvangt
+• Opname van papieren portemonnee (b.v. voor cold storage).
 • App widget voor GroestlCoin saldo.
 
 
@@ -18,7 +20,7 @@ GroestlCoin Wallet is <b>open source</b> en <b>free software</b>. Licentie: GPLv
 https://www.gnu.org/licenses/gpl-3.0.en.html
 
 Onze broncode is beschikbaar op GitHub:
-https://github.com/HashEngineering/groestlcoin-wallet
+https://github.com/GroestlCoin/groestlcoin-wallet
 
 Alle vertalingen worden geregeld via Transifex:
 https://www.transifex.com/projects/p/bitcoin-wallet/

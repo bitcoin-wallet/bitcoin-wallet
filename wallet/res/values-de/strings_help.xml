@@ -4,31 +4,17 @@
 	<string name="help_wallet">
 <![CDATA[
 		<p>
-<<<<<<< HEAD
-			Im linken oberen Teil des Bildschirms wird Deine GroestlCoin-Adresse angezeigt, mit der Du Zahlungen von anderen Teilnehmern empfangen kannst.
-			Mit einem Tap auf die Adresse wird eine neue Adresse generiert.
-=======
 			Im linken oberen Teil des Bildschirms wird dein aktuelles Guthaben in GroestlCoin und einer ausgewählten Währung angezeigt.
 			Mit einem Tap darauf gelangst du in die Liste der verfügbaren Währungen, ein weiterer Tap auf eine der Währungen setzt sie als Standardwährung.
->>>>>>> origin/master
 		</p>
 		<p>
 			Der QR-Code auf dem oberen rechten Teil des Displays enthält ebenfalls Deine GroestlCoin-Adresse und kann von einem anderen Teilnehmer eingescannt werden.
 			Mit einem Tap auf den QR-Code wird dieser vergrößert.
 		</p>
 		<p>
-<<<<<<< HEAD
-			In der Mitte des Bildschirms wird Dein aktuelles GroestlCoin-Guthaben angezeigt.
-			Außerdem wird der entsprechende Wert in einer ausgewählten Währung angezeigt.
-			Ein Tap auf die Guthabenanzeige öffnet eine Liste mit allen verfügbaren Währungen, ein weiterer Tap auf eine der verfügbaren Währungen setzt die ausgewählte Währung als Standardwährung.
-		</p>
-		<p>
-=======
->>>>>>> origin/master
 			Im unteren Teil des Bildschirms wird die Transaktionsliste angezeigt, die anfangs leer ist.
 			Unbestätigte Transaktionen werden grau angezeigt, bis sie bestätigt sind.
 			Mit einem Tap auf einen Eintrag kann man die Sender- oder Empfängeradresse zum Adressbuch hinzufügen.
-			Mit einer Wischgeste nach links oder rechts werden die Anzeigefilter für die Transaktionsliste aktiviert.
 		</p>
 		<p>
 			In der Titelzeile finden sich Knöpfe zum Anfordern oder Versenden von Zahlungen.

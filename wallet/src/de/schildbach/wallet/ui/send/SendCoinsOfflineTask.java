@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2014 the original author or authors.
+ * Copyright 2013-2015 the original author or authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,9 +17,8 @@
 
 package de.schildbach.wallet.ui.send;
 
-import javax.annotation.Nonnull;
-
 import org.bitcoinj.core.Coin;
+import org.bitcoinj.core.ECKey;
 import org.bitcoinj.core.InsufficientMoneyException;
 import org.bitcoinj.core.Transaction;
 import org.bitcoinj.core.Wallet;
@@ -40,14 +39,14 @@ public abstract class SendCoinsOfflineTask
 	private final Handler backgroundHandler;
 	private final Handler callbackHandler;
 
-	public SendCoinsOfflineTask(@Nonnull final Wallet wallet, @Nonnull final Handler backgroundHandler)
+	public SendCoinsOfflineTask(final Wallet wallet, final Handler backgroundHandler)
 	{
 		this.wallet = wallet;
 		this.backgroundHandler = backgroundHandler;
 		this.callbackHandler = new Handler(Looper.myLooper());
 	}
 
-	public final void sendCoinsOffline(@Nonnull final SendRequest sendRequest)
+	public final void sendCoinsOffline(final SendRequest sendRequest)
 	{
 		backgroundHandler.post(new Runnable()
 		{
@@ -77,6 +76,17 @@ public abstract class SendCoinsOfflineTask
 						public void run()
 						{
 							onInsufficientMoney(x.missing);
+						}
+					});
+				}
+				catch (final ECKey.KeyIsEncryptedException x)
+				{
+					callbackHandler.post(new Runnable()
+					{
+						@Override
+						public void run()
+						{
+							onFailure(x);
 						}
 					});
 				}
@@ -117,9 +127,9 @@ public abstract class SendCoinsOfflineTask
 		});
 	}
 
-	protected abstract void onSuccess(@Nonnull Transaction transaction);
+	protected abstract void onSuccess(Transaction transaction);
 
-	protected abstract void onInsufficientMoney(@Nonnull Coin missing);
+	protected abstract void onInsufficientMoney(Coin missing);
 
 	protected abstract void onInvalidKey();
 
@@ -128,5 +138,5 @@ public abstract class SendCoinsOfflineTask
 		onFailure(new CouldNotAdjustDownwards());
 	}
 
-	protected abstract void onFailure(@Nonnull Exception exception);
+	protected abstract void onFailure(Exception exception);
 }

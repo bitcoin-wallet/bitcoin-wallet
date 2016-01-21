@@ -1,5 +1,5 @@
 /*
- * Copyright 2011-2014 the original author or authors.
+ * Copyright 2011-2015 the original author or authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -33,8 +33,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
-import javax.annotation.CheckForNull;
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.bitcoinj.core.CoinDefinition;
@@ -44,6 +42,7 @@ import org.bitcoinj.core.Block;
 import org.bitcoinj.core.BlockChain;
 import org.bitcoinj.core.CheckpointManager;
 import org.bitcoinj.core.Coin;
+import org.bitcoinj.core.FilteredBlock;
 import org.bitcoinj.core.Peer;
 import org.bitcoinj.core.PeerEventListener;
 import org.bitcoinj.core.PeerGroup;
@@ -115,7 +114,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 	private BlockStore blockStore;
 	private File blockChainFile;
 	private BlockChain blockChain;
-	@CheckForNull
+	@Nullable
 	private PeerGroup peerGroup;
 
 	private final Handler handler = new Handler();
@@ -159,7 +158,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 
 			final int bestChainHeight = blockChain.getBestChainHeight();
 
-			final Address from = WalletUtils.getFirstFromAddress(tx);
+			final Address address = WalletUtils.getWalletAddressOfReceived(tx, wallet);
 			final Coin amount = tx.getValue(wallet);
 			final ConfidenceType confidenceType = tx.getConfidence().getConfidenceType();
 
@@ -173,7 +172,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 					final boolean isReplayedTx = confidenceType == ConfidenceType.BUILDING && replaying;
 
 					if (isReceived && !isReplayedTx)
-						notifyCoinsReceived(from, amount);
+						notifyCoinsReceived(address, amount);
 				}
 			});
 		}
@@ -185,15 +184,15 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 		}
 	};
 
-	private void notifyCoinsReceived(@Nullable final Address from, @Nonnull final Coin amount)
+	private void notifyCoinsReceived(@Nullable final Address address, final Coin amount)
 	{
 		if (notificationCount == 1)
 			nm.cancel(NOTIFICATION_ID_COINS_RECEIVED);
 
 		notificationCount++;
 		notificationAccumulatedAmount = notificationAccumulatedAmount.add(amount);
-		if (from != null && !notificationAddresses.contains(from))
-			notificationAddresses.add(from);
+		if (address != null && !notificationAddresses.contains(address))
+			notificationAddresses.add(address);
 
 		final MonetaryFormat btcFormat = config.getFormat();
 
@@ -204,12 +203,12 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 		final String msg = getString(R.string.notification_coins_received_msg, btcFormat.format(notificationAccumulatedAmount)) + msgSuffix;
 
 		final StringBuilder text = new StringBuilder();
-		for (final Address address : notificationAddresses)
+		for (final Address notificationAddress : notificationAddresses)
 		{
 			if (text.length() > 0)
 				text.append(", ");
 
-			final String addressStr = address.toString();
+			final String addressStr = notificationAddress.toString();
 			final String label = AddressBookProvider.resolveLabel(getApplicationContext(), addressStr);
 			text.append(label != null ? label : addressStr);
 		}
@@ -334,14 +333,11 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 		private final AtomicLong lastMessageTime = new AtomicLong(0);
 
 		@Override
-		public void onBlocksDownloaded(final Peer peer, final Block block, final int blocksLeft)
+		public void onBlocksDownloaded(final Peer peer, final Block block, final FilteredBlock filteredBlock, final int blocksLeft)
 		{
-			config.maybeIncrementBestChainHeightEver(blockChain.getChainHead().getHeight());
-
 			delayHandler.removeCallbacksAndMessages(null);
 
 			final long now = System.currentTimeMillis();
-
 			if (now - lastMessageTime.get() > BLOCKCHAIN_STATE_BROADCAST_THROTTLE_MS)
 				delayHandler.post(runnable);
 			else
@@ -355,6 +351,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 			{
 				lastMessageTime.set(System.currentTimeMillis());
 
+				config.maybeIncrementBestChainHeightEver(blockChain.getChainHead().getHeight());
 				broadcastBlockchainState();
 			}
 		};
@@ -429,6 +426,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 				final boolean connectTrustedPeerOnly = hasTrustedPeer && config.getTrustedPeerOnly();
 				peerGroup.setMaxConnections(connectTrustedPeerOnly ? 1 : maxConnectedPeers);
 				peerGroup.setConnectTimeoutMillis(Constants.PEER_TIMEOUT_MS);
+				peerGroup.setPeerDiscoveryTimeoutMillis(Constants.PEER_DISCOVERY_TIMEOUT_MS);
 
 				peerGroup.addPeerDiscovery(new PeerDiscovery()
 				{
@@ -668,10 +666,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 		if (!blockChainFileExists)
 		{
 			log.info("blockchain does not exist, resetting wallet");
-
-			wallet.clearTransactions(0);
-			wallet.setLastBlockSeenHeight(-1); // magic value
-			wallet.setLastBlockSeenHash(null);
+			wallet.reset();
 		}
 
 		try
@@ -751,7 +746,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 			}
 			else if (BlockchainService.ACTION_BROADCAST_TRANSACTION.equals(action))
 			{
-				final Sha256Hash hash = new Sha256Hash(intent.getByteArrayExtra(BlockchainService.ACTION_BROADCAST_TRANSACTION_HASH));
+				final Sha256Hash hash = Sha256Hash.wrap(intent.getByteArrayExtra(BlockchainService.ACTION_BROADCAST_TRANSACTION_HASH));
 				final Transaction tx = application.getWallet().getTransaction(hash);
 
 				if (peerGroup != null)
@@ -790,8 +785,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 		{
 			peerGroup.removeEventListener(peerConnectivityListener);
 			peerGroup.removeWallet(application.getWallet());
-			peerGroup.stopAsync();
-			peerGroup.awaitTerminated();
+			peerGroup.stop();
 
 			log.info("peergroup stopped");
 		}

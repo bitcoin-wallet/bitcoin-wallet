@@ -5,7 +5,7 @@
 		android:key="about_version"
 		android:title="@string/about_version_title" />
 	<Preference
-		android:summary="© 2011-2014, the Bitcoin Wallet developers\n© 2013-2014 Hash Engineering Solutions"
+		android:summary="© 2011-2016, the GroestlCoin Wallet developers\n© 2014-2015 Hash Engineering Solutions"
 		android:title="@string/about_copyright_title" />
 	<Preference
 		android:key="about_license"

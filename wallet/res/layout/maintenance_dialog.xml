@@ -8,7 +8,8 @@
 	<LinearLayout
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:background="@color/bg_form"
+		android:layout_marginLeft="@dimen/list_entry_padding_horizontal_lax"
+		android:layout_marginRight="@dimen/list_entry_padding_horizontal_lax"
 		android:orientation="vertical" >
 
 		<TextView
@@ -16,18 +17,13 @@
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:layout_marginBottom="@dimen/list_entry_padding_vertical"
-			android:layout_marginLeft="@dimen/list_entry_padding_horizontal_lax"
-			android:layout_marginRight="@dimen/list_entry_padding_horizontal_lax"
-			android:layout_marginTop="@dimen/list_entry_padding_vertical"
-			android:textSize="@dimen/font_size_normal" />
+			android:layout_marginTop="@dimen/list_entry_padding_vertical" />
 
 		<LinearLayout
 			android:id="@+id/maintenance_dialog_password_group"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:layout_marginBottom="@dimen/list_entry_padding_vertical"
-			android:layout_marginLeft="@dimen/list_entry_padding_horizontal"
-			android:layout_marginRight="@dimen/list_entry_padding_horizontal"
 			android:layout_marginTop="@dimen/list_entry_padding_vertical"
 			android:divider="@drawable/divider_field"
 			android:orientation="horizontal"
@@ -38,20 +34,18 @@
 				android:layout_width="0px"
 				android:layout_height="wrap_content"
 				android:layout_weight="1"
-				android:hint="@string/maintenance_dialog_private_key_password"
+				android:hint="@string/private_key_password"
 				android:imeOptions="flagNoExtractUi"
 				android:inputType="numberPassword"
-				android:singleLine="true"
-				android:textSize="@dimen/font_size_normal" />
+				android:singleLine="true" />
 
 			<TextView
 				android:id="@+id/maintenance_dialog_bad_password"
 				android:layout_width="0px"
 				android:layout_height="wrap_content"
 				android:layout_weight="1"
-				android:text="@string/maintenance_dialog_private_key_bad_password"
+				android:text="@string/private_key_bad_password"
 				android:textColor="@color/fg_error"
-				android:textSize="@dimen/font_size_normal"
 				android:textStyle="bold"
 				android:visibility="invisible" />
 		</LinearLayout>

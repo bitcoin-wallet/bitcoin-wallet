@@ -22,9 +22,9 @@
   <string name="exchange_rates_fragment_source">價格由 %s 起</string>
   <string name="exchange_rates_options_search">搜尋匯率</string>
   <string name="exchange_rates_context_set_as_default_title">設定預設外幣</string>
-  <string name="wallet_transactions_fragment_tab_received">收到</string>
-  <string name="wallet_transactions_fragment_tab_all">全部</string>
-  <string name="wallet_transactions_fragment_tab_sent">付出</string>
+  <string name="wallet_transactions_options_filter_received">收到</string>
+  <string name="wallet_transactions_options_filter_all">全部</string>
+  <string name="wallet_transactions_options_filter_sent">付出</string>
   <string name="wallet_transactions_fragment_empty_text_received">尚未收到比特幣</string>
   <string name="wallet_transactions_fragment_empty_text_sent">尚未付出比特幣</string>
   <string name="wallet_transactions_fragment_empty_text_howto">如何取得比特幣?\n\n用傳統貨幣交易,\n賣物品或是服務或\n線上挖掘。</string>
@@ -75,7 +75,6 @@
   <string name="send_coins_failed_msg">失敗!</string>
   <string name="send_coins_error_msg">付款出現問題!</string>
   <string name="send_coins_options_empty">空錢包</string>
-  <string name="send_coins_address_context_clear_title">輸入新地址</string>
   <string name="sweep_wallet_activity_title">移轉只錢包</string>
   <string name="sweep_wallet_fragment_intro">你將移轉一個紙錢包或點卷，這將把紙錢包裡的所有幣一次轉到目前裝置錢包裡，當交易完成確認，該紙錢包變無價值，同時為了安全性，請勿再次使用。</string>
   <string name="sweep_wallet_fragment_hint">紙錢包常用於冷存放，一些比特幣提款機印出紙錢包而不是直接轉帳到你手機，人們有時用預付紙錢包方式來傳遞比特幣(不建議)。</string>
@@ -118,7 +117,6 @@
   <string name="transaction_row_message_own_unbroadcasted">付款尚未傳輸。</string>
   <string name="transaction_row_message_received_direct">該付款已經被直接接收，這類付款存在可能無法花費的風險。</string>
   <string name="transaction_row_message_received_unconfirmed_unlocked">付款應該在幾分鐘之後才可以使用。</string>
-  <string name="transaction_row_message_received_unconfirmed_locked">該付款並不符合標準，不應該被相信。</string>
   <string name="transaction_row_message_received_dead">該付款已被付款人撤銷。</string>
   <string name="transaction_row_message_received_dust">極小額付款可能無法有效支付</string>
   <string name="network_monitor_activity_title">網路監視器</string>
@@ -167,6 +165,11 @@
   <string name="preferences_category_labs">實驗室功能</string>
   <string name="preferences_precision_title">顯示單位</string>
   <string name="preferences_precision_summary">改變顯示單位，但不影響計算。</string>
+  <string name="preferences_precision_labels_8">BTC, 8位數</string>
+  <string name="preferences_precision_labels_6">BTC, 6位數</string>
+  <string name="preferences_precision_labels_4">BTC, 4位數</string>
+  <string name="preferences_precision_labels_2_3">mBTC, 2位數</string>
+  <string name="preferences_precision_labels_0_6">µBTC, 0位數</string>
   <string name="preferences_connectivity_notification_title">連線指示</string>
   <string name="preferences_connectivity_notification_summary">顯示目前連線節點數量到通知區。</string>
   <string name="preferences_trusted_peer_title">信任節點</string>
@@ -183,7 +186,7 @@
   <string name="preferences_initiate_reset_dialog_positive">重設</string>
   <string name="report_issue_dialog_title_issue">問題報告</string>
   <string name="report_issue_dialog_title_crash">發現前次當機</string>
-  <string name="report_issue_dialog_message_issue">請明確描述你的問題讓這個問題容易重現，假設與你的錢包有關，可考慮附上dump資料。</string>
+  <string name="report_issue_dialog_message_issue">請明確描述你的問題讓這個問題容易重現。</string>
   <string name="report_issue_dialog_message_crash">你是否要寄送當機報告幫助解決問題?</string>
   <string name="report_issue_dialog_description">問題描述</string>
   <string name="report_issue_dialog_report">報告</string>
@@ -223,7 +226,6 @@
   <string name="button_request_coins">收比特幣</string>
   <string name="button_send_coins">付比特幣</string>
   <string name="button_scan">掃描</string>
-  <string name="button_edit_address">新增/編輯地址</string>
   <string name="button_settings">設定</string>
   <string name="action_show_qr">展示QR二維條碼</string>
   <string name="action_browse">瀏覽</string>
@@ -233,5 +235,5 @@
   <string name="error_io">I/O錯誤: %s</string>
   <string name="error_parse">解析錯誤 : %s</string>
   <string name="error_http">HTTP 錯誤 %1$s:\n%2$s</string>
-  <string name="error_bluetooth">藍芽錯誤 %1$s</string>
+  <string name="error_bluetooth">藍芽錯誤: %1$s</string>
 </resources>

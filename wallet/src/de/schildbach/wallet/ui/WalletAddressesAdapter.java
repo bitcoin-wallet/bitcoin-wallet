@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2014 the original author or authors.
+ * Copyright 2012-2015 the original author or authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,13 +17,9 @@
 
 package de.schildbach.wallet.ui;
 
-import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
-
-import javax.annotation.Nonnull;
 
 import org.bitcoinj.core.Address;
 import org.bitcoinj.core.ECKey;
@@ -31,7 +27,6 @@ import org.bitcoinj.core.Wallet;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,31 +44,38 @@ public class WalletAddressesAdapter extends BaseAdapter
 {
 	private final Context context;
 	private final Wallet wallet;
-	private final DateFormat dateFormat;
 	private final int colorSignificant;
 	private final int colorInsignificant;
 	private final int colorLessSignificant;
 	private final LayoutInflater inflater;
 
-	private final List<ECKey> keys = new ArrayList<ECKey>();
+	private final List<ECKey> derivedKeys = new ArrayList<ECKey>();
+	private final List<ECKey> randomKeys = new ArrayList<ECKey>();
 
-	public WalletAddressesAdapter(final Context context, @Nonnull final Wallet wallet)
+	public WalletAddressesAdapter(final Context context, final Wallet wallet)
 	{
 		final Resources res = context.getResources();
 
 		this.context = context;
 		this.wallet = wallet;
-		dateFormat = android.text.format.DateFormat.getDateFormat(context);
 		colorSignificant = res.getColor(R.color.fg_significant);
 		colorInsignificant = res.getColor(R.color.fg_insignificant);
 		colorLessSignificant = res.getColor(R.color.fg_less_significant);
 		inflater = LayoutInflater.from(context);
 	}
 
-	public void replace(@Nonnull final Collection<ECKey> keys)
+	public void replaceDerivedKeys(final Collection<ECKey> keys)
 	{
-		this.keys.clear();
-		this.keys.addAll(keys);
+		this.derivedKeys.clear();
+		this.derivedKeys.addAll(keys);
+
+		notifyDataSetChanged();
+	}
+
+	public void replaceRandomKeys(final Collection<ECKey> keys)
+	{
+		this.randomKeys.clear();
+		this.randomKeys.addAll(keys);
 
 		notifyDataSetChanged();
 	}
@@ -81,19 +83,47 @@ public class WalletAddressesAdapter extends BaseAdapter
 	@Override
 	public int getCount()
 	{
-		return keys.size();
+		int count = derivedKeys.size();
+		if (!randomKeys.isEmpty())
+			count += randomKeys.size() + 1;
+		return count;
 	}
 
 	@Override
 	public Object getItem(final int position)
 	{
-		return keys.get(position);
+		final int numDerivedKeys = derivedKeys.size();
+		if (position < numDerivedKeys)
+			return derivedKeys.get(position);
+		else if (position == numDerivedKeys)
+			return null;
+		else
+			return randomKeys.get(position - numDerivedKeys - 1);
 	}
 
 	@Override
 	public long getItemId(final int position)
 	{
-		return keys.get(position).hashCode();
+		final Object key = getItem(position);
+		return key != null ? key.hashCode() : 0;
+	}
+
+	@Override
+	public int getViewTypeCount()
+	{
+		return 2;
+	}
+
+	@Override
+	public int getItemViewType(final int position)
+	{
+		final int numDerivedKeys = derivedKeys.size();
+		if (position < numDerivedKeys)
+			return 0;
+		else if (position == numDerivedKeys)
+			return 1;
+		else
+			return 0;
 	}
 
 	@Override
@@ -103,7 +133,15 @@ public class WalletAddressesAdapter extends BaseAdapter
 	}
 
 	@Override
-	public View getView(final int position, View row, final ViewGroup parent)
+	public View getView(final int position, final View convertView, final ViewGroup parent)
+	{
+		if (getItemViewType(position) == 0)
+			return rowKey(position, convertView);
+		else
+			return rowSeparator(convertView);
+	}
+
+	private View rowKey(final int position, View row)
 	{
 		final ECKey key = (ECKey) getItem(position);
 		final Address address = key.toAddress(Constants.NETWORK_PARAMETERS);
@@ -129,20 +167,19 @@ public class WalletAddressesAdapter extends BaseAdapter
 			labelView.setTextColor(colorInsignificant);
 		}
 
-		final TextView createdView = (TextView) row.findViewById(R.id.address_book_row_created);
-		final long createdMs = key.getCreationTimeSeconds() * DateUtils.SECOND_IN_MILLIS;
-		if (createdMs != 0)
-		{
-			createdView.setText(dateFormat.format(new Date(createdMs)));
-			createdView.setVisibility(View.VISIBLE);
-		}
-		else
-		{
-			createdView.setVisibility(View.GONE);
-		}
-
 		final TextView messageView = (TextView) row.findViewById(R.id.address_book_row_message);
 		messageView.setVisibility(isRotateKey ? View.VISIBLE : View.GONE);
+
+		return row;
+	}
+
+	private View rowSeparator(View row)
+	{
+		if (row == null)
+			row = inflater.inflate(R.layout.row_separator, null);
+
+		final TextView textView = (TextView) row.findViewById(android.R.id.text1);
+		textView.setText(R.string.address_book_list_receiving_random);
 
 		return row;
 	}

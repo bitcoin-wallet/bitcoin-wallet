@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2014 the original author or authors.
+ * Copyright 2013-2015 the original author or authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,8 +25,6 @@ import java.util.Hashtable;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
-import javax.annotation.Nonnull;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -49,7 +47,7 @@ public class Qr
 
 	private static final Logger log = LoggerFactory.getLogger(Qr.class);
 
-	public static Bitmap bitmap(@Nonnull final String content, final int size)
+	public static Bitmap bitmap(final String content, final int size)
 	{
 		try
 		{
@@ -82,7 +80,7 @@ public class Qr
 		}
 	}
 
-	public static String encodeCompressBinary(@Nonnull final byte[] bytes)
+	public static String encodeCompressBinary(final byte[] bytes)
 	{
 		try
 		{
@@ -106,12 +104,12 @@ public class Qr
 		}
 	}
 
-	public static String encodeBinary(@Nonnull final byte[] bytes)
+	public static String encodeBinary(final byte[] bytes)
 	{
 		return Base43.encode(bytes);
 	}
 
-	public static byte[] decodeDecompressBinary(@Nonnull final String content) throws IOException
+	public static byte[] decodeDecompressBinary(final String content) throws IOException
 	{
 		final boolean useCompression = content.charAt(0) == 'Z';
 		final byte[] bytes = Base43.decode(content.substring(1));
@@ -131,7 +129,7 @@ public class Qr
 		return baos.toByteArray();
 	}
 
-	public static byte[] decodeBinary(@Nonnull final String content) throws IOException
+	public static byte[] decodeBinary(final String content) throws IOException
 	{
 		return Base43.decode(content);
 	}

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 the original author or authors.
+ * Copyright 2014-2015 the original author or authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,7 +21,6 @@ import static com.google.common.base.Preconditions.checkArgument;
 
 import java.util.regex.Matcher;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.bitcoinj.core.Monetary;
@@ -74,8 +73,8 @@ public final class MonetarySpannable extends SpannableString
 	public static final Object[] STANDARD_SIGNIFICANT_SPANS = new Object[] { BOLD_SPAN };
 	public static final Object[] STANDARD_INSIGNIFICANT_SPANS = new Object[] { MonetarySpannable.SMALLER_SPAN };
 
-	public static void applyMarkup(@Nonnull final Spannable spannable, @Nullable final Object[] prefixSpans,
-			@Nullable final Object[] significantSpans, @Nullable final Object[] insignificantSpans)
+	public static void applyMarkup(final Spannable spannable, @Nullable final Object[] prefixSpans, @Nullable final Object[] significantSpans,
+			@Nullable final Object[] insignificantSpans)
 	{
 		if (prefixSpans != null)
 			for (final Object span : prefixSpans)

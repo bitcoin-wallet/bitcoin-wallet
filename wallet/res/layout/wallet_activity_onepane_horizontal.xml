@@ -8,7 +8,6 @@
 		android:layout_width="wrap_content"
 		android:layout_height="0px"
 		android:layout_weight="1"
-		android:background="@color/bg_less_bright"
 		android:orientation="horizontal" >
 
 		<fragment
@@ -17,13 +16,14 @@
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_gravity="top"
-			android:layout_margin="12dp" />
+			android:layout_margin="12dp"
+			android:background="@color/bg_panel" />
 
 		<FrameLayout
 			android:layout_width="0px"
 			android:layout_height="match_parent"
 			android:layout_weight="1"
-			android:foreground="@drawable/fragment_shadow_vertical"
+			android:foreground="@drawable/view_shadow_right"
 			android:foregroundGravity="left|fill_vertical" >
 
 			<LinearLayout
@@ -48,8 +48,8 @@
 					android:layout_width="match_parent"
 					android:layout_height="0px"
 					android:layout_weight="1"
-					android:background="@android:color/white"
-					android:foreground="@drawable/fragment_shadow_horizontal_light"
+					android:background="@color/bg_less_bright"
+					android:foreground="@drawable/view_shadow_bottom"
 					android:foregroundGravity="top|fill_horizontal" >
 
 					<fragment

@@ -12,7 +12,6 @@
 		android:layout_marginRight="@dimen/list_entry_padding_horizontal_lax"
 		android:layout_marginTop="8dp"
 		android:text="@string/request_coins_fragment_amount_label"
-		android:textSize="@dimen/font_size_normal"
 		android:textStyle="bold" />
 
 	<LinearLayout
@@ -63,7 +62,6 @@
 		android:layout_marginLeft="@dimen/list_entry_padding_horizontal"
 		android:layout_marginRight="@dimen/list_entry_padding_horizontal"
 		android:layout_marginTop="8dp"
-		android:text="@string/request_coins_fragment_accept_bluetooth_payment"
-		android:textSize="@dimen/font_size_normal" />
+		android:text="@string/request_coins_fragment_accept_bluetooth_payment" />
 
 </LinearLayout>

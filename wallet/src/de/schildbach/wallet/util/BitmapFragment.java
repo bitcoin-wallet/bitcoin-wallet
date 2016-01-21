@@ -1,5 +1,5 @@
 /*
- * Copyright 2011-2014 the original author or authors.
+ * Copyright 2011-2015 the original author or authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,15 +17,19 @@
 
 package de.schildbach.wallet.util;
 
+import javax.annotation.Nullable;
+
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.FragmentManager;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.Spanned;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -42,26 +46,29 @@ public class BitmapFragment extends DialogFragment
 	private static final String FRAGMENT_TAG = BitmapFragment.class.getName();
 
 	private static final String KEY_BITMAP = "bitmap";
+	private static final String KEY_ADDRESS = "address";
 	private static final String KEY_LABEL = "label";
 
-	public static void show(final FragmentManager fm, @Nonnull final Bitmap bitmap)
+	public static void show(final FragmentManager fm, final Bitmap bitmap)
 	{
-		instance(bitmap, null).show(fm, FRAGMENT_TAG);
+		instance(bitmap, null, null).show(fm, FRAGMENT_TAG);
 	}
 
-	public static void show(final FragmentManager fm, @Nonnull final Bitmap bitmap, @Nonnull final Spanned label)
+	public static void show(final FragmentManager fm, final Bitmap bitmap, final Spanned label, @Nullable final CharSequence address)
 	{
-		instance(bitmap, label).show(fm, FRAGMENT_TAG);
+		instance(bitmap, label, address).show(fm, FRAGMENT_TAG);
 	}
 
-	private static BitmapFragment instance(@Nonnull final Bitmap bitmap, @Nullable final Spanned label)
+	private static BitmapFragment instance(final Bitmap bitmap, @Nullable final Spanned label, @Nullable final CharSequence address)
 	{
 		final BitmapFragment fragment = new BitmapFragment();
 
 		final Bundle args = new Bundle();
 		args.putParcelable(KEY_BITMAP, bitmap);
 		if (label != null)
-			args.putString(KEY_LABEL, Html.toHtml(label));
+			args.putCharSequence(KEY_LABEL, Html.toHtml(label));
+		if (address != null)
+			args.putCharSequence(KEY_ADDRESS, address);
 		fragment.setArguments(args);
 
 		return fragment;
@@ -81,6 +88,9 @@ public class BitmapFragment extends DialogFragment
 	public Dialog onCreateDialog(final Bundle savedInstanceState)
 	{
 		final Bundle args = getArguments();
+		final Bitmap bitmap = (Bitmap) args.getParcelable(KEY_BITMAP);
+		final CharSequence label = args.getCharSequence(KEY_LABEL);
+		final CharSequence address = args.getCharSequence(KEY_ADDRESS);
 
 		final Dialog dialog = new Dialog(activity);
 		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -88,20 +98,37 @@ public class BitmapFragment extends DialogFragment
 		dialog.setCanceledOnTouchOutside(true);
 
 		final ImageView imageView = (ImageView) dialog.findViewById(R.id.bitmap_dialog_image);
-		final Bitmap bitmap = (Bitmap) args.getParcelable(KEY_BITMAP);
 		imageView.setImageBitmap(bitmap);
 
+		final View labelButtonView = dialog.findViewById(R.id.bitmap_dialog_label_button);
 		final TextView labelView = (TextView) dialog.findViewById(R.id.bitmap_dialog_label);
-		if (getResources().getBoolean(R.bool.show_bitmap_dialog_label) && args.containsKey(KEY_LABEL))
+		if (getResources().getBoolean(R.bool.show_bitmap_dialog_label) && label != null)
 		{
-			final String maybeRemoveOuterHtmlParagraph = Formats.maybeRemoveOuterHtmlParagraph(args.getString(KEY_LABEL));
-			final Spanned label = Html.fromHtml(maybeRemoveOuterHtmlParagraph);
-			labelView.setText(label);
-			labelView.setVisibility(View.VISIBLE);
+			labelView.setText(Html.fromHtml(Formats.maybeRemoveOuterHtmlParagraph(label)));
+			labelButtonView.setVisibility(View.VISIBLE);
+
+			if (address != null)
+			{
+				labelButtonView.setOnClickListener(new OnClickListener()
+				{
+					@Override
+					public void onClick(final View v)
+					{
+						final Intent intent = new Intent(Intent.ACTION_SEND);
+						intent.setType("text/plain");
+						intent.putExtra(Intent.EXTRA_TEXT, address);
+						startActivity(Intent.createChooser(intent, getString(R.string.bitmap_fragment_share)));
+					}
+				});
+			}
+			else
+			{
+				labelButtonView.setEnabled(false);
+			}
 		}
 		else
 		{
-			labelView.setVisibility(View.GONE);
+			labelButtonView.setVisibility(View.GONE);
 		}
 
 		final View dialogView = dialog.findViewById(R.id.bitmap_dialog_group);

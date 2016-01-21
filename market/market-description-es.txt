@@ -1,4 +1,4 @@
-<b>Ten tus bitcoins siempre contigo, ¡en tu bolsillo!</b> Puedes pagar leyendo rápidamente el código QR. Como comerciante, puedes recibir pagos de forma fiable e instantánea. GroestlCoin Wallet es la primera aplicación móvil GroestlCoin. ¡Y posiblemente también la más segura!
+<b>Ten tus bitcoins siempre contigo, ¡en tu bolsillo!</b> Paga rápidamente leyendo el código QR. Como comercio puedes recibir pagos de forma fiable e instantánea. GroestlCoin Wallet es la primera aplicación móvil GroestlCoin. ¡Y posiblemente también la más segura!
 
 
 <b>CARACTERÍSTICAS</b>
@@ -20,7 +20,7 @@ GroestlCoin Wallet es <b>código abierto</b> y <b>software libre</b>. Licencia: 
 https://www.gnu.org/licenses/gpl-3.0.en.html
 
 Nuestro código fuente está disponible en GitHub:
-https://github.com/HashEngineering/groestlcoin-wallet
+https://github.com/GroestlCoin/groestlcoin-wallet
 
 Todas las traducciones son administradas a través de Transifex:
 https://www.transifex.com/projects/p/bitcoin-wallet/

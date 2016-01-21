@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2014 the original author or authors.
+ * Copyright 2013-2015 the original author or authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,7 +17,6 @@
 
 package de.schildbach.wallet.ui;
 
-import android.app.ActionBar;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.os.Bundle;
@@ -41,9 +40,6 @@ public final class NetworkMonitorActivity extends AbstractWalletActivity
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.network_monitor_content);
-
-		final ActionBar actionBar = getActionBar();
-		actionBar.setDisplayHomeAsUpEnabled(true);
 
 		final ViewPager pager = (ViewPager) findViewById(R.id.network_monitor_pager);
 

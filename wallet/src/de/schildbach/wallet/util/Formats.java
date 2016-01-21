@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 the original author or authors.
+ * Copyright 2014-2015 the original author or authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,6 +20,8 @@ package de.schildbach.wallet.util;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.annotation.Nullable;
+
 import de.schildbach.wallet.Constants;
 
 /**
@@ -37,12 +39,30 @@ public final class Formats
 
 	private static final Pattern PATTERN_OUTER_HTML_PARAGRAPH = Pattern.compile("<p[^>]*>(.*)</p>\n?", Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
 
-	public static String maybeRemoveOuterHtmlParagraph(final String html)
+	public static String maybeRemoveOuterHtmlParagraph(final CharSequence html)
 	{
 		final Matcher m = PATTERN_OUTER_HTML_PARAGRAPH.matcher(html);
 		if (m.matches())
 			return m.group(1);
 		else
-			return html;
+			return html.toString();
+	}
+
+	private static final Pattern PATTERN_MEMO = Pattern.compile(
+			"(?:Payment request for Coinbase order code: (.+)|Payment request for BitPay invoice (.+) for merchant (.+))", Pattern.CASE_INSENSITIVE);
+
+	@Nullable
+	public static String[] sanitizeMemo(final @Nullable String memo)
+	{
+		if (memo == null)
+			return null;
+
+		final Matcher m = PATTERN_MEMO.matcher(memo);
+		if (m.matches() && m.group(1) != null)
+			return new String[] { m.group(1) + " (via Coinbase)" };
+		else if (m.matches() && m.group(2) != null)
+			return new String[] { m.group(2) + " (via BitPay)", m.group(3) };
+		else
+			return new String[] { memo };
 	}
 }

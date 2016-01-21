@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 the original author or authors.
+ * Copyright 2014-2015 the original author or authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,8 +20,6 @@ package de.schildbach.wallet;
 import java.io.File;
 import java.io.FileNotFoundException;
 
-import javax.annotation.Nonnull;
-
 import android.content.ContentProvider;
 import android.content.ContentValues;
 import android.database.Cursor;
@@ -36,7 +34,7 @@ import android.provider.MediaStore;
  */
 public final class FileAttachmentProvider extends ContentProvider
 {
-	public static Uri contentUri(@Nonnull final String packageName, final File file)
+	public static Uri contentUri(final String packageName, final File file)
 	{
 		return Uri.parse("content://" + packageName + ".file_attachment" + file.getAbsolutePath());
 	}

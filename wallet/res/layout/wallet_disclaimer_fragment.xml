@@ -3,5 +3,5 @@
 	android:layout_height="wrap_content"
 	android:gravity="center"
 	android:padding="4dp"
-	android:textColor="@android:color/white"
+	android:textColor="@color/fg_network_significant"
 	android:textSize="@dimen/font_size_tiny" />

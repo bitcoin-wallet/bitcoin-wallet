@@ -14,7 +14,7 @@
 		android:layout_height="match_parent"
 		android:layout_marginLeft="12dp"
 		android:contentDescription="@string/app_name"
-		android:src="@drawable/app_icon"
+		android:src="@drawable/ic_app_color_48dp"
 		android:visibility="gone" />
 
 	<LinearLayout
@@ -49,8 +49,7 @@
 				android:fadingEdge="horizontal"
 				android:fadingEdgeLength="12dp"
 				android:singleLine="true"
-
-				android:textColor="#eee"
+				android:textColor="@color/fg_network_significant"
 				android:textSize="@dimen/font_size_large" />
 
 		</LinearLayout>
@@ -64,7 +63,7 @@
 			android:fadingEdge="horizontal"
 			android:fadingEdgeLength="12dp"
 			android:singleLine="true"
-			android:textColor="#aaa"
+			android:textColor="@color/fg_network_insignificant"
 			android:textSize="@dimen/font_size_normal" />
 	</LinearLayout>
 
@@ -75,7 +74,7 @@
 		android:layout_weight="1"
 		android:background="@drawable/appwidget_button_center"
 		android:contentDescription="@string/button_request_coins"
-		android:src="@drawable/ic_action_receive" />
+		android:src="@drawable/ic_send_flipped_white_24dp" />
 
 	<ImageButton
 		android:id="@+id/widget_button_send"
@@ -84,7 +83,7 @@
 		android:layout_weight="1"
 		android:background="@drawable/appwidget_button_center"
 		android:contentDescription="@string/button_send_coins"
-		android:src="@drawable/ic_action_send" />
+		android:src="@drawable/ic_send_white_24dp" />
 
 	<ImageButton
 		android:id="@+id/widget_button_send_qr"
@@ -93,6 +92,6 @@
 		android:layout_weight="1"
 		android:background="@drawable/appwidget_button_right"
 		android:contentDescription="@string/button_scan"
-		android:src="@drawable/ic_action_camera" />
+		android:src="@drawable/ic_photo_camera_white_24dp" />
 
 </LinearLayout>

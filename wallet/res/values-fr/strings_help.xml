@@ -3,41 +3,21 @@
   <string name="help_wallet">
 <![CDATA[
 		<p>
-<<<<<<< HEAD
-			La partie supérieure gauche de l\'écran affiche votre adresse GroestlCoin choisie et que d\'autres personnes doivent connaître pour vous envoyer des GroestlCoins.
-			Toquer pour changer cette adresse.
-		</p>
-		<p>
-			Le code QR à droite contient votre adresse GroestlCoin et peut être numérisée par un tiers.
-			Toquer le code QR pour l\'agrandir.
-		</p>
-		<p>
-			Au milieu de l\'écran, votre solde est affiché.
-			La valeur de votre portefeuille est aussi affichée dans une devise locale choisie.
-			Toquer sur le solde pour afficher la liste de toutes les devises locales et toquer sur l\'une d\'entre elles pour la choisir par défaut.
-=======
-			La partie supérieure gauche de l\'écran affiche votre solde en GroestlCoins ainsi qu\'une devise locale sélectionnée.
-			Tapez sur le solde pour afficher la liste de toutes les devises locales et tapez sur l\'une d\'entre elles pour en faire la devise locale par défaut.
+			La partie supérieure gauche de l\'écran affiche votre solde en bitcoins ainsi qu\'une monnaie nationale choisie.
+			Toquez pour vous rendre vers la liste des monnaies nationales et tapez sur l\'une d\'elles pour la choisir par défaut.
 		</p>
 		 <p>
-			Le QR code à droite contient votre adresse GroestlCoin et peut être utilisée pour être scannée par un tiers.
-			Tapez sur le code QR pour l\'agrandir.
->>>>>>> origin/master
+			Le QR code à droite contient votre adresse GroestlCoin et peut être numérisé par un tiers.
+			Toquez sur le code QR pour l\'agrandir.
 		</p>
 		<p>
 			Le bas de l\'écran est couvert par votre liste de transactions, qui est vide initialement.
-			Les transactions en cours de traitement sont grisées jusqu\'à ce qu\'elles soient confirmées.
-			Tapez sur une transaction pour ajouter l\'adresse du destinataire ou de l\'envoyeur à votre carnet d\'adresses.
-			Balayer vers la gauche ou vers la droite pour appliquer des filtres à la liste.
+			Les transactions en attente sont grisées jusqu\'à ce qu\'elles soient confirmées.
+			Toquez sur une transaction pour ajouter l\'adresse du destinataire ou de l\'envoyeur à votre carnet d\'adresses.
 		</p>
 		<p>
-<<<<<<< HEAD
-			Vous pouvez envoyer ou recevoir des GroestlCoins en toquant les boutons dans la barre des actions.
-			Plus d\'options sont disponibles dans le menu des options.
-=======
-			Vous pouvez envoyer ou recevoir des GroestlCoins en tapant les boutons dans la barre d\'action.
-			Plus d\'options sont disponibles dans le menu options.
->>>>>>> origin/master
+			Vous pouvez envoyer ou recevoir des bitcoins en toquant les boutons dans la barre d\'action.
+			Plus d\'options sont offertes dans le menu des options.
 		</p>
 	]]>
 	</string>
@@ -50,11 +30,12 @@
 			Vous pouvez d\'abord saisir un montant de GroestlCoins à demander.
 		</p>
 		<p>
-			Ensuite, soit l\'autre personne numérise le code QR généré, soit vous pouvez envoyer votre demande à une personne éloignée avec le bouton Partager de la barre des actions.
+			Ensuite, l\'autre personne peut numériser le code QR généré.
+			Vous pouvez aussi envoyer votre demande à une personne éloignée avec le bouton Partager de la barre de menu.
 			L\'autre personne devra cliquer sur l\'URL GroestlCoin.
 		</p>
 		<p>
-			Dans les deux cas, l\'autre personne obtiendra une zone de dialogue pré-remplie pour envoyer les pièces.
+			Dans les deux cas, l\'autre personne obtiendra une zone de dialogue préremplie pour envoyer les pièces.
 			Si elle accepte, elle n\'aura qu\'à envoyer le paiement.
 		</p>
 	]]>
@@ -62,13 +43,13 @@
   <string name="help_send_coins">
 <![CDATA[
 		<p>
-			Vous avez commencé le processus d\'envoi de GroestlCoins.
+			Vous avez commencé le processus d\'envoi de bitcoins.
 			Vous êtes arrivé ici depuis l\'écran principal ou en cliquant sur une URL GroestlCoin dans votre navigateur.
 		</p>
 		<p>
 			D\'abord, saisir l\'adresse GroestlCoin de destination.
 			L\'adresse sera complétée automatiquement pour les adresses enregistrées dans votre carnet.
-			Vous pouvez aussi numériser des codes QR avec des adresses GroestlCoin ou des demandes de GroestlCoins en pressant le bouton QR dans la barre des actions.
+			Vous pouvez aussi numériser des codes QR avec des adresses GroestlCoin ou des demandes de bitcoins en pressant le bouton QR dans la barre d\'actions.
 		</p>
 		<p>
 			Ensuite, vous pouvez voir combien de GroestlCoins peuvent être dépensés actuellement.

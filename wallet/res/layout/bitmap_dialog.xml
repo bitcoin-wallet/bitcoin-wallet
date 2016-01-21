@@ -3,7 +3,6 @@
 	android:id="@+id/bitmap_dialog_group"
 	android:layout_width="wrap_content"
 	android:layout_height="wrap_content"
-	android:background="@color/bg_less_bright"
 	android:orientation="vertical" >
 
 	<ImageView
@@ -15,12 +14,21 @@
 		android:padding="4dp"
 		android:scaleType="centerInside" />
 
-	<TextView
-		android:id="@+id/bitmap_dialog_label"
-		android:layout_width="wrap_content"
+	<FrameLayout
+		android:id="@+id/bitmap_dialog_label_button"
+		style="?android:attr/borderlessButtonStyle"
+		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:layout_gravity="center_horizontal"
-		android:layout_margin="8dp"
-		android:textSize="@dimen/font_size_normal" />
+		android:paddingBottom="@dimen/list_entry_padding_vertical_lax"
+		android:paddingTop="@dimen/list_entry_padding_vertical_lax" >
+
+		<TextView
+			android:id="@+id/bitmap_dialog_label"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center"
+			android:gravity="left"
+			android:textSize="@dimen/font_size_normal" />
+	</FrameLayout>
 
 </LinearLayout>

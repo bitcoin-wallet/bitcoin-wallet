@@ -21,9 +21,9 @@
 	<string name="exchange_rates_fragment_balance">stanje</string>
 	<string name="exchange_rates_fragment_source">Vir cene: %s</string>
 	<string name="exchange_rates_context_set_as_default_title">Nastavi kot privzeto tujo valuto</string>
-	<string name="wallet_transactions_fragment_tab_received">Prejeto</string>
-	<string name="wallet_transactions_fragment_tab_all">Vsa nakazila</string>
-	<string name="wallet_transactions_fragment_tab_sent">Poslano</string>
+	<string name="wallet_transactions_options_filter_received">Prejeto</string>
+	<string name="wallet_transactions_options_filter_all">Vsa nakazila</string>
+	<string name="wallet_transactions_options_filter_sent">Poslano</string>
 	<string name="wallet_transactions_fragment_empty_text_received">Prejeli niste še nobenih novcev.</string>
 	<string name="wallet_transactions_fragment_empty_text_sent">Poslali niste še nobenih novcev.</string>
 	<string name="wallet_transactions_fragment_empty_text_howto">Kako dobim GroestlCoine?\n\nLahko jih kupite,\nprodate kaj za GroestlCoin\nali pa zaslužite z delom.</string>
@@ -73,7 +73,6 @@
 	<string name="send_coins_failed_msg">Spodletelo!\n</string>
 	<string name="send_coins_error_msg">Težava pri pošiljanju novcev!</string>
 	<string name="send_coins_options_empty">Izprazni denarnico</string>
-	<string name="send_coins_address_context_clear_title">Vnesi nov naslov</string>
 	<string name="request_coins_activity_title">Zahtevaj novce</string>
 	<string name="request_coins_fragment_amount_label">Znesek za plačilo (neobvezno)</string>
 	<string name="request_coins_fragment_accept_bluetooth_payment">Sprejmi plačilo prek Bluetootha za bolj zanesljivo procesiranje</string>
@@ -105,7 +104,6 @@
 	<string name="transaction_row_message_own_unbroadcasted">To plačilo še ni bilo oddano.</string>
 	<string name="transaction_row_message_received_direct">To plačilo je bilo prejeto neposredno. Obstaja tveganje, da ga ne boste nikoli mogli potrošiti.</string>
 	<string name="transaction_row_message_received_unconfirmed_unlocked">Te prejete novce boste predvidoma lahko uporabili v nekaj minutah.</string>
-	<string name="transaction_row_message_received_unconfirmed_locked">To plačilo ni standardno in mu ni zaupati.</string>
 	<string name="transaction_row_message_received_dead">To plačilo je pošiljatelj storniral.</string>
 	<string name="transaction_row_message_received_dust">Tega malega zneska najbrž nikoli ne boste mogli smiselno porabiti.</string>
 	<string name="network_monitor_activity_title">Pregled omrežja</string>
@@ -168,7 +166,7 @@
 	<string name="preferences_initiate_reset_dialog_positive">Ponastavi</string>
 	<string name="report_issue_dialog_title_issue">Prijavi težavo</string>
 	<string name="report_issue_dialog_title_crash">Zaznano sesutje v preteklosti</string>
-	<string name="report_issue_dialog_message_issue">Prosimo, opišite težavo tako natančno, da jo bomo lahko ponovili. Če je težava vezana na vašo denarnico, premislite o pripenjanju kopije denarnice.</string>
+	<string name="report_issue_dialog_message_issue">Prosimo, opišite težavo tako natančno, da jo bomo lahko ponovili.</string>
 	<string name="report_issue_dialog_message_crash">Želite poslati razvijalcem poročilo o sesutju, da bomo težavo lažje odpravili?</string>
 	<string name="report_issue_dialog_description">opis težave</string>
 	<string name="report_issue_dialog_report">Prijavi</string>
@@ -205,7 +203,6 @@
 	<string name="button_request_coins">Prejmi novce</string>
 	<string name="button_send_coins">Pošlji novce</string>
 	<string name="button_scan">Prečitaj</string>
-	<string name="button_edit_address">Dodaj/uredi naslov</string>
 	<string name="button_settings">Nastavitve</string>
 	<string name="action_show_qr">Prikazi QR-kodo</string>
 	<string name="action_browse">Ogled v brskalniku</string>

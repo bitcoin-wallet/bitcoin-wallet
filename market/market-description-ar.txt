@@ -15,7 +15,7 @@
 http://www.groestlcoin.org
 
 إذا أردت المساهمة في مشروع محفظة البيتكوين GroestlCoin Wallet، قم بزيارة
-https://github.com/HashEngineering/groestlcoin-wallet
+https://github.com/GroestlCoin/groestlcoin-wallet
 
 الرخصة رقم GPLv3
 استخدم البرنامج على مسؤوليتك الخاصة!

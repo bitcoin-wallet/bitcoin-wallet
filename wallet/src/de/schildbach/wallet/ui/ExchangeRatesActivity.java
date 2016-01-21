@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2014 the original author or authors.
+ * Copyright 2012-2015 the original author or authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,7 +17,6 @@
 
 package de.schildbach.wallet.ui;
 
-import android.app.ActionBar;
 import android.os.Bundle;
 import android.view.MenuItem;
 import hashengineering.groestlcoin.wallet.R;
@@ -33,9 +32,6 @@ public final class ExchangeRatesActivity extends AbstractWalletActivity
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.exchange_rates_content);
-
-		final ActionBar actionBar = getActionBar();
-		actionBar.setDisplayHomeAsUpEnabled(true);
 	}
 
 	@Override

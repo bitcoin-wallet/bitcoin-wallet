@@ -3,32 +3,21 @@
   <string name="help_wallet">
 <![CDATA[
 		<p>
-			Ruudun vasemmassa ylänurkassa näkyy sinun valittu GroestlCoin-osoite, joka muiden täytyy tietää lähettääkseen sinulle GroestlCoineja.
-			Napsauta vaihtaaksesi osoitetta.
+			Ylempi vasen osa näytöstä näyttää saldosi GroestlCoineissa ja yhden valitusta valtiollisesta valuutasta.
+			Napauta siirtyäksesi valtiollisten valuuttojen listaan sekä napauta yhtä valuutoista valitaksesi sen oletetuksi.
 		</p>
 		<p>
-<<<<<<< HEAD
-			QR koodi oikealla sisältää GroestlCoin-osoitteesi, jonka toinen osapuoli voi skannata.
-			Napsauta QR koodia saadaksesi suuremman kuvan siitä.
-=======
-			QR-koodi oikealla sisältää GroestlCoin-osoitteesi, jonka toinen osapuoli voi skannata.
-			Napsauta QR-koodia saadaksesi suuremman kuvan siitä.
->>>>>>> origin/master
+			QR-koodi oikealla sisältää bitcoin-osoitteesi ja sitä voidaan käyttää toisen osapuolen skannattavaksi.
+			Napauta QR-koodia jotta saat siitä suurempikokoisen version.
 		</p>
 		<p>
-			Ruudun keskellä näkyy saldosi.
-			Lompakkosi arvo näkyy myös yhdellä valitulla paikallisella rahayksiköllä.
-			Napsauta saldoa saadaksesi listan kaikista paikallisista rahayksiköistä. Napsauta yhtä rahayksikköä asettaaksesi sen vakiovaluutaksi.
+			Näytön alaosan käyttää rahansiirtojen lista, joka on tyhjä alussa.
+			Odottavat rahansiirrot ovat merkitty harmaiksi kunnes ne ovat vahvistettu.
+			Napauta merkintää lisätäksesi lähettäjien tai vastaanottajien osoitteita osoitekirjaan.
 		</p>
 		<p>
-			Ruudun alareuna sisältää tilitapahtumat, mutta se näyttää tyhjää aluksi.
-			Vireillä olevat tapahtumat näkyy harmaana, kunnes ne vahvistetaan.
-			Napsauta yhtä tapahtumaa lisätäksesi lähettäjän tai vastaanottajan osoitteen osoitekirjaasi.
-			Vetäise oikealle tai vasemmalle asettaaksesi suodattimia listaan.
-		</p>
-		<p>
-			Voit lähettää tai pyytää GroestlCoineja napsauttamalla näppäimiä toimintapalkissa.
-			Lisää valintoja löydät asetukset -valikosta.
+			Voit lähettää tai pyytää kolikoita napauttamalla painikkeita toimintopalkissa.
+			Lisää asetuksia on saatavilla asetusvalikossa.
 		</p>
 	]]>
 	</string>
@@ -61,30 +50,18 @@
 		<p>
 			Ensiksi syötät GroestlCoin-osoitteen, jonne on maksettava.
 			Osoite tulee automaattisesti loppuunkirjoitetuksi tallennetuista tiedoista osoitekirjasta.
-<<<<<<< HEAD
-			Voit myös skannata QR koodeja, joissa on GroestlCoin osoite tai GroestlCoin pyyntöjä napsauttamalla QR näppäintä toimintavalikossa.
-		</p>
-		<p>
-			Seuraavaksi näet, kuinka paljon sinulla on GroestlCoineja käytettävissä tällä hetkellä.
-=======
 			Voit myös skannata QR-koodeja, joissa on GroestlCoin osoite tai GroestlCoin pyyntöjä napsauttamalla QR-näppäintä toimintavalikossa.
 		</p>
 		<p>
 			Seuraavaksi näet kuinka paljon sinulla on GroestlCoineja käytettävissä tällä hetkellä.
->>>>>>> origin/master
 			Muutos päänäkymän saldoon ei ole vielä vahvistettu, eikä niitä rahoja voi vielä käyttää.
 		</p>
 		<p>
 			Lopuksi ilmoitat maksettavan summan.
 		</p>
 		<p>
-<<<<<<< HEAD
-			Voit asettaa maksun olematta verkossa, eli ollessasi offline.
-			Se lähetetään käynnistäessäsi GroestlCoin Wallet:in uudestaan seuraavan kerran.
-=======
 			Voit asettaa maksun olematta verkossa, eli ollessasi offlinessa.
 			Se lähetetään käynnistäessäsi GroestlCoin Wallet:in uudestaan seuraavan kerran.
->>>>>>> origin/master
 			Jos haluat maksun menevän mahdollisimman nopeasti, varmista, että sinulla on hyvä yhteys (kuten WLAN).
 		</p>
 		<p>

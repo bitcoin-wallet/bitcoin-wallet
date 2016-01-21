@@ -1,5 +1,5 @@
 /*
- * Copyright 2011-2014 the original author or authors.
+ * Copyright 2011-2015 the original author or authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,17 +17,21 @@
 
 package de.schildbach.wallet;
 
-import android.os.Build;
-import android.os.Environment;
-import android.text.format.DateUtils;
-import hashengineering.groestlcoin.wallet.R;
-import org.bitcoinj.core.CoinDefinition;
+import java.io.File;
+
 import org.bitcoinj.core.NetworkParameters;
 import org.bitcoinj.params.MainNetParams;
 import org.bitcoinj.params.TestNet3Params;
 import org.bitcoinj.utils.MonetaryFormat;
 
-import java.io.File;
+import android.os.Build;
+import android.os.Environment;
+import android.text.format.DateUtils;
+
+import com.google.common.io.BaseEncoding;
+
+import hashengineering.groestlcoin.wallet.R;
+import org.bitcoinj.core.CoinDefinition;
 
 /**
  * @author Andreas Schildbach
@@ -51,6 +55,9 @@ public final class Constants
 
 		/** Filename of the automatic wallet backup. */
 		public static final String WALLET_KEY_BACKUP_PROTOBUF = "key-backup-protobuf" + FILENAME_NETWORK_SUFFIX;
+
+		/** Path to external storage */
+		public static final File EXTERNAL_STORAGE_DIR = Environment.getExternalStorageDirectory();
 
 		/** Manual backups go here. */
 		public static final File EXTERNAL_WALLET_BACKUP_DIR = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
@@ -89,12 +96,13 @@ public final class Constants
 
 	private static final String BITEASY_API_URL_PROD = CoinDefinition.UNSPENT_API_URL;//"https://api.biteasy.com/blockchain/v1/";
 	private static final String BITEASY_API_URL_TEST = "https://api.biteasy.com/testnet/v1/";
+
 	/** Base URL for blockchain API. */
 	public static final String BITEASY_API_URL = NETWORK_PARAMETERS.getId().equals(NetworkParameters.ID_MAINNET) ? BITEASY_API_URL_PROD
 			: BITEASY_API_URL_TEST;
 
 	/** URL to fetch version alerts from. */
-	public static final String VERSION_URL = "http://wallet.schildbach.de/version";
+	public static final String VERSION_URL = "https://wallet.schildbach.de/version";
 
 	/** MIME type used for transmitting single transactions. */
 	public static final String MIMETYPE_TRANSACTION = "application/x-"+CoinDefinition.coinTicker.toLowerCase()+"tx";
@@ -142,7 +150,6 @@ public final class Constants
 	public static final int ADDRESS_FORMAT_GROUP_SIZE = 4;
 	public static final int ADDRESS_FORMAT_LINE_SIZE = 12;
 
-//<<<<<<< HEAD
 	public static final int BTC_MAX_PRECISION = 8;
 
 	public static final String LICENSE_URL = "http://www.gnu.org/licenses/gpl-3.0.txt";
@@ -169,10 +176,13 @@ public final class Constants
     public static final String SOURCE_URL = "https://github.com/HashEngineering/" + CoinDefinition.coinName.toLowerCase() + "-wallet";
     public static final String BINARY_URL = "https://github.com/HashEngineering/"+ CoinDefinition.coinName.toLowerCase() +"-wallet/releases";
 
-    public static final String MARKET_APP_URL = "market://details?id=%s";
-    public static final String WEBMARKET_APP_URL = "https://play.google.com/store/apps/details?id=%s";//>>>>>>> origin/master
+	public static final BaseEncoding HEX = BaseEncoding.base16().lowerCase();
+
+	public static final String MARKET_APP_URL = "market://details?id=%s";
+	public static final String WEBMARKET_APP_URL = "https://play.google.com/store/apps/details?id=%s";
 
 	public static final int HTTP_TIMEOUT_MS = 15 * (int) DateUtils.SECOND_IN_MILLIS;
+	public static final int PEER_DISCOVERY_TIMEOUT_MS = 10 * (int) DateUtils.SECOND_IN_MILLIS;
 	public static final int PEER_TIMEOUT_MS = 15 * (int) DateUtils.SECOND_IN_MILLIS;
 
 	public static final long LAST_USAGE_THRESHOLD_JUST_MS = DateUtils.HOUR_IN_MILLIS;
@@ -180,6 +190,7 @@ public final class Constants
 
 	public static final int SDK_JELLY_BEAN = 16;
 	public static final int SDK_JELLY_BEAN_MR2 = 18;
+	public static final int SDK_LOLLIPOP = 21;
 
 	public static final int SDK_DEPRECATED_BELOW = Build.VERSION_CODES.ICE_CREAM_SANDWICH;
 

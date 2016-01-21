@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2014 the original author or authors.
+ * Copyright 2012-2015 the original author or authors.
  *
  * Licensed under the MIT license (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,8 +24,6 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.security.SecureRandom;
 import java.util.Arrays;
-
-import javax.annotation.Nonnull;
 
 import org.spongycastle.crypto.BufferedBlockCipher;
 import org.spongycastle.crypto.CipherParameters;
@@ -129,7 +127,7 @@ public class Crypto
 	 * @return The encrypted string
 	 * @throws IOException
 	 */
-	public static String encrypt(@Nonnull final String plainText, @Nonnull final char[] password) throws IOException
+	public static String encrypt(final String plainText, final char[] password) throws IOException
 	{
 		final byte[] plainTextAsBytes = plainText.getBytes(Charsets.UTF_8);
 
@@ -146,7 +144,7 @@ public class Crypto
 	 * @return The encrypted string
 	 * @throws IOException
 	 */
-	public static String encrypt(@Nonnull final byte[] plainTextAsBytes, @Nonnull final char[] password) throws IOException
+	public static String encrypt(final byte[] plainTextAsBytes, final char[] password) throws IOException
 	{
 		final byte[] encryptedBytes = encryptRaw(plainTextAsBytes, password);
 
@@ -206,7 +204,7 @@ public class Crypto
 	 * @return The decrypted text
 	 * @throws IOException
 	 */
-	public static String decrypt(@Nonnull final String textToDecode, @Nonnull final char[] password) throws IOException
+	public static String decrypt(final String textToDecode, final char[] password) throws IOException
 	{
 		final byte[] decryptedBytes = decryptBytes(textToDecode, password);
 
@@ -223,7 +221,7 @@ public class Crypto
 	 * @return The decrypted bytes
 	 * @throws IOException
 	 */
-	public static byte[] decryptBytes(@Nonnull final String textToDecode, @Nonnull final char[] password) throws IOException
+	public static byte[] decryptBytes(final String textToDecode, final char[] password) throws IOException
 	{
 		final byte[] decodeTextAsBytes;
 		try

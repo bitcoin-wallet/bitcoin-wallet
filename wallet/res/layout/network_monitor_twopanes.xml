@@ -18,10 +18,9 @@
 			android:layout_marginLeft="@dimen/list_entry_padding_horizontal"
 			android:layout_marginRight="@dimen/list_entry_padding_horizontal"
 			android:layout_marginTop="@dimen/list_entry_padding_vertical"
-			android:shadowColor="@color/bg_bright"
-			android:shadowRadius="1"
 			android:text="@string/network_monitor_peer_list_title"
-			android:textSize="@dimen/font_size_normal"
+			android:textColor="@color/fg_less_significant"
+			android:textSize="@dimen/font_size_small"
 			android:textStyle="bold" />
 
 		<FrameLayout
@@ -29,7 +28,7 @@
 			android:layout_height="0px"
 			android:layout_weight="1"
 			android:background="@color/bg_bright"
-			android:foreground="@drawable/fragment_shadow_horizontal_light"
+			android:foreground="@drawable/view_shadow_bottom"
 			android:foregroundGravity="top|fill_horizontal" >
 
 			<fragment
@@ -40,7 +39,7 @@
 		</FrameLayout>
 	</LinearLayout>
 
-	<View
+	<Space
 		android:layout_width="1dp"
 		android:layout_height="match_parent"
 		android:background="@color/bg_less_bright" />
@@ -59,10 +58,9 @@
 			android:layout_marginLeft="@dimen/list_entry_padding_horizontal"
 			android:layout_marginRight="@dimen/list_entry_padding_horizontal"
 			android:layout_marginTop="@dimen/list_entry_padding_vertical"
-			android:shadowColor="@color/bg_bright"
-			android:shadowRadius="1"
 			android:text="@string/network_monitor_block_list_title"
-			android:textSize="@dimen/font_size_normal"
+			android:textColor="@color/fg_less_significant"
+			android:textSize="@dimen/font_size_small"
 			android:textStyle="bold" />
 
 		<FrameLayout
@@ -70,7 +68,7 @@
 			android:layout_height="0px"
 			android:layout_weight="1"
 			android:background="@color/bg_bright"
-			android:foreground="@drawable/fragment_shadow_horizontal_light"
+			android:foreground="@drawable/view_shadow_bottom"
 			android:foregroundGravity="top|fill_horizontal" >
 
 			<fragment

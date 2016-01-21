@@ -16,7 +16,7 @@
 לפרטים נוספים : http://www.groestlcoin.org
 
 אם אתה רוצה לתרום לפרויקט ארנק הביטקוין, הפרויקט ממוקם ב
-https://github.com/HashEngineering/groestlcoin-wallet
+https://github.com/GroestlCoin/groestlcoin-wallet
 
 רישיון : GPLv3
 שים לב: השימוש הוא באחריות המשתמש.

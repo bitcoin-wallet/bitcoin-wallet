@@ -1,6 +1,7 @@
-Tenha os seus GroestlCoins sempre com você, no seu bolso! Efetue pagamentos rapidamente apenas escaneando um código QR​​. Como comerciante, você pode receber pagamentos de forma confiável e instantaneamente. O GroestlCoin Wallet é o primeiro aplicativo GroestlCoin móvel, e, possivelmente, o mais seguro!
+<b>Tenha os seus GroestlCoins sempre com você, no seu bolso!</b> Efetue pagamentos rapidamente apenas escaneando um código QR. Como comerciante, você pode receber pagamentos de forma confiável e instantaneamente. O GroestlCoin Wallet é o primeiro aplicativo GroestlCoin móvel, e, possivelmente, o mais seguro!
 
-CARACTERÍSTICAS:
+
+<b>CARACTERÍSTICAS</b>
 
 • Sem necessidade de cadastro, serviço web ou hospedagem! Esta carteira é descentralizada e "peer to peer".
 • Exibe a quantidade de GroestlCoins em GRS e mGRS.
@@ -9,14 +10,27 @@ CARACTERÍSTICAS:
 • Catálogo para guardar os endereços mais utilizados.
 • Quando você estiver off-line, você ainda pode pagar via Bluetooth.
 • Notificações do sistema para moedas recebidas.
+• Varrer de carteiras de papel (por exemplo, aqueles usados para o armazenamento a frio).
 • Widget para saldo de GroestlCoins.
 
 Mais informações sobre GroestlCoin em
 http://www.groestlcoin.org
 
-Se você deseja contribuir com o GroestlCoin Wallet, o projeto encontra-se em
-https://github.com/HashEngineering/groestlcoin-wallet
+<b>CONTRIBUA</b>
 
-Licença: GPLv3
-Use por sua conta e risco!
-http://www.gnu.org/licenses/gpl-3.0.en.html
+GroestlCoin Wallet é <b>open source</ b> e <b>software livre</ b>. Licença: GPLv3
+https://www.gnu.org/licenses/gpl-3.0.en.html
+
+Nosso código fonte está disponível no GitHub:
+https://github.com/GroestlCoin/groestlcoin-wallet
+
+Todas as traduções são gerenciadas via Transifex:
+https://www.transifex.com/projects/p/bitcoin-wallet/
+
+
+<b>TESTEMUNHOS</b>
+
+• Carteira mobile recomendada por https://groestlcoin.org
+
+
+<i>Use por sua conta e risco!</i>

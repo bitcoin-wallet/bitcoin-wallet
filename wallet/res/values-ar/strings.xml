@@ -21,9 +21,9 @@
 	<string name="exchange_rates_fragment_balance">رصيد</string>
 	<string name="exchange_rates_fragment_source">تم جلب السعر من %s</string>
 	<string name="exchange_rates_context_set_as_default_title">تعيين كعملة أجنبية افتراضية</string>
-	<string name="wallet_transactions_fragment_tab_received">تم الاستلام</string>
-	<string name="wallet_transactions_fragment_tab_all">كلاهما</string>
-	<string name="wallet_transactions_fragment_tab_sent">تم الارسال</string>
+	<string name="wallet_transactions_options_filter_received">تم الاستلام</string>
+	<string name="wallet_transactions_options_filter_all">كلاهما</string>
+	<string name="wallet_transactions_options_filter_sent">تم الارسال</string>
 	<string name="wallet_transactions_fragment_empty_text_received">لم يتم استلام مبالغ بيتكوين إلى الآن</string>
 	<string name="wallet_transactions_fragment_empty_text_sent">لم يتم ارسال مبالغ بيتكوين إلى الآن</string>
 	<string name="wallet_transactions_fragment_empty_text_howto">كيفية الحصول على البيتكوين GroestlCoins؟\n\nالتجارة التقليدية مقابل المال،\nبيع السلع أو الخدمات أو\nالكسب من خلال العمل.</string>
@@ -72,7 +72,6 @@
 	<string name="send_coins_failed_msg">فشلت العملية!</string>
 	<string name="send_coins_error_msg">تمت مواجهة مشكلة خلال الإرسال!</string>
 	<string name="send_coins_options_empty">تفريغ المحفظة</string>
-	<string name="send_coins_address_context_clear_title">أدخل عنوان جديد</string>
 	<string name="request_coins_activity_title">طلب مبلغ بيتكوين</string>
 	<string name="request_coins_fragment_amount_label">المبلغ المطلوب (اختياري)</string>
 	<string name="request_coins_fragment_initiate_request_qr">اطلب من المرسل بمسح لهذا الرمز بصريا Scan.</string>
@@ -103,7 +102,6 @@
 	<string name="transaction_row_message_own_unbroadcasted">لم يتم إرسال هذه الدفعة بعد.</string>
 	<string name="transaction_row_message_received_direct">تم استلام هذه الدفعة مباشرة. توجد خطورة عدم القدرة على إنفاقها.</string>
 	<string name="transaction_row_message_received_unconfirmed_unlocked">سيمكنك دفع هذه الدفعة في غضون دقائق.</string>
-	<string name="transaction_row_message_received_unconfirmed_locked">لا يجدر عليك الوثوق بهذه الدفعة كونها غير قياسية.</string>
 	<string name="transaction_row_message_received_dead">تم إرجاع هذه الدفعة من قبل المرسل.</string>
 	<string name="transaction_row_message_received_dust">قد لايمكن  إنفاق هذا المبلغ صغير اقتصاديا.</string>
 	<string name="network_monitor_activity_title">مراقب الشبكة</string>
@@ -202,7 +200,6 @@
 	<string name="button_request_coins">طلب بيتكوين</string>
 	<string name="button_send_coins">إرسال بيتكوين</string>
 	<string name="button_scan">مسح بصري</string>
-	<string name="button_edit_address">إضافة/تحرير عنوان</string>
 	<string name="button_settings">الإعدادات</string>
 	<string name="action_show_qr">عرض رمز الاستجابة السريعة QR-code</string>
 	<string name="action_browse">تصفح</string>

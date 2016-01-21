@@ -5,7 +5,7 @@
 
 	<LinearLayout
 		android:id="@+id/wallet_balance"
-		style="@android:style/Widget.Holo.Button.Borderless"
+		style="@style/My.Widget.Button.Borderless.Unpadded"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:gravity="center"
@@ -23,26 +23,19 @@
 			android:layout_height="wrap_content"
 			android:layout_marginBottom="8dp"
 			android:layout_marginLeft="@dimen/list_entry_padding_horizontal"
-			android:layout_marginRight="@dimen/list_entry_padding_horizontal"
+			android:layout_marginRight="@dimen/list_entry_padding_horizontal_cram"
 			android:text="@string/wallet_balance_fragment_too_much"
 			android:textColor="@color/fg_less_significant"
 			android:textSize="@dimen/font_size_tiny"
 			android:visibility="gone" />
 
-		<FrameLayout
-			android:id="@+id/wallet_balance_local_frame"
+		<de.schildbach.wallet.ui.CurrencyTextView
+			android:id="@+id/wallet_balance_local"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_marginBottom="8dp"
-			android:foregroundGravity="bottom|right"
-			android:paddingRight="8dp" >
-
-			<de.schildbach.wallet.ui.CurrencyTextView
-				android:id="@+id/wallet_balance_local"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:textSize="@dimen/font_size_small" />
-		</FrameLayout>
+			android:paddingRight="8dp"
+			android:textSize="@dimen/font_size_small" />
 	</LinearLayout>
 
 	<TextView

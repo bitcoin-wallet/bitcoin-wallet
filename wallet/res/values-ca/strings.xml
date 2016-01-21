@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="toast_wallet_reset">La cartera s\'ha reiniciat,\ntrigarà una estona a recuperar-se</string>
-  <string name="wallet_disclaimer_fragment_remind_safety">Utilitzar baix la teva responsabilitat. Llegeix les &lt;u&gt;advertències de seguretat&lt;/u&gt;.</string>
+  <string name="toast_wallet_reset">La teva cartera s\'ha reiniciat, traigarà uns instants a tornar a recuperar-se</string>
+  <string name="wallet_disclaimer_fragment_remind_safety">Utilitzar sota la teva responsabilitat. Llegeix les &lt;u&gt;advertències de seguretat&lt;/u&gt;.</string>
   <string name="wallet_disclaimer_fragment_remind_backup">Necessites &lt;u&gt;fer una còpia de seguretat de la cartera&lt;/u&gt;!</string>
   <string name="blockchain_state_progress_hours">%1$s, %2$d hores restants</string>
   <string name="blockchain_state_progress_days">%1$s, %2$d dies restants</string>
@@ -12,7 +12,8 @@
   <string name="blockchain_state_progress_problem_storage">Sincronitzant: problema d\'emmagatzematge</string>
   <string name="blockchain_state_progress_problem_network">Sincronitzant: problema de xarxa</string>
   <string name="wallet_address_fragment_clipboard_msg">L\'adreça GroestlCoin s\'ha copiat al porta-retalls.</string>
-  <string name="wallet_balance_fragment_too_much">Aquesta quantitat és alta per portar-la a la butxaca, si et plau mou-ne una part a un lloc segur.</string>
+  <string name="wallet_address_dialog_fragment_hint">Per protegir la teva privacitat, la teva adreça canviarà quan rebi un pagament.</string>
+  <string name="wallet_balance_fragment_too_much">Aquesta quantitat de diners és molt elevada per portar-la a la butxaca, mou una part a un lloc segur.</string>
   <string name="wallet_balance_fragment_replaying">El saldo no està disponible durant la repetició.</string>
   <string name="exchange_rates_activity_title">Preus de canvi</string>
   <string name="exchange_rates_fragment_empty_text">No es poden carregar el preus de canvi.</string>
@@ -23,9 +24,9 @@
   <string name="exchange_rates_fragment_source">Preu des de %s</string>
   <string name="exchange_rates_options_search">Cercar preu de canvi</string>
   <string name="exchange_rates_context_set_as_default_title">Desar com a moneda estrangera per defecte</string>
-  <string name="wallet_transactions_fragment_tab_received">Rebut</string>
-  <string name="wallet_transactions_fragment_tab_all">Ambdós</string>
-  <string name="wallet_transactions_fragment_tab_sent">Enviats</string>
+  <string name="wallet_transactions_options_filter_received">Rebut</string>
+  <string name="wallet_transactions_options_filter_all">Ambdós</string>
+  <string name="wallet_transactions_options_filter_sent">Enviats</string>
   <string name="wallet_transactions_fragment_empty_text_received">Cap GroestlCoin rebut fins ara.</string>
   <string name="wallet_transactions_fragment_empty_text_sent">Cap GroestlCoin enviat fins ara.</string>
   <string name="wallet_transactions_fragment_empty_text_howto">Com aconseguir GroestlCoins?\n\nCanvia\'ls per diner tradicional,\nven bens o serveis o bé\nguanyen treballant.</string>
@@ -71,8 +72,6 @@
   <string name="send_coins_fragment_direct_payment_nack">El teu pagament ha segut refusat durant la connexió directa.</string>
   <string name="send_coins_fragment_direct_payment_failed_title">Pagament directe fallat</string>
   <string name="send_coins_fragment_direct_payment_failed_msg">El teu pagament encarà ha de ser retransmès a través de la xarxa P2P.</string>
-  <string name="send_coins_fragment_private_key_password">PIN</string>
-  <string name="send_coins_fragment_private_key_bad_password">PIN incorrecte!</string>
   <string name="send_coins_fragment_button_send">Envia</string>
   <string name="send_coins_fragment_button_back">Enrere</string>
   <string name="send_coins_fragment_insufficient_money_title">No hi ha suficients monedes disponibles</string>
@@ -86,13 +85,17 @@
   <string name="send_coins_failed_msg">Fallada!</string>
   <string name="send_coins_error_msg">Hi ha un problema enviant les monedes!</string>
   <string name="send_coins_options_empty">Cartera buida</string>
-  <string name="send_coins_address_context_clear_title">Afegeix una nova adreça</string>
   <string name="sweep_wallet_activity_title">Incorpora una cartera de paper</string>
   <string name="sweep_wallet_fragment_intro">Estàs a punt d\'incorporar una cartera de paper o un cupó. Això mourà totes les monedes d\'aquest paper a la cartera del dispositiu. Quant la transacció es confirmi, el paper no valdrà res i no deurà ser reutilitzat per qüestions de seguretat.</string>
   <string name="sweep_wallet_fragment_hint">Les carteres de paper són utilitzades normalment per a un emmagatzematge en fred. Alguns caixers les imprimeixen en un paperet en comptes d\'enviar les monedes directament al teu dispositiu. La gent a vegades, utilitza carteres de paper per donar-li valor (no es recomana).</string>
   <string name="sweep_wallet_fragment_wallet_unknown">Comença escanejant la clau privada de la cartera de paper. Utilitza el botó d\'acció de la càmera.</string>
+  <string name="sweep_wallet_fragment_encrypted">Aquesta clau esta protegida amb una paraula de pas</string>
+  <string name="sweep_wallet_fragment_password">paraula de pas</string>
+  <string name="sweep_wallet_fragment_bad_password">Paraula de pas incorrecte!</string>
   <string name="sweep_wallet_fragment_balance">Balanç a incorporar</string>
+  <string name="sweep_wallet_fragment_button_decrypt">Desencriptació</string>
   <string name="sweep_wallet_fragment_button_sweep">Incorpora</string>
+  <string name="sweep_wallet_fragment_decrypt_progress">La desencriptació \nTrigarà uns 2 minuts aproximadament</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_progress">Carregant balanç…</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_failed_title">Carregant balanç de la cartera fallat</string>
   <string name="sweep_wallet_fragment_insufficient_money_title">No hi ha suficients monedes</string>
@@ -100,8 +103,6 @@
   <string name="sweep_wallet_options_reload">Recarrega el balanç</string>
   <string name="maintenance_dialog_title">Es recomana manteniment</string>
   <string name="maintenance_dialog_message">Has rebut %1$s a una adreça no segura. Vols moure aquests monedes a una adreça segura? Es pagarà una comissió de xarxa de %2$s.</string>
-  <string name="maintenance_dialog_private_key_password">PIN</string>
-  <string name="maintenance_dialog_private_key_bad_password">PIN Incorrecte!</string>
   <string name="maintenance_dialog_state_decrypting">Desencriptant…</string>
   <string name="maintenance_dialog_state_done">Fet.</string>
   <string name="maintenance_dialog_button_move">Moure</string>
@@ -116,6 +117,7 @@
   <string name="request_coins_options_local_app_title">Sol·licitud des de aplicació local</string>
   <string name="address_book_activity_title">Llibreta d\'adreces</string>
   <string name="address_book_list_receiving_title">La teva adreça</string>
+  <string name="address_book_list_receiving_random">Adreces antigues</string>
   <string name="address_book_list_sending_title">Enviant adreces</string>
   <string name="address_book_empty_text">Sense entrades a la llibreta d\'adreces</string>
   <string name="address_book_context_send_title">Envia GroestlCoins a l\'adreça</string>
@@ -138,7 +140,6 @@
   <string name="transaction_row_message_own_unbroadcasted">Aquest pagament encara no s\'ha transferit.</string>
   <string name="transaction_row_message_received_direct">Aquest pagament s\'ha rebut directament. Hi ha risc de que mai es pugui gastar.</string>
   <string name="transaction_row_message_received_unconfirmed_unlocked">Aquest pagament deuria estar disponible en pocs minuts.</string>
-  <string name="transaction_row_message_received_unconfirmed_locked">Aquest no és un pagament estàndard i no hauries de confiar-hi.</string>
   <string name="transaction_row_message_received_dead">Aquest pagament ha sigut revertit per qui l\'ha enviat.</string>
   <string name="transaction_row_message_received_dust">Aquesta petita quantitat probablement mai podrà ser econòmicament gastada.</string>
   <string name="transaction_row_message_received_pay_to_many">Aquest pagament es realitza a molts moneders a part del teu el qual fa que l\'aplicació vagi cada vegada més lenta. Si pots, intenta rebre pagaments només dirigits a tu.</string>
@@ -174,6 +175,8 @@
   <string name="export_keys_dialog_mail_intent_chooser">Desa la cartera utilitzant…</string>
   <string name="export_keys_dialog_mail_intent_failed">Desament de cartera fallat. </string>
   <string name="import_export_keys_dialog_password">paraula de pas</string>
+  <string name="backup_wallet_dialog_password_again">una altra vegada</string>
+  <string name="backup_wallet_dialog_password_mismatch">desajust!</string>
   <string name="import_export_keys_dialog_show">Mostra paraula de pas.</string>
   <string name="import_export_keys_dialog_failure_title">Error</string>
   <string name="import_keys_intent_filter_action">Recuperar cartera</string>
@@ -181,8 +184,6 @@
   <string name="encrypt_keys_dialog_message">Gastar des del teu moneder estarà protegit amb el PIN triat.</string>
   <string name="encrypt_keys_dialog_warning">Important: No utilitzis número comuns (com dates d\'aniversari) als teus PINs.</string>
   <string name="encrypt_keys_dialog_password_old">PIN Antic</string>
-  <string name="encrypt_keys_dialog_password_new">PIN</string>
-  <string name="encrypt_keys_dialog_bad_password">PIN Incorrecte!</string>
   <string name="encrypt_keys_dialog_password_strength_weak">fluix</string>
   <string name="encrypt_keys_dialog_password_strength_fair">justet</string>
   <string name="encrypt_keys_dialog_password_strength_good">bo</string>
@@ -219,9 +220,14 @@
   <string name="preferences_initiate_reset_summary">Reinicialitza la cadena de blocs, les transaccions i el balanç de la cartera. Re-escanejar trigara una mica.</string>
   <string name="preferences_initiate_reset_dialog_message">Voldries reiniciar i re-escanejar la cadena de blocs?\n\nAixò amagara el saldo de la teva cartera temporalment i esborrara les transaccions. Ambdues es recuperaran mentre es sincronitza.</string>
   <string name="preferences_initiate_reset_dialog_positive">Reinicia</string>
+  <string name="preferences_extended_public_key_title">Mostra xpub</string>
+  <string name="preferences_extended_public_key_summary">Visualitza la clau pública extesa de la teva butxaca, per poder ser importades per altes aplicacions o serveis. Tingues cuidado: Si ho fa, revelar la seva privacitat monetària per a aquesta aplicació.</string>
+  <string name="bitmap_fragment_share">Compartir…</string>
+  <string name="extended_public_key_fragment_title">Clau pública extesa</string>
+  <string name="extended_public_key_fragment_share">Comparteix xpub</string>
   <string name="report_issue_dialog_title_issue">Reportar problema</string>
   <string name="report_issue_dialog_title_crash">Bloqueig previ detectat.</string>
-  <string name="report_issue_dialog_message_issue">Per favor descriu el teu problema de manera suficientment precisa per a ser reproduït. Si es especific de la teva cartera, considera d\'adjuntar el buidat de dades.</string>
+  <string name="report_issue_dialog_message_issue">Per favor descriu el teu problema de manera suficientment precisa per a ser reproduït.</string>
   <string name="report_issue_dialog_message_crash">T\'agradaria enviar un report de bloqueig, ajudant a reparar aquest problema en el futur?</string>
   <string name="report_issue_dialog_description">descripció del problema</string>
   <string name="report_issue_dialog_report">Reportar</string>
@@ -263,15 +269,16 @@
   <string name="button_request_coins">Demana monedes</string>
   <string name="button_send_coins">Envia monedes</string>
   <string name="button_scan">Escanejar</string>
-  <string name="button_edit_address">Afegir/modificar adreça</string>
   <string name="button_settings">Ajustaments</string>
   <string name="action_show_qr">Mostra codi QR</string>
   <string name="action_browse">Navega</string>
   <string name="time_today">avui</string>
   <string name="address_unlabeled">(no etiquetat)</string>
+  <string name="private_key_password">PIN</string>
+  <string name="private_key_bad_password">PIN incorrecte!</string>
   <!--generic error messages-->
   <string name="error_io">Error I/O: %s</string>
   <string name="error_parse">Anàlisis d\'errors: %s</string>
   <string name="error_http">Error HTTP %1$s:\n%2$s</string>
-  <string name="error_bluetooth">Error Bluetooth %1$s</string>
+  <string name="error_bluetooth">Error Bluetooth: %1$s</string>
 </resources>

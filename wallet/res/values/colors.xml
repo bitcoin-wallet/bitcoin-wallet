@@ -4,13 +4,17 @@
 	<!-- foreground -->
 	<color name="fg_significant">#ff000000</color>
 	<color name="fg_less_significant">#ff666666</color>
-	<color name="fg_insignificant">#ffcccccc</color>
+	<color name="fg_insignificant">#ffbbbbbb</color>
+	<color name="fg_value_positive">#ff008000</color>
+	<color name="fg_value_negative">#ff990000</color>
 	<color name="fg_error">#ffff0000</color>
+	<color name="fg_network_significant">#ffffffff</color>
+	<color name="fg_network_insignificant">#ffa0a0a0</color>
 
 	<!-- background -->
 	<color name="bg_bright">#ffffffff</color>
 	<color name="bg_less_bright">#ffe8e8f0</color>
-	<color name="bg_panel">#ffd8d8e0</color>
+	<color name="bg_panel">#fff2f2f8</color>
 	<color name="bg_form">@android:color/white</color>
 	<color name="bg_list">#40ffffff</color>
 	<color name="bg_list_selected">#40808090</color>

@@ -21,9 +21,9 @@
 	<string name="exchange_rates_fragment_balance">מאזן</string>
 	<string name="exchange_rates_fragment_source">המחיר נתקבל מ: %s</string>
 	<string name="exchange_rates_context_set_as_default_title">שמור כמטבע ברירת מחדל</string>
-	<string name="wallet_transactions_fragment_tab_received">נתקבל</string>
-	<string name="wallet_transactions_fragment_tab_all">נשלח/נתקבל</string>
-	<string name="wallet_transactions_fragment_tab_sent">נשלח</string>
+	<string name="wallet_transactions_options_filter_received">נתקבל</string>
+	<string name="wallet_transactions_options_filter_all">נשלח/נתקבל</string>
+	<string name="wallet_transactions_options_filter_sent">נשלח</string>
 	<string name="wallet_transactions_fragment_empty_text_received">לא נתקבלו ביטקוינים עד כה.</string>
 	<string name="wallet_transactions_fragment_empty_text_sent">לא נשלחו ביטקוינים עד כה.</string>
 	<string name="wallet_transactions_fragment_empty_text_howto">איך להשיג ביטקוין ?\n\nהמר תמורת כסף פיאט,\nמכור סחורות או שירותים או\nהשג על ידי עבודה.</string>
@@ -73,7 +73,6 @@
 	<string name="send_coins_failed_msg">נכשל!</string>
 	<string name="send_coins_error_msg">בעיה בשליחת מטבעות</string>
 	<string name="send_coins_options_empty">ארנק ריק</string>
-	<string name="send_coins_address_context_clear_title">הקש כתובת חדשה</string>
 	<string name="request_coins_activity_title">בקש ביטקוין</string>
 	<string name="request_coins_fragment_amount_label">כמות לבקשה</string>
 	<string name="request_coins_fragment_accept_bluetooth_payment">קבל תשלום באמצעות Bluetooth לעיבוד מאובטח יותר</string>
@@ -105,7 +104,6 @@
 	<string name="transaction_row_message_own_unbroadcasted">התשלום עדיין לא שודר</string>
 	<string name="transaction_row_message_received_direct">התשלום התקבל ישירות. יש סיכון שהוא לעולם לא יהיה ניתן לניצול.</string>
 	<string name="transaction_row_message_received_unconfirmed_unlocked">התשלום יהיה זמין בעוד מספר דקות</string>
-	<string name="transaction_row_message_received_unconfirmed_locked">לא ניתן לבטוח בתשלום זה</string>
 	<string name="transaction_row_message_received_dead">תשלום זה בוטל על ידי השולח</string>
 	<string name="transaction_row_message_received_dust">כמות זעירה כזו ככל הנראה לא תוכל להיות בשימוש לעולם.</string>
 	<string name="network_monitor_activity_title">מוניטור רשת</string>
@@ -168,7 +166,7 @@
 	<string name="preferences_initiate_reset_dialog_positive">איפוס</string>
 	<string name="report_issue_dialog_title_issue">דווח תקלה</string>
 	<string name="report_issue_dialog_title_crash">תקלה קודמת נתגלתה</string>
-	<string name="report_issue_dialog_message_issue">אנא תאר את הבעיה בה נתקלת בצורה שניתנת לשחזור. אם היא ספציפית לארנק שלך, שקול להוסיף dump.</string>
+	<string name="report_issue_dialog_message_issue">אנא תאר את הבעיה בה נתקלת בצורה שניתנת לשחזור.</string>
 	<string name="report_issue_dialog_message_crash">האם לשלוח דיווח תקלה? עדכון כזה יעזור לנו למנוע מתקלות להשנות בעתיד.</string>
 	<string name="report_issue_dialog_description">תיאור הבעיה</string>
 	<string name="report_issue_dialog_report">דיווח</string>
@@ -206,7 +204,6 @@
 	<string name="button_request_coins">בקש מטבעות</string>
 	<string name="button_send_coins">שלח מטבעות</string>
 	<string name="button_scan">סרוק</string>
-	<string name="button_edit_address">הוסף או ערוך כתובת</string>
 	<string name="button_settings">הגדרות</string>
 	<string name="action_show_qr">הראה ברקוד</string>
 	<string name="action_browse">גלוש</string>

@@ -20,7 +20,7 @@ GroestlCoin Walletは<b>オープンソース</b>であり、<b>自由ソフト�
 https://www.gnu.org/licenses/gpl-3.0.ja.html
 
 ソースコードはGithubにあります。
-https://github.com/HashEngineering/groestlcoin-wallet
+https://github.com/GroestlCoin/groestlcoin-wallet
 
 全ての翻訳はTransifexで管理されています:
 https://www.transifex.com/projects/p/bitcoin-wallet/

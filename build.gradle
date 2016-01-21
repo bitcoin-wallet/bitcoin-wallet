@@ -1,0 +1,18 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:1.5.0'
+        classpath('fr.avianey.androidsvgdrawable:gradle-plugin:1.0.2') {
+            exclude group: 'xerces'
+        }
+    }
+}
+
+allprojects {
+   repositories {
+       jcenter()
+   }
+}

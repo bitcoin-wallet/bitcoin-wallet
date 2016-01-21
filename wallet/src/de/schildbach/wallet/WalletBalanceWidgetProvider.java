@@ -1,5 +1,5 @@
 /*
- * Copyright 2011-2014 the original author or authors.
+ * Copyright 2011-2015 the original author or authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -112,7 +112,7 @@ public class WalletBalanceWidgetProvider extends AppWidgetProvider
 	private static void updateWidget(final Context context, final AppWidgetManager appWidgetManager, final int appWidgetId,
 			final Bundle appWidgetOptions, final Coin balance)
 	{
-		final Configuration config = new Configuration(PreferenceManager.getDefaultSharedPreferences(context));
+		final Configuration config = new Configuration(PreferenceManager.getDefaultSharedPreferences(context), context.getResources());
 		final MonetaryFormat btcFormat = config.getFormat();
 
 		final Spannable balanceStr = new MonetarySpannable(btcFormat.noCode(), balance).applyMarkup(null,

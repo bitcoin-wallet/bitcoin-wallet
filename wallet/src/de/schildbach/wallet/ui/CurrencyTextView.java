@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2014 the original author or authors.
+ * Copyright 2013-2015 the original author or authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,8 +16,6 @@
  */
 
 package de.schildbach.wallet.ui;
-
-import javax.annotation.Nonnull;
 
 import org.bitcoinj.core.Monetary;
 import org.bitcoinj.utils.MonetaryFormat;
@@ -57,13 +55,13 @@ public final class CurrencyTextView extends TextView
 		super(context, attrs);
 	}
 
-	public void setAmount(@Nonnull final Monetary amount)
+	public void setAmount(final Monetary amount)
 	{
 		this.amount = amount;
 		updateView();
 	}
 
-	public void setFormat(@Nonnull final MonetaryFormat format)
+	public void setFormat(final MonetaryFormat format)
 	{
 		this.format = format.codeSeparator(Constants.CHAR_HAIR_SPACE);
 		updateView();

@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2014 the original author or authors.
+ * Copyright 2013-2015 the original author or authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -24,8 +24,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.security.KeyStore;
 
-import javax.annotation.CheckForNull;
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
@@ -47,12 +45,12 @@ public abstract class HttpGetThread extends Thread
 {
 	private final AssetManager assets;
 	private final String url;
-	@CheckForNull
+	@Nullable
 	private final String userAgent;
 
 	private static final Logger log = LoggerFactory.getLogger(HttpGetThread.class);
 
-	public HttpGetThread(@Nonnull final AssetManager assets, @Nonnull final String url, @Nullable final String userAgent)
+	public HttpGetThread(final AssetManager assets, final String url, @Nullable final String userAgent)
 	{
 		this.assets = assets;
 		this.url = url;
@@ -118,7 +116,7 @@ public abstract class HttpGetThread extends Thread
 		}
 	}
 
-	protected abstract void handleLine(@Nonnull String line, long serverTime);
+	protected abstract void handleLine(String line, long serverTime);
 
-	protected abstract void handleException(@Nonnull Exception x);
+	protected abstract void handleException(Exception x);
 }

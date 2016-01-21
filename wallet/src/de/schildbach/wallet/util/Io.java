@@ -1,5 +1,5 @@
 /*
- * Copyright 2011-2014 the original author or authors.
+ * Copyright 2011-2015 the original author or authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -24,8 +24,6 @@ import java.io.OutputStream;
 import java.io.Reader;
 import java.lang.reflect.Method;
 
-import javax.annotation.Nonnull;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,12 +34,12 @@ public class Io
 {
 	private static final Logger log = LoggerFactory.getLogger(Io.class);
 
-	public static final long copy(@Nonnull final Reader reader, @Nonnull final StringBuilder builder) throws IOException
+	public static final long copy(final Reader reader, final StringBuilder builder) throws IOException
 	{
 		return copy(reader, builder, 0);
 	}
 
-	public static final long copy(@Nonnull final Reader reader, @Nonnull final StringBuilder builder, final long maxChars) throws IOException
+	public static final long copy(final Reader reader, final StringBuilder builder, final long maxChars) throws IOException
 	{
 		final char[] buffer = new char[256];
 		long count = 0;
@@ -57,7 +55,7 @@ public class Io
 		return count;
 	}
 
-	public static final long copy(@Nonnull final InputStream is, @Nonnull final OutputStream os) throws IOException
+	public static final long copy(final InputStream is, final OutputStream os) throws IOException
 	{
 		final byte[] buffer = new byte[1024];
 		long count = 0;
@@ -71,7 +69,7 @@ public class Io
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public static void chmod(@Nonnull final File path, final int mode)
+	public static void chmod(final File path, final int mode)
 	{
 		try
 		{

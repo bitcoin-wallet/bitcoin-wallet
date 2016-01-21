@@ -19,7 +19,7 @@ GroestlCoin Wallet это <b>бесплатное приложение</b> с <b
 https://www.gnu.org/licenses/gpl-3.0.ru.html
 
 Исходный код приложения доступен на GitHub:
-https://github.com/HashEngineering/groestlcoin-wallet
+https://github.com/GroestlCoin/groestlcoin-wallet
 
 Все переводы сделаны через Transifex:
 https://www.transifex.com/projects/p/bitcoin-wallet/

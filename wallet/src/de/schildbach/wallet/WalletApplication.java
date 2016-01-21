@@ -1,5 +1,5 @@
 /*
- * Copyright 2011-2014 the original author or authors.
+ * Copyright 2011-2015 the original author or authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,12 +25,12 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.concurrent.TimeUnit;
 
-import javax.annotation.Nonnull;
 import org.bitcoinj.core.CoinDefinition;
 import org.bitcoinj.core.Transaction;
 import org.bitcoinj.core.VerificationException;
 import org.bitcoinj.core.VersionMessage;
 import org.bitcoinj.core.Wallet;
+import org.bitcoinj.crypto.LinuxSecureRandom;
 import org.bitcoinj.crypto.MnemonicCode;
 import org.bitcoinj.store.UnreadableWalletException;
 import org.bitcoinj.store.WalletProtobufSerializer;
@@ -66,7 +66,6 @@ import de.schildbach.wallet.service.BlockchainService;
 import de.schildbach.wallet.service.BlockchainServiceImpl;
 import de.schildbach.wallet.util.CrashReporter;
 import de.schildbach.wallet.util.Io;
-import de.schildbach.wallet.util.LinuxSecureRandom;
 import hashengineering.groestlcoin.wallet.R;
 
 /**
@@ -85,7 +84,9 @@ public class WalletApplication extends Application
 	private Wallet wallet;
 	private PackageInfo packageInfo;
 
-	public static final String ACTION_WALLET_CHANGED = WalletApplication.class.getPackage().getName() + ".wallet_changed";
+	public static final String ACTION_WALLET_REFERENCE_CHANGED = WalletApplication.class.getPackage().getName() + ".wallet_reference_changed";
+
+	public static final int VERSION_CODE_SHOW_BACKUP_REMINDER = 205;
 
 	private static final Logger log = LoggerFactory.getLogger(WalletApplication.class);
 
@@ -120,7 +121,7 @@ public class WalletApplication extends Application
 
 		initMnemonicCode();
 
-		config = new Configuration(PreferenceManager.getDefaultSharedPreferences(this));
+		config = new Configuration(PreferenceManager.getDefaultSharedPreferences(this), getResources());
 		activityManager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
 
 		blockchainServiceIntent = new Intent(this, BlockchainServiceImpl.class);
@@ -131,6 +132,12 @@ public class WalletApplication extends Application
 		walletFile = getFileStreamPath(Constants.Files.WALLET_FILENAME_PROTOBUF);
 
 		loadWalletFromProtobuf();
+
+		if (config.versionCodeCrossed(packageInfo.versionCode, VERSION_CODE_SHOW_BACKUP_REMINDER) && !wallet.getImportedKeys().isEmpty())
+		{
+			log.info("showing backup reminder once, because of imported keys being present");
+			config.armBackupReminder();
+		}
 
 		config.updateLastVersionCode(packageInfo.versionCode);
 
@@ -366,7 +373,7 @@ public class WalletApplication extends Application
 		}
 	}
 
-	private void protobufSerializeWallet(@Nonnull final Wallet wallet) throws IOException
+	private void protobufSerializeWallet(final Wallet wallet) throws IOException
 	{
 		final long start = System.currentTimeMillis();
 
@@ -454,34 +461,25 @@ public class WalletApplication extends Application
 
 	public void resetBlockchain()
 	{
-		internalResetBlockchain();
-
-		final Intent broadcast = new Intent(ACTION_WALLET_CHANGED);
-		broadcast.setPackage(getPackageName());
-		LocalBroadcastManager.getInstance(this).sendBroadcast(broadcast);
-	}
-
-	private void internalResetBlockchain()
-	{
-		// actually stops the service
+		// implicitly stops blockchain service
 		startService(blockchainServiceResetBlockchainIntent);
 	}
 
 	public void replaceWallet(final Wallet newWallet)
 	{
-		internalResetBlockchain(); // implicitly stops blockchain service
+		resetBlockchain();
 		wallet.shutdownAutosaveAndWait();
 
 		wallet = newWallet;
 		config.maybeIncrementBestChainHeightEver(newWallet.getLastBlockSeenHeight());
 		afterLoadWallet();
 
-		final Intent broadcast = new Intent(ACTION_WALLET_CHANGED);
+		final Intent broadcast = new Intent(ACTION_WALLET_REFERENCE_CHANGED);
 		broadcast.setPackage(getPackageName());
 		LocalBroadcastManager.getInstance(this).sendBroadcast(broadcast);
 	}
 
-	public void processDirectTransaction(@Nonnull final Transaction tx) throws VerificationException
+	public void processDirectTransaction(final Transaction tx) throws VerificationException
 	{
 		if (wallet.isTransactionRelevant(tx))
 		{
@@ -490,7 +488,7 @@ public class WalletApplication extends Application
 		}
 	}
 
-	public void broadcastTransaction(@Nonnull final Transaction tx)
+	public void broadcastTransaction(final Transaction tx)
 	{
 		final Intent intent = new Intent(BlockchainService.ACTION_BROADCAST_TRANSACTION, null, this, BlockchainServiceImpl.class);
 		intent.putExtra(BlockchainService.ACTION_BROADCAST_TRANSACTION_HASH, tx.getHash().getBytes());
@@ -546,9 +544,9 @@ public class WalletApplication extends Application
 			return 6;
 	}
 
-	public static void scheduleStartBlockchainService(@Nonnull final Context context)
+	public static void scheduleStartBlockchainService(final Context context)
 	{
-		final Configuration config = new Configuration(PreferenceManager.getDefaultSharedPreferences(context));
+		final Configuration config = new Configuration(PreferenceManager.getDefaultSharedPreferences(context), context.getResources());
 		final long lastUsedAgo = config.getLastUsedAgo();
 
 		// apply some backoff

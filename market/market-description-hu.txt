@@ -1,25 +1,34 @@
-Tartsd a zsebedben GroestlCoinjaidat! Egyszerűen, akár QR-kód leolvasásával is fizethetsz. Ha pedig termékeket, vagy szolgáltatást értékesítesz megbízható módon és gyorsan juthatsz a bevételeidhez. A GroestlCoin Tárca az első GroestlCoin app és kétségkívül a legbiztonságosabb is!
+<b>Mindig legyenek nálad a GroestlCoin-jaid a zsebedben!</b> Úgy tudsz fizetni, hogy gyorsan beolvasol egy QR kódot. Kereskedőként megkapod a fizetséget megbízhatóan és azonnal. A GroestlCoin Wallet az első mobil GroestlCoin alkalmazás és vitathatatlanul a legbiztonságosabb is!
 
-ELŐNYÖK:
+
+<b>JELLEMZŐK</b>
 
 • Nincs regisztráció és nem szükséges semmiféle háttéralkalmazás futtatása (web, vagy cloud)! Decentralizált és közvetlen (P2P).
-• A GroestlCoinjaid mennyiségét GRS és mGRS formában is láthatod.
+• GroestlCoin összeg megjelenítési módok: GRS, mGRS és µGRS.
 • Átváltás a saját valutádra, oda-vissza.
-• GroestlCoin küldése és fogadása NFC, QR-kód vagy közvetlen URL segítségével.
+• GroestlCoin küldés és fogadás NFC-n, QR kódokon vagy GroestlCoin URL-eken keresztül.
 • Címtár a rendszeresen használt GroestlCoin címek számára.
 • Offline állapotban is fizethetsz - Bluetooth segítségével.
 • Rendszerüzenet GroestlCoin érkezésekor.
+• Papírtárcák besöprése (pl. amik hűtőháznak vannak használva).
 • Widget a GroestlCoin egyenlegről.
 
-Bővebben a GroestlCoin-ról:
-http://www.groestlcoin.org
 
-Ha hozzájárulnál a GroestlCoin Wallet projekthez:
-https://github.com/HashEngineering/groestlcoin-wallet
+<b>HOZZÁJÁRULÁS</b>
+
+A GroestlCoin Wallet <b>nyílt forráskódú</b> és <b>ingyenes szoftver</b>. Licenc: GPLv3
+https://www.gnu.org/licenses/gpl-3.0.en.html
+
+A forráskódunk elérhető a GitHub-on:
+https://github.com/GroestlCoin/groestlcoin-wallet
+
+Minden fordítást a Transifex kezelt:
+https://www.transifex.com/projects/p/bitcoin-wallet/
 
 
+<b>AJÁNLÓLEVELEK</b>
+
+• Ajánlott mobiltárca a https://groestlcoin.org által
 
 
-Licensz: GPLv3
-Csak saját felelősségre használható!
-http://www.gnu.org/licenses/gpl-3.0.en.html
+<i>Saját felelősségedre használd!</i>

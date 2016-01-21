@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 the original author or authors.
+ * Copyright 2014-2015 the original author or authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -46,6 +46,30 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.annotation.Nullable;
+
+import org.bitcoinj.core.Address;
+import org.bitcoinj.core.Coin;
+import org.bitcoinj.core.NetworkParameters;
+import org.bitcoinj.core.Sha256Hash;
+import org.bitcoinj.core.Transaction;
+import org.bitcoinj.core.TransactionConfidence.ConfidenceType;
+import org.bitcoinj.core.TransactionOutput;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import android.os.Handler;
+import android.os.Looper;
+
+import com.google.common.base.Charsets;
+
+import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.util.Io;
+import hashengineering.groestlcoin.wallet.R;
+
 /**
  * @author Andreas Schildbach
  */
@@ -54,12 +78,10 @@ public final class RequestWalletBalanceTask
 	private final Handler backgroundHandler;
 	private final Handler callbackHandler;
 	private final ResultCallback resultCallback;
-	@CheckForNull
+	@Nullable
 	private final String userAgent;
 
 	private static final Logger log = LoggerFactory.getLogger(RequestWalletBalanceTask.class);
-
-	private final BaseEncoding HEX = BaseEncoding.base16().lowerCase();
 
 	public interface ResultCallback
 	{
@@ -68,8 +90,7 @@ public final class RequestWalletBalanceTask
 		void onFail(int messageResId, Object... messageArgs);
 	}
 
-	public RequestWalletBalanceTask(@Nonnull final Handler backgroundHandler, @Nonnull final ResultCallback resultCallback,
-			@Nullable final String userAgent)
+	public RequestWalletBalanceTask(final Handler backgroundHandler, final ResultCallback resultCallback, @Nullable final String userAgent)
 	{
 		this.backgroundHandler = backgroundHandler;
 		this.callbackHandler = new Handler(Looper.myLooper());
@@ -191,14 +212,14 @@ public final class RequestWalletBalanceTask
                                     throw new IllegalStateException("UXTO not spent");
                                 uxtoHash = new Sha256Hash(jsonOutput.getString("transaction_hash"));
                                 uxtoIndex = jsonOutput.getInt("transaction_index");
-                                uxtoScriptBytes = HEX.decode(jsonOutput.getString("script_pub_key"));
+                                uxtoScriptBytes = Constants.HEX.decode(jsonOutput.getString("script_pub_key"));
                                 uxtoValue = Coin.valueOf(jsonOutput.getLong("value"));
                             }
                             else if(CoinDefinition.UnspentAPI == CoinDefinition.UnspentAPIType.Blockr)
                             {
                                 uxtoHash = new Sha256Hash(jsonOutput.getString("tx"));
                                 uxtoIndex = jsonOutput.getInt("n");
-                                uxtoScriptBytes = HEX.decode(jsonOutput.getString("script"));
+                                uxtoScriptBytes = Constants.HEX.decode(jsonOutput.getString("script"));
                                 uxtoValue = Coin.valueOf((long)(Double.parseDouble(String.format("%.08f", jsonOutput.getDouble("amount")).replace(",", ".")) *100000000));
                                 //jsonOutput.getInt("confirmations");
                             }
@@ -208,7 +229,7 @@ public final class RequestWalletBalanceTask
                                //     throw new IllegalStateException("UXTO not spent");
                                 uxtoHash = new Sha256Hash(jsonOutput.getString("tx_hash"));
                                 uxtoIndex = jsonOutput.getInt("tx_ouput_n");
-                                //uxtoScriptBytes = HEX.decode(jsonOutput.getString("script_pub_key"));
+                                //uxtoScriptBytes = Constants.HEX.decode(jsonOutput.getString("script_pub_key"));
                                 uxtoScriptBytes = ScriptBuilder.createOutputScript(addresses[0]).getProgram();
                                 uxtoValue = Coin.valueOf(jsonOutput.getLong("value"));
                             }
@@ -216,9 +237,9 @@ public final class RequestWalletBalanceTask
 							if (jsonOutput.getInt("is_spent") != 0)
 								throw new IllegalStateException("UXTO not spent");
 
-							final Sha256Hash uxtoHash = new Sha256Hash(jsonOutput.getString("transaction_hash"));
+							final Sha256Hash uxtoHash = Sha256Hash.wrap(jsonOutput.getString("transaction_hash"));
 							final int uxtoIndex = jsonOutput.getInt("transaction_index");
-							final byte[] uxtoScriptBytes = HEX.decode(jsonOutput.getString("script_pub_key"));
+							final byte[] uxtoScriptBytes = Constants.HEX.decode(jsonOutput.getString("script_pub_key"));
 							final Coin uxtoValue = Coin.valueOf(Long.parseLong(jsonOutput.getString("value")));
 */
 

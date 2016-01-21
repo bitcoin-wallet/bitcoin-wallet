@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 the original author or authors.
+ * Copyright 2014-2015 the original author or authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,10 +17,9 @@
 
 package de.schildbach.wallet.ui.preference;
 
-import javax.annotation.Nonnull;
-
 import android.app.Activity;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.Preference;
@@ -38,6 +37,7 @@ public final class SettingsFragment extends PreferenceFragment implements OnPref
 {
 	private Activity activity;
 	private WalletApplication application;
+	private PackageManager pm;
 
 	private final Handler handler = new Handler();
 
@@ -52,6 +52,7 @@ public final class SettingsFragment extends PreferenceFragment implements OnPref
 
 		this.activity = activity;
 		this.application = (WalletApplication) activity.getApplication();
+		this.pm = activity.getPackageManager();
 	}
 
 	@Override
@@ -69,6 +70,9 @@ public final class SettingsFragment extends PreferenceFragment implements OnPref
 
 		trustedPeerOnlyPreference = findPreference(Configuration.PREFS_KEY_TRUSTED_PEER_ONLY);
 		trustedPeerOnlyPreference.setOnPreferenceChangeListener(this);
+
+		final Preference dataUsagePreference = findPreference(Configuration.PREFS_KEY_DATA_USAGE);
+		dataUsagePreference.setEnabled(pm.resolveActivity(dataUsagePreference.getIntent(), 0) != null);
 
 		final SharedPreferences prefs = getPreferenceManager().getSharedPreferences();
 		final String trustedPeer = prefs.getString(Configuration.PREFS_KEY_TRUSTED_PEER, "").trim();
@@ -113,7 +117,7 @@ public final class SettingsFragment extends PreferenceFragment implements OnPref
 		return true;
 	}
 
-	private void updateTrustedPeer(@Nonnull final String trustedPeer)
+	private void updateTrustedPeer(final String trustedPeer)
 	{
 		if (trustedPeer.isEmpty())
 		{

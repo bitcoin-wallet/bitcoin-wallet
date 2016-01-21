@@ -4,13 +4,12 @@
 	xmlns:tools="http://schemas.android.com/tools"
 	package="hashengineering.groestlcoin.wallet"
 	android:installLocation="internalOnly"
-
 	android:versionCode="251"
 	android:versionName="2.11.26" >
 
 	<uses-sdk
 		android:minSdkVersion="15"
-		android:targetSdkVersion="16"
+		android:targetSdkVersion="21"
 		tools:ignore="OldTargetApi" />
 
 	<uses-permission android:name="android.permission.INTERNET" />
@@ -58,13 +57,14 @@
 	<application
 		android:name="de.schildbach.wallet.WalletApplication"
 		android:allowBackup="false"
-		android:icon="@drawable/app_icon"
-		android:label="@string/app_name"
-		android:theme="@style/My.Theme" >
+		android:icon="@drawable/ic_app_color_48dp"
+		android:label="@string/app_name" >
 		<activity
 			android:name="de.schildbach.wallet.ui.WalletActivity"
 			android:configChanges="keyboard|keyboardHidden"
-			android:launchMode="singleTask" />
+			android:exported="true"
+			android:launchMode="singleTask"
+			android:theme="@style/My.Theme" />
 
 		<activity-alias
 			android:name="de.schildbach.wallet.WalletActivity"
@@ -88,6 +88,7 @@
 			android:configChanges="keyboard|keyboardHidden"
 			android:label="@string/send_coins_activity_title"
 			android:screenOrientation="behind"
+			android:theme="@style/My.Theme.ChildActivity"
 			android:windowSoftInputMode="adjustResize" >
 			<intent-filter android:label="@string/send_coins_activity_title" >
 				<action android:name="android.intent.action.VIEW" />
@@ -129,6 +130,7 @@
 			android:configChanges="keyboard|keyboardHidden"
 			android:label="@string/request_coins_activity_title"
 			android:screenOrientation="behind"
+			android:theme="@style/My.Theme.ChildActivity"
 			android:windowSoftInputMode="adjustResize" />
 		<activity
                 android:name="de.schildbach.wallet.ui.TransactionActivity"
@@ -148,21 +150,25 @@
 			android:name="de.schildbach.wallet.ui.AddressBookActivity"
 			android:configChanges="keyboard|keyboardHidden"
 			android:label="@string/address_book_activity_title"
-			android:screenOrientation="behind" />
+			android:screenOrientation="behind"
+			android:theme="@style/My.Theme.ChildActivity" />
 		<activity
 			android:name="de.schildbach.wallet.ui.ExchangeRatesActivity"
 			android:configChanges="keyboard|keyboardHidden"
 			android:label="@string/exchange_rates_activity_title"
-			android:screenOrientation="behind" />
+			android:screenOrientation="behind"
+			android:theme="@style/My.Theme.ChildActivity" />
 		<activity
 			android:name="de.schildbach.wallet.ui.NetworkMonitorActivity"
 			android:configChanges="keyboard|keyboardHidden"
 			android:label="@string/network_monitor_activity_title"
-			android:screenOrientation="behind" />
+			android:screenOrientation="behind"
+			android:theme="@style/My.Theme.ChildActivity" />
 		<activity
 			android:name="de.schildbach.wallet.ui.preference.PreferenceActivity"
 			android:label="@string/preferences_activity_title"
-			android:screenOrientation="behind" />
+			android:screenOrientation="behind"
+			android:theme="@style/My.Theme.ChildActivity" />
 		<activity
 			android:name="de.schildbach.wallet.ui.RestoreWalletActivity"
 			android:configChanges="orientation|keyboard|keyboardHidden"
@@ -173,7 +179,6 @@
 				<category android:name="android.intent.category.DEFAULT" />
 
 				<data android:mimeType="application/x-groestlcoin-wallet-backup" />
-				<data android:mimeType="application/octet-stream" />
 			</intent-filter>
 		</activity>
 		<activity
@@ -189,6 +194,7 @@
 			android:configChanges="keyboard|keyboardHidden"
 			android:label="@string/sweep_wallet_activity_title"
 			android:screenOrientation="behind"
+			android:theme="@style/My.Theme.ChildActivity"
 			android:windowSoftInputMode="adjustResize" />
 
 		<provider

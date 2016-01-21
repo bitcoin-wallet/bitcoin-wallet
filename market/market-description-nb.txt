@@ -8,7 +8,7 @@
 • Konvertering til og fra nasjonale valutaer.
 • Sende og motta bitcoin via NFC, QR-koder eller GroestlCoin-URLer.
 • Adressebok for regelmessig brukte GroestlCoin-adresser.
-• Når du er frakoblet, kan du fortsatt betale via Bluetooth.
+• Når du er frakoblet, kan du fortsatt betale via blåtann.
 • Systemvarsling for mottatte mynter.
 • Sveiping av papirlommebøker (f.eks. de som brukes til kaldlagring).
 • Miniprogram for saldo over bitcoins.
@@ -20,7 +20,7 @@ GroestlCoin Wallet har <b>åpen kildekode</b> og er <b>fri programvare</b>. Lise
 https://www.gnu.org/licenses/gpl-3.0.en.html
 
 Vår kildekode er tilgjengelig på GitHub:
-https://github.com/HashEngineering/groestlcoin-wallet
+https://github.com/GroestlCoin/groestlcoin-wallet
 
 Alle oversettelser skjer via Transifex:
 https://www.transifex.com/projects/p/bitcoin-wallet/

@@ -21,9 +21,9 @@
 	<string name="exchange_rates_fragment_balance">saldo</string>
 	<string name="exchange_rates_fragment_source">Prezo prenis de %s</string>
 	<string name="exchange_rates_context_set_as_default_title">Ŝalti kiel defaŭltan eksterlandan valuton</string>
-	<string name="wallet_transactions_fragment_tab_received">Ricevita</string>
-	<string name="wallet_transactions_fragment_tab_all">Ambaŭ</string>
-	<string name="wallet_transactions_fragment_tab_sent">Sendita</string>
+	<string name="wallet_transactions_options_filter_received">Ricevita</string>
+	<string name="wallet_transactions_options_filter_all">Ambaŭ</string>
+	<string name="wallet_transactions_options_filter_sent">Sendita</string>
 	<string name="wallet_transactions_fragment_empty_text_received">Neniom da Bitmonoj tamen ricevitaj.</string>
 	<string name="wallet_transactions_fragment_empty_text_sent">Neniom da Bitmonoj tamen senditaj.</string>
 	<string name="wallet_transactions_fragment_empty_text_howto">Kiel obteni Bitmonojn?\n\nNegocu por tradicia mono,\nvendu varojn aŭ servojn aŭ\ngajnu per laborado.</string>
@@ -58,7 +58,6 @@
 	<string name="send_coins_failed_msg">Malsukcesis!</string>
 	<string name="send_coins_error_msg">Sendada promlemo!</string>
 	<string name="send_coins_options_empty">Malplena monujo</string>
-	<string name="send_coins_address_context_clear_title">Entajpi novan adreson</string>
 	<string name="request_coins_activity_title">Peti Bitmonojn</string>
 	<string name="request_coins_fragment_amount_label">Petita kvanto (fakultativa)</string>
 	<string name="request_coins_fragment_initiate_request_qr">Havas ĉi tiun kodon skanitan per la sendinto.</string>
@@ -86,7 +85,6 @@
 	<string name="transaction_row_message_purpose_key_rotation">Ĉi tiu transakcio fortigas vian monujon kontraŭ ŝtelo. &lt;u&gt;Pli da informoj.&lt;/u&gt;</string>
 	<string name="transaction_row_message_own_unbroadcasted">Tiu pago ne estis transdonita jam.</string>
 	<string name="transaction_row_message_received_unconfirmed_unlocked">Tiu pago devus esti spendable en kelkaj minutoj.</string>
-	<string name="transaction_row_message_received_unconfirmed_locked">Tiu pago ne estas norma, kaj devus ne esti fidinda.</string>
 	<string name="transaction_row_message_received_dead">Tiu pago renversis per la sendinto. </string>
 	<string name="transaction_row_message_received_dust">Ĉi tiu malgranda sumo povas probable neniam elspeziĝos ekonomie.</string>
 	<string name="network_monitor_activity_title">Reta Monitoro</string>
@@ -179,7 +177,6 @@
 	<string name="button_request_coins">Peti monerojn</string>
 	<string name="button_send_coins">Sendu monon</string>
 	<string name="button_scan">Skani</string>
-	<string name="button_edit_address">Aldoni/redakti adreson</string>
 	<string name="button_settings">Agordoj</string>
 	<string name="action_show_qr">Montru QRan kodon</string>
 	<string name="action_browse">Esplori</string>

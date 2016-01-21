@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 the original author or authors.
+ * Copyright 2014-2015 the original author or authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,11 +17,8 @@
 
 package de.schildbach.wallet.ui.send;
 
-import javax.annotation.Nonnull;
-
 import org.bitcoinj.core.VersionedChecksummedBytes;
 
-import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -41,7 +38,7 @@ public final class SweepWalletActivity extends AbstractBindServiceActivity
 		context.startActivity(new Intent(context, SweepWalletActivity.class));
 	}
 
-	public static void start(final Context context, @Nonnull final VersionedChecksummedBytes key)
+	public static void start(final Context context, final VersionedChecksummedBytes key)
 	{
 		final Intent intent = new Intent(context, SweepWalletActivity.class);
 		intent.putExtra(INTENT_EXTRA_KEY, key);
@@ -56,9 +53,6 @@ public final class SweepWalletActivity extends AbstractBindServiceActivity
 		setContentView(R.layout.sweep_wallet_content);
 
 		getWalletApplication().startBlockchainService(false);
-
-		final ActionBar actionBar = getActionBar();
-		actionBar.setDisplayHomeAsUpEnabled(true);
 	}
 
 	@Override

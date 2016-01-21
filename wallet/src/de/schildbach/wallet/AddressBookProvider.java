@@ -1,5 +1,5 @@
 /*
- * Copyright 2011-2014 the original author or authors.
+ * Copyright 2011-2015 the original author or authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,8 +18,6 @@
 package de.schildbach.wallet;
 
 import java.util.List;
-
-import javax.annotation.Nonnull;
 
 import android.content.ContentProvider;
 import android.content.ContentValues;
@@ -45,12 +43,12 @@ public class AddressBookProvider extends ContentProvider
 	public static final String SELECTION_IN = "in";
 	public static final String SELECTION_NOTIN = "notin";
 
-	public static Uri contentUri(@Nonnull final String packageName)
+	public static Uri contentUri(final String packageName)
 	{
 		return Uri.parse("content://" + packageName + '.' + DATABASE_TABLE);
 	}
 
-	public static String resolveLabel(final Context context, @Nonnull final String address)
+	public static String resolveLabel(final Context context, final String address)
 	{
 		String label = null;
 
@@ -185,7 +183,7 @@ public class AddressBookProvider extends ContentProvider
 		return cursor;
 	}
 
-	private static void appendAddresses(@Nonnull final SQLiteQueryBuilder qb, @Nonnull final String[] addresses)
+	private static void appendAddresses(final SQLiteQueryBuilder qb, final String[] addresses)
 	{
 		for (final String address : addresses)
 		{

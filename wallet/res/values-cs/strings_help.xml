@@ -3,26 +3,17 @@
   <string name="help_wallet">
 <![CDATA[
 		<p>
-<<<<<<< HEAD
-			Horní levá část obrazovky zobrazuje Vaši aktuální GroestlCoin adresu, kterou druhá strana potřebuje znát, aby Vám mohla zaslat platbu.
-			Kliknutím na adresu ji změníte.
-		</p>
-		<p>
-			QR kód na pravé straně obsahuje Vaši GroestlCoin adresu a může být použit pro naskenování druhou stranou.
-=======
 			Horní levá část obrazovky zobrazuje Vaši aktuální GroestlCoin bilanci včetně odpovídající částky ve vaší lokální měně.
 			Kliknutím na částku přejdete do seznamu lokálních měn, kde si můžete vybrat jinou.
 		</p>
 		<p>
 			QR kód na pravé straně obsahuje Vaši GroestlCoin adresu a může být použita pro naskenování druhou stranou.
->>>>>>> origin/master
 			Klepněte na QR kód pro zobrazení větší verze.
 		</p>
 		<p>
 			Ve spodní části obrazovky je seznam transakcí, který bude samozřejmě na začátku používání aplikace prázdný.
 			Probíhající transakce jsou zobrazeny šedě, dokud nejsou potvrzeny.
 			Kliknutím na řádek záznamu můžete příjemce či odesilatele přidat do adresáře.
-			Táhnutím vlevo či vpravo je možné aplikovat na seznam filtr.
 		</p>
 		<p>
 			Můžete poslat nebo si vyžádat GroestlCoiny klepnutím na patřičné tlačítko v akční nabídce.
@@ -44,7 +35,7 @@
 			Druhá strana potom klikne na získanou adresu.
 		</p>
 		<p>
-			V obou případech bude odesílatel uvidí dialog na zasílání GroestlCoinů s předvzplněnými údaji.
+			V obou případech odesílatel uvidí dialog na zasílání GroestlCoinů s předvyplněnými údaji.
 			Pokud souhlasí, potvrdí zadané informace a dojde k transakci.
 		</p>
 	]]>
@@ -98,7 +89,7 @@
 			Pokud pošlete GroestlCoiny někam neznámo kam, neexistuje možnost, jak je získat zpět, jedině byste znali příjemce a on měl zrovna náladu je poctivě vrátit.
 		</p>
 		<p>
-			<b>Udržujte vašeho Androida v bezpečí!</b>
+			<b>Udržujte Váš Android v bezpečí!</b>
 			Instalujte pouze aplikace, kterým plně důvěřujete.
 			Existují škodlivé aplikace, které vás mohou o vaše GroestlCoiny připravit.
 		</p>

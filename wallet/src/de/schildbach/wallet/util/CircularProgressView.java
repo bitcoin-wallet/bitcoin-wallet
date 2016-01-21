@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 the original author or authors.
+ * Copyright 2011-2015 the original author or authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -72,7 +72,7 @@ public class CircularProgressView extends View
 	{
 		fillPaint.setColor(fillColor);
 		strokePaint.setColor(strokeColor);
-		postInvalidate();
+		invalidate();
 	}
 
 	public void setProgress(final int progress)
@@ -80,7 +80,7 @@ public class CircularProgressView extends View
 		this.progress = progress;
 
 		updatePath(getWidth(), getHeight());
-		postInvalidate();
+		invalidate();
 	}
 
 	public void setMaxProgress(final int maxProgress)
@@ -88,7 +88,7 @@ public class CircularProgressView extends View
 		this.maxProgress = maxProgress;
 
 		updatePath(getWidth(), getHeight());
-		postInvalidate();
+		invalidate();
 	}
 
 	public void setSize(final int size)
@@ -96,7 +96,7 @@ public class CircularProgressView extends View
 		this.size = size;
 
 		updatePath(getWidth(), getHeight());
-		postInvalidate();
+		invalidate();
 	}
 
 	public void setMaxSize(final int maxSize)
@@ -104,7 +104,7 @@ public class CircularProgressView extends View
 		this.maxSize = maxSize;
 
 		updatePath(getWidth(), getHeight());
-		postInvalidate();
+		invalidate();
 	}
 
 	@Override

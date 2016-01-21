@@ -1,5 +1,5 @@
 /*
- * Copyright 2011-2014 the original author or authors.
+ * Copyright 2011-2015 the original author or authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,7 +17,15 @@
 
 package de.schildbach.wallet.ui;
 
-import android.app.ActionBar;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import org.bitcoinj.core.Address;
+import org.bitcoinj.core.ECKey;
+import org.bitcoinj.core.Wallet;
+import org.bitcoinj.crypto.DeterministicKey;
+
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -29,6 +37,9 @@ import android.support.v4.view.ViewPager;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.google.common.collect.Iterables;
+
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.util.ViewPagerTabs;
 import hashengineering.groestlcoin.wallet.R;
@@ -61,9 +72,6 @@ public final class AddressBookActivity extends AbstractWalletActivity
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.address_book_content);
-
-		final ActionBar actionBar = getActionBar();
-		actionBar.setDisplayHomeAsUpEnabled(true);
 
 		final FragmentManager fragmentManager = getFragmentManager();
 
@@ -129,10 +137,13 @@ public final class AddressBookActivity extends AbstractWalletActivity
 
 	/* private */void updateFragments()
 	{
-		final List<ECKey> keys = getWalletApplication().getWallet().getImportedKeys();
-		final ArrayList<Address> addresses = new ArrayList<Address>(keys.size());
+		final Wallet wallet = getWalletApplication().getWallet();
+		final List<ECKey> derivedKeys = wallet.getIssuedReceiveKeys();
+		Collections.sort(derivedKeys, DeterministicKey.CHILDNUM_ORDER);
+		final List<ECKey> randomKeys = wallet.getImportedKeys();
+		final ArrayList<Address> addresses = new ArrayList<Address>(derivedKeys.size() + randomKeys.size());
 
-		for (final ECKey key : keys)
+		for (final ECKey key : Iterables.concat(derivedKeys, randomKeys))
 		{
 			final Address address = key.toAddress(Constants.NETWORK_PARAMETERS);
 			addresses.add(address);

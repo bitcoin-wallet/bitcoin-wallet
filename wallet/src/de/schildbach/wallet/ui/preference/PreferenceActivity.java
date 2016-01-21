@@ -1,5 +1,5 @@
 /*
- * Copyright 2011-2014 the original author or authors.
+ * Copyright 2011-2015 the original author or authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,8 +19,6 @@ package de.schildbach.wallet.ui.preference;
 
 import java.util.List;
 
-import android.app.ActionBar;
-import android.os.Bundle;
 import android.view.MenuItem;
 import hashengineering.groestlcoin.wallet.R;
 
@@ -29,15 +27,6 @@ import hashengineering.groestlcoin.wallet.R;
  */
 public final class PreferenceActivity extends android.preference.PreferenceActivity
 {
-	@Override
-	protected void onCreate(final Bundle savedInstanceState)
-	{
-		super.onCreate(savedInstanceState);
-
-		final ActionBar actionBar = getActionBar();
-		actionBar.setDisplayHomeAsUpEnabled(true);
-	}
-
 	@Override
 	public void onBuildHeaders(final List<Header> target)
 	{
@@ -55,5 +44,12 @@ public final class PreferenceActivity extends android.preference.PreferenceActiv
 		}
 
 		return super.onOptionsItemSelected(item);
+	}
+
+	@Override
+	protected boolean isValidFragment(final String fragmentName)
+	{
+		return SettingsFragment.class.getName().equals(fragmentName) || DiagnosticsFragment.class.getName().equals(fragmentName)
+				|| AboutFragment.class.getName().equals(fragmentName);
 	}
 }

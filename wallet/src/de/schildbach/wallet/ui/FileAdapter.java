@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2014 the original author or authors.
+ * Copyright 2012-2015 the original author or authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,8 +19,6 @@ package de.schildbach.wallet.ui;
 
 import java.io.File;
 import java.util.List;
-
-import javax.annotation.Nonnull;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -46,7 +44,7 @@ public abstract class FileAdapter extends ArrayAdapter<File>
 		inflater = LayoutInflater.from(context);
 	}
 
-	public void setFiles(@Nonnull final List<File> files)
+	public void setFiles(final List<File> files)
 	{
 		clear();
 		for (final File file : files)

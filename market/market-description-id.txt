@@ -14,7 +14,7 @@ Anda dapat mengetahui lebih mengenai GroestlCoin di
 http://www.groestlcoin.org
 
 Jika Anda ingin berkontribusi kepada GroestlCoin Wallet, proyeknya berada di
-https://github.com/HashEngineering/groestlcoin-wallet
+https://github.com/GroestlCoin/groestlcoin-wallet
 
 Lisensi: GPLv3
 Gunakan dengan resiko Anda!

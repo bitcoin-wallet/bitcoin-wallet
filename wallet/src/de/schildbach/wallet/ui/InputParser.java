@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2014 the original author or authors.
+ * Copyright 2013-2015 the original author or authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -27,7 +27,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.regex.Pattern;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.bitcoin.protocols.payments.Protos;
@@ -78,7 +77,7 @@ public abstract class InputParser
 	{
 		private final String input;
 
-		public StringInputParser(@Nonnull final String input)
+		public StringInputParser(final String input)
 		{
 			this.input = input;
 		}
@@ -204,7 +203,7 @@ public abstract class InputParser
 			}
 		}
 
-		protected void handlePrivateKey(@Nonnull final VersionedChecksummedBytes key)
+		protected void handlePrivateKey(final VersionedChecksummedBytes key)
 		{
 			final Address address = new Address(Constants.NETWORK_PARAMETERS, ((DumpedPrivateKey) key).getKey().getPubKeyHash());
 
@@ -217,7 +216,7 @@ public abstract class InputParser
 		private final String inputType;
 		private final byte[] input;
 
-		public BinaryInputParser(@Nonnull final String inputType, @Nonnull final byte[] input)
+		public BinaryInputParser(final String inputType, final byte[] input)
 		{
 			this.inputType = inputType;
 			this.input = input;
@@ -267,7 +266,7 @@ public abstract class InputParser
 		}
 
 		@Override
-		protected final void handleDirectTransaction(@Nonnull final Transaction transaction) throws VerificationException
+		protected final void handleDirectTransaction(final Transaction transaction) throws VerificationException
 		{
 			throw new UnsupportedOperationException();
 		}
@@ -278,7 +277,7 @@ public abstract class InputParser
 		private final String inputType;
 		private final InputStream is;
 
-		public StreamInputParser(@Nonnull final String inputType, @Nonnull final InputStream is)
+		public StreamInputParser(final String inputType, final InputStream is)
 		{
 			this.inputType = inputType;
 			this.is = is;
@@ -344,7 +343,7 @@ public abstract class InputParser
 		}
 
 		@Override
-		protected final void handleDirectTransaction(@Nonnull final Transaction transaction) throws VerificationException
+		protected final void handleDirectTransaction(final Transaction transaction) throws VerificationException
 		{
 			throw new UnsupportedOperationException();
 		}
@@ -352,14 +351,14 @@ public abstract class InputParser
 
 	public abstract void parse();
 
-	protected final void parseAndHandlePaymentRequest(@Nonnull final byte[] serializedPaymentRequest) throws PaymentProtocolException
+	protected final void parseAndHandlePaymentRequest(final byte[] serializedPaymentRequest) throws PaymentProtocolException
 	{
 		final PaymentIntent paymentIntent = parsePaymentRequest(serializedPaymentRequest);
 
 		handlePaymentIntent(paymentIntent);
 	}
 
-	public static PaymentIntent parsePaymentRequest(@Nonnull final byte[] serializedPaymentRequest) throws PaymentProtocolException
+	public static PaymentIntent parsePaymentRequest(final byte[] serializedPaymentRequest) throws PaymentProtocolException
 	{
 		try
 		{
@@ -430,14 +429,16 @@ public abstract class InputParser
 		}
 	}
 
-	protected abstract void handlePaymentIntent(@Nonnull PaymentIntent paymentIntent);
+	protected abstract void handlePaymentIntent(PaymentIntent paymentIntent);
 
-	protected abstract void handleDirectTransaction(@Nonnull Transaction transaction) throws VerificationException;
+	protected abstract void handleDirectTransaction(Transaction transaction) throws VerificationException;
 
 	protected abstract void error(int messageResId, Object... messageArgs);
 
-	protected void cannotClassify(@Nonnull final String input)
+	protected void cannotClassify(final String input)
 	{
+		log.info("cannot classify: '{}'", input);
+
 		error(R.string.input_parser_cannot_classify, input);
 	}
 

@@ -9,6 +9,11 @@
 		android:summary="@string/preferences_precision_summary"
 		android:title="@string/preferences_precision_title" />
 
+	<EditTextPreference
+		android:key="own_name"
+		android:summary="@string/preferences_own_name_summary"
+		android:title="@string/preferences_own_name_title" />
+
 	<CheckBoxPreference
 		android:defaultValue="false"
 		android:key="connectivity_notification"
@@ -26,6 +31,13 @@
 		android:summary="@string/preferences_trusted_peer_only_summary"
 		android:title="@string/preferences_trusted_peer_only_title" />
 
+	<ListPreference
+		android:entries="@array/preferences_block_explorer_labels"
+		android:entryValues="@array/preferences_block_explorer_values"
+		android:key="block_explorer"
+		android:summary="@string/preferences_block_explorer_summary"
+		android:title="@string/preferences_block_explorer_title" />
+
 	<Preference
 		android:key="data_usage"
 		android:summary="@string/preferences_data_usage_summary"
@@ -37,7 +49,7 @@
 
 	<PreferenceCategory android:title="@string/preferences_category_labs" >
 		<Preference
-			android:icon="@drawable/ic_menu_warning"
+			android:icon="@drawable/ic_warning_grey600_24dp"
 			android:summary="This is all unfinished stuff. Use at your own risk!"
 			android:title="Warning" />
 

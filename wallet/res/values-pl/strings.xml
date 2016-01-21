@@ -21,9 +21,9 @@
 	<string name="exchange_rates_fragment_balance">saldo</string>
 	<string name="exchange_rates_fragment_source">Cena pobrana z %s</string>
 	<string name="exchange_rates_context_set_as_default_title">Ustaw jako domyślną obcą walutę</string>
-	<string name="wallet_transactions_fragment_tab_received">Otrzymane</string>
-	<string name="wallet_transactions_fragment_tab_all">Wszystkie</string>
-	<string name="wallet_transactions_fragment_tab_sent">Wysłane</string>
+	<string name="wallet_transactions_options_filter_received">Otrzymane</string>
+	<string name="wallet_transactions_options_filter_all">Wszystkie</string>
+	<string name="wallet_transactions_options_filter_sent">Wysłane</string>
 	<string name="wallet_transactions_fragment_empty_text_received">Nie otrzymano jeszcze żadnych GroestlCoinów.</string>
 	<string name="wallet_transactions_fragment_empty_text_sent">Nie wysłano jeszcze żadnych GroestlCoinów.</string>
 	<string name="wallet_transactions_fragment_empty_text_howto">Jak zdobyć GroestlCoiny?\n\nWymień za tradycyjną walutę,\nsprzedawaj dobra bądź usługi lub\nzarabiaj pracując.</string>
@@ -59,8 +59,6 @@
 	<string name="send_coins_error_msg">Problem z wysłaniem monet!</string>
 
 	<string name="send_coins_options_empty">Opróżnij portfel</string>
-	<string name="send_coins_address_context_clear_title">Podaj nowy adres</string>
-
 	<string name="request_coins_activity_title">Poproś o GroestlCoiny</string>
 	<string name="request_coins_fragment_amount_label">Żądana kwota (opcjonalnie)</string>
 	<string name="request_coins_fragment_initiate_request_qr">Niech nadawca zeskanuje ten kod QR</string>
@@ -90,7 +88,6 @@
 	<string name="transaction_row_message_purpose_key_rotation">Ta transakcja wzmocni Twój portfel przed kradzieżą. &lt;u&gt;Więcej informacji&lt;/u&gt;</string>
 	<string name="transaction_row_message_own_unbroadcasted">Ta płatność nie została jeszcze przesłana.</string>
 	<string name="transaction_row_message_received_unconfirmed_unlocked">Ta płatność powinna stać się dostępna za kilka minut.</string>
-	<string name="transaction_row_message_received_unconfirmed_locked">Ta płatność nie jest standardowa i nie powinno się jej ufać.</string>
 	<string name="transaction_row_message_received_dead">Ta płatność została cofnięta przez nadawcę.</string>
 	<string name="transaction_row_message_received_dust">Tak mała kwota prawdopodobnie nigdy nie zostanie wydana ekonomicznie.</string>
 	<string name="network_monitor_activity_title">Monitor sieci</string>
@@ -185,7 +182,6 @@
 	<string name="button_request_coins">Poproś o monety</string>
 	<string name="button_send_coins">Wyślij monety</string>
 	<string name="button_scan">Skanuj</string>
-	<string name="button_edit_address">Dodaj/zmień adres</string>
 	<string name="button_settings">Ustawienia</string>
 	<string name="action_show_qr">Pokaż kod QR</string>
 	<string name="action_browse">Przeglądaj</string>

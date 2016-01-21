@@ -15,7 +15,7 @@ Dowiedz się więcej o GroestlCoin
 http://www.groestlcoin.org
 
 Jeśli chcesz przyczynić się do rozwoju GroestlCoin Wallet to projekt znajduje się pod adresem
-https://github.com/HashEngineering/groestlcoin-wallet
+https://github.com/GroestlCoin/groestlcoin-wallet
 
 Licencja: GPLv3
 Używasz na własne ryzyko!

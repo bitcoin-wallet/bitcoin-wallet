@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2014 the original author or authors.
+ * Copyright 2013-2015 the original author or authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,8 +18,6 @@
 package de.schildbach.wallet.ui;
 
 import java.util.concurrent.RejectedExecutionException;
-
-import javax.annotation.Nonnull;
 
 import org.bitcoinj.core.Coin;
 import org.bitcoinj.core.Wallet;
@@ -48,7 +46,7 @@ public final class WalletBalanceLoader extends AsyncTaskLoader<Coin>
 
 	private static final Logger log = LoggerFactory.getLogger(WalletBalanceLoader.class);
 
-	public WalletBalanceLoader(final Context context, @Nonnull final Wallet wallet)
+	public WalletBalanceLoader(final Context context, final Wallet wallet)
 	{
 		super(context);
 
@@ -62,7 +60,7 @@ public final class WalletBalanceLoader extends AsyncTaskLoader<Coin>
 		super.onStartLoading();
 
 		wallet.addEventListener(walletChangeListener, Threading.SAME_THREAD);
-		broadcastManager.registerReceiver(walletChangeReceiver, new IntentFilter(WalletApplication.ACTION_WALLET_CHANGED));
+		broadcastManager.registerReceiver(walletChangeReceiver, new IntentFilter(WalletApplication.ACTION_WALLET_REFERENCE_CHANGED));
 
 		safeForceLoad();
 	}

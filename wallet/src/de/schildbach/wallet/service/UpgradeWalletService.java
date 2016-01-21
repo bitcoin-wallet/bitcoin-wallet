@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 the original author or authors.
+ * Copyright 2014-2015 the original author or authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,8 +16,6 @@
  */
 
 package de.schildbach.wallet.service;
-
-import javax.annotation.Nonnull;
 
 import org.bitcoinj.core.Wallet;
 import org.slf4j.Logger;
@@ -38,7 +36,7 @@ import de.schildbach.wallet.WalletApplication;
  */
 public final class UpgradeWalletService extends IntentService
 {
-	public static void startUpgrade(@Nonnull final Context context)
+	public static void startUpgrade(final Context context)
 	{
 		context.startService(new Intent(context, UpgradeWalletService.class));
 	}

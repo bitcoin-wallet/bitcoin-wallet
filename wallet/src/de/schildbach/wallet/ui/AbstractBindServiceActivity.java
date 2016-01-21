@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2014 the original author or authors.
+ * Copyright 2013-2015 the original author or authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,7 +17,7 @@
 
 package de.schildbach.wallet.ui;
 
-import javax.annotation.CheckForNull;
+import javax.annotation.Nullable;
 
 import android.content.ComponentName;
 import android.content.Context;
@@ -32,7 +32,7 @@ import de.schildbach.wallet.service.BlockchainServiceImpl;
  */
 public abstract class AbstractBindServiceActivity extends AbstractWalletActivity
 {
-	@CheckForNull
+	@Nullable
 	private BlockchainService blockchainService;
 
 	private final ServiceConnection serviceConnection = new ServiceConnection()

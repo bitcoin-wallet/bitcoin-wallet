@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2014 the original author or authors.
+ * Copyright 2013-2015 the original author or authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,8 +19,6 @@ package de.schildbach.wallet.util;
 
 import java.util.UUID;
 
-import javax.annotation.Nonnull;
-
 /**
  * @author Andreas Schildbach
  */
@@ -37,12 +35,12 @@ public class Bluetooth
 	/** This URI parameter holds the MAC address for the deprecated pre-BIP70 payment protocol. */
 	public static final String MAC_URI_PARAM = "bt";
 
-	public static String compressMac(@Nonnull final String mac)
+	public static String compressMac(final String mac)
 	{
 		return mac.replaceAll(":", "");
 	}
 
-	public static String decompressMac(@Nonnull final String compressedMac)
+	public static String decompressMac(final String compressedMac)
 	{
 		final StringBuilder mac = new StringBuilder();
 		for (int i = 0; i < compressedMac.length(); i += 2)

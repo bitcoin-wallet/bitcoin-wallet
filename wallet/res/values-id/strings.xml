@@ -22,9 +22,9 @@
 	<string name="exchange_rates_fragment_balance">saldo</string>
 	<string name="exchange_rates_fragment_source">Harga diambil dari %s</string>
 	<string name="exchange_rates_context_set_as_default_title">Tetapkan sebagai mata uang asing standar</string>
-	<string name="wallet_transactions_fragment_tab_received">Diterima</string>
-	<string name="wallet_transactions_fragment_tab_all">Keduanya</string>
-	<string name="wallet_transactions_fragment_tab_sent">Dikirim</string>
+	<string name="wallet_transactions_options_filter_received">Diterima</string>
+	<string name="wallet_transactions_options_filter_all">Keduanya</string>
+	<string name="wallet_transactions_options_filter_sent">Dikirim</string>
 	<string name="wallet_transactions_fragment_empty_text_received">Tidak ada GroestlCoin yg diterima.</string>
 	<string name="wallet_transactions_fragment_empty_text_sent">Tidak ada GroestlCoin yg dikirim.</string>
 	<string name="wallet_transactions_fragment_empty_text_howto">Bagaimana mendapatkan GroestlCoin?\n\nTukar dgn uang tradisional,\njual barang atau jasa atau\ndengan bekerja.</string>
@@ -61,8 +61,7 @@
 	<string name="send_coins_failed_msg">Gagal!</string>
 	<string name="send_coins_error_msg">Gagal mengirim koin!</string>
 	<string name="send_coins_options_empty">Dompet kosong</string>
-	<string name="send_coins_address_context_clear_title">Masukkan alamat baru</string>
-	<string name="request_coins_activity_title">Meminta GroestlCoin</string>
+	<string name="request_coins_activity_title">Meminta BItcoin</string>
 	<string name="request_coins_fragment_amount_label">Jumlah permintaan (pilihan)</string>
 	<string name="request_coins_fragment_initiate_request_qr">Berikan kode untuk dipindai oleh pengirim.</string>
 	<string name="request_coins_fragment_initiate_request_nfc">Atau tempelkan pada ponsel dgn NFC</string>
@@ -89,7 +88,6 @@
 	<string name="transaction_row_message_purpose_key_rotation">Transaksi ini memperkuat dompet Anda terhadap pencurian. &lt;u&gt;Rincian.&lt;/u&gt;</string>
 	<string name="transaction_row_message_own_unbroadcasted">Pembayaran ini belum disiarkan.</string>
 	<string name="transaction_row_message_received_unconfirmed_unlocked">Pembayaran ini bisa digunakan dalam beberapa menit.</string>
-	<string name="transaction_row_message_received_unconfirmed_locked">Pembayaran ini tidak standar dan tidak dpt dipercayai.</string>
 	<string name="transaction_row_message_received_dead">Pembayaran ini dibatalkan oleh pengirim.</string>
 	<string name="transaction_row_message_received_dust">Jumlah kecil ini tidak akan pernah bisa digunakan secara ekonomis.</string>
 	<string name="network_monitor_activity_title">Monitor Jaringan</string>
@@ -174,7 +172,6 @@
 	<string name="button_request_coins">Meminta koin</string>
 	<string name="button_send_coins">Kirim koin</string>
 	<string name="button_scan">Pindai</string>
-	<string name="button_edit_address">Tambah/ubah alamat</string>
 	<string name="button_settings">Pengaturan</string>
 	<string name="action_show_qr">Tampilkan kode QR</string>
 	<string name="time_today">hari ini</string>

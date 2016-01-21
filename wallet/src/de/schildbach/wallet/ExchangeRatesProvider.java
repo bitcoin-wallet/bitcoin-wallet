@@ -1,5 +1,5 @@
 /*
- * Copyright 2011-2014 the original author or authors.
+ * Copyright 2011-2015 the original author or authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,6 +17,32 @@
 
 package de.schildbach.wallet;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.Currency;
+import java.util.Iterator;
+import java.util.Locale;
+import java.util.Map;
+import java.util.TreeMap;
+import java.util.zip.GZIPInputStream;
+
+import javax.annotation.Nullable;
+
+import org.bitcoinj.core.Coin;
+import org.bitcoinj.utils.Fiat;
+import org.bitcoinj.utils.MonetaryFormat;
+import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import android.content.ContentProvider;
 import android.content.ContentValues;
 import android.content.Context;
@@ -27,6 +53,7 @@ import android.preference.PreferenceManager;
 import android.provider.BaseColumns;
 import android.text.format.DateUtils;
 import com.google.common.base.Charsets;
+import com.google.common.base.Strings;
 import de.schildbach.wallet.util.GenericUtils;
 import de.schildbach.wallet.util.Io;
 import org.bitcoinj.core.Coin;
@@ -54,8 +81,10 @@ public class ExchangeRatesProvider extends ContentProvider
 {
 	public static class ExchangeRate
 	{
-		public ExchangeRate(@Nonnull final org.bitcoinj.utils.ExchangeRate rate, final String source)
+		public ExchangeRate(final org.bitcoinj.utils.ExchangeRate rate, final String source)
 		{
+			checkNotNull(rate.fiat.currencyCode);
+
 			this.rate = rate;
 			this.source = source;
 		}
@@ -86,7 +115,7 @@ public class ExchangeRatesProvider extends ContentProvider
 	private Configuration config;
 	private String userAgent;
 
-	@CheckForNull
+	@Nullable
 	private Map<String, ExchangeRate> exchangeRates = null;
 	private long lastUpdated = 0;
 
@@ -121,7 +150,7 @@ public class ExchangeRatesProvider extends ContentProvider
 	{
 		final Context context = getContext();
 
-		this.config = new Configuration(PreferenceManager.getDefaultSharedPreferences(context));
+		this.config = new Configuration(PreferenceManager.getDefaultSharedPreferences(context), context.getResources());
 
 		this.userAgent = WalletApplication.httpUserAgent(WalletApplication.packageInfoFromContext(context).versionName);
 
@@ -135,7 +164,7 @@ public class ExchangeRatesProvider extends ContentProvider
 		return true;
 	}
 
-	public static Uri contentUri(@Nonnull final String packageName, final boolean offline)
+	public static Uri contentUri(final String packageName, final boolean offline)
 	{
 		final Uri.Builder uri = Uri.parse("content://" + packageName + '.' + "exchange_rates").buildUpon();
 		if (offline)
@@ -239,7 +268,7 @@ public class ExchangeRatesProvider extends ContentProvider
 		}
 	}
 
-	public static ExchangeRate getExchangeRate(@Nonnull final Cursor cursor)
+	public static ExchangeRate getExchangeRate(final Cursor cursor)
 	{
 		final String currencyCode = cursor.getString(cursor.getColumnIndexOrThrow(ExchangeRatesProvider.KEY_CURRENCY_CODE));
 		final Coin rateCoin = Coin.valueOf(cursor.getLong(cursor.getColumnIndexOrThrow(ExchangeRatesProvider.KEY_RATE_COIN)));
@@ -552,8 +581,9 @@ public class ExchangeRatesProvider extends ContentProvider
 				final JSONObject head = new JSONObject(content.toString());
 				for (final Iterator<String> i = head.keys(); i.hasNext();)
 				{
-					final String currencyCode = i.next();
-					if (!"timestamp".equals(currencyCode))
+					final String currencyCode = Strings.emptyToNull(i.next());
+					if (currencyCode != null && !"timestamp".equals(currencyCode) && !MonetaryFormat.CODE_BTC.equals(currencyCode)
+							&& !MonetaryFormat.CODE_MBTC.equals(currencyCode) && !MonetaryFormat.CODE_UBTC.equals(currencyCode))
 					{
 						final JSONObject o = head.getJSONObject(currencyCode);
 

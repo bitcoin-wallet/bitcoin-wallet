@@ -9,7 +9,7 @@
 		android:layout_width="0px"
 		android:layout_height="match_parent"
 		android:layout_weight="1"
-		android:foreground="@drawable/fragment_shadow_vertical_flip"
+		android:foreground="@drawable/view_shadow_left"
 		android:foregroundGravity="right|fill_vertical" >
 
 		<include
@@ -21,7 +21,7 @@
 	<FrameLayout
 		android:layout_width="wrap_content"
 		android:layout_height="match_parent"
-		android:background="@color/bg_panel"
+		android:background="@color/bg_less_bright"
 		android:paddingBottom="@dimen/list_entry_padding_vertical"
 		android:paddingLeft="@dimen/list_entry_padding_horizontal"
 		android:paddingRight="@dimen/list_entry_padding_horizontal"
@@ -32,29 +32,29 @@
 			android:layout_height="match_parent"
 			android:orientation="vertical" >
 
-			<FrameLayout
+			<android.support.v7.widget.CardView
+				android:id="@+id/request_coins_qr_card"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:layout_gravity="center_horizontal"
 				android:layout_marginBottom="@dimen/list_entry_padding_vertical"
-				android:layout_marginTop="@dimen/list_entry_padding_vertical" >
+				android:layout_marginTop="@dimen/list_entry_padding_vertical"
+				android:foreground="?android:attr/selectableItemBackground" >
 
 				<ImageView
 					android:id="@+id/request_coins_qr"
 					android:layout_width="@dimen/request_coins_qr_size"
 					android:layout_height="@dimen/request_coins_qr_size"
-					android:background="@drawable/qrcode_frame"
 					android:contentDescription="@string/action_show_qr"
-					android:padding="8dp"
+					android:padding="2dp"
 					android:scaleType="centerInside" />
-			</FrameLayout>
+			</android.support.v7.widget.CardView>
 
 			<TextView
 				android:id="@+id/request_coins_fragment_initiate_request"
 				android:layout_width="match_parent"
 				android:layout_height="0px"
-				android:layout_weight="1"
-				android:textSize="@dimen/font_size_normal" />
+				android:layout_weight="1" />
 		</LinearLayout>
 	</FrameLayout>
 

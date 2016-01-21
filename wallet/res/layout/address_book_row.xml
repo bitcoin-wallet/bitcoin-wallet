@@ -15,41 +15,22 @@
 		android:layout_height="match_parent"
 		android:orientation="horizontal" >
 
-		<LinearLayout
+		<TextView
+			android:id="@+id/address_book_row_label"
 			android:layout_width="0px"
 			android:layout_height="match_parent"
 			android:layout_weight="1"
-			android:orientation="vertical" >
-
-			<TextView
-				android:id="@+id/address_book_row_label"
-				android:layout_width="wrap_content"
-				android:layout_height="0px"
-				android:layout_weight="1"
-				android:ellipsize="end"
-				android:maxLines="3"
-				android:singleLine="false"
-				android:textSize="@dimen/font_size_normal"
-				android:textStyle="bold" />
-
-			<TextView
-				android:id="@+id/address_book_row_created"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_gravity="bottom"
-				android:gravity="bottom"
-				android:textColor="@android:color/darker_gray"
-				android:textSize="@dimen/font_size_small"
-				android:visibility="gone" />
-		</LinearLayout>
+			android:ellipsize="end"
+			android:maxLines="3"
+			android:singleLine="false"
+			android:textStyle="bold" />
 
 		<TextView
 			android:id="@+id/address_book_row_address"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_gravity="right"
-			android:layout_marginLeft="@dimen/list_entry_padding_horizontal"
-			android:textSize="@dimen/font_size_normal" />
+			android:layout_marginLeft="@dimen/list_entry_padding_horizontal" />
 	</LinearLayout>
 
 	<TextView

@@ -1,5 +1,5 @@
 /*
- * Copyright 2011-2014 the original author or authors.
+ * Copyright 2011-2015 the original author or authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,8 +19,7 @@ package de.schildbach.wallet.util;
 
 import java.util.Arrays;
 
-import javax.annotation.CheckForNull;
-import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
@@ -32,15 +31,15 @@ import com.google.common.base.Charsets;
  */
 public class Nfc
 {
-	public static NdefRecord createMime(@Nonnull final String mimeType, @Nonnull final byte[] payload)
+	public static NdefRecord createMime(final String mimeType, final byte[] payload)
 	{
 		final byte[] mimeBytes = mimeType.getBytes(Charsets.US_ASCII);
 		final NdefRecord mimeRecord = new NdefRecord(NdefRecord.TNF_MIME_MEDIA, mimeBytes, new byte[0], payload);
 		return mimeRecord;
 	}
 
-	@CheckForNull
-	public static byte[] extractMimePayload(@Nonnull final String mimeType, @Nonnull final NdefMessage message)
+	@Nullable
+	public static byte[] extractMimePayload(final String mimeType, final NdefMessage message)
 	{
 		final byte[] mimeBytes = mimeType.getBytes(Charsets.US_ASCII);
 

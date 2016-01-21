@@ -1,4 +1,7 @@
 Groestlcoin Wallet
+v4.46
+Updated to Bitcoin Wallet 4.46
+
 v0.23-beta
 * Updated marketing and help files for Groestlcoin
 
@@ -86,7 +89,185 @@ v1.00
 * Forked bitcoin-wallet v3.23 for digitalcoin V1.00 (http://digitalcoin.co)
 
 Bitcoin Wallet
-=======
+v4.46
+
+* Speculative fix for ANR.
+
+v4.45
+
+* Adjusts to the new network fee rules imposed by Bitcoin Core.
+* Now requires Android 4.0.3 (ICS) for all subprojects.
+* Update Russian, Italian, Turkish, Swedish, Spanish, Norwegian Bokmål, Japanese, Hungarian,
+  Finnish, Dutch, Danish, Traditional Chinese and Brazilian Portuguese translations.
+* Based on bitcoinj 0.13.4.
+
+v4.44
+
+* Fix problem with sweeping paper wallets.
+
+v4.43
+
+* Switch default block explorer to blockexplorer.com.
+* Hint to enable storage encryption.
+* Update translations from Transifex.
+
+v4.42
+
+* Optimizations & bugfixes.
+* Based on bitcoinj 0.13.3.
+
+v4.41
+
+* Add blockexplorer.com to block explorers used for browsing transactions, addresses and blocks.
+* Update Dutch, Italian and Russian translations.
+
+v4.40
+
+* Bugfixes.
+* Update Hungarian, French and Swedish translations.
+
+v4.39
+
+* Update Finnish translation.
+* Based on bitcoinj 0.13.2.
+
+v4.38
+
+* Bugfixes.
+* Update Korean translation.
+
+v4.37
+
+* Allow raising the fee of an unconfirmed transaction. Uses child-pays-for-parent (CPFP).
+* Fix crash when sharing address.
+
+v4.36
+
+* Pay the default fee for sweeping paper wallets.
+* Update Turkish, Swedish, Norwegian Bokmål, Japanese, Italian, Hungarian, French and Danish
+  translations.
+* Based on bitcoinj 0.13.1.
+
+v4.35
+
+* Upwards-adjust default network fee again. We're forced to do this due to the high number of
+  spam transactions.
+
+v4.34
+
+* Setting for own name, to be added as a label/memo to payment requests.
+* List animations for network monitor.
+
+v4.33
+
+* Upwards-adjust default network fee again. We're still way below estimated fee.
+* Small bugfixes.
+* Update Greek and Swedish translations.
+* Migrate build from Maven to Gradle. This should make things easier for Android Studio users.
+  See README for building the app.
+
+v4.32
+
+* Bugfixes.
+* In-app payments integration (integration-android) now available on Maven Central and jCenter.
+  Also see: https://github.com/schildbach/bitcoin-wallet/wiki/InAppPayments
+
+v4.31
+
+* Update Italian, Spanish, Finnish and Japanese translations.
+
+v4.30
+
+* Upwards-adjust default fee, because transactions at the old fee level have become a bit slow.
+  You can switch back to 'economic' in the send coins options menu.
+* Small bugfixes.
+
+v4.29
+
+* Nice slide-in animation for sent payment.
+* Update Brazilian Portuguese, Danish, Japanese, French, Turkish and Norwegian Bokmål
+  translations.
+* Small bugfixes.
+
+v4.28
+
+* Add Hindi and Croatian translations. Update Greek and Albanian.
+* Design bugfixes.
+
+v4.27
+
+* Tint incoming transactions in green, outgoing in red.
+* Tint action bar labels.
+
+v4.26
+
+* Material design for list of transactions.
+* Update Albanian, Turkish, Finnish, Spanish, Russian, Norwegian Bokmål, Japanese, Italian,
+  French, Danish, Czech and Catalan translations.
+
+v4.25
+
+* Update android-maven-plugin to 4.2.0, so we can use AARs.
+* Bugfixes.
+
+v4.24
+
+* Use action bar submenu for filtering wallet transactions, rather than a ViewPager.
+* Speed up transactions list.
+* Update QR-code scanner to ZXing 3.2.0.
+
+v4.23
+
+* Update Dutch and Albanian translations.
+* Bugfixes.
+
+v4.22
+
+* Show derived addresses in address book under "your addresses".
+* Show "to addresses" of received payments, rather than "from addresses".
+* Speed up blockchain sync.
+* Based on bitcoinj 0.12.3.
+
+v4.21
+
+* Bugfixes.
+
+v4.20
+
+* Improve entry of password in backup wallet dialog.
+* Share current wallet address by tapping on it.
+* Update dialogs to material theme on Lollipop devices.
+* New translations into Albanian and Swahill.
+* Update Spanish, Turkish, Russian, Brazilian Portuguese, Norwegian Bokmål, Japanese, Italian,
+  French, Finnish, Danish, Czech and Catalan translations.
+
+v4.19
+
+* Remove donate action.
+
+v4.18
+
+* Show and share extended public key. This can be used to grant read-only access to your wallet.
+  The new option is available in the diagnostics settings.
+* Record fiat amount for sent payments.
+
+v4.17
+
+* Update action buttons to material design.
+* Update Finnish, Catalan, Swedish, Brazilian Portuguese, Italian, Spanish, Russian, French,
+  Dutch, Czech and Chinese translations.
+
+v4.16
+
+* Important fix for when a wallet is restored via an external app, the QR code on the main screen
+  can still show an old address for a while.
+
+v4.15
+
+* Important fix for how old pre-version-3.47 wallet backups are restored.
+* We're showing the backup warning for users with old wallets. If you see it, please refresh your
+  backup! It's time everybody is in possession of a backup using the current format.
+
 v4.14
 
 * Update Turkish, Norwegian Bokmål, Japanese, French and Danish translations.

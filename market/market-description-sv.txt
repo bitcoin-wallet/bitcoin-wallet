@@ -10,7 +10,7 @@
 • Adressbok för de GroestlCoinadresser man använder ofta.
 • När du är nedkopplad kan du fortfarande betala via Bluetooth.
 • Meddelande om mottagna bitcoin.
-• Inläsning av papperswallet (tex. sådan som används för permanent lagring).
+• Inläsning av pappersplånbok (tex. sådan som används för permanent lagring).
 • App widget som visar ditt saldo.
 
 
@@ -20,7 +20,7 @@ GroestlCoin Wallet är <b>öppen mjukvara</b> och <b>fri mjukvara</b>. Licens: G
 https://www.gnu.org/licenses/gpl-3.0.en.html
 
 Vår källkod finns tillgänglig på GitHub:
-https://github.com/HashEngineering/groestlcoin-wallet
+https://github.com/GroestlCoin/groestlcoin-wallet
 
 All översättning hanteras via Transifex:
 https://www.transifex.com/projects/p/bitcoin-wallet/

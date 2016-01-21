@@ -21,9 +21,9 @@
 	<string name="exchange_rates_fragment_balance">салдо</string>
 	<string name="exchange_rates_fragment_source">Цената е преземена од %s</string>
 	<string name="exchange_rates_context_set_as_default_title">Постави како главна странска валута</string>
-	<string name="wallet_transactions_fragment_tab_received">Примено</string>
-	<string name="wallet_transactions_fragment_tab_all">Двете</string>
-	<string name="wallet_transactions_fragment_tab_sent">Испратено</string>
+	<string name="wallet_transactions_options_filter_received">Примено</string>
+	<string name="wallet_transactions_options_filter_all">Двете</string>
+	<string name="wallet_transactions_options_filter_sent">Испратено</string>
 	<string name="wallet_transactions_fragment_empty_text_received">Нема примени Биткоини досега.</string>
 	<string name="wallet_transactions_fragment_empty_text_sent">Нема испратени Биткоини досега.</string>
 	<string name="wallet_transactions_fragment_empty_text_howto">Како да дојдеш до Биткоини?\n\nРазмени за традиционални пари,\nпродавај продукти или сервиси, или \nзаработи со работење.</string>
@@ -58,7 +58,6 @@
 	<string name="send_coins_failed_msg">Не успеа!</string>
 	<string name="send_coins_error_msg">Проблем при праќање на Биткоини!</string>
 	<string name="send_coins_options_empty">Испразни го паричникот</string>
-	<string name="send_coins_address_context_clear_title">Внеси нова адреса</string>
 	<string name="request_coins_activity_title">Побарај Биткоини</string>
 	<string name="request_coins_fragment_amount_label">Побарувана сума (опционално)</string>
 	<string name="request_coins_fragment_initiate_request_qr">Испраќачот нека го скенира овој код.</string>
@@ -86,7 +85,6 @@
 	<string name="transaction_row_message_purpose_key_rotation">Оваа трансакција го заштитува твојот паричник против кражби. &lt;u&gt;More info.&lt;/u&gt;</string>
 	<string name="transaction_row_message_own_unbroadcasted">Ова плаќање сѐ уште не е испратено.</string>
 	<string name="transaction_row_message_received_unconfirmed_unlocked">Ова плаќање ќе можеш да го трошиш за неколку минути.</string>
-	<string name="transaction_row_message_received_unconfirmed_locked">Ова плаќање не е стандардно и не треба да му веруваш.</string>
 	<string name="transaction_row_message_received_dead">Ова плаќање е преиначено од испраќачот.</string>
 	<string name="transaction_row_message_received_dust">Оваа мала сума најверојатно никогаш нема да можеш да ја потрошиш економично.</string>
 	<string name="network_monitor_activity_title">Набљудувач на мрежата</string>
@@ -179,7 +177,6 @@
 	<string name="button_request_coins">Побарај коини</string>
 	<string name="button_send_coins">Испрати коини</string>
 	<string name="button_scan">Скенирај</string>
-	<string name="button_edit_address">Додај/уреди адреса</string>
 	<string name="button_settings">Поставувања</string>
 	<string name="action_show_qr">Прикажи QR код</string>
 	<string name="action_browse">Прегледај</string>

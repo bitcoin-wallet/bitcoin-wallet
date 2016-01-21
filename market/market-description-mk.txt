@@ -13,6 +13,7 @@
 
 Можеш да дознаеш повеќе за Биткоин на
 http://www.groestlcoin.org
+>>>>>>> upstream/master
 
 Ако сакаш да придонесеш за Биткоин Паричник, проектот е лоциран на
 https://github.com/schildbach/GroestlCoin-wallet

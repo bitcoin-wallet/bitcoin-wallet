@@ -16,12 +16,12 @@
 
 package de.schildbach.wallet.util;
 
-import javax.annotation.Nonnull;
-
 import com.google.common.base.Charsets;
 
 /**
- * Base43, derived from bitcoinj Base58
+ * Base43, derived from bitcoinj Base58. It's meant to be used for efficiently stuffing binary data into QR codes. The
+ * alphabet is picked to match the 'Alphanumeric' input mode of QR codes as closely as possible, but at the same time be
+ * allowed in URIs.
  * 
  * @author Andreas Schildbach
  */
@@ -39,7 +39,7 @@ public class Base43
 			INDEXES[ALPHABET[i]] = i;
 	}
 
-	public static String encode(@Nonnull byte[] input)
+	public static String encode(byte[] input)
 	{
 		if (input.length == 0)
 			return "";
@@ -77,7 +77,7 @@ public class Base43
 		return new String(output, Charsets.US_ASCII);
 	}
 
-	public static byte[] decode(@Nonnull final String input) throws IllegalArgumentException
+	public static byte[] decode(final String input) throws IllegalArgumentException
 	{
 		if (input.length() == 0)
 			return new byte[0];

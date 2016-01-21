@@ -12,7 +12,7 @@
 		android:orientation="horizontal" >
 
 		<FrameLayout
-			android:layout_width="320sp"
+			android:layout_width="@dimen/exchange_rate_pane_width"
 			android:layout_height="match_parent"
 			android:background="@color/bg_less_bright" >
 
@@ -27,18 +27,18 @@
 			android:layout_width="0px"
 			android:layout_height="match_parent"
 			android:layout_weight="1"
-			android:foreground="@drawable/fragment_shadow_vertical"
+			android:foreground="@drawable/view_shadow_right"
 			android:foregroundGravity="left|fill_vertical" >
 
 			<LinearLayout
 				android:layout_width="match_parent"
 				android:layout_height="match_parent"
-				android:background="@color/bg_panel"
 				android:orientation="vertical" >
 
 				<LinearLayout
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
+					android:background="@color/bg_panel"
 					android:baselineAligned="false"
 					android:orientation="horizontal" >
 
@@ -62,8 +62,8 @@
 					android:layout_width="match_parent"
 					android:layout_height="0px"
 					android:layout_weight="1"
-					android:background="@android:color/white"
-					android:foreground="@drawable/fragment_shadow_horizontal_light"
+					android:background="@color/bg_less_bright"
+					android:foreground="@drawable/view_shadow_bottom"
 					android:foregroundGravity="top|fill_horizontal" >
 
 					<fragment

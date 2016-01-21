@@ -1,22 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ViewAnimator xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/wallet_transactions_group"
 	android:layout_width="match_parent"
-	android:layout_height="wrap_content"
-	android:orientation="vertical" >
+	android:layout_height="match_parent" >
 
-	<de.schildbach.wallet.util.ViewPagerTabs
-		android:id="@+id/transactions_pager_tabs"
-		android:layout_width="match_parent"
+	<ProgressBar
+		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:background="@color/bg_less_bright"
-		android:paddingBottom="4dp"
-		android:paddingTop="4dp" />
+		android:layout_gravity="center" />
 
-	<android.support.v4.view.ViewPager
-		android:id="@+id/transactions_pager"
+	<TextView
+		android:id="@+id/wallet_transactions_empty"
 		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:layout_gravity="bottom|center_horizontal"
-		android:background="@color/bg_bright" />
+		android:layout_height="match_parent"
+		android:background="@color/bg_bright"
+		android:gravity="center"
+		android:textSize="@dimen/font_size_small" />
 
-</LinearLayout>
+	<android.support.v7.widget.RecyclerView
+		android:id="@+id/wallet_transactions_list"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:scrollbars="vertical" />
+
+</ViewAnimator>

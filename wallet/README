@@ -48,11 +48,11 @@ is world readable/writeable. The goal is to be able to debug easily.
 
 You can probably skip some steps, especially if you built Android apps before.
 
-You'll need git, a Java SDK 6 (or later) and Maven 3.0.4 (or later) for this. I'll assume Ubuntu Linux
-for the package installs.
+You'll need git, a Java SDK 6 (or later) and Gradle 2.4 (or later) for this. I'll assume Ubuntu Wily Linux
+for the package installs, which comes with slightly more recent versions.
 
 	# first time only
-	sudo apt-get install git maven openjdk-6-jdk libstdc++6:i386
+	sudo apt-get install git gradle openjdk-7-jdk libstdc++6:i386 zlib1g:i386
 
 Get the Android SDK (Tools only) from
 
@@ -65,7 +65,7 @@ and switch to it. Use
 	tools/android update sdk --no-ui --force --filter tools
 
 	# fetch required android dependencies
-	tools/android update sdk --no-ui --force --filter build-tools-20.0.0,android-10,android-16,extra-android-m2repository
+	tools/android update sdk --no-ui --force --filter build-tools-23.0.2,android-15,android-16,extra-android-m2repository
 
 to download the necessary API level.
 
@@ -78,15 +78,18 @@ use
 	# each time
 	cd groestlcoin-wallet
 	git pull
-	mvn clean install
+	gradle clean test build
 
-To upload the app to your Android device, use
+To install the app on your Android device, use
 
 	# first time only
 	sudo apt-get install android-tools-adb
 
 	# each time
-	adb install wallet/target/wallet-*-test.apk
+	adb install wallet/build/outputs/apk/bitcoin-wallet-debug.apk
+
+If installing fails, make sure "Developer options" and "USB debugging" are enabled on your Android device, and an ADB
+connection is established.
 
 
 BUILDING THE PRODUCTIVE VERSION
@@ -103,30 +106,12 @@ separate 'prod' branch that gets rebased against master with each released versi
 	cd groestlcoin-wallet
 	git fetch origin
 	git checkout origin/prod
-	mvn clean install -Prelease -Dandroid.sdk.path=<path to your android sdk>
+	gradle clean test build
 
 
 SETTING UP FOR DEVELOPMENT
 
-Make sure you've got Eclipse Luna with ADT 23 installed.
-
-Use Git to check out the project and an Android library dependency to your workspace:
-
-	# clone GroestlCoin Wallet project
-	git clone -b master https://github.com/HashEngineering/groestlcoin-wallet.git groestlcoin-wallet
-
-Use the maven-eclipse-plugin to create Eclipse project files:
-
-	cd groestlcoin-wallet
-	mvn clean install eclipse:eclipse
-
-Optional: In the generated .classpath, remove the org.eclipse.jdt.launching.JRE_CONTAINER
-classpath entry. It does not belong there, but cannot be excluded from being generated currently.
-
-In Eclipse, use File -> Import -> General -> Existing Project into Workspace to import project.
-
-If you see loads of "should be tagged with @Override" errors, set Project -> Properties ->
-Java Compiler -> Errors/Warnings -> Annotations -> Missing @Override annotation to 'Warning'
+You should be able to import the project into Android Studio, as it uses Gradle for building.
 
 
 TRANSLATIONS

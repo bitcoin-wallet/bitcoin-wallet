@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2014 the original author or authors.
+ * Copyright 2013-2015 the original author or authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,8 +25,6 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import javax.annotation.CheckForNull;
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.bitcoin.protocols.payments.Protos;
@@ -63,7 +61,7 @@ public abstract class DirectPaymentTask
 		void onFail(int messageResId, Object... messageArgs);
 	}
 
-	public DirectPaymentTask(@Nonnull final Handler backgroundHandler, @Nonnull final ResultCallback resultCallback)
+	public DirectPaymentTask(final Handler backgroundHandler, final ResultCallback resultCallback)
 	{
 		this.backgroundHandler = backgroundHandler;
 		this.callbackHandler = new Handler(Looper.myLooper());
@@ -73,10 +71,10 @@ public abstract class DirectPaymentTask
 	public final static class HttpPaymentTask extends DirectPaymentTask
 	{
 		private final String url;
-		@CheckForNull
+		@Nullable
 		private final String userAgent;
 
-		public HttpPaymentTask(@Nonnull final Handler backgroundHandler, @Nonnull final ResultCallback resultCallback, @Nonnull final String url,
+		public HttpPaymentTask(final Handler backgroundHandler, final ResultCallback resultCallback, final String url,
 				@Nullable final String userAgent)
 		{
 			super(backgroundHandler, resultCallback);
@@ -86,7 +84,7 @@ public abstract class DirectPaymentTask
 		}
 
 		@Override
-		public void send(@Nonnull final Payment payment)
+		public void send(final Payment payment)
 		{
 			super.backgroundHandler.post(new Runnable()
 			{
@@ -191,8 +189,8 @@ public abstract class DirectPaymentTask
 		private final BluetoothAdapter bluetoothAdapter;
 		private final String bluetoothMac;
 
-		public BluetoothPaymentTask(@Nonnull final Handler backgroundHandler, @Nonnull final ResultCallback resultCallback,
-				@Nonnull final BluetoothAdapter bluetoothAdapter, @Nonnull final String bluetoothMac)
+		public BluetoothPaymentTask(final Handler backgroundHandler, final ResultCallback resultCallback, final BluetoothAdapter bluetoothAdapter,
+				final String bluetoothMac)
 		{
 			super(backgroundHandler, resultCallback);
 
@@ -201,7 +199,7 @@ public abstract class DirectPaymentTask
 		}
 
 		@Override
-		public void send(@Nonnull final Payment payment)
+		public void send(final Payment payment)
 		{
 			super.backgroundHandler.post(new Runnable()
 			{
@@ -291,7 +289,7 @@ public abstract class DirectPaymentTask
 		}
 	}
 
-	public abstract void send(@Nonnull Payment payment);
+	public abstract void send(Payment payment);
 
 	protected void onResult(final boolean ack)
 	{

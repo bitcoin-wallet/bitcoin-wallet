@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 the original author or authors.
+ * Copyright 2014-2015 the original author or authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,8 +23,6 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import javax.annotation.CheckForNull;
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.bitcoinj.protocols.payments.PaymentProtocol;
@@ -64,7 +62,7 @@ public abstract class RequestPaymentRequestTask
 		void onFail(int messageResId, Object... messageArgs);
 	}
 
-	public RequestPaymentRequestTask(@Nonnull final Handler backgroundHandler, @Nonnull final ResultCallback resultCallback)
+	public RequestPaymentRequestTask(final Handler backgroundHandler, final ResultCallback resultCallback)
 	{
 		this.backgroundHandler = backgroundHandler;
 		this.callbackHandler = new Handler(Looper.myLooper());
@@ -73,11 +71,10 @@ public abstract class RequestPaymentRequestTask
 
 	public final static class HttpRequestTask extends RequestPaymentRequestTask
 	{
-		@CheckForNull
+		@Nullable
 		private final String userAgent;
 
-		public HttpRequestTask(@Nonnull final Handler backgroundHandler, @Nonnull final ResultCallback resultCallback,
-				@Nullable final String userAgent)
+		public HttpRequestTask(final Handler backgroundHandler, final ResultCallback resultCallback, @Nullable final String userAgent)
 		{
 			super(backgroundHandler, resultCallback);
 
@@ -85,7 +82,7 @@ public abstract class RequestPaymentRequestTask
 		}
 
 		@Override
-		public void requestPaymentRequest(@Nonnull final String url)
+		public void requestPaymentRequest(final String url)
 		{
 			super.backgroundHandler.post(new Runnable()
 			{
@@ -122,7 +119,7 @@ public abstract class RequestPaymentRequestTask
 							new InputParser.StreamInputParser(connection.getContentType(), is)
 							{
 								@Override
-								protected void handlePaymentIntent(@Nonnull final PaymentIntent paymentIntent)
+								protected void handlePaymentIntent(final PaymentIntent paymentIntent)
 								{
 									log.info("received {} via http", paymentIntent);
 
@@ -177,8 +174,7 @@ public abstract class RequestPaymentRequestTask
 	{
 		private final BluetoothAdapter bluetoothAdapter;
 
-		public BluetoothRequestTask(@Nonnull final Handler backgroundHandler, @Nonnull final ResultCallback resultCallback,
-				@Nonnull final BluetoothAdapter bluetoothAdapter)
+		public BluetoothRequestTask(final Handler backgroundHandler, final ResultCallback resultCallback, final BluetoothAdapter bluetoothAdapter)
 		{
 			super(backgroundHandler, resultCallback);
 
@@ -186,7 +182,7 @@ public abstract class RequestPaymentRequestTask
 		}
 
 		@Override
-		public void requestPaymentRequest(@Nonnull final String url)
+		public void requestPaymentRequest(final String url)
 		{
 			super.backgroundHandler.post(new Runnable()
 			{
@@ -225,7 +221,7 @@ public abstract class RequestPaymentRequestTask
 							new InputParser.BinaryInputParser(PaymentProtocol.MIMETYPE_PAYMENTREQUEST, cis.readBytes().toByteArray())
 							{
 								@Override
-								protected void handlePaymentIntent(@Nonnull final PaymentIntent paymentIntent)
+								protected void handlePaymentIntent(final PaymentIntent paymentIntent)
 								{
 									log.info("received {} via bluetooth", paymentIntent);
 
@@ -295,7 +291,7 @@ public abstract class RequestPaymentRequestTask
 		}
 	}
 
-	public abstract void requestPaymentRequest(@Nonnull String url);
+	public abstract void requestPaymentRequest(String url);
 
 	protected void onPaymentIntent(final PaymentIntent paymentIntent)
 	{

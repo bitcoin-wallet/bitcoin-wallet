@@ -24,15 +24,16 @@
 				android:id="@+id/exchange_rate_row_currency_code"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:textSize="@dimen/font_size_normal"
+				android:singleLine="true"
 				android:textStyle="bold" />
 
 			<TextView
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:layout_marginRight="@dimen/list_entry_padding_horizontal"
+				android:maxWidth="128sp"
+				android:singleLine="true"
 				android:text="@string/exchange_rates_fragment_default"
-				android:textSize="@dimen/font_size_normal"
 				android:visibility="invisible" />
 		</FrameLayout>
 
@@ -41,16 +42,15 @@
 			android:layout_height="wrap_content"
 			android:layout_marginLeft="@dimen/list_entry_padding_horizontal"
 			android:layout_weight="1"
-			android:text="@string/exchange_rates_fragment_rate"
-			android:textSize="@dimen/font_size_normal" />
+			android:singleLine="true"
+			android:text="@string/exchange_rates_fragment_rate" />
 
 		<de.schildbach.wallet.ui.CurrencyTextView
 			android:id="@+id/exchange_rate_row_rate"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_gravity="right"
-			android:layout_marginLeft="@dimen/list_entry_padding_horizontal"
-			android:textSize="@dimen/font_size_normal" />
+			android:layout_marginLeft="@dimen/list_entry_padding_horizontal" />
 	</LinearLayout>
 
 	<LinearLayout
@@ -65,8 +65,9 @@
 			android:layout_height="wrap_content"
 			android:layout_marginRight="@dimen/list_entry_padding_horizontal"
 			android:layout_weight="0"
+			android:maxWidth="128sp"
+			android:singleLine="true"
 			android:text="@string/exchange_rates_fragment_default"
-			android:textSize="@dimen/font_size_normal"
 			android:visibility="visible" />
 
 		<TextView
@@ -74,17 +75,16 @@
 			android:layout_height="wrap_content"
 			android:layout_marginLeft="@dimen/list_entry_padding_horizontal"
 			android:layout_weight="1"
+			android:singleLine="true"
 			android:text="@string/exchange_rates_fragment_balance"
-			android:textColor="@color/fg_less_significant"
-			android:textSize="@dimen/font_size_normal" />
+			android:textColor="@color/fg_less_significant" />
 
 		<de.schildbach.wallet.ui.CurrencyTextView
 			android:id="@+id/exchange_rate_row_balance"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_gravity="right"
-			android:layout_marginLeft="@dimen/list_entry_padding_horizontal"
-			android:textSize="@dimen/font_size_normal" />
+			android:layout_marginLeft="@dimen/list_entry_padding_horizontal" />
 	</LinearLayout>
 
 </LinearLayout>

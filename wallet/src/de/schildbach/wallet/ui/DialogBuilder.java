@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 the original author or authors.
+ * Copyright 2014-2015 the original author or authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,11 +23,13 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface.OnClickListener;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import hashengineering.groestlcoin.wallet.R;
+import de.schildbach.wallet.Constants;
 
 /**
  * @author Andreas Schildbach
@@ -41,16 +43,14 @@ public class DialogBuilder extends AlertDialog.Builder
 	public static DialogBuilder warn(final Context context, final int titleResId)
 	{
 		final DialogBuilder builder = new DialogBuilder(context);
-		builder.setIcon(R.drawable.ic_menu_warning);
+		builder.setIcon(R.drawable.ic_warning_grey600_24dp);
 		builder.setTitle(titleResId);
 		return builder;
 	}
 
 	public DialogBuilder(final Context context)
 	{
-		super(context);
-
-		setInverseBackgroundForced(true);
+		super(context, Build.VERSION.SDK_INT < Constants.SDK_LOLLIPOP ? AlertDialog.THEME_HOLO_LIGHT : AlertDialog.THEME_DEVICE_DEFAULT_LIGHT);
 
 		this.customTitle = LayoutInflater.from(context).inflate(R.layout.dialog_title, null);
 		this.iconView = (ImageView) customTitle.findViewById(android.R.id.icon);

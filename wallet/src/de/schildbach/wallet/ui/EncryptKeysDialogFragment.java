@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 the original author or authors.
+ * Copyright 2014-2015 the original author or authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@ package de.schildbach.wallet.ui;
 
 import java.security.SecureRandom;
 
-import javax.annotation.CheckForNull;
+import javax.annotation.Nullable;
 
 import org.bitcoinj.core.Wallet;
 import org.bitcoinj.crypto.KeyCrypter;
@@ -76,7 +76,7 @@ public class EncryptKeysDialogFragment extends DialogFragment
 	private WalletApplication application;
 	private Wallet wallet;
 
-	@CheckForNull
+	@Nullable
 	private AlertDialog dialog;
 
 	private View oldPasswordGroup;
@@ -192,6 +192,7 @@ public class EncryptKeysDialogFragment extends DialogFragment
 
 				showView = (CheckBox) dialog.findViewById(R.id.encrypt_keys_dialog_show);
 				showView.setOnCheckedChangeListener(new ShowPasswordCheckListener(newPasswordView, oldPasswordView));
+				showView.setChecked(true);
 
 				EncryptKeysDialogFragment.this.dialog = dialog;
 				updateView();
@@ -212,14 +213,14 @@ public class EncryptKeysDialogFragment extends DialogFragment
 	@Override
 	public void onDismiss(final DialogInterface dialog)
 	{
-		wipePasswords();
-
 		this.dialog = null;
 
 		oldPasswordView.removeTextChangedListener(textWatcher);
 		newPasswordView.removeTextChangedListener(textWatcher);
 
 		showView.setOnCheckedChangeListener(null);
+
+		wipePasswords();
 
 		super.onDismiss(dialog);
 	}

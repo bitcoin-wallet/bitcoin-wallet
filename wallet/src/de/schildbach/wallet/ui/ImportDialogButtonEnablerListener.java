@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2014 the original author or authors.
+ * Copyright 2012-2015 the original author or authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,8 +16,6 @@
  */
 
 package de.schildbach.wallet.ui;
-
-import javax.annotation.Nonnull;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -37,7 +35,7 @@ public class ImportDialogButtonEnablerListener implements TextWatcher, OnItemSel
 	private final TextView passwordView;
 	private final AlertDialog dialog;
 
-	public ImportDialogButtonEnablerListener(@Nonnull final TextView passwordView, @Nonnull final AlertDialog dialog)
+	public ImportDialogButtonEnablerListener(final TextView passwordView, final AlertDialog dialog)
 	{
 		this.passwordView = passwordView;
 		this.dialog = dialog;
