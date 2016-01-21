@@ -16,6 +16,10 @@
  */
 package de.schildbach.wallet.channels;
 
+import android.os.AsyncTask;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.os.RemoteException;
 
 import com.google.common.util.concurrent.ListenableFuture;
@@ -40,48 +44,14 @@ public class PaymentChannelServerInstanceBinder extends IPaymentChannelServerIns
     // TODO @w-shackleton find a more sensible value for this
     private static final Coin MIN_ACCEPTED_CHANNEL_SIZE = Coin.valueOf(100000);
 
-    private final PaymentChannelServer paymentChannelServer;
+    private final ChannelAsyncTask asyncTask;
 
     public PaymentChannelServerInstanceBinder(
             Wallet wallet,
             TransactionBroadcaster broadcaster,
             final IPaymentChannelCallbacks callbacks) {
-        paymentChannelServer = new PaymentChannelServer(
-                broadcaster,
-                wallet,
-                MIN_ACCEPTED_CHANNEL_SIZE,
-                new PaymentChannelServer.ServerConnection() {
-            @Override
-            public void sendToClient(Protos.TwoWayChannelMessage msg) {
-                try {
-                    callbacks.sendMessage(msg.toByteArray());
-                } catch (RemoteException e) {
-                    log.warn("Failed to deliver message to service client", e);
-                    paymentChannelServer.connectionClosed();
-                }
-            }
-
-            @Override
-            public void destroyConnection(PaymentChannelCloseException.CloseReason reason) {
-                try {
-                    callbacks.closeConnection();
-                } catch (RemoteException e) {
-                    log.info("closeConnection() failed", e);
-                }
-            }
-
-            @Override
-            public void channelOpen(Sha256Hash contractHash) {
-
-            }
-
-            @Nullable
-            @Override
-            public ListenableFuture<ByteString> paymentIncrease(Coin by, Coin to, ByteString info) {
-                // Someone is giving our wallet money - return no message.
-                return null;
-            }
-        });
+        asyncTask = new ChannelAsyncTask(wallet, broadcaster, callbacks);
+        asyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     /**
@@ -92,15 +62,85 @@ public class PaymentChannelServerInstanceBinder extends IPaymentChannelServerIns
     @Override
     public void sendMessage(byte[] message) throws RemoteException {
         try {
-            paymentChannelServer.receiveMessage(Protos.TwoWayChannelMessage.parseFrom(message));
+            asyncTask.postMessage(Protos.TwoWayChannelMessage.parseFrom(message));
         } catch (InvalidProtocolBufferException e) {
             log.warn("Received an invalid message from service client");
-            paymentChannelServer.connectionClosed();
+            asyncTask.postConnectionClosed();
         }
     }
 
     @Override
     public void closeConnection() throws RemoteException {
-        paymentChannelServer.connectionClosed();
+        asyncTask.postConnectionClosed();
+    }
+
+    private static class ChannelAsyncTask extends AsyncPaymentChannelTask {
+
+        private final Wallet wallet;
+        private final TransactionBroadcaster broadcaster;
+
+        private PaymentChannelServer paymentChannelServer;
+
+        public ChannelAsyncTask(Wallet wallet, TransactionBroadcaster broadcaster, IPaymentChannelCallbacks callbacks) {
+            super(callbacks);
+            this.wallet = wallet;
+            this.broadcaster = broadcaster;
+        }
+
+        @Override
+        protected Handler createHandler() {
+            return new Handler() {
+                @Override
+                public void handleMessage(Message msg) {
+                    switch (msg.what) {
+                        case MESSAGE_TWO_WAY_CHANNEL_MESSAGE:
+                            paymentChannelServer.receiveMessage((Protos.TwoWayChannelMessage) msg.obj);
+                            break;
+                        case MESSAGE_CONNECTION_CLOSED:
+                            paymentChannelServer.connectionClosed();
+                            Looper.myLooper().quit();
+                            break;
+                        default:
+                            super.handleMessage(msg);
+                    }
+                }
+            };
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            super.doInBackground(params);
+            paymentChannelServer = new PaymentChannelServer(
+                    broadcaster,
+                    wallet,
+                    MIN_ACCEPTED_CHANNEL_SIZE,
+                    new PaymentChannelServer.ServerConnection() {
+                        @Override
+                        public void sendToClient(Protos.TwoWayChannelMessage msg) {
+                            publishProgress(msg);
+                        }
+
+                        @Override
+                        public void destroyConnection(PaymentChannelCloseException.CloseReason reason) {
+                            // onPostExecute will call the remote close
+                            Looper.myLooper().quit();
+                        }
+
+                        @Override
+                        public void channelOpen(Sha256Hash contractHash) {
+
+                        }
+
+                        @Nullable
+                        @Override
+                        public ListenableFuture<ByteString> paymentIncrease(Coin by, Coin to, ByteString info) {
+                            // Someone is giving our wallet money - return no message.
+                            return null;
+                        }
+                    });
+            paymentChannelServer.connectionOpen();
+            Looper.loop();
+            return null;
+        }
     }
 }
