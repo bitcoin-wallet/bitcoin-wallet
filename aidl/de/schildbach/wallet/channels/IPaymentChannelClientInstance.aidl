@@ -21,7 +21,7 @@ interface IPaymentChannelClientInstance {
      * Sends a payment channel message. This message is a valid protobuf-encoded message generated
      * by bitcoinj.
      */
-    void sendMessage(in byte[] message);
+    oneway void sendMessage(in byte[] message);
 
     boolean requestIncrement(in long satoshis);
 
@@ -29,5 +29,5 @@ interface IPaymentChannelClientInstance {
      * Closes this payment channel's connection - calling this function is equivalent to closing the
      * TCP stream under a TCP-transported channel.
      */
-    void closeConnection();
+    oneway void closeConnection();
 }
