@@ -223,11 +223,11 @@
   <string name="preferences_category_labs">ラボ</string>
   <string name="preferences_precision_title">通貨単位の切り下げと切り上げ</string>
   <string name="preferences_precision_summary">総額の表示単位。これは計算に影響しません。</string>
-  <string name="preferences_precision_labels_8">BTC、小数点以下8桁</string>
-  <string name="preferences_precision_labels_6">BTC、小数点以下6桁</string>
-  <string name="preferences_precision_labels_4">BTC、小数点以下4桁</string>
-  <string name="preferences_precision_labels_2_3">mBTC、小数点以下2桁</string>
-  <string name="preferences_precision_labels_0_6">µBTC、小数点無し</string>
+  <string name="preferences_precision_labels_8">GRS、小数点以下8桁</string>
+  <string name="preferences_precision_labels_6">GRS、小数点以下6桁</string>
+  <string name="preferences_precision_labels_4">GRS、小数点以下4桁</string>
+  <string name="preferences_precision_labels_2_3">mGRS、小数点以下2桁</string>
+  <string name="preferences_precision_labels_0_6">µGRS、小数点無し</string>
   <string name="preferences_own_name_title">自身の名前</string>
   <string name="preferences_own_name_summary">支払いリクエストに含める、あなた自身の名前。短いものにしてください。</string>
   <string name="preferences_connectivity_notification_title">接続インジゲーター</string>

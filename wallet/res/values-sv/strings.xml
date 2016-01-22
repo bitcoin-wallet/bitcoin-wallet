@@ -51,7 +51,7 @@
   <string name="wallet_version_dialog_button_market">Google Play</string>
   <string name="wallet_version_dialog_button_binary">Ladda ner</string>
   <string name="wallet_old_sdk_dialog_title">Android-versionen är inaktuell</string>
-  <string name="wallet_old_sdk_dialog_message">Chansen är stor att någon av de kommande releaserna av GroestlCoin Wallet inte kommer att fungera på din enhet längre. I vissa fall kan det bli svårt att spendera dina tillgångar med den här enheten.\n\nSåvida du inte vet vad du gör, rekommenderas att du flyttar dina bitcoin snart.</string>
+  <string name="wallet_old_sdk_dialog_message">Chansen är stor att någon av de kommande releaserna av GroestlCoin Wallet inte kommer att fungera på din enhet längre. I vissa fall kan det bli svårt att spendera dina tillgångar med den här enheten.\n\nSåvida du inte vet vad du gör, rekommenderas att du flyttar dina GroestlCoin snart.</string>
   <string name="send_coins_activity_title">Skicka GroestlCoins</string>
   <string name="send_coins_fragment_request_payment_request_progress">Hämtar signatur från %s</string>
   <string name="send_coins_fragment_request_payment_request_failed_title">Hämtning av signatur misslyckades</string>
@@ -60,7 +60,7 @@
   <string name="send_coins_fragment_payee_verified_by_unknown">okänd</string>
   <string name="send_coins_fragment_receiving_address_label">Skicka till</string>
   <string name="send_coins_fragment_receiving_address_hint">skriv adress eller namn</string>
-  <string name="send_coins_fragment_receiving_address_error">Ogiltig bitcoinadress!</string>
+  <string name="send_coins_fragment_receiving_address_error">Ogiltig GroestlCoinadress!</string>
   <string name="send_coins_fragment_receiving_address_own">Du skickar till dig själv!</string>
   <string name="send_coins_fragment_receiving_address_complex">Komplex\nadress</string>
   <string name="send_coins_fragment_pending">(%s väntar på bekräftelse)</string>
@@ -85,7 +85,7 @@
   <string name="send_coins_sending_msg">Skickar…</string>
   <string name="send_coins_sent_msg">Skickat!</string>
   <string name="send_coins_failed_msg">Misslyckades!</string>
-  <string name="send_coins_error_msg">Problem att skicka bitcoin!</string>
+  <string name="send_coins_error_msg">Problem att skicka GroestlCoin!</string>
   <string name="send_coins_options_fee_category">Avgift</string>
   <string name="send_coins_options_fee_category_economic">Ekonomi</string>
   <string name="send_coins_options_fee_category_normal">Normal</string>
@@ -142,7 +142,7 @@
   <string name="address_book_options_scan_title">Scanna adress</string>
   <string name="address_book_options_scan_invalid">Avläst data är oigenkännlig</string>
   <string name="address_book_options_scan_own_address">Den skannade adressen är din egen.</string>
-  <string name="address_book_row_message_compromised_key">Denna adress kanske har komprometterats. Du bör inte använda den för att ta emot bitcoin igen.</string>
+  <string name="address_book_row_message_compromised_key">Denna adress kanske har komprometterats. Du bör inte använda den för att ta emot GroestlCoin igen.</string>
   <string name="edit_address_book_entry_dialog_title_add">Skapa adressetikett</string>
   <string name="edit_address_book_entry_dialog_title_edit">Redigera adressetikett</string>
   <string name="edit_address_book_entry_dialog_title_add_receive">Skapa din adressetikett</string>
@@ -222,11 +222,11 @@
   <string name="preferences_category_labs">Labb</string>
   <string name="preferences_precision_title">Valör och precision</string>
   <string name="preferences_precision_summary">Enhet för att visa belopp i. Det här påverkar inte uträkningar.</string>
-  <string name="preferences_precision_labels_8">BTC, 8 decimaler</string>
-  <string name="preferences_precision_labels_6">BTC, 6 decimaler</string>
-  <string name="preferences_precision_labels_4">BTC, 4 decimaler</string>
-  <string name="preferences_precision_labels_2_3">mBTC, 2 decimaler</string>
-  <string name="preferences_precision_labels_0_6">µBTC, inga decimaler</string>
+  <string name="preferences_precision_labels_8">GRS, 8 decimaler</string>
+  <string name="preferences_precision_labels_6">GRS, 6 decimaler</string>
+  <string name="preferences_precision_labels_4">GRS, 4 decimaler</string>
+  <string name="preferences_precision_labels_2_3">mGRS, 2 decimaler</string>
+  <string name="preferences_precision_labels_0_6">µGRS, inga decimaler</string>
   <string name="preferences_own_name_title">Ditt namn</string>
   <string name="preferences_own_name_summary">Skriv ditt namn för att användas vid betalningsmottagande. Gärna kort.</string>
   <string name="preferences_connectivity_notification_title">Anslutningsindikator</string>

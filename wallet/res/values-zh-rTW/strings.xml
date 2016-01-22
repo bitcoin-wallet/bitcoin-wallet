@@ -165,11 +165,11 @@
   <string name="preferences_category_labs">實驗室功能</string>
   <string name="preferences_precision_title">顯示單位</string>
   <string name="preferences_precision_summary">改變顯示單位，但不影響計算。</string>
-  <string name="preferences_precision_labels_8">BTC, 8位數</string>
-  <string name="preferences_precision_labels_6">BTC, 6位數</string>
-  <string name="preferences_precision_labels_4">BTC, 4位數</string>
-  <string name="preferences_precision_labels_2_3">mBTC, 2位數</string>
-  <string name="preferences_precision_labels_0_6">µBTC, 0位數</string>
+  <string name="preferences_precision_labels_8">GRS, 8位數</string>
+  <string name="preferences_precision_labels_6">GRS, 6位數</string>
+  <string name="preferences_precision_labels_4">GRS, 4位數</string>
+  <string name="preferences_precision_labels_2_3">mGRS, 2位數</string>
+  <string name="preferences_precision_labels_0_6">µGRS, 0位數</string>
   <string name="preferences_connectivity_notification_title">連線指示</string>
   <string name="preferences_connectivity_notification_summary">顯示目前連線節點數量到通知區。</string>
   <string name="preferences_trusted_peer_title">信任節點</string>

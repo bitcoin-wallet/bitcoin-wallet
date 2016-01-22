@@ -5,12 +5,12 @@
 
 <![CDATA[
 		<p>
-			Bovenin wordt uw huidige saldo in bitcoin en nationale valuta weergegeven.
+			Bovenin wordt uw huidige saldo in GroestlCoin en nationale valuta weergegeven.
 			Raak aan om naar de lijst van nationale valuta\'s te gaan en raak één van deze valuta\'s aan om deze als standaard te selecteren.
 		</p>
 
 		<p>
-			De QR code aan de rechterkant bevat een bitcoin adres en kan door anderen gebruikt worden om te scannen.
+			De QR code aan de rechterkant bevat een GroestlCoin adres en kan door anderen gebruikt worden om te scannen.
 			Raak de QR code aan om deze groter weer te geven.
 		</p>
 
@@ -21,7 +21,7 @@
 		</p>
 
 		<p>
-			U kunt bitcoin verzenden of verzoeken door op de knoppen van de actiebalk te drukken.
+			U kunt GroestlCoin verzenden of verzoeken door op de knoppen van de actiebalk te drukken.
 			Meer opties zijn aanwezig in het opties menu.
 		</p>
 	]]>
@@ -29,10 +29,10 @@
   <string name="help_request_coins">
 <![CDATA[
 		<p>
-			Deze dialoog kunt u gebruiken om bitcoins te verzoeken van iemand (die ook GroestlCoin Wallet of een andere GroestlCoin client geinstalleerd heeft).
+			Deze dialoog kunt u gebruiken om GroestlCoins te verzoeken van iemand (die ook GroestlCoin Wallet of een andere GroestlCoin client geinstalleerd heeft).
 		</p>
 		<p>
-			Eerst vul je een hoeveelheid bitcoin in die je wilt ontvangen.
+			Eerst vul je een hoeveelheid GroestlCoin in die je wilt ontvangen.
 		</p>
 		<p>
 			Daarna kan de andere persoon de QR-code scannen.

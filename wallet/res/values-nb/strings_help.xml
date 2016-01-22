@@ -3,7 +3,7 @@
   <string name="help_wallet">
 <![CDATA[
 		<p>
-			Den øvre venstre delen av skjermen viser balansen i bitcoin og en valgt nasjonal valuta.
+			Den øvre venstre delen av skjermen viser balansen i GroestlCoin og en valgt nasjonal valuta.
 			Trykk for å gå til listen over nasjonale valutaer, og trykk så på en av valutaene for å velge den som standard.
 		</p>
 		<p>

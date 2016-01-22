@@ -223,11 +223,11 @@
   <string name="preferences_category_labs">Laboratori</string>
   <string name="preferences_precision_title">Denominazione e precisione</string>
   <string name="preferences_precision_summary">Unità per mostrare gli importi. Questo non influisce calcoli.</string>
-  <string name="preferences_precision_labels_8">BTC, 8 cifre decimali</string>
-  <string name="preferences_precision_labels_6">µBTC, 6 cifre decimali</string>
-  <string name="preferences_precision_labels_4">µBTC, 4 cifre decimali</string>
-  <string name="preferences_precision_labels_2_3">µBTC, 2 cifre decimali</string>
-  <string name="preferences_precision_labels_0_6">µBTC, nessuna cifra decimale</string>
+  <string name="preferences_precision_labels_8">GRS, 8 cifre decimali</string>
+  <string name="preferences_precision_labels_6">µGRS, 6 cifre decimali</string>
+  <string name="preferences_precision_labels_4">µGRS, 4 cifre decimali</string>
+  <string name="preferences_precision_labels_2_3">µGRS, 2 cifre decimali</string>
+  <string name="preferences_precision_labels_0_6">µGRS, nessuna cifra decimale</string>
   <string name="preferences_own_name_title">Nome</string>
   <string name="preferences_own_name_summary">Il tuo nome da aggiungere alle richieste di pagamento. Prova a mantenerlo corto.</string>
   <string name="preferences_connectivity_notification_title">Indicatore di connettività</string>

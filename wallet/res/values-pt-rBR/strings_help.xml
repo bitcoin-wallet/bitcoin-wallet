@@ -7,7 +7,7 @@
 			Toque para ver as listas das moedas nacionais, e toque em uma delas para selecioná-la como padrão.
 		</p>
 		<p>
-			O código QR à direita contém o seu endereço bitcoin e pode ser usado para ser lido por outro dispositivo.
+			O código QR à direita contém o seu endereço GroestlCoin e pode ser usado para ser lido por outro dispositivo.
 			Toque no código QR para ampliá-lo.
 		</p>
 		<p>
@@ -16,7 +16,7 @@
 			Toque em uma transação para adicionar o endereço de remetentes ou destinatários para o livro de endereços.
 		</p>
 		<p>
-			Você pode enviar ou solicitar bitcoins tocando os botões na barra de ações.
+			Você pode enviar ou solicitar GroestlCoins tocando os botões na barra de ações.
 			Mais opções estão disponíveis no menu de opções.
 		</p>
 	]]>
@@ -24,7 +24,7 @@
   <string name="help_request_coins">
 <![CDATA[
 		<p>
-			Usando essa tela, você consegue solicitar bitcoins para outra pessoa (que também já tenha instalado uma carteira GroestlCoin).
+			Usando essa tela, você consegue solicitar GroestlCoins para outra pessoa (que também já tenha instalado uma carteira GroestlCoin).
 		</p>
 		<p>
 			Primeiro, você pode opcionalmente inserir uma quantidade de GroestlCoins a ser solicitada.
@@ -35,7 +35,7 @@
 			A outra pessoa deverá clicar na GroestlCoin URL.
 		</p>
 		<p>
-			A solicitação irá mostrar para a outra pessoa uma caixa de diálogo para o envio de bitcoins com todos os campos pré-preenchidos.
+			A solicitação irá mostrar para a outra pessoa uma caixa de diálogo para o envio de GroestlCoins com todos os campos pré-preenchidos.
 			Se ela concordar com o valor, tudo o que ela precisa fazer é enviar o pagamento.
 		</p>
 	]]>

@@ -114,7 +114,7 @@
   <string name="sweep_wallet_fragment_insufficient_money_msg">Cüzdandaki GroestlCoin miktarı işlenmek için çok düşük.</string>
   <string name="sweep_wallet_options_reload">Bakiyeyi tekrar yükle</string>
   <string name="maintenance_dialog_title">Bakım tavsiye edilir</string>
-  <string name="maintenance_dialog_message">Güvensiz adreslere %1$s aldınız. Bu bitcoinleri güvenli adreslere taşımak ister misiniz? %2$s tutarında düşük bir şebeke ücreti ödenecektir.</string>
+  <string name="maintenance_dialog_message">Güvensiz adreslere %1$s aldınız. Bu GroestlCoinleri güvenli adreslere taşımak ister misiniz? %2$s tutarında düşük bir şebeke ücreti ödenecektir.</string>
   <string name="maintenance_dialog_state_decrypting">Şifre çözülüyor…</string>
   <string name="maintenance_dialog_state_done">Tamamlandı.</string>
   <string name="maintenance_dialog_button_move">Taşı</string>
@@ -143,7 +143,7 @@
   <string name="address_book_options_scan_title">Adresi tara</string>
   <string name="address_book_options_scan_invalid">Taranan veriler tanınamadı</string>
   <string name="address_book_options_scan_own_address">Taranmış adres sizinkidir.</string>
-  <string name="address_book_row_message_compromised_key">Bu adres tehlikededir. Onu artık bitcoin almak için kullanmamalısınız.</string>
+  <string name="address_book_row_message_compromised_key">Bu adres tehlikededir. Onu artık GroestlCoin almak için kullanmamalısınız.</string>
   <string name="edit_address_book_entry_dialog_title_add">Gönderi adresi ilâve et</string>
   <string name="edit_address_book_entry_dialog_title_edit">Gönderi adresinin etiketini düzenle</string>
   <string name="edit_address_book_entry_dialog_title_add_receive">Kendi adresinize etiket iliştirin</string>
@@ -223,11 +223,11 @@
   <string name="preferences_category_labs">Laboratuvarlar</string>
   <string name="preferences_precision_title">İsimlendirme ve hassasiyet</string>
   <string name="preferences_precision_summary">Meblağların gösterileceği ünite. Hesaplalamaları etkilemez.</string>
-  <string name="preferences_precision_labels_8">BTC, 8 ondalık</string>
-  <string name="preferences_precision_labels_6">BTC, 6 ondalık</string>
-  <string name="preferences_precision_labels_4">BTC, 4 ondalık</string>
-  <string name="preferences_precision_labels_2_3">mBTC, 2 ondalık</string>
-  <string name="preferences_precision_labels_0_6">µBTC, ondalıksız</string>
+  <string name="preferences_precision_labels_8">GRS, 8 ondalık</string>
+  <string name="preferences_precision_labels_6">GRS, 6 ondalık</string>
+  <string name="preferences_precision_labels_4">GRS, 4 ondalık</string>
+  <string name="preferences_precision_labels_2_3">mGRS, 2 ondalık</string>
+  <string name="preferences_precision_labels_0_6">µGRS, ondalıksız</string>
   <string name="preferences_own_name_title">Kendi isminiz</string>
   <string name="preferences_own_name_summary">Ödeme taleplerine eklenecek isminiz. Kısa tutmaya çalışın.</string>
   <string name="preferences_connectivity_notification_title">Bağlantı göstergesi</string>

@@ -27,8 +27,8 @@
   <string name="wallet_transactions_options_filter_received">Obdrženo</string>
   <string name="wallet_transactions_options_filter_all">Oboje</string>
   <string name="wallet_transactions_options_filter_sent">Zasláno</string>
-  <string name="wallet_transactions_fragment_empty_text_received">Zatím žádné bitcoiny neobdrženy</string>
-  <string name="wallet_transactions_fragment_empty_text_sent">Zatím žádné bitcoiny neodeslány</string>
+  <string name="wallet_transactions_fragment_empty_text_received">Zatím žádné GroestlCoiny neobdrženy</string>
+  <string name="wallet_transactions_fragment_empty_text_sent">Zatím žádné GroestlCoiny neodeslány</string>
   <string name="wallet_transactions_fragment_empty_text_howto">Jak získat GroestlCoiny?\n\nSměnou za klasické peníze,\nprodejem zboží nebo služeb\nnebo vyděláním prací.</string>
   <string name="wallet_transactions_row_warning_backup">Gratulujeme, přijal jste vaši první platbu! Už jste si &lt;u&gt;zazálohoval vaši peněženku&lt;/u&gt;, aby jste se ochránil proti ztrátě?</string>
   <string name="wallet_transactions_fragment_coinbase">vytěženo</string>
@@ -87,7 +87,7 @@
   <string name="send_coins_options_empty">Prázdná peněženka</string>
   <string name="sweep_wallet_activity_title">Načíst papírovou peněženku</string>
   <string name="sweep_wallet_fragment_intro">Chystáte se načíst papírovou peněženku nebo kupón. Tato akce přemístí veškeré mince z papíru do vaší peněženky na tomto zařízení. Poté co bude transakce potvrzena už papír nepotřebujete a neměl by být z bezpečnostních důvodů dále používán.</string>
-  <string name="sweep_wallet_fragment_hint">Papírové peněženky se nejčastěji používají jako cold storage. Některé bitcoinmaty je tisknou na lístcích, než aby je poslali přímo do vašeho zařízení. Lidé také někdy používají přednabité papírové peněženky pro směnu bitcoinů (což ale není doporučeno)</string>
+  <string name="sweep_wallet_fragment_hint">Papírové peněženky se nejčastěji používají jako cold storage. Některé GroestlCoinmaty je tisknou na lístcích, než aby je poslali přímo do vašeho zařízení. Lidé také někdy používají přednabité papírové peněženky pro směnu GroestlCoinů (což ale není doporučeno)</string>
   <string name="sweep_wallet_fragment_wallet_unknown">Začněte načtením privátního klíče z papírové peněženky. Použijte tlačítko kamery z menu.</string>
   <string name="sweep_wallet_fragment_encrypted">Tento soukromý klíč je chráněn heslem.</string>
   <string name="sweep_wallet_fragment_password">heslo</string>

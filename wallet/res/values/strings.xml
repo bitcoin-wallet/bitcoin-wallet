@@ -224,11 +224,11 @@
 	<string name="preferences_category_labs">Labs</string>
 	<string name="preferences_precision_title">Denomination and precision</string>
 	<string name="preferences_precision_summary">Unit to show amounts in. This does not affect computations.</string>
-	<string name="preferences_precision_labels_8">BTC, 8 decimal places</string>
-	<string name="preferences_precision_labels_6">BTC, 6 decimal places</string>
-	<string name="preferences_precision_labels_4">BTC, 4 decimal places</string>
-	<string name="preferences_precision_labels_2_3">mBTC, 2 decimal places</string>
-	<string name="preferences_precision_labels_0_6">µBTC, no decimal places</string>
+	<string name="preferences_precision_labels_8">GRS, 8 decimal places</string>
+	<string name="preferences_precision_labels_6">GRS, 6 decimal places</string>
+	<string name="preferences_precision_labels_4">GRS, 4 decimal places</string>
+	<string name="preferences_precision_labels_2_3">mGRS, 2 decimal places</string>
+	<string name="preferences_precision_labels_0_6">µGRS, no decimal places</string>
 	<string name="preferences_own_name_title">Own name</string>
 	<string name="preferences_own_name_summary">Name of yourself, to be added to payment requests. Try to keep it short.</string>
 	<string name="preferences_connectivity_notification_title">Connectivity indicator</string>

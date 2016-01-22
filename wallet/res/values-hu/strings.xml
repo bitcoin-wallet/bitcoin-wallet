@@ -214,7 +214,7 @@
   <string name="input_parser_io_error">Nem lehet olvasni az adatot:\n%s</string>
   <string name="input_parser_cannot_classify">Nem lehet felismerni a bemenetet:\n%s</string>
   <string name="input_parser_invalid_bitcoin_uri">Érvénytelen GroestlCoin URI:\n%s</string>
-  <string name="input_parser_invalid_address">A kapott bitcoin cím érvénytelen!\n(Össze van keverve a mainnet/testnet?)</string>
+  <string name="input_parser_invalid_address">A kapott GroestlCoin cím érvénytelen!\n(Össze van keverve a mainnet/testnet?)</string>
   <string name="input_parser_unverifyable_paymentrequest">Nem lehet megerősíteni a fizetési kérelmet:\n%s</string>
   <string name="input_parser_invalid_paymentrequest">Érvénytelen fizetési kérelem:\n%s</string>
   <string name="input_parser_invalid_transaction">Érvénytelen tranzakció:\n%s</string>
@@ -223,11 +223,11 @@
   <string name="preferences_category_labs">Labor</string>
   <string name="preferences_precision_title">Pontosítás és egyszerűsítés</string>
   <string name="preferences_precision_summary">Egység, amelyben mutatja az összeget. Ez nem érinti a számításokat.</string>
-  <string name="preferences_precision_labels_8">BTC, 8 tizedeshely</string>
-  <string name="preferences_precision_labels_6">BTC, 6 tizedeshely</string>
-  <string name="preferences_precision_labels_4">BTC, 4 tizedeshely</string>
-  <string name="preferences_precision_labels_2_3">mBTC, 2 tizedeshely</string>
-  <string name="preferences_precision_labels_0_6">µBTC, nincs tizedeshely</string>
+  <string name="preferences_precision_labels_8">GRS, 8 tizedeshely</string>
+  <string name="preferences_precision_labels_6">GRS, 6 tizedeshely</string>
+  <string name="preferences_precision_labels_4">GRS, 4 tizedeshely</string>
+  <string name="preferences_precision_labels_2_3">mGRS, 2 tizedeshely</string>
+  <string name="preferences_precision_labels_0_6">µGRS, nincs tizedeshely</string>
   <string name="preferences_own_name_title">Saját név</string>
   <string name="preferences_own_name_summary">Saját elnevezésed, ami a fizetési kérelemhez adódik. Próbáld röviden.</string>
   <string name="preferences_connectivity_notification_title">Kapcsolódásjelző</string>

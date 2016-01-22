@@ -115,7 +115,7 @@
   <string name="request_coins_fragment_initiate_request_nfc">Ose përdor pajisje me NFC</string>
   <string name="request_coins_clipboard_msg">Kërkesa për GroestlCoin është kompjuar në memorje</string>
   <string name="request_coins_share_dialog_title">Ndaje kërkesën për GroestlCoins</string>
-  <string name="request_coins_no_local_app_msg">Nuk është gjetur asnjë program tjetër për bitcoin</string>
+  <string name="request_coins_no_local_app_msg">Nuk është gjetur asnjë program tjetër për GroestlCoin</string>
   <string name="request_coins_options_local_app_title">Kërkes nga program lokal</string>
   <string name="address_book_activity_title">Libri i adresave</string>
   <string name="address_book_list_receiving_title">Adresa juaj</string>

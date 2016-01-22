@@ -48,7 +48,7 @@
   <string name="address_book_list_receiving_title">Tvoje adrese</string>
   <string name="address_book_list_sending_title">Slanje adrese</string>
   <string name="address_book_empty_text">Nema unosa u adresnu knjigu</string>
-  <string name="address_book_context_send_title">Pošalji bitcoin-ove na adresu</string>
+  <string name="address_book_context_send_title">Pošalji GroestlCoin-ove na adresu</string>
   <string name="address_book_context_edit_title">Uredi adresu</string>
   <string name="address_book_context_remove_title">Ukloni adresu</string>
   <string name="address_book_context_copy_to_clipboard_title">Kopirano u međuspremnik</string>
@@ -61,7 +61,7 @@
   <string name="scan_camera_problem_dialog_message">Kamera je naišla na problem. Vjerovatno ćete morati ponovno pokrenuti uređaj</string>
   <string name="about_title">O nama</string>
   <string name="about_license_title">Licenca</string>
-  <string name="about_credits_bitcoinj_title">Ova aplikacija koristi bitcoin %s</string>
+  <string name="about_credits_bitcoinj_title">Ova aplikacija koristi GroestlCoin %s</string>
   <string name="about_credits_zxing_title">Ova aplikacija koristi \'zxing\'</string>
   <string name="about_credits_icon_title">Ova aplikacija koristi ikonu on \'bitboy\'</string>
   <string name="notification_peers_connected_msg">%d klijenata spojeno</string>
