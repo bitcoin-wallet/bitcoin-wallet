@@ -23,12 +23,10 @@
 		<item>@string/preferences_precision_labels_0_6</item>
 	</string-array>
 	<string-array name="preferences_block_explorer_values">
-		<item>https://testnet.blockexplorer.com/</item>
-		<item>https://www.biteasy.com/testnet/</item>
+		<item>https://chainz.cryptoid.info/grs/</item>
 	</string-array>
 	<string-array name="preferences_block_explorer_labels">
-		<item>blockexplorer.com</item>
-		<item>BitEasy</item>
+		<item>cryptoID:GRS</item>
 	</string-array>
 
 </resources>

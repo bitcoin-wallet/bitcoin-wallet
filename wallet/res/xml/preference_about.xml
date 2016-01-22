@@ -5,7 +5,7 @@
 		android:key="about_version"
 		android:title="@string/about_version_title" />
 	<Preference
-		android:summary="© 2011-2016, the GroestlCoin Wallet developers\n© 2014-2015 Hash Engineering Solutions"
+		android:summary="© 2011-2016, the Bitcoin Wallet developers\n© 2014-2016 Hash Engineering Solutions"
 		android:title="@string/about_copyright_title" />
 	<Preference
 		android:key="about_license"
@@ -17,11 +17,11 @@
 	</Preference>
 	<Preference
 		android:key="about_source"
-		android:summary="https://github.com/HashEngineering/groestlCoin-wallet"
+		android:summary="https://github.com/GroestlCoin/groestlcoin-wallet"
 		android:title="@string/about_source_title" >
 		<intent
 			android:action="android.intent.action.VIEW"
-			android:data="https://github.com/HashEngineering/groestlCoin-wallet" />
+			android:data="https://github.com/GroestlCoin/groestlcoin-wallet" />
 	</Preference>
 	<Preference
 		android:key="about_market_app"
@@ -33,22 +33,22 @@
 		android:title="@string/about_community_googleplus_title" >
 		<intent
 			android:action="android.intent.action.VIEW"
-			android:data="https://plus.google.com/communities/105515929887248493912" />
+			android:data="https://plus.google.com/101784974802931539475" />
 	</Preference>
 	<!--Preference
 		android:key="about_twitter"
 		android:summary="\@GroestlCoin_wallet"
 		android:title="Twitter" >
-		<intent
+		<intent1fi
 			android:action="android.intent.action.VIEW"
 			android:data="https://twitter.com/#!/GroestlCoin_wallet" />
 	</Preference-->
 	<Preference
 		android:key="about_credits_bitcoinj"
-		android:summary="https://bitcoinj.github.io" >
+		android:summary="http://www.hashengineeringsolutions.com/?page_id=192" >
 		<intent
 			android:action="android.intent.action.VIEW"
-			android:data="https://bitcoinj.github.io" />
+			android:data="http://www.hashengineeringsolutions.com/?page_id=192" />
 	</Preference>
 	<Preference
 		android:key="about_credits_zxing"
