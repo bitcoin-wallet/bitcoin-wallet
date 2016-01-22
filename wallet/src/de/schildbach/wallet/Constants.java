@@ -155,7 +155,7 @@ public final class Constants
 	public static final String LICENSE_URL = "http://www.gnu.org/licenses/gpl-3.0.txt";
 
     public static final String FORKED_FROM_SOURCE = "based on bitcoin-wallet 4.14\n";
-    public static final String FORKED_FROM_SOURCE_BITCOINJ = "based on bitcoinj 0.12\n";
+    public static final String FORKED_FROM_SOURCE_BITCOINJ = "based on bitcoinj 0.13.4\n";
 	public static final String CREDITS_BITCOINJ_URL = "https://github.com/HashEngineering/" + CoinDefinition.coinName.toLowerCase() + "j";
 	public static final String CREDITS_ZXING_URL = "http://code.google.com/p/zxing/";
     public static final String CREDITS_WEBSITE_URL = "http://www.groestlcoin.org/";

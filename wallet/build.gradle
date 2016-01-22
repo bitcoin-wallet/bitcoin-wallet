@@ -28,7 +28,7 @@ dependencies {
 }
 
 ext {
-    archivesBaseName = 'bitcoin-wallet'
+    archivesBaseName = 'groestlcoin-wallet'
 }
 
 android {
