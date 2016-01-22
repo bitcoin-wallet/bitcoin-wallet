@@ -1,4 +1,4 @@
-<b>Ha alltid dine bitcoins med deg, i lommen din!</b> Du betaler ved å raskt skanne en QR-kode. Som en kjøpmann, får du betaling pålitelig og kjapt. GroestlCoin Wallet er den første GroestlCoin mobilappen, og kanskje også den sikreste!
+<b>Ha alltid dine GroestlCoins med deg, i lommen din!</b> Du betaler ved å raskt skanne en QR-kode. Som en kjøpmann, får du betaling pålitelig og kjapt. GroestlCoin Wallet er den første GroestlCoin mobilappen, og kanskje også den sikreste!
 
 
 <b>FUNKSJONER</b>
@@ -11,7 +11,7 @@
 • Når du er frakoblet, kan du fortsatt betale via blåtann.
 • Systemvarsling for mottatte mynter.
 • Sveiping av papirlommebøker (f.eks. de som brukes til kaldlagring).
-• Miniprogram for saldo over bitcoins.
+• Miniprogram for saldo over GroestlCoins.
 
 
 <b>BIDRA</b>

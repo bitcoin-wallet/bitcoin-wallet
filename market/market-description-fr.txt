@@ -1,12 +1,12 @@
-<b>Ayez vos bitcoins toujours avec vous dans votre poche !<b> Payez rapidement en numérisant un code QR. En tant que marchand, vous recevez les paiements de manière fiable et instantanée. GroestlCoin Wallet est la première appli GroestlCoin mobile et sans doute aussi la plus sûre !
+<b>Ayez vos GroestlCoins toujours avec vous dans votre poche !<b> Payez rapidement en numérisant un code QR. En tant que marchand, vous recevez les paiements de manière fiable et instantanée. GroestlCoin Wallet est la première appli GroestlCoin mobile et sans doute aussi la plus sûre !
 
 
 <b>CARACTÉRISTIQUES</b>
 
 • Pas d'inscription, de service Web ou de nuage de nécessaire ! Ce portefeuille est décentralisé et de pair-à-pair.
-• Affichage du montant de bitcoins en GRS, mGRS et µGRS.
+• Affichage du montant de GroestlCoins en GRS, mGRS et µGRS.
 • Conversion vers et depuis des devises nationales.
-• Envoi et réception de bitcoins par NFC, codes QR ou URL GroestlCoin
+• Envoi et réception de GroestlCoins par NFC, codes QR ou URL GroestlCoin
 • Carnet d'adresses pour les adresses GroestlCoin utilisées régulièrement.
 • Quand vous êtes hors-ligne vous pouvez quand même payez via Bluetooth.
 • Notification du système pour les pièces reçues.
