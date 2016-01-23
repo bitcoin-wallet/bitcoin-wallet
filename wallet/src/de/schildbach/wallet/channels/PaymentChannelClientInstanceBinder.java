@@ -179,6 +179,7 @@ public class PaymentChannelClientInstanceBinder extends IPaymentChannelClientIns
                     new PaymentChannelClient.ClientConnection() {
                         @Override
                         public void sendToServer(Protos.TwoWayChannelMessage msg) {
+                            log.debug("Sending TwoWayChannelMessage {}", msg.getType());
                             publishProgress(msg);
                         }
 

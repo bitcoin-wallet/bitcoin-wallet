@@ -149,7 +149,7 @@ public class PaymentChannelServerActivity extends Activity implements ServiceCon
                     walletAppKit.wallet(),
                     minChannelSize,
                     maxValue,
-                    null,
+                    new byte[] {},
                     maxTime);
         } catch (IOException e) {
             e.printStackTrace();

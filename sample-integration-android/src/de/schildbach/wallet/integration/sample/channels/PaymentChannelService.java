@@ -9,14 +9,20 @@ import android.os.Looper;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
+import com.google.common.collect.ImmutableList;
+
 import org.bitcoinj.core.NetworkParameters;
+import org.bitcoinj.core.WalletExtension;
 import org.bitcoinj.crypto.MnemonicCode;
 import org.bitcoinj.kits.WalletAppKit;
 import org.bitcoinj.params.MainNetParams;
 import org.bitcoinj.params.TestNet3Params;
+import org.bitcoinj.protocols.channels.StoredPaymentChannelClientStates;
+import org.bitcoinj.protocols.channels.StoredPaymentChannelServerStates;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 import ch.qos.logback.classic.android.BasicLogcatConfigurator;
 
@@ -72,6 +78,13 @@ public class PaymentChannelService extends Service {
                                 .sendBroadcast(new Intent(BROADCAST_STARTED));
                     }
                 });
+            }
+
+            @Override
+            protected List<WalletExtension> provideWalletExtensions() throws Exception {
+                return ImmutableList.of(
+                        new StoredPaymentChannelClientStates(null),
+                        new StoredPaymentChannelServerStates(null));
             }
         };
 

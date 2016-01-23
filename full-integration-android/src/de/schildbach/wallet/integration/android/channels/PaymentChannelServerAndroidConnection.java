@@ -119,6 +119,7 @@ public class PaymentChannelServerAndroidConnection {
                     @Override
                     public void sendMessage(byte[] message) throws RemoteException {
                         try {
+                            log.debug("Receiving TwoWayChannelMessage {}", Protos.TwoWayChannelMessage.parseFrom(message).getType());
                             channelServer.receiveMessage(Protos.TwoWayChannelMessage.parseFrom(message));
                         } catch (InvalidProtocolBufferException e) {
                             log.warn("Failed to decode message received from wallet service", e);
@@ -149,6 +150,7 @@ public class PaymentChannelServerAndroidConnection {
             @Override
             public void sendToClient(Protos.TwoWayChannelMessage msg) {
                 try {
+                    log.debug("Sending TwoWayChannelMessage {}", msg.getType());
                     remote.sendMessage(msg.toByteArray());
                 } catch (RemoteException e) {
                     log.warn("Failed to send message to wallet service", e);

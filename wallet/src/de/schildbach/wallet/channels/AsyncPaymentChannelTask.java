@@ -52,6 +52,7 @@ public abstract class AsyncPaymentChannelTask extends AsyncTask<Void, Protos.Two
     protected abstract Handler createHandler();
 
     public void postMessage(Protos.TwoWayChannelMessage message) {
+        log.debug("Receiving TwoWayChannelMessage {}", message.getType());
         getHandler().sendMessage(Message.obtain(getHandler(), MESSAGE_TWO_WAY_CHANNEL_MESSAGE, message));
     }
 

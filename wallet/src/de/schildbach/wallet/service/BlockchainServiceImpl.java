@@ -50,6 +50,7 @@ import org.bitcoinj.core.Sha256Hash;
 import org.bitcoinj.core.StoredBlock;
 import org.bitcoinj.core.Transaction;
 import org.bitcoinj.core.TransactionBroadcast;
+import org.bitcoinj.core.TransactionBroadcaster;
 import org.bitcoinj.core.TransactionConfidence.ConfidenceType;
 import org.bitcoinj.core.Wallet;
 import org.bitcoinj.core.listeners.AbstractPeerEventListener;
@@ -58,6 +59,8 @@ import org.bitcoinj.core.listeners.WalletEventListener;
 import org.bitcoinj.net.discovery.DnsDiscovery;
 import org.bitcoinj.net.discovery.PeerDiscovery;
 import org.bitcoinj.net.discovery.PeerDiscoveryException;
+import org.bitcoinj.protocols.channels.StoredPaymentChannelClientStates;
+import org.bitcoinj.protocols.channels.StoredPaymentChannelServerStates;
 import org.bitcoinj.store.BlockStore;
 import org.bitcoinj.store.BlockStoreException;
 import org.bitcoinj.store.SPVBlockStore;
@@ -384,6 +387,8 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 				peerGroup.addWallet(wallet);
 				peerGroup.setUserAgent(Constants.USER_AGENT, application.packageInfo().versionName);
 				peerGroup.addEventListener(peerConnectivityListener);
+
+				completeExtensionInitiations(peerGroup);
 
 				final int maxConnectedPeers = application.maxConnectedPeers();
 
@@ -815,6 +820,23 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 			throw new RuntimeException("PeerGroup not running");
 		}
 		return peerGroup.broadcastTransaction(tx);
+	}
+
+	/*
+     * As soon as the transaction broadcaster han been created we will pass it to the
+     * payment channel extensions
+     */
+	private void completeExtensionInitiations(TransactionBroadcaster transactionBroadcaster) {
+		StoredPaymentChannelClientStates clientStoredChannels = (StoredPaymentChannelClientStates)
+				application.getWallet().getExtensions().get(StoredPaymentChannelClientStates.class.getName());
+		if(clientStoredChannels != null) {
+			clientStoredChannels.setTransactionBroadcaster(transactionBroadcaster);
+		}
+		StoredPaymentChannelServerStates serverStoredChannels = (StoredPaymentChannelServerStates)
+				application.getWallet().getExtensions().get(StoredPaymentChannelServerStates.class.getName());
+		if(serverStoredChannels != null) {
+			serverStoredChannels.setTransactionBroadcaster(transactionBroadcaster);
+		}
 	}
 
 	private void broadcastPeerState(final int numPeers)

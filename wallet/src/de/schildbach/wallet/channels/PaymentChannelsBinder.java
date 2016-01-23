@@ -69,7 +69,7 @@ public class PaymentChannelsBinder extends IPaymentChannels.Stub {
             byte[] serverId,
             long requestedTimeWindow) throws RemoteException {
         // Null ID was masqueraded as an empty array
-        Sha256Hash serverIdHash = serverId.length == 0 ? null : Sha256Hash.wrap(serverId);
+        Sha256Hash serverIdHash = serverId.length == 0 ? Sha256Hash.ZERO_HASH : Sha256Hash.wrap(serverId);
         return new PaymentChannelClientInstanceBinder(
                 wallet,
                 callbacks,
