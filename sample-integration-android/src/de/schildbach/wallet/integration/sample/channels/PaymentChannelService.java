@@ -105,7 +105,7 @@ public class PaymentChannelService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        walletAppKit.stop();
+        walletAppKit.stopAsync();
     }
 
     public WalletAppKit getWalletAppKit() {

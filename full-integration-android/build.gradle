@@ -4,7 +4,10 @@ dependencies {
     compile(project(':integration-android')) {
         exclude(group: 'com.google.android', module: 'android')
     }
-    compile 'org.bitcoinj:bitcoinj-core:0.13.4'
+    compile 'org.bitcoinj:bitcoinj-core:0.14-SNAPSHOT'
+    compile 'org.fusesource.leveldbjni:leveldbjni-all:1.8'
+    compile 'com.google.protobuf:protobuf-java:2.5.0'
+    compile 'com.google.guava:guava:16.0.1'
 }
 
 android {

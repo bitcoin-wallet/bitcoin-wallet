@@ -17,16 +17,28 @@
 package de.schildbach.wallet.channels;
 
 import android.app.Service;
+import android.content.BroadcastReceiver;
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
+import android.support.v4.content.LocalBroadcastManager;
 
+import com.google.common.collect.MapMaker;
 import com.google.common.util.concurrent.SettableFuture;
 
+import org.bitcoinj.core.Coin;
+import org.bitcoinj.core.Sha256Hash;
+import org.bitcoinj.core.Wallet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.spongycastle.crypto.params.KeyParameter;
+
+import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.service.BlockchainService;
@@ -40,7 +52,28 @@ public class PaymentChannelService extends Service {
 
     private static final Logger log = LoggerFactory.getLogger(PaymentChannelService.class);
 
+    public static final String BROADCAST_CONFIRM_CHANNEL =
+            PaymentChannelService.class.getCanonicalName() + ".confirm_channel";
+    public static final String BROADCAST_CONFIRM_CHANNEL_EXTRA_CHANNEL_ID =
+            PaymentChannelService.class.getCanonicalName() + ".channel_id";
+    public static final String BROADCAST_CONFIRM_CHANNEL_EXTRA_PASSWORD =
+            PaymentChannelService.class.getCanonicalName() + ".password";
+    public static final String BROADCAST_CONFIRM_CHANNEL_EXTRA_CONFIRMED =
+            PaymentChannelService.class.getCanonicalName() + ".confirmed";
+
+    public static final String BROADCAST_CONFIRM_INCREMENT =
+            PaymentChannelService.class.getCanonicalName() + ".confirm_increment";
+    public static final String BROADCAST_CONFIRM_INCREMENT_EXTRA_CHANNEL_ID =
+            PaymentChannelService.class.getCanonicalName() + ".channel_id";
+    public static final String BROADCAST_CONFIRM_INCREMENT_EXTRA_PASSWORD =
+            PaymentChannelService.class.getCanonicalName() + ".password";
+    public static final String BROADCAST_CONFIRM_INCREMENT_EXTRA_CONFIRMED =
+            PaymentChannelService.class.getCanonicalName() + ".confirmed";
+
     private SettableFuture<BlockchainService> blockchainServiceFuture;
+
+    private static final AtomicInteger CLIENT_CHANNEL_ID = new AtomicInteger(0);
+    private Map<Integer, PaymentChannelClientInstanceBinder> openClientChannels;
 
     @Override
     public void onCreate() {
@@ -52,10 +85,18 @@ public class PaymentChannelService extends Service {
         } else {
             log.warn("Failed to connect to blockchain service");
         }
+
+        openClientChannels = new MapMaker().weakValues().makeMap();
+
+        IntentFilter broadcastFilter = new IntentFilter();
+        broadcastFilter.addAction(BROADCAST_CONFIRM_CHANNEL);
+        broadcastFilter.addAction(BROADCAST_CONFIRM_INCREMENT);
+        LocalBroadcastManager.getInstance(this).registerReceiver(broadcastReceiver, broadcastFilter);
     }
 
     @Override
     public void onDestroy() {
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(broadcastReceiver);
         unbindService(blockchainServiceConn);
         super.onDestroy();
     }
@@ -78,6 +119,10 @@ public class PaymentChannelService extends Service {
         return (WalletApplication) getApplication();
     }
 
+    private Wallet getWallet() {
+        return getWalletApplication().getWallet();
+    }
+
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
@@ -86,7 +131,74 @@ public class PaymentChannelService extends Service {
             return null;
         }
         return new PaymentChannelsBinder(
-                getWalletApplication().getWallet(),
+                this,
+                getWallet(),
                 blockchainServiceFuture);
     }
+
+    IPaymentChannelClientInstance createClientChannel(
+            Wallet wallet,
+            IPaymentChannelCallbacks callbacks,
+            Coin maxValue,
+            Sha256Hash serverId,
+            long requestedTimeWindow) {
+        final int channelId = CLIENT_CHANNEL_ID.incrementAndGet();
+        PaymentChannelClientInstanceBinder result = new PaymentChannelClientInstanceBinder(
+                this, wallet, callbacks, channelId, maxValue, serverId, requestedTimeWindow);
+        openClientChannels.put(channelId, result);
+        return result;
+    }
+
+    private final BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (BROADCAST_CONFIRM_CHANNEL.equals(intent.getAction())) {
+                // ID in the lookup map
+                int id = intent.getIntExtra(BROADCAST_CONFIRM_CHANNEL_EXTRA_CHANNEL_ID, -1);
+                // Boolean indicating confirm or cancel
+                boolean confirm = intent.getBooleanExtra(BROADCAST_CONFIRM_CHANNEL_EXTRA_CONFIRMED, false);
+
+                String password = intent.getStringExtra(BROADCAST_CONFIRM_CHANNEL_EXTRA_PASSWORD);
+
+                // TODO fail gracefully if password was incorrect
+                if (getWallet().isEncrypted() != (password != null)) {
+                    // TODO notify no password when needed
+                }
+
+                KeyParameter key = password != null ?
+                        getWallet().getKeyCrypter().deriveKey(password):
+                        null;
+
+                PaymentChannelClientInstanceBinder binder = openClientChannels.get(id);
+                if (confirm) {
+                    binder.onChannelConfirmed(key);
+                } else {
+                    binder.onChannelCancelled();
+                }
+            } else if (BROADCAST_CONFIRM_INCREMENT.equals(intent.getAction())) {
+                // ID in the lookup map
+                int id = intent.getIntExtra(BROADCAST_CONFIRM_INCREMENT_EXTRA_CHANNEL_ID, -1);
+                // Boolean indicating confirm or cancel
+                boolean confirm = intent.getBooleanExtra(BROADCAST_CONFIRM_INCREMENT_EXTRA_CONFIRMED, false);
+
+                String password = intent.getStringExtra(BROADCAST_CONFIRM_INCREMENT_EXTRA_PASSWORD);
+
+                KeyParameter key = password != null ?
+                        getWallet().getKeyCrypter().deriveKey(password):
+                        null;
+
+                // TODO fail gracefully if password was incorrect
+                if (getWallet().isEncrypted() != (key != null)) {
+                    // TODO notify no password when needed
+                }
+
+                PaymentChannelClientInstanceBinder binder = openClientChannels.get(id);
+                if (confirm) {
+                    binder.onChannelIncrementConfirmed(key);
+                } else {
+                    binder.onChannelIncrementCancelled();
+                }
+            }
+        }
+    };
 }

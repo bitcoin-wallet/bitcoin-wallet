@@ -21,6 +21,8 @@ import org.bitcoinj.core.Coin;
 import org.bitcoinj.core.Sha256Hash;
 import org.bitcoinj.kits.WalletAppKit;
 import org.bitcoinj.protocols.channels.PaymentChannelCloseException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
@@ -31,6 +33,7 @@ import de.schildbach.wallet.integration.android.channels.PaymentChannelServerAnd
 import de.schildbach.wallet.integration.sample.R;
 
 public class PaymentChannelServerActivity extends Activity implements ServiceConnection, View.OnClickListener {
+    private static final Logger log = LoggerFactory.getLogger(PaymentChannelServerAndroidConnection.class);
 
     private WalletAppKit walletAppKit;
 
@@ -64,6 +67,12 @@ public class PaymentChannelServerActivity extends Activity implements ServiceCon
         paymentTotal = (TextView) findViewById(R.id.channel_amount);
 
         findViewById(R.id.start).setOnClickListener(this);
+        findViewById(R.id.satoshi_100).setOnClickListener(this);
+        findViewById(R.id.satoshi_1000).setOnClickListener(this);
+        findViewById(R.id.satoshi_10000).setOnClickListener(this);
+        findViewById(R.id.satoshi_100000).setOnClickListener(this);
+        findViewById(R.id.satoshi_1000000).setOnClickListener(this);
+        findViewById(R.id.settle_channel).setOnClickListener(this);
 
         bindService(new Intent(this, PaymentChannelService.class), this, BIND_AUTO_CREATE);
     }
@@ -105,6 +114,24 @@ public class PaymentChannelServerActivity extends Activity implements ServiceCon
                 findViewById(R.id.start).setEnabled(false);
 
                 startChannel(Coin.valueOf(maxValue), Coin.valueOf(minValue), maxTime);
+                break;
+            case R.id.satoshi_100:
+                requestIncrease(Coin.valueOf(100));
+                break;
+            case R.id.satoshi_1000:
+                requestIncrease(Coin.valueOf(1000));
+                break;
+            case R.id.satoshi_10000:
+                requestIncrease(Coin.valueOf(10000));
+                break;
+            case R.id.satoshi_100000:
+                requestIncrease(Coin.valueOf(100000));
+                break;
+            case R.id.satoshi_1000000:
+                requestIncrease(Coin.valueOf(1000000));
+                break;
+            case R.id.settle_channel:
+                settleChannel();
                 break;
         }
     }
@@ -157,6 +184,24 @@ public class PaymentChannelServerActivity extends Activity implements ServiceCon
             e.printStackTrace();
         } catch (InterruptedException e) {
             e.printStackTrace();
+        }
+    }
+
+    private void requestIncrease(Coin amount) {
+        try {
+            server.requestIncrement(amount);
+        } catch (RemoteException e) {
+            log.warn("Requesting payment channel increment failed", e);
+            Toast.makeText(this, "Failed to request payment increment", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void settleChannel() {
+        try {
+            server.settleChannel();
+        } catch (RemoteException e) {
+            log.warn("Requesting channel settle failed", e);
+            Toast.makeText(this, "Failed to request channel settle", Toast.LENGTH_LONG).show();
         }
     }
 }

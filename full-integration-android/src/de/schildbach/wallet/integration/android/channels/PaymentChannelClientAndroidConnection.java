@@ -195,7 +195,7 @@ public class PaymentChannelClientAndroidConnection {
      *                               (see {@link PaymentChannelClientConnection#getChannelOpenFuture()} for the second)
      */
     public ListenableFuture<PaymentIncrementAck> incrementPayment(Coin size) throws ValueOutOfRangeException, IllegalStateException {
-        return channelClient.incrementPayment(size, null, null);
+        return incrementPayment(size, null, null);
     }
 
     /**

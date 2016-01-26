@@ -37,6 +37,7 @@ public class PaymentChannelServerAndroidConnection {
     private PaymentChannelCloseException.CloseReason closeReason;
 
     private final PaymentChannelServer channelServer;
+    private final IPaymentChannelClientInstance remote;
 
     public static abstract class EventHandler {
         private PaymentChannelConnector.PaymentChannelCallbacks callbacks;
@@ -139,8 +140,7 @@ public class PaymentChannelServerAndroidConnection {
                     }
                 };
 
-        final IPaymentChannelClientInstance remote =
-                connector.createChannelFromWallet(remoteCallbacks, requestedMaxValue.value, serverId, requestedTimeWindow);
+        remote = connector.createChannelFromWallet(remoteCallbacks, requestedMaxValue.value, serverId, requestedTimeWindow);
 
         channelServer = new PaymentChannelServer(
                 broadcaster,
@@ -184,5 +184,13 @@ public class PaymentChannelServerAndroidConnection {
 
         eventHandler.setRemoteCallbacks(remoteCallbacks);
         channelServer.connectionOpen();
+    }
+
+    public void requestIncrement(Coin increment) throws RemoteException {
+        remote.requestIncrement(increment.longValue());
+    }
+
+    public void settleChannel() throws RemoteException {
+        remote.requestSettle();
     }
 }

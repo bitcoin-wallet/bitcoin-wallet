@@ -92,17 +92,44 @@
                     style="?android:attr/buttonStyleSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Req. 100"
+                    android:text="Req. 1 &#956;BTC"
                     android:id="@+id/satoshi_100" />
 
                 <Button
                     style="?android:attr/buttonStyleSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Req. 1000"
+                    android:text="Req. 10 &#956;BTC"
                     android:id="@+id/satoshi_1000" />
+
+                <Button
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Req. 100 &#956;BTC"
+                    android:id="@+id/satoshi_10000" />
+
+                <Button
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Req. 1 mBTC"
+                    android:id="@+id/satoshi_100000" />
+
+                <Button
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Req. 10 mBTC"
+                    android:id="@+id/satoshi_1000000" />
             </LinearLayout>
         </HorizontalScrollView>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Settle channel"
+            android:id="@+id/settle_channel" />
 
     </LinearLayout>
 

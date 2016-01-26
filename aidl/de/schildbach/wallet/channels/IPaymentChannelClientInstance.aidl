@@ -25,6 +25,8 @@ interface IPaymentChannelClientInstance {
 
     boolean requestIncrement(in long satoshis);
 
+    void requestSettle();
+
     /**
      * Closes this payment channel's connection - calling this function is equivalent to closing the
      * TCP stream under a TCP-transported channel.

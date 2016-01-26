@@ -37,10 +37,12 @@ public class PaymentChannelsBinder extends IPaymentChannels.Stub {
 
     private static final Logger log = LoggerFactory.getLogger(PaymentChannelsBinder.class);
 
+    private final PaymentChannelService parent;
     private final Wallet wallet;
     private final Future<? extends TransactionBroadcaster> transactionBroadcaster;
 
-    public PaymentChannelsBinder(Wallet wallet, Future<? extends TransactionBroadcaster> transactionBroadcaster) {
+    public PaymentChannelsBinder(PaymentChannelService parent, Wallet wallet, Future<? extends TransactionBroadcaster> transactionBroadcaster) {
+        this.parent = parent;
         this.wallet = wallet;
         this.transactionBroadcaster = transactionBroadcaster;
     }
@@ -70,7 +72,7 @@ public class PaymentChannelsBinder extends IPaymentChannels.Stub {
             long requestedTimeWindow) throws RemoteException {
         // Null ID was masqueraded as an empty array
         Sha256Hash serverIdHash = serverId.length == 0 ? Sha256Hash.ZERO_HASH : Sha256Hash.wrap(serverId);
-        return new PaymentChannelClientInstanceBinder(
+        return parent.createClientChannel(
                 wallet,
                 callbacks,
                 Coin.valueOf(requestedMaxValue),

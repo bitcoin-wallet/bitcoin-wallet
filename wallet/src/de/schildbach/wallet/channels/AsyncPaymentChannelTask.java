@@ -60,14 +60,18 @@ public abstract class AsyncPaymentChannelTask extends AsyncTask<Void, Protos.Two
         getHandler().sendMessage(Message.obtain(getHandler(), MESSAGE_CONNECTION_CLOSED));
     }
 
-    @Override
-    protected void onPostExecute(Void aVoid) {
-        super.onPostExecute(aVoid);
+    protected void closeConnection() {
         try {
             callbacks.closeConnection();
         } catch (RemoteException e) {
             log.warn("Failed to close cancelled connection", e);
         }
+    }
+
+    @Override
+    protected void onPostExecute(Void aVoid) {
+        super.onPostExecute(aVoid);
+        closeConnection();
     }
 
     @Override

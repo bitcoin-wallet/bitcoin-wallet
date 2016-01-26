@@ -280,6 +280,12 @@
 	<string name="about_market_app_summary">Review or rate the app</string>
 	<string name="notification_coins_received_msg">Received %s</string>
 	<string name="notification_peers_connected_msg">%d peers connected</string>
+	<string name="channel_create_title">Set up micropayments</string>
+	<string name="channel_create_time_window">Set up micropayments for %s?</string>
+	<string name="channel_create_description">If you accept, then %1$s will be reserved in your wallet for %2$s for spending in %3$s. This doesn\'t give the app any Bitcoin yet, but reserves the money to allow for micropayments. Any Bitcoin not spent after the expiry time will be returned to you.</string>
+	<string name="channel_create_package_id">Requested by %s</string>
+	<string name="channel_increment_description">Would you like to pay %1$s to %2$s?</string>
+	<string name="channel_increment_title">Pay %s?</string>
 
 	<!-- generic buttons -->
 	<string name="button_ok">OK</string>
@@ -308,6 +314,8 @@
 	<string name="address_unlabeled">(unlabeled)</string>
 	<string name="private_key_password">PIN</string>
 	<string name="private_key_bad_password">bad PIN!</string>
+	<string name="period_hours">%d hours</string>
+	<string name="period_days">%d days</string>
 
 	<!-- generic error messages -->
 	<string name="error_io">I/O error: %s</string>

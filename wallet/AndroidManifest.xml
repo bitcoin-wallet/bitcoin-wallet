@@ -181,6 +181,22 @@
 			android:theme="@style/My.Theme.ChildActivity"
 			android:windowSoftInputMode="adjustResize" />
 
+		<activity
+			android:name="de.schildbach.wallet.ui.channels.ChannelCreateActivity"
+			android:launchMode="singleTop"
+			android:allowTaskReparenting="false"
+			android:label="@string/channel_create_title"
+			android:theme="@style/My.Theme.Dialog"
+			android:windowSoftInputMode="adjustResize" />
+
+		<activity
+			android:name="de.schildbach.wallet.ui.channels.ChannelIncrementActivity"
+			android:launchMode="singleTop"
+			android:allowTaskReparenting="false"
+			android:label="@string/channel_increment_title"
+			android:theme="@style/My.Theme.Dialog"
+			android:windowSoftInputMode="adjustResize" />
+
 		<provider
 			android:name="de.schildbach.wallet.AddressBookProvider"
 			android:authorities="de.schildbach.wallet_test.address_book"
