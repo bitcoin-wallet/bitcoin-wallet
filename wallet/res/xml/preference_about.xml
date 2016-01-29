@@ -17,11 +17,11 @@
 	</Preference>
 	<Preference
 		android:key="about_source"
-		android:summary="https://github.com/GroestlCoin/groestlcoin-wallet"
+		android:summary="https://github.com/Groestlcoin/groestlcoin-wallet"
 		android:title="@string/about_source_title" >
 		<intent
 			android:action="android.intent.action.VIEW"
-			android:data="https://github.com/GroestlCoin/groestlcoin-wallet" />
+			android:data="https://github.com/Groestlcoin/groestlcoin-wallet" />
 	</Preference>
 	<Preference
 		android:key="about_market_app"
@@ -37,11 +37,11 @@
 	</Preference>
 	<!--Preference
 		android:key="about_twitter"
-		android:summary="\@GroestlCoin_wallet"
+		android:summary="\@Groestlcoin_wallet"
 		android:title="Twitter" >
 		<intent1fi
 			android:action="android.intent.action.VIEW"
-			android:data="https://twitter.com/#!/GroestlCoin_wallet" />
+			android:data="https://twitter.com/#!/Groestlcoin_wallet" />
 	</Preference-->
 	<Preference
 		android:key="about_credits_bitcoinj"
@@ -60,11 +60,11 @@
 	</Preference>
 	<!--Preference
 		android:key="about_credits_icon"
-		android:summary="https://GroestlCointalk.org/index.php?action=profile;u=2062"
+		android:summary="https://Groestlcointalk.org/index.php?action=profile;u=2062"
 		android:title="@string/about_credits_icon_title" >
 		<intent
 			android:action="android.intent.action.VIEW"
-			android:data="https://GroestlCointalk.org/index.php?action=profile;u=2062" />
+			android:data="https://Groestlcointalk.org/index.php?action=profile;u=2062" />
 	</Preference-->
 
 </PreferenceScreen>

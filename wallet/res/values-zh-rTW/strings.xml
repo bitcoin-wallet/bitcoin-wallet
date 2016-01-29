@@ -34,9 +34,9 @@
   <string name="wallet_options_safety_menu">安全性</string>
   <string name="wallet_options_safety">安全提示</string>
   <string name="wallet_options_donate">捐贈</string>
-  <string name="wallet_donate_address_label">捐贈給GroestlCoin Wallet App</string>
+  <string name="wallet_donate_address_label">捐贈給Groestlcoin Wallet App</string>
   <string name="wallet_low_storage_dialog_title">儲存空間不足!</string>
-  <string name="wallet_low_storage_dialog_msg">GroestlCoin Wallet App 使用手機內部儲存空間來紀錄交易，如果空間不足該 App 無法正常運作而且可能導致你的比特幣不安全!\n\n你是否需要開啟應用程式頁來刪除一些較少使用 app?</string>
+  <string name="wallet_low_storage_dialog_msg">Groestlcoin Wallet App 使用手機內部儲存空間來紀錄交易，如果空間不足該 App 無法正常運作而且可能導致你的比特幣不安全!\n\n你是否需要開啟應用程式頁來刪除一些較少使用 app?</string>
   <string name="wallet_low_storage_dialog_button_apps">管理App</string>
   <string name="wallet_timeskew_dialog_title">確認你的時間設定!</string>
   <string name="wallet_timeskew_dialog_msg">你的裝置時間慢了 %d 分，你可能無法收付比特幣，\n\n你應該再確認你的時間與時區設定正確。</string>
@@ -46,7 +46,7 @@
   <string name="wallet_version_dialog_button_market">Google Play</string>
   <string name="wallet_version_dialog_button_binary">下載</string>
   <string name="wallet_old_sdk_dialog_title">Android 版本太舊</string>
-  <string name="wallet_old_sdk_dialog_message">很可能下個版本的 GroestlCoin Wallet App 將不再支援你的裝置，某些狀況下可能導致難以付款，\n\n除非你確認其中風險，不然建議你儘快將錢包的錢轉出。</string>
+  <string name="wallet_old_sdk_dialog_message">很可能下個版本的 Groestlcoin Wallet App 將不再支援你的裝置，某些狀況下可能導致難以付款，\n\n除非你確認其中風險，不然建議你儘快將錢包的錢轉出。</string>
   <string name="send_coins_activity_title">比特幣付款</string>
   <string name="send_coins_fragment_request_payment_request_progress">由 %s 讀取簽名…</string>
   <string name="send_coins_fragment_request_payment_request_failed_title">讀取簽名失敗</string>

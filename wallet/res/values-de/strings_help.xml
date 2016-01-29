@@ -4,11 +4,11 @@
 	<string name="help_wallet">
 <![CDATA[
 		<p>
-			Im linken oberen Teil des Bildschirms wird dein aktuelles Guthaben in GroestlCoin und einer ausgewählten Währung angezeigt.
+			Im linken oberen Teil des Bildschirms wird dein aktuelles Guthaben in Groestlcoin und einer ausgewählten Währung angezeigt.
 			Mit einem Tap darauf gelangst du in die Liste der verfügbaren Währungen, ein weiterer Tap auf eine der Währungen setzt sie als Standardwährung.
 		</p>
 		<p>
-			Der QR-Code auf dem oberen rechten Teil des Displays enthält ebenfalls Deine GroestlCoin-Adresse und kann von einem anderen Teilnehmer eingescannt werden.
+			Der QR-Code auf dem oberen rechten Teil des Displays enthält ebenfalls Deine Groestlcoin-Adresse und kann von einem anderen Teilnehmer eingescannt werden.
 			Mit einem Tap auf den QR-Code wird dieser vergrößert.
 		</p>
 		<p>
@@ -25,7 +25,7 @@
 	<string name="help_request_coins">
 <![CDATA[
 		<p>
-			In diesem Dialogfeld kann eine Zahlung von einem anderen Teilnehmer angefordert werden, der dafür GroestlCoin Wallet auf seinem Gerät installiert haben sollte.
+			In diesem Dialogfeld kann eine Zahlung von einem anderen Teilnehmer angefordert werden, der dafür Groestlcoin Wallet auf seinem Gerät installiert haben sollte.
 		</p>
 		<p>
 			Dafür muss der angeforderte Betrag eingegeben werden.
@@ -45,15 +45,15 @@
 <![CDATA[
 		<p>
 			Dieses Dialogfeld wird geöffnet, wenn der Zahlungsprozess initiiert wurde.
-			Dies geschieht entweder durch einen Tap auf "Zahlung senden" auf der Startseite oder einen Tap auf eine GroestlCoin-URL im mobilen Browser.
+			Dies geschieht entweder durch einen Tap auf "Zahlung senden" auf der Startseite oder einen Tap auf eine Groestlcoin-URL im mobilen Browser.
 		</p>
 		<p>
 			Im ersten Feld muss die Empfängeradresse eingegeben werden.
 			Wenn eine Adresse im Adressbuch gespeichert wurde, wird diese automatisch vervollständigt.
-			Es kann ebenfalls ein QR-Code mit GroestlCoin-Adressen oder Zahlungsanforderungen eingescannt werden, indem man den QR-Button in der Aktionsleiste tappt.
+			Es kann ebenfalls ein QR-Code mit Groestlcoin-Adressen oder Zahlungsanforderungen eingescannt werden, indem man den QR-Button in der Aktionsleiste tappt.
 		</p>
 		<p>
-			Im nächsten Feld wird das verschickbare GroestlCoin-Guthaben angezeigt.
+			Im nächsten Feld wird das verschickbare Groestlcoin-Guthaben angezeigt.
 			Falls dieses Guthaben vom angezeigten Guthaben auf der Hauptseite abweicht, sind noch nicht alle Transaktionen bestätigt.
 		</p>
 		<p>
@@ -61,7 +61,7 @@
 		</p>
 		<p>
 			Eine Zahlung kann auch offline eingegeben werden.
-			Sie wird bei einem Neustart von GroestlCoin Wallet ausgeführt.
+			Sie wird bei einem Neustart von Groestlcoin Wallet ausgeführt.
 			Wenn eine Zahlung so schnell wie möglich bestätigt werden soll, ist eine gute Verbindung (z.B. über WLAN) vonnöten.
 		</p>
 		<p>
@@ -77,8 +77,8 @@
 			<b>Wichtige Sicherheitshinweise:</b>
 		</p>
 		<p>
-			GroestlCoins werden lokal auf dem Gerät gespeichert.
-			<b>Wenn das Gerät verloren geht, gehen alle GroestlCoins verloren.</b>
+			Groestlcoins werden lokal auf dem Gerät gespeichert.
+			<b>Wenn das Gerät verloren geht, gehen alle Groestlcoins verloren.</b>
 		</p>
 		<p>
 			Das bedeutet, <b>du musst deine Wallet sichern</b>!
@@ -86,18 +86,18 @@
 			Hebe deine Sicherung gut auf und vergiß das Passwort nicht.
 		</p>
 		<p>
-			<b>Vor der Deinstallation</b> (oder dem Löschen der App-Daten/Formatierung des Geräts), <b>müssen alle GroestlCoins auf eine andere Wallet übertragen werden</b>.
-			Auf dem Gerät verbleibende GroestlCoins gehen verloren.
+			<b>Vor der Deinstallation</b> (oder dem Löschen der App-Daten/Formatierung des Geräts), <b>müssen alle Groestlcoins auf eine andere Wallet übertragen werden</b>.
+			Auf dem Gerät verbleibende Groestlcoins gehen verloren.
 		</p>
 		<p>
 			<b>Zahlungen können nicht rückgängig gemacht werden</b>.
-			Wenn GroestlCoins ins Unbekannte geschickt werden, gibt es kaum Möglichkeit, sie zurückzuholen.
+			Wenn Groestlcoins ins Unbekannte geschickt werden, gibt es kaum Möglichkeit, sie zurückzuholen.
 		</p>
 		<p>
 			<b>Halte dein Mobilgerät sicher!</b>
 			Roote dein Gerät nicht.
 			Installiere nur Apps, denen du vollkommen vertraust.
-			Bösartige Apps könnten versuchen, die in der Wallet gespeicherten GroestlCoins zu stehlen.
+			Bösartige Apps könnten versuchen, die in der Wallet gespeicherten Groestlcoins zu stehlen.
 		</p>
 		<p>
 			Minimiere das Risiko!

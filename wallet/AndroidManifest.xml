@@ -4,8 +4,8 @@
 	xmlns:tools="http://schemas.android.com/tools"
 	package="hashengineering.groestlcoin.wallet"
 	android:installLocation="internalOnly"
-	android:versionCode="10251"
-	android:versionName="4.46[2.11.26]a" >
+	android:versionCode="10252"
+	android:versionName="4.46.1" >
 
 	<uses-sdk
 		android:minSdkVersion="15"
@@ -201,8 +201,7 @@
 			android:name="de.schildbach.wallet.AddressBookProvider"
 			android:authorities="hashengineering.groestlcoin.wallet.address_book"
 			android:exported="false" />
-        <!-- Need to update this for the coin -->
-		<provider
+        <provider
 			android:name="de.schildbach.wallet.ExchangeRatesProvider"
 			android:authorities="hashengineering.groestlcoin.wallet.exchange_rates"
 			android:exported="false" />

@@ -3,11 +3,11 @@
   <string name="help_wallet">
 <![CDATA[
 		<p>
-			La part superior esquerra de la pantalla mostra l\'adreça GroestlCoin que has seleccionat, que és la que ha de conèixer l\'altra gent per a poder enviar-te GroestlCoins.
+			La part superior esquerra de la pantalla mostra l\'adreça Groestlcoin que has seleccionat, que és la que ha de conèixer l\'altra gent per a poder enviar-te Groestlcoins.
 			Prem per canviar l\'adreça.
 		</p>
 		<p>
-			El codi QR de la dreta conté la teva adreça GroestlCoin i pot ser utilitzada si es escanejada per l\'altra persona.
+			El codi QR de la dreta conté la teva adreça Groestlcoin i pot ser utilitzada si es escanejada per l\'altra persona.
 			Prem sobre el codi QR per obtenir-ne una versió més gran.
 		</p>
 		<p>
@@ -29,15 +29,15 @@
   <string name="help_request_coins">
 <![CDATA[
 		<p>
-			Utilitzant aquest guió, pots demanar monedes a una altra persona (que també ha de tenir la Cartera GroestlCoin instal·lada).
+			Utilitzant aquest guió, pots demanar monedes a una altra persona (que també ha de tenir la Cartera Groestlcoin instal·lada).
 		</p>
 		<p>
-			Primer, hauràs d\'anotar la quantitat de GroestlCoins a sol·licitar.
+			Primer, hauràs d\'anotar la quantitat de Groestlcoins a sol·licitar.
 		</p>
 		<p>
 			Llavors, els dos tindreu el codi QR que haurà d\'escanejar l\'altra persona.
 			O bé, pots enviar la teva sol·licitud a una persona que es troba lluny, mitjançant el botó de compartir a la barra d\'accions.
-			L\'altra persona tindrà que prémer l\'enllaç GroestlCoin.
+			L\'altra persona tindrà que prémer l\'enllaç Groestlcoin.
 		</p>
 		<p>
 			De totes dos maneres, l\'altra persona rebrà un diàleg per a enviar monedes amb tots els camps pre-omplerts.
@@ -49,15 +49,15 @@
 <![CDATA[
 		<p>
 			Has començat el procés per a enviar monedes.
-			Has arribat aquí a través de la pantalla principal o premen una adreça GroestlCoin del navegador del mòbil.
+			Has arribat aquí a través de la pantalla principal o premen una adreça Groestlcoin del navegador del mòbil.
 		</p>
 		<p>
-			Primerament, entra l\'adreça GroestlCoin a la que vols pagar.
+			Primerament, entra l\'adreça Groestlcoin a la que vols pagar.
 			L\'adreça es completarà automàticament si ja hi ha entrades coincidents a la teva llibreta d\'adreces.
-			També pots escanejar codis QR que continguen adreces GroestlCoin o demanar GroestlCoins premen el botó QR de la barra d\'acció.
+			També pots escanejar codis QR que continguen adreces Groestlcoin o demanar Groestlcoins premen el botó QR de la barra d\'acció.
 		</p>
 		<p>
-			Seguidament, pots veure quants GroestlCoins pots gastar en aquest moment.
+			Seguidament, pots veure quants Groestlcoins pots gastar en aquest moment.
 			Qualsevol diferencia de balanç sobre la pantalla principal, significa que no està confirmat i per això encara no pot ser gastat.
 		</p>
 		<p>
@@ -65,7 +65,7 @@
 		</p>
 		<p>
 			Pots introduir un pagament mentre estigues fora de línia.
-			S\'enviarà la següent vegada que s\'inicie la Cartera GroestlCoin.
+			S\'enviarà la següent vegada que s\'inicie la Cartera Groestlcoin.
 			Si vols que un pagament sigui processat tant ràpid com sigui possible, assegurat que estas ben connectat. (per ex. en una WLAN)
 		</p>
 		<p>
@@ -81,8 +81,8 @@
 			<b>Avisos importants de seguretat:</b>
 		</p>
 		<p>
-			Els GroestlCoins estan emmagatzemats al dispositiu.
-			<b>Si el perds, perdràs tots els teus GroestlCoins.</b>
+			Els Groestlcoins estan emmagatzemats al dispositiu.
+			<b>Si el perds, perdràs tots els teus Groestlcoins.</b>
 		</p>
 		<p>
 			Això vol dir que necessites <b>fer una còpia de seguretat de la teva cartera</b>!
@@ -90,12 +90,12 @@
 			Conserva la teva còpia de seguretat segura i recorda la teva paraula de pas.
 		</p>
 		<p>
-			<b>Abans de desinstal·lar</b> (o esborrar les dades de l\'aplicació/formatar el teu dispositiu), <b>transfereix els teus GroestlCoins cap a una altra cartera</b>.
-			Els GroestlCoins que es queden es perdran.
+			<b>Abans de desinstal·lar</b> (o esborrar les dades de l\'aplicació/formatar el teu dispositiu), <b>transfereix els teus Groestlcoins cap a una altra cartera</b>.
+			Els Groestlcoins que es queden es perdran.
 		</p>
 		<p>
 			<b>Els pagaments són irreversibles</b>.
-			Si envies els teus GroestlCoins al buit, no hi ha forma de fer-los tornar.
+			Si envies els teus Groestlcoins al buit, no hi ha forma de fer-los tornar.
 		</p>
 		<p>
 			<b>Conserva el teu dispositiu mòbil segur!</b>

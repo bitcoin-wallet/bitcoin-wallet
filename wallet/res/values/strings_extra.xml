@@ -23,6 +23,6 @@
     <string name="transaction_fragment_length_label">Length</string>
     <string name="transaction_fragment_confirmations_label">Confirmations</string>
 
-    <string name="about_credits_website_title">"GroestlCoin Website"</string>
-    <string name="about_credits_forum_title">"GroestlCoin Forum"</string>
+    <string name="about_credits_website_title">"Groestlcoin Website"</string>
+    <string name="about_credits_forum_title">"Groestlcoin Forum"</string>
 </resources>

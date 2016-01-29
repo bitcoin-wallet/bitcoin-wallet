@@ -26,7 +26,7 @@
 	<string name="wallet_transactions_options_filter_sent">تم الارسال</string>
 	<string name="wallet_transactions_fragment_empty_text_received">لم يتم استلام مبالغ بيتكوين إلى الآن</string>
 	<string name="wallet_transactions_fragment_empty_text_sent">لم يتم ارسال مبالغ بيتكوين إلى الآن</string>
-	<string name="wallet_transactions_fragment_empty_text_howto">كيفية الحصول على البيتكوين GroestlCoins؟\n\nالتجارة التقليدية مقابل المال،\nبيع السلع أو الخدمات أو\nالكسب من خلال العمل.</string>
+	<string name="wallet_transactions_fragment_empty_text_howto">كيفية الحصول على البيتكوين Groestlcoins؟\n\nالتجارة التقليدية مقابل المال،\nبيع السلع أو الخدمات أو\nالكسب من خلال العمل.</string>
 	<string name="wallet_transactions_row_warning_backup">تهانينا، لقد تلقيت أول دفعة خاصة بك! قل قمت بحفظ احتياطي لمحفظتك لحمايتها من الضياع؟</string>
 	<string name="wallet_transactions_fragment_coinbase">محفور</string>
 	<string name="wallet_transactions_fragment_internal">داخلي</string>
@@ -43,7 +43,7 @@
 	<string name="wallet_version_dialog_button_market">متجر جوجل بلاي Google Play.</string>
 	<string name="wallet_version_dialog_button_binary">تنزيل</string>
 	<string name="wallet_old_sdk_dialog_title">إصدار نظام الأندرويد الخاص بك قديم أو غير محدث</string>
-	<string name="wallet_old_sdk_dialog_message">هناك احتمالات بأن واحدة من الإصدارات القادمة من محفظة البيتكوين GroestlCoin Wallet لن تدعم جهازك. في بعض الحالات، سيصعب عليك إنفاق أو التعامل بالبيتكوين على هذا الجهاز.\n\nإذا كنت لا تعلم ما تقوم به، فإنه من المستحسن استخراج ونقل عملات البيتكوين الخاصة بك من هذه المحفظة إلى أخرى كإجراء أمني.</string>
+	<string name="wallet_old_sdk_dialog_message">هناك احتمالات بأن واحدة من الإصدارات القادمة من محفظة البيتكوين Groestlcoin Wallet لن تدعم جهازك. في بعض الحالات، سيصعب عليك إنفاق أو التعامل بالبيتكوين على هذا الجهاز.\n\nإذا كنت لا تعلم ما تقوم به، فإنه من المستحسن استخراج ونقل عملات البيتكوين الخاصة بك من هذه المحفظة إلى أخرى كإجراء أمني.</string>
 	<string name="send_coins_activity_title">أرسل بيتكوين</string>
 	<string name="send_coins_fragment_request_payment_request_progress">جلب التوقيع من %s…</string>
 	<string name="send_coins_fragment_request_payment_request_failed_title">فشل جلب التوقيع</string>

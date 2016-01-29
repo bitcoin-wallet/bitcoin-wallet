@@ -3,11 +3,11 @@
   <string name="help_wallet">
 <![CDATA[
 		<p>
-			Ekranın üst kısmı GroestlCoin ve seçilen milli para birimi olarak bakiyenizi gösterir.
+			Ekranın üst kısmı Groestlcoin ve seçilen milli para birimi olarak bakiyenizi gösterir.
 			Para birimleri listesine gitmek için dokununuz, ve varsayılan olarak seçmek için dövizlerden birine dokununuz
 		</p>
 		<p>
-			Sağdaki QR kodu GroestlCoin adresinizi içerir ve başka birisinin taraması için kullanılabilir.
+			Sağdaki QR kodu Groestlcoin adresinizi içerir ve başka birisinin taraması için kullanılabilir.
 			Daha büyük bir sürümünü elde etmek için QR koduna dokununuz.
 		</p>
 		<p>
@@ -16,7 +16,7 @@
 			Gönderici ve alıcıları adres defterine eklemek için herhangi bir unsura dokununuz.
 		</p>
 		<p>
-			Eylem çubuğundaki düğmelere dokunarak GroestlCoin talep edebilir ya da gönderebilirsiniz.
+			Eylem çubuğundaki düğmelere dokunarak Groestlcoin talep edebilir ya da gönderebilirsiniz.
 			Seçenekler menüsünde daha fazla seçenek mevcuttur.
 		</p>
 	]]>
@@ -24,18 +24,18 @@
   <string name="help_request_coins">
 <![CDATA[
 		<p>
-			Bu diyaloğu kullanarak başka bir kişiden GroestlCoin talep edebilirsiniz (bu kişinin GroestlCoin Wallet uygulamasını cihazında kurmuş olması gerekir).
+			Bu diyaloğu kullanarak başka bir kişiden Groestlcoin talep edebilirsiniz (bu kişinin Groestlcoin Wallet uygulamasını cihazında kurmuş olması gerekir).
 		</p>
 		<p>
-			İlk olarak talep edilen GroestlCoin miktarını girebilirsiniz.
+			İlk olarak talep edilen Groestlcoin miktarını girebilirsiniz.
 		</p>
 		<p>
 			Ardından ya diğer kişi tarafından taranacak bir QR code oluşturmanız,
 			ya da uzaktaki bir kişiye etkinlik çubuğunda paylaş düğmesiyle talebinizi göndermeniz gerekir.
-			Bu kişinin GroestlCoin bağlantısını tıklaması gerekecektir.
+			Bu kişinin Groestlcoin bağlantısını tıklaması gerekecektir.
 		</p>
 		<p>
-			Her durumda diğer kişiye GroestlCoin göndermesi için tüm seçenekleri doldurulmuş bir diyalog gösterilecektir.
+			Her durumda diğer kişiye Groestlcoin göndermesi için tüm seçenekleri doldurulmuş bir diyalog gösterilecektir.
 			Kabul ederse tüm yapması gereken muameleyi yollamaktır.
 		</p>
 	]]>
@@ -43,16 +43,16 @@
   <string name="help_send_coins">
 <![CDATA[
 		<p>
-			GroestlCoin gönderme prosedürünü başlattınız.
-			Buraya ya ana ekrandan ya da mobil ağ tarayıcınızda bir GroestlCoin bağlantısına tıklayarak geldiniz.
+			Groestlcoin gönderme prosedürünü başlattınız.
+			Buraya ya ana ekrandan ya da mobil ağ tarayıcınızda bir Groestlcoin bağlantısına tıklayarak geldiniz.
 		</p>
 		<p>
-			İlk olarak ödeme yapacağınız GroestlCoin adresini girmelisiniz.
+			İlk olarak ödeme yapacağınız Groestlcoin adresini girmelisiniz.
 			Adres defterinizde bilinen adreslere dayanılarak adres otomatik olarak tamamlanacaktır.
-			Ayrıca etkinlik çubuğunda QR düğmesine dokunarak GroestlCoin adresi ya da talebi içeren QR kodlarını tarayabilirsiniz.
+			Ayrıca etkinlik çubuğunda QR düğmesine dokunarak Groestlcoin adresi ya da talebi içeren QR kodlarını tarayabilirsiniz.
 		</p>
 		<p>
-			Bunun ardından o anda ne kadar GroestlCoin harcayabileceğinizi görüntüleyebilirsiniz.
+			Bunun ardından o anda ne kadar Groestlcoin harcayabileceğinizi görüntüleyebilirsiniz.
 			Varsa ana ekrandaki bakiye ile farklılıklar henüz teyit edilmemiştir ve dolayısıyla henüz harcanamaz.
 		</p>
 		<p>
@@ -60,7 +60,7 @@
 		</p>
 		<p>
 			Çevrimdışı olduğunuz sırada bir muamele girebilirsiniz.
-			GroestlCoin Wallet uygulamasının sonraki açılışında gönderilir.
+			Groestlcoin Wallet uygulamasının sonraki açılışında gönderilir.
 			Bir muamelenin mümkün olduğu kadar çabuk işlenmesini istiyorsanız bağlantınızın iyi olduğundan (mesela WLAN ile).
 		</p>
 		<p>
@@ -73,20 +73,20 @@
   <string name="help_safety">
 <![CDATA[
 		<p>
-			<b>GroestlCoinlerinizin güvenliği hakkında önemli noktalar:</b>
+			<b>Groestlcoinlerinizin güvenliği hakkında önemli noktalar:</b>
 		</p>
 		<p>
-			GroestlCoin cüzdanınızdaki GroestlCoinler cihazınızda saklanır.
-			<b>Cihazınızı kaybederseniz GroestlCoinlerinizi de kaybedersiniz.</b>
+			Groestlcoin cüzdanınızdaki Groestlcoinler cihazınızda saklanır.
+			<b>Cihazınızı kaybederseniz Groestlcoinlerinizi de kaybedersiniz.</b>
 			Tıpkı fiziki cüzdanınızdaki para gibi.
 		</p>
 		<p>
-			<b>GroestlCoin Wallet</b> uygulamasını kaldırmadan önce (ya da uygulama verilerini/cihazınızı sıfırlamadan önce) <b>tüm GroestlCoinlerinizi başka bir cüzdana aktarınız</b>.
-			Kalan tüm GroestlCoinler kaybolacaktır.
+			<b>Groestlcoin Wallet</b> uygulamasını kaldırmadan önce (ya da uygulama verilerini/cihazınızı sıfırlamadan önce) <b>tüm Groestlcoinlerinizi başka bir cüzdana aktarınız</b>.
+			Kalan tüm Groestlcoinler kaybolacaktır.
 		</p>
 		<p>
 			<b>Muameleler geri alınamaz</b>.
-			GroestlCoinlerinizi yanlış bir adrese yollarsanız, bunları geri almak için alıcıyı tanımanız ve onun geri yollamayı kabul etmeniz dışında hiçbir yol yoktur.
+			Groestlcoinlerinizi yanlış bir adrese yollarsanız, bunları geri almak için alıcıyı tanımanız ve onun geri yollamayı kabul etmeniz dışında hiçbir yol yoktur.
 		</p>
 		<p>
 			<b>Android cihazınızı güvenli kullanın!</b>
@@ -95,7 +95,7 @@
 		</p>
 		<p>
 			Riski sınırlayın!
-			<b>GroestlCoin Wallet uygulamasını sadece küçük tutarlar için kullanınız</b>.
+			<b>Groestlcoin Wallet uygulamasını sadece küçük tutarlar için kullanınız</b>.
 		</p>
 	]]>
 	</string>

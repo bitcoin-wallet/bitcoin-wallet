@@ -4,7 +4,7 @@
 	<string name="help_wallet">
 <![CDATA[
 		<p>
-			V zgornjem levem kotu zaslona je zapisan vaš GroestlCoin naslov. Oseba, ki vam pošilja novce, mora poznati na naslov.
+			V zgornjem levem kotu zaslona je zapisan vaš Groestlcoin naslov. Oseba, ki vam pošilja novce, mora poznati na naslov.
 			Z dotikom ga lahko spremenite.
 		</p>
 		<p>
@@ -32,7 +32,7 @@
 	<string name="help_request_coins">
 <![CDATA[
 		<p>
-			S pomočjo tega pogovornega okna lahko drugi osebi, ki že ima nameščeno GroestlCoin denarnico, posredujete zahtevek za plačilo.
+			S pomočjo tega pogovornega okna lahko drugi osebi, ki že ima nameščeno Groestlcoin denarnico, posredujete zahtevek za plačilo.
 		</p>
 		<p>
 			Najprej lahko vnesete znesek za plačilo.
@@ -57,7 +57,7 @@
 			Lahko tudi začnete tipkati in naslov se bo samodejno dopolnil iz imenika, če ga uporabljate.
 		</p>
 		<p>
-			Preverite, koliko GroestlCoinov imate na voljo za potrošnjo.
+			Preverite, koliko Groestlcoinov imate na voljo za potrošnjo.
 			Nepotrjenih prejetih novcev še ne morete potrošiti; počakati morate na potrditev iz omrežja.
 		</p>
 		<p>
@@ -65,7 +65,7 @@
 		</p>
 		<p>
 			Plačilo lahko vnesete tudi, če niste povezani v omrežje.
-			Plačilo bo poslano, ko naslednjič zaženete GroestlCoin Wallet.
+			Plačilo bo poslano, ko naslednjič zaženete Groestlcoin Wallet.
 			Če želite, da se plačilo izvede čim hitreje, poskrbite, da boste dobro povezani v omrežje (npr. prek lokalnega Wi-Fi omrežja).
 		</p>
 		<p>
@@ -79,8 +79,8 @@
 			<b>Pomembna opozorila glede varnosti:</b>
 		</p>
 		<p>
-			GroestlCoini so shranjeni na tej napravi.
-			<b>Če izgubite napravo, izgubite svoje GroestlCoine.</b>
+			Groestlcoini so shranjeni na tej napravi.
+			<b>Če izgubite napravo, izgubite svoje Groestlcoine.</b>
 		</p>
 		<p>
 			Zato morate imeti <b>rezervno kopijo svoje denarnice</b>!

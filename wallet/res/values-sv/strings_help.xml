@@ -3,11 +3,11 @@
   <string name="help_wallet">
 <![CDATA[
 		<p>
-			Den övre halvan av skärmen visar ditt saldo i GroestlCoin och en vald valuta.
+			Den övre halvan av skärmen visar ditt saldo i Groestlcoin och en vald valuta.
 			Klicka för att gå till listan över valutor, och klicka på en valuta för att sätta den som standard.
 		</p>
 		<p>
-			QR-koden till höger innehåller din GroestlCoin-adress och kan användas för att en annan part ska skanna den.
+			QR-koden till höger innehåller din Groestlcoin-adress och kan användas för att en annan part ska skanna den.
 			Klicka på QR-koden för att få en större version av den.
 		</p>
 		<p>
@@ -24,43 +24,43 @@
   <string name="help_request_coins">
 <![CDATA[
 		<p>
-			Med denna dialog kan du ta emot GroestlCoin från någon annan (som redan har GroestlCoin Wallet installerad på sin telefon).
+			Med denna dialog kan du ta emot Groestlcoin från någon annan (som redan har Groestlcoin Wallet installerad på sin telefon).
 		</p>
 		<p>
-			Först anger du hur många GroestlCoin du vill att de skickar.
+			Först anger du hur många Groestlcoin du vill att de skickar.
 		</p>
 		<p>
 			Sedan kan den andra personen scanna QR-koden.
-			Eller så använder du \"Dela\" knappen i aktivitetslistan för att skicka din uppmaning att skicka GroestlCoin.
-			Den andra personen behöver sedan bara klicka på den GroestlCoin-URL du skickat.
+			Eller så använder du \"Dela\" knappen i aktivitetslistan för att skicka din uppmaning att skicka Groestlcoin.
+			Den andra personen behöver sedan bara klicka på den Groestlcoin-URL du skickat.
 		</p>
 		<p>
 			Sedan kommer den andra personen att få se en dialogruta där alla fält redan är ifyllda.
-			Om han eller hon sedan accapterar transaktionen så skickas GroestlCoin till dig.
+			Om han eller hon sedan accapterar transaktionen så skickas Groestlcoin till dig.
 		</p>
 	]]>
 	</string>
   <string name="help_send_coins">
 <![CDATA[
 		<p>
-			Du har påbörjat skickandet av GroestlCoin.
-			Du kom hit från huvudskärmen eller genom att klicka på en GroestlCoin-URL i din webbläsare.
+			Du har påbörjat skickandet av Groestlcoin.
+			Du kom hit från huvudskärmen eller genom att klicka på en Groestlcoin-URL i din webbläsare.
 		</p>
 		<p>
-			Ange först vilken GroestlCoin adress du vill skicka till.
+			Ange först vilken Groestlcoin adress du vill skicka till.
 			Adressen kan automatiskt fyllas i om den börjar med någon av adresserna i din adressbok.
-			Du kan också scanna en QR-kod innehållande en GroestlCoin-adress, genom att trycka på QR knappen i aktivitetslistan.
+			Du kan också scanna en QR-kod innehållande en Groestlcoin-adress, genom att trycka på QR knappen i aktivitetslistan.
 		</p>
 		<p>
-			Sedan kan du se hur många GroestlCoin du för tillfället kan skicka.
+			Sedan kan du se hur många Groestlcoin du för tillfället kan skicka.
 			Om det antalet skiljer sig från det som visas på huvudskärmen, så beror det på hittills obekräftade överföringar som du ännu inte får använda.
 		</p>
 		<p>
-			Slutligen anger du hur många GroestlCoin du skicka.
+			Slutligen anger du hur många Groestlcoin du skicka.
 		</p>
 		<p>
 			Du kan skapa en transaktion även om du inte är online.
-			Den kommer att skickas nästa gång GroestlCoin Wallet startas.
+			Den kommer att skickas nästa gång Groestlcoin Wallet startas.
 			Om du vill att en transaktion ska hanteras så fort som möjligt, se till att ha bra uppkoppling till internet (exempelvis ett WLAN).
 		</p>
 		<p>
@@ -73,20 +73,20 @@
   <string name="help_safety">
 <![CDATA[
 		<p>
-			<b>Några ord om säkerhet och GroestlCoin:</n>
+			<b>Några ord om säkerhet och Groestlcoin:</n>
 		</p>
 		<p>
-			Dina GroestlCoin i GroestlCoin Wallet sparas på din Android telefon.
-			<b>Om du tappar bort din telefon, så tappar du bort dina GroestlCoin.</b>
+			Dina Groestlcoin i Groestlcoin Wallet sparas på din Android telefon.
+			<b>Om du tappar bort din telefon, så tappar du bort dina Groestlcoin.</b>
 			Precis som pengar i din vanliga plånbok.
 		</p>
 		<p>
-			<b>Innan du avinstallerar GroestlCoin Wallet</b> (eller tar bort appens data/rensar din telefon), <b>skicka dina GroestlCoin till en annan wallet</b>.
-			Alla kvarvarande GroestlCoin kommer att försvinna.
+			<b>Innan du avinstallerar Groestlcoin Wallet</b> (eller tar bort appens data/rensar din telefon), <b>skicka dina Groestlcoin till en annan wallet</b>.
+			Alla kvarvarande Groestlcoin kommer att försvinna.
 		</p>
 		<p>
 			<b>Transaktioner kan inte stoppas</b>.
-			Efter att du skickat GroestlCoin finns det inget sätt att få dem tillbaka, annat än om du vet vem mottagaren är, och han/hon skickar dem tillbaka.
+			Efter att du skickat Groestlcoin finns det inget sätt att få dem tillbaka, annat än om du vet vem mottagaren är, och han/hon skickar dem tillbaka.
 		</p>
 		<p>
 			<b>Se till att skydda din telefon!</b>
@@ -95,7 +95,7 @@
 		</p>
 		<p>
 			Utsätt dig inte för onödig risk!
-			<b>Använd bara GroestlCoin Wallet med mindre belopp</b> för daglig användning.
+			<b>Använd bara Groestlcoin Wallet med mindre belopp</b> för daglig användning.
 		</p>
 	]]>
 	</string>

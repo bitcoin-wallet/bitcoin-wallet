@@ -69,7 +69,7 @@ and switch to it. Use
 
 to download the necessary API level.
 
-Finally, you can build GroestlCoin Wallet and sign it with your development key. Again in your workspace,
+Finally, you can build Groestlcoin Wallet and sign it with your development key. Again in your workspace,
 use
 
 	# first time only
@@ -145,7 +145,7 @@ corrected manually.
 
 NFC (Near field communication)
 
-GroestlCoin Wallet supports reading GroestlCoin requests via NFC, either from a passive NFC tag or from
+Groestlcoin Wallet supports reading Groestlcoin requests via NFC, either from a passive NFC tag or from
 another NFC capable Android device that is requesting coins.
 
 For this to work, just enable NFC in your phone and hold your phone to the tag or device (with
@@ -159,7 +159,7 @@ Instructions for preparing an NFC tag with your address:
 
 - Some tags have less than 50 bytes capacity, those won't work. 1 KB tags recommended.
 
-- The tag needs to contain a GroestlCoin URI. You can construct one with the "Request coins" dialog,
+- The tag needs to contain a Groestlcoin URI. You can construct one with the "Request coins" dialog,
   then share with messaging or email. You can also construct the URI manually. Example for Mainnet:
   groestlcoin:1G2Y2jP5YFZ5RGk2PXaeWwbeA5y1ZtFhoL
 
@@ -169,16 +169,16 @@ Instructions for preparing an NFC tag with your address:
   could overwrite the tag with his own groestlcoin address.
 
 
-GroestlCoinJ
+GroestlcoinJ
 
-GroestlCoin Wallet uses groestlcoinj for groestlcoin specific logic:
+Groestlcoin Wallet uses groestlcoinj for groestlcoin specific logic:
 
 	https://github.com/HashEngineering/groestlcoinj
 
 
 EXCHANGE RATES
 
-GroestlCoin Wallet reads this feed from "BitcoinAverage" for getting exchange rates:
+Groestlcoin Wallet reads this feed from "BitcoinAverage" for getting exchange rates:
 
 	https://api.bitcoinaverage.com/custom/abw
 
@@ -193,7 +193,7 @@ If the above feed is not available, the feed from "Blockchain.info" is fetched i
 
 SWEEPING WALLETS
 
-For sweeping wallets, GroestlCoin Wallet uses an API by biteasy to query for unspent transaction
+For sweeping wallets, Groestlcoin Wallet uses an API by biteasy to query for unspent transaction
 outputs:
 
 	https://api.biteasy.com/blockchain/v1/unspent-outputs

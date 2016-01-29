@@ -4,16 +4,16 @@
 	<string name="help_wallet">
 <![CDATA[
 		<p>
-			V ľavej hornej časti obrazovky je Vaša aktuálna GroestlCoin adresa, túto adresu potrebuje poznať odosielateľ, aby Vám mohol poslať GroestlCoiny.
+			V ľavej hornej časti obrazovky je Vaša aktuálna Groestlcoin adresa, túto adresu potrebuje poznať odosielateľ, aby Vám mohol poslať Groestlcoiny.
 			Kliknutím na adresu ju môžte zmeniť.
 		</p>
 		<p>
-			QR kód na pravej strane obsahuje Vašu GroestlCoin adresu, odosielateľ ho môže jednoducho naskenovať.
+			QR kód na pravej strane obsahuje Vašu Groestlcoin adresu, odosielateľ ho môže jednoducho naskenovať.
 			Kliknite na QR kód, aby ste ho zväčšili.
 		</p>
 		<p>
 			V strede obrazovky je zobrazený aktuálny zostatok.
-			Hodnota Vašich GroestlCoinov je zobrazená aj v inej zvolenej mene.
+			Hodnota Vašich Groestlcoinov je zobrazená aj v inej zvolenej mene.
 			Kliknutím na zostatok zobrazíte zoznam cudzích mien, následným kliknutím na menu ju môžte nastaviť ako predvolenú.
 		</p>
 		<p>
@@ -22,7 +22,7 @@
 			Kliknutím na transakciu môžete pridať danú adresu do adresára.
 		</p>
 		<p>
-			Kliknutím na tlačidlá naspodku môžte poslať alebo vyžiadať GroestlCoiny.
+			Kliknutím na tlačidlá naspodku môžte poslať alebo vyžiadať Groestlcoiny.
 			Ďalšie možnosti sú v ponuke nastavení.
 		</p>
 	]]>
@@ -30,18 +30,18 @@
 	<string name="help_request_coins">
 <![CDATA[
 		<p>
-			Na tejto obrazovke môžete vyžiadať GroestlCoiny od niekoho iného (kto má nainštalovanú aplikáciu GroestlCoin Wallet).
+			Na tejto obrazovke môžete vyžiadať Groestlcoiny od niekoho iného (kto má nainštalovanú aplikáciu Groestlcoin Wallet).
 		</p>
 		<p>
-			Najprv zadajte sumu GroestlCoinov, ktoré chcete vyžiadať.
+			Najprv zadajte sumu Groestlcoinov, ktoré chcete vyžiadať.
 		</p>
 		<p>
 			Potom dajte druhej strane naskenovať vygenerovaný QR kód
 			alebo môžte svoju žiadosť poslať použitím tlačidla zdieľať.
-			Druhá strana potom klikne na GroestlCoin URL.
+			Druhá strana potom klikne na Groestlcoin URL.
 		</p>
 		<p>
-			V oboch prípadoch druhá strana uvidí predvyplnenú obrazovku na odosielanie GroestlCoinov.
+			V oboch prípadoch druhá strana uvidí predvyplnenú obrazovku na odosielanie Groestlcoinov.
 			Ak s transakciou súhlasí, tak ju iba potvrdí.
 		</p>
 	]]>
@@ -49,17 +49,17 @@
 	<string name="help_send_coins">
 <![CDATA[
 		<p>
-			Práve ste začali proces odosielania GroestlCoinov.
-			Dostali ste sa sem z hlavnej obrazovky alebo kliknutím na GroestlCoin adresu v prehliadači.
+			Práve ste začali proces odosielania Groestlcoinov.
+			Dostali ste sa sem z hlavnej obrazovky alebo kliknutím na Groestlcoin adresu v prehliadači.
 		</p>
 		<p>
 			Najprv zadajte adresu, na ktorú chcete odoslať platbu.
 			Ak sa adresa nachádza v adresári, tak sa automaticky doplní.
-			Kliknutím na ikonu fotoaparátu môžete naskenovať QR kód s GroestlCoin adresou alebo požiadavkou na zaplatenie.
+			Kliknutím na ikonu fotoaparátu môžete naskenovať QR kód s Groestlcoin adresou alebo požiadavkou na zaplatenie.
 		</p>
 		<p>
-			Ďalej vidíte koľko GroestlCoinov môžete aktuálne minúť.
-			Rozdiel medzi zostatkom na hlavnej obrazovke a počtom GroestlCoinov, ktoré môžete minúť tvoria nepotvrdené transakcie.
+			Ďalej vidíte koľko Groestlcoinov môžete aktuálne minúť.
+			Rozdiel medzi zostatkom na hlavnej obrazovke a počtom Groestlcoinov, ktoré môžete minúť tvoria nepotvrdené transakcie.
 		</p>
 		<p>
 			Nakoniec zadajte sumu platby.
@@ -82,8 +82,8 @@
 			<b>Dôležité informácie o bezpečnosti:</b>
 		</p>
 		<p>
-			GroestlCoiny sú uložené na Vašom zariadení.
-			<b>Ak zariadenie stratíte, prídete o všetky svoje GroestlCoiny.</b>
+			Groestlcoiny sú uložené na Vašom zariadení.
+			<b>Ak zariadenie stratíte, prídete o všetky svoje Groestlcoiny.</b>
 		</p>
 		<p>
 			To znamená, že by ste mali <b>zálohovať svoju peňaženku</b>!
@@ -91,12 +91,12 @@
 			Svoju zálohu bezpečne uchovajte a nezabudnite heslo.
 		</p>
 		<p>
-			<b>Pred odinštalovaním</b> (alebo vymazaním dát/obnovením továrenských nastavení), <b>odošlite svoje GroestlCoiny do inej peňaženky</b>.
-			Inak o svoje GroestlCoiny prídete.
+			<b>Pred odinštalovaním</b> (alebo vymazaním dát/obnovením továrenských nastavení), <b>odošlite svoje Groestlcoiny do inej peňaženky</b>.
+			Inak o svoje Groestlcoiny prídete.
 		</p>
 		<p>
 			<b>Platby sa nedajú stornovať</b>.
-			Ak pošlete svoje GroestlCoiny na nesprávnu adresu, je takmer nemožné získať ich späť.
+			Ak pošlete svoje Groestlcoiny na nesprávnu adresu, je takmer nemožné získať ich späť.
 		</p>
 		<p>
 			<b>Chráňte si svoje zariadenie!</b>

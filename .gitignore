@@ -16,3 +16,5 @@ out/
 *.bak
 gen-external-apklibs
 *.apk
+*.bar
+*.wrn

@@ -3,11 +3,11 @@
   <string name="help_wallet">
 <![CDATA[
 		<p>
-			Ylempi vasen osa näytöstä näyttää saldosi GroestlCoineissa ja yhden valitusta valtiollisesta valuutasta.
+			Ylempi vasen osa näytöstä näyttää saldosi Groestlcoineissa ja yhden valitusta valtiollisesta valuutasta.
 			Napauta siirtyäksesi valtiollisten valuuttojen listaan sekä napauta yhtä valuutoista valitaksesi sen oletetuksi.
 		</p>
 		<p>
-			QR-koodi oikealla sisältää GroestlCoin-osoitteesi ja sitä voidaan käyttää toisen osapuolen skannattavaksi.
+			QR-koodi oikealla sisältää Groestlcoin-osoitteesi ja sitä voidaan käyttää toisen osapuolen skannattavaksi.
 			Napauta QR-koodia jotta saat siitä suurempikokoisen version.
 		</p>
 		<p>
@@ -24,19 +24,19 @@
   <string name="help_request_coins">
 <![CDATA[
 		<p>
-			Käyttämällä tätä dialogia, voit pyytää GroestlCoineja toiselta henkilöltä, jolla pitäisi jo olla GroestlCoin Wallet asennettuna.
+			Käyttämällä tätä dialogia, voit pyytää Groestlcoineja toiselta henkilöltä, jolla pitäisi jo olla Groestlcoin Wallet asennettuna.
 		</p>
 		<p>
-			Ensiksi, voit syöttää jonkun määrän GroestlCoineja, joita pyydät.
+			Ensiksi, voit syöttää jonkun määrän Groestlcoineja, joita pyydät.
 		</p>
 		<p>
 			Sen jälkeen jonkun toisen on skannattava luotu QR koodi.
 			Tai voit lähettää pyynnön etäiselle henkilölle \'jaa\' näppäimellä toimintapalkissa.
-			Toisen henkilön täytyy napsauttaa GroestlCoin-URL-osoitetta.
+			Toisen henkilön täytyy napsauttaa Groestlcoin-URL-osoitetta.
 			
 		</p>
 		<p>
-			Joka tapauksessa toiselle henkilölle esitetään dialogi GroestlCoinien lähettämisestä, jossa kaikki kentät on jo täytetty.
+			Joka tapauksessa toiselle henkilölle esitetään dialogi Groestlcoinien lähettämisestä, jossa kaikki kentät on jo täytetty.
 			Jos hän hyväksyy sen, hänen täytyy vain lähettää maksu.
 		</p>
 	]]>
@@ -44,16 +44,16 @@
   <string name="help_send_coins">
 <![CDATA[
 		<p>
-			Olet käynnistänyt GroestlCoinien lähetysprosessin.
-			Päädyit tänne joko päänäkymän kautta tai napsauttamalla GroestlCoin-URL-osoitetta mobiiliselaimellasi.
+			Olet käynnistänyt Groestlcoinien lähetysprosessin.
+			Päädyit tänne joko päänäkymän kautta tai napsauttamalla Groestlcoin-URL-osoitetta mobiiliselaimellasi.
 		</p>
 		<p>
-			Ensiksi syötät GroestlCoin-osoitteen, jonne on maksettava.
+			Ensiksi syötät Groestlcoin-osoitteen, jonne on maksettava.
 			Osoite tulee automaattisesti loppuunkirjoitetuksi tallennetuista tiedoista osoitekirjasta.
-			Voit myös skannata QR-koodeja, joissa on GroestlCoin osoite tai GroestlCoin pyyntöjä napsauttamalla QR-näppäintä toimintavalikossa.
+			Voit myös skannata QR-koodeja, joissa on Groestlcoin osoite tai Groestlcoin pyyntöjä napsauttamalla QR-näppäintä toimintavalikossa.
 		</p>
 		<p>
-			Seuraavaksi näet kuinka paljon sinulla on GroestlCoineja käytettävissä tällä hetkellä.
+			Seuraavaksi näet kuinka paljon sinulla on Groestlcoineja käytettävissä tällä hetkellä.
 			Muutos päänäkymän saldoon ei ole vielä vahvistettu, eikä niitä rahoja voi vielä käyttää.
 		</p>
 		<p>
@@ -61,7 +61,7 @@
 		</p>
 		<p>
 			Voit asettaa maksun olematta verkossa, eli ollessasi offlinessa.
-			Se lähetetään käynnistäessäsi GroestlCoin Wallet:in uudestaan seuraavan kerran.
+			Se lähetetään käynnistäessäsi Groestlcoin Wallet:in uudestaan seuraavan kerran.
 			Jos haluat maksun menevän mahdollisimman nopeasti, varmista, että sinulla on hyvä yhteys (kuten WLAN).
 		</p>
 		<p>
@@ -77,8 +77,8 @@
 			<b>Tärkeitä turvallisuus huomioita:</b>
 		</p>
 		<p>
-			GroestlCoinit sijaitsevat laitteessasi.
-			<b>Jos hukkaat sen, menetät GroestlCoinisi.</b>
+			Groestlcoinit sijaitsevat laitteessasi.
+			<b>Jos hukkaat sen, menetät Groestlcoinisi.</b>
 		</p>
 		<p>
 			Tämä tarkoittaa, että <b>sinun on varmuuskopioitava lompakkosi</b>!
@@ -86,12 +86,12 @@
 			Pidä varmuuskopiosi turvassa ja muista salasana.
 		</p>
 		<p>
-			<b>Ennen poistamista</b> (tai ennen sovellusdatan poistamista/laitteen tyhjentämistä), <b>siirrä GroestlCoinisi toiseen lompakkoon</b>.
-			Jäljelle jäävät GroestlCoinit katoavat.
+			<b>Ennen poistamista</b> (tai ennen sovellusdatan poistamista/laitteen tyhjentämistä), <b>siirrä Groestlcoinisi toiseen lompakkoon</b>.
+			Jäljelle jäävät Groestlcoinit katoavat.
 		</p>
 		<p>
 			<b>Maksuja ei voi peruuttaa</b>.
-			Jos lähetät GroestlCoinisi tyhjyyteen, ei ole käytännössä mitään keinoa saada niitä takaisin.
+			Jos lähetät Groestlcoinisi tyhjyyteen, ei ole käytännössä mitään keinoa saada niitä takaisin.
 		</p>
 		<p>
 			<b>Pidä mobiililaitteesi turvassa!</b>

@@ -7,7 +7,7 @@
 	<artifactId>wallet</artifactId>
 	<packaging>apk</packaging>
 	<version>4.14-test</version>
-	<name>GroestlCoin Wallet</name>
+	<name>Groestlcoin Wallet</name>
 
 	<parent>
 		<groupId>de.schildbach.wallet</groupId>

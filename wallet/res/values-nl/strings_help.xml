@@ -5,12 +5,12 @@
 
 <![CDATA[
 		<p>
-			Bovenin wordt uw huidige saldo in GroestlCoin en nationale valuta weergegeven.
+			Bovenin wordt uw huidige saldo in Groestlcoin en nationale valuta weergegeven.
 			Raak aan om naar de lijst van nationale valuta\'s te gaan en raak één van deze valuta\'s aan om deze als standaard te selecteren.
 		</p>
 
 		<p>
-			De QR code aan de rechterkant bevat een GroestlCoin adres en kan door anderen gebruikt worden om te scannen.
+			De QR code aan de rechterkant bevat een Groestlcoin adres en kan door anderen gebruikt worden om te scannen.
 			Raak de QR code aan om deze groter weer te geven.
 		</p>
 
@@ -21,7 +21,7 @@
 		</p>
 
 		<p>
-			U kunt GroestlCoin verzenden of verzoeken door op de knoppen van de actiebalk te drukken.
+			U kunt Groestlcoin verzenden of verzoeken door op de knoppen van de actiebalk te drukken.
 			Meer opties zijn aanwezig in het opties menu.
 		</p>
 	]]>
@@ -29,18 +29,18 @@
   <string name="help_request_coins">
 <![CDATA[
 		<p>
-			Deze dialoog kunt u gebruiken om GroestlCoins te verzoeken van iemand (die ook GroestlCoin Wallet of een andere GroestlCoin client geinstalleerd heeft).
+			Deze dialoog kunt u gebruiken om Groestlcoins te verzoeken van iemand (die ook Groestlcoin Wallet of een andere Groestlcoin client geinstalleerd heeft).
 		</p>
 		<p>
-			Eerst vul je een hoeveelheid GroestlCoin in die je wilt ontvangen.
+			Eerst vul je een hoeveelheid Groestlcoin in die je wilt ontvangen.
 		</p>
 		<p>
 			Daarna kan de andere persoon de QR-code scannen.
 			Of u kunt uw verzoek met de \'delen\'-knop versturen.
-			De andere persoon dient op de GroestlCoin URL te klikken.
+			De andere persoon dient op de Groestlcoin URL te klikken.
 		</p>
 		<p>
-			De andere persoon zal nu de dialoog te zien krijgen voor het verzenden van GroestlCoins waarin alle velden ingevuld zijn.
+			De andere persoon zal nu de dialoog te zien krijgen voor het verzenden van Groestlcoins waarin alle velden ingevuld zijn.
 			Als er akkoord gegaan wordt met de transactie hoeft deze alleen nog verzonden te worden.
 		</p>
 	]]>
@@ -48,16 +48,16 @@
   <string name="help_send_coins">
 <![CDATA[
 		<p>
-			U heeft het dialoog gestart om GroestlCoins te verzenden.
-			U bent hier terecht gekomen via het hoofd scherm of door het klikken op een GroestlCoin URL in uw browser.
+			U heeft het dialoog gestart om Groestlcoins te verzenden.
+			U bent hier terecht gekomen via het hoofd scherm of door het klikken op een Groestlcoin URL in uw browser.
 		</p>
 		<p>
-			Als eerste geeft u het GroestlCoin adres in waar naar u wilt betalen.
+			Als eerste geeft u het Groestlcoin adres in waar naar u wilt betalen.
 			Het adres zal automatisch aangevuld worden als deze bekend is in het adresboek.
-			U kan ook QR-codes scannen met een GroestlCoin adres of verzoek door op de QR knop in de actie-balk te klikken.
+			U kan ook QR-codes scannen met een Groestlcoin adres of verzoek door op de QR knop in de actie-balk te klikken.
 		</p>
 		<p>
-			Vervolgens kunt u zien hoe veel GroestlCoins op dit moment beschikbaar zijn voor besteding.
+			Vervolgens kunt u zien hoe veel Groestlcoins op dit moment beschikbaar zijn voor besteding.
 			Het eventuele verschil met het saldo van het hoofdscherm is nog onbevestigd en kan dus nog niet worden uitgegeven.
 		</p>
 		<p>
@@ -65,7 +65,7 @@
 		</p>
 		<p>
 			U kunt ook transacties ingeven terwijl u offline bent.
-			Deze transacties zullen verzonden worden zodra GroestlCoin Wallet de volgende keer gestart wordt en online is.
+			Deze transacties zullen verzonden worden zodra Groestlcoin Wallet de volgende keer gestart wordt en online is.
 			Als u wenst dat uw transacties zo snel mogelijk verwerkt worden is het verstandig om verbonden te zijn met een zo goed mogelijke internet verbinding (d.w.z. op WLAN).
 		</p>
 		<p>
@@ -78,20 +78,20 @@
   <string name="help_safety">
 <![CDATA[
 		<p>
-			<b>Enkele woorden over de veiligheid van uw GroestlCoins:</b>
+			<b>Enkele woorden over de veiligheid van uw Groestlcoins:</b>
 		</p>
 		<p>
-			GroestlCoins in GroestlCoin Wallet zijn opgeslagen op het apparaat.
-			<b>Als u uw apparaat verliest zullen deze GroestlCoins ook verloren zijn.</b>
+			Groestlcoins in Groestlcoin Wallet zijn opgeslagen op het apparaat.
+			<b>Als u uw apparaat verliest zullen deze Groestlcoins ook verloren zijn.</b>
 			Vergelijkbaar met het verlies van uw portemonnee.
 		</p>
 		<p>
-			<b>Voor het verwijderen van GroestlCoin Wallet</b> (of verschonen van app data of wipe van het apparaat), <b>dient u de GroestlCoins over te zetten naar een andere wallet.</b>.
-			Overblijvende GroestlCoins zullen verloren gaan.
+			<b>Voor het verwijderen van Groestlcoin Wallet</b> (of verschonen van app data of wipe van het apparaat), <b>dient u de Groestlcoins over te zetten naar een andere wallet.</b>.
+			Overblijvende Groestlcoins zullen verloren gaan.
 		</p>
 		<p>
-			<b>Transacties met GroestlCoin kunnen niet ongedaan gemaakt worden</b>.
-			Als u GroestlCoins naar een onbekend adres stuurt zijn ze onmogelijk terug te krijgen tenzij u de eigenaar kent en deze bereid is de GroestlCoins terug te sturen.
+			<b>Transacties met Groestlcoin kunnen niet ongedaan gemaakt worden</b>.
+			Als u Groestlcoins naar een onbekend adres stuurt zijn ze onmogelijk terug te krijgen tenzij u de eigenaar kent en deze bereid is de Groestlcoins terug te sturen.
 		</p>
 		<p>
 			<b>Houd uw Android apparaat veilig!</b>
@@ -100,7 +100,7 @@
 		</p>
 		<p>
 			Houd het risico laag!
-			<b>Gebruik GroestlCoin Wallet alleen voor kleine bedragen</b> voor dagelijks gebruik.
+			<b>Gebruik Groestlcoin Wallet alleen voor kleine bedragen</b> voor dagelijks gebruik.
 		</p>
 	]]>
 	</string>

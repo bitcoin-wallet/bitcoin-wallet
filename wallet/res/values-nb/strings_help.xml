@@ -3,11 +3,11 @@
   <string name="help_wallet">
 <![CDATA[
 		<p>
-			Den øvre venstre delen av skjermen viser balansen i GroestlCoin og en valgt nasjonal valuta.
+			Den øvre venstre delen av skjermen viser balansen i Groestlcoin og en valgt nasjonal valuta.
 			Trykk for å gå til listen over nasjonale valutaer, og trykk så på en av valutaene for å velge den som standard.
 		</p>
 		<p>
-			QR-koden til høyre inneholder din GroestlCoin-adresse og kan brukes til skanning av noen andre.
+			QR-koden til høyre inneholder din Groestlcoin-adresse og kan brukes til skanning av noen andre.
 			Trykk på QR-koden for å få en større versjon av den.
 		</p>
 		<p>
@@ -24,15 +24,15 @@
   <string name="help_request_coins">
 <![CDATA[
     <p>
-      Ved å bruke denne dialogen kan du be om mynter fra en annen person (som allerede har installert GroestlCoin Wallet).
+      Ved å bruke denne dialogen kan du be om mynter fra en annen person (som allerede har installert Groestlcoin Wallet).
     </p>
     <p>
-      Først kan du legge inn et beløp på antall GroestlCoins som skal forespørres.
+      Først kan du legge inn et beløp på antall Groestlcoins som skal forespørres.
     </p>
     <p>
       Etterpå får du enten QR-koden skannet av den andre personen,
       eller så kan du sende en forespørsel til en person langt unna med del-knappen i handlingsfeltet.
-      Den andre personen skal klikke på GroestlCoin-URLen.
+      Den andre personen skal klikke på Groestlcoin-URLen.
     </p>
     <p>
       Den andre personen vil bli presentert en dialog for å sende mynter med alle felt forhåndsutfylt.
@@ -44,15 +44,15 @@
 <![CDATA[
     <p>
       Du har startet prosessen med å sende mynter.
-      Du kom hit enten via hovedskjermen eller ved å klikke på en GroestlCoin-URL i nettleseren på mobilen.
+      Du kom hit enten via hovedskjermen eller ved å klikke på en Groestlcoin-URL i nettleseren på mobilen.
     </p>
     <p>
-      Først skriver du inn den GroestlCoin-adressen du vil betale til.
+      Først skriver du inn den Groestlcoin-adressen du vil betale til.
       Adressen vil automatisk fylles ut fra kjente oppføringer i adresseboken din.
-      Du kan også skanne QR-koder med GroestlCoin-adresser eller GroestlCoin-forespørsler ved å trykke på QR-knappen i handlingsfeltet.
+      Du kan også skanne QR-koder med Groestlcoin-adresser eller Groestlcoin-forespørsler ved å trykke på QR-knappen i handlingsfeltet.
     </p>
     <p>
-      Deretter kan du se hvor mange GroestlCoins du kan bruke for øyeblikket.
+      Deretter kan du se hvor mange Groestlcoins du kan bruke for øyeblikket.
       En eventuell forskjell i saldoen fra hovedskjermen er fortsatt ubekreftet, og kan dermed ikke brukes.
     </p>
     <p>
@@ -60,7 +60,7 @@
     </p>
     <p>
       Du kan legge inn en betaling mens du er offline.
-      Den vil bli sendt når GroestlCoin Wallet startes på nytt.
+      Den vil bli sendt når Groestlcoin Wallet startes på nytt.
       Hvis du ønsker at en betaling går igjennom så raskt som mulig, sørg for at du er godt tilkoblet (dvs. på et WLAN).
     </p>
     <p>
@@ -76,8 +76,8 @@
       <b>Viktige sikkerhetsmerknader:</b>
     </p>
     <p>
-      GroestlCoins er lagret på enheten.
-      <b>Hvis du mister den, mister du dine GroestlCoins.</b>
+      Groestlcoins er lagret på enheten.
+      <b>Hvis du mister den, mister du dine Groestlcoins.</b>
     </p>
     <p>
       Dette betyr at du må <b>sikkerhetskopiere lommeboken din</b>!
@@ -85,12 +85,12 @@
       Oppbevar sikkerhetskopien sikkert og husk passordet.
     </p>
     <p>
-      <b>Før avinstallering</b> (eller sletting av appdata/nullstilling av enheten til fabrikkinnstillinger), <b>overfør dine GroestlCoins til en annen lommebok</b>.
-      Resterende GroestlCoins vil gå tapt.
+      <b>Før avinstallering</b> (eller sletting av appdata/nullstilling av enheten til fabrikkinnstillinger), <b>overfør dine Groestlcoins til en annen lommebok</b>.
+      Resterende Groestlcoins vil gå tapt.
     </p>
     <p>
       <b>Betalinger er irreversible</b>.
-      Hvis du sender dine GroestlCoins ut i det blå, er det stort sett ikke mulig å få dem tilbake.
+      Hvis du sender dine Groestlcoins ut i det blå, er det stort sett ikke mulig å få dem tilbake.
     </p>
     <p>
       <b>Oppbevar din mobile enhet sikkert!</b>
