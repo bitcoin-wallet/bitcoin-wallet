@@ -35,7 +35,6 @@ import java.util.concurrent.atomic.AtomicLong;
 
 import javax.annotation.Nullable;
 
-import org.bitcoinj.core.AbstractPeerEventListener;
 import org.bitcoinj.core.Address;
 import org.bitcoinj.core.Block;
 import org.bitcoinj.core.BlockChain;
@@ -43,14 +42,15 @@ import org.bitcoinj.core.CheckpointManager;
 import org.bitcoinj.core.Coin;
 import org.bitcoinj.core.FilteredBlock;
 import org.bitcoinj.core.Peer;
-import org.bitcoinj.core.PeerEventListener;
 import org.bitcoinj.core.PeerGroup;
 import org.bitcoinj.core.Sha256Hash;
 import org.bitcoinj.core.StoredBlock;
 import org.bitcoinj.core.Transaction;
 import org.bitcoinj.core.TransactionConfidence.ConfidenceType;
 import org.bitcoinj.core.Wallet;
-import org.bitcoinj.core.WalletEventListener;
+import org.bitcoinj.core.listeners.AbstractPeerEventListener;
+import org.bitcoinj.core.listeners.PeerDataEventListener;
+import org.bitcoinj.core.listeners.WalletEventListener;
 import org.bitcoinj.net.discovery.DnsDiscovery;
 import org.bitcoinj.net.discovery.PeerDiscovery;
 import org.bitcoinj.net.discovery.PeerDiscoveryException;
@@ -293,7 +293,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 		}
 	}
 
-	private final PeerEventListener blockchainDownloadListener = new AbstractPeerEventListener()
+	private final PeerDataEventListener blockchainDownloadListener = new AbstractPeerEventListener()
 	{
 		private final AtomicLong lastMessageTime = new AtomicLong(0);
 
@@ -398,7 +398,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 					private final PeerDiscovery normalPeerDiscovery = new DnsDiscovery(Constants.NETWORK_PARAMETERS);
 
 					@Override
-					public InetSocketAddress[] getPeers(final long timeoutValue, final TimeUnit timeoutUnit) throws PeerDiscoveryException
+					public InetSocketAddress[] getPeers(final long services, final long timeoutValue, final TimeUnit timeoutUnit) throws PeerDiscoveryException
 					{
 						final List<InetSocketAddress> peers = new LinkedList<InetSocketAddress>();
 
@@ -417,7 +417,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 						}
 
 						if (!connectTrustedPeerOnly)
-							peers.addAll(Arrays.asList(normalPeerDiscovery.getPeers(timeoutValue, timeoutUnit)));
+							peers.addAll(Arrays.asList(normalPeerDiscovery.getPeers(0, timeoutValue, timeoutUnit)));
 
 						// workaround because PeerGroup will shuffle peers
 						if (needsTrimPeersWorkaround)

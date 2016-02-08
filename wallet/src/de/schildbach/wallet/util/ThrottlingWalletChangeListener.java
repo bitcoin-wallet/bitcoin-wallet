@@ -17,18 +17,18 @@
 
 package de.schildbach.wallet.util;
 
-import java.util.List;
-import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.concurrent.atomic.AtomicLong;
+import android.os.Handler;
 
 import org.bitcoinj.core.Coin;
 import org.bitcoinj.core.ECKey;
 import org.bitcoinj.core.Transaction;
 import org.bitcoinj.core.Wallet;
-import org.bitcoinj.core.WalletEventListener;
+import org.bitcoinj.core.listeners.WalletEventListener;
 import org.bitcoinj.script.Script;
 
-import android.os.Handler;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * @author Andreas Schildbach
