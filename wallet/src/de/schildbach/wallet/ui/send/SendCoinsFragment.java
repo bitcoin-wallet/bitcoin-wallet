@@ -287,9 +287,26 @@ public final class SendCoinsFragment extends Fragment
 					if (state == State.SENDING)
 					{
 						if (confidenceType == ConfidenceType.DEAD)
+						{
 							setState(State.FAILED);
+						}
 						else if (numBroadcastPeers > 1 || confidenceType == ConfidenceType.BUILDING)
+						{
 							setState(State.SENT);
+
+							// Auto-close the dialog after a short delay
+							if (config.getSendCoinsAutoclose())
+							{
+								handler.postDelayed(new Runnable()
+								{
+									@Override
+									public void run()
+									{
+										activity.finish();
+									}
+								}, 500);
+							}
+						}
 					}
 
 					if (reason == ChangeReason.SEEN_PEERS && confidenceType == ConfidenceType.PENDING)
