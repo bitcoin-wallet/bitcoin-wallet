@@ -18,6 +18,8 @@
 package de.schildbach.wallet.ui;
 
 import org.bitcoinj.core.Address;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -44,6 +46,8 @@ public class WalletAddressDialogFragment extends DialogFragment
 
 	private static final String KEY_BITMAP = "bitmap";
 	private static final String KEY_ADDRESS = "address";
+
+	private static final Logger log = LoggerFactory.getLogger(WalletAddressDialogFragment.class);
 
 	public static void show(final FragmentManager fm, final Bitmap bitmap, final Address address)
 	{
@@ -101,6 +105,7 @@ public class WalletAddressDialogFragment extends DialogFragment
 				intent.setType("text/plain");
 				intent.putExtra(Intent.EXTRA_TEXT, address);
 				startActivity(Intent.createChooser(intent, getString(R.string.bitmap_fragment_share)));
+				log.info("wallet address shared via intent: {}", address);
 			}
 		});
 

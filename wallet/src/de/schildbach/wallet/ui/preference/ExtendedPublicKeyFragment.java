@@ -29,6 +29,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import de.schildbach.wallet.ui.DialogBuilder;
 import de.schildbach.wallet.util.Qr;
 import de.schildbach.wallet_test.R;
@@ -41,6 +45,8 @@ public class ExtendedPublicKeyFragment extends DialogFragment
 	private static final String FRAGMENT_TAG = ExtendedPublicKeyFragment.class.getName();
 
 	private static final String KEY_XPUB = "xpub";
+
+	private static final Logger log = LoggerFactory.getLogger(ExtendedPublicKeyFragment.class);
 
 	public static void show(final FragmentManager fm, final CharSequence xpub)
 	{
@@ -93,6 +99,7 @@ public class ExtendedPublicKeyFragment extends DialogFragment
 				intent.putExtra(Intent.EXTRA_TEXT, xpub);
 				intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.extended_public_key_fragment_title));
 				startActivity(Intent.createChooser(intent, getString(R.string.extended_public_key_fragment_share)));
+				log.info("xpub shared via intent: {}", xpub);
 			}
 		});
 

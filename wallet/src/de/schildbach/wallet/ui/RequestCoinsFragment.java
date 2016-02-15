@@ -387,10 +387,12 @@ public final class RequestCoinsFragment extends Fragment implements NfcAdapter.C
 
 	private void handleShare()
 	{
+		final String request = determineBitcoinRequestStr(false);
 		final Intent intent = new Intent(Intent.ACTION_SEND);
 		intent.setType("text/plain");
-		intent.putExtra(Intent.EXTRA_TEXT, determineBitcoinRequestStr(false));
+		intent.putExtra(Intent.EXTRA_TEXT, request);
 		startActivity(Intent.createChooser(intent, getString(R.string.request_coins_share_dialog_title)));
+		log.info("payment request shared via intent: {}", request);
 	}
 
 	private void handleLocalApp()
