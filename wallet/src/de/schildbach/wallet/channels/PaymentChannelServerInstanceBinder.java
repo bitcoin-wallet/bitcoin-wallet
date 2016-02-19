@@ -17,9 +17,7 @@
 package de.schildbach.wallet.channels;
 
 import android.os.AsyncTask;
-import android.os.Handler;
 import android.os.Looper;
-import android.os.Message;
 import android.os.RemoteException;
 
 import com.google.common.util.concurrent.ListenableFuture;
@@ -88,28 +86,20 @@ public class PaymentChannelServerInstanceBinder extends IPaymentChannelServerIns
         }
 
         @Override
-        protected Handler createHandler() {
-            return new Handler() {
-                @Override
-                public void handleMessage(Message msg) {
-                    switch (msg.what) {
-                        case MESSAGE_TWO_WAY_CHANNEL_MESSAGE:
-                            paymentChannelServer.receiveMessage((Protos.TwoWayChannelMessage) msg.obj);
-                            break;
-                        case MESSAGE_CONNECTION_CLOSED:
-                            paymentChannelServer.connectionClosed();
-                            Looper.myLooper().quit();
-                            break;
-                        default:
-                            super.handleMessage(msg);
-                    }
-                }
-            };
+        protected void handleThreadMessage(Message msg) {
+            switch (msg.what) {
+                case MESSAGE_TWO_WAY_CHANNEL_MESSAGE:
+                    paymentChannelServer.receiveMessage((Protos.TwoWayChannelMessage) msg.obj);
+                    break;
+                case MESSAGE_CONNECTION_CLOSED:
+                    paymentChannelServer.connectionClosed();
+                    Looper.myLooper().quit();
+                    break;
+            }
         }
 
         @Override
         protected Void doInBackground(Void... params) {
-            super.doInBackground(params);
             paymentChannelServer = new PaymentChannelServer(
                     broadcaster,
                     wallet,
@@ -123,7 +113,7 @@ public class PaymentChannelServerInstanceBinder extends IPaymentChannelServerIns
                         @Override
                         public void destroyConnection(PaymentChannelCloseException.CloseReason reason) {
                             // onPostExecute will call the remote close
-                            Looper.myLooper().quit();
+                            cancel(false);
                         }
 
                         @Override
@@ -139,8 +129,7 @@ public class PaymentChannelServerInstanceBinder extends IPaymentChannelServerIns
                         }
                     });
             paymentChannelServer.connectionOpen();
-            Looper.loop();
-            return null;
+            return super.doInBackground(params);
         }
     }
 }

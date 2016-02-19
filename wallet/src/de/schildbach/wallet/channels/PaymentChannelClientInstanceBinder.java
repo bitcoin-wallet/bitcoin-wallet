@@ -20,9 +20,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Binder;
-import android.os.Handler;
-import android.os.Looper;
-import android.os.Message;
 import android.os.RemoteException;
 
 import com.google.common.util.concurrent.FutureCallback;
@@ -244,76 +241,68 @@ public class PaymentChannelClientInstanceBinder extends IPaymentChannelClientIns
         }
 
         @Override
-        protected Handler createHandler() {
-            return new Handler() {
-                @Override
-                public void handleMessage(Message msg) {
-                    switch (msg.what) {
-                        case MESSAGE_CONNECTION_CLOSED:
-                            paymentChannelClient.connectionClosed();
-                            break;
-                        case MESSAGE_INCREMENT_PAYMENT:
-                            final IncrementRequest req = (IncrementRequest) msg.obj;
-                            try {
-                                ListenableFuture<PaymentIncrementAck> future =
-                                        paymentChannelClient.incrementPayment(req.value, null, req.userKey);
-                                Futures.addCallback(future,
-                                        new FutureCallback<PaymentIncrementAck>() {
-                                            @Override
-                                            public void onSuccess(PaymentIncrementAck result) {
-                                                req.result.set(result);
-                                            }
+        protected void handleThreadMessage(Message msg) {
+            switch (msg.what) {
+                case MESSAGE_CONNECTION_CLOSED:
+                    paymentChannelClient.connectionClosed();
+                    break;
+                case MESSAGE_INCREMENT_PAYMENT:
+                    final IncrementRequest req = (IncrementRequest) msg.obj;
+                    try {
+                        ListenableFuture<PaymentIncrementAck> future =
+                                paymentChannelClient.incrementPayment(req.value, null, req.userKey);
+                        Futures.addCallback(future,
+                                new FutureCallback<PaymentIncrementAck>() {
+                                    @Override
+                                    public void onSuccess(PaymentIncrementAck result) {
+                                        req.result.set(result);
+                                    }
 
-                                            @Override
-                                            public void onFailure(Throwable t) {
-                                                req.result.setException(t);
-                                            }
-                                        });
-                            } catch (ValueOutOfRangeException e) {
-                                log.warn("Payment increment failed", e);
-                                req.result.setException(e);
-                            } catch (ECKey.KeyIsEncryptedException e) {
-                                log.warn("Encrypted wallet, no key given", e);
-                                req.result.setException(e);
-                            } catch (KeyCrypterException e) {
-                                log.warn("Encrypted wallet, invalid key given", e);
-                                req.result.setException(e);
-                            } catch (IllegalStateException e) {
-                                log.warn("Channel in inconsistent state", e);
-                                req.result.setException(e);
-                            }
-                            break;
-                        case MESSAGE_TWO_WAY_CHANNEL_MESSAGE:
-                            try {
-                                paymentChannelClient.receiveMessage((Protos.TwoWayChannelMessage)msg.obj);
-                            } catch (InsufficientMoneyException e) {
-                                // TODO @w-shackleton display a message to the user saying what's happened.
-                                log.info("Not enough money in wallet to satisfy contract", e);
-                            } catch (ECKey.KeyIsEncryptedException e) {
-                                log.warn("Encrypted wallet, no key given", e);
-                                paymentChannelClient.connectionClosed();
-                                closeConnection();
-                                // TODO @w-shackleton Tell user key was wrong
-                            } catch (KeyCrypterException e) {
-                                log.warn("Encrypted wallet, invalid key given", e);
-                                paymentChannelClient.connectionClosed();
-                                closeConnection();
-                                // TODO @w-shackleton Tell user key was wrong
-                            }
-                            break;
-                        case MESSAGE_SETTLE:
-                            paymentChannelClient.settle();
-                            break;
-                        default:
-                            super.handleMessage(msg);
+                                    @Override
+                                    public void onFailure(Throwable t) {
+                                        req.result.setException(t);
+                                    }
+                                });
+                    } catch (ValueOutOfRangeException e) {
+                        log.warn("Payment increment failed", e);
+                        req.result.setException(e);
+                    } catch (ECKey.KeyIsEncryptedException e) {
+                        log.warn("Encrypted wallet, no key given", e);
+                        req.result.setException(e);
+                    } catch (KeyCrypterException e) {
+                        log.warn("Encrypted wallet, invalid key given", e);
+                        req.result.setException(e);
+                    } catch (IllegalStateException e) {
+                        log.warn("Channel in inconsistent state", e);
+                        req.result.setException(e);
                     }
-                }
-            };
+                    break;
+                case MESSAGE_TWO_WAY_CHANNEL_MESSAGE:
+                    try {
+                        paymentChannelClient.receiveMessage((Protos.TwoWayChannelMessage)msg.obj);
+                    } catch (InsufficientMoneyException e) {
+                        // TODO @w-shackleton display a message to the user saying what's happened.
+                        log.info("Not enough money in wallet to satisfy contract", e);
+                    } catch (ECKey.KeyIsEncryptedException e) {
+                        log.warn("Encrypted wallet, no key given", e);
+                        paymentChannelClient.connectionClosed();
+                        closeConnection();
+                        // TODO @w-shackleton Tell user key was wrong
+                    } catch (KeyCrypterException e) {
+                        log.warn("Encrypted wallet, invalid key given", e);
+                        paymentChannelClient.connectionClosed();
+                        closeConnection();
+                        // TODO @w-shackleton Tell user key was wrong
+                    }
+                    break;
+                case MESSAGE_SETTLE:
+                    paymentChannelClient.settle();
+                    break;
+            }
         }
 
         @Override
         protected Void doInBackground(Void... params) {
-            super.doInBackground(params);
             // TODO @w-shackleton confirm that these values are OK with the user rather than blindly accepting
             ECKey myKey = new ECKey();
             if (keySetup != null) {
@@ -338,7 +327,7 @@ public class PaymentChannelClientInstanceBinder extends IPaymentChannelClientIns
 
                         @Override
                         public void destroyConnection(PaymentChannelCloseException.CloseReason reason) {
-                            Looper.myLooper().quit();
+                            cancel(false);
                         }
 
                         @Override
@@ -353,19 +342,18 @@ public class PaymentChannelClientInstanceBinder extends IPaymentChannelClientIns
                         }
                     });
             paymentChannelClient.connectionOpen();
-            Looper.loop();
-            return null;
+            // Start looping
+            return super.doInBackground(params);
         }
 
         public ListenableFuture<PaymentIncrementAck> postIncrementPayment(Coin value, @Nullable KeyParameter userKey) {
             SettableFuture<PaymentIncrementAck> result = SettableFuture.create();
-            getHandler().sendMessage(Message.obtain(getHandler(), MESSAGE_INCREMENT_PAYMENT,
-                    new IncrementRequest(value, userKey, result)));
+            sendMessageToThread(MESSAGE_INCREMENT_PAYMENT, new IncrementRequest(value, userKey, result));
             return result;
         }
 
         public void postSettle() {
-            getHandler().sendMessage(Message.obtain(getHandler(), MESSAGE_SETTLE));
+            sendMessageToThread(MESSAGE_SETTLE);
         }
     }
 }

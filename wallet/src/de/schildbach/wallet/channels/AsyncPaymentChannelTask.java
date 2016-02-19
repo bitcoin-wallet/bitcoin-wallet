@@ -1,18 +1,15 @@
 package de.schildbach.wallet.channels;
 
 import android.os.AsyncTask;
-import android.os.Handler;
-import android.os.Looper;
-import android.os.Message;
 import android.os.RemoteException;
 
-import com.google.common.util.concurrent.SettableFuture;
+import com.google.common.collect.Queues;
 
 import org.bitcoin.paymentchannel.Protos;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.concurrent.ExecutionException;
+import java.util.concurrent.BlockingQueue;
 
 /**
  * A class to handle all of the masquerading between threads of the service AIDL interface.
@@ -24,8 +21,9 @@ public abstract class AsyncPaymentChannelTask extends AsyncTask<Void, Protos.Two
     public static final int MESSAGE_TWO_WAY_CHANNEL_MESSAGE = 1;
     public static final int MESSAGE_CONNECTION_CLOSED = 2;
 
-    private final SettableFuture<Handler> handlerFuture = SettableFuture.create();
     private final IPaymentChannelCallbacks callbacks;
+
+    private final BlockingQueue<Message> threadMessageQueue = Queues.newArrayBlockingQueue(2);
 
     public AsyncPaymentChannelTask(IPaymentChannelCallbacks callbacks) {
         this.callbacks = callbacks;
@@ -33,31 +31,37 @@ public abstract class AsyncPaymentChannelTask extends AsyncTask<Void, Protos.Two
 
     @Override
     protected Void doInBackground(Void... params) {
-        Looper.prepare();
-        handlerFuture.set(createHandler());
+        while (!isCancelled()) {
+            try {
+                handleThreadMessage(threadMessageQueue.take());
+            } catch (InterruptedException e) {
+                log.info("Interrupted while waiting on message queue", e);
+            }
+        }
         return null;
     }
 
-    protected Handler getHandler() {
-        try {
-            return handlerFuture.get();
-        } catch (InterruptedException e) {
-            return null;
-        } catch (ExecutionException e) {
-            // Won't happen
-            return null;
-        }
-    }
-
-    protected abstract Handler createHandler();
+    protected abstract void handleThreadMessage(Message message);
 
     public void postMessage(Protos.TwoWayChannelMessage message) {
         log.debug("Receiving TwoWayChannelMessage {}", message.getType());
-        getHandler().sendMessage(Message.obtain(getHandler(), MESSAGE_TWO_WAY_CHANNEL_MESSAGE, message));
+        sendMessageToThread(MESSAGE_TWO_WAY_CHANNEL_MESSAGE, message);
     }
 
     public void postConnectionClosed() {
-        getHandler().sendMessage(Message.obtain(getHandler(), MESSAGE_CONNECTION_CLOSED));
+        sendMessageToThread(MESSAGE_CONNECTION_CLOSED);
+    }
+
+    protected void sendMessageToThread(Message message) {
+        threadMessageQueue.add(message);
+    }
+
+    protected void sendMessageToThread(int what) {
+        sendMessageToThread(new Message(what));
+    }
+
+    protected void sendMessageToThread(int what, Object obj) {
+        sendMessageToThread(new Message(what, obj));
     }
 
     protected void closeConnection() {
@@ -87,6 +91,20 @@ public abstract class AsyncPaymentChannelTask extends AsyncTask<Void, Protos.Two
                     log.warn("Failed to close failed connection", e);
                 }
             }
+        }
+    }
+
+    public static class Message {
+        public int what;
+        public Object obj;
+
+        public Message(int what) {
+            this.what = what;
+        }
+
+        public Message(int what, Object obj) {
+            this(what);
+            this.obj = obj;
         }
     }
 }

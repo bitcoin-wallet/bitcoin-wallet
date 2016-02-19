@@ -258,9 +258,20 @@ public class WalletApplication extends Application
 		};
 	}
 
-	private void loadExtensions() {
+	/**
+	 * Loads the extensions into the wallet if they don't already exist. If the wallet is newly
+	 * created we must save and reload the wallet in order for the extensions to be correctly
+	 * initialised.
+	 * @param newWallet
+	 */
+	private void loadExtensions(boolean newWallet) {
 		for (WalletExtension extension : getExtensions(wallet)) {
-			wallet.addOrUpdateExtension(extension);
+			// Add the extension to the wallet if it doesn't already exist in the wallet.
+			wallet.addOrGetExistingExtension(extension);
+		}
+		if (newWallet) {
+			saveWallet();
+			loadWalletFromProtobuf();
 		}
 	}
 
@@ -277,7 +288,8 @@ public class WalletApplication extends Application
 				walletStream = new FileInputStream(walletFile);
 
 				wallet = new WalletProtobufSerializer().readWallet(walletStream, getExtensions());
-				loadExtensions();
+
+				loadExtensions(false);
 
 				if (!wallet.getParams().equals(Constants.NETWORK_PARAMETERS))
 					throw new UnreadableWalletException("bad wallet network parameters: " + wallet.getParams().getId());
@@ -328,7 +340,7 @@ public class WalletApplication extends Application
 		else
 		{
 			wallet = new Wallet(Constants.NETWORK_PARAMETERS);
-			loadExtensions();
+			loadExtensions(true);
 
 			backupWallet();
 
@@ -351,7 +363,7 @@ public class WalletApplication extends Application
 			if (!wallet.isConsistent())
 				throw new Error("inconsistent backup");
 
-			loadExtensions();
+			loadExtensions(false);
 
 			resetBlockchain();
 
@@ -492,8 +504,9 @@ public class WalletApplication extends Application
 		wallet.shutdownAutosaveAndWait();
 
 		wallet = newWallet;
-		wallet.addOrUpdateExtension(new StoredPaymentChannelClientStates(wallet));
-		wallet.addOrUpdateExtension(new StoredPaymentChannelServerStates(wallet));
+		for (WalletExtension extension : getExtensions(wallet)) {
+			wallet.addOrGetExistingExtension(extension);
+		}
 		config.maybeIncrementBestChainHeightEver(newWallet.getLastBlockSeenHeight());
 		afterLoadWallet();
 
