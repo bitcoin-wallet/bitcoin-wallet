@@ -17,9 +17,10 @@
 
 package de.schildbach.wallet.ui.preference;
 
+import android.view.MenuItem;
+
 import java.util.List;
 
-import android.view.MenuItem;
 import de.schildbach.wallet_test.R;
 
 /**

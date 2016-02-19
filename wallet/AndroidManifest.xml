@@ -155,6 +155,11 @@
 			android:screenOrientation="behind"
 			android:theme="@style/My.Theme.ChildActivity" />
 		<activity
+			android:name="de.schildbach.wallet.ui.preference.ShowPaymentChannelsActivity"
+			android:label="@string/preferences_show_payment_channels_title"
+			android:screenOrientation="behind"
+			android:theme="@style/My.Theme.ChildActivity" />
+		<activity
 			android:name="de.schildbach.wallet.ui.RestoreWalletActivity"
 			android:configChanges="orientation|keyboard|keyboardHidden"
 			android:theme="@style/My.Theme.Dialog" >

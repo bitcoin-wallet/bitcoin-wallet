@@ -17,20 +17,22 @@
 
 package de.schildbach.wallet.ui.preference;
 
-import java.io.IOException;
-import java.util.Locale;
+import android.app.Activity;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
+import android.content.Intent;
+import android.os.Bundle;
+import android.preference.Preference;
+import android.preference.PreferenceFragment;
+import android.preference.PreferenceScreen;
 
 import org.bitcoinj.crypto.DeterministicKey;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import android.app.Activity;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
-import android.os.Bundle;
-import android.preference.Preference;
-import android.preference.PreferenceFragment;
-import android.preference.PreferenceScreen;
+import java.io.IOException;
+import java.util.Locale;
+
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.ui.DialogBuilder;
@@ -49,6 +51,7 @@ public final class DiagnosticsFragment extends PreferenceFragment
 	private static final String PREFS_KEY_REPORT_ISSUE = "report_issue";
 	private static final String PREFS_KEY_INITIATE_RESET = "initiate_reset";
 	private static final String PREFS_KEY_EXTENDED_PUBLIC_KEY = "extended_public_key";
+	private static final String PREFS_KEY_SHOW_PAYMENT_CHANNELS = "show_payment_channels";
 
 	private static final Logger log = LoggerFactory.getLogger(DiagnosticsFragment.class);
 
@@ -87,6 +90,10 @@ public final class DiagnosticsFragment extends PreferenceFragment
 		else if (PREFS_KEY_EXTENDED_PUBLIC_KEY.equals(key))
 		{
 			handleExtendedPublicKey();
+			return true;
+		}
+		else if (PREFS_KEY_SHOW_PAYMENT_CHANNELS.equals(key)) {
+			handleShowPaymentChannels();
 			return true;
 		}
 
@@ -161,5 +168,9 @@ public final class DiagnosticsFragment extends PreferenceFragment
 		final String xpub = String.format(Locale.US, "%s?c=%d&h=bip32", extendedKey.serializePubB58(Constants.NETWORK_PARAMETERS),
 				extendedKey.getCreationTimeSeconds());
 		ExtendedPublicKeyFragment.show(getFragmentManager(), (CharSequence) xpub);
+	}
+
+	private void handleShowPaymentChannels() {
+		activity.startActivity(new Intent(activity, ShowPaymentChannelsActivity.class));
 	}
 }

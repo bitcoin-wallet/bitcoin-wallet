@@ -251,6 +251,8 @@
 	<string name="preferences_initiate_reset_dialog_positive">Reset</string>
 	<string name="preferences_extended_public_key_title">Show xpub</string>
 	<string name="preferences_extended_public_key_summary">View the extended public key of your wallet, so it can be imported into other apps and services. Be careful: doing so will disclose your monetary privacy to that app.</string>
+	<string name="preferences_show_payment_channels_title">Show payment channels</string>
+	<string name="preferences_show_payment_channels_summary">View the open payment channels stored in this wallet.</string>
 	<string name="bitmap_fragment_share">Share…</string>
 	<string name="extended_public_key_fragment_title">Extended Public Key</string>
 	<string name="extended_public_key_fragment_share">Share xpub…</string>
