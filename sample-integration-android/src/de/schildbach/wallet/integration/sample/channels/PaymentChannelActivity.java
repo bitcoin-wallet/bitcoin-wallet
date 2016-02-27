@@ -37,6 +37,7 @@ public class PaymentChannelActivity extends Activity implements ServiceConnectio
         findViewById(R.id.start_client_channel).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                startActivity(new Intent(PaymentChannelActivity.this, PaymentChannelClientActivity.class));
             }
         });
         findViewById(R.id.start_server_channel).setOnClickListener(new View.OnClickListener() {

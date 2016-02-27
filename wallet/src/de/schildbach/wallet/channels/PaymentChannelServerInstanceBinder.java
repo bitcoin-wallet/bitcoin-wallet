@@ -40,7 +40,7 @@ public class PaymentChannelServerInstanceBinder extends IPaymentChannelServerIns
 
     private static final Logger log = LoggerFactory.getLogger(PaymentChannelServerInstanceBinder.class);
     // TODO @w-shackleton find a more sensible value for this
-    private static final Coin MIN_ACCEPTED_CHANNEL_SIZE = Coin.valueOf(100000);
+    private static final Coin MIN_ACCEPTED_CHANNEL_SIZE = Coin.valueOf(10000);
 
     private final ChannelAsyncTask asyncTask;
 

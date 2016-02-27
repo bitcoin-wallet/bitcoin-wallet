@@ -67,8 +67,6 @@ public class PaymentChannelClientAndroidConnection {
      * seconds. If the server proposes a longer time the channel will be closed.
      *
      * @param connector The Android service connector to use.
-     * @param timeoutSeconds The connection timeout and read timeout during initialization. This should be large enough
-     *                       to accommodate ECDSA signature operations and network latency.
      * @param wallet The wallet which will be paid from, and where completed transactions will be committed.
      *               Must be unencrypted. Must already have a {@link StoredPaymentChannelClientStates} object in its extensions set.
      * @param myKey A freshly generated keypair used for the multisig contract and refund output.
@@ -81,9 +79,9 @@ public class PaymentChannelClientAndroidConnection {
      * @throws IOException if there's an issue using the network.
      * @throws ValueOutOfRangeException if the balance of wallet is lower than maxValue.
      */
-    public PaymentChannelClientAndroidConnection(PaymentChannelConnector connector, int timeoutSeconds, Wallet wallet, ECKey myKey,
+    public PaymentChannelClientAndroidConnection(PaymentChannelConnector connector, Wallet wallet, ECKey myKey,
                                                  Coin maxValue, String serverId) throws IOException, ValueOutOfRangeException, RemoteException, InterruptedException {
-        this(connector, timeoutSeconds, wallet, myKey, maxValue, serverId,
+        this(connector, wallet, myKey, maxValue, serverId,
                 PaymentChannelClient.DEFAULT_TIME_WINDOW, null);
     }
 
@@ -93,8 +91,6 @@ public class PaymentChannelClientAndroidConnection {
      * seconds. If the server proposes a longer time the channel will be closed.
      *
      * @param connector The Android service connector to use.
-     * @param timeoutSeconds The connection timeout and read timeout during initialization. This should be large enough
-     *                       to accommodate ECDSA signature operations and network latency.
      * @param wallet The wallet which will be paid from, and where completed transactions will be committed.
      *               Can be encrypted if user key is supplied when needed. Must already have a
      *               {@link StoredPaymentChannelClientStates} object in its extensions set.
@@ -110,7 +106,7 @@ public class PaymentChannelClientAndroidConnection {
      * @throws IOException if there's an issue using the network.
      * @throws ValueOutOfRangeException if the balance of wallet is lower than maxValue.
      */
-    public PaymentChannelClientAndroidConnection(PaymentChannelConnector connector, int timeoutSeconds, Wallet wallet, ECKey myKey,
+    public PaymentChannelClientAndroidConnection(PaymentChannelConnector connector, Wallet wallet, ECKey myKey,
                                                  Coin maxValue, String serverId, final long timeWindow,
                                                  @Nullable KeyParameter userKeySetup)
             throws IOException, ValueOutOfRangeException, RemoteException, InterruptedException {

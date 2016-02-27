@@ -14,41 +14,41 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.common.util.concurrent.ListenableFuture;
-import com.google.protobuf.ByteString;
+import com.google.common.util.concurrent.FutureCallback;
+import com.google.common.util.concurrent.Futures;
 
 import org.bitcoinj.core.Coin;
-import org.bitcoinj.core.Sha256Hash;
+import org.bitcoinj.core.ECKey;
 import org.bitcoinj.kits.WalletAppKit;
-import org.bitcoinj.protocols.channels.PaymentChannelCloseException;
+import org.bitcoinj.protocols.channels.PaymentIncrementAck;
+import org.bitcoinj.protocols.channels.ValueOutOfRangeException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
-import javax.annotation.Nullable;
-
+import de.schildbach.wallet.integration.android.channels.PaymentChannelClientAndroidConnection;
 import de.schildbach.wallet.integration.android.channels.PaymentChannelConnector;
 import de.schildbach.wallet.integration.android.channels.PaymentChannelServerAndroidConnection;
 import de.schildbach.wallet.integration.sample.R;
 
-public class PaymentChannelServerActivity extends Activity implements ServiceConnection, View.OnClickListener {
+public class PaymentChannelClientActivity extends Activity implements ServiceConnection, View.OnClickListener {
     private static final Logger log = LoggerFactory.getLogger(PaymentChannelServerAndroidConnection.class);
 
     private WalletAppKit walletAppKit;
 
     private PaymentChannelConnector paymentChannelConnector;
-    private PaymentChannelServerAndroidConnection server;
+    private PaymentChannelClientAndroidConnection client;
 
     private Handler handler;
 
-    private EditText channelSize, minChannelSize, channelExpiryHours;
+    private EditText channelSize, channelExpiryHours;
     private TextView status, paymentTotal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.payment_channel_server_activity);
+        setContentView(R.layout.payment_channel_client_activity);
 
         handler = new Handler(Looper.getMainLooper());
 
@@ -62,7 +62,6 @@ public class PaymentChannelServerActivity extends Activity implements ServiceCon
 
         channelSize = (EditText) findViewById(R.id.channel_size);
         channelExpiryHours = (EditText) findViewById(R.id.channel_expiry_hours);
-        minChannelSize = (EditText) findViewById(R.id.channel_min_size);
         status = (TextView) findViewById(R.id.channel_status);
         paymentTotal = (TextView) findViewById(R.id.channel_amount);
 
@@ -73,7 +72,6 @@ public class PaymentChannelServerActivity extends Activity implements ServiceCon
         findViewById(R.id.satoshi_100000).setOnClickListener(this);
         findViewById(R.id.satoshi_1000000).setOnClickListener(this);
         findViewById(R.id.settle_channel).setOnClickListener(this);
-        findViewById(R.id.double_request_channel).setOnClickListener(this);
 
         bindService(new Intent(this, PaymentChannelService.class), this, BIND_AUTO_CREATE);
     }
@@ -108,11 +106,9 @@ public class PaymentChannelServerActivity extends Activity implements ServiceCon
         switch (view.getId()) {
             case R.id.start:
                 long maxValue;
-                long minValue;
                 long maxTime;
                 try {
                     maxValue = Long.valueOf(channelSize.getText().toString());
-                    minValue = Long.valueOf(minChannelSize.getText().toString());
                     maxTime = (long) (Float.valueOf(channelExpiryHours.getText().toString()) * 3600);
                 } catch (NumberFormatException e) {
                     Toast.makeText(this, "Please enter valid numbers", Toast.LENGTH_LONG).show();
@@ -121,34 +117,69 @@ public class PaymentChannelServerActivity extends Activity implements ServiceCon
 
                 findViewById(R.id.start).setEnabled(false);
 
-                startChannel(Coin.valueOf(maxValue), Coin.valueOf(minValue), maxTime);
+                startChannel(Coin.valueOf(maxValue), maxTime);
                 break;
             case R.id.satoshi_100:
-                requestIncrease(Coin.valueOf(100));
+                increaseAmount(Coin.valueOf(100));
                 break;
             case R.id.satoshi_1000:
-                requestIncrease(Coin.valueOf(1000));
+                increaseAmount(Coin.valueOf(1000));
                 break;
             case R.id.satoshi_10000:
-                requestIncrease(Coin.valueOf(10000));
+                increaseAmount(Coin.valueOf(10000));
                 break;
             case R.id.satoshi_100000:
-                requestIncrease(Coin.valueOf(100000));
+                increaseAmount(Coin.valueOf(100000));
                 break;
             case R.id.satoshi_1000000:
-                requestIncrease(Coin.valueOf(1000000));
+                increaseAmount(Coin.valueOf(1000000));
                 break;
             case R.id.settle_channel:
                 settleChannel();
                 break;
-            case R.id.double_request_channel:
-                doubleRequestChannel();
-                break;
         }
     }
 
-    private void startChannel(Coin maxValue, Coin minChannelSize, long maxTime) {
+    private void startChannel(Coin maxValue, long maxTime) {
         try {
+            ECKey myKey = new ECKey();
+            walletAppKit.wallet().importKey(myKey);
+            String serverId = "SERVER ID NOT REAL BLAH";
+            client = new PaymentChannelClientAndroidConnection(paymentChannelConnector,
+                    walletAppKit.wallet(),
+                    myKey,
+                    maxValue,
+                    serverId,
+                    maxTime,
+                    null);
+            Futures.addCallback(client.getChannelOpenFuture(), new FutureCallback<PaymentChannelClientAndroidConnection>() {
+                @Override
+                public void onSuccess(PaymentChannelClientAndroidConnection result) {
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            status.setText("Channel open");
+                            findViewById(R.id.satoshi_100).setEnabled(true);
+                            findViewById(R.id.satoshi_1000).setEnabled(true);
+                            findViewById(R.id.satoshi_10000).setEnabled(true);
+                            findViewById(R.id.satoshi_100000).setEnabled(true);
+                            findViewById(R.id.satoshi_1000000).setEnabled(true);
+                            findViewById(R.id.settle_channel).setEnabled(true);
+                        }
+                    });
+                }
+
+                @Override
+                public void onFailure(final Throwable t) {
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            status.setText("Channel failed to open: " + t.getMessage());
+                        }
+                    });
+                }
+            });
+            /*
             server = new PaymentChannelServerAndroidConnection(paymentChannelConnector,
                     new PaymentChannelServerAndroidConnection.EventHandler() {
                         @Override
@@ -157,13 +188,6 @@ public class PaymentChannelServerActivity extends Activity implements ServiceCon
                                 @Override
                                 public void run() {
                                     status.setText("Channel open: " + channelId);
-                                    findViewById(R.id.satoshi_100).setEnabled(true);
-                                    findViewById(R.id.satoshi_1000).setEnabled(true);
-                                    findViewById(R.id.satoshi_10000).setEnabled(true);
-                                    findViewById(R.id.satoshi_100000).setEnabled(true);
-                                    findViewById(R.id.satoshi_1000000).setEnabled(true);
-                                    findViewById(R.id.settle_channel).setEnabled(true);
-                                    findViewById(R.id.double_request_channel).setEnabled(true);
                                 }
                             });
                         }
@@ -195,44 +219,45 @@ public class PaymentChannelServerActivity extends Activity implements ServiceCon
                     minChannelSize,
                     maxValue,
                     new byte[] {},
-                    maxTime);
+                    maxTime); */
         } catch (IOException e) {
             e.printStackTrace();
         } catch (RemoteException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
             e.printStackTrace();
+        } catch (ValueOutOfRangeException e) {
+            e.printStackTrace();
         }
     }
 
-    private void requestIncrease(Coin amount) {
+    private void increaseAmount(Coin amount) {
         try {
-            server.requestIncrement(amount);
-        } catch (RemoteException e) {
+            Futures.addCallback(client.incrementPayment(amount),
+                    new FutureCallback<PaymentIncrementAck>() {
+                        @Override
+                        public void onSuccess(PaymentIncrementAck result) {
+                            handler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(PaymentChannelClientActivity.this, "Payment incremented", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
+
+                        @Override
+                        public void onFailure(Throwable t) {
+                            log.warn("Payment increment failed", t);
+                            Toast.makeText(PaymentChannelClientActivity.this, "Payment increment failed", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        } catch (ValueOutOfRangeException e) {
             log.warn("Requesting payment channel increment failed", e);
-            Toast.makeText(this, "Failed to request payment increment", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Failed to increment payment", Toast.LENGTH_LONG).show();
         }
     }
 
     private void settleChannel() {
-        try {
-            server.settleChannel();
-        } catch (RemoteException e) {
-            log.warn("Requesting channel settle failed", e);
-            Toast.makeText(this, "Failed to request channel settle", Toast.LENGTH_LONG).show();
-        }
-    }
-
-    /**
-     * Posts a request for a microcoin, and then a second later posts a request for 2 microcoins.
-     */
-    private void doubleRequestChannel() {
-        requestIncrease(Coin.MICROCOIN);
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                requestIncrease(Coin.MICROCOIN.times(2));
-            }
-        }, 1000);
+        client.settle();
     }
 }

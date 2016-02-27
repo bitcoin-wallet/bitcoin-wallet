@@ -21,6 +21,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Binder;
 import android.os.RemoteException;
+import android.widget.Toast;
 
 import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
@@ -63,6 +64,15 @@ public class PaymentChannelClientInstanceBinder extends IPaymentChannelClientIns
     private final long timeWindow;
 
     private Coin pendingIncrement = null;
+    /**
+     * A counter incremented with each increment request. This exists because a remote app could
+     * request two payments in quick succession, and our logic is to display the first one to the user
+     * and not display anything else until the user accepts it (this is handled by Android's
+     * singleTask attribute in the manifest---see the demos for a double-request demo). If a second
+     * request came in before the user accepts the first one then this counter would not be the same
+     * and the request would not be valid.
+     */
+    private long pendingIncrementId = 0;
 
     public PaymentChannelClientInstanceBinder(
             Context context,
@@ -116,8 +126,14 @@ public class PaymentChannelClientInstanceBinder extends IPaymentChannelClientIns
         }
     }
 
-    public synchronized void onChannelIncrementConfirmed(@Nullable KeyParameter key) {
+    public synchronized void onChannelIncrementConfirmed(long incrementId, @Nullable KeyParameter key) {
         // TODO @w-shackleton make dialog wait until we have ack
+        if (pendingIncrementId != incrementId) {
+            // Check failed, remote made two simultaneous payment requests. Decline them both out of safety.
+            onChannelCancelled();
+            Toast.makeText(context, "Payment aborted", Toast.LENGTH_LONG).show();
+            return;
+        }
         ListenableFuture<PaymentIncrementAck> ackFuture =
                 asyncTask.postIncrementPayment(pendingIncrement, key);
         Futures.addCallback(ackFuture,
@@ -153,6 +169,8 @@ public class PaymentChannelClientInstanceBinder extends IPaymentChannelClientIns
 
     @Override
     public void sendMessage(byte[] message) throws RemoteException {
+        if (asyncTask == null)
+            throw new RemoteException("Channel never successfully opened");
         try {
             asyncTask.postMessage(Protos.TwoWayChannelMessage.parseFrom(message));
         } catch (InvalidProtocolBufferException e) {
@@ -180,11 +198,8 @@ public class PaymentChannelClientInstanceBinder extends IPaymentChannelClientIns
     }
 
     public synchronized boolean requestIncrement(long satoshis, boolean pinWasInvalid) {
-        if (pendingIncrement != null) {
-            // Only one pending increment at once
-            return false;
-        }
         pendingIncrement = Coin.valueOf(satoshis);
+        pendingIncrementId++;
 
         String callerName = context.getPackageManager().getNameForUid(Binder.getCallingUid());
 
@@ -198,17 +213,23 @@ public class PaymentChannelClientInstanceBinder extends IPaymentChannelClientIns
         confirmIntent.putExtra(ChannelIncrementActivity.INTENT_EXTRA_PIN_WAS_INVALID, pinWasInvalid);
         confirmIntent.putExtra(ChannelIncrementActivity.INTENT_EXTRA_CHANNEL_ID, channelId);
         confirmIntent.putExtra(ChannelIncrementActivity.INTENT_EXTRA_PASSWORD_REQUIRED, wallet.isEncrypted());
+        confirmIntent.putExtra(ChannelIncrementActivity.INTENT_EXTRA_INCREMENT_ID, pendingIncrementId);
         context.startActivity(confirmIntent);
         return true;
     }
 
     @Override
     public void requestSettle() throws RemoteException {
+        if (asyncTask == null)
+            throw new RemoteException("Channel never successfully opened");
         asyncTask.postSettle();
+
     }
 
     @Override
     public void closeConnection() throws RemoteException {
+        if (asyncTask == null)
+            throw new RemoteException("Channel never successfully opened");
         asyncTask.postConnectionClosed();
     }
 

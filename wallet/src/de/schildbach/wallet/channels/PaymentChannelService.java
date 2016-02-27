@@ -26,6 +26,7 @@ import android.content.ServiceConnection;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.support.v4.content.LocalBroadcastManager;
+import android.widget.Toast;
 
 import com.google.common.collect.MapMaker;
 import com.google.common.util.concurrent.SettableFuture;
@@ -69,6 +70,8 @@ public class PaymentChannelService extends Service {
             PaymentChannelService.class.getCanonicalName() + ".password";
     public static final String BROADCAST_CONFIRM_INCREMENT_EXTRA_CONFIRMED =
             PaymentChannelService.class.getCanonicalName() + ".confirmed";
+    public static final String BROADCAST_CONFIRM_INCREMENT_EXTRA_INCREMENT_ID =
+            PaymentChannelService.class.getCanonicalName() + ".increment_id";
 
     private SettableFuture<BlockchainService> blockchainServiceFuture;
 
@@ -170,6 +173,9 @@ public class PaymentChannelService extends Service {
                         null;
 
                 PaymentChannelClientInstanceBinder binder = openClientChannels.get(id);
+                if (binder == null) {
+                    Toast.makeText(context, "Payment failed", Toast.LENGTH_LONG).show();
+                }
                 if (confirm) {
                     binder.onChannelConfirmed(key);
                 } else {
@@ -180,6 +186,8 @@ public class PaymentChannelService extends Service {
                 int id = intent.getIntExtra(BROADCAST_CONFIRM_INCREMENT_EXTRA_CHANNEL_ID, -1);
                 // Boolean indicating confirm or cancel
                 boolean confirm = intent.getBooleanExtra(BROADCAST_CONFIRM_INCREMENT_EXTRA_CONFIRMED, false);
+
+                long incrementId = intent.getLongExtra(BROADCAST_CONFIRM_INCREMENT_EXTRA_INCREMENT_ID, -1);
 
                 String password = intent.getStringExtra(BROADCAST_CONFIRM_INCREMENT_EXTRA_PASSWORD);
 
@@ -193,8 +201,11 @@ public class PaymentChannelService extends Service {
                 }
 
                 PaymentChannelClientInstanceBinder binder = openClientChannels.get(id);
+                if (binder == null) {
+                    Toast.makeText(context, "Payment failed", Toast.LENGTH_LONG).show();
+                }
                 if (confirm) {
-                    binder.onChannelIncrementConfirmed(key);
+                    binder.onChannelIncrementConfirmed(incrementId, key);
                 } else {
                     binder.onChannelIncrementCancelled();
                 }

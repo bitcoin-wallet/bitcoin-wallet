@@ -46,15 +46,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Min channel size (satoshis)"
-                android:inputType="number"
-                android:text="1000"
-                android:ems="10"
-                android:id="@+id/channel_min_size" />
-
         </android.support.design.widget.TextInputLayout>
 
         <Button
@@ -136,13 +127,6 @@
             android:text="Settle channel"
             android:enabled="false"
             android:id="@+id/settle_channel" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Double-request channel"
-            android:enabled="false"
-            android:id="@+id/double_request_channel" />
 
     </LinearLayout>
 

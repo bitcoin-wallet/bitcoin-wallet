@@ -24,8 +24,6 @@ import de.schildbach.wallet.channels.PaymentChannelService;
 import de.schildbach.wallet.ui.CurrencyTextView;
 import de.schildbach.wallet_test.R;
 
-import static com.google.common.base.Preconditions.checkState;
-
 /**
  * A dialog that asks the user if they wish to accept the incrementing of a payment channel.
  */
@@ -40,6 +38,8 @@ public class ChannelIncrementActivity extends Activity implements View.OnClickLi
             ChannelIncrementActivity.class.getCanonicalName() + ".channel_id";
     public static final String INTENT_EXTRA_PASSWORD_REQUIRED =
             ChannelIncrementActivity.class.getCanonicalName() + ".password_required";
+    public static final String INTENT_EXTRA_INCREMENT_ID =
+            ChannelIncrementActivity.class.getCanonicalName() + ".increment_id";
     private static final Logger log = LoggerFactory.getLogger(ChannelIncrementActivity.class);
 
     private TextView channelDestinationTitle;
@@ -52,6 +52,10 @@ public class ChannelIncrementActivity extends Activity implements View.OnClickLi
 
     private int channelId;
     private boolean passwordRequired;
+
+    private long pendingIncrementId;
+
+    private boolean resultPassed = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,6 +99,8 @@ public class ChannelIncrementActivity extends Activity implements View.OnClickLi
             finish();
             return;
         }
+
+        pendingIncrementId = getIntent().getLongExtra(INTENT_EXTRA_INCREMENT_ID, -1);
 
         passwordRequired = getIntent().getBooleanExtra(INTENT_EXTRA_PASSWORD_REQUIRED, true);
         channelPassword = (EditText) findViewById(R.id.channel_password);
@@ -149,11 +155,18 @@ public class ChannelIncrementActivity extends Activity implements View.OnClickLi
         }
     }
 
-    private void notifyService(boolean confirm, int id, @Nullable String password) {
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
+
+    private boolean notifyService(boolean confirm, int id, @Nullable String password) {
         Intent intent = new Intent(PaymentChannelService.BROADCAST_CONFIRM_INCREMENT);
         intent.putExtra(PaymentChannelService.BROADCAST_CONFIRM_INCREMENT_EXTRA_PASSWORD, password);
         intent.putExtra(PaymentChannelService.BROADCAST_CONFIRM_INCREMENT_EXTRA_CHANNEL_ID, id);
         intent.putExtra(PaymentChannelService.BROADCAST_CONFIRM_INCREMENT_EXTRA_CONFIRMED, confirm);
-        checkState(LocalBroadcastManager.getInstance(this).sendBroadcast(intent));
+        intent.putExtra(PaymentChannelService.BROADCAST_CONFIRM_INCREMENT_EXTRA_INCREMENT_ID, pendingIncrementId);
+        resultPassed = true;
+        return LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
     }
 }
