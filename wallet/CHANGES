@@ -1,3 +1,12 @@
+v4.47
+
+* Automatically close send coins dialog if payment was successful. This can be disabled in the
+  settings.
+* Consider RBF (replace-by-fee) transactions as risky, so for them wait for the first
+  confirmation.
+* Update Catalan translation from Transifex.
+* Based on bitcoinj 0.13.5.
+
 v4.46
 
 * Speculative fix for ANR.
