@@ -378,7 +378,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 
 				log.info("starting peergroup");
 				peerGroup = new PeerGroup(Constants.NETWORK_PARAMETERS, blockChain);
-				peerGroup.setDownloadTxDependencies(false); // recursive implementation causes StackOverflowError
+				peerGroup.setDownloadTxDependencies(0); // recursive implementation causes StackOverflowError
 				peerGroup.addWallet(wallet);
 				peerGroup.setUserAgent(Constants.USER_AGENT, application.packageInfo().versionName);
 				peerGroup.addEventListener(peerConnectivityListener);
