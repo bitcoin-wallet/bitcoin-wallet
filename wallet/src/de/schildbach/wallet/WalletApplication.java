@@ -97,6 +97,7 @@ public class WalletApplication extends Application
 		StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().detectAll().permitDiskReads().permitDiskWrites().penaltyLog().build());
 
 		Threading.throwOnLockCycles();
+		org.bitcoinj.core.Context.enableStrictMode();
 		org.bitcoinj.core.Context.propagate(Constants.CONTEXT);
 
 		log.info("=== starting app using configuration: {}, {}", Constants.TEST ? "test" : "prod", Constants.NETWORK_PARAMETERS.getId());
