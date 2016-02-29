@@ -179,47 +179,6 @@ public class PaymentChannelClientActivity extends Activity implements ServiceCon
                     });
                 }
             });
-            /*
-            server = new PaymentChannelServerAndroidConnection(paymentChannelConnector,
-                    new PaymentChannelServerAndroidConnection.EventHandler() {
-                        @Override
-                        public void channelOpen(final Sha256Hash channelId) {
-                            handler.post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    status.setText("Channel open: " + channelId);
-                                }
-                            });
-                        }
-
-                        @Nullable
-                        @Override
-                        public ListenableFuture<ByteString> paymentIncrease(Coin by, final Coin to, ByteString info) {
-                            handler.post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    paymentTotal.setText(to.toFriendlyString());
-                                }
-                            });
-                            return null;
-                        }
-
-                        @Override
-                        public void channelClosed(final PaymentChannelCloseException.CloseReason reason) {
-                            handler.post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    status.setText("Channel closed: " + reason);
-                                }
-                            });
-                        }
-                    },
-                    walletAppKit.peerGroup(),
-                    walletAppKit.wallet(),
-                    minChannelSize,
-                    maxValue,
-                    new byte[] {},
-                    maxTime); */
         } catch (IOException e) {
             e.printStackTrace();
         } catch (RemoteException e) {
@@ -236,11 +195,12 @@ public class PaymentChannelClientActivity extends Activity implements ServiceCon
             Futures.addCallback(client.incrementPayment(amount),
                     new FutureCallback<PaymentIncrementAck>() {
                         @Override
-                        public void onSuccess(PaymentIncrementAck result) {
+                        public void onSuccess(final PaymentIncrementAck result) {
                             handler.post(new Runnable() {
                                 @Override
                                 public void run() {
                                     Toast.makeText(PaymentChannelClientActivity.this, "Payment incremented", Toast.LENGTH_SHORT).show();
+                                    paymentTotal.setText(result.getValue().toFriendlyString());
                                 }
                             });
                         }

@@ -163,7 +163,7 @@ public class PaymentChannelClientAndroidConnection {
             public void channelOpen(boolean wasInitiated) {
                 channelOpenFuture.set(PaymentChannelClientAndroidConnection.this);
             }
-        });
+        }, PaymentChannelClient.VersionSelector.VERSION_2);
         channelClient.connectionOpen();
     }
 

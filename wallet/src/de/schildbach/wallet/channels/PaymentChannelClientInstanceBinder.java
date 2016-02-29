@@ -361,7 +361,7 @@ public class PaymentChannelClientInstanceBinder extends IPaymentChannelClientIns
                         public void channelOpen(boolean wasInitiated) {
 
                         }
-                    });
+                    }, PaymentChannelClient.VersionSelector.VERSION_2);
             paymentChannelClient.connectionOpen();
             // Start looping
             return super.doInBackground(params);

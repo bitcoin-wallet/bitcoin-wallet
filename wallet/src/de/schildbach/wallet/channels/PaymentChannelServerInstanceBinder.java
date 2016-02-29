@@ -17,7 +17,6 @@
 package de.schildbach.wallet.channels;
 
 import android.os.AsyncTask;
-import android.os.Looper;
 import android.os.RemoteException;
 
 import com.google.common.util.concurrent.ListenableFuture;
@@ -26,9 +25,11 @@ import com.google.protobuf.InvalidProtocolBufferException;
 
 import org.bitcoin.paymentchannel.Protos;
 import org.bitcoinj.core.Coin;
+import org.bitcoinj.core.ECKey;
 import org.bitcoinj.core.Sha256Hash;
 import org.bitcoinj.core.TransactionBroadcaster;
 import org.bitcoinj.core.Wallet;
+import org.bitcoinj.crypto.KeyCrypterException;
 import org.bitcoinj.protocols.channels.PaymentChannelCloseException;
 import org.bitcoinj.protocols.channels.PaymentChannelServer;
 import org.slf4j.Logger;
@@ -88,12 +89,23 @@ public class PaymentChannelServerInstanceBinder extends IPaymentChannelServerIns
         @Override
         protected void handleThreadMessage(Message msg) {
             switch (msg.what) {
-                case MESSAGE_TWO_WAY_CHANNEL_MESSAGE:
-                    paymentChannelServer.receiveMessage((Protos.TwoWayChannelMessage) msg.obj);
-                    break;
                 case MESSAGE_CONNECTION_CLOSED:
                     paymentChannelServer.connectionClosed();
-                    Looper.myLooper().quit();
+                    break;
+                case MESSAGE_TWO_WAY_CHANNEL_MESSAGE:
+                    try {
+                        paymentChannelServer.receiveMessage((Protos.TwoWayChannelMessage)msg.obj);
+                    } catch (ECKey.KeyIsEncryptedException e) {
+                        log.warn("Encrypted wallet, no key given", e);
+                        paymentChannelServer.connectionClosed();
+                        closeConnection();
+                        // TODO @w-shackleton Tell user key was wrong
+                    } catch (KeyCrypterException e) {
+                        log.warn("Encrypted wallet, invalid key given", e);
+                        paymentChannelServer.connectionClosed();
+                        closeConnection();
+                        // TODO @w-shackleton Tell user key was wrong
+                    }
                     break;
             }
         }
