@@ -118,7 +118,7 @@ public class PaymentChannelService extends Service {
         }
     };
 
-    private WalletApplication getWalletApplication() {
+    WalletApplication getWalletApplication() {
         return (WalletApplication) getApplication();
     }
 

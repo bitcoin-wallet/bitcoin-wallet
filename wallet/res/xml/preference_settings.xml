@@ -68,6 +68,11 @@
 			android:key="labs_qr_payment_request"
 			android:summary="Use payment protocol for QR-code initiated payments"
 			android:title="BIP70 for scan-to-pay" />
+		<CheckBoxPreference
+			android:defaultValue="false"
+			android:key="labs_payment_channels"
+			android:summary="Enable an Android service supporting BIP65 payment channels"
+			android:title="Payment channels" />
 	</PreferenceCategory>
 
 </PreferenceScreen>

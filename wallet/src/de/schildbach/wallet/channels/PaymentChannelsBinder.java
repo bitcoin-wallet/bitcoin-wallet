@@ -30,6 +30,8 @@ import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
+import de.schildbach.wallet.WalletApplication;
+
 /**
  * Binder for the IPaymentChannels interface.
  */
@@ -49,6 +51,7 @@ public class PaymentChannelsBinder extends IPaymentChannels.Stub {
 
     @Override
     public IPaymentChannelServerInstance createChannelToWallet(IPaymentChannelCallbacks callbacks) throws RemoteException {
+        checkFeatureEnabled();
         try {
             return new PaymentChannelServerInstanceBinder(
                     wallet,
@@ -70,6 +73,7 @@ public class PaymentChannelsBinder extends IPaymentChannels.Stub {
             long requestedMaxValue,
             byte[] serverId,
             long requestedTimeWindow) throws RemoteException {
+        checkFeatureEnabled();
         // Null ID was masqueraded as an empty array
         Sha256Hash serverIdHash = serverId.length == 0 ? Sha256Hash.ZERO_HASH : Sha256Hash.wrap(serverId);
         return parent.createClientChannel(
@@ -80,4 +84,10 @@ public class PaymentChannelsBinder extends IPaymentChannels.Stub {
                 requestedTimeWindow);
     }
 
+    private void checkFeatureEnabled() throws RemoteException {
+        WalletApplication app = parent.getWalletApplication();
+        if (!app.getConfiguration().getPaymentChannelsEnabled()) {
+            throw new RemoteException("Payment channels feature not enabled in this wallet");
+        }
+    }
 }
