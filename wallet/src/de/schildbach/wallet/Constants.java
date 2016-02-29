@@ -19,6 +19,7 @@ package de.schildbach.wallet;
 
 import java.io.File;
 
+import org.bitcoinj.core.Context;
 import org.bitcoinj.core.NetworkParameters;
 import org.bitcoinj.params.MainNetParams;
 import org.bitcoinj.params.TestNet3Params;
@@ -41,6 +42,9 @@ public final class Constants
 
 	/** Network this wallet is on (e.g. testnet or mainnet). */
 	public static final NetworkParameters NETWORK_PARAMETERS = TEST ? TestNet3Params.get() : MainNetParams.get();
+
+	/** Bitcoinj global context. */
+	public static final Context CONTEXT = new Context(NETWORK_PARAMETERS);
 
 	public final static class Files
 	{

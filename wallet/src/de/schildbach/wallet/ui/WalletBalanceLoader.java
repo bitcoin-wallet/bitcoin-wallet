@@ -32,6 +32,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.support.v4.content.LocalBroadcastManager;
+
+import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.util.ThrottlingWalletChangeListener;
 
@@ -87,6 +89,8 @@ public final class WalletBalanceLoader extends AsyncTaskLoader<Coin>
 	@Override
 	public Coin loadInBackground()
 	{
+		org.bitcoinj.core.Context.propagate(Constants.CONTEXT);
+
 		return wallet.getBalance(BalanceType.ESTIMATED);
 	}
 

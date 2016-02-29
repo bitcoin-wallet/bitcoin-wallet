@@ -27,6 +27,8 @@ import org.bitcoinj.core.Wallet.CouldNotAdjustDownwards;
 import org.bitcoinj.core.Wallet.SendRequest;
 import org.bitcoinj.crypto.KeyCrypterException;
 
+import de.schildbach.wallet.Constants;
+
 import android.os.Handler;
 import android.os.Looper;
 
@@ -53,6 +55,8 @@ public abstract class SendCoinsOfflineTask
 			@Override
 			public void run()
 			{
+				org.bitcoinj.core.Context.propagate(Constants.CONTEXT);
+
 				try
 				{
 					final Transaction transaction = wallet.sendCoinsOffline(sendRequest); // can take long

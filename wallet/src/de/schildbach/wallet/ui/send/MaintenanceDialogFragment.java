@@ -56,6 +56,7 @@ import android.widget.TextView;
 
 import com.google.common.util.concurrent.ListenableFuture;
 
+import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.ui.AbstractWalletActivity;
 import de.schildbach.wallet.ui.DialogBuilder;
@@ -253,6 +254,8 @@ public class MaintenanceDialogFragment extends DialogFragment
 			@Override
 			public void run()
 			{
+				org.bitcoinj.core.Context.propagate(Constants.CONTEXT);
+
 				try
 				{
 					wallet.doMaintenance(encryptionKey, true);

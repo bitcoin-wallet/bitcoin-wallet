@@ -465,6 +465,8 @@ public class WalletTransactionsFragment extends Fragment implements LoaderCallba
 		@Override
 		public List<Transaction> loadInBackground()
 		{
+			org.bitcoinj.core.Context.propagate(Constants.CONTEXT);
+
 			final Set<Transaction> transactions = wallet.getTransactions(true);
 			final List<Transaction> filteredTransactions = new ArrayList<Transaction>(transactions.size());
 
