@@ -40,6 +40,8 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+
+import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.util.GenericUtils;
 import de.schildbach.wallet.util.MonetarySpannable;
 import de.schildbach.wallet_test.R;
@@ -271,9 +273,15 @@ public final class CurrencyAmountView extends FrameLayout
 			{
 				final Monetary amount;
 				if (localCurrencyCode == null)
+				{
 					amount = inputFormat.parse(str);
+					if (((Coin) amount).isGreaterThan(Constants.NETWORK_PARAMETERS.getMaxMoney()))
+						return false;
+				}
 				else
+				{
 					amount = inputFormat.parseFiat(localCurrencyCode, str);
+				}
 
 				// exactly zero
 				return zeroIsValid || amount.signum() > 0;
