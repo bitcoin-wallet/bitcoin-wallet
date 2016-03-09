@@ -631,6 +631,12 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 				messageView.setText(R.string.transaction_row_message_received_pay_to_many);
 				messageView.setTextColor(colorInsignificant);
 			}
+			else if (!txCache.sent && tx.isOptInFullRBF())
+			{
+				extendMessageView.setVisibility(View.VISIBLE);
+				messageView.setText(R.string.transaction_row_message_received_rbf);
+				messageView.setTextColor(colorInsignificant);
+			}
 			else if (memo != null)
 			{
 				extendMessageView.setVisibility(View.VISIBLE);

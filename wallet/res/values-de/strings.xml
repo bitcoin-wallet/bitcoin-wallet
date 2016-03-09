@@ -173,6 +173,7 @@
 	<string name="transaction_row_message_received_dead">Diese Zahlung wurde vom Sender rückgängig gemacht.</string>
 	<string name="transaction_row_message_received_dust">Dieser kleine Betrag kann vermutlich nie wirtschaftlich ausgegeben werden.</string>
 	<string name="transaction_row_message_received_pay_to_many">Diese Zahlung ging an viele Wallets (neben deiner), was die App mit der Zeit verlangsamt. Versuche wenn möglich Zahlungen zu empfangen, die nur an dich gerichtet sind.</string>
+	<string name="transaction_row_message_received_rbf">Diese Zahlung wurde verzögert, weil der Sender eine unsichere Transaktionsform verwendet hat.</string>
 
 	<string name="network_monitor_activity_title">Netzwerk-Monitor</string>
 	<string name="network_monitor_peer_list_title">Peers</string>
