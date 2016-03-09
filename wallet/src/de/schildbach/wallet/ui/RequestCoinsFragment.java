@@ -173,6 +173,7 @@ public final class RequestCoinsFragment extends Fragment implements NfcAdapter.C
 		else
 		{
 			address = wallet.freshReceiveAddress();
+			log.info("request coins started: {}", address);
 		}
 	}
 
