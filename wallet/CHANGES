@@ -1,3 +1,8 @@
+v4.48
+
+* Fix for crash when entering too large amounts.
+* Add warning to RBF (replace-by-fee) transactions.
+
 v4.47
 
 * Automatically close send coins dialog if payment was successful. This can be disabled in the
