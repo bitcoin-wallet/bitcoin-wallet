@@ -17,11 +17,11 @@
 	</Preference>
 	<Preference
 		android:key="about_source"
-		android:summary="https://github.com/schildbach/bitcoin-wallet"
+		android:summary="https://github.com/bitcoin-wallet/bitcoin-wallet"
 		android:title="@string/about_source_title" >
 		<intent
 			android:action="android.intent.action.VIEW"
-			android:data="https://github.com/schildbach/bitcoin-wallet" />
+			android:data="https://github.com/bitcoin-wallet/bitcoin-wallet" />
 	</Preference>
 	<Preference
 		android:key="about_market_app"
