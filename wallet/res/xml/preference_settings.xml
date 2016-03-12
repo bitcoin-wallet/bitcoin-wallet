@@ -61,7 +61,7 @@
 		<CheckBoxPreference
 			android:defaultValue="true"
 			android:key="disclaimer"
-			android:summary="Have you really read the safety notes? Did you already back up your private keys to a safe place?"
+			android:summary="Have you really read the safety notes? Did you already back up your wallet to a safe place?"
 			android:title="Show disclaimer" />
 		<CheckBoxPreference
 			android:defaultValue="false"
