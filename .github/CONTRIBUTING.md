@@ -6,5 +6,5 @@ However if you've got a question or would like to start a discussion, please pos
 [community](https://plus.google.com/communities/105515929887248493912).
 
 If you would like to contribute language translations, we prefer if you use our
-[Transifex project](https://www.transifex.com/projects/p/bitcoin-wallet/). Languages will be
+[Transifex project](https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/). Languages will be
 synced from there regularly.

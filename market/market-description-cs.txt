@@ -23,7 +23,7 @@ Náš zdrojový kód je k dispozici na GitHubu:
 https://github.com/schildbach/bitcoin-wallet
 
 Veškeré překlady jsou tvořeny pomocí Transflex.
-https://www.transifex.com/projects/p/bitcoin-wallet/
+https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/
 
 
 <b>UZNÁNÍ</b>

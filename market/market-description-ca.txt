@@ -23,7 +23,7 @@ El nostre codi està disponible a GitHub:
 https://github.com/schildbach/bitcoin-wallet
 
 Totes les traduccions estan gestionades a través de Transifex:
-https://www.transifex.com/projects/p/bitcoin-wallet/
+https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/
 
 
 <b>TESTIMONIS</b>

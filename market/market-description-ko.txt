@@ -23,7 +23,7 @@ https://www.gnu.org/licenses/gpl-3.0.en.html
 https://github.com/schildbach/bitcoin-wallet
 
 모든 로컬라이제이션은 Transifex 웹사이트에서 이루어집니다:
-https://www.transifex.com/projects/p/bitcoin-wallet/
+https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/
 
 
 <b>사용자 리뷰</b>

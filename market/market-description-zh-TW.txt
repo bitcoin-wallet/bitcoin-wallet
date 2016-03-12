@@ -23,7 +23,7 @@ https://www.gnu.org/licenses/gpl-3.0.en.html
 https://github.com/schildbach/bitcoin-wallet
 
 所有的翻譯工作都用 Transifex 管理:
-https://www.transifex.com/projects/p/bitcoin-wallet/
+https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/
 
 
 <b>大推</b>

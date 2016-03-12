@@ -23,7 +23,7 @@ https://www.gnu.org/licenses/gpl-3.0.en.html
 https://github.com/schildbach/bitcoin-wallet
 
 Διαχείρηση όλων των μεταφράσεων μέσω του Transifex:
-https://www.transifex.com/projects/p/bitcoin-wallet/
+https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/
 
 
 <b>ΣΥΣΤΑΣΕΙΣ</b>
