@@ -20,7 +20,7 @@ Bitcoin Wallet est un <b>logiciel à code source ouvert</b> et <b>libre</b>. Lic
 https://www.gnu.org/licenses/gpl-3.0.fr.html
 
 Notre code source est proposée sur GutHub :
-https://github.com/schildbach/bitcoin-wallet
+https://github.com/bitcoin-wallet/bitcoin-wallet
 
 Toutes les traductions sont gérées sur Transifex :
 https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/
