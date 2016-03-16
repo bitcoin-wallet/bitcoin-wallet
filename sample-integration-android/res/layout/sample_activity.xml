@@ -88,6 +88,28 @@
 			android:layout_marginTop="20dp"
 			android:minLines="5"
 			android:visibility="invisible" />
+
+		<TextView
+			style="@android:style/TextAppearance.Medium"
+			android:layout_width="256dp"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center"
+			android:layout_marginTop="20dp"
+			android:text="Click here to test demonstrations of the payment channels APIs." />
+
+		<FrameLayout
+			android:layout_width="fill_parent"
+			android:layout_height="0px"
+			android:layout_weight="1" >
+
+			<Button
+				android:id="@+id/payment_channels_button"
+				style="@android:style/TextAppearance.Medium"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_gravity="center"
+				android:text="Payment Channels" />
+		</FrameLayout>
 	</LinearLayout>
 
 </ScrollView>

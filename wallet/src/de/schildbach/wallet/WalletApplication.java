@@ -17,28 +17,6 @@
 
 package de.schildbach.wallet;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.concurrent.TimeUnit;
-
-import org.bitcoinj.core.Transaction;
-import org.bitcoinj.core.VerificationException;
-import org.bitcoinj.core.VersionMessage;
-import org.bitcoinj.core.Wallet;
-import org.bitcoinj.crypto.LinuxSecureRandom;
-import org.bitcoinj.crypto.MnemonicCode;
-import org.bitcoinj.store.UnreadableWalletException;
-import org.bitcoinj.store.WalletProtobufSerializer;
-import org.bitcoinj.utils.Threading;
-import org.bitcoinj.wallet.Protos;
-import org.bitcoinj.wallet.WalletFiles;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import android.app.ActivityManager;
 import android.app.AlarmManager;
 import android.app.Application;
@@ -52,6 +30,32 @@ import android.preference.PreferenceManager;
 import android.support.v4.content.LocalBroadcastManager;
 import android.text.format.DateUtils;
 import android.widget.Toast;
+
+import org.bitcoinj.core.Transaction;
+import org.bitcoinj.core.VerificationException;
+import org.bitcoinj.core.VersionMessage;
+import org.bitcoinj.core.Wallet;
+import org.bitcoinj.core.WalletExtension;
+import org.bitcoinj.crypto.LinuxSecureRandom;
+import org.bitcoinj.crypto.MnemonicCode;
+import org.bitcoinj.protocols.channels.StoredPaymentChannelClientStates;
+import org.bitcoinj.protocols.channels.StoredPaymentChannelServerStates;
+import org.bitcoinj.store.UnreadableWalletException;
+import org.bitcoinj.store.WalletProtobufSerializer;
+import org.bitcoinj.utils.Threading;
+import org.bitcoinj.wallet.Protos;
+import org.bitcoinj.wallet.WalletFiles;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.concurrent.TimeUnit;
+
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.LoggerContext;
 import ch.qos.logback.classic.android.LogcatAppender;
@@ -245,6 +249,33 @@ public class WalletApplication extends Application
 		return wallet;
 	}
 
+	private WalletExtension[] getExtensions() {
+		return getExtensions(null);
+	}
+	private WalletExtension[] getExtensions(Wallet wallet) {
+		return new WalletExtension[] {
+				new StoredPaymentChannelClientStates(wallet),
+				new StoredPaymentChannelServerStates(wallet)
+		};
+	}
+
+	/**
+	 * Loads the extensions into the wallet if they don't already exist. If the wallet is newly
+	 * created we must save and reload the wallet in order for the extensions to be correctly
+	 * initialised.
+	 * @param newWallet
+	 */
+	private void loadExtensions(boolean newWallet) {
+		for (WalletExtension extension : getExtensions(wallet)) {
+			// Add the extension to the wallet if it doesn't already exist in the wallet.
+			wallet.addOrGetExistingExtension(extension);
+		}
+		if (newWallet) {
+			saveWallet();
+			loadWalletFromProtobuf();
+		}
+	}
+
 	private void loadWalletFromProtobuf()
 	{
 		if (walletFile.exists())
@@ -257,7 +288,9 @@ public class WalletApplication extends Application
 			{
 				walletStream = new FileInputStream(walletFile);
 
-				wallet = new WalletProtobufSerializer().readWallet(walletStream);
+				wallet = new WalletProtobufSerializer().readWallet(walletStream, getExtensions());
+
+				loadExtensions(false);
 
 				if (!wallet.getParams().equals(Constants.NETWORK_PARAMETERS))
 					throw new UnreadableWalletException("bad wallet network parameters: " + wallet.getParams().getId());
@@ -308,6 +341,7 @@ public class WalletApplication extends Application
 		else
 		{
 			wallet = new Wallet(Constants.NETWORK_PARAMETERS);
+			loadExtensions(true);
 
 			backupWallet();
 
@@ -325,10 +359,12 @@ public class WalletApplication extends Application
 		{
 			is = openFileInput(Constants.Files.WALLET_KEY_BACKUP_PROTOBUF);
 
-			final Wallet wallet = new WalletProtobufSerializer().readWallet(is);
+			final Wallet wallet = new WalletProtobufSerializer().readWallet(is, getExtensions());
 
 			if (!wallet.isConsistent())
 				throw new Error("inconsistent backup");
+
+			loadExtensions(false);
 
 			resetBlockchain();
 
@@ -469,6 +505,9 @@ public class WalletApplication extends Application
 		wallet.shutdownAutosaveAndWait();
 
 		wallet = newWallet;
+		for (WalletExtension extension : getExtensions(wallet)) {
+			wallet.addOrGetExistingExtension(extension);
+		}
 		config.maybeIncrementBestChainHeightEver(newWallet.getLastBlockSeenHeight());
 		afterLoadWallet();
 

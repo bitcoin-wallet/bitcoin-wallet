@@ -17,6 +17,21 @@
 
 package de.schildbach.wallet.util;
 
+import android.app.ActivityManager;
+import android.app.admin.DevicePolicyManager;
+import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.res.Resources;
+
+import com.google.common.base.Charsets;
+
+import org.bitcoinj.core.Transaction;
+import org.bitcoinj.core.TransactionOutput;
+import org.bitcoinj.core.Wallet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -234,7 +249,9 @@ public class CrashReporter
 		report.append("Network: " + Constants.NETWORK_PARAMETERS.getId() + "\n");
 		final Wallet wallet = application.getWallet();
 		report.append("Encrypted: " + wallet.isEncrypted() + "\n");
-		report.append("Keychain size: " + wallet.getKeychainSize() + "\n");
+		report.append("Keychain size: " + wallet.getKeyChainGroupSize() + "\n");
+		final DevicePolicyManager devicePolicyManager = (DevicePolicyManager) application.getSystemService(Context.DEVICE_POLICY_SERVICE);
+		report.append("Storage Encryption Status: " + devicePolicyManager.getStorageEncryptionStatus() + "\n");
 
 		final Set<Transaction> transactions = wallet.getTransactions(true);
 		int numInputs = 0;

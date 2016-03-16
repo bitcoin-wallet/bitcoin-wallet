@@ -1,0 +1,1 @@
+../../wallet/assets/bip39-wordlist.txt

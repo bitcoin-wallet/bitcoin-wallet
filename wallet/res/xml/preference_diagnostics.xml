@@ -13,5 +13,9 @@
 		android:key="extended_public_key"
 		android:summary="@string/preferences_extended_public_key_summary"
 		android:title="@string/preferences_extended_public_key_title" />
+	<Preference
+		android:key="show_payment_channels"
+		android:summary="@string/preferences_show_payment_channels_summary"
+		android:title="@string/preferences_show_payment_channels_title" />
 
 </PreferenceScreen>

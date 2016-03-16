@@ -17,51 +17,6 @@
 
 package de.schildbach.wallet.service;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.InetSocketAddress;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.EnumSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.atomic.AtomicLong;
-
-import javax.annotation.Nullable;
-
-import org.bitcoinj.core.AbstractPeerEventListener;
-import org.bitcoinj.core.Address;
-import org.bitcoinj.core.Block;
-import org.bitcoinj.core.BlockChain;
-import org.bitcoinj.core.CheckpointManager;
-import org.bitcoinj.core.Coin;
-import org.bitcoinj.core.FilteredBlock;
-import org.bitcoinj.core.Peer;
-import org.bitcoinj.core.PeerEventListener;
-import org.bitcoinj.core.PeerGroup;
-import org.bitcoinj.core.Sha256Hash;
-import org.bitcoinj.core.StoredBlock;
-import org.bitcoinj.core.Transaction;
-import org.bitcoinj.core.TransactionConfidence.ConfidenceType;
-import org.bitcoinj.core.Wallet;
-import org.bitcoinj.core.WalletEventListener;
-import org.bitcoinj.net.discovery.DnsDiscovery;
-import org.bitcoinj.net.discovery.PeerDiscovery;
-import org.bitcoinj.net.discovery.PeerDiscoveryException;
-import org.bitcoinj.store.BlockStore;
-import org.bitcoinj.store.BlockStoreException;
-import org.bitcoinj.store.SPVBlockStore;
-import org.bitcoinj.utils.MonetaryFormat;
-import org.bitcoinj.utils.Threading;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -82,6 +37,56 @@ import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
 import android.support.v4.content.LocalBroadcastManager;
 import android.text.format.DateUtils;
+
+import org.bitcoinj.core.Address;
+import org.bitcoinj.core.Block;
+import org.bitcoinj.core.BlockChain;
+import org.bitcoinj.core.CheckpointManager;
+import org.bitcoinj.core.Coin;
+import org.bitcoinj.core.FilteredBlock;
+import org.bitcoinj.core.Peer;
+import org.bitcoinj.core.PeerGroup;
+import org.bitcoinj.core.Sha256Hash;
+import org.bitcoinj.core.StoredBlock;
+import org.bitcoinj.core.Transaction;
+import org.bitcoinj.core.TransactionBroadcast;
+import org.bitcoinj.core.TransactionBroadcaster;
+import org.bitcoinj.core.TransactionConfidence.ConfidenceType;
+import org.bitcoinj.core.Wallet;
+import org.bitcoinj.core.listeners.AbstractPeerEventListener;
+import org.bitcoinj.core.listeners.PeerDataEventListener;
+import org.bitcoinj.core.listeners.WalletEventListener;
+import org.bitcoinj.net.discovery.DnsDiscovery;
+import org.bitcoinj.net.discovery.PeerDiscovery;
+import org.bitcoinj.net.discovery.PeerDiscoveryException;
+import org.bitcoinj.protocols.channels.StoredPaymentChannelClientStates;
+import org.bitcoinj.protocols.channels.StoredPaymentChannelServerStates;
+import org.bitcoinj.store.BlockStore;
+import org.bitcoinj.store.BlockStoreException;
+import org.bitcoinj.store.SPVBlockStore;
+import org.bitcoinj.utils.MonetaryFormat;
+import org.bitcoinj.utils.Threading;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.InetSocketAddress;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.EnumSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
+
+import javax.annotation.Nullable;
+
 import de.schildbach.wallet.AddressBookProvider;
 import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
@@ -293,7 +298,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 		}
 	}
 
-	private final PeerEventListener blockchainDownloadListener = new AbstractPeerEventListener()
+	private final PeerDataEventListener blockchainDownloadListener = new AbstractPeerEventListener()
 	{
 		private final AtomicLong lastMessageTime = new AtomicLong(0);
 
@@ -378,10 +383,12 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 
 				log.info("starting peergroup");
 				peerGroup = new PeerGroup(Constants.NETWORK_PARAMETERS, blockChain);
-				peerGroup.setDownloadTxDependencies(false); // recursive implementation causes StackOverflowError
+				peerGroup.setDownloadTxDependencies(0); // recursive implementation causes StackOverflowError
 				peerGroup.addWallet(wallet);
 				peerGroup.setUserAgent(Constants.USER_AGENT, application.packageInfo().versionName);
 				peerGroup.addEventListener(peerConnectivityListener);
+
+				completeExtensionInitiations(peerGroup);
 
 				final int maxConnectedPeers = application.maxConnectedPeers();
 
@@ -398,7 +405,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 					private final PeerDiscovery normalPeerDiscovery = new DnsDiscovery(Constants.NETWORK_PARAMETERS);
 
 					@Override
-					public InetSocketAddress[] getPeers(final long timeoutValue, final TimeUnit timeoutUnit) throws PeerDiscoveryException
+					public InetSocketAddress[] getPeers(final long services, final long timeoutValue, final TimeUnit timeoutUnit) throws PeerDiscoveryException
 					{
 						final List<InetSocketAddress> peers = new LinkedList<InetSocketAddress>();
 
@@ -417,7 +424,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 						}
 
 						if (!connectTrustedPeerOnly)
-							peers.addAll(Arrays.asList(normalPeerDiscovery.getPeers(timeoutValue, timeoutUnit)));
+							peers.addAll(Arrays.asList(normalPeerDiscovery.getPeers(0, timeoutValue, timeoutUnit)));
 
 						// workaround because PeerGroup will shuffle peers
 						if (needsTrimPeersWorkaround)
@@ -804,6 +811,32 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 		}
 
 		return blocks;
+	}
+
+	@Override
+	public TransactionBroadcast broadcastTransaction(final Transaction tx) {
+		if (peerGroup == null) {
+			// TODO: @w-shackleton do something nicer here
+			throw new RuntimeException("PeerGroup not running");
+		}
+		return peerGroup.broadcastTransaction(tx);
+	}
+
+	/*
+     * As soon as the transaction broadcaster han been created we will pass it to the
+     * payment channel extensions
+     */
+	private void completeExtensionInitiations(TransactionBroadcaster transactionBroadcaster) {
+		StoredPaymentChannelClientStates clientStoredChannels = (StoredPaymentChannelClientStates)
+				application.getWallet().getExtensions().get(StoredPaymentChannelClientStates.class.getName());
+		if(clientStoredChannels != null) {
+			clientStoredChannels.setTransactionBroadcaster(transactionBroadcaster);
+		}
+		StoredPaymentChannelServerStates serverStoredChannels = (StoredPaymentChannelServerStates)
+				application.getWallet().getExtensions().get(StoredPaymentChannelServerStates.class.getName());
+		if(serverStoredChannels != null) {
+			serverStoredChannels.setTransactionBroadcaster(transactionBroadcaster);
+		}
 	}
 
 	private void broadcastPeerState(final int numPeers)

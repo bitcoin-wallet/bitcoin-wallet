@@ -155,6 +155,11 @@
 			android:screenOrientation="behind"
 			android:theme="@style/My.Theme.ChildActivity" />
 		<activity
+			android:name="de.schildbach.wallet.ui.preference.ShowPaymentChannelsActivity"
+			android:label="@string/preferences_show_payment_channels_title"
+			android:screenOrientation="behind"
+			android:theme="@style/My.Theme.ChildActivity" />
+		<activity
 			android:name="de.schildbach.wallet.ui.RestoreWalletActivity"
 			android:configChanges="orientation|keyboard|keyboardHidden"
 			android:theme="@style/My.Theme.Dialog" >
@@ -179,6 +184,22 @@
 			android:label="@string/sweep_wallet_activity_title"
 			android:screenOrientation="behind"
 			android:theme="@style/My.Theme.ChildActivity"
+			android:windowSoftInputMode="adjustResize" />
+
+		<activity
+			android:name="de.schildbach.wallet.ui.channels.ChannelCreateActivity"
+			android:launchMode="singleTop"
+			android:allowTaskReparenting="false"
+			android:label="@string/channel_create_title"
+			android:theme="@style/My.Theme.Dialog"
+			android:windowSoftInputMode="adjustResize" />
+
+		<activity
+			android:name="de.schildbach.wallet.ui.channels.ChannelIncrementActivity"
+			android:launchMode="singleTop"
+			android:allowTaskReparenting="false"
+			android:label="@string/channel_increment_title"
+			android:theme="@style/My.Theme.Dialog"
 			android:windowSoftInputMode="adjustResize" />
 
 		<provider
@@ -213,6 +234,13 @@
 		<service
 			android:name="de.schildbach.wallet.offline.AcceptBluetoothService"
 			android:exported="false" />
+		<service
+			android:name="de.schildbach.wallet.channels.PaymentChannelService"
+			android:exported="true">
+			<intent-filter>
+				<action android:name="de.schildbach.wallet.channels.PaymentChannelService" />
+			</intent-filter>
+		</service>
 
 		<receiver android:name="de.schildbach.wallet.service.AutosyncReceiver" >
 			<intent-filter>

@@ -17,12 +17,6 @@
 
 package de.schildbach.wallet;
 
-import org.bitcoinj.core.Coin;
-import org.bitcoinj.utils.Fiat;
-import org.bitcoinj.utils.MonetaryFormat;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
@@ -31,6 +25,12 @@ import android.net.Uri;
 import android.text.format.DateUtils;
 
 import com.google.common.base.Strings;
+
+import org.bitcoinj.core.Coin;
+import org.bitcoinj.utils.Fiat;
+import org.bitcoinj.utils.MonetaryFormat;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import de.schildbach.wallet.ExchangeRatesProvider.ExchangeRate;
 import de.schildbach.wallet_test.R;
@@ -56,6 +56,7 @@ public class Configuration
 	public static final String PREFS_KEY_DATA_USAGE = "data_usage";
 	public static final String PREFS_KEY_DISCLAIMER = "disclaimer";
 	private static final String PREFS_KEY_LABS_QR_PAYMENT_REQUEST = "labs_qr_payment_request";
+	private static final String PREFS_KEY_LABS_PAYMENT_CHANNELS = "labs_payment_channels";
 
 	private static final String PREFS_KEY_LAST_VERSION = "last_version";
 	private static final String PREFS_KEY_LAST_USED = "last_used";
@@ -199,6 +200,11 @@ public class Configuration
 	public boolean getQrPaymentRequestEnabled()
 	{
 		return prefs.getBoolean(PREFS_KEY_LABS_QR_PAYMENT_REQUEST, false);
+	}
+
+	public boolean getPaymentChannelsEnabled()
+	{
+		return prefs.getBoolean(PREFS_KEY_LABS_PAYMENT_CHANNELS, false);
 	}
 
 	public boolean versionCodeCrossed(final int currentVersionCode, final int triggeringVersionCode)

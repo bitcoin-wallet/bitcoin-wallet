@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:fillViewport="true"
+    android:scrollbars="none" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:layout_marginTop="24dp"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/wallet_status"
+            style="@android:style/TextAppearance.Medium"
+            android:layout_width="256dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:text="Starting..." />
+
+        <TextView
+            android:id="@+id/wallet_balance"
+            style="@android:style/TextAppearance.Medium"
+            android:layout_width="256dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:text="0 mBTC" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Request money to demo wallet"
+            android:id="@+id/request_bitcoin" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Start channel from Bitcoin wallet"
+            android:id="@+id/start_server_channel" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Start channel to Bitcoin wallet"
+            android:id="@+id/start_client_channel" />
+
+    </LinearLayout>
+
+</ScrollView>

@@ -250,7 +250,7 @@ public final class PeerListFragment extends Fragment
 		{
 			final Peer peer = getItem(position);
 			final VersionMessage versionMessage = peer.getPeerVersionMessage();
-			final boolean isDownloading = peer.getDownloadData();
+			final boolean isDownloading = peer.isDownloadData();
 
 			final InetAddress address = peer.getAddress().getAddr();
 			final String hostname = hostnames.get(address);
