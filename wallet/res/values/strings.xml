@@ -284,10 +284,11 @@
 	<string name="notification_peers_connected_msg">%d peers connected</string>
 	<string name="channel_create_title">Set up micropayments</string>
 	<string name="channel_create_time_window">Set up micropayments for %s?</string>
-	<string name="channel_create_description">If you accept, then %1$s will be reserved in your wallet for %2$s for spending in %3$s. This doesn\'t give the app any Bitcoin yet, but reserves the money to allow for micropayments. Any Bitcoin not spent after the expiry time will be returned to you.</string>
+	<string name="channel_create_description">If you accept, then %1$s will be reserved in your wallet for %2$s for spending in "%3$s". This doesn\'t give the app any Bitcoin yet, but reserves the money to allow for micropayments. Any Bitcoin not spent after the expiry time will be returned to you.</string>
 	<string name="channel_create_package_id">Requested by %s</string>
 	<string name="channel_increment_description">Would you like to pay %1$s to %2$s?</string>
-	<string name="channel_increment_title">Pay %s?</string>
+	<string name="channel_increment_title">Pay micropayment?</string>
+	<string name="notification_micropayment_received_msg">Received %s</string>
 
 	<!-- generic buttons -->
 	<string name="button_ok">OK</string>

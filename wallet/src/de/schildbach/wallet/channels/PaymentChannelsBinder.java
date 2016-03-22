@@ -56,6 +56,7 @@ public class PaymentChannelsBinder extends IPaymentChannels.Stub {
             return new PaymentChannelServerInstanceBinder(
                     wallet,
                     transactionBroadcaster.get(2, TimeUnit.SECONDS),
+                    parent,
                     callbacks);
         } catch (InterruptedException e) {
             log.warn("Failed to connect to blockchain service", e);

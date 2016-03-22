@@ -16,6 +16,9 @@
  */
 package de.schildbach.wallet.channels;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
@@ -23,6 +26,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
+import android.net.Uri;
+import android.os.Handler;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.support.v4.content.LocalBroadcastManager;
@@ -34,16 +39,21 @@ import com.google.common.util.concurrent.SettableFuture;
 import org.bitcoinj.core.Coin;
 import org.bitcoinj.core.Sha256Hash;
 import org.bitcoinj.core.Wallet;
+import org.bitcoinj.utils.MonetaryFormat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.spongycastle.crypto.params.KeyParameter;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.service.BlockchainService;
 import de.schildbach.wallet.service.BlockchainServiceImpl;
+import de.schildbach.wallet.ui.WalletActivity;
+import de.schildbach.wallet_test.R;
 
 /**
  * An Android service for exposing the bitcoinj payment channel system to other apps, such that they
@@ -78,6 +88,15 @@ public class PaymentChannelService extends Service {
     private static final AtomicInteger CLIENT_CHANNEL_ID = new AtomicInteger(0);
     private Map<Integer, PaymentChannelClientInstanceBinder> openClientChannels;
 
+    private Handler handler;
+
+    private static final int NOTIFICATION_ID_CHANNEL_INCREMENT = 1000001;
+
+    private NotificationManager nm;
+    private int notificationCount = 0;
+    private Coin notificationAccumulatedAmount = Coin.ZERO;
+    private final List<String> notificationAppNames = new LinkedList<String>();
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -88,6 +107,9 @@ public class PaymentChannelService extends Service {
         } else {
             log.warn("Failed to connect to blockchain service");
         }
+
+        handler = new Handler();
+        nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
         openClientChannels = new MapMaker().weakValues().makeMap();
 
@@ -212,4 +234,48 @@ public class PaymentChannelService extends Service {
             }
         }
     };
+
+    void notifyChannelIncrement(final Coin amount, final String appName) {
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                if (notificationCount == 1)
+                    nm.cancel(NOTIFICATION_ID_CHANNEL_INCREMENT);
+
+                notificationCount++;
+                notificationAccumulatedAmount = notificationAccumulatedAmount.add(amount);
+                if (appName != null && !notificationAppNames.contains(appName))
+                    notificationAppNames.add(appName);
+
+                final MonetaryFormat btcFormat = getWalletApplication().getConfiguration().getFormat();
+
+                final String packageFlavor = getWalletApplication().applicationPackageFlavor();
+                final String msgSuffix = packageFlavor != null ? " [" + packageFlavor + "]" : "";
+
+                final String tickerMsg = getString(R.string.notification_micropayment_received_msg, btcFormat.format(amount)) + msgSuffix;
+                final String msg = getString(R.string.notification_micropayment_received_msg, btcFormat.format(notificationAccumulatedAmount)) + msgSuffix;
+
+                final StringBuilder text = new StringBuilder();
+                for (final String notificationAppName : notificationAppNames)
+                {
+                    if (text.length() > 0)
+                        text.append(", ");
+
+                    text.append(notificationAppName);
+                }
+
+                final Notification.Builder notification = new Notification.Builder(PaymentChannelService.this);
+                notification.setSmallIcon(R.drawable.stat_notify_received);
+                notification.setTicker(tickerMsg);
+                notification.setContentTitle(msg);
+                if (text.length() > 0)
+                    notification.setContentText(text);
+                notification.setContentIntent(PendingIntent.getActivity(PaymentChannelService.this, 0, new Intent(PaymentChannelService.this, WalletActivity.class), 0));
+                notification.setNumber(notificationCount == 1 ? 0 : notificationCount);
+                notification.setWhen(System.currentTimeMillis());
+                notification.setSound(Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.coins_received));
+                nm.notify(NOTIFICATION_ID_CHANNEL_INCREMENT, notification.getNotification());
+            }
+        });
+    }
 }

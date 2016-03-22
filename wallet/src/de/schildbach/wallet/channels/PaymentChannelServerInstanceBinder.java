@@ -17,6 +17,7 @@
 package de.schildbach.wallet.channels;
 
 import android.os.AsyncTask;
+import android.os.Binder;
 import android.os.RemoteException;
 
 import com.google.common.util.concurrent.ListenableFuture;
@@ -48,8 +49,10 @@ public class PaymentChannelServerInstanceBinder extends IPaymentChannelServerIns
     public PaymentChannelServerInstanceBinder(
             Wallet wallet,
             TransactionBroadcaster broadcaster,
+            PaymentChannelService service,
             final IPaymentChannelCallbacks callbacks) {
-        asyncTask = new ChannelAsyncTask(wallet, broadcaster, callbacks);
+        String callerName = service.getPackageManager().getNameForUid(Binder.getCallingUid());
+        asyncTask = new ChannelAsyncTask(wallet, broadcaster, service, callbacks, callerName);
         asyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
@@ -77,13 +80,21 @@ public class PaymentChannelServerInstanceBinder extends IPaymentChannelServerIns
 
         private final Wallet wallet;
         private final TransactionBroadcaster broadcaster;
+        private final PaymentChannelService service;
+        private final String callerName;
 
         private PaymentChannelServer paymentChannelServer;
 
-        public ChannelAsyncTask(Wallet wallet, TransactionBroadcaster broadcaster, IPaymentChannelCallbacks callbacks) {
+        public ChannelAsyncTask(Wallet wallet,
+                                TransactionBroadcaster broadcaster,
+                                PaymentChannelService service,
+                                IPaymentChannelCallbacks callbacks,
+                                String callerName) {
             super(callbacks);
+            this.service = service;
             this.wallet = wallet;
             this.broadcaster = broadcaster;
+            this.callerName = callerName;
         }
 
         @Override
@@ -137,6 +148,7 @@ public class PaymentChannelServerInstanceBinder extends IPaymentChannelServerIns
                         @Override
                         public ListenableFuture<ByteString> paymentIncrease(Coin by, Coin to, ByteString info) {
                             // Someone is giving our wallet money - return no message.
+                            service.notifyChannelIncrement(by, callerName);
                             return null;
                         }
                     });
