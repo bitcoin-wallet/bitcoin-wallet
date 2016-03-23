@@ -160,6 +160,7 @@
   <string name="transaction_row_message_received_dead">Denne betalingen er blitt reversert av avsenderen.</string>
   <string name="transaction_row_message_received_dust">Dette lille beløpet kan økonomisk sett sannsynligvis aldri brukes.</string>
   <string name="transaction_row_message_received_pay_to_many">Denne betalingen går til mange flere enn deg, og dette gjør at appen går tregere over tid. Hvis du kan, prøv å motta betalinger som kun går til deg.</string>
+  <string name="transaction_row_message_received_rbf">Denne betalingen ble forsinket fordi avsenderen brukte en usikker transaksjonstype.</string>
   <string name="network_monitor_activity_title">Nettverksovervåkning</string>
   <string name="network_monitor_peer_list_title">Peers</string>
   <string name="network_monitor_block_list_title">Blokker</string>
@@ -230,6 +231,8 @@
   <string name="preferences_precision_labels_0_6">µBTC, ingen desimaler</string>
   <string name="preferences_own_name_title">Ditt navn</string>
   <string name="preferences_own_name_summary">Ditt navn, som skal legges til betalingsforespørsler. Prøv å holde det kort.</string>
+  <string name="preferences_send_coins_autoclose_title">Automatisk lukk dialogboksen send mynter</string>
+  <string name="preferences_send_coins_autoclose_summary">Når betalingen er gjort, vil dialogboksen send lukkes automatisk.</string>
   <string name="preferences_connectivity_notification_title">Tilkoblingsindikator</string>
   <string name="preferences_connectivity_notification_summary">Vis nåværende antall tilkoblede peers i systemstatusfeltet.</string>
   <string name="preferences_trusted_peer_title">Klarert peer</string>
