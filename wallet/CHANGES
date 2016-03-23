@@ -1,3 +1,8 @@
+v4.49
+
+* Update translations from Transifex.
+* Based on bitcoinj 0.13.6.
+
 v4.48
 
 * Fix for crash when entering too large amounts.
