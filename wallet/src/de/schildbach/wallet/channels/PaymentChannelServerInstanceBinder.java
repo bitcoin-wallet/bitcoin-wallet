@@ -141,7 +141,10 @@ public class PaymentChannelServerInstanceBinder extends IPaymentChannelServerIns
 
                         @Override
                         public void channelOpen(Sha256Hash contractHash) {
-
+                            service.addChannelToAddressBook(
+                                    paymentChannelServer.state().getContract(),
+                                    true,
+                                    callerName);
                         }
 
                         @Nullable

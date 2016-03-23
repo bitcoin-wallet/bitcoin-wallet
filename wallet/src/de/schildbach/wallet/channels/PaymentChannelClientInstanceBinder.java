@@ -16,7 +16,6 @@
  */
 package de.schildbach.wallet.channels;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Binder;
@@ -54,7 +53,7 @@ public class PaymentChannelClientInstanceBinder extends IPaymentChannelClientIns
 
     private static final Logger log = LoggerFactory.getLogger(PaymentChannelClientInstanceBinder.class);
 
-    private final Context context;
+    private final PaymentChannelService service;
     private ChannelAsyncTask asyncTask;
     private final Wallet wallet;
     private final IPaymentChannelCallbacks callbacks;
@@ -62,6 +61,10 @@ public class PaymentChannelClientInstanceBinder extends IPaymentChannelClientIns
     private final Sha256Hash serverId;
     private final int channelId;
     private final long timeWindow;
+    /**
+     * The package name of the application at the other end of the Binder
+     */
+    private final String callerName;
 
     private Coin pendingIncrement = null;
     /**
@@ -75,7 +78,7 @@ public class PaymentChannelClientInstanceBinder extends IPaymentChannelClientIns
     private long pendingIncrementId = 0;
 
     public PaymentChannelClientInstanceBinder(
-            Context context,
+            PaymentChannelService service,
             Wallet wallet,
             final IPaymentChannelCallbacks callbacks,
             int channelId,
@@ -83,7 +86,7 @@ public class PaymentChannelClientInstanceBinder extends IPaymentChannelClientIns
             Sha256Hash serverId,
             final long timeWindow
             ) {
-        this.context = context;
+        this.service = service;
         this.wallet = wallet;
         this.callbacks = callbacks;
         this.maxValue = maxValue;
@@ -91,9 +94,9 @@ public class PaymentChannelClientInstanceBinder extends IPaymentChannelClientIns
         this.timeWindow = timeWindow;
         this.channelId = channelId;
 
-        String callerName = context.getPackageManager().getNameForUid(Binder.getCallingUid());
+        callerName = service.getPackageManager().getNameForUid(Binder.getCallingUid());
 
-        Intent confirmIntent = new Intent(context, ChannelCreateActivity.class);
+        Intent confirmIntent = new Intent(service, ChannelCreateActivity.class);
         confirmIntent.setAction(Intent.ACTION_VIEW);
         confirmIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         confirmIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -103,7 +106,7 @@ public class PaymentChannelClientInstanceBinder extends IPaymentChannelClientIns
         confirmIntent.putExtra(ChannelCreateActivity.INTENT_EXTRA_CALLER_PACKAGE, callerName);
         confirmIntent.putExtra(ChannelCreateActivity.INTENT_EXTRA_CHANNEL_ID, channelId);
         confirmIntent.putExtra(ChannelCreateActivity.INTENT_EXTRA_PASSWORD_REQUIRED, wallet.isEncrypted());
-        context.startActivity(confirmIntent);
+        service.startActivity(confirmIntent);
     }
 
     /**
@@ -111,7 +114,7 @@ public class PaymentChannelClientInstanceBinder extends IPaymentChannelClientIns
      * payment channel
      */
     public void onChannelConfirmed(@Nullable KeyParameter keySetup) {
-        asyncTask = new ChannelAsyncTask(wallet, callbacks, maxValue, serverId, timeWindow, keySetup);
+        asyncTask = new ChannelAsyncTask(service, wallet, callbacks, maxValue, serverId, timeWindow, keySetup, callerName);
         asyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
@@ -131,7 +134,7 @@ public class PaymentChannelClientInstanceBinder extends IPaymentChannelClientIns
         if (pendingIncrementId != incrementId) {
             // Check failed, remote made two simultaneous payment requests. Decline them both out of safety.
             onChannelCancelled();
-            Toast.makeText(context, "Payment aborted", Toast.LENGTH_LONG).show();
+            Toast.makeText(service, "Payment aborted", Toast.LENGTH_LONG).show();
             return;
         }
         ListenableFuture<PaymentIncrementAck> ackFuture =
@@ -201,9 +204,9 @@ public class PaymentChannelClientInstanceBinder extends IPaymentChannelClientIns
         pendingIncrement = Coin.valueOf(satoshis);
         pendingIncrementId++;
 
-        String callerName = context.getPackageManager().getNameForUid(Binder.getCallingUid());
+        String callerName = service.getPackageManager().getNameForUid(Binder.getCallingUid());
 
-        Intent confirmIntent = new Intent(context, ChannelIncrementActivity.class);
+        Intent confirmIntent = new Intent(service, ChannelIncrementActivity.class);
         confirmIntent.setAction(Intent.ACTION_VIEW);
         confirmIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         confirmIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -214,7 +217,7 @@ public class PaymentChannelClientInstanceBinder extends IPaymentChannelClientIns
         confirmIntent.putExtra(ChannelIncrementActivity.INTENT_EXTRA_CHANNEL_ID, channelId);
         confirmIntent.putExtra(ChannelIncrementActivity.INTENT_EXTRA_PASSWORD_REQUIRED, wallet.isEncrypted());
         confirmIntent.putExtra(ChannelIncrementActivity.INTENT_EXTRA_INCREMENT_ID, pendingIncrementId);
-        context.startActivity(confirmIntent);
+        service.startActivity(confirmIntent);
         return true;
     }
 
@@ -238,27 +241,33 @@ public class PaymentChannelClientInstanceBinder extends IPaymentChannelClientIns
         public static final int MESSAGE_INCREMENT_PAYMENT = 3;
         public static final int MESSAGE_SETTLE = 4;
 
+        private final PaymentChannelService service;
         private final Wallet wallet;
         private final Coin maxValue;
         private final Sha256Hash serverId;
         private final long timeWindow;
         private final KeyParameter keySetup;
+        private final String callerName;
 
         private PaymentChannelClient paymentChannelClient;
 
         public ChannelAsyncTask(
+                PaymentChannelService service,
                 Wallet wallet,
                 final IPaymentChannelCallbacks callbacks,
                 Coin maxValue,
                 Sha256Hash serverId,
                 final long timeWindow,
-                @Nullable KeyParameter keySetup) {
+                @Nullable KeyParameter keySetup,
+                String callerName) {
             super(callbacks);
+            this.service = service;
             this.wallet = wallet;
             this.maxValue = maxValue;
             this.serverId = serverId;
             this.timeWindow = timeWindow;
             this.keySetup = keySetup;
+            this.callerName = callerName;
         }
 
         @Override
@@ -359,7 +368,10 @@ public class PaymentChannelClientInstanceBinder extends IPaymentChannelClientIns
 
                         @Override
                         public void channelOpen(boolean wasInitiated) {
-
+                            service.addChannelToAddressBook(
+                                    paymentChannelClient.state().getContract(),
+                                    false,
+                                    callerName);
                         }
                     }, PaymentChannelClient.VersionSelector.VERSION_2);
             paymentChannelClient.connectionOpen();

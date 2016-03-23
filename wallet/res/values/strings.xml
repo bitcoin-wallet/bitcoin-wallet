@@ -288,6 +288,9 @@
 	<string name="channel_create_package_id">Requested by %s</string>
 	<string name="channel_increment_description">Would you like to pay %1$s to %2$s?</string>
 	<string name="channel_increment_title">Pay micropayment?</string>
+	<string name="channel_address_client_label">Micropayments to %s</string>
+	<string name="channel_address_server_label">Micropayments from %s</string>
+	<string name="channel_refund_label">Remainder return (%s)</string>
 	<string name="notification_micropayment_received_msg">Received %s</string>
 
 	<!-- generic buttons -->

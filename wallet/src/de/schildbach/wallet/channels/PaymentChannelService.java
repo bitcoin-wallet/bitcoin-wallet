@@ -22,10 +22,14 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
+import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Handler;
 import android.os.IBinder;
@@ -36,8 +40,11 @@ import android.widget.Toast;
 import com.google.common.collect.MapMaker;
 import com.google.common.util.concurrent.SettableFuture;
 
+import org.bitcoinj.core.Address;
 import org.bitcoinj.core.Coin;
 import org.bitcoinj.core.Sha256Hash;
+import org.bitcoinj.core.Transaction;
+import org.bitcoinj.core.TransactionOutput;
 import org.bitcoinj.core.Wallet;
 import org.bitcoinj.utils.MonetaryFormat;
 import org.slf4j.Logger;
@@ -49,6 +56,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import de.schildbach.wallet.AddressBookProvider;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.service.BlockchainService;
 import de.schildbach.wallet.service.BlockchainServiceImpl;
@@ -89,6 +97,7 @@ public class PaymentChannelService extends Service {
     private Map<Integer, PaymentChannelClientInstanceBinder> openClientChannels;
 
     private Handler handler;
+    private ContentResolver contentResolver;
 
     private static final int NOTIFICATION_ID_CHANNEL_INCREMENT = 1000001;
 
@@ -109,6 +118,7 @@ public class PaymentChannelService extends Service {
         }
 
         handler = new Handler();
+        contentResolver = getContentResolver();
         nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
         openClientChannels = new MapMaker().weakValues().makeMap();
@@ -197,6 +207,7 @@ public class PaymentChannelService extends Service {
                 PaymentChannelClientInstanceBinder binder = openClientChannels.get(id);
                 if (binder == null) {
                     Toast.makeText(context, "Payment failed", Toast.LENGTH_LONG).show();
+                    return;
                 }
                 if (confirm) {
                     binder.onChannelConfirmed(key);
@@ -275,6 +286,43 @@ public class PaymentChannelService extends Service {
                 notification.setWhen(System.currentTimeMillis());
                 notification.setSound(Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.coins_received));
                 nm.notify(NOTIFICATION_ID_CHANNEL_INCREMENT, notification.getNotification());
+            }
+        });
+    }
+
+    /**
+     * Adds the P2SH address of a channel to the address book
+     */
+    void addChannelToAddressBook(final Transaction contract, final boolean server, final String packageName) {
+        Address address = null;
+        for (TransactionOutput output : contract.getOutputs()) {
+            if ((address = output.getAddressFromP2SH(getWallet().getNetworkParameters())) != null) {
+                break;
+            }
+        }
+        if (address == null) {
+            return;
+        }
+        final Address finalAddress = address;
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                final int labelId = server ? R.string.channel_address_server_label : R.string.channel_address_client_label;
+
+                CharSequence appName;
+                try {
+                    ApplicationInfo info = getPackageManager().getApplicationInfo(packageName, 0);
+                    appName = getPackageManager().getApplicationLabel(info);
+                } catch (PackageManager.NameNotFoundException e) {
+                    log.warn("Couldn't find package name", e);
+                    appName = "unknown app";
+                }
+
+                final Uri uri = AddressBookProvider.contentUri(getPackageName()).buildUpon().appendPath(finalAddress.toString()).build();
+                final ContentValues values = new ContentValues();
+                values.put(AddressBookProvider.KEY_LABEL, getString(labelId, appName));
+
+                contentResolver.insert(uri, values);
             }
         });
     }

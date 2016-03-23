@@ -17,27 +17,6 @@
 
 package de.schildbach.wallet.ui;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.annotation.Nullable;
-
-import org.bitcoinj.core.Address;
-import org.bitcoinj.core.Coin;
-import org.bitcoinj.core.Sha256Hash;
-import org.bitcoinj.core.Transaction;
-import org.bitcoinj.core.Transaction.Purpose;
-import org.bitcoinj.core.TransactionConfidence;
-import org.bitcoinj.core.TransactionConfidence.ConfidenceType;
-import org.bitcoinj.core.Wallet;
-import org.bitcoinj.utils.ExchangeRate;
-import org.bitcoinj.utils.MonetaryFormat;
-import org.bitcoinj.wallet.DefaultCoinSelector;
-
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Color;
@@ -51,6 +30,28 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
+
+import org.bitcoinj.core.Address;
+import org.bitcoinj.core.Coin;
+import org.bitcoinj.core.Sha256Hash;
+import org.bitcoinj.core.Transaction;
+import org.bitcoinj.core.Transaction.Purpose;
+import org.bitcoinj.core.TransactionConfidence;
+import org.bitcoinj.core.TransactionConfidence.ConfidenceType;
+import org.bitcoinj.core.Wallet;
+import org.bitcoinj.utils.ExchangeRate;
+import org.bitcoinj.utils.MonetaryFormat;
+import org.bitcoinj.wallet.DefaultCoinSelector;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Nullable;
+
 import de.schildbach.wallet.AddressBookProvider;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.util.CircularProgressView;
@@ -392,11 +393,26 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 				final boolean sent = value.signum() < 0;
 				final boolean showFee = sent && fee != null && !fee.isZero();
 				final Address address;
-				if (sent)
-					address = WalletUtils.getToAddressOfSent(tx, wallet);
+				final String addressLabel;
+
+				final Address paymentChannelRefundAddress =
+						WalletUtils.getPaymentChannelRefundAddress(tx, wallet.getParams());
+				if (paymentChannelRefundAddress != null)
+				{
+					address = paymentChannelRefundAddress;
+					String contractLabel =
+							AddressBookProvider.resolveLabel(context, address.toString());
+					addressLabel = context.getString(R.string.channel_refund_label,
+							contractLabel == null ? "micropayments" : contractLabel);
+				}
 				else
-					address = WalletUtils.getWalletAddressOfReceived(tx, wallet);
-				final String addressLabel = address != null ? AddressBookProvider.resolveLabel(context, address.toString()) : null;
+				{
+					if (sent)
+						address = WalletUtils.getToAddressOfSent(tx, wallet);
+					else
+						address = WalletUtils.getWalletAddressOfReceived(tx, wallet);
+					addressLabel = address != null ? AddressBookProvider.resolveLabel(context, address.toString()) : null;
+				}
 
 				txCache = new TransactionCacheEntry(value, sent, showFee, address, addressLabel);
 				transactionCache.put(tx.getHash(), txCache);
