@@ -28,6 +28,7 @@
   <string name="wallet_transactions_fragment_empty_text_sent">Aucun bitcoin envoyé jusqu\'à présent</string>
   <string name="wallet_transactions_fragment_empty_text_howto">Comment obtenir des bitcoins ?\n\nÉchangez-en contre de l\'argent traditionnel,\nvendez des biens ou des services ou\ngagnez-en en travaillant.</string>
   <string name="wallet_transactions_row_warning_backup">Félicitations, vous avez reçu votre premier paiement ! Avez-vous déjà &lt;u&gt;sauvegardé votre portefeuille&lt;/u&gt; afin de vous protéger contre une perte ?</string>
+  <string name="wallet_transactions_row_warning_storage_encryption">Astuce : pour augmenter la sécurité de votre portefeuille, vous pouvez &lt;u&gt;chiffrer votre appareil&lt;/u&gt;. Cela protège aussi les données d\'autres applis.</string>
   <string name="wallet_transactions_fragment_coinbase">miné</string>
   <string name="wallet_transactions_fragment_internal">Interne</string>
   <string name="wallet_transactions_options_filter">Filtre</string>
@@ -43,8 +44,8 @@
   <string name="wallet_low_storage_dialog_title">Espace de stockage interne faible !</string>
   <string name="wallet_low_storage_dialog_msg">Bitcoin Wallet utilise le stockage interne pour se rappeler des transactions et des blocs. S\'il manque d\'espace, il cessera de fonctionner et vos bitcoins seront à risque !\n\nVoulez-vous ouvrir le gestionnaire d\'applications pour désinstaller des applications inutiles ?</string>
   <string name="wallet_low_storage_dialog_button_apps">Gérer les applis</string>
-  <string name="wallet_timeskew_dialog_title">Vérifiez les réglages de votre horloge !</string>
-  <string name="wallet_timeskew_dialog_msg">L\'horloge de votre appareil est déréglée de %d minutes. Vous ne pouvez probablement pas envoyer ou recevoir de bitcoins à cause de ce problème.\n\nVous devriez vérifier et corriger votre horloge et vos paramètres de fuseau horaire.</string>
+  <string name="wallet_timeskew_dialog_title">Vérifier les paramètres de date et heure</string>
+  <string name="wallet_timeskew_dialog_msg">L\'heure de votre appareil est décalée de %d minutes. Vous ne pouvez probablement pas envoyer ou recevoir de bitcoins à cause de ce problème.\n\nVous devriez vérifier vos paramètres de date, heure, et de fuseau horaire et si nécessaire les corriger.</string>
   <string name="wallet_version_dialog_title">Une nouvelle version est proposée !</string>
   <string name="wallet_version_dialog_msg">Cette version corrige des bogues importants. Pour plus de détails, voir le journal des changements sur Google Play Store.</string>
   <string name="wallet_version_dialog_msg_deprecated">Si vous ne voyez pas de mise à jour, ceci signifie probablement que votre version d\'Android n\'est plus prise en charge.</string>
@@ -229,6 +230,8 @@
   <string name="preferences_precision_labels_0_6">µBTC, pas de décimale</string>
   <string name="preferences_own_name_title">Votre nom</string>
   <string name="preferences_own_name_summary">Votre nom qui sera ajouté aux demandes de paiement. Il doit être court.</string>
+  <string name="preferences_send_coins_autoclose_title">Fermer automatiquement la boîte de dialogue d\'envoi de pièces</string>
+  <string name="preferences_send_coins_autoclose_summary">Une fois le paiement effectué, la boîte de dialogue d\'envoi sera fermée automatiquement.</string>
   <string name="preferences_connectivity_notification_title">Indicateur de connectivité</string>
   <string name="preferences_connectivity_notification_summary">Montrer le nombre de pairs actuellement connectés dans la zone de notification.</string>
   <string name="preferences_trusted_peer_title">Pair de confiance</string>

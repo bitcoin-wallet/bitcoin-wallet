@@ -4,16 +4,16 @@
 <![CDATA[
 		<p>
 			La partie supérieure gauche de l\'écran affiche votre solde en bitcoins ainsi qu\'une monnaie nationale choisie.
-			Toquez pour vous rendre vers la liste des monnaies nationales et tapez sur l\'une d\'elles pour la choisir par défaut.
+			Toquer pour vous rendre vers la liste des monnaies nationales et toquer sur l\'une d\'elles pour la choisir par défaut.
 		</p>
-		 <p>
+		<p>
 			Le QR code à droite contient votre adresse Bitcoin et peut être numérisé par un tiers.
-			Toquez sur le code QR pour l\'agrandir.
+			Toquer sur le code QR pour l\'agrandir.
 		</p>
 		<p>
 			Le bas de l\'écran est couvert par votre liste de transactions, qui est vide initialement.
 			Les transactions en attente sont grisées jusqu\'à ce qu\'elles soient confirmées.
-			Toquez sur une transaction pour ajouter l\'adresse du destinataire ou de l\'envoyeur à votre carnet d\'adresses.
+			Toquer sur une transaction pour ajouter l\'adresse du destinataire ou de l\'envoyeur à votre carnet d\'adresses.
 		</p>
 		<p>
 			Vous pouvez envoyer ou recevoir des bitcoins en toquant les boutons dans la barre d\'action.
