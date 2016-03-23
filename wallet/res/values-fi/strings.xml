@@ -160,6 +160,7 @@
   <string name="transaction_row_message_received_dead">Lähettäjä on kumonnut tämän maksun.</string>
   <string name="transaction_row_message_received_dust">Näin pientä määrää ei voida ehkä koskaan käyttää taloudelliselta näkökannalta.</string>
   <string name="transaction_row_message_received_pay_to_many">Tämä maksu maksaa moniin lompakoihin omasi lisäksi, joka hidastaa ohjelmaa ajan myötä. Jos pystyt, yritä vastaanottaa maksuja jotka maksavat vain sinulle.</string>
+  <string name="transaction_row_message_received_rbf">Tätä maksua viivästytettiin koska lähettäjä käytti turvatonta rahansiirron muotoa.</string>
   <string name="network_monitor_activity_title">Verkkoyhteyksien näyttö</string>
   <string name="network_monitor_peer_list_title">Vertaisia</string>
   <string name="network_monitor_block_list_title">Lohkoja</string>
@@ -230,6 +231,8 @@
   <string name="preferences_precision_labels_0_6">µBTC, ei desimaalia</string>
   <string name="preferences_own_name_title">Oma nimi</string>
   <string name="preferences_own_name_summary">Nimeä itsesi lisätäksesi nimesi maksupyyntöihin. Yritä pitää se lyhyenä.</string>
+  <string name="preferences_send_coins_autoclose_title">Sulje kolikoiden lähetysikkuna automaattisesti</string>
+  <string name="preferences_send_coins_autoclose_summary">Kun maksu on suoritettu, lähetysikkuna sulkeutuu automaattisesti.</string>
   <string name="preferences_connectivity_notification_title">Yhteysilmaisin</string>
   <string name="preferences_connectivity_notification_summary">Näytä tämänhetkisten yhdistettyjen vertaisverkkojen lukumäärä ilmaisinalueella.</string>
   <string name="preferences_trusted_peer_title">Luotettu vertainen</string>
