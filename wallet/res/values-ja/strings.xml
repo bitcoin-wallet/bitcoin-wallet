@@ -160,6 +160,7 @@
   <string name="transaction_row_message_received_dead">この支払は送金者により、引き戻されました。</string>
   <string name="transaction_row_message_received_dust">少額すぎて、通常の支払等には使用できないでしょう。</string>
   <string name="transaction_row_message_received_pay_to_many">この支払いはあなた以外にも多くのウォレットに支払っており、徐々にアプリを遅くする可能性があります。可能であればあなただけに支払う支払いを受けてください。</string>
+  <string name="transaction_row_message_received_rbf">この支払いは、送金者が安全でないトランザクションタイプを使ったため、遅延しています。</string>
   <string name="network_monitor_activity_title">ネットワークモニタ</string>
   <string name="network_monitor_peer_list_title">ピア</string>
   <string name="network_monitor_block_list_title">ブロック</string>
@@ -230,6 +231,8 @@
   <string name="preferences_precision_labels_0_6">µBTC、小数点無し</string>
   <string name="preferences_own_name_title">自身の名前</string>
   <string name="preferences_own_name_summary">支払いリクエストに含める、あなた自身の名前。短いものにしてください。</string>
+  <string name="preferences_send_coins_autoclose_title">送金ダイアログを自動的に閉じる</string>
+  <string name="preferences_send_coins_autoclose_summary">支払いが完了した際に、送金ダイアログを自動的に閉じます。</string>
   <string name="preferences_connectivity_notification_title">接続インジゲーター</string>
   <string name="preferences_connectivity_notification_summary">通知エリア内に現在の接続ピア数を表示する。</string>
   <string name="preferences_trusted_peer_title">信頼されたピア</string>
