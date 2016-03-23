@@ -58,7 +58,7 @@
   <string name="send_coins_fragment_request_payment_request_wrong_signature">Felaktig signatur!</string>
   <string name="send_coins_fragment_payee_verified_by">Verifierad av: %s</string>
   <string name="send_coins_fragment_payee_verified_by_unknown">okänd</string>
-  <string name="send_coins_fragment_receiving_address_label">Skicka till</string>
+  <string name="send_coins_fragment_receiving_address_label">Betala till</string>
   <string name="send_coins_fragment_receiving_address_hint">skriv adress eller namn</string>
   <string name="send_coins_fragment_receiving_address_error">Ogiltig bitcoinadress!</string>
   <string name="send_coins_fragment_receiving_address_own">Du skickar till dig själv!</string>
@@ -121,7 +121,7 @@
   <string name="request_coins_fragment_amount_label">Begärt belopp (frivilligt)</string>
   <string name="request_coins_fragment_accept_bluetooth_payment">Acceptera betalning via Bluetooth för en mer pålitligt process</string>
   <string name="request_coins_fragment_initiate_request_qr">Se till att den här koden skannas av avsändaren.</string>
-  <string name="request_coins_fragment_initiate_request_nfc">Eller knacka en NFC-aktiverad enhet.</string>
+  <string name="request_coins_fragment_initiate_request_nfc">Eller nudda en NFC-aktiverad enhet.</string>
   <string name="request_coins_clipboard_msg">Förfrågan om bitcoin kopierades</string>
   <string name="request_coins_share_dialog_title">Dela en förfrågan om bitcoin…</string>
   <string name="request_coins_no_local_app_msg">Ingen annan bitcoin-app hittades</string>
@@ -159,6 +159,7 @@
   <string name="transaction_row_message_received_dead">Denna betalning har återförts av avsändaren.</string>
   <string name="transaction_row_message_received_dust">En så låg summa kan förmodligen aldrig användas ekonomiskt.</string>
   <string name="transaction_row_message_received_pay_to_many">Denna betalning skickas till många olika användare samtidigt, vilket kan göra appen långsam över tid. Om du kan, försök att bara ta emot betalningar som är riktade till dig enbart.</string>
+  <string name="transaction_row_message_received_rbf">Den här betalningen försenades eftersom avsändaren använde en osäker transaktionstyp.</string>
   <string name="network_monitor_activity_title">Nätverksövervakare</string>
   <string name="network_monitor_peer_list_title">Peers</string>
   <string name="network_monitor_block_list_title">Block</string>
@@ -229,6 +230,8 @@
   <string name="preferences_precision_labels_0_6">µBTC, inga decimaler</string>
   <string name="preferences_own_name_title">Ditt namn</string>
   <string name="preferences_own_name_summary">Skriv ditt namn för att användas vid betalningsmottagande. Gärna kort.</string>
+  <string name="preferences_send_coins_autoclose_title">Stäng \"skicka bitcoins\"-dialogen automatiskt.</string>
+  <string name="preferences_send_coins_autoclose_summary">Stänger dialogrutan när en betalning har slutförts.</string>
   <string name="preferences_connectivity_notification_title">Anslutningsindikator</string>
   <string name="preferences_connectivity_notification_summary">Visa aktuellt antal anslutna peers i notifikationsområdet.</string>
   <string name="preferences_trusted_peer_title">Säkra noder</string>
