@@ -28,7 +28,7 @@
   <string name="wallet_transactions_fragment_empty_text_sent">Eddig nem lett küldve Bitcoin.</string>
   <string name="wallet_transactions_fragment_empty_text_howto">Hogyan szerezz Bitcoin-t?\n\nVásárolj hagyományos pénzért,\nadj el termékeket vagy szolgáltatásokat, vagy\nkeress munkával.</string>
   <string name="wallet_transactions_row_warning_backup">Gratulálunk, megérkezett az első kifizetésed! Már készítettél &lt;u&gt;biztonsági mentést a tárcádról&lt;/u&gt;, hogy megóvd a veszteségtől?</string>
-  <string name="wallet_transactions_row_warning_storage_encryption">Tipp: a tárcája biztonságának növeléséhez &lt;u&gt;titkosíthatja a készülékét&lt;/u&gt;. Ez más alkalmazások adatait is védi.</string>
+  <string name="wallet_transactions_row_warning_storage_encryption">Tipp: a tárcád biztonságának növeléséhez &lt;u&gt;titkosíthatod a készüléked&lt;/u&gt;. Ez más alkalmazások adatait is védi.</string>
   <string name="wallet_transactions_fragment_coinbase">bányászott</string>
   <string name="wallet_transactions_fragment_internal">belső</string>
   <string name="wallet_transactions_options_filter">Szűrő</string>
@@ -160,6 +160,7 @@
   <string name="transaction_row_message_received_dead">A kifizetés visszafordítva a küldő által.</string>
   <string name="transaction_row_message_received_dust">Ez a kis összeg valószínűleg soha nem lesz gazdaságosan elköltve.</string>
   <string name="transaction_row_message_received_pay_to_many">Ez a kifizetés túl sok tárcának fizet a tiéd mellett, ami idővel lelassítja az alkalmazást. Ha tudod, akkor csak olyan kifizetést fogadj, ami neked fizet.</string>
+  <string name="transaction_row_message_received_rbf">Ez a kifizetés késett, mert a küldő megbízhatatlan tranzakció típust használt.</string>
   <string name="network_monitor_activity_title">Hálózatfigyelő</string>
   <string name="network_monitor_peer_list_title">Kapcsolatok</string>
   <string name="network_monitor_block_list_title">Blokkok</string>
@@ -230,6 +231,8 @@
   <string name="preferences_precision_labels_0_6">µBTC, nincs tizedeshely</string>
   <string name="preferences_own_name_title">Saját név</string>
   <string name="preferences_own_name_summary">Saját elnevezésed, ami a fizetési kérelemhez adódik. Próbáld röviden.</string>
+  <string name="preferences_send_coins_autoclose_title">Érmék küldése párbeszédpanel automatikus bezárása</string>
+  <string name="preferences_send_coins_autoclose_summary">Amikor a fizetés megtörténik, a küldés párbeszédpanel automatikusan bezáródik.</string>
   <string name="preferences_connectivity_notification_title">Kapcsolódásjelző</string>
   <string name="preferences_connectivity_notification_summary">Mutassa a kapcsolódások aktuális számát az értesítési területen.</string>
   <string name="preferences_trusted_peer_title">Megbízható peer</string>
@@ -265,7 +268,7 @@
   <string name="report_issue_dialog_mail_intent_failed">Jelentés küldése sikertelen.</string>
   <string name="about_title">Rólunk</string>
   <string name="about_version_title">Verzió</string>
-  <string name="about_copyright_title">Szerző jog</string>
+  <string name="about_copyright_title">Szerzői jog</string>
   <string name="about_license_title">Licensz</string>
   <string name="about_source_title">Forráskód</string>
   <string name="about_credits_bitcoinj_title">Az applikáció bitcoinj %s-t használ</string>
