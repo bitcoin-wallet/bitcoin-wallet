@@ -160,6 +160,7 @@
   <string name="transaction_row_message_received_dead">Denne betaling er blevet omstødt af afsenderen.</string>
   <string name="transaction_row_message_received_dust">Dette lille beløb kan økonomisk set sandsynligvis aldrig bruges.</string>
   <string name="transaction_row_message_received_pay_to_many">Denne betaling er delt over mange tegnebøger ud over din, hvilket sløver app\'en ned over tid. Hvis du kan, så prøv at modtage betalinger, der kun er til dig.</string>
+  <string name="transaction_row_message_received_rbf">Denne betaling blev forsinket, da afsenderen har brugt en usikker transaktionstype.</string>
   <string name="network_monitor_activity_title">Netværksovervågning</string>
   <string name="network_monitor_peer_list_title">Peers</string>
   <string name="network_monitor_block_list_title">Blokke</string>
@@ -230,6 +231,8 @@
   <string name="preferences_precision_labels_0_6">µBTC, uden decimaler</string>
   <string name="preferences_own_name_title">Eget navn</string>
   <string name="preferences_own_name_summary">Dit eget navn, som skal føjes til betalingsforespørgsler. Prøv at holde det kort.</string>
+  <string name="preferences_send_coins_autoclose_title">Luk automatisk dialogen Send coins</string>
+  <string name="preferences_send_coins_autoclose_summary">Send-dialogen vil lukke automatisk, når betalingen er udført.</string>
   <string name="preferences_connectivity_notification_title">Forbindelsesindikator</string>
   <string name="preferences_connectivity_notification_summary">Vis aktuelt antal af forbundne peers i notifikationsområdet.</string>
   <string name="preferences_trusted_peer_title">Betroet peer</string>
