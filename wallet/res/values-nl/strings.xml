@@ -34,9 +34,9 @@
   <string name="wallet_transactions_options_filter">Filter</string>
   <string name="wallet_transactions_options_filter_all">Alle betalingen</string>
   <string name="wallet_transactions_options_filter_received">Ontvangen betalingen</string>
-  <string name="wallet_transactions_options_filter_sent">Verstuurde betalingen</string>
+  <string name="wallet_transactions_options_filter_sent">Verzonden betalingen</string>
   <string name="wallet_options_safety_menu">Veiligheid</string>
-  <string name="wallet_options_encrypt_keys_set">Stel PIN code voor betalen in</string>
+  <string name="wallet_options_encrypt_keys_set">Betaal PIN instellen.</string>
   <string name="wallet_options_encrypt_keys_change">Wijzig PIN code voor betalen</string>
   <string name="wallet_options_safety">Veiligheidsvoorschriften</string>
   <string name="wallet_options_donate">Geef fooi / Doneer</string>
@@ -66,7 +66,7 @@
   <string name="send_coins_fragment_receiving_address_complex">complex\nadres</string>
   <string name="send_coins_fragment_pending">(%s wachten op bevestiging)</string>
   <string name="send_coins_fragment_amount_label">Te betalen bedrag</string>
-  <string name="send_coins_fragment_hint_fee">Een kleine netwerkvergoeding van %s zal worden betaald.</string>
+  <string name="send_coins_fragment_hint_fee">Netwerkkosten van %s zullen worden betaald.</string>
   <string name="send_coins_fragment_hint_dusty_send">Het bedrag is te laag om te verzenden.</string>
   <string name="send_coins_fragment_hint_insufficient_money">Onvoldoende coins beschikbaar. U mist %s.</string>
   <string name="send_coins_fragment_hint_empty_wallet_failed">Het totaal van kleine betalingen in uw portemonnee is bij elkaar niet genoeg om te kunnen verzenden.</string>
@@ -230,6 +230,8 @@
   <string name="preferences_precision_labels_0_6">µBTC, geen decimalen</string>
   <string name="preferences_own_name_title">Je naam</string>
   <string name="preferences_own_name_summary">Je naam, voor toevoegen aan betaal verzoek. Probeer het kort te houden.</string>
+  <string name="preferences_send_coins_autoclose_title">Dialoog voor verzonden coins automatisch sluiten.</string>
+  <string name="preferences_send_coins_autoclose_summary">Als de betaling is voltooid zal de verzend dialoog automatisch sluiten.</string>
   <string name="preferences_connectivity_notification_title">Connectiviteitsindicator</string>
   <string name="preferences_connectivity_notification_summary">Toon huidige aantal verbonden partners in het berichten gebied.</string>
   <string name="preferences_trusted_peer_title">Vertrouwde partner</string>

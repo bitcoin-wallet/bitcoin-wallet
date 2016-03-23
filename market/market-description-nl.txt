@@ -1,9 +1,9 @@
 <b>Draag je Bitcoins altijd bij je, in je broekzak!</b> Je kunt vlot betalen door een QR-code te scannen. Als winkelier ontvang je je betalingen betrouwbaar en onmiddelijk. Bitcoin Wallet is de eerste mobiele Bitcoin-app, en misschien wel de veiligste!
 
 
-<b>FEATURES</b>
+<b>EIGENSCHAPPEN</b>
 
-• Geen registratie, webservice of cloud vereist! De portemonnee is decentraal en peer-to-peer.
+• Geen registratie, webservice of cloud vereist! Deze portemonnee is decentraal en peer-to-peer.
 • Toon Bitcoin bedrag in BTC, mBTC en µBTC.
 • Conversie van en naar nationale valuta.
 * Verzend en ontvang Bitcoin via NFC, QR-codes of Bitcoin-URL's
