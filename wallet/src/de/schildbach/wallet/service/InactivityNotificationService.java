@@ -28,6 +28,7 @@ import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.ui.WalletActivity;
+import de.schildbach.wallet.ui.send.SendCoinsActivity;
 import de.schildbach.wallet_test.R;
 
 import android.app.IntentService;
@@ -56,6 +57,7 @@ public final class InactivityNotificationService extends IntentService
 
 	private static final String ACTION_DISMISS = InactivityNotificationService.class.getPackage().getName() + ".dismiss";
 	private static final String ACTION_DISMISS_FOREVER = InactivityNotificationService.class.getPackage().getName() + ".dismiss_forever";
+	private static final String ACTION_DONATE = InactivityNotificationService.class.getPackage().getName() + ".donate";
 
 	private static final Logger log = LoggerFactory.getLogger(InactivityNotificationService.class);
 
@@ -86,6 +88,8 @@ public final class InactivityNotificationService extends IntentService
 			handleDismiss();
 		else if (ACTION_DISMISS_FOREVER.equals(intent.getAction()))
 			handleDismissForever();
+		else if (ACTION_DONATE.equals(intent.getAction()))
+			handleDonate();
 		else
 			handleMaybeShowNotification();
 	}
@@ -111,6 +115,8 @@ public final class InactivityNotificationService extends IntentService
 			dismissIntent.setAction(ACTION_DISMISS);
 			final Intent dismissForeverIntent = new Intent(this, InactivityNotificationService.class);
 			dismissForeverIntent.setAction(ACTION_DISMISS_FOREVER);
+			final Intent donateIntent = new Intent(this, InactivityNotificationService.class);
+			donateIntent.setAction(ACTION_DONATE);
 
 			final NotificationCompat.Builder notification = new NotificationCompat.Builder(this);
 			notification.setStyle(new NotificationCompat.BigTextStyle().bigText(text));
@@ -119,10 +125,14 @@ public final class InactivityNotificationService extends IntentService
 			notification.setContentText(text);
 			notification.setContentIntent(PendingIntent.getActivity(this, 0, new Intent(this, WalletActivity.class), 0));
 			notification.setAutoCancel(true);
-			notification.addAction(new NotificationCompat.Action.Builder(0, getString(R.string.notification_inactivity_action_dismiss),
-					PendingIntent.getService(this, 0, dismissIntent, 0)).build());
+			if (!canDonate)
+				notification.addAction(new NotificationCompat.Action.Builder(0, getString(R.string.notification_inactivity_action_dismiss),
+						PendingIntent.getService(this, 0, dismissIntent, 0)).build());
 			notification.addAction(new NotificationCompat.Action.Builder(0, getString(R.string.notification_inactivity_action_dismiss_forever),
 					PendingIntent.getService(this, 0, dismissForeverIntent, 0)).build());
+			if (canDonate)
+				notification.addAction(new NotificationCompat.Action.Builder(0, getString(R.string.wallet_options_donate),
+						PendingIntent.getService(this, 0, donateIntent, 0)).build());
 			nm.notify(Constants.NOTIFICATION_ID_INACTIVITY, notification.build());
 		}
 	}
@@ -138,5 +148,13 @@ public final class InactivityNotificationService extends IntentService
 		log.info("dismissing inactivity notification forever");
 		config.setRemindBalance(false);
 		nm.cancel(Constants.NOTIFICATION_ID_INACTIVITY);
+	}
+
+	private void handleDonate()
+	{
+		final Coin balance = wallet.getBalance(BalanceType.AVAILABLE_SPENDABLE);
+		SendCoinsActivity.startDonate(this, balance, Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+		nm.cancel(Constants.NOTIFICATION_ID_INACTIVITY);
+		sendBroadcast(new Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS));
 	}
 }

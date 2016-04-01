@@ -215,6 +215,13 @@ public final class PaymentIntent implements Parcelable
 		return new PaymentIntent(new Address(Constants.NETWORK_PARAMETERS, address), addressLabel);
 	}
 
+	public static PaymentIntent from(final String address, @Nullable final String addressLabel, @Nullable final Coin amount)
+			throws WrongNetworkException, AddressFormatException
+	{
+		return new PaymentIntent(null, null, null, buildSimplePayTo(amount, new Address(Constants.NETWORK_PARAMETERS, address)), addressLabel, null,
+				null, null, null);
+	}
+
 	public static PaymentIntent fromBitcoinUri(final BitcoinURI bitcoinUri)
 	{
 		final Address address = bitcoinUri.getAddress();
