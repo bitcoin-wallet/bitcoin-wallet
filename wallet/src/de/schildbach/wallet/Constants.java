@@ -106,7 +106,8 @@ public final class Constants
 	public static final String DEFAULT_EXCHANGE_CURRENCY = "USD";
 
 	/** Donation address for tip/donate action. */
-	public static final String DONATION_ADDRESS = "141TVuPJsecmcWqk4CieDUsUKn4Pi4TFaD";
+	public static final String DONATION_ADDRESS = NETWORK_PARAMETERS.getId().equals(NetworkParameters.ID_MAINNET)
+			? "141TVuPJsecmcWqk4CieDUsUKn4Pi4TFaD" : null;
 
 	/** Recipient e-mail address for reports. */
 	public static final String REPORT_EMAIL = "bitcoin.wallet.developers@gmail.com";
