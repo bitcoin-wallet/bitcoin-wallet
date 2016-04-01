@@ -20,10 +20,14 @@ package de.schildbach.wallet.service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import de.schildbach.wallet.Configuration;
+import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.WalletApplication;
+
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import de.schildbach.wallet.WalletApplication;
+import android.preference.PreferenceManager;
 
 /**
  * @author Andreas Schildbach
@@ -48,6 +52,11 @@ public class BootstrapReceiver extends BroadcastReceiver
 
 			// make sure there is always an alarm scheduled
 			WalletApplication.scheduleStartBlockchainService(context);
+
+			// if the app hasn't been used for a while and contains coins, maybe show reminder
+			final Configuration config = new Configuration(PreferenceManager.getDefaultSharedPreferences(context), context.getResources());
+			if (config.remindBalance() && config.hasBeenUsed() && config.getLastUsedAgo() > Constants.LAST_USAGE_THRESHOLD_INACTIVE_MS)
+				InactivityNotificationService.startMaybeShowNotification(context);
 		}
 	}
 }

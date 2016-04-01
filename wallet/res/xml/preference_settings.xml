@@ -52,6 +52,12 @@
 			android:targetPackage="com.android.settings" />
 	</Preference>
 
+	<CheckBoxPreference
+		android:defaultValue="true"
+		android:key="remind_balance"
+		android:summary="@string/preferences_remind_balance_summary"
+		android:title="@string/preferences_remind_balance_title" />
+
 	<PreferenceCategory android:title="@string/preferences_category_labs" >
 		<Preference
 			android:icon="@drawable/ic_warning_grey600_24dp"

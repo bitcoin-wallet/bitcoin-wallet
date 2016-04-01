@@ -114,9 +114,6 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 
 	private PeerConnectivityListener peerConnectivityListener;
 	private NotificationManager nm;
-	private static final int NOTIFICATION_ID_CONNECTED = 0;
-	private static final int NOTIFICATION_ID_COINS_RECEIVED = 1;
-
 	private final Set<Impediment> impediments = EnumSet.noneOf(Impediment.class);
 	private int notificationCount = 0;
 	private Coin notificationAccumulatedAmount = Coin.ZERO;
@@ -178,7 +175,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 	private void notifyCoinsReceived(@Nullable final Address address, final Coin amount)
 	{
 		if (notificationCount == 1)
-			nm.cancel(NOTIFICATION_ID_COINS_RECEIVED);
+			nm.cancel(Constants.NOTIFICATION_ID_COINS_RECEIVED);
 
 		notificationCount++;
 		notificationAccumulatedAmount = notificationAccumulatedAmount.add(amount);
@@ -214,7 +211,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 		notification.setNumber(notificationCount == 1 ? 0 : notificationCount);
 		notification.setWhen(System.currentTimeMillis());
 		notification.setSound(Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.coins_received));
-		nm.notify(NOTIFICATION_ID_COINS_RECEIVED, notification.getNotification());
+		nm.notify(Constants.NOTIFICATION_ID_COINS_RECEIVED, notification.getNotification());
 	}
 
 	private final class PeerConnectivityListener extends AbstractPeerEventListener implements OnSharedPreferenceChangeListener
@@ -233,7 +230,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 
 			config.unregisterOnSharedPreferenceChangeListener(this);
 
-			nm.cancel(NOTIFICATION_ID_CONNECTED);
+			nm.cancel(Constants.NOTIFICATION_ID_CONNECTED);
 		}
 
 		@Override
@@ -271,7 +268,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 
 					if (!connectivityNotificationEnabled || numPeers == 0)
 					{
-						nm.cancel(NOTIFICATION_ID_CONNECTED);
+						nm.cancel(Constants.NOTIFICATION_ID_CONNECTED);
 					}
 					else
 					{
@@ -283,7 +280,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 								WalletActivity.class), 0));
 						notification.setWhen(System.currentTimeMillis());
 						notification.setOngoing(true);
-						nm.notify(NOTIFICATION_ID_CONNECTED, notification.getNotification());
+						nm.notify(Constants.NOTIFICATION_ID_CONNECTED, notification.getNotification());
 					}
 
 					// send broadcast
@@ -660,7 +657,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 				notificationAccumulatedAmount = Coin.ZERO;
 				notificationAddresses.clear();
 
-				nm.cancel(NOTIFICATION_ID_COINS_RECEIVED);
+				nm.cancel(Constants.NOTIFICATION_ID_COINS_RECEIVED);
 			}
 			else if (BlockchainService.ACTION_RESET_BLOCKCHAIN.equals(action))
 			{
