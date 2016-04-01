@@ -24,6 +24,8 @@ import org.slf4j.LoggerFactory;
 import android.app.IntentService;
 import android.content.Context;
 import android.content.Intent;
+
+import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
 
 /**
@@ -64,6 +66,8 @@ public final class UpgradeWalletService extends IntentService
 	@Override
 	protected void onHandleIntent(final Intent intent)
 	{
+		org.bitcoinj.core.Context.propagate(Constants.CONTEXT);
+
 		final Wallet wallet = application.getWallet();
 
 		if (wallet.isDeterministicUpgradeRequired())
