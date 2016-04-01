@@ -28,9 +28,9 @@ import de.schildbach.wallet.WalletApplication;
 /**
  * @author Andreas Schildbach
  */
-public class AutosyncReceiver extends BroadcastReceiver
+public class BootstrapReceiver extends BroadcastReceiver
 {
-	private static final Logger log = LoggerFactory.getLogger(AutosyncReceiver.class);
+	private static final Logger log = LoggerFactory.getLogger(BootstrapReceiver.class);
 
 	@Override
 	public void onReceive(final Context context, final Intent intent)
