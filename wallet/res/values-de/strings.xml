@@ -310,7 +310,7 @@
 	<string name="notification_inactivity_message">Denk daran: Dein Guthaben von %s wird verloren sein, wenn du die Bitcoin Wallet App de-installierst ohne es vorher an eine andere Wallet hin zu senden.</string>
 	<string name="notification_inactivity_message_donate">Wenn dir die Bitcoins egal sind, könntest du sie auch dem Bitcoin Wallet Projekt spenden.</string>
 	<string name="notification_inactivity_action_dismiss">Später erinnern</string>
-	<string name="notification_inactivity_action_dismiss_forever">Nicht wieder erinnern</string>
+	<string name="notification_inactivity_action_dismiss_forever">Nicht erinnern</string>
 
 	<!-- generic buttons -->
 	<string name="button_ok">Ok</string>
