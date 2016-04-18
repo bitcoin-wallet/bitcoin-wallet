@@ -20,8 +20,8 @@ package de.schildbach.wallet.ui;
 import java.util.List;
 
 import org.bitcoinj.core.Transaction;
-import org.bitcoinj.core.Wallet;
 import org.bitcoinj.wallet.DeterministicUpgradeRequiresPassword;
+import org.bitcoinj.wallet.Wallet;
 
 import android.app.Activity;
 import android.app.Fragment;

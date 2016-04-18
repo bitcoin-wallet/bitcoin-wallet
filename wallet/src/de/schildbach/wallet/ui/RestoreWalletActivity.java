@@ -24,8 +24,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-import org.bitcoinj.core.Wallet;
-import org.bitcoinj.core.Wallet.BalanceType;
+import org.bitcoinj.wallet.Wallet;
+import org.bitcoinj.wallet.Wallet.BalanceType;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -47,7 +47,7 @@ import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.util.Crypto;
 import de.schildbach.wallet.util.Io;
 import de.schildbach.wallet.util.WalletUtils;
-import de.schildbach.wallet_test.R;
+import de.schildbach.wallet.R;
 
 /**
  * @author Andreas Schildbach

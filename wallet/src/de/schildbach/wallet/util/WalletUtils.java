@@ -44,11 +44,11 @@ import org.bitcoinj.core.ScriptException;
 import org.bitcoinj.core.Sha256Hash;
 import org.bitcoinj.core.Transaction;
 import org.bitcoinj.core.TransactionOutput;
-import org.bitcoinj.core.Wallet;
 import org.bitcoinj.script.Script;
-import org.bitcoinj.store.UnreadableWalletException;
-import org.bitcoinj.store.WalletProtobufSerializer;
 import org.bitcoinj.wallet.KeyChainGroup;
+import org.bitcoinj.wallet.UnreadableWalletException;
+import org.bitcoinj.wallet.Wallet;
+import org.bitcoinj.wallet.WalletProtobufSerializer;
 
 import android.text.Editable;
 import android.text.Spannable;
@@ -181,7 +181,7 @@ public class WalletUtils
 	{
 		try
 		{
-			final Wallet wallet = new WalletProtobufSerializer().readWallet(is);
+			final Wallet wallet = new WalletProtobufSerializer().readWallet(is, true, null);
 
 			if (!wallet.getParams().equals(expectedNetworkParameters))
 				throw new IOException("bad wallet backup network parameters: " + wallet.getParams().getId());

@@ -23,7 +23,7 @@ import java.util.List;
 
 import org.bitcoinj.core.Address;
 import org.bitcoinj.core.ECKey;
-import org.bitcoinj.core.Wallet;
+import org.bitcoinj.wallet.Wallet;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -35,7 +35,7 @@ import android.widget.TextView;
 import de.schildbach.wallet.AddressBookProvider;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.util.WalletUtils;
-import de.schildbach.wallet_test.R;
+import de.schildbach.wallet.R;
 
 /**
  * @author Andreas Schildbach

@@ -17,23 +17,25 @@
 
 package de.schildbach.wallet.util;
 
-import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicLong;
 
 import org.bitcoinj.core.Coin;
-import org.bitcoinj.core.ECKey;
 import org.bitcoinj.core.Transaction;
-import org.bitcoinj.core.Wallet;
-import org.bitcoinj.core.WalletEventListener;
-import org.bitcoinj.script.Script;
+import org.bitcoinj.core.listeners.TransactionConfidenceEventListener;
+import org.bitcoinj.wallet.Wallet;
+import org.bitcoinj.wallet.listeners.WalletChangeEventListener;
+import org.bitcoinj.wallet.listeners.WalletCoinsReceivedEventListener;
+import org.bitcoinj.wallet.listeners.WalletCoinsSentEventListener;
+import org.bitcoinj.wallet.listeners.WalletReorganizeEventListener;
 
 import android.os.Handler;
 
 /**
  * @author Andreas Schildbach
  */
-public abstract class ThrottlingWalletChangeListener implements WalletEventListener
+public abstract class ThrottlingWalletChangeListener implements WalletChangeEventListener, WalletCoinsSentEventListener,
+		WalletCoinsReceivedEventListener, WalletReorganizeEventListener, TransactionConfidenceEventListener
 {
 	private final long throttleMs;
 	private final boolean coinsRelevant;
@@ -131,17 +133,5 @@ public abstract class ThrottlingWalletChangeListener implements WalletEventListe
 	{
 		if (confidenceRelevant)
 			relevant.set(true);
-	}
-
-	@Override
-	public void onKeysAdded(final List<ECKey> keys)
-	{
-		// swallow
-	}
-
-	@Override
-	public void onScriptsChanged(final Wallet wallet, final List<Script> scripts, final boolean isAddingScripts)
-	{
-		// swallow
 	}
 }

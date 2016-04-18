@@ -34,14 +34,14 @@ import org.bitcoinj.core.TransactionConfidence;
 import org.bitcoinj.core.TransactionConfidence.ConfidenceType;
 import org.bitcoinj.core.VerificationException;
 import org.bitcoinj.core.VersionedChecksummedBytes;
-import org.bitcoinj.core.Wallet;
-import org.bitcoinj.core.Wallet.BalanceType;
-import org.bitcoinj.core.Wallet.CouldNotAdjustDownwards;
-import org.bitcoinj.core.Wallet.DustySendRequested;
-import org.bitcoinj.core.Wallet.SendRequest;
 import org.bitcoinj.protocols.payments.PaymentProtocol;
 import org.bitcoinj.utils.MonetaryFormat;
+import org.bitcoinj.wallet.Wallet;
 import org.bitcoinj.wallet.KeyChain.KeyPurpose;
+import org.bitcoinj.wallet.SendRequest;
+import org.bitcoinj.wallet.Wallet.BalanceType;
+import org.bitcoinj.wallet.Wallet.CouldNotAdjustDownwards;
+import org.bitcoinj.wallet.Wallet.DustySendRequested;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.spongycastle.crypto.params.KeyParameter;
@@ -116,7 +116,7 @@ import de.schildbach.wallet.ui.TransactionsAdapter;
 import de.schildbach.wallet.util.Bluetooth;
 import de.schildbach.wallet.util.Nfc;
 import de.schildbach.wallet.util.WalletUtils;
-import de.schildbach.wallet_test.R;
+import de.schildbach.wallet.R;
 
 /**
  * @author Andreas Schildbach

@@ -35,8 +35,8 @@ import java.util.List;
 import org.bitcoinj.core.Transaction;
 import org.bitcoinj.core.VerificationException;
 import org.bitcoinj.core.VersionedChecksummedBytes;
-import org.bitcoinj.core.Wallet;
-import org.bitcoinj.core.Wallet.BalanceType;
+import org.bitcoinj.wallet.Wallet;
+import org.bitcoinj.wallet.Wallet.BalanceType;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -83,7 +83,7 @@ import de.schildbach.wallet.util.HttpGetThread;
 import de.schildbach.wallet.util.Io;
 import de.schildbach.wallet.util.Nfc;
 import de.schildbach.wallet.util.WalletUtils;
-import de.schildbach.wallet_test.R;
+import de.schildbach.wallet.R;
 
 /**
  * @author Andreas Schildbach

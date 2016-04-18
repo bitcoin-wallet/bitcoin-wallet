@@ -20,10 +20,10 @@ package de.schildbach.wallet;
 import java.lang.reflect.Method;
 
 import org.bitcoinj.core.Coin;
-import org.bitcoinj.core.Wallet;
-import org.bitcoinj.core.Wallet.BalanceType;
 import org.bitcoinj.utils.Fiat;
 import org.bitcoinj.utils.MonetaryFormat;
+import org.bitcoinj.wallet.Wallet;
+import org.bitcoinj.wallet.Wallet.BalanceType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -47,7 +47,7 @@ import de.schildbach.wallet.ui.WalletActivity;
 import de.schildbach.wallet.ui.send.SendCoinsActivity;
 import de.schildbach.wallet.util.GenericUtils;
 import de.schildbach.wallet.util.MonetarySpannable;
-import de.schildbach.wallet_test.R;
+import de.schildbach.wallet.R;
 
 /**
  * @author Andreas Schildbach

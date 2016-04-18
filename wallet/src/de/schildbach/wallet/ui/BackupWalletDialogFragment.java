@@ -31,9 +31,9 @@ import java.util.TimeZone;
 
 import javax.annotation.Nullable;
 
-import org.bitcoinj.core.Wallet;
-import org.bitcoinj.store.WalletProtobufSerializer;
 import org.bitcoinj.wallet.Protos;
+import org.bitcoinj.wallet.Wallet;
+import org.bitcoinj.wallet.WalletProtobufSerializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -62,7 +62,7 @@ import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.util.Crypto;
 import de.schildbach.wallet.util.Iso8601Format;
-import de.schildbach.wallet_test.R;
+import de.schildbach.wallet.R;
 
 /**
  * @author Andreas Schildbach

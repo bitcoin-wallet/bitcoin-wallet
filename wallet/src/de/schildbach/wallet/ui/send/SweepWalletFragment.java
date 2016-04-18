@@ -32,13 +32,13 @@ import org.bitcoinj.core.Transaction;
 import org.bitcoinj.core.TransactionConfidence;
 import org.bitcoinj.core.VerificationException;
 import org.bitcoinj.core.VersionedChecksummedBytes;
-import org.bitcoinj.core.Wallet;
-import org.bitcoinj.core.Wallet.BalanceType;
-import org.bitcoinj.core.Wallet.SendRequest;
 import org.bitcoinj.crypto.BIP38PrivateKey;
 import org.bitcoinj.utils.MonetaryFormat;
 import org.bitcoinj.wallet.KeyChainGroup;
+import org.bitcoinj.wallet.SendRequest;
+import org.bitcoinj.wallet.Wallet;
 import org.bitcoinj.wallet.WalletTransaction;
+import org.bitcoinj.wallet.Wallet.BalanceType;
 import org.bitcoinj.wallet.WalletTransaction.Pool;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -79,7 +79,7 @@ import de.schildbach.wallet.ui.ScanActivity;
 import de.schildbach.wallet.ui.TransactionsAdapter;
 import de.schildbach.wallet.util.MonetarySpannable;
 import de.schildbach.wallet.util.WalletUtils;
-import de.schildbach.wallet_test.R;
+import de.schildbach.wallet.R;
 
 /**
  * @author Andreas Schildbach

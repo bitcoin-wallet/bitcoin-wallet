@@ -30,8 +30,8 @@ import org.bitcoinj.core.Coin;
 import org.bitcoinj.core.StoredBlock;
 import org.bitcoinj.core.Transaction;
 import org.bitcoinj.core.Transaction.Purpose;
-import org.bitcoinj.core.Wallet;
 import org.bitcoinj.utils.MonetaryFormat;
+import org.bitcoinj.wallet.Wallet;
 
 import android.content.Context;
 import android.graphics.Typeface;
@@ -44,7 +44,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import de.schildbach.wallet.AddressBookProvider;
 import de.schildbach.wallet.util.WalletUtils;
-import de.schildbach.wallet_test.R;
+import de.schildbach.wallet.R;
 
 /**
  * @author Andreas Schildbach

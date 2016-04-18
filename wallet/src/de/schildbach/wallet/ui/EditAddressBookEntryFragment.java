@@ -21,7 +21,7 @@ import javax.annotation.Nullable;
 
 import org.bitcoinj.core.Address;
 import org.bitcoinj.core.AddressFormatException;
-import org.bitcoinj.core.Wallet;
+import org.bitcoinj.wallet.Wallet;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -39,7 +39,7 @@ import de.schildbach.wallet.AddressBookProvider;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.util.WalletUtils;
-import de.schildbach.wallet_test.R;
+import de.schildbach.wallet.R;
 
 /**
  * @author Andreas Schildbach
