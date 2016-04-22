@@ -47,11 +47,11 @@ is world readable/writeable. The goal is to be able to debug easily.
 
 You can probably skip some steps, especially if you built Android apps before.
 
-You'll need git, a Java SDK 6 (or later) and Gradle 2.4 (or later) for this. I'll assume Ubuntu Wily Linux
+You'll need git, a Java SDK 6 (or later) and Gradle 2.10 (or later) for this. I'll assume Ubuntu Xenial Linux
 for the package installs, which comes with slightly more recent versions.
 
 	# first time only
-	sudo apt install git gradle openjdk-7-jdk libstdc++6:i386 zlib1g:i386
+	sudo apt install git gradle openjdk-8-jdk libstdc++6:i386 zlib1g:i386
 
 Get the Android SDK (Tools only) from
 
