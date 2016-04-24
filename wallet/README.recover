@@ -25,7 +25,7 @@ set up and you should have one of its receiving addresses or a QR code at hand.
 You should be at least a bit familiar with the Linux shell. Commands indented in this document
 are meant to be executed as a shell command. Before you execute each command by pressing return,
 make sure to understand what it does. You will need to adjust some file or directory names.
-Commands starting with "sudo apt-get" will ask for your permission to install software by
+Commands starting with "sudo apt" will ask for your permission to install software by
 requiring your Ubuntu user password.
 
 
@@ -33,7 +33,7 @@ PREPARATION
 
 On your PC, install the following Ubuntu packages:
 
-	sudo apt-get install android-tools-adb openssl git maven
+	sudo apt install android-tools-adb openssl git maven
 
 On your Android device, go to Settings > Developer options and enable "USB debugging". On most
 recent devices you need to go to Settings > About first and tap on "Build number" multiple times
@@ -136,7 +136,7 @@ https://multibit.org/ and restore from inside that application.
 Another option is importing each individual key into Electrum or bitcoin-qt/bitcoind. You can
 install Electrum with
 
-	sudo apt-get install electrum
+	sudo apt install electrum
 
 As soon as you see your whole balance again, empty your entire wallet to the desired destination
 wallet. Please do not continue to use the imported wallet. Remember you just operated on

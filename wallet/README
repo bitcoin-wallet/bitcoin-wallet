@@ -51,7 +51,7 @@ You'll need git, a Java SDK 6 (or later) and Gradle 2.4 (or later) for this. I'l
 for the package installs, which comes with slightly more recent versions.
 
 	# first time only
-	sudo apt-get install git gradle openjdk-7-jdk libstdc++6:i386 zlib1g:i386
+	sudo apt install git gradle openjdk-7-jdk libstdc++6:i386 zlib1g:i386
 
 Get the Android SDK (Tools only) from
 
@@ -82,7 +82,7 @@ use
 To install the app on your Android device, use
 
 	# first time only
-	sudo apt-get install android-tools-adb
+	sudo apt install android-tools-adb
 
 	# each time
 	adb install wallet/build/outputs/apk/bitcoin-wallet-debug.apk
@@ -124,7 +124,7 @@ repository from time to time. It can be done by manually downloading the files, 
 command line client is more convenient:
 
 	# first time only
-	sudo apt-get install transifex-client
+	sudo apt install transifex-client
 
 If strings resources are added or changed, the source language files need to be pushed to
 Transifex. This step will probably only be executed by the maintainer of the project, as special
