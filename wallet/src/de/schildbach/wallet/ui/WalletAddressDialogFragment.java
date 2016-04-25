@@ -60,7 +60,7 @@ public class WalletAddressDialogFragment extends DialogFragment
 
 		final Bundle args = new Bundle();
 		args.putParcelable(KEY_BITMAP, bitmap);
-		args.putString(KEY_ADDRESS, address.toString());
+		args.putString(KEY_ADDRESS, address.toBase58());
 		fragment.setArguments(args);
 
 		return fragment;

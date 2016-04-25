@@ -400,7 +400,7 @@ public final class SendingAddressesFragment extends FancyListFragment implements
 	{
 		final StringBuilder builder = new StringBuilder();
 		for (final Address address : addresses)
-			builder.append(address.toString()).append(",");
+			builder.append(address.toBase58()).append(",");
 		if (addresses.size() > 0)
 			builder.setLength(builder.length() - 1);
 
@@ -423,7 +423,7 @@ public final class SendingAddressesFragment extends FancyListFragment implements
 
 			try
 			{
-				return new Address(Constants.NETWORK_PARAMETERS, clipText.toString().trim());
+				return Address.fromBase58(Constants.NETWORK_PARAMETERS, clipText.toString().trim());
 			}
 			catch (final AddressFormatException x)
 			{

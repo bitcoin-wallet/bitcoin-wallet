@@ -396,7 +396,7 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 					address = WalletUtils.getToAddressOfSent(tx, wallet);
 				else
 					address = WalletUtils.getWalletAddressOfReceived(tx, wallet);
-				final String addressLabel = address != null ? AddressBookProvider.resolveLabel(context, address.toString()) : null;
+				final String addressLabel = address != null ? AddressBookProvider.resolveLabel(context, address.toBase58()) : null;
 
 				txCache = new TransactionCacheEntry(value, sent, showFee, address, addressLabel);
 				transactionCache.put(tx.getHash(), txCache);

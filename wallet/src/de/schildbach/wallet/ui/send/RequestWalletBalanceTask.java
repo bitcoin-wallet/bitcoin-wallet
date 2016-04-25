@@ -92,7 +92,7 @@ public final class RequestWalletBalanceTask
 				url.append("&operator=AND");
 				url.append("&spent_state=UNSPENT");
 				for (final Address address : addresses)
-					url.append("&address[]=").append(address.toString());
+					url.append("&address[]=").append(address.toBase58());
 
 				log.debug("trying to request wallet balance from {}", url);
 

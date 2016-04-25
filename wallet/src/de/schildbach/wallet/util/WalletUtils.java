@@ -67,12 +67,12 @@ public class WalletUtils
 {
 	public static Editable formatAddress(final Address address, final int groupSize, final int lineSize)
 	{
-		return formatHash(address.toString(), groupSize, lineSize);
+		return formatHash(address.toBase58(), groupSize, lineSize);
 	}
 
 	public static Editable formatAddress(@Nullable final String prefix, final Address address, final int groupSize, final int lineSize)
 	{
-		return formatHash(prefix, address.toString(), groupSize, lineSize, Constants.CHAR_THIN_SPACE);
+		return formatHash(prefix, address.toBase58(), groupSize, lineSize, Constants.CHAR_THIN_SPACE);
 	}
 
 	public static Editable formatHash(final String address, final int groupSize, final int lineSize)
@@ -214,7 +214,7 @@ public class WalletUtils
 
 		for (final ECKey key : keys)
 		{
-			out.write(key.getPrivateKeyEncoded(Constants.NETWORK_PARAMETERS).toString());
+			out.write(key.getPrivateKeyEncoded(Constants.NETWORK_PARAMETERS).toBase58());
 			if (key.getCreationTimeSeconds() != 0)
 			{
 				out.write(' ');
@@ -246,7 +246,7 @@ public class WalletUtils
 
 				final String[] parts = line.split(" ");
 
-				final ECKey key = new DumpedPrivateKey(expectedNetworkParameters, parts[0]).getKey();
+				final ECKey key = DumpedPrivateKey.fromBase58(expectedNetworkParameters, parts[0]).getKey();
 				key.setCreationTimeSeconds(parts.length >= 2 ? format.parse(parts[1]).getTime() / DateUtils.SECOND_IN_MILLIS : 0);
 
 				keys.add(key);
@@ -364,11 +364,6 @@ public class WalletUtils
 		{
 			throw new RuntimeException(x);
 		}
-	}
-
-	public static Address newAddressOrThrow(final NetworkParameters params, final String base58) throws AddressFormatException
-	{
-		return new Address(params, base58);
 	}
 
 	public static boolean isPayToManyTransaction(final Transaction transaction)

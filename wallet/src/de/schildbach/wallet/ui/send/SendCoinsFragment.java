@@ -1188,7 +1188,7 @@ public final class SendCoinsFragment extends Fragment
 
 				receivingStaticAddressView.setText(WalletUtils.formatAddress(validatedAddress.address, Constants.ADDRESS_FORMAT_GROUP_SIZE,
 						Constants.ADDRESS_FORMAT_LINE_SIZE));
-				final String addressBookLabel = AddressBookProvider.resolveLabel(activity, validatedAddress.address.toString());
+				final String addressBookLabel = AddressBookProvider.resolveLabel(activity, validatedAddress.address.toBase58());
 				final String staticLabel;
 				if (addressBookLabel != null)
 					staticLabel = addressBookLabel;
