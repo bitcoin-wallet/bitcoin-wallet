@@ -149,7 +149,7 @@ public class Configuration
 
 	public String getTrustedPeerHost()
 	{
-		return prefs.getString(PREFS_KEY_TRUSTED_PEER, "").trim();
+		return Strings.emptyToNull(prefs.getString(PREFS_KEY_TRUSTED_PEER, "").trim());
 	}
 
 	public boolean getTrustedPeerOnly()

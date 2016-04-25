@@ -120,7 +120,7 @@ public final class SettingsFragment extends PreferenceFragment implements OnPref
 	{
 		final String trustedPeer = config.getTrustedPeerHost();
 
-		if (trustedPeer.isEmpty())
+		if (trustedPeer == null)
 		{
 			trustedPeerPreference.setSummary(R.string.preferences_trusted_peer_summary);
 			trustedPeerOnlyPreference.setEnabled(false);
