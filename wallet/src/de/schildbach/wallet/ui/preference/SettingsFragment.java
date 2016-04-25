@@ -18,7 +18,6 @@
 package de.schildbach.wallet.ui.preference;
 
 import android.app.Activity;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
@@ -37,6 +36,7 @@ public final class SettingsFragment extends PreferenceFragment implements OnPref
 {
 	private Activity activity;
 	private WalletApplication application;
+	private Configuration config;
 	private PackageManager pm;
 
 	private final Handler handler = new Handler();
@@ -52,6 +52,7 @@ public final class SettingsFragment extends PreferenceFragment implements OnPref
 
 		this.activity = activity;
 		this.application = (WalletApplication) activity.getApplication();
+		this.config = application.getConfiguration();
 		this.pm = activity.getPackageManager();
 	}
 
@@ -74,9 +75,7 @@ public final class SettingsFragment extends PreferenceFragment implements OnPref
 		final Preference dataUsagePreference = findPreference(Configuration.PREFS_KEY_DATA_USAGE);
 		dataUsagePreference.setEnabled(pm.resolveActivity(dataUsagePreference.getIntent(), 0) != null);
 
-		final SharedPreferences prefs = getPreferenceManager().getSharedPreferences();
-		final String trustedPeer = prefs.getString(Configuration.PREFS_KEY_TRUSTED_PEER, "").trim();
-		updateTrustedPeer(trustedPeer);
+		updateTrustedPeer();
 	}
 
 	@Override
@@ -105,7 +104,7 @@ public final class SettingsFragment extends PreferenceFragment implements OnPref
 				else if (preference.equals(trustedPeerPreference))
 				{
 					application.stopBlockchainService();
-					updateTrustedPeer((String) newValue);
+					updateTrustedPeer();
 				}
 				else if (preference.equals(trustedPeerOnlyPreference))
 				{
@@ -117,8 +116,10 @@ public final class SettingsFragment extends PreferenceFragment implements OnPref
 		return true;
 	}
 
-	private void updateTrustedPeer(final String trustedPeer)
+	private void updateTrustedPeer()
 	{
+		final String trustedPeer = config.getTrustedPeerHost();
+
 		if (trustedPeer.isEmpty())
 		{
 			trustedPeerPreference.setSummary(R.string.preferences_trusted_peer_summary);
