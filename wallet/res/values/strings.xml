@@ -238,6 +238,8 @@
 	<string name="preferences_connectivity_notification_summary">Show current number of connected peers in the notification area.</string>
 	<string name="preferences_trusted_peer_title">Trusted peer</string>
 	<string name="preferences_trusted_peer_summary">IP or hostname of single peer to connect to.</string>
+	<string name="preferences_trusted_peer_resolve_progress">Resolving…</string>
+	<string name="preferences_trusted_peer_resolve_unknown_host">Unknown hostname!</string>
 	<string name="preferences_trusted_peer_only_title">Skip regular peer discovery</string>
 	<string name="preferences_trusted_peer_only_summary">Prevents connecting to any peers besides the trusted peer.</string>
 	<string name="preferences_block_explorer_title">Block explorer</string>

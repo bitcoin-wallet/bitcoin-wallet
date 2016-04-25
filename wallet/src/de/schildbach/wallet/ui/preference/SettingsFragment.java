@@ -21,10 +21,18 @@ import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.HandlerThread;
+import android.os.Process;
 import android.preference.EditTextPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceFragment;
+
+import java.net.InetAddress;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.WalletBalanceWidgetProvider;
@@ -41,10 +49,14 @@ public final class SettingsFragment extends PreferenceFragment implements OnPref
 	private PackageManager pm;
 
 	private final Handler handler = new Handler();
+	private HandlerThread backgroundThread;
+	private Handler backgroundHandler;
 
 	private Preference btcPrecisionPreference;
 	private Preference trustedPeerPreference;
 	private Preference trustedPeerOnlyPreference;
+
+	private static final Logger log = LoggerFactory.getLogger(SettingsFragment.class);
 
 	@Override
 	public void onAttach(final Activity activity)
@@ -63,6 +75,10 @@ public final class SettingsFragment extends PreferenceFragment implements OnPref
 		super.onCreate(savedInstanceState);
 
 		addPreferencesFromResource(R.xml.preference_settings);
+
+		backgroundThread = new HandlerThread("backgroundThread", Process.THREAD_PRIORITY_BACKGROUND);
+		backgroundThread.start();
+		backgroundHandler = new Handler(backgroundThread.getLooper());
 
 		btcPrecisionPreference = findPreference(Configuration.PREFS_KEY_BTC_PRECISION);
 		btcPrecisionPreference.setOnPreferenceChangeListener(this);
@@ -86,6 +102,8 @@ public final class SettingsFragment extends PreferenceFragment implements OnPref
 		trustedPeerOnlyPreference.setOnPreferenceChangeListener(null);
 		trustedPeerPreference.setOnPreferenceChangeListener(null);
 		btcPrecisionPreference.setOnPreferenceChangeListener(null);
+
+		backgroundThread.getLooper().quit();
 
 		super.onDestroy();
 	}
@@ -129,8 +147,24 @@ public final class SettingsFragment extends PreferenceFragment implements OnPref
 		}
 		else
 		{
-			trustedPeerPreference.setSummary(trustedPeer);
+			trustedPeerPreference.setSummary(trustedPeer + "\n[" + getString(R.string.preferences_trusted_peer_resolve_progress) + "]");
 			trustedPeerOnlyPreference.setEnabled(true);
+
+			new ResolveDnsTask(backgroundHandler)
+			{
+				@Override
+				protected void onSuccess(final InetAddress address)
+				{
+					trustedPeerPreference.setSummary(trustedPeer);
+					log.info("trusted peer '{}' resolved to {}", trustedPeer, address);
+				}
+
+				@Override
+				protected void onUnknownHost()
+				{
+					trustedPeerPreference.setSummary(trustedPeer + "\n[" + getString(R.string.preferences_trusted_peer_resolve_unknown_host) + "]");
+				}
+			}.resolve(trustedPeer);
 		}
 	}
 }
