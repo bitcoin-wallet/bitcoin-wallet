@@ -23,7 +23,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import org.bitcoinj.core.AddressFormatException;
 import org.bitcoinj.core.Coin;
 
 import de.schildbach.wallet.Constants;
@@ -55,16 +54,7 @@ public final class SendCoinsActivity extends AbstractBindServiceActivity
 
 	public static void startDonate(final Context context, final Coin amount, final int intentFlags)
 	{
-		try
-		{
-			start(context, PaymentIntent.from(Constants.DONATION_ADDRESS, context.getString(R.string.wallet_donate_address_label), amount),
-					intentFlags);
-		}
-		catch (final AddressFormatException x)
-		{
-			// cannot happen, address is hardcoded
-			throw new RuntimeException(x);
-		}
+		start(context, PaymentIntent.from(Constants.DONATION_ADDRESS, context.getString(R.string.wallet_donate_address_label), amount), intentFlags);
 	}
 
 	@Override
