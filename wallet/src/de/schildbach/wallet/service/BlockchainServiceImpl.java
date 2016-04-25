@@ -197,7 +197,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 			if (text.length() > 0)
 				text.append(", ");
 
-			final String addressStr = notificationAddress.toString();
+			final String addressStr = notificationAddress.toBase58();
 			final String label = AddressBookProvider.resolveLabel(getApplicationContext(), addressStr);
 			text.append(label != null ? label : addressStr);
 		}

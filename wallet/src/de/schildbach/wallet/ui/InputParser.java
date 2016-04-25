@@ -131,7 +131,7 @@ public abstract class InputParser
 			{
 				try
 				{
-					final Address address = new Address(Constants.NETWORK_PARAMETERS, input);
+					final Address address = Address.fromBase58(Constants.NETWORK_PARAMETERS, input);
 
 					handlePaymentIntent(PaymentIntent.fromAddress(address, null));
 				}
@@ -147,7 +147,7 @@ public abstract class InputParser
 			{
 				try
 				{
-					final VersionedChecksummedBytes key = new DumpedPrivateKey(Constants.NETWORK_PARAMETERS, input);
+					final VersionedChecksummedBytes key = DumpedPrivateKey.fromBase58(Constants.NETWORK_PARAMETERS, input);
 
 					handlePrivateKey(key);
 				}
@@ -162,7 +162,7 @@ public abstract class InputParser
 			{
 				try
 				{
-					final VersionedChecksummedBytes key = new BIP38PrivateKey(Constants.NETWORK_PARAMETERS, input);
+					final VersionedChecksummedBytes key = BIP38PrivateKey.fromBase58(Constants.NETWORK_PARAMETERS, input);
 
 					handlePrivateKey(key);
 				}

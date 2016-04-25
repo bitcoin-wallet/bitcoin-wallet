@@ -290,7 +290,7 @@ public class WalletTransactionsFragment extends Fragment implements LoaderCallba
 		if (!txRotation && txAddress != null)
 		{
 			editAddressMenuItem.setVisible(true);
-			final boolean isAdd = AddressBookProvider.resolveLabel(activity, txAddress.toString()) == null;
+			final boolean isAdd = AddressBookProvider.resolveLabel(activity, txAddress.toBase58()) == null;
 			final boolean isOwn = wallet.isPubKeyHashMine(txAddress.getHash160());
 
 			if (isOwn)
