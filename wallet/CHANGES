@@ -1,3 +1,7 @@
+v4.51
+
+* Improve mechanism for setting a trusted peer and warn if its hostname cannot be resolved.
+
 v4.50
 
 * After a couple of weeks of not being used, the app will notify if there are still coins in the
