@@ -21,6 +21,7 @@ import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.EditTextPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceFragment;
@@ -67,6 +68,7 @@ public final class SettingsFragment extends PreferenceFragment implements OnPref
 		btcPrecisionPreference.setOnPreferenceChangeListener(this);
 
 		trustedPeerPreference = findPreference(Configuration.PREFS_KEY_TRUSTED_PEER);
+		((EditTextPreference) trustedPeerPreference).getEditText().setSingleLine();
 		trustedPeerPreference.setOnPreferenceChangeListener(this);
 
 		trustedPeerOnlyPreference = findPreference(Configuration.PREFS_KEY_TRUSTED_PEER_ONLY);
