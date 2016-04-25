@@ -20,7 +20,6 @@ package de.schildbach.wallet.ui;
 import javax.annotation.Nullable;
 
 import org.bitcoinj.core.Address;
-import org.bitcoinj.core.AddressFormatException;
 import org.bitcoinj.wallet.Wallet;
 
 import android.app.Activity;
@@ -53,14 +52,7 @@ public final class EditAddressBookEntryFragment extends DialogFragment
 
 	public static void edit(final FragmentManager fm, final String address)
 	{
-		try
-		{
-			edit(fm, new Address(Constants.NETWORK_PARAMETERS, address), null);
-		}
-		catch (final AddressFormatException x)
-		{
-			throw new IllegalArgumentException(x);
-		}
+		edit(fm, new Address(Constants.NETWORK_PARAMETERS, address), null);
 	}
 
 	public static void edit(final FragmentManager fm, final Address address)

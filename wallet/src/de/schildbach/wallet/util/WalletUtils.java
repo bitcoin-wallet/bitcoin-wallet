@@ -366,16 +366,9 @@ public class WalletUtils
 		}
 	}
 
-	public static Address newAddressOrThrow(final NetworkParameters params, final String base58) throws IllegalArgumentException
+	public static Address newAddressOrThrow(final NetworkParameters params, final String base58) throws AddressFormatException
 	{
-		try
-		{
-			return new Address(params, base58);
-		}
-		catch (AddressFormatException x)
-		{
-			throw new IllegalArgumentException(x);
-		}
+		return new Address(params, base58);
 	}
 
 	public static boolean isPayToManyTransaction(final Transaction transaction)

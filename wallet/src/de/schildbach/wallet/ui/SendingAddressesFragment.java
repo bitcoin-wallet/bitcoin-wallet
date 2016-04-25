@@ -350,15 +350,7 @@ public final class SendingAddressesFragment extends FancyListFragment implements
 
 	private void handleSend(final String address)
 	{
-		try
-		{
-			SendCoinsActivity.start(activity, PaymentIntent.fromAddress(address, null));
-		}
-		catch (final AddressFormatException x)
-		{
-			// cannot happen, address was picked from address book
-			throw new RuntimeException(x);
-		}
+		SendCoinsActivity.start(activity, PaymentIntent.fromAddress(address, null));
 	}
 
 	private void handleRemove(final String address)
