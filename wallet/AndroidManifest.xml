@@ -4,8 +4,8 @@
 	xmlns:tools="http://schemas.android.com/tools"
 	package="hashengineering.groestlcoin.wallet"
 	android:installLocation="internalOnly"
-	android:versionCode="10253"
-	android:versionName="4.46.2" >
+	android:versionCode="10254"
+	android:versionName="4.46.3" >
 
 	<uses-sdk
 		android:minSdkVersion="15"
