@@ -20,8 +20,7 @@ package de.schildbach.wallet.ui;
 import javax.annotation.Nullable;
 
 import org.bitcoinj.core.Address;
-import org.bitcoinj.core.AddressFormatException;
-import org.bitcoinj.core.Wallet;
+import org.bitcoinj.wallet.Wallet;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -39,7 +38,7 @@ import de.schildbach.wallet.AddressBookProvider;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.util.WalletUtils;
-import de.schildbach.wallet_test.R;
+import de.schildbach.wallet.R;
 
 /**
  * @author Andreas Schildbach
@@ -53,14 +52,7 @@ public final class EditAddressBookEntryFragment extends DialogFragment
 
 	public static void edit(final FragmentManager fm, final String address)
 	{
-		try
-		{
-			edit(fm, new Address(Constants.NETWORK_PARAMETERS, address), null);
-		}
-		catch (final AddressFormatException x)
-		{
-			throw new IllegalArgumentException(x);
-		}
+		edit(fm, Address.fromBase58(Constants.NETWORK_PARAMETERS, address), null);
 	}
 
 	public static void edit(final FragmentManager fm, final Address address)
@@ -79,7 +71,7 @@ public final class EditAddressBookEntryFragment extends DialogFragment
 		final EditAddressBookEntryFragment fragment = new EditAddressBookEntryFragment();
 
 		final Bundle args = new Bundle();
-		args.putString(KEY_ADDRESS, address.toString());
+		args.putString(KEY_ADDRESS, address.toBase58());
 		args.putString(KEY_SUGGESTED_ADDRESS_LABEL, suggestedAddressLabel);
 		fragment.setArguments(args);
 
@@ -105,14 +97,14 @@ public final class EditAddressBookEntryFragment extends DialogFragment
 	public Dialog onCreateDialog(final Bundle savedInstanceState)
 	{
 		final Bundle args = getArguments();
-		final Address address = WalletUtils.newAddressOrThrow(Constants.NETWORK_PARAMETERS, args.getString(KEY_ADDRESS));
+		final Address address = Address.fromBase58(Constants.NETWORK_PARAMETERS, args.getString(KEY_ADDRESS));
 		final String suggestedAddressLabel = args.getString(KEY_SUGGESTED_ADDRESS_LABEL);
 
 		final LayoutInflater inflater = LayoutInflater.from(activity);
 
-		final Uri uri = AddressBookProvider.contentUri(activity.getPackageName()).buildUpon().appendPath(address.toString()).build();
+		final Uri uri = AddressBookProvider.contentUri(activity.getPackageName()).buildUpon().appendPath(address.toBase58()).build();
 
-		final String label = AddressBookProvider.resolveLabel(activity, address.toString());
+		final String label = AddressBookProvider.resolveLabel(activity, address.toBase58());
 
 		final boolean isAdd = label == null;
 		final boolean isOwn = wallet.isPubKeyHashMine(address.getHash160());

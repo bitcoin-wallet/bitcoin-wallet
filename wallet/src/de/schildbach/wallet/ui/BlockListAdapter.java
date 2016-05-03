@@ -30,8 +30,8 @@ import org.bitcoinj.core.Coin;
 import org.bitcoinj.core.StoredBlock;
 import org.bitcoinj.core.Transaction;
 import org.bitcoinj.core.Transaction.Purpose;
-import org.bitcoinj.core.Wallet;
 import org.bitcoinj.utils.MonetaryFormat;
+import org.bitcoinj.wallet.Wallet;
 
 import android.content.Context;
 import android.graphics.Typeface;
@@ -44,7 +44,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import de.schildbach.wallet.AddressBookProvider;
 import de.schildbach.wallet.util.WalletUtils;
-import de.schildbach.wallet_test.R;
+import de.schildbach.wallet.R;
 
 /**
  * @author Andreas Schildbach
@@ -231,10 +231,10 @@ public class BlockListAdapter extends RecyclerView.Adapter<BlockListAdapter.Bloc
 		else if (isInternal)
 			label = textInternal;
 		else if (address != null)
-			label = AddressBookProvider.resolveLabel(context, address.toString());
+			label = AddressBookProvider.resolveLabel(context, address.toBase58());
 		else
 			label = "?";
-		rowAddress.setText(label != null ? label : address.toString());
+		rowAddress.setText(label != null ? label : address.toBase58());
 		rowAddress.setTypeface(label != null ? Typeface.DEFAULT : Typeface.MONOSPACE);
 
 		// value

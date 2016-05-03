@@ -56,7 +56,7 @@ import android.widget.TextView;
 import android.widget.ViewAnimator;
 import de.schildbach.wallet.service.BlockchainService;
 import de.schildbach.wallet.service.BlockchainServiceImpl;
-import de.schildbach.wallet_test.R;
+import de.schildbach.wallet.R;
 
 /**
  * @author Andreas Schildbach
@@ -250,7 +250,7 @@ public final class PeerListFragment extends Fragment
 		{
 			final Peer peer = getItem(position);
 			final VersionMessage versionMessage = peer.getPeerVersionMessage();
-			final boolean isDownloading = peer.getDownloadData();
+			final boolean isDownloading = peer.isDownloadData();
 
 			final InetAddress address = peer.getAddress().getAddr();
 			final String hostname = hostnames.get(address);

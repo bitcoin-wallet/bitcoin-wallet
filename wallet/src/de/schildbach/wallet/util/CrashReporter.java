@@ -34,7 +34,7 @@ import java.util.Set;
 
 import org.bitcoinj.core.Transaction;
 import org.bitcoinj.core.TransactionOutput;
-import org.bitcoinj.core.Wallet;
+import org.bitcoinj.wallet.Wallet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -234,7 +234,7 @@ public class CrashReporter
 		report.append("Network: " + Constants.NETWORK_PARAMETERS.getId() + "\n");
 		final Wallet wallet = application.getWallet();
 		report.append("Encrypted: " + wallet.isEncrypted() + "\n");
-		report.append("Keychain size: " + wallet.getKeychainSize() + "\n");
+		report.append("Keychain size: " + wallet.getKeyChainGroupSize() + "\n");
 
 		final Set<Transaction> transactions = wallet.getTransactions(true);
 		int numInputs = 0;

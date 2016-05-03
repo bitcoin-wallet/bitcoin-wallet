@@ -8,8 +8,8 @@
 	<color name="fg_value_positive">#ff008000</color>
 	<color name="fg_value_negative">#ff990000</color>
 	<color name="fg_error">#ffff0000</color>
-	<color name="fg_network_significant">#ffffffff</color>
-	<color name="fg_network_insignificant">#ffa0a0a0</color>
+	<color name="fg_network_significant">#ffffcc99</color>
+	<color name="fg_network_insignificant">#ffddaa77</color>
 
 	<!-- background -->
 	<color name="bg_bright">#ffffffff</color>

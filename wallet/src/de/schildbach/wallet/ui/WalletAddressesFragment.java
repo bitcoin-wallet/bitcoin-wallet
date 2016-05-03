@@ -21,13 +21,12 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import org.bitcoinj.core.AbstractWalletEventListener;
 import org.bitcoinj.core.Address;
 import org.bitcoinj.core.ECKey;
-import org.bitcoinj.core.Wallet;
-import org.bitcoinj.core.WalletEventListener;
 import org.bitcoinj.uri.BitcoinURI;
 import org.bitcoinj.utils.Threading;
+import org.bitcoinj.wallet.Wallet;
+import org.bitcoinj.wallet.listeners.KeyChainEventListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -58,7 +57,7 @@ import de.schildbach.wallet.util.Qr;
 import de.schildbach.wallet.util.Toast;
 import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet.util.WholeStringBuilder;
-import de.schildbach.wallet_test.R;
+import de.schildbach.wallet.R;
 
 /**
  * @author Andreas Schildbach
@@ -116,7 +115,7 @@ public final class WalletAddressesFragment extends FancyListFragment
 
 		contentResolver.registerContentObserver(AddressBookProvider.contentUri(activity.getPackageName()), true, contentObserver);
 
-		wallet.addEventListener(walletListener, Threading.SAME_THREAD);
+		wallet.addKeyChainEventListener(Threading.SAME_THREAD, walletListener);
 		walletListener.onKeysAdded(null); // trigger initial load of keys
 
 		updateView();
@@ -125,7 +124,7 @@ public final class WalletAddressesFragment extends FancyListFragment
 	@Override
 	public void onPause()
 	{
-		wallet.removeEventListener(walletListener);
+		wallet.removeKeyChainEventListener(walletListener);
 
 		contentResolver.unregisterContentObserver(contentObserver);
 
@@ -159,7 +158,7 @@ public final class WalletAddressesFragment extends FancyListFragment
 			{
 				final ECKey key = getKey(position);
 
-				final String address = key.toAddress(Constants.NETWORK_PARAMETERS).toString();
+				final String address = key.toAddress(Constants.NETWORK_PARAMETERS).toBase58();
 				final String label = AddressBookProvider.resolveLabel(activity, address);
 				mode.setTitle(label != null ? label : WalletUtils.formatHash(address, Constants.ADDRESS_FORMAT_GROUP_SIZE, 0));
 
@@ -191,7 +190,7 @@ public final class WalletAddressesFragment extends FancyListFragment
 
 					case R.id.wallet_addresses_context_browse:
 						startActivity(new Intent(Intent.ACTION_VIEW,
-								Uri.withAppendedPath(config.getBlockExplorer(), "address/" + getAddress(position).toString())));
+								Uri.withAppendedPath(config.getBlockExplorer(), "address/" + getAddress(position).toBase58())));
 
 						mode.finish();
 						return true;
@@ -229,8 +228,8 @@ public final class WalletAddressesFragment extends FancyListFragment
 
 			private void handleCopyToClipboard(final Address address)
 			{
-				clipboardManager.setPrimaryClip(ClipData.newPlainText("Bitcoin address", address.toString()));
-				log.info("wallet address copied to clipboard: {}", address.toString());
+				clipboardManager.setPrimaryClip(ClipData.newPlainText("Bitcoin address", address.toBase58()));
+				log.info("wallet address copied to clipboard: {}", address);
 				new Toast(activity).toast(R.string.wallet_address_fragment_clipboard_msg);
 			}
 		});
@@ -254,7 +253,7 @@ public final class WalletAddressesFragment extends FancyListFragment
 		}
 	};
 
-	private final WalletEventListener walletListener = new AbstractWalletEventListener()
+	private final KeyChainEventListener walletListener = new KeyChainEventListener()
 	{
 		@Override
 		public void onKeysAdded(final List<ECKey> keysAdded)
