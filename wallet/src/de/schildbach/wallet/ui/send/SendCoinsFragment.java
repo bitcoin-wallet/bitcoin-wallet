@@ -1140,6 +1140,9 @@ public final class SendCoinsFragment extends Fragment
 
 	private void updateView()
 	{
+		if (!isResumed())
+			return;
+
 		if (paymentIntent != null)
 		{
 			final MonetaryFormat btcFormat = config.getFormat();
