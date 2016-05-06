@@ -1,3 +1,9 @@
+v4.52
+
+* The network fee is now calculated on a per-byte basis, rather than per-kB. On average, this
+  means a lower fee!
+* Based on bitcoinj 0.14.
+
 v4.51
 
 * Improve mechanism for setting a trusted peer and warn if its hostname cannot be resolved.
