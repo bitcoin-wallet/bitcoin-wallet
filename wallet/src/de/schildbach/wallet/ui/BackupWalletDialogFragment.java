@@ -307,7 +307,7 @@ public class BackupWalletDialogFragment extends DialogFragment
 	private File determineBackupFile()
 	{
 		Constants.Files.EXTERNAL_WALLET_BACKUP_DIR.mkdirs();
-		checkState(Constants.Files.EXTERNAL_WALLET_BACKUP_DIR.isDirectory());
+		checkState(Constants.Files.EXTERNAL_WALLET_BACKUP_DIR.isDirectory(), "%s is not a directory", Constants.Files.EXTERNAL_WALLET_BACKUP_DIR);
 
 		final DateFormat dateFormat = Iso8601Format.newDateFormat();
 		dateFormat.setTimeZone(TimeZone.getDefault());
