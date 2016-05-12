@@ -86,6 +86,8 @@ public final class RequestWalletBalanceTask
 			@Override
 			public void run()
 			{
+				org.bitcoinj.core.Context.propagate(Constants.CONTEXT);
+
 				final StringBuilder url = new StringBuilder(Constants.BITEASY_API_URL);
 				url.append("outputs");
 				url.append("?per_page=MAX");
