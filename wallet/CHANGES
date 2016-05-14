@@ -1,3 +1,7 @@
+v4.53
+
+* Fix crash when sweeping a paper wallet.
+
 v4.52
 
 * The network fee is now calculated on a per-byte basis, rather than per-kB. On average, this
