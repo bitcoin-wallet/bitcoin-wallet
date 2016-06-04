@@ -28,7 +28,7 @@ https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/
 
 <b>TÉMOIGNAGES</b>
 
-• De nombreux portefeuilles basent leur code sur Bitcoin Wallet. Par exemples : blockchain.info, Hive et KnC.
+• De nombreux portefeuilles basent leur code sur Bitcoin Wallet. Par exemples : blockchain.info et BTCX.
 • Portefeuille mobile recommandé par https://bitcoin.org
 • Recommandé par BitPay.
 
