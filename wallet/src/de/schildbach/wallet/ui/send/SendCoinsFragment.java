@@ -108,7 +108,6 @@ import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.CursorAdapter;
 import android.widget.EditText;
-import android.widget.FilterQueryProvider;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import de.schildbach.wallet.AddressBookProvider;
@@ -230,6 +229,13 @@ public final class SendCoinsFragment extends Fragment
 				validateReceivingAddress();
 			else
 				updateView();
+
+			final Bundle args = new Bundle();
+			args.putString(ReceivingAddressLoaderCallbacks.ARG_CONSTRAINT, s.toString());
+
+			loaderManager.restartLoader(ID_RECEIVING_ADDRESS_BOOK_LOADER, args, receivingAddressLoaderCallbacks);
+			if (config.getLookUpWalletNames())
+				loaderManager.restartLoader(ID_RECEIVING_ADDRESS_NAME_LOADER, args, receivingAddressLoaderCallbacks);
 		}
 
 		@Override
@@ -526,12 +532,11 @@ public final class SendCoinsFragment extends Fragment
 		}
 	}
 
-	private final class ReceivingAddressViewAdapter extends CursorAdapter implements FilterQueryProvider
+	private final class ReceivingAddressViewAdapter extends CursorAdapter
 	{
 		public ReceivingAddressViewAdapter(final Context context)
 		{
 			super(context, null, false);
-			setFilterQueryProvider(this);
 		}
 
 		@Override
@@ -558,20 +563,6 @@ public final class SendCoinsFragment extends Fragment
 		public CharSequence convertToString(final Cursor cursor)
 		{
 			return cursor.getString(cursor.getColumnIndexOrThrow(AddressBookProvider.KEY_ADDRESS));
-		}
-
-		@Override
-		public Cursor runQuery(final CharSequence constraint)
-		{
-			final Bundle args = new Bundle();
-			if (constraint != null)
-				args.putString(ReceivingAddressLoaderCallbacks.ARG_CONSTRAINT, constraint.toString());
-
-			loaderManager.restartLoader(ID_RECEIVING_ADDRESS_BOOK_LOADER, args, receivingAddressLoaderCallbacks);
-			if (config.getLookUpWalletNames())
-				loaderManager.restartLoader(ID_RECEIVING_ADDRESS_NAME_LOADER, args, receivingAddressLoaderCallbacks);
-
-			return getCursor();
 		}
 	}
 
