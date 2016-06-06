@@ -421,9 +421,9 @@ public final class SendCoinsFragment extends Fragment
 		}
 
 		@Override
-		public void onLoadFinished(final Loader<Cursor> cursor, final Cursor data)
+		public void onLoadFinished(final Loader<Cursor> loader, final Cursor data)
 		{
-			if (cursor instanceof CursorLoader)
+			if (loader instanceof CursorLoader)
 				receivingAddressBookCursor = data;
 			else
 				receivingAddressNameCursor = data;
@@ -431,9 +431,9 @@ public final class SendCoinsFragment extends Fragment
 		}
 
 		@Override
-		public void onLoaderReset(final Loader<Cursor> cursor)
+		public void onLoaderReset(final Loader<Cursor> loader)
 		{
-			if (cursor instanceof CursorLoader)
+			if (loader instanceof CursorLoader)
 				receivingAddressBookCursor = null;
 			else
 				receivingAddressNameCursor = null;
