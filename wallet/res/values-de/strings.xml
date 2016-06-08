@@ -170,6 +170,7 @@
 	<string name="transaction_row_message_own_unbroadcasted">Diese Zahlung ist noch nicht übertragen.</string>
 	<string name="transaction_row_message_received_direct">Diese Zahlung wurde direkt empfangen. Es besteht das Risiko, daß sie niemals verfügbar wird.</string>
 	<string name="transaction_row_message_received_unconfirmed_unlocked">Diese Zahlung sollte in ein paar Minuten verfügbar werden.</string>
+	<string name="transaction_row_message_received_in_conflict">Diese Zahlung hat ein erhöhtes Risiko daß sie vom Sender rückgängig gemacht wird! Warte wenn möglich auf Bestätigung.</string>
 	<string name="transaction_row_message_received_dead">Diese Zahlung wurde vom Sender rückgängig gemacht.</string>
 	<string name="transaction_row_message_received_dust">Dieser kleine Betrag kann vermutlich nie wirtschaftlich ausgegeben werden.</string>
 	<string name="transaction_row_message_received_pay_to_many">Diese Zahlung ging an viele Wallets (neben deiner), was die App mit der Zeit verlangsamt. Versuche wenn möglich Zahlungen zu empfangen, die nur an dich gerichtet sind.</string>
