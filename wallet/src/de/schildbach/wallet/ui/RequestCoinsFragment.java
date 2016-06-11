@@ -50,7 +50,6 @@ import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
 import android.nfc.NfcEvent;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.text.SpannableStringBuilder;
@@ -163,6 +162,8 @@ public final class RequestCoinsFragment extends Fragment implements NfcAdapter.C
 	{
 		super.onCreate(savedInstanceState);
 
+		setHasOptionsMenu(true);
+
 		if (nfcAdapter != null && nfcAdapter.isEnabled())
 			nfcAdapter.setNdefPushMessageCallback(this, activity);
 
@@ -244,9 +245,6 @@ public final class RequestCoinsFragment extends Fragment implements NfcAdapter.C
 	public void onViewCreated(final View view, final Bundle savedInstanceState)
 	{
 		super.onViewCreated(view, savedInstanceState);
-
-		// don't call in onCreate() because ActionBarSherlock invokes onCreateOptionsMenu() too early
-		setHasOptionsMenu(true);
 
 		amountCalculatorLink.setExchangeDirection(config.getLastExchangeDirection());
 		amountCalculatorLink.requestFocus();
