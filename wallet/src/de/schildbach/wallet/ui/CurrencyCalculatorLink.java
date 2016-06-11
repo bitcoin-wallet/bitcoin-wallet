@@ -24,6 +24,8 @@ import org.bitcoinj.utils.ExchangeRate;
 import org.bitcoinj.utils.Fiat;
 
 import android.view.View;
+
+import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.ui.CurrencyAmountView.Listener;
 
 /**
@@ -128,9 +130,14 @@ public final class CurrencyCalculatorLink
 		else if (exchangeRate != null)
 		{
 			final Fiat localAmount = (Fiat) localAmountView.getAmount();
+			if (localAmount == null)
+				return null;
 			try
 			{
-				return localAmount != null ? exchangeRate.fiatToCoin(localAmount) : null;
+				final Coin btcAmount = exchangeRate.fiatToCoin(localAmount);
+				if (((Coin) btcAmount).isGreaterThan(Constants.NETWORK_PARAMETERS.getMaxMoney()))
+					throw new ArithmeticException();
+				return btcAmount;
 			}
 			catch (ArithmeticException x)
 			{
@@ -176,7 +183,10 @@ public final class CurrencyCalculatorLink
 					btcAmountView.setAmount(null, false);
 					try
 					{
-						btcAmountView.setHint(exchangeRate.fiatToCoin(localAmount));
+						final Coin btcAmount = exchangeRate.fiatToCoin(localAmount);
+						if (((Coin) btcAmount).isGreaterThan(Constants.NETWORK_PARAMETERS.getMaxMoney()))
+							throw new ArithmeticException();
+						btcAmountView.setHint(btcAmount);
 					}
 					catch (final ArithmeticException x)
 					{
