@@ -22,8 +22,6 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.concurrent.RejectedExecutionException;
 
 import javax.annotation.Nullable;
@@ -427,8 +425,10 @@ public final class SendCoinsFragment extends Fragment
 		}
 
 		@Override
-		public void onLoadFinished(final Loader<Cursor> loader, final Cursor data)
+		public void onLoadFinished(final Loader<Cursor> loader, Cursor data)
 		{
+			if (data.getCount() == 0)
+				data = null;
 			if (loader instanceof CursorLoader)
 				receivingAddressBookCursor = data;
 			else
@@ -448,16 +448,14 @@ public final class SendCoinsFragment extends Fragment
 
 		private void swapTargetCursor()
 		{
-			final List<Cursor> cursors = new LinkedList<Cursor>();
-			if (receivingAddressBookCursor != null)
-				cursors.add(receivingAddressBookCursor);
-			if (receivingAddressNameCursor != null)
-				cursors.add(receivingAddressNameCursor);
-
-			if (!cursors.isEmpty())
-				targetAdapter.swapCursor(new MergeCursor(cursors.toArray(new Cursor[0])));
-			else
+			if (receivingAddressBookCursor == null && receivingAddressNameCursor == null)
 				targetAdapter.swapCursor(null);
+			else if (receivingAddressBookCursor != null && receivingAddressNameCursor == null)
+				targetAdapter.swapCursor(receivingAddressBookCursor);
+			else if (receivingAddressBookCursor == null && receivingAddressNameCursor != null)
+				targetAdapter.swapCursor(receivingAddressNameCursor);
+			else
+				targetAdapter.swapCursor(new MergeCursor(new Cursor[] { receivingAddressBookCursor, receivingAddressNameCursor }));
 		}
 	}
 
