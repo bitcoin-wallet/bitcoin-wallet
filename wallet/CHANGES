@@ -1,3 +1,8 @@
+v4.56
+
+* Minor bugfixes.
+* Based on bitcoinj 0.14.3.
+
 v4.55
 
 * Fix occasional crash while editing the 'pay to' field when sending coins.
