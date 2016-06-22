@@ -33,7 +33,7 @@ public enum FeeCategory
 	 * Under normal network conditions, confirms within the next 15 minutes. Can take longer, but this should be an
 	 * exception. And it should not take days or weeks.
 	 */
-	NORMAL(Coin.valueOf(30000)), // 0.3 mBTC
+	NORMAL(Coin.valueOf(35000)), // 0.35 mBTC
 
 	/**
 	 * Confirms within the next 15 minutes.
