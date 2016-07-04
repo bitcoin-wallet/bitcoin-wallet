@@ -28,7 +28,7 @@ https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/
 
 <b>REKOMMENDATIONER</b>
 
-• Många mobila wallets baserar sin kod på Bitcoin Wallet. Så som: blockchain.info och BTCX.
+• Många mobila plånböcker baserar sin kod på Bitcoin Wallet. Exempelvis: blockchain.info och BTCX.
 • Rekommenderad mobil wallet av https://bitcoin.org
 • Rekommenderad av BitPay.
 
