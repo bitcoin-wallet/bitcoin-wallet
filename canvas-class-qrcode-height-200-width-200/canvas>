@@ -1,0 +1,4 @@
+<canvas class="qrcode" height="200" width="200"></canvas>
+<canvas class="qrcode" height="200" width="200"></canvas>
+//*[@id="deposit"]/div/section/main[1]/form/div[3]/div[3]/div[2]/qrcode/canvas
+<canvas class="qrcode" height="200" width="200"></canvas>
