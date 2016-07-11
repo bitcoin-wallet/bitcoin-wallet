@@ -24,6 +24,7 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -31,6 +32,7 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -43,6 +45,8 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Process;
 import android.os.Vibrator;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.view.KeyEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -64,7 +68,7 @@ import de.schildbach.wallet_test.R;
 /**
  * @author Andreas Schildbach
  */
-public final class ScanActivity extends Activity implements SurfaceHolder.Callback
+public final class ScanActivity extends Activity implements SurfaceHolder.Callback, ActivityCompat.OnRequestPermissionsResultCallback
 {
 	public static final String INTENT_EXTRA_RESULT = "result";
 
@@ -73,12 +77,16 @@ public final class ScanActivity extends Activity implements SurfaceHolder.Callba
 
 	private final CameraManager cameraManager = new CameraManager();
 	private ScannerView scannerView;
+	private SurfaceView surfaceView;
 	private SurfaceHolder surfaceHolder;
+	private volatile boolean surfaceCreated = false;
+
 	private Vibrator vibrator;
 	private HandlerThread cameraThread;
-	private Handler cameraHandler;
+	private volatile Handler cameraHandler;
 
 	private static final int DIALOG_CAMERA_PROBLEM = 0;
+	private static final int DIALOG_PERMISSION_PROBLEM = 1;
 
 	private static boolean DISABLE_CONTINUOUS_AUTOFOCUS = Build.MODEL.equals("GT-I9100") // Galaxy S2
 			|| Build.MODEL.equals("SGH-T989") // Galaxy S2
@@ -97,8 +105,17 @@ public final class ScanActivity extends Activity implements SurfaceHolder.Callba
 		vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
 		setContentView(R.layout.scan_activity);
-
 		scannerView = (ScannerView) findViewById(R.id.scan_activity_mask);
+		surfaceView = (SurfaceView) findViewById(R.id.scan_activity_preview);
+		surfaceHolder = surfaceView.getHolder();
+		surfaceHolder.addCallback(this);
+
+		cameraThread = new HandlerThread("cameraThread", Process.THREAD_PRIORITY_BACKGROUND);
+		cameraThread.start();
+		cameraHandler = new Handler(cameraThread.getLooper());
+
+		if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED)
+			ActivityCompat.requestPermissions(this, new String[] { Manifest.permission.CAMERA }, 0);
 	}
 
 	@Override
@@ -106,29 +123,7 @@ public final class ScanActivity extends Activity implements SurfaceHolder.Callba
 	{
 		super.onResume();
 
-		cameraThread = new HandlerThread("cameraThread", Process.THREAD_PRIORITY_BACKGROUND);
-		cameraThread.start();
-		cameraHandler = new Handler(cameraThread.getLooper());
-
-		final SurfaceView surfaceView = (SurfaceView) findViewById(R.id.scan_activity_preview);
-		surfaceHolder = surfaceView.getHolder();
-		surfaceHolder.addCallback(this);
-	}
-
-	@Override
-	public void surfaceCreated(final SurfaceHolder holder)
-	{
-		cameraHandler.post(openRunnable);
-	}
-
-	@Override
-	public void surfaceDestroyed(final SurfaceHolder holder)
-	{
-	}
-
-	@Override
-	public void surfaceChanged(final SurfaceHolder holder, final int format, final int width, final int height)
-	{
+		maybeOpenCamera();
 	}
 
 	@Override
@@ -136,9 +131,52 @@ public final class ScanActivity extends Activity implements SurfaceHolder.Callba
 	{
 		cameraHandler.post(closeRunnable);
 
+		super.onPause();
+	}
+
+	@Override
+	protected void onDestroy()
+	{
+		// cancel background thread
+		cameraHandler.removeCallbacksAndMessages(null);
+		cameraThread.quit();
+
 		surfaceHolder.removeCallback(this);
 
-		super.onPause();
+		super.onDestroy();
+	}
+
+	@Override
+	public void onRequestPermissionsResult(final int requestCode, final String[] permissions, final int[] grantResults)
+	{
+		if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+			maybeOpenCamera();
+		else
+			showDialog(DIALOG_PERMISSION_PROBLEM);
+	}
+
+	private void maybeOpenCamera()
+	{
+		if (surfaceCreated && ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED)
+			cameraHandler.post(openRunnable);
+	}
+
+	@Override
+	public void surfaceCreated(final SurfaceHolder holder)
+	{
+		surfaceCreated = true;
+		maybeOpenCamera();
+	}
+
+	@Override
+	public void surfaceDestroyed(final SurfaceHolder holder)
+	{
+		surfaceCreated = false;
+	}
+
+	@Override
+	public void surfaceChanged(final SurfaceHolder holder, final int format, final int width, final int height)
+	{
 	}
 
 	@Override
@@ -262,11 +300,8 @@ public final class ScanActivity extends Activity implements SurfaceHolder.Callba
 		@Override
 		public void run()
 		{
-			cameraManager.close();
-
-			// cancel background thread
 			cameraHandler.removeCallbacksAndMessages(null);
-			cameraThread.quit();
+			cameraManager.close();
 		}
 	};
 
@@ -367,32 +402,40 @@ public final class ScanActivity extends Activity implements SurfaceHolder.Callba
 	@Override
 	protected Dialog onCreateDialog(final int id)
 	{
+		final DialogBuilder dialog;
+
 		if (id == DIALOG_CAMERA_PROBLEM)
 		{
-			final DialogBuilder dialog = DialogBuilder.warn(this, R.string.scan_camera_problem_dialog_title);
+			dialog = DialogBuilder.warn(this, R.string.scan_camera_problem_dialog_title);
 			dialog.setMessage(R.string.scan_camera_problem_dialog_message);
-			dialog.singleDismissButton(new OnClickListener()
-			{
-				@Override
-				public void onClick(final DialogInterface dialog, final int which)
-				{
-					finish();
-				}
-			});
-			dialog.setOnCancelListener(new OnCancelListener()
-			{
-				@Override
-				public void onCancel(final DialogInterface dialog)
-				{
-					finish();
-				}
-			});
-
-			return dialog.create();
+		}
+		else if (id == DIALOG_PERMISSION_PROBLEM)
+		{
+			dialog = DialogBuilder.warn(this, R.string.scan_camera_permission_dialog_title);
+			dialog.setMessage(R.string.scan_camera_permission_dialog_message);
 		}
 		else
 		{
 			throw new IllegalArgumentException();
 		}
+
+		dialog.singleDismissButton(new OnClickListener()
+		{
+			@Override
+			public void onClick(final DialogInterface dialog, final int which)
+			{
+				finish();
+			}
+		});
+		dialog.setOnCancelListener(new OnCancelListener()
+		{
+			@Override
+			public void onCancel(final DialogInterface dialog)
+			{
+				finish();
+			}
+		});
+
+		return dialog.create();
 	}
 }

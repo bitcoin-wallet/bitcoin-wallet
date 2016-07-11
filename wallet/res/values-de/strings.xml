@@ -231,6 +231,8 @@
 
 	<string name="scan_camera_problem_dialog_title">Sorry</string>
 	<string name="scan_camera_problem_dialog_message">Die Kamera hat ein Problem. Evtl. musst du dein Gerät neu starten.</string>
+	<string name="scan_camera_permission_dialog_title">Kamera-Berechtigung</string>
+	<string name="scan_camera_permission_dialog_message">Um QR-Codes zu scannen, musst du die Berechtigung zur Nutzung der Kamera erteilen.</string>
 
 	<string name="input_parser_io_error">Kann Daten nicht lesen:\n%s</string>
 	<string name="input_parser_cannot_classify">Eingabe nicht erkannt:\n%s</string>

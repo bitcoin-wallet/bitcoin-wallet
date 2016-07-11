@@ -214,6 +214,8 @@
 	<string name="encrypt_keys_dialog_state_done">Done.</string>
 	<string name="scan_camera_problem_dialog_title">Sorry</string>
 	<string name="scan_camera_problem_dialog_message">The camera has a problem. You probably need to restart the device.</string>
+	<string name="scan_camera_permission_dialog_title">Camera permission</string>
+	<string name="scan_camera_permission_dialog_message">In order to scan QR codes, you need to grant permission to use the camera.</string>
 	<string name="input_parser_io_error">Cannot read data:\n%s</string>
 	<string name="input_parser_cannot_classify">Cannot recognize input:\n%s</string>
 	<string name="input_parser_invalid_bitcoin_uri">Invalid Bitcoin URI:\n%s</string>
