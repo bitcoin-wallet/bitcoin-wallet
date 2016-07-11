@@ -20,6 +20,8 @@ package de.schildbach.wallet.ui;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.WindowManager;
+
 import de.schildbach.wallet_test.R;
 
 /**
@@ -33,6 +35,12 @@ public final class RequestCoinsActivity extends AbstractBindServiceActivity
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.request_coins_content);
+	}
+
+	@Override
+	public void onAttachedToWindow()
+	{
+		getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
 	}
 
 	@Override
