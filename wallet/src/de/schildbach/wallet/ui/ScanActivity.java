@@ -46,6 +46,7 @@ import android.os.Vibrator;
 import android.view.KeyEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.WindowManager;
 
 import com.google.zxing.BinaryBitmap;
 import com.google.zxing.DecodeHintType;
@@ -139,6 +140,12 @@ public final class ScanActivity extends Activity implements SurfaceHolder.Callba
 		surfaceHolder.removeCallback(this);
 
 		super.onPause();
+	}
+
+	@Override
+	public void onAttachedToWindow()
+	{
+		getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
 	}
 
 	@Override
