@@ -184,6 +184,8 @@
 	<string name="peer_list_fragment_empty">Keine Peers verbunden</string>
 	<string name="peer_list_row_ping_time">⇆ %d&#x2009;ms</string>
 
+	<string name="restore_wallet_permission_dialog_title">Lese-Berechtigung fehlt</string>
+	<string name="restore_wallet_permission_dialog_message">Um auf deinem externen Speicher nach Wallet-Sicherungen zu suchen, musst du die Berechtigung zum Lesen erteilen.</string>
 	<string name="import_keys_dialog_title">Wallet wiederherstellen</string>
 	<string name="import_keys_dialog_message">Wähle eine Sicherungsdatei vom externen Speicher (%s) aus:</string>
 	<string name="restore_wallet_dialog_replace_warning">Du bist dabei, deine aktuelle Wallet zu ersetzen. Alle Bitcoins in der aktuellen Wallet gehen dabei verloren, außer du hast diese separat gesichert.</string>
@@ -198,6 +200,9 @@
 	<string name="restore_wallet_dialog_success">Wallet wurde wiederhergestellt.</string>
 	<string name="restore_wallet_dialog_success_replay">Deine Wallet wurde erfolgreich wiederhergestellt. Jetzt wird das Guthaben ermittelt. Das wird einige Zeit dauern.</string>
 	<string name="import_keys_dialog_failure">Die Wallet konnte nicht wieder hergestellt werden:\n\n%s\n\nFalsches Passwort?</string>
+
+	<string name="backup_wallet_permission_dialog_title">Schreib-Berechtigung fehlt</string>
+	<string name="backup_wallet_permission_dialog_message">Um deine Wallet auf den externen Speicher zu sichern, musst du die Berechtigung zum Schreiben erteilen.</string>
 	<string name="export_keys_dialog_title">Wallet sichern</string>
 	<string name="backup_wallet_dialog_message">Dein Backup wird mit dem gewählten Passwort verschlüsselt und auf den externen Speicher gesichert.</string>
 	<string name="backup_wallet_dialog_warning_encrypted">Deine Wallet ist mit einer Ausgabe-PIN geschützt. Stelle sicher, daß du die PIN nicht vergisst (neben dem Backup-Passwort)!</string>

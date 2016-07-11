@@ -38,6 +38,7 @@ import org.bitcoinj.core.VersionedChecksummedBytes;
 import org.bitcoinj.wallet.Wallet;
 import org.bitcoinj.wallet.Wallet.BalanceType;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -56,6 +57,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.text.format.DateUtils;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -88,12 +91,14 @@ import de.schildbach.wallet_test.R;
 /**
  * @author Andreas Schildbach
  */
-public final class WalletActivity extends AbstractWalletActivity
+public final class WalletActivity extends AbstractWalletActivity implements ActivityCompat.OnRequestPermissionsResultCallback
 {
-	private static final int DIALOG_RESTORE_WALLET = 0;
-	private static final int DIALOG_TIMESKEW_ALERT = 1;
-	private static final int DIALOG_VERSION_ALERT = 2;
-	private static final int DIALOG_LOW_STORAGE_ALERT = 3;
+	private static final int DIALOG_BACKUP_WALLET_PERMISSION = 0;
+	private static final int DIALOG_RESTORE_WALLET_PERMISSION = 1;
+	private static final int DIALOG_RESTORE_WALLET = 2;
+	private static final int DIALOG_TIMESKEW_ALERT = 3;
+	private static final int DIALOG_VERSION_ALERT = 4;
+	private static final int DIALOG_LOW_STORAGE_ALERT = 5;
 
 	private WalletApplication application;
 	private Configuration config;
@@ -102,6 +107,8 @@ public final class WalletActivity extends AbstractWalletActivity
 	private Handler handler = new Handler();
 
 	private static final int REQUEST_CODE_SCAN = 0;
+	private static final int REQUEST_CODE_BACKUP_WALLET = 1;
+	private static final int REQUEST_CODE_RESTORE_WALLET = 2;
 
 	@Override
 	protected void onCreate(final Bundle savedInstanceState)
@@ -180,6 +187,25 @@ public final class WalletActivity extends AbstractWalletActivity
 					dialog(WalletActivity.this, null, 0, messageResId, messageArgs);
 				}
 			}.parse();
+		}
+	}
+
+	@Override
+	public void onRequestPermissionsResult(final int requestCode, final String[] permissions, final int[] grantResults)
+	{
+		if (requestCode == REQUEST_CODE_BACKUP_WALLET)
+		{
+			if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+				handleBackupWallet();
+			else
+				showDialog(DIALOG_BACKUP_WALLET_PERMISSION);
+		}
+		else if (requestCode == REQUEST_CODE_RESTORE_WALLET)
+		{
+			if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+				handleRestoreWallet();
+			else
+				showDialog(DIALOG_RESTORE_WALLET_PERMISSION);
 		}
 	}
 
@@ -281,7 +307,7 @@ public final class WalletActivity extends AbstractWalletActivity
 				return true;
 
 			case R.id.wallet_options_restore_wallet:
-				showDialog(DIALOG_RESTORE_WALLET);
+				handleRestoreWallet();
 				return true;
 
 			case R.id.wallet_options_backup_wallet:
@@ -325,7 +351,18 @@ public final class WalletActivity extends AbstractWalletActivity
 
 	public void handleBackupWallet()
 	{
-		BackupWalletDialogFragment.show(getFragmentManager());
+		if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)
+			BackupWalletDialogFragment.show(getFragmentManager());
+		else
+			ActivityCompat.requestPermissions(this, new String[] { Manifest.permission.WRITE_EXTERNAL_STORAGE }, REQUEST_CODE_BACKUP_WALLET);
+	}
+
+	public void handleRestoreWallet()
+	{
+		if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)
+			showDialog(DIALOG_RESTORE_WALLET);
+		else
+			ActivityCompat.requestPermissions(this, new String[] { Manifest.permission.READ_EXTERNAL_STORAGE }, REQUEST_CODE_RESTORE_WALLET);
 	}
 
 	public void handleEncryptKeys()
@@ -336,7 +373,11 @@ public final class WalletActivity extends AbstractWalletActivity
 	@Override
 	protected Dialog onCreateDialog(final int id, final Bundle args)
 	{
-		if (id == DIALOG_RESTORE_WALLET)
+		if (id == DIALOG_BACKUP_WALLET_PERMISSION)
+			return createBackupWalletPermissionDialog();
+		else if (id == DIALOG_RESTORE_WALLET_PERMISSION)
+			return createRestoreWalletPermissionDialog();
+		else if (id == DIALOG_RESTORE_WALLET)
 			return createRestoreWalletDialog();
 		else if (id == DIALOG_TIMESKEW_ALERT)
 			return createTimeskewAlertDialog(args.getLong("diff_minutes"));
@@ -353,6 +394,24 @@ public final class WalletActivity extends AbstractWalletActivity
 	{
 		if (id == DIALOG_RESTORE_WALLET)
 			prepareRestoreWalletDialog(dialog);
+	}
+
+	private Dialog createBackupWalletPermissionDialog()
+	{
+		final DialogBuilder dialog = new DialogBuilder(this);
+		dialog.setTitle(R.string.backup_wallet_permission_dialog_title);
+		dialog.setMessage(getString(R.string.backup_wallet_permission_dialog_message));
+		dialog.singleDismissButton(null);
+		return dialog.create();
+	}
+
+	private Dialog createRestoreWalletPermissionDialog()
+	{
+		final DialogBuilder dialog = new DialogBuilder(this);
+		dialog.setTitle(R.string.restore_wallet_permission_dialog_title);
+		dialog.setMessage(getString(R.string.restore_wallet_permission_dialog_message));
+		dialog.singleDismissButton(null);
+		return dialog.create();
 	}
 
 	private Dialog createRestoreWalletDialog()
