@@ -113,7 +113,6 @@ public final class ScanActivity extends Activity implements SurfaceHolder.Callba
 		final SurfaceView surfaceView = (SurfaceView) findViewById(R.id.scan_activity_preview);
 		surfaceHolder = surfaceView.getHolder();
 		surfaceHolder.addCallback(this);
-		surfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
 	}
 
 	@Override
