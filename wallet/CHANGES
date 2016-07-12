@@ -1,3 +1,7 @@
+v4.59
+
+* Make sure the lockscreen doesn't get in the way of scanning QR codes or requesting coins.
+
 v4.58
 
 * Adjust the normal fee category.
