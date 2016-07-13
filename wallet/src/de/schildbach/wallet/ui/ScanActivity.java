@@ -17,7 +17,6 @@
 
 package de.schildbach.wallet.ui;
 
-import java.io.IOException;
 import java.util.EnumMap;
 import java.util.Map;
 
@@ -27,9 +26,9 @@ import org.slf4j.LoggerFactory;
 import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
+import android.app.DialogFragment;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.DialogInterface.OnCancelListener;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -84,9 +83,6 @@ public final class ScanActivity extends Activity implements SurfaceHolder.Callba
 	private Vibrator vibrator;
 	private HandlerThread cameraThread;
 	private volatile Handler cameraHandler;
-
-	private static final int DIALOG_CAMERA_PROBLEM = 0;
-	private static final int DIALOG_PERMISSION_PROBLEM = 1;
 
 	private static boolean DISABLE_CONTINUOUS_AUTOFOCUS = Build.MODEL.equals("GT-I9100") // Galaxy S2
 			|| Build.MODEL.equals("SGH-T989") // Galaxy S2
@@ -152,7 +148,9 @@ public final class ScanActivity extends Activity implements SurfaceHolder.Callba
 		if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
 			maybeOpenCamera();
 		else
-			showDialog(DIALOG_PERMISSION_PROBLEM);
+			WarnDialogFragment.newInstance(R.string.scan_camera_permission_dialog_title, getString(R.string.scan_camera_permission_dialog_message))
+					.show(getFragmentManager(), "dialog");
+
 	}
 
 	private void maybeOpenCamera()
@@ -282,15 +280,20 @@ public final class ScanActivity extends Activity implements SurfaceHolder.Callba
 
 				cameraHandler.post(fetchAndDecodeRunnable);
 			}
-			catch (final IOException x)
+			catch (final Exception x)
 			{
 				log.info("problem opening camera", x);
-				showDialog(DIALOG_CAMERA_PROBLEM);
-			}
-			catch (final RuntimeException x)
-			{
-				log.info("problem opening camera", x);
-				showDialog(DIALOG_CAMERA_PROBLEM);
+				runOnUiThread(new Runnable()
+				{
+					@Override
+					public void run()
+					{
+						if (!isFinishing())
+							WarnDialogFragment
+									.newInstance(R.string.scan_camera_problem_dialog_title, getString(R.string.scan_camera_problem_dialog_message))
+									.show(getFragmentManager(), "dialog");
+					}
+				});
 			}
 		}
 	};
@@ -399,43 +402,39 @@ public final class ScanActivity extends Activity implements SurfaceHolder.Callba
 		}
 	};
 
-	@Override
-	protected Dialog onCreateDialog(final int id)
+	public static class WarnDialogFragment extends DialogFragment
 	{
-		final DialogBuilder dialog;
-
-		if (id == DIALOG_CAMERA_PROBLEM)
+		public static WarnDialogFragment newInstance(final int titleResId, final String message)
 		{
-			dialog = DialogBuilder.warn(this, R.string.scan_camera_problem_dialog_title);
-			dialog.setMessage(R.string.scan_camera_problem_dialog_message);
-		}
-		else if (id == DIALOG_PERMISSION_PROBLEM)
-		{
-			dialog = DialogBuilder.warn(this, R.string.scan_camera_permission_dialog_title);
-			dialog.setMessage(R.string.scan_camera_permission_dialog_message);
-		}
-		else
-		{
-			throw new IllegalArgumentException();
+			final WarnDialogFragment fragment = new WarnDialogFragment();
+			final Bundle args = new Bundle();
+			args.putInt("title", titleResId);
+			args.putString("message", message);
+			fragment.setArguments(args);
+			return fragment;
 		}
 
-		dialog.singleDismissButton(new OnClickListener()
+		@Override
+		public Dialog onCreateDialog(final Bundle savedInstanceState)
 		{
-			@Override
-			public void onClick(final DialogInterface dialog, final int which)
+			final Bundle args = getArguments();
+			final DialogBuilder dialog = DialogBuilder.warn(getActivity(), args.getInt("title"));
+			dialog.setMessage(args.getString("message"));
+			dialog.singleDismissButton(new OnClickListener()
 			{
-				finish();
-			}
-		});
-		dialog.setOnCancelListener(new OnCancelListener()
-		{
-			@Override
-			public void onCancel(final DialogInterface dialog)
-			{
-				finish();
-			}
-		});
+				@Override
+				public void onClick(final DialogInterface dialog, final int which)
+				{
+					getActivity().finish();
+				}
+			});
+			return dialog.create();
+		}
 
-		return dialog.create();
+		@Override
+		public void onCancel(final DialogInterface dialog)
+		{
+			getActivity().finish();
+		}
 	}
 }
