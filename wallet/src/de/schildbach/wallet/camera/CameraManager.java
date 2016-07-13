@@ -244,7 +244,14 @@ public final class CameraManager
 
 	public void requestPreviewFrame(final PreviewCallback callback)
 	{
-		camera.setOneShotPreviewCallback(callback);
+		try
+		{
+			camera.setOneShotPreviewCallback(callback);
+		}
+		catch (final RuntimeException x)
+		{
+			log.warn("problem requesting preview frame, callback won't be called", x);
+		}
 	}
 
 	public PlanarYUVLuminanceSource buildLuminanceSource(final byte[] data)
