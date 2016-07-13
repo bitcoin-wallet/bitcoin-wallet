@@ -129,9 +129,17 @@ public final class CameraManager
 			}
 		}
 
-		camera.startPreview();
-
-		return camera;
+		try
+		{
+			camera.startPreview();
+			return camera;
+		}
+		catch (final RuntimeException x)
+		{
+			log.warn("something went wrong while starting camera preview", x);
+			camera.release();
+			throw x;
+		}
 	}
 
 	public void close()
