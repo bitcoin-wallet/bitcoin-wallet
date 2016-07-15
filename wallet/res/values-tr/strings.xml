@@ -157,6 +157,7 @@
   <string name="transaction_row_message_own_unbroadcasted">Bu ödeme henüz aktarılmamıştır.</string>
   <string name="transaction_row_message_received_direct">Bu ödeme doğrudan alındı. Asla harcanamayacak olması riski vardır.</string>
   <string name="transaction_row_message_received_unconfirmed_unlocked">Bu ödeme muhtemelen birkaç dakika içinde harcanabilir hâle gelecektir.</string>
+  <string name="transaction_row_message_received_in_conflict">Bu ödemede yüksek gönderici tarafından geri alınma riski vardır! Vaktiniz varsa teyit bekleyin.</string>
   <string name="transaction_row_message_received_dead">Bu ödeme gönderici tarafından iptal edilmiştir.</string>
   <string name="transaction_row_message_received_dust">Bu düşük meblağ muhtemelen hiçbir koşulda ekonomik olarak harcanamaz.</string>
   <string name="transaction_row_message_received_pay_to_many">Bu ödeme sizinkiyle beraber birçok cüzdana ödeme yapmaktadır ve bu uygulamanın zamanla yavaşlamasına yol açar. Mümkünse sadece size ödeme yapan ödeme almaya çalışın.</string>
@@ -167,6 +168,8 @@
   <string name="block_row_now">şu anda</string>
   <string name="peer_list_fragment_empty">Hiçbir eş bağlı değil</string>
   <string name="peer_list_row_ping_time">⇆ %d&#x2009;ms</string>
+  <string name="restore_wallet_permission_dialog_title">Okuma müsaadesi eksik</string>
+  <string name="restore_wallet_permission_dialog_message">Harici depolama alanında cüzdan yedeklemeleri aramak için okuma müsaadesi vermeniz gerekir.</string>
   <string name="import_keys_dialog_title">Cüzdanı geri getir</string>
   <string name="import_keys_dialog_message">Harici depolamadan bir cüzdan yedekleme dosyası seçin (%s):</string>
   <string name="restore_wallet_dialog_replace_warning">Güncel cüzdanınızı başkasıyla değiştirmek üzeresiniz. Güncel cüzdanınızdaki Bitcoin\'ler bir yedeklemeniz yoksa kaybolacaktır.</string>
@@ -181,6 +184,8 @@
   <string name="restore_wallet_dialog_success">Cüzdan geri getirildi.</string>
   <string name="restore_wallet_dialog_success_replay">Cüzdanınız başarılı bir şekilde geri getirilmiştir. Bundan sonra bakiyesi belirlenecektir. Bu belli bir süre alabilir.</string>
   <string name="import_keys_dialog_failure">Cüzdan geri alınamadı:\n\n%s\n\nParola yanlış olmasın?</string>
+  <string name="backup_wallet_permission_dialog_title">Yazma müsaadesi eksik</string>
+  <string name="backup_wallet_permission_dialog_message">Harici depolama alanında cüzdanınızın yedeklemesini yapmak için yazma müsaadesi vermeniz gerekir.</string>
   <string name="export_keys_dialog_title">Cüzdanı yedekle</string>
   <string name="backup_wallet_dialog_message">Yedeklemeniz seçtiğiniz parola ile şifrelenecek ve harici depolama alanına yazılacaktır.</string>
   <string name="backup_wallet_dialog_warning_encrypted">Cüzdanınız bir harcama PIN\'i ile korunmaktadır. Yedekleme parolasına ilâve olarak PIN\'i hatırlayacağınızdan emin olunuz.</string>
@@ -212,6 +217,8 @@
   <string name="encrypt_keys_dialog_state_done">Tamamlandı</string>
   <string name="scan_camera_problem_dialog_title">Üzgünüz</string>
   <string name="scan_camera_problem_dialog_message">Fotoğraf makinesinde bir problem var. Muhtemelen cihazınızı yeniden başlatmanız gerekiyor.</string>
+  <string name="scan_camera_permission_dialog_title">Kamera müsaadesi</string>
+  <string name="scan_camera_permission_dialog_message">QR kodlarını okumak için kamerayı kullanma müsaadesi vermeniz gerekir.</string>
   <string name="input_parser_io_error">Veri okunamadı:\n%s</string>
   <string name="input_parser_cannot_classify">Girdi tanınamadı:\n%s</string>
   <string name="input_parser_invalid_bitcoin_uri">Geçersiz Bitcoin URI\'si:\n%s</string>
@@ -237,12 +244,16 @@
   <string name="preferences_connectivity_notification_summary">Bağlı eş sayısını bildirim alanında göster.</string>
   <string name="preferences_trusted_peer_title">Güvenilen eş</string>
   <string name="preferences_trusted_peer_summary">Bağlanılacak tek eşin makine ismi ya da IP adresi.</string>
+  <string name="preferences_trusted_peer_resolve_progress">Çözümleniyor…</string>
+  <string name="preferences_trusted_peer_resolve_unknown_host">Bilinmeyen makine ismi!</string>
   <string name="preferences_trusted_peer_only_title">Olağan eş aramayı atla</string>
   <string name="preferences_trusted_peer_only_summary">Güvenilen eş dışındaki eşlere bağlantıları engeller.</string>
   <string name="preferences_block_explorer_title">Blok kaşifi</string>
   <string name="preferences_block_explorer_summary">Muameleleri, adresleri ve blokları taramak için harici blok kaşifi.</string>
   <string name="preferences_data_usage_title">Veri kullanımı</string>
   <string name="preferences_data_usage_summary">Mobil şebekelerde veri kullanımını kısıtlama seçeneklerini göster.</string>
+  <string name="preferences_remind_balance_title">Bakiye hatırlacısı</string>
+  <string name="preferences_remind_balance_summary">İki hafta kullanılmaz ise, uygulama cüzdanda hâlâ Bitcoin bulunduğunu bildirecektir.</string>
   <string name="preferences_report_issue_title">Sorun rapor et</string>
   <string name="preferences_report_issue_summary">Problem hakkında bilgi topla ve raporu geliştiricilere e-posta ile yolla.</string>
   <string name="preferences_initiate_reset_title">Blok zincirini sıfırla</string>
@@ -280,6 +291,11 @@
   <string name="about_market_app_summary">Uygulamayı değerlendir veya not ver</string>
   <string name="notification_coins_received_msg">%s alındı</string>
   <string name="notification_peers_connected_msg">%d eş bağlı</string>
+  <string name="notification_inactivity_title">Bu cihazda hâlâ Bitcoinleriniz bulunmaktadır!</string>
+  <string name="notification_inactivity_message">Eğer Bitcoin Cüzdanı uygulamasını Bitcoinlerinizi göndermeden kaldırırsanız %s tutarındaki bakiyeniz kaybolacaktır.</string>
+  <string name="notification_inactivity_message_donate">Bitcoinleriniz ile ilgilenmiyorsanız, onları Bitcoin Cüzdanı projesine bağışlayabilirsiniz.</string>
+  <string name="notification_inactivity_action_dismiss">Sonra hatırlat</string>
+  <string name="notification_inactivity_action_dismiss_forever">Hatırlatma</string>
   <!--generic buttons-->
   <string name="button_ok">Tamam</string>
   <string name="button_dismiss">Reddet</string>
