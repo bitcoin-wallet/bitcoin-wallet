@@ -1,3 +1,11 @@
+v4.61
+
+* On Android 6.0 (Marshmellow) and above, you can now grant or revoke app permissions at will.
+  The current permissions are: Camera (for scanning QR codes) and Read/Write External Storage (for
+  wallet backups).
+* Fix a crash when trying to sweep a password protected paper wallet.
+* Update translations from Transifex.
+
 v4.60
 
 * Fix a crash when scanning QR codes.
