@@ -157,9 +157,11 @@
   <string name="transaction_row_message_own_unbroadcasted">Questo pagamento non è ancora stato trasmesso.</string>
   <string name="transaction_row_message_received_direct">Questo pagamento è stato ricevuto direttamente. C\'è il rischio che non diventi spendibile.</string>
   <string name="transaction_row_message_received_unconfirmed_unlocked">Questo pagamento dovrebbe diventare spendibile entro pochi minuti.</string>
+  <string name="transaction_row_message_received_in_conflict">Questo pagamento ha un notevole rischio di essere invertito dal mittente! Se puoi, attenti la conferma.</string>
   <string name="transaction_row_message_received_dead">Questo pagamento è stato revocato dal mittente.</string>
   <string name="transaction_row_message_received_dust">Questo piccolo importo probabilmente non sarà mai speso economicamente.</string>
   <string name="transaction_row_message_received_pay_to_many">Questo pagamento paga molti portamonete oltre ai vostri, rallentando l\'applicazione nel tempo. Se è possibile, provare a ricevere i pagamenti che paghino soltanto voi.</string>
+  <string name="transaction_row_message_received_rbf">Il pagamento è stato ritardato perché il mittente ha usato un metodo di transazione non sicura.</string>
   <string name="network_monitor_activity_title">Controllo della rete</string>
   <string name="network_monitor_peer_list_title">Peers</string>
   <string name="network_monitor_block_list_title">Blocchi</string>
@@ -230,16 +232,22 @@
   <string name="preferences_precision_labels_0_6">µBTC, nessuna cifra decimale</string>
   <string name="preferences_own_name_title">Nome</string>
   <string name="preferences_own_name_summary">Il tuo nome da aggiungere alle richieste di pagamento. Prova a mantenerlo corto.</string>
+  <string name="preferences_send_coins_autoclose_title">Auto-chiusura messaggio di invio monete</string>
+  <string name="preferences_send_coins_autoclose_summary">Quando viene fatto un pagamento, il messaggio di invio si chiuderà automaticamente.</string>
   <string name="preferences_connectivity_notification_title">Indicatore di connettività</string>
   <string name="preferences_connectivity_notification_summary">Mostra il numero corrente di peer connessi nell\'area di notifica.</string>
   <string name="preferences_trusted_peer_title">Peer attendibili</string>
   <string name="preferences_trusted_peer_summary">Indirizzo IP o hostname di un singolo peer a cui connettersi.</string>
+  <string name="preferences_trusted_peer_resolve_progress">Risoluzione…</string>
+  <string name="preferences_trusted_peer_resolve_unknown_host">Hostname sconosciuto!</string>
   <string name="preferences_trusted_peer_only_title">Salta il regolare rilevamento dei peer</string>
   <string name="preferences_trusted_peer_only_summary">Impedisce il collegamento a qualsiasi peer oltre che ai peer affidabili.</string>
   <string name="preferences_block_explorer_title">Analizzatore di blocchi</string>
   <string name="preferences_block_explorer_summary">Analizzatore di blocchi esterno da utilizzare per esaminare transazioni, indirizzi e blocchi.</string>
   <string name="preferences_data_usage_title">Utilizzo dei dati</string>
   <string name="preferences_data_usage_summary">Mostra le opzioni per restringere l\'utilizzo dei dati su reti mobili.</string>
+  <string name="preferences_remind_balance_title">Promemoria saldo.</string>
+  <string name="preferences_remind_balance_summary">Dopo un paio di settimane in disuso, l\'app notificherà se ci sono ancora monete nel portafoglio.</string>
   <string name="preferences_report_issue_title">Segnala un problema</string>
   <string name="preferences_report_issue_summary">Colleziona informazioni sul tuo problema e invia tramite email la tua segnalazione agli sviluppatori.</string>
   <string name="preferences_initiate_reset_title">Reinizializza il blockchain</string>
@@ -277,6 +285,11 @@
   <string name="about_market_app_summary">Recensire o votare l\'app</string>
   <string name="notification_coins_received_msg">Ricevuti %s</string>
   <string name="notification_peers_connected_msg">Connesso a %d peers</string>
+  <string name="notification_inactivity_title">Hai ancora dei Bitcoin su questo dispositivo!</string>
+  <string name="notification_inactivity_message">Ricorda che il tuo saldo di %s andrà perso se disinstalli l\'app Bitcoin Wallet senza prima averli inviati via.</string>
+  <string name="notification_inactivity_message_donate">Se non sei interessato ai tuoi soldi, puoi anche donarli al progetto Bitcoin Wallet.</string>
+  <string name="notification_inactivity_action_dismiss">Ricordamelo</string>
+  <string name="notification_inactivity_action_dismiss_forever">Non ricordarmelo</string>
   <!--generic buttons-->
   <string name="button_ok">OK</string>
   <string name="button_dismiss">Chiudi</string>
