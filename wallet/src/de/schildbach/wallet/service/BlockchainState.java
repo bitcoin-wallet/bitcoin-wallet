@@ -56,6 +56,7 @@ public class BlockchainState
 		final Date bestChainDate = (Date) intent.getSerializableExtra(EXTRA_BEST_CHAIN_DATE);
 		final int bestChainHeight = intent.getIntExtra(EXTRA_BEST_CHAIN_HEIGHT, -1);
 		final boolean replaying = intent.getBooleanExtra(EXTRA_REPLAYING, false);
+		@SuppressWarnings("unchecked")
 		final Set<Impediment> impediments = (Set<Impediment>) intent.getSerializableExtra(EXTRA_IMPEDIMENTS);
 
 		return new BlockchainState(bestChainDate, bestChainHeight, replaying, impediments);
