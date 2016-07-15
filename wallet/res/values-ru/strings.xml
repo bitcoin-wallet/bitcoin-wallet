@@ -44,8 +44,8 @@
   <string name="wallet_low_storage_dialog_title">Мало места во внутреннем хранилище!</string>
   <string name="wallet_low_storage_dialog_msg">Bitcoin Wallet использует внутреннее хранилище для транзакций и блогов. Если оно переполнится, кошелек перестанет работать и вы рискуете потерять монеты!\n\nХотите открыть Application Manager и деинсталлировать ненужные приложения?</string>
   <string name="wallet_low_storage_dialog_button_apps">Управлять приложениями</string>
-  <string name="wallet_timeskew_dialog_title">Проверьте настройки времени!</string>
-  <string name="wallet_timeskew_dialog_msg">Время вашего устройства сбито на %d минут. Возможно, из-за этого вы не можете отправить или получить монеты.\n\nВам нужно проверить и исправить установки времени и временной зоны.</string>
+  <string name="wallet_timeskew_dialog_title">Проверьте дату &amp; в настройках времени</string>
+  <string name="wallet_timeskew_dialog_msg">Ваше устройство выключено %d минут. Возможно, из-за этого Вы не можете отправлять и получать Bitcoin.\n\nПроверьте и исправте при необходимости настройки даты, времени и часового пояса.</string>
   <string name="wallet_version_dialog_title">Доступна новая версия!</string>
   <string name="wallet_version_dialog_msg">Эта версия исправляет важные ошибки. Детали на Google Play.</string>
   <string name="wallet_version_dialog_msg_deprecated">Если вы не видите обновления, это означает, что ваша версия Android больше не поддерживается.</string>
@@ -193,7 +193,7 @@
   <string name="export_keys_dialog_mail_intent_failed">Архивация кошелка прошла с ошибкой.</string>
   <string name="import_export_keys_dialog_password">пароль</string>
   <string name="backup_wallet_dialog_password_again">Снова</string>
-  <string name="backup_wallet_dialog_password_mismatch">Несоответствие !</string>
+  <string name="backup_wallet_dialog_password_mismatch">несовпадают!</string>
   <string name="import_export_keys_dialog_show">Показать пароль</string>
   <string name="import_export_keys_dialog_failure_title">Ошибка</string>
   <string name="import_keys_intent_filter_action">Восстановить кошелек</string>
