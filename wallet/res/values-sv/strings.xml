@@ -168,6 +168,8 @@
   <string name="block_row_now">just nu</string>
   <string name="peer_list_fragment_empty">Inga peers anslutna</string>
   <string name="peer_list_row_ping_time">⇆ %d&#x2009;ms</string>
+  <string name="restore_wallet_permission_dialog_title">Läsrättighet saknas</string>
+  <string name="restore_wallet_permission_dialog_message">För att kunna söka efter säkerhetskopierade plånböcker på extern lagring, måste du tillåta läsrättigheter.</string>
   <string name="import_keys_dialog_title">Återställ plånbok</string>
   <string name="import_keys_dialog_message">Välj en plånboksbackup från extern källa (%s):</string>
   <string name="restore_wallet_dialog_replace_warning">Du är på väg att byta ut din nuvarande plånbok. Eventuella tillgångar i din nuvarande plånbok kommer att förloras för alltid om du inte har gjort en separat säkerhetskopia.</string>
@@ -182,6 +184,8 @@
   <string name="restore_wallet_dialog_success">Din plånbok återskapades.</string>
   <string name="restore_wallet_dialog_success_replay">Din plånbok har återskapats. Beloppet kommer att beräknas snart. Detta kommer att ta en stund.</string>
   <string name="import_keys_dialog_failure">Plånboken kunde inte återskapas:\n\n%s\n\nFelaktigt lösenord?</string>
+  <string name="backup_wallet_permission_dialog_title">Skrivrättighet saknas</string>
+  <string name="backup_wallet_permission_dialog_message">För att kunna ta säkerhetskopior av din plånbok till extern lagring, måste du tillåta skrivrättigheter.</string>
   <string name="export_keys_dialog_title">Säkerhetskopiera plånbok</string>
   <string name="backup_wallet_dialog_message">Din säkerhetskopia kommer att krypteras med ett valt lösenord och lagras på extern plats.</string>
   <string name="backup_wallet_dialog_warning_encrypted">Din plånbok är skyddad av en betalnings-PIN. Se till att du kommer ihåg din PIN-kod tillsammans med lösenordet för säkerhetskopian.</string>
@@ -213,6 +217,8 @@
   <string name="encrypt_keys_dialog_state_done">Klar.</string>
   <string name="scan_camera_problem_dialog_title">Ursäkta</string>
   <string name="scan_camera_problem_dialog_message">Kameran har ett problem. Du behöver antagligen starta om enheten.</string>
+  <string name="scan_camera_permission_dialog_title">Kamerarättighet</string>
+  <string name="scan_camera_permission_dialog_message">För att kunna skanna QR-koder, måste du tillåta åtkomst till kameran.</string>
   <string name="input_parser_io_error">Kan inte läsa av data:\n%s</string>
   <string name="input_parser_cannot_classify">Kan inte känna igen inmatning:\n%s</string>
   <string name="input_parser_invalid_bitcoin_uri">Ogiltig Bitcoin URI:\n%s</string>
