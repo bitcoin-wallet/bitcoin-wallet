@@ -30,7 +30,6 @@ import android.os.Parcelable;
 import com.google.common.base.Objects;
 
 import de.schildbach.wallet.Constants;
-import de.schildbach.wallet.util.WalletUtils;
 
 /**
  * @author Andreas Schildbach
