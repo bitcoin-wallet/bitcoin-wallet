@@ -27,7 +27,7 @@
   <string name="wallet_transactions_fragment_empty_text_received">還沒收過 Bitcoin。</string>
   <string name="wallet_transactions_fragment_empty_text_sent">還沒付過 Bitcoin。</string>
   <string name="wallet_transactions_fragment_empty_text_howto">如何取得 Bitcoin?\n\n可以用傳統貨幣購買、\n販賣貨物或服務、\n或是以工作賺取。</string>
-  <string name="wallet_transactions_row_warning_backup">恭喜你收到第一筆付款！你是否已經&lt;u&gt;備份好你的錢包&lt;/u&gt;來防止遺失呢？</string>
+  <string name="wallet_transactions_row_warning_backup">恭喜你收到第一筆付款！你是否已經&lt;u&gt;備份好你的錢包&lt;/u&gt;來防止遺失了呢？</string>
   <string name="wallet_transactions_row_warning_storage_encryption">提示: 為了讓錢包更安全，你可以&lt;u&gt;將設備加密&lt;/u&gt;。同時也可以保護其他應用程式的資料。</string>
   <string name="wallet_transactions_fragment_coinbase">開採出來</string>
   <string name="wallet_transactions_fragment_internal">內部</string>
@@ -54,7 +54,7 @@
   <string name="wallet_old_sdk_dialog_title">Android 版本太舊</string>
   <string name="wallet_old_sdk_dialog_message">接下來某個版本的 Bitcoin Wallet 可能就開始不再支援你的設備了。在這個設備上付款可能會變得很困難。\n\n建議你馬上把錢轉到其他地方去，除非你還知道其他處理方式。</string>
   <string name="send_coins_activity_title">Bitcoin 付款</string>
-  <string name="send_coins_fragment_request_payment_request_progress">正在從 %s 讀取簽章...</string>
+  <string name="send_coins_fragment_request_payment_request_progress">正在從 %s 讀取簽章…</string>
   <string name="send_coins_fragment_request_payment_request_failed_title">讀取簽章失敗了</string>
   <string name="send_coins_fragment_request_payment_request_wrong_signature">簽章不對！</string>
   <string name="send_coins_fragment_payee_verified_by">由 %s 驗證</string>
@@ -94,7 +94,7 @@
   <string name="send_coins_options_empty">清空錢包</string>
   <string name="raise_fee_dialog_title">提高網路手續費</string>
   <string name="raise_fee_dialog_message">你想要將這筆付款的手續費提高 %s 嗎？可以讓它快一點被確認。</string>
-  <string name="raise_fee_dialog_state_decrypting">正在解密中...</string>
+  <string name="raise_fee_dialog_state_decrypting">正在解密中…</string>
   <string name="raise_fee_dialog_state_done">完成。</string>
   <string name="raise_fee_dialog_button_raise">提高</string>
   <string name="sweep_wallet_activity_title">兌現紙錢包</string>
@@ -107,8 +107,8 @@
   <string name="sweep_wallet_fragment_balance">兌現金額</string>
   <string name="sweep_wallet_fragment_button_decrypt">解密</string>
   <string name="sweep_wallet_fragment_button_sweep">兌現</string>
-  <string name="sweep_wallet_fragment_decrypt_progress">正在解密中...\n最多要 2 分鐘。</string>
-  <string name="sweep_wallet_fragment_request_wallet_balance_progress">正在載入餘額...</string>
+  <string name="sweep_wallet_fragment_decrypt_progress">正在解密中…\n最多要 2 分鐘。</string>
+  <string name="sweep_wallet_fragment_request_wallet_balance_progress">正在載入餘額…</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_failed_title">載入錢包的餘額失敗了</string>
   <string name="sweep_wallet_fragment_insufficient_money_title">錢不夠</string>
   <string name="sweep_wallet_fragment_insufficient_money_msg">這個錢包裡的剩餘金額太少了，無法兌現。</string>
@@ -157,9 +157,11 @@
   <string name="transaction_row_message_own_unbroadcasted">付款尚未傳輸。</string>
   <string name="transaction_row_message_received_direct">這筆付款被直接接收了，這類付款可能存在無法花用的風險。</string>
   <string name="transaction_row_message_received_unconfirmed_unlocked">這筆付款應該在幾分鐘之後就可以花用。</string>
+  <string name="transaction_row_message_received_in_conflict">這筆款項被付款人撤銷的風險比較高！如果可以的話，最好是等待它確認完畢。</string>
   <string name="transaction_row_message_received_dead">這筆付款被付款人撤銷了。</string>
   <string name="transaction_row_message_received_dust">這麼小的金額可能花起來不划算。</string>
   <string name="transaction_row_message_received_pay_to_many">這筆付款因為同時付給這個錢包和其他錢包，會讓這個應用程式越跑越慢。如果可以的話，請付款人只付給你就好。</string>
+  <string name="transaction_row_message_received_rbf">由於付款人用一種不安全的交易類型，使得該筆交易被延後了。</string>
   <string name="network_monitor_activity_title">網路監視器</string>
   <string name="network_monitor_peer_list_title">節點</string>
   <string name="network_monitor_block_list_title">區塊</string>
@@ -189,7 +191,7 @@
   <string name="export_keys_dialog_button_archive">歸檔</string>
   <string name="export_keys_dialog_mail_subject">Bitcoin Wallet 備份</string>
   <string name="export_keys_dialog_mail_text">附件加密檔案包含 Bitcoin 私鑰，請隨時確保檔案的安全，並且不要忘記加密的密碼！</string>
-  <string name="export_keys_dialog_mail_intent_chooser">用其他方式歸檔錢包...</string>
+  <string name="export_keys_dialog_mail_intent_chooser">用其他方式歸檔錢包…</string>
   <string name="export_keys_dialog_mail_intent_failed">歸檔錢包失敗了。</string>
   <string name="import_export_keys_dialog_password">密碼</string>
   <string name="backup_wallet_dialog_password_again">再打一次</string>
@@ -230,16 +232,22 @@
   <string name="preferences_precision_labels_0_6">µBTC，沒有小數</string>
   <string name="preferences_own_name_title">本名</string>
   <string name="preferences_own_name_summary">你自己的名字，用來放到請款資料中。請盡量簡短。</string>
+  <string name="preferences_send_coins_autoclose_title">自動關閉付款對話框</string>
+  <string name="preferences_send_coins_autoclose_summary">付款完成後會自動關掉付款對話框。</string>
   <string name="preferences_connectivity_notification_title">連線標示</string>
   <string name="preferences_connectivity_notification_summary">在通知區顯示目前節點連線的數目。</string>
   <string name="preferences_trusted_peer_title">信任節點</string>
   <string name="preferences_trusted_peer_summary">一個要連線過去的節點位址或主機名稱。</string>
+  <string name="preferences_trusted_peer_resolve_progress">正在解析域名…</string>
+  <string name="preferences_trusted_peer_resolve_unknown_host">找不到該名稱的主機！</string>
   <string name="preferences_trusted_peer_only_title">跳過正規的節點探索程序</string>
   <string name="preferences_trusted_peer_only_summary">禁止和信任節點外的其他節點連線。</string>
   <string name="preferences_block_explorer_title">區塊探索網站</string>
   <string name="preferences_block_explorer_summary">用來瀏覽交易資料、位址、以及區塊的外部區塊探索網站</string>
   <string name="preferences_data_usage_title">資料使用量</string>
   <string name="preferences_data_usage_summary">顯示限制行動網路資料使用量的選項</string>
+  <string name="preferences_remind_balance_title">餘額提醒</string>
+  <string name="preferences_remind_balance_summary">這個應用程式在兩個禮拜沒被使用後，會提醒你錢包裡面是否還有錢。</string>
   <string name="preferences_report_issue_title">問題回報</string>
   <string name="preferences_report_issue_summary">收集問題的資訊並回報給開發人員。</string>
   <string name="preferences_initiate_reset_title">重置區塊鏈</string>
@@ -248,7 +256,7 @@
   <string name="preferences_initiate_reset_dialog_positive">重設</string>
   <string name="preferences_extended_public_key_title">顯示 xpub</string>
   <string name="preferences_extended_public_key_summary">顯示錢包的延伸公鑰，來匯入到其他的應用程式或網路服務去。請小心: 這會暴露你的財務隱私給該程式或服務。</string>
-  <string name="bitmap_fragment_share">分享...</string>
+  <string name="bitmap_fragment_share">分享…</string>
   <string name="extended_public_key_fragment_title">延伸公鑰</string>
   <string name="extended_public_key_fragment_share">分享 xpub…</string>
   <string name="report_issue_dialog_title_issue">問題回報</string>
@@ -277,6 +285,11 @@
   <string name="about_market_app_summary">給這個應用程式評論或評分</string>
   <string name="notification_coins_received_msg">收到 %s</string>
   <string name="notification_peers_connected_msg">%d 個節點連線</string>
+  <string name="notification_inactivity_title">這個設備上還有 Bitcoin 喔！</string>
+  <string name="notification_inactivity_message">請記住：如果你沒有把錢先送走，就移除掉 Bitcoin Wallet 應用程式的話，餘額 %s 就會不見了。</string>
+  <string name="notification_inactivity_message_donate">如果你不在意這些錢的話，也可以捐獻給 Bitcoin Wallet 專案。</string>
+  <string name="notification_inactivity_action_dismiss">以後再提醒我</string>
+  <string name="notification_inactivity_action_dismiss_forever">別再提醒我</string>
   <!--generic buttons-->
   <string name="button_ok">OK</string>
   <string name="button_dismiss">取消</string>
