@@ -167,6 +167,7 @@
   <string name="block_row_now">akkurat nå</string>
   <string name="peer_list_fragment_empty">Ingen peers tilkoblet</string>
   <string name="peer_list_row_ping_time">⇆ %d&#x2009;ms</string>
+  <string name="restore_wallet_permission_dialog_message">For å finne backup av din lommebok, må du gi tillatelse til å lese filene.</string>
   <string name="import_keys_dialog_title">Gjenopprett lommebok</string>
   <string name="import_keys_dialog_message">Velg en fil med sikkerhetskopi av lommeboken fra et eksternt lager (%s):</string>
   <string name="restore_wallet_dialog_replace_warning">Du er i gang med å erstatte din nåværende lommebok. Hvis den inneholder mynter, vil disse mistes, med mindre du har en separat sikkerhetskopi av lommeboken.</string>
@@ -212,6 +213,8 @@
   <string name="encrypt_keys_dialog_state_done">Ferdig.</string>
   <string name="scan_camera_problem_dialog_title">Beklager</string>
   <string name="scan_camera_problem_dialog_message">Det er et problem med kameraet. En omstart av enheten er sannsynligvis nødvendig.</string>
+  <string name="scan_camera_permission_dialog_title">Kamera tillatelse</string>
+  <string name="scan_camera_permission_dialog_message">For å skanne QR koder, må du gi tillatelse til å bruke kamera.</string>
   <string name="input_parser_io_error">Kan ikke lese data:\n%s</string>
   <string name="input_parser_cannot_classify">Kan ikke gjenkjenne input:\n%s</string>
   <string name="input_parser_invalid_bitcoin_uri">Ugyldig Bitcoin-URI:\n%s</string>
@@ -237,12 +240,16 @@
   <string name="preferences_connectivity_notification_summary">Vis nåværende antall tilkoblede peers i systemstatusfeltet.</string>
   <string name="preferences_trusted_peer_title">Klarert peer</string>
   <string name="preferences_trusted_peer_summary">IP eller vertsnavn for forbindelse til en enkelt peer.</string>
+  <string name="preferences_trusted_peer_resolve_progress">Løser…</string>
+  <string name="preferences_trusted_peer_resolve_unknown_host">Ukjent vertsnavn!</string>
   <string name="preferences_trusted_peer_only_title">Hopp over vanlig søk etter peers</string>
   <string name="preferences_trusted_peer_only_summary">Forhindrer tilkobling til andre peers enn den klarerte.</string>
   <string name="preferences_block_explorer_title">Blokkleser</string>
   <string name="preferences_block_explorer_summary">Ekstern blokkleser som kan brukes til å se gjennom transaksjoner, adresser og blokker.</string>
   <string name="preferences_data_usage_title">Dataforbruk</string>
   <string name="preferences_data_usage_summary">Vis innstillinger for restriksjon for dataforbruk på mobile nettverk.</string>
+  <string name="preferences_remind_balance_title">Saldopåminnelse</string>
+  <string name="preferences_remind_balance_summary">Etter et par uker uten bruk vil appen varsle om det fortsatt er penger i lommeboken.</string>
   <string name="preferences_report_issue_title">Rapporter problem</string>
   <string name="preferences_report_issue_summary">Samle inn informasjon om problemet ditt og send rapporten din på e-post til utviklerne.</string>
   <string name="preferences_initiate_reset_title">Tilbakestill blokkjeden</string>
@@ -280,6 +287,11 @@
   <string name="about_market_app_summary">Anmeld eller bedøm appen</string>
   <string name="notification_coins_received_msg">Mottok %s</string>
   <string name="notification_peers_connected_msg">%d peers tilkoblet</string>
+  <string name="notification_inactivity_title">Du har fortsatt bitcoins på denne enheten!</string>
+  <string name="notification_inactivity_message">Husk at din saldo på %s vil gå tapt hvis du avinstallerer appen Bitcoin Wallet uten å først sende pengene videre.</string>
+  <string name="notification_inactivity_message_donate">Hvis du ikke bryr deg om myntene dine, kan du også donere dem til Bitcoin Wallet.</string>
+  <string name="notification_inactivity_action_dismiss">Påminn senere</string>
+  <string name="notification_inactivity_action_dismiss_forever">Påminn meg ikke</string>
   <!--generic buttons-->
   <string name="button_ok">OK</string>
   <string name="button_dismiss">Lukk</string>
