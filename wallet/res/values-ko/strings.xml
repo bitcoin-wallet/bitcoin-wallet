@@ -28,6 +28,7 @@
   <string name="wallet_transactions_fragment_empty_text_sent">아직 비트코인을 보낸 내역이 없습니다.</string>
   <string name="wallet_transactions_fragment_empty_text_howto">비트코인 획득 방법\n\n1. 로컬 통화로 비트코인 구매\n2. 상품이나 서비스 판매\n3. 용역 대가로 획득</string>
   <string name="wallet_transactions_row_warning_backup">축하드립니다. 첫번째 결제를 받았습니다. 분실에 대비하기 위해 &lt;u&gt;전자 지갑 백업&lt;/u&gt;을 수행하신 적이 있나요? </string>
+  <string name="wallet_transactions_row_warning_storage_encryption">힌트: 지갑의 안전을 위해 &lt;u&gt;기기 암호화&lt;u&gt;를 사용해 보세요. 이것은 다른 앱의 자료도 보호해 줍니다.</string>
   <string name="wallet_transactions_fragment_coinbase">신규 채굴 코인</string>
   <string name="wallet_transactions_fragment_internal">내부 오류</string>
   <string name="wallet_transactions_options_filter">필터</string>
@@ -43,7 +44,7 @@
   <string name="wallet_low_storage_dialog_title">저장장치 용량 부족</string>
   <string name="wallet_low_storage_dialog_msg">비트코인 지갑은 거래 기록과 블록을 기억하기 위해 저장 장치의 공간을 사용합니다. 저장 공간이 부족할 경우 앱 작동이 중단될 수 있으며, 비트코인 보관과 거래에 문제가 있을 수 있습니다.\n\n불필요한 앱 정리를 위해 어플리케이션 매니저를 여시겠습니까?</string>
   <string name="wallet_low_storage_dialog_button_apps">앱 정리하기</string>
-  <string name="wallet_timeskew_dialog_title">장치 기기의 시간 설정 확인</string>
+  <string name="wallet_timeskew_dialog_title">날짜&amp;시간 설정</string>
   <string name="wallet_timeskew_dialog_msg">장치 기기의 설정 시간이 %d분 만큼 오차가 있어, 비트코인 송수신이 불가능합니다. \n\n현재 시간과 표준 시간대 설정을 확인 후 수정해 주십시오.</string>
   <string name="wallet_version_dialog_title">새 버전 이용 가능!</string>
   <string name="wallet_version_dialog_msg">현재 버전은 여러가지 중요한 오류를 수정했습니다. 자세한 내용은 구글 플레이에서 이 앱의 변경점을 통해 확인할 수 있습니다.</string>
@@ -159,6 +160,7 @@
   <string name="transaction_row_message_received_dead">이 결제는 송금자에 의해 취소되었습니다</string>
   <string name="transaction_row_message_received_dust">현재 입력한 극소량의 금액은 송금되지 않을 수 있습니다.</string>
   <string name="transaction_row_message_received_pay_to_many">이 결제는 당신 외에 다른 여러개의 지갑으로의 송금을 포함하고 있어서 앱이 느려질 수 있습니다. 가능하다면 당신만 포함하는 형태로 전달받으세요.</string>
+  <string name="transaction_row_message_received_rbf">송금자가 안전하지 않은 거래 유형을 사용하여 결제가 지연되었습니다.</string>
   <string name="network_monitor_activity_title">블럭체인 모니터링</string>
   <string name="network_monitor_peer_list_title">피어(Peer) 현황</string>
   <string name="network_monitor_block_list_title">블럭</string>
@@ -229,14 +231,22 @@
   <string name="preferences_precision_labels_0_6">µBTC, 소수 표시안함</string>
   <string name="preferences_own_name_title">소유자명</string>
   <string name="preferences_own_name_summary">결제요청에 추가될 당신의 이름입니다. 짧게 입력해주세요.</string>
+  <string name="preferences_send_coins_autoclose_title">송금 대화창을 자동으로 닫기</string>
+  <string name="preferences_send_coins_autoclose_summary">결제가 완료되면 송금 대화창은 자동으로 닫힙니다.</string>
   <string name="preferences_connectivity_notification_title">피어 연결 개수</string>
   <string name="preferences_connectivity_notification_summary">알림 창에 현재 연결된 피어(Peer)의 숫자를 표시합니다.</string>
   <string name="preferences_trusted_peer_title">신뢰할 수 있는 피어</string>
   <string name="preferences_trusted_peer_summary">IP 또는 연결할 단일 피어의 호스트네임</string>
+  <string name="preferences_trusted_peer_resolve_progress">분석중...</string>
+  <string name="preferences_trusted_peer_resolve_unknown_host">알려지지 않은 호스트 네임!</string>
   <string name="preferences_trusted_peer_only_title">일반적인 피어 탐색을 수행하지 않고 지나칩니다.</string>
   <string name="preferences_trusted_peer_only_summary">신뢰할 수 있는 피어(Peer)를 포함한 어떤 피어라도 새롭게 연결하는 것을 차단합니다.</string>
+  <string name="preferences_block_explorer_title">블럭 탐색기</string>
+  <string name="preferences_block_explorer_summary">트랜잭션, 주소, 블럭을 검색하기 위한 외부 블럭 탐색기 사용</string>
   <string name="preferences_data_usage_title">데이터 사용량</string>
   <string name="preferences_data_usage_summary">모바일 네트워크에서 사용할 데이터 사용량 제한 설정을 보여줍니다.</string>
+  <string name="preferences_remind_balance_title">잔액 알림</string>
+  <string name="preferences_remind_balance_summary">앱에 잔액이 남아 있는 상태에서 몇 주간 사용을 하지 않으면 앱이 알람을 보냅니다.</string>
   <string name="preferences_report_issue_title">오류 보고</string>
   <string name="preferences_report_issue_summary">오류에 대한 정보를 수집 후 오류 보고서를 개발자에게 전달합니다.</string>
   <string name="preferences_initiate_reset_title">블럭체인 재설정</string>
@@ -274,6 +284,11 @@
   <string name="about_market_app_summary">앱 리뷰 또는 등급 점수 매기러 가기</string>
   <string name="notification_coins_received_msg">비트코인 수취 알림 : %s</string>
   <string name="notification_peers_connected_msg">피어 연결 개수 알림 : %d</string>
+  <string name="notification_inactivity_title">아직 이 단말기에 비트코인이 남아 있습니다.</string>
+  <string name="notification_inactivity_message">이 Bitcoin Wallet 앱을 삭제하기 전에 먼저 어디든 송금하지 않는다면 모든 비트코인 %s 은 사라질 것입니다.</string>
+  <string name="notification_inactivity_message_donate">만약 남은 잔액에 관심이 없다면 Bitcoin Wallet project에 기부하실 수 있습니다.</string>
+  <string name="notification_inactivity_action_dismiss">나중에 알려주기</string>
+  <string name="notification_inactivity_action_dismiss_forever">관심없음</string>
   <!--generic buttons-->
   <string name="button_ok">확인</string>
   <string name="button_dismiss">닫기</string>
