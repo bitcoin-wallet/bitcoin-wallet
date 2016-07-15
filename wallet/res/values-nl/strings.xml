@@ -157,15 +157,19 @@
   <string name="transaction_row_message_own_unbroadcasted">Deze betaling is nog niet verzonden.</string>
   <string name="transaction_row_message_received_direct">Deze betaling is direct ontvangen. Het risico bestaat dat het nooit uitgegeven kan worden.</string>
   <string name="transaction_row_message_received_unconfirmed_unlocked">Deze betaling wordt besteedbaar in een paar minuten.</string>
+  <string name="transaction_row_message_received_in_conflict">Deze transactie heeft het risico om teruggedraaid te worden door de verzender! Wacht indien mogelijk op bevestiging.</string>
   <string name="transaction_row_message_received_dead">Deze betaling is omgekeerd door de verzender.</string>
   <string name="transaction_row_message_received_dust">Dit kleine beetje kan waarschijnlijk nooit economisch worden besteed.</string>
   <string name="transaction_row_message_received_pay_to_many">Deze betaling wordt naar veel wallets -naast die van U zelf- tegelijkertijd gedaan, waardoor uw app af en toe traag kan worden. Indien mogelijk, ontvang dan bij voorkeur alleen transacties die uitsluitend aan u zelf gericht zijn.</string>
+  <string name="transaction_row_message_received_rbf">Deze betaling is vertraagd omdat de verzender een onveilige transactiemethode heeft gebruikt.</string>
   <string name="network_monitor_activity_title">Netwerkmonitor</string>
   <string name="network_monitor_peer_list_title">Peers</string>
   <string name="network_monitor_block_list_title">Blokken</string>
   <string name="block_row_now">alleen nu</string>
   <string name="peer_list_fragment_empty">Geen connecties</string>
   <string name="peer_list_row_ping_time">⇆ %d&#x2009;ms</string>
+  <string name="restore_wallet_permission_dialog_title">Geen leesrechten</string>
+  <string name="restore_wallet_permission_dialog_message">Om te kunnen zoeken naar een backup in externe opslag moet je leestoestemming geven.</string>
   <string name="import_keys_dialog_title">Herstel portemonnee</string>
   <string name="import_keys_dialog_message">Haal backup van je portemonnee van externe opslag (%s):</string>
   <string name="restore_wallet_dialog_replace_warning">U staat op het punt uw huidige wallet te vervangen. Tenzij u een losse back-up van uw Wallet heeft gemaakt zullen alle bitcoins die nog in uw huidige wallet aanwezig zijn verloren gaan!</string>
@@ -180,6 +184,8 @@
   <string name="restore_wallet_dialog_success">Portemonnee is hersteld.</string>
   <string name="restore_wallet_dialog_success_replay">Uw wallet is met succes hersteld. Nu zal het saldo worden vastgesteld. Dit kan enige tijd duren.</string>
   <string name="import_keys_dialog_failure">Portemonnee kon niet hersteld worden:\n\n%s\n\nVerkeerd wachtwoord?</string>
+  <string name="backup_wallet_permission_dialog_title">Geen schrijfrechten </string>
+  <string name="backup_wallet_permission_dialog_message">Om een backup te kunnen maken naar externe opslag moet je schrijfrechten geven.</string>
   <string name="export_keys_dialog_title">Backup portemonnee</string>
   <string name="backup_wallet_dialog_message">Uw back-up zal worden versleuteld met het gekozen wachtwoord en worden opgeslagen naar externe opslag.</string>
   <string name="backup_wallet_dialog_warning_encrypted">Uw wallet is beveiligd met een PIN code om te kunnen betalen. Onthoud deze PIN code net als uw back-up wachtwoord! </string>
@@ -211,6 +217,8 @@
   <string name="encrypt_keys_dialog_state_done">Klaar.</string>
   <string name="scan_camera_problem_dialog_title">Sorry</string>
   <string name="scan_camera_problem_dialog_message">Er is een probleem met de camera. Waarschijnlijk moet je het apparaat herstarten.</string>
+  <string name="scan_camera_permission_dialog_title">Camera rechten</string>
+  <string name="scan_camera_permission_dialog_message">Om QR codes te scannen moet je toestemming geven om de camera te kunnen gebruiken.</string>
   <string name="input_parser_io_error">Kan gegevens niet lezen:\n%s</string>
   <string name="input_parser_cannot_classify">Invoer niet herkend:\n%s</string>
   <string name="input_parser_invalid_bitcoin_uri">Ongeldige Bitcoin URI:\n%s</string>
@@ -236,12 +244,16 @@
   <string name="preferences_connectivity_notification_summary">Toon huidige aantal verbonden partners in het berichten gebied.</string>
   <string name="preferences_trusted_peer_title">Vertrouwde partner</string>
   <string name="preferences_trusted_peer_summary">IP of hostnaam voor connectie naar enkele peer.</string>
+  <string name="preferences_trusted_peer_resolve_progress">Oplossen…</string>
+  <string name="preferences_trusted_peer_resolve_unknown_host">Hostname onbekend!</string>
   <string name="preferences_trusted_peer_only_title">Sla opsporen vertrouwde contacten over</string>
   <string name="preferences_trusted_peer_only_summary">Voorkomt elke verbinding behalve met de vertrouwde peer.</string>
   <string name="preferences_block_explorer_title">Block verkenner</string>
   <string name="preferences_block_explorer_summary">Externe blokverkenner voor het browsen van transacties, adressen en blokken.</string>
   <string name="preferences_data_usage_title">Datagebruik</string>
   <string name="preferences_data_usage_summary">Toon opties om bandbreedte op mobiele netwerken te beperken.</string>
+  <string name="preferences_remind_balance_title">Saldo herinnering</string>
+  <string name="preferences_remind_balance_summary">Als de app een paar weken niet gebruikt is zal de wallet laten merken dat er nog steeds coins aanwezig.</string>
   <string name="preferences_report_issue_title">Meld probleem</string>
   <string name="preferences_report_issue_summary">Vergaar informatie aangaande uw probleem en verstuur via e-mail een melding aan de ontwikkelaars</string>
   <string name="preferences_initiate_reset_title">Reset blockchain</string>
@@ -279,6 +291,11 @@
   <string name="about_market_app_summary">Beoordeel app</string>
   <string name="notification_coins_received_msg">Ontvangen %s</string>
   <string name="notification_peers_connected_msg">%d actieve verbindingen</string>
+  <string name="notification_inactivity_title">Je hebt nog steeds Bitcoins op dit apparaat!</string>
+  <string name="notification_inactivity_message">Onthou dat je saldo van %s verloren zal zijn als je de app verwijdert zonder de bitcoins eerst te verzenden.</string>
+  <string name="notification_inactivity_message_donate">Als je geen waarde hecht aan je coins zou je deze ook kunnen doneren aan het Bitcoin Wallet project</string>
+  <string name="notification_inactivity_action_dismiss">Opnieuw vragen</string>
+  <string name="notification_inactivity_action_dismiss_forever">Niet herinneren</string>
   <!--generic buttons-->
   <string name="button_ok">OK</string>
   <string name="button_dismiss">Annuleren</string>
