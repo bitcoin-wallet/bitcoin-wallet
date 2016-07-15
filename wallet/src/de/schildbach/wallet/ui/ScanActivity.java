@@ -67,6 +67,7 @@ import de.schildbach.wallet_test.R;
 /**
  * @author Andreas Schildbach
  */
+@SuppressWarnings("deprecation")
 public final class ScanActivity extends Activity implements SurfaceHolder.Callback, ActivityCompat.OnRequestPermissionsResultCallback
 {
 	public static final String INTENT_EXTRA_RESULT = "result";

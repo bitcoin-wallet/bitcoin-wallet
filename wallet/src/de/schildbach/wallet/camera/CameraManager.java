@@ -39,6 +39,7 @@ import com.google.zxing.PlanarYUVLuminanceSource;
 /**
  * @author Andreas Schildbach
  */
+@SuppressWarnings("deprecation")
 public final class CameraManager
 {
 	private static final int MIN_FRAME_SIZE = 240;
