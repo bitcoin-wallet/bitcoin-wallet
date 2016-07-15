@@ -29,7 +29,7 @@
   <string name="wallet_transactions_fragment_empty_text_howto">¿Cómo obtener Bitcoins?\n\nCámbialos por dinero tradicional,\nvende bienes o servicios o\ngánalos trabajando</string>
   <string name="wallet_transactions_row_warning_backup">Enhorabuena. ¡Has recibido tu primer pago! ¿Has hecho ya una &lt;u&gt;copia de seguridad de tu cartera&lt;/u&gt; como protección frente a pérdidas?</string>
   <string name="wallet_transactions_row_warning_storage_encryption">Consejo: para incrementar la seguridad de su wallet, usted puede escriptar su dispositivo. Esto permite la protección de sus datos con otras aplicaciones.</string>
-  <string name="wallet_transactions_fragment_coinbase">extraído</string>
+  <string name="wallet_transactions_fragment_coinbase">minados</string>
   <string name="wallet_transactions_fragment_internal">interno</string>
   <string name="wallet_transactions_options_filter">Filtrar</string>
   <string name="wallet_transactions_options_filter_all">Todos los pagos</string>
@@ -160,6 +160,7 @@
   <string name="transaction_row_message_received_dead">Este pago ha sido anulado por el pagador.</string>
   <string name="transaction_row_message_received_dust">Esta cantidad podría ser demasiado pequeña como para ser gastada.</string>
   <string name="transaction_row_message_received_pay_to_many">Este pago llega a muchas carteras además de la suya, lo que hace que la aplicación se ralentice. Si puede, intente recibir pagos que sólo le lleguen a usted.</string>
+  <string name="transaction_row_message_received_rbf">Este pago se retrasó porque el emisor utilizó un tipo de transacción inseguro.</string>
   <string name="network_monitor_activity_title">Monitor de red</string>
   <string name="network_monitor_peer_list_title">Pares</string>
   <string name="network_monitor_block_list_title">Bloques</string>
@@ -230,16 +231,22 @@
   <string name="preferences_precision_labels_0_6">µBTC, sin decimales</string>
   <string name="preferences_own_name_title">Su nombre</string>
   <string name="preferences_own_name_summary">Ponte un nombre, que será añadido a las solicitudes de pago. Trata de que sea corto.</string>
+  <string name="preferences_send_coins_autoclose_title">Cerrar automáticamente el diálogo de envío de monedas</string>
+  <string name="preferences_send_coins_autoclose_summary">Cuando se realiza el pago, el diálogo de envío se cerrará automáticamente.</string>
   <string name="preferences_connectivity_notification_title">Indicador de conectividad</string>
   <string name="preferences_connectivity_notification_summary">Mostrar número actual de pares conectados en el área de notificaciones.</string>
   <string name="preferences_trusted_peer_title">Par de confianza</string>
   <string name="preferences_trusted_peer_summary">IP o nombre de host del par individual al que conectarse.</string>
+  <string name="preferences_trusted_peer_resolve_progress">Resolviendo…</string>
+  <string name="preferences_trusted_peer_resolve_unknown_host">¡Nombre de host desconocido!</string>
   <string name="preferences_trusted_peer_only_title">Saltar descubrimiento de pares regulares</string>
   <string name="preferences_trusted_peer_only_summary">Evita las conexiones a todo par que no sea el de confianza.</string>
   <string name="preferences_block_explorer_title">Explorador de bloque</string>
   <string name="preferences_block_explorer_summary">Explorador externo de bloques, para navegar por las transacciones, direcciones y bloques.</string>
   <string name="preferences_data_usage_title">Uso de datos</string>
   <string name="preferences_data_usage_summary">Mostrar opciones para limitar el uso de datos en redes móviles.</string>
+  <string name="preferences_remind_balance_title">Aviso de balance</string>
+  <string name="preferences_remind_balance_summary">Después de unas semanas sin uso, la aplicación te notificará que aún tienes Bitcoins en la billetera.</string>
   <string name="preferences_report_issue_title">Informar de incidencia</string>
   <string name="preferences_report_issue_summary">Recabar información de la incidencia y enviarla a los desarrolladores.</string>
   <string name="preferences_initiate_reset_title">Bloque de la cadena de reinicio</string>
@@ -277,6 +284,11 @@
   <string name="about_market_app_summary">Critica o evalúa la aplicación</string>
   <string name="notification_coins_received_msg">%s Recibidos</string>
   <string name="notification_peers_connected_msg">%d pares conectados</string>
+  <string name="notification_inactivity_title">¡Aún tienes Bitcoins en este dispositivo!</string>
+  <string name="notification_inactivity_message">Recuerda que tus %s Bitcoins se perderán si desinstalas la aplicación sin moverlos a otra billetera.</string>
+  <string name="notification_inactivity_message_donate">Si no te importan tus Bitcoins, por favor considera donarlas al proyecto Bitcoin Wallet.</string>
+  <string name="notification_inactivity_action_dismiss">Avísame después</string>
+  <string name="notification_inactivity_action_dismiss_forever">No recordar</string>
   <!--generic buttons-->
   <string name="button_ok">Aceptar</string>
   <string name="button_dismiss">Rechazar</string>
