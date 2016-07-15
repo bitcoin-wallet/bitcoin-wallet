@@ -157,6 +157,7 @@
   <string name="transaction_row_message_own_unbroadcasted">この支払はまだ送信されていません。</string>
   <string name="transaction_row_message_received_direct">この支払は直接届きました。利用可能とならないリスクがあります。</string>
   <string name="transaction_row_message_received_unconfirmed_unlocked">この支払は数分程度で利用可能となります。</string>
+  <string name="transaction_row_message_received_in_conflict">この支払いは、送金者によって引き戻されるリスクが高くなっています! 可能であれば確認されるのを待ってください。</string>
   <string name="transaction_row_message_received_dead">この支払は送金者により、引き戻されました。</string>
   <string name="transaction_row_message_received_dust">少額すぎて、通常の支払等には使用できないでしょう。</string>
   <string name="transaction_row_message_received_pay_to_many">この支払いはあなた以外にも多くのウォレットに支払っており、徐々にアプリを遅くする可能性があります。可能であればあなただけに支払う支払いを受けてください。</string>
@@ -167,6 +168,8 @@
   <string name="block_row_now">たった今</string>
   <string name="peer_list_fragment_empty">接続済みのピアはありません</string>
   <string name="peer_list_row_ping_time">⇆ %d&#x2009;ms</string>
+  <string name="restore_wallet_permission_dialog_title">読み取り許可がありません</string>
+  <string name="restore_wallet_permission_dialog_message">外部ストレージにあるウォレットのバックアップを検索するには、読み込み許可を与える必要があります。</string>
   <string name="import_keys_dialog_title">ウォレットのリストア</string>
   <string name="import_keys_dialog_message">外部ストレージからウォレットのバックアップファイルを選択してください (%s):</string>
   <string name="restore_wallet_dialog_replace_warning">現在のウォレットを置き換えようとしています。現在ウォレットにあるコインは別途バックアップが無いかぎり全て失われます。</string>
@@ -181,6 +184,8 @@
   <string name="restore_wallet_dialog_success">ウォレットは復元されました。</string>
   <string name="restore_wallet_dialog_success_replay">あなたのウォレットは正常に復元されました。続いて残高を計算します。これには多少時間がかかる場合があります。</string>
   <string name="import_keys_dialog_failure">ウォレットが復元できませんでした:\n\n%s\n\nパスワード間違い?</string>
+  <string name="backup_wallet_permission_dialog_title">書き込み許可がありません</string>
+  <string name="backup_wallet_permission_dialog_message">外部ストレージにウォレットをバックアップするには、書き込み許可を与える必要があります。</string>
   <string name="export_keys_dialog_title">ウォレットのバックアップ</string>
   <string name="backup_wallet_dialog_message">バックアップはあなたが決めたパスワードで暗号化され、外部ストレージに書き込まれます。</string>
   <string name="backup_wallet_dialog_warning_encrypted">あなたのウォレットは送金用PINで保護されています。バックアップ用パスワードに加えてPINも忘れないようにしてください。</string>
@@ -212,6 +217,8 @@
   <string name="encrypt_keys_dialog_state_done">完了</string>
   <string name="scan_camera_problem_dialog_title">申し訳ありません</string>
   <string name="scan_camera_problem_dialog_message">カメラに問題があります。デバイスを再起動する必要があるかもしれません。</string>
+  <string name="scan_camera_permission_dialog_title">カメラの許可</string>
+  <string name="scan_camera_permission_dialog_message">QRコードをスキャンするためには、カメラの利用許可を与える必要があります。</string>
   <string name="input_parser_io_error">データを読込めませんでした:\n%s</string>
   <string name="input_parser_cannot_classify">入力を認識できません:\n%s</string>
   <string name="input_parser_invalid_bitcoin_uri">無効なビットコインURI:\n%s</string>
@@ -237,12 +244,16 @@
   <string name="preferences_connectivity_notification_summary">通知エリア内に現在の接続ピア数を表示する。</string>
   <string name="preferences_trusted_peer_title">信頼されたピア</string>
   <string name="preferences_trusted_peer_summary">接続する単一ピアのIPアドレスかホスト名。</string>
+  <string name="preferences_trusted_peer_resolve_progress">解決中……</string>
+  <string name="preferences_trusted_peer_resolve_unknown_host">不明なホスト名です!</string>
   <string name="preferences_trusted_peer_only_title">通常のピア探索をスキップ</string>
   <string name="preferences_trusted_peer_only_summary">信頼されたピア以外に接続しない。</string>
   <string name="preferences_block_explorer_title">ブロックエクスプローラ</string>
   <string name="preferences_block_explorer_summary">トランザクション・アドレス・ブロックを閲覧するための外部のブロックエクスプローラ。</string>
   <string name="preferences_data_usage_title">データの使用方法</string>
   <string name="preferences_data_usage_summary">モバイルネットワークにおけるデータ使用制限のオプションを表示する。</string>
+  <string name="preferences_remind_balance_title">残金通知</string>
+  <string name="preferences_remind_balance_summary">数週間使われていない場合、まだウォレット内にコインが残っていればアプリが通知を出します。</string>
   <string name="preferences_report_issue_title">問題を報告</string>
   <string name="preferences_report_issue_summary">問題に関する情報を収集し、開発者へメールで報告する。</string>
   <string name="preferences_initiate_reset_title">ブロックチェーンのリセット</string>
@@ -280,6 +291,11 @@
   <string name="about_market_app_summary">アプリのレビューや評価をしてください</string>
   <string name="notification_coins_received_msg">%sを受け取りました</string>
   <string name="notification_peers_connected_msg">%dピアが接続済</string>
+  <string name="notification_inactivity_title">まだこの端末にビットコインが残っています!</string>
+  <string name="notification_inactivity_message">残金を他の場所に移さずにBitcoin Walletアプリをアンインストールした場合、%sの残金は失なわれてしまうことに注意してください。</string>
+  <string name="notification_inactivity_message_donate">もしコインが必要ないのであれば、Bitcoin Walletプロジェクトに寄付するという選択肢もあります。</string>
+  <string name="notification_inactivity_action_dismiss">後で再び通知する</string>
+  <string name="notification_inactivity_action_dismiss_forever">後で通知しない</string>
   <!--generic buttons-->
   <string name="button_ok">OK</string>
   <string name="button_dismiss">閉じる</string>
