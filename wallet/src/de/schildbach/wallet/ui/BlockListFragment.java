@@ -82,7 +82,7 @@ public final class BlockListFragment extends Fragment implements BlockListAdapte
 	private static final int ID_BLOCK_LOADER = 0;
 	private static final int ID_TRANSACTION_LOADER = 1;
 
-	private static final int MAX_BLOCKS = 32;
+	private static final int MAX_BLOCKS = 64;
 
 	private static final Logger log = LoggerFactory.getLogger(BlockListFragment.class);
 
