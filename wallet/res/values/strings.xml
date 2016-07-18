@@ -166,6 +166,8 @@
 	<string name="network_monitor_activity_title">Network monitor</string>
 	<string name="network_monitor_peer_list_title">Peers</string>
 	<string name="network_monitor_block_list_title">Blocks</string>
+	<string name="block_row_mining_difficulty_adjustment">Mining difficulty adjustment</string>
+	<string name="block_row_mining_reward_adjustment">Mining reward halving</string>
 	<string name="block_row_now">just now</string>
 	<string name="peer_list_fragment_empty">No peers connected</string>
 	<string name="peer_list_row_ping_time">⇆ %d&#x2009;ms</string>
