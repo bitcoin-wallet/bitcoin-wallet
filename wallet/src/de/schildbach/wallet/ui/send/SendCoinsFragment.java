@@ -1501,6 +1501,13 @@ public final class SendCoinsFragment extends Fragment
 	private void initStateFromIntentExtras(final Bundle extras)
 	{
 		final PaymentIntent paymentIntent = extras.getParcelable(SendCoinsActivity.INTENT_EXTRA_PAYMENT_INTENT);
+		final FeeCategory feeCategory = (FeeCategory) extras.getSerializable(SendCoinsActivity.INTENT_EXTRA_FEE_CATEGORY);
+
+		if (feeCategory != null)
+		{
+			log.info("got fee category {}", feeCategory);
+			this.feeCategory = feeCategory;
+		}
 
 		updateStateFrom(paymentIntent);
 	}

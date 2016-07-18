@@ -205,7 +205,7 @@ public final class WalletBalanceFragment extends Fragment
 
 	private void handleDonate()
 	{
-		SendCoinsActivity.startDonate(activity, null, 0);
+		SendCoinsActivity.startDonate(activity, null, null, 0);
 	}
 
 	private void updateView()

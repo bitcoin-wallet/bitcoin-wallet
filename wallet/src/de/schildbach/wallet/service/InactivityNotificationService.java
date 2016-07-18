@@ -28,6 +28,7 @@ import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.ui.WalletActivity;
+import de.schildbach.wallet.ui.send.FeeCategory;
 import de.schildbach.wallet.ui.send.SendCoinsActivity;
 import de.schildbach.wallet_test.R;
 
@@ -153,7 +154,7 @@ public final class InactivityNotificationService extends IntentService
 	private void handleDonate()
 	{
 		final Coin balance = wallet.getBalance(BalanceType.AVAILABLE_SPENDABLE);
-		SendCoinsActivity.startDonate(this, balance, Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+		SendCoinsActivity.startDonate(this, balance, FeeCategory.ECONOMIC, Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 		nm.cancel(Constants.NOTIFICATION_ID_INACTIVITY);
 		sendBroadcast(new Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS));
 	}
