@@ -1,3 +1,8 @@
+v4.62
+
+* Message for a delayed confirmation of an incoming payment.
+* Minor bugfixes.
+
 v4.61
 
 * On Android 6.0 (Marshmellow) and above, you can now grant or revoke app permissions at will.
