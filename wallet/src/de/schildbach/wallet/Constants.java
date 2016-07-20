@@ -148,6 +148,8 @@ public final class Constants
 	public static final long LAST_USAGE_THRESHOLD_RECENTLY_MS = 2 * DateUtils.DAY_IN_MILLIS;
 	public static final long LAST_USAGE_THRESHOLD_INACTIVE_MS = 4 * DateUtils.WEEK_IN_MILLIS;
 
+	public static final long DELAYED_TRANSACTION_THRESHOLD_MS = 2 * DateUtils.HOUR_IN_MILLIS;
+
 	public static final int SDK_DEPRECATED_BELOW = Build.VERSION_CODES.ICE_CREAM_SANDWICH;
 
 	public static final boolean BUG_OPENSSL_HEARTBLEED = Build.VERSION.SDK_INT == Build.VERSION_CODES.JELLY_BEAN

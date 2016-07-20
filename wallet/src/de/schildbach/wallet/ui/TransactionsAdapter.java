@@ -628,6 +628,13 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 				messageView.setText(R.string.transaction_row_message_received_dust);
 				messageView.setTextColor(colorInsignificant);
 			}
+			else if (!txCache.sent && confidenceType == ConfidenceType.PENDING && (tx.getUpdateTime() == null
+					|| wallet.getLastBlockSeenTimeSecs() * 1000 - tx.getUpdateTime().getTime() > Constants.DELAYED_TRANSACTION_THRESHOLD_MS))
+			{
+				extendMessageView.setVisibility(View.VISIBLE);
+				messageView.setText(R.string.transaction_row_message_received_unconfirmed_delayed);
+				messageView.setTextColor(colorInsignificant);
+			}
 			else if (!txCache.sent && confidenceType == ConfidenceType.PENDING)
 			{
 				extendMessageView.setVisibility(View.VISIBLE);
