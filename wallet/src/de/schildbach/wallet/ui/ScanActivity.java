@@ -34,6 +34,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Rect;
+import android.graphics.RectF;
 import android.graphics.SurfaceTexture;
 import android.hardware.Camera;
 import android.hardware.Camera.PreviewCallback;
@@ -250,7 +251,8 @@ public final class ScanActivity extends Activity implements SurfaceTextureListen
 				final Camera camera = cameraManager.open(previewView, !DISABLE_CONTINUOUS_AUTOFOCUS);
 
 				final Rect framingRect = cameraManager.getFrame();
-				final Rect framingRectInPreview = cameraManager.getFramePreview();
+				final RectF framingRectInPreview = new RectF(cameraManager.getFramePreview());
+				framingRectInPreview.offsetTo(0, 0);
 
 				runOnUiThread(new Runnable()
 				{

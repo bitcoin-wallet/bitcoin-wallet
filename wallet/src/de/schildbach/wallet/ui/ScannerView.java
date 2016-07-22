@@ -25,9 +25,12 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Matrix;
+import android.graphics.Matrix.ScaleToFit;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
 import android.graphics.Rect;
+import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -51,8 +54,9 @@ public class ScannerView extends View
 	private final int maskColor;
 	private final int resultColor;
 	private final int dotColor, dotResultColor;
-	private final Map<ResultPoint, Long> dots = new HashMap<ResultPoint, Long>(16);
-	private Rect frame, framePreview;
+	private final Map<float[], Long> dots = new HashMap<float[], Long>(16);
+	private Rect frame;
+	private final Matrix matrix = new Matrix();
 
 	public ScannerView(final Context context, final AttributeSet attrs)
 	{
@@ -80,10 +84,10 @@ public class ScannerView extends View
 		dotPaint.setAntiAlias(true);
 	}
 
-	public void setFraming(final Rect frame, final Rect framePreview)
+	public void setFraming(final Rect frame, final RectF framePreview)
 	{
 		this.frame = frame;
-		this.framePreview = framePreview;
+		matrix.setRectToRect(framePreview, new RectF(frame), ScaleToFit.FILL);
 
 		invalidate();
 	}
@@ -97,7 +101,7 @@ public class ScannerView extends View
 
 	public void addDot(final ResultPoint dot)
 	{
-		dots.put(dot, System.currentTimeMillis());
+		dots.put(new float[] { dot.getX(), dot.getY() }, System.currentTimeMillis());
 
 		invalidate();
 	}
@@ -112,6 +116,8 @@ public class ScannerView extends View
 
 		final int width = canvas.getWidth();
 		final int height = canvas.getHeight();
+
+		final float[] point = new float[2];
 
 		// draw mask darkened
 		maskPaint.setColor(resultBitmap != null ? resultColor : maskColor);
@@ -139,21 +145,16 @@ public class ScannerView extends View
 		canvas.drawRect(frame, laserPaint);
 
 		// draw points
-		final int frameLeft = frame.left;
-		final int frameTop = frame.top;
-		final float scaleX = frame.width() / (float) framePreview.width();
-		final float scaleY = frame.height() / (float) framePreview.height();
-
-		for (final Iterator<Map.Entry<ResultPoint, Long>> i = dots.entrySet().iterator(); i.hasNext();)
+		for (final Iterator<Map.Entry<float[], Long>> i = dots.entrySet().iterator(); i.hasNext();)
 		{
-			final Map.Entry<ResultPoint, Long> entry = i.next();
+			final Map.Entry<float[], Long> entry = i.next();
 			final long age = now - entry.getValue();
 			if (age < DOT_TTL_MS)
 			{
 				dotPaint.setAlpha((int) ((DOT_TTL_MS - age) * 256 / DOT_TTL_MS));
 
-				final ResultPoint point = entry.getKey();
-				canvas.drawPoint(frameLeft + (int) (point.getX() * scaleX), frameTop + (int) (point.getY() * scaleY), dotPaint);
+				matrix.mapPoints(point, entry.getKey());
+				canvas.drawPoint(point[0], point[1], dotPaint);
 			}
 			else
 			{

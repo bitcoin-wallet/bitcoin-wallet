@@ -29,6 +29,7 @@ import org.slf4j.LoggerFactory;
 
 import android.annotation.SuppressLint;
 import android.graphics.Rect;
+import android.graphics.RectF;
 import android.hardware.Camera;
 import android.hardware.Camera.CameraInfo;
 import android.hardware.Camera.PreviewCallback;
@@ -50,7 +51,7 @@ public final class CameraManager
 	private Camera camera;
 	private Camera.Size cameraResolution;
 	private Rect frame;
-	private Rect framePreview;
+	private RectF framePreview;
 
 	private static final Logger log = LoggerFactory.getLogger(CameraManager.class);
 
@@ -59,7 +60,7 @@ public final class CameraManager
 		return frame;
 	}
 
-	public Rect getFramePreview()
+	public RectF getFramePreview()
 	{
 		return framePreview;
 	}
@@ -89,7 +90,7 @@ public final class CameraManager
 		final int leftOffset = (width - frameSize) / 2;
 		final int topOffset = (height - frameSize) / 2;
 		frame = new Rect(leftOffset, topOffset, leftOffset + frameSize, topOffset + frameSize);
-		framePreview = new Rect(frame.left * cameraResolution.width / width, frame.top * cameraResolution.height / height,
+		framePreview = new RectF(frame.left * cameraResolution.width / width, frame.top * cameraResolution.height / height,
 				frame.right * cameraResolution.width / width, frame.bottom * cameraResolution.height / height);
 
 		final String savedParameters = parameters == null ? null : parameters.flatten();
@@ -271,8 +272,8 @@ public final class CameraManager
 
 	public PlanarYUVLuminanceSource buildLuminanceSource(final byte[] data)
 	{
-		return new PlanarYUVLuminanceSource(data, cameraResolution.width, cameraResolution.height, framePreview.left, framePreview.top,
-				framePreview.width(), framePreview.height(), false);
+		return new PlanarYUVLuminanceSource(data, cameraResolution.width, cameraResolution.height, (int) framePreview.left, (int) framePreview.top,
+				(int) framePreview.width(), (int) framePreview.height(), false);
 	}
 
 	public void setTorch(final boolean enabled)
