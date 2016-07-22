@@ -66,26 +66,13 @@ public final class CameraManager
 
 	public Camera open(final SurfaceHolder holder, final boolean continuousAutoFocus) throws IOException
 	{
-		// try back-facing camera
-		camera = Camera.open();
+		final int cameraId = determineCameraId();
+		final CameraInfo cameraInfo = new CameraInfo();
+		Camera.getCameraInfo(cameraId, cameraInfo);
 
-		// fall back to using front-facing camera
-		if (camera == null)
-		{
-			final int cameraCount = Camera.getNumberOfCameras();
-			final CameraInfo cameraInfo = new CameraInfo();
-
-			// search for front-facing camera
-			for (int i = 0; i < cameraCount; i++)
-			{
-				Camera.getCameraInfo(i, cameraInfo);
-				if (cameraInfo.facing == Camera.CameraInfo.CAMERA_FACING_FRONT)
-				{
-					camera = Camera.open(i);
-					break;
-				}
-			}
-		}
+		log.info("opening camera id {}: {}-facing, orientation: {}", cameraId, cameraInfo.facing == CameraInfo.CAMERA_FACING_BACK ? "back" : "front",
+				cameraInfo.orientation);
+		camera = Camera.open(cameraId);
 
 		camera.setPreviewDisplay(holder);
 
@@ -141,6 +128,30 @@ public final class CameraManager
 			camera.release();
 			throw x;
 		}
+	}
+
+	private int determineCameraId()
+	{
+		final int cameraCount = Camera.getNumberOfCameras();
+		final CameraInfo cameraInfo = new CameraInfo();
+
+		// prefer back-facing camera
+		for (int i = 0; i < cameraCount; i++)
+		{
+			Camera.getCameraInfo(i, cameraInfo);
+			if (cameraInfo.facing == Camera.CameraInfo.CAMERA_FACING_BACK)
+				return i;
+		}
+
+		// fall back to front-facing camera
+		for (int i = 0; i < cameraCount; i++)
+		{
+			Camera.getCameraInfo(i, cameraInfo);
+			if (cameraInfo.facing == Camera.CameraInfo.CAMERA_FACING_FRONT)
+				return i;
+		}
+
+		return -1;
 	}
 
 	public void close()
