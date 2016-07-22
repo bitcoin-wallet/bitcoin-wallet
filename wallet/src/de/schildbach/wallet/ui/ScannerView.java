@@ -42,7 +42,6 @@ public class ScannerView extends View
 {
 	private static final long LASER_ANIMATION_DELAY_MS = 100l;
 	private static final int DOT_OPACITY = 0xa0;
-	private static final int DOT_SIZE = 8;
 	private static final int DOT_TTL_MS = 500;
 
 	private final Paint maskPaint;
@@ -51,6 +50,7 @@ public class ScannerView extends View
 	private Bitmap resultBitmap;
 	private final int maskColor;
 	private final int resultColor;
+	private final int dotColor, dotResultColor;
 	private final Map<ResultPoint, Long> dots = new HashMap<ResultPoint, Long>(16);
 	private Rect frame, framePreview;
 
@@ -62,21 +62,21 @@ public class ScannerView extends View
 		maskColor = res.getColor(R.color.scan_mask);
 		resultColor = res.getColor(R.color.scan_result_view);
 		final int laserColor = res.getColor(R.color.scan_laser);
-		final int dotColor = res.getColor(R.color.scan_dot);
+		dotColor = res.getColor(R.color.scan_dot);
+		dotResultColor = res.getColor(R.color.scan_result_dots);
 
 		maskPaint = new Paint();
 		maskPaint.setStyle(Style.FILL);
 
 		laserPaint = new Paint();
 		laserPaint.setColor(laserColor);
-		laserPaint.setStrokeWidth(DOT_SIZE);
+		laserPaint.setStrokeWidth(res.getDimensionPixelSize(R.dimen.scan_laser_width));
 		laserPaint.setStyle(Style.STROKE);
 
 		dotPaint = new Paint();
-		dotPaint.setColor(dotColor);
 		dotPaint.setAlpha(DOT_OPACITY);
 		dotPaint.setStyle(Style.STROKE);
-		dotPaint.setStrokeWidth(DOT_SIZE);
+		dotPaint.setStrokeWidth(res.getDimension(R.dimen.scan_dot_size));
 		dotPaint.setAntiAlias(true);
 	}
 
@@ -123,39 +123,42 @@ public class ScannerView extends View
 		if (resultBitmap != null)
 		{
 			canvas.drawBitmap(resultBitmap, null, frame, maskPaint);
+			dotPaint.setColor(dotResultColor);
 		}
 		else
 		{
-			// draw red "laser scanner" to show decoding is active
-			final boolean laserPhase = (now / 600) % 2 == 0;
-			laserPaint.setAlpha(laserPhase ? 160 : 255);
-			canvas.drawRect(frame, laserPaint);
-
-			// draw points
-			final int frameLeft = frame.left;
-			final int frameTop = frame.top;
-			final float scaleX = frame.width() / (float) framePreview.width();
-			final float scaleY = frame.height() / (float) framePreview.height();
-
-			for (final Iterator<Map.Entry<ResultPoint, Long>> i = dots.entrySet().iterator(); i.hasNext();)
-			{
-				final Map.Entry<ResultPoint, Long> entry = i.next();
-				final long age = now - entry.getValue();
-				if (age < DOT_TTL_MS)
-				{
-					dotPaint.setAlpha((int) ((DOT_TTL_MS - age) * 256 / DOT_TTL_MS));
-
-					final ResultPoint point = entry.getKey();
-					canvas.drawPoint(frameLeft + (int) (point.getX() * scaleX), frameTop + (int) (point.getY() * scaleY), dotPaint);
-				}
-				else
-				{
-					i.remove();
-				}
-			}
+			dotPaint.setColor(dotColor);
 
 			// schedule redraw
 			postInvalidateDelayed(LASER_ANIMATION_DELAY_MS);
+		}
+
+		// draw red "laser scanner" to show decoding is active
+		final boolean laserPhase = (now / 600) % 2 == 0;
+		laserPaint.setAlpha(laserPhase ? 160 : 255);
+		canvas.drawRect(frame, laserPaint);
+
+		// draw points
+		final int frameLeft = frame.left;
+		final int frameTop = frame.top;
+		final float scaleX = frame.width() / (float) framePreview.width();
+		final float scaleY = frame.height() / (float) framePreview.height();
+
+		for (final Iterator<Map.Entry<ResultPoint, Long>> i = dots.entrySet().iterator(); i.hasNext();)
+		{
+			final Map.Entry<ResultPoint, Long> entry = i.next();
+			final long age = now - entry.getValue();
+			if (age < DOT_TTL_MS)
+			{
+				dotPaint.setAlpha((int) ((DOT_TTL_MS - age) * 256 / DOT_TTL_MS));
+
+				final ResultPoint point = entry.getKey();
+				canvas.drawPoint(frameLeft + (int) (point.getX() * scaleX), frameTop + (int) (point.getY() * scaleY), dotPaint);
+			}
+			else
+			{
+				i.remove();
+			}
 		}
 	}
 }

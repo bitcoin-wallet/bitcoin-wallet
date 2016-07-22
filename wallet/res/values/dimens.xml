@@ -21,5 +21,7 @@
 	<dimen name="wallet_address_qr_size">80dp</dimen>
 	<dimen name="request_coins_qr_size">128dp</dimen>
 	<dimen name="bitmap_dialog_qr_size">224dp</dimen>
+	<dimen name="scan_laser_width">4dp</dimen>
+	<dimen name="scan_dot_size">8dp</dimen>
 
 </resources>

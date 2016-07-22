@@ -33,8 +33,6 @@ import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Paint;
 import android.graphics.Rect;
 import android.hardware.Camera;
 import android.hardware.Camera.PreviewCallback;
@@ -216,23 +214,9 @@ public final class ScanActivity extends Activity implements SurfaceHolder.Callba
 		return super.onKeyDown(keyCode, event);
 	}
 
-	public void handleResult(final Result scanResult, final Bitmap thumbnailImage, final float thumbnailScaleFactor)
+	public void handleResult(final Result scanResult, final Bitmap thumbnailImage)
 	{
 		vibrator.vibrate(VIBRATE_DURATION);
-
-		// superimpose dots to highlight the key features of the qr code
-		final ResultPoint[] points = scanResult.getResultPoints();
-		if (points != null && points.length > 0)
-		{
-			final Paint paint = new Paint();
-			paint.setColor(getResources().getColor(R.color.scan_result_dots));
-			paint.setStrokeWidth(10.0f);
-
-			final Canvas canvas = new Canvas(thumbnailImage);
-			canvas.scale(thumbnailScaleFactor, thumbnailScaleFactor);
-			for (final ResultPoint point : points)
-				canvas.drawPoint(point.getX(), point.getY(), paint);
-		}
 
 		scannerView.drawResultBitmap(thumbnailImage);
 
@@ -377,7 +361,6 @@ public final class ScanActivity extends Activity implements SurfaceHolder.Callba
 
 				final int thumbnailWidth = source.getThumbnailWidth();
 				final int thumbnailHeight = source.getThumbnailHeight();
-				final float thumbnailScaleFactor = (float) thumbnailWidth / source.getWidth();
 
 				final Bitmap thumbnailImage = Bitmap.createBitmap(thumbnailWidth, thumbnailHeight, Bitmap.Config.ARGB_8888);
 				thumbnailImage.setPixels(source.renderThumbnail(), 0, thumbnailWidth, 0, 0, thumbnailWidth, thumbnailHeight);
@@ -387,7 +370,7 @@ public final class ScanActivity extends Activity implements SurfaceHolder.Callba
 					@Override
 					public void run()
 					{
-						handleResult(scanResult, thumbnailImage, thumbnailScaleFactor);
+						handleResult(scanResult, thumbnailImage);
 					}
 				});
 			}
