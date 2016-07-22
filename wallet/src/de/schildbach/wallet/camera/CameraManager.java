@@ -32,7 +32,7 @@ import android.graphics.Rect;
 import android.hardware.Camera;
 import android.hardware.Camera.CameraInfo;
 import android.hardware.Camera.PreviewCallback;
-import android.view.SurfaceHolder;
+import android.view.TextureView;
 
 import com.google.zxing.PlanarYUVLuminanceSource;
 
@@ -64,7 +64,7 @@ public final class CameraManager
 		return framePreview;
 	}
 
-	public Camera open(final SurfaceHolder holder, final boolean continuousAutoFocus) throws IOException
+	public Camera open(final TextureView textureView, final boolean continuousAutoFocus) throws IOException
 	{
 		final int cameraId = determineCameraId();
 		final CameraInfo cameraInfo = new CameraInfo();
@@ -74,24 +74,23 @@ public final class CameraManager
 				cameraInfo.orientation);
 		camera = Camera.open(cameraId);
 
-		camera.setPreviewDisplay(holder);
+		camera.setPreviewTexture(textureView.getSurfaceTexture());
 
 		final Camera.Parameters parameters = camera.getParameters();
 
-		final Rect surfaceFrame = holder.getSurfaceFrame();
-		cameraResolution = findBestPreviewSizeValue(parameters, surfaceFrame);
+		cameraResolution = findBestPreviewSizeValue(parameters, textureView.getWidth(), textureView.getHeight());
 
-		final int surfaceWidth = surfaceFrame.width();
-		final int surfaceHeight = surfaceFrame.height();
+		final int width = textureView.getWidth();
+		final int height = textureView.getHeight();
 
-		final int rawSize = Math.min(surfaceWidth * 2 / 3, surfaceHeight * 2 / 3);
+		final int rawSize = Math.min(width * 2 / 3, height * 2 / 3);
 		final int frameSize = Math.max(MIN_FRAME_SIZE, Math.min(MAX_FRAME_SIZE, rawSize));
 
-		final int leftOffset = (surfaceWidth - frameSize) / 2;
-		final int topOffset = (surfaceHeight - frameSize) / 2;
+		final int leftOffset = (width - frameSize) / 2;
+		final int topOffset = (height - frameSize) / 2;
 		frame = new Rect(leftOffset, topOffset, leftOffset + frameSize, topOffset + frameSize);
-		framePreview = new Rect(frame.left * cameraResolution.width / surfaceWidth, frame.top * cameraResolution.height / surfaceHeight, frame.right
-				* cameraResolution.width / surfaceWidth, frame.bottom * cameraResolution.height / surfaceHeight);
+		framePreview = new Rect(frame.left * cameraResolution.width / width, frame.top * cameraResolution.height / height,
+				frame.right * cameraResolution.width / width, frame.bottom * cameraResolution.height / height);
 
 		final String savedParameters = parameters == null ? null : parameters.flatten();
 
@@ -188,12 +187,16 @@ public final class CameraManager
 		}
 	};
 
-	private static Camera.Size findBestPreviewSizeValue(final Camera.Parameters parameters, Rect surfaceResolution)
+	private static Camera.Size findBestPreviewSizeValue(final Camera.Parameters parameters, int width, int height)
 	{
-		if (surfaceResolution.height() > surfaceResolution.width())
-			surfaceResolution = new Rect(0, 0, surfaceResolution.height(), surfaceResolution.width());
+		if (height > width)
+		{
+			final int temp = width;
+			width = height;
+			height = temp;
+		}
 
-		final float screenAspectRatio = (float) surfaceResolution.width() / (float) surfaceResolution.height();
+		final float screenAspectRatio = (float) width / (float) height;
 
 		final List<Camera.Size> rawSupportedSizes = parameters.getSupportedPreviewSizes();
 		if (rawSupportedSizes == null)
@@ -217,7 +220,7 @@ public final class CameraManager
 			final boolean isCandidatePortrait = realWidth < realHeight;
 			final int maybeFlippedWidth = isCandidatePortrait ? realHeight : realWidth;
 			final int maybeFlippedHeight = isCandidatePortrait ? realWidth : realHeight;
-			if (maybeFlippedWidth == surfaceResolution.width() && maybeFlippedHeight == surfaceResolution.height())
+			if (maybeFlippedWidth == width && maybeFlippedHeight == height)
 				return supportedPreviewSize;
 
 			final float aspectRatio = (float) maybeFlippedWidth / (float) maybeFlippedHeight;

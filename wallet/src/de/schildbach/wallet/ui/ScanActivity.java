@@ -34,6 +34,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Rect;
+import android.graphics.SurfaceTexture;
 import android.hardware.Camera;
 import android.hardware.Camera.PreviewCallback;
 import android.os.Build;
@@ -45,9 +46,9 @@ import android.os.Vibrator;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.view.KeyEvent;
-import android.view.SurfaceHolder;
-import android.view.SurfaceView;
+import android.view.TextureView;
 import android.view.WindowManager;
+import android.view.TextureView.SurfaceTextureListener;
 
 import com.google.zxing.BinaryBitmap;
 import com.google.zxing.DecodeHintType;
@@ -66,7 +67,7 @@ import de.schildbach.wallet_test.R;
  * @author Andreas Schildbach
  */
 @SuppressWarnings("deprecation")
-public final class ScanActivity extends Activity implements SurfaceHolder.Callback, ActivityCompat.OnRequestPermissionsResultCallback
+public final class ScanActivity extends Activity implements SurfaceTextureListener, ActivityCompat.OnRequestPermissionsResultCallback
 {
 	public static final String INTENT_EXTRA_RESULT = "result";
 
@@ -75,8 +76,7 @@ public final class ScanActivity extends Activity implements SurfaceHolder.Callba
 
 	private final CameraManager cameraManager = new CameraManager();
 	private ScannerView scannerView;
-	private SurfaceView surfaceView;
-	private SurfaceHolder surfaceHolder;
+	private TextureView previewView;
 	private volatile boolean surfaceCreated = false;
 
 	private Vibrator vibrator;
@@ -101,9 +101,8 @@ public final class ScanActivity extends Activity implements SurfaceHolder.Callba
 
 		setContentView(R.layout.scan_activity);
 		scannerView = (ScannerView) findViewById(R.id.scan_activity_mask);
-		surfaceView = (SurfaceView) findViewById(R.id.scan_activity_preview);
-		surfaceHolder = surfaceView.getHolder();
-		surfaceHolder.addCallback(this);
+		previewView = (TextureView) findViewById(R.id.scan_activity_preview);
+		previewView.setSurfaceTextureListener(this);
 
 		cameraThread = new HandlerThread("cameraThread", Process.THREAD_PRIORITY_BACKGROUND);
 		cameraThread.start();
@@ -136,7 +135,7 @@ public final class ScanActivity extends Activity implements SurfaceHolder.Callba
 		cameraHandler.removeCallbacksAndMessages(null);
 		cameraThread.quit();
 
-		surfaceHolder.removeCallback(this);
+		previewView.setSurfaceTextureListener(null);
 
 		super.onDestroy();
 	}
@@ -159,20 +158,26 @@ public final class ScanActivity extends Activity implements SurfaceHolder.Callba
 	}
 
 	@Override
-	public void surfaceCreated(final SurfaceHolder holder)
+	public void onSurfaceTextureAvailable(final SurfaceTexture surface, final int width, final int height)
 	{
 		surfaceCreated = true;
 		maybeOpenCamera();
 	}
 
 	@Override
-	public void surfaceDestroyed(final SurfaceHolder holder)
+	public boolean onSurfaceTextureDestroyed(final SurfaceTexture surface)
 	{
 		surfaceCreated = false;
+		return true;
 	}
 
 	@Override
-	public void surfaceChanged(final SurfaceHolder holder, final int format, final int width, final int height)
+	public void onSurfaceTextureSizeChanged(final SurfaceTexture surface, final int width, final int height)
+	{
+	}
+
+	@Override
+	public void onSurfaceTextureUpdated(final SurfaceTexture surface)
 	{
 	}
 
@@ -242,7 +247,7 @@ public final class ScanActivity extends Activity implements SurfaceHolder.Callba
 		{
 			try
 			{
-				final Camera camera = cameraManager.open(surfaceHolder, !DISABLE_CONTINUOUS_AUTOFOCUS);
+				final Camera camera = cameraManager.open(previewView, !DISABLE_CONTINUOUS_AUTOFOCUS);
 
 				final Rect framingRect = cameraManager.getFrame();
 				final Rect framingRectInPreview = cameraManager.getFramePreview();
