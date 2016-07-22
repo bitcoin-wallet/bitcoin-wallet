@@ -252,13 +252,14 @@ public final class ScanActivity extends Activity implements SurfaceTextureListen
 				final Rect framingRect = cameraManager.getFrame();
 				final RectF framingRectInPreview = new RectF(cameraManager.getFramePreview());
 				framingRectInPreview.offsetTo(0, 0);
+				final int orientation = cameraManager.getOrientation();
 
 				runOnUiThread(new Runnable()
 				{
 					@Override
 					public void run()
 					{
-						scannerView.setFraming(framingRect, framingRectInPreview);
+						scannerView.setFraming(framingRect, framingRectInPreview, orientation == 90);
 					}
 				});
 

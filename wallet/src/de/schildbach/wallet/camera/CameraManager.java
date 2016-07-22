@@ -49,6 +49,7 @@ public final class CameraManager
 	private static final int MAX_PREVIEW_PIXELS = 1280 * 720;
 
 	private Camera camera;
+	private CameraInfo cameraInfo = new CameraInfo();
 	private Camera.Size cameraResolution;
 	private Rect frame;
 	private RectF framePreview;
@@ -65,15 +66,26 @@ public final class CameraManager
 		return framePreview;
 	}
 
+	public int getOrientation()
+	{
+		return cameraInfo.orientation;
+	}
+
 	public Camera open(final TextureView textureView, final boolean continuousAutoFocus) throws IOException
 	{
 		final int cameraId = determineCameraId();
-		final CameraInfo cameraInfo = new CameraInfo();
 		Camera.getCameraInfo(cameraId, cameraInfo);
 
 		log.info("opening camera id {}: {}-facing, orientation: {}", cameraId, cameraInfo.facing == CameraInfo.CAMERA_FACING_BACK ? "back" : "front",
 				cameraInfo.orientation);
 		camera = Camera.open(cameraId);
+
+		if (cameraInfo.facing == Camera.CameraInfo.CAMERA_FACING_FRONT)
+			camera.setDisplayOrientation((360 + 270 - cameraInfo.orientation) % 360); // compensate the mirror
+		else if (cameraInfo.facing == Camera.CameraInfo.CAMERA_FACING_BACK)
+			camera.setDisplayOrientation((360 + 270 + cameraInfo.orientation) % 360);
+		else
+			throw new IllegalStateException("facing: " + cameraInfo.facing);
 
 		camera.setPreviewTexture(textureView.getSurfaceTexture());
 

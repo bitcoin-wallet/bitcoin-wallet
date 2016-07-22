@@ -82,10 +82,11 @@ public class ScannerView extends View
 		dotPaint.setAntiAlias(true);
 	}
 
-	public void setFraming(final Rect frame, final RectF framePreview)
+	public void setFraming(final Rect frame, final RectF framePreview, final boolean rotate180)
 	{
 		this.frame = frame;
 		matrix.setRectToRect(framePreview, new RectF(frame), ScaleToFit.FILL);
+		matrix.postScale(rotate180 ? 1 : -1, rotate180 ? 1 : -1, frame.exactCenterX(), frame.exactCenterY());
 
 		invalidate();
 	}
