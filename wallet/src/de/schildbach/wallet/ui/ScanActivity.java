@@ -32,7 +32,6 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.SurfaceTexture;
@@ -220,11 +219,11 @@ public final class ScanActivity extends Activity implements SurfaceTextureListen
 		return super.onKeyDown(keyCode, event);
 	}
 
-	public void handleResult(final Result scanResult, final Bitmap thumbnailImage)
+	public void handleResult(final Result scanResult)
 	{
 		vibrator.vibrate(VIBRATE_DURATION);
 
-		scannerView.drawResultBitmap(thumbnailImage);
+		scannerView.setIsResult(true);
 
 		final Intent result = new Intent();
 		result.putExtra(INTENT_EXTRA_RESULT, scanResult.getText());
@@ -366,18 +365,12 @@ public final class ScanActivity extends Activity implements SurfaceTextureListen
 				});
 				final Result scanResult = reader.decode(bitmap, hints);
 
-				final int thumbnailWidth = source.getThumbnailWidth();
-				final int thumbnailHeight = source.getThumbnailHeight();
-
-				final Bitmap thumbnailImage = Bitmap.createBitmap(thumbnailWidth, thumbnailHeight, Bitmap.Config.ARGB_8888);
-				thumbnailImage.setPixels(source.renderThumbnail(), 0, thumbnailWidth, 0, 0, thumbnailWidth, thumbnailHeight);
-
 				runOnUiThread(new Runnable()
 				{
 					@Override
 					public void run()
 					{
-						handleResult(scanResult, thumbnailImage);
+						handleResult(scanResult);
 					}
 				});
 			}

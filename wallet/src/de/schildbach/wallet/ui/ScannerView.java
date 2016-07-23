@@ -23,7 +23,6 @@ import java.util.Map;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Matrix.ScaleToFit;
@@ -50,9 +49,9 @@ public class ScannerView extends View
 	private final Paint maskPaint;
 	private final Paint laserPaint;
 	private final Paint dotPaint;
-	private Bitmap resultBitmap;
-	private final int maskColor;
-	private final int resultColor;
+	private boolean isResult;
+	private final int maskColor, maskResultColor;
+	private final int laserColor;
 	private final int dotColor, dotResultColor;
 	private final Map<float[], Long> dots = new HashMap<float[], Long>(16);
 	private Rect frame;
@@ -64,8 +63,8 @@ public class ScannerView extends View
 
 		final Resources res = getResources();
 		maskColor = res.getColor(R.color.scan_mask);
-		resultColor = res.getColor(R.color.scan_result_view);
-		final int laserColor = res.getColor(R.color.scan_laser);
+		maskResultColor = res.getColor(R.color.scan_result_view);
+		laserColor = res.getColor(R.color.scan_laser);
 		dotColor = res.getColor(R.color.scan_dot);
 		dotResultColor = res.getColor(R.color.scan_result_dots);
 
@@ -73,7 +72,6 @@ public class ScannerView extends View
 		maskPaint.setStyle(Style.FILL);
 
 		laserPaint = new Paint();
-		laserPaint.setColor(laserColor);
 		laserPaint.setStrokeWidth(res.getDimensionPixelSize(R.dimen.scan_laser_width));
 		laserPaint.setStyle(Style.STROKE);
 
@@ -92,9 +90,9 @@ public class ScannerView extends View
 		invalidate();
 	}
 
-	public void drawResultBitmap(final Bitmap bitmap)
+	public void setIsResult(final boolean isResult)
 	{
-		resultBitmap = bitmap;
+		this.isResult = isResult;
 
 		invalidate();
 	}
@@ -120,28 +118,31 @@ public class ScannerView extends View
 		final float[] point = new float[2];
 
 		// draw mask darkened
-		maskPaint.setColor(resultBitmap != null ? resultColor : maskColor);
+		maskPaint.setColor(isResult ? maskResultColor : maskColor);
 		canvas.drawRect(0, 0, width, frame.top, maskPaint);
 		canvas.drawRect(0, frame.top, frame.left, frame.bottom + 1, maskPaint);
 		canvas.drawRect(frame.right + 1, frame.top, width, frame.bottom + 1, maskPaint);
 		canvas.drawRect(0, frame.bottom + 1, width, height, maskPaint);
 
-		if (resultBitmap != null)
+		if (isResult)
 		{
-			canvas.drawBitmap(resultBitmap, null, frame, maskPaint);
+			laserPaint.setColor(dotResultColor);
+			laserPaint.setAlpha(160);
+
 			dotPaint.setColor(dotResultColor);
 		}
 		else
 		{
+			laserPaint.setColor(laserColor);
+			final boolean laserPhase = (now / 600) % 2 == 0;
+			laserPaint.setAlpha(laserPhase ? 160 : 255);
+
 			dotPaint.setColor(dotColor);
 
 			// schedule redraw
 			postInvalidateDelayed(LASER_ANIMATION_DELAY_MS);
 		}
 
-		// draw red "laser scanner" to show decoding is active
-		final boolean laserPhase = (now / 600) % 2 == 0;
-		laserPaint.setAlpha(laserPhase ? 160 : 255);
 		canvas.drawRect(frame, laserPaint);
 
 		// draw points
