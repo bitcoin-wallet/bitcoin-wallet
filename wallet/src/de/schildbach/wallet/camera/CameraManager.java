@@ -66,6 +66,11 @@ public final class CameraManager
 		return framePreview;
 	}
 
+	public int getFacing()
+	{
+		return cameraInfo.facing;
+	}
+
 	public int getOrientation()
 	{
 		return cameraInfo.orientation;
@@ -285,7 +290,7 @@ public final class CameraManager
 	public PlanarYUVLuminanceSource buildLuminanceSource(final byte[] data)
 	{
 		return new PlanarYUVLuminanceSource(data, cameraResolution.width, cameraResolution.height, (int) framePreview.left, (int) framePreview.top,
-				(int) framePreview.width(), (int) framePreview.height(), false);
+				(int) framePreview.width(), (int) framePreview.height(), cameraInfo.facing == CameraInfo.CAMERA_FACING_FRONT);
 	}
 
 	public void setTorch(final boolean enabled)

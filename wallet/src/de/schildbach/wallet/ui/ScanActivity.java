@@ -36,6 +36,7 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.SurfaceTexture;
 import android.hardware.Camera;
+import android.hardware.Camera.CameraInfo;
 import android.hardware.Camera.PreviewCallback;
 import android.os.Build;
 import android.os.Bundle;
@@ -252,6 +253,7 @@ public final class ScanActivity extends Activity implements SurfaceTextureListen
 				final Rect framingRect = cameraManager.getFrame();
 				final RectF framingRectInPreview = new RectF(cameraManager.getFramePreview());
 				framingRectInPreview.offsetTo(0, 0);
+				final int facing = cameraManager.getFacing();
 				final int orientation = cameraManager.getOrientation();
 
 				runOnUiThread(new Runnable()
@@ -259,7 +261,7 @@ public final class ScanActivity extends Activity implements SurfaceTextureListen
 					@Override
 					public void run()
 					{
-						scannerView.setFraming(framingRect, framingRectInPreview, orientation == 90);
+						scannerView.setFraming(framingRect, framingRectInPreview, orientation == 90 ^ facing == CameraInfo.CAMERA_FACING_FRONT);
 					}
 				});
 
