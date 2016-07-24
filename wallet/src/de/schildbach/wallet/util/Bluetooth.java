@@ -37,8 +37,6 @@ public class Bluetooth
 	public static final String CLASSIC_PAYMENT_PROTOCOL_NAME = "Bitcoin classic payment protocol (deprecated)";
 	/** This URI parameter holds the MAC address for the deprecated pre-BIP70 payment protocol. */
 	public static final String MAC_URI_PARAM = "bt";
-	/** Early Android 4 versions cannot reliably enable listening. */
-	private static boolean ENABLE_BLUETOOTH_LISTENING = Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2;
 	/** Android 6 uses this MAC address instead of the real one. */
 	private static final String MARSHMELLOW_FAKE_MAC = "02:00:00:00:00:00";
 
@@ -46,9 +44,11 @@ public class Bluetooth
 	{
 		if (adapter == null)
 			return false;
+		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR2) // earlier versions cannot reliably listen
+			return false;
 		if (MARSHMELLOW_FAKE_MAC.equals(adapter.getAddress()))
 			return false;
-		return ENABLE_BLUETOOTH_LISTENING;
+		return true;
 	}
 
 	public static String compressMac(final String mac)
