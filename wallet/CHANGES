@@ -1,3 +1,7 @@
+v4.64
+
+* Quick-fix regression: ANR coming from the QR code scanner back into the 'send coins' dialog.
+
 v4.63
 
 * Fix rotated camera image on some devices.
