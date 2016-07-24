@@ -76,19 +76,19 @@ public final class CameraManager
 		return cameraInfo.orientation;
 	}
 
-	public Camera open(final TextureView textureView, final boolean continuousAutoFocus) throws IOException
+	public Camera open(final TextureView textureView, final int displayOrientation, final boolean continuousAutoFocus) throws IOException
 	{
 		final int cameraId = determineCameraId();
 		Camera.getCameraInfo(cameraId, cameraInfo);
 
-		log.info("opening camera id {}: {}-facing, orientation: {}", cameraId, cameraInfo.facing == CameraInfo.CAMERA_FACING_BACK ? "back" : "front",
-				cameraInfo.orientation);
+		log.info("opening camera id {}: {}-facing, camera orientation: {}, display orientation: {}", cameraId,
+				cameraInfo.facing == CameraInfo.CAMERA_FACING_BACK ? "back" : "front", cameraInfo.orientation, displayOrientation);
 		camera = Camera.open(cameraId);
 
 		if (cameraInfo.facing == Camera.CameraInfo.CAMERA_FACING_FRONT)
-			camera.setDisplayOrientation((360 + 270 - cameraInfo.orientation) % 360); // compensate the mirror
+			camera.setDisplayOrientation((720 - displayOrientation - cameraInfo.orientation) % 360);
 		else if (cameraInfo.facing == Camera.CameraInfo.CAMERA_FACING_BACK)
-			camera.setDisplayOrientation((360 + 270 + cameraInfo.orientation) % 360);
+			camera.setDisplayOrientation((720 - displayOrientation + cameraInfo.orientation) % 360);
 		else
 			throw new IllegalStateException("facing: " + cameraInfo.facing);
 
@@ -290,7 +290,7 @@ public final class CameraManager
 	public PlanarYUVLuminanceSource buildLuminanceSource(final byte[] data)
 	{
 		return new PlanarYUVLuminanceSource(data, cameraResolution.width, cameraResolution.height, (int) framePreview.left, (int) framePreview.top,
-				(int) framePreview.width(), (int) framePreview.height(), cameraInfo.facing == CameraInfo.CAMERA_FACING_FRONT);
+				(int) framePreview.width(), (int) framePreview.height(), false);
 	}
 
 	public void setTorch(final boolean enabled)

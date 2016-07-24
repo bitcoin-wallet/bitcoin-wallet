@@ -47,6 +47,7 @@ import android.os.Vibrator;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.view.KeyEvent;
+import android.view.Surface;
 import android.view.TextureView;
 import android.view.WindowManager;
 import android.view.TextureView.SurfaceTextureListener;
@@ -248,20 +249,20 @@ public final class ScanActivity extends Activity implements SurfaceTextureListen
 		{
 			try
 			{
-				final Camera camera = cameraManager.open(previewView, !DISABLE_CONTINUOUS_AUTOFOCUS);
+				final Camera camera = cameraManager.open(previewView, displayRotation(), !DISABLE_CONTINUOUS_AUTOFOCUS);
 
 				final Rect framingRect = cameraManager.getFrame();
 				final RectF framingRectInPreview = new RectF(cameraManager.getFramePreview());
 				framingRectInPreview.offsetTo(0, 0);
-				final int facing = cameraManager.getFacing();
-				final int orientation = cameraManager.getOrientation();
+				final boolean cameraFlip = cameraManager.getFacing() == CameraInfo.CAMERA_FACING_FRONT;
+				final int cameraRotation = cameraManager.getOrientation();
 
 				runOnUiThread(new Runnable()
 				{
 					@Override
 					public void run()
 					{
-						scannerView.setFraming(framingRect, framingRectInPreview, orientation == 90 ^ facing == CameraInfo.CAMERA_FACING_FRONT);
+						scannerView.setFraming(framingRect, framingRectInPreview, displayRotation(), cameraRotation, cameraFlip);
 					}
 				});
 
@@ -289,6 +290,21 @@ public final class ScanActivity extends Activity implements SurfaceTextureListen
 					}
 				});
 			}
+		}
+
+		private int displayRotation()
+		{
+			final int rotation = getWindowManager().getDefaultDisplay().getRotation();
+			if (rotation == Surface.ROTATION_0)
+				return 0;
+			else if (rotation == Surface.ROTATION_90)
+				return 90;
+			else if (rotation == Surface.ROTATION_180)
+				return 180;
+			else if (rotation == Surface.ROTATION_270)
+				return 270;
+			else
+				throw new IllegalStateException("rotation: " + rotation);
 		}
 	};
 
