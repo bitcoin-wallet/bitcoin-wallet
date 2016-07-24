@@ -1,3 +1,7 @@
+v4.63
+
+* Fix rotated camera image on some devices.
+
 v4.62
 
 * Message for a delayed confirmation of an incoming payment.
