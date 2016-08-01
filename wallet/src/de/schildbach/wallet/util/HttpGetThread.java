@@ -18,21 +18,14 @@
 package de.schildbach.wallet.util;
 
 import java.io.BufferedReader;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.security.KeyStore;
 
 import javax.annotation.Nullable;
-import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.TrustManagerFactory;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import android.content.res.AssetManager;
 
 import com.google.common.base.Charsets;
 
@@ -43,16 +36,14 @@ import de.schildbach.wallet.Constants;
  */
 public abstract class HttpGetThread extends Thread
 {
-	private final AssetManager assets;
 	private final String url;
 	@Nullable
 	private final String userAgent;
 
 	private static final Logger log = LoggerFactory.getLogger(HttpGetThread.class);
 
-	public HttpGetThread(final AssetManager assets, final String url, @Nullable final String userAgent)
+	public HttpGetThread(final String url, @Nullable final String userAgent)
 	{
-		this.assets = assets;
 		this.url = url;
 		this.userAgent = userAgent;
 	}
@@ -67,24 +58,6 @@ public abstract class HttpGetThread extends Thread
 		try
 		{
 			connection = (HttpURLConnection) new URL(url).openConnection();
-
-			if (connection instanceof HttpsURLConnection)
-			{
-				final InputStream keystoreInputStream = assets.open("ssl-keystore");
-
-				final KeyStore keystore = KeyStore.getInstance("BKS");
-				keystore.load(keystoreInputStream, "password".toCharArray());
-				keystoreInputStream.close();
-
-				final TrustManagerFactory tmf = TrustManagerFactory.getInstance("X509");
-				tmf.init(keystore);
-
-				final SSLContext sslContext = SSLContext.getInstance("TLS");
-				sslContext.init(null, tmf.getTrustManagers(), null);
-
-				((HttpsURLConnection) connection).setSSLSocketFactory(sslContext.getSocketFactory());
-			}
-
 			connection.setInstanceFollowRedirects(false);
 			connection.setConnectTimeout(Constants.HTTP_TIMEOUT_MS);
 			connection.setReadTimeout(Constants.HTTP_TIMEOUT_MS);
