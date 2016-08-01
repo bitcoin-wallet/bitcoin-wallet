@@ -1,3 +1,7 @@
+v4.65
+
+* Fix for layout in landscape orientation.
+
 v4.64
 
 * Quick-fix regression: ANR coming from the QR code scanner back into the 'send coins' dialog.
