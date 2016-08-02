@@ -325,6 +325,8 @@
 	<string name="notification_inactivity_action_dismiss">Später erinnern</string>
 	<string name="notification_inactivity_action_dismiss_forever">Nicht erinnern</string>
 
+	<string name="appwidget_wallet_balance_title">Bitcoin-Guthaben</string>
+
 	<!-- generic buttons -->
 	<string name="button_ok">Ok</string>
 	<string name="button_dismiss">Schließen</string>

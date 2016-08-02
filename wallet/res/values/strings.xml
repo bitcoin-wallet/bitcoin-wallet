@@ -303,6 +303,8 @@
 	<string name="notification_inactivity_action_dismiss">Remind me later</string>
 	<string name="notification_inactivity_action_dismiss_forever">Don\'t remind me</string>
 
+	<string name="appwidget_wallet_balance_title">Bitcoin balance</string>
+
 	<!-- generic buttons -->
 	<string name="button_ok">OK</string>
 	<string name="button_dismiss">Dismiss</string>
