@@ -14,7 +14,7 @@
 		android:layout_height="match_parent"
 		android:layout_marginLeft="12dp"
 		android:contentDescription="@string/app_name"
-		android:src="@drawable/ic_app_color_48dp"
+		android:src="@mipmap/ic_app_color_48dp"
 		android:visibility="gone" />
 
 	<LinearLayout
