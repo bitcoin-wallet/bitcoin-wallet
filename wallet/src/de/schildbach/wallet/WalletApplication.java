@@ -85,6 +85,8 @@ public class WalletApplication extends Application
 
 	public static final int VERSION_CODE_SHOW_BACKUP_REMINDER = 205;
 
+	public static final long TIME_CREATE_APPLICATION = System.currentTimeMillis();
+
 	private static final Logger log = LoggerFactory.getLogger(WalletApplication.class);
 
 	@Override

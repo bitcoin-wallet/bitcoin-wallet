@@ -63,8 +63,6 @@ public class CrashReporter
 	private static final String BACKGROUND_TRACES_FILENAME = "background.trace";
 	private static final String CRASH_TRACE_FILENAME = "crash.trace";
 
-	private static final long TIME_CREATE_APPLICATION = System.currentTimeMillis();
-
 	private static File backgroundTracesFile;
 	private static File crashTraceFile;
 
@@ -228,7 +226,7 @@ public class CrashReporter
 		report.append("Timezone: " + TimeZone.getDefault().getID() + "\n");
 		calendar.setTimeInMillis(System.currentTimeMillis());
 		report.append("Time: " + String.format(Locale.US, "%tF %tT %tZ", calendar, calendar, calendar) + "\n");
-		calendar.setTimeInMillis(TIME_CREATE_APPLICATION);
+		calendar.setTimeInMillis(WalletApplication.TIME_CREATE_APPLICATION);
 		report.append("Time of launch: " + String.format(Locale.US, "%tF %tT %tZ", calendar, calendar, calendar) + "\n");
 		calendar.setTimeInMillis(pi.lastUpdateTime);
 		report.append("Time of last update: " + String.format(Locale.US, "%tF %tT %tZ", calendar, calendar, calendar) + "\n");
