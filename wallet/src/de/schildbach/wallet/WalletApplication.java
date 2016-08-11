@@ -166,7 +166,7 @@ public class WalletApplication extends Application
 
 		final PatternLayoutEncoder filePattern = new PatternLayoutEncoder();
 		filePattern.setContext(context);
-		filePattern.setPattern("%d{HH:mm:ss.SSS,UTC} [%thread] %logger{0} - %msg%n");
+		filePattern.setPattern("%d{HH:mm:ss,UTC} [%thread] %logger{0} - %msg%n");
 		filePattern.start();
 
 		final RollingFileAppender<ILoggingEvent> fileAppender = new RollingFileAppender<ILoggingEvent>();
