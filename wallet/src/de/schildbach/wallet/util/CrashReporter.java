@@ -225,6 +225,7 @@ public class CrashReporter
 		report.append("Version: " + pi.versionName + " (" + pi.versionCode + ")\n");
 		report.append("Package: " + pi.packageName + "\n");
 		report.append("Test/Prod: " + (Constants.TEST ? "test" : "prod") + "\n");
+		report.append("Timezone: " + TimeZone.getDefault().getID() + "\n");
 		calendar.setTimeInMillis(System.currentTimeMillis());
 		report.append("Time: " + String.format(Locale.US, "%tF %tT %tZ", calendar, calendar, calendar) + "\n");
 		calendar.setTimeInMillis(TIME_CREATE_APPLICATION);
