@@ -25,12 +25,15 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Formatter;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
+import java.util.TimeZone;
 
 import org.bitcoinj.core.Transaction;
 import org.bitcoinj.core.TransactionOutput;
@@ -64,6 +67,8 @@ public class CrashReporter
 
 	private static File backgroundTracesFile;
 	private static File crashTraceFile;
+
+	private static final TimeZone UTC = TimeZone.getTimeZone("UTC");
 
 	private static final Logger log = LoggerFactory.getLogger(CrashReporter.class);
 
@@ -215,21 +220,23 @@ public class CrashReporter
 	{
 		final PackageInfo pi = application.packageInfo();
 		final Configuration configuration = application.getConfiguration();
-		final long now = System.currentTimeMillis();
+		final Calendar calendar = new GregorianCalendar(UTC);
 
 		report.append("Version: " + pi.versionName + " (" + pi.versionCode + ")\n");
 		report.append("Package: " + pi.packageName + "\n");
 		report.append("Test/Prod: " + (Constants.TEST ? "test" : "prod") + "\n");
-		report.append("Time: " + String.format(Locale.US, "%tF %tT %tz", now, now, now) + "\n");
-		report.append("Time of launch: "
-				+ String.format(Locale.US, "%tF %tT %tz", TIME_CREATE_APPLICATION, TIME_CREATE_APPLICATION, TIME_CREATE_APPLICATION) + "\n");
-		report.append("Time of last update: " + String.format(Locale.US, "%tF %tT %tz", pi.lastUpdateTime, pi.lastUpdateTime, pi.lastUpdateTime)
-				+ "\n");
-		report.append("Time of first install: "
-				+ String.format(Locale.US, "%tF %tT %tz", pi.firstInstallTime, pi.firstInstallTime, pi.firstInstallTime) + "\n");
+		calendar.setTimeInMillis(System.currentTimeMillis());
+		report.append("Time: " + String.format(Locale.US, "%tF %tT %tZ", calendar, calendar, calendar) + "\n");
+		calendar.setTimeInMillis(TIME_CREATE_APPLICATION);
+		report.append("Time of launch: " + String.format(Locale.US, "%tF %tT %tZ", calendar, calendar, calendar) + "\n");
+		calendar.setTimeInMillis(pi.lastUpdateTime);
+		report.append("Time of last update: " + String.format(Locale.US, "%tF %tT %tZ", calendar, calendar, calendar) + "\n");
+		calendar.setTimeInMillis(pi.firstInstallTime);
+		report.append("Time of first install: " + String.format(Locale.US, "%tF %tT %tZ", calendar, calendar, calendar) + "\n");
 		final long lastBackupTime = configuration.getLastBackupTime();
-		report.append("Time of backup: "
-				+ (lastBackupTime > 0 ? String.format(Locale.US, "%tF %tT %tz", lastBackupTime, lastBackupTime, lastBackupTime) : "none") + "\n");
+		calendar.setTimeInMillis(lastBackupTime);
+		report.append(
+				"Time of backup: " + (lastBackupTime > 0 ? String.format(Locale.US, "%tF %tT %tZ", calendar, calendar, calendar) : "none") + "\n");
 		report.append("Network: " + Constants.NETWORK_PARAMETERS.getId() + "\n");
 		final Wallet wallet = application.getWallet();
 		report.append("Encrypted: " + wallet.isEncrypted() + "\n");
@@ -274,7 +281,9 @@ public class CrashReporter
 			report.append("  - ");
 
 		final Formatter formatter = new Formatter(report);
-		formatter.format(Locale.US, "%tF %tT %8d  %s\n", file.lastModified(), file.lastModified(), file.length(), file.getName());
+		final Calendar calendar = new GregorianCalendar(UTC);
+		calendar.setTimeInMillis(file.lastModified());
+		formatter.format(Locale.US, "%tF %tT %8d  %s\n", calendar, calendar, file.length(), file.getName());
 		formatter.close();
 
 		if (file.isDirectory())
@@ -292,8 +301,8 @@ public class CrashReporter
 			{
 				writer = new PrintWriter(new OutputStreamWriter(new FileOutputStream(backgroundTracesFile, true), Charsets.UTF_8));
 
-				final long now = System.currentTimeMillis();
-				writer.println(String.format(Locale.US, "\n--- collected at %tF %tT %tz on version %s (%d)", now, now, now, packageInfo.versionName,
+				final Calendar now = new GregorianCalendar(UTC);
+				writer.println(String.format(Locale.US, "\n--- collected at %tF %tT %tZ on version %s (%d)", now, now, now, packageInfo.versionName,
 						packageInfo.versionCode));
 				appendTrace(writer, throwable);
 			}
