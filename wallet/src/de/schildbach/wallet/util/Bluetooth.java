@@ -46,7 +46,8 @@ public class Bluetooth
 			return false;
 		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR2) // earlier versions cannot reliably listen
 			return false;
-		if (MARSHMELLOW_FAKE_MAC.equals(adapter.getAddress()))
+		final String address = adapter.getAddress();
+		if (address == null || MARSHMELLOW_FAKE_MAC.equals(address))
 			return false;
 		return true;
 	}
