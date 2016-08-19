@@ -1,3 +1,8 @@
+v4.66
+
+* Strengthen security of spending PIN.
+* Update translations from Transifex.
+
 v4.65
 
 * Fix for layout in landscape orientation.
