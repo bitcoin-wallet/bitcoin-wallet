@@ -156,6 +156,7 @@
   <string name="transaction_row_message_purpose_raise_fee">このトランザクションは前の支払いのネットワーク手数料を増額します。</string>
   <string name="transaction_row_message_own_unbroadcasted">この支払はまだ送信されていません。</string>
   <string name="transaction_row_message_received_direct">この支払は直接届きました。利用可能とならないリスクがあります。</string>
+  <string name="transaction_row_message_received_unconfirmed_delayed">この支払いの確認が遅れています。おそらくビットコインネットワークの過負荷によるものです。</string>
   <string name="transaction_row_message_received_unconfirmed_unlocked">この支払は数分程度で利用可能となります。</string>
   <string name="transaction_row_message_received_in_conflict">この支払いは、送金者によって引き戻されるリスクが高くなっています! 可能であれば確認されるのを待ってください。</string>
   <string name="transaction_row_message_received_dead">この支払は送金者により、引き戻されました。</string>
@@ -165,6 +166,8 @@
   <string name="network_monitor_activity_title">ネットワークモニタ</string>
   <string name="network_monitor_peer_list_title">ピア</string>
   <string name="network_monitor_block_list_title">ブロック</string>
+  <string name="block_row_mining_difficulty_adjustment">採掘難易度調整</string>
+  <string name="block_row_mining_reward_adjustment">採掘報酬半減</string>
   <string name="block_row_now">たった今</string>
   <string name="peer_list_fragment_empty">接続済みのピアはありません</string>
   <string name="peer_list_row_ping_time">⇆ %d&#x2009;ms</string>
