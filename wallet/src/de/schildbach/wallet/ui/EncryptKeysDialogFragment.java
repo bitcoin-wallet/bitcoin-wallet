@@ -247,13 +247,14 @@ public class EncryptKeysDialogFragment extends DialogFragment
 			@Override
 			public void run()
 			{
-				final byte[] salt = new byte[KeyCrypterScrypt.SALT_LENGTH];
-				new SecureRandom().nextBytes(salt);
-				final KeyCrypter keyCrypter = new KeyCrypterScrypt(Protos.ScryptParameters.newBuilder().setSalt(ByteString.copyFrom(salt))
-						.setN(SCRYPT_ITERATIONS_TARGET).build());
-
+				// For the old key, we use the key crypter that was used to derive the password in the first place.
 				final KeyParameter oldKey = isEncrypted ? wallet.getKeyCrypter().deriveKey(oldPassword) : null;
 
+				// For the new key, we create a new key crypter according to the desired parameters.
+				final byte[] salt = new byte[KeyCrypterScrypt.SALT_LENGTH];
+				new SecureRandom().nextBytes(salt);
+				final KeyCrypter keyCrypter = new KeyCrypterScrypt(
+						Protos.ScryptParameters.newBuilder().setSalt(ByteString.copyFrom(salt)).setN(SCRYPT_ITERATIONS_TARGET).build());
 				final KeyParameter newKey = password.isEmpty() ? null : keyCrypter.deriveKey(password);
 
 				handler.post(new Runnable()
