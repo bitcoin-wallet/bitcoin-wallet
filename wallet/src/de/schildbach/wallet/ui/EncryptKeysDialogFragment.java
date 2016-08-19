@@ -62,7 +62,7 @@ import de.schildbach.wallet_test.R;
  */
 public class EncryptKeysDialogFragment extends DialogFragment
 {
-	private static final int SCRYPT_ITERATIONS = 4096;
+	private static final int SCRYPT_ITERATIONS_TARGET = 8192;
 
 	private static final String FRAGMENT_TAG = EncryptKeysDialogFragment.class.getName();
 
@@ -250,7 +250,7 @@ public class EncryptKeysDialogFragment extends DialogFragment
 				final byte[] salt = new byte[KeyCrypterScrypt.SALT_LENGTH];
 				new SecureRandom().nextBytes(salt);
 				final KeyCrypter keyCrypter = new KeyCrypterScrypt(Protos.ScryptParameters.newBuilder().setSalt(ByteString.copyFrom(salt))
-						.setN(SCRYPT_ITERATIONS).build());
+						.setN(SCRYPT_ITERATIONS_TARGET).build());
 
 				final KeyParameter oldKey = isEncrypted ? wallet.getKeyCrypter().deriveKey(oldPassword) : null;
 
