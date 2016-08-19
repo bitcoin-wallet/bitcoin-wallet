@@ -156,6 +156,7 @@
   <string name="transaction_row_message_purpose_raise_fee">Denne transaktion forhøjer netværksgebyret for en tidligere betaling.</string>
   <string name="transaction_row_message_own_unbroadcasted">Denne betaling er ikke sendt endnu.</string>
   <string name="transaction_row_message_received_direct">Denne betaling er modtaget direkte. Der er en risiko for, at den aldrig bliver tilgængelig.</string>
+  <string name="transaction_row_message_received_unconfirmed_delayed">Bekræftelsen af denne betaling er forsinket – sandsynligvis på grund af overbelastning af Bitcoin-netværket.</string>
   <string name="transaction_row_message_received_unconfirmed_unlocked">Denne betaling bør blive tilgængelig om få minutter.</string>
   <string name="transaction_row_message_received_in_conflict">Denne betaling har en forøget risiko for at blive tilbageført af afsenderen! Hvis du kan, så vent på bekræftelse.</string>
   <string name="transaction_row_message_received_dead">Denne betaling er blevet tilbageført af afsenderen.</string>
@@ -165,6 +166,8 @@
   <string name="network_monitor_activity_title">Netværksovervågning</string>
   <string name="network_monitor_peer_list_title">Peers</string>
   <string name="network_monitor_block_list_title">Blokke</string>
+  <string name="block_row_mining_difficulty_adjustment">Justering af mining-sværhedsgraden</string>
+  <string name="block_row_mining_reward_adjustment">Halvering af mining-belønningen</string>
   <string name="block_row_now">lige nu</string>
   <string name="peer_list_fragment_empty">Ingen peers forbundet</string>
   <string name="peer_list_row_ping_time">⇆ %d&#x2009;ms</string>
