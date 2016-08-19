@@ -168,6 +168,8 @@
   <string name="block_row_now">proprio ora</string>
   <string name="peer_list_fragment_empty">Nessun peer connesso</string>
   <string name="peer_list_row_ping_time">⇆ %d&#x2009;ms</string>
+  <string name="restore_wallet_permission_dialog_title">Permesso di lettura mancante</string>
+  <string name="restore_wallet_permission_dialog_message">Per poter cercare i backup del portamonete sul vostro supporto esterno, dovete concendere il permesso di lettura.</string>
   <string name="import_keys_dialog_title">Ripristina portafoglio</string>
   <string name="import_keys_dialog_message">Scegli il file di backup di un portafoglio da memoria esterna (%s):</string>
   <string name="restore_wallet_dialog_replace_warning">Stai per sostituire il tuo attuale portafoglio. Se non hai un backup tutte le monete nell\' attuale portafoglio andranno perse.</string>
@@ -182,6 +184,8 @@
   <string name="restore_wallet_dialog_success">Il portafoglio è stato recuperato.</string>
   <string name="restore_wallet_dialog_success_replay">Il tuo portafoglio è stato ripristinato correttamente. Il bilancio verrà determinato in un secondo momento. Questo potrebbe richiedere diverso tempo</string>
   <string name="import_keys_dialog_failure">Il portafoglio non può essere recuperato:\n\n%s\n\nPassword sbagliata?</string>
+  <string name="backup_wallet_permission_dialog_title">Permesso di scrittura mancante</string>
+  <string name="backup_wallet_permission_dialog_message">Per poter fare il backup del portamonete sul supporto esterno, devi concedere il permesso di scrittura.</string>
   <string name="export_keys_dialog_title">Backup portafoglio</string>
   <string name="backup_wallet_dialog_message">Il vostro backup sarà cifrato con la password scelta e scritto su una memoria esterna.</string>
   <string name="backup_wallet_dialog_warning_encrypted">Il tuo portafoglio è protetto da un PIN di sicurezza. Assicurati di ricordare il PIN assieme alla password di backup!</string>
@@ -213,6 +217,8 @@
   <string name="encrypt_keys_dialog_state_done">Fatto.</string>
   <string name="scan_camera_problem_dialog_title">Scusa</string>
   <string name="scan_camera_problem_dialog_message">La videocamera ha un problema. Probabilmente è necessario riavviare il dispositivo.</string>
+  <string name="scan_camera_permission_dialog_title">Permesso per la fotocamera</string>
+  <string name="scan_camera_permission_dialog_message">Per eseguire la scansione dei codici QR, devi concedere il permesso per usare la fotocamera.</string>
   <string name="input_parser_io_error">Impossibile leggere i dati:\n%s</string>
   <string name="input_parser_cannot_classify">Impossibile classificare l\'input:\n%s</string>
   <string name="input_parser_invalid_bitcoin_uri">URI Bitcoin errato:\n%s</string>
