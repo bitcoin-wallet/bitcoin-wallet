@@ -156,6 +156,7 @@
   <string name="transaction_row_message_purpose_raise_fee">Bu muamele önceki bir ödemenin şebeke ücretini arttırır. </string>
   <string name="transaction_row_message_own_unbroadcasted">Bu ödeme henüz aktarılmamıştır.</string>
   <string name="transaction_row_message_received_direct">Bu ödeme doğrudan alındı. Asla harcanamayacak olması riski vardır.</string>
+  <string name="transaction_row_message_received_unconfirmed_delayed">Bu ödemenin teyidi muhtemelen Bitcoin şebekesindeki aşırı yükten dolayı gecikmiştir.</string>
   <string name="transaction_row_message_received_unconfirmed_unlocked">Bu ödeme muhtemelen birkaç dakika içinde harcanabilir hâle gelecektir.</string>
   <string name="transaction_row_message_received_in_conflict">Bu ödemede yüksek gönderici tarafından geri alınma riski vardır! Vaktiniz varsa teyit bekleyin.</string>
   <string name="transaction_row_message_received_dead">Bu ödeme gönderici tarafından iptal edilmiştir.</string>
@@ -165,6 +166,8 @@
   <string name="network_monitor_activity_title">Şebeke monitörü</string>
   <string name="network_monitor_peer_list_title">Eşler</string>
   <string name="network_monitor_block_list_title">Bloklar</string>
+  <string name="block_row_mining_difficulty_adjustment">Oluşturma zorluk ayarı</string>
+  <string name="block_row_mining_reward_adjustment">Oluşturma mükafatı yarılanıyor</string>
   <string name="block_row_now">şu anda</string>
   <string name="peer_list_fragment_empty">Hiçbir eş bağlı değil</string>
   <string name="peer_list_row_ping_time">⇆ %d&#x2009;ms</string>
