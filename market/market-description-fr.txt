@@ -3,14 +3,14 @@
 
 <b>CARACTÉRISTIQUES</b>
 
-• Pas d'inscription, de service Web ou de nuage de nécessaire ! Ce portefeuille est décentralisé et de pair-à-pair.
+• Pas d'inscription, de service Web ou de nuage de nécessaire ! Ce porte-monnaie est décentralisé et de pair-à-pair.
 • Affichage du montant de bitcoins en BTC, mBTC et µBTC.
 • Conversion vers et depuis des devises nationales.
 • Envoi et réception de bitcoins par NFC, codes QR ou URL Bitcoin
 • Carnet d'adresses pour les adresses Bitcoin utilisées régulièrement.
 • Quand vous êtes hors-ligne vous pouvez quand même payez via Bluetooth.
 • Notification du système pour les pièces reçues.
-• Balayage de portefeuilles papier (c.-à-d. ceux utilisés pour le stockage à froid).
+• Balayage des porte-monnaies papier (c.-à-d. ceux utilisés pour le stockage à froid).
 • Widget applicatif pour le solde en bitcoin.
 
 
@@ -28,8 +28,8 @@ https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/
 
 <b>TÉMOIGNAGES</b>
 
-• De nombreux portefeuilles basent leur code sur Bitcoin Wallet. Par exemples : blockchain.info et BTCX.
-• Portefeuille mobile recommandé par https://bitcoin.org
+• De nombreux porte-monnaies mobiles basent leur code sur Bitcoin Wallet. Par exemples : blockchain.info et BTCX.
+• Porte-monnaie mobile recommandé par https://bitcoin.org
 • Recommandé par BitPay.
 
 
