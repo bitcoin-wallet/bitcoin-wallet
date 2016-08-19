@@ -54,7 +54,7 @@
   <string name="wallet_old_sdk_dialog_title">Android 版本太舊</string>
   <string name="wallet_old_sdk_dialog_message">接下來某個版本的 Bitcoin Wallet 可能就開始不再支援你的設備了。在這個設備上付款可能會變得很困難。\n\n建議你馬上把錢轉到其他地方去，除非你還知道其他處理方式。</string>
   <string name="send_coins_activity_title">Bitcoin 付款</string>
-  <string name="send_coins_fragment_request_payment_request_progress">正在從 %s 讀取簽章…</string>
+  <string name="send_coins_fragment_request_payment_request_progress">正在從 %s 讀取簽章...</string>
   <string name="send_coins_fragment_request_payment_request_failed_title">讀取簽章失敗了</string>
   <string name="send_coins_fragment_request_payment_request_wrong_signature">簽章不對！</string>
   <string name="send_coins_fragment_payee_verified_by">由 %s 驗證</string>
@@ -94,7 +94,7 @@
   <string name="send_coins_options_empty">清空錢包</string>
   <string name="raise_fee_dialog_title">提高網路手續費</string>
   <string name="raise_fee_dialog_message">你想要將這筆付款的手續費提高 %s 嗎？可以讓它快一點被確認。</string>
-  <string name="raise_fee_dialog_state_decrypting">正在解密中…</string>
+  <string name="raise_fee_dialog_state_decrypting">正在解密中...</string>
   <string name="raise_fee_dialog_state_done">完成。</string>
   <string name="raise_fee_dialog_button_raise">提高</string>
   <string name="sweep_wallet_activity_title">兌現紙錢包</string>
@@ -107,8 +107,8 @@
   <string name="sweep_wallet_fragment_balance">兌現金額</string>
   <string name="sweep_wallet_fragment_button_decrypt">解密</string>
   <string name="sweep_wallet_fragment_button_sweep">兌現</string>
-  <string name="sweep_wallet_fragment_decrypt_progress">正在解密中…\n最多要 2 分鐘。</string>
-  <string name="sweep_wallet_fragment_request_wallet_balance_progress">正在載入餘額…</string>
+  <string name="sweep_wallet_fragment_decrypt_progress">正在解密中...\n最多要 2 分鐘。</string>
+  <string name="sweep_wallet_fragment_request_wallet_balance_progress">正在載入餘額...</string>
   <string name="sweep_wallet_fragment_request_wallet_balance_failed_title">載入錢包的餘額失敗了</string>
   <string name="sweep_wallet_fragment_insufficient_money_title">錢不夠</string>
   <string name="sweep_wallet_fragment_insufficient_money_msg">這個錢包裡的剩餘金額太少了，無法兌現。</string>
@@ -156,6 +156,7 @@
   <string name="transaction_row_message_purpose_raise_fee">這筆交易會增加前一筆付款的網路手續費。</string>
   <string name="transaction_row_message_own_unbroadcasted">付款尚未傳輸。</string>
   <string name="transaction_row_message_received_direct">這筆付款被直接接收了，這類付款可能存在無法花用的風險。</string>
+  <string name="transaction_row_message_received_unconfirmed_delayed">這筆付款確認的時間將會被延遲，可能是因為 Bitcoin 網路超過負荷量了。</string>
   <string name="transaction_row_message_received_unconfirmed_unlocked">這筆付款應該在幾分鐘之後就可以花用。</string>
   <string name="transaction_row_message_received_in_conflict">這筆款項被付款人撤銷的風險比較高！如果可以的話，最好是等待它確認完畢。</string>
   <string name="transaction_row_message_received_dead">這筆付款被付款人撤銷了。</string>
@@ -165,9 +166,13 @@
   <string name="network_monitor_activity_title">網路監視器</string>
   <string name="network_monitor_peer_list_title">節點</string>
   <string name="network_monitor_block_list_title">區塊</string>
+  <string name="block_row_mining_difficulty_adjustment">採礦難度調整值</string>
+  <string name="block_row_mining_reward_adjustment">採礦報酬減半</string>
   <string name="block_row_now">剛剛</string>
   <string name="peer_list_fragment_empty">沒有節點連線</string>
   <string name="peer_list_row_ping_time">⇆ %d 毫秒</string>
+  <string name="restore_wallet_permission_dialog_title">沒有讀檔的權限</string>
+  <string name="restore_wallet_permission_dialog_message">為了要從外部儲存裝置掃描錢包的備份，你必須要授權讓程式可以讀檔。</string>
   <string name="import_keys_dialog_title">復原錢包</string>
   <string name="import_keys_dialog_message">請從外部儲存設備(%s)中選一個錢包備份檔:</string>
   <string name="restore_wallet_dialog_replace_warning">將要替換目前的錢包。如果沒有另外的備份，目前錢包裡的所有錢幣就不能用了。</string>
@@ -182,6 +187,8 @@
   <string name="restore_wallet_dialog_success">錢包已經復原了。</string>
   <string name="restore_wallet_dialog_success_replay">錢包復原成功。接下來要計算錢包餘額，會花一點時間。</string>
   <string name="import_keys_dialog_failure">沒辦法將錢包復原:\n\n%s\n\n密碼錯了嗎？</string>
+  <string name="backup_wallet_permission_dialog_title">沒有寫檔權限</string>
+  <string name="backup_wallet_permission_dialog_message">為了要把錢包備份到外部儲存裝置去，你必須要授權讓程式可以寫檔。</string>
   <string name="export_keys_dialog_title">備份錢包</string>
   <string name="backup_wallet_dialog_message">錢包的備份將會用指定的密碼加密，並且寫到外部儲存設備去。</string>
   <string name="backup_wallet_dialog_warning_encrypted">錢包現在有轉出 PIN 碼的保護。請確定你能記住 PIN 碼和備份密碼！</string>
@@ -191,7 +198,7 @@
   <string name="export_keys_dialog_button_archive">歸檔</string>
   <string name="export_keys_dialog_mail_subject">Bitcoin Wallet 備份</string>
   <string name="export_keys_dialog_mail_text">附件加密檔案包含 Bitcoin 私鑰，請隨時確保檔案的安全，並且不要忘記加密的密碼！</string>
-  <string name="export_keys_dialog_mail_intent_chooser">用其他方式歸檔錢包…</string>
+  <string name="export_keys_dialog_mail_intent_chooser">用其他方式歸檔錢包...</string>
   <string name="export_keys_dialog_mail_intent_failed">歸檔錢包失敗了。</string>
   <string name="import_export_keys_dialog_password">密碼</string>
   <string name="backup_wallet_dialog_password_again">再打一次</string>
@@ -213,6 +220,8 @@
   <string name="encrypt_keys_dialog_state_done">完成了。</string>
   <string name="scan_camera_problem_dialog_title">抱歉</string>
   <string name="scan_camera_problem_dialog_message">相機有問題，你可能需要重新啟動設備</string>
+  <string name="scan_camera_permission_dialog_title">相機權限</string>
+  <string name="scan_camera_permission_dialog_message">為了要可以掃描代碼，你必須要授權給程式使用相機。</string>
   <string name="input_parser_io_error">無法讀取資料:\n%s</string>
   <string name="input_parser_cannot_classify">輸入沒辦法辨識:\n%s</string>
   <string name="input_parser_invalid_bitcoin_uri">無效的 Bitcoin URI:\n%s</string>
@@ -238,7 +247,7 @@
   <string name="preferences_connectivity_notification_summary">在通知區顯示目前節點連線的數目。</string>
   <string name="preferences_trusted_peer_title">信任節點</string>
   <string name="preferences_trusted_peer_summary">一個要連線過去的節點位址或主機名稱。</string>
-  <string name="preferences_trusted_peer_resolve_progress">正在解析域名…</string>
+  <string name="preferences_trusted_peer_resolve_progress">正在解析域名...</string>
   <string name="preferences_trusted_peer_resolve_unknown_host">找不到該名稱的主機！</string>
   <string name="preferences_trusted_peer_only_title">跳過正規的節點探索程序</string>
   <string name="preferences_trusted_peer_only_summary">禁止和信任節點外的其他節點連線。</string>
@@ -256,7 +265,7 @@
   <string name="preferences_initiate_reset_dialog_positive">重設</string>
   <string name="preferences_extended_public_key_title">顯示 xpub</string>
   <string name="preferences_extended_public_key_summary">顯示錢包的延伸公鑰，來匯入到其他的應用程式或網路服務去。請小心: 這會暴露你的財務隱私給該程式或服務。</string>
-  <string name="bitmap_fragment_share">分享…</string>
+  <string name="bitmap_fragment_share">分享...</string>
   <string name="extended_public_key_fragment_title">延伸公鑰</string>
   <string name="extended_public_key_fragment_share">分享 xpub…</string>
   <string name="report_issue_dialog_title_issue">問題回報</string>
