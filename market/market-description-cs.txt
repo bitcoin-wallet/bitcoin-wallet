@@ -3,7 +3,7 @@
 
 <b>FUNKCE</b>
 
-• Žádná registrace, žádná webová služba ani cloud není potřeba! Tato peněženka je de-centralizovaná a peer to peer.
+• Není třeba žádná registrace, webová služba ani cloud! Tato peněženka je decentralizovaná a peer to peer.
 • Zobrazení Bitcoin částek v BTC, mBTC a µBTC.
 • Přepočet z a do národních měn.
 • Odesílání a přijímání plateb přes NFC, QR kódy nebo Bitcoin URL.
@@ -22,7 +22,7 @@ https://www.gnu.org/licenses/gpl-3.0.en.html
 Náš zdrojový kód je k dispozici na GitHubu:
 https://github.com/bitcoin-wallet/bitcoin-wallet
 
-Veškeré překlady jsou tvořeny pomocí Transflex.
+Veškeré překlady jsou spravovány přes Transifex:
 https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/
 
 

@@ -3,21 +3,21 @@
   <string name="help_wallet">
 <![CDATA[
 		<p>
-			Horní levá část obrazovky zobrazuje Vaši aktuální Bitcoin bilanci včetně odpovídající částky ve vaší lokální měně.
-			Kliknutím na částku přejdete do seznamu lokálních měn, kde si můžete vybrat jinou.
+			Horní levá strana obrazovky ukazuje dostupné prostředky v Bitcoinech a jednu vybranou národní měnu.
+			Dotykem přejdete k seznamu národních měn, a ťuknutím na vybranou měnu ji zvolíte jako svou výchozí.
 		</p>
 		<p>
-			QR kód na pravé straně obsahuje Vaši Bitcoin adresu a může být použita pro naskenování druhou stranou.
-			Klepněte na QR kód pro zobrazení větší verze.
+			QR kód vpravo obsahuje vaši bitcoinovou adresu a může být naskenována plátcem.
+			Dotyka na QR kód se zobrazí jeho zvětšená verze.
 		</p>
 		<p>
-			Ve spodní části obrazovky je seznam transakcí, který bude samozřejmě na začátku používání aplikace prázdný.
-			Probíhající transakce jsou zobrazeny šedě, dokud nejsou potvrzeny.
-			Kliknutím na řádek záznamu můžete příjemce či odesilatele přidat do adresáře.
+			Spodní část obrazovky zobrazuje seznam vašich transakcí, který je před prvním použitím prázdný.
+			Čekající transakce jsou až do jejich potvrzení v síti zašedlé.
+			Dotykem na záznam přidáte odesilatele nebo příjemce do svého adresáře.
 		</p>
 		<p>
-			Můžete poslat nebo si vyžádat Bitcoiny klepnutím na patřičné tlačítko v akční nabídce.
-			Více možností je v nabídce nastavení.
+			Odesílat nebo přijímat platby můžete dotykem na tlačítka ve spodním panelu.
+			Další možnosti jsou dostupné v menu nastavení.
 		</p>
 	]]>
 	</string>
@@ -65,7 +65,7 @@
 		</p>
 		<p>
 			Poznámka:
-			Transakce nemohou být zrušeny!
+			Transakce nelze vzít zpět!
 			Vždy zkontrolujte adresu příjemce.
 		</p>
 	]]>
