@@ -153,9 +153,9 @@
 	<string name="report_issue_dialog_mail_intent_chooser">Wyślij zgłoszenie używając…</string>
 	<string name="about_title">O</string>
 	<string name="about_license_title">Licencja</string>
-	<string name="about_credits_bitcoinj_title">Ta aplikacja korzysta z \'bitcoinj\'</string>
-	<string name="about_credits_zxing_title">Ta aplikacja korzysta z \'zxing\'</string>
-	<string name="about_credits_icon_title">Ta aplikacja korzysta z ikon od \'bitboy\'</string>
+	<string name="about_category_credits">Ta aplikacja korzysta z…</string>
+	<string name="about_credits_bitcoinj_title">bitcoinj %s</string>
+	<string name="about_credits_zxing_title">ZXing</string>
 	<string name="about_community_googleplus_title">Społeczność Google+</string>
 	<string name="about_community_googleplus_summary">Dyskusje dotyczące aplikacji</string>
 	<string name="about_market_app_title">Strona Google Play</string>

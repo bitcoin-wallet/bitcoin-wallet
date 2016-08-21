@@ -174,9 +174,9 @@
 	<string name="report_issue_dialog_mail_intent_failed">Odosielanie hlásenia zlyhalo.</string>
 	<string name="about_title">O aplikácií</string>
 	<string name="about_license_title">Licencia</string>
-	<string name="about_credits_bitcoinj_title">Táto aplikácia používa bitcoinj %s</string>
-	<string name="about_credits_zxing_title">Táto aplikácia používa \'zxing\'</string>
-	<string name="about_credits_icon_title">Táto aplikácia používa ikonu od \'bitboy\'</string>
+	<string name="about_category_credits">Táto aplikácia používa…</string>
+	<string name="about_credits_bitcoinj_title">bitcoinj %s</string>
+	<string name="about_credits_zxing_title">ZXing</string>
 	<string name="about_community_googleplus_title">Google+ Komunita</string>
 	<string name="about_community_googleplus_summary">Diskusie o aplikácii</string>
 	<string name="about_market_app_title">Google Play stránka</string>

@@ -271,9 +271,9 @@
   <string name="about_copyright_title">Tekijänoikeus</string>
   <string name="about_license_title">Lisenssi</string>
   <string name="about_source_title">Lähdekoodi</string>
-  <string name="about_credits_bitcoinj_title">Tämä sovellus käyttää \'bitcoinj\' versiota %s</string>
-  <string name="about_credits_zxing_title">Tämä sovellus käyttää \'zxing\':a</string>
-  <string name="about_credits_icon_title">Tämä sovellus käyttää \'bitboy\':n kuvaketta</string>
+  <string name="about_category_credits">Tämä sovellus käyttää…</string>
+  <string name="about_credits_bitcoinj_title">bitcoinj %s</string>
+  <string name="about_credits_zxing_title">ZXing</string>
   <string name="about_community_googleplus_title">Google+-yhteisö</string>
   <string name="about_community_googleplus_summary">Keskustelua ohjelmasta</string>
   <string name="about_market_app_title">Google Play-sivusto</string>

@@ -286,8 +286,7 @@
   <string name="about_license_title">授權</string>
   <string name="about_source_title">程式碼</string>
   <string name="about_credits_bitcoinj_title">此應用程式使用 bitcoinj %s</string>
-  <string name="about_credits_zxing_title">此應用程式使用 \'zxing\'</string>
-  <string name="about_credits_icon_title">此應用程式使用 \'bitboy\' 創作的圖示</string>
+  <string name="about_credits_zxing_title">此應用程式使用 ZXing</string>
   <string name="about_community_googleplus_title">Google+ 社群</string>
   <string name="about_community_googleplus_summary">討論此應用程式</string>
   <string name="about_market_app_title">Google Play 商店頁面</string>

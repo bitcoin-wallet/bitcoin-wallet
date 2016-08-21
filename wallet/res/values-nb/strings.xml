@@ -278,9 +278,9 @@
   <string name="about_copyright_title">Opphavsrett</string>
   <string name="about_license_title">Lisens</string>
   <string name="about_source_title">Kildekode</string>
-  <string name="about_credits_bitcoinj_title">Appen bruker bitcoinj %s</string>
-  <string name="about_credits_zxing_title">Appen bruker \'zxing\'</string>
-  <string name="about_credits_icon_title">Appen bruker ett ikon av \'bitboy\'</string>
+  <string name="about_category_credits">Appen bruker…</string>
+  <string name="about_credits_bitcoinj_title">bitcoinj %s</string>
+  <string name="about_credits_zxing_title">ZXing</string>
   <string name="about_community_googleplus_title">Google+ samfunnet</string>
   <string name="about_community_googleplus_summary">Diskusjon om appen</string>
   <string name="about_market_app_title">Google Play-siden</string>

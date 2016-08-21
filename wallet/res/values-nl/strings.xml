@@ -284,9 +284,9 @@
   <string name="about_copyright_title">Auteursrecht</string>
   <string name="about_license_title">Licentie</string>
   <string name="about_source_title">Broncode</string>
-  <string name="about_credits_bitcoinj_title">Deze app gebruikt bitcoinj %s</string>
-  <string name="about_credits_zxing_title">Deze app gebruikt \'zxing\'</string>
-  <string name="about_credits_icon_title">Deze app gebruikt een icoon van \'bitboy\'</string>
+  <string name="about_category_credits">Deze app gebruikt…</string>
+  <string name="about_credits_bitcoinj_title">bitcoinj %s</string>
+  <string name="about_credits_zxing_title">ZXing</string>
   <string name="about_community_googleplus_title">Google+ community</string>
   <string name="about_community_googleplus_summary">Discussies over de app</string>
   <string name="about_market_app_title">Google Play Pagina</string>

@@ -153,9 +153,9 @@
 	<string name="report_issue_dialog_mail_intent_chooser">Sendi reporton uzante…</string>
 	<string name="about_title">Pri</string>
 	<string name="about_license_title">Licenco</string>
-	<string name="about_credits_bitcoinj_title">Ĉi tiu aplikaĵo uzas bitcoinj-n %s</string>
-	<string name="about_credits_zxing_title">Ĉi tiu aplikaĵo uzas \'zxing\'-n</string>
-	<string name="about_credits_icon_title">Ĉi tiu aplikaĵo uzas bildsimbolon per \'bitboy\'</string>
+	<string name="about_category_credits">Ĉi tiu aplikaĵo uzas…</string>
+	<string name="about_credits_bitcoinj_title">bitcoinj %s</string>
+	<string name="about_credits_zxing_title">ZXing</string>
 	<string name="about_community_googleplus_title">\"Google+\" Komunumo</string>
 	<string name="about_community_googleplus_summary">Diskutoj pri l\'aplikaĵo</string>
 	<string name="about_market_app_title">\"Google Play\" Paĝo</string>

@@ -61,9 +61,9 @@
   <string name="scan_camera_problem_dialog_message">Kamera je naišla na problem. Vjerovatno ćete morati ponovno pokrenuti uređaj</string>
   <string name="about_title">O nama</string>
   <string name="about_license_title">Licenca</string>
-  <string name="about_credits_bitcoinj_title">Ova aplikacija koristi bitcoin %s</string>
-  <string name="about_credits_zxing_title">Ova aplikacija koristi \'zxing\'</string>
-  <string name="about_credits_icon_title">Ova aplikacija koristi ikonu on \'bitboy\'</string>
+  <string name="about_category_credits">Ova aplikacija koristi…</string>
+  <string name="about_credits_bitcoinj_title">bitcoin %s</string>
+  <string name="about_credits_zxing_title">ZXing</string>
   <string name="notification_peers_connected_msg">%d klijenata spojeno</string>
   <!--generic buttons-->
   <string name="button_dismiss">Odbaciti</string>

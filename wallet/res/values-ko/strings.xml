@@ -276,8 +276,7 @@
   <string name="about_license_title">라이센스</string>
   <string name="about_source_title">소스 코드</string>
   <string name="about_credits_bitcoinj_title">bitcoinj %s 버전 사용</string>
-  <string name="about_credits_zxing_title">\'zxing\'의 QR코드 소스 사용 중</string>
-  <string name="about_credits_icon_title">\'bitboy\'의 아이콘 사용 중</string>
+  <string name="about_credits_zxing_title">ZXing의 QR코드 소스 사용 중</string>
   <string name="about_community_googleplus_title">Google+의 앱 커뮤니티</string>
   <string name="about_community_googleplus_summary">이 앱에 대한 토론장</string>
   <string name="about_market_app_title">구글 플레이의 앱 페이지</string>

@@ -175,9 +175,9 @@
 	<string name="report_issue_dialog_mail_intent_failed">فشل إرسال التقرير.</string>
 	<string name="about_title">تعليمات</string>
 	<string name="about_license_title">رخصة</string>
-	<string name="about_credits_bitcoinj_title">هذا البرنامج يستخدم bitcoinj %s</string>
-	<string name="about_credits_zxing_title">هذا البرنامج يستخدم ’zxing’</string>
-	<string name="about_credits_icon_title">هذا البرنامج يستخدم أيقونة من إعداد ’bitboy’</string>
+	<string name="about_category_credits">هذا البرنامج يستخدم</string>
+	<string name="about_credits_bitcoinj_title">bitcoinj %s</string>
+	<string name="about_credits_zxing_title">ZXing</string>
 	<string name="about_community_googleplus_title">مجتمع جوجل بلس +Google</string>
 	<string name="about_community_googleplus_summary">مناقشات حول التطبيق</string>
 	<string name="about_market_app_title">صفحة متجر جوجل بلاي Google Play</string>

@@ -194,9 +194,9 @@
   <string name="about_copyright_title">זכויות יוצרים</string>
   <string name="about_license_title">רישיון</string>
   <string name="about_source_title">קוד מקור</string>
-  <string name="about_credits_bitcoinj_title">אפליקציה זו משתמשת בbitcoinj %s</string>
-  <string name="about_credits_zxing_title">אפליקציה זו משתמש ב\'zxing\'</string>
-  <string name="about_credits_icon_title">אפליקציה זו משתמשת בסמליל של \'bitboy\'</string>
+  <string name="about_category_credits">אפליקציה זו משתמשת ב</string>
+  <string name="about_credits_bitcoinj_title">bitcoinj %s</string>
+  <string name="about_credits_zxing_title">ZXing</string>
   <string name="about_community_googleplus_title">קהילת גוגל+</string>
   <string name="about_community_googleplus_summary">דיונים על אודות האפליקציה</string>
   <string name="about_market_app_title">עמוד גוגל פליי</string>

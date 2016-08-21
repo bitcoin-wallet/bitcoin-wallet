@@ -142,8 +142,7 @@
 	<string name="about_title">Thông tin</string>
 	<string name="about_license_title">Giấy phép</string>
 	<string name="about_credits_bitcoinj_title">Ứng dụng này đang sử dụng bitcoinj %s</string>
-	<string name="about_credits_zxing_title">Ứng dụng này sử dụng \'zxing\'</string>
-	<string name="about_credits_icon_title">Ứng dụng này sử dụng biểu tượng bởi \'bitboy\'</string>
+	<string name="about_credits_zxing_title">Ứng dụng này sử dụng ZXing</string>
 	<string name="about_market_app_title">Trang web của ứng dụng trên Google Play</string>
 	<string name="notification_coins_received_msg">đã nhận %s</string>
 	<string name="notification_peers_connected_msg">%d mạng ngang hàng đã kết nối</string>

@@ -283,18 +283,20 @@
 	<string name="report_issue_dialog_collect_wallet_dump">Append wallet dump</string>
 	<string name="report_issue_dialog_mail_intent_chooser">Send report using…</string>
 	<string name="report_issue_dialog_mail_intent_failed">Sending report failed.</string>
+
 	<string name="about_title">About</string>
 	<string name="about_version_title">Version</string>
 	<string name="about_copyright_title">Copyright</string>
 	<string name="about_license_title">License</string>
 	<string name="about_source_title">Source code</string>
-	<string name="about_credits_bitcoinj_title">This app is using bitcoinj %s</string>
-	<string name="about_credits_zxing_title">This app is using \'zxing\'</string>
-	<string name="about_credits_icon_title">This app is using an icon by \'bitboy\'</string>
+	<string name="about_category_credits">This app is using…</string>
+	<string name="about_credits_bitcoinj_title">bitcoinj %s, a Bitcoin protocol implementation</string>
+	<string name="about_credits_zxing_title">ZXing, a QR-code processing library</string>
 	<string name="about_community_googleplus_title">Google+ community</string>
 	<string name="about_community_googleplus_summary">Discussions about the app</string>
 	<string name="about_market_app_title">Google Play page</string>
 	<string name="about_market_app_summary">Review or rate the app</string>
+
 	<string name="notification_coins_received_msg">Received %s</string>
 	<string name="notification_peers_connected_msg">%d peers connected</string>
 	<string name="notification_inactivity_title">You\'ve still got Bitcoins on this device!</string>

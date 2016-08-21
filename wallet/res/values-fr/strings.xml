@@ -285,9 +285,9 @@
   <string name="about_copyright_title">Tous droits réservés</string>
   <string name="about_license_title">Licence</string>
   <string name="about_source_title">Code source</string>
-  <string name="about_credits_bitcoinj_title">Cette appli utilise bitcoinj %s</string>
-  <string name="about_credits_zxing_title">Cette appli utilise zxing</string>
-  <string name="about_credits_icon_title">Cette appli utilise une icône par « bitboy »</string>
+  <string name="about_category_credits">Cette appli utilise…</string>
+  <string name="about_credits_bitcoinj_title">bitcoinj %s</string>
+  <string name="about_credits_zxing_title">ZXing</string>
   <string name="about_community_googleplus_title">Communauté Google+</string>
   <string name="about_community_googleplus_summary">Discussions à propos de cette appli</string>
   <string name="about_market_app_title">Page Google Play</string>

@@ -286,8 +286,7 @@
   <string name="about_license_title">Lisans</string>
   <string name="about_source_title">Kaynak kodu</string>
   <string name="about_credits_bitcoinj_title">Bu uygulama bitcoinj %s kullanmaktadır</string>
-  <string name="about_credits_zxing_title">Bu uygulama \'zxing\' kullanmaktadır</string>
-  <string name="about_credits_icon_title">Bu uygulama \'bitboy\' tarafından oluşturulan bir ikon kullanır</string>
+  <string name="about_credits_zxing_title">Bu uygulama ZXing kullanmaktadır</string>
   <string name="about_community_googleplus_title">Google+ topluluğu</string>
   <string name="about_community_googleplus_summary">Uygulama hakkında tartışmalar</string>
   <string name="about_market_app_title">Google Play sayfası</string>

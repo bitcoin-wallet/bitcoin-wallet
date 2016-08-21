@@ -286,8 +286,7 @@
   <string name="about_license_title">ライセンス</string>
   <string name="about_source_title">ソースコード</string>
   <string name="about_credits_bitcoinj_title">このアプリはbitcoinj %s を使用しています。</string>
-  <string name="about_credits_zxing_title">このアプリは\'zxing\'を使用しています。</string>
-  <string name="about_credits_icon_title">このアプリは\'bitboy\'によるアイコンを使用しています。</string>
+  <string name="about_credits_zxing_title">このアプリはZXingを使用しています。</string>
   <string name="about_community_googleplus_title">Google+ コミュニティ</string>
   <string name="about_community_googleplus_summary">アプリについてのディスカッション</string>
   <string name="about_market_app_title">Google Playのページ</string>

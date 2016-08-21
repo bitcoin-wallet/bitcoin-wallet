@@ -282,9 +282,9 @@
   <string name="about_copyright_title">Copyright</string>
   <string name="about_license_title">Licens</string>
   <string name="about_source_title">Källkod</string>
-  <string name="about_credits_bitcoinj_title">Denna app använder \'bitcoinj\'</string>
-  <string name="about_credits_zxing_title">Denna app använder \'zxing\'</string>
-  <string name="about_credits_icon_title">Appen använder en ikon av \'bitboy\'</string>
+  <string name="about_category_credits">Denna app använder…</string>
+  <string name="about_credits_bitcoinj_title">bitcoinj %s</string>
+  <string name="about_credits_zxing_title">ZXing</string>
   <string name="about_community_googleplus_title">Google+-community</string>
   <string name="about_community_googleplus_summary">Diskussioner om appen</string>
   <string name="about_market_app_title">Google Play-sida</string>

@@ -43,28 +43,23 @@
 			android:action="android.intent.action.VIEW"
 			android:data="https://twitter.com/#!/bitcoin_wallet" />
 	</Preference>
-	<Preference
-		android:key="about_credits_bitcoinj"
-		android:summary="https://bitcoinj.github.io" >
-		<intent
-			android:action="android.intent.action.VIEW"
-			android:data="https://bitcoinj.github.io" />
-	</Preference>
-	<Preference
-		android:key="about_credits_zxing"
-		android:summary="https://github.com/zxing/zxing"
-		android:title="@string/about_credits_zxing_title" >
-		<intent
-			android:action="android.intent.action.VIEW"
-			android:data="https://github.com/zxing/zxing" />
-	</Preference>
-	<Preference
-		android:key="about_credits_icon"
-		android:summary="https://bitcointalk.org/index.php?action=profile;u=2062"
-		android:title="@string/about_credits_icon_title" >
-		<intent
-			android:action="android.intent.action.VIEW"
-			android:data="https://bitcointalk.org/index.php?action=profile;u=2062" />
-	</Preference>
+
+	<PreferenceCategory android:title="@string/about_category_credits" >
+		<Preference
+			android:key="about_credits_bitcoinj"
+			android:summary="https://bitcoinj.github.io" >
+			<intent
+				android:action="android.intent.action.VIEW"
+				android:data="https://bitcoinj.github.io" />
+		</Preference>
+		<Preference
+			android:key="about_credits_zxing"
+			android:summary="https://github.com/zxing/zxing"
+			android:title="@string/about_credits_zxing_title" >
+			<intent
+				android:action="android.intent.action.VIEW"
+				android:data="https://github.com/zxing/zxing" />
+		</Preference>
+	</PreferenceCategory>
 
 </PreferenceScreen>
