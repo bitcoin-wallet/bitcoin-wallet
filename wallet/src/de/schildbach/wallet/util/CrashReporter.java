@@ -41,6 +41,14 @@ import org.bitcoinj.wallet.Wallet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.common.base.Charsets;
+import com.google.common.base.Joiner;
+import com.google.common.base.Strings;
+
+import de.schildbach.wallet.Configuration;
+import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.WalletApplication;
+
 import android.app.ActivityManager;
 import android.app.admin.DevicePolicyManager;
 import android.bluetooth.BluetoothAdapter;
@@ -48,12 +56,7 @@ import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
-
-import com.google.common.base.Charsets;
-
-import de.schildbach.wallet.Configuration;
-import de.schildbach.wallet.Constants;
-import de.schildbach.wallet.WalletApplication;
+import android.os.Build;
 
 /**
  * @author Andreas Schildbach
@@ -143,21 +146,22 @@ public class CrashReporter
 		final ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
 		final DevicePolicyManager devicePolicyManager = (DevicePolicyManager) context.getSystemService(Context.DEVICE_POLICY_SERVICE);
 
-		report.append("Device Model: " + android.os.Build.MODEL + "\n");
-		report.append("Android Version: " + android.os.Build.VERSION.RELEASE + "\n");
-		report.append("Board: " + android.os.Build.BOARD + "\n");
-		report.append("Brand: " + android.os.Build.BRAND + "\n");
-		report.append("Device: " + android.os.Build.DEVICE + "\n");
-		report.append("Display: " + android.os.Build.DISPLAY + "\n");
-		report.append("Finger Print: " + android.os.Build.FINGERPRINT + "\n");
-		report.append("Host: " + android.os.Build.HOST + "\n");
-		report.append("ID: " + android.os.Build.ID + "\n");
-		// report.append("Manufacturer: " + manufacturer + "\n");
-		report.append("Product: " + android.os.Build.PRODUCT + "\n");
-		report.append("Tags: " + android.os.Build.TAGS + "\n");
-		report.append("Time: " + android.os.Build.TIME + "\n");
-		report.append("Type: " + android.os.Build.TYPE + "\n");
-		report.append("User: " + android.os.Build.USER + "\n");
+		report.append("Device Model: " + Build.MODEL + "\n");
+		report.append("Android Version: " + Build.VERSION.RELEASE + "\n");
+		report.append("ABIs: ").append(Joiner.on(", ").skipNulls().join(Strings.emptyToNull(Build.CPU_ABI), Strings.emptyToNull(Build.CPU_ABI2)))
+				.append("\n");
+		report.append("Board: " + Build.BOARD + "\n");
+		report.append("Brand: " + Build.BRAND + "\n");
+		report.append("Device: " + Build.DEVICE + "\n");
+		report.append("Display: " + Build.DISPLAY + "\n");
+		report.append("Finger Print: " + Build.FINGERPRINT + "\n");
+		report.append("Host: " + Build.HOST + "\n");
+		report.append("ID: " + Build.ID + "\n");
+		report.append("Product: " + Build.PRODUCT + "\n");
+		report.append("Tags: " + Build.TAGS + "\n");
+		report.append("Time: " + Build.TIME + "\n");
+		report.append("Type: " + Build.TYPE + "\n");
+		report.append("User: " + Build.USER + "\n");
 		report.append("Configuration: " + config + "\n");
 		report.append("Screen Layout: size " + (config.screenLayout & android.content.res.Configuration.SCREENLAYOUT_SIZE_MASK) + " long "
 				+ (config.screenLayout & android.content.res.Configuration.SCREENLAYOUT_LONG_MASK) + "\n");
