@@ -52,6 +52,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.common.base.Strings;
 import com.google.protobuf.ByteString;
 
 import de.schildbach.wallet.WalletApplication;
@@ -235,9 +236,17 @@ public class EncryptKeysDialogFragment extends DialogFragment
 
 	private void handleGo()
 	{
-		final boolean isEncrypted = wallet.isEncrypted();
-		final String oldPassword = oldPasswordView.getText().toString().trim();
-		final String password = newPasswordView.getText().toString().trim();
+		final String oldPassword = Strings.emptyToNull(oldPasswordView.getText().toString().trim());
+		final String newPassword = Strings.emptyToNull(newPasswordView.getText().toString().trim());
+
+		if (oldPassword != null && newPassword != null)
+			log.info("changing spending password");
+		else if (newPassword != null)
+			log.info("setting spending password");
+		else if (oldPassword != null)
+			log.info("removing spending password");
+		else
+			throw new IllegalStateException();
 
 		state = State.CRYPTING;
 		updateView();
@@ -248,47 +257,62 @@ public class EncryptKeysDialogFragment extends DialogFragment
 			public void run()
 			{
 				// For the old key, we use the key crypter that was used to derive the password in the first place.
-				final KeyParameter oldKey = isEncrypted ? wallet.getKeyCrypter().deriveKey(oldPassword) : null;
+				final KeyParameter oldKey = oldPassword != null ? wallet.getKeyCrypter().deriveKey(oldPassword) : null;
 
 				// For the new key, we create a new key crypter according to the desired parameters.
 				final byte[] salt = new byte[KeyCrypterScrypt.SALT_LENGTH];
 				new SecureRandom().nextBytes(salt);
-				final KeyCrypter keyCrypter = new KeyCrypterScrypt(
+				final KeyCrypterScrypt keyCrypter = new KeyCrypterScrypt(
 						Protos.ScryptParameters.newBuilder().setSalt(ByteString.copyFrom(salt)).setN(SCRYPT_ITERATIONS_TARGET).build());
-				final KeyParameter newKey = password.isEmpty() ? null : keyCrypter.deriveKey(password);
+				final KeyParameter newKey = newPassword != null ? keyCrypter.deriveKey(newPassword) : null;
 
 				handler.post(new Runnable()
 				{
 					@Override
 					public void run()
 					{
-						try
+						if (wallet.isEncrypted())
 						{
-							if (oldKey != null)
-								wallet.decrypt(oldKey);
+							if (oldKey == null)
+							{
+								log.info("wallet is encrypted, but did not provide spending password");
+								state = State.INPUT;
+								oldPasswordView.requestFocus();
+							}
+							else
+							{
+								try
+								{
+									wallet.decrypt(oldKey);
 
-							if (newKey != null)
-								wallet.encrypt(keyCrypter, newKey);
-
-							application.backupWallet();
-
-							state = State.DONE;
-							updateView();
-
-							log.info("spending password set or changed");
-
-							delayedDismiss();
+									state = State.DONE;
+									log.info("wallet successfully decrypted");
+								}
+								catch (final KeyCrypterException x)
+								{
+									log.info("wallet decryption failed: " + x.getMessage());
+									badPasswordView.setVisibility(View.VISIBLE);
+									state = State.INPUT;
+									oldPasswordView.requestFocus();
+								}
+							}
 						}
-						catch (final KeyCrypterException x)
+
+						if (newKey != null && !wallet.isEncrypted())
 						{
-							badPasswordView.setVisibility(View.VISIBLE);
+							wallet.encrypt(keyCrypter, newKey);
 
-							state = State.INPUT;
-							updateView();
+							log.info("wallet successfully encrypted, using key derived by new spending password ({} scrypt iterations)",
+									keyCrypter.getScryptParameters().getN());
+							state = State.DONE;
+						}
 
-							oldPasswordView.requestFocus();
+						updateView();
 
-							log.info("remove or change of spending password failed");
+						if (state == State.DONE)
+						{
+							application.backupWallet();
+							delayedDismiss();
 						}
 					}
 
