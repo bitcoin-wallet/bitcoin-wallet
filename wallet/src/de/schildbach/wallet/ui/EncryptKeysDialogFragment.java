@@ -17,14 +17,10 @@
 
 package de.schildbach.wallet.ui;
 
-import java.security.SecureRandom;
-
 import javax.annotation.Nullable;
 
-import org.bitcoinj.crypto.KeyCrypter;
 import org.bitcoinj.crypto.KeyCrypterException;
 import org.bitcoinj.crypto.KeyCrypterScrypt;
-import org.bitcoinj.wallet.Protos;
 import org.bitcoinj.wallet.Wallet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,7 +49,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.common.base.Strings;
-import com.google.protobuf.ByteString;
 
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet_test.R;
@@ -260,10 +255,7 @@ public class EncryptKeysDialogFragment extends DialogFragment
 				final KeyParameter oldKey = oldPassword != null ? wallet.getKeyCrypter().deriveKey(oldPassword) : null;
 
 				// For the new key, we create a new key crypter according to the desired parameters.
-				final byte[] salt = new byte[KeyCrypterScrypt.SALT_LENGTH];
-				new SecureRandom().nextBytes(salt);
-				final KeyCrypterScrypt keyCrypter = new KeyCrypterScrypt(
-						Protos.ScryptParameters.newBuilder().setSalt(ByteString.copyFrom(salt)).setN(SCRYPT_ITERATIONS_TARGET).build());
+				final KeyCrypterScrypt keyCrypter = new KeyCrypterScrypt(SCRYPT_ITERATIONS_TARGET);
 				final KeyParameter newKey = newPassword != null ? keyCrypter.deriveKey(newPassword) : null;
 
 				handler.post(new Runnable()
