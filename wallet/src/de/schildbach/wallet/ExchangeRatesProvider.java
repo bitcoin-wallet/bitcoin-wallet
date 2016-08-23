@@ -107,18 +107,12 @@ public class ExchangeRatesProvider extends ContentProvider
 	private static final URL BITCOINAVERAGE_URL;
 	private static final String[] BITCOINAVERAGE_FIELDS = new String[] { "24h_avg", "last" };
 	private static final String BITCOINAVERAGE_SOURCE = "BitcoinAverage.com";
-	private static final URL BLOCKCHAININFO_URL;
-	private static final String[] BLOCKCHAININFO_FIELDS = new String[] { "15m" };
-	private static final String BLOCKCHAININFO_SOURCE = "blockchain.info";
-
-	// https://bitmarket.eu/api/ticker
 
 	static
 	{
 		try
 		{
 			BITCOINAVERAGE_URL = new URL("https://api.bitcoinaverage.com/custom/abw");
-			BLOCKCHAININFO_URL = new URL("https://blockchain.info/ticker");
 		}
 		catch (final MalformedURLException x)
 		{
@@ -169,8 +163,6 @@ public class ExchangeRatesProvider extends ContentProvider
 			Map<String, ExchangeRate> newExchangeRates = null;
 			if (newExchangeRates == null)
 				newExchangeRates = requestExchangeRates(BITCOINAVERAGE_URL, userAgent, BITCOINAVERAGE_SOURCE, BITCOINAVERAGE_FIELDS);
-			if (newExchangeRates == null)
-				newExchangeRates = requestExchangeRates(BLOCKCHAININFO_URL, userAgent, BLOCKCHAININFO_SOURCE, BLOCKCHAININFO_FIELDS);
 
 			if (newExchangeRates != null)
 			{

@@ -192,10 +192,6 @@ I chose this feed because it is not dependent on a single exchange. However, you
 mind it's always a 24h average (falling back to 7d or even 30d if no trade occurred for a long
 time).
 
-If the above feed is not available, the feed from "Blockchain.info" is fetched instead:
-
-	https://blockchain.info/ticker
-
 
 SWEEPING WALLETS
 
