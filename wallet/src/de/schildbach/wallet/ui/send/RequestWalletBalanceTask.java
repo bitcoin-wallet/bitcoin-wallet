@@ -17,14 +17,18 @@
 
 package de.schildbach.wallet.ui.send;
 
+import static com.google.common.base.Preconditions.checkState;
+
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Nullable;
@@ -158,17 +162,28 @@ public final class RequestWalletBalanceTask
 								transactions.put(uxtoHash, tx);
 							}
 
-							if (tx.getOutputs().size() > uxtoIndex)
-								throw new IllegalStateException("cannot reach index " + uxtoIndex + ", tx already has " + tx.getOutputs().size()
-										+ " outputs");
-
-							// fill with dummies
-							while (tx.getOutputs().size() < uxtoIndex)
-								tx.addOutput(new TransactionOutput(Constants.NETWORK_PARAMETERS, tx, Coin.NEGATIVE_SATOSHI, new byte[] {}));
-
-							// add the real output
 							final TransactionOutput output = new TransactionOutput(Constants.NETWORK_PARAMETERS, tx, uxtoValue, uxtoScriptBytes);
-							tx.addOutput(output);
+
+							if (tx.getOutputs().size() >= uxtoIndex)
+							{
+								// Work around not being able to replace outputs on transactions
+								final List<TransactionOutput> outputs = new ArrayList<TransactionOutput>(tx.getOutputs());
+								final TransactionOutput dummy = outputs.set(uxtoIndex, output);
+								checkState(dummy.getValue().equals(Coin.NEGATIVE_SATOSHI), "Index %s must be dummy output", uxtoIndex);
+								// Remove and re-add all outputs
+								tx.clearOutputs();
+								for (final TransactionOutput o : outputs)
+									tx.addOutput(o);
+							}
+							else
+							{
+								// Fill with dummies as needed
+								while (tx.getOutputs().size() < uxtoIndex)
+									tx.addOutput(new TransactionOutput(Constants.NETWORK_PARAMETERS, tx, Coin.NEGATIVE_SATOSHI, new byte[] {}));
+
+								// Add the real output
+								tx.addOutput(output);
+							}
 						}
 
 						log.info("fetched unspent outputs from {}", url);
