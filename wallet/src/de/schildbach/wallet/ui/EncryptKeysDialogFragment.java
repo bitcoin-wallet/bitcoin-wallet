@@ -58,7 +58,7 @@ import de.schildbach.wallet_test.R;
  */
 public class EncryptKeysDialogFragment extends DialogFragment
 {
-	private static final int SCRYPT_ITERATIONS_TARGET = 8192;
+	private static final int SCRYPT_ITERATIONS_TARGET = 65536;
 
 	private static final String FRAGMENT_TAG = EncryptKeysDialogFragment.class.getName();
 
