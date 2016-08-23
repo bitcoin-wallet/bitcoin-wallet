@@ -233,11 +233,13 @@ public class MaintenanceDialogFragment extends DialogFragment
 			new DeriveKeyTask(backgroundHandler)
 			{
 				@Override
-				protected void onSuccess(KeyParameter encryptionKey)
+				protected void onSuccess(final KeyParameter encryptionKey, final boolean wasChanged)
 				{
+					if (wasChanged)
+						application.backupWallet();
 					doMaintenance(encryptionKey);
 				}
-			}.deriveKey(wallet.getKeyCrypter(), passwordView.getText().toString().trim());
+			}.deriveKey(wallet, passwordView.getText().toString().trim());
 
 			updateView();
 		}

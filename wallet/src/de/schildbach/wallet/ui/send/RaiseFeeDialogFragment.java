@@ -230,11 +230,13 @@ public class RaiseFeeDialogFragment extends DialogFragment
 			new DeriveKeyTask(backgroundHandler)
 			{
 				@Override
-				protected void onSuccess(final KeyParameter encryptionKey)
+				protected void onSuccess(final KeyParameter encryptionKey, final boolean wasChanged)
 				{
+					if (wasChanged)
+						application.backupWallet();
 					doRaiseFee(encryptionKey);
 				}
-			}.deriveKey(wallet.getKeyCrypter(), passwordView.getText().toString().trim());
+			}.deriveKey(wallet, passwordView.getText().toString().trim());
 
 			updateView();
 		}
