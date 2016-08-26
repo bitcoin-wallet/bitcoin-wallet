@@ -164,7 +164,7 @@ public final class RequestWalletBalanceTask
 
 							final TransactionOutput output = new TransactionOutput(Constants.NETWORK_PARAMETERS, tx, uxtoValue, uxtoScriptBytes);
 
-							if (tx.getOutputs().size() >= uxtoIndex)
+							if (tx.getOutputs().size() > uxtoIndex)
 							{
 								// Work around not being able to replace outputs on transactions
 								final List<TransactionOutput> outputs = new ArrayList<TransactionOutput>(tx.getOutputs());
