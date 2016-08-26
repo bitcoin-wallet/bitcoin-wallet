@@ -1,3 +1,7 @@
+v4.68
+
+* Regression fix.
+
 v4.67
 
 * Speed up wallet decryption when using a spending PIN.
