@@ -234,7 +234,7 @@ public class RaiseFeeDialogFragment extends DialogFragment
 				{
 					doRaiseFee(encryptionKey);
 				}
-			}.deriveKey(wallet.getKeyCrypter(), passwordView.getText().toString().trim());
+			}.deriveKey(wallet, passwordView.getText().toString().trim());
 
 			updateView();
 		}

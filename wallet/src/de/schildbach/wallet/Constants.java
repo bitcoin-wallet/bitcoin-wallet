@@ -160,4 +160,7 @@ public final class Constants
 	public static final int NOTIFICATION_ID_CONNECTED = 0;
 	public static final int NOTIFICATION_ID_COINS_RECEIVED = 1;
 	public static final int NOTIFICATION_ID_INACTIVITY = 2;
+
+	/** Desired number of scrypt iterations for deriving the spending PIN */
+	public static final int SCRYPT_ITERATIONS_TARGET = 65536;
 }

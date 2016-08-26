@@ -6,7 +6,7 @@ model {
 
         ndk {
             moduleName 'scrypt'
-            abiFilters.addAll(['armeabi', 'x86'])
+            abiFilters.addAll(['armeabi', 'armeabi-v7a', 'x86'])
             CFlags.add('-DHAVE_CONFIG_H')
         }
 
