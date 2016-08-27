@@ -330,16 +330,25 @@ public final class ScanActivity extends Activity implements SurfaceTextureListen
 		@Override
 		public void run()
 		{
-			camera.autoFocus(new Camera.AutoFocusCallback()
+			try
 			{
-				@Override
-				public void onAutoFocus(final boolean success, final Camera camera)
-				{
-					// schedule again
-					cameraHandler.postDelayed(AutoFocusRunnable.this, AUTO_FOCUS_INTERVAL_MS);
-				}
-			});
+				camera.autoFocus(autoFocusCallback);
+			}
+			catch (final Exception x)
+			{
+				log.info("problem with auto-focus, will not schedule again", x);
+			}
 		}
+
+		private final Camera.AutoFocusCallback autoFocusCallback = new Camera.AutoFocusCallback()
+		{
+			@Override
+			public void onAutoFocus(final boolean success, final Camera camera)
+			{
+				// schedule again
+				cameraHandler.postDelayed(AutoFocusRunnable.this, AUTO_FOCUS_INTERVAL_MS);
+			}
+		};
 	}
 
 	private final Runnable fetchAndDecodeRunnable = new Runnable()
