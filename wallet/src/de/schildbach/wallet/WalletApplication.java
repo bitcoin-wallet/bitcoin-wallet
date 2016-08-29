@@ -149,7 +149,7 @@ public class WalletApplication extends Application
 
 	private void afterLoadWallet()
 	{
-		wallet.autosaveToFile(walletFile, 10, TimeUnit.SECONDS, new WalletAutosaveEventListener());
+		wallet.autosaveToFile(walletFile, Constants.Files.WALLET_AUTOSAVE_DELAY_MS, TimeUnit.MILLISECONDS, new WalletAutosaveEventListener());
 
 		// clean up spam
 		wallet.cleanup();
