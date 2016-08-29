@@ -391,6 +391,7 @@ public class WalletApplication extends Application
 
 	public void backupWallet()
 	{
+		final Stopwatch watch = Stopwatch.createStarted();
 		final Protos.Wallet.Builder builder = new WalletProtobufSerializer().walletToProto(wallet).toBuilder();
 
 		// strip redundant
@@ -406,10 +407,12 @@ public class WalletApplication extends Application
 		{
 			os = openFileOutput(Constants.Files.WALLET_KEY_BACKUP_PROTOBUF, Context.MODE_PRIVATE);
 			walletProto.writeTo(os);
+			watch.stop();
+			log.info("wallet backed up to: '{}', took {}", Constants.Files.WALLET_KEY_BACKUP_PROTOBUF, watch);
 		}
 		catch (final IOException x)
 		{
-			log.error("problem writing key backup", x);
+			log.error("problem writing wallet backup", x);
 		}
 		finally
 		{
