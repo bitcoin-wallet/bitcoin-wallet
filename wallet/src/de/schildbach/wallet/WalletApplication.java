@@ -39,6 +39,8 @@ import org.bitcoinj.wallet.WalletProtobufSerializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.common.base.Stopwatch;
+
 import android.app.ActivityManager;
 import android.app.AlarmManager;
 import android.app.Application;
@@ -212,9 +214,10 @@ public class WalletApplication extends Application
 	{
 		try
 		{
-			final long start = System.currentTimeMillis();
+			final Stopwatch watch = Stopwatch.createStarted();
 			MnemonicCode.INSTANCE = new MnemonicCode(getAssets().open(BIP39_WORDLIST_FILENAME), null);
-			log.info("BIP39 wordlist loaded from: '" + BIP39_WORDLIST_FILENAME + "', took " + (System.currentTimeMillis() - start) + "ms");
+			watch.stop();
+			log.info("BIP39 wordlist loaded from: '{}', took {}", BIP39_WORDLIST_FILENAME, watch);
 		}
 		catch (final IOException x)
 		{
@@ -252,20 +255,19 @@ public class WalletApplication extends Application
 	{
 		if (walletFile.exists())
 		{
-			final long start = System.currentTimeMillis();
-
 			FileInputStream walletStream = null;
 
 			try
 			{
+				final Stopwatch watch = Stopwatch.createStarted();
 				walletStream = new FileInputStream(walletFile);
-
 				wallet = new WalletProtobufSerializer().readWallet(walletStream);
+				watch.stop();
 
 				if (!wallet.getParams().equals(Constants.NETWORK_PARAMETERS))
 					throw new UnreadableWalletException("bad wallet network parameters: " + wallet.getParams().getId());
 
-				log.info("wallet loaded from: '" + walletFile + "', took " + (System.currentTimeMillis() - start) + "ms");
+				log.info("wallet loaded from: '{}', took {}", walletFile, watch);
 			}
 			catch (final FileNotFoundException x)
 			{
@@ -376,15 +378,15 @@ public class WalletApplication extends Application
 
 	private void protobufSerializeWallet(final Wallet wallet) throws IOException
 	{
-		final long start = System.currentTimeMillis();
-
+		final Stopwatch watch = Stopwatch.createStarted();
 		wallet.saveToFile(walletFile);
+		watch.stop();
 
 		// make wallets world accessible in test mode
 		if (Constants.TEST)
 			Io.chmod(walletFile, 0777);
 
-		log.debug("wallet saved to: '" + walletFile + "', took " + (System.currentTimeMillis() - start) + "ms");
+		log.debug("wallet saved to: '{}', took {}", walletFile, watch);
 	}
 
 	public void backupWallet()
