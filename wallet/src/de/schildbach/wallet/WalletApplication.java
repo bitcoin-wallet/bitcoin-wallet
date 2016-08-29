@@ -156,7 +156,9 @@ public class WalletApplication extends Application
 		// clean up spam
 		wallet.cleanup();
 
-		migrateBackup();
+		// make sure there is at least one recent backup
+		if (!getFileStreamPath(Constants.Files.WALLET_KEY_BACKUP_PROTOBUF).exists())
+			backupWallet();
 	}
 
 	private void initLogging()
@@ -424,17 +426,6 @@ public class WalletApplication extends Application
 			{
 				// swallow
 			}
-		}
-	}
-
-	private void migrateBackup()
-	{
-		if (!getFileStreamPath(Constants.Files.WALLET_KEY_BACKUP_PROTOBUF).exists())
-		{
-			log.info("migrating automatic backup to protobuf");
-
-			// make sure there is at least one recent backup
-			backupWallet();
 		}
 	}
 
