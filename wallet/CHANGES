@@ -1,3 +1,7 @@
+v4.69
+
+* Strengthen security of spending PIN for all existing wallets, too.
+
 v4.68
 
 * Regression fix.
