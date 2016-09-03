@@ -316,6 +316,7 @@ public class WalletApplication extends Application
 		{
 			wallet = new Wallet(Constants.NETWORK_PARAMETERS);
 
+			saveWallet();
 			backupWallet();
 
 			config.armBackupReminder();
@@ -388,7 +389,7 @@ public class WalletApplication extends Application
 		if (Constants.TEST)
 			Io.chmod(walletFile, 0777);
 
-		log.debug("wallet saved to: '{}', took {}", walletFile, watch);
+		log.info("wallet saved to: '{}', took {}", walletFile, watch);
 	}
 
 	public void backupWallet()
