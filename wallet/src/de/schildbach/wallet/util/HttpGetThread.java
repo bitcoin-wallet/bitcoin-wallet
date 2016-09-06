@@ -18,16 +18,15 @@
 package de.schildbach.wallet.util;
 
 import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 
 import javax.annotation.Nullable;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.common.base.Charsets;
+import com.squareup.okhttp.Call;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
 
 import de.schildbach.wallet.Constants;
 
@@ -51,27 +50,22 @@ public abstract class HttpGetThread extends Thread
 	@Override
 	public void run()
 	{
-		HttpURLConnection connection = null;
-
 		log.debug("querying \"" + url + "\"...");
 
+		final Request.Builder request = new Request.Builder();
+		request.url(url);
+		request.header("Accept-Charset", "utf-8");
+		if (userAgent != null)
+			request.header("User-Agent", userAgent);
+
+		final Call call = Constants.HTTP_CLIENT.newCall(request.build());
 		try
 		{
-			connection = (HttpURLConnection) new URL(url).openConnection();
-			connection.setInstanceFollowRedirects(false);
-			connection.setConnectTimeout(Constants.HTTP_TIMEOUT_MS);
-			connection.setReadTimeout(Constants.HTTP_TIMEOUT_MS);
-			connection.setRequestProperty("Accept-Charset", "utf-8");
-			if (userAgent != null)
-				connection.addRequestProperty("User-Agent", userAgent);
-			connection.connect();
-
-			if (connection.getResponseCode() == HttpURLConnection.HTTP_OK)
+			final Response response = call.execute();
+			if (response.isSuccessful())
 			{
-				final long serverTime = connection.getDate();
-				// TODO parse connection.getContentType() for charset
-
-				final BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream(), Charsets.UTF_8), 64);
+				final long serverTime = response.headers().getDate("Date").getTime();
+				final BufferedReader reader = new BufferedReader(response.body().charStream());
 				final String line = reader.readLine().trim();
 				reader.close();
 
@@ -81,11 +75,6 @@ public abstract class HttpGetThread extends Thread
 		catch (final Exception x)
 		{
 			handleException(x);
-		}
-		finally
-		{
-			if (connection != null)
-				connection.disconnect();
 		}
 	}
 

@@ -20,8 +20,6 @@ package de.schildbach.wallet.ui.send;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 
 import javax.annotation.Nullable;
 
@@ -29,20 +27,24 @@ import org.bitcoinj.protocols.payments.PaymentProtocol;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothDevice;
-import android.bluetooth.BluetoothSocket;
-import android.os.Handler;
-import android.os.Looper;
-
 import com.google.protobuf.CodedInputStream;
 import com.google.protobuf.CodedOutputStream;
+import com.squareup.okhttp.CacheControl;
+import com.squareup.okhttp.Call;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
 
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.data.PaymentIntent;
 import de.schildbach.wallet.ui.InputParser;
 import de.schildbach.wallet.util.Bluetooth;
 import de.schildbach.wallet_test.R;
+
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothSocket;
+import android.os.Handler;
+import android.os.Looper;
 
 /**
  * @author Andreas Schildbach
@@ -91,32 +93,22 @@ public abstract class RequestPaymentRequestTask
 				{
 					log.info("trying to request payment request from {}", url);
 
-					HttpURLConnection connection = null;
-					InputStream is = null;
+					final Request.Builder request = new Request.Builder();
+					request.url(url);
+					request.cacheControl(new CacheControl.Builder().noCache().build());
+					request.header("Accept", PaymentProtocol.MIMETYPE_PAYMENTREQUEST);
+					if (userAgent != null)
+						request.header("User-Agent", userAgent);
 
+					final Call call = Constants.HTTP_CLIENT.newCall(request.build());
 					try
 					{
-						connection = (HttpURLConnection) new URL(url).openConnection();
-
-						connection.setInstanceFollowRedirects(false);
-						connection.setConnectTimeout(Constants.HTTP_TIMEOUT_MS);
-						connection.setReadTimeout(Constants.HTTP_TIMEOUT_MS);
-						connection.setUseCaches(false);
-						connection.setDoInput(true);
-						connection.setDoOutput(false);
-
-						connection.setRequestMethod("GET");
-						connection.setRequestProperty("Accept", PaymentProtocol.MIMETYPE_PAYMENTREQUEST);
-						if (userAgent != null)
-							connection.addRequestProperty("User-Agent", userAgent);
-						connection.connect();
-
-						final int responseCode = connection.getResponseCode();
-						if (responseCode == HttpURLConnection.HTTP_OK)
+						final Response response = call.execute();
+						if (response.isSuccessful())
 						{
-							is = connection.getInputStream();
-
-							new InputParser.StreamInputParser(connection.getContentType(), is)
+							final String contentType = response.header("Content-Type");
+							final InputStream is = response.body().byteStream();
+							new InputParser.StreamInputParser(contentType, is)
 							{
 								@Override
 								protected void handlePaymentIntent(final PaymentIntent paymentIntent)
@@ -132,13 +124,14 @@ public abstract class RequestPaymentRequestTask
 									onFail(messageResId, messageArgs);
 								}
 							}.parse();
+							is.close();
 						}
 						else
 						{
-							final String responseMessage = connection.getResponseMessage();
+							final int responseCode = response.code();
+							final String responseMessage = response.message();
 
 							log.info("got http error {}: {}", responseCode, responseMessage);
-
 							onFail(R.string.error_http, responseCode, responseMessage);
 						}
 					}
@@ -147,23 +140,6 @@ public abstract class RequestPaymentRequestTask
 						log.info("problem sending", x);
 
 						onFail(R.string.error_io, x.getMessage());
-					}
-					finally
-					{
-						if (is != null)
-						{
-							try
-							{
-								is.close();
-							}
-							catch (final IOException x)
-							{
-								// swallow
-							}
-						}
-
-						if (connection != null)
-							connection.disconnect();
 					}
 				}
 			});
