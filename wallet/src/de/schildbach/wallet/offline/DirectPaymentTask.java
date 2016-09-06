@@ -21,9 +21,6 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 
 import javax.annotation.Nullable;
 
@@ -33,14 +30,23 @@ import org.bitcoinj.protocols.payments.PaymentProtocol;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.squareup.okhttp.CacheControl;
+import com.squareup.okhttp.Call;
+import com.squareup.okhttp.MediaType;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.RequestBody;
+import com.squareup.okhttp.Response;
+
+import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.util.Bluetooth;
+import de.schildbach.wallet_test.R;
+
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.os.Handler;
 import android.os.Looper;
-import de.schildbach.wallet.Constants;
-import de.schildbach.wallet.util.Bluetooth;
-import de.schildbach.wallet_test.R;
+import okio.BufferedSink;
 
 /**
  * @author Andreas Schildbach
@@ -92,41 +98,44 @@ public abstract class DirectPaymentTask
 				{
 					log.info("trying to send tx to {}", url);
 
-					HttpURLConnection connection = null;
-					OutputStream os = null;
-					InputStream is = null;
+					final Request.Builder request = new Request.Builder();
+					request.url(url);
+					request.cacheControl(new CacheControl.Builder().noCache().build());
+					request.header("Accept", PaymentProtocol.MIMETYPE_PAYMENTACK);
+					if (userAgent != null)
+						request.header("User-Agent", userAgent);
+					request.post(new RequestBody()
+					{
+						@Override
+						public MediaType contentType()
+						{
+							return MediaType.parse(PaymentProtocol.MIMETYPE_PAYMENT);
+						}
 
+						@Override
+						public long contentLength() throws IOException
+						{
+							return payment.getSerializedSize();
+						}
+
+						@Override
+						public void writeTo(final BufferedSink sink) throws IOException
+						{
+							payment.writeTo(sink.outputStream());
+						}
+					});
+
+					final Call call = Constants.HTTP_CLIENT.newCall(request.build());
 					try
 					{
-						connection = (HttpURLConnection) new URL(url).openConnection();
-
-						connection.setInstanceFollowRedirects(false);
-						connection.setConnectTimeout(Constants.HTTP_TIMEOUT_MS);
-						connection.setReadTimeout(Constants.HTTP_TIMEOUT_MS);
-						connection.setUseCaches(false);
-						connection.setDoInput(true);
-						connection.setDoOutput(true);
-
-						connection.setRequestMethod("POST");
-						connection.setRequestProperty("Content-Type", PaymentProtocol.MIMETYPE_PAYMENT);
-						connection.setRequestProperty("Accept", PaymentProtocol.MIMETYPE_PAYMENTACK);
-						connection.setRequestProperty("Content-Length", Integer.toString(payment.getSerializedSize()));
-						if (userAgent != null)
-							connection.addRequestProperty("User-Agent", userAgent);
-						connection.connect();
-
-						os = connection.getOutputStream();
-						payment.writeTo(os);
-						os.flush();
-
-						log.info("tx sent via http");
-
-						final int responseCode = connection.getResponseCode();
-						if (responseCode == HttpURLConnection.HTTP_OK)
+						final Response response = call.execute();
+						if (response.isSuccessful())
 						{
-							is = connection.getInputStream();
+							log.info("tx sent via http");
 
+							final InputStream is = response.body().byteStream();
 							final Protos.PaymentACK paymentAck = Protos.PaymentACK.parseFrom(is);
+							is.close();
 
 							final boolean ack = !"nack".equals(PaymentProtocol.parsePaymentAck(paymentAck).getMemo());
 
@@ -136,10 +145,10 @@ public abstract class DirectPaymentTask
 						}
 						else
 						{
-							final String responseMessage = connection.getResponseMessage();
+							final int responseCode = response.code();
+							final String responseMessage = response.message();
 
 							log.info("got http error {}: {}", responseCode, responseMessage);
-
 							onFail(R.string.error_http, responseCode, responseMessage);
 						}
 					}
@@ -148,35 +157,6 @@ public abstract class DirectPaymentTask
 						log.info("problem sending", x);
 
 						onFail(R.string.error_io, x.getMessage());
-					}
-					finally
-					{
-						if (os != null)
-						{
-							try
-							{
-								os.close();
-							}
-							catch (final IOException x)
-							{
-								// swallow
-							}
-						}
-
-						if (is != null)
-						{
-							try
-							{
-								is.close();
-							}
-							catch (final IOException x)
-							{
-								// swallow
-							}
-						}
-
-						if (connection != null)
-							connection.disconnect();
 					}
 				}
 			});

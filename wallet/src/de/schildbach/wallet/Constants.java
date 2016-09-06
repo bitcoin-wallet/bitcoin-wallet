@@ -18,6 +18,7 @@
 package de.schildbach.wallet;
 
 import java.io.File;
+import java.util.concurrent.TimeUnit;
 
 import org.bitcoinj.core.Context;
 import org.bitcoinj.core.NetworkParameters;
@@ -30,6 +31,7 @@ import android.os.Environment;
 import android.text.format.DateUtils;
 
 import com.google.common.io.BaseEncoding;
+import com.squareup.okhttp.OkHttpClient;
 
 import de.schildbach.wallet_test.R;
 
@@ -143,7 +145,6 @@ public final class Constants
 	public static final String MARKET_APP_URL = "market://details?id=%s";
 	public static final String WEBMARKET_APP_URL = "https://play.google.com/store/apps/details?id=%s";
 
-	public static final int HTTP_TIMEOUT_MS = 15 * (int) DateUtils.SECOND_IN_MILLIS;
 	public static final int PEER_DISCOVERY_TIMEOUT_MS = 10 * (int) DateUtils.SECOND_IN_MILLIS;
 	public static final int PEER_TIMEOUT_MS = 15 * (int) DateUtils.SECOND_IN_MILLIS;
 
@@ -166,4 +167,13 @@ public final class Constants
 
 	/** Desired number of scrypt iterations for deriving the spending PIN */
 	public static final int SCRYPT_ITERATIONS_TARGET = 65536;
+
+	/** Shared HTTP client, can reuse connections */
+	public static final OkHttpClient HTTP_CLIENT = new OkHttpClient();
+	static {
+		HTTP_CLIENT.setFollowRedirects(false);
+		HTTP_CLIENT.setFollowSslRedirects(true);
+		HTTP_CLIENT.setConnectTimeout(15, TimeUnit.SECONDS);
+		HTTP_CLIENT.setReadTimeout(15, TimeUnit.SECONDS);
+	}
 }

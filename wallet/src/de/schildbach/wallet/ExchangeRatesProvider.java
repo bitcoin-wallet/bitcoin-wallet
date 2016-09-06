@@ -19,12 +19,6 @@ package de.schildbach.wallet;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-import java.io.BufferedInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Currency;
@@ -32,7 +26,6 @@ import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map;
 import java.util.TreeMap;
-import java.util.zip.GZIPInputStream;
 
 import javax.annotation.Nullable;
 
@@ -43,6 +36,14 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.common.base.Stopwatch;
+import com.google.common.base.Strings;
+import com.squareup.okhttp.Call;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
+
+import de.schildbach.wallet.util.GenericUtils;
+
 import android.content.ContentProvider;
 import android.content.ContentValues;
 import android.content.Context;
@@ -52,13 +53,6 @@ import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.provider.BaseColumns;
 import android.text.format.DateUtils;
-
-import com.google.common.base.Charsets;
-import com.google.common.base.Stopwatch;
-import com.google.common.base.Strings;
-
-import de.schildbach.wallet.util.GenericUtils;
-import de.schildbach.wallet.util.Io;
 
 /**
  * @author Andreas Schildbach
@@ -282,38 +276,23 @@ public class ExchangeRatesProvider extends ContentProvider
 
 	private static Map<String, ExchangeRate> requestExchangeRates(final URL url, final String userAgent, final String source, final String... fields)
 	{
-		HttpURLConnection connection = null;
-		Reader reader = null;
+		final Stopwatch watch = Stopwatch.createStarted();
 
+		final Request.Builder request = new Request.Builder();
+		request.url(url);
+		request.header("User-Agent", userAgent);
+
+		final Call call = Constants.HTTP_CLIENT.newCall(request.build());
 		try
 		{
-			final Stopwatch watch = Stopwatch.createStarted();
-
-			connection = (HttpURLConnection) url.openConnection();
-
-			connection.setInstanceFollowRedirects(false);
-			connection.setConnectTimeout(Constants.HTTP_TIMEOUT_MS);
-			connection.setReadTimeout(Constants.HTTP_TIMEOUT_MS);
-			connection.addRequestProperty("User-Agent", userAgent);
-			connection.addRequestProperty("Accept-Encoding", "gzip");
-			connection.connect();
-
-			final int responseCode = connection.getResponseCode();
-			if (responseCode == HttpURLConnection.HTTP_OK)
+			final Response response = call.execute();
+			if (response.isSuccessful())
 			{
-				final String contentEncoding = connection.getContentEncoding();
-
-				InputStream is = new BufferedInputStream(connection.getInputStream(), 1024);
-				if ("gzip".equalsIgnoreCase(contentEncoding))
-					is = new GZIPInputStream(is);
-
-				reader = new InputStreamReader(is, Charsets.UTF_8);
-				final StringBuilder content = new StringBuilder();
-				final long length = Io.copy(reader, content);
+				final String content = response.body().string();
 
 				final Map<String, ExchangeRate> rates = new TreeMap<String, ExchangeRate>();
 
-				final JSONObject head = new JSONObject(content.toString());
+				final JSONObject head = new JSONObject(content);
 				for (final Iterator<String> i = head.keys(); i.hasNext();)
 				{
 					final String currencyCode = Strings.emptyToNull(i.next());
@@ -340,7 +319,7 @@ public class ExchangeRatesProvider extends ContentProvider
 								}
 								catch (final NumberFormatException x)
 								{
-									log.warn("problem fetching {} exchange rate from {} ({}): {}", currencyCode, url, contentEncoding, x.getMessage());
+									log.warn("problem fetching {} exchange rate from {}: {}", currencyCode, url, x.getMessage());
 								}
 							}
 						}
@@ -348,35 +327,18 @@ public class ExchangeRatesProvider extends ContentProvider
 				}
 
 				watch.stop();
-				log.info("fetched exchange rates from {} ({}), {} chars, took {}", url, contentEncoding, length, watch);
+				log.info("fetched exchange rates from {}, {} chars, took {}", url, content.length(), watch);
 
 				return rates;
 			}
 			else
 			{
-				log.warn("http status {} when fetching exchange rates from {}", responseCode, url);
+				log.warn("http status {} when fetching exchange rates from {}", response.code(), url);
 			}
 		}
 		catch (final Exception x)
 		{
 			log.warn("problem fetching exchange rates from " + url, x);
-		}
-		finally
-		{
-			if (reader != null)
-			{
-				try
-				{
-					reader.close();
-				}
-				catch (final IOException x)
-				{
-					// swallow
-				}
-			}
-
-			if (connection != null)
-				connection.disconnect();
 		}
 
 		return null;

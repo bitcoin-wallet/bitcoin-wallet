@@ -19,12 +19,7 @@ package de.schildbach.wallet.ui.send;
 
 import static com.google.common.base.Preconditions.checkState;
 
-import java.io.BufferedInputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -46,14 +41,17 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import android.os.Handler;
-import android.os.Looper;
-
-import com.google.common.base.Charsets;
+import com.squareup.okhttp.CacheControl;
+import com.squareup.okhttp.Call;
+import com.squareup.okhttp.HttpUrl;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
 
 import de.schildbach.wallet.Constants;
-import de.schildbach.wallet.util.Io;
 import de.schildbach.wallet_test.R;
+
+import android.os.Handler;
+import android.os.Looper;
 
 /**
  * @author Andreas Schildbach
@@ -92,43 +90,31 @@ public final class RequestWalletBalanceTask
 			{
 				org.bitcoinj.core.Context.propagate(Constants.CONTEXT);
 
-				final StringBuilder url = new StringBuilder(Constants.BITEASY_API_URL);
-				url.append("outputs");
-				url.append("?per_page=MAX");
-				url.append("&operator=AND");
-				url.append("&spent_state=UNSPENT");
+				final HttpUrl.Builder url = HttpUrl.parse(Constants.BITEASY_API_URL).newBuilder();
+				url.addPathSegment("outputs");
+				url.addQueryParameter("per_page", "MAX");
+				url.addQueryParameter("operator", "AND");
+				url.addQueryParameter("spent_state", "UNSPENT");
 				for (final Address address : addresses)
-					url.append("&address[]=").append(address.toBase58());
+					url.addQueryParameter("address[]", address.toBase58());
 
-				log.debug("trying to request wallet balance from {}", url);
+				log.debug("trying to request wallet balance from {}", url.build());
 
-				HttpURLConnection connection = null;
-				Reader reader = null;
+				final Request.Builder request = new Request.Builder();
+				request.url(url.build());
+				request.cacheControl(new CacheControl.Builder().noCache().build());
+				request.header("Accept-Charset", "utf-8");
+				if (userAgent != null)
+					request.header("User-Agent", userAgent);
 
+				final Call call = Constants.HTTP_CLIENT.newCall(request.build());
 				try
 				{
-					connection = (HttpURLConnection) new URL(url.toString()).openConnection();
-
-					connection.setInstanceFollowRedirects(false);
-					connection.setConnectTimeout(Constants.HTTP_TIMEOUT_MS);
-					connection.setReadTimeout(Constants.HTTP_TIMEOUT_MS);
-					connection.setUseCaches(false);
-					connection.setDoInput(true);
-					connection.setDoOutput(false);
-
-					connection.setRequestMethod("GET");
-					if (userAgent != null)
-						connection.addRequestProperty("User-Agent", userAgent);
-					connection.connect();
-
-					final int responseCode = connection.getResponseCode();
-					if (responseCode == HttpURLConnection.HTTP_OK)
+					final Response response = call.execute();
+					if (response.isSuccessful())
 					{
-						reader = new InputStreamReader(new BufferedInputStream(connection.getInputStream(), 1024), Charsets.UTF_8);
-						final StringBuilder content = new StringBuilder();
-						Io.copy(reader, content);
-
-						final JSONObject json = new JSONObject(content.toString());
+						final String content = response.body().string();
+						final JSONObject json = new JSONObject(content);
 
 						final int status = json.getInt("status");
 						if (status != 200)
@@ -192,10 +178,10 @@ public final class RequestWalletBalanceTask
 					}
 					else
 					{
-						final String responseMessage = connection.getResponseMessage();
+						final int responseCode = response.code();
+						final String responseMessage = response.message();
 
 						log.info("got http error '{}: {}' from {}", responseCode, responseMessage, url);
-
 						onFail(R.string.error_http, responseCode, responseMessage);
 					}
 				}
@@ -210,23 +196,6 @@ public final class RequestWalletBalanceTask
 					log.info("problem querying unspent outputs from " + url, x);
 
 					onFail(R.string.error_io, x.getMessage());
-				}
-				finally
-				{
-					if (reader != null)
-					{
-						try
-						{
-							reader.close();
-						}
-						catch (final IOException x)
-						{
-							// swallow
-						}
-					}
-
-					if (connection != null)
-						connection.disconnect();
 				}
 			}
 		});
