@@ -380,6 +380,70 @@ public class ExchangeRatesProvider extends ContentProvider
 
         return null;
     }
+
+	private static Object getCoinValueBTC_bittrex()
+	{
+		//final Map<String, ExchangeRate> rates = new TreeMap<String, ExchangeRate>();
+		// Keep the LTC rate around for a bit
+		Double btcRate = 0.0;
+		String currency = "BTC";
+		String url = "https://bittrex.com/api/v1.1/public/getticker?market=btc-grs";
+
+
+
+
+
+		try {
+			// final String currencyCode = currencies[i];
+			final URL URL_bter = new URL(url);
+			final HttpURLConnection connection = (HttpURLConnection)URL_bter.openConnection();
+			connection.setConnectTimeout(Constants.HTTP_TIMEOUT_MS * 2);
+			connection.setReadTimeout(Constants.HTTP_TIMEOUT_MS * 2);
+			connection.connect();
+
+			final StringBuilder content = new StringBuilder();
+
+			Reader reader = null;
+			try
+			{
+				reader = new InputStreamReader(new BufferedInputStream(connection.getInputStream(), 1024));
+				Io.copy(reader, content);
+				final JSONObject head = new JSONObject(content.toString());
+
+				/*
+				{"success":true,"message":"","result":{"Bid":0.00313794,"Ask":0.00321785,"Last":0.00315893}}
+				}*/
+				String result = head.getString("success");
+				if(result.equals("true"))
+				{
+					JSONObject dataObject = head.getJSONObject("result");
+
+					Double averageTrade = dataObject.getDouble("Last");
+
+
+					if(currency.equalsIgnoreCase("BTC"))
+						btcRate = averageTrade;
+				}
+				return btcRate;
+			}
+			finally
+			{
+				if (reader != null)
+					reader.close();
+			}
+
+		}
+		catch (final IOException x)
+		{
+			x.printStackTrace();
+		}
+		catch (final JSONException x)
+		{
+			x.printStackTrace();
+		}
+
+		return null;
+	}
     private static Object getCoinValueBTC()
     {
 
@@ -537,7 +601,7 @@ public class ExchangeRatesProvider extends ContentProvider
 
             Double btcRate = 0.0;
             boolean cryptsyValue = true;
-            Object result = getCoinValueBTC_poloniex();
+            Object result = getCoinValueBTC_bittrex();
 
             if(result == null)
             {
