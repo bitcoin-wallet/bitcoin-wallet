@@ -566,10 +566,11 @@ public class WalletTransactionsFragment extends Fragment implements LoaderCallba
 
 	private Warning warning()
 	{
+		final int storageEncryptionStatus = devicePolicyManager.getStorageEncryptionStatus();
 		if (config.remindBackup())
 			return Warning.BACKUP;
-		else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP
-				&& devicePolicyManager.getStorageEncryptionStatus() != DevicePolicyManager.ENCRYPTION_STATUS_ACTIVE)
+		else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && (storageEncryptionStatus == DevicePolicyManager.ENCRYPTION_STATUS_INACTIVE
+				|| storageEncryptionStatus == DevicePolicyManager.ENCRYPTION_STATUS_ACTIVE_DEFAULT_KEY))
 			return Warning.STORAGE_ENCRYPTION;
 		else
 			return null;
