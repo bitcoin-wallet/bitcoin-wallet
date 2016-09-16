@@ -1,3 +1,9 @@
+v4.70
+
+* Supports HTTP/2 and ALPN on all HTTP calls (e.g. payment protocol).
+* Slightly more robust scanning of QR codes.
+* Minor bugfixes.
+
 v4.69
 
 * Strengthen security of spending PIN for all existing wallets, too.
