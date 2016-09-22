@@ -335,7 +335,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 			{
 				final NetworkInfo networkInfo = (NetworkInfo) intent.getParcelableExtra(ConnectivityManager.EXTRA_NETWORK_INFO);
 				final boolean hasConnectivity = networkInfo.isConnected();
-				log.info("network is " + (hasConnectivity ? "up" : "down"));
+				log.info("network is {}, state {}/{}", hasConnectivity ? "up" : "down", networkInfo.getState(), networkInfo.getDetailedState());
 
 				if (hasConnectivity)
 					impediments.remove(Impediment.NETWORK);
