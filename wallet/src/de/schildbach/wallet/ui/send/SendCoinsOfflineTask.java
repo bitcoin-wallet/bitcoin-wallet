@@ -26,6 +26,8 @@ import org.bitcoinj.wallet.SendRequest;
 import org.bitcoinj.wallet.Wallet;
 import org.bitcoinj.wallet.Wallet.CompletionException;
 import org.bitcoinj.wallet.Wallet.CouldNotAdjustDownwards;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import de.schildbach.wallet.Constants;
 
@@ -40,6 +42,8 @@ public abstract class SendCoinsOfflineTask
 	private final Wallet wallet;
 	private final Handler backgroundHandler;
 	private final Handler callbackHandler;
+
+	private static final Logger log = LoggerFactory.getLogger(SendCoinsOfflineTask.class);
 
 	public SendCoinsOfflineTask(final Wallet wallet, final Handler backgroundHandler)
 	{
@@ -59,7 +63,9 @@ public abstract class SendCoinsOfflineTask
 
 				try
 				{
+					log.info("sending: {}", sendRequest);
 					final Transaction transaction = wallet.sendCoinsOffline(sendRequest); // can take long
+					log.info("send successful, transaction committed: {}", transaction.getHashAsString());
 
 					callbackHandler.post(new Runnable()
 					{
@@ -72,6 +78,12 @@ public abstract class SendCoinsOfflineTask
 				}
 				catch (final InsufficientMoneyException x)
 				{
+					final Coin missing = x.missing;
+					if (missing != null)
+						log.info("send failed, {} missing", missing.toFriendlyString());
+					else
+						log.info("send failed, insufficient coins");
+
 					callbackHandler.post(new Runnable()
 					{
 						@Override
@@ -83,6 +95,8 @@ public abstract class SendCoinsOfflineTask
 				}
 				catch (final ECKey.KeyIsEncryptedException x)
 				{
+					log.info("send failed, key is encrypted: {}", x.getMessage());
+
 					callbackHandler.post(new Runnable()
 					{
 						@Override
@@ -94,6 +108,8 @@ public abstract class SendCoinsOfflineTask
 				}
 				catch (final KeyCrypterException x)
 				{
+					log.info("send failed, key crypter exception: {}", x.getMessage());
+
 					callbackHandler.post(new Runnable()
 					{
 						@Override
@@ -105,6 +121,8 @@ public abstract class SendCoinsOfflineTask
 				}
 				catch (final CouldNotAdjustDownwards x)
 				{
+					log.info("send failed, could not adjust downwards: {}", x.getMessage());
+
 					callbackHandler.post(new Runnable()
 					{
 						@Override
@@ -116,6 +134,8 @@ public abstract class SendCoinsOfflineTask
 				}
 				catch (final CompletionException x)
 				{
+					log.info("send failed, cannot complete: {}", x.getMessage());
+
 					callbackHandler.post(new Runnable()
 					{
 						@Override
