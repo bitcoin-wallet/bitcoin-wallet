@@ -110,12 +110,16 @@ public abstract class SendCoinsOfflineTask
 				{
 					log.info("send failed, key crypter exception: {}", x.getMessage());
 
+					final boolean isEncrypted = wallet.isEncrypted();
 					callbackHandler.post(new Runnable()
 					{
 						@Override
 						public void run()
 						{
-							onInvalidKey();
+							if (isEncrypted)
+								onInvalidEncryptionKey();
+							else
+								onFailure(x);
 						}
 					});
 				}
@@ -153,7 +157,7 @@ public abstract class SendCoinsOfflineTask
 
 	protected abstract void onInsufficientMoney(Coin missing);
 
-	protected abstract void onInvalidKey();
+	protected abstract void onInvalidEncryptionKey();
 
 	protected void onEmptyWalletFailed()
 	{

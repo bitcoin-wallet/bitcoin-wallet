@@ -670,7 +670,7 @@ public class SweepWalletFragment extends Fragment
 			}
 
 			@Override
-			protected void onInvalidKey()
+			protected void onInvalidEncryptionKey()
 			{
 				throw new RuntimeException(); // cannot happen
 			}

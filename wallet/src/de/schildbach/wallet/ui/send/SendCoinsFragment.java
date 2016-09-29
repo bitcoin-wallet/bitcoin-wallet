@@ -1189,7 +1189,7 @@ public final class SendCoinsFragment extends Fragment
 			}
 
 			@Override
-			protected void onInvalidKey()
+			protected void onInvalidEncryptionKey()
 			{
 				setState(State.INPUT);
 
