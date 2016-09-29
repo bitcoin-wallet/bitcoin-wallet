@@ -105,17 +105,19 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 	{
 		private final Coin value;
 		private final boolean sent;
+		private final boolean self;
 		private final boolean showFee;
 		@Nullable
 		private final Address address;
 		@Nullable
 		private final String addressLabel;
 
-		private TransactionCacheEntry(final Coin value, final boolean sent, final boolean showFee, final @Nullable Address address,
-				final @Nullable String addressLabel)
+		private TransactionCacheEntry(final Coin value, final boolean sent, final boolean self, final boolean showFee,
+				final @Nullable Address address, final @Nullable String addressLabel)
 		{
 			this.value = value;
 			this.sent = sent;
+			this.self = self;
 			this.showFee = showFee;
 			this.address = address;
 			this.addressLabel = addressLabel;
@@ -394,6 +396,7 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 			{
 				final Coin value = tx.getValue(wallet);
 				final boolean sent = value.signum() < 0;
+				final boolean self = WalletUtils.isEntirelySelf(tx, wallet);
 				final boolean showFee = sent && fee != null && !fee.isZero();
 				final Address address;
 				if (sent)
@@ -402,7 +405,7 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 					address = WalletUtils.getWalletAddressOfReceived(tx, wallet);
 				final String addressLabel = address != null ? AddressBookProvider.resolveLabel(context, address.toBase58()) : null;
 
-				txCache = new TransactionCacheEntry(value, sent, showFee, address, addressLabel);
+				txCache = new TransactionCacheEntry(value, sent, self, showFee, address, addressLabel);
 				transactionCache.put(tx.getHash(), txCache);
 			}
 
@@ -509,9 +512,9 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 				addressView.setTypeface(Typeface.DEFAULT_BOLD);
 				addressView.setText(textCoinBase);
 			}
-			else if (purpose == Purpose.KEY_ROTATION)
+			else if (purpose == Purpose.KEY_ROTATION || txCache.self)
 			{
-				addressView.setTextColor(textColor);
+				addressView.setTextColor(lessSignificantColor);
 				addressView.setTypeface(Typeface.DEFAULT_BOLD);
 				addressView.setText(textInternal);
 			}

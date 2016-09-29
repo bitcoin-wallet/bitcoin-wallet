@@ -212,6 +212,7 @@ public class BlockListAdapter extends RecyclerView.Adapter<BlockListAdapter.Bloc
 
 		final Coin value = tx.getValue(wallet);
 		final boolean sent = value.signum() < 0;
+		final boolean self = WalletUtils.isEntirelySelf(tx, wallet);
 		final Address address;
 		if (sent)
 			address = WalletUtils.getToAddressOfSent(tx, wallet);
@@ -220,7 +221,7 @@ public class BlockListAdapter extends RecyclerView.Adapter<BlockListAdapter.Bloc
 
 		// receiving or sending
 		final TextView rowFromTo = (TextView) row.findViewById(R.id.block_row_transaction_fromto);
-		if (isInternal)
+		if (isInternal || self)
 			rowFromTo.setText(R.string.symbol_internal);
 		else if (sent)
 			rowFromTo.setText(R.string.symbol_to);
@@ -232,7 +233,7 @@ public class BlockListAdapter extends RecyclerView.Adapter<BlockListAdapter.Bloc
 		final String label;
 		if (isCoinBase)
 			label = textCoinBase;
-		else if (isInternal)
+		else if (isInternal || self)
 			label = textInternal;
 		else if (address != null)
 			label = AddressBookProvider.resolveLabel(context, address.toBase58());

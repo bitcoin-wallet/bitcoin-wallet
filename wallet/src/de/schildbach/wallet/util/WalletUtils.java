@@ -43,6 +43,7 @@ import org.bitcoinj.core.NetworkParameters;
 import org.bitcoinj.core.ScriptException;
 import org.bitcoinj.core.Sha256Hash;
 import org.bitcoinj.core.Transaction;
+import org.bitcoinj.core.TransactionInput;
 import org.bitcoinj.core.TransactionOutput;
 import org.bitcoinj.script.Script;
 import org.bitcoinj.wallet.KeyChainGroup;
@@ -153,6 +154,24 @@ public class WalletUtils
 		}
 
 		return null;
+	}
+
+	public static boolean isEntirelySelf(final Transaction tx, final Wallet wallet)
+	{
+		for (final TransactionInput input : tx.getInputs())
+		{
+			final TransactionOutput connectedOutput = input.getConnectedOutput();
+			if (connectedOutput == null || !connectedOutput.isMine(wallet))
+				return false;
+		}
+
+		for (final TransactionOutput output : tx.getOutputs())
+		{
+			if (!output.isMine(wallet))
+				return false;
+		}
+
+		return true;
 	}
 
 	public static Wallet restoreWalletFromProtobufOrBase58(final InputStream is, final NetworkParameters expectedNetworkParameters) throws IOException
