@@ -285,8 +285,10 @@
   <string name="about_copyright_title">Telif hakkı</string>
   <string name="about_license_title">Lisans</string>
   <string name="about_source_title">Kaynak kodu</string>
-  <string name="about_credits_bitcoinj_title">Bu uygulama bitcoinj %s kullanmaktadır</string>
-  <string name="about_credits_zxing_title">Bu uygulama ZXing kullanmaktadır</string>
+  <string name="about_category_credits">Bu uygulama şunları kullanmaktadır…</string>
+  <string name="about_credits_bitcoinj_title">bitcoinj %s, Bitcoin protokolü uygulaması</string>
+  <string name="about_credits_zxing_title">ZXing, QR kodlarını işleme kütüphanesi</string>
+  <string name="about_credits_scrypt_title">Scrypt, Will Glozer ve Colin Percival tarafından sağlanmıştır</string>
   <string name="about_community_googleplus_title">Google+ topluluğu</string>
   <string name="about_community_googleplus_summary">Uygulama hakkında tartışmalar</string>
   <string name="about_market_app_title">Google Play sayfası</string>
@@ -298,6 +300,7 @@
   <string name="notification_inactivity_message_donate">Bitcoinleriniz ile ilgilenmiyorsanız, onları Bitcoin Cüzdanı projesine bağışlayabilirsiniz.</string>
   <string name="notification_inactivity_action_dismiss">Sonra hatırlat</string>
   <string name="notification_inactivity_action_dismiss_forever">Hatırlatma</string>
+  <string name="appwidget_wallet_balance_title">Bitcoin bakiyesi</string>
   <!--generic buttons-->
   <string name="button_ok">Tamam</string>
   <string name="button_dismiss">Reddet</string>
