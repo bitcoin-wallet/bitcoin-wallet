@@ -166,7 +166,8 @@
   <string name="network_monitor_activity_title">Netwerkmonitor</string>
   <string name="network_monitor_peer_list_title">Peers</string>
   <string name="network_monitor_block_list_title">Blokken</string>
-  <string name="block_row_mining_difficulty_adjustment">Moeilijkheidsgraad aanpassing.</string>
+  <string name="block_row_mining_difficulty_adjustment">Moeilijkheidsgraad aanpassing</string>
+  <string name="block_row_mining_reward_adjustment">Halvering van mining inkomsten</string>
   <string name="block_row_now">alleen nu</string>
   <string name="peer_list_fragment_empty">Geen connecties</string>
   <string name="peer_list_row_ping_time">⇆ %d&#x2009;ms</string>
@@ -285,8 +286,9 @@
   <string name="about_license_title">Licentie</string>
   <string name="about_source_title">Broncode</string>
   <string name="about_category_credits">Deze app gebruikt…</string>
-  <string name="about_credits_bitcoinj_title">bitcoinj %s</string>
-  <string name="about_credits_zxing_title">ZXing</string>
+  <string name="about_credits_bitcoinj_title">bitcoinj %s, een Bitcoin protocol implementatie</string>
+  <string name="about_credits_zxing_title">ZXing, een QR-code processing bibliotheek</string>
+  <string name="about_credits_scrypt_title">Scrypt, geïmplementeerd door Will Glozer en Colin Percival</string>
   <string name="about_community_googleplus_title">Google+ community</string>
   <string name="about_community_googleplus_summary">Discussies over de app</string>
   <string name="about_market_app_title">Google Play Pagina</string>
@@ -298,6 +300,7 @@
   <string name="notification_inactivity_message_donate">Als je geen waarde hecht aan je coins zou je deze ook kunnen doneren aan het Bitcoin Wallet project</string>
   <string name="notification_inactivity_action_dismiss">Opnieuw vragen</string>
   <string name="notification_inactivity_action_dismiss_forever">Niet herinneren</string>
+  <string name="appwidget_wallet_balance_title">Bitcoin saldo</string>
   <!--generic buttons-->
   <string name="button_ok">OK</string>
   <string name="button_dismiss">Annuleren</string>
@@ -315,7 +318,7 @@
   <string name="button_set_as_default">Kies als standaard</string>
   <string name="button_request_coins">Verzoek Bitcoins</string>
   <string name="button_send_coins">Verzend Bitcoins</string>
-  <string name="button_scan">Zoeken</string>
+  <string name="button_scan">Scan QR</string>
   <string name="button_settings">Instellingen</string>
   <string name="action_show_qr">Toon QR-code</string>
   <string name="action_browse">Bladeren</string>
