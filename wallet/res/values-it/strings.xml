@@ -156,6 +156,7 @@
   <string name="transaction_row_message_purpose_raise_fee">Questa transazione aumenta l\'imposta della rete per un precedente pagamento.</string>
   <string name="transaction_row_message_own_unbroadcasted">Questo pagamento non è ancora stato trasmesso.</string>
   <string name="transaction_row_message_received_direct">Questo pagamento è stato ricevuto direttamente. C\'è il rischio che non diventi spendibile.</string>
+  <string name="transaction_row_message_received_unconfirmed_delayed">La conferma di questo pagamento è in ritardo, probabilmente a causa di un sovraccarico della rete Bitcoin.</string>
   <string name="transaction_row_message_received_unconfirmed_unlocked">Questo pagamento dovrebbe diventare spendibile entro pochi minuti.</string>
   <string name="transaction_row_message_received_in_conflict">Questo pagamento ha un notevole rischio di essere invertito dal mittente! Se puoi, attenti la conferma.</string>
   <string name="transaction_row_message_received_dead">Questo pagamento è stato revocato dal mittente.</string>
@@ -165,6 +166,8 @@
   <string name="network_monitor_activity_title">Controllo della rete</string>
   <string name="network_monitor_peer_list_title">Peers</string>
   <string name="network_monitor_block_list_title">Blocchi</string>
+  <string name="block_row_mining_difficulty_adjustment">Aggiustamento difficoltà mining</string>
+  <string name="block_row_mining_reward_adjustment">Dimezzamento ricompensa mining</string>
   <string name="block_row_now">proprio ora</string>
   <string name="peer_list_fragment_empty">Nessun peer connesso</string>
   <string name="peer_list_row_ping_time">⇆ %d&#x2009;ms</string>
@@ -283,8 +286,9 @@
   <string name="about_license_title">Licenza</string>
   <string name="about_source_title">Codice Sorgente</string>
   <string name="about_category_credits">Questa applicazione fa uso di…</string>
-  <string name="about_credits_bitcoinj_title">bitcoinj %s</string>
-  <string name="about_credits_zxing_title">ZXing</string>
+  <string name="about_credits_bitcoinj_title">bitcoinj %s, un\'implementazione del protocollo Bitcoin</string>
+  <string name="about_credits_zxing_title">ZXing, una libreria di elaborazione di QR-code</string>
+  <string name="about_credits_scrypt_title">Scrypt, implementato da Will Glozer e Colin Percival</string>
   <string name="about_community_googleplus_title">Comunità Google+</string>
   <string name="about_community_googleplus_summary">Discussioni sull\'app</string>
   <string name="about_market_app_title">Pagina su Google Play</string>
@@ -296,6 +300,7 @@
   <string name="notification_inactivity_message_donate">Se non sei interessato ai tuoi soldi, puoi anche donarli al progetto Bitcoin Wallet.</string>
   <string name="notification_inactivity_action_dismiss">Ricordamelo</string>
   <string name="notification_inactivity_action_dismiss_forever">Non ricordarmelo</string>
+  <string name="appwidget_wallet_balance_title">Saldo Bitcoin</string>
   <!--generic buttons-->
   <string name="button_ok">OK</string>
   <string name="button_dismiss">Chiudi</string>
