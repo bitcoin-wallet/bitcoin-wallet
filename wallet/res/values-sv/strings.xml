@@ -156,6 +156,7 @@
   <string name="transaction_row_message_purpose_raise_fee">Den här transaktionen höjer nätverksavgiften för en tidigare betalning.</string>
   <string name="transaction_row_message_own_unbroadcasted">Denna betalning har inte skickats ännu.</string>
   <string name="transaction_row_message_received_direct">Denna betalning har mottagits direkt. Det finns en risk att den aldrig kommer att kunna användas.</string>
+  <string name="transaction_row_message_received_unconfirmed_delayed">Bekräftelsen på den här betalningen är fördröjd, förmodligen på grund av hög belastning på Bitcoin-nätverket.</string>
   <string name="transaction_row_message_received_unconfirmed_unlocked">Den här betalningen borde bli spenderbar inom några minuter.</string>
   <string name="transaction_row_message_received_in_conflict">Den här betalningen har en ökad risk att inte gå igenom! Vänta gärna på en verifiering.</string>
   <string name="transaction_row_message_received_dead">Denna betalning har återförts av avsändaren.</string>
@@ -165,6 +166,8 @@
   <string name="network_monitor_activity_title">Nätverksövervakare</string>
   <string name="network_monitor_peer_list_title">Peers</string>
   <string name="network_monitor_block_list_title">Block</string>
+  <string name="block_row_mining_difficulty_adjustment">Förändring av svårighetsgrad vid generering</string>
+  <string name="block_row_mining_reward_adjustment">Halvering av belöning vid generering</string>
   <string name="block_row_now">just nu</string>
   <string name="peer_list_fragment_empty">Inga peers anslutna</string>
   <string name="peer_list_row_ping_time">⇆ %d&#x2009;ms</string>
@@ -282,9 +285,10 @@
   <string name="about_copyright_title">Copyright</string>
   <string name="about_license_title">Licens</string>
   <string name="about_source_title">Källkod</string>
-  <string name="about_category_credits">Denna app använder…</string>
-  <string name="about_credits_bitcoinj_title">bitcoinj %s</string>
-  <string name="about_credits_zxing_title">ZXing</string>
+  <string name="about_category_credits">Den här appen använder…</string>
+  <string name="about_credits_bitcoinj_title">bitcoinj %s, en implementation av Bitcoin-protokollet</string>
+  <string name="about_credits_zxing_title">ZXing, ett bibliotek för bearbetning av QR-koder</string>
+  <string name="about_credits_scrypt_title">Scrypt, implementerad av Will Glozer och Colin Percival</string>
   <string name="about_community_googleplus_title">Google+-community</string>
   <string name="about_community_googleplus_summary">Diskussioner om appen</string>
   <string name="about_market_app_title">Google Play-sida</string>
@@ -296,6 +300,7 @@
   <string name="notification_inactivity_message_donate">Om du inte bryr dig om dina bitcoin kan du också donera dem till Bitcoin Wallet-projektet.</string>
   <string name="notification_inactivity_action_dismiss">Påminn senare</string>
   <string name="notification_inactivity_action_dismiss_forever">Påminn mig inte</string>
+  <string name="appwidget_wallet_balance_title">Bitcoin-saldo</string>
   <!--generic buttons-->
   <string name="button_ok">OK</string>
   <string name="button_dismiss">Avsluta</string>
