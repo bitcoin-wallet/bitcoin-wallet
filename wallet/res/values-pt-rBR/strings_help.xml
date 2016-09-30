@@ -43,30 +43,30 @@
   <string name="help_send_coins">
 <![CDATA[
 		<p>
-			Você iniciou o processo de envio de moedas.
-			Você veio aqui, quer através da tela principal ou clicando em uma URL Bitcoin no seu nabegador mobile.
+			Você iniciou o processo de envio de bitcoins.
+			Você veio aqui através da tela principal ou após clicar em um endereço Bitcoin no seu navegador móvel.
 		</p>
 		<p>
-			Primeiro insira o endereço Bitcoin para o qual quer realizar o pagamento.
+			Primeiro insira o endereço Bitcoin para o qual você quer realizar o pagamento.
 			O endereço será completado automaticamente através de entradas conhecidas em seu catálogo de endereços.
-			Você também pode escanear QR codes com endereços Bitcoin ou requisitar pressionando o botão QR na barra de ações.
+			Ao usar o botão QR na barra de ações, você pode escanear códigos QR que contenham solicitações de pagamento.
 		</p>
 		<p>
-			Em seguida, você pode ver quantas Bitcoins você pode gasta no momento.
-			Qualquer diferença para o saldo da tela principal ainda não está confirmado e pode ainda não ser gasto.
+			Em seguida, você pode ver quantos Bitcoins você tem disponíveis para serem gastos no momento.
+			Se houver uma diferença entre o valor disponível para ser gasto e o saldo da tela principal, é devido a transações ainda não confirmadas.
 		</p>
 		<p>
-			Por último, você digite a quantia a pagar.
+			Por último, digite a quantia a pagar.
 		</p>
 		<p>
-			Você pode inserir um pagamento estando offline.
-			Ele será enviado na próxima reinicialização do Bitcoin Wallet.
-			Se você quer que um pagamento seja processado o mais rápido possível, certifique-se que você está bem conectado (i.e. em uma WLAN).
+			É possível inserir um pagamento mesmo estando offline.
+			Ele será enviado na próxima reinicialização da Bitcoin Wallet.
+			Se você quer que um pagamento seja processado o mais rápido possível, certifique-se de que você está usando uma boa conexão (i.e. uma rede Wi-Fi).
 		</p>
 		<p>
 			Nota:
-			Pagamentos são irreversíveis.
-			Sempre cheque o endereço de destino.
+			Todos os pagamentos são irreversíveis.
+			Sempre verifique com cuidado o endereço de destino.
 		</p>
 	]]>
 	</string>
@@ -76,31 +76,31 @@
 			<b>Notas importantes sobre segurança:</b>
 		</p>
 		<p>
-			Bitcoins são armazenadas no dispositivo.
-			<b>Se você o perder, também perde suas Bitcoins.</b>
+			As chaves para os seus Bitcoins são armazenadas no seu dispositivo.
+			<b>Se você o perder, você perderá suas chaves e, consequentemente, também perderá todos os seus Bitcoins.</b>
 		</p>
 		<p>
-			Isso significa que você tem que fazer um <b>back up de sua carteira</b>!
-			Utilize o recurso de backup in-app para isso, ao invés de um aplicativo de backup de terceiros.
+			Isso significa que você tem que fazer um <b>backup (cópia de segurança) da sua carteira</b>!
+			Utilize o próprio recurso de backup do aplicativo, ao invés de utilizar aplicativos de backup de terceiros.
 			Mantenha o seu backup seguro e lembre a senha.
 		</p>
 		<p>
-			<b>Antes de Instalar</b> (ou limpar as informações do app ou realizar um reset em seu dispositivo), <b>transfira seus Bitcoins para outra carteira</b>.
-			Bitcoins restantes serão perdidas.
+			<b>Antes de instalar</b>, limpar as informações do aplicativo ou realizar um reset de seu dispositivo, <b>transfira seus Bitcoins para uma outra carteira</b>.
+			Os Bitcoins remanescentes serão perdidos.
 		</p>
 		<p>
-			<b>Pagamentos são irreversíveis</b>.
-			Se você enviar seus Bitcoins no vazio, não há quase nenhuma maneira de obtê-los de volta.
+			<b>Os pagamentos são irreversíveis</b>.
+			Se você enviar seus Bitcoins para um endereço desconhecido, não há quase nenhuma maneira de obtê-los de volta.
 		</p>
 		<p>
-			<b>Mantenha o seu dispositivo mobile seguro!</b>
+			<b>Mantenha o seu dispositivo móvel seguro!</b>
 			Não faça root em seu dispositivo.
-			Não instale aplicativos que não confia.
+			Não instale aplicativos de fontes que você não confia.
 			Aplicativos maliciosos podem tentar roubar sua carteira.
 		</p>
 		<p>
-			Mantenha o risco baixo.
-			<b>Use com pequenas quantias</b> por dia de uso.
+			Não se arrisque.
+			<b>Não carregue em sua carteira Bitcoin valores maiores do que você carregaria em uma carteira de bolso comum</b>.
 		</p>
 	]]>
 	</string>

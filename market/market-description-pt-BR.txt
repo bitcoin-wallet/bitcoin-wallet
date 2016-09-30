@@ -1,35 +1,35 @@
-<b>Tenha os seus Bitcoins sempre com você, no seu bolso!</b> Efetue pagamentos rapidamente apenas escaneando um código QR. Como comerciante, você pode receber pagamentos de forma confiável e instantaneamente. O Bitcoin Wallet é o primeiro aplicativo Bitcoin móvel, e, possivelmente, o mais seguro!
+<b>Tenha os seus Bitcoins sempre com você, no seu bolso!</b> Efetue pagamentos rapidamente apenas escaneando um código QR. Como comerciante, você pode receber pagamentos de forma confiável e instantânea. A Bitcoin Wallet foi o primeiro aplicativo móvel criado para o Bitcoin, sendo um dos mais seguros!
 
 
 <b>CARACTERÍSTICAS</b>
 
-• Sem necessidade de cadastro, serviço web ou hospedagem! Esta carteira é descentralizada e "peer to peer".
+• Não requer cadastro em nenhum serviço! Esta carteira é descentralizada e "ponto a ponto (P2P)".
 • Exibe a quantidade de Bitcoins em BTC, mBTC e µBTC.
 • Conversão para moedas nacionais.
 • Envio e recebimento de Bitcoins via NFC, códigos QR ou endereços Bitcoin.
-• Catálogo para guardar os endereços mais utilizados.
+• Livro de endereços para guardar os endereços Bitcoin mais utilizados.
 • Quando você estiver off-line, você ainda pode pagar via Bluetooth.
-• Notificações do sistema para moedas recebidas.
-• Varrer de carteiras de papel (por exemplo, aqueles usados para o armazenamento a frio).
+• O recebimento de bitcoins é informado nas notificações do sistema.
+• Varredura de carteiras de papel (usadas para armazenamento offline).
 • Widget para saldo de Bitcoins.
 
 
 <b>CONTRIBUA</b>
 
-Bitcoin Wallet é <b>open source</ b> e <b>software livre</ b>. Licença: GPLv3
+A Bitcoin Wallet é um <b>software livre</ b> e com <b>código aberto</ b>. Licença: GPLv3
 https://www.gnu.org/licenses/gpl-3.0.en.html
 
 Nosso código fonte está disponível no GitHub:
 https://github.com/bitcoin-wallet/bitcoin-wallet
 
-Todas as traduções são gerenciadas via Transifex:
+Todas as traduções são gerenciadas através do site Transifex:
 https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/
 
 
 <b>TESTEMUNHOS</b>
 
-• Muitas carteiras móveis baseiam seu código em Bitcoin Wallet. Exemplos: blockchain.info e BTCX.
-• Carteira mobile recomendada por https://bitcoin.org
+• Muitas carteiras móveis baseiam os seus códigos na Bitcoin Wallet. Exemplos: blockchain.info e BTCX.
+• Carteira móvel recomendada pelo site https://bitcoin.org
 • Recomendado por BitPay.
 
 

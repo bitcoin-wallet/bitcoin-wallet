@@ -41,7 +41,7 @@
   <string name="wallet_options_safety">Indicações de segurança</string>
   <string name="wallet_options_donate">Dica / doar</string>
   <string name="wallet_donate_address_label">Doação pra Bitcoin carteira</string>
-  <string name="wallet_low_storage_dialog_title">dispositivo nternal espaço de armazenamento baixa</string>
+  <string name="wallet_low_storage_dialog_title">Espaço de armazenamento interno baixo!</string>
   <string name="wallet_low_storage_dialog_msg">Bitcoin Wallet usa o armazenamento interno para armazenar transações e blocos. Se seu dispositivo ficar sem espaço, ele vai parar de trabalhar e seus Bitcoins estarão em risco!\n\nDeseja abrir o Gerenciador de Aplicativos para desinstalar aplicativos desnecessários?</string>
   <string name="wallet_low_storage_dialog_button_apps">Gerenciar aplicativos</string>
   <string name="wallet_timeskew_dialog_title">Verifique as configurações de hora!</string>
@@ -156,6 +156,7 @@
   <string name="transaction_row_message_purpose_raise_fee">Essa transação aumenta a taxa da rede para um pagamento anterior.</string>
   <string name="transaction_row_message_own_unbroadcasted">Este pagamento ainda não foi transmitido.</string>
   <string name="transaction_row_message_received_direct">Esse pagamento foi recebido diretamente. Existe um certo risco dessa quantia nunca poder ser gasta no futuro. Deve haver um certo vínculo de confiança com o pagador.</string>
+  <string name="transaction_row_message_received_unconfirmed_delayed">A confirmacão deste pagamento está demorando devido à sobrecarga na rede Bitcoin.</string>
   <string name="transaction_row_message_received_unconfirmed_unlocked">Este pagamento estará disponível em alguns minutos.</string>
   <string name="transaction_row_message_received_in_conflict">Esse pagamento tem um risco aumentado de ser revertido pelo remetente! Se você puder, aguarde por confirmações.</string>
   <string name="transaction_row_message_received_dead">Este pagamento foi anulado pelo emissor.</string>
@@ -165,9 +166,13 @@
   <string name="network_monitor_activity_title">Monitor de rede</string>
   <string name="network_monitor_peer_list_title">Pontos</string>
   <string name="network_monitor_block_list_title">Blocos</string>
+  <string name="block_row_mining_difficulty_adjustment">Ajuste da dificuldade de mineração </string>
+  <string name="block_row_mining_reward_adjustment">Recompensa de mineração reduzida pela metade</string>
   <string name="block_row_now">agora</string>
   <string name="peer_list_fragment_empty">Sem pontos conectados</string>
   <string name="peer_list_row_ping_time">⇆ %d&#x2009;ms</string>
+  <string name="restore_wallet_permission_dialog_title">Permissão para leitura de dados ausente</string>
+  <string name="restore_wallet_permission_dialog_message">É necessário dar permissão de leitura ao aplicativo para procurar pelos backups da carteira no seu armazenamento externo.</string>
   <string name="import_keys_dialog_title">Restaurar carteira</string>
   <string name="import_keys_dialog_message">Escolha um arquivo de backup de carteira no armazenamento externo (%s):</string>
   <string name="restore_wallet_dialog_replace_warning">Você está prestes a substituir sua carteira atual. Quaisquer bitcoins contidos na carteira atual serão perdidos, a menos que você tenha feito um backup.</string>
@@ -182,6 +187,8 @@
   <string name="restore_wallet_dialog_success">A carteira foi restaurada.</string>
   <string name="restore_wallet_dialog_success_replay">Sua carteira foi restaurada com sucesso. O saldo será determinado em seguida. Isso poderá levar algum tempo.</string>
   <string name="import_keys_dialog_failure">A carteira não pôde ser restaurada:\n\n%s\n\nSenha ruim?</string>
+  <string name="backup_wallet_permission_dialog_title">Necessário permissão para gravação de dados</string>
+  <string name="backup_wallet_permission_dialog_message">É necessário dar permissão de gravação de dados ao aplicativo para fazer backup da carteira no seu armazenamento externo.</string>
   <string name="export_keys_dialog_title">Fazer backup da carteira</string>
   <string name="backup_wallet_dialog_message">Seu backup será criptografado com a senha escolhida e será salvo no armazenamento externo.</string>
   <string name="backup_wallet_dialog_warning_encrypted">Sua carteira é protegida por um PIN de gastos. Certifique-se de que você se lembra do PIN, além da senha de backup!</string>
@@ -213,6 +220,8 @@
   <string name="encrypt_keys_dialog_state_done">Concluído.</string>
   <string name="scan_camera_problem_dialog_title">Desculpe</string>
   <string name="scan_camera_problem_dialog_message">Ocorreu um problema com a câmera. Você provavelmente precisará reiniciar o dispositivo.</string>
+  <string name="scan_camera_permission_dialog_title">Permissão de câmera</string>
+  <string name="scan_camera_permission_dialog_message">Para escanear os QR codes, você precisa dar permissão ao aplicativo para uso da câmera.</string>
   <string name="input_parser_io_error">Não é possível ler dados:\n%s</string>
   <string name="input_parser_cannot_classify">Impossível reconhecer entrada:\n%s</string>
   <string name="input_parser_invalid_bitcoin_uri">Endereços Bitcoin inválidos:\n%s</string>
@@ -276,9 +285,10 @@
   <string name="about_copyright_title">Copyright</string>
   <string name="about_license_title">Licença</string>
   <string name="about_source_title">Código fonte</string>
-  <string name="about_category_credits">Este aplicativo utiliza…</string>
-  <string name="about_credits_bitcoinj_title">bitcoinj %s</string>
-  <string name="about_credits_zxing_title">ZXing</string>
+  <string name="about_category_credits">Este app está usando…</string>
+  <string name="about_credits_bitcoinj_title">bitcoinj %s, um protocolo de implementação Bitcoin </string>
+  <string name="about_credits_zxing_title">ZXing, uma biblioteca de processamento para QR-code</string>
+  <string name="about_credits_scrypt_title">Scrypt, implementado por Will Glozer e Colin Percival</string>
   <string name="about_community_googleplus_title">Comunidade Google+</string>
   <string name="about_community_googleplus_summary">Discussões sobre o aplicativo</string>
   <string name="about_market_app_title">Página no Google Play</string>
@@ -290,6 +300,7 @@
   <string name="notification_inactivity_message_donate">Se você não quiser mais seus bitcoins, você pode doá-los para o projeto Bitcoin Wallet.</string>
   <string name="notification_inactivity_action_dismiss">Lembrar depois</string>
   <string name="notification_inactivity_action_dismiss_forever">Não me lembrar</string>
+  <string name="appwidget_wallet_balance_title">Saldo em Bitcoin</string>
   <!--generic buttons-->
   <string name="button_ok">OK</string>
   <string name="button_dismiss">Recusar</string>
