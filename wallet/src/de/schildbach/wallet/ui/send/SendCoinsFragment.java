@@ -508,7 +508,7 @@ public final class SendCoinsFragment extends Fragment
 				{
 					log.info("error looking up wallet name '" + constraint + "': " + x.getMessage());
 				}
-				catch (final Exception x)
+				catch (final Throwable x)
 				{
 					log.info("error looking up wallet name", x);
 				}
