@@ -3,7 +3,7 @@
 
 <b>FUNKCE</b>
 
-• Není třeba žádná registrace, webová služba ani cloud! Tato peněženka je decentralizovaná a peer to peer.
+• Není třeba žádná registrace, webová služba ani cloud! Toto je peer to peer decentralizovaná peněženka.
 • Zobrazení Bitcoin částek v BTC, mBTC a µBTC.
 • Přepočet z a do národních měn.
 • Odesílání a přijímání plateb přes NFC, QR kódy nebo Bitcoin URL.
