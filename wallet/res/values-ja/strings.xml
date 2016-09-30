@@ -285,8 +285,10 @@
   <string name="about_copyright_title">コピーライト</string>
   <string name="about_license_title">ライセンス</string>
   <string name="about_source_title">ソースコード</string>
-  <string name="about_credits_bitcoinj_title">このアプリはbitcoinj %s を使用しています。</string>
-  <string name="about_credits_zxing_title">このアプリはZXingを使用しています。</string>
+  <string name="about_category_credits">このアプリは以下のソフトウェアを利用しています。</string>
+  <string name="about_credits_bitcoinj_title">Bitcoinプロトコルの実装、bitcoinj %s</string>
+  <string name="about_credits_zxing_title">QRコード処理ライブラリ、ZXing</string>
+  <string name="about_credits_scrypt_title">Will GlozerとColin Percivalによって実装されたScrypt</string>
   <string name="about_community_googleplus_title">Google+ コミュニティ</string>
   <string name="about_community_googleplus_summary">アプリについてのディスカッション</string>
   <string name="about_market_app_title">Google Playのページ</string>
@@ -298,6 +300,7 @@
   <string name="notification_inactivity_message_donate">もしコインが必要ないのであれば、Bitcoin Walletプロジェクトに寄付するという選択肢もあります。</string>
   <string name="notification_inactivity_action_dismiss">後で再び通知する</string>
   <string name="notification_inactivity_action_dismiss_forever">後で通知しない</string>
+  <string name="appwidget_wallet_balance_title">ビットコイン残高</string>
   <!--generic buttons-->
   <string name="button_ok">OK</string>
   <string name="button_dismiss">閉じる</string>
