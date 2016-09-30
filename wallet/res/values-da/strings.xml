@@ -286,8 +286,9 @@
   <string name="about_license_title">Licens</string>
   <string name="about_source_title">Kildekode</string>
   <string name="about_category_credits">Denne app bruger…</string>
-  <string name="about_credits_bitcoinj_title">bitcoinj %s</string>
-  <string name="about_credits_zxing_title">ZXing</string>
+  <string name="about_credits_bitcoinj_title">bitcoinj %s, en implementation af Bitcoin-protokollen</string>
+  <string name="about_credits_zxing_title">ZXing, et bibliotek til processering af QR-koder</string>
+  <string name="about_credits_scrypt_title">Scrypt, implementeret af Will Glozer og Colin Percival</string>
   <string name="about_community_googleplus_title">Google+-fællesskab</string>
   <string name="about_community_googleplus_summary">Diskussioner om appen</string>
   <string name="about_market_app_title">Google Play-side</string>
@@ -299,6 +300,7 @@
   <string name="notification_inactivity_message_donate">Hvis du ikke er interesseret i dine bitcoin, kan du også donere dem til Bitcoin Wallet-projektet.</string>
   <string name="notification_inactivity_action_dismiss">Påmind senere</string>
   <string name="notification_inactivity_action_dismiss_forever">Påmind mig ikke</string>
+  <string name="appwidget_wallet_balance_title">Bitcoin-saldo</string>
   <!--generic buttons-->
   <string name="button_ok">O.k.</string>
   <string name="button_dismiss">Afvis</string>
