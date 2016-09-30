@@ -99,7 +99,7 @@
   <string name="raise_fee_dialog_button_raise">Augmenter</string>
   <string name="sweep_wallet_activity_title">Balayer un porte-monnaie papier</string>
   <string name="sweep_wallet_fragment_intro">Vous allez balayer un porte-monnaie papier ou un coupon. Ceci déplacera toutes les pièces de ce papier vers votre porte-monnaie sur cet appareil. Quand la transaction sera confirmée, le papier sera sans valeur et ne devrait pas être réutilisé pour des raisons de sécurité.</string>
-  <string name="sweep_wallet_fragment_hint">Les porte-monnaies papier sont habituellement utilisés pour le stockage à froid. Certains GAB les imprimes sur le reçu papier plutôt que d\'envoyer les pièces directement vers votre appareil mobile. Certaines personnes utilisent des porte-monnaies papier préchargés pour passer des valeurs (non recommandé).</string>
+  <string name="sweep_wallet_fragment_hint">Les porte-monnaie papier sont habituellement utilisés pour le stockage à froid. Certains GAB les imprimes sur le reçu papier plutôt que d\'envoyer les pièces directement vers votre appareil mobile. Certaines personnes utilisent des porte-monnaie papier préchargés pour passer des valeurs (non recommandé).</string>
   <string name="sweep_wallet_fragment_wallet_unknown">Commencez par numériser la clé privée d\'un porte-monnaie papier. Utilisez le bouton d\'action de l\'appareil photo.</string>
   <string name="sweep_wallet_fragment_encrypted">La clé privée est protégée par un mot de passe.</string>
   <string name="sweep_wallet_fragment_password">mot de passe</string>
@@ -161,7 +161,7 @@
   <string name="transaction_row_message_received_in_conflict">Ce paiement présente un risque plus élevé d\'être annulé par l\'expéditeur ! Si vous le pouvez, attendez la confirmation.</string>
   <string name="transaction_row_message_received_dead">Ce paiement a été annulé par son expéditeur.</string>
   <string name="transaction_row_message_received_dust">Ce faible montant ne pourra probablement jamais être dépensé de façon économique.</string>
-  <string name="transaction_row_message_received_pay_to_many">Ce paiement est distribué à de nombreux porte-monnaies en plus du vôtre, ce qui ralentit l\'appli avec le temps. Si vous le pouvez, essayez de recevoir des paiements qui ne soient adressés qu\'à vous.</string>
+  <string name="transaction_row_message_received_pay_to_many">Ce paiement est distribué à de nombreux porte-monnaie en plus du vôtre, ce qui ralentit l\'appli avec le temps. Si vous le pouvez, essayez de recevoir des paiements qui ne soient adressés qu\'à vous.</string>
   <string name="transaction_row_message_received_rbf">Ce paiement a été retardé, car l\'expéditeur a utilisé un type de transaction non fiable.</string>
   <string name="network_monitor_activity_title">Surveillance du réseau</string>
   <string name="network_monitor_peer_list_title">Pairs</string>
@@ -286,8 +286,9 @@
   <string name="about_license_title">Licence</string>
   <string name="about_source_title">Code source</string>
   <string name="about_category_credits">Cette appli utilise…</string>
-  <string name="about_credits_bitcoinj_title">bitcoinj %s</string>
-  <string name="about_credits_zxing_title">ZXing</string>
+  <string name="about_credits_bitcoinj_title">bitcoinj %s, une application du protocole Bitcoin</string>
+  <string name="about_credits_zxing_title">ZXing, un bibliothèque de traitement de codes QR</string>
+  <string name="about_credits_scrypt_title">Scrypt, implémenté par Will Glozer et Colin Percival</string>
   <string name="about_community_googleplus_title">Communauté Google+</string>
   <string name="about_community_googleplus_summary">Discussions à propos de cette appli</string>
   <string name="about_market_app_title">Page Google Play</string>
@@ -299,6 +300,7 @@
   <string name="notification_inactivity_message_donate">Si ces quelques pièces vous importent peu, vous pourriez aussi en faire  le don au projet Bitcoin Wallet.</string>
   <string name="notification_inactivity_action_dismiss">Rappeler + tard</string>
   <string name="notification_inactivity_action_dismiss_forever">Ne plus rappeler</string>
+  <string name="appwidget_wallet_balance_title">Solde en bitcoins</string>
   <!--generic buttons-->
   <string name="button_ok">OK</string>
   <string name="button_dismiss">Fermer</string>
