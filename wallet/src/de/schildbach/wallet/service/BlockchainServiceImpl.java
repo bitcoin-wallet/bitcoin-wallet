@@ -118,6 +118,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 
 	private PeerConnectivityListener peerConnectivityListener;
 	private NotificationManager nm;
+	private ConnectivityManager connectivityManager;
 	private final Set<Impediment> impediments = EnumSet.noneOf(Impediment.class);
 	private int notificationCount = 0;
 	private Coin notificationAccumulatedAmount = Coin.ZERO;
@@ -333,15 +334,15 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 
 			if (ConnectivityManager.CONNECTIVITY_ACTION.equals(action))
 			{
-				final NetworkInfo networkInfo = (NetworkInfo) intent.getParcelableExtra(ConnectivityManager.EXTRA_NETWORK_INFO);
-				final boolean hasConnectivity = networkInfo.isConnected();
+				final NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+				final boolean hasConnectivity = networkInfo != null && networkInfo.isConnected();
 
 				if (log.isInfoEnabled())
 				{
-					final StringBuilder s = new StringBuilder(networkInfo.getTypeName()).append(" network is ")
-							.append(hasConnectivity ? "up" : "down");
-					if (!hasConnectivity)
+					final StringBuilder s = new StringBuilder("active network is ").append(hasConnectivity ? "up" : "down");
+					if (networkInfo != null)
 					{
+						s.append(", type: ").append(networkInfo.getTypeName());
 						s.append(", state: ").append(networkInfo.getState()).append('/').append(networkInfo.getDetailedState());
 						final String extraInfo = networkInfo.getExtraInfo();
 						if (extraInfo != null)
@@ -592,6 +593,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 		super.onCreate();
 
 		nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+		connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 
 		final String lockName = getPackageName() + " blockchain sync";
 
