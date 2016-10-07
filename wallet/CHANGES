@@ -1,3 +1,9 @@
+v5.0
+
+* The app now requires Android 4.1 (Jelly Bean) or higher. This makes UI development easier
+  in future.
+* Fix detection of network state. This needs the ACCESS_NETWORK_STATE permission.
+
 v4.72
 
 * Minor bugfix.
