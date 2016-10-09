@@ -452,7 +452,8 @@ public abstract class InputParser
 
 	private static final Pattern PATTERN_BITCOIN_ADDRESS = Pattern.compile("[" + new String(Base58.ALPHABET) + "]{20,40}");
 	private static final Pattern PATTERN_DUMPED_PRIVATE_KEY_UNCOMPRESSED = Pattern.compile((Constants.NETWORK_PARAMETERS.getId().equals(
-			NetworkParameters.ID_MAINNET) ? "5" : "9")
+
+			NetworkParameters.ID_MAINNET) ? Constants.PRIVKEY_LETTER_MAINNET : Constants.PRIVKEY_LETTER_TESTNET)
 			+ "[" + new String(Base58.ALPHABET) + "]{50}");
 	private static final Pattern PATTERN_DUMPED_PRIVATE_KEY_COMPRESSED = Pattern.compile((Constants.NETWORK_PARAMETERS.getId().equals(
 			NetworkParameters.ID_MAINNET) ? "[KL]" : "c")
