@@ -34,7 +34,6 @@ import org.bitcoinj.utils.Threading;
 import org.bitcoinj.wallet.Protos;
 import org.bitcoinj.wallet.UnreadableWalletException;
 import org.bitcoinj.wallet.Wallet;
-import org.bitcoinj.wallet.WalletFiles;
 import org.bitcoinj.wallet.WalletProtobufSerializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -64,7 +63,6 @@ import ch.qos.logback.core.rolling.TimeBasedRollingPolicy;
 import de.schildbach.wallet.service.BlockchainService;
 import de.schildbach.wallet.service.BlockchainServiceImpl;
 import de.schildbach.wallet.util.CrashReporter;
-import de.schildbach.wallet.util.Io;
 import de.schildbach.wallet_test.R;
 
 /**
@@ -151,7 +149,7 @@ public class WalletApplication extends Application
 
 	private void afterLoadWallet()
 	{
-		wallet.autosaveToFile(walletFile, Constants.Files.WALLET_AUTOSAVE_DELAY_MS, TimeUnit.MILLISECONDS, new WalletAutosaveEventListener());
+		wallet.autosaveToFile(walletFile, Constants.Files.WALLET_AUTOSAVE_DELAY_MS, TimeUnit.MILLISECONDS, null);
 
 		// clean up spam
 		wallet.cleanup();
@@ -224,22 +222,6 @@ public class WalletApplication extends Application
 		catch (final IOException x)
 		{
 			throw new Error(x);
-		}
-	}
-
-	private static final class WalletAutosaveEventListener implements WalletFiles.Listener
-	{
-		@Override
-		public void onBeforeAutoSave(final File file)
-		{
-		}
-
-		@Override
-		public void onAfterAutoSave(final File file)
-		{
-			// make wallets world accessible in test mode
-			if (Constants.TEST)
-				Io.chmod(file, 0777);
 		}
 	}
 
@@ -384,10 +366,6 @@ public class WalletApplication extends Application
 		final Stopwatch watch = Stopwatch.createStarted();
 		wallet.saveToFile(walletFile);
 		watch.stop();
-
-		// make wallets world accessible in test mode
-		if (Constants.TEST)
-			Io.chmod(walletFile, 0777);
 
 		log.info("wallet saved to: '{}', took {}", walletFile, watch);
 	}

@@ -17,23 +17,16 @@
 
 package de.schildbach.wallet.util;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Reader;
-import java.lang.reflect.Method;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * @author Andreas Schildbach
  */
 public class Io
 {
-	private static final Logger log = LoggerFactory.getLogger(Io.class);
-
 	public static final long copy(final Reader reader, final StringBuilder builder) throws IOException
 	{
 		return copy(reader, builder, 0);
@@ -66,20 +59,5 @@ public class Io
 			count += n;
 		}
 		return count;
-	}
-
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public static void chmod(final File path, final int mode)
-	{
-		try
-		{
-			final Class fileUtils = Class.forName("android.os.FileUtils");
-			final Method setPermissions = fileUtils.getMethod("setPermissions", String.class, int.class, int.class, int.class);
-			setPermissions.invoke(null, path.getAbsolutePath(), mode, -1, -1);
-		}
-		catch (final Exception x)
-		{
-			log.info("problem using undocumented chmod api", x);
-		}
 	}
 }
