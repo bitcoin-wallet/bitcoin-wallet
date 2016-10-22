@@ -17,6 +17,7 @@
 
 package de.schildbach.wallet.data;
 
+import java.math.BigDecimal;
 import java.util.Currency;
 import java.util.Iterator;
 import java.util.Locale;
@@ -27,13 +28,11 @@ import javax.annotation.Nullable;
 
 import org.bitcoinj.core.Coin;
 import org.bitcoinj.utils.Fiat;
-import org.bitcoinj.utils.MonetaryFormat;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.common.base.Stopwatch;
-import com.google.common.base.Strings;
 import com.squareup.okhttp.Call;
 import com.squareup.okhttp.HttpUrl;
 import com.squareup.okhttp.Request;
@@ -58,6 +57,7 @@ import android.text.format.DateUtils;
  * @author Andreas Schildbach
  */
 public class ExchangeRatesProvider extends ContentProvider {
+
     public static final String KEY_CURRENCY_CODE = "currency_code";
     private static final String KEY_RATE_COIN = "rate_coin";
     private static final String KEY_RATE_FIAT = "rate_fiat";
@@ -73,8 +73,8 @@ public class ExchangeRatesProvider extends ContentProvider {
     private Map<String, ExchangeRate> exchangeRates = null;
     private long lastUpdated = 0;
 
-    private static final HttpUrl BITCOINAVERAGE_URL = HttpUrl.parse("https://api.bitcoinaverage.com/custom/abw");
-    private static final String[] BITCOINAVERAGE_FIELDS = new String[] { "24h_avg", "last" };
+    private static final HttpUrl BITCOINAVERAGE_URL = HttpUrl
+            .parse("https://apiv2.bitcoinaverage.com/indices/global/ticker/short?crypto=BTC");
     private static final String BITCOINAVERAGE_SOURCE = "BitcoinAverage.com";
 
     private static final long UPDATE_FREQ_MS = 10 * DateUtils.MINUTE_IN_MILLIS;
@@ -86,7 +86,6 @@ public class ExchangeRatesProvider extends ContentProvider {
         final Context context = getContext();
 
         this.config = new Configuration(PreferenceManager.getDefaultSharedPreferences(context), context.getResources());
-
         this.userAgent = WalletApplication.httpUserAgent(WalletApplication.packageInfoFromContext(context).versionName);
 
         final ExchangeRate cachedExchangeRate = config.getCachedExchangeRate();
@@ -115,8 +114,7 @@ public class ExchangeRatesProvider extends ContentProvider {
         if (!offline && (lastUpdated == 0 || now - lastUpdated > UPDATE_FREQ_MS)) {
             Map<String, ExchangeRate> newExchangeRates = null;
             if (newExchangeRates == null)
-                newExchangeRates = requestExchangeRates(BITCOINAVERAGE_URL, userAgent, BITCOINAVERAGE_SOURCE,
-                        BITCOINAVERAGE_FIELDS);
+                newExchangeRates = requestExchangeRates();
 
             if (newExchangeRates != null) {
                 exchangeRates = newExchangeRates;
@@ -222,12 +220,11 @@ public class ExchangeRatesProvider extends ContentProvider {
         throw new UnsupportedOperationException();
     }
 
-    private static Map<String, ExchangeRate> requestExchangeRates(final HttpUrl url, final String userAgent,
-            final String source, final String... fields) {
+    private Map<String, ExchangeRate> requestExchangeRates() {
         final Stopwatch watch = Stopwatch.createStarted();
 
         final Request.Builder request = new Request.Builder();
-        request.url(url);
+        request.url(BITCOINAVERAGE_URL);
         request.header("User-Agent", userAgent);
 
         final Call call = Constants.HTTP_CLIENT.newCall(request.build());
@@ -235,52 +232,45 @@ public class ExchangeRatesProvider extends ContentProvider {
             final Response response = call.execute();
             if (response.isSuccessful()) {
                 final String content = response.body().string();
-
+                final JSONObject head = new JSONObject(content);
                 final Map<String, ExchangeRate> rates = new TreeMap<String, ExchangeRate>();
 
-                final JSONObject head = new JSONObject(content);
                 for (final Iterator<String> i = head.keys(); i.hasNext();) {
-                    final String currencyCode = Strings.emptyToNull(i.next());
-                    if (currencyCode != null && currencyCode.length() == 3
-                            && currencyCode.equals(currencyCode.toUpperCase())
-                            && !MonetaryFormat.CODE_BTC.equals(currencyCode)
-                            && !MonetaryFormat.CODE_MBTC.equals(currencyCode)
-                            && !MonetaryFormat.CODE_UBTC.equals(currencyCode)) {
-                        final JSONObject o = head.getJSONObject(currencyCode);
-
-                        for (final String field : fields) {
-                            final String rateStr = o.optString(field, null);
-
-                            if (rateStr != null) {
-                                try {
-                                    final Fiat rate = Fiat.parseFiat(currencyCode, rateStr);
-
-                                    if (rate.signum() > 0) {
-                                        rates.put(currencyCode,
-                                                new ExchangeRate(new org.bitcoinj.utils.ExchangeRate(rate), source));
-                                        break;
-                                    }
-                                } catch (final NumberFormatException x) {
-                                    log.warn("problem fetching {} exchange rate from {}: {}", currencyCode, url,
-                                            x.getMessage());
-                                }
-                            }
+                    final String currencyCode = i.next();
+                    if (currencyCode.startsWith("BTC")) {
+                        final String fiatCurrencyCode = currencyCode.substring(3);
+                        final JSONObject exchangeRate = head.getJSONObject(currencyCode);
+                        final JSONObject averages = exchangeRate.getJSONObject("averages");
+                        try {
+                            final Fiat rate = parseFiatInexact(fiatCurrencyCode, averages.getString("day"));
+                            if (rate.signum() > 0)
+                                rates.put(fiatCurrencyCode, new ExchangeRate(new org.bitcoinj.utils.ExchangeRate(rate),
+                                        BITCOINAVERAGE_SOURCE));
+                        } catch (final IllegalArgumentException x) {
+                            log.warn("problem fetching {} exchange rate from {}: {}", currencyCode, BITCOINAVERAGE_URL,
+                                    x.getMessage());
                         }
                     }
                 }
 
                 watch.stop();
-                log.info("fetched {} exchange rates from {}, {} chars, took {}", rates.size(), url, content.length(),
+                log.info("fetched exchange rates from {}, {} chars, took {}", BITCOINAVERAGE_URL, content.length(),
                         watch);
 
                 return rates;
             } else {
-                log.warn("http status {} when fetching exchange rates from {}", response.code(), url);
+                log.warn("http status {} when fetching exchange rates from {}", response.code(), BITCOINAVERAGE_URL);
             }
         } catch (final Exception x) {
-            log.warn("problem fetching exchange rates from " + url, x);
+            log.warn("problem fetching exchange rates from " + BITCOINAVERAGE_URL, x);
         }
 
         return null;
+    }
+
+    // backport from bitcoinj 0.15
+    private static Fiat parseFiatInexact(final String currencyCode, final String str) {
+        final long val = new BigDecimal(str).movePointRight(Fiat.SMALLEST_UNIT_EXPONENT).longValue();
+        return Fiat.valueOf(currencyCode, val);
     }
 }

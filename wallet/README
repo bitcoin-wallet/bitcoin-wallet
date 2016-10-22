@@ -185,11 +185,10 @@ EXCHANGE RATES
 
 Bitcoin Wallet reads this feed from "BitcoinAverage" for getting exchange rates:
 
-    https://api.bitcoinaverage.com/custom/abw
+    https://apiv2.bitcoinaverage.com/indices/global/ticker/short?crypto=BTC
 
 I chose this feed because it is not dependent on a single exchange. However, you should keep in
-mind it's always a 24h average (falling back to 7d or even 30d if no trade occurred for a long
-time).
+mind it's always a 24h average.
 
 
 SWEEPING WALLETS
