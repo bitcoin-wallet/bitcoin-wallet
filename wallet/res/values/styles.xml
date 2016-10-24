@@ -26,7 +26,7 @@
 	<style name="My.Theme.Dialog" parent="@android:style/Theme.Holo.Light.Dialog" />
 
 	<style name="My.Widget.ActionBar" parent="@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse">
-		<item name="android:background">@drawable/action_bar_background</item>
+		<item name="android:background">@color/bg_action_bar</item>
 		<item name="android:titleTextStyle">@style/My.TextAppearance.Widget.ActionBar.Title</item>
 		<item name="android:subtitleTextStyle">@style/My.TextAppearance.Widget.ActionBar.Subtitle</item>
 		<item name="android:displayOptions">showTitle</item>
