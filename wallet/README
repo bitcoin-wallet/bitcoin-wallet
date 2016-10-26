@@ -4,7 +4,6 @@ Your wallet contains your private keys and various transaction related metadata.
 storage:
 
     Mainnet: /data/data/de.schildbach.wallet/files/wallet-protobuf
-
     Testnet: /data/data/de.schildbach.wallet_test/files/wallet-protobuf-testnet
 
 The wallet file format is not compatible to wallet.dat (Satoshi client). Rather, it uses a custom protobuf format
@@ -13,17 +12,21 @@ which should be compatible between clients using bitcoinj.
 Certain actions cause automatic rolling backups of your wallet to app-private storage:
 
     Mainnet: /data/data/de.schildbach.wallet/files/key-backup-protobuf
-
     Testnet: /data/data/de.schildbach.wallet_test/files/key-backup-protobuf-testnet
 
 Your wallet can be manually backed up to and restored from external storage:
 
     Mainnet: /sdcard/Download/bitcoin-wallet-backup-<yyyy-MM-dd>
-
     Testnet: /sdcard/Download/bitcoin-wallet-backup-testnet-<yyyy-MM-dd>
 
 If you want to recover coins from manual backups and for whatever reason you cannot use the app
 itself to restore from the backup, see the separate README.recover guide.
+
+The current fee rate for each of the fee categories (economic, normal, priority) is cached in
+app-private storage:
+
+    Mainnet: /data/data/de.schildbach.wallet/files/fees.txt
+    Testnet: /data/data/de.schildbach.wallet_test/files/fees-testnet.txt
 
 
 DEBUGGING

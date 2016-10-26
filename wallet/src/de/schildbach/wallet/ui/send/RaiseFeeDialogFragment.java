@@ -19,6 +19,8 @@ package de.schildbach.wallet.ui.send;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import java.util.Map;
+
 import javax.annotation.Nullable;
 
 import org.bitcoinj.core.Coin;
@@ -36,6 +38,7 @@ import org.spongycastle.crypto.params.KeyParameter;
 import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
+import de.schildbach.wallet.data.DynamicFeeLoader;
 import de.schildbach.wallet.ui.AbstractWalletActivity;
 import de.schildbach.wallet.ui.DialogBuilder;
 import de.schildbach.wallet.util.WalletUtils;
@@ -46,8 +49,11 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.FragmentManager;
+import android.app.LoaderManager;
+import android.app.LoaderManager.LoaderCallbacks;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnShowListener;
+import android.content.Loader;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
@@ -68,7 +74,6 @@ import android.widget.TextView;
 public class RaiseFeeDialogFragment extends DialogFragment {
     private static final String FRAGMENT_TAG = RaiseFeeDialogFragment.class.getName();
     private static final String KEY_TRANSACTION = "transaction";
-    private static final Coin FEE_RAISE = FeeCategory.PRIORITY.feePerKb.multiply(2);
 
     public static void show(final FragmentManager fm, final Transaction tx) {
         final DialogFragment newFragment = instance(tx);
@@ -89,12 +94,15 @@ public class RaiseFeeDialogFragment extends DialogFragment {
     private WalletApplication application;
     private Configuration config;
     private Wallet wallet;
+    private LoaderManager loaderManager;
 
+    private Coin feeRaise = null;
     private Transaction transaction;
 
     @Nullable
     private AlertDialog dialog;
 
+    private TextView messageView;
     private View passwordGroup;
     private EditText passwordView;
     private View badPasswordView;
@@ -102,6 +110,8 @@ public class RaiseFeeDialogFragment extends DialogFragment {
 
     private HandlerThread backgroundThread;
     private Handler backgroundHandler;
+
+    private static final int ID_DYNAMIC_FEES_LOADER = 0;
 
     private enum State {
         INPUT, DECRYPTING, DONE
@@ -111,6 +121,23 @@ public class RaiseFeeDialogFragment extends DialogFragment {
 
     private static final Logger log = LoggerFactory.getLogger(RaiseFeeDialogFragment.class);
 
+    private final LoaderCallbacks<Map<FeeCategory, Coin>> dynamicFeesLoaderCallbacks = new LoaderManager.LoaderCallbacks<Map<FeeCategory, Coin>>() {
+        @Override
+        public Loader<Map<FeeCategory, Coin>> onCreateLoader(final int id, final Bundle args) {
+            return new DynamicFeeLoader(activity);
+        }
+
+        @Override
+        public void onLoadFinished(final Loader<Map<FeeCategory, Coin>> loader, final Map<FeeCategory, Coin> data) {
+            feeRaise = data.get(FeeCategory.PRIORITY).multiply(2);
+            updateView();
+        }
+
+        @Override
+        public void onLoaderReset(final Loader<Map<FeeCategory, Coin>> loader) {
+        }
+    };
+
     @Override
     public void onAttach(final Activity activity) {
         super.onAttach(activity);
@@ -119,6 +146,7 @@ public class RaiseFeeDialogFragment extends DialogFragment {
         this.application = (WalletApplication) activity.getApplication();
         this.config = application.getConfiguration();
         this.wallet = application.getWallet();
+        this.loaderManager = getLoaderManager();
     }
 
     @Override
@@ -132,14 +160,15 @@ public class RaiseFeeDialogFragment extends DialogFragment {
         backgroundThread = new HandlerThread("backgroundThread", Process.THREAD_PRIORITY_BACKGROUND);
         backgroundThread.start();
         backgroundHandler = new Handler(backgroundThread.getLooper());
+
+        loaderManager.initLoader(ID_DYNAMIC_FEES_LOADER, null, dynamicFeesLoaderCallbacks);
     }
 
     @Override
     public Dialog onCreateDialog(final Bundle savedInstanceState) {
         final View view = LayoutInflater.from(activity).inflate(R.layout.raise_fee_dialog, null);
 
-        final TextView messageView = (TextView) view.findViewById(R.id.raise_fee_dialog_message);
-        messageView.setText(getString(R.string.raise_fee_dialog_message, config.getFormat().format(FEE_RAISE)));
+        messageView = (TextView) view.findViewById(R.id.raise_fee_dialog_message);
 
         passwordGroup = view.findViewById(R.id.raise_fee_dialog_password_group);
 
@@ -202,6 +231,8 @@ public class RaiseFeeDialogFragment extends DialogFragment {
 
     @Override
     public void onDestroy() {
+        loaderManager.destroyLoader(ID_DYNAMIC_FEES_LOADER);
+
         backgroundThread.getLooper().quit();
 
         super.onDestroy();
@@ -229,10 +260,10 @@ public class RaiseFeeDialogFragment extends DialogFragment {
 
     private void doRaiseFee(final KeyParameter encryptionKey) {
         // construct child-pays-for-parent
-        final TransactionOutput outputToSpend = checkNotNull(findSpendableOutput(wallet, transaction));
+        final TransactionOutput outputToSpend = checkNotNull(findSpendableOutput(wallet, transaction, feeRaise));
         final Transaction transactionToSend = new Transaction(Constants.NETWORK_PARAMETERS);
         transactionToSend.addInput(outputToSpend);
-        transactionToSend.addOutput(outputToSpend.getValue().subtract(FEE_RAISE),
+        transactionToSend.addOutput(outputToSpend.getValue().subtract(feeRaise),
                 wallet.freshAddress(KeyPurpose.CHANGE));
         transactionToSend.setPurpose(Transaction.Purpose.RAISE_FEE);
 
@@ -271,12 +302,16 @@ public class RaiseFeeDialogFragment extends DialogFragment {
         if (dialog == null)
             return;
 
+        messageView.setText(getString(R.string.raise_fee_dialog_message,
+                feeRaise != null ? config.getFormat().format(feeRaise) : "…"));
+
         final boolean needsPassword = wallet.isEncrypted();
         passwordGroup.setVisibility(needsPassword ? View.VISIBLE : View.GONE);
 
         if (state == State.INPUT) {
             positiveButton.setText(R.string.raise_fee_dialog_button_raise);
-            positiveButton.setEnabled(!needsPassword || passwordView.getText().toString().trim().length() > 0);
+            positiveButton.setEnabled(
+                    (!needsPassword || passwordView.getText().toString().trim().length() > 0) && feeRaise != null);
             negativeButton.setEnabled(true);
         } else if (state == State.DECRYPTING) {
             positiveButton.setText(R.string.raise_fee_dialog_state_decrypting);
@@ -305,22 +340,25 @@ public class RaiseFeeDialogFragment extends DialogFragment {
         }
     };
 
-    public static boolean feeCanBeRaised(final Wallet wallet, final Transaction transaction) {
+    public static boolean feeCanLikelyBeRaised(final Wallet wallet, final Transaction transaction) {
         if (transaction.getConfidence().getDepthInBlocks() > 0)
             return false;
 
         if (WalletUtils.isPayToManyTransaction(transaction))
             return false;
 
-        if (findSpendableOutput(wallet, transaction) == null)
+        // We don't know dynamic fees here, so we need to guess.
+        if (findSpendableOutput(wallet, transaction, Transaction.DEFAULT_TX_FEE) == null)
             return false;
 
         return true;
     }
 
-    private static @Nullable TransactionOutput findSpendableOutput(final Wallet wallet, final Transaction transaction) {
+    private static @Nullable TransactionOutput findSpendableOutput(final Wallet wallet, final Transaction transaction,
+            final Coin minimumOutputValue) {
         for (final TransactionOutput output : transaction.getOutputs()) {
-            if (output.isMine(wallet) && output.isAvailableForSpending() && output.getValue().isGreaterThan(FEE_RAISE))
+            if (output.isMine(wallet) && output.isAvailableForSpending()
+                    && output.getValue().isGreaterThan(minimumOutputValue))
                 return output;
         }
 

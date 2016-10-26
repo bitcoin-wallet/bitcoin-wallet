@@ -20,6 +20,7 @@ package de.schildbach.wallet.ui.send;
 import static com.google.common.base.Preconditions.checkState;
 
 import java.util.Collection;
+import java.util.Map;
 
 import javax.annotation.Nullable;
 
@@ -46,6 +47,7 @@ import org.slf4j.LoggerFactory;
 import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
+import de.schildbach.wallet.data.DynamicFeeLoader;
 import de.schildbach.wallet.data.PaymentIntent;
 import de.schildbach.wallet.ui.AbstractBindServiceActivity;
 import de.schildbach.wallet.ui.DialogBuilder;
@@ -60,8 +62,11 @@ import de.schildbach.wallet_test.R;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.app.LoaderManager;
+import android.app.LoaderManager.LoaderCallbacks;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.Loader;
 import android.content.pm.PackageManager;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -89,6 +94,7 @@ public class SweepWalletFragment extends Fragment {
     private AbstractBindServiceActivity activity;
     private WalletApplication application;
     private Configuration config;
+    private LoaderManager loaderManager;
     private FragmentManager fragmentManager;
 
     private final Handler handler = new Handler();
@@ -97,6 +103,8 @@ public class SweepWalletFragment extends Fragment {
 
     private State state = State.DECODE_KEY;
     private VersionedChecksummedBytes privateKeyToSweep = null;
+    @Nullable
+    private Map<FeeCategory, Coin> fees = null;
     private Wallet walletToSweep = null;
     private Transaction sentTransaction = null;
 
@@ -115,6 +123,8 @@ public class SweepWalletFragment extends Fragment {
     private MenuItem reloadAction;
     private MenuItem scanAction;
 
+    private static final int ID_DYNAMIC_FEES_LOADER = 0;
+
     private static final int REQUEST_CODE_SCAN = 0;
 
     private enum State {
@@ -125,6 +135,23 @@ public class SweepWalletFragment extends Fragment {
 
     private static final Logger log = LoggerFactory.getLogger(SweepWalletFragment.class);
 
+    private final LoaderCallbacks<Map<FeeCategory, Coin>> dynamicFeesLoaderCallbacks = new LoaderManager.LoaderCallbacks<Map<FeeCategory, Coin>>() {
+        @Override
+        public Loader<Map<FeeCategory, Coin>> onCreateLoader(final int id, final Bundle args) {
+            return new DynamicFeeLoader(activity);
+        }
+
+        @Override
+        public void onLoadFinished(final Loader<Map<FeeCategory, Coin>> loader, final Map<FeeCategory, Coin> data) {
+            fees = data;
+            updateView();
+        }
+
+        @Override
+        public void onLoaderReset(final Loader<Map<FeeCategory, Coin>> loader) {
+        }
+    };
+
     @Override
     public void onAttach(final Activity activity) {
         super.onAttach(activity);
@@ -132,6 +159,7 @@ public class SweepWalletFragment extends Fragment {
         this.activity = (AbstractBindServiceActivity) activity;
         this.application = (WalletApplication) activity.getApplication();
         this.config = application.getConfiguration();
+        this.loaderManager = getLoaderManager();
         this.fragmentManager = getFragmentManager();
     }
 
@@ -209,7 +237,16 @@ public class SweepWalletFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
+        loaderManager.initLoader(ID_DYNAMIC_FEES_LOADER, null, dynamicFeesLoaderCallbacks);
+
         updateView();
+    }
+
+    @Override
+    public void onPause() {
+        loaderManager.destroyLoader(ID_DYNAMIC_FEES_LOADER);
+
+        super.onPause();
     }
 
     @Override
@@ -523,7 +560,8 @@ public class SweepWalletFragment extends Fragment {
         } else if (state == State.CONFIRM_SWEEP) {
             viewCancel.setText(R.string.button_cancel);
             viewGo.setText(R.string.sweep_wallet_fragment_button_sweep);
-            viewGo.setEnabled(walletToSweep != null && walletToSweep.getBalance(BalanceType.ESTIMATED).signum() > 0);
+            viewGo.setEnabled(walletToSweep != null && walletToSweep.getBalance(BalanceType.ESTIMATED).signum() > 0
+                    && fees != null);
         } else if (state == State.PREPARATION) {
             viewCancel.setText(R.string.button_cancel);
             viewGo.setText(R.string.send_coins_preparation_msg);
@@ -559,7 +597,7 @@ public class SweepWalletFragment extends Fragment {
         setState(State.PREPARATION);
 
         final SendRequest sendRequest = SendRequest.emptyWallet(application.getWallet().freshReceiveAddress());
-        sendRequest.feePerKb = FeeCategory.NORMAL.feePerKb;
+        sendRequest.feePerKb = fees.get(FeeCategory.NORMAL);
 
         new SendCoinsOfflineTask(walletToSweep, backgroundHandler) {
             @Override

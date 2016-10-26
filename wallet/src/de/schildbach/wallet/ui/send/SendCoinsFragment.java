@@ -22,6 +22,8 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.RejectedExecutionException;
 
 import javax.annotation.Nullable;
@@ -64,6 +66,7 @@ import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.data.AddressBookProvider;
+import de.schildbach.wallet.data.DynamicFeeLoader;
 import de.schildbach.wallet.data.ExchangeRate;
 import de.schildbach.wallet.data.ExchangeRatesLoader;
 import de.schildbach.wallet.data.ExchangeRatesProvider;
@@ -185,15 +188,18 @@ public final class SendCoinsFragment extends Fragment {
     private FeeCategory feeCategory = FeeCategory.NORMAL;
     private AddressAndLabel validatedAddress = null;
 
+    @Nullable
+    private Map<FeeCategory, Coin> fees = null;
     private Transaction sentTransaction = null;
     private Boolean directPaymentAck = null;
 
     private Transaction dryrunTransaction;
     private Exception dryrunException;
 
-    private static final int ID_RATE_LOADER = 0;
-    private static final int ID_RECEIVING_ADDRESS_BOOK_LOADER = 1;
-    private static final int ID_RECEIVING_ADDRESS_NAME_LOADER = 2;
+    private static final int ID_DYNAMIC_FEES_LOADER = 0;
+    private static final int ID_RATE_LOADER = 1;
+    private static final int ID_RECEIVING_ADDRESS_BOOK_LOADER = 2;
+    private static final int ID_RECEIVING_ADDRESS_NAME_LOADER = 3;
 
     private static final int REQUEST_CODE_SCAN = 0;
     private static final int REQUEST_CODE_ENABLE_BLUETOOTH_FOR_PAYMENT_REQUEST = 1;
@@ -338,6 +344,24 @@ public final class SendCoinsFragment extends Fragment {
                     updateView();
                 }
             });
+        }
+    };
+
+    private final LoaderCallbacks<Map<FeeCategory, Coin>> dynamicFeesLoaderCallbacks = new LoaderManager.LoaderCallbacks<Map<FeeCategory, Coin>>() {
+        @Override
+        public Loader<Map<FeeCategory, Coin>> onCreateLoader(final int id, final Bundle args) {
+            return new DynamicFeeLoader(activity);
+        }
+
+        @Override
+        public void onLoadFinished(final Loader<Map<FeeCategory, Coin>> loader, final Map<FeeCategory, Coin> data) {
+            fees = data;
+            updateView();
+            handler.post(dryrunRunnable);
+        }
+
+        @Override
+        public void onLoaderReset(final Loader<Map<FeeCategory, Coin>> loader) {
         }
     };
 
@@ -684,6 +708,7 @@ public final class SendCoinsFragment extends Fragment {
         amountCalculatorLink.setListener(amountsListener);
         privateKeyPasswordView.addTextChangedListener(privateKeyPasswordListener);
 
+        loaderManager.initLoader(ID_DYNAMIC_FEES_LOADER, null, dynamicFeesLoaderCallbacks);
         loaderManager.initLoader(ID_RATE_LOADER, null, rateLoaderCallbacks);
         loaderManager.initLoader(ID_RECEIVING_ADDRESS_BOOK_LOADER, null, receivingAddressLoaderCallbacks);
         loaderManager.initLoader(ID_RECEIVING_ADDRESS_NAME_LOADER, null, receivingAddressLoaderCallbacks);
@@ -697,6 +722,7 @@ public final class SendCoinsFragment extends Fragment {
         loaderManager.destroyLoader(ID_RECEIVING_ADDRESS_NAME_LOADER);
         loaderManager.destroyLoader(ID_RECEIVING_ADDRESS_BOOK_LOADER);
         loaderManager.destroyLoader(ID_RATE_LOADER);
+        loaderManager.destroyLoader(ID_DYNAMIC_FEES_LOADER);
 
         privateKeyPasswordView.removeTextChangedListener(privateKeyPasswordListener);
         amountCalculatorLink.setListener(null);
@@ -953,7 +979,7 @@ public final class SendCoinsFragment extends Fragment {
         final SendRequest sendRequest = finalPaymentIntent.toSendRequest();
         sendRequest.emptyWallet = paymentIntent.mayEditAmount()
                 && finalAmount.equals(wallet.getBalance(BalanceType.AVAILABLE));
-        sendRequest.feePerKb = feeCategory.feePerKb;
+        sendRequest.feePerKb = fees.get(feeCategory);
         sendRequest.memo = paymentIntent.memo;
         sendRequest.exchangeRate = amountCalculatorLink.getExchangeRate();
         sendRequest.aesKey = encryptionKey;
@@ -1128,7 +1154,7 @@ public final class SendCoinsFragment extends Fragment {
             dryrunException = null;
 
             final Coin amount = amountCalculatorLink.getAmount();
-            if (amount != null) {
+            if (amount != null && fees != null) {
                 try {
                     final Address dummy = wallet.currentReceiveAddress(); // won't be used, tx is never
                                                                           // committed
@@ -1136,7 +1162,7 @@ public final class SendCoinsFragment extends Fragment {
                     sendRequest.signInputs = false;
                     sendRequest.emptyWallet = paymentIntent.mayEditAmount()
                             && amount.equals(wallet.getBalance(BalanceType.AVAILABLE));
-                    sendRequest.feePerKb = feeCategory.feePerKb;
+                    sendRequest.feePerKb = fees.get(feeCategory);
                     wallet.completeTx(sendRequest);
                     dryrunTransaction = sendRequest.tx;
                 } catch (final Exception x) {
@@ -1285,7 +1311,7 @@ public final class SendCoinsFragment extends Fragment {
 
             viewCancel.setEnabled(
                     state != State.REQUEST_PAYMENT_REQUEST && state != State.DECRYPTING && state != State.SIGNING);
-            viewGo.setEnabled(everythingPlausible() && dryrunTransaction != null);
+            viewGo.setEnabled(everythingPlausible() && dryrunTransaction != null && fees != null);
 
             if (state == null || state == State.REQUEST_PAYMENT_REQUEST) {
                 viewCancel.setText(R.string.button_cancel);

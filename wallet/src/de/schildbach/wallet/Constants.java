@@ -82,6 +82,9 @@ public final class Constants {
 
         /** Filename of the block checkpoints file. */
         public static final String CHECKPOINTS_FILENAME = "checkpoints" + FILENAME_NETWORK_SUFFIX + ".txt";
+
+        /** Filename of the fees files. */
+        public static final String FEES_FILENAME = "fees" + FILENAME_NETWORK_SUFFIX + ".txt";
     }
 
     /** Maximum size of backups. Files larger will be rejected. */
@@ -99,6 +102,8 @@ public final class Constants {
 
     /** URL to fetch version alerts from. */
     public static final HttpUrl VERSION_URL = HttpUrl.parse("https://wallet.schildbach.de/version");
+    /** URL to fetch dynamic fees from. */
+    public static final HttpUrl DYNAMIC_FEES_URL = HttpUrl.parse("https://wallet.schildbach.de/fees");
 
     /** MIME type used for transmitting single transactions. */
     public static final String MIMETYPE_TRANSACTION = "application/x-btctx";
