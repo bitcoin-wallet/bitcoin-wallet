@@ -1,52 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:tools="http://schemas.android.com/tools"
-	android:layout_height="wrap_content" >
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="wrap_content" >
 
-	<LinearLayout
-		android:id="@+id/wallet_balance"
-		style="@style/My.Widget.Button.Borderless.Unpadded"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:gravity="center"
-		android:orientation="vertical" >
+    <LinearLayout
+        android:id="@+id/wallet_balance"
+        style="@style/My.Widget.Button.Borderless.Unpadded"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical" >
 
-		<de.schildbach.wallet.ui.CurrencyTextView
-			android:id="@+id/wallet_balance_btc"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:textSize="@dimen/font_size_huge" />
+        <de.schildbach.wallet.ui.CurrencyTextView
+            android:id="@+id/wallet_balance_btc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/font_size_huge" />
 
-		<TextView
-			android:id="@+id/wallet_balance_too_much"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_marginBottom="8dp"
-			android:layout_marginLeft="@dimen/list_entry_padding_horizontal"
-			android:layout_marginRight="@dimen/list_entry_padding_horizontal_cram"
-			android:text="@string/wallet_balance_fragment_too_much"
-			android:textColor="@color/fg_less_significant"
-			android:textSize="@dimen/font_size_tiny"
-			android:visibility="gone" />
+        <TextView
+            android:id="@+id/wallet_balance_too_much"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="@dimen/list_entry_padding_horizontal"
+            android:layout_marginRight="@dimen/list_entry_padding_horizontal_cram"
+            android:text="@string/wallet_balance_fragment_too_much"
+            android:textColor="@color/fg_less_significant"
+            android:textSize="@dimen/font_size_tiny"
+            android:visibility="gone" />
 
-		<de.schildbach.wallet.ui.CurrencyTextView
-			android:id="@+id/wallet_balance_local"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_marginBottom="8dp"
-			android:paddingRight="8dp"
-			android:textSize="@dimen/font_size_small" />
-	</LinearLayout>
+        <de.schildbach.wallet.ui.CurrencyTextView
+            android:id="@+id/wallet_balance_local"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:paddingRight="8dp"
+            android:textSize="@dimen/font_size_small" />
+    </LinearLayout>
 
-	<TextView
-		android:id="@+id/wallet_balance_progress"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_gravity="center"
-		android:layout_marginLeft="@dimen/list_entry_padding_horizontal_lax"
-		android:layout_marginRight="@dimen/list_entry_padding_horizontal_lax"
-		android:textColor="@color/fg_less_significant"
-		android:textSize="@dimen/font_size_small"
-		android:visibility="gone" />
+    <TextView
+        android:id="@+id/wallet_balance_progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="@dimen/list_entry_padding_horizontal_lax"
+        android:layout_marginRight="@dimen/list_entry_padding_horizontal_lax"
+        android:textColor="@color/fg_less_significant"
+        android:textSize="@dimen/font_size_small"
+        android:visibility="gone" />
 
 </FrameLayout>

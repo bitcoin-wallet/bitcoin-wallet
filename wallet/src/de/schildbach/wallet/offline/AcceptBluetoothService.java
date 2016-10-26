@@ -25,6 +25,11 @@ import org.bitcoinj.wallet.Wallet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import de.schildbach.wallet.WalletApplication;
+import de.schildbach.wallet.util.CrashReporter;
+import de.schildbach.wallet.util.Toast;
+import de.schildbach.wallet_test.R;
+
 import android.app.Service;
 import android.bluetooth.BluetoothAdapter;
 import android.content.BroadcastReceiver;
@@ -36,168 +41,139 @@ import android.os.IBinder;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
 import android.text.format.DateUtils;
-import de.schildbach.wallet.WalletApplication;
-import de.schildbach.wallet.util.CrashReporter;
-import de.schildbach.wallet.util.Toast;
-import de.schildbach.wallet_test.R;
 
 /**
  * @author Andreas Schildbach
  */
-public final class AcceptBluetoothService extends Service
-{
-	private WalletApplication application;
-	private Wallet wallet;
-	private WakeLock wakeLock;
-	private AcceptBluetoothThread classicThread;
-	private AcceptBluetoothThread paymentProtocolThread;
+public final class AcceptBluetoothService extends Service {
+    private WalletApplication application;
+    private Wallet wallet;
+    private WakeLock wakeLock;
+    private AcceptBluetoothThread classicThread;
+    private AcceptBluetoothThread paymentProtocolThread;
 
-	private long serviceCreatedAt;
+    private long serviceCreatedAt;
 
-	private final Handler handler = new Handler();
+    private final Handler handler = new Handler();
 
-	private static final long TIMEOUT_MS = 5 * DateUtils.MINUTE_IN_MILLIS;
+    private static final long TIMEOUT_MS = 5 * DateUtils.MINUTE_IN_MILLIS;
 
-	private static final Logger log = LoggerFactory.getLogger(AcceptBluetoothService.class);
+    private static final Logger log = LoggerFactory.getLogger(AcceptBluetoothService.class);
 
-	@Override
-	public IBinder onBind(final Intent intent)
-	{
-		return null;
-	}
+    @Override
+    public IBinder onBind(final Intent intent) {
+        return null;
+    }
 
-	@Override
-	public int onStartCommand(final Intent intent, final int flags, final int startId)
-	{
-		handler.removeCallbacks(timeoutRunnable);
-		handler.postDelayed(timeoutRunnable, TIMEOUT_MS);
+    @Override
+    public int onStartCommand(final Intent intent, final int flags, final int startId) {
+        handler.removeCallbacks(timeoutRunnable);
+        handler.postDelayed(timeoutRunnable, TIMEOUT_MS);
 
-		return START_NOT_STICKY;
-	}
+        return START_NOT_STICKY;
+    }
 
-	@Override
-	public void onCreate()
-	{
-		serviceCreatedAt = System.currentTimeMillis();
-		log.debug(".onCreate()");
+    @Override
+    public void onCreate() {
+        serviceCreatedAt = System.currentTimeMillis();
+        log.debug(".onCreate()");
 
-		super.onCreate();
+        super.onCreate();
 
-		this.application = (WalletApplication) getApplication();
-		this.wallet = application.getWallet();
+        this.application = (WalletApplication) getApplication();
+        this.wallet = application.getWallet();
 
-		final BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        final BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
-		final PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
-		wakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, getPackageName() + " bluetooth transaction submission");
-		wakeLock.acquire();
+        final PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
+        wakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
+                getPackageName() + " bluetooth transaction submission");
+        wakeLock.acquire();
 
-		registerReceiver(bluetoothStateChangeReceiver, new IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED));
+        registerReceiver(bluetoothStateChangeReceiver, new IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED));
 
-		try
-		{
-			classicThread = new AcceptBluetoothThread.ClassicBluetoothThread(bluetoothAdapter)
-			{
-				@Override
-				public boolean handleTx(final Transaction tx)
-				{
-					return AcceptBluetoothService.this.handleTx(tx);
-				}
-			};
-			paymentProtocolThread = new AcceptBluetoothThread.PaymentProtocolThread(bluetoothAdapter)
-			{
-				@Override
-				public boolean handleTx(final Transaction tx)
-				{
-					return AcceptBluetoothService.this.handleTx(tx);
-				}
-			};
+        try {
+            classicThread = new AcceptBluetoothThread.ClassicBluetoothThread(bluetoothAdapter) {
+                @Override
+                public boolean handleTx(final Transaction tx) {
+                    return AcceptBluetoothService.this.handleTx(tx);
+                }
+            };
+            paymentProtocolThread = new AcceptBluetoothThread.PaymentProtocolThread(bluetoothAdapter) {
+                @Override
+                public boolean handleTx(final Transaction tx) {
+                    return AcceptBluetoothService.this.handleTx(tx);
+                }
+            };
 
-			classicThread.start();
-			paymentProtocolThread.start();
-		}
-		catch (final IOException x)
-		{
-			new Toast(this).longToast(R.string.error_bluetooth, x.getMessage());
-			CrashReporter.saveBackgroundTrace(x, application.packageInfo());
-		}
-	}
+            classicThread.start();
+            paymentProtocolThread.start();
+        } catch (final IOException x) {
+            new Toast(this).longToast(R.string.error_bluetooth, x.getMessage());
+            CrashReporter.saveBackgroundTrace(x, application.packageInfo());
+        }
+    }
 
-	private boolean handleTx(final Transaction tx)
-	{
-		log.info("tx " + tx.getHashAsString() + " arrived via blueooth");
+    private boolean handleTx(final Transaction tx) {
+        log.info("tx " + tx.getHashAsString() + " arrived via blueooth");
 
-		try
-		{
-			if (wallet.isTransactionRelevant(tx))
-			{
-				wallet.receivePending(tx, null);
+        try {
+            if (wallet.isTransactionRelevant(tx)) {
+                wallet.receivePending(tx, null);
 
-				handler.post(new Runnable()
-				{
-					@Override
-					public void run()
-					{
-						application.broadcastTransaction(tx);
-					}
-				});
-			}
-			else
-			{
-				log.info("tx " + tx.getHashAsString() + " irrelevant");
-			}
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        application.broadcastTransaction(tx);
+                    }
+                });
+            } else {
+                log.info("tx " + tx.getHashAsString() + " irrelevant");
+            }
 
-			return true;
-		}
-		catch (final VerificationException x)
-		{
-			log.info("cannot verify tx " + tx.getHashAsString() + " received via bluetooth", x);
-		}
+            return true;
+        } catch (final VerificationException x) {
+            log.info("cannot verify tx " + tx.getHashAsString() + " received via bluetooth", x);
+        }
 
-		return false;
-	}
+        return false;
+    }
 
-	@Override
-	public void onDestroy()
-	{
-		paymentProtocolThread.stopAccepting();
-		classicThread.stopAccepting();
+    @Override
+    public void onDestroy() {
+        paymentProtocolThread.stopAccepting();
+        classicThread.stopAccepting();
 
-		unregisterReceiver(bluetoothStateChangeReceiver);
+        unregisterReceiver(bluetoothStateChangeReceiver);
 
-		wakeLock.release();
+        wakeLock.release();
 
-		handler.removeCallbacksAndMessages(null);
+        handler.removeCallbacksAndMessages(null);
 
-		super.onDestroy();
+        super.onDestroy();
 
-		log.info("service was up for " + ((System.currentTimeMillis() - serviceCreatedAt) / 1000 / 60) + " minutes");
-	}
+        log.info("service was up for " + ((System.currentTimeMillis() - serviceCreatedAt) / 1000 / 60) + " minutes");
+    }
 
-	private final BroadcastReceiver bluetoothStateChangeReceiver = new BroadcastReceiver()
-	{
-		@Override
-		public void onReceive(final Context context, final Intent intent)
-		{
-			final int state = intent.getIntExtra(BluetoothAdapter.EXTRA_STATE, 0);
+    private final BroadcastReceiver bluetoothStateChangeReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(final Context context, final Intent intent) {
+            final int state = intent.getIntExtra(BluetoothAdapter.EXTRA_STATE, 0);
 
-			if (state == BluetoothAdapter.STATE_TURNING_OFF || state == BluetoothAdapter.STATE_OFF)
-			{
-				log.info("bluetooth was turned off, stopping service");
+            if (state == BluetoothAdapter.STATE_TURNING_OFF || state == BluetoothAdapter.STATE_OFF) {
+                log.info("bluetooth was turned off, stopping service");
 
-				stopSelf();
-			}
-		}
-	};
+                stopSelf();
+            }
+        }
+    };
 
-	private final Runnable timeoutRunnable = new Runnable()
-	{
-		@Override
-		public void run()
-		{
-			log.info("timeout expired, stopping service");
+    private final Runnable timeoutRunnable = new Runnable() {
+        @Override
+        public void run() {
+            log.info("timeout expired, stopping service");
 
-			stopSelf();
-		}
-	};
+            stopSelf();
+        }
+    };
 }

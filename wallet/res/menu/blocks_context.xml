@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
-	<item
-		android:id="@+id/blocks_context_browse"
-		android:showAsAction="never"
-		android:title="@string/action_browse"/>
+    <item
+        android:id="@+id/blocks_context_browse"
+        android:showAsAction="never"
+        android:title="@string/action_browse"/>
 
 </menu>

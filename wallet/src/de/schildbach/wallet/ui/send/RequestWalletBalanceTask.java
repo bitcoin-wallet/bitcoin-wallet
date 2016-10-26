@@ -56,189 +56,167 @@ import android.os.Looper;
 /**
  * @author Andreas Schildbach
  */
-public final class RequestWalletBalanceTask
-{
-	private final Handler backgroundHandler;
-	private final Handler callbackHandler;
-	private final ResultCallback resultCallback;
-	@Nullable
-	private final String userAgent;
+public final class RequestWalletBalanceTask {
+    private final Handler backgroundHandler;
+    private final Handler callbackHandler;
+    private final ResultCallback resultCallback;
+    @Nullable
+    private final String userAgent;
 
-	private static final Logger log = LoggerFactory.getLogger(RequestWalletBalanceTask.class);
+    private static final Logger log = LoggerFactory.getLogger(RequestWalletBalanceTask.class);
 
-	public interface ResultCallback
-	{
-		void onResult(Collection<Transaction> transactions);
+    public interface ResultCallback {
+        void onResult(Collection<Transaction> transactions);
 
-		void onFail(int messageResId, Object... messageArgs);
-	}
+        void onFail(int messageResId, Object... messageArgs);
+    }
 
-	public RequestWalletBalanceTask(final Handler backgroundHandler, final ResultCallback resultCallback, @Nullable final String userAgent)
-	{
-		this.backgroundHandler = backgroundHandler;
-		this.callbackHandler = new Handler(Looper.myLooper());
-		this.resultCallback = resultCallback;
-		this.userAgent = userAgent;
-	}
+    public RequestWalletBalanceTask(final Handler backgroundHandler, final ResultCallback resultCallback,
+            @Nullable final String userAgent) {
+        this.backgroundHandler = backgroundHandler;
+        this.callbackHandler = new Handler(Looper.myLooper());
+        this.resultCallback = resultCallback;
+        this.userAgent = userAgent;
+    }
 
-	public void requestWalletBalance(final Address... addresses)
-	{
-		backgroundHandler.post(new Runnable()
-		{
-			@Override
-			public void run()
-			{
-				org.bitcoinj.core.Context.propagate(Constants.CONTEXT);
+    public void requestWalletBalance(final Address... addresses) {
+        backgroundHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                org.bitcoinj.core.Context.propagate(Constants.CONTEXT);
 
-				final HttpUrl.Builder url = HttpUrl.parse(Constants.BITEASY_API_URL).newBuilder();
-				url.addPathSegment("outputs");
-				url.addQueryParameter("per_page", "MAX");
-				url.addQueryParameter("operator", "AND");
-				url.addQueryParameter("spent_state", "UNSPENT");
-				for (final Address address : addresses)
-					url.addQueryParameter("address[]", address.toBase58());
+                final HttpUrl.Builder url = HttpUrl.parse(Constants.BITEASY_API_URL).newBuilder();
+                url.addPathSegment("outputs");
+                url.addQueryParameter("per_page", "MAX");
+                url.addQueryParameter("operator", "AND");
+                url.addQueryParameter("spent_state", "UNSPENT");
+                for (final Address address : addresses)
+                    url.addQueryParameter("address[]", address.toBase58());
 
-				log.debug("trying to request wallet balance from {}", url.build());
+                log.debug("trying to request wallet balance from {}", url.build());
 
-				final Request.Builder request = new Request.Builder();
-				request.url(url.build());
-				request.cacheControl(new CacheControl.Builder().noCache().build());
-				request.header("Accept-Charset", "utf-8");
-				if (userAgent != null)
-					request.header("User-Agent", userAgent);
+                final Request.Builder request = new Request.Builder();
+                request.url(url.build());
+                request.cacheControl(new CacheControl.Builder().noCache().build());
+                request.header("Accept-Charset", "utf-8");
+                if (userAgent != null)
+                    request.header("User-Agent", userAgent);
 
-				final Call call = Constants.HTTP_CLIENT.newCall(request.build());
-				try
-				{
-					final Response response = call.execute();
-					if (response.isSuccessful())
-					{
-						final String content = response.body().string();
-						final JSONObject json = new JSONObject(content);
+                final Call call = Constants.HTTP_CLIENT.newCall(request.build());
+                try {
+                    final Response response = call.execute();
+                    if (response.isSuccessful()) {
+                        final String content = response.body().string();
+                        final JSONObject json = new JSONObject(content);
 
-						final int status = json.getInt("status");
-						if (status != 200)
-							throw new IOException("api status " + status + " when fetching unspent outputs");
+                        final int status = json.getInt("status");
+                        if (status != 200)
+                            throw new IOException("api status " + status + " when fetching unspent outputs");
 
-						final JSONObject jsonData = json.getJSONObject("data");
+                        final JSONObject jsonData = json.getJSONObject("data");
 
-						final JSONObject jsonPagination = jsonData.getJSONObject("pagination");
+                        final JSONObject jsonPagination = jsonData.getJSONObject("pagination");
 
-						if (!"false".equals(jsonPagination.getString("next_page")))
-							throw new IOException("result set too big");
+                        if (!"false".equals(jsonPagination.getString("next_page")))
+                            throw new IOException("result set too big");
 
-						final JSONArray jsonOutputs = jsonData.getJSONArray("outputs");
+                        final JSONArray jsonOutputs = jsonData.getJSONArray("outputs");
 
-						final Map<Sha256Hash, Transaction> transactions = new HashMap<Sha256Hash, Transaction>(jsonOutputs.length());
+                        final Map<Sha256Hash, Transaction> transactions = new HashMap<Sha256Hash, Transaction>(
+                                jsonOutputs.length());
 
-						for (int i = 0; i < jsonOutputs.length(); i++)
-						{
-							final JSONObject jsonOutput = jsonOutputs.getJSONObject(i);
+                        for (int i = 0; i < jsonOutputs.length(); i++) {
+                            final JSONObject jsonOutput = jsonOutputs.getJSONObject(i);
 
-							final Sha256Hash uxtoHash = Sha256Hash.wrap(jsonOutput.getString("transaction_hash"));
-							final int uxtoIndex = jsonOutput.getInt("transaction_index");
-							final byte[] uxtoScriptBytes = Constants.HEX.decode(jsonOutput.getString("script_pub_key"));
-							final Coin uxtoValue = Coin.valueOf(Long.parseLong(jsonOutput.getString("value")));
+                            final Sha256Hash uxtoHash = Sha256Hash.wrap(jsonOutput.getString("transaction_hash"));
+                            final int uxtoIndex = jsonOutput.getInt("transaction_index");
+                            final byte[] uxtoScriptBytes = Constants.HEX.decode(jsonOutput.getString("script_pub_key"));
+                            final Coin uxtoValue = Coin.valueOf(Long.parseLong(jsonOutput.getString("value")));
 
-							Transaction tx = transactions.get(uxtoHash);
-							if (tx == null)
-							{
-								tx = new FakeTransaction(Constants.NETWORK_PARAMETERS, uxtoHash);
-								tx.getConfidence().setConfidenceType(ConfidenceType.BUILDING);
-								transactions.put(uxtoHash, tx);
-							}
+                            Transaction tx = transactions.get(uxtoHash);
+                            if (tx == null) {
+                                tx = new FakeTransaction(Constants.NETWORK_PARAMETERS, uxtoHash);
+                                tx.getConfidence().setConfidenceType(ConfidenceType.BUILDING);
+                                transactions.put(uxtoHash, tx);
+                            }
 
-							final TransactionOutput output = new TransactionOutput(Constants.NETWORK_PARAMETERS, tx, uxtoValue, uxtoScriptBytes);
+                            final TransactionOutput output = new TransactionOutput(Constants.NETWORK_PARAMETERS, tx,
+                                    uxtoValue, uxtoScriptBytes);
 
-							if (tx.getOutputs().size() > uxtoIndex)
-							{
-								// Work around not being able to replace outputs on transactions
-								final List<TransactionOutput> outputs = new ArrayList<TransactionOutput>(tx.getOutputs());
-								final TransactionOutput dummy = outputs.set(uxtoIndex, output);
-								checkState(dummy.getValue().equals(Coin.NEGATIVE_SATOSHI), "Index %s must be dummy output", uxtoIndex);
-								// Remove and re-add all outputs
-								tx.clearOutputs();
-								for (final TransactionOutput o : outputs)
-									tx.addOutput(o);
-							}
-							else
-							{
-								// Fill with dummies as needed
-								while (tx.getOutputs().size() < uxtoIndex)
-									tx.addOutput(new TransactionOutput(Constants.NETWORK_PARAMETERS, tx, Coin.NEGATIVE_SATOSHI, new byte[] {}));
+                            if (tx.getOutputs().size() > uxtoIndex) {
+                                // Work around not being able to replace outputs on transactions
+                                final List<TransactionOutput> outputs = new ArrayList<TransactionOutput>(
+                                        tx.getOutputs());
+                                final TransactionOutput dummy = outputs.set(uxtoIndex, output);
+                                checkState(dummy.getValue().equals(Coin.NEGATIVE_SATOSHI),
+                                        "Index %s must be dummy output", uxtoIndex);
+                                // Remove and re-add all outputs
+                                tx.clearOutputs();
+                                for (final TransactionOutput o : outputs)
+                                    tx.addOutput(o);
+                            } else {
+                                // Fill with dummies as needed
+                                while (tx.getOutputs().size() < uxtoIndex)
+                                    tx.addOutput(new TransactionOutput(Constants.NETWORK_PARAMETERS, tx,
+                                            Coin.NEGATIVE_SATOSHI, new byte[] {}));
 
-								// Add the real output
-								tx.addOutput(output);
-							}
-						}
+                                // Add the real output
+                                tx.addOutput(output);
+                            }
+                        }
 
-						log.info("fetched unspent outputs from {}", url);
+                        log.info("fetched unspent outputs from {}", url);
 
-						onResult(transactions.values());
-					}
-					else
-					{
-						final int responseCode = response.code();
-						final String responseMessage = response.message();
+                        onResult(transactions.values());
+                    } else {
+                        final int responseCode = response.code();
+                        final String responseMessage = response.message();
 
-						log.info("got http error '{}: {}' from {}", responseCode, responseMessage, url);
-						onFail(R.string.error_http, responseCode, responseMessage);
-					}
-				}
-				catch (final JSONException x)
-				{
-					log.info("problem parsing json from " + url, x);
+                        log.info("got http error '{}: {}' from {}", responseCode, responseMessage, url);
+                        onFail(R.string.error_http, responseCode, responseMessage);
+                    }
+                } catch (final JSONException x) {
+                    log.info("problem parsing json from " + url, x);
 
-					onFail(R.string.error_parse, x.getMessage());
-				}
-				catch (final IOException x)
-				{
-					log.info("problem querying unspent outputs from " + url, x);
+                    onFail(R.string.error_parse, x.getMessage());
+                } catch (final IOException x) {
+                    log.info("problem querying unspent outputs from " + url, x);
 
-					onFail(R.string.error_io, x.getMessage());
-				}
-			}
-		});
-	}
+                    onFail(R.string.error_io, x.getMessage());
+                }
+            }
+        });
+    }
 
-	protected void onResult(final Collection<Transaction> transactions)
-	{
-		callbackHandler.post(new Runnable()
-		{
-			@Override
-			public void run()
-			{
-				resultCallback.onResult(transactions);
-			}
-		});
-	}
+    protected void onResult(final Collection<Transaction> transactions) {
+        callbackHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                resultCallback.onResult(transactions);
+            }
+        });
+    }
 
-	protected void onFail(final int messageResId, final Object... messageArgs)
-	{
-		callbackHandler.post(new Runnable()
-		{
-			@Override
-			public void run()
-			{
-				resultCallback.onFail(messageResId, messageArgs);
-			}
-		});
-	}
+    protected void onFail(final int messageResId, final Object... messageArgs) {
+        callbackHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                resultCallback.onFail(messageResId, messageArgs);
+            }
+        });
+    }
 
-	private static class FakeTransaction extends Transaction
-	{
-		private final Sha256Hash hash;
+    private static class FakeTransaction extends Transaction {
+        private final Sha256Hash hash;
 
-		public FakeTransaction(final NetworkParameters params, final Sha256Hash hash)
-		{
-			super(params);
-			this.hash = hash;
-		}
+        public FakeTransaction(final NetworkParameters params, final Sha256Hash hash) {
+            super(params);
+            this.hash = hash;
+        }
 
-		@Override
-		public Sha256Hash getHash()
-		{
-			return hash;
-		}
-	}
+        @Override
+        public Sha256Hash getHash() {
+            return hash;
+        }
+    }
 }

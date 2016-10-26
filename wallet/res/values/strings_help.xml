@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
 
-	<string name="help_wallet">
+    <string name="help_wallet">
 <![CDATA[
 		<p>
 			The upper left part of the screen displays your balance in Bitcoins and one selected national currency.
@@ -21,8 +21,8 @@
 			More options are available in the options menu.
 		</p>
 	]]>
-	</string>
-	<string name="help_request_coins">
+    </string>
+    <string name="help_request_coins">
 <![CDATA[
 		<p>
 			Using this dialog, you can request coins from another person (who should already have installed Bitcoin Wallet).
@@ -40,8 +40,8 @@
 			If she accepts, all she needs to do is sending the payment.
 		</p>
 	]]>
-	</string>
-	<string name="help_send_coins">
+    </string>
+    <string name="help_send_coins">
 <![CDATA[
 		<p>
 			You have initiated the process of sending coins.
@@ -70,8 +70,8 @@
 			Always check the receiving address.
 		</p>
 	]]>
-	</string>
-	<string name="help_safety">
+    </string>
+    <string name="help_safety">
 <![CDATA[
 		<p>
 			<b>Important safety notes:</b>
@@ -104,6 +104,6 @@
 			<b>Only use with small amounts</b> for day use.
 		</p>
 	]]>
-	</string>
+    </string>
 
 </resources>

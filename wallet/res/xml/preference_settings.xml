@@ -1,84 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
 
-	<ListPreference
-		android:defaultValue="2/3"
-		android:entries="@array/preferences_precision_labels"
-		android:entryValues="@array/preferences_precision_values"
-		android:key="btc_precision"
-		android:summary="@string/preferences_precision_summary"
-		android:title="@string/preferences_precision_title" />
+    <ListPreference
+        android:defaultValue="2/3"
+        android:entries="@array/preferences_precision_labels"
+        android:entryValues="@array/preferences_precision_values"
+        android:key="btc_precision"
+        android:summary="@string/preferences_precision_summary"
+        android:title="@string/preferences_precision_title" />
 
-	<EditTextPreference
-		android:key="own_name"
-		android:summary="@string/preferences_own_name_summary"
-		android:title="@string/preferences_own_name_title" />
+    <EditTextPreference
+        android:key="own_name"
+        android:summary="@string/preferences_own_name_summary"
+        android:title="@string/preferences_own_name_title" />
 
-	<CheckBoxPreference
-		android:defaultValue="true"
-		android:key="send_coins_autoclose"
-		android:summary="@string/preferences_send_coins_autoclose_summary"
-		android:title="@string/preferences_send_coins_autoclose_title" />
-	<CheckBoxPreference
-		android:defaultValue="false"
-		android:key="connectivity_notification"
-		android:summary="@string/preferences_connectivity_notification_summary"
-		android:title="@string/preferences_connectivity_notification_title" />
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:key="send_coins_autoclose"
+        android:summary="@string/preferences_send_coins_autoclose_summary"
+        android:title="@string/preferences_send_coins_autoclose_title" />
+    <CheckBoxPreference
+        android:defaultValue="false"
+        android:key="connectivity_notification"
+        android:summary="@string/preferences_connectivity_notification_summary"
+        android:title="@string/preferences_connectivity_notification_title" />
 
-	<EditTextPreference
-		android:key="trusted_peer"
-		android:summary="@string/preferences_trusted_peer_summary"
-		android:title="@string/preferences_trusted_peer_title" />
+    <EditTextPreference
+        android:key="trusted_peer"
+        android:summary="@string/preferences_trusted_peer_summary"
+        android:title="@string/preferences_trusted_peer_title" />
 
-	<CheckBoxPreference
-		android:defaultValue="false"
-		android:key="trusted_peer_only"
-		android:summary="@string/preferences_trusted_peer_only_summary"
-		android:title="@string/preferences_trusted_peer_only_title" />
+    <CheckBoxPreference
+        android:defaultValue="false"
+        android:key="trusted_peer_only"
+        android:summary="@string/preferences_trusted_peer_only_summary"
+        android:title="@string/preferences_trusted_peer_only_title" />
 
-	<ListPreference
-		android:entries="@array/preferences_block_explorer_labels"
-		android:entryValues="@array/preferences_block_explorer_values"
-		android:key="block_explorer"
-		android:summary="@string/preferences_block_explorer_summary"
-		android:title="@string/preferences_block_explorer_title" />
+    <ListPreference
+        android:entries="@array/preferences_block_explorer_labels"
+        android:entryValues="@array/preferences_block_explorer_values"
+        android:key="block_explorer"
+        android:summary="@string/preferences_block_explorer_summary"
+        android:title="@string/preferences_block_explorer_title" />
 
-	<Preference
-		android:key="data_usage"
-		android:summary="@string/preferences_data_usage_summary"
-		android:title="@string/preferences_data_usage_title" >
-		<intent
-			android:targetClass="com.android.settings.Settings$DataUsageSummaryActivity"
-			android:targetPackage="com.android.settings" />
-	</Preference>
+    <Preference
+        android:key="data_usage"
+        android:summary="@string/preferences_data_usage_summary"
+        android:title="@string/preferences_data_usage_title" >
+        <intent
+            android:targetClass="com.android.settings.Settings$DataUsageSummaryActivity"
+            android:targetPackage="com.android.settings" />
+    </Preference>
 
-	<CheckBoxPreference
-		android:defaultValue="true"
-		android:key="remind_balance"
-		android:summary="@string/preferences_remind_balance_summary"
-		android:title="@string/preferences_remind_balance_title" />
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:key="remind_balance"
+        android:summary="@string/preferences_remind_balance_summary"
+        android:title="@string/preferences_remind_balance_title" />
 
-	<PreferenceCategory android:title="@string/preferences_category_labs" >
-		<Preference
-			android:icon="@drawable/ic_warning_grey600_24dp"
-			android:summary="This is all unfinished stuff. Use at your own risk!"
-			android:title="Warning" />
+    <PreferenceCategory android:title="@string/preferences_category_labs" >
+        <Preference
+            android:icon="@drawable/ic_warning_grey600_24dp"
+            android:summary="This is all unfinished stuff. Use at your own risk!"
+            android:title="Warning" />
 
-		<CheckBoxPreference
-			android:defaultValue="true"
-			android:key="disclaimer"
-			android:summary="Have you really read the safety notes? Did you already back up your wallet to a safe place?"
-			android:title="Show disclaimer" />
-		<CheckBoxPreference
-			android:defaultValue="false"
-			android:key="labs_qr_payment_request"
-			android:summary="Use payment protocol for QR-code initiated payments"
-			android:title="BIP70 for scan-to-pay" />
-		<CheckBoxPreference
-			android:defaultValue="false"
-			android:key="look_up_wallet_names"
-			android:summary="When sending coins, use DNSSEC to look up wallet names from the domain name system."
-			android:title="Look up wallet names" />
-	</PreferenceCategory>
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="disclaimer"
+            android:summary="Have you really read the safety notes? Did you already back up your wallet to a safe place?"
+            android:title="Show disclaimer" />
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="labs_qr_payment_request"
+            android:summary="Use payment protocol for QR-code initiated payments"
+            android:title="BIP70 for scan-to-pay" />
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="look_up_wallet_names"
+            android:summary="When sending coins, use DNSSEC to look up wallet names from the domain name system."
+            android:title="Look up wallet names" />
+    </PreferenceCategory>
 
 </PreferenceScreen>

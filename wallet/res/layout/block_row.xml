@@ -1,88 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="match_parent"
-	android:layout_height="wrap_content"
-	android:background="@color/bg_list"
-	android:orientation="vertical" >
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/bg_list"
+    android:orientation="vertical" >
 
-	<TextView
-		android:id="@+id/block_list_row_mining_reward_adjustment"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:background="@color/bg_less_bright"
-		android:paddingBottom="@dimen/list_entry_padding_vertical_cram"
-		android:paddingLeft="@dimen/list_entry_padding_horizontal"
-		android:paddingRight="@dimen/list_entry_padding_horizontal"
-		android:paddingTop="@dimen/list_entry_padding_vertical_cram"
-		android:text="@string/block_row_mining_reward_adjustment"
-		android:textColor="@color/fg_less_significant"
-		android:textSize="@dimen/font_size_small" />
+    <TextView
+        android:id="@+id/block_list_row_mining_reward_adjustment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bg_less_bright"
+        android:paddingBottom="@dimen/list_entry_padding_vertical_cram"
+        android:paddingLeft="@dimen/list_entry_padding_horizontal"
+        android:paddingRight="@dimen/list_entry_padding_horizontal"
+        android:paddingTop="@dimen/list_entry_padding_vertical_cram"
+        android:text="@string/block_row_mining_reward_adjustment"
+        android:textColor="@color/fg_less_significant"
+        android:textSize="@dimen/font_size_small" />
 
-	<TextView
-		android:id="@+id/block_list_row_mining_difficulty_adjustment"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:background="@color/bg_less_bright"
-		android:paddingBottom="@dimen/list_entry_padding_vertical_cram"
-		android:paddingLeft="@dimen/list_entry_padding_horizontal"
-		android:paddingRight="@dimen/list_entry_padding_horizontal"
-		android:paddingTop="@dimen/list_entry_padding_vertical_cram"
-		android:text="@string/block_row_mining_difficulty_adjustment"
-		android:textColor="@color/fg_less_significant"
-		android:textSize="@dimen/font_size_small" />
+    <TextView
+        android:id="@+id/block_list_row_mining_difficulty_adjustment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bg_less_bright"
+        android:paddingBottom="@dimen/list_entry_padding_vertical_cram"
+        android:paddingLeft="@dimen/list_entry_padding_horizontal"
+        android:paddingRight="@dimen/list_entry_padding_horizontal"
+        android:paddingTop="@dimen/list_entry_padding_vertical_cram"
+        android:text="@string/block_row_mining_difficulty_adjustment"
+        android:textColor="@color/fg_less_significant"
+        android:textSize="@dimen/font_size_small" />
 
-	<FrameLayout
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content" >
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
 
-		<LinearLayout
-			android:id="@+id/block_list_row_transactions_group"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:orientation="vertical"
-			android:paddingBottom="@dimen/list_entry_padding_vertical"
-			android:paddingLeft="@dimen/list_entry_padding_horizontal"
-			android:paddingRight="@dimen/list_entry_padding_horizontal"
-			android:paddingTop="@dimen/list_entry_padding_vertical" >
+        <LinearLayout
+            android:id="@+id/block_list_row_transactions_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/list_entry_padding_vertical"
+            android:paddingLeft="@dimen/list_entry_padding_horizontal"
+            android:paddingRight="@dimen/list_entry_padding_horizontal"
+            android:paddingTop="@dimen/list_entry_padding_vertical" >
 
-			<LinearLayout
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:baselineAligned="true"
-				android:orientation="horizontal"
-				android:paddingBottom="2dp" >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:baselineAligned="true"
+                android:orientation="horizontal"
+                android:paddingBottom="2dp" >
 
-				<TextView
-					android:id="@+id/block_list_row_height"
-					android:layout_width="0px"
-					android:layout_height="wrap_content"
-					android:layout_weight="1"
-					android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/block_list_row_height"
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textStyle="bold" />
 
-				<TextView
-					android:id="@+id/block_list_row_time"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/block_list_row_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
 
-				<Space
-					android:layout_width="24dp"
-					android:layout_height="0px" />
-			</LinearLayout>
+                <Space
+                    android:layout_width="24dp"
+                    android:layout_height="0px" />
+            </LinearLayout>
 
-			<TextView
-				android:id="@+id/block_list_row_hash"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:paddingTop="2dp" />
-		</LinearLayout>
+            <TextView
+                android:id="@+id/block_list_row_hash"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="2dp" />
+        </LinearLayout>
 
-		<ImageButton
-			android:id="@+id/block_list_row_menu"
-			style="@style/My.Widget.Button.Borderless.Small"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_gravity="top|right"
-			android:src="@drawable/ic_more_vert_grey600_18dp" />
-	</FrameLayout>
+        <ImageButton
+            android:id="@+id/block_list_row_menu"
+            style="@style/My.Widget.Button.Borderless.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|right"
+            android:src="@drawable/ic_more_vert_grey600_18dp" />
+    </FrameLayout>
 
 </LinearLayout>

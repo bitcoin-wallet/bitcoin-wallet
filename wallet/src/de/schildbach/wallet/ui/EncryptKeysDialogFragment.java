@@ -26,6 +26,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.spongycastle.crypto.params.KeyParameter;
 
+import com.google.common.base.Strings;
+
+import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.WalletApplication;
+import de.schildbach.wallet_test.R;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -48,352 +54,297 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.google.common.base.Strings;
-
-import de.schildbach.wallet.Constants;
-import de.schildbach.wallet.WalletApplication;
-import de.schildbach.wallet_test.R;
-
 /**
  * @author Andreas Schildbach
  */
-public class EncryptKeysDialogFragment extends DialogFragment
-{
-	private static final String FRAGMENT_TAG = EncryptKeysDialogFragment.class.getName();
+public class EncryptKeysDialogFragment extends DialogFragment {
+    private static final String FRAGMENT_TAG = EncryptKeysDialogFragment.class.getName();
 
-	public static void show(final FragmentManager fm)
-	{
-		final DialogFragment newFragment = new EncryptKeysDialogFragment();
-		newFragment.show(fm, FRAGMENT_TAG);
-	}
+    public static void show(final FragmentManager fm) {
+        final DialogFragment newFragment = new EncryptKeysDialogFragment();
+        newFragment.show(fm, FRAGMENT_TAG);
+    }
 
-	private AbstractWalletActivity activity;
-	private WalletApplication application;
-	private Wallet wallet;
+    private AbstractWalletActivity activity;
+    private WalletApplication application;
+    private Wallet wallet;
 
-	@Nullable
-	private AlertDialog dialog;
+    @Nullable
+    private AlertDialog dialog;
 
-	private View oldPasswordGroup;
-	private EditText oldPasswordView;
-	private EditText newPasswordView;
-	private View badPasswordView;
-	private TextView passwordStrengthView;
-	private CheckBox showView;
-	private Button positiveButton, negativeButton;
+    private View oldPasswordGroup;
+    private EditText oldPasswordView;
+    private EditText newPasswordView;
+    private View badPasswordView;
+    private TextView passwordStrengthView;
+    private CheckBox showView;
+    private Button positiveButton, negativeButton;
 
-	private final Handler handler = new Handler();
-	private HandlerThread backgroundThread;
-	private Handler backgroundHandler;
+    private final Handler handler = new Handler();
+    private HandlerThread backgroundThread;
+    private Handler backgroundHandler;
 
-	private enum State
-	{
-		INPUT, CRYPTING, DONE
-	}
+    private enum State {
+        INPUT, CRYPTING, DONE
+    }
 
-	private State state = State.INPUT;
+    private State state = State.INPUT;
 
-	private static final Logger log = LoggerFactory.getLogger(EncryptKeysDialogFragment.class);
+    private static final Logger log = LoggerFactory.getLogger(EncryptKeysDialogFragment.class);
 
-	private final TextWatcher textWatcher = new TextWatcher()
-	{
-		@Override
-		public void onTextChanged(final CharSequence s, final int start, final int before, final int count)
-		{
-			badPasswordView.setVisibility(View.INVISIBLE);
-			updateView();
-		}
+    private final TextWatcher textWatcher = new TextWatcher() {
+        @Override
+        public void onTextChanged(final CharSequence s, final int start, final int before, final int count) {
+            badPasswordView.setVisibility(View.INVISIBLE);
+            updateView();
+        }
 
-		@Override
-		public void beforeTextChanged(final CharSequence s, final int start, final int count, final int after)
-		{
-		}
+        @Override
+        public void beforeTextChanged(final CharSequence s, final int start, final int count, final int after) {
+        }
 
-		@Override
-		public void afterTextChanged(final Editable s)
-		{
-		}
-	};
+        @Override
+        public void afterTextChanged(final Editable s) {
+        }
+    };
 
-	@Override
-	public void onAttach(final Activity activity)
-	{
-		super.onAttach(activity);
+    @Override
+    public void onAttach(final Activity activity) {
+        super.onAttach(activity);
 
-		this.activity = (AbstractWalletActivity) activity;
-		this.application = (WalletApplication) activity.getApplication();
-		this.wallet = application.getWallet();
-	}
+        this.activity = (AbstractWalletActivity) activity;
+        this.application = (WalletApplication) activity.getApplication();
+        this.wallet = application.getWallet();
+    }
 
-	@Override
-	public void onCreate(final Bundle savedInstanceState)
-	{
-		super.onCreate(savedInstanceState);
+    @Override
+    public void onCreate(final Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-		backgroundThread = new HandlerThread("backgroundThread", Process.THREAD_PRIORITY_BACKGROUND);
-		backgroundThread.start();
-		backgroundHandler = new Handler(backgroundThread.getLooper());
-	}
+        backgroundThread = new HandlerThread("backgroundThread", Process.THREAD_PRIORITY_BACKGROUND);
+        backgroundThread.start();
+        backgroundHandler = new Handler(backgroundThread.getLooper());
+    }
 
-	@Override
-	public Dialog onCreateDialog(final Bundle savedInstanceState)
-	{
-		final View view = LayoutInflater.from(activity).inflate(R.layout.encrypt_keys_dialog, null);
+    @Override
+    public Dialog onCreateDialog(final Bundle savedInstanceState) {
+        final View view = LayoutInflater.from(activity).inflate(R.layout.encrypt_keys_dialog, null);
 
-		oldPasswordGroup = view.findViewById(R.id.encrypt_keys_dialog_password_old_group);
+        oldPasswordGroup = view.findViewById(R.id.encrypt_keys_dialog_password_old_group);
 
-		oldPasswordView = (EditText) view.findViewById(R.id.encrypt_keys_dialog_password_old);
-		oldPasswordView.setText(null);
+        oldPasswordView = (EditText) view.findViewById(R.id.encrypt_keys_dialog_password_old);
+        oldPasswordView.setText(null);
 
-		newPasswordView = (EditText) view.findViewById(R.id.encrypt_keys_dialog_password_new);
-		newPasswordView.setText(null);
+        newPasswordView = (EditText) view.findViewById(R.id.encrypt_keys_dialog_password_new);
+        newPasswordView.setText(null);
 
-		badPasswordView = view.findViewById(R.id.encrypt_keys_dialog_bad_password);
+        badPasswordView = view.findViewById(R.id.encrypt_keys_dialog_bad_password);
 
-		passwordStrengthView = (TextView) view.findViewById(R.id.encrypt_keys_dialog_password_strength);
+        passwordStrengthView = (TextView) view.findViewById(R.id.encrypt_keys_dialog_password_strength);
 
-		showView = (CheckBox) view.findViewById(R.id.encrypt_keys_dialog_show);
+        showView = (CheckBox) view.findViewById(R.id.encrypt_keys_dialog_show);
 
-		final DialogBuilder builder = new DialogBuilder(activity);
-		builder.setTitle(R.string.encrypt_keys_dialog_title);
-		builder.setView(view);
-		builder.setPositiveButton(R.string.button_ok, null); // dummy, just to make it show
-		builder.setNegativeButton(R.string.button_cancel, null);
-		builder.setCancelable(false);
+        final DialogBuilder builder = new DialogBuilder(activity);
+        builder.setTitle(R.string.encrypt_keys_dialog_title);
+        builder.setView(view);
+        builder.setPositiveButton(R.string.button_ok, null); // dummy, just to make it show
+        builder.setNegativeButton(R.string.button_cancel, null);
+        builder.setCancelable(false);
 
-		final AlertDialog dialog = builder.create();
-		dialog.setCanceledOnTouchOutside(false);
+        final AlertDialog dialog = builder.create();
+        dialog.setCanceledOnTouchOutside(false);
 
-		dialog.setOnShowListener(new OnShowListener()
-		{
-			@Override
-			public void onShow(final DialogInterface d)
-			{
-				positiveButton = dialog.getButton(DialogInterface.BUTTON_POSITIVE);
-				negativeButton = dialog.getButton(DialogInterface.BUTTON_NEGATIVE);
+        dialog.setOnShowListener(new OnShowListener() {
+            @Override
+            public void onShow(final DialogInterface d) {
+                positiveButton = dialog.getButton(DialogInterface.BUTTON_POSITIVE);
+                negativeButton = dialog.getButton(DialogInterface.BUTTON_NEGATIVE);
 
-				positiveButton.setTypeface(Typeface.DEFAULT_BOLD);
-				positiveButton.setOnClickListener(new OnClickListener()
-				{
-					@Override
-					public void onClick(final View v)
-					{
-						handleGo();
-					}
-				});
+                positiveButton.setTypeface(Typeface.DEFAULT_BOLD);
+                positiveButton.setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(final View v) {
+                        handleGo();
+                    }
+                });
 
-				oldPasswordView.addTextChangedListener(textWatcher);
-				newPasswordView.addTextChangedListener(textWatcher);
+                oldPasswordView.addTextChangedListener(textWatcher);
+                newPasswordView.addTextChangedListener(textWatcher);
 
-				showView = (CheckBox) dialog.findViewById(R.id.encrypt_keys_dialog_show);
-				showView.setOnCheckedChangeListener(new ShowPasswordCheckListener(newPasswordView, oldPasswordView));
-				showView.setChecked(true);
+                showView = (CheckBox) dialog.findViewById(R.id.encrypt_keys_dialog_show);
+                showView.setOnCheckedChangeListener(new ShowPasswordCheckListener(newPasswordView, oldPasswordView));
+                showView.setChecked(true);
 
-				EncryptKeysDialogFragment.this.dialog = dialog;
-				updateView();
-			}
-		});
+                EncryptKeysDialogFragment.this.dialog = dialog;
+                updateView();
+            }
+        });
 
-		return dialog;
-	}
+        return dialog;
+    }
 
-	@Override
-	public void onResume()
-	{
-		super.onResume();
+    @Override
+    public void onResume() {
+        super.onResume();
 
-		updateView();
-	}
+        updateView();
+    }
 
-	@Override
-	public void onDismiss(final DialogInterface dialog)
-	{
-		this.dialog = null;
+    @Override
+    public void onDismiss(final DialogInterface dialog) {
+        this.dialog = null;
 
-		oldPasswordView.removeTextChangedListener(textWatcher);
-		newPasswordView.removeTextChangedListener(textWatcher);
+        oldPasswordView.removeTextChangedListener(textWatcher);
+        newPasswordView.removeTextChangedListener(textWatcher);
 
-		showView.setOnCheckedChangeListener(null);
+        showView.setOnCheckedChangeListener(null);
 
-		wipePasswords();
+        wipePasswords();
 
-		super.onDismiss(dialog);
-	}
+        super.onDismiss(dialog);
+    }
 
-	@Override
-	public void onDestroy()
-	{
-		backgroundThread.getLooper().quit();
+    @Override
+    public void onDestroy() {
+        backgroundThread.getLooper().quit();
 
-		super.onDestroy();
-	}
+        super.onDestroy();
+    }
 
-	private void handleGo()
-	{
-		final String oldPassword = Strings.emptyToNull(oldPasswordView.getText().toString().trim());
-		final String newPassword = Strings.emptyToNull(newPasswordView.getText().toString().trim());
+    private void handleGo() {
+        final String oldPassword = Strings.emptyToNull(oldPasswordView.getText().toString().trim());
+        final String newPassword = Strings.emptyToNull(newPasswordView.getText().toString().trim());
 
-		if (oldPassword != null && newPassword != null)
-			log.info("changing spending password");
-		else if (newPassword != null)
-			log.info("setting spending password");
-		else if (oldPassword != null)
-			log.info("removing spending password");
-		else
-			throw new IllegalStateException();
+        if (oldPassword != null && newPassword != null)
+            log.info("changing spending password");
+        else if (newPassword != null)
+            log.info("setting spending password");
+        else if (oldPassword != null)
+            log.info("removing spending password");
+        else
+            throw new IllegalStateException();
 
-		state = State.CRYPTING;
-		updateView();
+        state = State.CRYPTING;
+        updateView();
 
-		backgroundHandler.post(new Runnable()
-		{
-			@Override
-			public void run()
-			{
-				// For the old key, we use the key crypter that was used to derive the password in the first place.
-				final KeyParameter oldKey = oldPassword != null ? wallet.getKeyCrypter().deriveKey(oldPassword) : null;
+        backgroundHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                // For the old key, we use the key crypter that was used to derive the password in the first
+                // place.
+                final KeyParameter oldKey = oldPassword != null ? wallet.getKeyCrypter().deriveKey(oldPassword) : null;
 
-				// For the new key, we create a new key crypter according to the desired parameters.
-				final KeyCrypterScrypt keyCrypter = new KeyCrypterScrypt(Constants.SCRYPT_ITERATIONS_TARGET);
-				final KeyParameter newKey = newPassword != null ? keyCrypter.deriveKey(newPassword) : null;
+                // For the new key, we create a new key crypter according to the desired parameters.
+                final KeyCrypterScrypt keyCrypter = new KeyCrypterScrypt(Constants.SCRYPT_ITERATIONS_TARGET);
+                final KeyParameter newKey = newPassword != null ? keyCrypter.deriveKey(newPassword) : null;
 
-				handler.post(new Runnable()
-				{
-					@Override
-					public void run()
-					{
-						if (wallet.isEncrypted())
-						{
-							if (oldKey == null)
-							{
-								log.info("wallet is encrypted, but did not provide spending password");
-								state = State.INPUT;
-								oldPasswordView.requestFocus();
-							}
-							else
-							{
-								try
-								{
-									wallet.decrypt(oldKey);
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (wallet.isEncrypted()) {
+                            if (oldKey == null) {
+                                log.info("wallet is encrypted, but did not provide spending password");
+                                state = State.INPUT;
+                                oldPasswordView.requestFocus();
+                            } else {
+                                try {
+                                    wallet.decrypt(oldKey);
 
-									state = State.DONE;
-									log.info("wallet successfully decrypted");
-								}
-								catch (final KeyCrypterException x)
-								{
-									log.info("wallet decryption failed: " + x.getMessage());
-									badPasswordView.setVisibility(View.VISIBLE);
-									state = State.INPUT;
-									oldPasswordView.requestFocus();
-								}
-							}
-						}
+                                    state = State.DONE;
+                                    log.info("wallet successfully decrypted");
+                                } catch (final KeyCrypterException x) {
+                                    log.info("wallet decryption failed: " + x.getMessage());
+                                    badPasswordView.setVisibility(View.VISIBLE);
+                                    state = State.INPUT;
+                                    oldPasswordView.requestFocus();
+                                }
+                            }
+                        }
 
-						if (newKey != null && !wallet.isEncrypted())
-						{
-							wallet.encrypt(keyCrypter, newKey);
+                        if (newKey != null && !wallet.isEncrypted()) {
+                            wallet.encrypt(keyCrypter, newKey);
 
-							log.info("wallet successfully encrypted, using key derived by new spending password ({} scrypt iterations)",
-									keyCrypter.getScryptParameters().getN());
-							state = State.DONE;
-						}
+                            log.info(
+                                    "wallet successfully encrypted, using key derived by new spending password ({} scrypt iterations)",
+                                    keyCrypter.getScryptParameters().getN());
+                            state = State.DONE;
+                        }
 
-						updateView();
+                        updateView();
 
-						if (state == State.DONE)
-						{
-							application.backupWallet();
-							delayedDismiss();
-						}
-					}
+                        if (state == State.DONE) {
+                            application.backupWallet();
+                            delayedDismiss();
+                        }
+                    }
 
-					private void delayedDismiss()
-					{
-						handler.postDelayed(new Runnable()
-						{
-							@Override
-							public void run()
-							{
-								dismiss();
-							}
-						}, 2000);
-					}
-				});
-			}
-		});
-	}
+                    private void delayedDismiss() {
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                dismiss();
+                            }
+                        }, 2000);
+                    }
+                });
+            }
+        });
+    }
 
-	private void wipePasswords()
-	{
-		oldPasswordView.setText(null);
-		newPasswordView.setText(null);
-	}
+    private void wipePasswords() {
+        oldPasswordView.setText(null);
+        newPasswordView.setText(null);
+    }
 
-	private void updateView()
-	{
-		if (dialog == null)
-			return;
+    private void updateView() {
+        if (dialog == null)
+            return;
 
-		final boolean hasOldPassword = !oldPasswordView.getText().toString().trim().isEmpty();
-		final boolean hasPassword = !newPasswordView.getText().toString().trim().isEmpty();
+        final boolean hasOldPassword = !oldPasswordView.getText().toString().trim().isEmpty();
+        final boolean hasPassword = !newPasswordView.getText().toString().trim().isEmpty();
 
-		oldPasswordGroup.setVisibility(wallet.isEncrypted() ? View.VISIBLE : View.GONE);
-		oldPasswordView.setEnabled(state == State.INPUT);
+        oldPasswordGroup.setVisibility(wallet.isEncrypted() ? View.VISIBLE : View.GONE);
+        oldPasswordView.setEnabled(state == State.INPUT);
 
-		newPasswordView.setEnabled(state == State.INPUT);
+        newPasswordView.setEnabled(state == State.INPUT);
 
-		final int passwordLength = newPasswordView.getText().length();
-		passwordStrengthView.setVisibility(state == State.INPUT && passwordLength > 0 ? View.VISIBLE : View.INVISIBLE);
-		if (passwordLength < 4)
-		{
-			passwordStrengthView.setText(R.string.encrypt_keys_dialog_password_strength_weak);
-			passwordStrengthView.setTextColor(getResources().getColor(R.color.fg_password_strength_weak));
-		}
-		else if (passwordLength < 6)
-		{
-			passwordStrengthView.setText(R.string.encrypt_keys_dialog_password_strength_fair);
-			passwordStrengthView.setTextColor(getResources().getColor(R.color.fg_password_strength_fair));
-		}
-		else if (passwordLength < 8)
-		{
-			passwordStrengthView.setText(R.string.encrypt_keys_dialog_password_strength_good);
-			passwordStrengthView.setTextColor(getResources().getColor(R.color.fg_less_significant));
-		}
-		else
-		{
-			passwordStrengthView.setText(R.string.encrypt_keys_dialog_password_strength_strong);
-			passwordStrengthView.setTextColor(getResources().getColor(R.color.fg_password_strength_strong));
-		}
+        final int passwordLength = newPasswordView.getText().length();
+        passwordStrengthView.setVisibility(state == State.INPUT && passwordLength > 0 ? View.VISIBLE : View.INVISIBLE);
+        if (passwordLength < 4) {
+            passwordStrengthView.setText(R.string.encrypt_keys_dialog_password_strength_weak);
+            passwordStrengthView.setTextColor(getResources().getColor(R.color.fg_password_strength_weak));
+        } else if (passwordLength < 6) {
+            passwordStrengthView.setText(R.string.encrypt_keys_dialog_password_strength_fair);
+            passwordStrengthView.setTextColor(getResources().getColor(R.color.fg_password_strength_fair));
+        } else if (passwordLength < 8) {
+            passwordStrengthView.setText(R.string.encrypt_keys_dialog_password_strength_good);
+            passwordStrengthView.setTextColor(getResources().getColor(R.color.fg_less_significant));
+        } else {
+            passwordStrengthView.setText(R.string.encrypt_keys_dialog_password_strength_strong);
+            passwordStrengthView.setTextColor(getResources().getColor(R.color.fg_password_strength_strong));
+        }
 
-		showView.setEnabled(state == State.INPUT);
+        showView.setEnabled(state == State.INPUT);
 
-		if (state == State.INPUT)
-		{
-			if (wallet.isEncrypted())
-			{
-				positiveButton.setText(hasPassword ? R.string.button_edit : R.string.button_remove);
-				positiveButton.setEnabled(hasOldPassword);
-			}
-			else
-			{
-				positiveButton.setText(R.string.button_set);
-				positiveButton.setEnabled(hasPassword);
-			}
+        if (state == State.INPUT) {
+            if (wallet.isEncrypted()) {
+                positiveButton.setText(hasPassword ? R.string.button_edit : R.string.button_remove);
+                positiveButton.setEnabled(hasOldPassword);
+            } else {
+                positiveButton.setText(R.string.button_set);
+                positiveButton.setEnabled(hasPassword);
+            }
 
-			negativeButton.setEnabled(true);
-		}
-		else if (state == State.CRYPTING)
-		{
-			positiveButton.setText(newPasswordView.getText().toString().trim().isEmpty() ? R.string.encrypt_keys_dialog_state_decrypting
-					: R.string.encrypt_keys_dialog_state_encrypting);
-			positiveButton.setEnabled(false);
-			negativeButton.setEnabled(false);
-		}
-		else if (state == State.DONE)
-		{
-			positiveButton.setText(R.string.encrypt_keys_dialog_state_done);
-			positiveButton.setEnabled(false);
-			negativeButton.setEnabled(false);
-		}
-	}
+            negativeButton.setEnabled(true);
+        } else if (state == State.CRYPTING) {
+            positiveButton.setText(newPasswordView.getText().toString().trim().isEmpty()
+                    ? R.string.encrypt_keys_dialog_state_decrypting : R.string.encrypt_keys_dialog_state_encrypting);
+            positiveButton.setEnabled(false);
+            negativeButton.setEnabled(false);
+        } else if (state == State.DONE) {
+            positiveButton.setText(R.string.encrypt_keys_dialog_state_done);
+            positiveButton.setEnabled(false);
+            negativeButton.setEnabled(false);
+        }
+    }
 }

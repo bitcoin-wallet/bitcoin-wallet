@@ -1,90 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="match_parent"
-	android:layout_height="wrap_content"
-	android:background="@color/bg_list"
-	android:orientation="vertical"
-	android:paddingBottom="@dimen/list_entry_padding_vertical"
-	android:paddingLeft="@dimen/list_entry_padding_horizontal"
-	android:paddingRight="@dimen/list_entry_padding_horizontal"
-	android:paddingTop="@dimen/list_entry_padding_vertical" >
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/bg_list"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/list_entry_padding_vertical"
+    android:paddingLeft="@dimen/list_entry_padding_horizontal"
+    android:paddingRight="@dimen/list_entry_padding_horizontal"
+    android:paddingTop="@dimen/list_entry_padding_vertical" >
 
-	<LinearLayout
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:baselineAligned="true"
-		android:orientation="horizontal" >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:baselineAligned="true"
+        android:orientation="horizontal" >
 
-		<FrameLayout
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_weight="0" >
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0" >
 
-			<TextView
-				android:id="@+id/exchange_rate_row_currency_code"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:singleLine="true"
-				android:textStyle="bold" />
+            <TextView
+                android:id="@+id/exchange_rate_row_currency_code"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:textStyle="bold" />
 
-			<TextView
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_marginRight="@dimen/list_entry_padding_horizontal"
-				android:maxWidth="128sp"
-				android:singleLine="true"
-				android:text="@string/exchange_rates_fragment_default"
-				android:visibility="invisible" />
-		</FrameLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/list_entry_padding_horizontal"
+                android:maxWidth="128sp"
+                android:singleLine="true"
+                android:text="@string/exchange_rates_fragment_default"
+                android:visibility="invisible" />
+        </FrameLayout>
 
-		<TextView
-			android:layout_width="0px"
-			android:layout_height="wrap_content"
-			android:layout_marginLeft="@dimen/list_entry_padding_horizontal"
-			android:layout_weight="1"
-			android:singleLine="true"
-			android:text="@string/exchange_rates_fragment_rate" />
+        <TextView
+            android:layout_width="0px"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/list_entry_padding_horizontal"
+            android:layout_weight="1"
+            android:singleLine="true"
+            android:text="@string/exchange_rates_fragment_rate" />
 
-		<de.schildbach.wallet.ui.CurrencyTextView
-			android:id="@+id/exchange_rate_row_rate"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_gravity="right"
-			android:layout_marginLeft="@dimen/list_entry_padding_horizontal" />
-	</LinearLayout>
+        <de.schildbach.wallet.ui.CurrencyTextView
+            android:id="@+id/exchange_rate_row_rate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginLeft="@dimen/list_entry_padding_horizontal" />
+    </LinearLayout>
 
-	<LinearLayout
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:baselineAligned="true"
-		android:orientation="horizontal" >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:baselineAligned="true"
+        android:orientation="horizontal" >
 
-		<TextView
-			android:id="@+id/exchange_rate_row_default"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_marginRight="@dimen/list_entry_padding_horizontal"
-			android:layout_weight="0"
-			android:maxWidth="128sp"
-			android:singleLine="true"
-			android:text="@string/exchange_rates_fragment_default"
-			android:visibility="visible" />
+        <TextView
+            android:id="@+id/exchange_rate_row_default"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/list_entry_padding_horizontal"
+            android:layout_weight="0"
+            android:maxWidth="128sp"
+            android:singleLine="true"
+            android:text="@string/exchange_rates_fragment_default"
+            android:visibility="visible" />
 
-		<TextView
-			android:layout_width="0px"
-			android:layout_height="wrap_content"
-			android:layout_marginLeft="@dimen/list_entry_padding_horizontal"
-			android:layout_weight="1"
-			android:singleLine="true"
-			android:text="@string/exchange_rates_fragment_balance"
-			android:textColor="@color/fg_less_significant" />
+        <TextView
+            android:layout_width="0px"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/list_entry_padding_horizontal"
+            android:layout_weight="1"
+            android:singleLine="true"
+            android:text="@string/exchange_rates_fragment_balance"
+            android:textColor="@color/fg_less_significant" />
 
-		<de.schildbach.wallet.ui.CurrencyTextView
-			android:id="@+id/exchange_rate_row_balance"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_gravity="right"
-			android:layout_marginLeft="@dimen/list_entry_padding_horizontal" />
-	</LinearLayout>
+        <de.schildbach.wallet.ui.CurrencyTextView
+            android:id="@+id/exchange_rate_row_balance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginLeft="@dimen/list_entry_padding_horizontal" />
+    </LinearLayout>
 
 </LinearLayout>

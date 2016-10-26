@@ -32,87 +32,77 @@ import android.provider.MediaStore;
 /**
  * @author Andreas Schildbach
  */
-public final class FileAttachmentProvider extends ContentProvider
-{
-	public static Uri contentUri(final String packageName, final File file)
-	{
-		return Uri.parse("content://" + packageName + ".file_attachment" + file.getAbsolutePath());
-	}
+public final class FileAttachmentProvider extends ContentProvider {
+    public static Uri contentUri(final String packageName, final File file) {
+        return Uri.parse("content://" + packageName + ".file_attachment" + file.getAbsolutePath());
+    }
 
-	@Override
-	public boolean onCreate()
-	{
-		return true;
-	}
+    @Override
+    public boolean onCreate() {
+        return true;
+    }
 
-	@Override
-	public String getType(final Uri uri)
-	{
-		final File file = new File(uri.getPath());
+    @Override
+    public String getType(final Uri uri) {
+        final File file = new File(uri.getPath());
 
-		if (!file.getAbsolutePath().startsWith(getContext().getCacheDir().getAbsolutePath()))
-			return null;
+        if (!file.getAbsolutePath().startsWith(getContext().getCacheDir().getAbsolutePath()))
+            return null;
 
-		final String[] split = file.getName().split("\\.");
-		if (split.length >= 2)
-		{
-			final String suffix = split[split.length - 1];
-			if ("txt".equalsIgnoreCase(suffix) || "log".equalsIgnoreCase(suffix))
-				return "text/plain";
-			else if ("gz".equalsIgnoreCase(suffix))
-				return "application/x-gzip";
-		}
+        final String[] split = file.getName().split("\\.");
+        if (split.length >= 2) {
+            final String suffix = split[split.length - 1];
+            if ("txt".equalsIgnoreCase(suffix) || "log".equalsIgnoreCase(suffix))
+                return "text/plain";
+            else if ("gz".equalsIgnoreCase(suffix))
+                return "application/x-gzip";
+        }
 
-		return null;
-	}
+        return null;
+    }
 
-	@Override
-	public ParcelFileDescriptor openFile(final Uri uri, final String mode) throws FileNotFoundException
-	{
-		return openFileHelper(uri, mode);
-	}
+    @Override
+    public ParcelFileDescriptor openFile(final Uri uri, final String mode) throws FileNotFoundException {
+        return openFileHelper(uri, mode);
+    }
 
-	@Override
-	public int delete(final Uri uri, final String selection, final String[] selectionArgs)
-	{
-		throw new UnsupportedOperationException();
-	}
+    @Override
+    public int delete(final Uri uri, final String selection, final String[] selectionArgs) {
+        throw new UnsupportedOperationException();
+    }
 
-	@Override
-	public Uri insert(final Uri uri, final ContentValues values)
-	{
-		throw new UnsupportedOperationException();
-	}
+    @Override
+    public Uri insert(final Uri uri, final ContentValues values) {
+        throw new UnsupportedOperationException();
+    }
 
-	@Override
-	public Cursor query(final Uri uri, final String[] projection, final String selection, final String[] selectionArgs, final String sortOrder)
-	{
-		final File file = new File(uri.getPath());
+    @Override
+    public Cursor query(final Uri uri, final String[] projection, final String selection, final String[] selectionArgs,
+            final String sortOrder) {
+        final File file = new File(uri.getPath());
 
-		if (!file.getAbsolutePath().startsWith(getContext().getCacheDir().getAbsolutePath()))
-			throw new IllegalArgumentException("not in cache dir: " + uri);
+        if (!file.getAbsolutePath().startsWith(getContext().getCacheDir().getAbsolutePath()))
+            throw new IllegalArgumentException("not in cache dir: " + uri);
 
-		final MatrixCursor cursor = new MatrixCursor(projection);
-		final RowBuilder row = cursor.newRow();
-		for (int i = 0; i < projection.length; i++)
-		{
-			final String columnName = projection[i];
-			if (columnName.equals(MediaStore.MediaColumns.DATA))
-				row.add(file.getAbsolutePath());
-			else if (columnName.equals(MediaStore.MediaColumns.SIZE))
-				row.add(file.length());
-			else if (columnName.equals(MediaStore.MediaColumns.DISPLAY_NAME))
-				row.add(uri.getLastPathSegment());
-			else
-				throw new IllegalArgumentException("cannot handle: " + columnName);
-		}
+        final MatrixCursor cursor = new MatrixCursor(projection);
+        final RowBuilder row = cursor.newRow();
+        for (int i = 0; i < projection.length; i++) {
+            final String columnName = projection[i];
+            if (columnName.equals(MediaStore.MediaColumns.DATA))
+                row.add(file.getAbsolutePath());
+            else if (columnName.equals(MediaStore.MediaColumns.SIZE))
+                row.add(file.length());
+            else if (columnName.equals(MediaStore.MediaColumns.DISPLAY_NAME))
+                row.add(uri.getLastPathSegment());
+            else
+                throw new IllegalArgumentException("cannot handle: " + columnName);
+        }
 
-		return cursor;
-	}
+        return cursor;
+    }
 
-	@Override
-	public int update(final Uri uri, final ContentValues values, final String selection, final String[] selectionArgs)
-	{
-		throw new UnsupportedOperationException();
-	}
+    @Override
+    public int update(final Uri uri, final ContentValues values, final String selection, final String[] selectionArgs) {
+        throw new UnsupportedOperationException();
+    }
 }

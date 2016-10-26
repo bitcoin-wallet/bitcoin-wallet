@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
 
-	<string name="help_wallet">
+    <string name="help_wallet">
 <![CDATA[
 		<p>
 			Im linken oberen Teil des Bildschirms wird dein aktuelles Guthaben in Bitcoin und einer ausgewählten Währung angezeigt.
@@ -21,8 +21,8 @@
 			Im Optionsmenü sind weitere Aktionen versteckt.
 		</p>
 	]]>
-	</string>
-	<string name="help_request_coins">
+    </string>
+    <string name="help_request_coins">
 <![CDATA[
 		<p>
 			In diesem Dialogfeld kann eine Zahlung von einem anderen Teilnehmer angefordert werden, der dafür Bitcoin Wallet auf seinem Gerät installiert haben sollte.
@@ -40,8 +40,8 @@
 			Wenn alle Angaben korrekt sind, kann die Zahlung kann durch eine einfache Bestätigung ausgeführt werden.
 		</p>
 	]]>
-	</string>
-	<string name="help_send_coins">
+    </string>
+    <string name="help_send_coins">
 <![CDATA[
 		<p>
 			Dieses Dialogfeld wird geöffnet, wenn der Zahlungsprozess initiiert wurde.
@@ -70,8 +70,8 @@
 			Die Empfängeradresse sollte deswegen vor Bestätigung der Zahlung unbedingt auf Richtigkeit überprüft werden.
 		</p>
 	]]>
-	</string>
-	<string name="help_safety">
+    </string>
+    <string name="help_safety">
 <![CDATA[
 		<p>
 			<b>Wichtige Sicherheitshinweise:</b>
@@ -104,6 +104,6 @@
 			Speichere nur <b>Beträge für den täglichen Gebrauch</b>.
 		</p>
 	]]>
-	</string>
+    </string>
 
 </resources>

@@ -1,61 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:tools="http://schemas.android.com/tools"
-	android:baselineAligned="false"
-	android:orientation="horizontal"
-	tools:ignore="RequiredSize" >
+    xmlns:tools="http://schemas.android.com/tools"
+    android:baselineAligned="false"
+    android:orientation="horizontal"
+    tools:ignore="RequiredSize" >
 
-	<FrameLayout
-		android:layout_width="0px"
-		android:layout_height="match_parent"
-		android:layout_weight="1"
-		android:foreground="@drawable/view_shadow_left"
-		android:foregroundGravity="right|fill_vertical" >
+    <FrameLayout
+        android:layout_width="0px"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:foreground="@drawable/view_shadow_left"
+        android:foregroundGravity="right|fill_vertical" >
 
-		<include
-			android:layout_width="match_parent"
-			android:layout_height="match_parent"
-			layout="@layout/request_coins_form_include" />
-	</FrameLayout>
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            layout="@layout/request_coins_form_include" />
+    </FrameLayout>
 
-	<FrameLayout
-		android:layout_width="wrap_content"
-		android:layout_height="match_parent"
-		android:background="@color/bg_less_bright"
-		android:paddingBottom="@dimen/list_entry_padding_vertical"
-		android:paddingLeft="@dimen/list_entry_padding_horizontal"
-		android:paddingRight="@dimen/list_entry_padding_horizontal"
-		android:paddingTop="@dimen/list_entry_padding_vertical" >
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:background="@color/bg_less_bright"
+        android:paddingBottom="@dimen/list_entry_padding_vertical"
+        android:paddingLeft="@dimen/list_entry_padding_horizontal"
+        android:paddingRight="@dimen/list_entry_padding_horizontal"
+        android:paddingTop="@dimen/list_entry_padding_vertical" >
 
-		<LinearLayout
-			android:layout_width="@dimen/request_coins_qr_size"
-			android:layout_height="match_parent"
-			android:orientation="vertical" >
+        <LinearLayout
+            android:layout_width="@dimen/request_coins_qr_size"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
 
-			<android.support.v7.widget.CardView
-				android:id="@+id/request_coins_qr_card"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_gravity="center_horizontal"
-				android:layout_marginBottom="@dimen/list_entry_padding_vertical"
-				android:layout_marginTop="@dimen/list_entry_padding_vertical"
-				android:foreground="?android:attr/selectableItemBackground" >
+            <android.support.v7.widget.CardView
+                android:id="@+id/request_coins_qr_card"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="@dimen/list_entry_padding_vertical"
+                android:layout_marginTop="@dimen/list_entry_padding_vertical"
+                android:foreground="?android:attr/selectableItemBackground" >
 
-				<ImageView
-					android:id="@+id/request_coins_qr"
-					android:layout_width="@dimen/request_coins_qr_size"
-					android:layout_height="@dimen/request_coins_qr_size"
-					android:contentDescription="@string/action_show_qr"
-					android:padding="2dp"
-					android:scaleType="centerInside" />
-			</android.support.v7.widget.CardView>
+                <ImageView
+                    android:id="@+id/request_coins_qr"
+                    android:layout_width="@dimen/request_coins_qr_size"
+                    android:layout_height="@dimen/request_coins_qr_size"
+                    android:contentDescription="@string/action_show_qr"
+                    android:padding="2dp"
+                    android:scaleType="centerInside" />
+            </android.support.v7.widget.CardView>
 
-			<TextView
-				android:id="@+id/request_coins_fragment_initiate_request"
-				android:layout_width="match_parent"
-				android:layout_height="0px"
-				android:layout_weight="1" />
-		</LinearLayout>
-	</FrameLayout>
+            <TextView
+                android:id="@+id/request_coins_fragment_initiate_request"
+                android:layout_width="match_parent"
+                android:layout_height="0px"
+                android:layout_weight="1" />
+        </LinearLayout>
+    </FrameLayout>
 
 </LinearLayout>

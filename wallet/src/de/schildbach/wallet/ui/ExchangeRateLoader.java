@@ -17,59 +17,54 @@
 
 package de.schildbach.wallet.ui;
 
+import de.schildbach.wallet.Configuration;
+import de.schildbach.wallet.ExchangeRatesProvider;
+
 import android.content.Context;
 import android.content.CursorLoader;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
-import de.schildbach.wallet.Configuration;
-import de.schildbach.wallet.ExchangeRatesProvider;
 
 /**
  * @author Andreas Schildbach
  */
-public final class ExchangeRateLoader extends CursorLoader implements OnSharedPreferenceChangeListener
-{
-	private final Configuration config;
+public final class ExchangeRateLoader extends CursorLoader implements OnSharedPreferenceChangeListener {
+    private final Configuration config;
 
-	public ExchangeRateLoader(final Context context, final Configuration config)
-	{
-		super(context, ExchangeRatesProvider.contentUri(context.getPackageName(), false), null, ExchangeRatesProvider.KEY_CURRENCY_CODE,
-				new String[] { null }, null);
+    public ExchangeRateLoader(final Context context, final Configuration config) {
+        super(context, ExchangeRatesProvider.contentUri(context.getPackageName(), false), null,
+                ExchangeRatesProvider.KEY_CURRENCY_CODE, new String[] { null }, null);
 
-		this.config = config;
-	}
+        this.config = config;
+    }
 
-	@Override
-	protected void onStartLoading()
-	{
-		super.onStartLoading();
+    @Override
+    protected void onStartLoading() {
+        super.onStartLoading();
 
-		config.registerOnSharedPreferenceChangeListener(this);
+        config.registerOnSharedPreferenceChangeListener(this);
 
-		onCurrencyChange();
-	}
+        onCurrencyChange();
+    }
 
-	@Override
-	protected void onStopLoading()
-	{
-		config.unregisterOnSharedPreferenceChangeListener(this);
+    @Override
+    protected void onStopLoading() {
+        config.unregisterOnSharedPreferenceChangeListener(this);
 
-		super.onStopLoading();
-	}
+        super.onStopLoading();
+    }
 
-	@Override
-	public void onSharedPreferenceChanged(final SharedPreferences sharedPreferences, final String key)
-	{
-		if (Configuration.PREFS_KEY_EXCHANGE_CURRENCY.equals(key))
-			onCurrencyChange();
-	}
+    @Override
+    public void onSharedPreferenceChanged(final SharedPreferences sharedPreferences, final String key) {
+        if (Configuration.PREFS_KEY_EXCHANGE_CURRENCY.equals(key))
+            onCurrencyChange();
+    }
 
-	private void onCurrencyChange()
-	{
-		final String exchangeCurrency = config.getExchangeCurrencyCode();
+    private void onCurrencyChange() {
+        final String exchangeCurrency = config.getExchangeCurrencyCode();
 
-		setSelectionArgs(new String[] { exchangeCurrency });
+        setSelectionArgs(new String[] { exchangeCurrency });
 
-		forceLoad();
-	}
+        forceLoad();
+    }
 }

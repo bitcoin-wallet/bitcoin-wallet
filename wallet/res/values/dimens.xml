@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-	<dimen name="font_size_tiny">12sp</dimen>
-	<dimen name="font_size_small">15sp</dimen>
-	<dimen name="font_size_normal">18sp</dimen>
-	<dimen name="font_size_large">24sp</dimen>
-	<dimen name="font_size_xlarge">28sp</dimen>
-	<dimen name="font_size_huge">34sp</dimen>
-	<dimen name="symbol_size_normal">15sp</dimen>
-	<dimen name="list_entry_padding_horizontal_cram">6dp</dimen>
-	<dimen name="list_entry_padding_horizontal">12dp</dimen>
-	<dimen name="list_entry_padding_horizontal_lax">20dp</dimen>
-	<dimen name="list_entry_padding_vertical_cram">3dp</dimen>
-	<dimen name="list_entry_padding_vertical">6dp</dimen>
-	<dimen name="list_entry_padding_vertical_lax">10dp</dimen>
-	<dimen name="card_padding_horizontal">6dp</dimen>
-	<dimen name="card_padding_vertical">2dp</dimen>
-	<dimen name="exchange_rate_pane_width">352sp</dimen>
-	<dimen name="divider_currency_padding">0dp</dimen>
-	<dimen name="wallet_address_qr_size">80dp</dimen>
-	<dimen name="request_coins_qr_size">128dp</dimen>
-	<dimen name="bitmap_dialog_qr_size">224dp</dimen>
-	<dimen name="scan_laser_width">4dp</dimen>
-	<dimen name="scan_dot_size">8dp</dimen>
+    <dimen name="font_size_tiny">12sp</dimen>
+    <dimen name="font_size_small">15sp</dimen>
+    <dimen name="font_size_normal">18sp</dimen>
+    <dimen name="font_size_large">24sp</dimen>
+    <dimen name="font_size_xlarge">28sp</dimen>
+    <dimen name="font_size_huge">34sp</dimen>
+    <dimen name="symbol_size_normal">15sp</dimen>
+    <dimen name="list_entry_padding_horizontal_cram">6dp</dimen>
+    <dimen name="list_entry_padding_horizontal">12dp</dimen>
+    <dimen name="list_entry_padding_horizontal_lax">20dp</dimen>
+    <dimen name="list_entry_padding_vertical_cram">3dp</dimen>
+    <dimen name="list_entry_padding_vertical">6dp</dimen>
+    <dimen name="list_entry_padding_vertical_lax">10dp</dimen>
+    <dimen name="card_padding_horizontal">6dp</dimen>
+    <dimen name="card_padding_vertical">2dp</dimen>
+    <dimen name="exchange_rate_pane_width">352sp</dimen>
+    <dimen name="divider_currency_padding">0dp</dimen>
+    <dimen name="wallet_address_qr_size">80dp</dimen>
+    <dimen name="request_coins_qr_size">128dp</dimen>
+    <dimen name="bitmap_dialog_qr_size">224dp</dimen>
+    <dimen name="scan_laser_width">4dp</dimen>
+    <dimen name="scan_dot_size">8dp</dimen>
 
 </resources>

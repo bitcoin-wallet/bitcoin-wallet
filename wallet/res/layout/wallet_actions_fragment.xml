@@ -1,48 +1,48 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="match_parent"
-	android:layout_height="wrap_content"
-	android:divider="@drawable/divider_dark"
-	android:dividerPadding="8dp"
-	android:measureWithLargestChild="true"
-	android:orientation="horizontal" >
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:divider="@drawable/divider_dark"
+    android:dividerPadding="8dp"
+    android:measureWithLargestChild="true"
+    android:orientation="horizontal" >
 
-	<Button
-		android:id="@+id/wallet_actions_request"
-		style="@style/My.Widget.Button.Borderless"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:drawableLeft="@drawable/ic_send_flipped_white_24dp"
-		android:singleLine="true"
-		android:text="@string/button_request_coins"
-		android:textAllCaps="true"
-		android:textColor="@color/fg_network"
-		android:textSize="@dimen/font_size_tiny"
-		android:textStyle="bold" />
+    <Button
+        android:id="@+id/wallet_actions_request"
+        style="@style/My.Widget.Button.Borderless"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/ic_send_flipped_white_24dp"
+        android:singleLine="true"
+        android:text="@string/button_request_coins"
+        android:textAllCaps="true"
+        android:textColor="@color/fg_network"
+        android:textSize="@dimen/font_size_tiny"
+        android:textStyle="bold" />
 
-	<Space
-		android:layout_width="0px"
-		android:layout_height="0px"
-		android:layout_weight="1" />
+    <Space
+        android:layout_width="0px"
+        android:layout_height="0px"
+        android:layout_weight="1" />
 
-	<Button
-		android:id="@+id/wallet_actions_send"
-		style="@style/My.Widget.Button.Borderless"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:drawableRight="@drawable/ic_send_white_24dp"
-		android:singleLine="true"
-		android:text="@string/button_send_coins"
-		android:textAllCaps="true"
-		android:textColor="@color/fg_network"
-		android:textSize="@dimen/font_size_tiny"
-		android:textStyle="bold" />
+    <Button
+        android:id="@+id/wallet_actions_send"
+        style="@style/My.Widget.Button.Borderless"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableRight="@drawable/ic_send_white_24dp"
+        android:singleLine="true"
+        android:text="@string/button_send_coins"
+        android:textAllCaps="true"
+        android:textColor="@color/fg_network"
+        android:textSize="@dimen/font_size_tiny"
+        android:textStyle="bold" />
 
-	<ImageButton
-		android:id="@+id/wallet_actions_send_qr"
-		style="@style/My.Widget.Button.Borderless"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:contentDescription="@string/button_scan"
-		android:src="@drawable/ic_photo_camera_white_24dp" />
+    <ImageButton
+        android:id="@+id/wallet_actions_send_qr"
+        style="@style/My.Widget.Button.Borderless"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/button_scan"
+        android:src="@drawable/ic_photo_camera_white_24dp" />
 
 </LinearLayout>

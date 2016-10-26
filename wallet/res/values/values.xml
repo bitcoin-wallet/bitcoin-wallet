@@ -1,33 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-	<string name="symbol_to">→</string>
-	<string name="symbol_from">←</string>
-	<string name="symbol_internal">⇄</string>
-	<string name="app_name">Bitcoin Wallet [testnet3]</string>
-	<string name="app_name_short">Testnet3</string>
+    <string name="symbol_to">→</string>
+    <string name="symbol_from">←</string>
+    <string name="symbol_internal">⇄</string>
+    <string name="app_name">Bitcoin Wallet [testnet3]</string>
+    <string name="app_name_short">Testnet3</string>
 
-	<string-array name="preferences_precision_values">
-		<item>8</item>
-		<item>6</item>
-		<item>4</item>
-		<item>2/3</item>
-		<item>0/6</item>
-	</string-array>
-	<string-array name="preferences_precision_labels">
-		<item>@string/preferences_precision_labels_8</item>
-		<item>@string/preferences_precision_labels_6</item>
-		<item>@string/preferences_precision_labels_4</item>
-		<item>@string/preferences_precision_labels_2_3</item>
-		<item>@string/preferences_precision_labels_0_6</item>
-	</string-array>
-	<string-array name="preferences_block_explorer_values">
-		<item>https://testnet.blockexplorer.com/</item>
-		<item>https://www.biteasy.com/testnet/</item>
-	</string-array>
-	<string-array name="preferences_block_explorer_labels">
-		<item>blockexplorer.com</item>
-		<item>BitEasy</item>
-	</string-array>
+    <string-array name="preferences_precision_values">
+        <item>8</item>
+        <item>6</item>
+        <item>4</item>
+        <item>2/3</item>
+        <item>0/6</item>
+    </string-array>
+    <string-array name="preferences_precision_labels">
+        <item>@string/preferences_precision_labels_8</item>
+        <item>@string/preferences_precision_labels_6</item>
+        <item>@string/preferences_precision_labels_4</item>
+        <item>@string/preferences_precision_labels_2_3</item>
+        <item>@string/preferences_precision_labels_0_6</item>
+    </string-array>
+    <string-array name="preferences_block_explorer_values">
+        <item>https://testnet.blockexplorer.com/</item>
+        <item>https://www.biteasy.com/testnet/</item>
+    </string-array>
+    <string-array name="preferences_block_explorer_labels">
+        <item>blockexplorer.com</item>
+        <item>BitEasy</item>
+    </string-array>
 
 </resources>

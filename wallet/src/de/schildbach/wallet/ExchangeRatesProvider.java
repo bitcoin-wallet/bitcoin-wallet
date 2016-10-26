@@ -57,290 +57,257 @@ import android.text.format.DateUtils;
 /**
  * @author Andreas Schildbach
  */
-public class ExchangeRatesProvider extends ContentProvider
-{
-	public static class ExchangeRate
-	{
-		public ExchangeRate(final org.bitcoinj.utils.ExchangeRate rate, final String source)
-		{
-			checkNotNull(rate.fiat.currencyCode);
+public class ExchangeRatesProvider extends ContentProvider {
+    public static class ExchangeRate {
+        public ExchangeRate(final org.bitcoinj.utils.ExchangeRate rate, final String source) {
+            checkNotNull(rate.fiat.currencyCode);
 
-			this.rate = rate;
-			this.source = source;
-		}
+            this.rate = rate;
+            this.source = source;
+        }
 
-		public final org.bitcoinj.utils.ExchangeRate rate;
-		public final String source;
+        public final org.bitcoinj.utils.ExchangeRate rate;
+        public final String source;
 
-		public String getCurrencyCode()
-		{
-			return rate.fiat.currencyCode;
-		}
+        public String getCurrencyCode() {
+            return rate.fiat.currencyCode;
+        }
 
-		@Override
-		public String toString()
-		{
-			return getClass().getSimpleName() + '[' + rate.fiat + ']';
-		}
-	}
+        @Override
+        public String toString() {
+            return getClass().getSimpleName() + '[' + rate.fiat + ']';
+        }
+    }
 
-	public static final String KEY_CURRENCY_CODE = "currency_code";
-	private static final String KEY_RATE_COIN = "rate_coin";
-	private static final String KEY_RATE_FIAT = "rate_fiat";
-	private static final String KEY_SOURCE = "source";
+    public static final String KEY_CURRENCY_CODE = "currency_code";
+    private static final String KEY_RATE_COIN = "rate_coin";
+    private static final String KEY_RATE_FIAT = "rate_fiat";
+    private static final String KEY_SOURCE = "source";
 
-	public static final String QUERY_PARAM_Q = "q";
-	private static final String QUERY_PARAM_OFFLINE = "offline";
+    public static final String QUERY_PARAM_Q = "q";
+    private static final String QUERY_PARAM_OFFLINE = "offline";
 
-	private Configuration config;
-	private String userAgent;
+    private Configuration config;
+    private String userAgent;
 
-	@Nullable
-	private Map<String, ExchangeRate> exchangeRates = null;
-	private long lastUpdated = 0;
+    @Nullable
+    private Map<String, ExchangeRate> exchangeRates = null;
+    private long lastUpdated = 0;
 
-	private static final URL BITCOINAVERAGE_URL;
-	private static final String[] BITCOINAVERAGE_FIELDS = new String[] { "24h_avg", "last" };
-	private static final String BITCOINAVERAGE_SOURCE = "BitcoinAverage.com";
+    private static final URL BITCOINAVERAGE_URL;
+    private static final String[] BITCOINAVERAGE_FIELDS = new String[] { "24h_avg", "last" };
+    private static final String BITCOINAVERAGE_SOURCE = "BitcoinAverage.com";
 
-	static
-	{
-		try
-		{
-			BITCOINAVERAGE_URL = new URL("https://api.bitcoinaverage.com/custom/abw");
-		}
-		catch (final MalformedURLException x)
-		{
-			throw new RuntimeException(x); // cannot happen
-		}
-	}
+    static {
+        try {
+            BITCOINAVERAGE_URL = new URL("https://api.bitcoinaverage.com/custom/abw");
+        } catch (final MalformedURLException x) {
+            throw new RuntimeException(x); // cannot happen
+        }
+    }
 
-	private static final long UPDATE_FREQ_MS = 10 * DateUtils.MINUTE_IN_MILLIS;
+    private static final long UPDATE_FREQ_MS = 10 * DateUtils.MINUTE_IN_MILLIS;
 
-	private static final Logger log = LoggerFactory.getLogger(ExchangeRatesProvider.class);
+    private static final Logger log = LoggerFactory.getLogger(ExchangeRatesProvider.class);
 
-	@Override
-	public boolean onCreate()
-	{
-		final Context context = getContext();
+    @Override
+    public boolean onCreate() {
+        final Context context = getContext();
 
-		this.config = new Configuration(PreferenceManager.getDefaultSharedPreferences(context), context.getResources());
+        this.config = new Configuration(PreferenceManager.getDefaultSharedPreferences(context), context.getResources());
 
-		this.userAgent = WalletApplication.httpUserAgent(WalletApplication.packageInfoFromContext(context).versionName);
+        this.userAgent = WalletApplication.httpUserAgent(WalletApplication.packageInfoFromContext(context).versionName);
 
-		final ExchangeRate cachedExchangeRate = config.getCachedExchangeRate();
-		if (cachedExchangeRate != null)
-		{
-			exchangeRates = new TreeMap<String, ExchangeRate>();
-			exchangeRates.put(cachedExchangeRate.getCurrencyCode(), cachedExchangeRate);
-		}
+        final ExchangeRate cachedExchangeRate = config.getCachedExchangeRate();
+        if (cachedExchangeRate != null) {
+            exchangeRates = new TreeMap<String, ExchangeRate>();
+            exchangeRates.put(cachedExchangeRate.getCurrencyCode(), cachedExchangeRate);
+        }
 
-		return true;
-	}
+        return true;
+    }
 
-	public static Uri contentUri(final String packageName, final boolean offline)
-	{
-		final Uri.Builder uri = Uri.parse("content://" + packageName + '.' + "exchange_rates").buildUpon();
-		if (offline)
-			uri.appendQueryParameter(QUERY_PARAM_OFFLINE, "1");
-		return uri.build();
-	}
+    public static Uri contentUri(final String packageName, final boolean offline) {
+        final Uri.Builder uri = Uri.parse("content://" + packageName + '.' + "exchange_rates").buildUpon();
+        if (offline)
+            uri.appendQueryParameter(QUERY_PARAM_OFFLINE, "1");
+        return uri.build();
+    }
 
-	@Override
-	public Cursor query(final Uri uri, final String[] projection, final String selection, final String[] selectionArgs, final String sortOrder)
-	{
-		final long now = System.currentTimeMillis();
+    @Override
+    public Cursor query(final Uri uri, final String[] projection, final String selection, final String[] selectionArgs,
+            final String sortOrder) {
+        final long now = System.currentTimeMillis();
 
-		final boolean offline = uri.getQueryParameter(QUERY_PARAM_OFFLINE) != null;
+        final boolean offline = uri.getQueryParameter(QUERY_PARAM_OFFLINE) != null;
 
-		if (!offline && (lastUpdated == 0 || now - lastUpdated > UPDATE_FREQ_MS))
-		{
-			Map<String, ExchangeRate> newExchangeRates = null;
-			if (newExchangeRates == null)
-				newExchangeRates = requestExchangeRates(BITCOINAVERAGE_URL, userAgent, BITCOINAVERAGE_SOURCE, BITCOINAVERAGE_FIELDS);
+        if (!offline && (lastUpdated == 0 || now - lastUpdated > UPDATE_FREQ_MS)) {
+            Map<String, ExchangeRate> newExchangeRates = null;
+            if (newExchangeRates == null)
+                newExchangeRates = requestExchangeRates(BITCOINAVERAGE_URL, userAgent, BITCOINAVERAGE_SOURCE,
+                        BITCOINAVERAGE_FIELDS);
 
-			if (newExchangeRates != null)
-			{
-				exchangeRates = newExchangeRates;
-				lastUpdated = now;
+            if (newExchangeRates != null) {
+                exchangeRates = newExchangeRates;
+                lastUpdated = now;
 
-				final ExchangeRate exchangeRateToCache = bestExchangeRate(config.getExchangeCurrencyCode());
-				if (exchangeRateToCache != null)
-					config.setCachedExchangeRate(exchangeRateToCache);
-			}
-		}
+                final ExchangeRate exchangeRateToCache = bestExchangeRate(config.getExchangeCurrencyCode());
+                if (exchangeRateToCache != null)
+                    config.setCachedExchangeRate(exchangeRateToCache);
+            }
+        }
 
-		if (exchangeRates == null)
-			return null;
+        if (exchangeRates == null)
+            return null;
 
-		final MatrixCursor cursor = new MatrixCursor(new String[] { BaseColumns._ID, KEY_CURRENCY_CODE, KEY_RATE_COIN, KEY_RATE_FIAT, KEY_SOURCE });
+        final MatrixCursor cursor = new MatrixCursor(
+                new String[] { BaseColumns._ID, KEY_CURRENCY_CODE, KEY_RATE_COIN, KEY_RATE_FIAT, KEY_SOURCE });
 
-		if (selection == null)
-		{
-			for (final Map.Entry<String, ExchangeRate> entry : exchangeRates.entrySet())
-			{
-				final ExchangeRate exchangeRate = entry.getValue();
-				final org.bitcoinj.utils.ExchangeRate rate = exchangeRate.rate;
-				final String currencyCode = exchangeRate.getCurrencyCode();
-				cursor.newRow().add(currencyCode.hashCode()).add(currencyCode).add(rate.coin.value).add(rate.fiat.value).add(exchangeRate.source);
-			}
-		}
-		else if (selection.equals(QUERY_PARAM_Q))
-		{
-			final String selectionArg = selectionArgs[0].toLowerCase(Locale.US);
-			for (final Map.Entry<String, ExchangeRate> entry : exchangeRates.entrySet())
-			{
-				final ExchangeRate exchangeRate = entry.getValue();
-				final org.bitcoinj.utils.ExchangeRate rate = exchangeRate.rate;
-				final String currencyCode = exchangeRate.getCurrencyCode();
-				final String currencySymbol = GenericUtils.currencySymbol(currencyCode);
-				if (currencyCode.toLowerCase(Locale.US).contains(selectionArg) || currencySymbol.toLowerCase(Locale.US).contains(selectionArg))
-					cursor.newRow().add(currencyCode.hashCode()).add(currencyCode).add(rate.coin.value).add(rate.fiat.value).add(exchangeRate.source);
-			}
-		}
-		else if (selection.equals(KEY_CURRENCY_CODE))
-		{
-			final String selectionArg = selectionArgs[0];
-			final ExchangeRate exchangeRate = bestExchangeRate(selectionArg);
-			if (exchangeRate != null)
-			{
-				final org.bitcoinj.utils.ExchangeRate rate = exchangeRate.rate;
-				final String currencyCode = exchangeRate.getCurrencyCode();
-				cursor.newRow().add(currencyCode.hashCode()).add(currencyCode).add(rate.coin.value).add(rate.fiat.value).add(exchangeRate.source);
-			}
-		}
+        if (selection == null) {
+            for (final Map.Entry<String, ExchangeRate> entry : exchangeRates.entrySet()) {
+                final ExchangeRate exchangeRate = entry.getValue();
+                final org.bitcoinj.utils.ExchangeRate rate = exchangeRate.rate;
+                final String currencyCode = exchangeRate.getCurrencyCode();
+                cursor.newRow().add(currencyCode.hashCode()).add(currencyCode).add(rate.coin.value).add(rate.fiat.value)
+                        .add(exchangeRate.source);
+            }
+        } else if (selection.equals(QUERY_PARAM_Q)) {
+            final String selectionArg = selectionArgs[0].toLowerCase(Locale.US);
+            for (final Map.Entry<String, ExchangeRate> entry : exchangeRates.entrySet()) {
+                final ExchangeRate exchangeRate = entry.getValue();
+                final org.bitcoinj.utils.ExchangeRate rate = exchangeRate.rate;
+                final String currencyCode = exchangeRate.getCurrencyCode();
+                final String currencySymbol = GenericUtils.currencySymbol(currencyCode);
+                if (currencyCode.toLowerCase(Locale.US).contains(selectionArg)
+                        || currencySymbol.toLowerCase(Locale.US).contains(selectionArg))
+                    cursor.newRow().add(currencyCode.hashCode()).add(currencyCode).add(rate.coin.value)
+                            .add(rate.fiat.value).add(exchangeRate.source);
+            }
+        } else if (selection.equals(KEY_CURRENCY_CODE)) {
+            final String selectionArg = selectionArgs[0];
+            final ExchangeRate exchangeRate = bestExchangeRate(selectionArg);
+            if (exchangeRate != null) {
+                final org.bitcoinj.utils.ExchangeRate rate = exchangeRate.rate;
+                final String currencyCode = exchangeRate.getCurrencyCode();
+                cursor.newRow().add(currencyCode.hashCode()).add(currencyCode).add(rate.coin.value).add(rate.fiat.value)
+                        .add(exchangeRate.source);
+            }
+        }
 
-		return cursor;
-	}
+        return cursor;
+    }
 
-	private ExchangeRate bestExchangeRate(final String currencyCode)
-	{
-		ExchangeRate rate = currencyCode != null ? exchangeRates.get(currencyCode) : null;
-		if (rate != null)
-			return rate;
+    private ExchangeRate bestExchangeRate(final String currencyCode) {
+        ExchangeRate rate = currencyCode != null ? exchangeRates.get(currencyCode) : null;
+        if (rate != null)
+            return rate;
 
-		final String defaultCode = defaultCurrencyCode();
-		rate = defaultCode != null ? exchangeRates.get(defaultCode) : null;
+        final String defaultCode = defaultCurrencyCode();
+        rate = defaultCode != null ? exchangeRates.get(defaultCode) : null;
 
-		if (rate != null)
-			return rate;
+        if (rate != null)
+            return rate;
 
-		return exchangeRates.get(Constants.DEFAULT_EXCHANGE_CURRENCY);
-	}
+        return exchangeRates.get(Constants.DEFAULT_EXCHANGE_CURRENCY);
+    }
 
-	private String defaultCurrencyCode()
-	{
-		try
-		{
-			return Currency.getInstance(Locale.getDefault()).getCurrencyCode();
-		}
-		catch (final IllegalArgumentException x)
-		{
-			return null;
-		}
-	}
+    private String defaultCurrencyCode() {
+        try {
+            return Currency.getInstance(Locale.getDefault()).getCurrencyCode();
+        } catch (final IllegalArgumentException x) {
+            return null;
+        }
+    }
 
-	public static ExchangeRate getExchangeRate(final Cursor cursor)
-	{
-		final String currencyCode = cursor.getString(cursor.getColumnIndexOrThrow(ExchangeRatesProvider.KEY_CURRENCY_CODE));
-		final Coin rateCoin = Coin.valueOf(cursor.getLong(cursor.getColumnIndexOrThrow(ExchangeRatesProvider.KEY_RATE_COIN)));
-		final Fiat rateFiat = Fiat.valueOf(currencyCode, cursor.getLong(cursor.getColumnIndexOrThrow(ExchangeRatesProvider.KEY_RATE_FIAT)));
-		final String source = cursor.getString(cursor.getColumnIndexOrThrow(ExchangeRatesProvider.KEY_SOURCE));
+    public static ExchangeRate getExchangeRate(final Cursor cursor) {
+        final String currencyCode = cursor
+                .getString(cursor.getColumnIndexOrThrow(ExchangeRatesProvider.KEY_CURRENCY_CODE));
+        final Coin rateCoin = Coin
+                .valueOf(cursor.getLong(cursor.getColumnIndexOrThrow(ExchangeRatesProvider.KEY_RATE_COIN)));
+        final Fiat rateFiat = Fiat.valueOf(currencyCode,
+                cursor.getLong(cursor.getColumnIndexOrThrow(ExchangeRatesProvider.KEY_RATE_FIAT)));
+        final String source = cursor.getString(cursor.getColumnIndexOrThrow(ExchangeRatesProvider.KEY_SOURCE));
 
-		return new ExchangeRate(new org.bitcoinj.utils.ExchangeRate(rateCoin, rateFiat), source);
-	}
+        return new ExchangeRate(new org.bitcoinj.utils.ExchangeRate(rateCoin, rateFiat), source);
+    }
 
-	@Override
-	public Uri insert(final Uri uri, final ContentValues values)
-	{
-		throw new UnsupportedOperationException();
-	}
+    @Override
+    public Uri insert(final Uri uri, final ContentValues values) {
+        throw new UnsupportedOperationException();
+    }
 
-	@Override
-	public int update(final Uri uri, final ContentValues values, final String selection, final String[] selectionArgs)
-	{
-		throw new UnsupportedOperationException();
-	}
+    @Override
+    public int update(final Uri uri, final ContentValues values, final String selection, final String[] selectionArgs) {
+        throw new UnsupportedOperationException();
+    }
 
-	@Override
-	public int delete(final Uri uri, final String selection, final String[] selectionArgs)
-	{
-		throw new UnsupportedOperationException();
-	}
+    @Override
+    public int delete(final Uri uri, final String selection, final String[] selectionArgs) {
+        throw new UnsupportedOperationException();
+    }
 
-	@Override
-	public String getType(final Uri uri)
-	{
-		throw new UnsupportedOperationException();
-	}
+    @Override
+    public String getType(final Uri uri) {
+        throw new UnsupportedOperationException();
+    }
 
-	private static Map<String, ExchangeRate> requestExchangeRates(final URL url, final String userAgent, final String source, final String... fields)
-	{
-		final Stopwatch watch = Stopwatch.createStarted();
+    private static Map<String, ExchangeRate> requestExchangeRates(final URL url, final String userAgent,
+            final String source, final String... fields) {
+        final Stopwatch watch = Stopwatch.createStarted();
 
-		final Request.Builder request = new Request.Builder();
-		request.url(url);
-		request.header("User-Agent", userAgent);
+        final Request.Builder request = new Request.Builder();
+        request.url(url);
+        request.header("User-Agent", userAgent);
 
-		final Call call = Constants.HTTP_CLIENT.newCall(request.build());
-		try
-		{
-			final Response response = call.execute();
-			if (response.isSuccessful())
-			{
-				final String content = response.body().string();
+        final Call call = Constants.HTTP_CLIENT.newCall(request.build());
+        try {
+            final Response response = call.execute();
+            if (response.isSuccessful()) {
+                final String content = response.body().string();
 
-				final Map<String, ExchangeRate> rates = new TreeMap<String, ExchangeRate>();
+                final Map<String, ExchangeRate> rates = new TreeMap<String, ExchangeRate>();
 
-				final JSONObject head = new JSONObject(content);
-				for (final Iterator<String> i = head.keys(); i.hasNext();)
-				{
-					final String currencyCode = Strings.emptyToNull(i.next());
-					if (currencyCode != null && !"timestamp".equals(currencyCode) && !MonetaryFormat.CODE_BTC.equals(currencyCode)
-							&& !MonetaryFormat.CODE_MBTC.equals(currencyCode) && !MonetaryFormat.CODE_UBTC.equals(currencyCode))
-					{
-						final JSONObject o = head.getJSONObject(currencyCode);
+                final JSONObject head = new JSONObject(content);
+                for (final Iterator<String> i = head.keys(); i.hasNext();) {
+                    final String currencyCode = Strings.emptyToNull(i.next());
+                    if (currencyCode != null && !"timestamp".equals(currencyCode)
+                            && !MonetaryFormat.CODE_BTC.equals(currencyCode)
+                            && !MonetaryFormat.CODE_MBTC.equals(currencyCode)
+                            && !MonetaryFormat.CODE_UBTC.equals(currencyCode)) {
+                        final JSONObject o = head.getJSONObject(currencyCode);
 
-						for (final String field : fields)
-						{
-							final String rateStr = o.optString(field, null);
+                        for (final String field : fields) {
+                            final String rateStr = o.optString(field, null);
 
-							if (rateStr != null)
-							{
-								try
-								{
-									final Fiat rate = Fiat.parseFiat(currencyCode, rateStr);
+                            if (rateStr != null) {
+                                try {
+                                    final Fiat rate = Fiat.parseFiat(currencyCode, rateStr);
 
-									if (rate.signum() > 0)
-									{
-										rates.put(currencyCode, new ExchangeRate(new org.bitcoinj.utils.ExchangeRate(rate), source));
-										break;
-									}
-								}
-								catch (final NumberFormatException x)
-								{
-									log.warn("problem fetching {} exchange rate from {}: {}", currencyCode, url, x.getMessage());
-								}
-							}
-						}
-					}
-				}
+                                    if (rate.signum() > 0) {
+                                        rates.put(currencyCode,
+                                                new ExchangeRate(new org.bitcoinj.utils.ExchangeRate(rate), source));
+                                        break;
+                                    }
+                                } catch (final NumberFormatException x) {
+                                    log.warn("problem fetching {} exchange rate from {}: {}", currencyCode, url,
+                                            x.getMessage());
+                                }
+                            }
+                        }
+                    }
+                }
 
-				watch.stop();
-				log.info("fetched exchange rates from {}, {} chars, took {}", url, content.length(), watch);
+                watch.stop();
+                log.info("fetched exchange rates from {}, {} chars, took {}", url, content.length(), watch);
 
-				return rates;
-			}
-			else
-			{
-				log.warn("http status {} when fetching exchange rates from {}", response.code(), url);
-			}
-		}
-		catch (final Exception x)
-		{
-			log.warn("problem fetching exchange rates from " + url, x);
-		}
+                return rates;
+            } else {
+                log.warn("http status {} when fetching exchange rates from {}", response.code(), url);
+            }
+        } catch (final Exception x) {
+            log.warn("problem fetching exchange rates from " + url, x);
+        }
 
-		return null;
-	}
+        return null;
+    }
 }

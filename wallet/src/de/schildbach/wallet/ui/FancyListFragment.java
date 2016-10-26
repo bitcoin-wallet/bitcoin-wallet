@@ -17,29 +17,28 @@
 
 package de.schildbach.wallet.ui;
 
+import de.schildbach.wallet_test.R;
+
 import android.app.ListFragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import de.schildbach.wallet_test.R;
 
 /**
  * @author Andreas Schildbach
  */
-public class FancyListFragment extends ListFragment
-{
-	@Override
-	public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState)
-	{
-		return inflater.inflate(R.layout.fancy_list_content, container, false);
-	}
+public class FancyListFragment extends ListFragment {
+    @Override
+    public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
+            final Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fancy_list_content, container, false);
+    }
 
-	@Override
-	public void setEmptyText(final CharSequence text)
-	{
-		final TextView emptyView = (TextView) getView().findViewById(android.R.id.empty);
-		emptyView.setText(text);
-	}
+    @Override
+    public void setEmptyText(final CharSequence text) {
+        final TextView emptyView = (TextView) getView().findViewById(android.R.id.empty);
+        emptyView.setText(text);
+    }
 }

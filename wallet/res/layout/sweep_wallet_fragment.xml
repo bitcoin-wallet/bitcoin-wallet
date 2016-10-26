@@ -1,93 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:tools="http://schemas.android.com/tools"
-	android:layout_width="match_parent"
-	android:layout_height="match_parent"
-	android:orientation="vertical" >
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
 
-	<TextView
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:layout_marginBottom="12dp"
-		android:layout_marginLeft="@dimen/list_entry_padding_horizontal_lax"
-		android:layout_marginRight="@dimen/list_entry_padding_horizontal_lax"
-		android:layout_marginTop="8dp"
-		android:text="@string/sweep_wallet_fragment_intro" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:layout_marginLeft="@dimen/list_entry_padding_horizontal_lax"
+        android:layout_marginRight="@dimen/list_entry_padding_horizontal_lax"
+        android:layout_marginTop="8dp"
+        android:text="@string/sweep_wallet_fragment_intro" />
 
-	<TextView
-		android:id="@+id/sweep_wallet_fragment_message"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:layout_marginBottom="12dp"
-		android:layout_marginLeft="@dimen/list_entry_padding_horizontal_lax"
-		android:layout_marginRight="@dimen/list_entry_padding_horizontal_lax"
-		android:layout_marginTop="0dp"
-		android:textStyle="bold" />
+    <TextView
+        android:id="@+id/sweep_wallet_fragment_message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:layout_marginLeft="@dimen/list_entry_padding_horizontal_lax"
+        android:layout_marginRight="@dimen/list_entry_padding_horizontal_lax"
+        android:layout_marginTop="0dp"
+        android:textStyle="bold" />
 
-	<LinearLayout
-		android:id="@+id/sweep_wallet_fragment_password_group"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:layout_marginBottom="12dp"
-		android:layout_marginLeft="@dimen/list_entry_padding_horizontal"
-		android:layout_marginRight="@dimen/list_entry_padding_horizontal"
-		android:layout_marginTop="0dp"
-		android:divider="@drawable/divider_field"
-		android:orientation="horizontal"
-		android:showDividers="middle" >
+    <LinearLayout
+        android:id="@+id/sweep_wallet_fragment_password_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:layout_marginLeft="@dimen/list_entry_padding_horizontal"
+        android:layout_marginRight="@dimen/list_entry_padding_horizontal"
+        android:layout_marginTop="0dp"
+        android:divider="@drawable/divider_field"
+        android:orientation="horizontal"
+        android:showDividers="middle" >
 
-		<EditText
-			android:id="@+id/sweep_wallet_fragment_password"
-			android:layout_width="0px"
-			android:layout_height="wrap_content"
-			android:layout_weight="1"
-			android:hint="@string/sweep_wallet_fragment_password"
-			android:inputType="textPassword"
-			android:singleLine="true" />
+        <EditText
+            android:id="@+id/sweep_wallet_fragment_password"
+            android:layout_width="0px"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="@string/sweep_wallet_fragment_password"
+            android:inputType="textPassword"
+            android:singleLine="true" />
 
-		<TextView
-			android:id="@+id/sweep_wallet_fragment_bad_password"
-			android:layout_width="0px"
-			android:layout_height="wrap_content"
-			android:layout_weight="1"
-			android:text="@string/sweep_wallet_fragment_bad_password"
-			android:textColor="@color/fg_error"
-			android:textStyle="bold"
-			android:visibility="invisible" />
-	</LinearLayout>
+        <TextView
+            android:id="@+id/sweep_wallet_fragment_bad_password"
+            android:layout_width="0px"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/sweep_wallet_fragment_bad_password"
+            android:textColor="@color/fg_error"
+            android:textStyle="bold"
+            android:visibility="invisible" />
+    </LinearLayout>
 
-	<TextView
-		android:id="@+id/sweep_wallet_fragment_balance"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:layout_marginLeft="@dimen/list_entry_padding_horizontal_lax"
-		android:layout_marginRight="@dimen/list_entry_padding_horizontal_lax"
-		android:layout_marginTop="8dp" />
+    <TextView
+        android:id="@+id/sweep_wallet_fragment_balance"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/list_entry_padding_horizontal_lax"
+        android:layout_marginRight="@dimen/list_entry_padding_horizontal_lax"
+        android:layout_marginTop="8dp" />
 
-	<Space
-		android:layout_width="0px"
-		android:layout_height="0px"
-		android:layout_weight="1" />
+    <Space
+        android:layout_width="0px"
+        android:layout_height="0px"
+        android:layout_weight="1" />
 
-	<TextView
-		android:id="@+id/sweep_wallet_fragment_hint"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:layout_marginBottom="16dp"
-		android:layout_marginLeft="@dimen/list_entry_padding_horizontal_lax"
-		android:layout_marginRight="@dimen/list_entry_padding_horizontal_lax"
-		android:layout_marginTop="8dp"
-		android:text="@string/sweep_wallet_fragment_hint"
-		android:textColor="@color/fg_less_significant"
-		android:textSize="@dimen/font_size_small" />
+    <TextView
+        android:id="@+id/sweep_wallet_fragment_hint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginLeft="@dimen/list_entry_padding_horizontal_lax"
+        android:layout_marginRight="@dimen/list_entry_padding_horizontal_lax"
+        android:layout_marginTop="8dp"
+        android:text="@string/sweep_wallet_fragment_hint"
+        android:textColor="@color/fg_less_significant"
+        android:textSize="@dimen/font_size_small" />
 
-	<FrameLayout
-		android:id="@+id/sweep_wallet_fragment_sent_transaction"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:layoutAnimation="@anim/transaction_layout_anim"
-		android:visibility="gone" />
+    <FrameLayout
+        android:id="@+id/sweep_wallet_fragment_sent_transaction"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layoutAnimation="@anim/transaction_layout_anim"
+        android:visibility="gone" />
 
-	<include layout="@layout/send_coins_buttons_include" />
+    <include layout="@layout/send_coins_buttons_include" />
 
 </LinearLayout>

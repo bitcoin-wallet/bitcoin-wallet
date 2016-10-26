@@ -3,24 +3,24 @@ FILES
 Your wallet contains your private keys and various transaction related metadata. It is stored in app-private
 storage:
 
-	Mainnet: /data/data/de.schildbach.wallet/files/wallet-protobuf
+    Mainnet: /data/data/de.schildbach.wallet/files/wallet-protobuf
 
-	Testnet: /data/data/de.schildbach.wallet_test/files/wallet-protobuf-testnet
+    Testnet: /data/data/de.schildbach.wallet_test/files/wallet-protobuf-testnet
 
 The wallet file format is not compatible to wallet.dat (Satoshi client). Rather, it uses a custom protobuf format
 which should be compatible between clients using bitcoinj.
 
 Certain actions cause automatic rolling backups of your wallet to app-private storage:
 
-	Mainnet: /data/data/de.schildbach.wallet/files/key-backup-protobuf
+    Mainnet: /data/data/de.schildbach.wallet/files/key-backup-protobuf
 
-	Testnet: /data/data/de.schildbach.wallet_test/files/key-backup-protobuf-testnet
+    Testnet: /data/data/de.schildbach.wallet_test/files/key-backup-protobuf-testnet
 
 Your wallet can be manually backed up to and restored from external storage:
 
-	Mainnet: /sdcard/Download/bitcoin-wallet-backup-<yyyy-MM-dd>
+    Mainnet: /sdcard/Download/bitcoin-wallet-backup-<yyyy-MM-dd>
 
-	Testnet: /sdcard/Download/bitcoin-wallet-backup-testnet-<yyyy-MM-dd>
+    Testnet: /sdcard/Download/bitcoin-wallet-backup-testnet-<yyyy-MM-dd>
 
 If you want to recover coins from manual backups and for whatever reason you cannot use the app
 itself to restore from the backup, see the separate README.recover guide.
@@ -30,11 +30,11 @@ DEBUGGING
 
 Wallet file for Testnet can be pulled from an (even un-rooted) device using
 
-	adb pull /data/data/de.schildbach.wallet_test/files/wallet-protobuf-testnet
+    adb pull /data/data/de.schildbach.wallet_test/files/wallet-protobuf-testnet
 
 Log messages can be viewed by
 
-	adb logcat
+    adb logcat
 
 The app can send extensive debug information. Use Options > Settings > Report Issue and follow the dialog.
 In the generated e-mail, replace the support address with yours.
@@ -50,27 +50,27 @@ You can probably skip some steps, especially if you built Android apps before.
 You'll need git, a Java SDK 6 (or later) and Gradle 2.10 (or later) for this. I'll assume Ubuntu Xenial Linux
 for the package installs, which comes with slightly more recent versions.
 
-	# first time only
-	sudo apt install git gradle openjdk-8-jdk libstdc++6:i386 zlib1g:i386
+    # first time only
+    sudo apt install git gradle openjdk-8-jdk libstdc++6:i386 zlib1g:i386
 
 Get the Android SDK (Tools only) from
 
-	http://developer.android.com/sdk/
+    http://developer.android.com/sdk/
 
 and unpack it to your workspace directory. Point your ANDROID_HOME variable to the unpacked Android SDK directory
 and switch to it. Use
 
-	# make sure tools are at the newest version
-	tools/android update sdk --no-ui --force --filter tools
+    # make sure tools are at the newest version
+    tools/android update sdk --no-ui --force --filter tools
 
-	# fetch required android dependencies
-	tools/android update sdk --no-ui --force --filter build-tools-24,android-15,android-23,extra-android-m2repository
+    # fetch required android dependencies
+    tools/android update sdk --no-ui --force --filter build-tools-24,android-15,android-23,extra-android-m2repository
 
 to download the necessary API level.
 
 Get the Android NDK from
 
-	https://developer.android.com/ndk
+    https://developer.android.com/ndk
 
 and unpack it to your workspace directory. Point your ANDROID_NDK_HOME variable to the unpacked Android NDK
 directory.
@@ -78,21 +78,21 @@ directory.
 Finally, you can build Bitcoin Wallet and sign it with your development key. Again in your workspace,
 use
 
-	# first time only
-	git clone -b master https://github.com/bitcoin-wallet/bitcoin-wallet.git bitcoin-wallet
+    # first time only
+    git clone -b master https://github.com/bitcoin-wallet/bitcoin-wallet.git bitcoin-wallet
 
-	# each time
-	cd bitcoin-wallet
-	git pull
-	gradle clean :native-scrypt:copy test build
+    # each time
+    cd bitcoin-wallet
+    git pull
+    gradle clean :native-scrypt:copy test build
 
 To install the app on your Android device, use
 
-	# first time only
-	sudo apt install android-tools-adb
+    # first time only
+    sudo apt install android-tools-adb
 
-	# each time
-	adb install wallet/build/outputs/apk/bitcoin-wallet-debug.apk
+    # each time
+    adb install wallet/build/outputs/apk/bitcoin-wallet-debug.apk
 
 If installing fails, make sure "Developer options" and "USB debugging" are enabled on your Android device, and an ADB
 connection is established.
@@ -108,11 +108,11 @@ The productive version uses Mainnet, is built non-debuggable, space-optimized wi
 wallet file is protected against access from non-root users. In the code repository, it lives in a
 separate 'prod' branch that gets rebased against master with each released version.
 
-	# each time
-	cd bitcoin-wallet
-	git fetch origin
-	git checkout origin/prod
-	gradle clean :native-scrypt:copy test build
+    # each time
+    cd bitcoin-wallet
+    git fetch origin
+    git checkout origin/prod
+    gradle clean :native-scrypt:copy test build
 
 
 SETTING UP FOR DEVELOPMENT
@@ -124,26 +124,26 @@ TRANSLATIONS
 
 The source language is English. Translations for all languages except German happen on Transifex:
 
-	https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/
+    https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/
 
 The english resources are pushed to Transifex. Changes are pulled and committed to the git
 repository from time to time. It can be done by manually downloading the files, but using the "tx"
 command line client is more convenient:
 
-	# first time only
-	sudo apt install transifex-client
+    # first time only
+    sudo apt install transifex-client
 
 If strings resources are added or changed, the source language files need to be pushed to
 Transifex. This step will probably only be executed by the maintainer of the project, as special
 permission is needed:
 
-	# push source files to Transifex
-	tx push -s
+    # push source files to Transifex
+    tx push -s
 
 As soon as a translation is ready, it can be pulled:
 
-	# pull translation from Transifex
-	tx pull -f -l <language code>
+    # pull translation from Transifex
+    tx pull -f -l <language code>
 
 Note that after pulling, any bugs introduced by either translators or Transifex itself need to be
 corrected manually.
@@ -179,14 +179,14 @@ BITCOINJ
 
 Bitcoin Wallet uses bitcoinj for Bitcoin specific logic:
 
-	https://bitcoinj.github.io/
+    https://bitcoinj.github.io/
 
 
 EXCHANGE RATES
 
 Bitcoin Wallet reads this feed from "BitcoinAverage" for getting exchange rates:
 
-	https://api.bitcoinaverage.com/custom/abw
+    https://api.bitcoinaverage.com/custom/abw
 
 I chose this feed because it is not dependent on a single exchange. However, you should keep in
 mind it's always a 24h average (falling back to 7d or even 30d if no trade occurred for a long
@@ -198,4 +198,4 @@ SWEEPING WALLETS
 For sweeping wallets, Bitcoin Wallet uses an API by biteasy to query for unspent transaction
 outputs:
 
-	https://api.biteasy.com/v2/btc/mainnet/outputs
+    https://api.biteasy.com/v2/btc/mainnet/outputs

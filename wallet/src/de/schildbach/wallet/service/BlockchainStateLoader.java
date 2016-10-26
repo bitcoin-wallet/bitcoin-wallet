@@ -35,79 +35,68 @@ import android.support.v4.content.LocalBroadcastManager;
 /**
  * @author Andreas Schildbach
  */
-public class BlockchainStateLoader extends AsyncTaskLoader<BlockchainState>
-{
-	private final LocalBroadcastManager broadcastManager;
-	private BlockchainService service;
+public class BlockchainStateLoader extends AsyncTaskLoader<BlockchainState> {
+    private final LocalBroadcastManager broadcastManager;
+    private BlockchainService service;
 
-	private static final Logger log = LoggerFactory.getLogger(BlockchainStateLoader.class);
+    private static final Logger log = LoggerFactory.getLogger(BlockchainStateLoader.class);
 
-	public BlockchainStateLoader(final Context context)
-	{
-		super(context);
+    public BlockchainStateLoader(final Context context) {
+        super(context);
 
-		this.broadcastManager = LocalBroadcastManager.getInstance(context.getApplicationContext());
-	}
+        this.broadcastManager = LocalBroadcastManager.getInstance(context.getApplicationContext());
+    }
 
-	@Override
-	protected void onStartLoading()
-	{
-		super.onStartLoading();
+    @Override
+    protected void onStartLoading() {
+        super.onStartLoading();
 
-		broadcastManager.registerReceiver(broadcastReceiver, new IntentFilter(BlockchainService.ACTION_BLOCKCHAIN_STATE));
+        broadcastManager.registerReceiver(broadcastReceiver,
+                new IntentFilter(BlockchainService.ACTION_BLOCKCHAIN_STATE));
 
-		final Context context = getContext();
-		context.bindService(new Intent(context, BlockchainServiceImpl.class), serviceConnection, Context.BIND_AUTO_CREATE);
-	}
+        final Context context = getContext();
+        context.bindService(new Intent(context, BlockchainServiceImpl.class), serviceConnection,
+                Context.BIND_AUTO_CREATE);
+    }
 
-	@Override
-	protected void onStopLoading()
-	{
-		broadcastManager.unregisterReceiver(broadcastReceiver);
+    @Override
+    protected void onStopLoading() {
+        broadcastManager.unregisterReceiver(broadcastReceiver);
 
-		super.onStopLoading();
-	}
+        super.onStopLoading();
+    }
 
-	@Override
-	public BlockchainState loadInBackground()
-	{
-		final BlockchainState blockchainState = service.getBlockchainState();
+    @Override
+    public BlockchainState loadInBackground() {
+        final BlockchainState blockchainState = service.getBlockchainState();
 
-		getContext().unbindService(serviceConnection);
+        getContext().unbindService(serviceConnection);
 
-		return blockchainState;
-	}
+        return blockchainState;
+    }
 
-	private final ServiceConnection serviceConnection = new ServiceConnection()
-	{
-		@Override
-		public void onServiceConnected(final ComponentName name, final IBinder binder)
-		{
-			service = ((BlockchainServiceImpl.LocalBinder) binder).getService();
+    private final ServiceConnection serviceConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(final ComponentName name, final IBinder binder) {
+            service = ((BlockchainServiceImpl.LocalBinder) binder).getService();
 
-			forceLoad();
-		}
+            forceLoad();
+        }
 
-		@Override
-		public void onServiceDisconnected(final ComponentName name)
-		{
-			service = null;
-		}
-	};
+        @Override
+        public void onServiceDisconnected(final ComponentName name) {
+            service = null;
+        }
+    };
 
-	private final BroadcastReceiver broadcastReceiver = new BroadcastReceiver()
-	{
-		@Override
-		public void onReceive(final Context context, final Intent broadcast)
-		{
-			try
-			{
-				deliverResult(BlockchainState.fromIntent(broadcast));
-			}
-			catch (final RejectedExecutionException x)
-			{
-				log.info("rejected execution: " + BlockchainStateLoader.this.toString());
-			}
-		}
-	};
+    private final BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(final Context context, final Intent broadcast) {
+            try {
+                deliverResult(BlockchainState.fromIntent(broadcast));
+            } catch (final RejectedExecutionException x) {
+                log.info("rejected execution: " + BlockchainStateLoader.this.toString());
+            }
+        }
+    };
 }

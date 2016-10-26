@@ -21,12 +21,12 @@ import org.bitcoinj.wallet.Wallet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.WalletApplication;
+
 import android.app.IntentService;
 import android.content.Context;
 import android.content.Intent;
-
-import de.schildbach.wallet.Constants;
-import de.schildbach.wallet.WalletApplication;
 
 /**
  * This service upgrades the wallet to an HD wallet. Use {@link #startUpgrade(Context)} to start the process.
@@ -36,66 +36,56 @@ import de.schildbach.wallet.WalletApplication;
  * 
  * @author Andreas Schildbach
  */
-public final class UpgradeWalletService extends IntentService
-{
-	public static void startUpgrade(final Context context)
-	{
-		context.startService(new Intent(context, UpgradeWalletService.class));
-	}
+public final class UpgradeWalletService extends IntentService {
+    public static void startUpgrade(final Context context) {
+        context.startService(new Intent(context, UpgradeWalletService.class));
+    }
 
-	private WalletApplication application;
+    private WalletApplication application;
 
-	private static final Logger log = LoggerFactory.getLogger(UpgradeWalletService.class);
+    private static final Logger log = LoggerFactory.getLogger(UpgradeWalletService.class);
 
-	public UpgradeWalletService()
-	{
-		super(UpgradeWalletService.class.getName());
+    public UpgradeWalletService() {
+        super(UpgradeWalletService.class.getName());
 
-		setIntentRedelivery(true);
-	}
+        setIntentRedelivery(true);
+    }
 
-	@Override
-	public void onCreate()
-	{
-		super.onCreate();
+    @Override
+    public void onCreate() {
+        super.onCreate();
 
-		application = (WalletApplication) getApplication();
+        application = (WalletApplication) getApplication();
 
-	}
+    }
 
-	@Override
-	protected void onHandleIntent(final Intent intent)
-	{
-		org.bitcoinj.core.Context.propagate(Constants.CONTEXT);
+    @Override
+    protected void onHandleIntent(final Intent intent) {
+        org.bitcoinj.core.Context.propagate(Constants.CONTEXT);
 
-		final Wallet wallet = application.getWallet();
+        final Wallet wallet = application.getWallet();
 
-		if (wallet.isDeterministicUpgradeRequired())
-		{
-			log.info("detected non-HD wallet, upgrading");
+        if (wallet.isDeterministicUpgradeRequired()) {
+            log.info("detected non-HD wallet, upgrading");
 
-			// upgrade wallet to HD
-			wallet.upgradeToDeterministic(null);
+            // upgrade wallet to HD
+            wallet.upgradeToDeterministic(null);
 
-			// let other service pre-generate look-ahead keys
-			application.startBlockchainService(false);
-		}
+            // let other service pre-generate look-ahead keys
+            application.startBlockchainService(false);
+        }
 
-		maybeUpgradeToSecureChain(wallet);
-	}
+        maybeUpgradeToSecureChain(wallet);
+    }
 
-	private void maybeUpgradeToSecureChain(final Wallet wallet)
-	{
-		try
-		{
-			wallet.doMaintenance(null, false);
+    private void maybeUpgradeToSecureChain(final Wallet wallet) {
+        try {
+            wallet.doMaintenance(null, false);
 
-			// let other service pre-generate look-ahead keys
-			application.startBlockchainService(false);
-		}
-		catch (final Exception x)
-		{
-			log.error("failed doing wallet maintenance", x);
-		}
-	}
+            // let other service pre-generate look-ahead keys
+            application.startBlockchainService(false);
+        } catch (final Exception x) {
+            log.error("failed doing wallet maintenance", x);
+        }
+    }
 }

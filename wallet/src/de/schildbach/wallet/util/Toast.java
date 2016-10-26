@@ -22,42 +22,34 @@ import android.content.Context;
 /**
  * @author Andreas Schildbach
  */
-public class Toast
-{
-	private final Context context;
+public class Toast {
+    private final Context context;
 
-	public Toast(final Context context)
-	{
-		this.context = context;
-	}
+    public Toast(final Context context) {
+        this.context = context;
+    }
 
-	public final void toast(final int textResId, final Object... formatArgs)
-	{
-		customToast(textResId, android.widget.Toast.LENGTH_SHORT, formatArgs);
-	}
+    public final void toast(final int textResId, final Object... formatArgs) {
+        customToast(textResId, android.widget.Toast.LENGTH_SHORT, formatArgs);
+    }
 
-	public final void toast(final CharSequence text)
-	{
-		customToast(text, android.widget.Toast.LENGTH_SHORT);
-	}
+    public final void toast(final CharSequence text) {
+        customToast(text, android.widget.Toast.LENGTH_SHORT);
+    }
 
-	public final void longToast(final int textResId, final Object... formatArgs)
-	{
-		customToast(textResId, android.widget.Toast.LENGTH_LONG, formatArgs);
-	}
+    public final void longToast(final int textResId, final Object... formatArgs) {
+        customToast(textResId, android.widget.Toast.LENGTH_LONG, formatArgs);
+    }
 
-	public final void longToast(final CharSequence text)
-	{
-		customToast(text, android.widget.Toast.LENGTH_LONG);
-	}
+    public final void longToast(final CharSequence text) {
+        customToast(text, android.widget.Toast.LENGTH_LONG);
+    }
 
-	private void customToast(final int textResId, final int duration, final Object... formatArgs)
-	{
-		customToast(context.getString(textResId, formatArgs), duration);
-	}
+    private void customToast(final int textResId, final int duration, final Object... formatArgs) {
+        customToast(context.getString(textResId, formatArgs), duration);
+    }
 
-	private void customToast(final CharSequence text, final int duration)
-	{
-		android.widget.Toast.makeText(context, text, duration).show();
-	}
+    private void customToast(final CharSequence text, final int duration) {
+        android.widget.Toast.makeText(context, text, duration).show();
+    }
 }
