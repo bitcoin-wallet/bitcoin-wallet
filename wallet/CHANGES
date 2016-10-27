@@ -1,3 +1,7 @@
+v5.02
+
+* Dynamic network fee. This will help dealing with an overloaded Bitcoin network.
+
 v5.01
 
 * Fix background color in recent tasks list.
