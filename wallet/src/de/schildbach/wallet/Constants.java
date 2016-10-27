@@ -176,6 +176,7 @@ public final class Constants {
         HTTP_CLIENT.setFollowRedirects(false);
         HTTP_CLIENT.setFollowSslRedirects(true);
         HTTP_CLIENT.setConnectTimeout(15, TimeUnit.SECONDS);
+        HTTP_CLIENT.setWriteTimeout(15, TimeUnit.SECONDS);
         HTTP_CLIENT.setReadTimeout(15, TimeUnit.SECONDS);
     }
 }
