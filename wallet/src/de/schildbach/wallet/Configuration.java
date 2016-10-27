@@ -25,7 +25,7 @@ import org.slf4j.LoggerFactory;
 
 import com.google.common.base.Strings;
 
-import de.schildbach.wallet.data.ExchangeRatesProvider.ExchangeRate;
+import de.schildbach.wallet.data.ExchangeRate;
 import de.schildbach.wallet_test.R;
 
 import android.content.SharedPreferences;

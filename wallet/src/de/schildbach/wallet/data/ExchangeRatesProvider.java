@@ -17,8 +17,6 @@
 
 package de.schildbach.wallet.data;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Currency;
@@ -61,27 +59,6 @@ import android.text.format.DateUtils;
  * @author Andreas Schildbach
  */
 public class ExchangeRatesProvider extends ContentProvider {
-    public static class ExchangeRate {
-        public ExchangeRate(final org.bitcoinj.utils.ExchangeRate rate, final String source) {
-            checkNotNull(rate.fiat.currencyCode);
-
-            this.rate = rate;
-            this.source = source;
-        }
-
-        public final org.bitcoinj.utils.ExchangeRate rate;
-        public final String source;
-
-        public String getCurrencyCode() {
-            return rate.fiat.currencyCode;
-        }
-
-        @Override
-        public String toString() {
-            return getClass().getSimpleName() + '[' + rate.fiat + ']';
-        }
-    }
-
     public static final String KEY_CURRENCY_CODE = "currency_code";
     private static final String KEY_RATE_COIN = "rate_coin";
     private static final String KEY_RATE_FIAT = "rate_fiat";
