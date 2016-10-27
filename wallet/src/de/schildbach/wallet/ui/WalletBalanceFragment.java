@@ -25,9 +25,10 @@ import org.bitcoinj.wallet.Wallet;
 
 import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
-import de.schildbach.wallet.ExchangeRatesProvider;
-import de.schildbach.wallet.ExchangeRatesProvider.ExchangeRate;
 import de.schildbach.wallet.WalletApplication;
+import de.schildbach.wallet.data.ExchangeRatesLoader;
+import de.schildbach.wallet.data.ExchangeRatesProvider;
+import de.schildbach.wallet.data.ExchangeRatesProvider.ExchangeRate;
 import de.schildbach.wallet.service.BlockchainState;
 import de.schildbach.wallet.service.BlockchainStateLoader;
 import de.schildbach.wallet.ui.send.SendCoinsActivity;
@@ -305,7 +306,7 @@ public final class WalletBalanceFragment extends Fragment {
     private final LoaderCallbacks<Cursor> rateLoaderCallbacks = new LoaderManager.LoaderCallbacks<Cursor>() {
         @Override
         public Loader<Cursor> onCreateLoader(final int id, final Bundle args) {
-            return new ExchangeRateLoader(activity, config);
+            return new ExchangeRatesLoader(activity, config);
         }
 
         @Override

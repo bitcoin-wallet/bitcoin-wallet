@@ -35,8 +35,8 @@ import org.slf4j.LoggerFactory;
 import com.google.common.base.Charsets;
 
 import de.schildbach.wallet.Constants;
-import de.schildbach.wallet.FileAttachmentProvider;
 import de.schildbach.wallet.util.CrashReporter;
+import de.schildbach.wallet.util.FileAttachmentProvider;
 import de.schildbach.wallet.util.Io;
 import de.schildbach.wallet_test.R;
 

@@ -31,9 +31,10 @@ import org.slf4j.LoggerFactory;
 
 import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
-import de.schildbach.wallet.ExchangeRatesProvider;
-import de.schildbach.wallet.ExchangeRatesProvider.ExchangeRate;
 import de.schildbach.wallet.WalletApplication;
+import de.schildbach.wallet.data.ExchangeRatesLoader;
+import de.schildbach.wallet.data.ExchangeRatesProvider;
+import de.schildbach.wallet.data.ExchangeRatesProvider.ExchangeRate;
 import de.schildbach.wallet.offline.AcceptBluetoothService;
 import de.schildbach.wallet.ui.send.SendCoinsActivity;
 import de.schildbach.wallet.util.BitmapFragment;
@@ -118,7 +119,7 @@ public final class RequestCoinsFragment extends Fragment implements NfcAdapter.C
     private final LoaderCallbacks<Cursor> rateLoaderCallbacks = new LoaderManager.LoaderCallbacks<Cursor>() {
         @Override
         public Loader<Cursor> onCreateLoader(final int id, final Bundle args) {
-            return new ExchangeRateLoader(activity, config);
+            return new ExchangeRatesLoader(activity, config);
         }
 
         @Override

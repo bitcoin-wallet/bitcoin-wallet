@@ -65,11 +65,11 @@ import org.slf4j.LoggerFactory;
 
 import com.google.common.base.Stopwatch;
 
-import de.schildbach.wallet.AddressBookProvider;
 import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.WalletBalanceWidgetProvider;
+import de.schildbach.wallet.data.AddressBookProvider;
 import de.schildbach.wallet.service.BlockchainState.Impediment;
 import de.schildbach.wallet.ui.WalletActivity;
 import de.schildbach.wallet.util.CrashReporter;

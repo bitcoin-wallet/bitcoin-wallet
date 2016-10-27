@@ -15,10 +15,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.schildbach.wallet.ui;
+package de.schildbach.wallet.data;
 
 import de.schildbach.wallet.Configuration;
-import de.schildbach.wallet.ExchangeRatesProvider;
 
 import android.content.Context;
 import android.content.CursorLoader;
@@ -28,10 +27,10 @@ import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 /**
  * @author Andreas Schildbach
  */
-public final class ExchangeRateLoader extends CursorLoader implements OnSharedPreferenceChangeListener {
+public final class ExchangeRatesLoader extends CursorLoader implements OnSharedPreferenceChangeListener {
     private final Configuration config;
 
-    public ExchangeRateLoader(final Context context, final Configuration config) {
+    public ExchangeRatesLoader(final Context context, final Configuration config) {
         super(context, ExchangeRatesProvider.contentUri(context.getPackageName(), false), null,
                 ExchangeRatesProvider.KEY_CURRENCY_CODE, new String[] { null }, null);
 

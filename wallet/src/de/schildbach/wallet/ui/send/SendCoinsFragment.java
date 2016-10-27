@@ -60,12 +60,13 @@ import com.netki.tlsa.CACertService;
 import com.netki.tlsa.CertChainValidator;
 import com.netki.tlsa.TLSAValidator;
 
-import de.schildbach.wallet.AddressBookProvider;
 import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
-import de.schildbach.wallet.ExchangeRatesProvider;
-import de.schildbach.wallet.ExchangeRatesProvider.ExchangeRate;
 import de.schildbach.wallet.WalletApplication;
+import de.schildbach.wallet.data.AddressBookProvider;
+import de.schildbach.wallet.data.ExchangeRatesLoader;
+import de.schildbach.wallet.data.ExchangeRatesProvider;
+import de.schildbach.wallet.data.ExchangeRatesProvider.ExchangeRate;
 import de.schildbach.wallet.data.PaymentIntent;
 import de.schildbach.wallet.data.PaymentIntent.Standard;
 import de.schildbach.wallet.integration.android.BitcoinIntegration;
@@ -75,7 +76,6 @@ import de.schildbach.wallet.ui.AddressAndLabel;
 import de.schildbach.wallet.ui.CurrencyAmountView;
 import de.schildbach.wallet.ui.CurrencyCalculatorLink;
 import de.schildbach.wallet.ui.DialogBuilder;
-import de.schildbach.wallet.ui.ExchangeRateLoader;
 import de.schildbach.wallet.ui.InputParser.BinaryInputParser;
 import de.schildbach.wallet.ui.InputParser.StreamInputParser;
 import de.schildbach.wallet.ui.InputParser.StringInputParser;
@@ -344,7 +344,7 @@ public final class SendCoinsFragment extends Fragment {
     private final LoaderCallbacks<Cursor> rateLoaderCallbacks = new LoaderManager.LoaderCallbacks<Cursor>() {
         @Override
         public Loader<Cursor> onCreateLoader(final int id, final Bundle args) {
-            return new ExchangeRateLoader(activity, config);
+            return new ExchangeRatesLoader(activity, config);
         }
 
         @Override

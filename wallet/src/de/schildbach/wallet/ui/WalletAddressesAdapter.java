@@ -25,8 +25,8 @@ import org.bitcoinj.core.Address;
 import org.bitcoinj.core.ECKey;
 import org.bitcoinj.wallet.Wallet;
 
-import de.schildbach.wallet.AddressBookProvider;
 import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.data.AddressBookProvider;
 import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
 

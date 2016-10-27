@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.schildbach.wallet;
+package de.schildbach.wallet.data;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -42,6 +42,9 @@ import com.squareup.okhttp.Call;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 
+import de.schildbach.wallet.Configuration;
+import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.util.GenericUtils;
 
 import android.content.ContentProvider;

@@ -38,8 +38,8 @@ import org.bitcoinj.utils.MonetaryFormat;
 import org.bitcoinj.wallet.DefaultCoinSelector;
 import org.bitcoinj.wallet.Wallet;
 
-import de.schildbach.wallet.AddressBookProvider;
 import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.data.AddressBookProvider;
 import de.schildbach.wallet.util.CircularProgressView;
 import de.schildbach.wallet.util.Formats;
 import de.schildbach.wallet.util.WalletUtils;
