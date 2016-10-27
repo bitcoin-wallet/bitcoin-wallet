@@ -25,6 +25,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.squareup.okhttp.Call;
+import com.squareup.okhttp.HttpUrl;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 
@@ -34,20 +35,20 @@ import de.schildbach.wallet.Constants;
  * @author Andreas Schildbach
  */
 public abstract class HttpGetThread extends Thread {
-    private final String url;
+    private final HttpUrl url;
     @Nullable
     private final String userAgent;
 
     private static final Logger log = LoggerFactory.getLogger(HttpGetThread.class);
 
-    public HttpGetThread(final String url, @Nullable final String userAgent) {
+    public HttpGetThread(final HttpUrl url, @Nullable final String userAgent) {
         this.url = url;
         this.userAgent = userAgent;
     }
 
     @Override
     public void run() {
-        log.debug("querying \"" + url + "\"...");
+        log.debug("querying \"{}\"...", url);
 
         final Request.Builder request = new Request.Builder();
         request.url(url);

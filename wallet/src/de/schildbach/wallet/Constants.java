@@ -27,6 +27,7 @@ import org.bitcoinj.params.TestNet3Params;
 import org.bitcoinj.utils.MonetaryFormat;
 
 import com.google.common.io.BaseEncoding;
+import com.squareup.okhttp.HttpUrl;
 import com.squareup.okhttp.OkHttpClient;
 
 import de.schildbach.wallet_test.R;
@@ -86,10 +87,10 @@ public final class Constants {
     /** Maximum size of backups. Files larger will be rejected. */
     public static final long BACKUP_MAX_CHARS = 10000000;
 
-    private static final String BITEASY_API_URL_PROD = "https://api.biteasy.com/v2/btc/mainnet/";
-    private static final String BITEASY_API_URL_TEST = "https://api.biteasy.com/v2/btc/testnet/";
+    private static final HttpUrl BITEASY_API_URL_PROD = HttpUrl.parse("https://api.biteasy.com/v2/btc/mainnet/");
+    private static final HttpUrl BITEASY_API_URL_TEST = HttpUrl.parse("https://api.biteasy.com/v2/btc/testnet/");
     /** Base URL for blockchain API. */
-    public static final String BITEASY_API_URL = NETWORK_PARAMETERS.getId().equals(NetworkParameters.ID_MAINNET)
+    public static final HttpUrl BITEASY_API_URL = NETWORK_PARAMETERS.getId().equals(NetworkParameters.ID_MAINNET)
             ? BITEASY_API_URL_PROD : BITEASY_API_URL_TEST;
 
     /** Currency code for the wallet name resolver. */
@@ -97,7 +98,7 @@ public final class Constants {
             .equals(NetworkParameters.ID_MAINNET) ? "btc" : "tbtc";
 
     /** URL to fetch version alerts from. */
-    public static final String VERSION_URL = "https://wallet.schildbach.de/version";
+    public static final HttpUrl VERSION_URL = HttpUrl.parse("https://wallet.schildbach.de/version");
 
     /** MIME type used for transmitting single transactions. */
     public static final String MIMETYPE_TRANSACTION = "application/x-btctx";

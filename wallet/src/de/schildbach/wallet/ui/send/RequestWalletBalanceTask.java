@@ -85,7 +85,7 @@ public final class RequestWalletBalanceTask {
             public void run() {
                 org.bitcoinj.core.Context.propagate(Constants.CONTEXT);
 
-                final HttpUrl.Builder url = HttpUrl.parse(Constants.BITEASY_API_URL).newBuilder();
+                final HttpUrl.Builder url = Constants.BITEASY_API_URL.newBuilder();
                 url.addPathSegment("outputs");
                 url.addQueryParameter("per_page", "MAX");
                 url.addQueryParameter("operator", "AND");

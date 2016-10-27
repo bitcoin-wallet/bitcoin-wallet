@@ -17,8 +17,6 @@
 
 package de.schildbach.wallet.data;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.Currency;
 import java.util.Iterator;
 import java.util.Locale;
@@ -37,6 +35,7 @@ import org.slf4j.LoggerFactory;
 import com.google.common.base.Stopwatch;
 import com.google.common.base.Strings;
 import com.squareup.okhttp.Call;
+import com.squareup.okhttp.HttpUrl;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 
@@ -74,17 +73,9 @@ public class ExchangeRatesProvider extends ContentProvider {
     private Map<String, ExchangeRate> exchangeRates = null;
     private long lastUpdated = 0;
 
-    private static final URL BITCOINAVERAGE_URL;
+    private static final HttpUrl BITCOINAVERAGE_URL = HttpUrl.parse("https://api.bitcoinaverage.com/custom/abw");
     private static final String[] BITCOINAVERAGE_FIELDS = new String[] { "24h_avg", "last" };
     private static final String BITCOINAVERAGE_SOURCE = "BitcoinAverage.com";
-
-    static {
-        try {
-            BITCOINAVERAGE_URL = new URL("https://api.bitcoinaverage.com/custom/abw");
-        } catch (final MalformedURLException x) {
-            throw new RuntimeException(x); // cannot happen
-        }
-    }
 
     private static final long UPDATE_FREQ_MS = 10 * DateUtils.MINUTE_IN_MILLIS;
 
@@ -231,7 +222,7 @@ public class ExchangeRatesProvider extends ContentProvider {
         throw new UnsupportedOperationException();
     }
 
-    private static Map<String, ExchangeRate> requestExchangeRates(final URL url, final String userAgent,
+    private static Map<String, ExchangeRate> requestExchangeRates(final HttpUrl url, final String userAgent,
             final String source, final String... fields) {
         final Stopwatch watch = Stopwatch.createStarted();
 

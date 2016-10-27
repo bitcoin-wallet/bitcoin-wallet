@@ -39,6 +39,7 @@ import org.bitcoinj.wallet.Wallet;
 import org.bitcoinj.wallet.Wallet.BalanceType;
 
 import com.google.common.base.Charsets;
+import com.squareup.okhttp.HttpUrl;
 
 import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
@@ -550,11 +551,14 @@ public final class WalletActivity extends AbstractWalletActivity
     private void checkAlerts() {
         final PackageInfo packageInfo = getWalletApplication().packageInfo();
         final int versionNameSplit = packageInfo.versionName.indexOf('-');
-        final String base = Constants.VERSION_URL
-                + (versionNameSplit >= 0 ? packageInfo.versionName.substring(versionNameSplit) : "");
-        final String url = base + "?package=" + packageInfo.packageName + "&current=" + packageInfo.versionCode;
+        final HttpUrl.Builder url = HttpUrl
+                .parse(Constants.VERSION_URL
+                        + (versionNameSplit >= 0 ? packageInfo.versionName.substring(versionNameSplit) : ""))
+                .newBuilder();
+        url.addEncodedQueryParameter("package", packageInfo.packageName);
+        url.addQueryParameter("current", Integer.toString(packageInfo.versionCode));
 
-        new HttpGetThread(url, application.httpUserAgent()) {
+        new HttpGetThread(url.build(), application.httpUserAgent()) {
             @Override
             protected void handleLine(final String line, final long serverTime) {
                 final int serverVersionCode = Integer.parseInt(line.split("\\s+")[0]);
@@ -601,7 +605,7 @@ public final class WalletActivity extends AbstractWalletActivity
                     // swallow
                     log.debug("problem reading", x);
                 } else {
-                    CrashReporter.saveBackgroundTrace(new RuntimeException(url, x), packageInfo);
+                    CrashReporter.saveBackgroundTrace(new RuntimeException(url.toString(), x), packageInfo);
                 }
             }
         }.start();
