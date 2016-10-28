@@ -63,13 +63,9 @@ Get the Android SDK (Tools only) from
 and unpack it to your workspace directory. Point your ANDROID_HOME variable to the unpacked Android SDK directory
 and switch to it. Use
 
-    # make sure tools are at the newest version
-    tools/android update sdk --no-ui --force --filter tools
+    tools/android update sdk --no-ui --force --all --filter tool,platform-tool,build-tools-24.0.3,android-15,android-23,extra-android-m2repository
 
-    # fetch required android dependencies
-    tools/android update sdk --no-ui --force --all --filter build-tools-24.0.3,android-15,android-23,extra-android-m2repository
-
-to download the necessary API level.
+to download and install the required Android dependencies.
 
 Get the Android NDK from
 
