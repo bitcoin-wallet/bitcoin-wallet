@@ -31,7 +31,7 @@ ext {
 
 android {
     compileSdkVersion 'android-23'
-    buildToolsVersion '24'
+    buildToolsVersion '24.0.3'
 
     lintOptions {
         abortOnError false
