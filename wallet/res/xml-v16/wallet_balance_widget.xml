@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
-    android:initialLayout="@layout/wallet_balance_widget_content"
-    android:minHeight="60dp"
-    android:minResizeWidth="132dp"
-    android:minWidth="294dp"
-    android:previewImage="@drawable/widget_preview"
-    android:resizeMode="horizontal"
-    android:updatePeriodMillis="1800000" />
