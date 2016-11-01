@@ -12,6 +12,7 @@
         <item name="android:autoCompleteTextViewStyle">@style/My.Widget.AutoCompleteTextView</item>
         <item name="android:checkboxStyle">@style/My.Widget.CompoundButton.CheckBox</item>
         <item name="android:spinnerStyle">@style/My.Widget.Spinner</item>
+        <item name="android:popupMenuStyle">@style/My.Widget.PopupMenu</item>
     </style>
 
     <style name="My.Theme.ChildActivity" parent="@style/My.Theme">
@@ -114,5 +115,7 @@
         <item name="android:textColor">@color/fg_significant</item>
         <item name="android:textSize">@dimen/font_size_normal</item>
     </style>
+
+    <style name="My.Widget.PopupMenu" parent="@android:style/Widget.Holo.Light.PopupMenu" />
 
 </resources>
