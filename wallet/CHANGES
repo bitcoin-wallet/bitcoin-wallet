@@ -1,3 +1,7 @@
+v5.03
+
+* Work around broken exchange rate.
+
 v5.02
 
 * Dynamic network fee. This will help dealing with an overloaded Bitcoin network.
