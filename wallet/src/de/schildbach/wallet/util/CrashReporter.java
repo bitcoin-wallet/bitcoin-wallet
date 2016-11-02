@@ -57,6 +57,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.os.Build;
+import android.support.v4.app.ActivityManagerCompat;
 
 /**
  * @author Andreas Schildbach
@@ -154,18 +155,10 @@ public class CrashReporter {
                 + (config.screenLayout & android.content.res.Configuration.SCREENLAYOUT_SIZE_MASK) + " long "
                 + (config.screenLayout & android.content.res.Configuration.SCREENLAYOUT_LONG_MASK) + "\n");
         report.append("Display Metrics: " + res.getDisplayMetrics() + "\n");
-        report.append(
-                "Memory Class: " + activityManager.getMemoryClass() + "/" + largeMemoryClass(activityManager) + "\n");
+        report.append("Memory Class: " + activityManager.getMemoryClass() + "/" + activityManager.getLargeMemoryClass()
+                + (ActivityManagerCompat.isLowRamDevice(activityManager) ? " (low RAM device)" : "") + "\n");
         report.append("Storage Encryption Status: " + devicePolicyManager.getStorageEncryptionStatus() + "\n");
         report.append("Bluetooth MAC: " + bluetoothMac() + "\n");
-    }
-
-    private static int largeMemoryClass(final ActivityManager activityManager) {
-        try {
-            return (Integer) ActivityManager.class.getMethod("getLargeMemoryClass").invoke(activityManager);
-        } catch (final Exception x) {
-            throw new RuntimeException(x);
-        }
     }
 
     private static String bluetoothMac() {
