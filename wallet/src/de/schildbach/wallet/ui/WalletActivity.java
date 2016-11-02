@@ -60,6 +60,7 @@ import de.schildbach.wallet_test.R;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -78,6 +79,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityManagerCompat;
 import android.support.v4.content.ContextCompat;
 import android.text.format.DateUtils;
 import android.view.Menu;
@@ -104,6 +106,7 @@ public final class WalletActivity extends AbstractWalletActivity
     private WalletApplication application;
     private Configuration config;
     private Wallet wallet;
+    private ActivityManager activityManager;
 
     private Handler handler = new Handler();
 
@@ -118,6 +121,7 @@ public final class WalletActivity extends AbstractWalletActivity
         application = getWalletApplication();
         config = application.getConfiguration();
         wallet = application.getWallet();
+        activityManager = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
 
         setContentView(R.layout.wallet_content);
 
@@ -248,8 +252,10 @@ public final class WalletActivity extends AbstractWalletActivity
                         || Environment.MEDIA_MOUNTED_READ_ONLY.equals(externalStorageState));
         menu.findItem(R.id.wallet_options_backup_wallet)
                 .setEnabled(Environment.MEDIA_MOUNTED.equals(externalStorageState));
-        menu.findItem(R.id.wallet_options_encrypt_keys).setTitle(wallet.isEncrypted()
-                ? R.string.wallet_options_encrypt_keys_change : R.string.wallet_options_encrypt_keys_set);
+        final MenuItem encryptKeysOption = menu.findItem(R.id.wallet_options_encrypt_keys);
+        encryptKeysOption.setVisible(wallet.isEncrypted() || !ActivityManagerCompat.isLowRamDevice(activityManager));
+        encryptKeysOption.setTitle(wallet.isEncrypted() ? R.string.wallet_options_encrypt_keys_change
+                : R.string.wallet_options_encrypt_keys_set);
 
         return true;
     }
