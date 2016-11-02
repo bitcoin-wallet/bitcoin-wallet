@@ -241,7 +241,8 @@ public class ExchangeRatesProvider extends ContentProvider {
                 final JSONObject head = new JSONObject(content);
                 for (final Iterator<String> i = head.keys(); i.hasNext();) {
                     final String currencyCode = Strings.emptyToNull(i.next());
-                    if (currencyCode != null && !"timestamp".equals(currencyCode)
+                    if (currencyCode != null && currencyCode.length() == 3
+                            && currencyCode.equals(currencyCode.toUpperCase())
                             && !MonetaryFormat.CODE_BTC.equals(currencyCode)
                             && !MonetaryFormat.CODE_MBTC.equals(currencyCode)
                             && !MonetaryFormat.CODE_UBTC.equals(currencyCode)) {
@@ -269,7 +270,8 @@ public class ExchangeRatesProvider extends ContentProvider {
                 }
 
                 watch.stop();
-                log.info("fetched exchange rates from {}, {} chars, took {}", url, content.length(), watch);
+                log.info("fetched {} exchange rates from {}, {} chars, took {}", rates.size(), url, content.length(),
+                        watch);
 
                 return rates;
             } else {
