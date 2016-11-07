@@ -136,6 +136,8 @@ public class CrashReporter {
 
         report.append("Device Model: " + Build.MODEL + "\n");
         report.append("Android Version: " + Build.VERSION.RELEASE + "\n");
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+            report.append("Android security patch level: ").append(Build.VERSION.SECURITY_PATCH).append("\n");
         report.append("ABIs: ").append(Joiner.on(", ").skipNulls().join(Strings.emptyToNull(Build.CPU_ABI),
                 Strings.emptyToNull(Build.CPU_ABI2))).append("\n");
         report.append("Board: " + Build.BOARD + "\n");
