@@ -3,105 +3,104 @@
   <string name="help_wallet">
 <![CDATA[
 		<p>
-			Den øverste, venstre del af skærmen viser din saldo i Bitcoin og en valgt national valuta.
-			Berør skærmen for at gå til listen over nationale valutaer, og berør en af valutaerne for at vælge den som standard.
+			Den øverste venstre del af skærmen viser din saldo i bitcoin og en selvvalgt national valuta.
+			Berør dér for at få vist en liste over nationale valutaer, og berør én af disse valutaer for at vælge den som standard.
 		</p>
 		<p>
-			QR-koden til højre indeholder din bitcoin-adresse og kan scannes af en anden person.
-			Berør QR-koden for at få en større version af den.
+			QR-koden til højre indeholder din bitcoin-adresse og kan bruges af andre til skanning.
+			Berør QR-koden for at få vist en større version af den.
 		</p>
 		<p>
-			Den nederste del af skærmen viser din transaktionsliste, som er tom tilat begynde med.
-			Afventende transaktioner er grå, inden de er bekræftet.
-			Berør en transaktion i listen for at føje afsenderens eller modtagerens adresse til adressebogen.
+			Bunden af skærmen indeholder din transaktionsliste, som i begyndelsen er tom.
+			Afventende betalinger vises i grå, indtil de er bekræftede.
+			Berør en transaktion i listen for at føje afsenderen eller modtagerens adresse til adressebogen.
 		</p>
 		<p>
 			Du kan sende eller anmode om bitcoin ved at berøre knapperne i handlingsbjælken.
-			Flere muligheder er tilgængelige i opsætningsmenuen.
+			Flere indstillinger er tilgængelige i menuen Indstillinger.
 		</p>
 	]]>
-	</string>
+    </string>
   <string name="help_request_coins">
 <![CDATA[
 		<p>
-			Ved at bruge denne dialog kan du forespørge mønter fra en anden person (som allerede skal have installeret Bitcoin Wallet).
+			Ved hjælp af denne dialogskærm kan du anmode om bitcoin hos en anden person (som allerede bør have Bitcoin Wallet installeret).
 		</p>
 		<p>
-			First kan du indtaste et antal Bitcoins til forespørgslen.
+			Først kan du indtaste et beløb, du vil anmode om.
 		</p>
 		<p>
-			Bagefter får du enten QR-koden scannet af den anden person,
-			eller du kan sende din forespørgsel til en person over længere afstand med Del-knappen i action-bjælken.
-			Den anden person skal klikke på Bitcoin-URL\'en.
+			Derefter kan du enten lade den anden person skanne den genererede QR-kode, eller du kan sende din anmodning til en person længere væk ved hjælp af delingsknappen i handlingsbjælken.
+			Den anden person skal da klikke på Bitcoin-URLen.
 		</p>
 		<p>
-			Den anden person vil præsenteres for en dialog for afsendelse af mønter med alle felter forudfyldt.
-			Hvis hun accepterer, er alt hun behøver at gøre, at sende betalingen.
+			Uanset hvordan, vil den anden person få vist en skærm/vindue til afsendelse af bitcoins med alle felterne forudfyldt.
+			Hvis hun accepterer, skal hun blot afsende betalingen.
 		</p>
 	]]>
-	</string>
+    </string>
   <string name="help_send_coins">
 <![CDATA[
 		<p>
-			Du har startet processen for at sende mønter.
-			Du kom hertil enten via hovedsskærmen eller ved at klikke på en Bitcoin-URL i din molbilbrowser.
+			Du har startet handlingen, der afsender bitcoin.
+			Du ankom hertil enten via hovedskærmen eller ved at klikke på en Bitcoin-URL i din mobile browser.
 		</p>
 		<p>
-			Først skriver du den Bitcoin-adresse, du vil betale til.
-			Adressen vil autoudfyldes ud fra kendte indgange i din adressebog.
-			Du kan også scanne QR-koder med Bitcoin-adresser eller Bitcoin-forespørgsler ved at klikke på QR-knappen i action-bjælken.
+			Først indtaster du Bitcoin-adressen, der skal betales til.
+			Adressen vil automatisk skrives færdig ud fra adresser i din adressebog.
+			Du kan også skanne QR-koder med Bitcoin-adresser eller Bitcoin-anmodninger ved at klikke på QR-knappen i handlingsbjælken.
 		</p>
 		<p>
-			Dernæst kan du se, hvor mange Bitcoins du kan bruge i øjeblikket.
-			En evt. difference til saldoen fra hovedskærmen er stadig ubekræftet og kan dermed ikke bruges.
+			Derefter kan du se, hvor mange bitcoin du i øjeblikket kan bruge.
+			En eventuel forskel fra saldoen på hovedskærmen er stadig ubekræftede bitcoin, som derfor ikke kan bruges endnu.
 		</p>
 		<p>
-			Til sidst skrives beløbet, der skal betales.
+			Til sidst indtaster du det beløb, du vil betale.
 		</p>
 		<p>
-			Du kan indtaste et beløb, mens du er offline.
-			Det vil blive sendt, næste gang Bitcoin Wallet genstartes.
-			Hvis du vil have, at en betaling går igennem så hurtigt som muligt, så vær sikker på, at du er ordentligt forbundet (dvs. på et WLAN).
+			Du kan indtaste en betaling, mens du er offline.
+			Den vil blive sendt, næste gang Bitcoin Wallet genstartes.
+			Hvis du vil være sikker på, at en betaling bliver behandlet så hurtigt som muligt, så sørg for at du har en god forbindelse (dvs. på et trådløst netværk).
 		</p>
 		<p>
 			Bemærk:
-			Betalinger kan ikke fortrydes!
-			Tjek altid modtageradressen.
+			Betalinger kan ikke trækkes tilbage!
+			Kontrollér altid modtageradressen.
 		</p>
 	]]>
-	</string>
+    </string>
   <string name="help_safety">
 <![CDATA[
 		<p>
-			<b>Vigtige bemærkninger om sikkerhed:</b>
+			<b>Vigtige sikkerhedsnoter:</b>
 		</p>
 		<p>
-			Bitcoins gemmes på enheden.
-			<b>Hvis du mister den, mister du dine Bitcoins.</b>
+			Der er gemt bitcoin på enheden.
+			<b>Hvis du mister den, mister du dine bitcoin.</b>
 		</p>
 		<p>
 			Dette betyder, at du er nødt til at <b>sikkerhedskopiere din tegnebog</b>!
-			Brug funktionen for sikkerhedskopiering i appen for dette, frem for en tredjepartsapp til sikkerhedskopiering.
-			Opbevar din sikkerhedskopi sikkert og husk kodeordet.
+			Brug den indbyggede funktion til dette, ikke en sikkerhedskopieringsapp fra tredjepart.
+			Opbevar din sikkerhedskopi sikkert og glem ikke adgangskoden.
 		</p>
 		<p>
-			<b>Før afinstallering</b> (eller sletning af appdata/nulstilling af enheden til fabriksindstillinger), <b>overfør dine Bitcoins til en anden tegnebog</b>.
-			Tilbageværende Bitcoins mistes.
+			<b>Før du afinstallerer app\'en</b> (eller sletter app\'ens data/nulstiller din enhed), <b>skal du overføre dine bitcoin til en anden tegnebog</b>.
+			Tilbageværende bitcoin vil gå tabt.
 		</p>
 		<p>
-			<b>Betalinger kan ikke fortrydes</b>.
-			Hvis du sender dine Bitcoins ud i det blå, er der stort set ingen måde at få dem tilbage.
+			<b>Betalinger kan ikke trækkes tilbage</b>.
+			Hvis du sender dine bitcoin ud i \"intetheden\", er der stort set ingen måde at få dem tilbage.
 		</p>
 		<p>
 			<b>Opbevar din mobile enhed sikkert!</b>
-			Udfør ikke root på enheden.
-			Installér kun apps, du stoler fuldstændigt på.
-			Ondsindede apps kan være ude på at stjæle din tegnebog.
+			Lad være med at root\'e din enhed.
+			Installér kun apps, du stoler fuldt ud på.
+			Ondsindede apps kan potentielt prøve at stjæle din tegnebog.
 		</p>
 		<p>
 			Hold risikoen lav!
-			<b>Brug kun med små beløb</b> til daglig brug.
+			<b>Brug kun til små beløb</b> til daglig brug.
 		</p>
 	]]>
-	</string>
+    </string>
 </resources>
