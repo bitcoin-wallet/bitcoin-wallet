@@ -285,8 +285,10 @@
   <string name="about_copyright_title">著作權</string>
   <string name="about_license_title">授權</string>
   <string name="about_source_title">程式碼</string>
-  <string name="about_credits_bitcoinj_title">此應用程式使用 bitcoinj %s</string>
-  <string name="about_credits_zxing_title">此應用程式使用 ZXing</string>
+  <string name="about_category_credits">這個應用程式使用了...</string>
+  <string name="about_credits_bitcoinj_title">bitcoinj %s, 一個 Bitcoin 通訊協定的實作</string>
+  <string name="about_credits_zxing_title">ZXing, 一個處理 QR 代碼的程式庫</string>
+  <string name="about_credits_scrypt_title">Scrypt 演算法, Will Glozer 與 Colin Percival 的實作</string>
   <string name="about_community_googleplus_title">Google+ 社群</string>
   <string name="about_community_googleplus_summary">討論此應用程式</string>
   <string name="about_market_app_title">Google Play 商店頁面</string>
@@ -298,6 +300,7 @@
   <string name="notification_inactivity_message_donate">如果你不在意這些錢的話，也可以捐獻給 Bitcoin Wallet 專案。</string>
   <string name="notification_inactivity_action_dismiss">以後再提醒我</string>
   <string name="notification_inactivity_action_dismiss_forever">別再提醒我</string>
+  <string name="appwidget_wallet_balance_title">Bitcoin 餘額</string>
   <!--generic buttons-->
   <string name="button_ok">OK</string>
   <string name="button_dismiss">取消</string>
