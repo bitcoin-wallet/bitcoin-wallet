@@ -1,3 +1,9 @@
+v5.04
+
+* Switch exchange rates feed to BitcoinAverage API v2.
+* Update translations from Transifex.
+* Minor bugfix.
+
 v5.03
 
 * Work around broken exchange rate.
