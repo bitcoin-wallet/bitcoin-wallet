@@ -25,10 +25,13 @@ import org.bitcoinj.core.NetworkParameters;
 import org.bitcoinj.params.MainNetParams;
 import org.bitcoinj.params.TestNet3Params;
 import org.bitcoinj.utils.MonetaryFormat;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.google.common.io.BaseEncoding;
 import com.squareup.okhttp.HttpUrl;
 import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.logging.HttpLoggingInterceptor;
 
 import de.schildbach.wallet_test.R;
 
@@ -183,5 +186,17 @@ public final class Constants {
         HTTP_CLIENT.setConnectTimeout(15, TimeUnit.SECONDS);
         HTTP_CLIENT.setWriteTimeout(15, TimeUnit.SECONDS);
         HTTP_CLIENT.setReadTimeout(15, TimeUnit.SECONDS);
+
+        final HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor(
+                new HttpLoggingInterceptor.Logger() {
+                    @Override
+                    public void log(final String message) {
+                        log.debug(message);
+                    }
+                });
+        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BASIC);
+        HTTP_CLIENT.interceptors().add(loggingInterceptor);
     }
+
+    private static final Logger log = LoggerFactory.getLogger(Constants.class);
 }
