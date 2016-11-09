@@ -97,6 +97,8 @@
     <string name="send_coins_options_empty">Wallet entleeren</string>
     <string name="raise_fee_dialog_title">Netzwerk-Gebühr erhöhen</string>
     <string name="raise_fee_dialog_message">Willst du die Netzwerk-Gebühr für diese Zahlung um %s anheben? Das beschleunigt die Bestätigung der Zahlung.</string>
+    <string name="raise_fee_dialog_determining_fee">Ermittle Netzwerk-Gebühr…</string>
+    <string name="raise_fee_dialog_cant_raise">Die Netzwerk-Gebühr für diese Zahlung kann nicht angehoben werden.</string>
     <string name="raise_fee_dialog_state_decrypting">Entschlüsselung…</string>
     <string name="raise_fee_dialog_state_done">Fertig.</string>
     <string name="raise_fee_dialog_button_raise">Erhöhen</string>

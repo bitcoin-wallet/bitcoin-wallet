@@ -94,7 +94,9 @@
     <string name="send_coins_options_fee_category_priority">Priority</string>
     <string name="send_coins_options_empty">Empty wallet</string>
     <string name="raise_fee_dialog_title">Raise network fee</string>
-    <string name="raise_fee_dialog_message">Do you want to raise the fee of this payment by %s? It will make the payment confirm quicker.</string>
+    <string name="raise_fee_dialog_message">Do you want to raise the network fee of this payment by %s? It will make the payment confirm quicker.</string>
+    <string name="raise_fee_dialog_determining_fee">Determining network fee…</string>
+    <string name="raise_fee_dialog_cant_raise">The network fee of this payment can\'t be raised.</string>
     <string name="raise_fee_dialog_state_decrypting">Decrypting…</string>
     <string name="raise_fee_dialog_state_done">Done.</string>
     <string name="raise_fee_dialog_button_raise">Raise</string>
