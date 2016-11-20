@@ -23,14 +23,16 @@
                 android:layout_width="0px"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:tag="slide_in_left" />
 
             <fragment
                 android:id="@+id/wallet_address_fragment"
                 android:name="de.schildbach.wallet.ui.WalletAddressFragment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp" />
+                android:layout_margin="8dp"
+                android:tag="slide_in_right" />
         </LinearLayout>
 
         <FrameLayout
@@ -46,7 +48,8 @@
                 android:name="de.schildbach.wallet.ui.WalletTransactionsFragment"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_gravity="bottom|center_horizontal" />
+                android:layout_gravity="bottom|center_horizontal"
+                android:tag="slide_in_bottom" />
         </FrameLayout>
     </LinearLayout>
 

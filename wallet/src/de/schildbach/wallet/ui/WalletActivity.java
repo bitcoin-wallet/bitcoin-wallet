@@ -86,6 +86,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -125,8 +126,23 @@ public final class WalletActivity extends AbstractWalletActivity
 
         setContentView(R.layout.wallet_content);
 
-        if (savedInstanceState == null)
+        if (savedInstanceState == null) {
+            final View contentView = findViewById(android.R.id.content);
+            final View slideInLeftView = contentView.findViewWithTag("slide_in_left");
+            if (slideInLeftView != null)
+                slideInLeftView.startAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_in_left));
+            final View slideInRightView = contentView.findViewWithTag("slide_in_right");
+            if (slideInRightView != null)
+                slideInRightView.startAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_in_right));
+            final View slideInTopView = contentView.findViewWithTag("slide_in_top");
+            if (slideInTopView != null)
+                slideInTopView.startAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_in_top));
+            final View slideInBottomView = contentView.findViewWithTag("slide_in_bottom");
+            if (slideInBottomView != null)
+                slideInBottomView.startAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_in_bottom));
+
             checkAlerts();
+        }
 
         config.touchLastUsed();
 
