@@ -63,6 +63,7 @@ import android.view.KeyEvent;
 import android.view.Surface;
 import android.view.TextureView;
 import android.view.TextureView.SurfaceTextureListener;
+import android.view.View;
 import android.view.WindowManager;
 
 /**
@@ -184,8 +185,9 @@ public final class ScanActivity extends Activity
 
     @Override
     public void onBackPressed() {
+        scannerView.setVisibility(View.GONE);
         setResult(RESULT_CANCELED);
-        finish();
+        postFinish();
     }
 
     @Override
@@ -217,14 +219,16 @@ public final class ScanActivity extends Activity
         final Intent result = new Intent();
         result.putExtra(INTENT_EXTRA_RESULT, scanResult.getText());
         setResult(RESULT_OK, result);
+        postFinish();
+    }
 
-        // delayed finish
-        new Handler().post(new Runnable() {
+    private void postFinish() {
+        new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 finish();
             }
-        });
+        }, 50);
     }
 
     private final Runnable openRunnable = new Runnable() {
