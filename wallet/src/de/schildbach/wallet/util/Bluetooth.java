@@ -17,6 +17,7 @@
 
 package de.schildbach.wallet.util;
 
+import java.lang.reflect.Field;
 import java.util.UUID;
 
 import android.bluetooth.BluetoothAdapter;
@@ -42,13 +43,31 @@ public class Bluetooth {
     public static boolean canListen(final BluetoothAdapter adapter) {
         if (adapter == null)
             return false;
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR2) // earlier versions cannot reliably
-                                                                        // listen
-            return false;
-        final String address = adapter.getAddress();
-        if (address == null || MARSHMELLOW_FAKE_MAC.equals(address))
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR2)
+            // Earlier versions cannot reliably listen.
             return false;
         return true;
+    }
+
+    public static String getAddress(final BluetoothAdapter adapter) {
+        if (adapter == null)
+            return null;
+
+        final String address = adapter.getAddress();
+        if (!MARSHMELLOW_FAKE_MAC.equals(address))
+            return address;
+
+        // Horrible reflection hack needed to get the Bluetooth MAC for Marshmellow and above.
+        try {
+            final Field mServiceField = BluetoothAdapter.class.getDeclaredField("mService");
+            mServiceField.setAccessible(true);
+            final Object mService = mServiceField.get(adapter);
+            if (mService == null)
+                return null;
+            return (String) mService.getClass().getMethod("getAddress").invoke(mService);
+        } catch (final ReflectiveOperationException x) {
+            throw new RuntimeException(x);
+        }
     }
 
     public static String compressMac(final String mac) {

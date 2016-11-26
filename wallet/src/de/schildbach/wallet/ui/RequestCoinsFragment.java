@@ -301,7 +301,7 @@ public final class RequestCoinsFragment extends Fragment implements NfcAdapter.C
     }
 
     private void startBluetoothListening() {
-        bluetoothMac = Bluetooth.compressMac(bluetoothAdapter.getAddress());
+        bluetoothMac = Bluetooth.compressMac(Bluetooth.getAddress(bluetoothAdapter));
 
         bluetoothServiceIntent = new Intent(activity, AcceptBluetoothService.class);
         activity.startService(bluetoothServiceIntent);

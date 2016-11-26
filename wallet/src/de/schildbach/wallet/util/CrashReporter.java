@@ -165,10 +165,7 @@ public class CrashReporter {
 
     private static String bluetoothMac() {
         try {
-            final BluetoothAdapter adapter = BluetoothAdapter.getDefaultAdapter();
-            if (adapter == null)
-                return null;
-            return adapter.getAddress();
+            return Bluetooth.getAddress(BluetoothAdapter.getDefaultAdapter());
         } catch (final Exception x) {
             return x.getMessage();
         }
