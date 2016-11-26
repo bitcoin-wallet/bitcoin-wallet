@@ -1,3 +1,9 @@
+v5.05
+
+* For Android 6.0 (Marshmellow) and above, bring back the ability to receive payments via
+  Bluetooth. This means your customers can pay without being connected to the internet!
+* Nicely animated appearance of main screen on phones.
+
 v5.04
 
 * Switch exchange rates feed to BitcoinAverage API v2.
