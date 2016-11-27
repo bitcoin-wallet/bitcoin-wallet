@@ -65,7 +65,7 @@ public class Bluetooth {
             if (mService == null)
                 return null;
             return (String) mService.getClass().getMethod("getAddress").invoke(mService);
-        } catch (final ReflectiveOperationException x) {
+        } catch (final Exception x) {
             throw new RuntimeException(x);
         }
     }
