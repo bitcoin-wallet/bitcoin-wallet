@@ -10,6 +10,7 @@
     <color name="fg_error">#ffff0000</color>
     <color name="fg_network_significant">#ffffffff</color>
     <color name="fg_network_insignificant">#ffa0a0a0</color>
+    <color name="fg_shortcut">#ffa0a0a0</color>
 
     <!-- background -->
     <color name="bg_bright">#ffffffff</color>
@@ -20,6 +21,7 @@
     <color name="bg_list">#40ffffff</color>
     <color name="bg_list_selected">#40808090</color>
     <color name="bg_dialog_title">@android:color/transparent</color>
+    <color name="bg_shortcut">#fff5f5f5</color>
 
     <!-- password strength -->
     <color name="fg_password_strength_weak">#ff0000</color>

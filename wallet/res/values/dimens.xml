@@ -23,5 +23,8 @@
     <dimen name="bitmap_dialog_qr_size">224dp</dimen>
     <dimen name="scan_laser_width">4dp</dimen>
     <dimen name="scan_dot_size">8dp</dimen>
+    <dimen name="shortcut_padding">2dp</dimen>
+    <dimen name="shortcut_size">48dp</dimen>
+    <dimen name="shortcut_icon_size">32dp</dimen>
 
 </resources>
