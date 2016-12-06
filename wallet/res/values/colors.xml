@@ -10,7 +10,7 @@
     <color name="fg_error">#ffff0000</color>
     <color name="fg_network_significant">#ffffc890</color>
     <color name="fg_network_insignificant">#ffdfa870</color>
-    <color name="fg_shortcut">#ffa0a0a0</color>
+    <color name="fg_shortcut">#ffddaa77</color>
 
     <!-- background -->
     <color name="bg_level3">#ffffffff</color>
