@@ -17,6 +17,7 @@
 
 package de.schildbach.wallet.ui;
 
+import de.schildbach.wallet.util.CheatSheet;
 import de.schildbach.wallet_test.R;
 
 import android.app.Activity;
@@ -70,6 +71,7 @@ public final class WalletActionsFragment extends Fragment {
                 activity.handleScan();
             }
         });
+        CheatSheet.setup(sendQrButton);
 
         return view;
     }
