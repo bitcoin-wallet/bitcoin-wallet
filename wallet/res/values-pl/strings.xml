@@ -20,7 +20,6 @@
 	<string name="exchange_rates_fragment_rate">kurs</string>
 	<string name="exchange_rates_fragment_balance">saldo</string>
 	<string name="exchange_rates_fragment_source">Cena pobrana z %s</string>
-	<string name="exchange_rates_context_set_as_default_title">Ustaw jako domyślną obcą walutę</string>
 	<string name="wallet_transactions_options_filter_received">Otrzymane</string>
 	<string name="wallet_transactions_options_filter_all">Wszystkie</string>
 	<string name="wallet_transactions_options_filter_sent">Wysłane</string>

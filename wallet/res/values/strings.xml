@@ -24,7 +24,6 @@
     <string name="exchange_rates_fragment_balance">balance</string>
     <string name="exchange_rates_fragment_source">Price from %s</string>
     <string name="exchange_rates_options_search">Search exchange rate</string>
-    <string name="exchange_rates_context_set_as_default_title">Set as default foreign currency</string>
     <string name="wallet_transactions_fragment_empty_text_received">No Bitcoins received so far.</string>
     <string name="wallet_transactions_fragment_empty_text_sent">No Bitcoins sent so far.</string>
     <string name="wallet_transactions_fragment_empty_text_howto">How to get Bitcoins?\n\nTrade for traditional money,\nsell goods or services or\nearn by working.</string>

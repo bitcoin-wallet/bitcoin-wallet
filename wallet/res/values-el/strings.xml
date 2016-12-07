@@ -22,7 +22,6 @@
   <string name="exchange_rates_fragment_balance">υπόλοιπο</string>
   <string name="exchange_rates_fragment_source">Τιμή από %s</string>
   <string name="exchange_rates_options_search">Αναζήτηση ισοτιμίας</string>
-  <string name="exchange_rates_context_set_as_default_title">Ορισμός ως προεπιλεγμένο νόμισμα ισοτιμίας</string>
   <string name="wallet_transactions_fragment_empty_text_received">Δεν έχουν ληφθεί Bitcoin μέχρι στιγμής.</string>
   <string name="wallet_transactions_fragment_empty_text_sent">Δεν έχουν σταλεί Bitcoin μέχρι στιγμής.</string>
   <string name="wallet_transactions_fragment_empty_text_howto">Πως να λάβετε Bitcoin;\n\nΑνταλλάξτε με πραγματικά χρήματα,\nπουλήστε αγαθά ή υπηρεσίες, ή\nκερδίστε τα με την εργασία σας.</string>

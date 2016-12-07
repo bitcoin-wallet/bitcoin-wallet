@@ -21,7 +21,6 @@
   <string name="exchange_rates_fragment_balance">stanje</string>
   <string name="exchange_rates_fragment_source">Vir cene: %s</string>
   <string name="exchange_rates_options_search">Poišči menjalni tečaj</string>
-  <string name="exchange_rates_context_set_as_default_title">Nastavi kot privzeto tujo valuto</string>
   <string name="wallet_transactions_fragment_empty_text_received">Prejeli niste še nobenih novcev.</string>
   <string name="wallet_transactions_fragment_empty_text_sent">Poslali niste še nobenih novcev.</string>
   <string name="wallet_transactions_fragment_empty_text_howto">Kako dobim bitcoine?\n\nLahko jih kupite,\nprodate kaj za bitcoin\nali pa zaslužite z delom.</string>

@@ -20,7 +20,6 @@
 	<string name="exchange_rates_fragment_rate">שער</string>
 	<string name="exchange_rates_fragment_balance">מאזן</string>
 	<string name="exchange_rates_fragment_source">המחיר נתקבל מ: %s</string>
-	<string name="exchange_rates_context_set_as_default_title">שמור כמטבע ברירת מחדל</string>
 	<string name="wallet_transactions_options_filter_received">נתקבל</string>
 	<string name="wallet_transactions_options_filter_all">נשלח/נתקבל</string>
 	<string name="wallet_transactions_options_filter_sent">נשלח</string>

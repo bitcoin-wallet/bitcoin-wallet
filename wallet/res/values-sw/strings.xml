@@ -22,7 +22,6 @@
   <string name="exchange_rates_fragment_balance">mizani</string>
   <string name="exchange_rates_fragment_source">Bei kutoka %s</string>
   <string name="exchange_rates_options_search">Kupata viwango vya soko</string>
-  <string name="exchange_rates_context_set_as_default_title">Chagua pesa kigeni ya kawaida</string>
   <string name="wallet_transactions_options_filter_received">Kupokea</string>
   <string name="wallet_transactions_options_filter_all">Wote</string>
   <string name="wallet_transactions_options_filter_sent">Alimtuma</string>

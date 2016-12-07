@@ -23,7 +23,6 @@
   <string name="exchange_rates_fragment_balance">bakiye</string>
   <string name="exchange_rates_fragment_source">%s unsurundan fiyat</string>
   <string name="exchange_rates_options_search">Değişim kuru ara</string>
-  <string name="exchange_rates_context_set_as_default_title">Varsayılan döviz olarak ayarla</string>
   <string name="wallet_transactions_fragment_empty_text_received">Şimdiye kadar hiçbir Bitcoin alınmadı</string>
   <string name="wallet_transactions_fragment_empty_text_sent">Şimdiye kadar hiçbir Bitcoin gönderilmedi</string>
   <string name="wallet_transactions_fragment_empty_text_howto">Nasıl Bitcoin elde edilir?\n\nGeleneksel para ile satın alabilir,\nhizmet veya mal satabilir ya da\nçalışarak kazanabilirsiniz.</string>

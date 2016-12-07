@@ -20,7 +20,6 @@
 	<string name="exchange_rates_fragment_rate">نسبة</string>
 	<string name="exchange_rates_fragment_balance">رصيد</string>
 	<string name="exchange_rates_fragment_source">تم جلب السعر من %s</string>
-	<string name="exchange_rates_context_set_as_default_title">تعيين كعملة أجنبية افتراضية</string>
 	<string name="wallet_transactions_options_filter_received">تم الاستلام</string>
 	<string name="wallet_transactions_options_filter_all">كلاهما</string>
 	<string name="wallet_transactions_options_filter_sent">تم الارسال</string>

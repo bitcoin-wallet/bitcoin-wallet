@@ -17,7 +17,6 @@
   <string name="exchange_rates_fragment_balance">stanje</string>
   <string name="exchange_rates_fragment_source">Cijena sa %s</string>
   <string name="exchange_rates_options_search">Traži konverzijsku stopu</string>
-  <string name="exchange_rates_context_set_as_default_title">Postavi kao zadanu stranu valutu</string>
   <string name="wallet_transactions_fragment_empty_text_received">Nema primljenih Bitcoina do sad</string>
   <string name="wallet_transactions_fragment_empty_text_sent">Nema poslanih Bitcoina do sada.</string>
   <string name="wallet_transactions_fragment_coinbase">iskopano</string>

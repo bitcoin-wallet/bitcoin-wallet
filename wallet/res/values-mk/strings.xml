@@ -20,7 +20,6 @@
 	<string name="exchange_rates_fragment_rate">курс</string>
 	<string name="exchange_rates_fragment_balance">салдо</string>
 	<string name="exchange_rates_fragment_source">Цената е преземена од %s</string>
-	<string name="exchange_rates_context_set_as_default_title">Постави како главна странска валута</string>
 	<string name="wallet_transactions_options_filter_received">Примено</string>
 	<string name="wallet_transactions_options_filter_all">Двете</string>
 	<string name="wallet_transactions_options_filter_sent">Испратено</string>

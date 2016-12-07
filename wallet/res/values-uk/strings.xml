@@ -21,7 +21,6 @@
   <string name="exchange_rates_fragment_balance">баланс</string>
   <string name="exchange_rates_fragment_source">Ціна отримана з %s</string>
   <string name="exchange_rates_options_search">Пошук обмінного курсу</string>
-  <string name="exchange_rates_context_set_as_default_title">Встановити як валюту за замовчуванням</string>
   <string name="wallet_transactions_options_filter_received">Отримано</string>
   <string name="wallet_transactions_options_filter_all">Все</string>
   <string name="wallet_transactions_options_filter_sent">Відправлено</string>

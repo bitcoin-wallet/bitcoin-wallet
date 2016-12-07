@@ -23,7 +23,6 @@
   <string name="exchange_rates_fragment_balance">egyenleg</string>
   <string name="exchange_rates_fragment_source">Ár tőle: %s</string>
   <string name="exchange_rates_options_search">Árfolyam keresése</string>
-  <string name="exchange_rates_context_set_as_default_title">Alapértelmezett külföldi pénznem beállítása</string>
   <string name="wallet_transactions_fragment_empty_text_received">Eddig nem érkezett Bitcoin.</string>
   <string name="wallet_transactions_fragment_empty_text_sent">Eddig nem lett küldve Bitcoin.</string>
   <string name="wallet_transactions_fragment_empty_text_howto">Hogyan szerezz Bitcoin-t?\n\nVásárolj hagyományos pénzért,\nadj el termékeket vagy szolgáltatásokat, vagy\nkeress munkával.</string>

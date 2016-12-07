@@ -23,7 +23,6 @@
   <string name="exchange_rates_fragment_balance">balanç</string>
   <string name="exchange_rates_fragment_source">Preu des de %s</string>
   <string name="exchange_rates_options_search">Cercar preu de canvi</string>
-  <string name="exchange_rates_context_set_as_default_title">Desar com a moneda estrangera per defecte</string>
   <string name="wallet_transactions_fragment_empty_text_received">Cap bitcoin rebut fins ara.</string>
   <string name="wallet_transactions_fragment_empty_text_sent">Cap Bitcoin enviat fins ara.</string>
   <string name="wallet_transactions_fragment_empty_text_howto">Com aconseguir bitcoins?\n\nCanvia\'ls per diner tradicional,\nven béns o serveis o bé\nguanyen treballant.</string>

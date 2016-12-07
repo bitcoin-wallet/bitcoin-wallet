@@ -23,7 +23,6 @@
   <string name="exchange_rates_fragment_balance">saldo</string>
   <string name="exchange_rates_fragment_source">Prezzo da %s</string>
   <string name="exchange_rates_options_search">Ricerca tasso di cambio</string>
-  <string name="exchange_rates_context_set_as_default_title">Imposta come valuta straniera predefinita</string>
   <string name="wallet_transactions_fragment_empty_text_received">Nessun Bitcoin ancora ricevuto</string>
   <string name="wallet_transactions_fragment_empty_text_sent">Nessun Bitcoin ancora inviato</string>
   <string name="wallet_transactions_fragment_empty_text_howto">Come ottenere Bitcoins?\n\nBarattali per soldi reali,\nvendi beni o servizi oppure\nricavali lavorando.</string>

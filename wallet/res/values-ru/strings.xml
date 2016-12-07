@@ -23,7 +23,6 @@
   <string name="exchange_rates_fragment_balance">баланс</string>
   <string name="exchange_rates_fragment_source">Цена получена с %s</string>
   <string name="exchange_rates_options_search">Поиск обменного курса</string>
-  <string name="exchange_rates_context_set_as_default_title">Установить как валюту по умолчанию</string>
   <string name="wallet_transactions_fragment_empty_text_received">Ещё не получено Bitcoin-монет</string>
   <string name="wallet_transactions_fragment_empty_text_sent">Ещё не отправлено Bitcoin-монет</string>
   <string name="wallet_transactions_fragment_empty_text_howto">Как получить монеты?\n\nОбменяйте обычные деньги,\nпродайте товары и услуги или\nзаработайте.</string>

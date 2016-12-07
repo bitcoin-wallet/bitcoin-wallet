@@ -23,7 +23,6 @@
   <string name="exchange_rates_fragment_balance">saldo</string>
   <string name="exchange_rates_fragment_source">Prijs van %s</string>
   <string name="exchange_rates_options_search">Zoek wisselkoers</string>
-  <string name="exchange_rates_context_set_as_default_title">Stel in als standaard valuta</string>
   <string name="wallet_transactions_fragment_empty_text_received">Nog geen Bitcoins ontvangen</string>
   <string name="wallet_transactions_fragment_empty_text_sent">Nog geen Bitcoins verzonden</string>
   <string name="wallet_transactions_fragment_empty_text_howto">Hoe verkrijg je bitcoins?\n\nVerhandel voor traditioneel geld,\nverkoop goederen of diensten of\nverdien ze met uw werk.</string>

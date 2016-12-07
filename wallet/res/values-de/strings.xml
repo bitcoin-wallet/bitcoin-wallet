@@ -24,7 +24,6 @@
     <string name="exchange_rates_fragment_balance">Guthaben</string>
     <string name="exchange_rates_fragment_source">Kurs von %s</string>
     <string name="exchange_rates_options_search">Wechselkurs suchen</string>
-    <string name="exchange_rates_context_set_as_default_title">Als Standard-Fremdwährung setzen</string>
     <string name="wallet_transactions_fragment_empty_text_received">Noch keine Bitcoins empfangen.</string>
     <string name="wallet_transactions_fragment_empty_text_sent">Noch keine Bitcoins gesendet.</string>
     <string name="wallet_transactions_fragment_empty_text_howto">Wie komme ich an Bitcoins?\n\nHandle gegen traditionelles Geld,\nverkaufe Güter oder Dienstleistungen oder\nverdiene durch Arbeit.</string>

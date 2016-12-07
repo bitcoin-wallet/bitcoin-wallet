@@ -23,7 +23,6 @@
   <string name="exchange_rates_fragment_balance">餘額</string>
   <string name="exchange_rates_fragment_source">報價來源 %s</string>
   <string name="exchange_rates_options_search">搜尋匯率</string>
-  <string name="exchange_rates_context_set_as_default_title">設為預設外幣</string>
   <string name="wallet_transactions_fragment_empty_text_received">還沒收過 Bitcoin。</string>
   <string name="wallet_transactions_fragment_empty_text_sent">還沒付過 Bitcoin。</string>
   <string name="wallet_transactions_fragment_empty_text_howto">如何取得 Bitcoin?\n\n可以用傳統貨幣購買、\n販賣貨物或服務、\n或是以工作賺取。</string>

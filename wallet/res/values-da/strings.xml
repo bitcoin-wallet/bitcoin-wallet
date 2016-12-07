@@ -23,7 +23,6 @@
   <string name="exchange_rates_fragment_balance">saldo</string>
   <string name="exchange_rates_fragment_source">Pris fra %s</string>
   <string name="exchange_rates_options_search">Søg iblandt vekselkurser</string>
-  <string name="exchange_rates_context_set_as_default_title">Sæt som standard for fremmed valuta</string>
   <string name="wallet_transactions_fragment_empty_text_received">Ingen Bitcoins modtaget endnu.</string>
   <string name="wallet_transactions_fragment_empty_text_sent">Ingen Bitcoins sendt endnu.</string>
   <string name="wallet_transactions_fragment_empty_text_howto">Hvordan får man Bitcoins?\n\nKøb for traditionelle penge,\nsælg varer eller ydelser eller\ntjen dem ved at arbejde.</string>

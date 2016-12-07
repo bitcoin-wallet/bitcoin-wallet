@@ -3,9 +3,6 @@
 
     <item
         android:id="@+id/exchange_rates_context_set_as_default"
-        android:icon="@drawable/ic_pin_drop_white_24dp"
-        android:showAsAction="always|withText"
-        android:title="@string/exchange_rates_context_set_as_default_title"
-        android:titleCondensed="@string/button_set_as_default"/>
+        android:title="@string/button_set_as_default"/>
 
 </menu>

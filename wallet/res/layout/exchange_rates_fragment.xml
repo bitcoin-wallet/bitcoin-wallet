@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ViewAnimator xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/exchange_rates_list_group"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="@string/exchange_rates_fragment_empty_text"
+        android:textColor="@color/fg_less_significant"
+        android:textSize="@dimen/font_size_small" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="@string/exchange_rates_fragment_empty_search"
+        android:textColor="@color/fg_less_significant"
+        android:textSize="@dimen/font_size_small" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/exchange_rates_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical" />
+
+</ViewAnimator>

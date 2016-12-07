@@ -22,7 +22,6 @@
   <string name="exchange_rates_fragment_balance">余额</string>
   <string name="exchange_rates_fragment_source">价格来自 %s</string>
   <string name="exchange_rates_options_search">搜索汇率</string>
-  <string name="exchange_rates_context_set_as_default_title">设置为默认货币</string>
   <string name="wallet_transactions_options_filter_received">收到的</string>
   <string name="wallet_transactions_options_filter_all">全部</string>
   <string name="wallet_transactions_options_filter_sent">发送的</string>

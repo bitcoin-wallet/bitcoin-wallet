@@ -23,7 +23,6 @@
   <string name="exchange_rates_fragment_balance">saldo</string>
   <string name="exchange_rates_fragment_source">Hinta paikasta %s</string>
   <string name="exchange_rates_options_search">Etsi rahanvaihtokurssi</string>
-  <string name="exchange_rates_context_set_as_default_title">Aseta oletetuksi vierasperäiseksi valuutaksi</string>
   <string name="wallet_transactions_fragment_empty_text_received">Bitcoineja ei ole vielä vastaanotettu.</string>
   <string name="wallet_transactions_fragment_empty_text_sent">Bitcoineja ei ole vielä lähetetty.</string>
   <string name="wallet_transactions_fragment_empty_text_howto">Kuinka saada Bitcoineja?\nVaihda perinteiseen rahaan,\nmyy tuotteita tai palveluita\ntai tienaa työskentelemällä.</string>

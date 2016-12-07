@@ -19,7 +19,6 @@
 	<string name="exchange_rates_fragment_rate">tỉ lệ</string>
 	<string name="exchange_rates_fragment_balance">cân bằng</string>
 	<string name="exchange_rates_fragment_source">Giá được tải về từ %s</string>
-	<string name="exchange_rates_context_set_as_default_title">Đặc làm đơn vị ngoại tệ mặc định</string>
 	<string name="wallet_transactions_options_filter_received">Đã nhận</string>
 	<string name="wallet_transactions_options_filter_all">Cả hai</string>
 	<string name="wallet_transactions_options_filter_sent">Đã gửi</string>

@@ -20,7 +20,6 @@
 	<string name="exchange_rates_fragment_rate">proporcio</string>
 	<string name="exchange_rates_fragment_balance">saldo</string>
 	<string name="exchange_rates_fragment_source">Prezo prenis de %s</string>
-	<string name="exchange_rates_context_set_as_default_title">Ŝalti kiel defaŭltan eksterlandan valuton</string>
 	<string name="wallet_transactions_options_filter_received">Ricevita</string>
 	<string name="wallet_transactions_options_filter_all">Ambaŭ</string>
 	<string name="wallet_transactions_options_filter_sent">Sendita</string>

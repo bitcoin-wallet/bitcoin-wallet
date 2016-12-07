@@ -23,7 +23,6 @@
   <string name="exchange_rates_fragment_balance">bilance</string>
   <string name="exchange_rates_fragment_source">Cena z %s</string>
   <string name="exchange_rates_options_search">Vyhledat směnný kurz</string>
-  <string name="exchange_rates_context_set_as_default_title">Nastavit jako výchozí cizí měnu</string>
   <string name="wallet_transactions_fragment_empty_text_received">Zatím nebyly žádné bitcoiny obdrženy.</string>
   <string name="wallet_transactions_fragment_empty_text_sent">Zatím nebyly žádné bitcoiny odeslány.</string>
   <string name="wallet_transactions_fragment_empty_text_howto">Jak získat Bitcoiny?\n\nSměnou za klasické peníze,\nprodejem zboží nebo služeb\nnebo vyděláním prací.</string>

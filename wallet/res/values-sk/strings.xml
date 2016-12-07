@@ -20,7 +20,6 @@
 	<string name="exchange_rates_fragment_rate">kurz</string>
 	<string name="exchange_rates_fragment_balance">zostatok</string>
 	<string name="exchange_rates_fragment_source">Cena získaná z %s</string>
-	<string name="exchange_rates_context_set_as_default_title">Nastaviť ako predvolenú cudziu menu</string>
 	<string name="wallet_transactions_options_filter_received">Prijaté</string>
 	<string name="wallet_transactions_options_filter_all">Všetky</string>
 	<string name="wallet_transactions_options_filter_sent">Odoslané</string>

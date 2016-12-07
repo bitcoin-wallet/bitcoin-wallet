@@ -23,7 +23,6 @@
   <string name="exchange_rates_fragment_balance">saldo</string>
   <string name="exchange_rates_fragment_source">Pris från %s</string>
   <string name="exchange_rates_options_search">Sök växlingskurs</string>
-  <string name="exchange_rates_context_set_as_default_title">Ange som utländsk standardvaluta</string>
   <string name="wallet_transactions_fragment_empty_text_received">Inga bitcoin har mottagits hittills</string>
   <string name="wallet_transactions_fragment_empty_text_sent">Inga bitcoin har skickats hittills</string>
   <string name="wallet_transactions_fragment_empty_text_howto">Hur får man tag i bitcoin?\n\nKöp för svenska kronor,\nsälj varor eller tjänster eller\ntjäna genom att arbeta.</string>

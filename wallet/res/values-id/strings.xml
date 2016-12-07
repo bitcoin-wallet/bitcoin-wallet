@@ -20,7 +20,6 @@
 	<string name="exchange_rates_fragment_rate">nilai</string>
 	<string name="exchange_rates_fragment_balance">saldo</string>
 	<string name="exchange_rates_fragment_source">Harga diambil dari %s</string>
-	<string name="exchange_rates_context_set_as_default_title">Tetapkan sebagai mata uang asing standar</string>
 	<string name="wallet_transactions_options_filter_received">Diterima</string>
 	<string name="wallet_transactions_options_filter_all">Keduanya</string>
 	<string name="wallet_transactions_options_filter_sent">Dikirim</string>

@@ -23,7 +23,6 @@
   <string name="exchange_rates_fragment_balance">saldo</string>
   <string name="exchange_rates_fragment_source">Preço de %s</string>
   <string name="exchange_rates_options_search">Pesquisa da taxa de câmbio</string>
-  <string name="exchange_rates_context_set_as_default_title">Definir como moeda padrão</string>
   <string name="wallet_transactions_fragment_empty_text_received">Nenhum Bitcoin recebido até o momento.</string>
   <string name="wallet_transactions_fragment_empty_text_sent">Nenhum Bitcoin enviado até o momento.</string>
   <string name="wallet_transactions_fragment_empty_text_howto">Como conseguir Bitcoins?\n\nTroque por dinheiro tradicional,\nvenda bens ou serviços ou\nganhe trabalhando.</string>
