@@ -43,7 +43,8 @@ public final class SendCoinsQrActivity extends Activity {
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        startActivityForResult(new Intent(this, ScanActivity.class), REQUEST_CODE_SCAN);
+        if (savedInstanceState == null)
+            startActivityForResult(new Intent(this, ScanActivity.class), REQUEST_CODE_SCAN);
     }
 
     @Override
