@@ -6,7 +6,7 @@
         android:shortcutShortLabel="@string/button_scan" >
         <intent
             android:action="android.intent.action.VIEW"
-            android:targetClass="de.schildbach.wallet.ui.ScanActivity"
+            android:targetClass="de.schildbach.wallet.ui.SendCoinsQrActivity"
             android:targetPackage="de.schildbach.wallet_test" />
     </shortcut>
     <shortcut
