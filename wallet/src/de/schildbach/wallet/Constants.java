@@ -169,7 +169,7 @@ public final class Constants {
     public static final boolean BUG_OPENSSL_HEARTBLEED = Build.VERSION.SDK_INT == Build.VERSION_CODES.JELLY_BEAN
             && Build.VERSION.RELEASE.startsWith("4.1.1");
 
-    public static final int MEMORY_CLASS_LOWEND = 48;
+    public static final int MEMORY_CLASS_LOWEND = 64;
 
     public static final int NOTIFICATION_ID_CONNECTED = 0;
     public static final int NOTIFICATION_ID_COINS_RECEIVED = 1;

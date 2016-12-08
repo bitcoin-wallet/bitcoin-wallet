@@ -53,6 +53,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.os.Build;
 import android.os.StrictMode;
 import android.preference.PreferenceManager;
 import android.support.v4.content.LocalBroadcastManager;
@@ -447,12 +448,15 @@ public class WalletApplication extends Application {
         return httpUserAgent(packageInfo().versionName);
     }
 
-    public int maxConnectedPeers() {
-        final int memoryClass = activityManager.getMemoryClass();
-        if (memoryClass <= Constants.MEMORY_CLASS_LOWEND)
-            return 4;
+    public boolean isLowRamDevice() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
+            return activityManager.isLowRamDevice();
         else
-            return 6;
+            return activityManager.getMemoryClass() <= Constants.MEMORY_CLASS_LOWEND;
+    }
+
+    public int maxConnectedPeers() {
+        return isLowRamDevice() ? 4 : 6;
     }
 
     public static void scheduleStartBlockchainService(final Context context) {
