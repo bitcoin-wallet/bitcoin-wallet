@@ -39,12 +39,14 @@ import android.os.Looper;
 public abstract class DeriveKeyTask {
     private final Handler backgroundHandler;
     private final Handler callbackHandler;
+    private final int scryptIterationsTarget;
 
     private static final Logger log = LoggerFactory.getLogger(DeriveKeyTask.class);
 
-    public DeriveKeyTask(final Handler backgroundHandler) {
+    public DeriveKeyTask(final Handler backgroundHandler, final int scryptIterationsTarget) {
         this.backgroundHandler = backgroundHandler;
         this.callbackHandler = new Handler(Looper.myLooper());
+        this.scryptIterationsTarget = scryptIterationsTarget;
     }
 
     public final void deriveKey(final Wallet wallet, final String password) {
@@ -64,11 +66,11 @@ public abstract class DeriveKeyTask {
                 if (keyCrypter instanceof KeyCrypterScrypt) {
                     final long scryptIterations = ((KeyCrypterScrypt) keyCrypter).getScryptParameters().getN();
 
-                    if (scryptIterations != Constants.SCRYPT_ITERATIONS_TARGET) {
+                    if (scryptIterations != scryptIterationsTarget) {
                         log.info("upgrading scrypt iterations from {} to {}; re-encrypting wallet", scryptIterations,
-                                Constants.SCRYPT_ITERATIONS_TARGET);
+                                scryptIterationsTarget);
 
-                        final KeyCrypterScrypt newKeyCrypter = new KeyCrypterScrypt(Constants.SCRYPT_ITERATIONS_TARGET);
+                        final KeyCrypterScrypt newKeyCrypter = new KeyCrypterScrypt(scryptIterationsTarget);
                         final KeyParameter newKey = newKeyCrypter.deriveKey(password);
 
                         // Re-encrypt wallet with new key.

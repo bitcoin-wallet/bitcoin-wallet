@@ -212,7 +212,7 @@ public class MaintenanceDialogFragment extends DialogFragment {
         updateView();
 
         if (wallet.isEncrypted()) {
-            new DeriveKeyTask(backgroundHandler) {
+            new DeriveKeyTask(backgroundHandler, application.scryptIterationsTarget()) {
                 @Override
                 protected void onSuccess(final KeyParameter encryptionKey, final boolean wasChanged) {
                     if (wasChanged)

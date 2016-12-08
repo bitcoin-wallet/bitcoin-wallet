@@ -459,6 +459,10 @@ public class WalletApplication extends Application {
         return isLowRamDevice() ? 4 : 6;
     }
 
+    public int scryptIterationsTarget() {
+        return isLowRamDevice() ? Constants.SCRYPT_ITERATIONS_TARGET_LOWRAM : Constants.SCRYPT_ITERATIONS_TARGET;
+    }
+
     public static void scheduleStartBlockchainService(final Context context) {
         final Configuration config = new Configuration(PreferenceManager.getDefaultSharedPreferences(context),
                 context.getResources());

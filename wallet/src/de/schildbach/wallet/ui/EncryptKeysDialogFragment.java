@@ -28,7 +28,6 @@ import org.spongycastle.crypto.params.KeyParameter;
 
 import com.google.common.base.Strings;
 
-import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet_test.R;
 
@@ -235,7 +234,7 @@ public class EncryptKeysDialogFragment extends DialogFragment {
                 final KeyParameter oldKey = oldPassword != null ? wallet.getKeyCrypter().deriveKey(oldPassword) : null;
 
                 // For the new key, we create a new key crypter according to the desired parameters.
-                final KeyCrypterScrypt keyCrypter = new KeyCrypterScrypt(Constants.SCRYPT_ITERATIONS_TARGET);
+                final KeyCrypterScrypt keyCrypter = new KeyCrypterScrypt(application.scryptIterationsTarget());
                 final KeyParameter newKey = newPassword != null ? keyCrypter.deriveKey(newPassword) : null;
 
                 handler.post(new Runnable() {

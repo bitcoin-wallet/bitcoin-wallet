@@ -22,7 +22,6 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.RejectedExecutionException;
 
@@ -952,7 +951,7 @@ public final class SendCoinsFragment extends Fragment {
         privateKeyBadPasswordView.setVisibility(View.INVISIBLE);
 
         if (wallet.isEncrypted()) {
-            new DeriveKeyTask(backgroundHandler) {
+            new DeriveKeyTask(backgroundHandler, application.scryptIterationsTarget()) {
                 @Override
                 protected void onSuccess(final KeyParameter encryptionKey, final boolean wasChanged) {
                     if (wasChanged)

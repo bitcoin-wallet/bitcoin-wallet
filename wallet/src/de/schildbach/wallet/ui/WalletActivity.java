@@ -265,7 +265,6 @@ public final class WalletActivity extends AbstractWalletActivity
         menu.findItem(R.id.wallet_options_backup_wallet)
                 .setEnabled(Environment.MEDIA_MOUNTED.equals(externalStorageState));
         final MenuItem encryptKeysOption = menu.findItem(R.id.wallet_options_encrypt_keys);
-        encryptKeysOption.setVisible(wallet.isEncrypted() || !application.isLowRamDevice());
         encryptKeysOption.setTitle(wallet.isEncrypted() ? R.string.wallet_options_encrypt_keys_change
                 : R.string.wallet_options_encrypt_keys_set);
 

@@ -177,6 +177,7 @@ public final class Constants {
 
     /** Desired number of scrypt iterations for deriving the spending PIN */
     public static final int SCRYPT_ITERATIONS_TARGET = 65536;
+    public static final int SCRYPT_ITERATIONS_TARGET_LOWRAM = 32768;
 
     /** Shared HTTP client, can reuse connections */
     public static final OkHttpClient HTTP_CLIENT = new OkHttpClient();
