@@ -161,6 +161,8 @@ public class CrashReporter {
                 + (ActivityManagerCompat.isLowRamDevice(activityManager) ? " (low RAM device)" : "") + "\n");
         report.append("Storage Encryption Status: " + devicePolicyManager.getStorageEncryptionStatus() + "\n");
         report.append("Bluetooth MAC: " + bluetoothMac() + "\n");
+        report.append("Runtime: ").append(System.getProperty("java.vm.name")).append(" ")
+                .append(System.getProperty("java.vm.version")).append("\n");
     }
 
     private static String bluetoothMac() {
