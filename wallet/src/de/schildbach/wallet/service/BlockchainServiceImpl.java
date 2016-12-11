@@ -204,7 +204,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
         }
 
         final Notification.Builder notification = new Notification.Builder(this);
-        notification.setSmallIcon(R.drawable.stat_notify_received);
+        notification.setSmallIcon(R.drawable.stat_notify_received_24dp);
         notification.setTicker(tickerMsg);
         notification.setContentTitle(msg);
         if (text.length() > 0)

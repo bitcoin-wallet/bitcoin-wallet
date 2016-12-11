@@ -117,7 +117,7 @@ public final class InactivityNotificationService extends IntentService {
 
             final NotificationCompat.Builder notification = new NotificationCompat.Builder(this);
             notification.setStyle(new NotificationCompat.BigTextStyle().bigText(text));
-            notification.setSmallIcon(R.drawable.stat_notify_received);
+            notification.setSmallIcon(R.drawable.stat_notify_received_24dp);
             notification.setContentTitle(title);
             notification.setContentText(text);
             notification
