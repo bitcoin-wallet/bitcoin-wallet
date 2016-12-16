@@ -12,7 +12,9 @@
         android:layout_width="0px"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:background="?android:attr/selectableItemBackground"
         android:maxLines="2"
+        android:textAllCaps="false"
         android:textSize="@dimen/font_size_small" />
 
     <Button
@@ -21,7 +23,9 @@
         android:layout_width="0px"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:background="?android:attr/selectableItemBackground"
         android:maxLines="2"
+        android:textAllCaps="false"
         android:textSize="@dimen/font_size_small"
         android:textStyle="bold" />
 

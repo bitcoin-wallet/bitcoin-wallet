@@ -24,8 +24,8 @@
         android:baselineAligned="false"
         android:orientation="horizontal"
         android:paddingBottom="@dimen/list_entry_padding_vertical"
-        android:paddingLeft="@dimen/list_entry_padding_horizontal"
-        android:paddingRight="@dimen/list_entry_padding_horizontal"
+        android:paddingLeft="@dimen/list_entry_padding_horizontal_lax"
+        android:paddingRight="@dimen/list_entry_padding_horizontal_lax"
         android:paddingTop="@dimen/list_entry_padding_vertical" >
 
         <LinearLayout

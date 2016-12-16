@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:paddingLeft="@dimen/list_entry_padding_horizontal_lax"
+    android:paddingRight="@dimen/list_entry_padding_horizontal_lax"
     android:background="@color/bg_form"
     android:orientation="vertical" >
 
@@ -8,8 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="4dp"
-        android:layout_marginLeft="@dimen/list_entry_padding_horizontal_lax"
-        android:layout_marginRight="@dimen/list_entry_padding_horizontal_lax"
         android:layout_marginTop="8dp"
         android:text="@string/request_coins_fragment_amount_label"
         android:textStyle="bold" />
@@ -17,8 +17,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/list_entry_padding_horizontal"
-        android:layout_marginRight="@dimen/list_entry_padding_horizontal"
         android:divider="@drawable/divider_currency"
         android:orientation="horizontal"
         android:showDividers="middle" >
@@ -59,8 +57,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:layout_marginLeft="@dimen/list_entry_padding_horizontal"
-        android:layout_marginRight="@dimen/list_entry_padding_horizontal"
         android:layout_marginTop="8dp"
         android:text="@string/request_coins_fragment_accept_bluetooth_payment" />
 

@@ -1,5 +1,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     style="?android:attr/actionBarSplitStyle"
+    android:theme="@android:style/ThemeOverlay.Material.Dark.ActionBar"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:measureWithLargestChild="true"
@@ -7,9 +8,9 @@
 
     <Button
         android:id="@+id/wallet_actions_request"
-        style="?android:attr/actionButtonStyle"
+        style="@style/My.Widget.ActionButton"
         android:layout_width="wrap_content"
-        android:layout_height="?android:attr/actionBarSize"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:drawableLeft="@drawable/ic_send_flipped_white_24dp"
         android:singleLine="true"
@@ -26,9 +27,9 @@
 
     <Button
         android:id="@+id/wallet_actions_send"
-        style="?android:attr/actionButtonStyle"
+        style="@style/My.Widget.ActionButton"
         android:layout_width="wrap_content"
-        android:layout_height="?android:attr/actionBarSize"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:drawableRight="@drawable/ic_send_white_24dp"
         android:singleLine="true"
@@ -40,9 +41,9 @@
 
     <ImageButton
         android:id="@+id/wallet_actions_send_qr"
-        style="?android:attr/actionButtonStyle"
+        style="@style/My.Widget.ActionButton"
         android:layout_width="wrap_content"
-        android:layout_height="?android:attr/actionBarSize"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:contentDescription="@string/button_scan"
         android:src="@drawable/ic_photo_camera_white_24dp" />

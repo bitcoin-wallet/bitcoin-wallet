@@ -50,11 +50,14 @@
     </style>
 
     <style name="My.Widget.ActionButton" parent="@android:style/Widget.Holo.ActionButton">
+        <item name="android:minHeight">?android:attr/actionBarSize</item>
+        <item name="android:minWidth">48dp</item>
         <item name="android:drawablePadding">6dp</item>
     </style>
 
     <style name="My.Widget.ActionButton.Overflow" parent="@android:style/Widget.Holo.ActionButton.Overflow">
-        <item name="android:src">@drawable/ic_more_vert_white_24dp</item>
+        <item name="android:minHeight">?android:attr/actionBarSize</item>
+        <item name="android:minWidth">48dp</item>
     </style>
 
     <style name="My.Widget.ActionMode" parent="@android:style/Widget.Holo.Light.ActionMode.Inverse">

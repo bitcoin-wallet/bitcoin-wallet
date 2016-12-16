@@ -9,6 +9,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0px"
+        android:layout_marginLeft="@dimen/list_entry_padding_horizontal_lax"
+        android:layout_marginRight="@dimen/list_entry_padding_horizontal_lax"
         android:layout_weight="1"
         android:orientation="vertical" >
 
@@ -22,8 +24,6 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/list_entry_padding_horizontal_lax"
-                android:layout_marginRight="@dimen/list_entry_padding_horizontal_lax"
                 android:text="@string/send_coins_fragment_receiving_address_label"
                 android:textSize="@dimen/font_size_small"
                 android:textStyle="bold" />
@@ -32,8 +32,6 @@
                 android:id="@+id/send_coins_payee_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/list_entry_padding_horizontal_lax"
-                android:layout_marginRight="@dimen/list_entry_padding_horizontal_lax"
                 android:layout_marginTop="8dp"
                 android:singleLine="true" />
 
@@ -41,8 +39,6 @@
                 android:id="@+id/send_coins_payee_verified_by"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/list_entry_padding_horizontal_lax"
-                android:layout_marginRight="@dimen/list_entry_padding_horizontal_lax"
                 android:singleLine="true"
                 android:textColor="@color/fg_less_significant"
                 android:textSize="@dimen/font_size_small" />
@@ -51,8 +47,6 @@
                 android:id="@+id/send_coins_receiving_address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/list_entry_padding_horizontal"
-                android:layout_marginRight="@dimen/list_entry_padding_horizontal"
                 android:completionThreshold="1"
                 android:hint="@string/send_coins_fragment_receiving_address_hint"
                 android:imeOptions="flagNoExtractUi"
@@ -62,8 +56,6 @@
                 android:id="@+id/send_coins_receiving_static"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/list_entry_padding_horizontal_lax"
-                android:layout_marginRight="@dimen/list_entry_padding_horizontal_lax"
                 android:layout_marginTop="6dp"
                 android:orientation="horizontal"
                 android:visibility="gone" >
@@ -97,8 +89,6 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/list_entry_padding_horizontal_lax"
-                android:layout_marginRight="@dimen/list_entry_padding_horizontal_lax"
                 android:text="@string/send_coins_fragment_amount_label"
                 android:textSize="@dimen/font_size_small"
                 android:textStyle="bold" />
@@ -106,8 +96,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/list_entry_padding_horizontal"
-                android:layout_marginRight="@dimen/list_entry_padding_horizontal"
                 android:divider="@drawable/divider_currency"
                 android:orientation="horizontal"
                 android:showDividers="middle" >
@@ -148,8 +136,6 @@
             android:id="@+id/send_coins_direct_payment_enable"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/list_entry_padding_horizontal"
-            android:layout_marginRight="@dimen/list_entry_padding_horizontal"
             android:layout_marginTop="8dp"
             android:text="@string/send_coins_fragment_direct_payment_enable" />
 
@@ -163,8 +149,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/list_entry_padding_vertical"
-            android:layout_marginLeft="@dimen/list_entry_padding_horizontal_lax"
-            android:layout_marginRight="@dimen/list_entry_padding_horizontal_lax"
             android:textSize="@dimen/font_size_small" />
 
         <LinearLayout
@@ -172,8 +156,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/list_entry_padding_vertical"
-            android:layout_marginLeft="@dimen/list_entry_padding_horizontal"
-            android:layout_marginRight="@dimen/list_entry_padding_horizontal"
             android:divider="@drawable/divider_field"
             android:orientation="horizontal"
             android:showDividers="middle"
@@ -205,8 +187,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/list_entry_padding_vertical"
-            android:layout_marginLeft="@dimen/list_entry_padding_horizontal_lax"
-            android:layout_marginRight="@dimen/list_entry_padding_horizontal_lax"
             android:visibility="gone" />
 
         <FrameLayout
