@@ -194,16 +194,18 @@ public final class ExchangeRatesFragment extends Fragment implements OnSharedPre
         @Override
         public void onLoadFinished(final Loader<Cursor> loader, final Cursor data) {
             adapter.setCursor(data);
-            if (data.getCount() == 0 && query == null)
+            if (adapter.getItemCount() == 0 && query == null) {
                 viewGroup.setDisplayedChild(1);
-            else if (data.getCount() == 0 && query != null)
+            } else if (adapter.getItemCount() == 0 && query != null) {
                 viewGroup.setDisplayedChild(2);
-            else
+            } else {
                 viewGroup.setDisplayedChild(3);
-            if (activity instanceof ExchangeRatesActivity && data.getCount() > 0) {
-                data.moveToPosition(0);
-                activity.getActionBar().setSubtitle(getString(R.string.exchange_rates_fragment_source,
-                        ExchangeRatesProvider.getExchangeRate(data).source));
+                if (activity instanceof ExchangeRatesActivity) {
+                    data.moveToPosition(0);
+                    final String source = ExchangeRatesProvider.getExchangeRate(data).source;
+                    activity.getActionBar().setSubtitle(
+                            source != null ? getString(R.string.exchange_rates_fragment_source, source) : null);
+                }
             }
         }
 
