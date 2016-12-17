@@ -200,6 +200,9 @@ public final class ExchangeRatesFragment extends Fragment implements OnSharedPre
                 viewGroup.setDisplayedChild(2);
             } else {
                 viewGroup.setDisplayedChild(3);
+                final int positionToScrollTo = adapter.getDefaultCurrencyPosition();
+                if (positionToScrollTo != RecyclerView.NO_POSITION)
+                    recyclerView.scrollToPosition(positionToScrollTo);
                 if (activity instanceof ExchangeRatesActivity) {
                     data.moveToPosition(0);
                     final String source = ExchangeRatesProvider.getExchangeRate(data).source;
@@ -285,6 +288,18 @@ public final class ExchangeRatesFragment extends Fragment implements OnSharedPre
         public void setBlockchainState(final BlockchainState blockchainState) {
             this.blockchainState = blockchainState;
             notifyDataSetChanged();
+        }
+
+        public int getDefaultCurrencyPosition() {
+            if (cursor == null || defaultCurrency == null)
+                return RecyclerView.NO_POSITION;
+
+            cursor.moveToPosition(-1);
+            while (cursor.moveToNext())
+                if (cursor.getString(cursor.getColumnIndexOrThrow(ExchangeRatesProvider.KEY_CURRENCY_CODE))
+                        .equals(defaultCurrency))
+                    return cursor.getPosition();
+            return RecyclerView.NO_POSITION;
         }
 
         @Override
