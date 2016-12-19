@@ -43,6 +43,7 @@ import android.content.Loader;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.BaseColumns;
@@ -54,6 +55,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
 import android.widget.SearchView;
@@ -169,6 +171,12 @@ public final class ExchangeRatesFragment extends Fragment implements OnSharedPre
                 return true;
             }
         });
+
+        // Workaround for not being able to style the SearchView
+        final int id = searchView.getContext().getResources().getIdentifier("android:id/search_src_text", null, null);
+        final View searchInput = searchView.findViewById(id);
+        if (searchInput instanceof EditText)
+            ((EditText) searchInput).setTextColor(Color.WHITE);
 
         super.onCreateOptionsMenu(menu, inflater);
     }
