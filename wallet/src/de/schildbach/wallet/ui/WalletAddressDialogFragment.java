@@ -17,11 +17,15 @@
 
 package de.schildbach.wallet.ui;
 
+import javax.annotation.Nullable;
+
 import org.bitcoinj.core.Address;
+import org.bitcoinj.uri.BitcoinURI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.util.Qr;
 import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
 
@@ -30,7 +34,6 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.FragmentManager;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -43,22 +46,22 @@ import android.widget.TextView;
  */
 public class WalletAddressDialogFragment extends DialogFragment {
     private static final String FRAGMENT_TAG = WalletAddressDialogFragment.class.getName();
-
-    private static final String KEY_BITMAP = "bitmap";
     private static final String KEY_ADDRESS = "address";
+    private static final String KEY_ADDRESS_LABEL = "address_label";
 
     private static final Logger log = LoggerFactory.getLogger(WalletAddressDialogFragment.class);
 
-    public static void show(final FragmentManager fm, final Bitmap bitmap, final Address address) {
-        instance(bitmap, address).show(fm, FRAGMENT_TAG);
+    public static void show(final FragmentManager fm, final Address address, @Nullable final String addressLabel) {
+        instance(address, addressLabel).show(fm, FRAGMENT_TAG);
     }
 
-    private static WalletAddressDialogFragment instance(final Bitmap bitmap, final Address address) {
+    private static WalletAddressDialogFragment instance(final Address address, @Nullable final String addressLabel) {
         final WalletAddressDialogFragment fragment = new WalletAddressDialogFragment();
 
         final Bundle args = new Bundle();
-        args.putParcelable(KEY_BITMAP, bitmap);
-        args.putString(KEY_ADDRESS, address.toBase58());
+        args.putSerializable(KEY_ADDRESS, address);
+        if (addressLabel != null)
+            args.putString(KEY_ADDRESS_LABEL, addressLabel);
         fragment.setArguments(args);
 
         return fragment;
@@ -76,8 +79,9 @@ public class WalletAddressDialogFragment extends DialogFragment {
     @Override
     public Dialog onCreateDialog(final Bundle savedInstanceState) {
         final Bundle args = getArguments();
-        final Bitmap bitmap = (Bitmap) args.getParcelable(KEY_BITMAP);
-        final String address = args.getString(KEY_ADDRESS);
+        final Address address = (Address) args.getSerializable(KEY_ADDRESS);
+        final String addressStr = address.toBase58();
+        final String addressLabel = args.getString(KEY_ADDRESS_LABEL);
 
         final Dialog dialog = new Dialog(activity);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -85,11 +89,13 @@ public class WalletAddressDialogFragment extends DialogFragment {
         dialog.setCanceledOnTouchOutside(true);
 
         final ImageView imageView = (ImageView) dialog.findViewById(R.id.wallet_address_dialog_image);
-        imageView.setImageBitmap(bitmap);
+        final int size = getResources().getDimensionPixelSize(R.dimen.bitmap_dialog_qr_size);
+        final String uri = BitcoinURI.convertToBitcoinURI(address, null, addressLabel, null);
+        imageView.setImageBitmap(Qr.bitmap(uri, size));
 
         final View labelButtonView = dialog.findViewById(R.id.wallet_address_dialog_label_button);
         final TextView labelView = (TextView) dialog.findViewById(R.id.wallet_address_dialog_label);
-        final CharSequence label = WalletUtils.formatHash(address, Constants.ADDRESS_FORMAT_GROUP_SIZE,
+        final CharSequence label = WalletUtils.formatHash(addressStr, Constants.ADDRESS_FORMAT_GROUP_SIZE,
                 Constants.ADDRESS_FORMAT_LINE_SIZE);
         labelView.setText(label);
         labelButtonView.setVisibility(View.VISIBLE);
@@ -98,9 +104,9 @@ public class WalletAddressDialogFragment extends DialogFragment {
             public void onClick(final View v) {
                 final Intent intent = new Intent(Intent.ACTION_SEND);
                 intent.setType("text/plain");
-                intent.putExtra(Intent.EXTRA_TEXT, address);
+                intent.putExtra(Intent.EXTRA_TEXT, addressStr);
                 startActivity(Intent.createChooser(intent, getString(R.string.bitmap_fragment_share)));
-                log.info("wallet address shared via intent: {}", address);
+                log.info("wallet address shared via intent: {}", addressStr);
             }
         });
 

@@ -141,7 +141,8 @@ public final class WalletAddressFragment extends Fragment implements NfcAdapter.
     }
 
     private void handleShowQRCode() {
-        WalletAddressDialogFragment.show(getFragmentManager(), currentAddressQrBitmap, currentAddressQrAddress.address);
+        WalletAddressDialogFragment.show(getFragmentManager(), currentAddressQrAddress.address,
+                currentAddressQrAddress.label);
     }
 
     public static class CurrentAddressLoader extends AsyncTaskLoader<Address> {
@@ -249,7 +250,7 @@ public final class WalletAddressFragment extends Fragment implements NfcAdapter.
                 final String addressStr = BitcoinURI.convertToBitcoinURI(currentAddressQrAddress.address, null,
                         currentAddressQrAddress.label, null);
 
-                final int size = getResources().getDimensionPixelSize(R.dimen.bitmap_dialog_qr_size);
+                final int size = getResources().getDimensionPixelSize(R.dimen.wallet_address_qr_size);
                 currentAddressQrBitmap = Qr.bitmap(addressStr, size);
 
                 currentAddressUriRef.set(addressStr);
