@@ -107,14 +107,4 @@ public class FormatsTest {
         final Matcher signOnly = Formats.PATTERN_MONETARY_SPANNABLE.matcher("+");
         assertFalse(signOnly.find());
     }
-
-    @Test
-    public void maybeRemoveOuterHtmlParagraph() {
-        assertEquals("<tt>mr6m</tt>&#8201;<tt>LeGW</tt>&#8201;<tt>27A7</tt>", Formats.maybeRemoveOuterHtmlParagraph(
-                "<p dir=\"ltr\"><tt>mr6m</tt>&#8201;<tt>LeGW</tt>&#8201;<tt>27A7</tt></p>"));
-        assertEquals("\n", Formats.maybeRemoveOuterHtmlParagraph("<p>\n</p>\n"));
-        assertEquals("", Formats.maybeRemoveOuterHtmlParagraph("<P></P>"));
-        assertEquals("<tt>mr6m</tt>&#8201;<tt>LeGW</tt>&#8201;<tt>27A7</tt>",
-                Formats.maybeRemoveOuterHtmlParagraph("<tt>mr6m</tt>&#8201;<tt>LeGW</tt>&#8201;<tt>27A7</tt>"));
-    }
 }

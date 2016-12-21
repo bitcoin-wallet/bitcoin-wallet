@@ -7,6 +7,5 @@
     <item name="network_monitor_content" type="layout">@layout/network_monitor_twopanes</item>
     <item name="show_exchange_rates_option" type="bool">true</item>
     <item name="show_local_balance" type="bool">true</item>
-    <item name="show_bitmap_dialog_label" type="bool">true</item>
 
 </resources>
