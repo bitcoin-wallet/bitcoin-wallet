@@ -23,11 +23,9 @@
     </string-array>
     <string-array name="preferences_block_explorer_values">
         <item>https://testnet.blockexplorer.com/</item>
-        <item>https://www.biteasy.com/testnet/</item>
     </string-array>
     <string-array name="preferences_block_explorer_labels">
         <item>blockexplorer.com</item>
-        <item>BitEasy</item>
     </string-array>
 
 </resources>
