@@ -493,9 +493,9 @@ public final class WalletActivity extends AbstractWalletActivity
         final List<File> files = new LinkedList<File>();
 
         // external storage
-        if (Constants.Files.EXTERNAL_WALLET_BACKUP_DIR.exists()
-                && Constants.Files.EXTERNAL_WALLET_BACKUP_DIR.isDirectory())
-            for (final File file : Constants.Files.EXTERNAL_WALLET_BACKUP_DIR.listFiles())
+        final File[] externalFiles = Constants.Files.EXTERNAL_WALLET_BACKUP_DIR.listFiles();
+        if (externalFiles != null)
+            for (final File file : externalFiles)
                 if (Crypto.OPENSSL_FILE_FILTER.accept(file))
                     files.add(file);
 

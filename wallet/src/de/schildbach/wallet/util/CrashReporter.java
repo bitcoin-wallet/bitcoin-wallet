@@ -263,8 +263,9 @@ public class CrashReporter {
         formatter.format(Locale.US, "%tF %tT %8d  %s\n", calendar, calendar, file.length(), file.getName());
         formatter.close();
 
-        if (file.isDirectory())
-            for (final File f : file.listFiles())
+        final File[] files = file.listFiles();
+        if (files != null)
+            for (final File f : files)
                 appendDir(report, f, indent + 1);
     }
 
