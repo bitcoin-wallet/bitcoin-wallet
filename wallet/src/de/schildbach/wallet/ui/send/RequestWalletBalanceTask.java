@@ -19,14 +19,28 @@ package de.schildbach.wallet.ui.send;
 
 import static com.google.common.base.Preconditions.checkState;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.InetSocketAddress;
+import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
-import javax.annotation.Nullable;
+import javax.net.SocketFactory;
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLHandshakeException;
+import javax.net.ssl.SSLSession;
+import javax.net.ssl.SSLSocket;
+import javax.net.ssl.SSLSocketFactory;
 
 import org.bitcoinj.core.Address;
 import org.bitcoinj.core.Coin;
@@ -35,23 +49,25 @@ import org.bitcoinj.core.Sha256Hash;
 import org.bitcoinj.core.Transaction;
 import org.bitcoinj.core.TransactionConfidence.ConfidenceType;
 import org.bitcoinj.core.TransactionOutput;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import org.bitcoinj.script.ScriptBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.squareup.okhttp.CacheControl;
-import com.squareup.okhttp.Call;
-import com.squareup.okhttp.HttpUrl;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.Response;
+import com.google.common.base.Charsets;
+import com.google.common.base.Splitter;
+import com.squareup.moshi.JsonAdapter;
+import com.squareup.moshi.JsonDataException;
+import com.squareup.moshi.Moshi;
 
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet_test.R;
 
+import android.content.res.AssetManager;
 import android.os.Handler;
 import android.os.Looper;
+import okio.BufferedSink;
+import okio.BufferedSource;
+import okio.Okio;
 
 /**
  * @author Andreas Schildbach
@@ -60,8 +76,6 @@ public final class RequestWalletBalanceTask {
     private final Handler backgroundHandler;
     private final Handler callbackHandler;
     private final ResultCallback resultCallback;
-    @Nullable
-    private final String userAgent;
 
     private static final Logger log = LoggerFactory.getLogger(RequestWalletBalanceTask.class);
 
@@ -71,117 +85,130 @@ public final class RequestWalletBalanceTask {
         void onFail(int messageResId, Object... messageArgs);
     }
 
-    public RequestWalletBalanceTask(final Handler backgroundHandler, final ResultCallback resultCallback,
-            @Nullable final String userAgent) {
+    public RequestWalletBalanceTask(final Handler backgroundHandler, final ResultCallback resultCallback) {
         this.backgroundHandler = backgroundHandler;
         this.callbackHandler = new Handler(Looper.myLooper());
         this.resultCallback = resultCallback;
-        this.userAgent = userAgent;
     }
 
-    public void requestWalletBalance(final Address... addresses) {
+    public static class JsonRpcRequest {
+        public final int id;
+        public final String method;
+        public final String[] params;
+
+        private static transient int idCounter = 0;
+
+        public JsonRpcRequest(final String method, final String[] params) {
+            this.id = idCounter++;
+            this.method = method;
+            this.params = params;
+        }
+    }
+
+    public static class JsonRpcResponse {
+        public int id;
+        public Utxo[] result;
+
+        public static class Utxo {
+            public String tx_hash;
+            public int tx_pos;
+            public long value;
+            public int height;
+        }
+    }
+
+    public void requestWalletBalance(final AssetManager assets, final Address address) {
         backgroundHandler.post(new Runnable() {
             @Override
             public void run() {
                 org.bitcoinj.core.Context.propagate(Constants.CONTEXT);
 
-                final HttpUrl.Builder url = Constants.BITEASY_API_URL.newBuilder();
-                url.addPathSegment("outputs");
-                url.addQueryParameter("per_page", "MAX");
-                url.addQueryParameter("operator", "AND");
-                url.addQueryParameter("spent_state", "UNSPENT");
-                for (final Address address : addresses)
-                    url.addQueryParameter("address[]", address.toBase58());
-
-                log.debug("trying to request wallet balance from {}", url.build());
-
-                final Request.Builder request = new Request.Builder();
-                request.url(url.build());
-                request.cacheControl(new CacheControl.Builder().noCache().build());
-                request.header("Accept-Charset", "utf-8");
-                if (userAgent != null)
-                    request.header("User-Agent", userAgent);
-
-                final Call call = Constants.HTTP_CLIENT.newCall(request.build());
                 try {
-                    final Response response = call.execute();
-                    if (response.isSuccessful()) {
-                        final String content = response.body().string();
-                        final JSONObject json = new JSONObject(content);
+                    final Map<InetSocketAddress, String> servers = loadElectrumServers(
+                            assets.open(Constants.Files.ELECTRUM_SERVERS_FILENAME));
+                    final Map.Entry<InetSocketAddress, String> server = new LinkedList<>(servers.entrySet())
+                            .get(new Random().nextInt(servers.size()));
+                    final InetSocketAddress socketAddress = server.getKey();
+                    final String type = server.getValue();
+                    log.info("trying to request wallet balance from {}: {}", socketAddress, address);
+                    final Socket socket;
+                    if (type.equalsIgnoreCase("tls")) {
+                        final SocketFactory sf = SSLSocketFactory.getDefault();
+                        socket = sf.createSocket(socketAddress.getHostName(), socketAddress.getPort());
+                        final SSLSession sslSession = ((SSLSocket) socket).getSession();
+                        if (!HttpsURLConnection.getDefaultHostnameVerifier().verify(socketAddress.getHostName(),
+                                sslSession))
+                            throw new SSLHandshakeException("Expected " + socketAddress.getHostName() + ", got "
+                                    + sslSession.getPeerPrincipal());
+                    } else if (type.equalsIgnoreCase("tcp")) {
+                        socket = new Socket();
+                        socket.connect(new InetSocketAddress(socketAddress.getHostName(), socketAddress.getPort()),
+                                5000);
+                    } else {
+                        throw new IllegalStateException("Cannot handle: " + type);
+                    }
+                    final BufferedSink sink = Okio.buffer(Okio.sink(socket));
+                    sink.timeout().timeout(5000, TimeUnit.MILLISECONDS);
+                    final BufferedSource source = Okio.buffer(Okio.source(socket));
+                    source.timeout().timeout(5000, TimeUnit.MILLISECONDS);
+                    final Moshi moshi = new Moshi.Builder().build();
+                    final JsonAdapter<JsonRpcRequest> requestAdapter = moshi.adapter(JsonRpcRequest.class);
+                    final JsonRpcRequest request = new JsonRpcRequest("blockchain.address.listunspent",
+                            new String[] { address.toBase58() });
+                    requestAdapter.toJson(sink, request);
+                    sink.writeUtf8("\n").flush();
+                    final JsonAdapter<JsonRpcResponse> responseAdapter = moshi.adapter(JsonRpcResponse.class);
+                    final JsonRpcResponse response = responseAdapter.fromJson(source);
+                    if (response.id == request.id) {
+                        final Map<Sha256Hash, Transaction> transactions = new HashMap<>();
+                        for (final JsonRpcResponse.Utxo utxo : response.result) {
+                            if (utxo.height > 0) {
+                                final Sha256Hash utxoHash = Sha256Hash.wrap(utxo.tx_hash);
+                                final int utxoIndex = utxo.tx_pos;
+                                final Coin utxoValue = Coin.valueOf(utxo.value);
 
-                        final int status = json.getInt("status");
-                        if (status != 200)
-                            throw new IOException("api status " + status + " when fetching unspent outputs");
+                                Transaction tx = transactions.get(utxoHash);
+                                if (tx == null) {
+                                    tx = new FakeTransaction(Constants.NETWORK_PARAMETERS, utxoHash);
+                                    tx.getConfidence().setConfidenceType(ConfidenceType.BUILDING);
+                                    transactions.put(utxoHash, tx);
+                                }
 
-                        final JSONObject jsonData = json.getJSONObject("data");
-
-                        final JSONObject jsonPagination = jsonData.getJSONObject("pagination");
-
-                        if (!"false".equals(jsonPagination.getString("next_page")))
-                            throw new IOException("result set too big");
-
-                        final JSONArray jsonOutputs = jsonData.getJSONArray("outputs");
-
-                        final Map<Sha256Hash, Transaction> transactions = new HashMap<Sha256Hash, Transaction>(
-                                jsonOutputs.length());
-
-                        for (int i = 0; i < jsonOutputs.length(); i++) {
-                            final JSONObject jsonOutput = jsonOutputs.getJSONObject(i);
-
-                            final Sha256Hash uxtoHash = Sha256Hash.wrap(jsonOutput.getString("transaction_hash"));
-                            final int uxtoIndex = jsonOutput.getInt("transaction_index");
-                            final byte[] uxtoScriptBytes = Constants.HEX.decode(jsonOutput.getString("script_pub_key"));
-                            final Coin uxtoValue = Coin.valueOf(Long.parseLong(jsonOutput.getString("value")));
-
-                            Transaction tx = transactions.get(uxtoHash);
-                            if (tx == null) {
-                                tx = new FakeTransaction(Constants.NETWORK_PARAMETERS, uxtoHash);
-                                tx.getConfidence().setConfidenceType(ConfidenceType.BUILDING);
-                                transactions.put(uxtoHash, tx);
-                            }
-
-                            final TransactionOutput output = new TransactionOutput(Constants.NETWORK_PARAMETERS, tx,
-                                    uxtoValue, uxtoScriptBytes);
-
-                            if (tx.getOutputs().size() > uxtoIndex) {
-                                // Work around not being able to replace outputs on transactions
-                                final List<TransactionOutput> outputs = new ArrayList<TransactionOutput>(
-                                        tx.getOutputs());
-                                final TransactionOutput dummy = outputs.set(uxtoIndex, output);
-                                checkState(dummy.getValue().equals(Coin.NEGATIVE_SATOSHI),
-                                        "Index %s must be dummy output", uxtoIndex);
-                                // Remove and re-add all outputs
-                                tx.clearOutputs();
-                                for (final TransactionOutput o : outputs)
-                                    tx.addOutput(o);
-                            } else {
-                                // Fill with dummies as needed
-                                while (tx.getOutputs().size() < uxtoIndex)
-                                    tx.addOutput(new TransactionOutput(Constants.NETWORK_PARAMETERS, tx,
-                                            Coin.NEGATIVE_SATOSHI, new byte[] {}));
-
-                                // Add the real output
-                                tx.addOutput(output);
+                                final TransactionOutput output = new TransactionOutput(Constants.NETWORK_PARAMETERS, tx,
+                                        utxoValue, ScriptBuilder.createOutputScript(address).getProgram());
+                                if (tx.getOutputs().size() > utxoIndex) {
+                                    // Work around not being able to replace outputs on transactions
+                                    final List<TransactionOutput> outputs = new ArrayList<TransactionOutput>(
+                                            tx.getOutputs());
+                                    final TransactionOutput dummy = outputs.set(utxoIndex, output);
+                                    checkState(dummy.getValue().equals(Coin.NEGATIVE_SATOSHI),
+                                            "Index %s must be dummy output", utxoIndex);
+                                    // Remove and re-add all outputs
+                                    tx.clearOutputs();
+                                    for (final TransactionOutput o : outputs)
+                                        tx.addOutput(o);
+                                } else {
+                                    // Fill with dummies as needed
+                                    while (tx.getOutputs().size() < utxoIndex)
+                                        tx.addOutput(new TransactionOutput(Constants.NETWORK_PARAMETERS, tx,
+                                                Coin.NEGATIVE_SATOSHI, new byte[] {}));
+                                    // Add the real output
+                                    tx.addOutput(output);
+                                }
                             }
                         }
 
-                        log.info("fetched unspent outputs from {}", url);
-
+                        log.info("fetched {} unspent outputs from {}", response.result.length, socketAddress);
                         onResult(transactions.values());
                     } else {
-                        final int responseCode = response.code();
-                        final String responseMessage = response.message();
-
-                        log.info("got http error '{}: {}' from {}", responseCode, responseMessage, url);
-                        onFail(R.string.error_http, responseCode, responseMessage);
+                        log.info("id mismatch response:{} vs request:{}", response.id, request.id);
+                        onFail(R.string.error_parse, socketAddress.toString());
                     }
-                } catch (final JSONException x) {
-                    log.info("problem parsing json from " + url, x);
-
+                } catch (final JsonDataException x) {
+                    log.info("problem parsing json", x);
                     onFail(R.string.error_parse, x.getMessage());
                 } catch (final IOException x) {
-                    log.info("problem querying unspent outputs from " + url, x);
-
+                    log.info("problem querying unspent outputs", x);
                     onFail(R.string.error_io, x.getMessage());
                 }
             }
@@ -218,5 +245,44 @@ public final class RequestWalletBalanceTask {
         public Sha256Hash getHash() {
             return hash;
         }
+    }
+
+    private static Map<InetSocketAddress, String> loadElectrumServers(final InputStream is) throws IOException {
+        final Splitter splitter = Splitter.on(':');
+        final Map<InetSocketAddress, String> addresses = new HashMap<>();
+        BufferedReader reader = null;
+        String line = null;
+        try {
+            reader = new BufferedReader(new InputStreamReader(is, Charsets.UTF_8));
+            while (true) {
+                line = reader.readLine();
+                if (line == null)
+                    break;
+                line = line.trim();
+                if (line.length() == 0 || line.charAt(0) == '#')
+                    continue;
+
+                final Iterator<String> i = splitter.split(line).iterator();
+                final String type = i.next();
+                final String host = i.next();
+                final int port;
+                if (i.hasNext())
+                    port = Integer.parseInt(i.next());
+                else if ("tcp".equalsIgnoreCase(type))
+                    port = Constants.ELECTRUM_SERVER_DEFAULT_PORT_TCP;
+                else if ("tls".equalsIgnoreCase(type))
+                    port = Constants.ELECTRUM_SERVER_DEFAULT_PORT_TLS;
+                else
+                    throw new IllegalStateException("Cannot handle: " + type);
+                addresses.put(InetSocketAddress.createUnresolved(host, port), type);
+            }
+        } catch (final Exception x) {
+            throw new RuntimeException("Error while parsing: '" + line + "'", x);
+        } finally {
+            if (reader != null)
+                reader.close();
+            is.close();
+        }
+        return addresses;
     }
 }

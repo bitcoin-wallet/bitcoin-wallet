@@ -193,7 +193,5 @@ mind it's always a 24h average.
 
 SWEEPING WALLETS
 
-For sweeping wallets, Bitcoin Wallet uses an API by biteasy to query for unspent transaction
-outputs:
-
-    https://api.biteasy.com/v2/btc/mainnet/outputs
+When sweeping wallets, Bitcoin Wallet uses a set of Electrum servers to query for unspent transaction
+outputs (UTXOs).

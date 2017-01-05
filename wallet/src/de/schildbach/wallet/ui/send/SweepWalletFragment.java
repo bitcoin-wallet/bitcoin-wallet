@@ -503,8 +503,7 @@ public class SweepWalletFragment extends Fragment {
 
         final Address address = walletToSweep.getImportedKeys().iterator().next()
                 .toAddress(Constants.NETWORK_PARAMETERS);
-        new RequestWalletBalanceTask(backgroundHandler, callback, application.httpUserAgent())
-                .requestWalletBalance(address);
+        new RequestWalletBalanceTask(backgroundHandler, callback).requestWalletBalance(activity.getAssets(), address);
     }
 
     private void setState(final State state) {

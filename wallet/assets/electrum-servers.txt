@@ -1,0 +1,2 @@
+tcp:testnet.not.fyi
+tls:h.hsmiths.com:53012

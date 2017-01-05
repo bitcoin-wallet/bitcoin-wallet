@@ -88,16 +88,13 @@ public final class Constants {
 
         /** Filename of the fees files. */
         public static final String FEES_FILENAME = "fees" + FILENAME_NETWORK_SUFFIX + ".txt";
+
+        /** Filename of the file containing Electrum servers. */
+        public static final String ELECTRUM_SERVERS_FILENAME = "electrum-servers.txt";
     }
 
     /** Maximum size of backups. Files larger will be rejected. */
     public static final long BACKUP_MAX_CHARS = 10000000;
-
-    private static final HttpUrl BITEASY_API_URL_PROD = HttpUrl.parse("https://api.biteasy.com/v2/btc/mainnet/");
-    private static final HttpUrl BITEASY_API_URL_TEST = HttpUrl.parse("https://api.biteasy.com/v2/btc/testnet/");
-    /** Base URL for blockchain API. */
-    public static final HttpUrl BITEASY_API_URL = NETWORK_PARAMETERS.getId().equals(NetworkParameters.ID_MAINNET)
-            ? BITEASY_API_URL_PROD : BITEASY_API_URL_TEST;
 
     /** Currency code for the wallet name resolver. */
     public static final String WALLET_NAME_CURRENCY_CODE = NETWORK_PARAMETERS.getId()
@@ -178,6 +175,12 @@ public final class Constants {
     /** Desired number of scrypt iterations for deriving the spending PIN */
     public static final int SCRYPT_ITERATIONS_TARGET = 65536;
     public static final int SCRYPT_ITERATIONS_TARGET_LOWRAM = 32768;
+
+    /** Default ports for Electrum servers */
+    public static final int ELECTRUM_SERVER_DEFAULT_PORT_TCP = NETWORK_PARAMETERS.getId()
+            .equals(NetworkParameters.ID_MAINNET) ? 50001 : 51001;
+    public static final int ELECTRUM_SERVER_DEFAULT_PORT_TLS = NETWORK_PARAMETERS.getId()
+            .equals(NetworkParameters.ID_MAINNET) ? 50002 : 51002;
 
     /** Shared HTTP client, can reuse connections */
     public static final OkHttpClient HTTP_CLIENT = new OkHttpClient();
