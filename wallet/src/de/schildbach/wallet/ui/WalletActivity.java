@@ -760,7 +760,7 @@ public final class WalletActivity extends AbstractWalletActivity
             });
             dialog.show();
 
-            log.info("problem restoring wallet", x);
+            log.info("problem restoring wallet: " + file, x);
         }
     }
 
@@ -783,7 +783,7 @@ public final class WalletActivity extends AbstractWalletActivity
             });
             dialog.show();
 
-            log.info("problem restoring wallet", x);
+            log.info("problem restoring unencrypted wallet: " + file, x);
         } finally {
             if (is != null) {
                 try {
@@ -814,7 +814,7 @@ public final class WalletActivity extends AbstractWalletActivity
             });
             dialog.show();
 
-            log.info("problem restoring private keys", x);
+            log.info("problem restoring private keys: " + file, x);
         } finally {
             if (is != null) {
                 try {
