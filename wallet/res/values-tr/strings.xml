@@ -92,7 +92,9 @@
   <string name="send_coins_options_fee_category_priority">Öncelikli</string>
   <string name="send_coins_options_empty">Boş cüzdan</string>
   <string name="raise_fee_dialog_title">Şebeke ücretini arttır</string>
-  <string name="raise_fee_dialog_message">Bu ödemenin ücretini %s değerinde arttırmak istiyor musunuz? Bu, ödemenin teyidinin daha çabuk oluşmasını sağlar.</string>
+  <string name="raise_fee_dialog_message">Bu ödemenin ağ ücretini %s olarak artırmak istiyor musunuz? Bu, ödeme teyidinin daha çabuk oluşmasını sağlayacaktır.</string>
+  <string name="raise_fee_dialog_determining_fee">Ağ ücreti belirleniyor…</string>
+  <string name="raise_fee_dialog_cant_raise">Bu ödemenin ağ ücreti artırılamaz.</string>
   <string name="raise_fee_dialog_state_decrypting">Şifre çözülüyor…</string>
   <string name="raise_fee_dialog_state_done">Tamamlandı.</string>
   <string name="raise_fee_dialog_button_raise">Arttır</string>
@@ -152,7 +154,7 @@
   <string name="edit_address_book_entry_dialog_button_edit">Kaydet</string>
   <string name="transaction_row_fee">Şebeke ücreti</string>
   <string name="transaction_row_message_purpose_key_rotation">Bu muamele cüzdanınızın çalınmaya karşı korunmasını güçlendirir. &lt;u&gt;Daha fazla bilgi.&lt;/u&gt;</string>
-  <string name="transaction_row_message_purpose_raise_fee">Bu muamele önceki bir ödemenin şebeke ücretini arttırır. </string>
+  <string name="transaction_row_message_purpose_raise_fee">Bu muamele önceki bir ödemenin şebeke ücretini arttırır.</string>
   <string name="transaction_row_message_own_unbroadcasted">Bu ödeme henüz aktarılmamıştır.</string>
   <string name="transaction_row_message_received_direct">Bu ödeme doğrudan alındı. Asla harcanamayacak olması riski vardır.</string>
   <string name="transaction_row_message_received_unconfirmed_delayed">Bu ödemenin teyidi muhtemelen Bitcoin şebekesindeki aşırı yükten dolayı gecikmiştir.</string>
@@ -179,7 +181,7 @@
   <string name="import_keys_dialog_file_security_encrypted">parola şifrelendi</string>
   <string name="import_keys_dialog_file_security_unencrypted">şifresiz</string>
   <string name="import_keys_dialog_file_security_external">harici depolama</string>
-  <string name="import_keys_dialog_file_security_internal">uygulama-özel depolama </string>
+  <string name="import_keys_dialog_file_security_internal">uygulama-özel depolama</string>
   <string name="import_keys_dialog_file_created_automatic">otomatik yedekleme %s</string>
   <string name="import_keys_dialog_file_created_manual">%s elle yedeklendi</string>
   <string name="import_keys_dialog_button_import">Geri al</string>
