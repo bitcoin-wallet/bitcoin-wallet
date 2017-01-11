@@ -28,7 +28,7 @@ https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/
 
 <b>评价</b>
 
-• 很多的移动钱包应用程序都基于 Bitcoin Wallet，比如：blockchain.info 以及 BTCX.
+• 许多移动钱包都是在比特币钱包的基础上构建他们的代码。例如：blockchain.info 和 BTCX。
 • 由 https://bitcoin.org 推荐的移动钱包。
 • 由 BitPay 推荐的移动钱包。
 
