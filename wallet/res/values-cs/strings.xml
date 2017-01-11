@@ -92,7 +92,9 @@
   <string name="send_coins_options_fee_category_priority">Priorita</string>
   <string name="send_coins_options_empty">Vyprázdnit peněženku</string>
   <string name="raise_fee_dialog_title">Navýšit poplatek</string>
-  <string name="raise_fee_dialog_message">Chcete navýšit poplatek této platby o %s? Potvrzení platby bude provedeno rychleji.</string>
+  <string name="raise_fee_dialog_message">Chcete navýšit poplatek síti pro tuto platbu o %s? To urychlí potvrzení platby.</string>
+  <string name="raise_fee_dialog_determining_fee">Určování poplatku sítě…</string>
+  <string name="raise_fee_dialog_cant_raise">Poplatek síti pro tuto platbu nelze navýšit.</string>
   <string name="raise_fee_dialog_state_decrypting">Dešifrování…</string>
   <string name="raise_fee_dialog_state_done">Hotovo.</string>
   <string name="raise_fee_dialog_button_raise">Navýšit</string>

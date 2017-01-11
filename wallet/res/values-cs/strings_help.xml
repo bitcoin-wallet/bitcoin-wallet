@@ -3,12 +3,12 @@
   <string name="help_wallet">
 <![CDATA[
 		<p>
-			Horní levá strana obrazovky ukazuje dostupné prostředky v Bitcoinech a jednu vybranou národní měnu.
+			Horní levá strana obrazovky ukazuje dostupné prostředky v Bitcoinech a v jedné vybrané národní měně.
 			Dotykem přejdete k seznamu národních měn, a ťuknutím na vybranou měnu ji zvolíte jako svou výchozí.
 		</p>
 		<p>
 			QR kód vpravo obsahuje vaši bitcoinovou adresu a může být naskenována plátcem.
-			Dotyka na QR kód se zobrazí jeho zvětšená verze.
+			Dotykem na QR kód se zobrazí jeho zvětšená verze.
 		</p>
 		<p>
 			Spodní část obrazovky zobrazuje seznam vašich transakcí, který je před prvním použitím prázdný.
@@ -20,40 +20,40 @@
 			Další možnosti jsou dostupné v menu nastavení.
 		</p>
 	]]>
-	</string>
+    </string>
   <string name="help_request_coins">
 <![CDATA[
 		<p>
-			Pomocí tohoto dialogu můžete vyžádat Bitcoiny od někoho jiného (kdo by měl také mít nainstalovanou aplikaci Bitcoin Wallet).
+			Pomocí tohoto dialogu můžete vyžádat Bitcoiny od někoho jiného (kdo by měl již také mít aplikaci Bitcoin Wallet).
 		</p>
 		<p>
-			Nejprve zadejte množství Bitcoinů, které chcete vyžádat.
+			Nejprve zadejte množství Bitcoinů, které požadujete.
 		</p>
 		<p>
 			Potom můžete protistraně nabídnout vygenerovaný QR kód k oskenování,
 			nebo můžete požadavek zaslat pomocí tlačítka sdílet v rychlé nabídce.
-			Druhá strana potom klikne na získanou adresu.
+			Druhá strana potom klikne na Bitcoin URL.
 		</p>
 		<p>
-			V obou případech odesílatel uvidí dialog na zasílání Bitcoinů s předvyplněnými údaji.
-			Pokud souhlasí, potvrdí zadané informace a dojde k transakci.
+			V obou případech odesílatel uvidí dialog na zaslání Bitcoinů s předvyplněnými údaji.
+			 Pokud souhlasí, potvrdí zadané informace a dojde k transakci.
 		</p>
 	]]>
-	</string>
+    </string>
   <string name="help_send_coins">
 <![CDATA[
 		<p>
 			Právě jste zahájili proces odeslání Bitcoinů.
-			Sem jste se museli dostat buď přes hlavní obrazovku aplikace, nebo pomocí klepnutí na speciální adresu v prohlížeči.
+			Sem jste se dostali buď přes hlavní obrazovku t0to aplikace, nebo pomocí klepnutí na speciální adresu v prohlížeči.
 		</p>
 		<p>
 			Nejprve zadejte adresu, na kterou chcete provést platbu.
-			Adresa se bude automaticky doplňovat podle údajů dostupných v adresáři.
+			Adresa se bude automaticky doplňovat podle údajů dostupných ve vašem adresáři.
 			Můžete také naskenovat QR kód s adresou nebo požadavkem na zaplacení, stisknutím tlačítka s ikonou QR kódu.
 		</p>
 		<p>
 			V dalším kroku uvidíte, kolik Bitcoinů můžete momentálně utratit.
-			Jakýkoliv rozdíl vůči zůstatku zobrazenému na výchozí obrazovce je stále nepotvrzen a tudíž nemůže být utracen.
+			Jakýkoliv rozdíl vůči zůstatku zobrazenému na hlavní obrazovce je stále nepotvrzen a tudíž nemůže být utracen.
 		</p>
 		<p>
 			Nakonec zadejte částku, kterou chcete zaplatit.
@@ -65,44 +65,43 @@
 		</p>
 		<p>
 			Poznámka:
-			Transakce nelze vzít zpět!
+			Převody nelze vzít zpět!
 			Vždy pečlivě zkontrolujte adresu příjemce.
 		</p>
 	]]>
-	</string>
+    </string>
   <string name="help_safety">
 <![CDATA[
 		<p>
-			<b>Několik slov o bezpečnosti:</b>
+			<b>Několik slov k bezpečnosti:</b>
 		</p>
 		<p>
-			Vaše Bitcoiny jsou uloženy přímo v tomto zařízení.
-			<b>Pokud o zařízení přijdete, ztratíte i Bitcoiny v něm.</b>
-			Stejně jako při ztrátě normální peněženky.
+			Přístup k Bitcoinům je uložen v tomto zařízení.
+			<b>Pokud o zařízení přijdete, ztratíte i své Bitcoiny.</b>
 		</p>
 		<p>
-			To znamená, že je třeba pravidelně <b>zálohovat svou peněženu</b>!
-			Pro zálohování používejte raději zabudovanou funkci v této aplikaci, než jiné zálohovací aplikace třetích stran.
+			Je proto velmi důležité pravidelně <b>zálohovat svou peněženu</b>!
+			Pro zálohování používejte raději zabudovanou funkci této aplikace, než jiná zálohovací řešení třetích stran.
 			Poté udržujte svou zálohu na bezpečném místě a pamatujte si heslo.
 		</p>
 		<p>
-			<b>Před odinstalací aplikace Bitcoin Wallet</b> (nebo při mazání dat aplikace/přístroje), <b>si přepošlete zůstatek do jiné peněženky</b>.
+			<b>Před odinstalací aplikace Bitcoin Wallet</b> (nebo výmazem dat aplikace/přístroje), <b>si přepošlete zůstatek do jiné peněženky</b>.
 			Jakékoliv zbylé neodeslané Bitcony budou ztraceny.
 		</p>
 		<p>
 			<b>Provedené platby jsou nezvratné</b>.
-			Pokud pošlete Bitcoiny na špatnou adresu, možnost jejich získání zpět téměř neexistue.
+			Pokud pošlete Bitcoiny na špatnou adresu, možnost jejich získání zpět téměř neexistuje.
 		</p>
 		<p>
-			<b>Udržujte svůj systém Android v bezpečí!</b>
+			<b>Udržujte svůj mobilní přístroj v bezpečí!</b>
 			Nepřivlastňujte si práva root svého přístoje.
 			Instalujte pouze aplikace, kterým plně důvěřujete.
 			Škodlivé aplikace se mohou pokoušet o ukradení Bitcoinů z peněženky.
 		</p>
 		<p>
 			Neriskujte zbytečně!
-			<b>Noste u sebe pouze menší částky</b> pro rychlé použití.
+			<b>Noste u sebe pouze menší částky</b> pro každodenní použití.
 		</p>
 	]]>
-	</string>
+    </string>
 </resources>
