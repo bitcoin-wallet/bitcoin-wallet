@@ -93,6 +93,8 @@
   <string name="send_coins_options_empty">Vider le porte-monnaie</string>
   <string name="raise_fee_dialog_title">Augmenter les frais de réseau</string>
   <string name="raise_fee_dialog_message">Voulez-vous augmenter les frais de réseau de ce paiement de %s ? Cela accélérera la confirmation du paiement.</string>
+  <string name="raise_fee_dialog_determining_fee">Détermination des frais de réseau…</string>
+  <string name="raise_fee_dialog_cant_raise">Les frais de réseau de ce paiement ne peuvent pas être augmentés.</string>
   <string name="raise_fee_dialog_state_decrypting">Déchiffrement…</string>
   <string name="raise_fee_dialog_state_done">Terminé.</string>
   <string name="raise_fee_dialog_button_raise">Augmenter</string>
