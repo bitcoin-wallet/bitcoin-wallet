@@ -92,7 +92,9 @@
   <string name="send_coins_options_fee_category_priority">Prioriteit</string>
   <string name="send_coins_options_empty">Portemonnee legen</string>
   <string name="raise_fee_dialog_title">Verhoog netwerk kosten</string>
-  <string name="raise_fee_dialog_message">Wil je de kosten van deze transactie verhogen met %s? Het zal de betaling sneller laten bevestigen.</string>
+  <string name="raise_fee_dialog_message">Wil je de netwerk kosten voor deze transactie verhogen met %s? De betaling zal hierdoor sneller worden bevestigd.</string>
+  <string name="raise_fee_dialog_determining_fee">Bepalen van netwerk kosten…</string>
+  <string name="raise_fee_dialog_cant_raise">De netwerk kosten voor deze transactie kunnen niet worden verhoogd.</string>
   <string name="raise_fee_dialog_state_decrypting">Decoderen…</string>
   <string name="raise_fee_dialog_state_done">Klaar.</string>
   <string name="raise_fee_dialog_button_raise">Verhoog</string>
