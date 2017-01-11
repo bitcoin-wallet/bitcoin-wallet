@@ -92,7 +92,9 @@
   <string name="send_coins_options_fee_category_priority">Prioriteret</string>
   <string name="send_coins_options_empty">Tøm tegnebog</string>
   <string name="raise_fee_dialog_title">Forhøj netværksgebyr</string>
-  <string name="raise_fee_dialog_message">Vil du forhøje denne betalings gebyr med %s? Det vil få betalingen til at blive bekræftet hurtigere.</string>
+  <string name="raise_fee_dialog_message">Vil du forhøje netværksgebyret for denne betaling med %s? Det vil få betalingen til at blive bekræftet hurtigere.</string>
+  <string name="raise_fee_dialog_determining_fee">Fastsætter netværksgebyr…</string>
+  <string name="raise_fee_dialog_cant_raise">Netværksgebyret for denne betaling kan ikke forhøjes.</string>
   <string name="raise_fee_dialog_state_decrypting">Afkrypterer…</string>
   <string name="raise_fee_dialog_state_done">Færdig.</string>
   <string name="raise_fee_dialog_button_raise">Forhøj</string>
