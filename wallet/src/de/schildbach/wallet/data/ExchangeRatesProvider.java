@@ -28,6 +28,7 @@ import javax.annotation.Nullable;
 
 import org.bitcoinj.core.Coin;
 import org.bitcoinj.utils.Fiat;
+import org.bitcoinj.utils.MonetaryFormat;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -239,16 +240,20 @@ public class ExchangeRatesProvider extends ContentProvider {
                     final String currencyCode = i.next();
                     if (currencyCode.startsWith("BTC")) {
                         final String fiatCurrencyCode = currencyCode.substring(3);
-                        final JSONObject exchangeRate = head.getJSONObject(currencyCode);
-                        final JSONObject averages = exchangeRate.getJSONObject("averages");
-                        try {
-                            final Fiat rate = parseFiatInexact(fiatCurrencyCode, averages.getString("day"));
-                            if (rate.signum() > 0)
-                                rates.put(fiatCurrencyCode, new ExchangeRate(new org.bitcoinj.utils.ExchangeRate(rate),
-                                        BITCOINAVERAGE_SOURCE));
-                        } catch (final IllegalArgumentException x) {
-                            log.warn("problem fetching {} exchange rate from {}: {}", currencyCode, BITCOINAVERAGE_URL,
-                                    x.getMessage());
+                        if (!fiatCurrencyCode.equals(MonetaryFormat.CODE_BTC)
+                                && !fiatCurrencyCode.equals(MonetaryFormat.CODE_MBTC)
+                                && !fiatCurrencyCode.equals(MonetaryFormat.CODE_UBTC)) {
+                            final JSONObject exchangeRate = head.getJSONObject(currencyCode);
+                            final JSONObject averages = exchangeRate.getJSONObject("averages");
+                            try {
+                                final Fiat rate = parseFiatInexact(fiatCurrencyCode, averages.getString("day"));
+                                if (rate.signum() > 0)
+                                    rates.put(fiatCurrencyCode, new ExchangeRate(
+                                            new org.bitcoinj.utils.ExchangeRate(rate), BITCOINAVERAGE_SOURCE));
+                            } catch (final IllegalArgumentException x) {
+                                log.warn("problem fetching {} exchange rate from {}: {}", currencyCode,
+                                        BITCOINAVERAGE_URL, x.getMessage());
+                            }
                         }
                     }
                 }
