@@ -1,3 +1,9 @@
+v5.11
+
+* Update translations from Transifex.
+* Remove biteasy from block explorers because they are closing down.
+* Minor bugfixes.
+
 v5.10
 
 * Minor bugfix.
