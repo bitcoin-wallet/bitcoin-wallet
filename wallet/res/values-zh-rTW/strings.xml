@@ -92,7 +92,9 @@
   <string name="send_coins_options_fee_category_priority">優先</string>
   <string name="send_coins_options_empty">清空錢包</string>
   <string name="raise_fee_dialog_title">提高網路手續費</string>
-  <string name="raise_fee_dialog_message">你想要將這筆付款的手續費提高 %s 嗎？可以讓它快一點被確認。</string>
+  <string name="raise_fee_dialog_message">你想要把這筆付款的網路手續費提高 %s 嗎？可以讓它快一點被確認。</string>
+  <string name="raise_fee_dialog_determining_fee">正在判斷網路手續費...</string>
+  <string name="raise_fee_dialog_cant_raise">這筆付款的網路手續費不能再提高了。</string>
   <string name="raise_fee_dialog_state_decrypting">正在解密中...</string>
   <string name="raise_fee_dialog_state_done">完成。</string>
   <string name="raise_fee_dialog_button_raise">提高</string>
