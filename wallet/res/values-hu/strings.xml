@@ -167,6 +167,7 @@
   <string name="block_row_now">csak most</string>
   <string name="peer_list_fragment_empty">Nincs kapcsolat</string>
   <string name="peer_list_row_ping_time">⇆ %d&#x2009;ms</string>
+  <string name="restore_wallet_permission_dialog_title">Olvasási engedély hiányzik</string>
   <string name="import_keys_dialog_title">Tárca visszaállítása</string>
   <string name="import_keys_dialog_message">Válassz egy tárca biztonsági mentés fájlt a külső tárolóból (%s):</string>
   <string name="restore_wallet_dialog_replace_warning">Arra készülsz, hogy lecseréld a jelenlegi tárcád. A jelenlegi tárcában lévő minden érme el fog veszni, hacsak nincs egy különálló biztonsági mentésed róla.</string>
@@ -181,6 +182,7 @@
   <string name="restore_wallet_dialog_success">Tárca visszaállítva.</string>
   <string name="restore_wallet_dialog_success_replay">A tárcád sikeresen visszaállítva. Az egyenleg visszaállítása következik. Ez eltarthat egy ideig.</string>
   <string name="import_keys_dialog_failure">A tárcát nem lehetett visszaállítani:\n\n%s\n\nRossz jelszó?</string>
+  <string name="backup_wallet_permission_dialog_title">Írási engedély hiányzik</string>
   <string name="export_keys_dialog_title">Tárca biztonsági mentése</string>
   <string name="backup_wallet_dialog_message">A biztonsági mentésed titkosítva lesz a választott jelszóval és külső tárolóra lesz írva.</string>
   <string name="backup_wallet_dialog_warning_encrypted">A tárcádat költekezési PIN védi. Bizonyosodj meg róla, hogy emlékszel a PIN-re is a biztonsági mentés jelszava mellett!</string>
@@ -212,6 +214,7 @@
   <string name="encrypt_keys_dialog_state_done">Kész.</string>
   <string name="scan_camera_problem_dialog_title">Sajnáljuk</string>
   <string name="scan_camera_problem_dialog_message">A kamera nem válaszol. Próbáld meg újraindítani a készüléket.</string>
+  <string name="scan_camera_permission_dialog_title">Kamera engedély</string>
   <string name="input_parser_io_error">Nem lehet olvasni az adatot:\n%s</string>
   <string name="input_parser_cannot_classify">Nem lehet felismerni a bemenetet:\n%s</string>
   <string name="input_parser_invalid_bitcoin_uri">Érvénytelen Bitcoin URI:\n%s</string>
@@ -276,7 +279,7 @@
   <string name="about_license_title">Licensz</string>
   <string name="about_source_title">Forráskód</string>
   <string name="about_credits_bitcoinj_title">Az applikáció bitcoinj %s-t használ</string>
-  <string name="about_credits_zxing_title">Ez az app ZXing-et használ</string>
+  <string name="about_credits_zxing_title">ZXing, egy QR-kód feldolgozó könyvtár</string>
   <string name="about_community_googleplus_title">Google+ közösség</string>
   <string name="about_community_googleplus_summary">Fórumok az applikációról</string>
   <string name="about_market_app_title">Google Play oldal</string>
@@ -288,6 +291,7 @@
   <string name="notification_inactivity_message_donate">Ha nem érdekelnek az érméid, el is adományozhatod őket a Bitcoin Wallet projektnek.</string>
   <string name="notification_inactivity_action_dismiss">Emlékeztess később</string>
   <string name="notification_inactivity_action_dismiss_forever">Ne emlékeztess</string>
+  <string name="appwidget_wallet_balance_title">Bitcoin egyenleg</string>
   <!--generic buttons-->
   <string name="button_ok">OK</string>
   <string name="button_dismiss">Elvet</string>
