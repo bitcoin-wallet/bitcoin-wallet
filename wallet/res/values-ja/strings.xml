@@ -92,7 +92,9 @@
   <string name="send_coins_options_fee_category_priority">優先</string>
   <string name="send_coins_options_empty">ウォレットが空です</string>
   <string name="raise_fee_dialog_title">ネットワーク手数料の増額</string>
-  <string name="raise_fee_dialog_message">この支払いの手数料を%sだけ増やしますか? これにより支払いの承認が早くなります。</string>
+  <string name="raise_fee_dialog_message">この支払いのネットワーク手数料を%sだけ増やしますか? これにより支払いの承認が早くなります。</string>
+  <string name="raise_fee_dialog_determining_fee">ネットワーク手数料を特定しています。</string>
+  <string name="raise_fee_dialog_cant_raise">この支払いのネットワーク手数料は上げられません。</string>
   <string name="raise_fee_dialog_state_decrypting">復号中……</string>
   <string name="raise_fee_dialog_state_done">完了。</string>
   <string name="raise_fee_dialog_button_raise">増額</string>
