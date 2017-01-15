@@ -1,2 +1,2 @@
-tcp:electrum.akinbo.org
-tls:testnet.hsmiths.com
+tls:elec.luggs.co:443
+tls:electrum.qc.to
