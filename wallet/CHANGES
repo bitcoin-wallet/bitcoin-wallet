@@ -1,3 +1,8 @@
+v5.12
+
+* Query a set of Electrum servers to swipe paper wallets. Biteasy can't be used any more,
+  because they are closing down.
+
 v5.11
 
 * Update translations from Transifex.
