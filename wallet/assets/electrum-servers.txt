@@ -1,2 +1,2 @@
-tcp:electrum.akinbo.org
-tls:testnet.hsmiths.com::d1741a0ddecba02713a13bc8aa858d30eaf0a6c9068c2857346b21ef9f105feb
+tls:electrum.be::fc9db281012eb90c5d0017fb53a5aae5f804879fc7e8e7ce5bfd6b404cea43c2
+tls:electrum.hsmiths.com::d1741a0ddecba02713a13bc8aa858d30eaf0a6c9068c2857346b21ef9f105feb
