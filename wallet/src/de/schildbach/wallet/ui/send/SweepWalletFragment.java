@@ -19,8 +19,11 @@ package de.schildbach.wallet.ui.send;
 
 import static com.google.common.base.Preconditions.checkState;
 
-import java.util.Collection;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 
 import javax.annotation.Nullable;
 
@@ -28,9 +31,15 @@ import org.bitcoinj.core.Address;
 import org.bitcoinj.core.Coin;
 import org.bitcoinj.core.DumpedPrivateKey;
 import org.bitcoinj.core.ECKey;
+import org.bitcoinj.core.NetworkParameters;
 import org.bitcoinj.core.Sha256Hash;
 import org.bitcoinj.core.Transaction;
 import org.bitcoinj.core.TransactionConfidence;
+import org.bitcoinj.core.TransactionConfidence.ConfidenceType;
+import org.bitcoinj.core.TransactionInput;
+import org.bitcoinj.core.TransactionOutPoint;
+import org.bitcoinj.core.TransactionOutput;
+import org.bitcoinj.core.UTXO;
 import org.bitcoinj.core.VerificationException;
 import org.bitcoinj.core.VersionedChecksummedBytes;
 import org.bitcoinj.crypto.BIP38PrivateKey;
@@ -40,9 +49,10 @@ import org.bitcoinj.wallet.SendRequest;
 import org.bitcoinj.wallet.Wallet;
 import org.bitcoinj.wallet.Wallet.BalanceType;
 import org.bitcoinj.wallet.WalletTransaction;
-import org.bitcoinj.wallet.WalletTransaction.Pool;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.google.common.collect.ComparisonChain;
 
 import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
@@ -467,20 +477,66 @@ public class SweepWalletFragment extends Fragment {
         }
     };
 
+    private static final Comparator<UTXO> UTXO_COMPARATOR = new Comparator<UTXO>() {
+        @Override
+        public int compare(final UTXO lhs, final UTXO rhs) {
+            return ComparisonChain.start().compare(lhs.getHash(), rhs.getHash()).compare(lhs.getIndex(), rhs.getIndex())
+                    .result();
+        }
+    };
+
     private void requestWalletBalance() {
         ProgressDialogFragment.showProgress(fragmentManager,
                 getString(R.string.sweep_wallet_fragment_request_wallet_balance_progress));
 
         final RequestWalletBalanceTask.ResultCallback callback = new RequestWalletBalanceTask.ResultCallback() {
             @Override
-            public void onResult(final Collection<Transaction> transactions) {
+            public void onResult(final Set<UTXO> utxos) {
                 ProgressDialogFragment.dismissProgress(fragmentManager);
 
+                // Filter UTXOs we've already spent and sort the rest.
+                final Set<Transaction> walletTxns = application.getWallet().getTransactions(false);
+                final Set<UTXO> sortedUtxos = new TreeSet<>(UTXO_COMPARATOR);
+                for (final UTXO utxo : utxos)
+                    if (!utxoSpentBy(walletTxns, utxo))
+                        sortedUtxos.add(utxo);
+
+                // Fake transaction funding the wallet to sweep.
+                final Map<Sha256Hash, Transaction> fakeTxns = new HashMap<>();
+                for (final UTXO utxo : sortedUtxos) {
+                    Transaction fakeTx = fakeTxns.get(utxo.getHash());
+                    if (fakeTx == null) {
+                        fakeTx = new FakeTransaction(Constants.NETWORK_PARAMETERS, utxo.getHash());
+                        fakeTx.getConfidence().setConfidenceType(ConfidenceType.BUILDING);
+                        fakeTxns.put(fakeTx.getHash(), fakeTx);
+                    }
+                    final TransactionOutput fakeOutput = new TransactionOutput(Constants.NETWORK_PARAMETERS, fakeTx,
+                            utxo.getValue(), utxo.getScript().getProgram());
+                    // Fill with output dummies as needed.
+                    while (fakeTx.getOutputs().size() < utxo.getIndex())
+                        fakeTx.addOutput(new TransactionOutput(Constants.NETWORK_PARAMETERS, fakeTx,
+                                Coin.NEGATIVE_SATOSHI, new byte[] {}));
+                    // Add the actual output we will spend later.
+                    fakeTx.addOutput(fakeOutput);
+                }
+
                 walletToSweep.clearTransactions(0);
-                for (final Transaction transaction : transactions)
-                    walletToSweep.addWalletTransaction(new WalletTransaction(Pool.UNSPENT, transaction));
+                for (final Transaction tx : fakeTxns.values())
+                    walletToSweep.addWalletTransaction(new WalletTransaction(WalletTransaction.Pool.UNSPENT, tx));
+                log.info("built wallet to sweep:\n{}", walletToSweep.toString(false, true, false, null));
 
                 updateView();
+            }
+
+            private boolean utxoSpentBy(final Set<Transaction> transactions, final UTXO utxo) {
+                for (final Transaction tx : transactions) {
+                    for (final TransactionInput input : tx.getInputs()) {
+                        final TransactionOutPoint outpoint = input.getOutpoint();
+                        if (outpoint.getHash().equals(utxo.getHash()) && outpoint.getIndex() == utxo.getIndex())
+                            return true;
+                    }
+                }
+                return false;
             }
 
             @Override
@@ -647,5 +703,19 @@ public class SweepWalletFragment extends Fragment {
                 dialog.show();
             }
         }.sendCoinsOffline(sendRequest); // send asynchronously
+    }
+
+    private static class FakeTransaction extends Transaction {
+        private final Sha256Hash hash;
+
+        public FakeTransaction(final NetworkParameters params, final Sha256Hash hash) {
+            super(params);
+            this.hash = hash;
+        }
+
+        @Override
+        public Sha256Hash getHash() {
+            return hash;
+        }
     }
 }

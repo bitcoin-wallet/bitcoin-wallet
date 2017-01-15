@@ -17,22 +17,19 @@
 
 package de.schildbach.wallet.ui.send;
 
-import static com.google.common.base.Preconditions.checkState;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.InetSocketAddress;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import javax.net.SocketFactory;
@@ -44,11 +41,9 @@ import javax.net.ssl.SSLSocketFactory;
 
 import org.bitcoinj.core.Address;
 import org.bitcoinj.core.Coin;
-import org.bitcoinj.core.NetworkParameters;
 import org.bitcoinj.core.Sha256Hash;
-import org.bitcoinj.core.Transaction;
-import org.bitcoinj.core.TransactionConfidence.ConfidenceType;
-import org.bitcoinj.core.TransactionOutput;
+import org.bitcoinj.core.UTXO;
+import org.bitcoinj.script.Script;
 import org.bitcoinj.script.ScriptBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -80,7 +75,7 @@ public final class RequestWalletBalanceTask {
     private static final Logger log = LoggerFactory.getLogger(RequestWalletBalanceTask.class);
 
     public interface ResultCallback {
-        void onResult(Collection<Transaction> transactions);
+        void onResult(Set<UTXO> utxos);
 
         void onFail(int messageResId, Object... messageArgs);
     }
@@ -160,46 +155,19 @@ public final class RequestWalletBalanceTask {
                     final JsonAdapter<JsonRpcResponse> responseAdapter = moshi.adapter(JsonRpcResponse.class);
                     final JsonRpcResponse response = responseAdapter.fromJson(source);
                     if (response.id == request.id) {
-                        final Map<Sha256Hash, Transaction> transactions = new HashMap<>();
-                        for (final JsonRpcResponse.Utxo utxo : response.result) {
-                            if (utxo.height > 0) {
-                                final Sha256Hash utxoHash = Sha256Hash.wrap(utxo.tx_hash);
-                                final int utxoIndex = utxo.tx_pos;
-                                final Coin utxoValue = Coin.valueOf(utxo.value);
-
-                                Transaction tx = transactions.get(utxoHash);
-                                if (tx == null) {
-                                    tx = new FakeTransaction(Constants.NETWORK_PARAMETERS, utxoHash);
-                                    tx.getConfidence().setConfidenceType(ConfidenceType.BUILDING);
-                                    transactions.put(utxoHash, tx);
-                                }
-
-                                final TransactionOutput output = new TransactionOutput(Constants.NETWORK_PARAMETERS, tx,
-                                        utxoValue, ScriptBuilder.createOutputScript(address).getProgram());
-                                if (tx.getOutputs().size() > utxoIndex) {
-                                    // Work around not being able to replace outputs on transactions
-                                    final List<TransactionOutput> outputs = new ArrayList<TransactionOutput>(
-                                            tx.getOutputs());
-                                    final TransactionOutput dummy = outputs.set(utxoIndex, output);
-                                    checkState(dummy.getValue().equals(Coin.NEGATIVE_SATOSHI),
-                                            "Index %s must be dummy output", utxoIndex);
-                                    // Remove and re-add all outputs
-                                    tx.clearOutputs();
-                                    for (final TransactionOutput o : outputs)
-                                        tx.addOutput(o);
-                                } else {
-                                    // Fill with dummies as needed
-                                    while (tx.getOutputs().size() < utxoIndex)
-                                        tx.addOutput(new TransactionOutput(Constants.NETWORK_PARAMETERS, tx,
-                                                Coin.NEGATIVE_SATOSHI, new byte[] {}));
-                                    // Add the real output
-                                    tx.addOutput(output);
-                                }
-                            }
+                        final Set<UTXO> utxos = new HashSet<>();
+                        for (final JsonRpcResponse.Utxo responseUtxo : response.result) {
+                            final Sha256Hash utxoHash = Sha256Hash.wrap(responseUtxo.tx_hash);
+                            final int utxoIndex = responseUtxo.tx_pos;
+                            final Coin utxoValue = Coin.valueOf(responseUtxo.value);
+                            final Script script = ScriptBuilder.createOutputScript(address);
+                            final UTXO utxo = new UTXO(utxoHash, utxoIndex, utxoValue, responseUtxo.height, false,
+                                    script);
+                            utxos.add(utxo);
                         }
 
                         log.info("fetched {} unspent outputs from {}", response.result.length, socketAddress);
-                        onResult(transactions.values());
+                        onResult(utxos);
                     } else {
                         log.info("id mismatch response:{} vs request:{}", response.id, request.id);
                         onFail(R.string.error_parse, socketAddress.toString());
@@ -215,11 +183,11 @@ public final class RequestWalletBalanceTask {
         });
     }
 
-    protected void onResult(final Collection<Transaction> transactions) {
+    protected void onResult(final Set<UTXO> utxos) {
         callbackHandler.post(new Runnable() {
             @Override
             public void run() {
-                resultCallback.onResult(transactions);
+                resultCallback.onResult(utxos);
             }
         });
     }
@@ -231,20 +199,6 @@ public final class RequestWalletBalanceTask {
                 resultCallback.onFail(messageResId, messageArgs);
             }
         });
-    }
-
-    private static class FakeTransaction extends Transaction {
-        private final Sha256Hash hash;
-
-        public FakeTransaction(final NetworkParameters params, final Sha256Hash hash) {
-            super(params);
-            this.hash = hash;
-        }
-
-        @Override
-        public Sha256Hash getHash() {
-            return hash;
-        }
     }
 
     private static Map<InetSocketAddress, String> loadElectrumServers(final InputStream is) throws IOException {
