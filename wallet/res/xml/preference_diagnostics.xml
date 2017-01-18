@@ -6,12 +6,12 @@
         android:summary="@string/preferences_report_issue_summary"
         android:title="@string/preferences_report_issue_title" />
     <Preference
-        android:key="initiate_reset"
-        android:summary="@string/preferences_initiate_reset_summary"
-        android:title="@string/preferences_initiate_reset_title" />
-    <Preference
         android:key="extended_public_key"
         android:summary="@string/preferences_extended_public_key_summary"
         android:title="@string/preferences_extended_public_key_title" />
+    <Preference
+        android:key="initiate_reset"
+        android:summary="@string/preferences_initiate_reset_summary"
+        android:title="@string/preferences_initiate_reset_title" />
 
 </PreferenceScreen>
