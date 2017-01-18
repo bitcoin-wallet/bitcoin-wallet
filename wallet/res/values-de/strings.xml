@@ -293,10 +293,12 @@
     <string name="about_credits_bitcoinj_title">bitcoinj %s, eine Bitcoin-Protokoll-Implementierung</string>
     <string name="about_credits_zxing_title">ZXing, eine QR-Code-Bibliothek</string>
     <string name="about_credits_scrypt_title">Scrypt, implementiert von Will Glozer und Colin Percival</string>
-    <string name="about_community_googleplus_title">Google+ Community</string>
-    <string name="about_community_googleplus_summary">Diskussionen über die App</string>
     <string name="about_market_app_title">Eintrag bei Google Play</string>
     <string name="about_market_app_summary">Rezensionen und Bewertungen</string>
+    <string name="about_faq_title">FAQ</string>
+    <string name="about_faq_summary">Häufig gestellte Fragen über die App</string>
+    <string name="about_community_googleplus_title">Google+ Community</string>
+    <string name="about_community_googleplus_summary">Diskussionen über die App</string>
     <string name="notification_coins_received_msg">%s empfangen</string>
     <string name="notification_peers_connected_msg">%d Peers verbunden</string>
     <string name="notification_inactivity_title">Du hast noch Bitcoins auf diesem Gerät!</string>

@@ -28,6 +28,14 @@
         android:summary="@string/about_market_app_summary"
         android:title="@string/about_market_app_title" />
     <Preference
+        android:key="about_faq"
+        android:summary="@string/about_faq_summary"
+        android:title="@string/about_faq_title" >
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:data="https://bitcoin.stackexchange.com/questions/tagged/bitcoin-wallet-app" />
+    </Preference>
+    <Preference
         android:key="about_community_googleplus"
         android:summary="@string/about_community_googleplus_summary"
         android:title="@string/about_community_googleplus_title" >
