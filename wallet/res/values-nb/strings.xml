@@ -250,7 +250,6 @@
   <string name="preferences_remind_balance_title">Saldopåminnelse</string>
   <string name="preferences_remind_balance_summary">Etter et par uker uten bruk vil appen varsle om det fortsatt er penger i lommeboken.</string>
   <string name="preferences_report_issue_title">Rapporter problem</string>
-  <string name="preferences_report_issue_summary">Samle inn informasjon om problemet ditt og send rapporten din på e-post til utviklerne.</string>
   <string name="preferences_initiate_reset_title">Tilbakestill blokkjeden</string>
   <string name="preferences_initiate_reset_summary">Tilbakestill blokkjeden, transaksjoner og lommeboken sin balanse. Gjennomgangen vil ta litt tid.</string>
   <string name="preferences_initiate_reset_dialog_message">Ønsker du å tilbakestille og gjennomgå blokkjeden?\n\nDette vil midlertidig skjule din lommebok sin balanse og fjerne transaksjoner. Begge vil gjenopprettes under gjennomgangen av blokkjeden.</string>

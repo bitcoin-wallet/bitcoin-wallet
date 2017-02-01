@@ -134,7 +134,6 @@
 	<string name="preferences_data_usage_title">Zużycie danych</string>
 	<string name="preferences_data_usage_summary">Pokaż opcje ograniczenia transferu danych przez sieci mobilne</string>
 	<string name="preferences_report_issue_title">Zgłoś problem</string>
-	<string name="preferences_report_issue_summary">Zbierz informacje o problemie i wyślij swoje zgłoszenie na e-mail twórców.</string>
 	<string name="preferences_initiate_reset_title">Zresetuj łańcuch bloków</string>
 	<string name="preferences_initiate_reset_summary">Resetuj łańcuch bloków, transakcje i saldo portfela. Odtworzenie go zajmie trochę czasu.</string>
 	<string name="preferences_initiate_reset_dialog_message">Czy chcesz zresetować i re-synchronizować łańcuch bloków?\n\nTa czynność tymczasowo wyzeruje saldo portfela i usunie transakcje. Zostaną one przywrócone wraz z postępem synchronizacji łańcucha bloków.</string>

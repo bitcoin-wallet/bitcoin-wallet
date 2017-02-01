@@ -262,7 +262,6 @@
     <string name="preferences_remind_balance_title">Erinnerung an Guthaben</string>
     <string name="preferences_remind_balance_summary">Nach einigen Wochen Nicht-Nutzung wird die App daran erinnern wenn sich noch Bitcoins in der Wallet befinden.</string>
     <string name="preferences_report_issue_title">Problem melden</string>
-    <string name="preferences_report_issue_summary">Sammelt Informationen über dein Problem und schickt den Bericht per e-Mail an die Entwickler.</string>
     <string name="preferences_initiate_reset_title">Blockchain zurücksetzen</string>
     <string name="preferences_initiate_reset_summary">Blockchain, Transaktionen und Guthaben werden zurückgesetzt. Das Wiedereinspielen wird eine Weile dauern, also mach das nur wenn du weisst warum.</string>
     <string name="preferences_initiate_reset_dialog_message">Möchtest du die Blockchain zurücksetzen und wiedereinspielen?\n\nDies wird verübergehend dein Guthaben ausblenden und deine Transaktionen leeren. Beides wird sich während des Vorgangs erholen. Achte auf eine zuverlässige Internet-Verbindung.</string>

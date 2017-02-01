@@ -259,7 +259,6 @@
   <string name="preferences_remind_balance_title">Saldopåmindelse</string>
   <string name="preferences_remind_balance_summary">Efter et par uger uden brug vil app\'en give besked, hvis der stadig er penge i tegnebogen.</string>
   <string name="preferences_report_issue_title">Rapportér problem</string>
-  <string name="preferences_report_issue_summary">Saml information om dit problem og email din rapport til udviklerne.</string>
   <string name="preferences_initiate_reset_title">Nulstil blokkæde</string>
   <string name="preferences_initiate_reset_summary">Nulstil blokkæde, overførsler og saldo for tegnebogen. Gennemløb af blokkæden vil tage et stykke tid.</string>
   <string name="preferences_initiate_reset_dialog_message">Vil du nulstille og gennemløbe blokkæden igen?\n\nDette vil midlertidigt skjule din saldo og fjerne overførsler. Begge dele vil dukke op igen, efterhånden som der synkroniseres med blokkæden.</string>

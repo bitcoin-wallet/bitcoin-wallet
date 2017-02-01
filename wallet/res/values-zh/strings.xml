@@ -259,7 +259,6 @@
   <string name="preferences_remind_balance_title">余额提示</string>
   <string name="preferences_remind_balance_summary">如果几个星期后都没有被使用，并且钱包里有余额，应用程序将发出通知。</string>
   <string name="preferences_report_issue_title">报告问题</string>
-  <string name="preferences_report_issue_summary">搜集你碰到的问题的相关信息，然后通过邮件发给开发者。</string>
   <string name="preferences_initiate_reset_title">重置区块链</string>
   <string name="preferences_initiate_reset_summary">重置区块链、交易和余额，这会耗费一段时间。</string>
   <string name="preferences_initiate_reset_dialog_message">您是否想要重置并重新同步区块链？\n\n这将暂时隐藏您的钱包余额并删除交易记录。在同步过程之后钱包余额和交易记录将会恢复。</string>

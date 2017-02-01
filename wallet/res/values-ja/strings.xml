@@ -259,7 +259,6 @@
   <string name="preferences_remind_balance_title">残金通知</string>
   <string name="preferences_remind_balance_summary">数週間使われていない場合、まだウォレット内にコインが残っていればアプリが通知を出します。</string>
   <string name="preferences_report_issue_title">問題を報告</string>
-  <string name="preferences_report_issue_summary">問題に関する情報を収集し、開発者へメールで報告する。</string>
   <string name="preferences_initiate_reset_title">ブロックチェーンのリセット</string>
   <string name="preferences_initiate_reset_summary">ブロックチェーン・トランザクション・ウォレットの残高をリセットします。再生にしばらくかかります。</string>
   <string name="preferences_initiate_reset_dialog_message">ブロックチェーンのリセットと再生を実行しますか?\n\n一時的にウォレットの残高が見られなくなり、トランザクションも削除されます。両方ともブロックチェーンの同期後は復元されます。</string>

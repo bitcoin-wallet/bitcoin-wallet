@@ -259,7 +259,6 @@
   <string name="preferences_remind_balance_title">Saldo herinnering</string>
   <string name="preferences_remind_balance_summary">Als de app een paar weken niet gebruikt is zal de wallet laten merken dat er nog steeds coins aanwezig.</string>
   <string name="preferences_report_issue_title">Meld probleem</string>
-  <string name="preferences_report_issue_summary">Vergaar informatie aangaande uw probleem en verstuur via e-mail een melding aan de ontwikkelaars</string>
   <string name="preferences_initiate_reset_title">Reset blockchain</string>
   <string name="preferences_initiate_reset_summary">Reset blok keten, transacties en portemonnee saldo. Herladen zal even duren.</string>
   <string name="preferences_initiate_reset_dialog_message">Wil je de blockchain resetten en herladen?\n\nTijdelijk zal dit de inhoud van je portemonnee en transacties verbergen. Beide zullen terugkomen tijdens het synchroniseren van de blockchain.</string>

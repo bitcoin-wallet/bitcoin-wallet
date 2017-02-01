@@ -17,7 +17,6 @@
 
 package de.schildbach.wallet.ui.preference;
 
-import java.io.IOException;
 import java.util.Locale;
 
 import org.bitcoinj.crypto.DeterministicKey;
@@ -27,8 +26,6 @@ import org.slf4j.LoggerFactory;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.ui.DialogBuilder;
-import de.schildbach.wallet.ui.ReportIssueDialogBuilder;
-import de.schildbach.wallet.util.CrashReporter;
 import de.schildbach.wallet_test.R;
 
 import android.app.Activity;
@@ -46,7 +43,6 @@ public final class DiagnosticsFragment extends PreferenceFragment {
     private Activity activity;
     private WalletApplication application;
 
-    private static final String PREFS_KEY_REPORT_ISSUE = "report_issue";
     private static final String PREFS_KEY_INITIATE_RESET = "initiate_reset";
     private static final String PREFS_KEY_EXTENDED_PUBLIC_KEY = "extended_public_key";
 
@@ -71,10 +67,7 @@ public final class DiagnosticsFragment extends PreferenceFragment {
     public boolean onPreferenceTreeClick(final PreferenceScreen preferenceScreen, final Preference preference) {
         final String key = preference.getKey();
 
-        if (PREFS_KEY_REPORT_ISSUE.equals(key)) {
-            handleReportIssue();
-            return true;
-        } else if (PREFS_KEY_INITIATE_RESET.equals(key)) {
+        if (PREFS_KEY_INITIATE_RESET.equals(key)) {
             handleInitiateReset();
             return true;
         } else if (PREFS_KEY_EXTENDED_PUBLIC_KEY.equals(key)) {
@@ -83,41 +76,6 @@ public final class DiagnosticsFragment extends PreferenceFragment {
         }
 
         return false;
-    }
-
-    private void handleReportIssue() {
-        final ReportIssueDialogBuilder dialog = new ReportIssueDialogBuilder(activity,
-                R.string.report_issue_dialog_title_issue, R.string.report_issue_dialog_message_issue) {
-            @Override
-            protected CharSequence subject() {
-                return Constants.REPORT_SUBJECT_ISSUE + " " + application.packageInfo().versionName;
-            }
-
-            @Override
-            protected CharSequence collectApplicationInfo() throws IOException {
-                final StringBuilder applicationInfo = new StringBuilder();
-                CrashReporter.appendApplicationInfo(applicationInfo, application);
-                return applicationInfo;
-            }
-
-            @Override
-            protected CharSequence collectStackTrace() {
-                return null;
-            }
-
-            @Override
-            protected CharSequence collectDeviceInfo() throws IOException {
-                final StringBuilder deviceInfo = new StringBuilder();
-                CrashReporter.appendDeviceInfo(deviceInfo, activity);
-                return deviceInfo;
-            }
-
-            @Override
-            protected CharSequence collectWalletDump() {
-                return application.getWallet().toString(false, true, true, null);
-            }
-        };
-        dialog.show();
     }
 
     private void handleInitiateReset() {

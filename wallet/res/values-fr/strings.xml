@@ -259,7 +259,6 @@
   <string name="preferences_remind_balance_title">Rappel de solde</string>
   <string name="preferences_remind_balance_summary">Après quelques semaines sans utilisation, l\'appli vous signalera s\'il y a encore des pièces dans le porte-monnaie.</string>
   <string name="preferences_report_issue_title">Signaler un problème</string>
-  <string name="preferences_report_issue_summary">Collecter des informations sur le problème et les envoyer par courriel aux développeurs.</string>
   <string name="preferences_initiate_reset_title">Réinitialiser la chaîne de blocs</string>
   <string name="preferences_initiate_reset_summary">Réinitialiser la chaîne de blocs, les transactions et le solde du porte-monnaie. La relecture prendra du temps.</string>
   <string name="preferences_initiate_reset_dialog_message">Voulez-vous réinitialiser et relire la chaîne de blocs ?\n\nLe solde de votre porte-monnaie sera caché et les transactions retirées temporairement. Les deux seront récupérés alors que la synchronisation de la chaîne de blocs progressera.</string>

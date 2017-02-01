@@ -259,7 +259,6 @@
   <string name="preferences_remind_balance_title">餘額提醒</string>
   <string name="preferences_remind_balance_summary">這個應用程式在兩個禮拜沒被使用後，會提醒你錢包裡面是否還有錢。</string>
   <string name="preferences_report_issue_title">問題回報</string>
-  <string name="preferences_report_issue_summary">收集問題的資訊並回報給開發人員。</string>
   <string name="preferences_initiate_reset_title">重置區塊鏈</string>
   <string name="preferences_initiate_reset_summary">重置區塊鏈、交易資料、以及錢包餘額。重算會花一點時間。</string>
   <string name="preferences_initiate_reset_dialog_message">確定要重置且重算區塊鏈嗎？\n\n錢包餘額會暫時隱藏起來，交易也會不見。但是會隨著同步的進度漸漸恢復。</string>

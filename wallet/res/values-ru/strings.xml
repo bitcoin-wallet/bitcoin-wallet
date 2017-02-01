@@ -257,7 +257,6 @@
   <string name="preferences_remind_balance_title">Напоминание баланса</string>
   <string name="preferences_remind_balance_summary">Если приложение не использовалось несколько недель, вам придёт напоминание, если в бумажнике есть монеты.</string>
   <string name="preferences_report_issue_title">Сообщить о проблеме</string>
-  <string name="preferences_report_issue_summary">Сбор информации о вашей проблеме и отправка отчета разработчикам.</string>
   <string name="preferences_initiate_reset_title">Перегрузить блокчейн</string>
   <string name="preferences_initiate_reset_summary">Сбросить цепочку блоков, транзакции и баланс кошелька. Повторная загрузка займёт некоторое время и трафик.</string>
   <string name="preferences_initiate_reset_dialog_message">Хотите загрузить блокчейн заново?\n\nЭто временно скроет баланс вашего кошелька и транзакции. Все восстановится по мере повторной синхронизации блокчейна.</string>

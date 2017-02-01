@@ -259,7 +259,6 @@
   <string name="preferences_remind_balance_title">Bakiye hatırlacısı</string>
   <string name="preferences_remind_balance_summary">İki hafta kullanılmaz ise, uygulama cüzdanda hâlâ Bitcoin bulunduğunu bildirecektir.</string>
   <string name="preferences_report_issue_title">Sorun rapor et</string>
-  <string name="preferences_report_issue_summary">Problem hakkında bilgi topla ve raporu geliştiricilere e-posta ile yolla.</string>
   <string name="preferences_initiate_reset_title">Blok zincirini sıfırla</string>
   <string name="preferences_initiate_reset_summary">Muameleleri, blok zincirini ve bakiyeyi sıfırla. Normale dönüş belli bir süre alacaktır.</string>
   <string name="preferences_initiate_reset_dialog_message">Blok zincirini sıfırlayıp tekrar eşleştirmek istiyor musunuz?\n\nBu geçici olarak bakiyenizin değerini sıfırlayacak ve muameleleri silecektir. Bu iki unsur blok zincirinin eşleşmesi ilerledikçe normale dönecektir.</string>

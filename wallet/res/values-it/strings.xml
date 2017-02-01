@@ -259,7 +259,6 @@
   <string name="preferences_remind_balance_title">Promemoria saldo.</string>
   <string name="preferences_remind_balance_summary">Dopo un paio di settimane in disuso, l\'app notificherà se ci sono ancora monete nel portafoglio.</string>
   <string name="preferences_report_issue_title">Segnala un problema</string>
-  <string name="preferences_report_issue_summary">Colleziona informazioni sul tuo problema e invia tramite email la tua segnalazione agli sviluppatori.</string>
   <string name="preferences_initiate_reset_title">Reinizializza il blockchain</string>
   <string name="preferences_initiate_reset_summary">Reinizializza il blockchain, transazioni e conto del portafoglio. Il processo impiegherà un po\'.</string>
   <string name="preferences_initiate_reset_dialog_message">Vorresti riavviare e ripetere il blockchain?\n\nQuesto nasconderà temporaneamente il tuo bilancio dal portafoglio, e rimuoverà le transazioni. Entrambi saranno recuperati con la sincronizzazione del blockchain.</string>

@@ -209,7 +209,6 @@
   <string name="preferences_data_usage_title">Matumizi ya habari</string>
   <string name="preferences_data_usage_summary">Onyesha chaguo kuzuia matumizi ya data juu ya mitandao ya simu.</string>
   <string name="preferences_report_issue_title">Ripoti tatizo</string>
-  <string name="preferences_report_issue_summary">Kukusanya taarifa juu ya tatizo lako na email ripoti yako kwa watengenezaji.</string>
   <string name="preferences_initiate_reset_title">Upya Blockchain</string>
   <string name="preferences_initiate_reset_summary">Upya Blockchain, shughuli, na usalama ya pochi. Bambika itachukua muda mfupi.</string>
   <string name="preferences_initiate_reset_dialog_message">Je, ungependa upya na bambika na Blockchain?\n\nHii muda kujificha pochi mizani yako na kuondoa shughuli. Wote itarejea kama Blockchain kubamba ikiendelea.</string>

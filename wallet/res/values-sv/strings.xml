@@ -257,7 +257,6 @@
   <string name="preferences_remind_balance_title">Påminnelse om summa</string>
   <string name="preferences_remind_balance_summary">Efter ett par veckors inaktivitet kommer appen ge en påminnelse om det fortfarande finns ett belopp i plånboken.</string>
   <string name="preferences_report_issue_title">Rapportera problem</string>
-  <string name="preferences_report_issue_summary">Samla information om ditt problem och maila rapporten till utvecklarna.</string>
   <string name="preferences_initiate_reset_title">Återställ blockkedjan</string>
   <string name="preferences_initiate_reset_summary">Återställer blockkedjan, transaktioner och plånboksbalansen, det tar en stund.</string>
   <string name="preferences_initiate_reset_dialog_message">Vill du återställa och återsynkronisera blockkedjan? Detta kommer att tillfälligt dölja plånbokens saldo och radera genomförda transaktioner. Båda dessa kommer att återställas när blockkedjans synkronisering fortsätter.</string>

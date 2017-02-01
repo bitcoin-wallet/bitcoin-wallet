@@ -259,7 +259,6 @@
   <string name="preferences_remind_balance_title">Připomínka bilance</string>
   <string name="preferences_remind_balance_summary">Upozornění po několika týdnech nepoužití aplikace, pokud jsou v peněžence stále peníze.</string>
   <string name="preferences_report_issue_title">Nahlásit problém</string>
-  <string name="preferences_report_issue_summary">Posbírat informace o problému a odeslat je emailem vývojářům</string>
   <string name="preferences_initiate_reset_title">Obnovit řětězec bloků</string>
   <string name="preferences_initiate_reset_summary">Obnovit blokchain, transakce a stav peněženky. Nové nahrání bude chvíli trvat.</string>
   <string name="preferences_initiate_reset_dialog_message">Opravdu chcete obnovit a znovu nahrát blokchain?\n\nToto dočasně skryje stav peněženky a odstraní transakce. Obojí bude obnoveno, jakmile se blokchain synchronizuje.</string>

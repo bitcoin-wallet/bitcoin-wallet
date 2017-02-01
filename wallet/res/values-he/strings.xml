@@ -171,7 +171,6 @@
   <string name="preferences_data_usage_title">מידע בשימוש</string>
   <string name="preferences_data_usage_summary">הצג אפשרויות להגביל שימוש במידע בעת גלישה ברשת סלולרית.</string>
   <string name="preferences_report_issue_title">דווח על תקלה</string>
-  <string name="preferences_report_issue_summary">אסוף מידע על הנושא שלך ואת כתובת הדואר האלקטרוני לצור דיווח למפתחים.</string>
   <string name="preferences_initiate_reset_title">אפס שרשרת בלוקים</string>
   <string name="preferences_initiate_reset_summary">מאפס את שרשרת הבלוקים, עסקאות ויתרה בארנק. העדכון יקח זמן מה.</string>
   <string name="preferences_initiate_reset_dialog_message">האם לאפס ולשחזר את שרשרת הבלוקים ? הדבר יקח זמן מה ויאפס את יתרתך באופן זמני. היתרה והעסקאות יחזרו לאחר סנכרון עם הרשת.</string>

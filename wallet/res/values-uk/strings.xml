@@ -175,7 +175,6 @@
   <string name="preferences_data_usage_title">Використання даних</string>
   <string name="preferences_data_usage_summary">Показати опції обмеженняя використання даних в мобільних меражах.</string>
   <string name="preferences_report_issue_title">Повідомити про проблему</string>
-  <string name="preferences_report_issue_summary">Збір інформації про вашу проблему і відправка звіту розробникам.</string>
   <string name="preferences_initiate_reset_title">Скинути ланцюжок блоків</string>
   <string name="preferences_initiate_reset_summary">Скинути ланцюжок блоків, транзакції і баланс гаманця. Повторне завантаження займе деякий час і трафік.</string>
   <string name="preferences_initiate_reset_dialog_message">Ви дійсно хочете скинути і перезавантажити ланцюжок блоків?\n\nЦя дія тимчасово приховає баланс гаманця і видалити транзакції. І те, і інше відновиться під час синхронізації ланцюжка блоків.</string>

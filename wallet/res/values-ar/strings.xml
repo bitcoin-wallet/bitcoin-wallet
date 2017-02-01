@@ -155,7 +155,6 @@
 	<string name="preferences_data_usage_title">استخدام البيانات</string>
 	<string name="preferences_data_usage_summary">إظهار الخيارات لتقييد استخدام البيانات على شبكات الانترنت المحمول اللاسلكية</string>
 	<string name="preferences_report_issue_title">إبلاغ عن مشكلة</string>
-	<string name="preferences_report_issue_summary">جمع المعلومات حول المشكلة التي تواجهها، وإرسال تقريرك  بالبريد الإلكتروني للمطورين.</string>
 	<string name="preferences_initiate_reset_title">إعادة تعيين Blockchain</string>
 	<string name="preferences_initiate_reset_summary">إعادة تعيين Blockchain و المعاملات و رصيد المحفظة. الرد سيستغرق بعض الوقت.</string>
 	<string name="preferences_initiate_reset_dialog_message">هل تود إعادة تعيين وإعادة تشغيل blockchain؟\n\nسيتم إخفاء رصيد محفظتك  مؤقتا وإزالة المعاملات. كلاهما سوف يسترجعان مع تقدم مزامنة بيانات blockchain.</string>

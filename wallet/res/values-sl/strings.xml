@@ -161,7 +161,6 @@
   <string name="preferences_data_usage_title">Poraba podatkov</string>
   <string name="preferences_data_usage_summary">Prikaži možnosti za omejitev porabe podatkov prek mobilnih omrežij.</string>
   <string name="preferences_report_issue_title">Prijavi težavo</string>
-  <string name="preferences_report_issue_summary">Opišite težavo in jo sporočite po elektronski pošti razvijalcem aplikacije.</string>
   <string name="preferences_initiate_reset_title">Ponastavi nakazila</string>
   <string name="preferences_initiate_reset_summary">Ponovno prenesi nakazila in preračunaj stanje. To bo vzelo nekaj časa.</string>
   <string name="preferences_initiate_reset_dialog_message">Želite ponovno prenesti in preračunati nakazila?\n\nZačasno ne boste mogli videti svojega stanja in transakcij ter izvajati plačil. Ti podatki se bodo spet prikazali tekom ponovnega usklajevanja.</string>

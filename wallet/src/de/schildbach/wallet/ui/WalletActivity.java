@@ -322,6 +322,10 @@ public final class WalletActivity extends AbstractWalletActivity
             HelpDialogFragment.page(getFragmentManager(), R.string.help_safety);
             return true;
 
+        case R.id.wallet_options_report_issue:
+            handleReportIssue();
+            return true;
+
         case R.id.wallet_options_help:
             HelpDialogFragment.page(getFragmentManager(), R.string.help_wallet);
             return true;
@@ -362,6 +366,41 @@ public final class WalletActivity extends AbstractWalletActivity
 
     public void handleEncryptKeys() {
         EncryptKeysDialogFragment.show(getFragmentManager());
+    }
+
+    private void handleReportIssue() {
+        final ReportIssueDialogBuilder dialog = new ReportIssueDialogBuilder(this,
+                R.string.report_issue_dialog_title_issue, R.string.report_issue_dialog_message_issue) {
+            @Override
+            protected CharSequence subject() {
+                return Constants.REPORT_SUBJECT_ISSUE + " " + application.packageInfo().versionName;
+            }
+
+            @Override
+            protected CharSequence collectApplicationInfo() throws IOException {
+                final StringBuilder applicationInfo = new StringBuilder();
+                CrashReporter.appendApplicationInfo(applicationInfo, application);
+                return applicationInfo;
+            }
+
+            @Override
+            protected CharSequence collectStackTrace() {
+                return null;
+            }
+
+            @Override
+            protected CharSequence collectDeviceInfo() throws IOException {
+                final StringBuilder deviceInfo = new StringBuilder();
+                CrashReporter.appendDeviceInfo(deviceInfo, WalletActivity.this);
+                return deviceInfo;
+            }
+
+            @Override
+            protected CharSequence collectWalletDump() {
+                return application.getWallet().toString(false, true, true, null);
+            }
+        };
+        dialog.show();
     }
 
     @Override

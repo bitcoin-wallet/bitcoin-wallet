@@ -243,7 +243,6 @@
   <string name="preferences_data_usage_title">Ús de dades</string>
   <string name="preferences_data_usage_summary">Mostra opcions per a restringir l\'ús de dades en xarxes mòbils. </string>
   <string name="preferences_report_issue_title">Avisa d\'un problema</string>
-  <string name="preferences_report_issue_summary">Agafa informació sobre el problema i envia un correu amb el teu informe als desenvolupadors.</string>
   <string name="preferences_initiate_reset_title">Reinicialitza la cadena de blocs</string>
   <string name="preferences_initiate_reset_summary">Reinicialitza la cadena de blocs, les transaccions i el balanç de la cartera. Re-escanejar trigara una mica.</string>
   <string name="preferences_initiate_reset_dialog_message">Voldries reiniciar i re-escanejar la cadena de blocs?\n\nAixò amagarà el saldo de la teva cartera temporalment i esborrarà les transaccions. Ambdues es recuperaran mentre es sincronitza.</string>

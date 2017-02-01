@@ -130,7 +130,6 @@
 	<string name="preferences_data_usage_title">Penggunaan data</string>
 	<string name="preferences_data_usage_summary">Tampilkan pilihan utk pembatasan penggunaan data ponsel.</string>
 	<string name="preferences_report_issue_title">Laporkan Masalah</string>
-	<string name="preferences_report_issue_summary">Kumpulkan informasi masalah Anda dan kirimkan laporan Anda ke pengembang.</string>
 	<string name="preferences_initiate_reset_title">Atur-ulang Rantai-blok</string>
 	<string name="preferences_initiate_reset_summary">Atur-ulang rantai-blok, transaksi dan saldo dompet. pengulangan akan berlangsung lama.</string>
 	<string name="preferences_initiate_reset_dialog_message">Apakah Anda ingin mengatur-ulang untuk pengulangan rantai-blok?\n\nIni akan menyembunyikan saldo Anda dan hapus transaksi sementara. Keduanya akan pulih setelah rantai-blok sinkron.</string>

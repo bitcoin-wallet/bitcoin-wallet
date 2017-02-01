@@ -134,7 +134,6 @@
 	<string name="preferences_data_usage_title">Datumoj uzado</string>
 	<string name="preferences_data_usage_summary">Montri opciojn por restrikti datuman uzon je poŝtelefonaj retoj.</string>
 	<string name="preferences_report_issue_title">Reporti aferon</string>
-	<string name="preferences_report_issue_summary">Kolekti informojn pri via afero kaj retpoŝtu vian raporton al la programistoj.</string>
 	<string name="preferences_initiate_reset_title">Reŝargi Blokĉenon</string>
 	<string name="preferences_initiate_reset_summary">Reŝargi blokĉenon, transakciojn, kaj monujan saldon. Povus preni momenton.</string>
 	<string name="preferences_initiate_reset_dialog_message">Ĉu vi volus reŝargi la blokĉenon?\n\nTio provizore kaŝi vian monujo-saldo kaj forigi transakciojn. Ambaŭ reiros kiel blokĉena sinkronigo progresas.</string>

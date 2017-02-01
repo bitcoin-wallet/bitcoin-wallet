@@ -251,7 +251,6 @@
   <string name="preferences_remind_balance_title">Egyenleg emlékeztető</string>
   <string name="preferences_remind_balance_summary">Néhány hét nem használat után az alkalmazás értesít, ha még vannak érméid a tárcában.</string>
   <string name="preferences_report_issue_title">Hiba jelentése</string>
-  <string name="preferences_report_issue_summary">A hiba részleteinek összegyűjtése és elküldése a fejlesztők részére.</string>
   <string name="preferences_initiate_reset_title">Blokklánc visszaállítása</string>
   <string name="preferences_initiate_reset_summary">Blokklánc, tranzakciók és tárcaegyenleg visszaállítása. A visszajátszás eltarthat egy ideig.</string>
   <string name="preferences_initiate_reset_dialog_message">Szeretnéd visszaállítani és visszajátszani a blokkláncot?\n\nEz átmenetileg elrejti a tárca egyenleged és eltávolítja a tranzakciókat. Mindkettő visszaáll a blokklánc szinkronizálás előrehaladtával.</string>

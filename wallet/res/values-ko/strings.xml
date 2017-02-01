@@ -247,7 +247,6 @@
   <string name="preferences_remind_balance_title">잔액 알림</string>
   <string name="preferences_remind_balance_summary">앱에 잔액이 남아 있는 상태에서 몇 주간 사용을 하지 않으면 앱이 알람을 보냅니다.</string>
   <string name="preferences_report_issue_title">오류 보고</string>
-  <string name="preferences_report_issue_summary">오류에 대한 정보를 수집 후 오류 보고서를 개발자에게 전달합니다.</string>
   <string name="preferences_initiate_reset_title">블럭체인 재설정</string>
   <string name="preferences_initiate_reset_summary">블럭체인 재설정을 통해 거래 내역, 지갑 잔액 데이터를 다시 받습니다. 이 동기화에 일정 시간이 소요될 수 있습니다.</string>
   <string name="preferences_initiate_reset_dialog_message">블럭체인을 재설정하고 다시 불러오겠습니까?\n\n이 작업을 통해 일시적으로 지갑의 잔액과 거래내역이 표시되지 않을 것입니다. 블럭체인 동기화가 진행되면 둘 다 다시 복구됩니다.</string>

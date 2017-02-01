@@ -257,7 +257,6 @@
   <string name="preferences_remind_balance_title">Aviso de saldo</string>
   <string name="preferences_remind_balance_summary">Após ficar alguns semanas sem ser utilizado, o app irá notificar se ainda existem bitcoins na carteira.</string>
   <string name="preferences_report_issue_title">Informar problema</string>
-  <string name="preferences_report_issue_summary">Coleta informações sobre o problema e envia um relatório aos desenvolvedores.</string>
   <string name="preferences_initiate_reset_title">Reiniciar Blockchain</string>
   <string name="preferences_initiate_reset_summary">Reiniciar blockchain, transações e saldo da carteira. Pode levar algum tempo.</string>
   <string name="preferences_initiate_reset_dialog_message">Deseja reiniciar e repetir o blockchain?\n\nIsto ocultará temporariamente o saldo de sua carteira e transações. Ambos reaparecerão conforme a atualização dos blockchains.</string>

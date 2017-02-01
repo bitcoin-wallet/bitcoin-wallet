@@ -219,7 +219,6 @@
   <string name="preferences_data_usage_title">Përdorimi i rrjetit</string>
   <string name="preferences_data_usage_summary">Shfaq opsionet për shfrytëzim të kufizuar kur përdorni rrjetin mobil (3G/4G).</string>
   <string name="preferences_report_issue_title">Raporto problem</string>
-  <string name="preferences_report_issue_summary">Mbledh informatat rreth këtij problemi dhe dergo raportin me e-mail tek programerët.</string>
   <string name="preferences_initiate_reset_title">Resetoni blockchain</string>
   <string name="preferences_initiate_reset_summary">Resetoni blockchain, transaksionet dhe bilancin e kuletës. Ky proces merr pak kohë.</string>
   <string name="preferences_initiate_reset_dialog_message">Deshironi të resetoni dhe ri-shkarkoni blockchain-in?\n\nKy proces përkohësisht do të fsheh bilancin e kuletës dhe heq transaksionet. Të dyjat rikthehen gjatë sinkronizimit të blocchain-it.</string>
