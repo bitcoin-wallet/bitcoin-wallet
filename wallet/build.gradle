@@ -28,7 +28,7 @@ dependencies {
     }
     compile 'com.github.tony19:logback-android-core:1.1.1-6'
     compile 'com.google.code.findbugs:jsr305:2.0.3'
-    testCompile 'junit:junit:4.11'
+    testCompile 'junit:junit:4.12'
 }
 
 ext {
