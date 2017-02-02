@@ -273,6 +273,7 @@
     <string name="extended_public_key_fragment_share">Share xpub…</string>
     <string name="report_issue_dialog_title_issue">Report issue</string>
     <string name="report_issue_dialog_title_crash">Previous crash detected</string>
+    <string name="report_issue_dialog_title_transaction">Report issue with selected payment</string>
     <string name="report_issue_dialog_message_issue">Please describe your issue precisely enough to be reproduced. Use English language if you can.</string>
     <string name="report_issue_dialog_message_crash">Would you like to send a crash report, helping to fix this issue in the future?</string>
     <string name="report_issue_dialog_description">issue description</string>

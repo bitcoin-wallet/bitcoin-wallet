@@ -275,6 +275,7 @@
     <string name="extended_public_key_fragment_share">Xpub teilen…</string>
     <string name="report_issue_dialog_title_issue">Problem melden</string>
     <string name="report_issue_dialog_title_crash">Absturz erkannt</string>
+    <string name="report_issue_dialog_title_transaction">Problem mit markierter Zahlung melden</string>
     <string name="report_issue_dialog_message_issue">Bitte beschreibe dein Problem genau, so daß es nachvollzogen werden kann.</string>
     <string name="report_issue_dialog_message_crash">Möchtest du einen Fehlerbericht senden, um bei der Fehlerbehebung zu helfen?</string>
     <string name="report_issue_dialog_description">Problembeschreibung</string>
