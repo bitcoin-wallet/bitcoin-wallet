@@ -1,3 +1,9 @@
+v5.13
+
+* Add option to report issue with selected payment.
+* Add blockchain.info to block explorers.
+* Minor bugfix.
+
 v5.12
 
 * Query a set of Electrum servers to swipe paper wallets. Biteasy can't be used any more,
