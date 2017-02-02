@@ -8,13 +8,13 @@
 			Tap to go to the list of national currencies, and tap on one of the currencies to select it as default.
 		</p>
 		<p>
-			The QR code on the right contains your bitcoin address and can be used for scanning by another party.
+			The QR code in the upper right contains your current bitcoin address and can be used for scanning by a payer.
 			Tap on the QR code to get a larger version of it.
 		</p>
 		<p>
-			The bottom of the screen is covered by your transactions list, which is empty at the beginning.
-			Pending transactions are greyed out until they are confirmed.
-			Tap on one entry to add the senders or receivers address to the address book.
+			The bottom of the screen is covered by your transactions list.
+			It is empty at the beginning and will fill up as you receive and send payments.
+			Received payments will be marked in green and sent payments in red.
 		</p>
 		<p>
 			You can send or request coins by tapping the buttons in the action bar.
@@ -25,19 +25,20 @@
     <string name="help_request_coins">
 <![CDATA[
 		<p>
-			Using this dialog, you can request coins from another person (who should already have installed Bitcoin Wallet).
+			Using this dialog, you can request coins from a payer.
+			The payer should already have installed a Bitcoin wallet.
 		</p>
 		<p>
 			First, you can enter an amount of Bitcoins to request.
 		</p>
 		<p>
-			Then, you either have the generated QR code scanned by the other person.
+			Then, you either have the generated QR code scanned by the payer.
 			Or, you can send your request to a remote person with the share button in the action bar.
-			The other person will have to click the Bitcoin URL.
+			If both phones have NFC enabled, you can also tap them together.
 		</p>
 		<p>
-			Either way, the other person will be presented a dialog for sending coins with all fields pre-populated.
-			If she accepts, all she needs to do is sending the payment.
+			Either way, the payer will be presented a dialog for sending coins with all fields pre-populated.
+			If the payer agrees, he or she can execute the payment easily.
 		</p>
 	]]>
     </string>
@@ -45,19 +46,17 @@
 <![CDATA[
 		<p>
 			You have initiated the process of sending coins.
-			You came here either through the main screen or by clicking on a Bitcoin URL in your mobile browser.
 		</p>
 		<p>
 			First, you enter the Bitcoin address to pay to.
 			The address will autocomplete from known entries in your address book.
-			You can also scan QR codes with Bitcoin addresses or Bitcoin requests by pressing the QR button in the action bar.
+			You can also scan a QR code being presented by the payee by pressing the camera button.
 		</p>
 		<p>
-			Next, you can see how many Bitcoins you can spend at the moment.
-			Any difference to the balance from the main screen is still unconfirmed and can thus not yet be spent.
+			Next, you enter the amount to pay.
 		</p>
 		<p>
-			Last, you enter the amount to pay.
+			Last, the spending PIN must be entered if one was set up beforehand.
 		</p>
 		<p>
 			You can enter a payment while being offline.
@@ -101,7 +100,7 @@
 		</p>
 		<p>
 			Keep the risk low!
-			<b>Only use with small amounts</b> for day use.
+			<b>Store only a reasonable amount</b> for day use.
 		</p>
 	]]>
     </string>
