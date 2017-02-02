@@ -384,11 +384,6 @@ public final class WalletActivity extends AbstractWalletActivity
             }
 
             @Override
-            protected CharSequence collectStackTrace() {
-                return null;
-            }
-
-            @Override
             protected CharSequence collectDeviceInfo() throws IOException {
                 final StringBuilder deviceInfo = new StringBuilder();
                 CrashReporter.appendDeviceInfo(deviceInfo, WalletActivity.this);

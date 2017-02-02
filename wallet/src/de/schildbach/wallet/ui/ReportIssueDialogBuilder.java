@@ -242,14 +242,22 @@ public abstract class ReportIssueDialogBuilder extends DialogBuilder implements 
     protected abstract CharSequence subject();
 
     @Nullable
-    protected abstract CharSequence collectApplicationInfo() throws IOException;
+    protected CharSequence collectApplicationInfo() throws IOException {
+        return null;
+    }
 
     @Nullable
-    protected abstract CharSequence collectStackTrace() throws IOException;
+    protected CharSequence collectStackTrace() throws IOException {
+        return null;
+    }
 
     @Nullable
-    protected abstract CharSequence collectDeviceInfo() throws IOException;
+    protected CharSequence collectDeviceInfo() throws IOException {
+        return null;
+    }
 
     @Nullable
-    protected abstract CharSequence collectWalletDump() throws IOException;
+    protected CharSequence collectWalletDump() throws IOException {
+        return null;
+    }
 }
