@@ -112,8 +112,7 @@ public class Configuration {
         final int shift = getBtcShift();
         final int minPrecision = shift <= 3 ? 2 : 0;
         final int decimalRepetitions = (getBtcPrecision() - minPrecision) / 2;
-        return new MonetaryFormat().shift(shift).minDecimals(minPrecision).repeatOptionalDecimals(2,
-                decimalRepetitions);
+        return new MonetaryFormat().shift(shift).minDecimals(minPrecision).repeatOptionalDecimals(2, decimalRepetitions).code(0, "DOGE").code(3, "mDOGE").code(6, "µDOGE");
     }
 
     public MonetaryFormat getMaxPrecisionFormat() {

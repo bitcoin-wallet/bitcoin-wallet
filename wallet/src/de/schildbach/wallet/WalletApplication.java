@@ -31,6 +31,7 @@ import org.bitcoinj.core.VerificationException;
 import org.bitcoinj.core.VersionMessage;
 import org.bitcoinj.crypto.LinuxSecureRandom;
 import org.bitcoinj.crypto.MnemonicCode;
+import org.bitcoinj.params.Networks;
 import org.bitcoinj.utils.Threading;
 import org.bitcoinj.wallet.Protos;
 import org.bitcoinj.wallet.UnreadableWalletException;
@@ -117,6 +118,8 @@ public class WalletApplication extends Application {
 
         log.info("=== starting app using configuration: {}, {}", Constants.TEST ? "test" : "prod",
                 Constants.NETWORK_PARAMETERS.getId());
+
+        Networks.register(Constants.NETWORK_PARAMETERS);
 
         super.onCreate();
 

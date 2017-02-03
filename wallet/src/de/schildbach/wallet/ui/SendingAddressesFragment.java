@@ -25,6 +25,7 @@ import org.bitcoinj.core.Address;
 import org.bitcoinj.core.AddressFormatException;
 import org.bitcoinj.core.Transaction;
 import org.bitcoinj.core.VerificationException;
+import org.bitcoinj.params.AbstractBitcoinNetParams;
 import org.bitcoinj.uri.BitcoinURI;
 import org.bitcoinj.uri.BitcoinURIParseException;
 import org.bitcoinj.wallet.Wallet;
@@ -326,12 +327,12 @@ public final class SendingAddressesFragment extends FancyListFragment
     }
 
     private void handleShowQr(final String address, final String label) {
-        final String uri = BitcoinURI.convertToBitcoinURI(Constants.NETWORK_PARAMETERS, address, null, label, null);
+        final String uri = BitcoinURI.convertToBitcoinURI(Constants.NETWORK_PARAMETERS, address, null, label, null).replace(AbstractBitcoinNetParams.BITCOIN_SCHEME, "dogecoin");
         BitmapFragment.show(getFragmentManager(), Qr.bitmap(uri));
     }
 
     private void handleCopyToClipboard(final String address) {
-        clipboardManager.setPrimaryClip(ClipData.newPlainText("Bitcoin address", address));
+        clipboardManager.setPrimaryClip(ClipData.newPlainText("Dogecoin address", address));
         log.info("sending address copied to clipboard: {}", address.toString());
         new Toast(activity).toast(R.string.wallet_address_fragment_clipboard_msg);
     }

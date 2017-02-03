@@ -309,6 +309,10 @@ public final class WalletActivity extends AbstractBindServiceActivity
             handleBackupWallet();
             return true;
 
+        case R.id.wallet_options_restore_wallet:
+            handleRestoreWallet();
+            return true;
+
         case R.id.wallet_options_encrypt_keys:
             handleEncryptKeys();
             return true;

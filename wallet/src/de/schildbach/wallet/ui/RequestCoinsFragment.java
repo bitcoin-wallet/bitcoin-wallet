@@ -23,6 +23,7 @@ import javax.annotation.Nullable;
 
 import org.bitcoinj.core.Address;
 import org.bitcoinj.core.Coin;
+import org.bitcoinj.params.AbstractBitcoinNetParams;
 import org.bitcoinj.protocols.payments.PaymentProtocol;
 import org.bitcoinj.uri.BitcoinURI;
 import org.bitcoinj.wallet.Wallet;
@@ -421,7 +422,7 @@ public final class RequestCoinsFragment extends Fragment implements NfcAdapter.C
             uri.append(amount == null && ownName == null ? '?' : '&');
             uri.append(Bluetooth.MAC_URI_PARAM).append('=').append(bluetoothMac);
         }
-        return uri.toString();
+        return uri.toString().replace(AbstractBitcoinNetParams.BITCOIN_SCHEME, "dogecoin");
     }
 
     private byte[] determinePaymentRequest(final boolean includeBluetoothMac) {
