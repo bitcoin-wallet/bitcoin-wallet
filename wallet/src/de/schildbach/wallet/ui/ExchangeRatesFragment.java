@@ -347,9 +347,8 @@ public final class ExchangeRatesFragment extends Fragment implements OnSharedPre
 
             holder.currencyCodeView.setText(exchangeRate.getCurrencyCode());
 
-            holder.rateView.setFormat(!rateBase.isLessThan(Coin.COIN) ? Constants.LOCAL_FORMAT.minDecimals(2)
-                    : Constants.LOCAL_FORMAT.minDecimals(4));
-            holder.rateView.setAmount(exchangeRate.rate.coinToFiat(rateBase));
+            holder.rateView.setFormat(Constants.LOCAL_FORMAT.postfixCode().code(0, "/1k"));
+            holder.rateView.setAmount(exchangeRate.rate.coinToFiat(rateBase).multiply(1000));
 
             holder.walletView.setFormat(Constants.LOCAL_FORMAT);
             if (balance != null && (blockchainState == null || !blockchainState.replaying)) {
