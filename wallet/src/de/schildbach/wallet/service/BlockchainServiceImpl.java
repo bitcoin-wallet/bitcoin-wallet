@@ -51,6 +51,7 @@ import org.bitcoinj.core.listeners.AbstractPeerDataEventListener;
 import org.bitcoinj.core.listeners.PeerConnectedEventListener;
 import org.bitcoinj.core.listeners.PeerDataEventListener;
 import org.bitcoinj.core.listeners.PeerDisconnectedEventListener;
+import org.bitcoinj.net.discovery.DnsDiscovery;
 import org.bitcoinj.net.discovery.MultiplexingDiscovery;
 import org.bitcoinj.net.discovery.PeerDiscovery;
 import org.bitcoinj.net.discovery.PeerDiscoveryException;
@@ -409,8 +410,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
                 peerGroup.setPeerDiscoveryTimeoutMillis(Constants.PEER_DISCOVERY_TIMEOUT_MS);
 
                 peerGroup.addPeerDiscovery(new PeerDiscovery() {
-                    private final PeerDiscovery normalPeerDiscovery = MultiplexingDiscovery
-                            .forServices(Constants.NETWORK_PARAMETERS, 0);
+                    private final PeerDiscovery normalPeerDiscovery = new DnsDiscovery(Constants.NETWORK_PARAMETERS); // DOGE only has DNS
 
                     @Override
                     public InetSocketAddress[] getPeers(final long services, final long timeoutValue,
@@ -433,7 +433,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
 
                         if (!connectTrustedPeerOnly)
                             peers.addAll(
-                                    Arrays.asList(normalPeerDiscovery.getPeers(services, timeoutValue, timeoutUnit)));
+                                    Arrays.asList(normalPeerDiscovery.getPeers(0, timeoutValue, timeoutUnit)));
 
                         // workaround because PeerGroup will shuffle peers
                         if (needsTrimPeersWorkaround)

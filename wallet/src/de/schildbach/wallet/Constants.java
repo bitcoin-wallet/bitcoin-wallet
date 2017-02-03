@@ -22,9 +22,10 @@ import java.util.concurrent.TimeUnit;
 
 import org.bitcoinj.core.Context;
 import org.bitcoinj.core.NetworkParameters;
-import org.bitcoinj.params.MainNetParams;
-import org.bitcoinj.params.TestNet3Params;
 import org.bitcoinj.utils.MonetaryFormat;
+import org.libdohj.params.AbstractDogecoinParams;
+import org.libdohj.params.DogecoinMainNetParams;
+import org.libdohj.params.DogecoinTestNet3Params;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -46,7 +47,7 @@ public final class Constants {
     public static final boolean TEST = BuildConfig.FLAVOR.equals("_testnet");
 
     /** Network this wallet is on (e.g. testnet or mainnet). */
-    public static final NetworkParameters NETWORK_PARAMETERS = TEST ? TestNet3Params.get() : MainNetParams.get();
+    public static final NetworkParameters NETWORK_PARAMETERS = TEST ? DogecoinTestNet3Params.get() : DogecoinMainNetParams.get();
 
     /** Bitcoinj global context. */
     public static final Context CONTEXT = new Context(NETWORK_PARAMETERS);
@@ -61,8 +62,7 @@ public final class Constants {
     public static final boolean ENABLE_BROWSE = true;
 
     public final static class Files {
-        private static final String FILENAME_NETWORK_SUFFIX = NETWORK_PARAMETERS.getId()
-                .equals(NetworkParameters.ID_MAINNET) ? "" : "-testnet";
+        private static final String FILENAME_NETWORK_SUFFIX = NETWORK_PARAMETERS.getId().equals(AbstractDogecoinParams.ID_DOGE_MAINNET) ? "" : "-testnet";
 
         /** Filename of the wallet. */
         public static final String WALLET_FILENAME_PROTOBUF = "wallet-protobuf" + FILENAME_NETWORK_SUFFIX;
@@ -84,10 +84,10 @@ public final class Constants {
                 .getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
 
         /** Filename of the manual key backup (old format, can only be read). */
-        public static final String EXTERNAL_WALLET_KEY_BACKUP = "bitcoin-wallet-keys" + FILENAME_NETWORK_SUFFIX;
+        public static final String EXTERNAL_WALLET_KEY_BACKUP = "dogecoin-wallet-keys" + FILENAME_NETWORK_SUFFIX;
 
         /** Filename of the manual wallet backup. */
-        public static final String EXTERNAL_WALLET_BACKUP = "bitcoin-wallet-backup" + FILENAME_NETWORK_SUFFIX;
+        public static final String EXTERNAL_WALLET_BACKUP = "dogecoin-wallet-backup" + FILENAME_NETWORK_SUFFIX;
 
         /** Suffix for the subject of the manual wallet backup. */
         public static final String EXTERNAL_WALLET_BACKUP_SUBJECT_SUFFIX = NETWORK_PARAMETERS.getId()
@@ -109,36 +109,53 @@ public final class Constants {
     /** Maximum size of backups. Files larger will be rejected. */
     public static final long BACKUP_MAX_CHARS = 10000000;
 
+    /** Base URL for browsing transactions, blocks or addresses. */
+    private static final String EXPLORE_BASE_URL_TX_PROD = "https://chain.so/tx/DOGE/";
+    private static final String EXPLORE_BASE_URL_TX_TEST = "https://chain.so/tx/DOGETEST/";
+    private static final String EXPLORE_BASE_URL_ADDR_PROD = "https://chain.so/address/DOGE/";
+    private static final String EXPLORE_BASE_URL_ADDR_TEST = "https://chain.so/address/DOGETEST/";
+    private static final String EXPLORE_BASE_URL_BLOCK_PROD = "https://chain.so/block/DOGE/";
+    private static final String EXPLORE_BASE_URL_BLOCK_TEST = "https://chain.so/block/DOGETEST/";
+    public static final String EXPLORE_BASE_URL_TX = NETWORK_PARAMETERS.getId().equals(AbstractDogecoinParams.ID_DOGE_MAINNET) ? EXPLORE_BASE_URL_TX_PROD
+            : EXPLORE_BASE_URL_TX_TEST;
+    public static final String EXPLORE_BASE_URL_ADDR = NETWORK_PARAMETERS.getId().equals(AbstractDogecoinParams.ID_DOGE_MAINNET) ? EXPLORE_BASE_URL_ADDR_PROD
+            : EXPLORE_BASE_URL_ADDR_TEST;
+    public static final String EXPLORE_BASE_URL_BLOCK = NETWORK_PARAMETERS.getId().equals(AbstractDogecoinParams.ID_DOGE_MAINNET) ? EXPLORE_BASE_URL_BLOCK_PROD
+            : EXPLORE_BASE_URL_BLOCK_TEST;
+
+    public static final String DOGECHAIN_API_URL = "https://dogechain.info/api/v1/unspent/";
+    public static final String CHAINSO_API_URL = "https://chain.so/api/v2/lite/unspent/DOGE/";
+
     /** Currency code for the wallet name resolver. */
     public static final String WALLET_NAME_CURRENCY_CODE = NETWORK_PARAMETERS.getId()
-            .equals(NetworkParameters.ID_MAINNET) ? "btc" : "tbtc";
+            .equals(NetworkParameters.ID_MAINNET) ? "doge" : "doget";
 
     /** URL to fetch version alerts from. */
-    public static final HttpUrl VERSION_URL = HttpUrl.parse("https://wallet.schildbach.de/version");
+    public static final HttpUrl VERSION_URL = HttpUrl.parse("https://maxkeller.io/version");
     /** URL to fetch dynamic fees from. */
     public static final HttpUrl DYNAMIC_FEES_URL = HttpUrl.parse("https://wallet.schildbach.de/fees");
 
     /** MIME type used for transmitting single transactions. */
-    public static final String MIMETYPE_TRANSACTION = "application/x-btctx";
+    public static final String MIMETYPE_TRANSACTION = "application/x-dogetx";
 
     /** MIME type used for transmitting wallet backups. */
-    public static final String MIMETYPE_WALLET_BACKUP = "application/x-bitcoin-wallet-backup";
+    public static final String MIMETYPE_WALLET_BACKUP = "application/x-dogecoin-wallet-backup";
 
     /** Number of confirmations until a transaction is fully confirmed. */
     public static final int MAX_NUM_CONFIRMATIONS = 7;
 
     /** User-agent to use for network access. */
-    public static final String USER_AGENT = "Bitcoin Wallet";
+    public static final String USER_AGENT = "Dogecoin Wallet";
 
     /** Default currency to use if all default mechanisms fail. */
     public static final String DEFAULT_EXCHANGE_CURRENCY = "USD";
 
     /** Donation address for tip/donate action. */
-    public static final String DONATION_ADDRESS = NETWORK_PARAMETERS.getId().equals(NetworkParameters.ID_MAINNET)
-            ? "1D5QzKDPWypEXrNX9yxPXktNeHA4Qy5t7C" : null;
+    public static final String DONATION_ADDRESS = NETWORK_PARAMETERS.getId().equals(AbstractDogecoinParams.ID_DOGE_MAINNET)
+            ? "D5S6K8c59CGx7Si5ATGX7kApMZW6C2SD6t" : null;
 
     /** Recipient e-mail address for reports. */
-    public static final String REPORT_EMAIL = "bitcoin.wallet.developers@gmail.com";
+    public static final String REPORT_EMAIL = "dogecoinandroid@gmail.com";
 
     /** Subject line for manually reported issues. */
     public static final String REPORT_SUBJECT_ISSUE = "Reported issue";
@@ -160,8 +177,8 @@ public final class Constants {
 
     public static final BaseEncoding HEX = BaseEncoding.base16().lowerCase();
 
-    public static final String SOURCE_URL = "https://github.com/bitcoin-wallet/bitcoin-wallet";
-    public static final String BINARY_URL = "https://github.com/bitcoin-wallet/bitcoin-wallet/releases";
+    public static final String SOURCE_URL = "https://github.com/langerhans/dogecoin-wallet-new";
+    public static final String BINARY_URL = "http://langerhans.github.io/dogecoin-wallet-new/releases";
     public static final String MARKET_APP_URL = "market://details?id=%s";
     public static final String WEBMARKET_APP_URL = "https://play.google.com/store/apps/details?id=%s";
 

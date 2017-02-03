@@ -262,7 +262,7 @@ public class WalletApplication extends Application {
             try {
                 final Stopwatch watch = Stopwatch.createStarted();
                 walletStream = new FileInputStream(walletFile);
-                wallet = new WalletProtobufSerializer().readWallet(walletStream);
+                wallet = new WalletProtobufSerializer().readWallet(Constants.NETWORK_PARAMETERS, null, WalletProtobufSerializer.parseToProto(walletStream));
                 watch.stop();
 
                 if (!wallet.getParams().equals(Constants.NETWORK_PARAMETERS))
@@ -276,6 +276,12 @@ public class WalletApplication extends Application {
 
                 wallet = restoreWalletFromBackup();
             } catch (final UnreadableWalletException x) {
+                log.error("problem loading wallet", x);
+
+                Toast.makeText(WalletApplication.this, x.getClass().getName(), Toast.LENGTH_LONG).show();
+
+                wallet = restoreWalletFromBackup();
+            } catch (final IOException x) {
                 log.error("problem loading wallet", x);
 
                 Toast.makeText(WalletApplication.this, x.getClass().getName(), Toast.LENGTH_LONG).show();
@@ -317,7 +323,7 @@ public class WalletApplication extends Application {
         try {
             is = openFileInput(Constants.Files.WALLET_KEY_BACKUP_PROTOBUF);
 
-            final Wallet wallet = new WalletProtobufSerializer().readWallet(is, true, null);
+            final Wallet wallet = new WalletProtobufSerializer().readWallet(Constants.NETWORK_PARAMETERS, null, WalletProtobufSerializer.parseToProto(is));
 
             if (!wallet.isConsistent())
                 throw new Error("inconsistent backup");

@@ -175,7 +175,7 @@ public class WalletUtils {
     public static Wallet restoreWalletFromProtobuf(final InputStream is,
             final NetworkParameters expectedNetworkParameters) throws IOException {
         try {
-            final Wallet wallet = new WalletProtobufSerializer().readWallet(is, true, null);
+            final Wallet wallet = new WalletProtobufSerializer().readWallet(Constants.NETWORK_PARAMETERS, null, WalletProtobufSerializer.parseToProto(is));
 
             if (!wallet.getParams().equals(expectedNetworkParameters))
                 throw new IOException("bad wallet backup network parameters: " + wallet.getParams().getId());
@@ -308,7 +308,7 @@ public class WalletUtils {
     public static Wallet walletFromByteArray(final byte[] walletBytes) {
         try {
             final ByteArrayInputStream is = new ByteArrayInputStream(walletBytes);
-            final Wallet wallet = new WalletProtobufSerializer().readWallet(is);
+            final Wallet wallet = new WalletProtobufSerializer().readWallet(Constants.NETWORK_PARAMETERS, null, WalletProtobufSerializer.parseToProto(is));
             is.close();
             return wallet;
         } catch (final UnreadableWalletException x) {
