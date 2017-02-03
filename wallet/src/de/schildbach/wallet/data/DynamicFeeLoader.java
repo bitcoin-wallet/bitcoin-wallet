@@ -84,6 +84,7 @@ public class DynamicFeeLoader extends AsyncTaskLoader<Map<FeeCategory, Coin>> {
     public Map<FeeCategory, Coin> loadInBackground() {
         try {
             final Map<FeeCategory, Coin> staticFees = parseFees(assets.open(Constants.Files.FEES_FILENAME));
+            if (true) return staticFees; // DOGE: No support for this.
             final File dynamicFeesFile = new File(getContext().getFilesDir(), Constants.Files.FEES_FILENAME);
             final File tempFile = new File(getContext().getCacheDir(), Constants.Files.FEES_FILENAME + ".temp");
             fetchDynamicFees(dynamicFeesUrl, tempFile, dynamicFeesFile, userAgent);

@@ -797,6 +797,7 @@ public final class SendCoinsFragment extends Fragment {
         emptyAction.setEnabled(state == State.INPUT && paymentIntent.mayEditAmount());
 
         final MenuItem feeCategoryAction = menu.findItem(R.id.send_coins_options_fee_category);
+        feeCategoryAction.setVisible(false); // DOGE
         feeCategoryAction.setEnabled(state == State.INPUT);
         if (feeCategory == FeeCategory.ECONOMIC)
             menu.findItem(R.id.send_coins_options_fee_category_economic).setChecked(true);
