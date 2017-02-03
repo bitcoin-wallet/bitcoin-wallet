@@ -122,6 +122,7 @@ public final class Constants {
 
     public static final String DOGECHAIN_API_URL = "https://dogechain.info/api/v1/unspent/";
     public static final String CHAINSO_API_URL = "https://chain.so/api/v2/lite/unspent/DOGE/";
+    public static final String BLOCKCYPHER_API_URL = "https://api.blockcypher.com/v1/doge/main/addrs/";
 
     /** Currency code for the wallet name resolver. */
     public static final String WALLET_NAME_CURRENCY_CODE = NETWORK_PARAMETERS.getId()
