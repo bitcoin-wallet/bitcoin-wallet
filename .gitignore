@@ -8,3 +8,4 @@ local.properties
 *.iml
 bin/
 gen/
+wallet/libs/

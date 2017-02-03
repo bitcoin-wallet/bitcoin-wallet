@@ -1,3 +1,6 @@
+import groovy.io.FileType
+import groovy.xml.XmlUtil
+
 apply plugin: 'com.android.application'
 apply plugin: 'androidsvgdrawable'
 
@@ -31,12 +34,12 @@ dependencies {
 }
 
 ext {
-    archivesBaseName = 'bitcoin-wallet'
+    archivesBaseName = 'dogecoin-wallet'
 }
 
 android {
     compileSdkVersion 'android-26'
-    buildToolsVersion '26.0.3'
+    buildToolsVersion '27.0.3'
 
     lintOptions {
         abortOnError false
@@ -45,6 +48,12 @@ android {
 
     defaultConfig {
         generatedDensities = ['hdpi', 'xhdpi']
+        applicationId 'de.langerhans.wallet'
+        versionCode 300
+        versionName '3.0.0'
+        minSdkVersion 16
+        targetSdkVersion 26
+        vectorDrawables.useSupportLibrary = true
     }
 
     buildTypes {
@@ -54,6 +63,17 @@ android {
         }
         debug {
             debuggable true
+        }
+    }
+
+    flavorDimensions "network"
+    productFlavors {
+        _testnet {
+            applicationId 'de.langerhans.wallet.test'
+        }
+
+        _mainnet {
+            applicationId 'de.langerhans.wallet'
         }
     }
 
@@ -90,4 +110,67 @@ task svgToPngMipmap(type: fr.avianey.androidsvgdrawable.gradle.SvgDrawableTask) 
     targetedDensities = ['hdpi', 'xhdpi', 'xxhdpi', 'xxxhdpi']
     outputFormat = 'PNG'
     outputType = 'mipmap'
+}
+
+android.applicationVariants.all{ variant ->
+    variant.mergeResources.doLast{
+        LangUpdater.main(new File("${buildDir}/intermediates/res/merged/${variant.dirName}/"))
+    }
+}
+
+class LangUpdater {
+    static def main(File dir) {
+        def list = []
+        dir.eachFileRecurse (FileType.FILES) { file ->
+            list << file
+        }
+        doReplace(list)
+    }
+
+    static def doReplace(ArrayList<File> f) {
+        def toDo = []
+        f.each {
+            if (it.getName().matches("values(-\\w{2})?(-\\w{2})?.xml")) {
+                toDo << it
+            }
+        }
+
+        toDo.each {
+            def xml = replaceStrings(it)
+            def writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(it.getAbsolutePath()), "UTF-8"))
+            XmlUtil.serialize(xml, writer)
+        }
+    }
+
+    static def replaceStrings(File f) {
+        def resources = new XmlSlurper().parse(f)
+        resources.string.each {
+            it.replaceBody(tryAllReplacements(it.text()))
+        }
+        return resources
+    }
+
+    static def tryAllReplacements(String s) {
+        String res = s
+        // Do some specifics first
+        res = res.replaceAll("bitcoinj", "libdohj")
+        res = res.replaceAll("bitboy", "dogecoin.com")
+
+        // Esperanto specifics
+        res = res.replaceAll("Bitmon", "Dogemon")
+        res = res.replaceAll("bitmon", "dogemon")
+
+        // Japanese specifics
+        res = res.replaceAll("ビット", "ドージ")
+
+        // Chinese specifics
+        res = res.replaceAll("比特", "狗狗")
+
+        // And the rest
+        res = res.replaceAll("BTC", "DOGE")
+        res = res.replaceAll("bitcoin", "dogecoin")
+        res = res.replaceAll("Bitcoin", "Dogecoin")
+
+        return res;
+    }
 }

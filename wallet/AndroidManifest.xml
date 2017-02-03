@@ -1,15 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     package="de.schildbach.wallet_test"
-    android:installLocation="internalOnly"
-    android:versionCode="322"
-    android:versionName="5.42" >
-
-    <uses-sdk
-        android:minSdkVersion="16"
-        android:targetSdkVersion="26"
-        tools:ignore="OldTargetApi" />
+    android:installLocation="internalOnly">
 
     <!-- normal permissions -->
     <uses-permission android:name="android.permission.INTERNET" />
