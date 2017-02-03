@@ -122,7 +122,7 @@ public class WalletTransactionsFragment extends Fragment implements LoaderCallba
     private static final int ID_TRANSACTION_LOADER = 0;
     private static final String ARG_DIRECTION = "direction";
 
-    private static final long THROTTLE_MS = DateUtils.SECOND_IN_MILLIS;
+    private static final long THROTTLE_MS = 1500;
     private static final Uri KEY_ROTATION_URI = Uri.parse("https://bitcoin.org/en/alert/2013-08-11-android");
     private static final int SHOW_QR_THRESHOLD_BYTES = 2500;
 

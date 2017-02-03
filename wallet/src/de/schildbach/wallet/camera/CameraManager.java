@@ -159,6 +159,7 @@ public final class CameraManager {
         if (camera != null) {
             try {
                 camera.stopPreview();
+                camera.setPreviewCallback(null);
             } catch (final RuntimeException x) {
                 log.warn("something went wrong while stopping camera preview", x);
             }

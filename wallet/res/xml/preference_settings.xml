@@ -2,7 +2,7 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <ListPreference
-        android:defaultValue="2/3"
+        android:defaultValue="4"
         android:entries="@array/preferences_precision_labels"
         android:entryValues="@array/preferences_precision_values"
         android:key="btc_precision"
@@ -20,7 +20,7 @@
         android:summary="@string/preferences_send_coins_autoclose_summary"
         android:title="@string/preferences_send_coins_autoclose_title" />
     <CheckBoxPreference
-        android:defaultValue="false"
+        android:defaultValue="true"
         android:key="connectivity_notification"
         android:summary="@string/preferences_connectivity_notification_summary"
         android:title="@string/preferences_connectivity_notification_title" />

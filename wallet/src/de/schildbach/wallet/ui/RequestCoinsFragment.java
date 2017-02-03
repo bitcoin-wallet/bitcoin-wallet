@@ -351,7 +351,7 @@ public final class RequestCoinsFragment extends Fragment implements NfcAdapter.C
 
     private void handleCopy() {
         final Uri request = Uri.parse(determineBitcoinRequestStr(false));
-        clipboardManager.setPrimaryClip(ClipData.newRawUri("Bitcoin payment request", request));
+        clipboardManager.setPrimaryClip(ClipData.newRawUri("Dogecoin payment request", request));
         log.info("payment request copied to clipboard: {}", request);
         new Toast(activity).toast(R.string.request_coins_clipboard_msg);
     }

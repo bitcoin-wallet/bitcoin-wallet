@@ -73,7 +73,7 @@
             <intent-filter>
                 <action android:name="android.nfc.action.NDEF_DISCOVERED" />
 
-                <data android:mimeType="application/x-btctx" />
+                <data android:mimeType="application/x-dogetx" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
@@ -92,7 +92,7 @@
             <intent-filter android:label="@string/send_coins_activity_title" >
                 <action android:name="android.intent.action.VIEW" />
 
-                <data android:scheme="bitcoin" />
+                <data android:scheme="dogecoin" />
 
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
@@ -100,21 +100,21 @@
             <intent-filter android:label="@string/send_coins_activity_title" >
                 <action android:name="android.nfc.action.NDEF_DISCOVERED" />
 
-                <data android:scheme="bitcoin" />
+                <data android:scheme="dogecoin" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
             <intent-filter android:label="@string/send_coins_activity_title" >
                 <action android:name="android.intent.action.VIEW" />
 
-                <data android:mimeType="application/bitcoin-paymentrequest" />
+                <data android:mimeType="application/vnd.doge.payment.request" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
             <intent-filter android:label="@string/send_coins_activity_title" >
                 <action android:name="android.nfc.action.NDEF_DISCOVERED" />
 
-                <data android:mimeType="application/bitcoin-paymentrequest" />
+                <data android:mimeType="application/vnd.doge.payment.request" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
@@ -158,7 +158,7 @@
 
                 <category android:name="android.intent.category.DEFAULT" />
 
-                <data android:mimeType="application/x-bitcoin-wallet-backup" />
+                <data android:mimeType="application/x-dogecoin-wallet-backup" />
             </intent-filter>
         </activity>
         <activity
@@ -177,15 +177,15 @@
 
         <provider
             android:name="de.schildbach.wallet.data.AddressBookProvider"
-            android:authorities="de.schildbach.wallet_test.address_book"
+            android:authorities="${applicationId}.address_book"
             android:exported="false" />
         <provider
             android:name="de.schildbach.wallet.data.ExchangeRatesProvider"
-            android:authorities="de.schildbach.wallet_test.exchange_rates"
+            android:authorities="${applicationId}.exchange_rates"
             android:exported="false" />
         <provider
             android:name="android.support.v4.content.FileProvider"
-            android:authorities="de.schildbach.wallet_test.file_attachment"
+            android:authorities="${applicationId}.file_attachment"
             android:exported="false"
             android:grantUriPermissions="true" >
             <meta-data
