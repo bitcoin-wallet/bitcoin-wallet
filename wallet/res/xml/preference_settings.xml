@@ -36,12 +36,14 @@
         android:summary="@string/preferences_trusted_peer_only_summary"
         android:title="@string/preferences_trusted_peer_only_title" />
 
+    <!--
     <ListPreference
         android:entries="@array/preferences_block_explorer_labels"
         android:entryValues="@array/preferences_block_explorer_values"
         android:key="block_explorer"
         android:summary="@string/preferences_block_explorer_summary"
         android:title="@string/preferences_block_explorer_title" />
+    -->
 
     <Preference
         android:key="data_usage"

@@ -176,10 +176,10 @@ public final class BlockListFragment extends Fragment implements BlockListAdapte
                 switch (item.getItemId()) {
                 case R.id.blocks_context_browse:
                     final String blockHash = block.getHeader().getHashAsString();
-                    final Uri blockExplorerUri = config.getBlockExplorer();
+                    final Uri blockExplorerUri = Uri.parse(Constants.EXPLORE_BASE_URL_BLOCK);
                     log.info("Viewing block {} on {}", blockHash, blockExplorerUri);
                     startActivity(new Intent(Intent.ACTION_VIEW,
-                            Uri.withAppendedPath(blockExplorerUri, "block/" + blockHash)));
+                            Uri.withAppendedPath(blockExplorerUri, blockHash)));
                     return true;
                 }
                 return false;

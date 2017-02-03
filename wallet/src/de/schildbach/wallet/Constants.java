@@ -116,12 +116,9 @@ public final class Constants {
     private static final String EXPLORE_BASE_URL_ADDR_TEST = "https://chain.so/address/DOGETEST/";
     private static final String EXPLORE_BASE_URL_BLOCK_PROD = "https://chain.so/block/DOGE/";
     private static final String EXPLORE_BASE_URL_BLOCK_TEST = "https://chain.so/block/DOGETEST/";
-    public static final String EXPLORE_BASE_URL_TX = NETWORK_PARAMETERS.getId().equals(AbstractDogecoinParams.ID_DOGE_MAINNET) ? EXPLORE_BASE_URL_TX_PROD
-            : EXPLORE_BASE_URL_TX_TEST;
-    public static final String EXPLORE_BASE_URL_ADDR = NETWORK_PARAMETERS.getId().equals(AbstractDogecoinParams.ID_DOGE_MAINNET) ? EXPLORE_BASE_URL_ADDR_PROD
-            : EXPLORE_BASE_URL_ADDR_TEST;
-    public static final String EXPLORE_BASE_URL_BLOCK = NETWORK_PARAMETERS.getId().equals(AbstractDogecoinParams.ID_DOGE_MAINNET) ? EXPLORE_BASE_URL_BLOCK_PROD
-            : EXPLORE_BASE_URL_BLOCK_TEST;
+    public static final String EXPLORE_BASE_URL_TX = TEST ? EXPLORE_BASE_URL_TX_TEST  : EXPLORE_BASE_URL_TX_PROD;
+    public static final String EXPLORE_BASE_URL_ADDR = TEST ? EXPLORE_BASE_URL_ADDR_TEST : EXPLORE_BASE_URL_ADDR_PROD;
+    public static final String EXPLORE_BASE_URL_BLOCK = TEST ? EXPLORE_BASE_URL_BLOCK_TEST : EXPLORE_BASE_URL_BLOCK_PROD;
 
     public static final String DOGECHAIN_API_URL = "https://dogechain.info/api/v1/unspent/";
     public static final String CHAINSO_API_URL = "https://chain.so/api/v2/lite/unspent/DOGE/";

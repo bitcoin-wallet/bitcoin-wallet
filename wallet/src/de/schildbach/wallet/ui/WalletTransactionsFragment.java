@@ -338,10 +338,10 @@ public class WalletTransactionsFragment extends Fragment implements LoaderCallba
                 case R.id.wallet_transactions_context_browse:
                     if (!txRotation) {
                         final String txHash = tx.getHashAsString();
-                        final Uri blockExplorerUri = config.getBlockExplorer();
+                        final Uri blockExplorerUri = Uri.parse(Constants.EXPLORE_BASE_URL_TX);
                         log.info("Viewing transaction {} on {}", txHash, blockExplorerUri);
                         startActivity(
-                                new Intent(Intent.ACTION_VIEW, Uri.withAppendedPath(blockExplorerUri, "tx/" + txHash)));
+                                new Intent(Intent.ACTION_VIEW, Uri.withAppendedPath(blockExplorerUri, txHash)));
                     } else {
                         startActivity(new Intent(Intent.ACTION_VIEW, KEY_ROTATION_URI));
                     }
