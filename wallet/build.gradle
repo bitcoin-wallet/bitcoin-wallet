@@ -103,7 +103,7 @@ android {
         exclude 'org.bitcoin.test.checkpoints.txt'
     }
 }
-
+/*
 task svgToPngMipmap(type: fr.avianey.androidsvgdrawable.gradle.SvgDrawableTask) {
     from = files('graphics/mipmap')
     to = file('res')
@@ -111,7 +111,7 @@ task svgToPngMipmap(type: fr.avianey.androidsvgdrawable.gradle.SvgDrawableTask) 
     outputFormat = 'PNG'
     outputType = 'mipmap'
 }
-
+*/
 android.applicationVariants.all{ variant ->
     variant.mergeResources.doLast{
         LangUpdater.main(new File("${buildDir}/intermediates/res/merged/${variant.dirName}/"))
