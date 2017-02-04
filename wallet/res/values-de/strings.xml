@@ -304,6 +304,7 @@
     <string name="about_version_title">Version</string>
     <string name="about_copyright_title">Urheberrecht</string>
     <string name="about_license_title">Lizenz</string>
+    <string name="about_privacy_title">Datenschutz</string>
     <string name="about_source_title">Quellcode</string>
     <string name="about_category_credits">Diese App nutzt…</string>
     <string name="about_credits_bitcoinj_title">bitcoinj %s, eine Bitcoin-Protokoll-Implementierung</string>
