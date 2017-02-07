@@ -29,6 +29,7 @@ import java.util.concurrent.RejectedExecutionException;
 import javax.annotation.Nullable;
 
 import org.bitcoinj.core.Address;
+import org.bitcoinj.core.ScriptException;
 import org.bitcoinj.core.Transaction;
 import org.bitcoinj.core.Transaction.Purpose;
 import org.bitcoinj.core.TransactionConfidence.ConfidenceType;
@@ -366,7 +367,15 @@ public class WalletTransactionsFragment extends Fragment implements LoaderCallba
 
                     @Override
                     protected CharSequence collectContextualData() {
-                        return tx.toString();
+                        final StringBuilder contextualData = new StringBuilder();
+                        try {
+                            contextualData.append(tx.getValue(wallet).toFriendlyString()).append(" total value");
+                        } catch (final ScriptException x) {
+                            contextualData.append(x.getMessage());
+                        }
+                        contextualData.append('\n');
+                        contextualData.append(tx.toString());
+                        return contextualData;
                     }
 
                     @Override
