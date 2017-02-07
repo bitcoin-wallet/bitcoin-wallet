@@ -374,6 +374,8 @@ public class WalletTransactionsFragment extends Fragment implements LoaderCallba
                             contextualData.append(x.getMessage());
                         }
                         contextualData.append('\n');
+                        if (tx.hasConfidence())
+                            contextualData.append("  confidence: ").append(tx.getConfidence()).append('\n');
                         contextualData.append(tx.toString());
                         return contextualData;
                     }
