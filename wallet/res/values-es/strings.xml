@@ -93,6 +93,8 @@
   <string name="send_coins_options_empty">Cartera vacía</string>
   <string name="raise_fee_dialog_title">Comisión de red</string>
   <string name="raise_fee_dialog_message">¿Quieres incrementar la cuota de este pago en %s? Ello hará que el pago se confirme antes.</string>
+  <string name="raise_fee_dialog_determining_fee">Determinando el costo de la red…</string>
+  <string name="raise_fee_dialog_cant_raise">El costo de red de este pago no puede ser incrementado.</string>
   <string name="raise_fee_dialog_state_decrypting">Desencriptando</string>
   <string name="raise_fee_dialog_state_done">Hecho.</string>
   <string name="raise_fee_dialog_button_raise">Incrementar</string>
@@ -155,7 +157,9 @@
   <string name="transaction_row_message_purpose_raise_fee">Esta transacción incrementa la cuota de red para un pago previo.</string>
   <string name="transaction_row_message_own_unbroadcasted">Este pago aún no se ha transmitido.</string>
   <string name="transaction_row_message_received_direct">Este pago se ha recibido directamente. Existe el riesgo de que no llegue a validarse.</string>
+  <string name="transaction_row_message_received_unconfirmed_delayed">La confirmación de este pago está atrasada debido a una sobrecarga en la red de Bitcoin.</string>
   <string name="transaction_row_message_received_unconfirmed_unlocked">Este pago debería estar disponible en unos minutos.</string>
+  <string name="transaction_row_message_received_in_conflict">¡Este pago tiene un riesgo alto de ser revertido por el remitente! Si es posible, espere por la confirmación.</string>
   <string name="transaction_row_message_received_dead">Este pago ha sido anulado por el pagador.</string>
   <string name="transaction_row_message_received_dust">Esta cantidad podría ser demasiado pequeña como para ser gastada.</string>
   <string name="transaction_row_message_received_pay_to_many">Este pago llega a muchas carteras además de la suya, lo que hace que la aplicación se ralentice. Si puede, intente recibir pagos que sólo le lleguen a usted.</string>
@@ -163,6 +167,7 @@
   <string name="network_monitor_activity_title">Monitor de red</string>
   <string name="network_monitor_peer_list_title">Pares</string>
   <string name="network_monitor_block_list_title">Bloques</string>
+  <string name="block_row_mining_difficulty_adjustment">Ajustes a la dificultad de la minería.</string>
   <string name="block_row_now">justo ahora</string>
   <string name="peer_list_fragment_empty">No hay pares conectados</string>
   <string name="peer_list_row_ping_time">⇆ %d&#x2009;ms</string>
