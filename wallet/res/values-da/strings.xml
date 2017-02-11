@@ -65,7 +65,9 @@
   <string name="send_coins_fragment_receiving_address_complex">kompleks\nadresse</string>
   <string name="send_coins_fragment_pending">(%s venter på bekræftelse)</string>
   <string name="send_coins_fragment_amount_label">Beløb at betale</string>
-  <string name="send_coins_fragment_hint_fee">Et lille netværksgebyr på %s vil blive betalt.</string>
+  <string name="send_coins_fragment_hint_fee_economic">Et økonomigebyr på %s vil blive betalt. Brug kun \"økonomisk\", hvis bekræftelsestiden ikke spiller nogen rolle.</string>
+  <string name="send_coins_fragment_hint_fee">Et netværksgebyr på %s vil blive betalt.</string>
+  <string name="send_coins_fragment_hint_fee_priority">Et prioritetsgebyr på %s vil blive betalt. Hvis du vil betale så lave gebyrer som muligt, brug da kun \"prioriteret\" hvis du har brug for bekræftelse så hurtigt som muligt.</string>
   <string name="send_coins_fragment_hint_dusty_send">Beløbet er for lille til at blive sendt.</string>
   <string name="send_coins_fragment_hint_insufficient_money">Ikke nok tilgængelige bitcoin. Du mangler %s.</string>
   <string name="send_coins_fragment_hint_empty_wallet_failed">Det samlede beløb af bittesmå betalinger i din tegnebog er ikke nok til at kunne sendes.</string>
@@ -260,8 +262,8 @@
   <string name="preferences_remind_balance_summary">Efter et par uger uden brug vil app\'en give besked, hvis der stadig er penge i tegnebogen.</string>
   <string name="preferences_report_issue_title">Rapportér problem</string>
   <string name="preferences_initiate_reset_title">Nulstil blokkæde</string>
-  <string name="preferences_initiate_reset_summary">Nulstil blokkæde, overførsler og saldo for tegnebogen. Gennemløb af blokkæden vil tage et stykke tid.</string>
-  <string name="preferences_initiate_reset_dialog_message">Vil du nulstille og gennemløbe blokkæden igen?\n\nDette vil midlertidigt skjule din saldo og fjerne overførsler. Begge dele vil dukke op igen, efterhånden som der synkroniseres med blokkæden.</string>
+  <string name="preferences_initiate_reset_summary">Nulstil blokkæde, overførsler og saldo for tegnebogen. Gennemløb af blokkæden vil tage et stykke tid, så gør kun dette hvis du ved hvorfor.</string>
+  <string name="preferences_initiate_reset_dialog_message">Vil du nulstille og gennemløbe blokkæden igen?\n\nDette vil midlertidigt skjule din saldo og fjerne overførsler. Begge dele vil dukke op igen, efterhånden som der synkroniseres med blokkæden. Sørg for at du har en stabil forbindelse til Internet.</string>
   <string name="preferences_initiate_reset_dialog_positive">Nulstil</string>
   <string name="preferences_extended_public_key_title">Vis xpub</string>
   <string name="preferences_extended_public_key_summary">Vis din tegnebogs udvidede offentlige nøgle så den kan importeres til andre apps og tjenester. Vær forsigtig: Du vil afsløre dit økonomiske privatliv til pågældende app, hvis du gør dette.</string>
@@ -270,7 +272,8 @@
   <string name="extended_public_key_fragment_share">Del xpub…</string>
   <string name="report_issue_dialog_title_issue">Rapportér problem</string>
   <string name="report_issue_dialog_title_crash">Tidligere programnedbrud opfanget</string>
-  <string name="report_issue_dialog_message_issue">Beskriv venligst dit problem præcist nok til, at det kan genskabes.</string>
+  <string name="report_issue_dialog_title_transaction">Rapportér problem med valgt betaling</string>
+  <string name="report_issue_dialog_message_issue">Beskriv venligst problemet præcist nok til at det kan genskabes. Skriv på engelsk hvis du har muligheden.</string>
   <string name="report_issue_dialog_message_crash">Vil du sende en nedbrudsrapport for at hjælpe med at rette op på problemet i fremtiden?</string>
   <string name="report_issue_dialog_description">problembeskrivelse</string>
   <string name="report_issue_dialog_report">Rapport</string>
@@ -289,10 +292,12 @@
   <string name="about_credits_bitcoinj_title">bitcoinj %s, en implementation af Bitcoin-protokollen</string>
   <string name="about_credits_zxing_title">ZXing, et bibliotek til processering af QR-koder</string>
   <string name="about_credits_scrypt_title">Scrypt, implementeret af Will Glozer og Colin Percival</string>
-  <string name="about_community_googleplus_title">Google+-fællesskab</string>
-  <string name="about_community_googleplus_summary">Diskussioner om appen</string>
   <string name="about_market_app_title">Google Play-side</string>
   <string name="about_market_app_summary">Anmeld eller bedøm appen</string>
+  <string name="about_faq_title">FAQ</string>
+  <string name="about_faq_summary">Ofte stillede spørgsmål om app\'en</string>
+  <string name="about_community_googleplus_title">Google+-fællesskab</string>
+  <string name="about_community_googleplus_summary">Diskussioner om appen</string>
   <string name="notification_coins_received_msg">Modtog %s</string>
   <string name="notification_peers_connected_msg">%d peers forbundet</string>
   <string name="notification_inactivity_title">Du har stadig bitcoin på denne enhed!</string>
