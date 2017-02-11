@@ -93,6 +93,8 @@
   <string name="send_coins_options_empty">Tøm lommebok</string>
   <string name="raise_fee_dialog_title">Øk nettverksgebyret</string>
   <string name="raise_fee_dialog_message">Ønsker du å øke gebyret for denne betalingen med %s? Det vil gjøre at betalingen godkjennes raskere.</string>
+  <string name="raise_fee_dialog_determining_fee">Beregner nettverksgebyret…</string>
+  <string name="raise_fee_dialog_cant_raise">Nettverksgebyret til denne betalingen kan ikke økes.</string>
   <string name="raise_fee_dialog_state_decrypting">Dekrypterer…</string>
   <string name="raise_fee_dialog_state_done">Ferdig.</string>
   <string name="raise_fee_dialog_button_raise">Øk</string>
@@ -155,7 +157,9 @@
   <string name="transaction_row_message_purpose_raise_fee">Denne transaksjonen øker nettverksgebyret for en tidligere betaling.</string>
   <string name="transaction_row_message_own_unbroadcasted">Denne betalingen er ikke sendt ennå.</string>
   <string name="transaction_row_message_received_direct">Denne betalingen er mottatt direkte. Det er en risiko for at den aldri blir brukbar.</string>
+  <string name="transaction_row_message_received_unconfirmed_delayed">Bekreftelsen av denne betalingen er forsinket, sannsynligvis på grunn av en overbelastning av Bitcoin-nettverket.</string>
   <string name="transaction_row_message_received_unconfirmed_unlocked">Denne betalingen bør bli brukbar om få minutter.</string>
+  <string name="transaction_row_message_received_in_conflict">Denne betalingen har økt risiko for å bli reversert av avsender! Hvis du kan, vent på bekreftelse.</string>
   <string name="transaction_row_message_received_dead">Denne betalingen er blitt reversert av avsenderen.</string>
   <string name="transaction_row_message_received_dust">Dette lille beløpet kan økonomisk sett sannsynligvis aldri brukes.</string>
   <string name="transaction_row_message_received_pay_to_many">Denne betalingen går til mange flere enn deg, og dette gjør at appen går tregere over tid. Hvis du kan, prøv å motta betalinger som kun går til deg.</string>
@@ -163,9 +167,12 @@
   <string name="network_monitor_activity_title">Nettverksovervåkning</string>
   <string name="network_monitor_peer_list_title">Peers</string>
   <string name="network_monitor_block_list_title">Blokker</string>
+  <string name="block_row_mining_difficulty_adjustment">Justering av vanskelighetsgraden på mining</string>
+  <string name="block_row_mining_reward_adjustment">Halvering av belønning for mining</string>
   <string name="block_row_now">akkurat nå</string>
   <string name="peer_list_fragment_empty">Ingen peers tilkoblet</string>
   <string name="peer_list_row_ping_time">⇆ %d&#x2009;ms</string>
+  <string name="restore_wallet_permission_dialog_title">Lesetillatelse mangler</string>
   <string name="restore_wallet_permission_dialog_message">For å finne backup av din lommebok, må du gi tillatelse til å lese filene.</string>
   <string name="import_keys_dialog_title">Gjenopprett lommebok</string>
   <string name="import_keys_dialog_message">Velg en fil med sikkerhetskopi av lommeboken fra et eksternt lager (%s):</string>
@@ -181,6 +188,8 @@
   <string name="restore_wallet_dialog_success">Lommeboken ble gjenopprettet.</string>
   <string name="restore_wallet_dialog_success_replay">Din lommebok ble gjenopprettet. Saldoen vil nå bli bestemt. Dette vil ta litt tid.</string>
   <string name="import_keys_dialog_failure">Lommeboken kunne ikke gjenopprettes:\n\n%s\n\nFeil passord?</string>
+  <string name="backup_wallet_permission_dialog_title">Skrivetillatelse mangler</string>
+  <string name="backup_wallet_permission_dialog_message">For å ta backup av lommeboken til ekstern lagring, må du gi skrivetilgang.</string>
   <string name="export_keys_dialog_title">Ta sikkerhetskopi av lommeboken</string>
   <string name="backup_wallet_dialog_message">Din sikkerhetskopi blir kryptert med det valgte passordet og skrevet til eksternt lager.</string>
   <string name="backup_wallet_dialog_warning_encrypted">Lommeboken din er beskyttet av en PIN for betaling. Sørg for at du husker PIN-koden i tillegg til passordet for sikkerhetskopien!</string>
@@ -251,8 +260,8 @@
   <string name="preferences_remind_balance_summary">Etter et par uker uten bruk vil appen varsle om det fortsatt er penger i lommeboken.</string>
   <string name="preferences_report_issue_title">Rapporter problem</string>
   <string name="preferences_initiate_reset_title">Tilbakestill blokkjeden</string>
-  <string name="preferences_initiate_reset_summary">Tilbakestill blokkjeden, transaksjoner og lommeboken sin balanse. Gjennomgangen vil ta litt tid.</string>
-  <string name="preferences_initiate_reset_dialog_message">Ønsker du å tilbakestille og gjennomgå blokkjeden?\n\nDette vil midlertidig skjule din lommebok sin balanse og fjerne transaksjoner. Begge vil gjenopprettes under gjennomgangen av blokkjeden.</string>
+  <string name="preferences_initiate_reset_summary">Tilbakestill blokkjeden, transaksjoner og lommebok-balansen. Gjennomgangen vil ta en stund, så bare gjør dette hvis du vet hvorfor.</string>
+  <string name="preferences_initiate_reset_dialog_message">Har du lyst til å nullstille og gjennomgå blokkjeden?\n\nDette vil midlertidig skjule din lommebok-balanse og fjerne transaksjoner. Begge vil gjenopprettes etter hvert som blokkjeden synkroniseres. Sørg for at du har en pålitelig tilkobling til internett.</string>
   <string name="preferences_initiate_reset_dialog_positive">Nullstill</string>
   <string name="preferences_extended_public_key_title">Vis xpub</string>
   <string name="preferences_extended_public_key_summary">Vis den utvidede offentlige nøkkelen til lommeboken din, slik at den kan importeres i andre programmer og tjenester. Vær forsiktig: dette vil utlevere dine transaksjoner og privatliv til det programmet.</string>
@@ -279,10 +288,13 @@
   <string name="about_category_credits">Appen bruker…</string>
   <string name="about_credits_bitcoinj_title">bitcoinj %s</string>
   <string name="about_credits_zxing_title">ZXing</string>
-  <string name="about_community_googleplus_title">Google+ samfunnet</string>
-  <string name="about_community_googleplus_summary">Diskusjon om appen</string>
+  <string name="about_credits_scrypt_title">Scrypt, implementert av Will Glozer og Colin Percival</string>
   <string name="about_market_app_title">Google Play-siden</string>
   <string name="about_market_app_summary">Anmeld eller bedøm appen</string>
+  <string name="about_faq_title">FAQ</string>
+  <string name="about_faq_summary">Ofte stilte spørsmål om appen</string>
+  <string name="about_community_googleplus_title">Google+ samfunnet</string>
+  <string name="about_community_googleplus_summary">Diskuter om appen</string>
   <string name="notification_coins_received_msg">Mottok %s</string>
   <string name="notification_peers_connected_msg">%d peers tilkoblet</string>
   <string name="notification_inactivity_title">Du har fortsatt bitcoins på denne enheten!</string>
@@ -290,6 +302,7 @@
   <string name="notification_inactivity_message_donate">Hvis du ikke bryr deg om myntene dine, kan du også donere dem til Bitcoin Wallet.</string>
   <string name="notification_inactivity_action_dismiss">Påminn senere</string>
   <string name="notification_inactivity_action_dismiss_forever">Påminn meg ikke</string>
+  <string name="appwidget_wallet_balance_title">Bitcoinsaldo</string>
   <!--generic buttons-->
   <string name="button_ok">OK</string>
   <string name="button_dismiss">Lukk</string>
