@@ -65,7 +65,9 @@
   <string name="send_coins_fragment_receiving_address_complex">adresse\ncomplexe</string>
   <string name="send_coins_fragment_pending">(%s en attente de confirmation)</string>
   <string name="send_coins_fragment_amount_label">Montant à payer</string>
-  <string name="send_coins_fragment_hint_fee">Des petits frais de réseau de %s seront payés.</string>
+  <string name="send_coins_fragment_hint_fee_economic">Des frais moindres de %s seront acquittés. N\'utilisez Économique que si le temps de confirmation vous importe peu.</string>
+  <string name="send_coins_fragment_hint_fee">Des frais de réseau de %s seront acquittés.</string>
+  <string name="send_coins_fragment_hint_fee_priority">Des frais de priorité de %s seront acquittés. Si vous préférez des frais moindres, n\'utilisez Prioritaire que s\'il vous faut la confirmation la plus rapide possible.</string>
   <string name="send_coins_fragment_hint_dusty_send">Le montant est trop petit pour être envoyé.</string>
   <string name="send_coins_fragment_hint_insufficient_money">Pas assez de pièces disponibles. Il vous manque %s.</string>
   <string name="send_coins_fragment_hint_empty_wallet_failed">La somme des petits paiements dans votre porte-monnaie ne donne pas une valeur pouvant être envoyée.</string>
@@ -115,7 +117,7 @@
   <string name="sweep_wallet_fragment_insufficient_money_msg">Le montant de pièces dans le porte-monnaie est trop petit pour être traité.</string>
   <string name="sweep_wallet_options_reload">Recharger le solde</string>
   <string name="maintenance_dialog_title">Une maintenance est recommandée</string>
-  <string name="maintenance_dialog_message">Vous avez reçu %1$s à des adresses non sécurisées. Voulez-vous déplacer ces pièces vers des adresses sécurisées ? Des petits frais de réseau de %2$s seront payés.</string>
+  <string name="maintenance_dialog_message">Vous avez reçu %1$s à des adresses non sécurisées. Voulez-vous déplacer ces pièces vers des adresses sécurisées ? Des petits frais de réseau de %2$s seront acquittés.</string>
   <string name="maintenance_dialog_state_decrypting">Déchiffrement…</string>
   <string name="maintenance_dialog_state_done">Terminé.</string>
   <string name="maintenance_dialog_button_move">Déplacer</string>
@@ -154,7 +156,7 @@
   <string name="edit_address_book_entry_dialog_button_edit">Enregistrer</string>
   <string name="transaction_row_fee">Frais de réseau</string>
   <string name="transaction_row_message_purpose_key_rotation">Cette transaction renforce votre porte-monnaie contre le vol. &lt;u&gt;Plus d\'infos.&lt;/u&gt;</string>
-  <string name="transaction_row_message_purpose_raise_fee">Cette transaction augmente les frais du réseau d\'un paiement précédent.</string>
+  <string name="transaction_row_message_purpose_raise_fee">Cette transaction augmente les frais de réseau d\'un paiement précédent.</string>
   <string name="transaction_row_message_own_unbroadcasted">Ce paiement n\'a pas encore été transmis.</string>
   <string name="transaction_row_message_received_direct">Ce paiement a été reçu directement. Il y a un risque qu\'il ne puisse jamais être dépensé.</string>
   <string name="transaction_row_message_received_unconfirmed_delayed">La confirmation de ce paiement est retardée, probablement à cause d\'une surcharge du réseau Bitcoin.</string>
@@ -260,8 +262,8 @@
   <string name="preferences_remind_balance_summary">Après quelques semaines sans utilisation, l\'appli vous signalera s\'il y a encore des pièces dans le porte-monnaie.</string>
   <string name="preferences_report_issue_title">Signaler un problème</string>
   <string name="preferences_initiate_reset_title">Réinitialiser la chaîne de blocs</string>
-  <string name="preferences_initiate_reset_summary">Réinitialiser la chaîne de blocs, les transactions et le solde du porte-monnaie. La relecture prendra du temps.</string>
-  <string name="preferences_initiate_reset_dialog_message">Voulez-vous réinitialiser et relire la chaîne de blocs ?\n\nLe solde de votre porte-monnaie sera caché et les transactions retirées temporairement. Les deux seront récupérés alors que la synchronisation de la chaîne de blocs progressera.</string>
+  <string name="preferences_initiate_reset_summary">Réinitialiser la chaîne de blocs et le solde du porte-monnaie. La relecture prendra du temps, ne le faites que si vous savez pourquoi.</string>
+  <string name="preferences_initiate_reset_dialog_message">Souhaitez-vous réinitialiser et relire la chaîne de blocs ?\n\nLe solde de votre porte-monnaie sera caché et les transactions retirées temporairement. Les deux seront récupérés alors que la synchronisation de la chaîne de blocs progressera. Assurez-vous d\'avoir une connexion Internet fiable.</string>
   <string name="preferences_initiate_reset_dialog_positive">Réinitialiser</string>
   <string name="preferences_extended_public_key_title">Montrer la xpub</string>
   <string name="preferences_extended_public_key_summary">Visualisez la clé privée étendue de votre porte-monnaie afin qu\'elle puisse être importée dans d\'autres applis et services. Attention : ceci divulguera à cette appli vos informations monétaires.</string>
@@ -270,7 +272,8 @@
   <string name="extended_public_key_fragment_share">Partager la xpub…</string>
   <string name="report_issue_dialog_title_issue">Signaler un problème</string>
   <string name="report_issue_dialog_title_crash">Un plantage précédent a été détecté</string>
-  <string name="report_issue_dialog_message_issue">Veuillez décrire votre problème avec assez de précisions pour qu\'il soit reproduit.</string>
+  <string name="report_issue_dialog_title_transaction">Signaler un problème avec le paiement sélectionné</string>
+  <string name="report_issue_dialog_message_issue">Veuillez décrire votre problème avec assez de précisions pour qu\'il soit reproduit. Écrivez en anglais si vous le pouvez.</string>
   <string name="report_issue_dialog_message_crash">Souhaitez-vous envoyer un rapport de plantage pour aider à corriger ce problème dans le futur ?</string>
   <string name="report_issue_dialog_description">description du problème</string>
   <string name="report_issue_dialog_report">Signaler</string>
@@ -289,10 +292,12 @@
   <string name="about_credits_bitcoinj_title">bitcoinj %s, une application du protocole Bitcoin</string>
   <string name="about_credits_zxing_title">ZXing, un bibliothèque de traitement de codes QR</string>
   <string name="about_credits_scrypt_title">Scrypt, implémenté par Will Glozer et Colin Percival</string>
-  <string name="about_community_googleplus_title">Communauté Google+</string>
-  <string name="about_community_googleplus_summary">Discussions au sujet de l\'appli</string>
   <string name="about_market_app_title">Page Google Play</string>
   <string name="about_market_app_summary">Critiquer ou évaluer l\'appli</string>
+  <string name="about_faq_title">FAQ</string>
+  <string name="about_faq_summary">Foire aux questions au sujet de l\'appli</string>
+  <string name="about_community_googleplus_title">Communauté Google+</string>
+  <string name="about_community_googleplus_summary">Discuter au sujet de l\'appli</string>
   <string name="notification_coins_received_msg">%s reçu</string>
   <string name="notification_peers_connected_msg">%d pairs connectés</string>
   <string name="notification_inactivity_title">Vous avez encore des bitcoins sur cet appareil !</string>

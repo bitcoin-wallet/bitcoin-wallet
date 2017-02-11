@@ -4,19 +4,19 @@
 <![CDATA[
 		<p>
 			La partie supérieure gauche de l\'écran affiche votre solde en bitcoins ainsi qu\'une monnaie nationale choisie.
-			Toquer pour vous rendre vers la liste des monnaies nationales et toquer sur l\'une d\'elles pour la choisir par défaut.
+			Toquez pour atteindre la liste des monnaies nationales et toquez sur l\'une d\'elles pour la choisir par défaut.
 		</p>
 		<p>
-			Le code QR à droite contient votre adresse Bitcoin et peut être lu par un tiers.
-			Toquer sur le code QR pour l\'agrandir.
+			Le code QR en haut à droite contient votre adresse Bitcoin actuelle et peut être lu par un payeur.
+			Toquez sur le code QR pour l\'agrandir.
 		</p>
 		<p>
-			Le bas de l\'écran est couvert par votre liste de transactions, qui est vide initialement.
-			Les transactions en attente sont grisées jusqu\'à ce qu\'elles soient confirmées.
-			Toquer sur une transaction pour ajouter l\'adresse du destinataire ou de l\'envoyeur à votre carnet d\'adresses.
+			Le bas de l\'écran est couvert par votre liste de transactions.
+			Elle est vide initialement et se remplira alors que recevez et envoyez des paiements.
+			Les paiements reçus seront marqués en vert et les paiements envoyés en rouge.
 		</p>
 		<p>
-			Vous pouvez envoyer ou recevoir des bitcoins en toquant sur les boutons dans la barre de menus.
+			Vous pouvez envoyer ou recevoir des pièces en toquant sur les boutons dans la barre de menus.
 			Plus d\'options sont offertes dans le menu des options.
 		</p>
 	]]>
@@ -24,49 +24,47 @@
   <string name="help_request_coins">
 <![CDATA[
 		<p>
-			Grâce à cette fenêtre de dialogue, vous pouvez demander des pièces à une autre personne (qui devrait déjà avoir installé Bitcoin Wallet).
+			Grâce à cette fenêtre de dialogue, vous pouvez demander des pièces à un payeur.
 		</p>
 		<p>
-			Vous pouvez d\'abord saisir un montant de bitcoins à demander.
+			Vous pouvez d\'abord un montant de bitcoins à demander.
 		</p>
 		<p>
-			Ensuite, l\'autre personne pourra lire le code QR généré
+			Ensuite, le payeur devra lire le code QR généré.
 			Ou vous pourrez envoyer votre demande à une personne éloignée grâce au bouton Partager de la barre de menus.
-			L\'autre personne devra cliquer sur l\'URL Bitcoin.
+			Si la CCP (NFC) est activée sur les deux téléphones, vous pouvez aussi les faire se toucher.
 		</p>
 		<p>
-			Dans les deux cas, une fenêtre d\'envoi de pièces sera présentée préremplie à l\'autre personne.
-			Si elle accepte, elle n\'aura qu\'à envoyer le paiement.
+			Dans les deux cas, une fenêtre d\'envoi de pièces sera présentée préremplie au payeur.
+			Si le payeur accepte, il ou elle pourra facilement envoyer le paiement.
 		</p>
 	]]>
 	</string>
   <string name="help_send_coins">
 <![CDATA[
 		<p>
-			Vous avez commencé le processus d\'envoi de bitcoins.
-			Vous êtes arrivé ici de l\'écran principal ou en cliquant sur une URL Bitcoin dans votre navigateur mobile.
+			Vous avez amorcé le processus d\'envoi de bitcoins.
 		</p>
 		<p>
 			Saisissez d\'abord l\'adresse Bitcoin de destination.
-			L\'adresse sera complétée automatiquement pour les adresses enregistrées dans votre carnet d\'adresses.
-			Vous pouvez aussi lire des codes QR avec des adresses Bitcoin ou des demandes de bitcoins en pressant sur le bouton QR de la barre de menus.
+			L\'adresse sera saisie automatiquement pour les entrées connues de votre carnet d\'adresses.
+			Vous pourrez aussi lire un code QR présenté par le bénéficiaire du paiement en pressant sur le bouton de l\'appareil photo.
 		</p>
 		<p>
-			Ensuite, vous verrez combien de bitcoins peuvent être dépensés actuellement.
-			Tout écart avec le solde de l\'écran principal n\'est pas encore confirmé et ne peut donc pas être dépensé.
+			Ensuite, vous saisirez le montant à payer.
 		</p>
 		<p>
-			Enfin, vous saisirez le montant à payer.
+			Enfin, le NIP de dépense devra être saisi s\'il a été défini au préalable.
 		</p>
 		<p>
 			Vous pouvez saisir un paiement alors que vous êtes hors ligne.
-			Il sera envoyé lors du prochain lancement du Bitcoin Wallet.
-			Pour un traitement le plus rapide possible de votre paiement, assurez-vous d\'être bien connecté (c.-à-d. sur un WLAN).
+			Il sera envoyé lors du prochain démarrage de Bitcoin Wallet.
+			Pour que le paiement soit traité aussi rapidement que possible, assurez-vous d\'être bien connecté (c.-à-d. sur un WLAN).
 		</p>
 		<p>
 			Note :
 			Les paiements sont irréversibles !
-			Toujours vérifier l\'adresse de destination.
+			Vérifiez toujours l\'adresse de destination.
 		</p>
 	]]>
 	</string>
@@ -82,10 +80,10 @@
 		<p>
 			Cela signifie que vous devez <b>sauvegarder votre porte-monnaie</b> !
 			Utilisez la fonction de sauvegarde de l\'appli plutôt qu\'une appli de sauvegarde tierce.
-			Gardez votre sauvegarde en lieu sûr et souvenez-vous du mot de passe.
+			Conservez votre sauvegarde en lieu sûr et souvenez-vous du mot de passe.
 		</p>
 		<p>
-			<b>Avant de désinstaller l\'appli</b> (ou d\'en effacer les données ou d\'effacer les données de votre appareil), <b>transférez vos bitcoins vers un autre porte-monnaie</b>.
+			<b>Avant de désinstaller l\'appli</b> (ou d\'en effacer les données ou de purger les données de votre appareil), <b>transférez vos bitcoins vers un autre porte-monnaie</b>.
 			Les bitcoins restants seront perdus.
 		</p>
 		<p>
@@ -100,7 +98,7 @@
 		</p>
 		<p>
 			Minimisez les risques !
-			<b>N\'utilisez l\'appli que pour des petits montants</b> pour un usage quotidien.
+			<b>Ne gardez qu\'un montant raisonnable,</b> pour la journée.
 		</p>
 	]]>
 	</string>
