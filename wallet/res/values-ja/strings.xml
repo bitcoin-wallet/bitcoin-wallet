@@ -65,7 +65,9 @@
   <string name="send_coins_fragment_receiving_address_complex">複雑な\nアドレス</string>
   <string name="send_coins_fragment_pending">(%sが確認待ちです)</string>
   <string name="send_coins_fragment_amount_label">合計支払</string>
-  <string name="send_coins_fragment_hint_fee">%sの少額のネットワーク手数料が課金されます。</string>
+  <string name="send_coins_fragment_hint_fee_economic">格安料金 %s が支払われます。「格安」は確定時間を気にしない場合のみ利用してください。</string>
+  <string name="send_coins_fragment_hint_fee">ネットワーク料金 %s が支払われます。</string>
+  <string name="send_coins_fragment_hint_fee_priority">優先料金 %s が支払われます。もし料金の安さを気にするのであれば、「優先」はできるだけ早く確定が必要なときのみ利用してください。</string>
   <string name="send_coins_fragment_hint_dusty_send">送金額小さすぎます</string>
   <string name="send_coins_fragment_hint_insufficient_money">ご利用できるコインが足りません。%sが不足です。</string>
   <string name="send_coins_fragment_hint_empty_wallet_failed">ウォレット中の少額の支払いを合計しても送信可能な額には足りませんでした。</string>
@@ -260,8 +262,8 @@
   <string name="preferences_remind_balance_summary">数週間使われていない場合、まだウォレット内にコインが残っていればアプリが通知を出します。</string>
   <string name="preferences_report_issue_title">問題を報告</string>
   <string name="preferences_initiate_reset_title">ブロックチェーンのリセット</string>
-  <string name="preferences_initiate_reset_summary">ブロックチェーン・トランザクション・ウォレットの残高をリセットします。再生にしばらくかかります。</string>
-  <string name="preferences_initiate_reset_dialog_message">ブロックチェーンのリセットと再生を実行しますか?\n\n一時的にウォレットの残高が見られなくなり、トランザクションも削除されます。両方ともブロックチェーンの同期後は復元されます。</string>
+  <string name="preferences_initiate_reset_summary">ブロックチェーン・トランザクション・ウォレットの残高をリセットします。再生にしばらくかかるため、必要な理由がわかる場合のみ実行してください。</string>
+  <string name="preferences_initiate_reset_dialog_message">ブロックチェーンのリセットと再生を実行しますか?\n\n一時的にウォレットの残高が見られなくなり、トランザクションも削除されます。ブロックチェーンが同期するにつれ、両方とも復元されます。インターネットとの信頼できる接続があることを確認してください。</string>
   <string name="preferences_initiate_reset_dialog_positive">リセット</string>
   <string name="preferences_extended_public_key_title">xpubを表示</string>
   <string name="preferences_extended_public_key_summary">他のアプリやサービスにインポートできるように、ウォレットの拡張公開鍵を表示します。注意: その場合そのアプリに金銭的なプライバシー情報を公開することになります。</string>
@@ -270,7 +272,8 @@
   <string name="extended_public_key_fragment_share">xpubを共有……</string>
   <string name="report_issue_dialog_title_issue">問題を報告</string>
   <string name="report_issue_dialog_title_crash">直前のクラッシュを検知しました</string>
-  <string name="report_issue_dialog_message_issue">発生した問題について、再現するのに十分なぐらい性格に記述してください。</string>
+  <string name="report_issue_dialog_title_transaction">選択した支払いについて問題を報告する</string>
+  <string name="report_issue_dialog_message_issue">問題を再現できるように詳しく説明してください。可能であれば英語を利用してください。</string>
   <string name="report_issue_dialog_message_crash">今後、この問題を修正する手助けとして、クラッシュレポートを送信しますか?</string>
   <string name="report_issue_dialog_description">説明</string>
   <string name="report_issue_dialog_report">報告</string>
@@ -289,10 +292,12 @@
   <string name="about_credits_bitcoinj_title">Bitcoinプロトコルの実装、bitcoinj %s</string>
   <string name="about_credits_zxing_title">QRコード処理ライブラリ、ZXing</string>
   <string name="about_credits_scrypt_title">Will GlozerとColin Percivalによって実装されたScrypt</string>
-  <string name="about_community_googleplus_title">Google+ コミュニティ</string>
-  <string name="about_community_googleplus_summary">アプリについてのディスカッション</string>
   <string name="about_market_app_title">Google Playのページ</string>
   <string name="about_market_app_summary">アプリのレビューや評価をしてください</string>
+  <string name="about_faq_title">よくある質問</string>
+  <string name="about_faq_summary">このアプリに関するよくある質問</string>
+  <string name="about_community_googleplus_title">Google+ コミュニティ</string>
+  <string name="about_community_googleplus_summary">このアプリについて議論する</string>
   <string name="notification_coins_received_msg">%sを受け取りました</string>
   <string name="notification_peers_connected_msg">%dピアが接続済</string>
   <string name="notification_inactivity_title">まだこの端末にビットコインが残っています!</string>
