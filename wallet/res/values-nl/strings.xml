@@ -65,7 +65,7 @@
   <string name="send_coins_fragment_receiving_address_complex">complex\nadres</string>
   <string name="send_coins_fragment_pending">(%s wachten op bevestiging)</string>
   <string name="send_coins_fragment_amount_label">Te betalen bedrag</string>
-  <string name="send_coins_fragment_hint_fee">Netwerkkosten van %s zullen worden betaald.</string>
+  <string name="send_coins_fragment_hint_fee">%s aan netwerkkosten zullen worden betaald.</string>
   <string name="send_coins_fragment_hint_dusty_send">Het bedrag is te laag om te verzenden.</string>
   <string name="send_coins_fragment_hint_insufficient_money">Onvoldoende coins beschikbaar. U mist %s.</string>
   <string name="send_coins_fragment_hint_empty_wallet_failed">Het totaal van kleine betalingen in uw portemonnee is bij elkaar niet genoeg om te kunnen verzenden.</string>
@@ -260,8 +260,8 @@
   <string name="preferences_remind_balance_summary">Als de app een paar weken niet gebruikt is zal de wallet laten merken dat er nog steeds coins aanwezig.</string>
   <string name="preferences_report_issue_title">Meld probleem</string>
   <string name="preferences_initiate_reset_title">Reset blockchain</string>
-  <string name="preferences_initiate_reset_summary">Reset blok keten, transacties en portemonnee saldo. Herladen zal even duren.</string>
-  <string name="preferences_initiate_reset_dialog_message">Wil je de blockchain resetten en herladen?\n\nTijdelijk zal dit de inhoud van je portemonnee en transacties verbergen. Beide zullen terugkomen tijdens het synchroniseren van de blockchain.</string>
+  <string name="preferences_initiate_reset_summary">Reset block-chain, transacties en wallet inhoud. Herstel kan enige tijd duren dus doe dit alleen als je weet waarom.</string>
+  <string name="preferences_initiate_reset_dialog_message">Wil je de blockchain resetten en opnieuw laden?\n\nDit zal tijdelijk de wallet inhoud en transacties laten verbergen. Beiden zullen terugkomen tijdens het synchronisatieproces. Zorg dat je een betrouwbare verbinding hebt met het internet.</string>
   <string name="preferences_initiate_reset_dialog_positive">Reset</string>
   <string name="preferences_extended_public_key_title">Toon xpub</string>
   <string name="preferences_extended_public_key_summary">Toon de uitgebreide public key van je portemonnee zodat het geïmporteerd kan worden in andere apps en services. Wees voorzichtig: hiermee geef je je monetaire privacy prijs aan die app.</string>
@@ -270,7 +270,7 @@
   <string name="extended_public_key_fragment_share">Deel xpub…</string>
   <string name="report_issue_dialog_title_issue">Meld probleem</string>
   <string name="report_issue_dialog_title_crash">Vorige crash gedetecteerd</string>
-  <string name="report_issue_dialog_message_issue">Omschrijf het probleem nauwkeurig zodat het reproduceerbaar is.</string>
+  <string name="report_issue_dialog_message_issue">Omschrijf het probleem nauwkeurig zodat het reproduceerbaar is. Gebruik Engelse taal indien mogelijk.</string>
   <string name="report_issue_dialog_message_crash">Wilt u een crash rapport sturen om ons te helpen dit probleem op te lossen in de toekomst?</string>
   <string name="report_issue_dialog_description">probleem beschrijving</string>
   <string name="report_issue_dialog_report">Verslag</string>
@@ -289,10 +289,12 @@
   <string name="about_credits_bitcoinj_title">bitcoinj %s, een Bitcoin protocol implementatie</string>
   <string name="about_credits_zxing_title">ZXing, een QR-code processing bibliotheek</string>
   <string name="about_credits_scrypt_title">Scrypt, geïmplementeerd door Will Glozer en Colin Percival</string>
-  <string name="about_community_googleplus_title">Google+ community</string>
-  <string name="about_community_googleplus_summary">Discussies over de app</string>
   <string name="about_market_app_title">Google Play Pagina</string>
   <string name="about_market_app_summary">Beoordeel app</string>
+  <string name="about_faq_title">FAQ</string>
+  <string name="about_faq_summary">Vaakgestelde vragen over de app</string>
+  <string name="about_community_googleplus_title">Google+ community</string>
+  <string name="about_community_googleplus_summary">Discussieer over de app</string>
   <string name="notification_coins_received_msg">Ontvangen %s</string>
   <string name="notification_peers_connected_msg">%d actieve verbindingen</string>
   <string name="notification_inactivity_title">Je hebt nog steeds Bitcoins op dit apparaat!</string>
