@@ -65,7 +65,9 @@
   <string name="send_coins_fragment_receiving_address_complex">複雜的\n位址</string>
   <string name="send_coins_fragment_pending">(%s 等待確認中)</string>
   <string name="send_coins_fragment_amount_label">付款金額</string>
-  <string name="send_coins_fragment_hint_fee">將付出小額的網路費用 %s。</string>
+  <string name="send_coins_fragment_hint_fee_economic">將付出較節省的手續費 %s。請只有在確認時間無所謂時才選用「節省」。</string>
+  <string name="send_coins_fragment_hint_fee">將付出網路手續費 %s。</string>
+  <string name="send_coins_fragment_hint_fee_priority">將付出高優先權的手續費 %s。如果你在意手續費的話，只有在希望交易盡快確認時，才選用「優先」。</string>
   <string name="send_coins_fragment_hint_dusty_send">金額太少而無法傳送。</string>
   <string name="send_coins_fragment_hint_insufficient_money">餘額不足，還少 %s 。</string>
   <string name="send_coins_fragment_hint_empty_wallet_failed">錢包裡的零錢加總起來不夠付。</string>
@@ -260,8 +262,8 @@
   <string name="preferences_remind_balance_summary">這個應用程式在兩個禮拜沒被使用後，會提醒你錢包裡面是否還有錢。</string>
   <string name="preferences_report_issue_title">問題回報</string>
   <string name="preferences_initiate_reset_title">重置區塊鏈</string>
-  <string name="preferences_initiate_reset_summary">重置區塊鏈、交易資料、以及錢包餘額。重算會花一點時間。</string>
-  <string name="preferences_initiate_reset_dialog_message">確定要重置且重算區塊鏈嗎？\n\n錢包餘額會暫時隱藏起來，交易也會不見。但是會隨著同步的進度漸漸恢復。</string>
+  <string name="preferences_initiate_reset_summary">重置區塊鏈、交易資料、以及錢包餘額。重算會花一點時間，所以只有在你知道為什麼要做時才做。</string>
+  <string name="preferences_initiate_reset_dialog_message">確定要重置且重算區塊鏈嗎？\n\n錢包餘額會暫時隱藏起來，交易也會不見。但是都會隨著區塊鏈同步的進展漸漸恢復。請先確認有穩定的網際網路連線。</string>
   <string name="preferences_initiate_reset_dialog_positive">重設</string>
   <string name="preferences_extended_public_key_title">顯示 xpub</string>
   <string name="preferences_extended_public_key_summary">顯示錢包的延伸公鑰，來匯入到其他的應用程式或網路服務去。請小心: 這會暴露你的財務隱私給該程式或服務。</string>
@@ -270,7 +272,8 @@
   <string name="extended_public_key_fragment_share">分享 xpub…</string>
   <string name="report_issue_dialog_title_issue">問題回報</string>
   <string name="report_issue_dialog_title_crash">發現前次當機</string>
-  <string name="report_issue_dialog_message_issue">請精確描述問題，特別是讓它再發生的過程。</string>
+  <string name="report_issue_dialog_title_transaction">回報關於選定付款交易的問題</string>
+  <string name="report_issue_dialog_message_issue">請精確描述問題，特別是讓它再次發生的步驟。如果可以的話請用英文。</string>
   <string name="report_issue_dialog_message_crash">你是否要寄送當機報告來幫忙解決問題呢？</string>
   <string name="report_issue_dialog_description">問題描述</string>
   <string name="report_issue_dialog_report">回報</string>
@@ -289,10 +292,12 @@
   <string name="about_credits_bitcoinj_title">bitcoinj %s, 一個 Bitcoin 通訊協定的實作</string>
   <string name="about_credits_zxing_title">ZXing, 一個處理 QR 代碼的程式庫</string>
   <string name="about_credits_scrypt_title">Scrypt 演算法, Will Glozer 與 Colin Percival 的實作</string>
-  <string name="about_community_googleplus_title">Google+ 社群</string>
-  <string name="about_community_googleplus_summary">討論此應用程式</string>
   <string name="about_market_app_title">Google Play 商店頁面</string>
   <string name="about_market_app_summary">給這個應用程式評論或評分</string>
+  <string name="about_faq_title">常見問答</string>
+  <string name="about_faq_summary">關於這個應用程式的常見問題</string>
+  <string name="about_community_googleplus_title">Google+ 社群</string>
+  <string name="about_community_googleplus_summary">討論關於這個應用程式的事</string>
   <string name="notification_coins_received_msg">收到 %s</string>
   <string name="notification_peers_connected_msg">%d 個節點連線</string>
   <string name="notification_inactivity_title">這個設備上還有 Bitcoin 喔！</string>
