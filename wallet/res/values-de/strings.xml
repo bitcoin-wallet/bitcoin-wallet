@@ -74,6 +74,7 @@
     <string name="send_coins_fragment_hint_dusty_send">Der Betrag ist zu klein zum Senden.</string>
     <string name="send_coins_fragment_hint_insufficient_money">Nicht genug verfügbare Bitcoins. Dir fehlen %s.</string>
     <string name="send_coins_fragment_hint_empty_wallet_failed">Die Summe an winzigen Zahlungen in deiner Wallet ist zu klein, um verschickt zu werden.</string>
+    <string name="send_coins_fragment_hint_replaying">Derzeit sind keine Zahlungen möglich, da noch ein Replay im Gang ist.</string>
     <string name="send_coins_fragment_direct_payment_enable">Zahlung auch direkt senden</string>
     <string name="send_coins_fragment_direct_payment_ack">Die Zahlung wurde erfolgreich direkt gesendet.</string>
     <string name="send_coins_fragment_direct_payment_nack">Die Zahlung wurde über die direkte Verbindung abgelehnt.</string>

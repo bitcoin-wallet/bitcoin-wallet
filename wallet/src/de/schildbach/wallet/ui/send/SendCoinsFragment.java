@@ -73,6 +73,8 @@ import de.schildbach.wallet.data.PaymentIntent;
 import de.schildbach.wallet.data.PaymentIntent.Standard;
 import de.schildbach.wallet.integration.android.BitcoinIntegration;
 import de.schildbach.wallet.offline.DirectPaymentTask;
+import de.schildbach.wallet.service.BlockchainState;
+import de.schildbach.wallet.service.BlockchainStateLoader;
 import de.schildbach.wallet.ui.AbstractBindServiceActivity;
 import de.schildbach.wallet.ui.AddressAndLabel;
 import de.schildbach.wallet.ui.CurrencyAmountView;
@@ -189,6 +191,8 @@ public final class SendCoinsFragment extends Fragment {
 
     @Nullable
     private Map<FeeCategory, Coin> fees = null;
+    @Nullable
+    private BlockchainState blockchainState = null;
     private Transaction sentTransaction = null;
     private Boolean directPaymentAck = null;
 
@@ -197,8 +201,9 @@ public final class SendCoinsFragment extends Fragment {
 
     private static final int ID_DYNAMIC_FEES_LOADER = 0;
     private static final int ID_RATE_LOADER = 1;
-    private static final int ID_RECEIVING_ADDRESS_BOOK_LOADER = 2;
-    private static final int ID_RECEIVING_ADDRESS_NAME_LOADER = 3;
+    private static final int ID_BLOCKCHAIN_STATE_LOADER = 2;
+    private static final int ID_RECEIVING_ADDRESS_BOOK_LOADER = 3;
+    private static final int ID_RECEIVING_ADDRESS_NAME_LOADER = 4;
 
     private static final int REQUEST_CODE_SCAN = 0;
     private static final int REQUEST_CODE_ENABLE_BLUETOOTH_FOR_PAYMENT_REQUEST = 1;
@@ -383,6 +388,23 @@ public final class SendCoinsFragment extends Fragment {
 
         @Override
         public void onLoaderReset(final Loader<Cursor> loader) {
+        }
+    };
+
+    private final LoaderCallbacks<BlockchainState> blockchainStateLoaderCallbacks = new LoaderManager.LoaderCallbacks<BlockchainState>() {
+        @Override
+        public Loader<BlockchainState> onCreateLoader(final int id, final Bundle args) {
+            return new BlockchainStateLoader(activity);
+        }
+
+        @Override
+        public void onLoadFinished(final Loader<BlockchainState> loader, final BlockchainState blockchainState) {
+            SendCoinsFragment.this.blockchainState = blockchainState;
+            updateView();
+        }
+
+        @Override
+        public void onLoaderReset(final Loader<BlockchainState> loader) {
         }
     };
 
@@ -709,6 +731,7 @@ public final class SendCoinsFragment extends Fragment {
 
         loaderManager.initLoader(ID_DYNAMIC_FEES_LOADER, null, dynamicFeesLoaderCallbacks);
         loaderManager.initLoader(ID_RATE_LOADER, null, rateLoaderCallbacks);
+        loaderManager.initLoader(ID_BLOCKCHAIN_STATE_LOADER, null, blockchainStateLoaderCallbacks);
         loaderManager.initLoader(ID_RECEIVING_ADDRESS_BOOK_LOADER, null, receivingAddressLoaderCallbacks);
         loaderManager.initLoader(ID_RECEIVING_ADDRESS_NAME_LOADER, null, receivingAddressLoaderCallbacks);
 
@@ -720,6 +743,7 @@ public final class SendCoinsFragment extends Fragment {
     public void onPause() {
         loaderManager.destroyLoader(ID_RECEIVING_ADDRESS_NAME_LOADER);
         loaderManager.destroyLoader(ID_RECEIVING_ADDRESS_BOOK_LOADER);
+        loaderManager.destroyLoader(ID_BLOCKCHAIN_STATE_LOADER);
         loaderManager.destroyLoader(ID_RATE_LOADER);
         loaderManager.destroyLoader(ID_DYNAMIC_FEES_LOADER);
 
@@ -1278,6 +1302,10 @@ public final class SendCoinsFragment extends Fragment {
                         hintView.setText(getString(R.string.send_coins_fragment_hint_empty_wallet_failed));
                     else
                         hintView.setText(dryrunException.toString());
+                } else if (blockchainState != null && blockchainState.replaying) {
+                    hintView.setTextColor(getResources().getColor(R.color.fg_error));
+                    hintView.setVisibility(View.VISIBLE);
+                    hintView.setText(R.string.send_coins_fragment_hint_replaying);
                 } else if (dryrunTransaction != null && dryrunTransaction.getFee() != null) {
                     hintView.setTextColor(getResources().getColor(R.color.fg_insignificant));
                     hintView.setVisibility(View.VISIBLE);
@@ -1316,7 +1344,8 @@ public final class SendCoinsFragment extends Fragment {
 
             viewCancel.setEnabled(
                     state != State.REQUEST_PAYMENT_REQUEST && state != State.DECRYPTING && state != State.SIGNING);
-            viewGo.setEnabled(everythingPlausible() && dryrunTransaction != null && fees != null);
+            viewGo.setEnabled(everythingPlausible() && dryrunTransaction != null && fees != null
+                    && blockchainState != null && !blockchainState.replaying);
 
             if (state == null || state == State.REQUEST_PAYMENT_REQUEST) {
                 viewCancel.setText(R.string.button_cancel);
