@@ -93,7 +93,7 @@ import android.widget.TextView;
 /**
  * @author Andreas Schildbach
  */
-public final class WalletActivity extends AbstractWalletActivity
+public final class WalletActivity extends AbstractBindServiceActivity
         implements ActivityCompat.OnRequestPermissionsResultCallback {
     private static final int DIALOG_BACKUP_WALLET_PERMISSION = 0;
     private static final int DIALOG_RESTORE_WALLET_PERMISSION = 1;

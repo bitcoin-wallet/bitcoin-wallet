@@ -25,7 +25,7 @@ import android.view.MenuItem;
 /**
  * @author Andreas Schildbach
  */
-public final class ExchangeRatesActivity extends AbstractWalletActivity {
+public final class ExchangeRatesActivity extends AbstractBindServiceActivity {
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

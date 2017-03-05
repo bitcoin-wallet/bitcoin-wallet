@@ -50,7 +50,7 @@ import android.widget.TextView;
  * @author Andreas Schildbach
  */
 public final class WalletDisclaimerFragment extends Fragment implements OnSharedPreferenceChangeListener {
-    private Activity activity;
+    private AbstractBindServiceActivity activity;
     private Configuration config;
     private LoaderManager loaderManager;
 
@@ -65,7 +65,7 @@ public final class WalletDisclaimerFragment extends Fragment implements OnShared
     public void onAttach(final Activity activity) {
         super.onAttach(activity);
 
-        this.activity = (WalletActivity) activity;
+        this.activity = (AbstractBindServiceActivity) activity;
         final WalletApplication application = (WalletApplication) activity.getApplication();
         this.config = application.getConfiguration();
         this.loaderManager = getLoaderManager();

@@ -67,7 +67,7 @@ import android.widget.ViewAnimator;
  * @author Andreas Schildbach
  */
 public final class ExchangeRatesFragment extends Fragment implements OnSharedPreferenceChangeListener {
-    private AbstractWalletActivity activity;
+    private AbstractBindServiceActivity activity;
     private WalletApplication application;
     private Configuration config;
     private Wallet wallet;
@@ -90,7 +90,7 @@ public final class ExchangeRatesFragment extends Fragment implements OnSharedPre
     public void onAttach(final Activity activity) {
         super.onAttach(activity);
 
-        this.activity = (AbstractWalletActivity) activity;
+        this.activity = (AbstractBindServiceActivity) activity;
         this.application = (WalletApplication) activity.getApplication();
         this.config = application.getConfiguration();
         this.wallet = application.getWallet();

@@ -57,7 +57,7 @@ import android.widget.TextView;
  */
 public final class WalletBalanceFragment extends Fragment {
     private WalletApplication application;
-    private AbstractWalletActivity activity;
+    private AbstractBindServiceActivity activity;
     private Configuration config;
     private Wallet wallet;
     private LoaderManager loaderManager;
@@ -90,7 +90,7 @@ public final class WalletBalanceFragment extends Fragment {
     public void onAttach(final Activity activity) {
         super.onAttach(activity);
 
-        this.activity = (AbstractWalletActivity) activity;
+        this.activity = (AbstractBindServiceActivity) activity;
         this.application = (WalletApplication) activity.getApplication();
         this.config = application.getConfiguration();
         this.wallet = application.getWallet();

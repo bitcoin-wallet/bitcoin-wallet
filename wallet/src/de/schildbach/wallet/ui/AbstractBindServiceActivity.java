@@ -61,7 +61,7 @@ public abstract class AbstractBindServiceActivity extends AbstractWalletActivity
         super.onPause();
     }
 
-    protected BlockchainService getBlockchainService() {
+    public BlockchainService getBlockchainService() {
         return blockchainService;
     }
 }
