@@ -129,7 +129,10 @@ public class RaiseFeeDialogFragment extends DialogFragment {
 
         @Override
         public void onLoadFinished(final Loader<Map<FeeCategory, Coin>> loader, final Map<FeeCategory, Coin> data) {
-            feeRaise = data.get(FeeCategory.PRIORITY).multiply(2);
+            // We basically have to pay fee for two transactions:
+            // The transaction to raise the fee of and the CPFP transaction we're about to create.
+            final int size = transaction.getMessageSize() + 192;
+            feeRaise = data.get(FeeCategory.PRIORITY).multiply(size).divide(1000);
             updateView();
         }
 
