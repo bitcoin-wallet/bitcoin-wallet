@@ -31,6 +31,7 @@ import de.schildbach.wallet.data.ExchangeRatesLoader;
 import de.schildbach.wallet.data.ExchangeRatesProvider;
 import de.schildbach.wallet.service.BlockchainState;
 import de.schildbach.wallet.service.BlockchainStateLoader;
+import de.schildbach.wallet.ui.send.FeeCategory;
 import de.schildbach.wallet.ui.send.SendCoinsActivity;
 import de.schildbach.wallet_test.R;
 
@@ -192,7 +193,7 @@ public final class WalletBalanceFragment extends Fragment {
     }
 
     private void handleDonate() {
-        SendCoinsActivity.startDonate(activity, null, null, 0);
+        SendCoinsActivity.startDonate(activity, null, FeeCategory.ECONOMIC, 0);
     }
 
     private void updateView() {
