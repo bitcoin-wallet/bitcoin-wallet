@@ -1,3 +1,8 @@
+v5.16
+
+* Improve app startup time.
+* Fix 'raise fee' was raising the fee too much.
+
 v5.15
 
 * Block sending payments while blockchain replay is in progress.
