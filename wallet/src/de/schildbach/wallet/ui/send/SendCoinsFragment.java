@@ -1345,7 +1345,7 @@ public final class SendCoinsFragment extends Fragment {
             viewCancel.setEnabled(
                     state != State.REQUEST_PAYMENT_REQUEST && state != State.DECRYPTING && state != State.SIGNING);
             viewGo.setEnabled(everythingPlausible() && dryrunTransaction != null && fees != null
-                    && blockchainState != null && !blockchainState.replaying);
+                    && (blockchainState == null || !blockchainState.replaying));
 
             if (state == null || state == State.REQUEST_PAYMENT_REQUEST) {
                 viewCancel.setText(R.string.button_cancel);
