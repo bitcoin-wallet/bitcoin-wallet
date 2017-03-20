@@ -30,6 +30,7 @@
     <string name="wallet_transactions_fragment_empty_text_howto">Wie komme ich an Bitcoins?\n\nHandle gegen traditionelles Geld,\nverkaufe Güter oder Dienstleistungen oder\nverdiene durch Arbeit.</string>
     <string name="wallet_transactions_row_warning_backup">Gratulation, du hast deine erste Zahlung erhalten! Hast du deine Wallet bereits &lt;u&gt;gesichert&lt;/u&gt;, um dich gegen Verlust zu schützen?</string>
     <string name="wallet_transactions_row_warning_storage_encryption">Tipp: Um die Sicherheit deiner Wallet zu erhöhen, kannst du dein &lt;u&gt;Gerät verschlüsseln&lt;/u&gt;. Das schützt auch die Daten anderer Apps.</string>
+    <string name="wallet_transactions_row_warning_chain_forking">Das Bitcoin-Netzwerk befindet sich in Wartungsarbeiten. Es wird empfohlen, keine Bitcoins zu versenden oder zu empfangen bis die Arbeiten beendet sind. &lt;u&gt;Weitere Informationen.&lt;/u&gt;</string>
     <string name="wallet_transactions_fragment_coinbase">geschürft</string>
     <string name="wallet_transactions_fragment_internal">intern</string>
     <string name="wallet_transactions_options_filter">Filter</string>
@@ -166,6 +167,7 @@
     <string name="transaction_row_message_received_direct">Diese Zahlung wurde direkt empfangen. Es besteht das Risiko, daß sie niemals verfügbar wird.</string>
     <string name="transaction_row_message_received_unconfirmed_delayed">Die Bestätigung dieser Zahlung ist verspätet, wahrscheinlich aufgrund einer Überlastung des Bitcoin-Netzes.</string>
     <string name="transaction_row_message_received_unconfirmed_unlocked">Diese Zahlung sollte in ein paar Minuten verfügbar werden.</string>
+    <string name="transaction_row_message_received_unconfirmed_chain_forking">Wegen Wartungsarbeiten am Bitcoin-Netzwerk sollte dieser Zahlung nicht vertraut werden bis sie voll bestätigt ist.</string>
     <string name="transaction_row_message_received_in_conflict">Diese Zahlung hat ein erhöhtes Risiko daß sie vom Sender rückgängig gemacht wird! Warte wenn möglich auf Bestätigung.</string>
     <string name="transaction_row_message_received_dead">Diese Zahlung wurde vom Sender rückgängig gemacht.</string>
     <string name="transaction_row_message_received_dust">Dieser kleine Betrag kann vermutlich nie wirtschaftlich ausgegeben werden.</string>

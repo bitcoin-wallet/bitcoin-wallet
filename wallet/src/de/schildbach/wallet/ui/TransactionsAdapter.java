@@ -65,7 +65,7 @@ import android.widget.TextView;
  */
 public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public enum Warning {
-        BACKUP, STORAGE_ENCRYPTION
+        BACKUP, STORAGE_ENCRYPTION, CHAIN_FORKING
     }
 
     private final Context context;
@@ -291,6 +291,11 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 warningHolder.messageView.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
                 warningHolder.messageView.setText(
                         Html.fromHtml(context.getString(R.string.wallet_transactions_row_warning_storage_encryption)));
+            } else if (warning == Warning.CHAIN_FORKING) {
+                warningHolder.messageView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_warning_grey600_24dp, 0,
+                        0, 0);
+                warningHolder.messageView.setText(
+                        Html.fromHtml(context.getString(R.string.wallet_transactions_row_warning_chain_forking)));
             }
         }
     }
