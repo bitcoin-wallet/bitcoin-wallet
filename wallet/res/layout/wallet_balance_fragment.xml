@@ -17,6 +17,14 @@
             android:layout_height="wrap_content"
             android:textSize="@dimen/font_size_huge" />
 
+        <de.schildbach.wallet.ui.CurrencyTextView
+            android:id="@+id/wallet_balance_local"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:paddingRight="8dp"
+            android:textSize="@dimen/font_size_small" />
+
         <TextView
             android:id="@+id/wallet_balance_warning"
             android:layout_width="wrap_content"
@@ -27,14 +35,6 @@
             android:textColor="@color/fg_less_significant"
             android:textSize="@dimen/font_size_tiny"
             android:visibility="gone" />
-
-        <de.schildbach.wallet.ui.CurrencyTextView
-            android:id="@+id/wallet_balance_local"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:paddingRight="8dp"
-            android:textSize="@dimen/font_size_small" />
     </LinearLayout>
 
     <TextView
