@@ -42,6 +42,7 @@ import android.app.LoaderManager.LoaderCallbacks;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
@@ -65,7 +66,7 @@ public final class WalletBalanceFragment extends Fragment {
 
     private View viewBalance;
     private CurrencyTextView viewBalanceBtc;
-    private View viewBalanceTooMuch;
+    private TextView viewBalanceWarning;
     private CurrencyTextView viewBalanceLocal;
     private TextView viewProgress;
 
@@ -136,7 +137,7 @@ public final class WalletBalanceFragment extends Fragment {
         viewBalanceBtc = (CurrencyTextView) view.findViewById(R.id.wallet_balance_btc);
         viewBalanceBtc.setPrefixScaleX(0.9f);
 
-        viewBalanceTooMuch = view.findViewById(R.id.wallet_balance_too_much);
+        viewBalanceWarning = (TextView) view.findViewById(R.id.wallet_balance_warning);
 
         viewBalanceLocal = (CurrencyTextView) view.findViewById(R.id.wallet_balance_local);
         viewBalanceLocal.setInsignificantRelativeSize(1);
@@ -240,10 +241,6 @@ public final class WalletBalanceFragment extends Fragment {
                 viewBalanceBtc.setFormat(config.getFormat());
                 viewBalanceBtc.setAmount(balance);
 
-                final boolean tooMuch = balance.isGreaterThan(TOO_MUCH_BALANCE_THRESHOLD);
-
-                viewBalanceTooMuch.setVisibility(tooMuch ? View.VISIBLE : View.GONE);
-
                 if (showLocalBalance) {
                     if (exchangeRate != null) {
                         final Fiat localValue = exchangeRate.rate.coinToFiat(balance);
@@ -258,6 +255,16 @@ public final class WalletBalanceFragment extends Fragment {
                 }
             } else {
                 viewBalanceBtc.setVisibility(View.INVISIBLE);
+            }
+
+            if (balance != null && balance.isGreaterThan(TOO_MUCH_BALANCE_THRESHOLD)) {
+                viewBalanceWarning.setVisibility(View.VISIBLE);
+                viewBalanceWarning.setText(R.string.wallet_balance_fragment_too_much);
+            } else if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
+                viewBalanceWarning.setVisibility(View.VISIBLE);
+                viewBalanceWarning.setText(R.string.wallet_balance_fragment_insecure_device);
+            } else {
+                viewBalanceWarning.setVisibility(View.GONE);
             }
 
             viewProgress.setVisibility(View.GONE);

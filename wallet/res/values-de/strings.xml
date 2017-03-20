@@ -14,6 +14,7 @@
     <string name="blockchain_state_progress_problem_network">Synchronisation: Netzwerk-Problem</string>
     <string name="wallet_address_fragment_clipboard_msg">Bitcoin-Adresse ins Clipboard kopiert</string>
     <string name="wallet_address_dialog_fragment_hint">Um deine Privatsphäre zu schützen, ändert sich deine Adresse sobald sie eine Zahlung empfängt.</string>
+    <string name="wallet_balance_fragment_insecure_device">Dein Gerät ist alt und unsicher. Bitte nutze es nur für kleine Beträge.</string>
     <string name="wallet_balance_fragment_too_much">Dieser Wert ist recht hoch, um in der Tasche getragen zu werden. Bitte verschiebe etwas an einen sichereren Ort.</string>
     <string name="wallet_balance_fragment_replaying">Guthaben ist während des Replays nicht verfügbar.</string>
     <string name="exchange_rates_activity_title">Wechselkurse</string>

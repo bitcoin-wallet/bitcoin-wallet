@@ -14,6 +14,7 @@
     <string name="blockchain_state_progress_problem_network">Synchronizing: Network problem</string>
     <string name="wallet_address_fragment_clipboard_msg">Bitcoin address copied to clipboard</string>
     <string name="wallet_address_dialog_fragment_hint">To protect your privacy, your address will change once it receives a payment.</string>
+    <string name="wallet_balance_fragment_insecure_device">Your device is old and insecure. Please only use for small amounts.</string>
     <string name="wallet_balance_fragment_too_much">This amount is quite high for carrying in your pocket. Please move some to a safer place.</string>
     <string name="wallet_balance_fragment_replaying">Balance is unavailable during replay.</string>
     <string name="exchange_rates_activity_title">Exchange rates</string>
