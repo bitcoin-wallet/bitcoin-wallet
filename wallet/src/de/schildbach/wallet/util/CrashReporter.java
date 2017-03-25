@@ -198,6 +198,7 @@ public class CrashReporter {
 
         report.append("Version: " + pi.versionName + " (" + pi.versionCode + ")\n");
         report.append("Package: " + pi.packageName + "\n");
+        report.append("Installer: " + application.getPackageManager().getInstallerPackageName(pi.packageName) + "\n");
         report.append("Test/Prod: " + (Constants.TEST ? "test" : "prod") + "\n");
         report.append("Timezone: " + TimeZone.getDefault().getID() + "\n");
         calendar.setTimeInMillis(System.currentTimeMillis());
