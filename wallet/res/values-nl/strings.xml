@@ -65,6 +65,7 @@
   <string name="send_coins_fragment_receiving_address_complex">complex\nadres</string>
   <string name="send_coins_fragment_pending">(%s wachten op bevestiging)</string>
   <string name="send_coins_fragment_amount_label">Te betalen bedrag</string>
+  <string name="send_coins_fragment_hint_fee_economic">%s aan economische kosten zullen worden betaald. Gebruik \'economisch\' alleen als bevestigingstijd je niets uitmaakt.</string>
   <string name="send_coins_fragment_hint_fee">%s aan netwerkkosten zullen worden betaald.</string>
   <string name="send_coins_fragment_hint_dusty_send">Het bedrag is te laag om te verzenden.</string>
   <string name="send_coins_fragment_hint_insufficient_money">Onvoldoende coins beschikbaar. U mist %s.</string>
