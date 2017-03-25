@@ -268,7 +268,7 @@
   <string name="extended_public_key_fragment_share">Поделиться xpub…</string>
   <string name="report_issue_dialog_title_issue">Сообщить о проблеме</string>
   <string name="report_issue_dialog_title_crash">Обнаружено аварийное завершение</string>
-  <string name="report_issue_dialog_message_issue">Пожалуйста, опишите вашу проблему достаточно точно.</string>
+  <string name="report_issue_dialog_message_issue">Пожалуйста, опишите вашу проблему достаточно точно. Используйте английский язык, если можете.</string>
   <string name="report_issue_dialog_message_crash">Хотите отправить отчет об ошибке, тем самым помогая исправить эту проблему в будущем?</string>
   <string name="report_issue_dialog_description">описание проблемы</string>
   <string name="report_issue_dialog_report">Отчет</string>

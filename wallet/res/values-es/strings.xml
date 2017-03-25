@@ -274,7 +274,7 @@
   <string name="report_issue_dialog_title_issue">Informar de incidencia</string>
   <string name="report_issue_dialog_title_crash">Detectado error grave anterior</string>
   <string name="report_issue_dialog_title_transaction">Informar del problema con el pago seleccionado</string>
-  <string name="report_issue_dialog_message_issue">Por favor, su problema con detalle suficiente para que pueda ser reproducido.</string>
+  <string name="report_issue_dialog_message_issue">Por favor, su problema con detalle suficiente para que pueda ser reproducido. Usa el idioma inglés si puedes.</string>
   <string name="report_issue_dialog_message_crash">¿Deseas enviar un informe de error para ayudar a resolver la incidencia en un futuro?</string>
   <string name="report_issue_dialog_description">Descripción de la incidencia</string>
   <string name="report_issue_dialog_report">Informe</string>
