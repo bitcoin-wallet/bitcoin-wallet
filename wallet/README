@@ -194,4 +194,6 @@ mind it's always a 24h average.
 SWEEPING WALLETS
 
 When sweeping wallets, Bitcoin Wallet uses a set of Electrum servers to query for unspent transaction
-outputs (UTXOs).
+outputs (UTXOs). This feature can be disabled with the compile-time flag
+
+    Constants.ENABLE_SWEEP_WALLET

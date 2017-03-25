@@ -177,6 +177,9 @@ public class SweepWalletFragment extends Fragment {
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        if (!Constants.ENABLE_SWEEP_WALLET)
+            throw new IllegalStateException("ENABLE_SWEEP_WALLET is disabled");
+
         setRetainInstance(true);
         setHasOptionsMenu(true);
 

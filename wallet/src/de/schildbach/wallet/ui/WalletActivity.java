@@ -226,7 +226,10 @@ public final class WalletActivity extends AbstractBindServiceActivity
 
                 @Override
                 protected void handlePrivateKey(final VersionedChecksummedBytes key) {
-                    SweepWalletActivity.start(WalletActivity.this, key);
+                    if (Constants.ENABLE_SWEEP_WALLET)
+                        SweepWalletActivity.start(WalletActivity.this, key);
+                    else
+                        super.handlePrivateKey(key);
                 }
 
                 @Override
@@ -259,6 +262,7 @@ public final class WalletActivity extends AbstractBindServiceActivity
         final String externalStorageState = Environment.getExternalStorageState();
 
         menu.findItem(R.id.wallet_options_exchange_rates).setVisible(res.getBoolean(R.bool.show_exchange_rates_option));
+        menu.findItem(R.id.wallet_options_sweep_wallet).setVisible(Constants.ENABLE_SWEEP_WALLET);
         menu.findItem(R.id.wallet_options_restore_wallet)
                 .setEnabled(Environment.MEDIA_MOUNTED.equals(externalStorageState)
                         || Environment.MEDIA_MOUNTED_READ_ONLY.equals(externalStorageState));

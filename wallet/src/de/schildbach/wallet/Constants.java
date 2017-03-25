@@ -51,6 +51,9 @@ public final class Constants {
     /** Bitcoinj global context. */
     public static final Context CONTEXT = new Context(NETWORK_PARAMETERS);
 
+    /** Enable switch for sweeping of paper wallets */
+    public static final boolean ENABLE_SWEEP_WALLET = true;
+
     public final static class Files {
         private static final String FILENAME_NETWORK_SUFFIX = NETWORK_PARAMETERS.getId()
                 .equals(NetworkParameters.ID_MAINNET) ? "" : "-testnet";
