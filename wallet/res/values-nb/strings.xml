@@ -14,7 +14,7 @@
   <string name="wallet_address_fragment_clipboard_msg">Bitcoin-adresse kopieret til utklippstavlen</string>
   <string name="wallet_address_dialog_fragment_hint">For å beskytte ditt privatliv, vil en ny adresse bli generert når denne mottar en betaling.</string>
   <string name="wallet_balance_fragment_too_much">Dette beløpet er ganske høyt for å bære rundt i lommen din. Vennligst flytt noe til et tryggere sted.</string>
-  <string name="wallet_balance_fragment_replaying">Saldo er ikke tilgjengelig under avspilling.</string>
+  <string name="wallet_balance_fragment_replaying">Saldo er ikke tilgjengelig under gjennomgangen.</string>
   <string name="exchange_rates_activity_title">Valutakurser</string>
   <string name="exchange_rates_fragment_empty_text">Kunne ikke laste valutakurser.</string>
   <string name="exchange_rates_fragment_empty_search">Kunne ikke finne valutakurser.</string>
@@ -65,10 +65,13 @@
   <string name="send_coins_fragment_receiving_address_complex">kompleks\nadresse</string>
   <string name="send_coins_fragment_pending">(%s venter på bekreftelse)</string>
   <string name="send_coins_fragment_amount_label">Beløp å betale</string>
+  <string name="send_coins_fragment_hint_fee_economic">Et sparsomt gebyr på %s vil bli betalt. Bruk \'sparsomt\' kun hvis du ikke bryr deg om hvor lang tid det tar å få bekreftelse.</string>
   <string name="send_coins_fragment_hint_fee">Et lite gebyr til nettverket på %s vil bli betalt.</string>
+  <string name="send_coins_fragment_hint_fee_priority">Et gebyr for prioritet på %s vil bli betalt. Hvis du bryr deg om lave gebyrer, kan du bruke \'prioritet\' kun når du trenger bekreftelse så raskt som mulig.</string>
   <string name="send_coins_fragment_hint_dusty_send">Beløpet er for lite til å sende.</string>
   <string name="send_coins_fragment_hint_insufficient_money">Ikke nok tilgjengelige mynter. Du mangler %s.</string>
   <string name="send_coins_fragment_hint_empty_wallet_failed">Summen av små betalinger i lommeboken er ikke en verdi stor nok til å sendes.</string>
+  <string name="send_coins_fragment_hint_replaying">For øyeblikket er betalinger ikke mulig fordi en gjennomgang pågår.</string>
   <string name="send_coins_fragment_direct_payment_enable">Send betaling direkte til mottakeren.</string>
   <string name="send_coins_fragment_direct_payment_ack">Din betaling ble sendt direkte med suksess.</string>
   <string name="send_coins_fragment_direct_payment_nack">Din betaling ble avvist via direkte forbindelse.</string>
@@ -270,6 +273,7 @@
   <string name="extended_public_key_fragment_share">Del xpub…</string>
   <string name="report_issue_dialog_title_issue">Rapporter problem</string>
   <string name="report_issue_dialog_title_crash">Tidligere krasj oppdaget</string>
+  <string name="report_issue_dialog_title_transaction">Rapporter problem med valgte betaling</string>
   <string name="report_issue_dialog_message_issue">Beskriv problemet presist nok, slik at det kan gjenskapes.</string>
   <string name="report_issue_dialog_message_crash">Har du lyst til å sende en krasjrapport som vil bidra til å løse dette problemet i fremtiden?</string>
   <string name="report_issue_dialog_description">problembeskrivelse</string>
@@ -302,7 +306,7 @@
   <string name="notification_inactivity_message_donate">Hvis du ikke bryr deg om myntene dine, kan du også donere dem til Bitcoin Wallet.</string>
   <string name="notification_inactivity_action_dismiss">Påminn senere</string>
   <string name="notification_inactivity_action_dismiss_forever">Påminn meg ikke</string>
-  <string name="appwidget_wallet_balance_title">Bitcoinsaldo</string>
+  <string name="appwidget_wallet_balance_title">Bitcoin-saldo</string>
   <!--generic buttons-->
   <string name="button_ok">OK</string>
   <string name="button_dismiss">Lukk</string>
