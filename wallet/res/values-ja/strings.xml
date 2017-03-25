@@ -71,6 +71,7 @@
   <string name="send_coins_fragment_hint_dusty_send">送金額小さすぎます</string>
   <string name="send_coins_fragment_hint_insufficient_money">ご利用できるコインが足りません。%sが不足です。</string>
   <string name="send_coins_fragment_hint_empty_wallet_failed">ウォレット中の少額の支払いを合計しても送信可能な額には足りませんでした。</string>
+  <string name="send_coins_fragment_hint_replaying">現在再生中のため、支払いはできません。</string>
   <string name="send_coins_fragment_direct_payment_enable">受取人へ直接送金する。</string>
   <string name="send_coins_fragment_direct_payment_ack">直接的な送金が成功しました。</string>
   <string name="send_coins_fragment_direct_payment_nack">直接的な接続による送金での支払いは拒否されました。</string>
