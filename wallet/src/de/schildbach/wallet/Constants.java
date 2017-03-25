@@ -51,6 +51,8 @@ public final class Constants {
     /** Bitcoinj global context. */
     public static final Context CONTEXT = new Context(NETWORK_PARAMETERS);
 
+    /** Enable switch for synching of the blockchain */
+    public static final boolean ENABLE_BLOCKCHAIN_SYNC = true;
     /** Enable switch for fetching and showing of exchange rates */
     public static final boolean ENABLE_EXCHANGE_RATES = true;
     /** Enable switch for sweeping of paper wallets */

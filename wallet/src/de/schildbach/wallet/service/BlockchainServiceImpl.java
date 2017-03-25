@@ -355,7 +355,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
         private void check() {
             final Wallet wallet = application.getWallet();
 
-            if (impediments.isEmpty() && peerGroup == null) {
+            if (impediments.isEmpty() && peerGroup == null && Constants.ENABLE_BLOCKCHAIN_SYNC) {
                 log.debug("acquiring wakelock");
                 wakeLock.acquire();
 
