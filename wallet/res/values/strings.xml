@@ -41,6 +41,7 @@
     <string name="wallet_options_encrypt_keys_set">Set spending PIN</string>
     <string name="wallet_options_encrypt_keys_change">Change spending PIN</string>
     <string name="wallet_options_safety">Safety notes</string>
+    <string name="wallet_options_technical_notes_title">Technical notes</string>
     <string name="wallet_options_donate">Tip / donate</string>
     <string name="wallet_donate_address_label">Donation for Bitcoin Wallet</string>
     <string name="wallet_low_storage_dialog_title">Internal device storage space low!</string>

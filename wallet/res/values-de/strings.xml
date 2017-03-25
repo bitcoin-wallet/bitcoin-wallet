@@ -41,6 +41,7 @@
     <string name="wallet_options_encrypt_keys_set">Ausgabe-PIN setzen</string>
     <string name="wallet_options_encrypt_keys_change">Ausgabe-PIN ändern</string>
     <string name="wallet_options_safety">Sicherheitshinweise</string>
+    <string name="wallet_options_technical_notes_title">Technische Hinweise</string>
     <string name="wallet_options_donate">Spenden</string>
     <string name="wallet_donate_address_label">Spende für Bitcoin Wallet</string>
     <string name="wallet_low_storage_dialog_title">Interner Speicher wird knapp!</string>

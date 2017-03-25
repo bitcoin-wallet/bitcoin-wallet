@@ -331,6 +331,10 @@ public final class WalletActivity extends AbstractBindServiceActivity
             HelpDialogFragment.page(getFragmentManager(), R.string.help_safety);
             return true;
 
+        case R.id.wallet_options_technical_notes:
+            HelpDialogFragment.page(getFragmentManager(), R.string.help_technical_notes);
+            return true;
+
         case R.id.wallet_options_report_issue:
             handleReportIssue();
             return true;

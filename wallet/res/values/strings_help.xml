@@ -104,5 +104,22 @@
 		</p>
 	]]>
     </string>
+    <string name="help_technical_notes">
+<![CDATA[
+        <p>
+            <b>Technical notes:</b>
+        </p>
+        <p>
+            As an SPV/light wallet, Bitcoin Wallet follows the chain of the most proof-of-work (sometimes also called the \"longest chain\", the \"winning chain\" or the \"Bitcoin blockchain\").
+            You will only receive incoming payments and be able to pay on that chain.
+            No guarantees can be made about Bitcoins on minority chains, that is chains with less proof-of-work.
+        </p>
+        <p>
+            In the past, minority chains have always become irrelevant very quickly.
+            If you desire to follow a minority chain anyway, you are advised to use the \"trusted peer\" feature to exclusively connect to a bitcoind implementation which enforces your desired chain.
+            If the network between your wallet and the trusted peer is not to be trusted, use a VPN to authenticate that connection.
+        </p>
+    ]]>
+    </string>
 
 </resources>

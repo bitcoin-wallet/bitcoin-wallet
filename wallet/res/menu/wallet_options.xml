@@ -35,6 +35,10 @@
                 android:showAsAction="never"
                 android:title="@string/wallet_options_safety"/>
             <item
+                android:id="@+id/wallet_options_technical_notes"
+                android:showAsAction="never"
+                android:title="@string/wallet_options_technical_notes_title"/>
+            <item
                 android:id="@+id/wallet_options_backup_wallet"
                 android:showAsAction="never"
                 android:title="@string/export_keys_dialog_title"/>

@@ -104,5 +104,22 @@
 		</p>
 	]]>
     </string>
+    <string name="help_technical_notes">
+<![CDATA[
+        <p>
+            <b>Technische Hinweise:</b>
+        </p>
+        <p>
+            Als SPV/Light-Wallet folgt Bitcoin Wallet der Blockchain mit dem größten Proof-of-Work (manchmal auch \"längste Kette\", \"winning chain\" oder \"Bitcoin blockchain\" genannt).
+            Du wirst Bitcoins nur auf dieser Kette empfangen und darauf zahlen können.
+            Für Bitcoins auf Ketten mit kürzerer Proof-of-Work (auch \"minority chains\" genannt) gibt es keine Garantie.
+        </p>
+        <p>
+            In der Vergangenheit sind kürzere Ketten immer sehr schnell irrelevant geworden.
+            Falls du dennoch einer kürzeren Kette folgen willst, nutze die \"Vertrauenswürdiger Peer\"-Funktion, um exklusiv zu einer Bitcoind-Implementierung zu verbinden, die deine gewünschte Kette erzwingt.
+            Wenn dem Netzwerk zwischen deiner Wallet und dem vertrauenswürdigen Peer nicht vertraut werden kann, nutze ein VPN um diese Verbindung zu authentifizieren.
+        </p>
+    ]]>
+    </string>
 
 </resources>
