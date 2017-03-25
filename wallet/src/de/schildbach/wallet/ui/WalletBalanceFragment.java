@@ -120,7 +120,8 @@ public final class WalletBalanceFragment extends Fragment {
     public void onViewCreated(final View view, final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        final boolean showExchangeRatesOption = getResources().getBoolean(R.bool.show_exchange_rates_option);
+        final boolean showExchangeRatesOption = Constants.ENABLE_EXCHANGE_RATES
+                && getResources().getBoolean(R.bool.show_exchange_rates_option);
 
         viewBalance = view.findViewById(R.id.wallet_balance);
         if (showExchangeRatesOption) {
@@ -151,7 +152,8 @@ public final class WalletBalanceFragment extends Fragment {
         super.onResume();
 
         loaderManager.initLoader(ID_BALANCE_LOADER, null, balanceLoaderCallbacks);
-        loaderManager.initLoader(ID_RATE_LOADER, null, rateLoaderCallbacks);
+        if (Constants.ENABLE_EXCHANGE_RATES)
+            loaderManager.initLoader(ID_RATE_LOADER, null, rateLoaderCallbacks);
         loaderManager.initLoader(ID_BLOCKCHAIN_STATE_LOADER, null, blockchainStateLoaderCallbacks);
 
         updateView();
@@ -160,7 +162,8 @@ public final class WalletBalanceFragment extends Fragment {
     @Override
     public void onPause() {
         loaderManager.destroyLoader(ID_BLOCKCHAIN_STATE_LOADER);
-        loaderManager.destroyLoader(ID_RATE_LOADER);
+        if (Constants.ENABLE_EXCHANGE_RATES)
+            loaderManager.destroyLoader(ID_RATE_LOADER);
         loaderManager.destroyLoader(ID_BALANCE_LOADER);
 
         super.onPause();

@@ -84,6 +84,9 @@ public class ExchangeRatesProvider extends ContentProvider {
 
     @Override
     public boolean onCreate() {
+        if (!Constants.ENABLE_EXCHANGE_RATES)
+            return false;
+
         final Context context = getContext();
 
         this.config = new Configuration(PreferenceManager.getDefaultSharedPreferences(context), context.getResources());

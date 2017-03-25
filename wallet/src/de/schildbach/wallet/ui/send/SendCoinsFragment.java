@@ -730,7 +730,8 @@ public final class SendCoinsFragment extends Fragment {
         privateKeyPasswordView.addTextChangedListener(privateKeyPasswordListener);
 
         loaderManager.initLoader(ID_DYNAMIC_FEES_LOADER, null, dynamicFeesLoaderCallbacks);
-        loaderManager.initLoader(ID_RATE_LOADER, null, rateLoaderCallbacks);
+        if (Constants.ENABLE_EXCHANGE_RATES)
+            loaderManager.initLoader(ID_RATE_LOADER, null, rateLoaderCallbacks);
         loaderManager.initLoader(ID_BLOCKCHAIN_STATE_LOADER, null, blockchainStateLoaderCallbacks);
         loaderManager.initLoader(ID_RECEIVING_ADDRESS_BOOK_LOADER, null, receivingAddressLoaderCallbacks);
         loaderManager.initLoader(ID_RECEIVING_ADDRESS_NAME_LOADER, null, receivingAddressLoaderCallbacks);
@@ -744,7 +745,8 @@ public final class SendCoinsFragment extends Fragment {
         loaderManager.destroyLoader(ID_RECEIVING_ADDRESS_NAME_LOADER);
         loaderManager.destroyLoader(ID_RECEIVING_ADDRESS_BOOK_LOADER);
         loaderManager.destroyLoader(ID_BLOCKCHAIN_STATE_LOADER);
-        loaderManager.destroyLoader(ID_RATE_LOADER);
+        if (Constants.ENABLE_EXCHANGE_RATES)
+            loaderManager.destroyLoader(ID_RATE_LOADER);
         loaderManager.destroyLoader(ID_DYNAMIC_FEES_LOADER);
 
         privateKeyPasswordView.removeTextChangedListener(privateKeyPasswordListener);

@@ -122,6 +122,10 @@ public final class WalletActivity extends AbstractBindServiceActivity
 
         setContentView(R.layout.wallet_content);
 
+        final View exchangeRatesFragment = findViewById(R.id.wallet_main_twopanes_exchange_rates);
+        if (exchangeRatesFragment != null && !Constants.ENABLE_EXCHANGE_RATES)
+            exchangeRatesFragment.setVisibility(View.GONE);
+
         if (savedInstanceState == null) {
             final View contentView = findViewById(android.R.id.content);
             final View slideInLeftView = contentView.findViewWithTag("slide_in_left");
@@ -261,7 +265,8 @@ public final class WalletActivity extends AbstractBindServiceActivity
         final Resources res = getResources();
         final String externalStorageState = Environment.getExternalStorageState();
 
-        menu.findItem(R.id.wallet_options_exchange_rates).setVisible(res.getBoolean(R.bool.show_exchange_rates_option));
+        menu.findItem(R.id.wallet_options_exchange_rates)
+                .setVisible(Constants.ENABLE_EXCHANGE_RATES && res.getBoolean(R.bool.show_exchange_rates_option));
         menu.findItem(R.id.wallet_options_sweep_wallet).setVisible(Constants.ENABLE_SWEEP_WALLET);
         menu.findItem(R.id.wallet_options_restore_wallet)
                 .setEnabled(Environment.MEDIA_MOUNTED.equals(externalStorageState)

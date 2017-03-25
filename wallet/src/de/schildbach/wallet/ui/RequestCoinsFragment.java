@@ -247,7 +247,8 @@ public final class RequestCoinsFragment extends Fragment implements NfcAdapter.C
             }
         });
 
-        loaderManager.initLoader(ID_RATE_LOADER, null, rateLoaderCallbacks);
+        if (Constants.ENABLE_EXCHANGE_RATES)
+            loaderManager.initLoader(ID_RATE_LOADER, null, rateLoaderCallbacks);
 
         if (Bluetooth.canListen(bluetoothAdapter) && bluetoothAdapter.isEnabled()
                 && acceptBluetoothPaymentView.isChecked())

@@ -109,7 +109,9 @@ public final class ExchangeRatesFragment extends Fragment implements OnSharedPre
         adapter.setRateBase(config.getBtcBase());
         adapter.setDefaultCurrency(config.getExchangeCurrencyCode());
 
-        loaderManager.initLoader(ID_RATE_LOADER, null, rateLoaderCallbacks);
+        if (Constants.ENABLE_EXCHANGE_RATES)
+            loaderManager.initLoader(ID_RATE_LOADER, null, rateLoaderCallbacks);
+
         config.registerOnSharedPreferenceChangeListener(this);
     }
 
@@ -145,7 +147,8 @@ public final class ExchangeRatesFragment extends Fragment implements OnSharedPre
     public void onDestroy() {
         config.unregisterOnSharedPreferenceChangeListener(this);
 
-        loaderManager.destroyLoader(ID_RATE_LOADER);
+        if (Constants.ENABLE_EXCHANGE_RATES)
+            loaderManager.destroyLoader(ID_RATE_LOADER);
 
         super.onDestroy();
     }
@@ -154,29 +157,35 @@ public final class ExchangeRatesFragment extends Fragment implements OnSharedPre
     public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater) {
         inflater.inflate(R.menu.exchange_rates_fragment_options, menu);
 
-        final SearchView searchView = (SearchView) menu.findItem(R.id.exchange_rates_options_search).getActionView();
-        searchView.setOnQueryTextListener(new OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextChange(final String newText) {
-                query = Strings.emptyToNull(newText.trim());
-                getLoaderManager().restartLoader(ID_RATE_LOADER, null, rateLoaderCallbacks);
+        final MenuItem searchMenuItem = menu.findItem(R.id.exchange_rates_options_search);
+        if (Constants.ENABLE_EXCHANGE_RATES) {
+            final SearchView searchView = (SearchView) searchMenuItem.getActionView();
+            searchView.setOnQueryTextListener(new OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextChange(final String newText) {
+                    query = Strings.emptyToNull(newText.trim());
+                    getLoaderManager().restartLoader(ID_RATE_LOADER, null, rateLoaderCallbacks);
 
-                return true;
-            }
+                    return true;
+                }
 
-            @Override
-            public boolean onQueryTextSubmit(final String query) {
-                searchView.clearFocus();
+                @Override
+                public boolean onQueryTextSubmit(final String query) {
+                    searchView.clearFocus();
 
-                return true;
-            }
-        });
+                    return true;
+                }
+            });
 
-        // Workaround for not being able to style the SearchView
-        final int id = searchView.getContext().getResources().getIdentifier("android:id/search_src_text", null, null);
-        final View searchInput = searchView.findViewById(id);
-        if (searchInput instanceof EditText)
-            ((EditText) searchInput).setTextColor(Color.WHITE);
+            // Workaround for not being able to style the SearchView
+            final int id = searchView.getContext().getResources().getIdentifier("android:id/search_src_text", null,
+                    null);
+            final View searchInput = searchView.findViewById(id);
+            if (searchInput instanceof EditText)
+                ((EditText) searchInput).setTextColor(Color.WHITE);
+        } else {
+            searchMenuItem.setVisible(false);
+        }
 
         super.onCreateOptionsMenu(menu, inflater);
     }
