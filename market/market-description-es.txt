@@ -8,8 +8,8 @@
 • Conversión hacia y desde divisas nacionales.
 • Envío y recepción de bitcoins mediante NFC, códigos QR o identificadores URL Bitcoin.
 • Libreta de direcciones para guardar las direcciones Bitcoin más utilizadas.
-• Cuando no tengas conexión, puedes seguir pagando via Bluetooth.
-• Notificación de sistema al recibir bitcoins.
+• Cuando no tienes conexión, puedes pagar via Bluetooth.
+• Notificación del sistema al recibir bitcoins.
 • Barrido de monederos de papel (por ejemplo, los que se utilizan para custodia en frio).
 • Widget para el saldo de bitcoins.
 

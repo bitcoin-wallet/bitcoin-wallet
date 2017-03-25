@@ -65,10 +65,13 @@
   <string name="send_coins_fragment_receiving_address_complex">dirección\ncompleja</string>
   <string name="send_coins_fragment_pending">(%s esperando confirmación)</string>
   <string name="send_coins_fragment_amount_label">Cantidad a pagar</string>
+  <string name="send_coins_fragment_hint_fee_economic">Se pagará una comisión económica de %s. Use \'económico\' sólo si no le preocupan los tiempos de confirmación.</string>
   <string name="send_coins_fragment_hint_fee">Una pequeña comisión de red de %s será pagada.</string>
+  <string name="send_coins_fragment_hint_fee_priority">Se pagará una comisión por prioridad de %s. Si le preocupan las tarifas bajas, use \'prioridad\' sólo si necesita la confirmación lo antes posible.</string>
   <string name="send_coins_fragment_hint_dusty_send">La cantidad es demasiado baja para enviar.</string>
   <string name="send_coins_fragment_hint_insufficient_money">Bitcoins insuficientes. Te faltan %s.</string>
   <string name="send_coins_fragment_hint_empty_wallet_failed">La cantidad de pequeños pagos en tu cartera no es suficiente para poder enviarlos.</string>
+  <string name="send_coins_fragment_hint_replaying">Actualmente los pagos no son posibles porque una repetición está en proceso.</string>
   <string name="send_coins_fragment_direct_payment_enable">Enviar pago directamente al receptor.</string>
   <string name="send_coins_fragment_direct_payment_ack">Tu pago se ha enviado directamente con éxito.</string>
   <string name="send_coins_fragment_direct_payment_nack">Tu pago mediante conexión directa ha sido rechazado.</string>
@@ -168,9 +171,12 @@
   <string name="network_monitor_peer_list_title">Pares</string>
   <string name="network_monitor_block_list_title">Bloques</string>
   <string name="block_row_mining_difficulty_adjustment">Ajustes a la dificultad de la minería.</string>
+  <string name="block_row_mining_reward_adjustment">Reducción de la recompensa minera</string>
   <string name="block_row_now">justo ahora</string>
   <string name="peer_list_fragment_empty">No hay pares conectados</string>
   <string name="peer_list_row_ping_time">⇆ %d&#x2009;ms</string>
+  <string name="restore_wallet_permission_dialog_title">Falta el permiso de lectura</string>
+  <string name="restore_wallet_permission_dialog_message">Para poder buscar copias de seguridad de la cartera en su almacenamiento externo, debe conceder el permiso de lectura.</string>
   <string name="import_keys_dialog_title">Restaurar cartera</string>
   <string name="import_keys_dialog_message">Seleccione una copia de seguridad de la cartera desde una unidad de almacenamiento externa (%s):</string>
   <string name="restore_wallet_dialog_replace_warning">Está a punto de reemplazar su cartera actual. Todas las bitcoins en la cartera actual se perderán a menos que tenga una copia de seguridad.</string>
@@ -185,6 +191,8 @@
   <string name="restore_wallet_dialog_success">La cartera ha sido restaurado.</string>
   <string name="restore_wallet_dialog_success_replay">Tu cartera fue restaurada satisfactoriamente. Su balance será determinado a continuación. Esto llevará algún tiempo.</string>
   <string name="import_keys_dialog_failure">La cartera no pudo ser restaurada:\n\n%s\n\n¿Contraseña errónea?</string>
+  <string name="backup_wallet_permission_dialog_title">Falta el permiso de escritura</string>
+  <string name="backup_wallet_permission_dialog_message">Para poder realizar una copia de seguridad de su cartera en el almacenamiento externo, debe conceder el permiso de escritura.</string>
   <string name="export_keys_dialog_title">Hacer copia de seguridad de la cartera</string>
   <string name="backup_wallet_dialog_message">Su copia de seguridad será encriptada con la contraseña que elija y guardada en una unidad de almacenamiento externo.</string>
   <string name="backup_wallet_dialog_warning_encrypted">Su cartera está protegida con un PIN de pagos. ¡Asegúrese de recordar el PIN, además de hacer una copia de seguridad de su contraseña!</string>
@@ -216,6 +224,8 @@
   <string name="encrypt_keys_dialog_state_done">Hecho.</string>
   <string name="scan_camera_problem_dialog_title">Lo sentimos</string>
   <string name="scan_camera_problem_dialog_message">La cámara ha sufrido un problema. Probablemente necesite reiniciar el dispositivo.</string>
+  <string name="scan_camera_permission_dialog_title">Permiso de cámara</string>
+  <string name="scan_camera_permission_dialog_message">Para poder escanear códigos QR, debe conceder permiso para usar la cámara.</string>
   <string name="input_parser_io_error">No se pueden leer los datos:\n%s</string>
   <string name="input_parser_cannot_classify">No se reconoce la entrada:\n%s</string>
   <string name="input_parser_invalid_bitcoin_uri">URI Bitcoin inválida:\n%s</string>
@@ -263,6 +273,7 @@
   <string name="extended_public_key_fragment_share">Comparte xpub…</string>
   <string name="report_issue_dialog_title_issue">Informar de incidencia</string>
   <string name="report_issue_dialog_title_crash">Detectado error grave anterior</string>
+  <string name="report_issue_dialog_title_transaction">Informar del problema con el pago seleccionado</string>
   <string name="report_issue_dialog_message_issue">Por favor, su problema con detalle suficiente para que pueda ser reproducido.</string>
   <string name="report_issue_dialog_message_crash">¿Deseas enviar un informe de error para ayudar a resolver la incidencia en un futuro?</string>
   <string name="report_issue_dialog_description">Descripción de la incidencia</string>
@@ -281,10 +292,13 @@
   <string name="about_category_credits">Esta aplicación utiliza…</string>
   <string name="about_credits_bitcoinj_title">bitcoinj %s</string>
   <string name="about_credits_zxing_title">ZXing</string>
-  <string name="about_community_googleplus_title">Comunidad Google+</string>
-  <string name="about_community_googleplus_summary">Discusiones sobre la aplicación</string>
+  <string name="about_credits_scrypt_title">Scrypt, implementado por Will Glozer y Colin Percival</string>
   <string name="about_market_app_title">Página en Google Play</string>
   <string name="about_market_app_summary">Critica o evalúa la aplicación</string>
+  <string name="about_faq_title">Prefuntas Frecuentes</string>
+  <string name="about_faq_summary">Preguntas frecuentes sobre la aplicación</string>
+  <string name="about_community_googleplus_title">Comunidad Google+</string>
+  <string name="about_community_googleplus_summary">Discusiones sobre la aplicación</string>
   <string name="notification_coins_received_msg">%s Recibidos</string>
   <string name="notification_peers_connected_msg">%d pares conectados</string>
   <string name="notification_inactivity_title">¡Aún tienes Bitcoins en este dispositivo!</string>
@@ -292,6 +306,7 @@
   <string name="notification_inactivity_message_donate">Si no te importan tus Bitcoins, por favor considera donarlas al proyecto Bitcoin Wallet.</string>
   <string name="notification_inactivity_action_dismiss">Avísame después</string>
   <string name="notification_inactivity_action_dismiss_forever">No recordar</string>
+  <string name="appwidget_wallet_balance_title">Balance Bitcoin</string>
   <!--generic buttons-->
   <string name="button_ok">Aceptar</string>
   <string name="button_dismiss">Rechazar</string>
