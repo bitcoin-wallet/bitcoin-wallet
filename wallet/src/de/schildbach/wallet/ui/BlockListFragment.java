@@ -169,7 +169,7 @@ public final class BlockListFragment extends Fragment implements BlockListAdapte
     public void onBlockMenuClick(final View view, final StoredBlock block) {
         final PopupMenu popupMenu = new PopupMenu(activity, view);
         popupMenu.inflate(R.menu.blocks_context);
-
+        popupMenu.getMenu().findItem(R.id.blocks_context_browse).setVisible(Constants.ENABLE_BROWSE);
         popupMenu.setOnMenuItemClickListener(new OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(final MenuItem item) {

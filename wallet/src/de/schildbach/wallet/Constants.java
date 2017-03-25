@@ -57,6 +57,8 @@ public final class Constants {
     public static final boolean ENABLE_EXCHANGE_RATES = true;
     /** Enable switch for sweeping of paper wallets */
     public static final boolean ENABLE_SWEEP_WALLET = true;
+    /** Enable switch for browsing to block explorers */
+    public static final boolean ENABLE_BROWSE = true;
 
     public final static class Files {
         private static final String FILENAME_NETWORK_SUFFIX = NETWORK_PARAMETERS.getId()

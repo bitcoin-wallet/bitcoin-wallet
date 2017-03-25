@@ -141,7 +141,7 @@ public final class WalletAddressesFragment extends FancyListFragment {
             public boolean onCreateActionMode(final ActionMode mode, final Menu menu) {
                 final MenuInflater inflater = mode.getMenuInflater();
                 inflater.inflate(R.menu.wallet_addresses_context, menu);
-
+                menu.findItem(R.id.wallet_addresses_context_browse).setVisible(Constants.ENABLE_BROWSE);
                 return true;
             }
 
