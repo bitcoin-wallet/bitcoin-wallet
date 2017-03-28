@@ -19,7 +19,6 @@ package de.schildbach.wallet.ui;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -102,14 +101,7 @@ public final class RestoreWalletActivity extends AbstractWalletActivity {
             public void onClick(final DialogInterface dialog, final int which) {
                 final String password = passwordView.getText().toString().trim();
                 passwordView.setText(null); // get rid of it asap
-
-                try {
-                    final InputStream is = contentResolver.openInputStream(backupFileUri);
-                    restoreWalletFromEncrypted(is, password);
-                } catch (final FileNotFoundException x) {
-                    // should not happen
-                    throw new RuntimeException(x);
-                }
+                handleRestore(password);
             }
         });
         dialog.setNegativeButton(R.string.button_cancel, new OnClickListener() {
@@ -155,20 +147,30 @@ public final class RestoreWalletActivity extends AbstractWalletActivity {
         showView.setOnCheckedChangeListener(new ShowPasswordCheckListener(passwordView));
     }
 
-    private void restoreWalletFromEncrypted(final InputStream cipher, final String password) {
+    private void handleRestore(final String password) {
         try {
-            final BufferedReader cipherIn = new BufferedReader(new InputStreamReader(cipher, Charsets.UTF_8));
-            final StringBuilder cipherText = new StringBuilder();
-            Io.copy(cipherIn, cipherText, Constants.BACKUP_MAX_CHARS);
-            cipherIn.close();
-
-            final byte[] plainText = Crypto.decryptBytes(cipherText.toString(), password.toCharArray());
-            final InputStream is = new ByteArrayInputStream(plainText);
-
-            restoreWallet(WalletUtils.restoreWalletFromProtobufOrBase58(is, Constants.NETWORK_PARAMETERS));
-
+            final InputStream is = contentResolver.openInputStream(backupFileUri);
+            restoreWalletFromEncrypted(is, password);
+            config.disarmBackupReminder();
             log.info("successfully restored encrypted wallet from external source");
+
+            final DialogBuilder dialog = new DialogBuilder(this);
+            final StringBuilder message = new StringBuilder();
+            message.append(getString(R.string.restore_wallet_dialog_success));
+            message.append("\n\n");
+            message.append(getString(R.string.restore_wallet_dialog_success_replay));
+            dialog.setMessage(message);
+            dialog.setNeutralButton(R.string.button_ok, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(final DialogInterface dialog, final int id) {
+                    getWalletApplication().resetBlockchain();
+                    finish();
+                }
+            });
+            dialog.show();
         } catch (final IOException x) {
+            log.info("problem restoring wallet", x);
+
             final DialogBuilder dialog = DialogBuilder.warn(this, R.string.import_export_keys_dialog_failure_title);
             dialog.setMessage(getString(R.string.import_keys_dialog_failure, x.getMessage()));
             dialog.setPositiveButton(R.string.button_dismiss, finishListener).setOnCancelListener(finishListener);
@@ -179,30 +181,19 @@ public final class RestoreWalletActivity extends AbstractWalletActivity {
                 }
             });
             dialog.show();
-
-            log.info("problem restoring wallet", x);
         }
     }
 
-    private void restoreWallet(final Wallet wallet) throws IOException {
-        application.replaceWallet(wallet);
+    private void restoreWalletFromEncrypted(final InputStream cipher, final String password) throws IOException {
+        final BufferedReader cipherIn = new BufferedReader(new InputStreamReader(cipher, Charsets.UTF_8));
+        final StringBuilder cipherText = new StringBuilder();
+        Io.copy(cipherIn, cipherText, Constants.BACKUP_MAX_CHARS);
+        cipherIn.close();
 
-        config.disarmBackupReminder();
+        final byte[] plainText = Crypto.decryptBytes(cipherText.toString(), password.toCharArray());
+        final InputStream is = new ByteArrayInputStream(plainText);
 
-        final DialogBuilder dialog = new DialogBuilder(this);
-        final StringBuilder message = new StringBuilder();
-        message.append(getString(R.string.restore_wallet_dialog_success));
-        message.append("\n\n");
-        message.append(getString(R.string.restore_wallet_dialog_success_replay));
-        dialog.setMessage(message);
-        dialog.setNeutralButton(R.string.button_ok, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(final DialogInterface dialog, final int id) {
-                getWalletApplication().resetBlockchain();
-                finish();
-            }
-        });
-        dialog.show();
+        application.replaceWallet(WalletUtils.restoreWalletFromProtobufOrBase58(is, Constants.NETWORK_PARAMETERS));
     }
 
     private class FinishListener implements DialogInterface.OnClickListener, DialogInterface.OnCancelListener {
