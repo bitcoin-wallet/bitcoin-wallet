@@ -1,7 +1,8 @@
 apply plugin: 'com.android.application'
-def localMavenRepo = 'file://' + new File(System.getProperty('user.home'), '.m2/repository').absolutePath
+//def localMavenRepo = 'file://' + new File(System.getProperty('user.home'), '.m2/repository').absolutePath
 repositories {
-    maven { url localMavenRepo }
+    //maven { url localMavenRepo }
+    mavenLocal();
 }
 dependencies {
     compile(project(':integration-android')) {
