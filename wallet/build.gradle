@@ -1,9 +1,10 @@
 apply plugin: 'com.android.application'
 apply plugin: 'androidsvgdrawable'
 
-def localMavenRepo = 'file://' + new File(System.getProperty('user.home'), '.m2/repository').absolutePath
+//def localMavenRepo = 'file://' + new File(System.getProperty('user.home'), '.m2/repository').absolutePath
 repositories {
-    maven { url localMavenRepo }
+    //maven { url localMavenRepo }
+    mavenLocal();
 }
 dependencies {
     compile(project(':integration-android')) {
@@ -14,7 +15,7 @@ dependencies {
     compile 'com.android.support:support-v13:23.1.1'
     compile 'com.android.support:recyclerview-v7:23.1.1'
     compile 'com.android.support:cardview-v7:23.1.1'
-    compile 'org.bitcoinj:groestlcoinj-core:0.13.4'
+    compile 'org.groestlcoinj:groestlcoinj-core:0.13.4'
     compile 'com.google.protobuf:protobuf-java:2.5.0'
     compile 'com.google.guava:guava:16.0.1'
     compile 'com.google.zxing:core:3.2.1'
