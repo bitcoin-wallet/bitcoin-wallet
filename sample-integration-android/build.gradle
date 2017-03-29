@@ -8,7 +8,7 @@ dependencies {
     compile(project(':integration-android')) {
         exclude(group: 'com.google.android', module: 'android')
     }
-    compile 'org.groestlcoin:groestlcoinj-core:0.13.4'
+    compile 'org.groestlcoinj:groestlcoinj-core:0.13.4'
 }
 
 android {
