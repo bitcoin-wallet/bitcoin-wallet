@@ -184,6 +184,7 @@
     <string name="restore_wallet_permission_dialog_message">In order to search for wallet backups on your external storage, you need to grant read permission.</string>
     <string name="import_keys_dialog_title">Restore wallet</string>
     <string name="import_keys_dialog_message">Pick a wallet backup file from external storage (%s):</string>
+    <string name="restore_wallet_dialog_message_empty">No wallet backup was found. Make sure it is placed in external storage (%s).</string>
     <string name="restore_wallet_dialog_replace_warning">You are about to replace your current wallet. Any coins in the current wallet will be lost unless you\'ve got a separate backup of that.</string>
     <string name="import_keys_dialog_warning">Important: Do not load private keys from dubious sources! Others can gain control over your funds if you do.</string>
     <string name="import_keys_dialog_file_security_encrypted">password encrypted</string>

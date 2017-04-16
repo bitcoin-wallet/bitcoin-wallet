@@ -453,7 +453,6 @@ public final class WalletActivity extends AbstractBindServiceActivity
 
     private Dialog createRestoreWalletDialog() {
         final View view = getLayoutInflater().inflate(R.layout.restore_wallet_dialog, null);
-        final TextView messageView = (TextView) view.findViewById(R.id.restore_wallet_dialog_message);
         final Spinner fileView = (Spinner) view.findViewById(R.id.import_keys_from_storage_file);
         final EditText passwordView = (EditText) view.findViewById(R.id.import_keys_from_storage_password);
 
@@ -488,7 +487,7 @@ public final class WalletActivity extends AbstractBindServiceActivity
             }
         });
 
-        final FileAdapter adapter = new FileAdapter(this) {
+        fileView.setAdapter(new FileAdapter(this) {
             @Override
             public View getDropDownView(final int position, View row, final ViewGroup parent) {
                 final File file = getItem(position);
@@ -518,7 +517,13 @@ public final class WalletActivity extends AbstractBindServiceActivity
 
                 return row;
             }
-        };
+        });
+
+        return dialog.create();
+    }
+
+    private void prepareRestoreWalletDialog(final Dialog dialog) {
+        final AlertDialog alertDialog = (AlertDialog) dialog;
 
         final String path;
         final String backupPath = Constants.Files.EXTERNAL_WALLET_BACKUP_DIR.getAbsolutePath();
@@ -527,15 +532,6 @@ public final class WalletActivity extends AbstractBindServiceActivity
             path = backupPath.substring(storagePath.length());
         else
             path = backupPath;
-        messageView.setText(getString(R.string.import_keys_dialog_message, path));
-
-        fileView.setAdapter(adapter);
-
-        return dialog.create();
-    }
-
-    private void prepareRestoreWalletDialog(final Dialog dialog) {
-        final AlertDialog alertDialog = (AlertDialog) dialog;
 
         final List<File> files = new LinkedList<File>();
 
@@ -559,18 +555,28 @@ public final class WalletActivity extends AbstractBindServiceActivity
             }
         });
 
+        final TextView messageView = (TextView) alertDialog.findViewById(R.id.restore_wallet_dialog_message);
+        messageView.setText(getString(
+                !files.isEmpty() ? R.string.import_keys_dialog_message : R.string.restore_wallet_dialog_message_empty,
+                path));
+
+        final Spinner fileView = (Spinner) alertDialog.findViewById(R.id.import_keys_from_storage_file);
+        fileView.setVisibility(!files.isEmpty() ? View.VISIBLE : View.GONE);
+        final FileAdapter adapter = (FileAdapter) fileView.getAdapter();
+        adapter.setFiles(files);
+
+        final EditText passwordView = (EditText) alertDialog.findViewById(R.id.import_keys_from_storage_password);
+        passwordView.setVisibility(!files.isEmpty() ? View.VISIBLE : View.GONE);
+        passwordView.setText(null);
+
+        final CheckBox showView = (CheckBox) alertDialog.findViewById(R.id.import_keys_from_storage_show);
+        showView.setVisibility(!files.isEmpty() ? View.VISIBLE : View.GONE);
+        showView.setOnCheckedChangeListener(new ShowPasswordCheckListener(passwordView));
+
         final View replaceWarningView = alertDialog
                 .findViewById(R.id.restore_wallet_from_storage_dialog_replace_warning);
         final boolean hasCoins = wallet.getBalance(BalanceType.ESTIMATED).signum() > 0;
         replaceWarningView.setVisibility(hasCoins ? View.VISIBLE : View.GONE);
-
-        final Spinner fileView = (Spinner) alertDialog.findViewById(R.id.import_keys_from_storage_file);
-        final FileAdapter adapter = (FileAdapter) fileView.getAdapter();
-        adapter.setFiles(files);
-        fileView.setEnabled(!adapter.isEmpty());
-
-        final EditText passwordView = (EditText) alertDialog.findViewById(R.id.import_keys_from_storage_password);
-        passwordView.setText(null);
 
         final ImportDialogButtonEnablerListener dialogButtonEnabler = new ImportDialogButtonEnablerListener(
                 passwordView, alertDialog) {
@@ -587,9 +593,6 @@ public final class WalletActivity extends AbstractBindServiceActivity
         };
         passwordView.addTextChangedListener(dialogButtonEnabler);
         fileView.setOnItemSelectedListener(dialogButtonEnabler);
-
-        final CheckBox showView = (CheckBox) alertDialog.findViewById(R.id.import_keys_from_storage_show);
-        showView.setOnCheckedChangeListener(new ShowPasswordCheckListener(passwordView));
     }
 
     private void checkLowStorageAlert() {
