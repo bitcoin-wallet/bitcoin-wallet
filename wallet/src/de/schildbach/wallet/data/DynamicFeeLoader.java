@@ -95,6 +95,12 @@ public class DynamicFeeLoader extends AsyncTaskLoader<Map<FeeCategory, Coin>> {
             for (final FeeCategory category : FeeCategory.values()) {
                 final Coin staticFee = staticFees.get(category);
                 final Coin dynamicFee = dynamicFees.get(category);
+                if (dynamicFee == null) {
+                    dynamicFees.put(category, staticFee);
+                    log.warn("Dynamic fee category missing, using static: category {}, {}/kB", category,
+                            staticFee.toFriendlyString());
+                    continue;
+                }
                 final Coin upperBound = staticFee.shiftLeft(1);
                 if (dynamicFee.isGreaterThan(upperBound)) {
                     dynamicFees.put(category, upperBound);
