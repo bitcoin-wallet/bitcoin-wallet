@@ -13,6 +13,7 @@
   <string name="blockchain_state_progress_problem_network">同步中: 網路有問題</string>
   <string name="wallet_address_fragment_clipboard_msg">已經把 Bitcoin 位址複製到剪貼簿中</string>
   <string name="wallet_address_dialog_fragment_hint">為了保障你的隱私，一旦收到付款後，收款位址就會改變。</string>
+  <string name="wallet_balance_fragment_insecure_device">你的設備太老舊了，並且不安全。請放一點點錢來使用就好。</string>
   <string name="wallet_balance_fragment_too_much">在口袋裡放這麼多錢好像不是很好。建議拿一些出來到比較安全的地方。</string>
   <string name="wallet_balance_fragment_replaying">在重播時無法顯示餘額</string>
   <string name="exchange_rates_activity_title">匯率</string>
@@ -28,6 +29,7 @@
   <string name="wallet_transactions_fragment_empty_text_howto">如何取得 Bitcoin?\n\n可以用傳統貨幣購買、\n販賣貨物或服務、\n或是以工作賺取。</string>
   <string name="wallet_transactions_row_warning_backup">恭喜你收到第一筆付款！你是否已經&lt;u&gt;備份好你的錢包&lt;/u&gt;來防止遺失了呢？</string>
   <string name="wallet_transactions_row_warning_storage_encryption">提示: 為了讓錢包更安全，你可以&lt;u&gt;將設備加密&lt;/u&gt;。同時也可以保護其他應用程式的資料。</string>
+  <string name="wallet_transactions_row_warning_chain_forking">Bitcoin 網路正在進行維護工作。建議暫時不要付款或是收款，直到維護完成為止。&lt;u&gt;更多資訊。&lt;/u&gt;</string>
   <string name="wallet_transactions_fragment_coinbase">開採出來</string>
   <string name="wallet_transactions_fragment_internal">內部</string>
   <string name="wallet_transactions_options_filter">過濾</string>
@@ -38,6 +40,7 @@
   <string name="wallet_options_encrypt_keys_set">設定轉出 PIN 碼</string>
   <string name="wallet_options_encrypt_keys_change">修改轉出 PIN 碼</string>
   <string name="wallet_options_safety">安全提示</string>
+  <string name="wallet_options_technical_notes_title">技術說明</string>
   <string name="wallet_options_donate">小費或捐贈</string>
   <string name="wallet_donate_address_label">捐贈給 Bitcoin Wallet</string>
   <string name="wallet_low_storage_dialog_title">設備的內部儲存空間太少了！</string>
@@ -162,6 +165,7 @@
   <string name="transaction_row_message_received_direct">這筆付款被直接接收了，這類付款可能存在無法花用的風險。</string>
   <string name="transaction_row_message_received_unconfirmed_delayed">這筆付款確認的時間將會被延遲，可能是因為 Bitcoin 網路超過負荷量了。</string>
   <string name="transaction_row_message_received_unconfirmed_unlocked">這筆付款應該在幾分鐘之後就可以花用。</string>
+  <string name="transaction_row_message_received_unconfirmed_chain_forking">由於 Bitcoin 網路正在維護狀態，這筆交易到完全確認之前都不該被信賴。</string>
   <string name="transaction_row_message_received_in_conflict">這筆款項被付款人撤銷的風險比較高！如果可以的話，最好是等待它確認完畢。</string>
   <string name="transaction_row_message_received_dead">這筆付款被付款人撤銷了。</string>
   <string name="transaction_row_message_received_dust">這麼小的金額可能花起來不划算。</string>
