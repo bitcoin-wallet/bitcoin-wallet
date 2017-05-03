@@ -13,6 +13,7 @@
   <string name="blockchain_state_progress_problem_network">同期: ネットワークに問題があります</string>
   <string name="wallet_address_fragment_clipboard_msg">ビットコインアドレスをクリップボードにコピーしました</string>
   <string name="wallet_address_dialog_fragment_hint">プライバシー保護のため、アドレスは支払いを受け取るごとに変化します。</string>
+  <string name="wallet_balance_fragment_insecure_device">このデバイスは古く、安全ではありません。少額のみ扱うようにしてください。</string>
   <string name="wallet_balance_fragment_too_much">この額はポケットに入れて運ぶには多すぎます。一部をもっと安全な場所に移してください。</string>
   <string name="wallet_balance_fragment_replaying">再生中は残高情報は利用できません。</string>
   <string name="exchange_rates_activity_title">為替レート</string>
@@ -28,6 +29,7 @@
   <string name="wallet_transactions_fragment_empty_text_howto">ビットコインを入手するには?\n\n通常通貨と交換するか、\nグッズやサービスを販売するか\nまたは働いて稼ぎましょう</string>
   <string name="wallet_transactions_row_warning_backup">おめでとうございます、初めて支払いを受け取りました。遺失を防ぐために&lt;u&gt;ウォレットをバックアップ&lt;/u&gt;していますか?</string>
   <string name="wallet_transactions_row_warning_storage_encryption">ヒント: ウォレットの安全性を向上させる方法として、&lt;u&gt;デバイスの暗号化&lt;/u&gt;もあります。その場合、他のアプリのデータも保護されます。</string>
+  <string name="wallet_transactions_row_warning_chain_forking">ビットコインネットワークはメンテナンス中です。メンテナンスが終わるまではコインの送受信を一切しないようお勧めします。&lt;u&gt;詳細情報&lt;/u&gt;。</string>
   <string name="wallet_transactions_fragment_coinbase">採掘</string>
   <string name="wallet_transactions_fragment_internal">内部</string>
   <string name="wallet_transactions_options_filter">絞り込み</string>
@@ -38,6 +40,7 @@
   <string name="wallet_options_encrypt_keys_set">送金用PINを設定</string>
   <string name="wallet_options_encrypt_keys_change">送金用PINを変更</string>
   <string name="wallet_options_safety">安全の注意事項</string>
+  <string name="wallet_options_technical_notes_title">技術的補足</string>
   <string name="wallet_options_donate">チップ/寄付</string>
   <string name="wallet_donate_address_label">Bitcoin Walletへ寄付する</string>
   <string name="wallet_low_storage_dialog_title">内部デバイスのストレージ容量が残りわずかです!</string>
@@ -162,6 +165,7 @@
   <string name="transaction_row_message_received_direct">この支払は直接届きました。利用可能とならないリスクがあります。</string>
   <string name="transaction_row_message_received_unconfirmed_delayed">この支払いの確認が遅れています。おそらくビットコインネットワークの過負荷によるものです。</string>
   <string name="transaction_row_message_received_unconfirmed_unlocked">この支払は数分程度で利用可能となります。</string>
+  <string name="transaction_row_message_received_unconfirmed_chain_forking">ビットコインネットワークがメンテナンス中のため、このトランザクションは完全に確認されるまで信用するべきではありません。</string>
   <string name="transaction_row_message_received_in_conflict">この支払いは、送金者によって引き戻されるリスクが高くなっています! 可能であれば確認されるのを待ってください。</string>
   <string name="transaction_row_message_received_dead">この支払は送金者により、引き戻されました。</string>
   <string name="transaction_row_message_received_dust">少額すぎて、通常の支払等には使用できないでしょう。</string>
