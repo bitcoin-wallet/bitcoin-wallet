@@ -13,6 +13,7 @@
   <string name="blockchain_state_progress_problem_network">Synchroniseren: Netwerk probleem</string>
   <string name="wallet_address_fragment_clipboard_msg">Bitcoin adres gekopieërd naar klembord</string>
   <string name="wallet_address_dialog_fragment_hint">Om je privacy te beschermen zal het adres wijzigen zodra een betaling ontvangen is.</string>
+  <string name="wallet_balance_fragment_insecure_device">Je apparaat is oud en onveilig. Gebruik aub alleen voor kleine hoeveelheden.</string>
   <string name="wallet_balance_fragment_too_much">Dit is relatief veel om op zak te hebben. Verplaats iets naar een veiligere plek.</string>
   <string name="wallet_balance_fragment_replaying">Balans is onbeschikbaar tijdens herladen.</string>
   <string name="exchange_rates_activity_title">Wisselkoersen</string>
@@ -38,6 +39,7 @@
   <string name="wallet_options_encrypt_keys_set">Betaal PIN instellen.</string>
   <string name="wallet_options_encrypt_keys_change">Wijzig PIN code voor betalen</string>
   <string name="wallet_options_safety">Veiligheidsvoorschriften</string>
+  <string name="wallet_options_technical_notes_title">Technische aantekeningen</string>
   <string name="wallet_options_donate">Geef fooi / Doneer</string>
   <string name="wallet_donate_address_label">Donatie aan Bitcoin Wallet</string>
   <string name="wallet_low_storage_dialog_title">Interne opslag bijna vol!</string>
@@ -70,6 +72,7 @@
   <string name="send_coins_fragment_hint_dusty_send">Het bedrag is te laag om te verzenden.</string>
   <string name="send_coins_fragment_hint_insufficient_money">Onvoldoende coins beschikbaar. U mist %s.</string>
   <string name="send_coins_fragment_hint_empty_wallet_failed">Het totaal van kleine betalingen in uw portemonnee is bij elkaar niet genoeg om te kunnen verzenden.</string>
+  <string name="send_coins_fragment_hint_replaying">Betalingen zijn op het moment niet mogelijk vanwege herladen.</string>
   <string name="send_coins_fragment_direct_payment_enable">Betaal direct aan begunstigde.</string>
   <string name="send_coins_fragment_direct_payment_ack">Je betaling is met succes direct verzonden.</string>
   <string name="send_coins_fragment_direct_payment_nack">Je betaling is afgewezen via de directe verbinding.</string>
@@ -160,6 +163,7 @@
   <string name="transaction_row_message_received_direct">Deze betaling is direct ontvangen. Het risico bestaat dat het nooit uitgegeven kan worden.</string>
   <string name="transaction_row_message_received_unconfirmed_delayed">De bevestiging van deze transactie is vertraagd, waarschijnlijk door een overbelasting van het Bitcoin netwerk.</string>
   <string name="transaction_row_message_received_unconfirmed_unlocked">Deze betaling wordt besteedbaar in een paar minuten.</string>
+  <string name="transaction_row_message_received_unconfirmed_chain_forking">Vanwege onderhoud op het Bitcoin netwerk kan deze transactie pas vertrouwd worden totdat het is bevestigd.</string>
   <string name="transaction_row_message_received_in_conflict">Deze transactie heeft het risico om teruggedraaid te worden door de verzender! Wacht indien mogelijk op bevestiging.</string>
   <string name="transaction_row_message_received_dead">Deze betaling is omgekeerd door de verzender.</string>
   <string name="transaction_row_message_received_dust">Dit kleine beetje kan waarschijnlijk nooit economisch worden besteed.</string>
@@ -271,6 +275,7 @@
   <string name="extended_public_key_fragment_share">Deel xpub…</string>
   <string name="report_issue_dialog_title_issue">Meld probleem</string>
   <string name="report_issue_dialog_title_crash">Vorige crash gedetecteerd</string>
+  <string name="report_issue_dialog_title_transaction">Probleem melden met geselecteerde betaling.</string>
   <string name="report_issue_dialog_message_issue">Omschrijf het probleem nauwkeurig zodat het reproduceerbaar is. Gebruik Engelse taal indien mogelijk.</string>
   <string name="report_issue_dialog_message_crash">Wilt u een crash rapport sturen om ons te helpen dit probleem op te lossen in de toekomst?</string>
   <string name="report_issue_dialog_description">probleem beschrijving</string>
