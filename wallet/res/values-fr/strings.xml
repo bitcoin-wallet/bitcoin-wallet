@@ -13,6 +13,7 @@
   <string name="blockchain_state_progress_problem_network">Synchronisation : problème de réseau</string>
   <string name="wallet_address_fragment_clipboard_msg">L\'adresse Bitcoin a été copiée dans le presse-papiers</string>
   <string name="wallet_address_dialog_fragment_hint">Par souci de confidentialité, votre adresse changera après avoir reçu un paiement.</string>
+  <string name="wallet_balance_fragment_insecure_device">Votre appareil est vieux et n\'est pas sûr. Veuillez ne l\'utiliser que pour de petits montants.</string>
   <string name="wallet_balance_fragment_too_much">Ce montant est plutôt élevé pour être gardé dans votre poche. Veuillez en déplacer une partie en lieu sûr.</string>
   <string name="wallet_balance_fragment_replaying">Le solde n\'est pas disponible durant la relecture.</string>
   <string name="exchange_rates_activity_title">Taux de change</string>
@@ -28,6 +29,7 @@
   <string name="wallet_transactions_fragment_empty_text_howto">Comment obtenir des bitcoins ?\n\nÉchangez-en contre de l\'argent traditionnel,\nvendez des biens ou des services ou\ngagnez-en en travaillant.</string>
   <string name="wallet_transactions_row_warning_backup">Félicitations, vous avez reçu votre premier paiement ! Avez-vous déjà &lt;u&gt;sauvegardé votre porte-monnaie&lt;/u&gt; afin de vous protéger contre une perte ?</string>
   <string name="wallet_transactions_row_warning_storage_encryption">Astuce : pour augmenter la sécurité de votre porte-monnaie, vous pouvez &lt;u&gt;chiffrer votre appareil&lt;/u&gt;. Cela protège aussi les données d\'autres applis.</string>
+  <string name="wallet_transactions_row_warning_chain_forking">Le réseau Bitcoin fait l\'objet de maintenance. Il vous est conseillé de ne pas envoyer ni de recevoir de pièces tant que la maintenance ne sera pas terminée. &lt;u&gt;Plus d\'informations.&lt;/u&gt;</string>
   <string name="wallet_transactions_fragment_coinbase">miné</string>
   <string name="wallet_transactions_fragment_internal">Interne</string>
   <string name="wallet_transactions_options_filter">Filtre</string>
@@ -38,6 +40,7 @@
   <string name="wallet_options_encrypt_keys_set">Définir le NIP de dépense</string>
   <string name="wallet_options_encrypt_keys_change">Changer le NIP de dépense</string>
   <string name="wallet_options_safety">Notes de sécurité</string>
+  <string name="wallet_options_technical_notes_title">Notes techniques</string>
   <string name="wallet_options_donate">Faire un don</string>
   <string name="wallet_donate_address_label">Don pour Bitcoin Wallet</string>
   <string name="wallet_low_storage_dialog_title">L\'espace de stockage interne est faible !</string>
@@ -162,6 +165,7 @@
   <string name="transaction_row_message_received_direct">Ce paiement a été reçu directement. Il y a un risque qu\'il ne puisse jamais être dépensé.</string>
   <string name="transaction_row_message_received_unconfirmed_delayed">La confirmation de ce paiement est retardée, probablement à cause d\'une surcharge du réseau Bitcoin.</string>
   <string name="transaction_row_message_received_unconfirmed_unlocked">Ce paiement devrait pouvoir être dépensé dans quelques minutes.</string>
+  <string name="transaction_row_message_received_unconfirmed_chain_forking">En raison d\'une maintenance du réseau Bitcoin, vous ne devriez pas vous fier à cette transaction tant qu\'elle n\'aura pas entièrement été confirmée.</string>
   <string name="transaction_row_message_received_in_conflict">Ce paiement présente un risque plus élevé d\'être annulé par l\'expéditeur ! Si vous le pouvez, attendez la confirmation.</string>
   <string name="transaction_row_message_received_dead">Ce paiement a été annulé par son expéditeur.</string>
   <string name="transaction_row_message_received_dust">Ce petit montant ne pourra probablement jamais être dépensé de façon économique.</string>
