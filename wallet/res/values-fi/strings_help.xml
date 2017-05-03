@@ -3,106 +3,116 @@
   <string name="help_wallet">
 <![CDATA[
 		<p>
-			Ylempi vasen osa näytöstä näyttää saldosi Bitcoineissa ja yhden valitusta valtiollisesta valuutasta.
-			Napauta siirtyäksesi valtiollisten valuuttojen listaan sekä napauta yhtä valuutoista valitaksesi sen oletetuksi.
+			Näytön vasemmassa yläkulmassa on näkyvillä saldosi Bitcoineina ja yhtenä valittuna kansainvälisenä valuuttana.
+			Napauta mennäksesi kansainvälisten valuuttojen listaan, ja napauta yhtä valuutoista valitaksesi sen oletukseksi.
 		</p>
 		<p>
-			QR-koodi oikealla sisältää bitcoin-osoitteesi ja sitä voidaan käyttää toisen osapuolen skannattavaksi.
-			Napauta QR-koodia jotta saat siitä suurempikokoisen version.
+			QR-koodi oikealla yläreunassa sisältää tämänhetkisen bitcoin-osoitteesi ja sitä voidaan käyttää maksajan skannattavaksi.
+			Napauta QR-koodia nähdäksesi siitä suuremman version.
 		</p>
 		<p>
-			Näytön alaosan käyttää rahansiirtojen lista, joka on tyhjä alussa.
-			Odottavat rahansiirrot ovat merkitty harmaiksi kunnes ne ovat vahvistettu.
-			Napauta merkintää lisätäksesi lähettäjien tai vastaanottajien osoitteita osoitekirjaan.
+			Näytön alaosa sisältää listan rahansiirroistasi.
+			Se on aluksi tyhjä ja alkaa täyttyä, kun lähetät ja vastaanotat maksuja.
+			Vastaanotetut rahansiirrot ovat merkitty vihreällä ja lähetetyt punaisella värillä.
 		</p>
 		<p>
-			Voit lähettää tai pyytää kolikoita napauttamalla painikkeita toimintopalkissa.
-			Lisää asetuksia on saatavilla asetusvalikossa.
+			Voit lähettää tai pyytää kolikoita napauttamalla painikkeita toimintapalkissa.
+			Asetusvalikossa on enemmän valintoja saatavilla.
 		</p>
-	]]>
-	</string>
+	]]></string>
   <string name="help_request_coins">
 <![CDATA[
 		<p>
-			Käyttämällä tätä dialogia, voit pyytää bitcoineja toiselta henkilöltä, jolla pitäisi jo olla Bitcoin Wallet asennettuna.
+			Käyttämällä tätä ikkunaa voit pyytää kolikoita maksajalta.
+			Maksajalla tulisi olla jo Bitcoin-lompakko asennettuna.
 		</p>
 		<p>
-			Ensiksi, voit syöttää jonkun määrän bitcoineja, joita pyydät.
+			Aluksi voit syöttää määrän Bitcoineina jonka haluat pyytää.
 		</p>
 		<p>
-			Sen jälkeen jonkun toisen on skannattava luotu QR koodi.
-			Tai voit lähettää pyynnön etäiselle henkilölle \'jaa\' näppäimellä toimintapalkissa.
-			Toisen henkilön täytyy napsauttaa bitcoin-URL-osoitetta.
-			
+			Seuraavaksi voit joko skannauttaa QR-koodisi maksajalla,
+			tai voit lähettää pyyntösi etäällä olevalle henkilölle jakamispainikkeen avulla toimintopalkissa.
+			Mikäli molemmissa laitteissa on NFC käytössä, voit myös koskettaa puhelimellasi toista puhelinta.
 		</p>
 		<p>
-			Joka tapauksessa toiselle henkilölle esitetään dialogi bitcoinien lähettämisestä, jossa kaikki kentät on jo täytetty.
-			Jos hän hyväksyy sen, hänen täytyy vain lähettää maksu.
+			Pyyntökäytännön ollessa mikä tahansa, maksajalle esitetään ikkuna kolikoiden lähettämistä varten, jossa kaikki kentät ovat esitäytetyt.
+			Mikäli maksaja suostuu tähän, hän voi suorittaa maksun helposti.
 		</p>
-	]]>
-	</string>
+	]]></string>
   <string name="help_send_coins">
 <![CDATA[
 		<p>
-			Olet käynnistänyt bitcoinien lähetysprosessin.
-			Päädyit tänne joko päänäkymän kautta tai napsauttamalla bitcoin-URL-osoitetta mobiiliselaimellasi.
+			Olet käynnistänyt kolikoiden lähetysprosessin.
 		</p>
 		<p>
-			Ensiksi syötät bitcoin-osoitteen, jonne on maksettava.
-			Osoite tulee automaattisesti loppuunkirjoitetuksi tallennetuista tiedoista osoitekirjasta.
-			Voit myös skannata QR-koodeja, joissa on bitcoin osoite tai bitcoin pyyntöjä napsauttamalla QR-näppäintä toimintavalikossa.
+			Syötä aluksi Bitcoin-osoite, johon maksetaan.
+			Osoite täyttyy automaattisesti jo tunnetuista osoitteista osoitekirjassasi.
+			Voit myös skannata vastaanottajan esittämän QR-koodin painamalla kameranäppäintä.
 		</p>
 		<p>
-			Seuraavaksi näet kuinka paljon sinulla on bitcoineja käytettävissä tällä hetkellä.
-			Muutos päänäkymän saldoon ei ole vielä vahvistettu, eikä niitä rahoja voi vielä käyttää.
+			Seuraavaksi syötä määrä, jonka haluat maksaa.
 		</p>
 		<p>
-			Lopuksi ilmoitat maksettavan summan.
+			Viimeiseksi syötä maksamiseen tarkoitettu PIN-koodi, mikäli se on asetettu aiemmin.
 		</p>
 		<p>
-			Voit asettaa maksun olematta verkossa, eli ollessasi offlinessa.
-			Se lähetetään käynnistäessäsi Bitcoin Wallet:in uudestaan seuraavan kerran.
-			Jos haluat maksun menevän mahdollisimman nopeasti, varmista, että sinulla on hyvä yhteys (kuten WLAN).
+			Voit luoda maksun ollessasi offline-tilassa.
+			Se lähtetään seuraavassa Bitcoin-lompakon käynnistyksen yhteydessä.
+			Jos haluat maksun käsiteltäväksi mahdollisimman nopeasti, varmista, että olet hyvässä yhteydessä (esim. WLAN).
 		</p>
 		<p>
-			Huomio:
-			Maksuja ei voi peruuttaa!
-			Aina varmista vastaanottajan osoite!
+			Huomioi:
+			Maksut ovat peruuttamattomia!
+			Tarkista aina vastaanotto-osoite!.
 		</p>
-	]]>
-	</string>
+	]]></string>
   <string name="help_safety">
 <![CDATA[
 		<p>
-			<b>Tärkeitä turvallisuus huomioita:</b>
+			<b>Tärkeitä turvallisuusohjeita:</b>
 		</p>
 		<p>
-			Bitcoinit sijaitsevat laitteessasi.
-			<b>Jos hukkaat sen, menetät bitcoinisi.</b>
+			Bitcoinit on tallennettu laitteeseesi.
+			<b>Jos kadotat sen, menetät Bitcoinisi.</b>
 		</p>
 		<p>
-			Tämä tarkoittaa, että <b>sinun on varmuuskopioitava lompakkosi</b>!
-			Käytä sovelluksessa olevaa varmuuskopiointitoimintoa 3. osapuolen sovelluksen sijaan.
-			Pidä varmuuskopiosi turvassa ja muista salasana.
+			Tämä tarkoittaa, että sinun on <b>varmuuskopioitava lompakkosi</b>!
+			Käytä ennemmin sovelluksen omaa varmuuskopiointia tätä varten kuin kolmannen osapuolen ohjelmistoja.
+			Pidä varmuuskopioisi turvassa ja muista salasanasi.
 		</p>
 		<p>
-			<b>Ennen poistamista</b> (tai ennen sovellusdatan poistamista/laitteen tyhjentämistä), <b>siirrä bitcoinisi toiseen lompakkoon</b>.
-			Jäljelle jäävät bitcoinit katoavat.
+			<b>Ennen sovelluksen poistoa</b> (tai sovellustietojen/laitteen nollausta), <b>siirrä Bitcoinisi muuhun lompakkoon</b>.
+			Jäljelle jääneet Bitcoinit katoavat.
 		</p>
 		<p>
-			<b>Maksuja ei voi peruuttaa</b>.
-			Jos lähetät bitcoinisi tyhjyyteen, ei ole käytännössä mitään keinoa saada niitä takaisin.
+			<b>Maksut ovat peruuttamattomia</b>.
+			Jos lähetät Bitcoinisi tyhjyyteen, ei ole juuri mitään mahdollisuutta saada niitä takaisin.
 		</p>
 		<p>
-			<b>Pidä mobiililaitteesi turvassa!</b>
-			Älä hanki pääkäyttäjän oikeuksia (root).
-			Asenna vain sovelluksia, joihin luotat.
-			Ei-kunnolliset sovellukset voivat yrittää varastaa lompakkosi.
+			<b>Pidä laitteesi turvassa!</b>
+			Älä anna root-oikeuksia laitetteellesi.
+			Asenna vain sovelluksia joihin luotat täysin.
+			Haitalliset ohjelmat voivat yrittää varastaa lompakkosi.
 		</p>
 		<p>
-			Älä tee suuria riskejä!
-			<b>Käytä vain pieniä summia varten</b> päiväkäytössä.
+			Pidä riskit pieninä!
+			<b>Säilytä vain kohtuullista määrää</b> päivän käyttöä varten.
 		</p>
-	]]>
-	</string>
+	]]></string>
+  <string name="help_technical_notes">
+<![CDATA[
+		<p>
+			<b>Teknisiä tietoja:</b>
+		</p>
+		<p>
+			Bitcoin-lompakko on SPV/kevytlompakko, joka seuraa suurinta ketjua enimmällä vahvistustyöllä (joskus myös kutsutaan nimellä \"pisin ketju\", \"voittava ketju\" tai \"Bitcoin-Blockchain\").
+			Vastaanotat ainoastaan saapuvia rahansiirtoja ja sinulla on mahdollisuus maksaa kyseisessä ketjussa.
+			Mitään takuuta ei voida antaa Bitcoineista pienemmissä ketjuissa, jotka ovat ketjuja vähemmällä vahvistustyöllä.
+		</p>
+		<p>
+			Aiemmin pienimmät ketjut ovat aina muuttuneet turhiksi erittäin pian.
+			Jos haluat seurata pienempää ketjua kaikesta huolimatta, sinua neuvotaan käyttämään \"luotettu vertainen\"-ominaisuutta yhdistääksesi ainoastaan bitcoind-implementaatioon joka pakottaa halutun ketjun.
+			Jos verkko lompakkosi ja luotetun vertaisen välillä ei ole luotettava, käytä VPN:aa varmentaaksesi yhteyden.
+		</p>
+	]]></string>
 </resources>
