@@ -196,6 +196,7 @@
     <string name="import_keys_dialog_button_import">Restore</string>
     <string name="restore_wallet_dialog_success">Wallet was restored.</string>
     <string name="restore_wallet_dialog_success_replay">Your wallet was successfully restored. Its balance will be determined next. This will take some time.</string>
+    <string name="restore_wallet_dialog_success_encrypted">Warning: Your wallet is protected by a spending PIN. Make sure you still remember it before you receive to this wallet.</string>
     <string name="import_keys_dialog_failure">Wallet could not be restored:\n\n%s\n\nBad password?</string>
     <string name="backup_wallet_permission_dialog_title">Write permission missing</string>
     <string name="backup_wallet_permission_dialog_message">In order to backup your wallet to external storage, you need to grant write permission.</string>

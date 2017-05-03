@@ -198,6 +198,7 @@
     <string name="import_keys_dialog_button_import">Wiederherstellen</string>
     <string name="restore_wallet_dialog_success">Wallet wurde wiederhergestellt.</string>
     <string name="restore_wallet_dialog_success_replay">Deine Wallet wurde erfolgreich wiederhergestellt. Jetzt wird das Guthaben ermittelt. Das wird einige Zeit dauern.</string>
+    <string name="restore_wallet_dialog_success_encrypted">Achtung: Deine Wallet ist mit einer Ausgabe-PIN geschützt. Stelle sicher, daß du sie noch kennst, bevor du Zahlungen empfängst.</string>
     <string name="import_keys_dialog_failure">Die Wallet konnte nicht wieder hergestellt werden:\n\n%s\n\nFalsches Passwort?</string>
     <string name="backup_wallet_permission_dialog_title">Schreib-Berechtigung fehlt</string>
     <string name="backup_wallet_permission_dialog_message">Um deine Wallet auf den externen Speicher zu sichern, musst du die Berechtigung zum Schreiben erteilen.</string>

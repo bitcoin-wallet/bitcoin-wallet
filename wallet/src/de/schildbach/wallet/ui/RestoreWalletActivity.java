@@ -159,6 +159,10 @@ public final class RestoreWalletActivity extends AbstractWalletActivity {
             message.append(getString(R.string.restore_wallet_dialog_success));
             message.append("\n\n");
             message.append(getString(R.string.restore_wallet_dialog_success_replay));
+            if (application.getWallet().isEncrypted()) {
+                message.append("\n\n");
+                message.append(getString(R.string.restore_wallet_dialog_success_encrypted));
+            }
             dialog.setMessage(message);
             dialog.setNeutralButton(R.string.button_ok, new DialogInterface.OnClickListener() {
                 @Override
