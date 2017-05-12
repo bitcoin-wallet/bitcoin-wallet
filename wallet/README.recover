@@ -133,10 +133,7 @@ of this one-time recovery.
 The easiest way to recover this backup is probably by restoring from within MultiBit Classic
 (https://multibit.org/release-info/classic/v0.5.19.html).
 
-Another option is importing each individual key into Electrum or bitcoin-qt/bitcoind. You can
-install Electrum with
-
-    sudo apt install electrum
+Another option is importing each individual key into Electrum (https://electrum.org) or bitcoin-qt/bitcoind.
 
 As soon as you see your whole balance again, empty your entire wallet to the desired destination
 wallet. Please do not continue to use the imported wallet. Remember you just operated on
