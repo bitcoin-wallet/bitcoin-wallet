@@ -14,7 +14,7 @@ wallet from within the Bitcoin Wallet app if you can. This guide is only meant f
 
 Be aware some of the steps in this tutorial require handling your private keys in the unencrypted
 form. Do not expose them to anyone. Whoever knows your private keys can spend your coins on these
-keys. It'd good practise that after you are finished handling these keys, they should be
+keys. It'd good practice that after you are finished handling these keys, they should be
 considered compromised, even if they are not. Make sure your system is free of any malware.
 
 We recommend using Ubuntu Linux. You can boot from a Live CD if you want, but if you do please
@@ -45,16 +45,16 @@ LOCATING THE BACKUP FILES
 If you followed the apps guidance your backup files will be located both on-device and off-device.
 Let's look at off-device first. When backing up, the app instructed you to archive your backup to
 mail or cloud storage. Depending on how you decided, your backup probably ended up as attachment
-on a mail sent to yourself (look into your Inbox and Sent folders) or uploaded to a Google Drive
+on an email sent to yourself (look into your Inbox and Sent folders) or uploaded to a Google Drive
 or Dropbox kind of service. Just save the backup file to your PCs filesystem. Skip the rest of this
 paragraph directly to DECRYPTING.
 
 You cannot find your backup? If you're still using the device you made the backup with, there is
-a good chance the backup is on-device. Use
+a good chance the backup is on-device. Use:
 
     adb shell ls -l /sdcard/Download/bitcoin-wallet-*
 
-It will list any backup files present. Pick one and use
+It will list any backup files present. Pick one and use:
 
     adb pull /sdcard/Download/bitcoin-wallet-backup-testnet-2014-11-01
 
@@ -83,7 +83,7 @@ If it prints just a hash sign (#), you got the right password and the backup fil
 text based private key format. Skip to RECOVERING FROM BASE58 KEY FORMAT.
 
 If it prints something else or nothing, you likely didn't get the password right. Passwords are
-case sensitive, and make sure you didn't accidently type a space character in front or after the
+case sensitive, and make sure you didn't accidentally type a space character in front or after the
 password.
 
 
@@ -104,7 +104,7 @@ Now use wallet-tool to sync the wallet from your backup:
     ./wallet-tool sync --wallet=/tmp/bitcoin-wallet-decrypted-backup --debuglog
 
 The sync process will take anywhere from a few minutes to hours. Wallet-tool will return to the
-shell prompt if its finished synching. Have a look at the wallet:
+shell prompt if its finished syncing. Have a look at the wallet:
 
     ./wallet-tool dump --wallet=/tmp/bitcoin-wallet-decrypted-backup
 
@@ -138,7 +138,7 @@ or Bitcoin Core (https://bitcoin.org/en/bitcoin-core/).
 
 As soon as you see your whole balance again, empty your entire wallet to the desired destination
 wallet. Please do not continue to use the imported wallet. Remember you just operated on
-unencrypted keys which can be dangerous, so it's good practise to handle them as if they were
+unencrypted keys which can be dangerous, so it's good practice to handle them as if they were
 compromised even if they in fact aren't.
 
 
