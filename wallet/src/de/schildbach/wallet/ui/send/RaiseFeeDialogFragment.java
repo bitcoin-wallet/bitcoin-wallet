@@ -305,15 +305,18 @@ public class RaiseFeeDialogFragment extends DialogFragment {
         if (dialog == null)
             return;
 
-        if (feeRaise == null)
-            messageView.setText(R.string.raise_fee_dialog_determining_fee);
-        else if (findSpendableOutput(wallet, transaction, feeRaise) == null)
-            messageView.setText(R.string.raise_fee_dialog_cant_raise);
-        else
-            messageView.setText(getString(R.string.raise_fee_dialog_message, config.getFormat().format(feeRaise)));
-
         final boolean needsPassword = wallet.isEncrypted();
-        passwordGroup.setVisibility(needsPassword ? View.VISIBLE : View.GONE);
+
+        if (feeRaise == null) {
+            messageView.setText(R.string.raise_fee_dialog_determining_fee);
+            passwordGroup.setVisibility(View.GONE);
+        } else if (findSpendableOutput(wallet, transaction, feeRaise) == null) {
+            messageView.setText(R.string.raise_fee_dialog_cant_raise);
+            passwordGroup.setVisibility(View.GONE);
+        } else {
+            messageView.setText(getString(R.string.raise_fee_dialog_message, config.getFormat().format(feeRaise)));
+            passwordGroup.setVisibility(needsPassword ? View.VISIBLE : View.GONE);
+        }
 
         if (state == State.INPUT) {
             positiveButton.setText(R.string.raise_fee_dialog_button_raise);
