@@ -175,8 +175,11 @@ public final class BlockListFragment extends Fragment implements BlockListAdapte
             public boolean onMenuItemClick(final MenuItem item) {
                 switch (item.getItemId()) {
                 case R.id.blocks_context_browse:
-                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.withAppendedPath(config.getBlockExplorer(),
-                            "block/" + block.getHeader().getHashAsString())));
+                    final String blockHash = block.getHeader().getHashAsString();
+                    final Uri blockExplorerUri = config.getBlockExplorer();
+                    log.info("Viewing block {} on {}", blockHash, blockExplorerUri);
+                    startActivity(new Intent(Intent.ACTION_VIEW,
+                            Uri.withAppendedPath(blockExplorerUri, "block/" + blockHash)));
                     return true;
                 }
                 return false;

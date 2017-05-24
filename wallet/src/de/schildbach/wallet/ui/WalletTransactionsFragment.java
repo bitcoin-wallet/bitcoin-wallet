@@ -336,11 +336,15 @@ public class WalletTransactionsFragment extends Fragment implements LoaderCallba
                     return true;
 
                 case R.id.wallet_transactions_context_browse:
-                    if (!txRotation)
-                        startActivity(new Intent(Intent.ACTION_VIEW,
-                                Uri.withAppendedPath(config.getBlockExplorer(), "tx/" + tx.getHashAsString())));
-                    else
+                    if (!txRotation) {
+                        final String txHash = tx.getHashAsString();
+                        final Uri blockExplorerUri = config.getBlockExplorer();
+                        log.info("Viewing transaction {} on {}", txHash, blockExplorerUri);
+                        startActivity(
+                                new Intent(Intent.ACTION_VIEW, Uri.withAppendedPath(blockExplorerUri, "tx/" + txHash)));
+                    } else {
                         startActivity(new Intent(Intent.ACTION_VIEW, KEY_ROTATION_URI));
+                    }
                     return true;
                 }
 
