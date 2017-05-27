@@ -101,14 +101,14 @@ public class DynamicFeeLoader extends AsyncTaskLoader<Map<FeeCategory, Coin>> {
                             staticFee.toFriendlyString());
                     continue;
                 }
-                final Coin upperBound = staticFee.shiftLeft(1);
+                final Coin upperBound = staticFee.shiftLeft(2);
                 if (dynamicFee.isGreaterThan(upperBound)) {
                     dynamicFees.put(category, upperBound);
                     log.warn("Down-adjusting dynamic fee: category {} from {}/kB to {}/kB", category,
                             dynamicFee.toFriendlyString(), upperBound.toFriendlyString());
                     continue;
                 }
-                final Coin lowerBound = staticFee.shiftRight(1);
+                final Coin lowerBound = staticFee.shiftRight(2);
                 if (dynamicFee.isLessThan(lowerBound)) {
                     dynamicFees.put(category, lowerBound);
                     log.warn("Up-adjusting dynamic fee: category {} from {}/kB to {}/kB", category,
