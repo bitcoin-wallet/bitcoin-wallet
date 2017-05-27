@@ -123,8 +123,8 @@ public final class WalletActivity extends AbstractBindServiceActivity
         setContentView(R.layout.wallet_content);
 
         final View exchangeRatesFragment = findViewById(R.id.wallet_main_twopanes_exchange_rates);
-        if (exchangeRatesFragment != null && !Constants.ENABLE_EXCHANGE_RATES)
-            exchangeRatesFragment.setVisibility(View.GONE);
+        if (exchangeRatesFragment != null)
+            exchangeRatesFragment.setVisibility(Constants.ENABLE_EXCHANGE_RATES ? View.VISIBLE : View.GONE);
 
         if (savedInstanceState == null) {
             final View contentView = findViewById(android.R.id.content);
