@@ -1152,6 +1152,7 @@ public final class SendCoinsFragment extends Fragment {
 
     private void handleFeeCategory(final FeeCategory feeCategory) {
         this.feeCategory = feeCategory;
+        log.info("switching to {} fee category", feeCategory);
 
         updateView();
         handler.post(dryrunRunnable);
