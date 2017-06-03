@@ -71,7 +71,7 @@
     <string name="send_coins_fragment_receiving_address_complex">komplexe\nAdresse</string>
     <string name="send_coins_fragment_pending">(%s warten auf Bestätigung)</string>
     <string name="send_coins_fragment_amount_label">Betrag</string>
-    <string name="send_coins_fragment_hint_fee_economic">Es wird eine günstige Gebühr von %s gezahlt. Nutze \'Kostengünstig\' nur, wenn dir die Zeit zur Bestätigung egal ist.</string>
+    <string name="send_coins_fragment_hint_fee_economic">Es wird eine günstige Gebühr von %s gezahlt. Wichtig: Nutze \'Kostengünstig\' nur, wenn dir die Zeit zur Bestätigung egal ist.</string>
     <string name="send_coins_fragment_hint_fee">Es wird eine Netzwerk-Gebühr von %s gezahlt.</string>
     <string name="send_coins_fragment_hint_fee_priority">Es wird eine Express-Gebühr von %s gezahlt. Wenn dir eine geringe Gebühr wichtig ist, dann nutze \'Express\' nur wenn du eine schnelle Bestätigung benötigst.</string>
     <string name="send_coins_fragment_hint_dusty_send">Der Betrag ist zu klein zum Senden.</string>

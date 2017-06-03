@@ -69,7 +69,7 @@
     <string name="send_coins_fragment_receiving_address_complex">complex\naddress</string>
     <string name="send_coins_fragment_pending">(%s waiting for confirmation)</string>
     <string name="send_coins_fragment_amount_label">Amount to pay</string>
-    <string name="send_coins_fragment_hint_fee_economic">An economic fee of %s will be paid. Use \'economic\' only if you don\'t care about confirmation time.</string>
+    <string name="send_coins_fragment_hint_fee_economic">An economic fee of %s will be paid. Important: Use \'economic\' only if you don\'t care about confirmation time.</string>
     <string name="send_coins_fragment_hint_fee">A network fee of %s will be paid.</string>
     <string name="send_coins_fragment_hint_fee_priority">A priority fee of %s will be paid. If you care about low fees, use \'priority\' only if you need confirmation as soon as possible.</string>
     <string name="send_coins_fragment_hint_dusty_send">The amount is too small to send.</string>
