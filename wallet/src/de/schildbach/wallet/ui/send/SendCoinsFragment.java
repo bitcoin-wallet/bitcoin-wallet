@@ -1288,7 +1288,11 @@ public final class SendCoinsFragment extends Fragment {
 
             hintView.setVisibility(View.GONE);
             if (state == State.INPUT) {
-                if (paymentIntent.mayEditAddress() && validatedAddress == null
+                if (blockchainState != null && blockchainState.replaying) {
+                    hintView.setTextColor(getResources().getColor(R.color.fg_error));
+                    hintView.setVisibility(View.VISIBLE);
+                    hintView.setText(R.string.send_coins_fragment_hint_replaying);
+                } else if (paymentIntent.mayEditAddress() && validatedAddress == null
                         && !receivingAddressView.getText().toString().trim().isEmpty()) {
                     hintView.setTextColor(getResources().getColor(R.color.fg_error));
                     hintView.setVisibility(View.VISIBLE);
@@ -1305,10 +1309,6 @@ public final class SendCoinsFragment extends Fragment {
                         hintView.setText(getString(R.string.send_coins_fragment_hint_empty_wallet_failed));
                     else
                         hintView.setText(dryrunException.toString());
-                } else if (blockchainState != null && blockchainState.replaying) {
-                    hintView.setTextColor(getResources().getColor(R.color.fg_error));
-                    hintView.setVisibility(View.VISIBLE);
-                    hintView.setText(R.string.send_coins_fragment_hint_replaying);
                 } else if (dryrunTransaction != null && dryrunTransaction.getFee() != null) {
                     hintView.setVisibility(View.VISIBLE);
                     final int hintResId;
