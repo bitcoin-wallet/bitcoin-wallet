@@ -65,7 +65,7 @@ DECRYPTING
 
 You now have your backup file on your PC. Wallet backups are encrypted. Let's decrypt it using:
 
-    openssl enc -d -aes-256-cbc -a -in bitcoin-wallet-backup-testnet-2014-11-01 > bitcoin-wallet-decrypted-backup
+    openssl enc -d -aes-256-cbc -md md5 -a -in bitcoin-wallet-backup-testnet-2014-11-01 > bitcoin-wallet-decrypted-backup
 
 It will ask you for a decryption password, which is your backup password. If it prints
 "bad password" you've got the wrong password, but if it doesn't print anything your password might
