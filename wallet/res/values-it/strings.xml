@@ -13,6 +13,7 @@
   <string name="blockchain_state_progress_problem_network">Sincronizzazione: problema di Rete</string>
   <string name="wallet_address_fragment_clipboard_msg">Indirizzo Bitcoin copiato negli appunti</string>
   <string name="wallet_address_dialog_fragment_hint">Per proteggere la tua privacy, il tuo indirizzo cambierà alla ricezione di un pagamento.</string>
+  <string name="wallet_balance_fragment_insecure_device">Il tuo dispositivo è vecchio e insicuro. Si prega di usarlo solo per piccole quantità.</string>
   <string name="wallet_balance_fragment_too_much">Questo importo è alto per essere portato con se. Si prega di spostarne alcuni in un luogo più sicuro.</string>
   <string name="wallet_balance_fragment_replaying">Il conto non è disponibile durante la ripetizione.</string>
   <string name="exchange_rates_activity_title">Tasso di cambio</string>
@@ -38,6 +39,7 @@
   <string name="wallet_options_encrypt_keys_set">Imposta il PIN per spendere.</string>
   <string name="wallet_options_encrypt_keys_change">Cambia il PIN di spesa.</string>
   <string name="wallet_options_safety">Note di sicurezza</string>
+  <string name="wallet_options_technical_notes_title">Note tecniche</string>
   <string name="wallet_options_donate">Mancia / donazione</string>
   <string name="wallet_donate_address_label">Donazione per Bitcoin Wallet</string>
   <string name="wallet_low_storage_dialog_title">Spazio di memorizzazione interno quasi esaurito!</string>
@@ -65,10 +67,12 @@
   <string name="send_coins_fragment_receiving_address_complex">completo\nindirizzo</string>
   <string name="send_coins_fragment_pending">(%s in attesa di conferma)</string>
   <string name="send_coins_fragment_amount_label">Importo da pagare</string>
-  <string name="send_coins_fragment_hint_fee">Sarà pagata una piccola commissione di rete di %s.</string>
+  <string name="send_coins_fragment_hint_fee">Sarà pagata una commissione di rete di %s.</string>
+  <string name="send_coins_fragment_hint_fee_priority">Sarà pagata una commissione prioritaria di %s. Se ti interessano commissioni basse, usa la priorità solo se hai bisogno di una conferma il prima possibile.</string>
   <string name="send_coins_fragment_hint_dusty_send">L\'importo è troppo piccolo per l\'invio.</string>
   <string name="send_coins_fragment_hint_insufficient_money">Non ci sono abbastanza monete disponibili. Ne mancano %s.</string>
   <string name="send_coins_fragment_hint_empty_wallet_failed">La quantità di piccoli pagamenti nel vostro portamonete non raggiunge valori inviabili.</string>
+  <string name="send_coins_fragment_hint_replaying">I pagamenti correnti non sono possibili perchè è in corso un replay.</string>
   <string name="send_coins_fragment_direct_payment_enable">Invia il pagamento al beneficiario</string>
   <string name="send_coins_fragment_direct_payment_ack">Il tuo pagamento è stato inviato con successo.</string>
   <string name="send_coins_fragment_direct_payment_nack">Il tuo pagamento via connessione diretta è stato rifiutato.</string>
@@ -159,6 +163,7 @@
   <string name="transaction_row_message_received_direct">Questo pagamento è stato ricevuto direttamente. C\'è il rischio che non diventi spendibile.</string>
   <string name="transaction_row_message_received_unconfirmed_delayed">La conferma di questo pagamento è in ritardo, probabilmente a causa di un sovraccarico della rete Bitcoin.</string>
   <string name="transaction_row_message_received_unconfirmed_unlocked">Questo pagamento dovrebbe diventare spendibile entro pochi minuti.</string>
+  <string name="transaction_row_message_received_unconfirmed_chain_forking">A causa di manutenzione sulla rete Bitcoin, questa transazione non dovrebbe essere considerata attendibile fino a quando non sarà pienamente confermata.</string>
   <string name="transaction_row_message_received_in_conflict">Questo pagamento ha un notevole rischio di essere invertito dal mittente! Se puoi, attenti la conferma.</string>
   <string name="transaction_row_message_received_dead">Questo pagamento è stato revocato dal mittente.</string>
   <string name="transaction_row_message_received_dust">Questo piccolo importo probabilmente non sarà mai speso economicamente.</string>
@@ -270,7 +275,8 @@
   <string name="extended_public_key_fragment_share">Condividi xpub…</string>
   <string name="report_issue_dialog_title_issue">Segnala un problema</string>
   <string name="report_issue_dialog_title_crash">Crash precedente rilevato</string>
-  <string name="report_issue_dialog_message_issue">Descrivi il problema in modo specifico da poter essere riprodotto.</string>
+  <string name="report_issue_dialog_title_transaction">Segnala il problema sul pagamento selezionato</string>
+  <string name="report_issue_dialog_message_issue">Per piacere descrivi abbastanza precisamente il tuo problema in modo che sia riproducibile. Usa la lingua inglese se puoi.</string>
   <string name="report_issue_dialog_message_crash">Vorresti inviare una segnalazione di crash, aiutando a correggere questo problema nel futuro?</string>
   <string name="report_issue_dialog_description">descrizione del problema</string>
   <string name="report_issue_dialog_report">Segnala</string>
@@ -289,10 +295,12 @@
   <string name="about_credits_bitcoinj_title">bitcoinj %s, un\'implementazione del protocollo Bitcoin</string>
   <string name="about_credits_zxing_title">ZXing, una libreria di elaborazione di QR-code</string>
   <string name="about_credits_scrypt_title">Scrypt, implementato da Will Glozer e Colin Percival</string>
-  <string name="about_community_googleplus_title">Comunità Google+</string>
-  <string name="about_community_googleplus_summary">Discussioni sull\'app</string>
   <string name="about_market_app_title">Pagina su Google Play</string>
   <string name="about_market_app_summary">Recensire o votare l\'app</string>
+  <string name="about_faq_title">FAQ</string>
+  <string name="about_faq_summary">Domande richieste frequentemente riguardo all\'app</string>
+  <string name="about_community_googleplus_title">Comunità Google+</string>
+  <string name="about_community_googleplus_summary">Discuti riguardo l\'app</string>
   <string name="notification_coins_received_msg">Ricevuti %s</string>
   <string name="notification_peers_connected_msg">Connesso a %d peers</string>
   <string name="notification_inactivity_title">Hai ancora dei Bitcoin su questo dispositivo!</string>
