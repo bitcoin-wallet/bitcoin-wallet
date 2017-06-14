@@ -1,4 +1,4 @@
-<b>Bitcoin'leriniz daima cebinizde sizinle olsun!</b> Herhangi bir QR kodunu okutarak çabuk ödeme yapabilirsiniz. Bir tüccar olarak ödemeleri güvenilir ve anında alabilirsiniz. Bitcoin Wallet ilk mobil ve muhtemelen en güvenli Bitcoin uygulamasıdır!
+<b>Bitcoin'leriniz daima cebinizde sizinle olsun!</b> Herhangi bir QR kodunu okutarak çabuk ödeme yapabilirsiniz. Bir tüccar olarak ödemeleri güvenle ve anında alabilirsiniz. Bitcoin Wallet ilk mobil ve muhtemelen en güvenli Bitcoin uygulamasıdır!
 
 
 <b>ÖZELLİKLER</b>
@@ -14,7 +14,7 @@
 • Bitcoin bakiyesini görüntüleyen widget.
 
 
-<b>İŞTİRAK EDİN</b>
+<b>KATKIDA BULUNUN</b>
 
 Bitcoin Wallet <b>açık kaynak</b> ve <b>özgür yazılımdır</b>. Lisans: GPLv3
 https://www.gnu.org/licenses/gpl-3.0.en.html

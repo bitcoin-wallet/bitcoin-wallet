@@ -13,6 +13,7 @@
   <string name="blockchain_state_progress_problem_network">Eşleşme: Şebeke sorunu</string>
   <string name="wallet_address_fragment_clipboard_msg">Bitcoin adresi panoya kopyalandı</string>
   <string name="wallet_address_dialog_fragment_hint">Gizliliğinizi korumak için bir ödeme aldığında adresiniz değişecektir.</string>
+  <string name="wallet_balance_fragment_insecure_device">Donanımınız eski ve güvensiz. Lütfen sadece küçük işlemler için kullanın.</string>
   <string name="wallet_balance_fragment_too_much">Bu meblağ cebinizde taşımak için oldukça fazladır. Birazını daha güvenli bir yere aktarınız.</string>
   <string name="wallet_balance_fragment_replaying">Tekrar sırasında bakiye kullanılamaz</string>
   <string name="exchange_rates_activity_title">Döviz kurları</string>
@@ -38,6 +39,7 @@
   <string name="wallet_options_encrypt_keys_set">Ödeme PIN\'i ayarla</string>
   <string name="wallet_options_encrypt_keys_change">Ödeme PIN\'i değiştir</string>
   <string name="wallet_options_safety">Güvenlik notları</string>
+  <string name="wallet_options_technical_notes_title">Teknik notlar</string>
   <string name="wallet_options_donate">Bağış</string>
   <string name="wallet_donate_address_label">Bu yazılıma bağış yap</string>
   <string name="wallet_low_storage_dialog_title">Dahili depolama alanı düşük!</string>
