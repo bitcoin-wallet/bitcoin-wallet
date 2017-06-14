@@ -13,6 +13,7 @@
   <string name="blockchain_state_progress_problem_network">Synkroniserer: Netærksproblem</string>
   <string name="wallet_address_fragment_clipboard_msg">Bitcoin-adresse kopieret til udklipsholder</string>
   <string name="wallet_address_dialog_fragment_hint">For at beskytte dit privatliv vil din adresse ændres, så snart den modtager en betaling.</string>
+  <string name="wallet_balance_fragment_insecure_device">Din enhed er gammel og usikker. Brug venligst kun til små beløb.</string>
   <string name="wallet_balance_fragment_too_much">Dette beløb er ret stort at gå rundt med i din lomme. Du bør flytte noget af det til et mere sikkert sted.</string>
   <string name="wallet_balance_fragment_replaying">Saldo er ikke tilgængelig under gennemløb af blokkæden.</string>
   <string name="exchange_rates_activity_title">Valutakurser</string>
@@ -28,6 +29,7 @@
   <string name="wallet_transactions_fragment_empty_text_howto">Hvordan får man Bitcoins?\n\nKøb for traditionelle penge,\nsælg varer eller ydelser eller\ntjen dem ved at arbejde.</string>
   <string name="wallet_transactions_row_warning_backup">Tillykke, du har modtaget din første betaling! Har du &lt;u&gt;taget en sikkerhedskopi af din tegnebog&lt;/u&gt;, for at beskytte dig mod tab?</string>
   <string name="wallet_transactions_row_warning_storage_encryption">Tip: For at øge din tegnebogs sikkerhed kan du &lt;u&gt;kryptere din enhed&lt;/u&gt;. Dette beskytter også data fra andre apps.</string>
+  <string name="wallet_transactions_row_warning_chain_forking">Bitcoin-netværket er under vedligeholdelse. Du anbefales ikke at sende eller modtage midler, indtil vedligeholdelsen er færdig. &lt;u&gt;Mere information&lt;/u&gt;.</string>
   <string name="wallet_transactions_fragment_coinbase">mined</string>
   <string name="wallet_transactions_fragment_internal">intern</string>
   <string name="wallet_transactions_options_filter">Filter</string>
@@ -38,6 +40,7 @@
   <string name="wallet_options_encrypt_keys_set">Sæt spenderings-PIN</string>
   <string name="wallet_options_encrypt_keys_change">Ændr spenderings-PIN</string>
   <string name="wallet_options_safety">Sikkerhedsnoter</string>
+  <string name="wallet_options_technical_notes_title">Tekniske noter</string>
   <string name="wallet_options_donate">Giv drikkepenge / donér</string>
   <string name="wallet_donate_address_label">Donér til Bitcoin Wallet</string>
   <string name="wallet_low_storage_dialog_title">Enheds interne lagerplads er lav!</string>
@@ -65,7 +68,7 @@
   <string name="send_coins_fragment_receiving_address_complex">kompleks\nadresse</string>
   <string name="send_coins_fragment_pending">(%s venter på bekræftelse)</string>
   <string name="send_coins_fragment_amount_label">Beløb at betale</string>
-  <string name="send_coins_fragment_hint_fee_economic">Et økonomigebyr på %s vil blive betalt. Brug kun \"økonomisk\", hvis bekræftelsestiden ikke spiller nogen rolle.</string>
+  <string name="send_coins_fragment_hint_fee_economic">Et økonomigebyr på %s vil blive betalt. Vigtigt: Brug kun \"økonomisk\", hvis bekræftelsestiden ikke spiller nogen rolle.</string>
   <string name="send_coins_fragment_hint_fee">Et netværksgebyr på %s vil blive betalt.</string>
   <string name="send_coins_fragment_hint_fee_priority">Et prioritetsgebyr på %s vil blive betalt. Hvis du vil betale så lave gebyrer som muligt, brug da kun \"prioriteret\" hvis du har brug for bekræftelse så hurtigt som muligt.</string>
   <string name="send_coins_fragment_hint_dusty_send">Beløbet er for lille til at blive sendt.</string>
@@ -162,6 +165,7 @@
   <string name="transaction_row_message_received_direct">Denne betaling er modtaget direkte. Der er en risiko for, at den aldrig bliver tilgængelig.</string>
   <string name="transaction_row_message_received_unconfirmed_delayed">Bekræftelsen af denne betaling er forsinket – sandsynligvis på grund af overbelastning af Bitcoin-netværket.</string>
   <string name="transaction_row_message_received_unconfirmed_unlocked">Denne betaling bør blive tilgængelig om få minutter.</string>
+  <string name="transaction_row_message_received_unconfirmed_chain_forking">På grund af vedligeholdelse af Bitcoin-netværket, bør du ikke stole på denne transaktion, før den er fuldt ud bekræftet.</string>
   <string name="transaction_row_message_received_in_conflict">Denne betaling har en forøget risiko for at blive tilbageført af afsenderen! Hvis du kan, så vent på bekræftelse.</string>
   <string name="transaction_row_message_received_dead">Denne betaling er blevet tilbageført af afsenderen.</string>
   <string name="transaction_row_message_received_dust">Dette lille beløb kan økonomisk set sandsynligvis aldrig bruges.</string>
@@ -179,6 +183,7 @@
   <string name="restore_wallet_permission_dialog_message">For at søge efter sikkerhedskopier af tegnebogen på dine eksterne lagerenheder er du nødt til at give læserettigheder.</string>
   <string name="import_keys_dialog_title">Genopret tegnebog</string>
   <string name="import_keys_dialog_message">Vælg en fil med sikkerhedskopi af tegnebog fra ekstern lagerenhed (%s):</string>
+  <string name="restore_wallet_dialog_message_empty">Ingen sikkerhedskopi af tegnebog blev fundet. Sørg for at den er placeret på det eksterne lagermedium (%s).</string>
   <string name="restore_wallet_dialog_replace_warning">Du skal til at erstatte din nuværende tegnebog. Hvis den indeholder bitcoin, vil disse mistes, med mindre du har en separat sikkerhedskopi af tegnebogen.</string>
   <string name="import_keys_dialog_warning">Vigtigt: Indlæs ikke private nøgler fra tvivlsomme kilder! Andre kan opnå kontrol over dine midler, hvis du gør dette.</string>
   <string name="import_keys_dialog_file_security_encrypted">kodeord krypteret</string>
@@ -190,6 +195,7 @@
   <string name="import_keys_dialog_button_import">Genopret</string>
   <string name="restore_wallet_dialog_success">Tegnebog blev genoprettet.</string>
   <string name="restore_wallet_dialog_success_replay">Din tegnebog blev genoprettet med succes. Dens saldo vil blive beregnet som det næste. Dette vil tage nogen tid.</string>
+  <string name="restore_wallet_dialog_success_encrypted">Advarsel: Din tegnebog er beskyttet af en spenderings-PIN. Sørg for at du kan huske den, før du modtager noget i denne tegnebog.</string>
   <string name="import_keys_dialog_failure">Tegnebog kunne ikke genoprettes:\n\n%s\n\nForkert kodeord?</string>
   <string name="backup_wallet_permission_dialog_title">Skriverettigheder mangler</string>
   <string name="backup_wallet_permission_dialog_message">For at lave sikkerhedskopier på dine eksterne lagerenheder er du nødt til at give skriverettigheder.</string>
