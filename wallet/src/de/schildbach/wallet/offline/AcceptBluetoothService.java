@@ -141,8 +141,10 @@ public final class AcceptBluetoothService extends Service {
 
     @Override
     public void onDestroy() {
-        paymentProtocolThread.stopAccepting();
-        classicThread.stopAccepting();
+        if (paymentProtocolThread != null)
+            paymentProtocolThread.stopAccepting();
+        if (classicThread != null)
+            classicThread.stopAccepting();
 
         unregisterReceiver(bluetoothStateChangeReceiver);
 
