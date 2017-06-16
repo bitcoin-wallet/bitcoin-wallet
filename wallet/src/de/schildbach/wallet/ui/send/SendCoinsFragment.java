@@ -1315,10 +1315,10 @@ public final class SendCoinsFragment extends Fragment {
                     final int colorResId;
                     if (feeCategory == FeeCategory.ECONOMIC) {
                         hintResId = R.string.send_coins_fragment_hint_fee_economic;
-                        colorResId = R.color.fg_significant;
+                        colorResId = R.color.fg_less_significant;
                     } else if (feeCategory == FeeCategory.PRIORITY) {
                         hintResId = R.string.send_coins_fragment_hint_fee_priority;
-                        colorResId = R.color.fg_insignificant;
+                        colorResId = R.color.fg_less_significant;
                     } else {
                         hintResId = R.string.send_coins_fragment_hint_fee;
                         colorResId = R.color.fg_insignificant;
