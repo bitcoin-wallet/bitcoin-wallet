@@ -9,7 +9,7 @@ dependencies {
 
 android {
     compileSdkVersion 'android-15'
-    buildToolsVersion '25.0.3'
+    buildToolsVersion '26'
 
     lintOptions { abortOnError false }
 
