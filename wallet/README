@@ -58,7 +58,7 @@ for the package installs, which comes with slightly more recent versions.
 
 Get the Android SDK (Tools only) from
 
-    http://developer.android.com/sdk/
+    https://developer.android.com/sdk/
 
 and unpack it to your workspace directory. Point your ANDROID_HOME variable to the unpacked Android SDK directory
 and switch to it. Use
