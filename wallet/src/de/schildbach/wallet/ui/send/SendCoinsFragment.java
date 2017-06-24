@@ -259,6 +259,7 @@ public final class SendCoinsFragment extends Fragment {
             try {
                 validatedAddress = new AddressAndLabel(Constants.NETWORK_PARAMETERS, address, label);
                 receivingAddressView.setText(null);
+                log.info("Picked valid address from suggestions: {}", validatedAddress);
             } catch (final AddressFormatException x) {
                 // swallow
             }
@@ -917,6 +918,7 @@ public final class SendCoinsFragment extends Fragment {
                 final String label = AddressBookProvider.resolveLabel(activity, addressStr);
                 validatedAddress = new AddressAndLabel(Constants.NETWORK_PARAMETERS, addressStr, label);
                 receivingAddressView.setText(null);
+                log.info("Locked to valid address: {}", validatedAddress);
             }
         } catch (final AddressFormatException x) {
             // swallow

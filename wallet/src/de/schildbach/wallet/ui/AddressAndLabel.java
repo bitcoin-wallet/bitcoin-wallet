@@ -64,6 +64,20 @@ public class AddressAndLabel implements Parcelable {
     }
 
     @Override
+    public String toString() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append(getClass().getSimpleName());
+        builder.append('[');
+        builder.append(address.toBase58());
+        if (label != null) {
+            builder.append(',');
+            builder.append(label);
+        }
+        builder.append(']');
+        return builder.toString();
+    }
+
+    @Override
     public int describeContents() {
         return 0;
     }
