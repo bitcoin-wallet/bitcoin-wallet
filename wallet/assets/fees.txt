@@ -1,4 +1,4 @@
 # fee rates in satoshis per 1000 bytes of tx data
-ECONOMIC=85000
-NORMAL=305000
+ECONOMIC=55000
+NORMAL=205000
 PRIORITY=405000
