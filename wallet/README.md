@@ -1,3 +1,6 @@
+Technical details
+=================
+
 ### FILES
 
 Your wallet contains your private keys and various transaction related metadata. It is stored in app-private
@@ -31,15 +34,15 @@ app-private storage:
 
 ### DEBUGGING
 
-Wallet file for Testnet can be pulled from an (even un-rooted) device using
+Wallet file for Testnet can be pulled from an (even un-rooted) device using:
 
     adb pull /data/data/de.schildbach.wallet_test/files/wallet-protobuf-testnet
 
-Log messages can be viewed by
+Log messages can be viewed by:
 
     adb logcat
 
-The app can send extensive debug information. Use Options > Settings > Report Issue and follow the dialog.
+The app can send extensive debug information. Use **Options > Settings > Report Issue** and follow the dialog.
 In the generated e-mail, replace the support address with yours.
 
 
@@ -56,20 +59,18 @@ for the package installs, which comes with slightly more recent versions.
     # first time only
     sudo apt install git gradle openjdk-8-jdk libstdc++6:i386 zlib1g:i386
 
-Get the [Android SDK Tools](https://developer.android.com/studio/index.html#command-tools)
-and unpack it to your workspace directory. Point your `ANDROID_HOME` variable to the unpacked Android SDK directory
-and switch to it. Use
+Download the [Android SDK Tools](https://developer.android.com/studio/index.html#command-tools)
+and unpack to your workspace directory. Point your `ANDROID_HOME` variable to the unpacked Android SDK directory
+and switch to it.
+
+Download and install the required Android dependencies:
 
     tools/android update sdk --no-ui --force --all --filter tool,platform-tool,build-tools-26,android-15,android-25
 
-to download and install the required Android dependencies.
-
-Get the [Android NDK](https://developer.android.com/ndk)
-and unpack it to your workspace directory. Point your ANDROID_NDK_HOME variable to the unpacked Android NDK
-directory.
+Download the [Android NDK](https://developer.android.com/ndk), then unpack it to your workspace directory. Point your `ANDROID_NDK_HOME` variable to the unpacked Android NDK directory.
 
 Finally, you can build Bitcoin Wallet and sign it with your development key. Again in your workspace,
-use
+use:
 
     # first time only
     git clone -b master https://github.com/bitcoin-wallet/bitcoin-wallet.git bitcoin-wallet
@@ -79,7 +80,7 @@ use
     git pull
     gradle clean :native-scrypt:copy test build
 
-To install the app on your Android device, use
+To install the app on your Android device, use:
 
     # first time only
     sudo apt install android-tools-adb
@@ -87,7 +88,7 @@ To install the app on your Android device, use
     # each time
     adb install wallet/build/outputs/apk/bitcoin-wallet-debug.apk
 
-If installing fails, make sure "Developer options" and "USB debugging" are enabled on your Android device, and an ADB
+If installation fails, make sure "Developer options" and "USB debugging" are enabled on your Android device, and an ADB
 connection is established.
 
 
@@ -97,7 +98,7 @@ At this point I'd like to remind that you continue on your own risk. According t
 there is basically no warranty and liability. It's your responsibility to audit the source code
 for security issues and build, install and run the application in a secure way.
 
-The productive version uses Mainnet, is built non-debuggable, space-optimized with ProGuard and the
+The production version uses Mainnet, is built non-debuggable, space-optimized with ProGuard and the
 wallet file is protected against access from non-root users. In the code repository, it lives in a
 separate 'prod' branch that gets rebased against master with each released version.
 
@@ -117,7 +118,7 @@ You should be able to import the project into Android Studio, as it uses Gradle 
 
 The source language is English. Translations for all languages except German [happen on Transifex](https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/).
 
-The english resources are pushed to Transifex. Changes are pulled and committed to the git
+The English resources are pushed to Transifex. Changes are pulled and committed to the git
 repository from time to time. It can be done by manually downloading the files, but using the `tx`
 command line client is more convenient:
 
@@ -156,7 +157,7 @@ Instructions for preparing an NFC tag with your address:
 - Some tags have less than 50 bytes capacity, those won't work. 1 KB tags recommended.
 
 - The tag needs to contain a Bitcoin URI. You can construct one with the "Request coins" dialog,
-  then share with messaging or email. You can also construct the URI manually. Example for Mainnet:
+  then share with messaging or email. You can also construct the URI manually. Mainnet example:
   `bitcoin:1G2Y2jP5YFZ5RGk2PXaeWwbeA5y1ZtFhoL`
 
 - The type of the message needs to be URI or URL (not Text).
@@ -185,6 +186,6 @@ mind it's always a 24h average. This feature can be disabled with the compile-ti
 ### SWEEPING WALLETS
 
 When sweeping wallets, Bitcoin Wallet uses a set of Electrum servers to query for unspent transaction
-outputs (UTXOs). This feature can be disabled with the compile-time flag
+outputs (UTXOs). This feature can be disabled with the compile-time flag:
 
     Constants.ENABLE_SWEEP_WALLET
