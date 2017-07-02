@@ -1,3 +1,7 @@
+v5.25
+
+* Adjust the static network fees used for sanity checks and fallbacks.
+
 v5.24
 
 * Update translations from Transifex.
