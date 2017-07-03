@@ -4,7 +4,7 @@
     package="de.schildbach.wallet_test"
     android:installLocation="internalOnly"
     android:versionCode="305"
-    android:versionName="5.25-test" >
+    android:versionName="5.25" >
 
     <uses-sdk
         android:minSdkVersion="16"
