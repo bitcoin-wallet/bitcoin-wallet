@@ -21,11 +21,11 @@ import org.bitcoinj.core.VersionMessage;
 
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
-import de.schildbach.wallet_test.BuildConfig;
 import de.schildbach.wallet_test.R;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
@@ -35,7 +35,6 @@ import android.preference.PreferenceFragment;
  * @author Andreas Schildbach
  */
 public final class AboutFragment extends PreferenceFragment {
-    private Activity activity;
     private WalletApplication application;
     private PackageManager packageManager;
 
@@ -47,7 +46,6 @@ public final class AboutFragment extends PreferenceFragment {
     public void onAttach(final Activity activity) {
         super.onAttach(activity);
 
-        this.activity = activity;
         this.application = (WalletApplication) activity.getApplication();
         this.packageManager = activity.getPackageManager();
     }
@@ -58,13 +56,13 @@ public final class AboutFragment extends PreferenceFragment {
 
         addPreferencesFromResource(R.xml.preference_about);
 
-        findPreference(KEY_ABOUT_VERSION)
-                .setSummary(application.packageInfo().versionName + (BuildConfig.DEBUG ? " (debuggable)" : ""));
+        final PackageInfo packageInfo = application.packageInfo();
+        findPreference(KEY_ABOUT_VERSION).setSummary(WalletApplication.versionLine(packageInfo));
         Intent marketIntent = new Intent(Intent.ACTION_VIEW,
-                Uri.parse(String.format(Constants.MARKET_APP_URL, activity.getPackageName())));
+                Uri.parse(String.format(Constants.MARKET_APP_URL, packageInfo.packageName)));
         if (packageManager.resolveActivity(marketIntent, 0) == null)
             marketIntent = new Intent(Intent.ACTION_VIEW,
-                    Uri.parse(String.format(Constants.WEBMARKET_APP_URL, activity.getPackageName())));
+                    Uri.parse(String.format(Constants.WEBMARKET_APP_URL, packageInfo.packageName)));
         findPreference(KEY_ABOUT_MARKET_APP).setIntent(marketIntent);
         findPreference(KEY_ABOUT_CREDITS_BITCOINJ)
                 .setTitle(getString(R.string.about_credits_bitcoinj_title, VersionMessage.BITCOINJ_VERSION));

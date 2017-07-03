@@ -38,11 +38,14 @@ import org.bitcoinj.wallet.WalletProtobufSerializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.common.base.Splitter;
 import com.google.common.base.Stopwatch;
+import com.google.common.collect.ImmutableList;
 
 import de.schildbach.wallet.service.BlockchainService;
 import de.schildbach.wallet.service.BlockchainServiceImpl;
 import de.schildbach.wallet.util.CrashReporter;
+import de.schildbach.wallet_test.BuildConfig;
 import de.schildbach.wallet_test.R;
 
 import android.app.ActivityManager;
@@ -489,5 +492,10 @@ public class WalletApplication extends Application {
         final long now = System.currentTimeMillis();
         alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, now + alarmInterval, AlarmManager.INTERVAL_DAY,
                 alarmIntent);
+    }
+
+    public static String versionLine(final PackageInfo packageInfo) {
+        return ImmutableList.copyOf(Splitter.on('.').splitToList(packageInfo.packageName)).reverse().get(0) + ' '
+                + packageInfo.versionName + (BuildConfig.DEBUG ? " (debuggable)" : "");
     }
 }
