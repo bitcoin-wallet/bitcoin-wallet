@@ -20,15 +20,15 @@ SUPPORTED SPECIFICATIONS
 
 [BIP-44](https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki): Multi-account hierarchy for deterministic wallets
 
-By deliberate choice, we don't support multiple accounts per wallet. As BIP-44 requires supporting
+We deliberately chose not to support multiple accounts per wallet. As BIP-44 requires supporting
 multiple accounts, we are using BIP-32 instead. This implies wallets can't be shared between
 BIP-32 and BIP-44 compatible wallets, as they would see a different transaction history for the
 same seed.
 
 [BIP-72](https://github.com/bitcoin/bips/blob/master/bip-0072.mediawiki): `bitcoin:` URI extensions for payment protocol
 
-The spec is supported, except the "...it should ignore the bitcoin address/amount/label/message in
-the URI..." part of the recommendation. Important: If you use the request parameter, you have one
+The spec is supported, except the _"...it should ignore the bitcoin address/amount/label/message in
+the URI..."_ part of the recommendation. Important: If you use the request parameter, you have one
 of the following choices. If you don't follow one of those, your linked payment request won't be
 accepted.
 1. Supply an address and optionally an `amount` parameter, with their values exactly matching the

@@ -1,8 +1,10 @@
+Recovering Bitcoins
+===================
+
 ## PROLOGUE
 
 This document describes how you can use a backup file on a standard PC to recover your Bitcoins.
-Normally, this shouldn't be needed. It is much preferred to just use Options > Safety > Restore
-wallet from within the Bitcoin Wallet app if you can. This guide is only meant for rare cases:
+Normally, this shouldn't be needed. It is much preferred to just use **Options > Safety > Restore wallet** from within the Bitcoin Wallet app if you can. This guide is only meant for rare cases:
 
 - Your Android device is destroyed or missing and you do not want or cannot get a new Android
   device.
