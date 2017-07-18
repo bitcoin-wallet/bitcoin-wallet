@@ -63,11 +63,4 @@
         android:summary="@string/preferences_show_disclaimer_summary"
         android:title="@string/preferences_show_disclaimer_title" />
 
-    <PreferenceCategory android:title="@string/preferences_category_labs" >
-        <Preference
-            android:icon="@drawable/ic_warning_grey600_24dp"
-            android:summary="This is all unfinished stuff. Use at your own risk!"
-            android:title="Warning" />
-    </PreferenceCategory>
-
 </PreferenceScreen>
