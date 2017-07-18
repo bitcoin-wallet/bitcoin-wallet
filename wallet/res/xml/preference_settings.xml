@@ -71,11 +71,6 @@
             android:title="Show disclaimer" />
         <CheckBoxPreference
             android:defaultValue="false"
-            android:key="labs_qr_payment_request"
-            android:summary="Use payment protocol for QR-code initiated payments"
-            android:title="BIP70 for scan-to-pay" />
-        <CheckBoxPreference
-            android:defaultValue="false"
             android:key="look_up_wallet_names"
             android:summary="When sending coins, use DNSSEC to look up wallet names from the domain name system."
             android:title="Look up wallet names" />

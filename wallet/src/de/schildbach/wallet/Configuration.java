@@ -55,7 +55,6 @@ public class Configuration {
     public static final String PREFS_KEY_DATA_USAGE = "data_usage";
     public static final String PREFS_KEY_REMIND_BALANCE = "remind_balance";
     public static final String PREFS_KEY_DISCLAIMER = "disclaimer";
-    private static final String PREFS_KEY_LABS_QR_PAYMENT_REQUEST = "labs_qr_payment_request";
     private static final String PREFS_KEY_LOOK_UP_WALLET_NAMES = "look_up_wallet_names";
 
     private static final String PREFS_KEY_LAST_VERSION = "last_version";
@@ -187,10 +186,6 @@ public class Configuration {
 
     public void setExchangeCurrencyCode(final String exchangeCurrencyCode) {
         prefs.edit().putString(PREFS_KEY_EXCHANGE_CURRENCY, exchangeCurrencyCode).apply();
-    }
-
-    public boolean getQrPaymentRequestEnabled() {
-        return prefs.getBoolean(PREFS_KEY_LABS_QR_PAYMENT_REQUEST, false);
     }
 
     public boolean getLookUpWalletNames() {
