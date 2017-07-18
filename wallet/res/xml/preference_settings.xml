@@ -68,12 +68,6 @@
             android:icon="@drawable/ic_warning_grey600_24dp"
             android:summary="This is all unfinished stuff. Use at your own risk!"
             android:title="Warning" />
-
-        <CheckBoxPreference
-            android:defaultValue="false"
-            android:key="look_up_wallet_names"
-            android:summary="When sending coins, use DNSSEC to look up wallet names from the domain name system."
-            android:title="Look up wallet names" />
     </PreferenceCategory>
 
 </PreferenceScreen>
