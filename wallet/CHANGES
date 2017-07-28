@@ -1,3 +1,8 @@
+v5.26
+
+* Add blocktrail.com to block explorers.
+* Remove unused features.
+
 v5.25
 
 * Adjust the static network fees used for sanity checks and fallbacks.
