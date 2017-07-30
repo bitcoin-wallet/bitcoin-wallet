@@ -115,7 +115,8 @@ public final class InactivityNotificationService extends IntentService {
             final Intent donateIntent = new Intent(this, InactivityNotificationService.class);
             donateIntent.setAction(ACTION_DONATE);
 
-            final NotificationCompat.Builder notification = new NotificationCompat.Builder(this);
+            final NotificationCompat.Builder notification = new NotificationCompat.Builder(this,
+                    Constants.NOTIFICATION_CHANNEL_ID_IMPORTANT);
             notification.setStyle(new NotificationCompat.BigTextStyle().bigText(text));
             notification.setSmallIcon(R.drawable.stat_notify_received_24dp);
             notification.setContentTitle(title);
