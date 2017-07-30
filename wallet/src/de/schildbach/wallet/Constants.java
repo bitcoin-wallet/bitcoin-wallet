@@ -185,6 +185,10 @@ public final class Constants {
     public static final int NOTIFICATION_ID_COINS_RECEIVED = 2;
     public static final int NOTIFICATION_ID_INACTIVITY = 3;
 
+    public static final String NOTIFICATION_CHANNEL_ID_RECEIVED = "received";
+    public static final String NOTIFICATION_CHANNEL_ID_ONGOING = "ongoing";
+    public static final String NOTIFICATION_CHANNEL_ID_IMPORTANT = "important";
+
     /** Desired number of scrypt iterations for deriving the spending PIN */
     public static final int SCRYPT_ITERATIONS_TARGET = 65536;
     public static final int SCRYPT_ITERATIONS_TARGET_LOWRAM = 32768;
