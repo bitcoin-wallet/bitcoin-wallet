@@ -132,10 +132,7 @@ You'll see each line contains a key in WIF (wallet import format), technically B
 datetime string after each key is the birthdate of that key which you can ignore for the purpose
 of this one-time recovery.
 
-The easiest way to recover this backup is probably by restoring from within MultiBit Classic
-(https://multibit.org/release-info/classic/v0.5.19.html).
-
-Another option is importing each individual key into [Electrum](https://electrum.org)
+You can import each individual key into a PC wallet like [Electrum](https://electrum.org)
 or [Bitcoin Core](https://bitcoin.org/en/bitcoin-core/).
 
 As soon as you see your whole balance again, empty your entire wallet to the desired destination
