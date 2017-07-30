@@ -60,7 +60,7 @@
     <application
         android:name="de.schildbach.wallet.WalletApplication"
         android:allowBackup="false"
-        android:icon="@mipmap/ic_app_color_48dp"
+        android:icon="@drawable/ic_app_color"
         android:label="@string/app_name" >
         <activity
             android:name="de.schildbach.wallet.ui.WalletActivity"
