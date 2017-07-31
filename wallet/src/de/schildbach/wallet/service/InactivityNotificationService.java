@@ -37,7 +37,9 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.content.ContextCompat;
 
 /**
  * This service is responsible for showing a notification if the user hasn't used the app for a longer time.
@@ -46,7 +48,7 @@ import android.support.v4.app.NotificationCompat;
  */
 public final class InactivityNotificationService extends IntentService {
     public static void startMaybeShowNotification(final Context context) {
-        context.startService(new Intent(context, InactivityNotificationService.class));
+        ContextCompat.startForegroundService(context, new Intent(context, InactivityNotificationService.class));
     }
 
     private NotificationManager nm;
@@ -76,6 +78,15 @@ public final class InactivityNotificationService extends IntentService {
         application = (WalletApplication) getApplication();
         config = application.getConfiguration();
         wallet = application.getWallet();
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            final NotificationCompat.Builder notification = new NotificationCompat.Builder(this,
+                    Constants.NOTIFICATION_CHANNEL_ID_ONGOING);
+            notification.setSmallIcon(R.drawable.stat_notify_received_24dp);
+            notification.setWhen(System.currentTimeMillis());
+            notification.setOngoing(true);
+            startForeground(Constants.NOTIFICATION_ID_MAINTENANCE, notification.build());
+        }
     }
 
     @Override
