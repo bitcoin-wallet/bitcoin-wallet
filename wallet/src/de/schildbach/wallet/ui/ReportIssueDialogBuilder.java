@@ -153,7 +153,7 @@ public abstract class ReportIssueDialogBuilder extends DialogBuilder implements 
 
         if (viewCollectApplicationLog.isChecked()) {
             try {
-                final File logDir = context.getDir("log", Context.MODE_PRIVATE);
+                final File logDir = new File(context.getFilesDir(), "log");
 
                 for (final File logFile : logDir.listFiles()) {
                     final String logFileName = logFile.getName();

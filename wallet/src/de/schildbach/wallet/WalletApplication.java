@@ -164,7 +164,19 @@ public class WalletApplication extends Application {
     }
 
     private void initLogging() {
-        final File logDir = getDir("log", MODE_PRIVATE);
+        // create log dir
+        final File logDir = new File(getFilesDir(), "log");
+        logDir.mkdir();
+
+        // migrate old logs
+        final File oldLogDir = getDir("log", MODE_PRIVATE);
+        if (oldLogDir.exists()) {
+            for (final File logFile : oldLogDir.listFiles())
+                if (logFile.isFile() && logFile.length() > 0)
+                    logFile.renameTo(new File(logDir, logFile.getName()));
+            oldLogDir.delete();
+        }
+
         final File logFile = new File(logDir, "wallet.log");
 
         final LoggerContext context = (LoggerContext) LoggerFactory.getILoggerFactory();

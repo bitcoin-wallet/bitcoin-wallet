@@ -249,9 +249,6 @@ public class CrashReporter {
         final File filesDir = application.getFilesDir();
         report.append("\nContents of FilesDir " + filesDir + ":\n");
         appendDir(report, filesDir, 0);
-        final File logDir = application.getDir("log", Context.MODE_PRIVATE);
-        report.append("\nContents of LogDir " + logDir + ":\n");
-        appendDir(report, logDir, 0);
     }
 
     private static void appendDir(final Appendable report, final File file, final int indent) throws IOException {
