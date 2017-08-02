@@ -36,7 +36,6 @@ import com.google.common.base.Charsets;
 
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.util.CrashReporter;
-import de.schildbach.wallet.util.FileAttachmentProvider;
 import de.schildbach.wallet.util.Io;
 import de.schildbach.wallet_test.R;
 
@@ -45,6 +44,7 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.net.Uri;
+import android.support.v4.content.FileProvider;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.CheckBox;
@@ -152,34 +152,12 @@ public abstract class ReportIssueDialogBuilder extends DialogBuilder implements 
         }
 
         if (viewCollectApplicationLog.isChecked()) {
-            try {
-                final File logDir = new File(context.getFilesDir(), "log");
-
-                for (final File logFile : logDir.listFiles()) {
-                    final String logFileName = logFile.getName();
-                    final File file;
-                    if (logFileName.endsWith(".log.gz"))
-                        file = File.createTempFile(logFileName.substring(0, logFileName.length() - 6), ".log.gz",
-                                cacheDir);
-                    else if (logFileName.endsWith(".log"))
-                        file = File.createTempFile(logFileName.substring(0, logFileName.length() - 3), ".log",
-                                cacheDir);
-                    else
-                        continue;
-
-                    final InputStream is = new FileInputStream(logFile);
-                    final OutputStream os = new FileOutputStream(file);
-
-                    Io.copy(is, os);
-
-                    os.close();
-                    is.close();
-
-                    attachments.add(FileAttachmentProvider.contentUri(context.getPackageName(), file));
-                }
-            } catch (final IOException x) {
-                log.info("problem writing attachment", x);
-            }
+            final File logDir = new File(context.getFilesDir(), "log");
+            if (logDir.exists())
+                for (final File logFile : logDir.listFiles())
+                    if (logFile.isFile() && logFile.length() > 0)
+                        attachments.add(FileProvider.getUriForFile(context,
+                                context.getPackageName() + ".file_attachment", logFile));
         }
 
         if (viewCollectWalletDump.isChecked()) {
@@ -187,13 +165,16 @@ public abstract class ReportIssueDialogBuilder extends DialogBuilder implements 
                 final CharSequence walletDump = collectWalletDump();
 
                 if (walletDump != null) {
-                    final File file = File.createTempFile("wallet-dump.", ".txt", cacheDir);
+                    final File reportDir = new File(cacheDir, "report");
+                    reportDir.mkdir();
+                    final File file = File.createTempFile("wallet-dump.", ".txt", reportDir);
 
                     final Writer writer = new OutputStreamWriter(new FileOutputStream(file), Charsets.UTF_8);
                     writer.write(walletDump.toString());
                     writer.close();
 
-                    attachments.add(FileAttachmentProvider.contentUri(context.getPackageName(), file));
+                    attachments.add(
+                            FileProvider.getUriForFile(context, context.getPackageName() + ".file_attachment", file));
                 }
             } catch (final IOException x) {
                 log.info("problem writing attachment", x);
