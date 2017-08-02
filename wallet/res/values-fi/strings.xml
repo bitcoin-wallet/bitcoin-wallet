@@ -209,7 +209,6 @@
   <string name="export_keys_dialog_mail_subject">Bitcoin-lompakon varmuuskopio</string>
   <string name="export_keys_dialog_mail_text">Salattu liitetiedosto sisältää yksityiset Bitcoin-avaimesi ja ne tulee aina pitää turvassa. Älä unohda salaamiseen käytettyä salasanaasi!</string>
   <string name="export_keys_dialog_mail_intent_chooser">Arkistoi lompakko käyttäen…</string>
-  <string name="export_keys_dialog_mail_intent_failed">Lompakon arkistointi epäonnistui.</string>
   <string name="import_export_keys_dialog_password">salasana</string>
   <string name="backup_wallet_dialog_password_again">uudelleen</string>
   <string name="backup_wallet_dialog_password_mismatch">ei täsmää!</string>
@@ -289,7 +288,6 @@
   <string name="report_issue_dialog_collect_application_log">Liitä sovelluksen loki</string>
   <string name="report_issue_dialog_collect_wallet_dump">Liitä lompakon käyttömuistin tiedot</string>
   <string name="report_issue_dialog_mail_intent_chooser">Lähetä raportti käyttäen…</string>
-  <string name="report_issue_dialog_mail_intent_failed">Raportin lähetys epäonnistui.</string>
   <string name="about_title">Tietoja</string>
   <string name="about_version_title">Versio</string>
   <string name="about_copyright_title">Tekijänoikeus</string>

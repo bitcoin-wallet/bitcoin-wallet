@@ -209,7 +209,6 @@
   <string name="export_keys_dialog_mail_subject">Copia de seguridad de Bitcoin Wallet</string>
   <string name="export_keys_dialog_mail_text">El archivo encriptado adjunto contiene claves privadas Bitcoin y ha de mantenerse seguro en todo momento. ¡Nunca olvides la contraseña de encriptado!</string>
   <string name="export_keys_dialog_mail_intent_chooser">Usando archivo de cartera…</string>
-  <string name="export_keys_dialog_mail_intent_failed">Archivo de cartera fallido.</string>
   <string name="import_export_keys_dialog_password">Contraseña</string>
   <string name="backup_wallet_dialog_password_again">otra vez</string>
   <string name="backup_wallet_dialog_password_mismatch">incorrecta!</string>
@@ -289,7 +288,6 @@
   <string name="report_issue_dialog_collect_application_log">Añadir registro de aplicación</string>
   <string name="report_issue_dialog_collect_wallet_dump">Añadir volcado de datos de la cartera</string>
   <string name="report_issue_dialog_mail_intent_chooser">Enviar informe mediante…</string>
-  <string name="report_issue_dialog_mail_intent_failed">Ha fallado el envío del informe.</string>
   <string name="about_title">Acerca de</string>
   <string name="about_version_title">Versión</string>
   <string name="about_copyright_title">Copyright</string>

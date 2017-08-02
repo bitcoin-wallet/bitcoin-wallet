@@ -177,7 +177,6 @@
   <string name="export_keys_dialog_mail_subject">Kopja rezervë e Bitcoin kuletës</string>
   <string name="export_keys_dialog_mail_text">Skedari i bashkangjitur përmban çelësat privat të Bitcoin dhe duhet të ruhet sigurt gjatë gjithë kohës. Mos harroni fjalëkalimin e enkriptimit!</string>
   <string name="export_keys_dialog_mail_intent_chooser">Duke arkivuar kuletën duke përdorur…</string>
-  <string name="export_keys_dialog_mail_intent_failed">Arkivimi i kuletës dështoj</string>
   <string name="import_export_keys_dialog_password">fjalëkalimi</string>
   <string name="backup_wallet_dialog_password_again">prapë</string>
   <string name="backup_wallet_dialog_password_mismatch">mospërputhje</string>
@@ -239,7 +238,6 @@
   <string name="report_issue_dialog_collect_application_log">Bashkangjitni \'log\' skedën e aplikacionit</string>
   <string name="report_issue_dialog_collect_wallet_dump">Bashkangjitni \'dump\' skedën e kuletës</string>
   <string name="report_issue_dialog_mail_intent_chooser">Dërgo raporting duke përdorur…</string>
-  <string name="report_issue_dialog_mail_intent_failed">Dërgimi i raportit dështoj.</string>
   <string name="about_title">Rreth</string>
   <string name="about_version_title">Verzioni</string>
   <string name="about_copyright_title">Copyright</string>

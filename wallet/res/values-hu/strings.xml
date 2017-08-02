@@ -193,7 +193,6 @@
   <string name="export_keys_dialog_mail_subject">Bitcoin Tárca biztonsági mentése</string>
   <string name="export_keys_dialog_mail_text">A mellékelt titkosított fájl Bitcoin privát kulcsokat tartalmaz és mindig biztonságban kell tartani. Ne felejtsd el a titkosítási jelszót!</string>
   <string name="export_keys_dialog_mail_intent_chooser">Tárcahasználat archiválása…</string>
-  <string name="export_keys_dialog_mail_intent_failed">Tárca archiválása sikertelen.</string>
   <string name="import_export_keys_dialog_password">jelszó</string>
   <string name="backup_wallet_dialog_password_again">újra</string>
   <string name="backup_wallet_dialog_password_mismatch">eltérés!</string>
@@ -271,7 +270,6 @@
   <string name="report_issue_dialog_collect_application_log">Alkalmazás napló csatolása</string>
   <string name="report_issue_dialog_collect_wallet_dump">Tárca információk csatolása</string>
   <string name="report_issue_dialog_mail_intent_chooser">Hiba küldése ezzel…</string>
-  <string name="report_issue_dialog_mail_intent_failed">Jelentés küldése sikertelen.</string>
   <string name="about_title">Rólunk</string>
   <string name="about_version_title">Verzió</string>
   <string name="about_copyright_title">Szerzői jog</string>

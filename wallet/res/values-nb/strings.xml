@@ -209,7 +209,6 @@
   <string name="export_keys_dialog_mail_subject">Sikkerhetskopi av Bitcoin-lommebok</string>
   <string name="export_keys_dialog_mail_text">Den vedlagte krypterte filen inneholder private Bitcoin-nøkler og bør til enhver tid oppbevares sikkert. Glem ikke krypteringspassordet!</string>
   <string name="export_keys_dialog_mail_intent_chooser">Arkiver lommebok ved hjelp av…</string>
-  <string name="export_keys_dialog_mail_intent_failed">Arkivering av lommebok mislyktes.</string>
   <string name="import_export_keys_dialog_password">passord</string>
   <string name="backup_wallet_dialog_password_again">igjen</string>
   <string name="backup_wallet_dialog_password_mismatch">uoverensstemmelse!</string>
@@ -289,7 +288,6 @@
   <string name="report_issue_dialog_collect_application_log">Legg ved programlogg</string>
   <string name="report_issue_dialog_collect_wallet_dump">Legg ved dump av lommebok</string>
   <string name="report_issue_dialog_mail_intent_chooser">Send rapport ved hjelp av…</string>
-  <string name="report_issue_dialog_mail_intent_failed">Sending av rapport mislyktes.</string>
   <string name="about_title">Om</string>
   <string name="about_version_title">Versjon</string>
   <string name="about_copyright_title">Opphavsrett</string>

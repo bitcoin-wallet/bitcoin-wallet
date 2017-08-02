@@ -66,6 +66,7 @@ import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
 import android.nfc.NfcEvent;
 import android.os.Bundle;
+import android.support.v4.app.ShareCompat;
 import android.support.v7.widget.CardView;
 import android.text.SpannableStringBuilder;
 import android.view.LayoutInflater;
@@ -352,10 +353,11 @@ public final class RequestCoinsFragment extends Fragment implements NfcAdapter.C
 
     private void handleShare() {
         final String request = determineBitcoinRequestStr(false);
-        final Intent intent = new Intent(Intent.ACTION_SEND);
-        intent.setType("text/plain");
-        intent.putExtra(Intent.EXTRA_TEXT, request);
-        startActivity(Intent.createChooser(intent, getString(R.string.request_coins_share_dialog_title)));
+        final ShareCompat.IntentBuilder builder = ShareCompat.IntentBuilder.from(activity);
+        builder.setType("text/plain");
+        builder.setText(request);
+        builder.setChooserTitle(R.string.request_coins_share_dialog_title);
+        builder.startChooser();
         log.info("payment request shared via intent: {}", request);
     }
 

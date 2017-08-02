@@ -385,7 +385,7 @@ public final class WalletActivity extends AbstractBindServiceActivity
         final ReportIssueDialogBuilder dialog = new ReportIssueDialogBuilder(this,
                 R.string.report_issue_dialog_title_issue, R.string.report_issue_dialog_message_issue) {
             @Override
-            protected CharSequence subject() {
+            protected String subject() {
                 return Constants.REPORT_SUBJECT_ISSUE + ": " + WalletApplication.versionLine(application.packageInfo());
             }
 
@@ -693,7 +693,7 @@ public final class WalletActivity extends AbstractBindServiceActivity
             final ReportIssueDialogBuilder dialog = new ReportIssueDialogBuilder(this,
                     R.string.report_issue_dialog_title_crash, R.string.report_issue_dialog_message_crash) {
                 @Override
-                protected CharSequence subject() {
+                protected String subject() {
                     return Constants.REPORT_SUBJECT_CRASH + ": " + WalletApplication.versionLine(packageInfo);
                 }
 

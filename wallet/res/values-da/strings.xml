@@ -209,7 +209,6 @@
   <string name="export_keys_dialog_mail_subject">Sikkerhedskopi af Bitcoin-tegnebog</string>
   <string name="export_keys_dialog_mail_text">Den vedhæftede krypterede fil indeholder private Bitcoin-nøgler og bør til enhver tid opbevares sikkert. Glem ikke krypteringskodeordet!</string>
   <string name="export_keys_dialog_mail_intent_chooser">Arkivér tegnebog ved hjælp af…</string>
-  <string name="export_keys_dialog_mail_intent_failed">Arkivering af tegnebog mislykkedes.</string>
   <string name="import_export_keys_dialog_password">kodeord</string>
   <string name="backup_wallet_dialog_password_again">igen</string>
   <string name="backup_wallet_dialog_password_mismatch">uoverensstemmelse!</string>
@@ -289,7 +288,6 @@
   <string name="report_issue_dialog_collect_application_log">Tilføj programlog</string>
   <string name="report_issue_dialog_collect_wallet_dump">Tilføj dump af tegnebog</string>
   <string name="report_issue_dialog_mail_intent_chooser">Send rapport ved hjælp af…</string>
-  <string name="report_issue_dialog_mail_intent_failed">Afsendelse af rapport mislykkedes.</string>
   <string name="about_title">Om</string>
   <string name="about_version_title">Version</string>
   <string name="about_copyright_title">Ophavsret</string>

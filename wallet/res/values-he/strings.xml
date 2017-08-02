@@ -143,7 +143,6 @@
   <string name="export_keys_dialog_mail_subject">גיבוי ארנק ביטקוין</string>
   <string name="export_keys_dialog_mail_text">הקובץ המצורף מכיל את המפתח הפרטיים של ארנק הביטקוין שלך וצריך להשמר בצורה מאובטחת בכל עת. אל תשכח את ססמאת ההצפנה שלך!</string>
   <string name="export_keys_dialog_mail_intent_chooser">גבה ארנק באמצעות…</string>
-  <string name="export_keys_dialog_mail_intent_failed">גיבוי ארנק נכשל.</string>
   <string name="import_export_keys_dialog_password">סיסמא</string>
   <string name="import_export_keys_dialog_show">הצג סיסמא</string>
   <string name="import_export_keys_dialog_failure_title">שגיאה</string>
@@ -186,7 +185,6 @@
   <string name="report_issue_dialog_collect_application_log">הוסף מידע מהאפליקציה</string>
   <string name="report_issue_dialog_collect_wallet_dump">הוסף</string>
   <string name="report_issue_dialog_mail_intent_chooser">שלח דוח באמצעות…</string>
-  <string name="report_issue_dialog_mail_intent_failed">שליחת דו\"ח נכשלה.</string>
   <string name="about_title">על אודות</string>
   <string name="about_version_title">גירסה</string>
   <string name="about_copyright_title">זכויות יוצרים</string>

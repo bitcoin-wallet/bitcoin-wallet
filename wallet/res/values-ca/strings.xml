@@ -202,7 +202,6 @@
   <string name="export_keys_dialog_mail_subject">Còpia de seguretat Cartera Bitcoin</string>
   <string name="export_keys_dialog_mail_text">L\'arxiu encriptat adjunt conté les claus privades dels bitcoin i ha de guardar-se sempre de forma segura. No perdis la clau de pas de l\'encriptació.</string>
   <string name="export_keys_dialog_mail_intent_chooser">Desa la cartera utilitzant…</string>
-  <string name="export_keys_dialog_mail_intent_failed">Desament de cartera fallat. </string>
   <string name="import_export_keys_dialog_password">paraula de pas</string>
   <string name="backup_wallet_dialog_password_again">una altra vegada</string>
   <string name="backup_wallet_dialog_password_mismatch">desajust!</string>
@@ -282,7 +281,6 @@
   <string name="report_issue_dialog_collect_application_log">Adjuntar registre d\'aplicació</string>
   <string name="report_issue_dialog_collect_wallet_dump">Adjuntar buidat de dades de cartera.</string>
   <string name="report_issue_dialog_mail_intent_chooser">Enviant report utilitzant…</string>
-  <string name="report_issue_dialog_mail_intent_failed">Enviant un report de fallada.</string>
   <string name="about_title">Quant a</string>
   <string name="about_version_title">Versió</string>
   <string name="about_copyright_title">Drets de còpia</string>

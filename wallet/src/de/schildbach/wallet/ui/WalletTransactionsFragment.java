@@ -365,7 +365,7 @@ public class WalletTransactionsFragment extends Fragment implements LoaderCallba
                 final ReportIssueDialogBuilder dialog = new ReportIssueDialogBuilder(activity,
                         R.string.report_issue_dialog_title_transaction, R.string.report_issue_dialog_message_issue) {
                     @Override
-                    protected CharSequence subject() {
+                    protected String subject() {
                         return Constants.REPORT_SUBJECT_ISSUE + ": "
                                 + WalletApplication.versionLine(application.packageInfo());
                     }

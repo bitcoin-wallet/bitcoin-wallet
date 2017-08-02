@@ -30,9 +30,9 @@ import android.app.DialogFragment;
 import android.app.FragmentManager;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.support.v4.app.ShareCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -87,11 +87,12 @@ public class ExtendedPublicKeyFragment extends DialogFragment {
         dialog.setPositiveButton(R.string.button_share, new OnClickListener() {
             @Override
             public void onClick(final DialogInterface dialog, final int which) {
-                final Intent intent = new Intent(Intent.ACTION_SEND);
-                intent.setType("text/plain");
-                intent.putExtra(Intent.EXTRA_TEXT, xpub);
-                intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.extended_public_key_fragment_title));
-                startActivity(Intent.createChooser(intent, getString(R.string.extended_public_key_fragment_share)));
+                final ShareCompat.IntentBuilder builder = ShareCompat.IntentBuilder.from(activity);
+                builder.setType("text/plain");
+                builder.setText(xpub);
+                builder.setSubject(getString(R.string.extended_public_key_fragment_title));
+                builder.setChooserTitle(R.string.extended_public_key_fragment_share);
+                builder.startChooser();
                 log.info("xpub shared via intent: {}", xpub);
             }
         });

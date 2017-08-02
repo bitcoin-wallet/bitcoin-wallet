@@ -209,7 +209,6 @@
   <string name="export_keys_dialog_mail_subject">ビットコインウォレットのバックアップ</string>
   <string name="export_keys_dialog_mail_text">添付した暗号化ファイルにはビットコイン秘密鍵が含まれています、いかなる時でも安全に保管してくだしさい。暗号化パスワードを忘れないようにしてください！</string>
   <string name="export_keys_dialog_mail_intent_chooser">ウォレットのアーカイブに利用するアプリケーション…</string>
-  <string name="export_keys_dialog_mail_intent_failed">ウォレットのアーカイブに失敗しました。</string>
   <string name="import_export_keys_dialog_password">パスワード</string>
   <string name="backup_wallet_dialog_password_again">もう一度</string>
   <string name="backup_wallet_dialog_password_mismatch">一致しません！</string>
@@ -289,7 +288,6 @@
   <string name="report_issue_dialog_collect_application_log">アプリケーションログを追加</string>
   <string name="report_issue_dialog_collect_wallet_dump">ウォレットダンプを追加</string>
   <string name="report_issue_dialog_mail_intent_chooser">報告に使うアプリケーション……</string>
-  <string name="report_issue_dialog_mail_intent_failed">報告失敗。</string>
   <string name="about_title">アプリについて</string>
   <string name="about_version_title">バージョン</string>
   <string name="about_copyright_title">コピーライト</string>

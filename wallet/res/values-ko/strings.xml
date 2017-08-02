@@ -209,7 +209,6 @@
   <string name="export_keys_dialog_mail_subject">비트코인 전자 지갑 백업</string>
   <string name="export_keys_dialog_mail_text">첨부된 암호 파일은 비트코인 개인키를 포함하고 있으므로 항상 안전한 곳에 보관해야 합니다. 그리고 암호화된 패스워드를 절대 잊으면 안 됩니다.</string>
   <string name="export_keys_dialog_mail_intent_chooser">백업 보관 방법 선택</string>
-  <string name="export_keys_dialog_mail_intent_failed">백업 파일 저장이 실패했습니다.</string>
   <string name="import_export_keys_dialog_password">패스워드</string>
   <string name="backup_wallet_dialog_password_again">다시</string>
   <string name="backup_wallet_dialog_password_mismatch">맞지 않음!</string>
@@ -289,7 +288,6 @@
   <string name="report_issue_dialog_collect_application_log">애플리케이션 로그 첨부</string>
   <string name="report_issue_dialog_collect_wallet_dump">전자지갑 덤프 파일 첨부</string>
   <string name="report_issue_dialog_mail_intent_chooser">오류 보고서 전송 방법 선택</string>
-  <string name="report_issue_dialog_mail_intent_failed">오류 보고서 전송에 실패했습니다.</string>
   <string name="about_title">앱 소개</string>
   <string name="about_version_title">버전</string>
   <string name="about_copyright_title">Copyright</string>

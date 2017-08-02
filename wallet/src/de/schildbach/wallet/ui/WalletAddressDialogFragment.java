@@ -33,8 +33,8 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.FragmentManager;
-import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.ShareCompat;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -102,10 +102,11 @@ public class WalletAddressDialogFragment extends DialogFragment {
         labelButtonView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(final View v) {
-                final Intent intent = new Intent(Intent.ACTION_SEND);
-                intent.setType("text/plain");
-                intent.putExtra(Intent.EXTRA_TEXT, addressStr);
-                startActivity(Intent.createChooser(intent, getString(R.string.bitmap_fragment_share)));
+                final ShareCompat.IntentBuilder builder = ShareCompat.IntentBuilder.from(activity);
+                builder.setType("text/plain");
+                builder.setText(addressStr);
+                builder.setChooserTitle(R.string.bitmap_fragment_share);
+                builder.startChooser();
                 log.info("wallet address shared via intent: {}", addressStr);
             }
         });

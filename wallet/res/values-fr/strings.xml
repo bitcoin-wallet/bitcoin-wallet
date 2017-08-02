@@ -209,7 +209,6 @@
   <string name="export_keys_dialog_mail_subject">Sauvegarde du porte-monnaie Bitcoin</string>
   <string name="export_keys_dialog_mail_text">Le fichier chiffré joint contient des clés privées Bitcoin et doit être conservé en lieu sûr en tout temps. N\'oubliez pas le mot de passe de chiffrement !</string>
   <string name="export_keys_dialog_mail_intent_chooser">Archiver le porte-monnaie en utilisant…</string>
-  <string name="export_keys_dialog_mail_intent_failed">Échec d\'archivage du porte-monnaie.</string>
   <string name="import_export_keys_dialog_password">mot de passe</string>
   <string name="backup_wallet_dialog_password_again">de nouveau</string>
   <string name="backup_wallet_dialog_password_mismatch">différence !</string>
@@ -289,7 +288,6 @@
   <string name="report_issue_dialog_collect_application_log">Ajouter le journal de l\'application</string>
   <string name="report_issue_dialog_collect_wallet_dump">Ajouter un vidage du porte-monnaie</string>
   <string name="report_issue_dialog_mail_intent_chooser">Envoyer le rapport avec…</string>
-  <string name="report_issue_dialog_mail_intent_failed">Échec d\'envoi du paiement.</string>
   <string name="about_title">À propos du logiciel</string>
   <string name="about_version_title">Version</string>
   <string name="about_copyright_title">Tous droits réservés</string>

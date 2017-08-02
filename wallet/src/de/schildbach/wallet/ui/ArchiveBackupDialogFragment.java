@@ -23,7 +23,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import de.schildbach.wallet.Constants;
-import de.schildbach.wallet.util.Toast;
 import de.schildbach.wallet.util.WholeStringBuilder;
 import de.schildbach.wallet_test.R;
 
@@ -32,9 +31,9 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.FragmentManager;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.ShareCompat;
 import android.text.Html;
 
 /**
@@ -99,21 +98,15 @@ public class ArchiveBackupDialogFragment extends DialogFragment {
     }
 
     private void archiveWalletBackup(final File backupFile) {
-        final Intent intent = new Intent(Intent.ACTION_SEND);
-        intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.export_keys_dialog_mail_subject));
-        intent.putExtra(Intent.EXTRA_TEXT,
-                getString(R.string.export_keys_dialog_mail_text) + "\n\n"
-                        + String.format(Constants.WEBMARKET_APP_URL, activity.getPackageName()) + "\n\n"
-                        + Constants.SOURCE_URL + '\n');
-        intent.setType(Constants.MIMETYPE_WALLET_BACKUP);
-        intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(backupFile));
-
-        try {
-            startActivity(Intent.createChooser(intent, getString(R.string.export_keys_dialog_mail_intent_chooser)));
-            log.info("invoked chooser for archiving wallet backup");
-        } catch (final Exception x) {
-            new Toast(activity).longToast(R.string.export_keys_dialog_mail_intent_failed);
-            log.error("archiving wallet backup failed", x);
-        }
+        final ShareCompat.IntentBuilder builder = ShareCompat.IntentBuilder.from(activity);
+        builder.setSubject(getString(R.string.export_keys_dialog_mail_subject));
+        builder.setText(getString(R.string.export_keys_dialog_mail_text) + "\n\n"
+                + String.format(Constants.WEBMARKET_APP_URL, activity.getPackageName()) + "\n\n" + Constants.SOURCE_URL
+                + '\n');
+        builder.setType(Constants.MIMETYPE_WALLET_BACKUP);
+        builder.setStream(Uri.fromFile(backupFile));
+        builder.setChooserTitle(R.string.export_keys_dialog_mail_intent_chooser);
+        builder.startChooser();
+        log.info("invoked chooser for archiving wallet backup");
     }
 }

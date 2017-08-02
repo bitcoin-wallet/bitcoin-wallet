@@ -205,7 +205,6 @@
   <string name="export_keys_dialog_mail_subject">Bitcoin Cüzdanı yedeklemesi</string>
   <string name="export_keys_dialog_mail_text">Eklenen şifreli dosya Bitcoin özel anahtarlarını içermektedir ve güvenli bir yerde saklanmalıdır. Şifreleme parolanızı unutmayınız!</string>
   <string name="export_keys_dialog_mail_intent_chooser">Cüzdanı şunu kullanarak arşivle…</string>
-  <string name="export_keys_dialog_mail_intent_failed">Cüzdanın arşivlenmesi başarısız oldu.</string>
   <string name="import_export_keys_dialog_password">parola</string>
   <string name="backup_wallet_dialog_password_again">tekrar</string>
   <string name="backup_wallet_dialog_password_mismatch">uyumsuzluk!</string>
@@ -285,7 +284,6 @@
   <string name="report_issue_dialog_collect_application_log">Uygulama kütüğünü ilâve et</string>
   <string name="report_issue_dialog_collect_wallet_dump">Cüzdan dökümü ilâve et</string>
   <string name="report_issue_dialog_mail_intent_chooser">Raporu şununla gönder…</string>
-  <string name="report_issue_dialog_mail_intent_failed">Raporun yollanması başarısız oldu.</string>
   <string name="about_title">Hakkında</string>
   <string name="about_version_title">Sürüm</string>
   <string name="about_copyright_title">Telif hakkı</string>

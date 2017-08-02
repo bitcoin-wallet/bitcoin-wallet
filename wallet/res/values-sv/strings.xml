@@ -198,7 +198,6 @@
   <string name="export_keys_dialog_mail_subject">Bitcoin Wallet-backup</string>
   <string name="export_keys_dialog_mail_text">Den bifogade krypterade filen innehåller privata bitcoinnycklar och bör förvaras säkert i alla lägen. Glöm inte krypteringslösenordet!</string>
   <string name="export_keys_dialog_mail_intent_chooser">Arkivera av plånboken med…</string>
-  <string name="export_keys_dialog_mail_intent_failed">Arkivering av plånboken misslyckades.</string>
   <string name="import_export_keys_dialog_password">lösenord</string>
   <string name="backup_wallet_dialog_password_again">igen</string>
   <string name="backup_wallet_dialog_password_mismatch">Felmatchning!</string>
@@ -277,7 +276,6 @@
   <string name="report_issue_dialog_collect_application_log">Bifoga applikationslogg</string>
   <string name="report_issue_dialog_collect_wallet_dump">Bifoga plånboksdump</string>
   <string name="report_issue_dialog_mail_intent_chooser">Skicka rapport med…</string>
-  <string name="report_issue_dialog_mail_intent_failed">Rapportering misslyckades</string>
   <string name="about_title">Om</string>
   <string name="about_version_title">Version</string>
   <string name="about_copyright_title">Copyright</string>

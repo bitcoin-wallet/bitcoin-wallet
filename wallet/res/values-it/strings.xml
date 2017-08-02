@@ -205,7 +205,6 @@
   <string name="export_keys_dialog_mail_subject">Bitcoin Wallet backup</string>
   <string name="export_keys_dialog_mail_text">Il file cifrato allegato contiene chiavi private Bitcoin e dovrebbe essere mantenuto sicuro in ogni momento. Non dimenticarti la password per la crittografia!</string>
   <string name="export_keys_dialog_mail_intent_chooser">Archiviare portafoglio usando…</string>
-  <string name="export_keys_dialog_mail_intent_failed">Archiviazione portafoglio non riuscita.</string>
   <string name="import_export_keys_dialog_password">password</string>
   <string name="backup_wallet_dialog_password_again">ancora</string>
   <string name="backup_wallet_dialog_password_mismatch">sbagliata!</string>
@@ -285,7 +284,6 @@
   <string name="report_issue_dialog_collect_application_log">Allega il registro dell\'applicazione</string>
   <string name="report_issue_dialog_collect_wallet_dump">Allega il dump del portafoglio</string>
   <string name="report_issue_dialog_mail_intent_chooser">Invio della segnalazione…</string>
-  <string name="report_issue_dialog_mail_intent_failed">Invio della segnalazione non riuscito.</string>
   <string name="about_title">Informazioni</string>
   <string name="about_version_title">Versione</string>
   <string name="about_copyright_title">Copyright</string>

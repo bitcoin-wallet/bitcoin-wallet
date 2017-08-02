@@ -169,7 +169,6 @@
   <string name="export_keys_dialog_mail_subject">Fanya Bitcoin pochi backup</string>
   <string name="export_keys_dialog_mail_text">Faili masharti ya siri ina bitcpoin pochi funguo. Kuitunza katika mahali salama. Usisahau siri!!</string>
   <string name="export_keys_dialog_mail_intent_chooser">Fanya backup kutumia…</string>
-  <string name="export_keys_dialog_mail_intent_failed">Backup alisinhdwe.</string>
   <string name="import_export_keys_dialog_password">siri</string>
   <string name="import_export_keys_dialog_show">Soma siri</string>
   <string name="import_export_keys_dialog_failure_title">kosa</string>
@@ -228,7 +227,6 @@
   <string name="report_issue_dialog_collect_application_log">Taarifa ya logi mpango</string>
   <string name="report_issue_dialog_collect_wallet_dump">Taarifa ya pochi ajali</string>
   <string name="report_issue_dialog_mail_intent_chooser">Soma ripoti kutumia…</string>
-  <string name="report_issue_dialog_mail_intent_failed">Kusoma ripoti alishindwe.</string>
   <string name="about_title">Kuhusu</string>
   <string name="about_version_title">Maelezo</string>
   <string name="about_copyright_title">Hati miliki</string>

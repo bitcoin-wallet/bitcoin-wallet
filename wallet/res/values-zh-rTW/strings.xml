@@ -209,7 +209,6 @@
   <string name="export_keys_dialog_mail_subject">Bitcoin Wallet 備份</string>
   <string name="export_keys_dialog_mail_text">附件加密檔案包含 Bitcoin 私鑰，請隨時確保檔案的安全，並且不要忘記加密的密碼！</string>
   <string name="export_keys_dialog_mail_intent_chooser">用其他方式歸檔錢包...</string>
-  <string name="export_keys_dialog_mail_intent_failed">歸檔錢包失敗了。</string>
   <string name="import_export_keys_dialog_password">密碼</string>
   <string name="backup_wallet_dialog_password_again">再打一次</string>
   <string name="backup_wallet_dialog_password_mismatch">不一樣！</string>
@@ -289,7 +288,6 @@
   <string name="report_issue_dialog_collect_application_log">附上應用程式日誌</string>
   <string name="report_issue_dialog_collect_wallet_dump">附上錢包傾印資料</string>
   <string name="report_issue_dialog_mail_intent_chooser">用其他方式寄送回報…</string>
-  <string name="report_issue_dialog_mail_intent_failed">寄送回報失敗了。</string>
   <string name="about_title">關於</string>
   <string name="about_version_title">版本</string>
   <string name="about_copyright_title">著作權</string>

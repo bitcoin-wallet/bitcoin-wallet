@@ -133,7 +133,6 @@
   <string name="export_keys_dialog_mail_subject">Rezervna kopija denarnice</string>
   <string name="export_keys_dialog_mail_text">Pripeta šifrirana datoteka vsebuje zasebne ključe za bitcoin, zato jo morate vedno varno hraniti. Ne pozabite gesla, s katerim je bila datoteka šifrirana!</string>
   <string name="export_keys_dialog_mail_intent_chooser">Arhiviraj denarnico z...</string>
-  <string name="export_keys_dialog_mail_intent_failed">Arhiviranje denarnice je spodletelo.</string>
   <string name="import_export_keys_dialog_password">geslo</string>
   <string name="import_export_keys_dialog_show">Prikaži geslo</string>
   <string name="import_export_keys_dialog_failure_title">Napaka</string>
@@ -176,7 +175,6 @@
   <string name="report_issue_dialog_collect_application_log">Pripni aplikacijski zapisnik</string>
   <string name="report_issue_dialog_collect_wallet_dump">Pripni kopijo denarnice</string>
   <string name="report_issue_dialog_mail_intent_chooser">Pošlji poročilo z aplikacijo…</string>
-  <string name="report_issue_dialog_mail_intent_failed">Pošiljanje poročila je spodletelo.</string>
   <string name="about_title">Vizitka</string>
   <string name="about_version_title">Verzija</string>
   <string name="about_copyright_title">Avtorske pravice</string>

@@ -200,7 +200,6 @@
   <string name="export_keys_dialog_mail_subject">比特币钱包备份</string>
   <string name="export_keys_dialog_mail_text">附件中的已加密文件中包含有比特币的私钥，您应该在任何时候都将其存放在安全的地方。请不要忘记您的加密密码！</string>
   <string name="export_keys_dialog_mail_intent_chooser">归档钱包，使用…</string>
-  <string name="export_keys_dialog_mail_intent_failed">钱包归档失败。</string>
   <string name="import_export_keys_dialog_password">密码</string>
   <string name="backup_wallet_dialog_password_again">确认密码</string>
   <string name="backup_wallet_dialog_password_mismatch">密码不正确</string>
@@ -280,7 +279,6 @@
   <string name="report_issue_dialog_collect_application_log">附加应用程序日志</string>
   <string name="report_issue_dialog_collect_wallet_dump">附加钱包 dump 信息</string>
   <string name="report_issue_dialog_mail_intent_chooser">发送报告使用…</string>
-  <string name="report_issue_dialog_mail_intent_failed">发送报告失败。</string>
   <string name="about_title">关于</string>
   <string name="about_version_title">版本</string>
   <string name="about_copyright_title">Copyright</string>

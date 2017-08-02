@@ -200,7 +200,6 @@
   <string name="export_keys_dialog_mail_subject">Bitcoin Wallet záloha</string>
   <string name="export_keys_dialog_mail_text">Připojený zašifrovaný soubor obsahuje Bitcoin privátní klíče a měl by být vždy na bezpečném místě. Nezapomeňte šifrovací heslo!</string>
   <string name="export_keys_dialog_mail_intent_chooser">Archivovat peněženku pomocí…</string>
-  <string name="export_keys_dialog_mail_intent_failed">Archivace peněženky selhala.</string>
   <string name="import_export_keys_dialog_password">heslo</string>
   <string name="backup_wallet_dialog_password_again">znovu</string>
   <string name="backup_wallet_dialog_password_mismatch">nesouhlasí!</string>
@@ -279,7 +278,6 @@
   <string name="report_issue_dialog_collect_application_log">Připojit aplikační log</string>
   <string name="report_issue_dialog_collect_wallet_dump">Připojit dump peněženky</string>
   <string name="report_issue_dialog_mail_intent_chooser">Odeslat hlášení pomocí…</string>
-  <string name="report_issue_dialog_mail_intent_failed">Odeslání hlášení selhalo.</string>
   <string name="about_title">O aplikaci</string>
   <string name="about_version_title">Verze</string>
   <string name="about_copyright_title">Copyright</string>

@@ -209,7 +209,6 @@
   <string name="export_keys_dialog_mail_subject">Резервное копирование Bitcoin Wallet</string>
   <string name="export_keys_dialog_mail_text">Приложенный зашифрованный файл содержит приватные ключи Bitcoin, он должен всегда храниться в безопасности. Не забудьте пароль шифрования!</string>
   <string name="export_keys_dialog_mail_intent_chooser">Архивировать кошелек с помощью…</string>
-  <string name="export_keys_dialog_mail_intent_failed">Архивация кошелка прошла с ошибкой.</string>
   <string name="import_export_keys_dialog_password">пароль</string>
   <string name="backup_wallet_dialog_password_again">Снова</string>
   <string name="backup_wallet_dialog_password_mismatch">несовпадают!</string>
@@ -289,7 +288,6 @@
   <string name="report_issue_dialog_collect_application_log">Добавить лог приложения</string>
   <string name="report_issue_dialog_collect_wallet_dump">Добавить дамп памяти кошелька</string>
   <string name="report_issue_dialog_mail_intent_chooser">Отправить отчет используя…</string>
-  <string name="report_issue_dialog_mail_intent_failed">Ошибка при отправке отчета.</string>
   <string name="about_title">О программе</string>
   <string name="about_version_title">Версия</string>
   <string name="about_copyright_title">Авторское право</string>

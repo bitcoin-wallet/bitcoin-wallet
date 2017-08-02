@@ -18,14 +18,12 @@
 package de.schildbach.wallet.ui;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.annotation.Nullable;
 
@@ -36,27 +34,25 @@ import com.google.common.base.Charsets;
 
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.util.CrashReporter;
-import de.schildbach.wallet.util.Io;
 import de.schildbach.wallet_test.R;
 
-import android.content.Context;
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
-import android.content.Intent;
 import android.net.Uri;
+import android.support.v4.app.ShareCompat;
 import android.support.v4.content.FileProvider;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 /**
  * @author Andreas Schildbach
  */
 public abstract class ReportIssueDialogBuilder extends DialogBuilder implements OnClickListener {
-    private final Context context;
+    private final Activity activity;
 
     private EditText viewDescription;
     private CheckBox viewCollectDeviceInfo;
@@ -66,12 +62,12 @@ public abstract class ReportIssueDialogBuilder extends DialogBuilder implements 
 
     private static final Logger log = LoggerFactory.getLogger(ReportIssueDialogBuilder.class);
 
-    public ReportIssueDialogBuilder(final Context context, final int titleResId, final int messageResId) {
-        super(context);
+    public ReportIssueDialogBuilder(final Activity activity, final int titleResId, final int messageResId) {
+        super(activity);
 
-        this.context = context;
+        this.activity = activity;
 
-        final LayoutInflater inflater = LayoutInflater.from(context);
+        final LayoutInflater inflater = LayoutInflater.from(activity);
         final View view = inflater.inflate(R.layout.report_issue_dialog, null);
 
         ((TextView) view.findViewById(R.id.report_issue_dialog_message)).setText(messageResId);
@@ -93,8 +89,8 @@ public abstract class ReportIssueDialogBuilder extends DialogBuilder implements 
     @Override
     public void onClick(final DialogInterface dialog, final int which) {
         final StringBuilder text = new StringBuilder();
-        final ArrayList<Uri> attachments = new ArrayList<Uri>();
-        final File cacheDir = context.getCacheDir();
+        final List<Uri> attachments = new ArrayList<Uri>();
+        final File cacheDir = activity.getCacheDir();
 
         text.append(viewDescription.getText()).append('\n');
 
@@ -145,19 +141,19 @@ public abstract class ReportIssueDialogBuilder extends DialogBuilder implements 
         if (viewCollectInstalledPackages.isChecked()) {
             try {
                 text.append("\n\n\n=== installed packages ===\n\n");
-                CrashReporter.appendInstalledPackages(text, context);
+                CrashReporter.appendInstalledPackages(text, activity);
             } catch (final IOException x) {
                 text.append(x.toString()).append('\n');
             }
         }
 
         if (viewCollectApplicationLog.isChecked()) {
-            final File logDir = new File(context.getFilesDir(), "log");
+            final File logDir = new File(activity.getFilesDir(), "log");
             if (logDir.exists())
                 for (final File logFile : logDir.listFiles())
                     if (logFile.isFile() && logFile.length() > 0)
-                        attachments.add(FileProvider.getUriForFile(context,
-                                context.getPackageName() + ".file_attachment", logFile));
+                        attachments.add(FileProvider.getUriForFile(activity,
+                                activity.getPackageName() + ".file_attachment", logFile));
         }
 
         if (viewCollectWalletDump.isChecked()) {
@@ -174,7 +170,7 @@ public abstract class ReportIssueDialogBuilder extends DialogBuilder implements 
                     writer.close();
 
                     attachments.add(
-                            FileProvider.getUriForFile(context, context.getPackageName() + ".file_attachment", file));
+                            FileProvider.getUriForFile(activity, activity.getPackageName() + ".file_attachment", file));
                 }
             } catch (final IOException x) {
                 log.info("problem writing attachment", x);
@@ -196,41 +192,22 @@ public abstract class ReportIssueDialogBuilder extends DialogBuilder implements 
         startSend(subject(), text, attachments);
     }
 
-    private void startSend(final CharSequence subject, final CharSequence text, final ArrayList<Uri> attachments) {
-        final Intent intent;
-
-        if (attachments.size() == 0) {
-            intent = new Intent(Intent.ACTION_SEND);
-            intent.setType("message/rfc822");
-        } else if (attachments.size() == 1) {
-            intent = new Intent(Intent.ACTION_SEND);
-            intent.setType("text/plain");
-            intent.putExtra(Intent.EXTRA_STREAM, attachments.get(0));
-        } else {
-            intent = new Intent(Intent.ACTION_SEND_MULTIPLE);
-            intent.setType("text/plain");
-            intent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, attachments);
-        }
-
-        intent.putExtra(Intent.EXTRA_EMAIL, new String[] { Constants.REPORT_EMAIL });
+    private void startSend(final String subject, final CharSequence text, final List<Uri> attachments) {
+        final ShareCompat.IntentBuilder builder = ShareCompat.IntentBuilder.from(activity);
+        for (final Uri attachment : attachments)
+            builder.addStream(attachment);
+        builder.addEmailTo(Constants.REPORT_EMAIL);
         if (subject != null)
-            intent.putExtra(Intent.EXTRA_SUBJECT, subject);
-        intent.putExtra(Intent.EXTRA_TEXT, text);
-
-        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-
-        try {
-            context.startActivity(
-                    Intent.createChooser(intent, context.getString(R.string.report_issue_dialog_mail_intent_chooser)));
-            log.info("invoked chooser for sending issue report");
-        } catch (final Exception x) {
-            Toast.makeText(context, R.string.report_issue_dialog_mail_intent_failed, Toast.LENGTH_LONG).show();
-            log.error("report issue failed", x);
-        }
+            builder.setSubject(subject);
+        builder.setText(text);
+        builder.setType("text/plain");
+        builder.setChooserTitle(R.string.report_issue_dialog_mail_intent_chooser);
+        builder.startChooser();
+        log.info("invoked chooser for sending issue report");
     }
 
     @Nullable
-    protected abstract CharSequence subject();
+    protected abstract String subject();
 
     @Nullable
     protected CharSequence collectApplicationInfo() throws IOException {

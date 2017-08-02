@@ -205,7 +205,6 @@
   <string name="export_keys_dialog_mail_subject">Bitcoin Wallet backup</string>
   <string name="export_keys_dialog_mail_text">Het aangehechte versleutelde bestand bevat Bitcoin prive-sleutels en moet altijd veilig opgeborgen worden. Vergeet het versleutelingswachtwoord niet!</string>
   <string name="export_keys_dialog_mail_intent_chooser">Archiveer wallet met…</string>
-  <string name="export_keys_dialog_mail_intent_failed">Archiveren wallet mislukt.</string>
   <string name="import_export_keys_dialog_password">wachtwoord</string>
   <string name="backup_wallet_dialog_password_again">opnieuw</string>
   <string name="backup_wallet_dialog_password_mismatch">mismatch!</string>
@@ -285,7 +284,6 @@
   <string name="report_issue_dialog_collect_application_log">Applicatie log toevoegen</string>
   <string name="report_issue_dialog_collect_wallet_dump">Wallet dump toevoegen</string>
   <string name="report_issue_dialog_mail_intent_chooser">Rapport versturen met…</string>
-  <string name="report_issue_dialog_mail_intent_failed">Rapport versturen mislukt.</string>
   <string name="about_title">Over</string>
   <string name="about_version_title">Versie</string>
   <string name="about_copyright_title">Auteursrecht</string>

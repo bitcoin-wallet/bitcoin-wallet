@@ -198,7 +198,6 @@
   <string name="export_keys_dialog_mail_subject">Backup da carteira</string>
   <string name="export_keys_dialog_mail_text">O arquivo cifrado em anexo contém chaves privadas Bitcoin e deve ser mantido em segurança. Nunca se esqueça da senha de cifrado.</string>
   <string name="export_keys_dialog_mail_intent_chooser">Fazer backup usando…</string>
-  <string name="export_keys_dialog_mail_intent_failed">Arquivamento falhou.</string>
   <string name="import_export_keys_dialog_password">senha</string>
   <string name="backup_wallet_dialog_password_again">repita a senha</string>
   <string name="backup_wallet_dialog_password_mismatch">não coincide!</string>
@@ -277,7 +276,6 @@
   <string name="report_issue_dialog_collect_application_log">Anexar log do aplicativo</string>
   <string name="report_issue_dialog_collect_wallet_dump">Anexar \"wallet dump\"</string>
   <string name="report_issue_dialog_mail_intent_chooser">Enviar relatório usando…</string>
-  <string name="report_issue_dialog_mail_intent_failed">Envio de relatório falhou.</string>
   <string name="about_title">Sobre</string>
   <string name="about_version_title">Versão</string>
   <string name="about_copyright_title">Copyright</string>

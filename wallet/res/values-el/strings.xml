@@ -140,7 +140,6 @@
   <string name="export_keys_dialog_mail_subject">Αντίγραφο ασφαλείας Πορτοφολιού Bitcoin</string>
   <string name="export_keys_dialog_mail_text">Το συνημμένο κρυπτογραφημένο αρχείο περιέχει τα ιδιωτικά κλειδιά του Bitcoin πορτοφολιού σας και θα πρέπει να διατηρείται ασφαλές. Μην ξεχάσετε τον κωδικό πρόσβασης κρυπτογράφησης!</string>
   <string name="export_keys_dialog_mail_intent_chooser">Αρχειοθετήστε το πορτοφόλι χρησιμοποιώντας…</string>
-  <string name="export_keys_dialog_mail_intent_failed">Η αρχειοθέτηση του πορτοφολιού απέτυχε.</string>
   <string name="import_export_keys_dialog_password">κωδικός</string>
   <string name="backup_wallet_dialog_password_again">ξανά</string>
   <string name="backup_wallet_dialog_password_mismatch">αναντιστοιχία!</string>
@@ -196,7 +195,6 @@
   <string name="report_issue_dialog_collect_application_log">Επισύναψη αρχείου καταγραφής της εφαρμογής</string>
   <string name="report_issue_dialog_collect_wallet_dump">Επισύναψη αρχείου ένδειξης σφαλμάτων πορτοφολιού</string>
   <string name="report_issue_dialog_mail_intent_chooser">Αποστολή αναφοράς χρησιμοποιώντας…</string>
-  <string name="report_issue_dialog_mail_intent_failed">Αποτυχία αποστολής της αναφοράς.</string>
   <string name="about_title">Πληροφορίες</string>
   <string name="about_version_title">Έκδοση</string>
   <string name="about_copyright_title">Πνευματικά δικαιώματα</string>

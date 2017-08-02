@@ -127,7 +127,6 @@
 	<string name="export_keys_dialog_mail_subject">حفظ احتياطي للمفاتيح الخاصة بمحفظتك</string>
 	<string name="export_keys_dialog_mail_text">يحتوي الملف المشفر المرفق على مفاتيح محفظتك الخاصة ويجب عليك الحفاظ عليها في جميع الأوقات. لا تنسى كلمة المرور لفك التشفير!</string>
 	<string name="export_keys_dialog_mail_intent_chooser">أرشفة المفاتيح باستخدام…</string>
-	<string name="export_keys_dialog_mail_intent_failed">فشلت أرشفة المفاتيح.</string>
 	<string name="import_export_keys_dialog_password">كلمة المرور</string>
 	<string name="import_export_keys_dialog_show">إظهار كلمة المرور</string>
 	<string name="import_export_keys_dialog_failure_title">خطأ</string>
@@ -170,7 +169,6 @@
 	<string name="report_issue_dialog_collect_application_log">إرفاق سجل البرنامج</string>
 	<string name="report_issue_dialog_collect_wallet_dump">إرفاق مهملات المحفظة</string>
 	<string name="report_issue_dialog_mail_intent_chooser">إرسال التقرير بواسطة…</string>
-	<string name="report_issue_dialog_mail_intent_failed">فشل إرسال التقرير.</string>
 	<string name="about_title">تعليمات</string>
 	<string name="about_license_title">رخصة</string>
 	<string name="about_category_credits">هذا البرنامج يستخدم</string>

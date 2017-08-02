@@ -127,7 +127,6 @@
 	<string name="export_keys_dialog_mail_subject">Bitcoin Wallet - záloha privátnych kľúčov</string>
 	<string name="export_keys_dialog_mail_text">Príloha obsahuje zašifrované privátne kľúče, uchovajte ich v bezpečí. Nezabudnite vaše heslo!</string>
 	<string name="export_keys_dialog_mail_intent_chooser">Archivovať kľúče použitím…</string>
-	<string name="export_keys_dialog_mail_intent_failed">Archivácia kľúčov sa nepodarila.</string>
 	<string name="import_export_keys_dialog_password">heslo</string>
 	<string name="import_export_keys_dialog_show">Zobraziť heslo</string>
 	<string name="import_export_keys_dialog_failure_title">Chyba</string>
@@ -169,7 +168,6 @@
 	<string name="report_issue_dialog_collect_application_log">Pripojiť aplikačný log</string>
 	<string name="report_issue_dialog_collect_wallet_dump">Pripojiť dáta peňaženky</string>
 	<string name="report_issue_dialog_mail_intent_chooser">Odoslať správu použitím…</string>
-	<string name="report_issue_dialog_mail_intent_failed">Odosielanie hlásenia zlyhalo.</string>
 	<string name="about_title">O aplikácií</string>
 	<string name="about_license_title">Licencia</string>
 	<string name="about_category_credits">Táto aplikácia používa…</string>
