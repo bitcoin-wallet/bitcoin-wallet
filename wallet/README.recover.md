@@ -105,6 +105,10 @@ Now use wallet-tool to sync the wallet from your backup:
     ./wallet-tool reset --wallet=/tmp/bitcoin-wallet-decrypted-backup
     ./wallet-tool sync --wallet=/tmp/bitcoin-wallet-decrypted-backup --debuglog
 
+If you get an error about the key file being invalid/not existing, you may need to decrypt it with your spending PIN:
+    
+    ./wallet-tool decrypt --wallet=/tmp/bitcoin-wallet-decrypted-backup --password=<PIN>
+
 The sync process will take anywhere from a few minutes to hours. Wallet-tool will return to the
 shell prompt if its finished syncing. Have a look at the wallet:
 
