@@ -1,3 +1,8 @@
+v5.27
+
+* Fix app shortcuts for Android 7.1 devices.
+* Remove labs feature: Look up wallet names from the domain name system.
+
 v5.26
 
 * Add blocktrail.com to block explorers.
