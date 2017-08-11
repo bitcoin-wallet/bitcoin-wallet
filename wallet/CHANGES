@@ -1,4 +1,4 @@
-v5.27
+v5.27-v5.28
 
 * Fix app shortcuts for Android 7.1 devices.
 * Remove labs feature: Look up wallet names from the domain name system.
