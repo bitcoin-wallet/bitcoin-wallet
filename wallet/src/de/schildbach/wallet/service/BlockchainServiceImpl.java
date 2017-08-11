@@ -266,7 +266,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
                     } else {
                         final NotificationCompat.Builder notification = new NotificationCompat.Builder(
                                 BlockchainServiceImpl.this);
-                        notification.setSmallIcon(R.drawable.stat_notify_peers_24dp, Math.min(numPeers, 4));
+                        notification.setSmallIcon(R.drawable.stat_notify_peers, Math.min(numPeers, 4));
                         notification.setContentTitle(getString(R.string.app_name));
                         notification.setContentText(getString(R.string.notification_peers_connected_msg, numPeers));
                         notification.setContentIntent(PendingIntent.getActivity(BlockchainServiceImpl.this, 0,
