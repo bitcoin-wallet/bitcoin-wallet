@@ -9,7 +9,7 @@
         android:pivotY="12"
         android:rotation="270" >
         <path
-            android:fillColor="#000"
+            android:fillColor="#FFF"
             android:pathData="M3,21H6V18H3Z" />
     </group>
 
