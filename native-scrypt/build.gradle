@@ -1,0 +1,29 @@
+apply plugin: 'com.android.model.native'
+
+model {
+    android {
+        compileSdkVersion 15
+
+        ndk {
+            moduleName 'scrypt'
+            abiFilters.addAll(['armeabi', 'armeabi-v7a', 'x86'])
+            CFlags.add('-DHAVE_CONFIG_H')
+        }
+
+        sources {
+            main {
+                jni {
+                    source {
+                        srcDir 'src'
+                    }
+                }
+            }
+        }
+    }
+}
+
+task(copy, type: Copy) {
+    dependsOn assemble // trigger build
+    from 'build/outputs/native/release/lib'
+    into '../wallet/libs/'
+}

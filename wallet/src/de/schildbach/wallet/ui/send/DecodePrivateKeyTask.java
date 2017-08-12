@@ -26,53 +26,41 @@ import android.os.Looper;
 /**
  * @author Andreas Schildbach
  */
-public abstract class DecodePrivateKeyTask
-{
-	private final Handler backgroundHandler;
-	private final Handler callbackHandler;
+public abstract class DecodePrivateKeyTask {
+    private final Handler backgroundHandler;
+    private final Handler callbackHandler;
 
-	public DecodePrivateKeyTask(final Handler backgroundHandler)
-	{
-		this.backgroundHandler = backgroundHandler;
-		this.callbackHandler = new Handler(Looper.myLooper());
-	}
+    public DecodePrivateKeyTask(final Handler backgroundHandler) {
+        this.backgroundHandler = backgroundHandler;
+        this.callbackHandler = new Handler(Looper.myLooper());
+    }
 
-	public final void decodePrivateKey(final BIP38PrivateKey encryptedKey, final String passphrase)
-	{
-		backgroundHandler.post(new Runnable()
-		{
-			@Override
-			public void run()
-			{
-				try
-				{
-					final ECKey decryptedKey = encryptedKey.decrypt(passphrase); // takes time
+    public final void decodePrivateKey(final BIP38PrivateKey encryptedKey, final String passphrase) {
+        backgroundHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    final ECKey decryptedKey = encryptedKey.decrypt(passphrase); // takes time
 
-					callbackHandler.post(new Runnable()
-					{
-						@Override
-						public void run()
-						{
-							onSuccess(decryptedKey);
-						}
-					});
-				}
-				catch (final BIP38PrivateKey.BadPassphraseException x)
-				{
-					callbackHandler.post(new Runnable()
-					{
-						@Override
-						public void run()
-						{
-							onBadPassphrase();
-						}
-					});
-				}
-			}
-		});
-	}
+                    callbackHandler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            onSuccess(decryptedKey);
+                        }
+                    });
+                } catch (final BIP38PrivateKey.BadPassphraseException x) {
+                    callbackHandler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            onBadPassphrase();
+                        }
+                    });
+                }
+            }
+        });
+    }
 
-	protected abstract void onSuccess(ECKey decryptedKey);
+    protected abstract void onSuccess(ECKey decryptedKey);
 
-	protected abstract void onBadPassphrase();
+    protected abstract void onBadPassphrase();
 }

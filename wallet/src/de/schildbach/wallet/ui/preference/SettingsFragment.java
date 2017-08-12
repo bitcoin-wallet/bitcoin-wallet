@@ -17,117 +17,137 @@
 
 package de.schildbach.wallet.ui.preference;
 
-import android.app.Activity;
-import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
-import android.os.Bundle;
-import android.os.Handler;
-import android.preference.Preference;
-import android.preference.Preference.OnPreferenceChangeListener;
-import android.preference.PreferenceFragment;
+import java.net.InetAddress;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.WalletBalanceWidgetProvider;
-import hashengineering.groestlcoin.wallet.R;
+import de.schildbach.wallet_test.R;
+
+import android.app.Activity;
+import android.content.pm.PackageManager;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.HandlerThread;
+import android.os.Process;
+import android.preference.EditTextPreference;
+import android.preference.Preference;
+import android.preference.Preference.OnPreferenceChangeListener;
+import android.preference.PreferenceFragment;
 
 /**
  * @author Andreas Schildbach
  */
-public final class SettingsFragment extends PreferenceFragment implements OnPreferenceChangeListener
-{
-	private Activity activity;
-	private WalletApplication application;
-	private PackageManager pm;
+public final class SettingsFragment extends PreferenceFragment implements OnPreferenceChangeListener {
+    private Activity activity;
+    private WalletApplication application;
+    private Configuration config;
+    private PackageManager pm;
 
-	private final Handler handler = new Handler();
+    private final Handler handler = new Handler();
+    private HandlerThread backgroundThread;
+    private Handler backgroundHandler;
 
-	private Preference btcPrecisionPreference;
-	private Preference trustedPeerPreference;
-	private Preference trustedPeerOnlyPreference;
+    private Preference btcPrecisionPreference;
+    private Preference trustedPeerPreference;
+    private Preference trustedPeerOnlyPreference;
 
-	@Override
-	public void onAttach(final Activity activity)
-	{
-		super.onAttach(activity);
+    private static final Logger log = LoggerFactory.getLogger(SettingsFragment.class);
 
-		this.activity = activity;
-		this.application = (WalletApplication) activity.getApplication();
-		this.pm = activity.getPackageManager();
-	}
+    @Override
+    public void onAttach(final Activity activity) {
+        super.onAttach(activity);
 
-	@Override
-	public void onCreate(final Bundle savedInstanceState)
-	{
-		super.onCreate(savedInstanceState);
+        this.activity = activity;
+        this.application = (WalletApplication) activity.getApplication();
+        this.config = application.getConfiguration();
+        this.pm = activity.getPackageManager();
+    }
 
-		addPreferencesFromResource(R.xml.preference_settings);
+    @Override
+    public void onCreate(final Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-		btcPrecisionPreference = findPreference(Configuration.PREFS_KEY_BTC_PRECISION);
-		btcPrecisionPreference.setOnPreferenceChangeListener(this);
+        addPreferencesFromResource(R.xml.preference_settings);
 
-		trustedPeerPreference = findPreference(Configuration.PREFS_KEY_TRUSTED_PEER);
-		trustedPeerPreference.setOnPreferenceChangeListener(this);
+        backgroundThread = new HandlerThread("backgroundThread", Process.THREAD_PRIORITY_BACKGROUND);
+        backgroundThread.start();
+        backgroundHandler = new Handler(backgroundThread.getLooper());
 
-		trustedPeerOnlyPreference = findPreference(Configuration.PREFS_KEY_TRUSTED_PEER_ONLY);
-		trustedPeerOnlyPreference.setOnPreferenceChangeListener(this);
+        btcPrecisionPreference = findPreference(Configuration.PREFS_KEY_BTC_PRECISION);
+        btcPrecisionPreference.setOnPreferenceChangeListener(this);
 
-		final Preference dataUsagePreference = findPreference(Configuration.PREFS_KEY_DATA_USAGE);
-		dataUsagePreference.setEnabled(pm.resolveActivity(dataUsagePreference.getIntent(), 0) != null);
+        trustedPeerPreference = findPreference(Configuration.PREFS_KEY_TRUSTED_PEER);
+        ((EditTextPreference) trustedPeerPreference).getEditText().setSingleLine();
+        trustedPeerPreference.setOnPreferenceChangeListener(this);
 
-		final SharedPreferences prefs = getPreferenceManager().getSharedPreferences();
-		final String trustedPeer = prefs.getString(Configuration.PREFS_KEY_TRUSTED_PEER, "").trim();
-		updateTrustedPeer(trustedPeer);
-	}
+        trustedPeerOnlyPreference = findPreference(Configuration.PREFS_KEY_TRUSTED_PEER_ONLY);
+        trustedPeerOnlyPreference.setOnPreferenceChangeListener(this);
 
-	@Override
-	public void onDestroy()
-	{
-		trustedPeerOnlyPreference.setOnPreferenceChangeListener(null);
-		trustedPeerPreference.setOnPreferenceChangeListener(null);
-		btcPrecisionPreference.setOnPreferenceChangeListener(null);
+        final Preference dataUsagePreference = findPreference(Configuration.PREFS_KEY_DATA_USAGE);
+        dataUsagePreference.setEnabled(pm.resolveActivity(dataUsagePreference.getIntent(), 0) != null);
 
-		super.onDestroy();
-	}
+        updateTrustedPeer();
+    }
 
-	@Override
-	public boolean onPreferenceChange(final Preference preference, final Object newValue)
-	{
-		// delay action because preference isn't persisted until after this method returns
-		handler.post(new Runnable()
-		{
-			@Override
-			public void run()
-			{
-				if (preference.equals(btcPrecisionPreference))
-				{
-					WalletBalanceWidgetProvider.updateWidgets(activity, application.getWallet());
-				}
-				else if (preference.equals(trustedPeerPreference))
-				{
-					application.stopBlockchainService();
-					updateTrustedPeer((String) newValue);
-				}
-				else if (preference.equals(trustedPeerOnlyPreference))
-				{
-					application.stopBlockchainService();
-				}
-			}
-		});
+    @Override
+    public void onDestroy() {
+        trustedPeerOnlyPreference.setOnPreferenceChangeListener(null);
+        trustedPeerPreference.setOnPreferenceChangeListener(null);
+        btcPrecisionPreference.setOnPreferenceChangeListener(null);
 
-		return true;
-	}
+        backgroundThread.getLooper().quit();
 
-	private void updateTrustedPeer(final String trustedPeer)
-	{
-		if (trustedPeer.isEmpty())
-		{
-			trustedPeerPreference.setSummary(R.string.preferences_trusted_peer_summary);
-			trustedPeerOnlyPreference.setEnabled(false);
-		}
-		else
-		{
-			trustedPeerPreference.setSummary(trustedPeer);
-			trustedPeerOnlyPreference.setEnabled(true);
-		}
-	}
+        super.onDestroy();
+    }
+
+    @Override
+    public boolean onPreferenceChange(final Preference preference, final Object newValue) {
+        // delay action because preference isn't persisted until after this method returns
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                if (preference.equals(btcPrecisionPreference)) {
+                    WalletBalanceWidgetProvider.updateWidgets(activity, application.getWallet());
+                } else if (preference.equals(trustedPeerPreference)) {
+                    application.stopBlockchainService();
+                    updateTrustedPeer();
+                } else if (preference.equals(trustedPeerOnlyPreference)) {
+                    application.stopBlockchainService();
+                }
+            }
+        });
+
+        return true;
+    }
+
+    private void updateTrustedPeer() {
+        final String trustedPeer = config.getTrustedPeerHost();
+
+        if (trustedPeer == null) {
+            trustedPeerPreference.setSummary(R.string.preferences_trusted_peer_summary);
+            trustedPeerOnlyPreference.setEnabled(false);
+        } else {
+            trustedPeerPreference.setSummary(
+                    trustedPeer + "\n[" + getString(R.string.preferences_trusted_peer_resolve_progress) + "]");
+            trustedPeerOnlyPreference.setEnabled(true);
+
+            new ResolveDnsTask(backgroundHandler) {
+                @Override
+                protected void onSuccess(final InetAddress address) {
+                    trustedPeerPreference.setSummary(trustedPeer);
+                    log.info("trusted peer '{}' resolved to {}", trustedPeer, address);
+                }
+
+                @Override
+                protected void onUnknownHost() {
+                    trustedPeerPreference.setSummary(trustedPeer + "\n["
+                            + getString(R.string.preferences_trusted_peer_resolve_unknown_host) + "]");
+                }
+            }.resolve(trustedPeer);
+        }
+    }
 }

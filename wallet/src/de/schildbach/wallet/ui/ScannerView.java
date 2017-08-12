@@ -21,140 +21,137 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import com.google.zxing.ResultPoint;
+
+import de.schildbach.wallet_test.R;
+
 import android.content.Context;
 import android.content.res.Resources;
-import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Matrix;
+import android.graphics.Matrix.ScaleToFit;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
 import android.graphics.Rect;
+import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.View;
-
-import com.google.zxing.ResultPoint;
-import hashengineering.groestlcoin.wallet.R;
 
 /**
  * @author Andreas Schildbach
  */
-public class ScannerView extends View
-{
-	private static final long LASER_ANIMATION_DELAY_MS = 100l;
-	private static final int DOT_OPACITY = 0xa0;
-	private static final int DOT_SIZE = 8;
-	private static final int DOT_TTL_MS = 500;
+public class ScannerView extends View {
+    private static final long LASER_ANIMATION_DELAY_MS = 100l;
+    private static final int DOT_OPACITY = 0xa0;
+    private static final int DOT_TTL_MS = 500;
 
-	private final Paint maskPaint;
-	private final Paint laserPaint;
-	private final Paint dotPaint;
-	private Bitmap resultBitmap;
-	private final int maskColor;
-	private final int resultColor;
-	private final Map<ResultPoint, Long> dots = new HashMap<ResultPoint, Long>(16);
-	private Rect frame, framePreview;
+    private final Paint maskPaint;
+    private final Paint laserPaint;
+    private final Paint dotPaint;
+    private boolean isResult;
+    private final int maskColor, maskResultColor;
+    private final int laserColor;
+    private final int dotColor, dotResultColor;
+    private final Map<float[], Long> dots = new HashMap<float[], Long>(16);
+    private Rect frame;
+    private final Matrix matrix = new Matrix();
 
-	public ScannerView(final Context context, final AttributeSet attrs)
-	{
-		super(context, attrs);
+    public ScannerView(final Context context, final AttributeSet attrs) {
+        super(context, attrs);
 
-		final Resources res = getResources();
-		maskColor = res.getColor(R.color.scan_mask);
-		resultColor = res.getColor(R.color.scan_result_view);
-		final int laserColor = res.getColor(R.color.scan_laser);
-		final int dotColor = res.getColor(R.color.scan_dot);
+        final Resources res = getResources();
+        maskColor = res.getColor(R.color.scan_mask);
+        maskResultColor = res.getColor(R.color.scan_result_view);
+        laserColor = res.getColor(R.color.scan_laser);
+        dotColor = res.getColor(R.color.scan_dot);
+        dotResultColor = res.getColor(R.color.scan_result_dots);
 
-		maskPaint = new Paint();
-		maskPaint.setStyle(Style.FILL);
+        maskPaint = new Paint();
+        maskPaint.setStyle(Style.FILL);
 
-		laserPaint = new Paint();
-		laserPaint.setColor(laserColor);
-		laserPaint.setStrokeWidth(DOT_SIZE);
-		laserPaint.setStyle(Style.STROKE);
+        laserPaint = new Paint();
+        laserPaint.setStrokeWidth(res.getDimensionPixelSize(R.dimen.scan_laser_width));
+        laserPaint.setStyle(Style.STROKE);
 
-		dotPaint = new Paint();
-		dotPaint.setColor(dotColor);
-		dotPaint.setAlpha(DOT_OPACITY);
-		dotPaint.setStyle(Style.STROKE);
-		dotPaint.setStrokeWidth(DOT_SIZE);
-		dotPaint.setAntiAlias(true);
-	}
+        dotPaint = new Paint();
+        dotPaint.setAlpha(DOT_OPACITY);
+        dotPaint.setStyle(Style.STROKE);
+        dotPaint.setStrokeWidth(res.getDimension(R.dimen.scan_dot_size));
+        dotPaint.setAntiAlias(true);
+    }
 
-	public void setFraming(final Rect frame, final Rect framePreview)
-	{
-		this.frame = frame;
-		this.framePreview = framePreview;
+    public void setFraming(final Rect frame, final RectF framePreview, final int displayRotation,
+            final int cameraRotation, final boolean cameraFlip) {
+        this.frame = frame;
+        matrix.setRectToRect(framePreview, new RectF(frame), ScaleToFit.FILL);
+        matrix.postRotate(-displayRotation, frame.exactCenterX(), frame.exactCenterY());
+        matrix.postScale(cameraFlip ? -1 : 1, 1, frame.exactCenterX(), frame.exactCenterY());
+        matrix.postRotate(cameraRotation, frame.exactCenterX(), frame.exactCenterY());
 
-		invalidate();
-	}
+        invalidate();
+    }
 
-	public void drawResultBitmap(final Bitmap bitmap)
-	{
-		resultBitmap = bitmap;
+    public void setIsResult(final boolean isResult) {
+        this.isResult = isResult;
 
-		invalidate();
-	}
+        invalidate();
+    }
 
-	public void addDot(final ResultPoint dot)
-	{
-		dots.put(dot, System.currentTimeMillis());
+    public void addDot(final ResultPoint dot) {
+        dots.put(new float[] { dot.getX(), dot.getY() }, System.currentTimeMillis());
 
-		invalidate();
-	}
+        invalidate();
+    }
 
-	@Override
-	public void onDraw(final Canvas canvas)
-	{
-		if (frame == null)
-			return;
+    @Override
+    public void onDraw(final Canvas canvas) {
+        if (frame == null)
+            return;
 
-		final long now = System.currentTimeMillis();
+        final long now = System.currentTimeMillis();
 
-		final int width = canvas.getWidth();
-		final int height = canvas.getHeight();
+        final int width = canvas.getWidth();
+        final int height = canvas.getHeight();
 
-		// draw mask darkened
-		maskPaint.setColor(resultBitmap != null ? resultColor : maskColor);
-		canvas.drawRect(0, 0, width, frame.top, maskPaint);
-		canvas.drawRect(0, frame.top, frame.left, frame.bottom + 1, maskPaint);
-		canvas.drawRect(frame.right + 1, frame.top, width, frame.bottom + 1, maskPaint);
-		canvas.drawRect(0, frame.bottom + 1, width, height, maskPaint);
+        final float[] point = new float[2];
 
-		if (resultBitmap != null)
-		{
-			canvas.drawBitmap(resultBitmap, null, frame, maskPaint);
-		}
-		else
-		{
-			// draw red "laser scanner" to show decoding is active
-			final boolean laserPhase = (now / 600) % 2 == 0;
-			laserPaint.setAlpha(laserPhase ? 160 : 255);
-			canvas.drawRect(frame, laserPaint);
+        // draw mask darkened
+        maskPaint.setColor(isResult ? maskResultColor : maskColor);
+        canvas.drawRect(0, 0, width, frame.top, maskPaint);
+        canvas.drawRect(0, frame.top, frame.left, frame.bottom + 1, maskPaint);
+        canvas.drawRect(frame.right + 1, frame.top, width, frame.bottom + 1, maskPaint);
+        canvas.drawRect(0, frame.bottom + 1, width, height, maskPaint);
 
-			// draw points
-			final int frameLeft = frame.left;
-			final int frameTop = frame.top;
-			final float scaleX = frame.width() / (float) framePreview.width();
-			final float scaleY = frame.height() / (float) framePreview.height();
+        if (isResult) {
+            laserPaint.setColor(dotResultColor);
+            laserPaint.setAlpha(160);
 
-			for (final Iterator<Map.Entry<ResultPoint, Long>> i = dots.entrySet().iterator(); i.hasNext();)
-			{
-				final Map.Entry<ResultPoint, Long> entry = i.next();
-				final long age = now - entry.getValue();
-				if (age < DOT_TTL_MS)
-				{
-					dotPaint.setAlpha((int) ((DOT_TTL_MS - age) * 256 / DOT_TTL_MS));
+            dotPaint.setColor(dotResultColor);
+        } else {
+            laserPaint.setColor(laserColor);
+            final boolean laserPhase = (now / 600) % 2 == 0;
+            laserPaint.setAlpha(laserPhase ? 160 : 255);
 
-					final ResultPoint point = entry.getKey();
-					canvas.drawPoint(frameLeft + (int) (point.getX() * scaleX), frameTop + (int) (point.getY() * scaleY), dotPaint);
-				}
-				else
-				{
-					i.remove();
-				}
-			}
+            dotPaint.setColor(dotColor);
 
-			// schedule redraw
-			postInvalidateDelayed(LASER_ANIMATION_DELAY_MS);
-		}
-	}
+            // schedule redraw
+            postInvalidateDelayed(LASER_ANIMATION_DELAY_MS);
+        }
+
+        canvas.drawRect(frame, laserPaint);
+
+        // draw points
+        for (final Iterator<Map.Entry<float[], Long>> i = dots.entrySet().iterator(); i.hasNext();) {
+            final Map.Entry<float[], Long> entry = i.next();
+            final long age = now - entry.getValue();
+            if (age < DOT_TTL_MS) {
+                dotPaint.setAlpha((int) ((DOT_TTL_MS - age) * 256 / DOT_TTL_MS));
+
+                matrix.mapPoints(point, entry.getKey());
+                canvas.drawPoint(point[0], point[1], dotPaint);
+            } else {
+                i.remove();
+            }
+        }
+    }
 }

@@ -4,7 +4,7 @@
 <b>特徴</b>
 
 • 登録必要なし、ウェブサービスもクラウドもいりません! このウォレットは分散型P2Pです。
-• GRS、mGRS、μGRSでのビットコインの表示。
+• BTC、mBTC、μBTCでのビットコインの表示。
 • 自国通貨へ/自国通貨からの変換表示。
 • NFC、QRコード、ビットコインURLでの送金や受取。
 • 良く使うビットコインアドレス用のアドレスブック。
@@ -16,19 +16,21 @@
 
 <b>開発に協力ください</b>
 
-GroestlCoin Walletは<b>オープンソース</b>であり、<b>自由ソフトウェア</b>です。ライセンス: GPLv3
+Bitcoin Walletは<b>オープンソース</b>であり、<b>自由ソフトウェア</b>です。ライセンス: GPLv3
 https://www.gnu.org/licenses/gpl-3.0.ja.html
 
 ソースコードはGithubにあります。
-https://github.com/GroestlCoin/groestlcoin-wallet
+https://github.com/bitcoin-wallet/bitcoin-wallet
 
 全ての翻訳はTransifexで管理されています:
-https://www.transifex.com/projects/p/bitcoin-wallet/
+https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/
 
 
 <b>推薦文</b>
 
-• http://www.groestlcoin.org の推奨モバイルウォレットです。
+• 多くのモバイルウォレットのコードはBitcoin Walletをベースにしています。例: blockchain.info, BTCX.
+• https://bitcoin.org の推奨モバイルウォレットです。
+• BitPayによって推奨されています。
 
 
 <i>自己責任でお使いください!</i>

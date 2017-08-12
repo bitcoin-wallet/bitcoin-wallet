@@ -92,6 +92,243 @@ v1.00
 * Forked bitcoin-wallet v3.23 for digitalcoin V1.00 (http://digitalcoin.co)
 
 Bitcoin Wallet
+v5.24
+
+* Update translations from Transifex.
+
+v5.23
+
+* Fix problem with sweeping paper wallets.
+
+v5.20-v5.22
+
+* Adjust the static network fees used for sanity checks and fallbacks.
+
+v5.19
+
+* Update translations from Transifex.
+* Minor bugfixes.
+
+v5.18
+
+* Add technical notes.
+* Update translations from Transifex.
+
+v5.17
+
+* Bugfix.
+
+v5.16
+
+* Improve app startup time.
+* Fix 'raise fee' was raising the fee too much.
+
+v5.15
+
+* Block sending payments while blockchain replay is in progress.
+
+v5.14
+
+* Update translations from Transifex.
+* Bugfix.
+
+v5.13
+
+* Add option to report issue with selected payment.
+* Add blockchain.info to block explorers.
+* Minor bugfix.
+
+v5.12
+
+* Query a set of Electrum servers to swipe paper wallets. Biteasy can't be used any more,
+  because they are closing down.
+
+v5.11
+
+* Update translations from Transifex.
+* Remove biteasy from block explorers because they are closing down.
+* Minor bugfixes.
+
+v5.10
+
+* Minor bugfix.
+
+v5.09
+
+* Material design for Android 5.0 (Lollipop) and above!
+
+v5.08
+
+* Minor bugfix.
+
+v5.07
+
+* For Android 7.1 (Nougat) and above, support the new app shortcuts.
+
+v5.06
+
+* Minor bugfix.
+
+v5.05
+
+* For Android 6.0 (Marshmellow) and above, bring back the ability to receive payments via
+  Bluetooth. This means your customers can pay without being connected to the internet!
+* Nicely animated appearance of main screen on phones.
+
+v5.04
+
+* Switch exchange rates feed to BitcoinAverage API v2.
+* Update translations from Transifex.
+* Minor bugfix.
+
+v5.03
+
+* Work around broken exchange rate.
+
+v5.02
+
+* Dynamic network fee. This will help dealing with an overloaded Bitcoin network.
+
+v5.01
+
+* Fix background color in recent tasks list.
+* The testnet version doesn't make files world readable any more.
+* Adjust the normal fee category.
+
+v5.0
+
+* The app now requires Android 4.1 (Jelly Bean) or higher. This makes UI development easier
+  in future.
+* Fix detection of network state. This needs the ACCESS_NETWORK_STATE permission.
+
+v4.72
+
+* Minor bugfix.
+
+v4.71
+
+* Update translations from Transifex.
+* Minor bugfixes.
+
+v4.70
+
+* Supports HTTP/2 and ALPN on all HTTP calls (e.g. payment protocol).
+* Slightly more robust scanning of QR codes.
+* Minor bugfixes.
+
+v4.69
+
+* Strengthen security of spending PIN for all existing wallets, too.
+
+v4.68
+
+* Regression fix.
+
+v4.67
+
+* Speed up wallet decryption when using a spending PIN.
+* Minor bugfix.
+
+v4.66
+
+* Strengthen security of spending PIN.
+* Update translations from Transifex.
+
+v4.65
+
+* Fix for layout in landscape orientation.
+
+v4.64
+
+* Quick-fix regression: ANR coming from the QR code scanner back into the 'send coins' dialog.
+
+v4.63
+
+* Fix rotated camera image on some devices.
+
+v4.62
+
+* Message for a delayed confirmation of an incoming payment.
+* Minor bugfixes.
+
+v4.61
+
+* On Android 6.0 (Marshmellow) and above, you can now grant or revoke app permissions at will.
+  The current permissions are: Camera (for scanning QR codes) and Read/Write External Storage (for
+  wallet backups).
+* Fix a crash when trying to sweep a password protected paper wallet.
+* Update translations from Transifex.
+
+v4.60
+
+* Fix a crash when scanning QR codes.
+
+v4.59
+
+* Make sure the lockscreen doesn't get in the way of scanning QR codes or requesting coins.
+
+v4.58
+
+* Adjust the normal fee category.
+* Minor bugfix.
+
+v4.57
+
+* Adjust all fee categories.
+
+v4.56
+
+* Minor bugfixes.
+* Based on bitcoinj 0.14.3.
+
+v4.55
+
+* Fix occasional crash while editing the 'pay to' field when sending coins.
+
+v4.54
+
+* Fix for rare wrong balance calculation.
+* Labs: When sending coins, use DNSSEC to look up wallet names from the domain name system.
+* Based on bitcoinj 0.14.2.
+
+v4.53
+
+* Fix crash when sweeping a paper wallet.
+
+v4.52
+
+* The network fee is now calculated on a per-byte basis, rather than per-kB. On average, this
+  means a lower fee!
+* Based on bitcoinj 0.14.
+
+v4.51
+
+* Improve mechanism for setting a trusted peer and warn if its hostname cannot be resolved.
+
+v4.50
+
+* After a couple of weeks of not being used, the app will notify if there are still coins in the
+  wallet.
+
+v4.49
+
+* Update translations from Transifex.
+* Based on bitcoinj 0.13.6.
+
+v4.48
+
+* Fix for crash when entering too large amounts.
+* Add warning to RBF (replace-by-fee) transactions.
+
+v4.47
+
+* Automatically close send coins dialog if payment was successful. This can be disabled in the
+  settings.
+* Consider RBF (replace-by-fee) transactions as risky, so for them wait for the first
+  confirmation.
+* Update Catalan translation from Transifex.
+* Based on bitcoinj 0.13.5.
+
 v4.46
 
 * Speculative fix for ANR.
@@ -173,7 +410,7 @@ v4.32
 
 * Bugfixes.
 * In-app payments integration (integration-android) now available on Maven Central and jCenter.
-  Also see: https://github.com/schildbach/bitcoin-wallet/wiki/InAppPayments
+  Also see: https://github.com/bitcoin-wallet/bitcoin-wallet/wiki/InAppPayments
 
 v4.31
 

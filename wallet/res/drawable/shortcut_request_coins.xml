@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:bottom="@dimen/shortcut_padding"
+        android:left="@dimen/shortcut_padding"
+        android:right="@dimen/shortcut_padding"
+        android:top="@dimen/shortcut_padding">
+        <shape android:shape="oval" >
+            <size
+                android:height="@dimen/shortcut_size"
+                android:width="@dimen/shortcut_size" />
+
+            <solid android:color="@color/bg_shortcut" />
+        </shape>
+    </item>
+    <item
+        android:gravity="center"
+        android:height="@dimen/shortcut_icon_size"
+        android:width="@dimen/shortcut_icon_size">
+        <bitmap
+            android:src="@drawable/ic_send_flipped_white_24dp"
+            android:tint="@color/fg_shortcut" />
+    </item>
+
+</layer-list>

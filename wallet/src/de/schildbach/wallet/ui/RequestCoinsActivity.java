@@ -17,46 +17,48 @@
 
 package de.schildbach.wallet.ui;
 
+import de.schildbach.wallet_test.R;
+
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import hashengineering.groestlcoin.wallet.R;
+import android.view.WindowManager;
 
 /**
  * @author Andreas Schildbach
  */
-public final class RequestCoinsActivity extends AbstractBindServiceActivity
-{
-	@Override
-	protected void onCreate(final Bundle savedInstanceState)
-	{
-		super.onCreate(savedInstanceState);
+public final class RequestCoinsActivity extends AbstractBindServiceActivity {
+    @Override
+    protected void onCreate(final Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-		setContentView(R.layout.request_coins_content);
-	}
+        setContentView(R.layout.request_coins_content);
+    }
 
-	@Override
-	public boolean onCreateOptionsMenu(final Menu menu)
-	{
-		getMenuInflater().inflate(R.menu.request_coins_activity_options, menu);
+    @Override
+    public void onAttachedToWindow() {
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
+    }
 
-		return super.onCreateOptionsMenu(menu);
-	}
+    @Override
+    public boolean onCreateOptionsMenu(final Menu menu) {
+        getMenuInflater().inflate(R.menu.request_coins_activity_options, menu);
 
-	@Override
-	public boolean onOptionsItemSelected(final MenuItem item)
-	{
-		switch (item.getItemId())
-		{
-			case android.R.id.home:
-				finish();
-				return true;
+        return super.onCreateOptionsMenu(menu);
+    }
 
-			case R.id.request_coins_options_help:
-				HelpDialogFragment.page(getFragmentManager(), R.string.help_request_coins);
-				return true;
-		}
+    @Override
+    public boolean onOptionsItemSelected(final MenuItem item) {
+        switch (item.getItemId()) {
+        case android.R.id.home:
+            finish();
+            return true;
 
-		return super.onOptionsItemSelected(item);
-	}
+        case R.id.request_coins_options_help:
+            HelpDialogFragment.page(getFragmentManager(), R.string.help_request_coins);
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 }

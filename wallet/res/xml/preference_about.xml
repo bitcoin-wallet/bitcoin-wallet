@@ -66,5 +66,54 @@
 			android:action="android.intent.action.VIEW"
 			android:data="https://Groestlcointalk.org/index.php?action=profile;u=2062" />
 	</Preference-->
+	<Preference
+		android:key="about_version"
+		android:title="@string/about_version_title" />
+	<Preference
+		android:summary="© 2011-2016, the Bitcoin Wallet developers\n© 2014-2016 Hash Engineering Solutions"
+		android:title="@string/about_copyright_title" />
+	<Preference
+		android:key="about_license"
+		android:summary="https://www.gnu.org/licenses/gpl-3.0.txt"
+		android:title="@string/about_license_title" >
+		<intent
+			android:action="android.intent.action.VIEW"
+			android:data="https://www.gnu.org/licenses/gpl-3.0.txt" />
+	</Preference>
+	<Preference
+		android:key="about_source"
+		android:summary="https://github.com/Groestlcoin/groestlcoin-wallet"
+		android:title="@string/about_source_title" >
+		<intent
+			android:action="android.intent.action.VIEW"
+			android:data="https://github.com/Groestlcoin/groestlcoin-wallet" />
+	</Preference>
+	<Preference
+		android:key="about_market_app"
+		android:summary="@string/about_market_app_summary"
+		android:title="@string/about_market_app_title" />
+	<Preference
+		android:key="about_community_googleplus"
+		android:summary="@string/about_community_googleplus_summary"
+		android:title="@string/about_community_googleplus_title" >
+		<intent
+			android:action="android.intent.action.VIEW"
+			android:data="https://plus.google.com/101784974802931539475" />
+	</Preference>
+	<Preference
+		android:key="about_credits_bitcoinj"
+		android:summary="http://www.hashengineeringsolutions.com/?page_id=192" >
+		<intent
+			android:action="android.intent.action.VIEW"
+			android:data="http://www.hashengineeringsolutions.com/?page_id=192" />
+	</Preference>
+	<Preference
+		android:key="about_credits_zxing"
+		android:summary="https://github.com/zxing/zxing"
+		android:title="@string/about_credits_zxing_title" >
+		<intent
+			android:action="android.intent.action.VIEW"
+			android:data="https://github.com/zxing/zxing" />
+	</Preference>
 
 </PreferenceScreen>

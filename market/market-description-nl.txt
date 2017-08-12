@@ -1,34 +1,36 @@
-<b>Draag je GroestlCoins altijd bij je, in je broekzak!</b> Je kunt vlot betalen door een QR-code te scannen. Als handelaar ontvang je je betalingen betrouwbaar en onmiddelijk. GroestlCoin Wallet is de eerste mobiele GroestlCoin-app, en misschien wel de veiligste!
+<b>Draag je Bitcoins altijd bij je, in je broekzak!</b> Je kunt vlot betalen door een QR-code te scannen. Als winkelier ontvang je je betalingen betrouwbaar en onmiddelijk. Bitcoin Wallet is de eerste mobiele Bitcoin-app, en misschien wel de veiligste!
 
 
-<b>FEATURES</b>
+<b>EIGENSCHAPPEN</b>
 
-• Geen registratie, webservice of cloud vereist! De portemonnee is decentraal en peer-to-peer.
-• Toon GroestlCoin bedrag in GRS, mGRS en µGRS.
+• Geen registratie, webservice of cloud vereist! Deze portemonnee is decentraal en peer-to-peer.
+• Toon Bitcoin bedrag in BTC, mBTC en µBTC.
 • Conversie van en naar nationale valuta.
-* Verzend en ontvang GroestlCoin via NFC, QR-codes of GroestlCoin-URL's
-• Adresboek voor regelmatig gebruikte GroestlCoin-adressen.
+* Verzend en ontvang Bitcoin via NFC, QR-codes of Bitcoin-URL's
+• Adresboek voor regelmatig gebruikte Bitcoin-adressen.
 • Offline kun je nog steeds betalen via Bluetooth.
-• Systeemmelding wanneer je GroestlCoins ontvangt
+• Systeemmelding wanneer je Bitcoins ontvangt
 • Opname van papieren portemonnee (b.v. voor cold storage).
-• App widget voor GroestlCoin saldo.
+• App widget voor Bitcoin saldo.
 
 
 <b>HELP MEE</b>
 
-GroestlCoin Wallet is <b>open source</b> en <b>free software</b>. Licentie: GPLv3
-https://www.gnu.org/licenses/gpl-3.0.en.html
+Bitcoin Wallet is <b>open source</b> en <b>free software</b>. Licentie: GPLv3
+https://www.gnu.org/licenses/gpl-3.0.nl.html
 
 Onze broncode is beschikbaar op GitHub:
-https://github.com/GroestlCoin/groestlcoin-wallet
+https://github.com/bitcoin-wallet/bitcoin-wallet
 
 Alle vertalingen worden geregeld via Transifex:
-https://www.transifex.com/projects/p/bitcoin-wallet/
+https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/
 
 
 <b>TESTIMONIALS</b>
 
-* Aanbevolen mobiele portemonnee op http://www.groestlcoin.org
+* Veel mobiele portemonnees baseren hun code op Bitcoin Wallet. Voorbeelden: blockchain.info en BTCX.
+* Aanbevolen mobiele portemonnee op https://bitcoin.org
+* Aangeraden door BitPay.
 
 
 <i>Gebruik op eigen risico!</i>

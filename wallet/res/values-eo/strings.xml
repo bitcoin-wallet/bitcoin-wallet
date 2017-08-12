@@ -20,7 +20,6 @@
 	<string name="exchange_rates_fragment_rate">proporcio</string>
 	<string name="exchange_rates_fragment_balance">saldo</string>
 	<string name="exchange_rates_fragment_source">Prezo prenis de %s</string>
-	<string name="exchange_rates_context_set_as_default_title">Ŝalti kiel defaŭltan eksterlandan valuton</string>
 	<string name="wallet_transactions_options_filter_received">Ricevita</string>
 	<string name="wallet_transactions_options_filter_all">Ambaŭ</string>
 	<string name="wallet_transactions_options_filter_sent">Sendita</string>
@@ -135,7 +134,6 @@
 	<string name="preferences_data_usage_title">Datumoj uzado</string>
 	<string name="preferences_data_usage_summary">Montri opciojn por restrikti datuman uzon je poŝtelefonaj retoj.</string>
 	<string name="preferences_report_issue_title">Reporti aferon</string>
-	<string name="preferences_report_issue_summary">Kolekti informojn pri via afero kaj retpoŝtu vian raporton al la programistoj.</string>
 	<string name="preferences_initiate_reset_title">Reŝargi Blokĉenon</string>
 	<string name="preferences_initiate_reset_summary">Reŝargi blokĉenon, transakciojn, kaj monujan saldon. Povus preni momenton.</string>
 	<string name="preferences_initiate_reset_dialog_message">Ĉu vi volus reŝargi la blokĉenon?\n\nTio provizore kaŝi vian monujo-saldo kaj forigi transakciojn. Ambaŭ reiros kiel blokĉena sinkronigo progresas.</string>
@@ -153,9 +151,9 @@
 	<string name="report_issue_dialog_mail_intent_chooser">Sendi reporton uzante…</string>
 	<string name="about_title">Pri</string>
 	<string name="about_license_title">Licenco</string>
-	<string name="about_credits_bitcoinj_title">Ĉi tiu aplikaĵo uzas groestlcoinj-n %s</string>
-	<string name="about_credits_zxing_title">Ĉi tiu aplikaĵo uzas \'zxing\'-n</string>
-	<string name="about_credits_icon_title">Ĉi tiu aplikaĵo uzas bildsimbolon per \'bitboy\'</string>
+	<string name="about_category_credits">Ĉi tiu aplikaĵo uzas…</string>
+	<string name="about_credits_bitcoinj_title">bitcoinj %s</string>
+	<string name="about_credits_zxing_title">ZXing</string>
 	<string name="about_community_googleplus_title">\"Google+\" Komunumo</string>
 	<string name="about_community_googleplus_summary">Diskutoj pri l\'aplikaĵo</string>
 	<string name="about_market_app_title">\"Google Play\" Paĝo</string>

@@ -30,64 +30,54 @@ import android.widget.TextView;
 /**
  * @author Andreas Schildbach
  */
-public class ImportDialogButtonEnablerListener implements TextWatcher, OnItemSelectedListener
-{
-	private final TextView passwordView;
-	private final AlertDialog dialog;
+public class ImportDialogButtonEnablerListener implements TextWatcher, OnItemSelectedListener {
+    private final TextView passwordView;
+    private final AlertDialog dialog;
 
-	public ImportDialogButtonEnablerListener(final TextView passwordView, final AlertDialog dialog)
-	{
-		this.passwordView = passwordView;
-		this.dialog = dialog;
+    public ImportDialogButtonEnablerListener(final TextView passwordView, final AlertDialog dialog) {
+        this.passwordView = passwordView;
+        this.dialog = dialog;
 
-		handle();
-	}
+        handle();
+    }
 
-	@Override
-	public void onItemSelected(final AdapterView<?> parent, final View view, final int position, final long id)
-	{
-		handle();
-	}
+    @Override
+    public void onItemSelected(final AdapterView<?> parent, final View view, final int position, final long id) {
+        handle();
+    }
 
-	@Override
-	public void onNothingSelected(final AdapterView<?> parent)
-	{
-		handle();
-	}
+    @Override
+    public void onNothingSelected(final AdapterView<?> parent) {
+        handle();
+    }
 
-	@Override
-	public void afterTextChanged(final Editable s)
-	{
-		handle();
-	}
+    @Override
+    public void afterTextChanged(final Editable s) {
+        handle();
+    }
 
-	@Override
-	public void beforeTextChanged(final CharSequence s, final int start, final int count, final int after)
-	{
-	}
+    @Override
+    public void beforeTextChanged(final CharSequence s, final int start, final int count, final int after) {
+    }
 
-	@Override
-	public void onTextChanged(final CharSequence s, final int start, final int before, final int count)
-	{
-	}
+    @Override
+    public void onTextChanged(final CharSequence s, final int start, final int before, final int count) {
+    }
 
-	public void handle()
-	{
-		final boolean needsPassword = needsPassword();
-		final boolean hasPassword = !passwordView.getText().toString().trim().isEmpty();
-		final boolean hasFile = hasFile();
+    public void handle() {
+        final boolean needsPassword = needsPassword();
+        final boolean hasPassword = !passwordView.getText().toString().trim().isEmpty();
+        final boolean hasFile = hasFile();
 
-		final Button button = dialog.getButton(DialogInterface.BUTTON_POSITIVE);
-		button.setEnabled(hasFile && (!needsPassword || hasPassword));
-	}
+        final Button button = dialog.getButton(DialogInterface.BUTTON_POSITIVE);
+        button.setEnabled(hasFile && (!needsPassword || hasPassword));
+    }
 
-	protected boolean hasFile()
-	{
-		return true;
-	}
+    protected boolean hasFile() {
+        return true;
+    }
 
-	protected boolean needsPassword()
-	{
-		return true;
-	}
+    protected boolean needsPassword() {
+        return true;
+    }
 }

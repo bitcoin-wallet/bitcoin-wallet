@@ -1,34 +1,36 @@
-<b>Hav altid dine GroestlCoins med dig i din lomme!</b> Du betaler ved hurtigt at scanne en QR-kode. Som handlende kan du modtage betalinger pålideligt og øjeblikkeligt. GroestlCoin Wallet er den første mobile GroestlCoin-app, og muligvis også den mest sikre!
+<b>Hav altid dine Bitcoins med dig i din lomme!</b> Du betaler ved hurtigt at scanne en QR-kode. Som handlende kan du modtage betalinger pålideligt og øjeblikkeligt. Bitcoin Wallet er den første mobile Bitcoin-app, og muligvis også den mest sikre!
 
 
 <b>FUNKTIONER</b>
 
 • Ingen registrering, webservice eller sky behøves! Tegnebogen er decentraliseret og peer-to-peer.
-• Visning af GroestlCoin-beløb i GRS, mGRS og µGRS.
+• Visning af Bitcoin-beløb i BTC, mBTC og µBTC.
 • Konvertering til og fra lokale valutaer.
-• Afsendelse og modtagelse af GroestlCoin via NFC, QR-koder eller GroestlCoin-URLer.
-• Adressebog til ofte brugte GroestlCoin-adresser.
+• Afsendelse og modtagelse af Bitcoin via NFC, QR-koder eller Bitcoin-URLer.
+• Adressebog til ofte brugte Bitcoin-adresser.
 • Når du er offline, kan du stadig betale via Bluetooth.
 • Systemnotifikation for modtagne mønter.
 • Rydning af papirtegnebøger (fx de der bruges til kold opbevaring).
-• App-widget for GroestlCoin-saldo.
+• App-widget for Bitcoin-saldo.
 
 
 <b>BIDRAG</b>
 
-GroestlCoin Wallet er <b>fri software</b> med <b>åben kildekode</b>. Licens: GPLv3
+Bitcoin Wallet er <b>fri software</b> med <b>åben kildekode</b>. Licens: GPLv3
 https://www.gnu.org/licenses/gpl-3.0.en.html
 
 Vores kildekode er tilgængelig på GitHub:
-https://github.com/GroestlCoin/groestlcoin-wallet
+https://github.com/bitcoin-wallet/bitcoin-wallet
 
 Alle oversættelser håndteres via Transifex:
-https://www.transifex.com/projects/p/bitcoin-wallet/
+https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/
 
 
 <b>ANBEFALINGER</b>
 
-• Anbefalet mobil-tegnebog af http://www.groestlcoin.org
+• Mange mobile tegnebøger baserer deres kode på Bitcoin Wallet. Eksempler: blockchain.info og BTCX.
+• Anbefalet mobil-tegnebog af https://bitcoin.org
+• Anbefalet af BitPay.
 
 
 <i>Brug for egen risiko!</i>

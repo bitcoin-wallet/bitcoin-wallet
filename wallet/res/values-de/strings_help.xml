@@ -1,67 +1,66 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
 
-	<string name="help_wallet">
+    <string name="help_wallet">
 <![CDATA[
 		<p>
-			Im linken oberen Teil des Bildschirms wird dein aktuelles Guthaben in Groestlcoin und einer ausgewählten Währung angezeigt.
+			Im linken oberen Teil des Bildschirms wird dein aktuelles Guthaben in Bitcoin und einer ausgewählten Währung angezeigt.
 			Mit einem Tap darauf gelangst du in die Liste der verfügbaren Währungen, ein weiterer Tap auf eine der Währungen setzt sie als Standardwährung.
 		</p>
 		<p>
-			Der QR-Code auf dem oberen rechten Teil des Displays enthält ebenfalls Deine Groestlcoin-Adresse und kann von einem anderen Teilnehmer eingescannt werden.
+			Der QR-Code oben rechts enthält deine aktuelle Bitcoin-Adresse und kann von einem Zahlungssender eingescannt werden.
 			Mit einem Tap auf den QR-Code wird dieser vergrößert.
 		</p>
 		<p>
-			Im unteren Teil des Bildschirms wird die Transaktionsliste angezeigt, die anfangs leer ist.
-			Unbestätigte Transaktionen werden grau angezeigt, bis sie bestätigt sind.
-			Mit einem Tap auf einen Eintrag kann man die Sender- oder Empfängeradresse zum Adressbuch hinzufügen.
+			Im unteren Teil des Bildschirms wird die Transaktionsliste angezeigt.
+			Sie ist anfangs leer, und wird sich mit empfangenen und gesendeten Zahlungen füllen.
+			Empfangene Zahlungen werden grün markiert und gesendete rot.
 		</p>
 		<p>
 			In der Titelzeile finden sich Knöpfe zum Anfordern oder Versenden von Zahlungen.
-			Im Optionsmenü sind weitere Aktionen versteckt.
+			Im Optionsmenü sind weitere Aktionen verfügbar.
 		</p>
 	]]>
-	</string>
-	<string name="help_request_coins">
+    </string>
+    <string name="help_request_coins">
 <![CDATA[
 		<p>
-			In diesem Dialogfeld kann eine Zahlung von einem anderen Teilnehmer angefordert werden, der dafür Groestlcoin Wallet auf seinem Gerät installiert haben sollte.
+			In diesem Dialogfeld kann eine Zahlung von einem Zahlungssender angefordert werden.
+			Der Sender sollte dafür bereits ein Bitcoin wallet auf seinem Gerät installiert haben.
 		</p>
 		<p>
-			Dafür muss der angeforderte Betrag eingegeben werden.
+			Zunächst kann der angeforderte Betrag eingegeben werden.
 		</p>
 		<p>
 			Der anschließend generierte QR-Code kann vom Sender eingescannt werden.
 			Alternativ kann die Zahlungsanforderung über die Aktionsleiste mit dem Teilen-Button verschickt werden.
-			Der Empfänger kann durch einen Tap auf die empfangene URL die Zahlung einleiten.
+			Falls beide Geräte NFC aktiviert haben, können sie auch zusammengehalten werden.
 		</p>
 		<p>
-			Bei beiden Varianten wird bei dem anderen Teilnehmer ein Zahlungsdialog geöffnet, bei dem sämtliche Felder bereits ausgefüllt sind.
-			Wenn alle Angaben korrekt sind, kann die Zahlung kann durch eine einfache Bestätigung ausgeführt werden.
+			In jedem Fall wird beim Sender ein Zahlungsdialog geöffnet, bei dem sämtliche Felder bereits ausgefüllt sind.
+			Wenn der Sender einverstanden ist, kann die Zahlung durch eine einfache Bestätigung ausgeführt werden.
 		</p>
 	]]>
-	</string>
-	<string name="help_send_coins">
+    </string>
+    <string name="help_send_coins">
 <![CDATA[
 		<p>
 			Dieses Dialogfeld wird geöffnet, wenn der Zahlungsprozess initiiert wurde.
-			Dies geschieht entweder durch einen Tap auf "Zahlung senden" auf der Startseite oder einen Tap auf eine Groestlcoin-URL im mobilen Browser.
 		</p>
 		<p>
 			Im ersten Feld muss die Empfängeradresse eingegeben werden.
 			Wenn eine Adresse im Adressbuch gespeichert wurde, wird diese automatisch vervollständigt.
-			Es kann ebenfalls ein QR-Code mit Groestlcoin-Adressen oder Zahlungsanforderungen eingescannt werden, indem man den QR-Button in der Aktionsleiste tappt.
-		</p>
-		<p>
-			Im nächsten Feld wird das verschickbare Groestlcoin-Guthaben angezeigt.
-			Falls dieses Guthaben vom angezeigten Guthaben auf der Hauptseite abweicht, sind noch nicht alle Transaktionen bestätigt.
+			Es kann auch ein vom Zahlungsempfänger gezeigter QR-Code eingescannt werden, indem man den Kamera-Button betätigt.
 		</p>
 		<p>
 			Anschließend kann der zu versendende Betrag eingegeben werden.
 		</p>
 		<p>
+			Schliesslich muss die Ausgabe-PIN eingegeben werden, wenn vorher zur Sicherheit eine festgelegt wurde.
+		</p>
+		<p>
 			Eine Zahlung kann auch offline eingegeben werden.
-			Sie wird bei einem Neustart von Groestlcoin Wallet ausgeführt.
+			Sie wird bei einem Neustart von Bitcoin Wallet ausgeführt.
 			Wenn eine Zahlung so schnell wie möglich bestätigt werden soll, ist eine gute Verbindung (z.B. über WLAN) vonnöten.
 		</p>
 		<p>
@@ -70,15 +69,15 @@
 			Die Empfängeradresse sollte deswegen vor Bestätigung der Zahlung unbedingt auf Richtigkeit überprüft werden.
 		</p>
 	]]>
-	</string>
-	<string name="help_safety">
+    </string>
+    <string name="help_safety">
 <![CDATA[
 		<p>
 			<b>Wichtige Sicherheitshinweise:</b>
 		</p>
 		<p>
-			Groestlcoins werden lokal auf dem Gerät gespeichert.
-			<b>Wenn das Gerät verloren geht, gehen alle Groestlcoins verloren.</b>
+			Bitcoins werden lokal auf dem Gerät gespeichert.
+			<b>Wenn das Gerät verloren geht, gehen alle Bitcoins verloren.</b>
 		</p>
 		<p>
 			Das bedeutet, <b>du musst deine Wallet sichern</b>!
@@ -86,24 +85,41 @@
 			Hebe deine Sicherung gut auf und vergiß das Passwort nicht.
 		</p>
 		<p>
-			<b>Vor der Deinstallation</b> (oder dem Löschen der App-Daten/Formatierung des Geräts), <b>müssen alle Groestlcoins auf eine andere Wallet übertragen werden</b>.
-			Auf dem Gerät verbleibende Groestlcoins gehen verloren.
+			<b>Vor der Deinstallation</b> (oder dem Löschen der App-Daten/Formatierung des Geräts), <b>müssen alle Bitcoins auf eine andere Wallet übertragen werden</b>.
+			Auf dem Gerät verbleibende Bitcoins gehen verloren.
 		</p>
 		<p>
 			<b>Zahlungen können nicht rückgängig gemacht werden</b>.
-			Wenn Groestlcoins ins Unbekannte geschickt werden, gibt es kaum Möglichkeit, sie zurückzuholen.
+			Wenn Bitcoins ins Unbekannte geschickt werden, gibt es kaum Möglichkeit, sie zurückzuholen.
 		</p>
 		<p>
 			<b>Halte dein Mobilgerät sicher!</b>
 			Roote dein Gerät nicht.
 			Installiere nur Apps, denen du vollkommen vertraust.
-			Bösartige Apps könnten versuchen, die in der Wallet gespeicherten Groestlcoins zu stehlen.
+			Bösartige Apps könnten versuchen, die in der Wallet gespeicherten Bitcoins zu stehlen.
 		</p>
 		<p>
 			Minimiere das Risiko!
-			Speichere nur <b>Beträge für den täglichen Gebrauch</b>.
+			<b>Speichere nur einen angemessenen Betrag</b> für den täglichen Gebrauch.
 		</p>
 	]]>
-	</string>
+    </string>
+    <string name="help_technical_notes">
+<![CDATA[
+        <p>
+            <b>Technische Hinweise:</b>
+        </p>
+        <p>
+            Als SPV/Light-Wallet folgt Bitcoin Wallet der Blockchain mit dem größten Proof-of-Work (manchmal auch \"längste Kette\", \"winning chain\" oder \"Bitcoin blockchain\" genannt).
+            Du wirst Bitcoins nur auf dieser Kette empfangen und darauf zahlen können.
+            Für Bitcoins auf Ketten mit kürzerer Proof-of-Work (auch \"minority chains\" genannt) gibt es keine Garantie.
+        </p>
+        <p>
+            In der Vergangenheit sind kürzere Ketten immer sehr schnell irrelevant geworden.
+            Falls du dennoch einer kürzeren Kette folgen willst, nutze die \"Vertrauenswürdiger Peer\"-Funktion, um exklusiv zu einer Bitcoind-Implementierung zu verbinden, die deine gewünschte Kette erzwingt.
+            Wenn dem Netzwerk zwischen deiner Wallet und dem vertrauenswürdigen Peer nicht vertraut werden kann, nutze ein VPN um diese Verbindung zu authentifizieren.
+        </p>
+    ]]>
+    </string>
 
 </resources>

@@ -17,337 +17,294 @@
 
 package de.schildbach.wallet.ui.send;
 
-import android.os.Handler;
-import android.os.Looper;
-import com.google.common.base.Charsets;
-import com.google.common.io.BaseEncoding;
-import de.schildbach.wallet.Constants;
-import de.schildbach.wallet.util.Io;
-import hashengineering.groestlcoin.wallet.R;
-import org.bitcoinj.core.*;
-import org.bitcoinj.core.TransactionConfidence.ConfidenceType;
-import org.bitcoinj.script.ScriptBuilder;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import javax.annotation.CheckForNull;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.Reader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.net.InetSocketAddress;
+import java.net.Socket;
+import java.security.cert.Certificate;
+import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Random;
+import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
-import javax.annotation.Nullable;
+import javax.net.SocketFactory;
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLHandshakeException;
+import javax.net.ssl.SSLSession;
+import javax.net.ssl.SSLSocket;
+import javax.net.ssl.SSLSocketFactory;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
 
 import org.bitcoinj.core.Address;
 import org.bitcoinj.core.Coin;
-import org.bitcoinj.core.NetworkParameters;
 import org.bitcoinj.core.Sha256Hash;
-import org.bitcoinj.core.Transaction;
-import org.bitcoinj.core.TransactionConfidence.ConfidenceType;
-import org.bitcoinj.core.TransactionOutput;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import org.bitcoinj.core.UTXO;
+import org.bitcoinj.script.Script;
+import org.bitcoinj.script.ScriptBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import android.os.Handler;
-import android.os.Looper;
-
 import com.google.common.base.Charsets;
+import com.google.common.base.Splitter;
+import com.google.common.base.Strings;
+import com.google.common.hash.Hashing;
+import com.squareup.moshi.JsonAdapter;
+import com.squareup.moshi.JsonDataException;
+import com.squareup.moshi.Moshi;
 
 import de.schildbach.wallet.Constants;
-import de.schildbach.wallet.util.Io;
-import hashengineering.groestlcoin.wallet.R;
+import de.schildbach.wallet_test.R;
+
+import android.content.res.AssetManager;
+import android.os.Handler;
+import android.os.Looper;
+import okio.BufferedSink;
+import okio.BufferedSource;
+import okio.Okio;
 
 /**
  * @author Andreas Schildbach
  */
-public final class RequestWalletBalanceTask
-{
-	private final Handler backgroundHandler;
-	private final Handler callbackHandler;
-	private final ResultCallback resultCallback;
-	@Nullable
-	private final String userAgent;
+public final class RequestWalletBalanceTask {
+    private final Handler backgroundHandler;
+    private final Handler callbackHandler;
+    private final ResultCallback resultCallback;
 
-	private static final Logger log = LoggerFactory.getLogger(RequestWalletBalanceTask.class);
+    private static final Logger log = LoggerFactory.getLogger(RequestWalletBalanceTask.class);
 
-	public interface ResultCallback
-	{
-		void onResult(Collection<Transaction> transactions);
+    public interface ResultCallback {
+        void onResult(Set<UTXO> utxos);
 
-		void onFail(int messageResId, Object... messageArgs);
-	}
+        void onFail(int messageResId, Object... messageArgs);
+    }
 
-	public RequestWalletBalanceTask(final Handler backgroundHandler, final ResultCallback resultCallback, @Nullable final String userAgent)
-	{
-		this.backgroundHandler = backgroundHandler;
-		this.callbackHandler = new Handler(Looper.myLooper());
-		this.resultCallback = resultCallback;
-		this.userAgent = userAgent;
-	}
+    public RequestWalletBalanceTask(final Handler backgroundHandler, final ResultCallback resultCallback) {
+        this.backgroundHandler = backgroundHandler;
+        this.callbackHandler = new Handler(Looper.myLooper());
+        this.resultCallback = resultCallback;
+    }
 
-	public void requestWalletBalance(final Address... addresses)
-	{
-		backgroundHandler.post(new Runnable()
-		{
-			@Override
-			public void run()
-			{
-				final StringBuilder url = new StringBuilder(Constants.BITEASY_API_URL);
-                if(CoinDefinition.UnspentAPI == CoinDefinition.UnspentAPIType.BitEasy)
-                {
-                    url.append("unspent-outputs");
-				    url.append("?per_page=MAX");
-				    for (final Address address : addresses)
-					    url.append("&address[]=").append(address.toString());
-                }
-                else if(CoinDefinition.UnspentAPI == CoinDefinition.UnspentAPIType.Cryptoid)
-                {
-                   url.append("&key=d47da926b82e");    //Cryptoid API key
-                   url.append("&active=").append(addresses[0].toString());
-                }
-                else if(CoinDefinition.UnspentAPI == CoinDefinition.UnspentAPIType.Blockr)
-                {
-                    int i = 0;
-                    for (final Address address : addresses)
-                    {
-                        if(i != 0)
-                            url.append(",");
-                        url.append(address.toString());
-                        i++;
+    public static class JsonRpcRequest {
+        public final int id;
+        public final String method;
+        public final String[] params;
+
+        private static transient int idCounter = 0;
+
+        public JsonRpcRequest(final String method, final String[] params) {
+            this.id = idCounter++;
+            this.method = method;
+            this.params = params;
+        }
+    }
+
+    public static class JsonRpcResponse {
+        public int id;
+        public Utxo[] result;
+
+        public static class Utxo {
+            public String tx_hash;
+            public int tx_pos;
+            public long value;
+            public int height;
+        }
+    }
+
+    public void requestWalletBalance(final AssetManager assets, final Address address) {
+        backgroundHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                org.bitcoinj.core.Context.propagate(Constants.CONTEXT);
+
+                try {
+                    final List<ElectrumServer> servers = loadElectrumServers(
+                            assets.open(Constants.Files.ELECTRUM_SERVERS_FILENAME));
+                    final ElectrumServer server = servers.get(new Random().nextInt(servers.size()));
+                    log.info("trying to request wallet balance from {}: {}", server.socketAddress, address);
+                    final Socket socket;
+                    if (server.type == ElectrumServer.Type.TLS) {
+                        final SocketFactory sf = sslTrustAllCertificates();
+                        socket = sf.createSocket(server.socketAddress.getHostName(), server.socketAddress.getPort());
+                        final SSLSession sslSession = ((SSLSocket) socket).getSession();
+                        final Certificate certificate = sslSession.getPeerCertificates()[0];
+                        final String certificateFingerprint = sslCertificateFingerprint(certificate);
+                        if (server.certificateFingerprint == null) {
+                            // signed by CA
+                            if (!HttpsURLConnection.getDefaultHostnameVerifier()
+                                    .verify(server.socketAddress.getHostName(), sslSession))
+                                throw new SSLHandshakeException("Expected " + server.socketAddress.getHostName()
+                                        + ", got " + sslSession.getPeerPrincipal());
+                        } else {
+                            // self-signed
+                            if (!certificateFingerprint.equals(server.certificateFingerprint))
+                                throw new SSLHandshakeException("Expected " + server.certificateFingerprint + ", got "
+                                        + certificateFingerprint);
+                        }
+                    } else if (server.type == ElectrumServer.Type.TCP) {
+                        socket = new Socket();
+                        socket.connect(server.socketAddress, 5000);
+                    } else {
+                        throw new IllegalStateException("Cannot handle: " + server.type);
                     }
+                    final BufferedSink sink = Okio.buffer(Okio.sink(socket));
+                    sink.timeout().timeout(5000, TimeUnit.MILLISECONDS);
+                    final BufferedSource source = Okio.buffer(Okio.source(socket));
+                    source.timeout().timeout(5000, TimeUnit.MILLISECONDS);
+                    final Moshi moshi = new Moshi.Builder().build();
+                    final JsonAdapter<JsonRpcRequest> requestAdapter = moshi.adapter(JsonRpcRequest.class);
+                    final JsonRpcRequest request = new JsonRpcRequest("blockchain.address.listunspent",
+                            new String[] { address.toBase58() });
+                    requestAdapter.toJson(sink, request);
+                    sink.writeUtf8("\n").flush();
+                    final JsonAdapter<JsonRpcResponse> responseAdapter = moshi.adapter(JsonRpcResponse.class);
+                    final JsonRpcResponse response = responseAdapter.fromJson(source);
+                    if (response.id == request.id) {
+                        final Set<UTXO> utxos = new HashSet<>();
+                        for (final JsonRpcResponse.Utxo responseUtxo : response.result) {
+                            final Sha256Hash utxoHash = Sha256Hash.wrap(responseUtxo.tx_hash);
+                            final int utxoIndex = responseUtxo.tx_pos;
+                            final Coin utxoValue = Coin.valueOf(responseUtxo.value);
+                            final Script script = ScriptBuilder.createOutputScript(address);
+                            final UTXO utxo = new UTXO(utxoHash, utxoIndex, utxoValue, responseUtxo.height, false,
+                                    script);
+                            utxos.add(utxo);
+                        }
+
+                        log.info("fetched {} unspent outputs from {}", response.result.length, server.socketAddress);
+                        onResult(utxos);
+                    } else {
+                        log.info("id mismatch response:{} vs request:{}", response.id, request.id);
+                        onFail(R.string.error_parse, server.socketAddress.toString());
+                    }
+                } catch (final JsonDataException x) {
+                    log.info("problem parsing json", x);
+                    onFail(R.string.error_parse, x.getMessage());
+                } catch (final IOException x) {
+                    log.info("problem querying unspent outputs", x);
+                    onFail(R.string.error_io, x.getMessage());
                 }
-				log.debug("trying to request wallet balance from {}", url);
+            }
+        });
+    }
 
-				HttpURLConnection connection = null;
-				Reader reader = null;
+    protected void onResult(final Set<UTXO> utxos) {
+        callbackHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                resultCallback.onResult(utxos);
+            }
+        });
+    }
 
-				try
-				{
-					connection = (HttpURLConnection) new URL(url.toString()).openConnection();
+    protected void onFail(final int messageResId, final Object... messageArgs) {
+        callbackHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                resultCallback.onFail(messageResId, messageArgs);
+            }
+        });
+    }
 
-					connection.setInstanceFollowRedirects(false);
-					connection.setConnectTimeout(Constants.HTTP_TIMEOUT_MS);
-					connection.setReadTimeout(Constants.HTTP_TIMEOUT_MS);
-					connection.setUseCaches(false);
-					connection.setDoInput(true);
-					connection.setDoOutput(false);
+    public static class ElectrumServer {
+        public enum Type {
+            TCP, TLS
+        }
 
-					connection.setRequestMethod("GET");
-					if (userAgent != null)
-						connection.addRequestProperty("User-Agent", userAgent);
-					connection.connect();
+        public final InetSocketAddress socketAddress;
+        public final Type type;
+        public final String certificateFingerprint;
 
-					final int responseCode = connection.getResponseCode();
-					if (responseCode == HttpURLConnection.HTTP_OK)
-					{
-						reader = new InputStreamReader(new BufferedInputStream(connection.getInputStream(), 1024), Charsets.UTF_8);
-						final StringBuilder content = new StringBuilder();
-						Io.copy(reader, content);
+        public ElectrumServer(final String type, final String host, final String port,
+                final String certificateFingerprint) {
+            this.type = Type.valueOf(type.toUpperCase());
+            if (port != null)
+                this.socketAddress = InetSocketAddress.createUnresolved(host, Integer.parseInt(port));
+            else if ("tcp".equalsIgnoreCase(type))
+                this.socketAddress = InetSocketAddress.createUnresolved(host,
+                        Constants.ELECTRUM_SERVER_DEFAULT_PORT_TCP);
+            else if ("tls".equalsIgnoreCase(type))
+                this.socketAddress = InetSocketAddress.createUnresolved(host,
+                        Constants.ELECTRUM_SERVER_DEFAULT_PORT_TLS);
+            else
+                throw new IllegalStateException("Cannot handle: " + type);
+            this.certificateFingerprint = certificateFingerprint;
+        }
+    }
 
-						final JSONObject json = new JSONObject(content.toString());
-                        JSONArray jsonOutputs = null;
-                        if(CoinDefinition.UnspentAPI == CoinDefinition.UnspentAPIType.BitEasy)
-                        {
-                            final int status = json.getInt("status");
-                            if (status != 200)
-                                throw new IOException("api status " + status + " when fetching unspent outputs");
+    private static List<ElectrumServer> loadElectrumServers(final InputStream is) throws IOException {
+        final Splitter splitter = Splitter.on(':').trimResults();
+        final List<ElectrumServer> servers = new LinkedList<>();
+        BufferedReader reader = null;
+        String line = null;
+        try {
+            reader = new BufferedReader(new InputStreamReader(is, Charsets.UTF_8));
+            while (true) {
+                line = reader.readLine();
+                if (line == null)
+                    break;
+                line = line.trim();
+                if (line.length() == 0 || line.charAt(0) == '#')
+                    continue;
 
-                            final JSONObject jsonData = json.getJSONObject("data");
+                final Iterator<String> i = splitter.split(line).iterator();
+                final String type = i.next();
+                final String host = i.next();
+                final String port = i.hasNext() ? Strings.emptyToNull(i.next()) : null;
+                final String fingerprint = i.hasNext() ? Strings.emptyToNull(i.next()) : null;
+                servers.add(new ElectrumServer(type, host, port, fingerprint));
+            }
+        } catch (final Exception x) {
+            throw new RuntimeException("Error while parsing: '" + line + "'", x);
+        } finally {
+            if (reader != null)
+                reader.close();
+            is.close();
+        }
+        return servers;
+    }
 
-                            final JSONObject jsonPagination = jsonData.getJSONObject("pagination");
+    private SSLSocketFactory sslTrustAllCertificates() {
+        try {
+            final SSLContext context = SSLContext.getInstance("SSL");
+            context.init(null, new TrustManager[] { TRUST_ALL_CERTIFICATES }, null);
+            final SSLSocketFactory socketFactory = context.getSocketFactory();
+            return socketFactory;
+        } catch (final Exception x) {
+            throw new RuntimeException(x);
+        }
+    }
 
-                            if (!"false".equals(jsonPagination.getString("next_page")))
-                                throw new IllegalStateException("result set too big");
+    private static final X509TrustManager TRUST_ALL_CERTIFICATES = new X509TrustManager() {
+        @Override
+        public void checkClientTrusted(final X509Certificate[] chain, final String authType)
+                throws CertificateException {
+        }
 
-                            jsonOutputs = jsonData.getJSONArray("outputs");
-                        }
-                        else if(CoinDefinition.UnspentAPI == CoinDefinition.UnspentAPIType.Blockr)
-                        {
-                            String success = json.getString("status");
+        @Override
+        public void checkServerTrusted(final X509Certificate[] chain, final String authType)
+                throws CertificateException {
+        }
 
-                            if (!success.equals(success))
-                                throw new IOException("api status " + "not successful" + " when fetching unspent outputs");
+        @Override
+        public X509Certificate[] getAcceptedIssuers() {
+            return new X509Certificate[0];
+        }
+    };
 
-                            JSONObject dataJson = json.getJSONObject("data");
-                            jsonOutputs = dataJson.getJSONArray("unspent");
-                        }
-                        else if(CoinDefinition.UnspentAPI == CoinDefinition.UnspentAPIType.Cryptoid)
-                        {
-                            //String success = json.getString("status");
-
-                            //if (!success.equals(success))
-                            //    throw new IOException("api status " + "not successful" + " when fetching unspent outputs");
-
-                            //JSONObject dataJson = json.getJSONObject("data");
-                            jsonOutputs = json.getJSONArray("unspent_outputs");
-                        }
-
-						final Map<Sha256Hash, Transaction> transactions = new HashMap<Sha256Hash, Transaction>(jsonOutputs.length());
-
-						for (int i = 0; i < jsonOutputs.length(); i++)
-						{
-							final JSONObject jsonOutput = jsonOutputs.getJSONObject(i);
-
-                            Sha256Hash uxtoHash = null;
-                            int uxtoIndex = 0;
-                            byte[] uxtoScriptBytes = null;
-                            Coin uxtoValue = null;
-
-                            if(CoinDefinition.UnspentAPI == CoinDefinition.UnspentAPIType.BitEasy)
-                            {
-                                if (jsonOutput.getInt("is_spent") != 0)
-                                    throw new IllegalStateException("UXTO not spent");
-                                uxtoHash = new Sha256Hash(jsonOutput.getString("transaction_hash"));
-                                uxtoIndex = jsonOutput.getInt("transaction_index");
-                                uxtoScriptBytes = Constants.HEX.decode(jsonOutput.getString("script_pub_key"));
-                                uxtoValue = Coin.valueOf(jsonOutput.getLong("value"));
-                            }
-                            else if(CoinDefinition.UnspentAPI == CoinDefinition.UnspentAPIType.Blockr)
-                            {
-                                uxtoHash = new Sha256Hash(jsonOutput.getString("tx"));
-                                uxtoIndex = jsonOutput.getInt("n");
-                                uxtoScriptBytes = Constants.HEX.decode(jsonOutput.getString("script"));
-                                uxtoValue = Coin.valueOf((long)(Double.parseDouble(String.format("%.08f", jsonOutput.getDouble("amount")).replace(",", ".")) *100000000));
-                                //jsonOutput.getInt("confirmations");
-                            }
-                            if(CoinDefinition.UnspentAPI == CoinDefinition.UnspentAPIType.Cryptoid)
-                            {
-                               //if (jsonOutput.getInt("is_spent") != 0)
-                               //     throw new IllegalStateException("UXTO not spent");
-                                uxtoHash = new Sha256Hash(jsonOutput.getString("tx_hash"));
-                                uxtoIndex = jsonOutput.getInt("tx_ouput_n");
-                                //uxtoScriptBytes = Constants.HEX.decode(jsonOutput.getString("script_pub_key"));
-                                uxtoScriptBytes = ScriptBuilder.createOutputScript(addresses[0]).getProgram();
-                                uxtoValue = Coin.valueOf(jsonOutput.getLong("value"));
-                            }
-/*=======
-							if (jsonOutput.getInt("is_spent") != 0)
-								throw new IllegalStateException("UXTO not spent");
-
-							final Sha256Hash uxtoHash = Sha256Hash.wrap(jsonOutput.getString("transaction_hash"));
-							final int uxtoIndex = jsonOutput.getInt("transaction_index");
-							final byte[] uxtoScriptBytes = Constants.HEX.decode(jsonOutput.getString("script_pub_key"));
-							final Coin uxtoValue = Coin.valueOf(Long.parseLong(jsonOutput.getString("value")));
-*/
-
-							Transaction tx = transactions.get(uxtoHash);
-							if (tx == null)
-							{
-								tx = new FakeTransaction(Constants.NETWORK_PARAMETERS, uxtoHash);
-								tx.getConfidence().setConfidenceType(ConfidenceType.BUILDING);
-								transactions.put(uxtoHash, tx);
-							}
-
-							if (tx.getOutputs().size() > uxtoIndex)
-								throw new IllegalStateException("cannot reach index " + uxtoIndex + ", tx already has " + tx.getOutputs().size()
-										+ " outputs");
-
-							// fill with dummies
-							while (tx.getOutputs().size() < uxtoIndex)
-								tx.addOutput(new TransactionOutput(Constants.NETWORK_PARAMETERS, tx, Coin.NEGATIVE_SATOSHI, new byte[] {}));
-
-							// add the real output
-							final TransactionOutput output = new TransactionOutput(Constants.NETWORK_PARAMETERS, tx, uxtoValue, uxtoScriptBytes);
-							tx.addOutput(output);
-						}
-
-						log.info("fetched unspent outputs from {}", url);
-
-						onResult(transactions.values());
-					}
-					else
-					{
-						final String responseMessage = connection.getResponseMessage();
-
-						log.info("got http error '{}: {}' from {}", responseCode, responseMessage, url);
-
-						onFail(R.string.error_http, responseCode, responseMessage);
-					}
-				}
-				catch (final JSONException x)
-				{
-					log.info("problem parsing json from " + url, x);
-
-					onFail(R.string.error_parse, x.getMessage());
-				}
-				catch (final IOException x)
-				{
-					log.info("problem querying unspent outputs from " + url, x);
-
-					onFail(R.string.error_io, x.getMessage());
-				}
-				finally
-				{
-					if (reader != null)
-					{
-						try
-						{
-							reader.close();
-						}
-						catch (final IOException x)
-						{
-							// swallow
-						}
-					}
-
-					if (connection != null)
-						connection.disconnect();
-				}
-			}
-		});
-	}
-
-	protected void onResult(final Collection<Transaction> transactions)
-	{
-		callbackHandler.post(new Runnable()
-		{
-			@Override
-			public void run()
-			{
-				resultCallback.onResult(transactions);
-			}
-		});
-	}
-
-	protected void onFail(final int messageResId, final Object... messageArgs)
-	{
-		callbackHandler.post(new Runnable()
-		{
-			@Override
-			public void run()
-			{
-				resultCallback.onFail(messageResId, messageArgs);
-			}
-		});
-	}
-
-	private static class FakeTransaction extends Transaction
-	{
-		private final Sha256Hash hash;
-
-		public FakeTransaction(final NetworkParameters params, final Sha256Hash hash)
-		{
-			super(params);
-			this.hash = hash;
-		}
-
-		@Override
-		public Sha256Hash getHash()
-		{
-			return hash;
-		}
-	}
+    private String sslCertificateFingerprint(final Certificate certificate) {
+        try {
+            return Hashing.sha256().newHasher().putBytes(certificate.getEncoded()).hash().toString();
+        } catch (final Exception x) {
+            throw new RuntimeException(x);
+        }
+    }
 }

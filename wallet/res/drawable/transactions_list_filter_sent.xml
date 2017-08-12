@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item android:drawable="@drawable/ic_filter_list_white_24dp"/>
+    <item
+        android:gravity="bottom|right"
+        android:height="9dp"
+        android:width="9dp">
+        <shape android:shape="oval" >
+            <solid android:color="@color/fg_value_negative" />
+        </shape>
+    </item>
+
+</layer-list>

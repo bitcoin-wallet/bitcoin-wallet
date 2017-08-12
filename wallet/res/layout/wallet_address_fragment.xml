@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-	android:id="@+id/bitcoin_address_qr_card"
-	android:layout_width="wrap_content"
-	android:layout_height="wrap_content"
-	android:foreground="?android:attr/selectableItemBackground" >
+    android:id="@+id/bitcoin_address_qr_card"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:foreground="?android:attr/selectableItemBackground" >
 
-	<ImageView
-		android:id="@+id/bitcoin_address_qr"
-		android:layout_width="@dimen/wallet_address_qr_size"
-		android:layout_height="@dimen/wallet_address_qr_size"
-		android:layout_gravity="center"
-		android:contentDescription="@string/action_show_qr"
-		android:focusable="true"
-		android:padding="3dp"
-		android:scaleType="centerInside" />
+    <ImageView
+        android:id="@+id/bitcoin_address_qr"
+        android:layout_width="@dimen/wallet_address_qr_size"
+        android:layout_height="@dimen/wallet_address_qr_size"
+        android:layout_gravity="center"
+        android:contentDescription="@string/action_show_qr"
+        android:focusable="true"
+        android:padding="3dp"
+        android:scaleType="centerInside" />
 
 </android.support.v7.widget.CardView>

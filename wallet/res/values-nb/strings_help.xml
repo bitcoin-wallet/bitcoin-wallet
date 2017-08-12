@@ -104,4 +104,21 @@
     </p>
   ]]>
   </string>
+  <string name="help_technical_notes">
+<![CDATA[
+    <p>
+      <b>Tekniske notater:</b>
+    </p>
+    <p>
+      Som SPV-lommebok, følger Bitcoin Wallet den blokkjeden med mest proof-of-work (noen ganger også kalt den \"lengste kjeden\", den \"vinnende kjeden\" eller \"Bitcoin-Blockchain\").
+      Du vil bare motta innbetalinger og være i stand til å betale på denne kjeden.
+      Ingen garantier kan gis for bitcoin på minoritetskjeder, som er kjeder med mindre proof-of-work.
+    </p>
+    <p>
+      Historisk har minoritetskjedene alltid blitt irrelevante svært raskt.
+      Hvis du uansett ønsker å følge en minoritetkjede, blir du nødt til å bruke \"klarert peer\"-funksjonen for å utelukkende koble til en implementering av bitcoind som følger ønsket kjede.
+      Hvis nettverket mellom lommeboken og klarert peer ikke er til å stole på, bruk VPN for å verifisere forbindelsen.
+    </p>
+  ]]>
+  </string>
 </resources>

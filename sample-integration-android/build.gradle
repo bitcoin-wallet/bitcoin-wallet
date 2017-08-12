@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-//def localMavenRepo = 'file://' + new File(System.getProperty('user.home'), '.m2/repository').absolutePath
+
 repositories {
     //maven { url localMavenRepo }
     mavenLocal();
@@ -13,7 +13,7 @@ dependencies {
 
 android {
     compileSdkVersion 'android-15'
-    buildToolsVersion '25.0.0'
+    buildToolsVersion '25.0.3'
 
     lintOptions { abortOnError false }
 

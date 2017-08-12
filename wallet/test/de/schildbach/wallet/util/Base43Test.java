@@ -25,29 +25,26 @@ import org.junit.Test;
 /**
  * @author Andreas Schildbach
  */
-public class Base43Test
-{
-	@Test
-	public void encode() throws Exception
-	{
-		assertEquals("", Base43.encode(new byte[0]));
+public class Base43Test {
+    @Test
+    public void encode() throws Exception {
+        assertEquals("", Base43.encode(new byte[0]));
 
-		assertEquals("0", Base43.encode(new byte[] { 0x0 }));
+        assertEquals("0", Base43.encode(new byte[] { 0x0 }));
 
-		assertEquals("5.", Base43.encode(new byte[] { (byte) 0xff }));
+        assertEquals("5.", Base43.encode(new byte[] { (byte) 0xff }));
 
-		assertEquals("RNO2-MYFN0D35RHM", Base43.encode("Hello World".getBytes()));
-	}
+        assertEquals("RNO2-MYFN0D35RHM", Base43.encode("Hello World".getBytes()));
+    }
 
-	@Test
-	public void decode() throws Exception
-	{
-		assertArrayEquals(new byte[0], Base43.decode(""));
+    @Test
+    public void decode() throws Exception {
+        assertArrayEquals(new byte[0], Base43.decode(""));
 
-		assertArrayEquals(new byte[] { 0x0 }, Base43.decode("0"));
+        assertArrayEquals(new byte[] { 0x0 }, Base43.decode("0"));
 
-		assertArrayEquals(new byte[] { (byte) 0xff }, Base43.decode("5."));
+        assertArrayEquals(new byte[] { (byte) 0xff }, Base43.decode("5."));
 
-		assertArrayEquals("Hello World".getBytes(), Base43.decode("RNO2-MYFN0D35RHM"));
-	}
+        assertArrayEquals("Hello World".getBytes(), Base43.decode("RNO2-MYFN0D35RHM"));
+    }
 }

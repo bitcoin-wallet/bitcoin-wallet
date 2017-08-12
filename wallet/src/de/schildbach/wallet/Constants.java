@@ -18,65 +18,76 @@
 package de.schildbach.wallet;
 
 import java.io.File;
+import java.util.concurrent.TimeUnit;
 
+import org.bitcoinj.core.Context;
 import org.bitcoinj.core.NetworkParameters;
 import org.bitcoinj.params.MainNetParams;
 import org.bitcoinj.params.TestNet3Params;
 import org.bitcoinj.utils.MonetaryFormat;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.google.common.io.BaseEncoding;
+import com.squareup.okhttp.HttpUrl;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.logging.HttpLoggingInterceptor;
+
+import de.schildbach.wallet_test.R;
 
 import android.os.Build;
 import android.os.Environment;
 import android.text.format.DateUtils;
 
-import com.google.common.io.BaseEncoding;
-
-import hashengineering.groestlcoin.wallet.R;
-import org.bitcoinj.core.CoinDefinition;
-
 /**
  * @author Andreas Schildbach
  */
-public final class Constants
-{
-	public static final boolean TEST = R.class.getPackage().getName().contains("_test");
+public final class Constants {
+    public static final boolean TEST = R.class.getPackage().getName().contains("_test");
 
-	/** Network this wallet is on (e.g. testnet or mainnet). */
-	public static final NetworkParameters NETWORK_PARAMETERS = TEST ? TestNet3Params.get() : MainNetParams.get();
+    /** Network this wallet is on (e.g. testnet or mainnet). */
+    public static final NetworkParameters NETWORK_PARAMETERS = TEST ? TestNet3Params.get() : MainNetParams.get();
 
-	public final static class Files
-	{
-		private static final String FILENAME_NETWORK_SUFFIX = NETWORK_PARAMETERS.getId().equals(NetworkParameters.ID_MAINNET) ? "" : "-testnet";
+    /** Bitcoinj global context. */
+    public static final Context CONTEXT = new Context(NETWORK_PARAMETERS);
 
-		/** Filename of the wallet. */
-		public static final String WALLET_FILENAME_PROTOBUF = "wallet-protobuf" + FILENAME_NETWORK_SUFFIX;
+    /** Enable switch for synching of the blockchain */
+    public static final boolean ENABLE_BLOCKCHAIN_SYNC = true;
+    /** Enable switch for fetching and showing of exchange rates */
+    public static final boolean ENABLE_EXCHANGE_RATES = true;
+    /** Enable switch for sweeping of paper wallets */
+    public static final boolean ENABLE_SWEEP_WALLET = true;
+    /** Enable switch for browsing to block explorers */
+    public static final boolean ENABLE_BROWSE = true;
 
-		/** Filename of the automatic key backup (old format, can only be read). */
-		public static final String WALLET_KEY_BACKUP_BASE58 = "key-backup-base58" + FILENAME_NETWORK_SUFFIX;
+    public final static class Files {
+        private static final String FILENAME_NETWORK_SUFFIX = NETWORK_PARAMETERS.getId()
+                .equals(NetworkParameters.ID_MAINNET) ? "" : "-testnet";
 
-		/** Filename of the automatic wallet backup. */
-		public static final String WALLET_KEY_BACKUP_PROTOBUF = "key-backup-protobuf" + FILENAME_NETWORK_SUFFIX;
+        /** Filename of the wallet. */
+        public static final String WALLET_FILENAME_PROTOBUF = "wallet-protobuf" + FILENAME_NETWORK_SUFFIX;
 
-		/** Path to external storage */
-		public static final File EXTERNAL_STORAGE_DIR = Environment.getExternalStorageDirectory();
+        /** How often the wallet is autosaved. */
+        public static final long WALLET_AUTOSAVE_DELAY_MS = 5 * DateUtils.SECOND_IN_MILLIS;
 
-		/** Manual backups go here. */
-		public static final File EXTERNAL_WALLET_BACKUP_DIR = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+        /** Filename of the automatic key backup (old format, can only be read). */
+        public static final String WALLET_KEY_BACKUP_BASE58 = "key-backup-base58" + FILENAME_NETWORK_SUFFIX;
 
-		/** Filename of the manual key backup (old format, can only be read). */
-		public static final String EXTERNAL_WALLET_KEY_BACKUP = CoinDefinition.coinName.toLowerCase() +"bitcoin-wallet-keys" + FILENAME_NETWORK_SUFFIX;
+        /** Filename of the automatic wallet backup. */
+        public static final String WALLET_KEY_BACKUP_PROTOBUF = "key-backup-protobuf" + FILENAME_NETWORK_SUFFIX;
 
-		/** Filename of the manual wallet backup. */
-		public static final String EXTERNAL_WALLET_BACKUP = CoinDefinition.coinName.toLowerCase() +"-wallet-backup" + FILENAME_NETWORK_SUFFIX;
+        /** Path to external storage */
+        public static final File EXTERNAL_STORAGE_DIR = Environment.getExternalStorageDirectory();
 
-		/** Filename of the block store for storing the chain. */
-		public static final String BLOCKCHAIN_FILENAME = "blockchain" + FILENAME_NETWORK_SUFFIX;
+        /** Manual backups go here. */
+        public static final File EXTERNAL_WALLET_BACKUP_DIR = Environment
+                .getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
 
-		/** Filename of the block checkpoints file. */
-		public static final String CHECKPOINTS_FILENAME = "checkpoints" + FILENAME_NETWORK_SUFFIX + ".txt";
-	}
+        /** Filename of the manual key backup (old format, can only be read). */
+        public static final String EXTERNAL_WALLET_KEY_BACKUP = "groestlcoin-wallet-keys" + FILENAME_NETWORK_SUFFIX;
 
-	/** Maximum size of backups. Files larger will be rejected. */
-	public static final long BACKUP_MAX_CHARS = 10000000;
+        /** Filename of the manual wallet backup. */
+        public static final String EXTERNAL_WALLET_BACKUP = "groestlcoin-wallet-backup" + FILENAME_NETWORK_SUFFIX;
 
 	private static final String EXPLORE_BASE_URL_PROD = CoinDefinition.BLOCKEXPLORER_BASE_URL_PROD;
 	private static final String EXPLORE_BASE_URL_TEST = CoinDefinition.BLOCKEXPLORER_BASE_URL_TEST;
@@ -94,108 +105,133 @@ public final class Constants
 
 	public static final String MIMETYPE_BACKUP_PRIVATE_KEYS = "x-"+CoinDefinition.coinName.toLowerCase()+"/private-keys";
 
-	private static final String BITEASY_API_URL_PROD = CoinDefinition.UNSPENT_API_URL;//"https://api.biteasy.com/blockchain/v1/";
-	private static final String BITEASY_API_URL_TEST = "https://api.biteasy.com/testnet/v1/";
 
-	/** Base URL for blockchain API. */
-	public static final String BITEASY_API_URL = NETWORK_PARAMETERS.getId().equals(NetworkParameters.ID_MAINNET) ? BITEASY_API_URL_PROD
-			: BITEASY_API_URL_TEST;
+        /** Filename of the block store for storing the chain. */
+        public static final String BLOCKCHAIN_FILENAME = "blockchain" + FILENAME_NETWORK_SUFFIX;
 
-	/** URL to fetch version alerts from. */
-	public static final String VERSION_URL = "https://wallet.schildbach.de/version";
+        /** Filename of the block checkpoints file. */
+        public static final String CHECKPOINTS_FILENAME = "checkpoints" + FILENAME_NETWORK_SUFFIX + ".txt";
 
-	/** MIME type used for transmitting single transactions. */
-	public static final String MIMETYPE_TRANSACTION = "application/x-"+CoinDefinition.coinTicker.toLowerCase()+"tx";
+        /** Filename of the fees files. */
+        public static final String FEES_FILENAME = "fees" + FILENAME_NETWORK_SUFFIX + ".txt";
 
-	/** MIME type used for transmitting wallet backups. */
-	public static final String MIMETYPE_WALLET_BACKUP = "application/x-bitcoin-wallet-backup";
+        /** Filename of the file containing Electrum servers. */
+        public static final String ELECTRUM_SERVERS_FILENAME = "electrum-servers.txt";
+    }
 
-	/** Number of confirmations until a transaction is fully confirmed. */
-	public static final int MAX_NUM_CONFIRMATIONS = 7;
+    /** Maximum size of backups. Files larger will be rejected. */
+    public static final long BACKUP_MAX_CHARS = 10000000;
+
+	private static final String BITEASY_API_URL_PROD = "https://api.biteasy.com/v2/btc/mainnet/";
+	private static final String BITEASY_API_URL_TEST = "https://api.biteasy.com/v2/btc/testnet/";
+    /** Currency code for the wallet name resolver. */
+    public static final String WALLET_NAME_CURRENCY_CODE = NETWORK_PARAMETERS.getId()
+            .equals(NetworkParameters.ID_MAINNET) ? "btc" : "tbtc";
+
+    /** URL to fetch version alerts from. */
+    public static final HttpUrl VERSION_URL = HttpUrl.parse("https://wallet.schildbach.de/version");
+    /** URL to fetch dynamic fees from. */
+    public static final HttpUrl DYNAMIC_FEES_URL = HttpUrl.parse("https://wallet.schildbach.de/fees");
+
+    /** MIME type used for transmitting single transactions. */
+    public static final String MIMETYPE_TRANSACTION = "application/x-btctx";
+
+    /** MIME type used for transmitting wallet backups. */
+    public static final String MIMETYPE_WALLET_BACKUP = "application/x-bitcoin-wallet-backup";
+
+    /** Number of confirmations until a transaction is fully confirmed. */
+    public static final int MAX_NUM_CONFIRMATIONS = 7;
 
     /** User-agent to use for network access. */
-	public static final String USER_AGENT = CoinDefinition.coinName +" Wallet";
+    public static final String USER_AGENT = "Bitcoin Wallet";
 
 	/** Default currency to use if all default mechanisms fail. */
 
-	public static final String DEFAULT_EXCHANGE_CURRENCY = "USD";
+    /** Default currency to use if all default mechanisms fail. */
+    public static final String DEFAULT_EXCHANGE_CURRENCY = "USD";
 
-    /** Currency code for base 1 Bitcoin. */
-	public static final String CURRENCY_CODE_BTC = CoinDefinition.coinTicker;
+	/** Default currency to use if all default mechanisms fail. */
+    /** Donation address for tip/donate action. */
+    public static final String DONATION_ADDRESS = NETWORK_PARAMETERS.getId().equals(NetworkParameters.ID_MAINNET)
+            ? "14Jb4oBH3aSCZ8UuN1bTs2gLGhZYfSxZKH" : null;
 
-    /** Currency code for base 1/1000 Bitcoin. */
-	public static final String CURRENCY_CODE_MBTC = "m" + CoinDefinition.coinTicker;
+    /** Recipient e-mail address for reports. */
+    public static final String REPORT_EMAIL = "bitcoin.wallet.developers@gmail.com";
 
-    /** Currency code for base 1/1000000 Bitcoin. */
-	public static final String CURRENCY_CODE_UBTC = "µ" + CoinDefinition.coinTicker;
+    /** Subject line for manually reported issues. */
+    public static final String REPORT_SUBJECT_ISSUE = "Reported issue";
 
-	public static final String DONATION_ADDRESS = CoinDefinition.DONATION_ADDRESS;;
+    /** Subject line for crash reports. */
+    public static final String REPORT_SUBJECT_CRASH = "Crash report";
 
-	/** Recipient e-mail address for reports. */
-	public static final String REPORT_EMAIL = "hashengineeringsolutions@gmail.com";;
+    public static final char CHAR_HAIR_SPACE = '\u200a';
+    public static final char CHAR_THIN_SPACE = '\u2009';
+    public static final char CHAR_ALMOST_EQUAL_TO = '\u2248';
+    public static final char CHAR_CHECKMARK = '\u2713';
+    public static final char CURRENCY_PLUS_SIGN = '\uff0b';
+    public static final char CURRENCY_MINUS_SIGN = '\uff0d';
+    public static final String PREFIX_ALMOST_EQUAL_TO = Character.toString(CHAR_ALMOST_EQUAL_TO) + CHAR_THIN_SPACE;
+    public static final int ADDRESS_FORMAT_GROUP_SIZE = 4;
+    public static final int ADDRESS_FORMAT_LINE_SIZE = 12;
 
-	/** Subject line for manually reported issues. */
-	public static final String REPORT_SUBJECT_ISSUE = "Reported issue";
+    public static final MonetaryFormat LOCAL_FORMAT = new MonetaryFormat().noCode().minDecimals(2).optionalDecimals();
 
-	/** Subject line for crash reports. */
-	public static final String REPORT_SUBJECT_CRASH = "Crash report";
+    public static final BaseEncoding HEX = BaseEncoding.base16().lowerCase();
 
-	public static final char CHAR_HAIR_SPACE = '\u200a';
-	public static final char CHAR_THIN_SPACE = '\u2009';
-	public static final char CHAR_ALMOST_EQUAL_TO = '\u2248';
-	public static final char CHAR_CHECKMARK = '\u2713';
-	public static final char CURRENCY_PLUS_SIGN = '\uff0b';
-	public static final char CURRENCY_MINUS_SIGN = '\uff0d';
-	public static final String PREFIX_ALMOST_EQUAL_TO = Character.toString(CHAR_ALMOST_EQUAL_TO) + CHAR_THIN_SPACE;
-	public static final int ADDRESS_FORMAT_GROUP_SIZE = 4;
-	public static final int ADDRESS_FORMAT_LINE_SIZE = 12;
+    public static final String SOURCE_URL = "https://github.com/bitcoin-wallet/bitcoin-wallet";
+    public static final String BINARY_URL = "https://github.com/bitcoin-wallet/bitcoin-wallet/releases";
+    public static final String MARKET_APP_URL = "market://details?id=%s";
+    public static final String WEBMARKET_APP_URL = "https://play.google.com/store/apps/details?id=%s";
 
-	public static final int BTC_MAX_PRECISION = 8;
+    public static final int PEER_DISCOVERY_TIMEOUT_MS = 10 * (int) DateUtils.SECOND_IN_MILLIS;
+    public static final int PEER_TIMEOUT_MS = 15 * (int) DateUtils.SECOND_IN_MILLIS;
 
-	public static final String LICENSE_URL = "http://www.gnu.org/licenses/gpl-3.0.txt";
+    public static final long LAST_USAGE_THRESHOLD_JUST_MS = DateUtils.HOUR_IN_MILLIS;
+    public static final long LAST_USAGE_THRESHOLD_RECENTLY_MS = 2 * DateUtils.DAY_IN_MILLIS;
+    public static final long LAST_USAGE_THRESHOLD_INACTIVE_MS = 4 * DateUtils.WEEK_IN_MILLIS;
 
-    public static final String FORKED_FROM_SOURCE = "based on bitcoin-wallet 4.14\n";
-    public static final String FORKED_FROM_SOURCE_BITCOINJ = "based on bitcoinj 0.13.4\n";
-	public static final String CREDITS_BITCOINJ_URL = "https://github.com/HashEngineering/" + CoinDefinition.coinName.toLowerCase() + "j";
-	public static final String CREDITS_ZXING_URL = "http://code.google.com/p/zxing/";
-    public static final String CREDITS_WEBSITE_URL = "http://www.groestlcoin.org/";
-    public static final String CREDITS_FORUM_URL = "http://www.groestlcoin.org/forum/";
+    public static final long DELAYED_TRANSACTION_THRESHOLD_MS = 2 * DateUtils.HOUR_IN_MILLIS;
 
-	public static final String CREDITS_ICON_URL = "https://bitcointalk.org/index.php?action=profile;u=2062";
+    public static final int SDK_DEPRECATED_BELOW = Build.VERSION_CODES.JELLY_BEAN;
 
-	public static final String AUTHOR_TWITTER_URL = "https://twitter.com/#!/HashEngineering";
-	public static final String AUTHOR_GOOGLEPLUS_URL = "https://profiles.google.com/HashEngineering";
+    public static final boolean BUG_OPENSSL_HEARTBLEED = Build.VERSION.SDK_INT == Build.VERSION_CODES.JELLY_BEAN
+            && Build.VERSION.RELEASE.startsWith("4.1.1");
 
-	public static final String COMMUNITY_GOOGLEPLUS_URL = "https://plus.google.com/communities/105515929887248493912";
+    public static final int MEMORY_CLASS_LOWEND = 64;
 
+    public static final int NOTIFICATION_ID_CONNECTED = 0;
+    public static final int NOTIFICATION_ID_COINS_RECEIVED = 1;
+    public static final int NOTIFICATION_ID_INACTIVITY = 2;
 
-	public static final String MARKET_PUBLISHER_URL = "market://search?q=pub:\"Hash Engineering Solutions\"";
-//=======
-	public static final MonetaryFormat LOCAL_FORMAT = new MonetaryFormat().noCode().minDecimals(6).optionalDecimals();
+    /** Desired number of scrypt iterations for deriving the spending PIN */
+    public static final int SCRYPT_ITERATIONS_TARGET = 65536;
+    public static final int SCRYPT_ITERATIONS_TARGET_LOWRAM = 32768;
 
-    public static final String SOURCE_URL = "https://github.com/HashEngineering/" + CoinDefinition.coinName.toLowerCase() + "-wallet";
-    public static final String BINARY_URL = "https://github.com/HashEngineering/"+ CoinDefinition.coinName.toLowerCase() +"-wallet/releases";
+    /** Default ports for Electrum servers */
+    public static final int ELECTRUM_SERVER_DEFAULT_PORT_TCP = NETWORK_PARAMETERS.getId()
+            .equals(NetworkParameters.ID_MAINNET) ? 50001 : 51001;
+    public static final int ELECTRUM_SERVER_DEFAULT_PORT_TLS = NETWORK_PARAMETERS.getId()
+            .equals(NetworkParameters.ID_MAINNET) ? 50002 : 51002;
 
-	public static final BaseEncoding HEX = BaseEncoding.base16().lowerCase();
+    /** Shared HTTP client, can reuse connections */
+    public static final OkHttpClient HTTP_CLIENT = new OkHttpClient();
+    static {
+        HTTP_CLIENT.setFollowRedirects(false);
+        HTTP_CLIENT.setFollowSslRedirects(true);
+        HTTP_CLIENT.setConnectTimeout(15, TimeUnit.SECONDS);
+        HTTP_CLIENT.setWriteTimeout(15, TimeUnit.SECONDS);
+        HTTP_CLIENT.setReadTimeout(15, TimeUnit.SECONDS);
 
-	public static final String MARKET_APP_URL = "market://details?id=%s";
-	public static final String WEBMARKET_APP_URL = "https://play.google.com/store/apps/details?id=%s";
+        final HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor(
+                new HttpLoggingInterceptor.Logger() {
+                    @Override
+                    public void log(final String message) {
+                        log.debug(message);
+                    }
+                });
+        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BASIC);
+        HTTP_CLIENT.interceptors().add(loggingInterceptor);
+    }
 
-	public static final int HTTP_TIMEOUT_MS = 15 * (int) DateUtils.SECOND_IN_MILLIS;
-	public static final int PEER_DISCOVERY_TIMEOUT_MS = 10 * (int) DateUtils.SECOND_IN_MILLIS;
-	public static final int PEER_TIMEOUT_MS = 15 * (int) DateUtils.SECOND_IN_MILLIS;
-
-	public static final long LAST_USAGE_THRESHOLD_JUST_MS = DateUtils.HOUR_IN_MILLIS;
-	public static final long LAST_USAGE_THRESHOLD_RECENTLY_MS = 2 * DateUtils.DAY_IN_MILLIS;
-
-	public static final int SDK_JELLY_BEAN = 16;
-	public static final int SDK_JELLY_BEAN_MR2 = 18;
-	public static final int SDK_LOLLIPOP = 21;
-
-	public static final int SDK_DEPRECATED_BELOW = Build.VERSION_CODES.ICE_CREAM_SANDWICH;
-
-	public static final boolean BUG_OPENSSL_HEARTBLEED = Build.VERSION.SDK_INT == Constants.SDK_JELLY_BEAN
-			&& Build.VERSION.RELEASE.startsWith("4.1.1");
-
-	public static final int MEMORY_CLASS_LOWEND = 48;
+    private static final Logger log = LoggerFactory.getLogger(Constants.class);
 }

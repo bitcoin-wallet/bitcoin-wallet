@@ -18,105 +18,61 @@
 package de.schildbach.wallet.util;
 
 import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.security.KeyStore;
 
 import javax.annotation.Nullable;
-import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.TrustManagerFactory;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import android.content.res.AssetManager;
-
-import com.google.common.base.Charsets;
+import com.squareup.okhttp.Call;
+import com.squareup.okhttp.HttpUrl;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
 
 import de.schildbach.wallet.Constants;
 
 /**
  * @author Andreas Schildbach
  */
-public abstract class HttpGetThread extends Thread
-{
-	private final AssetManager assets;
-	private final String url;
-	@Nullable
-	private final String userAgent;
+public abstract class HttpGetThread extends Thread {
+    private final HttpUrl url;
+    @Nullable
+    private final String userAgent;
 
-	private static final Logger log = LoggerFactory.getLogger(HttpGetThread.class);
+    private static final Logger log = LoggerFactory.getLogger(HttpGetThread.class);
 
-	public HttpGetThread(final AssetManager assets, final String url, @Nullable final String userAgent)
-	{
-		this.assets = assets;
-		this.url = url;
-		this.userAgent = userAgent;
-	}
+    public HttpGetThread(final HttpUrl url, @Nullable final String userAgent) {
+        this.url = url;
+        this.userAgent = userAgent;
+    }
 
-	@Override
-	public void run()
-	{
-		HttpURLConnection connection = null;
+    @Override
+    public void run() {
+        log.debug("querying \"{}\"...", url);
 
-		log.debug("querying \"" + url + "\"...");
+        final Request.Builder request = new Request.Builder();
+        request.url(url);
+        request.header("Accept-Charset", "utf-8");
+        if (userAgent != null)
+            request.header("User-Agent", userAgent);
 
-		try
-		{
-			connection = (HttpURLConnection) new URL(url).openConnection();
+        final Call call = Constants.HTTP_CLIENT.newCall(request.build());
+        try {
+            final Response response = call.execute();
+            if (response.isSuccessful()) {
+                final long serverTime = response.headers().getDate("Date").getTime();
+                final BufferedReader reader = new BufferedReader(response.body().charStream());
+                final String line = reader.readLine().trim();
+                reader.close();
 
-			if (connection instanceof HttpsURLConnection)
-			{
-				final InputStream keystoreInputStream = assets.open("ssl-keystore");
+                handleLine(line, serverTime);
+            }
+        } catch (final Exception x) {
+            handleException(x);
+        }
+    }
 
-				final KeyStore keystore = KeyStore.getInstance("BKS");
-				keystore.load(keystoreInputStream, "password".toCharArray());
-				keystoreInputStream.close();
+    protected abstract void handleLine(String line, long serverTime);
 
-				final TrustManagerFactory tmf = TrustManagerFactory.getInstance("X509");
-				tmf.init(keystore);
-
-				final SSLContext sslContext = SSLContext.getInstance("TLS");
-				sslContext.init(null, tmf.getTrustManagers(), null);
-
-				((HttpsURLConnection) connection).setSSLSocketFactory(sslContext.getSocketFactory());
-			}
-
-			connection.setInstanceFollowRedirects(false);
-			connection.setConnectTimeout(Constants.HTTP_TIMEOUT_MS);
-			connection.setReadTimeout(Constants.HTTP_TIMEOUT_MS);
-			connection.setRequestProperty("Accept-Charset", "utf-8");
-			if (userAgent != null)
-				connection.addRequestProperty("User-Agent", userAgent);
-			connection.connect();
-
-			if (connection.getResponseCode() == HttpURLConnection.HTTP_OK)
-			{
-				final long serverTime = connection.getDate();
-				// TODO parse connection.getContentType() for charset
-
-				final BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream(), Charsets.UTF_8), 64);
-				final String line = reader.readLine().trim();
-				reader.close();
-
-				handleLine(line, serverTime);
-			}
-		}
-		catch (final Exception x)
-		{
-			handleException(x);
-		}
-		finally
-		{
-			if (connection != null)
-				connection.disconnect();
-		}
-	}
-
-	protected abstract void handleLine(String line, long serverTime);
-
-	protected abstract void handleException(Exception x);
+    protected abstract void handleException(Exception x);
 }

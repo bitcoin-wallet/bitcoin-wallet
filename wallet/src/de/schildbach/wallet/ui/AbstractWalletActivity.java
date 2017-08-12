@@ -20,29 +20,33 @@ package de.schildbach.wallet.ui;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import android.app.Activity;
-import android.os.Bundle;
 import de.schildbach.wallet.WalletApplication;
+import de.schildbach.wallet_test.R;
+
+import android.app.Activity;
+import android.app.ActivityManager.TaskDescription;
+import android.os.Build;
+import android.os.Bundle;
 
 /**
  * @author Andreas Schildbach
  */
-public abstract class AbstractWalletActivity extends Activity
-{
-	private WalletApplication application;
+public abstract class AbstractWalletActivity extends Activity {
+    private WalletApplication application;
 
-	protected static final Logger log = LoggerFactory.getLogger(AbstractWalletActivity.class);
+    protected static final Logger log = LoggerFactory.getLogger(AbstractWalletActivity.class);
 
-	@Override
-	protected void onCreate(final Bundle savedInstanceState)
-	{
-		application = (WalletApplication) getApplication();
+    @Override
+    protected void onCreate(final Bundle savedInstanceState) {
+        application = (WalletApplication) getApplication();
 
-		super.onCreate(savedInstanceState);
-	}
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+            setTaskDescription(new TaskDescription(null, null, getResources().getColor(R.color.bg_action_bar)));
 
-	protected WalletApplication getWalletApplication()
-	{
-		return application;
-	}
+        super.onCreate(savedInstanceState);
+    }
+
+    protected WalletApplication getWalletApplication() {
+        return application;
+    }
 }

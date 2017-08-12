@@ -20,13 +20,12 @@
 	<string name="exchange_rates_fragment_rate">نسبة</string>
 	<string name="exchange_rates_fragment_balance">رصيد</string>
 	<string name="exchange_rates_fragment_source">تم جلب السعر من %s</string>
-	<string name="exchange_rates_context_set_as_default_title">تعيين كعملة أجنبية افتراضية</string>
 	<string name="wallet_transactions_options_filter_received">تم الاستلام</string>
 	<string name="wallet_transactions_options_filter_all">كلاهما</string>
 	<string name="wallet_transactions_options_filter_sent">تم الارسال</string>
 	<string name="wallet_transactions_fragment_empty_text_received">لم يتم استلام مبالغ بيتكوين إلى الآن</string>
 	<string name="wallet_transactions_fragment_empty_text_sent">لم يتم ارسال مبالغ بيتكوين إلى الآن</string>
-	<string name="wallet_transactions_fragment_empty_text_howto">كيفية الحصول على البيتكوين Groestlcoins؟\n\nالتجارة التقليدية مقابل المال،\nبيع السلع أو الخدمات أو\nالكسب من خلال العمل.</string>
+	<string name="wallet_transactions_fragment_empty_text_howto">كيفية الحصول على البيتكوين Bitcoins؟\n\nالتجارة التقليدية مقابل المال،\nبيع السلع أو الخدمات أو\nالكسب من خلال العمل.</string>
 	<string name="wallet_transactions_row_warning_backup">تهانينا، لقد تلقيت أول دفعة خاصة بك! قل قمت بحفظ احتياطي لمحفظتك لحمايتها من الضياع؟</string>
 	<string name="wallet_transactions_fragment_coinbase">محفور</string>
 	<string name="wallet_transactions_fragment_internal">داخلي</string>
@@ -43,7 +42,7 @@
 	<string name="wallet_version_dialog_button_market">متجر جوجل بلاي Google Play.</string>
 	<string name="wallet_version_dialog_button_binary">تنزيل</string>
 	<string name="wallet_old_sdk_dialog_title">إصدار نظام الأندرويد الخاص بك قديم أو غير محدث</string>
-	<string name="wallet_old_sdk_dialog_message">هناك احتمالات بأن واحدة من الإصدارات القادمة من محفظة البيتكوين Groestlcoin Wallet لن تدعم جهازك. في بعض الحالات، سيصعب عليك إنفاق أو التعامل بالبيتكوين على هذا الجهاز.\n\nإذا كنت لا تعلم ما تقوم به، فإنه من المستحسن استخراج ونقل عملات البيتكوين الخاصة بك من هذه المحفظة إلى أخرى كإجراء أمني.</string>
+	<string name="wallet_old_sdk_dialog_message">هناك احتمالات بأن واحدة من الإصدارات القادمة من محفظة البيتكوين Bitcoin Wallet لن تدعم جهازك. في بعض الحالات، سيصعب عليك إنفاق أو التعامل بالبيتكوين على هذا الجهاز.\n\nإذا كنت لا تعلم ما تقوم به، فإنه من المستحسن استخراج ونقل عملات البيتكوين الخاصة بك من هذه المحفظة إلى أخرى كإجراء أمني.</string>
 	<string name="send_coins_activity_title">أرسل بيتكوين</string>
 	<string name="send_coins_fragment_request_payment_request_progress">جلب التوقيع من %s…</string>
 	<string name="send_coins_fragment_request_payment_request_failed_title">فشل جلب التوقيع</string>
@@ -156,7 +155,6 @@
 	<string name="preferences_data_usage_title">استخدام البيانات</string>
 	<string name="preferences_data_usage_summary">إظهار الخيارات لتقييد استخدام البيانات على شبكات الانترنت المحمول اللاسلكية</string>
 	<string name="preferences_report_issue_title">إبلاغ عن مشكلة</string>
-	<string name="preferences_report_issue_summary">جمع المعلومات حول المشكلة التي تواجهها، وإرسال تقريرك  بالبريد الإلكتروني للمطورين.</string>
 	<string name="preferences_initiate_reset_title">إعادة تعيين Blockchain</string>
 	<string name="preferences_initiate_reset_summary">إعادة تعيين Blockchain و المعاملات و رصيد المحفظة. الرد سيستغرق بعض الوقت.</string>
 	<string name="preferences_initiate_reset_dialog_message">هل تود إعادة تعيين وإعادة تشغيل blockchain؟\n\nسيتم إخفاء رصيد محفظتك  مؤقتا وإزالة المعاملات. كلاهما سوف يسترجعان مع تقدم مزامنة بيانات blockchain.</string>
@@ -175,9 +173,9 @@
 	<string name="report_issue_dialog_mail_intent_failed">فشل إرسال التقرير.</string>
 	<string name="about_title">تعليمات</string>
 	<string name="about_license_title">رخصة</string>
-	<string name="about_credits_bitcoinj_title">هذا البرنامج يستخدم groestlcoinj %s</string>
-	<string name="about_credits_zxing_title">هذا البرنامج يستخدم ’zxing’</string>
-	<string name="about_credits_icon_title">هذا البرنامج يستخدم أيقونة من إعداد ’bitboy’</string>
+	<string name="about_category_credits">هذا البرنامج يستخدم</string>
+	<string name="about_credits_bitcoinj_title">bitcoinj %s</string>
+	<string name="about_credits_zxing_title">ZXing</string>
 	<string name="about_community_googleplus_title">مجتمع جوجل بلس +Google</string>
 	<string name="about_community_googleplus_summary">مناقشات حول التطبيق</string>
 	<string name="about_market_app_title">صفحة متجر جوجل بلاي Google Play</string>
