@@ -4,8 +4,13 @@
     <files-path
         name="log"
         path="log/" />
+
     <cache-path
         name="report"
         path="report/" />
+
+    <external-path
+        name="ext-download"
+        path="Download/" />
 
 </paths>

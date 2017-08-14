@@ -34,6 +34,7 @@ import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ShareCompat;
+import android.support.v4.content.FileProvider;
 import android.text.Html;
 
 /**
@@ -104,7 +105,8 @@ public class ArchiveBackupDialogFragment extends DialogFragment {
                 + String.format(Constants.WEBMARKET_APP_URL, activity.getPackageName()) + "\n\n" + Constants.SOURCE_URL
                 + '\n');
         builder.setType(Constants.MIMETYPE_WALLET_BACKUP);
-        builder.setStream(Uri.fromFile(backupFile));
+        builder.setStream(
+                FileProvider.getUriForFile(activity, activity.getPackageName() + ".file_attachment", backupFile));
         builder.setChooserTitle(R.string.export_keys_dialog_mail_intent_chooser);
         builder.startChooser();
         log.info("invoked chooser for archiving wallet backup");
