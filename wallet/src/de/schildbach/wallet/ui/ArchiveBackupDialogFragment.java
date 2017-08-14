@@ -100,7 +100,8 @@ public class ArchiveBackupDialogFragment extends DialogFragment {
 
     private void archiveWalletBackup(final File backupFile) {
         final ShareCompat.IntentBuilder builder = ShareCompat.IntentBuilder.from(activity);
-        builder.setSubject(getString(R.string.export_keys_dialog_mail_subject));
+        builder.setSubject(getString(R.string.export_keys_dialog_mail_subject)
+                + Constants.Files.EXTERNAL_WALLET_BACKUP_SUBJECT_SUFFIX);
         builder.setText(getString(R.string.export_keys_dialog_mail_text) + "\n\n"
                 + String.format(Constants.WEBMARKET_APP_URL, activity.getPackageName()) + "\n\n" + Constants.SOURCE_URL
                 + '\n');

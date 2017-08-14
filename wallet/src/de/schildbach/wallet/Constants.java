@@ -89,6 +89,10 @@ public final class Constants {
         /** Filename of the manual wallet backup. */
         public static final String EXTERNAL_WALLET_BACKUP = "bitcoin-wallet-backup" + FILENAME_NETWORK_SUFFIX;
 
+        /** Suffix for the subject of the manual wallet backup. */
+        public static final String EXTERNAL_WALLET_BACKUP_SUBJECT_SUFFIX = NETWORK_PARAMETERS.getId()
+                .equals(NetworkParameters.ID_MAINNET) ? "" : " [testnet3]";
+
         /** Filename of the block store for storing the chain. */
         public static final String BLOCKCHAIN_FILENAME = "blockchain" + FILENAME_NETWORK_SUFFIX;
 
