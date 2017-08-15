@@ -49,7 +49,7 @@
         android:title="Twitter" >
         <intent
             android:action="android.intent.action.VIEW"
-            android:data="https://twitter.com/#!/bitcoin_wallet" />
+            android:data="https://twitter.com/bitcoin_wallet" />
     </Preference>
 
     <PreferenceCategory android:title="@string/about_category_credits" >
