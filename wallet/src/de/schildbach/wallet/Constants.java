@@ -34,6 +34,7 @@ import com.squareup.okhttp.HttpUrl;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.logging.HttpLoggingInterceptor;
 
+import de.schildbach.wallet_test.BuildConfig;
 import de.schildbach.wallet_test.R;
 
 import android.os.Build;
@@ -44,7 +45,7 @@ import android.text.format.DateUtils;
  * @author Andreas Schildbach
  */
 public final class Constants {
-    public static final boolean TEST = R.class.getPackage().getName().contains("_test");
+    public static final boolean TEST = BuildConfig.APPLICATION_ID.contains("_test");
 
     /** Network this wallet is on (e.g. testnet or mainnet). */
     public static final NetworkParameters NETWORK_PARAMETERS = TEST ? TestNet3Params.get() : MainNetParams.get();

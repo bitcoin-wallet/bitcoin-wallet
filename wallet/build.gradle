@@ -75,6 +75,23 @@ android {
             java.srcDirs = ['test']
             resources.srcDirs = ['test']
         }
+        _testNet3 {
+            res.srcDirs = ["testNet3/res"]
+        }
+        beta {
+            res.srcDirs = ["beta/res"]
+        }
+    }
+    productFlavors {
+        beta {
+            applicationId = "hashengineering.groestlcoin.wallet.beta"
+        }
+        prod {
+            applicationId = "hashengineering.groestlcoin.wallet"
+        }
+        _testNet3 {
+            applicationId = "hashengineering.groestlcoin.wallet_test"
+        }
     }
 
     packagingOptions {
