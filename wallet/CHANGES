@@ -1,3 +1,7 @@
+v5.29
+
+* Fix crash when archiving a wallet backup on some devices.
+
 v5.27-v5.28
 
 * Fix app shortcuts for Android 7.1 devices.
