@@ -85,7 +85,7 @@
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-
+        </activity-alias>
 
         <activity
             android:name="de.schildbach.wallet.ui.send.SendCoinsActivity"

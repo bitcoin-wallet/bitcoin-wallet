@@ -4,11 +4,11 @@
     <string name="help_wallet">
 <![CDATA[
 		<p>
-			The upper left part of the screen displays your balance in Bitcoins and one selected national currency.
+			The upper left part of the screen displays your balance in Groestlcoins and one selected national currency.
 			Tap to go to the list of national currencies, and tap on one of the currencies to select it as default.
 		</p>
 		<p>
-			The QR code in the upper right contains your current bitcoin address and can be used for scanning by a payer.
+			The QR code in the upper right contains your current groestlcoin address and can be used for scanning by a payer.
 			Tap on the QR code to get a larger version of it.
 		</p>
 		<p>
@@ -26,10 +26,10 @@
 <![CDATA[
 		<p>
 			Using this dialog, you can request coins from a payer.
-			The payer should already have installed a Bitcoin wallet.
+			The payer should already have installed a Groestlcoin wallet.
 		</p>
 		<p>
-			First, you can enter an amount of Bitcoins to request.
+			First, you can enter an amount of Groestlcoins to request.
 		</p>
 		<p>
 			Then, you either have the generated QR code scanned by the payer.
@@ -48,7 +48,7 @@
 			You have initiated the process of sending coins.
 		</p>
 		<p>
-			First, you enter the Bitcoin address to pay to.
+			First, you enter the Groestlcoin address to pay to.
 			The address will autocomplete from known entries in your address book.
 			You can also scan a QR code being presented by the payee by pressing the camera button.
 		</p>
@@ -60,7 +60,7 @@
 		</p>
 		<p>
 			You can enter a payment while being offline.
-			It will be sent on next restart of Bitcoin Wallet.
+			It will be sent on next restart of Groestlcoin Wallet.
 			If you want a payment to be processed as fast as possible, make sure you are well connected (i.e. on a WLAN).
 		</p>
 		<p>
@@ -76,8 +76,8 @@
 			<b>Important safety notes:</b>
 		</p>
 		<p>
-			Bitcoins are stored on the device.
-			<b>If you lose it, you\'ll lose your Bitcoins.</b>
+			Groestlcoins are stored on the device.
+			<b>If you lose it, you\'ll lose your Groestlcoins.</b>
 		</p>
 		<p>
 			This means you need to <b>back up your wallet</b>!
@@ -85,12 +85,12 @@
 			Keep your backup safe and remember the password.
 		</p>
 		<p>
-			<b>Before uninstalling</b> (or clearing app data/wiping your device), <b>transfer your Bitcoins to another wallet</b>.
-			Remaining Bitcoins will be lost.
+			<b>Before uninstalling</b> (or clearing app data/wiping your device), <b>transfer your Groestlcoins to another wallet</b>.
+			Remaining Groestlcoins will be lost.
 		</p>
 		<p>
 			<b>Payments are irreversible</b>.
-			If you send your Bitcoins into the void, there is almost no way to get them back.
+			If you send your Groestlcoins into the void, there is almost no way to get them back.
 		</p>
 		<p>
 			<b>Keep your mobile device safe!</b>
@@ -110,13 +110,13 @@
             <b>Technical notes:</b>
         </p>
         <p>
-            As an SPV/light wallet, Bitcoin Wallet follows the chain of the most proof-of-work (sometimes also called the \"longest chain\", the \"winning chain\" or the \"Bitcoin blockchain\").
+            As an SPV/light wallet, Groestlcoin Wallet follows the chain of the most proof-of-work (sometimes also called the \"longest chain\", the \"winning chain\" or the \"Groestlcoin blockchain\").
             You will only receive incoming payments and be able to pay on that chain.
-            No guarantees can be made about Bitcoins on minority chains, that is chains with less proof-of-work.
+            No guarantees can be made about Groestlcoins on minority chains, that is chains with less proof-of-work.
         </p>
         <p>
             In the past, minority chains have always become irrelevant very quickly.
-            If you desire to follow a minority chain anyway, you are advised to use the \"trusted peer\" feature to exclusively connect to a bitcoind implementation which enforces your desired chain.
+            If you desire to follow a minority chain anyway, you are advised to use the \"trusted peer\" feature to exclusively connect to a groestlcoind implementation which enforces your desired chain.
             If the network between your wallet and the trusted peer is not to be trusted, use a VPN to authenticate that connection.
         </p>
     ]]>

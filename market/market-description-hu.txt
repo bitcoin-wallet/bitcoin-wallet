@@ -1,36 +1,35 @@
-<b>Mindig legyenek nálad a Bitcoin-jaid a zsebedben!</b> Úgy tudsz fizetni, hogy gyorsan beolvasol egy QR kódot. Kereskedőként megkapod a fizetséget megbízhatóan és azonnal. A Bitcoin Wallet az első mobil Bitcoin alkalmazás és vitathatatlanul a legbiztonságosabb is!
+<b>Mindig legyenek nálad a Groestlcoin-jaid a zsebedben!</b> Úgy tudsz fizetni, hogy gyorsan beolvasol egy QR kódot. Kereskedőként megkapod a fizetséget megbízhatóan és azonnal. A Groestlcoin Wallet az első mobil Groestlcoin alkalmazás és vitathatatlanul a legbiztonságosabb is!
 
 
 <b>JELLEMZŐK</b>
 
 • Nincs regisztráció és nem szükséges semmiféle háttéralkalmazás futtatása (web, vagy cloud)! Decentralizált és közvetlen (P2P).
-• Bitcoin összeg megjelenítési módok: BTC, mBTC és µBTC.
+• Groestlcoin összeg megjelenítési módok: GRS, mGRS és µGRS.
 • Átváltás a saját valutádra, oda-vissza.
-• Bitcoin küldés és fogadás NFC-n, QR kódokon vagy Bitcoin URL-eken keresztül.
-• Címtár a rendszeresen használt Bitcoin címek számára.
+• Groestlcoin küldés és fogadás NFC-n, QR kódokon vagy Groestlcoin URL-eken keresztül.
+• Címtár a rendszeresen használt Groestlcoin címek számára.
 • Offline állapotban is fizethetsz - Bluetooth segítségével.
-• Rendszerüzenet Bitcoin érkezésekor.
+• Rendszerüzenet Groestlcoin érkezésekor.
 • Papírtárcák besöprése (pl. amik hűtőháznak vannak használva).
-• Widget a Bitcoin egyenlegről.
+• Widget a Groestlcoin egyenlegről.
 
 
 <b>HOZZÁJÁRULÁS</b>
 
-A Bitcoin Wallet <b>nyílt forráskódú</b> és <b>ingyenes szoftver</b>. Licenc: GPLv3
+A Groestlcoin Wallet <b>nyílt forráskódú</b> és <b>ingyenes szoftver</b>. Licenc: GPLv3
 https://www.gnu.org/licenses/gpl-3.0.en.html
 
 A forráskódunk elérhető a GitHub-on:
-https://github.com/bitcoin-wallet/bitcoin-wallet
+https://github.com/Groesltcoin/groestlcoin-wallet
 
 Minden fordítást a Transifex kezelt:
-https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/
+https://www.transifex.com/Groestlcoin-wallet/Groestlcoin-wallet/
 
 
 <b>AJÁNLÓLEVELEK</b>
 
-• Sok mobiltárca a Bitcoin Wallet-re alapozza a kódját. Például: blockchain.info és BTCX.
-• Ajánlott mobiltárca a https://bitcoin.org által
-• Ajánlva a BitPay által.
+• Ajánlott mobiltárca a http://groestlcoin.org által
+
 
 
 <i>Saját felelősségedre használd!</i>

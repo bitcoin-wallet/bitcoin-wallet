@@ -7,7 +7,7 @@
 			Toque para ver as listas das moedas nacionais, e toque em uma delas para selecioná-la como padrão.
 		</p>
 		<p>
-			O código QR à direita contém o seu endereço bitcoin e pode ser usado para ser lido por outro dispositivo.
+			O código QR à direita contém o seu endereço groestlcoin e pode ser usado para ser lido por outro dispositivo.
 			Toque no código QR para ampliá-lo.
 		</p>
 		<p>
@@ -16,7 +16,7 @@
 			Toque em uma transação para adicionar o endereço de remetentes ou destinatários para o livro de endereços.
 		</p>
 		<p>
-			Você pode enviar ou solicitar bitcoins tocando os botões na barra de ações.
+			Você pode enviar ou solicitar groestlcoins tocando os botões na barra de ações.
 			Mais opções estão disponíveis no menu de opções.
 		</p>
 	]]>
@@ -24,18 +24,18 @@
   <string name="help_request_coins">
 <![CDATA[
 		<p>
-			Usando essa tela, você consegue solicitar bitcoins para outra pessoa (que também já tenha instalado uma carteira Bitcoin).
+			Usando essa tela, você consegue solicitar groestlcoins para outra pessoa (que também já tenha instalado uma carteira Groestlcoin).
 		</p>
 		<p>
-			Primeiro, você pode opcionalmente inserir uma quantidade de Bitcoins a ser solicitada.
+			Primeiro, você pode opcionalmente inserir uma quantidade de Groestlcoins a ser solicitada.
 		</p>
 		<p>
 			Um código QR será gerado e ele deve ser escaneado pela outra pessoa.
 			Você também pode enviar sua solicitação para uma pessoa remotamente, usando o botão compartilhar na barra de ações.
-			A outra pessoa deverá clicar na Bitcoin URL.
+			A outra pessoa deverá clicar na Groestlcoin URL.
 		</p>
 		<p>
-			A solicitação irá mostrar para a outra pessoa uma caixa de diálogo para o envio de bitcoins com todos os campos pré-preenchidos.
+			A solicitação irá mostrar para a outra pessoa uma caixa de diálogo para o envio de groestlcoins com todos os campos pré-preenchidos.
 			Se ela concordar com o valor, tudo o que ela precisa fazer é enviar o pagamento.
 		</p>
 	]]>
@@ -43,16 +43,16 @@
   <string name="help_send_coins">
 <![CDATA[
 		<p>
-			Você iniciou o processo de envio de bitcoins.
-			Você veio aqui através da tela principal ou após clicar em um endereço Bitcoin no seu navegador móvel.
+			Você iniciou o processo de envio de groestlcoins.
+			Você veio aqui através da tela principal ou após clicar em um endereço Groestlcoin no seu navegador móvel.
 		</p>
 		<p>
-			Primeiro insira o endereço Bitcoin para o qual você quer realizar o pagamento.
+			Primeiro insira o endereço Groestlcoin para o qual você quer realizar o pagamento.
 			O endereço será completado automaticamente através de entradas conhecidas em seu catálogo de endereços.
 			Ao usar o botão QR na barra de ações, você pode escanear códigos QR que contenham solicitações de pagamento.
 		</p>
 		<p>
-			Em seguida, você pode ver quantos Bitcoins você tem disponíveis para serem gastos no momento.
+			Em seguida, você pode ver quantos Groestlcoins você tem disponíveis para serem gastos no momento.
 			Se houver uma diferença entre o valor disponível para ser gasto e o saldo da tela principal, é devido a transações ainda não confirmadas.
 		</p>
 		<p>
@@ -60,7 +60,7 @@
 		</p>
 		<p>
 			É possível inserir um pagamento mesmo estando offline.
-			Ele será enviado na próxima reinicialização da Bitcoin Wallet.
+			Ele será enviado na próxima reinicialização da Groestlcoin Wallet.
 			Se você quer que um pagamento seja processado o mais rápido possível, certifique-se de que você está usando uma boa conexão (i.e. uma rede Wi-Fi).
 		</p>
 		<p>
@@ -76,8 +76,8 @@
 			<b>Notas importantes sobre segurança:</b>
 		</p>
 		<p>
-			As chaves para os seus Bitcoins são armazenadas no seu dispositivo.
-			<b>Se você o perder, você perderá suas chaves e, consequentemente, também perderá todos os seus Bitcoins.</b>
+			As chaves para os seus Groestlcoins são armazenadas no seu dispositivo.
+			<b>Se você o perder, você perderá suas chaves e, consequentemente, também perderá todos os seus Groestlcoins.</b>
 		</p>
 		<p>
 			Isso significa que você tem que fazer um <b>backup (cópia de segurança) da sua carteira</b>!
@@ -85,12 +85,12 @@
 			Mantenha o seu backup seguro e lembre a senha.
 		</p>
 		<p>
-			<b>Antes de instalar</b>, limpar as informações do aplicativo ou realizar um reset de seu dispositivo, <b>transfira seus Bitcoins para uma outra carteira</b>.
-			Os Bitcoins remanescentes serão perdidos.
+			<b>Antes de instalar</b>, limpar as informações do aplicativo ou realizar um reset de seu dispositivo, <b>transfira seus Groestlcoins para uma outra carteira</b>.
+			Os Groestlcoins remanescentes serão perdidos.
 		</p>
 		<p>
 			<b>Os pagamentos são irreversíveis</b>.
-			Se você enviar seus Bitcoins para um endereço desconhecido, não há quase nenhuma maneira de obtê-los de volta.
+			Se você enviar seus Groestlcoins para um endereço desconhecido, não há quase nenhuma maneira de obtê-los de volta.
 		</p>
 		<p>
 			<b>Mantenha o seu dispositivo móvel seguro!</b>
@@ -100,7 +100,7 @@
 		</p>
 		<p>
 			Não se arrisque.
-			<b>Não carregue em sua carteira Bitcoin valores maiores do que você carregaria em uma carteira de bolso comum</b>.
+			<b>Não carregue em sua carteira Groestlcoin valores maiores do que você carregaria em uma carteira de bolso comum</b>.
 		</p>
 	]]>
 	</string>

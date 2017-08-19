@@ -3,11 +3,11 @@
   <string name="help_wallet">
 <![CDATA[
 		<p>
-			Den øverste venstre del af skærmen viser din saldo i bitcoin og en selvvalgt national valuta.
+			Den øverste venstre del af skærmen viser din saldo i groestlcoin og en selvvalgt national valuta.
 			Berør dér for at få vist en liste over nationale valutaer, og berør én af disse valutaer for at vælge den som standard.
 		</p>
 		<p>
-			QR-koden til højre indeholder din bitcoin-adresse og kan bruges til skanning af en betaler.
+			QR-koden til højre indeholder din groestlcoin-adresse og kan bruges til skanning af en betaler.
 			Berør QR-koden for at få vist en større version af den.
 		</p>
 		<p>
@@ -16,7 +16,7 @@
 			Modtagne betalinger vil blive markeret med grøn og sendte betalinger med rød.
 		</p>
 		<p>
-			Du kan sende eller anmode om bitcoin ved at berøre knapperne i handlingsbjælken.
+			Du kan sende eller anmode om groestlcoin ved at berøre knapperne i handlingsbjælken.
 			Flere indstillinger er tilgængelige i menuen Indstillinger.
 		</p>
 	]]>
@@ -24,8 +24,8 @@
   <string name="help_request_coins">
 <![CDATA[
 		<p>
-			Ved hjælp af denne dialogskærm kan du anmode om bitcoin hos en betaler.
-			Betaleren bør allerede have installeret en Bitcoin-tegnebog.
+			Ved hjælp af denne dialogskærm kan du anmode om groestlcoin hos en betaler.
+			Betaleren bør allerede have installeret en Groestlcoin-tegnebog.
 		</p>
 		<p>
 			Først kan du indtaste et beløb, du vil anmode om.
@@ -35,7 +35,7 @@
 			Hvis begge telefoner har NFC aktiveret, kan I også holde dem op mod hinanden.
 		</p>
 		<p>
-			Uanset hvordan, vil betaleren få vist en skærm/et vindue til afsendelse af bitcoin med alle felterne forudfyldt.
+			Uanset hvordan, vil betaleren få vist en skærm/et vindue til afsendelse af groestlcoin med alle felterne forudfyldt.
 			Hvis betaleren accepterer, skal han eller hun blot afsende betalingen.
 		</p>
 	]]>
@@ -43,10 +43,10 @@
   <string name="help_send_coins">
 <![CDATA[
 		<p>
-			Du har startet handlingen, der afsender bitcoin.
+			Du har startet handlingen, der afsender groestlcoin.
 		</p>
 		<p>
-			Først indtaster du Bitcoin-adressen, der skal betales til.
+			Først indtaster du Groestlcoin-adressen, der skal betales til.
 			Adressen vil automatisk skrives færdig ud fra adresser i din adressebog.
 			Du kan også skanne en QR-kode, som betalingsmodtageren fremviser, ved at klikke på kamera-knappen.
 		</p>
@@ -58,7 +58,7 @@
 		</p>
 		<p>
 			Du kan indtaste en betaling, mens du er offline.
-			Den vil blive sendt, næste gang Bitcoin Wallet genstartes.
+			Den vil blive sendt, næste gang Groestlcoin Wallet genstartes.
 			Hvis du vil være sikker på, at en betaling bliver behandlet så hurtigt som muligt så sørg for, at du har en god forbindelse (dvs. på et trådløst netværk).
 		</p>
 		<p>
@@ -74,8 +74,8 @@
 			<b>Vigtige sikkerhedsnoter:</b>
 		</p>
 		<p>
-			Bitcoin bliver gemt på enheden.
-			<b>Hvis du mister den, mister du dine bitcoin.</b>
+			Groestlcoin bliver gemt på enheden.
+			<b>Hvis du mister den, mister du dine groestlcoin.</b>
 		</p>
 		<p>
 			Dette betyder, at du er nødt til at <b>sikkerhedskopiere din tegnebog</b>!
@@ -83,12 +83,12 @@
 			Opbevar din sikkerhedskopi sikkert og glem ikke adgangskoden.
 		</p>
 		<p>
-			<b>Før du afinstallerer app\'en</b> (eller sletter app\'ens data/nulstiller din enhed), <b>skal du overføre dine bitcoin til en anden tegnebog</b>.
-			Tilbageværende bitcoin vil gå tabt.
+			<b>Før du afinstallerer app\'en</b> (eller sletter app\'ens data/nulstiller din enhed), <b>skal du overføre dine groestlcoin til en anden tegnebog</b>.
+			Tilbageværende groestlcoin vil gå tabt.
 		</p>
 		<p>
 			<b>Betalinger kan ikke trækkes tilbage</b>.
-			Hvis du sender dine bitcoin ud i \"intetheden\", er der stort set ingen måde at få dem tilbage.
+			Hvis du sender dine groestlcoin ud i \"intetheden\", er der stort set ingen måde at få dem tilbage.
 		</p>
 		<p>
 			<b>Opbevar din mobile enhed sikkert!</b>
@@ -108,13 +108,13 @@
             <b>Tekniske noter:</b>
         </p>
         <p>
-            Som SPV-/letvægtstegnebog følger Bitcoin Wallet den kæde med mest proof-of-work (til tider også kaldt den \"længste kæde\", den \"vindende kæde\" eller \"Bitcoin blokkæden\").
+            Som SPV-/letvægtstegnebog følger Groestlcoin Wallet den kæde med mest proof-of-work (til tider også kaldt den \"længste kæde\", den \"vindende kæde\" eller \"Groestlcoin blokkæden\").
             Du vil kun modtage indkommende betalinger og være i stand til at betale på denne kæde.
-            Ingen garantier gives om Bitcoin på minoritetskæder, dvs. kæder med mindre proof-of-work.
+            Ingen garantier gives om Groestlcoin på minoritetskæder, dvs. kæder med mindre proof-of-work.
         </p>
         <p>
             Førhen blev minoritetskæder altid irrelevante meget hurtigt.
-            Hvis du alligevel vælger at følge en minoritetskæde, anbefales du at bruge funktionen \"Betroet peer\" for udelukkende at forbinde til en bitcoind-implementering, som udfører din valgte kæde.
+            Hvis du alligevel vælger at følge en minoritetskæde, anbefales du at bruge funktionen \"Betroet peer\" for udelukkende at forbinde til en groestlcoind-implementering, som udfører din valgte kæde.
             Hvis du ikke stoler på netværket mellem din tegnebog og den betroede peer, kan du bruge en VPN til at autentificere forbindelsen.
         </p>
     ]]>

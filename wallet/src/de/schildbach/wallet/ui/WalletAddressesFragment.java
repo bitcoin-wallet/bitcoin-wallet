@@ -183,7 +183,7 @@ public final class WalletAddressesFragment extends FancyListFragment {
                     final Uri blockExplorerUri = config.getBlockExplorer();
                     log.info("Viewing address {} on {}", address, blockExplorerUri);
                     startActivity(new Intent(Intent.ACTION_VIEW,
-                            Uri.withAppendedPath(blockExplorerUri,  Constants.EXPLORE_ADDRESS_PATH + getAddress(position).toString())));
+                            Uri.withAppendedPath(blockExplorerUri,  blockExplorerUri + getAddress(position).toString())));
 
                     mode.finish();
                     return true;

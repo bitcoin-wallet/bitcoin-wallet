@@ -20,6 +20,7 @@ package de.schildbach.wallet;
 import java.io.File;
 import java.util.concurrent.TimeUnit;
 
+import org.bitcoinj.core.CoinDefinition;
 import org.bitcoinj.core.Context;
 import org.bitcoinj.core.NetworkParameters;
 import org.bitcoinj.params.MainNetParams;
@@ -178,8 +179,8 @@ public final class Constants {
 
     public static final BaseEncoding HEX = BaseEncoding.base16().lowerCase();
 
-    public static final String SOURCE_URL = "https://github.com/bitcoin-wallet/bitcoin-wallet";
-    public static final String BINARY_URL = "https://github.com/bitcoin-wallet/bitcoin-wallet/releases";
+    public static final String SOURCE_URL = "https://github.com/Groestlcoin/groestlcoin-wallet";
+    public static final String BINARY_URL = "https://github.com/Groestlcoin/groestlcoin-wallet/releases";
     public static final String MARKET_APP_URL = "market://details?id=%s";
     public static final String WEBMARKET_APP_URL = "https://play.google.com/store/apps/details?id=%s";
 

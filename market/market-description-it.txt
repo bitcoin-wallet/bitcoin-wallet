@@ -1,36 +1,34 @@
-<b>Porta i tuoi Bitcoin sempre con te, in tasca!</b>  Paghi velocemente scansionando un QR-code. Come un commerciante, riceverai i pagamenti sicuri e istantanei. Bitcoin Wallet è la prima Bitcoin app mobile, e probabilmente anche la più sicura!
+<b>Porta i tuoi Groestlcoin sempre con te, in tasca!</b>  Paghi velocemente scansionando un QR-code. Come un commerciante, riceverai i pagamenti sicuri e istantanei. Groestlcoin Wallet è la prima Groestlcoin app mobile, e probabilmente anche la più sicura!
 
 
 <b>CARATTERISTICHE</b>
 
 • Non è necessaria alcuna registrazione, servizio web o cloud! Questo portafoglio è de-centralizzato e peer to peer.
-• Mostra l'ammontare di Bitcoin in BTC, mBTC e µBTC.
+• Mostra l'ammontare di Groestlcoin in GRS, mGRS e µGRS.
 • Conversione verso e dalle monete nazionali.
-• Invio e ricevimento di Bitcoin tramite NFC, codici QR o URL Bitcoin.
-• Rubrica degli indirizzi per usare indirizzi Bitcoin regolarmente.
+• Invio e ricevimento di Groestlcoin tramite NFC, codici QR o URL Groestlcoin.
+• Rubrica degli indirizzi per usare indirizzi Groestlcoin regolarmente.
 • Quando sei offline, puoi comunque ancora pagare via Bluetooth.
 • Sistema di notifica per le monete ricevute.
 • Svuotamento di portafogli cartacei (es: quelli utilizzati come depositi offline)
-• App Widget per il saldo Bitcoin
+• App Widget per il saldo Groestlcoin
 
 
 <b>CONTRIBUISCI</b>
 
-Bitcoin Wallet è <b>open source</b> e <b>software libero</b>. Licenza: GPLv3
+Groestlcoin Wallet è <b>open source</b> e <b>software libero</b>. Licenza: GPLv3
 https://www.gnu.org/licenses/gpl-3.0.en.html
 
 Il nostro codice sorgente è disponibile su GitHub
-https://github.com/bitcoin-wallet/bitcoin-wallet
+https://github.com/Groesltcoin/groestlcoin-wallet
 
 Tutte le traduzioni sono gestite attraverso Transifex:
-https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/
+https://www.transifex.com/Groestlcoin-wallet/Groestlcoin-wallet/
 
 
 <b>TESTIMONIANZE</b>
 
-• Molti portafogli mobile basano il loro codice su Bitcoin Wallet. Esempi: blockchain.info e BTCX.
-• Portafoglio mobile raccomandato da https://bitcoin.org
-• Raccomandato da BitPay.
+• Portafoglio mobile raccomandato da http://groestlcoin.org
 
 
 <i>Usala a tuo rischio!</i>

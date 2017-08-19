@@ -29,6 +29,7 @@ import java.util.concurrent.RejectedExecutionException;
 import javax.annotation.Nullable;
 
 import org.bitcoinj.core.Address;
+import org.bitcoinj.core.CoinDefinition;
 import org.bitcoinj.core.ScriptException;
 import org.bitcoinj.core.Transaction;
 import org.bitcoinj.core.Transaction.Purpose;
@@ -90,7 +91,6 @@ import android.widget.PopupMenu;
 import android.widget.PopupMenu.OnMenuItemClickListener;
 import android.widget.TextView;
 import android.widget.ViewAnimator;
-import de.schildbach.wallet_test.R;
 
 /**
  * @author Andreas Schildbach
@@ -342,7 +342,7 @@ public class WalletTransactionsFragment extends Fragment implements LoaderCallba
                         final Uri blockExplorerUri = config.getBlockExplorer();
                         log.info("Viewing transaction {} on {}", txHash, blockExplorerUri);
                         startActivity(
-                                new Intent(Intent.ACTION_VIEW, Uri.withAppendedPath(blockExplorerUri, Constants.EXPLORE_TRANSACTION_PATH + txHash)));
+                                new Intent(Intent.ACTION_VIEW, Uri.withAppendedPath(blockExplorerUri, CoinDefinition.BLOCKEXPLORER_TRANSACTION_PATH + txHash)));
                     } else {
                         startActivity(new Intent(Intent.ACTION_VIEW, KEY_ROTATION_URI));
                     }

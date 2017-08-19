@@ -62,13 +62,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.google.common.util.concurrent.ListenableFuture;
-
-import de.schildbach.wallet.WalletApplication;
-import de.schildbach.wallet.ui.AbstractWalletActivity;
-import de.schildbach.wallet.ui.DialogBuilder;
-import de.schildbach.wallet_test.R;
-
 /**
  * @author Andreas Schildbach
  */

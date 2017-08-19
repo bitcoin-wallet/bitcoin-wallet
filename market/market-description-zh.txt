@@ -1,10 +1,10 @@
-<b>将比特币随身携带，在您的口袋中！</b> 扫描二维码快速支付，即时可靠的接收付款。比特币钱包 (Bitcoin Wallet) 是首选的、最安全的比特币应用！
+<b>将比特币随身携带，在您的口袋中！</b> 扫描二维码快速支付，即时可靠的接收付款。比特币钱包 (Groestlcoin Wallet) 是首选的、最安全的比特币应用！
 
 
 <b>功能</b>
 
 • 不需要注册，不需要网络服务，也不需要云！比特币钱包是“去中心化”的，点对点的 (peer to peer)。
-• 以 BTC, mBTC 以及 µBTC 为单位显示比特币金额。
+• 以 GRS, mGRS 以及 µGRS 为单位显示比特币金额。
 • 从比特币转换为国家货币，或者从国家货币转换为比特币。
 • 通过 NFC，二维码、比特币链接发送或接收比特币。
 • 为经常使用的比特币地址创建地址簿。
@@ -16,21 +16,19 @@
 
 <b>贡献</b>
 
-Bitcoin Wallet 是 <b>开源项目</b> 和 <b>自由软件</b>，以 GPLv3 授权。
+Groestlcoin Wallet 是 <b>开源项目</b> 和 <b>自由软件</b>，以 GPLv3 授权。
 https://www.gnu.org/licenses/gpl-3.0.en.html
 
 源代码托管在 GitHub:
-https://github.com/bitcoin-wallet/bitcoin-wallet
+https://github.com/Groesltcoin/groestlcoin-wallet
 
 所有的本地化翻译均在 Transifex 上进行：
-https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/
+https://www.transifex.com/Groestlcoin-wallet/Groestlcoin-wallet/
 
 
 <b>评价</b>
 
-• 许多移动钱包都是在比特币钱包的基础上构建他们的代码。例如：blockchain.info 和 BTCX。
-• 由 https://bitcoin.org 推荐的移动钱包。
-• 由 BitPay 推荐的移动钱包。
+• 由 http://groestlcoin.org 推荐的移动钱包。
 
 
 <i>您需要自担风险！</i>

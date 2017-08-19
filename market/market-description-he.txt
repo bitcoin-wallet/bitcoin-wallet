@@ -13,10 +13,10 @@
 • וידג'ט לבדיקת יתרת הביטקוין שלך
 
 אתה יכול למצוא יותר על ביטקוין בכתובת
-לפרטים נוספים : https://bitcoin.org
+לפרטים נוספים : http://groestlcoin.org
 
 אם אתה רוצה לתרום לפרויקט ארנק הביטקוין, הפרויקט ממוקם ב
-https://github.com/bitcoin-wallet/bitcoin-wallet
+https://github.com/Groesltcoin/groestlcoin-wallet
 
 רישיון : GPLv3
 שים לב: השימוש הוא באחריות המשתמש.

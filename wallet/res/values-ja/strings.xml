@@ -42,9 +42,9 @@
   <string name="wallet_options_safety">安全の注意事項</string>
   <string name="wallet_options_technical_notes_title">技術的補足</string>
   <string name="wallet_options_donate">チップ/寄付</string>
-  <string name="wallet_donate_address_label">Bitcoin Walletへ寄付する</string>
+  <string name="wallet_donate_address_label">Groestlcoin Walletへ寄付する</string>
   <string name="wallet_low_storage_dialog_title">内部デバイスのストレージ容量が残りわずかです!</string>
-  <string name="wallet_low_storage_dialog_msg">Bitcoin Walletはトランザクションやブロックを記憶するのに内部ストレージを使用します。もし容量が不足した場合、動作しなくなりあなたのビットコインが危機にさらされるでしょう!\n\n不要なアプリを削除するためにアプリケーションマネージャを開きますか?</string>
+  <string name="wallet_low_storage_dialog_msg">Groestlcoin Walletはトランザクションやブロックを記憶するのに内部ストレージを使用します。もし容量が不足した場合、動作しなくなりあなたのビットコインが危機にさらされるでしょう!\n\n不要なアプリを削除するためにアプリケーションマネージャを開きますか?</string>
   <string name="wallet_low_storage_dialog_button_apps">アプリの管理</string>
   <string name="wallet_timeskew_dialog_title">日付と時刻の設定を確認してください</string>
   <string name="wallet_timeskew_dialog_msg">デバイスの時刻が%d分ずれています。この問題のためビットコインのやり取りができなくなる可能性があります。\n\n日付と時刻とタイムゾーンの設定を確認し、必要であれば修正してください。</string>
@@ -54,7 +54,7 @@
   <string name="wallet_version_dialog_button_market">Google Play</string>
   <string name="wallet_version_dialog_button_binary">ダウンロード</string>
   <string name="wallet_old_sdk_dialog_title">Androidのバージョンが古すぎます</string>
-  <string name="wallet_old_sdk_dialog_message">次のBitcoin Walletのリリースの際、このデバイスはもうサポートされないかもしれません。場合によっては、このデバイスでのコインの利用が困難になるかもしれません。\n\n意図的にしているのでない限り、あなたのコインをすぐにでも移動させることをおすすめします。</string>
+  <string name="wallet_old_sdk_dialog_message">次のGroestlcoin Walletのリリースの際、このデバイスはもうサポートされないかもしれません。場合によっては、このデバイスでのコインの利用が困難になるかもしれません。\n\n意図的にしているのでない限り、あなたのコインをすぐにでも移動させることをおすすめします。</string>
   <string name="send_coins_activity_title">ビットコインの送金</string>
   <string name="send_coins_fragment_request_payment_request_progress">%s から署名の取得中……</string>
   <string name="send_coins_fragment_request_payment_request_failed_title">署名の取得に失敗しました</string>
@@ -244,11 +244,11 @@
   <string name="preferences_category_labs">ラボ</string>
   <string name="preferences_precision_title">通貨単位の切り下げと切り上げ</string>
   <string name="preferences_precision_summary">総額の表示単位。これは計算に影響しません。</string>
-  <string name="preferences_precision_labels_8">BTC、小数点以下8桁</string>
-  <string name="preferences_precision_labels_6">BTC、小数点以下6桁</string>
-  <string name="preferences_precision_labels_4">BTC、小数点以下4桁</string>
-  <string name="preferences_precision_labels_2_3">mBTC、小数点以下2桁</string>
-  <string name="preferences_precision_labels_0_6">µBTC、小数点無し</string>
+  <string name="preferences_precision_labels_8">GRS、小数点以下8桁</string>
+  <string name="preferences_precision_labels_6">GRS、小数点以下6桁</string>
+  <string name="preferences_precision_labels_4">GRS、小数点以下4桁</string>
+  <string name="preferences_precision_labels_2_3">mGRS、小数点以下2桁</string>
+  <string name="preferences_precision_labels_0_6">µGRS、小数点無し</string>
   <string name="preferences_own_name_title">自身の名前</string>
   <string name="preferences_own_name_summary">支払いリクエストに含める、あなた自身の名前。短いものにしてください。</string>
   <string name="preferences_send_coins_autoclose_title">送金ダイアログを自動的に閉じる</string>
@@ -296,7 +296,7 @@
   <string name="about_license_title">ライセンス</string>
   <string name="about_source_title">ソースコード</string>
   <string name="about_category_credits">このアプリは以下のソフトウェアを利用しています。</string>
-  <string name="about_credits_bitcoinj_title">Bitcoinプロトコルの実装、bitcoinj %s</string>
+  <string name="about_credits_bitcoinj_title">Groestlcoinプロトコルの実装、groestlcoinj %s</string>
   <string name="about_credits_zxing_title">QRコード処理ライブラリ、ZXing</string>
   <string name="about_credits_scrypt_title">Will GlozerとColin Percivalによって実装されたScrypt</string>
   <string name="about_market_app_title">Google Playのページ</string>
@@ -308,8 +308,8 @@
   <string name="notification_coins_received_msg">%sを受け取りました</string>
   <string name="notification_peers_connected_msg">%dピアが接続済</string>
   <string name="notification_inactivity_title">まだこの端末にビットコインが残っています!</string>
-  <string name="notification_inactivity_message">残金を他の場所に移さずにBitcoin Walletアプリをアンインストールした場合、%sの残金は失なわれてしまうことに注意してください。</string>
-  <string name="notification_inactivity_message_donate">もしコインが必要ないのであれば、Bitcoin Walletプロジェクトに寄付するという選択肢もあります。</string>
+  <string name="notification_inactivity_message">残金を他の場所に移さずにGroestlcoin Walletアプリをアンインストールした場合、%sの残金は失なわれてしまうことに注意してください。</string>
+  <string name="notification_inactivity_message_donate">もしコインが必要ないのであれば、Groestlcoin Walletプロジェクトに寄付するという選択肢もあります。</string>
   <string name="notification_inactivity_action_dismiss">後で再び通知する</string>
   <string name="notification_inactivity_action_dismiss_forever">後で通知しない</string>
   <string name="appwidget_wallet_balance_title">ビットコイン残高</string>

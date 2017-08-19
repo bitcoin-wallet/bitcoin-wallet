@@ -1,36 +1,34 @@
-<b>Ha alltid dina bitcoin med dig i fickan!</b> Du gör betalningar genom att snabbt scanna en QR-kod. Handlare får betalningar tillförlitligt och omedelbart. Bitcoin Wallet är den första mobila bitcoin-appen, och utan tvekan den mest säkra!
+<b>Ha alltid dina Groestlcoin med dig i fickan!</b> Du gör betalningar genom att snabbt scanna en QR-kod. Handlare får betalningar tillförlitligt och omedelbart. Groestlcoin Wallet är den första mobila Groestlcoin-appen, och utan tvekan den mest säkra!
 
 
 <b>FUNKTIONER</b>
 
-• Ingen registrering, web- eller molntjänst behövs! Bitcoin Wallet är decentraliserad och peer-to-peer.
-• Visa summa bitcoin i BTC, mBTC eller µBTC.
+• Ingen registrering, web- eller molntjänst behövs! Groestlcoin Wallet är decentraliserad och peer-to-peer.
+• Visa summa Groestlcoin i GRS, mGRS eller µGRS.
 • Konventering till och från nationell valuta.
-• Skicka och ta emot bitcoin via NFC, QR-koder eller en Bitcoin-URL.
-• Adressbok för de Bitcoinadresser man använder ofta.
+• Skicka och ta emot Groestlcoin via NFC, QR-koder eller en Groestlcoin-URL.
+• Adressbok för de Groestlcoinadresser man använder ofta.
 • När du är nedkopplad kan du fortfarande betala via Bluetooth.
-• Meddelande om mottagna bitcoin.
+• Meddelande om mottagna Groestlcoin.
 • Inläsning av pappersplånbok (tex. sådan som används för permanent lagring).
 • App widget som visar ditt saldo.
 
 
 <b>BIDRA</b>
 
-Bitcoin Wallet är <b>öppen mjukvara</b> och <b>fri mjukvara</b>. Licens: GPLv3
+Groestlcoin Wallet är <b>öppen mjukvara</b> och <b>fri mjukvara</b>. Licens: GPLv3
 https://www.gnu.org/licenses/gpl-3.0.en.html
 
 Vår källkod finns tillgänglig på GitHub:
-https://github.com/bitcoin-wallet/bitcoin-wallet
+https://github.com/Groesltcoin/groestlcoin-wallet
 
 All översättning hanteras via Transifex:
-https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/
+https://www.transifex.com/Groestlcoin-wallet/Groestlcoin-wallet/
 
 
 <b>REKOMMENDATIONER</b>
 
-• Många mobila plånböcker baserar sin kod på Bitcoin Wallet. Exempelvis: blockchain.info och BTCX.
-• Rekommenderad mobil wallet av https://bitcoin.org
-• Rekommenderad av BitPay.
+• Rekommenderad mobil wallet av http://groestlcoin.org
 
 
 <i>Används på egen risk!</i>

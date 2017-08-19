@@ -408,6 +408,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
                                 peers.add(addr);
                                 needsTrimPeersWorkaround = true;
                             }
+                        }
 
                         if (!connectTrustedPeerOnly)
                             peers.addAll(

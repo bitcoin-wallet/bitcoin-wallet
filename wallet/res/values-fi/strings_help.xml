@@ -3,11 +3,11 @@
   <string name="help_wallet">
 <![CDATA[
 		<p>
-			Näytön vasemmassa yläkulmassa on näkyvillä saldosi Bitcoineina ja yhtenä valittuna kansainvälisenä valuuttana.
+			Näytön vasemmassa yläkulmassa on näkyvillä saldosi Groestlcoineina ja yhtenä valittuna kansainvälisenä valuuttana.
 			Napauta mennäksesi kansainvälisten valuuttojen listaan, ja napauta yhtä valuutoista valitaksesi sen oletukseksi.
 		</p>
 		<p>
-			QR-koodi oikealla yläreunassa sisältää tämänhetkisen bitcoin-osoitteesi ja sitä voidaan käyttää maksajan skannattavaksi.
+			QR-koodi oikealla yläreunassa sisältää tämänhetkisen groestlcoin-osoitteesi ja sitä voidaan käyttää maksajan skannattavaksi.
 			Napauta QR-koodia nähdäksesi siitä suuremman version.
 		</p>
 		<p>
@@ -24,10 +24,10 @@
 <![CDATA[
 		<p>
 			Käyttämällä tätä ikkunaa voit pyytää kolikoita maksajalta.
-			Maksajalla tulisi olla jo Bitcoin-lompakko asennettuna.
+			Maksajalla tulisi olla jo Groestlcoin-lompakko asennettuna.
 		</p>
 		<p>
-			Aluksi voit syöttää määrän Bitcoineina jonka haluat pyytää.
+			Aluksi voit syöttää määrän Groestlcoineina jonka haluat pyytää.
 		</p>
 		<p>
 			Seuraavaksi voit joko skannauttaa QR-koodisi maksajalla,
@@ -45,7 +45,7 @@
 			Olet käynnistänyt kolikoiden lähetysprosessin.
 		</p>
 		<p>
-			Syötä aluksi Bitcoin-osoite, johon maksetaan.
+			Syötä aluksi Groestlcoin-osoite, johon maksetaan.
 			Osoite täyttyy automaattisesti jo tunnetuista osoitteista osoitekirjassasi.
 			Voit myös skannata vastaanottajan esittämän QR-koodin painamalla kameranäppäintä.
 		</p>
@@ -57,7 +57,7 @@
 		</p>
 		<p>
 			Voit luoda maksun ollessasi offline-tilassa.
-			Se lähtetään seuraavassa Bitcoin-lompakon käynnistyksen yhteydessä.
+			Se lähtetään seuraavassa Groestlcoin-lompakon käynnistyksen yhteydessä.
 			Jos haluat maksun käsiteltäväksi mahdollisimman nopeasti, varmista, että olet hyvässä yhteydessä (esim. WLAN).
 		</p>
 		<p>
@@ -72,8 +72,8 @@
 			<b>Tärkeitä turvallisuusohjeita:</b>
 		</p>
 		<p>
-			Bitcoinit on tallennettu laitteeseesi.
-			<b>Jos kadotat sen, menetät Bitcoinisi.</b>
+			Groestlcoinit on tallennettu laitteeseesi.
+			<b>Jos kadotat sen, menetät Groestlcoinisi.</b>
 		</p>
 		<p>
 			Tämä tarkoittaa, että sinun on <b>varmuuskopioitava lompakkosi</b>!
@@ -81,12 +81,12 @@
 			Pidä varmuuskopioisi turvassa ja muista salasanasi.
 		</p>
 		<p>
-			<b>Ennen sovelluksen poistoa</b> (tai sovellustietojen/laitteen nollausta), <b>siirrä Bitcoinisi muuhun lompakkoon</b>.
-			Jäljelle jääneet Bitcoinit katoavat.
+			<b>Ennen sovelluksen poistoa</b> (tai sovellustietojen/laitteen nollausta), <b>siirrä Groestlcoinisi muuhun lompakkoon</b>.
+			Jäljelle jääneet Groestlcoinit katoavat.
 		</p>
 		<p>
 			<b>Maksut ovat peruuttamattomia</b>.
-			Jos lähetät Bitcoinisi tyhjyyteen, ei ole juuri mitään mahdollisuutta saada niitä takaisin.
+			Jos lähetät Groestlcoinisi tyhjyyteen, ei ole juuri mitään mahdollisuutta saada niitä takaisin.
 		</p>
 		<p>
 			<b>Pidä laitteesi turvassa!</b>
@@ -105,13 +105,13 @@
 			<b>Teknisiä tietoja:</b>
 		</p>
 		<p>
-			Bitcoin-lompakko on SPV/kevytlompakko, joka seuraa suurinta ketjua enimmällä vahvistustyöllä (joskus myös kutsutaan nimellä \"pisin ketju\", \"voittava ketju\" tai \"Bitcoin-Blockchain\").
+			Groestlcoin-lompakko on SPV/kevytlompakko, joka seuraa suurinta ketjua enimmällä vahvistustyöllä (joskus myös kutsutaan nimellä \"pisin ketju\", \"voittava ketju\" tai \"Groestlcoin-Blockchain\").
 			Vastaanotat ainoastaan saapuvia rahansiirtoja ja sinulla on mahdollisuus maksaa kyseisessä ketjussa.
-			Mitään takuuta ei voida antaa Bitcoineista pienemmissä ketjuissa, jotka ovat ketjuja vähemmällä vahvistustyöllä.
+			Mitään takuuta ei voida antaa Groestlcoineista pienemmissä ketjuissa, jotka ovat ketjuja vähemmällä vahvistustyöllä.
 		</p>
 		<p>
 			Aiemmin pienimmät ketjut ovat aina muuttuneet turhiksi erittäin pian.
-			Jos haluat seurata pienempää ketjua kaikesta huolimatta, sinua neuvotaan käyttämään \"luotettu vertainen\"-ominaisuutta yhdistääksesi ainoastaan bitcoind-implementaatioon joka pakottaa halutun ketjun.
+			Jos haluat seurata pienempää ketjua kaikesta huolimatta, sinua neuvotaan käyttämään \"luotettu vertainen\"-ominaisuutta yhdistääksesi ainoastaan groestlcoind-implementaatioon joka pakottaa halutun ketjun.
 			Jos verkko lompakkosi ja luotetun vertaisen välillä ei ole luotettava, käytä VPN:aa varmentaaksesi yhteyden.
 		</p>
 	]]></string>

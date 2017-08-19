@@ -39,7 +39,7 @@
   <string name="wallet_options_encrypt_keys_change">更改支付 PIN 码</string>
   <string name="wallet_options_safety">安全及风险提示</string>
   <string name="wallet_options_donate">技巧 / 捐助</string>
-  <string name="wallet_donate_address_label">向比特币钱包 (Bitcoin Wallet) 捐款</string>
+  <string name="wallet_donate_address_label">向比特币钱包 (Groestlcoin Wallet) 捐款</string>
   <string name="wallet_low_storage_dialog_title">内部设备存储空间不足！</string>
   <string name="wallet_low_storage_dialog_msg">比特币钱包使用内部存储设备来记录交易和区块。如果存储空间不足，它将会停止工作，并且您的比特币将存在风险！\n您是否想要打开应用程序管理器，以卸载掉一些不需要的应用程序？</string>
   <string name="wallet_low_storage_dialog_button_apps">管理应用程序</string>
@@ -235,11 +235,11 @@
   <string name="preferences_category_labs">实验</string>
   <string name="preferences_precision_title">面值和精度</string>
   <string name="preferences_precision_summary">金额的显示单位，不会影响计算。</string>
-  <string name="preferences_precision_labels_8">BTC, 8 位小数</string>
-  <string name="preferences_precision_labels_6">BTC, 6 位小数</string>
-  <string name="preferences_precision_labels_4">BTC, 4 位小数</string>
-  <string name="preferences_precision_labels_2_3">mBTC, 2位小数</string>
-  <string name="preferences_precision_labels_0_6">µBTC, 没有小数位</string>
+  <string name="preferences_precision_labels_8">GRS, 8 位小数</string>
+  <string name="preferences_precision_labels_6">GRS, 6 位小数</string>
+  <string name="preferences_precision_labels_4">GRS, 4 位小数</string>
+  <string name="preferences_precision_labels_2_3">mGRS, 2位小数</string>
+  <string name="preferences_precision_labels_0_6">µGRS, 没有小数位</string>
   <string name="preferences_own_name_title">你的名字</string>
   <string name="preferences_own_name_summary">您自己的姓名，要添加到付款请求中。尽量保持简短。</string>
   <string name="preferences_send_coins_autoclose_title">自动关闭支付对话框</string>
@@ -287,7 +287,7 @@
   <string name="about_license_title">许可协议</string>
   <string name="about_source_title">源代码</string>
   <string name="about_category_credits">此应用正在使用...</string>
-  <string name="about_credits_bitcoinj_title">bitcoinj %s, 一个比特币协议库</string>
+  <string name="about_credits_bitcoinj_title">groestlcoinj %s, 一个比特币协议库</string>
   <string name="about_credits_zxing_title">ZXing，一个QR码处理库</string>
   <string name="about_credits_scrypt_title">Scrypt，由Will Glozer和Colin Percival执行</string>
   <string name="about_community_googleplus_title">Google+ 社区</string>

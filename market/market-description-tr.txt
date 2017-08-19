@@ -1,36 +1,34 @@
-<b>Bitcoin'leriniz daima cebinizde sizinle olsun!</b> Herhangi bir QR kodunu okutarak çabuk ödeme yapabilirsiniz. Bir tüccar olarak ödemeleri güvenle ve anında alabilirsiniz. Bitcoin Wallet ilk mobil ve muhtemelen en güvenli Bitcoin uygulamasıdır!
+<b>Groestlcoin'leriniz daima cebinizde sizinle olsun!</b> Herhangi bir QR kodunu okutarak çabuk ödeme yapabilirsiniz. Bir tüccar olarak ödemeleri güvenle ve anında alabilirsiniz. Groestlcoin Wallet ilk mobil ve muhtemelen en güvenli Groestlcoin uygulamasıdır!
 
 
 <b>ÖZELLİKLER</b>
 
 • Kayıt olmaya, web ya da bulut hizmetine gerek yoktur. Bu cüzdan merkezsiz ve eşten eşedir.
-• Bitcoin miktarını BTC, mBTC ve µBTC olarak göster.
+• Groestlcoin miktarını GRS, mGRS ve µGRS olarak göster.
 • Ulusal para birimlerine ve bu para birimlerinden dönüştürme.
-• QR kodları, Bitcoin bağlantıları ve yakın alan iletişimi ile Bitcoin alımı ve gönderilmesi.
-• Sık kullanılan Bitcoin adresleri için adres defteri içerir.
+• QR kodları, Groestlcoin bağlantıları ve yakın alan iletişimi ile Groestlcoin alımı ve gönderilmesi.
+• Sık kullanılan Groestlcoin adresleri için adres defteri içerir.
 • Çevrimdışı olduğunuzda Bluetooth vasıtasıyla ödemeler.
-• Alınan bitcoin'ler için sistem bildirimleri.
+• Alınan Groestlcoin'ler için sistem bildirimleri.
 • Kağıt cüzdanların taranması (mesela soğuk depolama için kullanılanlar).
-• Bitcoin bakiyesini görüntüleyen widget.
+• Groestlcoin bakiyesini görüntüleyen widget.
 
 
 <b>KATKIDA BULUNUN</b>
 
-Bitcoin Wallet <b>açık kaynak</b> ve <b>özgür yazılımdır</b>. Lisans: GPLv3
+Groestlcoin Wallet <b>açık kaynak</b> ve <b>özgür yazılımdır</b>. Lisans: GPLv3
 https://www.gnu.org/licenses/gpl-3.0.en.html
 
 Kaynak kodumuz GitHub'da mevcuttur:
-https://github.com/bitcoin-wallet/bitcoin-wallet
+https://github.com/Groesltcoin/groestlcoin-wallet
 
 Tüm tercümeler Transifex üzerinde yönetilir:
-https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/
+https://www.transifex.com/Groestlcoin-wallet/Groestlcoin-wallet/
 
 
 <b>REFERANSLAR</b>
 
-• Birçok mobil cüzdan kodları için Bitcoin Wallet'i temel alırlar. Mesela blockchain.info ve BTCX.
-• https://bitcoin.org tarafından tavsiye edilen mobil cüzdan.
-• BitPay tarafından tavsiye edilir.
+• http://groestlcoin.org tarafından tavsiye edilen mobil cüzdan.
 
 
 <i>Tüm riski siz üstlenmiş olursunuz!</i>

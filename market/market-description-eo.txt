@@ -1,9 +1,9 @@
-Havu viajn Bitmonojn ĉiam kun vi, en via poŝo! Vi povas pagi per rapide skanado de QR-kodo. Kiel komercisto, vi povas ricevi pagojn fidinde kaj tuj. Bitcoin Wallet estas unua movebla Bitmona aplikaĵo, kaj disputeble ankaŭ la plej sekura!
+Havu viajn Bitmonojn ĉiam kun vi, en via poŝo! Vi povas pagi per rapide skanado de QR-kodo. Kiel komercisto, vi povas ricevi pagojn fidinde kaj tuj. Groestlcoin Wallet estas unua movebla Bitmona aplikaĵo, kaj disputeble ankaŭ la plej sekura!
 
 TRAJTOJ:
 
 • Neniu registriĝo, ttt servo aŭ nubo bezonataj! Ĉi monujo estas malcentralizita kaj pajro al pajro.
-• Montro de Bitmona kvanto en BTC kaj mBTC.
+• Montro de Bitmona kvanto en GRS kaj mGRS.
 • Konvertiĝo al kaj de la naciaj valutoj.
 • Sendado kaj ricevo de Bitmono tra NFC, QR-kodoj aŭ Bitmono URLoj.
 • Adreslibro por regule uzataj Bitmonadresoj.
@@ -12,10 +12,10 @@ TRAJTOJ:
 • Aplikaĵa fenestraĵo por Bitmona saldo.
 
 Vi povas trovi pli pri Bitmono ĉe
-https://bitcoin.org
+http://groestlcoin.org
 
-Se vi volas kontribui al Bitcoin Wallet, la projekto lokas ĉe
-https://github.com/bitcoin-wallet/bitcoin-wallet
+Se vi volas kontribui al Groestlcoin Wallet, la projekto lokas ĉe
+https://github.com/Groesltcoin/groestlcoin-wallet
 
 Licenco: GPLv3
 Uzu je via propra risko!

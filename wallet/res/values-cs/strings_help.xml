@@ -3,11 +3,11 @@
   <string name="help_wallet">
 <![CDATA[
 		<p>
-			Horní levá strana obrazovky ukazuje dostupné prostředky v Bitcoinech a v jedné vybrané národní měně.
+			Horní levá strana obrazovky ukazuje dostupné prostředky v Groestlcoinech a v jedné vybrané národní měně.
 			Dotykem přejdete k seznamu národních měn, a ťuknutím na vybranou měnu ji zvolíte jako svou výchozí.
 		</p>
 		<p>
-			QR kód vpravo obsahuje vaši bitcoinovou adresu a může být naskenována plátcem.
+			QR kód vpravo obsahuje vaši groestlcoinovou adresu a může být naskenována plátcem.
 			Dotykem na QR kód se zobrazí jeho zvětšená verze.
 		</p>
 		<p>
@@ -24,18 +24,18 @@
   <string name="help_request_coins">
 <![CDATA[
 		<p>
-			Pomocí tohoto dialogu můžete vyžádat Bitcoiny od někoho jiného (kdo by měl již také mít aplikaci Bitcoin Wallet).
+			Pomocí tohoto dialogu můžete vyžádat Groestlcoiny od někoho jiného (kdo by měl již také mít aplikaci Groestlcoin Wallet).
 		</p>
 		<p>
-			Nejprve zadejte množství Bitcoinů, které požadujete.
+			Nejprve zadejte množství Groestlcoinů, které požadujete.
 		</p>
 		<p>
 			Potom můžete protistraně nabídnout vygenerovaný QR kód k oskenování,
 			nebo můžete požadavek zaslat pomocí tlačítka sdílet v rychlé nabídce.
-			Druhá strana potom klikne na Bitcoin URL.
+			Druhá strana potom klikne na Groestlcoin URL.
 		</p>
 		<p>
-			V obou případech odesílatel uvidí dialog na zaslání Bitcoinů s předvyplněnými údaji.
+			V obou případech odesílatel uvidí dialog na zaslání Groestlcoinů s předvyplněnými údaji.
 			 Pokud souhlasí, potvrdí zadané informace a dojde k transakci.
 		</p>
 	]]>
@@ -43,7 +43,7 @@
   <string name="help_send_coins">
 <![CDATA[
 		<p>
-			Právě jste zahájili proces odeslání Bitcoinů.
+			Právě jste zahájili proces odeslání Groestlcoinů.
 			Sem jste se dostali buď přes hlavní obrazovku t0to aplikace, nebo pomocí klepnutí na speciální adresu v prohlížeči.
 		</p>
 		<p>
@@ -52,7 +52,7 @@
 			Můžete také naskenovat QR kód s adresou nebo požadavkem na zaplacení, stisknutím tlačítka s ikonou QR kódu.
 		</p>
 		<p>
-			V dalším kroku uvidíte, kolik Bitcoinů můžete momentálně utratit.
+			V dalším kroku uvidíte, kolik Groestlcoinů můžete momentálně utratit.
 			Jakýkoliv rozdíl vůči zůstatku zobrazenému na hlavní obrazovce je stále nepotvrzen a tudíž nemůže být utracen.
 		</p>
 		<p>
@@ -60,7 +60,7 @@
 		</p>
 		<p>
 			Transakce můžete provádět, i když jste právě offline.
-			Budou provedeny při dalším spuštění aplikace Bitcoin Wallet.
+			Budou provedeny při dalším spuštění aplikace Groestlcoin Wallet.
 			Pokud chcete transakci provést co nejrychleji, ujistěte se, že máte dobré připojení (například pomocí bezdrátové sítě wifi).
 		</p>
 		<p>
@@ -76,8 +76,8 @@
 			<b>Několik slov k bezpečnosti:</b>
 		</p>
 		<p>
-			Přístup k Bitcoinům je uložen v tomto zařízení.
-			<b>Pokud o zařízení přijdete, ztratíte i své Bitcoiny.</b>
+			Přístup k Groestlcoinům je uložen v tomto zařízení.
+			<b>Pokud o zařízení přijdete, ztratíte i své Groestlcoiny.</b>
 		</p>
 		<p>
 			Je proto velmi důležité pravidelně <b>zálohovat svou peněženu</b>!
@@ -85,18 +85,18 @@
 			Poté udržujte svou zálohu na bezpečném místě a pamatujte si heslo.
 		</p>
 		<p>
-			<b>Před odinstalací aplikace Bitcoin Wallet</b> (nebo výmazem dat aplikace/přístroje), <b>si přepošlete zůstatek do jiné peněženky</b>.
+			<b>Před odinstalací aplikace Groestlcoin Wallet</b> (nebo výmazem dat aplikace/přístroje), <b>si přepošlete zůstatek do jiné peněženky</b>.
 			Jakékoliv zbylé neodeslané Bitcony budou ztraceny.
 		</p>
 		<p>
 			<b>Provedené platby jsou nezvratné</b>.
-			Pokud pošlete Bitcoiny na špatnou adresu, možnost jejich získání zpět téměř neexistuje.
+			Pokud pošlete Groestlcoiny na špatnou adresu, možnost jejich získání zpět téměř neexistuje.
 		</p>
 		<p>
 			<b>Udržujte svůj mobilní přístroj v bezpečí!</b>
 			Nepřivlastňujte si práva root svého přístoje.
 			Instalujte pouze aplikace, kterým plně důvěřujete.
-			Škodlivé aplikace se mohou pokoušet o ukradení Bitcoinů z peněženky.
+			Škodlivé aplikace se mohou pokoušet o ukradení Groestlcoinů z peněženky.
 		</p>
 		<p>
 			Neriskujte zbytečně!

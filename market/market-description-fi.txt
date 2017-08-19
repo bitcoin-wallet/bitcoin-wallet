@@ -1,36 +1,34 @@
-<b>Pidä Bitcoinisi aina mukana taskussasi!</b> Voit maksaa nopeasti skannaamalla QR-koodin. Kauppiaana saat maksut turvallisesti ja välittömästi. Bitcoin Wallet on ensimmäinen Bitcoin-mobiilisovellus ja luultavimmin myös kaikista turvallisin!
+<b>Pidä Groestlcoinisi aina mukana taskussasi!</b> Voit maksaa nopeasti skannaamalla QR-koodin. Kauppiaana saat maksut turvallisesti ja välittömästi. Groestlcoin Wallet on ensimmäinen Groestlcoin-mobiilisovellus ja luultavimmin myös kaikista turvallisin!
 
 
 <b>OMINAISUUDET</b>
 
 • Ei vaadi rekisteröintiä, verkkopalveluja tai pilvitallennusta! Tämä lompakko on hajautettu ja suorayhteyksinen.
-• Mahdollisuus näyttää Bitcoin-varat määrissä BTC, mBTC ja µBTC.
+• Mahdollisuus näyttää Groestlcoin-varat määrissä GRS, mGRS ja µGRS.
 • Yksikkömuunnos valtioiden valuuttojen välillä.
-• Bitcoinien lähettäminen ja vastaanottaminen NFC, QR-koodien tai Bitcoin-URL-osotteiden avulla.
-• Osoitekirja säännöllisesti käytettyjä Bitcoin-osoitteita varten.
+• Groestlcoinien lähettäminen ja vastaanottaminen NFC, QR-koodien tai Groestlcoin-URL-osotteiden avulla.
+• Osoitekirja säännöllisesti käytettyjä Groestlcoin-osoitteita varten.
 • Kun et ole verkkoyhteyden ulottuvilla, voit silti maksaa Bluetoothin välityksellä.
-• Järjestelmän ilmoitus vastaanotetuille Bitcoineille.
+• Järjestelmän ilmoitus vastaanotetuille Groestlcoineille.
 • Paperisen lompakon pyyhkäisymahdollisuus (esim. näitä käytetään "kylmissä varastoissa").
-• Android-sovellus Bitcoin-varojen hallintaan.
+• Android-sovellus Groestlcoin-varojen hallintaan.
 
 
 <b>OSALLISTU</b>
 
-Bitcoin Wallet on <b>avointa lähdekoodia</b> ja <b>vapaa ohjelmisto</b>. Lisenssi: GPLv3
+Groestlcoin Wallet on <b>avointa lähdekoodia</b> ja <b>vapaa ohjelmisto</b>. Lisenssi: GPLv3
 https://www.gnu.org/licenses/gpl-3.0.en.html
 
 Lähdekoodi saatavilla GitHub:sta:
-https://github.com/bitcoin-wallet/bitcoin-wallet
+https://github.com/Groesltcoin/groestlcoin-wallet
 
 Kaikki käännökset on hallinnoitu Transifex:n kautta:
-https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/
+https://www.transifex.com/Groestlcoin-wallet/Groestlcoin-wallet/
 
 
 <b>SUOSITTELUMME</b>
 
-• Useat mobiililompakot perustuvat Bitcoin Wallet-ohjelman lähdekoodiin, esimerkiksi: blockchain.info ja BTCX.
-• https://bitcoin.org -sivuston suosittelema mobiililompakko.
-• BitPay:n suosittelema.
+• http://groestlcoin.org -sivuston suosittelema mobiililompakko.
 
 
 <i>Käytä omalla vastuulla!</i>
