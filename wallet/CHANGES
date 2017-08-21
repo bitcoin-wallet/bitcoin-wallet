@@ -1,3 +1,8 @@
+v5.30
+
+* For Android 8.0 (Oreo) and above, support notification channels and adaptive
+  launcher icons.
+
 v5.29
 
 * Fix crash when archiving a wallet backup on some devices.
