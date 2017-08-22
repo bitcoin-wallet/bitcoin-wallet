@@ -81,8 +81,6 @@ android {
         exclude 'org/bitcoinj/crypto/cacerts'
         exclude 'org.bitcoin.production.checkpoints.txt'
         exclude 'org.bitcoin.test.checkpoints.txt'
-        exclude 'messages.properties'
-        exclude 'META-INF/services/sun.net.spi.nameservice.NameServiceDescriptor'
     }
 }
 
