@@ -91,6 +91,8 @@ public abstract class ReportIssueDialogBuilder extends DialogBuilder implements 
         final StringBuilder text = new StringBuilder();
         final List<Uri> attachments = new ArrayList<Uri>();
         final File cacheDir = activity.getCacheDir();
+        final File reportDir = new File(cacheDir, "report");
+        reportDir.mkdir();
 
         text.append(viewDescription.getText()).append('\n');
 
@@ -161,8 +163,6 @@ public abstract class ReportIssueDialogBuilder extends DialogBuilder implements 
                 final CharSequence walletDump = collectWalletDump();
 
                 if (walletDump != null) {
-                    final File reportDir = new File(cacheDir, "report");
-                    reportDir.mkdir();
                     final File file = File.createTempFile("wallet-dump.", ".txt", reportDir);
 
                     final Writer writer = new OutputStreamWriter(new FileOutputStream(file), Charsets.UTF_8);
@@ -177,14 +177,15 @@ public abstract class ReportIssueDialogBuilder extends DialogBuilder implements 
             }
         }
 
-        if (CrashReporter.hasSavedBackgroundTraces()) {
-            text.append("\n\n\n=== saved exceptions ===\n\n");
-
-            try {
-                CrashReporter.appendSavedBackgroundTraces(text);
-            } catch (final IOException x) {
-                text.append(x.toString()).append('\n');
+        try {
+            final File savedBackgroundTraces = File.createTempFile("background-traces.", ".txt", reportDir);
+            if (CrashReporter.collectSavedBackgroundTraces(savedBackgroundTraces)) {
+                attachments.add(FileProvider.getUriForFile(activity, activity.getPackageName() + ".file_attachment",
+                        savedBackgroundTraces));
             }
+            savedBackgroundTraces.deleteOnExit();
+        } catch (final IOException x) {
+            log.info("problem writing attachment", x);
         }
 
         text.append("\n\nPUT ADDITIONAL COMMENTS TO THE TOP. DOWN HERE NOBODY WILL NOTICE.");
