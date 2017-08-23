@@ -42,10 +42,12 @@ import de.schildbach.wallet.util.WholeStringBuilder;
 import de.schildbach.wallet_test.R;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.ContentObserver;
 import android.net.Uri;
@@ -186,6 +188,27 @@ public final class WalletAddressesFragment extends FancyListFragment {
                             Uri.withAppendedPath(blockExplorerUri, "address/" + address)));
 
                     mode.finish();
+                    return true;
+
+                case R.id.wallet_addresses_private_key:
+                    // Not in clipboard for security reasons, unless on testnet.
+                    final String privKey = getKey(position).getPrivateKeyAsWiF(Constants.NETWORK_PARAMETERS);
+                    if (Constants.TEST) {
+                        clipboardManager.setPrimaryClip(ClipData.newPlainText("Bitcoin privKey", privKey));
+                        log.info("private key copied to clipboard: {}", privKey);
+                    }
+                    final DialogBuilder builder = DialogBuilder.warn(activity, R.string.action_private_key);
+                    builder.setMessage(privKey);
+                    builder.singleDismissButton(new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            mode.finish();
+                        }
+                    });
+                    final AlertDialog dialog = builder.create();
+                    dialog.setCanceledOnTouchOutside(false);
+                    dialog.show();
+
                     return true;
                 }
 
