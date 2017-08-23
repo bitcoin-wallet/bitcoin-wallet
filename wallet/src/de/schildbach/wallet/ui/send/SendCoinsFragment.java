@@ -585,6 +585,18 @@ public final class SendCoinsFragment extends Fragment {
         amountCalculatorLink = new CurrencyCalculatorLink(btcAmountView, localAmountView);
         amountCalculatorLink.setExchangeDirection(config.getLastExchangeDirection());
 
+        final Coin available = wallet.getBalance(BalanceType.AVAILABLE_SPENDABLE);
+        final Button max = (Button) view.findViewById(R.id.send_coins_maximum);
+        if (available.isPositive()) {
+            max.setVisibility(View.VISIBLE);
+            max.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    btcAmountView.setAmount(available, true);
+                }
+            });
+        }
+
         directPaymentEnableView = (CheckBox) view.findViewById(R.id.send_coins_direct_payment_enable);
         directPaymentEnableView.setOnCheckedChangeListener(new OnCheckedChangeListener() {
             @Override
