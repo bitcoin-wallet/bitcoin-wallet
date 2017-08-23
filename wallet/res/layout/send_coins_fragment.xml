@@ -86,12 +86,26 @@
             android:layout_marginTop="8dp"
             android:orientation="vertical" >
 
-            <TextView
+            <LinearLayout
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/send_coins_fragment_amount_label"
-                android:textSize="@dimen/font_size_small"
-                android:textStyle="bold" />
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/send_coins_fragment_amount_label"
+                    android:textSize="@dimen/font_size_small"
+                    android:textStyle="bold" />
+
+                <Button
+                    style="?android:attr/borderlessButtonStyle"
+                    android:id="@+id/send_coins_maximum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/send_coins_fragment_amount_maximum"
+                    android:visibility="gone" />
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
