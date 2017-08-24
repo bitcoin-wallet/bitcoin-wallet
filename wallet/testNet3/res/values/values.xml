@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="app_name">Groestlcoin Wallet [testnet]</string>
+	<string name="app_name_short">Groestlcoin [test]</string>
+
+	<string-array name="preferences_precision_values">
+		<item>8</item>
+		<item>6</item>
+		<item>4</item>
+		<item>2/3</item>
+		<item>0/6</item>
+	</string-array>
+	<string-array name="preferences_precision_labels">
+		<item>tGRS, 8 decimal places</item>
+		<item>tGRS, 6 decimal places</item>
+		<item>tGRS, 4 decimal places</item>
+		<item>mtGRS, 2 decimal places</item>
+		<item>µtGRS, no decimal places</item>
+	</string-array>
+
+</resources>
