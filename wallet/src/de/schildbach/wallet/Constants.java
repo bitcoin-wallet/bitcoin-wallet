@@ -145,7 +145,7 @@ public final class Constants {
     public static final int MAX_NUM_CONFIRMATIONS = 7;
 
     /** User-agent to use for network access. */
-    public static final String USER_AGENT = "Bitcoin Wallet";
+    public static final String USER_AGENT = "Groestlcoin Wallet";
 
 	/** Default currency to use if all default mechanisms fail. */
 
