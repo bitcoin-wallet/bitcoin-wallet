@@ -116,3 +116,21 @@ task svgToPngMipmap(type: fr.avianey.androidsvgdrawable.gradle.SvgDrawableTask) 
     outputFormat = 'PNG'
     outputType = 'mipmap'
 }
+
+task buildNativeScrypt(type: GradleBuild) {
+    buildFile = '../native-scrypt/build.gradle'
+    tasks = ['copy']
+}
+
+task buildNativeGroestl(type: GradleBuild) {
+    buildFile = '../native-groestl/build.gradle'
+    tasks = ['copy']
+}
+
+preBuild.dependsOn 'buildNativeScrypt'
+preBuild.dependsOn 'buildNativeGroestl'
+
+clean {
+    file('src/main/jniLibs').deleteDir()
+
+}
