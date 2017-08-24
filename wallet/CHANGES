@@ -1,3 +1,8 @@
+v5.31
+
+* Disconnects from incompatible peers much quicker.
+* Based on bitcoinj 0.14.5.
+
 v5.30
 
 * For Android 8.0 (Oreo) and above, support notification channels and adaptive
