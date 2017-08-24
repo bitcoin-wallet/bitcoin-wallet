@@ -134,6 +134,9 @@
 
         <CheckBox
             android:id="@+id/send_coins_direct_payment_enable"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:text="@string/send_coins_fragment_direct_payment_enable" />
 
         <Space
@@ -143,6 +146,8 @@
 
         <TextView
             android:id="@+id/send_coins_hint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/list_entry_padding_vertical"
             android:textSize="@dimen/font_size_small" />
 
