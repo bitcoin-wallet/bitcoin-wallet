@@ -29,6 +29,7 @@ import javax.annotation.Nullable;
 import org.bitcoinj.core.Coin;
 import org.bitcoinj.utils.Fiat;
 import org.bitcoinj.utils.MonetaryFormat;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -227,6 +228,8 @@ public class ExchangeRatesProvider extends ContentProvider {
     private Map<String, ExchangeRate> requestExchangeRates() {
         final Stopwatch watch = Stopwatch.createStarted();
 
+        Double GRSPerBTC = requestExchangeRatesForGRS();
+
         final Request.Builder request = new Request.Builder();
         request.url(BITCOINAVERAGE_URL);
         request.header("User-Agent", userAgent);
@@ -249,7 +252,8 @@ public class ExchangeRatesProvider extends ContentProvider {
                             final JSONObject exchangeRate = head.getJSONObject(currencyCode);
                             final JSONObject averages = exchangeRate.getJSONObject("averages");
                             try {
-                                final Fiat rate = parseFiatInexact(fiatCurrencyCode, averages.getString("day"));
+                                Double _rate = GRSPerBTC * averages.getDouble("day");
+                                final Fiat rate = parseFiatInexact(fiatCurrencyCode, _rate.toString());
                                 if (rate.signum() > 0)
                                     rates.put(fiatCurrencyCode, new ExchangeRate(
                                             new org.bitcoinj.utils.ExchangeRate(rate), BITCOINAVERAGE_SOURCE));
@@ -281,4 +285,47 @@ public class ExchangeRatesProvider extends ContentProvider {
         final long val = new BigDecimal(str).movePointRight(Fiat.SMALLEST_UNIT_EXPONENT).longValue();
         return Fiat.valueOf(currencyCode, val);
     }
+
+    private String BITTREX_URL = "https://bittrex.com/api/v1.1/public/getticker?market=btc-grs";
+    private Double requestExchangeRatesForGRS() {
+        final Stopwatch watch = Stopwatch.createStarted();
+
+        final Request.Builder request = new Request.Builder();
+        request.url(BITTREX_URL);
+        request.header("User-Agent", userAgent);
+
+        final Call call = Constants.HTTP_CLIENT.newCall(request.build());
+        try {
+            final Response response = call.execute();
+            if (response.isSuccessful()) {
+                final String content = response.body().string();
+
+                final JSONObject head = new JSONObject(content.toString());
+
+                String result = head.getString("success");
+
+                Double averageTrade = null;
+                if(result.equals("true"))
+                {
+                    JSONObject dataObject = head.getJSONObject("result");
+
+                    averageTrade = dataObject.getDouble("Last");
+                }
+
+
+                watch.stop();
+                log.info("fetched exchange rates from {}, {} chars, took {}", BITCOINAVERAGE_URL, content.length(),
+                        watch);
+
+                return averageTrade;
+            } else {
+                log.warn("http status {} when fetching exchange rates from {}", response.code(), BITCOINAVERAGE_URL);
+            }
+        } catch (final Exception x) {
+            log.warn("problem fetching exchange rates from " + BITTREX_URL, x);
+        }
+
+        return null;
+    }
+
 }
