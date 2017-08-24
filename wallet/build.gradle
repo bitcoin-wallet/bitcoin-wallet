@@ -14,7 +14,7 @@ dependencies {
     compile 'com.android.support:support-core-utils:26.0.1'
     compile 'com.android.support:recyclerview-v7:26.0.1'
     compile 'com.android.support:cardview-v7:26.0.1'
-    compile 'org.bitcoinj:bitcoinj-core:0.14.4'
+    compile 'org.bitcoinj:bitcoinj-core:0.14.5'
     compile 'com.google.protobuf:protobuf-java:2.6.1'
     compile 'com.google.guava:guava:20.0'
     compile 'com.google.zxing:core:3.3.0'
