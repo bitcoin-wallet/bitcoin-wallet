@@ -197,8 +197,8 @@ public final class WalletAddressesFragment extends FancyListFragment {
                         clipboardManager.setPrimaryClip(ClipData.newPlainText("Bitcoin privKey", privKey));
                         log.info("private key copied to clipboard: {}", privKey);
                     }
-                    final DialogBuilder builder = DialogBuilder.warn(activity, R.string.action_private_key);
-                    builder.setMessage(privKey);
+                    final DialogBuilder builder = DialogBuilder.warn(activity, R.string.dialog_private_key_title);
+                    builder.setMessage(getString(R.string.dialog_private_key_warning) + "\n\n" + privKey);
                     builder.singleDismissButton(new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
