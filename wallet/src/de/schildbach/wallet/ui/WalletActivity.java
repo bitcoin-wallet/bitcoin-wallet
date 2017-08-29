@@ -450,7 +450,8 @@ public final class WalletActivity extends AbstractBindServiceActivity
                     @Override
                     public void onClick(final View v) {
                         final List<String> codes = Arrays.asList(input.getText().toString().split("\\s+"));
-                        final DeterministicSeed seed = new DeterministicSeed(codes, null, "", wallet.getEarliestKeyCreationTime());
+                        // creationTimeSeconds = 2013-09-10, BIP39 proposal date (no BIP39 wallet could have existed before that)
+                        final DeterministicSeed seed = new DeterministicSeed(codes, null, "", 1381269600L);
                         restoreWallet(Wallet.fromSeed(Constants.NETWORK_PARAMETERS, seed));
                         d.dismiss();
                     }
