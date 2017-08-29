@@ -27,6 +27,7 @@ import java.io.InputStreamReader;
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedList;
@@ -35,10 +36,12 @@ import java.util.List;
 import org.bitcoinj.core.Transaction;
 import org.bitcoinj.core.VerificationException;
 import org.bitcoinj.core.VersionedChecksummedBytes;
+import org.bitcoinj.wallet.DeterministicSeed;
 import org.bitcoinj.wallet.Wallet;
 import org.bitcoinj.wallet.Wallet.BalanceType;
 
 import com.google.common.base.Charsets;
+import com.google.common.base.Joiner;
 import com.squareup.okhttp.HttpUrl;
 
 import de.schildbach.wallet.Configuration;
@@ -55,6 +58,7 @@ import de.schildbach.wallet.util.Crypto;
 import de.schildbach.wallet.util.HttpGetThread;
 import de.schildbach.wallet.util.Io;
 import de.schildbach.wallet.util.Nfc;
+import de.schildbach.wallet.util.Toast;
 import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
 
@@ -62,6 +66,9 @@ import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
 import android.content.DialogInterface.OnClickListener;
@@ -70,6 +77,7 @@ import android.content.IntentFilter;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.nfc.NdefMessage;
 import android.nfc.NfcAdapter;
@@ -79,12 +87,16 @@ import android.os.Environment;
 import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.text.format.DateUtils;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -95,6 +107,7 @@ import android.widget.TextView;
  */
 public final class WalletActivity extends AbstractBindServiceActivity
         implements ActivityCompat.OnRequestPermissionsResultCallback {
+
     private static final int DIALOG_BACKUP_WALLET_PERMISSION = 0;
     private static final int DIALOG_RESTORE_WALLET_PERMISSION = 1;
     private static final int DIALOG_RESTORE_WALLET = 2;
@@ -311,12 +324,20 @@ public final class WalletActivity extends AbstractBindServiceActivity
             startActivity(new Intent(this, NetworkMonitorActivity.class));
             return true;
 
-        case R.id.wallet_options_restore_wallet:
-            handleRestoreWallet();
+        case R.id.wallet_options_backup_file:
+            backupWalletKeysToFile();
             return true;
 
-        case R.id.wallet_options_backup_wallet:
-            handleBackupWallet();
+        case R.id.wallet_options_backup_mnemonic_code:
+            backupWalletMnemonicCode();
+            return true;
+
+        case R.id.wallet_options_restore_file:
+            restoreWalletKeyFromFile();
+            return true;
+
+        case R.id.wallet_options_restore_mnemonic_code:
+            restoreWalletFromMnemonic();
             return true;
 
         case R.id.wallet_options_encrypt_keys:
@@ -360,6 +381,10 @@ public final class WalletActivity extends AbstractBindServiceActivity
     }
 
     public void handleBackupWallet() {
+        backupWalletKeysToFile();
+    }
+
+    public void backupWalletKeysToFile() {
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)
             BackupWalletDialogFragment.show(getFragmentManager());
@@ -368,13 +393,85 @@ public final class WalletActivity extends AbstractBindServiceActivity
                     REQUEST_CODE_BACKUP_WALLET);
     }
 
+    public void backupWalletMnemonicCode() {
+        final DeterministicSeed seed = wallet.getKeyChainSeed();
+        if (seed == null || seed.getMnemonicCode() == null) {
+            log.error("DeterministicSeed was NULL");
+            new Toast(WalletActivity.this).toast(getString(R.string.import_export_mnemonic_failure_title));
+            return;
+        }
+        final String mnemonic = Joiner.on(" ").join(seed.getMnemonicCode());
+        new DialogBuilder(WalletActivity.this)
+                .setTitle(getString(R.string.backup_wallet_mnemonic_code_dialog_title))
+                .setMessage(mnemonic)
+                .singleDismissButton(new OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        if (Constants.TEST) {
+                            final ClipboardManager clipboardManager = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                            clipboardManager.setPrimaryClip(ClipData.newPlainText("Bitcoin mnemonic code", mnemonic));
+                            log.info("mnemonic code copied to clipboard: {}", mnemonic);
+                        }
+                        dialogInterface.dismiss();
+                    }
+                })
+                .show();
+    }
+
     public void handleRestoreWallet() {
+        restoreWalletKeyFromFile();
+    }
+
+    public void restoreWalletKeyFromFile() {
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)
             showDialog(DIALOG_RESTORE_WALLET);
         else
             ActivityCompat.requestPermissions(this, new String[] { Manifest.permission.READ_EXTERNAL_STORAGE },
                     REQUEST_CODE_RESTORE_WALLET);
+    }
+
+    public void restoreWalletFromMnemonic() {
+        final View view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.restore_wallet_mnemonic_dialog, null);
+        final EditText input = (EditText) view.findViewById(R.id.import_mnemonic);
+        final DialogBuilder builder = new DialogBuilder(WalletActivity.this);
+        builder.setTitle(R.string.import_mnemonic);
+        builder.setView(view);
+        builder.setPositiveButton(R.string.button_ok, null); // dummy, just to make it show
+        builder.setNegativeButton(R.string.button_cancel, null);
+        builder.setCancelable(false);
+        final AlertDialog dialog = builder.create();
+        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(final DialogInterface d) {
+                final Button positiveButton = dialog.getButton(DialogInterface.BUTTON_POSITIVE);
+                positiveButton.setTypeface(Typeface.DEFAULT_BOLD);
+                positiveButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(final View v) {
+                        final List<String> codes = Arrays.asList(input.getText().toString().split("\\s+"));
+                        final DeterministicSeed seed = new DeterministicSeed(codes, null, "", wallet.getEarliestKeyCreationTime());
+                        restoreWallet(Wallet.fromSeed(Constants.NETWORK_PARAMETERS, seed));
+                        d.dismiss();
+                    }
+                });
+                positiveButton.setEnabled(false);
+                input.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void onTextChanged(final CharSequence s, final int start, final int before, final int count) {
+                        positiveButton.setEnabled(count > 0 && s.toString().split("\\s+").length == 12);
+                    }
+                    @Override
+                    public void beforeTextChanged(final CharSequence s, final int start, final int count, final int after) {
+                    }
+                    @Override
+                    public void afterTextChanged(final Editable s) {
+                    }
+                });
+                input.requestFocus();
+            }
+        });
+        dialog.show();
     }
 
     public void handleEncryptKeys() {
@@ -452,7 +549,7 @@ public final class WalletActivity extends AbstractBindServiceActivity
     }
 
     private Dialog createRestoreWalletDialog() {
-        final View view = getLayoutInflater().inflate(R.layout.restore_wallet_dialog, null);
+        final View view = getLayoutInflater().inflate(R.layout.restore_wallet_file_dialog, null);
         final Spinner fileView = (Spinner) view.findViewById(R.id.import_keys_from_storage_file);
         final EditText passwordView = (EditText) view.findViewById(R.id.import_keys_from_storage_password);
 
@@ -880,7 +977,7 @@ public final class WalletActivity extends AbstractBindServiceActivity
         }
     }
 
-    private void restoreWallet(final Wallet wallet) throws IOException {
+    private void restoreWallet(final Wallet wallet) {
         application.replaceWallet(wallet);
 
         config.disarmBackupReminder();

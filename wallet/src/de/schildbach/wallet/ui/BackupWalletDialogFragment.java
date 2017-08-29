@@ -117,7 +117,7 @@ public class BackupWalletDialogFragment extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(final Bundle savedInstanceState) {
-        final View view = LayoutInflater.from(activity).inflate(R.layout.backup_wallet_dialog, null);
+        final View view = LayoutInflater.from(activity).inflate(R.layout.backup_wallet_file_dialog, null);
 
         passwordView = (EditText) view.findViewById(R.id.backup_wallet_dialog_password);
         passwordView.setText(null);
