@@ -36,6 +36,7 @@ import java.util.List;
 import org.bitcoinj.core.Transaction;
 import org.bitcoinj.core.VerificationException;
 import org.bitcoinj.core.VersionedChecksummedBytes;
+import org.bitcoinj.crypto.MnemonicCode;
 import org.bitcoinj.wallet.DeterministicSeed;
 import org.bitcoinj.wallet.Wallet;
 import org.bitcoinj.wallet.Wallet.BalanceType;
@@ -450,8 +451,7 @@ public final class WalletActivity extends AbstractBindServiceActivity
                     @Override
                     public void onClick(final View v) {
                         final List<String> codes = Arrays.asList(input.getText().toString().split("\\s+"));
-                        // creationTimeSeconds = 2013-09-10, BIP39 proposal date (no BIP39 wallet could have existed before that)
-                        final DeterministicSeed seed = new DeterministicSeed(codes, null, "", 1381269600L);
+                        final DeterministicSeed seed = new DeterministicSeed(codes, null, "", MnemonicCode.BIP39_STANDARDISATION_TIME_SECS);
                         restoreWallet(Wallet.fromSeed(Constants.NETWORK_PARAMETERS, seed));
                         d.dismiss();
                     }
