@@ -24,7 +24,3 @@ This project contains several sub-projects:
 You can build all sub-projects at once using Gradle:
 
 `gradle clean build`
-
-
-
-_Legal note: Google Play and the Google Play logo are trademarks of Google Inc._
