@@ -206,7 +206,7 @@ public final class RequestCoinsFragment extends Fragment implements NfcAdapter.C
             public void onCheckedChanged(final CompoundButton buttonView, final boolean isChecked) {
                 if (Bluetooth.canListen(bluetoothAdapter) && isChecked) {
                     if (bluetoothAdapter.isEnabled()) {
-                        startBluetoothListening();
+                        maybeStartBluetoothListening();
                     } else {
                         // ask for permission to enable bluetooth
                         startActivityForResult(new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE),
@@ -253,7 +253,7 @@ public final class RequestCoinsFragment extends Fragment implements NfcAdapter.C
 
         if (Bluetooth.canListen(bluetoothAdapter) && bluetoothAdapter.isEnabled()
                 && acceptBluetoothPaymentView.isChecked())
-            startBluetoothListening();
+            maybeStartBluetoothListening();
 
         updateView();
     }
@@ -292,21 +292,26 @@ public final class RequestCoinsFragment extends Fragment implements NfcAdapter.C
     @Override
     public void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
         if (requestCode == REQUEST_CODE_ENABLE_BLUETOOTH) {
-            acceptBluetoothPaymentView.setChecked(resultCode == Activity.RESULT_OK);
-
+            boolean started = false;
             if (resultCode == Activity.RESULT_OK && bluetoothAdapter != null)
-                startBluetoothListening();
+                started = maybeStartBluetoothListening();
+            acceptBluetoothPaymentView.setChecked(started);
 
             if (isResumed())
                 updateView();
         }
     }
 
-    private void startBluetoothListening() {
-        bluetoothMac = Bluetooth.compressMac(Bluetooth.getAddress(bluetoothAdapter));
-
-        bluetoothServiceIntent = new Intent(activity, AcceptBluetoothService.class);
-        activity.startService(bluetoothServiceIntent);
+    private boolean maybeStartBluetoothListening() {
+        final String bluetoothAddress = Bluetooth.getAddress(bluetoothAdapter);
+        if (bluetoothAddress != null) {
+            bluetoothMac = Bluetooth.compressMac(bluetoothAddress);
+            bluetoothServiceIntent = new Intent(activity, AcceptBluetoothService.class);
+            activity.startService(bluetoothServiceIntent);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     private void stopBluetoothListening() {

@@ -20,6 +20,8 @@ package de.schildbach.wallet.util;
 import java.lang.reflect.Field;
 import java.util.UUID;
 
+import javax.annotation.Nullable;
+
 import android.bluetooth.BluetoothAdapter;
 import android.os.Build;
 
@@ -49,7 +51,7 @@ public class Bluetooth {
         return true;
     }
 
-    public static String getAddress(final BluetoothAdapter adapter) {
+    public static @Nullable String getAddress(final BluetoothAdapter adapter) {
         if (adapter == null)
             return null;
 
