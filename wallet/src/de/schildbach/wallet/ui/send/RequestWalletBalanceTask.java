@@ -168,6 +168,8 @@ public final class RequestWalletBalanceTask {
                     final JsonAdapter<JsonRpcResponse> responseAdapter = moshi.adapter(JsonRpcResponse.class);
                     final JsonRpcResponse response = responseAdapter.fromJson(source);
                     if (response.id == request.id) {
+                        if (response.result == null)
+                            throw new JsonDataException("empty response");
                         final Set<UTXO> utxos = new HashSet<>();
                         for (final JsonRpcResponse.Utxo responseUtxo : response.result) {
                             final Sha256Hash utxoHash = Sha256Hash.wrap(responseUtxo.tx_hash);
