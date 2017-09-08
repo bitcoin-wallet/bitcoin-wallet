@@ -78,7 +78,6 @@ import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
 
 import android.annotation.SuppressLint;
-import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -154,6 +153,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
             final Address address = WalletUtils.getWalletAddressOfReceived(tx, wallet);
             final Coin amount = tx.getValue(wallet);
             final ConfidenceType confidenceType = tx.getConfidence().getConfidenceType();
+            final Sha256Hash hash = tx.getHash();
 
             handler.post(new Runnable() {
                 @Override
@@ -163,7 +163,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
                     final boolean isReplayedTx = confidenceType == ConfidenceType.BUILDING && replaying;
 
                     if (isReceived && !isReplayedTx)
-                        notifyCoinsReceived(address, amount);
+                        notifyCoinsReceived(address, amount, hash);
                 }
             });
         }
@@ -175,47 +175,64 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
         }
     };
 
-    private void notifyCoinsReceived(@Nullable final Address address, final Coin amount) {
-        if (notificationCount == 1)
-            nm.cancel(Constants.NOTIFICATION_ID_COINS_RECEIVED);
-
+    private void notifyCoinsReceived(@Nullable final Address address, final Coin amount,
+            final Sha256Hash transactionHash) {
         notificationCount++;
         notificationAccumulatedAmount = notificationAccumulatedAmount.add(amount);
         if (address != null && !notificationAddresses.contains(address))
             notificationAddresses.add(address);
 
         final MonetaryFormat btcFormat = config.getFormat();
-
         final String packageFlavor = application.applicationPackageFlavor();
         final String msgSuffix = packageFlavor != null ? " [" + packageFlavor + "]" : "";
 
-        final String tickerMsg = getString(R.string.notification_coins_received_msg, btcFormat.format(amount))
-                + msgSuffix;
-        final String msg = getString(R.string.notification_coins_received_msg,
-                btcFormat.format(notificationAccumulatedAmount)) + msgSuffix;
-
-        final StringBuilder text = new StringBuilder();
-        for (final Address notificationAddress : notificationAddresses) {
-            if (text.length() > 0)
-                text.append(", ");
-
-            final String addressStr = notificationAddress.toBase58();
-            final String label = AddressBookProvider.resolveLabel(getApplicationContext(), addressStr);
-            text.append(label != null ? label : addressStr);
-        }
-
-        final NotificationCompat.Builder notification = new NotificationCompat.Builder(this,
+        // summary notification
+        final NotificationCompat.Builder summaryNotification = new NotificationCompat.Builder(this,
                 Constants.NOTIFICATION_CHANNEL_ID_RECEIVED);
-        notification.setSmallIcon(R.drawable.stat_notify_received_24dp);
-        notification.setTicker(tickerMsg);
-        notification.setContentTitle(msg);
-        if (text.length() > 0)
-            notification.setContentText(text);
-        notification.setContentIntent(PendingIntent.getActivity(this, 0, new Intent(this, WalletActivity.class), 0));
-        notification.setNumber(notificationCount == 1 ? 0 : notificationCount);
-        notification.setWhen(System.currentTimeMillis());
-        notification.setSound(Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.coins_received));
-        nm.notify(Constants.NOTIFICATION_ID_COINS_RECEIVED, notification.build());
+        summaryNotification.setGroup(Constants.NOTIFICATION_GROUP_KEY_RECEIVED);
+        summaryNotification.setGroupSummary(true);
+        summaryNotification.setGroupAlertBehavior(NotificationCompat.GROUP_ALERT_CHILDREN);
+        summaryNotification.setWhen(System.currentTimeMillis());
+        summaryNotification.setSmallIcon(R.drawable.stat_notify_received_24dp);
+        summaryNotification.setContentTitle(
+                getString(R.string.notification_coins_received_msg, btcFormat.format(notificationAccumulatedAmount))
+                        + msgSuffix);
+        if (!notificationAddresses.isEmpty()) {
+            final StringBuilder text = new StringBuilder();
+            for (final Address notificationAddress : notificationAddresses) {
+                if (text.length() > 0)
+                    text.append(", ");
+                final String addressStr = notificationAddress.toBase58();
+                final String label = AddressBookProvider.resolveLabel(getApplicationContext(), addressStr);
+                text.append(label != null ? label : addressStr);
+            }
+            summaryNotification.setContentText(text);
+        }
+        summaryNotification
+                .setContentIntent(PendingIntent.getActivity(this, 0, new Intent(this, WalletActivity.class), 0));
+        nm.notify(Constants.NOTIFICATION_ID_COINS_RECEIVED, summaryNotification.build());
+
+        // child notification
+        final NotificationCompat.Builder childNotification = new NotificationCompat.Builder(this,
+                Constants.NOTIFICATION_CHANNEL_ID_RECEIVED);
+        childNotification.setGroup(Constants.NOTIFICATION_GROUP_KEY_RECEIVED);
+        childNotification.setWhen(System.currentTimeMillis());
+        childNotification.setSmallIcon(R.drawable.stat_notify_received_24dp);
+        final String msg = getString(R.string.notification_coins_received_msg, btcFormat.format(amount)) + msgSuffix;
+        childNotification.setTicker(msg);
+        childNotification.setContentTitle(msg);
+        if (address != null) {
+            final String addressStr = address.toBase58();
+            final String addressLabel = AddressBookProvider.resolveLabel(getApplicationContext(), addressStr);
+            if (addressLabel != null)
+                childNotification.setContentText(addressLabel);
+            else
+                childNotification.setContentText(addressStr);
+        }
+        childNotification
+                .setContentIntent(PendingIntent.getActivity(this, 0, new Intent(this, WalletActivity.class), 0));
+        childNotification.setSound(Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.coins_received));
+        nm.notify(transactionHash.toString(), Constants.NOTIFICATION_ID_COINS_RECEIVED, childNotification.build());
     }
 
     private final class PeerConnectivityListener
