@@ -37,6 +37,12 @@ On your PC, install the following Ubuntu packages:
 
     sudo apt install android-tools-adb openssl git maven
 
+Install Java if you do not already have it:
+
+    sudo add-apt-repository ppa:webupd8team/java -y
+    sudo apt update
+    sudo apt install oracle-java8-installer oracle-java8-set-default
+
 On your Android device, go to Settings > Developer options and enable "USB debugging". On most
 recent devices you need to go to Settings > About first and tap on "Build number" multiple times
 until you see the "You are now a developer" message.
