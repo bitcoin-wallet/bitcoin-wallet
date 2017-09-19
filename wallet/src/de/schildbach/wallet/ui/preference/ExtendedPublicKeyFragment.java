@@ -20,8 +20,10 @@ package de.schildbach.wallet.ui.preference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.ui.DialogBuilder;
 import de.schildbach.wallet.util.Qr;
+import de.schildbach.wallet_test.BuildConfig;
 import de.schildbach.wallet_test.R;
 
 import android.app.Activity;
@@ -44,6 +46,7 @@ public class ExtendedPublicKeyFragment extends DialogFragment {
     private static final String FRAGMENT_TAG = ExtendedPublicKeyFragment.class.getName();
 
     private static final String KEY_XPUB = "xpub";
+    private static final String KEY_TPUB = "tpub";
 
     private static final Logger log = LoggerFactory.getLogger(ExtendedPublicKeyFragment.class);
 

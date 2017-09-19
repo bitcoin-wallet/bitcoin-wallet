@@ -61,6 +61,11 @@ public final class DiagnosticsFragment extends PreferenceFragment {
         super.onCreate(savedInstanceState);
 
         addPreferencesFromResource(R.xml.preference_diagnostics);
+
+        if(Constants.TEST) {
+            String title = findPreference(PREFS_KEY_EXTENDED_PUBLIC_KEY).getTitle().toString();
+            title.replaceFirst("xpub", "tpub");
+        }
     }
 
     @Override
