@@ -307,12 +307,12 @@
   <string name="about_community_googleplus_summary">Обсуждение приложения</string>
   <string name="notification_coins_received_msg">Получено %s</string>
   <string name="notification_peers_connected_msg">подключено %d участников</string>
-  <string name="notification_inactivity_title">У вас всё ещё есть биткоины на этом устройстве!</string>
+  <string name="notification_inactivity_title">У вас всё ещё есть Грёстлкоины на этом устройстве!</string>
   <string name="notification_inactivity_message">Внимание, ваш баланс %s будет потерян, если вы удалите Groestlcoin Wallet до того, как перешлёте ваши средства.</string>
   <string name="notification_inactivity_message_donate">Если вам не нужны монеты, вы можете пожертвовать их проекту Groestlcoin Wallet.</string>
   <string name="notification_inactivity_action_dismiss">Напомнить позже</string>
   <string name="notification_inactivity_action_dismiss_forever">Не напоминать</string>
-  <string name="appwidget_wallet_balance_title">Баланс биткоинов</string>
+  <string name="appwidget_wallet_balance_title">Баланс Грёстлкоинов</string>
   <!--generic buttons-->
   <string name="button_ok">OK</string>
   <string name="button_dismiss">Отклонить</string>
