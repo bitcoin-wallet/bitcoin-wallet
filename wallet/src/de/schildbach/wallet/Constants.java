@@ -158,13 +158,13 @@ public final class Constants {
             ? "14Jb4oBH3aSCZ8UuN1bTs2gLGhZYfSxZKH" : null;
 
     /** Recipient e-mail address for reports. */
-    public static final String REPORT_EMAIL = "bitcoin.wallet.developers@gmail.com";
+    public static final String REPORT_EMAIL = "hashengineeringsolutions@gmail.com";
 
     /** Subject line for manually reported issues. */
-    public static final String REPORT_SUBJECT_ISSUE = "Reported issue";
+    public static final String REPORT_SUBJECT_ISSUE = "Reported issue " + USER_AGENT;
 
     /** Subject line for crash reports. */
-    public static final String REPORT_SUBJECT_CRASH = "Crash report";
+    public static final String REPORT_SUBJECT_CRASH = "Crash report " + USER_AGENT;
 
     public static final char CHAR_HAIR_SPACE = '\u200a';
     public static final char CHAR_THIN_SPACE = '\u2009';
