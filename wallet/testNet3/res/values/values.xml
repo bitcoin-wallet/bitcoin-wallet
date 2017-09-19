@@ -17,5 +17,10 @@
 		<item>mtGRS, 2 decimal places</item>
 		<item>µtGRS, no decimal places</item>
 	</string-array>
-
+	<string-array name="preferences_block_explorer_values">
+		<item>https://chainz.cryptoid.info/grs-test/</item>
+	</string-array>
+	<string-array name="preferences_block_explorer_labels">
+		<item>cryptoID:GRS</item>
+	</string-array>
 </resources>
