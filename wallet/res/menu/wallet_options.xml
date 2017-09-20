@@ -41,11 +41,33 @@
             <item
                 android:id="@+id/wallet_options_backup_wallet"
                 android:showAsAction="never"
-                android:title="@string/export_keys_dialog_title"/>
+                android:title="@string/export_keys_dialog_title">
+                <menu>
+                    <item
+                        android:id="@+id/wallet_options_backup_file"
+                        android:showAsAction="never"
+                        android:title="@string/backup_wallet_keys_dialog_title"/>
+                    <item
+                        android:id="@+id/wallet_options_backup_mnemonic_code"
+                        android:showAsAction="never"
+                        android:title="@string/backup_wallet_mnemonic_code_dialog_title"/>
+                </menu>
+            </item>
             <item
                 android:id="@+id/wallet_options_restore_wallet"
                 android:showAsAction="never"
-                android:title="@string/import_keys_dialog_title"/>
+                android:title="@string/import_keys_dialog_title">
+                <menu>
+                    <item
+                        android:id="@+id/wallet_options_restore_file"
+                        android:showAsAction="never"
+                        android:title="@string/backup_wallet_keys_dialog_title"/>
+                    <item
+                        android:id="@+id/wallet_options_restore_mnemonic_code"
+                        android:showAsAction="never"
+                        android:title="@string/backup_wallet_mnemonic_code_dialog_title"/>
+                </menu>
+            </item>
             <item
                 android:id="@+id/wallet_options_encrypt_keys"
                 android:showAsAction="never"

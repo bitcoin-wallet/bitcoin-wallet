@@ -198,9 +198,12 @@
     <string name="restore_wallet_dialog_success_replay">Your wallet was successfully restored. Its balance will be determined next. This will take some time.</string>
     <string name="restore_wallet_dialog_success_encrypted">Warning: Your wallet is protected by a spending PIN. Make sure you still remember it before you receive to this wallet.</string>
     <string name="import_keys_dialog_failure">Wallet could not be restored:\n\n%s\n\nBad password?</string>
+    <string name="import_mnemonic">Mnemonic code</string>
     <string name="backup_wallet_permission_dialog_title">Write permission missing</string>
     <string name="backup_wallet_permission_dialog_message">In order to backup your wallet to external storage, you need to grant write permission.</string>
     <string name="export_keys_dialog_title">Back up wallet</string>
+    <string name="backup_wallet_keys_dialog_title">Keys to file</string>
+    <string name="backup_wallet_mnemonic_code_dialog_title">Mnemonic code</string>
     <string name="backup_wallet_dialog_message">Your backup will be encrypted with the chosen password and written to external storage.</string>
     <string name="backup_wallet_dialog_warning_encrypted">Your wallet is protected by a spending PIN. Make sure you remember the PIN in addition to the backup password!</string>
     <string name="export_keys_dialog_button_export">Back up</string>
@@ -215,6 +218,7 @@
     <string name="backup_wallet_dialog_password_mismatch">mismatch!</string>
     <string name="import_export_keys_dialog_show">Show password</string>
     <string name="import_export_keys_dialog_failure_title">Error</string>
+    <string name="import_export_mnemonic_failure_title">Error</string>
     <string name="import_keys_intent_filter_action">Restore wallet</string>
     <string name="encrypt_keys_dialog_title">Spending PIN</string>
     <string name="encrypt_keys_dialog_message">Spending from your wallet will be protected with the chosen PIN.</string>
