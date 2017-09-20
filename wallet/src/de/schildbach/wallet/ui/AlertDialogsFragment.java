@@ -21,10 +21,12 @@ import java.io.BufferedReader;
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
+import java.util.Iterator;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.common.base.Splitter;
 import com.squareup.okhttp.Call;
 import com.squareup.okhttp.HttpUrl;
 import com.squareup.okhttp.Request;
@@ -39,6 +41,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.bluetooth.BluetoothAdapter;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -118,19 +121,48 @@ public class AlertDialogsFragment extends Fragment {
         backgroundHandler.post(new Runnable() {
             @Override
             public void run() {
+                boolean abort = false;
                 try {
                     final Response response = call.execute();
                     if (response.isSuccessful()) {
                         final long serverTime = response.headers().getDate("Date").getTime();
-                        final BufferedReader reader = new BufferedReader(response.body().charStream());
-                        final String line = reader.readLine().trim();
-                        reader.close();
+                        try (final BufferedReader reader = new BufferedReader(response.body().charStream())) {
+                            abort = handleServerTime(serverTime);
 
-                        handleLine(line, serverTime);
+                            while (true) {
+                                final String line = reader.readLine();
+                                if (line == null)
+                                    break;
+                                if (line.charAt(0) == '#')
+                                    continue;
+
+                                final Splitter splitter = Splitter.on('=').trimResults();
+                                final Iterator<String> split = splitter.split(line).iterator();
+                                if (!split.hasNext())
+                                    continue;
+                                final String key = split.next();
+                                if (!split.hasNext()) {
+                                    abort = handleLine(key);
+                                    if (abort)
+                                        break;
+                                    continue;
+                                }
+                                final String value = split.next();
+                                if (!split.hasNext()) {
+                                    abort = handleProperty(key, value);
+                                    if (abort)
+                                        break;
+                                    continue;
+                                }
+                                log.info("Ignoring line: {}", line);
+                            }
+                        }
                     }
                 } catch (final Exception x) {
                     handleException(x);
                 }
+                if (!abort)
+                    handleCatchAll();
             }
         });
     }
@@ -142,11 +174,50 @@ public class AlertDialogsFragment extends Fragment {
         super.onDestroy();
     }
 
-    private void handleLine(final String line, final long serverTime) {
+    private boolean handleLine(final String line) {
         final int serverVersionCode = Integer.parseInt(line.split("\\s+")[0]);
         log.info("according to \"" + versionUrl + "\", strongly recommended minimum app version is "
                 + serverVersionCode);
 
+        if (serverVersionCode > application.packageInfo().versionCode) {
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    if (!activity.isFinishing())
+                        createVersionAlertDialog().show();
+                }
+            });
+            return true;
+        }
+        return false;
+    }
+
+    private boolean handleProperty(final String key, final String value) {
+        if (key.equalsIgnoreCase("min.security_patch.bluetooth")) {
+            final String minSecurityPatchLevel = value;
+            log.info("according to \"{}\", minimum security patch level for bluetooth is {}", versionUrl,
+                    minSecurityPatchLevel);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
+                    && Build.VERSION.SECURITY_PATCH.compareTo(minSecurityPatchLevel) < 0) {
+                final BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+                if (bluetoothAdapter != null && BluetoothAdapter.getDefaultAdapter().isEnabled()) {
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (!activity.isFinishing())
+                                createInsecureBluetoothAlertDialog(minSecurityPatchLevel).show();
+                        }
+                    });
+                    return true;
+                }
+            }
+        } else {
+            log.info("Ignoring key: {}", key);
+        }
+        return false;
+    }
+
+    private boolean handleServerTime(final long serverTime) {
         if (serverTime > 0) {
             final long diffMinutes = Math.abs((System.currentTimeMillis() - serverTime) / DateUtils.MINUTE_IN_MILLIS);
 
@@ -159,21 +230,13 @@ public class AlertDialogsFragment extends Fragment {
                             createTimeskewAlertDialog(diffMinutes).show();
                     }
                 });
-                return;
+                return true;
             }
         }
+        return false;
+    }
 
-        if (serverVersionCode > application.packageInfo().versionCode) {
-            handler.post(new Runnable() {
-                @Override
-                public void run() {
-                    if (!activity.isFinishing())
-                        createVersionAlertDialog().show();
-                }
-            });
-            return;
-        }
-
+    private boolean handleCatchAll() {
         final Intent stickyIntent = activity.registerReceiver(null, new IntentFilter(Intent.ACTION_DEVICE_STORAGE_LOW));
         if (stickyIntent != null) {
             handler.post(new Runnable() {
@@ -183,8 +246,9 @@ public class AlertDialogsFragment extends Fragment {
                         createLowStorageAlertDialog().show();
                 }
             });
-            return;
+            return true;
         }
+        return false;
     }
 
     private void handleException(final Exception x) {
@@ -250,6 +314,21 @@ public class AlertDialogsFragment extends Fragment {
                     });
         }
 
+        dialog.setNegativeButton(R.string.button_dismiss, null);
+        return dialog.create();
+    }
+
+    private Dialog createInsecureBluetoothAlertDialog(final String minSecurityPatch) {
+        final DialogBuilder dialog = DialogBuilder.warn(activity,
+                R.string.alert_dialogs_fragment_insecure_bluetooth_title);
+        dialog.setMessage(getString(R.string.alert_dialogs_fragment_insecure_bluetooth_message, minSecurityPatch));
+        dialog.setPositiveButton(R.string.button_settings, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(final DialogInterface dialog, final int id) {
+                startActivity(new Intent(android.provider.Settings.ACTION_BLUETOOTH_SETTINGS));
+                activity.finish();
+            }
+        });
         dialog.setNegativeButton(R.string.button_dismiss, null);
         return dialog.create();
     }
