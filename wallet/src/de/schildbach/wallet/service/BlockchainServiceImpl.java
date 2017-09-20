@@ -216,6 +216,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
         final NotificationCompat.Builder childNotification = new NotificationCompat.Builder(this,
                 Constants.NOTIFICATION_CHANNEL_ID_RECEIVED);
         childNotification.setGroup(Constants.NOTIFICATION_GROUP_KEY_RECEIVED);
+        childNotification.setGroupAlertBehavior(NotificationCompat.GROUP_ALERT_CHILDREN);
         childNotification.setWhen(System.currentTimeMillis());
         childNotification.setSmallIcon(R.drawable.stat_notify_received_24dp);
         final String msg = getString(R.string.notification_coins_received_msg, btcFormat.format(amount)) + msgSuffix;
