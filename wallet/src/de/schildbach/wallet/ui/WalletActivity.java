@@ -643,8 +643,6 @@ public final class WalletActivity extends AbstractBindServiceActivity
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                if (!isFinishing())
-                                    return;
                                 final Bundle args = new Bundle();
                                 args.putLong("diff_minutes", diffMinutes);
                                 showDialog(DIALOG_TIMESKEW_ALERT, args);
@@ -659,8 +657,6 @@ public final class WalletActivity extends AbstractBindServiceActivity
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            if (isFinishing())
-                                return;
                             showDialog(DIALOG_VERSION_ALERT);
                         }
                     });
