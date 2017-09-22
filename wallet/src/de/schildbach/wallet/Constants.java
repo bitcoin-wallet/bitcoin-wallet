@@ -135,7 +135,7 @@ public final class Constants {
 
     /** Donation address for tip/donate action. */
     public static final String DONATION_ADDRESS = NETWORK_PARAMETERS.getId().equals(NetworkParameters.ID_MAINNET)
-            ? "1DGAof7V5nQVDFY2ThkqLvaoXQuxrAJS81" : null;
+            ? "1DrA5mob5A2YAtoAKxN1UnsK8C5bm9K293" : null;
 
     /** Recipient e-mail address for reports. */
     public static final String REPORT_EMAIL = "bitcoin.wallet.developers@gmail.com";
