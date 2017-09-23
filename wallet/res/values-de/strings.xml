@@ -60,6 +60,7 @@
     <string name="wallet_version_dialog_button_binary">Herunterladen</string>
     <string name="wallet_old_sdk_dialog_title">Android ist veraltet</string>
     <string name="wallet_old_sdk_dialog_message">Es ist möglich, daß eine der nächsten Versionen von Bitcoin Wallet dein Gerät nicht mehr unterstützt. In manchen Fällen kann es schwierig werden, Zahlungen zu tätigen.\n\nEs wird empfohlen, die enthaltenen Bitcoins bald zu verschieben, außer du weisst was du tust.</string>
+    <string name="alert_dialogs_fragment_settings_failed_title">Problem beim Öffnen der Einstellungen</string>
     <string name="send_coins_activity_title">Bitcoins senden</string>
     <string name="send_coins_fragment_request_payment_request_progress">Rufe Signatur von %s ab…</string>
     <string name="send_coins_fragment_request_payment_request_failed_title">Abrufen der Signatur fehlgeschlagen</string>

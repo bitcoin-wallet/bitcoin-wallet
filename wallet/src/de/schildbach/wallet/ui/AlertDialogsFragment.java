@@ -263,20 +263,21 @@ public class AlertDialogsFragment extends Fragment {
 
     private Dialog createTimeskewAlertDialog(final long diffMinutes) {
         final Intent settingsIntent = new Intent(android.provider.Settings.ACTION_DATE_SETTINGS);
-
         final DialogBuilder dialog = DialogBuilder.warn(activity, R.string.wallet_timeskew_dialog_title);
         dialog.setMessage(getString(R.string.wallet_timeskew_dialog_msg, diffMinutes));
-
         if (packageManager.resolveActivity(settingsIntent, 0) != null) {
             dialog.setPositiveButton(R.string.button_settings, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(final DialogInterface dialog, final int id) {
-                    startActivity(settingsIntent);
-                    activity.finish();
+                    try {
+                        startActivity(settingsIntent);
+                        activity.finish();
+                    } catch (final Exception x) {
+                        createSettingsFailedDialog(x.getMessage()).show();
+                    }
                 }
             });
         }
-
         dialog.setNegativeButton(R.string.button_dismiss, null);
         return dialog.create();
     }
@@ -319,31 +320,54 @@ public class AlertDialogsFragment extends Fragment {
     }
 
     private Dialog createInsecureBluetoothAlertDialog(final String minSecurityPatch) {
+        final Intent settingsIntent = new Intent(android.provider.Settings.ACTION_BLUETOOTH_SETTINGS);
         final DialogBuilder dialog = DialogBuilder.warn(activity,
                 R.string.alert_dialogs_fragment_insecure_bluetooth_title);
         dialog.setMessage(getString(R.string.alert_dialogs_fragment_insecure_bluetooth_message, minSecurityPatch));
-        dialog.setPositiveButton(R.string.button_settings, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(final DialogInterface dialog, final int id) {
-                startActivity(new Intent(android.provider.Settings.ACTION_BLUETOOTH_SETTINGS));
-                activity.finish();
-            }
-        });
+        if (packageManager.resolveActivity(settingsIntent, 0) != null) {
+            dialog.setPositiveButton(R.string.button_settings, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(final DialogInterface dialog, final int id) {
+                    try {
+                        startActivity(settingsIntent);
+                        activity.finish();
+                    } catch (final Exception x) {
+                        createSettingsFailedDialog(x.getMessage()).show();
+                    }
+                }
+            });
+        }
         dialog.setNegativeButton(R.string.button_dismiss, null);
         return dialog.create();
     }
 
     private Dialog createLowStorageAlertDialog() {
+        final Intent settingsIntent = new Intent(android.provider.Settings.ACTION_MANAGE_APPLICATIONS_SETTINGS);
         final DialogBuilder dialog = DialogBuilder.warn(activity, R.string.wallet_low_storage_dialog_title);
         dialog.setMessage(R.string.wallet_low_storage_dialog_msg);
-        dialog.setPositiveButton(R.string.wallet_low_storage_dialog_button_apps, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(final DialogInterface dialog, final int id) {
-                startActivity(new Intent(android.provider.Settings.ACTION_MANAGE_APPLICATIONS_SETTINGS));
-                activity.finish();
-            }
-        });
+        if (packageManager.resolveActivity(settingsIntent, 0) != null) {
+            dialog.setPositiveButton(R.string.wallet_low_storage_dialog_button_apps,
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(final DialogInterface dialog, final int id) {
+                            try {
+                                startActivity(settingsIntent);
+                                activity.finish();
+                            } catch (final Exception x) {
+                                createSettingsFailedDialog(x.getMessage()).show();
+                            }
+                        }
+                    });
+        }
         dialog.setNegativeButton(R.string.button_dismiss, null);
+        return dialog.create();
+    }
+
+    private Dialog createSettingsFailedDialog(final String exceptionMessage) {
+        final DialogBuilder dialog = new DialogBuilder(activity);
+        dialog.setTitle(R.string.alert_dialogs_fragment_settings_failed_title);
+        dialog.setMessage(exceptionMessage);
+        dialog.singleDismissButton(null);
         return dialog.create();
     }
 }
