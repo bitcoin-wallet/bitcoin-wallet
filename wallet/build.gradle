@@ -131,6 +131,6 @@ preBuild.dependsOn 'buildNativeScrypt'
 preBuild.dependsOn 'buildNativeGroestl'
 
 clean {
-    file('src/main/jniLibs').deleteDir()
+    file('libs').deleteDir()
 
 }
