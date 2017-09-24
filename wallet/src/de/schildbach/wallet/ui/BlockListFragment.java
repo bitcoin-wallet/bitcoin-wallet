@@ -23,6 +23,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.RejectedExecutionException;
 
+import org.bitcoinj.core.CoinDefinition;
 import org.bitcoinj.core.Sha256Hash;
 import org.bitcoinj.core.StoredBlock;
 import org.bitcoinj.core.Transaction;
@@ -179,7 +180,7 @@ public final class BlockListFragment extends Fragment implements BlockListAdapte
                     final Uri blockExplorerUri = config.getBlockExplorer();
                     log.info("Viewing block {} on {}", blockHash, blockExplorerUri);
                     startActivity(new Intent(Intent.ACTION_VIEW,
-                            Uri.withAppendedPath(blockExplorerUri, "block/" + blockHash)));
+                            Uri.withAppendedPath(blockExplorerUri, CoinDefinition.BLOCKEXPLORER_BLOCK_PATH + blockHash)));
                     return true;
                 }
                 return false;

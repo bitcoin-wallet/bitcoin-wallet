@@ -128,7 +128,7 @@ public final class Constants {
 	private static final String BITEASY_API_URL_TEST = "https://api.biteasy.com/v2/btc/testnet/";
     /** Currency code for the wallet name resolver. */
     public static final String WALLET_NAME_CURRENCY_CODE = NETWORK_PARAMETERS.getId()
-            .equals(NetworkParameters.ID_MAINNET) ? "btc" : "tbtc";
+            .equals(NetworkParameters.ID_MAINNET) ? "grs" : "tgrs";
 
     /** URL to fetch version alerts from. */
     public static final HttpUrl VERSION_URL = HttpUrl.parse("https://wallet.schildbach.de/version");
@@ -136,10 +136,10 @@ public final class Constants {
     public static final HttpUrl DYNAMIC_FEES_URL = HttpUrl.parse("https://wallet.schildbach.de/fees");
 
     /** MIME type used for transmitting single transactions. */
-    public static final String MIMETYPE_TRANSACTION = "application/x-btctx";
+    public static final String MIMETYPE_TRANSACTION = "application/x-grstx";
 
     /** MIME type used for transmitting wallet backups. */
-    public static final String MIMETYPE_WALLET_BACKUP = "application/x-bitcoin-wallet-backup";
+    public static final String MIMETYPE_WALLET_BACKUP = "application/x-groestlcoin-wallet-backup";
 
     /** Number of confirmations until a transaction is fully confirmed. */
     public static final int MAX_NUM_CONFIRMATIONS = 7;

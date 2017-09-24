@@ -22,6 +22,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import org.bitcoinj.core.Address;
+import org.bitcoinj.core.CoinDefinition;
 import org.bitcoinj.core.ECKey;
 import org.bitcoinj.uri.BitcoinURI;
 import org.bitcoinj.utils.Threading;
@@ -183,7 +184,7 @@ public final class WalletAddressesFragment extends FancyListFragment {
                     final Uri blockExplorerUri = config.getBlockExplorer();
                     log.info("Viewing address {} on {}", address, blockExplorerUri);
                     startActivity(new Intent(Intent.ACTION_VIEW,
-                            Uri.withAppendedPath(blockExplorerUri,  blockExplorerUri + getAddress(position).toString())));
+                            Uri.withAppendedPath(blockExplorerUri,  blockExplorerUri + CoinDefinition.BLOCKEXPLORER_ADDRESS_PATH + getAddress(position).toString())));
 
                     mode.finish();
                     return true;
