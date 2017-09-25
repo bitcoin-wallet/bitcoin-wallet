@@ -266,6 +266,8 @@
   <string name="preferences_data_usage_summary">Vis indstillinger for restriktion på dataforbrug på mobile netværk.</string>
   <string name="preferences_remind_balance_title">Saldopåmindelse</string>
   <string name="preferences_remind_balance_summary">Efter et par uger uden brug vil app\'en give besked, hvis der stadig er penge i tegnebogen.</string>
+  <string name="preferences_show_disclaimer_title">Vis ansvarsfraskrivelse</string>
+  <string name="preferences_show_disclaimer_summary">Har du virkelig læst sikkerhedsnoterne? Har du allerede sikkerhedskopieret din tegnebog til et sikkert sted?</string>
   <string name="preferences_report_issue_title">Rapportér problem</string>
   <string name="preferences_initiate_reset_title">Nulstil blokkæde</string>
   <string name="preferences_initiate_reset_summary">Nulstil blokkæde, overførsler og saldo for tegnebogen. Gennemløb af blokkæden vil tage et stykke tid, så gør kun dette hvis du ved hvorfor.</string>
