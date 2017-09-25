@@ -29,6 +29,7 @@
   <string name="wallet_transactions_fragment_empty_text_howto">Hoe verkrijg je bitcoins?\n\nVerhandel voor traditioneel geld,\nverkoop goederen of diensten of\nverdien ze met uw werk.</string>
   <string name="wallet_transactions_row_warning_backup">Gefeliciteerd, u heeft uw eerste betaling ontvangen! Heeft u al een &lt;u&gt;back-up gemaakt van uw portemonnee&lt;/u&gt;, om verlies tegen te gaan?</string>
   <string name="wallet_transactions_row_warning_storage_encryption">Tip: om de veiligheid van je portemonnee te vergroten, kun je &lt;u&gt;je apparaat versleutelen&lt;/u&gt;. Dit beschermt ook de gegevens van andere apps.</string>
+  <string name="wallet_transactions_row_warning_chain_forking">Het netwerk van Bitcoin is in onderhoud. Je wordt geadviseerd om geen coins te versturen of the ontvangen totdat het onderhoud is afgerond. &lt;u&gt;Voor meer informatie.&lt;/u&gt;</string>
   <string name="wallet_transactions_fragment_coinbase">gemijnd</string>
   <string name="wallet_transactions_fragment_internal">intern</string>
   <string name="wallet_transactions_options_filter">Filter</string>
@@ -48,7 +49,7 @@
   <string name="wallet_timeskew_dialog_title">Check je datum- en tijdsinstellingen</string>
   <string name="wallet_timeskew_dialog_msg">De tijd van je apparaat wijkt af met %d minuten. Hierdoor kun je waarschijnlijk geen Bitcoins verzenden of ontvangen.\n\nCheck je instellingen voor datum, tijd en tijdzone en pas die indien nodig aan.</string>
   <string name="wallet_version_dialog_title">Een nieuwe versie is beschikbaar!</string>
-  <string name="wallet_version_dialog_msg">Deze versie lost belangrijke problemen op. Kijk voor details bij nieuwe functies op Google Play.</string>
+  <string name="wallet_version_dialog_msg">Deze versie lost belangrijke problemen op. Kijk voor een overzicht van de aanpassingen in Google Play.</string>
   <string name="wallet_version_dialog_msg_deprecated">Wanneer je geen update ziet wordt jouw Android-versie waarschijnlijk niet meer ondersteund.</string>
   <string name="wallet_version_dialog_button_market">Google Play</string>
   <string name="wallet_version_dialog_button_binary">Download</string>
@@ -67,8 +68,9 @@
   <string name="send_coins_fragment_receiving_address_complex">complex\nadres</string>
   <string name="send_coins_fragment_pending">(%s wachten op bevestiging)</string>
   <string name="send_coins_fragment_amount_label">Te betalen bedrag</string>
-  <string name="send_coins_fragment_hint_fee_economic">%s aan economische kosten zullen worden betaald. Gebruik \'economisch\' alleen als bevestigingstijd je niets uitmaakt.</string>
+  <string name="send_coins_fragment_hint_fee_economic">Economische kosten van %s zullen betaald worden. Belangrijk: gebruik \'economisch\' alleen als je bevestigingstijd niet belangrijk vindt.</string>
   <string name="send_coins_fragment_hint_fee">%s aan netwerkkosten zullen worden betaald.</string>
+  <string name="send_coins_fragment_hint_fee_priority">Prioriteitskosten van %s zullen betaald worden. Als je lage kosten belangrijk vindt, gebruik \'prioriteit\' alleen als je zo snel mogelijk bevestiging nodig hebt.</string>
   <string name="send_coins_fragment_hint_dusty_send">Het bedrag is te laag om te verzenden.</string>
   <string name="send_coins_fragment_hint_insufficient_money">Onvoldoende coins beschikbaar. U mist %s.</string>
   <string name="send_coins_fragment_hint_empty_wallet_failed">Het totaal van kleine betalingen in uw portemonnee is bij elkaar niet genoeg om te kunnen verzenden.</string>
@@ -181,6 +183,7 @@
   <string name="restore_wallet_permission_dialog_message">Om te kunnen zoeken naar een backup in externe opslag moet je leestoestemming geven.</string>
   <string name="import_keys_dialog_title">Herstel portemonnee</string>
   <string name="import_keys_dialog_message">Haal backup van je portemonnee van externe opslag (%s):</string>
+  <string name="restore_wallet_dialog_message_empty">Er is geen backup van je portemonnee gevonden. Controleer of deze in de externe opslag was opgeslagen (%s).</string>
   <string name="restore_wallet_dialog_replace_warning">U staat op het punt uw huidige wallet te vervangen. Tenzij u een losse back-up van uw Wallet heeft gemaakt zullen alle bitcoins die nog in uw huidige wallet aanwezig zijn verloren gaan!</string>
   <string name="import_keys_dialog_warning">Belangrijk: Laad geen prive-sleutels van twijfelachtige bronnen! Anderen kunnen anders wellicht over je saldo beschikken.</string>
   <string name="import_keys_dialog_file_security_encrypted">wachtwoord versleuteld</string>
@@ -192,6 +195,7 @@
   <string name="import_keys_dialog_button_import">Herstellen</string>
   <string name="restore_wallet_dialog_success">Portemonnee is hersteld.</string>
   <string name="restore_wallet_dialog_success_replay">Uw wallet is met succes hersteld. Nu zal het saldo worden vastgesteld. Dit kan enige tijd duren.</string>
+  <string name="restore_wallet_dialog_success_encrypted">Waarschuwing: betalen vanuit je portemonnee is beveiligd met een PIN. Onthoud deze goed voordat je in deze portemonnee wat ontvangt.</string>
   <string name="import_keys_dialog_failure">Portemonnee kon niet hersteld worden:\n\n%s\n\nVerkeerd wachtwoord?</string>
   <string name="backup_wallet_permission_dialog_title">Geen schrijfrechten </string>
   <string name="backup_wallet_permission_dialog_message">Om een backup te kunnen maken naar externe opslag moet je schrijfrechten geven.</string>
@@ -262,6 +266,8 @@
   <string name="preferences_data_usage_summary">Toon opties om bandbreedte op mobiele netwerken te beperken.</string>
   <string name="preferences_remind_balance_title">Saldo herinnering</string>
   <string name="preferences_remind_balance_summary">Als de app een paar weken niet gebruikt is zal de wallet laten merken dat er nog steeds coins aanwezig.</string>
+  <string name="preferences_show_disclaimer_title">Toon disclaimer</string>
+  <string name="preferences_show_disclaimer_summary">Heb je echt de veiligheidsaanwijzingen gelezen? Heb je al op een veilige plek een backup gemaakt van je portemonnee?</string>
   <string name="preferences_report_issue_title">Meld probleem</string>
   <string name="preferences_initiate_reset_title">Reset blockchain</string>
   <string name="preferences_initiate_reset_summary">Reset block-chain, transacties en wallet inhoud. Herstel kan enige tijd duren dus doe dit alleen als je weet waarom.</string>
@@ -306,6 +312,9 @@
   <string name="notification_inactivity_message_donate">Als je geen waarde hecht aan je coins zou je deze ook kunnen doneren aan het Bitcoin Wallet project</string>
   <string name="notification_inactivity_action_dismiss">Opnieuw vragen</string>
   <string name="notification_inactivity_action_dismiss_forever">Niet herinneren</string>
+  <string name="notification_channel_received_name">Ontvangen betalingen</string>
+  <string name="notification_channel_ongoing_name">Achtergrondactiviteit</string>
+  <string name="notification_channel_important_name">Belangrijke meldingen</string>
   <string name="appwidget_wallet_balance_title">Bitcoin saldo</string>
   <!--generic buttons-->
   <string name="button_ok">OK</string>

@@ -104,4 +104,21 @@
 		</p>
 	]]>
 	</string>
+  <string name="help_technical_notes">
+<![CDATA[
+        <p>
+            <b>Technische opmerkingen:</b>
+        </p>
+        <p>
+            Als een SPV/light portemonnee, Bitcoin Wallet volgt de keten van de meeste \"proof-of-work\" (soms ook genaamd \"longest chain\", de \"winning chain\" of de \"Bitcoin blockchain\").
+            Je kan alleen inkomende betalingen ontvangen als je de mogelijkheid hebt om op die keten te kunnen betalen.
+            Er zijn geen garanties voor Bitcoins of minderheidsketens (\"minority chains\"), dat zijn keten met minder \"proof-of-work\".
+        </p>
+        <p>
+            In het verleden zijn deze minderheidsketens zeer snel irrelevant geworden.
+            Als je de wens hebt om toch een minderheidsketen te volgen, wordt geadviseerd om de \"trusted peer\" feature te gebruiken om exclusief te verbinden met een implementatie van bitcoind die forceert om die gewenste keten te volgen.
+            Als het netwerk tussen je portemonnee en je trusted peer niet te vertrouwen is, gebruik een VPN voor de authenticatie van die verbinding.
+        </p>
+    ]]>
+    </string>
 </resources>
