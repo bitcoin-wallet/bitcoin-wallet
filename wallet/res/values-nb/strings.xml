@@ -266,6 +266,8 @@
   <string name="preferences_data_usage_summary">Vis innstillinger for restriksjon for dataforbruk på mobile nettverk.</string>
   <string name="preferences_remind_balance_title">Saldopåminnelse</string>
   <string name="preferences_remind_balance_summary">Etter et par uker uten bruk vil appen varsle om det fortsatt er penger i lommeboken.</string>
+  <string name="preferences_show_disclaimer_title">Vis ansvarsfraskrivelse</string>
+  <string name="preferences_show_disclaimer_summary">Har du virkelig lest sikkerhetsnotatene? Har du allerede sikkerhetskopiert lommeboken til et trygt sted?</string>
   <string name="preferences_report_issue_title">Rapporter problem</string>
   <string name="preferences_initiate_reset_title">Tilbakestill blokkjeden</string>
   <string name="preferences_initiate_reset_summary">Tilbakestill blokkjeden, transaksjoner og lommebok-balansen. Gjennomgangen vil ta en stund, så bare gjør dette hvis du vet hvorfor.</string>
@@ -310,6 +312,9 @@
   <string name="notification_inactivity_message_donate">Hvis du ikke bryr deg om myntene dine, kan du også donere dem til Bitcoin Wallet.</string>
   <string name="notification_inactivity_action_dismiss">Påminn senere</string>
   <string name="notification_inactivity_action_dismiss_forever">Påminn meg ikke</string>
+  <string name="notification_channel_received_name">Mottatte betalinger</string>
+  <string name="notification_channel_ongoing_name">Bakgrunnsaktivitet</string>
+  <string name="notification_channel_important_name">Viktige varsler</string>
   <string name="appwidget_wallet_balance_title">Bitcoin-saldo</string>
   <!--generic buttons-->
   <string name="button_ok">OK</string>
