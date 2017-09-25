@@ -29,7 +29,7 @@
   <string name="wallet_transactions_fragment_empty_text_howto">Kuinka saada Bitcoineja?\nVaihda perinteiseen rahaan,\nmyy tuotteita tai palveluita\ntai tienaa työskentelemällä.</string>
   <string name="wallet_transactions_row_warning_backup">Onnittelut, olet vastaanottanut ensimmäisen rahansiirtosi! Onko sinulla jo &lt;u&gt;varmuuskopio lompakostasi&lt;/u&gt; suojataksesi sitä katoamiselta?</string>
   <string name="wallet_transactions_row_warning_storage_encryption">Vinkki: parantaaksesi lompakkosi turvallisuutta, voit &lt;u&gt;salata laitteesi&lt;/u&gt;. Tämä myös suojaa muiden ohjelmien dataa.</string>
-  <string name="wallet_transactions_row_warning_chain_forking">Bitcoin-verkossa on meneillään huoltotyö. Sinua neuvotaan olemaan lähettämättä tai vastaanottamatta kolikoita kunnes huoltotyö on ohi. &lt;u&gt;Lisää tietoa.&lt;/u&gt;</string>
+  <string name="wallet_transactions_row_warning_chain_forking">Bitcoin-verkkoa huolletaan parhaillaan. Sinua neuvotaan olemaan lähettämättä tai vastaanottamatta kolikoita kunnes huolto on ohi. &lt;u&gt;Lisää tietoa.&lt;/u&gt;</string>
   <string name="wallet_transactions_fragment_coinbase">louhittu</string>
   <string name="wallet_transactions_fragment_internal">sisäinen</string>
   <string name="wallet_transactions_options_filter">Suodata</string>
@@ -68,7 +68,7 @@
   <string name="send_coins_fragment_receiving_address_complex">monimutkainen\nosoite</string>
   <string name="send_coins_fragment_pending">(%s odottaa vahvistusta)</string>
   <string name="send_coins_fragment_amount_label">Maksettava määrä</string>
-  <string name="send_coins_fragment_hint_fee_economic">Ekonominen rahansiirtokulu %s suoritetaan. Käytä \'economic\'-tilaa vain, jos et välitä vahvistusajasta.</string>
+  <string name="send_coins_fragment_hint_fee_economic">Ekonominen rahansiirtokulu %s suoritetaan. Tärkeää: Käytä \'economic\'-tilaa vain, jos et välitä vahvistusajasta.</string>
   <string name="send_coins_fragment_hint_fee">Verkon rahansiirtokulu %s suoritetaan.</string>
   <string name="send_coins_fragment_hint_fee_priority">Priorieettikulu %s maksetaan. Mikäli välität pienistä siirtokuluista, käytä \'prioriteetti\'-tilaa vain, mikäli tarvitset vahvistuksen mahdollisimman pian.</string>
   <string name="send_coins_fragment_hint_dusty_send">Määrä lähettämistä varten on liian pieni.</string>
@@ -96,9 +96,9 @@
   <string name="send_coins_options_fee_category_economic">Taloudellinen</string>
   <string name="send_coins_options_fee_category_normal">Tavallinen</string>
   <string name="send_coins_options_fee_category_priority">Prioriteetti</string>
-  <string name="send_coins_options_empty">Tyhjä lompakko</string>
-  <string name="raise_fee_dialog_title">Korota verkon maksukulua</string>
-  <string name="raise_fee_dialog_message">Haluatko korottaa tämän maksun kulua määrällä %s? Se saa maksun vahvistumaan nopeammin.</string>
+  <string name="send_coins_options_empty">Tyhjennä lompakko</string>
+  <string name="raise_fee_dialog_title">Korota verkon rahansiirtokulua</string>
+  <string name="raise_fee_dialog_message">Haluatko korottaa tämän rahansiirron kulua määrällä %s? Se saa siirron vahvistumaan nopeammin.</string>
   <string name="raise_fee_dialog_determining_fee">Määritetään verkon siirtokulua…</string>
   <string name="raise_fee_dialog_cant_raise">Tämän maksun verkon siirtokulua ei voida korottaa.</string>
   <string name="raise_fee_dialog_state_decrypting">Puretaan salausta…</string>
@@ -111,7 +111,7 @@
   <string name="sweep_wallet_fragment_encrypted">Tämä yksityinen avain on salasanasuojattu.</string>
   <string name="sweep_wallet_fragment_password">salasana</string>
   <string name="sweep_wallet_fragment_bad_password">väärä salasana!</string>
-  <string name="sweep_wallet_fragment_balance">Pyyhkäistävä varojen määrä</string>
+  <string name="sweep_wallet_fragment_balance">Pyyhkäistävä saldo</string>
   <string name="sweep_wallet_fragment_button_decrypt">Pura salaus</string>
   <string name="sweep_wallet_fragment_button_sweep">Pyyhkäise</string>
   <string name="sweep_wallet_fragment_decrypt_progress">Puretaan salausta…\nKuluu enintään 2 minuuttia.</string>
@@ -121,7 +121,7 @@
   <string name="sweep_wallet_fragment_insufficient_money_msg">Lompakossa ei ole tarpeeksi varoja pyyhkäisyä varten.</string>
   <string name="sweep_wallet_options_reload">Uudelleenlataa saldo</string>
   <string name="maintenance_dialog_title">Huoltoa suositellaan</string>
-  <string name="maintenance_dialog_message">Vastaanotit %1$s turvattomiin osoitteisiin. Haluaisitko siirtää nämä kolikot turvallisiin osoitteisiin? Kustantaa pienen %2$s verkkopalkkion.</string>
+  <string name="maintenance_dialog_message">Vastaanotit %1$s turvattomiin osoitteisiin. Haluatko siirtää nämä kolikot turvallisiin osoitteisiin? Pieni verkon kulu %2$s maksetaan.</string>
   <string name="maintenance_dialog_state_decrypting">Puretaan salausta…</string>
   <string name="maintenance_dialog_state_done">Valmis.</string>
   <string name="maintenance_dialog_button_move">Siirrä</string>
@@ -131,8 +131,8 @@
   <string name="request_coins_fragment_initiate_request_qr">Anna lähettäjän skannata tämä koodi.</string>
   <string name="request_coins_fragment_initiate_request_nfc">Tai yhdistä NFC-laitteeseen.</string>
   <string name="request_coins_clipboard_msg">Bitcoin-pyyntö kopioitu leikepöydälle</string>
-  <string name="request_coins_share_dialog_title">Jaa Bitcoin-pyyntö</string>
-  <string name="request_coins_no_local_app_msg">Ei löydetty toista Bitcoin-asiakasohjelmaa</string>
+  <string name="request_coins_share_dialog_title">Jaa pyyntö Bitcoineille…</string>
+  <string name="request_coins_no_local_app_msg">Toista Bitcoin-sovellusta ei löytynyt</string>
   <string name="request_coins_options_local_app_title">Pyyntö paikalliselta sovellukselta</string>
   <string name="address_book_activity_title">Osoitekirja</string>
   <string name="address_book_list_receiving_title">Oma osoitteesi</string>
@@ -150,7 +150,7 @@
   <string name="address_book_options_scan_title">Skannaa osoite</string>
   <string name="address_book_options_scan_invalid">Skannattua tietoa ei tunnisteta</string>
   <string name="address_book_options_scan_own_address">Skannattu osoite on oma osoitteesi.</string>
-  <string name="address_book_row_message_compromised_key">Tämä osoite on voinut paljastua. Sinun ei tulisi enää käyttää sitä varojen vastaanottoon.</string>
+  <string name="address_book_row_message_compromised_key">Tämä osoite on saatettu murtaa. Sinun ei tulisi enää käyttää sitä varojen vastaanottoon.</string>
   <string name="edit_address_book_entry_dialog_title_add">Lisää lähetysosoite</string>
   <string name="edit_address_book_entry_dialog_title_edit">Muokkaa lähetysosoitteen nimikettä</string>
   <string name="edit_address_book_entry_dialog_title_add_receive">Anna nimike osoitteellesi</string>
@@ -158,9 +158,9 @@
   <string name="edit_address_book_entry_dialog_address_label">Osoite</string>
   <string name="edit_address_book_entry_dialog_label_label">Nimike</string>
   <string name="edit_address_book_entry_dialog_button_edit">Tallenna</string>
-  <string name="transaction_row_fee">Verkon maksukulu</string>
+  <string name="transaction_row_fee">Verkon rahansiirtokulu</string>
   <string name="transaction_row_message_purpose_key_rotation">Tämä rahansiirto vahvistaa lompakkoasi varkauden varalta. &lt;u&gt;Lisää tietoa.&lt;/u&gt;</string>
-  <string name="transaction_row_message_purpose_raise_fee">Tämä rahansiirto korottaa verkon maksukulua edeltävälle maksulle.</string>
+  <string name="transaction_row_message_purpose_raise_fee">Tämä rahansiirto korottaa verkon rahansiirtokulua edeltävälle maksulle.</string>
   <string name="transaction_row_message_own_unbroadcasted">Tätä maksua ei ole lähetetty vielä.</string>
   <string name="transaction_row_message_received_direct">Tämä maksu vastaanotettiin suoraan. On vaara, että sitä ei voida koskaan käyttää.</string>
   <string name="transaction_row_message_received_unconfirmed_delayed">Tämän rahansiirron vahvistamista on viivästetty, todennäköisimmin Bitcoin-verkon ylikuormituksesta johtuen.</string>
@@ -179,7 +179,7 @@
   <string name="block_row_now">tällä hetkellä</string>
   <string name="peer_list_fragment_empty">Ei yhteyksiä vertaisiin</string>
   <string name="peer_list_row_ping_time">⇆ %d&#x2009;ms</string>
-  <string name="restore_wallet_permission_dialog_title">Lukuoikeus puuttuu</string>
+  <string name="restore_wallet_permission_dialog_title">Lukuoikeudet puuttuu</string>
   <string name="restore_wallet_permission_dialog_message">Jotta lompakon varmuuskopioita voidaan etsiä eriliseltä muistivälineeltä, sinun on annettava lukuoikeus.</string>
   <string name="import_keys_dialog_title">Palauta lompakko</string>
   <string name="import_keys_dialog_message">Valitse varmuuskopio lompakkodatasta erilliseltä tai ohjelmalta suojassa olevalta tallennustilalta:</string>
@@ -266,6 +266,8 @@
   <string name="preferences_data_usage_summary">Näytä asetukset rajoittaaksesi datan käyttöä mobiiliverkoissa.</string>
   <string name="preferences_remind_balance_title">Saldomuistutin</string>
   <string name="preferences_remind_balance_summary">Kun käyttöä ei ole muutamaan viikkoon, sovellus ilmoittaa mikäli lompakossa on vielä kolikoita jäljellä.</string>
+  <string name="preferences_show_disclaimer_title">Näytä vastuuvapauslauseke</string>
+  <string name="preferences_show_disclaimer_summary">Oletko varmasti lukenut turvallisuusohjeet? Varmuuskopioitko jo lompakkosi turvalliseen paikkaan?</string>
   <string name="preferences_report_issue_title">Ilmoita ongelmasta</string>
   <string name="preferences_initiate_reset_title">Nollaa lohkoketju</string>
   <string name="preferences_initiate_reset_summary">Nollaa lohkoketju, rahansiirrot ja lompakon saldo. Uudelleenlataaminen vie hetken, joten tee tämä vain jos tiedät miksi.</string>
@@ -303,7 +305,7 @@
   <string name="about_faq_summary">Usein kysyttyjä kysymyksiä sovelluksesta</string>
   <string name="about_community_googleplus_title">Google+-yhteisö</string>
   <string name="about_community_googleplus_summary">Keskustele sovelluksesta</string>
-  <string name="notification_coins_received_msg">Vastaanotettu %s</string>
+  <string name="notification_coins_received_msg">Vastaanotettiin %s</string>
   <string name="notification_peers_connected_msg">%d vertaiseen yhdistetty</string>
   <string name="notification_inactivity_title">Sinulla on vielä Bitcoineja tässä laitteessa!</string>
   <string name="notification_inactivity_message">Muistathan että saldosi %s katoaa mikäli poistat Bitcoin Wallet-sovelluksen ilman, että lähetät sen ensin pois.</string>
