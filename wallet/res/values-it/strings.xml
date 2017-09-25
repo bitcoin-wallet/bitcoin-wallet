@@ -29,6 +29,7 @@
   <string name="wallet_transactions_fragment_empty_text_howto">Come ottenere Bitcoins?\n\nBarattali per soldi reali,\nvendi beni o servizi oppure\nricavali lavorando.</string>
   <string name="wallet_transactions_row_warning_backup">Congratulazioni, hai ricevuto i tuoi primi pagamenti! Hai già &lt;u&gt;eseguito un backup del tuo portafoglio &lt;/u&gt;, per proteggerlo dai danni?</string>
   <string name="wallet_transactions_row_warning_storage_encryption">Suggerimento: per incrementare la sicurezza del tuo portafoglio, puoi &lt;u&gt;criptare il tuo dispositivo&lt;/u&gt;. Questo protegge i dati anche delle altre applicazioni.</string>
+  <string name="wallet_transactions_row_warning_chain_forking">Il network di Bitcoin è attualmente in manutenzione. Sei pregato di non inviare e non ricevere coins fino alla fine della manutenzione.</string>
   <string name="wallet_transactions_fragment_coinbase">minato</string>
   <string name="wallet_transactions_fragment_internal">Interna</string>
   <string name="wallet_transactions_options_filter">Filtro</string>
@@ -67,6 +68,7 @@
   <string name="send_coins_fragment_receiving_address_complex">completo\nindirizzo</string>
   <string name="send_coins_fragment_pending">(%s in attesa di conferma)</string>
   <string name="send_coins_fragment_amount_label">Importo da pagare</string>
+  <string name="send_coins_fragment_hint_fee_economic">Va pagata una tassa dell\' %s. Importante: usa \'economic\' solo se non ti interessa riguardo il tempo di conferma.</string>
   <string name="send_coins_fragment_hint_fee">Sarà pagata una commissione di rete di %s.</string>
   <string name="send_coins_fragment_hint_fee_priority">Sarà pagata una commissione prioritaria di %s. Se ti interessano commissioni basse, usa la priorità solo se hai bisogno di una conferma il prima possibile.</string>
   <string name="send_coins_fragment_hint_dusty_send">L\'importo è troppo piccolo per l\'invio.</string>
@@ -181,6 +183,7 @@
   <string name="restore_wallet_permission_dialog_message">Per poter cercare i backup del portamonete sul vostro supporto esterno, dovete concendere il permesso di lettura.</string>
   <string name="import_keys_dialog_title">Ripristina portafoglio</string>
   <string name="import_keys_dialog_message">Scegli il file di backup di un portafoglio da memoria esterna (%s):</string>
+  <string name="restore_wallet_dialog_message_empty">Nessun backup del portafogli è stato trovato. Assicurati che siano stati messi in un archivio esterno. (%s)</string>
   <string name="restore_wallet_dialog_replace_warning">Stai per sostituire il tuo attuale portafoglio. Se non hai un backup tutte le monete nell\' attuale portafoglio andranno perse.</string>
   <string name="import_keys_dialog_warning">Importante: Non caricare chiavi private da dubbiose provenienze! Altri possono ottenere il controllo sui vostri fondi se lo fate.</string>
   <string name="import_keys_dialog_file_security_encrypted">password criptata</string>
@@ -192,6 +195,7 @@
   <string name="import_keys_dialog_button_import">Ripristina</string>
   <string name="restore_wallet_dialog_success">Il portafoglio è stato recuperato.</string>
   <string name="restore_wallet_dialog_success_replay">Il tuo portafoglio è stato ripristinato correttamente. Il bilancio verrà determinato in un secondo momento. Questo potrebbe richiedere diverso tempo</string>
+  <string name="restore_wallet_dialog_success_encrypted">Attenzione: il tuo portafogli è protetto da un PIN. Assicurati di ricordartelo prima di ricevere questo portafogli.</string>
   <string name="import_keys_dialog_failure">Il portafoglio non può essere recuperato:\n\n%s\n\nPassword sbagliata?</string>
   <string name="backup_wallet_permission_dialog_title">Permesso di scrittura mancante</string>
   <string name="backup_wallet_permission_dialog_message">Per poter fare il backup del portamonete sul supporto esterno, devi concedere il permesso di scrittura.</string>
@@ -262,6 +266,8 @@
   <string name="preferences_data_usage_summary">Mostra le opzioni per restringere l\'utilizzo dei dati su reti mobili.</string>
   <string name="preferences_remind_balance_title">Promemoria saldo.</string>
   <string name="preferences_remind_balance_summary">Dopo un paio di settimane in disuso, l\'app notificherà se ci sono ancora monete nel portafoglio.</string>
+  <string name="preferences_show_disclaimer_title">Controlla l\'esenzione delle responsabilità</string>
+  <string name="preferences_show_disclaimer_summary">Hai veramente letto le note di sicurezza? Hai già fatto il backup del tuo portafogli in un posto sicuro?</string>
   <string name="preferences_report_issue_title">Segnala un problema</string>
   <string name="preferences_initiate_reset_title">Reinizializza il blockchain</string>
   <string name="preferences_initiate_reset_summary">Reinizializza il blockchain, transazioni e conto del portafoglio. Il processo impiegherà un po\'.</string>
@@ -306,6 +312,9 @@
   <string name="notification_inactivity_message_donate">Se non sei interessato ai tuoi soldi, puoi anche donarli al progetto Bitcoin Wallet.</string>
   <string name="notification_inactivity_action_dismiss">Ricordamelo</string>
   <string name="notification_inactivity_action_dismiss_forever">Non ricordarmelo</string>
+  <string name="notification_channel_received_name">Pagamenti ricevuti</string>
+  <string name="notification_channel_ongoing_name">Attività in background</string>
+  <string name="notification_channel_important_name">Avvisi importanti</string>
   <string name="appwidget_wallet_balance_title">Saldo Bitcoin</string>
   <!--generic buttons-->
   <string name="button_ok">OK</string>
