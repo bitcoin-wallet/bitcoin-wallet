@@ -107,6 +107,11 @@ public class AlertDialogsFragment extends Fragment {
         url.addEncodedQueryParameter("package", packageInfo.packageName);
         url.addQueryParameter("current", Integer.toString(packageInfo.versionCode));
         versionUrl = url.build();
+    }
+
+    @Override
+    public void onActivityCreated(final Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
 
         log.debug("querying \"{}\"...", versionUrl);
         final Request.Builder request = new Request.Builder();
@@ -183,7 +188,7 @@ public class AlertDialogsFragment extends Fragment {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    if (!activity.isFinishing())
+                    if (isAdded())
                         createVersionAlertDialog().show();
                 }
             });
@@ -204,7 +209,7 @@ public class AlertDialogsFragment extends Fragment {
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
-                            if (!activity.isFinishing())
+                            if (isAdded())
                                 createInsecureBluetoothAlertDialog(minSecurityPatchLevel).show();
                         }
                     });
@@ -226,7 +231,7 @@ public class AlertDialogsFragment extends Fragment {
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        if (!activity.isFinishing())
+                        if (isAdded())
                             createTimeskewAlertDialog(diffMinutes).show();
                     }
                 });
@@ -242,7 +247,7 @@ public class AlertDialogsFragment extends Fragment {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    if (!activity.isFinishing())
+                    if (isAdded())
                         createLowStorageAlertDialog().show();
                 }
             });
