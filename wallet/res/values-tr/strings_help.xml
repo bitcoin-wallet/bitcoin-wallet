@@ -99,4 +99,21 @@
 		</p>
 	]]>
 	</string>
+  <string name="help_technical_notes">
+<![CDATA[
+        <p>
+            <b>Teknik notlar:</b>
+        </p>
+        <p>
+            Bir SPV/hafif cüzdan olarak Bitcoin Wallet As en çok ispatlanmış zinciri takip eder (ki buna bazen \"en uzun zincir\", \"kazanan zincir\" veya \"Bitcoin blok zinciri\" de denir).
+            Sadece gelen ödemeleri alacak ve o zincirde ödeme yapabileceksiniz.
+            Azınlık zincirlerindeki yani daha az ispatlanmış zincirlerdeki Bitcoinler için hiçbir garanti verilemez.
+        </p>
+        <p>
+            Geçmişte azınlık anahtarları daima çok hızlı bir şekilde anlamsız bir hale gelmişlerdir.
+            Eğer her şeye rağmen bir azınlık zincirini takip etmek istiyorsanız, sadece istediğiniz zinciri zorlayacak bir bitcoind uygulamasına bağlanmak için \"güvenli eş\" işlevini kullanmanız tavsiye edilir.
+            Şayet cüzdanınız ve güvenli eş arasındaki şebeke güvenilir değilse, bu bağlantıyı doğrulamak için bir VPN (sanal özel ağ) kullanın.
+        </p>
+    ]]>
+    </string>
 </resources>
