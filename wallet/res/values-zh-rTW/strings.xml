@@ -266,6 +266,8 @@
   <string name="preferences_data_usage_summary">顯示限制行動網路資料使用量的選項</string>
   <string name="preferences_remind_balance_title">餘額提醒</string>
   <string name="preferences_remind_balance_summary">這個應用程式在兩個禮拜沒被使用後，會提醒你錢包裡面是否還有錢。</string>
+  <string name="preferences_show_disclaimer_title">顯示免責提示</string>
+  <string name="preferences_show_disclaimer_summary">像是：確定看過安全提示了嗎？已經把錢包備份到安全的地方了嗎？</string>
   <string name="preferences_report_issue_title">問題回報</string>
   <string name="preferences_initiate_reset_title">重置區塊鏈</string>
   <string name="preferences_initiate_reset_summary">重置區塊鏈、交易資料、以及錢包餘額。重算會花一點時間，所以只有在你知道為什麼要做時才做。</string>
@@ -310,6 +312,9 @@
   <string name="notification_inactivity_message_donate">如果你不在意這些錢的話，也可以捐獻給 Bitcoin Wallet 專案。</string>
   <string name="notification_inactivity_action_dismiss">以後再提醒我</string>
   <string name="notification_inactivity_action_dismiss_forever">別再提醒我</string>
+  <string name="notification_channel_received_name">收到款項</string>
+  <string name="notification_channel_ongoing_name">背景作業</string>
+  <string name="notification_channel_important_name">重要警示</string>
   <string name="appwidget_wallet_balance_title">Bitcoin 餘額</string>
   <!--generic buttons-->
   <string name="button_ok">OK</string>
