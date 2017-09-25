@@ -3,20 +3,20 @@
   <string name="help_wallet">
 <![CDATA[
 		<p>
-			O canto superior esquerdo da tela exibe o seu saldo da sua carteira.
-			Toque para ver as listas das moedas nacionais, e toque em uma delas para selecioná-la como padrão.
+			O canto superior esquerdo da tela exibe o seu saldo em Bitcoins e em uma moeda nacional.
+			Toque para ver a lista de moedas nacionais, e toque em uma delas para selecioná-la como moeda padrão.
 		</p>
 		<p>
-			O código QR à direita contém o seu endereço bitcoin e pode ser usado para ser lido por outro dispositivo.
+			O código QR no canto superior direito contém o seu endereço de bitcoin atual e pode ser usado para ser lido por outro dispositivo.
 			Toque no código QR para ampliá-lo.
 		</p>
 		<p>
-			A parte inferior da tela é preenchida com sua lista de transações, que está vazia no início.
-			Transações pendentes são exibidas na cor cinza até que sejam confirmadas.
-			Toque em uma transação para adicionar o endereço de remetentes ou destinatários para o livro de endereços.
+			A parte inferior da tela contém uma lista das suas transações.
+			No início ela está vazia e vai sendo preenchida conforme você recebe e realiza pagamentos.
+			Os pagamentos recebidos são exibidos em verde e os realizados em vermelho.
 		</p>
 		<p>
-			Você pode enviar ou solicitar bitcoins tocando os botões na barra de ações.
+			Você pode enviar ou solicitar bitcoins tocando nos botões na barra de ação.
 			Mais opções estão disponíveis no menu de opções.
 		</p>
 	]]>
@@ -104,4 +104,21 @@
 		</p>
 	]]>
 	</string>
+  <string name="help_technical_notes">
+<![CDATA[
+      <p>
+            <b>Notas Técnicas:</b>
+        </p>
+        <p>
+            Por ser uma carteira SPV (carteira light), a Bitcoin Wallet segue a corrente que tiver a maior prova-de-trabalho (também conhecida como a \"corrente mais comprida\", a \"corrente vencedora\" ou a \"blockchain do Bitcoin\").
+            Você só irá poder receber e realizar pagamentos nesta corrente.
+            Nenhuma garantia pode ser feita sobre Bitcoins em correntes de minorias, ou seja, correntes que tenham menos prova-de-trabalho.
+        </p>
+        <p>
+            No passado, as correntes de minorias se tornaram irrelevantes muito rapidamente.
+            No entanto, se você desejar seguir uma corrente de minoria, recomenda-se que você use a função \"peer de confiança\" para conectar-se exclusivamente à implementação bitcoind que utiliza a sua corrente desejada.
+            Se a rede estabelecendo a conexão entre a sua carteira e o peer de confiança não for confiável, use uma VPN para autenticá-la.
+        </p>
+    ]]>
+    </string>
 </resources>
