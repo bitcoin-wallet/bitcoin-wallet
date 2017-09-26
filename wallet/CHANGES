@@ -1,3 +1,7 @@
+v5.37
+
+* Use a lot less memory for displaying QR codes.
+
 v5.36
 
 * Update translations from Transifex.
