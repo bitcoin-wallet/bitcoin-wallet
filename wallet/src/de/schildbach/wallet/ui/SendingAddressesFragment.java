@@ -327,8 +327,7 @@ public final class SendingAddressesFragment extends FancyListFragment
 
     private void handleShowQr(final String address, final String label) {
         final String uri = BitcoinURI.convertToBitcoinURI(Constants.NETWORK_PARAMETERS, address, null, label, null);
-        final int size = getResources().getDimensionPixelSize(R.dimen.bitmap_dialog_qr_size);
-        BitmapFragment.show(getFragmentManager(), Qr.bitmap(uri, size));
+        BitmapFragment.show(getFragmentManager(), Qr.bitmap(uri));
     }
 
     private void handleCopyToClipboard(final String address) {

@@ -356,8 +356,7 @@ public class WalletTransactionsFragment extends Fragment implements LoaderCallba
             }
 
             private void handleShowQr() {
-                final int size = getResources().getDimensionPixelSize(R.dimen.bitmap_dialog_qr_size);
-                final Bitmap qrCodeBitmap = Qr.bitmap(Qr.encodeCompressBinary(txSerialized), size);
+                final Bitmap qrCodeBitmap = Qr.bitmap(Qr.encodeCompressBinary(txSerialized));
                 BitmapFragment.show(getFragmentManager(), qrCodeBitmap);
             }
 

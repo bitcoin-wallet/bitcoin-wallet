@@ -48,8 +48,8 @@ import android.content.IntentFilter;
 import android.content.Loader;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
-import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
@@ -76,7 +76,7 @@ public final class WalletAddressFragment extends Fragment implements NfcAdapter.
 
     private ImageView currentAddressQrView;
 
-    private Bitmap currentAddressQrBitmap = null;
+    private BitmapDrawable currentAddressQrBitmap = null;
     private AddressAndLabel currentAddressQrAddress = null;
     private final AtomicReference<String> currentAddressUriRef = new AtomicReference<String>();
 
@@ -137,7 +137,7 @@ public final class WalletAddressFragment extends Fragment implements NfcAdapter.
     }
 
     private void updateView() {
-        currentAddressQrView.setImageBitmap(currentAddressQrBitmap);
+        currentAddressQrView.setImageDrawable(currentAddressQrBitmap);
     }
 
     private void handleShowQRCode() {
@@ -250,8 +250,8 @@ public final class WalletAddressFragment extends Fragment implements NfcAdapter.
                 final String addressStr = BitcoinURI.convertToBitcoinURI(currentAddressQrAddress.address, null,
                         currentAddressQrAddress.label, null);
 
-                final int size = getResources().getDimensionPixelSize(R.dimen.wallet_address_qr_size);
-                currentAddressQrBitmap = Qr.bitmap(addressStr, size);
+                currentAddressQrBitmap = new BitmapDrawable(getResources(), Qr.bitmap(addressStr));
+                currentAddressQrBitmap.setFilterBitmap(false);
 
                 currentAddressUriRef.set(addressStr);
 

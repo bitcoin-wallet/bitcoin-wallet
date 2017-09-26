@@ -58,8 +58,8 @@ import android.content.Intent;
 import android.content.Loader;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
-import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
@@ -98,7 +98,7 @@ public final class RequestCoinsFragment extends Fragment implements NfcAdapter.C
     private NfcAdapter nfcAdapter;
 
     private ImageView qrView;
-    private Bitmap qrCodeBitmap;
+    private BitmapDrawable qrCodeBitmap;
     private CheckBox acceptBluetoothPaymentView;
     private TextView initiateRequestView;
 
@@ -183,7 +183,7 @@ public final class RequestCoinsFragment extends Fragment implements NfcAdapter.C
         qrCardView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(final View v) {
-                BitmapFragment.show(getFragmentManager(), qrCodeBitmap);
+                BitmapFragment.show(getFragmentManager(), qrCodeBitmap.getBitmap());
             }
         });
 
@@ -394,9 +394,9 @@ public final class RequestCoinsFragment extends Fragment implements NfcAdapter.C
         final byte[] paymentRequest = determinePaymentRequest(true);
 
         // update qr-code
-        final int size = getResources().getDimensionPixelSize(R.dimen.bitmap_dialog_qr_size);
-        qrCodeBitmap = Qr.bitmap(bitcoinRequest, size);
-        qrView.setImageBitmap(qrCodeBitmap);
+        qrCodeBitmap = new BitmapDrawable(getResources(), Qr.bitmap(bitcoinRequest));
+        qrCodeBitmap.setFilterBitmap(false);
+        qrView.setImageDrawable(qrCodeBitmap);
 
         // update initiate request message
         final SpannableStringBuilder initiateText = new SpannableStringBuilder(

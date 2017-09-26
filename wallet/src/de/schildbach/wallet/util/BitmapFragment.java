@@ -24,6 +24,7 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.FragmentManager;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -62,7 +63,8 @@ public class BitmapFragment extends DialogFragment {
     @Override
     public Dialog onCreateDialog(final Bundle savedInstanceState) {
         final Bundle args = getArguments();
-        final Bitmap bitmap = (Bitmap) args.getParcelable(KEY_BITMAP);
+        final BitmapDrawable bitmap = new BitmapDrawable(getResources(), (Bitmap) args.getParcelable(KEY_BITMAP));
+        bitmap.setFilterBitmap(false);
 
         final Dialog dialog = new Dialog(activity);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -70,7 +72,7 @@ public class BitmapFragment extends DialogFragment {
         dialog.setCanceledOnTouchOutside(true);
 
         final ImageView imageView = (ImageView) dialog.findViewById(R.id.bitmap_dialog_image);
-        imageView.setImageBitmap(bitmap);
+        imageView.setImageDrawable(bitmap);
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {

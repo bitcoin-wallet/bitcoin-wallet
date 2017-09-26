@@ -210,8 +210,7 @@ public final class WalletAddressesFragment extends FancyListFragment {
 
             private void handleShowQr(final Address address) {
                 final String uri = BitcoinURI.convertToBitcoinURI(address, null, config.getOwnName(), null);
-                final int size = getResources().getDimensionPixelSize(R.dimen.bitmap_dialog_qr_size);
-                BitmapFragment.show(getFragmentManager(), Qr.bitmap(uri, size));
+                BitmapFragment.show(getFragmentManager(), Qr.bitmap(uri));
             }
 
             private void handleCopyToClipboard(final Address address) {

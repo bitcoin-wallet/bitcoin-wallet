@@ -30,7 +30,7 @@ import android.app.DialogFragment;
 import android.app.FragmentManager;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
-import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v4.app.ShareCompat;
 import android.view.LayoutInflater;
@@ -76,10 +76,10 @@ public class ExtendedPublicKeyFragment extends DialogFragment {
 
         final View view = LayoutInflater.from(activity).inflate(R.layout.extended_public_key_dialog, null);
 
+        final BitmapDrawable bitmap = new BitmapDrawable(getResources(), Qr.bitmap(xpub));
+        bitmap.setFilterBitmap(false);
         final ImageView imageView = (ImageView) view.findViewById(R.id.extended_public_key_dialog_image);
-        final int size = getResources().getDimensionPixelSize(R.dimen.bitmap_dialog_qr_size);
-        final Bitmap bitmap = Qr.bitmap(xpub, size);
-        imageView.setImageBitmap(bitmap);
+        imageView.setImageDrawable(bitmap);
 
         final DialogBuilder dialog = new DialogBuilder(activity);
         dialog.setView(view);

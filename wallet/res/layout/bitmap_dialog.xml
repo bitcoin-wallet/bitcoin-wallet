@@ -5,5 +5,5 @@
     android:layout_height="@dimen/bitmap_dialog_qr_size"
     android:background="@color/bg_bright"
     android:keepScreenOn="true"
-    android:padding="4dp"
-    android:scaleType="centerInside" />
+    android:padding="6dp"
+    android:scaleType="fitXY" />

@@ -46,8 +46,8 @@
                     android:layout_width="@dimen/request_coins_qr_size"
                     android:layout_height="@dimen/request_coins_qr_size"
                     android:contentDescription="@string/action_show_qr"
-                    android:padding="2dp"
-                    android:scaleType="centerInside" />
+                    android:padding="4dp"
+                    android:scaleType="fitXY" />
             </android.support.v7.widget.CardView>
 
             <TextView
