@@ -21,6 +21,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.ByteBuffer;
 import java.util.Hashtable;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
@@ -36,7 +37,6 @@ import com.google.zxing.qrcode.QRCodeWriter;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 
 import android.graphics.Bitmap;
-import android.graphics.Color;
 
 /**
  * @author Andreas Schildbach
@@ -55,17 +55,17 @@ public class Qr {
 
             final int width = result.getWidth();
             final int height = result.getHeight();
-            final int[] pixels = new int[width * height];
+            final byte[] pixels = new byte[width * height];
 
             for (int y = 0; y < height; y++) {
                 final int offset = y * width;
                 for (int x = 0; x < width; x++) {
-                    pixels[offset + x] = result.get(x, y) ? Color.BLACK : Color.TRANSPARENT;
+                    pixels[offset + x] = (byte) (result.get(x, y) ? -1 : 0);
                 }
             }
 
-            final Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
-            bitmap.setPixels(pixels, 0, width, 0, 0, width, height);
+            final Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ALPHA_8);
+            bitmap.copyPixelsFromBuffer(ByteBuffer.wrap(pixels));
             return bitmap;
         } catch (final WriterException x) {
             log.info("problem creating qr code", x);
