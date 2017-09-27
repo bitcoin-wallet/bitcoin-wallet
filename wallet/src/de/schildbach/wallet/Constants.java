@@ -155,7 +155,7 @@ public final class Constants {
 	/** Default currency to use if all default mechanisms fail. */
     /** Donation address for tip/donate action. */
     public static final String DONATION_ADDRESS = NETWORK_PARAMETERS.getId().equals(NetworkParameters.ID_MAINNET)
-            ? "14Jb4oBH3aSCZ8UuN1bTs2gLGhZYfSxZKH" : null;
+            ? "FkknEYnex1MeZyPRnEebFK5ZBHHsFZbvaf" : null;
 
     /** Recipient e-mail address for reports. */
     public static final String REPORT_EMAIL = "hashengineeringsolutions@gmail.com";
