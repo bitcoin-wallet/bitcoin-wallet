@@ -1,0 +1,2 @@
+tls:electrum-test1.groestlcoin.org
+tls:electrum-test2.groestlcoin.org

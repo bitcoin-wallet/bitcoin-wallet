@@ -118,7 +118,7 @@ public final class Constants {
         public static final String FEES_FILENAME = "fees" + FILENAME_NETWORK_SUFFIX + ".txt";
 
         /** Filename of the file containing Electrum servers. */
-        public static final String ELECTRUM_SERVERS_FILENAME = "electrum-servers.txt";
+        public static final String ELECTRUM_SERVERS_FILENAME = TEST ? "electrum-servers-testnet.txt" : "electrum-servers.txt";
     }
 
     /** Maximum size of backups. Files larger will be rejected. */
