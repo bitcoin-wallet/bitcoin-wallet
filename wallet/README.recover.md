@@ -121,6 +121,15 @@ succeeds, it will print the transaction hash of the created transaction. You can
 a block explorer to watch, or just open the destination wallet and watch from there. If your coins
 are confirmed, you're done and you can skip the next paragraph to EPILOGUE.
 
+You can also get a list of the private keys, which would be useful if you want to sweep them into a wallet (for example a Bitcoin Cash wallet). If your wallet had a spending PIN set you need to decrypt it first, otherwise the private keys won't appear:
+
+    ./wallet-tool decrypt --wallet=/tmp/bitcoin-wallet-decrypted-backup --password=<spending-PIN>
+
+Then to get the private keys use `dump --dump-privkeys`:
+
+    ./wallet-tool dump --wallet=/tmp/bitcoin-wallet-decrypted-backup --dump-privkeys
+
+Look for `priv WIF=<...>`, where `<...>` will be your private keys.
 
 ## RECOVERING FROM BASE58 KEY FORMAT
 
