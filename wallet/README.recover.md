@@ -133,7 +133,7 @@ datetime string after each key is the birthdate of that key which you can ignore
 of this one-time recovery.
 
 You can import each individual key into a PC wallet like [Electrum](https://electrum.org)
-or [Bitcoin Core](https://bitcoin.org/en/bitcoin-core/).
+or [Bitcoin Core](https://bitcoincore.org/).
 
 As soon as you see your whole balance again, empty your entire wallet to the desired destination
 wallet. Please do not continue to use the imported wallet. Remember you just operated on
