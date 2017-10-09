@@ -29,7 +29,6 @@ https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/
 <b>TESTIMONIOS</b>
 
 • Muchos monederos móviles basan su código en Bitcoin Wallet. Ejemplos: blockchain.info y BTCX.
-• Monedero móvil recomendado por https://bitcoin.org
 • Recomendado por BitPay.
 
 

@@ -29,7 +29,6 @@ https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/
 <b>UZNÁNÍ</b>
 
 • Mnoho mobilních peněženek využívá zdrojový kód Bitcoin Wallet. Například: blockchain.info a BTCX.
-• Doporučená mobilní peněženka stránkou https://bitcoin.org
 • Doporučeno službou BitPay.
 
 

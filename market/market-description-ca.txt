@@ -29,7 +29,6 @@ https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/
 <b>TESTIMONIS</b>
 
 • Moltes carteres mòbils basen el seu codi en la Cartera Bitcoin. Exemples: blockchain.info i BTCX.
-• Cartera mòbil recomanada per https://bitcoin.org
 • Recomanada per BitPay.
 
 

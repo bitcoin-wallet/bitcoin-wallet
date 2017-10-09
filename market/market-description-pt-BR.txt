@@ -29,7 +29,6 @@ https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/
 <b>TESTEMUNHOS</b>
 
 • Muitas carteiras móveis baseiam os seus códigos na Bitcoin Wallet. Exemplos: blockchain.info e BTCX.
-• Carteira móvel recomendada pelo site https://bitcoin.org
 • Recomendado por BitPay.
 
 

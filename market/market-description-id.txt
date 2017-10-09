@@ -10,9 +10,6 @@ FITUR:
 • Notifikasi sistem untuk konektivitas Bitcoin dan menerima koin.
 • Widget Apl untuk saldo Bitcoin.
 
-Anda dapat mengetahui lebih mengenai Bitcoin di
-https://bitcoin.org
-
 Jika Anda ingin berkontribusi kepada Bitcoin Wallet, proyeknya berada di
 https://github.com/bitcoin-wallet/bitcoin-wallet
 

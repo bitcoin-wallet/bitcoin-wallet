@@ -29,7 +29,6 @@ https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/
 <b>DЁSHMIT</b>
 
 • Shumë kuleta mobile bazohen ne kodin e Bitcoin Wallet. Shembuj: blockchain.info dhe BTCX.
-• Kulet mobile e rekomanduar nga https://bitcoin.org
 • Rekomanduar nga BitPay.
 
 

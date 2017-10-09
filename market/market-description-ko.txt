@@ -29,7 +29,6 @@ https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/
 <b>추천 의견</b>
 
 • 대부분 모바일용 비트코인 전자지갑의 소스 코드는 이 비트코인 전자지갑 앱으로부터 비롯되었습니다. 예를 들면 blockchain.info, BTCX 등등
-• 비트코인 공식 사이트인 https://bitcoin.org로부터 그 신뢰성과 안정성을 추천받았습니다.
 • 비트코인 상점용 솔루션 사업자인 BitPay로부터 추천받은 앱입니다.
 
 

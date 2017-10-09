@@ -28,7 +28,6 @@ https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/
  प्रशंसापत्र
 
 • कई मोबाइल बटुए Bitcoin पर आधारीत हे। उदाहरण: blockchain.info और BTCX
-• https://bitcoin.org द्वारा मोबाइल बटुआ की सिफारिश
 • BitPay द्वारा अनुशंसित।
 
 

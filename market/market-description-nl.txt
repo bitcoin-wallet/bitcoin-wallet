@@ -29,7 +29,6 @@ https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/
 <b>TESTIMONIALS</b>
 
 * Veel mobiele portemonnees baseren hun code op Bitcoin Wallet. Voorbeelden: blockchain.info en BTCX.
-* Aanbevolen mobiele portemonnee op https://bitcoin.org
 * Aangeraden door BitPay.
 
 

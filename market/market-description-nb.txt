@@ -29,7 +29,6 @@ https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/
 <b>ANBEFALINGER</b>
 
 • Mange mobillommebøker baserer sin kildekode på Bitcoin Wallet. Eksempler: blockchain.info og BTCX.
-• Anbefalt mobillommebok av https://bitcoin.org
 • Anbefalt av BitPay.
 
 

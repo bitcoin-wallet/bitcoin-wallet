@@ -29,7 +29,6 @@ https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/
 <b>TESTIMONIANZE</b>
 
 • Molti portafogli mobile basano il loro codice su Bitcoin Wallet. Esempi: blockchain.info e BTCX.
-• Portafoglio mobile raccomandato da https://bitcoin.org
 • Raccomandato da BitPay.
 
 

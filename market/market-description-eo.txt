@@ -11,9 +11,6 @@ TRAJTOJ:
 • Sistema sciigo por ricevitaj moneroj.
 • Aplikaĵa fenestraĵo por Bitmona saldo.
 
-Vi povas trovi pli pri Bitmono ĉe
-https://bitcoin.org
-
 Se vi volas kontribui al Bitcoin Wallet, la projekto lokas ĉe
 https://github.com/bitcoin-wallet/bitcoin-wallet
 

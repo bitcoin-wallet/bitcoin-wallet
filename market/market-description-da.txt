@@ -29,7 +29,6 @@ https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/
 <b>ANBEFALINGER</b>
 
 • Mange mobile tegnebøger baserer deres kode på Bitcoin Wallet. Eksempler: blockchain.info og BTCX.
-• Anbefalet mobil-tegnebog af https://bitcoin.org
 • Anbefalet af BitPay.
 
 

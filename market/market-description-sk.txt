@@ -11,9 +11,6 @@ FUNKCIE:
 • Notifikácie v stavovej lište pri prijatí Bitcoinov.
 • Widget s celkovým zostatkom.
 
-Viac informácií o Bitcoine
-https://bitcoin.org
-
 Ak chcete prispieť do projektu Bitcoin Wallet nájdete ho na adrese
 https://github.com/bitcoin-wallet/bitcoin-wallet
 

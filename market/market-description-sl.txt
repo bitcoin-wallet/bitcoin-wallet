@@ -11,9 +11,6 @@ LASTNOSTI:
 • Sistemska obvestila ob prejetih novcih.
 • Widget, ki prikazuje stanje v denarnici.
 
-Več o bitcoinu lahko zveste na
-https://bitcoin.org/sl/
-
 Če želite prispevati k aplikaciji Bitcoin Wallet, se nam pridružite na
 https://github.com/bitcoin-wallet/bitcoin-wallet
 

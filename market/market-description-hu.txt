@@ -29,7 +29,6 @@ https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/
 <b>AJÁNLÓLEVELEK</b>
 
 • Sok mobiltárca a Bitcoin Wallet-re alapozza a kódját. Például: blockchain.info és BTCX.
-• Ajánlott mobiltárca a https://bitcoin.org által
 • Ajánlva a BitPay által.
 
 

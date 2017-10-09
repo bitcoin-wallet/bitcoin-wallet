@@ -29,7 +29,6 @@ https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/
 <b>ΣΥΣΤΑΣΕΙΣ</b>
 
 • Πολλά κινητά πορτοφόλια βασίζουν τον κώδικά τους στο Bitcoin Wallet. Π.χ.: blockchain.info και BTCX.
-• Το προτεινόμενο πορτοφόλι για κινητά από το https://bitcoin.org
 • Προτεινόμενο από το BitPay.
 
 

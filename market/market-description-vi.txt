@@ -10,9 +10,6 @@ TÍNH NĂNG:
 • Thông báo trong hệ thống theo tính nhanh gọn về số lượng Bitcoin nhận và gửi đi.
 • Tiện ích dành riêng cho Bitcoin.
 
-Bạn có thể tìm hiểu thêm về Bitcoin tại
-https://bitcoin.org
-
 Nếu bạn có ý tưởng đóng góp cho Bitcoin Wallet, hãy truy cập vào trang web
 https://github.com/bitcoin-wallet/bitcoin-wallet
 

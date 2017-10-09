@@ -28,7 +28,6 @@ https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/
 <b>IZJAVE</b>
 
 • Mnoge  mobilne aplikacije temelje svoj kod na Bitcoin Wallet. Primjer: blockchain.info i BTCX.
-• Preporučeni pokretni novčanik od https://bitcoin.org
 • Preporučava BitPay.
 
 

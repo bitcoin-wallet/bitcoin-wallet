@@ -29,7 +29,6 @@ https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/
 <b>РЕКОМЕНДАЦИИ</b>
 
 • Многие мобильные кошельки основывают свой код на Bitcoin Wallet. Например, blockchain.info и BTCX.
-• Мобильный кошелек рекомендованный https://bitcoin.org
 • Рекомендуется BitPay.
 
 
