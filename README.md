@@ -1,5 +1,8 @@
 Welcome to _Bitcoin Wallet_, a standalone Bitcoin payment app for your Android device!
 
+<a href="https://play.google.com/store/apps/details?id=de.schildbach.wallet"><img alt="Get it on Google Play" src="https://play.google.com/intl/en_us/badges/images/apps/en-play-badge.png" height="80pt"/></a>
+<a href="https://f-droid.org/repository/browse/?fdid=de.schildbach.wallet"><img alt="Get it on F-Droid" src="https://f-droid.org/wiki/images/5/55/F-Droid-button_get-it-on_bigger.png" height="80pt"/></a>
+
 This project contains several sub-projects:
 
  * __wallet__:
