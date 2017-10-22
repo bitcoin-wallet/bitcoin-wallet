@@ -1,3 +1,7 @@
+v5.38
+
+* Fix crash on Pixel 2 devices.
+
 v5.37
 
 * Use a lot less memory for displaying QR codes.
