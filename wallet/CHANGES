@@ -1,3 +1,7 @@
+v5.39
+
+* Adjust the static network fees used for sanity checks and fallbacks.
+
 v5.38
 
 * Fix crash on Pixel 2 devices.
