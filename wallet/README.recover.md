@@ -35,7 +35,7 @@ requiring your Ubuntu user password.
 
 On your PC, install the following Ubuntu packages:
 
-    sudo apt install android-tools-adb openssl git maven
+    sudo apt install openjdk-8-jdk openjfx android-tools-adb openssl git maven
 
 On your Android device, go to Settings > Developer options and enable "USB debugging". On most
 recent devices you need to go to Settings > About first and tap on "Build number" multiple times
