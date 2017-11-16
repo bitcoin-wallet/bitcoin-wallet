@@ -66,6 +66,7 @@ public class Configuration {
     private static final String PREFS_KEY_CHANGE_LOG_VERSION = "change_log_version";
     public static final String PREFS_KEY_REMIND_BACKUP = "remind_backup";
     private static final String PREFS_KEY_LAST_BACKUP = "last_backup";
+    private static final String PREFS_KEY_LAST_BLUETOOTH_ADDRESS = "last_bluetooth_address";
 
     private static final int PREFS_DEFAULT_BTC_SHIFT = 3;
     private static final int PREFS_DEFAULT_BTC_PRECISION = 2;
@@ -271,6 +272,11 @@ public class Configuration {
         prefs.edit().putInt(PREFS_KEY_CHANGE_LOG_VERSION, currentVersionCode).apply();
 
         return /* wasUsedBefore && */wasBelow && isNowAbove;
+    }
+
+    public void updateLastBluetoothAddress(final String bluetoothAddress) {
+        if (bluetoothAddress != null)
+            prefs.edit().putString(PREFS_KEY_LAST_BLUETOOTH_ADDRESS, bluetoothAddress).apply();
     }
 
     public void registerOnSharedPreferenceChangeListener(final OnSharedPreferenceChangeListener listener) {

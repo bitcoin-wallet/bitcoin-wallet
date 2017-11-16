@@ -45,6 +45,7 @@ import com.google.common.collect.ImmutableList;
 
 import de.schildbach.wallet.service.BlockchainService;
 import de.schildbach.wallet.service.BlockchainServiceImpl;
+import de.schildbach.wallet.util.Bluetooth;
 import de.schildbach.wallet.util.CrashReporter;
 import de.schildbach.wallet_test.BuildConfig;
 import de.schildbach.wallet_test.R;
@@ -55,6 +56,7 @@ import android.app.Application;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -152,6 +154,7 @@ public class WalletApplication extends Application {
         }
 
         config.updateLastVersionCode(packageInfo.versionCode);
+        config.updateLastBluetoothAddress(Bluetooth.getAddress(BluetoothAdapter.getDefaultAdapter()));
 
         afterLoadWallet();
 
