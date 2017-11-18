@@ -21,7 +21,7 @@ dependencies {
     compile 'com.squareup.okhttp:okhttp:2.7.5'
     compile 'com.squareup.okhttp:logging-interceptor:2.7.5'
     compile 'com.squareup.moshi:moshi:1.5.0'
-    compile 'org.slf4j:slf4j-api:1.7.22'
+    compile 'org.slf4j:slf4j-api:1.7.25'
     compile('com.github.tony19:logback-android-classic:1.1.1-6') {
         exclude(group: 'com.google.android', module: 'android')
     }
