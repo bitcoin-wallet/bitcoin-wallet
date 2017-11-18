@@ -1,3 +1,7 @@
+v5.40
+
+* Update dependencies.
+
 v5.39
 
 * Adjust the static network fees used for sanity checks and fallbacks.
