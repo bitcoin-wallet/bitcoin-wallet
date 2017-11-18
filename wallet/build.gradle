@@ -5,15 +5,15 @@ dependencies {
     compile(project(':integration-android')) {
         exclude(group: 'com.google.android', module: 'android')
     }
-    compile 'com.android.support:support-annotations:26.0.1'
-    compile 'com.android.support:support-compat:26.0.1'
-    compile('com.android.support:support-v13:26.0.1') {
+    compile 'com.android.support:support-annotations:26.0.2'
+    compile 'com.android.support:support-compat:26.0.2'
+    compile('com.android.support:support-v13:26.0.2') {
         exclude(group: 'com.android.support', module: 'support-fragment')
         exclude(group: 'com.android.support', module: 'support-media-compat')
     }
-    compile 'com.android.support:support-core-utils:26.0.1'
-    compile 'com.android.support:recyclerview-v7:26.0.1'
-    compile 'com.android.support:cardview-v7:26.0.1'
+    compile 'com.android.support:support-core-utils:26.0.2'
+    compile 'com.android.support:recyclerview-v7:26.0.2'
+    compile 'com.android.support:cardview-v7:26.0.2'
     compile 'org.bitcoinj:bitcoinj-core:0.14.5'
     compile 'com.google.protobuf:protobuf-java:2.6.1'
     compile 'com.google.guava:guava:20.0'
