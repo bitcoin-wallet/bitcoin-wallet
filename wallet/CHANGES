@@ -1,3 +1,7 @@
+v5.41
+
+* Fix crash with very inflated fiat currencies.
+
 v5.40
 
 * Update dependencies.
