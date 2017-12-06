@@ -8,7 +8,7 @@
 
     <uses-sdk
         android:minSdkVersion="19"
-        android:targetSdkVersion="26"
+        android:targetSdkVersion="27"
         tools:ignore="OldTargetApi" />
 
     <!-- normal permissions -->
