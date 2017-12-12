@@ -1,3 +1,7 @@
+v5.42
+
+* Add a warning dialog regarding a relatively high fee.
+
 v5.41
 
 * Fix crash with very inflated fiat currencies.
