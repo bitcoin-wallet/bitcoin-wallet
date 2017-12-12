@@ -82,6 +82,8 @@ public final class WalletAddressFragment extends Fragment implements NfcAdapter.
 
     private static final int ID_ADDRESS_LOADER = 0;
 
+    private static final Logger log = LoggerFactory.getLogger(WalletAddressFragment.class);
+
     @Override
     public void onAttach(final Activity activity) {
         super.onAttach(activity);
@@ -143,6 +145,7 @@ public final class WalletAddressFragment extends Fragment implements NfcAdapter.
     private void handleShowQRCode() {
         WalletAddressDialogFragment.show(getFragmentManager(), currentAddressQrAddress.address,
                 currentAddressQrAddress.label);
+        log.info("Current address enlarged: {}", currentAddressQrAddress.address);
     }
 
     public static class CurrentAddressLoader extends AsyncTaskLoader<Address> {
