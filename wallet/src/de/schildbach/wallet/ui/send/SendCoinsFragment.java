@@ -934,6 +934,29 @@ public final class SendCoinsFragment extends Fragment {
         sendRequest.exchangeRate = amountCalculatorLink.getExchangeRate();
         sendRequest.aesKey = encryptionKey;
 
+        final Coin fee = dryrunTransaction.getFee();
+        if (fee.isGreaterThan(finalAmount)) {
+            setState(State.INPUT);
+
+            final MonetaryFormat btcFormat = config.getFormat();
+            final DialogBuilder dialog = DialogBuilder.warn(activity,
+                    R.string.send_coins_fragment_significant_fee_title);
+            dialog.setMessage(getString(R.string.send_coins_fragment_significant_fee_message, btcFormat.format(fee),
+                    btcFormat.format(finalAmount)));
+            dialog.setPositiveButton(R.string.send_coins_fragment_button_send, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(final DialogInterface dialog, final int which) {
+                    sendPayment(sendRequest, finalAmount);
+                }
+            });
+            dialog.setNegativeButton(R.string.button_cancel, null);
+            dialog.show();
+        } else {
+            sendPayment(sendRequest, finalAmount);
+        }
+    }
+
+    private void sendPayment(final SendRequest sendRequest, final Coin finalAmount) {
         new SendCoinsOfflineTask(wallet, backgroundHandler) {
             @Override
             protected void onSuccess(final Transaction transaction) {

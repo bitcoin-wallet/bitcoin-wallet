@@ -86,6 +86,8 @@
     <string name="send_coins_fragment_direct_payment_failed_msg">Your payment will still be broadcasted via the P2P network.</string>
     <string name="send_coins_fragment_button_send">Send</string>
     <string name="send_coins_fragment_button_back">Back</string>
+    <string name="send_coins_fragment_significant_fee_title">Significant network fee</string>
+    <string name="send_coins_fragment_significant_fee_message">The network fee for this payment (%1$s) is high in relation to the amount (%2$s). Do you want to send anyway?</string>
     <string name="send_coins_fragment_insufficient_money_title">Not enough available coins</string>
     <string name="send_coins_fragment_insufficient_money_msg1">You\'re missing %s.</string>
     <string name="send_coins_fragment_insufficient_money_msg2">Do you want to pay with all you have?</string>

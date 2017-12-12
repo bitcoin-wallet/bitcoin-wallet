@@ -88,6 +88,8 @@
     <string name="send_coins_fragment_direct_payment_failed_msg">Deine Zahlung wird trotzdem über das P2P-Netzwerk übertragen.</string>
     <string name="send_coins_fragment_button_send">Senden</string>
     <string name="send_coins_fragment_button_back">Zurück</string>
+    <string name="send_coins_fragment_significant_fee_title">Erhebliche Netzwerk-Gebühr</string>
+    <string name="send_coins_fragment_significant_fee_message">Die Netzwerk-Gebühr für diese Zahlung (%1$s) ist im Verhältnis zum Betrag (%2$s) hoch. Möchtest du die Zahlung trotzdem senden?</string>
     <string name="send_coins_fragment_insufficient_money_title">Nicht genug verfügbare Bitcoins</string>
     <string name="send_coins_fragment_insufficient_money_msg1">Dir fehlen %s.</string>
     <string name="send_coins_fragment_insufficient_money_msg2">Möchtest du mit allem zahlen was du hast?</string>
