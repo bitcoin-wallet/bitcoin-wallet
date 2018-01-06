@@ -211,7 +211,7 @@ public final class WalletBalanceFragment extends Fragment {
             final boolean blockchainUptodate = blockchainLag < BLOCKCHAIN_UPTODATE_THRESHOLD_MS;
             final boolean noImpediments = blockchainState.impediments.isEmpty();
 
-            showProgress = !(blockchainUptodate || !blockchainState.replaying);
+            showProgress = (!blockchainUptodate || blockchainState.replaying);
 
             final String downloading = getString(noImpediments ? R.string.blockchain_state_progress_downloading
                     : R.string.blockchain_state_progress_stalled);
