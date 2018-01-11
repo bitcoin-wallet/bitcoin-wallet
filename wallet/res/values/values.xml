@@ -22,13 +22,11 @@
         <item>@string/preferences_precision_labels_0_6</item>
     </string-array>
     <string-array name="preferences_block_explorer_values">
-        <item>https://testnet.blockexplorer.com/</item>
         <item>https://testnet.blockchain.info</item>
         <item>https://www.blocktrail.com/tBTC/</item>
         <item>https://live.blockcypher.com/btc-testnet/</item>
     </string-array>
     <string-array name="preferences_block_explorer_labels">
-        <item>blockexplorer.com</item>
         <item>blockchain.info</item>
         <item>blocktrail.com</item>
         <item>live.blockcypher.com</item>
