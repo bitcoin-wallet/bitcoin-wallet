@@ -43,6 +43,8 @@
   <string name="wallet_options_technical_notes_title">Технические детали</string>
   <string name="wallet_options_donate">Пожертвовать</string>
   <string name="wallet_donate_address_label">Пожертвование для Bitcoin Wallet</string>
+  <string name="alert_dialogs_fragment_insecure_bluetooth_title">Предупреждение о безопасности</string>
+  <string name="alert_dialogs_fragment_insecure_bluetooth_message">Bluetooth модуль вашего устройства подвержен уязвимости. Ваши биткойны на этом устройстве находятся в опасности, вне зависимости от того, какое приложение используемого для их хранения!\n\nМы предлагаем вам немедленно выключить Bluetooth и проверить, есть ли у разработчика вашего устройства обновление Android, реализующее исправление безопасности \'%s\' или более позднее.</string>
   <string name="wallet_low_storage_dialog_title">Мало места во внутреннем хранилище!</string>
   <string name="wallet_low_storage_dialog_msg">Bitcoin Wallet использует внутреннее хранилище для транзакций и блогов. Если оно переполнится, кошелек перестанет работать и вы рискуете потерять монеты!\n\nХотите открыть Application Manager и деинсталлировать ненужные приложения?</string>
   <string name="wallet_low_storage_dialog_button_apps">Управлять приложениями</string>
@@ -55,6 +57,7 @@
   <string name="wallet_version_dialog_button_binary">Скачать</string>
   <string name="wallet_old_sdk_dialog_title">Версия для Android устарела</string>
   <string name="wallet_old_sdk_dialog_message">Ваше устройство скорее всего не будет поддерживаться следующей версией Bitcoin Wallet. В некоторых случаях, это может затруднить отправку с него монет.\n\nРекомендуется перенести монеты на другое устройство, если вы не уверены что можете с этим справиться.</string>
+  <string name="alert_dialogs_fragment_settings_failed_title">Проблема с открытием настроек</string>
   <string name="send_coins_activity_title">Отправка Bitcoin</string>
   <string name="send_coins_fragment_request_payment_request_progress">Получение подписи %s…</string>
   <string name="send_coins_fragment_request_payment_request_failed_title">Ошибка при получении подписи</string>
@@ -266,6 +269,8 @@
   <string name="preferences_data_usage_summary">Показать опции ограничения использования данных в мобильных сетях.</string>
   <string name="preferences_remind_balance_title">Напоминание баланса</string>
   <string name="preferences_remind_balance_summary">Если приложение не использовалось несколько недель, вам придёт напоминание, если в бумажнике есть монеты.</string>
+  <string name="preferences_show_disclaimer_title">Показать отказ от ответственности</string>
+  <string name="preferences_show_disclaimer_summary">Вы действительно прочитали заметки о безопасности? Вы уже храните резервную копию кошелька в безопасном месте?</string>
   <string name="preferences_report_issue_title">Сообщить о проблеме</string>
   <string name="preferences_initiate_reset_title">Перегрузить блокчейн</string>
   <string name="preferences_initiate_reset_summary">Обнуление цепочки блоков, транзакций и баланса кошелька. Восстановление займет некоторое время. Делайте, если знаете для чего Вы это делаете.</string>
@@ -310,6 +315,9 @@
   <string name="notification_inactivity_message_donate">Если вам не нужны монеты, вы можете пожертвовать их проекту Bitcoin Wallet.</string>
   <string name="notification_inactivity_action_dismiss">Напомнить позже</string>
   <string name="notification_inactivity_action_dismiss_forever">Не напоминать</string>
+  <string name="notification_channel_received_name">Полученные выплаты</string>
+  <string name="notification_channel_ongoing_name">Фоновая активность</string>
+  <string name="notification_channel_important_name">Важные предупреждения</string>
   <string name="appwidget_wallet_balance_title">Баланс биткоинов</string>
   <!--generic buttons-->
   <string name="button_ok">OK</string>
