@@ -29,7 +29,7 @@
   <string name="wallet_transactions_fragment_empty_text_howto">¿Cómo obtener Bitcoins?\n\nCámbialos por dinero tradicional,\nvende bienes o servicios o\ngánalos trabajando</string>
   <string name="wallet_transactions_row_warning_backup">Enhorabuena. ¡Has recibido tu primer pago! ¿Has hecho ya una &lt;u&gt;copia de seguridad de tu cartera&lt;/u&gt; como protección frente a pérdidas?</string>
   <string name="wallet_transactions_row_warning_storage_encryption">Consejo: para incrementar la seguridad de su wallet, usted puede escriptar su dispositivo. Esto permite la protección de sus datos con otras aplicaciones.</string>
-  <string name="wallet_transactions_row_warning_chain_forking">la red de Bitcoin esta bajo mantenimiento. has sido avisado de no mandar o recibir monedas hasta que finalice el mantenimiento. &lt;u&gt;Mas información.&lt;/u&gt;</string>
+  <string name="wallet_transactions_row_warning_chain_forking">la red de Bitcoin esta bajo mantenimiento. has sido avisado de no mandar o recibir Bitcoins hasta que finalice el mantenimiento. &lt;u&gt;Mas información.&lt;/u&gt;</string>
   <string name="wallet_transactions_fragment_coinbase">minados</string>
   <string name="wallet_transactions_fragment_internal">interno</string>
   <string name="wallet_transactions_options_filter">Filtrar</string>
@@ -43,6 +43,8 @@
   <string name="wallet_options_technical_notes_title">Notas técnicas</string>
   <string name="wallet_options_donate">Sugerencias / donar</string>
   <string name="wallet_donate_address_label">Donación para Bitcoin Wallet</string>
+  <string name="alert_dialogs_fragment_insecure_bluetooth_title">Alerta de seguridad</string>
+  <string name="alert_dialogs_fragment_insecure_bluetooth_message">El Bluetooth de tu dispositivo es vulnerable. Tus Bitcoins en este dispositivo están en riesgo, independientemente de la aplicación que estas utilizando para almacenarlos. Recomendamos apagar tu Bluetooth inmediatamente y revisar por una actualización del sistema operativo Android que implemente parches de seguridad nivel \'%s\' o posteriores.</string>
   <string name="wallet_low_storage_dialog_title">Espacio de almacenamiento interno de dispositivo bajo!</string>
   <string name="wallet_low_storage_dialog_msg">Bitcoin Wallet usa la memoria interna para recordar transacciones y bloques. Si te quedas sin espacio, dejará de funcionar y tus Bitcoins estarán en riesgo.\n\n¿Quieres abrir el administrador de aplicaciones para desinstalar apps innecesarias?</string>
   <string name="wallet_low_storage_dialog_button_apps">Gestionar aplicaciones</string>
@@ -55,6 +57,7 @@
   <string name="wallet_version_dialog_button_binary">Descargar</string>
   <string name="wallet_old_sdk_dialog_title">Versión de Android desactualizada</string>
   <string name="wallet_old_sdk_dialog_message">Es posible que una de las próximas versiones de Bitcoin Wallet no soporte tu dispositivo. En algunos casos, puede ser difícil hacer pagos con este dispositivo.\n\nA menos que sepas lo que estás haciendo, se recomienda que saques tus Bitcoins lo más pronto posible.</string>
+  <string name="alert_dialogs_fragment_settings_failed_title">Problema abriendo los ajustes</string>
   <string name="send_coins_activity_title">Enviar Bitcoins</string>
   <string name="send_coins_fragment_request_payment_request_progress">Adquiriendo firma de %s…</string>
   <string name="send_coins_fragment_request_payment_request_failed_title">Ha fallado la adquisición de firma</string>
@@ -72,7 +75,7 @@
   <string name="send_coins_fragment_hint_fee">Una pequeña comisión de red de %s será pagada.</string>
   <string name="send_coins_fragment_hint_fee_priority">Se pagará una comisión por prioridad de %s. Si le preocupan las tarifas bajas, use \'prioridad\' sólo si necesita la confirmación lo antes posible.</string>
   <string name="send_coins_fragment_hint_dusty_send">La cantidad es demasiado baja para enviar.</string>
-  <string name="send_coins_fragment_hint_insufficient_money">Bitcoins insuficientes. Te faltan %s.</string>
+  <string name="send_coins_fragment_hint_insufficient_money">Bitcoins insuficientes. Pierde %s. Puede ser debido a la comisión de la red.</string>
   <string name="send_coins_fragment_hint_empty_wallet_failed">La cantidad de pequeños pagos en tu cartera no es suficiente para poder enviarlos.</string>
   <string name="send_coins_fragment_hint_replaying">Actualmente los pagos no son posibles porque una repetición está en proceso.</string>
   <string name="send_coins_fragment_direct_payment_enable">Enviar pago directamente al receptor.</string>
@@ -82,6 +85,8 @@
   <string name="send_coins_fragment_direct_payment_failed_msg">Se reenviará tu pago a través de la red P2P.</string>
   <string name="send_coins_fragment_button_send">Enviar</string>
   <string name="send_coins_fragment_button_back">Atrás</string>
+  <string name="send_coins_fragment_significant_fee_title">Comisión de red significativa</string>
+  <string name="send_coins_fragment_significant_fee_message">La comisión de la red para este pago (%1$s) es elevado en relación al monto (%2$s). Quiere enviarlo de todos modos?</string>
   <string name="send_coins_fragment_insufficient_money_title">No hay suficientes bitcoins disponibles</string>
   <string name="send_coins_fragment_insufficient_money_msg1">Te faltan %s.</string>
   <string name="send_coins_fragment_insufficient_money_msg2">¿Deseas pagar con todo lo que tienes?</string>
@@ -250,7 +255,7 @@
   <string name="preferences_precision_labels_0_6">µBTC, sin decimales</string>
   <string name="preferences_own_name_title">Su nombre</string>
   <string name="preferences_own_name_summary">Ponte un nombre, que será añadido a las solicitudes de pago. Trata de que sea corto.</string>
-  <string name="preferences_send_coins_autoclose_title">Cerrar automáticamente el diálogo de envío de monedas</string>
+  <string name="preferences_send_coins_autoclose_title">Cerrar automáticamente el diálogo de envío de Bitcoins</string>
   <string name="preferences_send_coins_autoclose_summary">Cuando se realiza el pago, el diálogo de envío se cerrará automáticamente.</string>
   <string name="preferences_connectivity_notification_title">Indicador de conectividad</string>
   <string name="preferences_connectivity_notification_summary">Mostrar número actual de pares conectados en el área de notificaciones.</string>
@@ -266,6 +271,8 @@
   <string name="preferences_data_usage_summary">Mostrar opciones para limitar el uso de datos en redes móviles.</string>
   <string name="preferences_remind_balance_title">Aviso de balance</string>
   <string name="preferences_remind_balance_summary">Después de unas semanas sin uso, la aplicación te notificará que aún tienes Bitcoins en la billetera.</string>
+  <string name="preferences_show_disclaimer_title">Mostrar disclaimer</string>
+  <string name="preferences_show_disclaimer_summary">¿De verdad leíste las notas de seguridad? ¿Ya aseguraste tu monedero en un lugar seguro?</string>
   <string name="preferences_report_issue_title">Informar de incidencia</string>
   <string name="preferences_initiate_reset_title">Bloque de la cadena de reinicio</string>
   <string name="preferences_initiate_reset_summary">Cambiar cadena de bloque, las transacciones y el equilibrio billetera. Replay tomará un tiempo.</string>
@@ -310,6 +317,9 @@
   <string name="notification_inactivity_message_donate">Si no te importan tus Bitcoins, por favor considera donarlas al proyecto Bitcoin Wallet.</string>
   <string name="notification_inactivity_action_dismiss">Avísame después</string>
   <string name="notification_inactivity_action_dismiss_forever">No recordar</string>
+  <string name="notification_channel_received_name">Pagos recibidos</string>
+  <string name="notification_channel_ongoing_name">Actividad de fondo</string>
+  <string name="notification_channel_important_name">Alertas importantes</string>
   <string name="appwidget_wallet_balance_title">Balance Bitcoin</string>
   <!--generic buttons-->
   <string name="button_ok">Aceptar</string>

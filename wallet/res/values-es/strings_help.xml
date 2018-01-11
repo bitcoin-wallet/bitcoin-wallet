@@ -99,4 +99,21 @@
 		</p>
 	]]>
 	</string>
+  <string name="help_technical_notes">
+<![CDATA[
+		<p>
+			<b>Notas técnicas:</b>
+		</p>
+		<p>
+			Como un monedero SPV/ligero, Bitcoin Wallet sigue la cadena de la mayor prueba-de-trabajo (algunas veces también llamado la \"cadena mas larga\", la \"cadena ganadora\" o la \"Cadena de bloques Bitcoin\").
+			Solo recibirás los pagos entrantes y podrás pagar en esa cadena.
+			No se pueden hacer garantías sobre Bitcoins en cadenas minoritarias, eso es, cadenas con menos prueba-de-trabajo.
+		</p>
+		<p>
+			En el pasado, las cadenas minoritarias siempre se han convertido irrelevantes en poco tiempo.
+			Si deseas seguir una cadena minoritaria de todas formas, se le aconseja usar la característica \"compañero de confianza\" para conectar exclusivamente con la implementación bitcoind la cual hace cumplir tu cadena deseada.
+			Si la red entre tu monedero y el compañero de confianza no debe ser confiada, use un VPN para autenticar la conexión.
+		</p>
+	]]>
+	</string>
 </resources>
