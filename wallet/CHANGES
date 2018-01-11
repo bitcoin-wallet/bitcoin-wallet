@@ -1,3 +1,8 @@
+v5.44
+
+* Add live.blockcypher.com to block explorers and remove blockexplorer.com.
+* Update translations from Transifex.
+
 v5.42-v5.43
 
 * Add a warning dialog regarding a relatively high fee.
