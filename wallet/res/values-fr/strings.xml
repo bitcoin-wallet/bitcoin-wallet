@@ -43,6 +43,8 @@
   <string name="wallet_options_technical_notes_title">Notes techniques</string>
   <string name="wallet_options_donate">Faire un don</string>
   <string name="wallet_donate_address_label">Don pour Bitcoin Wallet</string>
+  <string name="alert_dialogs_fragment_insecure_bluetooth_title">Alerte de sécurité</string>
+  <string name="alert_dialogs_fragment_insecure_bluetooth_message">Le composant Bluetooth de votre appareil est vulnérable. Vos bitcoins sont exposés à des risques sur cet appareil, quelle que soit l\'appli que vous utilisez pour les stocker !\n\nNous vous suggérons de désactiver Bluetooth immédiatement et de vérifier auprès du fabricant de votre appareil la disponibilité d\'une mise à jour pour le SE Android qui met en œuvre le correctif de sécurité niveau \'%s\' ou ultérieur.</string>
   <string name="wallet_low_storage_dialog_title">L\'espace de stockage interne est faible !</string>
   <string name="wallet_low_storage_dialog_msg">Bitcoin Wallet utilise la mémoire interne pour se rappeler des transactions et des blocs. S\'il manque d\'espace, il cessera de fonctionner et vos bitcoins seront à risque !\n\nVoulez-vous ouvrir le gestionnaire d\'applications pour désinstaller des applis inutiles ?</string>
   <string name="wallet_low_storage_dialog_button_apps">Gérer les applis</string>
@@ -55,6 +57,7 @@
   <string name="wallet_version_dialog_button_binary">Télécharger</string>
   <string name="wallet_old_sdk_dialog_title">La version d\'Android est obsolète</string>
   <string name="wallet_old_sdk_dialog_message">Il est probable qu\'une prochaine version de Bitcoin Wallet ne prendra plus en charge votre appareil. Dans certains cas, il peut être difficile de dépenser des bitcoins avec cet appareil.\n\nÀ moins de savoir ce que vous faites, il est recommandé de bientôt déplacer vos bitcoins.</string>
+  <string name="alert_dialogs_fragment_settings_failed_title">Problème d\'ouverture des paramètres</string>
   <string name="send_coins_activity_title">Envoyer des bitcoins</string>
   <string name="send_coins_fragment_request_payment_request_progress">Récupération de la signature de %s…</string>
   <string name="send_coins_fragment_request_payment_request_failed_title">Échec de récupération de la signature</string>
@@ -72,7 +75,7 @@
   <string name="send_coins_fragment_hint_fee">Des frais de réseau de %s seront acquittés.</string>
   <string name="send_coins_fragment_hint_fee_priority">Des frais de priorité de %s seront acquittés. Si vous préférez des frais moindres, n\'utilisez Prioritaire que s\'il vous faut la confirmation la plus rapide possible.</string>
   <string name="send_coins_fragment_hint_dusty_send">Le montant est trop petit pour être envoyé.</string>
-  <string name="send_coins_fragment_hint_insufficient_money">Pas assez de pièces disponibles. Il vous manque %s.</string>
+  <string name="send_coins_fragment_hint_insufficient_money">Vous n’avez pas assez de pièces disponibles. Il vous manque %s. Cela peut aussi être causé par les frais de réseau.</string>
   <string name="send_coins_fragment_hint_empty_wallet_failed">La somme des petits paiements dans votre porte-monnaie ne donne pas une valeur pouvant être envoyée.</string>
   <string name="send_coins_fragment_hint_replaying">Les paiements ne sont pas possibles actuellement, car une relecture est en cours.</string>
   <string name="send_coins_fragment_direct_payment_enable">Envoyer le paiement directement au bénéficiaire.</string>
@@ -82,6 +85,8 @@
   <string name="send_coins_fragment_direct_payment_failed_msg">Votre paiement sera quand même diffusé par le réseau P2P.</string>
   <string name="send_coins_fragment_button_send">Envoyer</string>
   <string name="send_coins_fragment_button_back">Retour</string>
+  <string name="send_coins_fragment_significant_fee_title">Frais de réseau importants</string>
+  <string name="send_coins_fragment_significant_fee_message">Les frais de réseau pour ce paiement (%1$s) sont élevés par rapport au montant (%2$s). Souhaitez-vous quand même effectuer l’envoi ?</string>
   <string name="send_coins_fragment_insufficient_money_title">Pas assez de pièces disponibles</string>
   <string name="send_coins_fragment_insufficient_money_msg1">Il vous manque %s.</string>
   <string name="send_coins_fragment_insufficient_money_msg2">Voulez-vous payer avec tout ce que vous avez ?</string>
