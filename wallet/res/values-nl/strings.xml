@@ -43,6 +43,8 @@
   <string name="wallet_options_technical_notes_title">Technische aantekeningen</string>
   <string name="wallet_options_donate">Geef fooi / Doneer</string>
   <string name="wallet_donate_address_label">Donatie aan Bitcoin Wallet</string>
+  <string name="alert_dialogs_fragment_insecure_bluetooth_title">Beveiligings alarm</string>
+  <string name="alert_dialogs_fragment_insecure_bluetooth_message">De Bluetooth optie op je apparaat is kwetsbaar. Je Bitcoins op je apparaat  lopen hierdoor risico ongeacht de app die je  gebruikt om ze te bewaren!\n\nWe raden aan om Bluetooth direct uit te schakelen en contact op te nemen met de fabrikant van je apparaat voor een Android OS update dat beveiligingsniveau patch level \'%s\' of hoger heeft.</string>
   <string name="wallet_low_storage_dialog_title">Interne opslag bijna vol!</string>
   <string name="wallet_low_storage_dialog_msg">Bitcoin Wallet gebruikt interne opslag voor transacties en blocks. Wanneer er te weinig opslag beschikbaar is zal het stoppen met werken en lopen uw bitcoins gevaar!\n\nWilt u de Applicatie beheer instellingen openen om ongebruikte apps te verwijderen?</string>
   <string name="wallet_low_storage_dialog_button_apps">Beheer apps</string>
@@ -55,6 +57,7 @@
   <string name="wallet_version_dialog_button_binary">Download</string>
   <string name="wallet_old_sdk_dialog_title">Android versie is verouderd</string>
   <string name="wallet_old_sdk_dialog_message">De kans bestaat dat één van de volgende versies van Bitcoin Wallet uw apparaat niet langer ondersteunen zal. In sommige gevallen kan het lastig worden nog met bitcoins te kunnen betalen vanaf dit apparaat.\n\nTenzij u weet wat u doet wordt u aanbevolen om coins elders onder te brengen.</string>
+  <string name="alert_dialogs_fragment_settings_failed_title">Probleem met het openen van de instellingen</string>
   <string name="send_coins_activity_title">Verzend BTC</string>
   <string name="send_coins_fragment_request_payment_request_progress">Handtekening van %s ophalen…</string>
   <string name="send_coins_fragment_request_payment_request_failed_title">Handtekening ophalen mislukt</string>
@@ -72,7 +75,7 @@
   <string name="send_coins_fragment_hint_fee">%s aan netwerkkosten zullen worden betaald.</string>
   <string name="send_coins_fragment_hint_fee_priority">Prioriteitskosten van %s zullen betaald worden. Als je lage kosten belangrijk vindt, gebruik \'prioriteit\' alleen als je zo snel mogelijk bevestiging nodig hebt.</string>
   <string name="send_coins_fragment_hint_dusty_send">Het bedrag is te laag om te verzenden.</string>
-  <string name="send_coins_fragment_hint_insufficient_money">Onvoldoende coins beschikbaar. U mist %s.</string>
+  <string name="send_coins_fragment_hint_insufficient_money">Niet genoeg saldo. Je mist %s. Dit kan eventueel komen door de netwerk fee.</string>
   <string name="send_coins_fragment_hint_empty_wallet_failed">Het totaal van kleine betalingen in uw portemonnee is bij elkaar niet genoeg om te kunnen verzenden.</string>
   <string name="send_coins_fragment_hint_replaying">Betalingen zijn op het moment niet mogelijk vanwege herladen.</string>
   <string name="send_coins_fragment_direct_payment_enable">Betaal direct aan begunstigde.</string>
@@ -82,6 +85,8 @@
   <string name="send_coins_fragment_direct_payment_failed_msg">Je betaling zal alsnog via het P2P-netwerk verzonden worden.</string>
   <string name="send_coins_fragment_button_send">Verzenden</string>
   <string name="send_coins_fragment_button_back">Terug</string>
+  <string name="send_coins_fragment_significant_fee_title">Aanzienlijke netwerkkosten</string>
+  <string name="send_coins_fragment_significant_fee_message">De netwerk fee voor deze betaling (%1$s) is hoog in verhouding tot het bedrag (%2$s). Wil je de betaling toch verzenden?</string>
   <string name="send_coins_fragment_insufficient_money_title">Niet genoeg beschikbare munten</string>
   <string name="send_coins_fragment_insufficient_money_msg1">Je mist %s.</string>
   <string name="send_coins_fragment_insufficient_money_msg2">Wilt uw betalen met alles wat uw heeft?</string>
@@ -97,10 +102,10 @@
   <string name="send_coins_options_fee_category_normal">Normaal</string>
   <string name="send_coins_options_fee_category_priority">Prioriteit</string>
   <string name="send_coins_options_empty">Portemonnee legen</string>
-  <string name="raise_fee_dialog_title">Verhoog netwerk kosten</string>
-  <string name="raise_fee_dialog_message">Wil je de netwerk kosten voor deze transactie verhogen met %s? De betaling zal hierdoor sneller worden bevestigd.</string>
-  <string name="raise_fee_dialog_determining_fee">Bepalen van netwerk kosten…</string>
-  <string name="raise_fee_dialog_cant_raise">De netwerk kosten voor deze transactie kunnen niet worden verhoogd.</string>
+  <string name="raise_fee_dialog_title">Verhoog netwerkkosten</string>
+  <string name="raise_fee_dialog_message">Wil je de netwerkkosten voor deze transactie verhogen met %s? De betaling zal hierdoor sneller worden bevestigd.</string>
+  <string name="raise_fee_dialog_determining_fee">Bepalen van netwerkkosten…</string>
+  <string name="raise_fee_dialog_cant_raise">De netwerkkosten voor deze transactie kunnen niet worden verhoogd.</string>
   <string name="raise_fee_dialog_state_decrypting">Decoderen…</string>
   <string name="raise_fee_dialog_state_done">Klaar.</string>
   <string name="raise_fee_dialog_button_raise">Verhoog</string>
@@ -121,7 +126,7 @@
   <string name="sweep_wallet_fragment_insufficient_money_msg">De hoeveelheid bitcoins in de wallet is te laag om te kunnen overdragen.</string>
   <string name="sweep_wallet_options_reload">Saldo verversen</string>
   <string name="maintenance_dialog_title">Onderhoud aanbevolen</string>
-  <string name="maintenance_dialog_message">U ontving %1$s op onveilige adressen. Wilt U deze bitcoins overbrengen naar veilige adressen? Een kleine netwerk onkostenvergoeding ter grootte van %2$s zal worden afgedragen.</string>
+  <string name="maintenance_dialog_message">U ontving %1$s op onveilige adressen. Wilt U deze bitcoins overbrengen naar veilige adressen? Een kleine netwerkonkostenvergoeding ter grootte van %2$s zal worden afgedragen.</string>
   <string name="maintenance_dialog_state_decrypting">Decoderen…</string>
   <string name="maintenance_dialog_state_done">Klaar.</string>
   <string name="maintenance_dialog_button_move">Verplaats</string>
@@ -158,7 +163,7 @@
   <string name="edit_address_book_entry_dialog_address_label">Adres</string>
   <string name="edit_address_book_entry_dialog_label_label">Label</string>
   <string name="edit_address_book_entry_dialog_button_edit">Opslaan</string>
-  <string name="transaction_row_fee">Netwerk kosten</string>
+  <string name="transaction_row_fee">Netwerkkosten</string>
   <string name="transaction_row_message_purpose_key_rotation">Deze transactie maakt je wallet sterker tegen diefstal. &lt;u&gt;Meer info.&lt;/u&gt;</string>
   <string name="transaction_row_message_purpose_raise_fee">Deze transactie verhoogt de transactiekosten van een eerder verstuurde betaling.</string>
   <string name="transaction_row_message_own_unbroadcasted">Deze betaling is nog niet verzonden.</string>
