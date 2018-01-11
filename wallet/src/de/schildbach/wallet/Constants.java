@@ -174,7 +174,7 @@ public final class Constants {
 
     public static final long DELAYED_TRANSACTION_THRESHOLD_MS = 2 * DateUtils.HOUR_IN_MILLIS;
 
-    public static final int SDK_DEPRECATED_BELOW = Build.VERSION_CODES.JELLY_BEAN;
+    public static final int SDK_DEPRECATED_BELOW = Build.VERSION_CODES.KITKAT;
 
     public static final boolean BUG_OPENSSL_HEARTBLEED = Build.VERSION.SDK_INT == Build.VERSION_CODES.JELLY_BEAN
             && Build.VERSION.RELEASE.startsWith("4.1.1");
