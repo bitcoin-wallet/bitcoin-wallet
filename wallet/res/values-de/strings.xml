@@ -63,7 +63,8 @@
     <string name="alert_dialogs_fragment_settings_failed_title">Problem beim Öffnen der Einstellungen</string>
     <string name="send_coins_activity_title">Bitcoins senden</string>
     <string name="send_coins_fragment_request_payment_request_progress">Rufe Signatur von %s ab…</string>
-    <string name="send_coins_fragment_request_payment_request_failed_title">Abrufen der Signatur fehlgeschlagen</string>
+    <string name="send_coins_fragment_request_payment_request_failed_title">Abrufen der Zahlungsanforderung fehlgeschlagen</string>
+    <string name="send_coins_fragment_request_payment_request_failed_message">Der Zahlungsempfänger (%1$s) nutzt ein inkompatibles Zahlungsprotokoll (Grund: %2$s).</string>
     <string name="send_coins_fragment_request_payment_request_wrong_signature">Falsche Signatur!</string>
     <string name="send_coins_fragment_payee_verified_by">verifiziert durch: %s</string>
     <string name="send_coins_fragment_payee_verified_by_unknown">unbekannt</string>

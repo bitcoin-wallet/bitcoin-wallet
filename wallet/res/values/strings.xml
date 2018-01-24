@@ -61,7 +61,8 @@
     <string name="alert_dialogs_fragment_settings_failed_title">Problem with opening of settings</string>
     <string name="send_coins_activity_title">Send Bitcoins</string>
     <string name="send_coins_fragment_request_payment_request_progress">Fetching signature from %s…</string>
-    <string name="send_coins_fragment_request_payment_request_failed_title">Fetching signature failed</string>
+    <string name="send_coins_fragment_request_payment_request_failed_title">Fetching payment request failed</string>
+    <string name="send_coins_fragment_request_payment_request_failed_message">The payee (%1$s) is using an incompatible payment protocol (reason: %2$s).</string>
     <string name="send_coins_fragment_request_payment_request_wrong_signature">Wrong signature!</string>
     <string name="send_coins_fragment_payee_verified_by">verified by: %s</string>
     <string name="send_coins_fragment_payee_verified_by_unknown">unknown</string>
