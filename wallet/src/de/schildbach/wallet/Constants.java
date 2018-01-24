@@ -150,7 +150,7 @@ public final class Constants {
 
     /** Donation address for tip/donate action. */
     public static final String DONATION_ADDRESS = NETWORK_PARAMETERS.getId().equals(AbstractDogecoinParams.ID_DOGE_MAINNET)
-            ? "D5S6K8c59CGx7Si5ATGX7kApMZW6C2SD6t" : null;
+            ? "DDa3MCfbUABVsxJzhw5j7HttHLXFYGQbZS" : null;
 
     /** Recipient e-mail address for reports. */
     public static final String REPORT_EMAIL = "dogecoinandroid@gmail.com";
