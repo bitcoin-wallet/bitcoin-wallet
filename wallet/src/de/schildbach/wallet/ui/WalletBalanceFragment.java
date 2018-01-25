@@ -166,6 +166,8 @@ public final class WalletBalanceFragment extends Fragment {
             loaderManager.destroyLoader(ID_RATE_LOADER);
         loaderManager.destroyLoader(ID_BALANCE_LOADER);
 
+        blockchainState = null;
+        exchangeRate = null;
         super.onPause();
     }
 
