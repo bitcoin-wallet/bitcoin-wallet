@@ -69,6 +69,7 @@ import android.os.Build;
 import android.os.StrictMode;
 import android.preference.PreferenceManager;
 import android.support.v4.content.LocalBroadcastManager;
+import android.support.v7.app.AppCompatDelegate;
 import android.text.format.DateUtils;
 import android.widget.Toast;
 import ch.qos.logback.classic.Level;
@@ -106,6 +107,8 @@ public class WalletApplication extends Application {
     @Override
     public void onCreate() {
         new LinuxSecureRandom(); // init proper random number generator
+
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
 
         initLogging();
 

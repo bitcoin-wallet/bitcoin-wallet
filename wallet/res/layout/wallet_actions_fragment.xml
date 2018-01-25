@@ -1,4 +1,5 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     style="?android:attr/actionBarSplitStyle"
     android:theme="@android:style/ThemeOverlay.Material.Dark.ActionBar"
     android:layout_width="match_parent"
@@ -46,6 +47,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:contentDescription="@string/button_scan"
-        android:src="@drawable/ic_photo_camera_white_24dp" />
+        app:srcCompat="@drawable/ic_photo_camera_white_24dp" />
 
 </LinearLayout>

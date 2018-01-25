@@ -2,16 +2,16 @@
 <level-list xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <item
-        android:drawable="@drawable/stat_notify_1_peers_24dp"
+        android:drawable="@drawable/stat_sys_peers_1"
         android:maxLevel="1"/>
     <item
-        android:drawable="@drawable/stat_notify_2_peers_24dp"
+        android:drawable="@drawable/stat_sys_peers_2"
         android:maxLevel="2"/>
     <item
-        android:drawable="@drawable/stat_notify_3_peers_24dp"
+        android:drawable="@drawable/stat_sys_peers_3"
         android:maxLevel="3"/>
     <item
-        android:drawable="@drawable/stat_notify_4_peers_24dp"
+        android:drawable="@drawable/stat_sys_peers_4"
         android:maxLevel="4"/>
 
 </level-list>
