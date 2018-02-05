@@ -88,9 +88,8 @@ import android.widget.TextView;
  */
 public final class WalletActivity extends AbstractBindServiceActivity
         implements ActivityCompat.OnRequestPermissionsResultCallback {
-    private static final int DIALOG_BACKUP_WALLET_PERMISSION = 0;
-    private static final int DIALOG_RESTORE_WALLET_PERMISSION = 1;
-    private static final int DIALOG_RESTORE_WALLET = 2;
+    private static final int DIALOG_RESTORE_WALLET_PERMISSION = 0;
+    private static final int DIALOG_RESTORE_WALLET = 1;
 
     private WalletApplication application;
     private Configuration config;
@@ -99,8 +98,7 @@ public final class WalletActivity extends AbstractBindServiceActivity
     private Handler handler = new Handler();
 
     private static final int REQUEST_CODE_SCAN = 0;
-    private static final int REQUEST_CODE_BACKUP_WALLET = 1;
-    private static final int REQUEST_CODE_RESTORE_WALLET = 2;
+    private static final int REQUEST_CODE_RESTORE_WALLET = 1;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -194,12 +192,7 @@ public final class WalletActivity extends AbstractBindServiceActivity
     @Override
     public void onRequestPermissionsResult(final int requestCode, final String[] permissions,
             final int[] grantResults) {
-        if (requestCode == REQUEST_CODE_BACKUP_WALLET) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
-                handleBackupWallet();
-            else
-                showDialog(DIALOG_BACKUP_WALLET_PERMISSION);
-        } else if (requestCode == REQUEST_CODE_RESTORE_WALLET) {
+        if (requestCode == REQUEST_CODE_RESTORE_WALLET) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
                 handleRestoreWallet();
             else
@@ -209,33 +202,37 @@ public final class WalletActivity extends AbstractBindServiceActivity
 
     @Override
     public void onActivityResult(final int requestCode, final int resultCode, final Intent intent) {
-        if (requestCode == REQUEST_CODE_SCAN && resultCode == Activity.RESULT_OK) {
-            final String input = intent.getStringExtra(ScanActivity.INTENT_EXTRA_RESULT);
+        if (requestCode == REQUEST_CODE_SCAN) {
+            if (resultCode == Activity.RESULT_OK) {
+                final String input = intent.getStringExtra(ScanActivity.INTENT_EXTRA_RESULT);
 
-            new StringInputParser(input) {
-                @Override
-                protected void handlePaymentIntent(final PaymentIntent paymentIntent) {
-                    SendCoinsActivity.start(WalletActivity.this, paymentIntent);
-                }
+                new StringInputParser(input) {
+                    @Override
+                    protected void handlePaymentIntent(final PaymentIntent paymentIntent) {
+                        SendCoinsActivity.start(WalletActivity.this, paymentIntent);
+                    }
 
-                @Override
-                protected void handlePrivateKey(final VersionedChecksummedBytes key) {
-                    if (Constants.ENABLE_SWEEP_WALLET)
-                        SweepWalletActivity.start(WalletActivity.this, key);
-                    else
-                        super.handlePrivateKey(key);
-                }
+                    @Override
+                    protected void handlePrivateKey(final VersionedChecksummedBytes key) {
+                        if (Constants.ENABLE_SWEEP_WALLET)
+                            SweepWalletActivity.start(WalletActivity.this, key);
+                        else
+                            super.handlePrivateKey(key);
+                    }
 
-                @Override
-                protected void handleDirectTransaction(final Transaction tx) throws VerificationException {
-                    application.processDirectTransaction(tx);
-                }
+                    @Override
+                    protected void handleDirectTransaction(final Transaction tx) throws VerificationException {
+                        application.processDirectTransaction(tx);
+                    }
 
-                @Override
-                protected void error(final int messageResId, final Object... messageArgs) {
-                    dialog(WalletActivity.this, null, R.string.button_scan, messageResId, messageArgs);
-                }
-            }.parse();
+                    @Override
+                    protected void error(final int messageResId, final Object... messageArgs) {
+                        dialog(WalletActivity.this, null, R.string.button_scan, messageResId, messageArgs);
+                    }
+                }.parse();
+            }
+        } else {
+            super.onActivityResult(requestCode, resultCode, intent);
         }
     }
 
@@ -350,12 +347,7 @@ public final class WalletActivity extends AbstractBindServiceActivity
     }
 
     public void handleBackupWallet() {
-        if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)
-            BackupWalletDialogFragment.show(getFragmentManager());
-        else
-            ActivityCompat.requestPermissions(this, new String[] { Manifest.permission.WRITE_EXTERNAL_STORAGE },
-                    REQUEST_CODE_BACKUP_WALLET);
+        BackupWalletDialogFragment.show(getFragmentManager());
     }
 
     public void handleRestoreWallet() {
@@ -403,9 +395,7 @@ public final class WalletActivity extends AbstractBindServiceActivity
 
     @Override
     protected Dialog onCreateDialog(final int id, final Bundle args) {
-        if (id == DIALOG_BACKUP_WALLET_PERMISSION)
-            return createBackupWalletPermissionDialog();
-        else if (id == DIALOG_RESTORE_WALLET_PERMISSION)
+        if (id == DIALOG_RESTORE_WALLET_PERMISSION)
             return createRestoreWalletPermissionDialog();
         else if (id == DIALOG_RESTORE_WALLET)
             return createRestoreWalletDialog();
@@ -417,14 +407,6 @@ public final class WalletActivity extends AbstractBindServiceActivity
     protected void onPrepareDialog(final int id, final Dialog dialog) {
         if (id == DIALOG_RESTORE_WALLET)
             prepareRestoreWalletDialog(dialog);
-    }
-
-    private Dialog createBackupWalletPermissionDialog() {
-        final DialogBuilder dialog = new DialogBuilder(this);
-        dialog.setTitle(R.string.backup_wallet_permission_dialog_title);
-        dialog.setMessage(getString(R.string.backup_wallet_permission_dialog_message));
-        dialog.singleDismissButton(null);
-        return dialog.create();
     }
 
     private Dialog createRestoreWalletPermissionDialog() {

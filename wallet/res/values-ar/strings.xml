@@ -165,12 +165,8 @@
   <string name="export_keys_dialog_title">النسخ الإحتياطي للمحفظة</string>
   <string name="backup_wallet_dialog_message">سيتم تشفير مفاتيحك الخاصة مع كلمة المرور الخاصة  بك  وتسجيلها في وحدة تخزين خارجية.</string>
   <string name="export_keys_dialog_button_export">حفظ احتياطي</string>
-  <string name="export_keys_dialog_success">تم الحفظ الاحتياطي للمفاتيح الخاصة بك إلى\n\n%s\n \nيرجى الاحتفاظ بها بشكل آمن، والحفاظ على كلمة المرور الخاصة بك بشكل آمن!\n \nهل تريدرشفة المفاتيح الخاصة بك باستخدام تطبيق؟</string>
+  <string name="export_keys_dialog_success">تم الحفظ الاحتياطي للمفاتيح الخاصة بك إلى\n\n%s\n\nيرجى الاحتفاظ بها بشكل آمن، والحفاظ على كلمة المرور الخاصة بك بشكل آمن!</string>
   <string name="export_keys_dialog_failure">تعذر الحفظ الاحتياطي للمفاتيح الخاصة بك:\n%s</string>
-  <string name="export_keys_dialog_button_archive">أرشفة</string>
-  <string name="export_keys_dialog_mail_subject">النسخ الإحتياطي لمحفظة البتكوين</string>
-  <string name="export_keys_dialog_mail_text">يحتوي الملف المشفر المرفق على مفاتيح محفظتك الخاصة ويجب عليك الحفاظ عليها في جميع الأوقات. لا تنسى كلمة المرور لفك التشفير!</string>
-  <string name="export_keys_dialog_mail_intent_chooser">أرشفة المحفظة باستخدام ...</string>
   <string name="import_export_keys_dialog_password">كلمة المرور</string>
   <string name="backup_wallet_dialog_password_again">مجددا</string>
   <string name="backup_wallet_dialog_password_mismatch">غير متطابقين !</string>

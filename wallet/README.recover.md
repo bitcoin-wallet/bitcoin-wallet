@@ -46,23 +46,9 @@ until you see the "You are now a developer" message.
 
 ## LOCATING THE BACKUP FILES
 
-If you followed the apps guidance your backup files will be located both on-device and off-device.
-Let's look at off-device first. When backing up, the app instructed you to archive your backup to
-mail or cloud storage. Depending on how you decided, your backup probably ended up as attachment
-on an email sent to yourself (look into your Inbox and Sent folders) or uploaded to a Google Drive
-or Dropbox kind of service. Just save the backup file to your PCs filesystem. Skip the rest of this
-paragraph directly to DECRYPTING.
+If you followed the app's guidance your backup files will be located on a share of the storage access framework, very likely your Google Drive. Watch out for filenames starting with `bitcoin-wallet-backup`.
 
-You cannot find your backup? If you're still using the device you made the backup with, there is
-a good chance the backup is on-device. Use:
-
-    adb shell ls -l /sdcard/Download/bitcoin-wallet-*
-
-It will list any backup files present. Pick one and use:
-
-    adb pull /sdcard/Download/bitcoin-wallet-backup-testnet-2014-11-01
-
-to copy the file to your PC.
+Historically, the backup can also be saved to your email account (as a file attachment of an email sent to yourself) or on your SD card in the `/Download` folder. Just save the backup file to your PCs filesystem.
 
 
 ## DECRYPTING

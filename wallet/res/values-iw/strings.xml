@@ -124,12 +124,8 @@
 	<string name="export_keys_dialog_title">ייצא מפתחות פרטיים</string>
 	<string name="backup_wallet_dialog_message">המפתחות שלך יוצפנו בעזרת הסיסמא ויאוחסנו בהתקן החיצוני</string>
 	<string name="export_keys_dialog_button_export">ייצוא</string>
-	<string name="export_keys_dialog_success">המפתחות שלך יוצאו ל\n\n%s\n\nשמור עליהם בבטחה, ושמור על הססמא בטוחה!\n\nהאם אתה רוצה לארכב את המפתחות באמצעות אפליקציה?</string>
+	<string name="export_keys_dialog_success">המפתחות שלך יוצאו ל\n\n%s\n\nשמור עליהם בבטחה, ושמור על הססמא בטוחה!</string>
 	<string name="export_keys_dialog_failure">לא ניתן לייצא מפתחות פרטיים:\n%s</string>
-	<string name="export_keys_dialog_button_archive">ארכיון</string>
-	<string name="export_keys_dialog_mail_subject">גיבוי של מפתח פרטי לארנק הביטקוין</string>
-	<string name="export_keys_dialog_mail_text">הקובץ המצורף מכיל את המפתח הפרטיים של ארנק הביטקוין שלך וצריך להשמר בצורה מאובטחת בכל עת. אל תשכח את ססמאת ההצפנה שלך!</string>
-	<string name="export_keys_dialog_mail_intent_chooser">העבר לארכיון את המפתחות באמצעות…</string>
 	<string name="import_export_keys_dialog_password">סיסמא</string>
 	<string name="import_export_keys_dialog_show">הצג סיסמא</string>
 	<string name="import_export_keys_dialog_failure_title">שגיאה</string>

@@ -121,12 +121,8 @@
 	<string name="export_keys_dialog_title">Zálohovať privátne kľúče</string>
 	<string name="backup_wallet_dialog_message">Privátne kľúče budú zašifrované zvoleným heslom a uložené na externú pamäť.</string>
 	<string name="export_keys_dialog_button_export">Zálohovať</string>
-	<string name="export_keys_dialog_success">Privátne kľúče boli zálohované do \n\n%s\n\nDržte ich v bezpečí, a taktiež držte v bezpečí vaše heslo!\n\nChcete archivovať kľúče použitím aplikácie?</string>
+	<string name="export_keys_dialog_success">Privátne kľúče boli zálohované do \n\n%s\n\nDržte ich v bezpečí, a taktiež držte v bezpečí vaše heslo!</string>
 	<string name="export_keys_dialog_failure">Vaše privátne kľúče sa nepodarilo zálohovať:\n%s</string>
-	<string name="export_keys_dialog_button_archive">Archivovať</string>
-	<string name="export_keys_dialog_mail_subject">Bitcoin Wallet - záloha privátnych kľúčov</string>
-	<string name="export_keys_dialog_mail_text">Príloha obsahuje zašifrované privátne kľúče, uchovajte ich v bezpečí. Nezabudnite vaše heslo!</string>
-	<string name="export_keys_dialog_mail_intent_chooser">Archivovať kľúče použitím…</string>
 	<string name="import_export_keys_dialog_password">heslo</string>
 	<string name="import_export_keys_dialog_show">Zobraziť heslo</string>
 	<string name="import_export_keys_dialog_failure_title">Chyba</string>

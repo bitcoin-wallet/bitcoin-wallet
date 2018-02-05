@@ -163,12 +163,8 @@
   <string name="export_keys_dialog_title">Fanya backup za pochi yako</string>
   <string name="backup_wallet_dialog_message">Backup yako itakuwa imeandikwa na siri, na kuhamishwa kwa disc nje.</string>
   <string name="export_keys_dialog_button_export">Fanya backup</string>
-  <string name="export_keys_dialog_success"><![CDATA[<p>Umeweka backup ya pochi yako za <tt>%s</tt></p><p>Kama simu yakoina kadi SD backup yako <i>lazima</i> kuwa juuu ya kadi ambayo. Ondoa kadi, na kuitunza katika mahali salama. Kama kadi ni <i>si</i> tofauti, lazima kuweka backup yako na baadhi ya sehemu nyingine salama.</p><p><b>Kama una backup yako katika simu yako, una hatari ya kupoleza pesa yako.</b></p><p>Kuhakikisha kwamba unakumbuka siri ya backup. Ja, unataka kufanya backup sasa?</p>]]></string>
+  <string name="export_keys_dialog_success"><![CDATA[<p>Umeweka backup ya pochi yako za <tt>%s</tt></p><p><b>Kama una backup yako katika simu yako, una hatari ya kupoleza pesa yako.</b></p><p>Kuhakikisha kwamba unakumbuka siri ya backup.</p>]]></string>
   <string name="export_keys_dialog_failure">Backup zza pochi yako alishindwa:\n%s</string>
-  <string name="export_keys_dialog_button_archive">Fanya backup</string>
-  <string name="export_keys_dialog_mail_subject">Fanya Bitcoin pochi backup</string>
-  <string name="export_keys_dialog_mail_text">Faili masharti ya siri ina bitcpoin pochi funguo. Kuitunza katika mahali salama. Usisahau siri!!</string>
-  <string name="export_keys_dialog_mail_intent_chooser">Fanya backup kutumia…</string>
   <string name="import_export_keys_dialog_password">siri</string>
   <string name="import_export_keys_dialog_show">Soma siri</string>
   <string name="import_export_keys_dialog_failure_title">kosa</string>

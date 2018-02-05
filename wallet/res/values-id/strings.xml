@@ -104,12 +104,8 @@
 	<string name="export_keys_dialog_title">Cadangkan kunci pribadi</string>
 	<string name="backup_wallet_dialog_message">Kunci pribadi Anda akan dienkripsi dgn kata sandi terpilih dan akan disimpan ke penyimpanan eksternal.</string>
 	<string name="export_keys_dialog_button_export">Cadangkan</string>
-	<string name="export_keys_dialog_success">Kunci pribadi Anda telah dicadangkan ke\n\n%s\n\nAmankan, dan jagalah kata sandi Anda!\n\nApakah Anda ingin arsipkan dgn apl?</string>
+	<string name="export_keys_dialog_success">Kunci pribadi Anda telah dicadangkan ke\n\n%s\n\nAmankan, dan jagalah kata sandi Anda!</string>
 	<string name="export_keys_dialog_failure">Kunci pribadi Anda tidak dpt dicadangkan:\n%s</string>
-	<string name="export_keys_dialog_button_archive">Arsip</string>
-	<string name="export_keys_dialog_mail_subject">Pencadangan kunci pribadi Bitcoin Wallet</string>
-	<string name="export_keys_dialog_mail_text">Berkas terenkripsi terlampir mengandung kunci pribadi Bitcoin dan harus dijaga senantiasa. Jangan lupakan kata sandi enkripsi!</string>
-	<string name="export_keys_dialog_mail_intent_chooser">Arsipkan kunci dgn…</string>
 	<string name="import_export_keys_dialog_password">kata sandi</string>
 	<string name="import_export_keys_dialog_show">Tampilkan sandi</string>
 	<string name="import_export_keys_dialog_failure_title">Kesalahan</string>

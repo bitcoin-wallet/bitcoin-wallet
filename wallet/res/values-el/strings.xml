@@ -134,12 +134,7 @@
   <string name="backup_wallet_dialog_message">Το αντίγραφο ασφαλείας σας θα κρυπτογραφηθεί με τον επιλεγμένο κωδικό και θα αποθηκευτεί στον εξωτερικό χώρο αποθήκευσης.</string>
   <string name="backup_wallet_dialog_warning_encrypted">Το πορτοφόλι σας προστατεύεται από PIN δαπανών. Βεβαιωθείτε ότι θυμάστε το PIN εκτός από τον εφεδρικό κωδικό πρόσβασης!</string>
   <string name="export_keys_dialog_button_export">Αντίγραφο ασφαλείας</string>
-  <string name="export_keys_dialog_success"><![CDATA[<p>Your wallet has been backed up to <tt>%s</tt></p><p>If your device has a removable SD card, your backup <i>should</i> be on that card. Remove it and keep it at a safe place. If the card is <i>not</i> removable, you need to archive your backup to some other place than your device.</p><p><b>If the only place your backup exists is on your device, you run the risk of losing both at the same time!</b></p><p>In any case, make sure you remember your backup password. Do you want to archive your wallet now?</p>]]></string>
   <string name="export_keys_dialog_failure">Το πορτοφόλι σου δε θα μπορούσε να δημιουργήσει αντίγραφο ασφαλείας:\n%s</string>
-  <string name="export_keys_dialog_button_archive">Αρχειοθέτηση</string>
-  <string name="export_keys_dialog_mail_subject">Αντίγραφο ασφαλείας Πορτοφολιού Bitcoin</string>
-  <string name="export_keys_dialog_mail_text">Το συνημμένο κρυπτογραφημένο αρχείο περιέχει τα ιδιωτικά κλειδιά του Bitcoin πορτοφολιού σας και θα πρέπει να διατηρείται ασφαλές. Μην ξεχάσετε τον κωδικό πρόσβασης κρυπτογράφησης!</string>
-  <string name="export_keys_dialog_mail_intent_chooser">Αρχειοθετήστε το πορτοφόλι χρησιμοποιώντας…</string>
   <string name="import_export_keys_dialog_password">κωδικός</string>
   <string name="backup_wallet_dialog_password_again">ξανά</string>
   <string name="backup_wallet_dialog_password_mismatch">αναντιστοιχία!</string>

@@ -141,12 +141,8 @@
   <string name="export_keys_dialog_title">Резервна копія гаманця</string>
   <string name="backup_wallet_dialog_message">Ваш гаманець буде зашифрований за допомогою пароля і будет записаний на зовнішній накопичувач.</string>
   <string name="export_keys_dialog_button_export">Резервна копія</string>
-  <string name="export_keys_dialog_success"><![CDATA[<p>Створена резервна копія гаманця <tt>%s</tt></p><p>Якщо ваш пристрій має зовнішню SD-карту, резервна копія <i>повинна</i> бути на цій карті. Вилучте її і зберігайте в безпечному місці. Якщо ваш пристрій <i>не підтримує</i> зовнішню SD-карту, то ви повинні зберігати резервну копію в іншому місці, а не на вашому пристрої.</p><p><b>Якщо ваш пристрій це єдине місце де зберігається резервна копія, то ви ризикуєте втрати гаманець, втративши пристрій!</b></p><p>В будь якому випадку, впевніться, що ви пам\'ятаєте пароль від резервної копії. Ви хочете архівувати ваш гаманець зараз?</p>]]></string>
+  <string name="export_keys_dialog_success"><![CDATA[<p>Створена резервна копія гаманця <tt>%s</tt></p><p><b>Якщо ваш пристрій це єдине місце де зберігається резервна копія, то ви ризикуєте втрати гаманець, втративши пристрій!</b></p><p>В будь якому випадку, впевніться, що ви пам\'ятаєте пароль від резервної копії.</p>]]></string>
   <string name="export_keys_dialog_failure">Резервна копія вашого гаманця не була створена:\n%s</string>
-  <string name="export_keys_dialog_button_archive">Архів</string>
-  <string name="export_keys_dialog_mail_subject">Резервне копіювання Bitcoin Wallet</string>
-  <string name="export_keys_dialog_mail_text">Доданий зашифрований файл містить приватні ключі Bitcoin, він повинен завжди зберігатися в безпеці. Не забудьте пароль шифрування!</string>
-  <string name="export_keys_dialog_mail_intent_chooser">Архівувати гаманець за допомогою…</string>
   <string name="import_export_keys_dialog_password">пароль</string>
   <string name="import_export_keys_dialog_show">Показати пароль</string>
   <string name="import_export_keys_dialog_failure_title">Помилка</string>

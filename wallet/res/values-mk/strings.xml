@@ -104,12 +104,8 @@
 	<string name="export_keys_dialog_title">Направи резервна копија од приватните клучеви</string>
 	<string name="backup_wallet_dialog_message">Твоите приватни клучеви ќе бидат шифрирани со одбраната лозинка и зачувани во надворешен склад.</string>
 	<string name="export_keys_dialog_button_export">Направи резервна копија</string>
-	<string name="export_keys_dialog_success">Твоите приватни клучеви имаат резервна копија во\n\n%s\n\nЧувај ги на безбедно место и чувај ја твојата лозинка тајна!\n\nДали сакаш да ги архивираш твоите клучеви преку апликација?</string>
+	<string name="export_keys_dialog_success">Твоите приватни клучеви имаат резервна копија во\n\n%s\n\nЧувај ги на безбедно место и чувај ја твојата лозинка тајна!</string>
 	<string name="export_keys_dialog_failure">Не може да се креира резервна копија од твоите приватни клучеви:\n%s</string>
-	<string name="export_keys_dialog_button_archive">Архива</string>
-	<string name="export_keys_dialog_mail_subject">Резервна копија од приватен клуч на Биткоин Паричник</string>
-	<string name="export_keys_dialog_mail_text">Прикачениот шифриран фајл содржи приватни клучеви и треба да се чува на сигурно место. Не ја заборавај шифрираната лозинка!</string>
-	<string name="export_keys_dialog_mail_intent_chooser">Архивирај ги клучевите со…</string>
 	<string name="import_export_keys_dialog_password">лозинка</string>
 	<string name="import_export_keys_dialog_show">Прикажи лозинка</string>
 	<string name="import_export_keys_dialog_failure_title">Грешка</string>

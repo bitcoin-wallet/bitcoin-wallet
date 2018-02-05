@@ -99,12 +99,8 @@
 	<string name="export_keys_dialog_title">Xuất dữ liệu từ các khóa cá nhân</string>
 	<string name="backup_wallet_dialog_message">Các khóa cá nhân của bạn sẽ được mã hóa với một mật khẩu do bạn chọn và sau đó ghi dữ liệu mã hóa vào thẻ nhớ.</string>
 	<string name="export_keys_dialog_button_export">Xuất dữ liệu</string>
-	<string name="export_keys_dialog_success">Khóa cá nhân đã được xuất đến\n\n%s\n\nGiữ các khóa này ở nơi an toàn cũng ghi nhớ mật khẩu bạn đã đặt!\n\nBạn có muốn lưu giữ các khóa của bạn khi sử dụng ứng này không?</string>
+	<string name="export_keys_dialog_success">Khóa cá nhân đã được xuất đến\n\n%s\n\nGiữ các khóa này ở nơi an toàn cũng ghi nhớ mật khẩu bạn đã đặt!</string>
 	<string name="export_keys_dialog_failure">Khóa cá nhân của bạn vẫn chưa được xuất dữ liệu:\n%s</string>
-	<string name="export_keys_dialog_button_archive">Lưu trữ</string>
-	<string name="export_keys_dialog_mail_subject">Sao lưu khóa cá nhân của Bitcoin Wallet</string>
-	<string name="export_keys_dialog_mail_text">Phần tập tin đính kèm được mã hóa chứa các khóa cá nhân dạng Bitcoin và nên được cất giữ ở một nơi an toàn. Đừng quên mật khẩu dành đã đặt khi mã hóa!</string>
-	<string name="export_keys_dialog_mail_intent_chooser">Đang sử dụng khóa lưu trữ…</string>
 	<string name="import_export_keys_dialog_password">mật khẩu</string>
 	<string name="import_export_keys_dialog_show">Hiển thị mật khẩu</string>
 	<string name="import_export_keys_dialog_failure_title">Lỗi</string>

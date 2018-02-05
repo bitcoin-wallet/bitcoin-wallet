@@ -128,11 +128,7 @@
   <string name="import_keys_dialog_failure">Zasebnih ključev ni bilo mogoče obnoviti:\n\n%s\n\nNapačno geslo?</string>
   <string name="export_keys_dialog_title">Ustvari rezervno kopijo denarnice</string>
   <string name="export_keys_dialog_button_export">Rezervno kopiraj</string>
-  <string name="export_keys_dialog_success"><![CDATA[<p>Ustvarjena je bila rezervna kopija vaše denarnice na lokaciji <tt>%s</tt></p><p>Če vaša naprava vsebuje odstranljivo SD-kartico, <i>bi morala</i> biti rezervna kopija na tej kartici. Kartico odstranite in jo varno shranite. Če kartica <i>ni odstranljiva</i>, morate shraniti rezervno kopijo nekam izven te naprave.</p><p><b>Če imate rezervno kopijo samo na tej napravi, tvegate, da hkrati izgubite denarnico in rezervo!</b></p><p>V vsakem primeru poskrbite, da si boste geslo rezervne kopije dobro zapomnili. Želite zdaj arhivirati denarnico?</p>]]></string>
-  <string name="export_keys_dialog_button_archive">Arhiviraj</string>
-  <string name="export_keys_dialog_mail_subject">Rezervna kopija denarnice</string>
-  <string name="export_keys_dialog_mail_text">Pripeta šifrirana datoteka vsebuje zasebne ključe za bitcoin, zato jo morate vedno varno hraniti. Ne pozabite gesla, s katerim je bila datoteka šifrirana!</string>
-  <string name="export_keys_dialog_mail_intent_chooser">Arhiviraj denarnico z...</string>
+  <string name="export_keys_dialog_success"><![CDATA[<p>Ustvarjena je bila rezervna kopija vaše denarnice na lokaciji <tt>%s</tt></p><p><b>Če imate rezervno kopijo samo na tej napravi, tvegate, da hkrati izgubite denarnico in rezervo!</b></p><p>V vsakem primeru poskrbite, da si boste geslo rezervne kopije dobro zapomnili.</p>]]></string>
   <string name="import_export_keys_dialog_password">geslo</string>
   <string name="import_export_keys_dialog_show">Prikaži geslo</string>
   <string name="import_export_keys_dialog_failure_title">Napaka</string>

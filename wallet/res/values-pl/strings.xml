@@ -104,12 +104,8 @@
 	<string name="export_keys_dialog_title">Eksportuj prywatne klucze</string>
 	<string name="backup_wallet_dialog_message">Twoje prywatne klucze zostaną zaszyfrowane wybranym hasłem a następnie zapisane na zewnętrznym nośniku.</string>
 	<string name="export_keys_dialog_button_export">Kopia zapasowa</string>
-	<string name="export_keys_dialog_success">Twoje klucze prywatne zostały eksportowane do\n\n%s\n\nZabezpiecz je wraz z hasłem!\n\nCzy chcesz zabezpieczyć Twoje klucze za pomocą tej aplikacji?</string>
+	<string name="export_keys_dialog_success">Twoje klucze prywatne zostały eksportowane do\n\n%s\n\nZabezpiecz je wraz z hasłem!</string>
 	<string name="export_keys_dialog_failure">Twoje prywatne klucze nie mogły być wyeksportowane:\n%s</string>
-	<string name="export_keys_dialog_button_archive">Archiwum</string>
-	<string name="export_keys_dialog_mail_subject">Przechowalnia kluczy prywatnych Bitcoin Wallet</string>
-	<string name="export_keys_dialog_mail_text">Załączony zaszyfrowany plik zawiera klucze prywatne Bitcoin i powinien być przechowywany w bezpiecznym miejscu przez cały czas. Nie zapomnij szyfrującego hasła!</string>
-	<string name="export_keys_dialog_mail_intent_chooser">Archiwizuj klucze przy użyciu… </string>
 	<string name="import_export_keys_dialog_password">hasło</string>
 	<string name="import_export_keys_dialog_show">Wyświetl hasło</string>
 	<string name="import_export_keys_dialog_failure_title">Błąd</string>

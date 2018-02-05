@@ -104,12 +104,8 @@
 	<string name="export_keys_dialog_title">Savkopi privatajn ŝlosilojn</string>
 	<string name="backup_wallet_dialog_message">Viaj privataj ŝlosiloj estos ĉifritaj kun l\'elektita pasvorto kaj skribitaj al ekstera storo.</string>
 	<string name="export_keys_dialog_button_export">Savkopi</string>
-	<string name="export_keys_dialog_success">Viaj privataj ŝlosiloj estas savkopiitaj ĝis\n\n%s\n\nKonservu ilin sekurajn, kaj konservu vian pasvorton sekuran!\n\nĈu vi volas arkivi viajn ŝlosilojn uzante aplikaĵo?</string>
+	<string name="export_keys_dialog_success">Viaj privataj ŝlosiloj estas savkopiitaj ĝis\n\n%s\n\nKonservu ilin sekurajn, kaj konservu vian pasvorton sekuran!</string>
 	<string name="export_keys_dialog_failure">Viaj privataj ŝlosiloj ne povis esti savkopiitaj:\n%s</string>
-	<string name="export_keys_dialog_button_archive">Arkivo</string>
-	<string name="export_keys_dialog_mail_subject">BitmonMonujo privataj ŝlosiloj savkopio</string>
-	<string name="export_keys_dialog_mail_text">La kuna ĉifrita dosiero entenas Bitmonajn privatajn ŝlosilojn, kaj devus esti sekura ĉiam. Ne forgesu la ĉifradan pasvorton!</string>
-	<string name="export_keys_dialog_mail_intent_chooser">Arkivi ŝlosilojn uzante…</string>
 	<string name="import_export_keys_dialog_password">pasvorto</string>
 	<string name="import_export_keys_dialog_show">Montru pasvorton</string>
 	<string name="import_export_keys_dialog_failure_title">Eraro</string>
