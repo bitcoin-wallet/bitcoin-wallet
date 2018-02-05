@@ -57,7 +57,6 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.os.Build;
-import android.support.v4.app.ActivityManagerCompat;
 
 /**
  * @author Andreas Schildbach
@@ -143,7 +142,7 @@ public class CrashReporter {
                 + (config.screenLayout & android.content.res.Configuration.SCREENLAYOUT_LONG_MASK) + "\n");
         report.append("Display Metrics: " + res.getDisplayMetrics() + "\n");
         report.append("Memory Class: " + activityManager.getMemoryClass() + "/" + activityManager.getLargeMemoryClass()
-                + (ActivityManagerCompat.isLowRamDevice(activityManager) ? " (low RAM device)" : "") + "\n");
+                + (activityManager.isLowRamDevice() ? " (low RAM device)" : "") + "\n");
         report.append("Storage Encryption Status: " + devicePolicyManager.getStorageEncryptionStatus() + "\n");
         report.append("Bluetooth MAC: " + bluetoothMac() + "\n");
         report.append("Runtime: ").append(System.getProperty("java.vm.name")).append(" ")

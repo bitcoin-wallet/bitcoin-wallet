@@ -27,7 +27,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import android.bluetooth.BluetoothAdapter;
-import android.os.Build;
 
 /**
  * @author Andreas Schildbach
@@ -50,9 +49,6 @@ public class Bluetooth {
 
     public static boolean canListen(final BluetoothAdapter adapter) {
         if (adapter == null)
-            return false;
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR2)
-            // Earlier versions cannot reliably listen.
             return false;
         return true;
     }
