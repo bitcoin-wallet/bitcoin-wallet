@@ -520,16 +520,25 @@ public final class WalletActivity extends AbstractBindServiceActivity
         final List<File> files = new LinkedList<File>();
 
         // external storage
+        log.info("looking for backup files in '{}'", Constants.Files.EXTERNAL_WALLET_BACKUP_DIR);
         final File[] externalFiles = Constants.Files.EXTERNAL_WALLET_BACKUP_DIR.listFiles();
-        if (externalFiles != null)
-            for (final File file : externalFiles)
-                if (Crypto.OPENSSL_FILE_FILTER.accept(file))
+        if (externalFiles != null) {
+            for (final File file : externalFiles) {
+                final boolean looksLikeBackup = Crypto.OPENSSL_FILE_FILTER.accept(file);
+                log.info("  {}{}", file.getName(), looksLikeBackup ? " -- looks like backup file" : "");
+                if (looksLikeBackup)
                     files.add(file);
+            }
+        }
 
-        // internal storage
-        for (final String filename : fileList())
-            if (filename.startsWith(Constants.Files.WALLET_KEY_BACKUP_PROTOBUF + '.'))
+        // app-private storage
+        log.info("adding backup files from app-private storage");
+        for (final String filename : fileList()) {
+            if (filename.startsWith(Constants.Files.WALLET_KEY_BACKUP_PROTOBUF + '.')) {
+                log.info("  {}", filename);
                 files.add(new File(getFilesDir(), filename));
+            }
+        }
 
         // sort
         Collections.sort(files, new Comparator<File>() {
