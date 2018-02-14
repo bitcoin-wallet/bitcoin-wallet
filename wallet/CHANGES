@@ -1,3 +1,10 @@
+v6.0
+
+* The app now requires Android 4.4 (KitKat) or higher.
+* Backing up makes use of the Storage Access Framework (SAF). For most users,
+  this means encrypted backups are stored on Google Drive, but other cloud
+  storage providers can also be used.
+
 v5.45
 
 * Clarify message when fetching/validating the payment request fails.
