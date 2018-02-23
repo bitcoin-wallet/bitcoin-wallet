@@ -36,13 +36,6 @@ import org.slf4j.LoggerFactory;
 
 import com.google.common.base.Charsets;
 import com.google.common.base.Stopwatch;
-import com.squareup.okhttp.Call;
-import com.squareup.okhttp.HttpUrl;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.Response;
-import com.squareup.okhttp.ResponseBody;
-import com.squareup.okhttp.internal.http.HttpDate;
 
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
@@ -53,6 +46,13 @@ import android.content.AsyncTaskLoader;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.res.AssetManager;
+import okhttp3.Call;
+import okhttp3.HttpUrl;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+import okhttp3.ResponseBody;
+import okhttp3.internal.http.HttpDate;
 
 /**
  * @author Andreas Schildbach
@@ -165,10 +165,11 @@ public class DynamicFeeLoader extends AsyncTaskLoader<Map<FeeCategory, Coin>> {
         if (targetFile.exists())
             request.header("If-Modified-Since", HttpDate.format(new Date(targetFile.lastModified())));
 
-        final OkHttpClient httpClient = Constants.HTTP_CLIENT.clone();
-        httpClient.setConnectTimeout(5, TimeUnit.SECONDS);
-        httpClient.setWriteTimeout(5, TimeUnit.SECONDS);
-        httpClient.setReadTimeout(5, TimeUnit.SECONDS);
+        OkHttpClient.Builder httpClientBuilder = Constants.HTTP_CLIENT.newBuilder();
+        httpClientBuilder.connectTimeout(5, TimeUnit.SECONDS);
+        httpClientBuilder.writeTimeout(5, TimeUnit.SECONDS);
+        httpClientBuilder.readTimeout(5, TimeUnit.SECONDS);
+        final OkHttpClient httpClient = httpClientBuilder.build();
         final Call call = httpClient.newCall(request.build());
         try {
             final Response response = call.execute();

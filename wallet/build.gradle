@@ -18,8 +18,8 @@ dependencies {
     compile 'com.google.protobuf:protobuf-java:2.6.1'
     compile 'com.google.guava:guava:20.0'
     compile 'com.google.zxing:core:3.3.1'
-    compile 'com.squareup.okhttp:okhttp:2.7.5'
-    compile 'com.squareup.okhttp:logging-interceptor:2.7.5'
+    compile 'com.squareup.okhttp3:okhttp:3.9.1'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.9.1'
     compile 'com.squareup.moshi:moshi:1.5.0'
     compile 'org.slf4j:slf4j-api:1.7.25'
     compile('com.github.tony19:logback-android-classic:1.1.1-6') {

@@ -29,15 +29,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.common.io.BaseEncoding;
-import com.squareup.okhttp.HttpUrl;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.logging.HttpLoggingInterceptor;
 
 import de.schildbach.wallet_test.R;
 
 import android.os.Build;
 import android.os.Environment;
 import android.text.format.DateUtils;
+import okhttp3.HttpUrl;
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 
 /**
  * @author Andreas Schildbach
@@ -192,14 +192,8 @@ public final class Constants {
             .equals(NetworkParameters.ID_MAINNET) ? 50002 : 51002;
 
     /** Shared HTTP client, can reuse connections */
-    public static final OkHttpClient HTTP_CLIENT = new OkHttpClient();
+    public static final OkHttpClient HTTP_CLIENT;
     static {
-        HTTP_CLIENT.setFollowRedirects(false);
-        HTTP_CLIENT.setFollowSslRedirects(true);
-        HTTP_CLIENT.setConnectTimeout(15, TimeUnit.SECONDS);
-        HTTP_CLIENT.setWriteTimeout(15, TimeUnit.SECONDS);
-        HTTP_CLIENT.setReadTimeout(15, TimeUnit.SECONDS);
-
         final HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor(
                 new HttpLoggingInterceptor.Logger() {
                     @Override
@@ -208,7 +202,15 @@ public final class Constants {
                     }
                 });
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BASIC);
-        HTTP_CLIENT.interceptors().add(loggingInterceptor);
+
+        final OkHttpClient.Builder httpClientBuilder = new OkHttpClient.Builder();
+        httpClientBuilder.followRedirects(false);
+        httpClientBuilder.followSslRedirects(true);
+        httpClientBuilder.connectTimeout(15, TimeUnit.SECONDS);
+        httpClientBuilder.writeTimeout(15, TimeUnit.SECONDS);
+        httpClientBuilder.readTimeout(15, TimeUnit.SECONDS);
+        httpClientBuilder.addInterceptor(loggingInterceptor);
+        HTTP_CLIENT = httpClientBuilder.build();
     }
 
     private static final Logger log = LoggerFactory.getLogger(Constants.class);
