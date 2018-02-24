@@ -27,6 +27,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.common.base.Splitter;
+import com.google.common.base.Strings;
 
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
@@ -105,6 +106,8 @@ public class AlertDialogsFragment extends Fragment {
                         + (versionNameSplit >= 0 ? packageInfo.versionName.substring(versionNameSplit) : ""))
                 .newBuilder();
         url.addEncodedQueryParameter("package", packageInfo.packageName);
+        url.addEncodedQueryParameter("installer",
+                Strings.nullToEmpty(packageManager.getInstallerPackageName(packageInfo.packageName)));
         url.addQueryParameter("current", Integer.toString(packageInfo.versionCode));
         versionUrl = url.build();
     }
