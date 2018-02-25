@@ -13,6 +13,12 @@ SUPPORTED SPECIFICATIONS
 * [BIP-66](https://github.com/bitcoin/bips/blob/master/bip-0066.mediawiki): Strict DER signatures
 * [BIP-70](https://github.com/bitcoin/bips/blob/master/bip-0070.mediawiki): Payment protocol
 * [BIP-71](https://github.com/bitcoin/bips/blob/master/bip-0071.mediawiki): Payment protocol MIME types
+* [BIP-111](https://github.com/bitcoin/bips/blob/master/bip-0111.mediawiki): NODE_BLOOM service bit
+* [BIP-141](https://github.com/bitcoin/bips/blob/master/bip-0141.mediawiki): Segregated Witness (Consensus layer)
+* [BIP-143](https://github.com/bitcoin/bips/blob/master/bip-0143.mediawiki): Transaction Signature Verification for Version 0 Witness Program
+* [BIP-144](https://github.com/bitcoin/bips/blob/master/bip-0144.mediawiki): Segregated Witness (Peer Services)
+* [BIP-159](https://github.com/bitcoin/bips/blob/master/bip-0159.mediawiki): NODE_NETWORK_LIMITED service bit
+* [BIP-173](https://github.com/bitcoin/bips/blob/master/bip-0173.mediawiki): Base32 address format for native v0-16 witness outputs
 * [RFC 6979](https://tools.ietf.org/html/rfc6979): Deterministic usage of ECDSA
 
 
