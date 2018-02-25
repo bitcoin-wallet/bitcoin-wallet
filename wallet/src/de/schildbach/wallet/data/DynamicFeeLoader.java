@@ -90,7 +90,11 @@ public class DynamicFeeLoader extends AsyncTaskLoader<Map<FeeCategory, Coin>> {
             if (!dynamicFeesFile.exists())
                 return staticFees;
 
-            // Check dynamic fees for sanity.
+            // Check dynamic fees for sanity, based on the hardcoded fees.
+            // The bounds are as follows (h is the respective hardcoded fee):
+            //   ECONOMIC: h/8 to h*4
+            //   NORMAL:   h/4 to h*4
+            //   PRIORITY: h/4 to h*8
             final Map<FeeCategory, Coin> dynamicFees = parseFees(new FileInputStream(dynamicFeesFile));
             for (final FeeCategory category : FeeCategory.values()) {
                 final Coin staticFee = staticFees.get(category);
