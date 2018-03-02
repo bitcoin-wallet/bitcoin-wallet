@@ -315,10 +315,9 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         private final TextView timeView;
         private final TextView addressView;
         private final CurrencyTextView valueView;
+        private final CurrencyTextView fiatView;
         private final View extendFeeView;
         private final CurrencyTextView feeView;
-        private final View extendFiatView;
-        private final CurrencyTextView fiatView;
         private final View extendMessageView;
         private final TextView messageView;
         private final ImageButton menuView;
@@ -339,10 +338,9 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             timeView = (TextView) itemView.findViewById(R.id.transaction_row_time);
             addressView = (TextView) itemView.findViewById(R.id.transaction_row_address);
             valueView = (CurrencyTextView) itemView.findViewById(R.id.transaction_row_value);
+            fiatView = (CurrencyTextView) itemView.findViewById(R.id.transaction_row_fiat);
             extendFeeView = itemView.findViewById(R.id.transaction_row_extend_fee);
             feeView = (CurrencyTextView) itemView.findViewById(R.id.transaction_row_fee);
-            extendFiatView = itemView.findViewById(R.id.transaction_row_extend_fiat);
-            fiatView = (CurrencyTextView) itemView.findViewById(R.id.transaction_row_fiat);
             extendMessageView = itemView.findViewById(R.id.transaction_row_extend_message);
             messageView = (TextView) itemView.findViewById(R.id.transaction_row_message);
             menuView = (ImageButton) itemView.findViewById(R.id.transaction_row_menu);
@@ -523,15 +521,15 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
             // fiat value
             final ExchangeRate exchangeRate = tx.getExchangeRate();
-            if (exchangeRate != null) {
-                extendFiatView.setVisibility(View.VISIBLE);
+            if (exchangeRate != null && !value.isZero()) {
+                fiatView.setVisibility(View.VISIBLE);
                 fiatView.setAlwaysSigned(true);
                 fiatView.setPrefixColor(colorInsignificant);
                 fiatView.setFormat(Constants.LOCAL_FORMAT.code(0,
                         Constants.PREFIX_ALMOST_EQUAL_TO + exchangeRate.fiat.getCurrencyCode()));
-                fiatView.setAmount(exchangeRate.coinToFiat(txCache.value));
+                fiatView.setAmount(exchangeRate.coinToFiat(value));
             } else {
-                extendFiatView.setVisibility(View.GONE);
+                fiatView.setVisibility(View.GONE);
             }
 
             // message

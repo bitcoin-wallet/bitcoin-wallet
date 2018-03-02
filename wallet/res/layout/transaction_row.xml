@@ -81,12 +81,27 @@
                 android:singleLine="true"
                 android:textStyle="bold" />
 
-            <de.schildbach.wallet.ui.CurrencyTextView
-                android:id="@+id/transaction_row_value"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right|top"
-                android:layout_marginLeft="8dp" />
+                android:layout_marginLeft="8dp"
+                android:orientation="vertical" >
+
+                <de.schildbach.wallet.ui.CurrencyTextView
+                    android:id="@+id/transaction_row_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right" />
+
+                <de.schildbach.wallet.ui.CurrencyTextView
+                    android:id="@+id/transaction_row_fiat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:textColor="@color/fg_insignificant"
+                    android:visibility="gone" />
+            </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
@@ -110,29 +125,6 @@
 
             <de.schildbach.wallet.ui.CurrencyTextView
                 android:id="@+id/transaction_row_fee"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right|top"
-                android:layout_marginLeft="8dp"
-                android:textColor="@color/fg_insignificant" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/transaction_row_extend_fiat"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingTop="2dp"
-            android:visibility="gone" >
-
-            <Space
-                android:layout_width="0px"
-                android:layout_height="@dimen/symbol_size_normal"
-                android:layout_marginRight="8dp"
-                android:layout_weight="1" />
-
-            <de.schildbach.wallet.ui.CurrencyTextView
-                android:id="@+id/transaction_row_fiat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right|top"
