@@ -32,13 +32,12 @@ import javax.annotation.Nullable;
 import org.bitcoin.protocols.payments.Protos;
 import org.bitcoinj.core.Address;
 import org.bitcoinj.core.AddressFormatException;
-import org.bitcoinj.core.Base58;
 import org.bitcoinj.core.DumpedPrivateKey;
-import org.bitcoinj.core.NetworkParameters;
 import org.bitcoinj.core.ProtocolException;
 import org.bitcoinj.core.Transaction;
 import org.bitcoinj.core.VerificationException;
 import org.bitcoinj.core.VersionedChecksummedBytes;
+import org.bitcoinj.core.WrongNetworkException;
 import org.bitcoinj.crypto.BIP38PrivateKey;
 import org.bitcoinj.crypto.TrustStoreLoader;
 import org.bitcoinj.protocols.payments.PaymentProtocol;
@@ -109,39 +108,6 @@ public abstract class InputParser {
 
                     error(R.string.input_parser_invalid_bitcoin_uri, input);
                 }
-            } else if (PATTERN_BITCOIN_ADDRESS.matcher(input).matches()) {
-                try {
-                    final Address address = Address.fromBase58(Constants.NETWORK_PARAMETERS, input);
-
-                    handlePaymentIntent(PaymentIntent.fromAddress(address, null));
-                } catch (final AddressFormatException x) {
-                    log.info("got invalid address", x);
-
-                    error(R.string.input_parser_invalid_address);
-                }
-            } else if (PATTERN_DUMPED_PRIVATE_KEY_UNCOMPRESSED.matcher(input).matches()
-                    || PATTERN_DUMPED_PRIVATE_KEY_COMPRESSED.matcher(input).matches()) {
-                try {
-                    final VersionedChecksummedBytes key = DumpedPrivateKey.fromBase58(Constants.NETWORK_PARAMETERS,
-                            input);
-
-                    handlePrivateKey(key);
-                } catch (final AddressFormatException x) {
-                    log.info("got invalid address", x);
-
-                    error(R.string.input_parser_invalid_address);
-                }
-            } else if (PATTERN_BIP38_PRIVATE_KEY.matcher(input).matches()) {
-                try {
-                    final VersionedChecksummedBytes key = BIP38PrivateKey.fromBase58(Constants.NETWORK_PARAMETERS,
-                            input);
-
-                    handlePrivateKey(key);
-                } catch (final AddressFormatException x) {
-                    log.info("got invalid address", x);
-
-                    error(R.string.input_parser_invalid_address);
-                }
             } else if (PATTERN_TRANSACTION.matcher(input).matches()) {
                 try {
                     final Transaction tx = new Transaction(Constants.NETWORK_PARAMETERS,
@@ -158,7 +124,23 @@ public abstract class InputParser {
                     error(R.string.input_parser_invalid_transaction, x.getMessage());
                 }
             } else {
-                cannotClassify(input);
+                try {
+                    handlePrivateKey(DumpedPrivateKey.fromBase58(Constants.NETWORK_PARAMETERS, input));
+                } catch (AddressFormatException x) {
+                    try {
+                        handlePrivateKey(BIP38PrivateKey.fromBase58(Constants.NETWORK_PARAMETERS, input));
+                    } catch (final AddressFormatException x2) {
+                        try {
+                            handlePaymentIntent(PaymentIntent
+                                    .fromAddress(Address.fromBase58(Constants.NETWORK_PARAMETERS, input), null));
+                        } catch (WrongNetworkException x3) {
+                            log.info("detected address, but wrong network: " + x3.verCode, x3);
+                            error(R.string.input_parser_invalid_address);
+                        } catch (AddressFormatException x3) {
+                            cannotClassify(input);
+                        }
+                    }
+                }
             }
         }
 
@@ -363,16 +345,6 @@ public abstract class InputParser {
         dialog.show();
     }
 
-    private static final Pattern PATTERN_BITCOIN_ADDRESS = Pattern
-            .compile("[" + new String(Base58.ALPHABET) + "]{20,40}");
-    private static final Pattern PATTERN_DUMPED_PRIVATE_KEY_UNCOMPRESSED = Pattern
-            .compile((Constants.NETWORK_PARAMETERS.getId().equals(NetworkParameters.ID_MAINNET) ? "5" : "9") + "["
-                    + new String(Base58.ALPHABET) + "]{50}");
-    private static final Pattern PATTERN_DUMPED_PRIVATE_KEY_COMPRESSED = Pattern
-            .compile((Constants.NETWORK_PARAMETERS.getId().equals(NetworkParameters.ID_MAINNET) ? "[KL]" : "c") + "["
-                    + new String(Base58.ALPHABET) + "]{51}");
-    private static final Pattern PATTERN_BIP38_PRIVATE_KEY = Pattern
-            .compile("6P" + "[" + new String(Base58.ALPHABET) + "]{56}");
     private static final Pattern PATTERN_TRANSACTION = Pattern
             .compile("[0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ$\\*\\+\\-\\.\\/\\:]{100,}");
 }
