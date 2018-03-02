@@ -22,7 +22,6 @@ import javax.annotation.Nullable;
 import org.bitcoinj.core.Address;
 import org.bitcoinj.core.AddressFormatException;
 import org.bitcoinj.core.NetworkParameters;
-import org.bitcoinj.core.WrongNetworkException;
 
 import com.google.common.base.Objects;
 
@@ -44,7 +43,7 @@ public class AddressAndLabel implements Parcelable {
     }
 
     public AddressAndLabel(final NetworkParameters addressParams, final String address, @Nullable final String label)
-            throws WrongNetworkException, AddressFormatException {
+            throws AddressFormatException {
         this(Address.fromBase58(addressParams, address), label);
     }
 

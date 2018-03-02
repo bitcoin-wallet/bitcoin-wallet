@@ -28,7 +28,6 @@ import org.bitcoinj.core.AddressFormatException;
 import org.bitcoinj.core.Coin;
 import org.bitcoinj.core.ScriptException;
 import org.bitcoinj.core.Transaction;
-import org.bitcoinj.core.WrongNetworkException;
 import org.bitcoinj.protocols.payments.PaymentProtocol;
 import org.bitcoinj.protocols.payments.PaymentProtocolException;
 import org.bitcoinj.script.Script;
@@ -193,12 +192,12 @@ public final class PaymentIntent implements Parcelable {
     }
 
     public static PaymentIntent fromAddress(final String address, @Nullable final String addressLabel)
-            throws WrongNetworkException, AddressFormatException {
+            throws AddressFormatException {
         return new PaymentIntent(Address.fromBase58(Constants.NETWORK_PARAMETERS, address), addressLabel);
     }
 
     public static PaymentIntent from(final String address, @Nullable final String addressLabel,
-            @Nullable final Coin amount) throws WrongNetworkException, AddressFormatException {
+            @Nullable final Coin amount) throws AddressFormatException {
         return new PaymentIntent(null, null, null,
                 buildSimplePayTo(amount, Address.fromBase58(Constants.NETWORK_PARAMETERS, address)), addressLabel, null,
                 null, null, null);
