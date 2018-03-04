@@ -18,8 +18,10 @@
 package de.schildbach.wallet.ui;
 
 import java.util.List;
+import java.util.Locale;
 
 import org.bitcoinj.core.Address;
+import org.bitcoinj.core.LegacyAddress;
 import org.bitcoinj.uri.BitcoinURI;
 import org.bitcoinj.wallet.Wallet;
 import org.slf4j.Logger;
@@ -163,27 +165,31 @@ public final class WalletAddressesFragment extends FancyListFragment {
 
             @Override
             public boolean onActionItemClicked(final ActionMode mode, final MenuItem item) {
+                final Address address = getAddress(position);
                 switch (item.getItemId()) {
                 case R.id.wallet_addresses_context_edit:
-                    viewModel.showEditAddressBookEntryDialog.setValue(new Event<>(getAddress(position)));
+                    viewModel.showEditAddressBookEntryDialog.setValue(new Event<>(address));
                     mode.finish();
                     return true;
 
                 case R.id.wallet_addresses_context_show_qr:
-                    final String uri = BitcoinURI.convertToBitcoinURI(getAddress(position), null,
-                            viewModel.ownName.getValue(), null);
+                    final String label = viewModel.ownName.getValue();
+                    final String uri;
+                    if (address instanceof LegacyAddress || label != null)
+                        uri = BitcoinURI.convertToBitcoinURI(address, null, label, null);
+                    else
+                        uri = address.toString().toUpperCase(Locale.US);
                     viewModel.showBitmapDialog.setValue(new Event<>(Qr.bitmap(uri)));
 
                     mode.finish();
                     return true;
 
                 case R.id.wallet_addresses_context_copy_to_clipboard:
-                    handleCopyToClipboard(getAddress(position));
+                    handleCopyToClipboard(address);
                     mode.finish();
                     return true;
 
                 case R.id.wallet_addresses_context_browse:
-                    final String address = getAddress(position).toString();
                     final Uri blockExplorerUri = application.getConfiguration().getBlockExplorer();
                     log.info("Viewing address {} on {}", address, blockExplorerUri);
                     startActivity(new Intent(Intent.ACTION_VIEW,

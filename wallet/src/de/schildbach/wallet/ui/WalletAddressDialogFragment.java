@@ -17,7 +17,10 @@
 
 package de.schildbach.wallet.ui;
 
+import java.util.Locale;
+
 import org.bitcoinj.core.Address;
+import org.bitcoinj.core.LegacyAddress;
 import org.bitcoinj.uri.BitcoinURI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -94,8 +97,13 @@ public class WalletAddressDialogFragment extends DialogFragment {
         dialog.setContentView(R.layout.wallet_address_dialog);
         dialog.setCanceledOnTouchOutside(true);
 
-        final String uri = BitcoinURI.convertToBitcoinURI(address, null, addressLabel, null);
-        final BitmapDrawable bitmap = new BitmapDrawable(getResources(), Qr.bitmap(uri));
+        final String addressUri;
+        if (address instanceof LegacyAddress || addressLabel != null)
+            addressUri = BitcoinURI.convertToBitcoinURI(address, null, addressLabel, null);
+        else
+            addressUri = address.toString().toUpperCase(Locale.US);
+
+        final BitmapDrawable bitmap = new BitmapDrawable(getResources(), Qr.bitmap(addressUri));
         bitmap.setFilterBitmap(false);
         final ImageView imageView = (ImageView) dialog.findViewById(R.id.wallet_address_dialog_image);
         imageView.setImageDrawable(bitmap);
