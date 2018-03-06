@@ -1,4 +1,7 @@
 .gradle/
+gradlew
+gradlew.bat
+gradle/wrapper
 build/
 local.properties
 .classpath
