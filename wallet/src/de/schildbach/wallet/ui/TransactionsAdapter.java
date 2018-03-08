@@ -53,7 +53,6 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.text.format.DateUtils;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -89,7 +88,6 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private final int colorError;
     private final String textCoinBase;
     private final String textInternal;
-    private final float textSizeNormal;
 
     private static final String CONFIDENCE_SYMBOL_IN_CONFLICT = "\u26A0"; // warning sign
     private static final String CONFIDENCE_SYMBOL_DEAD = "\u271D"; // latin cross
@@ -143,7 +141,6 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         textCoinBase = context.getString(R.string.wallet_transactions_fragment_coinbase);
         textInternal = context.getString(R.string.symbol_internal) + " "
                 + context.getString(R.string.wallet_transactions_fragment_internal);
-        textSizeNormal = res.getDimension(R.dimen.font_size_normal);
 
         setHasStableIds(true);
     }
@@ -416,7 +413,6 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
                 confidenceTextualView.setText(CONFIDENCE_SYMBOL_IN_CONFLICT);
                 confidenceTextualView.setTextColor(colorError);
-                confidenceTextualView.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSizeNormal * 0.85f);
             } else if (confidenceType == ConfidenceType.BUILDING) {
                 confidenceCircularView.setVisibility(View.VISIBLE);
                 confidenceTextualView.setVisibility(View.GONE);
@@ -433,14 +429,12 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
                 confidenceTextualView.setText(CONFIDENCE_SYMBOL_DEAD);
                 confidenceTextualView.setTextColor(colorError);
-                confidenceTextualView.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSizeNormal);
             } else {
                 confidenceCircularView.setVisibility(View.GONE);
                 confidenceTextualView.setVisibility(View.VISIBLE);
 
                 confidenceTextualView.setText(CONFIDENCE_SYMBOL_UNKNOWN);
                 confidenceTextualView.setTextColor(colorInsignificant);
-                confidenceTextualView.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSizeNormal);
             }
 
             // time
