@@ -494,10 +494,8 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                     .setVisibility(!itemView.isActivated() || purpose != Purpose.RAISE_FEE ? View.VISIBLE : View.GONE);
 
             // fee
-            if (txCache.showFee) {
-                extendFeeView.setVisibility(itemView.isActivated()
-                        || (confidenceType == ConfidenceType.PENDING && purpose != Purpose.RAISE_FEE) ? View.VISIBLE
-                                : View.GONE);
+            if (itemView.isActivated() && txCache.showFee) {
+                extendFeeView.setVisibility(View.VISIBLE);
                 feeView.setAlwaysSigned(true);
                 feeView.setFormat(format);
                 feeView.setAmount(fee.negate());
