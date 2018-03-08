@@ -1,3 +1,7 @@
+v6.03
+
+* In payment history, always show fiat amount directly below Bitcoin value.
+
 v6.02
 
 * Bugfix.
