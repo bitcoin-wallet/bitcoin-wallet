@@ -154,7 +154,9 @@ public class WalletApplication extends Application {
         }
 
         config.updateLastVersionCode(packageInfo.versionCode);
-        config.updateLastBluetoothAddress(Bluetooth.getAddress(BluetoothAdapter.getDefaultAdapter()));
+        final BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        if (bluetoothAdapter != null)
+            config.updateLastBluetoothAddress(Bluetooth.getAddress(bluetoothAdapter));
 
         afterLoadWallet();
 
