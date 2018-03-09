@@ -199,12 +199,12 @@ public final class RequestCoinsFragment extends Fragment implements NfcAdapter.C
         amountCalculatorLink = new CurrencyCalculatorLink(btcAmountView, localAmountView);
 
         acceptBluetoothPaymentView = (CheckBox) view.findViewById(R.id.request_coins_accept_bluetooth_payment);
-        acceptBluetoothPaymentView.setVisibility(Bluetooth.canListen(bluetoothAdapter) ? View.VISIBLE : View.GONE);
-        acceptBluetoothPaymentView.setChecked(Bluetooth.canListen(bluetoothAdapter) && bluetoothAdapter.isEnabled());
+        acceptBluetoothPaymentView.setVisibility(bluetoothAdapter != null ? View.VISIBLE : View.GONE);
+        acceptBluetoothPaymentView.setChecked(bluetoothAdapter != null && bluetoothAdapter.isEnabled());
         acceptBluetoothPaymentView.setOnCheckedChangeListener(new OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(final CompoundButton buttonView, final boolean isChecked) {
-                if (Bluetooth.canListen(bluetoothAdapter) && isChecked) {
+                if (bluetoothAdapter != null && isChecked) {
                     if (bluetoothAdapter.isEnabled()) {
                         maybeStartBluetoothListening();
                     } else {
@@ -251,8 +251,7 @@ public final class RequestCoinsFragment extends Fragment implements NfcAdapter.C
         if (Constants.ENABLE_EXCHANGE_RATES)
             loaderManager.initLoader(ID_RATE_LOADER, null, rateLoaderCallbacks);
 
-        if (Bluetooth.canListen(bluetoothAdapter) && bluetoothAdapter.isEnabled()
-                && acceptBluetoothPaymentView.isChecked())
+        if (bluetoothAdapter != null && bluetoothAdapter.isEnabled() && acceptBluetoothPaymentView.isChecked())
             maybeStartBluetoothListening();
 
         updateView();

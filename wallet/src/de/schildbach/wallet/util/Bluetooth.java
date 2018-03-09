@@ -47,12 +47,6 @@ public class Bluetooth {
 
     private static final Logger log = LoggerFactory.getLogger(Bluetooth.class);
 
-    public static boolean canListen(final BluetoothAdapter adapter) {
-        if (adapter == null)
-            return false;
-        return true;
-    }
-
     public static @Nullable String getAddress(final BluetoothAdapter adapter) {
         if (adapter == null)
             return null;
