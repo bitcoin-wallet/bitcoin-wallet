@@ -17,6 +17,8 @@
 
 package de.schildbach.wallet.offline;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.io.IOException;
 
 import org.bitcoinj.core.Transaction;
@@ -83,7 +85,7 @@ public final class AcceptBluetoothService extends Service {
         this.application = (WalletApplication) getApplication();
         this.wallet = application.getWallet();
 
-        final BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        final BluetoothAdapter bluetoothAdapter = checkNotNull(BluetoothAdapter.getDefaultAdapter());
 
         final PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
         wakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, getClass().getName());
