@@ -24,6 +24,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedList;
@@ -34,8 +35,6 @@ import org.bitcoinj.core.VerificationException;
 import org.bitcoinj.core.VersionedChecksummedBytes;
 import org.bitcoinj.wallet.Wallet;
 import org.bitcoinj.wallet.Wallet.BalanceType;
-
-import com.google.common.base.Charsets;
 
 import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
@@ -623,7 +622,7 @@ public final class WalletActivity extends AbstractBindServiceActivity
     private void restoreWalletFromEncrypted(final File file, final String password) {
         try {
             final BufferedReader cipherIn = new BufferedReader(
-                    new InputStreamReader(new FileInputStream(file), Charsets.UTF_8));
+                    new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8));
             final StringBuilder cipherText = new StringBuilder();
             Io.copy(cipherIn, cipherText, Constants.BACKUP_MAX_CHARS);
             cipherIn.close();

@@ -27,6 +27,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Writer;
+import java.nio.charset.StandardCharsets;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.Date;
@@ -50,8 +51,6 @@ import org.bitcoinj.wallet.KeyChainGroup;
 import org.bitcoinj.wallet.UnreadableWalletException;
 import org.bitcoinj.wallet.Wallet;
 import org.bitcoinj.wallet.WalletProtobufSerializer;
-
-import com.google.common.base.Charsets;
 
 import de.schildbach.wallet.Constants;
 
@@ -190,7 +189,7 @@ public class WalletUtils {
 
     public static Wallet restorePrivateKeysFromBase58(final InputStream is,
             final NetworkParameters expectedNetworkParameters) throws IOException {
-        final BufferedReader keyReader = new BufferedReader(new InputStreamReader(is, Charsets.UTF_8));
+        final BufferedReader keyReader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
 
         // create non-HD wallet
         final KeyChainGroup group = new KeyChainGroup(expectedNetworkParameters);
@@ -254,7 +253,7 @@ public class WalletUtils {
             BufferedReader reader = null;
 
             try {
-                reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), Charsets.UTF_8));
+                reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8));
                 WalletUtils.readKeys(reader, Constants.NETWORK_PARAMETERS);
 
                 return true;

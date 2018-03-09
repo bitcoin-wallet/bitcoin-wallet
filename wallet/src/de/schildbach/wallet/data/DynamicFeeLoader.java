@@ -25,6 +25,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -34,7 +35,6 @@ import org.bitcoinj.core.Coin;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.common.base.Charsets;
 import com.google.common.base.Stopwatch;
 
 import de.schildbach.wallet.Constants;
@@ -131,7 +131,7 @@ public class DynamicFeeLoader extends AsyncTaskLoader<Map<FeeCategory, Coin>> {
         BufferedReader reader = null;
         String line = null;
         try {
-            reader = new BufferedReader(new InputStreamReader(is, Charsets.US_ASCII));
+            reader = new BufferedReader(new InputStreamReader(is, StandardCharsets.US_ASCII));
             while (true) {
                 line = reader.readLine();
                 if (line == null)

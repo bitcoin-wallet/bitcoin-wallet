@@ -23,6 +23,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
 import java.security.cert.Certificate;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
@@ -53,7 +54,6 @@ import org.bitcoinj.script.ScriptBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.common.base.Charsets;
 import com.google.common.base.Splitter;
 import com.google.common.base.Strings;
 import com.google.common.hash.Hashing;
@@ -248,7 +248,7 @@ public final class RequestWalletBalanceTask {
         BufferedReader reader = null;
         String line = null;
         try {
-            reader = new BufferedReader(new InputStreamReader(is, Charsets.UTF_8));
+            reader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
             while (true) {
                 line = reader.readLine();
                 if (line == null)

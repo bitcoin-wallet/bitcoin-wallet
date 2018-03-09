@@ -21,6 +21,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.nio.charset.StandardCharsets;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.TimeZone;
@@ -32,8 +33,6 @@ import org.bitcoinj.wallet.Wallet;
 import org.bitcoinj.wallet.WalletProtobufSerializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.google.common.base.Charsets;
 
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
@@ -259,7 +258,7 @@ public class BackupWalletDialogFragment extends DialogFragment {
                     final byte[] plainBytes = baos.toByteArray();
 
                     cipherOut = new OutputStreamWriter(activity.getContentResolver().openOutputStream(targetUri),
-                            Charsets.UTF_8);
+                            StandardCharsets.UTF_8);
                     cipherOut.write(Crypto.encrypt(plainBytes, password.toCharArray()));
                     cipherOut.flush();
 

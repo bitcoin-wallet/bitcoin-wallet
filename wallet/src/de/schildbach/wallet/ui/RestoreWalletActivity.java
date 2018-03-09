@@ -22,11 +22,10 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 
 import org.bitcoinj.wallet.Wallet;
 import org.bitcoinj.wallet.Wallet.BalanceType;
-
-import com.google.common.base.Charsets;
 
 import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
@@ -189,7 +188,7 @@ public final class RestoreWalletActivity extends AbstractWalletActivity {
     }
 
     private void restoreWalletFromEncrypted(final InputStream cipher, final String password) throws IOException {
-        final BufferedReader cipherIn = new BufferedReader(new InputStreamReader(cipher, Charsets.UTF_8));
+        final BufferedReader cipherIn = new BufferedReader(new InputStreamReader(cipher, StandardCharsets.UTF_8));
         final StringBuilder cipherText = new StringBuilder();
         Io.copy(cipherIn, cipherText, Constants.BACKUP_MAX_CHARS);
         cipherIn.close();

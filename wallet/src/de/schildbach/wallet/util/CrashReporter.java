@@ -25,6 +25,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
@@ -41,7 +42,6 @@ import org.bitcoinj.wallet.Wallet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.common.base.Charsets;
 import com.google.common.base.Joiner;
 import com.google.common.base.Strings;
 
@@ -91,7 +91,7 @@ public class CrashReporter {
         BufferedReader reader = null;
 
         try {
-            reader = new BufferedReader(new InputStreamReader(new FileInputStream(crashTraceFile), Charsets.UTF_8));
+            reader = new BufferedReader(new InputStreamReader(new FileInputStream(crashTraceFile), StandardCharsets.UTF_8));
             copy(reader, report);
         } finally {
             if (reader != null)
@@ -257,7 +257,7 @@ public class CrashReporter {
 
             try {
                 writer = new PrintWriter(
-                        new OutputStreamWriter(new FileOutputStream(backgroundTracesFile, true), Charsets.UTF_8));
+                        new OutputStreamWriter(new FileOutputStream(backgroundTracesFile, true), StandardCharsets.UTF_8));
 
                 final Calendar now = new GregorianCalendar(UTC);
                 writer.println(String.format(Locale.US, "\n--- collected at %tF %tT %tZ on version %s (%d) ---\n", now, now,
@@ -306,7 +306,7 @@ public class CrashReporter {
 
         private void saveCrashTrace(final Throwable throwable) throws IOException {
             final PrintWriter writer = new PrintWriter(
-                    new OutputStreamWriter(new FileOutputStream(crashTraceFile), Charsets.UTF_8));
+                    new OutputStreamWriter(new FileOutputStream(crashTraceFile), StandardCharsets.UTF_8));
             appendTrace(writer, throwable);
             writer.close();
         }

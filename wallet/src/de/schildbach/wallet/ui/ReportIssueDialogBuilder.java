@@ -22,6 +22,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,8 +30,6 @@ import javax.annotation.Nullable;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.google.common.base.Charsets;
 
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.util.CrashReporter;
@@ -165,7 +164,7 @@ public abstract class ReportIssueDialogBuilder extends DialogBuilder implements 
                 if (walletDump != null) {
                     final File file = File.createTempFile("wallet-dump.", ".txt", reportDir);
 
-                    final Writer writer = new OutputStreamWriter(new FileOutputStream(file), Charsets.UTF_8);
+                    final Writer writer = new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8);
                     writer.write(walletDump.toString());
                     writer.close();
 

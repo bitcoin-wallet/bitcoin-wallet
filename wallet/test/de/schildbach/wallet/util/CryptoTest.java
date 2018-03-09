@@ -26,11 +26,10 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 
 import org.bitcoinj.wallet.WalletProtobufSerializer;
 import org.junit.Test;
-
-import com.google.common.base.Charsets;
 
 /**
  * @author Andreas Schildbach
@@ -101,7 +100,7 @@ public class CryptoTest {
 
     private String readBackupFromResource(final String filename) throws IOException {
         final BufferedReader reader = new BufferedReader(
-                new InputStreamReader(getClass().getResourceAsStream(filename), Charsets.UTF_8));
+                new InputStreamReader(getClass().getResourceAsStream(filename), StandardCharsets.UTF_8));
         final StringBuilder backup = new StringBuilder();
         Io.copy(reader, backup);
         reader.close();
