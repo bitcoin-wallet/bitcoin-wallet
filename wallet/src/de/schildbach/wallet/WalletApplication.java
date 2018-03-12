@@ -266,13 +266,7 @@ public class WalletApplication extends Application {
                     throw new UnreadableWalletException("bad wallet network parameters: " + wallet.getParams().getId());
 
                 log.info("wallet loaded from: '{}', took {}", walletFile, watch);
-            } catch (final IOException x) {
-                log.error("problem loading wallet", x);
-
-                Toast.makeText(WalletApplication.this, x.getClass().getName(), Toast.LENGTH_LONG).show();
-
-                wallet = restoreWalletFromBackup();
-            } catch (final UnreadableWalletException x) {
+            } catch (final IOException | UnreadableWalletException x) {
                 log.error("problem loading wallet", x);
 
                 Toast.makeText(WalletApplication.this, x.getClass().getName(), Toast.LENGTH_LONG).show();
@@ -314,9 +308,7 @@ public class WalletApplication extends Application {
             log.info("wallet restored from backup: '" + Constants.Files.WALLET_KEY_BACKUP_PROTOBUF + "'");
 
             return wallet;
-        } catch (final IOException x) {
-            throw new Error("cannot read backup", x);
-        } catch (final UnreadableWalletException x) {
+        } catch (final IOException | UnreadableWalletException x) {
             throw new Error("cannot read backup", x);
         }
     }

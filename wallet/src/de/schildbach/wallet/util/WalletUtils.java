@@ -240,9 +240,7 @@ public class WalletUtils {
             }
 
             return keys;
-        } catch (final AddressFormatException x) {
-            throw new IOException("cannot read keys", x);
-        } catch (final ParseException x) {
+        } catch (final AddressFormatException | ParseException x) {
             throw new IOException("cannot read keys", x);
         }
     }
@@ -285,9 +283,7 @@ public class WalletUtils {
         try (final ByteArrayInputStream is = new ByteArrayInputStream(walletBytes)) {
             final Wallet wallet = new WalletProtobufSerializer().readWallet(is);
             return wallet;
-        } catch (final UnreadableWalletException x) {
-            throw new RuntimeException(x);
-        } catch (final IOException x) {
+        } catch (final UnreadableWalletException | IOException x) {
             throw new RuntimeException(x);
         }
     }

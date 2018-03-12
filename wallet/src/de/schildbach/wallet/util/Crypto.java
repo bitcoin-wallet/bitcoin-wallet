@@ -177,9 +177,7 @@ public class Crypto {
 
             // The result bytes are the SALT_LENGTH bytes followed by the encrypted bytes.
             return concat(salt, Arrays.copyOf(encryptedBytes, processLen + doFinalLen));
-        } catch (final InvalidCipherTextException x) {
-            throw new IOException("Could not encrypt bytes", x);
-        } catch (final DataLengthException x) {
+        } catch (final InvalidCipherTextException | DataLengthException x) {
             throw new IOException("Could not encrypt bytes", x);
         }
     }
@@ -261,9 +259,7 @@ public class Crypto {
             final int doFinalLen = cipher.doFinal(decryptedBytes, processLen);
 
             return Arrays.copyOf(decryptedBytes, processLen + doFinalLen);
-        } catch (final InvalidCipherTextException x) {
-            throw new IOException("Could not decrypt bytes", x);
-        } catch (final DataLengthException x) {
+        } catch (final InvalidCipherTextException | DataLengthException x) {
             throw new IOException("Could not decrypt bytes", x);
         }
     }
