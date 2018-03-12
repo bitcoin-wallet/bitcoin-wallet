@@ -23,6 +23,7 @@ import org.bitcoinj.core.Coin;
 
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.data.PaymentIntent;
+import de.schildbach.wallet.service.BlockchainService;
 import de.schildbach.wallet.ui.AbstractBindServiceActivity;
 import de.schildbach.wallet.ui.HelpDialogFragment;
 import de.schildbach.wallet_test.R;
@@ -67,7 +68,7 @@ public final class SendCoinsActivity extends AbstractBindServiceActivity {
 
         setContentView(R.layout.send_coins_content);
 
-        getWalletApplication().startBlockchainService(false);
+        BlockchainService.start(this, false);
     }
 
     @Override

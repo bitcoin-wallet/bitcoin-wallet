@@ -66,6 +66,7 @@ import de.schildbach.wallet.data.PaymentIntent;
 import de.schildbach.wallet.data.PaymentIntent.Standard;
 import de.schildbach.wallet.integration.android.BitcoinIntegration;
 import de.schildbach.wallet.offline.DirectPaymentTask;
+import de.schildbach.wallet.service.BlockchainService;
 import de.schildbach.wallet.service.BlockchainState;
 import de.schildbach.wallet.service.BlockchainStateLoader;
 import de.schildbach.wallet.ui.AbstractBindServiceActivity;
@@ -978,7 +979,7 @@ public final class SendCoinsFragment extends Fragment {
                 if (directPaymentEnableView.isChecked())
                     directPay(payment);
 
-                application.broadcastTransaction(sentTransaction);
+                BlockchainService.broadcastTransaction(activity, sentTransaction);
 
                 final ComponentName callingActivity = activity.getCallingActivity();
                 if (callingActivity != null) {

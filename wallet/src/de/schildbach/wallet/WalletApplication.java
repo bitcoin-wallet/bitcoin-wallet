@@ -82,10 +82,6 @@ public class WalletApplication extends Application {
     private Configuration config;
     private ActivityManager activityManager;
 
-    private Intent blockchainServiceIntent;
-    private Intent blockchainServiceCancelCoinsReceivedIntent;
-    private Intent blockchainServiceResetBlockchainIntent;
-
     private File walletFile;
     private Wallet wallet;
     private PackageInfo packageInfo;
@@ -133,12 +129,6 @@ public class WalletApplication extends Application {
 
         config = new Configuration(PreferenceManager.getDefaultSharedPreferences(this), getResources());
         activityManager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
-
-        blockchainServiceIntent = new Intent(this, BlockchainService.class);
-        blockchainServiceCancelCoinsReceivedIntent = new Intent(BlockchainService.ACTION_CANCEL_COINS_RECEIVED, null,
-                this, BlockchainService.class);
-        blockchainServiceResetBlockchainIntent = new Intent(BlockchainService.ACTION_RESET_BLOCKCHAIN, null, this,
-                BlockchainService.class);
 
         walletFile = getFileStreamPath(Constants.Files.WALLET_FILENAME_PROTOBUF);
 
@@ -300,7 +290,7 @@ public class WalletApplication extends Application {
             if (!wallet.isConsistent())
                 throw new Error("inconsistent backup");
 
-            resetBlockchain();
+            BlockchainService.resetBlockchain(this);
 
             Toast.makeText(this, R.string.toast_wallet_reset, Toast.LENGTH_LONG).show();
 
@@ -394,24 +384,8 @@ public class WalletApplication extends Application {
         }
     }
 
-    public void startBlockchainService(final boolean cancelCoinsReceived) {
-        if (cancelCoinsReceived)
-            startService(blockchainServiceCancelCoinsReceivedIntent);
-        else
-            startService(blockchainServiceIntent);
-    }
-
-    public void stopBlockchainService() {
-        stopService(blockchainServiceIntent);
-    }
-
-    public void resetBlockchain() {
-        // implicitly stops blockchain service
-        startService(blockchainServiceResetBlockchainIntent);
-    }
-
     public void replaceWallet(final Wallet newWallet) {
-        resetBlockchain();
+        BlockchainService.resetBlockchain(this);
         wallet.shutdownAutosaveAndWait();
 
         wallet = newWallet;
@@ -426,15 +400,8 @@ public class WalletApplication extends Application {
     public void processDirectTransaction(final Transaction tx) throws VerificationException {
         if (wallet.isTransactionRelevant(tx)) {
             wallet.receivePending(tx, null);
-            broadcastTransaction(tx);
+            BlockchainService.broadcastTransaction(this, tx);
         }
-    }
-
-    public void broadcastTransaction(final Transaction tx) {
-        final Intent intent = new Intent(BlockchainService.ACTION_BROADCAST_TRANSACTION, null, this,
-                BlockchainService.class);
-        intent.putExtra(BlockchainService.ACTION_BROADCAST_TRANSACTION_HASH, tx.getHash().getBytes());
-        startService(intent);
     }
 
     public static PackageInfo packageInfoFromContext(final Context context) {

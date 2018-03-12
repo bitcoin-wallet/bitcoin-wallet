@@ -30,6 +30,7 @@ import org.bitcoinj.wallet.Wallet.BalanceType;
 import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
+import de.schildbach.wallet.service.BlockchainService;
 import de.schildbach.wallet.util.Crypto;
 import de.schildbach.wallet.util.Io;
 import de.schildbach.wallet.util.WalletUtils;
@@ -166,7 +167,7 @@ public final class RestoreWalletActivity extends AbstractWalletActivity {
             dialog.setNeutralButton(R.string.button_ok, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(final DialogInterface dialog, final int id) {
-                    getWalletApplication().resetBlockchain();
+                    BlockchainService.resetBlockchain(RestoreWalletActivity.this);
                     finish();
                 }
             });

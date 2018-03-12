@@ -25,6 +25,7 @@ import org.slf4j.LoggerFactory;
 import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.WalletBalanceWidgetProvider;
+import de.schildbach.wallet.service.BlockchainService;
 import de.schildbach.wallet_test.R;
 
 import android.app.Activity;
@@ -113,10 +114,10 @@ public final class SettingsFragment extends PreferenceFragment implements OnPref
                 if (preference.equals(btcPrecisionPreference)) {
                     WalletBalanceWidgetProvider.updateWidgets(activity, application.getWallet());
                 } else if (preference.equals(trustedPeerPreference)) {
-                    application.stopBlockchainService();
+                    BlockchainService.stop(activity);
                     updateTrustedPeer();
                 } else if (preference.equals(trustedPeerOnlyPreference)) {
-                    application.stopBlockchainService();
+                    BlockchainService.stop(activity);
                 }
             }
         });

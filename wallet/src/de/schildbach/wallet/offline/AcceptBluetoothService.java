@@ -28,6 +28,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import de.schildbach.wallet.WalletApplication;
+import de.schildbach.wallet.service.BlockchainService;
 import de.schildbach.wallet.util.CrashReporter;
 import de.schildbach.wallet.util.Toast;
 import de.schildbach.wallet_test.R;
@@ -125,7 +126,7 @@ public final class AcceptBluetoothService extends Service {
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        application.broadcastTransaction(tx);
+                        BlockchainService.broadcastTransaction(AcceptBluetoothService.this, tx);
                     }
                 });
             } else {

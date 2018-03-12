@@ -141,15 +141,40 @@ public class BlockchainService extends Service {
     public static final String ACTION_BLOCKCHAIN_STATE = BlockchainService.class.getPackage().getName()
             + ".blockchain_state";
 
-    public static final String ACTION_CANCEL_COINS_RECEIVED = BlockchainService.class.getPackage().getName()
+    private static final String ACTION_CANCEL_COINS_RECEIVED = BlockchainService.class.getPackage().getName()
             + ".cancel_coins_received";
-    public static final String ACTION_RESET_BLOCKCHAIN = BlockchainService.class.getPackage().getName()
+    private static final String ACTION_RESET_BLOCKCHAIN = BlockchainService.class.getPackage().getName()
             + ".reset_blockchain";
-    public static final String ACTION_BROADCAST_TRANSACTION = BlockchainService.class.getPackage().getName()
+    private static final String ACTION_BROADCAST_TRANSACTION = BlockchainService.class.getPackage().getName()
             + ".broadcast_transaction";
-    public static final String ACTION_BROADCAST_TRANSACTION_HASH = "hash";
+    private static final String ACTION_BROADCAST_TRANSACTION_HASH = "hash";
 
     private static final Logger log = LoggerFactory.getLogger(BlockchainService.class);
+
+    public static void start(final Context context, final boolean cancelCoinsReceived) {
+        if (cancelCoinsReceived)
+            context.startService(
+                    new Intent(BlockchainService.ACTION_CANCEL_COINS_RECEIVED, null, context, BlockchainService.class));
+        else
+            context.startService(new Intent(context, BlockchainService.class));
+    }
+
+    public static void stop(final Context context) {
+        context.stopService(new Intent(context, BlockchainService.class));
+    }
+
+    public static void resetBlockchain(final Context context) {
+        // implicitly stops blockchain service
+        context.startService(
+                new Intent(BlockchainService.ACTION_RESET_BLOCKCHAIN, null, context, BlockchainService.class));
+    }
+
+    public static void broadcastTransaction(final Context context, final Transaction tx) {
+        final Intent intent = new Intent(BlockchainService.ACTION_BROADCAST_TRANSACTION, null, context,
+                BlockchainService.class);
+        intent.putExtra(BlockchainService.ACTION_BROADCAST_TRANSACTION_HASH, tx.getHash().getBytes());
+        context.startService(intent);
+    }
 
     private final ThrottlingWalletChangeListener walletEventListener = new ThrottlingWalletChangeListener(
             APPWIDGET_THROTTLE_MS) {

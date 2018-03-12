@@ -19,6 +19,7 @@ package de.schildbach.wallet.ui.send;
 
 import org.bitcoinj.core.VersionedChecksummedBytes;
 
+import de.schildbach.wallet.service.BlockchainService;
 import de.schildbach.wallet.ui.AbstractBindServiceActivity;
 import de.schildbach.wallet_test.R;
 
@@ -49,7 +50,7 @@ public final class SweepWalletActivity extends AbstractBindServiceActivity {
 
         setContentView(R.layout.sweep_wallet_content);
 
-        getWalletApplication().startBlockchainService(false);
+        BlockchainService.start(this, false);
     }
 
     @Override

@@ -40,6 +40,7 @@ import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.data.PaymentIntent;
+import de.schildbach.wallet.service.BlockchainService;
 import de.schildbach.wallet.ui.InputParser.BinaryInputParser;
 import de.schildbach.wallet.ui.InputParser.StringInputParser;
 import de.schildbach.wallet.ui.preference.PreferenceActivity;
@@ -148,7 +149,7 @@ public final class WalletActivity extends AbstractBindServiceActivity
             @Override
             public void run() {
                 // delayed start so that UI has enough time to initialize
-                getWalletApplication().startBlockchainService(true);
+                BlockchainService.start(WalletActivity.this, true);
             }
         }, 1000);
     }
@@ -709,7 +710,7 @@ public final class WalletActivity extends AbstractBindServiceActivity
         dialog.setNeutralButton(R.string.button_ok, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(final DialogInterface dialog, final int id) {
-                getWalletApplication().resetBlockchain();
+                BlockchainService.resetBlockchain(WalletActivity.this);
                 finish();
             }
         });
