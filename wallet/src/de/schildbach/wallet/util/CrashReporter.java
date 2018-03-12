@@ -88,15 +88,10 @@ public class CrashReporter {
     }
 
     public static void appendSavedCrashTrace(final Appendable report) throws IOException {
-        BufferedReader reader = null;
-
-        try {
-            reader = new BufferedReader(new InputStreamReader(new FileInputStream(crashTraceFile), StandardCharsets.UTF_8));
+        try (final BufferedReader reader = new BufferedReader(
+                new InputStreamReader(new FileInputStream(crashTraceFile), StandardCharsets.UTF_8))) {
             copy(reader, report);
         } finally {
-            if (reader != null)
-                reader.close();
-
             crashTraceFile.delete();
         }
     }
@@ -253,21 +248,14 @@ public class CrashReporter {
 
     public static void saveBackgroundTrace(final Throwable throwable, final PackageInfo packageInfo) {
         synchronized (backgroundTracesFile) {
-            PrintWriter writer = null;
-
-            try {
-                writer = new PrintWriter(
-                        new OutputStreamWriter(new FileOutputStream(backgroundTracesFile, true), StandardCharsets.UTF_8));
-
+            try (final PrintWriter writer = new PrintWriter(
+                    new OutputStreamWriter(new FileOutputStream(backgroundTracesFile, true), StandardCharsets.UTF_8))) {
                 final Calendar now = new GregorianCalendar(UTC);
                 writer.println(String.format(Locale.US, "\n--- collected at %tF %tT %tZ on version %s (%d) ---\n", now, now,
                         now, packageInfo.versionName, packageInfo.versionCode));
                 appendTrace(writer, throwable);
             } catch (final IOException x) {
                 log.error("problem writing background trace", x);
-            } finally {
-                if (writer != null)
-                    writer.close();
             }
         }
     }

@@ -19,11 +19,9 @@ package de.schildbach.wallet;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.time.Clock;
 import java.util.concurrent.TimeUnit;
 
 import org.bitcoinj.core.Transaction;
@@ -259,11 +257,8 @@ public class WalletApplication extends Application {
 
     private void loadWalletFromProtobuf() {
         if (walletFile.exists()) {
-            FileInputStream walletStream = null;
-
-            try {
+            try (final FileInputStream walletStream = new FileInputStream(walletFile)) {
                 final Stopwatch watch = Stopwatch.createStarted();
-                walletStream = new FileInputStream(walletFile);
                 wallet = new WalletProtobufSerializer().readWallet(walletStream);
                 watch.stop();
 
@@ -271,7 +266,7 @@ public class WalletApplication extends Application {
                     throw new UnreadableWalletException("bad wallet network parameters: " + wallet.getParams().getId());
 
                 log.info("wallet loaded from: '{}', took {}", walletFile, watch);
-            } catch (final FileNotFoundException x) {
+            } catch (final IOException x) {
                 log.error("problem loading wallet", x);
 
                 Toast.makeText(WalletApplication.this, x.getClass().getName(), Toast.LENGTH_LONG).show();
@@ -283,14 +278,6 @@ public class WalletApplication extends Application {
                 Toast.makeText(WalletApplication.this, x.getClass().getName(), Toast.LENGTH_LONG).show();
 
                 wallet = restoreWalletFromBackup();
-            } finally {
-                if (walletStream != null) {
-                    try {
-                        walletStream.close();
-                    } catch (final IOException x) {
-                        // swallow
-                    }
-                }
             }
 
             if (!wallet.isConsistent()) {
@@ -314,11 +301,7 @@ public class WalletApplication extends Application {
     }
 
     private Wallet restoreWalletFromBackup() {
-        InputStream is = null;
-
-        try {
-            is = openFileInput(Constants.Files.WALLET_KEY_BACKUP_PROTOBUF);
-
+        try (final InputStream is = openFileInput(Constants.Files.WALLET_KEY_BACKUP_PROTOBUF)) {
             final Wallet wallet = new WalletProtobufSerializer().readWallet(is, true, null);
 
             if (!wallet.isConsistent())
@@ -335,12 +318,6 @@ public class WalletApplication extends Application {
             throw new Error("cannot read backup", x);
         } catch (final UnreadableWalletException x) {
             throw new Error("cannot read backup", x);
-        } finally {
-            try {
-                is.close();
-            } catch (final IOException x) {
-                // swallow
-            }
         }
     }
 

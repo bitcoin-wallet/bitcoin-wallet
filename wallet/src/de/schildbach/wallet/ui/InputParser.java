@@ -208,10 +208,7 @@ public abstract class InputParser {
         @Override
         public void parse() {
             if (PaymentProtocol.MIMETYPE_PAYMENTREQUEST.equals(inputType)) {
-                ByteArrayOutputStream baos = null;
-
-                try {
-                    baos = new ByteArrayOutputStream();
+                try (final ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
                     Io.copy(is, baos);
                     parseAndHandlePaymentRequest(baos.toByteArray());
                 } catch (final IOException x) {
@@ -227,13 +224,6 @@ public abstract class InputParser {
 
                     error(R.string.input_parser_invalid_paymentrequest, x.getMessage());
                 } finally {
-                    try {
-                        if (baos != null)
-                            baos.close();
-                    } catch (IOException x) {
-                        x.printStackTrace();
-                    }
-
                     try {
                         is.close();
                     } catch (IOException x) {

@@ -250,15 +250,13 @@ public class BackupWalletDialogFragment extends DialogFragment {
 
                 final Protos.Wallet walletProto = new WalletProtobufSerializer().walletToProto(wallet);
 
-                Writer cipherOut = null;
-                try {
+                try (final Writer cipherOut = new OutputStreamWriter(
+                        activity.getContentResolver().openOutputStream(targetUri), StandardCharsets.UTF_8)) {
                     final ByteArrayOutputStream baos = new ByteArrayOutputStream();
                     walletProto.writeTo(baos);
                     baos.close();
                     final byte[] plainBytes = baos.toByteArray();
 
-                    cipherOut = new OutputStreamWriter(activity.getContentResolver().openOutputStream(targetUri),
-                            StandardCharsets.UTF_8);
                     cipherOut.write(Crypto.encrypt(plainBytes, password.toCharArray()));
                     cipherOut.flush();
 
@@ -280,14 +278,6 @@ public class BackupWalletDialogFragment extends DialogFragment {
                     dialog.setMessage(getString(R.string.export_keys_dialog_failure, x.getMessage()));
                     dialog.singleDismissButton(null);
                     dialog.show();
-                } finally {
-                    if (cipherOut != null) {
-                        try {
-                            cipherOut.close();
-                        } catch (final IOException x) {
-                            // swallow
-                        }
-                    }
                 }
             } else if (resultCode == Activity.RESULT_CANCELED) {
                 log.info("cancelled backing up wallet");

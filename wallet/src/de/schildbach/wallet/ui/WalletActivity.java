@@ -650,9 +650,7 @@ public final class WalletActivity extends AbstractBindServiceActivity
     }
 
     private void restoreWalletFromProtobuf(final File file) {
-        FileInputStream is = null;
-        try {
-            is = new FileInputStream(file);
+        try (final FileInputStream is = new FileInputStream(file)) {
             restoreWallet(WalletUtils.restoreWalletFromProtobuf(is, Constants.NETWORK_PARAMETERS));
 
             log.info("successfully restored unencrypted wallet: {}", file);
@@ -669,21 +667,11 @@ public final class WalletActivity extends AbstractBindServiceActivity
             dialog.show();
 
             log.info("problem restoring unencrypted wallet: " + file, x);
-        } finally {
-            if (is != null) {
-                try {
-                    is.close();
-                } catch (final IOException x2) {
-                    // swallow
-                }
-            }
         }
     }
 
     private void restorePrivateKeysFromBase58(final File file) {
-        FileInputStream is = null;
-        try {
-            is = new FileInputStream(file);
+        try (final FileInputStream is = new FileInputStream(file)) {
             restoreWallet(WalletUtils.restorePrivateKeysFromBase58(is, Constants.NETWORK_PARAMETERS));
 
             log.info("successfully restored unencrypted private keys: {}", file);
@@ -700,14 +688,6 @@ public final class WalletActivity extends AbstractBindServiceActivity
             dialog.show();
 
             log.info("problem restoring private keys: " + file, x);
-        } finally {
-            if (is != null) {
-                try {
-                    is.close();
-                } catch (final IOException x2) {
-                    // swallow
-                }
-            }
         }
     }
 

@@ -128,10 +128,8 @@ public class DynamicFeeLoader extends AsyncTaskLoader<Map<FeeCategory, Coin>> {
 
     private static Map<FeeCategory, Coin> parseFees(final InputStream is) throws IOException {
         final Map<FeeCategory, Coin> dynamicFees = new HashMap<FeeCategory, Coin>();
-        BufferedReader reader = null;
         String line = null;
-        try {
-            reader = new BufferedReader(new InputStreamReader(is, StandardCharsets.US_ASCII));
+        try (final BufferedReader reader = new BufferedReader(new InputStreamReader(is, StandardCharsets.US_ASCII))) {
             while (true) {
                 line = reader.readLine();
                 if (line == null)
@@ -152,8 +150,6 @@ public class DynamicFeeLoader extends AsyncTaskLoader<Map<FeeCategory, Coin>> {
         } catch (final Exception x) {
             throw new RuntimeException("Error while parsing: '" + line + "'", x);
         } finally {
-            if (reader != null)
-                reader.close();
             is.close();
         }
         return dynamicFees;

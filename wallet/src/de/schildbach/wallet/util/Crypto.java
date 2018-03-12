@@ -284,9 +284,7 @@ public class Crypto {
 
         @Override
         public boolean accept(final File file) {
-            Reader in = null;
-            try {
-                in = new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8);
+            try (final Reader in = new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8)) {
                 if (in.read(buf) == -1)
                     return false;
                 final String str = new String(buf);
@@ -295,13 +293,6 @@ public class Crypto {
                 return true;
             } catch (final IOException x) {
                 return false;
-            } finally {
-                if (in != null) {
-                    try {
-                        in.close();
-                    } catch (final IOException x2) {
-                    }
-                }
             }
         }
     };

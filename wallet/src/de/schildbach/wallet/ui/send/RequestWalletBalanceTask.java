@@ -245,10 +245,8 @@ public final class RequestWalletBalanceTask {
     private static List<ElectrumServer> loadElectrumServers(final InputStream is) throws IOException {
         final Splitter splitter = Splitter.on(':').trimResults();
         final List<ElectrumServer> servers = new LinkedList<>();
-        BufferedReader reader = null;
         String line = null;
-        try {
-            reader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
+        try (final BufferedReader reader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8))) {
             while (true) {
                 line = reader.readLine();
                 if (line == null)
@@ -267,8 +265,6 @@ public final class RequestWalletBalanceTask {
         } catch (final Exception x) {
             throw new RuntimeException("Error while parsing: '" + line + "'", x);
         } finally {
-            if (reader != null)
-                reader.close();
             is.close();
         }
         return servers;

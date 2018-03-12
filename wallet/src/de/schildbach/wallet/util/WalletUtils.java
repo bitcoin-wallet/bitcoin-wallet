@@ -250,23 +250,13 @@ public class WalletUtils {
     public static final FileFilter KEYS_FILE_FILTER = new FileFilter() {
         @Override
         public boolean accept(final File file) {
-            BufferedReader reader = null;
-
-            try {
-                reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8));
+            try (final BufferedReader reader = new BufferedReader(
+                    new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8))) {
                 WalletUtils.readKeys(reader, Constants.NETWORK_PARAMETERS);
 
                 return true;
             } catch (final IOException x) {
                 return false;
-            } finally {
-                if (reader != null) {
-                    try {
-                        reader.close();
-                    } catch (final IOException x) {
-                        // swallow
-                    }
-                }
             }
         }
     };
@@ -274,30 +264,17 @@ public class WalletUtils {
     public static final FileFilter BACKUP_FILE_FILTER = new FileFilter() {
         @Override
         public boolean accept(final File file) {
-            InputStream is = null;
-
-            try {
-                is = new FileInputStream(file);
+            try (final InputStream is = new FileInputStream(file)) {
                 return WalletProtobufSerializer.isWallet(is);
             } catch (final IOException x) {
                 return false;
-            } finally {
-                if (is != null) {
-                    try {
-                        is.close();
-                    } catch (final IOException x) {
-                        // swallow
-                    }
-                }
             }
         }
     };
 
     public static byte[] walletToByteArray(final Wallet wallet) {
-        try {
-            final ByteArrayOutputStream os = new ByteArrayOutputStream();
+        try (final ByteArrayOutputStream os = new ByteArrayOutputStream()) {
             new WalletProtobufSerializer().writeWallet(wallet, os);
-            os.close();
             return os.toByteArray();
         } catch (final IOException x) {
             throw new RuntimeException(x);
@@ -305,10 +282,8 @@ public class WalletUtils {
     }
 
     public static Wallet walletFromByteArray(final byte[] walletBytes) {
-        try {
-            final ByteArrayInputStream is = new ByteArrayInputStream(walletBytes);
+        try (final ByteArrayInputStream is = new ByteArrayInputStream(walletBytes)) {
             final Wallet wallet = new WalletProtobufSerializer().readWallet(is);
-            is.close();
             return wallet;
         } catch (final UnreadableWalletException x) {
             throw new RuntimeException(x);

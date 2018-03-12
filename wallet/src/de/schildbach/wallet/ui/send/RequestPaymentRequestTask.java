@@ -150,18 +150,13 @@ public abstract class RequestPaymentRequestTask {
                     final BluetoothDevice device = bluetoothAdapter
                             .getRemoteDevice(Bluetooth.decompressMac(Bluetooth.getBluetoothMac(url)));
 
-                    BluetoothSocket socket = null;
-                    OutputStream os = null;
-                    InputStream is = null;
-
-                    try {
-                        socket = device.createInsecureRfcommSocketToServiceRecord(Bluetooth.PAYMENT_REQUESTS_UUID);
+                    try (final BluetoothSocket socket = device
+                            .createInsecureRfcommSocketToServiceRecord(Bluetooth.PAYMENT_REQUESTS_UUID);
+                            final OutputStream os = socket.getOutputStream();
+                            final InputStream is = socket.getInputStream()) {
                         socket.connect();
 
                         log.info("connected to {}", url);
-
-                        is = socket.getInputStream();
-                        os = socket.getOutputStream();
 
                         final CodedInputStream cis = CodedInputStream.newInstance(is);
                         final CodedOutputStream cos = CodedOutputStream.newInstance(os);
@@ -196,30 +191,6 @@ public abstract class RequestPaymentRequestTask {
                         log.info("problem sending", x);
 
                         onFail(R.string.error_io, x.getMessage());
-                    } finally {
-                        if (os != null) {
-                            try {
-                                os.close();
-                            } catch (final IOException x) {
-                                // swallow
-                            }
-                        }
-
-                        if (is != null) {
-                            try {
-                                is.close();
-                            } catch (final IOException x) {
-                                // swallow
-                            }
-                        }
-
-                        if (socket != null) {
-                            try {
-                                socket.close();
-                            } catch (final IOException x) {
-                                // swallow
-                            }
-                        }
                     }
                 }
             });
