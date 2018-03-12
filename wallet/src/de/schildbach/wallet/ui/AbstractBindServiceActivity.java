@@ -20,7 +20,6 @@ package de.schildbach.wallet.ui;
 import javax.annotation.Nullable;
 
 import de.schildbach.wallet.service.BlockchainService;
-import de.schildbach.wallet.service.BlockchainServiceImpl;
 
 import android.content.ComponentName;
 import android.content.Context;
@@ -38,7 +37,7 @@ public abstract class AbstractBindServiceActivity extends AbstractWalletActivity
     private final ServiceConnection serviceConnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(final ComponentName name, final IBinder binder) {
-            blockchainService = ((BlockchainServiceImpl.LocalBinder) binder).getService();
+            blockchainService = ((BlockchainService.LocalBinder) binder).getService();
         }
 
         @Override
@@ -51,7 +50,7 @@ public abstract class AbstractBindServiceActivity extends AbstractWalletActivity
     protected void onResume() {
         super.onResume();
 
-        bindService(new Intent(this, BlockchainServiceImpl.class), serviceConnection, Context.BIND_AUTO_CREATE);
+        bindService(new Intent(this, BlockchainService.class), serviceConnection, Context.BIND_AUTO_CREATE);
     }
 
     @Override

@@ -213,7 +213,7 @@
         </receiver>
 
         <service
-            android:name="de.schildbach.wallet.service.BlockchainServiceImpl"
+            android:name="de.schildbach.wallet.service.BlockchainService"
             android:exported="false" />
         <service
             android:name="de.schildbach.wallet.offline.AcceptBluetoothService"

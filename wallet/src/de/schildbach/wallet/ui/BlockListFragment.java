@@ -34,7 +34,6 @@ import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.service.BlockchainService;
-import de.schildbach.wallet.service.BlockchainServiceImpl;
 import de.schildbach.wallet_test.R;
 
 import android.app.Activity;
@@ -101,7 +100,7 @@ public final class BlockListFragment extends Fragment implements BlockListAdapte
     public void onActivityCreated(final Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        activity.bindService(new Intent(activity, BlockchainServiceImpl.class), serviceConnection,
+        activity.bindService(new Intent(activity, BlockchainService.class), serviceConnection,
                 Context.BIND_AUTO_CREATE);
     }
 
@@ -191,7 +190,7 @@ public final class BlockListFragment extends Fragment implements BlockListAdapte
     private final ServiceConnection serviceConnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(final ComponentName name, final IBinder binder) {
-            service = ((BlockchainServiceImpl.LocalBinder) binder).getService();
+            service = ((BlockchainService.LocalBinder) binder).getService();
 
             loaderManager.initLoader(ID_BLOCK_LOADER, null, blockLoaderCallbacks);
         }

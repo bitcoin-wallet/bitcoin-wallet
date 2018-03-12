@@ -42,7 +42,6 @@ import com.google.common.base.Stopwatch;
 import com.google.common.collect.ImmutableList;
 
 import de.schildbach.wallet.service.BlockchainService;
-import de.schildbach.wallet.service.BlockchainServiceImpl;
 import de.schildbach.wallet.util.Bluetooth;
 import de.schildbach.wallet.util.CrashReporter;
 import de.schildbach.wallet_test.BuildConfig;
@@ -135,11 +134,11 @@ public class WalletApplication extends Application {
         config = new Configuration(PreferenceManager.getDefaultSharedPreferences(this), getResources());
         activityManager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
 
-        blockchainServiceIntent = new Intent(this, BlockchainServiceImpl.class);
+        blockchainServiceIntent = new Intent(this, BlockchainService.class);
         blockchainServiceCancelCoinsReceivedIntent = new Intent(BlockchainService.ACTION_CANCEL_COINS_RECEIVED, null,
-                this, BlockchainServiceImpl.class);
+                this, BlockchainService.class);
         blockchainServiceResetBlockchainIntent = new Intent(BlockchainService.ACTION_RESET_BLOCKCHAIN, null, this,
-                BlockchainServiceImpl.class);
+                BlockchainService.class);
 
         walletFile = getFileStreamPath(Constants.Files.WALLET_FILENAME_PROTOBUF);
 
@@ -433,7 +432,7 @@ public class WalletApplication extends Application {
 
     public void broadcastTransaction(final Transaction tx) {
         final Intent intent = new Intent(BlockchainService.ACTION_BROADCAST_TRANSACTION, null, this,
-                BlockchainServiceImpl.class);
+                BlockchainService.class);
         intent.putExtra(BlockchainService.ACTION_BROADCAST_TRANSACTION_HASH, tx.getHash().getBytes());
         startService(intent);
     }
@@ -497,7 +496,7 @@ public class WalletApplication extends Application {
 
         final AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         final PendingIntent alarmIntent = PendingIntent.getService(context, 0,
-                new Intent(context, BlockchainServiceImpl.class), 0);
+                new Intent(context, BlockchainService.class), 0);
         alarmManager.cancel(alarmIntent);
 
         // workaround for no inexact set() before KitKat
