@@ -17,6 +17,8 @@
 
 package de.schildbach.wallet.ui;
 
+import static com.google.common.base.Preconditions.checkState;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
@@ -225,6 +227,9 @@ public class BackupWalletDialogFragment extends DialogFragment {
     }
 
     private void backupWallet() {
+        passwordView.setEnabled(false);
+        passwordAgainView.setEnabled(false);
+
         final DateFormat dateFormat = Iso8601Format.newDateFormat();
         dateFormat.setTimeZone(TimeZone.getDefault());
 
@@ -245,6 +250,7 @@ public class BackupWalletDialogFragment extends DialogFragment {
             if (resultCode == Activity.RESULT_OK) {
                 final Uri targetUri = intent.getData();
                 final String password = passwordView.getText().toString().trim();
+                checkState(!password.isEmpty());
                 wipePasswords();
                 dismiss();
 
@@ -281,6 +287,8 @@ public class BackupWalletDialogFragment extends DialogFragment {
                 }
             } else if (resultCode == Activity.RESULT_CANCELED) {
                 log.info("cancelled backing up wallet");
+                passwordView.setEnabled(true);
+                passwordAgainView.setEnabled(true);
             }
         } else {
             super.onActivityResult(requestCode, resultCode, intent);
