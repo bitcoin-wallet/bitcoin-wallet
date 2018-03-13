@@ -814,15 +814,12 @@ public class BlockchainService extends Service {
 
     private void broadcastPeerState(final int numPeers) {
         final Intent broadcast = new Intent(ACTION_PEER_STATE);
-        broadcast.setPackage(getPackageName());
         broadcast.putExtra(ACTION_PEER_STATE_NUM_PEERS, numPeers);
-
         LocalBroadcastManager.getInstance(this).sendBroadcast(broadcast);
     }
 
     private void broadcastBlockchainState() {
         final Intent broadcast = new Intent(ACTION_BLOCKCHAIN_STATE);
-        broadcast.setPackage(getPackageName());
         getBlockchainState().putExtras(broadcast);
         LocalBroadcastManager.getInstance(this).sendBroadcast(broadcast);
     }

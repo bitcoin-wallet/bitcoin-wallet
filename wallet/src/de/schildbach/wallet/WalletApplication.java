@@ -393,7 +393,6 @@ public class WalletApplication extends Application {
         afterLoadWallet();
 
         final Intent broadcast = new Intent(ACTION_WALLET_REFERENCE_CHANGED);
-        broadcast.setPackage(getPackageName());
         LocalBroadcastManager.getInstance(this).sendBroadcast(broadcast);
     }
 
