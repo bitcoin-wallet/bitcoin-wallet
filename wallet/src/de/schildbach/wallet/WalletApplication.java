@@ -329,21 +329,12 @@ public class WalletApplication extends Application {
         builder.clearLastSeenBlockTimeSecs();
         final Protos.Wallet walletProto = builder.build();
 
-        OutputStream os = null;
-
-        try {
-            os = openFileOutput(Constants.Files.WALLET_KEY_BACKUP_PROTOBUF, Context.MODE_PRIVATE);
+        try (final OutputStream os = openFileOutput(Constants.Files.WALLET_KEY_BACKUP_PROTOBUF, Context.MODE_PRIVATE)) {
             walletProto.writeTo(os);
             watch.stop();
             log.info("wallet backed up to: '{}', took {}", Constants.Files.WALLET_KEY_BACKUP_PROTOBUF, watch);
         } catch (final IOException x) {
             log.error("problem writing wallet backup", x);
-        } finally {
-            try {
-                os.close();
-            } catch (final IOException x) {
-                // swallow
-            }
         }
     }
 
