@@ -272,14 +272,14 @@ public class WalletApplication extends Application {
             if (!wallet.getParams().equals(Constants.NETWORK_PARAMETERS))
                 throw new Error("bad wallet network parameters: " + wallet.getParams().getId());
         } else {
+            final Stopwatch watch = Stopwatch.createStarted();
             wallet = new Wallet(Constants.NETWORK_PARAMETERS);
-
             saveWallet();
             backupWallet();
+            watch.stop();
+            log.info("fresh wallet created, took {}", watch);
 
             config.armBackupReminder();
-
-            log.info("new wallet created");
         }
     }
 
