@@ -37,9 +37,7 @@ import de.schildbach.wallet.camera.CameraManager;
 import de.schildbach.wallet_test.R;
 
 import android.Manifest;
-import android.app.Activity;
 import android.app.Dialog;
-import android.app.DialogFragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
@@ -58,6 +56,8 @@ import android.os.HandlerThread;
 import android.os.Process;
 import android.os.Vibrator;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.view.KeyEvent;
 import android.view.Surface;
@@ -70,7 +70,7 @@ import android.view.WindowManager;
  * @author Andreas Schildbach
  */
 @SuppressWarnings("deprecation")
-public final class ScanActivity extends Activity
+public final class ScanActivity extends FragmentActivity
         implements SurfaceTextureListener, ActivityCompat.OnRequestPermissionsResultCallback {
     public static final String INTENT_EXTRA_RESULT = "result";
 
@@ -148,7 +148,7 @@ public final class ScanActivity extends Activity
             WarnDialogFragment
                     .newInstance(R.string.scan_camera_permission_dialog_title,
                             getString(R.string.scan_camera_permission_dialog_message))
-                    .show(getFragmentManager(), "dialog");
+                    .show(getSupportFragmentManager(), "dialog");
 
     }
 
@@ -268,7 +268,7 @@ public final class ScanActivity extends Activity
                             WarnDialogFragment
                                     .newInstance(R.string.scan_camera_problem_dialog_title,
                                             getString(R.string.scan_camera_problem_dialog_message))
-                                    .show(getFragmentManager(), "dialog");
+                                    .show(getSupportFragmentManager(), "dialog");
                     }
                 });
             }

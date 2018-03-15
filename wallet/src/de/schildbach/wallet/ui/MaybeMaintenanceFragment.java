@@ -31,13 +31,13 @@ import de.schildbach.wallet.service.BlockchainState;
 import de.schildbach.wallet.ui.send.MaintenanceDialogFragment;
 
 import android.app.Activity;
-import android.app.Fragment;
-import android.app.FragmentManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.content.LocalBroadcastManager;
 
 /**

@@ -23,15 +23,15 @@ import org.slf4j.LoggerFactory;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet_test.R;
 
-import android.app.Activity;
 import android.app.ActivityManager.TaskDescription;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 
 /**
  * @author Andreas Schildbach
  */
-public abstract class AbstractWalletActivity extends Activity {
+public abstract class AbstractWalletActivity extends FragmentActivity {
     private WalletApplication application;
 
     protected static final Logger log = LoggerFactory.getLogger(AbstractWalletActivity.class);

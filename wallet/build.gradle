@@ -3,9 +3,7 @@ apply plugin: 'androidsvgdrawable'
 
 configurations {
     all*.exclude group: 'com.google.android', module: 'android'
-    all*.exclude group: 'com.android.support', module: 'support-fragment'
     all*.exclude group: 'com.android.support', module: 'support-media-compat'
-    all*.exclude group: 'android.arch.lifecycle', module: 'runtime'
     all*.exclude group: 'com.github.tony19', module: 'apktool-lib'
 }
 
@@ -13,7 +11,7 @@ dependencies {
     compile project(':integration-android')
     compile 'com.android.support:support-annotations:27.1.0'
     compile 'com.android.support:support-compat:27.1.0'
-    compile 'com.android.support:support-v13:27.1.0'
+    compile 'com.android.support:support-fragment:27.1.0'
     compile 'com.android.support:support-core-utils:27.1.0'
     compile 'com.android.support:recyclerview-v7:27.1.0'
     compile 'com.android.support:cardview-v7:27.1.0'

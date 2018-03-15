@@ -20,9 +20,9 @@ package de.schildbach.wallet.data;
 import de.schildbach.wallet.Configuration;
 
 import android.content.Context;
-import android.content.CursorLoader;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
+import android.support.v4.content.CursorLoader;
 
 /**
  * @author Andreas Schildbach

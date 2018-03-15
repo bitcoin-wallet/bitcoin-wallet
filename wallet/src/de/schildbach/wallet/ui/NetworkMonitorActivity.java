@@ -20,10 +20,10 @@ package de.schildbach.wallet.ui;
 import de.schildbach.wallet.util.ViewPagerTabs;
 import de.schildbach.wallet_test.R;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
 import android.os.Bundle;
-import android.support.v13.app.FragmentStatePagerAdapter;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.MenuItem;
 
@@ -42,7 +42,7 @@ public final class NetworkMonitorActivity extends AbstractWalletActivity {
 
         final ViewPager pager = (ViewPager) findViewById(R.id.network_monitor_pager);
 
-        final FragmentManager fm = getFragmentManager();
+        final FragmentManager fm = getSupportFragmentManager();
 
         if (pager != null) {
             final ViewPagerTabs pagerTabs = (ViewPagerTabs) findViewById(R.id.network_monitor_pager_tabs);

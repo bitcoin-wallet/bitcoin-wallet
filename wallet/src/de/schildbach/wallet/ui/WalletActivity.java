@@ -57,7 +57,6 @@ import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.FragmentManager;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
 import android.content.DialogInterface.OnClickListener;
@@ -71,6 +70,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.text.format.DateUtils;
 import android.view.Menu;
@@ -136,7 +136,7 @@ public final class WalletActivity extends AbstractBindServiceActivity
 
         handleIntent(getIntent());
 
-        final FragmentManager fragmentManager = getFragmentManager();
+        final FragmentManager fragmentManager = getSupportFragmentManager();
         MaybeMaintenanceFragment.add(fragmentManager);
         AlertDialogsFragment.add(fragmentManager);
     }
@@ -315,11 +315,11 @@ public final class WalletActivity extends AbstractBindServiceActivity
             return true;
 
         case R.id.wallet_options_safety:
-            HelpDialogFragment.page(getFragmentManager(), R.string.help_safety);
+            HelpDialogFragment.page(getSupportFragmentManager(), R.string.help_safety);
             return true;
 
         case R.id.wallet_options_technical_notes:
-            HelpDialogFragment.page(getFragmentManager(), R.string.help_technical_notes);
+            HelpDialogFragment.page(getSupportFragmentManager(), R.string.help_technical_notes);
             return true;
 
         case R.id.wallet_options_report_issue:
@@ -327,7 +327,7 @@ public final class WalletActivity extends AbstractBindServiceActivity
             return true;
 
         case R.id.wallet_options_help:
-            HelpDialogFragment.page(getFragmentManager(), R.string.help_wallet);
+            HelpDialogFragment.page(getSupportFragmentManager(), R.string.help_wallet);
             return true;
         }
 
@@ -347,7 +347,7 @@ public final class WalletActivity extends AbstractBindServiceActivity
     }
 
     public void handleBackupWallet() {
-        BackupWalletDialogFragment.show(getFragmentManager());
+        BackupWalletDialogFragment.show(getSupportFragmentManager());
     }
 
     public void handleRestoreWallet() {
@@ -360,7 +360,7 @@ public final class WalletActivity extends AbstractBindServiceActivity
     }
 
     public void handleEncryptKeys() {
-        EncryptKeysDialogFragment.show(getFragmentManager());
+        EncryptKeysDialogFragment.show(getSupportFragmentManager());
     }
 
     private void handleReportIssue() {

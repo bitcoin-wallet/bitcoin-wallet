@@ -37,15 +37,10 @@ import de.schildbach.wallet.util.ThrottlingWalletChangeListener;
 import de.schildbach.wallet_test.R;
 
 import android.app.Activity;
-import android.app.Fragment;
-import android.app.LoaderManager;
-import android.app.LoaderManager.LoaderCallbacks;
-import android.content.AsyncTaskLoader;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.Loader;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.graphics.Color;
@@ -55,6 +50,10 @@ import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
 import android.nfc.NfcEvent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.AsyncTaskLoader;
+import android.support.v4.content.Loader;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
@@ -239,7 +238,7 @@ public final class WalletAddressFragment extends Fragment implements NfcAdapter.
         }
     }
 
-    private final LoaderCallbacks<Address> addressLoaderCallbacks = new LoaderManager.LoaderCallbacks<Address>() {
+    private final LoaderManager.LoaderCallbacks<Address> addressLoaderCallbacks = new LoaderManager.LoaderCallbacks<Address>() {
         @Override
         public Loader<Address> onCreateLoader(final int id, final Bundle args) {
             return new CurrentAddressLoader(activity, application.getWallet(), config);
