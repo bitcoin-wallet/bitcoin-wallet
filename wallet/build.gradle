@@ -11,12 +11,12 @@ configurations {
 
 dependencies {
     compile project(':integration-android')
-    compile 'com.android.support:support-annotations:27.0.2'
-    compile 'com.android.support:support-compat:27.0.2'
-    compile 'com.android.support:support-v13:27.0.2'
-    compile 'com.android.support:support-core-utils:27.0.2'
-    compile 'com.android.support:recyclerview-v7:27.0.2'
-    compile 'com.android.support:cardview-v7:27.0.2'
+    compile 'com.android.support:support-annotations:27.1.0'
+    compile 'com.android.support:support-compat:27.1.0'
+    compile 'com.android.support:support-v13:27.1.0'
+    compile 'com.android.support:support-core-utils:27.1.0'
+    compile 'com.android.support:recyclerview-v7:27.1.0'
+    compile 'com.android.support:cardview-v7:27.1.0'
     compile 'org.bitcoinj:bitcoinj-core:0.14.6'
     compile 'com.google.protobuf:protobuf-java:2.6.1'
     compile 'com.google.guava:guava:24.0-android'
