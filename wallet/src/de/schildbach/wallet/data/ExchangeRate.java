@@ -17,7 +17,7 @@
 
 package de.schildbach.wallet.data;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static android.support.v4.util.Preconditions.checkNotNull;
 
 /**
  * @author Andreas Schildbach

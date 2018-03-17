@@ -17,7 +17,7 @@
 
 package de.schildbach.wallet.ui.send;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static android.support.v4.util.Preconditions.checkNotNull;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;

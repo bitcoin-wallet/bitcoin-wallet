@@ -17,7 +17,7 @@
 
 package de.schildbach.wallet.ui.send;
 
-import static com.google.common.base.Preconditions.checkState;
+import static android.support.v4.util.Preconditions.checkState;
 
 import java.util.Comparator;
 import java.util.HashMap;
