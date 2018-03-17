@@ -244,7 +244,7 @@ public final class WalletAddressFragment extends Fragment implements NfcAdapter.
 
         @Override
         public void onLoadFinished(final Loader<Address> loader, final Address currentAddress) {
-            if (!currentAddress.equals(currentAddressQrAddress)) {
+            if (currentAddressQrAddress == null || !currentAddress.equals(currentAddressQrAddress.address)) {
                 currentAddressQrAddress = new AddressAndLabel(currentAddress, config.getOwnName());
 
                 final String addressStr = BitcoinURI.convertToBitcoinURI(currentAddressQrAddress.address, null,
