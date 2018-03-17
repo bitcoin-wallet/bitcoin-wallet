@@ -55,7 +55,7 @@ import android.view.animation.AnimationUtils;
 /**
  * @author Andreas Schildbach
  */
-public final class WalletActivity extends AbstractBindServiceActivity {
+public final class WalletActivity extends AbstractWalletActivity {
     private WalletApplication application;
     private Configuration config;
     private Wallet wallet;

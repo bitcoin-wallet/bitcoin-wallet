@@ -17,8 +17,6 @@
 
 package de.schildbach.wallet.ui.send;
 
-import static android.support.v4.util.Preconditions.checkNotNull;
-
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.Arrays;
@@ -57,19 +55,19 @@ import com.google.common.base.Strings;
 import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
+import de.schildbach.wallet.data.AddressBookChangeLiveData;
 import de.schildbach.wallet.data.AddressBookProvider;
-import de.schildbach.wallet.data.DynamicFeeLoader;
+import de.schildbach.wallet.data.BlockchainStateLiveData;
+import de.schildbach.wallet.data.DynamicFeeLiveData;
 import de.schildbach.wallet.data.ExchangeRate;
-import de.schildbach.wallet.data.ExchangeRatesLoader;
-import de.schildbach.wallet.data.ExchangeRatesProvider;
+import de.schildbach.wallet.data.ExchangeRateLiveData;
 import de.schildbach.wallet.data.PaymentIntent;
 import de.schildbach.wallet.data.PaymentIntent.Standard;
 import de.schildbach.wallet.integration.android.BitcoinIntegration;
 import de.schildbach.wallet.offline.DirectPaymentTask;
 import de.schildbach.wallet.service.BlockchainService;
 import de.schildbach.wallet.service.BlockchainState;
-import de.schildbach.wallet.service.BlockchainStateLoader;
-import de.schildbach.wallet.ui.AbstractBindServiceActivity;
+import de.schildbach.wallet.ui.AbstractWalletActivity;
 import de.schildbach.wallet.ui.AddressAndLabel;
 import de.schildbach.wallet.ui.CurrencyAmountView;
 import de.schildbach.wallet.ui.CurrencyCalculatorLink;
@@ -86,6 +84,11 @@ import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
 
 import android.app.Activity;
+import android.app.Application;
+import android.arch.lifecycle.AndroidViewModel;
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.bluetooth.BluetoothAdapter;
 import android.content.ComponentName;
 import android.content.ContentResolver;
@@ -93,7 +96,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.database.ContentObserver;
 import android.database.Cursor;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -105,8 +107,6 @@ import android.os.HandlerThread;
 import android.os.Process;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.widget.RecyclerView;
@@ -135,12 +135,11 @@ import android.widget.TextView;
  * @author Andreas Schildbach
  */
 public final class SendCoinsFragment extends Fragment {
-    private AbstractBindServiceActivity activity;
+    private AbstractWalletActivity activity;
     private WalletApplication application;
     private Configuration config;
     private Wallet wallet;
     private ContentResolver contentResolver;
-    private LoaderManager loaderManager;
     private FragmentManager fragmentManager;
     @Nullable
     private BluetoothAdapter bluetoothAdapter;
@@ -154,7 +153,6 @@ public final class SendCoinsFragment extends Fragment {
     private TextView payeeVerifiedByView;
     private AutoCompleteTextView receivingAddressView;
     private ReceivingAddressViewAdapter receivingAddressViewAdapter;
-    private ReceivingAddressLoaderCallbacks receivingAddressLoaderCallbacks;
     private View receivingStaticView;
     private TextView receivingStaticAddressView;
     private TextView receivingStaticLabelView;
@@ -180,24 +178,17 @@ public final class SendCoinsFragment extends Fragment {
     private FeeCategory feeCategory = FeeCategory.NORMAL;
     private AddressAndLabel validatedAddress = null;
 
-    @Nullable
-    private Map<FeeCategory, Coin> fees = null;
-    @Nullable
-    private BlockchainState blockchainState = null;
     private Transaction sentTransaction = null;
     private Boolean directPaymentAck = null;
 
     private Transaction dryrunTransaction;
     private Exception dryrunException;
 
-    private static final int ID_DYNAMIC_FEES_LOADER = 0;
-    private static final int ID_RATE_LOADER = 1;
-    private static final int ID_BLOCKCHAIN_STATE_LOADER = 2;
-    private static final int ID_RECEIVING_ADDRESS_BOOK_LOADER = 3;
-
     private static final int REQUEST_CODE_SCAN = 0;
     private static final int REQUEST_CODE_ENABLE_BLUETOOTH_FOR_PAYMENT_REQUEST = 1;
     private static final int REQUEST_CODE_ENABLE_BLUETOOTH_FOR_DIRECT_PAYMENT = 2;
+
+    private ViewModel viewModel;
 
     private static final Logger log = LoggerFactory.getLogger(SendCoinsFragment.class);
 
@@ -205,6 +196,50 @@ public final class SendCoinsFragment extends Fragment {
         REQUEST_PAYMENT_REQUEST, //
         INPUT, // asks for confirmation
         DECRYPTING, SIGNING, SENDING, SENT, FAILED // sending states
+    }
+
+    public static class ViewModel extends AndroidViewModel {
+        private final WalletApplication application;
+        private ReceivingAddressesLiveData receivingAddresses;
+        private AddressBookChangeLiveData addressBookChange;
+        private ExchangeRateLiveData exchangeRate;
+        private DynamicFeeLiveData dynamicFees;
+        private BlockchainStateLiveData blockchainState;
+
+        public ViewModel(final Application application) {
+            super(application);
+            this.application = (WalletApplication) application;
+        }
+
+        public ReceivingAddressesLiveData getReceivingAddresses() {
+            if (receivingAddresses == null)
+                receivingAddresses = new ReceivingAddressesLiveData(application);
+            return receivingAddresses;
+        }
+
+        public AddressBookChangeLiveData getAddressBookChange() {
+            if (addressBookChange == null)
+                addressBookChange = new AddressBookChangeLiveData(application);
+            return addressBookChange;
+        }
+
+        public ExchangeRateLiveData getExchangeRate() {
+            if (exchangeRate == null)
+                exchangeRate = new ExchangeRateLiveData(application);
+            return exchangeRate;
+        }
+
+        public DynamicFeeLiveData getDynamicFees() {
+            if (dynamicFees == null)
+                dynamicFees = new DynamicFeeLiveData(application);
+            return dynamicFees;
+        }
+
+        public BlockchainStateLiveData getBlockchainState() {
+            if (blockchainState == null)
+                blockchainState = new BlockchainStateLiveData(application);
+            return blockchainState;
+        }
     }
 
     private final class ReceivingAddressListener
@@ -223,7 +258,7 @@ public final class SendCoinsFragment extends Fragment {
                 validateReceivingAddress();
             else
                 updateView();
-            receivingAddressLoaderCallbacks.setConstraint(s.toString());
+            viewModel.getReceivingAddresses().setConstraint(s.toString());
         }
 
         @Override
@@ -280,13 +315,6 @@ public final class SendCoinsFragment extends Fragment {
         }
     };
 
-    private final ContentObserver contentObserver = new ContentObserver(handler) {
-        @Override
-        public void onChange(final boolean selfChange) {
-            updateView();
-        }
-    };
-
     private final TransactionConfidence.Listener sentTransactionConfidenceListener = new TransactionConfidence.Listener() {
         @Override
         public void onConfidenceChanged(final TransactionConfidence confidence,
@@ -336,97 +364,35 @@ public final class SendCoinsFragment extends Fragment {
         }
     };
 
-    private final LoaderCallbacks<Map<FeeCategory, Coin>> dynamicFeesLoaderCallbacks = new LoaderManager.LoaderCallbacks<Map<FeeCategory, Coin>>() {
-        @Override
-        public Loader<Map<FeeCategory, Coin>> onCreateLoader(final int id, final Bundle args) {
-            return new DynamicFeeLoader(activity);
+    private static class ReceivingAddressesLiveData extends LiveData<Cursor>
+            implements Loader.OnLoadCompleteListener<Cursor> {
+        private final CursorLoader loader;
+
+        public ReceivingAddressesLiveData(final WalletApplication application) {
+            this.loader = new CursorLoader(application, AddressBookProvider.contentUri(application.getPackageName()),
+                    null, AddressBookProvider.SELECTION_QUERY, new String[] { "" }, null);
         }
 
         @Override
-        public void onLoadFinished(final Loader<Map<FeeCategory, Coin>> loader, final Map<FeeCategory, Coin> data) {
-            fees = data;
-            updateView();
-            handler.post(dryrunRunnable);
+        protected void onActive() {
+            loader.registerListener(0, this);
+            loader.startLoading();
         }
 
         @Override
-        public void onLoaderReset(final Loader<Map<FeeCategory, Coin>> loader) {
-        }
-    };
-
-    private final LoaderCallbacks<Cursor> rateLoaderCallbacks = new LoaderManager.LoaderCallbacks<Cursor>() {
-        @Override
-        public Loader<Cursor> onCreateLoader(final int id, final Bundle args) {
-            return new ExchangeRatesLoader(activity, config);
+        protected void onInactive() {
+            loader.stopLoading();
+            loader.unregisterListener(this);
         }
 
         @Override
-        public void onLoadFinished(final Loader<Cursor> loader, final Cursor data) {
-            if (data != null && data.getCount() > 0) {
-                data.moveToFirst();
-                final ExchangeRate exchangeRate = ExchangeRatesProvider.getExchangeRate(data);
-
-                if (state == null || state.compareTo(State.INPUT) <= 0)
-                    amountCalculatorLink.setExchangeRate(exchangeRate.rate);
-            }
-        }
-
-        @Override
-        public void onLoaderReset(final Loader<Cursor> loader) {
-        }
-    };
-
-    private final LoaderCallbacks<BlockchainState> blockchainStateLoaderCallbacks = new LoaderManager.LoaderCallbacks<BlockchainState>() {
-        @Override
-        public Loader<BlockchainState> onCreateLoader(final int id, final Bundle args) {
-            return new BlockchainStateLoader(activity);
-        }
-
-        @Override
-        public void onLoadFinished(final Loader<BlockchainState> loader, final BlockchainState blockchainState) {
-            SendCoinsFragment.this.blockchainState = blockchainState;
-            updateView();
-        }
-
-        @Override
-        public void onLoaderReset(final Loader<BlockchainState> loader) {
-        }
-    };
-
-    private static class ReceivingAddressLoaderCallbacks implements LoaderManager.LoaderCallbacks<Cursor> {
-        private final Context context;
-        private final CursorAdapter targetAdapter;
-        private CursorLoader loader;
-        private String constraint;
-
-        public ReceivingAddressLoaderCallbacks(final Context context, final CursorAdapter targetAdapter) {
-            this.context = checkNotNull(context);
-            this.targetAdapter = checkNotNull(targetAdapter);
-        }
-
-        @Override
-        public Loader<Cursor> onCreateLoader(final int id, final Bundle args) {
-            loader = new CursorLoader(context, AddressBookProvider.contentUri(context.getPackageName()), null,
-                    AddressBookProvider.SELECTION_QUERY, new String[] { Strings.nullToEmpty(constraint) }, null);
-            return loader;
-        }
-
-        @Override
-        public void onLoadFinished(final Loader<Cursor> loader, final Cursor data) {
-            targetAdapter.swapCursor(data);
-        }
-
-        @Override
-        public void onLoaderReset(final Loader<Cursor> loader) {
-            targetAdapter.swapCursor(null);
+        public void onLoadComplete(final Loader<Cursor> loader, final Cursor cursor) {
+            setValue(cursor);
         }
 
         public void setConstraint(final String constraint) {
-            this.constraint = constraint;
-            if (loader != null) {
-                loader.setSelectionArgs(new String[] { Strings.nullToEmpty(constraint) });
-                loader.forceLoad();
-            }
+            loader.setSelectionArgs(new String[] { Strings.nullToEmpty(constraint) });
+            loader.forceLoad();
         }
     }
 
@@ -470,21 +436,55 @@ public final class SendCoinsFragment extends Fragment {
     @Override
     public void onAttach(final Context context) {
         super.onAttach(context);
-        this.activity = (AbstractBindServiceActivity) context;
+        this.activity = (AbstractWalletActivity) context;
         this.application = activity.getWalletApplication();
         this.config = application.getConfiguration();
         this.wallet = application.getWallet();
-        this.contentResolver = activity.getContentResolver();
-        this.loaderManager = getLoaderManager();
+        this.contentResolver = application.getContentResolver();
         this.fragmentManager = getFragmentManager();
     }
 
     @Override
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        setRetainInstance(true);
         setHasOptionsMenu(true);
+
+        viewModel = ViewModelProviders.of(this).get(ViewModel.class);
+        viewModel.getReceivingAddresses().observe(this, new Observer<Cursor>() {
+            @Override
+            public void onChanged(final Cursor cursor) {
+                receivingAddressViewAdapter.swapCursor(cursor);
+            }
+        });
+        viewModel.getAddressBookChange().observe(this, new Observer<Void>() {
+            @Override
+            public void onChanged(final Void v) {
+                updateView();
+            }
+        });
+        if (Constants.ENABLE_EXCHANGE_RATES) {
+            viewModel.getExchangeRate().observe(this, new Observer<ExchangeRate>() {
+                @Override
+                public void onChanged(final ExchangeRate exchangeRate) {
+                    final State state = SendCoinsFragment.this.state;
+                    if (state == null || state.compareTo(State.INPUT) <= 0)
+                        amountCalculatorLink.setExchangeRate(exchangeRate.rate);
+                }
+            });
+        }
+        viewModel.getDynamicFees().observe(this, new Observer<Map<FeeCategory, Coin>>() {
+            @Override
+            public void onChanged(final Map<FeeCategory, Coin> dynamicFees) {
+                updateView();
+                handler.post(dryrunRunnable);
+            }
+        });
+        viewModel.getBlockchainState().observe(this, new Observer<BlockchainState>() {
+            @Override
+            public void onChanged(final BlockchainState blockchainState) {
+                updateView();
+            }
+        });
 
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
@@ -541,7 +541,6 @@ public final class SendCoinsFragment extends Fragment {
 
         receivingAddressView = (AutoCompleteTextView) view.findViewById(R.id.send_coins_receiving_address);
         receivingAddressViewAdapter = new ReceivingAddressViewAdapter(activity);
-        receivingAddressLoaderCallbacks = new ReceivingAddressLoaderCallbacks(activity, receivingAddressViewAdapter);
         receivingAddressView.setAdapter(receivingAddressViewAdapter);
         receivingAddressView.setOnFocusChangeListener(receivingAddressListener);
         receivingAddressView.addTextChangedListener(receivingAddressListener);
@@ -628,17 +627,8 @@ public final class SendCoinsFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
-        contentResolver.registerContentObserver(AddressBookProvider.contentUri(activity.getPackageName()), true,
-                contentObserver);
-
         amountCalculatorLink.setListener(amountsListener);
         privateKeyPasswordView.addTextChangedListener(privateKeyPasswordListener);
-
-        loaderManager.initLoader(ID_DYNAMIC_FEES_LOADER, null, dynamicFeesLoaderCallbacks);
-        if (Constants.ENABLE_EXCHANGE_RATES)
-            loaderManager.initLoader(ID_RATE_LOADER, null, rateLoaderCallbacks);
-        loaderManager.initLoader(ID_BLOCKCHAIN_STATE_LOADER, null, blockchainStateLoaderCallbacks);
-        loaderManager.initLoader(ID_RECEIVING_ADDRESS_BOOK_LOADER, null, receivingAddressLoaderCallbacks);
 
         updateView();
         handler.post(dryrunRunnable);
@@ -646,16 +636,8 @@ public final class SendCoinsFragment extends Fragment {
 
     @Override
     public void onPause() {
-        loaderManager.destroyLoader(ID_RECEIVING_ADDRESS_BOOK_LOADER);
-        loaderManager.destroyLoader(ID_BLOCKCHAIN_STATE_LOADER);
-        if (Constants.ENABLE_EXCHANGE_RATES)
-            loaderManager.destroyLoader(ID_RATE_LOADER);
-        loaderManager.destroyLoader(ID_DYNAMIC_FEES_LOADER);
-
         privateKeyPasswordView.removeTextChangedListener(privateKeyPasswordListener);
         amountCalculatorLink.setListener(null);
-
-        contentResolver.unregisterContentObserver(contentObserver);
 
         super.onPause();
     }
@@ -905,6 +887,7 @@ public final class SendCoinsFragment extends Fragment {
         final Coin finalAmount = finalPaymentIntent.getAmount();
 
         // prepare send request
+        final Map<FeeCategory, Coin> fees = viewModel.getDynamicFees().getValue();
         final SendRequest sendRequest = finalPaymentIntent.toSendRequest();
         sendRequest.emptyWallet = paymentIntent.mayEditAmount()
                 && finalAmount.equals(wallet.getBalance(BalanceType.AVAILABLE));
@@ -1106,6 +1089,7 @@ public final class SendCoinsFragment extends Fragment {
             dryrunTransaction = null;
             dryrunException = null;
 
+            final Map<FeeCategory, Coin> fees = viewModel.getDynamicFees().getValue();
             final Coin amount = amountCalculatorLink.getAmount();
             if (amount != null && fees != null) {
                 try {
@@ -1133,8 +1117,8 @@ public final class SendCoinsFragment extends Fragment {
     }
 
     private void updateView() {
-        if (!isResumed())
-            return;
+        final Map<FeeCategory, Coin> fees = viewModel.getDynamicFees().getValue();
+        final BlockchainState blockchainState = viewModel.getBlockchainState().getValue();
 
         if (paymentIntent != null) {
             final MonetaryFormat btcFormat = config.getFormat();

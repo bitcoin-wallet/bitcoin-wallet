@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2015 the original author or authors.
+ * Copyright the original author or authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,39 +18,46 @@
 package de.schildbach.wallet.data;
 
 import de.schildbach.wallet.Configuration;
+import de.schildbach.wallet.WalletApplication;
 
-import android.content.Context;
+import android.arch.lifecycle.LiveData;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
+import android.database.Cursor;
 import android.support.v4.content.CursorLoader;
 
 /**
  * @author Andreas Schildbach
  */
-public final class ExchangeRatesLoader extends CursorLoader implements OnSharedPreferenceChangeListener {
+public class ExchangeRateLiveData extends LiveData<ExchangeRate> implements OnSharedPreferenceChangeListener {
     private final Configuration config;
+    private final CursorLoader loader;
 
-    public ExchangeRatesLoader(final Context context, final Configuration config) {
-        super(context, ExchangeRatesProvider.contentUri(context.getPackageName(), false), null,
-                ExchangeRatesProvider.KEY_CURRENCY_CODE, new String[] { null }, null);
-
-        this.config = config;
+    public ExchangeRateLiveData(final WalletApplication application) {
+        this.config = application.getConfiguration();
+        this.loader = new CursorLoader(application, ExchangeRatesProvider.contentUri(application.getPackageName(), false), null,
+                ExchangeRatesProvider.KEY_CURRENCY_CODE, new String[] { null }, null) {
+            @Override
+            public void deliverResult(final Cursor cursor) {
+                if (cursor != null && cursor.getCount() > 0) {
+                    cursor.moveToFirst();
+                    setValue(ExchangeRatesProvider.getExchangeRate(cursor));
+                }
+            }
+        };
     }
 
     @Override
-    protected void onStartLoading() {
-        super.onStartLoading();
-
+    protected void onActive() {
+        loader.startLoading();
         config.registerOnSharedPreferenceChangeListener(this);
-
         onCurrencyChange();
     }
 
     @Override
-    protected void onStopLoading() {
+    protected void onInactive() {
         config.unregisterOnSharedPreferenceChangeListener(this);
-
-        super.onStopLoading();
+        loader.stopLoading();
     }
 
     @Override
@@ -61,9 +68,7 @@ public final class ExchangeRatesLoader extends CursorLoader implements OnSharedP
 
     private void onCurrencyChange() {
         final String exchangeCurrency = config.getExchangeCurrencyCode();
-
-        setSelectionArgs(new String[] { exchangeCurrency });
-
-        forceLoad();
+        loader.setSelectionArgs(new String[] { exchangeCurrency });
+        loader.forceLoad();
     }
 }

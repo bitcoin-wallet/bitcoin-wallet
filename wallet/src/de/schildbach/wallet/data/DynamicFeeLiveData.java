@@ -39,14 +39,13 @@ import com.google.common.base.Stopwatch;
 
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
-import de.schildbach.wallet.ui.AbstractWalletActivity;
 import de.schildbach.wallet.ui.send.FeeCategory;
 import de.schildbach.wallet.util.Io;
 
-import android.content.Context;
+import android.arch.lifecycle.LiveData;
 import android.content.pm.PackageInfo;
 import android.content.res.AssetManager;
-import android.support.v4.content.AsyncTaskLoader;
+import android.os.AsyncTask;
 import okhttp3.Call;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
@@ -58,45 +57,49 @@ import okhttp3.internal.http.HttpDate;
 /**
  * @author Andreas Schildbach
  */
-public class DynamicFeeLoader extends AsyncTaskLoader<Map<FeeCategory, Coin>> {
+public class DynamicFeeLiveData extends LiveData<Map<FeeCategory, Coin>> {
     private final HttpUrl dynamicFeesUrl;
     private final String userAgent;
     private final AssetManager assets;
+    private final File dynamicFeesFile;
+    private final File tempFile;
 
-    private static final Logger log = LoggerFactory.getLogger(DynamicFeeLoader.class);
+    private static final Logger log = LoggerFactory.getLogger(DynamicFeeLiveData.class);
 
-    public DynamicFeeLoader(final Context context) {
-        super(context);
-        final AbstractWalletActivity activity = (AbstractWalletActivity) context;
-        final PackageInfo packageInfo = activity.getWalletApplication().packageInfo();
+    public DynamicFeeLiveData(final WalletApplication application) {
+        final PackageInfo packageInfo = application.packageInfo();
         final int versionNameSplit = packageInfo.versionName.indexOf('-');
         this.dynamicFeesUrl = HttpUrl.parse(Constants.DYNAMIC_FEES_URL
                 + (versionNameSplit >= 0 ? packageInfo.versionName.substring(versionNameSplit) : ""));
         this.userAgent = WalletApplication.httpUserAgent(packageInfo.versionName);
-        this.assets = context.getAssets();
+        this.assets = application.getAssets();
+        this.dynamicFeesFile = new File(application.getFilesDir(), Constants.Files.FEES_FILENAME);
+        this.tempFile = new File(application.getCacheDir(), Constants.Files.FEES_FILENAME + ".temp");
     }
 
     @Override
-    protected void onStartLoading() {
-        super.onStartLoading();
-        forceLoad();
+    protected void onActive() {
+        AsyncTask.execute(new Runnable() {
+            @Override
+            public void run() {
+                final Map<FeeCategory, Coin> dynamicFees = loadInBackground();
+                postValue(dynamicFees);
+            }
+        });
     }
 
-    @Override
-    public Map<FeeCategory, Coin> loadInBackground() {
+    private Map<FeeCategory, Coin> loadInBackground() {
         try {
             final Map<FeeCategory, Coin> staticFees = parseFees(assets.open(Constants.Files.FEES_FILENAME));
-            final File dynamicFeesFile = new File(getContext().getFilesDir(), Constants.Files.FEES_FILENAME);
-            final File tempFile = new File(getContext().getCacheDir(), Constants.Files.FEES_FILENAME + ".temp");
             fetchDynamicFees(dynamicFeesUrl, tempFile, dynamicFeesFile, userAgent);
             if (!dynamicFeesFile.exists())
                 return staticFees;
 
             // Check dynamic fees for sanity, based on the hardcoded fees.
             // The bounds are as follows (h is the respective hardcoded fee):
-            //   ECONOMIC: h/8 to h*4
-            //   NORMAL:   h/4 to h*4
-            //   PRIORITY: h/4 to h*8
+            // ECONOMIC: h/8 to h*4
+            // NORMAL: h/4 to h*4
+            // PRIORITY: h/4 to h*8
             final Map<FeeCategory, Coin> dynamicFees = parseFees(new FileInputStream(dynamicFeesFile));
             for (final FeeCategory category : FeeCategory.values()) {
                 final Coin staticFee = staticFees.get(category);
@@ -167,7 +170,7 @@ public class DynamicFeeLoader extends AsyncTaskLoader<Map<FeeCategory, Coin>> {
         if (targetFile.exists())
             request.header("If-Modified-Since", HttpDate.format(new Date(targetFile.lastModified())));
 
-        OkHttpClient.Builder httpClientBuilder = Constants.HTTP_CLIENT.newBuilder();
+        final OkHttpClient.Builder httpClientBuilder = Constants.HTTP_CLIENT.newBuilder();
         httpClientBuilder.connectTimeout(5, TimeUnit.SECONDS);
         httpClientBuilder.writeTimeout(5, TimeUnit.SECONDS);
         httpClientBuilder.readTimeout(5, TimeUnit.SECONDS);

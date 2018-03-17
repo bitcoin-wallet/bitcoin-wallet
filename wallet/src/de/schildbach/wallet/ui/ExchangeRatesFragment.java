@@ -21,6 +21,7 @@ import javax.annotation.Nullable;
 
 import org.bitcoinj.core.Coin;
 import org.bitcoinj.wallet.Wallet;
+import org.bitcoinj.wallet.Wallet.BalanceType;
 
 import com.google.common.base.Strings;
 
@@ -28,25 +29,27 @@ import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.WalletBalanceWidgetProvider;
+import de.schildbach.wallet.data.BlockchainStateLiveData;
 import de.schildbach.wallet.data.ExchangeRate;
 import de.schildbach.wallet.data.ExchangeRatesProvider;
+import de.schildbach.wallet.data.WalletBalanceLiveData;
 import de.schildbach.wallet.service.BlockchainState;
-import de.schildbach.wallet.service.BlockchainStateLoader;
 import de.schildbach.wallet_test.R;
 
+import android.app.Application;
+import android.arch.lifecycle.AndroidViewModel;
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.database.Cursor;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
 import android.provider.BaseColumns;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.CursorLoader;
-import android.support.v4.content.Loader;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -67,49 +70,104 @@ import android.widget.ViewAnimator;
  * @author Andreas Schildbach
  */
 public final class ExchangeRatesFragment extends Fragment implements OnSharedPreferenceChangeListener {
-    private AbstractBindServiceActivity activity;
+    private AbstractWalletActivity activity;
     private WalletApplication application;
     private Configuration config;
     private Wallet wallet;
-    private Uri contentUri;
-    private LoaderManager loaderManager;
 
     private ViewAnimator viewGroup;
     private RecyclerView recyclerView;
     private ExchangeRatesAdapter adapter;
 
     private String query = null;
-    @Nullable
-    private BlockchainState blockchainState = null;
 
-    private static final int ID_BALANCE_LOADER = 0;
-    private static final int ID_RATE_LOADER = 1;
-    private static final int ID_BLOCKCHAIN_STATE_LOADER = 2;
+    private ViewModel viewModel;
+
+    public static class ViewModel extends AndroidViewModel {
+        private final WalletApplication application;
+        private ExchangeRatesLiveData exchangeRates;
+        private WalletBalanceLiveData balance;
+        private BlockchainStateLiveData blockchainState;
+
+        public ViewModel(final Application application) {
+            super(application);
+            this.application = (WalletApplication) application;
+        }
+
+        public ExchangeRatesLiveData getExchangeRates() {
+            if (exchangeRates == null)
+                exchangeRates = new ExchangeRatesLiveData(application);
+            return exchangeRates;
+        }
+
+        public WalletBalanceLiveData getBalance() {
+            if (balance == null)
+                balance = new WalletBalanceLiveData(application);
+            return balance;
+        }
+
+        public BlockchainStateLiveData getBlockchainState() {
+            if (blockchainState == null)
+                blockchainState = new BlockchainStateLiveData(application);
+            return blockchainState;
+        }
+    }
 
     @Override
     public void onAttach(final Context context) {
         super.onAttach(context);
-        this.activity = (AbstractBindServiceActivity) context;
+        this.activity = (AbstractWalletActivity) context;
         this.application = activity.getWalletApplication();
         this.config = application.getConfiguration();
         this.wallet = application.getWallet();
-        this.contentUri = ExchangeRatesProvider.contentUri(activity.getPackageName(), false);
-        this.loaderManager = getLoaderManager();
     }
 
     @Override
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        setRetainInstance(true);
         setHasOptionsMenu(true);
+
+        viewModel = ViewModelProviders.of(this).get(ViewModel.class);
+        if (Constants.ENABLE_EXCHANGE_RATES) {
+            viewModel.getExchangeRates().observe(this, new Observer<Cursor>() {
+                @Override
+                public void onChanged(final Cursor cursor) {
+                    adapter.setCursor(cursor);
+                    if (adapter.getItemCount() == 0 && query == null) {
+                        viewGroup.setDisplayedChild(1);
+                    } else if (adapter.getItemCount() == 0 && query != null) {
+                        viewGroup.setDisplayedChild(2);
+                    } else {
+                        viewGroup.setDisplayedChild(3);
+                        final int positionToScrollTo = adapter.getDefaultCurrencyPosition();
+                        if (positionToScrollTo != RecyclerView.NO_POSITION)
+                            recyclerView.scrollToPosition(positionToScrollTo);
+                        if (activity instanceof ExchangeRatesActivity) {
+                            cursor.moveToPosition(0);
+                            final String source = ExchangeRatesProvider.getExchangeRate(cursor).source;
+                            activity.getActionBar().setSubtitle(
+                                    source != null ? getString(R.string.exchange_rates_fragment_source, source) : null);
+                        }
+                    }
+                }
+            });
+        }
+        viewModel.getBalance().observe(this, new Observer<Coin>() {
+            @Override
+            public void onChanged(final Coin balance) {
+                adapter.setBalance(balance);
+            }
+        });
+        viewModel.getBlockchainState().observe(this, new Observer<BlockchainState>() {
+            @Override
+            public void onChanged(final BlockchainState blockchainState) {
+                adapter.setBlockchainState(blockchainState);
+            }
+        });
 
         adapter = new ExchangeRatesAdapter();
         adapter.setRateBase(config.getBtcBase());
         adapter.setDefaultCurrency(config.getExchangeCurrencyCode());
-
-        if (Constants.ENABLE_EXCHANGE_RATES)
-            loaderManager.initLoader(ID_RATE_LOADER, null, rateLoaderCallbacks);
 
         config.registerOnSharedPreferenceChangeListener(this);
     }
@@ -127,28 +185,8 @@ public final class ExchangeRatesFragment extends Fragment implements OnSharedPre
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-
-        loaderManager.initLoader(ID_BALANCE_LOADER, null, balanceLoaderCallbacks);
-        loaderManager.initLoader(ID_BLOCKCHAIN_STATE_LOADER, null, blockchainStateLoaderCallbacks);
-    }
-
-    @Override
-    public void onPause() {
-        loaderManager.destroyLoader(ID_BALANCE_LOADER);
-        loaderManager.destroyLoader(ID_BLOCKCHAIN_STATE_LOADER);
-
-        super.onPause();
-    }
-
-    @Override
     public void onDestroy() {
         config.unregisterOnSharedPreferenceChangeListener(this);
-
-        if (Constants.ENABLE_EXCHANGE_RATES)
-            loaderManager.destroyLoader(ID_RATE_LOADER);
-
         super.onDestroy();
     }
 
@@ -163,15 +201,13 @@ public final class ExchangeRatesFragment extends Fragment implements OnSharedPre
                 @Override
                 public boolean onQueryTextChange(final String newText) {
                     query = Strings.emptyToNull(newText.trim());
-                    getLoaderManager().restartLoader(ID_RATE_LOADER, null, rateLoaderCallbacks);
-
+                    viewModel.getExchangeRates().setQuery(query);
                     return true;
                 }
 
                 @Override
                 public boolean onQueryTextSubmit(final String query) {
                     searchView.clearFocus();
-
                     return true;
                 }
             });
@@ -197,73 +233,35 @@ public final class ExchangeRatesFragment extends Fragment implements OnSharedPre
             adapter.setRateBase(config.getBtcBase());
     }
 
-    private final LoaderCallbacks<Cursor> rateLoaderCallbacks = new LoaderManager.LoaderCallbacks<Cursor>() {
-        @Override
-        public Loader<Cursor> onCreateLoader(final int id, final Bundle args) {
-            if (query == null)
-                return new CursorLoader(activity, contentUri, null, null, null, null);
-            else
-                return new CursorLoader(activity, contentUri, null, ExchangeRatesProvider.QUERY_PARAM_Q,
-                        new String[] { query }, null);
-        }
+    private static class ExchangeRatesLiveData extends LiveData<Cursor> {
+        private final CursorLoader loader;
 
-        @Override
-        public void onLoadFinished(final Loader<Cursor> loader, final Cursor data) {
-            adapter.setCursor(data);
-            if (adapter.getItemCount() == 0 && query == null) {
-                viewGroup.setDisplayedChild(1);
-            } else if (adapter.getItemCount() == 0 && query != null) {
-                viewGroup.setDisplayedChild(2);
-            } else {
-                viewGroup.setDisplayedChild(3);
-                final int positionToScrollTo = adapter.getDefaultCurrencyPosition();
-                if (positionToScrollTo != RecyclerView.NO_POSITION)
-                    recyclerView.scrollToPosition(positionToScrollTo);
-                if (activity instanceof ExchangeRatesActivity) {
-                    data.moveToPosition(0);
-                    final String source = ExchangeRatesProvider.getExchangeRate(data).source;
-                    activity.getActionBar().setSubtitle(
-                            source != null ? getString(R.string.exchange_rates_fragment_source, source) : null);
+        public ExchangeRatesLiveData(final WalletApplication application) {
+            this.loader = new CursorLoader(application,
+                    ExchangeRatesProvider.contentUri(application.getPackageName(), false), null,
+                    ExchangeRatesProvider.QUERY_PARAM_Q, new String[] { "" }, null) {
+                @Override
+                public void deliverResult(final Cursor cursor) {
+                    setValue(cursor);
                 }
-            }
+            };
         }
 
         @Override
-        public void onLoaderReset(final Loader<Cursor> loader) {
-        }
-    };
-
-    private final LoaderCallbacks<Coin> balanceLoaderCallbacks = new LoaderManager.LoaderCallbacks<Coin>() {
-        @Override
-        public Loader<Coin> onCreateLoader(final int id, final Bundle args) {
-            return new WalletBalanceLoader(activity, wallet);
+        protected void onActive() {
+            loader.startLoading();
         }
 
         @Override
-        public void onLoadFinished(final Loader<Coin> loader, final Coin balance) {
-            adapter.setBalance(balance);
+        protected void onInactive() {
+            loader.stopLoading();
         }
 
-        @Override
-        public void onLoaderReset(final Loader<Coin> loader) {
+        public void setQuery(final String query) {
+            loader.setSelectionArgs(new String[] { Strings.nullToEmpty(query) });
+            loader.forceLoad();
         }
-    };
-
-    private final LoaderCallbacks<BlockchainState> blockchainStateLoaderCallbacks = new LoaderManager.LoaderCallbacks<BlockchainState>() {
-        @Override
-        public Loader<BlockchainState> onCreateLoader(final int id, final Bundle args) {
-            return new BlockchainStateLoader(activity);
-        }
-
-        @Override
-        public void onLoadFinished(final Loader<BlockchainState> loader, final BlockchainState blockchainState) {
-            adapter.setBlockchainState(blockchainState);
-        }
-
-        @Override
-        public void onLoaderReset(final Loader<BlockchainState> loader) {
-        }
-    };
+    }
 
     private final class ExchangeRatesAdapter extends RecyclerView.Adapter<ExchangeRateViewHolder> {
         private final LayoutInflater inflater = LayoutInflater.from(activity);
@@ -374,7 +372,8 @@ public final class ExchangeRatesFragment extends Fragment implements OnSharedPre
                             if (item.getItemId() == R.id.exchange_rates_context_set_as_default) {
                                 setDefaultCurrency(exchangeRate.getCurrencyCode());
                                 config.setExchangeCurrencyCode(exchangeRate.getCurrencyCode());
-                                WalletBalanceWidgetProvider.updateWidgets(activity, wallet);
+                                WalletBalanceWidgetProvider.updateWidgets(activity,
+                                        wallet.getBalance(BalanceType.ESTIMATED));
                                 return true;
                             } else {
                                 return false;

@@ -19,6 +19,7 @@ package de.schildbach.wallet.ui.preference;
 
 import java.net.InetAddress;
 
+import org.bitcoinj.wallet.Wallet.BalanceType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -112,7 +113,8 @@ public final class SettingsFragment extends PreferenceFragment implements OnPref
             @Override
             public void run() {
                 if (preference.equals(btcPrecisionPreference)) {
-                    WalletBalanceWidgetProvider.updateWidgets(activity, application.getWallet());
+                    WalletBalanceWidgetProvider.updateWidgets(activity,
+                            application.getWallet().getBalance(BalanceType.ESTIMATED));
                 } else if (preference.equals(trustedPeerPreference)) {
                     BlockchainService.stop(activity);
                     updateTrustedPeer();

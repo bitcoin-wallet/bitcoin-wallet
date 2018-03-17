@@ -17,8 +17,6 @@
 
 package de.schildbach.wallet.ui;
 
-import java.util.concurrent.atomic.AtomicReference;
-
 import javax.annotation.Nullable;
 
 import org.bitcoinj.core.Address;
@@ -33,8 +31,7 @@ import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.data.ExchangeRate;
-import de.schildbach.wallet.data.ExchangeRatesLoader;
-import de.schildbach.wallet.data.ExchangeRatesProvider;
+import de.schildbach.wallet.data.ExchangeRateLiveData;
 import de.schildbach.wallet.offline.AcceptBluetoothService;
 import de.schildbach.wallet.ui.send.SendCoinsActivity;
 import de.schildbach.wallet.util.BitmapFragment;
@@ -45,6 +42,10 @@ import de.schildbach.wallet.util.Toast;
 import de.schildbach.wallet_test.R;
 
 import android.app.Activity;
+import android.app.Application;
+import android.arch.lifecycle.AndroidViewModel;
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.bluetooth.BluetoothAdapter;
 import android.content.ActivityNotFoundException;
 import android.content.ClipData;
@@ -53,20 +54,15 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
-import android.nfc.NfcEvent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.app.ShareCompat;
-import android.support.v4.content.Loader;
 import android.support.v7.widget.CardView;
 import android.text.SpannableStringBuilder;
 import android.view.LayoutInflater;
@@ -85,12 +81,11 @@ import android.widget.TextView;
 /**
  * @author Andreas Schildbach
  */
-public final class RequestCoinsFragment extends Fragment implements NfcAdapter.CreateNdefMessageCallback {
-    private AbstractBindServiceActivity activity;
+public final class RequestCoinsFragment extends Fragment {
+    private AbstractWalletActivity activity;
     private WalletApplication application;
     private Configuration config;
     private Wallet wallet;
-    private LoaderManager loaderManager;
     private ClipboardManager clipboardManager;
     @Nullable
     private BluetoothAdapter bluetoothAdapter;
@@ -106,47 +101,39 @@ public final class RequestCoinsFragment extends Fragment implements NfcAdapter.C
     private String bluetoothMac;
     @Nullable
     private Intent bluetoothServiceIntent;
-    private AtomicReference<byte[]> paymentRequestRef = new AtomicReference<byte[]>();
 
     private static final int REQUEST_CODE_ENABLE_BLUETOOTH = 0;
 
     private Address address;
     private CurrencyCalculatorLink amountCalculatorLink;
 
-    private static final int ID_RATE_LOADER = 0;
+    private ViewModel viewModel;
 
     private static final Logger log = LoggerFactory.getLogger(RequestCoinsFragment.class);
 
-    private final LoaderCallbacks<Cursor> rateLoaderCallbacks = new LoaderManager.LoaderCallbacks<Cursor>() {
-        @Override
-        public Loader<Cursor> onCreateLoader(final int id, final Bundle args) {
-            return new ExchangeRatesLoader(activity, config);
+    public static class ViewModel extends AndroidViewModel {
+        private final WalletApplication application;
+        private ExchangeRateLiveData exchangeRate;
+
+        public ViewModel(final Application application) {
+            super(application);
+            this.application = (WalletApplication) application;
         }
 
-        @Override
-        public void onLoadFinished(final Loader<Cursor> loader, final Cursor data) {
-            if (data != null && data.getCount() > 0) {
-                data.moveToFirst();
-                final ExchangeRate exchangeRate = ExchangeRatesProvider.getExchangeRate(data);
-
-                amountCalculatorLink.setExchangeRate(exchangeRate.rate);
-                updateView();
-            }
+        public ExchangeRateLiveData getExchangeRate() {
+            if (exchangeRate == null)
+                exchangeRate = new ExchangeRateLiveData(application);
+            return exchangeRate;
         }
-
-        @Override
-        public void onLoaderReset(final Loader<Cursor> loader) {
-        }
-    };
+    }
 
     @Override
     public void onAttach(final Context context) {
         super.onAttach(context);
-        this.activity = (AbstractBindServiceActivity) context;
+        this.activity = (AbstractWalletActivity) context;
         this.application = activity.getWalletApplication();
         this.config = application.getConfiguration();
         this.wallet = application.getWallet();
-        this.loaderManager = getLoaderManager();
         this.clipboardManager = (ClipboardManager) activity.getSystemService(Context.CLIPBOARD_SERVICE);
         this.bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         this.nfcAdapter = NfcAdapter.getDefaultAdapter(activity);
@@ -155,11 +142,18 @@ public final class RequestCoinsFragment extends Fragment implements NfcAdapter.C
     @Override
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setHasOptionsMenu(true);
 
-        if (nfcAdapter != null && nfcAdapter.isEnabled())
-            nfcAdapter.setNdefPushMessageCallback(this, activity);
+        viewModel = ViewModelProviders.of(this).get(ViewModel.class);
+        if (Constants.ENABLE_EXCHANGE_RATES) {
+            viewModel.getExchangeRate().observe(this, new Observer<ExchangeRate>() {
+                @Override
+                public void onChanged(final ExchangeRate exchangeRate) {
+                    amountCalculatorLink.setExchangeRate(exchangeRate.rate);
+                    updateView();
+                }
+            });
+        }
 
         if (savedInstanceState != null) {
             restoreInstanceState(savedInstanceState);
@@ -197,6 +191,7 @@ public final class RequestCoinsFragment extends Fragment implements NfcAdapter.C
         localAmountView.setHintFormat(Constants.LOCAL_FORMAT);
         amountCalculatorLink = new CurrencyCalculatorLink(btcAmountView, localAmountView);
 
+        final BluetoothAdapter bluetoothAdapter = this.bluetoothAdapter;
         acceptBluetoothPaymentView = (CheckBox) view.findViewById(R.id.request_coins_accept_bluetooth_payment);
         acceptBluetoothPaymentView.setVisibility(bluetoothAdapter != null ? View.VISIBLE : View.GONE);
         acceptBluetoothPaymentView.setChecked(bluetoothAdapter != null && bluetoothAdapter.isEnabled());
@@ -247,9 +242,7 @@ public final class RequestCoinsFragment extends Fragment implements NfcAdapter.C
             }
         });
 
-        if (Constants.ENABLE_EXCHANGE_RATES)
-            loaderManager.initLoader(ID_RATE_LOADER, null, rateLoaderCallbacks);
-
+        final BluetoothAdapter bluetoothAdapter = this.bluetoothAdapter;
         if (bluetoothAdapter != null && bluetoothAdapter.isEnabled() && acceptBluetoothPaymentView.isChecked())
             maybeStartBluetoothListening();
 
@@ -265,8 +258,6 @@ public final class RequestCoinsFragment extends Fragment implements NfcAdapter.C
 
     @Override
     public void onPause() {
-        loaderManager.destroyLoader(ID_RATE_LOADER);
-
         amountCalculatorLink.setListener(null);
 
         super.onPause();
@@ -385,11 +376,9 @@ public final class RequestCoinsFragment extends Fragment implements NfcAdapter.C
     }
 
     private void updateView() {
-        if (!isResumed())
-            return;
-
         final String bitcoinRequest = determineBitcoinRequestStr(true);
         final byte[] paymentRequest = determinePaymentRequest(true);
+        final NfcAdapter nfcAdapter = this.nfcAdapter;
 
         // update qr-code
         qrCodeBitmap = new BitmapDrawable(getResources(), Qr.bitmap(bitcoinRequest));
@@ -399,15 +388,15 @@ public final class RequestCoinsFragment extends Fragment implements NfcAdapter.C
         // update initiate request message
         final SpannableStringBuilder initiateText = new SpannableStringBuilder(
                 getString(R.string.request_coins_fragment_initiate_request_qr));
-        if (nfcAdapter != null && nfcAdapter.isEnabled())
+        if (nfcAdapter != null && nfcAdapter.isEnabled()) {
             initiateText.append(' ').append(getString(R.string.request_coins_fragment_initiate_request_nfc));
+            nfcAdapter.setNdefPushMessage(createNdefMessage(paymentRequest), activity);
+        }
         initiateRequestView.setText(initiateText);
 
         // focus linking
         final int activeAmountViewId = amountCalculatorLink.activeTextView().getId();
         acceptBluetoothPaymentView.setNextFocusUpId(activeAmountViewId);
-
-        paymentRequestRef.set(paymentRequest);
     }
 
     private String determineBitcoinRequestStr(final boolean includeBluetoothMac) {
@@ -430,9 +419,7 @@ public final class RequestCoinsFragment extends Fragment implements NfcAdapter.C
                 paymentUrl, null).build().toByteArray();
     }
 
-    @Override
-    public NdefMessage createNdefMessage(final NfcEvent event) {
-        final byte[] paymentRequest = paymentRequestRef.get();
+    private static NdefMessage createNdefMessage(final byte[] paymentRequest) {
         if (paymentRequest != null)
             return new NdefMessage(
                     new NdefRecord[] { Nfc.createMime(PaymentProtocol.MIMETYPE_PAYMENTREQUEST, paymentRequest) });

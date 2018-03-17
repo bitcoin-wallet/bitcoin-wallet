@@ -19,6 +19,7 @@ package de.schildbach.wallet.ui;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -64,6 +65,7 @@ public class BlockListAdapter extends RecyclerView.Adapter<BlockListAdapter.Bloc
     private final OnClickListener onClickListener;
 
     private final List<StoredBlock> blocks = new ArrayList<>();
+    private Date time;
     private MonetaryFormat format;
     private final Set<Transaction> transactions = new HashSet<>();
 
@@ -96,6 +98,11 @@ public class BlockListAdapter extends RecyclerView.Adapter<BlockListAdapter.Bloc
 
     public void setFormat(final MonetaryFormat format) {
         this.format = format.noCode();
+        notifyItemsChanged();
+    }
+
+    public void setTime(final Date time) {
+        this.time = time;
         notifyItemsChanged();
     }
 
@@ -147,7 +154,7 @@ public class BlockListAdapter extends RecyclerView.Adapter<BlockListAdapter.Bloc
         holder.heightView.setText(Integer.toString(height));
 
         final long timeMs = header.getTimeSeconds() * DateUtils.SECOND_IN_MILLIS;
-        if (timeMs < System.currentTimeMillis() - DateUtils.MINUTE_IN_MILLIS)
+        if (timeMs < time.getTime() - DateUtils.MINUTE_IN_MILLIS)
             holder.timeView.setText(DateUtils.getRelativeDateTimeString(context, timeMs, DateUtils.MINUTE_IN_MILLIS,
                     DateUtils.WEEK_IN_MILLIS, 0));
         else
@@ -156,9 +163,8 @@ public class BlockListAdapter extends RecyclerView.Adapter<BlockListAdapter.Bloc
         holder.hashView.setText(WalletUtils.formatHash(null, header.getHashAsString(), 8, 0, ' '));
 
         final int transactionChildCount = holder.transactionsViewGroup.getChildCount() - ROW_BASE_CHILD_COUNT;
-        int iTransactionView = 0;
-
         final Sha256Hash blockHash = header.getHash();
+        int iTransactionView = 0;
         for (final Transaction tx : transactions) {
             if (tx.getAppearsInHashes().containsKey(blockHash)) {
                 final View view;
@@ -189,7 +195,7 @@ public class BlockListAdapter extends RecyclerView.Adapter<BlockListAdapter.Bloc
         }
     }
 
-    public void bindView(final View row, final Transaction tx) {
+    private void bindView(final View row, final Transaction tx) {
         final boolean isCoinBase = tx.isCoinBase();
         final boolean isInternal = tx.getPurpose() == Purpose.KEY_ROTATION;
 

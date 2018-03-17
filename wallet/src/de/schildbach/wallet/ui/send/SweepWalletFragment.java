@@ -57,9 +57,9 @@ import com.google.common.collect.ComparisonChain;
 import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
-import de.schildbach.wallet.data.DynamicFeeLoader;
+import de.schildbach.wallet.data.DynamicFeeLiveData;
 import de.schildbach.wallet.data.PaymentIntent;
-import de.schildbach.wallet.ui.AbstractBindServiceActivity;
+import de.schildbach.wallet.ui.AbstractWalletActivity;
 import de.schildbach.wallet.ui.DialogBuilder;
 import de.schildbach.wallet.ui.InputParser.StringInputParser;
 import de.schildbach.wallet.ui.ProgressDialogFragment;
@@ -70,6 +70,10 @@ import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
 
 import android.app.Activity;
+import android.app.Application;
+import android.arch.lifecycle.AndroidViewModel;
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -82,9 +86,6 @@ import android.os.HandlerThread;
 import android.os.Process;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.app.LoaderManager.LoaderCallbacks;
-import android.support.v4.content.Loader;
 import android.support.v7.widget.RecyclerView;
 import android.text.SpannableStringBuilder;
 import android.view.LayoutInflater;
@@ -102,10 +103,9 @@ import android.widget.TextView;
  * @author Andreas Schildbach
  */
 public class SweepWalletFragment extends Fragment {
-    private AbstractBindServiceActivity activity;
+    private AbstractWalletActivity activity;
     private WalletApplication application;
     private Configuration config;
-    private LoaderManager loaderManager;
     private FragmentManager fragmentManager;
 
     private final Handler handler = new Handler();
@@ -114,8 +114,6 @@ public class SweepWalletFragment extends Fragment {
 
     private State state = State.DECODE_KEY;
     private VersionedChecksummedBytes privateKeyToSweep = null;
-    @Nullable
-    private Map<FeeCategory, Coin> fees = null;
     private Wallet walletToSweep = null;
     private Transaction sentTransaction = null;
 
@@ -134,7 +132,7 @@ public class SweepWalletFragment extends Fragment {
     private MenuItem reloadAction;
     private MenuItem scanAction;
 
-    private static final int ID_DYNAMIC_FEES_LOADER = 0;
+    private ViewModel viewModel;
 
     private static final int REQUEST_CODE_SCAN = 0;
 
@@ -146,42 +144,46 @@ public class SweepWalletFragment extends Fragment {
 
     private static final Logger log = LoggerFactory.getLogger(SweepWalletFragment.class);
 
-    private final LoaderCallbacks<Map<FeeCategory, Coin>> dynamicFeesLoaderCallbacks = new LoaderManager.LoaderCallbacks<Map<FeeCategory, Coin>>() {
-        @Override
-        public Loader<Map<FeeCategory, Coin>> onCreateLoader(final int id, final Bundle args) {
-            return new DynamicFeeLoader(activity);
+    public static class ViewModel extends AndroidViewModel {
+        private final WalletApplication application;
+        private DynamicFeeLiveData dynamicFees;
+
+        public ViewModel(final Application application) {
+            super(application);
+            this.application = (WalletApplication) application;
         }
 
-        @Override
-        public void onLoadFinished(final Loader<Map<FeeCategory, Coin>> loader, final Map<FeeCategory, Coin> data) {
-            fees = data;
-            updateView();
+        public DynamicFeeLiveData getDynamicFees() {
+            if (dynamicFees == null)
+                dynamicFees = new DynamicFeeLiveData(application);
+            return dynamicFees;
         }
-
-        @Override
-        public void onLoaderReset(final Loader<Map<FeeCategory, Coin>> loader) {
-        }
-    };
+    }
 
     @Override
     public void onAttach(final Context context) {
         super.onAttach(context);
-        this.activity = (AbstractBindServiceActivity) context;
+        this.activity = (AbstractWalletActivity) context;
         this.application = activity.getWalletApplication();
         this.config = application.getConfiguration();
-        this.loaderManager = getLoaderManager();
         this.fragmentManager = getFragmentManager();
     }
 
     @Override
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
 
         if (!Constants.ENABLE_SWEEP_WALLET)
             throw new IllegalStateException("ENABLE_SWEEP_WALLET is disabled");
 
-        setRetainInstance(true);
-        setHasOptionsMenu(true);
+        viewModel = ViewModelProviders.of(this).get(ViewModel.class);
+        viewModel.getDynamicFees().observe(this, new Observer<Map<FeeCategory, Coin>>() {
+            @Override
+            public void onChanged(final Map<FeeCategory, Coin> dynamicFees) {
+                updateView();
+            }
+        });
 
         backgroundThread = new HandlerThread("backgroundThread", Process.THREAD_PRIORITY_BACKGROUND);
         backgroundThread.start();
@@ -244,22 +246,6 @@ public class SweepWalletFragment extends Fragment {
         });
 
         return view;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        loaderManager.initLoader(ID_DYNAMIC_FEES_LOADER, null, dynamicFeesLoaderCallbacks);
-
-        updateView();
-    }
-
-    @Override
-    public void onPause() {
-        loaderManager.destroyLoader(ID_DYNAMIC_FEES_LOADER);
-
-        super.onPause();
     }
 
     @Override
@@ -572,6 +558,7 @@ public class SweepWalletFragment extends Fragment {
     }
 
     private void updateView() {
+        final Map<FeeCategory, Coin> fees = viewModel.getDynamicFees().getValue();
         final MonetaryFormat btcFormat = config.getFormat();
 
         if (walletToSweep != null) {
@@ -654,6 +641,7 @@ public class SweepWalletFragment extends Fragment {
     private void handleSweep() {
         setState(State.PREPARATION);
 
+        final Map<FeeCategory, Coin> fees = viewModel.getDynamicFees().getValue();
         final SendRequest sendRequest = SendRequest.emptyWallet(application.getWallet().freshReceiveAddress());
         sendRequest.feePerKb = fees.get(FeeCategory.NORMAL);
 

@@ -17,33 +17,30 @@
 
 package de.schildbach.wallet.ui;
 
-import javax.annotation.Nullable;
-
 import org.bitcoinj.core.Coin;
 import org.bitcoinj.utils.Fiat;
-import org.bitcoinj.wallet.Wallet;
 
 import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
+import de.schildbach.wallet.data.BlockchainStateLiveData;
 import de.schildbach.wallet.data.ExchangeRate;
-import de.schildbach.wallet.data.ExchangeRatesLoader;
-import de.schildbach.wallet.data.ExchangeRatesProvider;
+import de.schildbach.wallet.data.ExchangeRateLiveData;
+import de.schildbach.wallet.data.WalletBalanceLiveData;
 import de.schildbach.wallet.service.BlockchainState;
-import de.schildbach.wallet.service.BlockchainStateLoader;
 import de.schildbach.wallet.ui.send.FeeCategory;
 import de.schildbach.wallet.ui.send.SendCoinsActivity;
 import de.schildbach.wallet_test.R;
 
+import android.app.Application;
+import android.arch.lifecycle.AndroidViewModel;
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.app.LoaderManager.LoaderCallbacks;
-import android.support.v4.content.Loader;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -58,11 +55,9 @@ import android.widget.TextView;
  * @author Andreas Schildbach
  */
 public final class WalletBalanceFragment extends Fragment {
-    private AbstractBindServiceActivity activity;
+    private AbstractWalletActivity activity;
     private WalletApplication application;
     private Configuration config;
-    private Wallet wallet;
-    private LoaderManager loaderManager;
 
     private View viewBalance;
     private CurrencyTextView viewBalanceBtc;
@@ -73,29 +68,48 @@ public final class WalletBalanceFragment extends Fragment {
     private boolean showLocalBalance;
     private boolean installedFromGooglePlay;
 
-    @Nullable
-    private Coin balance = null;
-    @Nullable
-    private ExchangeRate exchangeRate = null;
-    @Nullable
-    private BlockchainState blockchainState = null;
-
-    private static final int ID_BALANCE_LOADER = 0;
-    private static final int ID_RATE_LOADER = 1;
-    private static final int ID_BLOCKCHAIN_STATE_LOADER = 2;
+    private ViewModel viewModel;
 
     private static final long BLOCKCHAIN_UPTODATE_THRESHOLD_MS = DateUtils.HOUR_IN_MILLIS;
     private static final Coin SOME_BALANCE_THRESHOLD = Coin.COIN.divide(800);
     private static final Coin TOO_MUCH_BALANCE_THRESHOLD = Coin.COIN.divide(16);
 
+    public static class ViewModel extends AndroidViewModel {
+        private final WalletApplication application;
+        private BlockchainStateLiveData blockchainState;
+        private WalletBalanceLiveData balance;
+        private ExchangeRateLiveData exchangeRate;
+
+        public ViewModel(final Application application) {
+            super(application);
+            this.application = (WalletApplication) application;
+        }
+
+        public BlockchainStateLiveData getBlockchainState() {
+            if (blockchainState == null)
+                blockchainState = new BlockchainStateLiveData(application);
+            return blockchainState;
+        }
+
+        public WalletBalanceLiveData getBalance() {
+            if (balance == null)
+                balance = new WalletBalanceLiveData(application);
+            return balance;
+        }
+
+        public ExchangeRateLiveData getExchangeRate() {
+            if (exchangeRate == null)
+                exchangeRate = new ExchangeRateLiveData(application);
+            return exchangeRate;
+        }
+    }
+
     @Override
     public void onAttach(final Context context) {
         super.onAttach(context);
-        this.activity = (AbstractBindServiceActivity) context;
+        this.activity = (AbstractWalletActivity) context;
         this.application = activity.getWalletApplication();
         this.config = application.getConfiguration();
-        this.wallet = application.getWallet();
-        this.loaderManager = getLoaderManager();
 
         showLocalBalance = getResources().getBoolean(R.bool.show_local_balance);
         installedFromGooglePlay = "com.android.vending"
@@ -104,9 +118,31 @@ public final class WalletBalanceFragment extends Fragment {
 
     @Override
     public void onCreate(final Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
 
-        super.onCreate(savedInstanceState);
+        viewModel = ViewModelProviders.of(this).get(ViewModel.class);
+        viewModel.getBlockchainState().observe(this, new Observer<BlockchainState>() {
+            @Override
+            public void onChanged(final BlockchainState blockchainState) {
+                updateView();
+            }
+        });
+        viewModel.getBalance().observe(this, new Observer<Coin>() {
+            @Override
+            public void onChanged(final Coin balance) {
+                activity.invalidateOptionsMenu();
+                updateView();
+            }
+        });
+        if (Constants.ENABLE_EXCHANGE_RATES) {
+            viewModel.getExchangeRate().observe(this, new Observer<ExchangeRate>() {
+                @Override
+                public void onChanged(final ExchangeRate exchangeRate) {
+                    updateView();
+                }
+            });
+        }
     }
 
     @Override
@@ -147,40 +183,17 @@ public final class WalletBalanceFragment extends Fragment {
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-
-        loaderManager.initLoader(ID_BALANCE_LOADER, null, balanceLoaderCallbacks);
-        if (Constants.ENABLE_EXCHANGE_RATES)
-            loaderManager.initLoader(ID_RATE_LOADER, null, rateLoaderCallbacks);
-        loaderManager.initLoader(ID_BLOCKCHAIN_STATE_LOADER, null, blockchainStateLoaderCallbacks);
-
-        updateView();
-    }
-
-    @Override
-    public void onPause() {
-        loaderManager.destroyLoader(ID_BLOCKCHAIN_STATE_LOADER);
-        if (Constants.ENABLE_EXCHANGE_RATES)
-            loaderManager.destroyLoader(ID_RATE_LOADER);
-        loaderManager.destroyLoader(ID_BALANCE_LOADER);
-
-        super.onPause();
-    }
-
-    @Override
     public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater) {
         inflater.inflate(R.menu.wallet_balance_fragment_options, menu);
-
         super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override
     public void onPrepareOptionsMenu(final Menu menu) {
+        final Coin balance = viewModel.getBalance().getValue();
         final boolean hasSomeBalance = balance != null && !balance.isLessThan(SOME_BALANCE_THRESHOLD);
         menu.findItem(R.id.wallet_balance_options_donate)
                 .setVisible(Constants.DONATION_ADDRESS != null && (!installedFromGooglePlay || hasSomeBalance));
-
         super.onPrepareOptionsMenu(menu);
     }
 
@@ -200,8 +213,9 @@ public final class WalletBalanceFragment extends Fragment {
     }
 
     private void updateView() {
-        if (!isAdded())
-            return;
+        final BlockchainState blockchainState = viewModel.getBlockchainState().getValue();
+        final Coin balance = viewModel.getBalance().getValue();
+        final ExchangeRate exchangeRate = viewModel.getExchangeRate().getValue();
 
         final boolean showProgress;
 
@@ -275,61 +289,4 @@ public final class WalletBalanceFragment extends Fragment {
             viewBalance.setVisibility(View.INVISIBLE);
         }
     }
-
-    private final LoaderCallbacks<BlockchainState> blockchainStateLoaderCallbacks = new LoaderManager.LoaderCallbacks<BlockchainState>() {
-        @Override
-        public Loader<BlockchainState> onCreateLoader(final int id, final Bundle args) {
-            return new BlockchainStateLoader(activity);
-        }
-
-        @Override
-        public void onLoadFinished(final Loader<BlockchainState> loader, final BlockchainState blockchainState) {
-            WalletBalanceFragment.this.blockchainState = blockchainState;
-
-            updateView();
-        }
-
-        @Override
-        public void onLoaderReset(final Loader<BlockchainState> loader) {
-        }
-    };
-
-    private final LoaderCallbacks<Coin> balanceLoaderCallbacks = new LoaderManager.LoaderCallbacks<Coin>() {
-        @Override
-        public Loader<Coin> onCreateLoader(final int id, final Bundle args) {
-            return new WalletBalanceLoader(activity, wallet);
-        }
-
-        @Override
-        public void onLoadFinished(final Loader<Coin> loader, final Coin balance) {
-            WalletBalanceFragment.this.balance = balance;
-
-            activity.invalidateOptionsMenu();
-            updateView();
-        }
-
-        @Override
-        public void onLoaderReset(final Loader<Coin> loader) {
-        }
-    };
-
-    private final LoaderCallbacks<Cursor> rateLoaderCallbacks = new LoaderManager.LoaderCallbacks<Cursor>() {
-        @Override
-        public Loader<Cursor> onCreateLoader(final int id, final Bundle args) {
-            return new ExchangeRatesLoader(activity, config);
-        }
-
-        @Override
-        public void onLoadFinished(final Loader<Cursor> loader, final Cursor data) {
-            if (data != null && data.getCount() > 0) {
-                data.moveToFirst();
-                exchangeRate = ExchangeRatesProvider.getExchangeRate(data);
-                updateView();
-            }
-        }
-
-        @Override
-        public void onLoaderReset(final Loader<Cursor> loader) {
-        }
-    };
 }

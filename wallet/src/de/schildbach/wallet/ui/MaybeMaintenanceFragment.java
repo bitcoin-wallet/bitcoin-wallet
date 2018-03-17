@@ -26,18 +26,18 @@ import org.bitcoinj.wallet.Wallet;
 import com.google.common.util.concurrent.ListenableFuture;
 
 import de.schildbach.wallet.WalletApplication;
-import de.schildbach.wallet.service.BlockchainService;
+import de.schildbach.wallet.data.BlockchainStateLiveData;
 import de.schildbach.wallet.service.BlockchainState;
 import de.schildbach.wallet.ui.send.MaintenanceDialogFragment;
 
-import android.content.BroadcastReceiver;
+import android.app.Application;
+import android.arch.lifecycle.AndroidViewModel;
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.content.LocalBroadcastManager;
 
 /**
  * @author Andreas Schildbach
@@ -54,8 +54,33 @@ public class MaybeMaintenanceFragment extends Fragment {
     }
 
     private Wallet wallet;
-    private LocalBroadcastManager broadcastManager;
-    private boolean dialogWasShown = false;
+
+    private ViewModel viewModel;
+
+    public static class ViewModel extends AndroidViewModel {
+        private final WalletApplication application;
+        private BlockchainStateLiveData blockchainState;
+        private boolean dialogWasShown = false;
+
+        public ViewModel(final Application application) {
+            super(application);
+            this.application = (WalletApplication) application;
+        }
+
+        public BlockchainStateLiveData getBlockchainState() {
+            if (blockchainState == null)
+                blockchainState = new BlockchainStateLiveData(application);
+            return blockchainState;
+        }
+
+        public void setDialogWasShown() {
+            dialogWasShown = true;
+        }
+
+        public boolean getDialogWasShown() {
+            return dialogWasShown;
+        }
+    }
 
     @Override
     public void onAttach(final Context context) {
@@ -63,42 +88,22 @@ public class MaybeMaintenanceFragment extends Fragment {
         final AbstractWalletActivity activity = (AbstractWalletActivity) context;
         final WalletApplication application = activity.getWalletApplication();
         this.wallet = application.getWallet();
-        this.broadcastManager = LocalBroadcastManager.getInstance(context);
     }
 
     @Override
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        setRetainInstance(true);
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        broadcastManager.registerReceiver(broadcastReceiver,
-                new IntentFilter(BlockchainService.ACTION_BLOCKCHAIN_STATE));
-    }
-
-    @Override
-    public void onPause() {
-        broadcastManager.unregisterReceiver(broadcastReceiver);
-
-        super.onPause();
-    }
-
-    private final BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(final Context context, final Intent broadcast) {
-            final BlockchainState blockchainState = BlockchainState.fromIntent(broadcast);
-
-            if (!dialogWasShown && !blockchainState.replaying && maintenanceRecommended()) {
-                MaintenanceDialogFragment.show(getFragmentManager());
-                dialogWasShown = true;
+        viewModel = ViewModelProviders.of(this).get(ViewModel.class);
+        viewModel.getBlockchainState().observe(this, new Observer<BlockchainState>() {
+            @Override
+            public void onChanged(final BlockchainState blockchainState) {
+                if (!viewModel.getDialogWasShown() && !blockchainState.replaying && maintenanceRecommended()) {
+                    MaintenanceDialogFragment.show(getFragmentManager());
+                    viewModel.setDialogWasShown();
+                }
             }
-        }
-    };
+        });
+    }
 
     private boolean maintenanceRecommended() {
         try {

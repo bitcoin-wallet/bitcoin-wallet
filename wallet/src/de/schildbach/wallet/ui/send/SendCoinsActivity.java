@@ -24,7 +24,7 @@ import org.bitcoinj.core.Coin;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.data.PaymentIntent;
 import de.schildbach.wallet.service.BlockchainService;
-import de.schildbach.wallet.ui.AbstractBindServiceActivity;
+import de.schildbach.wallet.ui.AbstractWalletActivity;
 import de.schildbach.wallet.ui.HelpDialogFragment;
 import de.schildbach.wallet_test.R;
 
@@ -37,7 +37,7 @@ import android.view.MenuItem;
 /**
  * @author Andreas Schildbach
  */
-public final class SendCoinsActivity extends AbstractBindServiceActivity {
+public final class SendCoinsActivity extends AbstractWalletActivity {
     public static final String INTENT_EXTRA_PAYMENT_INTENT = "payment_intent";
     public static final String INTENT_EXTRA_FEE_CATEGORY = "fee_category";
 
