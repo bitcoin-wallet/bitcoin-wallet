@@ -20,7 +20,7 @@ package de.schildbach.wallet.ui.send;
 import org.bitcoinj.core.VersionedChecksummedBytes;
 
 import de.schildbach.wallet.service.BlockchainService;
-import de.schildbach.wallet.ui.AbstractBindServiceActivity;
+import de.schildbach.wallet.ui.AbstractWalletActivity;
 import de.schildbach.wallet_test.R;
 
 import android.content.Context;
@@ -31,7 +31,7 @@ import android.view.MenuItem;
 /**
  * @author Andreas Schildbach
  */
-public final class SweepWalletActivity extends AbstractBindServiceActivity {
+public final class SweepWalletActivity extends AbstractWalletActivity {
     public static final String INTENT_EXTRA_KEY = "sweep_key";
 
     public static void start(final Context context) {

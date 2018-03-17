@@ -38,7 +38,7 @@ import org.spongycastle.crypto.params.KeyParameter;
 import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
-import de.schildbach.wallet.data.DynamicFeeLoader;
+import de.schildbach.wallet.data.DynamicFeeLiveData;
 import de.schildbach.wallet.service.BlockchainService;
 import de.schildbach.wallet.ui.AbstractWalletActivity;
 import de.schildbach.wallet.ui.DialogBuilder;
@@ -46,7 +46,11 @@ import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
 
 import android.app.AlertDialog;
+import android.app.Application;
 import android.app.Dialog;
+import android.arch.lifecycle.AndroidViewModel;
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnShowListener;
@@ -57,9 +61,6 @@ import android.os.HandlerThread;
 import android.os.Process;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.app.LoaderManager.LoaderCallbacks;
-import android.support.v4.content.Loader;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -95,7 +96,6 @@ public class RaiseFeeDialogFragment extends DialogFragment {
     private WalletApplication application;
     private Configuration config;
     private Wallet wallet;
-    private LoaderManager loaderManager;
 
     private Coin feeRaise = null;
     private Transaction transaction;
@@ -109,10 +109,10 @@ public class RaiseFeeDialogFragment extends DialogFragment {
     private View badPasswordView;
     private Button positiveButton, negativeButton;
 
+    private ViewModel viewModel;
+
     private HandlerThread backgroundThread;
     private Handler backgroundHandler;
-
-    private static final int ID_DYNAMIC_FEES_LOADER = 0;
 
     private enum State {
         INPUT, DECRYPTING, DONE
@@ -122,25 +122,21 @@ public class RaiseFeeDialogFragment extends DialogFragment {
 
     private static final Logger log = LoggerFactory.getLogger(RaiseFeeDialogFragment.class);
 
-    private final LoaderCallbacks<Map<FeeCategory, Coin>> dynamicFeesLoaderCallbacks = new LoaderManager.LoaderCallbacks<Map<FeeCategory, Coin>>() {
-        @Override
-        public Loader<Map<FeeCategory, Coin>> onCreateLoader(final int id, final Bundle args) {
-            return new DynamicFeeLoader(activity);
+    public static class ViewModel extends AndroidViewModel {
+        private final WalletApplication application;
+        private DynamicFeeLiveData dynamicFees;
+
+        public ViewModel(final Application application) {
+            super(application);
+            this.application = (WalletApplication) application;
         }
 
-        @Override
-        public void onLoadFinished(final Loader<Map<FeeCategory, Coin>> loader, final Map<FeeCategory, Coin> data) {
-            // We basically have to pay fee for two transactions:
-            // The transaction to raise the fee of and the CPFP transaction we're about to create.
-            final int size = transaction.getMessageSize() + 192;
-            feeRaise = data.get(FeeCategory.PRIORITY).multiply(size).divide(1000);
-            updateView();
+        public DynamicFeeLiveData getDynamicFees() {
+            if (dynamicFees == null)
+                dynamicFees = new DynamicFeeLiveData(application);
+            return dynamicFees;
         }
-
-        @Override
-        public void onLoaderReset(final Loader<Map<FeeCategory, Coin>> loader) {
-        }
-    };
+    }
 
     @Override
     public void onAttach(final Context context) {
@@ -149,12 +145,22 @@ public class RaiseFeeDialogFragment extends DialogFragment {
         this.application = activity.getWalletApplication();
         this.config = application.getConfiguration();
         this.wallet = application.getWallet();
-        this.loaderManager = getLoaderManager();
     }
 
     @Override
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        viewModel = ViewModelProviders.of(this).get(ViewModel.class);
+        viewModel.getDynamicFees().observe(this, new Observer<Map<FeeCategory, Coin>>() {
+            @Override
+            public void onChanged(final Map<FeeCategory, Coin> dynamicFees) {
+                // We basically have to pay fee for two transactions:
+                // The transaction to raise the fee of and the CPFP transaction we're about to create.
+                final int size = transaction.getMessageSize() + 192;
+                feeRaise = dynamicFees.get(FeeCategory.PRIORITY).multiply(size).divide(1000);
+                updateView();
+            }
+        });
 
         final Bundle args = getArguments();
         final byte[] txHash = (byte[]) args.getSerializable(KEY_TRANSACTION);
@@ -163,8 +169,6 @@ public class RaiseFeeDialogFragment extends DialogFragment {
         backgroundThread = new HandlerThread("backgroundThread", Process.THREAD_PRIORITY_BACKGROUND);
         backgroundThread.start();
         backgroundHandler = new Handler(backgroundThread.getLooper());
-
-        loaderManager.initLoader(ID_DYNAMIC_FEES_LOADER, null, dynamicFeesLoaderCallbacks);
     }
 
     @Override
@@ -234,8 +238,6 @@ public class RaiseFeeDialogFragment extends DialogFragment {
 
     @Override
     public void onDestroy() {
-        loaderManager.destroyLoader(ID_DYNAMIC_FEES_LOADER);
-
         backgroundThread.getLooper().quit();
 
         super.onDestroy();

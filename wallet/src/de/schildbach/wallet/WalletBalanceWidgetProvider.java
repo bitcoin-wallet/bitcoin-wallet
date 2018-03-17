@@ -22,7 +22,6 @@ import java.lang.reflect.Method;
 import org.bitcoinj.core.Coin;
 import org.bitcoinj.utils.Fiat;
 import org.bitcoinj.utils.MonetaryFormat;
-import org.bitcoinj.wallet.Wallet;
 import org.bitcoinj.wallet.Wallet.BalanceType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -77,7 +76,7 @@ public class WalletBalanceWidgetProvider extends AppWidgetProvider {
         updateWidget(context, appWidgetManager, appWidgetId, newOptions, balance);
     }
 
-    public static void updateWidgets(final Context context, final Wallet wallet) {
+    public static void updateWidgets(final Context context, final Coin walletBalance) {
         final AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
         final ComponentName providerName = new ComponentName(context, WalletBalanceWidgetProvider.class);
 
@@ -85,8 +84,7 @@ public class WalletBalanceWidgetProvider extends AppWidgetProvider {
             final int[] appWidgetIds = appWidgetManager.getAppWidgetIds(providerName);
 
             if (appWidgetIds.length > 0) {
-                final Coin balance = wallet.getBalance(BalanceType.ESTIMATED);
-                WalletBalanceWidgetProvider.updateWidgets(context, appWidgetManager, appWidgetIds, balance);
+                WalletBalanceWidgetProvider.updateWidgets(context, appWidgetManager, appWidgetIds, walletBalance);
             }
         } catch (final RuntimeException x) // system server dead?
         {

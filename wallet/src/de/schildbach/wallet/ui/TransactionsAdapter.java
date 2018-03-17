@@ -71,12 +71,13 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private final LayoutInflater inflater;
 
     private final boolean useCards;
-    private final Wallet wallet;
     private final int maxConnectedPeers;
     @Nullable
     private final OnClickListener onClickListener;
 
     private final List<Transaction> transactions = new ArrayList<Transaction>();
+    @Nullable
+    private Wallet wallet = null;
     private MonetaryFormat format;
     private Warning warning = null;
 
@@ -119,13 +120,12 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         }
     }
 
-    public TransactionsAdapter(final Context context, final Wallet wallet, final boolean useCards,
-            final int maxConnectedPeers, final @Nullable OnClickListener onClickListener) {
+    public TransactionsAdapter(final Context context, final boolean useCards, final int maxConnectedPeers,
+            final @Nullable OnClickListener onClickListener) {
         this.context = context;
         inflater = LayoutInflater.from(context);
 
         this.useCards = useCards;
-        this.wallet = wallet;
         this.maxConnectedPeers = maxConnectedPeers;
         this.onClickListener = onClickListener;
 
@@ -165,6 +165,11 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         this.transactions.clear();
         this.transactions.addAll(transactions);
         notifyDataSetChanged();
+    }
+
+    public void setWallet(final Wallet wallet) {
+        this.wallet = wallet;
+        notifyItemsChanged();
     }
 
     public void setFormat(final MonetaryFormat format) {
@@ -353,6 +358,8 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         }
 
         private void bind(final Transaction tx) {
+            if (wallet == null)
+                return;
             if (itemView instanceof CardView)
                 ((CardView) itemView)
                         .setCardBackgroundColor(itemView.isActivated() ? colorBackgroundSelected : colorBackground);

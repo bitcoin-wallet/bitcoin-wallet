@@ -27,7 +27,7 @@ import android.view.WindowManager;
 /**
  * @author Andreas Schildbach
  */
-public final class RequestCoinsActivity extends AbstractBindServiceActivity {
+public final class RequestCoinsActivity extends AbstractWalletActivity {
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

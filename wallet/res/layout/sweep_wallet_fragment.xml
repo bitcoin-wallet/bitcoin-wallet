@@ -41,7 +41,8 @@
             android:layout_marginTop="0dp"
             android:divider="@drawable/divider_field"
             android:orientation="horizontal"
-            android:showDividers="middle" >
+            android:showDividers="middle"
+            android:visibility="gone" >
 
             <EditText
                 android:id="@+id/sweep_wallet_fragment_password"
