@@ -32,7 +32,6 @@ import org.slf4j.LoggerFactory;
 import de.schildbach.wallet.service.BlockchainService;
 import de.schildbach.wallet_test.R;
 
-import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
@@ -83,10 +82,9 @@ public final class PeerListFragment extends Fragment {
     private static final Logger log = LoggerFactory.getLogger(PeerListFragment.class);
 
     @Override
-    public void onAttach(final Activity activity) {
-        super.onAttach(activity);
-
-        this.activity = (AbstractWalletActivity) activity;
+    public void onAttach(final Context context) {
+        super.onAttach(context);
+        this.activity = (AbstractWalletActivity) context;
         this.loaderManager = getLoaderManager();
     }
 

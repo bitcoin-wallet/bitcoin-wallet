@@ -46,7 +46,7 @@ public abstract class AbstractWalletActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
     }
 
-    protected WalletApplication getWalletApplication() {
+    public WalletApplication getWalletApplication() {
         return application;
     }
 }

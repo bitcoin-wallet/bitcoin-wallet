@@ -20,7 +20,7 @@ package de.schildbach.wallet.ui;
 import de.schildbach.wallet.util.CheatSheet;
 import de.schildbach.wallet_test.R;
 
-import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -37,10 +37,9 @@ public final class WalletActionsFragment extends Fragment {
     private WalletActivity activity;
 
     @Override
-    public void onAttach(final Activity activity) {
-        super.onAttach(activity);
-
-        this.activity = (WalletActivity) activity;
+    public void onAttach(final Context context) {
+        super.onAttach(context);
+        this.activity = (WalletActivity) context;
     }
 
     @Override

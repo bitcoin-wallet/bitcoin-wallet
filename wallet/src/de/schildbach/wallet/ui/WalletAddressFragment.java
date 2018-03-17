@@ -36,7 +36,6 @@ import de.schildbach.wallet.util.Qr;
 import de.schildbach.wallet.util.ThrottlingWalletChangeListener;
 import de.schildbach.wallet_test.R;
 
-import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -66,7 +65,7 @@ import android.widget.ImageView;
  * @author Andreas Schildbach
  */
 public final class WalletAddressFragment extends Fragment implements NfcAdapter.CreateNdefMessageCallback {
-    private Activity activity;
+    private AbstractWalletActivity activity;
     private WalletApplication application;
     private Configuration config;
     private LoaderManager loaderManager;
@@ -84,11 +83,10 @@ public final class WalletAddressFragment extends Fragment implements NfcAdapter.
     private static final Logger log = LoggerFactory.getLogger(WalletAddressFragment.class);
 
     @Override
-    public void onAttach(final Activity activity) {
-        super.onAttach(activity);
-
-        this.activity = activity;
-        this.application = (WalletApplication) activity.getApplication();
+    public void onAttach(final Context context) {
+        super.onAttach(context);
+        this.activity = (AbstractWalletActivity) context;
+        this.application = activity.getWalletApplication();
         this.config = application.getConfiguration();
         this.loaderManager = getLoaderManager();
         this.nfcAdapter = NfcAdapter.getDefaultAdapter(activity);

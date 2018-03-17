@@ -41,7 +41,6 @@ import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet.util.WholeStringBuilder;
 import de.schildbach.wallet_test.R;
 
-import android.app.Activity;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.ContentResolver;
@@ -64,7 +63,7 @@ import android.widget.ListView;
  * @author Andreas Schildbach
  */
 public final class WalletAddressesFragment extends FancyListFragment {
-    private AddressBookActivity activity;
+    private AbstractWalletActivity activity;
     private WalletApplication application;
     private Configuration config;
     private Wallet wallet;
@@ -76,11 +75,10 @@ public final class WalletAddressesFragment extends FancyListFragment {
     private static final Logger log = LoggerFactory.getLogger(WalletAddressesFragment.class);
 
     @Override
-    public void onAttach(final Activity activity) {
-        super.onAttach(activity);
-
-        this.activity = (AddressBookActivity) activity;
-        this.application = (WalletApplication) activity.getApplication();
+    public void onAttach(final Context context) {
+        super.onAttach(context);
+        this.activity = (AbstractWalletActivity) context;
+        this.application = activity.getWalletApplication();
         this.config = application.getConfiguration();
         this.wallet = application.getWallet();
         this.clipboardManager = (ClipboardManager) activity.getSystemService(Context.CLIPBOARD_SERVICE);

@@ -17,10 +17,12 @@
 
 package de.schildbach.wallet.util;
 
+import de.schildbach.wallet.ui.AbstractWalletActivity;
 import de.schildbach.wallet_test.R;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
@@ -54,10 +56,9 @@ public class BitmapFragment extends DialogFragment {
     private Activity activity;
 
     @Override
-    public void onAttach(final Activity activity) {
-        super.onAttach(activity);
-
-        this.activity = activity;
+    public void onAttach(final Context context) {
+        super.onAttach(context);
+        this.activity = (AbstractWalletActivity) context;
     }
 
     @Override

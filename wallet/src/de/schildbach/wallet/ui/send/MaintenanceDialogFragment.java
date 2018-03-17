@@ -40,9 +40,9 @@ import de.schildbach.wallet.ui.AbstractWalletActivity;
 import de.schildbach.wallet.ui.DialogBuilder;
 import de.schildbach.wallet_test.R;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnShowListener;
 import android.graphics.Typeface;
@@ -101,11 +101,10 @@ public class MaintenanceDialogFragment extends DialogFragment {
     private static final Logger log = LoggerFactory.getLogger(MaintenanceDialogFragment.class);
 
     @Override
-    public void onAttach(final Activity activity) {
-        super.onAttach(activity);
-
-        this.activity = (AbstractWalletActivity) activity;
-        this.application = (WalletApplication) activity.getApplication();
+    public void onAttach(final Context context) {
+        super.onAttach(context);
+        this.activity = (AbstractWalletActivity) context;
+        this.application = activity.getWalletApplication();
         this.wallet = application.getWallet();
     }
 

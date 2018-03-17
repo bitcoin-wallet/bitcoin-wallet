@@ -28,7 +28,7 @@ import de.schildbach.wallet.service.BlockchainState.Impediment;
 import de.schildbach.wallet.service.BlockchainStateLoader;
 import de.schildbach.wallet_test.R;
 
-import android.app.Activity;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
@@ -62,11 +62,10 @@ public final class WalletDisclaimerFragment extends Fragment implements OnShared
     private static final int ID_BLOCKCHAIN_STATE_LOADER = 0;
 
     @Override
-    public void onAttach(final Activity activity) {
-        super.onAttach(activity);
-
-        this.activity = (AbstractBindServiceActivity) activity;
-        final WalletApplication application = (WalletApplication) activity.getApplication();
+    public void onAttach(final Context context) {
+        super.onAttach(context);
+        this.activity = (AbstractBindServiceActivity) context;
+        final WalletApplication application = activity.getWalletApplication();
         this.config = application.getConfiguration();
         this.loaderManager = getLoaderManager();
     }

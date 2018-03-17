@@ -35,7 +35,7 @@ import de.schildbach.wallet.ui.send.FeeCategory;
 import de.schildbach.wallet.ui.send.SendCoinsActivity;
 import de.schildbach.wallet_test.R;
 
-import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Build;
@@ -58,8 +58,8 @@ import android.widget.TextView;
  * @author Andreas Schildbach
  */
 public final class WalletBalanceFragment extends Fragment {
-    private WalletApplication application;
     private AbstractBindServiceActivity activity;
+    private WalletApplication application;
     private Configuration config;
     private Wallet wallet;
     private LoaderManager loaderManager;
@@ -89,11 +89,10 @@ public final class WalletBalanceFragment extends Fragment {
     private static final Coin TOO_MUCH_BALANCE_THRESHOLD = Coin.COIN.divide(16);
 
     @Override
-    public void onAttach(final Activity activity) {
-        super.onAttach(activity);
-
-        this.activity = (AbstractBindServiceActivity) activity;
-        this.application = (WalletApplication) activity.getApplication();
+    public void onAttach(final Context context) {
+        super.onAttach(context);
+        this.activity = (AbstractBindServiceActivity) context;
+        this.application = activity.getWalletApplication();
         this.config = application.getConfiguration();
         this.wallet = application.getWallet();
         this.loaderManager = getLoaderManager();

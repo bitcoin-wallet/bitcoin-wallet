@@ -89,11 +89,10 @@ public final class SendingAddressesFragment extends FancyListFragment
     private static final Logger log = LoggerFactory.getLogger(SendingAddressesFragment.class);
 
     @Override
-    public void onAttach(final Activity activity) {
-        super.onAttach(activity);
-
-        this.activity = (AbstractWalletActivity) activity;
-        final WalletApplication application = (WalletApplication) activity.getApplication();
+    public void onAttach(final Context context) {
+        super.onAttach(context);
+        this.activity = (AbstractWalletActivity) context;
+        final WalletApplication application = activity.getWalletApplication();
         this.wallet = application.getWallet();
         this.clipboardManager = (ClipboardManager) activity.getSystemService(Context.CLIPBOARD_SERVICE);
         this.loaderManager = getLoaderManager();

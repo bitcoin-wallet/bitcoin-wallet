@@ -51,7 +51,6 @@ import de.schildbach.wallet.util.ThrottlingWalletChangeListener;
 import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
 
-import android.app.Activity;
 import android.app.admin.DevicePolicyManager;
 import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
@@ -136,11 +135,10 @@ public class WalletTransactionsFragment extends Fragment implements LoaderCallba
     };
 
     @Override
-    public void onAttach(final Activity activity) {
-        super.onAttach(activity);
-
-        this.activity = (AbstractWalletActivity) activity;
-        this.application = (WalletApplication) activity.getApplication();
+    public void onAttach(final Context context) {
+        super.onAttach(context);
+        this.activity = (AbstractWalletActivity) context;
+        this.application = activity.getWalletApplication();
         this.config = application.getConfiguration();
         this.wallet = application.getWallet();
         this.resolver = activity.getContentResolver();

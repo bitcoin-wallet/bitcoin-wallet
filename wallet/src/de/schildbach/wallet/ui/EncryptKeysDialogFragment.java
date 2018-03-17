@@ -31,9 +31,9 @@ import com.google.common.base.Strings;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet_test.R;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnShowListener;
 import android.graphics.Typeface;
@@ -108,11 +108,10 @@ public class EncryptKeysDialogFragment extends DialogFragment {
     };
 
     @Override
-    public void onAttach(final Activity activity) {
-        super.onAttach(activity);
-
-        this.activity = (AbstractWalletActivity) activity;
-        this.application = (WalletApplication) activity.getApplication();
+    public void onAttach(final Context context) {
+        super.onAttach(context);
+        this.activity = (AbstractWalletActivity) context;
+        this.application = activity.getWalletApplication();
         this.wallet = application.getWallet();
     }
 

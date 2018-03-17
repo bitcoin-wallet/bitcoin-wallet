@@ -20,6 +20,7 @@ package de.schildbach.wallet.ui;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
@@ -55,10 +56,9 @@ public class ProgressDialogFragment extends DialogFragment {
     private Activity activity;
 
     @Override
-    public void onAttach(final Activity activity) {
-        super.onAttach(activity);
-
-        this.activity = activity;
+    public void onAttach(final Context context) {
+        super.onAttach(context);
+        this.activity = (Activity) context;
     }
 
     @Override

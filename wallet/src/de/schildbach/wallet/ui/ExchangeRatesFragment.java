@@ -34,7 +34,7 @@ import de.schildbach.wallet.service.BlockchainState;
 import de.schildbach.wallet.service.BlockchainStateLoader;
 import de.schildbach.wallet_test.R;
 
-import android.app.Activity;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.database.Cursor;
@@ -87,11 +87,10 @@ public final class ExchangeRatesFragment extends Fragment implements OnSharedPre
     private static final int ID_BLOCKCHAIN_STATE_LOADER = 2;
 
     @Override
-    public void onAttach(final Activity activity) {
-        super.onAttach(activity);
-
-        this.activity = (AbstractBindServiceActivity) activity;
-        this.application = (WalletApplication) activity.getApplication();
+    public void onAttach(final Context context) {
+        super.onAttach(context);
+        this.activity = (AbstractBindServiceActivity) context;
+        this.application = activity.getWalletApplication();
         this.config = application.getConfiguration();
         this.wallet = application.getWallet();
         this.contentUri = ExchangeRatesProvider.contentUri(activity.getPackageName(), false);

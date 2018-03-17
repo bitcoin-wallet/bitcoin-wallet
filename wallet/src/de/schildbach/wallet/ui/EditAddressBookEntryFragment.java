@@ -28,10 +28,10 @@ import de.schildbach.wallet.data.AddressBookProvider;
 import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.ContentResolver;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
@@ -76,16 +76,15 @@ public final class EditAddressBookEntryFragment extends DialogFragment {
         return fragment;
     }
 
-    private Activity activity;
+    private AbstractWalletActivity activity;
     private Wallet wallet;
     private ContentResolver contentResolver;
 
     @Override
-    public void onAttach(final Activity activity) {
-        super.onAttach(activity);
-
-        this.activity = activity;
-        final WalletApplication application = (WalletApplication) activity.getApplication();
+    public void onAttach(final Context context) {
+        super.onAttach(context);
+        this.activity = (AbstractWalletActivity) context;
+        final WalletApplication application = activity.getWalletApplication();
         this.wallet = application.getWallet();
         this.contentResolver = activity.getContentResolver();
     }

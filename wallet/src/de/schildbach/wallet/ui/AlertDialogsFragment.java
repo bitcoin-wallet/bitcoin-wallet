@@ -34,9 +34,9 @@ import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.util.CrashReporter;
 import de.schildbach.wallet_test.R;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.bluetooth.BluetoothAdapter;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -70,7 +70,7 @@ public class AlertDialogsFragment extends Fragment {
         }
     }
 
-    private Activity activity;
+    private AbstractWalletActivity activity;
     private WalletApplication application;
     private PackageManager packageManager;
 
@@ -83,11 +83,10 @@ public class AlertDialogsFragment extends Fragment {
     private static final Logger log = LoggerFactory.getLogger(AlertDialogsFragment.class);
 
     @Override
-    public void onAttach(final Activity activity) {
-        super.onAttach(activity);
-
-        this.activity = activity;
-        this.application = (WalletApplication) activity.getApplication();
+    public void onAttach(final Context context) {
+        super.onAttach(context);
+        this.activity = (AbstractWalletActivity) context;
+        this.application = activity.getWalletApplication();
         this.packageManager = activity.getPackageManager();
     }
 

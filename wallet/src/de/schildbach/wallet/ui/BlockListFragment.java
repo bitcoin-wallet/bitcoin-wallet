@@ -36,7 +36,6 @@ import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.service.BlockchainService;
 import de.schildbach.wallet_test.R;
 
-import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
@@ -86,10 +85,9 @@ public final class BlockListFragment extends Fragment implements BlockListAdapte
     private static final Logger log = LoggerFactory.getLogger(BlockListFragment.class);
 
     @Override
-    public void onAttach(final Activity activity) {
-        super.onAttach(activity);
-
-        this.activity = (AbstractWalletActivity) activity;
+    public void onAttach(final Context context) {
+        super.onAttach(context);
+        this.activity = (AbstractWalletActivity) context;
         this.application = this.activity.getWalletApplication();
         this.config = application.getConfiguration();
         this.wallet = application.getWallet();

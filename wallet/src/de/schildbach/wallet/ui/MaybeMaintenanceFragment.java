@@ -30,7 +30,6 @@ import de.schildbach.wallet.service.BlockchainService;
 import de.schildbach.wallet.service.BlockchainState;
 import de.schildbach.wallet.ui.send.MaintenanceDialogFragment;
 
-import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -59,12 +58,12 @@ public class MaybeMaintenanceFragment extends Fragment {
     private boolean dialogWasShown = false;
 
     @Override
-    public void onAttach(final Activity activity) {
-        super.onAttach(activity);
-
-        final WalletApplication application = ((AbstractWalletActivity) activity).getWalletApplication();
+    public void onAttach(final Context context) {
+        super.onAttach(context);
+        final AbstractWalletActivity activity = (AbstractWalletActivity) context;
+        final WalletApplication application = activity.getWalletApplication();
         this.wallet = application.getWallet();
-        this.broadcastManager = LocalBroadcastManager.getInstance(activity);
+        this.broadcastManager = LocalBroadcastManager.getInstance(context);
     }
 
     @Override
