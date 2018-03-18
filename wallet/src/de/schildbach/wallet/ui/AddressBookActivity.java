@@ -17,18 +17,6 @@
 
 package de.schildbach.wallet.ui;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
-import org.bitcoinj.core.Address;
-import org.bitcoinj.core.ECKey;
-import org.bitcoinj.crypto.DeterministicKey;
-import org.bitcoinj.wallet.Wallet;
-
-import com.google.common.collect.Iterables;
-
-import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.util.ViewPagerTabs;
 import de.schildbach.wallet_test.R;
 
@@ -107,8 +95,6 @@ public final class AddressBookActivity extends AbstractWalletActivity {
             fragmentManager.beginTransaction().add(R.id.wallet_addresses_fragment, walletAddressesFragment, TAG_LEFT)
                     .add(R.id.sending_addresses_fragment, sendingAddressesFragment, TAG_RIGHT).commit();
         }
-
-        updateFragments();
     }
 
     @Override
@@ -120,21 +106,6 @@ public final class AddressBookActivity extends AbstractWalletActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    /* private */void updateFragments() {
-        final Wallet wallet = getWalletApplication().getWallet();
-        final List<ECKey> derivedKeys = wallet.getIssuedReceiveKeys();
-        Collections.sort(derivedKeys, DeterministicKey.CHILDNUM_ORDER);
-        final List<ECKey> randomKeys = wallet.getImportedKeys();
-        final ArrayList<Address> addresses = new ArrayList<Address>(derivedKeys.size() + randomKeys.size());
-
-        for (final ECKey key : Iterables.concat(derivedKeys, randomKeys)) {
-            final Address address = key.toAddress(Constants.NETWORK_PARAMETERS);
-            addresses.add(address);
-        }
-
-        sendingAddressesFragment.setWalletAddresses(addresses);
     }
 
     private static class TwoFragmentAdapter extends PagerAdapter {

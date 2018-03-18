@@ -17,19 +17,22 @@
 
 package de.schildbach.wallet.ui;
 
-import java.util.ArrayList;
-
-import javax.annotation.Nonnull;
+import java.util.Collections;
+import java.util.List;
 
 import org.bitcoinj.core.Address;
 import org.bitcoinj.core.AddressFormatException;
+import org.bitcoinj.core.ECKey;
 import org.bitcoinj.core.Transaction;
 import org.bitcoinj.core.VerificationException;
+import org.bitcoinj.crypto.DeterministicKey;
 import org.bitcoinj.uri.BitcoinURI;
 import org.bitcoinj.uri.BitcoinURIParseException;
 import org.bitcoinj.wallet.Wallet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.google.common.collect.Iterables;
 
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
@@ -120,6 +123,20 @@ public final class SendingAddressesFragment extends FancyListFragment
             }
         });
         setListAdapter(adapter);
+
+        final List<ECKey> derivedKeys = wallet.getIssuedReceiveKeys();
+        Collections.sort(derivedKeys, DeterministicKey.CHILDNUM_ORDER);
+        final List<ECKey> randomKeys = wallet.getImportedKeys();
+
+        final StringBuilder builder = new StringBuilder();
+        for (final ECKey key : Iterables.concat(derivedKeys, randomKeys)) {
+            final Address address = key.toAddress(Constants.NETWORK_PARAMETERS);
+            builder.append(address.toBase58()).append(",");
+        }
+        if (builder.length() > 0)
+            builder.setLength(builder.length() - 1);
+
+        walletAddressesSelection = builder.toString();
 
         loaderManager.initLoader(0, null, this);
     }
@@ -353,16 +370,6 @@ public final class SendingAddressesFragment extends FancyListFragment
     @Override
     public void onLoaderReset(final Loader<Cursor> loader) {
         adapter.swapCursor(null);
-    }
-
-    public void setWalletAddresses(@Nonnull final ArrayList<Address> addresses) {
-        final StringBuilder builder = new StringBuilder();
-        for (final Address address : addresses)
-            builder.append(address.toBase58()).append(",");
-        if (addresses.size() > 0)
-            builder.setLength(builder.length() - 1);
-
-        walletAddressesSelection = builder.toString();
     }
 
     private Address getAddressFromPrimaryClip() {
