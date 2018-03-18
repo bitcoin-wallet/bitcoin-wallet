@@ -19,6 +19,7 @@ package de.schildbach.wallet.ui;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -27,6 +28,7 @@ import javax.annotation.Nullable;
 import org.bitcoinj.core.Address;
 import org.bitcoinj.core.Block;
 import org.bitcoinj.core.Coin;
+import org.bitcoinj.core.Sha256Hash;
 import org.bitcoinj.core.StoredBlock;
 import org.bitcoinj.core.Transaction;
 import org.bitcoinj.core.Transaction.Purpose;
@@ -63,8 +65,8 @@ public class BlockListAdapter extends RecyclerView.Adapter<BlockListAdapter.Bloc
 
     private MonetaryFormat format;
 
-    private final List<StoredBlock> blocks = new ArrayList<StoredBlock>();
-    private Set<Transaction> transactions;
+    private final List<StoredBlock> blocks = new ArrayList<>();
+    private final Set<Transaction> transactions = new HashSet<>();
 
     private final String textCoinBase;
     private final String textInternal;
@@ -84,32 +86,28 @@ public class BlockListAdapter extends RecyclerView.Adapter<BlockListAdapter.Bloc
 
     public void setFormat(final MonetaryFormat format) {
         this.format = format.noCode();
-
         notifyDataSetChanged();
     }
 
     public void clear() {
         blocks.clear();
-
         notifyDataSetChanged();
     }
 
     public void replace(final Collection<StoredBlock> blocks) {
         this.blocks.clear();
         this.blocks.addAll(blocks);
-
         notifyDataSetChanged();
     }
 
     public void clearTransactions() {
-        transactions = null;
-
+        transactions.clear();
         notifyDataSetChanged();
     }
 
     public void replaceTransactions(final Set<Transaction> transactions) {
-        this.transactions = transactions;
-
+        this.transactions.clear();
+        this.transactions.addAll(transactions);
         notifyDataSetChanged();
     }
 
@@ -157,21 +155,20 @@ public class BlockListAdapter extends RecyclerView.Adapter<BlockListAdapter.Bloc
         final int transactionChildCount = holder.transactionsViewGroup.getChildCount() - ROW_BASE_CHILD_COUNT;
         int iTransactionView = 0;
 
-        if (transactions != null) {
-            for (final Transaction tx : transactions) {
-                if (tx.getAppearsInHashes().containsKey(header.getHash())) {
-                    final View view;
-                    if (iTransactionView < transactionChildCount) {
-                        view = holder.transactionsViewGroup.getChildAt(ROW_INSERT_INDEX + iTransactionView);
-                    } else {
-                        view = inflater.inflate(R.layout.block_row_transaction, null);
-                        holder.transactionsViewGroup.addView(view, ROW_INSERT_INDEX + iTransactionView);
-                    }
-
-                    bindView(view, tx);
-
-                    iTransactionView++;
+        final Sha256Hash blockHash = header.getHash();
+        for (final Transaction tx : transactions) {
+            if (tx.getAppearsInHashes().containsKey(blockHash)) {
+                final View view;
+                if (iTransactionView < transactionChildCount) {
+                    view = holder.transactionsViewGroup.getChildAt(ROW_INSERT_INDEX + iTransactionView);
+                } else {
+                    view = inflater.inflate(R.layout.block_row_transaction, null);
+                    holder.transactionsViewGroup.addView(view, ROW_INSERT_INDEX + iTransactionView);
                 }
+
+                bindView(view, tx);
+
+                iTransactionView++;
             }
         }
 
