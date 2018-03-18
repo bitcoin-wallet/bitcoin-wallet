@@ -49,7 +49,6 @@ import android.graphics.SurfaceTexture;
 import android.hardware.Camera;
 import android.hardware.Camera.CameraInfo;
 import android.hardware.Camera.PreviewCallback;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
@@ -85,13 +84,6 @@ public final class ScanActivity extends FragmentActivity
     private Vibrator vibrator;
     private HandlerThread cameraThread;
     private volatile Handler cameraHandler;
-
-    private static boolean DISABLE_CONTINUOUS_AUTOFOCUS = Build.MODEL.equals("GT-I9100") // Galaxy S2
-            || Build.MODEL.equals("SGH-T989") // Galaxy S2
-            || Build.MODEL.equals("SGH-T989D") // Galaxy S2 X
-            || Build.MODEL.equals("SAMSUNG-SGH-I727") // Galaxy S2 Skyrocket
-            || Build.MODEL.equals("GT-I9300") // Galaxy S3
-            || Build.MODEL.equals("GT-N7000"); // Galaxy Note
 
     private static final Logger log = LoggerFactory.getLogger(ScanActivity.class);
 
@@ -149,7 +141,6 @@ public final class ScanActivity extends FragmentActivity
                     .newInstance(R.string.scan_camera_permission_dialog_title,
                             getString(R.string.scan_camera_permission_dialog_message))
                     .show(getSupportFragmentManager(), "dialog");
-
     }
 
     private void maybeOpenCamera() {
@@ -235,7 +226,7 @@ public final class ScanActivity extends FragmentActivity
         @Override
         public void run() {
             try {
-                final Camera camera = cameraManager.open(previewView, displayRotation(), !DISABLE_CONTINUOUS_AUTOFOCUS);
+                final Camera camera = cameraManager.open(previewView, displayRotation());
 
                 final Rect framingRect = cameraManager.getFrame();
                 final RectF framingRectInPreview = new RectF(cameraManager.getFramePreview());

@@ -71,8 +71,7 @@ public final class CameraManager {
         return cameraInfo.orientation;
     }
 
-    public Camera open(final TextureView textureView, final int displayOrientation, final boolean continuousAutoFocus)
-            throws IOException {
+    public Camera open(final TextureView textureView, final int displayOrientation) throws IOException {
         final int cameraId = determineCameraId();
         Camera.getCameraInfo(cameraId, cameraInfo);
 
@@ -110,14 +109,14 @@ public final class CameraManager {
         final String savedParameters = parameters == null ? null : parameters.flatten();
 
         try {
-            setDesiredCameraParameters(camera, cameraResolution, continuousAutoFocus);
+            setDesiredCameraParameters(camera, cameraResolution);
         } catch (final RuntimeException x) {
             if (savedParameters != null) {
                 final Camera.Parameters parameters2 = camera.getParameters();
                 parameters2.unflatten(savedParameters);
                 try {
                     camera.setParameters(parameters2);
-                    setDesiredCameraParameters(camera, cameraResolution, continuousAutoFocus);
+                    setDesiredCameraParameters(camera, cameraResolution);
                 } catch (final RuntimeException x2) {
                     log.info("problem setting camera parameters", x2);
                 }
@@ -230,18 +229,15 @@ public final class CameraManager {
     }
 
     @SuppressLint("InlinedApi")
-    private static void setDesiredCameraParameters(final Camera camera, final Camera.Size cameraResolution,
-            final boolean continuousAutoFocus) {
+    private static void setDesiredCameraParameters(final Camera camera, final Camera.Size cameraResolution) {
         final Camera.Parameters parameters = camera.getParameters();
         if (parameters == null)
             return;
 
         final List<String> supportedFocusModes = parameters.getSupportedFocusModes();
-        final String focusMode = continuousAutoFocus
-                ? findValue(supportedFocusModes, Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE,
-                        Camera.Parameters.FOCUS_MODE_CONTINUOUS_VIDEO, Camera.Parameters.FOCUS_MODE_AUTO,
-                        Camera.Parameters.FOCUS_MODE_MACRO)
-                : findValue(supportedFocusModes, Camera.Parameters.FOCUS_MODE_AUTO, Camera.Parameters.FOCUS_MODE_MACRO);
+        final String focusMode = findValue(supportedFocusModes, Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE,
+                Camera.Parameters.FOCUS_MODE_CONTINUOUS_VIDEO, Camera.Parameters.FOCUS_MODE_AUTO,
+                Camera.Parameters.FOCUS_MODE_MACRO);
         if (focusMode != null)
             parameters.setFocusMode(focusMode);
 
