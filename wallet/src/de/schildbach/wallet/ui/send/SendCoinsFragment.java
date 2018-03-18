@@ -101,7 +101,6 @@ import android.content.Loader;
 import android.content.pm.PackageManager;
 import android.database.ContentObserver;
 import android.database.Cursor;
-import android.database.MergeCursor;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.nfc.NdefMessage;
@@ -403,7 +402,6 @@ public final class SendCoinsFragment extends Fragment {
 
         private final Context context;
         private final CursorAdapter targetAdapter;
-        private Cursor receivingAddressBookCursor, receivingAddressNameCursor;
 
         public ReceivingAddressLoaderCallbacks(final Context context, final CursorAdapter targetAdapter) {
             this.context = checkNotNull(context);
@@ -413,44 +411,18 @@ public final class SendCoinsFragment extends Fragment {
         @Override
         public Loader<Cursor> onCreateLoader(final int id, final Bundle args) {
             final String constraint = Strings.nullToEmpty(args != null ? args.getString(ARG_CONSTRAINT) : null);
-
-            if (id == ID_RECEIVING_ADDRESS_BOOK_LOADER)
-                return new CursorLoader(context, AddressBookProvider.contentUri(context.getPackageName()), null,
-                        AddressBookProvider.SELECTION_QUERY, new String[] { constraint }, null);
-            else
-                throw new IllegalArgumentException();
+            return new CursorLoader(context, AddressBookProvider.contentUri(context.getPackageName()), null,
+                    AddressBookProvider.SELECTION_QUERY, new String[] { constraint }, null);
         }
 
         @Override
-        public void onLoadFinished(final Loader<Cursor> loader, Cursor data) {
-            if (data.getCount() == 0)
-                data = null;
-            if (loader instanceof CursorLoader)
-                receivingAddressBookCursor = data;
-            else
-                receivingAddressNameCursor = data;
-            swapTargetCursor();
+        public void onLoadFinished(final Loader<Cursor> loader, final Cursor data) {
+            targetAdapter.swapCursor(data);
         }
 
         @Override
         public void onLoaderReset(final Loader<Cursor> loader) {
-            if (loader instanceof CursorLoader)
-                receivingAddressBookCursor = null;
-            else
-                receivingAddressNameCursor = null;
-            swapTargetCursor();
-        }
-
-        private void swapTargetCursor() {
-            if (receivingAddressBookCursor == null && receivingAddressNameCursor == null)
-                targetAdapter.swapCursor(null);
-            else if (receivingAddressBookCursor != null && receivingAddressNameCursor == null)
-                targetAdapter.swapCursor(receivingAddressBookCursor);
-            else if (receivingAddressBookCursor == null && receivingAddressNameCursor != null)
-                targetAdapter.swapCursor(receivingAddressNameCursor);
-            else
-                targetAdapter.swapCursor(
-                        new MergeCursor(new Cursor[] { receivingAddressBookCursor, receivingAddressNameCursor }));
+            targetAdapter.swapCursor(null);
         }
     }
 
