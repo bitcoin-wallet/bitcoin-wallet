@@ -288,7 +288,7 @@ public final class BlockListFragment extends Fragment implements BlockListAdapte
         public Set<Transaction> loadInBackground() {
             org.bitcoinj.core.Context.propagate(Constants.CONTEXT);
 
-            final Set<Transaction> transactions = wallet.getTransactions(true);
+            final Set<Transaction> transactions = wallet.getTransactions(false);
 
             final Set<Transaction> filteredTransactions = new HashSet<Transaction>(transactions.size());
             for (final Transaction tx : transactions) {
