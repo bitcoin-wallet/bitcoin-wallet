@@ -223,11 +223,7 @@ public final class SendCoinsFragment extends Fragment {
                 validateReceivingAddress();
             else
                 updateView();
-
-            final Bundle args = new Bundle();
-            args.putString(ReceivingAddressLoaderCallbacks.ARG_CONSTRAINT, s.toString());
-
-            loaderManager.restartLoader(ID_RECEIVING_ADDRESS_BOOK_LOADER, args, receivingAddressLoaderCallbacks);
+            receivingAddressLoaderCallbacks.setConstraint(s.toString());
         }
 
         @Override
@@ -398,10 +394,10 @@ public final class SendCoinsFragment extends Fragment {
     };
 
     private static class ReceivingAddressLoaderCallbacks implements LoaderManager.LoaderCallbacks<Cursor> {
-        private final static String ARG_CONSTRAINT = "constraint";
-
         private final Context context;
         private final CursorAdapter targetAdapter;
+        private CursorLoader loader;
+        private String constraint;
 
         public ReceivingAddressLoaderCallbacks(final Context context, final CursorAdapter targetAdapter) {
             this.context = checkNotNull(context);
@@ -410,9 +406,9 @@ public final class SendCoinsFragment extends Fragment {
 
         @Override
         public Loader<Cursor> onCreateLoader(final int id, final Bundle args) {
-            final String constraint = Strings.nullToEmpty(args != null ? args.getString(ARG_CONSTRAINT) : null);
-            return new CursorLoader(context, AddressBookProvider.contentUri(context.getPackageName()), null,
-                    AddressBookProvider.SELECTION_QUERY, new String[] { constraint }, null);
+            loader = new CursorLoader(context, AddressBookProvider.contentUri(context.getPackageName()), null,
+                    AddressBookProvider.SELECTION_QUERY, new String[] { Strings.nullToEmpty(constraint) }, null);
+            return loader;
         }
 
         @Override
@@ -423,6 +419,14 @@ public final class SendCoinsFragment extends Fragment {
         @Override
         public void onLoaderReset(final Loader<Cursor> loader) {
             targetAdapter.swapCursor(null);
+        }
+
+        public void setConstraint(final String constraint) {
+            this.constraint = constraint;
+            if (loader != null) {
+                loader.setSelectionArgs(new String[] { Strings.nullToEmpty(constraint) });
+                loader.forceLoad();
+            }
         }
     }
 
