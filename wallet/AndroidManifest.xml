@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="de.schildbach.wallet_test"
     android:installLocation="internalOnly"
-    android:versionCode="344"
-    android:versionName="6.04" >
+    android:versionCode="345"
+    android:versionName="6.05" >
 
     <uses-sdk
         android:minSdkVersion="19"
