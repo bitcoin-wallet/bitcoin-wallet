@@ -134,13 +134,21 @@ public final class ScanActivity extends FragmentActivity
     @Override
     public void onRequestPermissionsResult(final int requestCode, final String[] permissions,
             final int[] grantResults) {
-        if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+        if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             maybeOpenCamera();
-        else
-            WarnDialogFragment
-                    .newInstance(R.string.scan_camera_permission_dialog_title,
-                            getString(R.string.scan_camera_permission_dialog_message))
-                    .show(getSupportFragmentManager(), "dialog");
+        } else {
+            new Handler().post(new Runnable() {
+                @Override
+                public void run() {
+                    if (isFinishing())
+                        return;
+                    WarnDialogFragment
+                            .newInstance(R.string.scan_camera_permission_dialog_title,
+                                    getString(R.string.scan_camera_permission_dialog_message))
+                            .show(getSupportFragmentManager(), "dialog");
+                }
+            });
+        }
     }
 
     private void maybeOpenCamera() {
@@ -255,11 +263,12 @@ public final class ScanActivity extends FragmentActivity
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        if (!isFinishing())
-                            WarnDialogFragment
-                                    .newInstance(R.string.scan_camera_problem_dialog_title,
-                                            getString(R.string.scan_camera_problem_dialog_message))
-                                    .show(getSupportFragmentManager(), "dialog");
+                        if (isFinishing())
+                            return;
+                        WarnDialogFragment
+                                .newInstance(R.string.scan_camera_problem_dialog_title,
+                                        getString(R.string.scan_camera_problem_dialog_message))
+                                .show(getSupportFragmentManager(), "dialog");
                     }
                 });
             }
