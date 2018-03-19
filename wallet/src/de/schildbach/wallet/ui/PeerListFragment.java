@@ -125,7 +125,7 @@ public final class PeerListFragment extends Fragment {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                adapter.notifyDataSetChanged();
+                adapter.notifyItemsChanged();
 
                 final Loader<String> loader = loaderManager.getLoader(ID_REVERSE_DNS_LOADER);
                 final boolean loaderRunning = loader != null && loader.isStarted();
@@ -193,15 +193,17 @@ public final class PeerListFragment extends Fragment {
 
         public void clear() {
             peers.clear();
-
             notifyDataSetChanged();
         }
 
         public void replace(final List<Peer> peers) {
             this.peers.clear();
             this.peers.addAll(peers);
-
             notifyDataSetChanged();
+        }
+
+        public void notifyItemsChanged() {
+            notifyItemRangeChanged(0, getItemCount());
         }
 
         public Peer getItem(final int position) {
@@ -362,6 +364,7 @@ public final class PeerListFragment extends Fragment {
         public void onLoadFinished(final Loader<String> loader, final String hostname) {
             final InetAddress address = ((ReverseDnsLoader) loader).address;
             hostnames.put(address, hostname);
+            adapter.notifyItemsChanged();
 
             loaderManager.destroyLoader(ID_REVERSE_DNS_LOADER);
         }

@@ -134,7 +134,7 @@ public final class BlockListFragment extends Fragment implements BlockListAdapte
         activity.registerReceiver(tickReceiver, new IntentFilter(Intent.ACTION_TIME_TICK));
         loaderManager.initLoader(ID_TRANSACTION_LOADER, null, transactionLoaderCallbacks);
 
-        adapter.notifyDataSetChanged();
+        adapter.notifyItemsChanged();
 
         resumed = true;
     }
@@ -204,7 +204,7 @@ public final class BlockListFragment extends Fragment implements BlockListAdapte
     private final BroadcastReceiver tickReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(final Context context, final Intent intent) {
-            adapter.notifyDataSetChanged();
+            adapter.notifyItemsChanged();
         }
     };
 

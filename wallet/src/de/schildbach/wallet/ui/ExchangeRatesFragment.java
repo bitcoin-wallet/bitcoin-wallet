@@ -288,22 +288,26 @@ public final class ExchangeRatesFragment extends Fragment implements OnSharedPre
 
         public void setDefaultCurrency(final String defaultCurrency) {
             this.defaultCurrency = defaultCurrency;
-            notifyDataSetChanged();
+            notifyItemsChanged();
         }
 
         public void setRateBase(final Coin rateBase) {
             this.rateBase = rateBase;
-            notifyDataSetChanged();
+            notifyItemsChanged();
         }
 
         public void setBalance(final Coin balance) {
             this.balance = balance;
-            notifyDataSetChanged();
+            notifyItemsChanged();
         }
 
         public void setBlockchainState(final BlockchainState blockchainState) {
             this.blockchainState = blockchainState;
-            notifyDataSetChanged();
+            notifyItemsChanged();
+        }
+
+        public void notifyItemsChanged() {
+            notifyItemRangeChanged(0, getItemCount());
         }
 
         public int getDefaultCurrencyPosition() {

@@ -145,48 +145,57 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         setHasStableIds(true);
     }
 
-    public void setFormat(final MonetaryFormat format) {
-        this.format = format.noCode();
-
-        notifyDataSetChanged();
-    }
-
     public void setWarning(final Warning warning) {
         this.warning = warning;
-
         notifyDataSetChanged();
     }
 
     public void clear() {
         transactions.clear();
-
         notifyDataSetChanged();
     }
 
     public void replace(final Transaction tx) {
         transactions.clear();
         transactions.add(tx);
-
         notifyDataSetChanged();
     }
 
     public void replace(final Collection<Transaction> transactions) {
         this.transactions.clear();
         this.transactions.addAll(transactions);
-
         notifyDataSetChanged();
     }
 
-    public void setSelectedItemId(final long itemId) {
-        selectedItemId = itemId;
-
-        notifyDataSetChanged();
+    public void setFormat(final MonetaryFormat format) {
+        this.format = format.noCode();
+        notifyItemsChanged();
     }
 
-    public void clearCacheAndNotifyDataSetChanged() {
+    public void setSelectedItemId(final long newItemId) {
+        if (newItemId == selectedItemId)
+            return;
+        final long oldSelectedItemId = selectedItemId;
+        selectedItemId = newItemId;
+
+        // notify exactly two items
+        final int itemCount = getItemCount();
+        for (int i = 0; i < itemCount; i++) {
+            final long id = getItemId(i);
+            if (oldSelectedItemId == id)
+                notifyItemChanged(i);
+            if (selectedItemId == id)
+                notifyItemChanged(i);
+        }
+    }
+
+    public void clearCacheAndNotifyItemsChanged() {
         transactionCache.clear();
+        notifyItemsChanged();
+    }
 
-        notifyDataSetChanged();
+    public void notifyItemsChanged() {
+        notifyItemRangeChanged(0, getItemCount());
     }
 
     @Override

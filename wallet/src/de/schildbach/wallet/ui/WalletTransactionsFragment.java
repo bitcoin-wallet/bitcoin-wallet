@@ -130,7 +130,7 @@ public class WalletTransactionsFragment extends Fragment implements LoaderCallba
     private final ContentObserver addressBookObserver = new ContentObserver(handler) {
         @Override
         public void onChange(final boolean selfChange) {
-            adapter.clearCacheAndNotifyDataSetChanged();
+            adapter.clearCacheAndNotifyItemsChanged();
         }
     };
 

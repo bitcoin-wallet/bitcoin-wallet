@@ -63,9 +63,8 @@ public class BlockListAdapter extends RecyclerView.Adapter<BlockListAdapter.Bloc
     @Nullable
     private final OnClickListener onClickListener;
 
-    private MonetaryFormat format;
-
     private final List<StoredBlock> blocks = new ArrayList<>();
+    private MonetaryFormat format;
     private final Set<Transaction> transactions = new HashSet<>();
 
     private final String textCoinBase;
@@ -84,11 +83,6 @@ public class BlockListAdapter extends RecyclerView.Adapter<BlockListAdapter.Bloc
         setHasStableIds(true);
     }
 
-    public void setFormat(final MonetaryFormat format) {
-        this.format = format.noCode();
-        notifyDataSetChanged();
-    }
-
     public void clear() {
         blocks.clear();
         notifyDataSetChanged();
@@ -100,15 +94,24 @@ public class BlockListAdapter extends RecyclerView.Adapter<BlockListAdapter.Bloc
         notifyDataSetChanged();
     }
 
+    public void setFormat(final MonetaryFormat format) {
+        this.format = format.noCode();
+        notifyItemsChanged();
+    }
+
     public void clearTransactions() {
         transactions.clear();
-        notifyDataSetChanged();
+        notifyItemsChanged();
     }
 
     public void replaceTransactions(final Set<Transaction> transactions) {
         this.transactions.clear();
         this.transactions.addAll(transactions);
-        notifyDataSetChanged();
+        notifyItemsChanged();
+    }
+
+    public void notifyItemsChanged() {
+        notifyItemRangeChanged(0, getItemCount());
     }
 
     public StoredBlock getItem(final int position) {
