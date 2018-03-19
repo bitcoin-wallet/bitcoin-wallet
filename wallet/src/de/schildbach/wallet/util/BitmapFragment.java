@@ -77,7 +77,7 @@ public class BitmapFragment extends DialogFragment {
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                dismiss();
+                dismissAllowingStateLoss();
             }
         });
 

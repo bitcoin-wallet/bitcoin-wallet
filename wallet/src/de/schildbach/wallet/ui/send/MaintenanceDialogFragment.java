@@ -141,8 +141,8 @@ public class MaintenanceDialogFragment extends DialogFragment {
         final DialogBuilder builder = new DialogBuilder(activity);
         builder.setTitle(R.string.maintenance_dialog_title);
         builder.setView(view);
-        builder.setPositiveButton(R.string.maintenance_dialog_button_move, null); // dummy, just to make it
-                                                                                  // show
+        // dummies, just to make buttons show
+        builder.setPositiveButton(R.string.maintenance_dialog_button_move, null);
         builder.setNegativeButton(R.string.button_dismiss, null);
         builder.setCancelable(false);
 
@@ -167,7 +167,7 @@ public class MaintenanceDialogFragment extends DialogFragment {
                     @Override
                     public void onClick(final View v) {
                         log.info("user decided to dismiss");
-                        dismiss();
+                        dismissAllowingStateLoss();
                     }
                 });
 

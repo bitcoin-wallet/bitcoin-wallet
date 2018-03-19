@@ -121,7 +121,7 @@ public class WalletAddressDialogFragment extends DialogFragment {
         dialogView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                dismiss();
+                dismissAllowingStateLoss();
             }
         });
 

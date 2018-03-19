@@ -87,7 +87,7 @@ public class BackupWalletDialogFragment extends DialogFragment {
     private TextView passwordStrengthView;
     private View passwordMismatchView;
     private CheckBox showView;
-    private Button positiveButton;
+    private Button positiveButton, negativeButton;
 
     private static final int REQUEST_CODE_CREATE_DOCUMENT = 0;
 
@@ -139,7 +139,8 @@ public class BackupWalletDialogFragment extends DialogFragment {
         final DialogBuilder builder = new DialogBuilder(activity);
         builder.setTitle(R.string.export_keys_dialog_title);
         builder.setView(view);
-        builder.setPositiveButton(R.string.button_ok, null); // dummy, just to make it show
+        // dummies, just to make buttons show
+        builder.setPositiveButton(R.string.button_ok, null);
         builder.setNegativeButton(R.string.button_cancel, null);
         builder.setCancelable(false);
 
@@ -154,6 +155,14 @@ public class BackupWalletDialogFragment extends DialogFragment {
                     @Override
                     public void onClick(final View v) {
                         handleGo();
+                    }
+                });
+
+                negativeButton = dialog.getButton(DialogInterface.BUTTON_NEGATIVE);
+                negativeButton.setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(final View v) {
+                        dismissAllowingStateLoss();
                     }
                 });
 

@@ -154,7 +154,12 @@ public final class EditAddressBookEntryFragment extends DialogFragment {
                 onClickListener);
         if (!isAdd)
             dialog.setNeutralButton(R.string.button_delete, onClickListener);
-        dialog.setNegativeButton(R.string.button_cancel, onClickListener);
+        dialog.setNegativeButton(R.string.button_cancel, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(final DialogInterface dialog, final int which) {
+                dismissAllowingStateLoss();
+            }
+        });
 
         return dialog.create();
     }

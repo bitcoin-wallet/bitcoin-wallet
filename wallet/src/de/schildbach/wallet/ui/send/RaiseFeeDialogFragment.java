@@ -183,8 +183,8 @@ public class RaiseFeeDialogFragment extends DialogFragment {
         final DialogBuilder builder = new DialogBuilder(activity);
         builder.setTitle(R.string.raise_fee_dialog_title);
         builder.setView(view);
-        builder.setPositiveButton(R.string.raise_fee_dialog_button_raise, null); // dummy, just to make it
-                                                                                 // show
+        // dummies, just to make buttons show
+        builder.setPositiveButton(R.string.raise_fee_dialog_button_raise, null);
         builder.setNegativeButton(R.string.button_dismiss, null);
         builder.setCancelable(false);
 
@@ -207,7 +207,7 @@ public class RaiseFeeDialogFragment extends DialogFragment {
                 negativeButton.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(final View v) {
-                        dismiss();
+                        dismissAllowingStateLoss();
                     }
                 });
 

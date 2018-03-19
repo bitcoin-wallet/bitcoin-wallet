@@ -29,7 +29,6 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.FragmentManager;
 import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v4.app.ShareCompat;
@@ -83,8 +82,13 @@ public class ExtendedPublicKeyFragment extends DialogFragment {
 
         final DialogBuilder dialog = new DialogBuilder(activity);
         dialog.setView(view);
-        dialog.setNegativeButton(R.string.button_dismiss, null);
-        dialog.setPositiveButton(R.string.button_share, new OnClickListener() {
+        dialog.setNegativeButton(R.string.button_dismiss, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(final DialogInterface dialog, final int which) {
+                dismissAllowingStateLoss();
+            }
+        });
+        dialog.setPositiveButton(R.string.button_share, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(final DialogInterface dialog, final int which) {
                 final ShareCompat.IntentBuilder builder = ShareCompat.IntentBuilder.from(activity);

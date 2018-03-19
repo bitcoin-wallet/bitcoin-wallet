@@ -47,7 +47,6 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -145,7 +144,8 @@ public class EncryptKeysDialogFragment extends DialogFragment {
         final DialogBuilder builder = new DialogBuilder(activity);
         builder.setTitle(R.string.encrypt_keys_dialog_title);
         builder.setView(view);
-        builder.setPositiveButton(R.string.button_ok, null); // dummy, just to make it show
+        // dummies, just to make buttons show
+        builder.setPositiveButton(R.string.button_ok, null);
         builder.setNegativeButton(R.string.button_cancel, null);
         builder.setCancelable(false);
 
@@ -159,10 +159,17 @@ public class EncryptKeysDialogFragment extends DialogFragment {
                 negativeButton = dialog.getButton(DialogInterface.BUTTON_NEGATIVE);
 
                 positiveButton.setTypeface(Typeface.DEFAULT_BOLD);
-                positiveButton.setOnClickListener(new OnClickListener() {
+                positiveButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(final View v) {
                         handleGo();
+                    }
+                });
+
+                negativeButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(final View v) {
+                        dismissAllowingStateLoss();
                     }
                 });
 

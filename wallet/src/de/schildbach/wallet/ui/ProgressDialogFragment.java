@@ -40,7 +40,7 @@ public class ProgressDialogFragment extends DialogFragment {
 
     public static void dismissProgress(final FragmentManager fm) {
         final DialogFragment fragment = (DialogFragment) fm.findFragmentByTag(FRAGMENT_TAG);
-        fragment.dismiss();
+        fragment.dismissAllowingStateLoss();
     }
 
     private static ProgressDialogFragment instance(final String message) {
