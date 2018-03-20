@@ -54,7 +54,7 @@ import android.widget.EditText;
 /**
  * @author Andreas Schildbach
  */
-public final class RestoreWalletActivity extends AbstractWalletActivity {
+public final class RestoreWalletFromExternalActivity extends AbstractWalletActivity {
     private static final int DIALOG_RESTORE_WALLET = 0;
 
     private WalletApplication application;
@@ -170,7 +170,7 @@ public final class RestoreWalletActivity extends AbstractWalletActivity {
             dialog.setNeutralButton(R.string.button_ok, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(final DialogInterface dialog, final int id) {
-                    BlockchainService.resetBlockchain(RestoreWalletActivity.this);
+                    BlockchainService.resetBlockchain(RestoreWalletFromExternalActivity.this);
                     finish();
                 }
             });
