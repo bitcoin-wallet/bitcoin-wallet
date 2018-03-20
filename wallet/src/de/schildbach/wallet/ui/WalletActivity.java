@@ -17,8 +17,6 @@
 
 package de.schildbach.wallet.ui;
 
-import java.io.IOException;
-
 import org.bitcoinj.core.Transaction;
 import org.bitcoinj.core.VerificationException;
 import org.bitcoinj.core.VersionedChecksummedBytes;
@@ -42,7 +40,6 @@ import de.schildbach.wallet_test.R;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.pm.PackageInfo;
 import android.content.res.Resources;
 import android.nfc.NdefMessage;
 import android.nfc.NfcAdapter;
@@ -315,82 +312,13 @@ public final class WalletActivity extends AbstractBindServiceActivity {
     }
 
     private void handleReportIssue() {
-        final ReportIssueDialogBuilder dialog = new ReportIssueDialogBuilder(this,
-                R.string.report_issue_dialog_title_issue, R.string.report_issue_dialog_message_issue) {
-            @Override
-            protected String subject() {
-                return Constants.REPORT_SUBJECT_ISSUE + ": " + WalletApplication.versionLine(application.packageInfo());
-            }
-
-            @Override
-            protected CharSequence collectApplicationInfo() throws IOException {
-                final StringBuilder applicationInfo = new StringBuilder();
-                CrashReporter.appendApplicationInfo(applicationInfo, application);
-                return applicationInfo;
-            }
-
-            @Override
-            protected CharSequence collectDeviceInfo() throws IOException {
-                final StringBuilder deviceInfo = new StringBuilder();
-                CrashReporter.appendDeviceInfo(deviceInfo, WalletActivity.this);
-                return deviceInfo;
-            }
-
-            @Override
-            protected CharSequence collectWalletDump() {
-                return application.getWallet().toString(false, true, true, null);
-            }
-        };
-        dialog.show();
+        ReportIssueDialogFragment.show(getSupportFragmentManager(), R.string.report_issue_dialog_title_issue,
+                R.string.report_issue_dialog_message_issue, Constants.REPORT_SUBJECT_ISSUE, null);
     }
 
     private void checkSavedCrashTrace() {
-        if (CrashReporter.hasSavedCrashTrace()) {
-            final StringBuilder stackTrace = new StringBuilder();
-
-            try {
-                CrashReporter.appendSavedCrashTrace(stackTrace);
-            } catch (final IOException x) {
-                log.info("problem appending crash info", x);
-            }
-
-            final ReportIssueDialogBuilder dialog = new ReportIssueDialogBuilder(this,
-                    R.string.report_issue_dialog_title_crash, R.string.report_issue_dialog_message_crash) {
-                @Override
-                protected String subject() {
-                    final PackageInfo packageInfo = getWalletApplication().packageInfo();
-                    return Constants.REPORT_SUBJECT_CRASH + ": " + WalletApplication.versionLine(packageInfo);
-                }
-
-                @Override
-                protected CharSequence collectApplicationInfo() throws IOException {
-                    final StringBuilder applicationInfo = new StringBuilder();
-                    CrashReporter.appendApplicationInfo(applicationInfo, application);
-                    return applicationInfo;
-                }
-
-                @Override
-                protected CharSequence collectStackTrace() throws IOException {
-                    if (stackTrace.length() > 0)
-                        return stackTrace;
-                    else
-                        return null;
-                }
-
-                @Override
-                protected CharSequence collectDeviceInfo() throws IOException {
-                    final StringBuilder deviceInfo = new StringBuilder();
-                    CrashReporter.appendDeviceInfo(deviceInfo, WalletActivity.this);
-                    return deviceInfo;
-                }
-
-                @Override
-                protected CharSequence collectWalletDump() {
-                    return wallet.toString(false, true, true, null);
-                }
-            };
-
-            dialog.show();
-        }
+        if (CrashReporter.hasSavedCrashTrace())
+            ReportIssueDialogFragment.show(getSupportFragmentManager(), R.string.report_issue_dialog_title_crash,
+                    R.string.report_issue_dialog_message_crash, Constants.REPORT_SUBJECT_CRASH, null);
     }
 }

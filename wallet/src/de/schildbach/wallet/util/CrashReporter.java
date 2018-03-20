@@ -1,5 +1,5 @@
 /*
- * Copyright 2011-2015 the original author or authors.
+ * Copyright the original author or authors.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -29,34 +29,17 @@ import java.nio.charset.StandardCharsets;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Formatter;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
-import java.util.Set;
 import java.util.TimeZone;
 
-import org.bitcoinj.core.Transaction;
-import org.bitcoinj.core.TransactionOutput;
-import org.bitcoinj.wallet.Wallet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.common.base.Joiner;
-import com.google.common.base.Strings;
-
-import de.schildbach.wallet.Configuration;
-import de.schildbach.wallet.Constants;
-import de.schildbach.wallet.WalletApplication;
-
-import android.app.ActivityManager;
-import android.app.admin.DevicePolicyManager;
-import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.content.res.Resources;
-import android.os.Build;
 
 /**
  * @author Andreas Schildbach
@@ -88,12 +71,18 @@ public class CrashReporter {
     }
 
     public static void appendSavedCrashTrace(final Appendable report) throws IOException {
-        try (final BufferedReader reader = new BufferedReader(
-                new InputStreamReader(new FileInputStream(crashTraceFile), StandardCharsets.UTF_8))) {
-            copy(reader, report);
-        } finally {
-            crashTraceFile.delete();
+        if (crashTraceFile.exists()) {
+            try (final BufferedReader reader = new BufferedReader(
+                    new InputStreamReader(new FileInputStream(crashTraceFile), StandardCharsets.UTF_8))) {
+                copy(reader, report);
+            } finally {
+                deleteSaveCrashTrace();
+            }
         }
+    }
+
+    public static boolean deleteSaveCrashTrace() {
+        return crashTraceFile.delete();
     }
 
     private static void copy(final BufferedReader in, final Appendable out) throws IOException {
@@ -103,52 +92,6 @@ public class CrashReporter {
                 break;
 
             out.append(line).append('\n');
-        }
-    }
-
-    public static void appendDeviceInfo(final Appendable report, final Context context) throws IOException {
-        final Resources res = context.getResources();
-        final android.content.res.Configuration config = res.getConfiguration();
-        final ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
-        final DevicePolicyManager devicePolicyManager = (DevicePolicyManager) context
-                .getSystemService(Context.DEVICE_POLICY_SERVICE);
-
-        report.append("Device Model: " + Build.MODEL + "\n");
-        report.append("Android Version: " + Build.VERSION.RELEASE + "\n");
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
-            report.append("Android security patch level: ").append(Build.VERSION.SECURITY_PATCH).append("\n");
-        report.append("ABIs: ").append(Joiner.on(", ").skipNulls().join(Strings.emptyToNull(Build.CPU_ABI),
-                Strings.emptyToNull(Build.CPU_ABI2))).append("\n");
-        report.append("Board: " + Build.BOARD + "\n");
-        report.append("Brand: " + Build.BRAND + "\n");
-        report.append("Device: " + Build.DEVICE + "\n");
-        report.append("Display: " + Build.DISPLAY + "\n");
-        report.append("Finger Print: " + Build.FINGERPRINT + "\n");
-        report.append("Host: " + Build.HOST + "\n");
-        report.append("ID: " + Build.ID + "\n");
-        report.append("Product: " + Build.PRODUCT + "\n");
-        report.append("Tags: " + Build.TAGS + "\n");
-        report.append("Time: " + Build.TIME + "\n");
-        report.append("Type: " + Build.TYPE + "\n");
-        report.append("User: " + Build.USER + "\n");
-        report.append("Configuration: " + config + "\n");
-        report.append("Screen Layout: size "
-                + (config.screenLayout & android.content.res.Configuration.SCREENLAYOUT_SIZE_MASK) + " long "
-                + (config.screenLayout & android.content.res.Configuration.SCREENLAYOUT_LONG_MASK) + "\n");
-        report.append("Display Metrics: " + res.getDisplayMetrics() + "\n");
-        report.append("Memory Class: " + activityManager.getMemoryClass() + "/" + activityManager.getLargeMemoryClass()
-                + (activityManager.isLowRamDevice() ? " (low RAM device)" : "") + "\n");
-        report.append("Storage Encryption Status: " + devicePolicyManager.getStorageEncryptionStatus() + "\n");
-        report.append("Bluetooth MAC: " + bluetoothMac() + "\n");
-        report.append("Runtime: ").append(System.getProperty("java.vm.name")).append(" ")
-                .append(System.getProperty("java.vm.version")).append("\n");
-    }
-
-    private static String bluetoothMac() {
-        try {
-            return Bluetooth.getAddress(BluetoothAdapter.getDefaultAdapter());
-        } catch (final Exception x) {
-            return x.getMessage();
         }
     }
 
@@ -169,90 +112,13 @@ public class CrashReporter {
                     p.versionCode, p.firstInstallTime, p.lastUpdateTime));
     }
 
-    public static void appendApplicationInfo(final Appendable report, final WalletApplication application)
-            throws IOException {
-        final PackageInfo pi = application.packageInfo();
-        final Configuration configuration = application.getConfiguration();
-        final Calendar calendar = new GregorianCalendar(UTC);
-
-        report.append("Version: " + pi.versionName + " (" + pi.versionCode + ")\n");
-        report.append("Package: " + pi.packageName + "\n");
-        report.append("Installer: " + application.getPackageManager().getInstallerPackageName(pi.packageName) + "\n");
-        report.append("Test/Prod: " + (Constants.TEST ? "test" : "prod") + "\n");
-        report.append("Timezone: " + TimeZone.getDefault().getID() + "\n");
-        calendar.setTimeInMillis(System.currentTimeMillis());
-        report.append("Time: " + String.format(Locale.US, "%tF %tT %tZ", calendar, calendar, calendar) + "\n");
-        calendar.setTimeInMillis(WalletApplication.TIME_CREATE_APPLICATION);
-        report.append(
-                "Time of launch: " + String.format(Locale.US, "%tF %tT %tZ", calendar, calendar, calendar) + "\n");
-        calendar.setTimeInMillis(pi.lastUpdateTime);
-        report.append(
-                "Time of last update: " + String.format(Locale.US, "%tF %tT %tZ", calendar, calendar, calendar) + "\n");
-        calendar.setTimeInMillis(pi.firstInstallTime);
-        report.append("Time of first install: " + String.format(Locale.US, "%tF %tT %tZ", calendar, calendar, calendar)
-                + "\n");
-        final long lastBackupTime = configuration.getLastBackupTime();
-        calendar.setTimeInMillis(lastBackupTime);
-        report.append("Time of backup: "
-                + (lastBackupTime > 0 ? String.format(Locale.US, "%tF %tT %tZ", calendar, calendar, calendar) : "none")
-                + "\n");
-        report.append("Network: " + Constants.NETWORK_PARAMETERS.getId() + "\n");
-        final Wallet wallet = application.getWallet();
-        report.append("Encrypted: " + wallet.isEncrypted() + "\n");
-        report.append("Keychain size: " + wallet.getKeyChainGroupSize() + "\n");
-
-        final Set<Transaction> transactions = wallet.getTransactions(true);
-        int numInputs = 0;
-        int numOutputs = 0;
-        int numSpentOutputs = 0;
-        for (final Transaction tx : transactions) {
-            numInputs += tx.getInputs().size();
-            final List<TransactionOutput> outputs = tx.getOutputs();
-            numOutputs += outputs.size();
-            for (final TransactionOutput txout : outputs) {
-                if (!txout.isAvailableForSpending())
-                    numSpentOutputs++;
-            }
-        }
-        report.append("Transactions: " + transactions.size() + "\n");
-        report.append("Inputs: " + numInputs + "\n");
-        report.append("Outputs: " + numOutputs + " (spent: " + numSpentOutputs + ")\n");
-        report.append(
-                "Last block seen: " + wallet.getLastBlockSeenHeight() + " (" + wallet.getLastBlockSeenHash() + ")\n");
-
-        report.append("Databases:");
-        for (final String db : application.databaseList())
-            report.append(" " + db);
-        report.append("\n");
-
-        final File filesDir = application.getFilesDir();
-        report.append("\nContents of FilesDir " + filesDir + ":\n");
-        appendDir(report, filesDir, 0);
-    }
-
-    private static void appendDir(final Appendable report, final File file, final int indent) throws IOException {
-        for (int i = 0; i < indent; i++)
-            report.append("  - ");
-
-        final Formatter formatter = new Formatter(report);
-        final Calendar calendar = new GregorianCalendar(UTC);
-        calendar.setTimeInMillis(file.lastModified());
-        formatter.format(Locale.US, "%tF %tT %8d  %s\n", calendar, calendar, file.length(), file.getName());
-        formatter.close();
-
-        final File[] files = file.listFiles();
-        if (files != null)
-            for (final File f : files)
-                appendDir(report, f, indent + 1);
-    }
-
     public static void saveBackgroundTrace(final Throwable throwable, final PackageInfo packageInfo) {
         synchronized (backgroundTracesFile) {
             try (final PrintWriter writer = new PrintWriter(
                     new OutputStreamWriter(new FileOutputStream(backgroundTracesFile, true), StandardCharsets.UTF_8))) {
                 final Calendar now = new GregorianCalendar(UTC);
-                writer.println(String.format(Locale.US, "\n--- collected at %tF %tT %tZ on version %s (%d) ---\n", now, now,
-                        now, packageInfo.versionName, packageInfo.versionCode));
+                writer.println(String.format(Locale.US, "\n--- collected at %tF %tT %tZ on version %s (%d) ---\n", now,
+                        now, now, packageInfo.versionName, packageInfo.versionCode));
                 appendTrace(writer, throwable);
             } catch (final IOException x) {
                 log.error("problem writing background trace", x);

@@ -17,7 +17,6 @@
 
 package de.schildbach.wallet.ui;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -45,7 +44,6 @@ import de.schildbach.wallet.data.AddressBookProvider;
 import de.schildbach.wallet.ui.TransactionsAdapter.Warning;
 import de.schildbach.wallet.ui.send.RaiseFeeDialogFragment;
 import de.schildbach.wallet.util.BitmapFragment;
-import de.schildbach.wallet.util.CrashReporter;
 import de.schildbach.wallet.util.Qr;
 import de.schildbach.wallet.util.ThrottlingWalletChangeListener;
 import de.schildbach.wallet.util.WalletUtils;
@@ -359,49 +357,20 @@ public class WalletTransactionsFragment extends Fragment implements LoaderCallba
             }
 
             private void handleReportIssue(final Transaction tx) {
-                final ReportIssueDialogBuilder dialog = new ReportIssueDialogBuilder(activity,
-                        R.string.report_issue_dialog_title_transaction, R.string.report_issue_dialog_message_issue) {
-                    @Override
-                    protected String subject() {
-                        return Constants.REPORT_SUBJECT_ISSUE + ": "
-                                + WalletApplication.versionLine(application.packageInfo());
-                    }
+                final StringBuilder contextualData = new StringBuilder();
+                try {
+                    contextualData.append(tx.getValue(wallet).toFriendlyString()).append(" total value");
+                } catch (final ScriptException x) {
+                    contextualData.append(x.getMessage());
+                }
+                contextualData.append('\n');
+                if (tx.hasConfidence())
+                    contextualData.append("  confidence: ").append(tx.getConfidence()).append('\n');
+                contextualData.append(tx.toString());
 
-                    @Override
-                    protected CharSequence collectApplicationInfo() throws IOException {
-                        final StringBuilder applicationInfo = new StringBuilder();
-                        CrashReporter.appendApplicationInfo(applicationInfo, application);
-                        return applicationInfo;
-                    }
-
-                    @Override
-                    protected CharSequence collectDeviceInfo() throws IOException {
-                        final StringBuilder deviceInfo = new StringBuilder();
-                        CrashReporter.appendDeviceInfo(deviceInfo, activity);
-                        return deviceInfo;
-                    }
-
-                    @Override
-                    protected CharSequence collectContextualData() {
-                        final StringBuilder contextualData = new StringBuilder();
-                        try {
-                            contextualData.append(tx.getValue(wallet).toFriendlyString()).append(" total value");
-                        } catch (final ScriptException x) {
-                            contextualData.append(x.getMessage());
-                        }
-                        contextualData.append('\n');
-                        if (tx.hasConfidence())
-                            contextualData.append("  confidence: ").append(tx.getConfidence()).append('\n');
-                        contextualData.append(tx.toString());
-                        return contextualData;
-                    }
-
-                    @Override
-                    protected CharSequence collectWalletDump() {
-                        return application.getWallet().toString(false, true, true, null);
-                    }
-                };
-                dialog.show();
+                ReportIssueDialogFragment.show(getFragmentManager(), R.string.report_issue_dialog_title_transaction,
+                        R.string.report_issue_dialog_message_issue, Constants.REPORT_SUBJECT_ISSUE,
+                        contextualData.toString());
             }
         });
         popupMenu.show();
