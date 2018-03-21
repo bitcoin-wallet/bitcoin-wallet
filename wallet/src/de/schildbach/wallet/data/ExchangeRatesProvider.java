@@ -88,9 +88,9 @@ public class ExchangeRatesProvider extends ContentProvider {
             return false;
 
         final Context context = getContext();
-
+        final WalletApplication application = (WalletApplication) context.getApplicationContext();
         this.config = new Configuration(PreferenceManager.getDefaultSharedPreferences(context), context.getResources());
-        this.userAgent = WalletApplication.httpUserAgent(WalletApplication.packageInfoFromContext(context).versionName);
+        this.userAgent = WalletApplication.httpUserAgent(application.packageInfo().versionName);
 
         final ExchangeRate cachedExchangeRate = config.getCachedExchangeRate();
         if (cachedExchangeRate != null) {

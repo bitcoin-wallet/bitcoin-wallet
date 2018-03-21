@@ -81,7 +81,6 @@ public class WalletApplication extends Application {
 
     private File walletFile;
     private Wallet wallet;
-    private PackageInfo packageInfo;
 
     public static final String ACTION_WALLET_REFERENCE_CHANGED = WalletApplication.class.getPackage().getName()
             + ".wallet_reference_changed";
@@ -110,9 +109,9 @@ public class WalletApplication extends Application {
 
         super.onCreate();
 
-        packageInfo = packageInfoFromContext(this);
-
         CrashReporter.init(getCacheDir());
+
+        final PackageInfo packageInfo = packageInfo();
 
         Threading.uncaughtExceptionHandler = new Thread.UncaughtExceptionHandler() {
             @Override
@@ -391,15 +390,17 @@ public class WalletApplication extends Application {
         }
     }
 
-    public static PackageInfo packageInfoFromContext(final Context context) {
-        try {
-            return context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
-        } catch (final NameNotFoundException x) {
-            throw new RuntimeException(x);
-        }
-    }
+    private PackageInfo packageInfo;
 
-    public PackageInfo packageInfo() {
+    public synchronized PackageInfo packageInfo() {
+        // replace by BuildConfig.VERSION_* as soon as it's possible
+        if (packageInfo == null) {
+            try {
+                packageInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+            } catch (final NameNotFoundException x) {
+                throw new RuntimeException(x);
+            }
+        }
         return packageInfo;
     }
 

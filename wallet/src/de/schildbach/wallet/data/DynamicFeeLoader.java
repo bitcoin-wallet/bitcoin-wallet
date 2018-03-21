@@ -39,6 +39,7 @@ import com.google.common.base.Stopwatch;
 
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
+import de.schildbach.wallet.ui.AbstractWalletActivity;
 import de.schildbach.wallet.ui.send.FeeCategory;
 import de.schildbach.wallet.util.Io;
 
@@ -66,7 +67,8 @@ public class DynamicFeeLoader extends AsyncTaskLoader<Map<FeeCategory, Coin>> {
 
     public DynamicFeeLoader(final Context context) {
         super(context);
-        final PackageInfo packageInfo = WalletApplication.packageInfoFromContext(context);
+        final AbstractWalletActivity activity = (AbstractWalletActivity) context;
+        final PackageInfo packageInfo = activity.getWalletApplication().packageInfo();
         final int versionNameSplit = packageInfo.versionName.indexOf('-');
         this.dynamicFeesUrl = HttpUrl.parse(Constants.DYNAMIC_FEES_URL
                 + (versionNameSplit >= 0 ? packageInfo.versionName.substring(versionNameSplit) : ""));
