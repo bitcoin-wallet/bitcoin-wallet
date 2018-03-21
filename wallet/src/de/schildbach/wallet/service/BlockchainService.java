@@ -78,6 +78,7 @@ import de.schildbach.wallet.util.WalletUtils;
 import de.schildbach.wallet_test.R;
 
 import android.annotation.SuppressLint;
+import android.app.AlarmManager;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -96,6 +97,7 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
+import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.text.format.DateUtils;
@@ -161,6 +163,34 @@ public class BlockchainService extends Service {
 
     public static void stop(final Context context) {
         context.stopService(new Intent(context, BlockchainService.class));
+    }
+
+    public static void scheduleStart(final Context context) {
+        final Configuration config = new Configuration(PreferenceManager.getDefaultSharedPreferences(context),
+                context.getResources());
+        final long lastUsedAgo = config.getLastUsedAgo();
+
+        // apply some backoff
+        final long alarmInterval;
+        if (lastUsedAgo < Constants.LAST_USAGE_THRESHOLD_JUST_MS)
+            alarmInterval = AlarmManager.INTERVAL_FIFTEEN_MINUTES;
+        else if (lastUsedAgo < Constants.LAST_USAGE_THRESHOLD_RECENTLY_MS)
+            alarmInterval = AlarmManager.INTERVAL_HALF_DAY;
+        else
+            alarmInterval = AlarmManager.INTERVAL_DAY;
+
+        log.info("last used {} minutes ago, rescheduling blockchain sync in roughly {} minutes",
+                lastUsedAgo / DateUtils.MINUTE_IN_MILLIS, alarmInterval / DateUtils.MINUTE_IN_MILLIS);
+
+        final AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        final PendingIntent alarmIntent = PendingIntent.getService(context, 0,
+                new Intent(context, BlockchainService.class), 0);
+        alarmManager.cancel(alarmIntent);
+
+        // workaround for no inexact set() before KitKat
+        final long now = System.currentTimeMillis();
+        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, now + alarmInterval, AlarmManager.INTERVAL_DAY,
+                alarmIntent);
     }
 
     public static void resetBlockchain(final Context context) {
@@ -717,7 +747,7 @@ public class BlockchainService extends Service {
     public void onDestroy() {
         log.debug(".onDestroy()");
 
-        WalletApplication.scheduleStartBlockchainService(this);
+        scheduleStart(this);
 
         unregisterReceiver(tickReceiver);
 

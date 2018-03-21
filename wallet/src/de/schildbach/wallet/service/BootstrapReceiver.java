@@ -22,7 +22,6 @@ import org.slf4j.LoggerFactory;
 
 import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
-import de.schildbach.wallet.WalletApplication;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -48,7 +47,7 @@ public class BootstrapReceiver extends BroadcastReceiver {
                 UpgradeWalletService.startUpgrade(context);
 
             // make sure there is always an alarm scheduled
-            WalletApplication.scheduleStartBlockchainService(context);
+            BlockchainService.scheduleStart(context);
 
             // if the app hasn't been used for a while and contains coins, maybe show reminder
             final Configuration config = new Configuration(PreferenceManager.getDefaultSharedPreferences(context),
