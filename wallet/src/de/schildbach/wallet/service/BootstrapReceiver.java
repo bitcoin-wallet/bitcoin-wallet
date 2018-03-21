@@ -22,11 +22,11 @@ import org.slf4j.LoggerFactory;
 
 import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.WalletApplication;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.preference.PreferenceManager;
 
 /**
  * @author Andreas Schildbach
@@ -38,6 +38,8 @@ public class BootstrapReceiver extends BroadcastReceiver {
     public void onReceive(final Context context, final Intent intent) {
         log.info("got broadcast: " + intent);
 
+        final WalletApplication application = (WalletApplication) context.getApplicationContext();
+
         final boolean bootCompleted = Intent.ACTION_BOOT_COMPLETED.equals(intent.getAction());
         final boolean packageReplaced = Intent.ACTION_MY_PACKAGE_REPLACED.equals(intent.getAction());
 
@@ -47,11 +49,10 @@ public class BootstrapReceiver extends BroadcastReceiver {
                 UpgradeWalletService.startUpgrade(context);
 
             // make sure there is always an alarm scheduled
-            BlockchainService.scheduleStart(context);
+            BlockchainService.scheduleStart(application);
 
             // if the app hasn't been used for a while and contains coins, maybe show reminder
-            final Configuration config = new Configuration(PreferenceManager.getDefaultSharedPreferences(context),
-                    context.getResources());
+            final Configuration config = application.getConfiguration();
             if (config.remindBalance() && config.hasBeenUsed()
                     && config.getLastUsedAgo() > Constants.LAST_USAGE_THRESHOLD_INACTIVE_MS)
                 InactivityNotificationService.startMaybeShowNotification(context);

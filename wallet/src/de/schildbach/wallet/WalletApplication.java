@@ -76,7 +76,6 @@ import ch.qos.logback.core.rolling.TimeBasedRollingPolicy;
  * @author Andreas Schildbach
  */
 public class WalletApplication extends Application {
-    private Configuration config;
     private ActivityManager activityManager;
 
     private File walletFile;
@@ -123,19 +122,18 @@ public class WalletApplication extends Application {
 
         initMnemonicCode();
 
-        config = new Configuration(PreferenceManager.getDefaultSharedPreferences(this), getResources());
         activityManager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
 
         walletFile = getFileStreamPath(Constants.Files.WALLET_FILENAME_PROTOBUF);
 
         loadWalletFromProtobuf();
 
+        final Configuration config = getConfiguration();
         if (config.versionCodeCrossed(packageInfo.versionCode, VERSION_CODE_SHOW_BACKUP_REMINDER)
                 && !wallet.getImportedKeys().isEmpty()) {
             log.info("showing backup reminder once, because of imported keys being present");
             config.armBackupReminder();
         }
-
         config.updateLastVersionCode(packageInfo.versionCode);
         final BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         if (bluetoothAdapter != null)
@@ -232,7 +230,11 @@ public class WalletApplication extends Application {
         }
     }
 
-    public Configuration getConfiguration() {
+    private Configuration config;
+
+    public synchronized Configuration getConfiguration() {
+        if (config == null)
+            config = new Configuration(PreferenceManager.getDefaultSharedPreferences(this), getResources());
         return config;
     }
 

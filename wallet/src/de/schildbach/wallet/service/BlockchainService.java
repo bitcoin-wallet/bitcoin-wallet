@@ -97,7 +97,6 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
-import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.text.format.DateUtils;
@@ -165,9 +164,8 @@ public class BlockchainService extends Service {
         context.stopService(new Intent(context, BlockchainService.class));
     }
 
-    public static void scheduleStart(final Context context) {
-        final Configuration config = new Configuration(PreferenceManager.getDefaultSharedPreferences(context),
-                context.getResources());
+    public static void scheduleStart(final WalletApplication application) {
+        final Configuration config = application.getConfiguration();
         final long lastUsedAgo = config.getLastUsedAgo();
 
         // apply some backoff
@@ -182,9 +180,9 @@ public class BlockchainService extends Service {
         log.info("last used {} minutes ago, rescheduling blockchain sync in roughly {} minutes",
                 lastUsedAgo / DateUtils.MINUTE_IN_MILLIS, alarmInterval / DateUtils.MINUTE_IN_MILLIS);
 
-        final AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        final PendingIntent alarmIntent = PendingIntent.getService(context, 0,
-                new Intent(context, BlockchainService.class), 0);
+        final AlarmManager alarmManager = (AlarmManager) application.getSystemService(Context.ALARM_SERVICE);
+        final PendingIntent alarmIntent = PendingIntent.getService(application, 0,
+                new Intent(application, BlockchainService.class), 0);
         alarmManager.cancel(alarmIntent);
 
         // workaround for no inexact set() before KitKat
@@ -747,7 +745,7 @@ public class BlockchainService extends Service {
     public void onDestroy() {
         log.debug(".onDestroy()");
 
-        scheduleStart(this);
+        scheduleStart(application);
 
         unregisterReceiver(tickReceiver);
 

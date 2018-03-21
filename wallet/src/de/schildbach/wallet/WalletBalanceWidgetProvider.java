@@ -45,7 +45,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.text.Spannable;
 import android.text.style.ForegroundColorSpan;
 import android.view.View;
@@ -105,8 +104,8 @@ public class WalletBalanceWidgetProvider extends AppWidgetProvider {
 
     private static void updateWidget(final Context context, final AppWidgetManager appWidgetManager,
             final int appWidgetId, final Bundle appWidgetOptions, final Coin balance) {
-        final Configuration config = new Configuration(PreferenceManager.getDefaultSharedPreferences(context),
-                context.getResources());
+        final WalletApplication application = (WalletApplication) context.getApplicationContext();
+        final Configuration config = application.getConfiguration();
         final MonetaryFormat btcFormat = config.getFormat();
 
         final Spannable balanceStr = new MonetarySpannable(btcFormat.noCode(), balance).applyMarkup(null,

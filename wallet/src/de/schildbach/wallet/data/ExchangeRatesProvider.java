@@ -46,7 +46,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.MatrixCursor;
 import android.net.Uri;
-import android.preference.PreferenceManager;
 import android.provider.BaseColumns;
 import android.text.format.DateUtils;
 import okhttp3.Call;
@@ -89,7 +88,7 @@ public class ExchangeRatesProvider extends ContentProvider {
 
         final Context context = getContext();
         final WalletApplication application = (WalletApplication) context.getApplicationContext();
-        this.config = new Configuration(PreferenceManager.getDefaultSharedPreferences(context), context.getResources());
+        this.config = application.getConfiguration();
         this.userAgent = WalletApplication.httpUserAgent(application.packageInfo().versionName);
 
         final ExchangeRate cachedExchangeRate = config.getCachedExchangeRate();
