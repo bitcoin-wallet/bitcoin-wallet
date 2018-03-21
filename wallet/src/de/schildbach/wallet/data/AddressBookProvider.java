@@ -19,6 +19,13 @@ package de.schildbach.wallet.data;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.google.common.base.Stopwatch;
+
+import de.schildbach.wallet.Logging;
+
 import android.content.ContentProvider;
 import android.content.ContentValues;
 import android.content.Context;
@@ -64,9 +71,18 @@ public class AddressBookProvider extends ContentProvider {
 
     private Helper helper;
 
+    private static final Logger log = LoggerFactory.getLogger(AddressBookProvider.class);
+
     @Override
     public boolean onCreate() {
-        helper = new Helper(getContext());
+        final Stopwatch watch = Stopwatch.createStarted();
+
+        final Context context = getContext();
+        Logging.init(context.getFilesDir());
+        helper = new Helper(context);
+
+        watch.stop();
+        log.info("{}.onCreate() took {}", getClass().getSimpleName(), watch);
         return true;
     }
 

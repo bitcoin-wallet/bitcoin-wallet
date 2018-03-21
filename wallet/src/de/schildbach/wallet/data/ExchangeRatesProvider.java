@@ -37,6 +37,7 @@ import com.google.common.base.Stopwatch;
 
 import de.schildbach.wallet.Configuration;
 import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.Logging;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.util.GenericUtils;
 
@@ -86,7 +87,10 @@ public class ExchangeRatesProvider extends ContentProvider {
         if (!Constants.ENABLE_EXCHANGE_RATES)
             return false;
 
+        final Stopwatch watch = Stopwatch.createStarted();
+
         final Context context = getContext();
+        Logging.init(context.getFilesDir());
         final WalletApplication application = (WalletApplication) context.getApplicationContext();
         this.config = application.getConfiguration();
         this.userAgent = WalletApplication.httpUserAgent(application.packageInfo().versionName);
@@ -97,6 +101,8 @@ public class ExchangeRatesProvider extends ContentProvider {
             exchangeRates.put(cachedExchangeRate.getCurrencyCode(), cachedExchangeRate);
         }
 
+        watch.stop();
+        log.info("{}.onCreate() took {}", getClass().getSimpleName(), watch);
         return true;
     }
 
