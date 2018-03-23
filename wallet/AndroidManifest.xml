@@ -67,7 +67,7 @@
             android:exported="true"
             android:label="@string/app_name_short"
             android:launchMode="singleTask"
-            android:theme="@style/My.Theme" />
+            android:theme="@style/My.Theme.WithSplash" />
 
         <activity-alias
             android:name="de.schildbach.wallet.WalletActivity"

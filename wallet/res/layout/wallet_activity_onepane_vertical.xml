@@ -16,7 +16,8 @@
             android:background="@color/bg_panel"
             android:baselineAligned="false"
             android:elevation="3dp"
-            android:orientation="horizontal" >
+            android:orientation="horizontal"
+            android:tag="levitate" >
 
             <fragment
                 android:id="@+id/wallet_balance_fragment"

@@ -25,7 +25,6 @@ import org.slf4j.LoggerFactory;
 
 import de.schildbach.wallet.R;
 
-import android.app.Activity;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
@@ -49,7 +48,7 @@ import android.widget.ImageView;
  * @author Andreas Schildbach
  */
 public final class WalletAddressFragment extends Fragment {
-    private Activity activity;
+    private WalletActivity activity;
     @Nullable
     private NfcAdapter nfcAdapter;
 
@@ -63,7 +62,7 @@ public final class WalletAddressFragment extends Fragment {
     @Override
     public void onAttach(final Context context) {
         super.onAttach(context);
-        this.activity = (Activity) context;
+        this.activity = (WalletActivity) context;
         this.nfcAdapter = NfcAdapter.getDefaultAdapter(activity);
     }
 
@@ -93,6 +92,7 @@ public final class WalletAddressFragment extends Fragment {
                 final NfcAdapter nfcAdapter = WalletAddressFragment.this.nfcAdapter;
                 if (nfcAdapter != null)
                     nfcAdapter.setNdefPushMessage(createNdefMessage(bitcoinUri.toString()), activity);
+                ViewModelProviders.of(activity).get(WalletActivity.ViewModel.class).addressLoadingFinished();
             }
         });
     }

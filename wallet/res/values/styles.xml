@@ -15,6 +15,10 @@
         <item name="android:popupMenuStyle">@style/My.Widget.PopupMenu</item>
     </style>
 
+    <style name="My.Theme.WithSplash" parent="@style/My.Theme">
+        <item name="android:windowBackground">@drawable/background_splash</item>
+    </style>
+
     <style name="My.Theme.ChildActivity" parent="@style/My.Theme">
         <item name="android:actionBarStyle">@style/My.Widget.ActionBar.ChildActivity</item>
         <item name="android:homeAsUpIndicator">@drawable/action_bar_up_indicator</item>

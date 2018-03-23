@@ -107,6 +107,7 @@ public class WalletTransactionsFragment extends Fragment implements Transactions
             @Override
             public void onChanged(final List<ListItem> listItems) {
                 adapter.submitList(listItems);
+                ViewModelProviders.of(activity).get(WalletActivity.ViewModel.class).transactionsLoadingFinished();
 
                 if (listItems.isEmpty()) {
                     viewGroup.setDisplayedChild(1);
@@ -137,6 +138,7 @@ public class WalletTransactionsFragment extends Fragment implements Transactions
         final View view = inflater.inflate(R.layout.wallet_transactions_fragment, container, false);
 
         viewGroup = (ViewAnimator) view.findViewById(R.id.wallet_transactions_group);
+        viewGroup.setDisplayedChild(2); // don't show progress
 
         emptyView = (TextView) view.findViewById(R.id.wallet_transactions_empty);
 

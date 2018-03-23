@@ -49,4 +49,18 @@ public abstract class AbstractWalletActivity extends FragmentActivity {
     public WalletApplication getWalletApplication() {
         return application;
     }
+
+    @Override
+    public void reportFullyDrawn() {
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
+            super.reportFullyDrawn();
+        } else {
+            // work around bug in KitKat
+            try {
+                super.reportFullyDrawn();
+            } catch (final SecurityException x) {
+                // swallow
+            }
+        }
+    }
 }

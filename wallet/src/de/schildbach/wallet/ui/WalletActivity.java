@@ -40,15 +40,25 @@ import de.schildbach.wallet.ui.send.SweepWalletActivity;
 import de.schildbach.wallet.util.CrashReporter;
 import de.schildbach.wallet.util.Nfc;
 
+import android.animation.Animator;
+import android.animation.AnimatorInflater;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
+import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
 import android.nfc.NdefMessage;
 import android.nfc.NfcAdapter;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -56,7 +66,8 @@ import android.support.v4.app.FragmentManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.AnimationUtils;
+import android.view.ViewTreeObserver;
+import android.view.animation.DecelerateInterpolator;
 
 /**
  * @author Andreas Schildbach
@@ -66,10 +77,18 @@ public final class WalletActivity extends AbstractWalletActivity {
     private Handler handler = new Handler();
 
     private ViewModel viewModel;
+    private View contentView;
 
-    public static class ViewModel extends AndroidViewModel {
+    public static enum EnterAnimationState {
+        WAITING, ANIMATING, FINISHED
+    }
+
+    public static class ViewModel extends AndroidViewModel implements ViewTreeObserver.OnGlobalLayoutListener {
         private final WalletApplication application;
         private WalletLiveData wallet;
+        private MutableLiveData<EnterAnimationState> enterAnimation;
+        private boolean doAnimation, globalLayoutFinished, balanceLoadingFinished, addressLoadingFinished,
+                transactionsLoadingFinished;
 
         public ViewModel(final Application application) {
             super(application);
@@ -81,6 +100,53 @@ public final class WalletActivity extends AbstractWalletActivity {
                 wallet = new WalletLiveData(application);
             return wallet;
         }
+
+        public MutableLiveData<EnterAnimationState> getEnterAnimation() {
+            if (enterAnimation == null)
+                enterAnimation = new MutableLiveData<>();
+            return enterAnimation;
+        }
+
+        public void animateWhenLoadingFinished() {
+            doAnimation = true;
+            maybeToggleState();
+        }
+
+        @Override
+        public void onGlobalLayout() {
+            globalLayoutFinished = true;
+            maybeToggleState();
+        }
+
+        public void balanceLoadingFinished() {
+            balanceLoadingFinished = true;
+            maybeToggleState();
+        }
+
+        public void addressLoadingFinished() {
+            addressLoadingFinished = true;
+            maybeToggleState();
+        }
+
+        public void transactionsLoadingFinished() {
+            transactionsLoadingFinished = true;
+            maybeToggleState();
+        }
+
+        public void animationFinished() {
+            enterAnimation.setValue(EnterAnimationState.FINISHED);
+        }
+
+        private void maybeToggleState() {
+            final MutableLiveData<EnterAnimationState> enterAnimation = getEnterAnimation();
+            if (enterAnimation.getValue() == null) {
+                if (doAnimation && globalLayoutFinished)
+                    enterAnimation.setValue(EnterAnimationState.WAITING);
+            } else if (enterAnimation.getValue() == EnterAnimationState.WAITING) {
+                if (balanceLoadingFinished && addressLoadingFinished && transactionsLoadingFinished)
+                    enterAnimation.setValue(EnterAnimationState.ANIMATING);
+            }
+        }
     }
 
     private static final int REQUEST_CODE_SCAN = 0;
@@ -91,36 +157,51 @@ public final class WalletActivity extends AbstractWalletActivity {
         application = getWalletApplication();
         final Configuration config = application.getConfiguration();
 
-        setContentView(R.layout.wallet_content);
         viewModel = ViewModelProviders.of(this).get(ViewModel.class);
+
+        setContentView(R.layout.wallet_content);
+        contentView = findViewById(android.R.id.content);
+        contentView.getViewTreeObserver().addOnGlobalLayoutListener(viewModel);
+        final AnimatorSet enterAnimation = buildEnterAnimation(contentView);
+
         viewModel.getWallet().observe(this, new Observer<Wallet>() {
             @Override
             public void onChanged(final Wallet wallet) {
                 invalidateOptionsMenu();
             }
         });
+        viewModel.getEnterAnimation().observe(this, new Observer<EnterAnimationState>() {
+            @Override
+            public void onChanged(final EnterAnimationState state) {
+                if (state == EnterAnimationState.WAITING) {
+                    // API level 26: enterAnimation.setCurrentPlayTime(0);
+                    for (final Animator animation : enterAnimation.getChildAnimations())
+                        ((ValueAnimator) animation).setCurrentPlayTime(0);
+                } else if (state == EnterAnimationState.ANIMATING) {
+                    reportFullyDrawn();
+                    enterAnimation.start();
+                    enterAnimation.addListener(new AnimatorListenerAdapter() {
+                        @Override
+                        public void onAnimationEnd(final Animator animation) {
+                            viewModel.animationFinished();
+                        }
+                    });
+                } else if (state == EnterAnimationState.FINISHED) {
+                    getWindow().getDecorView().setBackground(null);
+                }
+            }
+        });
+        if (savedInstanceState == null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+            viewModel.animateWhenLoadingFinished();
+        else
+            viewModel.animationFinished();
 
         final View exchangeRatesFragment = findViewById(R.id.wallet_main_twopanes_exchange_rates);
         if (exchangeRatesFragment != null)
             exchangeRatesFragment.setVisibility(Constants.ENABLE_EXCHANGE_RATES ? View.VISIBLE : View.GONE);
 
-        if (savedInstanceState == null) {
-            final View contentView = findViewById(android.R.id.content);
-            final View slideInLeftView = contentView.findViewWithTag("slide_in_left");
-            if (slideInLeftView != null)
-                slideInLeftView.startAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_in_left));
-            final View slideInRightView = contentView.findViewWithTag("slide_in_right");
-            if (slideInRightView != null)
-                slideInRightView.startAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_in_right));
-            final View slideInTopView = contentView.findViewWithTag("slide_in_top");
-            if (slideInTopView != null)
-                slideInTopView.startAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_in_top));
-            final View slideInBottomView = contentView.findViewWithTag("slide_in_bottom");
-            if (slideInBottomView != null)
-                slideInBottomView.startAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_in_bottom));
-
+        if (savedInstanceState == null)
             checkSavedCrashTrace();
-        }
 
         config.touchLastUsed();
 
@@ -149,6 +230,117 @@ public final class WalletActivity extends AbstractWalletActivity {
         handler.removeCallbacksAndMessages(null);
 
         super.onPause();
+    }
+
+    @Override
+    protected void onDestroy() {
+        contentView.getViewTreeObserver().removeOnGlobalLayoutListener(viewModel);
+
+        super.onDestroy();
+    }
+
+    private AnimatorSet buildEnterAnimation(final View contentView) {
+        final Drawable background = getWindow().getDecorView().getBackground();
+        final int duration = getResources().getInteger(android.R.integer.config_mediumAnimTime);
+        final Animator splashFadeOut = AnimatorInflater.loadAnimator(WalletActivity.this, R.animator.fade_out_drawable);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+            splashFadeOut.setTarget(((LayerDrawable) background).getDrawable(1));
+        else
+            splashFadeOut.setDuration(0); // skip this animation, as there is no splash icon
+        final AnimatorSet fragmentEnterAnimation = new AnimatorSet();
+        final AnimatorSet.Builder fragmentEnterAnimationBuilder = fragmentEnterAnimation.play(splashFadeOut);
+
+        final View slideInLeftView = contentView.findViewWithTag("slide_in_left");
+        if (slideInLeftView != null) {
+            final ValueAnimator slide = ValueAnimator.ofFloat(-1.0f, 0.0f);
+            slide.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                @Override
+                public void onAnimationUpdate(final ValueAnimator animator) {
+                    float animatedValue = (float) animator.getAnimatedValue();
+                    slideInLeftView.setTranslationX(
+                            animatedValue * (slideInLeftView.getWidth() + slideInLeftView.getPaddingLeft()));
+                }
+            });
+            slide.setInterpolator(new DecelerateInterpolator());
+            slide.setDuration(duration);
+            slide.setTarget(slideInLeftView);
+            final Animator fadeIn = AnimatorInflater.loadAnimator(WalletActivity.this, R.animator.fade_in_view);
+            fadeIn.setTarget(slideInLeftView);
+            fragmentEnterAnimationBuilder.before(slide).before(fadeIn);
+        }
+
+        final View slideInRightView = contentView.findViewWithTag("slide_in_right");
+        if (slideInRightView != null) {
+            final ValueAnimator slide = ValueAnimator.ofFloat(1.0f, 0.0f);
+            slide.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                @Override
+                public void onAnimationUpdate(final ValueAnimator animator) {
+                    float animatedValue = (float) animator.getAnimatedValue();
+                    slideInRightView.setTranslationX(
+                            animatedValue * (slideInRightView.getWidth() + slideInRightView.getPaddingRight()));
+                }
+            });
+            slide.setInterpolator(new DecelerateInterpolator());
+            slide.setDuration(duration);
+            slide.setTarget(slideInRightView);
+            final Animator fadeIn = AnimatorInflater.loadAnimator(WalletActivity.this, R.animator.fade_in_view);
+            fadeIn.setTarget(slideInRightView);
+            fragmentEnterAnimationBuilder.before(slide).before(fadeIn);
+        }
+
+        final View slideInTopView = contentView.findViewWithTag("slide_in_top");
+        if (slideInTopView != null) {
+            final ValueAnimator slide = ValueAnimator.ofFloat(-1.0f, 0.0f);
+            slide.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                @Override
+                public void onAnimationUpdate(final ValueAnimator animator) {
+                    float animatedValue = (float) animator.getAnimatedValue();
+                    slideInTopView.setTranslationY(
+                            animatedValue * (slideInTopView.getHeight() + slideInTopView.getPaddingTop()));
+                }
+            });
+            slide.setInterpolator(new DecelerateInterpolator());
+            slide.setDuration(duration);
+            slide.setTarget(slideInTopView);
+            final Animator fadeIn = AnimatorInflater.loadAnimator(WalletActivity.this, R.animator.fade_in_view);
+            fadeIn.setTarget(slideInTopView);
+            fragmentEnterAnimationBuilder.before(slide).before(fadeIn);
+        }
+
+        final View slideInBottomView = contentView.findViewWithTag("slide_in_bottom");
+        if (slideInBottomView != null) {
+            final ValueAnimator slide = ValueAnimator.ofFloat(1.0f, 0.0f);
+            slide.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                @Override
+                public void onAnimationUpdate(final ValueAnimator animator) {
+                    float animatedValue = (float) animator.getAnimatedValue();
+                    slideInBottomView.setTranslationY(
+                            animatedValue * (slideInBottomView.getHeight() + slideInBottomView.getPaddingBottom()));
+                }
+            });
+            slide.setInterpolator(new DecelerateInterpolator());
+            slide.setDuration(duration);
+            slide.setTarget(slideInBottomView);
+            final Animator fadeIn = AnimatorInflater.loadAnimator(WalletActivity.this, R.animator.fade_in_view);
+            fadeIn.setTarget(slideInBottomView);
+            fragmentEnterAnimationBuilder.before(slide).before(fadeIn);
+        }
+
+        final View levitate = contentView.findViewWithTag("levitate");
+        if (levitate != null) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                final ObjectAnimator elevate = ObjectAnimator.ofFloat(levitate, "elevation", 0.0f,
+                        levitate.getElevation());
+                elevate.setDuration(duration);
+                fragmentEnterAnimationBuilder.before(elevate);
+            }
+            final Drawable levitateBackground = levitate.getBackground();
+            final Animator fadeIn = AnimatorInflater.loadAnimator(WalletActivity.this, R.animator.fade_in_drawable);
+            fadeIn.setTarget(levitateBackground);
+            fragmentEnterAnimationBuilder.before(fadeIn);
+        }
+
+        return fragmentEnterAnimation;
     }
 
     @Override

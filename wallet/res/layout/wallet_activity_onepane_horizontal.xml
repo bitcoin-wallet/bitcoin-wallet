@@ -37,7 +37,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/bg_panel"
-                android:elevation="3dp" >
+                android:elevation="3dp"
+                android:tag="levitate" >
 
                 <fragment
                     android:id="@+id/wallet_balance_fragment"

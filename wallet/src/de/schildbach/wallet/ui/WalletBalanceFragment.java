@@ -55,7 +55,7 @@ import android.widget.TextView;
  * @author Andreas Schildbach
  */
 public final class WalletBalanceFragment extends Fragment {
-    private AbstractWalletActivity activity;
+    private WalletActivity activity;
     private WalletApplication application;
     private Configuration config;
 
@@ -107,7 +107,7 @@ public final class WalletBalanceFragment extends Fragment {
     @Override
     public void onAttach(final Context context) {
         super.onAttach(context);
-        this.activity = (AbstractWalletActivity) context;
+        this.activity = (WalletActivity) context;
         this.application = activity.getWalletApplication();
         this.config = application.getConfiguration();
 
@@ -133,6 +133,7 @@ public final class WalletBalanceFragment extends Fragment {
             public void onChanged(final Coin balance) {
                 activity.invalidateOptionsMenu();
                 updateView();
+                ViewModelProviders.of(activity).get(WalletActivity.ViewModel.class).balanceLoadingFinished();
             }
         });
         if (Constants.ENABLE_EXCHANGE_RATES) {
