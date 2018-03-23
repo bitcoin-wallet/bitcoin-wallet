@@ -5,18 +5,11 @@
     android:orientation="horizontal"
     tools:ignore="RequiredSize" >
 
-    <FrameLayout
+    <include
         android:layout_width="0px"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:foreground="@drawable/view_shadow_left"
-        android:foregroundGravity="right|fill_vertical" >
-
-        <include
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            layout="@layout/request_coins_form_include" />
-    </FrameLayout>
+        layout="@layout/request_coins_form_include" />
 
     <FrameLayout
         android:layout_width="wrap_content"

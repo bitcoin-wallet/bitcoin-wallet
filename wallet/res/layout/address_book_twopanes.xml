@@ -9,6 +9,7 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:background="@color/bg_less_bright"
+        android:elevation="3dp"
         android:orientation="vertical" >
 
         <TextView
@@ -24,24 +25,12 @@
             android:textStyle="bold" />
 
         <FrameLayout
+            android:id="@+id/wallet_addresses_fragment"
             android:layout_width="match_parent"
             android:layout_height="0px"
             android:layout_weight="1"
-            android:background="@color/bg_bright"
-            android:foreground="@drawable/view_shadow_bottom"
-            android:foregroundGravity="top|fill_horizontal" >
-
-            <FrameLayout
-                android:id="@+id/wallet_addresses_fragment"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </FrameLayout>
+            android:background="@color/bg_bright" />
     </LinearLayout>
-
-    <Space
-        android:layout_width="1dp"
-        android:layout_height="match_parent"
-        android:background="@color/bg_less_bright" />
 
     <LinearLayout
         android:layout_width="0px"
@@ -63,18 +52,11 @@
             android:textStyle="bold" />
 
         <FrameLayout
+            android:id="@+id/sending_addresses_fragment"
             android:layout_width="match_parent"
             android:layout_height="0px"
             android:layout_weight="1"
-            android:background="@color/bg_bright"
-            android:foreground="@drawable/view_shadow_bottom"
-            android:foregroundGravity="top|fill_horizontal" >
-
-            <FrameLayout
-                android:id="@+id/sending_addresses_fragment"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </FrameLayout>
+            android:background="@color/bg_bright" />
     </LinearLayout>
 
 </LinearLayout>

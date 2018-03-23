@@ -15,6 +15,7 @@
             android:layout_height="wrap_content"
             android:background="@color/bg_panel"
             android:baselineAligned="false"
+            android:elevation="3dp"
             android:orientation="horizontal" >
 
             <fragment
@@ -35,21 +36,14 @@
                 android:tag="slide_in_right" />
         </LinearLayout>
 
-        <FrameLayout
+        <fragment
+            android:id="@+id/wallet_transactions_fragment"
+            android:name="de.schildbach.wallet.ui.WalletTransactionsFragment"
             android:layout_width="match_parent"
             android:layout_height="0px"
+            android:layout_gravity="bottom|center_horizontal"
             android:layout_weight="1"
-            android:foreground="@drawable/view_shadow_bottom"
-            android:foregroundGravity="top|fill_horizontal" >
-
-            <fragment
-                android:id="@+id/wallet_transactions_fragment"
-                android:name="de.schildbach.wallet.ui.WalletTransactionsFragment"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="bottom|center_horizontal"
-                android:tag="slide_in_bottom" />
-        </FrameLayout>
+            android:tag="slide_in_bottom" />
     </LinearLayout>
 
     <include layout="@layout/wallet_activity_bottom_include" />
