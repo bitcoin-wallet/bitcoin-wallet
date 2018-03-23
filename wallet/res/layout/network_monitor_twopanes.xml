@@ -27,7 +27,6 @@
             android:layout_width="match_parent"
             android:layout_height="0px"
             android:layout_weight="1"
-            android:background="@color/bg_bright"
             android:foreground="@drawable/view_shadow_bottom"
             android:foregroundGravity="top|fill_horizontal" >
 
@@ -67,7 +66,6 @@
             android:layout_width="match_parent"
             android:layout_height="0px"
             android:layout_weight="1"
-            android:background="@color/bg_bright"
             android:foreground="@drawable/view_shadow_bottom"
             android:foregroundGravity="top|fill_horizontal" >
 

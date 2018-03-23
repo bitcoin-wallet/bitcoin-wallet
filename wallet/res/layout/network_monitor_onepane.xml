@@ -16,7 +16,6 @@
         android:id="@+id/network_monitor_pager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|center_horizontal"
-        android:background="@color/bg_bright" />
+        android:layout_gravity="bottom|center_horizontal" />
 
 </LinearLayout>

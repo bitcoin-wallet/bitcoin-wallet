@@ -14,8 +14,7 @@
         <FrameLayout
             android:id="@+id/wallet_main_twopanes_exchange_rates"
             android:layout_width="@dimen/exchange_rate_pane_width"
-            android:layout_height="match_parent"
-            android:background="@color/bg_less_bright" >
+            android:layout_height="match_parent" >
 
             <fragment
                 android:id="@+id/exchange_rates_fragment"
@@ -63,7 +62,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="0px"
                     android:layout_weight="1"
-                    android:background="@color/bg_less_bright"
                     android:foreground="@drawable/view_shadow_bottom"
                     android:foregroundGravity="top|fill_horizontal" >
 
