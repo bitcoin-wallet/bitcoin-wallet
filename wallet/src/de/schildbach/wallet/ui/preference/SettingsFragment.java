@@ -114,7 +114,7 @@ public final class SettingsFragment extends PreferenceFragment implements OnPref
             public void run() {
                 if (preference.equals(btcPrecisionPreference)) {
                     WalletBalanceWidgetProvider.updateWidgets(activity,
-                            application.getWallet().getBalance(BalanceType.ESTIMATED));
+                            application.getWallet().getBalance(BalanceType.ESTIMATED), config.getCachedExchangeRate());
                 } else if (preference.equals(trustedPeerPreference)) {
                     BlockchainService.stop(activity);
                     updateTrustedPeer();
