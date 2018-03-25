@@ -72,6 +72,8 @@ import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.WalletBalanceWidgetProvider;
 import de.schildbach.wallet.data.AddressBookProvider;
+import de.schildbach.wallet.data.ExchangeRate;
+import de.schildbach.wallet.data.ExchangeRateLiveData;
 import de.schildbach.wallet.data.TimeLiveData;
 import de.schildbach.wallet.data.WalletBalanceLiveData;
 import de.schildbach.wallet.service.BlockchainState.Impediment;
@@ -548,12 +550,25 @@ public class BlockchainService extends LifecycleService {
         }
 
         final WalletBalanceLiveData walletBalance = new WalletBalanceLiveData(application);
+        final ExchangeRateLiveData exchangeRate = new ExchangeRateLiveData(application);
         walletBalance.observe(this, new Observer<Coin>() {
             @Override
             public void onChanged(final Coin walletBalance) {
-                WalletBalanceWidgetProvider.updateWidgets(BlockchainService.this, walletBalance);
+                WalletBalanceWidgetProvider.updateWidgets(BlockchainService.this, walletBalance,
+                        exchangeRate.getValue());
             }
         });
+        if (Constants.ENABLE_EXCHANGE_RATES) {
+            exchangeRate.observe(this, new Observer<ExchangeRate>() {
+                @Override
+                public void onChanged(final ExchangeRate exchangeRate) {
+                    final Coin balance = walletBalance.getValue();
+                    if (balance != null)
+                        WalletBalanceWidgetProvider.updateWidgets(BlockchainService.this, balance, exchangeRate);
+                }
+            });
+        }
+
         final NewTransactionLiveData newTransaction = new NewTransactionLiveData(application);
         newTransaction.observe(this, new Observer<Transaction>() {
             @Override

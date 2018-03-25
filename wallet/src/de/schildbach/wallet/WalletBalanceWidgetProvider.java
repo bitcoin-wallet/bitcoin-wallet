@@ -27,7 +27,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import de.schildbach.wallet.data.ExchangeRate;
-import de.schildbach.wallet.data.ExchangeRatesProvider;
 import de.schildbach.wallet.ui.RequestCoinsActivity;
 import de.schildbach.wallet.ui.SendCoinsQrActivity;
 import de.schildbach.wallet.ui.WalletActivity;
@@ -42,8 +41,8 @@ import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.text.Spannable;
 import android.text.style.ForegroundColorSpan;
 import android.view.View;
@@ -59,8 +58,8 @@ public class WalletBalanceWidgetProvider extends AppWidgetProvider {
     public void onUpdate(final Context context, final AppWidgetManager appWidgetManager, final int[] appWidgetIds) {
         final WalletApplication application = (WalletApplication) context.getApplicationContext();
         final Coin balance = application.getWallet().getBalance(BalanceType.ESTIMATED);
-
-        updateWidgets(context, appWidgetManager, appWidgetIds, balance);
+        final ExchangeRate exchangeRate = application.getConfiguration().getCachedExchangeRate();
+        updateWidgets(context, appWidgetManager, appWidgetIds, balance, exchangeRate);
     }
 
     @Override
@@ -72,20 +71,20 @@ public class WalletBalanceWidgetProvider extends AppWidgetProvider {
 
         final WalletApplication application = (WalletApplication) context.getApplicationContext();
         final Coin balance = application.getWallet().getBalance(BalanceType.ESTIMATED);
-
-        updateWidget(context, appWidgetManager, appWidgetId, newOptions, balance);
+        final ExchangeRate exchangeRate = application.getConfiguration().getCachedExchangeRate();
+        updateWidget(context, appWidgetManager, appWidgetId, newOptions, balance, exchangeRate);
     }
 
-    public static void updateWidgets(final Context context, final Coin walletBalance) {
+    public static void updateWidgets(final Context context, final Coin balance,
+            final @Nullable ExchangeRate exchangeRate) {
         final AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
         final ComponentName providerName = new ComponentName(context, WalletBalanceWidgetProvider.class);
 
         try {
             final int[] appWidgetIds = appWidgetManager.getAppWidgetIds(providerName);
-
-            if (appWidgetIds.length > 0) {
-                WalletBalanceWidgetProvider.updateWidgets(context, appWidgetManager, appWidgetIds, walletBalance);
-            }
+            if (appWidgetIds.length > 0)
+                WalletBalanceWidgetProvider.updateWidgets(context, appWidgetManager, appWidgetIds, balance,
+                        exchangeRate);
         } catch (final RuntimeException x) // system server dead?
         {
             log.warn("cannot update app widgets", x);
@@ -93,41 +92,31 @@ public class WalletBalanceWidgetProvider extends AppWidgetProvider {
     }
 
     private static void updateWidgets(final Context context, final AppWidgetManager appWidgetManager,
-            final int[] appWidgetIds, final Coin balance) {
+            final int[] appWidgetIds, final Coin balance, final @Nullable ExchangeRate exchangeRate) {
         for (final int appWidgetId : appWidgetIds) {
             final Bundle options = getAppWidgetOptions(appWidgetManager, appWidgetId);
-            updateWidget(context, appWidgetManager, appWidgetId, options, balance);
+            updateWidget(context, appWidgetManager, appWidgetId, options, balance, exchangeRate);
         }
     }
 
     private static void updateWidget(final Context context, final AppWidgetManager appWidgetManager,
-            final int appWidgetId, final Bundle appWidgetOptions, final Coin balance) {
+            final int appWidgetId, final Bundle appWidgetOptions, final Coin balance,
+            final @Nullable ExchangeRate exchangeRate) {
         final WalletApplication application = (WalletApplication) context.getApplicationContext();
         final Configuration config = application.getConfiguration();
         final MonetaryFormat btcFormat = config.getFormat();
 
         final Spannable balanceStr = new MonetarySpannable(btcFormat.noCode(), balance).applyMarkup(null,
                 MonetarySpannable.STANDARD_INSIGNIFICANT_SPANS);
-
-        final Cursor data = context.getContentResolver().query(
-                ExchangeRatesProvider.contentUri(context.getPackageName(), true), null,
-                ExchangeRatesProvider.KEY_CURRENCY_CODE, new String[] { config.getExchangeCurrencyCode() }, null);
         final Spannable localBalanceStr;
-        if (data != null) {
-            if (data.moveToFirst()) {
-                final ExchangeRate exchangeRate = ExchangeRatesProvider.getExchangeRate(data);
-                final Fiat localBalance = exchangeRate.rate.coinToFiat(balance);
-                final MonetaryFormat localFormat = Constants.LOCAL_FORMAT.code(0,
-                        Constants.PREFIX_ALMOST_EQUAL_TO + GenericUtils.currencySymbol(exchangeRate.getCurrencyCode()));
-                final Object[] prefixSpans = new Object[] { MonetarySpannable.SMALLER_SPAN,
-                        new ForegroundColorSpan(context.getResources().getColor(R.color.fg_less_significant)) };
-                localBalanceStr = new MonetarySpannable(localFormat, localBalance).applyMarkup(prefixSpans,
-                        MonetarySpannable.STANDARD_INSIGNIFICANT_SPANS);
-            } else {
-                localBalanceStr = null;
-            }
-
-            data.close();
+        if (exchangeRate != null) {
+            final Fiat localBalance = exchangeRate.rate.coinToFiat(balance);
+            final MonetaryFormat localFormat = Constants.LOCAL_FORMAT.code(0,
+                    Constants.PREFIX_ALMOST_EQUAL_TO + GenericUtils.currencySymbol(exchangeRate.getCurrencyCode()));
+            final Object[] prefixSpans = new Object[] { MonetarySpannable.SMALLER_SPAN,
+                    new ForegroundColorSpan(context.getResources().getColor(R.color.fg_less_significant)) };
+            localBalanceStr = new MonetarySpannable(localFormat, localBalance).applyMarkup(prefixSpans,
+                    MonetarySpannable.STANDARD_INSIGNIFICANT_SPANS);
         } else {
             localBalanceStr = null;
         }

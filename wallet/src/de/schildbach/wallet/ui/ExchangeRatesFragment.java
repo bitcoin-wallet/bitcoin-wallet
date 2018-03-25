@@ -373,7 +373,7 @@ public final class ExchangeRatesFragment extends Fragment implements OnSharedPre
                                 setDefaultCurrency(exchangeRate.getCurrencyCode());
                                 config.setExchangeCurrencyCode(exchangeRate.getCurrencyCode());
                                 WalletBalanceWidgetProvider.updateWidgets(activity,
-                                        wallet.getBalance(BalanceType.ESTIMATED));
+                                        wallet.getBalance(BalanceType.ESTIMATED), exchangeRate);
                                 return true;
                             } else {
                                 return false;
