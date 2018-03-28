@@ -19,12 +19,10 @@ package de.schildbach.wallet.ui;
 
 import java.net.InetAddress;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 import org.bitcoinj.core.Peer;
-import org.bitcoinj.core.VersionMessage;
 
 import de.schildbach.wallet.R;
 import de.schildbach.wallet.WalletApplication;
@@ -42,7 +40,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
-import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -54,7 +51,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.ViewAnimator;
 
 /**
@@ -65,7 +61,7 @@ public final class PeerListFragment extends Fragment {
 
     private ViewAnimator viewGroup;
     private RecyclerView recyclerView;
-    private PeerViewAdapter adapter;
+    private PeerListAdapter adapter;
 
     private ViewModel viewModel;
 
@@ -105,25 +101,21 @@ public final class PeerListFragment extends Fragment {
         viewModel.getPeers().observe(this, new Observer<List<Peer>>() {
             @Override
             public void onChanged(final List<Peer> peers) {
-                if (peers == null || peers.isEmpty()) {
-                    viewGroup.setDisplayedChild(1);
-                    adapter.clear();
-                } else {
-                    viewGroup.setDisplayedChild(2);
-                    adapter.replace(peers);
+                viewGroup.setDisplayedChild((peers == null || peers.isEmpty()) ? 1 : 2);
+                maybeSubmitList();
+                if (peers != null)
                     for (final Peer peer : peers)
                         viewModel.getHostnames().reverseLookup(peer.getAddress().getAddr());
-                }
             }
         });
         viewModel.getHostnames().observe(this, new Observer<Map<InetAddress, String>>() {
             @Override
             public void onChanged(final Map<InetAddress, String> hostnames) {
-                adapter.notifyItemsChanged();
+                maybeSubmitList();
             }
         });
 
-        adapter = new PeerViewAdapter();
+        adapter = new PeerListAdapter(activity);
     }
 
     @Override
@@ -141,93 +133,10 @@ public final class PeerListFragment extends Fragment {
         return view;
     }
 
-    private class PeerViewAdapter extends RecyclerView.Adapter<PeerViewHolder> {
-        private final LayoutInflater inflater = LayoutInflater.from(activity);
-        private final List<Peer> peers = new LinkedList<Peer>();
-
-        public PeerViewAdapter() {
-            setHasStableIds(true);
-        }
-
-        public void clear() {
-            peers.clear();
-            notifyDataSetChanged();
-        }
-
-        public void replace(final List<Peer> peers) {
-            this.peers.clear();
-            this.peers.addAll(peers);
-            notifyDataSetChanged();
-        }
-
-        public void notifyItemsChanged() {
-            notifyItemRangeChanged(0, getItemCount());
-        }
-
-        public Peer getItem(final int position) {
-            return peers.get(position);
-        }
-
-        @Override
-        public int getItemCount() {
-            return peers.size();
-        }
-
-        @Override
-        public long getItemId(final int position) {
-            return peers.get(position).getAddress().hashCode();
-        }
-
-        @Override
-        public PeerViewHolder onCreateViewHolder(final ViewGroup parent, final int viewType) {
-            return new PeerViewHolder(inflater.inflate(R.layout.peer_list_row, parent, false));
-        }
-
-        @Override
-        public void onBindViewHolder(final PeerViewHolder holder, final int position) {
-            final Map<InetAddress, String> hostnames = viewModel.getHostnames().getValue();
-
-            final Peer peer = getItem(position);
-            final VersionMessage versionMessage = peer.getPeerVersionMessage();
-            final boolean isDownloading = peer.isDownloadData();
-
-            final InetAddress address = peer.getAddress().getAddr();
-            final String hostname = hostnames.get(address);
-            holder.ipView.setText(hostname != null ? hostname : address.getHostAddress());
-
-            final long bestHeight = peer.getBestHeight();
-            holder.heightView.setText(bestHeight > 0 ? bestHeight + " blocks" : null);
-            holder.heightView.setTypeface(isDownloading ? Typeface.DEFAULT_BOLD : Typeface.DEFAULT);
-
-            holder.versionView.setText(versionMessage.subVer);
-            holder.versionView.setTypeface(isDownloading ? Typeface.DEFAULT_BOLD : Typeface.DEFAULT);
-
-            holder.protocolView.setText("protocol: " + versionMessage.clientVersion);
-            holder.protocolView.setTypeface(isDownloading ? Typeface.DEFAULT_BOLD : Typeface.DEFAULT);
-
-            final long pingTime = peer.getPingTime();
-            holder.pingView
-                    .setText(pingTime < Long.MAX_VALUE ? getString(R.string.peer_list_row_ping_time, pingTime) : null);
-            holder.pingView.setTypeface(isDownloading ? Typeface.DEFAULT_BOLD : Typeface.DEFAULT);
-        }
-    }
-
-    private static class PeerViewHolder extends RecyclerView.ViewHolder {
-        private final TextView ipView;
-        private final TextView heightView;
-        private final TextView versionView;
-        private final TextView protocolView;
-        private final TextView pingView;
-
-        private PeerViewHolder(final View itemView) {
-            super(itemView);
-
-            ipView = (TextView) itemView.findViewById(R.id.peer_list_row_ip);
-            heightView = (TextView) itemView.findViewById(R.id.peer_list_row_height);
-            versionView = (TextView) itemView.findViewById(R.id.peer_list_row_version);
-            protocolView = (TextView) itemView.findViewById(R.id.peer_list_row_protocol);
-            pingView = (TextView) itemView.findViewById(R.id.peer_list_row_ping);
-        }
+    private void maybeSubmitList() {
+        final List<Peer> peers = viewModel.getPeers().getValue();
+        if (peers != null)
+            adapter.submitList(PeerListAdapter.buildListItems(activity, peers, viewModel.getHostnames().getValue()));
     }
 
     private static class PeersLiveData extends LiveData<List<Peer>> implements ServiceConnection {
