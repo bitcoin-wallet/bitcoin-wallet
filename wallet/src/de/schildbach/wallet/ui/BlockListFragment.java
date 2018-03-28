@@ -54,7 +54,6 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -129,7 +128,7 @@ public final class BlockListFragment extends Fragment implements BlockListAdapte
         viewModel.getBlocks().observe(this, new Observer<List<StoredBlock>>() {
             @Override
             public void onChanged(final List<StoredBlock> blocks) {
-                adapter.replace(blocks);
+                maybeSubmitList();
                 viewGroup.setDisplayedChild(1);
                 viewModel.getTransactions().forceLoad();
             }
@@ -137,18 +136,17 @@ public final class BlockListFragment extends Fragment implements BlockListAdapte
         viewModel.getTransactions().observe(this, new Observer<Set<Transaction>>() {
             @Override
             public void onChanged(final Set<Transaction> transactions) {
-                adapter.replaceTransactions(transactions);
+                maybeSubmitList();
             }
         });
         viewModel.getTime().observe(this, new Observer<Date>() {
             @Override
             public void onChanged(final Date time) {
-                adapter.setTime(time);
+                maybeSubmitList();
             }
         });
 
         adapter = new BlockListAdapter(activity, wallet, this);
-        adapter.setFormat(config.getFormat());
     }
 
     @Override
@@ -159,15 +157,22 @@ public final class BlockListFragment extends Fragment implements BlockListAdapte
         viewGroup = (ViewAnimator) view.findViewById(R.id.block_list_group);
 
         recyclerView = (RecyclerView) view.findViewById(R.id.block_list);
-        recyclerView.setLayoutManager(new LinearLayoutManager(activity));
+        recyclerView.setLayoutManager(new StickToTopLinearLayoutManager(activity));
         recyclerView.setAdapter(adapter);
         recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL_LIST));
 
         return view;
     }
 
+    private void maybeSubmitList() {
+        final List<StoredBlock> blocks = viewModel.getBlocks().getValue();
+        if (blocks != null)
+            adapter.submitList(BlockListAdapter.buildListItems(activity, blocks, viewModel.getTime().getValue(),
+                    config.getFormat(), viewModel.getTransactions().getValue(), wallet));
+    }
+
     @Override
-    public void onBlockMenuClick(final View view, final StoredBlock block) {
+    public void onBlockMenuClick(final View view, final Sha256Hash blockHash) {
         final PopupMenu popupMenu = new PopupMenu(activity, view);
         popupMenu.inflate(R.menu.blocks_context);
         popupMenu.getMenu().findItem(R.id.blocks_context_browse).setVisible(Constants.ENABLE_BROWSE);
@@ -176,7 +181,6 @@ public final class BlockListFragment extends Fragment implements BlockListAdapte
             public boolean onMenuItemClick(final MenuItem item) {
                 switch (item.getItemId()) {
                 case R.id.blocks_context_browse:
-                    final String blockHash = block.getHeader().getHashAsString();
                     final Uri blockExplorerUri = config.getBlockExplorer();
                     log.info("Viewing block {} on {}", blockHash, blockExplorerUri);
                     startActivity(new Intent(Intent.ACTION_VIEW,
