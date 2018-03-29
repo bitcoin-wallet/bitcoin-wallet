@@ -15,9 +15,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.schildbach.wallet.ui;
+package de.schildbach.wallet.ui.monitor;
 
 import de.schildbach.wallet.R;
+import de.schildbach.wallet.ui.AbstractWalletActivity;
 import de.schildbach.wallet.util.ViewPagerTabs;
 
 import android.os.Bundle;

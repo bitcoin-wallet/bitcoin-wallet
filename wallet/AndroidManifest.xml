@@ -148,7 +148,7 @@
             android:label="@string/exchange_rates_activity_title"
             android:theme="@style/My.Theme.ChildActivity" />
         <activity
-            android:name="de.schildbach.wallet.ui.NetworkMonitorActivity"
+            android:name="de.schildbach.wallet.ui.monitor.NetworkMonitorActivity"
             android:configChanges="keyboard|keyboardHidden"
             android:label="@string/network_monitor_activity_title"
             android:theme="@style/My.Theme.ChildActivity" />

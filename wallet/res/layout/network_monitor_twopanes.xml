@@ -25,7 +25,7 @@
 
         <fragment
             android:id="@+id/peer_list_fragment"
-            android:name="de.schildbach.wallet.ui.PeerListFragment"
+            android:name="de.schildbach.wallet.ui.monitor.PeerListFragment"
             android:layout_width="match_parent"
             android:layout_height="0px"
             android:layout_weight="1"
@@ -54,7 +54,7 @@
 
         <fragment
             android:id="@+id/block_list_fragment"
-            android:name="de.schildbach.wallet.ui.BlockListFragment"
+            android:name="de.schildbach.wallet.ui.monitor.BlockListFragmentFragment"
             android:layout_width="match_parent"
             android:layout_height="0px"
             android:layout_weight="1"

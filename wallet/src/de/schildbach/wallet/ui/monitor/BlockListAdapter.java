@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.schildbach.wallet.ui;
+package de.schildbach.wallet.ui.monitor;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -39,6 +39,7 @@ import org.bitcoinj.wallet.Wallet;
 import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.R;
 import de.schildbach.wallet.data.AddressBookProvider;
+import de.schildbach.wallet.ui.CurrencyTextView;
 import de.schildbach.wallet.util.WalletUtils;
 
 import android.content.Context;

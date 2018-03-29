@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.schildbach.wallet.ui;
+package de.schildbach.wallet.ui.monitor;
 
 import java.net.InetAddress;
 import java.util.HashMap;
@@ -27,6 +27,7 @@ import org.bitcoinj.core.Peer;
 import de.schildbach.wallet.R;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.service.BlockchainService;
+import de.schildbach.wallet.ui.DividerItemDecoration;
 
 import android.app.Activity;
 import android.app.Application;

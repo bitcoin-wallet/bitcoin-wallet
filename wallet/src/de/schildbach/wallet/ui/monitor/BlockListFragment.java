@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.schildbach.wallet.ui;
+package de.schildbach.wallet.ui.monitor;
 
 import java.util.Date;
 import java.util.HashSet;
@@ -36,6 +36,9 @@ import de.schildbach.wallet.R;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.data.TimeLiveData;
 import de.schildbach.wallet.service.BlockchainService;
+import de.schildbach.wallet.ui.AbstractWalletActivity;
+import de.schildbach.wallet.ui.DividerItemDecoration;
+import de.schildbach.wallet.ui.StickToTopLinearLayoutManager;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;

@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.schildbach.wallet.ui;
+package de.schildbach.wallet.ui.monitor;
 
 import java.net.InetAddress;
 import java.util.ArrayList;
