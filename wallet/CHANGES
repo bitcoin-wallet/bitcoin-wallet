@@ -1,3 +1,7 @@
+v6.08
+
+* Based on bitcoinj 0.14.7.
+
 v6.07
 
 * Performance optimizations.
