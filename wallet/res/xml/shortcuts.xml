@@ -7,7 +7,7 @@
         <intent
             android:action="android.intent.action.VIEW"
             android:targetClass="de.schildbach.wallet.ui.SendCoinsQrActivity"
-            android:targetPackage="de.schildbach.wallet_test" />
+            android:targetPackage="de.schildbach.wallet" />
     </shortcut>
     <shortcut
         android:icon="@drawable/shortcut_send_coins"
@@ -16,7 +16,7 @@
         <intent
             android:action="android.intent.action.VIEW"
             android:targetClass="de.schildbach.wallet.ui.send.SendCoinsActivity"
-            android:targetPackage="de.schildbach.wallet_test" />
+            android:targetPackage="de.schildbach.wallet" />
     </shortcut>
     <shortcut
         android:icon="@drawable/shortcut_request_coins"
@@ -25,7 +25,7 @@
         <intent
             android:action="android.intent.action.VIEW"
             android:targetClass="de.schildbach.wallet.ui.RequestCoinsActivity"
-            android:targetPackage="de.schildbach.wallet_test" />
+            android:targetPackage="de.schildbach.wallet" />
     </shortcut>
 
 </shortcuts>
