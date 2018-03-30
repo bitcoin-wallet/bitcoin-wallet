@@ -43,7 +43,7 @@ import okhttp3.logging.HttpLoggingInterceptor;
  * @author Andreas Schildbach
  */
 public final class Constants {
-    public static final boolean TEST = true;
+    public static final boolean TEST = false;
 
     /** Network this wallet is on (e.g. testnet or mainnet). */
     public static final NetworkParameters NETWORK_PARAMETERS = TEST ? TestNet3Params.get() : MainNetParams.get();
