@@ -45,7 +45,7 @@ android {
     }
 
     defaultConfig {
-        applicationId 'de.schildbach.wallet_test'
+        applicationId 'de.schildbach.wallet'
         generatedDensities = ['hdpi', 'xhdpi']
 
         dexOptions {
