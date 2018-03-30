@@ -107,6 +107,7 @@ import android.text.format.DateUtils;
 public class BlockchainService extends Service {
     private WalletApplication application;
     private Configuration config;
+    private Wallet wallet;
 
     private BlockStore blockStore;
     private File blockChainFile;
@@ -208,7 +209,7 @@ public class BlockchainService extends Service {
             APPWIDGET_THROTTLE_MS) {
         @Override
         public void onThrottledWalletChanged() {
-            WalletBalanceWidgetProvider.updateWidgets(BlockchainService.this, application.getWallet());
+            WalletBalanceWidgetProvider.updateWidgets(BlockchainService.this, wallet);
         }
 
         @Override
@@ -442,8 +443,6 @@ public class BlockchainService extends Service {
 
         @SuppressLint("Wakelock")
         private void check() {
-            final Wallet wallet = application.getWallet();
-
             if (impediments.isEmpty() && peerGroup == null && Constants.ENABLE_BLOCKCHAIN_SYNC) {
                 log.debug("acquiring wakelock");
                 wakeLock.acquire();
@@ -644,7 +643,7 @@ public class BlockchainService extends Service {
 
         application = (WalletApplication) getApplication();
         config = application.getConfiguration();
-        final Wallet wallet = application.getWallet();
+        wallet = application.getWallet();
 
         peerConnectivityListener = new PeerConnectivityListener();
 
@@ -696,9 +695,9 @@ public class BlockchainService extends Service {
         intentFilter.addAction(Intent.ACTION_DEVICE_STORAGE_OK);
         registerReceiver(connectivityReceiver, intentFilter); // implicitly start PeerGroup
 
-        application.getWallet().addCoinsReceivedEventListener(Threading.SAME_THREAD, walletEventListener);
-        application.getWallet().addCoinsSentEventListener(Threading.SAME_THREAD, walletEventListener);
-        application.getWallet().addChangeEventListener(Threading.SAME_THREAD, walletEventListener);
+        wallet.addCoinsReceivedEventListener(Threading.SAME_THREAD, walletEventListener);
+        wallet.addCoinsSentEventListener(Threading.SAME_THREAD, walletEventListener);
+        wallet.addChangeEventListener(Threading.SAME_THREAD, walletEventListener);
 
         registerReceiver(tickReceiver, new IntentFilter(Intent.ACTION_TIME_TICK));
     }
@@ -725,7 +724,7 @@ public class BlockchainService extends Service {
             } else if (BlockchainService.ACTION_BROADCAST_TRANSACTION.equals(action)) {
                 final Sha256Hash hash = Sha256Hash
                         .wrap(intent.getByteArrayExtra(BlockchainService.ACTION_BROADCAST_TRANSACTION_HASH));
-                final Transaction tx = application.getWallet().getTransaction(hash);
+                final Transaction tx = wallet.getTransaction(hash);
 
                 if (peerGroup != null) {
                     log.info("broadcasting transaction " + tx.getHashAsString());
@@ -745,20 +744,18 @@ public class BlockchainService extends Service {
     public void onDestroy() {
         log.debug(".onDestroy()");
 
-        scheduleStart(application);
-
         unregisterReceiver(tickReceiver);
 
-        application.getWallet().removeChangeEventListener(walletEventListener);
-        application.getWallet().removeCoinsSentEventListener(walletEventListener);
-        application.getWallet().removeCoinsReceivedEventListener(walletEventListener);
+        wallet.removeChangeEventListener(walletEventListener);
+        wallet.removeCoinsSentEventListener(walletEventListener);
+        wallet.removeCoinsReceivedEventListener(walletEventListener);
 
         unregisterReceiver(connectivityReceiver);
 
         if (peerGroup != null) {
             peerGroup.removeDisconnectedEventListener(peerConnectivityListener);
             peerGroup.removeConnectedEventListener(peerConnectivityListener);
-            peerGroup.removeWallet(application.getWallet());
+            peerGroup.removeWallet(wallet);
             peerGroup.stop();
 
             log.info("peergroup stopped");
@@ -785,6 +782,8 @@ public class BlockchainService extends Service {
             log.info("removing blockchain");
             blockChainFile.delete();
         }
+
+        scheduleStart(application);
 
         stopForeground(true);
 
