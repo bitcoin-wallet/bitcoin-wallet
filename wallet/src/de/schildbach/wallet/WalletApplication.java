@@ -33,6 +33,7 @@ import org.bitcoinj.utils.Threading;
 import org.bitcoinj.wallet.Protos;
 import org.bitcoinj.wallet.UnreadableWalletException;
 import org.bitcoinj.wallet.Wallet;
+import org.bitcoinj.wallet.WalletFiles;
 import org.bitcoinj.wallet.WalletProtobufSerializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -72,7 +73,7 @@ public class WalletApplication extends Application {
     private ActivityManager activityManager;
 
     private File walletFile;
-    private Wallet wallet;
+    private WalletFiles walletFiles;
 
     public static final String ACTION_WALLET_REFERENCE_CHANGED = WalletApplication.class.getPackage().getName()
             + ".wallet_reference_changed";
@@ -123,7 +124,7 @@ public class WalletApplication extends Application {
 
         final Configuration config = getConfiguration();
         if (config.versionCodeCrossed(packageInfo.versionCode, VERSION_CODE_SHOW_BACKUP_REMINDER)
-                && !wallet.getImportedKeys().isEmpty()) {
+                && !getWallet().getImportedKeys().isEmpty()) {
             log.info("showing backup reminder once, because of imported keys being present");
             config.armBackupReminder();
         }
@@ -132,22 +133,9 @@ public class WalletApplication extends Application {
         if (bluetoothAdapter != null)
             config.updateLastBluetoothAddress(Bluetooth.getAddress(bluetoothAdapter));
 
-        afterLoadWallet();
-
         cleanupFiles();
 
         initNotificationManager();
-    }
-
-    private void afterLoadWallet() {
-        wallet.autosaveToFile(walletFile, Constants.Files.WALLET_AUTOSAVE_DELAY_MS, TimeUnit.MILLISECONDS, null);
-
-        // clean up spam
-        wallet.cleanup();
-
-        // make sure there is at least one recent backup
-        if (!getFileStreamPath(Constants.Files.WALLET_KEY_BACKUP_PROTOBUF).exists())
-            backupWallet();
     }
 
     private static final String BIP39_WORDLIST_FILENAME = "bip39-wordlist.txt";
@@ -172,10 +160,11 @@ public class WalletApplication extends Application {
     }
 
     public Wallet getWallet() {
-        return wallet;
+        return walletFiles.getWallet();
     }
 
     private void loadWalletFromProtobuf() {
+        Wallet wallet;
         if (walletFile.exists()) {
             try (final FileInputStream walletStream = new FileInputStream(walletFile)) {
                 final Stopwatch watch = Stopwatch.createStarted();
@@ -202,11 +191,17 @@ public class WalletApplication extends Application {
 
             if (!wallet.getParams().equals(Constants.NETWORK_PARAMETERS))
                 throw new Error("bad wallet network parameters: " + wallet.getParams().getId());
+
+            wallet.cleanup();
+            walletFiles = wallet.autosaveToFile(walletFile, Constants.Files.WALLET_AUTOSAVE_DELAY_MS,
+                    TimeUnit.MILLISECONDS, null);
         } else {
             final Stopwatch watch = Stopwatch.createStarted();
             wallet = new Wallet(Constants.NETWORK_PARAMETERS);
-            saveWallet();
-            backupWallet();
+            walletFiles = wallet.autosaveToFile(walletFile, Constants.Files.WALLET_AUTOSAVE_DELAY_MS,
+                    TimeUnit.MILLISECONDS, null);
+            autosaveWalletNow(); // persist...
+            backupWallet(); // ...and backup asap
             watch.stop();
             log.info("fresh wallet created, took {}", watch);
 
@@ -233,25 +228,20 @@ public class WalletApplication extends Application {
         }
     }
 
-    public void saveWallet() {
+    public void autosaveWalletNow() {
         try {
-            protobufSerializeWallet(wallet);
+            final Stopwatch watch = Stopwatch.createStarted();
+            walletFiles.saveNow();
+            watch.stop();
+            log.info("wallet saved to: '{}', took {}", walletFile, watch);
         } catch (final IOException x) {
             throw new RuntimeException(x);
         }
     }
 
-    private void protobufSerializeWallet(final Wallet wallet) throws IOException {
-        final Stopwatch watch = Stopwatch.createStarted();
-        wallet.saveToFile(walletFile);
-        watch.stop();
-
-        log.info("wallet saved to: '{}', took {}", walletFile, watch);
-    }
-
     public void backupWallet() {
         final Stopwatch watch = Stopwatch.createStarted();
-        final Protos.Wallet.Builder builder = new WalletProtobufSerializer().walletToProto(wallet).toBuilder();
+        final Protos.Wallet.Builder builder = new WalletProtobufSerializer().walletToProto(getWallet()).toBuilder();
 
         // strip redundant
         builder.clearTransaction();
@@ -307,18 +297,22 @@ public class WalletApplication extends Application {
     }
 
     public void replaceWallet(final Wallet newWallet) {
-        BlockchainService.resetBlockchain(this);
-        wallet.shutdownAutosaveAndWait();
+        newWallet.cleanup();
 
-        wallet = newWallet;
+        BlockchainService.resetBlockchain(this);
+        getWallet().shutdownAutosaveAndWait(); // this will also prevent BlockchainService to save
+
+        walletFiles = newWallet.autosaveToFile(walletFile, Constants.Files.WALLET_AUTOSAVE_DELAY_MS,
+                TimeUnit.MILLISECONDS, null);
         config.maybeIncrementBestChainHeightEver(newWallet.getLastBlockSeenHeight());
-        afterLoadWallet();
+        backupWallet();
 
         final Intent broadcast = new Intent(ACTION_WALLET_REFERENCE_CHANGED);
         LocalBroadcastManager.getInstance(this).sendBroadcast(broadcast);
     }
 
     public void processDirectTransaction(final Transaction tx) throws VerificationException {
+        final Wallet wallet = getWallet();
         if (wallet.isTransactionRelevant(tx)) {
             wallet.receivePending(tx, null);
             BlockchainService.broadcastTransaction(this, tx);

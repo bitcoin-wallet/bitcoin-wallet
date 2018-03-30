@@ -771,7 +771,7 @@ public class BlockchainService extends Service {
             throw new RuntimeException(x);
         }
 
-        application.saveWallet();
+        application.autosaveWalletNow();
 
         if (wakeLock.isHeld()) {
             log.debug("wakelock still held, releasing");
