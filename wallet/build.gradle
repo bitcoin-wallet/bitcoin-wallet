@@ -43,6 +43,7 @@ android {
     }
 
     defaultConfig {
+        applicationId 'de.schildbach.wallet_test'
         generatedDensities = ['hdpi', 'xhdpi']
     }
 
