@@ -76,8 +76,6 @@ public class WalletApplication extends Application {
     public static final String ACTION_WALLET_REFERENCE_CHANGED = WalletApplication.class.getPackage().getName()
             + ".wallet_reference_changed";
 
-    public static final int VERSION_CODE_SHOW_BACKUP_REMINDER = 205;
-
     public static final long TIME_CREATE_APPLICATION = System.currentTimeMillis();
 
     private static final Logger log = LoggerFactory.getLogger(WalletApplication.class);
@@ -121,11 +119,6 @@ public class WalletApplication extends Application {
         loadWalletFromProtobuf();
 
         final Configuration config = getConfiguration();
-        if (config.versionCodeCrossed(packageInfo.versionCode, VERSION_CODE_SHOW_BACKUP_REMINDER)
-                && !getWallet().getImportedKeys().isEmpty()) {
-            log.info("showing backup reminder once, because of imported keys being present");
-            config.armBackupReminder();
-        }
         config.updateLastVersionCode(packageInfo.versionCode);
         final BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         if (bluetoothAdapter != null)
