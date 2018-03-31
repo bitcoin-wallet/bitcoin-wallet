@@ -81,7 +81,7 @@ public final class BlockListFragment extends Fragment implements BlockListAdapte
 
     private ViewModel viewModel;
 
-    private static final int MAX_BLOCKS = 64;
+    private static final int MAX_BLOCKS = 100;
 
     private static final Logger log = LoggerFactory.getLogger(BlockListFragment.class);
 
